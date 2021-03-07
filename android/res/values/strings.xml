@@ -274,8 +274,6 @@
 	<string name="more_info">Show More Info</string>
 	<!-- Text for message when used successfully copied something -->
 	<string name="copied_to_clipboard">Copied to clipboard: %1$s</string>
-	<!-- Setting label for statistics turn on/off -->
-	<string name="allow_statistics">Send Statistics</string>
 	<!-- place preview title -->
 	<string name="info">Info</string>
 	<!-- Used for bookmark editing -->
@@ -965,8 +963,6 @@
 	<string name="about_description">OMaps is an essential offline application for travelling. OMaps is based on OpenStreetMap data and allows editing it.</string>
 	<!-- Text in menu -->
 	<string name="blog">Blog</string>
-	<!-- Hint near allow statictics checkbox -->
-	<string name="allow_statistics_hint">Collecting anonymous usage statistics helps us improve the app.</string>
 	<string name="general_settings">General settings</string>
 	<string name="date">Date %d</string>
 	<!-- "Report a bug" -> "Generaal Feedback" -> "Something is not working" -->
@@ -1340,6 +1336,8 @@
 	<string name="subtittle_opt_out">Tracking settings</string>
 	<string name="crash_reports">Crash report</string>
 	<string name="crash_reports_description">We may use your data to improve OMaps experience. Changes will take effect after you restart the app.</string>
+	<string name="opt_out_pushwoosh">Pushwoosh</string>
+	<string name="opt_out_appsflyer">Appsflyer</string>
 	<string name="opt_out_help_ios_1">Your mobile device may provide a “Limit Ad Tracking” or “Opt out of interest-based advertising” setting.</string>
 	<string name="opt_out_help_ios_2">iOS 9 or Higher</string>
 	<string name="opt_out_help_ios_3">Go to your Settings → Privacy → Advertising → Enable the “Limit Ad Tracking” setting</string>

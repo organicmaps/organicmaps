@@ -205,8 +205,6 @@
 	<string name="email">Email</string>
 	<!-- Text for message when used successfully copied something -->
 	<string name="copied_to_clipboard">Αντιγράφηκε στο Πρόχειρο: %1$s</string>
-	<!-- Setting label for statistics turn on/off -->
-	<string name="allow_statistics">Αποστολή στατιστικών</string>
 	<!-- place preview title -->
 	<string name="info">Πληροφορίες</string>
 	<!-- Used for bookmark editing -->
@@ -718,8 +716,6 @@
 	<string name="about_description">Το OMaps είναι η απαραίτητη εφαρμογή γα ταξίδια που λειτουργεί εκτός σύνδεσης. Το OMaps βασίζεται σε δεδομένα OpenStreetMap και σας επιτρέπει να τα επεξεργαστείτε.</string>
 	<!-- Text in menu -->
 	<string name="blog">Ιστολόγιο</string>
-	<!-- Hint near allow statictics checkbox -->
-	<string name="allow_statistics_hint">Η συλλογή ανώνυμων στατιστικών στοιχείων μας βοηθά να βελτιώσουμε την εφαρμογή.</string>
 	<string name="general_settings">Γενικές ρυθμίσεις</string>
 	<string name="date">Ημερομηνία %d</string>
 	<!-- "Report a bug" -> "Generaal Feedback" -> "Something is not working" -->

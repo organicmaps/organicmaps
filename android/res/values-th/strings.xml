@@ -271,8 +271,6 @@
 	<string name="more_info">แสดงข้อมูลเพิ่มเติม</string>
 	<!-- Text for message when used successfully copied something -->
 	<string name="copied_to_clipboard">คัดลอกไปยังคลิปบอร์ด: %1$s</string>
-	<!-- Setting label for statistics turn on/off -->
-	<string name="allow_statistics">ส่งสถิติ</string>
 	<!-- place preview title -->
 	<string name="info">ข้อมูล</string>
 	<!-- Used for bookmark editing -->
@@ -954,8 +952,6 @@
 	<string name="about_description">OMaps เป็นแอปพลิเคชั่นออฟไลน์ที่จำเป็นสำหรับการท่องเที่ยว OMaps นั้นใช้งานบนพื้นฐานของข้อมูล OpenStreetMap และใช้แก้ไขได้ด้วย</string>
 	<!-- Text in menu -->
 	<string name="blog">บล็อก</string>
-	<!-- Hint near allow statictics checkbox -->
-	<string name="allow_statistics_hint">การเก็บรวบรวมสถิติการใช้งานแบบไม่ระบุตัวตนจะช่วยให้เราปรับปรุงแอปได้ดียิ่งขึ้น</string>
 	<string name="general_settings">การตั้งค่าทั่วไป</string>
 	<string name="date">วันที่ %d</string>
 	<!-- "Report a bug" -> "Generaal Feedback" -> "Something is not working" -->

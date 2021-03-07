@@ -46,9 +46,6 @@
 
 "get_it_now" = "Installieren";
 
-/* Text to show occasionaly with a proposal to Like our program on Facebook */
-"share_on_facebook_text" = "Danke, dass Sie OMaps nutzen! Gefällt Ihnen die App? Erzählen Sie Ihren Freunden davon! Das ist der beste Dank für uns.";
-
 /* Settings/Downloader - size string, only strings different from English should be translated */
 "kb" = "kB";
 
@@ -356,7 +353,7 @@
 /* Email Subject when sharing bookmarks category */
 "share_bookmarks_email_subject" = "OMaps-Lesezeichen mit Ihnen geteilt";
 
-"share_bookmarks_email_body" = "Hello!\n\nAttached are my bookmarks from OMaps offline maps. Please open them if you have OMaps installed. Or, if you don't, download the app for your iOS or Android device by following this link: http://omaps.app/get?kmz\n\nEnjoy traveling with OMaps!";
+"share_bookmarks_email_body" = "Hello!\n\nAttached are my bookmarks from OMaps offline maps. Please open them if you have OMaps installed. Or, if you don't, download the app for your iOS or Android device by following this link: https://omaps.app/get?kmz\n\nEnjoy traveling with OMaps!";
 
 /* message title of loading file */
 "load_kmz_title" = "Lesezeichen werden geladen";
@@ -392,10 +389,10 @@
 "no_thanks" = "Nein danke";
 
 /* Share one specific bookmark using SMS, %1$@ contains ge0:// and %2$@ http://ge0.me link. @NOTE non-ascii symbols in the link will make 70 bytes sms instead of 140 */
-"bookmark_share_sms" = "Siehe meine Markierung auf OMaps an. %1$@ oder %2$@ - Keine Offline-Karten installiert? Hier herunterladen: http://omaps.app/get";
+"bookmark_share_sms" = "Siehe meine Markierung auf OMaps an. %1$@ oder %2$@ - Keine Offline-Karten installiert? Hier herunterladen: https://omaps.app/get";
 
 /* Share my position using SMS, %1$@ contains ge0:// and %2$@ http://ge0.me link WITHOUT NAME. @NOTE non-ascii symbols in the link will make 70 bytes sms instead of 140 */
-"my_position_share_sms" = "Schau wo ich gerade bin. Klicke auf den Link %1$@ oder %2$@ - Keine Offline-Karten installiert? Hier herunterladen: http://omaps.app/get";
+"my_position_share_sms" = "Schau wo ich gerade bin. Klicke auf den Link %1$@ oder %2$@ - Keine Offline-Karten installiert? Hier herunterladen: https://omaps.app/get";
 
 /* Subject for emailed bookmark */
 "bookmark_share_email_subject" = "Schau dir meine Stecknadel auf der OMaps-Karte an";
@@ -426,9 +423,6 @@
 
 /* Text for message when used successfully copied something */
 "copied_to_clipboard" = "In die Zwischenablage kopiert: %1$@";
-
-/* Setting label for statistics turn on/off */
-"allow_statistics" = "Statistiken senden";
 
 /* place preview title */
 "info" = "Info";
@@ -601,9 +595,6 @@
 
 /* Text in menu */
 "maps_me_community" = "OMaps-Gemeinschaft";
-
-/* Text in menu */
-"like_on_facebook" = "„Gefällt mir“ auf Facebook";
 
 /* Text in menu */
 "follow_on_twitter" = "Bei Twitter folgen";
@@ -1200,8 +1191,6 @@
 
 "login_with_google" = "Mit Google anmelden";
 
-"login_with_facebook" = "Mit Facebook anmelden";
-
 "login_with_openstreetmap" = "Mit www.openstreetmap.org anmelden";
 
 "edit_place" = "Platz bearbeiten";
@@ -1631,9 +1620,6 @@
 /* Text in menu */
 "blog" = "Blog";
 
-/* Hint near allow statictics checkbox */
-"allow_statistics_hint" = "Das Erfassen von anonymen Nutzungsstatistiken hilft uns beim Verbessern der App.";
-
 "general_settings" = "Allgemeine Einstellungen";
 
 "date" = "Datum %d";
@@ -1761,26 +1747,6 @@
 
 /* "traffic" as in "road congestion" */
 "traffic_data_unavailable" = "Verkehrsdaten sind nicht verfügbar";
-
-"banner_deliveryclub_title" = "Essensbringdienst";
-
-"banner_deliveryclub_message" = "Schnelle Lieferung von 4000 Restaurants. Bestellen mit Delivery Club.";
-
-"banner_lamoda_title" = "Onlinegeschäft für Kleidung und Schuhe";
-
-"banner_lamoda_message" = "Über 1000 Marken. Bis zu 70 % Rabatt. Kostenlose Lieferung landesweit.";
-
-"banner_tutu_title" = "Zugfahrkarten online";
-
-"banner_tutu_message" = "Zugfahrkarten in jede Stadt online – Preise, Suche und Buchung.";
-
-"banner_geerbest_title" = "Online-Elektronikgeschäft";
-
-"banner_geerbest_message" = "Sofortsuche bei über 50.000 Artikeln zu günstigen Preisen.";
-
-"banner_rentalcars_title" = "Autos online mieten";
-
-"banner_rentalcars_message" = "800 Autovermietungen mit über 49.000 Mietstationen.";
 
 /* december */
 "whatsnew_traffic" = "Verkehrsdaten in 36 Ländern";
@@ -2305,13 +2271,9 @@
 
 "subtittle_opt_out" = "Einstellungen der Begleitung";
 
-"opt_out_flurry" = "Statistiken";
+"crash_reports" = "Berichte über die Fehler";
 
-"opt_out_mopub" = "Personalisierte Werbung";
-
-"opt_out_fabric" = "Berichte über die Fehler";
-
-"opt_out_fabric_description" = "Wir können Ihre Daten benutzen, um OMaps zu entwickeln und zu verbessern. Die Änderungen werden nach dem Neustart der App in Kraft treten.";
+"crash_reports_description" = "Wir können Ihre Daten benutzen, um OMaps zu entwickeln und zu verbessern. Die Änderungen werden nach dem Neustart der App in Kraft treten.";
 
 "opt_out_pushwoosh" = "Pushwoosh";
 
@@ -2330,10 +2292,6 @@
 "terms_of_use" = "Nutzungsbedingungen";
 
 "backup_notification_failed" = "Das Reservekopieren von Markierungen wurde angehalten. Loggen Sie sich ein, um das Reservekopieren einzuschalten.";
-
-"banner_megafon_banner_message" = "Sage dem internationalen Roaming goodbye!";
-
-"banner_megafon_banner_button" = "Goodbye!";
 
 "button_layer_traffic" = "Staus";
 
@@ -2598,7 +2556,7 @@
 
 "notification_leave_review_content" = "Hinterlassen Sie Ihr Feedback und helfen Sie den Reisenden!";
 
-"share_bookmarks_email_body_link" = "Guten Tag!\n\nIhre Markierungen stehen unter folgendem Link zum Download bereit: %s. Öffnen Sie die Liste mit OMaps und genießen Sie die Reise!\n\nApp downloaden: http://omaps.app/get?kmz";
+"share_bookmarks_email_body_link" = "Guten Tag!\n\nIhre Markierungen stehen unter folgendem Link zum Download bereit: %s. Öffnen Sie die Liste mit OMaps und genießen Sie die Reise!\n\nApp downloaden: https://omaps.app/get?kmz";
 
 "warning_speedcams_title" = "Der Navigator wird Sie über Geschwindigkeitskameras bei Geschwindigkeitsüberschreitung von %d km/h informieren";
 
@@ -3172,7 +3130,7 @@
 
 "whatsnew_outdoor_guides_message" = "Routen von Outdooractive für Winter- und Sommerurlaub warten auf Sie im Katalog!";
 
-"whatsnew_guides_galleries_title" = "Planen Sie die nächste Reise mit OMaps";
+"whatsnew_guides_galleries_title" = "Planen Sie die nächste Reise mit MAPS.Me";
 
 "whatsnew_guides_galleries_message" = "Jetzt sind die empfohlenen Reiseführer in den Karten berühmter Städte und Sehenswürdigkeiten zu finden";
 

@@ -267,8 +267,6 @@
 	<string name="more_info">Mutasson több adatot</string>
 	<!-- Text for message when used successfully copied something -->
 	<string name="copied_to_clipboard">A vágólapra másolva: %1$s</string>
-	<!-- Setting label for statistics turn on/off -->
-	<string name="allow_statistics">Statisztika küldése</string>
 	<!-- place preview title -->
 	<string name="info">Info</string>
 	<!-- Used for bookmark editing -->
@@ -949,8 +947,6 @@
 	<string name="about_description">A OMaps egy nélkülözhetetlen alkalmazás utazáshoz. A OMaps az OpenStreetMap adataira épül, és lehetővé teszi ezek szerkesztését.</string>
 	<!-- Text in menu -->
 	<string name="blog">Blog</string>
-	<!-- Hint near allow statictics checkbox -->
-	<string name="allow_statistics_hint">A névtelen használati statisztikák gyűjtésével segít nekünk az alkalmazás tökéletesítésében.</string>
 	<string name="general_settings">Általános beállítások</string>
 	<string name="date">Dátum %d</string>
 	<!-- "Report a bug" -> "Generaal Feedback" -> "Something is not working" -->

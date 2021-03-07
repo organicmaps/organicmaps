@@ -46,9 +46,6 @@
 
 "get_it_now" = "Skaffa det nu";
 
-/* Text to show occasionaly with a proposal to Like our program on Facebook */
-"share_on_facebook_text" = "Tack för att du använder OMaps! Gillar du appen? Berätta för dina vänner om den! Det skulle vara höjden av tacksamhet för oss.";
-
 /* Settings/Downloader - size string, only strings different from English should be translated */
 "kb" = "kB";
 
@@ -356,7 +353,7 @@
 /* Email Subject when sharing bookmarks category */
 "share_bookmarks_email_subject" = "OMaps bokmärken har delats med dig";
 
-"share_bookmarks_email_body" = "Hello!\n\nAttached are my bookmarks from OMaps offline maps. Please open them if you have OMaps installed. Or, if you don't, download the app for your iOS or Android device by following this link: http://omaps.app/get?kmz\n\nEnjoy traveling with OMaps!";
+"share_bookmarks_email_body" = "Hello!\n\nAttached are my bookmarks from OMaps offline maps. Please open them if you have OMaps installed. Or, if you don't, download the app for your iOS or Android device by following this link: https://omaps.app/get?kmz\n\nEnjoy traveling with OMaps!";
 
 /* message title of loading file */
 "load_kmz_title" = "Läser in bokmärken";
@@ -392,10 +389,10 @@
 "no_thanks" = "Nej, tack";
 
 /* Share one specific bookmark using SMS, %1$@ contains ge0:// and %2$@ http://ge0.me link. @NOTE non-ascii symbols in the link will make 70 bytes sms instead of 140 */
-"bookmark_share_sms" = "Hej, kolla på min pin på OMaps! %1$@ eller %2$@ Har du inte offline-kartor installerat? Ladda ner här: http://omaps.app/get";
+"bookmark_share_sms" = "Hej, kolla på min pin på OMaps! %1$@ eller %2$@ Har du inte offline-kartor installerat? Ladda ner här: https://omaps.app/get";
 
 /* Share my position using SMS, %1$@ contains ge0:// and %2$@ http://ge0.me link WITHOUT NAME. @NOTE non-ascii symbols in the link will make 70 bytes sms instead of 140 */
-"my_position_share_sms" = "Hej, kolla på min nuvarande position på OMaps! %1$@ eller %2$@ Har du inte offline-kartor? Ladda ner här: http://omaps.app/get";
+"my_position_share_sms" = "Hej, kolla på min nuvarande position på OMaps! %1$@ eller %2$@ Har du inte offline-kartor? Ladda ner här: https://omaps.app/get";
 
 /* Subject for emailed bookmark */
 "bookmark_share_email_subject" = "Hej, kolla på min pin på OMaps kartan";
@@ -426,9 +423,6 @@
 
 /* Text for message when used successfully copied something */
 "copied_to_clipboard" = "Kopierat till urklippsbordet: %1$@";
-
-/* Setting label for statistics turn on/off */
-"allow_statistics" = "Skicka statistik";
 
 /* place preview title */
 "info" = "Info";
@@ -601,9 +595,6 @@
 
 /* Text in menu */
 "maps_me_community" = "OMaps Gemenskap";
-
-/* Text in menu */
-"like_on_facebook" = "Gilla på Facebook";
 
 /* Text in menu */
 "follow_on_twitter" = "Följ på Twitter";
@@ -1200,8 +1191,6 @@
 
 "login_with_google" = "Logga in med Google";
 
-"login_with_facebook" = "Logga in med Facebook";
-
 "login_with_openstreetmap" = "Logga in med www.openstreetmap.org";
 
 "edit_place" = "Ändra platsen";
@@ -1631,9 +1620,6 @@
 /* Text in menu */
 "blog" = "Blogg";
 
-/* Hint near allow statictics checkbox */
-"allow_statistics_hint" = "Genom att samla in anonym användningsstatistik kan vi förbättra appen.";
-
 "general_settings" = "Allmänna inställningar";
 
 "date" = "Datum %d";
@@ -1761,26 +1747,6 @@
 
 /* "traffic" as in "road congestion" */
 "traffic_data_unavailable" = "Trafikdata är inte tillgänglig";
-
-"banner_deliveryclub_title" = "Matleverans";
-
-"banner_deliveryclub_message" = "Snabbleverans från 4000 restauranger. Beställ från Delivery Club.";
-
-"banner_lamoda_title" = "Kläd- och skobutik online";
-
-"banner_lamoda_message" = "Över 1000 varumärken. Upp till 70 % i rabatt. Gratis leverans över hela landet.";
-
-"banner_tutu_title" = "Tågbiljetter online";
-
-"banner_tutu_message" = "Tågbiljetter till vilken stad som helst online - priser, sökning och bokning.";
-
-"banner_geerbest_title" = "Elektronisk onlinebutik";
-
-"banner_geerbest_message" = "Snabbsökning i över 50000 föremål till låga priser.";
-
-"banner_rentalcars_title" = "Biluthyrning online";
-
-"banner_rentalcars_message" = "800 biluthyrningsföretag på mer än 49000 biluthyrningsplatser.";
 
 /* december */
 "whatsnew_traffic" = "Trafikdata i 36 länder";
@@ -2281,7 +2247,7 @@
 
 "whats_new_localbiz_title" = "Småföretag förtjänar uppmärksamhet";
 
-"whats_new_localbiz_message" = "Det är lokala kaféer, mysiga hotell och affärer som gör din resa oförglömlig. Vi vill optimera din sida på OMaps för att den ska sticka ut.";
+"whats_new_localbiz_message" = "Det är lokala kaféer, mysiga hotell och affärer som gör din resa oförglömlig. Vi vill optimera din sida på MAPS.Me för att den ska sticka ut.";
 
 "whats_new_order_button" = "Lämna en förfrågan";
 
@@ -2305,13 +2271,9 @@
 
 "subtittle_opt_out" = "Spårningsinställningar";
 
-"opt_out_flurry" = "Statistik";
+"crash_reports" = "Olycksrapport";
 
-"opt_out_mopub" = "Personlig annonsering";
-
-"opt_out_fabric" = "Olycksrapport";
-
-"opt_out_fabric_description" = "Vi kan komma att använda din data för att förbättra OMaps upplevelsen. Ändringarna kommer träda i kraft när du startar om appen.";
+"crash_reports_description" = "Vi kan komma att använda din data för att förbättra OMaps upplevelsen. Ändringarna kommer träda i kraft när du startar om appen.";
 
 "opt_out_pushwoosh" = "Pushwoosh";
 
@@ -2330,10 +2292,6 @@
 "terms_of_use" = "Allmänna villkor";
 
 "backup_notification_failed" = "Säkerhetskopiering av dina bokmärken har avbrutits. Logga in för att starta det igen.";
-
-"banner_megafon_banner_message" = "Säg farväl till internationell roaming!";
-
-"banner_megafon_banner_button" = "Hej då!";
 
 "button_layer_traffic" = "Trafik";
 
@@ -2598,7 +2556,7 @@
 
 "notification_leave_review_content" = "Lämna en recension och hjälp resenärer!";
 
-"share_bookmarks_email_body_link" = "Hej!\n\nDina etiketter kan laddas ner från länken: %s. Öppna listan med hjälp av OMaps och njut av resan!\n\nLadda ner appen: http://omaps.app/get?kmz";
+"share_bookmarks_email_body_link" = "Hej!\n\nDina etiketter kan laddas ner från länken: %s. Öppna listan med hjälp av OMaps och njut av resan!\n\nLadda ner appen: https://omaps.app/get?kmz";
 
 "warning_speedcams_title" = "Navigatören ska meddela dig om kameror när hastighetsgränsen överskrids med %d km/h";
 

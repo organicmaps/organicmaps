@@ -46,9 +46,6 @@
 
 "get_it_now" = "Get it now";
 
-/* Text to show occasionaly with a proposal to Like our program on Facebook */
-"share_on_facebook_text" = "Thank you for using OMaps! Do you like the app? Tell your friends about it! This is the best thanks you could give us.";
-
 /* Settings/Downloader - size string, only strings different from English should be translated */
 "kb" = "kB";
 
@@ -356,7 +353,7 @@
 /* Email Subject when sharing bookmarks category */
 "share_bookmarks_email_subject" = "OMaps bookmarks were shared with you";
 
-"share_bookmarks_email_body" = "Hello!\n\nAttached are my bookmarks from OMaps offline maps. Please open them if you have OMaps installed. Or, if you don't, download the app for your iOS or Android device by following this link: http://omaps.app/get?kmz\n\nEnjoy traveling with OMaps!";
+"share_bookmarks_email_body" = "Hello!\n\nAttached are my bookmarks from OMaps offline maps. Please open them if you have OMaps installed. Or, if you don't, download the app for your iOS or Android device by following this link: https://omaps.app/get?kmz\n\nEnjoy traveling with OMaps!";
 
 /* message title of loading file */
 "load_kmz_title" = "Loading Bookmarks";
@@ -392,10 +389,10 @@
 "no_thanks" = "No, thanks";
 
 /* Share one specific bookmark using SMS, %1$@ contains ge0:// and %2$@ http://ge0.me link. @NOTE non-ascii symbols in the link will make 70 bytes sms instead of 140 */
-"bookmark_share_sms" = "Hey, check out my pin at OMaps! %1$@ or %2$@ Don't have offline maps installed? Download here: http://omaps.app/get";
+"bookmark_share_sms" = "Hey, check out my pin at OMaps! %1$@ or %2$@ Don't have offline maps installed? Download here: https://omaps.app/get";
 
 /* Share my position using SMS, %1$@ contains ge0:// and %2$@ http://ge0.me link WITHOUT NAME. @NOTE non-ascii symbols in the link will make 70 bytes sms instead of 140 */
-"my_position_share_sms" = "Hey, check out my current location in OMaps! %1$@ or %2$@ Don't have offline maps? Download here: http://omaps.app/get";
+"my_position_share_sms" = "Hey, check out my current location in OMaps! %1$@ or %2$@ Don't have offline maps? Download here: https://omaps.app/get";
 
 /* Subject for emailed bookmark */
 "bookmark_share_email_subject" = "Hey, check out my pin in OMaps!";
@@ -426,9 +423,6 @@
 
 /* Text for message when used successfully copied something */
 "copied_to_clipboard" = "Copied to clipboard: %1$@";
-
-/* Setting label for statistics turn on/off */
-"allow_statistics" = "Send Statistics";
 
 /* place preview title */
 "info" = "Info";
@@ -601,9 +595,6 @@
 
 /* Text in menu */
 "maps_me_community" = "OMaps Community";
-
-/* Text in menu */
-"like_on_facebook" = "Like on Facebook";
 
 /* Text in menu */
 "follow_on_twitter" = "Follow on Twitter";
@@ -1200,8 +1191,6 @@
 
 "login_with_google" = "Login with Google";
 
-"login_with_facebook" = "Login with Facebook";
-
 "login_with_openstreetmap" = "Log in with www.openstreetmap.org";
 
 "edit_place" = "Edit Place";
@@ -1631,9 +1620,6 @@
 /* Text in menu */
 "blog" = "Blog";
 
-/* Hint near allow statictics checkbox */
-"allow_statistics_hint" = "Collecting anonymous usage statistics helps us improve the app.";
-
 "general_settings" = "General settings";
 
 "date" = "Date %d";
@@ -1761,26 +1747,6 @@
 
 /* "traffic" as in "road congestion" */
 "traffic_data_unavailable" = "Traffic data is not available";
-
-"banner_deliveryclub_title" = "Food delivery";
-
-"banner_deliveryclub_message" = "Fast delivery from 4,000 restaurants. Order from Delivery Club.";
-
-"banner_lamoda_title" = "Online clothing and shoe store";
-
-"banner_lamoda_message" = "More than 1,000 brands. Up to 70% off. Free delivery all over the country.";
-
-"banner_tutu_title" = "Train tickets online";
-
-"banner_tutu_message" = "Train tickets to any city online - prices, search, and booking.";
-
-"banner_geerbest_title" = "Online electronics store";
-
-"banner_geerbest_message" = "Instant search in over 50,000 items at low prices.";
-
-"banner_rentalcars_title" = "Renting cars online";
-
-"banner_rentalcars_message" = "800 car rental companies in more than 49,000 car rental locations.";
 
 /* december */
 "whatsnew_traffic" = "Traffic Data in 36 Countries";
@@ -2305,13 +2271,9 @@
 
 "subtittle_opt_out" = "Tracking settings";
 
-"opt_out_flurry" = "Statistic";
+"crash_reports" = "Crash report";
 
-"opt_out_mopub" = "Personalised advertising";
-
-"opt_out_fabric" = "Crash report";
-
-"opt_out_fabric_description" = "We may use your data to improve OMaps experience. Changes will take effect after you restart the app.";
+"crash_reports_description" = "We may use your data to improve OMaps experience. Changes will take effect after you restart the app.";
 
 "opt_out_pushwoosh" = "Pushwoosh";
 
@@ -2330,10 +2292,6 @@
 "terms_of_use" = "Terms of use";
 
 "backup_notification_failed" = "Backing up your bookmarks has been suspended. Log in to turn it back on.";
-
-"banner_megafon_banner_message" = "Say goodbye to international roaming!";
-
-"banner_megafon_banner_button" = "Goodbye!";
 
 "button_layer_traffic" = "Traffic";
 
@@ -2598,7 +2556,7 @@
 
 "notification_leave_review_content" = "Help travellers by leaving a review!";
 
-"share_bookmarks_email_body_link" = "Hello!\n\nHere is the link where you can download bookmarks: %s. Open the list in OMaps and enjoy your trip!\n\nGet application: http://omaps.app/get?kmz";
+"share_bookmarks_email_body_link" = "Hello!\n\nHere is the link where you can download bookmarks: %s. Open the list in OMaps and enjoy your trip!\n\nGet application: https://omaps.app/get?kmz";
 
 "warning_speedcams_title" = "Navigator will warn you about cameras when you exceed the speed limit of %d km/h";
 

@@ -273,8 +273,6 @@
 	<string name="more_info">Подробнее</string>
 	<!-- Text for message when used successfully copied something -->
 	<string name="copied_to_clipboard">Скопировано в буфер обмена: %1$s</string>
-	<!-- Setting label for statistics turn on/off -->
-	<string name="allow_statistics">Сбор статистики</string>
 	<!-- place preview title -->
 	<string name="info">Информация</string>
 	<!-- Used for bookmark editing -->
@@ -962,8 +960,6 @@
 	<string name="about_description">OMaps — незаменимое приложение для путешествий, работающее без подключения к интернету. OMaps использует данные OpenStreetMap и позволяет их улучшать.</string>
 	<!-- Text in menu -->
 	<string name="blog">Блог</string>
-	<!-- Hint near allow statictics checkbox -->
-	<string name="allow_statistics_hint">Сбор анонимной статистики помогает нам совершенствовать приложение.</string>
 	<string name="general_settings">Общие настройки</string>
 	<string name="date">Дата %d</string>
 	<!-- "Report a bug" -> "Generaal Feedback" -> "Something is not working" -->

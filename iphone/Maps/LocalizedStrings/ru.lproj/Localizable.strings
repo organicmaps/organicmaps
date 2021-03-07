@@ -46,9 +46,6 @@
 
 "get_it_now" = "Установить";
 
-/* Text to show occasionaly with a proposal to Like our program on Facebook */
-"share_on_facebook_text" = "Спасибо, что пользуетесь OMaps! Нравится приложение? Расскажите о нём своим друзьям. Это будет лучшей благодарностью для нас.";
-
 /* Settings/Downloader - size string, only strings different from English should be translated */
 "kb" = "кБ";
 
@@ -356,7 +353,7 @@
 /* Email Subject when sharing bookmarks category */
 "share_bookmarks_email_subject" = "С вами поделились метками OMaps";
 
-"share_bookmarks_email_body" = "Здравствуйте!\n\nВ прикрепленном файле мои метки из офлайновых карт OMaps. Для того чтобы открыть этот файл, вам потребуется приложение OMaps, которое можно установить по ссылке: http://omaps.app/get?kmz\n\nСпасибо!";
+"share_bookmarks_email_body" = "Здравствуйте!\n\nВ прикрепленном файле мои метки из офлайновых карт OMaps. Для того чтобы открыть этот файл, вам потребуется приложение OMaps, которое можно установить по ссылке: https://omaps.app/get?kmz\n\nСпасибо!";
 
 /* message title of loading file */
 "load_kmz_title" = "Загрузка меток";
@@ -426,9 +423,6 @@
 
 /* Text for message when used successfully copied something */
 "copied_to_clipboard" = "Скопировано в буфер обмена: %1$@";
-
-/* Setting label for statistics turn on/off */
-"allow_statistics" = "Сбор статистики";
 
 /* place preview title */
 "info" = "Информация";
@@ -601,9 +595,6 @@
 
 /* Text in menu */
 "maps_me_community" = "Сообщество OMaps";
-
-/* Text in menu */
-"like_on_facebook" = "OMaps в Facebook";
 
 /* Text in menu */
 "follow_on_twitter" = "OMaps в Twitter";
@@ -1200,8 +1191,6 @@
 
 "login_with_google" = "Войти через Google";
 
-"login_with_facebook" = "Войти через Facebook";
-
 "login_with_openstreetmap" = "Войти через www.openstreetmap.org";
 
 "edit_place" = "Редактировать место";
@@ -1631,9 +1620,6 @@
 /* Text in menu */
 "blog" = "Блог";
 
-/* Hint near allow statictics checkbox */
-"allow_statistics_hint" = "Сбор анонимной статистики помогает нам совершенствовать приложение.";
-
 "general_settings" = "Общие настройки";
 
 "date" = "Дата %d";
@@ -1761,26 +1747,6 @@
 
 /* "traffic" as in "road congestion" */
 "traffic_data_unavailable" = "Данные о пробках недоступны";
-
-"banner_deliveryclub_title" = "Доставка еды";
-
-"banner_deliveryclub_message" = "Быстрая доставка еды из 4 тысяч ресторанов. Закажите на Delivery Club.";
-
-"banner_lamoda_title" = "Интернет-магазин одежды и обуви";
-
-"banner_lamoda_message" = "Более тысячи брендов. Скидки до 70%. Доставка по всей стране бесплатно.";
-
-"banner_tutu_title" = "Ж/д билеты онлайн";
-
-"banner_tutu_message" = "Ж/д билеты в любой город онлайн – цены, поиск и бронирование.";
-
-"banner_geerbest_title" = "Интернет-магазин электроники";
-
-"banner_geerbest_message" = "Мгновенный поиск по более чем 50 тысячам товаров по низким ценам.";
-
-"banner_rentalcars_title" = "Прокат автомобилей онлайн";
-
-"banner_rentalcars_message" = "800 прокатных компаний в более чем 49 тысячах пунктах проката.";
 
 /* december */
 "whatsnew_traffic" = "Пробки в 36 странах мира";
@@ -2305,13 +2271,9 @@
 
 "subtittle_opt_out" = "Настройки сопровождения";
 
-"opt_out_flurry" = "Статистика";
+"crash_reports" = "Отчеты об ошибках";
 
-"opt_out_mopub" = "Персонализированная реклама";
-
-"opt_out_fabric" = "Отчеты об ошибках";
-
-"opt_out_fabric_description" = "Мы можем использовать ваши данные, чтобы развивать и улучшать OMaps. Изменения вступят в силу после перезапуска приложения.";
+"crash_reports_description" = "Мы можем использовать ваши данные, чтобы развивать и улучшать OMaps. Изменения вступят в силу после перезапуска приложения.";
 
 "opt_out_pushwoosh" = "Pushwoosh";
 
@@ -2330,10 +2292,6 @@
 "terms_of_use" = "Условия использования";
 
 "backup_notification_failed" = "Резервное копирование меток было приостановлено. Войдите, чтобы включить резервное копирование.";
-
-"banner_megafon_banner_message" = "Скажи международному роумингу гудбай!";
-
-"banner_megafon_banner_button" = "Гудбай!";
 
 "button_layer_traffic" = "Пробки";
 
@@ -2598,7 +2556,7 @@
 
 "notification_leave_review_content" = "Оставьте отзыв и помогите путешественникам!";
 
-"share_bookmarks_email_body_link" = "Здравствуйте!\n\nМетки можно скачать по ссылке: %s. Открывайте список с помощью OMaps и наслаждайтесь поездкой!\n\nСкачать приложение: http://omaps.app/get?kmz";
+"share_bookmarks_email_body_link" = "Здравствуйте!\n\nМетки можно скачать по ссылке: %s. Открывайте список с помощью OMaps и наслаждайтесь поездкой!\n\nСкачать приложение: https://omaps.app/get?kmz";
 
 "warning_speedcams_title" = "Навигатор оповестит вас о камерах при превышении скоростного лимита на %d км/ч";
 

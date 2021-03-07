@@ -265,8 +265,6 @@
 	<string name="more_info">Näytä lisätietoja</string>
 	<!-- Text for message when used successfully copied something -->
 	<string name="copied_to_clipboard">Kopioitu leikepöydälle: %1$s</string>
-	<!-- Setting label for statistics turn on/off -->
-	<string name="allow_statistics">Lähetä tilastot</string>
 	<!-- place preview title -->
 	<string name="info">Tietoa</string>
 	<!-- Used for bookmark editing -->
@@ -942,8 +940,6 @@
 	<string name="about_description">OMaps on ehdoton offline-sovellus matkoja varten. OMaps perustuu OpenStreetMap-dataan ja sallii sen muokkauksen.</string>
 	<!-- Text in menu -->
 	<string name="blog">Blogi</string>
-	<!-- Hint near allow statictics checkbox -->
-	<string name="allow_statistics_hint">Anonyymien käyttötilastojen kerääminen auttaa meitä kehittämään sovellusta.</string>
 	<string name="general_settings">Yleiset asetukset</string>
 	<string name="date">Päivämäärä %d</string>
 	<!-- "Report a bug" -> "Generaal Feedback" -> "Something is not working" -->

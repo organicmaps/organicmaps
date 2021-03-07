@@ -46,9 +46,6 @@
 
 "get_it_now" = "รับมันตอนนี้";
 
-/* Text to show occasionaly with a proposal to Like our program on Facebook */
-"share_on_facebook_text" = "ขอบพระคุณสำหรับการใช้ OMaps! คุณชอบแอปหรือไม่? บอกเพื่อนของคุณเกี่ยวกับมัน! นี่จะเป็นการขอบคุณที่ดีที่สุดสำหรับเรา";
-
 /* Settings/Downloader - size string, only strings different from English should be translated */
 "kb" = "กิโลไบต์";
 
@@ -356,7 +353,7 @@
 /* Email Subject when sharing bookmarks category */
 "share_bookmarks_email_subject" = "แชร์บุ๊กมาร์กของ OMaps แล้ว";
 
-"share_bookmarks_email_body" = "Hello!\n\nAttached are my bookmarks from OMaps offline maps. Please open them if you have OMaps installed. Or, if you don't, download the app for your iOS or Android device by following this link: http://omaps.app/get?kmz\n\nEnjoy traveling with OMaps!";
+"share_bookmarks_email_body" = "Hello!\n\nAttached are my bookmarks from OMaps offline maps. Please open them if you have OMaps installed. Or, if you don't, download the app for your iOS or Android device by following this link: https://omaps.app/get?kmz\n\nEnjoy traveling with OMaps!";
 
 /* message title of loading file */
 "load_kmz_title" = "กำลังโหลดบุ๊กมาร์ก";
@@ -395,7 +392,7 @@
 "bookmark_share_sms" = "เฮ้ ตรวจสอบหมุดของฉันที่ OMaps! %1$@ หรือ %2$@";
 
 /* Share my position using SMS, %1$@ contains ge0:// and %2$@ http://ge0.me link WITHOUT NAME. @NOTE non-ascii symbols in the link will make 70 bytes sms instead of 140 */
-"my_position_share_sms" = "เฮ้อ ตรวจสอบตำแหน่งที่ตั้งปัจจุบันของฉันที่ OMaps! %1$@ หรือ %2$@ ไม่มีการติดตั้งแผนที่แบบออฟไลน์? ดาวน์โหลดที่นี่: http://omaps.app/get";
+"my_position_share_sms" = "เฮ้อ ตรวจสอบตำแหน่งที่ตั้งปัจจุบันของฉันที่ OMaps! %1$@ หรือ %2$@ ไม่มีการติดตั้งแผนที่แบบออฟไลน์? ดาวน์โหลดที่นี่: https://omaps.app/get";
 
 /* Subject for emailed bookmark */
 "bookmark_share_email_subject" = "เฮ้ ตรวจสอบหมุดของฉันที่ แผนที่ OMaps!";
@@ -426,9 +423,6 @@
 
 /* Text for message when used successfully copied something */
 "copied_to_clipboard" = "คัดลอกไปยังคลิปบอร์ด: %1$@";
-
-/* Setting label for statistics turn on/off */
-"allow_statistics" = "ส่งสถิติ";
 
 /* place preview title */
 "info" = "ข้อมูล";
@@ -601,9 +595,6 @@
 
 /* Text in menu */
 "maps_me_community" = "ชุมชน OMaps";
-
-/* Text in menu */
-"like_on_facebook" = "ถูกใจบน Facebook";
 
 /* Text in menu */
 "follow_on_twitter" = "ติดตามบน Twitter";
@@ -1200,8 +1191,6 @@
 
 "login_with_google" = "ล็อกอินด้วย Google";
 
-"login_with_facebook" = "ล็อกอินด้วย Facebook";
-
 "login_with_openstreetmap" = "ล็อกอินที่ www.openstreetmap.org";
 
 "edit_place" = "แก้ไขสถานที่";
@@ -1631,9 +1620,6 @@
 /* Text in menu */
 "blog" = "บล็อก";
 
-/* Hint near allow statictics checkbox */
-"allow_statistics_hint" = "การเก็บรวบรวมสถิติการใช้งานแบบไม่ระบุตัวตนจะช่วยให้เราปรับปรุงแอปได้ดียิ่งขึ้น";
-
 "general_settings" = "การตั้งค่าทั่วไป";
 
 "date" = "วันที่ %d";
@@ -1761,26 +1747,6 @@
 
 /* "traffic" as in "road congestion" */
 "traffic_data_unavailable" = "ไม่มีข้อมูลการจราจร";
-
-"banner_deliveryclub_title" = "อาหารส่งถึงที่";
-
-"banner_deliveryclub_message" = "อาหารส่งถึงที่จาก 4,000 ร้าน สั่งจาก Delivery Club.";
-
-"banner_lamoda_title" = "ร้านค้าเสื้อผ้าและรองเท้าออนไลน์";
-
-"banner_lamoda_message" = "กว่า 1,000 ยี่ห้อ ลดถึง 70% จัดส่งฟรีทั่วประเทศ";
-
-"banner_tutu_title" = "ตั๋วรถไฟออนไลน์";
-
-"banner_tutu_message" = "ตั๋วรถไฟออนไลน์ไปทุกเมือง - ราคา การค้นหา และการจอง";
-
-"banner_geerbest_title" = "ร้านอุปกรณ์อิเล็กทรอนิกส์ออนไลน์";
-
-"banner_geerbest_message" = "การค้นหาทันทีในกว่า 50,000 รายการในราคาที่ต่ำ";
-
-"banner_rentalcars_title" = "การเช่ารถออนไลน์";
-
-"banner_rentalcars_message" = "800 บริษัทเช่ารถในสถานเช่ารถมากกว่า 49,000 แห่ง";
 
 /* december */
 "whatsnew_traffic" = "ข้อมูลการจราจรใน 36 ประเทศ";
@@ -2305,13 +2271,9 @@
 
 "subtittle_opt_out" = "การตั้งค่าการติดตาม";
 
-"opt_out_flurry" = "สถิติ";
+"crash_reports" = "รายงานข้อขัดข้อง";
 
-"opt_out_mopub" = "การโฆษณาในแบบของคุณ";
-
-"opt_out_fabric" = "รายงานข้อขัดข้อง";
-
-"opt_out_fabric_description" = "เราอาจใช้ข้อมูลของคุณเพื่อพัฒนาประสบการณ์ของ OMaps การเปลี่ยนแปลงจะมีผลหลังจากที่คุณเปิดแอพฯ ขึ้นใหม่";
+"crash_reports_description" = "เราอาจใช้ข้อมูลของคุณเพื่อพัฒนาประสบการณ์ของ OMaps การเปลี่ยนแปลงจะมีผลหลังจากที่คุณเปิดแอพฯ ขึ้นใหม่";
 
 "opt_out_pushwoosh" = "Pushwoosh";
 
@@ -2330,10 +2292,6 @@
 "terms_of_use" = "ข้อกำหนดในการใช้งาน";
 
 "backup_notification_failed" = "การเก็บสำรองบุ๊กมาร์กของคุณได้ถูกระงับ เข้าสู่ระบบเพื่อเปิดใช้งานอีกครั้ง";
-
-"banner_megafon_banner_message" = "บอกลาบริการโรมมิ่งระหว่างประเทศ!";
-
-"banner_megafon_banner_button" = "ลาก่อน!";
 
 "button_layer_traffic" = "การจราจร";
 
@@ -2598,7 +2556,7 @@
 
 "notification_leave_review_content" = "ช่วยนักเดินทางโดยการทิ้งรีวิว!";
 
-"share_bookmarks_email_body_link" = "สวัสดี!\n\nนี่คือลิงค์ที่คุณสามารถดาวน์โหลดบุ๊คมาร์คของคุณ: %s เปิดรายการผ่าน OMaps และเพลิดเพลินไปกับการเดินทางของคุณ!\n\nรับแอพพลิเคชัน: http://omaps.app/get?kmz";
+"share_bookmarks_email_body_link" = "สวัสดี!\n\nนี่คือลิงค์ที่คุณสามารถดาวน์โหลดบุ๊คมาร์คของคุณ: %s เปิดรายการผ่าน OMaps และเพลิดเพลินไปกับการเดินทางของคุณ!\n\nรับแอพพลิเคชัน: https://omaps.app/get?kmz";
 
 "warning_speedcams_title" = "เนวิเกเตอร์จะเตือนคุณเกี่ยวกับกล้องถ่ายรูปเมื่อคุณขับเร็วเกินกำหนดโดยอยู่ที่ %d กม./ชม";
 

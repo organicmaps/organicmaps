@@ -46,9 +46,6 @@
 
 "get_it_now" = "احصل عليه الآن";
 
-/* Text to show occasionaly with a proposal to Like our program on Facebook */
-"share_on_facebook_text" = "شكرا لاستخدامك OMaps! هل يعجبك التطبيق؟ أخبر أصدقاءك عن التطبيق! سيكون ذلك هو غاية الامتنان بالنسبة لنا.";
-
 /* Settings/Downloader - size string, only strings different from English should be translated */
 "kb" = "ك.ب.";
 
@@ -356,7 +353,7 @@
 /* Email Subject when sharing bookmarks category */
 "share_bookmarks_email_subject" = "تم مشاركة اشارات OMaps المرجعية معك";
 
-"share_bookmarks_email_body" = "Hello!\n\nAttached are my bookmarks from OMaps offline maps. Please open them if you have OMaps installed. Or, if you don't, download the app for your iOS or Android device by following this link: http://omaps.app/get?kmz\n\nEnjoy traveling with OMaps!";
+"share_bookmarks_email_body" = "Hello!\n\nAttached are my bookmarks from OMaps offline maps. Please open them if you have OMaps installed. Or, if you don't, download the app for your iOS or Android device by following this link: https://omaps.app/get?kmz\n\nEnjoy traveling with OMaps!";
 
 /* message title of loading file */
 "load_kmz_title" = "تحميل الإشارات المرجعية";
@@ -392,10 +389,10 @@
 "no_thanks" = "لا، شكرا";
 
 /* Share one specific bookmark using SMS, %1$@ contains ge0:// and %2$@ http://ge0.me link. @NOTE non-ascii symbols in the link will make 70 bytes sms instead of 140 */
-"bookmark_share_sms" = "هاي، تفقد الدبوس الخاص بي على OMaps! %1$@ أو %2$@. ليس لديك أي خرائط تعمل بدون الاتصال مع الانترنت مثبتة على جهازك؟ قم بتحميلها من هنا: http://omaps.app/get";
+"bookmark_share_sms" = "هاي، تفقد الدبوس الخاص بي على OMaps! %1$@ أو %2$@. ليس لديك أي خرائط تعمل بدون الاتصال مع الانترنت مثبتة على جهازك؟ قم بتحميلها من هنا: https://omaps.app/get";
 
 /* Share my position using SMS, %1$@ contains ge0:// and %2$@ http://ge0.me link WITHOUT NAME. @NOTE non-ascii symbols in the link will make 70 bytes sms instead of 140 */
-"my_position_share_sms" = "هاي، تفقد الموقع الخاص بي على OMaps! %1$@ أو %2$@. ليس لديك أي خرائط تعمل بدون الاتصال مع الانترنت مثبتة على جهازك؟ قم بتحميلها من هنا: http://omaps.app/get";
+"my_position_share_sms" = "هاي، تفقد الموقع الخاص بي على OMaps! %1$@ أو %2$@. ليس لديك أي خرائط تعمل بدون الاتصال مع الانترنت مثبتة على جهازك؟ قم بتحميلها من هنا: https://omaps.app/get";
 
 /* Subject for emailed bookmark */
 "bookmark_share_email_subject" = "هاي، تفقد الدبوس الخاص بي على خريطة OMaps!";
@@ -426,9 +423,6 @@
 
 /* Text for message when used successfully copied something */
 "copied_to_clipboard" = "تم النسخ الى الحافظة: %1$@";
-
-/* Setting label for statistics turn on/off */
-"allow_statistics" = "ارسال الاحصائيات";
 
 /* place preview title */
 "info" = "المعلومات";
@@ -601,9 +595,6 @@
 
 /* Text in menu */
 "maps_me_community" = "مجتمع OMaps";
-
-/* Text in menu */
-"like_on_facebook" = "أعجبني على الفيسبوك";
 
 /* Text in menu */
 "follow_on_twitter" = "تابعونا على تويتر";
@@ -1200,8 +1191,6 @@
 
 "login_with_google" = "تسجيل الدخول عبر جوجل";
 
-"login_with_facebook" = "تسجيل الدخول عبر فيسبوك";
-
 "login_with_openstreetmap" = "قم بتسجيل الدخول في www.openstreetmap.org";
 
 "edit_place" = "تعديل المكان";
@@ -1631,9 +1620,6 @@
 /* Text in menu */
 "blog" = "المدونة";
 
-/* Hint near allow statictics checkbox */
-"allow_statistics_hint" = "تجميح إحصائيات الاستخدام يساعد في تحسين التطبيق.";
-
 "general_settings" = "إعدادات عامة";
 
 "date" = "التاريخ %d";
@@ -1761,26 +1747,6 @@
 
 /* "traffic" as in "road congestion" */
 "traffic_data_unavailable" = "البيانات المرورية غير متاحة";
-
-"banner_deliveryclub_title" = "توصيل الطعام";
-
-"banner_deliveryclub_message" = "توصيل سريع من 4000 مطعم. اطلب من Delivery Club.";
-
-"banner_lamoda_title" = "متجر الملابس والأحذية على الإنترنت";
-
-"banner_lamoda_message" = "أكثر من 1000 علامة تجارية. خصم يصل إلى 70%. توصيل مجاني في كافة أنحاء البلاد.";
-
-"banner_tutu_title" = "تذاكر القطار على الإنترنت";
-
-"banner_tutu_message" = "تذاكر القطار إلى أي مدينة على الإنترنت - الأسعار والبحث والحجز.";
-
-"banner_geerbest_title" = "متجر إلكترونيات على الإنترنت";
-
-"banner_geerbest_message" = "بحث سريع في أكثر من 50000 صنف بأسعار منخفضة.";
-
-"banner_rentalcars_title" = "إيجار السيارات على الإنترنت";
-
-"banner_rentalcars_message" = "800 شركة تأجير سيارات في أكثر من 49000 مكان لتأجير السيارات.";
 
 /* december */
 "whatsnew_traffic" = "البيانات المرورية في 36 دولة";
@@ -2305,13 +2271,9 @@
 
 "subtittle_opt_out" = "إعدادات التتبع";
 
-"opt_out_flurry" = "الإحصاء";
+"crash_reports" = "تقرير الحادث";
 
-"opt_out_mopub" = "الإعلان الشخصي";
-
-"opt_out_fabric" = "تقرير الحادث";
-
-"opt_out_fabric_description" = "قد نستخدم بياناتك لتحسين تجربة OMaps. سوف تكون التغييرات نافذة المفعول بعد إعادة تشغيل التطبيق.";
+"crash_reports_description" = "قد نستخدم بياناتك لتحسين تجربة OMaps. سوف تكون التغييرات نافذة المفعول بعد إعادة تشغيل التطبيق.";
 
 "opt_out_pushwoosh" = "Pushwoosh";
 
@@ -2330,10 +2292,6 @@
 "terms_of_use" = "شروط الاستخدام";
 
 "backup_notification_failed" = "قد تم تعليق احتياطي المواقع المفضلة لديك. سجل الدخول لإعادة تشغيله.";
-
-"banner_megafon_banner_message" = "قل وداعا للتجوال الدولي!";
-
-"banner_megafon_banner_button" = "وداعا!";
 
 "button_layer_traffic" = "حركة مرور";
 
@@ -2598,7 +2556,7 @@
 
 "notification_leave_review_content" = "مساعدة المسافرين من خلال ترك رأي!";
 
-"share_bookmarks_email_body_link" = "مرحبًا!\n\nللوصول إلى التطبيق: http://omaps.app/get?kmzهذا هو الرابط الذي يمكنك من خلاله تنزيل إشاراتك المرجعية: %s. افتح القائمة عبر OMaps واستمتع برحلتك!\n\n";
+"share_bookmarks_email_body_link" = "مرحبًا!\n\nللوصول إلى التطبيق: https://omaps.app/get?kmzهذا هو الرابط الذي يمكنك من خلاله تنزيل إشاراتك المرجعية: %s. افتح القائمة عبر OMaps واستمتع برحلتك!\n\n";
 
 "warning_speedcams_title" = "سوف يحذرك المستكشف من الكاميرات عندما تتجاوز الحد الأقصى للسرعة %d كم / س";
 

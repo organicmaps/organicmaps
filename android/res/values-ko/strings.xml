@@ -267,8 +267,6 @@
 	<string name="more_info">추가 정보 보기</string>
 	<!-- Text for message when used successfully copied something -->
 	<string name="copied_to_clipboard">클립보드에 복사됨: %1$s</string>
-	<!-- Setting label for statistics turn on/off -->
-	<string name="allow_statistics">통계 보내기</string>
 	<!-- place preview title -->
 	<string name="info">정보</string>
 	<!-- Used for bookmark editing -->
@@ -944,8 +942,6 @@
 	<string name="about_description">OMaps는 여행용 필수 오프라인 응용 프로그램입니다. OMaps는 OpenStreetMap 데이터를 기반으로 하며 이 데이터 편집을 허용합니다.</string>
 	<!-- Text in menu -->
 	<string name="blog">블로그</string>
-	<!-- Hint near allow statictics checkbox -->
-	<string name="allow_statistics_hint">익명의 사용 통계를 수집하면 앱을 개선하는 데 도움이 됩니다.</string>
 	<string name="general_settings">일반 설정</string>
 	<string name="date">날짜 %d</string>
 	<!-- "Report a bug" -> "Generaal Feedback" -> "Something is not working" -->

@@ -267,8 +267,6 @@
 	<string name="more_info">Visa Mer Info</string>
 	<!-- Text for message when used successfully copied something -->
 	<string name="copied_to_clipboard">Kopierat till urklippsbordet: %1$s</string>
-	<!-- Setting label for statistics turn on/off -->
-	<string name="allow_statistics">Skicka statistik</string>
 	<!-- place preview title -->
 	<string name="info">Info</string>
 	<!-- Used for bookmark editing -->
@@ -948,8 +946,6 @@
 	<string name="about_description">OMaps är en offline-applikation som du behöver när du reser. OMaps baseras på OpenStreetMap-data och tillåter redigering i den.</string>
 	<!-- Text in menu -->
 	<string name="blog">Blogg</string>
-	<!-- Hint near allow statictics checkbox -->
-	<string name="allow_statistics_hint">Genom att samla in anonym användningsstatistik kan vi förbättra appen.</string>
 	<string name="general_settings">Allmänna inställningar</string>
 	<string name="date">Datum %d</string>
 	<!-- "Report a bug" -> "Generaal Feedback" -> "Something is not working" -->

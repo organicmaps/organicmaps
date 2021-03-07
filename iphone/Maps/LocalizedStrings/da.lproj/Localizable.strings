@@ -46,9 +46,6 @@
 
 "get_it_now" = "Få det nu";
 
-/* Text to show occasionaly with a proposal to Like our program on Facebook */
-"share_on_facebook_text" = "Tak for at du bruger OMaps! Kan du lide appen? Fortæl dine venner om den! Det vil vi være så glade for.";
-
 /* Settings/Downloader - size string, only strings different from English should be translated */
 "kb" = "kB";
 
@@ -356,7 +353,7 @@
 /* Email Subject when sharing bookmarks category */
 "share_bookmarks_email_subject" = "OMaps bogmærker er blevet delt med dig";
 
-"share_bookmarks_email_body" = "Hello!\n\nAttached are my bookmarks from OMaps offline maps. Please open them if you have OMaps installed. Or, if you don't, download the app for your iOS or Android device by following this link: http://omaps.app/get?kmz\n\nEnjoy traveling with OMaps!";
+"share_bookmarks_email_body" = "Hello!\n\nAttached are my bookmarks from OMaps offline maps. Please open them if you have OMaps installed. Or, if you don't, download the app for your iOS or Android device by following this link: https://omaps.app/get?kmz\n\nEnjoy traveling with OMaps!";
 
 /* message title of loading file */
 "load_kmz_title" = "Indlæser Bogmærker";
@@ -392,10 +389,10 @@
 "no_thanks" = "Nej, tak";
 
 /* Share one specific bookmark using SMS, %1$@ contains ge0:// and %2$@ http://ge0.me link. @NOTE non-ascii symbols in the link will make 70 bytes sms instead of 140 */
-"bookmark_share_sms" = "Hey, tjek min knappenål på OMaps ud! %1$@ or %2$@ Har du ikke offline kort? Download her: http://omaps.app/get";
+"bookmark_share_sms" = "Hey, tjek min knappenål på OMaps ud! %1$@ or %2$@ Har du ikke offline kort? Download her: https://omaps.app/get";
 
 /* Share my position using SMS, %1$@ contains ge0:// and %2$@ http://ge0.me link WITHOUT NAME. @NOTE non-ascii symbols in the link will make 70 bytes sms instead of 140 */
-"my_position_share_sms" = "Hey, tjek min nuværende lokation ud på OMaps! %1$@ or %2$@. Har du ikke offline kort? Download her: http://omaps.app/get";
+"my_position_share_sms" = "Hey, tjek min nuværende lokation ud på OMaps! %1$@ or %2$@. Har du ikke offline kort? Download her: https://omaps.app/get";
 
 /* Subject for emailed bookmark */
 "bookmark_share_email_subject" = "Hey, tjek min knappenål på OMaps kortet ud!";
@@ -426,9 +423,6 @@
 
 /* Text for message when used successfully copied something */
 "copied_to_clipboard" = "Kopieret til udklipsholderen: %1$@";
-
-/* Setting label for statistics turn on/off */
-"allow_statistics" = "Send statistikker";
 
 /* place preview title */
 "info" = "Info";
@@ -603,9 +597,6 @@
 "maps_me_community" = "OMaps Samfund";
 
 /* Text in menu */
-"like_on_facebook" = "Synes godt om på Facebook";
-
-/* Text in menu */
 "follow_on_twitter" = "Følg på Twitter";
 
 /* Text in menu */
@@ -636,7 +627,7 @@
 "subscribe_me_body" = "Jeg vil være den første til at høre om de seneste nyheder opdateringer og tilbud. Jeg kan opsige abonnementet når som helst.";
 
 /* About text */
-"about_text" = "OMaps tilbyder de hurtigste offline-kort over alle byer og alle lande i verden. Rejs med tillid: Hvor end du befinder dig, hjælper OOMapsd at lokalisere din placering på kortet, finde den nærmeste restaurant, hotel, bank, benzintank og så videre. Det er ikke nødvendigt at have forbindelse til internettet.\n\nVi arbejder altid på nye funktioner, og vi vil meget gerne høre fra dig, hvis du har forslag til, hvordan vi kan forbedre OMaps. Hvis du oplever problemer med appen, er du meget velkommen til at kontakte os på support@omaps.app. Vi besvarer alle henvendelser!\n\nSynes du om OMaps, og har du lyst til at støtte os? Her er nogle simple og helt gratis metoder:\n\n-post en anmeldelse i din App Store\n-like vores facebook-side http://www.facebook.com/mapswithme\n-neller fortæl din mor, venner og kollegaer om OMaps :)\n\nTak fordi du støtter os. Vi sætter stor pris på din støtte!\n\nPS: Vi får vores kortdata fra OpenStreetMap, som er et kortprojekt, der minder om Wikipedia, og som gør brugere i stand til at oprette og rette kort. Hvis du oplever, at noget mangler eller er forkert på kortet, kan du rette kortene direkte på https://www.openstreetmap.org, og dine ændringer vil figurere på OMaps-appen i forbindelse med frigivelsen af den næste version.";
+"about_text" = "OMaps tilbyder de hurtigste offline-kort over alle byer og alle lande i verden. Rejs med tillid: Hvor end du befinder dig, hjælper OMaps med at lokalisere din placering på kortet, finde den nærmeste restaurant, hotel, bank, benzintank og så videre. Det er ikke nødvendigt at have forbindelse til internettet.\n\nVi arbejder altid på nye funktioner, og vi vil meget gerne høre fra dig, hvis du har forslag til, hvordan vi kan forbedre OMaps. Hvis du oplever problemer med appen, er du meget velkommen til at kontakte os på support@omaps.app. Vi besvarer alle henvendelser!\n\nSynes du om OMaps, og har du lyst til at støtte os? Her er nogle simple og helt gratis metoder:\n\n-post en anmeldelse i din App Store\n-like vores facebook-side http://www.facebook.com/mapswithme\n-neller fortæl din mor, venner og kollegaer om OMaps :)\n\nTak fordi du støtter os. Vi sætter stor pris på din støtte!\n\nPS: Vi får vores kortdata fra OpenStreetMap, som er et kortprojekt, der minder om Wikipedia, og som gør brugere i stand til at oprette og rette kort. Hvis du oplever, at noget mangler eller er forkert på kortet, kan du rette kortene direkte på https://www.openstreetmap.org, og dine ændringer vil figurere på OMaps-appen i forbindelse med frigivelsen af den næste version.";
 
 /* Alert text */
 "email_error_body" = "Emailklienten er ikke blevet sat op. Venligst konfigurér den eller brug en anden måde til at kontakte os på %@";
@@ -1200,8 +1191,6 @@
 
 "login_with_google" = "Log ind med Google";
 
-"login_with_facebook" = "Log ind med Facebook";
-
 "login_with_openstreetmap" = "Log ind med www.openstreetmap.org";
 
 "edit_place" = "Redigér stedet";
@@ -1631,9 +1620,6 @@
 /* Text in menu */
 "blog" = "Blog";
 
-/* Hint near allow statictics checkbox */
-"allow_statistics_hint" = "Indsamling af anonym anvendelsesstatistik hjælper os med at forbedre appen.";
-
 "general_settings" = "Generelle indstillinger";
 
 "date" = "Dato %d";
@@ -1761,26 +1747,6 @@
 
 /* "traffic" as in "road congestion" */
 "traffic_data_unavailable" = "Trafikdata er ikke tilgængelige";
-
-"banner_deliveryclub_title" = "Udbringning af mad";
-
-"banner_deliveryclub_message" = "Hurtig levering fra 4.000 restauranter. Bestil fra Delivery Club.";
-
-"banner_lamoda_title" = "Online sko- og tøjbutik";
-
-"banner_lamoda_message" = "Mere end 1.000 mærker. Op til 70% rabat. Gratis levering over hele landet.";
-
-"banner_tutu_title" = "Togbilletter online";
-
-"banner_tutu_message" = "Køb togbilletter til enhver by online - priser, søgning og bestilling.";
-
-"banner_geerbest_title" = "Online elektronikbutik";
-
-"banner_geerbest_message" = "Hurtig søgning blandt over 50.000 varer til lave priser.";
-
-"banner_rentalcars_title" = "Udlejning biler online";
-
-"banner_rentalcars_message" = "800 biludlejningsselskaber på mere end 49.000 steder.";
 
 /* december */
 "whatsnew_traffic" = "Trafikdata i 36 lande";
@@ -2305,13 +2271,9 @@
 
 "subtittle_opt_out" = "Tracking-indstillinger";
 
-"opt_out_flurry" = "Statistik";
+"crash_reports" = "Nedbrudsrapport";
 
-"opt_out_mopub" = "Personaliserede reklamer";
-
-"opt_out_fabric" = "Nedbrudsrapport";
-
-"opt_out_fabric_description" = "Vi kan anvende dine data til at forbedre brugeroplevelsen på OMaps. Ændringerne træder i kraft, når du har genstartet appen.";
+"crash_reports_description" = "Vi kan anvende dine data til at forbedre brugeroplevelsen på OMaps. Ændringerne træder i kraft, når du har genstartet appen.";
 
 "opt_out_pushwoosh" = "Pushwoosh";
 
@@ -2330,10 +2292,6 @@
 "terms_of_use" = "Vilkår for bruger";
 
 "backup_notification_failed" = "Backup af dine bogmærker er blevet suspenderet. Log ind for at slå til igen.";
-
-"banner_megafon_banner_message" = "Sig farvel til international roaming!";
-
-"banner_megafon_banner_button" = "Farvel!";
 
 "button_layer_traffic" = "Trafik";
 
@@ -2598,7 +2556,7 @@
 
 "notification_leave_review_content" = "Hjælp rejsende ved at skrive en anmeldelse!";
 
-"share_bookmarks_email_body_link" = "Hej!\n\nHer er et link, hvor du kan hente dine bogmærker: %s. Åben listen via OMaps og nyd turen!\n\nHent applikation: http://omaps.app/get?kmz";
+"share_bookmarks_email_body_link" = "Hej!\n\nHer er et link, hvor du kan hente dine bogmærker: %s. Åben listen via OMaps og nyd turen!\n\nHent applikation: https://omaps.app/get?kmz";
 
 "warning_speedcams_title" = "Navigator advarer dig om kameraer, når du overskrider hastighedsgrænsen på %d km/t";
 

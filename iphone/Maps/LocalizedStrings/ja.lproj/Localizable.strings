@@ -46,9 +46,6 @@
 
 "get_it_now" = "今すぐ入手";
 
-/* Text to show occasionaly with a proposal to Like our program on Facebook */
-"share_on_facebook_text" = "OMapsをご利用いただきありがとうございます! このアプリが好きですか? お友達にも教えてあげてください! アプリを広めていただければ大変嬉しく思います。";
-
 /* Settings/Downloader - size string, only strings different from English should be translated */
 "kb" = "kB";
 
@@ -356,7 +353,7 @@
 /* Email Subject when sharing bookmarks category */
 "share_bookmarks_email_subject" = "OMapsの位置情報シェア";
 
-"share_bookmarks_email_body" = "Hello!\n\nAttached are my bookmarks from OMaps offline maps. Please open them if you have OMaps installed. Or, if you don't, download the app for your iOS or Android device by following this link: http://omaps.app/get?kmz\n\nEnjoy traveling with OMaps!";
+"share_bookmarks_email_body" = "Hello!\n\nAttached are my bookmarks from OMaps offline maps. Please open them if you have OMaps installed. Or, if you don't, download the app for your iOS or Android device by following this link: https://omaps.app/get?kmz\n\nEnjoy traveling with OMaps!";
 
 /* message title of loading file */
 "load_kmz_title" = "ブックマークの読み込み中";
@@ -426,9 +423,6 @@
 
 /* Text for message when used successfully copied something */
 "copied_to_clipboard" = "クリップボードにコピーしました: %1$@";
-
-/* Setting label for statistics turn on/off */
-"allow_statistics" = "統計を送信";
 
 /* place preview title */
 "info" = "情報";
@@ -601,9 +595,6 @@
 
 /* Text in menu */
 "maps_me_community" = "OMapsコミュニティ";
-
-/* Text in menu */
-"like_on_facebook" = "Facebookでいいねをクリック";
 
 /* Text in menu */
 "follow_on_twitter" = "Twitterでフォロー";
@@ -1200,8 +1191,6 @@
 
 "login_with_google" = "Googleでログイン";
 
-"login_with_facebook" = "Facebookでログイン";
-
 "login_with_openstreetmap" = "www.openstreetmap.orgでログインしてください";
 
 "edit_place" = "場所を編集";
@@ -1631,9 +1620,6 @@
 /* Text in menu */
 "blog" = "ブログ";
 
-/* Hint near allow statictics checkbox */
-"allow_statistics_hint" = "収集した匿名の使用統計データは当社がアプリを改善するために役立ちます。";
-
 "general_settings" = "一般設定";
 
 "date" = "日付 %d";
@@ -1761,26 +1747,6 @@
 
 /* "traffic" as in "road congestion" */
 "traffic_data_unavailable" = "交通データは利用できません";
-
-"banner_deliveryclub_title" = "出前・宅配";
-
-"banner_deliveryclub_message" = "4,000 軒のレストランから迅速にお届けします。Delivery Club からご注文ください。";
-
-"banner_lamoda_title" = "衣料品と靴のオンライン店舗";
-
-"banner_lamoda_message" = "1,000 件を超えるブランド。最大 70% オフ。全国無料配送。";
-
-"banner_tutu_title" = "オンライン鉄道チケット";
-
-"banner_tutu_message" = "どんな都市への鉄道チケットもオンラインで。価格を検索して、予約しましょう。";
-
-"banner_geerbest_title" = "オンライン家電量販店";
-
-"banner_geerbest_message" = "低価格で 50,000 件を超えるアイテムを素早く検索。";
-
-"banner_rentalcars_title" = "オンラインでレンタカーを予約";
-
-"banner_rentalcars_message" = "800 社のレンタカー会社による 49,000 カ所を超えるレンタカー店舗をご利用いただけます。";
 
 /* december */
 "whatsnew_traffic" = "36か国の交通データ";
@@ -2305,13 +2271,9 @@
 
 "subtittle_opt_out" = "追跡の設定";
 
-"opt_out_flurry" = "統計";
+"crash_reports" = "クラッシュレポート";
 
-"opt_out_mopub" = "パーソナライズされた広告";
-
-"opt_out_fabric" = "クラッシュレポート";
-
-"opt_out_fabric_description" = "OMaps体験を向上させるため、お客様のデータを使用する可能性があります。変更は、アプリを再起動した後に、反映されます。";
+"crash_reports_description" = "OMaps体験を向上させるため、お客様のデータを使用する可能性があります。変更は、アプリを再起動した後に、反映されます。";
 
 "opt_out_pushwoosh" = "Pushwoosh";
 
@@ -2330,10 +2292,6 @@
 "terms_of_use" = "ご利用規約";
 
 "backup_notification_failed" = "ブックマークのバックアップが中断されました。ログインして、元に戻します。";
-
-"banner_megafon_banner_message" = "もう国際ローミングにさようなら！";
-
-"banner_megafon_banner_button" = "さようなら！";
 
 "button_layer_traffic" = "交通状況";
 
@@ -2598,7 +2556,7 @@
 
 "notification_leave_review_content" = "レビューを残して旅行者を助けましょう！";
 
-"share_bookmarks_email_body_link" = "こんにちは!\n\nこれはあなたのブックマークをダウンロードできるリンクです:%s。OMapsを通じてリストを開いて旅をお楽しみください!\n\nアプリの入手: http://omaps.app/get?kmz";
+"share_bookmarks_email_body_link" = "こんにちは!\n\nこれはあなたのブックマークをダウンロードできるリンクです:%s。OMapsを通じてリストを開いて旅をお楽しみください!\n\nアプリの入手: https://omaps.app/get?kmz";
 
 "warning_speedcams_title" = "%d km/hの速度制限を超えているときナビゲーターが自動速度違反取締装置について警告します";
 

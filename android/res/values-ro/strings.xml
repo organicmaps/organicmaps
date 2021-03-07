@@ -265,8 +265,6 @@
 	<string name="more_info">Afișează mai multe informații</string>
 	<!-- Text for message when used successfully copied something -->
 	<string name="copied_to_clipboard">Copiat în clipboard: %1$s</string>
-	<!-- Setting label for statistics turn on/off -->
-	<string name="allow_statistics">Trimitere statistici</string>
 	<!-- place preview title -->
 	<string name="info">Informații</string>
 	<!-- Used for bookmark editing -->
@@ -938,8 +936,6 @@
 	<string name="about_description">OMaps este o aplicație offline esențială când călătoriți. OMaps utilizează datele OpenStreeMap și permite editarea acestora.</string>
 	<!-- Text in menu -->
 	<string name="blog">Blog</string>
-	<!-- Hint near allow statictics checkbox -->
-	<string name="allow_statistics_hint">Colectarea statisticilor de utilizare anonime ne ajută să îmbunătățim aplicația.</string>
 	<string name="general_settings">Setări generale</string>
 	<string name="date">Data %d</string>
 	<!-- "Report a bug" -> "Generaal Feedback" -> "Something is not working" -->

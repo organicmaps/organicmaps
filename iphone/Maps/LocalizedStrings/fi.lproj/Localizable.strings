@@ -46,9 +46,6 @@
 
 "get_it_now" = "Hanki nyt";
 
-/* Text to show occasionaly with a proposal to Like our program on Facebook */
-"share_on_facebook_text" = "Kiitos kun käytät OMaps:tä! Pidätkö sovelluksesta? Kerro kavereillesi siitä! Se on meille paras mahdollinen kiitos.";
-
 /* Settings/Downloader - size string, only strings different from English should be translated */
 "kb" = "Kt";
 
@@ -356,7 +353,7 @@
 /* Email Subject when sharing bookmarks category */
 "share_bookmarks_email_subject" = "Jaetut OMaps-kirjanmerkit";
 
-"share_bookmarks_email_body" = "Hello!\n\nAttached are my bookmarks from OMaps offline maps. Please open them if you have OMaps installed. Or, if you don't, download the app for your iOS or Android device by following this link: http://omaps.app/get?kmz\n\nEnjoy traveling with OMaps!";
+"share_bookmarks_email_body" = "Hello!\n\nAttached are my bookmarks from OMaps offline maps. Please open them if you have OMaps installed. Or, if you don't, download the app for your iOS or Android device by following this link: https://omaps.app/get?kmz\n\nEnjoy traveling with OMaps!";
 
 /* message title of loading file */
 "load_kmz_title" = "Ladataan kirjanmerkkejä";
@@ -392,10 +389,10 @@
 "no_thanks" = "Ei kiitos";
 
 /* Share one specific bookmark using SMS, %1$@ contains ge0:// and %2$@ http://ge0.me link. @NOTE non-ascii symbols in the link will make 70 bytes sms instead of 140 */
-"bookmark_share_sms" = "Hei, katso merkintäni OMaps-sovelluksessa! %1$@ tai %2$@ Eikö sinulla ole offline-karttoja? Lataa ne täältä: http://omaps.app/get";
+"bookmark_share_sms" = "Hei, katso merkintäni OMaps-sovelluksessa! %1$@ tai %2$@ Eikö sinulla ole offline-karttoja? Lataa ne täältä: https://omaps.app/get";
 
 /* Share my position using SMS, %1$@ contains ge0:// and %2$@ http://ge0.me link WITHOUT NAME. @NOTE non-ascii symbols in the link will make 70 bytes sms instead of 140 */
-"my_position_share_sms" = "Hei, katso sijaintini OMaps-sovelluksessa! %1$@ tai %2$@ Eikö sinulla ole vielä offline-karttoja? Lataa ne täältä: http://omaps.app/get";
+"my_position_share_sms" = "Hei, katso sijaintini OMaps-sovelluksessa! %1$@ tai %2$@ Eikö sinulla ole vielä offline-karttoja? Lataa ne täältä: https://omaps.app/get";
 
 /* Subject for emailed bookmark */
 "bookmark_share_email_subject" = "Hei, katso merkintäni OMaps-kartalla";
@@ -426,9 +423,6 @@
 
 /* Text for message when used successfully copied something */
 "copied_to_clipboard" = "Kopioitu leikepöydälle: %1$@";
-
-/* Setting label for statistics turn on/off */
-"allow_statistics" = "Lähetä tilastot";
 
 /* place preview title */
 "info" = "Tietoa";
@@ -603,9 +597,6 @@
 "maps_me_community" = "OMaps -yhteisö";
 
 /* Text in menu */
-"like_on_facebook" = "Tykkää meistä Facebookissa";
-
-/* Text in menu */
 "follow_on_twitter" = "Seuraa meitä Twitterissä";
 
 /* Text in menu */
@@ -636,7 +627,7 @@
 "subscribe_me_body" = "Liittäkää minut OMaps -uutiskirjeen tilaajaksi saadakseni ensimmäisenä tietoa uusista päivityksistä ja TARJOUKSISTA. Voin peruuttaa tilaukseni koska tahansa.";
 
 /* About text */
-"about_text" = "OMaps tarjoaa nopeimmat offline-kartat kaikista kaupungeista, kaikissa maissa ympäri maailman. Matkusta luottavaisin mielin - missä ikinä oletkin, OMaps auttaa sinua löytämään itsesi kartalta, ohjaamaan sinut lähimpään ravintolaan, hotelliin, pankkiin, huoltoasemalle jne. Internet-yhteyttä ei tarvita.\n\nTyöskentelemme jatkuvasti uusien ominaisuuksien parissa, ja haluammekin kuulla sinulta kuinka voimme parantaa OMaps -sovellusta entisestään. Mikäli sinulla on ongelmia sovelluksen kanssa, älä epäröi ottaa yhteyttä asiakaspalveluumme osoitteessa support@omaps.app. Vastaamme jokaiseen yhteydenottoon!\n\nTykkäätkö OMaps -sovelluksesta ja haluat tukea meitä? Siihen on muutamia helppoja ja täysin ilmaisia tapoja:\n\n- lisää sovellusarviosi käyttämääsi sovelluskauppaan\n - tykkää Facebook-sivustamme osoitteessa http://www.facebook.com/mapswithme\n- kerro OMaps:stä äidillesi, ystävillesi ja kollegoillesi :)\n\nKiitos sovelluksen käytöstä. Arvostamme tukeasi todella paljon!\n\nP.S. Kaikki tiedot noudetaan OpenStreetMap-palvelusta, joka on Wikipedian kaltainen karttaprojekti, jossa kuka tahansa voi lisätä ja muokata karttoja. Mikäli havaitset kartoissa virheitä ja puutteita, voit korjata ne osoitteessa https://www.openstreetmap.org, ja muutokset näkyvät sovelluksessa seuraavan OMaps -päivityksen jälkeen.";
+"about_text" = "OMaps tarjoaa nopeimmat offline-kartat kaikista kaupungeista, kaikissa maissa ympäri maailman. Matkusta luottavaisin mielin - missä ikinä oletkin, OMaps auttaa sinua löytämään itsesi kartalta, ohjaamaan sinut lähimpään ravintolaan, hotelliin, pankkiin, huoltoasemalle jne. Internet-yhteyttä ei tarvita.\n\nTyöskentelemme jatkuvasti uusien ominaisuuksien parissa, ja haluammekin kuulla sinulta kuinka voimme parantaa MAPS.me -sovellusta entisestään. Mikäli sinulla on ongelmia sovelluksen kanssa, älä epäröi ottaa yhteyttä asiakaspalveluumme osoitteessa support@omaps.app. Vastaamme jokaiseen yhteydenottoon!\n\nTykkäätkö OMaps -sovelluksesta ja haluat tukea meitä? Siihen on muutamia helppoja ja täysin ilmaisia tapoja:\n\n- lisää sovellusarviosi käyttämääsi sovelluskauppaan\n - tykkää Facebook-sivustamme osoitteessa http://www.facebook.com/mapswithme\n- kerro MAPS.me:stä äidillesi, ystävillesi ja kollegoillesi :)\n\nKiitos sovelluksen käytöstä. Arvostamme tukeasi todella paljon!\n\nP.S. Kaikki tiedot noudetaan OpenStreetMap-palvelusta, joka on Wikipedian kaltainen karttaprojekti, jossa kuka tahansa voi lisätä ja muokata karttoja. Mikäli havaitset kartoissa virheitä ja puutteita, voit korjata ne osoitteessa https://www.openstreetmap.org, ja muutokset näkyvät sovelluksessa seuraavan OMaps -päivityksen jälkeen.";
 
 /* Alert text */
 "email_error_body" = "Sähköpostisovellusta ei ole asetettu. Ole hyvä ja määritä sähköpostiasetukset tai ota meihin yhteyttä toista kautta osoitteessa %@";
@@ -1200,8 +1191,6 @@
 
 "login_with_google" = "Kirjaudu sisään Google-tunnuksillasi";
 
-"login_with_facebook" = "Kirjaudu sisään Facebook-tunnuksillasi";
-
 "login_with_openstreetmap" = "Kirjaudu sisään osoitteessa www.openstreetmap.org";
 
 "edit_place" = "Muokkaa kohdetta";
@@ -1631,9 +1620,6 @@
 /* Text in menu */
 "blog" = "Blogi";
 
-/* Hint near allow statictics checkbox */
-"allow_statistics_hint" = "Anonyymien käyttötilastojen kerääminen auttaa meitä kehittämään sovellusta.";
-
 "general_settings" = "Yleiset asetukset";
 
 "date" = "Päivämäärä %d";
@@ -1761,26 +1747,6 @@
 
 /* "traffic" as in "road congestion" */
 "traffic_data_unavailable" = "Liikennetietoja ei ole saatavilla";
-
-"banner_deliveryclub_title" = "Ruoan toimitus";
-
-"banner_deliveryclub_message" = "Nopea toimitus 4 000 ravintolasta. Tilaa Delivery Clubilta.";
-
-"banner_lamoda_title" = "Vaate- ja kenkäkauppa verkossa";
-
-"banner_lamoda_message" = "Yli 1 000 merkkiä. Jopa 70 % alea. Ilmainen toimitus kaikkialle maahan.";
-
-"banner_tutu_title" = "Junaliput verkossa";
-
-"banner_tutu_message" = "Junaliput kaikkiin kaupunkeihin verkossa – hinnat, haku ja varaus.";
-
-"banner_geerbest_title" = "Elektroniikkaliike verkossa";
-
-"banner_geerbest_message" = "Hae nopeasti yli 50 000 kohteesta edullisin hinnoin.";
-
-"banner_rentalcars_title" = "Autonvuokraus verkossa";
-
-"banner_rentalcars_message" = "800 autonvuokrausyritystä yli 49 000 autonvuokrauskohteessa.";
 
 /* december */
 "whatsnew_traffic" = "Liikennetiedot 36 maassa";
@@ -2305,13 +2271,9 @@
 
 "subtittle_opt_out" = "Seuranta-asetukset";
 
-"opt_out_flurry" = "Tilasto";
+"crash_reports" = "Kaatumisraportti";
 
-"opt_out_mopub" = "Yksilöity mainonta";
-
-"opt_out_fabric" = "Kaatumisraportti";
-
-"opt_out_fabric_description" = "Me saatamme käyttää tietojasi parantaaksemme OMaps kokemusta. Muutokset alkavat vaikuttamaan kun käynnistät sovelluksen uudestaan.";
+"crash_reports_description" = "Me saatamme käyttää tietojasi parantaaksemme OMaps kokemusta. Muutokset alkavat vaikuttamaan kun käynnistät sovelluksen uudestaan.";
 
 "opt_out_pushwoosh" = "Pushwoosh";
 
@@ -2330,10 +2292,6 @@
 "terms_of_use" = "Käyttöehdot";
 
 "backup_notification_failed" = "Kirjanmerkkiesi varmuuskopionti on keskeytetty. Kirjaudu sisään ja laita se takaisin päälle.";
-
-"banner_megafon_banner_message" = "Sano hyvästit roaming-datalle!";
-
-"banner_megafon_banner_button" = "Hyvästi!";
 
 "button_layer_traffic" = "Liikenne";
 
@@ -2598,7 +2556,7 @@
 
 "notification_leave_review_content" = "Kirjoita arvostelu ja auta matkustajia!";
 
-"share_bookmarks_email_body_link" = "Hei!\n\nMerkkinne voi ladata linkistä: %s. Avaa luettelo OMaps: llä ja nauti matkasta!\n\nLataa sovellus: http://omaps.app/get?kmz";
+"share_bookmarks_email_body_link" = "Hei!\n\nMerkkinne voi ladata linkistä: %s. Avaa luettelo OMaps: llä ja nauti matkasta!\n\nLataa sovellus: https://omaps.app/get?kmz";
 
 "warning_speedcams_title" = "Navigaattori ilmoittaa sinulle kameroista, kun nopeusraja ylittyy %d km/t";
 

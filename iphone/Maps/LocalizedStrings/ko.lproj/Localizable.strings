@@ -46,9 +46,6 @@
 
 "get_it_now" = "지금 가져오기";
 
-/* Text to show occasionaly with a proposal to Like our program on Facebook */
-"share_on_facebook_text" = "OMaps를 사용해 주셔서 감사합니다! 앱을 좋아하십니까? 이 앱에 대해 친구들에게 널리 알려 주십시오! 그러면 저희는 매우 감사할 것입니다.";
-
 /* Settings/Downloader - size string, only strings different from English should be translated */
 "kb" = "kB";
 
@@ -356,7 +353,7 @@
 /* Email Subject when sharing bookmarks category */
 "share_bookmarks_email_subject" = "귀하와 공유된 OMaps 즐겨찾기";
 
-"share_bookmarks_email_body" = "Hello!\n\nAttached are my bookmarks from OMaps offline maps. Please open them if you have OMaps installed. Or, if you don't, download the app for your iOS or Android device by following this link: http://omaps.app/get?kmz\n\nEnjoy traveling with OMaps!";
+"share_bookmarks_email_body" = "Hello!\n\nAttached are my bookmarks from OMaps offline maps. Please open them if you have OMaps installed. Or, if you don't, download the app for your iOS or Android device by following this link: https://omaps.app/get?kmz\n\nEnjoy traveling with OMaps!";
 
 /* message title of loading file */
 "load_kmz_title" = "즐겨찾기 로드";
@@ -426,9 +423,6 @@
 
 /* Text for message when used successfully copied something */
 "copied_to_clipboard" = "클립보드에 복사됨: %1$@";
-
-/* Setting label for statistics turn on/off */
-"allow_statistics" = "통계 보내기";
 
 /* place preview title */
 "info" = "정보";
@@ -601,9 +595,6 @@
 
 /* Text in menu */
 "maps_me_community" = "OMaps 커뮤니티";
-
-/* Text in menu */
-"like_on_facebook" = "Facebook에서 좋아요";
 
 /* Text in menu */
 "follow_on_twitter" = "Twitter에서 팔로우";
@@ -1200,8 +1191,6 @@
 
 "login_with_google" = "Google로 로그인";
 
-"login_with_facebook" = "Facebook으로 로그인";
-
 "login_with_openstreetmap" = "www.openstreetmap.org에 로그인";
 
 "edit_place" = "장소 편집";
@@ -1631,9 +1620,6 @@
 /* Text in menu */
 "blog" = "블로그";
 
-/* Hint near allow statictics checkbox */
-"allow_statistics_hint" = "익명의 사용 통계를 수집하면 앱을 개선하는 데 도움이 됩니다.";
-
 "general_settings" = "일반 설정";
 
 "date" = "날짜 %d";
@@ -1761,26 +1747,6 @@
 
 /* "traffic" as in "road congestion" */
 "traffic_data_unavailable" = "교통 데이터를 사용할 수 없습니다";
-
-"banner_deliveryclub_title" = "음식 배달";
-
-"banner_deliveryclub_message" = "4,000곳의 레스토랑에서 신속하게 배달합니다. Delivery Club에서 주문하세요.";
-
-"banner_lamoda_title" = "온라인 의류 및 신발 스토어";
-
-"banner_lamoda_message" = "1,000개 이상의 브랜드. 최대 70% 할인. 전국 무료 배송.";
-
-"banner_tutu_title" = "온라인 기차표";
-
-"banner_tutu_message" = "온라인으로 이용하는 모든 도시행 기차표 - 가격, 검색 및 예약.";
-
-"banner_geerbest_title" = "온라인 전자 기기 스토어";
-
-"banner_geerbest_message" = "저렴한 가격의 50,000개 이상 품목에서 즉시 검색.";
-
-"banner_rentalcars_title" = "온라인 자동차 렌트";
-
-"banner_rentalcars_message" = "800개의 자동차 렌트 회사와 49,000곳 이상의 자동차 렌트 지점";
 
 /* december */
 "whatsnew_traffic" = "36개국의 교통 데이터";
@@ -2305,13 +2271,9 @@
 
 "subtittle_opt_out" = "추적 설정";
 
-"opt_out_flurry" = "통계";
+"crash_reports" = "오류 보고서";
 
-"opt_out_mopub" = "개별 광고";
-
-"opt_out_fabric" = "오류 보고서";
-
-"opt_out_fabric_description" = "당사는 OMaps 경험을 개선하기 위해 귀하의 데이터를 활용할 수 있습니다. 앱을 다시 시작한 후 변경사항이 적용됩니다.";
+"crash_reports_description" = "당사는 OMaps 경험을 개선하기 위해 귀하의 데이터를 활용할 수 있습니다. 앱을 다시 시작한 후 변경사항이 적용됩니다.";
 
 "opt_out_pushwoosh" = "Pushwoosh";
 
@@ -2330,10 +2292,6 @@
 "terms_of_use" = "사용 약관";
 
 "backup_notification_failed" = "북마크의 백업이 중단되었습니다. 다시 작동시키려면 로그인하세요.";
-
-"banner_megafon_banner_message" = "국제 로밍이 더 이상 필요 없습니다!";
-
-"banner_megafon_banner_button" = "안녕!";
 
 "button_layer_traffic" = "트래픽";
 
@@ -2598,7 +2556,7 @@
 
 "notification_leave_review_content" = "리뷰를 남겨서 여행자들을 도와주세요!";
 
-"share_bookmarks_email_body_link" = "안녕하세요!\n\n여기 즐겨찾기들을 다운로드 받을 수 있는 링크입니다: %s. OMaps 를 통해 리스트를 열고 당신의 여행을 즐기세요!\n\n어플리케이션을 받으세요: http://omaps.app/get?kmz";
+"share_bookmarks_email_body_link" = "안녕하세요!\n\n여기 즐겨찾기들을 다운로드 받을 수 있는 링크입니다: %s. OMaps 를 통해 리스트를 열고 당신의 여행을 즐기세요!\n\n어플리케이션을 받으세요: https://omaps.app/get?kmz";
 
 "warning_speedcams_title" = "네비게이터가 %d km/h의 속도 제한을 초과시 카메라에 대해 경고 할 것입니다";
 
@@ -3387,7 +3345,7 @@
 
 "whatsnew_lp_title" = "더 많은 감동을 느껴보세요";
 
-"whatsnew_lp_message" = "이제 Lonely Planet 가이드를 OMaps에서 이용하실 수 있습니다! 7천개가 넘는 도시들의 최고로 매력적인 관광명소, 테마별 걷기와 개성이 넘치는 여행 장소들이 기다리고 있습니다.";
+"whatsnew_lp_message" = "이제 Lonely Planet 가이드를 Maps.me에서 이용하실 수 있습니다! 7천개가 넘는 도시들의 최고로 매력적인 관광명소, 테마별 걷기와 개성이 넘치는 여행 장소들이 기다리고 있습니다.";
 
 "collections_title" = "콜렉션";
 

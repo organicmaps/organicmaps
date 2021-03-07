@@ -46,9 +46,6 @@
 
 "get_it_now" = "Installeren";
 
-/* Text to show occasionaly with a proposal to Like our program on Facebook */
-"share_on_facebook_text" = "Bedankt om OMaps te gebruiken! Vindt u de app leuk? Vertel uw vrienden erover! Dit is voor ons het beste dankgebaar.";
-
 /* Settings/Downloader - size string, only strings different from English should be translated */
 "kb" = "KB";
 
@@ -354,9 +351,9 @@
 "share_by_email" = "Delen via email";
 
 /* Email Subject when sharing bookmarks category */
-"share_bookmarks_email_subject" = "Bladwijzers van OOMapst u gedeeld";
+"share_bookmarks_email_subject" = "Bladwijzers van OMaps met u gedeeld";
 
-"share_bookmarks_email_body" = "Hello!\n\nAttached are my bookmarks from OMaps offline maps. Please open them if you have OMaps installed. Or, if you don't, download the app for your iOS or Android device by following this link: http://omaps.app/get?kmz\n\nEnjoy traveling with OMaps!";
+"share_bookmarks_email_body" = "Hello!\n\nAttached are my bookmarks from OMaps offline maps. Please open them if you have OMaps installed. Or, if you don't, download the app for your iOS or Android device by following this link: https://omaps.app/get?kmz\n\nEnjoy traveling with OMaps!";
 
 /* message title of loading file */
 "load_kmz_title" = "Bladwijzers aan het uploaden";
@@ -426,9 +423,6 @@
 
 /* Text for message when used successfully copied something */
 "copied_to_clipboard" = "Op het klembord gekopieerd: %1$@";
-
-/* Setting label for statistics turn on/off */
-"allow_statistics" = "Verstuur statistieken";
 
 /* place preview title */
 "info" = "Info";
@@ -601,9 +595,6 @@
 
 /* Text in menu */
 "maps_me_community" = "Gemeenschap van OMaps";
-
-/* Text in menu */
-"like_on_facebook" = "Ons leuk vinden op Facebook";
 
 /* Text in menu */
 "follow_on_twitter" = "Ons volgen op Twitter";
@@ -1200,8 +1191,6 @@
 
 "login_with_google" = "Aanmelden met Google";
 
-"login_with_facebook" = "Aanmelden met Facebook";
-
 "login_with_openstreetmap" = "Aanmelden met www.openstreetmap.org";
 
 "edit_place" = "De locatie bewerken";
@@ -1631,9 +1620,6 @@
 /* Text in menu */
 "blog" = "Blog";
 
-/* Hint near allow statictics checkbox */
-"allow_statistics_hint" = "Het verzamelen van anonieme gebruiksstatistieken helpt ons de app verbeteren.";
-
 "general_settings" = "Algemene instellingen";
 
 "date" = "Datum %d";
@@ -1761,26 +1747,6 @@
 
 /* "traffic" as in "road congestion" */
 "traffic_data_unavailable" = "Verkeersgegevens zijn niet beschikbaar";
-
-"banner_deliveryclub_title" = "Levering maaltijden";
-
-"banner_deliveryclub_message" = "Snelle levering van 4.000 restaurants. Bestel via Delivery Club.";
-
-"banner_lamoda_title" = "Online kleding- en schoenenwinkel";
-
-"banner_lamoda_message" = "Meer dan 1.000 merken. Tot 70% korting. Gratis levering over het hele land.";
-
-"banner_tutu_title" = "Treintickets online";
-
-"banner_tutu_message" = "Treintickets naar elke staf online - prijzen, zoeken en reserveren.";
-
-"banner_geerbest_title" = "Online elektronicawinkel";
-
-"banner_geerbest_message" = "Onmiddellijk zoeken tussen meer dan 50.000 artikelen aan lage prijzen.";
-
-"banner_rentalcars_title" = "Online auto's huren";
-
-"banner_rentalcars_message" = "800 autoverhuurbedrijven in meer dan 49.000 locaties voor autoverhuur.";
 
 /* december */
 "whatsnew_traffic" = "Verkeersgegevens in 36 Landen";
@@ -2305,13 +2271,9 @@
 
 "subtittle_opt_out" = "Tracking-instellingen";
 
-"opt_out_flurry" = "Statistieken";
+"crash_reports" = "Crash rapport";
 
-"opt_out_mopub" = "Gepersonaliseerde reclame";
-
-"opt_out_fabric" = "Crash rapport";
-
-"opt_out_fabric_description" = "Wij kunnen uw gegevens gebruiken om OMaps te verbeteren. Wijzigingen treden in werking na het opnieuw opstarten van de app.";
+"crash_reports_description" = "Wij kunnen uw gegevens gebruiken om OMaps te verbeteren. Wijzigingen treden in werking na het opnieuw opstarten van de app.";
 
 "opt_out_pushwoosh" = "Pushwoosh";
 
@@ -2330,10 +2292,6 @@
 "terms_of_use" = "Gebruiksvoorwaarden";
 
 "backup_notification_failed" = "Een back-up van uw bladwijzers werd opgeschort. Log in om weer op te starten.";
-
-"banner_megafon_banner_message" = "Zeg vaarwel tegen internationale roaming!";
-
-"banner_megafon_banner_button" = "Vaarwel!";
 
 "button_layer_traffic" = "Verkeer";
 
@@ -2598,7 +2556,7 @@
 
 "notification_leave_review_content" = "Help reizigers door een beoordeling achter te laten!";
 
-"share_bookmarks_email_body_link" = "Hello!\n\nHier is de link waar u uw bladwijzers kunt downloaden: %s. Open de lijst via OMaps en geniet van uw reis!\n\nHaal de applicatie op: http://omaps.app/get?kmz";
+"share_bookmarks_email_body_link" = "Hello!\n\nHier is de link waar u uw bladwijzers kunt downloaden: %s. Open de lijst via OMaps en geniet van uw reis!\n\nHaal de applicatie op: https://omaps.app/get?kmz";
 
 "warning_speedcams_title" = "Navigator waarschuwt u over camera's wanneer u de maximumsnelheid van %d km/h overschrijdt";
 
@@ -2918,7 +2876,7 @@
 
 "subscription_terms" = "Payment will be charged to your iTunes account at confirmation of purchase. The subscription will automatically renew unless auto-renew is turned off at least 24 hours before the end of the current period. Your account will be charged according to your plan for renewal within 24 hours prior to the end of the current period. You can manage or turn off auto-renew in your Apple ID account settings at any time of your purchase.";
 
-"whatsnew_carplay_title" = "Automatische navigatie OOMapst CarPlay!";
+"whatsnew_carplay_title" = "Automatische navigatie OMaps met CarPlay!";
 
 "whatsnew_carplay_message" = "Bladwijzers, zoeken, snelheidscamera's en omweginstellingen – alles werkt zonder internet";
 

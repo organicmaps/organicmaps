@@ -46,9 +46,6 @@
 
 "get_it_now" = "Hent nå";
 
-/* Text to show occasionaly with a proposal to Like our program on Facebook */
-"share_on_facebook_text" = "Tusen takk for at du bruker OMaps! Liker du appen? Fortell vennene dine om den! Det er den beste takken vi kan få.";
-
 /* Settings/Downloader - size string, only strings different from English should be translated */
 "kb" = "kB";
 
@@ -356,7 +353,7 @@
 /* Email Subject when sharing bookmarks category */
 "share_bookmarks_email_subject" = "Delte OMaps-bokmerker";
 
-"share_bookmarks_email_body" = "Hello!\n\nAttached are my bookmarks from OMaps offline maps. Please open them if you have OMaps installed. Or, if you don't, download the app for your iOS or Android device by following this link: http://omaps.app/get?kmz\n\nEnjoy traveling with OMaps!";
+"share_bookmarks_email_body" = "Hello!\n\nAttached are my bookmarks from OMaps offline maps. Please open them if you have OMaps installed. Or, if you don't, download the app for your iOS or Android device by following this link: https://omaps.app/get?kmz\n\nEnjoy traveling with OMaps!";
 
 /* message title of loading file */
 "load_kmz_title" = "Laster inn bokmerker";
@@ -392,10 +389,10 @@
 "no_thanks" = "Nei takk";
 
 /* Share one specific bookmark using SMS, %1$@ contains ge0:// and %2$@ http://ge0.me link. @NOTE non-ascii symbols in the link will make 70 bytes sms instead of 140 */
-"bookmark_share_sms" = "Hei, se merket mitt på OMaps! %1$@ eller %2$@ Har du ikke installert offline-kart? Last dem ned her: http://omaps.app/get";
+"bookmark_share_sms" = "Hei, se merket mitt på OMaps! %1$@ eller %2$@ Har du ikke installert offline-kart? Last dem ned her: https://omaps.app/get";
 
 /* Share my position using SMS, %1$@ contains ge0:// and %2$@ http://ge0.me link WITHOUT NAME. @NOTE non-ascii symbols in the link will make 70 bytes sms instead of 140 */
-"my_position_share_sms" = "Hei, se posisjonen min på OMaps! %1$@ eller %2$@ Har du ikke offline-kart? Last dem ned her: http://omaps.app/get";
+"my_position_share_sms" = "Hei, se posisjonen min på OMaps! %1$@ eller %2$@ Har du ikke offline-kart? Last dem ned her: https://omaps.app/get";
 
 /* Subject for emailed bookmark */
 "bookmark_share_email_subject" = "Hei, se merket mitt på OMaps-kartet";
@@ -426,9 +423,6 @@
 
 /* Text for message when used successfully copied something */
 "copied_to_clipboard" = "Kopiert til utklippstavlen: %1$@";
-
-/* Setting label for statistics turn on/off */
-"allow_statistics" = "Send statistikk";
 
 /* place preview title */
 "info" = "Informasjon";
@@ -601,9 +595,6 @@
 
 /* Text in menu */
 "maps_me_community" = "OMaps-samfunnet";
-
-/* Text in menu */
-"like_on_facebook" = "Lik på Facebook";
 
 /* Text in menu */
 "follow_on_twitter" = "Følg på Twitter";
@@ -1200,8 +1191,6 @@
 
 "login_with_google" = "Logg inn med Google";
 
-"login_with_facebook" = "Logg inn med Facebook";
-
 "login_with_openstreetmap" = "Logg inn med www.openstreetmap.org";
 
 "edit_place" = "Rediger stedet";
@@ -1631,9 +1620,6 @@
 /* Text in menu */
 "blog" = "Blogg";
 
-/* Hint near allow statictics checkbox */
-"allow_statistics_hint" = "Anonyms innsamling av brukerstatistikk hjelper oss med å forbedre appen.";
-
 "general_settings" = "Generelle innstillinger";
 
 "date" = "Dato %d";
@@ -1761,26 +1747,6 @@
 
 /* "traffic" as in "road congestion" */
 "traffic_data_unavailable" = "Trafikkdata er ikke tilgjengelig";
-
-"banner_deliveryclub_title" = "Matleveranse";
-
-"banner_deliveryclub_message" = "Hurtig leveranse fra 4000 restauranter. Bestill fra Delivery Club.";
-
-"banner_lamoda_title" = "Kles- og skobutikk online";
-
-"banner_lamoda_message" = "Flere enn 1000 ulike merker. Opptil 70 % rabatt. Gratis frakt over hele landet.";
-
-"banner_tutu_title" = "Togbilletter online";
-
-"banner_tutu_message" = "Togbilletter til alle byer – priser, søk og bestilling.";
-
-"banner_geerbest_title" = "Elektronikkbutikk online";
-
-"banner_geerbest_message" = "Hurtigsøk blant over 50 000 varer til lave priser.";
-
-"banner_rentalcars_title" = "Leie av bil online";
-
-"banner_rentalcars_message" = "800 leiebilfirmaer på over 49 000 steder.";
 
 /* december */
 "whatsnew_traffic" = "Trafikkdata i 36 land";
@@ -2305,13 +2271,9 @@
 
 "subtittle_opt_out" = "Tracking settings";
 
-"opt_out_flurry" = "Statistic";
+"crash_reports" = "Crash report";
 
-"opt_out_mopub" = "Personalised advertising";
-
-"opt_out_fabric" = "Crash report";
-
-"opt_out_fabric_description" = "We may use your data to improve OMaps experience. Changes will take effect after you restart the app.";
+"crash_reports_description" = "We may use your data to improve OMaps experience. Changes will take effect after you restart the app.";
 
 "opt_out_pushwoosh" = "Pushwoosh";
 
@@ -2330,10 +2292,6 @@
 "terms_of_use" = "Terms of use";
 
 "backup_notification_failed" = "Backing up your bookmarks has been suspended. Log in to turn it back on.";
-
-"banner_megafon_banner_message" = "Say goodbye to international roaming!";
-
-"banner_megafon_banner_button" = "Goodbye!";
 
 "button_layer_traffic" = "Traffic";
 
@@ -2598,7 +2556,7 @@
 
 "notification_leave_review_content" = "Hjelp andre ved å legge igjen en anmeldelse.";
 
-"share_bookmarks_email_body_link" = "Hei!\n\nHer er lenken der du kan laste ned bokmerkene dine: %s. Åpne listen via OMaps og nyt reisen!\n\nFå tak i app: http://omaps.app/get?kmz";
+"share_bookmarks_email_body_link" = "Hei!\n\nHer er lenken der du kan laste ned bokmerkene dine: %s. Åpne listen via OMaps og nyt reisen!\n\nFå tak i app: https://omaps.app/get?kmz";
 
 "warning_speedcams_title" = "Navigatøren vil advare deg om kameraer når du overskrider fartsgrensen på %d km/t";
 

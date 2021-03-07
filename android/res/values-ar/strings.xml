@@ -271,8 +271,6 @@
 	<string name="more_info">إظهار مزيد من المعلومات</string>
 	<!-- Text for message when used successfully copied something -->
 	<string name="copied_to_clipboard">تم النسخ الى الحافظة: %1$s</string>
-	<!-- Setting label for statistics turn on/off -->
-	<string name="allow_statistics">ارسال الاحصائيات</string>
 	<!-- place preview title -->
 	<string name="info">المعلومات</string>
 	<!-- Used for bookmark editing -->
@@ -954,8 +952,6 @@
 	<string name="about_description">OMaps هو تطبيق أساسي للسفر بدون اتصال بالإنترنت. يعتمد برنامج OMaps على بيانات OpenStreetMap ويتيح تحريرها.</string>
 	<!-- Text in menu -->
 	<string name="blog">المدونة</string>
-	<!-- Hint near allow statictics checkbox -->
-	<string name="allow_statistics_hint">تجميح إحصائيات الاستخدام يساعد في تحسين التطبيق.</string>
 	<string name="general_settings">إعدادات عامة</string>
 	<string name="date">التاريخ %d</string>
 	<!-- "Report a bug" -> "Generaal Feedback" -> "Something is not working" -->

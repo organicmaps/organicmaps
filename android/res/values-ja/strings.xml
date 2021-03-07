@@ -265,8 +265,6 @@
 	<string name="more_info">詳細情報を表示</string>
 	<!-- Text for message when used successfully copied something -->
 	<string name="copied_to_clipboard">クリップボードにコピーしました: %1$s</string>
-	<!-- Setting label for statistics turn on/off -->
-	<string name="allow_statistics">統計を送信</string>
 	<!-- place preview title -->
 	<string name="info">情報</string>
 	<!-- Used for bookmark editing -->
@@ -942,8 +940,6 @@
 	<string name="about_description">OMaps は旅に必要不可欠なオフラインアプリケーションです。OMaps は OpenStreetMap データに基づいており、データを編集することができます。</string>
 	<!-- Text in menu -->
 	<string name="blog">ブログ</string>
-	<!-- Hint near allow statictics checkbox -->
-	<string name="allow_statistics_hint">収集した匿名の使用統計データは当社がアプリを改善するために役立ちます。</string>
 	<string name="general_settings">一般設定</string>
 	<string name="date">日付 %d</string>
 	<!-- "Report a bug" -> "Generaal Feedback" -> "Something is not working" -->

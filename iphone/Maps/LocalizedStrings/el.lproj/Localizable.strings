@@ -46,9 +46,6 @@
 
 "get_it_now" = "Get it now";
 
-/* Text to show occasionaly with a proposal to Like our program on Facebook */
-"share_on_facebook_text" = "Σας ευχαριστούμε που χρησιμοποιείτε το OMaps! Σας αρέσει η εφαρμογή; Πείτε το στους φίλους σας! Είναι ότι καλύτερο μπορείτε να κάνετε για εμάς.";
-
 /* Settings/Downloader - size string, only strings different from English should be translated */
 "kb" = "kB";
 
@@ -356,7 +353,7 @@
 /* Email Subject when sharing bookmarks category */
 "share_bookmarks_email_subject" = "Κοινοποιήθηκαν αγαπημένα OMaps με σας";
 
-"share_bookmarks_email_body" = "Hello!\n\nAttached are my bookmarks from OMaps offline maps. Please open them if you have OMaps installed. Or, if you don't, download the app for your iOS or Android device by following this link: http://omaps.app/get?kmz\n\nEnjoy traveling with OMaps!";
+"share_bookmarks_email_body" = "Hello!\n\nAttached are my bookmarks from OMaps offline maps. Please open them if you have OMaps installed. Or, if you don't, download the app for your iOS or Android device by following this link: https://omaps.app/get?kmz\n\nEnjoy traveling with OMaps!";
 
 /* message title of loading file */
 "load_kmz_title" = "Φόρτωση αγαπημένων";
@@ -392,10 +389,10 @@
 "no_thanks" = "No, thanks";
 
 /* Share one specific bookmark using SMS, %1$@ contains ge0:// and %2$@ http://ge0.me link. @NOTE non-ascii symbols in the link will make 70 bytes sms instead of 140 */
-"bookmark_share_sms" = "Έλεγξε τις τοποθεσίες που έχω καρφιτσώσει στο OMaps! %1$@ ή %2$@ εάν δεν έχεις εγκαταστήσει χάρτες εκτός σύνδεσης, μπορείς να τους κατεβάσεις εδώ: http://omaps.app/get";
+"bookmark_share_sms" = "Έλεγξε τις τοποθεσίες που έχω καρφιτσώσει στο OMaps! %1$@ ή %2$@ εάν δεν έχεις εγκαταστήσει χάρτες εκτός σύνδεσης, μπορείς να τους κατεβάσεις εδώ: https://omaps.app/get";
 
 /* Share my position using SMS, %1$@ contains ge0:// and %2$@ http://ge0.me link WITHOUT NAME. @NOTE non-ascii symbols in the link will make 70 bytes sms instead of 140 */
-"my_position_share_sms" = "Έλεγξε την τρέχουσα τοποθεσία μου στο OMaps! %1$@ ή %2$@ στην περίπτωση που δεν έχεις εγκαταστήσει χάρτες εκτός σύνδεσης, μπορείς να τους κατεβάσεις εδώ: http://omaps.app/get";
+"my_position_share_sms" = "Έλεγξε την τρέχουσα τοποθεσία μου στο OMaps! %1$@ ή %2$@ στην περίπτωση που δεν έχεις εγκαταστήσει χάρτες εκτός σύνδεσης, μπορείς να τους κατεβάσεις εδώ: https://omaps.app/get";
 
 /* Subject for emailed bookmark */
 "bookmark_share_email_subject" = "Έλεγξε τις τοποθεσίες που έχω καρφιτσώσει στο OMaps!";
@@ -426,9 +423,6 @@
 
 /* Text for message when used successfully copied something */
 "copied_to_clipboard" = "Αντιγράφηκε στο Πρόχειρο: %1$@";
-
-/* Setting label for statistics turn on/off */
-"allow_statistics" = "Αποστολή στατιστικών";
 
 /* place preview title */
 "info" = "Πληροφορίες";
@@ -601,9 +595,6 @@
 
 /* Text in menu */
 "maps_me_community" = "Κοινότητα OMaps ";
-
-/* Text in menu */
-"like_on_facebook" = "Κάντε Like στο Facebook";
 
 /* Text in menu */
 "follow_on_twitter" = "Ακολουθήστε στο Twitter";
@@ -1200,8 +1191,6 @@
 
 "login_with_google" = "Login with Google";
 
-"login_with_facebook" = "Login with Facebook";
-
 "login_with_openstreetmap" = "Log in with www.openstreetmap.org";
 
 "edit_place" = "Επεξεργασία μέρους";
@@ -1631,9 +1620,6 @@
 /* Text in menu */
 "blog" = "Ιστολόγιο";
 
-/* Hint near allow statictics checkbox */
-"allow_statistics_hint" = "Η συλλογή ανώνυμων στατιστικών στοιχείων μας βοηθά να βελτιώσουμε την εφαρμογή.";
-
 "general_settings" = "Γενικές ρυθμίσεις";
 
 "date" = "Ημερομηνία %d";
@@ -1761,26 +1747,6 @@
 
 /* "traffic" as in "road congestion" */
 "traffic_data_unavailable" = "Οι πληροφορίες για την κίνηση δεν είναι διαθέσιμες";
-
-"banner_deliveryclub_title" = "Παράδοση φαγητού";
-
-"banner_deliveryclub_message" = "Γρήγορη παράδοση από 4.000 εστιατόρια. Παραγγείλετε από το Delivery Club.";
-
-"banner_lamoda_title" = "Κατάστημα υποδημάτων και ρούχων online";
-
-"banner_lamoda_message" = "Περισσότερα από 1.000 επώνυμα προϊόντα. Έκπτωση έως και 70%. Δωρεάν παράδοση σε όλη τη χώρα.";
-
-"banner_tutu_title" = "Εισιτήρια τρένων online";
-
-"banner_tutu_message" = "Σιδηροδρομικά εισιτήρια για οποιαδήποτε πόλη online - τιμές, αναζήτηση και κράτηση.";
-
-"banner_geerbest_title" = "Κατάστημα ηλεκτρονικών online";
-
-"banner_geerbest_message" = "Άμεση αναζήτηση σε περισσότερα από 50.000 αντικείμενα σε χαμηλές τιμές.";
-
-"banner_rentalcars_title" = "Ενοικίαση αυτοκινήτων online";
-
-"banner_rentalcars_message" = "800 εταιρείες ενοικίασης αυτοκινήτων σε περισσότερες από 49.000 τοποθεσίες.";
 
 /* december */
 "whatsnew_traffic" = "Πληροφορίες για την κίνηση σε 36 χώρες";
@@ -2305,13 +2271,9 @@
 
 "subtittle_opt_out" = "Ρυθμίσεις διαδρομών";
 
-"opt_out_flurry" = "Στατιστικές";
+"crash_reports" = "Αναφορά σφάλματος";
 
-"opt_out_mopub" = "Προσωπικές διαφημίσεις";
-
-"opt_out_fabric" = "Αναφορά σφάλματος";
-
-"opt_out_fabric_description" = "Μπορεί να χρησιμοποιήσουμε τα δεδομένα σας για να βελτιώσουμε την εμπειρία του OMaps. Οι αλλαγές θα ενεργοποιηθούν μετά την επανεκκίνηση της εφαρμογής.";
+"crash_reports_description" = "Μπορεί να χρησιμοποιήσουμε τα δεδομένα σας για να βελτιώσουμε την εμπειρία του OMaps. Οι αλλαγές θα ενεργοποιηθούν μετά την επανεκκίνηση της εφαρμογής.";
 
 "opt_out_pushwoosh" = "Pushwoosh";
 
@@ -2330,10 +2292,6 @@
 "terms_of_use" = "Όροι χρήσης";
 
 "backup_notification_failed" = "Η αποθήκευση των σελιδοδεικτών έχει διακοπεί. Συνδεθείτε για να το ξανανοίξετε.";
-
-"banner_megafon_banner_message" = "Πείτε αντίο στη διεθνή περιπλάνηση!";
-
-"banner_megafon_banner_button" = "Αντίο!";
 
 "button_layer_traffic" = "Κίνηση";
 
@@ -2598,7 +2556,7 @@
 
 "notification_leave_review_content" = "Βοηθήστε ταξιδιώτες αφήνοντας μια κριτική!";
 
-"share_bookmarks_email_body_link" = "Γεια!\n\nΕδώ είναι ο σύνδεσμος που μπορείς να κατεβάσεις τους σελιδοδείκτες σου: %s. Ανοίξτε τη λίστα μέσω OMaps και απολαύστε το ταξίδι σας!\n\nΚατεβάστε την εφαρμογή: http://omaps.app/get?kmz";
+"share_bookmarks_email_body_link" = "Γεια!\n\nΕδώ είναι ο σύνδεσμος που μπορείς να κατεβάσεις τους σελιδοδείκτες σου: %s. Ανοίξτε τη λίστα μέσω OMaps και απολαύστε το ταξίδι σας!\n\nΚατεβάστε την εφαρμογή: https://omaps.app/get?kmz";
 
 "warning_speedcams_title" = "Ο πλοηγός θα σας ειδοποιεί για κάμερες όταν υπερβαίνετε το όριο ταχύτητας των %d km/h";
 

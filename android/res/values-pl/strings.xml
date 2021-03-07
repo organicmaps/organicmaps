@@ -269,8 +269,6 @@
 	<string name="more_info">Pokaż więcej informacji</string>
 	<!-- Text for message when used successfully copied something -->
 	<string name="copied_to_clipboard">Skopiowano do schowka: %1$s</string>
-	<!-- Setting label for statistics turn on/off -->
-	<string name="allow_statistics">Przesyłanie statystyk</string>
 	<!-- place preview title -->
 	<string name="info">Informacje</string>
 	<!-- Used for bookmark editing -->
@@ -958,8 +956,6 @@
 	<string name="about_description">OMaps to niezbędna aplikacja do podróży działająca w trybie offline. OMaps opiera się o dane OpenStreetMap oraz umożliwia ich edycję.</string>
 	<!-- Text in menu -->
 	<string name="blog">Blog</string>
-	<!-- Hint near allow statictics checkbox -->
-	<string name="allow_statistics_hint">Zbieranie zanonimizowanych statystyk użytkowania pomaga nam poprawiać aplikację.</string>
 	<string name="general_settings">Ustawienia ogólne</string>
 	<string name="date">Data %d</string>
 	<!-- "Report a bug" -> "Generaal Feedback" -> "Something is not working" -->

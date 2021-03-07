@@ -46,9 +46,6 @@
 
 "get_it_now" = "Instale agora";
 
-/* Text to show occasionaly with a proposal to Like our program on Facebook */
-"share_on_facebook_text" = "Obrigado por usar OMaps! Gosta do aplicativo? Conte para seus amigos! Será a melhor forma de nos agradecer.";
-
 /* Settings/Downloader - size string, only strings different from English should be translated */
 "kb" = "kB";
 
@@ -356,7 +353,7 @@
 /* Email Subject when sharing bookmarks category */
 "share_bookmarks_email_subject" = "Os favoritos do OMaps foram partilhados consigo";
 
-"share_bookmarks_email_body" = "Hello!\n\nAttached are my bookmarks from OMaps offline maps. Please open them if you have OMaps installed. Or, if you don't, download the app for your iOS or Android device by following this link: http://omaps.app/get?kmz\n\nEnjoy traveling with OMaps!";
+"share_bookmarks_email_body" = "Hello!\n\nAttached are my bookmarks from OMaps offline maps. Please open them if you have OMaps installed. Or, if you don't, download the app for your iOS or Android device by following this link: https://omaps.app/get?kmz\n\nEnjoy traveling with OMaps!";
 
 /* message title of loading file */
 "load_kmz_title" = "A carregar favoritos";
@@ -426,9 +423,6 @@
 
 /* Text for message when used successfully copied something */
 "copied_to_clipboard" = "Copiado para a Área de Transferência: %1$@";
-
-/* Setting label for statistics turn on/off */
-"allow_statistics" = "Enviar Estatísticas";
 
 /* place preview title */
 "info" = "Info";
@@ -601,9 +595,6 @@
 
 /* Text in menu */
 "maps_me_community" = "Comunidade OMaps";
-
-/* Text in menu */
-"like_on_facebook" = "Gostar no Facebook";
 
 /* Text in menu */
 "follow_on_twitter" = "Seguir no Twitter";
@@ -1200,8 +1191,6 @@
 
 "login_with_google" = "Entrar com Google";
 
-"login_with_facebook" = "Entrar com Facebook";
-
 "login_with_openstreetmap" = "Entrar com www.openstreetmap.org";
 
 "edit_place" = "Editar o local";
@@ -1631,9 +1620,6 @@
 /* Text in menu */
 "blog" = "Blogue";
 
-/* Hint near allow statictics checkbox */
-"allow_statistics_hint" = "A recolha de estatísticas de utilização anónimas ajuda-nos a melhorar a app.";
-
 "general_settings" = "Configurações gerais";
 
 "date" = "Data %d";
@@ -1761,26 +1747,6 @@
 
 /* "traffic" as in "road congestion" */
 "traffic_data_unavailable" = "Não existem dados de tráfego";
-
-"banner_deliveryclub_title" = "Entrega de alimentos";
-
-"banner_deliveryclub_message" = "Entrega rápida de 4.000 restaurantes. Encomente ao Delivery Club.";
-
-"banner_lamoda_title" = "Loja online de vestuário e calçado";
-
-"banner_lamoda_message" = "Mais de 1.000 marcas. Até 70% de desconto. Entrega gratuita em todo o país.";
-
-"banner_tutu_title" = "Bilhetes de comboio online";
-
-"banner_tutu_message" = "Bilhetes de comboio online para qualquer cidade - preços, pesquisa e reserva.";
-
-"banner_geerbest_title" = "Loja de eletrônica online";
-
-"banner_geerbest_message" = "Pesquisa instantânea em mais de 50.000 itens a preços baixos.";
-
-"banner_rentalcars_title" = "Aluguer de carros online";
-
-"banner_rentalcars_message" = "800 empresas de aluguer de automóveis em mais de 49.000 locais de aluguer de automóveis.";
 
 /* december */
 "whatsnew_traffic" = "Dados de tráfego em 36 países";
@@ -2305,13 +2271,9 @@
 
 "subtittle_opt_out" = "Configurações de rastreamento";
 
-"opt_out_flurry" = "Estatísticas";
+"crash_reports" = "Relatório de erros";
 
-"opt_out_mopub" = "Propaganda personalizada";
-
-"opt_out_fabric" = "Relatório de erros";
-
-"opt_out_fabric_description" = "Podemos utilizar seus dados para melhorar a experiência no OMaps. As mudanças entrarão em vigor após você reiniciar o aplicativo.";
+"crash_reports_description" = "Podemos utilizar seus dados para melhorar a experiência no OMaps. As mudanças entrarão em vigor após você reiniciar o aplicativo.";
 
 "opt_out_pushwoosh" = "Pushwoosh";
 
@@ -2330,10 +2292,6 @@
 "terms_of_use" = "Termos de uso";
 
 "backup_notification_failed" = "O back-up dos seus favoritos foi suspenso. É preciso logar para ligá-lo de volta.";
-
-"banner_megafon_banner_message" = "Diga adeus ao roaming internacional!";
-
-"banner_megafon_banner_button" = "Adeus!";
 
 "button_layer_traffic" = "Tráfego";
 
@@ -2598,7 +2556,7 @@
 
 "notification_leave_review_content" = "Deixe um comentário e ajude os viajantes!";
 
-"share_bookmarks_email_body_link" = "Olá!\n\nSeus rótulos podem ser baixado aqui: %s. Abra a lista usando OMaps e desfrute do passeio!\n\nBaixar aplicação: http://omaps.app/get?kmz";
+"share_bookmarks_email_body_link" = "Olá!\n\nSeus rótulos podem ser baixado aqui: %s. Abra a lista usando OMaps e desfrute do passeio!\n\nBaixar aplicação: https://omaps.app/get?kmz";
 
 "warning_speedcams_title" = "O navegador irá notificá-lo sobre as câmeras quando o limite de velocidade for excedido em %d km/h";
 

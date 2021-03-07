@@ -265,8 +265,6 @@
 	<string name="more_info">Tampilkan Lebih Banyak Info</string>
 	<!-- Text for message when used successfully copied something -->
 	<string name="copied_to_clipboard">Telah Disalin ke Papan Klip: %1$s</string>
-	<!-- Setting label for statistics turn on/off -->
-	<string name="allow_statistics">Kirimkan Statistik</string>
 	<!-- place preview title -->
 	<string name="info">Info</string>
 	<!-- Used for bookmark editing -->
@@ -941,8 +939,6 @@
 	<string name="about_description">OMaps adalah aplikasi offline yang sangat berguna untuk bepergian. OMaps didasarkan pada data OpenStreetMap dan memungkinkan kita untuk mengeditnya.</string>
 	<!-- Text in menu -->
 	<string name="blog">Blog</string>
-	<!-- Hint near allow statictics checkbox -->
-	<string name="allow_statistics_hint">Mengumpulkan statistik penggunaan anonim membantu kami meningkatkan aplikasi ini.</string>
 	<string name="general_settings">Setelan umum</string>
 	<string name="date">Tanggal %d</string>
 	<!-- "Report a bug" -> "Generaal Feedback" -> "Something is not working" -->

@@ -46,9 +46,6 @@
 
 "get_it_now" = "Встановити";
 
-/* Text to show occasionaly with a proposal to Like our program on Facebook */
-"share_on_facebook_text" = "Дякуємо за використання OMaps! Чи подобається вам ця програма? Розкажіть своїм друзям про неї! Це буде найкраща подяка для нас.";
-
 /* Settings/Downloader - size string, only strings different from English should be translated */
 "kb" = "кБ";
 
@@ -356,7 +353,7 @@
 /* Email Subject when sharing bookmarks category */
 "share_bookmarks_email_subject" = "З вами поділилися мiтками OMaps";
 
-"share_bookmarks_email_body" = "Hello!\n\nAttached are my bookmarks from OMaps offline maps. Please open them if you have OMaps installed. Or, if you don't, download the app for your iOS or Android device by following this link: http://omaps.app/get?kmz\n\nEnjoy traveling with OMaps!";
+"share_bookmarks_email_body" = "Hello!\n\nAttached are my bookmarks from OMaps offline maps. Please open them if you have OMaps installed. Or, if you don't, download the app for your iOS or Android device by following this link: https://omaps.app/get?kmz\n\nEnjoy traveling with OMaps!";
 
 /* message title of loading file */
 "load_kmz_title" = "Завантаження мiток";
@@ -426,9 +423,6 @@
 
 /* Text for message when used successfully copied something */
 "copied_to_clipboard" = "Скопіювати в буфер обміну: %1$@";
-
-/* Setting label for statistics turn on/off */
-"allow_statistics" = "Надіслати статистику";
 
 /* place preview title */
 "info" = "Досьє";
@@ -601,9 +595,6 @@
 
 /* Text in menu */
 "maps_me_community" = "Спільнота OMaps";
-
-/* Text in menu */
-"like_on_facebook" = "OMaps у Facebook";
 
 /* Text in menu */
 "follow_on_twitter" = "OMaps у Twitter";
@@ -1200,8 +1191,6 @@
 
 "login_with_google" = "Увійти за допомогою Google";
 
-"login_with_facebook" = "Увійти за допомогою Facebook";
-
 "login_with_openstreetmap" = "Увійти за допомогою www.openstreetmap.org";
 
 "edit_place" = "Редагувати місце";
@@ -1631,9 +1620,6 @@
 /* Text in menu */
 "blog" = "Блог";
 
-/* Hint near allow statictics checkbox */
-"allow_statistics_hint" = "Збір анонімної статистики про використання додатку допомагає нам вдосконалити додаток.";
-
 "general_settings" = "Загальні налаштування";
 
 "date" = "Дата %d";
@@ -1761,26 +1747,6 @@
 
 /* "traffic" as in "road congestion" */
 "traffic_data_unavailable" = "Дані про трафік недоступні";
-
-"banner_deliveryclub_title" = "Доставка їжі";
-
-"banner_deliveryclub_message" = "Швидка доставка з 4000 ресторанів. Замовляйте з Delivery Club.";
-
-"banner_lamoda_title" = "Онлайн-магазини одягу та взуття";
-
-"banner_lamoda_message" = "Понад 1000 брендів. Знижки до 70%. Безкоштовна доставка по всій країні.";
-
-"banner_tutu_title" = "Онлайн-замовлення залізничних квитків";
-
-"banner_tutu_message" = "Онлайн-пошук і замовлення квитків на поїзд до будь-якого міста.";
-
-"banner_geerbest_title" = "Онлайн-магазин електроніки";
-
-"banner_geerbest_message" = "Миттєвий пошук по більш ніж 50 000 виробів за зниженими цінами.";
-
-"banner_rentalcars_title" = "Онлайн-оренда автомобілів";
-
-"banner_rentalcars_message" = "800 компаній з прокату автомобілів та понад 49 000 агентів.";
 
 /* december */
 "whatsnew_traffic" = "Дані про трафік у 36 країнах";
@@ -2305,13 +2271,9 @@
 
 "subtittle_opt_out" = "Налаштування супроводу";
 
-"opt_out_flurry" = "Статистика";
+"crash_reports" = "Звіти про помилки";
 
-"opt_out_mopub" = "Персоналізована реклама";
-
-"opt_out_fabric" = "Звіти про помилки";
-
-"opt_out_fabric_description" = "Ми можемо використовувати ваші дані, щоб розвивати та покращувати OMaps. Зміни вступлять у силу після перезапуску програми";
+"crash_reports_description" = "Ми можемо використовувати ваші дані, щоб розвивати та покращувати OMaps. Зміни вступлять у силу після перезапуску програми";
 
 "opt_out_pushwoosh" = "Pushwoosh";
 
@@ -2330,10 +2292,6 @@
 "terms_of_use" = "Умови використання";
 
 "backup_notification_failed" = "Резервне копіювання позначок було призупинено. Увійдіть, щоб увімкнути резервне копіювання.";
-
-"banner_megafon_banner_message" = "Скажи міжнародному роумінгу гудбай!";
-
-"banner_megafon_banner_button" = "Гудбай!";
 
 "button_layer_traffic" = "Затор";
 
@@ -2598,7 +2556,7 @@
 
 "notification_leave_review_content" = "Залиште відгук та допоможіть мандрівникам!";
 
-"share_bookmarks_email_body_link" = "Вітаємо!\n\nВаші мітки можна завантажити за посиланням: %s. Відкривайте список за допомогою OMaps та насолоджуйтесь подорожжю!\n\nЗавантажити додаток: http://omaps.app/get?kmz";
+"share_bookmarks_email_body_link" = "Вітаємо!\n\nВаші мітки можна завантажити за посиланням: %s. Відкривайте список за допомогою OMaps та насолоджуйтесь подорожжю!\n\nЗавантажити додаток: https://omaps.app/get?kmz";
 
 "warning_speedcams_title" = "Навігатор вас попередить про камери при перевищенні швидкісного режиму на %d км/г";
 
