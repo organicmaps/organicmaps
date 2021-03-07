@@ -306,6 +306,13 @@ android {
       //android.sourceSets.web.assets.srcDirs = ['flavors/mwm-ttf-assets']
     }
 
+    fdroid {
+      dimension "default"
+      versionName = android.defaultConfig.versionName + '-FDroid'
+      buildConfigField 'String', 'SUPPORT_MAIL', '"fdroid@omaps.app"'
+      //android.sourceSets.web.assets.srcDirs = ['flavors/mwm-ttf-assets']
+    }
+
     nineApp {
       dimension "default"
       versionName = android.defaultConfig.versionName + '-9app'
@@ -370,6 +377,7 @@ android {
   variantFilter { variant ->
     if (!variant.getFlavors().get(0).name.equals("web")
             && !variant.getFlavors().get(0).name.equals("google")
+            && !variant.getFlavors().get(0).name.equals("fdroid")
             && !project.hasProperty("anyVariant")) {
       variant.setIgnore(true)
     }
