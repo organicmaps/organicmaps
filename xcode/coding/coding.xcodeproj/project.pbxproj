@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 46;
+	objectVersion = 54;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -696,7 +696,7 @@
 				};
 			};
 			buildConfigurationList = 675342161A3F586300A0A8C3 /* Build configuration list for PBXProject "coding" */;
-			compatibilityVersion = "Xcode 3.2";
+			compatibilityVersion = "Xcode 12.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -808,7 +808,10 @@
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "-";
 				INFOPLIST_FILE = "$(OMIM_ROOT)/iphone/Maps/OMaps.plist";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = maps.me.coding_tests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -819,7 +822,10 @@
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "-";
 				INFOPLIST_FILE = "$(OMIM_ROOT)/iphone/Maps/OMaps.plist";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = maps.me.coding_tests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -914,7 +920,10 @@
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "-";
 				INFOPLIST_FILE = "$(OMIM_ROOT)/iphone/Maps/OMaps.plist";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = maps.me.coding_tests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
