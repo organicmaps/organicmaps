@@ -1,23 +1,26 @@
 package com.mapswithme.maps.location;
 
-import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+
+import com.mapswithme.maps.MwmBroadcastReceiver;
 import com.mapswithme.util.CrashlyticsUtils;
 import com.mapswithme.util.log.Logger;
 import com.mapswithme.util.log.LoggerFactory;
 
 import static com.mapswithme.maps.MwmApplication.backgroundTracker;
 
-public class TrackRecorderWakeReceiver extends BroadcastReceiver
+public class TrackRecorderWakeReceiver extends MwmBroadcastReceiver
 {
   private static final Logger LOGGER = LoggerFactory.INSTANCE.getLogger(LoggerFactory.Type.MISC);
   private static final String TAG = TrackRecorderWakeReceiver.class.getSimpleName();
 
   @Override
-  public void onReceive(Context context, Intent intent)
+  public void onReceiveInitialized(@NonNull Context context, @Nullable Intent intent)
   {
     String msg = "onReceive: " + intent + " app in background = "
                  + !backgroundTracker(context).isForeground();
