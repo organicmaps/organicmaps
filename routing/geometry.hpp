@@ -55,6 +55,9 @@ public:
     return m_junctions[junctionId];
   }
 
+  double GetDistance(uint32_t segmendIdx) const;
+  double GetRoadLengthM() const;
+
   ms::LatLon const & GetPoint(uint32_t pointId) const { return GetJunction(pointId).GetLatLon(); }
 
   uint32_t GetPointsCount() const { return static_cast<uint32_t>(m_junctions.size()); }
@@ -83,10 +86,9 @@ public:
 
   RoutingOptions GetRoutingOptions() const { return m_routingOptions; }
 
-  double GetRoadLengthM() const;
-
 private:
   std::vector<LatLonWithAltitude> m_junctions;
+  mutable std::vector<double> m_distances;    ///< as cache, @see GetDistance()
 
   SpeedKMpH m_forwardSpeed;
   SpeedKMpH m_backwardSpeed;

@@ -56,7 +56,7 @@ double CalcClimbSegment(EdgeEstimator::Purpose purpose, Segment const & segment,
   LatLonWithAltitude const & to = road.GetJunction(segment.GetPointId(true /* front */));
   SpeedKMpH const & speed = road.GetSpeed(segment.IsForward());
 
-  double const distance = ms::DistanceOnEarth(from.GetLatLon(), to.GetLatLon());
+  double const distance = road.GetDistance(segment.GetSegmentIdx());
   double const speedMpS =
       KmphToMps(purpose == EdgeEstimator::Purpose::Weight ? speed.m_weight : speed.m_eta);
   CHECK_GREATER(speedMpS, 0.0, ("from:", from.GetLatLon(), "to:", to.GetLatLon(), "speed:", speed));
