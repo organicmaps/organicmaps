@@ -25,6 +25,10 @@ int RouteWeight::s_AccessPenaltyS = 2*60*60;      // 2 hours
 
 double RouteWeight::ToCrossMwmWeight() const
 {
+  // Do not accumulate pass-through or access-change edges into cross-mwm graph.
+  /// @todo This is not very honest, but we have thousands of enter-exit edges
+  /// in cross-mwm graph now and should filter them somehow.
+
   if (m_numPassThroughChanges > 0 || m_numAccessChanges > 0)
     return connector::kNoRoute;
   return GetWeight();

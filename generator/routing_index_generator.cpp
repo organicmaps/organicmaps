@@ -522,8 +522,6 @@ void FillWeights(string const & path, string const & mwmFile, string const & cou
   DeserializeIndexGraph(mwmValue, vhType, graph);
 
   std::map<Segment, std::map<Segment, RouteWeight>> weights;
-  size_t foundCount = 0;
-  size_t notFoundCount = 0;
 
   auto const & connector = builder.PrepareConnector(vhType);
   uint32_t const numEnters = connector.GetNumEnters();
@@ -532,10 +530,9 @@ void FillWeights(string const & path, string const & mwmFile, string const & cou
   {
     if (i % 10 == 0)
       LOG(LINFO, ("Building leaps:", i, "/", numEnters, "waves passed"));
+    ++i;
 
-    i++;
-    using Algorithm =
-        AStarAlgorithm<JointSegment, JointEdge, RouteWeight>;
+    using Algorithm = AStarAlgorithm<JointSegment, JointEdge, RouteWeight>;
 
     Algorithm astar;
     IndexGraphWrapper indexGraphWrapper(graph, enter);
@@ -543,36 +540,30 @@ void FillWeights(string const & path, string const & mwmFile, string const & cou
     Algorithm::Context context(wrapper);
 
     std::unordered_map<uint32_t, vector<JointSegment>> visitedVertexes;
-    astar.PropagateWave(
-        wrapper, wrapper.GetStartJoint(),
-        [&](JointSegment const & vertex)
-        {
-          if (vertex.IsFake())
-          {
-            auto const & start = wrapper.GetSegmentOfFakeJoint(vertex, true /* start */);
-            auto const & end = wrapper.GetSegmentOfFakeJoint(vertex, false /* start */);
-            if (start.IsForward() != end.IsForward())
-              return true;
-
-            visitedVertexes[end.GetFeatureId()].emplace_back(start, end);
-          }
-          else
-          {
-            visitedVertexes[vertex.GetFeatureId()].emplace_back(vertex);
-          }
-
+    astar.PropagateWave(wrapper, wrapper.GetStartJoint(), [&](JointSegment const & vertex)
+    {
+      if (vertex.IsFake())
+      {
+        auto const & start = wrapper.GetSegmentOfFakeJoint(vertex, true /* start */);
+        auto const & end = wrapper.GetSegmentOfFakeJoint(vertex, false /* start */);
+        if (start.IsForward() != end.IsForward())
           return true;
-        } /* visitVertex */,
-        context);
+
+        visitedVertexes[end.GetFeatureId()].emplace_back(start, end);
+      }
+      else
+      {
+        visitedVertexes[vertex.GetFeatureId()].emplace_back(vertex);
+      }
+
+      return true;
+    }, context);
 
     connector.ForEachExit([&](uint32_t, Segment const & exit)
     {
       auto const it = visitedVertexes.find(exit.GetFeatureId());
       if (it == visitedVertexes.cend())
-      {
-        ++notFoundCount;
         return;
-      }
 
       uint32_t const id = exit.GetSegmentIdx();
       bool const forward = exit.IsForward();
@@ -600,23 +591,22 @@ void FillWeights(string const & path, string const & mwmFile, string const & cou
           Segment const & firstChild = jointSegment.GetSegment(true /* start */);
           uint32_t const lastPoint = exit.GetPointId(true /* front */);
 
-          auto optionalEdge =  graph.GetJointEdgeByLastPoint(parentSegment, firstChild,
-                                                             true /* isOutgoing */, lastPoint);
-
-          if (!optionalEdge)
+          auto const edge = graph.GetJointEdgeByLastPoint(parentSegment, firstChild, true /* isOutgoing */, lastPoint);
+          if (!edge)
             continue;
 
-          weight += (*optionalEdge).GetWeight();
+          weight += (*edge).GetWeight();
           weights[enter][exit] = weight;
-
-          ++foundCount;
           break;
         }
       }
     });
   });
 
-  builder.FillWeights([&](Segment const & enter, Segment const & exit) {
+  uint32_t edgesCount = 0;
+  uint32_t badWeightsCount = 0;
+  builder.FillWeights([&weights, &edgesCount, &badWeightsCount](Segment const & enter, Segment const & exit)
+  {
     auto it0 = weights.find(enter);
     if (it0 == weights.end())
       return connector::kNoRoute;
@@ -625,11 +615,31 @@ void FillWeights(string const & path, string const & mwmFile, string const & cou
     if (it1 == it0->second.end())
       return connector::kNoRoute;
 
-    return it1->second.ToCrossMwmWeight();
+    double const weight = it1->second.ToCrossMwmWeight();
+    if (weight != connector::kNoRoute)
+      ++edgesCount;
+    else
+      ++badWeightsCount;
+    return weight;
   });
 
-  LOG(LINFO, ("Leaps finished, elapsed:", timer.ElapsedSeconds(), "seconds, routes found:",
-              foundCount, ", not found:", notFoundCount));
+  LOG(LINFO, ("Leaps finished, elapsed =", timer.ElapsedSeconds(), "seconds.",
+              "Entries count =", connector.GetNumEnters(),
+              "Exits count =", connector.GetNumExits(),
+              "Edges count =", edgesCount,
+              "Bad weights count =", badWeightsCount));
+
+  size_t pointsCount = 0;
+  size_t roadsCount = 0;
+  graph.ForEachRoad([&](uint32_t featureID, RoadJointIds const &)
+  {
+    ++roadsCount;
+    pointsCount += graph.GetRoadGeometry(featureID).GetPointsCount();
+  });
+
+  LOG(LINFO, ("Points count = ", pointsCount,
+              "Roads count = ", roadsCount,
+              "Avg points = ", pointsCount / double(roadsCount)));
 }
 
 bool BuildRoutingIndex(string const & filename, string const & country,
