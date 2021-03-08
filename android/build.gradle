@@ -158,6 +158,8 @@ android {
   // All properties are read from gradle.properties file
   compileSdkVersion propCompileSdkVersion.toInteger()
 
+  ndkVersion '21.4.7075529'
+
   defaultConfig {
     vectorDrawables.useSupportLibrary = true
     // Default package name is taken from the manifest and should be app.omaps
