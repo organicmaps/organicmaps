@@ -256,7 +256,7 @@ FileReader FilesMappingContainer::GetReader(Tag const & tag) const
 // FilesMappingContainer::Handle
 /////////////////////////////////////////////////////////////////////////////
 
-FilesMappingContainer::Handle::~Handle()
+detail::MappedFile::Handle::~Handle()
 {
   Unmap();
 }
