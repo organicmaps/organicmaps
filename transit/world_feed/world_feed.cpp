@@ -1041,10 +1041,11 @@ std::unordered_map<TransitId, std::vector<StopsOnLines>> WorldFeed::GetStopsForS
   return stopsOnShapes;
 }
 
-size_t WorldFeed::ModifyShapes()
+std::pair<size_t, size_t> WorldFeed::ModifyShapes()
 {
   auto stopsOnShapes = GetStopsForShapeMatching();
   size_t invalidStopSequences = 0;
+  size_t validStopSequences = 0;
 
   for (auto & [shapeId, stopsLists] : stopsOnShapes)
   {
@@ -1070,9 +1071,13 @@ size_t WorldFeed::ModifyShapes()
         stopsOnLines.m_isValid = false;
         ++invalidStopSequences;
       }
+      else
+      {
+        ++validStopSequences;
+      }
 
       if (invalidStopSequences > kMaxInvalidShapesCount)
-        return invalidStopSequences;
+        return {invalidStopSequences, validStopSequences};
     }
 
     for (auto & stopsOnLines : stopsLists)
@@ -1087,13 +1092,14 @@ size_t WorldFeed::ModifyShapes()
       for (size_t i = 0; i < stopIds.size() - 1; ++i)
       {
         auto const stops = GetStopPairOnShape(indexes, stopsOnLines, i, lastIndex, direction);
-        if (!stops)
+        if (!stops && stopsOnLines.m_isValid)
         {
           stopsOnLines.m_isValid = false;
           ++invalidStopSequences;
+          --validStopSequences;
 
           if (invalidStopSequences > kMaxInvalidShapesCount)
-            return invalidStopSequences;
+            return {invalidStopSequences, validStopSequences};
         }
         auto const [stop1, stop2] = *stops;
         lastIndex = stop2.m_index;
@@ -1125,7 +1131,7 @@ size_t WorldFeed::ModifyShapes()
     }
   }
 
-  return invalidStopSequences;
+  return {invalidStopSequences, validStopSequences};
 }
 
 void WorldFeed::FillTransfers()
@@ -1467,10 +1473,10 @@ bool WorldFeed::SetFeed(gtfs::Feed && feed)
   }
   LOG(LINFO, ("Filled stop timetables and road graph edges."));
 
-  size_t const badShapesCount = ModifyShapes();
+  auto const [badShapesCount, goodShapesCount] = ModifyShapes();
   LOG(LINFO, ("Modified shapes."));
 
-  if (badShapesCount > kMaxInvalidShapesCount)
+  if (badShapesCount > kMaxInvalidShapesCount || (goodShapesCount == 0 && badShapesCount > 0))
   {
     LOG(LINFO, ("Corrupted shapes count exceeds allowable limit."));
     return false;

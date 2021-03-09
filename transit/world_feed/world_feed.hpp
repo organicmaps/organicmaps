@@ -328,8 +328,9 @@ private:
 
   std::unordered_map<TransitId, std::vector<StopsOnLines>> GetStopsForShapeMatching();
 
-  // Adds stops projections to shapes. Updates corresponding links to shapes.
-  size_t ModifyShapes();
+  // Adds stops projections to shapes. Updates corresponding links to shapes. Returns number of
+  // invalid and valid shapes.
+  std::pair<size_t, size_t> ModifyShapes();
   // Fills transfers based on GTFS transfers.
   void FillTransfers();
   // Fills gates based on GTFS stops.
