@@ -32,3 +32,6 @@
   path = 3party/expat
   url = git://github.com/libexpat/libexpat.git
   branch = R_2_2_9
+[submodule "3party/glm"]
+	path = 3party/glm
+	url = git@github.com:g-truc/glm.git
