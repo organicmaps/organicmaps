@@ -170,39 +170,17 @@ void CameraProcessor::Save(std::string const & filename)
 
 void CameraProcessor::OrderCollectedData(std::string const & filename)
 {
+  std::vector<CameraProcessor::CameraInfo> collectedData;
   {
-    std::vector<CameraProcessor::CameraInfo> collectedData;
-    {
-      FileReader reader(filename);
-      ReaderSource src(reader);
-      while (src.Size() > 0)
-        collectedData.emplace_back(CameraInfo::Read(src));
-    }
-    std::sort(std::begin(collectedData), std::end(collectedData));
-    FileWriter writer(filename);
-    for (auto const & camera : collectedData)
-      CameraInfo::Write(writer, camera);
+    FileReader reader(filename);
+    ReaderSource src(reader);
+    while (src.Size() > 0)
+      collectedData.emplace_back(CameraInfo::Read(src));
   }
-  {
-    std::vector<std::pair<uint64_t, std::vector<uint64_t>>> collectedData;
-    {
-      FileReader reader(m_waysFilename);
-      ReaderSource src(reader);
-      while (src.Size() > 0)
-      {
-        collectedData.push_back({});
-        src.Read(&collectedData.back().first, sizeof(collectedData.back().first));
-        rw::ReadVectorOfPOD(src, collectedData.back().second);
-      }
-    }
-    std::sort(std::begin(collectedData), std::end(collectedData));
-    FileWriter writer(m_waysFilename);
-    for (auto const & p : collectedData)
-    {
-      WriteToSink(writer, p.first);
-      rw::WriteVectorOfPOD(writer, p.second);
-    }
-  }
+  std::sort(std::begin(collectedData), std::end(collectedData));
+  FileWriter writer(filename);
+  for (auto const & camera : collectedData)
+    CameraInfo::Write(writer, camera);
 }
 
 CameraCollector::CameraCollector(std::string const & filename) :
