@@ -2,6 +2,7 @@
 #include "opening_hours_parsers.hpp"
 
 #include <boost/spirit/include/phoenix_bind.hpp>
+#include <boost/spirit/include/phoenix_operator.hpp>  // operator,
 
 namespace osmoh
 {
