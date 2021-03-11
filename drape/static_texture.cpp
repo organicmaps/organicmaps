@@ -9,10 +9,13 @@
 
 #include "base/string_utils.hpp"
 
-#ifdef DEBUG
-#include "3party/glm/glm/gtx/bit.hpp"
-#endif
 #include "3party/stb_image/stb_image.h"
+
+#include "drape/glm_config.hpp"  // Required for <glm> includes below.
+#include <glm/ext/scalar_integer.hpp>  // glm::isPowerOfTwo
+#ifdef DEBUG
+#include <glm/gtx/bit.hpp>
+#endif
 
 #include <functional>
 #include <limits>
