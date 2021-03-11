@@ -1,5 +1,4 @@
 #include "drape/symbols_texture.hpp"
-#include "3party/stb_image/stb_image.h"
 
 #include "indexer/map_style_reader.hpp"
 
@@ -10,8 +9,12 @@
 
 #include "base/string_utils.hpp"
 
+#include "3party/stb_image/stb_image.h"
+
+#include "drape/glm_config.hpp"  // Required for <glm> includes below.
+#include <glm/ext/scalar_integer.hpp>  // glm::isPowerOfTwo
 #ifdef DEBUG
-#include "3party/glm/glm/gtx/bit.hpp"
+#include <glm/gtx/bit.hpp>
 #endif
 
 #include <functional>

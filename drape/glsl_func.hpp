@@ -1,9 +1,8 @@
 #pragma once
 
-#include <glm_config.hpp>
+#include "drape/glm_config.hpp"  // Required for <glm> includes below.
 #include <glm/geometric.hpp>
 #include <glm/gtc/matrix_transform.hpp>
-
 #include <glm/gtx/rotate_vector.hpp>
 
 namespace glsl

@@ -54,6 +54,7 @@ set(
   ${DRAPE_ROOT}/gl_extensions_list.hpp
   ${DRAPE_ROOT}/gl_functions.hpp
   ${DRAPE_ROOT}/gl_includes.hpp
+  ${DRAPE_ROOT}/glm_config.hpp
   ${DRAPE_ROOT}/glsl_func.hpp
   ${DRAPE_ROOT}/glsl_types.hpp
   ${DRAPE_ROOT}/glyph_generator.cpp
