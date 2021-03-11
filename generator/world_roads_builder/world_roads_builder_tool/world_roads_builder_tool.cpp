@@ -47,6 +47,7 @@ int main(int argc, char ** argv)
   feature::CountriesFilesAffiliation mwmMatcher(GetPlatform().ResourcesDir(),
                                                 false /* haveBordersForWholeWorld */);
 
+  // These types are used in maps_generator (maps_generator/genrator/steps.py in filter_roads function).
   std::vector<std::string> const highwayTypes{"motorway", "trunk", "primary", "secondary",
                                               "tertiary"};
 
