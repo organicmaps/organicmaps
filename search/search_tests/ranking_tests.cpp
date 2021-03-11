@@ -86,6 +86,7 @@ UNIT_TEST(PreferCountry)
   cafe.m_tokenRanges[Model::TYPE_SUBPOI] = TokenRange(0, 1);
   cafe.m_exactCountryOrCapital = false;
   cafe.m_type = Model::TYPE_SUBPOI;
+  cafe.m_resultType = ResultType::Eat;
 
   auto country = info;
   country.m_distanceToPivot = 1e6;
