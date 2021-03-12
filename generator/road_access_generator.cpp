@@ -285,30 +285,30 @@ void ParseRoadAccessConditional(
   VehicleType vehicleType = VehicleType::Count;
   while (getline(stream, line))
   {
-    using It = strings::SimpleTokenizer;
+    using It = strings::SimpleTokenizerWithEmptyTokens;
     It strIt(line, strings::SimpleDelimiter('\t'));
-    CHECK(strIt, ());
+    CHECK(strIt, (line));
     buffer = *strIt;
     strings::Trim(buffer);
     FromString(buffer, vehicleType);
-    CHECK_NOT_EQUAL(vehicleType, VehicleType::Count, (buffer));
+    CHECK_NOT_EQUAL(vehicleType, VehicleType::Count, (line, buffer));
 
     auto const moveIterAndCheck = [&]() {
       ++strIt;
-      CHECK(strIt, ());
+      CHECK(strIt, (line));
       return *strIt;
     };
 
     uint64_t osmId = 0;
     buffer = moveIterAndCheck();
     strings::Trim(buffer);
-    CHECK(strings::to_uint64(buffer, osmId), (buffer));
+    CHECK(strings::to_uint64(buffer, osmId), (line, buffer));
 
     size_t accessNumber = 0;
     buffer = moveIterAndCheck();
     strings::Trim(buffer);
-    CHECK(strings::to_size_t(buffer, accessNumber), (buffer));
-    CHECK_NOT_EQUAL(accessNumber, 0, ());
+    CHECK(strings::to_size_t(buffer, accessNumber), (line, buffer));
+    CHECK_NOT_EQUAL(accessNumber, 0, (line));
     RoadAccess::Conditional conditional;
     for (size_t i = 0; i < accessNumber; ++i)
     {
@@ -316,7 +316,7 @@ void ParseRoadAccessConditional(
       strings::Trim(buffer);
       RoadAccess::Type roadAccessType = RoadAccess::Type::Count;
       FromString(buffer, roadAccessType);
-      CHECK_NOT_EQUAL(roadAccessType, RoadAccess::Type::Count, ());
+      CHECK_NOT_EQUAL(roadAccessType, RoadAccess::Type::Count, (line));
 
       buffer = moveIterAndCheck();
       strings::Trim(buffer);
