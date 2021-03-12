@@ -189,7 +189,7 @@ void MetalinesBuilder::CollectFeature(FeatureBuilder const & feature, OsmElement
   if (name.empty() && params.ref.empty())
     return;
 
-  auto const key = std::hash<std::string>{}(name + '\0' + params.ref);
+  auto const key = static_cast<uint64_t>(std::hash<std::string>{}(name + '\0' + params.ref));
   WriteVarUint(*m_writer, key);
   LineString(element).Serialize(*m_writer);
 }
@@ -203,7 +203,7 @@ void MetalinesBuilder::Save()
   ReaderSource<FileReader> src(reader);
   while (src.Size() > 0)
   {
-    auto const key = ReadVarUint<size_t>(src);
+    auto const key = ReadVarUint<uint64_t>(src);
     keyToLineString.emplace(key, std::make_shared<LineString>(LineString::Deserialize(src)));
   }
 
