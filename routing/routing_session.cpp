@@ -64,12 +64,11 @@ RoutingSession::RoutingSession()
   m_speedCameraManager.SetRoute(m_route);
 }
 
-void RoutingSession::Init(RoutingStatisticsCallback const & routingStatisticsFn,
-                          PointCheckCallback const & pointCheckCallback)
+void RoutingSession::Init(PointCheckCallback const & pointCheckCallback)
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());
   CHECK(!m_router, ());
-  m_router = make_unique<AsyncRouter>(routingStatisticsFn, pointCheckCallback);
+  m_router = make_unique<AsyncRouter>(pointCheckCallback);
 }
 
 void RoutingSession::BuildRoute(Checkpoints const & checkpoints, GuidesTracks && guides,

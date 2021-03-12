@@ -19,7 +19,7 @@ public:
   void InitRoutingSession()
   {
     m_session = std::make_unique<routing::RoutingSession>();
-    m_session->Init(nullptr /* routingStatisticsFn */, nullptr /* pointCheckCallback */);
+    m_session->Init(nullptr /* pointCheckCallback */);
     m_session->SetRoutingSettings(routing::GetRoutingSettings(routing::VehicleType::Car));
     m_session->SetOnNewTurnCallback([this]() { ++m_onNewTurnCallbackCounter; });
   }

@@ -28,8 +28,7 @@ class AsyncRouter final
 {
 public:
   /// AsyncRouter is a wrapper class to run routing routines in the different thread
-  AsyncRouter(RoutingStatisticsCallback const & routingStatisticsCallback,
-              PointCheckCallback const & pointCheckCallback);
+  AsyncRouter(PointCheckCallback const & pointCheckCallback);
   ~AsyncRouter();
 
   /// Sets a synchronous router, current route calculation will be cancelled
@@ -126,7 +125,6 @@ private:
   std::shared_ptr<AbsentRegionsFinder> m_absentRegionsFinder;
   std::shared_ptr<IRouter> m_router;
 
-  RoutingStatisticsCallback const m_routingStatisticsCallback;
   PointCheckCallback const m_pointCheckCallback;
   uint64_t m_routeCounter = 0;
 };

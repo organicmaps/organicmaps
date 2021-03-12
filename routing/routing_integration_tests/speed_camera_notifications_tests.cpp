@@ -60,8 +60,7 @@ void InitRoutingSession(ms::LatLon const & from, ms::LatLon const & to, RoutingS
   RouterResultCode const result = routeResult.second;
   TEST_EQUAL(result, RouterResultCode::NoError, ());
 
-  routingSession.Init(nullptr /* RoutingStatisticsCallback */,
-                      nullptr /* PointCheckCallback */);
+  routingSession.Init(nullptr /* PointCheckCallback */);
   routingSession.SetRoutingSettings(routing::GetRoutingSettings(routing::VehicleType::Car));
   routingSession.AssignRouteForTesting(make_shared<Route>(route), result);
   routingSession.SetTurnNotificationsUnits(measurement_utils::Units::Metric);
