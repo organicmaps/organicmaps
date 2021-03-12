@@ -215,7 +215,7 @@ void WriteAssessmentFile(std::string const fileName, pugi::xml_document const & 
   char const xmlns[] = "xmlns";
 
   // Copy namespaces from <Dictionary> to <Segments>
-  for (auto const attr : dict.attributes())
+  for (auto const & attr : dict.attributes())
   {
     if (strncmp(xmlns, attr.name(), sizeof(xmlns) - 1) != 0)
       continue;
@@ -227,7 +227,7 @@ void WriteAssessmentFile(std::string const fileName, pugi::xml_document const & 
     segments.append_copy(attr);
   }
 
-  for (auto const p : paths)
+  for (auto const & p : paths)
   {
     auto segment = segments.append_child("Segment");
     {

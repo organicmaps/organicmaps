@@ -121,7 +121,7 @@ void WriteAsMappingForSpark(std::ostream & ost, std::vector<DecodedPath> const &
 void PathFromXML(pugi::xml_node const & node, DataSource const & dataSource, Path & p)
 {
   auto const edges = node.select_nodes("RoadEdge");
-  for (auto const xmlE : edges)
+  for (auto const & xmlE : edges)
   {
     auto e = xmlE.node();
 
