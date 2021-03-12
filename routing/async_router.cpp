@@ -15,58 +15,6 @@ using namespace std::placeholders;
 
 namespace routing
 {
-namespace
-{
-map<string, string> PrepareStatisticsData(string const & routerName,
-                                          m2::PointD const & startPoint, m2::PointD const & startDirection,
-                                          m2::PointD const & finalPoint)
-{
-  // Coordinates precision in 5 digits after comma corresponds to metres (0,00001degree ~ 1meter),
-  // therefore we round coordinates up to 5 digits after comma.
-  int constexpr precision = 5;
-
-  return {{"name", routerName},
-          {"startLon", strings::to_string_dac(mercator::XToLon(startPoint.x), precision)},
-          {"startLat", strings::to_string_dac(mercator::YToLat(startPoint.y), precision)},
-          {"startDirectionX", strings::to_string_dac(startDirection.x, precision)},
-          {"startDirectionY", strings::to_string_dac(startDirection.y, precision)},
-          {"finalLon", strings::to_string_dac(mercator::XToLon(finalPoint.x), precision)},
-          {"finalLat", strings::to_string_dac(mercator::YToLat(finalPoint.y), precision)}};
-}
-
-void SendStatistics(m2::PointD const & startPoint, m2::PointD const & startDirection,
-                    m2::PointD const & finalPoint, RouterResultCode resultCode, double routeLenM,
-                    double elapsedSec, RoutingStatisticsCallback const & routingStatisticsCallback,
-                    string const & routerName)
-{
-  if (nullptr == routingStatisticsCallback)
-    return;
-
-  map<string, string> statistics = PrepareStatisticsData(routerName, startPoint, startDirection, finalPoint);
-  statistics.emplace("result", DebugPrint(resultCode));
-  statistics.emplace("elapsed", strings::to_string(elapsedSec));
-
-  if (RouterResultCode::NoError == resultCode)
-    statistics.emplace("distance", strings::to_string(routeLenM));
-
-  routingStatisticsCallback(statistics);
-}
-
-void SendStatistics(m2::PointD const & startPoint, m2::PointD const & startDirection,
-                    m2::PointD const & finalPoint, string const & exceptionMessage,
-                    RoutingStatisticsCallback const & routingStatisticsCallback,
-                    string const & routerName)
-{
-  if (nullptr == routingStatisticsCallback)
-    return;
-
-  map<string, string> statistics = PrepareStatisticsData(routerName, startPoint, startDirection, finalPoint);
-  statistics.emplace("exception", exceptionMessage);
-
-  routingStatisticsCallback(statistics);
-}
-}  // namespace
-
 // ----------------------------------------------------------------------------------------------------------------------------
 
 AsyncRouter::RouterDelegateProxy::RouterDelegateProxy(ReadyCallbackOwnership const & onReady,
@@ -178,12 +126,10 @@ void AsyncRouter::RouterDelegateProxy::OnPointCheck(ms::LatLon const & pt)
 
 // -------------------------------------------------------------------------------------------------
 
-AsyncRouter::AsyncRouter(RoutingStatisticsCallback const & routingStatisticsCallback,
-                         PointCheckCallback const & pointCheckCallback)
+AsyncRouter::AsyncRouter(PointCheckCallback const & pointCheckCallback)
   : m_threadExit(false)
   , m_hasRequest(false)
   , m_clearState(false)
-  , m_routingStatisticsCallback(routingStatisticsCallback)
   , m_pointCheckCallback(pointCheckCallback)
 {
   m_thread = threads::SimpleThread(&AsyncRouter::ThreadFunc, this);
@@ -356,7 +302,6 @@ void AsyncRouter::CalculateRoute()
   shared_ptr<AbsentRegionsFinder> absentRegionsFinder;
   shared_ptr<IRouter> router;
   uint64_t routeId = 0;
-  RoutingStatisticsCallback routingStatisticsCallback;
   string routerName;
 
   {
@@ -378,7 +323,6 @@ void AsyncRouter::CalculateRoute()
     router = m_router;
     absentRegionsFinder = m_absentRegionsFinder;
     routeId = ++m_routeCounter;
-    routingStatisticsCallback = m_routingStatisticsCallback;
     routerName = router->GetName();
     router->SetGuides(move(m_guides));
     m_guides.clear();
@@ -410,26 +354,12 @@ void AsyncRouter::CalculateRoute()
   {
     code = RouterResultCode::InternalError;
     LOG(LERROR, ("Exception happened while calculating route:", e.Msg()));
-    GetPlatform().RunTask(Platform::Thread::Gui, [checkpoints, startDirection, e,
-                                                  routingStatisticsCallback, routerName]() {
-      SendStatistics(checkpoints.GetStart(), startDirection, checkpoints.GetFinish(), e.Msg(),
-                     routingStatisticsCallback, routerName);
-    });
-
     // Note. After call of this method |route| should be used only on ui thread.
     // And |route| should stop using on routing background thread, in this method.
     GetPlatform().RunTask(Platform::Thread::Gui,
                           [delegateProxy, route, code]() { delegateProxy->OnReady(route, code); });
     return;
   }
-
-  double const routeLengthM = route->GetTotalDistanceMeters();
-  GetPlatform().RunTask(
-      Platform::Thread::Gui, [checkpoints, startDirection, code, routeLengthM, elapsedSec,
-                              routingStatisticsCallback, routerName]() {
-        SendStatistics(checkpoints.GetStart(), startDirection, checkpoints.GetFinish(), code,
-                       routeLengthM, elapsedSec, routingStatisticsCallback, routerName);
-      });
 
   // Draw route without waiting network latency.
   if (code == RouterResultCode::NoError)

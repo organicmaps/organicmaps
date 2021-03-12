@@ -20,31 +20,7 @@
 
 std::string Platform::UniqueClientId() const
 {
-  JNIEnv * env = jni::GetEnv();
-  static jmethodID const getInstallationId = jni::GetStaticMethodID(env, g_utilsClazz, "getInstallationId",
-                                                                    "(Landroid/content/Context;)"
-                                                                    "Ljava/lang/String;");
-  jobject context = android::Platform::Instance().GetContext();
-  static jstring const installationId
-    = static_cast<jstring>(env->CallStaticObjectMethod(g_utilsClazz, getInstallationId, context));
-  static std::string const result = jni::ToNativeString(env, installationId);
-  return result;
-}
-
-std::string Platform::AdvertisingId() const
-{
-  JNIEnv *env = jni::GetEnv();
-  static jmethodID const getAdvertisingId = jni::GetStaticMethodID(env, g_utilsClazz,
-                                                                   "getAdvertisingId",
-                                                                   "(Landroid/content/Context;)"
-                                                                   "Ljava/lang/String;");
-  jobject context = android::Platform::Instance().GetContext();
-  jni::TScopedLocalRef adIdRef(env, env->CallStaticObjectMethod(g_utilsClazz, getAdvertisingId,
-                                                                context));
-  if (adIdRef.get() == nullptr)
-    return {};
-
-  return jni::ToNativeString(env, static_cast<jstring>(adIdRef.get()));
+  return "TODO";
 }
 
 std::string Platform::MacAddress(bool md5Decoded) const

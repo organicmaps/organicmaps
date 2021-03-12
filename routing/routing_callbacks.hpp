@@ -81,7 +81,6 @@ using ReadyCallbackOwnership = std::function<void(std::shared_ptr<Route>, Router
 using RemoveRouteCallback = std::function<void(RouterResultCode)>;
 using RouteCallback = std::function<void(Route const &)>;
 using ChangeSessionStateCallback = std::function<void(SessionState previous, SessionState current)>;
-using RoutingStatisticsCallback = std::function<void(std::map<std::string, std::string> const &)>;
 using SpeedCameraShowCallback = std::function<void(m2::PointD const & point, double cameraSpeedKmPH)>;
 using SpeedCameraClearCallback = std::function<void()>;
 using OnNewTurn = std::function<void()>;

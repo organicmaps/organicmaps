@@ -50,8 +50,7 @@ class RoutingSession : public traffic::TrafficObserver, public traffic::TrafficC
 public:
   RoutingSession();
 
-  void Init(RoutingStatisticsCallback const & routingStatisticsFn,
-            PointCheckCallback const & pointCheckCallback);
+  void Init(PointCheckCallback const & pointCheckCallback);
 
   void SetRouter(std::unique_ptr<IRouter> && router,
                  std::unique_ptr<AbsentRegionsFinder> && finder);

@@ -303,11 +303,6 @@ drape_ptr<df::Subroute> CreateDrapeSubroute(vector<RouteSegment> const & segment
 }
 }  // namespace
 
-namespace marketing
-{
-char const * const kRoutingCalculatingRoute = "Routing_CalculatingRoute";
-}  // namespace marketing
-
 RoutingManager::RoutingManager(Callbacks && callbacks, Delegate & delegate)
   : m_callbacks(move(callbacks))
   , m_delegate(delegate)
@@ -317,11 +312,7 @@ RoutingManager::RoutingManager(Callbacks && callbacks, Delegate & delegate)
   , m_extrapolator(
         [this](location::GpsInfo const & gpsInfo) { this->OnExtrapolatedLocationUpdate(gpsInfo); })
 {
-  auto const routingStatisticsFn = [](map<string, string> const & statistics) {
-    GetPlatform().GetMarketingService().SendMarketingEvent(marketing::kRoutingCalculatingRoute, {});
-  };
-
-  m_routingSession.Init(routingStatisticsFn,
+  m_routingSession.Init(
 #ifdef SHOW_ROUTE_DEBUG_MARKS
                         [this](m2::PointD const & pt) {
                           if (m_bmManager == nullptr)
