@@ -12,11 +12,12 @@ static NSString * const kSelectedPattern = @"%@_selected_%@";
   [self setDefaultImages];
 }
 
-- (void)applyTheme
-{
-  [self changeColoringToOpposite];
-  [super applyTheme];
-}
+// This method is overridden by MWMButtonRenderer.swift
+//- (void)applyTheme
+//{
+//  [self changeColoringToOpposite];
+//  [super applyTheme];
+//}
 
 - (void)setColoring:(MWMButtonColoring)coloring
 {

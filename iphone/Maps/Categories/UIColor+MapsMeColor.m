@@ -6,10 +6,6 @@ static BOOL isNightMode = NO;
 static NSDictionary<NSString *, UIColor *> *day;
 static NSDictionary<NSString *, UIColor *> *night;
 
-static UIColor * color(SEL cmd) {
-  return (isNightMode ? night : day)[NSStringFromSelector(cmd)];
-}
-
 @implementation UIColor (MapsMeColor)
 
 + (void)load {

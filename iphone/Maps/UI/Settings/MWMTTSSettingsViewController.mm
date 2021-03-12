@@ -38,6 +38,8 @@ struct BaseCellStategy
   virtual NSString * TitleForHeader() const { return nil; }
 
   virtual size_t NumberOfRows(MWMTTSSettingsViewController * /* controller */) const { return 1; }
+
+  virtual ~BaseCellStategy() {}
 };
 
 struct VoiceInstructionCellStrategy : BaseCellStategy

@@ -8,6 +8,7 @@
 #include "base/logging.hpp"
 #include "editor/osm_auth.hpp"
 
+#import <WebKit/WKNavigationDelegate.h>
 #import <WebKit/WKWebView.h>
 
 using namespace osm;
