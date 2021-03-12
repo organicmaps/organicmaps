@@ -705,7 +705,7 @@ bool Router::ReconstructPath(std::vector<Edge> & edges, std::vector<routing::Edg
   });
 
   path.clear();
-  for (auto const e : edges)
+  for (auto const & e : edges)
   {
     if (!e.IsFake())
       path.push_back(e.m_raw);
