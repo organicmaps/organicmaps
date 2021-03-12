@@ -121,7 +121,7 @@ TrafficMode::TrafficMode(std::string const & dataFileName, DataSource const & da
   {
     auto const root = doc.document_element();
     auto node = m_template.append_child(root.name());
-    for (auto const attr : root.attributes())
+    for (auto const & attr : root.attributes())
       node.append_copy(attr);
   }
 
@@ -130,7 +130,7 @@ TrafficMode::TrafficMode(std::string const & dataFileName, DataSource const & da
 
   try
   {
-    for (auto const xpathNode : segments)
+    for (auto const & xpathNode : segments)
     {
       auto const xmlSegment = xpathNode.node();
 

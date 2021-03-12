@@ -539,7 +539,7 @@ std::vector<LineSchemeData> SubwayConverter::GetLinesOnScheme(
       }
     }
 
-    for (auto const sl : linksForRemoval)
+    for (auto const & sl : linksForRemoval)
       it->second.erase(sl);
 
     if (insert)

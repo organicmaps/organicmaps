@@ -36,7 +36,7 @@ void TestMaxspeedsSerialization(vector<FeatureMaxspeed> const & speeds)
   Maxspeeds maxspeeds;
   MaxspeedsSerializer::Deserialize(src, maxspeeds);
 
-  for (auto const s : speeds)
+  for (auto const & s : speeds)
     TEST_EQUAL(maxspeeds.GetMaxspeed(s.GetFeatureId()), s.GetMaxspeed(), (s));
 }
 

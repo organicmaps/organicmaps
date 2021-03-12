@@ -250,7 +250,7 @@ void GenerateSample(Dataset const & dataset,
     auto const & fb = features.at(osmId);
     auto const sponsoredIndexes = dataset.GetStorage().GetNearestObjects(mercator::ToLatLon(fb.GetKeyPoint()));
 
-    for (auto const sponsoredId : sponsoredIndexes)
+    for (auto const & sponsoredId : sponsoredIndexes)
     {
       auto const & object = dataset.GetStorage().GetObjectById(sponsoredId);
       auto const score = sponsored_scoring::Match(object, fb);
