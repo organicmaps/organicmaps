@@ -26,7 +26,6 @@ NS_SWIFT_NAME(RoutingManager)
 @property(nonatomic, readonly) MWMRouterType type;
 @property(nonatomic) MWMSpeedCameraManagerMode speedCameraMode;
 
-- (instancetype)init NS_UNAVAILABLE;
 - (void)addListener:(id<MWMRoutingManagerListener>)listener;
 - (void)removeListener:(id<MWMRoutingManagerListener>)listener;
 

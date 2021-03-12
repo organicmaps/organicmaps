@@ -454,6 +454,7 @@ NSString *const kPP2BookmarkEditingSegue = @"PP2BookmarkEditing";
   auto const todo = GetFramework().ToDoAfterUpdate();
 
   switch (todo) {
+    case Framework::DoAfterUpdate::Migrate:
     case Framework::DoAfterUpdate::Nothing:
       break;
     case Framework::DoAfterUpdate::AutoupdateMaps:

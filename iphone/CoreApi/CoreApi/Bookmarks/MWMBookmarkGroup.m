@@ -40,7 +40,7 @@
   return [self.manager getServerId:self.categoryId];
 }
 
-- (NSString *)imageUrl {
+- (NSURL *)imageUrl {
   return [self.manager getCategoryImageUrl:self.categoryId];
 }
 
