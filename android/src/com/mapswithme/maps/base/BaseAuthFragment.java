@@ -9,7 +9,6 @@ import androidx.annotation.Nullable;
 
 import com.mapswithme.maps.auth.Authorizer;
 import com.mapswithme.maps.auth.TargetFragmentCallback;
-import com.mapswithme.maps.bookmarks.AuthBundleFactory;
 
 public abstract class BaseAuthFragment extends BaseAsyncOperationFragment
     implements Authorizer.Callback, TargetFragmentCallback
@@ -17,9 +16,9 @@ public abstract class BaseAuthFragment extends BaseAsyncOperationFragment
   @NonNull
   private final Authorizer mAuthorizer = new Authorizer(this);
 
-  protected final void authorize(@NonNull Bundle bundle)
+  protected final void authorize()
   {
-    mAuthorizer.authorize(bundle);
+    mAuthorizer.authorize();
   }
 
   @Override

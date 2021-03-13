@@ -52,21 +52,17 @@ class BookmarksDownloadFragmentDelegate implements Authorizer.Callback, Bookmark
   private final AuthorizationListener mAuthorizationListener;
   @NonNull
   private final ExpiredCategoriesListener mExpiredCategoriesListener;
-  @NonNull
-  private final Bundle mBundle;
 
   BookmarksDownloadFragmentDelegate(@NonNull Fragment fragment)
   {
-    this(fragment, AuthBundleFactory.guideCatalogue(), null);
+    this(fragment, null);
   }
 
   BookmarksDownloadFragmentDelegate(@NonNull Fragment fragment,
-                                    @NonNull Bundle bundle,
                                     @Nullable AuthorizationListener authorizationListener)
   {
     mFragment = fragment;
     mExpiredCategoriesListener = new ExpiredCategoriesListener(fragment);
-    mBundle = bundle;
     mAuthorizationListener = authorizationListener;
   }
 
@@ -246,7 +242,7 @@ class BookmarksDownloadFragmentDelegate implements Authorizer.Callback, Bookmark
   void authorize(@NonNull Runnable completionRunnable)
   {
     mAuthCompletionRunnable = completionRunnable;
-    mAuthorizer.authorize(mBundle);
+    mAuthorizer.authorize();
   }
 
   private static class ExpiredCategoriesListener implements BookmarkManager.BookmarksExpiredCategoriesListener, Detachable<Fragment>

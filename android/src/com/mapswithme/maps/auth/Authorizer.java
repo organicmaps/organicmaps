@@ -57,7 +57,7 @@ public class Authorizer implements AuthorizationListener
     mCallback = null;
   }
 
-  public final void authorize(@NonNull Bundle bundle)
+  public final void authorize()
   {
     if (isAuthorized())
     {
@@ -73,7 +73,6 @@ public class Authorizer implements AuthorizationListener
       return;
 
     fragment = (DialogFragment) Fragment.instantiate(mFragment.getContext(), name);
-    fragment.setArguments(bundle);
     // A communication with the SocialAuthDialogFragment is implemented via getParentFragment method
     // because of 'setTargetFragment' paradigm doesn't survive the activity configuration change
     // due to this issue https://issuetracker.google.com/issues/36969568

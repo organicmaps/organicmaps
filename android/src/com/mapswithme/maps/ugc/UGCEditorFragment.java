@@ -15,7 +15,6 @@ import com.mapswithme.maps.Framework;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.base.BaseToolbarAuthFragment;
 import com.mapswithme.maps.background.Notifier;
-import com.mapswithme.maps.bookmarks.AuthBundleFactory;
 import com.mapswithme.maps.bookmarks.data.FeatureId;
 import com.mapswithme.maps.metrics.UserActionsLogger;
 import com.mapswithme.maps.widget.ToolbarController;
@@ -127,7 +126,7 @@ public class UGCEditorFragment extends BaseToolbarAuthFragment
         finishActivity();
         return;
       }
-      authorize(AuthBundleFactory.saveReview());
+      authorize();
     });
   }
 

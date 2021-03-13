@@ -57,7 +57,7 @@ public class BookmarkBackupController implements Authorizer.Callback,
     @Override
     public void onClick(View v)
     {
-      mAuthorizer.authorize(AuthBundleFactory.bookmarksBackup());
+      mAuthorizer.authorize();
     }
   };
   @NonNull

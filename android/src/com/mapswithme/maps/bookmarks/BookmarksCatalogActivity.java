@@ -18,30 +18,20 @@ public class BookmarksCatalogActivity extends BaseToolbarActivity
   public static void startForResult(@NonNull Fragment fragment, int requestCode,
                                     @NonNull String catalogUrl)
   {
-    fragment.startActivityForResult(makeLaunchIntent(fragment.requireContext(), catalogUrl,
-                                                     AuthBundleFactory.guideCatalogue()),
+    fragment.startActivityForResult(makeLaunchIntent(fragment.requireContext(), catalogUrl),
                                     requestCode);
   }
 
-  public static void startForResult(@NonNull Activity context, int requestCode,
-                                    @NonNull String catalogUrl)
+  public static void startForResult(@NonNull Activity context, int requestCode, @NonNull String catalogUrl)
   {
-    startForResult(context, requestCode, catalogUrl, AuthBundleFactory.guideCatalogue());
-  }
-
-  public static void startForResult(@NonNull Activity context, int requestCode,
-                                    @NonNull String catalogUrl, @NonNull Bundle bundle)
-  {
-    context.startActivityForResult(makeLaunchIntent(context, catalogUrl, bundle), requestCode);
+    context.startActivityForResult(makeLaunchIntent(context, catalogUrl), requestCode);
   }
 
   @NonNull
-  private static Intent makeLaunchIntent(@NonNull Context context, @NonNull String catalogUrl,
-                                         @NonNull Bundle bundle)
+  private static Intent makeLaunchIntent(@NonNull Context context, @NonNull String catalogUrl)
   {
     return new Intent(context, BookmarksCatalogActivity.class)
         .putExtra(BookmarksCatalogFragment.EXTRA_BOOKMARKS_CATALOG_URL, catalogUrl)
-        .putExtra(EXTRA_ARGS, bundle)
         .setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
   }
 
