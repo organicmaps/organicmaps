@@ -41,7 +41,6 @@ import com.mapswithme.maps.base.BaseMwmFragmentActivity;
 import com.mapswithme.maps.base.CustomNavigateUpListener;
 import com.mapswithme.maps.base.NoConnectionListener;
 import com.mapswithme.maps.base.OnBackPressListener;
-import com.mapswithme.maps.bookmarks.AuthBundleFactory;
 import com.mapswithme.maps.bookmarks.BookmarkCategoriesActivity;
 import com.mapswithme.maps.bookmarks.BookmarksCatalogActivity;
 import com.mapswithme.maps.bookmarks.data.BookmarkCategory;
@@ -2724,8 +2723,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
   public void onGalleryGuideSelected(@NonNull String url)
   {
     BookmarksCatalogActivity.startForResult(
-        this, BookmarkCategoriesActivity.REQ_CODE_DOWNLOAD_BOOKMARK_CATEGORY, url,
-        AuthBundleFactory.guideCatalogue());
+        this, BookmarkCategoriesActivity.REQ_CODE_DOWNLOAD_BOOKMARK_CATEGORY, url);
   }
 
   private void toggleLayer(@NonNull Mode mode)

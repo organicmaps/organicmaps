@@ -21,9 +21,9 @@ public abstract class BaseToolbarAuthFragment extends BaseMwmToolbarFragment
   @NonNull
   private final Authorizer mAuthorizer = new Authorizer(this);
 
-  protected final void authorize(@NonNull Bundle bundle)
+  protected final void authorize()
   {
-    mAuthorizer.authorize(bundle);
+    mAuthorizer.authorize();
   }
 
   @Override
