@@ -9,7 +9,6 @@ import androidx.annotation.Nullable;
 import com.mapswithme.maps.Framework;
 import com.mapswithme.maps.background.Notifier;
 import com.mapswithme.maps.base.BaseMwmDialogFragment;
-import com.mapswithme.util.statistics.Statistics;
 
 public class PassportAuthDialogFragment extends BaseMwmDialogFragment
     implements TargetFragmentCallback
@@ -82,14 +81,12 @@ public class PassportAuthDialogFragment extends BaseMwmDialogFragment
     @Override
     public void onSocialAuthenticationCancel(@Framework.AuthTokenType int type)
     {
-      Statistics.INSTANCE.trackEvent(Statistics.EventName.UGC_AUTH_DECLINED);
     }
 
     @Override
     public void onSocialAuthenticationError(@Framework.AuthTokenType int type,
                                             @Nullable String error)
     {
-      Statistics.INSTANCE.trackUGCAuthFailed(type, error);
     }
   }
 }

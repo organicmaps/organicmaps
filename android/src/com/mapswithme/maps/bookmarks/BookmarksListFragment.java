@@ -50,7 +50,6 @@ import com.mapswithme.util.CrashlyticsUtils;
 import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.sharing.ShareOption;
 import com.mapswithme.util.sharing.SharingHelper;
-import com.mapswithme.util.statistics.Statistics;
 
 import java.util.List;
 
@@ -147,11 +146,6 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<MergeAdapter>
                                                                       mCategoryItems, mCollectionItems);
     adapter.setOnClickListener((v, item) -> {
       Intent intent = BookmarkListActivity.getStartIntent(requireContext(), item);
-
-      final boolean isCategory = BookmarkManager.INSTANCE.getCompilationType(item.getId()) ==
-                                 BookmarkManager.CATEGORY;
-      Statistics.INSTANCE.trackCollectionOrCategorySelect(item.getServerId(), item.getName(),
-                                                          isCategory);
       startActivity(intent);
     });
 
@@ -368,7 +362,6 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<MergeAdapter>
   {
     if (!isAdded() || !mToolbarController.hasQuery() || mLastQueryTimestamp != timestamp)
       return;
-    trackBookmarksSearch();
     mLastQueryTimestamp = 0;
     mToolbarController.showProgress(false);
     updateSearchResults(bookmarkIds);
@@ -636,22 +629,14 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<MergeAdapter>
     final Track track = (Track) adapter.getItem(position);
     i.putExtra(MwmActivity.EXTRA_TASK,
                new Factory.ShowTrackTask(track.getCategoryId(), track.getTrackId()));
-    if (BookmarkManager.INSTANCE.isGuide(mCategoryDataSource.getData()))
-      Statistics.INSTANCE.trackGuideTrackSelect(mCategoryDataSource.getData().getServerId());
   }
 
   private void onBookmarkClicked(int position, @NonNull Intent i,
                                  @NonNull BookmarkListAdapter adapter)
   {
-    if (getBookmarkListAdapter().isSearchResults())
-      trackBookmarksSearchResultSelected();
-
     final BookmarkInfo bookmark = (BookmarkInfo) adapter.getItem(position);
     i.putExtra(MwmActivity.EXTRA_TASK,
                new Factory.ShowBookmarkTask(bookmark.getCategoryId(), bookmark.getBookmarkId()));
-
-    Statistics.INSTANCE.trackGuideBookmarkSelect(mCategoryDataSource.getData().getServerId(),
-                                                 bookmark.getCategoryId());
   }
 
   public void onItemMore(int position)
@@ -853,21 +838,6 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<MergeAdapter>
   private void openDescriptionScreen()
   {
     BookmarksDescriptionActivity.start(requireContext(), mCategoryDataSource.getData());
-  }
-
-  private static void trackBookmarkListSharingOptions()
-  {
-    Statistics.INSTANCE.trackBookmarkListSharingOptions();
-  }
-
-  private static void trackBookmarksSearch()
-  {
-    Statistics.INSTANCE.trackBookmarksListSearch();
-  }
-
-  private static void trackBookmarksSearchResultSelected()
-  {
-    Statistics.INSTANCE.trackBookmarksListSearchResultSelected();
   }
 
   @Override

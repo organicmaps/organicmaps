@@ -34,14 +34,10 @@ import com.mapswithme.util.Utils;
 import com.mapswithme.util.concurrency.UiThread;
 import com.mapswithme.util.log.Logger;
 import com.mapswithme.util.log.LoggerFactory;
-import com.mapswithme.util.statistics.AlohaHelper;
-import com.mapswithme.util.statistics.Statistics;
 
 import java.util.Calendar;
 import java.util.concurrent.TimeUnit;
 
-import static com.mapswithme.util.statistics.Statistics.EventName.ROUTING_POINT_ADD;
-import static com.mapswithme.util.statistics.Statistics.EventName.ROUTING_POINT_REMOVE;
 
 @androidx.annotation.UiThread
 public class RoutingController implements TaxiManager.TaxiListener, Initializable<Void>
@@ -357,8 +353,6 @@ public class RoutingController implements TaxiManager.TaxiListener, Initializabl
 
     updatePlan();
 
-    Statistics.INSTANCE.trackRouteBuild(mLastRouterType, getStartPoint(), getEndPoint());
-
     Framework.nativeBuildRoute();
   }
 
@@ -515,27 +509,6 @@ public class RoutingController implements TaxiManager.TaxiListener, Initializabl
             build();
         }
       });
-
-    if (startPoint != null)
-      trackPointAdd(startPoint, RoutePointInfo.ROUTE_MARK_START, false, false, fromApi);
-    if (endPoint != null)
-      trackPointAdd(endPoint, RoutePointInfo.ROUTE_MARK_FINISH, false, false, fromApi);
-  }
-
-  private static void trackPointAdd(@NonNull MapObject point, @RoutePointInfo.RouteMarkType int type,
-                          boolean isPlanning, boolean isNavigating, boolean fromApi)
-  {
-    boolean isMyPosition = point.getMapObjectType() == MapObject.MY_POSITION;
-    Statistics.INSTANCE.trackRoutingPoint(ROUTING_POINT_ADD, type, isPlanning, isNavigating,
-                                          isMyPosition, fromApi);
-  }
-
-  private static void trackPointRemove(@NonNull MapObject point, @RoutePointInfo.RouteMarkType int type,
-                             boolean isPlanning, boolean isNavigating, boolean fromApi)
-  {
-    boolean isMyPosition = point.getMapObjectType() == MapObject.MY_POSITION;
-    Statistics.INSTANCE.trackRoutingPoint(ROUTING_POINT_REMOVE, type, isPlanning, isNavigating,
-                                          isMyPosition, fromApi);
   }
 
   public void start()
@@ -550,8 +523,6 @@ public class RoutingController implements TaxiManager.TaxiListener, Initializabl
 
     if (my == null || !MapObject.isOfType(MapObject.MY_POSITION, getStartPoint()))
     {
-      Statistics.INSTANCE.trackEvent(Statistics.EventName.ROUTING_START_SUGGEST_REBUILD);
-      AlohaHelper.logClick(AlohaHelper.ROUTING_START_SUGGEST_REBUILD);
       suggestRebuildRoute();
       return;
     }
@@ -572,8 +543,6 @@ public class RoutingController implements TaxiManager.TaxiListener, Initializabl
   public void addStop(@NonNull MapObject mapObject)
   {
     addRoutePoint(RoutePointInfo.ROUTE_MARK_INTERMEDIATE, mapObject);
-    trackPointAdd(mapObject, RoutePointInfo.ROUTE_MARK_INTERMEDIATE, isPlanning(), isNavigating(),
-                  false);
     build();
     if (mContainer != null)
       mContainer.onAddedStop();
@@ -588,7 +557,6 @@ public class RoutingController implements TaxiManager.TaxiListener, Initializabl
 
     applyRemovingIntermediatePointsTransaction();
     Framework.nativeRemoveRoutePoint(info.mMarkType, info.mIntermediateIndex);
-    trackPointRemove(mapObject, info.mMarkType, isPlanning(), isNavigating(), false);
     build();
     if (mContainer != null)
       mContainer.onRemovedStop();
@@ -946,9 +914,6 @@ public class RoutingController implements TaxiManager.TaxiListener, Initializabl
     startPoint = point;
     setPointsInternal(startPoint, endPoint);
     checkAndBuildRoute();
-    if (startPoint != null)
-      trackPointAdd(startPoint, RoutePointInfo.ROUTE_MARK_START, isPlanning(), isNavigating(),
-                    false);
     return true;
   }
 
@@ -997,11 +962,6 @@ public class RoutingController implements TaxiManager.TaxiListener, Initializabl
     }
 
     endPoint = point;
-
-    if (endPoint != null)
-      trackPointAdd(endPoint, RoutePointInfo.ROUTE_MARK_FINISH, isPlanning(), isNavigating(),
-                    false);
-
     setPointsInternal(startPoint, endPoint);
     checkAndBuildRoute();
     return true;
@@ -1052,9 +1012,6 @@ public class RoutingController implements TaxiManager.TaxiListener, Initializabl
     MapObject point = startPoint;
     startPoint = endPoint;
     endPoint = point;
-
-    Statistics.INSTANCE.trackEvent(Statistics.EventName.ROUTING_SWAP_POINTS);
-    AlohaHelper.logClick(AlohaHelper.ROUTING_SWAP_POINTS);
 
     setPointsInternal(startPoint, endPoint);
     checkAndBuildRoute();
@@ -1194,8 +1151,6 @@ public class RoutingController implements TaxiManager.TaxiListener, Initializabl
     {
       mContainer.onTaxiInfoReceived(provider);
       completeTaxiRequest();
-      Statistics.INSTANCE.trackTaxiEvent(Statistics.EventName.ROUTING_TAXI_ROUTE_BUILT,
-                                         provider.getType().getProviderName());
     }
   }
 
@@ -1208,7 +1163,6 @@ public class RoutingController implements TaxiManager.TaxiListener, Initializabl
     {
       mContainer.onTaxiError(error.getCode());
       completeTaxiRequest();
-      Statistics.INSTANCE.trackTaxiError(error.getTaxiType(), error.getCode());
     }
   }
 
@@ -1221,7 +1175,6 @@ public class RoutingController implements TaxiManager.TaxiListener, Initializabl
     {
       mContainer.onTaxiError(TaxiManager.ErrorCode.NoProviders);
       completeTaxiRequest();
-      Statistics.INSTANCE.trackTaxiError(null, TaxiManager.ErrorCode.NoProviders);
     }
   }
 }

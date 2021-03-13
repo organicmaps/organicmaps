@@ -13,7 +13,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import com.bumptech.glide.Glide;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.base.Detachable;
 import com.mapswithme.maps.bookmarks.BookmarkCategoriesActivity;
@@ -29,11 +28,6 @@ import com.mapswithme.maps.widget.recycler.ItemDecoratorFactory;
 import com.mapswithme.util.NetworkPolicy;
 import com.mapswithme.util.UTM;
 import com.mapswithme.util.UiUtils;
-import com.mapswithme.util.statistics.Destination;
-import com.mapswithme.util.statistics.GalleryPlacement;
-import com.mapswithme.util.statistics.GalleryState;
-import com.mapswithme.util.statistics.GalleryType;
-import com.mapswithme.util.statistics.Statistics;
 
 public class CatalogPromoController implements Promo.Listener, Detachable<Activity>
 {
@@ -83,28 +77,6 @@ public class CatalogPromoController implements Promo.Listener, Detachable<Activi
   {
     if (mRequester == null)
       return;
-
-    GalleryPlacement placement = getGalleryPlacement(mRequester.getSponsoredType());
-
-    Statistics.INSTANCE.trackGalleryError(GalleryType.PROMO, placement,
-                                          Statistics.ParamValue.NO_PRODUCTS);
-  }
-
-  @SuppressLint("SwitchIntDef")
-  @NonNull
-  private static GalleryPlacement getGalleryPlacement(@Sponsored.SponsoredType int type)
-  {
-    switch (type)
-    {
-      case Sponsored.TYPE_PROMO_CATALOG_CITY:
-        return GalleryPlacement.PLACEPAGE_LARGE_TOPONYMS;
-      case Sponsored.TYPE_PROMO_CATALOG_SIGHTSEEINGS:
-        return GalleryPlacement.PLACEPAGE_SIGHTSEEINGS;
-      case Sponsored.TYPE_PROMO_CATALOG_OUTDOOR:
-        return GalleryPlacement.PLACEPAGE_OUTDOOR;
-      default:
-        throw new AssertionError("Unsupported catalog gallery type '" + type + "'!");
-    }
   }
 
   public void updateCatalogPromo(@NonNull NetworkPolicy policy, @Nullable MapObject mapObject)
@@ -276,8 +248,7 @@ public class CatalogPromoController implements Promo.Listener, Detachable<Activi
       subtitle.setText(TextUtils.isEmpty(item.getTourCategory()) ? item.getAuthor().getName()
                                                                  : item.getTourCategory());
       View cta = mPlacePageView.findViewById(R.id.place_single_bookmark_cta);
-      final GalleryPlacement placement = getGalleryPlacement(mSponsoredType);
-      cta.setOnClickListener(v -> onCtaClicked(placement, item.getUrl()));
+      cta.setOnClickListener(v -> onCtaClicked(item.getUrl()));
 
       PromoCityGallery.Place place = item.getPlace();
 
@@ -288,19 +259,15 @@ public class CatalogPromoController implements Promo.Listener, Detachable<Activi
       poiDescription.setText(Html.fromHtml(place.getDescription()));
       View more = mPlacePageView.findViewById(R.id.promo_poi_more);
       more.setOnClickListener(v -> onMoreDescriptionClicked(item.getUrl()));
-
-      Statistics.INSTANCE.trackGalleryShown(GalleryType.PROMO, GalleryState.ONLINE, placement, 1);
     }
 
-    private void onCtaClicked(@NonNull GalleryPlacement placement, @NonNull String url)
+    private void onCtaClicked(@NonNull String url)
     {
       String utmContentUrl = BookmarkManager.INSTANCE.injectCatalogUTMContent(url,
                                                                               UTM.UTM_CONTENT_VIEW);
       BookmarksCatalogActivity.startForResult(requireActivity(),
                                               BookmarkCategoriesActivity.REQ_CODE_DOWNLOAD_BOOKMARK_CATEGORY,
                                               utmContentUrl);
-      Statistics.INSTANCE.trackGalleryProductItemSelected(GalleryType.PROMO, placement, 0,
-                                                          Destination.CATALOGUE);
     }
 
     private void onMoreDescriptionClicked(@NonNull String url)
@@ -349,11 +316,8 @@ public class CatalogPromoController implements Promo.Listener, Detachable<Activi
       mTitle.setText(galleryHeader);
 
       String url = promo.getMoreUrl();
-      GalleryPlacement placement = getGalleryPlacement(mSponsoredType);
-      RegularCatalogPromoListener promoListener = new RegularCatalogPromoListener(requireActivity(),
-                                                                                  placement);
-      GalleryAdapter adapter = Factory.createCatalogPromoAdapter(requireActivity(), promo, url,
-                                                                 promoListener, placement);
+      RegularCatalogPromoListener promoListener = new RegularCatalogPromoListener(requireActivity());
+      GalleryAdapter adapter = Factory.createCatalogPromoAdapter(requireActivity(), promo, url, promoListener);
       mRecycler.setAdapter(adapter);
     }
   }

@@ -18,10 +18,7 @@ import com.mapswithme.maps.bookmarks.data.MapObject;
 import com.mapswithme.maps.location.LocationHelper;
 import com.mapswithme.maps.location.LocationListener;
 import com.mapswithme.maps.widget.ArrowView;
-import com.mapswithme.util.LocationUtils;
 import com.mapswithme.util.UiUtils;
-import com.mapswithme.util.statistics.AlohaHelper;
-import com.mapswithme.util.statistics.Statistics;
 
 public class DirectionFragment extends BaseMwmDialogFragment
                             implements LocationListener
@@ -45,16 +42,9 @@ public class DirectionFragment extends BaseMwmDialogFragment
   public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState)
   {
     final View root = inflater.inflate(R.layout.fragment_direction, container, false);
-    root.setOnTouchListener(new View.OnTouchListener()
-    {
-      @Override
-      public boolean onTouch(View v, MotionEvent event)
-      {
-        dismiss();
-        Statistics.INSTANCE.trackEvent(Statistics.EventName.PP_DIRECTION_ARROW_CLOSE);
-        AlohaHelper.logClick(AlohaHelper.PP_DIRECTION_ARROW_CLOSE);
-        return false;
-      }
+    root.setOnTouchListener((v, event) -> {
+      dismiss();
+      return false;
     });
     initViews(root);
     if (savedInstanceState != null)

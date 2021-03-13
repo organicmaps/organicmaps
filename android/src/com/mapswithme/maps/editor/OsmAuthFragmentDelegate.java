@@ -13,7 +13,6 @@ import android.view.View;
 import com.mapswithme.maps.R;
 import com.mapswithme.util.Constants;
 import com.mapswithme.util.Utils;
-import com.mapswithme.util.statistics.Statistics;
 
 public abstract class OsmAuthFragmentDelegate implements View.OnClickListener
 {
@@ -43,11 +42,9 @@ public abstract class OsmAuthFragmentDelegate implements View.OnClickListener
     switch (v.getId())
     {
     case R.id.login_osm:
-      Statistics.INSTANCE.trackAuthRequest(OsmOAuth.AuthType.OSM);
       loginOsm();
       break;
     case R.id.register:
-      Statistics.INSTANCE.trackEvent(Statistics.EventName.EDITOR_REG_REQUEST);
       register();
       break;
     }
@@ -61,21 +58,13 @@ public abstract class OsmAuthFragmentDelegate implements View.OnClickListener
       {
         new AlertDialog.Builder(mFragment.getActivity()).setTitle(R.string.editor_login_error_dialog)
                                                         .setPositiveButton(android.R.string.ok, null).show();
-
-        Statistics.INSTANCE.trackEvent(Statistics.EventName.EDITOR_AUTH_REQUEST_RESULT,
-                                       Statistics.params().add(Statistics.EventParam.IS_SUCCESS, false).add(Statistics.EventParam.TYPE, type.name));
       }
-
-      Statistics.INSTANCE.trackOsmAuthRequestStats(Statistics.EventName.AUTH_ERROR);
       return;
     }
 
     OsmOAuth.setAuthorization(mFragment.requireContext(), auth[0], auth[1], username);
     if (mFragment.isAdded())
       Utils.navigateToParent(mFragment.getActivity());
-    Statistics.INSTANCE.trackEvent(Statistics.EventName.EDITOR_AUTH_REQUEST_RESULT,
-                                   Statistics.params().add(Statistics.EventParam.IS_SUCCESS, true).add(Statistics.EventParam.TYPE, type.name));
-    Statistics.INSTANCE.trackOsmAuthRequestStats(Statistics.EventName.AUTH_EXTERNAL_REQUEST_SUCCESS);
   }
 
   protected void register()

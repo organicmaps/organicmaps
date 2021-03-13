@@ -28,7 +28,6 @@ import com.mapswithme.maps.bookmarks.data.FilterStrategy;
 import com.mapswithme.maps.bookmarks.data.Icon;
 import com.mapswithme.util.Graphics;
 import com.mapswithme.util.UiUtils;
-import com.mapswithme.util.statistics.Statistics;
 
 public class EditBookmarkFragment extends BaseMwmDialogFragment implements View.OnClickListener, Listener
 {
@@ -198,7 +197,6 @@ public class EditBookmarkFragment extends BaseMwmDialogFragment implements View.
         if (TextUtils.equals(from, to))
           return;
 
-        Statistics.INSTANCE.trackColorChanged(from, to);
         mIcon = newIcon;
         refreshColorMarker();
       }

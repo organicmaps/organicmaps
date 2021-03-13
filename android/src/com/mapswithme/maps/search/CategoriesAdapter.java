@@ -13,18 +13,13 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ActionMenuView;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.mapswithme.maps.R;
 import com.mapswithme.util.ThemeUtils;
-import com.mapswithme.util.UiUtils;
-import com.mapswithme.util.statistics.Statistics;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
-import java.util.List;
 
 class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.ViewHolder>
 {
@@ -186,7 +181,6 @@ class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.ViewHolde
     void onItemClicked(int position)
     {
       String categoryEntryName = mResources.getResourceEntryName(mCategoryResIds[position]);
-      Statistics.INSTANCE.trackSearchCategoryClicked(categoryEntryName);
       if (mListener != null)
       {
         @StringRes

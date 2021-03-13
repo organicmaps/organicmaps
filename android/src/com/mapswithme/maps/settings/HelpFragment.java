@@ -15,25 +15,19 @@ import com.mapswithme.maps.R;
 import com.mapswithme.maps.WebContainerDelegate;
 import com.mapswithme.util.Constants;
 import com.mapswithme.util.Utils;
-import com.mapswithme.util.statistics.AlohaHelper;
-import com.mapswithme.util.statistics.Statistics;
 
 public class HelpFragment extends BaseSettingsFragment
 {
   @NonNull
-  private DialogInterface.OnClickListener mDialogClickListener = new DialogInterface.OnClickListener()
+  private final DialogInterface.OnClickListener mDialogClickListener = new DialogInterface.OnClickListener()
   {
     private void sendGeneralFeedback()
     {
-      Statistics.INSTANCE.trackEvent(Statistics.EventName.Settings.FEEDBACK_GENERAL);
-      AlohaHelper.logClick(AlohaHelper.Settings.FEEDBACK_GENERAL);
       Utils.sendFeedback(requireActivity());
     }
 
     private void reportBug()
     {
-      Statistics.INSTANCE.trackEvent(Statistics.EventName.Settings.REPORT_BUG);
-      AlohaHelper.logClick(AlohaHelper.Settings.REPORT_BUG);
       Utils.sendBugReport(requireActivity(), "Bugreport from user");
     }
 
@@ -51,7 +45,7 @@ public class HelpFragment extends BaseSettingsFragment
           break;
       }
     }
-  };;
+  };
 
   @Override
   protected int getLayoutRes()

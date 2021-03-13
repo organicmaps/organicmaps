@@ -27,7 +27,6 @@ import com.mapswithme.util.Counters;
 import com.mapswithme.util.SharedPropertiesUtils;
 import com.mapswithme.util.UTM;
 import com.mapswithme.util.UiUtils;
-import com.mapswithme.util.statistics.Statistics;
 
 import static com.mapswithme.maps.purchase.BookmarksAllSubscriptionPage.BOOKMARKS;
 import static com.mapswithme.maps.purchase.BookmarksAllSubscriptionPage.ELEVATION;
@@ -92,7 +91,6 @@ public class NewsFragment extends BaseNewsFragment implements AlertDialogCallbac
       UiUtils.hide(view);
       BookmarksAllSubscriptionActivity.startForResult(NewsFragment.this,
                                                       PurchaseUtils.REQ_CODE_PAY_SUBSCRIPTION,
-                                                      Statistics.ParamValue.WHATSNEW,
                                                       new BookmarkAllSubscriptionData(LONELY,
                                                                                       GUIDES,
                                                                                       BOOKMARKS,

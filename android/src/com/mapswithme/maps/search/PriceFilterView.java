@@ -20,7 +20,6 @@ import android.widget.TextView;
 
 import com.mapswithme.maps.R;
 import com.mapswithme.util.UiUtils;
-import com.mapswithme.util.statistics.Statistics;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
@@ -115,8 +114,9 @@ public class PriceFilterView extends LinearLayout implements View.OnClickListene
   }
 
   @Override
-  protected void onFinishInflate()
-  {
+  protected void onFinishInflate() {
+    super.onFinishInflate();
+
     View low = findViewById(R.id.low);
     low.setOnClickListener(this);
     mItems.append(R.id.low, new Item(low, (TextView) findViewById(R.id.low_title)));
@@ -198,25 +198,6 @@ public class PriceFilterView extends LinearLayout implements View.OnClickListene
   @Override
   public void onClick(View v)
   {
-    switch (v.getId())
-    {
-      case R.id.low:
-        Statistics.INSTANCE.trackFilterClick(Statistics.EventParam.HOTEL,
-                                             new Pair<>(Statistics.EventParam.PRICE_CATEGORY,
-                                                        String.valueOf(LOW)));
-        break;
-      case R.id.medium:
-        Statistics.INSTANCE.trackFilterClick(Statistics.EventParam.HOTEL,
-                                             new Pair<>(Statistics.EventParam.PRICE_CATEGORY,
-                                                        String.valueOf(MEDIUM)));
-        break;
-      case R.id.high:
-        Statistics.INSTANCE.trackFilterClick(Statistics.EventParam.HOTEL,
-                                             new Pair<>(Statistics.EventParam.PRICE_CATEGORY,
-                                                        String.valueOf(HIGH)));
-        break;
-    }
-
     select(v.getId(), false);
   }
 

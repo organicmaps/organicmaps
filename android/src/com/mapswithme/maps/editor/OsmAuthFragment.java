@@ -25,7 +25,6 @@ import com.mapswithme.util.ThemeUtils;
 import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.concurrency.ThreadPool;
 import com.mapswithme.util.concurrency.UiThread;
-import com.mapswithme.util.statistics.Statistics;
 
 public class OsmAuthFragment extends BaseMwmToolbarFragment implements View.OnClickListener
 {
@@ -145,7 +144,6 @@ public class OsmAuthFragment extends BaseMwmToolbarFragment implements View.OnCl
 
   private void recoverPassword()
   {
-    Statistics.INSTANCE.trackEvent(Statistics.EventName.EDITOR_LOST_PASSWORD);
     startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(Constants.Url.OSM_RECOVER_PASSWORD)));
   }
 }

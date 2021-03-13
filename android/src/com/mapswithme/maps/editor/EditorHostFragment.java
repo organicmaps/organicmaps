@@ -33,7 +33,6 @@ import com.mapswithme.util.ConnectionState;
 import com.mapswithme.util.KeyValue;
 import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.Utils;
-import com.mapswithme.util.statistics.Statistics;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -316,16 +315,12 @@ public class EditorHostFragment extends BaseMwmToolbarFragment
 
   private void processNoFeatures()
   {
-    Statistics.INSTANCE.trackEditorError(mIsNewObject,
-                                         String.valueOf(OsmOAuth.isAuthorized(requireContext())));
     DialogUtils.showAlertDialog(getActivity(), R.string.downloader_no_space_title);
   }
 
   private void processEditedFeatures()
   {
     Context context = requireContext();
-    Statistics.INSTANCE.trackEditorSuccess(mIsNewObject,
-                                           String.valueOf(OsmOAuth.isAuthorized(context)));
     if (OsmOAuth.isAuthorized(context) || !ConnectionState.INSTANCE.isConnected())
     {
       Utils.navigateToParent(getActivity());
@@ -345,20 +340,10 @@ public class EditorHostFragment extends BaseMwmToolbarFragment
   private Intent makeParentActivityIntent()
   {
     Activity parent = getActivity();
-    Factory.ShowDialogTask task = new Factory.ShowDialogTask(AuthDialogFragment.class.getName(),
-                                                             makeParams());
+    Factory.ShowDialogTask task = new Factory.ShowDialogTask(AuthDialogFragment.class.getName());
     return new Intent(parent, MwmActivity.class)
         .addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
         .putExtra(MwmActivity.EXTRA_TASK, task);
-  }
-
-  private ArrayList<KeyValue> makeParams()
-  {
-    ArrayList<KeyValue> params = new ArrayList<>();
-    params.add(new KeyValue(Statistics.EventParam.FROM, mIsNewObject
-                                                        ? Statistics.ParamValue.NEW_OBJECT
-                                                        : Statistics.ParamValue.EDIT_OBJECT));
-    return params;
   }
 
   private void saveNote()

@@ -19,7 +19,6 @@ import com.mapswithme.maps.bookmarks.data.CatalogTagsGroup;
 import com.mapswithme.util.SharedPropertiesUtils;
 import com.mapswithme.util.UTM;
 import com.mapswithme.util.UiUtils;
-import com.mapswithme.util.statistics.Statistics;
 
 import java.util.List;
 
@@ -82,14 +81,6 @@ public class CachedBookmarkCategoriesFragment extends BaseBookmarkCategoriesFrag
   }
 
   @Override
-  public void onItemClick(@NonNull View v, @NonNull BookmarkCategory category)
-  {
-    if (BookmarkManager.INSTANCE.isGuide(category))
-      Statistics.INSTANCE.trackGuideOpen(category.getServerId());
-    super.onItemClick(v, category);
-  }
-
-  @Override
   public void onFooterClick()
   {
     openBookmarksCatalogScreen();
@@ -124,8 +115,6 @@ public class CachedBookmarkCategoriesFragment extends BaseBookmarkCategoriesFrag
       UiUtils.showIf(isEmptyAdapter, mEmptyViewContainer);
       mPayloadContainer.setVisibility(isEmptyAdapter ? View.GONE : View.VISIBLE);
       mProgressContainer.setVisibility(View.GONE);
-      if (!isEmptyAdapter)
-        Statistics.INSTANCE.trackGuidesShown(BookmarkManager.INSTANCE.getGuidesIds());
     }
   }
 
@@ -141,7 +130,6 @@ public class CachedBookmarkCategoriesFragment extends BaseBookmarkCategoriesFrag
         UTM.UTM_BOOKMARKS_PAGE_CATALOG_BUTTON);
     BookmarksCatalogActivity.startForResult(this, BaseBookmarkCategoriesFragment.REQ_CODE_CATALOG,
                                             catalogUrl);
-    Statistics.INSTANCE.trackOpenCatalogScreen();
   }
 
   @Override
@@ -218,7 +206,6 @@ public class CachedBookmarkCategoriesFragment extends BaseBookmarkCategoriesFrag
         UiUtils.show(mPayloadContainer);
         UiUtils.hide(mProgressContainer, mEmptyViewContainer);
         getAdapter().notifyDataSetChanged();
-        Statistics.INSTANCE.trackGuidesShown(BookmarkManager.INSTANCE.getGuidesIds());
       }
       else
       {

@@ -9,19 +9,11 @@ import com.mapswithme.maps.R;
 import com.mapswithme.maps.bookmarks.BookmarkCategoriesActivity;
 import com.mapswithme.maps.bookmarks.BookmarksCatalogActivity;
 import com.mapswithme.maps.bookmarks.BookmarksPageFactory;
-import com.mapswithme.util.statistics.StatisticValueConverter;
 
-public enum IntroductionScreenFactory implements StatisticValueConverter<String>
+public enum IntroductionScreenFactory
 {
   FREE_GUIDE
       {
-        @NonNull
-        @Override
-        public String toStatisticValue()
-        {
-          return "catalogue";
-        }
-
         @Override
         public int getTitle()
         {
@@ -50,27 +42,13 @@ public enum IntroductionScreenFactory implements StatisticValueConverter<String>
         @Override
         public OnIntroductionButtonClickListener createButtonClickListener()
         {
-          return new OnIntroductionButtonClickListener()
-          {
-            @Override
-            public void onIntroductionButtonClick(@NonNull Activity activity, @NonNull String deeplink)
-            {
-              BookmarkCategoriesActivity.startForResult(activity,
-                                                        BookmarksPageFactory.DOWNLOADED.ordinal(),
-                                                        deeplink);
-            }
-          };
+          return (activity, deeplink) -> BookmarkCategoriesActivity.startForResult(activity,
+                                                    BookmarksPageFactory.DOWNLOADED.ordinal(),
+                                                    deeplink);
         }
       },
   GUIDES_PAGE
       {
-        @NonNull
-        @Override
-        public String toStatisticValue()
-        {
-          return "guides_page";
-        }
-
         @Override
         public int getTitle()
         {
@@ -99,17 +77,9 @@ public enum IntroductionScreenFactory implements StatisticValueConverter<String>
         @Override
         public OnIntroductionButtonClickListener createButtonClickListener()
         {
-          return new OnIntroductionButtonClickListener()
-          {
-            @Override
-            public void onIntroductionButtonClick(@NonNull Activity activity,
-                                                  @NonNull String deeplink)
-            {
-              BookmarksCatalogActivity.startForResult(activity,
-                                                      BookmarkCategoriesActivity.REQ_CODE_DOWNLOAD_BOOKMARK_CATEGORY,
-                                                      deeplink);
-            }
-          };
+          return (activity, deeplink) -> BookmarksCatalogActivity.startForResult(activity,
+                                                  BookmarkCategoriesActivity.REQ_CODE_DOWNLOAD_BOOKMARK_CATEGORY,
+                                                  deeplink);
         }
       };
 

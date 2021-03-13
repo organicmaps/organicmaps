@@ -11,7 +11,6 @@ import com.mapswithme.maps.R;
 import com.mapswithme.maps.base.BaseMwmFragmentActivity;
 import com.mapswithme.maps.base.BaseMwmToolbarFragment;
 import com.mapswithme.maps.widget.ToolbarController;
-import com.mapswithme.util.statistics.Statistics;
 
 public class AuthFragment extends BaseMwmToolbarFragment
 {
@@ -47,7 +46,6 @@ public class AuthFragment extends BaseMwmToolbarFragment
       @Override
       public void onUpClick()
       {
-        Statistics.INSTANCE.trackEvent(Statistics.EventName.EDITOR_AUTH_DECLINED);
         super.onUpClick();
       }
     };

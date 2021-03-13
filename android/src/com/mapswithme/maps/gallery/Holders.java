@@ -44,7 +44,6 @@ import com.mapswithme.util.StringUtils;
 import com.mapswithme.util.ThemeUtils;
 import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.Utils;
-import com.mapswithme.util.statistics.Statistics;
 
 import java.util.List;
 import java.util.Objects;
@@ -614,10 +613,6 @@ public class Holders
           BookmarkManager.INSTANCE.getCategoryByServerId(item.getGuideId());
       boolean isVisible = category.isVisible();
       BookmarkManager.INSTANCE.setVisibility(category.getId(), !isVisible);
-      Statistics.INSTANCE.trackBookmarksVisibility(Statistics.ParamValue.MAP_GALLERY,
-                                                   isVisible ? Statistics.ParamValue.HIDE
-                                                             : Statistics.ParamValue.SHOW,
-                                                   item.getGuideId());
       mBoughtContentBtn.setText(!isVisible ? R.string.hide : R.string.show);
     }
 

@@ -45,7 +45,6 @@ import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.Utils;
 import com.mapswithme.util.log.Logger;
 import com.mapswithme.util.log.LoggerFactory;
-import com.mapswithme.util.statistics.Statistics;
 
 import java.util.HashMap;
 import java.util.List;
@@ -75,8 +74,6 @@ public class MwmApplication extends Application implements AppBackgroundTracker.
 
   private Handler mMainLoopHandler;
   private final Object mMainQueueToken = new Object();
-  @NonNull
-  private final AppBackgroundTracker.OnVisibleAppLaunchListener mVisibleAppLaunchListener = new VisibleAppLaunchListener();
   @SuppressWarnings("NullableProblems")
   @NonNull
   private ConnectivityListener mConnectivityListener;
@@ -153,15 +150,12 @@ public class MwmApplication extends Application implements AppBackgroundTracker.
     getLogger().d(TAG, "Application is created");
     mMainLoopHandler = new Handler(getMainLooper());
     mMediator = new ExternalLibrariesMediator(this);
-    Statistics.INSTANCE.initialize(this);
     ConnectionState.INSTANCE.initialize(this);
     CrashlyticsUtils.INSTANCE.initialize(this);
-    Statistics.INSTANCE.setMediator(mMediator);
-    
+
     initNotificationChannels();
 
     mBackgroundTracker = new AppBackgroundTracker(this);
-    mBackgroundTracker.addListener(mVisibleAppLaunchListener);
     mSubwayManager = new SubwayManager(this);
     mIsolinesManager = new IsolinesManager(this);
     mGuidesManager = new GuidesManager(this);
@@ -382,15 +376,6 @@ public class MwmApplication extends Application implements AppBackgroundTracker.
     return mGuidesManager;
   }
 
-  private class VisibleAppLaunchListener implements AppBackgroundTracker.OnVisibleAppLaunchListener
-  {
-    @Override
-    public void onVisibleAppLaunch()
-    {
-      Statistics.INSTANCE.trackColdStartupInfo(MwmApplication.this);
-    }
-  }
-
   private class StorageCallbackImpl implements MapManager.StorageCallback
   {
     @Override
@@ -403,7 +388,6 @@ public class MwmApplication extends Application implements AppBackgroundTracker.
           if (MapManager.nativeIsAutoretryFailed())
           {
             notifier.notifyDownloadFailed(item.countryId, MapManager.nativeGetName(item.countryId));
-            MapManager.sendErrorStat(Statistics.EventName.DOWNLOADER_ERROR, MapManager.nativeGetError(item.countryId));
           }
 
           return;

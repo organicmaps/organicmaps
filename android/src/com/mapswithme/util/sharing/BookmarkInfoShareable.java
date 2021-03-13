@@ -9,7 +9,6 @@ import com.mapswithme.maps.Framework;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.widget.placepage.Sponsored;
 import com.mapswithme.util.UiUtils;
-import com.mapswithme.util.statistics.Statistics;
 
 import java.util.Arrays;
 
@@ -82,12 +81,5 @@ class BookmarkInfoShareable<T extends ShareableInfoProvider> extends BaseShareab
   public String getMimeType()
   {
     return null;
-  }
-
-  @Override
-  public void share(SharingTarget target)
-  {
-    super.share(target);
-    Statistics.INSTANCE.trackPlaceShared(target.name);
   }
 }

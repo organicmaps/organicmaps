@@ -20,7 +20,6 @@ import com.mapswithme.maps.base.BaseMwmToolbarFragment;
 import com.mapswithme.maps.bookmarks.data.BookmarkCategory;
 import com.mapswithme.maps.bookmarks.data.BookmarkManager;
 import com.mapswithme.maps.dialog.DialogUtils;
-import com.mapswithme.util.statistics.Statistics;
 
 import java.util.Objects;
 
@@ -94,7 +93,6 @@ public class UgcRouteEditSettingsFragment extends BaseMwmToolbarFragment
   private void onSharingOptionsClicked()
   {
     openSharingOptionsScreen();
-    Statistics.INSTANCE.trackEditSettingsSharingOptionsClick();
   }
 
   private void openSharingOptionsScreen()
@@ -119,15 +117,6 @@ public class UgcRouteEditSettingsFragment extends BaseMwmToolbarFragment
     return super.onOptionsItemSelected(item);
   }
 
-  @Override
-  public boolean onBackPressed()
-  {
-    if (isCategoryDescChanged())
-      Statistics.INSTANCE.trackCategoryDescChanged();
-    Statistics.INSTANCE.trackEditSettingsCancel();
-    return super.onBackPressed();
-  }
-
   private void onEditDoneClicked()
   {
     final String newCategoryName = getEditableCategoryName();
@@ -138,12 +127,8 @@ public class UgcRouteEditSettingsFragment extends BaseMwmToolbarFragment
       BookmarkManager.INSTANCE.setCategoryName(mCategory.getId(), newCategoryName);
 
     if (isCategoryDescChanged())
-    {
       BookmarkManager.INSTANCE.setCategoryDescription(mCategory.getId(), getEditableCategoryDesc());
-      Statistics.INSTANCE.trackCategoryDescChanged();
-    }
 
-    Statistics.INSTANCE.trackEditSettingsConfirm();
     requireActivity().finish();
   }
 

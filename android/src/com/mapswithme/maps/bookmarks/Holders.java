@@ -28,7 +28,6 @@ import com.mapswithme.maps.widget.recycler.RecyclerClickListener;
 import com.mapswithme.maps.widget.recycler.RecyclerLongClickListener;
 import com.mapswithme.util.Graphics;
 import com.mapswithme.util.UiUtils;
-import com.mapswithme.util.statistics.Statistics;
 
 public class Holders
 {
@@ -130,8 +129,6 @@ public class Holders
       private final int mCompilationType;
       @NonNull
       private final String mServerId;
-      @NonNull
-      private final String mCompilationTypeString;
 
       ToggleShowAllChildCategoryClickListener(@NonNull HeaderActionChildCategories action,
                                               boolean showAll,
@@ -142,25 +139,15 @@ public class Holders
         mShowAll = showAll;
         mCompilationType = compilationType;
         mServerId = serverId;
-        mCompilationTypeString = compilationType == BookmarkManager.CATEGORY ?
-                                 Statistics.ParamValue.CATEGORY : Statistics.ParamValue.COLLECTION;
       }
 
       @Override
       public void onClick(View view)
       {
         if (mShowAll)
-        {
           mAction.onShowAll(mCompilationType);
-          Statistics.INSTANCE.trackGuideVisibilityChange(Statistics.ParamValue.SHOW_ALL, mServerId,
-                                                         mCompilationTypeString);
-        }
         else
-        {
           mAction.onHideAll(mCompilationType);
-          Statistics.INSTANCE.trackGuideVisibilityChange(Statistics.ParamValue.HIDE_ALL, mServerId,
-                                                         mCompilationTypeString);
-        }
       }
     }
 

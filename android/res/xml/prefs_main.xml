@@ -177,13 +177,7 @@
       android:defaultValue="true"
       android:title="@string/crash_reports"
       android:summary="@string/crash_reports_description"
-      android:order="2">
-    </SwitchPreferenceCompat>
-    <SwitchPreferenceCompat
-      android:key="@string/pref_send_statistics"
-      android:title="@string/allow_statistics"
-      android:summary="@string/allow_statistics_hint"
-      android:order="3"/>
+      android:order="2"/>
   </androidx.preference.PreferenceCategory>
   <androidx.preference.PreferenceCategory
     android:key="@string/pref_information"

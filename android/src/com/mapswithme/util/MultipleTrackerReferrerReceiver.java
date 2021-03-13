@@ -7,7 +7,6 @@ import android.util.Log;
 
 import com.mapswithme.util.log.Logger;
 import com.mapswithme.util.log.LoggerFactory;
-import com.mapswithme.util.statistics.AlohaHelper;
 
 import static com.mapswithme.maps.MwmApplication.backgroundTracker;
 

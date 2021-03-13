@@ -21,9 +21,7 @@ import com.mapswithme.maps.search.SearchEngine;
 import com.mapswithme.util.Graphics;
 import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.concurrency.UiThread;
-import com.mapswithme.util.statistics.Statistics;
 
-import static com.mapswithme.util.statistics.Statistics.EventName.ROUTING_SEARCH_CLICK;
 
 class SearchWheel implements View.OnClickListener
 {
@@ -113,14 +111,9 @@ class SearchWheel implements View.OnClickListener
     mSearchLayout = mFrame.findViewById(R.id.search_frame);
     if (UiUtils.isLandscape(mFrame.getContext()))
     {
-      UiUtils.waitLayout(mSearchLayout, new ViewTreeObserver.OnGlobalLayoutListener()
-      {
-        @Override
-        public void onGlobalLayout()
-        {
-          mSearchLayout.setPivotX(0);
-          mSearchLayout.setPivotY(mSearchLayout.getMeasuredHeight() / 2);
-        }
+      UiUtils.waitLayout(mSearchLayout, () -> {
+        mSearchLayout.setPivotX(0);
+        mSearchLayout.setPivotY(mSearchLayout.getMeasuredHeight() / 2);
       });
     }
     for (SearchOption searchOption : SearchOption.values())
@@ -235,18 +228,12 @@ class SearchWheel implements View.OnClickListener
       if (RoutingController.get().isPlanning())
       {
         if (TextUtils.isEmpty(SearchEngine.INSTANCE.getQuery()))
-        {
           showSearchInParent();
-          Statistics.INSTANCE.trackRoutingEvent(ROUTING_SEARCH_CLICK, true);
-        }
         else
-        {
           reset();
-        }
         return;
       }
 
-      Statistics.INSTANCE.trackRoutingEvent(ROUTING_SEARCH_CLICK, false);
       if (mCurrentOption != null || !TextUtils.isEmpty(SearchEngine.INSTANCE.getQuery()))
       {
         SearchEngine.INSTANCE.cancelInteractiveSearch();

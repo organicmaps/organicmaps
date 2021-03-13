@@ -12,7 +12,6 @@ import com.mapswithme.maps.maplayer.traffic.widget.TrafficButtonController;
 import com.mapswithme.maps.tips.Tutorial;
 import com.mapswithme.maps.tips.TutorialClickListener;
 import com.mapswithme.util.InputUtils;
-import com.mapswithme.util.statistics.Statistics;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -325,7 +324,6 @@ public class MapLayerCompositeController implements MapLayerController
       if (mCurrentLayer.getMode().isEnabled(mActivity))
       {
         Mode mode = getCurrentLayer().getMode();
-        Statistics.INSTANCE.trackMapLayerClick(mode, Statistics.ParamValue.MAP, false);
         turnOff();
         toggleMode(mode);
       }

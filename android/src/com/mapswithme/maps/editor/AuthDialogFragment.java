@@ -13,31 +13,11 @@ import android.view.ViewGroup;
 
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.base.BaseMwmDialogFragment;
-import com.mapswithme.util.statistics.Statistics;
 
 import java.util.Objects;
 
 public class AuthDialogFragment extends BaseMwmDialogFragment
 {
-
-  @Override
-  public void onCreate(@Nullable Bundle savedInstanceState)
-  {
-    super.onCreate(savedInstanceState);
-    Bundle args = getArguments();
-    if (args == null)
-      return;
-
-    sendStats(args, Statistics.EventName.AUTH_SHOWN);
-  }
-
-  @NonNull
-  @Override
-  public Dialog onCreateDialog(@Nullable Bundle savedInstanceState)
-  {
-    return new DialogImpl();
-  }
-
   @Nullable
   @Override
   public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState)
@@ -59,12 +39,6 @@ public class AuthDialogFragment extends BaseMwmDialogFragment
     osmAuthDelegate.onViewCreated(view, savedInstanceState);
   }
 
-  private static void sendStats(@NonNull Bundle args, @NonNull String action)
-  {
-    Statistics.INSTANCE.trackAuthDialogAction(action,
-                                              Objects.requireNonNull(args.getString(Statistics.EventParam.FROM)));
-  }
-
   private class AuthFragmentDelegate extends OsmAuthFragmentDelegate
   {
     AuthFragmentDelegate()
@@ -77,28 +51,6 @@ public class AuthDialogFragment extends BaseMwmDialogFragment
     {
       startActivity(new Intent(getContext(), OsmAuthActivity.class));
       dismiss();
-      if (getArguments() == null)
-        return;
-
-      sendStats(getArguments(), Statistics.EventName.AUTH_START);
-    }
-  }
-
-  private class DialogImpl extends Dialog
-  {
-    DialogImpl()
-    {
-      super(requireActivity(), getTheme());
-    }
-
-    @Override
-    public void onBackPressed()
-    {
-      super.onBackPressed();
-      if (getArguments() == null)
-        return;
-
-      sendStats(getArguments(), Statistics.EventName.AUTH_DECLINED);
     }
   }
 }

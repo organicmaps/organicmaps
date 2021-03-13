@@ -50,8 +50,6 @@ import com.mapswithme.util.ThemeSwitcher;
 import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.concurrency.UiThread;
 import com.mapswithme.util.log.LoggerFactory;
-import com.mapswithme.util.statistics.AlohaHelper;
-import com.mapswithme.util.statistics.Statistics;
 
 import java.util.HashMap;
 import java.util.List;
@@ -114,7 +112,6 @@ public class SettingsPrefsFragment extends BaseXmlSettingsFragment
     @Override
     public boolean onPreferenceChange(Preference preference, Object newValue)
     {
-      Statistics.INSTANCE.trackEvent(Statistics.EventName.Settings.VOICE_ENABLED, Statistics.params().add(Statistics.EventParam.ENABLED, newValue.toString()));
       Preference root = findPreference(getString(R.string.pref_tts_screen));
       boolean set = (Boolean)newValue;
       if (!set)
@@ -163,7 +160,6 @@ public class SettingsPrefsFragment extends BaseXmlSettingsFragment
         return false;
 
       mSelectedLanguage = (String)newValue;
-      Statistics.INSTANCE.trackEvent(Statistics.EventName.Settings.VOICE_LANGUAGE, Statistics.params().add(Statistics.EventParam.LANGUAGE, mSelectedLanguage));
       LanguageData lang = mLanguages.get(mSelectedLanguage);
       if (lang == null)
         return false;
@@ -285,7 +281,6 @@ public class SettingsPrefsFragment extends BaseXmlSettingsFragment
   private boolean onToggleCrashReports(Object newValue)
   {
     boolean isEnabled = (boolean) newValue;
-    Statistics.INSTANCE.trackSettingsToggle(isEnabled);
     FirebaseCrashlytics.getInstance().setCrashlyticsCollectionEnabled(isEnabled);
     return true;
   }
@@ -330,7 +325,6 @@ public class SettingsPrefsFragment extends BaseXmlSettingsFragment
     init3dModePrefsCallbacks();
     initPerspectivePrefsCallbacks();
     initTrackRecordPrefsCallbacks();
-    initStatisticsPrefsCallback();
     initPlayServicesPrefsCallbacks();
     initAutoZoomPrefsCallbacks();
     initLoggingEnabledPrefsCallbacks();
@@ -370,10 +364,6 @@ public class SettingsPrefsFragment extends BaseXmlSettingsFragment
   private void onSpeedCamerasPrefChanged(@NonNull SpeedCameraMode oldCamMode,
                                          @NonNull SpeedCameraMode newCamMode)
   {
-    Statistics.ParameterBuilder params = new Statistics
-        .ParameterBuilder()
-        .add(Statistics.EventParam.VALUE, newCamMode.name().toLowerCase());
-    Statistics.INSTANCE.trackEvent(Statistics.EventName.SETTINGS_SPEED_CAMS, params);
     Framework.setSpeedCamerasMode(newCamMode);
   }
 
@@ -405,19 +395,8 @@ public class SettingsPrefsFragment extends BaseXmlSettingsFragment
   @Override
   public boolean onPreferenceTreeClick(Preference preference)
   {
-    if (preference.getKey() != null && preference.getKey().equals(getString(R.string.pref_help)))
+    if (preference.getKey() != null && preference.getKey().equals(getString(R.string.pref_osm_profile)))
     {
-      Statistics.INSTANCE.trackEvent(Statistics.EventName.Settings.HELP);
-      AlohaHelper.logClick(AlohaHelper.Settings.HELP);
-    }
-    else if (preference.getKey() != null && preference.getKey().equals(getString(R.string.pref_about)))
-    {
-      Statistics.INSTANCE.trackEvent(Statistics.EventName.Settings.ABOUT);
-      AlohaHelper.logClick(AlohaHelper.Settings.ABOUT);
-    }
-    else if (preference.getKey() != null && preference.getKey().equals(getString(R.string.pref_osm_profile)))
-    {
-      Statistics.INSTANCE.trackEvent(Statistics.EventName.Settings.OSM_PROFILE);
       startActivity(new Intent(getActivity(), ProfileActivity.class));
     }
     return super.onPreferenceTreeClick(preference);
@@ -525,8 +504,6 @@ public class SettingsPrefsFragment extends BaseXmlSettingsFragment
             || type == NetworkPolicy.Type.NEVER)
         {
           Config.setUseMobileDataSettings(type);
-          Statistics.INSTANCE.trackNetworkUsageAlert(Statistics.EventName.SETTINGS_MOBILE_INTERNET_CHANGE,
-                                                     type.toStatisticValue());
         }
         else
         {
@@ -564,7 +541,6 @@ public class SettingsPrefsFragment extends BaseXmlSettingsFragment
       int scheme = Integer.parseInt((String) newValue);
 
       PowerManagment.setScheme(scheme);
-      Statistics.INSTANCE.trackPowerManagmentSchemeChanged(scheme);
 
       return true;
     });
@@ -649,27 +625,6 @@ public class SettingsPrefsFragment extends BaseXmlSettingsFragment
     }
   }
 
-  private void initStatisticsPrefsCallback()
-  {
-    Preference pref = findPreference(getString(R.string.pref_send_statistics));
-    if (pref == null)
-      return;
-
-    ((TwoStatePreference)pref).setChecked(SharedPropertiesUtils.isStatisticsEnabled(requireContext()));
-    pref.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener()
-    {
-      @Override
-      public boolean onPreferenceChange(Preference preference, Object newValue)
-      {
-        Statistics.INSTANCE.setStatEnabled(requireContext(), (Boolean) newValue);
-        return true;
-      }
-    });
-
-    // Sic: temporary disable statistics
-    removePreference(getString(R.string.pref_subtittle_opt_out), pref);
-  }
-
   private void initTrackRecordPrefsCallbacks()
   {
     final ListPreference trackPref = (ListPreference)findPreference(getString(R.string.pref_track_record));
@@ -691,7 +646,6 @@ public class SettingsPrefsFragment extends BaseXmlSettingsFragment
       {
         boolean enabled = (Boolean) newValue;
         TrackRecorder.INSTANCE.setEnabled(enabled);
-        Statistics.INSTANCE.setStatEnabled(requireContext(), enabled);
         trackPref.setEnabled(enabled);
         if (root != null)
           root.setSummary(enabled ? R.string.on : R.string.off);
@@ -720,9 +674,6 @@ public class SettingsPrefsFragment extends BaseXmlSettingsFragment
           root.setSummary(enabled ? R.string.on : R.string.off);
         pref.setTitle(enabled ? R.string.on : R.string.off);
 
-        Statistics.ParameterBuilder builder =
-            new Statistics.ParameterBuilder().add(Statistics.EventParam.VALUE, value);
-        Statistics.INSTANCE.trackEvent(Statistics.EventName.SETTINGS_RECENT_TRACK_CHANGE, builder);
         UiThread.runLater(new Runnable()
         {
           @Override
@@ -819,7 +770,6 @@ public class SettingsPrefsFragment extends BaseXmlSettingsFragment
         {
           Boolean value = (Boolean) newValue;
           BookmarkManager.INSTANCE.setCloudEnabled(value);
-          Statistics.INSTANCE.trackBmSettingsToggle(value);
           return true;
         });
   }
@@ -843,8 +793,6 @@ public class SettingsPrefsFragment extends BaseXmlSettingsFragment
       return true;
 
     ThemeSwitcher.INSTANCE.restart(false);
-    Statistics.INSTANCE.trackEvent(Statistics.EventName.Settings.MAP_STYLE,
-                                   Statistics.params().add(Statistics.EventParam.NAME, themeName));
     ListPreference mapStyleModeList = (ListPreference) pref;
 
     ThemeMode mode = ThemeMode.getInstance(getContext().getApplicationContext(), themeName);
@@ -865,7 +813,6 @@ public class SettingsPrefsFragment extends BaseXmlSettingsFragment
       @Override
       public boolean onPreferenceChange(Preference preference, Object newValue)
       {
-        Statistics.INSTANCE.trackEvent(Statistics.EventName.Settings.ZOOM);
         Config.setShowZoomButtons((Boolean) newValue);
         return true;
       }
@@ -885,8 +832,6 @@ public class SettingsPrefsFragment extends BaseXmlSettingsFragment
       public boolean onPreferenceChange(Preference preference, Object newValue)
       {
         UnitLocale.setUnits(Integer.parseInt((String) newValue));
-        Statistics.INSTANCE.trackEvent(Statistics.EventName.Settings.UNITS);
-        AlohaHelper.logClick(AlohaHelper.Settings.CHANGE_UNITS);
         return true;
       }
     });

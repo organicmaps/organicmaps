@@ -9,7 +9,6 @@ import com.mapswithme.maps.Framework;
 import com.mapswithme.util.ConnectionState;
 import com.mapswithme.util.log.Logger;
 import com.mapswithme.util.log.LoggerFactory;
-import com.mapswithme.util.statistics.Statistics;
 
 import java.util.List;
 
@@ -55,20 +54,11 @@ class SubscriptionPurchaseController extends AbstractPurchaseController<Validati
                            boolean isTrial)
     {
       LOGGER.i(TAG, "Validation status of '" + mType + "': " + status);
-      if (status == ValidationStatus.VERIFIED)
-        Statistics.INSTANCE.trackPurchaseEvent(Statistics.EventName
-                                                   .INAPP_PURCHASE_VALIDATION_SUCCESS,
-                                               mType.getServerId());
-      else
-        Statistics.INSTANCE.trackPurchaseValidationError(mType.getServerId(), status);
-
       final boolean shouldActivateSubscription = status != ValidationStatus.NOT_VERIFIED;
       final boolean hasActiveSubscription = Framework.nativeHasActiveSubscription(mType.ordinal());
       if (!hasActiveSubscription && shouldActivateSubscription)
       {
         LOGGER.i(TAG, "'" + mType + "' subscription activated");
-        Statistics.INSTANCE.trackPurchaseProductDelivered(mType.getServerId(), mType.getVendor(),
-                                                          isTrial);
       }
       else if (hasActiveSubscription && !shouldActivateSubscription)
       {

@@ -11,7 +11,6 @@ import android.os.Bundle;
 import android.text.TextUtils;
 
 import com.mapswithme.maps.Framework;
-import com.mapswithme.util.statistics.Statistics;
 
 /**
  * An authorizer is responsible for an authorization for the Mapsme server,
@@ -96,13 +95,11 @@ public class Authorizer implements AuthorizationListener
       boolean isCancel = data.getBooleanExtra(Constants.EXTRA_IS_CANCEL, false);
       if (isCancel)
       {
-        Statistics.INSTANCE.trackAuthDeclined(type);
         mCallback.onSocialAuthenticationCancel(type);
         return;
       }
 
       String error = data.getStringExtra(Constants.EXTRA_AUTH_ERROR);
-      Statistics.INSTANCE.trackAuthError(type, error);
       mCallback.onSocialAuthenticationError(type, error);
       return;
     }
@@ -125,7 +122,6 @@ public class Authorizer implements AuthorizationListener
       Framework.nativeAuthenticateUser(socialToken, type, privacyAccepted, termsOfUseAccepted,
                                        promoAccepted, this);
       mTokenType = type;
-      Statistics.INSTANCE.trackAuthExternalRequestSuccess(type);
     }
   }
 
@@ -135,8 +131,6 @@ public class Authorizer implements AuthorizationListener
     mIsAuthorizationInProgress = false;
     if (mCallback != null)
       mCallback.onAuthorizationFinish(success);
-
-    Statistics.INSTANCE.trackAuthRequestSuccess(mTokenType);
   }
 
   public boolean isAuthorizationInProgress()

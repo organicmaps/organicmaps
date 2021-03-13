@@ -3,7 +3,6 @@ package com.mapswithme.maps.bookmarks;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
-import com.mapswithme.util.statistics.Statistics;
 
 public class AuthBundleFactory
 {

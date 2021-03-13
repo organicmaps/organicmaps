@@ -16,7 +16,6 @@ import com.mapswithme.maps.base.BaseMwmDialogFragment;
 import com.mapswithme.maps.bookmarks.data.BookmarkCategory;
 import com.mapswithme.maps.bookmarks.data.BookmarkManager;
 import com.mapswithme.maps.dialog.EditTextDialogFragment;
-import com.mapswithme.util.statistics.Statistics;
 
 import java.util.List;
 
@@ -112,7 +111,6 @@ public class ChooseBookmarkCategoryFragment extends BaseMwmDialogFragment
       mListener.onCategoryChanged(newCategory);
     }
     dismiss();
-    Statistics.INSTANCE.trackEvent(Statistics.EventName.BM_GROUP_CREATED);
   }
 
   @Override
@@ -125,7 +123,6 @@ public class ChooseBookmarkCategoryFragment extends BaseMwmDialogFragment
       mListener.onCategoryChanged(category);
     }
     dismiss();
-    Statistics.INSTANCE.trackEvent(Statistics.EventName.BM_GROUP_CHANGED);
   }
 
   @Override

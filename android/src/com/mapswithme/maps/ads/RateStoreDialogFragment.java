@@ -27,8 +27,6 @@ import com.mapswithme.util.Counters;
 import com.mapswithme.util.Graphics;
 import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.Utils;
-import com.mapswithme.util.statistics.AlohaHelper;
-import com.mapswithme.util.statistics.Statistics;
 
 public class RateStoreDialogFragment extends BaseMwmDialogFragment implements View.OnClickListener
 {
@@ -49,7 +47,6 @@ public class RateStoreDialogFragment extends BaseMwmDialogFragment implements Vi
           @Override
           public void onClick(DialogInterface dialog, int which)
           {
-            Statistics.INSTANCE.trackEvent(Statistics.EventName.RATE_DIALOG_LATER);
           }
         });
 
@@ -60,7 +57,6 @@ public class RateStoreDialogFragment extends BaseMwmDialogFragment implements Vi
       @Override
       public void onRatingChanged(RatingBar ratingBar, float rating, boolean fromUser)
       {
-        Statistics.INSTANCE.trackRatingDialog(rating);
         mRating = rating;
         if (rating >= BuildConfig.RATING_THRESHOLD)
         {
@@ -100,7 +96,6 @@ public class RateStoreDialogFragment extends BaseMwmDialogFragment implements Vi
   public void onCancel(DialogInterface dialog)
   {
     super.onCancel(dialog);
-    Statistics.INSTANCE.trackEvent(Statistics.EventName.RATE_DIALOG_LATER);
   }
 
   @Override
@@ -131,7 +126,6 @@ public class RateStoreDialogFragment extends BaseMwmDialogFragment implements Vi
         startActivity(intent);
       } catch (android.content.ActivityNotFoundException e)
       {
-        AlohaHelper.logException(e);
       }
       break;
     }

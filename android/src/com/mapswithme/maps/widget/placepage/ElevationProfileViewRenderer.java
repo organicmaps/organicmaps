@@ -14,7 +14,6 @@ import com.mapswithme.maps.R;
 import com.mapswithme.maps.bookmarks.data.ElevationInfo;
 import com.mapswithme.maps.routing.RoutingController;
 import com.mapswithme.util.UiUtils;
-import com.mapswithme.util.statistics.Statistics;
 
 import java.util.Objects;
 
@@ -155,24 +154,16 @@ public class ElevationProfileViewRenderer implements PlacePageViewRenderer<Place
   @Override
   public void onPlacePageDetails()
   {
-    if (mElevationInfo != null)
-      Statistics.INSTANCE.trackElevationProfilePageOpen(mElevationInfo.getServerId(),
-                                                        Statistics.ParamValue.FULL);
   }
 
   @Override
   public void onPlacePagePreview()
   {
-    if (mElevationInfo != null)
-      Statistics.INSTANCE.trackElevationProfilePageOpen(mElevationInfo.getServerId(),
-                                                        Statistics.ParamValue.PREVIEW);
   }
 
   @Override
   public void onPlacePageClosed()
   {
-    if (mElevationInfo != null)
-      Statistics.INSTANCE.trackElevationProfilePageClose(mElevationInfo.getServerId());
   }
 
   @Override

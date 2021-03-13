@@ -4,34 +4,17 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.FragmentManager;
 
 import com.mapswithme.maps.widget.StackedButtonDialogFragment;
-import com.mapswithme.util.statistics.StatisticValueConverter;
-import com.mapswithme.util.statistics.Statistics;
 
 import java.util.concurrent.TimeUnit;
 
 public final class NetworkPolicy
 {
-  public enum Type implements StatisticValueConverter<String>
+  public enum Type
   {
-    ASK()
-        {
-          @NonNull
-          @Override
-          public String toStatisticValue()
-          {
-            return Statistics.ParamValue.ASK;
-          }
-        },
+    ASK,
 
     ALWAYS()
         {
-          @NonNull
-          @Override
-          public String toStatisticValue()
-          {
-            return Statistics.ParamValue.ALWAYS;
-          }
-
           @Override
           public void check(@NonNull FragmentManager fragmentManager,
                             @NonNull NetworkPolicyListener listener, boolean isDialogAllowed)
@@ -48,13 +31,6 @@ public final class NetworkPolicy
 
     NEVER()
         {
-          @NonNull
-          @Override
-          public String toStatisticValue()
-          {
-            return Statistics.ParamValue.NEVER;
-          }
-
           @Override
           public void check(@NonNull FragmentManager fragmentManager,
                             @NonNull NetworkPolicyListener listener, boolean isDialogAllowed)
@@ -69,13 +45,6 @@ public final class NetworkPolicy
 
     NOT_TODAY()
         {
-          @NonNull
-          @Override
-          public String toStatisticValue()
-          {
-            return Statistics.ParamValue.NOT_TODAY;
-          }
-
           @Override
           public void check(@NonNull FragmentManager fragmentManager,
                             @NonNull NetworkPolicyListener listener, boolean isDialogAllowed)
@@ -89,13 +58,6 @@ public final class NetworkPolicy
 
     TODAY()
         {
-          @NonNull
-          @Override
-          public String toStatisticValue()
-          {
-            return Statistics.ParamValue.TODAY;
-          }
-
           @Override
           public void check(@NonNull FragmentManager fragmentManager,
                             @NonNull NetworkPolicyListener listener, boolean isDialogAllowed)
@@ -110,15 +72,7 @@ public final class NetworkPolicy
           }
         },
 
-    NONE
-        {
-          @NonNull
-          @Override
-          public String toStatisticValue()
-          {
-            throw new UnsupportedOperationException("Not supported here " + name());
-          }
-        };
+    NONE;
 
     public void check(@NonNull FragmentManager fragmentManager,
                       @NonNull final NetworkPolicyListener listener,

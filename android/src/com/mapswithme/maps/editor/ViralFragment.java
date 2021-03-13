@@ -18,7 +18,6 @@ import com.mapswithme.maps.R;
 import com.mapswithme.maps.base.BaseMwmDialogFragment;
 import com.mapswithme.util.ConnectionState;
 import com.mapswithme.util.sharing.SharingHelper;
-import com.mapswithme.util.statistics.Statistics;
 
 public class ViralFragment extends BaseMwmDialogFragment
 {
@@ -65,7 +64,6 @@ public class ViralFragment extends BaseMwmDialogFragment
       dismiss();
       if (mDismissListener != null)
         mDismissListener.run();
-      Statistics.INSTANCE.trackEvent(Statistics.EventName.EDITOR_SHARE_CLICK);
     });
 
     view.findViewById(R.id.close).setOnClickListener(v -> {
@@ -73,10 +71,6 @@ public class ViralFragment extends BaseMwmDialogFragment
       if (mDismissListener != null)
         mDismissListener.run();
     });
-
-    Statistics.INSTANCE.trackEvent(Statistics.EventName.EDITOR_SHARE_SHOW,
-                                   Statistics.params()
-                                             .add("showed", viralText.equals(viralChangesMsg) ? "change" : "rating"));
   }
 
   @Override

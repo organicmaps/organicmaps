@@ -89,7 +89,6 @@ public class TwoCardsSubscriptionFragmentDelegate extends SubscriptionFragmentDe
   private void onContinueButtonClicked()
   {
     getFragment().pingBookmarkCatalog();
-    getFragment().trackPayEvent();
   }
 
   @Override
@@ -153,9 +152,6 @@ public class TwoCardsSubscriptionFragmentDelegate extends SubscriptionFragmentDe
       mAnnualPriceCard.setCardElevation(getFragment().getResources()
                                                      .getDimension(R.dimen.margin_base_plus_quarter));
 
-      if (!mAnnualPriceCard.isSelected())
-        getFragment().trackYearlyProductSelected();
-
       mMonthlyPriceCard.setSelected(false);
       mAnnualPriceCard.setSelected(true);
     }
@@ -182,9 +178,6 @@ public class TwoCardsSubscriptionFragmentDelegate extends SubscriptionFragmentDe
       mMonthlyPriceCard.setCardElevation(getFragment().getResources()
                                                       .getDimension(R.dimen.margin_base_plus_quarter));
       mAnnualPriceCard.setCardElevation(DEF_ELEVATION);
-
-      if (!mMonthlyPriceCard.isSelected())
-        getFragment().trackMonthlyProductSelected();
 
       mMonthlyPriceCard.setSelected(true);
       mAnnualPriceCard.setSelected(false);

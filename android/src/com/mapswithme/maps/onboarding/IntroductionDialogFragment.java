@@ -1,19 +1,16 @@
 package com.mapswithme.maps.onboarding;
 
 import android.app.Dialog;
-import android.content.DialogInterface;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.FragmentManager;
 import android.text.TextUtils;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.base.BaseMwmDialogFragment;
 import com.mapswithme.util.UiUtils;
-import com.mapswithme.util.statistics.Statistics;
 
 public class IntroductionDialogFragment extends BaseMwmDialogFragment
 {
@@ -29,9 +26,6 @@ public class IntroductionDialogFragment extends BaseMwmDialogFragment
     final IntroductionDialogFragment fragment = new IntroductionDialogFragment();
     fragment.setArguments(args);
     fragment.show(fm, IntroductionDialogFragment.class.getName());
-    Statistics.INSTANCE.trackEvent(Statistics.EventName.ONBOARDING_DEEPLINK_SCREEN_SHOW,
-                                   Statistics.params().add(Statistics.EventParam.TYPE,
-                                                           factory.toStatisticValue()));
   }
 
   @NonNull
@@ -72,19 +66,7 @@ public class IntroductionDialogFragment extends BaseMwmDialogFragment
       throw new AssertionError("Deeplink must non-empty within introduction fragment!");
     IntroductionScreenFactory factory = getScreenFactory();
     factory.createButtonClickListener().onIntroductionButtonClick(requireActivity(), deepLink);
-    Statistics.INSTANCE.trackEvent(Statistics.EventName.ONBOARDING_DEEPLINK_SCREEN_ACCEPT,
-                                   Statistics.params().add(Statistics.EventParam.TYPE,
-                                                           factory.toStatisticValue()));
     dismissAllowingStateLoss();
-  }
-
-  @Override
-  public void onCancel(DialogInterface dialog)
-  {
-    super.onCancel(dialog);
-    Statistics.INSTANCE.trackEvent(Statistics.EventName.ONBOARDING_DEEPLINK_SCREEN_DECLINE,
-                                   Statistics.params().add(Statistics.EventParam.TYPE,
-                                                           getScreenFactory().toStatisticValue()));
   }
 
   @Override
