@@ -31,8 +31,6 @@ import com.mapswithme.util.InputUtils;
 import com.mapswithme.util.StringUtils;
 import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.Utils;
-import com.mapswithme.util.statistics.AlohaHelper;
-import com.mapswithme.util.statistics.Statistics;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -80,9 +78,6 @@ public class SearchToolbarController extends ToolbarController
   private final View.OnClickListener mChooseDatesClickListener = v -> {
     if (!ConnectionState.INSTANCE.isConnected())
     {
-      Statistics.INSTANCE.trackQuickFilterClickError(Statistics.EventParam.HOTEL,
-                                                     Statistics.ParamValue.DATE,
-                                                     Statistics.ParamValue.NO_INTERNET);
       FilterUtils.showNoNetworkConnectionDialog((AppCompatActivity) requireActivity());
       return;
     }
@@ -105,9 +100,6 @@ public class SearchToolbarController extends ToolbarController
   private final View.OnClickListener mRoomsClickListener = v -> {
     if (!ConnectionState.INSTANCE.isConnected())
     {
-      Statistics.INSTANCE.trackQuickFilterClickError(Statistics.EventParam.HOTEL,
-                                                     Statistics.ParamValue.ROOMS,
-                                                     Statistics.ParamValue.NO_INTERNET);
       FilterUtils.showNoNetworkConnectionDialog((AppCompatActivity) requireActivity());
       return;
     }
@@ -296,7 +288,6 @@ public class SearchToolbarController extends ToolbarController
     }
     catch (ActivityNotFoundException e)
     {
-      AlohaHelper.logException(e);
     }
   }
 
@@ -375,9 +366,6 @@ public class SearchToolbarController extends ToolbarController
   {
     if (mFilterContainer == null)
       return;
-
-    if (getActivity() != null && UiUtils.isHidden(mFilterContainer) && show)
-      Statistics.INSTANCE.trackQuickFilterOpen(Statistics.EventParam.HOTEL);
 
     UiUtils.showIf(show, mFilterContainer);
   }

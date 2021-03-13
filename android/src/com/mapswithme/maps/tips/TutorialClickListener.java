@@ -5,7 +5,6 @@ import android.view.View;
 
 import androidx.annotation.NonNull;
 import com.mapswithme.maps.MwmActivity;
-import com.mapswithme.util.statistics.Statistics;
 
 public abstract class TutorialClickListener implements View.OnClickListener
 {
@@ -33,7 +32,6 @@ public abstract class TutorialClickListener implements View.OnClickListener
       MwmActivity mwmActivity = (MwmActivity) mActivity;
       ClickInterceptor interceptor = tutorial.createClickInterceptor();
       interceptor.onInterceptClick(mwmActivity);
-      Statistics.INSTANCE.trackTipsEvent(Statistics.EventName.TIPS_TRICKS_CLICK, tutorial.ordinal());
       return;
     }
 

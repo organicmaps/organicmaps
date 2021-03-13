@@ -31,8 +31,6 @@ import com.mapswithme.maps.widget.recycler.ItemDecoratorFactory;
 import com.mapswithme.util.BottomSheetHelper;
 import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.sharing.SharingHelper;
-import com.mapswithme.util.statistics.Analytics;
-import com.mapswithme.util.statistics.Statistics;
 
 import java.util.List;
 
@@ -165,7 +163,6 @@ public abstract class BaseBookmarkCategoriesFragment extends BaseMwmRecyclerFrag
     processor
         .mInternalProcessor
         .process(this, getSelectedCategory());
-    Statistics.INSTANCE.trackBookmarkListSettingsClick(processor.getAnalytics());
     return true;
   }
 
@@ -350,12 +347,12 @@ public abstract class BaseBookmarkCategoriesFragment extends BaseMwmRecyclerFrag
 
   protected enum MenuItemClickProcessorWrapper
   {
-    SET_SHARE(R.id.share, shareAction(), new Analytics(Statistics.ParamValue.SEND_AS_FILE)),
-    SET_EDIT(R.id.edit, editAction(), new Analytics(Statistics.ParamValue.EDIT)),
-    SHOW_ON_MAP(R.id.show_on_map, showAction(), new Analytics(Statistics.ParamValue.MAKE_INVISIBLE_ON_MAP)),
-//    SHARING_OPTIONS(R.id.sharing_options, showSharingOptions(), new Analytics(Statistics.ParamValue.SHARING_OPTIONS)),
-    LIST_SETTINGS(R.id.settings, showListSettings(), new Analytics(Statistics.ParamValue.LIST_SETTINGS)),
-    DELETE_LIST(R.id.delete, deleteAction(), new Analytics(Statistics.ParamValue.DELETE_GROUP));
+    SET_SHARE(R.id.share, shareAction()),
+    SET_EDIT(R.id.edit, editAction()),
+    SHOW_ON_MAP(R.id.show_on_map, showAction()),
+//    SHARING_OPTIONS(R.id.sharing_options, showSharingOptions()),
+    LIST_SETTINGS(R.id.settings, showListSettings()),
+    DELETE_LIST(R.id.delete, deleteAction());
 
     @NonNull
     private static MenuClickProcessorBase showSharingOptions()
@@ -397,15 +394,11 @@ public abstract class BaseBookmarkCategoriesFragment extends BaseMwmRecyclerFrag
     private final int mId;
     @NonNull
     private MenuClickProcessorBase mInternalProcessor;
-    @NonNull
-    private final Analytics mAnalytics;
 
-    MenuItemClickProcessorWrapper(@IdRes int id, @NonNull MenuClickProcessorBase processorBase,
-                                  @NonNull Analytics analytics)
+    MenuItemClickProcessorWrapper(@IdRes int id, @NonNull MenuClickProcessorBase processorBase)
     {
       mId = id;
       mInternalProcessor = processorBase;
-      mAnalytics = analytics;
     }
 
     @NonNull
@@ -419,12 +412,6 @@ public abstract class BaseBookmarkCategoriesFragment extends BaseMwmRecyclerFrag
         }
       }
       throw new IllegalArgumentException("Enum value for res id = " + resId + " not found");
-    }
-
-    @NonNull
-    public Analytics getAnalytics()
-    {
-      return mAnalytics;
     }
   }
 

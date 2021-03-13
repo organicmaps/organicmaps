@@ -28,12 +28,10 @@ public class BookmarksSightsSubscriptionActivity extends BaseMwmFragmentActivity
     return R.style.MwmTheme;
   }
 
-  public static void startForResult(@NonNull Fragment fragment, int requestCode,
-                                    @NonNull String from)
+  public static void startForResult(@NonNull Fragment fragment, int requestCode)
   {
     Intent intent = new Intent(fragment.getActivity(), BookmarksSightsSubscriptionActivity.class);
-    intent.putExtra(AbstractBookmarkSubscriptionFragment.EXTRA_FROM, from)
-          .setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
     fragment.startActivityForResult(intent, requestCode);
   }
 }

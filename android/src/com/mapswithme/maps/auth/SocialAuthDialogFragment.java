@@ -26,7 +26,6 @@ import com.mapswithme.maps.base.BaseMwmDialogFragment;
 import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.log.Logger;
 import com.mapswithme.util.log.LoggerFactory;
-import com.mapswithme.util.statistics.Statistics;
 
 import java.util.Arrays;
 import java.util.List;
@@ -49,7 +48,6 @@ public class SocialAuthDialogFragment extends BaseMwmDialogFragment
   private final View.OnClickListener mPhoneClickListener = (View v) ->
   {
     PhoneAuthActivity.startForResult(this);
-    trackStatsIfArgsExist(Statistics.EventName.AUTH_START);
   };
   @NonNull
   private final View.OnClickListener mGoogleClickListener = new View.OnClickListener()
@@ -59,7 +57,6 @@ public class SocialAuthDialogFragment extends BaseMwmDialogFragment
     {
       Intent intent = mGoogleSignInClient.getSignInIntent();
       startActivityForResult(intent, Constants.REQ_CODE_GOOGLE_SIGN_IN);
-      trackStatsIfArgsExist(Statistics.EventName.AUTH_START);
     }
   };
   @SuppressWarnings("NullableProblems")
@@ -93,16 +90,6 @@ public class SocialAuthDialogFragment extends BaseMwmDialogFragment
         .requestEmail()
         .build();
     mGoogleSignInClient = GoogleSignIn.getClient(requireActivity(), gso);
-  }
-
-  private void trackStatsIfArgsExist(@NonNull String action)
-  {
-    Bundle args = getArguments();
-    if (args == null)
-      return;
-
-    Statistics.INSTANCE.trackAuthDialogAction(action,
-                                              Objects.requireNonNull(args.getString(Statistics.EventParam.FROM)));
   }
 
   private void setTargetCallback()
@@ -147,8 +134,6 @@ public class SocialAuthDialogFragment extends BaseMwmDialogFragment
                         Framework.nativeGetTermsOfUseLink());
 
     setButtonAvailability(view, false, R.id.google_button, R.id.phone_button);
-
-    trackStatsIfArgsExist(Statistics.EventName.AUTH_SHOWN);
     return view;
   }
 
@@ -172,7 +157,6 @@ public class SocialAuthDialogFragment extends BaseMwmDialogFragment
   public void onResume()
   {
     super.onResume();
-    Statistics.INSTANCE.trackEvent(Statistics.EventName.UGC_AUTH_SHOWN);
   }
 
   private void sendResult(int resultCode, @Nullable String socialToken,

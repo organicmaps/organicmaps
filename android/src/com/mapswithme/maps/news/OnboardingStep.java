@@ -5,97 +5,40 @@ import androidx.annotation.NonNull;
 import androidx.annotation.StringRes;
 import com.mapswithme.maps.R;
 import com.mapswithme.util.UiUtils;
-import com.mapswithme.util.statistics.StatisticValueConverter;
 
-public enum OnboardingStep implements StatisticValueConverter<String>
+public enum OnboardingStep
 {
   CHECK_OUT_SIGHTS(R.string.new_onboarding_step5_3_button,
                    R.string.later,
                    R.string.new_onboarding_step5_1_header,
-                   R.string.new_onboarding_step5_3_message)
-      {
-        @NonNull
-        @Override
-        public String toStatisticValue()
-        {
-          return "sample_discovery";
-        }
-      },
+                   R.string.new_onboarding_step5_3_message),
   SUBSCRIBE_TO_CATALOG(R.string.new_onboarding_step5_2_button,
                        R.string.later,
                        R.string.new_onboarding_step5_1_header,
-                       R.string.new_onboarding_step5_2_message)
-      {
-        @NonNull
-        @Override
-        public String toStatisticValue()
-        {
-          return "buy_subscription";
-        }
-      },
+                       R.string.new_onboarding_step5_2_message),
   DISCOVER_GUIDES(R.string.new_onboarding_step5_1_button,
                   R.string.later,
                   R.string.new_onboarding_step5_1_header,
-                  R.string.new_onboarding_step5_1_message)
-      {
-        @NonNull
-        @Override
-        public String toStatisticValue()
-        {
-          return "catalog_discovery";
-        }
-      },
+                  R.string.new_onboarding_step5_1_message),
   SHARE_EMOTIONS(R.string.new_onboarding_button_2,
                  UiUtils.NO_ID,
                  R.string.new_onboarding_step4_header,
                  R.string.new_onboarding_step4_message,
-               false)
-      {
-        @NonNull
-        @Override
-        public String toStatisticValue()
-        {
-          return "share_emotions";
-        }
-      },
+               false),
   EXPERIENCE(R.string.new_onboarding_button,
              UiUtils.NO_ID,
              R.string.new_onboarding_step3_header,
              R.string.new_onboarding_step3_message,
-         false)
-      {
-        @NonNull
-        @Override
-        public String toStatisticValue()
-        {
-          return "experience";
-        }
-      },
+         false),
   DREAM_AND_PLAN(R.string.new_onboarding_button,
                  UiUtils.NO_ID,
                  R.string.new_onboarding_step2_header,
                  R.string.new_onboarding_step2_message,
-          false)
-      {
-        @NonNull
-        @Override
-        public String toStatisticValue()
-        {
-          return "dream_and_plan";
-        }
-      },
+          false),
   PERMISSION_EXPLANATION(R.string.new_onboarding_button,
                          R.string.learn_more,
                          R.string.onboarding_permissions_title,
-                         R.string.onboarding_permissions_message)
-      {
-        @NonNull
-        @Override
-        public String toStatisticValue()
-        {
-          return "permissions";
-        }
-      };
+                         R.string.onboarding_permissions_message);
 
   @StringRes
   private final int mAcceptButtonResId;

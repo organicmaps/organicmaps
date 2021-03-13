@@ -29,7 +29,6 @@ import com.mapswithme.maps.purchase.SubscriptionType;
 import com.mapswithme.util.Utils;
 import com.mapswithme.util.log.Logger;
 import com.mapswithme.util.log.LoggerFactory;
-import com.mapswithme.util.statistics.Statistics;
 
 import java.util.Objects;
 
@@ -210,12 +209,12 @@ class BookmarksDownloadFragmentDelegate implements Authorizer.Callback, Bookmark
       if (type.equals(SubscriptionType.BOOKMARKS_SIGHTS))
       {
         BookmarksSightsSubscriptionActivity.startForResult
-            (mFragment, PurchaseUtils.REQ_CODE_PAY_SUBSCRIPTION, Statistics.ParamValue.WEBVIEW);
+            (mFragment, PurchaseUtils.REQ_CODE_PAY_SUBSCRIPTION);
         return;
       }
 
       BookmarksAllSubscriptionActivity.startForResult
-          (mFragment, PurchaseUtils.REQ_CODE_PAY_SUBSCRIPTION, Statistics.ParamValue.WEBVIEW);
+          (mFragment, PurchaseUtils.REQ_CODE_PAY_SUBSCRIPTION);
       return;
     }
 

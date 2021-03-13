@@ -10,7 +10,6 @@ import androidx.fragment.app.Fragment;
 import com.mapswithme.maps.base.CustomNavigateUpListener;
 import com.mapswithme.maps.base.BaseMwmFragmentActivity;
 import com.mapswithme.util.ThemeUtils;
-import com.mapswithme.util.statistics.Statistics;
 
 public class FilterActivity extends BaseMwmFragmentActivity
     implements FilterFragment.Listener, CustomNavigateUpListener
@@ -75,16 +74,12 @@ public class FilterActivity extends BaseMwmFragmentActivity
   @Override
   public void customOnNavigateUp()
   {
-    Statistics.INSTANCE.trackFilterEvent(Statistics.EventName.SEARCH_FILTER_CANCEL,
-                                         Statistics.EventParam.HOTEL);
     finish();
   }
 
   @Override
   public void onBackPressed()
   {
-    Statistics.INSTANCE.trackFilterEvent(Statistics.EventName.SEARCH_FILTER_CANCEL,
-                                         Statistics.EventParam.HOTEL);
     super.onBackPressed();
   }
 }

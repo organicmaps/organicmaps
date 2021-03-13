@@ -58,7 +58,6 @@ import com.mapswithme.util.Utils;
 import com.mapswithme.util.concurrency.ThreadPool;
 import com.mapswithme.util.log.Logger;
 import com.mapswithme.util.log.LoggerFactory;
-import com.mapswithme.util.statistics.Statistics;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -67,6 +66,7 @@ import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 import java.util.Objects;
 
 public class Factory
@@ -213,7 +213,7 @@ public class Factory
     @Override
     MapTask createMapTask(@NonNull String uri)
     {
-      return BackUrlMapTaskWrapper.wrap(new OpenUrlTask(uri, Statistics.ParamValue.UNKNOWN), uri);
+      return BackUrlMapTaskWrapper.wrap(new OpenUrlTask(uri), uri);
     }
   }
 
@@ -229,7 +229,7 @@ public class Factory
     @Override
     MapTask createMapTask(@NonNull String uri)
     {
-      return StatisticMapTaskWrapper.wrap(new OpenUrlTask(uri, "geo"));
+      return new OpenUrlTask(uri);
     }
   }
 
@@ -245,7 +245,7 @@ public class Factory
     @Override
     MapTask createMapTask(@NonNull String uri)
     {
-      return StatisticMapTaskWrapper.wrap(new OpenUrlTask(uri, "ge0"));
+      return new OpenUrlTask(uri);
     }
   }
 
@@ -261,7 +261,7 @@ public class Factory
     @Override
     MapTask createMapTask(@NonNull String uri)
     {
-      return StatisticMapTaskWrapper.wrap(new OpenUrlTask(uri, "mapsme"));
+      return new OpenUrlTask(uri);
     }
   }
 
@@ -286,7 +286,7 @@ public class Factory
     {
       final Uri data = intent.getData();
       final String ge0Url = "ge0:/" + data.getPath();
-      return StatisticMapTaskWrapper.wrap(new OpenUrlTask(ge0Url, "http_ge0_me"));
+      return new OpenUrlTask(ge0Url);
     }
   }
 
@@ -312,10 +312,9 @@ public class Factory
 
         final ParsedMwmRequest request = ParsedMwmRequest.extractFromIntent(intent);
         ParsedMwmRequest.setCurrentRequest(request);
-        Statistics.INSTANCE.trackApiCall(request);
 
         if (!ParsedMwmRequest.isPickPointMode())
-          return StatisticMapTaskWrapper.wrap(new OpenUrlTask(apiUrl, "action_api_request"));
+          return new OpenUrlTask(apiUrl);
       }
 
       throw new AssertionError("Url must be provided!");
@@ -335,7 +334,7 @@ public class Factory
     @Override
     MapTask createMapTask(@NonNull String uri)
     {
-      return StatisticMapTaskWrapper.wrap(new OpenUrlTask(uri, "maps_google_com"));
+      return new OpenUrlTask(uri);
     }
   }
 
@@ -361,7 +360,7 @@ public class Factory
     @Override
     MapTask createMapTask(@NonNull String uri)
     {
-      return StatisticMapTaskWrapper.wrap(new OpenUrlTask(uri, "old_lead"));
+      return new OpenUrlTask(uri);
     }
   }
 
@@ -386,7 +385,7 @@ public class Factory
     @Override
     MapTask createTargetTask(@NonNull String url)
     {
-      return StatisticMapTaskWrapper.wrap(new ImportBookmarkCatalogueTask(url));
+      return new ImportBookmarkCatalogueTask(url);
     }
   }
 
@@ -411,7 +410,7 @@ public class Factory
     @Override
     MapTask createTargetTask(@NonNull String url)
     {
-      return StatisticMapTaskWrapper.wrap(new GuidesPageToOpenTask(url));
+      return new GuidesPageToOpenTask(url);
     }
   }
 
@@ -437,7 +436,7 @@ public class Factory
     @Override
     MapTask createTargetTask(@NonNull String url)
     {
-      return StatisticMapTaskWrapper.wrap(new BookmarksSubscriptionTask(url));
+      return new BookmarksSubscriptionTask(url);
     }
   }
 
@@ -452,7 +451,7 @@ public class Factory
                       .authority(DlinkIntentProcessor.HOST)
                       .path(DlinkBookmarkCatalogueIntentProcessor.CATALOGUE)
                       .build().toString();
-      return StatisticMapTaskWrapper.wrap(new ImportBookmarkCatalogueTask(url));
+      return new ImportBookmarkCatalogueTask(url);
     }
 
     @Override
@@ -486,11 +485,7 @@ public class Factory
                        .authority("").build();
 
       String query = coreUri.getLastPathSegment();
-      MapTask statisticTask = StatisticMapTaskWrapper.wrap(new OpenUrlTask(coreUri.toString(),
-                                                                             TextUtils.isEmpty(query)
-                                                                             ? Statistics.ParamValue.UNKNOWN :
-                                                                             query));
-      return BackUrlMapTaskWrapper.wrap(statisticTask, url);
+      return BackUrlMapTaskWrapper.wrap(new OpenUrlTask(coreUri.toString()), url);
     }
 
     @Override
@@ -565,7 +560,7 @@ public class Factory
     public MapTask process(@NonNull Intent intent)
     {
       String countryId = intent.getStringExtra(DownloadResourcesLegacyActivity.EXTRA_COUNTRY);
-      return StatisticMapTaskWrapper.wrap(new ShowCountryTask(countryId));
+      return new ShowCountryTask(countryId);
     }
   }
 
@@ -700,7 +695,7 @@ public class Factory
       double lat = getCoordinateFromIntent(intent, EXTRA_LAT);
       double lon = getCoordinateFromIntent(intent, EXTRA_LON);
 
-      return StatisticMapTaskWrapper.wrap(new ShowPointTask(lat, lon));
+      return new ShowPointTask(lat, lon);
     }
   }
 
@@ -802,13 +797,6 @@ public class Factory
 
       return false;
     }
-
-    @NonNull
-    @Override
-    public String toStatisticValue()
-    {
-      return "subscription";
-    }
   }
 
   public static class ImportBookmarkCatalogueTask extends UrlTaskWithStatistics
@@ -825,13 +813,6 @@ public class Factory
     {
       BookmarkCategoriesActivity.startForResult(target, BookmarksPageFactory.DOWNLOADED.ordinal(), getUrl());
       return true;
-    }
-
-    @NonNull
-    @Override
-    public String toStatisticValue()
-    {
-      return "catalogue";
     }
   }
 
@@ -852,13 +833,6 @@ public class Factory
                                               BookmarkCategoriesActivity.REQ_CODE_DOWNLOAD_BOOKMARK_CATEGORY,
                                               deeplink);
       return true;
-    }
-
-    @NonNull
-    @Override
-    public String toStatisticValue()
-    {
-      return "guides_page";
     }
   }
 
@@ -915,7 +889,7 @@ public class Factory
     }
   }
 
-  abstract static class UrlTaskWithStatistics extends MapTaskWithStatistics
+  abstract static class UrlTaskWithStatistics implements MapTask
   {
     private static final long serialVersionUID = -8661639898700431066L;
     @NonNull
@@ -925,13 +899,6 @@ public class Factory
     {
       Utils.checkNotNull(url);
       mUrl = url;
-    }
-
-    @Override
-    @NonNull
-    public Statistics.ParameterBuilder toStatisticParams()
-    {
-      return Statistics.makeParametersFromTypeAndUrl(toStatisticValue(), mUrl);
     }
 
     @NonNull
@@ -946,13 +913,9 @@ public class Factory
     private static final long serialVersionUID = -7257820771228127413L;
     private static final int SEARCH_IN_VIEWPORT_ZOOM = 16;
 
-    @NonNull
-    private final String mStatisticValue;
-
-    OpenUrlTask(@NonNull String url, @NonNull String statisticValue)
+    OpenUrlTask(@NonNull String url)
     {
       super(url);
-      mStatisticValue = statisticValue;
     }
 
     @Override
@@ -1009,17 +972,9 @@ public class Factory
 
       return false;
     }
-
-    @NonNull
-    @Override
-    public String toStatisticValue()
-    {
-      return mStatisticValue;
-    }
   }
 
-  public static class ShowCountryTask extends MapTaskWithStatistics
-  {
+  public static class ShowCountryTask implements MapTask {
     private static final long serialVersionUID = 256630934543189768L;
     private final String mCountryId;
 
@@ -1033,13 +988,6 @@ public class Factory
     {
       Framework.nativeShowCountry(mCountryId, false);
       return true;
-    }
-
-    @NonNull
-    @Override
-    public String toStatisticValue()
-    {
-      return "open_country";
     }
   }
 
@@ -1107,7 +1055,7 @@ public class Factory
     }
   }
 
-  public static class ShowPointTask extends MapTaskWithStatistics
+  public static class ShowPointTask implements MapTask
   {
     private static final long serialVersionUID = -2467635346469323664L;
     private final double mLat;
@@ -1126,16 +1074,9 @@ public class Factory
                                                     "mapsme://map?ll=%f,%f", mLat, mLon));
       return true;
     }
-
-    @NonNull
-    @Override
-    public String toStatisticValue()
-    {
-      return "show_on_map_intent";
-    }
   }
 
-  public static class BuildRouteTask extends MapTaskWithStatistics
+  public static class BuildRouteTask implements MapTask
   {
     private static final long serialVersionUID = 5301468481040195957L;
     private final double mLatTo;
@@ -1231,13 +1172,6 @@ public class Factory
       }
       return true;
     }
-
-    @NonNull
-    @Override
-    public String toStatisticValue()
-    {
-      return "build_route_intent";
-    }
   }
 
   public static class RestoreRouteTask implements MapTask
@@ -1288,13 +1222,10 @@ public class Factory
     private static final long serialVersionUID = 1548931513812565018L;
     @NonNull
     private final String mDialogName;
-    @NonNull
-    private final ArrayList<KeyValue> mKeyValues;
 
-    public ShowDialogTask(@NonNull String dialogName, @NonNull ArrayList<KeyValue> keyValues)
+    public ShowDialogTask(@NonNull String dialogName)
     {
       mDialogName = dialogName;
-      mKeyValues = keyValues;
     }
 
     @Override
@@ -1305,7 +1236,6 @@ public class Factory
         return true;
 
       final DialogFragment fragment = (DialogFragment) Fragment.instantiate(target, mDialogName);
-      fragment.setArguments(toDialogArgs(mKeyValues));
       fragment.show(target.getSupportFragmentManager(), mDialogName);
       return true;
     }
@@ -1337,8 +1267,6 @@ public class Factory
       target.setTutorial(tutorial);
       tutorial.show(target, target);
 
-      Statistics.INSTANCE.trackTipsEvent(Statistics.EventName.TIPS_TRICKS_SHOW,
-                                         tutorial.ordinal());
       return true;
     }
   }

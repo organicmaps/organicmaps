@@ -21,7 +21,6 @@ import com.mapswithme.maps.bookmarks.data.BookmarkManager;
 import com.mapswithme.maps.dialog.AlertDialogCallback;
 import com.mapswithme.maps.purchase.PurchaseUtils;
 import com.mapswithme.util.SharedPropertiesUtils;
-import com.mapswithme.util.statistics.Statistics;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -264,7 +263,6 @@ public class BookmarkCategoriesPagerFragment extends BaseMwmFragment
     {
       SharedPropertiesUtils.setLastVisibleBookmarkCategoriesPage(requireActivity(), position);
       BookmarksPageFactory factory = mAdapter.getItemFactory(position);
-      Statistics.INSTANCE.trackBookmarksTabEvent(factory.getAnalytics().getName());
     }
   }
 

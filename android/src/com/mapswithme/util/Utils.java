@@ -6,7 +6,6 @@ import android.content.ClipData;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.content.res.Resources;
 import android.net.Uri;
@@ -35,12 +34,10 @@ import com.google.android.material.snackbar.Snackbar;
 import com.mapswithme.maps.BuildConfig;
 import com.mapswithme.maps.MwmApplication;
 import com.mapswithme.maps.R;
-import com.mapswithme.maps.analytics.ExternalLibrariesMediator;
 import com.mapswithme.maps.base.CustomNavigateUpListener;
 import com.mapswithme.util.concurrency.UiThread;
 import com.mapswithme.util.log.Logger;
 import com.mapswithme.util.log.LoggerFactory;
-import com.mapswithme.util.statistics.AlohaHelper;
 
 import java.io.Closeable;
 import java.io.IOException;
@@ -230,7 +227,7 @@ public class Utils
       activity.startActivity(marketIntent);
     } catch (ActivityNotFoundException e)
     {
-      AlohaHelper.logException(e);
+      LOGGER.e(TAG, "Failed to start activity", e);
     }
   }
 
@@ -400,20 +397,6 @@ public class Utils
   }
 
   @NonNull
-  public static String getInstallationId(@NonNull Context context)
-  {
-    final SharedPreferences sharedPrefs = context.getSharedPreferences(
-        org.alohalytics.Statistics.PREF_FILE, Context.MODE_PRIVATE);
-    // "UNIQUE_ID" is the value of org.alohalytics.Statistics.PREF_UNIQUE_ID, but it private.
-    String installationId = sharedPrefs.getString("UNIQUE_ID", null);
-
-    if (TextUtils.isEmpty(installationId))
-      return "";
-
-    return installationId;
-  }
-
-  @NonNull
   public static String getMacAddress(@NonNull Context context,  boolean md5Decoded)
   {
     byte[] macBytes = null;
@@ -551,7 +534,6 @@ public class Utils
     catch (ActivityNotFoundException e)
     {
       LOGGER.e(TAG, "Failed to call phone", e);
-      AlohaHelper.logException(e);
     }
   }
 

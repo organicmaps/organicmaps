@@ -7,7 +7,6 @@ import androidx.annotation.NonNull;
 import com.mapswithme.maps.Framework;
 import com.mapswithme.maps.R;
 import com.mapswithme.util.Utils;
-import com.mapswithme.util.statistics.Statistics;
 
 abstract class SubscriptionFragmentDelegate
 {
@@ -56,8 +55,6 @@ abstract class SubscriptionFragmentDelegate
   private void openSubscriptionManagementSettings()
   {
     Utils.openUrl(mFragment.requireContext(), "https://play.google.com/store/account/subscriptions");
-    Statistics.INSTANCE.trackPurchaseEvent(Statistics.EventName.INAPP_PURCHASE_PREVIEW_RESTORE,
-                                           mFragment.getSubscriptionType().getServerId());
   }
 
   private void openTermsOfUseLink()

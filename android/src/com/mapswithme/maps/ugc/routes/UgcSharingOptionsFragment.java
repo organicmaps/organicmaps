@@ -35,7 +35,6 @@ import com.mapswithme.util.ConnectionState;
 import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.Utils;
 import com.mapswithme.util.sharing.TargetUtils;
-import com.mapswithme.util.statistics.Statistics;
 
 import java.util.List;
 import java.util.Objects;
@@ -251,7 +250,6 @@ public class UgcSharingOptionsFragment extends BaseToolbarAuthFragment implement
     Intent intent = new Intent(getContext(), SendLinkPlaceholderActivity.class)
         .putExtra(SendLinkPlaceholderFragment.EXTRA_CATEGORY, mCategory);
     startActivity(intent);
-    Statistics.INSTANCE.trackSharingOptionsClick(Statistics.ParamValue.EDIT_ON_WEB);
   }
 
   private void onPublishedCategoryShared()
@@ -265,7 +263,6 @@ public class UgcSharingOptionsFragment extends BaseToolbarAuthFragment implement
         .setType(TargetUtils.TYPE_TEXT_PLAIN)
         .putExtra(Intent.EXTRA_TEXT, getString(R.string.share_bookmarks_email_body_link, link));
     startActivity(Intent.createChooser(intent, getString(R.string.share)));
-    Statistics.INSTANCE.trackSharingOptionsClick(Statistics.ParamValue.COPY_LINK);
   }
 
   private void onDirectLinkShared()
@@ -289,8 +286,6 @@ public class UgcSharingOptionsFragment extends BaseToolbarAuthFragment implement
         .build();
     dialog.setTargetFragment(this, REQ_CODE_NO_NETWORK_CONNECTION_DIALOG);
     dialog.show(this, NO_NETWORK_CONNECTION_DIALOG_TAG);
-    Statistics.INSTANCE.trackSharingOptionsError(Statistics.EventName.BM_SHARING_OPTIONS_ERROR,
-                                        Statistics.NetworkErrorType.NO_NETWORK);
   }
 
   private boolean isNetworkConnectionAbsent()
@@ -315,7 +310,6 @@ public class UgcSharingOptionsFragment extends BaseToolbarAuthFragment implement
 
     mCurrentMode = BookmarkCategory.AccessRules.ACCESS_RULES_PUBLIC;
     onUploadBtnClicked();
-    Statistics.INSTANCE.trackSharingOptionsClick(Statistics.ParamValue.PUBLIC);
   }
 
   private void onGetDirectLinkClicked()
@@ -327,7 +321,6 @@ public class UgcSharingOptionsFragment extends BaseToolbarAuthFragment implement
     }
     mCurrentMode = BookmarkCategory.AccessRules.ACCESS_RULES_DIRECT_LINK;
     requestUpload();
-    Statistics.INSTANCE.trackSharingOptionsClick(Statistics.ParamValue.PRIVATE);
   }
 
   private void onUploadBtnClicked()
@@ -431,14 +424,6 @@ public class UgcSharingOptionsFragment extends BaseToolbarAuthFragment implement
   {
     if (success)
       onPostAuthCompleted();
-    else
-      onPostAuthFailed();
-  }
-
-  private void onPostAuthFailed()
-  {
-    Statistics.INSTANCE.trackSharingOptionsError(Statistics.EventName.BM_SHARING_OPTIONS_ERROR,
-                                                 Statistics.NetworkErrorType.AUTH_FAILED);
   }
 
   @Override
@@ -504,8 +489,6 @@ public class UgcSharingOptionsFragment extends BaseToolbarAuthFragment implement
 
   private void onUploadError(@NonNull BookmarkManager.UploadResult uploadResult)
   {
-    Statistics.INSTANCE.trackSharingOptionsError(Statistics.EventName.BM_SHARING_OPTIONS_UPLOAD_ERROR,
-                                                 uploadResult.ordinal());
     if (uploadResult == BookmarkManager.UploadResult.UPLOAD_RESULT_MALFORMED_DATA_ERROR)
     {
       showHtmlFormattingError();
@@ -541,7 +524,6 @@ public class UgcSharingOptionsFragment extends BaseToolbarAuthFragment implement
                                                              : R.string.upload_and_publish_success;
     Utils.showSnackbar(requireContext(), getViewOrThrow(), successMsgResId);
     toggleViews();
-    Statistics.INSTANCE.trackSharingOptionsUploadSuccess(mCategory);
   }
 
   private void checkSuccessUploadedCategoryAccessRules()

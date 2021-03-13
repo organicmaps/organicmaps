@@ -9,7 +9,6 @@ import android.text.TextUtils;
 import android.view.View;
 import android.view.Window;
 import android.widget.CheckBox;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -27,7 +26,6 @@ import com.mapswithme.util.Counters;
 import com.mapswithme.util.SharedPropertiesUtils;
 import com.mapswithme.util.ThemeUtils;
 import com.mapswithme.util.UiUtils;
-import com.mapswithme.util.statistics.Statistics;
 
 import java.util.Arrays;
 import java.util.List;
@@ -37,7 +35,6 @@ public class WelcomeDialogFragment extends BaseMwmDialogFragment implements View
 {
   private static final String ARG_SPECIFIC_STEP = "arg_specific_step";
   private static final String ARG_HAS_MANY_STEPS = "arg_has_many_steps";
-  private static final String DEF_STATISTICS_VALUE = "agreement";
 
   @NonNull
   private final Stack<OnboardingStep> mOnboardingSteps = new Stack<>();
@@ -191,8 +188,6 @@ public class WelcomeDialogFragment extends BaseMwmDialogFragment implements View
 
     initUserAgreementViews();
     bindWelcomeScreenType();
-    if (savedInstanceState == null)
-      trackStatisticEvent(Statistics.EventName.ONBOARDING_SCREEN_SHOW);
 
     return res;
   }
@@ -273,8 +268,6 @@ public class WelcomeDialogFragment extends BaseMwmDialogFragment implements View
     if (!isAgreementGranted)
       return;
 
-    trackStatisticEvent(Statistics.EventName.ONBOARDING_SCREEN_ACCEPT);
-
     if (mPolicyAgreementListener != null)
       mPolicyAgreementListener.onPolicyAgreementApplied();
     dismissAllowingStateLoss();
@@ -309,16 +302,7 @@ public class WelcomeDialogFragment extends BaseMwmDialogFragment implements View
   private void onDeclineBtnClicked()
   {
     Counters.setFirstStartDialogSeen(requireContext());
-    trackStatisticEvent(Statistics.EventName.ONBOARDING_SCREEN_DECLINE);
     dismissAllowingStateLoss();
-  }
-
-  private void trackStatisticEvent(@NonNull String event)
-  {
-    String value = mOnboardinStep == null ? DEF_STATISTICS_VALUE : mOnboardinStep.toStatisticValue();
-    Statistics.ParameterBuilder builder = Statistics
-        .params().add(Statistics.EventParam.TYPE, value);
-    Statistics.INSTANCE.trackEvent(event, builder);
   }
 
   @Override
@@ -326,8 +310,6 @@ public class WelcomeDialogFragment extends BaseMwmDialogFragment implements View
   {
     if (v.getId() != R.id.accept_btn)
       return;
-
-    trackStatisticEvent(Statistics.EventName.ONBOARDING_SCREEN_ACCEPT);
 
     if (!mOnboardingSteps.isEmpty())
     {

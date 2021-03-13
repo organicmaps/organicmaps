@@ -42,18 +42,7 @@ import com.mapswithme.util.Language;
 import com.mapswithme.util.NetworkPolicy;
 import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.Utils;
-import com.mapswithme.util.statistics.GalleryType;
-import com.mapswithme.util.statistics.Statistics;
 
-import static com.mapswithme.util.statistics.Destination.EXTERNAL;
-import static com.mapswithme.util.statistics.Destination.PLACEPAGE;
-import static com.mapswithme.util.statistics.Destination.ROUTING;
-import static com.mapswithme.util.statistics.GalleryPlacement.DISCOVERY;
-import static com.mapswithme.util.statistics.GalleryType.LOCAL_EXPERTS;
-import static com.mapswithme.util.statistics.GalleryType.PROMO;
-import static com.mapswithme.util.statistics.GalleryType.SEARCH_ATTRACTIONS;
-import static com.mapswithme.util.statistics.GalleryType.SEARCH_HOTELS;
-import static com.mapswithme.util.statistics.GalleryType.SEARCH_RESTAURANTS;
 
 public class DiscoveryFragment extends BaseMwmToolbarFragment implements DiscoveryResultReceiver
 {
@@ -239,11 +228,9 @@ public class DiscoveryFragment extends BaseMwmToolbarFragment implements Discove
   {
     updateViewsVisibility(results, R.id.attractionsTitle, R.id.attractions);
     ItemSelectedListener<Items.SearchItem> listener = new SearchBasedListener(this,
-                                                                              SEARCH_ATTRACTIONS,
                                                                               ItemType.ATTRACTIONS);
     RecyclerView gallery = getGallery(R.id.attractions);
-    GalleryAdapter adapter = Factory.createSearchBasedAdapter(results, listener, SEARCH_ATTRACTIONS,
-                                                              DISCOVERY,
+    GalleryAdapter adapter = Factory.createSearchBasedAdapter(results, listener,
                                                               new Items.MoreSearchItem(requireContext()));
     gallery.setAdapter(adapter);
   }
@@ -254,11 +241,9 @@ public class DiscoveryFragment extends BaseMwmToolbarFragment implements Discove
   {
     updateViewsVisibility(results, R.id.eatAndDrinkTitle, R.id.food);
     ItemSelectedListener<Items.SearchItem> listener = new SearchBasedListener(this,
-                                                                              SEARCH_RESTAURANTS,
                                                                               ItemType.CAFES);
     RecyclerView gallery = getGallery(R.id.food);
-    gallery.setAdapter(Factory.createSearchBasedAdapter(results, listener, SEARCH_RESTAURANTS,
-                                                        DISCOVERY,
+    gallery.setAdapter(Factory.createSearchBasedAdapter(results, listener,
                                                         new Items.MoreSearchItem(requireContext())));
   }
 
@@ -267,8 +252,7 @@ public class DiscoveryFragment extends BaseMwmToolbarFragment implements Discove
   {
     updateViewsVisibility(results, R.id.hotelsTitle, R.id.hotels);
     ItemSelectedListener<Items.SearchItem> listener = new HotelListener(this);
-    GalleryAdapter adapter = Factory.createHotelAdapter(requireContext(), results, listener,
-                                                        SEARCH_HOTELS, DISCOVERY);
+    GalleryAdapter adapter = Factory.createHotelAdapter(requireContext(), results, listener);
     RecyclerView gallery = getGallery(R.id.hotels);
     gallery.setAdapter(adapter);
   }
@@ -281,10 +265,10 @@ public class DiscoveryFragment extends BaseMwmToolbarFragment implements Discove
     String url = DiscoveryManager.nativeGetLocalExpertsUrl();
 
     ItemSelectedListener<Items.LocalExpertItem> listener
-        = createOnlineProductItemListener(LOCAL_EXPERTS, ItemType.LOCAL_EXPERTS);
+        = createOnlineProductItemListener(ItemType.LOCAL_EXPERTS);
 
     RecyclerView gallery = getGallery(R.id.localGuides);
-    GalleryAdapter adapter = Factory.createLocalExpertsAdapter(experts, url, listener, DISCOVERY);
+    GalleryAdapter adapter = Factory.createLocalExpertsAdapter(experts, url, listener);
     gallery.setAdapter(adapter);
   }
 
@@ -298,9 +282,8 @@ public class DiscoveryFragment extends BaseMwmToolbarFragment implements Discove
 
     String url = gallery.getMoreUrl();
     ItemSelectedListener<PromoEntity> listener =
-        new RegularCatalogPromoListener(requireActivity(), DISCOVERY);
-    GalleryAdapter adapter = Factory.createCatalogPromoAdapter(requireContext(), gallery, url,
-                                                               listener, DISCOVERY);
+        new RegularCatalogPromoListener(requireActivity());
+    GalleryAdapter adapter = Factory.createCatalogPromoAdapter(requireContext(), gallery, url, listener);
     RecyclerView recycler = getGallery(R.id.catalog_promo_recycler);
     recycler.setAdapter(adapter);
   }
@@ -312,26 +295,21 @@ public class DiscoveryFragment extends BaseMwmToolbarFragment implements Discove
     {
       case HOTELS:
         getGallery(R.id.hotels).setAdapter(Factory.createSearchBasedErrorAdapter(requireContext()));
-        Statistics.INSTANCE.trackGalleryError(SEARCH_HOTELS, DISCOVERY, null);
         break;
       case ATTRACTIONS:
         getGallery(R.id.attractions).setAdapter(Factory.createSearchBasedErrorAdapter(requireContext()));
-        Statistics.INSTANCE.trackGalleryError(SEARCH_ATTRACTIONS, DISCOVERY, null);
         break;
       case CAFES:
         getGallery(R.id.food).setAdapter(Factory.createSearchBasedErrorAdapter(requireContext()));
-        Statistics.INSTANCE.trackGalleryError(SEARCH_RESTAURANTS, DISCOVERY, null);
         break;
       case LOCAL_EXPERTS:
         getGallery(R.id.localGuides).setAdapter(Factory.createLocalExpertsErrorAdapter(requireContext()));
-        Statistics.INSTANCE.trackGalleryError(LOCAL_EXPERTS, DISCOVERY, null);
         break;
       case PROMO:
         GalleryAdapter adapter = Factory.createCatalogPromoErrorAdapter(requireContext(),
             new ErrorCatalogPromoListener<>(requireActivity(), this::onNetworkPolicyResult));
         RecyclerView gallery = getGallery(R.id.catalog_promo_recycler);
         gallery.setAdapter(adapter);
-        Statistics.INSTANCE.trackGalleryError(PROMO, DISCOVERY, null);
         break;
       default:
         throw new AssertionError("Unknown item type: " + type);
@@ -422,24 +400,18 @@ public class DiscoveryFragment extends BaseMwmToolbarFragment implements Discove
     };
   }
 
-  private <I extends Items.Item> ItemSelectedListener<I> createOnlineProductItemListener(@NonNull GalleryType galleryType,
-                                                                                         @NonNull ItemType itemType)
+  private <I extends Items.Item> ItemSelectedListener<I> createOnlineProductItemListener(@NonNull ItemType itemType)
   {
     return new LoggableItemSelectedListener<I>(getActivity(), itemType)
     {
       @Override
       public void onItemSelectedInternal(@NonNull I item, int position)
       {
-        Statistics.INSTANCE.trackGalleryProductItemSelected(galleryType, DISCOVERY, position,
-                                                            EXTERNAL);
       }
 
       @Override
       public void onMoreItemSelectedInternal(@NonNull I item)
       {
-        Statistics.INSTANCE.trackGalleryEvent(Statistics.EventName.PP_SPONSOR_MORE_SELECTED,
-                                              galleryType,
-                                              DISCOVERY);
       }
     };
   }
@@ -449,16 +421,11 @@ public class DiscoveryFragment extends BaseMwmToolbarFragment implements Discove
     @NonNull
     private final DiscoveryFragment mFragment;
 
-    @NonNull
-    private final GalleryType mType;
-
     private SearchBasedListener(@NonNull DiscoveryFragment fragment,
-                                @NonNull GalleryType galleryType,
                                 @NonNull ItemType itemType)
     {
       super(fragment.getActivity(), itemType);
       mFragment = fragment;
-      mType = galleryType;
     }
 
     @Override
@@ -478,7 +445,6 @@ public class DiscoveryFragment extends BaseMwmToolbarFragment implements Discove
     public void onItemSelectedInternal(@NonNull Items.SearchItem item, int position)
     {
       mFragment.showOnMap(item);
-      Statistics.INSTANCE.trackGalleryProductItemSelected(mType, DISCOVERY, position, PLACEPAGE);
     }
 
     @Override
@@ -486,8 +452,6 @@ public class DiscoveryFragment extends BaseMwmToolbarFragment implements Discove
     public void onActionButtonSelected(@NonNull Items.SearchItem item, int position)
     {
       mFragment.routeTo(item);
-      Statistics.INSTANCE.trackGalleryProductItemSelected(mType, DISCOVERY, position,
-                                                          ROUTING);
     }
 
     @NonNull
@@ -501,15 +465,13 @@ public class DiscoveryFragment extends BaseMwmToolbarFragment implements Discove
   {
     private HotelListener(@NonNull DiscoveryFragment fragment)
     {
-      super(fragment, SEARCH_HOTELS, ItemType.HOTELS);
+      super(fragment, ItemType.HOTELS);
     }
 
     @Override
     public void onMoreItemSelectedInternal(@NonNull Items.SearchItem item)
     {
       getFragment().showFilter();
-      Statistics.INSTANCE.trackGalleryEvent(Statistics.EventName.PP_SPONSOR_MORE_SELECTED,
-                                            SEARCH_HOTELS, DISCOVERY);
     }
   }
 

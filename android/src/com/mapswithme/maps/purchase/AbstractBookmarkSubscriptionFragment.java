@@ -2,7 +2,6 @@ package com.mapswithme.maps.purchase;
 
 import android.app.Activity;
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,7 +24,6 @@ import com.mapswithme.util.ConnectionState;
 import com.mapswithme.util.Utils;
 import com.mapswithme.util.log.Logger;
 import com.mapswithme.util.log.LoggerFactory;
-import com.mapswithme.util.statistics.Statistics;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -78,15 +76,6 @@ abstract class AbstractBookmarkSubscriptionFragment extends BaseAuthFragment
       mDelegate.onCreateView(root);
 
     return root;
-  }
-
-  @Nullable
-  private String getExtraFrom()
-  {
-    if (getArguments() == null)
-      return null;
-
-    return getArguments().getString(EXTRA_FROM, null);
   }
 
   @Override
@@ -278,12 +267,6 @@ abstract class AbstractBookmarkSubscriptionFragment extends BaseAuthFragment
   public void onPriceSelection()
   {
     mDelegate.onPriceSelection();
-    ProductDetails details = getProductDetailsForPeriod(PurchaseUtils.Period.P1Y);
-    boolean isTrial = !TextUtils.isEmpty(details.getFreeTrialPeriod());
-    Statistics.INSTANCE.trackPurchasePreviewShow(getSubscriptionType().getServerId(),
-                                                 getSubscriptionType().getVendor(),
-                                                 getSubscriptionType().getYearlyProductId(),
-                                                 getExtraFrom(), isTrial);
   }
 
   @Override
@@ -398,14 +381,6 @@ abstract class AbstractBookmarkSubscriptionFragment extends BaseAuthFragment
     mDelegate.hideButtonProgress();
   }
 
-  @Override
-  public boolean onBackPressed()
-  {
-    Statistics.INSTANCE.trackPurchaseEvent(Statistics.EventName.INAPP_PURCHASE_PREVIEW_CANCEL,
-                                           getSubscriptionType().getServerId());
-    return super.onBackPressed();
-  }
-
   void pingBookmarkCatalog()
   {
     BookmarkManager.INSTANCE.pingBookmarkCatalog();
@@ -416,13 +391,6 @@ abstract class AbstractBookmarkSubscriptionFragment extends BaseAuthFragment
   private PurchaseUtils.Period getSelectedPeriod()
   {
     return mDelegate.getSelectedPeriod();
-  }
-
-  void trackPayEvent()
-  {
-    Statistics.INSTANCE.trackPurchaseEvent(Statistics.EventName.INAPP_PURCHASE_PREVIEW_PAY,
-                                           getSubscriptionType().getServerId(),
-                                           Statistics.STATISTICS_CHANNEL_REALTIME);
   }
 
   private void launchPurchaseFlow()
@@ -436,21 +404,6 @@ abstract class AbstractBookmarkSubscriptionFragment extends BaseAuthFragment
     float pricePerMonth = getProductDetailsForPeriod(PurchaseUtils.Period.P1M).getPrice();
     float pricePerYear = getProductDetailsForPeriod(PurchaseUtils.Period.P1Y).getPrice();
     return (int) (100 * (1 - pricePerYear / (pricePerMonth * PurchaseUtils.MONTHS_IN_YEAR)));
-  }
-
-  void trackYearlyProductSelected()
-  {
-    ProductDetails details = getProductDetailsForPeriod(PurchaseUtils.Period.P1Y);
-    boolean isTrial = !TextUtils.isEmpty(details.getFreeTrialPeriod());
-    Statistics.INSTANCE.trackPurchasePreviewSelect(getSubscriptionType().getServerId(),
-                                                   getSubscriptionType().getYearlyProductId(),
-                                                   isTrial);
-  }
-
-  void trackMonthlyProductSelected()
-  {
-    Statistics.INSTANCE.trackPurchasePreviewSelect(getSubscriptionType().getServerId(),
-                                                   getSubscriptionType().getMonthlyProductId());
   }
 
   private static class PingCallback
@@ -518,7 +471,6 @@ abstract class AbstractBookmarkSubscriptionFragment extends BaseAuthFragment
     @Override
     public void onPaymentFailure(int error)
     {
-      Statistics.INSTANCE.trackPurchaseStoreError(mType.getServerId(), error);
       activateStateSafely(BookmarkSubscriptionPaymentState.PAYMENT_FAILURE);
     }
 
@@ -537,8 +489,6 @@ abstract class AbstractBookmarkSubscriptionFragment extends BaseAuthFragment
     @Override
     public void onValidationStarted()
     {
-      Statistics.INSTANCE.trackPurchaseEvent(Statistics.EventName.INAPP_PURCHASE_STORE_SUCCESS,
-                                             mType.getServerId());
       activateStateSafely(BookmarkSubscriptionPaymentState.VALIDATION);
     }
 

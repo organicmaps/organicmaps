@@ -5,7 +5,6 @@ import androidx.annotation.Nullable;
 
 import com.mapswithme.util.log.Logger;
 import com.mapswithme.util.log.LoggerFactory;
-import com.mapswithme.util.statistics.Statistics;
 
 abstract class AbstractBookmarkValidationCallback implements ValidationCallback
 {
@@ -26,9 +25,6 @@ abstract class AbstractBookmarkValidationCallback implements ValidationCallback
     LOGGER.i(TAG, "Validation status of 'paid bookmark': " + status);
     if (status == ValidationStatus.VERIFIED)
     {
-      //noinspection ConstantConditions
-      Statistics.INSTANCE.trackPurchaseEvent(Statistics.EventName.INAPP_PURCHASE_VALIDATION_SUCCESS,
-                                             mServerId);
       consumePurchase(purchaseData);
       return;
     }
@@ -37,8 +33,6 @@ abstract class AbstractBookmarkValidationCallback implements ValidationCallback
     if (status == ValidationStatus.NOT_VERIFIED)
       consumePurchase(purchaseData);
 
-    //noinspection ConstantConditions
-    Statistics.INSTANCE.trackPurchaseValidationError(mServerId, status);
     onValidationError(status);
   }
 

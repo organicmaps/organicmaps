@@ -56,7 +56,6 @@ import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.Utils;
 import com.mapswithme.util.log.Logger;
 import com.mapswithme.util.log.LoggerFactory;
-import com.mapswithme.util.statistics.Statistics;
 
 import java.io.UnsupportedEncodingException;
 import java.lang.ref.WeakReference;
@@ -442,13 +441,9 @@ public class BookmarksCatalogFragment extends BaseWebViewMwmFragment
         return;
 
       if (type.equals(SubscriptionType.BOOKMARKS_ALL))
-        BookmarksAllSubscriptionActivity.startForResult(frag,
-                                                        PurchaseUtils.REQ_CODE_PAY_SUBSCRIPTION,
-                                                        Statistics.ParamValue.WEBVIEW);
+        BookmarksAllSubscriptionActivity.startForResult(frag, PurchaseUtils.REQ_CODE_PAY_SUBSCRIPTION);
       else
-        BookmarksSightsSubscriptionActivity.startForResult(frag,
-                                                           PurchaseUtils.REQ_CODE_PAY_SUBSCRIPTION,
-                                                           Statistics.ParamValue.WEBVIEW);
+        BookmarksSightsSubscriptionActivity.startForResult(frag, PurchaseUtils.REQ_CODE_PAY_SUBSCRIPTION);
     }
 
     @Override
@@ -504,13 +499,9 @@ public class BookmarksCatalogFragment extends BaseWebViewMwmFragment
       if (ConnectionState.INSTANCE.isConnected())
       {
         LOGGER.e(TAG, "Failed to load catalog: " + mError + ", description: " + description);
-        Statistics.INSTANCE.trackDownloadCatalogError(Statistics.ParamValue.UNKNOWN);
         return;
       }
-
-      Statistics.INSTANCE.trackDownloadCatalogError(Statistics.ParamValue.NO_INTERNET);
-      Utils.showSnackbar(frag.requireContext(), frag.getViewOrThrow(),
-                         R.string.common_check_internet_connection_dialog_title);
+      Utils.showSnackbar(frag.requireContext(), frag.getViewOrThrow(), R.string.common_check_internet_connection_dialog_title);
     }
 
     private void retry()

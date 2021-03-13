@@ -17,11 +17,9 @@ import java.util.Locale;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.base.BaseMwmFragment;
 import com.mapswithme.maps.location.LocationHelper;
-import com.mapswithme.maps.routing.RoutingController;
 import com.mapswithme.maps.widget.WheelProgressView;
 import com.mapswithme.util.StringUtils;
 import com.mapswithme.util.UiUtils;
-import com.mapswithme.util.statistics.Statistics;
 
 public class CountrySuggestFragment extends BaseMwmFragment implements View.OnClickListener
 {
@@ -219,9 +217,6 @@ public class CountrySuggestFragment extends BaseMwmFragment implements View.OnCl
 
     case R.id.wpv__download_progress:
       MapManager.nativeCancel(mDownloadingCountry.id);
-
-      Statistics.INSTANCE.trackEvent(Statistics.EventName.DOWNLOADER_CANCEL,
-                                     Statistics.params().add(Statistics.EventParam.FROM, "search"));
       break;
     }
   }

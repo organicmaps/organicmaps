@@ -13,7 +13,6 @@ import com.mapswithme.util.ViewServer;
 import com.mapswithme.util.concurrency.UiThread;
 import com.mapswithme.util.log.Logger;
 import com.mapswithme.util.log.LoggerFactory;
-import com.mapswithme.util.statistics.Statistics;
 
 public class BaseActivityDelegate
 {
@@ -67,13 +66,11 @@ public class BaseActivityDelegate
   public void onStart()
   {
     logLifecycleMethod("onStart()");
-    Statistics.INSTANCE.startActivity(mActivity.get());
   }
 
   public void onStop()
   {
     logLifecycleMethod("onStop()");
-    Statistics.INSTANCE.stopActivity(mActivity.get());
   }
 
   public void onResume()

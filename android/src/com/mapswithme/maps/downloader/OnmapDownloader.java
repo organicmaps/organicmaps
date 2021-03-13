@@ -20,7 +20,6 @@ import com.mapswithme.util.Config;
 import com.mapswithme.util.ConnectionState;
 import com.mapswithme.util.StringUtils;
 import com.mapswithme.util.UiUtils;
-import com.mapswithme.util.statistics.Statistics;
 
 import java.util.List;
 import java.util.Locale;
@@ -173,12 +172,6 @@ public class OnmapDownloader implements MwmActivity.LeftAnimationTrackListener
                     MapManager.nativeHasSpaceToDownloadCountry(country))
                 {
                   MapManager.nativeDownload(mCurrentCountry.id);
-
-                  Statistics.INSTANCE.trackEvent(Statistics.EventName.DOWNLOADER_ACTION,
-                                                 Statistics.params().add(Statistics.EventParam.ACTION, "download")
-                                                                    .add(Statistics.EventParam.FROM, "map")
-                                                                    .add("is_auto", "true")
-                                                                    .add("scenario", "download"));
                 }
               }
             }
@@ -216,43 +209,23 @@ public class OnmapDownloader implements MwmActivity.LeftAnimationTrackListener
           return;
 
         MapManager.nativeCancel(mCurrentCountry.id);
-        Statistics.INSTANCE.trackEvent(Statistics.EventName.DOWNLOADER_CANCEL,
-                                       Statistics.params().add(Statistics.EventParam.FROM, "map"));
         setAutodownloadLocked(true);
       }
     });
     final Notifier notifier = Notifier.from(activity.getApplication());
-    mButton.setOnClickListener(new View.OnClickListener()
-    {
-      @Override
-      public void onClick(View v)
+    mButton.setOnClickListener(v -> MapManager.warnOn3g(mActivity, mCurrentCountry == null ? null : mCurrentCountry.id, () -> {
+      if (mCurrentCountry == null)
+        return;
+
+      boolean retry = (mCurrentCountry.status == CountryItem.STATUS_FAILED);
+      if (retry)
       {
-        MapManager.warnOn3g(mActivity, mCurrentCountry == null ? null : mCurrentCountry.id, new Runnable()
-        {
-          @Override
-          public void run()
-          {
-            if (mCurrentCountry == null)
-              return;
-
-            boolean retry = (mCurrentCountry.status == CountryItem.STATUS_FAILED);
-            if (retry)
-            {
-              notifier.cancelNotification(Notifier.ID_DOWNLOAD_FAILED);
-              MapManager.nativeRetry(mCurrentCountry.id);
-            }
-            else
-              MapManager.nativeDownload(mCurrentCountry.id);
-
-            Statistics.INSTANCE.trackEvent(Statistics.EventName.DOWNLOADER_ACTION,
-                                           Statistics.params().add(Statistics.EventParam.ACTION, (retry ? "retry" : "download"))
-                                                              .add(Statistics.EventParam.FROM, "map")
-                                                              .add("is_auto", "false")
-                                                              .add("scenario", "download"));
-          }
-        });
+        notifier.cancelNotification(Notifier.ID_DOWNLOAD_FAILED);
+        MapManager.nativeRetry(mCurrentCountry.id);
       }
-     });
+      else
+        MapManager.nativeDownload(mCurrentCountry.id);
+    }));
 
     mPromoContentDivider = mFrame.findViewById(R.id.onmap_downloader_divider);
   }

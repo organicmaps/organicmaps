@@ -24,7 +24,6 @@ import com.mapswithme.maps.dialog.AlertDialogCallback;
 import com.mapswithme.util.Utils;
 import com.mapswithme.util.log.Logger;
 import com.mapswithme.util.log.LoggerFactory;
-import com.mapswithme.util.statistics.Statistics;
 
 import java.util.Collections;
 import java.util.List;
@@ -114,12 +113,12 @@ public class BookmarkPaymentFragment extends BaseMwmFragment
     if (type.equals(SubscriptionType.BOOKMARKS_SIGHTS))
     {
       BookmarksSightsSubscriptionActivity.startForResult
-          (this, PurchaseUtils.REQ_CODE_PAY_SUBSCRIPTION, Statistics.ParamValue.CARD);
+          (this, PurchaseUtils.REQ_CODE_PAY_SUBSCRIPTION);
       return;
     }
 
     BookmarksAllSubscriptionActivity.startForResult
-        (this, PurchaseUtils.REQ_CODE_PAY_SUBSCRIPTION, Statistics.ParamValue.CARD);
+        (this, PurchaseUtils.REQ_CODE_PAY_SUBSCRIPTION);
   }
 
   @Override
@@ -140,11 +139,6 @@ public class BookmarkPaymentFragment extends BaseMwmFragment
 
   private void onBuyInappClicked()
   {
-    Statistics.INSTANCE.trackPurchasePreviewSelect(mPaymentData.getServerId(),
-                                                   mPaymentData.getProductId());
-    Statistics.INSTANCE.trackPurchaseEvent(Statistics.EventName.INAPP_PURCHASE_PREVIEW_PAY,
-                                           mPaymentData.getServerId(),
-                                           Statistics.STATISTICS_CHANNEL_REALTIME);
     startPurchaseTransaction();
   }
 
@@ -158,8 +152,6 @@ public class BookmarkPaymentFragment extends BaseMwmFragment
       return true;
     }
 
-    Statistics.INSTANCE.trackPurchaseEvent(Statistics.EventName.INAPP_PURCHASE_PREVIEW_CANCEL,
-                                           mPaymentData.getServerId());
     return super.onBackPressed();
   }
 
@@ -167,10 +159,6 @@ public class BookmarkPaymentFragment extends BaseMwmFragment
   public void onViewCreated(View view, @Nullable Bundle savedInstanceState)
   {
     super.onViewCreated(view, savedInstanceState);
-    if (savedInstanceState == null)
-      Statistics.INSTANCE.trackPurchasePreviewShow(mPaymentData.getServerId(),
-                                                   PrivateVariables.bookmarksVendor(),
-                                                   mPaymentData.getProductId());
     LOGGER.d(TAG, "onViewCreated savedInstanceState = " + savedInstanceState);
     setInitialPaymentData();
     loadImage();

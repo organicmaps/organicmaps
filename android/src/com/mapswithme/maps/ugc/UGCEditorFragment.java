@@ -23,7 +23,6 @@ import com.mapswithme.util.ConnectionState;
 import com.mapswithme.util.Language;
 import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.Utils;
-import com.mapswithme.util.statistics.Statistics;
 
 import java.util.List;
 
@@ -97,7 +96,6 @@ public class UGCEditorFragment extends BaseToolbarAuthFragment
       @Override
       public void onUpClick()
       {
-        Statistics.INSTANCE.trackEvent(Statistics.EventName.UGC_REVIEW_CANCEL);
         super.onUpClick();
       }
     };
@@ -118,7 +116,6 @@ public class UGCEditorFragment extends BaseToolbarAuthFragment
       }
 
       UserActionsLogger.logUgcSaved();
-      Statistics.INSTANCE.trackEvent(Statistics.EventName.UGC_REVIEW_SUCCESS);
 
       if (!ConnectionState.INSTANCE.isConnected())
       {
@@ -174,7 +171,6 @@ public class UGCEditorFragment extends BaseToolbarAuthFragment
   @Override
   public void onSocialAuthenticationCancel(@Framework.AuthTokenType int type)
   {
-    Statistics.INSTANCE.trackEvent(Statistics.EventName.UGC_AUTH_DECLINED);
     Utils.showSnackbar(requireContext(), root, R.string.ugc_thanks_message_not_auth);
     finishActivity();
   }
@@ -182,7 +178,6 @@ public class UGCEditorFragment extends BaseToolbarAuthFragment
   @Override
   public void onSocialAuthenticationError(int type, @Nullable String error)
   {
-    Statistics.INSTANCE.trackUGCAuthFailed(type, error);
     Utils.showSnackbar(requireContext(), root, R.string.ugc_thanks_message_not_auth);
     finishActivity();
   }

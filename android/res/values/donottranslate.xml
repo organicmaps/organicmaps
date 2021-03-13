@@ -16,7 +16,6 @@
   <string name="robotoMedium" translatable="false">sans-serif</string>
 
   <!--  Prefs -->
-  <string name="pref_send_statistics" translatable="false">AllowStat</string>
   <string name="pref_munits" translatable="false">MeasurementUnits</string>
   <string name="pref_storage" translatable="false">Storage</string>
   <string name="pref_show_zoom_buttons" translatable="false">ZoomButtonsEnabled</string>

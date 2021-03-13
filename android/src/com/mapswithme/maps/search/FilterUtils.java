@@ -15,7 +15,6 @@ import com.google.android.material.datepicker.MaterialDatePicker;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.dialog.AlertDialog;
 import com.mapswithme.util.Utils;
-import com.mapswithme.util.statistics.Statistics;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
@@ -382,40 +381,6 @@ public class FilterUtils
     }
 
     return new RoomGuestCounts(roomsCount, adultsCount, childrenCount, infantsCount);
-  }
-
-  public static void trackFiltersApplying(@Nullable SearchFilterController filterController)
-  {
-    if (filterController == null)
-      return;
-
-    HotelsFilter filter = filterController.getFilter();
-    BookingFilterParams params = filterController.getBookingFilterParams();
-    Statistics.INSTANCE.trackQuickFilterApply(Statistics.EventParam.HOTEL,
-                                              toAppliedFiltersString(filter, params));
-  }
-
-  @Nullable
-  public static String toAppliedFiltersString(@Nullable HotelsFilter filter,
-                                              @Nullable BookingFilterParams params)
-  {
-    final Map<String, String> map = new HashMap<>();
-    if (filter != null)
-    {
-      // TODO: parse filter parameters and put their in map here.
-    }
-
-    if (params != null)
-    {
-      map.put("date", params.getCheckinMillisec() + "," + params.getCheckoutMillisec());
-      RoomGuestCounts counts = toCounts(params.getRooms());
-      map.put("rooms", String.valueOf(counts.getRooms()));
-      map.put("adults", String.valueOf(counts.getAdults()));
-      map.put("children", String.valueOf(counts.getChildren()));
-      map.put("infants", String.valueOf(counts.getInfants()));
-    }
-
-    return map.isEmpty() ? null : map.toString();
   }
 
   @Nullable

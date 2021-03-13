@@ -6,7 +6,6 @@ import androidx.annotation.Nullable;
 import com.android.billingclient.api.BillingClient;
 import com.android.billingclient.api.SkuDetails;
 import com.mapswithme.maps.base.Detachable;
-import com.mapswithme.util.statistics.Statistics;
 
 import java.util.Collections;
 import java.util.List;
@@ -70,8 +69,6 @@ class BookmarkPurchaseCallback
   @Override
   public void onValidationStarted()
   {
-    Statistics.INSTANCE.trackPurchaseEvent(Statistics.EventName.INAPP_PURCHASE_STORE_SUCCESS,
-                                           mServerId);
     activateStateSafely(BookmarkPaymentState.VALIDATION);
   }
 

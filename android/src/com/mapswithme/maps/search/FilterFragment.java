@@ -3,12 +3,10 @@ package com.mapswithme.maps.search;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import androidx.annotation.DrawableRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
@@ -20,7 +18,6 @@ import com.mapswithme.maps.metrics.UserActionsLogger;
 import com.mapswithme.maps.widget.ToolbarController;
 import com.mapswithme.maps.widget.recycler.TagItemDecoration;
 import com.mapswithme.maps.widget.recycler.TagLayoutManager;
-import com.mapswithme.util.statistics.Statistics;
 
 import java.util.HashSet;
 import java.util.Objects;
@@ -114,11 +111,8 @@ public class FilterFragment extends BaseMwmToolbarFragment
     HotelsFilter filter = null;
     BookingFilterParams params = null;
     if (args != null)
-    {
       filter = args.getParcelable(ARG_FILTER);
-      params = args.getParcelable(ARG_FILTER_PARAMS);
-    }
-    updateViews(filter, params);
+    updateViews(filter);
     return root;
   }
 
@@ -129,18 +123,7 @@ public class FilterFragment extends BaseMwmToolbarFragment
 
     HotelsFilter filter = populateFilter();
     mListener.onFilterApply(filter);
-    BookingFilterParams params = null;
-    if (getArguments() != null)
-      params = getArguments().getParcelable(ARG_FILTER_PARAMS);
-    Statistics.INSTANCE.trackFilterApplyEvent(FilterUtils.toAppliedFiltersString(filter, params));
     UserActionsLogger.logBookingFilterUsedEvent();
-  }
-
-  @Override
-  public void onActivityCreated(@Nullable Bundle savedInstanceState)
-  {
-    super.onActivityCreated(savedInstanceState);
-    Statistics.INSTANCE.trackFilterOpenEvent();
   }
 
   @Override
@@ -149,13 +132,7 @@ public class FilterFragment extends BaseMwmToolbarFragment
     super.onViewCreated(view, savedInstanceState);
     getToolbarController().setTitle(R.string.booking_filters);
     getToolbarController().getToolbar().findViewById(R.id.reset)
-        .setOnClickListener(
-            v ->
-            {
-              Statistics.INSTANCE.trackFilterEvent(Statistics.EventName.SEARCH_FILTER_RESET,
-                                                   Statistics.EventParam.HOTEL);
-              updateViews(null, null);
-            });
+        .setOnClickListener(v -> updateViews(null));
   }
 
   @Nullable
@@ -169,7 +146,7 @@ public class FilterFragment extends BaseMwmToolbarFragment
     return combineFilters(rating, price, oneOf);
   }
 
-  private void updateViews(@Nullable HotelsFilter filter, @Nullable BookingFilterParams params)
+  private void updateViews(@Nullable HotelsFilter filter)
   {
     if (filter == null)
     {
@@ -207,15 +184,9 @@ public class FilterFragment extends BaseMwmToolbarFragment
   public void onTypeSelected(boolean selected, @NonNull HotelsFilter.HotelType type)
   {
     if (selected)
-    {
-      Statistics.INSTANCE.trackFilterClick(Statistics.EventParam.HOTEL,
-                                           new Pair<>(Statistics.EventParam.TYPE, type.getTag()));
       mHotelTypes.add(type);
-    }
     else
-    {
       mHotelTypes.remove(type);
-    }
   }
 
   interface Listener

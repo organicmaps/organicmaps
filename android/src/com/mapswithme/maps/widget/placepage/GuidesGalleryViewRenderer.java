@@ -25,11 +25,6 @@ import com.mapswithme.maps.maplayer.guides.OnGuidesGalleryChangedListener;
 import com.mapswithme.maps.widget.recycler.ItemDecoratorFactory;
 import com.mapswithme.util.log.Logger;
 import com.mapswithme.util.log.LoggerFactory;
-import com.mapswithme.util.statistics.Destination;
-import com.mapswithme.util.statistics.GalleryPlacement;
-import com.mapswithme.util.statistics.GalleryState;
-import com.mapswithme.util.statistics.GalleryType;
-import com.mapswithme.util.statistics.Statistics;
 
 import java.util.List;
 import java.util.Objects;
@@ -64,12 +59,7 @@ public class GuidesGalleryViewRenderer implements PlacePageViewRenderer<PlacePag
       {
         String url = mActiveItem.getUrl();
         if (!TextUtils.isEmpty(url) && mGalleryListener != null)
-        {
           mGalleryListener.onGalleryGuideSelected(url);
-          Statistics.INSTANCE.trackGalleryProductItemSelected(GalleryType.PROMO,
-                                                              GalleryPlacement.MAP, position,
-                                                              Destination.CATALOGUE);
-        }
         return;
       }
 
@@ -177,10 +167,6 @@ public class GuidesGalleryViewRenderer implements PlacePageViewRenderer<PlacePag
     if (mAdapter != null)
       mAdapter.notifyDataSetChanged();
     GuidesManager.from(mRecyclerView.getContext()).setActiveGuide(mActiveItem.getGuideId());
-    if (mActiveItem.isDownloaded())
-      Statistics.INSTANCE.trackGalleryUserItemShown(GalleryType.PROMO, GalleryState.ONLINE,
-                                                    GalleryPlacement.MAP, position,
-                                                    mActiveItem.getGuideId());
   }
 
   @Override
@@ -195,8 +181,7 @@ public class GuidesGalleryViewRenderer implements PlacePageViewRenderer<PlacePag
 
   private void setAdapterForGallery(@NonNull GuidesGallery gallery)
   {
-    mAdapter = Factory.createGuidesAdapter(gallery.getItems(), mItemSelectedListener,
-                                           GalleryPlacement.MAP);
+    mAdapter = Factory.createGuidesAdapter(gallery.getItems(), mItemSelectedListener);
     mRecyclerView.setAdapter(mAdapter);
   }
 

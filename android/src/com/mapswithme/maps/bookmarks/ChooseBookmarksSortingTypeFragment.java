@@ -16,7 +16,6 @@ import com.mapswithme.maps.R;
 import com.mapswithme.maps.base.BaseMwmDialogFragment;
 import com.mapswithme.maps.bookmarks.data.BookmarkManager;
 import com.mapswithme.util.UiUtils;
-import com.mapswithme.util.statistics.Statistics;
 
 public class ChooseBookmarksSortingTypeFragment extends BaseMwmDialogFragment
     implements RadioGroup.OnCheckedChangeListener
@@ -130,7 +129,6 @@ public class ChooseBookmarksSortingTypeFragment extends BaseMwmDialogFragment
   {
     if (mListener != null)
       mListener.onResetSorting();
-    trackBookmarksListResetSort();
     dismiss();
   }
 
@@ -138,7 +136,6 @@ public class ChooseBookmarksSortingTypeFragment extends BaseMwmDialogFragment
   {
     if (mListener != null)
       mListener.onSort(sortingType);
-    trackBookmarksListSort(sortingType);
     dismiss();
   }
 
@@ -160,15 +157,5 @@ public class ChooseBookmarksSortingTypeFragment extends BaseMwmDialogFragment
         setSortingType(BookmarkManager.SORT_BY_TIME);
         break;
     }
-  }
-
-  private static void trackBookmarksListSort(@BookmarkManager.SortingType int sortingType)
-  {
-    Statistics.INSTANCE.trackBookmarksListSort(sortingType);
-  }
-
-  private static void trackBookmarksListResetSort()
-  {
-    Statistics.INSTANCE.trackBookmarksListResetSort();
   }
 }

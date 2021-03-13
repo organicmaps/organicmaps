@@ -11,7 +11,6 @@ import androidx.fragment.app.FragmentTransaction;
 import com.mapswithme.maps.R;
 import com.mapswithme.util.Config;
 import com.mapswithme.util.NetworkPolicy;
-import com.mapswithme.util.statistics.Statistics;
 
 public class StackedButtonDialogFragment extends DialogFragment
 {
@@ -44,8 +43,6 @@ public class StackedButtonDialogFragment extends DialogFragment
 
   private void onDialogBtnClicked(@NonNull NetworkPolicy.Type type, boolean canUse)
   {
-    Statistics.INSTANCE.trackNetworkUsageAlert(Statistics.EventName.MOBILE_INTERNET_ALERT,
-                                               type.toStatisticValue());
     Config.setUseMobileDataSettings(type);
     if (mListener != null)
       mListener.onResult(NetworkPolicy.newInstance(canUse));

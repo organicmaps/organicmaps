@@ -15,16 +15,9 @@ import com.mapswithme.maps.promo.PromoCityGallery;
 import com.mapswithme.maps.promo.PromoEntity;
 import com.mapswithme.maps.search.SearchResult;
 import com.mapswithme.maps.widget.placepage.PlacePageView;
-import com.mapswithme.util.statistics.GalleryPlacement;
-import com.mapswithme.util.statistics.GalleryState;
-import com.mapswithme.util.statistics.GalleryType;
-import com.mapswithme.util.statistics.Statistics;
 
 import java.util.List;
 
-import static com.mapswithme.util.statistics.GalleryState.OFFLINE;
-import static com.mapswithme.util.statistics.GalleryState.ONLINE;
-import static com.mapswithme.util.statistics.GalleryType.LOCAL_EXPERTS;
 
 public class Factory
 {
@@ -32,11 +25,8 @@ public class Factory
   public static GalleryAdapter createSearchBasedAdapter(@NonNull SearchResult[] results,
                                                         @Nullable ItemSelectedListener<Items
                                                             .SearchItem> listener,
-                                                        @NonNull GalleryType type,
-                                                        @NonNull GalleryPlacement placement,
                                                         @Nullable Items.MoreSearchItem item)
   {
-    trackProductGalleryShownOrError(results, type, OFFLINE, placement);
     return new GalleryAdapter<>(new SearchBasedAdapterStrategy(results, item, listener));
   }
 
@@ -56,11 +46,8 @@ public class Factory
   public static GalleryAdapter createHotelAdapter(@NonNull Context context,
                                                   @NonNull SearchResult[] results,
                                                   @Nullable ItemSelectedListener<Items
-                                                      .SearchItem> listener,
-                                                  @NonNull GalleryType type,
-                                                  @NonNull GalleryPlacement placement)
+                                                      .SearchItem> listener)
   {
-    trackProductGalleryShownOrError(results, type, OFFLINE, placement);
     return new GalleryAdapter<>(new HotelAdapterStrategy(context, results, listener));
   }
 
@@ -68,10 +55,8 @@ public class Factory
   public static GalleryAdapter createLocalExpertsAdapter(@NonNull LocalExpert[] experts,
                                                          @Nullable String expertsUrl,
                                                          @Nullable ItemSelectedListener<Items
-                                                             .LocalExpertItem> listener,
-                                                         @NonNull GalleryPlacement placement)
+                                                             .LocalExpertItem> listener)
   {
-    trackProductGalleryShownOrError(experts, LOCAL_EXPERTS, ONLINE, placement);
     return new GalleryAdapter<>(new LocalExpertsAdapterStrategy(experts, expertsUrl, listener));
   }
 
@@ -85,8 +70,7 @@ public class Factory
   public static GalleryAdapter createCatalogPromoAdapter(@NonNull Context context,
                                                          @NonNull PromoCityGallery gallery,
                                                          @Nullable String url,
-                                                         @Nullable ItemSelectedListener<PromoEntity> listener,
-                                                         @NonNull GalleryPlacement placement)
+                                                         @Nullable ItemSelectedListener<PromoEntity> listener)
   {
     @SuppressWarnings("ConstantConditions")
     PromoEntity item = new PromoEntity(Constants.TYPE_MORE,
@@ -96,18 +80,14 @@ public class Factory
     CatalogPromoAdapterStrategy strategy = new CatalogPromoAdapterStrategy(entities,
                                                                            item,
                                                                            listener);
-    trackProductGalleryShownOrError(gallery.getItems(), GalleryType.PROMO, ONLINE, placement);
     return new GalleryAdapter<>(strategy);
   }
 
   @NonNull
   public static GalleryAdapter createGuidesAdapter(
-      @NonNull List<GuidesGallery.Item> items, @Nullable ItemSelectedListener<GuidesGallery.Item> listener,
-      @NonNull GalleryPlacement placement)
+      @NonNull List<GuidesGallery.Item> items, @Nullable ItemSelectedListener<GuidesGallery.Item> listener)
   {
     GuidesAdapterStrategy strategy = new GuidesAdapterStrategy(items, listener);
-    //noinspection ConstantConditions
-    trackProductGalleryShownOrError(items.toArray(), GalleryType.PROMO, ONLINE, placement);
     return new GalleryAdapter<>(strategy);
   }
 
@@ -123,16 +103,5 @@ public class Factory
                                                               @Nullable ItemSelectedListener<Items.Item> listener)
   {
     return new GalleryAdapter<>(new CatalogPromoErrorAdapterStrategy(context, listener));
-  }
-
-  private static <Product> void trackProductGalleryShownOrError(@NonNull Product[] products,
-                                                                @NonNull GalleryType type,
-                                                                @NonNull GalleryState state,
-                                                                @NonNull GalleryPlacement placement)
-  {
-    if (products.length == 0)
-      Statistics.INSTANCE.trackGalleryError(type, placement, Statistics.ParamValue.NO_PRODUCTS);
-    else
-      Statistics.INSTANCE.trackGalleryShown(type, state, placement, products.length);
   }
 }

@@ -25,19 +25,12 @@ import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.Utils;
 import com.mapswithme.util.log.Logger;
 import com.mapswithme.util.log.LoggerFactory;
-import com.mapswithme.util.statistics.Statistics;
 
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import static com.mapswithme.util.statistics.Statistics.EventName.DOWNLOADER_DIALOG_CANCEL;
-import static com.mapswithme.util.statistics.Statistics.EventName.DOWNLOADER_DIALOG_DOWNLOAD;
-import static com.mapswithme.util.statistics.Statistics.EventName.DOWNLOADER_DIALOG_HIDE;
-import static com.mapswithme.util.statistics.Statistics.EventName.DOWNLOADER_DIALOG_LATER;
-import static com.mapswithme.util.statistics.Statistics.EventName.DOWNLOADER_DIALOG_MANUAL_DOWNLOAD;
-import static com.mapswithme.util.statistics.Statistics.EventName.DOWNLOADER_DIALOG_SHOW;
 
 public class UpdaterDialogFragment extends BaseMwmDialogFragment
 {
@@ -91,21 +84,11 @@ public class UpdaterDialogFragment extends BaseMwmDialogFragment
   }
 
   @NonNull
-  private final View.OnClickListener mFinishClickListener = (View v) ->
-  {
-    Statistics.INSTANCE.trackDownloaderDialogEvent(mAutoUpdate ?
-                                                   DOWNLOADER_DIALOG_HIDE :
-                                                   DOWNLOADER_DIALOG_LATER, 0);
-
-    finish();
-  };
+  private final View.OnClickListener mFinishClickListener = (View v) -> finish();
 
   @NonNull
   private final View.OnClickListener mCancelClickListener = (View v) ->
   {
-    Statistics.INSTANCE.trackDownloaderDialogEvent(DOWNLOADER_DIALOG_CANCEL,
-                                                   mTotalSizeBytes / Constants.MB);
-
     MapManager.nativeCancel(CountryItem.getRootId());
 
     final UpdateInfo info = MapManager.nativeGetUpdateInfo(CountryItem.getRootId());
@@ -144,9 +127,6 @@ public class UpdaterDialogFragment extends BaseMwmDialogFragment
           MapManager.nativeUpdate(CountryItem.getRootId());
           UiUtils.show(mProgressBar, mInfo);
           UiUtils.hide(mUpdateBtn);
-
-          Statistics.INSTANCE.trackDownloaderDialogEvent(DOWNLOADER_DIALOG_MANUAL_DOWNLOAD,
-                                                         mTotalSizeBytes / Constants.MB);
         }
       });
 
@@ -174,9 +154,6 @@ public class UpdaterDialogFragment extends BaseMwmDialogFragment
       result = Framework.nativeToDoAfterUpdate();
       if (result == Framework.DO_AFTER_UPDATE_NOTHING)
         return false;
-
-      Statistics.INSTANCE.trackDownloaderDialogEvent(DOWNLOADER_DIALOG_SHOW,
-                                                     info.totalSize / Constants.MB);
     }
 
     final Bundle args = new Bundle();
@@ -278,16 +255,7 @@ public class UpdaterDialogFragment extends BaseMwmDialogFragment
     {
       if (!MapManager.nativeIsDownloading())
       {
-        MapManager.warnOn3gUpdate(getActivity(), CountryItem.getRootId(), new Runnable()
-        {
-          @Override
-          public void run()
-          {
-            MapManager.nativeUpdate(CountryItem.getRootId());
-            Statistics.INSTANCE.trackDownloaderDialogEvent(DOWNLOADER_DIALOG_DOWNLOAD,
-                                                           mTotalSizeBytes / Constants.MB);
-          }
-        });
+        MapManager.warnOn3gUpdate(getActivity(), CountryItem.getRootId(), () -> MapManager.nativeUpdate(CountryItem.getRootId()));
       }
       else
       {
@@ -523,33 +491,18 @@ public class UpdaterDialogFragment extends BaseMwmDialogFragment
         default:
           text = String.valueOf(item.errorCode);
       }
-      //noinspection ConstantConditions
-      Statistics.INSTANCE.trackDownloaderDialogError(mFragment.getTotalSizeBytes() / Constants.MB,
-                                                     text);
-      MapManager.showErrorDialog(mFragment.getActivity(), item, new Utils.Proc<Boolean>()
-      {
-        @Override
-        public void invoke(@NonNull Boolean result)
-        {
-          if (!isFragmentAttached())
-            return;
+      MapManager.showErrorDialog(mFragment.getActivity(), item, result -> {
+        if (!isFragmentAttached())
+          return;
 
-          if (result)
-          {
-            MapManager.warnOn3gUpdate(mFragment.getActivity(), CountryItem.getRootId(), new Runnable()
-            {
-              @Override
-              public void run()
-              {
-                MapManager.nativeUpdate(CountryItem.getRootId());
-              }
-            });
-          }
-          else
-          {
-            MapManager.nativeCancel(CountryItem.getRootId());
-            mFragment.finish();
-          }
+        if (result)
+        {
+          MapManager.warnOn3gUpdate(mFragment.getActivity(), CountryItem.getRootId(), () -> MapManager.nativeUpdate(CountryItem.getRootId()));
+        }
+        else
+        {
+          MapManager.nativeCancel(CountryItem.getRootId());
+          mFragment.finish();
         }
       });
     }

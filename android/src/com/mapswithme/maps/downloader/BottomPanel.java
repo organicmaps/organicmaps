@@ -9,7 +9,6 @@ import java.util.Locale;
 import com.mapswithme.maps.R;
 import com.mapswithme.util.StringUtils;
 import com.mapswithme.util.UiUtils;
-import com.mapswithme.util.statistics.Statistics;
 
 class BottomPanel
 {
@@ -22,18 +21,7 @@ class BottomPanel
     @Override
     public void onClick(View v)
     {
-      MapManager.warn3gAndDownload(mFragment.getActivity(), mFragment.getCurrentRoot(), new Runnable()
-      {
-        @Override
-        public void run()
-        {
-          Statistics.INSTANCE.trackEvent(Statistics.EventName.DOWNLOADER_ACTION,
-                                         Statistics.params().add(Statistics.EventParam.ACTION, "download")
-                                                            .add(Statistics.EventParam.FROM, "downloader")
-                                                            .add("is_auto", "false")
-                                                            .add("scenario", "download_group"));
-        }
-      });
+      MapManager.warn3gAndDownload(mFragment.getActivity(), mFragment.getCurrentRoot(), null);
     }
   };
 
@@ -49,12 +37,6 @@ class BottomPanel
         public void run()
         {
           MapManager.nativeUpdate(country);
-
-          Statistics.INSTANCE.trackEvent(Statistics.EventName.DOWNLOADER_ACTION,
-                                         Statistics.params().add(Statistics.EventParam.ACTION, "update")
-                                                            .add(Statistics.EventParam.FROM, "downloader")
-                                                            .add("is_auto", "false")
-                                                            .add("scenario", "update_all"));
         }
       });
     }
@@ -66,9 +48,6 @@ class BottomPanel
     public void onClick(View v)
     {
         MapManager.nativeCancel(mFragment.getCurrentRoot());
-
-        Statistics.INSTANCE.trackEvent(Statistics.EventName.DOWNLOADER_CANCEL,
-                                       Statistics.params().add(Statistics.EventParam.FROM, "downloader"));
     }
   };
 
@@ -84,9 +63,6 @@ class BottomPanel
       {
         if (mFragment.getAdapter() != null )
           mFragment.getAdapter().setAvailableMapsMode();
-        Statistics.INSTANCE.trackEvent(Statistics.EventName.DOWNLOADER_FAB_CLICK,
-                                       Statistics.params().add(Statistics.EventParam.BUTTON,
-                                                               Statistics.ParamValue.PLUS));
         update();
       }
     });

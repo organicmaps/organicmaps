@@ -33,7 +33,6 @@ import com.mapswithme.maps.base.BaseMwmDialogFragment;
 import com.mapswithme.util.ThemeUtils;
 import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.Utils;
-import com.mapswithme.util.statistics.Statistics;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -350,7 +349,6 @@ public abstract class BaseNewsFragment extends BaseMwmDialogFragment
       @Override
       public void onClick(View v)
       {
-        trackStatisticEvent(Statistics.ParamValue.NEXT);
         mPager.setCurrentItem(mPager.getCurrentItem() + 1, true);
       }
     });
@@ -366,17 +364,7 @@ public abstract class BaseNewsFragment extends BaseMwmDialogFragment
 
     update();
 
-    trackStatisticEvent(Statistics.ParamValue.OPEN);
     return res;
-  }
-
-  private void trackStatisticEvent(@NonNull String value)
-  {
-    Statistics.ParameterBuilder builder = Statistics
-        .params()
-        .add(Statistics.EventParam.ACTION, value)
-        .add(Statistics.EventParam.VERSION, BuildConfig.VERSION_NAME);
-    Statistics.INSTANCE.trackEvent(Statistics.EventName.WHATS_NEW_ACTION, builder);
   }
 
   @CallSuper
@@ -385,7 +373,6 @@ public abstract class BaseNewsFragment extends BaseMwmDialogFragment
     dismissAllowingStateLoss();
     if (mListener != null)
       mListener.onDialogDone();
-    trackStatisticEvent(Statistics.ParamValue.CLOSE);
   }
 
   @SuppressWarnings("TryWithIdenticalCatches")

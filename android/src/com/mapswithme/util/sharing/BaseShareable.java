@@ -7,7 +7,6 @@ import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
 import android.text.TextUtils;
 
-import com.mapswithme.util.statistics.AlohaHelper;
 
 abstract class BaseShareable
 {
@@ -63,7 +62,6 @@ abstract class BaseShareable
       mActivity.startActivity(intent);
     } catch (ActivityNotFoundException ignored)
     {
-      AlohaHelper.logException(ignored);
     }
   }
 

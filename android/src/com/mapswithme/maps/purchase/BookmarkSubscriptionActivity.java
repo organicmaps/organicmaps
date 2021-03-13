@@ -6,15 +6,12 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 
 import com.mapswithme.maps.base.BaseMwmFragmentActivity;
-import com.mapswithme.util.statistics.Statistics;
 
 public class BookmarkSubscriptionActivity extends BaseMwmFragmentActivity
 {
   public static void startForResult(@NonNull FragmentActivity activity)
   {
-    Intent intent = new Intent(activity, BookmarkSubscriptionActivity.class)
-        .putExtra(BookmarkSubscriptionFragment.EXTRA_FROM,
-                  Statistics.ParamValue.SPONSORED_BUTTON);
+    Intent intent = new Intent(activity, BookmarkSubscriptionActivity.class);
     activity.startActivityForResult(intent, PurchaseUtils.REQ_CODE_PAY_SUBSCRIPTION);
   }
 

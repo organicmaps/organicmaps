@@ -23,7 +23,6 @@ import com.mapswithme.util.SharedPropertiesUtils;
 import com.mapswithme.util.Utils;
 import com.mapswithme.util.log.Logger;
 import com.mapswithme.util.log.LoggerFactory;
-import com.mapswithme.util.statistics.Statistics;
 
 import java.util.Date;
 
@@ -38,7 +37,6 @@ import static com.mapswithme.maps.bookmarks.data.BookmarkManager.CLOUD_NO_BACKUP
 import static com.mapswithme.maps.bookmarks.data.BookmarkManager.CLOUD_RESTORE;
 import static com.mapswithme.maps.bookmarks.data.BookmarkManager.CLOUD_SUCCESS;
 import static com.mapswithme.maps.bookmarks.data.BookmarkManager.CLOUD_USER_INTERRUPTED;
-import static com.mapswithme.util.statistics.Statistics.EventName.BM_RESTORE_PROPOSAL_CANCEL;
 
 public class BookmarkBackupController implements Authorizer.Callback,
                                                  BookmarkManager.BookmarksCloudListener
@@ -60,31 +58,19 @@ public class BookmarkBackupController implements Authorizer.Callback,
     public void onClick(View v)
     {
       mAuthorizer.authorize(AuthBundleFactory.bookmarksBackup());
-      Statistics.INSTANCE.trackBmSyncProposalApproved(false);
     }
   };
   @NonNull
-  private final View.OnClickListener mEnableClickListener = new View.OnClickListener()
-  {
-    @Override
-    public void onClick(View v)
-    {
-      BookmarkManager.INSTANCE.setCloudEnabled(true);
-      updateWidget();
-      Statistics.INSTANCE.trackBmSyncProposalApproved(mAuthorizer.isAuthorized());
-    }
+  private final View.OnClickListener mEnableClickListener = v -> {
+    BookmarkManager.INSTANCE.setCloudEnabled(true);
+    updateWidget();
   };
   @NonNull
-  private final View.OnClickListener mRestoreClickListener = v ->
-  {
-    requestRestoring();
-    Statistics.INSTANCE.trackBmRestoreProposalClick();
-  };
+  private final View.OnClickListener mRestoreClickListener = v -> requestRestoring();
   @Nullable
   private ProgressDialog mRestoringProgressDialog;
   @NonNull
   private final DialogInterface.OnClickListener mRestoreCancelListener = (dialog, which) -> {
-    Statistics.INSTANCE.trackEvent(BM_RESTORE_PROPOSAL_CANCEL);
     BookmarkManager.INSTANCE.cancelRestoring();
   };
 
@@ -158,7 +144,6 @@ public class BookmarkBackupController implements Authorizer.Callback,
         mBackupView.setBackupClickListener(mSignInClickListener);
         mBackupView.showBackupButton();
         mBackupView.hideRestoreButton();
-        Statistics.INSTANCE.trackBmSyncProposalShown(mAuthorizer.isAuthorized());
       }
       return;
     }
@@ -192,7 +177,6 @@ public class BookmarkBackupController implements Authorizer.Callback,
     mBackupView.setBackupClickListener(mEnableClickListener);
     mBackupView.showBackupButton();
     mBackupView.hideRestoreButton();
-    Statistics.INSTANCE.trackBmSyncProposalShown(mAuthorizer.isAuthorized());
   }
 
   public void onStart()
@@ -231,13 +215,11 @@ public class BookmarkBackupController implements Authorizer.Callback,
       final Notifier notifier = Notifier.from(mContext.getApplication());
       notifier.cancelNotification(Notifier.ID_IS_NOT_AUTHENTICATED);
       BookmarkManager.INSTANCE.setCloudEnabled(true);
-      Statistics.INSTANCE.trackEvent(Statistics.EventName.BM_SYNC_PROPOSAL_ENABLED);
       mAuthCompleteListener.onAuthCompleted();
     }
     else
     {
       Utils.showSnackbar(mContext, mBackupView.getRootView(), R.string.profile_authorization_error);
-      Statistics.INSTANCE.trackBmSyncProposalError(Framework.TOKEN_MAPSME, "Unknown error");
     }
     updateWidget();
   }
@@ -245,26 +227,22 @@ public class BookmarkBackupController implements Authorizer.Callback,
   @Override
   public void onSocialAuthenticationError(@Framework.AuthTokenType int type, @Nullable String error)
   {
-    LOGGER.w(TAG, "onSocialAuthenticationError, type: " + Statistics.getAuthProvider(type) +
-                  " error: " + error);
-    Statistics.INSTANCE.trackBmSyncProposalError(type, error);
+    LOGGER.w(TAG, "onSocialAuthenticationError, type: " + type + " error: " + error);
   }
 
   @Override
   public void onSocialAuthenticationCancel(@Framework.AuthTokenType int type)
   {
-    LOGGER.i(TAG, "onSocialAuthenticationCancel, type: " + Statistics.getAuthProvider(type));
-    Statistics.INSTANCE.trackBmSyncProposalError(type, "Cancel");
+    LOGGER.i(TAG, "onSocialAuthenticationCancel, type: " + type);
   }
 
   @Override
   public void onSynchronizationStarted(@BookmarkManager.SynchronizationType int type)
   {
-    LOGGER.d(TAG, "onSynchronizationStarted, type: " + Statistics.getSynchronizationType(type));
+    LOGGER.d(TAG, "onSynchronizationStarted, type: " + type);
     switch (type)
     {
       case CLOUD_BACKUP:
-        Statistics.INSTANCE.trackEvent(Statistics.EventName.BM_SYNC_STARTED);
         break;
       case CLOUD_RESTORE:
         showRestoringProgressDialog();
@@ -280,9 +258,8 @@ public class BookmarkBackupController implements Authorizer.Callback,
                                         @BookmarkManager.SynchronizationResult int result,
                                         @NonNull String errorString)
   {
-    LOGGER.d(TAG, "onSynchronizationFinished, type: " + Statistics.getSynchronizationType(type)
+    LOGGER.d(TAG, "onSynchronizationFinished, type: " + type
                   + ", result: " + result + ", errorString = " + errorString);
-    Statistics.INSTANCE.trackBmSynchronizationFinish(type, result, errorString);
     hideRestoringProgressDialog();
 
     updateWidget();
@@ -323,7 +300,6 @@ public class BookmarkBackupController implements Authorizer.Callback,
   {
     LOGGER.d(TAG, "onRestoreRequested, result: " + result + ", deviceName = " + deviceName +
                   ", backupTimestampInMs = " + backupTimestampInMs);
-    Statistics.INSTANCE.trackBmRestoringRequestResult(result);
     hideRestoringProgressDialog();
 
     switch (result)

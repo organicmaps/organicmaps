@@ -13,8 +13,6 @@ import com.mapswithme.util.NetworkPolicy;
 import com.mapswithme.util.SponsoredLinks;
 import com.mapswithme.util.Utils;
 import com.mapswithme.util.concurrency.UiThread;
-import com.mapswithme.util.statistics.StatisticValueConverter;
-import com.mapswithme.util.statistics.Statistics;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -97,17 +95,6 @@ public class TaxiManager
                                    @NonNull TaxiType type)
   {
     Utils.openPartner(context, links, type.getPackageName(), type.getOpenMode());
-
-    boolean isTaxiInstalled = Utils.isAppInstalled(context, type.getPackageName());
-    trackTaxiStatistics(type.getProviderName(), isTaxiInstalled);
-  }
-
-  private static void trackTaxiStatistics(@NonNull String taxiName, boolean isTaxiAppInstalled)
-  {
-    MapObject from = RoutingController.get().getStartPoint();
-    MapObject to = RoutingController.get().getEndPoint();
-    Location location = LocationHelper.INSTANCE.getLastKnownLocation();
-    Statistics.INSTANCE.trackTaxiInRoutePlanning(from, to, location, taxiName, isTaxiAppInstalled);
   }
 
   public void setTaxiListener(@Nullable TaxiListener listener)
@@ -123,35 +110,11 @@ public class TaxiManager
                                                   @NonNull String productId, double srcLon,
                                                   double srcLat, double dstLat, double dstLon);
 
-  public enum ErrorCode implements StatisticValueConverter<String>
+  public enum ErrorCode
   {
-    NoProducts
-    {
-      @NonNull
-      @Override
-      public String toStatisticValue()
-      {
-        return "No products";
-      }
-    },
-    RemoteError
-    {
-      @NonNull
-      @Override
-      public String toStatisticValue()
-      {
-        return "Server error";
-      }
-    },
+    NoProducts,
+    RemoteError,
     NoProviders
-    {
-      @NonNull
-      @Override
-      public String toStatisticValue()
-      {
-        return "No Providers";
-      }
-    }
   }
 
   public interface TaxiListener

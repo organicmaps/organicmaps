@@ -13,7 +13,6 @@ import com.mapswithme.maps.base.Observable;
 import com.mapswithme.maps.metrics.UserActionsLogger;
 import com.mapswithme.util.KeyValue;
 import com.mapswithme.util.UTM;
-import com.mapswithme.util.statistics.Statistics;
 
 import java.io.File;
 import java.lang.annotation.Retention;
@@ -138,28 +137,12 @@ public enum BookmarkManager
   {
     boolean isVisible = isVisible(category.getId());
     setVisibility(category.getId(), !isVisible);
-    Statistics.INSTANCE.trackBookmarksVisibility(Statistics.ParamValue.BOOKMARK_LIST,
-                                                 isVisible ? Statistics.ParamValue.HIDE
-                                                           : Statistics.ParamValue.SHOW,
-                                                 category.isFromCatalog() ? category.getServerId()
-                                                                          : null);
-    String compilationTypeString = type == BookmarkManager.CATEGORY ?
-                                   Statistics.ParamValue.CATEGORY :
-                                   Statistics.ParamValue.COLLECTION;
-    Statistics.INSTANCE.trackGuideVisibilityChange(
-        isVisible ? Statistics.ParamValue.HIDE : Statistics.ParamValue.SHOW,
-        category.getServerId(), compilationTypeString);
   }
 
   public void toggleCategoryVisibility(@NonNull BookmarkCategory category)
   {
     boolean isVisible = isVisible(category.getId());
     setVisibility(category.getId(), !isVisible);
-    Statistics.INSTANCE.trackBookmarksVisibility(Statistics.ParamValue.BOOKMARK_LIST,
-                                                 isVisible ? Statistics.ParamValue.HIDE
-                                                           : Statistics.ParamValue.SHOW,
-                                                 category.isFromCatalog() ? category.getServerId()
-                                                                          : null);
   }
 
   @Nullable
@@ -169,7 +152,6 @@ public enum BookmarkManager
     if (bookmark != null)
     {
       UserActionsLogger.logAddToBookmarkEvent();
-      Statistics.INSTANCE.trackBookmarkCreated();
     }
     return bookmark;
   }
@@ -399,8 +381,6 @@ public enum BookmarkManager
   @MainThread
   public void onImportFinished(@NonNull String id, long catId, boolean successful)
   {
-    if (successful)
-      Statistics.INSTANCE.trackPurchaseProductDelivered(id, PrivateVariables.bookmarksVendor());
     for (BookmarksCatalogListener listener : mCatalogListeners)
       listener.onImportFinished(id, catId, successful);
   }

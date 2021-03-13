@@ -32,7 +32,6 @@ import com.mapswithme.maps.routing.RoutingController;
 import com.mapswithme.util.BottomSheetHelper;
 import com.mapswithme.util.StringUtils;
 import com.mapswithme.util.UiUtils;
-import com.mapswithme.util.statistics.Statistics;
 import com.timehop.stickyheadersrecyclerview.StickyRecyclerHeadersAdapter;
 import com.timehop.stickyheadersrecyclerview.StickyRecyclerHeadersDecoration;
 
@@ -77,19 +76,7 @@ class DownloaderAdapter extends RecyclerView.Adapter<DownloaderAdapter.ViewHolde
       @Override
       void invoke(final CountryItem item, DownloaderAdapter adapter)
       {
-        MapManager.warn3gAndDownload(adapter.mActivity, item.id, new Runnable()
-        {
-          @Override
-          public void run()
-          {
-            Statistics.INSTANCE.trackEvent(Statistics.EventName.DOWNLOADER_ACTION,
-                                           Statistics.params().add(Statistics.EventParam.ACTION, "download")
-                                                              .add(Statistics.EventParam.FROM, "downloader")
-                                                              .add("is_auto", "false")
-                                                              .add("scenario", (item.isExpandable() ? "download_group"
-                                                                                                    : "download")));
-          }
-        });
+        MapManager.warn3gAndDownload(adapter.mActivity, item.id, null);
       }
     },
 
@@ -100,12 +87,6 @@ class DownloaderAdapter extends RecyclerView.Adapter<DownloaderAdapter.ViewHolde
         MapManager.nativeCancel(item.id);
         MapManager.nativeDelete(item.id);
         OnmapDownloader.setAutodownloadLocked(true);
-
-        Statistics.INSTANCE.trackEvent(Statistics.EventName.DOWNLOADER_ACTION,
-                                       Statistics.params().add(Statistics.EventParam.ACTION, "delete")
-                                                          .add(Statistics.EventParam.FROM, "downloader")
-                                                          .add("scenario", (item.isExpandable() ? "delete_group"
-                                                                                                : "delete")));
       }
 
       @Override
@@ -157,8 +138,6 @@ class DownloaderAdapter extends RecyclerView.Adapter<DownloaderAdapter.ViewHolde
       void invoke(CountryItem item, DownloaderAdapter adapter)
       {
         MapManager.nativeCancel(item.id);
-        Statistics.INSTANCE.trackEvent(Statistics.EventName.DOWNLOADER_CANCEL,
-                                       Statistics.params().add(Statistics.EventParam.FROM, "downloader"));
       }
     },
 
@@ -174,10 +153,6 @@ class DownloaderAdapter extends RecyclerView.Adapter<DownloaderAdapter.ViewHolde
 
         if (!(adapter.mActivity instanceof MwmActivity))
           adapter.mActivity.finish();
-
-        Statistics.INSTANCE.trackEvent(Statistics.EventName.DOWNLOADER_ACTION,
-                                       Statistics.params().add(Statistics.EventParam.ACTION, "explore")
-                                                          .add(Statistics.EventParam.FROM, "downloader"));
       }
     },
 
@@ -197,13 +172,6 @@ class DownloaderAdapter extends RecyclerView.Adapter<DownloaderAdapter.ViewHolde
           public void run()
           {
             MapManager.nativeUpdate(item.id);
-
-            Statistics.INSTANCE.trackEvent(Statistics.EventName.DOWNLOADER_ACTION,
-                                           Statistics.params().add(Statistics.EventParam.ACTION, "update")
-                                                              .add(Statistics.EventParam.FROM, "downloader")
-                                                              .add("is_auto", "false")
-                                                              .add("scenario", (item.isExpandable() ? "update_group"
-                                                                                                    : "update")));
           }
         });
       }
@@ -381,13 +349,6 @@ class DownloaderAdapter extends RecyclerView.Adapter<DownloaderAdapter.ViewHolde
           public void run()
           {
             MapManager.nativeUpdate(mItem.id);
-
-            Statistics.INSTANCE.trackEvent(Statistics.EventName.DOWNLOADER_ACTION,
-                                           Statistics.params().add(Statistics.EventParam.ACTION, "update")
-                                                              .add(Statistics.EventParam.FROM, "downloader")
-                                                              .add("is_auto", "false")
-                                                              .add("scenario", (mItem.isExpandable() ? "update_group"
-                                                                                                     : "update")));
           }
         });
         break;
@@ -499,8 +460,6 @@ class DownloaderAdapter extends RecyclerView.Adapter<DownloaderAdapter.ViewHolde
         public void onClick(View v)
         {
           MapManager.nativeCancel(mItem.id);
-          Statistics.INSTANCE.trackEvent(Statistics.EventName.DOWNLOADER_CANCEL,
-                                         Statistics.params().add(Statistics.EventParam.FROM, "downloader"));
         }
       });
 

@@ -19,7 +19,6 @@ import com.mapswithme.maps.bookmarks.data.CatalogTagsGroup;
 import com.mapswithme.maps.dialog.AlertDialog;
 import com.mapswithme.maps.dialog.AlertDialogCallback;
 import com.mapswithme.util.sharing.TargetUtils;
-import com.mapswithme.util.statistics.Statistics;
 
 import java.util.List;
 import java.util.Objects;
@@ -82,7 +81,6 @@ public class SendLinkPlaceholderFragment extends BaseAuthFragment implements Boo
   private void shareLink()
   {
     shareLink(BookmarkManager.INSTANCE.getWebEditorUrl(mCategory.getServerId()), requireActivity());
-    Statistics.INSTANCE.trackEvent(Statistics.EventName.BM_EDIT_ON_WEB_CLICK);
   }
 
   static void shareLink(@NonNull String url, @NonNull FragmentActivity activity)

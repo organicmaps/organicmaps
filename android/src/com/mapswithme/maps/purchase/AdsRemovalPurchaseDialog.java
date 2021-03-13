@@ -27,7 +27,6 @@ import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.Utils;
 import com.mapswithme.util.log.Logger;
 import com.mapswithme.util.log.LoggerFactory;
-import com.mapswithme.util.statistics.Statistics;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -203,10 +202,6 @@ public class AdsRemovalPurchaseDialog extends BaseMwmDialogFragment
   {
     ProductDetails details = getProductDetailsForPeriod(period);
     getControllerOrThrow().launchPurchaseFlow(details.getProductId());
-    String purchaseId = SubscriptionType.ADS_REMOVAL.getServerId();
-    Statistics.INSTANCE.trackPurchasePreviewSelect(purchaseId, details.getProductId());
-    Statistics.INSTANCE.trackPurchaseEvent(Statistics.EventName.INAPP_PURCHASE_PREVIEW_PAY,
-                                           purchaseId, Statistics.STATISTICS_CHANNEL_REALTIME);
   }
 
   void onExplanationClick()
@@ -247,14 +242,6 @@ public class AdsRemovalPurchaseDialog extends BaseMwmDialogFragment
     outState.putInt(EXTRA_CURRENT_STATE, mState.ordinal());
     outState.putParcelableArray(EXTRA_PRODUCT_DETAILS, mProductDetails);
     outState.putBoolean(EXTRA_ACTIVATION_RESULT, mActivationResult);
-  }
-
-  @Override
-  public void onCancel(DialogInterface dialog)
-  {
-    super.onCancel(dialog);
-    Statistics.INSTANCE.trackPurchaseEvent(Statistics.EventName.INAPP_PURCHASE_PREVIEW_CANCEL,
-                                           SubscriptionType.ADS_REMOVAL.getServerId());
   }
 
   @Override
@@ -406,7 +393,6 @@ public class AdsRemovalPurchaseDialog extends BaseMwmDialogFragment
     @Override
     public void onPaymentFailure(@BillingClient.BillingResponse int error)
     {
-      Statistics.INSTANCE.trackPurchaseStoreError(SubscriptionType.ADS_REMOVAL.getServerId(), error);
       activateStateSafely(AdsRemovalPaymentState.PAYMENT_FAILURE);
     }
 
@@ -425,8 +411,6 @@ public class AdsRemovalPurchaseDialog extends BaseMwmDialogFragment
     @Override
     public void onValidationStarted()
     {
-      Statistics.INSTANCE.trackPurchaseEvent(Statistics.EventName.INAPP_PURCHASE_STORE_SUCCESS,
-                                             SubscriptionType.ADS_REMOVAL.getServerId());
       activateStateSafely(AdsRemovalPaymentState.VALIDATION);
     }
 

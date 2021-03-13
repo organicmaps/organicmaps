@@ -19,7 +19,6 @@ import android.util.AttributeSet;
 import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.Menu;
-import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
@@ -34,7 +33,6 @@ import android.widget.TextView;
 import androidx.annotation.ColorInt;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.view.ContextThemeWrapper;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.widget.NestedScrollViewClickFixed;
 import androidx.fragment.app.Fragment;
@@ -95,8 +93,6 @@ import com.mapswithme.util.concurrency.UiThread;
 import com.mapswithme.util.log.Logger;
 import com.mapswithme.util.log.LoggerFactory;
 import com.mapswithme.util.sharing.ShareOption;
-import com.mapswithme.util.statistics.AlohaHelper;
-import com.mapswithme.util.statistics.Statistics;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -108,13 +104,6 @@ import java.util.Objects;
 
 import static com.mapswithme.maps.bookmarks.BookmarkHeaderView.AUTHOR_LONELY_PLANET_ID;
 import static com.mapswithme.maps.widget.placepage.PlacePageButtons.Item.BOOKING;
-import static com.mapswithme.util.statistics.Statistics.EventName.PP_HOTEL_DESCRIPTION_LAND;
-import static com.mapswithme.util.statistics.Statistics.EventName.PP_HOTEL_FACILITIES;
-import static com.mapswithme.util.statistics.Statistics.EventName.PP_HOTEL_GALLERY_OPEN;
-import static com.mapswithme.util.statistics.Statistics.EventName.PP_HOTEL_REVIEWS_LAND;
-import static com.mapswithme.util.statistics.Statistics.EventName.PP_SPONSORED_ACTION;
-import static com.mapswithme.util.statistics.Statistics.EventName.PP_SPONSORED_DETAILS;
-import static com.mapswithme.util.statistics.Statistics.EventName.PP_SPONSORED_OPENTABLE;
 
 public class PlacePageView extends NestedScrollViewClickFixed
     implements View.OnClickListener,
@@ -306,18 +295,7 @@ public class PlacePageView extends NestedScrollViewClickFixed
     @Override
     public void onClick(View v)
     {
-      MapManager.warn3gAndDownload(getActivity(), mCurrentCountry.id, this::onDownloadClick);
-    }
-
-    private void onDownloadClick()
-    {
-      String scenario = mCurrentCountry.isExpandable() ? "download_group" : "download";
-      Statistics.INSTANCE.trackEvent(Statistics.EventName.DOWNLOADER_ACTION,
-                                     Statistics.params()
-                                               .add(Statistics.EventParam.ACTION, "download")
-                                               .add(Statistics.EventParam.FROM, "placepage")
-                                               .add("is_auto", "false")
-                                               .add("scenario", scenario));
+      MapManager.warn3gAndDownload(getActivity(), mCurrentCountry.id, null);
     }
   };
 
@@ -328,9 +306,6 @@ public class PlacePageView extends NestedScrollViewClickFixed
     public void onClick(View v)
     {
       MapManager.nativeCancel(mCurrentCountry.id);
-      Statistics.INSTANCE.trackEvent(Statistics.EventName.DOWNLOADER_CANCEL,
-                                     Statistics.params()
-                                               .add(Statistics.EventParam.FROM, "placepage"));
     }
   };
 
@@ -651,9 +626,6 @@ public class PlacePageView extends NestedScrollViewClickFixed
       LOGGER.e(TAG, "Bookmark cannot be managed, mMapObject is null!");
       return;
     }
-
-    Statistics.INSTANCE.trackEvent(Statistics.EventName.PP_BOOKMARK);
-    AlohaHelper.logClick(AlohaHelper.PP_BOOKMARK);
     toggleIsBookmark(mMapObject);
   }
 
@@ -664,8 +636,6 @@ public class PlacePageView extends NestedScrollViewClickFixed
       LOGGER.e(TAG, "A map object cannot be shared, it's null!");
       return;
     }
-    Statistics.INSTANCE.trackEvent(Statistics.EventName.PP_SHARE);
-    AlohaHelper.logClick(AlohaHelper.PP_SHARE);
     ShareOption.AnyShareOption.ANY.shareMapObject(getActivity(), mMapObject, mSponsored);
   }
 
@@ -738,7 +708,6 @@ public class PlacePageView extends NestedScrollViewClickFixed
   {
     if (mMapObject != null && !TextUtils.isEmpty(mMapObject.getBookingSearchUrl()))
     {
-      Statistics.INSTANCE.trackBookingSearchEvent(mMapObject);
       Utils.openUrl(getContext(), mMapObject.getBookingSearchUrl());
     }
   }
@@ -769,9 +738,6 @@ public class PlacePageView extends NestedScrollViewClickFixed
       return;
 
     mRoutingModeListener.toggleRouteSettings(roadType);
-    Statistics.INSTANCE.trackEvent(Statistics.EventName.PP_DRIVING_OPTIONS_ACTION,
-                                   Statistics.params().add(Statistics.EventParam.TYPE,
-                                                           roadType.name()));
   }
 
   private void initPlaceDescriptionView()
@@ -789,7 +755,7 @@ public class PlacePageView extends NestedScrollViewClickFixed
   {
     Context context = mPlaceDescriptionContainer.getContext();
     String description = Objects.requireNonNull(mMapObject).getDescription();
-    PlaceDescriptionActivity.start(context, description, Statistics.ParamValue.WIKIPEDIA);
+    PlaceDescriptionActivity.start(context, description);
   }
 
   private void initEditMapObjectBtn()
@@ -1022,8 +988,6 @@ public class PlacePageView extends NestedScrollViewClickFixed
       return;
     }
 
-    Statistics.INSTANCE.trackHotelEvent(PP_HOTEL_GALLERY_OPEN, mSponsored, mMapObject);
-
     if (position == com.mapswithme.maps.widget.placepage.GalleryAdapter.MAX_COUNT - 1
         && mGalleryAdapter.getItems().size() > com.mapswithme.maps.widget.placepage.GalleryAdapter.MAX_COUNT)
     {
@@ -1068,29 +1032,18 @@ public class PlacePageView extends NestedScrollViewClickFixed
                 {
                   partnerAppOpenMode = Utils.PartnerAppOpenMode.Direct;
                   UserActionsLogger.logBookingBookClicked();
-                  Statistics.INSTANCE.trackBookHotelEvent(info, mMapObject);
                 }
                 else if (isDetails)
                 {
                   UserActionsLogger.logBookingDetailsClicked();
-                  Statistics.INSTANCE.trackHotelEvent(PP_SPONSORED_DETAILS, info, mMapObject);
                 }
                 else
                 {
                   UserActionsLogger.logBookingMoreClicked();
-                  Statistics.INSTANCE.trackHotelEvent(PP_HOTEL_DESCRIPTION_LAND, info, mMapObject);
                 }
                 break;
               case Sponsored.TYPE_OPENTABLE:
-                if (mMapObject != null)
-                  Statistics.INSTANCE.trackRestaurantEvent(PP_SPONSORED_OPENTABLE, info,
-                                                           mMapObject);
-                break;
               case Sponsored.TYPE_PARTNER:
-                if (mMapObject != null && !info.getPartnerName().isEmpty())
-                  Statistics.INSTANCE.trackSponsoredObjectEvent(PP_SPONSORED_ACTION, info,
-                                                                mMapObject);
-                break;
               case Sponsored.TYPE_NONE:
                 break;
             }
@@ -1116,7 +1069,6 @@ public class PlacePageView extends NestedScrollViewClickFixed
             catch (ActivityNotFoundException e)
             {
               LOGGER.e(TAG, "Failed to handle click on sponsored: ", e);
-              AlohaHelper.logException(e);
             }
           }
         });
@@ -1810,15 +1762,11 @@ public class PlacePageView extends NestedScrollViewClickFixed
 
   private void addOrganisation()
   {
-    Statistics.INSTANCE.trackEvent(Statistics.EventName.EDITOR_ADD_CLICK,
-                                   Statistics.params()
-                                             .add(Statistics.EventParam.FROM, "placepage"));
     getActivity().showPositionChooser(true, false);
   }
 
   private void addPlace()
   {
-    // TODO add statistics
     getActivity().showPositionChooser(false, true);
   }
 
@@ -1849,10 +1797,7 @@ public class PlacePageView extends NestedScrollViewClickFixed
             throw new AssertionError("A local ad must be non-null if button is shown!");
 
           if (!TextUtils.isEmpty(localAdInfo.getUrl()))
-          {
-            Statistics.INSTANCE.trackPPOwnershipButtonClick(mMapObject);
             Utils.openUrl(getContext(), localAdInfo.getUrl());
-          }
         }
         break;
       case R.id.ll__more:
@@ -1887,8 +1832,6 @@ public class PlacePageView extends NestedScrollViewClickFixed
         Utils.openUrl(getContext(), mMapObject.getMetadata(Metadata.MetadataType.FMD_WIKIPEDIA));
         break;
       case R.id.direction_frame:
-        Statistics.INSTANCE.trackEvent(Statistics.EventName.PP_DIRECTION_ARROW);
-        AlohaHelper.logClick(AlohaHelper.PP_DIRECTION_ARROW);
         showBigDirection();
         break;
       case R.id.ll__place_email:
@@ -1899,8 +1842,6 @@ public class PlacePageView extends NestedScrollViewClickFixed
         mTvHotelDescription.setMaxLines(Integer.MAX_VALUE);
         break;
       case R.id.tv__place_hotel_facilities_more:
-        if (mSponsored != null && mMapObject != null)
-          Statistics.INSTANCE.trackHotelEvent(PP_HOTEL_FACILITIES, mSponsored, mMapObject);
         UiUtils.hide(mHotelMoreFacilities);
         mFacilitiesAdapter.setShowAll(true);
         break;
@@ -1911,24 +1852,12 @@ public class PlacePageView extends NestedScrollViewClickFixed
           //noinspection ConstantConditions
           Utils.openUrl(getContext(), mSponsored.getReviewUrl());
           UserActionsLogger.logBookingReviewsClicked();
-          if (mMapObject != null)
-            Statistics.INSTANCE.trackHotelEvent(PP_HOTEL_REVIEWS_LAND, mSponsored, mMapObject);
         }
         break;
       case R.id.tv__place_page_order_taxi:
         RoutingController.get().prepare(LocationHelper.INSTANCE.getMyPosition(), mMapObject,
                                         Framework.ROUTER_TYPE_TAXI);
         close();
-        if (mMapObject != null)
-        {
-          List<TaxiType> types = mMapObject.getReachableByTaxiTypes();
-          if (types != null && !types.isEmpty())
-          {
-            String providerName = types.get(0).getProviderName();
-            Statistics.INSTANCE.trackTaxiEvent(Statistics.EventName.ROUTING_TAXI_CLICK_IN_PP,
-                                               providerName);
-          }
-        }
         break;
       case R.id.search_hotels_btn:
         if (mMapObject == null)
@@ -1941,11 +1870,6 @@ public class PlacePageView extends NestedScrollViewClickFixed
                                                             mMapObject.getPriceRate(),
                                                             mMapObject.getHotelType());
         getActivity().onSearchSimilarHotels(filter);
-        String provider = mSponsored != null && mSponsored.getType() == Sponsored.TYPE_BOOKING
-                          ? Statistics.ParamValue.BOOKING_COM : Statistics.ParamValue.OSM;
-        Statistics.INSTANCE.trackEvent(Statistics.EventName.PP_HOTEL_SEARCH_SIMILAR,
-                                       Statistics.params().add(Statistics.EventParam.PROVIDER,
-                                                               provider));
         break;
     }
   }
@@ -1971,7 +1895,6 @@ public class PlacePageView extends NestedScrollViewClickFixed
   {
     final Object tag = v.getTag();
     final String tagStr = tag == null ? "" : tag.toString();
-    AlohaHelper.logLongClick(tagStr);
 
     final PopupMenu popup = new PopupMenu(getContext(), v);
     final Menu menu = popup.getMenu();
@@ -2025,8 +1948,6 @@ public class PlacePageView extends NestedScrollViewClickFixed
       final int id = item.getItemId();
       final Context ctx = getContext();
       Utils.copyTextToClipboard(ctx, items.get(id));
-      Statistics.INSTANCE.trackEvent(Statistics.EventName.PP_METADATA_COPY + ":" + tagStr);
-      AlohaHelper.logClick(AlohaHelper.PP_METADATA_COPY + ":" + tagStr);
       Utils.showSnackbarAbove(findViewById(R.id.pp__details_frame),
                               getRootView().findViewById(R.id.menu_frame),
                               ctx.getString(R.string.copied_to_clipboard, items.get(id)));

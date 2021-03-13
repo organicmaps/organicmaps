@@ -41,7 +41,6 @@ import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.Utils;
 import com.mapswithme.util.log.Logger;
 import com.mapswithme.util.log.LoggerFactory;
-import com.mapswithme.util.statistics.Statistics;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -333,7 +332,6 @@ public class SearchFragment extends BaseMwmFragment
       public void onShowOnMapClick()
       {
         showAllResultsOnMap();
-        Statistics.INSTANCE.trackSearchContextAreaClick(Statistics.ParamValue.MAP);
       }
 
       @Override
@@ -348,7 +346,6 @@ public class SearchFragment extends BaseMwmFragment
         }
         FilterActivity.startForResult(SearchFragment.this, filter, params,
                                       FilterActivity.REQ_CODE_FILTER);
-        Statistics.INSTANCE.trackSearchContextAreaClick(Statistics.EventParam.FILTER);
       }
 
       @Override
@@ -360,7 +357,6 @@ public class SearchFragment extends BaseMwmFragment
       @Override
       public void onFilterParamsChanged()
       {
-        FilterUtils.trackFiltersApplying(mFilterController);
         runSearch();
       }
     }, mToolbarController);
@@ -396,11 +392,7 @@ public class SearchFragment extends BaseMwmFragment
     if (SearchRecents.getSize() == 0)
       pager.setCurrentItem(TabAdapter.Tab.CATEGORIES.ordinal());
 
-    tabAdapter.setTabSelectedListener(tab ->
-                                      {
-                                        Statistics.INSTANCE.trackSearchTabSelected(tab.name());
-                                        mToolbarController.deactivate();
-                                      });
+    tabAdapter.setTabSelectedListener(tab -> mToolbarController.deactivate());
 
     if (mInitialSearchOnMap)
       showAllResultsOnMap();
@@ -544,7 +536,6 @@ public class SearchFragment extends BaseMwmFragment
     SearchEngine.INSTANCE.setQuery(query);
     processSelected(result);
 
-    Statistics.INSTANCE.trackEvent(Statistics.EventName.SEARCH_ITEM_CLICKED);
   }
 
   void showAllResultsOnMap()
@@ -573,7 +564,6 @@ public class SearchFragment extends BaseMwmFragment
     SearchEngine.INSTANCE.setQuery(query);
     Utils.navigateToParent(getActivity());
 
-    Statistics.INSTANCE.trackEvent(Statistics.EventName.SEARCH_ON_MAP_CLICKED);
   }
 
   private void onSearchEnd()
@@ -819,8 +809,6 @@ public class SearchFragment extends BaseMwmFragment
     @Override
     void executeInternal()
     {
-      Logger logger = LoggerFactory.INSTANCE.getLogger(LoggerFactory.Type.THIRD_PARTY);
-      String tag = PushTokenCommand.class.getSimpleName();
     }
   }
 }

@@ -13,7 +13,6 @@ import android.text.TextUtils;
 import com.mapswithme.maps.R;
 import com.mapswithme.util.ConnectionState;
 import com.mapswithme.util.Utils;
-import com.mapswithme.util.statistics.Statistics;
 
 import java.lang.ref.WeakReference;
 import java.util.List;
@@ -54,26 +53,6 @@ public final class MapManager
   private static WeakReference<AlertDialog> sCurrentErrorDialog;
 
   private MapManager() {}
-
-  public static void sendErrorStat(String event, int code)
-  {
-    String text;
-    switch (code)
-    {
-    case CountryItem.ERROR_NO_INTERNET:
-      text = "no_connection";
-      break;
-
-    case CountryItem.ERROR_OOM:
-      text = "no_space";
-      break;
-
-    default:
-      text = "unknown_error";
-    }
-
-    Statistics.INSTANCE.trackEvent(event, Statistics.params().add(Statistics.EventParam.TYPE, text));
-  }
 
   public static void showError(final Activity activity, final StorageCallbackData errorData,
                                @Nullable final Utils.Proc<Boolean> dialogClickListener)

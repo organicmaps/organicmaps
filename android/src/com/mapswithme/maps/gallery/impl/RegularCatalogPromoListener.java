@@ -10,22 +10,15 @@ import com.mapswithme.maps.bookmarks.data.BookmarkManager;
 import com.mapswithme.maps.gallery.ItemSelectedListener;
 import com.mapswithme.maps.promo.PromoEntity;
 import com.mapswithme.util.UTM;
-import com.mapswithme.util.statistics.Destination;
-import com.mapswithme.util.statistics.GalleryPlacement;
-import com.mapswithme.util.statistics.GalleryType;
-import com.mapswithme.util.statistics.Statistics;
 
 public class RegularCatalogPromoListener implements ItemSelectedListener<PromoEntity>
 {
   @NonNull
   private final Activity mActivity;
-  @NonNull
-  private final GalleryPlacement mPlacement;
 
-  public RegularCatalogPromoListener(@NonNull Activity activity, @NonNull GalleryPlacement placement)
+  public RegularCatalogPromoListener(@NonNull Activity activity)
   {
     mActivity = activity;
-    mPlacement = placement;
   }
 
   @Override
@@ -38,8 +31,6 @@ public class RegularCatalogPromoListener implements ItemSelectedListener<PromoEn
                                                                             UTM.UTM_CONTENT_DETAILS);
     BookmarksCatalogActivity.startForResult(mActivity, BookmarkCategoriesActivity.REQ_CODE_DOWNLOAD_BOOKMARK_CATEGORY,
                                             utmContentUrl);
-    Statistics.INSTANCE.trackGalleryProductItemSelected(GalleryType.PROMO, mPlacement, position,
-                                                        Destination.CATALOGUE);
   }
 
   @Override
@@ -54,9 +45,6 @@ public class RegularCatalogPromoListener implements ItemSelectedListener<PromoEn
     BookmarksCatalogActivity.startForResult(mActivity,
                                             BookmarkCategoriesActivity.REQ_CODE_DOWNLOAD_BOOKMARK_CATEGORY,
                                             utmContentUrl);
-    Statistics.INSTANCE.trackGalleryEvent(Statistics.EventName.PP_SPONSOR_MORE_SELECTED,
-                                          GalleryType.PROMO,
-                                          mPlacement);
   }
 
   @Override

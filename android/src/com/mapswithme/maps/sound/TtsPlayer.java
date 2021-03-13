@@ -15,7 +15,6 @@ import com.mapswithme.maps.base.MediaPlayerWrapper;
 import com.mapswithme.util.Config;
 import com.mapswithme.util.log.Logger;
 import com.mapswithme.util.log.LoggerFactory;
-import com.mapswithme.util.statistics.Statistics;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -57,13 +56,6 @@ public enum TtsPlayer implements Initializable<Context>
 
   TtsPlayer() {}
 
-  private static void reportFailure(IllegalArgumentException e, String location)
-  {
-    Statistics.INSTANCE.trackEvent(Statistics.EventName.TTS_FAILURE_LOCATION,
-                                   Statistics.params().add(Statistics.EventParam.ERR_MSG, e.getMessage())
-                                                      .add(Statistics.EventParam.FROM, location));
-  }
-
   private static @Nullable LanguageData findSupportedLanguage(String internalCode, List<LanguageData> langs)
   {
     if (TextUtils.isEmpty(internalCode))
@@ -100,7 +92,6 @@ public enum TtsPlayer implements Initializable<Context>
     }
     catch (IllegalArgumentException e)
     {
-      reportFailure(e, "setLanguageInternal(): " + lang.locale);
       lockDown();
       return false;
     }
@@ -191,7 +182,6 @@ public enum TtsPlayer implements Initializable<Context>
       }
       catch (IllegalArgumentException e)
       {
-        reportFailure(e, "speak()");
         lockDown();
       }
   }
@@ -227,7 +217,6 @@ public enum TtsPlayer implements Initializable<Context>
       }
       catch (IllegalArgumentException e)
       {
-        reportFailure(e, "stop()");
         lockDown();
       }
   }
@@ -261,7 +250,6 @@ public enum TtsPlayer implements Initializable<Context>
       catch (IllegalArgumentException e)
       {
         LOGGER.e(TAG, "Failed to get usable languages", e);
-        reportFailure(e, "getUsableLanguages()");
         lockDown();
         return false;
       }

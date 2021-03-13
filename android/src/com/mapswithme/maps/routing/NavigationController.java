@@ -35,7 +35,6 @@ import com.mapswithme.util.Graphics;
 import com.mapswithme.util.StringUtils;
 import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.Utils;
-import com.mapswithme.util.statistics.Statistics;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -43,7 +42,6 @@ import java.util.Calendar;
 import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 
-import static com.mapswithme.util.statistics.Statistics.EventName.ROUTING_BOOKMARKS_CLICK;
 
 public class NavigationController implements Application.ActivityLifecycleCallbacks,
                                              TrafficManager.TrafficCallback, View.OnClickListener
@@ -179,14 +177,10 @@ public class NavigationController implements Application.ActivityLifecycleCallba
     {
     case STOP:
       mNavMenu.close(false);
-      Statistics.INSTANCE.trackRoutingFinish(true,
-                                             RoutingController.get().getLastRouterType(),
-                                             TrafficManager.INSTANCE.isEnabled());
       RoutingController.get().cancel();
       stop(parent);
       break;
     case SETTINGS:
-      Statistics.INSTANCE.trackEvent(Statistics.EventName.ROUTING_SETTINGS);
       parent.closeMenu(() -> parent.startActivity(new Intent(parent, SettingsActivity.class)));
       break;
     case TTS_VOLUME:
@@ -197,7 +191,6 @@ public class NavigationController implements Application.ActivityLifecycleCallba
 //      TrafficManager.INSTANCE.toggle();
 //      parent.onTrafficLayerSelected();
 //      mNavMenu.refreshTraffic();
-//      //TODO: Add statistics reporting (in separate task)
 //      break;
     case TOGGLE:
       mNavMenu.toggle(true);
@@ -533,8 +526,6 @@ public class NavigationController implements Application.ActivityLifecycleCallba
     {
       case R.id.btn_bookmarks:
         BookmarkCategoriesActivity.start(mFrame.getContext());
-        Statistics.INSTANCE.trackRoutingEvent(ROUTING_BOOKMARKS_CLICK,
-                                              RoutingController.get().isPlanning());
         break;
     }
   }

@@ -15,7 +15,6 @@ import com.mapswithme.maps.R;
 import com.mapswithme.maps.base.BaseMwmDialogFragment;
 import com.mapswithme.maps.bookmarks.BookmarkCategoriesActivity;
 import com.mapswithme.maps.bookmarks.BookmarksCatalogActivity;
-import com.mapswithme.util.statistics.Statistics;
 
 public class PromoBookingDialogFragment extends BaseMwmDialogFragment
 {
@@ -92,24 +91,6 @@ public class PromoBookingDialogFragment extends BaseMwmDialogFragment
                                             BookmarkCategoriesActivity.REQ_CODE_DOWNLOAD_BOOKMARK_CATEGORY,
                                             mCityGuidesUrl);
     dismissAllowingStateLoss();
-
-    Statistics.ParameterBuilder builder = Statistics.makeInAppSuggestionParamBuilder();
-    Statistics.INSTANCE.trackEvent(Statistics.EventName.INAPP_SUGGESTION_CLICKED, builder);
-  }
-
-  private static void trackCancelStats(@NonNull String value)
-  {
-    Statistics.ParameterBuilder builder = Statistics.makeInAppSuggestionParamBuilder()
-        .add(Statistics.EventParam.OPTION, value);
-
-    Statistics.INSTANCE.trackEvent(Statistics.EventName.INAPP_SUGGESTION_CLOSED, builder);
-  }
-
-  @Override
-  public void onCancel(DialogInterface dialog)
-  {
-    super.onCancel(dialog);
-    trackCancelStats(Statistics.ParamValue.OFFSCREEEN);
   }
 
   private class CancelClickListener implements View.OnClickListener
@@ -118,7 +99,6 @@ public class PromoBookingDialogFragment extends BaseMwmDialogFragment
     public void onClick(View v)
     {
       dismissAllowingStateLoss();
-      trackCancelStats(Statistics.ParamValue.CANCEL);
     }
   }
 }

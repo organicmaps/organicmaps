@@ -13,9 +13,6 @@ import com.mapswithme.maps.maplayer.Mode;
 import com.mapswithme.maps.routing.RoutingController;
 import com.mapswithme.util.SharedPropertiesUtils;
 import com.mapswithme.util.UiUtils;
-import com.mapswithme.util.statistics.StatisticValueConverter;
-
-import java.util.Locale;
 
 public class MainMenu extends BaseMenu
 {
@@ -51,7 +48,7 @@ public class MainMenu extends BaseMenu
 
   private final MenuToggle mToggle;
 
-  public enum Item implements BaseMenu.Item, StatisticValueConverter<String>
+  public enum Item implements BaseMenu.Item
   {
     MENU(R.id.toggle)
         {
@@ -176,13 +173,6 @@ public class MainMenu extends BaseMenu
     @NonNull
     public abstract ClickMenuDelegate createClickDelegate(@NonNull MwmActivity activity,
                                                           @NonNull Item item);
-
-    @NonNull
-    @Override
-    public String toStatisticValue()
-    {
-      return name().toLowerCase(Locale.ENGLISH);
-    }
   }
 
   private void mapItem(MainMenu.Item item)
@@ -276,7 +266,7 @@ public class MainMenu extends BaseMenu
     mapItem(Item.DOWNLOAD_MAPS);
     mapItem(Item.SETTINGS);
 
-    setState(State.MENU, false, false);
+    setState(State.MENU, false);
   }
 
   public MainMenu(View frame, ItemClickListener<Item> itemClickListener)
@@ -300,7 +290,7 @@ public class MainMenu extends BaseMenu
     return R.dimen.menu_line_height;
   }
 
-  public void setState(State state, boolean animateToggle, boolean isFullScreen)
+  public void setState(State state, boolean isFullScreen)
   {
     if (state != State.NAVIGATION)
     {

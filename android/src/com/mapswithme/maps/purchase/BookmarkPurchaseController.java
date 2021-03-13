@@ -10,7 +10,6 @@ import com.mapswithme.maps.PrivateVariables;
 import com.mapswithme.util.ConnectionState;
 import com.mapswithme.util.log.Logger;
 import com.mapswithme.util.log.LoggerFactory;
-import com.mapswithme.util.statistics.Statistics;
 
 import java.util.List;
 
@@ -74,14 +73,6 @@ class BookmarkPurchaseController extends AbstractPurchaseController<ValidationCa
 
   private class PlayStoreBillingCallbackImpl extends AbstractPlayStoreBillingCallback
   {
-    @Override
-    public void onPurchaseFailure(int error)
-    {
-      super.onPurchaseFailure(error);
-      //noinspection ConstantConditions
-      Statistics.INSTANCE.trackPurchaseStoreError(mServerId, error);
-    }
-
     @Override
     public void onProductDetailsLoaded(@NonNull List<SkuDetails> details)
     {
