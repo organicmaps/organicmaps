@@ -129,12 +129,6 @@ int Platform::PreCachingDepth() const { return 2; }
 
 std::string Platform::UniqueClientId() const { return "TODO"; }
 
-std::string Platform::AdvertisingId() const
-{
-  NSUUID *adId = [ASIdentifierManager sharedManager].advertisingIdentifier;
-  return adId.UUIDString.UTF8String;
-}
-
 std::string Platform::MacAddress(bool md5Decoded) const
 {
   // Not implemented.

@@ -116,11 +116,6 @@ Platform::Platform()
 
 std::string Platform::UniqueClientId() const { return "TODO"; }
 
-std::string Platform::AdvertisingId() const
-{
-  return {};
-}
-
 std::string Platform::MacAddress(bool md5Decoded) const
 {
   // Not implemented.
