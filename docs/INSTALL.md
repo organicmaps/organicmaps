@@ -64,7 +64,7 @@ git clone --recursive https://github.com/omapsapp/omapsapp.git
 Update git submodules (sometimes doesn't work automatically):
 
 ```bash
-git update submodules --init --recursive
+git submodule update --init --recursive
 ```
 
 Configure the repository for the debug mode:
@@ -165,7 +165,7 @@ git clone --recursive https://github.com/omapsapp/omapsapp.git
 Update git submodules (sometimes doesn't work automatically):
 
 ```
-git update submodules --init --recursive
+git submodule update --init --recursive
 ```
 
 Configure the repository for the debug mode:
@@ -247,7 +247,7 @@ git clone --recursive https://github.com/omapsapp/omapsapp.git
 Update git submodules (sometimes doesn't work automatically):
 
 ```
-git update submodules --init --recursive
+git submodule update --init --recursive
 ```
 
 Configure the repository for the debug mode:
