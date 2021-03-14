@@ -1,5 +1,3 @@
-import FirebaseCrashlytics
-
 @objc(MWMBannersCache)
 final class BannersCache: NSObject {
   @objc static let cache = BannersCache()
@@ -88,7 +86,6 @@ final class BannersCache: NSObject {
     }, failure: { [unowned self] bannerType, event, errorDetails, error in
       var statParams = errorDetails
       statParams[kStatErrorMessage] = (error as NSError).userInfo.reduce("") { $0 + "\($1.key) : \($1.value)\n" }
-      Crashlytics.crashlytics().record(error: error)
       self.setError(bannerType: bannerType)
     }, click: { banner in
       Statistics.logEvent(kStatPlacePageBannerClick, withParameters: banner.statisticsDescription)
