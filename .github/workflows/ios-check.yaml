@@ -17,10 +17,6 @@ jobs:
         run: |
           ./configure.sh
 
-      - name: Install pods
-        shell: bash
-        run: (cd iphone/Maps && pod install)
-
       - name: Restore cache
         uses: actions/cache@v2
         with:
