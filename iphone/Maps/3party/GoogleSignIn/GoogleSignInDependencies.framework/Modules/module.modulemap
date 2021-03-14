@@ -1,6 +1,0 @@
-framework module GoogleSignInDependencies {
-  export *
-  module * { export *}
-  link framework "CoreGraphics"
-  link framework "Security"
-  link framework "SystemConfiguration"}
