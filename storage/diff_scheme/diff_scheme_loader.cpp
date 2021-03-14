@@ -105,7 +105,7 @@ NameDiffInfoMap DeserializeResponse(string const & response, LocalMapsInfo::Name
 
 NameDiffInfoMap Load(LocalMapsInfo const & info)
 {
-  if (info.m_localMaps.empty())
+  if (info.m_localMaps.empty() || DIFF_LIST_URL[0] == 0)
     return {};
 
   platform::HttpClient request(DIFF_LIST_URL);
