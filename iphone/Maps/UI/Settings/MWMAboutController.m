@@ -4,7 +4,7 @@
 
 #import "SwiftBridge.h"
 
-@interface MWMAboutController () <SettingsTableViewSwitchCellDelegate>
+@interface MWMAboutController ()
 
 @property(weak, nonatomic) IBOutlet UILabel * versionLabel;
 @property(weak, nonatomic) IBOutlet UILabel * dataVersionLabel;
@@ -15,7 +15,6 @@
 @property(weak, nonatomic) IBOutlet SettingsTableViewLinkCell * osmCell;
 @property(weak, nonatomic) IBOutlet SettingsTableViewLinkCell * rateCell;
 @property(weak, nonatomic) IBOutlet SettingsTableViewLinkCell * adsCell;
-@property(weak, nonatomic) IBOutlet SettingsTableViewSwitchCell * crashlyticsCell;
 @property(weak, nonatomic) IBOutlet SettingsTableViewLinkCell * privacyPolicyCell;
 @property(weak, nonatomic) IBOutlet SettingsTableViewLinkCell * termsOfUseCell;
 @property(weak, nonatomic) IBOutlet SettingsTableViewLinkCell * copyrightCell;
@@ -41,8 +40,6 @@
   self.versionLabel.text = [NSString stringWithFormat:L(@"version"), version];
 
   self.dataVersionLabel.text = [NSString stringWithFormat:L(@"data_version"), [MWMFrameworkHelper dataVersion]];
-
-  [self.crashlyticsCell configWithDelegate:self title:L(@"opt_out_fabric") isOn:![MWMSettings crashReportingDisabled]];
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
@@ -101,13 +98,4 @@
 {
   return section == 2 ? L(@"opt_out_fabric_description") : nil;
 }
-
-#pragma mark - SettingsTableViewSwitchCellDelegate
-
-- (void)switchCell:(SettingsTableViewSwitchCell *)cell didChangeValue:(BOOL)value
-{
-  if (cell == self.crashlyticsCell)
-    [MWMSettings setCrashReportingDisabled:!value];
-}
-
 @end

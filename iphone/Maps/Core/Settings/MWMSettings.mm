@@ -19,7 +19,6 @@ NSString * const kUDAutoNightModeOff = @"AutoNightModeOff";
 NSString * const kThemeMode = @"ThemeMode";
 NSString * const kSpotlightLocaleLanguageId = @"SpotlightLocaleLanguageId";
 NSString * const kUDTrackWarningAlertWasShown = @"TrackWarningAlertWasShown";
-NSString * const kCrashReportingDisabled = @"CrashReportingDisabled";
 }  // namespace
 
 @implementation MWMSettings
@@ -161,15 +160,5 @@ NSString * const kCrashReportingDisabled = @"CrashReportingDisabled";
   NSUserDefaults * ud = NSUserDefaults.standardUserDefaults;
   [ud setBool:shown forKey:kUDTrackWarningAlertWasShown];
   [ud synchronize];
-}
-
-+ (BOOL)crashReportingDisabled
-{
-  return [[NSUserDefaults standardUserDefaults] boolForKey:kCrashReportingDisabled];
-}
-
-+ (void)setCrashReportingDisabled:(BOOL)disabled
-{
-  [[NSUserDefaults standardUserDefaults] setBool:disabled forKey:kCrashReportingDisabled];
 }
 @end

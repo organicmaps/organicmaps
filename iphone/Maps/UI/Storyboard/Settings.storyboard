@@ -1622,40 +1622,6 @@
                                             <segue destination="Vr8-QW-WhO" kind="show" id="U88-n3-d6K"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="SettingsTableViewSwitchCell" id="6Fq-aj-irU" customClass="SettingsTableViewSwitchCell" customModule="OMaps" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="354" width="414" height="44"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="6Fq-aj-irU" id="nFM-EC-CZC">
-                                            <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Send crash data" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="13" translatesAutoresizingMaskIntoConstraints="NO" id="vc4-e7-aiM">
-                                                    <rect key="frame" x="16" y="12" width="321" height="20"/>
-                                                    <inset key="insetFor6xAndEarlier" minX="0.0" minY="0.0" maxX="-25" maxY="0.0"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="8gZ-CB-BtW">
-                                                    <rect key="frame" x="345" y="6.5" width="51" height="31"/>
-                                                    <inset key="insetFor6xAndEarlier" minX="3" minY="-2" maxX="-3" maxY="2"/>
-                                                    <color key="onTintColor" red="0.1176470588" green="0.58823529409999997" blue="0.94117647059999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                </switch>
-                                            </subviews>
-                                            <constraints>
-                                                <constraint firstItem="vc4-e7-aiM" firstAttribute="top" secondItem="nFM-EC-CZC" secondAttribute="top" constant="12" id="5Zt-4E-dNV"/>
-                                                <constraint firstItem="8gZ-CB-BtW" firstAttribute="leading" secondItem="vc4-e7-aiM" secondAttribute="trailing" constant="8" id="FgO-m5-Zx3"/>
-                                                <constraint firstAttribute="bottom" secondItem="vc4-e7-aiM" secondAttribute="bottom" constant="12" id="HJz-UZ-AyR"/>
-                                                <constraint firstItem="8gZ-CB-BtW" firstAttribute="centerY" secondItem="nFM-EC-CZC" secondAttribute="centerY" id="rWh-dF-W9A"/>
-                                                <constraint firstAttribute="trailingMargin" secondItem="8gZ-CB-BtW" secondAttribute="trailing" id="usD-mM-g25"/>
-                                                <constraint firstItem="vc4-e7-aiM" firstAttribute="leading" secondItem="nFM-EC-CZC" secondAttribute="leading" constant="16" id="vyV-hm-lli"/>
-                                            </constraints>
-                                        </tableViewCellContentView>
-                                        <connections>
-                                            <outlet property="switchButton" destination="8gZ-CB-BtW" id="3c2-jk-RgL"/>
-                                            <outlet property="title" destination="vc4-e7-aiM" id="aEp-0l-GXy"/>
-                                        </connections>
-                                    </tableViewCell>
                                 </cells>
                             </tableViewSection>
                             <tableViewSection id="Vce-Ld-skc">
@@ -1758,7 +1724,6 @@
                     <connections>
                         <outlet property="adsCell" destination="DXH-GS-aHR" id="mDN-xH-33S"/>
                         <outlet property="copyrightCell" destination="VXa-CM-OXP" id="FpT-Rr-yha"/>
-                        <outlet property="crashlyticsCell" destination="6Fq-aj-irU" id="kYL-C6-PGc"/>
                         <outlet property="facebookCell" destination="AwY-rw-AMm" id="NUh-p9-2t4"/>
                         <outlet property="osmCell" destination="8n2-Bc-3lW" id="igH-Nf-uX5"/>
                         <outlet property="privacyPolicyCell" destination="Phw-kU-YR4" id="een-ap-TWn"/>
