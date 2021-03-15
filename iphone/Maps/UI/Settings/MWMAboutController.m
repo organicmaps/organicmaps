@@ -87,15 +87,4 @@
   }
 }
 
-#pragma mark - Table view data source
-
-- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
-{
-  return section == 2 ? L(@"subtittle_opt_out") : nil;
-}
-
-- (NSString *)tableView:(UITableView *)tableView titleForFooterInSection:(NSInteger)section
-{
-  return section == 2 ? L(@"opt_out_fabric_description") : nil;
-}
 @end

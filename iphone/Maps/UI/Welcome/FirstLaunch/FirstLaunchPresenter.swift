@@ -4,7 +4,6 @@ protocol IFirstLaunchPresenter: IWelcomePresenter {
 class FirstLaunchPresenter {
   enum Permission {
     case location
-    case notifications
     case nothing
   }
 
@@ -39,8 +38,6 @@ extension FirstLaunchPresenter: IFirstLaunchPresenter {
     switch config.requestPermission {
     case .location:
       LocationManager.start()
-    case .notifications:
-      MWMPushNotifications.setup()
     case .nothing:
       break
     }

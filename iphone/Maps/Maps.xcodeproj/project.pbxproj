@@ -134,7 +134,6 @@
 		34845DB31E165E24003D55B9 /* SearchNoResultsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34845DB11E165E24003D55B9 /* SearchNoResultsViewController.swift */; };
 		34845DB71E166084003D55B9 /* Common.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34845DB51E166084003D55B9 /* Common.swift */; };
 		3486B5081E27A4B50069C126 /* LocalNotificationManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3486B5061E27A4B50069C126 /* LocalNotificationManager.mm */; };
-		3486B50D1E27A6DA0069C126 /* MWMPushNotifications.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3486B50B1E27A6DA0069C126 /* MWMPushNotifications.mm */; };
 		3486B5191E27AD3B0069C126 /* MWMFrameworkListener.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3486B5131E27AD3B0069C126 /* MWMFrameworkListener.mm */; };
 		3488B01A1E9D0B230068AFD8 /* UIColor+Modifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3488B0181E9D0B230068AFD8 /* UIColor+Modifications.swift */; };
 		3488B03B1E9D13EF0068AFD8 /* UserNotifications.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3488B03A1E9D13EF0068AFD8 /* UserNotifications.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
@@ -1105,8 +1104,6 @@
 		3486B5031E27948F0069C126 /* MWMMyPositionMode.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MWMMyPositionMode.h; sourceTree = "<group>"; };
 		3486B5051E27A4B50069C126 /* LocalNotificationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocalNotificationManager.h; sourceTree = "<group>"; };
 		3486B5061E27A4B50069C126 /* LocalNotificationManager.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; lineEnding = 0; path = LocalNotificationManager.mm; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
-		3486B50A1E27A4C50069C126 /* MWMPushNotifications.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MWMPushNotifications.h; sourceTree = "<group>"; };
-		3486B50B1E27A6DA0069C126 /* MWMPushNotifications.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMPushNotifications.mm; sourceTree = "<group>"; };
 		3486B5121E27AD3B0069C126 /* MWMFrameworkListener.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMFrameworkListener.h; sourceTree = "<group>"; };
 		3486B5131E27AD3B0069C126 /* MWMFrameworkListener.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMFrameworkListener.mm; sourceTree = "<group>"; };
 		3486B5141E27AD3B0069C126 /* MWMFrameworkObservers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMFrameworkObservers.h; sourceTree = "<group>"; };
@@ -2455,11 +2452,9 @@
 				CDCA27822245090900167D87 /* EventListening */,
 				47B9064821C7FA100079C85E /* WebImage */,
 				470F5A7B2189BA7200754295 /* InappPurchase */,
-				474C9F602141894300369009 /* Metrics */,
 				472E3F4221468AF40020E412 /* Subscriptions */,
 				3472B5DD200F868E00DC6CD5 /* Editor */,
 				3472B5C8200F436700DC6CD5 /* BackgroundFetchScheduler */,
-				347039A51FB9A5B400E47496 /* Bookmarks */,
 				3486B50F1E27AD3B0069C126 /* Framework */,
 				340475291E081A4600C92850 /* Location */,
 				340475301E081A4600C92850 /* NetworkPolicy */,
@@ -2857,13 +2852,6 @@
 			path = Components;
 			sourceTree = "<group>";
 		};
-		347039A51FB9A5B400E47496 /* Bookmarks */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Bookmarks;
-			sourceTree = "<group>";
-		};
 		3472B5C8200F436700DC6CD5 /* BackgroundFetchScheduler */ = {
 			isa = PBXGroup;
 			children = (
@@ -2907,8 +2895,6 @@
 			children = (
 				3486B5051E27A4B50069C126 /* LocalNotificationManager.h */,
 				3486B5061E27A4B50069C126 /* LocalNotificationManager.mm */,
-				3486B50A1E27A4C50069C126 /* MWMPushNotifications.h */,
-				3486B50B1E27A6DA0069C126 /* MWMPushNotifications.mm */,
 				47699A0921F0C4C8009E6585 /* NotificationManager.swift */,
 				47F6E51021F61908004580CA /* CoreNotificationWrapper.h */,
 				47F6E51121F61908004580CA /* CoreNotificationWrapper.mm */,
@@ -3335,13 +3321,6 @@
 				99D363182358685300941BF4 /* SubscriptionGroupItem.swift */,
 			);
 			path = Subscriptions;
-			sourceTree = "<group>";
-		};
-		474C9F602141894300369009 /* Metrics */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Metrics;
 			sourceTree = "<group>";
 		};
 		47B06DEB21B6962D0094CCAD /* GeoTracker */ = {
@@ -5452,7 +5431,6 @@
 				34AB66081FC5AA320078E451 /* MWMNavigationDashboardManager.mm in Sources */,
 				991CE2BF2371D349009EB02A /* ABTestManager.swift in Sources */,
 				470F5A5B2181DE7500754295 /* PaidRouteViewController.swift in Sources */,
-				3486B50D1E27A6DA0069C126 /* MWMPushNotifications.mm in Sources */,
 				3404F490202898CC0090E401 /* BMCModels.swift in Sources */,
 				F6E2FD561E097BA00083EBEC /* MWMMapDownloaderButtonTableViewCell.m in Sources */,
 				9901284F244732DB00C72B10 /* BottomTabBarPresenter.swift in Sources */,

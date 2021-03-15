@@ -8,7 +8,6 @@
 #import "MWMFrameworkListener.h"
 #import "MWMFrameworkObservers.h"
 #import "MWMMapViewControlsManager.h"
-#import "MWMPushNotifications.h"
 #import "MWMRoutePoint+CPP.h"
 #import "MWMRouter.h"
 #import "MWMSearch+CoreSpotlight.h"
@@ -95,28 +94,6 @@ using namespace osm_auth_ios;
   return (MapsAppDelegate *)UIApplication.sharedApplication.delegate;
 }
 
-#pragma mark - Notifications
-
-// system push notification registration success callback, delegate to pushManager
-- (void)application:(UIApplication *)application
-  didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
-  [MWMPushNotifications application:application didRegisterForRemoteNotificationsWithDeviceToken:deviceToken];
-}
-
-// system push notification registration error callback, delegate to pushManager
-- (void)application:(UIApplication *)application didFailToRegisterForRemoteNotificationsWithError:(NSError *)error {
-  [MWMPushNotifications application:application didFailToRegisterForRemoteNotificationsWithError:error];
-}
-
-// system push notifications callback, delegate to pushManager
-- (void)application:(UIApplication *)application
-  didReceiveRemoteNotification:(NSDictionary *)userInfo
-        fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler {
-  [MWMPushNotifications application:application
-       didReceiveRemoteNotification:userInfo
-             fetchCompletionHandler:completionHandler];
-}
-
 - (BOOL)isDrapeEngineCreated {
   return self.mapViewController.mapView.drapeEngineCreated;
 }
@@ -170,9 +147,6 @@ using namespace osm_auth_ios;
     [self firstLaunchSetup];
   } else {
     [self incrementSessionsCountAndCheckForAlert];
-
-    // For first launch setup is called by FirstLaunchController
-    [MWMPushNotifications setup];
   }
   [self enableTTSForTheFirstTime];
 
@@ -547,8 +521,6 @@ using namespace osm_auth_ios;
   return YES;
 }
 
-#pragma mark - Showcase
-
 #pragma mark - NotificationManagerDelegate
 
 - (void)didOpenNotification:(Notification *)notification {
@@ -560,20 +532,6 @@ using namespace osm_auth_ios;
     MapViewController *mapViewController = [MapViewController sharedController];
     [mapViewController.navigationController popToRootViewControllerAnimated:NO];
     [mapViewController showUGCAuth];
-  }
-}
-
-#pragma mark - AppsFlyerTrackerDelegate
-
-- (void)onConversionDataReceived:(NSDictionary *)installData {
-  if ([installData[@"is_first_launch"] boolValue]) {
-    NSString *deeplink = installData[@"af_dp"];
-    NSURL *deeplinkUrl = [NSURL URLWithString:deeplink];
-    if (deeplinkUrl != nil) {
-      dispatch_async(dispatch_get_main_queue(), ^{
-        [[DeepLinkHandler shared] applicationDidReceiveUniversalLink:deeplinkUrl provider:DeepLinkProviderAppsflyer];
-      });
-    }
   }
 }
 
