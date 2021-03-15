@@ -28,10 +28,6 @@ extension NotificationManager: UNUserNotificationCenterDelegate {
                               withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
     if Notification.fromUserInfo(notification.request.content.userInfo) != nil {
       completionHandler([.sound, .alert])
-    } else {
-      MWMPushNotifications.userNotificationCenter(center,
-                                                  willPresent: notification,
-                                                  withCompletionHandler: completionHandler)
     }
   }
 
@@ -40,10 +36,6 @@ extension NotificationManager: UNUserNotificationCenterDelegate {
                               withCompletionHandler completionHandler: @escaping () -> Void) {
     if let n = Notification.fromUserInfo(response.notification.request.content.userInfo) {
       delegate?.didOpenNotification(n)
-    } else {
-      MWMPushNotifications.userNotificationCenter(center,
-                                                  didReceive: response,
-                                                  withCompletionHandler: completionHandler)
     }
   }
 }

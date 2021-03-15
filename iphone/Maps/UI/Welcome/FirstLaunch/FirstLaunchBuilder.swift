@@ -12,7 +12,7 @@ class FirstLaunchBuilder {
                                              text: "new_onboarding_step3_message",
                                              buttonNextTitle: "new_onboarding_button",
                                              isCloseButtonHidden: true,
-                                             requestPermission: .notifications),
+                                             requestPermission: .nothing),
       FirstLaunchPresenter.FirstLaunchConfig(image: UIImage(named: "img_onboarding_sharebookmarks"),
                                              title: "new_onboarding_step4_header",
                                              text: "new_onboarding_step4_message",
