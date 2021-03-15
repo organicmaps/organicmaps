@@ -216,10 +216,18 @@
 - (void)URLSession:(NSURLSession *)session
                downloadTask:(NSURLSessionDownloadTask *)downloadTask
   didFinishDownloadingToURL:(NSURL *)location {
-  NSURL *destinationUrl = [self.saveStrategy getLocationForWebUrl:downloadTask.currentRequest.URL];
   NSError *error;
-  [[NSFileManager defaultManager] moveItemAtURL:location.filePathURL toURL:destinationUrl error:&error];
-
+  // Check for HTTP errors.
+  // TODO: Check and prevent redirects.
+  NSInteger statusCode = ((NSHTTPURLResponse *)downloadTask.response).statusCode;
+  if (statusCode != 200) {
+    LOG(LWARNING, ("Failed to download", downloadTask.originalRequest.URL.absoluteString, "HTTP statusCode:", statusCode));
+    error = [[NSError alloc] initWithDomain:@"app.omaps.http" code:statusCode userInfo:nil];
+    [[NSFileManager defaultManager] removeItemAtURL:location.filePathURL error:nil];
+  } else {
+    NSURL *destinationUrl = [self.saveStrategy getLocationForWebUrl:downloadTask.currentRequest.URL];
+    [[NSFileManager defaultManager] moveItemAtURL:location.filePathURL toURL:destinationUrl error:&error];
+  }
   dispatch_async(dispatch_get_main_queue(), ^{
     [self finishDownloading:downloadTask error:error];
   });
