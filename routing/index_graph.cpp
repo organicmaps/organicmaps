@@ -64,7 +64,7 @@ bool IndexGraph::IsJointOrEnd(Segment const & segment, bool fromStart)
 }
 
 void IndexGraph::GetEdgeList(astar::VertexData<Segment, RouteWeight> const & vertexData,
-                             bool isOutgoing, bool useRoutingOptions, vector<SegmentEdge> & edges,
+                             bool isOutgoing, bool useRoutingOptions, SegmentEdgeListT & edges,
                              Parents<Segment> const & parents)
 {
   GetEdgeListImpl(vertexData, isOutgoing, useRoutingOptions, true /* useAccessConditional */, edges,
@@ -72,7 +72,7 @@ void IndexGraph::GetEdgeList(astar::VertexData<Segment, RouteWeight> const & ver
 }
 
 void IndexGraph::GetEdgeList(Segment const & segment,
-                             bool isOutgoing, bool useRoutingOptions, vector<SegmentEdge> & edges,
+                             bool isOutgoing, bool useRoutingOptions, SegmentEdgeListT & edges,
                              Parents<Segment> const & parents)
 {
   GetEdgeListImpl({segment, Weight(0.0)} /* vertexData */, isOutgoing, useRoutingOptions,
@@ -81,7 +81,7 @@ void IndexGraph::GetEdgeList(Segment const & segment,
 
 void IndexGraph::GetEdgeListImpl(astar::VertexData<Segment, RouteWeight> const & vertexData,
                                  bool isOutgoing, bool useRoutingOptions, bool useAccessConditional,
-                                 std::vector<SegmentEdge> & edges, Parents<Segment> const & parents)
+                                 SegmentEdgeListT & edges, Parents<Segment> const & parents)
 {
   auto const & segment = vertexData.m_vertex;
 
@@ -102,9 +102,9 @@ void IndexGraph::GetEdgeListImpl(astar::VertexData<Segment, RouteWeight> const &
   }
 }
 
-void IndexGraph::GetLastPointsForJoint(vector<Segment> const & children,
+void IndexGraph::GetLastPointsForJoint(SegmentListT const & children,
                                        bool isOutgoing,
-                                       vector<uint32_t> & lastPoints)
+                                       PointIdListT & lastPoints)
 {
   CHECK(lastPoints.empty(), ());
 
@@ -145,8 +145,8 @@ void IndexGraph::GetLastPointsForJoint(vector<Segment> const & children,
 
 void IndexGraph::GetEdgeList(astar::VertexData<JointSegment, RouteWeight> const & parentVertexData,
                              Segment const & parent, bool isOutgoing,
-                             std::vector<JointEdge> & edges,
-                             std::vector<RouteWeight> & parentWeights,
+                             JointEdgeListT & edges,
+                             WeightListT & parentWeights,
                              Parents<JointSegment> & parents)
 {
   GetEdgeListImpl(parentVertexData, parent, isOutgoing, true /* useAccessConditional */, edges,
@@ -154,8 +154,8 @@ void IndexGraph::GetEdgeList(astar::VertexData<JointSegment, RouteWeight> const 
 }
 
 void IndexGraph::GetEdgeList(JointSegment const & parentJoint, Segment const & parent,
-                             bool isOutgoing, std::vector<JointEdge> & edges,
-                             std::vector<RouteWeight> & parentWeights,
+                             bool isOutgoing, JointEdgeListT & edges,
+                             WeightListT & parentWeights,
                              Parents<JointSegment> & parents)
 {
   GetEdgeListImpl({parentJoint, Weight(0.0)}, parent, isOutgoing, false /* useAccessConditional */, edges,
@@ -164,13 +164,13 @@ void IndexGraph::GetEdgeList(JointSegment const & parentJoint, Segment const & p
 
 void IndexGraph::GetEdgeListImpl(
     astar::VertexData<JointSegment, RouteWeight> const & parentVertexData, Segment const & parent,
-    bool isOutgoing, bool useAccessConditional, vector<JointEdge> & edges,
-    vector<RouteWeight> & parentWeights, Parents<JointSegment> & parents)
+    bool isOutgoing, bool useAccessConditional, JointEdgeListT & edges,
+    WeightListT & parentWeights, Parents<JointSegment> & parents)
 {
-  vector<Segment> possibleChildren;
+  SegmentListT possibleChildren;
   GetSegmentCandidateForJoint(parent, isOutgoing, possibleChildren);
 
-  vector<uint32_t> lastPoints;
+  PointIdListT lastPoints;
   GetLastPointsForJoint(possibleChildren, isOutgoing, lastPoints);
 
   ReconstructJointSegment(parentVertexData, parent, possibleChildren, lastPoints,
@@ -181,11 +181,11 @@ optional<JointEdge> IndexGraph::GetJointEdgeByLastPoint(Segment const & parent,
                                                         Segment const & firstChild, bool isOutgoing,
                                                         uint32_t lastPoint)
 {
-  vector<Segment> const possibleChildren = {firstChild};
-  vector<uint32_t> const lastPoints = {lastPoint};
+  SegmentListT const possibleChildren = {firstChild};
+  PointIdListT const lastPoints = {lastPoint};
 
-  vector<JointEdge> edges;
-  vector<RouteWeight> parentWeights;
+  JointEdgeListT edges;
+  WeightListT parentWeights;
   Parents<JointSegment> emptyParents;
   ReconstructJointSegment(astar::VertexData<JointSegment, RouteWeight>::Zero(), parent, possibleChildren, lastPoints,
                           isOutgoing, edges, parentWeights, emptyParents);
@@ -248,7 +248,7 @@ void IndexGraph::SetRoadAccess(RoadAccess && roadAccess)
 
 void IndexGraph::GetNeighboringEdges(astar::VertexData<Segment, RouteWeight> const & fromVertexData,
                                      RoadPoint const & rp, bool isOutgoing, bool useRoutingOptions,
-                                     vector<SegmentEdge> & edges, Parents<Segment> const & parents,
+                                     SegmentEdgeListT & edges, Parents<Segment> const & parents,
                                      bool useAccessConditional)
 {
   RoadGeometry const & road = m_geometry->GetRoad(rp.GetFeatureId());
@@ -278,7 +278,7 @@ void IndexGraph::GetNeighboringEdges(astar::VertexData<Segment, RouteWeight> con
 }
 
 void IndexGraph::GetSegmentCandidateForRoadPoint(RoadPoint const & rp, NumMwmId numMwmId,
-                                                 bool isOutgoing, std::vector<Segment> & children)
+                                                 bool isOutgoing, SegmentListT & children)
 {
   RoadGeometry const & road = m_geometry->GetRoad(rp.GetFeatureId());
   if (!road.IsValid())
@@ -298,7 +298,7 @@ void IndexGraph::GetSegmentCandidateForRoadPoint(RoadPoint const & rp, NumMwmId 
 }
 
 void IndexGraph::GetSegmentCandidateForJoint(Segment const & parent, bool isOutgoing,
-                                             vector<Segment> & children)
+                                             SegmentListT & children)
 {
   RoadPoint const roadPoint = parent.GetRoadPoint(isOutgoing);
   Joint::Id const jointId = m_roadIndex.GetJointId(roadPoint);
@@ -321,11 +321,11 @@ void IndexGraph::GetSegmentCandidateForJoint(Segment const & parent, bool isOutg
 ///                                   from parent to firstChildren.
 void IndexGraph::ReconstructJointSegment(astar::VertexData<JointSegment, RouteWeight> const & parentVertexData,
                                          Segment const & parent,
-                                         vector<Segment> const & firstChildren,
-                                         vector<uint32_t> const & lastPointIds,
+                                         SegmentListT const & firstChildren,
+                                         PointIdListT const & lastPointIds,
                                          bool isOutgoing,
-                                         vector<JointEdge> & jointEdges,
-                                         vector<RouteWeight> & parentWeights,
+                                         JointEdgeListT & jointEdges,
+                                         WeightListT & parentWeights,
                                          Parents<JointSegment> const & parents)
 {
   CHECK_EQUAL(firstChildren.size(), lastPointIds.size(), ());
@@ -421,7 +421,7 @@ void IndexGraph::ReconstructJointSegment(astar::VertexData<JointSegment, RouteWe
 
 void IndexGraph::GetNeighboringEdge(astar::VertexData<Segment, RouteWeight> const & fromVertexData,
                                     Segment const & to, bool isOutgoing,
-                                    vector<SegmentEdge> & edges, Parents<Segment> const & parents,
+                                    SegmentEdgeListT & edges, Parents<Segment> const & parents,
                                     bool useAccessConditional)
 {
   auto const & from = fromVertexData.m_vertex;

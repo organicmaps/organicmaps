@@ -180,7 +180,7 @@ RouteWeight TransitGraph::GetTransferPenalty(Segment const & from, Segment const
 }
 
 void TransitGraph::GetTransitEdges(Segment const & segment, bool isOutgoing,
-                                   vector<SegmentEdge> & edges) const
+                                   EdgeListT & edges) const
 {
   CHECK(IsTransitSegment(segment), ("Nontransit segment passed to TransitGraph."));
   for (auto const & s : m_fake.GetEdges(segment, isOutgoing))

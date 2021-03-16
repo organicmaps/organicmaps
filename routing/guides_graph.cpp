@@ -41,7 +41,7 @@ double GuidesGraph::CalcSegmentTimeS(LatLonWithAltitude const & point1,
 }
 
 void GuidesGraph::GetEdgeList(Segment const & segment, bool isOutgoing,
-                              std::vector<SegmentEdge> & edges,
+                              EdgeListT & edges,
                               RouteWeight const & prevWeight) const
 {
   auto const it = m_segments.find(segment);

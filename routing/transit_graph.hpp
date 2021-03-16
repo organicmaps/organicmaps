@@ -46,8 +46,10 @@ public:
   LatLonWithAltitude const & GetJunction(Segment const & segment, bool front) const;
   RouteWeight CalcSegmentWeight(Segment const & segment, EdgeEstimator::Purpose purpose) const;
   RouteWeight GetTransferPenalty(Segment const & from, Segment const & to) const;
+
+  using EdgeListT = SmallList<SegmentEdge>;
   void GetTransitEdges(Segment const & segment, bool isOutgoing,
-                       std::vector<SegmentEdge> & edges) const;
+                       EdgeListT & edges) const;
   std::set<Segment> const & GetFake(Segment const & real) const;
   bool FindReal(Segment const & fake, Segment & real) const;
 

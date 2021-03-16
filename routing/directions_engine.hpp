@@ -50,7 +50,7 @@ public:
 protected:
   FeaturesLoaderGuard & GetLoader(MwmSet::MwmId const & id);
   void LoadPathAttributes(FeatureID const & featureId, LoadedPathSegment & pathSegment);
-  void GetSegmentRangeAndAdjacentEdges(IRoadGraph::EdgeVector const & outgoingEdges,
+  void GetSegmentRangeAndAdjacentEdges(IRoadGraph::EdgeListT const & outgoingEdges,
                                        Edge const & inEdge, uint32_t startSegId, uint32_t endSegId,
                                        SegmentRange & segmentRange,
                                        turns::TurnCandidates & outgoingTurns);
@@ -62,8 +62,8 @@ protected:
                                            base::Cancellable const & cancellable);
 
   void GetEdges(IndexRoadGraph const & graph, geometry::PointWithAltitude const & currJunction,
-                bool isCurrJunctionFinish, IRoadGraph::EdgeVector & outgoing,
-                IRoadGraph::EdgeVector & ingoing);
+                bool isCurrJunctionFinish, IRoadGraph::EdgeListT & outgoing,
+                IRoadGraph::EdgeListT & ingoing);
 
   AdjacentEdgesMap m_adjacentEdges;
   TUnpackedPathSegments m_pathSegments;

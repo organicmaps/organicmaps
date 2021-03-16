@@ -20,6 +20,8 @@ set(
   base/followed_polyline.cpp
   base/followed_polyline.hpp
   base/routing_result.hpp
+  base/small_list.hpp
+  base/small_list.cpp
   car_directions.cpp
   car_directions.hpp
   checkpoint_predictor.cpp

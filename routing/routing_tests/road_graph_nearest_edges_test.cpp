@@ -61,7 +61,7 @@ UNIT_TEST(RoadGraph_NearestEdges)
       geometry::MakePointWithAltitudeForTesting(m2::PointD(0, 0));
 
   // Expected outgoing edges.
-  IRoadGraph::EdgeVector expectedOutgoing = {
+  IRoadGraph::EdgeListT expectedOutgoing = {
       Edge::MakeReal(MakeTestFeatureID(0) /* first road */, false /* forward */, 1 /* segId */,
                      geometry::MakePointWithAltitudeForTesting(m2::PointD(0, 0)),
                      geometry::MakePointWithAltitudeForTesting(m2::PointD(-1, 0))),
@@ -78,7 +78,7 @@ UNIT_TEST(RoadGraph_NearestEdges)
   sort(expectedOutgoing.begin(), expectedOutgoing.end());
 
   // Expected ingoing edges.
-  IRoadGraph::EdgeVector expectedIngoing = {
+  IRoadGraph::EdgeListT expectedIngoing = {
       Edge::MakeReal(MakeTestFeatureID(0) /* first road */, true /* forward */, 1 /* segId */,
                      geometry::MakePointWithAltitudeForTesting(m2::PointD(-1, 0)),
                      geometry::MakePointWithAltitudeForTesting(m2::PointD(0, 0))),
@@ -95,16 +95,22 @@ UNIT_TEST(RoadGraph_NearestEdges)
   sort(expectedIngoing.begin(), expectedIngoing.end());
 
   // Check outgoing edges.
-  IRoadGraph::EdgeVector actualOutgoing;
+  IRoadGraph::EdgeListT actualOutgoing;
   graph.GetOutgoingEdges(crossPos, actualOutgoing);
   sort(actualOutgoing.begin(), actualOutgoing.end());
-  TEST_EQUAL(expectedOutgoing, actualOutgoing, ());
+
+  TEST_EQUAL(expectedOutgoing.size(), actualOutgoing.size(), ());
+  for (size_t i = 0; i < expectedOutgoing.size(); ++i)
+    TEST_EQUAL(expectedOutgoing[i], actualOutgoing[i], ());
 
   // Check ingoing edges.
-  IRoadGraph::EdgeVector actualIngoing;
+  IRoadGraph::EdgeListT actualIngoing;
   graph.GetIngoingEdges(crossPos, actualIngoing);
   sort(actualIngoing.begin(), actualIngoing.end());
-  TEST_EQUAL(expectedIngoing, actualIngoing, ());
+
+  TEST_EQUAL(expectedOutgoing.size(), actualIngoing.size(), ());
+  for (size_t i = 0; i < expectedOutgoing.size(); ++i)
+    TEST_EQUAL(expectedOutgoing[i], actualIngoing[i], ());
 }
 
 }  // namespace routing_test

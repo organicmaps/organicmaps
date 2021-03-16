@@ -41,12 +41,12 @@ public:
 
   void GetEdgeList(astar::VertexData<Segment, RouteWeight> const & vertexData, bool isOutgoing,
                    bool useRoutingOptions, bool useAccessConditional,
-                   std::vector<SegmentEdge> & edges) override;
+                   SegmentEdgeListT & edges) override;
 
   void GetEdgeList(astar::VertexData<JointSegment, RouteWeight> const & parentVertexData,
                    Segment const & parent, bool isOutgoing, bool useAccessConditional,
-                   std::vector<JointEdge> & jointEdges,
-                   std::vector<RouteWeight> & parentWeights) override;
+                   JointEdgeListT & jointEdges,
+                   WeightListT & parentWeights) override;
 
   bool CheckLength(RouteWeight const &, double) const override { return true; }
 
@@ -118,8 +118,8 @@ private:
   // Retrieves the same |jointEdges|, but into others mwms.
   // If they are cross mwm edges, of course.
   void CheckAndProcessTransitFeatures(Segment const & parent,
-                                      std::vector<JointEdge> & jointEdges,
-                                      std::vector<RouteWeight> & parentWeights,
+                                      JointEdgeListT & jointEdges,
+                                      WeightListT & parentWeights,
                                       bool isOutgoing);
   // WorldGraph overrides:
   void GetTwinsInner(Segment const & s, bool isOutgoing, std::vector<Segment> & twins) override;

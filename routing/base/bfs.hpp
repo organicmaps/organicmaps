@@ -53,7 +53,7 @@ void BFS<Graph>::Run(Vertex const & start, bool isOutgoing,
   std::queue<Vertex> queue;
   queue.emplace(start);
 
-  std::vector<Edge> edges;
+  typename Graph::EdgeListT edges;
   while (!queue.empty())
   {
     Vertex const current = queue.front();

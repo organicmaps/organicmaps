@@ -271,7 +271,7 @@ bool ScorePathsConnector::FindShortestPath(Graph::Edge const & from, Graph::Edge
       return true;
     }
 
-    Graph::EdgeVector edges;
+    Graph::EdgeListT edges;
     m_graph.GetOutgoingEdges(stateEdge.GetEndJunction(), edges);
     for (auto const & edge : edges)
     {

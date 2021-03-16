@@ -59,7 +59,7 @@ void ScoreCandidatePointsGetter::GetJunctionPointCandidates(m2::PointD const & p
 
   for (auto const & pc : pointCandidates)
   {
-    Graph::EdgeVector edges;
+    Graph::EdgeListT edges;
     if (!isLastPoint)
       m_graph.GetOutgoingEdges(geometry::PointWithAltitude(pc.m_point, 0 /* altitude */), edges);
     else
@@ -94,10 +94,10 @@ void ScoreCandidatePointsGetter::EnrichWithProjectionPoints(m2::PointD const & p
 
 bool ScoreCandidatePointsGetter::IsJunction(m2::PointD const & p)
 {
-  Graph::EdgeVector outgoing;
+  Graph::EdgeListT outgoing;
   m_graph.GetRegularOutgoingEdges(geometry::PointWithAltitude(p, 0 /* altitude */), outgoing);
 
-  Graph::EdgeVector ingoing;
+  Graph::EdgeListT ingoing;
   m_graph.GetRegularIngoingEdges(geometry::PointWithAltitude(p, 0 /* altitude */), ingoing);
 
   // Note. At mwm borders the size of |ids| may be bigger than two in case of straight

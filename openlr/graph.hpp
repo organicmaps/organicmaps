@@ -25,22 +25,23 @@ class Graph
 {
 public:
   using Edge = routing::Edge;
+  using EdgeListT = routing::FeaturesRoadGraph::EdgeListT;
   using EdgeVector = routing::FeaturesRoadGraph::EdgeVector;
   using Junction = geometry::PointWithAltitude;
 
   Graph(DataSource const & dataSource, std::shared_ptr<routing::CarModelFactory> carModelFactory);
 
   // Appends edges such as that edge.GetStartJunction() == junction to the |edges|.
-  void GetOutgoingEdges(geometry::PointWithAltitude const & junction, EdgeVector & edges);
+  void GetOutgoingEdges(geometry::PointWithAltitude const & junction, EdgeListT & edges);
   // Appends edges such as that edge.GetEndJunction() == junction to the |edges|.
-  void GetIngoingEdges(geometry::PointWithAltitude const & junction, EdgeVector & edges);
+  void GetIngoingEdges(geometry::PointWithAltitude const & junction, EdgeListT & edges);
 
   // Appends edges such as that edge.GetStartJunction() == junction and edge.IsFake() == false
   // to the |edges|.
-  void GetRegularOutgoingEdges(Junction const & junction, EdgeVector & edges);
+  void GetRegularOutgoingEdges(Junction const & junction, EdgeListT & edges);
   // Appends edges such as that edge.GetEndJunction() == junction and edge.IsFale() == false
   // to the |edges|.
-  void GetRegularIngoingEdges(Junction const & junction, EdgeVector & edges);
+  void GetRegularIngoingEdges(Junction const & junction, EdgeListT & edges);
 
   void FindClosestEdges(m2::PointD const & point, uint32_t const count,
                         std::vector<std::pair<Edge, Junction>> & vicinities) const;
@@ -52,9 +53,9 @@ public:
 
   void GetFeatureTypes(FeatureID const & featureId, feature::TypesHolder & types) const;
 
+  using EdgeCacheT = std::map<Junction, EdgeListT>;
 private:
   routing::FeaturesRoadGraph m_graph;
-  std::map<Junction, EdgeVector> m_outgoingCache;
-  std::map<Junction, EdgeVector> m_ingoingCache;
+  EdgeCacheT m_outgoingCache, m_ingoingCache;
 };
 }  // namespace openlr

@@ -18,6 +18,7 @@ using namespace routing;
 
 struct SimpleEdge
 {
+  SimpleEdge() = default;   // needed for buffer_vector only
   SimpleEdge(uint32_t to, double weight) : m_to(to), m_weight(weight) {}
 
   uint32_t GetTarget() const { return m_to; }
@@ -36,18 +37,18 @@ public:
   // AStarGraph overrides
   // @{
   void GetIngoingEdgesList(astar::VertexData<Vertex, Weight> const & vertexData,
-                           std::vector<Edge> & adj) override;
+                           EdgeListT & adj) override;
   void GetOutgoingEdgesList(astar::VertexData<Vertex, Weight> const & vertexData,
-                            std::vector<Edge> & adj) override;
+                            EdgeListT & adj) override;
   double HeuristicCostEstimate(Vertex const & v, Vertex const & w) override;
   // @}
 
-  void GetEdgesList(Vertex const & vertex, bool /* isOutgoing */, std::vector<Edge> & adj);
+  void GetEdgesList(Vertex const & vertex, bool /* isOutgoing */, EdgeListT & adj);
 
 private:
-  void GetAdjacencyList(Vertex v, std::vector<Edge> & adj) const;
+  void GetAdjacencyList(Vertex v, EdgeListT & adj) const;
 
-  std::map<uint32_t, std::vector<Edge>> m_adjs;
+  std::map<uint32_t, EdgeListT> m_adjs;
 };
 
 class DirectedGraph
@@ -57,13 +58,15 @@ public:
   using Edge = SimpleEdge;
   using Weight = double;
 
+  using EdgeListT = SmallList<SimpleEdge>;
+
   void AddEdge(Vertex from, Vertex to, Weight w);
 
-  void GetEdgesList(Vertex const & v, bool isOutgoing, std::vector<Edge> & adj);
+  void GetEdgesList(Vertex const & v, bool isOutgoing, EdgeListT & adj);
 
 private:
-  std::map<uint32_t, std::vector<Edge>> m_outgoing;
-  std::map<uint32_t, std::vector<Edge>> m_ingoing;
+  std::map<uint32_t, EdgeListT> m_outgoing;
+  std::map<uint32_t, EdgeListT> m_ingoing;
 };
 }  // namespace routing_tests
 

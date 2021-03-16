@@ -68,7 +68,7 @@ void DirectionsEngine::LoadPathAttributes(FeatureID const & featureId,
   pathSegment.m_onRoundabout = ftypes::IsRoundAboutChecker::Instance()(*ft);
 }
 
-void DirectionsEngine::GetSegmentRangeAndAdjacentEdges(IRoadGraph::EdgeVector const & outgoingEdges,
+void DirectionsEngine::GetSegmentRangeAndAdjacentEdges(IRoadGraph::EdgeListT const & outgoingEdges,
                                                        Edge const & inEdge, uint32_t startSegId,
                                                        uint32_t endSegId,
                                                        SegmentRange & segmentRange,
@@ -137,8 +137,8 @@ void DirectionsEngine::GetSegmentRangeAndAdjacentEdges(IRoadGraph::EdgeVector co
 
 void DirectionsEngine::GetEdges(IndexRoadGraph const & graph,
                                 geometry::PointWithAltitude const & currJunction,
-                                bool isCurrJunctionFinish, IRoadGraph::EdgeVector & outgoing,
-                                IRoadGraph::EdgeVector & ingoing)
+                                bool isCurrJunctionFinish, IRoadGraph::EdgeListT & outgoing,
+                                IRoadGraph::EdgeListT & ingoing)
 {
   // Note. If |currJunction| is a finish the outgoing edges
   // from finish are not important for turn generation.
@@ -169,8 +169,8 @@ void DirectionsEngine::FillPathSegmentsAndAdjacentEdgesMap(
     geometry::PointWithAltitude const & prevJunction = path[i - 1];
     geometry::PointWithAltitude const & currJunction = path[i];
 
-    IRoadGraph::EdgeVector outgoingEdges;
-    IRoadGraph::EdgeVector ingoingEdges;
+    IRoadGraph::EdgeListT outgoingEdges;
+    IRoadGraph::EdgeListT ingoingEdges;
     bool const isCurrJunctionFinish = (i + 1 == pathSize);
     GetEdges(graph, currJunction, isCurrJunctionFinish, outgoingEdges, ingoingEdges);
 

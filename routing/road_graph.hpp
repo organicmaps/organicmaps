@@ -5,6 +5,8 @@
 #include "routing_common/maxspeed_conversion.hpp"
 #include "routing_common/vehicle_model.hpp"
 
+#include "routing/base/small_list.hpp"
+
 #include "indexer/feature_altitude.hpp"
 #include "indexer/feature_data.hpp"
 
@@ -120,15 +122,18 @@ private:
 class RoadGraphBase
 {
 public:
+  /// Small buffered vector to store ingoing/outgoing node's edges.
+  using EdgeListT = SmallList<Edge>;
+  /// Big container to store full path edges.
   using EdgeVector = std::vector<Edge>;
 
   /// Finds all nearest outgoing edges, that route to the junction.
   virtual void GetOutgoingEdges(geometry::PointWithAltitude const & junction,
-                                EdgeVector & edges) const = 0;
+                                EdgeListT & edges) const = 0;
 
   /// Finds all nearest ingoing edges, that route to the junction.
   virtual void GetIngoingEdges(geometry::PointWithAltitude const & junction,
-                               EdgeVector & edges) const = 0;
+                               EdgeListT & edges) const = 0;
 
   /// Returns max speed in KM/H
   virtual double GetMaxSpeedKMpH() const = 0;
@@ -191,7 +196,7 @@ public:
   {
   public:
     ICrossEdgesLoader(geometry::PointWithAltitude const & cross, IRoadGraph::Mode mode,
-                      EdgeVector & edges)
+                      EdgeListT & edges)
       : m_cross(cross), m_mode(mode), m_edges(edges)
     {
     }
@@ -236,14 +241,14 @@ public:
 
     geometry::PointWithAltitude const m_cross;
     IRoadGraph::Mode const m_mode;
-    EdgeVector & m_edges;
+    EdgeListT & m_edges;
   };
 
   class CrossOutgoingLoader : public ICrossEdgesLoader
   {
   public:
     CrossOutgoingLoader(geometry::PointWithAltitude const & cross, IRoadGraph::Mode mode,
-                        EdgeVector & edges)
+                        EdgeListT & edges)
       : ICrossEdgesLoader(cross, mode, edges)
     {
     }
@@ -258,7 +263,7 @@ public:
   {
   public:
     CrossIngoingLoader(geometry::PointWithAltitude const & cross, IRoadGraph::Mode mode,
-                       EdgeVector & edges)
+                       EdgeListT & edges)
       : ICrossEdgesLoader(cross, mode, edges)
     {
     }
@@ -272,10 +277,10 @@ public:
   virtual ~IRoadGraph() = default;
 
   void GetOutgoingEdges(geometry::PointWithAltitude const & junction,
-                        EdgeVector & edges) const override;
+                        EdgeListT & edges) const override;
 
   void GetIngoingEdges(geometry::PointWithAltitude const & junction,
-                       EdgeVector & edges) const override;
+                       EdgeListT & edges) const override;
 
   /// Removes all fake turns and vertices from the graph.
   void ResetFakes();
@@ -326,18 +331,18 @@ public:
 
   /// \brief Finds all outgoing regular (non-fake) edges for junction.
   void GetRegularOutgoingEdges(geometry::PointWithAltitude const & junction,
-                               EdgeVector & edges) const;
+                               EdgeListT & edges) const;
   /// \brief Finds all ingoing regular (non-fake) edges for junction.
   void GetRegularIngoingEdges(geometry::PointWithAltitude const & junction,
-                              EdgeVector & edges) const;
+                              EdgeListT & edges) const;
   /// \brief Finds all outgoing fake edges for junction.
-  void GetFakeOutgoingEdges(geometry::PointWithAltitude const & junction, EdgeVector & edges) const;
+  void GetFakeOutgoingEdges(geometry::PointWithAltitude const & junction, EdgeListT & edges) const;
   /// \brief Finds all ingoing fake edges for junction.
-  void GetFakeIngoingEdges(geometry::PointWithAltitude const & junction, EdgeVector & edges) const;
+  void GetFakeIngoingEdges(geometry::PointWithAltitude const & junction, EdgeListT & edges) const;
 
 private:
-  void AddEdge(geometry::PointWithAltitude const & j, Edge const & e,
-               std::map<geometry::PointWithAltitude, EdgeVector> & edges);
+  using EdgeCacheT = std::map<geometry::PointWithAltitude, EdgeListT>;
+  void AddEdge(geometry::PointWithAltitude const & j, Edge const & e, EdgeCacheT & edges);
 
   template <typename Fn>
   void ForEachFakeEdge(Fn && fn)
@@ -357,8 +362,8 @@ private:
 
   /// \note |m_fakeIngoingEdges| and |m_fakeOutgoingEdges| map junctions to sorted vectors.
   /// Items to these maps should be inserted with AddEdge() method only.
-  std::map<geometry::PointWithAltitude, EdgeVector> m_fakeIngoingEdges;
-  std::map<geometry::PointWithAltitude, EdgeVector> m_fakeOutgoingEdges;
+  EdgeCacheT m_fakeIngoingEdges;
+  EdgeCacheT m_fakeOutgoingEdges;
 };
 
 std::string DebugPrint(IRoadGraph::Mode mode);

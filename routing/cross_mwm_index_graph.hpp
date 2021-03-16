@@ -156,13 +156,15 @@ public:
     }
   }
 
-  void GetOutgoingEdgeList(Segment const & s, std::vector<SegmentEdge> & edges)
+  using EdgeListT = typename CrossMwmConnector<CrossMwmId>::EdgeListT;
+
+  void GetOutgoingEdgeList(Segment const & s, EdgeListT & edges)
   {
     CrossMwmConnector<CrossMwmId> const & c = GetCrossMwmConnectorWithWeights(s.GetMwmId());
     c.GetOutgoingEdgeList(s, edges);
   }
 
-  void GetIngoingEdgeList(Segment const & s, std::vector<SegmentEdge> & edges)
+  void GetIngoingEdgeList(Segment const & s, EdgeListT & edges)
   {
     CrossMwmConnector<CrossMwmId> const & c = GetCrossMwmConnectorWithWeights(s.GetMwmId());
     c.GetIngoingEdgeList(s, edges);

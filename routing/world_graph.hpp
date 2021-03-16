@@ -48,22 +48,26 @@ public:
   template <typename VertexType>
   using Parents = IndexGraph::Parents<VertexType>;
 
+  using JointEdgeListT = IndexGraph::JointEdgeListT;
+  using SegmentEdgeListT = IndexGraph::SegmentEdgeListT;
+  using WeightListT = IndexGraph::WeightListT;
+
   virtual ~WorldGraph() = default;
 
   virtual void GetEdgeList(astar::VertexData<Segment, RouteWeight> const & vertexData,
                            bool isOutgoing, bool useRoutingOptions, bool useAccessConditional,
-                           std::vector<SegmentEdge> & edges) = 0;
+                           SegmentEdgeListT & edges) = 0;
   virtual void GetEdgeList(astar::VertexData<JointSegment, RouteWeight> const & vertexData,
                            Segment const & segment, bool isOutgoing, bool useAccessConditional,
-                           std::vector<JointEdge> & edges,
-                           std::vector<RouteWeight> & parentWeights) = 0;
+                           JointEdgeListT & edges,
+                           WeightListT & parentWeights) = 0;
 
   bool IsRegionsGraphMode() const { return m_isRegionsGraphMode; }
 
   void SetRegionsGraphMode(bool isRegionsGraphMode) { m_isRegionsGraphMode = isRegionsGraphMode; }
 
   void GetEdgeList(Segment const & vertex, bool isOutgoing, bool useRoutingOptions,
-                   std::vector<SegmentEdge> & edges);
+                   SegmentEdgeListT & edges);
 
   // Checks whether path length meets restrictions. Restrictions may depend on the distance from
   // start to finish of the route.
@@ -124,7 +128,7 @@ public:
 
 protected:
   void GetTwins(Segment const & segment, bool isOutgoing, bool useRoutingOptions,
-                std::vector<SegmentEdge> & edges);
+                SegmentEdgeListT & edges);
 
   bool m_isRegionsGraphMode = false;
 };

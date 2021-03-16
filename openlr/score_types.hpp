@@ -48,7 +48,7 @@ using ScoreEdgeVec = std::vector<ScoreEdge>;
 
 struct ScorePath
 {
-  ScorePath(Score score, EdgeVector && path) : m_score(score), m_path(move(path)) {}
+  ScorePath(Score score, EdgeVector && path) : m_score(score), m_path(std::move(path)) {}
 
   Score m_score;
   EdgeVector m_path;

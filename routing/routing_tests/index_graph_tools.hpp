@@ -62,7 +62,7 @@ public:
   }
 
   void GetOutgoingEdgesList(astar::VertexData<Vertex, RouteWeight> const & vertexData,
-                            std::vector<Edge> & edges) override
+                            EdgeListT & edges) override
   {
     edges.clear();
     m_graph->GetEdgeList(vertexData, true /* isOutgoing */, true /* useRoutingOptions */,
@@ -70,7 +70,7 @@ public:
   }
 
   void GetIngoingEdgesList(astar::VertexData<Vertex, RouteWeight> const & vertexData,
-                           std::vector<Edge> & edges) override
+                           EdgeListT & edges) override
   {
     edges.clear();
     m_graph->GetEdgeList(vertexData, false /* isOutgoing */, true /* useRoutingOptions */,

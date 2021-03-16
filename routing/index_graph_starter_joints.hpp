@@ -49,13 +49,13 @@ public:
   RouteWeight HeuristicCostEstimate(Vertex const & from, Vertex const & to) override;
 
   void GetOutgoingEdgesList(astar::VertexData<Vertex, Weight> const & vertexData,
-                            std::vector<Edge> & edges) override
+                            EdgeListT & edges) override
   {
     GetEdgeList(vertexData, true /* isOutgoing */, edges);
   }
 
   void GetIngoingEdgesList(astar::VertexData<Vertex, Weight> const & vertexData,
-                           std::vector<Edge> & edges) override
+                           EdgeListT & edges) override
   {
     GetEdgeList(vertexData, false /* isOutgoing */, edges);
   }
@@ -135,10 +135,10 @@ private:
 
   void InitEnding(Segment const & ending, bool start);
 
-  void AddFakeJoints(Segment const & segment, bool isOutgoing, std::vector<JointEdge> & edges);
+  void AddFakeJoints(Segment const & segment, bool isOutgoing, EdgeListT & edges);
 
   void GetEdgeList(astar::VertexData<Vertex, Weight> const & vertexData, bool isOutgoing,
-                   std::vector<JointEdge> & edges);
+                   EdgeListT & edges);
 
   JointSegment CreateFakeJoint(Segment const & from, Segment const & to);
 
@@ -152,18 +152,19 @@ private:
     return m_graph.IsJointOrEnd(segment, fromStart);
   }
 
+  using WeightListT = typename Graph::WeightListT;
   bool FillEdgesAndParentsWeights(astar::VertexData<Vertex, Weight> const & vertexData,
                                   bool isOutgoing,
                                   size_t & firstFakeId,
-                                  std::vector<JointEdge> & edges,
-                                  std::vector<Weight> & parentWeights);
+                                  EdgeListT & edges,
+                                  WeightListT & parentWeights);
 
   std::optional<Segment> GetParentSegment(JointSegment const & vertex, bool isOutgoing,
-                                          std::vector<JointEdge> & edges);
+                                          EdgeListT & edges);
 
   /// \brief Makes BFS from |startSegment| in direction |fromStart| and find the closest segments
   /// which end RoadPoints are joints. Thus we build fake joint segments graph.
-  std::vector<JointEdge> FindFirstJoints(Segment const & startSegment, bool fromStart);
+  EdgeListT FindFirstJoints(Segment const & startSegment, bool fromStart);
 
   JointSegment CreateInvisibleJoint(Segment const & segment, bool start);
 
@@ -212,9 +213,9 @@ private:
   std::map<JointSegment, ReconstructedPath> m_reconstructedFakeJoints;
 
   // List of JointEdges that are outgoing from start.
-  std::vector<JointEdge> m_startOutEdges;
+  EdgeListT m_startOutEdges;
   // List of incoming to finish.
-  std::vector<JointEdge> m_endOutEdges;
+  EdgeListT m_endOutEdges;
 
   uint32_t m_fakeId = 0;
   bool m_init = false;
@@ -358,11 +359,11 @@ std::vector<Segment> IndexGraphStarterJoints<Graph>::ReconstructJoint(JointSegme
 
 template <typename Graph>
 void IndexGraphStarterJoints<Graph>::AddFakeJoints(Segment const & segment, bool isOutgoing,
-                                                   std::vector<JointEdge> & edges)
+                                                   EdgeListT & edges)
 {
   // If |isOutgoing| is true, we need real segments, that are real parts
   // of fake joints, entered to finish and vice versa.
-  std::vector<JointEdge> const & endings = isOutgoing ? m_endOutEdges : m_startOutEdges;
+  EdgeListT const & endings = isOutgoing ? m_endOutEdges : m_startOutEdges;
 
   bool const opposite = !isOutgoing;
   for (auto const & edge : endings)
@@ -395,7 +396,7 @@ Segment const & IndexGraphStarterJoints<Graph>::GetSegmentOfFakeJoint(JointSegme
 
 template <typename Graph>
 std::optional<Segment> IndexGraphStarterJoints<Graph>::GetParentSegment(
-    JointSegment const & vertex, bool isOutgoing, std::vector<JointEdge> & edges)
+    JointSegment const & vertex, bool isOutgoing, EdgeListT & edges)
 {
   std::optional<Segment> parentSegment;
   bool const opposite = !isOutgoing;
@@ -447,7 +448,7 @@ template <typename Graph>
 bool IndexGraphStarterJoints<Graph>::FillEdgesAndParentsWeights(
     astar::VertexData<Vertex, Weight> const & vertexData,
     bool isOutgoing, size_t & firstFakeId,
-    std::vector<JointEdge> & edges, std::vector<Weight> & parentWeights)
+    EdgeListT & edges, WeightListT & parentWeights)
 {
   auto const & vertex = vertexData.m_vertex;
   // Case of fake start or finish joints.
@@ -456,14 +457,14 @@ bool IndexGraphStarterJoints<Graph>::FillEdgesAndParentsWeights(
   if (vertex == GetStartJoint())
   {
     edges.insert(edges.end(), m_startOutEdges.begin(), m_startOutEdges.end());
-    parentWeights.insert(parentWeights.end(), edges.size(), Weight(0.0));
+    parentWeights.append(edges.size(), Weight(0.0));
     firstFakeId = edges.size();
   }
   else if (vertex == GetFinishJoint())
   {
     edges.insert(edges.end(), m_endOutEdges.begin(), m_endOutEdges.end());
     // If vertex is FinishJoint, parentWeight is equal to zero, because the first vertex is zero-weight loop.
-    parentWeights.insert(parentWeights.end(), edges.size(), Weight(0.0));
+    parentWeights.append(edges.size(), Weight(0.0));
   }
   else
   {
@@ -504,7 +505,7 @@ bool IndexGraphStarterJoints<Graph>::FillEdgesAndParentsWeights(
 template <typename Graph>
 void IndexGraphStarterJoints<Graph>::GetEdgeList(
     astar::VertexData<Vertex, Weight> const & vertexData, bool isOutgoing,
-    std::vector<JointEdge> & edges)
+    EdgeListT & edges)
 {
   CHECK(m_init, ("IndexGraphStarterJoints was not initialized."));
 
@@ -515,7 +516,7 @@ void IndexGraphStarterJoints<Graph>::GetEdgeList(
   // 1) from child_1 to parent.
   // 2) from child_2 to parent.
   // That needs for correct edges weights calculation.
-  std::vector<Weight> parentWeights;
+  WeightListT parentWeights;
 
   size_t firstFakeId = 0;
   if (!FillEdgesAndParentsWeights(vertexData, isOutgoing, firstFakeId, edges, parentWeights))
@@ -567,8 +568,8 @@ JointSegment IndexGraphStarterJoints<Graph>::CreateFakeJoint(Segment const & fro
 }
 
 template <typename Graph>
-std::vector<JointEdge> IndexGraphStarterJoints<Graph>::FindFirstJoints(Segment const & startSegment,
-                                                                       bool fromStart)
+typename IndexGraphStarterJoints<Graph>::EdgeListT
+IndexGraphStarterJoints<Graph>::FindFirstJoints(Segment const & startSegment, bool fromStart)
 {
   Segment const & endSegment = fromStart ? m_endSegment : m_startSegment;
 
@@ -577,7 +578,7 @@ std::vector<JointEdge> IndexGraphStarterJoints<Graph>::FindFirstJoints(Segment c
 
   std::map<Segment, Segment> parent;
   std::map<Segment, RouteWeight> weight;
-  std::vector<JointEdge> result;
+  EdgeListT result;
 
   auto const reconstructPath = [&parent, &startSegment](Segment current, bool forward)
   {
@@ -647,7 +648,7 @@ std::vector<JointEdge> IndexGraphStarterJoints<Graph>::FindFirstJoints(Segment c
       continue;
     }
 
-    std::vector<SegmentEdge> edges;
+    typename Graph::EdgeListT edges;
     m_graph.GetEdgesList(beforeConvert, fromStart, edges);
 
     for (auto const & edge : edges)

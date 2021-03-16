@@ -102,7 +102,7 @@ void WriteAsMappingForSpark(std::ostream & ost, std::vector<DecodedPath> const &
 
     auto const kFieldSep = '-';
     auto const kSegmentSep = '=';
-    for (auto it = begin(p.m_path); it != end(p.m_path); ++it)
+    for (auto it = std::begin(p.m_path); it != std::end(p.m_path); ++it)
     {
       auto const & fid = it->GetFeatureId();
       ost << fid.m_mwmId.GetInfo()->GetCountryName()
@@ -111,7 +111,7 @@ void WriteAsMappingForSpark(std::ostream & ost, std::vector<DecodedPath> const &
           << kFieldSep << (it->IsForward() ? "fwd" : "bwd")
           << kFieldSep << mercator::DistanceOnEarth(GetStart(*it), GetEnd(*it));
 
-      if (next(it) != end(p.m_path))
+      if (std::next(it) != std::end(p.m_path))
         ost << kSegmentSep;
     }
     ost << std::endl;
@@ -144,7 +144,7 @@ void PathFromXML(pugi::xml_node const & node, DataSource const & dataSource, Pat
 
 void PathToXML(Path const & path, pugi::xml_node & node)
 {
-  for (auto const e : path)
+  for (auto const & e : path)
   {
     auto edge = node.append_child("RoadEdge");
 

@@ -84,7 +84,7 @@ void TestEdges(IndexGraph & graph, Segment const & segment, vector<Segment> cons
   ASSERT(segment.IsForward() || !graph.GetGeometry().GetRoad(segment.GetFeatureId()).IsOneWay(),
          ());
 
-  vector<SegmentEdge> edges;
+  IndexGraph::SegmentEdgeListT edges;
   graph.GetEdgeList(segment, isOutgoing, true /* useRoutingOptions */, edges);
 
   vector<Segment> targets;

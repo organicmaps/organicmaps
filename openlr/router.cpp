@@ -151,7 +151,7 @@ Router::Router(routing::FeaturesRoadGraph & graph, RoadInfoGetter & roadInfoGett
 }
 
 bool Router::Go(std::vector<WayPoint> const & points, double positiveOffsetM,
-                double negativeOffsetM, std::vector<routing::Edge> & path)
+                double negativeOffsetM, Path & path)
 {
   if (!Init(points, positiveOffsetM, negativeOffsetM))
     return false;
@@ -217,7 +217,7 @@ bool Router::Init(std::vector<WayPoint> const & points, double positiveOffsetM,
   return true;
 }
 
-bool Router::FindPath(std::vector<routing::Edge> & path)
+bool Router::FindPath(Path & path)
 {
   using State = std::pair<Vertex::Score, Vertex>;
   std::priority_queue<State, std::vector<State>, std::greater<State>> queue;
@@ -440,7 +440,7 @@ uint32_t Router::GetReverseBearing(Vertex const & u, Links const & links) const
 template <typename Fn>
 void Router::ForEachEdge(Vertex const & u, bool outgoing, FunctionalRoadClass restriction, Fn && fn)
 {
-  routing::IRoadGraph::EdgeVector edges;
+  routing::IRoadGraph::EdgeListT edges;
   if (outgoing)
     GetOutgoingEdges(u.m_junction, edges);
   else
@@ -454,14 +454,14 @@ void Router::ForEachEdge(Vertex const & u, bool outgoing, FunctionalRoadClass re
 }
 
 void Router::GetOutgoingEdges(geometry::PointWithAltitude const & u,
-                              routing::IRoadGraph::EdgeVector & edges)
+                              routing::IRoadGraph::EdgeListT & edges)
 {
   GetEdges(u, &routing::IRoadGraph::GetRegularOutgoingEdges,
            &routing::IRoadGraph::GetFakeOutgoingEdges, m_outgoingCache, edges);
 }
 
 void Router::GetIngoingEdges(geometry::PointWithAltitude const & u,
-                             routing::IRoadGraph::EdgeVector & edges)
+                             routing::IRoadGraph::EdgeListT & edges)
 {
   GetEdges(u, &routing::IRoadGraph::GetRegularIngoingEdges,
            &routing::IRoadGraph::GetFakeIngoingEdges, m_ingoingCache, edges);
@@ -470,8 +470,8 @@ void Router::GetIngoingEdges(geometry::PointWithAltitude const & u,
 void Router::GetEdges(
     geometry::PointWithAltitude const & u, RoadGraphEdgesGetter getRegular,
     RoadGraphEdgesGetter getFake,
-    std::map<geometry::PointWithAltitude, routing::IRoadGraph::EdgeVector> & cache,
-    routing::IRoadGraph::EdgeVector & edges)
+    EdgeCacheT & cache,
+    routing::IRoadGraph::EdgeListT & edges)
 {
   auto const it = cache.find(u);
   if (it == cache.end())
@@ -639,7 +639,7 @@ void Router::ForStagePrefix(It b, It e, size_t stage, Fn && fn)
     fn(b);
 }
 
-bool Router::ReconstructPath(std::vector<Edge> & edges, std::vector<routing::Edge> & path)
+bool Router::ReconstructPath(std::vector<Edge> & edges, Path & path)
 {
   CHECK_GREATER_OR_EQUAL(m_points.size(), 2, ());
 
@@ -726,8 +726,7 @@ bool Router::ReconstructPath(std::vector<Edge> & edges, std::vector<routing::Edg
   return !path.empty();
 }
 
-void Router::FindSingleEdgeApproximation(std::vector<Edge> const & edges,
-                                         std::vector<routing::Edge> & path)
+void Router::FindSingleEdgeApproximation(std::vector<Edge> const & edges, Path & path)
 {
   double const kCoverageThreshold = 0.5;
 

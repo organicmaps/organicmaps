@@ -26,9 +26,9 @@ public:
 
   // IRoadGraphBase overrides:
   virtual void GetOutgoingEdges(geometry::PointWithAltitude const & junction,
-                                EdgeVector & edges) const override;
+                                EdgeListT & edges) const override;
   virtual void GetIngoingEdges(geometry::PointWithAltitude const & junction,
-                               EdgeVector & edges) const override;
+                               EdgeListT & edges) const override;
   virtual double GetMaxSpeedKMpH() const override;
   virtual void GetEdgeTypes(Edge const & edge, feature::TypesHolder & types) const override;
   virtual void GetJunctionTypes(geometry::PointWithAltitude const & junction,
@@ -37,16 +37,16 @@ public:
   virtual void GetRouteSegments(std::vector<Segment> & segments) const override;
 
 private:
-  void GetEdges(geometry::PointWithAltitude const & junction, bool isOutgoing,
-                EdgeVector & edges) const;
-  std::vector<Segment> const & GetSegments(geometry::PointWithAltitude const & junction,
-                                           bool isOutgoing) const;
+  void GetEdges(geometry::PointWithAltitude const & junction, bool isOutgoing, EdgeListT & edges) const;
+
+  using SegmentListT = SmallList<Segment>;
+  SegmentListT const & GetSegments(geometry::PointWithAltitude const & junction, bool isOutgoing) const;
 
   DataSource & m_dataSource;
   std::shared_ptr<NumMwmIds> m_numMwmIds;
   IndexGraphStarter & m_starter;
   std::vector<Segment> m_segments;
-  std::map<geometry::PointWithAltitude, std::vector<Segment>> m_beginToSegment;
-  std::map<geometry::PointWithAltitude, std::vector<Segment>> m_endToSegment;
+  std::map<geometry::PointWithAltitude, SegmentListT> m_beginToSegment;
+  std::map<geometry::PointWithAltitude, SegmentListT> m_endToSegment;
 };
 }  // namespace routing

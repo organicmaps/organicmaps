@@ -28,19 +28,19 @@ size_t UndirectedGraph::GetNodesNumber() const
 }
 
 void UndirectedGraph::GetEdgesList(Vertex const & vertex, bool /* isOutgoing */,
-                                   std::vector<Edge> & adj)
+                                   EdgeListT & adj)
 {
   GetAdjacencyList(vertex, adj);
 }
 
 void UndirectedGraph::GetIngoingEdgesList(astar::VertexData<Vertex, Weight> const & vertexData,
-                                          std::vector<SimpleEdge> & adj)
+                                          EdgeListT & adj)
 {
   GetEdgesList(vertexData.m_vertex, false /* isOutgoing */, adj);
 }
 
 void UndirectedGraph::GetOutgoingEdgesList(astar::VertexData<Vertex, Weight> const & vertexData,
-                                           std::vector<SimpleEdge> & adj)
+                                           EdgeListT & adj)
 {
   GetEdgesList(vertexData.m_vertex, true /* isOutgoing */, adj);
 }
@@ -50,7 +50,7 @@ double UndirectedGraph::HeuristicCostEstimate(Vertex const & v, Vertex const & w
   return 0.0;
 }
 
-void UndirectedGraph::GetAdjacencyList(Vertex v, std::vector<Edge> & adj) const
+void UndirectedGraph::GetAdjacencyList(Vertex v, EdgeListT & adj) const
 {
   adj.clear();
   auto const it = m_adjs.find(v);
@@ -64,7 +64,7 @@ void DirectedGraph::AddEdge(Vertex from, Vertex to, Weight w)
   m_ingoing[to].emplace_back(from, w);
 }
 
-void DirectedGraph::GetEdgesList(Vertex const & v, bool isOutgoing, std::vector<Edge> & adj)
+void DirectedGraph::GetEdgesList(Vertex const & v, bool isOutgoing, EdgeListT & adj)
 {
   adj = isOutgoing ? m_outgoing[v] : m_ingoing[v];
 }
@@ -93,6 +93,7 @@ inline double TimeBetweenSec(geometry::PointWithAltitude const & j1,
 class WeightedEdge
 {
 public:
+  WeightedEdge() = default;   // needed for buffer_vector only
   WeightedEdge(geometry::PointWithAltitude const & target, double weight)
     : target(target), weight(weight)
   {
@@ -102,8 +103,8 @@ public:
   inline double GetWeight() const { return weight; }
 
 private:
-  geometry::PointWithAltitude const target;
-  double const weight;
+  geometry::PointWithAltitude target;
+  double weight;
 };
 
 using Algorithm = AStarAlgorithm<geometry::PointWithAltitude, WeightedEdge, double>;
@@ -118,10 +119,10 @@ public:
   {}
 
   void GetOutgoingEdgesList(astar::VertexData<Vertex, Weight> const & vertexData,
-                            std::vector<Edge> & adj) override
+                            EdgeListT & adj) override
   {
     auto const & v = vertexData.m_vertex;
-    IRoadGraph::EdgeVector edges;
+    IRoadGraph::EdgeListT edges;
     m_roadGraph.GetOutgoingEdges(v, edges);
 
     adj.clear();
@@ -138,10 +139,10 @@ public:
   }
 
   void GetIngoingEdgesList(astar::VertexData<Vertex, Weight> const & vertexData,
-                           std::vector<Edge> & adj) override
+                           EdgeListT & adj) override
   {
     auto const & v = vertexData.m_vertex;
-    IRoadGraph::EdgeVector edges;
+    IRoadGraph::EdgeListT edges;
     m_roadGraph.GetIngoingEdges(v, edges);
 
     adj.clear();

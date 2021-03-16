@@ -201,7 +201,7 @@ bool IndexGraphStarter::CheckLength(RouteWeight const & weight)
 
 void IndexGraphStarter::GetEdgesList(astar::VertexData<Vertex, Weight> const & vertexData,
                                      bool isOutgoing, bool useAccessConditional,
-                                     vector<SegmentEdge> & edges) const
+                                     EdgeListT & edges) const
 {
   edges.clear();
   CHECK_NOT_EQUAL(m_graph.GetMode(), WorldGraphMode::LeapsOnly, ());
@@ -556,9 +556,9 @@ void IndexGraphStarter::AddFinish(FakeEnding const & finishEnding, FakeEnding co
   m_finish.FillMwmIds();
 }
 
-void IndexGraphStarter::AddFakeEdges(Segment const & segment, bool isOutgoing, vector<SegmentEdge> & edges) const
+void IndexGraphStarter::AddFakeEdges(Segment const & segment, bool isOutgoing, EdgeListT & edges) const
 {
-  vector<SegmentEdge> fakeEdges;
+  EdgeListT fakeEdges;
   for (auto const & edge : edges)
   {
     for (auto const & s : m_fake.GetFake(edge.GetTarget()))
