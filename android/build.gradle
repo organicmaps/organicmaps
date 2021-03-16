@@ -437,6 +437,7 @@ android {
       signingConfig signingConfigs.mapswithme
       resValue 'string', 'app_id', android.defaultConfig.applicationId + applicationIdSuffix
       resValue 'string', 'app_name', project.ext.appName + applicationIdSuffix
+      ndk.debugSymbolLevel = 'SYMBOL_TABLE'
     }
 
     release {
@@ -446,6 +447,7 @@ android {
       proguardFile('proguard-mwm.txt')
       resValue 'string', 'app_id', android.defaultConfig.applicationId
       resValue 'string', 'app_name', project.ext.appName
+      ndk.debugSymbolLevel = 'SYMBOL_TABLE'
       if (googleServiceEnabled) {
         firebaseCrashlytics {
           nativeSymbolUploadEnabled true
@@ -460,6 +462,7 @@ android {
       matchingFallbacks = ['debug', 'release']
       resValue 'string', 'app_id', android.defaultConfig.applicationId + applicationIdSuffix
       resValue 'string', 'app_name', project.ext.appName + applicationIdSuffix
+      ndk.debugSymbolLevel = 'SYMBOL_TABLE'
       if (googleServiceEnabled) {
         firebaseCrashlytics {
           nativeSymbolUploadEnabled true
