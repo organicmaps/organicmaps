@@ -39,7 +39,7 @@ double DistanceToSegment(Segment const & segment, m2::PointD const & point, Inde
       mercator::FromLatLon(indexGraph.GetGeometry().GetPoint(segment.GetRoadPoint(true))), point);
 }
 
-bool EdgesContain(vector<SegmentEdge> const & edges, Segment const & segment)
+bool EdgesContain(IndexGraph::SegmentEdgeListT const & edges, Segment const & segment)
 {
   for (auto const & edge : edges)
   {
@@ -177,7 +177,7 @@ void TrackMatcher::Step::FillCandidatesWithNearbySegments(
 
 void TrackMatcher::Step::FillCandidates(Step const & previousStep, IndexGraph & graph)
 {
-  vector<SegmentEdge> edges;
+  IndexGraph::SegmentEdgeListT edges;
 
   for (Candidate const & candidate : previousStep.m_candidates)
   {
@@ -210,7 +210,7 @@ void TrackMatcher::Step::ChooseSegment(Step const & nextStep, IndexGraph & index
 
   double minDistance = numeric_limits<double>::max();
 
-  vector<SegmentEdge> edges;
+  IndexGraph::SegmentEdgeListT edges;
   indexGraph.GetEdgeList(nextStep.m_segment, false /* isOutgoing */, true /* useRoutingOptions */,
                          edges);
   edges.emplace_back(nextStep.m_segment, GetAStarWeightZero<RouteWeight>());

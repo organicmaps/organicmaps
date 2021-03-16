@@ -51,7 +51,7 @@ private:
 /// \returns false if the junction is an internal point of feature segment and can be considered as
 /// a part of LoadedPathSegment and returns true if the junction should be considered as a beginning
 /// of a new LoadedPathSegment.
-bool IsJoint(IRoadGraph::EdgeVector const & ingoingEdges,
-             IRoadGraph::EdgeVector const & outgoingEdges, Edge const & ingoingRouteEdge,
+bool IsJoint(IRoadGraph::EdgeListT const & ingoingEdges,
+             IRoadGraph::EdgeListT const & outgoingEdges, Edge const & ingoingRouteEdge,
              Edge const & outgoingRouteEdge, bool isCurrJunctionFinish, bool isInEdgeReal);
 }  // namespace routing

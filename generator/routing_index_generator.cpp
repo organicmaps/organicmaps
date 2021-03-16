@@ -207,16 +207,21 @@ public:
     return m_graph.GetPoint(s, forward);
   }
 
+  using SegmentEdgeListT = routing::IndexGraph::SegmentEdgeListT;
+  using EdgeListT = SegmentEdgeListT;
   void GetEdgesList(routing::Segment const & child, bool isOutgoing,
-                    vector<routing::SegmentEdge> & edges)
+                    SegmentEdgeListT & edges)
   {
     m_graph.GetEdgeList(child, isOutgoing, true /* useRoutingOptions */, edges);
   }
 
+  using JointEdgeListT = routing::IndexGraph::JointEdgeListT;
+  using WeightListT = routing::IndexGraph::WeightListT;
+
   void GetEdgeList(
       routing::astar::VertexData<routing::JointSegment, routing::RouteWeight> const & vertexData,
-      routing::Segment const & parent, bool isOutgoing, vector<routing::JointEdge> & edges,
-      vector<routing::RouteWeight> & parentWeights) const
+      routing::Segment const & parent, bool isOutgoing, JointEdgeListT & edges,
+      WeightListT & parentWeights) const
   {
     CHECK(m_AStarParents, ());
     return m_graph.GetEdgeList(vertexData.m_vertex, parent, isOutgoing, edges, parentWeights,

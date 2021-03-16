@@ -5,14 +5,14 @@
 namespace routing
 {
 void WorldGraph::GetEdgeList(Segment const & vertex, bool isOutgoing, bool useRoutingOptions,
-                             std::vector<SegmentEdge> & edges)
+                             SegmentEdgeListT & edges)
 {
   GetEdgeList({vertex, RouteWeight(0.0)}, isOutgoing, useRoutingOptions,
               false /* useAccessConditional */, edges);
 }
 
 void WorldGraph::GetTwins(Segment const & segment, bool isOutgoing, bool useRoutingOptions,
-                          std::vector<SegmentEdge> & edges)
+                          SegmentEdgeListT & edges)
 {
   std::vector<Segment> twins;
   GetTwinsInner(segment, isOutgoing, twins);

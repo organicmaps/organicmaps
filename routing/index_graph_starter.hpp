@@ -40,6 +40,9 @@ public:
   template <typename VertexType>
   using Parents = IndexGraph::Parents<VertexType>;
 
+  using JointEdgeListT = IndexGraph::JointEdgeListT;
+  using WeightListT = IndexGraph::WeightListT;
+
   friend class FakeEdgesContainer;
 
   static void CheckValidRoute(std::vector<Segment> const & segments);
@@ -103,8 +106,8 @@ public:
   bool CheckLength(RouteWeight const & weight);
 
   void GetEdgeList(astar::VertexData<JointSegment, Weight> const & parentVertexData,
-                   Segment const & segment, bool isOutgoing, std::vector<JointEdge> & edges,
-                   std::vector<RouteWeight> & parentWeights) const
+                   Segment const & segment, bool isOutgoing, JointEdgeListT & edges,
+                   WeightListT & parentWeights) const
   {
     return m_graph.GetEdgeList(parentVertexData, segment, isOutgoing,
                                true /* useAccessConditional */, edges, parentWeights);
@@ -113,13 +116,13 @@ public:
   // AStarGraph overridings:
   // @{
   void GetOutgoingEdgesList(astar::VertexData<Vertex, Weight> const & vertexData,
-                            std::vector<Edge> & edges) override
+                            EdgeListT & edges) override
   {
     GetEdgesList(vertexData, true /* isOutgoing */, true /* useAccessConditional */, edges);
   }
 
   void GetIngoingEdgesList(astar::VertexData<Vertex, Weight> const & vertexData,
-                           std::vector<Edge> & edges) override
+                           EdgeListT & edges) override
   {
     GetEdgesList(vertexData, false /* isOutgoing */, true /* useAccessConditional */, edges);
   }
@@ -149,7 +152,7 @@ public:
   RouteWeight GetAStarWeightEpsilon() override;
   // @}
 
-  void GetEdgesList(Vertex const & vertex, bool isOutgoing, std::vector<SegmentEdge> & edges) const
+  void GetEdgesList(Vertex const & vertex, bool isOutgoing, EdgeListT & edges) const
   {
     GetEdgesList({vertex, Weight(0.0)}, isOutgoing, false /* useAccessConditional */, edges);
   }
@@ -234,7 +237,7 @@ private:
   Segment GetFakeSegmentAndIncr();
 
   void GetEdgesList(astar::VertexData<Vertex, Weight> const & vertexData, bool isOutgoing,
-                    bool useAccessConditional, std::vector<SegmentEdge> & edges) const;
+                    bool useAccessConditional, EdgeListT & edges) const;
 
   void AddStart(FakeEnding const & startEnding, FakeEnding const & finishEnding,
                 bool strictForward);
@@ -242,7 +245,7 @@ private:
 
   // Adds fake edges of type PartOfReal which correspond real edges from |edges| and are connected
   // to |segment|
-  void AddFakeEdges(Segment const & segment, bool isOutgoing, std::vector<SegmentEdge> & edges) const;
+  void AddFakeEdges(Segment const & segment, bool isOutgoing, EdgeListT & edges) const;
 
   // Checks whether ending belongs to pass-through or non-pass-through zone.
   bool EndingPassThroughAllowed(Ending const & ending);

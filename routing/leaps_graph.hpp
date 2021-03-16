@@ -21,9 +21,9 @@ public:
   // AStarGraph overrides:
   // @{
   void GetOutgoingEdgesList(astar::VertexData<Vertex, Weight> const & vertexData,
-                            std::vector<SegmentEdge> & edges) override;
+                            EdgeListT & edges) override;
   void GetIngoingEdgesList(astar::VertexData<Vertex, Weight> const & vertexData,
-                           std::vector<SegmentEdge> & edges) override;
+                           EdgeListT & edges) override;
   RouteWeight HeuristicCostEstimate(Segment const & from, Segment const & to) override;
   RouteWeight GetAStarWeightEpsilon() override;
   // @}
@@ -33,10 +33,10 @@ public:
   ms::LatLon const & GetPoint(Segment const & segment, bool front) const;
 
 private:
-  void GetEdgesList(Segment const & segment, bool isOutgoing, std::vector<SegmentEdge> & edges);
+  void GetEdgesList(Segment const & segment, bool isOutgoing, EdgeListT & edges);
 
-  void GetEdgesListFromStart(Segment const & segment, std::vector<SegmentEdge> & edges);
-  void GetEdgesListToFinish(Segment const & segment, std::vector<SegmentEdge> & edges);
+  void GetEdgesListFromStart(Segment const & segment, EdgeListT & edges);
+  void GetEdgesListToFinish(Segment const & segment, EdgeListT & edges);
 
   ms::LatLon m_startPoint;
   ms::LatLon m_finishPoint;

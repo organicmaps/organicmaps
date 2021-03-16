@@ -16,12 +16,12 @@ namespace openlr
 namespace
 {
 using EdgeGetter = void (IRoadGraph::*)(geometry::PointWithAltitude const &,
-                                        RoadGraphBase::EdgeVector &) const;
+                                        RoadGraphBase::EdgeListT &) const;
 
 void GetRegularEdges(geometry::PointWithAltitude const & junction, IRoadGraph const & graph,
                      EdgeGetter const edgeGetter,
-                     map<openlr::Graph::Junction, Graph::EdgeVector> & cache,
-                     Graph::EdgeVector & edges)
+                     Graph::EdgeCacheT & cache,
+                     Graph::EdgeListT & edges)
 {
   auto const it = cache.find(junction);
   if (it == end(cache))
@@ -43,24 +43,24 @@ Graph::Graph(DataSource const & dataSource, shared_ptr<CarModelFactory> carModel
 {
 }
 
-void Graph::GetOutgoingEdges(Junction const & junction, EdgeVector & edges)
+void Graph::GetOutgoingEdges(Junction const & junction, EdgeListT & edges)
 {
   GetRegularOutgoingEdges(junction, edges);
   m_graph.GetFakeOutgoingEdges(junction, edges);
 }
 
-void Graph::GetIngoingEdges(Junction const & junction, EdgeVector & edges)
+void Graph::GetIngoingEdges(Junction const & junction, EdgeListT & edges)
 {
   GetRegularIngoingEdges(junction, edges);
   m_graph.GetFakeIngoingEdges(junction, edges);
 }
 
-void Graph::GetRegularOutgoingEdges(Junction const & junction, EdgeVector & edges)
+void Graph::GetRegularOutgoingEdges(Junction const & junction, EdgeListT & edges)
 {
   GetRegularEdges(junction, m_graph, &IRoadGraph::GetRegularOutgoingEdges, m_outgoingCache, edges);
 }
 
-void Graph::GetRegularIngoingEdges(Junction const & junction, EdgeVector & edges)
+void Graph::GetRegularIngoingEdges(Junction const & junction, EdgeListT & edges)
 {
   GetRegularEdges(junction, m_graph, &IRoadGraph::GetRegularIngoingEdges, m_ingoingCache, edges);
 }

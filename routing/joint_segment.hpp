@@ -51,6 +51,7 @@ private:
 class JointEdge
 {
 public:
+  JointEdge() = default;    // needed for buffer_vector only
   JointEdge(JointSegment const & target, RouteWeight const & weight)
     : m_target(target), m_weight(weight) {}
 

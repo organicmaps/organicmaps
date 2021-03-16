@@ -3,10 +3,13 @@
 #include "routing/cross_mwm_ids.hpp"
 #include "routing/segment.hpp"
 
+#include "routing/base/small_list.hpp"
+
 #include "geometry/mercator.hpp"
 #include "geometry/point2d.hpp"
 
 #include "base/assert.hpp"
+#include "base/buffer_vector.hpp"
 
 #include <cmath>
 #include <cstdint>
@@ -146,7 +149,9 @@ public:
     return &segment;
   }
 
-  void GetOutgoingEdgeList(Segment const & segment, std::vector<SegmentEdge> & edges) const
+  using EdgeListT = SmallList<SegmentEdge>;
+
+  void GetOutgoingEdgeList(Segment const & segment, EdgeListT & edges) const
   {
     auto const & transition = GetTransition(segment);
     CHECK_NOT_EQUAL(transition.m_enterIdx, connector::kFakeIndex, ());
@@ -158,7 +163,7 @@ public:
     }
   }
 
-  void GetIngoingEdgeList(Segment const & segment, std::vector<SegmentEdge> & edges) const
+  void GetIngoingEdgeList(Segment const & segment, EdgeListT & edges) const
   {
     auto const & transition = GetTransition(segment);
     CHECK_NOT_EQUAL(transition.m_exitIdx, connector::kFakeIndex, ());
@@ -273,7 +278,7 @@ private:
   friend class CrossMwmConnectorSerializer;
 
   void AddEdge(Segment const & segment, connector::Weight weight,
-               std::vector<SegmentEdge> & edges) const
+               EdgeListT & edges) const
   {
     // @TODO Double and uint32_t are compared below. This comparison should be fixed.
     if (weight != connector::kNoRoute)

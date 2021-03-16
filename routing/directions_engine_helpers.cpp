@@ -58,8 +58,8 @@ geometry::PointWithAltitude RoutingEngineResult::GetEndPoint() const
   return m_routeEdges.back().GetEndJunction();
 }
 
-bool IsJoint(IRoadGraph::EdgeVector const & ingoingEdges,
-             IRoadGraph::EdgeVector const & outgoingEdges, Edge const & ingoingRouteEdge,
+bool IsJoint(IRoadGraph::EdgeListT const & ingoingEdges,
+             IRoadGraph::EdgeListT const & outgoingEdges, Edge const & ingoingRouteEdge,
              Edge const & outgoingRouteEdge, bool isCurrJunctionFinish, bool isInEdgeReal)
 {
   // When feature id is changed at a junction this junction should be considered as a joint.

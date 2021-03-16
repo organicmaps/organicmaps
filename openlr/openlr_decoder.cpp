@@ -97,7 +97,7 @@ bool IsRealVertex(m2::PointD const & p, FeatureID const & fid, DataSource const 
       },
       FeatureType::BEST_GEOMETRY);
   return matched;
-};
+}
 
 void ExpandFake(Graph::EdgeVector & path, Graph::EdgeVector::iterator edgeIt, DataSource const & dataSource,
                 Graph & g)
@@ -105,7 +105,7 @@ void ExpandFake(Graph::EdgeVector & path, Graph::EdgeVector::iterator edgeIt, Da
   if (!edgeIt->IsFake())
     return;
 
-  Graph::EdgeVector edges;
+  Graph::EdgeListT edges;
   bool startIsFake = true;
   if (IsRealVertex(edgeIt->GetStartPoint(), edgeIt->GetFeatureId(), dataSource))
   {
@@ -153,16 +153,16 @@ void ExpandFake(Graph::EdgeVector & path, Graph::EdgeVector::iterator edgeIt, Da
     *edgeIt = *it;
   else
     path.erase(edgeIt);
-};
+}
 
 void ExpandFakes(DataSource const & dataSource, Graph & g, Graph::EdgeVector & path)
 {
   ASSERT(!path.empty(), ());
 
-  ExpandFake(path, begin(path), dataSource, g);
+  ExpandFake(path, std::begin(path), dataSource, g);
   if (path.empty())
     return;
-  ExpandFake(path, --end(path), dataSource, g);
+  ExpandFake(path, std::end(path) - 1, dataSource, g);
 }
 
 // Returns an iterator pointing to the first edge that should not be cut off.

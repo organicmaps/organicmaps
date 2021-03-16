@@ -169,7 +169,7 @@ bool PathsConnector::FindShortestPath(Graph::Edge const & from, Graph::Edge cons
       return true;
     }
 
-    Graph::EdgeVector edges;
+    Graph::EdgeListT edges;
     m_graph.GetOutgoingEdges(u.GetEndJunction(), edges);
     for (auto const & e : edges)
     {

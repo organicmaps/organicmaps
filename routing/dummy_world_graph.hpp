@@ -25,15 +25,15 @@ public:
 
   void GetEdgeList(astar::VertexData<Segment, RouteWeight> const & vertexData, bool isOutgoing,
                    bool useRoutingOptions, bool useAccessConditional,
-                   std::vector<SegmentEdge> & edges) override
+                   SegmentEdgeListT & edges) override
   {
     UNREACHABLE();
   }
 
   void GetEdgeList(astar::VertexData<JointSegment, RouteWeight> const & vertexData,
                    Segment const & segment, bool isOutgoing, bool useAccessConditional,
-                   std::vector<JointEdge> & edges,
-                   std::vector<RouteWeight> & parentWeights) override
+                   JointEdgeListT & edges,
+                   WeightListT & parentWeights) override
   {
     UNREACHABLE();
   }

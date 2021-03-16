@@ -2,6 +2,9 @@
 
 #include "routing/base/astar_weight.hpp"
 #include "routing/base/astar_vertex_data.hpp"
+#include "routing/base/small_list.hpp"
+
+#include "base/buffer_vector.hpp"
 
 #include <map>
 #include <vector>
@@ -20,12 +23,14 @@ public:
 
   using Parents = ska::bytell_hash_map<Vertex, Vertex>;
 
+  using EdgeListT = SmallList<Edge>;
+
   virtual Weight HeuristicCostEstimate(Vertex const & from, Vertex const & to) = 0;
 
   virtual void GetOutgoingEdgesList(astar::VertexData<Vertex, Weight> const & vertexData,
-                                    std::vector<Edge> & edges) = 0;
+                                    EdgeListT & edges) = 0;
   virtual void GetIngoingEdgesList(astar::VertexData<Vertex, Weight> const & vertexData,
-                                   std::vector<Edge> & edges) = 0;
+                                   EdgeListT & edges) = 0;
 
   virtual void SetAStarParents(bool forward, Parents & parents);
   virtual void DropAStarParents();

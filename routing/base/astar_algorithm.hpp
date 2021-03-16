@@ -341,7 +341,7 @@ private:
       parent.insert_or_assign(to, from);
     }
 
-    void GetAdjacencyList(State const & state, std::vector<Edge> & adj)
+    void GetAdjacencyList(State const & state, typename Graph::EdgeListT & adj)
     {
       auto const realDistance = state.distance + pS - state.heuristic;
       astar::VertexData const data(state.vertex, realDistance);
@@ -399,7 +399,7 @@ void AStarAlgorithm<Vertex, Edge, Weight>::PropagateWave(
   context.SetDistance(startVertex, kZeroDistance);
   queue.push(State(startVertex, kZeroDistance));
 
-  std::vector<Edge> adj;
+  typename Graph::EdgeListT adj;
 
   while (!queue.empty())
   {
@@ -599,7 +599,7 @@ AStarAlgorithm<Vertex, Edge, Weight>::FindPathBidirectional(P & params,
     return Result::OK;
   };
 
-  std::vector<Edge> adj;
+  typename Graph::EdgeListT adj;
 
   // It is not necessary to check emptiness for both queues here
   // because if we have not found a path by the time one of the

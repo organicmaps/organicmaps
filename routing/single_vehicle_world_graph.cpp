@@ -33,12 +33,12 @@ SingleVehicleWorldGraph::SingleVehicleWorldGraph(unique_ptr<CrossMwmGraph> cross
 }
 
 void SingleVehicleWorldGraph::CheckAndProcessTransitFeatures(Segment const & parent,
-                                                             vector<JointEdge> & jointEdges,
-                                                             vector<RouteWeight> & parentWeights,
+                                                             JointEdgeListT & jointEdges,
+                                                             WeightListT & parentWeights,
                                                              bool isOutgoing)
 {
   bool opposite = !isOutgoing;
-  vector<JointEdge> newCrossMwmEdges;
+  JointEdgeListT newCrossMwmEdges;
 
   NumMwmId const mwmId = parent.GetMwmId();
 
@@ -65,7 +65,7 @@ void SingleVehicleWorldGraph::CheckAndProcessTransitFeatures(Segment const & par
 
       auto & twinIndexGraph = GetIndexGraph(twinMwmId);
 
-      vector<uint32_t> lastPoints;
+      IndexGraph::PointIdListT lastPoints;
       twinIndexGraph.GetLastPointsForJoint({start}, isOutgoing, lastPoints);
       ASSERT_EQUAL(lastPoints.size(), 1, ());
 
@@ -89,7 +89,7 @@ void SingleVehicleWorldGraph::CheckAndProcessTransitFeatures(Segment const & par
 
 void SingleVehicleWorldGraph::GetEdgeList(
     astar::VertexData<Segment, RouteWeight> const & vertexData, bool isOutgoing,
-    bool useRoutingOptions, bool useAccessConditional, vector<SegmentEdge> & edges)
+    bool useRoutingOptions, bool useAccessConditional, SegmentEdgeListT & edges)
 {
   CHECK_NOT_EQUAL(m_mode, WorldGraphMode::LeapsOnly, ());
 
@@ -106,8 +106,8 @@ void SingleVehicleWorldGraph::GetEdgeList(
 
 void SingleVehicleWorldGraph::GetEdgeList(
     astar::VertexData<JointSegment, RouteWeight> const & parentVertexData, Segment const & parent,
-    bool isOutgoing, bool useAccessConditional, vector<JointEdge> & jointEdges,
-    vector<RouteWeight> & parentWeights)
+    bool isOutgoing, bool useAccessConditional, JointEdgeListT & jointEdges,
+    WeightListT & parentWeights)
 {
   // Fake segments aren't processed here. All work must be done
   // on the IndexGraphStarterJoints abstraction-level.

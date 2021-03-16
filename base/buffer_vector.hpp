@@ -71,7 +71,7 @@ public:
     resize(n, c);
   }
 
-  explicit buffer_vector(std::initializer_list<T> const & initList) : m_size(0)
+  buffer_vector(std::initializer_list<T> const & initList) : m_size(0)
   {
     assign(initList.begin(), initList.end());
   }
@@ -133,6 +133,24 @@ public:
       }
       m_static[m_size++] = *beg++;
     }
+  }
+
+  void append(size_t count, T const & c)
+  {
+    if (!IsDynamic())
+    {
+      size_t const newSize = count + m_size;
+      if (newSize <= N)
+      {
+        while (m_size < newSize)
+          m_static[m_size++] = c;
+        return;
+      }
+      else
+        SwitchToDynamic();
+    }
+
+    m_dynamic.insert(m_dynamic.end(), count, c);
   }
 
   template <typename TIt>
@@ -425,6 +443,7 @@ public:
     }
     resize(std::distance(begin(), first));
   }
+  void erase(iterator it) { erase(it, it + 1); }
 
 private:
   void SwitchToDynamic()

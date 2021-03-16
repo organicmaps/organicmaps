@@ -216,7 +216,7 @@ bool CheckGraphConnectivity(Segment const & start, bool isOutgoing, bool useRout
 
   marked.insert(start);
 
-  std::vector<SegmentEdge> edges;
+  WorldGraph::SegmentEdgeListT edges;
   while (!q.empty() && marked.size() < limit)
   {
     auto const u = q.front();

@@ -26,7 +26,7 @@ TransitWorldGraph::TransitWorldGraph(unique_ptr<CrossMwmGraph> crossMwmGraph,
 
 void TransitWorldGraph::GetEdgeList(astar::VertexData<Segment, RouteWeight> const & vertexData,
                                     bool isOutgoing, bool useRoutingOptions,
-                                    bool useAccessConditional, vector<SegmentEdge> & edges)
+                                    bool useAccessConditional, SegmentEdgeListT & edges)
 {
   auto const & segment = vertexData.m_vertex;
   auto & transitGraph = GetTransitGraph(segment.GetMwmId());
@@ -54,7 +54,7 @@ void TransitWorldGraph::GetEdgeList(astar::VertexData<Segment, RouteWeight> cons
     AddRealEdges(vertexData, isOutgoing, useRoutingOptions, edges);
   }
 
-  vector<SegmentEdge> fakeFromReal;
+  SegmentEdgeListT fakeFromReal;
   for (auto const & edge : edges)
   {
     auto const & edgeSegment = edge.GetTarget();
@@ -71,8 +71,8 @@ void TransitWorldGraph::GetEdgeList(astar::VertexData<Segment, RouteWeight> cons
 
 void TransitWorldGraph::GetEdgeList(
     astar::VertexData<JointSegment, RouteWeight> const & parentVertexData, Segment const & segment,
-    bool isOutgoing, bool useAccessConditional, std::vector<JointEdge> & edges,
-    std::vector<RouteWeight> & parentWeights)
+    bool isOutgoing, bool useAccessConditional, JointEdgeListT & edges,
+    WeightListT & parentWeights)
 {
   CHECK(false, ("TransitWorldGraph does not support Joints mode."));
 }
@@ -222,7 +222,7 @@ RoadGeometry const & TransitWorldGraph::GetRealRoadGeometry(NumMwmId mwmId, uint
 
 void TransitWorldGraph::AddRealEdges(astar::VertexData<Segment, RouteWeight> const & vertexData,
                                      bool isOutgoing, bool useRoutingOptions,
-                                     vector<SegmentEdge> & edges)
+                                     SegmentEdgeListT & edges)
 {
   auto const & segment = vertexData.m_vertex;
   auto & indexGraph = GetIndexGraph(segment.GetMwmId());

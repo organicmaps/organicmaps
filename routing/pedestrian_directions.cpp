@@ -33,7 +33,7 @@ bool PedestrianDirectionsEngine::Generate(IndexRoadGraph const & graph,
   streetNames.clear();
   segments.clear();
 
-  vector<Edge> routeEdges;
+  IndexRoadGraph::EdgeVector routeEdges;
 
   CHECK_NOT_EQUAL(m_vehicleType, VehicleType::Count, (m_vehicleType));
 

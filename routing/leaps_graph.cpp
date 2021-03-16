@@ -17,13 +17,13 @@ LeapsGraph::LeapsGraph(IndexGraphStarter & starter, MwmHierarchyHandler && hiera
 }
 
 void LeapsGraph::GetOutgoingEdgesList(astar::VertexData<Vertex, Weight> const & vertexData,
-                                      std::vector<SegmentEdge> & edges)
+                                      EdgeListT & edges)
 {
   GetEdgesList(vertexData.m_vertex, true /* isOutgoing */, edges);
 }
 
 void LeapsGraph::GetIngoingEdgesList(astar::VertexData<Vertex, Weight> const & vertexData,
-                                     std::vector<SegmentEdge> & edges)
+                                     EdgeListT & edges)
 {
   GetEdgesList(vertexData.m_vertex, false /* isOutgoing */, edges);
 }
@@ -37,7 +37,7 @@ RouteWeight LeapsGraph::HeuristicCostEstimate(Segment const & from, Segment cons
 }
 
 void LeapsGraph::GetEdgesList(Segment const & segment, bool isOutgoing,
-                              std::vector<SegmentEdge> & edges)
+                              EdgeListT & edges)
 {
   edges.clear();
 
@@ -78,7 +78,7 @@ void LeapsGraph::GetEdgesList(Segment const & segment, bool isOutgoing,
     crossMwmGraph.GetIngoingEdgeList(segment, edges);
 }
 
-void LeapsGraph::GetEdgesListFromStart(Segment const & segment, std::vector<SegmentEdge> & edges)
+void LeapsGraph::GetEdgesListFromStart(Segment const & segment, EdgeListT & edges)
 {
   for (auto const mwmId : m_starter.GetStartEnding().m_mwmIds)
   {
@@ -94,7 +94,7 @@ void LeapsGraph::GetEdgesListFromStart(Segment const & segment, std::vector<Segm
   }
 }
 
-void LeapsGraph::GetEdgesListToFinish(Segment const & segment, std::vector<SegmentEdge> & edges)
+void LeapsGraph::GetEdgesListToFinish(Segment const & segment, EdgeListT & edges)
 {
   for (auto const mwmId : m_starter.GetFinishEnding().m_mwmIds)
   {

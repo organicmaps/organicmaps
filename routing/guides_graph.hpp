@@ -4,6 +4,8 @@
 #include "routing/latlon_with_altitude.hpp"
 #include "routing/segment.hpp"
 
+#include "routing/base/small_list.hpp"
+
 #include "routing_common/num_mwm_id.hpp"
 
 #include "geometry/point2d.hpp"
@@ -46,7 +48,8 @@ public:
   FakeEnding MakeFakeEnding(Segment const & segment, m2::PointD const & point,
                             geometry::PointWithAltitude const & projection) const;
 
-  void GetEdgeList(Segment const & segment, bool isOutgoing, std::vector<SegmentEdge> & edges,
+  using EdgeListT = SmallList<SegmentEdge>;
+  void GetEdgeList(Segment const & segment, bool isOutgoing, EdgeListT & edges,
                    RouteWeight const & prevWeight) const;
   routing::LatLonWithAltitude const & GetJunction(Segment const & segment, bool front) const;
   RouteWeight CalcSegmentWeight(Segment const & segment) const;

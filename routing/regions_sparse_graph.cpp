@@ -84,7 +84,7 @@ double GetWeight(CrossBorderSegment const & toSeg, LatLonWithAltitude const & co
 }
 
 void RegionsSparseGraph::GetEdgeList(Segment const & segment, bool isOutgoing,
-                                     std::vector<SegmentEdge> & edges,
+                                     EdgeListT & edges,
                                      ms::LatLon const & prevSegFront) const
 {
   auto const & data = GetDataById(segment.GetFeatureId());

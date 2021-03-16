@@ -56,7 +56,7 @@ double DifferenceInDeg(double a1, double a2)
   return diff;
 }
 
-void EdgeSortUniqueByStartAndEndPoints(Graph::EdgeVector & edges)
+void EdgeSortUniqueByStartAndEndPoints(Graph::EdgeListT & edges)
 {
   base::SortUnique(
       edges,
@@ -185,7 +185,7 @@ void ScoreCandidatePathsGetter::GetAllSuitablePaths(ScoreEdgeVec const & startLi
 
     CHECK_LESS(u->m_distanceM + currentEdgeLen, bearDistM, ());
 
-    Graph::EdgeVector edges;
+    Graph::EdgeListT edges;
     if (!isLastPoint)
       m_graph.GetOutgoingEdges(currentEdge.GetEndJunction(), edges);
     else

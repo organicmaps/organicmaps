@@ -104,10 +104,13 @@ void CandidatePathsGetter::GetStartLines(vector<m2::PointD> const & points, bool
 {
   for (auto const & pc : points)
   {
+    Graph::EdgeListT tmp;
     if (!isLastPoint)
-      m_graph.GetOutgoingEdges(geometry::PointWithAltitude(pc, 0 /* altitude */), edges);
+      m_graph.GetOutgoingEdges(geometry::PointWithAltitude(pc, 0 /* altitude */), tmp);
     else
-      m_graph.GetIngoingEdges(geometry::PointWithAltitude(pc, 0 /* altitude */), edges);
+      m_graph.GetIngoingEdges(geometry::PointWithAltitude(pc, 0 /* altitude */), tmp);
+
+    edges.insert(edges.end(), tmp.begin(), tmp.end());
   }
 
   // Same edges may start on different points if those points are close enough.
@@ -145,7 +148,7 @@ void CandidatePathsGetter::GetAllSuitablePaths(Graph::EdgeVector const & startLi
 
     ASSERT_LESS(u->m_distanceM + currentEdgeLen, bearDistM, ());
 
-    Graph::EdgeVector edges;
+    Graph::EdgeListT edges;
     if (!isLastPoint)
       m_graph.GetOutgoingEdges(currentEdge.GetEndJunction(), edges);
     else

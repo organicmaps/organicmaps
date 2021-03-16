@@ -81,15 +81,17 @@ public:
   /// If not, |twins| could be emply after a GetTwins(...) call.
   void GetTwins(Segment const & s, bool isOutgoing, std::vector<Segment> & twins);
 
+  using EdgeListT = CrossMwmIndexGraph<base::GeoObjectId>::EdgeListT;
+
   /// \brief Fills |edges| with edges outgoing from |s|.
   /// |s| should be an enter transition segment, |edges| is filled with all edges starting from |s|
   /// and ending at all reachable exit transition segments of the mwm of |s|.
   /// Weight of each edge is equal to weight of the route form |s| to |SegmentEdge::m_target|.
   /// Getting ingoing edges is not supported because we do not have enough information
   /// to calculate |segment| weight.
-  void GetOutgoingEdgeList(Segment const & s, std::vector<SegmentEdge> & edges);
+  void GetOutgoingEdgeList(Segment const & s, EdgeListT & edges);
 
-  void GetIngoingEdgeList(Segment const & s, std::vector<SegmentEdge> & edges);
+  void GetIngoingEdgeList(Segment const & s, EdgeListT & edges);
 
   void Clear();
 

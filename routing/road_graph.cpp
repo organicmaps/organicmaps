@@ -194,35 +194,35 @@ void IRoadGraph::CrossIngoingLoader::LoadEdges(FeatureID const & featureId,
 
 // IRoadGraph ------------------------------------------------------------------
 void IRoadGraph::GetOutgoingEdges(geometry::PointWithAltitude const & junction,
-                                  EdgeVector & edges) const
+                                  EdgeListT & edges) const
 {
   GetFakeOutgoingEdges(junction, edges);
   GetRegularOutgoingEdges(junction, edges);
 }
 
 void IRoadGraph::GetIngoingEdges(geometry::PointWithAltitude const & junction,
-                                 EdgeVector & edges) const
+                                 EdgeListT & edges) const
 {
   GetFakeIngoingEdges(junction, edges);
   GetRegularIngoingEdges(junction, edges);
 }
 
 void IRoadGraph::GetRegularOutgoingEdges(geometry::PointWithAltitude const & junction,
-                                         EdgeVector & edges) const
+                                         EdgeListT & edges) const
 {
   CrossOutgoingLoader loader(junction, GetMode(), edges);
   ForEachFeatureClosestToCross(junction.GetPoint(), loader);
 }
 
 void IRoadGraph::GetRegularIngoingEdges(geometry::PointWithAltitude const & junction,
-                                        EdgeVector & edges) const
+                                        EdgeListT & edges) const
 {
   CrossIngoingLoader loader(junction, GetMode(), edges);
   ForEachFeatureClosestToCross(junction.GetPoint(), loader);
 }
 
 void IRoadGraph::GetFakeOutgoingEdges(geometry::PointWithAltitude const & junction,
-                                      EdgeVector & edges) const
+                                      EdgeListT & edges) const
 {
   auto const it = m_fakeOutgoingEdges.find(junction);
   if (it != m_fakeOutgoingEdges.cend())
@@ -230,7 +230,7 @@ void IRoadGraph::GetFakeOutgoingEdges(geometry::PointWithAltitude const & juncti
 }
 
 void IRoadGraph::GetFakeIngoingEdges(geometry::PointWithAltitude const & junction,
-                                     EdgeVector & edges) const
+                                     EdgeListT & edges) const
 {
   auto const it = m_fakeIngoingEdges.find(junction);
   if (it != m_fakeIngoingEdges.cend())
@@ -243,8 +243,7 @@ void IRoadGraph::ResetFakes()
   m_fakeIngoingEdges.clear();
 }
 
-void IRoadGraph::AddEdge(geometry::PointWithAltitude const & j, Edge const & e,
-                         map<geometry::PointWithAltitude, EdgeVector> & edges)
+void IRoadGraph::AddEdge(geometry::PointWithAltitude const & j, Edge const & e, EdgeCacheT & edges)
 {
   auto & cont = edges[j];
   ASSERT(is_sorted(cont.cbegin(), cont.cend()), ());

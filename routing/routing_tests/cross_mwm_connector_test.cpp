@@ -41,9 +41,12 @@ template <typename CrossMwmId>
 void TestOutgoingEdges(CrossMwmConnector<CrossMwmId> const & connector, Segment const & from,
                        vector<SegmentEdge> const & expectedEdges)
 {
-  vector<SegmentEdge> edges;
+  typename CrossMwmConnector<CrossMwmId>::EdgeListT edges;
   connector.GetOutgoingEdgeList(from, edges);
-  TEST_EQUAL(edges, expectedEdges, ());
+
+  TEST_EQUAL(edges.size(), expectedEdges.size(), ());
+  for (size_t i = 0; i < edges.size(); ++i)
+    TEST_EQUAL(edges[i], expectedEdges[i], ());
 }
 
 template <typename CrossMwmId>
