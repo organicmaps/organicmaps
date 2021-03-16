@@ -957,7 +957,7 @@ bool WorldFeed::ProjectStopsToShape(
       CHECK(itStop != m_stops.m_data.end(), (stopId));
       auto const & stop = itStop->second;
 
-      size_t const prevIdx = i == 0 ? direction == Direction::Forward ? 0 : shape.size()
+      size_t const prevIdx = i == 0 ? (direction == Direction::Forward ? 0 : shape.size())
                                     : stopsToIndexes[stopIds[i - 1]].back();
       auto const [curIdx, pointInserted] =
           PrepareNearestPointOnTrack(stop.m_point, prevPoint, prevIdx, direction, shape);

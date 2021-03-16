@@ -22,15 +22,17 @@ struct ProjectionData
   size_t m_indexOnShape = 0;
   // Distance from point to its projection.
   double m_distFromPoint = 0.0;
-  // Distance from start point on polyline to the projection.
+  // Distance from the first ending (start for forward direction, end for backward) point on
+  // polyline to the projection.
   double m_distFromEnding = 0.0;
   // Point on polyline almost equal to the projection can already exist, so we don't need to
   // insert projection. Or we insert it to the polyline.
   bool m_needsInsertion = false;
 };
 
-// Returns true if |p1| is much closer to start then |p2| (parameter |distDeltaStart|) and its
-// distance to projections to polyline |m_distFromPoint| is comparable.
+// Returns true if |p1| is much closer to the first ending (start for forward direction, end for
+// backward) then |p2| (parameter |distDeltaEnding|) and its distance to projections to polyline
+// |m_distFromPoint| is comparable.
 bool CloserToEndingAndOnSimilarDistToLine(ProjectionData const & p1, ProjectionData const & p2)
 {
   // Delta between two points distances from start point on polyline.
@@ -62,6 +64,8 @@ ProjectionData GetProjection(std::vector<m2::PointD> const & polyline, size_t in
   projData.m_proj = proj.m_point;
 
   auto const next = direction == Direction::Forward ? index + 1 : index - 1;
+  CHECK_GREATER_OR_EQUAL(next, 0, ());
+  CHECK_LESS(next, polyline.size(), ());
 
   if (base::AlmostEqualAbs(proj.m_point, polyline[index], kEps))
   {
@@ -86,17 +90,25 @@ void FillProjections(std::vector<m2::PointD> & polyline, size_t startIndex, size
                      m2::PointD const & point, double distStopsM, Direction direction,
                      std::vector<ProjectionData> & projections)
 {
+  CHECK_LESS_OR_EQUAL(startIndex, endIndex, ());
+
   double distTravelledM = 0.0;
   // Stop can't be further from its projection to line then |maxDistFromStopM|.
   double constexpr maxDistFromStopM = 1000;
 
   size_t const from = direction == Direction::Forward ? startIndex : endIndex;
-  auto const endCriteria = [&](size_t i) {
+
+  auto const endCriterion = [&](size_t i) {
     return direction == Direction::Forward ? i < endIndex : i > startIndex;
   };
-  auto const move = [direction](size_t & i) { direction == Direction::Forward ? ++i : --i; };
 
-  for (size_t i = from; endCriteria(i); move(i))
+  auto const move = [&](size_t & i) {
+    direction == Direction::Forward ? ++i : --i;
+    CHECK_GREATER_OR_EQUAL(i, 0, ());
+    CHECK_LESS_OR_EQUAL(i, polyline.size(), ());
+  };
+
+  for (size_t i = from; endCriterion(i); move(i))
   {
     auto const current = i;
     auto const prev = direction == Direction::Forward ? i - 1 : i + 1;
@@ -152,7 +164,7 @@ std::pair<size_t, bool> PrepareNearestPointOnTrack(m2::PointD const & point,
     if (CloserToEndingAndOnSimilarDistToLine(p2, p1))
       return false;
 
-    if (base::AlmostEqualAbs(p1.m_distFromPoint, p2.m_distFromPoint, kEps))
+    if (p1.m_distFromPoint == p2.m_distFromPoint)
       return p1.m_distFromEnding < p2.m_distFromEnding;
 
     return p1.m_distFromPoint < p2.m_distFromPoint;

@@ -33,7 +33,8 @@ ProjectionToShape ProjectStopOnTrack(m2::PointD const & stopPoint, m2::PointD co
 
 /// \returns index of the nearest track point to the |point| and flag if it was inserted to the
 /// shape. If this index doesn't match already existent points, the stop projection is inserted to
-/// the |polyline| and the flag is set to true.
+/// the |polyline| and the flag is set to true. New point should follow prevPoint in the direction
+/// |direction|.
 std::pair<size_t, bool> PrepareNearestPointOnTrack(m2::PointD const & point,
                                                    std::optional<m2::PointD> const & prevPoint,
                                                    size_t prevIndex, Direction direction,
