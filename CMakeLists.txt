@@ -42,6 +42,9 @@ if (NOT CMAKE_BUILD_TYPE)
   set(CMAKE_BUILD_TYPE "Release")
 endif()
 
+# Global compile options for all configurations.
+add_compile_options(-ffast-math)
+
 if ("${CMAKE_BUILD_TYPE}" STREQUAL "Debug")
   add_definitions(-DDEBUG)
 elseif ("${CMAKE_BUILD_TYPE}" STREQUAL "Release")
