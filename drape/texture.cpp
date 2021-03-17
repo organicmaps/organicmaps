@@ -6,9 +6,7 @@
 
 #include "base/math.hpp"
 
-#include "drape/glm_config.hpp"  // Required for <glm> includes below.
-#include <glm/ext/scalar_integer.hpp>  // glm::isPowerOfTwo
-#include <glm/gtx/bit.hpp>
+#include <glm/gtc/round.hpp>  // glm::isPowerOfTwo
 
 namespace dp
 {

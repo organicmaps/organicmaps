@@ -4,7 +4,6 @@
 
 #include "drape/color.hpp"
 
-#include "drape/glm_config.hpp"  // Required for <glm> includes below.
 #include <glm/gtc/type_ptr.hpp>
 #include <glm/mat3x3.hpp>
 #include <glm/mat4x2.hpp>
