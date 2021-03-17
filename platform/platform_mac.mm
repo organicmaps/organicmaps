@@ -61,13 +61,13 @@ Platform::Platform()
     m_resourcesDir = resourcesPath + "/";
     // get writable path
     // developers can have symlink to data folder
-    char const * dataPath = "../../../../../data/";
+    char const * dataPath = "../../../data/";
     if (IsFileExistsByFullPath(m_resourcesDir + dataPath))
       m_writableDir = m_resourcesDir + dataPath;
     else
     {
       // Check development environment without symlink but with git repo
-      dataPath = "../../../../../../omim/data/";
+      dataPath = "../../../../omim/data/";
       if (IsFileExistsByFullPath(m_resourcesDir + dataPath))
         m_writableDir = m_resourcesDir + dataPath;
       if (m_writableDir.empty())
