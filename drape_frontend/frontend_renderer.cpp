@@ -1304,7 +1304,7 @@ std::pair<FeatureID, kml::MarkId> FrontendRenderer::GetVisiblePOI(m2::RectD cons
 
   double minSquaredDist = std::numeric_limits<double>::infinity();
   ref_ptr<dp::OverlayHandle> closestOverlayHandle;
-  for (ref_ptr<dp::OverlayHandle> handle : selectResult)
+  for (ref_ptr<dp::OverlayHandle> const & handle : selectResult)
   {
     double const curSquaredDist = pt.SquaredLength(handle->GetPivot(screen, screen.isPerspective()));
     if (curSquaredDist < minSquaredDist)
@@ -1363,7 +1363,7 @@ void FrontendRenderer::ProcessSelection(ref_ptr<SelectObjectMessage> msg)
       if (m_overlayTree->IsNeedUpdate())
         BuildOverlayTree(modelView);
       m_overlayTree->Select(msg->GetPosition(), selectResult);
-      for (ref_ptr<dp::OverlayHandle> handle : selectResult)
+      for (ref_ptr<dp::OverlayHandle> const & handle : selectResult)
         offsetZ = std::max(offsetZ, handle->GetPivotZ());
     }
     if (msg->IsSelectionShapeVisible())
@@ -1847,7 +1847,7 @@ void FrontendRenderer::RenderFrame()
                               ? kVSyncIntervalMetalVulkan
                               : kVSyncInterval;
 
-    auto availableTime = syncInverval - m_frameData.m_timer.ElapsedSeconds();
+    double availableTime;
     do
     {
       if (!ProcessSingleMessage(false /* waitForMessage */))
