@@ -514,7 +514,7 @@ void CacheUserMarks(ref_ptr<dp::GraphicsContext> context, TileKey const & tileKe
 
         m2::RectD rect;
         for (auto const & vertex : buffer)
-          rect.Add(glsl::FromVec2(vertex.m_normalAndAnimateOrZ.xy()));
+          rect.Add(glsl::FromVec2(glsl::vec2(vertex.m_normalAndAnimateOrZ)));
 
         drape_ptr<dp::OverlayHandle> overlayHandle =
             CreateSymbolOverlayHandle(renderInfo, tileKey, symbolOffset, rect);

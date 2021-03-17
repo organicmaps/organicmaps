@@ -361,7 +361,7 @@ void TrafficGenerator::GenerateSegment(RoadClass roadClass,
     if (generateCircles && !firstFilled)
     {
       SubmitCircleStaticVertices(roadClass, glsl::vec3(p1, circleDepth), rightNormal,
-                                 uvStart.xy(), circlesGeometry);
+                                 glsl::vec2(uvStart), circlesGeometry);
     }
 
     firstFilled = true;
@@ -372,7 +372,7 @@ void TrafficGenerator::GenerateSegment(RoadClass roadClass,
   if (generateCircles && firstFilled)
   {
     SubmitCircleStaticVertices(roadClass, glsl::vec3(lastPoint, circleDepth), lastRightNormal,
-                               uvStart.xy(), circlesGeometry);
+                               glsl::vec2(uvStart), circlesGeometry);
   }
 }
 

@@ -1,8 +1,8 @@
 #pragma once
 
-#include "drape/glm_config.hpp"  // Required for <glm> includes below.
 #include <glm/geometric.hpp>
 #include <glm/gtc/matrix_transform.hpp>
+#define GLM_ENABLE_EXPERIMENTAL  // TODO: Remove this line after upgrading glm to the latest version.
 #include <glm/gtx/rotate_vector.hpp>
 
 namespace glsl
