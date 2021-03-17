@@ -367,7 +367,7 @@ void MutableLabel::Precache(PrecacheParams const & params, PrecacheResult & resu
 
   uint32_t maxGlyphWidth = 0;
   uint32_t maxGlyphHeight = 0;
-  for (auto node : m_alphabet)
+  for (const auto & node : m_alphabet)
   {
     dp::TextureManager::GlyphRegion const & reg = node.second;
     m2::PointU pixelSize(reg.GetPixelSize());
