@@ -199,7 +199,4 @@
    <FileRef
       location = "group:../iphone/DatePicker/DatePicker.xcodeproj">
    </FileRef>
-   <FileRef
-      location = "group:../iphone/Maps/Pods/Pods.xcodeproj">
-   </FileRef>
 </Workspace>
