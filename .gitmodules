@@ -31,4 +31,4 @@
   branch = R_2_2_9
 [submodule "3party/glm"]
 	path = 3party/glm
-	url = git@github.com:g-truc/glm.git
+	url = https://github.com/g-truc/glm.git
