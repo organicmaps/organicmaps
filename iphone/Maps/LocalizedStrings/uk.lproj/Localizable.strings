@@ -135,8 +135,6 @@
 /* Button text for the button under the country_status_download_failed message */
 "try_again" = "Спробуйте ще раз";
 
-"app_name" = "OMaps";
-
 "about_menu_title" = "Про програму";
 
 "downloading_touch_to_cancel" = "Завантажується %d%%, натисніть, щоб перервати";

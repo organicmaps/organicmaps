@@ -135,8 +135,6 @@
 /* Button text for the button under the country_status_download_failed message */
 "try_again" = "Thử lại";
 
-"app_name" = "OMaps";
-
 "about_menu_title" = "Giới thiệu về OMaps";
 
 "downloading_touch_to_cancel" = "Đang tải xuống %d%%, chạm để hủy bỏ";

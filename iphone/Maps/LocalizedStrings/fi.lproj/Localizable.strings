@@ -135,8 +135,6 @@
 /* Button text for the button under the country_status_download_failed message */
 "try_again" = "Yritä uudelleen";
 
-"app_name" = "OMaps";
-
 "about_menu_title" = "Tietoa OMaps:stä";
 
 "downloading_touch_to_cancel" = "Ladataan %d%%, peruuta koskettamalla";

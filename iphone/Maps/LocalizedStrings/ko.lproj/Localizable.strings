@@ -135,8 +135,6 @@
 /* Button text for the button under the country_status_download_failed message */
 "try_again" = "다시 시도";
 
-"app_name" = "OMaps";
-
 "about_menu_title" = "소개";
 
 "downloading_touch_to_cancel" = "%d%%를 다운로드 중, 두드려 취소하십시요";

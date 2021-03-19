@@ -135,8 +135,6 @@
 /* Button text for the button under the country_status_download_failed message */
 "try_again" = "Riprova";
 
-"app_name" = "OMaps";
-
 "about_menu_title" = "Informazioni su OMaps";
 
 "downloading_touch_to_cancel" = "Download di %d%%, tocca per cancellare";

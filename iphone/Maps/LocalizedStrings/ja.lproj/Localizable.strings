@@ -135,8 +135,6 @@
 /* Button text for the button under the country_status_download_failed message */
 "try_again" = "再実行";
 
-"app_name" = "OMaps";
-
 "about_menu_title" = "OMapsについて";
 
 "downloading_touch_to_cancel" = "%d%%をダウンロード中です。キャンセルするには画面をタッチしてください。";
