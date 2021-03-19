@@ -2275,10 +2275,6 @@
 
 "crash_reports_description" = "OMaps deneyimini geliştirmek için verilerinizi kullanabiliriz. Değişiklikler, uygulama yeniden başlatıldıktan sonra geçerli olur.";
 
-"opt_out_pushwoosh" = "Pushwoosh";
-
-"opt_out_appsflyer" = "Appsflyer";
-
 "opt_out_help_ios_1" = "Mobil cihazınız, “Reklam İzlemeyi Sınırla” veya “İlgiye dayalı reklamcılığı devre dışı bırak” ayarı sunar.";
 
 "opt_out_help_ios_2" = "iOS 9 veya Üstü";

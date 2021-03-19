@@ -2275,10 +2275,6 @@
 
 "crash_reports_description" = "Nous pouvons utiliser vos données pour améliorer l'expérience de OMaps. Les modifications prendront effet après le redémarrage de l'application.";
 
-"opt_out_pushwoosh" = "Pushwoosh";
-
-"opt_out_appsflyer" = "Appsflyer";
-
 "opt_out_help_ios_1" = "Votre appareil mobile peut fournir un paramètre «Limiter le suivi des annonces» ou «Désactiver la publicité ciblée par centres d'intérêt».";
 
 "opt_out_help_ios_2" = "iOS 9 ou plus récent";

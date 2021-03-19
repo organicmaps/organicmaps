@@ -2275,10 +2275,6 @@
 
 "crash_reports_description" = "我们可以使用您的数据来开发和改进OMaps.更改将在重新启动应用程序后生效。";
 
-"opt_out_pushwoosh" = "Pushwoosh";
-
-"opt_out_appsflyer" = "Appsflyer";
-
 "opt_out_help_ios_1" = "您可以选择停止在设备设置中接收定位广告。";
 
 "opt_out_help_ios_2" = "iOS 9或更高版本";
