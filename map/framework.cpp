@@ -3380,8 +3380,6 @@ bool Framework::CreateMapObject(m2::PointD const & mercator, uint32_t const feat
   if (!mwmId.IsAlive())
     return false;
 
-  GetPlatform().GetMarketingService().SendMarketingEvent(marketing::kEditorAddStart, {});
-
   search::ReverseGeocoder const coder(m_featuresFetcher.GetDataSource());
   vector<search::ReverseGeocoder::Street> streets;
 
@@ -3403,8 +3401,6 @@ bool Framework::GetEditableMapObject(FeatureID const & fid, osm::EditableMapObje
   auto ft = guard.GetFeatureByIndex(fid.m_index);
   if (!ft)
     return false;
-
-  GetPlatform().GetMarketingService().SendMarketingEvent(marketing::kEditorEditStart, {});
 
   emo = {};
   emo.SetFromFeatureType(*ft);

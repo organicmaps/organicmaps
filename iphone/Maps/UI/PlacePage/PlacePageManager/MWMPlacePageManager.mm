@@ -173,7 +173,6 @@ void RegisterEventIfPossible(eye::MapObject::Event::Type const type)
 
 - (void)editPlace
 {
-  GetPlatform().GetMarketingService().SendPushWooshTag(marketing::kEditorEditDiscovered);
   [self.ownerViewController openEditor];
 }
 
