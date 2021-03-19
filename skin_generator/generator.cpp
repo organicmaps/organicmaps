@@ -68,7 +68,7 @@ void SkinGenerator::ProcessSymbols(std::string const & svgDataDir,
     QDir dir(QString(svgDataDir.c_str()));
     QStringList fileNames = dir.entryList(QDir::Files);
 
-    QDir pngDir = dir.absolutePath() + "/png";
+    QDir pngDir(dir.absolutePath() + "/png");
     fileNames += pngDir.entryList(QDir::Files);
 
     // Separate page for symbols.
