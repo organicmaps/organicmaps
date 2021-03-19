@@ -89,6 +89,7 @@
 	<string name="country_status_download_failed">Download has failed</string>
 	<!-- Button text for the button under the country_status_download_failed message -->
 	<string name="try_again">Try Again</string>
+	<string name="app_name">OMaps</string>
 	<string name="about_menu_title">About OMaps</string>
 	<string name="downloading_touch_to_cancel">Downloading %d%%, touch to cancel</string>
 	<string name="downloaded_touch_to_delete">Downloaded (%s), touch to delete</string>
@@ -1335,8 +1336,6 @@
 	<string name="subtittle_opt_out">Tracking settings</string>
 	<string name="crash_reports">Crash report</string>
 	<string name="crash_reports_description">We may use your data to improve OMaps experience. Changes will take effect after you restart the app.</string>
-	<string name="opt_out_pushwoosh">Pushwoosh</string>
-	<string name="opt_out_appsflyer">Appsflyer</string>
 	<string name="opt_out_help_ios_1">Your mobile device may provide a “Limit Ad Tracking” or “Opt out of interest-based advertising” setting.</string>
 	<string name="opt_out_help_ios_2">iOS 9 or Higher</string>
 	<string name="opt_out_help_ios_3">Go to your Settings → Privacy → Advertising → Enable the “Limit Ad Tracking” setting</string>
