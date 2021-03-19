@@ -1420,11 +1420,6 @@
     sk = Skúsiť znova
     fa = تلاش مجدد
 
-  [app_name]
-    en = OMaps
-    el = OMaps
-    fa = OMaps
-
   [about_menu_title]
     en = About OMaps
     ru = О программе
