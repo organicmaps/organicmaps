@@ -60,7 +60,6 @@
 	<string name="country_status_download_failed">Η λήψη απέτυχε</string>
 	<!-- Button text for the button under the country_status_download_failed message -->
 	<string name="try_again">Δοκιμάστε ξανά</string>
-	<string name="app_name">OMaps</string>
 	<string name="about_menu_title">Σχετικά με το OMaps</string>
 	<string name="connection_settings">Ρυθμίσεις σύνδεσης</string>
 	<string name="close">Κλείσιμο</string>

@@ -135,8 +135,6 @@
 /* Button text for the button under the country_status_download_failed message */
 "try_again" = "Försök igen";
 
-"app_name" = "OMaps";
-
 "about_menu_title" = "Om OMaps";
 
 "downloading_touch_to_cancel" = "Laddar ner %d%%, tryck för att avbryta";

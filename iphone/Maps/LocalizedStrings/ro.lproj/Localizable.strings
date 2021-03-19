@@ -135,8 +135,6 @@
 /* Button text for the button under the country_status_download_failed message */
 "try_again" = "Încercați din nou";
 
-"app_name" = "OMaps";
-
 "about_menu_title" = "Despre OMaps";
 
 "downloading_touch_to_cancel" = "Se descarcă %d%%. Atingeți pentru a anula.";

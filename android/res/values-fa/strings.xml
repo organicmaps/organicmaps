@@ -85,7 +85,6 @@
 	<string name="country_status_download_failed">دانلود با شکست مواجه شد</string>
 	<!-- Button text for the button under the country_status_download_failed message -->
 	<string name="try_again">تلاش مجدد</string>
-	<string name="app_name">OMaps</string>
 	<string name="about_menu_title">OMaps درباره‌ی</string>
 	<string name="downloading_touch_to_cancel">درحال دانلود %d%%, برای لغو لمس کنید</string>
 	<string name="downloaded_touch_to_delete">دانلود شده (%s),  برای حذف لمس کنید</string>

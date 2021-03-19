@@ -135,8 +135,6 @@
 /* Button text for the button under the country_status_download_failed message */
 "try_again" = "Tekrar Deneyin";
 
-"app_name" = "OMaps";
-
 "about_menu_title" = "OMaps Hakkında";
 
 "downloading_touch_to_cancel" = "%d%% indiriliyor, iptal etmek için dokunun";

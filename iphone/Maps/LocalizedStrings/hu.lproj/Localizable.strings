@@ -135,8 +135,6 @@
 /* Button text for the button under the country_status_download_failed message */
 "try_again" = "Újrapróbálkozás";
 
-"app_name" = "OMaps";
-
 "about_menu_title" = "A OMaps programról";
 
 "downloading_touch_to_cancel" = "%d%% letöltése, elvetéshez érintse meg";

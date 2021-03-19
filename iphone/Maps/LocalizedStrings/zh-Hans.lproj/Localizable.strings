@@ -135,8 +135,6 @@
 /* Button text for the button under the country_status_download_failed message */
 "try_again" = "重试";
 
-"app_name" = "OMaps";
-
 "about_menu_title" = "关于 OMaps";
 
 "downloading_touch_to_cancel" = "正在下载 %d%%，触摸以取消";
