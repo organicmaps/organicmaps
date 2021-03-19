@@ -1046,34 +1046,6 @@ void RoutingManager::BuildRoute(uint32_t timeoutSec)
     }
   }
 
-  bool const isP2P = !routePoints.front().m_isMyPosition && !routePoints.back().m_isMyPosition;
-
-  // Send tag to Push Woosh.
-  {
-    string tag;
-    switch (m_currentRouterType)
-    {
-    case RouterType::Vehicle:
-      tag = isP2P ? marketing::kRoutingP2PVehicleDiscovered : marketing::kRoutingVehicleDiscovered;
-      break;
-    case RouterType::Pedestrian:
-      tag = isP2P ? marketing::kRoutingP2PPedestrianDiscovered
-                  : marketing::kRoutingPedestrianDiscovered;
-      break;
-    case RouterType::Bicycle:
-      tag = isP2P ? marketing::kRoutingP2PBicycleDiscovered : marketing::kRoutingBicycleDiscovered;
-      break;
-    case RouterType::Taxi:
-      tag = isP2P ? marketing::kRoutingP2PTaxiDiscovered : marketing::kRoutingTaxiDiscovered;
-      break;
-    case RouterType::Transit:
-      tag = isP2P ? marketing::kRoutingP2PTransitDiscovered : marketing::kRoutingTransitDiscovered;
-      break;
-    case RouterType::Count: CHECK(false, ("Bad router type", m_currentRouterType));
-    }
-    GetPlatform().GetMarketingService().SendPushWooshTag(tag);
-  }
-
   CallRouteBuildStart(routePoints);
 
   if (IsRoutingActive())

@@ -42,8 +42,6 @@ set(
   localization.cpp
   localization.hpp
   location.hpp
-  marketing_service.cpp
-  marketing_service.hpp
   measurement_utils.cpp
   measurement_utils.hpp
   mwm_traits.cpp
@@ -80,7 +78,6 @@ if(${PLATFORM_IPHONE})
     http_user_agent_ios.mm
     localization.mm
     locale.mm
-    marketing_service_ios.mm
     network_policy_ios.h
     network_policy_ios.mm
     platform_ios.mm
@@ -104,7 +101,6 @@ else() # neither iPhone nor Android
     localization_dummy.cpp
     location_service.cpp
     location_service.hpp
-    marketing_service_dummy.cpp
     network_policy_dummy.cpp
     platform_qt.cpp
     wifi_info.hpp
@@ -120,7 +116,6 @@ else() # neither iPhone nor Android
       http_thread_qt.hpp
       http_uploader_background_dummy.cpp
       http_uploader_dummy.cpp
-      marketing_service_dummy.cpp
       platform_win.cpp
       secure_storage_dummy.cpp
       wifi_info_windows.cpp
@@ -137,7 +132,6 @@ else() # neither iPhone nor Android
       http_uploader_background_dummy.cpp
       http_user_agent_dummy.cpp
       locale.mm
-      marketing_service_dummy.cpp
       platform_mac.mm
       platform_unix_impl.cpp
       platform_unix_impl.hpp
@@ -157,7 +151,6 @@ else() # neither iPhone nor Android
       http_uploader_background_dummy.cpp
       http_user_agent_dummy.cpp
       locale_linux.cpp
-      marketing_service_dummy.cpp
       platform_linux.cpp
       platform_unix_impl.cpp
       platform_unix_impl.hpp

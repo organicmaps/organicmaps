@@ -609,8 +609,6 @@ Bookmark * BookmarkManager::CreateBookmark(kml::BookmarkData && bmData)
 Bookmark * BookmarkManager::CreateBookmark(kml::BookmarkData && bm, kml::MarkGroupId groupId)
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());
-  GetPlatform().GetMarketingService().SendMarketingEvent(marketing::kBookmarksBookmarkAction,
-                                                         {{"action", "create"}});
 
   auto const & c = classif();
   CHECK(c.HasTypesMapping(), ());
@@ -3985,9 +3983,6 @@ void BookmarkManager::DeleteExpiredCategories()
 
     serverIds += serverIds.empty() ? "" : "," + serverId;
   }
-
-  auto const now = GetPlatform().GetMarketingService().GetPushWooshTimestamp();
-  GetPlatform().GetMarketingService().SendPushWooshTag(marketing::kSubscriptionContentDeleted, now);
 }
 
 void BookmarkManager::ResetExpiredCategories()

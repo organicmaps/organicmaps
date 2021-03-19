@@ -103,14 +103,9 @@ void TrafficManager::SetEnabled(bool enabled)
   m_drapeEngine.SafeCall(&df::DrapeEngine::EnableTraffic, enabled);
 
   if (enabled)
-  {
     Invalidate();
-    GetPlatform().GetMarketingService().SendPushWooshTag(marketing::kTrafficDiscovered);
-  }
   else
-  {
     m_observer.OnTrafficInfoClear();
-  }
 }
 
 void TrafficManager::Clear()

@@ -15,7 +15,6 @@
 #include "indexer/scales.hpp"
 
 #include "platform/http_client.hpp"
-#include "platform/marketing_service.hpp"
 #include "platform/platform.hpp"
 #include "platform/preferred_languages.hpp"
 #include "platform/settings.hpp"
@@ -37,8 +36,6 @@ using namespace base;
 
 namespace
 {
-std::array<char const * const, 5> const kMarketingParameters = {{marketing::kFrom, marketing::kType, marketing::kName,
-                                                                 marketing::kContent, marketing::kKeyword}};
 std::string const kServerUrl = LOCAL_ADS_SERVER_URL;
 std::string const kCampaignPageUrl = LOCAL_ADS_COMPANY_PAGE_URL;
 
@@ -123,18 +120,7 @@ std::string MakeCampaignPageURL(FeatureID const & featureId)
   ss << kCampaignPageUrl << "/" << featureId.m_mwmId.GetInfo()->GetVersion() << "/"
      << url::UrlEncode(featureId.m_mwmId.GetInfo()->GetCountryName()) << "/" << featureId.m_index;
 
-  url::Params params;
-  params.reserve(kMarketingParameters.size());
-  for (auto const & key : kMarketingParameters)
-  {
-    std::string value;
-    if (!marketing::Settings::Get(key, value))
-      continue;
-
-    params.push_back({key, value});
-  }
-
-  return url::Make(ss.str(), params);
+  return url::Make(ss.str(), {});
 }
 }  // namespace
 

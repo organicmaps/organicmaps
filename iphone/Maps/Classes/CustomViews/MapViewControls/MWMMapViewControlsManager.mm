@@ -149,7 +149,6 @@ NSString *const kMapToCategorySelectorSegue = @"MapToCategorySelectorSegue";
 }
 
 - (void)addPlace {
-  GetPlatform().GetMarketingService().SendPushWooshTag(marketing::kEditorAddDiscovered);
   [self addPlace:NO hasPoint:NO point:m2::PointD()];
 }
 

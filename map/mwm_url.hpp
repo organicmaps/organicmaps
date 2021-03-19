@@ -120,7 +120,6 @@ private:
   void ParseMapParam(url::Param const & param, std::vector<ApiPoint> & points, bool & correctOrder);
   void ParseRouteParam(url::Param const & param, std::vector<std::string> & pattern);
   void ParseSearchParam(url::Param const & param, SearchRequest & request) const;
-  void ParseLeadParam(url::Param const & param, lead::CampaignDescription & description) const;
   void ParseCatalogParam(url::Param const & param, Catalog & item) const;
   void ParseCatalogPathParam(url::Param const & param, CatalogPath & item) const;
   void ParseSubscriptionParam(url::Param const & param, Subscription & item) const;

@@ -86,7 +86,6 @@ set(
   com/mapswithme/platform/HttpUserAgent.cpp
   com/mapswithme/platform/Language.cpp
   com/mapswithme/platform/Localization.cpp
-  com/mapswithme/platform/MarketingService.cpp
   com/mapswithme/platform/Platform.cpp
   com/mapswithme/platform/PThreadImpl.cpp
   com/mapswithme/platform/SecureStorage.cpp
@@ -100,7 +99,6 @@ set(
   com/mapswithme/util/Language.cpp
   com/mapswithme/util/LoggerFactory.cpp
   com/mapswithme/util/NetworkPolicy.cpp
-  com/mapswithme/util/statistics/PushwooshHelper.cpp
   com/mapswithme/util/StringUtils.cpp
   com/mapswithme/vulkan/android_vulkan_context_factory.cpp
 )

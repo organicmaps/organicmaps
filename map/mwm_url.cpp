@@ -8,7 +8,6 @@
 
 #include "drape_frontend/visual_params.hpp"
 
-#include "platform/marketing_service.hpp"
 #include "platform/settings.hpp"
 
 #include "base/logging.hpp"
@@ -22,12 +21,6 @@ namespace url_scheme
 {
 namespace lead
 {
-char const * kFrom = marketing::kFrom;
-char const * kType = marketing::kType;
-char const * kName = marketing::kName;
-char const * kContent = marketing::kContent;
-char const * kKeyword = marketing::kKeyword;
-
 struct CampaignDescription
 {
   void Write() const
@@ -37,16 +30,6 @@ struct CampaignDescription
       LOG(LERROR, ("Invalid campaign description"));
       return;
     }
-
-    marketing::Settings::Set(kFrom, m_from);
-    marketing::Settings::Set(kType, m_type);
-    marketing::Settings::Set(kName, m_name);
-
-    if (!m_content.empty())
-      marketing::Settings::Set(kContent, m_content);
-
-    if (!m_keyword.empty())
-      marketing::Settings::Set(kKeyword, m_keyword);
   }
 
   bool IsValid() const { return !m_from.empty() && !m_type.empty() && !m_name.empty(); }
@@ -246,19 +229,7 @@ bool ParsedMapApi::Parse(url::Url const & url, UrlType type)
       m_request = request;
       return true;
     }
-    case UrlType::Lead:
-    {
-      lead::CampaignDescription description;
-      url.ForEachParam([&description, this](url::Param const & param) {
-        ParseLeadParam(param, description);
-      });
-
-      if (!description.IsValid())
-        return false;
-
-      description.Write();
-      return true;
-    }
+    case UrlType::Lead: break;
     case UrlType::Catalogue:
     {
       Catalog item;
@@ -468,25 +439,6 @@ void ParsedMapApi::ParseSearchParam(url::Param const & param, SearchRequest & re
   {
     request.m_isSearchOnMap = true;
   }
-}
-
-void ParsedMapApi::ParseLeadParam(url::Param const & param, lead::CampaignDescription & description) const
-{
-  using namespace lead;
-
-  string const & key = param.m_name;
-  string const & value = param.m_value;
-
-  if (key == kFrom)
-    description.m_from = value;
-  else if (key == kType)
-    description.m_type = value;
-  else if (key == kName)
-    description.m_name = value;
-  else if (key == kContent)
-    description.m_content = value;
-  else if (key == kKeyword)
-    description.m_keyword = value;
 }
 
 void ParsedMapApi::ParseCatalogParam(url::Param const & param, Catalog & item) const

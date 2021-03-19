@@ -8,7 +8,6 @@
 #include "storage/storage_helpers.hpp"
 
 #include "platform/local_country_file_utils.hpp"
-#include "platform/marketing_service.hpp"
 #include "platform/mwm_version.hpp"
 #include "platform/platform.hpp"
 #include "platform/preferred_languages.hpp"
@@ -232,9 +231,6 @@ void Storage::RegisterAllLocalMaps(bool enableDiffs)
 
   sort(localFiles.begin(), localFiles.end(), compareByCountryAndVersion);
 
-  int64_t minVersion = std::numeric_limits<int64_t>().max();
-  int64_t maxVersion = std::numeric_limits<int64_t>().min();
-
   auto i = localFiles.begin();
   while (i != localFiles.end())
   {
@@ -252,15 +248,6 @@ void Storage::RegisterAllLocalMaps(bool enableDiffs)
 
     LocalCountryFile const & localFile = *i;
     string const & name = localFile.GetCountryName();
-    if (name != WORLD_FILE_NAME && name != WORLD_COASTS_FILE_NAME)
-    {
-      auto const version = localFile.GetVersion();
-      if (version < minVersion)
-        minVersion = version;
-      if (version > maxVersion)
-        maxVersion = version;
-    }
-
     CountryId countryId = FindCountryIdByFile(name);
     if (IsLeaf(countryId))
       RegisterCountryFiles(countryId, localFile.GetDirectory(), localFile.GetVersion());
@@ -271,17 +258,6 @@ void Storage::RegisterAllLocalMaps(bool enableDiffs)
 
     i = j;
   }
-
-  if (minVersion > maxVersion)
-  {
-    minVersion = 0;
-    maxVersion = 0;
-  }
-
-  GetPlatform().GetMarketingService().SendPushWooshTag(marketing::kMapVersionMin,
-                                                       strings::to_string(minVersion));
-  GetPlatform().GetMarketingService().SendPushWooshTag(marketing::kMapVersionMax,
-                                                       strings::to_string(maxVersion));
 
   FindAllDiffs(m_dataDir, m_notAppliedDiffs);
   if (enableDiffs)
@@ -1355,12 +1331,6 @@ void Storage::OnFinishDownloading()
         RetryDownloadNode(country);
     }
   });
-  CountriesVec localMaps;
-  GetLocalRealMaps(localMaps);
-  GetPlatform().GetMarketingService().SendPushWooshTag(marketing::kMapListing, localMaps);
-  if (!localMaps.empty())
-    GetPlatform().GetMarketingService().SendPushWooshTag(marketing::kMapDownloadDiscovered);
-  return;
 }
 
 void Storage::OnDiffStatusReceived(diffs::NameDiffInfoMap && diffs)

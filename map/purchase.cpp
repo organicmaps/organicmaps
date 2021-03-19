@@ -181,7 +181,7 @@ bool Purchase::IsSubscriptionActive(SubscriptionType type) const
   return m_subscriptionData[base::Underlying(type)]->m_isActive;
 }
 
-void Purchase::SetSubscriptionEnabled(SubscriptionType type, bool isEnabled, bool isTrialActive)
+void Purchase::SetSubscriptionEnabled(SubscriptionType type, bool isEnabled, bool /*isTrialActive*/)
 {
   CHECK(type != SubscriptionType::Count, ());
 
@@ -194,31 +194,6 @@ void Purchase::SetSubscriptionEnabled(SubscriptionType type, bool isEnabled, boo
 
   for (auto & listener : m_listeners)
     listener->OnSubscriptionChanged(type, isEnabled);
-
-  auto const nowStr = GetPlatform().GetMarketingService().GetPushWooshTimestamp();
-  if (isTrialActive)
-  {
-    GetPlatform().GetMarketingService().SendPushWooshTag(
-      marketing::kSubscriptionBookmarksAllTrialEnabled, nowStr);
-  }
-  if (type == SubscriptionType::BookmarksSights)
-  {
-    GetPlatform().GetMarketingService().SendPushWooshTag(isEnabled ?
-      marketing::kSubscriptionBookmarksSightsEnabled :
-      marketing::kSubscriptionBookmarksSightsDisabled, nowStr);
-  }
-  else if (type == SubscriptionType::BookmarksAll)
-  {
-    GetPlatform().GetMarketingService().SendPushWooshTag(isEnabled ?
-      marketing::kSubscriptionBookmarksAllEnabled :
-      marketing::kSubscriptionBookmarksAllDisabled, nowStr);
-  }
-  else if (type == SubscriptionType::RemoveAds)
-  {
-    GetPlatform().GetMarketingService().SendPushWooshTag(isEnabled ?
-      marketing::kRemoveAdsSubscriptionEnabled :
-      marketing::kRemoveAdsSubscriptionDisabled, nowStr);
-  }
 }
 
 void Purchase::Validate(ValidationInfo const & validationInfo, std::string const & accessToken)
