@@ -1,6 +1,5 @@
 @objc enum DeepLinkProvider: Int {
   case native
-  case appsflyer
 }
 
 class DeepLinkURL {
