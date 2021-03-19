@@ -31491,12 +31491,6 @@
     zh-Hant = 我們可以使用您的數據來開發和改進OMaps。更改將再重新啟動應用程序后生效。
     fa = ما از داده‌های شما برای بهبود OMaps استفاده می‌کنیم. تغییرات پس از راه‌اندازی مجدد برنامه به‌کار می‌افتد.
 
-  [opt_out_pushwoosh]
-    en = Pushwoosh
-
-  [opt_out_appsflyer]
-    en = Appsflyer
-
   [opt_out_help_ios_1]
     en = Your mobile device may provide a “Limit Ad Tracking” or “Opt out of interest-based advertising” setting.
     ru = Вы можете отказаться от получения целевой рекламы в настройках устройства.
