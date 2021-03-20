@@ -426,6 +426,13 @@ android {
       keyAlias spropKeyAlias
       keyPassword spropKeyPassword
     }
+
+    mapswithmeDebug {
+      storeFile file('../tools/android/debug.keystore')
+      storePassword '12345678'
+      keyAlias 'debug'
+      keyPassword '12345678'
+    }
   }
 
   buildTypes {
@@ -434,7 +441,7 @@ android {
       versionNameSuffix '-debug'
       jniDebuggable true           // Enable jni debug build
       zipAlignEnabled true
-      signingConfig signingConfigs.mapswithme
+      signingConfig signingConfigs.mapswithmeDebug
       resValue 'string', 'app_id', android.defaultConfig.applicationId + applicationIdSuffix
       resValue 'string', 'app_name', project.ext.appName + applicationIdSuffix
       ndk.debugSymbolLevel = 'SYMBOL_TABLE'
