@@ -373,6 +373,8 @@
 	<!-- Text in menu -->
 	<string name="maps_me_community">Спільнота OMaps</string>
 	<!-- Text in menu -->
+	<string name="like_on_facebook">OMaps у Facebook</string>
+	<!-- Text in menu -->
 	<string name="follow_on_twitter">OMaps у Twitter</string>
 	<!-- Text in menu -->
 	<string name="contact_us">Контакти</string>

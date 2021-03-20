@@ -382,6 +382,8 @@
 	<!-- Text in menu -->
 	<string name="maps_me_community">Сообщество OMaps</string>
 	<!-- Text in menu -->
+	<string name="like_on_facebook">OMaps в Facebook</string>
+	<!-- Text in menu -->
 	<string name="follow_on_twitter">OMaps в Twitter</string>
 	<!-- Text in menu -->
 	<string name="contact_us">Свяжитесь с нами</string>

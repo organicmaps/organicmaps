@@ -370,6 +370,8 @@
 	<!-- Text in menu -->
 	<string name="maps_me_community">OMaps社区</string>
 	<!-- Text in menu -->
+	<string name="like_on_facebook">在Facebook 上点赞</string>
+	<!-- Text in menu -->
 	<string name="follow_on_twitter">在Twitter 上关注</string>
 	<!-- Text in menu -->
 	<string name="contact_us">联系我们</string>

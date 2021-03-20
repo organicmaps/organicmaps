@@ -362,6 +362,8 @@
 	<!-- Text in menu -->
 	<string name="maps_me_community">OMapsコミュニティ</string>
 	<!-- Text in menu -->
+	<string name="like_on_facebook">Facebookでいいねをクリック</string>
+	<!-- Text in menu -->
 	<string name="follow_on_twitter">Twitterでフォロー</string>
 	<!-- Text in menu -->
 	<string name="contact_us">お問い合わせ</string>

@@ -362,6 +362,8 @@
 	<!-- Text in menu -->
 	<string name="maps_me_community">Comunidad de OMaps</string>
 	<!-- Text in menu -->
+	<string name="like_on_facebook">Pulsa \"Me gusta\" en Facebook</string>
+	<!-- Text in menu -->
 	<string name="follow_on_twitter">Síguenos en Twitter</string>
 	<!-- Text in menu -->
 	<string name="contact_us">Contacta con nosotros</string>

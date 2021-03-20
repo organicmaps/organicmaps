@@ -364,6 +364,8 @@
 	<!-- Text in menu -->
 	<string name="maps_me_community">OMaps 커뮤니티</string>
 	<!-- Text in menu -->
+	<string name="like_on_facebook">Facebook에서 좋아요</string>
+	<!-- Text in menu -->
 	<string name="follow_on_twitter">Twitter에서 팔로우</string>
 	<!-- Text in menu -->
 	<string name="contact_us">연락처</string>

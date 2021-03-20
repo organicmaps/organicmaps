@@ -372,6 +372,8 @@
 	<!-- Text in menu -->
 	<string name="maps_me_community">OMaps 社群</string>
 	<!-- Text in menu -->
+	<string name="like_on_facebook">在 Facebook 上按讚</string>
+	<!-- Text in menu -->
 	<string name="follow_on_twitter">在Twitter 上關注</string>
 	<!-- Text in menu -->
 	<string name="contact_us">聯絡我們</string>
