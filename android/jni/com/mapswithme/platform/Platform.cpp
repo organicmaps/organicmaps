@@ -137,7 +137,7 @@ platform::NetworkPolicy GetCurrentNetworkPolicy()
 namespace android
 {
 void Platform::Initialize(JNIEnv * env, jobject functorProcessObject, jstring apkPath,
-                          jstring storagePath, jstring privatePath, jstring tmpPath,
+                          jstring writablePath, jstring privatePath, jstring tmpPath,
                           jstring flavorName, jstring buildType, bool isTablet)
 {
   m_functorProcessObject = env->NewGlobalRef(functorProcessObject);
@@ -160,8 +160,7 @@ void Platform::Initialize(JNIEnv * env, jobject functorProcessObject, jstring ap
   m_resourcesDir = jni::ToNativeString(env, apkPath);
   m_privateDir = jni::ToNativeString(env, privatePath);
   m_tmpDir = jni::ToNativeString(env, tmpPath);
-  m_writableDir = jni::ToNativeString(env, storagePath);
-
+  m_writableDir = jni::ToNativeString(env, writablePath);
   LOG(LINFO, ("Apk path = ", m_resourcesDir));
   LOG(LINFO, ("Writable path = ", m_writableDir));
   LOG(LINFO, ("Temporary path = ", m_tmpDir));
@@ -182,17 +181,6 @@ void Platform::OnExternalStorageStatusChanged(bool isAvailable)
 {
 }
 
-std::string Platform::GetStoragePathPrefix() const
-{
-  size_t const count = m_writableDir.size();
-  ASSERT_GREATER ( count, 2, () );
-
-  size_t const i = m_writableDir.find_last_of('/', count-2);
-  ASSERT_GREATER ( i, 0, () );
-
-  return m_writableDir.substr(0, i);
-}
-
 void Platform::SetWritableDir(std::string const & dir)
 {
   m_writableDir = dir;
@@ -203,7 +191,8 @@ void Platform::SetWritableDir(std::string const & dir)
 void Platform::SetSettingsDir(std::string const & dir)
 {
   m_settingsDir = dir;
-  LOG(LINFO, ("Settings path = ", m_settingsDir));
+  // Logger is not fully initialized here.
+  //LOG(LINFO, ("Settings path = ", m_settingsDir));
 }
 
 bool Platform::HasAvailableSpaceForWriting(uint64_t size) const

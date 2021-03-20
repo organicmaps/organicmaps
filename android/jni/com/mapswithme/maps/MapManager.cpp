@@ -94,7 +94,7 @@ Java_com_mapswithme_maps_downloader_MapManager_nativeGetRoot(JNIEnv * env, jclas
 JNIEXPORT jboolean JNICALL
 Java_com_mapswithme_maps_downloader_MapManager_nativeMoveFile(JNIEnv * env, jclass clazz, jstring oldFile, jstring newFile)
 {
-  return base::RenameFileX(jni::ToNativeString(env, oldFile), jni::ToNativeString(env, newFile));
+  return base::MoveFileX(jni::ToNativeString(env, oldFile), jni::ToNativeString(env, newFile));
 }
 
 // static boolean nativeHasSpaceToDownloadAmount(long bytes);

@@ -28,6 +28,7 @@ import com.mapswithme.maps.routing.RoutingController;
 import com.mapswithme.maps.scheduling.ConnectivityJobScheduler;
 import com.mapswithme.maps.scheduling.ConnectivityListener;
 import com.mapswithme.maps.search.SearchEngine;
+import com.mapswithme.maps.settings.StoragePathManager;
 import com.mapswithme.maps.sound.TtsPlayer;
 import com.mapswithme.util.Config;
 import com.mapswithme.util.ConnectionState;
@@ -132,6 +133,9 @@ public class MwmApplication extends Application implements AppBackgroundTracker.
     LoggerFactory.INSTANCE.initialize(this);
     mLogger = LoggerFactory.INSTANCE.getLogger(LoggerFactory.Type.MISC);
     getLogger().d(TAG, "Application is created");
+    // Set configuration directory as early as possible.
+    // Other methods may explicitly use Config, which requires settingsDir to be set.
+    setSettingsDir();
     mMainLoopHandler = new Handler(getMainLooper());
     ConnectionState.INSTANCE.initialize(this);
     CrashlyticsUtils.INSTANCE.initialize(this);
@@ -157,6 +161,20 @@ public class MwmApplication extends Application implements AppBackgroundTracker.
   }
 
   /**
+   * Initialize configuration directory.
+   */
+  public void setSettingsDir()
+  {
+    final String settingsPath = StorageUtils.getSettingsPath(this);
+    if (!StorageUtils.createDirectory(this, settingsPath))
+    {
+      throw new AssertionError("Can't create settingsDir " + settingsPath);
+    }
+    getLogger().d(TAG, "Settings path = " + settingsPath);
+    nativeSetSettingsDir(settingsPath);
+  }
+
+  /**
    * Initialize native core of application: platform and framework. Caller must handle returned value
    * and do nothing with native code if initialization is failed.
    *
@@ -177,24 +195,27 @@ public class MwmApplication extends Application implements AppBackgroundTracker.
     if (mPlatformInitialized)
       return;
 
-    final String settingsPath = StorageUtils.getSettingsPath();
-    getLogger().d(TAG, "onCreate(), setting path = " + settingsPath);
-    final String filesPath = StorageUtils.getFilesPath(this);
-    getLogger().d(TAG, "onCreate(), files path = " + filesPath);
+    final Logger log = getLogger();
+    final String apkPath = StorageUtils.getApkPath(this);
+    log.d(TAG, "Apk path = " + apkPath);
+    // Note: StoragePathManager uses Config, which requires initConfig() to be called.
+    final String writablePath = new StoragePathManager().findMapsStorage(this);
+    log.d(TAG, "Writable path = " + writablePath);
+    final String privatePath = StorageUtils.getPrivatePath(this);
+    log.d(TAG, "Private path = " + privatePath);
     final String tempPath = StorageUtils.getTempPath(this);
-    getLogger().d(TAG, "onCreate(), temp path = " + tempPath);
+    log.d(TAG, "Temp path = " + tempPath);
 
     // If platform directories are not created it means that native part of app will not be able
     // to work at all. So, we just ignore native part initialization in this case, e.g. when the
     // external storage is damaged or not available (read-only).
-    if (!createPlatformDirectories(settingsPath, filesPath, tempPath))
+    if (!createPlatformDirectories(writablePath, privatePath, tempPath))
       return;
 
-    // First we need initialize paths and platform to have access to settings and other components.
-    nativePreparePlatform(settingsPath);
-    nativeInitPlatform(StorageUtils.getApkPath(this),
-                       StorageUtils.getStoragePath(settingsPath),
-                       filesPath, tempPath,
+    nativeInitPlatform(apkPath,
+                       writablePath,
+                       privatePath,
+                       tempPath,
                        BuildConfig.FLAVOR,
                        BuildConfig.BUILD_TYPE, UiUtils.isTablet(this));
 
@@ -204,15 +225,15 @@ public class MwmApplication extends Application implements AppBackgroundTracker.
     mPlatformInitialized = true;
   }
 
-  private boolean createPlatformDirectories(@NonNull String settingsPath,
-                                            @NonNull String filesPath,
+  private boolean createPlatformDirectories(@NonNull String writablePath,
+                                            @NonNull String privatePath,
                                             @NonNull String tempPath)
   {
     if (SharedPropertiesUtils.shouldEmulateBadExternalStorage(this))
       return false;
 
-    return StorageUtils.createDirectory(this, settingsPath) &&
-           StorageUtils.createDirectory(this, filesPath) &&
+    return StorageUtils.createDirectory(this, writablePath) &&
+           StorageUtils.createDirectory(this, privatePath) &&
            StorageUtils.createDirectory(this, tempPath);
   }
 
@@ -308,8 +329,8 @@ public class MwmApplication extends Application implements AppBackgroundTracker.
     return mPlayer;
   }
 
-  private static native void nativePreparePlatform(String settingsPath);
-  private native void nativeInitPlatform(String apkPath, String storagePath, String privatePath,
+  private static native void nativeSetSettingsDir(String settingsPath);
+  private native void nativeInitPlatform(String apkPath, String writablePath, String privatePath,
                                          String tmpPath, String flavorName, String buildType,
                                          boolean isTablet);
   private static native void nativeInitFramework();

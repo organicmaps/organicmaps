@@ -30,8 +30,6 @@ final class StorageUtils
 
   private static final Logger LOGGER = LoggerFactory.INSTANCE.getLogger(LoggerFactory.Type.STORAGE);
   private static final String TAG = StorageUtils.class.getSimpleName();
-  private static final int VOLD_MODE = 1;
-  private static final int MOUNTS_MODE = 2;
 
   /**
    * Check if directory is writable. On some devices with KitKat (eg, Samsung S4) simple File.canWrite() returns
@@ -53,20 +51,6 @@ final class StorageUtils
     return true;
   }
 
-  /**
-   * Returns path, where maps and other files are stored.
-   * @return pat (or empty string, if framework wasn't created yet)
-   */
-  static String getWritableDirRoot()
-  {
-    String writableDir = Framework.nativeGetWritableDir();
-    int index = writableDir.lastIndexOf(Constants.MWM_DIR_POSTFIX);
-    if (index != -1)
-      writableDir = writableDir.substring(0, index);
-
-    return writableDir;
-  }
-
   static long getFreeBytesAtPath(String path)
   {
     long size = 0;
@@ -79,68 +63,6 @@ final class StorageUtils
     }
 
     return size;
-  }
-
-  // http://stackoverflow.com/questions/8151779/find-sd-card-volume-label-on-android
-  // http://stackoverflow.com/questions/5694933/find-an-external-sd-card-location
-  // http://stackoverflow.com/questions/14212969/file-canwrite-returns-false-on-some-devices-although-write-external-storage-pe
-  private static void parseMountFile(String file, int mode, Set<String> paths)
-  {
-    LOGGER.i(StoragePathManager.TAG, "Parsing " + file);
-
-    BufferedReader reader = null;
-    try
-    {
-      reader = new BufferedReader(new FileReader(file));
-
-      while (true)
-      {
-        String line = reader.readLine();
-        if (line == null)
-          return;
-
-        line = line.trim();
-        if (TextUtils.isEmpty(line) || line.startsWith("#"))
-          continue;
-
-        // standard regexp for all possible whitespaces (space, tab, etc)
-        String[] parts = line.split("\\s+");
-
-        if (parts.length <= 3)
-          continue;
-
-        if (mode == VOLD_MODE)
-        {
-          if (parts[0].startsWith("dev_mount"))
-            paths.add(parts[2]);
-
-          continue;
-        }
-
-        for (String s : new String[] { "/dev/block/vold", "/dev/fuse", "/mnt/media_rw" })
-        {
-          if (parts[0].startsWith(s))
-          {
-            paths.add(parts[1]);
-            break;
-          }
-        }
-      }
-    } catch (final IOException e)
-    {
-      LOGGER.w(TAG, "Can't read file: " + file, e);
-    } finally
-    {
-      Utils.closeSafely(reader);
-    }
-  }
-
-  static void parseStorages(Set<String> paths)
-  {
-    parseMountFile("/etc/vold.conf", VOLD_MODE, paths);
-    parseMountFile("/etc/vold.fstab", VOLD_MODE, paths);
-    parseMountFile("/system/etc/vold.fstab", VOLD_MODE, paths);
-    parseMountFile("/proc/mounts", MOUNTS_MODE, paths);
   }
 
   static void copyFile(File source, File dest) throws IOException

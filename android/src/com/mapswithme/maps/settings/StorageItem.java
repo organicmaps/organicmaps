@@ -1,7 +1,5 @@
 package com.mapswithme.maps.settings;
 
-import com.mapswithme.util.Constants;
-
 /**
  * Represents storage option.
  */
@@ -47,6 +45,11 @@ public class StorageItem
 
   public String getFullPath()
   {
-    return mPath + Constants.MWM_DIR_POSTFIX;
+    return mPath;
+  }
+
+  public long getFreeSize()
+  {
+    return mFreeSize;
   }
 }

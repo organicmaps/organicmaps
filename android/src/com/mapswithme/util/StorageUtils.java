@@ -109,49 +109,33 @@ public class StorageUtils
   }
 
   @NonNull
-  public static String getSettingsPath()
+  private static String addTrailingSeparator(@NonNull String dir)
   {
-    return Environment.getExternalStorageDirectory().getAbsolutePath() + Constants.MWM_DIR_POSTFIX;
+    if (!dir.endsWith("/"))
+      return dir + File.separator;
+    return dir;
   }
 
   @NonNull
-  public static String getStoragePath(@NonNull String settingsPath)
+  public static String getSettingsPath(@NonNull Application application)
   {
-    String path = Config.getStoragePath();
-    if (!TextUtils.isEmpty(path))
-    {
-      File f = new File(path);
-      if (f.exists() && f.isDirectory())
-        return path;
-
-      path = new StoragePathManager().findMapsMeStorage(settingsPath);
-      Config.setStoragePath(path);
-      return path;
-    }
-
-    return settingsPath;
+    return addTrailingSeparator(application.getFilesDir().getAbsolutePath());
   }
 
   @NonNull
-  public static String getFilesPath(@NonNull Application application)
+  public static String getPrivatePath(@NonNull Application application)
   {
-    final File filesDir = application.getExternalFilesDir(null);
-    if (filesDir != null)
-      return filesDir.getAbsolutePath();
-
-    return Environment.getExternalStorageDirectory().getAbsolutePath() +
-           String.format(Constants.STORAGE_PATH, BuildConfig.APPLICATION_ID, Constants.FILES_DIR);
+    return addTrailingSeparator(application.getFilesDir().getAbsolutePath());
   }
 
   @NonNull
   public static String getTempPath(@NonNull Application application)
   {
-    final File cacheDir =  application.getExternalCacheDir();
+    final File cacheDir = application.getExternalCacheDir();
     if (cacheDir != null)
-      return cacheDir.getAbsolutePath();
+      return addTrailingSeparator(cacheDir.getAbsolutePath());
 
-    return Environment.getExternalStorageDirectory().getAbsolutePath() +
-           String.format(Constants.STORAGE_PATH, BuildConfig.APPLICATION_ID, Constants.CACHE_DIR);
+    return addTrailingSeparator(application.getCacheDir().getAbsolutePath());
   }
 
   public static boolean createDirectory(@NonNull Context context, @NonNull String path)
@@ -159,13 +143,8 @@ public class StorageUtils
     File directory = new File(path);
     if (!directory.exists() && !directory.mkdirs())
     {
-      boolean isPermissionGranted = PermissionsUtils.isExternalStorageGranted(context);
-      Throwable error = new IllegalStateException("Can't create directories for: " + path
-                                                  + " state = " + Environment.getExternalStorageState()
-                                                  + " isPermissionGranted = " + isPermissionGranted);
-      LOGGER.e(TAG, "Can't create directories for: " + path
-                    + " state = " + Environment.getExternalStorageState()
-                    + " isPermissionGranted = " + isPermissionGranted);
+      Throwable error = new IllegalStateException("Can't create directories for: " + path);
+      LOGGER.e(TAG, "Can't create directories for: " + path);
       CrashlyticsUtils.INSTANCE.logException(error);
       return false;
     }
