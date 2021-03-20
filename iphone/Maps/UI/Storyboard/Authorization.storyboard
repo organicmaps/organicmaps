@@ -201,7 +201,7 @@
                                             <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="login_to_make_edits_visible"/>
                                         </userDefinedRuntimeAttributes>
                                     </label>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MzH-tk-9iS" userLabel="Google btn">
+                                    <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MzH-tk-9iS" userLabel="Google btn">
                                         <rect key="frame" x="0.0" y="56" width="274" height="44"/>
                                         <subviews>
                                             <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cT8-b7-zTj">
@@ -237,7 +237,7 @@
                                             <constraint firstItem="VTY-T1-l6q" firstAttribute="leading" secondItem="MzH-tk-9iS" secondAttribute="leading" constant="12" id="vUP-Ej-L30"/>
                                         </constraints>
                                     </view>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="y6o-0o-dz7" userLabel="FB btn">
+                                    <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="y6o-0o-dz7" userLabel="FB btn">
                                         <rect key="frame" x="286" y="56" width="274" height="44"/>
                                         <subviews>
                                             <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="U4B-pb-aFf">

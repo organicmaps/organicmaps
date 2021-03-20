@@ -50,7 +50,7 @@
                                 <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="login_to_make_edits_visible"/>
                             </userDefinedRuntimeAttributes>
                         </label>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1Oa-Ks-27P" userLabel="Google">
+                        <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1Oa-Ks-27P" userLabel="Google">
                             <rect key="frame" x="20" y="221" width="115" height="44"/>
                             <constraints>
                                 <constraint firstAttribute="width" constant="115" id="Wxi-Ef-iFz"/>
@@ -62,7 +62,7 @@
                                 <action selector="googleTap" destination="J1a-qv-gDF" eventType="touchUpInside" id="W4r-Gx-ylI"/>
                             </connections>
                         </button>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="o9z-GX-feY" userLabel="Facebook">
+                        <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="o9z-GX-feY" userLabel="Facebook">
                             <rect key="frame" x="145" y="221" width="115" height="44"/>
                             <constraints>
                                 <constraint firstAttribute="width" constant="115" id="OxE-Ml-Dmd"/>
