@@ -52,11 +52,11 @@
   }
   else if (cell == self.facebookCell)
   {
-    [self openUrl:[NSURL URLWithString:@"https://facebook.com/MapsWithMe"]];
+    [self openUrl:[NSURL URLWithString:@"https://facebook.com/OMapsApp"]];
   }
   else if (cell == self.twitterCell)
   {
-    [self openUrl:[NSURL URLWithString:@"https://twitter.com/OMaps"]];
+    [self openUrl:[NSURL URLWithString:@"https://twitter.com/OMapsApp"]];
   }
   else if (cell == self.osmCell)
   {
