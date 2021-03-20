@@ -1872,25 +1872,14 @@
 
 "routing_add_finish_point" = "เพิ่มจุดสิ้นสุดเพื่อวางแผนเส้นทาง";
 
-"onboarding_storage_permissions_title" = "ให้สิทธิ์เข้าถึง";
-
-"onboarding_storage_permissions_message" = "เปลี่ยนการตั้งค่าการให้สิทธิ์ในเครื่องของคุณ จำเป็นต้องได้สิทธิ์การเข้าถึงที่เก็บข้อมูลเพื่อใช้งาน OMaps";
-
 "button_exit" = "ออก";
 
 "onboarding_detail_permissions_title" = "OMaps จำเป็นต้องได้สิทธิ์การเข้าถึง";
 
 /* Default permission's name from Android settings. */
-"onboarding_detail_permissions_storage_title" = "ที่เก็บข้อมูล";
-
-"onboarding_detail_permissions_storage_message" = "เพื่อบันทึกและใช้งานแผนที่ที่ดาวน์โหลดมาแบบออฟไลน์และบันทึกบุ๊กมาร์ก";
-
-/* Default permission's name from Android settings. */
 "onboarding_detail_permissions_location_title" = "ตำแหน่งที่ตั้ง";
 
 "onboarding_detail_permissions_location_message" = "เพื่อดูสถานที่ต่าง ๆ และการจราจรที่อยู่ใกล้ ๆ คุณแล้วใช้งานการนำทาง";
-
-"onboarding_detail_permissions_storage_path_message" = "คุณสามารถเปลี่ยนจุดหมายปลายทางสำหรับแผนที่ที่ดาวน์โหลดได้ในการตั้งค่า";
 
 "settings_device_memory" = "หน่วยความจำเครื่อง";
 

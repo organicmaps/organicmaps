@@ -1872,25 +1872,14 @@
 
 "routing_add_finish_point" = "Güzergâhı planlamak için bir varış noktası ekleyin";
 
-"onboarding_storage_permissions_title" = "Erişime izin ver";
-
-"onboarding_storage_permissions_message" = "Cihazınızdaki izin ayarlarını değiştirin. OMaps'yi kullanmak için depolama alanına erişim izni gerekiyor.";
-
 "button_exit" = "Çık";
 
 "onboarding_detail_permissions_title" = "OMaps'nin şuraya erişmesi gerekiyor:";
 
 /* Default permission's name from Android settings. */
-"onboarding_detail_permissions_storage_title" = "Depolama Alanı";
-
-"onboarding_detail_permissions_storage_message" = "İndirilen haritaları çevrimdışı olarak kullanmak ve yer imlerini kaydetmek.";
-
-/* Default permission's name from Android settings. */
 "onboarding_detail_permissions_location_title" = "Konum";
 
 "onboarding_detail_permissions_location_message" = "Yakınınızdaki yerleri ve trafiği görmek ve navigasyonu kullanmak.";
-
-"onboarding_detail_permissions_storage_path_message" = "İndirilen haritalar için hedef konumu ayarlardan da değiştirebilirsiniz.";
 
 "settings_device_memory" = "Cihaz belleği";
 

@@ -1872,25 +1872,14 @@
 
 "routing_add_finish_point" = "Lägg till slutpunkt för att planera en rutt";
 
-"onboarding_storage_permissions_title" = "Bevilja åtkomst";
-
-"onboarding_storage_permissions_message" = "Ändra behörighetsinställningarna på din enhet. Lagringsåtkomst krävs för att använda OMaps.";
-
 "button_exit" = "Avsluta";
 
 "onboarding_detail_permissions_title" = "OMaps behöver åtkomst till";
 
 /* Default permission's name from Android settings. */
-"onboarding_detail_permissions_storage_title" = "Lagring";
-
-"onboarding_detail_permissions_storage_message" = "För att spara och använda nedladdade kartor offline och spara bokmärken.";
-
-/* Default permission's name from Android settings. */
 "onboarding_detail_permissions_location_title" = "Plats";
 
 "onboarding_detail_permissions_location_message" = "För att visa platser och trafik i närheten och använda navigering.";
-
-"onboarding_detail_permissions_storage_path_message" = "Du kan även ändra destination för nedladdade kartor i inställningarna.";
 
 "settings_device_memory" = "Enhetens minne";
 

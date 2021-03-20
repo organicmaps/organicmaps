@@ -1872,25 +1872,14 @@
 
 "routing_add_finish_point" = "Tambahkan titik akhir untuk merencanakan rute";
 
-"onboarding_storage_permissions_title" = "Berikan akses";
-
-"onboarding_storage_permissions_message" = "Ubah pengaturan izin di perangkat Anda. Perlu akses penyimpanan untuk menggunakan OMaps.";
-
 "button_exit" = "Keluar";
 
 "onboarding_detail_permissions_title" = "OMaps membutuhkan akses ke";
 
 /* Default permission's name from Android settings. */
-"onboarding_detail_permissions_storage_title" = "Penyimpanan";
-
-"onboarding_detail_permissions_storage_message" = "Untuk menyimpan dan menggunakan peta yang diunduh tanpa internet dan menyimpan markah.";
-
-/* Default permission's name from Android settings. */
 "onboarding_detail_permissions_location_title" = "Lokasi";
 
 "onboarding_detail_permissions_location_message" = "Untuk melihat tempat dan lalu lintas di dekat Anda dan menggunakan navigasi.";
-
-"onboarding_detail_permissions_storage_path_message" = "Anda juga dapat mengubah destinasi untuk peta yang telah diunduh pada pengaturan.";
 
 "settings_device_memory" = "Memori perangkat";
 

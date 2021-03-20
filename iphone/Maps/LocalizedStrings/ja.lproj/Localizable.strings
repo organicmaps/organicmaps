@@ -1872,25 +1872,14 @@
 
 "routing_add_finish_point" = "ルートを計画するには到着地点を追加してください";
 
-"onboarding_storage_permissions_title" = "アクセス権の付与";
-
-"onboarding_storage_permissions_message" = "お使いのデバイスのアクセス許可設定を変更してください。OMaps を使用するには、ストレージへのアクセス権限が必要です。";
-
 "button_exit" = "終了";
 
 "onboarding_detail_permissions_title" = "OMaps がアクセス許可を必要とする項目";
 
 /* Default permission's name from Android settings. */
-"onboarding_detail_permissions_storage_title" = "ストレージ";
-
-"onboarding_detail_permissions_storage_message" = "ダウンロードした地図の保存や利用、およびブックマークの保存に必要です。";
-
-/* Default permission's name from Android settings. */
 "onboarding_detail_permissions_location_title" = "位置情報";
 
 "onboarding_detail_permissions_location_message" = "近隣のスポットや交通情報の確認、およびナビゲーションの使用に必要です。";
-
-"onboarding_detail_permissions_storage_path_message" = "また、設定でダウンロードした地図の保存先を変更することもできます。";
 
 "settings_device_memory" = "デバイスのメモリ";
 

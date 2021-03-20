@@ -1872,25 +1872,14 @@
 
 "routing_add_finish_point" = "Προσθέστε τελικό προορισμό, για να σχεδιάσετε μια διαδρομή";
 
-"onboarding_storage_permissions_title" = "Εκχώρηση άδειας";
-
-"onboarding_storage_permissions_message" = "Αλλάξτε τις ρυθμίσεις άδειας στη συσκευή σας. Χρειάζεται πρόσβαση στον αποθηκευτικό χώρο για τη χρήση του OMaps";
-
 "button_exit" = "Έξοδος";
 
 "onboarding_detail_permissions_title" = "Το OMaps χρειάζεται πρόσβαση στο";
 
 /* Default permission's name from Android settings. */
-"onboarding_detail_permissions_storage_title" = "Αποθηκευτικός χώρος";
-
-"onboarding_detail_permissions_storage_message" = "Για την αποθήκευση και τη χρήση των χαρτών εκτός σύνδεσης, και την αποθήκευση αγαπημένων.";
-
-/* Default permission's name from Android settings. */
 "onboarding_detail_permissions_location_title" = "Τοποθεσία";
 
 "onboarding_detail_permissions_location_message" = "Για την προβολή μερών και της κυκλοφορίας κοντά σας εσάς και τη χρήση της πλοήγησης.";
-
-"onboarding_detail_permissions_storage_path_message" = "Μπορείτε επίσης να αλλάξετε τον προορισμό για τους χάρτες που έχετε κατεβάσει από τις ρυθμίσεις.";
 
 "settings_device_memory" = "Μνήμη συσκευής";
 

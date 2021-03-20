@@ -23,10 +23,9 @@ class PermissionsAdapter extends RecyclerView.Adapter<PermissionsAdapter.ViewHol
 {
   static final int TYPE_TITLE = 0;
   static final int TYPE_PERMISSION = 1;
-  static final int TYPE_NOTE = 2;
 
   @Retention(RetentionPolicy.SOURCE)
-  @IntDef({ TYPE_TITLE, TYPE_PERMISSION, TYPE_NOTE})
+  @IntDef({ TYPE_TITLE, TYPE_PERMISSION })
   @interface ViewHolderType {}
 
   private static final List<PermissionItem> ITEMS;
@@ -34,15 +33,9 @@ class PermissionsAdapter extends RecyclerView.Adapter<PermissionsAdapter.ViewHol
     ArrayList<PermissionItem> items = new ArrayList<>();
     items.add(new PermissionItem(TYPE_TITLE, R.string.onboarding_detail_permissions_title, 0, 0));
     items.add(new PermissionItem(TYPE_PERMISSION,
-                                 R.string.onboarding_detail_permissions_storage_title,
-                                 R.string.onboarding_detail_permissions_storage_message,
-                                 R.drawable.ic_storage_permission));
-    items.add(new PermissionItem(TYPE_PERMISSION,
                                  R.string.onboarding_detail_permissions_location_title,
                                  R.string.onboarding_detail_permissions_location_message,
                                  R.drawable.ic_navigation_permission));
-    items.add(new PermissionItem(TYPE_NOTE, 0,
-                                 R.string.onboarding_detail_permissions_storage_path_message, 0));
     ITEMS = Collections.unmodifiableList(items);
   }
 
@@ -58,9 +51,6 @@ class PermissionsAdapter extends RecyclerView.Adapter<PermissionsAdapter.ViewHol
   {
     switch (viewType)
     {
-      case TYPE_NOTE:
-        return new NoteViewHolder(LayoutInflater.from(parent.getContext())
-                                                .inflate(R.layout.item_permissions_note, parent, false));
       case TYPE_PERMISSION:
         return new PermissionViewHolder(LayoutInflater.from(parent.getContext())
                                                       .inflate(R.layout.item_permission, parent,
@@ -153,23 +143,6 @@ class PermissionsAdapter extends RecyclerView.Adapter<PermissionsAdapter.ViewHol
     {
       mIcon.setImageResource(item.mIcon);
       mTitle.setText(item.mTitle);
-      mMessage.setText(item.mMessage);
-    }
-  }
-
-  private static class NoteViewHolder extends ViewHolder
-  {
-    private final TextView mMessage;
-
-    NoteViewHolder(@NonNull View itemView)
-    {
-      super(itemView);
-      mMessage = itemView.findViewById(R.id.tv__note);
-    }
-
-    @Override
-    void bind(@NonNull PermissionItem item)
-    {
       mMessage.setText(item.mMessage);
     }
   }

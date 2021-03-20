@@ -1090,17 +1090,11 @@
 	<string name="core_exit">Wyjdź</string>
 	<string name="routing_add_start_point">Aby zaplanować trasę, dodaj punkt początkowy</string>
 	<string name="routing_add_finish_point">Aby zaplanować trasę, dodaj punkt końcowy</string>
-	<string name="onboarding_storage_permissions_title">Udziel dostępu</string>
-	<string name="onboarding_storage_permissions_message">Zmień ustawienia uprawnień w urządzeniu. Do korzystania z OMaps wymagany jest dostęp do pamięci masowej.</string>
 	<string name="button_exit">Wyjdź</string>
 	<string name="onboarding_detail_permissions_title">MAPY.ME wymaga dostępu do</string>
 	<!-- Default permission's name from Android settings. -->
-	<string name="onboarding_detail_permissions_storage_title">Pamięć masowa</string>
-	<string name="onboarding_detail_permissions_storage_message">Aby zapisywać zakładki i mapy oraz móc korzystać z pobranych map offline.</string>
-	<!-- Default permission's name from Android settings. -->
 	<string name="onboarding_detail_permissions_location_title">Lokalizacja</string>
 	<string name="onboarding_detail_permissions_location_message">Aby sprawdzać miejsca i ruch drogowy w twojej okolicy móc korzystać z nawigacji.</string>
-	<string name="onboarding_detail_permissions_storage_path_message">Miejsce docelowe zapisu pobranych map można również zmienić w ustawieniach.</string>
 	<string name="settings_device_memory">Pamięć urządzenia</string>
 	<string name="settings_card_memory">Pamięć na karcie</string>
 	<string name="settings_storage_available">dostępne %s</string>

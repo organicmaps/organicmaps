@@ -1084,17 +1084,11 @@
 	<string name="core_exit">Sair</string>
 	<string name="routing_add_start_point">Adicionar ponto de partida para planear uma rota</string>
 	<string name="routing_add_finish_point">Adicionar final da viagem para planear uma rota</string>
-	<string name="onboarding_storage_permissions_title">Conceder acesso</string>
-	<string name="onboarding_storage_permissions_message">Alterar configurações de permissões no seu dispositivo. Necessário acesso ao armazenamento para utilizar o OMaps.</string>
 	<string name="button_exit">Sair</string>
 	<string name="onboarding_detail_permissions_title">O OMaps precisa de aceder a</string>
 	<!-- Default permission's name from Android settings. -->
-	<string name="onboarding_detail_permissions_storage_title">Armazenamento</string>
-	<string name="onboarding_detail_permissions_storage_message">Para guardar e utilizar mapas transferidos offline e guardar favoritos.</string>
-	<!-- Default permission's name from Android settings. -->
 	<string name="onboarding_detail_permissions_location_title">Localização</string>
 	<string name="onboarding_detail_permissions_location_message">Para ver locais e o trânsito perto de si e utilizar a navegação.</string>
-	<string name="onboarding_detail_permissions_storage_path_message">Também pode alterar o destino para os mapas transferidos nas configurações.</string>
 	<string name="settings_device_memory">Memória do dispositivo</string>
 	<string name="settings_card_memory">Memória do cartão</string>
 	<string name="settings_storage_available">%s disponível</string>

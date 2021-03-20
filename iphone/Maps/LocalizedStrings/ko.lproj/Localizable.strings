@@ -1872,25 +1872,14 @@
 
 "routing_add_finish_point" = "경로 계획을 세우기 위한 끝 지점을 추가하세요";
 
-"onboarding_storage_permissions_title" = "액세스 승인";
-
-"onboarding_storage_permissions_message" = "장치에서 권한 설정을 변경하세요. OMaps를 사용하려면 저장소 액세스가 필요합니다.";
-
 "button_exit" = "끝내기";
 
 "onboarding_detail_permissions_title" = "OMaps에는 다음에 대한 액세스가 필요합니다:";
 
 /* Default permission's name from Android settings. */
-"onboarding_detail_permissions_storage_title" = "저장소";
-
-"onboarding_detail_permissions_storage_message" = "오프라인으로 지도를 저장 및 사용하고 책갈피를 저장하기 위한 것입니다.";
-
-/* Default permission's name from Android settings. */
 "onboarding_detail_permissions_location_title" = "위치";
 
 "onboarding_detail_permissions_location_message" = "근처의 장소와 교통 상황을 보고 네비게이션을 사용하기 위한 것입니다.";
-
-"onboarding_detail_permissions_storage_path_message" = "설정에서 다운로드한 지도에 대한 목적지를 변경할 수도 있습니다.";
 
 "settings_device_memory" = "장치 메모리";
 

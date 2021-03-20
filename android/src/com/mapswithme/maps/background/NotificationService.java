@@ -75,9 +75,9 @@ public class NotificationService extends JobIntentService
 
   private void tryToShowNotification()
   {
-    if (!PermissionsUtils.isExternalStorageGranted(this))
+    if (!PermissionsUtils.isLocationGranted(this))
     {
-      LOGGER.d(TAG, "Notification is rejected. External storage is not granted.");
+      LOGGER.d(TAG, "Notification is rejected. Location permission is not granted.");
       return;
     }
 

@@ -22,7 +22,7 @@
     android:layout_marginLeft="@dimen/margin_base"
     android:layout_marginStart="@dimen/margin_base"
     android:textAppearance="@style/MwmTextAppearance.Body1"
-    tools:text="@string/onboarding_detail_permissions_storage_title"/>
+    tools:text="@string/onboarding_detail_permissions_location_title"/>
   <TextView
     android:id="@+id/tv__permission_message"
     android:layout_width="match_parent"
@@ -33,5 +33,5 @@
     android:layout_marginLeft="@dimen/margin_base"
     android:layout_marginStart="@dimen/margin_base"
     android:textAppearance="@style/MwmTextAppearance.Body3"
-    tools:text="@string/onboarding_detail_permissions_storage_message"/>
+    tools:text="@string/onboarding_detail_permissions_location_message"/>
 </RelativeLayout>

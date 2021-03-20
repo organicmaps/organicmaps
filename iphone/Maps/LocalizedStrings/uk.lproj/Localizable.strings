@@ -1872,25 +1872,14 @@
 
 "routing_add_finish_point" = "Вкажіть кінцеву точку для побудови маршруту";
 
-"onboarding_storage_permissions_title" = "Надати доступ";
-
-"onboarding_storage_permissions_message" = "Внесіть зміни до прав доступу на вашому пристрої. Для використання OMaps необхідно надати додатку права доступу до сховища.";
-
 "button_exit" = "Вихід";
 
 "onboarding_detail_permissions_title" = "OMaps необхідно надати доступ до";
 
 /* Default permission's name from Android settings. */
-"onboarding_detail_permissions_storage_title" = "Сховище";
-
-"onboarding_detail_permissions_storage_message" = "Для збереження та використання завантажених карт в автономному режимі, а також зберігання закладок.";
-
-/* Default permission's name from Android settings. */
 "onboarding_detail_permissions_location_title" = "Функція визначення геолокації";
 
 "onboarding_detail_permissions_location_message" = "Для перегляду місцевості та трафіку, а також використання навігації.";
-
-"onboarding_detail_permissions_storage_path_message" = "Також ви можете змінити місце зберігання завантажених карт у налаштуваннях.";
 
 "settings_device_memory" = "Вбудована пам'ять";
 

@@ -1872,25 +1872,14 @@
 
 "routing_add_finish_point" = "Добавьте конечную точку, чтобы построить маршрут";
 
-"onboarding_storage_permissions_title" = "Предоставьте доступ";
-
-"onboarding_storage_permissions_message" = "Предоставьте OMaps доступ к памяти в настройках вашего устройства, иначе использовать OMaps будет невозможно.";
-
 "button_exit" = "Выход";
 
 "onboarding_detail_permissions_title" = "OMaps нужен доступ к";
 
 /* Default permission's name from Android settings. */
-"onboarding_detail_permissions_storage_title" = "Память";
-
-"onboarding_detail_permissions_storage_message" = "Чтобы сохранять и использовать скачанные карты и сохранять метки.";
-
-/* Default permission's name from Android settings. */
 "onboarding_detail_permissions_location_title" = "Местоположение";
 
 "onboarding_detail_permissions_location_message" = "Чтобы смотреть места и пробки рядом с вами и пользоваться навигацией.";
-
-"onboarding_detail_permissions_storage_path_message" = "В настройках можно изменить место хранения загруженных карт.";
 
 "settings_device_memory" = "Память устроства";
 

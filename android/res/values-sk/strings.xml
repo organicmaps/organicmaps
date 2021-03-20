@@ -1078,17 +1078,11 @@
 	<string name="core_exit">Ukončiť</string>
 	<string name="routing_add_start_point">Pridaním počiatočného bodu začnite plánovať trasu</string>
 	<string name="routing_add_finish_point">Pridaním cieľového bodu naplánujete trasu</string>
-	<string name="onboarding_storage_permissions_title">Prideliť prístup</string>
-	<string name="onboarding_storage_permissions_message">Zmeňte si nastavenia povolení vo svojom zariadení. Na používanie aplikácie OMaps je potrebné povoliť prístup do ukladacieho priestoru.</string>
 	<string name="button_exit">Ukončiť</string>
 	<string name="onboarding_detail_permissions_title">Aplikácia OMaps si vyžaduje prístup k</string>
 	<!-- Default permission's name from Android settings. -->
-	<string name="onboarding_detail_permissions_storage_title">Ukladací priestor</string>
-	<string name="onboarding_detail_permissions_storage_message">Na ukladanie a používanie máp v režime offline a na ukladanie záložiek.</string>
-	<!-- Default permission's name from Android settings. -->
 	<string name="onboarding_detail_permissions_location_title">Poloha</string>
 	<string name="onboarding_detail_permissions_location_message">Na zobrazovanie miest a dopravnej situácie v okolí a používanie navigácie.</string>
-	<string name="onboarding_detail_permissions_storage_path_message">V nastaveniach tiež môžete zmeniť cieľové umiestnenie stiahnutých máp.</string>
 	<string name="settings_device_memory">Pamäť zariadenia</string>
 	<string name="settings_card_memory">Pamäť na karte</string>
 	<string name="settings_storage_available">K dispozícii %s</string>

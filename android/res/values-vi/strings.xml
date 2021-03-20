@@ -1074,17 +1074,11 @@
 	<string name="core_exit">Lối ra</string>
 	<string name="routing_add_start_point">Bổ sung điểm bắt đầu để lập kế hoạch lộ trình</string>
 	<string name="routing_add_finish_point">Bổ sung điểm kết thúc để lập kế hoạch lộ trình</string>
-	<string name="onboarding_storage_permissions_title">Cho phép truy cập</string>
-	<string name="onboarding_storage_permissions_message">Thay đổi các cài đặt cho phép trong thiết bị của bạn. Cần quyền truy cập ổ lưu trữ để sử dụng OMaps.</string>
 	<string name="button_exit">Thoát</string>
 	<string name="onboarding_detail_permissions_title">OMaps cần quyền truy cập đến</string>
 	<!-- Default permission's name from Android settings. -->
-	<string name="onboarding_detail_permissions_storage_title">Ổ lưu trữ</string>
-	<string name="onboarding_detail_permissions_storage_message">Để lưu và sử dụng ngoại tuyến các bản đồ đã tải về và lưu lại các dấu trang.</string>
-	<!-- Default permission's name from Android settings. -->
 	<string name="onboarding_detail_permissions_location_title">Vị trí</string>
 	<string name="onboarding_detail_permissions_location_message">Để xem các địa điểm và lưu lượng giao thông gần bạn và sử dụng điều hướng.</string>
-	<string name="onboarding_detail_permissions_storage_path_message">Bạn cũng có thể thay đổi điểm lưu trữ các bản đồ đã tải về trong cài đặt.</string>
 	<string name="settings_device_memory">Bộ nhớ thiết bị</string>
 	<string name="settings_card_memory">Bộ nhớ thẻ</string>
 	<string name="settings_storage_available">%s trống</string>

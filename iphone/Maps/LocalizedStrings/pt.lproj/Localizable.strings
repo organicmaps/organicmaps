@@ -1872,25 +1872,14 @@
 
 "routing_add_finish_point" = "Adicionar final da viagem para planear uma rota";
 
-"onboarding_storage_permissions_title" = "Conceder acesso";
-
-"onboarding_storage_permissions_message" = "Alterar configurações de permissões no seu dispositivo. Necessário acesso ao armazenamento para utilizar o OMaps.";
-
 "button_exit" = "Sair";
 
 "onboarding_detail_permissions_title" = "O OMaps precisa de aceder a";
 
 /* Default permission's name from Android settings. */
-"onboarding_detail_permissions_storage_title" = "Armazenamento";
-
-"onboarding_detail_permissions_storage_message" = "Para guardar e utilizar mapas transferidos offline e guardar favoritos.";
-
-/* Default permission's name from Android settings. */
 "onboarding_detail_permissions_location_title" = "Localização";
 
 "onboarding_detail_permissions_location_message" = "Para ver locais e o trânsito perto de si e utilizar a navegação.";
-
-"onboarding_detail_permissions_storage_path_message" = "Também pode alterar o destino para os mapas transferidos nas configurações.";
 
 "settings_device_memory" = "Memória do dispositivo";
 

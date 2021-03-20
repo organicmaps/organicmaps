@@ -851,17 +851,11 @@
 	<string name="core_exit">Έξοδος</string>
 	<string name="routing_add_start_point">Προσθέστε αφετηρία για να σχεδιάσετε μια διαδρομή</string>
 	<string name="routing_add_finish_point">Προσθέστε τελικό προορισμό, για να σχεδιάσετε μια διαδρομή</string>
-	<string name="onboarding_storage_permissions_title">Εκχώρηση άδειας</string>
-	<string name="onboarding_storage_permissions_message">Αλλάξτε τις ρυθμίσεις άδειας στη συσκευή σας. Χρειάζεται πρόσβαση στον αποθηκευτικό χώρο για τη χρήση του OMaps</string>
 	<string name="button_exit">Έξοδος</string>
 	<string name="onboarding_detail_permissions_title">Το OMaps χρειάζεται πρόσβαση στο</string>
 	<!-- Default permission's name from Android settings. -->
-	<string name="onboarding_detail_permissions_storage_title">Αποθηκευτικός χώρος</string>
-	<string name="onboarding_detail_permissions_storage_message">Για την αποθήκευση και τη χρήση των χαρτών εκτός σύνδεσης, και την αποθήκευση αγαπημένων.</string>
-	<!-- Default permission's name from Android settings. -->
 	<string name="onboarding_detail_permissions_location_title">Τοποθεσία</string>
 	<string name="onboarding_detail_permissions_location_message">Για την προβολή μερών και της κυκλοφορίας κοντά σας εσάς και τη χρήση της πλοήγησης.</string>
-	<string name="onboarding_detail_permissions_storage_path_message">Μπορείτε επίσης να αλλάξετε τον προορισμό για τους χάρτες που έχετε κατεβάσει από τις ρυθμίσεις.</string>
 	<string name="settings_device_memory">Μνήμη συσκευής</string>
 	<string name="settings_card_memory">Κάρτα μνήμης</string>
 	<string name="settings_storage_available">%s διαθέσιμα</string>

@@ -1872,25 +1872,14 @@
 
 "routing_add_finish_point" = "یک مقصد برای برنامه ریزی یک مسیر اضافه کنید";
 
-"onboarding_storage_permissions_title" = "مجوز دسترسی";
-
-"onboarding_storage_permissions_message" = "لطفا OMaps را مجاز به استفاده از ذخیره سازی در تنظیمات دستگاه خود کنید، در غیر این صورت نمی توانید از OMaps استفاده کنید.";
-
 "button_exit" = "خروج";
 
 "onboarding_detail_permissions_title" = "OMaps نیاز به دسترسی دارد";
 
 /* Default permission's name from Android settings. */
-"onboarding_detail_permissions_storage_title" = "ذخیره سازی";
-
-"onboarding_detail_permissions_storage_message" = "برای ذخیره و استفاده از نقشه های دانلود شده به صورت آفلاین و ذخیره بوک مارک ها.";
-
-/* Default permission's name from Android settings. */
 "onboarding_detail_permissions_location_title" = "موقعیت";
 
 "onboarding_detail_permissions_location_message" = "برای دیدن مکان ها و ترافیک در نزدیکی شما و استفاده از ناوبری.";
-
-"onboarding_detail_permissions_storage_path_message" = "شما همچنین می توانید موقعیت مکانی برای نقشه های دانلود شده را در تنظیمات تغییر دهید.";
 
 "settings_device_memory" = "حافظه دستگاه";
 

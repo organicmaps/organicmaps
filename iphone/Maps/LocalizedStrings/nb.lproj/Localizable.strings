@@ -1872,25 +1872,14 @@
 
 "routing_add_finish_point" = "Angi sluttpunkt for å planlegge rute";
 
-"onboarding_storage_permissions_title" = "Gi tilgang";
-
-"onboarding_storage_permissions_message" = "Endre innstillinger for tillatelser på enheten din. Det er nødvendig med tilgang til minnet for å kunne bruke OMaps.";
-
 "button_exit" = "Avslutt";
 
 "onboarding_detail_permissions_title" = "OMaps trenger tilgang til";
 
 /* Default permission's name from Android settings. */
-"onboarding_detail_permissions_storage_title" = "Minnet";
-
-"onboarding_detail_permissions_storage_message" = "For å lagre og bruke nedlastede kart offline og lagre bokmerker.";
-
-/* Default permission's name from Android settings. */
 "onboarding_detail_permissions_location_title" = "Plassering";
 
 "onboarding_detail_permissions_location_message" = "For å se steder og trafikk nær deg og bruke navigasjon.";
-
-"onboarding_detail_permissions_storage_path_message" = "Du kan også endre destinasjon for nedlastede kart under innstillinger.";
 
 "settings_device_memory" = "Enhetsminnet";
 

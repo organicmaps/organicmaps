@@ -1872,25 +1872,14 @@
 
 "routing_add_finish_point" = "Voeg eindpunt toe om een route te plannen";
 
-"onboarding_storage_permissions_title" = "Toegang verlenen";
-
-"onboarding_storage_permissions_message" = "Wijzig instellingen machtigingen op uw toestel. Toegang tot opslag nodig voor gebruik OMaps.";
-
 "button_exit" = "Verlaten";
 
 "onboarding_detail_permissions_title" = "OMaps heeft toegang nodig tot";
 
 /* Default permission's name from Android settings. */
-"onboarding_detail_permissions_storage_title" = "Opslag";
-
-"onboarding_detail_permissions_storage_message" = "Om gedownloade kaarten op te slaan en offline te gebruiken, en bladwijzers op te slaan.";
-
-/* Default permission's name from Android settings. */
 "onboarding_detail_permissions_location_title" = "Locatie";
 
 "onboarding_detail_permissions_location_message" = "Om plaatsen en verkeer rondom u te zien en navigatie te gebruiken.";
-
-"onboarding_detail_permissions_storage_path_message" = "U kunt ook de bestemming voor gedownloade kaarten wijzigen in de instellingen.";
 
 "settings_device_memory" = "Apparaatgeheugen";
 

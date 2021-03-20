@@ -1088,17 +1088,11 @@
 	<string name="core_exit">Beenden</string>
 	<string name="routing_add_start_point">Fügen Sie einen Startpunkt hinzu, um eine Route zu planen</string>
 	<string name="routing_add_finish_point">Fügen Sie ein Ziel hinzu, um eine Route zu planen</string>
-	<string name="onboarding_storage_permissions_title">Zugriff gewähren</string>
-	<string name="onboarding_storage_permissions_message">Ändern Sie die Berechtigungseinstellungen auf Ihrem Gerät. Der Zugriff auf den Speicher muss gestattet werden, damit Sie OMaps nutzen können.</string>
 	<string name="button_exit">Beenden</string>
 	<string name="onboarding_detail_permissions_title">OMaps benötigt Zugriff auf</string>
 	<!-- Default permission's name from Android settings. -->
-	<string name="onboarding_detail_permissions_storage_title">Speicher</string>
-	<string name="onboarding_detail_permissions_storage_message">Um heruntergeladene Karten offline zu speichern und zu nutzen und Lesezeichen zu speichern.</string>
-	<!-- Default permission's name from Android settings. -->
 	<string name="onboarding_detail_permissions_location_title">Standort</string>
 	<string name="onboarding_detail_permissions_location_message">Um Orte und Verkehrslage in Ihrer Nähe zu sehen und die Navigation zu nutzen.</string>
-	<string name="onboarding_detail_permissions_storage_path_message">Sie können auch das Ziel für heruntergeladene Karten in den Einstellungen ändern.</string>
 	<string name="settings_device_memory">Gerätespeicher</string>
 	<string name="settings_card_memory">Speicherkarte</string>
 	<string name="settings_storage_available">%s verfügbar</string>
