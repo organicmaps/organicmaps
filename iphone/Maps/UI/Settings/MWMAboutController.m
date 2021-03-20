@@ -48,7 +48,7 @@
   SettingsTableViewLinkCell *cell = [tableView cellForRowAtIndexPath:indexPath];
   if (cell == self.websiteCell)
   {
-    [self openUrl:[NSURL URLWithString:@"https://omaps.app"]];
+    [self openUrl:[NSURL URLWithString:@"https://omaps.app/"]];
   }
   else if (cell == self.facebookCell)
   {
@@ -60,7 +60,7 @@
   }
   else if (cell == self.osmCell)
   {
-    [self openUrl:[NSURL URLWithString:@"https://www.openstreetmap.org"]];
+    [self openUrl:[NSURL URLWithString:@"https://www.openstreetmap.org/about"]];
   }
   else if (cell == self.rateCell)
   {
@@ -68,11 +68,11 @@
   }
   else if (cell == self.privacyPolicyCell)
   {
-    [self openUrl:[NSURL URLWithString:@"https://omaps.app/terms"]];
+    [self openUrl:[NSURL URLWithString:@"https://omaps.app/privacy"]];
   }
   else if (cell == self.termsOfUseCell)
   {
-    [self openUrl:[NSURL URLWithString:@"https://omaps.app/privacy"]];
+    [self openUrl:[NSURL URLWithString:@"https://omaps.app/terms"]];
   }
   else if (cell == self.copyrightCell)
   {
