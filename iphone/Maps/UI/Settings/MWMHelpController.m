@@ -24,14 +24,15 @@ static NSString * const kiOSEmail = @"ios@omaps.app";
   self.title = L(@"help");
 
   NSString * html;
-  if ([MWMFrameworkHelper isNetworkConnected]) {
-    NSURL *url = [NSURL URLWithString:@"https://support.omaps.app"];
-    self.aboutViewController = [[WebViewController alloc] initWithUrl:url title:nil];
-  } else {
+  // TODO: Uncomment when online version will be supported.
+//  if ([MWMFrameworkHelper isNetworkConnected]) {
+//    NSURL *url = [NSURL URLWithString:@"https://support.omaps.app"];
+//    self.aboutViewController = [[WebViewController alloc] initWithUrl:url title:nil];
+//  } else {
     NSString *path = [NSBundle.mainBundle pathForResource:@"faq" ofType:@"html"];
     html = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:nil];
     self.aboutViewController = [[WebViewController alloc] initWithHtml:html baseUrl:nil title:nil];
-  }
+//  }
 
   self.aboutViewController.openInSafari = NO;
   UIView * aboutView = self.aboutViewController.view;
