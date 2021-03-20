@@ -26,5 +26,4 @@ com/mapswithme/util/log/LoggerFactory.class
 com/mapswithme/util/log/ZipLogsTask.class
 com/mapswithme/util/NetworkPolicy.class
 com/mapswithme/util/sharing/ShareableInfoProvider.class
-com/mapswithme/util/StorageUtils.class
 com/mapswithme/util/Utils.class

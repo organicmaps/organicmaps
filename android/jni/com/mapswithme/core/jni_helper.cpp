@@ -29,7 +29,6 @@ jclass g_httpPayloadClazz;
 jclass g_httpBackgroundUploaderClazz;
 jclass g_httpUploaderResultClazz;
 jclass g_networkPolicyClazz;
-jclass g_storageUtilsClazz;
 jclass g_elevationInfoClazz;
 jclass g_parsingResultClazz;
 
@@ -59,7 +58,6 @@ JNI_OnLoad(JavaVM * jvm, void *)
       jni::GetGlobalClassRef(env, "com/mapswithme/util/HttpBackgroundUploader");
   g_httpUploaderResultClazz = jni::GetGlobalClassRef(env, "com/mapswithme/util/HttpUploader$Result");
   g_networkPolicyClazz = jni::GetGlobalClassRef(env, "com/mapswithme/util/NetworkPolicy");
-  g_storageUtilsClazz = jni::GetGlobalClassRef(env, "com/mapswithme/util/StorageUtils");
   g_elevationInfoClazz = jni::GetGlobalClassRef(env, "com/mapswithme/maps/bookmarks/data/ElevationInfo");
   g_parsingResultClazz = jni::GetGlobalClassRef(env, "com/mapswithme/maps/api/ParsingResult");
 
@@ -86,7 +84,6 @@ JNI_OnUnload(JavaVM *, void *)
   env->DeleteGlobalRef(g_httpBackgroundUploaderClazz);
   env->DeleteGlobalRef(g_httpUploaderResultClazz);
   env->DeleteGlobalRef(g_networkPolicyClazz);
-  env->DeleteGlobalRef(g_storageUtilsClazz);
   env->DeleteGlobalRef(g_elevationInfoClazz);
   env->DeleteGlobalRef(g_parsingResultClazz);
 }
