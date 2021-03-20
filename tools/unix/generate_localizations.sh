@@ -1,6 +1,16 @@
 #!/bin/bash
 set -e -u -x
 
+# Use ruby from brew on Mac OS X, because system ruby is outdated/broken/will be removed in future releases.
+case $OSTYPE in darwin*)
+  if [ -f /usr/local/opt/ruby/bin/ruby ]; then
+    PATH="/usr/local/opt/ruby/bin:$PATH"
+  else
+    echo 'Please install Homebrew ruby by running "brew install ruby"'
+    exit -1
+  fi
+esac
+
 OMIM_PATH="$(dirname "$0")/../.."
 TWINE="$OMIM_PATH/tools/twine/twine"
 STRINGS_PATH="$OMIM_PATH/data/strings"
