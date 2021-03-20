@@ -438,93 +438,23 @@
                                     </tableViewCell>
                                 </cells>
                             </tableViewSection>
-                            <tableViewSection headerTitle="ПОДПИСКИ" id="hpa-fI-I3o">
-                                <cells>
-                                    <tableViewCell hidden="YES" contentMode="scaleToFill" selectionStyle="default" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="SettingsTableViewSelectableCell" id="2pB-bw-TE4" customClass="SettingsTableViewSelectableProgressCell" customModule="OMaps" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="634" width="414" height="44"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="2pB-bw-TE4" id="Mjg-FQ-BbL">
-                                            <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Восстановить покупки" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wLQ-ju-cRP">
-                                                    <rect key="frame" x="16" y="12" width="354" height="20"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="lK6-Ad-YkO">
-                                                    <rect key="frame" x="378" y="12" width="20" height="20"/>
-                                                </activityIndicatorView>
-                                            </subviews>
-                                            <constraints>
-                                                <constraint firstAttribute="bottom" secondItem="wLQ-ju-cRP" secondAttribute="bottom" constant="12" id="29t-5a-BVw"/>
-                                                <constraint firstItem="wLQ-ju-cRP" firstAttribute="top" secondItem="Mjg-FQ-BbL" secondAttribute="top" constant="12" id="G8o-5q-uuv"/>
-                                                <constraint firstItem="lK6-Ad-YkO" firstAttribute="centerY" secondItem="Mjg-FQ-BbL" secondAttribute="centerY" id="Rum-Fd-UDx"/>
-                                                <constraint firstAttribute="trailing" secondItem="lK6-Ad-YkO" secondAttribute="trailing" constant="16" id="fpT-Pq-H6k"/>
-                                                <constraint firstItem="wLQ-ju-cRP" firstAttribute="leading" secondItem="Mjg-FQ-BbL" secondAttribute="leading" constant="16" id="jYa-dS-A6o"/>
-                                                <constraint firstItem="lK6-Ad-YkO" firstAttribute="leading" secondItem="wLQ-ju-cRP" secondAttribute="trailing" constant="8" id="yq0-bv-4vX"/>
-                                            </constraints>
-                                        </tableViewCellContentView>
-                                        <connections>
-                                            <outlet property="progress" destination="lK6-Ad-YkO" id="dgQ-6i-VYz"/>
-                                            <outlet property="title" destination="wLQ-ju-cRP" id="clm-e9-wMY"/>
-                                        </connections>
-                                    </tableViewCell>
-                                    <tableViewCell hidden="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="SettingsTableViewLinkCell" id="Wqu-gu-kFj" customClass="SettingsTableViewLinkCell" customModule="OMaps" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="678" width="414" height="44"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Wqu-gu-kFj" id="aVC-Mw-Q04">
-                                            <rect key="frame" x="0.0" y="0.0" width="383" height="44"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Управление подписками" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="k6E-9d-5e0">
-                                                    <rect key="frame" x="16" y="12" width="363" height="20"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="300" verticalHuggingPriority="251" horizontalCompressionResistancePriority="700" text="" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BPz-mU-tll">
-                                                    <rect key="frame" x="383" y="12" width="0.0" height="20"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="0.54000000000000004" colorSpace="custom" customColorSpace="sRGB"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                            </subviews>
-                                            <constraints>
-                                                <constraint firstItem="BPz-mU-tll" firstAttribute="top" secondItem="aVC-Mw-Q04" secondAttribute="top" constant="12" id="5oy-me-Gjd"/>
-                                                <constraint firstAttribute="bottom" secondItem="BPz-mU-tll" secondAttribute="bottom" constant="12" id="7Eb-Bm-3Z0"/>
-                                                <constraint firstItem="k6E-9d-5e0" firstAttribute="leading" secondItem="aVC-Mw-Q04" secondAttribute="leading" constant="16" id="GEZ-uk-TAF"/>
-                                                <constraint firstAttribute="trailing" secondItem="BPz-mU-tll" secondAttribute="trailing" id="GKY-9x-LHa"/>
-                                                <constraint firstItem="BPz-mU-tll" firstAttribute="leading" secondItem="k6E-9d-5e0" secondAttribute="trailing" constant="4" id="rwc-Xr-LTQ"/>
-                                                <constraint firstItem="k6E-9d-5e0" firstAttribute="top" secondItem="aVC-Mw-Q04" secondAttribute="top" constant="12" id="tFz-dm-HMt"/>
-                                                <constraint firstAttribute="bottom" secondItem="k6E-9d-5e0" secondAttribute="bottom" constant="12" id="xcH-0k-fDA"/>
-                                            </constraints>
-                                        </tableViewCellContentView>
-                                        <connections>
-                                            <outlet property="info" destination="BPz-mU-tll" id="HQs-yq-V0y"/>
-                                            <outlet property="title" destination="k6E-9d-5e0" id="IFs-hL-rde"/>
-                                        </connections>
-                                    </tableViewCell>
-                                </cells>
-                            </tableViewSection>
                             <tableViewSection headerTitle="НАВИГАЦИЯ" id="E4E-hs-9xW">
                                 <cells>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="SettingsTableViewLinkCell" id="QNt-XC-xma" customClass="SettingsTableViewLinkCell" customModule="OMaps" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="770" width="414" height="44"/>
+                                        <rect key="frame" x="0.0" y="634" width="414" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="QNt-XC-xma" id="fBV-aJ-Mo8">
                                             <rect key="frame" x="0.0" y="0.0" width="383" height="44"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Ночной режим" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="q7P-cj-3tZ">
-                                                    <rect key="frame" x="16" y="12" width="251" height="20"/>
+                                                    <rect key="frame" x="16" y="12" width="239" height="20"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="300" verticalHuggingPriority="251" horizontalCompressionResistancePriority="700" text="Автоматически" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="g5c-Yk-svX">
-                                                    <rect key="frame" x="271" y="12" width="124" height="20"/>
+                                                    <rect key="frame" x="259" y="12" width="124" height="20"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="0.54000000000000004" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
@@ -784,14 +714,12 @@
                         <outlet property="fontScaleCell" destination="pri-6G-9Zb" id="rHJ-ZT-lwM"/>
                         <outlet property="helpCell" destination="JTZ-K9-RVv" id="FcU-iF-pKx"/>
                         <outlet property="is3dCell" destination="0Lf-xU-P2U" id="obI-bL-FLh"/>
-                        <outlet property="manageSubscriptionsCell" destination="Wqu-gu-kFj" id="Izw-yh-wC1"/>
                         <outlet property="mobileInternetCell" destination="6NC-QX-WiF" id="L1V-gS-sTe"/>
                         <outlet property="nightModeCell" destination="QNt-XC-xma" id="nSn-Jr-KuZ"/>
                         <outlet property="perspectiveViewCell" destination="X5R-fv-yd7" id="hCe-Sv-pxD"/>
                         <outlet property="powerManagementCell" destination="MN2-YK-AUo" id="mzP-S3-YAE"/>
                         <outlet property="profileCell" destination="yh8-cr-14c" id="nzT-Um-BHL"/>
                         <outlet property="recentTrackCell" destination="VyW-Wh-2QX" id="zXx-a3-FBg"/>
-                        <outlet property="restoreSubscriptionCell" destination="2pB-bw-TE4" id="wqz-cu-DZJ"/>
                         <outlet property="transliterationCell" destination="f8Z-Jk-JIR" id="4X8-tt-Wf3"/>
                         <outlet property="unitsCell" destination="Igk-BI-aHN" id="wc7-AI-ZlZ"/>
                         <outlet property="voiceInstructionsCell" destination="nED-2n-gN6" id="AOZ-0Q-2TH"/>
@@ -1722,7 +1650,6 @@
                         </connections>
                     </tableView>
                     <connections>
-                        <outlet property="adsCell" destination="DXH-GS-aHR" id="mDN-xH-33S"/>
                         <outlet property="copyrightCell" destination="VXa-CM-OXP" id="FpT-Rr-yha"/>
                         <outlet property="facebookCell" destination="AwY-rw-AMm" id="NUh-p9-2t4"/>
                         <outlet property="osmCell" destination="8n2-Bc-3lW" id="igH-Nf-uX5"/>

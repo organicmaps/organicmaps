@@ -24,10 +24,6 @@ using namespace power_management;
 @property(weak, nonatomic) IBOutlet SettingsTableViewSwitchCell *fontScaleCell;
 @property(weak, nonatomic) IBOutlet SettingsTableViewSwitchCell *transliterationCell;
 @property(weak, nonatomic) IBOutlet SettingsTableViewSwitchCell *compassCalibrationCell;
-@property(weak, nonatomic) IBOutlet SettingsTableViewSwitchCell *showOffersCell;
-
-@property(weak, nonatomic) IBOutlet SettingsTableViewSelectableProgressCell *restoreSubscriptionCell;
-@property(weak, nonatomic) IBOutlet SettingsTableViewLinkCell *manageSubscriptionsCell;
 
 @property(weak, nonatomic) IBOutlet SettingsTableViewLinkCell *nightModeCell;
 @property(weak, nonatomic) IBOutlet SettingsTableViewSwitchCell *perspectiveViewCell;
@@ -37,8 +33,6 @@ using namespace power_management;
 
 @property(weak, nonatomic) IBOutlet SettingsTableViewLinkCell *helpCell;
 @property(weak, nonatomic) IBOutlet SettingsTableViewLinkCell *aboutCell;
-
-@property(nonatomic) BOOL restoringSubscription;
 
 @end
 
@@ -57,7 +51,6 @@ using namespace power_management;
 - (void)configCells {
   [self configProfileSection];
   [self configCommonSection];
-  [self configSubsriptionsSection];
   [self configNavigationSection];
   [self configInfoSection];
 }
@@ -163,16 +156,6 @@ using namespace power_management;
   [self.compassCalibrationCell configWithDelegate:self
                                             title:L(@"pref_calibration_title")
                                              isOn:[MWMSettings compassCalibrationEnabled]];
-
-  auto &purchase = GetFramework().GetPurchase();
-  bool const hasSubscription = purchase && purchase->IsSubscriptionActive(SubscriptionType::RemoveAds);
-  [self.showOffersCell configWithDelegate:self title:L(@"showcase_settings_title") isOn:!hasSubscription];
-  self.showOffersCell.isEnabled = !hasSubscription;
-}
-
-- (void)configSubsriptionsSection {
-  [self.restoreSubscriptionCell configWithTitle:L(@"restore_subscription")];
-  [self.manageSubscriptionsCell configWithTitle:L(@"manage_subscription") info:nil];
 }
 
 - (void)configNavigationSection {
@@ -211,9 +194,6 @@ using namespace power_management;
   [self.aboutCell configWithTitle:L(@"about_menu_title") info:nil];
 }
 
-- (void)showRemoveAds {
-}
-
 #pragma mark - SettingsTableViewSwitchCellDelegate
 
 - (void)switchCell:(SettingsTableViewSwitchCell *)cell didChangeValue:(BOOL)value {
@@ -236,8 +216,6 @@ using namespace power_management;
     [MWMSettings setTransliteration:value];
   } else if (cell == self.compassCalibrationCell) {
     [MWMSettings setCompassCalibrationEnabled:value];
-  } else if (cell == self.showOffersCell) {
-    [self showRemoveAds];
   } else if (cell == self.perspectiveViewCell) {
     auto &f = GetFramework();
     bool _ = true, is3d = true;
@@ -276,34 +254,7 @@ using namespace power_management;
     [self performSegueWithIdentifier:@"SettingsToHelp" sender:nil];
   } else if (cell == self.aboutCell) {
     [self performSegueWithIdentifier:@"SettingsToAbout" sender:nil];
-  } else if (cell == self.restoreSubscriptionCell) {
-    [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    __weak auto s = self;
-    [self signupWithAnchor:self.restoreSubscriptionCell.progress
-                    source:AuthorizationSourceSubscription
-                onComplete:^(AuthorizationResult result) {
-                  if (result == AuthorizationResultSucces) {
-                    [s restoreSubscription];
-                  } else if (result == AuthorizationResultError) {
-                    [MWMAlertViewController.activeAlertController presentAuthErrorAlertWithRetryBlock:^{
-                      [s tableView:tableView didSelectRowAtIndexPath:indexPath];
-                    }];
-                  }
-                }];
-  } else if (cell == self.manageSubscriptionsCell) {
-    [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    [UIApplication.sharedApplication openURL:[NSURL URLWithString:@"https://apps.apple.com/account/subscriptions"]
-                                     options:@{}
-                           completionHandler:nil];
   }
-}
-
-- (NSIndexPath *)tableView:(UITableView *)tableView willSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-  auto cell = [tableView cellForRowAtIndexPath:indexPath];
-  if (cell == self.restoreSubscriptionCell)
-    return self.restoringSubscription ? nil : indexPath;
-
-  return indexPath;
 }
 
 #pragma mark - UITableViewDataSource
@@ -313,39 +264,12 @@ using namespace power_management;
     case 1:
       return L(@"general_settings");
     case 2:
-      return L(@"subscriptions_title");
-    case 3:
       return L(@"prefs_group_route");
-    case 4:
+    case 3:
       return L(@"info");
     default:
       return nil;
   }
-}
-
-#pragma mark - RestoreSubscription
-
-- (void)restoreSubscription {
-  [self.restoreSubscriptionCell.progress startAnimating];
-  self.restoringSubscription = YES;
-
-  __weak auto s = self;
-  [[InAppPurchase adsRemovalSubscriptionManager] restore:^(MWMValidationResult result, BOOL isTrial) {
-    __strong auto self = s;
-    self.restoringSubscription = NO;
-    [self.restoreSubscriptionCell.progress stopAnimating];
-    NSString *alertText;
-    [[InAppPurchase adsRemovalSubscriptionManager] setSubscriptionActive:result == MWMValidationResultValid
-                                                                 isTrial:isTrial];
-    if (result == MWMValidationResultNotValid) {
-      alertText = L(@"restore_no_subscription_alert");
-    } else if (result == MWMValidationResultValid) {
-      alertText = L(@"restore_success_alert");
-    } else {
-      alertText = L(@"restore_error_alert");
-    }
-    [MWMAlertViewController.activeAlertController presentInfoAlert:L(@"restore_subscription") text:alertText];
-  }];
 }
 
 @end
