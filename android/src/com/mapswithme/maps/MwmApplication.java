@@ -197,7 +197,7 @@ public class MwmApplication extends Application implements AppBackgroundTracker.
     // First we need initialize paths and platform to have access to settings and other components.
     nativeInitPlatform(StorageUtils.getApkPath(this),
                        StorageUtils.getStoragePath(settingsPath),
-                       filesPath, tempPath, StorageUtils.getObbGooglePath(),
+                       filesPath, tempPath,
                        BuildConfig.FLAVOR,
                        BuildConfig.BUILD_TYPE, UiUtils.isTablet(this));
 
@@ -313,8 +313,8 @@ public class MwmApplication extends Application implements AppBackgroundTracker.
   }
 
   private native void nativeInitPlatform(String apkPath, String storagePath, String privatePath,
-                                         String tmpPath, String obbGooglePath, String flavorName,
-                                         String buildType, boolean isTablet);
+                                         String tmpPath, String flavorName, String buildType,
+                                         boolean isTablet);
   private static native void nativeInitFramework();
   private static native void nativeProcessTask(long taskPointer);
   private static native void nativeAddLocalization(String name, String value);

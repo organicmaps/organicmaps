@@ -541,56 +541,6 @@ project.ext.NDK_BUILD = android.getNdkDirectory().toString() + '/ndk-build'
 if (System.properties['os.name'].toLowerCase().contains('windows'))
   project.ext.NDK_BUILD += ".cmd"
 
-// Tasks for generating obb files for Google Play
-def unalignedFonts = "${propObbFontsOutput}.unaligned"
-def unalignedWorlds = "${propObbWorldsOutput}.unaligned"
-
-task obbClean(type: Delete) {
-  doLast {
-    [propObbFontsOutput, propObbWorldsOutput, unalignedFonts, unalignedWorlds].each { file ->
-      delete file
-    }
-  }
-}
-
-task obbGenerate() {
-  createObbGenerateTask('Main', propObbFonts.split(' '), unalignedFonts)
-  createObbGenerateTask('Patch', propObbWorlds.split(' '), unalignedWorlds)
-  createObbAlignTask('Main', unalignedFonts, propObbFontsOutput)
-  createObbAlignTask('Patch', unalignedWorlds, propObbWorldsOutput)
-}
-
-obbGenerate.dependsOn obbClean, obbMainGenerate, obbPatchGenerate, obbMainAlign, obbPatchAlign
-
-def createObbGenerateTask(type, data, name) {
-  return tasks.create(name: "obb${type}Generate", type: Exec, description: 'Generate obb files') {
-    commandLine((['zip', '-0', '-j', name, data]).flatten())
-  }
-}
-
-def createObbAlignTask(type, rawObb, alignedObb) {
-  def sdkDir = "${android.getSdkDirectory().getAbsolutePath()}"
-  def zipalignPath = sdkDir + File.separator + "build-tools" + File.separator +
-          propBuildToolsVersion + File.separator + "zipalign"
-
-  return tasks.create(name: "obb${type}Align", dependsOn: "obb${type}Generate", type: Exec, description: 'Align obb files') {
-    commandLine zipalignPath, '-v', '8', rawObb, alignedObb
-  }
-}
-
-task obbPush(dependsOn: ['obbGenerate', 'obbPushMain', 'obbPushPatch']) {
-  def obbPath = "/mnt/sdcard/Android/obb/${project.ext.appId}/"
-  tasks.create(type: Exec, name: 'obbRemoveOnDevice') {
-    commandLine android.getAdbExe(), 'shell', 'rm', "${obbPath}*.obb"
-  }
-  tasks.create(type: Exec, name: 'obbPushMain', dependsOn: 'obbRemoveOnDevice') {
-    commandLine android.getAdbExe(), 'push', propObbFontsOutput, "${obbPath}fonts.obb"
-  }
-  tasks.create(type: Exec, name: 'obbPushPatch', dependsOn: 'obbRemoveOnDevice') {
-    commandLine android.getAdbExe(), 'push', propObbWorldsOutput, "${obbPath}worlds.obb"
-  }
-}
-
 android.buildTypes.all { buildType ->
   def suffix = applicationIdSuffix != null ? applicationIdSuffix : ""
   def authorityValue = android.defaultConfig.applicationId + suffix + ".provider"

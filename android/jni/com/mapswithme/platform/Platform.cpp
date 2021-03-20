@@ -150,8 +150,7 @@ Platform::Platform()
 
 void Platform::Initialize(JNIEnv * env, jobject functorProcessObject, jstring apkPath,
                           jstring storagePath, jstring privatePath, jstring tmpPath,
-                          jstring obbGooglePath, jstring flavorName, jstring buildType,
-                          bool isTablet)
+                          jstring flavorName, jstring buildType, bool isTablet)
 {
   m_functorProcessObject = env->NewGlobalRef(functorProcessObject);
 
@@ -164,9 +163,7 @@ void Platform::Initialize(JNIEnv * env, jobject functorProcessObject, jstring ap
 
   if (build == "beta" || build == "debug")
     m_androidDefResScope = "fwr";
-  else if (flavor.find("google") == 0)
-    m_androidDefResScope = "ferw";
-  else if (flavor.find("amazon") == 0 || flavor.find("samsung") == 0) // optimization to read World mwm-s faster
+  else if (flavor.find("google") == 0 || flavor.find("amazon") == 0 || flavor.find("samsung") == 0) // optimization to read World mwm-s faster
     m_androidDefResScope = "frw";
   else
     m_androidDefResScope = "fwr";
@@ -177,18 +174,9 @@ void Platform::Initialize(JNIEnv * env, jobject functorProcessObject, jstring ap
   m_tmpDir = jni::ToNativeString(env, tmpPath);
   m_writableDir = jni::ToNativeString(env, storagePath);
 
-  std::string const obbPath = jni::ToNativeString(env, obbGooglePath);
-  Platform::FilesList files;
-  GetFilesByExt(obbPath, ".obb", files);
-  m_extResFiles.clear();
-  for (size_t i = 0; i < files.size(); ++i)
-    m_extResFiles.push_back(obbPath + files[i]);
-
   LOG(LINFO, ("Apk path = ", m_resourcesDir));
   LOG(LINFO, ("Writable path = ", m_writableDir));
   LOG(LINFO, ("Temporary path = ", m_tmpDir));
-  LOG(LINFO, ("OBB Google path = ", obbPath));
-  LOG(LINFO, ("OBB Google files = ", files));
 
   // IMPORTANT: This method SHOULD be called from UI thread to cache static jni ID-s inside.
   (void) ConnectionStatus();

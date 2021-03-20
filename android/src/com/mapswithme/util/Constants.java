@@ -5,7 +5,6 @@ import com.mapswithme.maps.BuildConfig;
 public final class Constants
 {
   public static final String STORAGE_PATH = "/Android/data/%s/%s/";
-  public static final String OBB_PATH = "/Android/obb/%s/";
 
   public static final int KB = 1024;
   public static final int MB = 1024 * 1024;

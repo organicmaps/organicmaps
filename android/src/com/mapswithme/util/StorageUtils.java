@@ -154,13 +154,6 @@ public class StorageUtils
            String.format(Constants.STORAGE_PATH, BuildConfig.APPLICATION_ID, Constants.CACHE_DIR);
   }
 
-  @NonNull
-  public static String getObbGooglePath()
-  {
-    final String storagePath = Environment.getExternalStorageDirectory().getAbsolutePath();
-    return storagePath.concat(String.format(Constants.OBB_PATH, BuildConfig.APPLICATION_ID));
-  }
-
   public static boolean createDirectory(@NonNull Context context, @NonNull String path)
   {
     File directory = new File(path);

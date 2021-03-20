@@ -29,7 +29,6 @@ namespace
 {
 enum SourceT
 {
-  EXTERNAL_RESOURCE,
   RESOURCE,
   WRITABLE_PATH,
   SETTINGS_PATH,
@@ -65,7 +64,6 @@ size_t GetSearchSources(string const & file, string const & searchScope,
     {
     case 'w': arr[ret++] = WRITABLE_PATH; break;
     case 'r': arr[ret++] = RESOURCE; break;
-    case 'e': arr[ret++] = EXTERNAL_RESOURCE; break;
     case 's': arr[ret++] = SETTINGS_PATH; break;
     case 'f':
       if (strings::StartsWith(file, "/"))
@@ -140,19 +138,6 @@ unique_ptr<ModelReader> Platform::GetReader(string const & file, string const & 
 
     switch (sources[i])
     {
-    case EXTERNAL_RESOURCE:
-      for (size_t j = 0; j < m_extResFiles.size(); ++j)
-      {
-        try
-        {
-          return make_unique<ZipFileReader>(m_extResFiles[j], file, logPageSize, logPageCount);
-        }
-        catch (Reader::OpenException const &)
-        {
-        }
-      }
-      break;
-
     case WRITABLE_PATH:
     {
       string const path = m_writableDir + file;

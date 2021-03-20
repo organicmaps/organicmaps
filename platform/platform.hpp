@@ -104,9 +104,6 @@ protected:
   /// Writable directory to store persistent application data
   std::string m_settingsDir;
 
-  /// Extended resource files.
-  /// Used in Android only (downloaded zip files as a container).
-  std::vector<std::string> m_extResFiles;
   /// Default search scope for resource files.
   /// Used in Android only and initialized according to the market type (Play, Amazon, Samsung).
   std::string m_androidDefResScope;

@@ -13,12 +13,11 @@ extern "C"
   Java_com_mapswithme_maps_MwmApplication_nativeInitPlatform(JNIEnv * env, jobject thiz,
                                                              jstring apkPath, jstring storagePath,
                                                              jstring privatePath, jstring tmpPath,
-                                                             jstring obbGooglePath,
                                                              jstring flavorName, jstring buildType,
                                                              jboolean isTablet)
   {
     android::Platform::Instance().Initialize(env, thiz, apkPath, storagePath, privatePath, tmpPath,
-                                             obbGooglePath, flavorName, buildType, isTablet);
+                                             flavorName, buildType, isTablet);
   }
 
   // static void nativeInitFramework();
