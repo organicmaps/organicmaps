@@ -420,7 +420,14 @@ android {
   }
 
   signingConfigs {
-    mapswithme {
+    debug {
+      storeFile file('debug.keystore')
+      storePassword '12345678'
+      keyAlias 'debug'
+      keyPassword '12345678'
+    }
+
+    release {
       storeFile file(spropStoreFile)
       storePassword spropStorePassword
       keyAlias spropKeyAlias
@@ -434,14 +441,14 @@ android {
       versionNameSuffix '-debug'
       jniDebuggable true           // Enable jni debug build
       zipAlignEnabled true
-      signingConfig signingConfigs.mapswithme
+      signingConfig signingConfigs.debug
       resValue 'string', 'app_id', android.defaultConfig.applicationId + applicationIdSuffix
       resValue 'string', 'app_name', project.ext.appName + applicationIdSuffix
       ndk.debugSymbolLevel = 'SYMBOL_TABLE'
     }
 
     release {
-      signingConfig signingConfigs.mapswithme
+      signingConfig signingConfigs.release
       minifyEnabled true
       shrinkResources true
       proguardFile('proguard-mwm.txt')
@@ -458,7 +465,7 @@ android {
     beta {
       applicationIdSuffix '.beta'
       versionNameSuffix '-beta'
-      signingConfig signingConfigs.mapswithme
+      signingConfig signingConfigs.release
       matchingFallbacks = ['debug', 'release']
       resValue 'string', 'app_id', android.defaultConfig.applicationId + applicationIdSuffix
       resValue 'string', 'app_name', project.ext.appName + applicationIdSuffix

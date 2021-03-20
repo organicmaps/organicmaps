@@ -159,18 +159,16 @@ tizen/*/crash-info/*
 .idea
 
 # Private repository files.
-private/release
-private/beta
+.private_repository_url
+.private_repository_branch
 private.h
-android/*.keystore
+android/release.keystore
 android/secure.properties
-android/pushwoosh.properties
 android/libnotify.properties
 android/google-services.json
 android/firebase-app-distribution.json
 server
 iphone/Maps/app.omaps/
-private/
 
 *.li
 
@@ -200,4 +198,3 @@ tools/python/data/*/*.egg-info
 # Configs
 tools/python/maps_generator/var/etc/map_generator.ini
 tools/python/routing/etc/*.ini
-
