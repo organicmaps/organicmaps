@@ -29916,18 +29916,18 @@
     da = OpenStreetMap profil
     nl = OpenStreetMap-profiel
     fi = OpenStreetMap-profiili
-    fr = Profil OpenStreetMap 
+    fr = Profil OpenStreetMap
     de = OpenStreetMap-Profil
     hu = OpenStreetMap profil
-    id = Profil OpenStreetMap 
-    it = Profilo OpenStreetMap 
+    id = Profil OpenStreetMap
+    it = Profilo OpenStreetMap
     ja = OpenStreetMap プロフィール
     ko = OpenStreetMap 프로필
     nb = OpenStreetMap profil
-    pl = Profil OpenStreetMap 
+    pl = Profil OpenStreetMap
     pt = Perfil do OpenStreetMap
     pt-BR = Perfil do OpenStreetMap
-    ro = Profil OpenStreetMap 
+    ro = Profil OpenStreetMap
     es = Perfil de OpenStreetMap
     sv = OpenStreetMap profil
     th = โปรไฟล์ OpenStreetMap
@@ -29937,7 +29937,7 @@
     zh-Hans = OpenStreetMap 资料
     zh-Hant = OpenStreetMap 資料
     el = Προφίλ OpenStreetMap
-    sk = Profil OpenStreetMap 
+    sk = Profil OpenStreetMap
     fa = OpenStreetMap نمایه
 
   [place_page_search_similar_hotel]
@@ -30720,14 +30720,14 @@
     fa = بازیابی
 
   [sign_message_gdpr]
-    en = To continue you must accept our Terms of Use and Privacy Policy. Please read them carefully. 
+    en = To continue you must accept our Terms of Use and Privacy Policy. Please read them carefully.
     ru = Чтобы продолжить работу, вы должны принять наши Условия использования и Политику конфиденциальности. Пожалуйста, внимательно их прочитайте.
     ar = للمتابعة يجب عليك قبول شروط الاستخدام وسياسة الخصوصية الخاصة بنا. يرجى قراءتها بعناية.
     cs = Chcete-li pokračovat, musíte přijmout naše Smluvní podmínky a zásady ochrany osobních údajů. Přečtěte si je pečlivě.
     da = For at fortsætte skal du acceptere vores Vilkår for brug og Privacy Policy. Læs dem grundigt.
     nl = Om verder te kunnen gaan, dient u onze gebruiksvoorwaarden en ons privacybeleid te accepteren. Lees ze zorgvuldig.
     fi = Jotta voit jatkaa, sinun on hyväksyttävä käyttöehdot ja tietosuojakäytäntö. Lue ne huolellisesti.
-    fr = Pour continuer, vous devez accepter nos conditions d'utilisation et notre politique de confidentialité. Veuillez les lire attentivement. 
+    fr = Pour continuer, vous devez accepter nos conditions d'utilisation et notre politique de confidentialité. Veuillez les lire attentivement.
     de = Um fortfahren zu können, müssen Sie unsere Nutzungsbedingungen und Datenschutzbestimmungen akzeptieren. Bitte lies sie sorgfältig durch.
     hu = A folytatáshoz el kell fogadnia a Felhasználási feltételeinket és az adatvédelmi irányelveinket. Kérjük, figyelmesen olvassa el őket.
     id = Untuk melanjutkan, Anda harus menerima Ketentuan Penggunaan dan Kebijakan Privasi kami. Silakan baca dengan seksama.
@@ -30737,13 +30737,13 @@
     nb = For å fortsette må du godta vilkårene for bruk og personvern. Vennligst les dem nøye.
     pl = Aby kontynuować, musisz zaakceptować nasze Warunki użytkowania i Politykę prywatności. Prosimy o ich uważne przeczytanie.
     pt = Para continuar, você deve aceitar nossos Termos de Uso e Política de Privacidade. Por favor, leia-os com atenção.
-    pt-BR = Para continuar, é necessário aceitar nossos Termos de Uso e Política de Privacidade. Por favor, leia-os atentamente. 
+    pt-BR = Para continuar, é necessário aceitar nossos Termos de Uso e Política de Privacidade. Por favor, leia-os atentamente.
     ro = Pentru a continua, trebuie să acceptați Termenii de utilizare și Politica de confidențialitate. Citiți-le cu atenție.
-    es = Para continuar debes aceptar nuestros Términos de Uso y la Política de Privacidad. Por favor, léelos cuidadosamente. 
+    es = Para continuar debes aceptar nuestros Términos de Uso y la Política de Privacidad. Por favor, léelos cuidadosamente.
     es_MX = Para continuar, debe aceptar nuestros Términos de uso y Política de privacidad. Por favor léalos cuidadosamente.
     sv = För att fortsätta måste du acceptera våra användarvillkor och sekretesspolicy. Läs dem noggrant.
     th = คุณต้องยอมรับข้อกำหนดในการให้บริการและนโยบายความเป็นส่วนตัวของเรา โปรดอ่านอย่างระมัดระวัง
-    tr = Devam etmek için Kullanım Şartları ve Gizlilik Politikası bölümlerimizi kabul etmelisiniz. Lütfen onları dikkatle okuyun. 
+    tr = Devam etmek için Kullanım Şartları ve Gizlilik Politikası bölümlerimizi kabul etmelisiniz. Lütfen onları dikkatle okuyun.
     uk = Щоб продовжити роботу, ви повинні прийняти наші Умови використання та Політику конфіденційності. Будь ласка, уважно їх прочитайте.
     vi = Bạn phải chấp nhận Điều khoản sử dụng và Chính sách bảo mật của chúng tôi. Vui lòng đọc kỹ chúng.
     el = Πρέπει να αποδεχτείτε τους Όρους Χρήσης και την Πολιτική Απορρήτου. Διαβάστε τις προσεκτικά.
@@ -32410,7 +32410,7 @@
     id = Panduan
     it = Guide
     ja = ガイド
-    ko = 안내 
+    ko = 안내
     no = Bruksanvisninger
     pl =  Przewodniki
     pt = Guias
@@ -32419,7 +32419,7 @@
     es = Guías
     es_MX = Guías
     sv = Guider
-    th = คู่มือใช้งาน 
+    th = คู่มือใช้งาน
     tr = El kitapları
     uk = Путівники
     vi = Hướng dẫn
@@ -32545,7 +32545,7 @@
     de = Der Leitfaden wurde nicht heruntergeladen
     hu = Az útmutató nem került letöltésre
     id = Panduan itu tidak diunduh
-    it = La guida non è stata scaricata 
+    it = La guida non è stata scaricata
     ja = ガイドがダウンロードされませんでした
     ko = 안내를 다운로드하지 않았습니다.
     no = Bruksanvisningen ble ikke lastet ned
@@ -33208,7 +33208,7 @@
     vi = Phần "Khám phá gần đây" chứa các nhà hàng, khách sạn và điểm tham quan tốt nhất.
     el = Η ενότητα «Ανακαλύψτε κοντά» περιέχει τα καλύτερα εστιατόρια, ξενοδοχεία και αξιοθέατα.
     sk = Sekcia „Poznávajte svoje okolie“ obsahuje najlepšie reštaurácie, hotely a pamiatky.
-    sw = Sehemu ya "Gundua hapa karibu" ina mikahawa na mahoteli mazuri pamoja mahanthari. 
+    sw = Sehemu ya "Gundua hapa karibu" ina mikahawa na mahoteli mazuri pamoja mahanthari.
     zh-Hans = 在“探索周围”部分中收集了最近最好的餐馆、酒店和名胜古迹。
     zh-Hant = 在“探索鄰近區域“部分中收集了最近最好的餐館、酒店和名勝古跡。
     fa = بخش «کشف مجاور» شامل بهترین رستورانها، هتلها و مناظر است.
@@ -33614,13 +33614,13 @@
     tr = Satın alma işlemi daha sonra tamamlanacak. Sorun devam ederse lütfen support@omaps.app adresine ulaşın.
     uk = Купівля буде завершена пізніше. Якщо помилка повториться, зв’яжіться з support@omaps.app.
     vi = Giao dịch mua sẽ được hoàn thành sau. Nếu vẫn còn lỗi, vui lòng liên hệ với support@omaps.app.
-    el = Η αγορά θα ολοκληρωθεί αργότερα. Αν το σφάλμα επιμένει, παρακαλώ επικοινωνήστε στο support@omaps.app. 
+    el = Η αγορά θα ολοκληρωθεί αργότερα. Αν το σφάλμα επιμένει, παρακαλώ επικοινωνήστε στο support@omaps.app.
     sk = Nákup bude dokončený neskôr. Ak chyba pretrváva, kontaktujte support@omaps.app.
     sw = Ununuzi utakamilishwa baadaye. Shinda ikiendelea, tafadhali julisha support@omaps.app.
     zh-Hans = 购买将在稍后完成。如果错误仍然存在，请联系support@omaps.app。
     zh-Hant = 購買將在稍後完成。如果錯誤仍然存在，請聯繫support@omaps.app。
     fa = خرید بعدا تکمیل خواهد شد. اگر خطا همچنان ادامه دارد، لطفا با support@omaps.app تماس بگیرید.
-    
+
   [offline_fiters_check_in]
     en = Connect to the internet to filter hotels by dates.
     ru = Подключитесь к интернету, чтобы выбрать дату заезда и выезда.
@@ -33738,7 +33738,7 @@
     id = Terjadi kesalahan saat sedang memulihkan langganan
     it = Si è verificato un errore durante il ripristino dell'abbonamento
     ja = サブスクリプションの復元中にエラーが発生しました
-    ko = 구독을 복구하는 동안 오류가 발생했습니다 
+    ko = 구독을 복구하는 동안 오류가 발생했습니다
     no = Det oppsto en feil under gjenopprettingen av abonnementet
     pl = Podczas przywracania subskrypcji wystąpił błąd
     pt = Ocorreu um erro ao restaurar a subscrição
@@ -34622,7 +34622,7 @@
 
   [edit_guide_subtitle]
     en = Get a link to edit your guide via web service: add descriptions, upload photos, and connect bookmarks with lines.
-    ru = Получите ссылку для редактирования вашего путеводителя через веб-приложение: добавляйте описания мест, загружайте фотографии и соединяйте метки линиями. 
+    ru = Получите ссылку для редактирования вашего путеводителя через веб-приложение: добавляйте описания мест, загружайте фотографии и соединяйте метки линиями.
     ar = .احصل على رابط لتعديل مرشدك عبر تطبيق الويب: أضف الأوصاف وتحميل الصور واربط الإشارات المرجعية بالسطور
     cs = Získejte odkaz pro úpravy vašeho průvodce pomocí webové aplikace: přidávejte popisy míst, nahrávejte fotografie a spojujte značky.
     da = Få et link til at redigere din guide via web-app: tilføj beskrivelser, upload billeder og forbind dine bogmærker med streger.
@@ -34685,8 +34685,8 @@
     sk = Poslať mi odkaz
     sw = Nitumie kiunganishi
     zh-Hans = 发送链接
-    zh-Hant = 發送鏈接 
-    fa = یک لینک برای من ارسال کن 
+    zh-Hant = 發送鏈接
+    fa = یک لینک برای من ارسال کن
 
   [upload_error_toast]
     en = An error occurred while uploading your file
@@ -35846,7 +35846,7 @@
 
   [notification_leave_review_content]
     en = Help travellers by leaving a review!
-    ru = Оставьте отзыв и помогите путешественникам! 
+    ru = Оставьте отзыв и помогите путешественникам!
     ar = مساعدة المسافرين من خلال ترك رأي!
     cs = Okomentujte místo a pomozte cestovatelům!
     da = Hjælp rejsende ved at skrive en anmeldelse!
@@ -36014,7 +36014,7 @@
     zh-Hant = 自動 - 如果存在超出速度限制的風險，則對速度攝像頭髮出警告\n總是 - 始終提醒攝像頭\n從不 - 永遠不會對攝像頭發出警告
     fa = خودکار- در صورتی که خطر تجاوز از سرعت مجاز وجود داشت، نسبت به دوربین های کنترل سرعت هشدار دهد\nهمیشه-همیشه درباره دوربین های کنترل سرعت هشدار دهد\nهرگز-هرگز درباره دوربین های کنترل سرعت هشدار ندهد
 
-  [whats_new_ugc_routes_title]   
+  [whats_new_ugc_routes_title]
     en = Easy to share your impressions
     ru = Делиться впечатлениями просто
     ar = من السهل مشاركة انطباعاتك
@@ -36046,20 +36046,20 @@
   [whats_new_ugc_routes_subtitle]
     en = Save memorable places, create routes from bookmarks and share them with everyone using OMaps catalogue.
     ru = Сохраняй запомнившиеся места, создавай из меток маршруты и делись со всеми в каталоге OMaps.
-    ar = يمكنك حفظ الأماكن التي لا تنسى وإنشاء مسارات باستخدام الإشارات المرجعية ومشاركتها مع الجميع في كتالوج OMaps 
-    cs = Uložte si nezapomenutelná místa, vytvořte trasy pomocí záložek a sdílejte je se všemi v katalogu OMaps. 
+    ar = يمكنك حفظ الأماكن التي لا تنسى وإنشاء مسارات باستخدام الإشارات المرجعية ومشاركتها مع الجميع في كتالوج OMaps
+    cs = Uložte si nezapomenutelná místa, vytvořte trasy pomocí záložek a sdílejte je se všemi v katalogu OMaps.
     da = Gem mindeværdige steder, lav ruter ved hjælp af bogmærker og del dem med alle i OMaps kataloget.
     nl = Bewaar gedenkwaardige plaatsen, maak routes met behulp van bladwijzers en deel ze met iedereen in de OMaps-catalogus.
     fi = Tallenna ikimuistoiset paikat, luo reittejä kirjainmerkkien avulla ja jaa ne kaikkien kanssa OMaps-luettelossa.
     fr = Sauvegardez des lieux mémorables, créez des itinéraires à l'aide des signets et partagez-les avec tout le monde dans le catalogue OMaps.
     de = Speichern Sie unvergessliche Orte, erstellen Sie Routen mithilfe von Lesezeichen und teilen Sie sie mit allen im OMaps-Katalog.
     hu = Ments el emlékezetes helyeket, hozz létre útvonalakat könyvjelzők segítségével és oszd meg őket mindenkivel a OMaps katalógusban.
-    id = Simpan tempat-tempat penuh kenangan, buat rute menggunakan markah dan bagikan kepada semua orang di katalog OMaps. 
+    id = Simpan tempat-tempat penuh kenangan, buat rute menggunakan markah dan bagikan kepada semua orang di katalog OMaps.
     it = Salva luoghi memorabili, crea itinerari utilizzando i segnalibri e condividili con tutti nel catalogo OMaps.
     ja = 記憶に残る場所を保存して、ブックマークでルートを作成し OMapsカタログを利用するすべての人達と共有しましょう。
-    ko = 잊지 못할 장소들을 저장하고 즐겨찾기를 사용해 길을 만들어 OMaps의 모두와 나눠보세요. 
+    ko = 잊지 못할 장소들을 저장하고 즐겨찾기를 사용해 길을 만들어 OMaps의 모두와 나눠보세요.
     nb = Lagre minneverdige steder, lag ruteveiledninger med bokmerker og del dem med alle på OMaps-katalogen.
-    pl = Zapisuj zapamiętane miejsca, twórz trasy ze znaczników i udostępniaj je wszystkim w katalogu OMaps. 
+    pl = Zapisuj zapamiętane miejsca, twórz trasy ze znaczników i udostępniaj je wszystkim w katalogu OMaps.
     pt = Salve locais preferidos, crie percursos a partir de tags e compartilhe-os com todos no diretório de OMaps.
     ro = Salvați locurile memorabile, creați rute cu ajutorul marcajelor și distribuiți-le tuturor în catalogul OMaps.
     es = Guarda lugares memorables, crea rutas mediante marcadores y compártelas con todo el mundo en el catálogo de OMaps.
@@ -36075,7 +36075,7 @@
   [whats_new_webeditor_title]
     en = Turn your routes into stories
     ru = Превращай маршруты в истории
-    ar = حوّل مساراتك إلى قصص 
+    ar = حوّل مساراتك إلى قصص
     cs = Proměňte své trasy v příběhy
     da = Lav dine ruter om til historier
     nl = Maak verhalen van je routes
@@ -36104,7 +36104,7 @@
   [whats_new_ugc_routes_message2]
     en = Add photos and detailed stories in the web-editor.
     ru = Добавляй фото и подробные рассказы в веб-редакторе.
-    ar = أضفْ صور وقصص مفصلة في محرر الويب 
+    ar = أضفْ صور وقصص مفصلة في محرر الويب
     cs = Přidejte fotky a detailní příběhy ve webovém editoru.
     da = Tilføj fotos og detaljerede historier i webredaktøren.
     nl = Voeg foto's en gedetailleerde verhalen toe in de webbewerker.
@@ -36112,12 +36112,12 @@
     fr = Ajoutez des photos et des histoires détaillées dans l'éditeur web.
     de = Fügen Sie Fotos und ausführliche Geschichten im Web-Editor hinzu.
     hu = Adj hozzá fényképeket és részletes történeteket a webes szerkesztőben.
-    id = Tambahkan foto dan kisah detail di editor web. 
+    id = Tambahkan foto dan kisah detail di editor web.
     it = Aggiungi foto e storie dettagliate nell'editor web.
     ja = ウェブエディタで写真と詳細なストーリーを追加しましょう。
-    ko = 웹 에디터 안에서 사진들과 자세한 이야기들을 추가해보세요. 
+    ko = 웹 에디터 안에서 사진들과 자세한 이야기들을 추가해보세요.
     nb = Legg til bilder og detaljerte historier med redigeringsprogrammet for nettsider.
-    pl = Dodaj zdjęcia i szczegółowe historie w edytorze stron internetowych. 
+    pl = Dodaj zdjęcia i szczegółowe historie w edytorze stron internetowych.
     pt = Adicione fotos e descrições detalhadas no editor da web.
     ro = Adăugați fotografii și povești detaliate în editorul web.
     es = Añade fotos e historias detalladas en el editor web.
@@ -37764,11 +37764,11 @@
     zh-Hans = 请发表评论来帮助旅行者们！
     zh-Hant = 請發表評論來幫助旅行者們！
     fa = نظر خود را بیان و به مسافران کمک کنید!
-    
+
   [megafon]
     en = Say goodbye to roaming!
     ru = Роуминг, гудбай!
-    
+
   [notifications_illegal_alert_disable_button]
     en = Turn off notifications
     ru = Выключить уведомления
@@ -39296,7 +39296,7 @@
     zh-Hans = 考虑到所有道路类型并设立路线
     zh-Hant = 考慮到所有道路類型並設立路線
     fa = مسیرهای خودرویی را با توجه به انواع جاده ها تنظیم کنید
-  
+
   [whatsnew_toll_unpaved_message]
     en = Choose to avoid toll and unpaved roads and ferry crossings
     ru = Объезжайте платные и грунтовые дороги и паромные переправы
@@ -39773,7 +39773,7 @@
     zh-Hant = 移動時鍵盤不可用
     fa = صفحه کلید در هنگام رانندگی در دسترس نیست
 
-  [dialog_routing_change_start_carplay] 
+  [dialog_routing_change_start_carplay]
     en = Unable to build a route from your current location
     ru = Невозможно построить маршрут от текущего местоположения
     ar = لا يمكن تحديد طريق من موقعك الحالي
@@ -48183,7 +48183,7 @@
   [sberbank_map_downloader_cta_button]
     en = Узнать больше
 
-  [yango_taxi_title] 
+  [yango_taxi_title]
     en = Yango
 
   [citymobil_taxi_title]
