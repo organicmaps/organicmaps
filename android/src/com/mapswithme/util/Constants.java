@@ -4,8 +4,6 @@ import com.mapswithme.maps.BuildConfig;
 
 public final class Constants
 {
-  public static final String STORAGE_PATH = "/Android/data/%s/%s/";
-
   public static final int KB = 1024;
   public static final int MB = 1024 * 1024;
   public static final int GB = 1024 * 1024 * 1024;
@@ -67,11 +65,6 @@ public final class Constants
 
     private Rating() {}
   }
-
-
-  public static final String MWM_DIR_POSTFIX = "/OMapsData/";
-  public static final String CACHE_DIR = "cache";
-  public static final String FILES_DIR = "files";
 
   private Constants() {}
 }

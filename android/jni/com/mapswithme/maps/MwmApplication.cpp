@@ -7,9 +7,9 @@
 
 extern "C"
 {
-  // static void nativePreparePlatform(String settingsPath);
+  // static void nativeSetSettingsDir(String settingsPath);
   JNIEXPORT void JNICALL
-  Java_com_mapswithme_maps_MwmApplication_nativePreparePlatform(JNIEnv * env, jclass clazz, jstring settingsPath)
+  Java_com_mapswithme_maps_MwmApplication_nativeSetSettingsDir(JNIEnv * env, jclass clazz, jstring settingsPath)
   {
     android::Platform::Instance().SetSettingsDir(jni::ToNativeString(env, settingsPath));
   }
@@ -18,12 +18,12 @@ extern "C"
   // String obbGooglePath, String flavorName, String buildType, boolean isTablet);
   JNIEXPORT void JNICALL
   Java_com_mapswithme_maps_MwmApplication_nativeInitPlatform(JNIEnv * env, jobject thiz,
-                                                             jstring apkPath, jstring storagePath,
+                                                             jstring apkPath, jstring writablePath,
                                                              jstring privatePath, jstring tmpPath,
                                                              jstring flavorName, jstring buildType,
                                                              jboolean isTablet)
   {
-    android::Platform::Instance().Initialize(env, thiz, apkPath, storagePath, privatePath, tmpPath,
+    android::Platform::Instance().Initialize(env, thiz, apkPath, writablePath, privatePath, tmpPath,
                                              flavorName, buildType, isTablet);
   }
 
