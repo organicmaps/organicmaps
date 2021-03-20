@@ -1872,25 +1872,14 @@
 
 "routing_add_finish_point" = "Pridaním cieľového bodu naplánujete trasu";
 
-"onboarding_storage_permissions_title" = "Prideliť prístup";
-
-"onboarding_storage_permissions_message" = "Zmeňte si nastavenia povolení vo svojom zariadení. Na používanie aplikácie OMaps je potrebné povoliť prístup do ukladacieho priestoru.";
-
 "button_exit" = "Ukončiť";
 
 "onboarding_detail_permissions_title" = "Aplikácia OMaps si vyžaduje prístup k";
 
 /* Default permission's name from Android settings. */
-"onboarding_detail_permissions_storage_title" = "Ukladací priestor";
-
-"onboarding_detail_permissions_storage_message" = "Na ukladanie a používanie máp v režime offline a na ukladanie záložiek.";
-
-/* Default permission's name from Android settings. */
 "onboarding_detail_permissions_location_title" = "Poloha";
 
 "onboarding_detail_permissions_location_message" = "Na zobrazovanie miest a dopravnej situácie v okolí a používanie navigácie.";
-
-"onboarding_detail_permissions_storage_path_message" = "V nastaveniach tiež môžete zmeniť cieľové umiestnenie stiahnutých máp.";
 
 "settings_device_memory" = "Pamäť zariadenia";
 

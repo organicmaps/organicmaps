@@ -24830,70 +24830,6 @@
     sw = Ongeza eneo la kumalizia ili kupanga njia ya kufuata
     fa = یک مقصد برای برنامه ریزی یک مسیر اضافه کنید
 
-  [onboarding_storage_permissions_title]
-    en = Grant Access
-    ru = Предоставьте доступ
-    ar = منح حق الوصول
-    cs = Povolit přístup
-    da = Giv adgang
-    nl = Toegang verlenen
-    fi = Myönnä käyttöoikeus
-    fr = Autoriser l'accès
-    de = Zugriff gewähren
-    hu = Hozzáférés biztosítása
-    id = Berikan akses
-    it = Concedi l'accesso
-    ja = アクセス権の付与
-    ko = 액세스 승인
-    nb = Gi tilgang
-    pl = Udziel dostępu
-    pt = Conceder acesso
-    ro = Acordați acces
-    es = Otorgar acceso
-    sv = Bevilja åtkomst
-    th = ให้สิทธิ์เข้าถึง
-    tr = Erişime izin ver
-    uk = Надати доступ
-    vi = Cho phép truy cập
-    zh-Hans = 授予访问权限
-    zh-Hant = 授與存取權
-    el = Εκχώρηση άδειας
-    sk = Prideliť prístup
-    sw = Ruhusu ufikiaji
-    fa = مجوز دسترسی
-
-  [onboarding_storage_permissions_message]
-    en = Please grant OMaps the permission to use storage in your device settings, otherwise you will not be able to use OMaps.
-    ru = Предоставьте OMaps доступ к памяти в настройках вашего устройства, иначе использовать OMaps будет невозможно.
-    ar = قم بتغيير إعدادات الأذونات في جهازك. يلزم الوصول إلى ذاكرة التخزين لاستخدام OMaps.
-    cs = Změňte nastavení oprávnění ve vašem zařízení. OMaps vyžaduje přístup k úložišti.
-    da = Rediger tilladelsesindstillingerne i din enhed. Brug af OMaps kræver adgang til lager.
-    nl = Wijzig instellingen machtigingen op uw toestel. Toegang tot opslag nodig voor gebruik OMaps.
-    fi = Muuta laitteesi käyttöoikeusasetuksia. OMaps:n käyttö edellyttää tallennustilan käyttöoikeutta.
-    fr = Modifiez les paramètres d’autorisation dans votre appareil. Il est nécessaire d’accéder à un stockage pour utiliser OMaps.
-    de = Ändern Sie die Berechtigungseinstellungen auf Ihrem Gerät. Der Zugriff auf den Speicher muss gestattet werden, damit Sie OMaps nutzen können.
-    hu = Engedélyek módosításának engedélyezése az Ön készüléken. Hozzáférésre van szükség a tárolóhoz, hogy használja a OMaps alkalmazást.
-    id = Ubah pengaturan izin di perangkat Anda. Perlu akses penyimpanan untuk menggunakan OMaps.
-    it = Modifica le impostazioni di autorizzazione sul tuo dispositivo. Si richiede l'accesso alla memoria per utilizzare OMaps.
-    ja = お使いのデバイスのアクセス許可設定を変更してください。OMaps を使用するには、ストレージへのアクセス権限が必要です。
-    ko = 장치에서 권한 설정을 변경하세요. OMaps를 사용하려면 저장소 액세스가 필요합니다.
-    nb = Endre innstillinger for tillatelser på enheten din. Det er nødvendig med tilgang til minnet for å kunne bruke OMaps.
-    pl = Zmień ustawienia uprawnień w urządzeniu. Do korzystania z OMaps wymagany jest dostęp do pamięci masowej.
-    pt = Alterar configurações de permissões no seu dispositivo. Necessário acesso ao armazenamento para utilizar o OMaps.
-    ro = Schimbați setările permisiunilor de pe dispozitiv. Pentru a utiliza OMaps este nevoie de acces la spațiul de stocare.
-    es = Cambie la configuración de permisos en su dispositivo. OMaps necesita tener acceso al almacenamiento.
-    sv = Ändra behörighetsinställningarna på din enhet. Lagringsåtkomst krävs för att använda OMaps.
-    th = เปลี่ยนการตั้งค่าการให้สิทธิ์ในเครื่องของคุณ จำเป็นต้องได้สิทธิ์การเข้าถึงที่เก็บข้อมูลเพื่อใช้งาน OMaps
-    tr = Cihazınızdaki izin ayarlarını değiştirin. OMaps'yi kullanmak için depolama alanına erişim izni gerekiyor.
-    uk = Внесіть зміни до прав доступу на вашому пристрої. Для використання OMaps необхідно надати додатку права доступу до сховища.
-    vi = Thay đổi các cài đặt cho phép trong thiết bị của bạn. Cần quyền truy cập ổ lưu trữ để sử dụng OMaps.
-    zh-Hans = 更改您的设备中的权限设置。需要存储空间访问权限才能使用 OMaps。
-    zh-Hant = 變更您裝置中的權限設定。需要存儲權限才能使用 OMaps。
-    el = Αλλάξτε τις ρυθμίσεις άδειας στη συσκευή σας. Χρειάζεται πρόσβαση στον αποθηκευτικό χώρο για τη χρήση του OMaps
-    sk = Zmeňte si nastavenia povolení vo svojom zariadení. Na používanie aplikácie OMaps je potrebné povoliť prístup do ukladacieho priestoru.
-    sw = Badilisha mipangilio ya ruhusa kwenye kifaa chako. Inahitaji kufikia hifadhi ili kutumia OMaps.
-    fa = لطفا OMaps را مجاز به استفاده از ذخیره سازی در تنظیمات دستگاه خود کنید، در غیر این صورت نمی توانید از OMaps استفاده کنید.
-
   [button_exit]
     en = Exit
     ru = Выход
@@ -24957,71 +24893,6 @@
     sk = Aplikácia OMaps si vyžaduje prístup k
     sw = OMaps inahitaji kufikia
     fa = OMaps نیاز به دسترسی دارد
-
-  [onboarding_detail_permissions_storage_title]
-    comment = Default permission's name from Android settings.
-    en = Storage
-    ru = Память
-    ar = ذاكرة التخزين
-    cs = Úložišti
-    da = Lager
-    nl = Opslag
-    fi = Tallennustila
-    fr = Stockage
-    de = Speicher
-    hu = Tárolás
-    id = Penyimpanan
-    it = Memoria
-    ja = ストレージ
-    ko = 저장소
-    nb = Minnet
-    pl = Pamięć masowa
-    pt = Armazenamento
-    ro = Stocare
-    es = Almacenamiento
-    sv = Lagring
-    th = ที่เก็บข้อมูล
-    tr = Depolama Alanı
-    uk = Сховище
-    vi = Ổ lưu trữ
-    zh-Hans = 存储空间
-    zh-Hant = 存儲空間
-    el = Αποθηκευτικός χώρος
-    sk = Ukladací priestor
-    sw = Hifadhi
-    fa = ذخیره سازی
-
-  [onboarding_detail_permissions_storage_message]
-    en = To save and use downloaded maps offline and store bookmarks.
-    ru = Чтобы сохранять и использовать скачанные карты и сохранять метки.
-    ar = لحفظ الخرائط المنزلة واستخدامها بدون اتصال وحفظ الإشارات المرجعية.
-    cs = Umožní to stahování a používání offline map a ukládání záložek.
-    da = For at gemme og bruge hentede kort offline og gemme bogmærker.
-    nl = Om gedownloade kaarten op te slaan en offline te gebruiken, en bladwijzers op te slaan.
-    fi = Jotta voisit tallentaa ja käyttää ladattuja karttoja offline-tilassa sekä tallentaa kirjanmerkkejä.
-    fr = Pour enregistrer et utiliser les cartes téléchargées en hors ligne et enregistrer les signets.
-    de = Um heruntergeladene Karten offline zu speichern und zu nutzen und Lesezeichen zu speichern.
-    hu = A letöltött térképek offline használatához és könyvjelzők mentéséhez.
-    id = Untuk menyimpan dan menggunakan peta yang diunduh tanpa internet dan menyimpan markah.
-    it = Per salvare e utilizzare le mappe scaricate offline, come pure per salvare i preferiti.
-    ja = ダウンロードした地図の保存や利用、およびブックマークの保存に必要です。
-    ko = 오프라인으로 지도를 저장 및 사용하고 책갈피를 저장하기 위한 것입니다.
-    nb = For å lagre og bruke nedlastede kart offline og lagre bokmerker.
-    pl = Aby zapisywać zakładki i mapy oraz móc korzystać z pobranych map offline.
-    pt = Para guardar e utilizar mapas transferidos offline e guardar favoritos.
-    ro = Pentru a salva și a utiliza offline hărțile descărcate și pentru a salva semne de carte.
-    es = Para guardar y utilizar mapas descargados en línea, así como guardar marcadores.
-    sv = För att spara och använda nedladdade kartor offline och spara bokmärken.
-    th = เพื่อบันทึกและใช้งานแผนที่ที่ดาวน์โหลดมาแบบออฟไลน์และบันทึกบุ๊กมาร์ก
-    tr = İndirilen haritaları çevrimdışı olarak kullanmak ve yer imlerini kaydetmek.
-    uk = Для збереження та використання завантажених карт в автономному режимі, а також зберігання закладок.
-    vi = Để lưu và sử dụng ngoại tuyến các bản đồ đã tải về và lưu lại các dấu trang.
-    zh-Hans = 保存并离线使用已下载的地图，保存书签。
-    zh-Hant = 儲存和離線使用下載的地圖並儲存書籤。
-    el = Για την αποθήκευση και τη χρήση των χαρτών εκτός σύνδεσης, και την αποθήκευση αγαπημένων.
-    sk = Na ukladanie a používanie máp v režime offline a na ukladanie záložiek.
-    sw = Ili kuhifadhi na kutumia ramani zilizopakuliwa ukiwa nje ya mtandao na ili kuhifadhi alamisho.
-    fa = برای ذخیره و استفاده از نقشه های دانلود شده به صورت آفلاین و ذخیره بوک مارک ها.
 
   [onboarding_detail_permissions_location_title]
     comment = Default permission's name from Android settings.
@@ -25087,38 +24958,6 @@
     sk = Na zobrazovanie miest a dopravnej situácie v okolí a používanie navigácie.
     sw = Ili kuona maeneo na trafiki karibu nawe na ili utumie urambazaji.
     fa = برای دیدن مکان ها و ترافیک در نزدیکی شما و استفاده از ناوبری.
-
-  [onboarding_detail_permissions_storage_path_message]
-    en = You can also change the location for downloaded maps in settings.
-    ru = В настройках можно изменить место хранения загруженных карт.
-    ar = يمكنك أيضًا تغيير الوجهة للخرائط المنزلة في الإعدادات.
-    cs = Můžete také změnit cílové umístění pro stažené mapy v nastavení.
-    da = Du kan også ændre placeringen af hentede kort i indstillingerne.
-    nl = U kunt ook de bestemming voor gedownloade kaarten wijzigen in de instellingen.
-    fi = Voit myös muuttaa ladattujen karttojen tallennuskohteen asetuksissa.
-    fr = Vous pouvez également modifier la destination pour les cartes téléchargées dans les paramètres.
-    de = Sie können auch das Ziel für heruntergeladene Karten in den Einstellungen ändern.
-    hu = Módosíthatja a beállításokban a letöltött térképekek tárolásának helyét is.
-    id = Anda juga dapat mengubah destinasi untuk peta yang telah diunduh pada pengaturan.
-    it = Puoi anche modificare la destinazione delle mappe scaricate dalle impostazioni.
-    ja = また、設定でダウンロードした地図の保存先を変更することもできます。
-    ko = 설정에서 다운로드한 지도에 대한 목적지를 변경할 수도 있습니다.
-    nb = Du kan også endre destinasjon for nedlastede kart under innstillinger.
-    pl = Miejsce docelowe zapisu pobranych map można również zmienić w ustawieniach.
-    pt = Também pode alterar o destino para os mapas transferidos nas configurações.
-    ro = Puteți, de asemenea, să schimbați destinația hărților descărcate din setări.
-    es = También puede cambiar en los ajustes el destino para los mapas descargados.
-    sv = Du kan även ändra destination för nedladdade kartor i inställningarna.
-    th = คุณสามารถเปลี่ยนจุดหมายปลายทางสำหรับแผนที่ที่ดาวน์โหลดได้ในการตั้งค่า
-    tr = İndirilen haritalar için hedef konumu ayarlardan da değiştirebilirsiniz.
-    uk = Також ви можете змінити місце зберігання завантажених карт у налаштуваннях.
-    vi = Bạn cũng có thể thay đổi điểm lưu trữ các bản đồ đã tải về trong cài đặt.
-    zh-Hans = 您还可以在设置中更改已下载地图的目标存储位置。
-    zh-Hant = 在設定中，您還可變更下載的地圖之目的地。
-    el = Μπορείτε επίσης να αλλάξετε τον προορισμό για τους χάρτες που έχετε κατεβάσει από τις ρυθμίσεις.
-    sk = V nastaveniach tiež môžete zmeniť cieľové umiestnenie stiahnutých máp.
-    sw = Pia katika mipangilio unaweza kubadilisha mahali pakuhifadhia ramani zilizopakuliwa.
-    fa = شما همچنین می توانید موقعیت مکانی برای نقشه های دانلود شده را در تنظیمات تغییر دهید.
 
   [settings_device_memory]
     en = Device memory

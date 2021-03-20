@@ -1872,25 +1872,14 @@
 
 "routing_add_finish_point" = "新增終點以計劃路線";
 
-"onboarding_storage_permissions_title" = "授與存取權";
-
-"onboarding_storage_permissions_message" = "變更您裝置中的權限設定。需要存儲權限才能使用 OMaps。";
-
 "button_exit" = "退出";
 
 "onboarding_detail_permissions_title" = "OMaps 需要下列存取權限：";
 
 /* Default permission's name from Android settings. */
-"onboarding_detail_permissions_storage_title" = "存儲空間";
-
-"onboarding_detail_permissions_storage_message" = "儲存和離線使用下載的地圖並儲存書籤。";
-
-/* Default permission's name from Android settings. */
 "onboarding_detail_permissions_location_title" = "位置";
 
 "onboarding_detail_permissions_location_message" = "查看您附近的地點和交通，以及使用導航服務。";
-
-"onboarding_detail_permissions_storage_path_message" = "在設定中，您還可變更下載的地圖之目的地。";
 
 "settings_device_memory" = "裝置記憶體";
 

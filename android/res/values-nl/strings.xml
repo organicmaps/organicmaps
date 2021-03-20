@@ -1081,17 +1081,11 @@
 	<string name="core_exit">Verlaten</string>
 	<string name="routing_add_start_point">Voeg beginpunt toe om een route te plannen</string>
 	<string name="routing_add_finish_point">Voeg eindpunt toe om een route te plannen</string>
-	<string name="onboarding_storage_permissions_title">Toegang verlenen</string>
-	<string name="onboarding_storage_permissions_message">Wijzig instellingen machtigingen op uw toestel. Toegang tot opslag nodig voor gebruik OMaps.</string>
 	<string name="button_exit">Verlaten</string>
 	<string name="onboarding_detail_permissions_title">OMaps heeft toegang nodig tot</string>
 	<!-- Default permission's name from Android settings. -->
-	<string name="onboarding_detail_permissions_storage_title">Opslag</string>
-	<string name="onboarding_detail_permissions_storage_message">Om gedownloade kaarten op te slaan en offline te gebruiken, en bladwijzers op te slaan.</string>
-	<!-- Default permission's name from Android settings. -->
 	<string name="onboarding_detail_permissions_location_title">Locatie</string>
 	<string name="onboarding_detail_permissions_location_message">Om plaatsen en verkeer rondom u te zien en navigatie te gebruiken.</string>
-	<string name="onboarding_detail_permissions_storage_path_message">U kunt ook de bestemming voor gedownloade kaarten wijzigen in de instellingen.</string>
 	<string name="settings_device_memory">Apparaatgeheugen</string>
 	<string name="settings_card_memory">Kaartgeheugen</string>
 	<string name="settings_storage_available">%s beschikbaar</string>

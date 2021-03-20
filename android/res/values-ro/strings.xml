@@ -1070,17 +1070,11 @@
 	<string name="core_exit">Ieșire</string>
 	<string name="routing_add_start_point">Adăugați punctul de plecare pentru a planifica un traseu</string>
 	<string name="routing_add_finish_point">Adăugați punctul de sosire pentru a planifica un traseu</string>
-	<string name="onboarding_storage_permissions_title">Acordați acces</string>
-	<string name="onboarding_storage_permissions_message">Schimbați setările permisiunilor de pe dispozitiv. Pentru a utiliza OMaps este nevoie de acces la spațiul de stocare.</string>
 	<string name="button_exit">Ieșire</string>
 	<string name="onboarding_detail_permissions_title">OMaps necesită acces la</string>
 	<!-- Default permission's name from Android settings. -->
-	<string name="onboarding_detail_permissions_storage_title">Stocare</string>
-	<string name="onboarding_detail_permissions_storage_message">Pentru a salva și a utiliza offline hărțile descărcate și pentru a salva semne de carte.</string>
-	<!-- Default permission's name from Android settings. -->
 	<string name="onboarding_detail_permissions_location_title">Locație</string>
 	<string name="onboarding_detail_permissions_location_message">Pentru a vedea locurile și traficul din apropiere și a utiliza navigația.</string>
-	<string name="onboarding_detail_permissions_storage_path_message">Puteți, de asemenea, să schimbați destinația hărților descărcate din setări.</string>
 	<string name="settings_device_memory">Memoria dispozitivului</string>
 	<string name="settings_card_memory">Card</string>
 	<string name="settings_storage_available">%s disponibil</string>

@@ -1080,17 +1080,11 @@
 	<string name="core_exit">Esci</string>
 	<string name="routing_add_start_point">Aggiungi un punto di partenza per pianificare un percorso</string>
 	<string name="routing_add_finish_point">Aggiungi un punto di arrivo per pianificare un percorso</string>
-	<string name="onboarding_storage_permissions_title">Concedi l\'accesso</string>
-	<string name="onboarding_storage_permissions_message">Modifica le impostazioni di autorizzazione sul tuo dispositivo. Si richiede l\'accesso alla memoria per utilizzare OMaps.</string>
 	<string name="button_exit">Esci</string>
 	<string name="onboarding_detail_permissions_title">OMaps richiede l\'accesso a</string>
 	<!-- Default permission's name from Android settings. -->
-	<string name="onboarding_detail_permissions_storage_title">Memoria</string>
-	<string name="onboarding_detail_permissions_storage_message">Per salvare e utilizzare le mappe scaricate offline, come pure per salvare i preferiti.</string>
-	<!-- Default permission's name from Android settings. -->
 	<string name="onboarding_detail_permissions_location_title">Posizione</string>
 	<string name="onboarding_detail_permissions_location_message">Per vedere luoghi e traffico vicino a te e usare la funzione di navigazione.</string>
-	<string name="onboarding_detail_permissions_storage_path_message">Puoi anche modificare la destinazione delle mappe scaricate dalle impostazioni.</string>
 	<string name="settings_device_memory">Memoria del dispositivo</string>
 	<string name="settings_card_memory">Scheda di memoria</string>
 	<string name="settings_storage_available">%s disponibile</string>

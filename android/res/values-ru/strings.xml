@@ -1096,17 +1096,11 @@
 	<string name="core_exit">Выход</string>
 	<string name="routing_add_start_point">Добавьте стартовую точку, чтобы построить маршрут</string>
 	<string name="routing_add_finish_point">Добавьте конечную точку, чтобы построить маршрут</string>
-	<string name="onboarding_storage_permissions_title">Предоставьте доступ</string>
-	<string name="onboarding_storage_permissions_message">Предоставьте OMaps доступ к памяти в настройках вашего устройства, иначе использовать OMaps будет невозможно.</string>
 	<string name="button_exit">Выход</string>
 	<string name="onboarding_detail_permissions_title">OMaps нужен доступ к</string>
 	<!-- Default permission's name from Android settings. -->
-	<string name="onboarding_detail_permissions_storage_title">Память</string>
-	<string name="onboarding_detail_permissions_storage_message">Чтобы сохранять и использовать скачанные карты и сохранять метки.</string>
-	<!-- Default permission's name from Android settings. -->
 	<string name="onboarding_detail_permissions_location_title">Местоположение</string>
 	<string name="onboarding_detail_permissions_location_message">Чтобы смотреть места и пробки рядом с вами и пользоваться навигацией.</string>
-	<string name="onboarding_detail_permissions_storage_path_message">В настройках можно изменить место хранения загруженных карт.</string>
 	<string name="settings_device_memory">Память устроства</string>
 	<string name="settings_card_memory">Карта памяти</string>
 	<string name="settings_storage_available">%s доступно</string>

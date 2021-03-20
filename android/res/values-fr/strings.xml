@@ -1093,17 +1093,11 @@
 	<string name="core_exit">Quitter</string>
 	<string name="routing_add_start_point">Ajouter un point de départ pour planifier un itinéraire</string>
 	<string name="routing_add_finish_point">Ajouter un point d\'arrivée pour planifier un itinéraire</string>
-	<string name="onboarding_storage_permissions_title">Autoriser l\'accès</string>
-	<string name="onboarding_storage_permissions_message">Modifiez les paramètres d’autorisation dans votre appareil. Il est nécessaire d’accéder à un stockage pour utiliser OMaps.</string>
 	<string name="button_exit">Quitter</string>
 	<string name="onboarding_detail_permissions_title">OMaps doit avoir accès à</string>
 	<!-- Default permission's name from Android settings. -->
-	<string name="onboarding_detail_permissions_storage_title">Stockage</string>
-	<string name="onboarding_detail_permissions_storage_message">Pour enregistrer et utiliser les cartes téléchargées en hors ligne et enregistrer les signets.</string>
-	<!-- Default permission's name from Android settings. -->
 	<string name="onboarding_detail_permissions_location_title">Localisation</string>
 	<string name="onboarding_detail_permissions_location_message">Pour voir les lieux et le trafic près de vous et utiliser la navigation.</string>
-	<string name="onboarding_detail_permissions_storage_path_message">Vous pouvez également modifier la destination pour les cartes téléchargées dans les paramètres.</string>
 	<string name="settings_device_memory">Mémoire de l’appareil</string>
 	<string name="settings_card_memory">Mémoire carte</string>
 	<string name="settings_storage_available">%s disponible</string>

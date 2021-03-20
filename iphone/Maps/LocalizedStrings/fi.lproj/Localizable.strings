@@ -1872,25 +1872,14 @@
 
 "routing_add_finish_point" = "Lisää määränpää reitin suunnittelua varten";
 
-"onboarding_storage_permissions_title" = "Myönnä käyttöoikeus";
-
-"onboarding_storage_permissions_message" = "Muuta laitteesi käyttöoikeusasetuksia. OMaps:n käyttö edellyttää tallennustilan käyttöoikeutta.";
-
 "button_exit" = "Poistu";
 
 "onboarding_detail_permissions_title" = "OMaps tarvitsee seuraavat käyttöoikeudet:";
 
 /* Default permission's name from Android settings. */
-"onboarding_detail_permissions_storage_title" = "Tallennustila";
-
-"onboarding_detail_permissions_storage_message" = "Jotta voisit tallentaa ja käyttää ladattuja karttoja offline-tilassa sekä tallentaa kirjanmerkkejä.";
-
-/* Default permission's name from Android settings. */
 "onboarding_detail_permissions_location_title" = "Sijainti";
 
 "onboarding_detail_permissions_location_message" = "Jotta voisit nähdä lähistöllä olevia paikkoja ja liikenteen sekä käyttää navigointia.";
-
-"onboarding_detail_permissions_storage_path_message" = "Voit myös muuttaa ladattujen karttojen tallennuskohteen asetuksissa.";
 
 "settings_device_memory" = "Laitteen muisti";
 

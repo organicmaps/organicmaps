@@ -1074,17 +1074,11 @@
 	<string name="core_exit">Poistu</string>
 	<string name="routing_add_start_point">Lisää alkupiste reitin suunnittelua varten</string>
 	<string name="routing_add_finish_point">Lisää määränpää reitin suunnittelua varten</string>
-	<string name="onboarding_storage_permissions_title">Myönnä käyttöoikeus</string>
-	<string name="onboarding_storage_permissions_message">Muuta laitteesi käyttöoikeusasetuksia. OMaps:n käyttö edellyttää tallennustilan käyttöoikeutta.</string>
 	<string name="button_exit">Poistu</string>
 	<string name="onboarding_detail_permissions_title">OMaps tarvitsee seuraavat käyttöoikeudet:</string>
 	<!-- Default permission's name from Android settings. -->
-	<string name="onboarding_detail_permissions_storage_title">Tallennustila</string>
-	<string name="onboarding_detail_permissions_storage_message">Jotta voisit tallentaa ja käyttää ladattuja karttoja offline-tilassa sekä tallentaa kirjanmerkkejä.</string>
-	<!-- Default permission's name from Android settings. -->
 	<string name="onboarding_detail_permissions_location_title">Sijainti</string>
 	<string name="onboarding_detail_permissions_location_message">Jotta voisit nähdä lähistöllä olevia paikkoja ja liikenteen sekä käyttää navigointia.</string>
-	<string name="onboarding_detail_permissions_storage_path_message">Voit myös muuttaa ladattujen karttojen tallennuskohteen asetuksissa.</string>
 	<string name="settings_device_memory">Laitteen muisti</string>
 	<string name="settings_card_memory">Muistkortti</string>
 	<string name="settings_storage_available">%s käytettävissä</string>

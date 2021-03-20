@@ -1033,17 +1033,11 @@
 	<string name="core_exit">خروج</string>
 	<string name="routing_add_start_point">یک نقطه شروع برای برنامه ریزی یک مسیر اضافه کنید</string>
 	<string name="routing_add_finish_point">یک مقصد برای برنامه ریزی یک مسیر اضافه کنید</string>
-	<string name="onboarding_storage_permissions_title">مجوز دسترسی</string>
-	<string name="onboarding_storage_permissions_message">لطفا OMaps را مجاز به استفاده از ذخیره سازی در تنظیمات دستگاه خود کنید، در غیر این صورت نمی توانید از OMaps استفاده کنید.</string>
 	<string name="button_exit">خروج</string>
 	<string name="onboarding_detail_permissions_title">OMaps نیاز به دسترسی دارد</string>
 	<!-- Default permission's name from Android settings. -->
-	<string name="onboarding_detail_permissions_storage_title">ذخیره سازی</string>
-	<string name="onboarding_detail_permissions_storage_message">برای ذخیره و استفاده از نقشه های دانلود شده به صورت آفلاین و ذخیره بوک مارک ها.</string>
-	<!-- Default permission's name from Android settings. -->
 	<string name="onboarding_detail_permissions_location_title">موقعیت</string>
 	<string name="onboarding_detail_permissions_location_message">برای دیدن مکان ها و ترافیک در نزدیکی شما و استفاده از ناوبری.</string>
-	<string name="onboarding_detail_permissions_storage_path_message">شما همچنین می توانید موقعیت مکانی برای نقشه های دانلود شده را در تنظیمات تغییر دهید.</string>
 	<string name="settings_device_memory">حافظه دستگاه</string>
 	<string name="settings_card_memory">کارت حافظه</string>
 	<string name="settings_storage_available">%s موجود</string>

@@ -1072,17 +1072,11 @@
 	<string name="core_exit">Avslutt</string>
 	<string name="routing_add_start_point">Angi startpunkt for å planlegge rute</string>
 	<string name="routing_add_finish_point">Angi sluttpunkt for å planlegge rute</string>
-	<string name="onboarding_storage_permissions_title">Gi tilgang</string>
-	<string name="onboarding_storage_permissions_message">Endre innstillinger for tillatelser på enheten din. Det er nødvendig med tilgang til minnet for å kunne bruke OMaps.</string>
 	<string name="button_exit">Avslutt</string>
 	<string name="onboarding_detail_permissions_title">OMaps trenger tilgang til</string>
 	<!-- Default permission's name from Android settings. -->
-	<string name="onboarding_detail_permissions_storage_title">Minnet</string>
-	<string name="onboarding_detail_permissions_storage_message">For å lagre og bruke nedlastede kart offline og lagre bokmerker.</string>
-	<!-- Default permission's name from Android settings. -->
 	<string name="onboarding_detail_permissions_location_title">Plassering</string>
 	<string name="onboarding_detail_permissions_location_message">For å se steder og trafikk nær deg og bruke navigasjon.</string>
-	<string name="onboarding_detail_permissions_storage_path_message">Du kan også endre destinasjon for nedlastede kart under innstillinger.</string>
 	<string name="settings_device_memory">Enhetsminnet</string>
 	<string name="settings_card_memory">Minnekort</string>
 	<string name="settings_storage_available">%s tilgjengelig</string>

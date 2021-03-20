@@ -1086,17 +1086,11 @@
 	<string name="core_exit">ออก</string>
 	<string name="routing_add_start_point">เพิ่มจุดเริ่มต้นเพื่อวางแผนเส้นทาง</string>
 	<string name="routing_add_finish_point">เพิ่มจุดสิ้นสุดเพื่อวางแผนเส้นทาง</string>
-	<string name="onboarding_storage_permissions_title">ให้สิทธิ์เข้าถึง</string>
-	<string name="onboarding_storage_permissions_message">เปลี่ยนการตั้งค่าการให้สิทธิ์ในเครื่องของคุณ จำเป็นต้องได้สิทธิ์การเข้าถึงที่เก็บข้อมูลเพื่อใช้งาน OMaps</string>
 	<string name="button_exit">ออก</string>
 	<string name="onboarding_detail_permissions_title">OMaps จำเป็นต้องได้สิทธิ์การเข้าถึง</string>
 	<!-- Default permission's name from Android settings. -->
-	<string name="onboarding_detail_permissions_storage_title">ที่เก็บข้อมูล</string>
-	<string name="onboarding_detail_permissions_storage_message">เพื่อบันทึกและใช้งานแผนที่ที่ดาวน์โหลดมาแบบออฟไลน์และบันทึกบุ๊กมาร์ก</string>
-	<!-- Default permission's name from Android settings. -->
 	<string name="onboarding_detail_permissions_location_title">ตำแหน่งที่ตั้ง</string>
 	<string name="onboarding_detail_permissions_location_message">เพื่อดูสถานที่ต่าง ๆ และการจราจรที่อยู่ใกล้ ๆ คุณแล้วใช้งานการนำทาง</string>
-	<string name="onboarding_detail_permissions_storage_path_message">คุณสามารถเปลี่ยนจุดหมายปลายทางสำหรับแผนที่ที่ดาวน์โหลดได้ในการตั้งค่า</string>
 	<string name="settings_device_memory">หน่วยความจำเครื่อง</string>
 	<string name="settings_card_memory">หน่วยความจำการ์ด</string>
 	<string name="settings_storage_available">เหลือให้ใช้ได้ %s</string>

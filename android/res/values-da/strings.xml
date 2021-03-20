@@ -1084,17 +1084,11 @@
 	<string name="core_exit">Afslut</string>
 	<string name="routing_add_start_point">Tilføj startpunkt for at planlægge en rute</string>
 	<string name="routing_add_finish_point">Tilføj slutpunkt for at planlægge en rute</string>
-	<string name="onboarding_storage_permissions_title">Giv adgang</string>
-	<string name="onboarding_storage_permissions_message">Rediger tilladelsesindstillingerne i din enhed. Brug af OMaps kræver adgang til lager.</string>
 	<string name="button_exit">Afslut</string>
 	<string name="onboarding_detail_permissions_title">OMaps skal have adgang til</string>
 	<!-- Default permission's name from Android settings. -->
-	<string name="onboarding_detail_permissions_storage_title">Lager</string>
-	<string name="onboarding_detail_permissions_storage_message">For at gemme og bruge hentede kort offline og gemme bogmærker.</string>
-	<!-- Default permission's name from Android settings. -->
 	<string name="onboarding_detail_permissions_location_title">Position</string>
 	<string name="onboarding_detail_permissions_location_message">For at se steder og trafik i nærheden af dig og benytte navigation.</string>
-	<string name="onboarding_detail_permissions_storage_path_message">Du kan også ændre placeringen af hentede kort i indstillingerne.</string>
 	<string name="settings_device_memory">Enhedens hukommelse</string>
 	<string name="settings_card_memory">Kortets hukommelse</string>
 	<string name="settings_storage_available">%s tilgængelig</string>
