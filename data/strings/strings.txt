@@ -6998,6 +6998,41 @@
     sk = Komunita OMaps
     fa = انجمن OMaps
 
+  [like_on_facebook]
+    comment = Text in menu
+    tags = ios, android
+    en = Like on Facebook
+    ru = OMaps в Facebook
+    ar = أعجبني على الفيسبوك
+    cs = Lajknout na Facebooku
+    da = Synes godt om på Facebook
+    nl = Ons leuk vinden op Facebook
+    fi = Tykkää meistä Facebookissa
+    fr = Aimer sur Facebook
+    de = „Gefällt mir“ auf Facebook
+    hu = Lájkolj minket Facebookon
+    id = Sukai di Facebook
+    it = Dai Mi Piace su Facebook
+    ja = Facebookでいいねをクリック
+    ko = Facebook에서 좋아요
+    nb = Lik på Facebook
+    pl = Polub nas na Facebooku
+    pt = Gostar no Facebook
+    pt-BR = Curtir no Facebook
+    ro = Apreciați-ne pe Facebook
+    es = Pulsa "Me gusta" en Facebook
+    sv = Gilla på Facebook
+    th = ถูกใจบน Facebook
+    tr = Facebook'da beğen
+    uk = OMaps у Facebook
+    vi = Thích trên Facebook
+    zh-Hans = 在Facebook 上点赞
+    zh-Hant = 在 Facebook 上按讚
+    el = Κάντε Like στο Facebook
+    he = עשו 'לייק' בפייסבוק
+    sk = Označiť pomocou Páči sa mi to na Facebooku
+    fa = ما را در فیسبوک لایک کنید
+
   [follow_on_twitter]
     comment = Text in menu
     tags = ios, android
