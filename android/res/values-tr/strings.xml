@@ -338,13 +338,7 @@
 	<string name="placepage_unsorted">Sıralanmamış</string>
 	<string name="search_show_on_map">Haritada görüntüle</string>
 	<!-- Used to warn user when fixing KitKat issue -->
-	<string name="kitkat_migrate_ok">Harita veri depolama optimize edildi. Lütfen uygulamayı yeniden başlatın.\n\nSD kart kaynağındaki OMaps klasörüne artık ihtiyaç yok; silebilirsiniz.</string>
-	<!-- Used to warn user when fixing KitKat issue -->
-	<string name="kitkat_migrate_failed">Android 4.4’de yapılan değişikliklerden dolayı harita veri depolamasını optimize etmemiz gerekiyor ancak harita verilerini kopyalayacak yeterli alan yok.\n\nLütfen hafızayı boşaltın, aksi takdirde haritalar salt okunur modda kullanılabilir olacaktır.</string>
-	<!-- Used to warn user when fixing KitKat issue -->
 	<string name="bookmark_move_fail">Yer imlerinizi dâhili hafızaya taşımamız gerekiyor ancak bunlar için kullanılabilir alan yok. Lütfen hafızayı boşaltın, aksi takdirde yer imleri kullanılamaz olacaktır.</string>
-	<!-- Used to warn user when fixing KitKat issue -->
-	<string name="kitkat_optimization_in_progress">Harita depolama şu anda optimize ediliyor. Lütfen bekleyin; bu işlem birkaç dakika sürebilir.</string>
 	<!-- Used in More Apps menu -->
 	<string name="free">Ücretsiz</string>
 	<!-- Used in More Apps menu -->

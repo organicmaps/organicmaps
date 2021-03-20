@@ -334,13 +334,7 @@
 	<string name="placepage_unsorted">未分类</string>
 	<string name="search_show_on_map">在地图上查看</string>
 	<!-- Used to warn user when fixing KitKat issue -->
-	<string name="kitkat_migrate_ok">地图数据存储已优化。请重启应用。\n\nSD 卡根目录中的 OMaps 文件夹已不再需要, 您可以删除它了。</string>
-	<!-- Used to warn user when fixing KitKat issue -->
-	<string name="kitkat_migrate_failed">由于安卓 4.4 的更改,我们需要优化地图的数 据存储,但现在没有足够的空间用于拷贝地 图数据。\n\n请释放存储空间,否则地图将 在只读模式中提供。</string>
-	<!-- Used to warn user when fixing KitKat issue -->
 	<string name="bookmark_move_fail">我们需要移动您的书签到内部存储器,但没 有可用的空间。请释放存储,否则书签将不 可用。</string>
-	<!-- Used to warn user when fixing KitKat issue -->
-	<string name="kitkat_optimization_in_progress">您的地图存储正在被优化。请稍后,它可能 需要几分钟的时间。</string>
 	<!-- Used in More Apps menu -->
 	<string name="free">免费</string>
 	<!-- Used in More Apps menu -->

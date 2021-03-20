@@ -541,16 +541,7 @@
 "search_show_on_map" = "Näytä kartalla";
 
 /* Used to warn user when fixing KitKat issue */
-"kitkat_migrate_ok" = "Tallennetut kartat on optimoitu. Käynnistä sovellus uudelleen.\n\nMapsWithMe-hakemistoa SD-kortillasi ei enää tarvita, joten voit poistaa sen.";
-
-/* Used to warn user when fixing KitKat issue */
-"kitkat_migrate_failed" = "Android 4.4 -järjestelmästä johtuvien muutosten tähden tallennetut kartat täytyy optimoida, mutta laitteellasi ei ole tarpeeksi vapaata tilaa karttojen kopioimiseen.";
-
-/* Used to warn user when fixing KitKat issue */
 "bookmark_move_fail" = "Vapauta muistia, sillä muuten karttoja voidaan käyttää vain lukutilassa. Kirjanmerkkisi pitää siirtää laitteen sisäiseen muistiin, mutta vapaata muistia ei ole tarpeeksi. Vapauta muistia, sillä muuten kirjanmerkkejä ei voida käyttää.";
-
-/* Used to warn user when fixing KitKat issue */
-"kitkat_optimization_in_progress" = "Tallennettuja karttoja optimoidaan parhaillaan. Odota hetkinen, tämä voi kestää muutamia minuutteja.";
 
 /* Used in More Apps menu */
 "free" = "Free";

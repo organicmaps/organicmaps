@@ -332,13 +332,7 @@
 	<string name="placepage_unsorted">Nesortate</string>
 	<string name="search_show_on_map">Vizualizare pe hartă</string>
 	<!-- Used to warn user when fixing KitKat issue -->
-	<string name="kitkat_migrate_ok">Stocarea hărților este în curs de optimizare acum. Vă rugăm să așteptați. Poate dura câteva minute.</string>
-	<!-- Used to warn user when fixing KitKat issue -->
-	<string name="kitkat_migrate_failed">Din cauza modificărilor efectuate în Android 4.4, trebuie să optimizăm stocarea datelor hărților, dar nu este suficient spațiu pentru a copia aceste date.\n\nVă rugăm să eliberați memoria; altfel, hărțile vor fi disponibile doar în modul citire.</string>
-	<!-- Used to warn user when fixing KitKat issue -->
 	<string name="bookmark_move_fail">Trebuie să vă mutăm marcajele în memoria internă, dar nu există spațiu suficient pentru ele. Vă rugăm să eliberați memoria, altfel marcajele nu vor fi disponibile.</string>
-	<!-- Used to warn user when fixing KitKat issue -->
-	<string name="kitkat_optimization_in_progress">Stocarea hărților este în curs de optimizare acum. Vă rugăm să așteptați. Poate dura câteva minute.</string>
 	<!-- 1st search button-like result -->
 	<string name="search_on_map">Căutare pe hartă</string>
 	<!-- toast with an error -->

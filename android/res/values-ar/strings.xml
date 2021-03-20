@@ -338,13 +338,7 @@
 	<string name="placepage_unsorted">لم يتم فرزها</string>
 	<string name="search_show_on_map">مشاهدة على الخريطة</string>
 	<!-- Used to warn user when fixing KitKat issue -->
-	<string name="kitkat_migrate_ok">تم تحسين وسيلة تخزين بيانات الخريطة. الرجاء اعادة تشغيل التطبيق .\n\nلا حاجة بعد الآن لمجلد OMaps في البطاقة الرقمية الآمنة، يمكنك حذفه.</string>
-	<!-- Used to warn user when fixing KitKat issue -->
-	<string name="kitkat_migrate_failed">بسبب التغييرات في نظام أندرويد4.4 ، نحن بحاجة لتحسين وسيلة تخزين بيانات الخريطة، لكن لا يوجد حيز كافٍ لنسخ بيانات الخريطة.\n\nالرجاء إخلاء الذاكرة، وإلا ستتوافر الخرائط في وضع القراءة فقط.</string>
-	<!-- Used to warn user when fixing KitKat issue -->
 	<string name="bookmark_move_fail">نحن بحاجة لنقل الإشارات المرجعية الخاصة بك الى الذاكرة الداخلية، لكن لا يوجد حيز كافٍ لها. الرجاء إخلاء الذاكرة، وإلا لن تكون  الإشارات المرجعية متاحة.</string>
-	<!-- Used to warn user when fixing KitKat issue -->
-	<string name="kitkat_optimization_in_progress">لقد تم الآن تحسين وسيلة تخزين الخرائط. الرجاء الانتظار، سيستغرق الأمر دقائق قليلة.</string>
 	<!-- Used in More Apps menu -->
 	<string name="free">مجاني</string>
 	<!-- Used in More Apps menu -->

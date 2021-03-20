@@ -541,16 +541,7 @@
 "search_show_on_map" = "Vizualizare pe hartă";
 
 /* Used to warn user when fixing KitKat issue */
-"kitkat_migrate_ok" = "Stocarea hărților este în curs de optimizare acum. Vă rugăm să așteptați. Poate dura câteva minute.";
-
-/* Used to warn user when fixing KitKat issue */
-"kitkat_migrate_failed" = "Din cauza modificărilor efectuate în Android 4.4, trebuie să optimizăm stocarea datelor hărților, dar nu este suficient spațiu pentru a copia aceste date.\n\nVă rugăm să eliberați memoria; altfel, hărțile vor fi disponibile doar în modul citire.";
-
-/* Used to warn user when fixing KitKat issue */
 "bookmark_move_fail" = "Trebuie să vă mutăm marcajele în memoria internă, dar nu există spațiu suficient pentru ele. Vă rugăm să eliberați memoria, altfel marcajele nu vor fi disponibile.";
-
-/* Used to warn user when fixing KitKat issue */
-"kitkat_optimization_in_progress" = "Stocarea hărților este în curs de optimizare acum. Vă rugăm să așteptați. Poate dura câteva minute.";
 
 /* Used in More Apps menu */
 "free" = "Free";

@@ -541,16 +541,7 @@
 "search_show_on_map" = "Vis på kortet";
 
 /* Used to warn user when fixing KitKat issue */
-"kitkat_migrate_ok" = "Kort data lagring er blevet optimeret. Genstart venligst applikationen.\n\nOMaps mappen i SD-kortet er ikke nødvendig mere. Du kan derfor slette den.";
-
-/* Used to warn user when fixing KitKat issue */
-"kitkat_migrate_failed" = "På grund af ændringer i Android 4.4 er vi nødsaget til at optimere kort data lagringen, men der er ikke nok plads til at kopiere kort dataen.\n\nFrigør venligst noget plads på din enhed, ellers vil kortene være skrivebeskyttede.";
-
-/* Used to warn user when fixing KitKat issue */
 "bookmark_move_fail" = "Vi er nødsaget til at flytte dine bogmærker til intern hukommelse, men der er ikke nok plads til dem der. Frigør venligst noget plads, ellers vil dine bogmærker ikke være tilgængelige.";
-
-/* Used to warn user when fixing KitKat issue */
-"kitkat_optimization_in_progress" = "Din kort lagring bliver optimeret nu. Vent venligst, det kan taget nogle minutter.";
 
 /* Used in More Apps menu */
 "free" = "Gratis";

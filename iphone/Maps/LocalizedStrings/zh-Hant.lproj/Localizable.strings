@@ -541,16 +541,7 @@
 "search_show_on_map" = "在地圖上查看";
 
 /* Used to warn user when fixing KitKat issue */
-"kitkat_migrate_ok" = "地圖數據存儲已被最佳化。請重啟應用程式。\n\n不再需要 SD 卡根目錄中的 MapsWithMe 資料夾，您可以將它刪除。";
-
-/* Used to warn user when fixing KitKat issue */
-"kitkat_migrate_failed" = "由於 Android 4.4 版本有所更改，我們需要對地圖數據存儲進行最佳化，但沒有足夠的空間複製地圖數據。\n\n請釋放一些記憶體，否則將只能以唯讀模式使用地圖。";
-
-/* Used to warn user when fixing KitKat issue */
 "bookmark_move_fail" = "我們需要將您的書籤移至內部記憶體中，但沒有足夠的存儲空間。請釋放一些記憶體，否則，書籤將不可用。";
-
-/* Used to warn user when fixing KitKat issue */
-"kitkat_optimization_in_progress" = "正在最佳化您的地圖存儲。請等待，這可能需要幾分鐘的時間。";
 
 /* Used in More Apps menu */
 "free" = "免費";

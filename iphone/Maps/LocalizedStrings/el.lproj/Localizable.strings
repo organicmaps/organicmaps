@@ -541,16 +541,7 @@
 "search_show_on_map" = "Προβολή στο χάρτη";
 
 /* Used to warn user when fixing KitKat issue */
-"kitkat_migrate_ok" = "Ο αποθηκευτικός χώρος του χάρτη έχει βελτιστοποιηθεί. Κάντε επανεκκίνηση της εφαρμογής.\n\nΟ φάκελος MapsWithMe στο ριζικό κατάλογο της κάρτας SD δε χρειάζεται πλέον. Μπορείτε να το διαγράψετε.";
-
-/* Used to warn user when fixing KitKat issue */
-"kitkat_migrate_failed" = "Εξαιτίας αλλαγών στο Android 4.4, χρειάζεται να βελτιώσουμε τον αποθηκευτικό χώρο του χάρτη, αλλά δεν υπάρχει αρκετός χώρος για την αντιγραφή των δεδομένων του χάρτη.\n\nΕλευθερώστε μνήμη αλλιώς οι χάρτες θα είναι διαθέσιμοι στη λειτουργία μόνο ανάγνωσης.";
-
-/* Used to warn user when fixing KitKat issue */
 "bookmark_move_fail" = "We need to move your bookmarks to internal memory, but there is no available space for them. Please free up the memory, otherwise bookmarks won’t be available.";
-
-/* Used to warn user when fixing KitKat issue */
-"kitkat_optimization_in_progress" = "Ο αποθηκευτικός χώρος του χάρτη σας βελτιστοποιείται. Παρακαλώ περιμένετε. Ίσως χρειαστούν μερικά λεπτά.";
 
 /* Used in More Apps menu */
 "free" = "Free";

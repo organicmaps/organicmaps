@@ -258,12 +258,6 @@
 	<string name="duration_1_day">1 ημέρα</string>
 	<string name="recent_track_help_text">Σας επιτρέπει να καταγράψετε τη διαδρομή που έχει διανυθεί για συγκεκριμένο χρονικό διάστημα και να την δείτε στο χάρτη. Λάβετε υπόψη: η ενεργοποίηση αυτής της λειτουργίας κάνει έντονη χρήση της μπαταρίας. Το τμήμα θα αφαιρεθεί αυτόματα από το χάρτη μετά τη λήξη του μεσοδιαστήματος.</string>
 	<string name="search_show_on_map">Προβολή στο χάρτη</string>
-	<!-- Used to warn user when fixing KitKat issue -->
-	<string name="kitkat_migrate_ok">Ο αποθηκευτικός χώρος του χάρτη έχει βελτιστοποιηθεί. Κάντε επανεκκίνηση της εφαρμογής.\n\nΟ φάκελος MapsWithMe στο ριζικό κατάλογο της κάρτας SD δε χρειάζεται πλέον. Μπορείτε να το διαγράψετε.</string>
-	<!-- Used to warn user when fixing KitKat issue -->
-	<string name="kitkat_migrate_failed">Εξαιτίας αλλαγών στο Android 4.4, χρειάζεται να βελτιώσουμε τον αποθηκευτικό χώρο του χάρτη, αλλά δεν υπάρχει αρκετός χώρος για την αντιγραφή των δεδομένων του χάρτη.\n\nΕλευθερώστε μνήμη αλλιώς οι χάρτες θα είναι διαθέσιμοι στη λειτουργία μόνο ανάγνωσης.</string>
-	<!-- Used to warn user when fixing KitKat issue -->
-	<string name="kitkat_optimization_in_progress">Ο αποθηκευτικός χώρος του χάρτη σας βελτιστοποιείται. Παρακαλώ περιμένετε. Ίσως χρειαστούν μερικά λεπτά.</string>
 	<!-- 1st search button-like result -->
 	<string name="search_on_map">Αναζήτηση στο χάρτη</string>
 	<!-- toast with an error -->

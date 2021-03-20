@@ -332,13 +332,7 @@
 	<string name="placepage_unsorted">Chưa phân loại</string>
 	<string name="search_show_on_map">Xem trên bản đồ</string>
 	<!-- Used to warn user when fixing KitKat issue -->
-	<string name="kitkat_migrate_ok">Lưu trữ dữ liệu bản đồ đã được tối ưu hóa. Vui lòng khởi động lại ứng dụng.\n\nKhông cần thư mục MapsWithMe trong thẻ SD nữa, bạn có thể xóa thư mục này.</string>
-	<!-- Used to warn user when fixing KitKat issue -->
-	<string name="kitkat_migrate_failed">Do các thay đổi trong Android 4.4, chúng tôi cần tối ưu hóa lưu trữ dữ liệu bản đồ nhưng không có đủ dung lượng còn trống để sao chép dữ liệu bản đồ.\n\nVui lòng giải phóng bộ nhớ nếu không bản đồ sẽ ở chế độ chỉ đọc.</string>
-	<!-- Used to warn user when fixing KitKat issue -->
 	<string name="bookmark_move_fail">Chúng tôi cần di chuyển các điểm đánh dấu của bạn vào bộ nhớ trong nhưng không còn dung lượng cho chúng. Vui lòng giải phóng bộ nhớ, nếu không các điểm đánh dấu sẽ không khả dụng.</string>
-	<!-- Used to warn user when fixing KitKat issue -->
-	<string name="kitkat_optimization_in_progress">Lưu trữ bản đồ của bạn đang được tối ưu hóa. Vui lòng chờ, việc này có thể mất vài phút.</string>
 	<!-- 1st search button-like result -->
 	<string name="search_on_map">Tìm trên bản đồ</string>
 	<!-- toast with an error -->

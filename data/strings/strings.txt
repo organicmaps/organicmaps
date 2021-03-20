@@ -6370,72 +6370,6 @@
     sk = Zobraziť na mape
     fa = مشاهده بر روی نقشه
 
-  [kitkat_migrate_ok]
-    comment = Used to warn user when fixing KitKat issue
-    tags = android
-    en = Map data storage has been optimized. Please restart the app.\n\nThe MapsWithMe folder in the SD card root folder is not needed anymore. You can delete it.
-    ru = Мы оптимизировали хранение данных. Для дальнейшей работы, пожалуйста, перезагрузите приложение.\n\nПапка MapsWithMe, которая находится в корне SD-карты, уже больше не нужна, вы можете её удалить.
-    ar = تم تحسين وسيلة تخزين بيانات الخريطة. الرجاء اعادة تشغيل التطبيق .\n\nلا حاجة بعد الآن لمجلد OMaps في البطاقة الرقمية الآمنة، يمكنك حذفه.
-    cs = Uložiště map bylo optimalizováno. Prosím, restartujte aplikaci.\n\nAdresář MapsWithMe v kořenové složce SD karty již není potřeba, můžete ho smazat.
-    da = Kort data lagring er blevet optimeret. Genstart venligst applikationen.\n\nOMaps mappen i SD-kortet er ikke nødvendig mere. Du kan derfor slette den.
-    nl = Opslag van kaartgegevens is geoptimaliseerd. Herstart de app.\n\nMapsWithMe map is niet langer nodig in de root van de SD-kaart, u kunt het verwijderen.
-    fi = Tallennetut kartat on optimoitu. Käynnistä sovellus uudelleen.\n\nMapsWithMe-hakemistoa SD-kortillasi ei enää tarvita, joten voit poistaa sen.
-    fr = Le stockage des données cartographiques a été optimisé. Veuillez redémarrer l'appli.\n\nLe dossier MapsWithMe se trouvant sur la racine de la carte SD n'est plus nécessaire, vous pouvez le supprimer.
-    de = Der Kartendaten-Speicherplatz wurde optimiert. Bitte die App neu starten.\n\nDer Ordner MapsWithMe im Stammverzeichnis der SD-Karte wird nicht mehr benötigt. Sie können ihn löschen.
-    hu = A tárolt térképadatokat optimalizáltuk. Kérjük, indítsa újra az alkalmazást.\n\nA MapsWithMe mappa az SD-kártya gyökérkönyvtárában már nem szükséges, törölhető.
-    id = Penyimpanan data peta telah dioptimalkan. Mohon aplikasi di jalankan ulang.\n\nBerkas MapsWithMe pada akar kartu SD tidak diperlukan lagi, Anda dapat menghapusnya.
-    it = L'archiviazione dei dati delle mappe è stata ottimizzata. Ti preghiamo di riavviare l'app.\n\nLa cartella MapsWithMe nel canale della scheda SD non è più necessario ed è possibile eliminarla.
-    ja = マップデータのストレージは最適化されました。アプリを再起動させてください。\n\nSDカードのルートにあるMapsWithMeフォルダは不要となりましたので削除しても構いません。
-    ko = 지도 데이터 저장소가 최적화되어 있습니다. 앱을 다시 시작하십시오.\n\nSD 카드의 루트에 MapsWithMe 폴더가 더 이상 필요하지 않으므로, 이를 삭제할 수 있습니다.
-    nb = Kartdatalagring har blitt optimalisert. Start appen på nytt.\n\nMapsWithMe-mappen som ligger i hovedmappen på SD-kortet er ikke nødvendig lenger, og du kan gjerne slette den.
-    pl = Przechowywanie danych mapy zostało zoptymalizowane. Prosimy zrestartować aplikację.\n\nFolder MapsWithMe w katalogu głównym karty SD nie jest już potrzebny, można go usunąć.
-    pt = O armazenamento de dados do mapa foi otimizado. Por favor, reinicie a app.\n\nA pasta MapsWithMe na raiz do cartão SD já não é necessária, pode excluí-la.
-    pt-BR = O armazenamento de dados do mapa foi otimizado. Por favor, reinicie o app.\n\nA pasta MapsWithMe no diretório raiz do cartão SD não é mais necessária; você pode excluí-la.
-    ro = Stocarea hărților este în curs de optimizare acum. Vă rugăm să așteptați. Poate dura câteva minute.
-    es = Se ha optimizado el almacenamiento de datos de mapas. Por favor, reinicia la aplicación.\n\nLa carpeta MapsWithMe en el directorio raíz de la tarjeta SD ya no es necesaria, puedes borrarla.
-    sv = Kartdata lagringen har optimerats. Vänligen starta om appen.\n\nMapsWithMe mappen i roten av SD.kortet behövs inte längre, du kan ta bort den.
-    th = มีการปรับประสิทธิภาพพื้นที่จัดเก็บข้อมูลของแผนที่ โปรดรีสตาร์ทแอป\n\nโฟลเดอร์ OMaps ในรากของการ์ด SD ไม่จำเป็นอีกต่อไป คุณสามารถลบได้
-    tr = Harita veri depolama optimize edildi. Lütfen uygulamayı yeniden başlatın.\n\nSD kart kaynağındaki OMaps klasörüne artık ihtiyaç yok; silebilirsiniz.
-    uk = Ми оптимiзували збереження данних. Для подальшої работи, будь ласка, перезавантажте програму.\n\nПапка MapsWithMe, яка знаходится на SD-картi, вже не потрiбна, її можна видалити.
-    vi = Lưu trữ dữ liệu bản đồ đã được tối ưu hóa. Vui lòng khởi động lại ứng dụng.\n\nKhông cần thư mục MapsWithMe trong thẻ SD nữa, bạn có thể xóa thư mục này.
-    zh-Hans = 地图数据存储已优化。请重启应用。\n\nSD 卡根目录中的 OMaps 文件夹已不再需要, 您可以删除它了。
-    zh-Hant = 地圖數據存儲已被最佳化。請重啟應用程式。\n\n不再需要 SD 卡根目錄中的 MapsWithMe 資料夾，您可以將它刪除。
-    el = Ο αποθηκευτικός χώρος του χάρτη έχει βελτιστοποιηθεί. Κάντε επανεκκίνηση της εφαρμογής.\n\nΟ φάκελος MapsWithMe στο ριζικό κατάλογο της κάρτας SD δε χρειάζεται πλέον. Μπορείτε να το διαγράψετε.
-    sk = Úložisko máp bolo optimalizované. Prosím, reštartujte aplikáciu.\n\nAdresár MapsWithMe v koreňovej zložke SD karty už nie je potrebný, môžete ho zmazať.
-
-  [kitkat_migrate_failed]
-    comment = Used to warn user when fixing KitKat issue
-    tags = android
-    en = Due to changes in Android 4.4, we need to optimize the map data storage, but there is not enough space to copy map data.\n\nPlease free up some memory, otherwise maps will only be available in read-only mode.
-    ru = В связи с изменениями на Android 4.4 нам нужно оптимизировать хранение данных. Но сейчас не хватает места ни во внутренней памяти, ни на SD-карте.\n\nПожалуйста, освободите место для переноса карт, иначе карты будут доступны только для просмотра.
-    ar = بسبب التغييرات في نظام أندرويد4.4 ، نحن بحاجة لتحسين وسيلة تخزين بيانات الخريطة، لكن لا يوجد حيز كافٍ لنسخ بيانات الخريطة.\n\nالرجاء إخلاء الذاكرة، وإلا ستتوافر الخرائط في وضع القراءة فقط.
-    cs = Kvůli změnám v Androidu 4.4 musíme optimalizovat uložiště map, ale není dostatek prostoru pro jejich zkopírování.\n\nProsím, uvolněte paměť, jinak budou mapy dostupné pouze v režimu pro čtení.
-    da = På grund af ændringer i Android 4.4 er vi nødsaget til at optimere kort data lagringen, men der er ikke nok plads til at kopiere kort dataen.\n\nFrigør venligst noget plads på din enhed, ellers vil kortene være skrivebeskyttede.
-    nl = Door veranderingen in Android 4.4 moeten we de opslag van kaartgegevens optimaliseren, maar er is niet genoeg ruimte om kaartgegevens te kopiëren.\n\nMaak alstublieft geheugen vrij, anders zullen kaarten alleen in de leesmodus beschikbaar zijn.
-    fi = Android 4.4 -järjestelmästä johtuvien muutosten tähden tallennetut kartat täytyy optimoida, mutta laitteellasi ei ole tarpeeksi vapaata tilaa karttojen kopioimiseen.
-    fr = En raison de changements dans Android 4.4, nous devons optimiser le stockage des données cartographiques, mais il n'y a pas assez d'espace pour les copier.\n\nVeuillez libérer de la mémoire, sinon les cartes seront disponibles en mode lecture seule.
-    de = Bedingt durch Änderungen in Android 4.4, müssen wir den Kartendaten-Speicherplatz optimieren. Es steht jedoch zum Kopieren der Kartendaten nicht genügend Speicherplatz zur Verfügung.\n\nGeben Sie bitte Speicherplatz frei, sonst sind Karten nur im Lesemodus verfügbar.
-    hu = Az Android 4.4 változásai miatt optimalizálnunk kell a térképadatok tárolását, azonban ehhez nincs elegendő szabad tárhely.\n\nKérjük, szabadítson fel lemezterületet, ellenkező esetben a térképei csak írásvédett módban lesznek elérhetőek.
-    id = Karena perubahan-perubahan pada Android 4.4, kami perlu mengoptimalkan penyimpanan data peta, tetapi tidak ada ruang yang cukup untuk menyalin data peta.\n\nMohon bebaskan memori, atau peta akan dibuka pada modus baca saja.
-    it = A causa di modifiche alla versione Android 4.4, abbiamo bisogno di ottimizzare l'archiviazione delle mappe, ma non c'è abbastanza spazio per copiarne i dati:\n\nTi preghiamo di liberare la memoria, altrimenti le mappe saranno disponibili in sola lettura.
-    ja = Android 4.4の変更に伴いマップデータのストレージを最適化しなければなりませんが、マップデータをコピーするだけの空き容量がありません。\n\nメモリの空き容量を増やさなければ、閲覧モードのみとしてマップをご利用いただくことになります。
-    ko = Android 4.4의 변경으로 인해, 우리는 지도 데이터 저장소를 최적화해야 하지만, 지도 데이터를 복사할 충분한 공간이 없습니다.\n\n메모리를 확보하지 않으면, 지도는 읽기 전용 모드로 사용할 수 있습니다.
-    nb = På grunn av endringer i Android 4.4 må vi optimalisere kartdatalagringen, men det er ikke nok plass til å kopiere kartdataene.\n\nDu må frigjøre minne, ellers vil kartene bare være tilgjengelige i skrivebeskyttet modus.
-    pl = Ze względu na zmiany w Android 4.4, musimy zoptymalizować przechowywanie danych mapy, ale nie ma wystarczająco dużo miejsca, aby skopiować dane mapy.\n\nProsimy zwolnić pamięć, inaczej mapy będą dostępne tylko w trybie do odczytu.
-    pt = Devido às alterações no Android 4.4, é necessário otimizar o armazenamento de dados do mapa, mas não há espaço suficiente para copiar os dados do mapa.\n\nPor favor, liberte a memória, caso contrário, os mapas estarão disponíveis somente no modo de leitura.
-    pt-BR = Devido às alterações no Android 4.4, é necessário otimizar o armazenamento de dados do mapa, mas não há espaço suficiente para copiá-los.\n\nPor favor, libere memória, caso contrário, os mapas estarão disponíveis somente no modo de leitura.
-    ro = Din cauza modificărilor efectuate în Android 4.4, trebuie să optimizăm stocarea datelor hărților, dar nu este suficient spațiu pentru a copia aceste date.\n\nVă rugăm să eliberați memoria; altfel, hărțile vor fi disponibile doar în modul citire.
-    es = Debido a cambios en Android 4.4, tenemos que optimizar el almacenamiento de datos de mapas, pero no hay espacio suficiente para copiar los datos de los mapas.\n\nPor favor, libera la memoria, en caso contrario los mapas solo estarán disponibles en modo de solo lectura.
-    sv = På grund av förändringar i Android 4.4 behöver vi optimera kartadata lagringen, men det finns inte tillräckligt med utrymme för att kopiera kartdata.\n\nVänligen frigör mer minne, annars kommer kartorna vara skrivskyddade.
-    th = เนื่องจากการเปลี่ยนแปลงในแอนดรอยด์ 4.4 เราจำเป็นต้องทำการปรับประสิทธิภาพพื้นที่จัดเก็บข้อมูลของแผนที่ แต่มีพื้นที่ไม่เพียงพอสำหรับการคัดลอกข้อมูลแผนที่\n\nโปรดเพิ่มหน่วยความจำ มิฉะนั้นแล้วจะสามารถใช้แผนที่ได้ในโหมด อ่านอย่างเดียว
-    tr = Android 4.4’de yapılan değişikliklerden dolayı harita veri depolamasını optimize etmemiz gerekiyor ancak harita verilerini kopyalayacak yeterli alan yok.\n\nLütfen hafızayı boşaltın, aksi takdirde haritalar salt okunur modda kullanılabilir olacaktır.
-    vi = Do các thay đổi trong Android 4.4, chúng tôi cần tối ưu hóa lưu trữ dữ liệu bản đồ nhưng không có đủ dung lượng còn trống để sao chép dữ liệu bản đồ.\n\nVui lòng giải phóng bộ nhớ nếu không bản đồ sẽ ở chế độ chỉ đọc.
-    zh-Hans = 由于安卓 4.4 的更改,我们需要优化地图的数 据存储,但现在没有足够的空间用于拷贝地 图数据。\n\n请释放存储空间,否则地图将 在只读模式中提供。
-    zh-Hant = 由於 Android 4.4 版本有所更改，我們需要對地圖數據存儲進行最佳化，但沒有足夠的空間複製地圖數據。\n\n請釋放一些記憶體，否則將只能以唯讀模式使用地圖。
-    el = Εξαιτίας αλλαγών στο Android 4.4, χρειάζεται να βελτιώσουμε τον αποθηκευτικό χώρο του χάρτη, αλλά δεν υπάρχει αρκετός χώρος για την αντιγραφή των δεδομένων του χάρτη.\n\nΕλευθερώστε μνήμη αλλιώς οι χάρτες θα είναι διαθέσιμοι στη λειτουργία μόνο ανάγνωσης.
-    he = לאור שינויים ב אנדרויד 4.4, נחוץ לבצע אופטימיזציה של אחסון נתוני המפה אולם אין מספיק שטח אנא פנה שטח בזכרון אחרת המפות תהינה זמינות לקריאה בלבד. \n\n להעתקת נתוני המפה.
-    sk = Kvôli zmenám v Androide 4.4 musíme optimalizovať úložisko máp, lenže nie je dostatok priestoru pre ich skopírovanie.\n\nProsím, uvoľnite pamäť, inak budú mapy dostupné iba v režime na čítanie.
-
   [bookmark_move_fail]
     comment = Used to warn user when fixing KitKat issue
     tags = android
@@ -6467,40 +6401,6 @@
     zh-Hans = 我们需要移动您的书签到内部存储器,但没 有可用的空间。请释放存储,否则书签将不 可用。
     zh-Hant = 我們需要將您的書籤移至內部記憶體中，但沒有足夠的存儲空間。請釋放一些記憶體，否則，書籤將不可用。
     sk = Potrebujeme presunúť vaše záložky do internej pamäti zariadenia, ale nie je pre ne voľné miesto. Prosím, uvoľnite pamäť, inak nebudú záložky dostupné.
-
-  [kitkat_optimization_in_progress]
-    comment = Used to warn user when fixing KitKat issue
-    tags = android
-    en = Your map storage is being optimized now. Please wait. It may take a few minutes.
-    ru = Мы сейчас оптимизируем хранение данных. Это может занять несколько минут, подождите, пожалуйста.
-    ar = لقد تم الآن تحسين وسيلة تخزين الخرائط. الرجاء الانتظار، سيستغرق الأمر دقائق قليلة.
-    cs = Úložiště map se právě optimalizuje. Může to trvat i pár minut. Prosíme o chvilku strpení.
-    da = Din kort lagring bliver optimeret nu. Vent venligst, det kan taget nogle minutter.
-    nl = De kaartopslag wordt nu geoptimaliseerd. Een moment geduld alstublieft, dit kan een paar minuten duren.
-    fi = Tallennettuja karttoja optimoidaan parhaillaan. Odota hetkinen, tämä voi kestää muutamia minuutteja.
-    fr = Votre stockage des cartes est en cours d'optimisation. Veuillez patienter, cela pourrait prendre quelques minutes.
-    de = Ihr Kartenspeicher wird jetzt optimiert. Bitte warten Sie, da das ein paar Minuten dauern kann.
-    hu = A térképadatai optimalizálás alatt állnak. Kérjük, várjon, ez néhány percet igénybe vesz.
-    id = Penyimpanan peta Anda sedang dioptimalkan. Mohon tunggu, ini akan memakan waktu beberapa menit.
-    it = L'archiviazione delle tue mappe è in fase di ottimizzazione. Ti preghiamo di attendere, il processo durerà alcuni minuti.
-    ja = 現在マップのストレージを最適化しています。この操作には数分かかる場合があるのでお待ちください。
-    ko = 지금 지도 저장소가 최적화되는 중입니다. 이는 몇 분 정도 걸릴 수 있으므로, 기다려 주십시오.
-    nb = Kartlagring optimaliseres nå. Vent litt, dette kan ta noen minutter.
-    pl = Twoje przechowywanie map jest teraz optymalizowane. Prosimy czekać, może to zająć kilka minut.
-    pt = O seu armazenamento de seus mapas está agora a ser otimizado. Por favor, aguarde. Este processo pode demorar alguns minutos.
-    pt-BR = O armazenamento de seus mapas está sendo otimizado. Por favor, aguarde. Este processo pode demorar alguns minutos.
-    ro = Stocarea hărților este în curs de optimizare acum. Vă rugăm să așteptați. Poate dura câteva minute.
-    es = Tu almacenamiento de mapas se está optimizando ahora. Por favor, espera, podría tardar unos minutos.
-    sv = Din kartlagring optimeras nu. Vänligen vänta, det kan ta några minuter.
-    th = พื้นที่จัดเก็บแผนที่ของคุณกำลังได้รับการปรับประสิทธิภาพในตอนนี้ โปรดรอ โดยอาจใช้เวลาสองสามนาที
-    tr = Harita depolama şu anda optimize ediliyor. Lütfen bekleyin; bu işlem birkaç dakika sürebilir.
-    uk = Наразi ми оптимiзуємо збереження данних. Це може зайняти декiлька хвилин, почекайте, будь ласка.
-    vi = Lưu trữ bản đồ của bạn đang được tối ưu hóa. Vui lòng chờ, việc này có thể mất vài phút.
-    zh-Hans = 您的地图存储正在被优化。请稍后,它可能 需要几分钟的时间。
-    zh-Hant = 正在最佳化您的地圖存儲。請等待，這可能需要幾分鐘的時間。
-    el = Ο αποθηκευτικός χώρος του χάρτη σας βελτιστοποιείται. Παρακαλώ περιμένετε. Ίσως χρειαστούν μερικά λεπτά.
-    he = מבוצעת אופטימיזציה של אחסון המפה. אנא המתן, התהליך נמשך מספר דקות.
-    sk = Úložisko máp sa práve optimalizuje. Môže to trvať aj pár minút. Prosíme o chvíľku strpenia.
 
   [free]
     comment = Used in More Apps menu

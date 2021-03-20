@@ -541,16 +541,7 @@
 "search_show_on_map" = "Zobraziť na mape";
 
 /* Used to warn user when fixing KitKat issue */
-"kitkat_migrate_ok" = "Úložisko máp bolo optimalizované. Prosím, reštartujte aplikáciu.\n\nAdresár MapsWithMe v koreňovej zložke SD karty už nie je potrebný, môžete ho zmazať.";
-
-/* Used to warn user when fixing KitKat issue */
-"kitkat_migrate_failed" = "Kvôli zmenám v Androide 4.4 musíme optimalizovať úložisko máp, lenže nie je dostatok priestoru pre ich skopírovanie.\n\nProsím, uvoľnite pamäť, inak budú mapy dostupné iba v režime na čítanie.";
-
-/* Used to warn user when fixing KitKat issue */
 "bookmark_move_fail" = "Potrebujeme presunúť vaše záložky do internej pamäti zariadenia, ale nie je pre ne voľné miesto. Prosím, uvoľnite pamäť, inak nebudú záložky dostupné.";
-
-/* Used to warn user when fixing KitKat issue */
-"kitkat_optimization_in_progress" = "Úložisko máp sa práve optimalizuje. Môže to trvať aj pár minút. Prosíme o chvíľku strpenia.";
 
 /* Used in More Apps menu */
 "free" = "Zadarmo";

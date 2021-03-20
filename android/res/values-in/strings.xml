@@ -332,13 +332,7 @@
 	<string name="placepage_unsorted">Tidak diurutkan</string>
 	<string name="search_show_on_map">Tampilkan pada peta</string>
 	<!-- Used to warn user when fixing KitKat issue -->
-	<string name="kitkat_migrate_ok">Penyimpanan data peta telah dioptimalkan. Mohon aplikasi di jalankan ulang.\n\nBerkas MapsWithMe pada akar kartu SD tidak diperlukan lagi, Anda dapat menghapusnya.</string>
-	<!-- Used to warn user when fixing KitKat issue -->
-	<string name="kitkat_migrate_failed">Karena perubahan-perubahan pada Android 4.4, kami perlu mengoptimalkan penyimpanan data peta, tetapi tidak ada ruang yang cukup untuk menyalin data peta.\n\nMohon bebaskan memori, atau peta akan dibuka pada modus baca saja.</string>
-	<!-- Used to warn user when fixing KitKat issue -->
 	<string name="bookmark_move_fail">Kami perlu memindahkan penanda lokasi Anda ke memori internal, tetapi tidak ada ruang yang tersedia. Mohon bebaskan memori, atau penanda lokasi tidak akan tersedia.</string>
-	<!-- Used to warn user when fixing KitKat issue -->
-	<string name="kitkat_optimization_in_progress">Penyimpanan peta Anda sedang dioptimalkan. Mohon tunggu, ini akan memakan waktu beberapa menit.</string>
 	<!-- 1st search button-like result -->
 	<string name="search_on_map">Cari ada peta</string>
 	<!-- toast with an error -->

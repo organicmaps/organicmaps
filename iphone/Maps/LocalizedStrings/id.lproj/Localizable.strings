@@ -541,16 +541,7 @@
 "search_show_on_map" = "Tampilkan pada peta";
 
 /* Used to warn user when fixing KitKat issue */
-"kitkat_migrate_ok" = "Penyimpanan data peta telah dioptimalkan. Mohon aplikasi di jalankan ulang.\n\nBerkas MapsWithMe pada akar kartu SD tidak diperlukan lagi, Anda dapat menghapusnya.";
-
-/* Used to warn user when fixing KitKat issue */
-"kitkat_migrate_failed" = "Karena perubahan-perubahan pada Android 4.4, kami perlu mengoptimalkan penyimpanan data peta, tetapi tidak ada ruang yang cukup untuk menyalin data peta.\n\nMohon bebaskan memori, atau peta akan dibuka pada modus baca saja.";
-
-/* Used to warn user when fixing KitKat issue */
 "bookmark_move_fail" = "Kami perlu memindahkan penanda lokasi Anda ke memori internal, tetapi tidak ada ruang yang tersedia. Mohon bebaskan memori, atau penanda lokasi tidak akan tersedia.";
-
-/* Used to warn user when fixing KitKat issue */
-"kitkat_optimization_in_progress" = "Penyimpanan peta Anda sedang dioptimalkan. Mohon tunggu, ini akan memakan waktu beberapa menit.";
 
 /* Used in More Apps menu */
 "free" = "Free";

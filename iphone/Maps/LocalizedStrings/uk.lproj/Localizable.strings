@@ -541,16 +541,7 @@
 "search_show_on_map" = "Подивитись на карті";
 
 /* Used to warn user when fixing KitKat issue */
-"kitkat_migrate_ok" = "Ми оптимiзували збереження данних. Для подальшої работи, будь ласка, перезавантажте програму.\n\nПапка MapsWithMe, яка знаходится на SD-картi, вже не потрiбна, її можна видалити.";
-
-/* Used to warn user when fixing KitKat issue */
-"kitkat_migrate_failed" = "Due to changes in Android 4.4, we need to optimize the map data storage, but there is not enough space to copy map data.\n\nPlease free up some memory, otherwise maps will only be available in read-only mode.";
-
-/* Used to warn user when fixing KitKat issue */
 "bookmark_move_fail" = "Для оптимiзацiї збереження данних нам потрiбно перенести мітки до внутрiшньої пам'ятi, але там немає вiльного мiсця. Будь ласка, звiльнiть мiсце, бо мітки вам не будуть доступнi.";
-
-/* Used to warn user when fixing KitKat issue */
-"kitkat_optimization_in_progress" = "Наразi ми оптимiзуємо збереження данних. Це може зайняти декiлька хвилин, почекайте, будь ласка.";
 
 /* Used in More Apps menu */
 "free" = "Безкоштовно";

@@ -64,11 +64,8 @@ public class StoragePathManager
   }
 
   public static final int NO_ERROR = 0;
-  public static final int UNKNOWN_LITE_PRO_ERROR = 1;
-  public static final int IOEXCEPTION_ERROR = 2;
-  public static final int NULL_ERROR = 4;
-  public static final int NOT_A_DIR_ERROR = 5;
-  public static final int UNKNOWN_KITKAT_ERROR = 6;
+  public static final int IOEXCEPTION_ERROR = 1;
+  public static final int NULL_ERROR = 1;
 
   static final String TAG = StoragePathManager.class.getName();
 
@@ -255,38 +252,6 @@ public class StoragePathManager
   }
 
   /**
-   * Checks whether current directory is actually writable on Kitkat devices. On earlier versions of android ( < 4.4 ) the root of external
-   * storages was writable, but on Kitkat it isn't, so we should move our maps to other directory.
-   * http://www.doubleencore.com/2014/03/android-external-storage/ check that link for explanations
-   * <p/>
-   * TODO : use SAF framework to allow custom sdcard folder selections on Lollipop+ devices.
-   * https://developer.android.com/guide/topics/providers/document-provider.html#client
-   * https://code.google.com/p/android/issues/detail?id=103249
-   */
-  public void checkKitkatMigration(@NonNull final Activity activity)
-  {
-    if (Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT ||
-        Config.isKitKatMigrationComplete())
-      return;
-
-    checkExternalStoragePathOnKitkat(activity, new MoveFilesListener()
-    {
-      @Override
-      public void moveFilesFinished(String newPath)
-      {
-        Config.setKitKatMigrationComplete();
-        DialogUtils.showAlertDialog(activity, R.string.kitkat_migrate_ok);
-      }
-
-      @Override
-      public void moveFilesFailed(int errorCode)
-      {
-        DialogUtils.showAlertDialog(activity, R.string.kitkat_migrate_failed);
-      }
-    });
-  }
-
-  /**
    * Dumb way to determine whether the storage contains Maps.me data.
    * <p>The algorithm is quite simple:
    * <ul>
@@ -338,29 +303,6 @@ public class StoragePathManager
     }
 
     return settingsPath;
-  }
-
-  private void checkExternalStoragePathOnKitkat(@NonNull Activity context, MoveFilesListener listener)
-  {
-    final String settingsDir = Framework.nativeGetSettingsDir();
-    final String writableDir = Framework.nativeGetWritableDir();
-
-    if (settingsDir.equals(writableDir) || StorageUtils.isDirWritable(writableDir))
-      return;
-
-    final long size = StorageUtils.getWritableDirSize();
-    updateExternalStorages();
-    for (StorageItem item : mItems)
-    {
-      if (item.mFreeSize > size)
-      {
-        setStoragePath(context, listener, item, new StorageItem(StorageUtils.getWritableDirRoot(), 0),
-                       R.string.kitkat_optimization_in_progress);
-        return;
-      }
-    }
-
-    listener.moveFilesFailed(UNKNOWN_KITKAT_ERROR);
   }
 
   private void setStoragePath(@NonNull final Activity context,

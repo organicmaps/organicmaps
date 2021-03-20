@@ -336,13 +336,7 @@
 	<string name="placepage_unsorted">Usorteret</string>
 	<string name="search_show_on_map">Vis på kortet</string>
 	<!-- Used to warn user when fixing KitKat issue -->
-	<string name="kitkat_migrate_ok">Kort data lagring er blevet optimeret. Genstart venligst applikationen.\n\nOMaps mappen i SD-kortet er ikke nødvendig mere. Du kan derfor slette den.</string>
-	<!-- Used to warn user when fixing KitKat issue -->
-	<string name="kitkat_migrate_failed">På grund af ændringer i Android 4.4 er vi nødsaget til at optimere kort data lagringen, men der er ikke nok plads til at kopiere kort dataen.\n\nFrigør venligst noget plads på din enhed, ellers vil kortene være skrivebeskyttede.</string>
-	<!-- Used to warn user when fixing KitKat issue -->
 	<string name="bookmark_move_fail">Vi er nødsaget til at flytte dine bogmærker til intern hukommelse, men der er ikke nok plads til dem der. Frigør venligst noget plads, ellers vil dine bogmærker ikke være tilgængelige.</string>
-	<!-- Used to warn user when fixing KitKat issue -->
-	<string name="kitkat_optimization_in_progress">Din kort lagring bliver optimeret nu. Vent venligst, det kan taget nogle minutter.</string>
 	<!-- Used in More Apps menu -->
 	<string name="free">Gratis</string>
 	<!-- Used in More Apps menu -->

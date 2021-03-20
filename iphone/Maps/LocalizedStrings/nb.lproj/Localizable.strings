@@ -541,16 +541,7 @@
 "search_show_on_map" = "Vis på kartet";
 
 /* Used to warn user when fixing KitKat issue */
-"kitkat_migrate_ok" = "Kartdatalagring har blitt optimalisert. Start appen på nytt.\n\nMapsWithMe-mappen som ligger i hovedmappen på SD-kortet er ikke nødvendig lenger, og du kan gjerne slette den.";
-
-/* Used to warn user when fixing KitKat issue */
-"kitkat_migrate_failed" = "På grunn av endringer i Android 4.4 må vi optimalisere kartdatalagringen, men det er ikke nok plass til å kopiere kartdataene.\n\nDu må frigjøre minne, ellers vil kartene bare være tilgjengelige i skrivebeskyttet modus.";
-
-/* Used to warn user when fixing KitKat issue */
 "bookmark_move_fail" = "Vi må flytte bokmerkene til internminnet, men det er ingen ledig plass til dem. Du må frigjøre minne, ellers vil ikke bokmerkene være tilgjengelige.";
-
-/* Used to warn user when fixing KitKat issue */
-"kitkat_optimization_in_progress" = "Kartlagring optimaliseres nå. Vent litt, dette kan ta noen minutter.";
 
 /* Used in More Apps menu */
 "free" = "Free";
