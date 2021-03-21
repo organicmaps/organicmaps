@@ -486,9 +486,8 @@ Framework::Framework(FrameworkParams const & params)
   RegisterAllMaps();
   LOG(LDEBUG, ("Maps initialized"));
 
-  // Need to reload cities boundaries because maps in indexer were updated.
-  GetSearchAPI().LoadCitiesBoundaries();
-  GetSearchAPI().CacheWorldLocalities();
+  // Perform real initialization after World was loaded.
+  GetSearchAPI().InitAfterWorldLoaded();
 
   m_routingManager.SetRouterImpl(RouterType::Vehicle);
 
