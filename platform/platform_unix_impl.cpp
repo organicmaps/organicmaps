@@ -153,8 +153,10 @@ bool Platform::IsFileExistsByFullPath(string const & filePath)
   return stat(filePath.c_str(), &s) == 0;
 }
 
+#if !defined(OMIM_OS_IPHONE)
 //static
-void Platform::DisableBackupForFile(string const & filePath) {}
+void Platform::DisableBackupForFile(string const & /*filePath*/) {}
+#endif
 
 // static
 string Platform::GetCurrentWorkingDirectory() noexcept
