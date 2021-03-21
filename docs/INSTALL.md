@@ -177,9 +177,10 @@ Configure the repository for the debug mode:
 Set Android SDK and NDK path:
 
 ```bash
-./tools/android/set_up_android.py \
-    --sdk $HOME/Android/Sdk \
-    --ndk $HOME/Android/Sdk/ndk/22.0.7026061/ # Update for the actual NDK version
+# Linux
+./tools/android/set_up_android.py --sdk $HOME/Android/Sdk
+# MacOS
+./tools/android/set_up_android.py --sdk $HOME/Library/Android/Sdk
 ```
 
 ### Building
