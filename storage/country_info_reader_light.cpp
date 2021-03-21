@@ -59,6 +59,9 @@ void CountryInfoReader::LoadRegionsFromDisk(size_t id, std::vector<m2::RegionD> 
 
 bool CountryInfoReader::BelongsToRegion(m2::PointD const & pt, size_t id) const
 {
+  if (!m_countries[id].m_rect.IsPointInside(pt))
+    return false;
+
   std::vector<m2::RegionD> regions;
   LoadRegionsFromDisk(id, regions);
 

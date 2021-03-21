@@ -16,7 +16,6 @@
 
 namespace lightweight
 {
-// Protected inheritance for test purposes only.
 class CountryInfoReader : protected storage::CountryInfoGetterBase
 {
 public:
@@ -27,6 +26,7 @@ public:
   };
 
   CountryInfoReader();
+  /// @note Be careful here, because "lightweight" has no region's geometry cache.
   Info GetMwmInfo(m2::PointD const & pt) const;
 
 protected:
