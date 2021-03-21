@@ -29,6 +29,9 @@ data/route_points.dat
 data/bookmarks/
 data/bookmarks_backup/
 data/vulkan_shaders/debug/*
+data/cameras_to_ways.bin
+data/marketing_settings.ini
+data/world_feed_integration_tests_data
 
 # Compiled Python
 *.pyc

@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python2
 
 """
 This script is mainly for running autotests on the build server, however, it 
@@ -201,35 +201,20 @@ class TestRunner:
         self.rm_log_file()
 
 
-    def merge_dicts_of_lists(self, one, two):
-        if not one:
-            return two
-        if not two:
-            return one
-
-        ret = one.copy()
-
-        for key, value in two.iteritems():
-            if key in one:
-                ret[key] = ret[key].append(two[key])
-            else:
-                ret[key] = two[key]
-
-        return ret
-
-
     def execute(self):
         categorized_tests = self.categorize_tests()
 
         to_run_and_with_server_keys = [TO_RUN, WITH_SERVER]
         random.shuffle(to_run_and_with_server_keys)
 
-        results = dict()
+        results = {FAILED: [], PASSED: []}
 
         for key in to_run_and_with_server_keys:
             if key == WITH_SERVER and categorized_tests[WITH_SERVER]:
                 self.start_server()
-            results = self.merge_dicts_of_lists(results, self.run_tests(categorized_tests[key]))
+            result = self.run_tests(categorized_tests[key])
+            results[FAILED].extend(result[FAILED])
+            results[PASSED].extend(result[PASSED])
             if key == WITH_SERVER and categorized_tests[WITH_SERVER]:
                 self.stop_server()
 
@@ -237,7 +222,7 @@ class TestRunner:
         self.print_pretty("skipped", categorized_tests[SKIP])
         self.print_pretty("passed", results[PASSED])
         self.print_pretty("not found", categorized_tests[NOT_FOUND])
-
+        return len(results[FAILED]) > 0 and 1 or 0
 
 def tests_on_disk(path):
     return filter(lambda x: x.endswith("_tests"), listdir(path))
@@ -245,4 +230,4 @@ def tests_on_disk(path):
 
 if __name__ == "__main__":
     runner = TestRunner()
-    runner.execute()
+    quit(runner.execute())

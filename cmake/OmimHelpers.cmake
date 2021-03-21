@@ -95,6 +95,7 @@ function(omim_add_test executable)
       ${ARGN}
       ${OMIM_ROOT}/testing/testingmain.cpp
      )
+    add_dependencies(tests ${executable})
   endif()
 endfunction()
 

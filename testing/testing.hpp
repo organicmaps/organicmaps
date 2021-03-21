@@ -55,8 +55,8 @@ struct CommandLineOptions
 
   char const * m_filterRegExp = nullptr;
   char const * m_suppressRegExp = nullptr;
-  char const * m_dataPath = nullptr;
-  char const * m_resourcePath = nullptr;
+  char const * m_dataPath = "data";
+  char const * m_resourcePath = "data";
 
   bool m_help = false;
   bool m_listTests = false;

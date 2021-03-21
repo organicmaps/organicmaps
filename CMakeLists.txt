@@ -161,6 +161,22 @@ if (NOT SKIP_TESTS)
   set(SKIP_TESTS FALSE)
 endif()
 
+if (NOT SKIP_TESTS)
+  add_custom_target(tests) # see omim_add_test()
+  add_custom_target(tests_data_symlink ALL
+      COMMAND ${CMAKE_COMMAND} -E create_symlink
+      ${PROJECT_SOURCE_DIR}/data
+      ${PROJECT_BINARY_DIR}/data)
+  add_dependencies(tests tests_data_symlink)
+  # The name `test` is reserved for ctest. We use our own test runner instead.
+  cmake_policy(SET CMP0037 NEW)
+  add_custom_target(test
+      DEPENDS tests
+      COMMAND ${PROJECT_SOURCE_DIR}/tools/python/run_desktop_tests.py
+              -f ${PROJECT_BINARY_DIR}
+      WORKING_DIRECTORY ${PROJECT_BINARY_DIR})
+endif()
+
 if (NOT PYTHON_VERSION)
   set(PYTHON_VERSION 2.7)
 endif()

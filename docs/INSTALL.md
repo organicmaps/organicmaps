@@ -124,7 +124,45 @@ and run
 
 ### Testing
 
-Run tests from the binary directory with `omim/tools/unix/run_tests.sh`.
+Compile all unit tests in Debug mode using `tests` target:
+
+```bash
+cmake . -B build -G Ninja -DCMAKE_BUILD_TYPE=Debug
+cmake --build build --target tests
+```
+
+Run all unit tests:
+
+```bash
+cd build
+../tools/python/run_desktop_tests.py -f .
+```
+
+To run a limited set of tests, use `-i` flag:
+
+```bash
+cd build
+../tools/python/run_desktop_tests.py -f . -i one,two,three
+```
+
+To exclude some tests, use `-e` flag:
+
+```bash
+cd build
+../tools/python/run_desktop_tests.py -f . -e one,two,three
+```
+
+There is also a shortcut to run tests from the build system:
+
+```bash
+cmake --build build --target test
+# OR
+ninja -v test # if you use Ninja
+# OR
+make test # if you use Make
+```
+
+Some tests [are known to be broken](https://github.com/omapsapp/omapsapp/issues?q=is%3Aissue+is%3Aopen+label%3ATests).
 
 ## Android app
 

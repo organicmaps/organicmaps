@@ -7,5 +7,7 @@ set(
   opening_hours_integration_tests.cpp
 )
 
+# Not using omim_add_test because we don't need testingmain.cpp
 omim_add_executable(${PROJECT_NAME} ${SRC})
 omim_link_libraries(${PROJECT_NAME} base opening_hours)
+add_dependencies(tests ${PROJECT_NAME})

@@ -12,6 +12,12 @@ jobs:
         with:
           submodules: recursive
 
+      - name: Checkout world_feed_integration_tests_data
+        uses: actions/checkout@v2
+        with:
+          repository: omapsapp/world_feed_integration_tests_data
+          path: data/world_feed_integration_tests_data
+
       - name: Configure
         shell: bash
         run: |
@@ -21,8 +27,8 @@ jobs:
         shell: bash
         run: |
           sudo apt-get update && sudo apt-get install -y \
-              build-essential \
               cmake \
+              ninja-build \
               clang \
               ccache \
               python \
@@ -40,13 +46,48 @@ jobs:
           path: ~/.ccache
           key: desktop-cache
 
-      - name: Compile
+      - name: Configure
         shell: bash
         run: |
-          export PATH="/usr/lib/ccache:${PATH}"
           ccache -M 4G
-          (mkdir -p build && cd build && cmake .. -DCMAKE_BUILD_TYPE=RelWithDebInfo && make desktop -j $(($(nproc)*2)))
+          export CC="ccache clang"
+          export CXX="ccache clang++"
+          cmake . -B build -G Ninja -DCMAKE_BUILD_TYPE=Debug
 
-#      - name: Test
-#        shell: bash
-#        run: ./tools/python/run_desktop_tests.py -f build/ -e generator_integration_tests,opening_hours_integration_tests,opening_hours_supported_features_tests,routing_consistency_tests,routing_integration_tests,routing_quality_tests,storage_integration_tests
+      - name: Compile
+        shell: bash
+        run: cmake --build build --target desktop --target tests
+
+      - name: Test
+        shell: bash
+        working-directory: build
+        # partners_api_tests - https://github.com/omapsapp/omapsapp/issues/218
+        # traffic_tests - requires API key
+        # opening_hours_tests - https://github.com/omapsapp/omapsapp/issues/219
+        # opening_hours_supported_features_tests - https://github.com/omapsapp/omapsapp/issues/219
+        # opening_hours_integration_tests - https://github.com/omapsapp/omapsapp/issues/219
+        # routing_consistency_tests - https://github.com/omapsapp/omapsapp/issues/220
+        # routing_integration_tests - https://github.com/omapsapp/omapsapp/issues/221
+        # routing_quality_tests - https://github.com/omapsapp/omapsapp/issues/215
+        # world_feed_integration_tests - https://github.com/omapsapp/omapsapp/issues/216
+        # storage_integration_tests - https://github.com/omapsapp/omapsapp/issues/222
+        # generator_tests - https://github.com/omapsapp/omapsapp/issues/224
+        # generator_integration_tests - https://github.com/omapsapp/omapsapp/issues/225
+        # drape_tests - requires X Window
+        run: |
+          ../tools/python/run_desktop_tests.py \
+            -o /dev/stdout \
+            -f $PWD \
+            -e partners_api_tests \
+            -e traffic_tests \
+            -e opening_hours_tests \
+            -e opening_hours_supported_features_tests \
+            -e opening_hours_integration_tests \
+            -e routing_consistency_tests \
+            -e routing_integration_tests \
+            -e routing_quality_tests \
+            -e world_feed_integration_tests \
+            -e storage_integration_tests \
+            -e generator_tests \
+            -e generator_integration_tests \
+            -e drape_tests
