@@ -722,6 +722,11 @@ void Geocoder::CacheWorldLocalities()
     UNUSED_VALUE(m_localitiesCaches.m_states.Get(*context));
     UNUSED_VALUE(m_localitiesCaches.m_citiesTownsOrVillages.Get(*context));
   }
+  else
+  {
+    // This is strange situation, anyway.
+    LOG(LWARNING, ("Can't find World map file."));
+  }
 }
 
 void Geocoder::FillLocalitiesTable(BaseContext const & ctx)
