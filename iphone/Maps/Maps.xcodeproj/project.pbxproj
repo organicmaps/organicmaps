@@ -2326,7 +2326,6 @@
 				AC79F1221E534DFA00B7D954 /* SystemConfiguration.framework */,
 				AC79F1201E534D4000B7D954 /* CoreTelephony.framework */,
 				AC79F11E1E534D0B00B7D954 /* AVFoundation.framework */,
-				340474DB1E08199D00C92850 /* 3party */,
 				6741AAA21BF356B9002C974C /* libagg.a */,
 				6741AAA61BF356B9002C974C /* libbase.a */,
 				6741AAA71BF356B9002C974C /* libcoding.a */,
@@ -2410,13 +2409,6 @@
 				3404164E1E7C085F00E2B6D6 /* PhotoViewController.swift */,
 			);
 			path = Photos;
-			sourceTree = "<group>";
-		};
-		340474DB1E08199D00C92850 /* 3party */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = 3party;
 			sourceTree = "<group>";
 		};
 		340475141E081A4600C92850 /* Common */ = {
@@ -5956,10 +5948,6 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				BUNDLE_IDENTIFIER = app.omaps.debug;
 				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = YES;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/3party",
-				);
 				GCC_PREFIX_HEADER = Maps_Prefix.pch;
 				GCC_PREPROCESSOR_DEFINITIONS = "$(inherited)";
 				HEADER_SEARCH_PATHS = (
