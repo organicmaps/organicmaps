@@ -1,9 +1,9 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
-set -u
+set -euo pipefail
 
 readonly SCRIPT_NAME=$(basename "$0")
-readonly LOG=$(mktemp --tmpdir=/tmp "${SCRIPT_NAME}.XXXXXX")
+readonly LOG=$(mktemp "/tmp/${SCRIPT_NAME}.XXXXXX")
 readonly SMOKE_SUITE=(  \
   base_tests            \
   coding_tests          \
