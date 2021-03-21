@@ -112,7 +112,6 @@
 #include "base/timer.hpp"
 
 #include <algorithm>
-#include <sstream>
 
 #include "defines.hpp"
 #include "private.h"
@@ -232,7 +231,6 @@ void OnRouteStartBuild(DataSource const & dataSource,
 pair<MwmSet::MwmId, MwmSet::RegResult> Framework::RegisterMap(
     LocalCountryFile const & localFile)
 {
-  LOG(LINFO, ("Loading map:", localFile.GetCountryName()));
   return m_featuresFetcher.RegisterMap(localFile);
 }
 
@@ -715,16 +713,6 @@ void Framework::RegisterAllMaps()
 
   m_storage.RegisterAllLocalMaps(m_enabledDiffs);
 
-  int minFormat = numeric_limits<int>::max();
-
-  char const * kLastDownloadedMapsCheck = "LastDownloadedMapsCheck";
-  auto const updateInterval = hours(24 * 7); // One week.
-  uint32_t timestamp;
-  bool const rc = settings::Get(kLastDownloadedMapsCheck, timestamp);
-  auto const lastCheck = time_point<system_clock>(seconds(timestamp));
-  bool const needStatisticsUpdate = !rc || lastCheck < system_clock::now() - updateInterval;
-  stringstream listRegisteredMaps;
-
   vector<shared_ptr<LocalCountryFile>> maps;
   m_storage.GetLocalMaps(maps);
   for (auto const & localFile : maps)
@@ -735,18 +723,8 @@ void Framework::RegisterAllMaps()
 
     MwmSet::MwmId const & id = p.first;
     ASSERT(id.IsAlive(), ());
-    minFormat = min(minFormat, static_cast<int>(id.GetInfo()->m_version.GetFormat()));
-    if (needStatisticsUpdate)
-    {
-      listRegisteredMaps << localFile->GetCountryName() << ":" << id.GetInfo()->GetVersion() << ";";
-    }
-  }
 
-  if (needStatisticsUpdate)
-  {
-    settings::Set(kLastDownloadedMapsCheck,
-                  static_cast<uint64_t>(duration_cast<seconds>(
-                                          system_clock::now().time_since_epoch()).count()));
+    LOG(LINFO, ("Loaded", localFile->GetCountryName(), "map, of version", id.GetInfo()->GetVersion()));
   }
 }
 
