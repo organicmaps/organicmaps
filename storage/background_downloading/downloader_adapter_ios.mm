@@ -121,6 +121,7 @@ void BackgroundDownloaderAdapter::DownloadFromAnyUrl(CountryId const & countryId
   };
   
   NSURL * url = [NSURL URLWithString:@(urls.back().c_str())];
+  assert(url != nil);
   BackgroundDownloader * downloader = [BackgroundDownloader sharedBackgroundMapDownloader];
   NSUInteger taskId = [downloader downloadWithUrl:url completion:onFinish progress:onProgress];
 
