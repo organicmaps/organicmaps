@@ -433,8 +433,8 @@ void ApplyPatch(XMLFeature const & xml, osm::EditableMapObject & object)
   }
 
   xml.ForEachTag([&object](string const & k, string const & v) {
-    if (!object.UpdateMetadataValue(k, v))
-      LOG(LWARNING, ("Patch feature has unknown tags", k, v));
+    // Skip result because we iterate via *all* tags here.
+    (void)object.UpdateMetadataValue(k, v);
   });
 }
 
