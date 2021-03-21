@@ -12,7 +12,6 @@
 #include "traffic/traffic_cache.hpp"
 
 #include "storage/country_info_getter.hpp"
-#include "storage/country_info_reader_light.hpp"
 #include "storage/country_parent_getter.hpp"
 
 #include "routing_common/num_mwm_id.hpp"

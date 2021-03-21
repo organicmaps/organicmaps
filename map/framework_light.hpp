@@ -40,9 +40,12 @@ enum RequestType
 
 using RequestTypeMask = unsigned;
 
-// A class which allows you to acquire data in a synchronous way.
-// The common use case is to create an instance of Framework
-// with specified mask, acquire data according to the mask and destroy the instance.
+/** @brief A class which allows you to acquire data in a synchronous way.
+ * The common use case is to create an instance of Framework
+ * with specified mask, acquire data according to the mask and destroy the instance.
+ * @note Seems like we can delete it, at first sight 'lightweight' used only in tracking,
+ * but the class looks usefull itself (comparing with heavy ::Framework).
+ */
 
 class Framework
 {
@@ -63,7 +66,10 @@ public:
   size_t GetNumberOfUnsentUGC() const;
   size_t GetNumberOfUnsentEdits() const;
   bool IsBookmarksCloudEnabled() const;
+
+  /// @note Be careful here, because "lightweight" has no region's geometry cache.
   CountryInfoReader::Info GetLocation(m2::PointD const & pt) const;
+
   std::vector<CampaignFeature> GetLocalAdsFeatures(double lat, double lon, double radiusInMeters,
                                                    uint32_t maxCount);
   Statistics * GetLocalAdsStatistics();
