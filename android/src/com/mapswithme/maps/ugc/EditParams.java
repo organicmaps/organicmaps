@@ -23,10 +23,10 @@ public class EditParams
   private final boolean mFromNotification;
   // TODO: mLat, mLon, mAddress are added just for debugging null feature id for ugc object.
   // Remove they after problem is fixed.
-  private double mLat;
-  private double mLon;
+  private final double mLat;
+  private final double mLon;
   @Nullable
-  private String mAddress;
+  private final String mAddress;
 
   private EditParams(@NonNull Builder builder)
   {

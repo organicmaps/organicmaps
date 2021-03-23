@@ -5,11 +5,11 @@ import androidx.annotation.NonNull;
 public class PromoAfterBooking
 {
   @NonNull
-  private String mId;
+  private final String mId;
   @NonNull
-  private String mGuidesUrl;
+  private final String mGuidesUrl;
   @NonNull
-  private String mImageUrl;
+  private final String mImageUrl;
 
   // Called from JNI.
   @SuppressWarnings("unused")

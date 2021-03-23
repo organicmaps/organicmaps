@@ -25,7 +25,7 @@ public class BottomSheetMenuController implements MenuController
   @NonNull
   private final MenuRenderer mMenuRenderer;
   @Nullable
-  private MenuStateObserver mStateObserver;
+  private final MenuStateObserver mStateObserver;
   private final BottomSheetBehavior.BottomSheetCallback mSheetCallback
       = new BottomSheetBehavior.BottomSheetCallback()
   {

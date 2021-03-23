@@ -16,7 +16,7 @@ public class FeatureCategoryAdapter extends RecyclerView.Adapter<FeatureCategory
 {
   private FeatureCategory[] mCategories;
   private final FeatureCategoryFragment mFragment;
-  private FeatureCategory mSelectedCategory;
+  private final FeatureCategory mSelectedCategory;
 
   public FeatureCategoryAdapter(@NonNull FeatureCategoryFragment host, @NonNull FeatureCategory[] categories, @Nullable FeatureCategory category)
   {

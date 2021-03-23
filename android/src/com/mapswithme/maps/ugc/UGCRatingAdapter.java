@@ -18,7 +18,7 @@ import java.util.List;
 class UGCRatingAdapter extends RecyclerView.Adapter<UGCRatingAdapter.ViewHolder>
 {
   @NonNull
-  private ArrayList<UGC.Rating> mItems = new ArrayList<>();
+  private final ArrayList<UGC.Rating> mItems = new ArrayList<>();
 
   @Override
   public UGCRatingAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType)

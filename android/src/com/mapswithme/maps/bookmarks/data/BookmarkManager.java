@@ -1468,7 +1468,7 @@ public enum BookmarkManager
     UPLOAD_RESULT_MALFORMED_DATA_ERROR,
     /* Edit on web */
     UPLOAD_RESULT_ACCESS_ERROR,
-    UPLOAD_RESULT_INVALID_CALL;
+    UPLOAD_RESULT_INVALID_CALL
   }
 
   static class BookmarkCategoriesCache extends Observable<DataChangedListener>

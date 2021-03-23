@@ -240,7 +240,7 @@ class ChunkTask extends AsyncTask<Void, byte[], Integer>
   {
     // Because of timeouts in InputStream.read (for bad connection),
     // try to introduce dynamic buffer size to read in one query.
-    final int arrSize[] = {64, 32, 1};
+    final int[] arrSize = {64, 32, 1};
     int ret = IO_EXCEPTION;
 
     for (int size : arrSize)

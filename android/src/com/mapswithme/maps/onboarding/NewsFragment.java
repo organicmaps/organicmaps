@@ -163,7 +163,7 @@ public class NewsFragment extends BaseNewsFragment implements AlertDialogCallbac
     if (length == 0)
       return "";
 
-    StringBuilder sb = new StringBuilder("");
+    StringBuilder sb = new StringBuilder();
     for (String key : keys)
       sb.append(key);
 

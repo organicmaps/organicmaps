@@ -34,7 +34,7 @@ class NavigationButtonsAnimationController
   private float mTopLimit;
   private float mBottomLimit;
 
-  private float mCompassHeight;
+  private final float mCompassHeight;
 
   NavigationButtonsAnimationController(@NonNull View zoomIn, @NonNull View zoomOut,
                                        @NonNull View myPosition, @NonNull final View contentView,

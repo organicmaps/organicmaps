@@ -38,8 +38,8 @@ public class CuisineAdapter extends RecyclerView.Adapter<CuisineAdapter.ViewHold
     }
   }
 
-  private List<Item> mItems = new ArrayList<>();
-  private Set<String> mSelectedKeys = new HashSet<>();
+  private final List<Item> mItems = new ArrayList<>();
+  private final Set<String> mSelectedKeys = new HashSet<>();
   private String mFilter;
 
   public CuisineAdapter()

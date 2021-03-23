@@ -48,7 +48,7 @@ class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.ViewHolder>
 
   static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener
   {
-    private ImageView mImage;
+    private final ImageView mImage;
     private final RecyclerClickListener mListener;
     private int mPosition;
 

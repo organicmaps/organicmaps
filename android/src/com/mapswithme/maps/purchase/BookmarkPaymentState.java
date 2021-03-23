@@ -124,7 +124,7 @@ enum BookmarkPaymentState
           UiUtils.hide(fragment.getViewOrThrow(), R.id.subs_progress);
           fragment.updateSubsProductDetails();
         }
-      };;
+      };
 
   private static void showProgress(@NonNull BookmarkPaymentFragment fragment)
   {

@@ -5,7 +5,7 @@ buildscript {
     jcenter()
   }
 
-  ext.googleServiceEnabled = file('google-services.json').exists();
+  ext.googleServiceEnabled = file('google-services.json').exists()
   if (googleServiceEnabled) {
     println("Building with Google Services")
   } else {
@@ -154,7 +154,7 @@ configurations.all {
     force "androidx.versionedparcelable:versionedparcelable:1.1.0"
     force "androidx.recyclerview:recyclerview:1.2.0-alpha02"
 
-    failOnVersionConflict();
+    failOnVersionConflict()
   }
 }
 
@@ -240,8 +240,8 @@ android {
   flavorDimensions "default"
 
   productFlavors {
-    final int HUAWEI_VERSION_CODE_BASE = 20000;
-    final int TENCENT_VERSION_CODE_BASE = 10000;
+    final int HUAWEI_VERSION_CODE_BASE = 20000
+    final int TENCENT_VERSION_CODE_BASE = 10000
 
     google {
       dimension "default"
@@ -384,7 +384,7 @@ android {
   }
 
   splits.abi {
-    boolean enabled = project.hasProperty('splitApk');
+    boolean enabled = project.hasProperty('splitApk')
     println ("Create separate apks: " + enabled)
     enable enabled
     reset()
@@ -570,7 +570,7 @@ def createObbGenerateTask(type, data, name) {
 def createObbAlignTask(type, rawObb, alignedObb) {
   def sdkDir = "${android.getSdkDirectory().getAbsolutePath()}"
   def zipalignPath = sdkDir + File.separator + "build-tools" + File.separator +
-          propBuildToolsVersion + File.separator + "zipalign";
+          propBuildToolsVersion + File.separator + "zipalign"
 
   return tasks.create(name: "obb${type}Align", dependsOn: "obb${type}Generate", type: Exec, description: 'Align obb files') {
     commandLine zipalignPath, '-v', '8', rawObb, alignedObb
@@ -591,7 +591,7 @@ task obbPush(dependsOn: ['obbGenerate', 'obbPushMain', 'obbPushPatch']) {
 }
 
 android.buildTypes.all { buildType ->
-  def suffix = applicationIdSuffix != null ? applicationIdSuffix : "";
+  def suffix = applicationIdSuffix != null ? applicationIdSuffix : ""
   def authorityValue = android.defaultConfig.applicationId + suffix + ".provider"
   def authority = "\"" + authorityValue + "\""
   buildConfigField 'String', 'FILE_PROVIDER_AUTHORITY', authority

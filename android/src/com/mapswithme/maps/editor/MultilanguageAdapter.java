@@ -19,7 +19,7 @@ import com.mapswithme.util.Utils;
 public class MultilanguageAdapter extends RecyclerView.Adapter<MultilanguageAdapter.Holder>
 {
   private final List<LocalizedName> mNames;
-  private int mMandatoryNamesCount;
+  private final int mMandatoryNamesCount;
   private boolean mAdditionalLanguagesShown;
 
   MultilanguageAdapter(EditorHostFragment hostFragment)

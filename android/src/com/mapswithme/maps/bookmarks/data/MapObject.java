@@ -45,7 +45,7 @@ public class MapObject implements PopularityProvider, ShareableInfoProvider,
     Wikipedia,
     Flats,
     BuildingLevels,
-    Level;
+    Level
   }
 
   @Retention(RetentionPolicy.SOURCE)
@@ -76,23 +76,23 @@ public class MapObject implements PopularityProvider, ShareableInfoProvider,
 
   private String mTitle;
   @Nullable
-  private String mSecondaryTitle;
+  private final String mSecondaryTitle;
   private String mSubtitle;
   private double mLat;
   private double mLon;
-  private String mAddress;
-  private Metadata mMetadata;
-  private String mApiId;
+  private final String mAddress;
+  private final Metadata mMetadata;
+  private final String mApiId;
   @Nullable
   private List<Banner> mBanners;
   @Nullable
   private List<TaxiType> mReachableByTaxiTypes;
   @Nullable
-  private String mBookingSearchUrl;
+  private final String mBookingSearchUrl;
   @Nullable
-  private LocalAdInfo mLocalAdInfo;
+  private final LocalAdInfo mLocalAdInfo;
   @Nullable
-  private RoutePointInfo mRoutePointInfo;
+  private final RoutePointInfo mRoutePointInfo;
   @OpeningMode
   private final int mOpeningMode;
   private final boolean mShouldShowUGC;
@@ -107,12 +107,12 @@ public class MapObject implements PopularityProvider, ShareableInfoProvider,
   @Nullable
   private ArrayList<UGC.Rating> mRatings;
   @Nullable
-  private HotelsFilter.HotelType mHotelType;
+  private final HotelsFilter.HotelType mHotelType;
   @PriceFilterView.PriceDef
   private final int mPriceRate;
   @Nullable
   private List<String> mRawTypes;
-  private boolean mIsTopChoice;
+  private final boolean mIsTopChoice;
 
   public MapObject(@NonNull FeatureId featureId, @MapObjectType int mapObjectType, String title,
                    @Nullable String secondaryTitle, String subtitle, String address,

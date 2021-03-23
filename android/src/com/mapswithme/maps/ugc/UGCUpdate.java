@@ -13,7 +13,7 @@ class UGCUpdate
   private final UGC.Rating[] mRatings;
   @Nullable
   private String mText;
-  private long mTimeMillis;
+  private final long mTimeMillis;
   @NonNull
   private final String mDeviceLocale;
   @NonNull

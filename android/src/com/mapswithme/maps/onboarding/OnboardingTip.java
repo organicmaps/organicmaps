@@ -36,9 +36,9 @@ public class OnboardingTip implements Parcelable
   @interface ScreenType {}
 
   @ScreenType
-  private int mType;
+  private final int mType;
   @NonNull
-  private String mUrl;
+  private final String mUrl;
 
   @SuppressWarnings("unused")
   OnboardingTip(@ScreenType int type, @NonNull String url)

@@ -511,8 +511,8 @@ public class SearchToolbarController extends ToolbarController
     }
   }
 
-  public static interface RoomsGuestsMenuStateCallback
+  public interface RoomsGuestsMenuStateCallback
   {
-    public void onRoomsGuestsMenuStateChange(boolean isOpen);
+    void onRoomsGuestsMenuStateChange(boolean isOpen);
   }
 }

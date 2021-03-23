@@ -134,10 +134,10 @@ public final class PromoCityGallery
   public static final class Place
   {
     @NonNull
-    private String mName;
+    private final String mName;
 
     @NonNull
-    private String mDescription;
+    private final String mDescription;
 
     Place(@NonNull String name, @NonNull String description)
     {
@@ -161,10 +161,10 @@ public final class PromoCityGallery
   public static final class Author
   {
     @NonNull
-    private String mId;
+    private final String mId;
 
     @NonNull
-    private String mName;
+    private final String mName;
 
     Author(@NonNull String id, @NonNull String name)
     {

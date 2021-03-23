@@ -13,7 +13,7 @@ public class FloatingSearchToolbarController extends SearchToolbarController
   @Nullable
   private VisibilityListener mVisibilityListener;
   @Nullable
-  private SearchToolbarListener mListener;
+  private final SearchToolbarListener mListener;
 
   public interface VisibilityListener
   {

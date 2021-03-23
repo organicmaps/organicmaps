@@ -5,5 +5,5 @@ public enum RoadWarningMarkType
   TOLL,
   FERRY,
   DIRTY,
-  UNKNOWN;
+  UNKNOWN
 }

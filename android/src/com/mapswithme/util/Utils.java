@@ -771,7 +771,7 @@ public class Utils
 
   public enum PartnerAppOpenMode
   {
-    None, Direct, Indirect;
+    None, Direct, Indirect
   }
 
   public interface Proc<T>

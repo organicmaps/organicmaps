@@ -226,7 +226,7 @@ public class BookmarkListAdapter extends RecyclerView.Adapter<Holders.BaseBookma
   private static class SortedSectionsDataSource extends SectionsDataSource
   {
     @NonNull
-    private List<SortedBlock> mSortedBlocks;
+    private final List<SortedBlock> mSortedBlocks;
 
     SortedSectionsDataSource(@NonNull DataSource<BookmarkCategory> dataSource,
                              @NonNull List<SortedBlock> sortedBlocks)

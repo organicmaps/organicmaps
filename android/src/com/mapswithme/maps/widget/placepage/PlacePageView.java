@@ -290,7 +290,7 @@ public class PlacePageView extends NestedScrollViewClickFixed
   private final EditBookmarkClickListener mEditBookmarkClickListener = new EditBookmarkClickListener();
 
   @NonNull
-  private OnClickListener mDownloadClickListener = new OnClickListener()
+  private final OnClickListener mDownloadClickListener = new OnClickListener()
   {
     @Override
     public void onClick(View v)
@@ -300,7 +300,7 @@ public class PlacePageView extends NestedScrollViewClickFixed
   };
 
   @NonNull
-  private OnClickListener mCancelDownloadListener = new OnClickListener()
+  private final OnClickListener mCancelDownloadListener = new OnClickListener()
   {
     @Override
     public void onClick(View v)
