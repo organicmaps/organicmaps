@@ -14,8 +14,6 @@ final class InAppPurchase: NSObject {
     return nil
   }
 
-  @objc static var adsRemovalSubscriptionManager: ISubscriptionManager? = nil
-
   @objc static var bookmarksSubscriptionManager: ISubscriptionManager? = nil
 
   @objc static var allPassSubscriptionManager: ISubscriptionManager? = nil

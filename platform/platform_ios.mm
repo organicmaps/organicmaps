@@ -23,7 +23,6 @@
 #include <sys/xattr.h>
 
 
-#import <AdSupport/AdSupport.h>
 #import <CoreFoundation/CFURL.h>
 #import <SystemConfiguration/SystemConfiguration.h>
 #import <UIKit/UIKit.h>

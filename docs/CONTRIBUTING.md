@@ -114,7 +114,6 @@ Some of these contain their own README files.
 * `installer` - long-abandoned installer for Windows.
 * `iphone` - iOS UI.
 * `kml` - manipulation of KML files.
-* `local_ads` -
 * `mapshot` - generate screenshots of maps, specified by coordinates and zoom level.
 * `metrics` -
 * `openlr` -

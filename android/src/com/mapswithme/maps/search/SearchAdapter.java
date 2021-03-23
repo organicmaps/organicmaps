@@ -35,7 +35,6 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
-import static com.mapswithme.maps.search.SearchResult.TYPE_LOCAL_ADS_CUSTOMER;
 import static com.mapswithme.maps.search.SearchResult.TYPE_RESULT;
 import static com.mapswithme.maps.search.SearchResult.TYPE_SUGGEST;
 import static com.mapswithme.util.Constants.Rating.RATING_INCORRECT_VALUE;

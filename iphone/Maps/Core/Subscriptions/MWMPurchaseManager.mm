@@ -41,27 +41,6 @@
   return @[@(BOOKMARKS_SUBSCRIPTION_YEARLY_PRODUCT_ID), @(BOOKMARKS_SUBSCRIPTION_MONTHLY_PRODUCT_ID)];
 }
 
-+ (NSString *)adsRemovalServerId {
-  return @(ADS_REMOVAL_SERVER_ID);
-}
-
-+ (NSString *)adsRemovalVendorId {
-  return @(ADS_REMOVAL_VENDOR);
-}
-
-+ (NSArray *)productIds {
-  return @[@(ADS_REMOVAL_YEARLY_PRODUCT_ID), @(ADS_REMOVAL_MONTHLY_PRODUCT_ID), @(ADS_REMOVAL_WEEKLY_PRODUCT_ID)];
-}
-
-+ (NSArray *)legacyProductIds {
-  auto pidVec = std::vector<std::string>(ADS_REMOVAL_NOT_USED_LIST);
-  NSMutableArray *result = [NSMutableArray array];
-  for (auto const &s : pidVec)
-    [result addObject:@(s.c_str())];
-
-  return [result copy];
-}
-
 + (NSArray<NSString *> *)bookmarkInappIds {
   auto pidVec = std::vector<std::string>(BOOKMARK_INAPP_IDS);
   NSMutableArray *result = [NSMutableArray array];

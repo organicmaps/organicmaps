@@ -154,7 +154,6 @@ void Platform::Initialize(JNIEnv * env, jobject functorProcessObject, jstring ap
                           bool isTablet)
 {
   m_functorProcessObject = env->NewGlobalRef(functorProcessObject);
-  jclass const functorProcessClass = env->GetObjectClass(functorProcessObject);
 
   m_guiThread = std::make_unique<GuiThread>(m_functorProcessObject);
 

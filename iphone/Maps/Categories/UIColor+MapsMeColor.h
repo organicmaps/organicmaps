@@ -22,7 +22,6 @@ NS_ASSUME_NONNULL_BEGIN
 + (UIColor *)blackOpaque __attribute__ ((deprecated));
 + (UIColor *)bookingBackground __attribute__ ((deprecated));
 + (UIColor *)opentableBackground __attribute__ ((deprecated));
-+ (UIColor *)bannerBackground __attribute__ ((deprecated));
 + (UIColor *)transparentGreen __attribute__ ((deprecated));
 + (UIColor *)speedLimitRed __attribute__ ((deprecated));
 + (UIColor *)speedLimitGeen __attribute__ ((deprecated));

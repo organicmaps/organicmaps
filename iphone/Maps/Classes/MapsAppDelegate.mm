@@ -28,8 +28,6 @@
 #include "map/framework_light.hpp"
 #include "map/gps_tracker.hpp"
 
-#include "partners_api/ads/mopub_ads.hpp"
-
 #include "platform/background_downloader_ios.h"
 #include "platform/http_thread_apple.h"
 #include "platform/local_country_file_utils.hpp"
@@ -164,10 +162,6 @@ using namespace osm_auth_ios;
       if (result == MWMValidationResultNotValid) {
         [[InAppPurchase allPassSubscriptionManager] setSubscriptionActive:NO isTrial:NO];
       }
-    }];
-    [[InAppPurchase adsRemovalSubscriptionManager] validateWithCompletion:^(MWMValidationResult result, BOOL isTrial) {
-      [[InAppPurchase adsRemovalSubscriptionManager] setSubscriptionActive:result != MWMValidationResultNotValid
-                                                                   isTrial:NO];
     }];
     self.pendingTransactionHandler = [InAppPurchase pendingTransactionsHandler];
     __weak __typeof(self) ws = self;

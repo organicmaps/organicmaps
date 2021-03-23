@@ -131,9 +131,6 @@
       location = "container:indexer/indexer.xcodeproj">
    </FileRef>
    <FileRef
-      location = "container:local_ads/local_ads.xcodeproj">
-   </FileRef>
-   <FileRef
       location = "container:map/map.xcodeproj">
    </FileRef>
    <FileRef

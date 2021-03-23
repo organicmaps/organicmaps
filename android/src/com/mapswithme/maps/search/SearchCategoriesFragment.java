@@ -7,11 +7,9 @@ import android.view.View;
 
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.base.BaseMwmRecyclerFragment;
-import com.mapswithme.maps.purchase.AdsRemovalActivationCallback;
-import com.mapswithme.maps.purchase.AdsRemovalPurchaseDialog;
 
 public class SearchCategoriesFragment extends BaseMwmRecyclerFragment<CategoriesAdapter>
-    implements CategoriesAdapter.CategoriesUiListener, AdsRemovalActivationCallback
+    implements CategoriesAdapter.CategoriesUiListener
 {
   @Override
   public void onViewCreated(View view, Bundle savedInstanceState)
@@ -46,12 +44,6 @@ public class SearchCategoriesFragment extends BaseMwmRecyclerFragment<Categories
       passCategory(getActivity(), category);
   }
 
-  @Override
-  public void onAdsRemovalSelected()
-  {
-    AdsRemovalPurchaseDialog.show(this);
-  }
-
   private static boolean passCategory(Object listener, String category)
   {
     if (!(listener instanceof CategoriesAdapter.CategoriesUiListener))
@@ -59,12 +51,5 @@ public class SearchCategoriesFragment extends BaseMwmRecyclerFragment<Categories
 
     ((CategoriesAdapter.CategoriesUiListener)listener).onSearchCategorySelected(category);
     return true;
-  }
-
-  @Override
-  public void onAdsRemovalActivation()
-  {
-    getAdapter().updateCategories(this);
-    getAdapter().notifyDataSetChanged();
   }
 }

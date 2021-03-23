@@ -15,8 +15,6 @@
 #include "map/user_mark.hpp"
 #include "map/purchase.hpp"
 
-#include "partners_api/ads/ads_engine.hpp"
-#include "partners_api/ads/banner.hpp"
 #include "partners_api/booking_block_params.hpp"
 
 #include "web_api/utils.hpp"
@@ -744,11 +742,6 @@ void Framework::EnableDownloadOn3g()
   m_work.GetDownloadingPolicy().EnableCellularDownload(true);
 }
 
-void Framework::DisableAdProvider(ads::Banner::Type const type, ads::Banner::Place const place)
-{
-  m_work.DisableAdProvider(type, place);
-}
-
 uint64_t Framework::RequestTaxiProducts(JNIEnv * env, jobject policy, ms::LatLon const & from,
                                         ms::LatLon const & to,
                                         taxi::SuccessCallback const & onSuccess,
@@ -855,10 +848,6 @@ std::string Framework::GetPromoCityUrl(JNIEnv * env, jobject policy, jdouble lat
     return {};
   auto const point = mercator::FromLatLon(static_cast<double>(lat), static_cast<double>(lon));
   return api->GetCityUrl(point);
-}
-
-void Framework::LogLocalAdsEvent(local_ads::EventType type, double lat, double lon, uint16_t accuracy)
-{
 }
 
 void Framework::OnPowerFacilityChanged(power_management::Facility const facility, bool enabled)
@@ -1414,15 +1403,6 @@ Java_com_mapswithme_maps_Framework_nativeGetRouteFollowingInfo(JNIEnv * env, jcl
   return result;
 }
 
-JNIEXPORT void JNICALL
-Java_com_mapswithme_maps_Framework_nativeDisableAdProvider(JNIEnv * env, jclass, jint type,
-                                                           jint place)
-{
-  auto const & bannerType = static_cast<ads::Banner::Type>(type);
-  auto const & bannerPlace = static_cast<ads::Banner::Place>(place);
-  g_framework->DisableAdProvider(bannerType, bannerPlace);
-}
-
 JNIEXPORT jintArray JNICALL
 Java_com_mapswithme_maps_Framework_nativeGenerateRouteAltitudeChartBits(JNIEnv * env, jclass, jint width, jint height, jobject routeAltitudeLimits)
 {
@@ -1891,13 +1871,6 @@ Java_com_mapswithme_maps_Framework_nativeIsRouteFinished(JNIEnv * env, jclass)
 }
 
 JNIEXPORT void JNICALL
-Java_com_mapswithme_maps_Framework_nativeLogLocalAdsEvent(JNIEnv * env, jclass, jint type,
-                                                          jdouble lat, jdouble lon, jint accuracy)
-{
-  g_framework->LogLocalAdsEvent(static_cast<local_ads::EventType>(type), lat, lon, accuracy);
-}
-
-JNIEXPORT void JNICALL
 Java_com_mapswithme_maps_Framework_nativeRunFirstLaunchAnimation(JNIEnv * env, jclass)
 {
   frm()->RunFirstLaunchAnimation();
@@ -1951,12 +1924,6 @@ JNIEXPORT void JNICALL
 Java_com_mapswithme_maps_Framework_nativeDeleteSavedRoutePoints()
 {
   frm()->GetRoutingManager().DeleteSavedRoutePoints();
-}
-
-JNIEXPORT jobjectArray JNICALL
-Java_com_mapswithme_maps_Framework_nativeGetSearchBanners(JNIEnv * env, jclass)
-{
-  return usermark_helper::ToBannersArray(env, frm()->GetAdsEngine().GetSearchBanners());
 }
 
 JNIEXPORT void JNICALL

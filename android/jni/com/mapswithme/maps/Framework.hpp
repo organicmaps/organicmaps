@@ -15,7 +15,6 @@
 #include "drape/pointers.hpp"
 #include "drape/graphics_context_factory.hpp"
 
-#include "local_ads/event.hpp"
 
 #include "partners_api/booking_api.hpp"
 #include "partners_api/locals_api.hpp"
@@ -200,7 +199,6 @@ namespace android
     bool IsAutoRetryDownloadFailed();
     bool IsDownloadOn3gEnabled();
     void EnableDownloadOn3g();
-    void DisableAdProvider(ads::Banner::Type const type, ads::Banner::Place const place);
     uint64_t RequestTaxiProducts(JNIEnv * env, jobject policy, ms::LatLon const & from,
                                  ms::LatLon const & to, taxi::SuccessCallback const & onSuccess,
                                  taxi::ErrorCallback const & onError);
@@ -227,7 +225,6 @@ namespace android
     promo::AfterBooking GetPromoAfterBooking(JNIEnv * env, jobject policy);
     std::string GetPromoCityUrl(JNIEnv * env, jobject policy, jdouble lat, jdouble lon);
 
-    void LogLocalAdsEvent(local_ads::EventType event, double lat, double lon, uint16_t accuracy);
 
     // PowerManager::Subscriber overrides:
     void OnPowerFacilityChanged(power_management::Facility const facility, bool enabled) override;

@@ -3,7 +3,6 @@
   typealias ValidationCompletion = (MWMValidationResult, Bool) -> Void
   typealias TrialEligibilityCompletion = (MWMTrialEligibilityResult) -> Void
 
-  var productIds: [String] { get }
   var serverId: String { get }
   var vendorId: String { get }
   var hasTrial: Bool { get }

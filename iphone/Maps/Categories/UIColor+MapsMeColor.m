@@ -54,7 +54,6 @@ static NSDictionary<NSString *, UIColor *> *night;
     @"blackOpaque" : [UIColor colorWithWhite:0. alpha:alpha04],
     @"toastBackground" : [UIColor colorWithWhite:1. alpha:alpha87],
     @"statusBarBackground" : [UIColor colorWithWhite:1. alpha:alpha36],
-    @"bannerBackground" : [UIColor colorWithRed:scaled(249) green:scaled(251) blue:scaled(231) alpha:alpha100],
     @"border" : [UIColor colorWithWhite:0. alpha:alpha04],
     @"discountBackground" : [UIColor colorWithRed:scaled(240) green:scaled(100) blue:scaled(60) alpha:alpha100],
     @"discountText" : [UIColor colorWithRed:scaled(60) green:scaled(64) blue:scaled(68) alpha:alpha100],
@@ -109,7 +108,6 @@ static NSDictionary<NSString *, UIColor *> *night;
     @"blackOpaque": [UIColor colorWithWhite:1. alpha:alpha04],
     @"toastBackground": [UIColor colorWithWhite:0. alpha:alpha87],
     @"statusBarBackground": [UIColor colorWithWhite:0. alpha:alpha32],
-    @"bannerBackground" : [UIColor colorWithRed:scaled(71) green:scaled(75) blue:scaled(79) alpha:alpha100],
     @"border" : [UIColor colorWithWhite:1. alpha:alpha04],
     @"discountBackground" : [UIColor colorWithRed:scaled(240) green:scaled(100) blue:scaled(60) alpha:alpha100],
     @"discountText" : [UIColor colorWithRed:scaled(60) green:scaled(64) blue:scaled(68) alpha:alpha100],
@@ -257,11 +255,6 @@ static NSDictionary<NSString *, UIColor *> *night;
 + (UIColor *)transparentGreen
 {
   return [UIColor colorWithRed:scaled(233) green:scaled(244) blue:scaled(233) alpha:alpha26];
-}
-
-+ (UIColor *)bannerBackground
-{
-  return StyleManager.shared.theme.colors.bannerBackground;
 }
 
 + (UIColor *)colorWithName:(NSString *)colorName

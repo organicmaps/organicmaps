@@ -658,12 +658,6 @@ public class SearchFragment extends BaseMwmFragment
     mToolbarController.setQuery(category);
   }
 
-  @Override
-  public void onAdsRemovalSelected()
-  {
-    // Do nothing by default.
-  }
-
   private void refreshSearchResults(boolean isHotel, @NonNull SearchResult[] results)
   {
     mSearchRunning = true;

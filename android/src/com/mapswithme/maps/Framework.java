@@ -446,9 +446,6 @@ public class Framework
   // Navigation.
   public static native boolean nativeIsRouteFinished();
 
-  private static native void nativeLogLocalAdsEvent(int eventType,
-                                                   double lat, double lon, int accuracy);
-
   public static native void nativeRunFirstLaunchAnimation();
 
   public static native int nativeOpenRoutePointsTransaction();
@@ -500,8 +497,6 @@ public class Framework
                                                         boolean isActive, boolean isTrial);
 
   public static native int nativeGetCurrentTipIndex();
-
-  private static native void nativeDisableAdProvider(int provider, int bannerPlace);
 
   public static native void nativeBindUser(@NonNull UserBindingListener listener);
 

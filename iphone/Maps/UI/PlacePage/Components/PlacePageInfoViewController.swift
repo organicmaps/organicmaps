@@ -53,7 +53,6 @@ protocol PlacePageInfoViewControllerDelegate: AnyObject {
   func didPressCall()
   func didPressWebsite()
   func didPressEmail()
-  func didPressLocalAd()
 }
 
 class PlacePageInfoViewController: UIViewController {
@@ -78,7 +77,6 @@ class PlacePageInfoViewController: UIViewController {
   private var wifiView: InfoItemViewController?
   private var addressView: InfoItemViewController?
   private var coordinatesView: InfoItemViewController?
-  private var localAdsButton: UIButton?
 
   var placePageInfoData: PlacePageInfoData!
   weak var delegate: PlacePageInfoViewControllerDelegate?
@@ -158,34 +156,9 @@ class PlacePageInfoViewController: UIViewController {
     coordinatesView?.accessoryImage.image = UIImage(named: "ic_placepage_change")
     coordinatesView?.accessoryImage.isHidden = false
     coordinatesView?.canShowMenu = true
-
-//    switch placePageInfoData.localAdsStatus {
-//    case .candidate:
-//      localAdsButton = createLocalAdsButton(L("create_campaign_button"))
-//    case .customer:
-//      localAdsButton = createLocalAdsButton(L("view_campaign_button"))
-//    case .notAvailable, .hidden:
-//      coordinatesView?.separatorView.isHidden = true
-//    @unknown default:
-//      fatalError()
-//    }
   }
 
   // MARK: private
-
-  @objc private func onLocalAdsButton(_ sender: UIButton) {
-    delegate?.didPressLocalAd()
-  }
-
-  private func createLocalAdsButton(_ title: String) -> UIButton {
-    let button = UIButton()
-    button.setTitle(title, for: .normal)
-    button.styleName = "FlatNormalTransButtonBig"
-    button.heightAnchor.constraint(equalToConstant: 44).isActive = true
-    stackView.addArrangedSubview(button)
-    button.addTarget(self, action: #selector(onLocalAdsButton(_:)), for: .touchUpInside)
-    return button
-  }
 
   private func createInfoItem(_ info: String,
                               icon: UIImage?,

@@ -125,10 +125,8 @@ bool PopularityHasHigherPriority(bool hasPosition, double distanceInMeters)
     self.popularView.hidden = !showPopular;
   }
 
-  if (productInfo.m_isLocalAdsCustomer)
-      [self setStyleAndApply: @"SearchCellAds"];
-  else if (isAvailable)
-      [self setStyleAndApply: @"SearchCellAvaliable"];
+  if (isAvailable)
+    [self setStyleAndApply: @"SearchCellAvaliable"];
   else
     [self setStyleAndApply: @"Background"];
 }

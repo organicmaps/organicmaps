@@ -25,9 +25,6 @@
 		471AB99123AB931000F56D49 /* MWMMapSearchResult+Core.h in Headers */ = {isa = PBXBuildFile; fileRef = 471AB98F23AB931000F56D49 /* MWMMapSearchResult+Core.h */; };
 		472602A824092C5B00731135 /* MWMGeoUtil.h in Headers */ = {isa = PBXBuildFile; fileRef = 472602A624092C5B00731135 /* MWMGeoUtil.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		472602A924092C5B00731135 /* MWMGeoUtil.mm in Sources */ = {isa = PBXBuildFile; fileRef = 472602A724092C5B00731135 /* MWMGeoUtil.mm */; };
-		4738A8E0239FACE7007C0F43 /* CoreBanner.h in Headers */ = {isa = PBXBuildFile; fileRef = 4738A8DE239FACE7007C0F43 /* CoreBanner.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		4738A8E1239FACE7007C0F43 /* CoreBanner.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4738A8DF239FACE7007C0F43 /* CoreBanner.mm */; };
-		4738A8E4239FB46E007C0F43 /* CoreBanner+Core.h in Headers */ = {isa = PBXBuildFile; fileRef = 4738A8E2239FB46E007C0F43 /* CoreBanner+Core.h */; };
 		475784C22344B422008291A4 /* Framework.h in Headers */ = {isa = PBXBuildFile; fileRef = 475784C02344B421008291A4 /* Framework.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		475784C32344B422008291A4 /* Framework.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 475784C12344B422008291A4 /* Framework.cpp */; };
 		47938905239A932D006ECACC /* UgcSummaryRatingType.h in Headers */ = {isa = PBXBuildFile; fileRef = 47938904239A92F8006ECACC /* UgcSummaryRatingType.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -175,9 +172,6 @@
 		471AB98F23AB931000F56D49 /* MWMMapSearchResult+Core.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "MWMMapSearchResult+Core.h"; sourceTree = "<group>"; };
 		472602A624092C5B00731135 /* MWMGeoUtil.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MWMGeoUtil.h; sourceTree = "<group>"; };
 		472602A724092C5B00731135 /* MWMGeoUtil.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMGeoUtil.mm; sourceTree = "<group>"; };
-		4738A8DE239FACE7007C0F43 /* CoreBanner.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CoreBanner.h; sourceTree = "<group>"; };
-		4738A8DF239FACE7007C0F43 /* CoreBanner.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = CoreBanner.mm; sourceTree = "<group>"; };
-		4738A8E2239FB46E007C0F43 /* CoreBanner+Core.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "CoreBanner+Core.h"; sourceTree = "<group>"; };
 		475784C02344B421008291A4 /* Framework.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Framework.h; sourceTree = "<group>"; };
 		475784C12344B422008291A4 /* Framework.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Framework.cpp; sourceTree = "<group>"; };
 		47938904239A92F8006ECACC /* UgcSummaryRatingType.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UgcSummaryRatingType.h; sourceTree = "<group>"; };
@@ -412,16 +406,6 @@
 			path = NetworkPolicy;
 			sourceTree = "<group>";
 		};
-		4738A8DD239FAC77007C0F43 /* Ad */ = {
-			isa = PBXGroup;
-			children = (
-				4738A8DE239FACE7007C0F43 /* CoreBanner.h */,
-				4738A8E2239FB46E007C0F43 /* CoreBanner+Core.h */,
-				4738A8DF239FACE7007C0F43 /* CoreBanner.mm */,
-			);
-			path = Ad;
-			sourceTree = "<group>";
-		};
 		477C775523435B69001C5B4E /* Framework */ = {
 			isa = PBXGroup;
 			children = (
@@ -493,7 +477,6 @@
 			children = (
 				47942D51237CC3B500DEFAE3 /* PlacePageData.h */,
 				47942D52237CC3B500DEFAE3 /* PlacePageData.mm */,
-				4738A8DD239FAC77007C0F43 /* Ad */,
 				47942D89237D629D00DEFAE3 /* Catalog */,
 				47942D5B237CC3B500DEFAE3 /* Common */,
 				47942D65237CC3B500DEFAE3 /* Booking */,
@@ -752,7 +735,6 @@
 				479F705F234FBB8F00011E2E /* MWMBookmarkGroup.h in Headers */,
 				47EF73F9246E035C00D32AB8 /* MWMGuidesManager.h in Headers */,
 				471AB99123AB931000F56D49 /* MWMMapSearchResult+Core.h in Headers */,
-				4738A8E0239FACE7007C0F43 /* CoreBanner.h in Headers */,
 				47942D6D237CC3E300DEFAE3 /* PlacePagePreviewData.h in Headers */,
 				99D934B324CA0052002E4802 /* MWMTrialEligibility.h in Headers */,
 				47CA68DD2502022400671019 /* MWMBookmark.h in Headers */,
@@ -794,7 +776,6 @@
 				99D934A624C9FFE7002E4802 /* IMWMTrialEligibility.h in Headers */,
 				47942D7E237CC43000DEFAE3 /* UgcData+Core.h in Headers */,
 				47942D6E237CC3E800DEFAE3 /* PlacePagePreviewData+Core.h in Headers */,
-				4738A8E4239FB46E007C0F43 /* CoreBanner+Core.h in Headers */,
 				47942D7B237CC41A00DEFAE3 /* HotelRoom+Core.h in Headers */,
 				47942D94237D673E00DEFAE3 /* CatalogPromoItem.h in Headers */,
 				470016102342579200EBF03D /* MWMTagGroup.h in Headers */,
@@ -914,7 +895,6 @@
 				99F31EB823D5DD9000CE2CE1 /* PromoAfterBookingData.mm in Sources */,
 				47C637D12354A6FB00E12DE0 /* MWMEye.mm in Sources */,
 				47942D9D237D927800DEFAE3 /* PlacePageBookmarkData.mm in Sources */,
-				4738A8E1239FACE7007C0F43 /* CoreBanner.mm in Sources */,
 				47942D86237CC55500DEFAE3 /* MWMOpeningHoursCommon.mm in Sources */,
 				9974CA2A23DF1968003FE824 /* ElevationProfileData.mm in Sources */,
 				47942D82237CC52A00DEFAE3 /* MWMOpeningHours.mm in Sources */,

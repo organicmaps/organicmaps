@@ -26,7 +26,6 @@ setup(
         "fonts_blacklist.txt",
         "fonts_whitelist.txt",
         "hierarchy.txt",
-        "local_ads_symbols.txt",
         "mapcss-dynamic.txt",
         "mapcss-mapping.csv",
         "mixed_nodes.txt",

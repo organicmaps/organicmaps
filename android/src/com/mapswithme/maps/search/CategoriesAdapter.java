@@ -39,7 +39,6 @@ class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.ViewHolde
   interface CategoriesUiListener
   {
     void onSearchCategorySelected(@Nullable String category);
-    void onAdsRemovalSelected();
   }
 
   private CategoriesUiListener mListener;

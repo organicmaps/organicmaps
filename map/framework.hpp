@@ -62,7 +62,6 @@
 
 #include "tracking/reporter.hpp"
 
-#include "partners_api/ads/banner.hpp"
 #include "partners_api/booking_api.hpp"
 #include "partners_api/locals_api.hpp"
 #include "partners_api/promo_api.hpp"
@@ -120,11 +119,6 @@ namespace platform
 class NetworkPolicy;
 }
 
-namespace ads
-{
-class Engine;
-}
-
 namespace descriptions
 {
 class Loader;
@@ -141,14 +135,12 @@ class NotificationCandidate;
 
 struct FrameworkParams
 {
-  bool m_enableLocalAds = true;
   bool m_enableDiffs = true;
   size_t m_numSearchAPIThreads = 1;
 
   FrameworkParams() = default;
-  FrameworkParams(bool enableLocalAds, bool enableDiffs)
-    : m_enableLocalAds(enableLocalAds)
-    , m_enableDiffs(enableDiffs)
+  FrameworkParams(bool enableDiffs)
+    : m_enableDiffs(enableDiffs)
   {}
 };
 
@@ -365,9 +357,6 @@ public:
   void VisualizeRoadsInRect(m2::RectD const & rect);
   void VisualizeCityBoundariesInRect(m2::RectD const & rect);
   void VisualizeCityRoadsInRect(m2::RectD const & rect);
-
-  ads::Engine const & GetAdsEngine() const;
-  void DisableAdProvider(ads::Banner::Type const type, ads::Banner::Place const place);
 
 public:
   // SearchAPI::Delegate overrides:
@@ -858,8 +847,6 @@ public:
 private:
   std::unique_ptr<search::CityFinder> m_cityFinder;
   CachingAddressGetter m_addressGetter;
-  // Ads engine must be destroyed before Storage, CountryInfoGetter and Purchase.
-  std::unique_ptr<ads::Engine> m_adsEngine;
   // The order matters here: storage::CountryInfoGetter and
   // search::CityFinder must be initialized before
   // taxi::Engine and, therefore, destroyed after taxi::Engine.

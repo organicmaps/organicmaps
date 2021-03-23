@@ -16,7 +16,6 @@ struct ProductInfo
 
   static auto constexpr kInvalidRating = kInvalidRatingValue;
 
-  bool m_isLocalAdsCustomer = false;
   float m_ugcRating = kInvalidRating;
 };
 }

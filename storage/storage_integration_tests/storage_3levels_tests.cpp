@@ -39,7 +39,7 @@ UNIT_TEST(SmallMwms_3levels_Test)
 
   /// @todo So sick, but Framework.RoutingManager has so complicated logic with a bunch of
   /// RunOnGui callbacks, so delete Framework also in RunOnGui.
-  auto * frm = new Framework(FrameworkParams(false /* m_enableLocalAds */, false /* m_enableDiffs */));
+  auto * frm = new Framework(FrameworkParams(false /* m_enableDiffs */));
 
   SCOPE_GUARD(deleteFramework, [frm]()
   {

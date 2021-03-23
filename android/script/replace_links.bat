@@ -42,7 +42,6 @@ cp -r ../data/countries-strings/ assets/
 
 cp -r ../data/icudt57l.dat assets/
 
-cp -r ../data/local_ads_symbols.txt assets/
 
 rm -rf flavors/mwm-ttf-assets
 mkdir flavors\\mwm-ttf-assets

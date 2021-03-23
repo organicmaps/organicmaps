@@ -28,7 +28,6 @@ omim_link_libraries(
     drape
     partners_api
     web_api
-    local_ads
     kml
     editor
     indexer

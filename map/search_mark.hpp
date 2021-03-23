@@ -50,9 +50,9 @@ public:
   std::string const & GetMatchedName() const { return m_matchedName; }
   void SetMatchedName(std::string const & name);
 
-  void SetFromType(uint32_t type, bool hasLocalAds);
-  void SetBookingType(bool hasLocalAds);
-  void SetHotelType(bool hasLocalAds);
+  void SetFromType(uint32_t type);
+  void SetBookingType();
+  void SetHotelType();
   void SetNotFoundType();
 
   void SetPreparing(bool isPreparing);
@@ -93,7 +93,6 @@ protected:
   std::string GetBadgeName() const;
 
   SearchMarkType m_type{};
-  bool m_hasLocalAds = false;
   FeatureID m_featureID;
   // Used to pass exact search result matched string into a place page.
   std::string m_matchedName;

@@ -1,6 +1,5 @@
 #include "map/bookmark_manager.hpp"
 #include "map/api_mark_point.hpp"
-#include "map/local_ads_mark.hpp"
 #include "map/routing_mark.hpp"
 #include "map/search_api.hpp"
 #include "map/search_mark.hpp"

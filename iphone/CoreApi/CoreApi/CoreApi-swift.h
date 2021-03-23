@@ -42,7 +42,6 @@ FOUNDATION_EXPORT const unsigned char CoreApiVersionString[];
 
 #import <CoreApi/CatalogPromoData.h>
 #import <CoreApi/CatalogPromoItem.h>
-#import <CoreApi/CoreBanner.h>
 #import <CoreApi/ElevationProfileData.h>
 #import <CoreApi/GuidesGalleryItem.h>
 #import <CoreApi/HotelBookingData.h>

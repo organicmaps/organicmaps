@@ -1,9 +1,6 @@
 NS_SWIFT_NAME(Settings)
 @interface MWMSettings : NSObject
 
-+ (BOOL)adServerForbidden;
-+ (void)setAdServerForbidden:(BOOL)adServerForbidden;
-
 + (BOOL)autoDownloadEnabled;
 + (void)setAutoDownloadEnabled:(BOOL)autoDownloadEnabled;
 

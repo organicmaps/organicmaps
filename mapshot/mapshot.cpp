@@ -191,7 +191,7 @@ int main(int argc, char * argv[])
 
   try
   {
-    Framework f(FrameworkParams(false /* m_enableLocalAds */, false /* m_enableDiffs */));
+    Framework f(FrameworkParams(false /* m_enableDiffs */));
 
     auto processPlace = [&](string const & place)
     {

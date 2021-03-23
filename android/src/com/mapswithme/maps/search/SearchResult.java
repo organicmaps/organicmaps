@@ -12,7 +12,6 @@ public class SearchResult implements PopularityProvider
 {
   public static final int TYPE_SUGGEST = 0;
   public static final int TYPE_RESULT = 1;
-  public static final int TYPE_LOCAL_ADS_CUSTOMER = 2;
 
   // Values should match osm::YesNoUnknown enum.
   public static final int OPEN_NOW_UNKNOWN = 0;
@@ -87,9 +86,9 @@ public class SearchResult implements PopularityProvider
   }
 
   public SearchResult(String name, Description description, double lat, double lon, int[] highlightRanges,
-                      boolean isHotel, boolean isLocalAdsCustomer, @NonNull Popularity popularity)
+                      boolean isHotel, @NonNull Popularity popularity)
   {
-    this.type = isLocalAdsCustomer ? TYPE_LOCAL_ADS_CUSTOMER : TYPE_RESULT;
+    this.type = TYPE_RESULT;
     this.name = name;
     this.isHotel = isHotel;
     mPopularity = popularity;

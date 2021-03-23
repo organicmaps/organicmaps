@@ -8,7 +8,6 @@
 
 namespace
 {
-char const * kAdServerForbiddenKey = "AdServerForbidden";
 char const * kAutoDownloadEnabledKey = "AutoDownloadEnabled";
 char const * kZoomButtonsEnabledKey = "ZoomButtonsEnabled";
 char const * kCompassCalibrationEnabledKey = "CompassCalibrationEnabled";
@@ -22,18 +21,6 @@ NSString * const kUDTrackWarningAlertWasShown = @"TrackWarningAlertWasShown";
 }  // namespace
 
 @implementation MWMSettings
-
-+ (BOOL)adServerForbidden
-{
-  bool adServerForbidden = false;
-  UNUSED_VALUE(settings::Get(kAdServerForbiddenKey, adServerForbidden));
-  return adServerForbidden;
-}
-
-+ (void)setAdServerForbidden:(BOOL)adServerForbidden
-{
-  settings::Set(kAdServerForbiddenKey, static_cast<bool>(adServerForbidden));
-}
 
 + (BOOL)autoDownloadEnabled
 {

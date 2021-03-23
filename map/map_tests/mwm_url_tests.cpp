@@ -26,7 +26,7 @@ using namespace url_scheme;
 namespace
 {
 using UrlType = ParsedMapApi::UrlType;
-static FrameworkParams const kFrameworkParams(false /* m_enableLocalAds */, false /* m_enableDiffs */);
+static FrameworkParams const kFrameworkParams(false /* m_enableDiffs */);
 
 void ToMercatoToLatLon(double & lat, double & lon)
 {

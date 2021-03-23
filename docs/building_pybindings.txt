@@ -27,7 +27,6 @@ Currently available modules and setup's:
 |-------------|----------------------------------------|
 | pygen       | generator/pygen/setup.py               |
 | pykmlib     | kml/pykmlib/setup.py                   |
-| pylocal_ads | local_ads/pylocal_ads/setup.py         |
 | pymvm_diff  | generator/mwm_diff/pymwm_diff/setup.py |
 | pysearch    | search/pysearch/setup.py               |
 | pytracking  | tracking/pytracking/setup.py           |

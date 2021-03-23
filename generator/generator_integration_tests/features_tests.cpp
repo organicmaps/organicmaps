@@ -325,8 +325,8 @@ public:
 
     generator::RawGenerator rawGenerator(m_genInfo, m_threadCount);
     rawGenerator.GenerateCoasts();
-    rawGenerator.GenerateCountries(true /* needMixTagsAndNodes */);
-    rawGenerator.GenerateWorld(true /* needMixTags */);
+    rawGenerator.GenerateCountries();
+    rawGenerator.GenerateWorld();
     TEST(rawGenerator.Execute(), ());
 
     size_t partner1CntReal = 0;
