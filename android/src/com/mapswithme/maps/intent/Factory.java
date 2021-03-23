@@ -619,7 +619,7 @@ public class Factory
             output = new FileOutputStream(tmpFile);
             input = resolver.openInputStream(mData);
 
-            final byte buffer[] = new byte[Constants.MB / 2];
+            final byte[] buffer = new byte[Constants.MB / 2];
             int read;
             while ((read = input.read(buffer)) != -1)
               output.write(buffer, 0, read);

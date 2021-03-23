@@ -49,9 +49,9 @@ public class AdsRemovalPurchaseDialog extends BaseMwmDialogFragment
   @Nullable
   private AdsRemovalPurchaseControllerProvider mControllerProvider;
   @NonNull
-  private AdsRemovalPurchaseCallback mPurchaseCallback = new AdsRemovalPurchaseCallback();
+  private final AdsRemovalPurchaseCallback mPurchaseCallback = new AdsRemovalPurchaseCallback();
   @NonNull
-  private List<AdsRemovalActivationCallback> mActivationCallbacks = new ArrayList<>();
+  private final List<AdsRemovalActivationCallback> mActivationCallbacks = new ArrayList<>();
   @SuppressWarnings("NullableProblems")
   @NonNull
   private View mYearlyButton;

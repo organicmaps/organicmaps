@@ -149,7 +149,7 @@ class SimpleTimetableAdapter extends RecyclerView.Adapter<SimpleTimetableAdapter
 
   private void addWorkingDay(int day, int position)
   {
-    final Timetable tts[] = mItems.toArray(new Timetable[mItems.size()]);
+    final Timetable[] tts = mItems.toArray(new Timetable[mItems.size()]);
     mItems = new ArrayList<>(Arrays.asList(OpeningHours.nativeAddWorkingDay(tts, position, day)));
     refreshComplement();
     notifyDataSetChanged();
@@ -157,7 +157,7 @@ class SimpleTimetableAdapter extends RecyclerView.Adapter<SimpleTimetableAdapter
 
   private void removeWorkingDay(int day, int position)
   {
-    final Timetable tts[] = mItems.toArray(new Timetable[mItems.size()]);
+    final Timetable[] tts = mItems.toArray(new Timetable[mItems.size()]);
     mItems = new ArrayList<>(Arrays.asList(OpeningHours.nativeRemoveWorkingDay(tts, position, day)));
     refreshComplement();
     notifyDataSetChanged();
@@ -193,7 +193,7 @@ class SimpleTimetableAdapter extends RecyclerView.Adapter<SimpleTimetableAdapter
     View close;
     TextView tvOpen;
     TextView tvClose;
-    View closedHours[] = new View[MAX_CLOSED_SPANS];
+    View[] closedHours = new View[MAX_CLOSED_SPANS];
     View addClosed;
     View deleteTimetable;
 

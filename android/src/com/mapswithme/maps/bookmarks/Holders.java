@@ -61,9 +61,9 @@ public class Holders
   public static class HeaderViewHolder extends RecyclerView.ViewHolder
   {
     @NonNull
-    private TextView mButton;
+    private final TextView mButton;
     @NonNull
-    private TextView mText;
+    private final TextView mText;
 
 
     HeaderViewHolder(@NonNull View itemView)
@@ -374,7 +374,7 @@ public class Holders
     @NonNull
     private final TextView mDistance;
     @NonNull
-    private View mMore;
+    private final View mMore;
 
     BookmarkViewHolder(@NonNull View itemView)
     {

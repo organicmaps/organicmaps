@@ -37,7 +37,7 @@ class SearchWheel implements View.OnClickListener
   private SearchOption mCurrentOption;
 
   private static final long CLOSE_DELAY_MILLIS = 5000L;
-  private Runnable mCloseRunnable = new Runnable() {
+  private final Runnable mCloseRunnable = new Runnable() {
     @Override
     public void run()
     {
@@ -58,13 +58,13 @@ class SearchWheel implements View.OnClickListener
     ATM(R.id.search_atm, R.drawable.ic_routing_atm_off, R.drawable.ic_routing_atm_on, R.string.atm);
 
     @IdRes
-    private int mResId;
+    private final int mResId;
     @DrawableRes
-    private int mDrawableOff;
+    private final int mDrawableOff;
     @DrawableRes
-    private int mDrawableOn;
+    private final int mDrawableOn;
     @StringRes
-    private int mQueryId;
+    private final int mQueryId;
 
     SearchOption(@IdRes int resId, @DrawableRes int drawableOff, @DrawableRes int drawableOn,
                  @StringRes int queryId)

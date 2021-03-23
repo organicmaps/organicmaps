@@ -11,9 +11,9 @@ public class SortedBlock
   @NonNull
   private final String mName;
   @NonNull
-  private List<Long> mBookmarkIds;
+  private final List<Long> mBookmarkIds;
   @NonNull
-  private List<Long> mTrackIds;
+  private final List<Long> mTrackIds;
 
   public SortedBlock(@NonNull String name, @NonNull Long[] bookmarkIds,
                      @NonNull Long[] trackIds)

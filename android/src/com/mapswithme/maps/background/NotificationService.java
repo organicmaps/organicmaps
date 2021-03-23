@@ -89,7 +89,7 @@ public class NotificationService extends JobIntentService
       return;
     }
 
-    final NotificationExecutor notifyOrder[] =
+    final NotificationExecutor[] notifyOrder =
     {
       this::notifyIsNotAuthenticated,
       this::notifySmart

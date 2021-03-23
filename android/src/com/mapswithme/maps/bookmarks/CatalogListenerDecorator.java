@@ -13,9 +13,9 @@ import com.mapswithme.maps.dialog.DialogUtils;
 class CatalogListenerDecorator extends BookmarkManager.DefaultBookmarksCatalogListener
 {
   @NonNull
-  private Fragment mFragment;
+  private final Fragment mFragment;
   @Nullable
-  private BookmarkManager.BookmarksCatalogListener mWrapped;
+  private final BookmarkManager.BookmarksCatalogListener mWrapped;
 
   CatalogListenerDecorator(@NonNull Fragment fragment)
   {

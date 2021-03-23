@@ -14,7 +14,7 @@ import java.util.List;
 public class TransitStepAdapter extends RecyclerView.Adapter<TransitStepAdapter.TransitStepViewHolder>
 {
   @NonNull
-  private List<TransitStepInfo> mItems = new ArrayList<>();
+  private final List<TransitStepInfo> mItems = new ArrayList<>();
 
   @Override
   public TransitStepViewHolder onCreateViewHolder(ViewGroup parent, int viewType)
@@ -45,7 +45,7 @@ public class TransitStepAdapter extends RecyclerView.Adapter<TransitStepAdapter.
   static class TransitStepViewHolder extends RecyclerView.ViewHolder
   {
     @NonNull
-    private TransitStepView mView;
+    private final TransitStepView mView;
 
     TransitStepViewHolder(@NonNull View itemView)
     {

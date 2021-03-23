@@ -20,7 +20,7 @@ class UGCReviewAdapter extends Adapter<UGCReviewAdapter.ViewHolder>
 {
   static final int MAX_COUNT = 3;
   @NonNull
-  private ArrayList<UGC.Review> mItems = new ArrayList<>();
+  private final ArrayList<UGC.Review> mItems = new ArrayList<>();
 
   @Override
   public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType)

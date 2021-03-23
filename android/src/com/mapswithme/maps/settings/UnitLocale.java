@@ -13,7 +13,7 @@ public class UnitLocale
   {
     final String code = Locale.getDefault().getCountry();
     // USA, UK, Liberia, Burma
-    String arr[] = {"US", "GB", "LR", "MM"};
+    String[] arr = {"US", "GB", "LR", "MM"};
     for (String s : arr)
       if (s.equalsIgnoreCase(code))
         return UNITS_FOOT;

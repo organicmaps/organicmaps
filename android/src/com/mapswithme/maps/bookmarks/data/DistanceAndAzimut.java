@@ -2,8 +2,8 @@ package com.mapswithme.maps.bookmarks.data;
 
 public class DistanceAndAzimut
 {
-  private String mDistance;
-  private double mAzimuth;
+  private final String mDistance;
+  private final double mAzimuth;
 
   public String getDistance()
   {

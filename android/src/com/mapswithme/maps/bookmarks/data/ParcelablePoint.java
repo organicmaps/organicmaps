@@ -6,7 +6,7 @@ import android.os.Parcelable;
 
 public class ParcelablePoint implements Parcelable
 {
-  private Point mInternalPoint;
+  private final Point mInternalPoint;
 
   public Point getPoint()
   {

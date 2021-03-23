@@ -22,9 +22,9 @@ public class Bookmark extends MapObject
 {
   private Icon mIcon;
   private long mCategoryId;
-  private long mBookmarkId;
-  private double mMerX;
-  private double mMerY;
+  private final long mBookmarkId;
+  private final double mMerX;
+  private final double mMerY;
 
   public Bookmark(@NonNull FeatureId featureId, @IntRange(from = 0) long categoryId,
                   @IntRange(from = 0) long bookmarkId, String title, @Nullable String secondaryTitle,

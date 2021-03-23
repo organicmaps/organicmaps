@@ -66,7 +66,7 @@ public class TimetableContainerFragment extends BaseMwmFragment implements OnBac
   @NonNull
   private Mode mMode = Mode.ADVANCED;
   @NonNull
-  private Fragment[] mFragments = new Fragment[Mode.values().length];
+  private final Fragment[] mFragments = new Fragment[Mode.values().length];
   @Nullable
   private TimetableProvider mTimetableProvider;
 

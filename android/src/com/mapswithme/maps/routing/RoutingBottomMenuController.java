@@ -89,7 +89,7 @@ final class RoutingBottomMenuController implements View.OnClickListener
   private TaxiInfo.Product mTaxiProduct;
 
   @Nullable
-  private RoutingBottomMenuListener mListener;
+  private final RoutingBottomMenuListener mListener;
 
   @NonNull
   static RoutingBottomMenuController newInstance(@NonNull Activity activity, @NonNull View frame,

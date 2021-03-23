@@ -80,7 +80,7 @@ class HotelsTypeAdapter extends RecyclerView.Adapter<HotelsTypeAdapter.HotelsTyp
     @NonNull
     private final List<Item> mItems;
     @Nullable
-    private OnTypeSelectedListener mListener;
+    private final OnTypeSelectedListener mListener;
 
     HotelsTypeViewHolder(@NonNull View itemView, @NonNull List<Item> items,
                          @Nullable OnTypeSelectedListener listener)

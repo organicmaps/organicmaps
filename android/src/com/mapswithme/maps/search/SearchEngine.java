@@ -16,6 +16,7 @@ import com.mapswithme.util.log.Logger;
 import com.mapswithme.util.log.LoggerFactory;
 
 import java.io.UnsupportedEncodingException;
+import java.nio.charset.StandardCharsets;
 
 public enum SearchEngine implements NativeSearchListener,
                                     NativeMapSearchListener,
@@ -157,13 +158,8 @@ public enum SearchEngine implements NativeSearchListener,
                         double lat, double lon, @Nullable HotelsFilter hotelsFilter,
                         @Nullable BookingFilterParams bookingParams)
   {
-    try
-    {
-      return nativeRunSearch(query.getBytes("utf-8"), Language.getKeyboardLocale(context),
-                             timestamp, hasLocation, lat, lon, hotelsFilter, bookingParams);
-    } catch (UnsupportedEncodingException ignored) { }
-
-    return false;
+    return nativeRunSearch(query.getBytes(StandardCharsets.UTF_8), Language.getKeyboardLocale(context),
+                           timestamp, hasLocation, lat, lon, hotelsFilter, bookingParams);
   }
 
   @MainThread
@@ -171,11 +167,8 @@ public enum SearchEngine implements NativeSearchListener,
                                        boolean isMapAndTable, @Nullable HotelsFilter hotelsFilter,
                                        @Nullable BookingFilterParams bookingParams)
   {
-    try
-    {
-      nativeRunInteractiveSearch(query.getBytes("utf-8"), locale, timestamp, isMapAndTable,
-                                 hotelsFilter, bookingParams);
-    } catch (UnsupportedEncodingException ignored) { }
+    nativeRunInteractiveSearch(query.getBytes(StandardCharsets.UTF_8), locale, timestamp, isMapAndTable,
+                               hotelsFilter, bookingParams);
   }
 
   @MainThread
@@ -189,24 +182,14 @@ public enum SearchEngine implements NativeSearchListener,
   @MainThread
   public static void searchMaps(@NonNull Context context, String query, long timestamp)
   {
-    try
-    {
-      nativeRunSearchMaps(query.getBytes("utf-8"), Language.getKeyboardLocale(context),
-                          timestamp);
-    } catch (UnsupportedEncodingException ignored) { }
+    nativeRunSearchMaps(query.getBytes(StandardCharsets.UTF_8), Language.getKeyboardLocale(context),
+                        timestamp);
   }
 
   @MainThread
   public boolean searchInBookmarks(@NonNull String query, long categoryId, long timestamp)
   {
-    try
-    {
-      return nativeRunSearchInBookmarks(query.getBytes("utf-8"), categoryId, timestamp);
-    } catch (UnsupportedEncodingException ex)
-    {
-      LOGGER.w(TAG, "Unsupported encoding in bookmarks search.", ex);
-    }
-    return false;
+    return nativeRunSearchInBookmarks(query.getBytes(StandardCharsets.UTF_8), categoryId, timestamp);
   }
 
   public void setQuery(@Nullable String query)

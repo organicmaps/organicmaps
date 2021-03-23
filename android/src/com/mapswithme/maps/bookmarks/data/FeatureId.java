@@ -36,7 +36,7 @@ public class FeatureId implements Parcelable
     if (TextUtils.isEmpty(id))
       throw new AssertionError("Feature id string is empty");
 
-    String parts[] = id.split(":");
+    String[] parts = id.split(":");
     if (parts.length != 3)
       throw new AssertionError("Wrong feature id string format");
 

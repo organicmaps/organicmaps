@@ -133,8 +133,8 @@ public class BookingFilterParams implements Parcelable
     }
   }
 
-  private long mCheckinMillisec;
-  private long  mCheckoutMillisec;
+  private final long mCheckinMillisec;
+  private final long  mCheckoutMillisec;
   @NonNull
   private final Room[] mRooms;
 

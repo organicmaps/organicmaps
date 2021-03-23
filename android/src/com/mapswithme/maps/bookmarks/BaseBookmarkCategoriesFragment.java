@@ -393,7 +393,7 @@ public abstract class BaseBookmarkCategoriesFragment extends BaseMwmRecyclerFrag
     @IdRes
     private final int mId;
     @NonNull
-    private MenuClickProcessorBase mInternalProcessor;
+    private final MenuClickProcessorBase mInternalProcessor;
 
     MenuItemClickProcessorWrapper(@IdRes int id, @NonNull MenuClickProcessorBase processorBase)
     {

@@ -221,7 +221,7 @@ public class SettingsPrefsFragment extends BaseXmlSettingsFragment
       return;
     }
 
-    boolean enabled = TtsPlayer.INSTANCE.isEnabled();
+    boolean enabled = TtsPlayer.isEnabled();
     mPrefEnabled.setChecked(enabled);
     mPrefEnabled.setSummary(null);
     mPrefEnabled.setTitle(enabled ? R.string.on : R.string.off);
@@ -251,10 +251,10 @@ public class SettingsPrefsFragment extends BaseXmlSettingsFragment
 
     mCurrentLanguage = TtsPlayer.getSelectedLanguage(languages);
     boolean available = (mCurrentLanguage != null && mCurrentLanguage.downloaded);
-    mPrefLanguages.setEnabled(available && TtsPlayer.INSTANCE.isEnabled());
+    mPrefLanguages.setEnabled(available && TtsPlayer.isEnabled());
     mPrefLanguages.setSummary(available ? mCurrentLanguage.name : null);
     mPrefLanguages.setValue(available ? mCurrentLanguage.internalCode : null);
-    mPrefEnabled.setChecked(available && TtsPlayer.INSTANCE.isEnabled());
+    mPrefEnabled.setChecked(available && TtsPlayer.isEnabled());
 
     enableListeners(true);
   }

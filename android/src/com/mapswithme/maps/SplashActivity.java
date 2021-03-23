@@ -64,7 +64,7 @@ public class SplashActivity extends AppCompatActivity
   };
 
   @NonNull
-  private Runnable mOnboardingStepsTask = new Runnable()
+  private final Runnable mOnboardingStepsTask = new Runnable()
   {
     @Override
     public void run()

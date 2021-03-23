@@ -34,9 +34,9 @@ public class CatalogPromoController implements Promo.Listener, Detachable<Activi
   @Nullable
   private Activity mActivity;
   @NonNull
-  private RecyclerView mRecycler;
+  private final RecyclerView mRecycler;
   @NonNull
-  private TextView mTitle;
+  private final TextView mTitle;
   @NonNull
   private final PlacePageView mPlacePageView;
   @Nullable

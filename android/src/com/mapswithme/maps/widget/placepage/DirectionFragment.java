@@ -48,7 +48,7 @@ public class DirectionFragment extends BaseMwmDialogFragment
     });
     initViews(root);
     if (savedInstanceState != null)
-      setMapObject(savedInstanceState.<MapObject>getParcelable(EXTRA_MAP_OBJECT));
+      setMapObject(savedInstanceState.getParcelable(EXTRA_MAP_OBJECT));
 
     return root;
   }

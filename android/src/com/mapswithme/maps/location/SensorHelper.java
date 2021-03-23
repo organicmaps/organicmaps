@@ -18,7 +18,7 @@ class SensorHelper implements SensorEventListener
   private Sensor mRotation;
   @SuppressWarnings("NotNullFieldNotInitialized")
   @NonNull
-  private MwmApplication mMwmApplication;
+  private final MwmApplication mMwmApplication;
 
   @Override
   public void onSensorChanged(SensorEvent event)

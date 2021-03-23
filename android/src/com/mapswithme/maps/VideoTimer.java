@@ -6,7 +6,7 @@ import java.util.TimerTask;
 public class VideoTimer
 {
 
-  private static String TAG = "VideoTimer";
+  private static final String TAG = "VideoTimer";
 
   Timer m_timer;
 

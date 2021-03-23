@@ -29,9 +29,9 @@ class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.ViewHolde
   private static final int TYPE_CATEGORY = 0;
 
   @StringRes
-  private int mCategoryResIds[];
+  private int[] mCategoryResIds;
   @DrawableRes
-  private int mIconResIds[];
+  private int[] mIconResIds;
 
   private final LayoutInflater mInflater;
   private final Resources mResources;

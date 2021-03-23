@@ -114,7 +114,7 @@ public class StoragePathFragment extends BaseSettingsFragment
 
   static String getSizeString(long size)
   {
-    final String units[] = { "Kb", "Mb", "Gb" };
+    final String[] units = { "Kb", "Mb", "Gb" };
 
     long current = Constants.KB;
     int i = 0;

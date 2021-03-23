@@ -24,7 +24,7 @@ public class MyPositionButton
   private static final SparseArray<Drawable> mIcons = new SparseArray<>(); // Location mode -> Button icon
 
   private int mMode;
-  private boolean mVisible;
+  private final boolean mVisible;
 
   private final int mFollowPaddingShift;
 

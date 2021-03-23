@@ -95,7 +95,7 @@ public class FilterFragment extends BaseMwmToolbarFragment
     mRating = root.findViewById(R.id.rating);
     // Explicit casting is needed in this case, otherwise the crash is obtained in runtime,
     // seems like a bug in current compiler (Java 8)
-    mPrice = root.<PriceFilterView>findViewById(R.id.price);
+    mPrice = root.findViewById(R.id.price);
     View content = root.findViewById(R.id.content);
     RecyclerView type = content.findViewById(R.id.type);
     type.setLayoutManager(new TagLayoutManager());

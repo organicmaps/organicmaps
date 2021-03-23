@@ -547,7 +547,7 @@ public class ViewServer implements Runnable {
     }
 
     private class ViewServerWorker implements Runnable, WindowListener {
-        private Socket mClient;
+        private final Socket mClient;
         private boolean mNeedWindowListUpdate;
         private boolean mNeedFocusedWindowUpdate;
 

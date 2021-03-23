@@ -126,9 +126,9 @@ class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.ViewHolder>
   static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener
   {
     @NonNull
-    private ImageView mImage;
+    private final ImageView mImage;
     @NonNull
-    private View mMore;
+    private final View mMore;
     @Nullable
     private final RecyclerClickListener mListener;
     private int mPosition;
