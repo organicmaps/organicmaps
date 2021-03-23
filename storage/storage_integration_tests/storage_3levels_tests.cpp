@@ -19,7 +19,6 @@ using namespace storage;
 
 namespace
 {
-std::string const kCountryId = "Germany";  // Germany has 3-levels hierachy
 
 int GetLevelCount(Storage & storage, CountryId const & countryId)
 {
@@ -38,11 +37,23 @@ UNIT_TEST(SmallMwms_3levels_Test)
 
   Platform & platform = GetPlatform();
 
-  Framework f(FrameworkParams(false /* m_enableLocalAds */, false /* m_enableDiffs */));
-  auto & storage = f.GetStorage();
+  /// @todo So sick, but Framework.RoutingManager has so complicated logic with a bunch of
+  /// RunOnGui callbacks, so delete Framework also in RunOnGui.
+  auto * frm = new Framework(FrameworkParams(false /* m_enableLocalAds */, false /* m_enableDiffs */));
+
+  SCOPE_GUARD(deleteFramework, [frm]()
+  {
+    GetPlatform().RunTask(Platform::Thread::Gui, [frm]()
+    {
+      delete frm;
+    });
+  });
+
+  auto & storage = frm->GetStorage();
   std::string const version = strings::to_string(storage.GetCurrentDataVersion());
 
-  TEST_EQUAL(3, GetLevelCount(storage, kCountryId), ());
+  CountryId country = "Germany";
+  TEST_EQUAL(3, GetLevelCount(storage, country), ());
 
   std::string const mapDir = base::JoinPath(platform.WritableDir(), version);
 
@@ -56,27 +67,30 @@ UNIT_TEST(SmallMwms_3levels_Test)
   storage.Subscribe(onChangeCountryFn, onProgressFn);
   storage.SetDownloadingServersForTesting({kTestWebServer});
 
+  /// @todo Download all Germany > 2GB takes hours here ..
+  country = "Kiribati";
+
   NodeAttrs attrs;
-  storage.GetNodeAttrs(kCountryId, attrs);
+  storage.GetNodeAttrs(country, attrs);
   TEST_EQUAL(attrs.m_status, NodeStatus::NotDownloaded, ());
 
   Platform::FilesList files;
   platform.GetFilesByExt(mapDir, DATA_FILE_EXTENSION, files);
   TEST_EQUAL(0, files.size(), ());
 
-  storage.DownloadNode(kCountryId);
+  storage.DownloadNode(country);
   testing::RunEventLoop();
 
-  storage.GetNodeAttrs(kCountryId, attrs);
+  storage.GetNodeAttrs(country, attrs);
   TEST_EQUAL(attrs.m_status, NodeStatus::OnDisk, ());
 
   files.clear();
   platform.GetFilesByExt(mapDir, DATA_FILE_EXTENSION, files);
   TEST_GREATER(files.size(), 0, ());
 
-  storage.DeleteNode(kCountryId);
+  storage.DeleteNode(country);
 
-  storage.GetNodeAttrs(kCountryId, attrs);
+  storage.GetNodeAttrs(country, attrs);
   TEST_EQUAL(attrs.m_status, NodeStatus::NotDownloaded, ());
 
   files.clear();

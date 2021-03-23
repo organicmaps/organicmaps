@@ -80,6 +80,9 @@ string GetMwmFilePath(string const & version, CountryId const & countryId)
 
 } // namespace
 
+/// @todo We don't have direct version links for now.
+/// Also Framework f(kFrameworkParams) will fail here, @see SmallMwms_3levels_Test.
+/*
 UNIT_TEST(SmallMwms_Update_Test)
 {
   WritableDirChanger writableDirChanger(kMapTestDir);
@@ -188,3 +191,4 @@ UNIT_TEST(SmallMwms_Update_Test)
     }
   }
 }
+*/
