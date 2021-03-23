@@ -124,15 +124,15 @@ public class NavigationController implements Application.ActivityLifecycleCallba
     // Top frame
     View topFrame = mFrame.findViewById(R.id.nav_top_frame);
     View turnFrame = topFrame.findViewById(R.id.nav_next_turn_frame);
-    mNextTurnImage = (ImageView) turnFrame.findViewById(R.id.turn);
-    mNextTurnDistance = (TextView) turnFrame.findViewById(R.id.distance);
-    mCircleExit = (TextView) turnFrame.findViewById(R.id.circle_exit);
+    mNextTurnImage = turnFrame.findViewById(R.id.turn);
+    mNextTurnDistance = turnFrame.findViewById(R.id.distance);
+    mCircleExit = turnFrame.findViewById(R.id.circle_exit);
 
     mNextNextTurnFrame = topFrame.findViewById(R.id.nav_next_next_turn_frame);
-    mNextNextTurnImage = (ImageView) mNextNextTurnFrame.findViewById(R.id.turn);
+    mNextNextTurnImage = mNextNextTurnFrame.findViewById(R.id.turn);
 
     mStreetFrame = topFrame.findViewById(R.id.street_frame);
-    mNextStreet = (TextView) mStreetFrame.findViewById(R.id.street);
+    mNextStreet = mStreetFrame.findViewById(R.id.street);
     View shadow = topFrame.findViewById(R.id.shadow_top);
     UiUtils.hide(shadow);
 
@@ -141,23 +141,23 @@ public class NavigationController implements Application.ActivityLifecycleCallba
 
     // Bottom frame
     mSpeedViewContainer = mBottomFrame.findViewById(R.id.speed_view_container);
-    mSpeedValue = (TextView) mBottomFrame.findViewById(R.id.speed_value);
-    mSpeedUnits = (TextView) mBottomFrame.findViewById(R.id.speed_dimen);
-    mTimeHourValue = (TextView) mBottomFrame.findViewById(R.id.time_hour_value);
-    mTimeHourUnits = (TextView) mBottomFrame.findViewById(R.id.time_hour_dimen);
-    mTimeMinuteValue = (TextView) mBottomFrame.findViewById(R.id.time_minute_value);
-    mTimeMinuteUnits = (TextView) mBottomFrame.findViewById(R.id.time_minute_dimen);
-    mDotTimeArrival = (ImageView) mBottomFrame.findViewById(R.id.dot_estimate);
-    mDotTimeLeft = (ImageView) mBottomFrame.findViewById(R.id.dot_left);
-    mDistanceValue = (TextView) mBottomFrame.findViewById(R.id.distance_value);
-    mDistanceUnits = (TextView) mBottomFrame.findViewById(R.id.distance_dimen);
-    mRouteProgress = (FlatProgressView) mBottomFrame.findViewById(R.id.navigation_progress);
+    mSpeedValue = mBottomFrame.findViewById(R.id.speed_value);
+    mSpeedUnits = mBottomFrame.findViewById(R.id.speed_dimen);
+    mTimeHourValue = mBottomFrame.findViewById(R.id.time_hour_value);
+    mTimeHourUnits = mBottomFrame.findViewById(R.id.time_hour_dimen);
+    mTimeMinuteValue = mBottomFrame.findViewById(R.id.time_minute_value);
+    mTimeMinuteUnits = mBottomFrame.findViewById(R.id.time_minute_dimen);
+    mDotTimeArrival = mBottomFrame.findViewById(R.id.dot_estimate);
+    mDotTimeLeft = mBottomFrame.findViewById(R.id.dot_left);
+    mDistanceValue = mBottomFrame.findViewById(R.id.distance_value);
+    mDistanceUnits = mBottomFrame.findViewById(R.id.distance_dimen);
+    mRouteProgress = mBottomFrame.findViewById(R.id.navigation_progress);
 
     mSearchButtonFrame = activity.findViewById(R.id.search_button_frame);
     mSearchWheel = new SearchWheel(mSearchButtonFrame);
     mOnboardingBtn = activity.findViewById(R.id.onboarding_btn);
 
-    ImageView bookmarkButton = (ImageView) mSearchButtonFrame.findViewById(R.id.btn_bookmarks);
+    ImageView bookmarkButton = mSearchButtonFrame.findViewById(R.id.btn_bookmarks);
     bookmarkButton.setImageDrawable(Graphics.tint(bookmarkButton.getContext(),
                                                   R.drawable.ic_menu_bookmarks));
     bookmarkButton.setOnClickListener(this);

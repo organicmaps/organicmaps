@@ -126,7 +126,7 @@ public class HoursMinutesPickerFragment extends BaseMwmDialogFragment
     @SuppressLint("InflateParams")
     final View root = inflater.inflate(R.layout.fragment_timetable_picker, null);
 
-    mPicker = (TimePicker) root.findViewById(R.id.picker);
+    mPicker = root.findViewById(R.id.picker);
     mPicker.setIs24HourView(DateFormat.is24HourFormat(getActivity()));
 
     int id = getResources().getIdentifier("hours", "id", "android");
@@ -137,7 +137,7 @@ public class HoursMinutesPickerFragment extends BaseMwmDialogFragment
         mPickerHoursLabel = null;
     }
 
-    mTabs = (TabLayout) root.findViewById(R.id.tabs);
+    mTabs = root.findViewById(R.id.tabs);
     TextView tabView = (TextView) inflater.inflate(R.layout.tab_timepicker, mTabs, false);
     // TODO @yunik add translations
     tabView.setText("From");

@@ -192,13 +192,13 @@ public class OnmapDownloader implements MwmActivity.LeftAnimationTrackListener
   {
     mActivity = activity;
     mFrame = activity.findViewById(R.id.onmap_downloader);
-    mParent = (TextView)mFrame.findViewById(R.id.downloader_parent);
-    mTitle = (TextView)mFrame.findViewById(R.id.downloader_title);
-    mSize = (TextView)mFrame.findViewById(R.id.downloader_size);
+    mParent = mFrame.findViewById(R.id.downloader_parent);
+    mTitle = mFrame.findViewById(R.id.downloader_title);
+    mSize = mFrame.findViewById(R.id.downloader_size);
 
     View controls = mFrame.findViewById(R.id.downloader_controls_frame);
-    mProgress = (WheelProgressView) controls.findViewById(R.id.wheel_downloader_progress);
-    mButton = (Button) controls.findViewById(R.id.downloader_button);
+    mProgress = controls.findViewById(R.id.wheel_downloader_progress);
+    mButton = controls.findViewById(R.id.downloader_button);
 
     mProgress.setOnClickListener(new View.OnClickListener()
     {

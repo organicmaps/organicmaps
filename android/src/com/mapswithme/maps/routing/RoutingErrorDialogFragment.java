@@ -49,7 +49,7 @@ public class RoutingErrorDialogFragment extends BaseRoutingErrorDialogFragment
 
   private View addMessage(View frame)
   {
-    UiUtils.setTextAndHideIfEmpty((TextView)frame.findViewById(R.id.tv__message), mMessage);
+    UiUtils.setTextAndHideIfEmpty(frame.findViewById(R.id.tv__message), mMessage);
     return frame;
   }
 

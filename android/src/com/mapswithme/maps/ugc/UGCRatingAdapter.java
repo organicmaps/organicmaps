@@ -63,8 +63,8 @@ class UGCRatingAdapter extends RecyclerView.Adapter<UGCRatingAdapter.ViewHolder>
     public ViewHolder(View itemView)
     {
       super(itemView);
-      mName = (TextView) itemView.findViewById(R.id.tv__name);
-      mBar = (RatingBar) itemView.findViewById(R.id.rb__rate);
+      mName = itemView.findViewById(R.id.tv__name);
+      mBar = itemView.findViewById(R.id.rb__rate);
       mBar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener()
       {
         @Override

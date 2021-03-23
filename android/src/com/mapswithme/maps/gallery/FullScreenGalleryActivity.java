@@ -67,17 +67,17 @@ public class FullScreenGalleryActivity extends BaseMwmFragmentActivity
     displayToolbarAsActionBar();
 
     mUserBlock = findViewById(R.id.rl__user_block);
-    mDescription = (TextView) findViewById(R.id.tv__description);
-    mUserName = (TextView) findViewById(R.id.tv__name);
-    mSource = (TextView) findViewById(R.id.tv__source);
-    mDate = (TextView) findViewById(R.id.tv__date);
-    mAvatar = (ImageView) findViewById(R.id.iv__avatar);
+    mDescription = findViewById(R.id.tv__description);
+    mUserName = findViewById(R.id.tv__name);
+    mSource = findViewById(R.id.tv__source);
+    mDate = findViewById(R.id.tv__date);
+    mAvatar = findViewById(R.id.iv__avatar);
 
     readParameters();
     if (mImages != null)
     {
       mGalleryPageAdapter = new GalleryPageAdapter(getSupportFragmentManager(), mImages);
-      final ViewPager viewPager = (ViewPager) findViewById(R.id.vp__image);
+      final ViewPager viewPager = findViewById(R.id.vp__image);
       viewPager.addOnPageChangeListener(this);
       viewPager.setAdapter(mGalleryPageAdapter);
       viewPager.setCurrentItem(mPosition);

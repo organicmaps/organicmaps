@@ -111,8 +111,8 @@ public class ChooseBookmarkCategoryAdapter extends BaseBookmarkCategoryAdapter<C
     public SingleChoiceHolder(View convertView)
     {
       super(convertView);
-      name = (TextView) convertView.findViewById(R.id.tv__set_name);
-      checked = (RadioButton) convertView.findViewById(R.id.rb__selected);
+      name = convertView.findViewById(R.id.tv__set_name);
+      checked = convertView.findViewById(R.id.rb__selected);
     }
   }
 }

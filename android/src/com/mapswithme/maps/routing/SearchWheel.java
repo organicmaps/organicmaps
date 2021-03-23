@@ -106,7 +106,7 @@ class SearchWheel implements View.OnClickListener
 
     mTouchInterceptor = mFrame.findViewById(R.id.touch_interceptor);
     mTouchInterceptor.setOnClickListener(this);
-    mSearchButton = (ImageView) mFrame.findViewById(R.id.btn_search);
+    mSearchButton = mFrame.findViewById(R.id.btn_search);
     mSearchButton.setOnClickListener(this);
     mSearchLayout = mFrame.findViewById(R.id.search_frame);
     if (UiUtils.isLandscape(mFrame.getContext()))

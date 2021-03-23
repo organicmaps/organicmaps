@@ -88,9 +88,9 @@ public class StreetAdapter extends RecyclerView.Adapter<StreetAdapter.BaseViewHo
     public StreetViewHolder(View itemView)
     {
       super(itemView);
-      streetDef = (TextView) itemView.findViewById(R.id.street_default);
-      streetLoc = (TextView) itemView.findViewById(R.id.street_localized);
-      selected = (CompoundButton) itemView.findViewById(R.id.selected);
+      streetDef = itemView.findViewById(R.id.street_default);
+      streetLoc = itemView.findViewById(R.id.street_localized);
+      selected = itemView.findViewById(R.id.selected);
       itemView.setOnClickListener(this);
       selected.setOnClickListener(new View.OnClickListener()
       {

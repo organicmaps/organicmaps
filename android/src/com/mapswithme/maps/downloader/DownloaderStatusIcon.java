@@ -22,8 +22,8 @@ public class DownloaderStatusIcon
   public DownloaderStatusIcon(View frame)
   {
     mFrame = frame;
-    mIcon = (ImageView) mFrame.findViewById(R.id.downloader_status);
-    mProgress = (WheelProgressView) mFrame.findViewById(R.id.downloader_progress_wheel);
+    mIcon = mFrame.findViewById(R.id.downloader_status);
+    mProgress = mFrame.findViewById(R.id.downloader_progress_wheel);
   }
 
   public DownloaderStatusIcon setOnIconClickListener(View.OnClickListener listener)

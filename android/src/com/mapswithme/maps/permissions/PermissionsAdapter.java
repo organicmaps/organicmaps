@@ -124,7 +124,7 @@ class PermissionsAdapter extends RecyclerView.Adapter<PermissionsAdapter.ViewHol
     {
       super(itemView);
 
-      mTitle = (TextView) itemView.findViewById(R.id.tv__title);
+      mTitle = itemView.findViewById(R.id.tv__title);
     }
 
     @Override
@@ -143,9 +143,9 @@ class PermissionsAdapter extends RecyclerView.Adapter<PermissionsAdapter.ViewHol
     PermissionViewHolder(@NonNull View itemView)
     {
       super(itemView);
-      mIcon = (ImageView) itemView.findViewById(R.id.iv__permission_icon);
-      mTitle = (TextView) itemView.findViewById(R.id.tv__permission_title);
-      mMessage = (TextView) itemView.findViewById(R.id.tv__permission_message);
+      mIcon = itemView.findViewById(R.id.iv__permission_icon);
+      mTitle = itemView.findViewById(R.id.tv__permission_title);
+      mMessage = itemView.findViewById(R.id.tv__permission_message);
     }
 
     @Override
@@ -164,7 +164,7 @@ class PermissionsAdapter extends RecyclerView.Adapter<PermissionsAdapter.ViewHol
     NoteViewHolder(@NonNull View itemView)
     {
       super(itemView);
-      mMessage = (TextView) itemView.findViewById(R.id.tv__note);
+      mMessage = itemView.findViewById(R.id.tv__note);
     }
 
     @Override

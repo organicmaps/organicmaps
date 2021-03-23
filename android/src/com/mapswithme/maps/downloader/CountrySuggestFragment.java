@@ -142,19 +142,19 @@ public class CountrySuggestFragment extends BaseMwmFragment implements View.OnCl
 
   private void initViews(View view)
   {
-    mLlSelectDownload = (LinearLayout) view.findViewById(R.id.ll__select_download);
-    mLlActiveDownload = (LinearLayout) view.findViewById(R.id.ll__active_download);
-    mLlWithLocation = (LinearLayout) view.findViewById(R.id.ll__location_determined);
-    mLlNoLocation = (LinearLayout) view.findViewById(R.id.ll__location_unknown);
-    mBtnDownloadMap = (Button) view.findViewById(R.id.btn__download_map);
+    mLlSelectDownload = view.findViewById(R.id.ll__select_download);
+    mLlActiveDownload = view.findViewById(R.id.ll__active_download);
+    mLlWithLocation = view.findViewById(R.id.ll__location_determined);
+    mLlNoLocation = view.findViewById(R.id.ll__location_unknown);
+    mBtnDownloadMap = view.findViewById(R.id.btn__download_map);
     mBtnDownloadMap.setOnClickListener(this);
-    Button selectMap = (Button)view.findViewById(R.id.btn__select_map);
+    Button selectMap = view.findViewById(R.id.btn__select_map);
     selectMap.setOnClickListener(this);
-    mWpvDownloadProgress = (WheelProgressView) view.findViewById(R.id.wpv__download_progress);
+    mWpvDownloadProgress = view.findViewById(R.id.wpv__download_progress);
     mWpvDownloadProgress.setOnClickListener(this);
-    mTvCountry = (TextView) view.findViewById(R.id.tv__country_name);
-    mTvActiveCountry = (TextView) view.findViewById(R.id.tv__active_country_name);
-    mTvProgress = (TextView) view.findViewById(R.id.downloader_progress);
+    mTvCountry = view.findViewById(R.id.tv__country_name);
+    mTvActiveCountry = view.findViewById(R.id.tv__active_country_name);
+    mTvProgress = view.findViewById(R.id.downloader_progress);
   }
 
   private void updateViews()

@@ -42,7 +42,7 @@ public class ReviewFragment extends BaseMwmFragment implements RecyclerClickList
 
     if (mItems != null && mRating != null)
     {
-      RecyclerView rvGallery = (RecyclerView) view.findViewById(R.id.rv__review);
+      RecyclerView rvGallery = view.findViewById(R.id.rv__review);
       rvGallery.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
       rvGallery.setAdapter(new ReviewAdapter(mItems, this, mRating, mRatingBase));
     }

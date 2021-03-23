@@ -306,8 +306,8 @@ public class SettingsPrefsFragment extends BaseXmlSettingsFragment
     super.onViewCreated(view, savedInstanceState);
     mPreferenceScreen = getPreferenceScreen();
     mStoragePref = findPreference(getString(R.string.pref_storage));
-    mPrefEnabled = (TwoStatePreference) findPreference(getString(R.string.pref_tts_enabled));
-    mPrefLanguages = (ListPreference) findPreference(getString(R.string.pref_tts_language));
+    mPrefEnabled = findPreference(getString(R.string.pref_tts_enabled));
+    mPrefLanguages = findPreference(getString(R.string.pref_tts_language));
     mLangInfo = findPreference(getString(R.string.pref_tts_info));
     mLangInfoLink = findPreference(getString(R.string.pref_tts_info_link));
     initLangInfoLink();
@@ -337,7 +337,7 @@ public class SettingsPrefsFragment extends BaseXmlSettingsFragment
   private void initSpeedCamerasPrefs()
   {
     String key = getString(R.string.pref_speed_cameras);
-    final ListPreference pref = (ListPreference) findPreference(key);
+    final ListPreference pref = findPreference(key);
     if (pref == null)
       return;
     pref.setSummary(pref.getEntry());
@@ -472,7 +472,7 @@ public class SettingsPrefsFragment extends BaseXmlSettingsFragment
 
   private void initUseMobileDataPrefsCallbacks()
   {
-    final ListPreference mobilePref = (ListPreference)findPreference(
+    final ListPreference mobilePref = findPreference(
         getString(R.string.pref_use_mobile_data));
     if (mobilePref == null)
       return;
@@ -525,7 +525,7 @@ public class SettingsPrefsFragment extends BaseXmlSettingsFragment
 
   private void initPowerManagementPrefsCallbacks()
   {
-    final ListPreference powerManagementPref = (ListPreference)findPreference(
+    final ListPreference powerManagementPref = findPreference(
       getString(R.string.pref_power_management));
     if (powerManagementPref == null)
       return;
@@ -575,7 +575,7 @@ public class SettingsPrefsFragment extends BaseXmlSettingsFragment
 
   private void initAutoZoomPrefsCallbacks()
   {
-    final TwoStatePreference pref = (TwoStatePreference)findPreference(getString(R.string.pref_auto_zoom));
+    final TwoStatePreference pref = findPreference(getString(R.string.pref_auto_zoom));
     if (pref == null)
       return;
 
@@ -625,7 +625,7 @@ public class SettingsPrefsFragment extends BaseXmlSettingsFragment
 
   private void initTrackRecordPrefsCallbacks()
   {
-    final ListPreference trackPref = (ListPreference)findPreference(getString(R.string.pref_track_record));
+    final ListPreference trackPref = findPreference(getString(R.string.pref_track_record));
     final Preference pref = findPreference(getString(R.string.pref_track_record_time));
     final Preference root = findPreference(getString(R.string.pref_track_screen));
     if (trackPref == null || pref == null)
@@ -687,7 +687,7 @@ public class SettingsPrefsFragment extends BaseXmlSettingsFragment
 
   private void init3dModePrefsCallbacks()
   {
-    final TwoStatePreference pref = (TwoStatePreference)findPreference(getString(R.string.pref_3d_buildings));
+    final TwoStatePreference pref = findPreference(getString(R.string.pref_3d_buildings));
     if (pref == null)
       return;
 
@@ -709,7 +709,7 @@ public class SettingsPrefsFragment extends BaseXmlSettingsFragment
 
   private void initPerspectivePrefsCallbacks()
   {
-    final TwoStatePreference pref = (TwoStatePreference)findPreference(getString(R.string.pref_3d));
+    final TwoStatePreference pref = findPreference(getString(R.string.pref_3d));
     if (pref == null)
       return;
 
@@ -731,7 +731,7 @@ public class SettingsPrefsFragment extends BaseXmlSettingsFragment
 
   private void initAutoDownloadPrefsCallbacks()
   {
-    TwoStatePreference pref = (TwoStatePreference)findPreference(getString(R.string.pref_autodownload));
+    TwoStatePreference pref = findPreference(getString(R.string.pref_autodownload));
     if (pref == null)
       return;
 
@@ -754,7 +754,7 @@ public class SettingsPrefsFragment extends BaseXmlSettingsFragment
 
   private void initBackupBookmarksPrefsCallbacks()
   {
-    TwoStatePreference pref = (TwoStatePreference)findPreference(getString(R.string.pref_backupbookmarks));
+    TwoStatePreference pref = findPreference(getString(R.string.pref_backupbookmarks));
     if (pref == null)
       return;
 
@@ -774,7 +774,7 @@ public class SettingsPrefsFragment extends BaseXmlSettingsFragment
 
   private void initMapStylePrefsCallbacks()
   {
-    final ListPreference pref = (ListPreference)findPreference(getString(R.string.pref_map_style));
+    final ListPreference pref = findPreference(getString(R.string.pref_map_style));
     if (pref == null)
       return;
 
@@ -880,7 +880,7 @@ public class SettingsPrefsFragment extends BaseXmlSettingsFragment
 
   private void removePreference(@NonNull String categoryKey, @NonNull Preference preference)
   {
-    PreferenceCategory category = (PreferenceCategory) findPreference(categoryKey);
+    PreferenceCategory category = findPreference(categoryKey);
     if (category == null)
       return;
 

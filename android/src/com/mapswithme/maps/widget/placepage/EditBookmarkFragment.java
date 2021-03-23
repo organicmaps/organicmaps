@@ -90,11 +90,11 @@ public class EditBookmarkFragment extends BaseMwmDialogFragment implements View.
     mBookmark = BookmarkManager.INSTANCE.getBookmarkInfo(bookmarkId);
     if (mBookmark != null)
       mIcon = mBookmark.getIcon();
-    mEtName = (EditText) view.findViewById(R.id.et__bookmark_name);
-    mEtDescription = (EditText) view.findViewById(R.id.et__description);
-    mTvBookmarkGroup = (TextView) view.findViewById(R.id.tv__bookmark_set);
+    mEtName = view.findViewById(R.id.et__bookmark_name);
+    mEtDescription = view.findViewById(R.id.et__description);
+    mTvBookmarkGroup = view.findViewById(R.id.tv__bookmark_set);
     mTvBookmarkGroup.setOnClickListener(this);
-    mIvColor = (ImageView) view.findViewById(R.id.iv__bookmark_color);
+    mIvColor = view.findViewById(R.id.iv__bookmark_color);
     mIvColor.setOnClickListener(this);
     refreshBookmark();
     initToolbar(view);
@@ -102,9 +102,9 @@ public class EditBookmarkFragment extends BaseMwmDialogFragment implements View.
 
   private void initToolbar(View view)
   {
-    Toolbar toolbar = (Toolbar) view.findViewById(R.id.toolbar);
+    Toolbar toolbar = view.findViewById(R.id.toolbar);
     UiUtils.extendViewWithStatusBar(toolbar);
-    final TextView textView = (TextView) toolbar.findViewById(R.id.tv__save);
+    final TextView textView = toolbar.findViewById(R.id.tv__save);
     textView.setOnClickListener(new View.OnClickListener()
     {
       @Override

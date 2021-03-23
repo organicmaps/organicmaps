@@ -51,7 +51,7 @@ public class ViralFragment extends BaseMwmDialogFragment
   public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState)
   {
     super.onViewCreated(view, savedInstanceState);
-    TextView viralTextView = (TextView) view.findViewById(R.id.viral);
+    TextView viralTextView = view.findViewById(R.id.viral);
     Context context = requireContext();
 
     String viralChangesMsg = context.getString(R.string.editor_done_dialog_1);

@@ -90,7 +90,7 @@ class HotelsTypeAdapter extends RecyclerView.Adapter<HotelsTypeAdapter.HotelsTyp
       mFrame = itemView;
       mItems = items;
       mListener = listener;
-      mTitle = (TextView) itemView.findViewById(R.id.tv__tag);
+      mTitle = itemView.findViewById(R.id.tv__tag);
       mFrame.setOnClickListener(this);
     }
 

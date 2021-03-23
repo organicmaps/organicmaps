@@ -518,8 +518,8 @@ public final class PlacePageButtons
     LayoutInflater inflater = LayoutInflater.from(context);
     View parent = inflater.inflate(R.layout.place_page_button, mFrame, false);
 
-    ImageView icon = (ImageView) parent.findViewById(R.id.icon);
-    TextView title = (TextView) parent.findViewById(R.id.title);
+    ImageView icon = parent.findViewById(R.id.icon);
+    TextView title = parent.findViewById(R.id.title);
 
     title.setText(current.getTitle());
     icon.setImageResource(current.getIcon().getEnabledStateResId(context));

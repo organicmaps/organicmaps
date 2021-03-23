@@ -64,7 +64,7 @@ public class EditDescriptionFragment extends BaseMwmDialogFragment
         description = Html.fromHtml(description).toString();
     }
 
-    mEtDescription = (EditText) view.findViewById(R.id.et__description);
+    mEtDescription = view.findViewById(R.id.et__description);
     mEtDescription.setText(description);
     initToolbar(view);
 
@@ -79,9 +79,9 @@ public class EditDescriptionFragment extends BaseMwmDialogFragment
 
   private void initToolbar(View view)
   {
-    Toolbar toolbar = (Toolbar) view.findViewById(R.id.toolbar);
+    Toolbar toolbar = view.findViewById(R.id.toolbar);
     UiUtils.extendViewWithStatusBar(toolbar);
-    final TextView textView = (TextView) toolbar.findViewById(R.id.tv__save);
+    final TextView textView = toolbar.findViewById(R.id.tv__save);
     textView.setOnClickListener(new View.OnClickListener()
     {
       @Override

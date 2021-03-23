@@ -98,11 +98,11 @@ public class ProfileFragment extends AuthFragment implements View.OnClickListene
     View editsBlock = view.findViewById(R.id.block_edits);
     UiUtils.show(editsBlock);
     mSentBlock = editsBlock.findViewById(R.id.sent_edits);
-    mEditsSent = (TextView) mSentBlock.findViewById(R.id.edits_count);
-    mEditsSentDate = (TextView) mSentBlock.findViewById(R.id.date_sent);
+    mEditsSent = mSentBlock.findViewById(R.id.edits_count);
+    mEditsSentDate = mSentBlock.findViewById(R.id.date_sent);
     mAuthBlock = view.findViewById(R.id.block_auth);
     mRatingBlock = view.findViewById(R.id.block_rating);
-    mEditorRank = (TextView) mRatingBlock.findViewById(R.id.rating);
+    mEditorRank = mRatingBlock.findViewById(R.id.rating);
     // FIXME show when it will be implemented on server
 //    mEditorLevelUp = mRatingBlock.findViewById(R.id.level_up_feat);
     view.findViewById(R.id.about_osm).setOnClickListener(this);

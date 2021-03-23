@@ -102,9 +102,9 @@ public class Holders
                                  @Nullable ItemSelectedListener<Items.LocalExpertItem> listener)
     {
       super(itemView, items, listener);
-      mAvatar = (ImageView) itemView.findViewById(R.id.avatar);
-      mRating = (RatingView) itemView.findViewById(R.id.ratingView);
-      mButton = (TextView) itemView.findViewById(R.id.button);
+      mAvatar = itemView.findViewById(R.id.avatar);
+      mRating = itemView.findViewById(R.id.ratingView);
+      mButton = itemView.findViewById(R.id.button);
     }
 
     @Override
@@ -362,8 +362,8 @@ public class Holders
                       @Nullable ItemSelectedListener<Items.Item> listener)
     {
       super(itemView, items, listener);
-      mProgressBar = (ProgressBar) itemView.findViewById(R.id.pb__progress);
-      mSubtitle = (TextView) itemView.findViewById(R.id.tv__subtitle);
+      mProgressBar = itemView.findViewById(R.id.pb__progress);
+      mSubtitle = itemView.findViewById(R.id.tv__subtitle);
     }
 
     @CallSuper
