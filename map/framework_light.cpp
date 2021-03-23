@@ -47,18 +47,6 @@ Framework::Framework(RequestTypeMask request) : m_request(request)
     request ^= REQUEST_TYPE_LOCATION;
   }
 
-  if (request & REQUEST_TYPE_LOCAL_ADS_FEATURES)
-  {
-    m_localAdsFeaturesReader = std::make_unique<LocalAdsFeaturesReader>();
-    request ^= REQUEST_TYPE_LOCAL_ADS_FEATURES;
-  }
-
-  if (request & REQUEST_TYPE_LOCAL_ADS_STATISTICS)
-  {
-    m_localAdsStatistics = std::make_unique<Statistics>();
-    request ^= REQUEST_TYPE_LOCAL_ADS_STATISTICS;
-  }
-
   if (request & REQUEST_TYPE_NOTIFICATION)
   {
     request ^= REQUEST_TYPE_NOTIFICATION;
@@ -103,21 +91,6 @@ CountryInfoReader::Info Framework::GetLocation(m2::PointD const & pt) const
   CHECK(m_countryInfoReader, ());
 
   return m_countryInfoReader->GetMwmInfo(pt);
-}
-
-std::vector<CampaignFeature> Framework::GetLocalAdsFeatures(double lat, double lon,
-                                                            double radiusInMeters, uint32_t maxCount)
-{
-  ASSERT(m_request & REQUEST_TYPE_LOCAL_ADS_FEATURES, (m_request));
-  CHECK(m_localAdsFeaturesReader, ());
-  return m_localAdsFeaturesReader->GetCampaignFeatures(lat, lon, radiusInMeters, maxCount);
-}
-
-Statistics * Framework::GetLocalAdsStatistics()
-{
-  ASSERT(m_request & REQUEST_TYPE_LOCAL_ADS_STATISTICS, (m_request));
-  CHECK(m_localAdsStatistics, ());
-  return m_localAdsStatistics.get();
 }
 
 notifications::Notification Framework::GetNotification() const

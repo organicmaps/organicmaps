@@ -43,7 +43,6 @@ import com.mapswithme.maps.Framework;
 import com.mapswithme.maps.MwmActivity;
 import com.mapswithme.maps.MwmApplication;
 import com.mapswithme.maps.R;
-import com.mapswithme.maps.ads.LocalAdInfo;
 import com.mapswithme.maps.api.ParsedMwmRequest;
 import com.mapswithme.maps.base.Detachable;
 import com.mapswithme.maps.bookmarks.data.Bookmark;
@@ -167,8 +166,6 @@ public class PlacePageView extends NestedScrollViewClickFixed
   private View mEditPlace;
   private View mAddOrganisation;
   private View mAddPlace;
-  private View mLocalAd;
-  private TextView mTvLocalAd;
   private View mEditTopSpace;
   // Bookmark
   private View mBookmarkFrame;
@@ -444,9 +441,6 @@ public class PlacePageView extends NestedScrollViewClickFixed
     mAddOrganisation.setOnClickListener(this);
     mAddPlace = findViewById(R.id.ll__place_add);
     mAddPlace.setOnClickListener(this);
-    mLocalAd = findViewById(R.id.ll__local_ad);
-    mLocalAd.setOnClickListener(this);
-    mTvLocalAd = mLocalAd.findViewById(R.id.tv__local_ad);
     mEditTopSpace = findViewById(R.id.edit_top_space);
     latlon.setOnLongClickListener(this);
     address.setOnLongClickListener(this);
@@ -1196,7 +1190,7 @@ public class PlacePageView extends NestedScrollViewClickFixed
 
   private boolean isNetworkNeeded()
   {
-    return mMapObject != null && (isSponsored() || mMapObject.getBanners() != null);
+    return mMapObject != null && (isSponsored());
   }
 
   void refreshViews(@NonNull NetworkPolicy policy)
@@ -1384,7 +1378,7 @@ public class PlacePageView extends NestedScrollViewClickFixed
 
     if (RoutingController.get().isNavigating() || RoutingController.get().isPlanning())
     {
-      UiUtils.hide(mEditPlace, mAddOrganisation, mAddPlace, mLocalAd, mEditTopSpace);
+      UiUtils.hide(mEditPlace, mAddOrganisation, mAddPlace, mEditTopSpace);
     }
     else
     {
@@ -1394,7 +1388,6 @@ public class PlacePageView extends NestedScrollViewClickFixed
       UiUtils.showIf(UiUtils.isVisible(mEditPlace)
                      || UiUtils.isVisible(mAddOrganisation)
                      || UiUtils.isVisible(mAddPlace), mEditTopSpace);
-      refreshLocalAdInfo(mapObject);
     }
     setPlaceDescription(mapObject);
   }
@@ -1454,22 +1447,6 @@ public class PlacePageView extends NestedScrollViewClickFixed
   {
     UiUtils.show(mHotelDescription, mHotelFacilities, mHotelGallery, mHotelNearby,
                  mHotelReview, mHotelMore);
-  }
-
-  private void refreshLocalAdInfo(@NonNull MapObject mapObject)
-  {
-    LocalAdInfo localAdInfo = mapObject.getLocalAdInfo();
-    boolean isLocalAdAvailable = localAdInfo != null && localAdInfo.isAvailable();
-    if (isLocalAdAvailable && !TextUtils.isEmpty(localAdInfo.getUrl()) && !localAdInfo.isHidden())
-    {
-      mTvLocalAd.setText(localAdInfo.isCustomer() ? R.string.view_campaign_button
-                                                  : R.string.create_campaign_button);
-      UiUtils.show(mLocalAd);
-    }
-    else
-    {
-      UiUtils.hide(mLocalAd);
-    }
   }
 
   private void refreshOpeningHours(@NonNull MapObject mapObject)
@@ -1788,17 +1765,6 @@ public class PlacePageView extends NestedScrollViewClickFixed
         break;
       case R.id.ll__place_add:
         addPlace();
-        break;
-      case R.id.ll__local_ad:
-        if (mMapObject != null)
-        {
-          LocalAdInfo localAdInfo = mMapObject.getLocalAdInfo();
-          if (localAdInfo == null)
-            throw new AssertionError("A local ad must be non-null if button is shown!");
-
-          if (!TextUtils.isEmpty(localAdInfo.getUrl()))
-            Utils.openUrl(getContext(), localAdInfo.getUrl());
-        }
         break;
       case R.id.ll__more:
         onSponsoredClick(false /* book */, true /* isMoreDetails */);

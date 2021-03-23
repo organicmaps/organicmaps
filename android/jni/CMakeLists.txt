@@ -136,7 +136,6 @@ target_link_libraries(
   platform
   partners_api
   web_api
-  local_ads
   mwm_diff
   bsdiff
   geometry

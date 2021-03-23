@@ -30,7 +30,7 @@ using namespace std;
 
 UNIT_TEST(CountriesNamesTest)
 {
-  Framework f(FrameworkParams(false /* m_enableLocalAds */, false /* m_enableDiffs */));
+  Framework f(FrameworkParams(false /* m_enableDiffs */));
   auto & storage = f.GetStorage();
   auto const & synonyms = storage.GetCountryNameSynonyms();
 

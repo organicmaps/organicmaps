@@ -5,8 +5,6 @@
 
 #include "descriptions/loader.hpp"
 
-#include "partners_api/ads/ads_engine.hpp"
-#include "partners_api/ads/banner.hpp"
 #include "partners_api/partners.hpp"
 
 #include "editor/osm_editor.hpp"
@@ -353,14 +351,6 @@ std::optional<int> Info::GetRawApproximatePricing() const
     return pricing;
 
   return {};
-}
-
-std::vector<ads::Banner> Info::GetBanners() const
-{
-  if (!m_adsEngine || IsMyPosition() || IsRoadType())
-    return {};
-
-  return m_adsEngine->GetPoiBanners(m_types, m_topmostCountryIds, languages::GetCurrentNorm());
 }
 
 void Info::SetPartnerIndex(int index)

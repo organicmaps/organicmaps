@@ -14,7 +14,6 @@
 @property(weak, nonatomic) IBOutlet SettingsTableViewLinkCell * twitterCell;
 @property(weak, nonatomic) IBOutlet SettingsTableViewLinkCell * osmCell;
 @property(weak, nonatomic) IBOutlet SettingsTableViewLinkCell * rateCell;
-@property(weak, nonatomic) IBOutlet SettingsTableViewLinkCell * adsCell;
 @property(weak, nonatomic) IBOutlet SettingsTableViewLinkCell * privacyPolicyCell;
 @property(weak, nonatomic) IBOutlet SettingsTableViewLinkCell * termsOfUseCell;
 @property(weak, nonatomic) IBOutlet SettingsTableViewLinkCell * copyrightCell;

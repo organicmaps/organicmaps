@@ -97,7 +97,7 @@ void RawGenerator::ForceReloadCache()
 
 std::shared_ptr<FeatureProcessorQueue> RawGenerator::GetQueue() { return m_queue; }
 
-void RawGenerator::GenerateCountries(bool addAds)
+void RawGenerator::GenerateCountries()
 {
   if (!m_genInfo.m_complexHierarchyFilename.empty())
     m_hierarchyNodesSet = GetOrCreateComplexLoader(m_genInfo.m_complexHierarchyFilename).GetIdsSet();
@@ -107,16 +107,16 @@ void RawGenerator::GenerateCountries(bool addAds)
   auto processor = CreateProcessor(ProcessorType::Country, m_queue, m_genInfo.m_targetDir,
                                    m_genInfo.m_haveBordersForWholeWorld, complexFeaturesMixer);
   m_translators->Append(
-      CreateTranslator(TranslatorType::Country, processor, m_cache, m_genInfo, addAds));
-  m_finalProcessors.emplace(CreateCountryFinalProcessor(addAds));
+      CreateTranslator(TranslatorType::Country, processor, m_cache, m_genInfo));
+  m_finalProcessors.emplace(CreateCountryFinalProcessor());
 }
 
-void RawGenerator::GenerateWorld(bool addAds)
+void RawGenerator::GenerateWorld()
 {
   auto processor =
       CreateProcessor(ProcessorType::World, m_queue, m_genInfo.m_popularPlacesFilename);
   m_translators->Append(
-      CreateTranslator(TranslatorType::World, processor, m_cache, m_genInfo, addAds));
+      CreateTranslator(TranslatorType::World, processor, m_cache, m_genInfo));
   m_finalProcessors.emplace(CreateWorldFinalProcessor());
 }
 

@@ -45,7 +45,6 @@ let alpha100: CGFloat = 1.0
   var blackOpaque: UIColor { get }
   var toastBackground: UIColor { get }
   var statusBarBackground: UIColor { get }
-  var bannerBackground: UIColor { get }
   var searchPromoBackground: UIColor { get }
   var border: UIColor { get }
   var discountBackground: UIColor { get }
@@ -61,7 +60,6 @@ let alpha100: CGFloat = 1.0
   var ratingYellow: UIColor { get }
   var ratingLightGreen: UIColor { get }
   var ratingGreen: UIColor { get }
-  var bannerButtonBackground: UIColor { get }
   var facebookButtonBackground: UIColor { get }
   var facebookButtonBackgroundDisabled: UIColor { get }
   var allPassSubscriptionTitle: UIColor { get }

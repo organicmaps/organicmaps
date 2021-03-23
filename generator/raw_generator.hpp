@@ -21,8 +21,8 @@ public:
   explicit RawGenerator(feature::GenerateInfo & genInfo, size_t threadsCount = 1,
                         size_t chunkSize = 1024);
 
-  void GenerateCountries(bool addAds = false);
-  void GenerateWorld(bool addAds = false);
+  void GenerateCountries();
+  void GenerateWorld();
   void GenerateCoasts();
   void GenerateCustom(std::shared_ptr<TranslatorInterface> const & translator);
   void GenerateCustom(

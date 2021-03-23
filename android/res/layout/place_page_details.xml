@@ -76,8 +76,6 @@
     <include layout="@layout/place_page_latlon"/>
 
     <include layout="@layout/place_page_more"/>
-
-    <include layout="@layout/place_page_local_ad"/>
   </LinearLayout>
 
   <include

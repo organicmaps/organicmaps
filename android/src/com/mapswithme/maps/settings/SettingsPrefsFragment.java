@@ -33,8 +33,6 @@ import com.mapswithme.maps.editor.ProfileActivity;
 import com.mapswithme.maps.location.LocationHelper;
 import com.mapswithme.maps.location.LocationProviderFactory;
 import com.mapswithme.maps.location.TrackRecorder;
-import com.mapswithme.maps.purchase.AdsRemovalActivationCallback;
-import com.mapswithme.maps.purchase.AdsRemovalPurchaseControllerProvider;
 import com.mapswithme.maps.purchase.PurchaseCallback;
 import com.mapswithme.maps.purchase.PurchaseController;
 import com.mapswithme.maps.purchase.PurchaseFactory;
@@ -55,7 +53,6 @@ import java.util.List;
 import java.util.Map;
 
 public class SettingsPrefsFragment extends BaseXmlSettingsFragment
-    implements AdsRemovalActivationCallback, AdsRemovalPurchaseControllerProvider
 {
   private static final int REQUEST_INSTALL_DATA = 1;
 
@@ -78,8 +75,6 @@ public class SettingsPrefsFragment extends BaseXmlSettingsFragment
   private final Map<String, LanguageData> mLanguages = new HashMap<>();
   private LanguageData mCurrentLanguage;
   private String mSelectedLanguage;
-  @Nullable
-  private PurchaseController<PurchaseCallback> mAdsRemovalPurchaseController;
 
   private boolean singleStorageOnly()
   {
@@ -282,22 +277,6 @@ public class SettingsPrefsFragment extends BaseXmlSettingsFragment
     boolean isEnabled = (boolean) newValue;
     CrashlyticsUtils.INSTANCE.setEnabled(isEnabled);
     return true;
-  }
-
-  @Override
-  public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
-  {
-    mAdsRemovalPurchaseController = PurchaseFactory.createAdsRemovalPurchaseController(requireContext());
-    mAdsRemovalPurchaseController.initialize(requireActivity());
-    return super.onCreateView(inflater, container, savedInstanceState);
-  }
-
-  @Override
-  public void onDestroyView()
-  {
-    if (mAdsRemovalPurchaseController != null)
-      mAdsRemovalPurchaseController.destroy();
-    super.onDestroyView();
   }
 
   @Override
@@ -910,19 +889,6 @@ public class SettingsPrefsFragment extends BaseXmlSettingsFragment
   {
     super.onDetach();
     mPathManager.stopExternalStorageWatching();
-  }
-
-  @Override
-  public void onAdsRemovalActivation()
-  {
-
-  }
-
-  @Nullable
-  @Override
-  public PurchaseController<PurchaseCallback> getAdsRemovalPurchaseController()
-  {
-    return mAdsRemovalPurchaseController;
   }
 
   enum ThemeMode

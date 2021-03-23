@@ -33,19 +33,6 @@ BOOL canAutoDownload(storage::CountryId const &countryId) {
     return NO;
   return YES;
 }
-
-/*
-ads::Banner getPromoBanner(std::string const &mwmId) {
-  auto const pos = GetFramework().GetCurrentPosition();
-  auto const banners =
-      GetFramework().GetAdsEngine().GetDownloadOnMapBanners(mwmId, pos, languages::GetCurrentNorm());
-
-  if (banners.empty())
-    return {};
-
-  return banners[0];
-}
-*/
 }  // namespace
 
 using namespace storage;
@@ -57,10 +44,6 @@ using namespace storage;
 @property(strong, nonatomic) IBOutlet NSLayoutConstraint *nodeTopOffset;
 @property(strong, nonatomic) IBOutlet UIButton *downloadButton;
 @property(strong, nonatomic) IBOutlet UIView *progressWrapper;
-@property(strong, nonatomic) IBOutlet UIView *bannerView;
-@property(strong, nonatomic) IBOutlet UIView *bannerContentView;
-@property(strong, nonatomic) IBOutlet NSLayoutConstraint *bannerVisibleConstraintV;
-@property(strong, nonatomic) IBOutlet NSLayoutConstraint *bannerVisibleConstraintH;
 
 @property(weak, nonatomic) MapViewController *controller;
 @property(nonatomic) MWMCircularProgress *progress;
@@ -72,7 +55,6 @@ using namespace storage;
 @implementation MWMMapDownloadDialog {
   CountryId m_countryId;
   CountryId m_autoDownloadCountryId;
-  ads::Banner m_promoBanner;
 }
 
 + (instancetype)dialogForController:(MapViewController *)controller {
@@ -246,120 +228,6 @@ using namespace storage;
     [self configDialog];
 }
 
-/*
-- (NSString *)getStatProvider:(MWMBannerType)bannerType {
-  switch (bannerType) {
-  case MWMBannerTypeTinkoffAllAirlines: return kStatTinkoffAirlines;
-  case MWMBannerTypeTinkoffInsurance: return kStatTinkoffInsurance;
-  case MWMBannerTypeMts: return kStatMts;
-  case MWMBannerTypeSkyeng: return kStatSkyeng;
-  case MWMBannerTypeBookmarkCatalog: return kStatMapsmeGuides;
-  case MWMBannerTypeMastercardSberbank: return kStatMastercardSberbank;
-  case MWMBannerTypeArsenalMedic: return kStatArsenalMedic;
-  case MWMBannerTypeArsenalFlat: return kStatArsenalFlat;
-  case MWMBannerTypeArsenalInsuranceCrimea: return kStatArsenalInsuranceCrimea;
-  case MWMBannerTypeArsenalInsuranceRussia: return kStatArsenalInsuranceRussia;
-  case MWMBannerTypeArsenalInsuranceWorld: return kStatArsenalInsuranceWorld;
-  default: return @("");
-  }
-}
-
-- (void)showBannerIfNeeded {
-  m_promoBanner = getPromoBanner(m_countryId);
-  [self layoutIfNeeded];
-  if (self.bannerView.hidden) {
-    MWMBannerType bannerType = banner_helpers::MatchBannerType(m_promoBanner.m_type);
-    NSString *statProvider = [self getStatProvider:bannerType];
-    switch (bannerType) {
-      case MWMBannerTypeTinkoffAllAirlines:
-      case MWMBannerTypeTinkoffInsurance:
-      case MWMBannerTypeMts:
-      case MWMBannerTypeSkyeng:
-      case MWMBannerTypeMastercardSberbank:
-      case MWMBannerTypeArsenalMedic:
-      case MWMBannerTypeArsenalFlat:
-      case MWMBannerTypeArsenalInsuranceCrimea:
-      case MWMBannerTypeArsenalInsuranceRussia:
-      case MWMBannerTypeArsenalInsuranceWorld: {
-        __weak __typeof(self) ws = self;
-        MWMVoidBlock onClick = ^{
-          [ws bannerAction];
-        };
-
-        UIViewController *controller = [PartnerBannerBuilder buildWithType:bannerType tapHandler:onClick];
-        self.bannerViewController = controller;
-        break;
-      }
-      case MWMBannerTypeBookmarkCatalog: {
-        __weak __typeof(self) ws = self;
-        self.bannerViewController = [[BookmarksBannerViewController alloc] initWithTapHandler:^{
-          __strong __typeof(self) self = ws;
-          NSString *urlString = @(self->m_promoBanner.m_value.c_str());
-          if (urlString.length == 0) {
-            return;
-          }
-          NSURL *url = [NSURL URLWithString:urlString];
-          [self.controller openCatalogAbsoluteUrl:url animated:YES utm:MWMUTMDownloadMwmBanner];
-        }];
-        break;
-      }
-      default:
-        self.bannerViewController = nil;
-        break;
-    }
-
-    if (self.bannerViewController) {
-      UIView *bannerView = self.bannerViewController.view;
-      [self.bannerContentView addSubview:bannerView];
-      bannerView.translatesAutoresizingMaskIntoConstraints = NO;
-      [NSLayoutConstraint activateConstraints:@[
-        [bannerView.topAnchor constraintEqualToAnchor:self.bannerContentView.topAnchor],
-        [bannerView.leftAnchor constraintEqualToAnchor:self.bannerContentView.leftAnchor],
-        [bannerView.bottomAnchor constraintEqualToAnchor:self.bannerContentView.bottomAnchor],
-        [bannerView.rightAnchor constraintEqualToAnchor:self.bannerContentView.rightAnchor]
-      ]];
-      self.bannerVisibleConstraintV.priority = UILayoutPriorityDefaultHigh;
-      self.bannerVisibleConstraintH.priority = UILayoutPriorityDefaultHigh;
-      self.bannerView.hidden = NO;
-      self.bannerView.alpha = 0;
-      [UIView animateWithDuration:kDefaultAnimationDuration
-                       animations:^{
-                         self.bannerView.alpha = 1;
-                         [self layoutIfNeeded];
-                       }];
-    }
-  }
-}
-
-- (void)hideBanner {
-  [self layoutIfNeeded];
-  self.bannerVisibleConstraintV.priority = UILayoutPriorityDefaultLow;
-  self.bannerVisibleConstraintH.priority = UILayoutPriorityDefaultLow;
-  [UIView animateWithDuration:kDefaultAnimationDuration
-    animations:^{
-      [self layoutIfNeeded];
-      self.bannerView.alpha = 0;
-    }
-    completion:^(BOOL finished) {
-      [self.bannerViewController.view removeFromSuperview];
-      self.bannerViewController = nil;
-      self.bannerView.hidden = YES;
-    }];
-}
-
-- (void)removePreviousBunnerIfNeeded {
-  if (!self.bannerViewController) {
-    return;
-  }
-  self.bannerVisibleConstraintV.priority = UILayoutPriorityDefaultLow;
-  self.bannerVisibleConstraintH.priority = UILayoutPriorityDefaultLow;
-  [self.bannerViewController.view removeFromSuperview];
-  self.bannerViewController = nil;
-  self.bannerView.hidden = YES;
-  [self layoutIfNeeded];
-}
-*/
-
 #pragma mark - MWMStorageObserver
 
 - (void)processCountryEvent:(NSString *)countryId {
@@ -392,15 +260,6 @@ using namespace storage;
 }
 
 #pragma mark - Actions
-
-- (IBAction)bannerAction {
-  if (m_promoBanner.m_value.empty())
-    return;
-
-  NSURL *bannerURL = [NSURL URLWithString:@(m_promoBanner.m_value.c_str())];
-  SFSafariViewController *safari = [[SFSafariViewController alloc] initWithURL:bannerURL];
-  [self.controller presentViewController:safari animated:YES completion:nil];
-}
 
 - (IBAction)downloadAction {
   [[MWMStorage sharedStorage] downloadNode:@(m_countryId.c_str())

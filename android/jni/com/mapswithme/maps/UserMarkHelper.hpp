@@ -36,8 +36,6 @@ jobject CreateMapObject(JNIEnv * env, place_page::Info const & info);
 
 jobject CreateElevationInfo(JNIEnv * env, std::string const & serverId, ElevationInfo const & info);
 
-jobjectArray ToBannersArray(JNIEnv * env, std::vector<ads::Banner> const & banners);
-
 jobjectArray ToRatingArray(JNIEnv * env, std::vector<std::string> const & ratingCategories);
 
 jintArray ToReachableByTaxiProvidersArray(JNIEnv * env,

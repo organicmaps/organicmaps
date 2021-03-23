@@ -1,6 +1,5 @@
 #include "map/framework_light.hpp"
 #include "map/framework_light_delegate.hpp"
-#include "map/local_ads_manager.hpp"
 
 #include "base/assert.hpp"
 
@@ -24,17 +23,6 @@ Java_com_mapswithme_maps_LightFramework_nativeGetNumberUnsentUGC(JNIEnv * env, j
   return static_cast<jint>(framework.GetNumberOfUnsentUGC());
 }
 
-jobject CreateFeatureId(JNIEnv * env, CampaignFeature const & data)
-{
-  static jmethodID const featureCtorId =
-    jni::GetConstructorID(env, g_featureIdClazz, "(Ljava/lang/String;JI)V");
-
-  jni::TScopedLocalRef const countryId(env, jni::ToJavaString(env, data.m_countryId));
-  return env->NewObject(g_featureIdClazz, featureCtorId, countryId.get(),
-                        static_cast<jlong>(data.m_mwmVersion),
-                        static_cast<jint>(data.m_featureIndex));
-}
-
 JNIEXPORT jstring JNICALL
 Java_com_mapswithme_maps_LightFramework_nativeMakeFeatureId(JNIEnv * env, jclass clazz,
                                                             jstring mwmName, jlong mwmVersion,
@@ -45,49 +33,6 @@ Java_com_mapswithme_maps_LightFramework_nativeMakeFeatureId(JNIEnv * env, jclass
     static_cast<uint32_t>(featureIndex));
 
   return jni::ToJavaString(env, featureId);
-}
-
-JNIEXPORT jobjectArray JNICALL
-Java_com_mapswithme_maps_LightFramework_nativeGetLocalAdsFeatures(JNIEnv * env, jclass clazz,
-                                                                  jdouble lat, jdouble lon,
-                                                                  jdouble radiusInMeters,
-                                                                  jint maxCount)
-{
-  lightweight::Framework framework(lightweight::REQUEST_TYPE_LOCAL_ADS_FEATURES);
-  auto const features = framework.GetLocalAdsFeatures(lat, lon, radiusInMeters, maxCount);
-
-  static jclass const geoFenceFeatureClazz =
-          jni::GetGlobalClassRef(env, "com/mapswithme/maps/geofence/GeoFenceFeature");
-  // Java signature : GeoFenceFeature(FeatureId featureId,
-  //                                  double latitude, double longitude)
-  static jmethodID const geoFenceFeatureConstructor =
-          jni::GetConstructorID(env, geoFenceFeatureClazz, "(Lcom/mapswithme/maps/bookmarks/data/FeatureId;DD)V");
-
-  return jni::ToJavaArray(env, geoFenceFeatureClazz, features, [&](JNIEnv * jEnv,
-                                                                   CampaignFeature const & data)
-  {
-      jni::TScopedLocalRef const featureId(env, CreateFeatureId(env, data));
-      return env->NewObject(geoFenceFeatureClazz, geoFenceFeatureConstructor,
-                            featureId.get(),
-                            static_cast<jdouble>(data.m_lat),
-                            static_cast<jdouble>(data.m_lon));
-  });
-}
-
-JNIEXPORT void JNICALL
-Java_com_mapswithme_maps_LightFramework_nativeLogLocalAdsEvent(JNIEnv * env, jclass clazz,
-                                                               jint type, jdouble lat, jdouble lon,
-                                                               jint accuracyInMeters,
-                                                               jlong mwmVersion, jstring countryId,
-                                                               jint featureIndex)
-{
-  lightweight::Framework framework(lightweight::REQUEST_TYPE_LOCAL_ADS_STATISTICS);
-  local_ads::Event event(static_cast<local_ads::EventType>(type), static_cast<long>(mwmVersion),
-                         jni::ToNativeString(env, countryId), static_cast<uint32_t>(featureIndex),
-                         static_cast<uint8_t>(1) /* zoom level */, local_ads::Clock::now(),
-                         static_cast<double>(lat), static_cast<double>(lon),
-                         static_cast<uint16_t>(accuracyInMeters));
-  framework.GetLocalAdsStatistics()->RegisterEvent(std::move(event));
 }
 
 JNIEXPORT jobject JNICALL

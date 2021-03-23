@@ -236,12 +236,11 @@ UNIT_TEST(PowerManager_OnBatteryLevelChanged)
   TestAllFacilitiesEnabledExcept(manager, {Facility::PerspectiveView,
                                            Facility::GpsTrackingForTraffic,
                                            Facility::BookmarkCloudUploading,
-                                           Facility::MapDownloader,
-                                           Facility::StatisticsUploading});
+                                           Facility::MapDownloader});
   TEST_EQUAL(manager.GetScheme(), Scheme::Auto, ());
 
   TEST_EQUAL(subscriber.m_onShemeEvents.size(), 0, ());
-  TEST_EQUAL(subscriber.m_onFacilityEvents.size(), 5, ());
+  TEST_EQUAL(subscriber.m_onFacilityEvents.size(), 4, ());
   TEST_EQUAL(subscriber.m_onFacilityEvents[0].m_facility, Facility::PerspectiveView, ());
   TEST_EQUAL(subscriber.m_onFacilityEvents[0].m_state, false, ());
   TEST_EQUAL(subscriber.m_onFacilityEvents[1].m_facility, Facility::GpsTrackingForTraffic, ());
@@ -250,8 +249,6 @@ UNIT_TEST(PowerManager_OnBatteryLevelChanged)
   TEST_EQUAL(subscriber.m_onFacilityEvents[2].m_state, false, ());
   TEST_EQUAL(subscriber.m_onFacilityEvents[3].m_facility, Facility::MapDownloader, ());
   TEST_EQUAL(subscriber.m_onFacilityEvents[3].m_state, false, ());
-  TEST_EQUAL(subscriber.m_onFacilityEvents[4].m_facility, Facility::StatisticsUploading, ());
-  TEST_EQUAL(subscriber.m_onFacilityEvents[4].m_state, false, ());
 
   subscriber.m_onShemeEvents.clear();
   subscriber.m_onFacilityEvents.clear();
@@ -262,7 +259,7 @@ UNIT_TEST(PowerManager_OnBatteryLevelChanged)
   TEST_EQUAL(manager.GetScheme(), Scheme::Auto, ());
 
   TEST_EQUAL(subscriber.m_onShemeEvents.size(), 0, ());
-  TEST_EQUAL(subscriber.m_onFacilityEvents.size(), 7, ());
+  TEST_EQUAL(subscriber.m_onFacilityEvents.size(), 5, ());
   TEST_EQUAL(subscriber.m_onFacilityEvents[0].m_facility, Facility::Buildings3d, ());
   TEST_EQUAL(subscriber.m_onFacilityEvents[0].m_state, false, ());
   TEST_EQUAL(subscriber.m_onFacilityEvents[1].m_facility, Facility::TrackRecording, ());
@@ -273,10 +270,6 @@ UNIT_TEST(PowerManager_OnBatteryLevelChanged)
   TEST_EQUAL(subscriber.m_onFacilityEvents[3].m_state, false, ());
   TEST_EQUAL(subscriber.m_onFacilityEvents[4].m_facility, Facility::UgcUploading, ());
   TEST_EQUAL(subscriber.m_onFacilityEvents[4].m_state, false, ());
-  TEST_EQUAL(subscriber.m_onFacilityEvents[5].m_facility, Facility::LocalAdsDataDownloading, ());
-  TEST_EQUAL(subscriber.m_onFacilityEvents[5].m_state, false, ());
-  TEST_EQUAL(subscriber.m_onFacilityEvents[6].m_facility, Facility::AdsDownloading, ());
-  TEST_EQUAL(subscriber.m_onFacilityEvents[6].m_state, false, ());
 
   subscriber.m_onShemeEvents.clear();
   subscriber.m_onFacilityEvents.clear();

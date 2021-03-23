@@ -14,12 +14,6 @@ public class PurchaseFactory
     // Utility class.
   }
 
-  public static PurchaseController<PurchaseCallback> createAdsRemovalPurchaseController(
-      @NonNull Context context)
-  {
-    return createSubscriptionPurchaseController(context, SubscriptionType.ADS_REMOVAL);
-  }
-
   public static PurchaseController<PurchaseCallback> createBookmarksAllSubscriptionController(
       @NonNull Context context)
   {

@@ -32,7 +32,6 @@ import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.mapswithme.maps.Framework.PlacePageActivationListener;
-import com.mapswithme.maps.ads.LikesManager;
 import com.mapswithme.maps.api.ParsedMwmRequest;
 import com.mapswithme.maps.background.AppBackgroundTracker;
 import com.mapswithme.maps.background.NotificationCandidate;
@@ -93,8 +92,6 @@ import com.mapswithme.maps.onboarding.WelcomeDialogFragment;
 import com.mapswithme.maps.promo.Promo;
 import com.mapswithme.maps.promo.PromoAfterBooking;
 import com.mapswithme.maps.promo.PromoBookingDialogFragment;
-import com.mapswithme.maps.purchase.AdsRemovalActivationCallback;
-import com.mapswithme.maps.purchase.AdsRemovalPurchaseControllerProvider;
 import com.mapswithme.maps.purchase.BookmarksAllSubscriptionActivity;
 import com.mapswithme.maps.purchase.FailedPurchaseChecker;
 import com.mapswithme.maps.purchase.PurchaseCallback;
@@ -184,8 +181,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
                OnTrafficLayerToggleListener,
                OnSubwayLayerToggleListener,
                BookmarkManager.BookmarksCatalogListener,
-               AdsRemovalPurchaseControllerProvider,
-               AdsRemovalActivationCallback,
                PlacePageController.SlideListener,
                AlertDialogCallback, RoutingModeListener,
                AppBackgroundTracker.OnTransitionListener,
@@ -284,8 +279,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
   private boolean mRestoreRoutingPlanFragmentNeeded;
   @Nullable
   private Bundle mSavedForTabletState;
-  @Nullable
-  private PurchaseController<PurchaseCallback> mAdsRemovalPurchaseController;
   @Nullable
   private PurchaseController<FailedPurchaseChecker> mBookmarkInappPurchaseController;
   @Nullable
@@ -630,9 +623,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
   private void initControllersAndValidatePurchases(@Nullable Bundle savedInstanceState)
   {
-    mAdsRemovalPurchaseController = PurchaseFactory.createAdsRemovalPurchaseController(this);
-    mAdsRemovalPurchaseController.initialize(this);
-
     mBookmarkInappPurchaseController = PurchaseFactory.createFailedBookmarkPurchaseController(this);
     mBookmarkInappPurchaseController.initialize(this);
 
@@ -647,7 +637,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
     // To reduce number of parasite validation requests during orientation change.
     if (savedInstanceState == null)
     {
-      mAdsRemovalPurchaseController.validateExistingPurchases();
       mBookmarkInappPurchaseController.validateExistingPurchases();
       mBookmarksAllSubscriptionController.validateExistingPurchases();
       mBookmarksSightsSubscriptionController.validateExistingPurchases();
@@ -1460,14 +1449,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
   {
     super.onResumeFragments();
     RoutingController.get().restore();
-
-    Context context = getApplicationContext();
-
-    if (!LikesManager.INSTANCE.isNewUser(context) && Counters.isShowReviewForOldUser(context))
-    {
-      LikesManager.INSTANCE.showRateDialogForOldUser(this);
-      Counters.setShowReviewForOldUser(context, false);
-    }
   }
 
   @Override
@@ -1475,7 +1456,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
   {
     if (!RoutingController.get().isNavigating())
       TtsPlayer.INSTANCE.stop();
-    LikesManager.INSTANCE.cancelDialogs();
     if (mOnmapDownloader != null)
       mOnmapDownloader.onPause();
     mPlacePageController.onActivityPaused(this);
@@ -1578,8 +1558,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
   protected void onSafeDestroy()
   {
     super.onSafeDestroy();
-    if (mAdsRemovalPurchaseController != null)
-      mAdsRemovalPurchaseController.destroy();
     if (mBookmarkInappPurchaseController != null)
       mBookmarkInappPurchaseController.destroy();
     if (mBookmarksAllSubscriptionController != null)
@@ -1934,19 +1912,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
     }
 
     mMainMenu.setState(MainMenu.State.MENU, mIsFullscreen);
-  }
-
-  @Override
-  @Nullable
-  public PurchaseController<PurchaseCallback> getAdsRemovalPurchaseController()
-  {
-    return mAdsRemovalPurchaseController;
-  }
-
-  @Override
-  public void onAdsRemovalActivation()
-  {
-    closePlacePage();
   }
 
   private boolean adjustMenuLineFrameVisibility()

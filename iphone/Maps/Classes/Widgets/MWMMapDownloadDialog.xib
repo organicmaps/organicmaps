@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15702" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15704"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -41,89 +41,6 @@
                         <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="medium14:blackSecondaryText"/>
                     </userDefinedRuntimeAttributes>
                 </label>
-                <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Gtz-YD-7lc">
-                    <rect key="frame" x="0.0" y="189" width="200" height="10"/>
-                    <subviews>
-                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5CG-EC-3w9">
-                            <rect key="frame" x="16" y="1" width="168" height="1"/>
-                            <color key="backgroundColor" white="0.0" alpha="0.11847174657534247" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                            <constraints>
-                                <constraint firstAttribute="width" constant="1" id="fz1-vI-jRX"/>
-                                <constraint firstAttribute="height" constant="1" id="vwI-d2-CG4"/>
-                            </constraints>
-                            <userDefinedRuntimeAttributes>
-                                <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="Divider"/>
-                            </userDefinedRuntimeAttributes>
-                            <variation key="default">
-                                <mask key="constraints">
-                                    <exclude reference="fz1-vI-jRX"/>
-                                    <exclude reference="vwI-d2-CG4"/>
-                                </mask>
-                            </variation>
-                            <variation key="heightClass=compact">
-                                <mask key="constraints">
-                                    <include reference="fz1-vI-jRX"/>
-                                </mask>
-                            </variation>
-                            <variation key="heightClass=regular">
-                                <mask key="constraints">
-                                    <include reference="vwI-d2-CG4"/>
-                                </mask>
-                            </variation>
-                        </view>
-                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DFd-nU-1DZ">
-                            <rect key="frame" x="0.0" y="2" width="200" height="8"/>
-                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        </view>
-                    </subviews>
-                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                    <constraints>
-                        <constraint firstItem="5CG-EC-3w9" firstAttribute="top" secondItem="Gtz-YD-7lc" secondAttribute="top" constant="1" id="82S-wp-01c"/>
-                        <constraint firstAttribute="trailing" secondItem="5CG-EC-3w9" secondAttribute="trailing" constant="16" id="8aL-a8-Hha"/>
-                        <constraint firstItem="DFd-nU-1DZ" firstAttribute="top" secondItem="Gtz-YD-7lc" secondAttribute="top" id="BmY-ez-mrU"/>
-                        <constraint firstAttribute="bottom" secondItem="5CG-EC-3w9" secondAttribute="bottom" constant="16" id="P1n-5W-58C"/>
-                        <constraint firstItem="DFd-nU-1DZ" firstAttribute="top" secondItem="5CG-EC-3w9" secondAttribute="bottom" id="Yac-mK-J8V"/>
-                        <constraint firstItem="DFd-nU-1DZ" firstAttribute="leading" secondItem="Gtz-YD-7lc" secondAttribute="leading" id="bjp-3p-ytf"/>
-                        <constraint firstItem="5CG-EC-3w9" firstAttribute="leading" secondItem="Gtz-YD-7lc" secondAttribute="leading" id="d5V-Uu-2Dp"/>
-                        <constraint firstItem="5CG-EC-3w9" firstAttribute="leading" secondItem="Gtz-YD-7lc" secondAttribute="leading" constant="16" id="fNg-Kc-fag"/>
-                        <constraint firstItem="DFd-nU-1DZ" firstAttribute="leading" secondItem="5CG-EC-3w9" secondAttribute="trailing" id="h7M-bR-r8G"/>
-                        <constraint firstItem="5CG-EC-3w9" firstAttribute="top" secondItem="Gtz-YD-7lc" secondAttribute="top" constant="16" id="oTb-5c-VfR"/>
-                        <constraint firstAttribute="bottom" secondItem="DFd-nU-1DZ" secondAttribute="bottom" id="pgi-Ea-ypd"/>
-                        <constraint firstAttribute="trailing" secondItem="DFd-nU-1DZ" secondAttribute="trailing" id="tgi-8m-pjN"/>
-                    </constraints>
-                    <variation key="default">
-                        <mask key="constraints">
-                            <exclude reference="BmY-ez-mrU"/>
-                            <exclude reference="Yac-mK-J8V"/>
-                            <exclude reference="bjp-3p-ytf"/>
-                            <exclude reference="h7M-bR-r8G"/>
-                            <exclude reference="82S-wp-01c"/>
-                            <exclude reference="8aL-a8-Hha"/>
-                            <exclude reference="P1n-5W-58C"/>
-                            <exclude reference="d5V-Uu-2Dp"/>
-                            <exclude reference="fNg-Kc-fag"/>
-                            <exclude reference="oTb-5c-VfR"/>
-                        </mask>
-                    </variation>
-                    <variation key="heightClass=compact">
-                        <mask key="constraints">
-                            <include reference="BmY-ez-mrU"/>
-                            <include reference="h7M-bR-r8G"/>
-                            <include reference="P1n-5W-58C"/>
-                            <include reference="d5V-Uu-2Dp"/>
-                            <include reference="oTb-5c-VfR"/>
-                        </mask>
-                    </variation>
-                    <variation key="heightClass=regular">
-                        <mask key="constraints">
-                            <include reference="Yac-mK-J8V"/>
-                            <include reference="bjp-3p-ytf"/>
-                            <include reference="82S-wp-01c"/>
-                            <include reference="8aL-a8-Hha"/>
-                            <include reference="fNg-Kc-fag"/>
-                        </mask>
-                    </variation>
-                </view>
                 <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iyV-Rb-bea">
                     <rect key="frame" x="20" y="135" width="160" height="44"/>
                     <color key="backgroundColor" red="0.1176470588" green="0.58823529409999997" blue="0.94117647059999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -152,6 +69,7 @@
                     </constraints>
                 </view>
             </subviews>
+            <viewLayoutGuide key="safeArea" id="REG-N0-yuL"/>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
                 <constraint firstItem="GQf-xO-gh1" firstAttribute="top" secondItem="I6H-BQ-1TG" secondAttribute="top" priority="500" constant="20" id="1zT-cE-XI3"/>
@@ -164,22 +82,15 @@
                 <constraint firstAttribute="bottom" secondItem="iyV-Rb-bea" secondAttribute="bottom" priority="500" constant="20" id="HSh-rd-XIZ"/>
                 <constraint firstItem="vMH-GY-Vm2" firstAttribute="top" secondItem="GQf-xO-gh1" secondAttribute="bottom" priority="500" constant="2" id="Kje-IL-qJy"/>
                 <constraint firstItem="vU4-G9-kcd" firstAttribute="top" secondItem="vMH-GY-Vm2" secondAttribute="bottom" constant="8" id="S4i-o8-W4I"/>
-                <constraint firstItem="Gtz-YD-7lc" firstAttribute="top" secondItem="REG-N0-yuL" secondAttribute="top" id="TGb-vh-vVB"/>
                 <constraint firstItem="iyV-Rb-bea" firstAttribute="top" secondItem="vU4-G9-kcd" secondAttribute="bottom" constant="12" id="VN6-NK-qgb"/>
-                <constraint firstItem="REG-N0-yuL" firstAttribute="bottom" secondItem="Gtz-YD-7lc" secondAttribute="bottom" id="VU2-TP-1yL"/>
                 <constraint firstItem="iyV-Rb-bea" firstAttribute="leading" secondItem="I6H-BQ-1TG" secondAttribute="leading" constant="20" id="atf-Me-rzF"/>
-                <constraint firstItem="Gtz-YD-7lc" firstAttribute="leading" secondItem="iyV-Rb-bea" secondAttribute="trailing" priority="250" constant="20" id="fsl-K3-t3a"/>
                 <constraint firstItem="REG-N0-yuL" firstAttribute="trailing" secondItem="iyV-Rb-bea" secondAttribute="trailing" priority="500" constant="20" id="hgA-l8-VzT"/>
                 <constraint firstItem="vU4-G9-kcd" firstAttribute="trailing" secondItem="iyV-Rb-bea" secondAttribute="trailing" constant="6" id="jZP-5b-Nbs"/>
-                <constraint firstItem="REG-N0-yuL" firstAttribute="trailing" secondItem="Gtz-YD-7lc" secondAttribute="trailing" id="pWS-Cs-9hs"/>
                 <constraint firstItem="usc-Cm-gmg" firstAttribute="centerY" secondItem="iyV-Rb-bea" secondAttribute="centerY" id="pxa-11-yUj"/>
                 <constraint firstItem="GQf-xO-gh1" firstAttribute="trailing" secondItem="iyV-Rb-bea" secondAttribute="trailing" constant="6" id="sMn-Pe-OLX"/>
-                <constraint firstItem="Gtz-YD-7lc" firstAttribute="leading" secondItem="REG-N0-yuL" secondAttribute="leading" id="tvu-3d-Mrf"/>
                 <constraint firstItem="vMH-GY-Vm2" firstAttribute="trailing" secondItem="iyV-Rb-bea" secondAttribute="trailing" constant="6" id="wqD-4Q-AwL"/>
-                <constraint firstItem="Gtz-YD-7lc" firstAttribute="top" secondItem="usc-Cm-gmg" secondAttribute="bottom" priority="250" constant="16" id="zec-WI-uhq"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-            <viewLayoutGuide key="safeArea" id="REG-N0-yuL"/>
             <userDefinedRuntimeAttributes>
                 <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="DialogView"/>
             </userDefinedRuntimeAttributes>
@@ -187,32 +98,20 @@
                 <mask key="constraints">
                     <exclude reference="hgA-l8-VzT"/>
                     <exclude reference="C8t-0i-lpV"/>
-                    <exclude reference="TGb-vh-vVB"/>
-                    <exclude reference="fsl-K3-t3a"/>
-                    <exclude reference="tvu-3d-Mrf"/>
-                    <exclude reference="zec-WI-uhq"/>
                 </mask>
             </variation>
             <variation key="heightClass=compact">
                 <mask key="constraints">
                     <include reference="hgA-l8-VzT"/>
-                    <include reference="TGb-vh-vVB"/>
-                    <include reference="fsl-K3-t3a"/>
                 </mask>
             </variation>
             <variation key="heightClass=regular">
                 <mask key="constraints">
                     <include reference="C8t-0i-lpV"/>
                     <include reference="HSh-rd-XIZ"/>
-                    <include reference="tvu-3d-Mrf"/>
-                    <include reference="zec-WI-uhq"/>
                 </mask>
             </variation>
             <connections>
-                <outlet property="bannerContentView" destination="DFd-nU-1DZ" id="DYz-tO-Mf5"/>
-                <outlet property="bannerView" destination="Gtz-YD-7lc" id="GTa-nc-Gah"/>
-                <outlet property="bannerVisibleConstraintH" destination="fsl-K3-t3a" id="XYC-wI-jwS"/>
-                <outlet property="bannerVisibleConstraintV" destination="zec-WI-uhq" id="0ao-J2-tQO"/>
                 <outlet property="downloadButton" destination="iyV-Rb-bea" id="6fy-CY-zos"/>
                 <outlet property="node" destination="vMH-GY-Vm2" id="LJq-UU-a3U"/>
                 <outlet property="nodeSize" destination="vU4-G9-kcd" id="DMJ-NW-mxf"/>

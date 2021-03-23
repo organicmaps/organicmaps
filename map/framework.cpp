@@ -4,7 +4,6 @@
 #include "map/catalog_headers_provider.hpp"
 #include "map/chart_generator.hpp"
 #include "map/displayed_categories_modifiers.hpp"
-#include "map/ads_engine_delegate.hpp"
 #include "map/everywhere_search_params.hpp"
 #include "map/gps_tracker.hpp"
 #include "map/guides_on_map_delegate.hpp"
@@ -99,7 +98,6 @@
 #include "geometry/tree4d.hpp"
 #include "geometry/triangle2d.hpp"
 
-#include "partners_api/ads/ads_engine.hpp"
 #include "partners_api/opentable_api.hpp"
 #include "partners_api/partners.hpp"
 
@@ -512,9 +510,6 @@ Framework::Framework(FrameworkParams const & params)
   m_guidesManager.SetApiDelegate(make_unique<GuidesOnMapDelegate>(catalogHeadersProvider));
   m_guidesManager.SetEnabled(LoadGuidesEnabled());
 
-  m_adsEngine = make_unique<ads::Engine>(make_unique<ads::AdsEngineDelegate>(
-      *m_infoGetter, m_storage, *m_promoApi, *m_purchase, *m_taxiEngine));
-
   InitTransliteration();
   LOG(LDEBUG, ("Transliterators initialized"));
 
@@ -550,7 +545,6 @@ Framework::~Framework()
 
   // Must be destroyed implicitly at the start of destruction,
   // since it stores raw pointers to other subsystems.
-  m_adsEngine.reset();
   m_purchase.reset();
 
   osm::Editor & editor = osm::Editor::Instance();
@@ -906,22 +900,6 @@ void Framework::FillInfoFromFeatureType(FeatureType & ft, place_page::Info & inf
     auto const url = MakeSearchBookingUrl(*m_bookingApi, *m_cityFinder, ft);
     info.SetBookingSearchUrl(url);
     LOG(LINFO, (url));
-  }
-  else if (m_purchase && !m_purchase->IsSubscriptionActive(SubscriptionType::RemoveAds) &&
-           PartnerChecker::Instance()(ft))
-  {
-    info.SetSponsoredType(place_page::SponsoredType::Partner);
-    auto const partnerIndex = PartnerChecker::Instance().GetPartnerIndex(ft);
-    info.SetPartnerIndex(partnerIndex);
-    auto const & partnerInfo = GetPartnerByIndex(partnerIndex);
-    if (partnerInfo.m_hasButton && ft.GetID().GetMwmVersion() >= partnerInfo.m_minMapVersion)
-    {
-      auto url = info.GetMetadata().Get(feature::Metadata::FMD_BANNER_URL);
-      if (url.empty())
-        url = partnerInfo.m_defaultBannerUrl;
-      info.SetSponsoredUrl(url);
-      info.SetSponsoredDescriptionUrl(url);
-    }
   }
   else if (ftypes::IsHolidayChecker::Instance()(ft) &&
            !info.GetMetadata().Get(feature::Metadata::FMD_RATING).empty())
@@ -1761,17 +1739,15 @@ void Framework::FillSearchResultsMarks(search::Results::ConstIter begin,
 
     if (r.m_details.m_isSponsoredHotel)
     {
-      //mark->SetBookingType(isFeature && m_localAdsManager.HasVisualization(r.GetFeatureID()) /* hasLocalAds */);
       mark->SetRating(r.m_details.m_hotelRating);
       mark->SetPricing(r.m_details.m_hotelPricing);
     }
     else if (isFeature)
     {
-      bool const hasLocalAds = false;
       if (r.m_details.m_isHotel)
-        mark->SetHotelType(hasLocalAds);
+        mark->SetHotelType();
       else
-        mark->SetFromType(r.GetFeatureType(), hasLocalAds);
+        mark->SetFromType(r.GetFeatureType());
       auto product = GetProductInfo(r);
       if (product.m_ugcRating != search::ProductInfo::kInvalidRating)
         mark->SetRating(product.m_ugcRating);
@@ -3716,18 +3692,6 @@ void Framework::VisualizeCityRoadsInRect(m2::RectD const & rect)
         VisualizeFeatureInRect(rect, ft, m_drapeApi);
       },
       rect, scales::GetUpperScale());
-}
-
-ads::Engine const & Framework::GetAdsEngine() const
-{
-  ASSERT(m_adsEngine, ());
-  return *m_adsEngine;
-}
-
-void Framework::DisableAdProvider(ads::Banner::Type const type, ads::Banner::Place const place)
-{
-  ASSERT(m_adsEngine, ());
-  m_adsEngine.get()->DisableAdProvider(type, place);
 }
 
 void Framework::RunUITask(function<void()> fn)

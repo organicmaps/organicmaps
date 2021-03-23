@@ -9,8 +9,6 @@ include_directories(
 
 set(
   SRC
-  ads_engine_delegate.cpp
-  ads_engine_delegate.hpp
   api_mark_point.cpp
   api_mark_point.hpp
   benchmark_tools.hpp
@@ -85,11 +83,6 @@ set(
   isolines_manager.hpp
   layers_statistics.cpp
   layers_statistics.hpp
-  local_ads_manager.cpp
-  local_ads_manager.hpp
-  local_ads_mark.cpp
-  local_ads_mark.hpp
-  local_ads_supported_types.cpp
   mwm_url.cpp
   mwm_url.hpp
   notifications/notification_manager.cpp

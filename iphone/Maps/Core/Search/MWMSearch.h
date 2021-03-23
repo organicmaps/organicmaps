@@ -1,4 +1,3 @@
-#import <CoreApi/CoreBanner.h>
 #import <CoreApi/MWMTypes.h>
 
 #import "MWMHotelParams.h"

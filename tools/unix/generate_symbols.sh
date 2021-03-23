@@ -8,7 +8,6 @@ OMIM_PATH="${OMIM_PATH:-$(cd "$(dirname "$0")/../.."; pwd)}"
 OUT_PATH="$OMIM_PATH/out/release"
 SKIN_GENERATOR="$OUT_PATH/skin_generator_tool"
 DATA_PATH="$OMIM_PATH/data"
-LOCAL_ADS_SYMBOLS_GENERATOR="$OMIM_PATH/tools/python/generate_local_ads_symbols.py"
 
 # If skin_generator does not exist then build it
 if [ ! -f "$SKIN_GENERATOR" ];
@@ -101,6 +100,3 @@ rm -rf "$OMIM_PATH"/data/resources-*_design
 for i in mdpi hdpi xhdpi xxhdpi xxxhdpi 6plus; do
   cp -r "$OMIM_PATH"/data/resources-${i}_clear/ "$OMIM_PATH"/data/resources-${i}_design/
 done
-
-echo "Generate local ads symbols"
-python "$LOCAL_ADS_SYMBOLS_GENERATOR" "$DATA_PATH/styles" "$DATA_PATH"

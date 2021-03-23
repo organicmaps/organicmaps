@@ -32,7 +32,6 @@
 #import "MWMDiscoveryController.h"
 #import "MWMEditorHelper.h"
 #import "MWMFrameworkListener.h"
-#import "MWMGeoTrackerCore.h"
 #import "MWMKeyboard.h"
 #import "MWMLocationManager.h"
 #import "MWMLocationModeListener.h"

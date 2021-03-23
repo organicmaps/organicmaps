@@ -339,19 +339,10 @@ void RegisterEventIfPossible(eye::MapObject::Event::Type const type)
   [[MapViewController sharedController].navigationController pushViewController:vc animated:YES];
 }
 
-- (void)openLocalAdsURL:(PlacePageData *)data {
-  NSURL *url = [NSURL URLWithString:data.infoData.localAdsUrl];
-  if (!url)
-    return;
-
-  [self.ownerViewController openUrl:url];
-}
-
 - (void)openWebsite:(PlacePageData *)data {
   NSURL *url = [NSURL URLWithString:data.infoData.website];
   if (url) {
     [self.ownerViewController openUrl:url];
-    //TODO: add local ads events
   }
 }
 

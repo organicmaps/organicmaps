@@ -428,10 +428,6 @@ PYBINDINGS = {
         'install_requires': ['omim-data-essential'],
         'description': 'Binding for working with maps.me KML files',
     },
-    'pylocal_ads': {
-        'path': 'local_ads/pylocal_ads',
-        'description': 'Binding for working with maps.me local ads data',
-    },
     'pymwm_diff': {
         'path': 'generator/mwm_diff/pymwm_diff',
         'description': 'Binding for working with mwm diffs',

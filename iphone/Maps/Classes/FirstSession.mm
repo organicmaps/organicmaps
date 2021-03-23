@@ -40,7 +40,6 @@
 #import <UIKit/UIScreen.h>
 #import <UIKit/UIApplication.h>
 #import <UIKit/UIWebView.h>
-#import <AdSupport/ASIdentifierManager.h>
 #endif  // TARGET_OS_IPHONE
 
 #import <sys/socket.h>

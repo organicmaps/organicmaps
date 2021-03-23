@@ -7,9 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		3488B0371E9D11860068AFD8 /* ads_engine_tests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 346E889D1E9D088200D4CE9B /* ads_engine_tests.cpp */; };
-		3488B0381E9D11890068AFD8 /* rb_tests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 346E889E1E9D088200D4CE9B /* rb_tests.cpp */; };
-		3488B0391E9D118D0068AFD8 /* facebook_tests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3DBC1C501E4B14810016897F /* facebook_tests.cpp */; };
 		349CFD0A2045720000569949 /* maxim_api.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 349CFD08204571FF00569949 /* maxim_api.hpp */; };
 		349CFD0B2045720000569949 /* maxim_api.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 349CFD09204571FF00569949 /* maxim_api.cpp */; };
 		349CFD0D2045720700569949 /* maxim_tests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 349CFD0C2045720700569949 /* maxim_tests.cpp */; };
@@ -32,8 +29,6 @@
 		3D18DC4122956DFA00A583A6 /* promo_api.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 3D18DC3F22956DFA00A583A6 /* promo_api.hpp */; };
 		3D18DC4222956DFA00A583A6 /* promo_api.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D18DC4022956DFA00A583A6 /* promo_api.cpp */; };
 		3D18DC4422956E0900A583A6 /* promo_tests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D18DC4322956E0900A583A6 /* promo_tests.cpp */; };
-		3D452AEF1EE6D202009EAB9B /* google_tests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D452AED1EE6D202009EAB9B /* google_tests.cpp */; };
-		3D452AF01EE6D202009EAB9B /* mopub_tests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D452AEE1EE6D202009EAB9B /* mopub_tests.cpp */; };
 		3D47B29A1F054C89000828D2 /* taxi_base.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D47B2961F054C89000828D2 /* taxi_base.cpp */; };
 		3D47B2B11F14FA14000828D2 /* utils.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 3D47B2B01F14FA14000828D2 /* utils.hpp */; };
 		3D4E997C1FB439260025B48C /* booking_availability_params.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 3D4E997A1FB439260025B48C /* booking_availability_params.hpp */; };
@@ -42,56 +37,16 @@
 		3D8DAE7525026B550000513A /* yango_api.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 3D8DAE7325026B540000513A /* yango_api.hpp */; };
 		3D8DAE7625026B550000513A /* yango_api.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D8DAE7425026B550000513A /* yango_api.cpp */; };
 		3DA5713420B57358007BDE27 /* booking_params_base.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 3DA5713320B57358007BDE27 /* booking_params_base.hpp */; };
-		3DA5876C25506123002E024C /* arsenal_ads.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3DA5876A25506123002E024C /* arsenal_ads.cpp */; };
-		3DA5876D25506123002E024C /* arsenal_ads.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 3DA5876B25506123002E024C /* arsenal_ads.hpp */; };
-		3DA5877C2551AC22002E024C /* citymobil_ads_tests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3DA5877A2551AC22002E024C /* citymobil_ads_tests.cpp */; };
-		3DA5877D2551AC23002E024C /* arsenal_tests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3DA5877B2551AC22002E024C /* arsenal_tests.cpp */; };
 		3DA6BCDF2535B52E00DF0DA5 /* citymobil_api.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 3DA6BCDD2535B52E00DF0DA5 /* citymobil_api.hpp */; };
 		3DA6BCE02535B52E00DF0DA5 /* citymobil_api.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3DA6BCDE2535B52E00DF0DA5 /* citymobil_api.cpp */; };
 		3DA6BCE22535B53C00DF0DA5 /* citymobil_tests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3DA6BCE12535B53C00DF0DA5 /* citymobil_tests.cpp */; };
-		3DA6BCE52538B3B600DF0DA5 /* citymobil_ads.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3DA6BCE32538B3B500DF0DA5 /* citymobil_ads.cpp */; };
-		3DA6BCE62538B3B600DF0DA5 /* citymobil_ads.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 3DA6BCE42538B3B500DF0DA5 /* citymobil_ads.hpp */; };
 		3DBD7B9824112DE100ED9FE8 /* freenow_api.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3DBD7B9624112DE000ED9FE8 /* freenow_api.cpp */; };
 		3DBD7B9924112DE100ED9FE8 /* freenow_api.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 3DBD7B9724112DE100ED9FE8 /* freenow_api.hpp */; };
 		3DBD7B9B24112DEA00ED9FE8 /* freenow_tests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3DBD7B9A24112DEA00ED9FE8 /* freenow_tests.cpp */; };
-		3DBD7BFF24251BF000ED9FE8 /* bookmark_catalog_ads.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3DBD7BE624251BF000ED9FE8 /* bookmark_catalog_ads.cpp */; };
-		3DBD7C0024251BF000ED9FE8 /* google_ads.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 3DBD7BE724251BF000ED9FE8 /* google_ads.hpp */; };
-		3DBD7C0124251BF000ED9FE8 /* banner.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 3DBD7BE824251BF000ED9FE8 /* banner.hpp */; };
-		3DBD7C0224251BF000ED9FE8 /* tinkoff_insurance_ads.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 3DBD7BE924251BF000ED9FE8 /* tinkoff_insurance_ads.hpp */; };
-		3DBD7C0324251BF000ED9FE8 /* tinkoff_allairlines_ads.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 3DBD7BEA24251BF000ED9FE8 /* tinkoff_allairlines_ads.hpp */; };
-		3DBD7C0424251BF000ED9FE8 /* mopub_ads.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 3DBD7BEB24251BF000ED9FE8 /* mopub_ads.hpp */; };
-		3DBD7C0524251BF000ED9FE8 /* rb_ads.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3DBD7BEC24251BF000ED9FE8 /* rb_ads.cpp */; };
-		3DBD7C0624251BF000ED9FE8 /* ads_engine.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 3DBD7BED24251BF000ED9FE8 /* ads_engine.hpp */; };
-		3DBD7C0724251BF000ED9FE8 /* mts_ads.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3DBD7BEE24251BF000ED9FE8 /* mts_ads.cpp */; };
-		3DBD7C0824251BF000ED9FE8 /* skyeng_ads.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3DBD7BEF24251BF000ED9FE8 /* skyeng_ads.cpp */; };
-		3DBD7C0924251BF000ED9FE8 /* ads_utils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3DBD7BF024251BF000ED9FE8 /* ads_utils.cpp */; };
-		3DBD7C0A24251BF000ED9FE8 /* ads_base.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 3DBD7BF124251BF000ED9FE8 /* ads_base.hpp */; };
-		3DBD7C0B24251BF000ED9FE8 /* facebook_ads.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 3DBD7BF224251BF000ED9FE8 /* facebook_ads.hpp */; };
-		3DBD7C0C24251BF000ED9FE8 /* tinkoff_allairlines_ads.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3DBD7BF324251BF000ED9FE8 /* tinkoff_allairlines_ads.cpp */; };
-		3DBD7C0D24251BF000ED9FE8 /* mts_ads.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 3DBD7BF424251BF000ED9FE8 /* mts_ads.hpp */; };
-		3DBD7C0E24251BF000ED9FE8 /* rb_ads.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 3DBD7BF524251BF000ED9FE8 /* rb_ads.hpp */; };
-		3DBD7C0F24251BF000ED9FE8 /* mopub_ads.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3DBD7BF624251BF000ED9FE8 /* mopub_ads.cpp */; };
-		3DBD7C1024251BF000ED9FE8 /* ads_engine.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3DBD7BF724251BF000ED9FE8 /* ads_engine.cpp */; };
-		3DBD7C1124251BF000ED9FE8 /* skyeng_ads.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 3DBD7BF824251BF000ED9FE8 /* skyeng_ads.hpp */; };
-		3DBD7C1224251BF000ED9FE8 /* ads_utils.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 3DBD7BF924251BF000ED9FE8 /* ads_utils.hpp */; };
-		3DBD7C1324251BF000ED9FE8 /* ads_base.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3DBD7BFA24251BF000ED9FE8 /* ads_base.cpp */; };
-		3DBD7C1424251BF000ED9FE8 /* facebook_ads.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3DBD7BFB24251BF000ED9FE8 /* facebook_ads.cpp */; };
-		3DBD7C1524251BF000ED9FE8 /* bookmark_catalog_ads.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 3DBD7BFC24251BF000ED9FE8 /* bookmark_catalog_ads.hpp */; };
-		3DBD7C1624251BF000ED9FE8 /* google_ads.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3DBD7BFD24251BF000ED9FE8 /* google_ads.cpp */; };
-		3DBD7C1724251BF000ED9FE8 /* tinkoff_insurance_ads.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3DBD7BFE24251BF000ED9FE8 /* tinkoff_insurance_ads.cpp */; };
-		3DBD7C1E24251C1100ED9FE8 /* tinkoff_insurance_tests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3DBD7C1824251C1000ED9FE8 /* tinkoff_insurance_tests.cpp */; };
-		3DBD7C1F24251C1100ED9FE8 /* mts_tests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3DBD7C1924251C1000ED9FE8 /* mts_tests.cpp */; };
-		3DBD7C2024251C1100ED9FE8 /* download_on_map_container_delegate.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 3DBD7C1A24251C1000ED9FE8 /* download_on_map_container_delegate.hpp */; };
-		3DBD7C2124251C1100ED9FE8 /* skyeng_tests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3DBD7C1B24251C1000ED9FE8 /* skyeng_tests.cpp */; };
-		3DBD7C2224251C1100ED9FE8 /* bookmark_catalog_ads_tests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3DBD7C1C24251C1100ED9FE8 /* bookmark_catalog_ads_tests.cpp */; };
-		3DBD7C2324251C1100ED9FE8 /* tinkoff_airlines_tests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3DBD7C1D24251C1100ED9FE8 /* tinkoff_airlines_tests.cpp */; };
 		3DCAC69424D1CFE800518E8B /* booking_ordering_params.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 3DCAC69224D1CFE800518E8B /* booking_ordering_params.hpp */; };
 		3DCAC69524D1CFE900518E8B /* booking_ordering_params.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3DCAC69324D1CFE800518E8B /* booking_ordering_params.cpp */; };
 		3DCD415320DAB33700143533 /* booking_block_params.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3DCD415120DAB33700143533 /* booking_block_params.cpp */; };
 		3DCD415420DAB33700143533 /* booking_block_params.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 3DCD415220DAB33700143533 /* booking_block_params.hpp */; };
-		3DCF64A824DC0A0300C49963 /* mastercard_sber_ads.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 3DCF64A624DC0A0200C49963 /* mastercard_sber_ads.hpp */; };
-		3DCF64A924DC0A0300C49963 /* mastercard_sber_ads.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3DCF64A724DC0A0200C49963 /* mastercard_sber_ads.cpp */; };
-		3DCF64AB24DC0A2300C49963 /* mastercard_sberbank_tests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3DCF64AA24DC0A2300C49963 /* mastercard_sberbank_tests.cpp */; };
 		3DF01C2D20652463005DDF8C /* taxi_places.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3DF01C2A20652462005DDF8C /* taxi_places.cpp */; };
 		3DF01C2E20652463005DDF8C /* taxi_places.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 3DF01C2B20652463005DDF8C /* taxi_places.hpp */; };
 		3DF9C219207CAC3000DA0793 /* taxi_places_tests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3DF9C218207CAC3000DA0793 /* taxi_places_tests.cpp */; };
@@ -103,7 +58,6 @@
 		3DFEBF9F1EFBFC1500317D5C /* yandex_api.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 3DFEBF991EFBFC1500317D5C /* yandex_api.hpp */; };
 		3DFEBFA31EFBFC2300317D5C /* taxi_engine_tests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3DFEBFA01EFBFC2300317D5C /* taxi_engine_tests.cpp */; };
 		3DFEBFA41EFBFC2300317D5C /* yandex_tests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3DFEBFA11EFBFC2300317D5C /* yandex_tests.cpp */; };
-		4566605320D920000085E8C1 /* megafon_countries_tests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4566605220D920000085E8C1 /* megafon_countries_tests.cpp */; };
 		4566605520D920220085E8C1 /* libstorage.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4566605420D920220085E8C1 /* libstorage.a */; };
 		45AC338F22C4F449004DC574 /* utm.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 45AC338E22C4F448004DC574 /* utm.hpp */; };
 		45C380772094C5B400C18D81 /* partners.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 45C380752094C5B400C18D81 /* partners.cpp */; };
@@ -134,8 +88,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		346E889D1E9D088200D4CE9B /* ads_engine_tests.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ads_engine_tests.cpp; sourceTree = "<group>"; };
-		346E889E1E9D088200D4CE9B /* rb_tests.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = rb_tests.cpp; sourceTree = "<group>"; };
 		3475E0E11DBF581B004C7E69 /* common-debug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = "common-debug.xcconfig"; path = "../common-debug.xcconfig"; sourceTree = "<group>"; };
 		3475E0E21DBF581B004C7E69 /* common-release.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = "common-release.xcconfig"; path = "../common-release.xcconfig"; sourceTree = "<group>"; };
 		349CFD08204571FF00569949 /* maxim_api.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = maxim_api.hpp; sourceTree = "<group>"; };
@@ -160,9 +112,6 @@
 		3D18DC3F22956DFA00A583A6 /* promo_api.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = promo_api.hpp; sourceTree = "<group>"; };
 		3D18DC4022956DFA00A583A6 /* promo_api.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = promo_api.cpp; sourceTree = "<group>"; };
 		3D18DC4322956E0900A583A6 /* promo_tests.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = promo_tests.cpp; sourceTree = "<group>"; };
-		3D452AED1EE6D202009EAB9B /* google_tests.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = google_tests.cpp; sourceTree = "<group>"; };
-		3D452AEE1EE6D202009EAB9B /* mopub_tests.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = mopub_tests.cpp; sourceTree = "<group>"; };
-		3D47B2801F00F94D000828D2 /* mopub_tests.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = mopub_tests.cpp; sourceTree = "<group>"; };
 		3D47B2961F054C89000828D2 /* taxi_base.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = taxi_base.cpp; sourceTree = "<group>"; };
 		3D47B2B01F14FA14000828D2 /* utils.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = utils.hpp; sourceTree = "<group>"; };
 		3D4E997A1FB439260025B48C /* booking_availability_params.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = booking_availability_params.hpp; sourceTree = "<group>"; };
@@ -171,57 +120,16 @@
 		3D8DAE7325026B540000513A /* yango_api.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = yango_api.hpp; sourceTree = "<group>"; };
 		3D8DAE7425026B550000513A /* yango_api.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = yango_api.cpp; sourceTree = "<group>"; };
 		3DA5713320B57358007BDE27 /* booking_params_base.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = booking_params_base.hpp; sourceTree = "<group>"; };
-		3DA5876A25506123002E024C /* arsenal_ads.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = arsenal_ads.cpp; sourceTree = "<group>"; };
-		3DA5876B25506123002E024C /* arsenal_ads.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = arsenal_ads.hpp; sourceTree = "<group>"; };
-		3DA5877A2551AC22002E024C /* citymobil_ads_tests.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = citymobil_ads_tests.cpp; sourceTree = "<group>"; };
-		3DA5877B2551AC22002E024C /* arsenal_tests.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = arsenal_tests.cpp; sourceTree = "<group>"; };
 		3DA6BCDD2535B52E00DF0DA5 /* citymobil_api.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = citymobil_api.hpp; sourceTree = "<group>"; };
 		3DA6BCDE2535B52E00DF0DA5 /* citymobil_api.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = citymobil_api.cpp; sourceTree = "<group>"; };
 		3DA6BCE12535B53C00DF0DA5 /* citymobil_tests.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = citymobil_tests.cpp; sourceTree = "<group>"; };
-		3DA6BCE32538B3B500DF0DA5 /* citymobil_ads.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = citymobil_ads.cpp; sourceTree = "<group>"; };
-		3DA6BCE42538B3B500DF0DA5 /* citymobil_ads.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = citymobil_ads.hpp; sourceTree = "<group>"; };
-		3DBC1C501E4B14810016897F /* facebook_tests.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = facebook_tests.cpp; sourceTree = "<group>"; };
 		3DBD7B9624112DE000ED9FE8 /* freenow_api.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = freenow_api.cpp; sourceTree = "<group>"; };
 		3DBD7B9724112DE100ED9FE8 /* freenow_api.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = freenow_api.hpp; sourceTree = "<group>"; };
 		3DBD7B9A24112DEA00ED9FE8 /* freenow_tests.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = freenow_tests.cpp; sourceTree = "<group>"; };
-		3DBD7BE624251BF000ED9FE8 /* bookmark_catalog_ads.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = bookmark_catalog_ads.cpp; sourceTree = "<group>"; };
-		3DBD7BE724251BF000ED9FE8 /* google_ads.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = google_ads.hpp; sourceTree = "<group>"; };
-		3DBD7BE824251BF000ED9FE8 /* banner.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = banner.hpp; sourceTree = "<group>"; };
-		3DBD7BE924251BF000ED9FE8 /* tinkoff_insurance_ads.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = tinkoff_insurance_ads.hpp; sourceTree = "<group>"; };
-		3DBD7BEA24251BF000ED9FE8 /* tinkoff_allairlines_ads.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = tinkoff_allairlines_ads.hpp; sourceTree = "<group>"; };
-		3DBD7BEB24251BF000ED9FE8 /* mopub_ads.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = mopub_ads.hpp; sourceTree = "<group>"; };
-		3DBD7BEC24251BF000ED9FE8 /* rb_ads.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = rb_ads.cpp; sourceTree = "<group>"; };
-		3DBD7BED24251BF000ED9FE8 /* ads_engine.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = ads_engine.hpp; sourceTree = "<group>"; };
-		3DBD7BEE24251BF000ED9FE8 /* mts_ads.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = mts_ads.cpp; sourceTree = "<group>"; };
-		3DBD7BEF24251BF000ED9FE8 /* skyeng_ads.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = skyeng_ads.cpp; sourceTree = "<group>"; };
-		3DBD7BF024251BF000ED9FE8 /* ads_utils.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ads_utils.cpp; sourceTree = "<group>"; };
-		3DBD7BF124251BF000ED9FE8 /* ads_base.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = ads_base.hpp; sourceTree = "<group>"; };
-		3DBD7BF224251BF000ED9FE8 /* facebook_ads.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = facebook_ads.hpp; sourceTree = "<group>"; };
-		3DBD7BF324251BF000ED9FE8 /* tinkoff_allairlines_ads.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = tinkoff_allairlines_ads.cpp; sourceTree = "<group>"; };
-		3DBD7BF424251BF000ED9FE8 /* mts_ads.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = mts_ads.hpp; sourceTree = "<group>"; };
-		3DBD7BF524251BF000ED9FE8 /* rb_ads.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = rb_ads.hpp; sourceTree = "<group>"; };
-		3DBD7BF624251BF000ED9FE8 /* mopub_ads.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = mopub_ads.cpp; sourceTree = "<group>"; };
-		3DBD7BF724251BF000ED9FE8 /* ads_engine.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ads_engine.cpp; sourceTree = "<group>"; };
-		3DBD7BF824251BF000ED9FE8 /* skyeng_ads.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = skyeng_ads.hpp; sourceTree = "<group>"; };
-		3DBD7BF924251BF000ED9FE8 /* ads_utils.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = ads_utils.hpp; sourceTree = "<group>"; };
-		3DBD7BFA24251BF000ED9FE8 /* ads_base.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ads_base.cpp; sourceTree = "<group>"; };
-		3DBD7BFB24251BF000ED9FE8 /* facebook_ads.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = facebook_ads.cpp; sourceTree = "<group>"; };
-		3DBD7BFC24251BF000ED9FE8 /* bookmark_catalog_ads.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = bookmark_catalog_ads.hpp; sourceTree = "<group>"; };
-		3DBD7BFD24251BF000ED9FE8 /* google_ads.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = google_ads.cpp; sourceTree = "<group>"; };
-		3DBD7BFE24251BF000ED9FE8 /* tinkoff_insurance_ads.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = tinkoff_insurance_ads.cpp; sourceTree = "<group>"; };
-		3DBD7C1824251C1000ED9FE8 /* tinkoff_insurance_tests.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = tinkoff_insurance_tests.cpp; sourceTree = "<group>"; };
-		3DBD7C1924251C1000ED9FE8 /* mts_tests.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = mts_tests.cpp; sourceTree = "<group>"; };
-		3DBD7C1A24251C1000ED9FE8 /* download_on_map_container_delegate.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = download_on_map_container_delegate.hpp; sourceTree = "<group>"; };
-		3DBD7C1B24251C1000ED9FE8 /* skyeng_tests.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = skyeng_tests.cpp; sourceTree = "<group>"; };
-		3DBD7C1C24251C1100ED9FE8 /* bookmark_catalog_ads_tests.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = bookmark_catalog_ads_tests.cpp; sourceTree = "<group>"; };
-		3DBD7C1D24251C1100ED9FE8 /* tinkoff_airlines_tests.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = tinkoff_airlines_tests.cpp; sourceTree = "<group>"; };
 		3DCAC69224D1CFE800518E8B /* booking_ordering_params.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = booking_ordering_params.hpp; sourceTree = "<group>"; };
 		3DCAC69324D1CFE800518E8B /* booking_ordering_params.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = booking_ordering_params.cpp; sourceTree = "<group>"; };
 		3DCD415120DAB33700143533 /* booking_block_params.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = booking_block_params.cpp; sourceTree = "<group>"; };
 		3DCD415220DAB33700143533 /* booking_block_params.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = booking_block_params.hpp; sourceTree = "<group>"; };
-		3DCF64A624DC0A0200C49963 /* mastercard_sber_ads.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = mastercard_sber_ads.hpp; sourceTree = "<group>"; };
-		3DCF64A724DC0A0200C49963 /* mastercard_sber_ads.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = mastercard_sber_ads.cpp; sourceTree = "<group>"; };
-		3DCF64AA24DC0A2300C49963 /* mastercard_sberbank_tests.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = mastercard_sberbank_tests.cpp; sourceTree = "<group>"; };
 		3DF01C2A20652462005DDF8C /* taxi_places.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = taxi_places.cpp; sourceTree = "<group>"; };
 		3DF01C2B20652463005DDF8C /* taxi_places.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = taxi_places.hpp; sourceTree = "<group>"; };
 		3DF9C218207CAC3000DA0793 /* taxi_places_tests.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = taxi_places_tests.cpp; sourceTree = "<group>"; };
@@ -235,7 +143,6 @@
 		3DFEBF991EFBFC1500317D5C /* yandex_api.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = yandex_api.hpp; sourceTree = "<group>"; };
 		3DFEBFA01EFBFC2300317D5C /* taxi_engine_tests.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = taxi_engine_tests.cpp; sourceTree = "<group>"; };
 		3DFEBFA11EFBFC2300317D5C /* yandex_tests.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = yandex_tests.cpp; sourceTree = "<group>"; };
-		4566605220D920000085E8C1 /* megafon_countries_tests.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = megafon_countries_tests.cpp; sourceTree = "<group>"; };
 		4566605420D920220085E8C1 /* libstorage.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libstorage.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		45AC338E22C4F448004DC574 /* utm.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = utm.hpp; sourceTree = "<group>"; };
 		45C380752094C5B400C18D81 /* partners.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = partners.cpp; sourceTree = "<group>"; };
@@ -300,44 +207,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		3DBD7BE524251BF000ED9FE8 /* ads */ = {
-			isa = PBXGroup;
-			children = (
-				3DA5876A25506123002E024C /* arsenal_ads.cpp */,
-				3DA5876B25506123002E024C /* arsenal_ads.hpp */,
-				3DA6BCE32538B3B500DF0DA5 /* citymobil_ads.cpp */,
-				3DA6BCE42538B3B500DF0DA5 /* citymobil_ads.hpp */,
-				3DCF64A724DC0A0200C49963 /* mastercard_sber_ads.cpp */,
-				3DCF64A624DC0A0200C49963 /* mastercard_sber_ads.hpp */,
-				3DBD7BE624251BF000ED9FE8 /* bookmark_catalog_ads.cpp */,
-				3DBD7BE724251BF000ED9FE8 /* google_ads.hpp */,
-				3DBD7BE824251BF000ED9FE8 /* banner.hpp */,
-				3DBD7BE924251BF000ED9FE8 /* tinkoff_insurance_ads.hpp */,
-				3DBD7BEA24251BF000ED9FE8 /* tinkoff_allairlines_ads.hpp */,
-				3DBD7BEB24251BF000ED9FE8 /* mopub_ads.hpp */,
-				3DBD7BEC24251BF000ED9FE8 /* rb_ads.cpp */,
-				3DBD7BED24251BF000ED9FE8 /* ads_engine.hpp */,
-				3DBD7BEE24251BF000ED9FE8 /* mts_ads.cpp */,
-				3DBD7BEF24251BF000ED9FE8 /* skyeng_ads.cpp */,
-				3DBD7BF024251BF000ED9FE8 /* ads_utils.cpp */,
-				3DBD7BF124251BF000ED9FE8 /* ads_base.hpp */,
-				3DBD7BF224251BF000ED9FE8 /* facebook_ads.hpp */,
-				3DBD7BF324251BF000ED9FE8 /* tinkoff_allairlines_ads.cpp */,
-				3DBD7BF424251BF000ED9FE8 /* mts_ads.hpp */,
-				3DBD7BF524251BF000ED9FE8 /* rb_ads.hpp */,
-				3DBD7BF624251BF000ED9FE8 /* mopub_ads.cpp */,
-				3DBD7BF724251BF000ED9FE8 /* ads_engine.cpp */,
-				3DBD7BF824251BF000ED9FE8 /* skyeng_ads.hpp */,
-				3DBD7BF924251BF000ED9FE8 /* ads_utils.hpp */,
-				3DBD7BFA24251BF000ED9FE8 /* ads_base.cpp */,
-				3DBD7BFB24251BF000ED9FE8 /* facebook_ads.cpp */,
-				3DBD7BFC24251BF000ED9FE8 /* bookmark_catalog_ads.hpp */,
-				3DBD7BFD24251BF000ED9FE8 /* google_ads.cpp */,
-				3DBD7BFE24251BF000ED9FE8 /* tinkoff_insurance_ads.cpp */,
-			);
-			path = ads;
-			sourceTree = "<group>";
-		};
 		F6B5362B1DA5209F0067EEA5 = {
 			isa = PBXGroup;
 			children = (
@@ -371,7 +240,6 @@
 				3DCAC69224D1CFE800518E8B /* booking_ordering_params.hpp */,
 				3D035CA1245195E600C21B57 /* guides_on_map_api.cpp */,
 				3D035CA0245195E500C21B57 /* guides_on_map_api.hpp */,
-				3DBD7BE524251BF000ED9FE8 /* ads */,
 				3DBD7B9624112DE000ED9FE8 /* freenow_api.cpp */,
 				3DBD7B9724112DE100ED9FE8 /* freenow_api.hpp */,
 				3D1775A52318198600F8889C /* promo_catalog_types.cpp */,
@@ -420,34 +288,18 @@
 		F6B536441DA521060067EEA5 /* partners_api_tests */ = {
 			isa = PBXGroup;
 			children = (
-				3DA5877B2551AC22002E024C /* arsenal_tests.cpp */,
-				3DA5877A2551AC22002E024C /* citymobil_ads_tests.cpp */,
 				3DA6BCE12535B53C00DF0DA5 /* citymobil_tests.cpp */,
-				3DCF64AA24DC0A2300C49963 /* mastercard_sberbank_tests.cpp */,
 				3D035CA4245195EF00C21B57 /* guides_on_map_tests.cpp */,
-				3DBD7C1C24251C1100ED9FE8 /* bookmark_catalog_ads_tests.cpp */,
-				3DBD7C1A24251C1000ED9FE8 /* download_on_map_container_delegate.hpp */,
-				3DBD7C1924251C1000ED9FE8 /* mts_tests.cpp */,
-				3DBD7C1B24251C1000ED9FE8 /* skyeng_tests.cpp */,
-				3DBD7C1D24251C1100ED9FE8 /* tinkoff_airlines_tests.cpp */,
-				3DBD7C1824251C1000ED9FE8 /* tinkoff_insurance_tests.cpp */,
 				3DBD7B9A24112DEA00ED9FE8 /* freenow_tests.cpp */,
 				3D18DC4322956E0900A583A6 /* promo_tests.cpp */,
 				3D18DC3222953FF600A583A6 /* rutaxi_tests.cpp */,
-				346E889D1E9D088200D4CE9B /* ads_engine_tests.cpp */,
 				F6B536451DA5213D0067EEA5 /* booking_tests.cpp */,
-				3DBC1C501E4B14810016897F /* facebook_tests.cpp */,
-				3D452AED1EE6D202009EAB9B /* google_tests.cpp */,
 				349CFD0C2045720700569949 /* maxim_tests.cpp */,
-				4566605220D920000085E8C1 /* megafon_countries_tests.cpp */,
-				3D47B2801F00F94D000828D2 /* mopub_tests.cpp */,
-				346E889E1E9D088200D4CE9B /* rb_tests.cpp */,
 				3DFEBFA01EFBFC2300317D5C /* taxi_engine_tests.cpp */,
 				3DF9C218207CAC3000DA0793 /* taxi_places_tests.cpp */,
 				F6B536691DA523060067EEA5 /* testingmain.cpp */,
 				F6B536461DA5213D0067EEA5 /* uber_tests.cpp */,
 				3DFEBFA11EFBFC2300317D5C /* yandex_tests.cpp */,
-				3D452AEE1EE6D202009EAB9B /* mopub_tests.cpp */,
 			);
 			name = partners_api_tests;
 			path = ../../partners_api/partners_api_tests;
@@ -492,23 +344,13 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3DBD7C0024251BF000ED9FE8 /* google_ads.hpp in Headers */,
 				3DA5713420B57358007BDE27 /* booking_params_base.hpp in Headers */,
-				3DBD7C0224251BF000ED9FE8 /* tinkoff_insurance_ads.hpp in Headers */,
 				3D18DC4122956DFA00A583A6 /* promo_api.hpp in Headers */,
-				3DA6BCE62538B3B600DF0DA5 /* citymobil_ads.hpp in Headers */,
 				3D1775A82318198700F8889C /* promo_catalog_types.hpp in Headers */,
-				3DBD7C1524251BF000ED9FE8 /* bookmark_catalog_ads.hpp in Headers */,
 				3DCD415420DAB33700143533 /* booking_block_params.hpp in Headers */,
-				3DA5876D25506123002E024C /* arsenal_ads.hpp in Headers */,
 				F67E75261DB8F06F00D6741F /* opentable_api.hpp in Headers */,
 				F6B536411DA520E40067EEA5 /* booking_api.hpp in Headers */,
-				3DBD7C1124251BF000ED9FE8 /* skyeng_ads.hpp in Headers */,
-				3DBD7C0B24251BF000ED9FE8 /* facebook_ads.hpp in Headers */,
 				3D47B2B11F14FA14000828D2 /* utils.hpp in Headers */,
-				3DBD7C0324251BF000ED9FE8 /* tinkoff_allairlines_ads.hpp in Headers */,
-				3DBD7C0A24251BF000ED9FE8 /* ads_base.hpp in Headers */,
-				3DBD7C0D24251BF000ED9FE8 /* mts_ads.hpp in Headers */,
 				3D15ACE7214AA1B000F725D5 /* rutaxi_api.hpp in Headers */,
 				45C380782094C5B400C18D81 /* partners.hpp in Headers */,
 				3DBD7B9924112DE100ED9FE8 /* freenow_api.hpp in Headers */,
@@ -521,18 +363,11 @@
 				349CFD0A2045720000569949 /* maxim_api.hpp in Headers */,
 				3D4E997C1FB439260025B48C /* booking_availability_params.hpp in Headers */,
 				3DFEBF9C1EFBFC1500317D5C /* taxi_engine.hpp in Headers */,
-				3DBD7C0124251BF000ED9FE8 /* banner.hpp in Headers */,
 				45AC338F22C4F449004DC574 /* utm.hpp in Headers */,
 				F6B536431DA520E40067EEA5 /* uber_api.hpp in Headers */,
-				3DCF64A824DC0A0300C49963 /* mastercard_sber_ads.hpp in Headers */,
 				3D035CA2245195E600C21B57 /* guides_on_map_api.hpp in Headers */,
-				3DBD7C0424251BF000ED9FE8 /* mopub_ads.hpp in Headers */,
-				3DBD7C1224251BF000ED9FE8 /* ads_utils.hpp in Headers */,
 				3DCAC69424D1CFE800518E8B /* booking_ordering_params.hpp in Headers */,
-				3DBD7C0624251BF000ED9FE8 /* ads_engine.hpp in Headers */,
-				3DBD7C2024251C1100ED9FE8 /* download_on_map_container_delegate.hpp in Headers */,
 				3DF01C2E20652463005DDF8C /* taxi_places.hpp in Headers */,
-				3DBD7C0E24251BF000ED9FE8 /* rb_ads.hpp in Headers */,
 				BB1956E71F543D7C003ECE6C /* locals_api.hpp in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -629,58 +464,33 @@
 				3D18DC4222956DFA00A583A6 /* promo_api.cpp in Sources */,
 				349CFD0B2045720000569949 /* maxim_api.cpp in Sources */,
 				3DA6BCE22535B53C00DF0DA5 /* citymobil_tests.cpp in Sources */,
-				3DBD7C1424251BF000ED9FE8 /* facebook_ads.cpp in Sources */,
 				3DFEBFA41EFBFC2300317D5C /* yandex_tests.cpp in Sources */,
 				3DA6BCE02535B52E00DF0DA5 /* citymobil_api.cpp in Sources */,
 				3D1775A72318198700F8889C /* promo_catalog_types.cpp in Sources */,
-				3D452AEF1EE6D202009EAB9B /* google_tests.cpp in Sources */,
 				3D035CA3245195E600C21B57 /* guides_on_map_api.cpp in Sources */,
-				3D452AF01EE6D202009EAB9B /* mopub_tests.cpp in Sources */,
 				3D18DC3422953FF600A583A6 /* rutaxi_tests.cpp in Sources */,
-				3DBD7C0924251BF000ED9FE8 /* ads_utils.cpp in Sources */,
 				3D035CA5245195EF00C21B57 /* guides_on_map_tests.cpp in Sources */,
-				3DBD7C0824251BF000ED9FE8 /* skyeng_ads.cpp in Sources */,
-				3DBD7BFF24251BF000ED9FE8 /* bookmark_catalog_ads.cpp in Sources */,
 				3D8DAE7625026B550000513A /* yango_api.cpp in Sources */,
 				3D4E997F1FB439300025B48C /* utils.cpp in Sources */,
 				3D15ACE8214AA1B000F725D5 /* rutaxi_api.cpp in Sources */,
 				3DBD7B9824112DE100ED9FE8 /* freenow_api.cpp in Sources */,
-				3DA5876C25506123002E024C /* arsenal_ads.cpp in Sources */,
-				3DBD7C0C24251BF000ED9FE8 /* tinkoff_allairlines_ads.cpp in Sources */,
 				45C380772094C5B400C18D81 /* partners.cpp in Sources */,
-				3DBD7C1E24251C1100ED9FE8 /* tinkoff_insurance_tests.cpp in Sources */,
 				3D4E997D1FB439260025B48C /* booking_availability_params.cpp in Sources */,
 				3DCD415320DAB33700143533 /* booking_block_params.cpp in Sources */,
 				F6B536421DA520E40067EEA5 /* uber_api.cpp in Sources */,
 				F6539537207FBED70057B97C /* taxi_places_loader.cpp in Sources */,
 				3DCAC69524D1CFE900518E8B /* booking_ordering_params.cpp in Sources */,
-				3DBD7C1024251BF000ED9FE8 /* ads_engine.cpp in Sources */,
 				3DFEBF9B1EFBFC1500317D5C /* taxi_engine.cpp in Sources */,
-				3DBD7C0F24251BF000ED9FE8 /* mopub_ads.cpp in Sources */,
 				3DF01C2D20652463005DDF8C /* taxi_places.cpp in Sources */,
-				3DBD7C0724251BF000ED9FE8 /* mts_ads.cpp in Sources */,
 				F67E75251DB8F06F00D6741F /* opentable_api.cpp in Sources */,
-				3DA6BCE52538B3B600DF0DA5 /* citymobil_ads.cpp in Sources */,
-				3DBD7C1F24251C1100ED9FE8 /* mts_tests.cpp in Sources */,
-				3DCF64A924DC0A0300C49963 /* mastercard_sber_ads.cpp in Sources */,
 				3D18DC4422956E0900A583A6 /* promo_tests.cpp in Sources */,
-				3DBD7C2324251C1100ED9FE8 /* tinkoff_airlines_tests.cpp in Sources */,
 				BB1956E61F543D7C003ECE6C /* locals_api.cpp in Sources */,
 				3DBD7B9B24112DEA00ED9FE8 /* freenow_tests.cpp in Sources */,
-				3DBD7C0524251BF000ED9FE8 /* rb_ads.cpp in Sources */,
-				3DBD7C2124251C1100ED9FE8 /* skyeng_tests.cpp in Sources */,
-				3DBD7C1324251BF000ED9FE8 /* ads_base.cpp in Sources */,
-				3DBD7C2224251C1100ED9FE8 /* bookmark_catalog_ads_tests.cpp in Sources */,
-				3DBD7C1724251BF000ED9FE8 /* tinkoff_insurance_ads.cpp in Sources */,
 				3DFEBFA31EFBFC2300317D5C /* taxi_engine_tests.cpp in Sources */,
 				F6B536401DA520E40067EEA5 /* booking_api.cpp in Sources */,
-				3DCF64AB24DC0A2300C49963 /* mastercard_sberbank_tests.cpp in Sources */,
-				3DA5877D2551AC23002E024C /* arsenal_tests.cpp in Sources */,
-				3DA5877C2551AC22002E024C /* citymobil_ads_tests.cpp in Sources */,
 				3D47B29A1F054C89000828D2 /* taxi_base.cpp in Sources */,
 				349CFD0D2045720700569949 /* maxim_tests.cpp in Sources */,
 				3DFEBF9E1EFBFC1500317D5C /* yandex_api.cpp in Sources */,
-				3DBD7C1624251BF000ED9FE8 /* google_ads.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -689,14 +499,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				3DF9C219207CAC3000DA0793 /* taxi_places_tests.cpp in Sources */,
-				3488B0371E9D11860068AFD8 /* ads_engine_tests.cpp in Sources */,
 				F6539538207FBED80057B97C /* taxi_places_loader.cpp in Sources */,
 				F6B5366B1DA5230C0067EEA5 /* testingmain.cpp in Sources */,
 				F6B536671DA522D90067EEA5 /* booking_tests.cpp in Sources */,
-				3488B0391E9D118D0068AFD8 /* facebook_tests.cpp in Sources */,
-				3488B0381E9D11890068AFD8 /* rb_tests.cpp in Sources */,
 				F6B536681DA522D90067EEA5 /* uber_tests.cpp in Sources */,
-				4566605320D920000085E8C1 /* megafon_countries_tests.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

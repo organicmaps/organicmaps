@@ -7,8 +7,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.mapswithme.maps.Framework;
-import com.mapswithme.maps.ads.Banner;
-import com.mapswithme.maps.ads.LocalAdInfo;
 import com.mapswithme.maps.routing.RoutePointInfo;
 import com.mapswithme.maps.search.HotelsFilter;
 import com.mapswithme.maps.search.Popularity;
@@ -28,9 +26,9 @@ public class Bookmark extends MapObject
 
   public Bookmark(@NonNull FeatureId featureId, @IntRange(from = 0) long categoryId,
                   @IntRange(from = 0) long bookmarkId, String title, @Nullable String secondaryTitle,
-                  @Nullable String subtitle, @Nullable String address, @Nullable Banner[] banners,
+                  @Nullable String subtitle, @Nullable String address,
                   @Nullable int[] reachableByTaxiTypes, @Nullable String bookingSearchUrl,
-                  @Nullable LocalAdInfo localAdInfo, @Nullable RoutePointInfo routePointInfo,
+                  @Nullable RoutePointInfo routePointInfo,
                   @OpeningMode int openingMode, boolean shouldShowUGC, boolean canBeRated,
                   boolean canBeReviewed, @Nullable UGC.Rating[] ratings,
                   @Nullable HotelsFilter.HotelType hotelType, @PriceFilterView.PriceDef int priceRate,
@@ -38,7 +36,7 @@ public class Bookmark extends MapObject
                   boolean isTopChoice, @Nullable String[] rawTypes)
   {
     super(featureId, BOOKMARK, title, secondaryTitle, subtitle, address, 0, 0, "",
-          banners, reachableByTaxiTypes, bookingSearchUrl, localAdInfo, routePointInfo,
+          reachableByTaxiTypes, bookingSearchUrl, routePointInfo,
           openingMode, shouldShowUGC, canBeRated, canBeReviewed, ratings, hotelType, priceRate,
           popularity, description, RoadWarningMarkType.UNKNOWN.ordinal(), isTopChoice, rawTypes);
 

@@ -6,46 +6,6 @@ import com.mapswithme.util.Utils;
 
 public enum SubscriptionType
 {
-  ADS_REMOVAL
-      {
-        @NonNull
-        @Override
-        String getServerId()
-        {
-          return PrivateVariables.adsRemovalServerId();
-        }
-
-        @NonNull
-        @Override
-        String getVendor()
-        {
-          return PrivateVariables.adsRemovalVendor();
-        }
-
-        @NonNull
-        @Override
-        String[] getProductIds()
-        {
-          return Utils.concatArrays(PrivateVariables.adsRemovalNotUsedList(),
-                                    PrivateVariables.adsRemovalYearlyProductId(),
-                                    PrivateVariables.adsRemovalMonthlyProductId(),
-                                    PrivateVariables.adsRemovalWeeklyProductId());
-        }
-
-        @NonNull
-        @Override
-        String getYearlyProductId()
-        {
-          return PrivateVariables.adsRemovalYearlyProductId();
-        }
-
-        @NonNull
-        @Override
-        String getMonthlyProductId()
-        {
-          return PrivateVariables.adsRemovalMonthlyProductId();
-        }
-      },
   BOOKMARKS_ALL
       {
         @NonNull
