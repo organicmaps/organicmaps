@@ -102,11 +102,11 @@ public class UGCController implements View.OnClickListener, UGC.ReceiveUGCListen
     mUgcAddRatingView.findViewById(R.id.ll__normal).setOnClickListener(this);
     mUgcAddRatingView.findViewById(R.id.ll__good).setOnClickListener(this);
     mUgcAddRatingView.findViewById(R.id.ll__excellent).setOnClickListener(this);
-    mReviewCount = (TextView) mPlacePage.findViewById(R.id.tv__review_count);
-    mLeaveReviewButton = (Button) mPlacePage.findViewById(R.id.leaveReview);
+    mReviewCount = mPlacePage.findViewById(R.id.tv__review_count);
+    mLeaveReviewButton = mPlacePage.findViewById(R.id.leaveReview);
     mLeaveReviewButton.setOnClickListener(mLeaveReviewClickListener);
 
-    RecyclerView rvUGCReviews = (RecyclerView) mPlacePage.findViewById(R.id.rv__pp_ugc_reviews);
+    RecyclerView rvUGCReviews = mPlacePage.findViewById(R.id.rv__pp_ugc_reviews);
     rvUGCReviews.setLayoutManager(new LinearLayoutManager(context));
     rvUGCReviews.getLayoutManager().setAutoMeasureEnabled(true);
     rvUGCReviews.addItemDecoration(
@@ -117,7 +117,7 @@ public class UGCController implements View.OnClickListener, UGC.ReceiveUGCListen
 
     mSummaryRootView = mPlacePage.findViewById(R.id.ll__summary_container);
     View summaryRatingContainer = mSummaryRootView.findViewById(R.id.summary_rating_records);
-    RecyclerView rvRatingRecords = (RecyclerView) summaryRatingContainer.findViewById(R.id.rv__summary_rating_records);
+    RecyclerView rvRatingRecords = summaryRatingContainer.findViewById(R.id.rv__summary_rating_records);
     rvRatingRecords.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false));
     rvRatingRecords.getLayoutManager().setAutoMeasureEnabled(true);
     rvRatingRecords.setNestedScrollingEnabled(false);
@@ -125,10 +125,10 @@ public class UGCController implements View.OnClickListener, UGC.ReceiveUGCListen
     rvRatingRecords.addItemDecoration(
         ItemDecoratorFactory.createRatingRecordDecorator(context, LinearLayoutManager.HORIZONTAL));
     rvRatingRecords.setAdapter(mUGCRatingRecordsAdapter);
-    mSummaryReviewCount = (TextView) mSummaryRootView.findViewById(R.id.tv__review_count);
+    mSummaryReviewCount = mSummaryRootView.findViewById(R.id.tv__review_count);
 
     mUserRatingRecordsContainer = mPlacePage.findViewById(R.id.user_rating_records);
-    RecyclerView userRatingRecords = (RecyclerView) mUserRatingRecordsContainer.findViewById(R.id.rv__summary_rating_records);
+    RecyclerView userRatingRecords = mUserRatingRecordsContainer.findViewById(R.id.rv__summary_rating_records);
     userRatingRecords.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false));
     userRatingRecords.getLayoutManager().setAutoMeasureEnabled(true);
     userRatingRecords.setNestedScrollingEnabled(false);
@@ -228,7 +228,7 @@ public class UGCController implements View.OnClickListener, UGC.ReceiveUGCListen
 
   private void setSummaryViews(@NonNull UGC ugc, @UGC.Impress int impress, @NonNull String rating)
   {
-    RatingView ratingView = (RatingView) mSummaryRootView.findViewById(R.id.rv__summary_rating);
+    RatingView ratingView = mSummaryRootView.findViewById(R.id.rv__summary_rating);
     ratingView.setRating(Impress.values()[impress], rating);
     Context context = mPlacePage.getContext();
     int reviewsCount = ugc.getBasedOnCount();

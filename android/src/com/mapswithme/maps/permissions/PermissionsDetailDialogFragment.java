@@ -44,7 +44,7 @@ public class PermissionsDetailDialogFragment extends BasePermissionsDialogFragme
   public Dialog onCreateDialog(Bundle savedInstanceState)
   {
     Dialog res = super.onCreateDialog(savedInstanceState);
-    RecyclerView permissions = (RecyclerView) res.findViewById(R.id.rv__permissions);
+    RecyclerView permissions = res.findViewById(R.id.rv__permissions);
     permissions.setLayoutManager(new LinearLayoutManager(getContext(),
                                                          LinearLayoutManager.VERTICAL, false));
     permissions.setAdapter(new PermissionsAdapter());

@@ -63,17 +63,17 @@ public class StackedButtonsDialog extends AppCompatDialog implements View.OnClic
     setOnCancelListener(mCancelListener);
     setContentView(R.layout.dialog_stacked_buttons);
 
-    TextView title = (TextView) findViewById(R.id.tv__title);
+    TextView title = findViewById(R.id.tv__title);
     UiUtils.setTextAndHideIfEmpty(title, mTitle);
-    TextView message = (TextView) findViewById(R.id.tv__message);
+    TextView message = findViewById(R.id.tv__message);
     UiUtils.setTextAndHideIfEmpty(message, mMessage);
-    TextView positive = (TextView) findViewById(R.id.btn__positive);
+    TextView positive = findViewById(R.id.btn__positive);
     positive.setOnClickListener(this);
     UiUtils.setTextAndHideIfEmpty(positive, mPositive);
-    TextView neutral = (TextView) findViewById(R.id.btn__neutral);
+    TextView neutral = findViewById(R.id.btn__neutral);
     neutral.setOnClickListener(this);
     UiUtils.setTextAndHideIfEmpty(neutral, mNeutral);
-    TextView negative = (TextView) findViewById(R.id.btn__negative);
+    TextView negative = findViewById(R.id.btn__negative);
     negative.setOnClickListener(this);
     UiUtils.setTextAndHideIfEmpty(negative, mNegative);
   }

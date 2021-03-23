@@ -55,7 +55,7 @@ class BottomPanel
   {
     mFragment = fragment;
 
-    mFab = (FloatingActionButton) frame.findViewById(R.id.fab);
+    mFab = frame.findViewById(R.id.fab);
     mFab.setOnClickListener(new View.OnClickListener()
     {
       @Override
@@ -67,7 +67,7 @@ class BottomPanel
       }
     });
 
-    mButton = (Button) frame.findViewById(R.id.action);
+    mButton = frame.findViewById(R.id.action);
   }
 
   private void setUpdateAllState(UpdateInfo info)

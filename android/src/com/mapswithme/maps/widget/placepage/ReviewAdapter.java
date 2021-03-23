@@ -78,13 +78,13 @@ class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.ViewHolder>
     {
       super(view);
       mDivider = view.findViewById(R.id.v__divider);
-      mUserName = (TextView) view.findViewById(R.id.tv__user_name);
-      mCommentDate = (TextView) view.findViewById(R.id.tv__comment_date);
-      mRating = (TextView) view.findViewById(R.id.tv__user_rating);
+      mUserName = view.findViewById(R.id.tv__user_name);
+      mCommentDate = view.findViewById(R.id.tv__comment_date);
+      mRating = view.findViewById(R.id.tv__user_rating);
       mPositiveReview = view.findViewById(R.id.ll__positive_review);
-      mTvPositiveReview = (TextView) view.findViewById(R.id.tv__positive_review);
+      mTvPositiveReview = view.findViewById(R.id.tv__positive_review);
       mNegativeReview = view.findViewById(R.id.ll__negative_review);
-      mTvNegativeReview = (TextView) view.findViewById(R.id.tv__negative_review);
+      mTvNegativeReview = view.findViewById(R.id.tv__negative_review);
     }
 
     public void bind(Review item, boolean isShowDivider)

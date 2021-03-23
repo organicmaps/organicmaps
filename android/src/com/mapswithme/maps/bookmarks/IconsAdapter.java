@@ -65,7 +65,7 @@ public class IconsAdapter extends ArrayAdapter<Icon>
 
     SpinnerViewHolder(View convertView)
     {
-      icon = (ImageView) convertView.findViewById(R.id.iv__color);
+      icon = convertView.findViewById(R.id.iv__color);
     }
   }
 

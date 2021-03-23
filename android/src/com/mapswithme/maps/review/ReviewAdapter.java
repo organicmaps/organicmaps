@@ -136,13 +136,13 @@ class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.BaseViewHolder>
     {
       super(itemView, listener);
       mDivider = itemView.findViewById(R.id.v__divider);
-      mUserName = (TextView) itemView.findViewById(R.id.tv__user_name);
-      mCommentDate = (TextView) itemView.findViewById(R.id.tv__comment_date);
-      mRating = (TextView) itemView.findViewById(R.id.tv__user_rating);
+      mUserName = itemView.findViewById(R.id.tv__user_name);
+      mCommentDate = itemView.findViewById(R.id.tv__comment_date);
+      mRating = itemView.findViewById(R.id.tv__user_rating);
       mPositiveReview = itemView.findViewById(R.id.ll__positive_review);
-      mTvPositiveReview = (TextView) itemView.findViewById(R.id.tv__positive_review);
+      mTvPositiveReview = itemView.findViewById(R.id.tv__positive_review);
       mNegativeReview = itemView.findViewById(R.id.ll__negative_review);
-      mTvNegativeReview = (TextView) itemView.findViewById(R.id.tv__negative_review);
+      mTvNegativeReview = itemView.findViewById(R.id.tv__negative_review);
     }
 
     @Override
@@ -192,8 +192,8 @@ class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.BaseViewHolder>
     RatingHolder(View itemView, RecyclerClickListener listener)
     {
       super(itemView, listener);
-      mHotelRating = (TextView) itemView.findViewById(R.id.tv__place_hotel_rating);
-      mHotelRatingBase = (TextView) itemView.findViewById(R.id.tv__place_hotel_rating_base);
+      mHotelRating = itemView.findViewById(R.id.tv__place_hotel_rating);
+      mHotelRatingBase = itemView.findViewById(R.id.tv__place_hotel_rating_base);
     }
 
     public void bind(String rating, int ratingBase)

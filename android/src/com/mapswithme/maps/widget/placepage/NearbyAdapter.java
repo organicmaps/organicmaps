@@ -95,10 +95,10 @@ class NearbyAdapter extends BaseAdapter
     public ViewHolder(View view, @Nullable OnItemClickListener listener)
     {
       mListener = listener;
-      mIcon = (ImageView) view.findViewById(R.id.iv__icon);
-      mTitle = (TextView) view.findViewById(R.id.tv__title);
-      mType = (TextView) view.findViewById(R.id.tv__type);
-      mDistance = (TextView) view.findViewById(R.id.tv__distance);
+      mIcon = view.findViewById(R.id.iv__icon);
+      mTitle = view.findViewById(R.id.tv__title);
+      mType = view.findViewById(R.id.tv__type);
+      mDistance = view.findViewById(R.id.tv__distance);
       view.setOnClickListener(this);
     }
 

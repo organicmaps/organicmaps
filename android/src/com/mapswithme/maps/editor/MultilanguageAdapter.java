@@ -97,8 +97,8 @@ public class MultilanguageAdapter extends RecyclerView.Adapter<MultilanguageAdap
     public Holder(View itemView)
     {
       super(itemView);
-      input = (EditText) itemView.findViewById(R.id.input);
-      inputLayout = (TextInputLayout) itemView.findViewById(R.id.input_layout);
+      input = itemView.findViewById(R.id.input);
+      inputLayout = itemView.findViewById(R.id.input_layout);
       input.addTextChangedListener(new StringUtils.SimpleTextWatcher()
       {
         @Override

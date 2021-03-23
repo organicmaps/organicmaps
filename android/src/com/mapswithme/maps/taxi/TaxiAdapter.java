@@ -49,11 +49,11 @@ public class TaxiAdapter extends PagerAdapter
     TaxiInfo.Product product = mProducts.get(position);
 
     View v = LayoutInflater.from(mContext).inflate(R.layout.taxi_pager_item, container, false);
-    TextView name = (TextView) v.findViewById(R.id.product_name);
+    TextView name = v.findViewById(R.id.product_name);
     boolean isApproxPrice = mType.isPriceApproximated();
     name.setText(isApproxPrice ? mContext.getString(mType.getTitle()) : product.getName());
     String separator = UiUtils.PHRASE_SEPARATOR + (isApproxPrice ? UiUtils.APPROXIMATE_SYMBOL : "");
-    TextView timeAndPriceView = (TextView) v.findViewById(R.id.arrival_time_price);
+    TextView timeAndPriceView = v.findViewById(R.id.arrival_time_price);
     int time = Integer.parseInt(product.getTime());
     CharSequence waitTime = RoutingController.formatRoutingTime(mContext, time,
                                                                 R.dimen.text_size_body_3);

@@ -62,10 +62,10 @@ public class DirectionFragment extends BaseMwmDialogFragment
 
   private void initViews(View root)
   {
-    mAvDirection = (ArrowView) root.findViewById(R.id.av__direction);
-    mTvTitle = (TextView) root.findViewById(R.id.tv__title);
-    mTvSubtitle = (TextView) root.findViewById(R.id.tv__subtitle);
-    mTvDistance = (TextView) root.findViewById(R.id.tv__straight_distance);
+    mAvDirection = root.findViewById(R.id.av__direction);
+    mTvTitle = root.findViewById(R.id.tv__title);
+    mTvSubtitle = root.findViewById(R.id.tv__subtitle);
+    mTvDistance = root.findViewById(R.id.tv__straight_distance);
 
     UiUtils.waitLayout(mTvTitle, new ViewTreeObserver.OnGlobalLayoutListener() {
       @Override

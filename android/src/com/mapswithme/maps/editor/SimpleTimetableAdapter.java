@@ -204,21 +204,21 @@ class SimpleTimetableAdapter extends RecyclerView.Adapter<SimpleTimetableAdapter
 
       allday = itemView.findViewById(R.id.allday);
       allday.setOnClickListener(this);
-      swAllday = (SwitchCompat) allday.findViewById(R.id.sw__allday);
+      swAllday = allday.findViewById(R.id.sw__allday);
       schedule = itemView.findViewById(R.id.schedule);
       openClose = schedule.findViewById(R.id.time_open_close);
       open = openClose.findViewById(R.id.time_open);
       open.setOnClickListener(this);
       close = openClose.findViewById(R.id.time_close);
       close.setOnClickListener(this);
-      tvOpen = (TextView) open.findViewById(R.id.tv__time_open);
-      tvClose = (TextView) close.findViewById(R.id.tv__time_close);
+      tvOpen = open.findViewById(R.id.tv__time_open);
+      tvClose = close.findViewById(R.id.tv__time_close);
       addClosed = schedule.findViewById(R.id.tv__add_closed);
       addClosed.setOnClickListener(this);
       deleteTimetable = itemView.findViewById(R.id.tv__remove_timetable);
       deleteTimetable.setOnClickListener(this);
 
-      final ViewGroup closedHost = (ViewGroup) itemView.findViewById(R.id.closed_host);
+      final ViewGroup closedHost = itemView.findViewById(R.id.closed_host);
       for (int i = 0; i < MAX_CLOSED_SPANS; i++)
       {
         final View span = LayoutInflater
@@ -341,7 +341,7 @@ class SimpleTimetableAdapter extends RecyclerView.Adapter<SimpleTimetableAdapter
     private void addDay(@IntRange(from = 1, to = 7) final int dayIndex, @IdRes int id)
     {
       final View day = itemView.findViewById(id);
-      final CheckBox checkBox = (CheckBox) day.findViewById(R.id.chb__day);
+      final CheckBox checkBox = day.findViewById(R.id.chb__day);
       // Save index of the day to get it back when checkbox will be toggled.
       checkBox.setTag(dayIndex);
       days.put(dayIndex, checkBox);
@@ -381,7 +381,7 @@ class SimpleTimetableAdapter extends RecyclerView.Adapter<SimpleTimetableAdapter
     AddTimetableViewHolder(View itemView)
     {
       super(itemView);
-      mAdd = (Button) itemView.findViewById(R.id.btn__add_time);
+      mAdd = itemView.findViewById(R.id.btn__add_time);
       mAdd.setOnClickListener(new View.OnClickListener()
       {
         @Override

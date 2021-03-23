@@ -68,13 +68,13 @@ public class OsmAuthFragment extends BaseMwmToolbarFragment implements View.OnCl
     };
     mDelegate.onViewCreated(view, savedInstanceState);
     getToolbarController().setTitle(R.string.login);
-    mEtLogin = (EditText) view.findViewById(R.id.osm_username);
-    mEtPassword = (EditText) view.findViewById(R.id.osm_password);
-    mTvLogin = (TextView) view.findViewById(R.id.login);
+    mEtLogin = view.findViewById(R.id.osm_username);
+    mEtPassword = view.findViewById(R.id.osm_password);
+    mTvLogin = view.findViewById(R.id.login);
     mTvLogin.setOnClickListener(this);
     mTvLostPassword = view.findViewById(R.id.lost_password);
     mTvLostPassword.setOnClickListener(this);
-    mProgress = (ProgressBar) view.findViewById(R.id.osm_login_progress);
+    mProgress = view.findViewById(R.id.osm_login_progress);
     mProgress.getIndeterminateDrawable().setColorFilter(new LightingColorFilter(0xFF000000, 0xFFFFFF));
     UiUtils.hide(mProgress);
   }

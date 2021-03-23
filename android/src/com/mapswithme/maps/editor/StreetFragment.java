@@ -50,7 +50,7 @@ public class StreetFragment extends BaseMwmRecyclerFragment<StreetAdapter>
   @NonNull
   public LocalizedStreet getStreet()
   {
-    return ((StreetAdapter) getAdapter()).getSelectedStreet();
+    return getAdapter().getSelectedStreet();
   }
 
   protected void saveStreet(LocalizedStreet street)

@@ -137,7 +137,7 @@ class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.ViewHolder>
     {
       super(itemView);
       mListener = listener;
-      mImage = (ImageView) itemView.findViewById(R.id.iv__image);
+      mImage = itemView.findViewById(R.id.iv__image);
       mMore = itemView.findViewById(R.id.tv__more);
       itemView.setOnClickListener(this);
     }

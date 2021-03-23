@@ -56,8 +56,8 @@ class UGCRatingRecordsAdapter extends RecyclerView.Adapter<UGCRatingRecordsAdapt
     public ViewHolder(View itemView)
     {
       super(itemView);
-      mName = (TextView) itemView.findViewById(R.id.name);
-      mBar = (RatingBar) itemView.findViewById(R.id.rating);
+      mName = itemView.findViewById(R.id.name);
+      mBar = itemView.findViewById(R.id.rating);
     }
 
     public void bind(UGC.Rating rating)

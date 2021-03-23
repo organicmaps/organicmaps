@@ -357,16 +357,16 @@ public class EditorFragment extends BaseMwmFragment implements View.OnClickListe
 
   private void initNamesView(final View view)
   {
-    mNamesCaption = (TextView) view.findViewById(R.id.show_additional_names);
+    mNamesCaption = view.findViewById(R.id.show_additional_names);
     mNamesCaption.setOnClickListener(this);
 
-    mAddLanguage = (TextView) view.findViewById(R.id.add_langs);
+    mAddLanguage = view.findViewById(R.id.add_langs);
     mAddLanguage.setOnClickListener(this);
 
-    mMoreLanguages = (TextView) view.findViewById(R.id.more_names);
+    mMoreLanguages = view.findViewById(R.id.more_names);
     mMoreLanguages.setOnClickListener(this);
 
-    mNamesView = (RecyclerView) view.findViewById(R.id.recycler);
+    mNamesView = view.findViewById(R.id.recycler);
     mNamesView.setNestedScrollingEnabled(false);
     mNamesView.setLayoutManager(new LinearLayoutManager(getActivity()));
     mNamesAdapter = new MultilanguageAdapter(mParent);
@@ -410,7 +410,7 @@ public class EditorFragment extends BaseMwmFragment implements View.OnClickListe
     categoryBlock.setOnClickListener(this);
     // TODO show icon and fill it when core will implement that
     UiUtils.hide(categoryBlock.findViewById(R.id.icon));
-    mCategory = (TextView) categoryBlock.findViewById(R.id.name);
+    mCategory = categoryBlock.findViewById(R.id.name);
     mCardName = view.findViewById(R.id.cv__name);
     mCardAddress = view.findViewById(R.id.cv__address);
     mCardDetails = view.findViewById(R.id.cv__details);
@@ -418,50 +418,50 @@ public class EditorFragment extends BaseMwmFragment implements View.OnClickListe
 
     // Address
     view.findViewById(R.id.block_street).setOnClickListener(this);
-    mStreet = (TextView) view.findViewById(R.id.street);
+    mStreet = view.findViewById(R.id.street);
     View blockHouseNumber = view.findViewById(R.id.block_building);
     mHouseNumber = findInputAndInitBlock(blockHouseNumber, 0, R.string.house_number);
-    mInputHouseNumber = (TextInputLayout) blockHouseNumber.findViewById(R.id.custom_input);
+    mInputHouseNumber = blockHouseNumber.findViewById(R.id.custom_input);
     View blockZipcode = view.findViewById(R.id.block_zipcode);
     mZipcode = findInputAndInitBlock(blockZipcode, 0, R.string.editor_zip_code);
-    mInputZipcode = (TextInputLayout) blockZipcode.findViewById(R.id.custom_input);
+    mInputZipcode = blockZipcode.findViewById(R.id.custom_input);
 
     // Details
     mBlockLevels = view.findViewById(R.id.block_levels);
     mBuildingLevels = findInputAndInitBlock(mBlockLevels, 0, getString(R.string.editor_storey_number, 25));
     mBuildingLevels.setInputType(InputType.TYPE_CLASS_NUMBER);
-    mInputBuildingLevels = (TextInputLayout) mBlockLevels.findViewById(R.id.custom_input);
+    mInputBuildingLevels = mBlockLevels.findViewById(R.id.custom_input);
     View blockPhone = view.findViewById(R.id.block_phone);
     mPhone = findInputAndInitBlock(blockPhone, R.drawable.ic_phone, R.string.phone);
     mPhone.setInputType(InputType.TYPE_CLASS_PHONE);
-    mInputPhone = (TextInputLayout) blockPhone.findViewById(R.id.custom_input);
+    mInputPhone = blockPhone.findViewById(R.id.custom_input);
     View blockWeb = view.findViewById(R.id.block_website);
     mWebsite = findInputAndInitBlock(blockWeb, R.drawable.ic_website, R.string.website);
     mWebsite.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_URI);
-    mInputWebsite = (TextInputLayout) blockWeb.findViewById(R.id.custom_input);
+    mInputWebsite = blockWeb.findViewById(R.id.custom_input);
     View blockEmail = view.findViewById(R.id.block_email);
     mEmail = findInputAndInitBlock(blockEmail, R.drawable.ic_email, R.string.email);
     mEmail.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS);
-    mInputEmail = (TextInputLayout) blockEmail.findViewById(R.id.custom_input);
+    mInputEmail = blockEmail.findViewById(R.id.custom_input);
     View blockCuisine = view.findViewById(R.id.block_cuisine);
     blockCuisine.setOnClickListener(this);
-    mCuisine = (TextView) view.findViewById(R.id.cuisine);
+    mCuisine = view.findViewById(R.id.cuisine);
     View blockOperator = view.findViewById(R.id.block_operator);
     mOperator = findInputAndInitBlock(blockOperator, R.drawable.ic_operator, R.string.editor_operator);
     View blockWifi = view.findViewById(R.id.block_wifi);
-    mWifi = (SwitchCompat) view.findViewById(R.id.sw__wifi);
+    mWifi = view.findViewById(R.id.sw__wifi);
     blockWifi.setOnClickListener(this);
     View blockOpeningHours = view.findViewById(R.id.block_opening_hours);
     mEditOpeningHours = blockOpeningHours.findViewById(R.id.edit_opening_hours);
     mEditOpeningHours.setOnClickListener(this);
     mEmptyOpeningHours = blockOpeningHours.findViewById(R.id.empty_opening_hours);
     mEmptyOpeningHours.setOnClickListener(this);
-    mOpeningHours = (TextView) blockOpeningHours.findViewById(R.id.opening_hours);
+    mOpeningHours = blockOpeningHours.findViewById(R.id.opening_hours);
     mOpeningHours.setOnClickListener(this);
     final View cardMore = view.findViewById(R.id.cv__more);
     mDescription = findInput(cardMore);
     cardMore.findViewById(R.id.about_osm).setOnClickListener(this);
-    mReset = (TextView) view.findViewById(R.id.reset);
+    mReset = view.findViewById(R.id.reset);
     mReset.setOnClickListener(this);
 
     mDetailsBlocks.append(OsmProps.OpeningHours.ordinal(), blockOpeningHours);
@@ -486,7 +486,7 @@ public class EditorFragment extends BaseMwmFragment implements View.OnClickListe
   private static EditText findInputAndInitBlock(View blockWithInput, @DrawableRes int icon, String hint)
   {
     ((ImageView) blockWithInput.findViewById(R.id.icon)).setImageResource(icon);
-    final TextInputLayout input = (TextInputLayout) blockWithInput.findViewById(R.id.custom_input);
+    final TextInputLayout input = blockWithInput.findViewById(R.id.custom_input);
     input.setHint(hint);
     return (EditText) input.findViewById(R.id.input);
   }

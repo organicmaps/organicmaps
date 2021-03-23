@@ -106,8 +106,8 @@ public class CuisineAdapter extends RecyclerView.Adapter<CuisineAdapter.ViewHold
     public ViewHolder(View itemView)
     {
       super(itemView);
-      cuisine = (TextView) itemView.findViewById(R.id.cuisine);
-      selected = (CheckBox) itemView.findViewById(R.id.selected);
+      cuisine = itemView.findViewById(R.id.cuisine);
+      selected = itemView.findViewById(R.id.selected);
       selected.setOnCheckedChangeListener(this);
       itemView.setOnClickListener(new View.OnClickListener()
       {

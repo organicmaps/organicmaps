@@ -463,10 +463,10 @@ class DownloaderAdapter extends RecyclerView.Adapter<DownloaderAdapter.ViewHolde
         }
       });
 
-      mName = (TextView) frame.findViewById(R.id.name);
-      mSubtitle = (TextView) frame.findViewById(R.id.subtitle);
-      mFoundName = (TextView) frame.findViewById(R.id.found_name);
-      mSize = (TextView) frame.findViewById(R.id.size);
+      mName = frame.findViewById(R.id.name);
+      mSubtitle = frame.findViewById(R.id.subtitle);
+      mFoundName = frame.findViewById(R.id.found_name);
+      mSize = frame.findViewById(R.id.size);
 
       frame.setOnClickListener(new View.OnClickListener()
       {
@@ -560,7 +560,7 @@ class DownloaderAdapter extends RecyclerView.Adapter<DownloaderAdapter.ViewHolde
     HeaderViewHolder(@NonNull View frame)
     {
       super(frame);
-      mTitle = (TextView) frame.findViewById(R.id.title);
+      mTitle = frame.findViewById(R.id.title);
     }
 
     void bind(int position)

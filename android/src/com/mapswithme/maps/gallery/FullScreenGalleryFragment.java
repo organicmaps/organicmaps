@@ -38,7 +38,7 @@ public class FullScreenGalleryFragment extends BaseMwmFragment
 
     if (mImage != null)
     {
-      ImageView imageView = (ImageView) view.findViewById(R.id.iv__image);
+      ImageView imageView = view.findViewById(R.id.iv__image);
       final View progress = view.findViewById(R.id.pb__loading_image);
       Glide.with(view.getContext())
            .load(mImage.getUrl())

@@ -70,7 +70,7 @@ public class RoutingPlanController extends ToolbarController
         button.deactivate();
     };
 
-    RoutingToolbarButton rb = (RoutingToolbarButton) mRouterTypes.findViewById(buttonId);
+    RoutingToolbarButton rb = mRouterTypes.findViewById(buttonId);
     listener.onCheckedChanged(rb, false);
     rb.setOnCheckedChangeListener(listener);
     rb.setOnClickListener(clickListener);
@@ -85,15 +85,15 @@ public class RoutingPlanController extends ToolbarController
     mFrame = root;
     mRoutingPlanListener = routingPlanListener;
 
-    mRouterTypes = (RadioGroup) getToolbar().findViewById(R.id.route_type);
+    mRouterTypes = getToolbar().findViewById(R.id.route_type);
 
     setupRouterButtons();
 
     View progressFrame = getToolbar().findViewById(R.id.progress_frame);
-    mProgressVehicle = (WheelProgressView) progressFrame.findViewById(R.id.progress_vehicle);
-    mProgressPedestrian = (WheelProgressView) progressFrame.findViewById(R.id.progress_pedestrian);
-    mProgressTransit = (WheelProgressView) progressFrame.findViewById(R.id.progress_transit);
-    mProgressBicycle = (WheelProgressView) progressFrame.findViewById(R.id.progress_bicycle);
+    mProgressVehicle = progressFrame.findViewById(R.id.progress_vehicle);
+    mProgressPedestrian = progressFrame.findViewById(R.id.progress_pedestrian);
+    mProgressTransit = progressFrame.findViewById(R.id.progress_transit);
+    mProgressBicycle = progressFrame.findViewById(R.id.progress_bicycle);
 //    mProgressTaxi = (WheelProgressView) progressFrame.findViewById(R.id.progress_taxi);
 
     mRoutingBottomMenuController = RoutingBottomMenuController.newInstance(requireActivity(), mFrame, listener);
@@ -227,7 +227,7 @@ public class RoutingPlanController extends ToolbarController
       progressView = mProgressBicycle;
     }
 
-    RoutingToolbarButton button = (RoutingToolbarButton)mRouterTypes
+    RoutingToolbarButton button = mRouterTypes
         .findViewById(mRouterTypes.getCheckedRadioButtonId());
     button.progress();
 
@@ -293,7 +293,7 @@ public class RoutingPlanController extends ToolbarController
   {
     @IdRes
     int checkedId = mRouterTypes.getCheckedRadioButtonId();
-    RoutingToolbarButton rb = (RoutingToolbarButton) mRouterTypes.findViewById(checkedId);
+    RoutingToolbarButton rb = mRouterTypes.findViewById(checkedId);
     rb.error();
     showError(R.string.dialog_taxi_offline);
   }

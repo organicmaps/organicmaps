@@ -46,7 +46,7 @@ abstract class SingleItemAdapterStrategy<T extends Holders.BaseViewHolder<Items.
   protected T createViewHolder(@NonNull ViewGroup parent, int viewType)
   {
     View itemView = inflateView(LayoutInflater.from(parent.getContext()), parent);
-    TextView button = (TextView) itemView.findViewById(R.id.button);
+    TextView button = itemView.findViewById(R.id.button);
     button.setText(getLabelForDetailsView());
     return createViewHolder(itemView);
   }

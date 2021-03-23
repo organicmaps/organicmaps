@@ -105,7 +105,7 @@ abstract class BaseRoutingErrorDialogFragment extends BaseMwmDialogFragment
     final View countryView = View.inflate(getActivity(), R.layout.dialog_missed_map, null);
     ((TextView) countryView.findViewById(R.id.tv__title)).setText(map.name);
 
-    final TextView szView = (TextView) countryView.findViewById(R.id.tv__size);
+    final TextView szView = countryView.findViewById(R.id.tv__size);
     szView.setText(StringUtils.getFileSizeString(requireContext(), map.totalSize));
     ViewGroup.MarginLayoutParams lp = (ViewGroup.MarginLayoutParams) szView.getLayoutParams();
     lp.rightMargin = 0;
@@ -119,7 +119,7 @@ abstract class BaseRoutingErrorDialogFragment extends BaseMwmDialogFragment
     @SuppressLint("InflateParams")
     final View countriesView = View.inflate(getActivity(), R.layout.dialog_missed_maps, null);
 
-    final ExpandableListView listView = (ExpandableListView) countriesView.findViewById(R.id.items_frame);
+    final ExpandableListView listView = countriesView.findViewById(R.id.items_frame);
     if (mMissingMaps.isEmpty())
     {
       mCancelRoute = false;

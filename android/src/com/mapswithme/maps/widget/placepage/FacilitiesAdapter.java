@@ -77,7 +77,7 @@ class FacilitiesAdapter extends RecyclerView.Adapter<FacilitiesAdapter.ViewHolde
       super(view);
 //      TODO we need icons from designer
 //      mIcon = (ImageView) view.findViewById(R.id.iv__icon);
-      mName = (TextView) view.findViewById(R.id.tv__facility);
+      mName = view.findViewById(R.id.tv__facility);
       view.setOnClickListener(this);
     }
 

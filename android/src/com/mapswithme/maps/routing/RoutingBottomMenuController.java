@@ -140,12 +140,12 @@ final class RoutingBottomMenuController implements View.OnClickListener
     mAltitudeDifference = altitudeDifference;
     mNumbersFrame = numbersFrame;
     mActionFrame = actionFrame;
-    mActionMessage = (TextView) actionFrame.findViewById(R.id.tv__message);
+    mActionMessage = actionFrame.findViewById(R.id.tv__message);
     mActionButton = actionFrame.findViewById(R.id.btn__my_position_use);
     mActionButton.setOnClickListener(this);
     View actionSearchButton = actionFrame.findViewById(R.id.btn__search_point);
     actionSearchButton.setOnClickListener(this);
-    mActionIcon = (ImageView) mActionButton.findViewById(R.id.iv__icon);
+    mActionIcon = mActionButton.findViewById(R.id.iv__icon);
     UiUtils.hide(mAltitudeChartFrame, mTaxiFrame, mActionFrame);
     mListener = listener;
     int dividerRes = ThemeUtils.getResource(mContext, R.attr.transitStepDivider);
@@ -178,9 +178,9 @@ final class RoutingBottomMenuController implements View.OnClickListener
     mTaxiInfo = info;
     mTaxiProduct = products.get(0);
     final PagerAdapter adapter = new TaxiAdapter(mContext, mTaxiInfo.getType(), products);
-    DotPager pager = new DotPager.Builder(mContext, (ViewPager) mTaxiFrame.findViewById(R.id.pager),
+    DotPager pager = new DotPager.Builder(mContext, mTaxiFrame.findViewById(R.id.pager),
                                           adapter)
-        .setIndicatorContainer((ViewGroup) mTaxiFrame.findViewById(R.id.indicator))
+        .setIndicatorContainer(mTaxiFrame.findViewById(R.id.indicator))
         .setPageChangedListener(new DotPager.OnPageChangedListener()
         {
           @Override
@@ -201,7 +201,7 @@ final class RoutingBottomMenuController implements View.OnClickListener
     UiUtils.hide(mError, mAltitudeChartFrame, mActionFrame, mAltitudeChartFrame, mTaxiFrame);
     showStartButton(false);
     UiUtils.show(mTransitFrame);
-    RecyclerView rv = (RecyclerView) mTransitFrame.findViewById(R.id.transit_recycler_view);
+    RecyclerView rv = mTransitFrame.findViewById(R.id.transit_recycler_view);
     TransitStepAdapter adapter = new TransitStepAdapter();
     rv.setLayoutManager(new MultilineLayoutManager());
     rv.setNestedScrollingEnabled(false);
@@ -210,12 +210,12 @@ final class RoutingBottomMenuController implements View.OnClickListener
     rv.setAdapter(adapter);
     adapter.setItems(info.getTransitSteps());
 
-    TextView totalTimeView = (TextView) mTransitFrame.findViewById(R.id.total_time);
-    totalTimeView.setText(RoutingController.formatRoutingTime(mContext, (int) info.getTotalTime(),
+    TextView totalTimeView = mTransitFrame.findViewById(R.id.total_time);
+    totalTimeView.setText(RoutingController.formatRoutingTime(mContext, info.getTotalTime(),
                                                             R.dimen.text_size_routing_number));
     View dotView = mTransitFrame.findViewById(R.id.dot);
     View pedestrianIcon = mTransitFrame.findViewById(R.id.pedestrian_icon);
-    TextView distanceView = (TextView) mTransitFrame.findViewById(R.id.total_distance);
+    TextView distanceView = mTransitFrame.findViewById(R.id.total_distance);
     UiUtils.showIf(info.getTotalPedestrianTimeInSec() > 0, dotView, pedestrianIcon, distanceView);
     distanceView.setText(info.getTotalPedestrianDistance() + " " + info.getTotalPedestrianDistanceUnits());
   }
@@ -369,10 +369,10 @@ final class RoutingBottomMenuController implements View.OnClickListener
     }
 
     Spanned spanned = makeSpannedRoutingDetails(mContext, rinfo);
-    TextView numbersTime = (TextView) mNumbersFrame.findViewById(R.id.time);
+    TextView numbersTime = mNumbersFrame.findViewById(R.id.time);
     numbersTime.setText(spanned);
 
-    TextView numbersArrival = (TextView) mNumbersFrame.findViewById(R.id.arrival);
+    TextView numbersArrival = mNumbersFrame.findViewById(R.id.arrival);
     if (numbersArrival != null)
     {
       String arrivalTime = RoutingController.formatArrivalTime(rinfo.totalTimeInSeconds);

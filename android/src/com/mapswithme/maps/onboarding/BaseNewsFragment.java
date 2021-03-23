@@ -298,7 +298,7 @@ public abstract class BaseNewsFragment extends BaseMwmDialogFragment
     View content = View.inflate(getActivity(), R.layout.fragment_news, null);
     res.setContentView(content);
 
-    mPager = (ViewPager)content.findViewById(R.id.pager);
+    mPager = content.findViewById(R.id.pager);
     fixPagerSize();
 
     Adapter adapter = createAdapter();
@@ -313,7 +313,7 @@ public abstract class BaseNewsFragment extends BaseMwmDialogFragment
       }
     });
 
-    ViewGroup dots = (ViewGroup)content.findViewById(R.id.dots);
+    ViewGroup dots = content.findViewById(R.id.dots);
     if (mPageCount == 1)
       UiUtils.hide(dots);
     else

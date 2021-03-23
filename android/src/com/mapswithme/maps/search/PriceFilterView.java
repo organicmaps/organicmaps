@@ -119,13 +119,13 @@ public class PriceFilterView extends LinearLayout implements View.OnClickListene
 
     View low = findViewById(R.id.low);
     low.setOnClickListener(this);
-    mItems.append(R.id.low, new Item(low, (TextView) findViewById(R.id.low_title)));
+    mItems.append(R.id.low, new Item(low, findViewById(R.id.low_title)));
     View medium = findViewById(R.id.medium);
     medium.setOnClickListener(this);
-    mItems.append(R.id.medium, new Item(medium, (TextView) findViewById(R.id.medium_title)));
+    mItems.append(R.id.medium, new Item(medium, findViewById(R.id.medium_title)));
     View high = findViewById(R.id.high);
     high.setOnClickListener(this);
-    mItems.append(R.id.high, new Item(high, (TextView) findViewById(R.id.high_title)));
+    mItems.append(R.id.high, new Item(high, findViewById(R.id.high_title)));
   }
 
   public void update(@Nullable HotelsFilter filter)
