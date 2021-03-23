@@ -9,8 +9,11 @@ jobs:
     steps:
       - name: Checkout sources
         uses: actions/checkout@v2
-        with:
-          submodules: recursive
+
+      - name: Parallel submodules checkout
+        shell: bash
+        run: |
+          git submodule update --init --recursive --jobs=10
 
       - name: Configure
         shell: bash

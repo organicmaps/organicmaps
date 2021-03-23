@@ -20,7 +20,7 @@ jobs:
       - name: Parallel submodules checkout
         shell: bash
         run: |
-          git submodule update --init --recursive --jobs=20
+          git submodule update --init --recursive --jobs=10
 
       - name: Checkout private keys
         uses: actions/checkout@v2
