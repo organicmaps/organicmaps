@@ -32,8 +32,8 @@ UNIT_TEST(DownloadingTests_CalcOverallProgress)
 {
   WritableDirChanger writableDirChanger(storage::kMapTestDir);
 
-  CountriesVec const kTestCountries = {"Angola", "Tokelau", "New Zealand North_Auckland",
-                                       "New Zealand North_Wellington"};
+  // A bunch of small islands.
+  CountriesVec const kTestCountries = { "Kiribati", "Tokelau", "Niue", "Palau", "Pitcairn Islands" };
 
   Storage s;
 

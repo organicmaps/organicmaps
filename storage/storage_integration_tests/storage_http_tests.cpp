@@ -23,7 +23,7 @@ using namespace storage;
 
 namespace
 {
-string const kCountryId = "Angola";
+string const kCountryId = "Trinidad and Tobago";
 string const kDisputedCountryId1 = "Jerusalem";
 string const kDisputedCountryId2 = "Crimea";
 string const kDisputedCountryId3 = "Campo de Hielo Sur";

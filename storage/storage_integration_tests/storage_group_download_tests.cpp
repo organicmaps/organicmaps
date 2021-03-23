@@ -23,10 +23,8 @@ using namespace storage;
 
 namespace
 {
-CountryId const kGroupCountryId = "New Zealand";
-CountriesSet const kLeafCountriesIds = {
-    "Tokelau", "New Zealand North_Auckland", "New Zealand North_Wellington",
-    "New Zealand South_Canterbury", "New Zealand South_Southland"};
+CountryId const kGroupCountryId = "Venezuela";
+CountriesSet const kLeafCountriesIds = { "Venezuela_North", "Venezuela_South" };
 
 string GetMwmFilePath(string const & version, CountryId const & countryId)
 {
@@ -276,6 +274,8 @@ void TestDownloadDelete(bool downloadOneByOne, bool deleteOneByOne)
 
 } // namespace
 
+/// @todo Too long to wait for downloads.
+/*
 UNIT_TEST(SmallMwms_GroupDownloadDelete_Test1)
 {
   TestDownloadDelete(false, false);
@@ -295,3 +295,4 @@ UNIT_TEST(SmallMwms_GroupDownloadDelete_Test4)
 {
   TestDownloadDelete(true, true);
 }
+*/
