@@ -32669,74 +32669,6 @@
     zh-Hant = 書籤和指南
     fa = نشانکها و راهنماها
 
-  [remove_ads]
-    en = Remove ads
-    ru = Отключить рекламу
-    ar = ازالة الاعلانات
-    cs = Vypnout reklamu
-    da = Fjern reklamer
-    nl = Schakel advertenties uit
-    fi = Poista mainokset
-    fr = Retirer les publicités
-    de = Werbung abschalten
-    hu = Reklámok eltávolítása
-    id = Hapus iklan
-    it = Disattivare la pubblicità
-    ja = 広告を削除
-    ko = 광고 없애기
-    no = Deaktivere annonser
-    pl = Wyłączyć reklamę
-    pt = Remover anúncios
-    pt-BR = Remover ads
-    ro = Dezactivați reclama
-    es = Desactivar anuncios
-    es_MX = Quitar anuncios
-    sv = Ta bort reklam
-    th = ซ่อนโฆษณา
-    tr = Reklamları kaldır
-    uk = Відключити рекламу
-    vi = Xóa quảng cáo
-    el = Αφαιρέστε τις διαφημίσεις
-    sk = Odstrániť reklamy
-    sw = Toa matangazo
-    zh-Hans = 关闭广告
-    zh-Hant = 關閉廣告
-    fa = حذف تبلیغات
-
-  [remove_ads_title]
-    en = Remove all ads and support OMaps
-    ru = Отключите всю рекламу и поддержите OMaps
-    ar = إزالة جميع الإعلانات ودعم OMaps
-    cs = Vypněte veškeré reklamy a podpořte OMaps
-    da = Fjern alle reklamer, og støt OMaps
-    nl = Schakel alle advertenties uit en steun OMaps
-    fi = Poista kaikki mainokset ja tue OMaps:tä
-    fr = Supprimer toutes les annonces et soutenir OMaps
-    de = Schalten Sie die ganze Werbung ab und unterstützen Sie OMaps
-    hu = Reklámok eltávolítása és OMaps támogatása
-    id = Hapus semua iklan dan dukungan OMaps
-    it = Disattiva tutta la pubblicità e sostieni OMaps
-    ja = すべての広告を削除してOMapsをサポート
-    ko = 모든 광고를 없애고 OMaps를 지원
-    no = Deaktiver alle annonser og støtt OMaps
-    pl = Wyłącz wszystkie reklamy i wspieraj OMaps
-    pt = Remover todos os anúncios e apoie o OMaps
-    pt-BR = Remover todos os ads e apoie OMaps
-    ro = Dezactivați toată reclama și susțineți OMaps
-    es = Desactive todos los anuncios y apoye a OMaps
-    es_MX = Quitar todos los anuncios y apoyar a OMaps
-    sv = Ta bort all reklam och stöd OMaps
-    th = ซ่อนโฆษณาทั้งหมดที่แสดงในแอพพลิเคชันด้วยการสนับสนุน OMaps
-    tr = Tüm reklamları kaldırın ve OMaps'ye destek olun
-    uk = Відключіть всю рекламу та підтримайте OMaps
-    vi = Xóa tất cả quảng cáo và hỗ trợ OMaps
-    el = Αφαιρέστε όλες τις διαφημίσεις και υποστηρίξτε το OMaps
-    sk = Odstráňte všetky reklamy a podporte OMaps
-    sw = Toa matangazo yote na msaada OMaps
-    zh-Hans = 关闭所有广告并支持OMaps
-    zh-Hant = 關閉所有廣告并支持 OMaps
-    fa = تمام تبلیغات را حذف کنید و OMaps را پشتیبانی کنید
-
   [paybtn_title]
     en = Pay %s/year
     ru = Заплатить %s/год
@@ -46334,41 +46266,6 @@
     zh-Hans = 分钟
     zh-Hant = 分鐘
     fa = دقیقه
-
-  [hide_screen_map_update]
-    comment = hide the full screen banner and continue working with the app
-    en = Hide and continue
-    ru = Скрыть и продолжить работу
-    ar = إخفاء ومتابعة
-    cs = Skrýt a pokračovat
-    da = Skjul og fortsæt
-    nl = Verbergen en doorgaan
-    fi = Piilota ja jatka tausta-ajo
-    fr = Fermer la fenêtre et continuer la navigation
-    de = Ausblenden und Fortsetzen
-    hu = Elrejt és folytat
-    id = Sembunyikan dan lanjutkan
-    it = Chiudi e prosegui
-    ja = 閉じて継続
-    ko = 숨기고 계속하기
-    nb = Skjul og fortsett med appen
-    pl = Ukryj i kontynuuj
-    pt = Ocultar e continuar
-    pt-BR = Ocultar e continuar
-    ro = Ascunde și continuă utilizarea aplicației
-    es = Ocultar y continuar
-    es-MX = Ocultar y continuar
-    sv = Dölja och fortsätt
-    th = ซ่อนและใช้งานต่อ
-    tr = Gizle ve devam et
-    uk = Приховати та поновити роботу
-    vi = Thu gọn và tiếp tục thao tác với ứng dụng
-    el = Απόκρυψη και συνέχεια εργασίας
-    sk = Skryť a pokračovať
-    sw = Ficha na endelea
-    zh-Hans = 隐藏并继续
-    zh-Hant = 隱藏並繼續
-    fa = پنهان کردن و ادامه دادن
 
   [view_on_map_downloaded_error]
     en = This guide has been deleted from this device
