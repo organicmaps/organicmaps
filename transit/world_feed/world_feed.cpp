@@ -1104,32 +1104,39 @@ std::pair<size_t, size_t> WorldFeed::ModifyShapes()
           if (invalidStopSequences > kMaxInvalidShapesCount)
             return {invalidStopSequences, validStopSequences};
         }
-        auto const [stop1, stop2] = *stops;
-        lastIndex = stop2.m_index;
 
         for (auto const lineId : lineIds)
         {
           if (!stopsOnLines.m_isValid)
-            m_lines.m_data.erase(lineId);
-
-          // Update |EdgeShapeLink| with shape segment start and end points.
-          auto itEdge = m_edges.m_data.find(EdgeId(stop1.m_id, stop2.m_id, lineId));
-          if (itEdge == m_edges.m_data.end())
-            continue;
-
-          if (stopsOnLines.m_isValid)
           {
-            itEdge->second.m_shapeLink.m_startIndex = static_cast<uint32_t>(stop1.m_index);
-            itEdge->second.m_shapeLink.m_endIndex = static_cast<uint32_t>(stop2.m_index);
+            m_lines.m_data.erase(lineId);
+            // todo: use std::erase_if after c++20
+            for (auto it = m_edges.m_data.begin(); it != m_edges.m_data.end();)
+            {
+              if (it->first.m_lineId == lineId)
+                it = m_edges.m_data.erase(it);
+              else
+                ++it;
+            }
           }
           else
           {
-            m_edges.m_data.erase(itEdge);
+            CHECK(stops, ());
+            auto const [stop1, stop2] = *stops;
+            lastIndex = stop2.m_index;
+
+            // Update |EdgeShapeLink| with shape segment start and end points.
+            auto itEdge = m_edges.m_data.find(EdgeId(stop1.m_id, stop2.m_id, lineId));
+            if (itEdge == m_edges.m_data.end())
+              continue;
+
+            itEdge->second.m_shapeLink.m_startIndex = static_cast<uint32_t>(stop1.m_index);
+            itEdge->second.m_shapeLink.m_endIndex = static_cast<uint32_t>(stop2.m_index);
+
+            if (indexes[stop1.m_id].size() > 1)
+              indexes[stop1.m_id].erase(indexes[stop1.m_id].begin());
           }
         }
-
-        if (indexes[stop1.m_id].size() > 1)
-          indexes[stop1.m_id].erase(indexes[stop1.m_id].begin());
       }
     }
   }
