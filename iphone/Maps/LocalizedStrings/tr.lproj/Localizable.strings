@@ -2351,10 +2351,6 @@
 
 "bookmarks_guides" = "Yer imleri ve el kitapları";
 
-"remove_ads" = "Reklamları kaldır";
-
-"remove_ads_title" = "Tüm reklamları kaldırın ve OMaps'ye destek olun";
-
 "paybtn_title" = "Yıllık %s/ödeyin";
 
 "paybtn_subtitle" = "Yıllık %s tasarruf edin";
@@ -3190,9 +3186,6 @@
 "elevation_profile_hours" = "sa.";
 
 "elevation_profile_minutes" = "dk.";
-
-/* hide the full screen banner and continue working with the app */
-"hide_screen_map_update" = "Gizle ve devam et";
 
 "view_on_map_downloaded_error" = "Bu rehber cihazdan kaldırıldı";
 

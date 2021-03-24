@@ -1337,8 +1337,6 @@
 	<string name="error_already_downloaded_guide">Цей путівник вже було завантажено</string>
 	<string name="guide_downloaded_subtitle">Натисніть на \"Подивитись на карті\", щоб дослідити путівник</string>
 	<string name="bookmarks_guides">Мітки та путівники</string>
-	<string name="remove_ads">Відключити рекламу</string>
-	<string name="remove_ads_title">Відключіть всю рекламу та підтримайте OMaps</string>
 	<string name="paybtn_title">Заплатити %s/рік</string>
 	<string name="paybtn_subtitle">Економія %s/рік</string>
 	<string name="options_dropdown_title">Інші варіанти</string>
@@ -1758,8 +1756,6 @@
 	<string name="elevation_profile_time">Шлях:</string>
 	<string name="elevation_profile_hours">год.</string>
 	<string name="elevation_profile_minutes">хв</string>
-	<!-- hide the full screen banner and continue working with the app -->
-	<string name="hide_screen_map_update">Приховати та поновити роботу</string>
 	<string name="view_on_map_downloaded_error">Цей путівник видалили з пристрою</string>
 	<string name="subscription">Передплата</string>
 	<string name="button_layer_guides">Путівники (новинка)</string>

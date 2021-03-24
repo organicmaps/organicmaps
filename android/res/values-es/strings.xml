@@ -1325,8 +1325,6 @@
 	<string name="error_already_downloaded_guide">Ya se ha descargado esta guía</string>
 	<string name="guide_downloaded_subtitle">Pulsa \"Ver en el mapa\" para explorar la guía</string>
 	<string name="bookmarks_guides">Marcadores y guías</string>
-	<string name="remove_ads">Desactivar anuncios</string>
-	<string name="remove_ads_title">Desactive todos los anuncios y apoye a OMaps</string>
 	<string name="paybtn_title">Pagar %s/por año</string>
 	<string name="paybtn_subtitle">Ahorre %s/por año</string>
 	<string name="options_dropdown_title">Otras opciones</string>
@@ -1746,8 +1744,6 @@
 	<string name="elevation_profile_time">Lapso:</string>
 	<string name="elevation_profile_hours">h.</string>
 	<string name="elevation_profile_minutes">min</string>
-	<!-- hide the full screen banner and continue working with the app -->
-	<string name="hide_screen_map_update">Ocultar y continuar</string>
 	<string name="view_on_map_downloaded_error">Esta guía ha sido eliminada del dispositivo</string>
 	<string name="subscription">Suscripción</string>
 	<string name="button_layer_guides">Guías (nuevo)</string>

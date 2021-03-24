@@ -2351,10 +2351,6 @@
 
 "bookmarks_guides" = "북마크 및 안내";
 
-"remove_ads" = "광고 없애기";
-
-"remove_ads_title" = "모든 광고를 없애고 OMaps를 지원";
-
 "paybtn_title" = "%s/년 내세요";
 
 "paybtn_subtitle" = "%s/년마다 저축하세요";
@@ -3190,9 +3186,6 @@
 "elevation_profile_hours" = "시간";
 
 "elevation_profile_minutes" = "분";
-
-/* hide the full screen banner and continue working with the app */
-"hide_screen_map_update" = "숨기고 계속하기";
 
 "view_on_map_downloaded_error" = "이 가이드는 이 장치에서 제거되었습니다";
 

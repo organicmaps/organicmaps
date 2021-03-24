@@ -2351,10 +2351,6 @@
 
 "bookmarks_guides" = "Marcadores y guías";
 
-"remove_ads" = "Desactivar anuncios";
-
-"remove_ads_title" = "Desactive todos los anuncios y apoye a OMaps";
-
 "paybtn_title" = "Pagar %s/por año";
 
 "paybtn_subtitle" = "Ahorre %s/por año";
@@ -3190,9 +3186,6 @@
 "elevation_profile_hours" = "h.";
 
 "elevation_profile_minutes" = "min";
-
-/* hide the full screen banner and continue working with the app */
-"hide_screen_map_update" = "Ocultar y continuar";
 
 "view_on_map_downloaded_error" = "Esta guía ha sido eliminada del dispositivo";
 

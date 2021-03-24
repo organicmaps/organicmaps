@@ -2351,10 +2351,6 @@
 
 "bookmarks_guides" = "บุ๊กมาร์กและคู่มือใช้งาน";
 
-"remove_ads" = "ซ่อนโฆษณา";
-
-"remove_ads_title" = "ซ่อนโฆษณาทั้งหมดที่แสดงในแอพพลิเคชันด้วยการสนับสนุน OMaps";
-
 "paybtn_title" = "ในราคา %s/ปี";
 
 "paybtn_subtitle" = "ประหยัดได้ %s/ปี";
@@ -3190,9 +3186,6 @@
 "elevation_profile_hours" = "ชม";
 
 "elevation_profile_minutes" = "นาที";
-
-/* hide the full screen banner and continue working with the app */
-"hide_screen_map_update" = "ซ่อนและใช้งานต่อ";
 
 "view_on_map_downloaded_error" = "คู่มือใช้งานถูกลบออกจากอุปกรณ์แล้ว";
 

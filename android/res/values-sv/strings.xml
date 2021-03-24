@@ -1331,8 +1331,6 @@
 	<string name="error_already_downloaded_guide">Denna guide har redan laddats ned</string>
 	<string name="guide_downloaded_subtitle">Tryck på ‘Visa på kartan’ för att utforska guiden</string>
 	<string name="bookmarks_guides">Bokmärken och guider</string>
-	<string name="remove_ads">Ta bort reklam</string>
-	<string name="remove_ads_title">Ta bort all reklam och stöd OMaps</string>
 	<string name="paybtn_title">Betala %s/år</string>
 	<string name="paybtn_subtitle">Betala %s/år</string>
 	<string name="options_dropdown_title">Fler val</string>
@@ -1752,8 +1750,6 @@
 	<string name="elevation_profile_time">Tid:</string>
 	<string name="elevation_profile_hours">h.</string>
 	<string name="elevation_profile_minutes">min</string>
-	<!-- hide the full screen banner and continue working with the app -->
-	<string name="hide_screen_map_update">Dölja och fortsätt</string>
 	<string name="view_on_map_downloaded_error">Den här guiden har tagits bort från den här enheten</string>
 	<string name="subscription">Prenumeration</string>
 	<string name="button_layer_guides">Guider (nyhet)</string>

@@ -2351,10 +2351,6 @@
 
 "bookmarks_guides" = "Könyvjelzők és útmutatók";
 
-"remove_ads" = "Reklámok eltávolítása";
-
-"remove_ads_title" = "Reklámok eltávolítása és OMaps támogatása";
-
 "paybtn_title" = "Fizessen %s/év";
 
 "paybtn_subtitle" = "%s/év megtakarítás";
@@ -3190,9 +3186,6 @@
 "elevation_profile_hours" = "ó.";
 
 "elevation_profile_minutes" = "p.";
-
-/* hide the full screen banner and continue working with the app */
-"hide_screen_map_update" = "Elrejt és folytat";
 
 "view_on_map_downloaded_error" = "Ezt az útmutatót törölték erről az eszközről";
 

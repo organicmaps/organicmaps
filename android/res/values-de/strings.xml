@@ -1339,8 +1339,6 @@
 	<string name="error_already_downloaded_guide">Dieser Leitfaden wurde bereits heruntergeladen</string>
 	<string name="guide_downloaded_subtitle">Drücken Sie ‚Auf der Karte ansehen‘, um den Leitfaden zu erkunden</string>
 	<string name="bookmarks_guides">Lesezeichengruppen und Leitfäden</string>
-	<string name="remove_ads">Werbung abschalten</string>
-	<string name="remove_ads_title">Schalten Sie die ganze Werbung ab und unterstützen Sie OMaps</string>
 	<string name="paybtn_title">Bezahlen %s/Jahr</string>
 	<string name="paybtn_subtitle">Einsparungen %s/Jahr</string>
 	<string name="options_dropdown_title">Weitere Varianten</string>
@@ -1760,8 +1758,6 @@
 	<string name="elevation_profile_time">Dauer:</string>
 	<string name="elevation_profile_hours">St.</string>
 	<string name="elevation_profile_minutes">Min</string>
-	<!-- hide the full screen banner and continue working with the app -->
-	<string name="hide_screen_map_update">Ausblenden und Fortsetzen</string>
 	<string name="view_on_map_downloaded_error">Dieser Reiseführer wurde vom Gerät gelöscht</string>
 	<string name="subscription">Abo</string>
 	<string name="button_layer_guides">Reiseführer (Neu)</string>

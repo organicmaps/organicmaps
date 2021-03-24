@@ -2351,10 +2351,6 @@
 
 "bookmarks_guides" = "ブックマークとガイド";
 
-"remove_ads" = "広告を削除";
-
-"remove_ads_title" = "すべての広告を削除してOMapsをサポート";
-
 "paybtn_title" = "年間%sの支払い";
 
 "paybtn_subtitle" = "年間%sの割引";
@@ -3190,9 +3186,6 @@
 "elevation_profile_hours" = "時間";
 
 "elevation_profile_minutes" = "分";
-
-/* hide the full screen banner and continue working with the app */
-"hide_screen_map_update" = "閉じて継続";
 
 "view_on_map_downloaded_error" = "このガイドはこの機器から削除されました";
 
