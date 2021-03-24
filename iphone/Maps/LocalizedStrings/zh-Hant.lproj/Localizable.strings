@@ -2351,10 +2351,6 @@
 
 "bookmarks_guides" = "書籤和指南";
 
-"remove_ads" = "關閉廣告";
-
-"remove_ads_title" = "關閉所有廣告并支持 OMaps";
-
 "paybtn_title" = "支付%s/年";
 
 "paybtn_subtitle" = "節省%s/年";
@@ -3190,9 +3186,6 @@
 "elevation_profile_hours" = "小時";
 
 "elevation_profile_minutes" = "分鐘";
-
-/* hide the full screen banner and continue working with the app */
-"hide_screen_map_update" = "隱藏並繼續";
 
 "view_on_map_downloaded_error" = "該指南已從設備中刪除";
 

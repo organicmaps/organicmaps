@@ -2351,10 +2351,6 @@
 
 "bookmarks_guides" = "Αγαπημένα και εγχειρίδια";
 
-"remove_ads" = "Αφαιρέστε τις διαφημίσεις";
-
-"remove_ads_title" = "Αφαιρέστε όλες τις διαφημίσεις και υποστηρίξτε το OMaps";
-
 "paybtn_title" = "Πληρώστε %s/χρόνο";
 
 "paybtn_subtitle" = "Εξοικονομήστε %s/χρόνο";
@@ -3190,9 +3186,6 @@
 "elevation_profile_hours" = "ω.";
 
 "elevation_profile_minutes" = "λ.";
-
-/* hide the full screen banner and continue working with the app */
-"hide_screen_map_update" = "Απόκρυψη και συνέχεια εργασίας";
 
 "view_on_map_downloaded_error" = "Αυτός ο ταξιδιωτικός οδηγός έχει αφαιρεθεί από τη συσκευή";
 

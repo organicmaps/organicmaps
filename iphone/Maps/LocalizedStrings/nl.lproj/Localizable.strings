@@ -2351,10 +2351,6 @@
 
 "bookmarks_guides" = "Bladwijzers en handleidingen";
 
-"remove_ads" = "Schakel advertenties uit";
-
-"remove_ads_title" = "Schakel alle advertenties uit en steun OMaps";
-
 "paybtn_title" = "Betaal %s/jaar";
 
 "paybtn_subtitle" = "Besparing %s/jaar";
@@ -3190,9 +3186,6 @@
 "elevation_profile_hours" = "uur";
 
 "elevation_profile_minutes" = "min";
-
-/* hide the full screen banner and continue working with the app */
-"hide_screen_map_update" = "Verbergen en doorgaan";
 
 "view_on_map_downloaded_error" = "Deze gids is van dit apparaat verwijderd";
 

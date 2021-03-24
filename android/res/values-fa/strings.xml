@@ -1285,8 +1285,6 @@
 	<string name="error_already_downloaded_guide">این راهنمای قبلا دانلود شده است</string>
 	<string name="guide_downloaded_subtitle">برای کاوش در راهنما \'نمایش بر روی نقشه\' را فشار دهید</string>
 	<string name="bookmarks_guides">نشانکها و راهنماها</string>
-	<string name="remove_ads">حذف تبلیغات</string>
-	<string name="remove_ads_title">تمام تبلیغات را حذف کنید و OMaps را پشتیبانی کنید</string>
 	<string name="paybtn_title">هزینه %s/سال</string>
 	<string name="paybtn_subtitle">صرفه جویی %s/سال</string>
 	<string name="options_dropdown_title">گزینه های بیشتر</string>
@@ -1692,8 +1690,6 @@
 	<string name="elevation_profile_time">زمان:</string>
 	<string name="elevation_profile_hours">ساعت</string>
 	<string name="elevation_profile_minutes">دقیقه</string>
-	<!-- hide the full screen banner and continue working with the app -->
-	<string name="hide_screen_map_update">پنهان کردن و ادامه دادن</string>
 	<string name="view_on_map_downloaded_error">راهنما از این دستگاه پاک شده است</string>
 	<string name="subscription">عضویت</string>
 	<string name="button_layer_guides">راهنماها (جدید)</string>

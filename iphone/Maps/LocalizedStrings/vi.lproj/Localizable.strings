@@ -2351,10 +2351,6 @@
 
 "bookmarks_guides" = "Đánh dấu trang và Hướng dẫn";
 
-"remove_ads" = "Xóa quảng cáo";
-
-"remove_ads_title" = "Xóa tất cả quảng cáo và hỗ trợ OMaps";
-
 "paybtn_title" = "Thanh toán %s/năm";
 
 "paybtn_subtitle" = "Tiết kiệm %s/năm";
@@ -3190,9 +3186,6 @@
 "elevation_profile_hours" = "h.";
 
 "elevation_profile_minutes" = "ph";
-
-/* hide the full screen banner and continue working with the app */
-"hide_screen_map_update" = "Thu gọn và tiếp tục thao tác với ứng dụng";
 
 "view_on_map_downloaded_error" = "Hướng dẫn này đã được xóa khỏi thiết bị";
 

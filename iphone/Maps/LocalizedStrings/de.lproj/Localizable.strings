@@ -2351,10 +2351,6 @@
 
 "bookmarks_guides" = "Lesezeichengruppen und Leitfäden";
 
-"remove_ads" = "Werbung abschalten";
-
-"remove_ads_title" = "Schalten Sie die ganze Werbung ab und unterstützen Sie OMaps";
-
 "paybtn_title" = "Bezahlen %s/Jahr";
 
 "paybtn_subtitle" = "Einsparungen %s/Jahr";
@@ -3190,9 +3186,6 @@
 "elevation_profile_hours" = "St.";
 
 "elevation_profile_minutes" = "Min";
-
-/* hide the full screen banner and continue working with the app */
-"hide_screen_map_update" = "Ausblenden und Fortsetzen";
 
 "view_on_map_downloaded_error" = "Dieser Reiseführer wurde vom Gerät gelöscht";
 

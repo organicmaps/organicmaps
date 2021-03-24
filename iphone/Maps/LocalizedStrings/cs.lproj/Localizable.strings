@@ -2351,10 +2351,6 @@
 
 "bookmarks_guides" = "Záložky a průvodci";
 
-"remove_ads" = "Vypnout reklamu";
-
-"remove_ads_title" = "Vypněte veškeré reklamy a podpořte OMaps";
-
 "paybtn_title" = "Zaplatit %s/ročně";
 
 "paybtn_subtitle" = "Ušetříte %s/ročně";
@@ -3190,9 +3186,6 @@
 "elevation_profile_hours" = "hod.";
 
 "elevation_profile_minutes" = "min";
-
-/* hide the full screen banner and continue working with the app */
-"hide_screen_map_update" = "Skrýt a pokračovat";
 
 "view_on_map_downloaded_error" = "Tento průvodce byl smazán z tohoto zařízení";
 

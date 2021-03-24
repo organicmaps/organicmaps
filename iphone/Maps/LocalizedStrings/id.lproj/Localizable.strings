@@ -2351,10 +2351,6 @@
 
 "bookmarks_guides" = "Penanda dan panduan";
 
-"remove_ads" = "Hapus iklan";
-
-"remove_ads_title" = "Hapus semua iklan dan dukungan OMaps";
-
 "paybtn_title" = "Bayar %s/tahun";
 
 "paybtn_subtitle" = "Hemat %s/tahun";
@@ -3190,9 +3186,6 @@
 "elevation_profile_hours" = "j.";
 
 "elevation_profile_minutes" = "mnt";
-
-/* hide the full screen banner and continue working with the app */
-"hide_screen_map_update" = "Sembunyikan dan lanjutkan";
 
 "view_on_map_downloaded_error" = "Panduan ini telah dihapus dari perangkat ini";
 

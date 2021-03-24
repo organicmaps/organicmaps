@@ -2351,10 +2351,6 @@
 
 "bookmarks_guides" = "Bookmarks and guides";
 
-"remove_ads" = "Remove ads";
-
-"remove_ads_title" = "Remove all ads and support OMaps";
-
 "paybtn_title" = "Pay %s/year";
 
 "paybtn_subtitle" = "Save %s/year";
@@ -3190,9 +3186,6 @@
 "elevation_profile_hours" = "h.";
 
 "elevation_profile_minutes" = "min";
-
-/* hide the full screen banner and continue working with the app */
-"hide_screen_map_update" = "Hide and continue";
 
 "view_on_map_downloaded_error" = "This guide has been deleted from this device";
 

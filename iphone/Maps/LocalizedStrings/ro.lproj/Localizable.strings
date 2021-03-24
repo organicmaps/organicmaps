@@ -2351,10 +2351,6 @@
 
 "bookmarks_guides" = "Marcaje și ghiduri";
 
-"remove_ads" = "Dezactivați reclama";
-
-"remove_ads_title" = "Dezactivați toată reclama și susțineți OMaps";
-
 "paybtn_title" = "Achitați %s/an";
 
 "paybtn_subtitle" = "Economisiți %s/an";
@@ -3190,9 +3186,6 @@
 "elevation_profile_hours" = "ore";
 
 "elevation_profile_minutes" = "min";
-
-/* hide the full screen banner and continue working with the app */
-"hide_screen_map_update" = "Ascunde și continuă utilizarea aplicației";
 
 "view_on_map_downloaded_error" = "Acest ghid a fost șters de pe dispozitiv";
 

@@ -2351,10 +2351,6 @@
 
 "bookmarks_guides" = "Метки и путеводители";
 
-"remove_ads" = "Отключить рекламу";
-
-"remove_ads_title" = "Отключите всю рекламу и поддержите OMaps";
-
 "paybtn_title" = "Заплатить %s/год";
 
 "paybtn_subtitle" = "Экономия %s/год";
@@ -3190,9 +3186,6 @@
 "elevation_profile_hours" = "ч.";
 
 "elevation_profile_minutes" = "мин";
-
-/* hide the full screen banner and continue working with the app */
-"hide_screen_map_update" = "Скрыть и продолжить работу";
 
 "view_on_map_downloaded_error" = "Этот путеводитель был удалён с устройства";
 

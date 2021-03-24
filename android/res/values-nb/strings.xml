@@ -1649,8 +1649,6 @@
 	<string name="elevation_profile_time">I rute</string>
 	<string name="elevation_profile_hours">t.</string>
 	<string name="elevation_profile_minutes">min</string>
-	<!-- hide the full screen banner and continue working with the app -->
-	<string name="hide_screen_map_update">Skjul og fortsett med appen</string>
 	<string name="view_on_map_downloaded_error">Denne guiden har blitt fjernet fra enheten</string>
 	<string name="subscription">Abonnement</string>
 	<string name="button_layer_guides">Guider (nyhet)</string>

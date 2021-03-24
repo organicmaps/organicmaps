@@ -1326,8 +1326,6 @@
 	<string name="error_already_downloaded_guide">안내를 이미 다운로드하였습니다.</string>
 	<string name="guide_downloaded_subtitle">안내를 이용하려면 \'지도 보기\'를 누르세요</string>
 	<string name="bookmarks_guides">북마크 및 안내</string>
-	<string name="remove_ads">광고 없애기</string>
-	<string name="remove_ads_title">모든 광고를 없애고 OMaps를 지원</string>
 	<string name="paybtn_title">%s/년 내세요</string>
 	<string name="paybtn_subtitle">%s/년마다 저축하세요</string>
 	<string name="options_dropdown_title">더 많은 옵션</string>
@@ -1747,8 +1745,6 @@
 	<string name="elevation_profile_time">소비 시간:</string>
 	<string name="elevation_profile_hours">시간</string>
 	<string name="elevation_profile_minutes">분</string>
-	<!-- hide the full screen banner and continue working with the app -->
-	<string name="hide_screen_map_update">숨기고 계속하기</string>
 	<string name="view_on_map_downloaded_error">이 가이드는 이 장치에서 제거되었습니다</string>
 	<string name="subscription">구독</string>
 	<string name="button_layer_guides">가이드 (new)</string>

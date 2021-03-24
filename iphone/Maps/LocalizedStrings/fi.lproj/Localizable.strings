@@ -2351,10 +2351,6 @@
 
 "bookmarks_guides" = "Kirjanmerkit ja oppaat";
 
-"remove_ads" = "Poista mainokset";
-
-"remove_ads_title" = "Poista kaikki mainokset ja tue OMaps:tä";
-
 "paybtn_title" = "Maksa %s/vuosi";
 
 "paybtn_subtitle" = "Säästä %s/vuosi";
@@ -3190,9 +3186,6 @@
 "elevation_profile_hours" = "t.";
 
 "elevation_profile_minutes" = "min";
-
-/* hide the full screen banner and continue working with the app */
-"hide_screen_map_update" = "Piilota ja jatka tausta-ajo";
 
 "view_on_map_downloaded_error" = "Tämä matkaopas oli poistettu laitteesta";
 

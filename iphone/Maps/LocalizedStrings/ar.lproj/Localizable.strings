@@ -2351,10 +2351,6 @@
 
 "bookmarks_guides" = "العلامات المرجعية والأدلة";
 
-"remove_ads" = "ازالة الاعلانات";
-
-"remove_ads_title" = "إزالة جميع الإعلانات ودعم OMaps";
-
 "paybtn_title" = "دفع%s/ سنة";
 
 "paybtn_subtitle" = "حفظ%s/ سنة";
@@ -3190,9 +3186,6 @@
 "elevation_profile_hours" = "ساعة";
 
 "elevation_profile_minutes" = "دقيقة";
-
-/* hide the full screen banner and continue working with the app */
-"hide_screen_map_update" = "إخفاء ومتابعة";
 
 "view_on_map_downloaded_error" = "تم حذف هذا الدليل من هذا الجهاز";
 

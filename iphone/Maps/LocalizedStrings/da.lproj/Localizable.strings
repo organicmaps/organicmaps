@@ -2351,10 +2351,6 @@
 
 "bookmarks_guides" = "Bogmærker og vejledninger";
 
-"remove_ads" = "Fjern reklamer";
-
-"remove_ads_title" = "Fjern alle reklamer, og støt OMaps";
-
 "paybtn_title" = "Betal %s/år";
 
 "paybtn_subtitle" = "Spar %s/år";
@@ -3190,9 +3186,6 @@
 "elevation_profile_hours" = "t.";
 
 "elevation_profile_minutes" = "min";
-
-/* hide the full screen banner and continue working with the app */
-"hide_screen_map_update" = "Skjul og fortsæt";
 
 "view_on_map_downloaded_error" = "Denne guide er blevet fjernet fra denne enhed";
 

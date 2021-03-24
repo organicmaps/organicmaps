@@ -2351,10 +2351,6 @@
 
 "bookmarks_guides" = "Мітки та путівники";
 
-"remove_ads" = "Відключити рекламу";
-
-"remove_ads_title" = "Відключіть всю рекламу та підтримайте OMaps";
-
 "paybtn_title" = "Заплатити %s/рік";
 
 "paybtn_subtitle" = "Економія %s/рік";
@@ -3190,9 +3186,6 @@
 "elevation_profile_hours" = "год.";
 
 "elevation_profile_minutes" = "хв";
-
-/* hide the full screen banner and continue working with the app */
-"hide_screen_map_update" = "Приховати та поновити роботу";
 
 "view_on_map_downloaded_error" = "Цей путівник видалили з пристрою";
 

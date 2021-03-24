@@ -1336,8 +1336,6 @@
 	<string name="error_already_downloaded_guide">มีการดาวน์โหลดคู่มือใช้งานนี้แล้ว</string>
 	<string name="guide_downloaded_subtitle">กด \'ดูบนแผนที่\' เพื่อสำรวจคู่มือใช้งาน</string>
 	<string name="bookmarks_guides">บุ๊กมาร์กและคู่มือใช้งาน</string>
-	<string name="remove_ads">ซ่อนโฆษณา</string>
-	<string name="remove_ads_title">ซ่อนโฆษณาทั้งหมดที่แสดงในแอพพลิเคชันด้วยการสนับสนุน OMaps</string>
 	<string name="paybtn_title">ในราคา %s/ปี</string>
 	<string name="paybtn_subtitle">ประหยัดได้ %s/ปี</string>
 	<string name="options_dropdown_title">ทางเลือกอื่นๆ</string>
@@ -1757,8 +1755,6 @@
 	<string name="elevation_profile_time">เวลา:</string>
 	<string name="elevation_profile_hours">ชม</string>
 	<string name="elevation_profile_minutes">นาที</string>
-	<!-- hide the full screen banner and continue working with the app -->
-	<string name="hide_screen_map_update">ซ่อนและใช้งานต่อ</string>
 	<string name="view_on_map_downloaded_error">คู่มือใช้งานถูกลบออกจากอุปกรณ์แล้ว</string>
 	<string name="subscription">สมัครสมาชิก</string>
 	<string name="button_layer_guides">คู่มือใช้งาน (ใหม่)</string>
