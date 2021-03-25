@@ -1947,6 +1947,9 @@ void WorldFeed::SplitLinesBasedData()
       auto const & stopIds = m_splitting.m_stops.at(region);
       auto const & [firstStopIdx, lastStopIdx] = GetStopsRange(lineData.m_stopIds, stopIds);
 
+      if (firstStopIdx == lastStopIdx)
+        continue;
+
       CHECK(StopIndexIsSet(firstStopIdx), ());
 
       lineInRegion.m_shapeLink.m_shapeId = lineData.m_shapeLink.m_shapeId;
