@@ -2,7 +2,6 @@
 
 #include "transit/transit_entities.hpp"
 #include "transit/world_feed/date_time_helpers.hpp"
-#include "transit/world_feed/feed_helpers.hpp"
 
 #include "platform/platform.hpp"
 
@@ -272,35 +271,6 @@ struct Link
 Link::Link(transit::TransitId lineId, transit::TransitId shapeId, size_t shapeSize)
   : m_lineId(lineId), m_shapeId(shapeId), m_shapeSize(shapeSize)
 {
-}
-
-transit::Direction GetDirection(
-    transit::StopsOnLines const & stopsOnLines,
-    std::unordered_map<transit::TransitId, std::vector<size_t>> const & stopIndexes)
-{
-  auto const & stopIds = stopsOnLines.m_stopSeq;
-
-  if (stopIds.size() <= 1 || !stopsOnLines.m_isValid)
-    return transit::Direction::Forward;
-
-  for (size_t i = 0; i < stopIds.size() - 1; ++i)
-  {
-    auto const id1 = stopIds[i];
-    auto const id2 = stopIds[i + 1];
-    auto const indexes1 = stopIndexes.find(id1);
-    auto const indexes2 = stopIndexes.find(id2);
-    CHECK(indexes1 != stopIndexes.end(), ());
-    CHECK(indexes2 != stopIndexes.end(), ());
-    if (indexes1->second.size() != 1 || indexes2->second.size() != 1)
-      continue;
-    auto const index1 = indexes1->second[0];
-    auto const index2 = indexes2->second[0];
-    if (index2 == index1)
-      continue;
-    return index2 > index1 ? transit::Direction::Forward : transit::Direction::Backward;
-  }
-
-  return transit::Direction::Forward;
 }
 }  // namespace
 
@@ -940,7 +910,7 @@ void WorldFeed::FillLinesSchedule()
   }
 }
 
-bool WorldFeed::ProjectStopsToShape(
+std::optional<Direction> WorldFeed::ProjectStopsToShape(
     ShapesIter & itShape, StopsOnLines const & stopsOnLines,
     std::unordered_map<TransitId, std::vector<size_t>> & stopsToIndexes)
 {
@@ -1006,7 +976,13 @@ bool WorldFeed::ProjectStopsToShape(
     return true;
   };
 
-  return tryProject(Direction::Forward) || tryProject(Direction::Backward);
+  if (tryProject(Direction::Forward))
+    return Direction::Forward;
+
+  if (tryProject(Direction::Backward))
+    return Direction::Backward;
+
+  return {};
 }
 
 std::unordered_map<TransitId, std::vector<StopsOnLines>> WorldFeed::GetStopsForShapeMatching()
@@ -1069,14 +1045,15 @@ std::pair<size_t, size_t> WorldFeed::ModifyShapes()
         stopsOnLines.m_isValid = false;
         ++invalidStopSequences;
       }
-      else if (!ProjectStopsToShape(itShape, stopsOnLines, stopToShapeIndex))
+      else if (auto const direction = ProjectStopsToShape(itShape, stopsOnLines, stopToShapeIndex))
       {
-        stopsOnLines.m_isValid = false;
-        ++invalidStopSequences;
+        stopsOnLines.m_direction = *direction;
+        ++validStopSequences;
       }
       else
       {
-        ++validStopSequences;
+        stopsOnLines.m_isValid = false;
+        ++invalidStopSequences;
       }
 
       if (invalidStopSequences > kMaxInvalidShapesCount)
@@ -1088,8 +1065,7 @@ std::pair<size_t, size_t> WorldFeed::ModifyShapes()
       IdList const & stopIds = stopsOnLines.m_stopSeq;
       auto const & lineIds = stopsOnLines.m_lines;
       auto indexes = stopToShapeIndex;
-
-      auto const direction = GetDirection(stopsOnLines, indexes);
+      auto const direction = stopsOnLines.m_direction;
 
       size_t lastIndex = direction == Direction::Forward ? 0 : std::numeric_limits<size_t>::max();
       for (size_t i = 0; i < stopIds.size() - 1; ++i)

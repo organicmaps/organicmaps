@@ -5,6 +5,7 @@
 #include "transit/transit_entities.hpp"
 #include "transit/transit_schedule.hpp"
 #include "transit/world_feed/color_picker.hpp"
+#include "transit/world_feed/feed_helpers.hpp"
 
 #include "geometry/mercator.hpp"
 #include "geometry/point2d.hpp"
@@ -244,6 +245,7 @@ struct StopsOnLines
   IdList m_stopSeq;
   IdSet m_lines;
   bool m_isValid = true;
+  transit::Direction m_direction = Direction::Forward;
 };
 
 using IdsInRegion = std::unordered_map<std::string, IdSet>;
@@ -338,8 +340,9 @@ private:
   // Recalculates 0-weights of edges based on the shape length.
   bool UpdateEdgeWeights();
 
-  bool ProjectStopsToShape(ShapesIter & itShape, StopsOnLines const & stopsOnLines,
-                           std::unordered_map<TransitId, std::vector<size_t>> & stopsToIndexes);
+  std::optional<Direction> ProjectStopsToShape(
+      ShapesIter & itShape, StopsOnLines const & stopsOnLines,
+      std::unordered_map<TransitId, std::vector<size_t>> & stopsToIndexes);
 
   // Splits data into regions.
   void SplitFeedIntoRegions();
