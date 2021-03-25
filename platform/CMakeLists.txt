@@ -2,7 +2,9 @@ project(platform)
 
 include_directories(${OMIM_ROOT}/3party/jansson/src ${OMIM_ROOT}/platform)
 
-set(CMAKE_AUTOMOC ON)
+if(NOT PLATFORM_ANDROID AND NOT PLATFORM_IPHONE)
+  set(CMAKE_AUTOMOC ON)
+endif()
 
 set(
   SRC
