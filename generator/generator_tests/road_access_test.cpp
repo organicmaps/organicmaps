@@ -64,17 +64,6 @@ void BuildTestMwmWithRoads(LocalCountryFile & country)
   }
 }
 
-size_t GetLinesNumber(string const & text)
-{
-  stringstream ss;
-  ss << text.data();
-  string line;
-  size_t n = 0;
-  while (getline(ss, line))
-    ++n;
-  return n;
-}
-
 void LoadRoadAccess(string const & mwmFilePath, VehicleType vehicleType, RoadAccess & roadAccess)
 {
   FilesContainerR const cont(mwmFilePath);
