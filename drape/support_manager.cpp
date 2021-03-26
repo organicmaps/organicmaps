@@ -10,8 +10,8 @@
 #include "std/target_os.hpp"
 
 #include <algorithm>
+#include <array>
 #include <string>
-#include <vector>
 
 namespace dp
 {
@@ -42,7 +42,7 @@ void SupportManager::Init(ref_ptr<GraphicsContext> context)
 
   if (m_rendererName.find("Adreno") != std::string::npos)
   {
-    std::vector<std::string> const models = { "200", "203", "205", "220", "225" };
+    std::array<std::string, 5> const models = { "200", "203", "205", "220", "225" };
     for (auto const & model : models)
     {
       if (m_rendererName.find(model) != std::string::npos)
@@ -114,14 +114,14 @@ bool SupportManager::IsVulkanForbidden() const
 bool SupportManager::IsVulkanForbidden(std::string const & deviceName,
                                        Version apiVersion, Version driverVersion) const
 {
-  static std::vector<std::string> const kBannedDevices = {"PowerVR Rogue GE8100",
-                                                          "PowerVR Rogue GE8300"};
+  static std::array<std::string ,2> const kBannedDevices = {"PowerVR Rogue GE8100",
+                                                            "PowerVR Rogue GE8300"};
 
   // On these configurations we've detected fatal driver-specific Vulkan errors.
-  static std::vector<Configuration> const kBannedConfigurations = {
-    {"Adreno (TM) 506", {1, 0, 31}, {42, 264, 975}},
-    {"Adreno (TM) 506", {1, 1, 66}, {512, 313, 0}},
-    {"Adreno (TM) 530", {1, 1, 66}, {512, 313, 0}},
+  static std::array<Configuration, 3> const kBannedConfigurations = {
+      Configuration{"Adreno (TM) 506", {1, 0, 31}, {42, 264, 975}},
+      Configuration{"Adreno (TM) 506", {1, 1, 66}, {512, 313, 0}},
+      Configuration{"Adreno (TM) 530", {1, 1, 66}, {512, 313, 0}}
   };
 
   for (auto const & d : kBannedDevices)
@@ -151,7 +151,7 @@ bool SupportManager::IsVulkanTexturePartialUpdateBuggy(int sdkVersion,
     return true;
 
   // For these configurations partial updates of texture clears whole texture except part updated
-  static std::vector<Configuration> const kBadConfigurations = {
+  static std::array<Configuration, 1> const kBadConfigurations = {
       {"Mali-G76", {1, 1, 97}, {18, 0, 0}},
   };
 

@@ -38,6 +38,7 @@
 #include "std/target_os.hpp"
 
 #include <algorithm>
+#include <array>
 #include <chrono>
 #include <cmath>
 #include <functional>
@@ -1884,12 +1885,12 @@ void FrontendRenderer::RenderFrame()
 
 void FrontendRenderer::BuildOverlayTree(ScreenBase const & modelView)
 {
-  static std::vector<DepthLayer> layers = {DepthLayer::OverlayLayer,
-                                           DepthLayer::NavigationLayer,
-                                           DepthLayer::RoutingBottomMarkLayer,
-                                           DepthLayer::RoutingMarkLayer};
+  static std::array<DepthLayer, 4> layers = {DepthLayer::OverlayLayer,
+                                             DepthLayer::NavigationLayer,
+                                             DepthLayer::RoutingBottomMarkLayer,
+                                             DepthLayer::RoutingMarkLayer};
   BeginUpdateOverlayTree(modelView);
-  for (auto const & layerId : layers)
+  for (auto const layerId : layers)
   {
     RenderLayer & overlay = m_layers[static_cast<size_t>(layerId)];
     overlay.Sort(make_ref(m_overlayTree));

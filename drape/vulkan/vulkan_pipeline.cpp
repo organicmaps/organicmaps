@@ -12,6 +12,7 @@
 #include "base/assert.hpp"
 #include "base/file_name_utils.hpp"
 
+#include <array>
 #include <string>
 #include <utility>
 #include <vector>
@@ -326,7 +327,7 @@ VkPipeline VulkanPipeline::GetPipeline(VkDevice device, PipelineKey const & key)
   multisampleStateCreateInfo.rasterizationSamples = VK_SAMPLE_COUNT_1_BIT;
 
   // Dynamic.
-  static std::vector<VkDynamicState> dynamicState = {
+  static std::array<VkDynamicState, 4> dynamicState = {
     VK_DYNAMIC_STATE_VIEWPORT, VK_DYNAMIC_STATE_SCISSOR, VK_DYNAMIC_STATE_LINE_WIDTH,
     VK_DYNAMIC_STATE_STENCIL_REFERENCE};
   VkPipelineDynamicStateCreateInfo dynamicStateCreateInfo = {};

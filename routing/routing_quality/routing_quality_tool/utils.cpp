@@ -13,6 +13,7 @@
 #include "base/file_name_utils.hpp"
 #include "base/logging.hpp"
 
+#include <array>
 #include <iomanip>
 #include <utility>
 
@@ -70,7 +71,7 @@ void SaveKmlFileDataTo(RoutesBuilder::Result const & mapsmeResult,
                        AnotherResult const & apiResult,
                        std::string const & kmlFile)
 {
-  static std::vector<uint32_t> const kColors = {
+  static std::array<uint32_t, 5> const kColors = {
       0xff0000ff,  // Red
       0x0000ffff,  // Blue
       0x00ff00ff,  // Green
