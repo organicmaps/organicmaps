@@ -16,7 +16,6 @@ import com.mapswithme.maps.R;
 import com.mapswithme.maps.base.BaseToolbarAuthFragment;
 import com.mapswithme.maps.background.Notifier;
 import com.mapswithme.maps.bookmarks.data.FeatureId;
-import com.mapswithme.maps.metrics.UserActionsLogger;
 import com.mapswithme.maps.widget.ToolbarController;
 import com.mapswithme.util.ConnectionState;
 import com.mapswithme.util.Language;
@@ -113,8 +112,6 @@ public class UGCEditorFragment extends BaseToolbarAuthFragment
         finishActivity();
         return;
       }
-
-      UserActionsLogger.logUgcSaved();
 
       if (!ConnectionState.INSTANCE.isConnected())
       {

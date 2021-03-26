@@ -27,8 +27,7 @@ NSString *const kMapToCategorySelectorSegue = @"MapToCategorySelectorSegue";
 }  // namespace
 
 @interface MWMMapViewControlsManager () <BottomMenuDelegate,
-                                         MWMSearchManagerObserver,
-                                         MWMTutorialViewControllerDelegate>
+                                         MWMSearchManagerObserver>
 
 @property(nonatomic) MWMSideButtons *sideButtons;
 @property(nonatomic) MWMTrafficButtonViewController *trafficButton;
@@ -41,9 +40,6 @@ NSString *const kMapToCategorySelectorSegue = @"MapToCategorySelectorSegue";
 @property(weak, nonatomic) MapViewController *ownerController;
 
 @property(nonatomic) BOOL disableStandbyOnRouteFollowing;
-@property(nonatomic) MWMTip tutorialType;
-@property(nonatomic) MWMTutorialViewController *tutorialViewContoller;
-//@property(nonatomic) PromoDiscoveryCampaign *promoDiscoveryCampaign;
 
 @end
 
@@ -64,17 +60,6 @@ NSString *const kMapToCategorySelectorSegue = @"MapToCategorySelectorSegue";
   self.trafficButtonHidden = NO;
   self.isDirectionViewHidden = YES;
   self.menuRestoreState = MWMBottomMenuStateInactive;
-  /*
-  self.promoDiscoveryCampaign = [ABTestManager manager].promoDiscoveryCampaign;
-  if (_promoDiscoveryCampaign.enabled) {
-    [controller.controlsView addSubview:self.promoButton];
-    self.promoButton.translatesAutoresizingMaskIntoConstraints = NO;
-    [NSLayoutConstraint activateConstraints:@[
-      [self.promoButton.centerXAnchor constraintEqualToAnchor:self.trafficButton.view.centerXAnchor],
-      [self.promoButton.topAnchor constraintEqualToAnchor:self.sideButtons.view.topAnchor]
-    ]];
-  }
-   */
   return self;
 }
 
@@ -398,42 +383,6 @@ NSString *const kMapToCategorySelectorSegue = @"MapToCategorySelectorSegue";
   return self.placePageManager;
 }
 
-- (MWMTutorialViewController *)tutorialWithType:(MWMTip)tutorialType {
-  MWMTutorialViewController *tutorial;
-  switch (tutorialType) {
-    case MWMTipSearch:
-      tutorial = [MWMTutorialViewController tutorial:MWMTutorialTypeSearch
-                                              target:self.tabBarController.searchButton
-                                            delegate:self];
-      break;
-    case MWMTipDiscovery:
-      tutorial = [MWMTutorialViewController tutorial:MWMTutorialTypeDiscovery
-                                              target:self.tabBarController.discoveryButton
-                                            delegate:self];
-      break;
-    case MWMTipBookmarks:
-      tutorial = [MWMTutorialViewController tutorial:MWMTutorialTypeBookmarks
-                                              target:self.tabBarController.bookmarksButton
-                                            delegate:self];
-      break;
-    case MWMTipSubway:
-      tutorial = [MWMTutorialViewController tutorial:MWMTutorialTypeSubway
-                                              target:(UIControl *)self.trafficButton.view
-                                            delegate:self];
-      break;
-    case MWMTipIsolines:
-      tutorial = [MWMTutorialViewController tutorial:MWMTutorialTypeIsolines
-                                              target:(UIControl *)self.trafficButton.view
-                                            delegate:self];
-      break;
-    case MWMTipNone:
-      tutorial = nil;
-      break;
-  }
-
-  return tutorial;
-}
-
 - (void)showAdditionalViewsIfNeeded {
   auto ownerController = self.ownerController;
 
@@ -451,79 +400,6 @@ NSString *const kMapToCategorySelectorSegue = @"MapToCategorySelectorSegue";
 
   if (DeepLinkHandler.shared.isLaunchedByDeeplink)
     return;
-
-  if ([self showPromoBookingIfNeeded])
-    return;
-
-  [self showTutorialIfNeeded];
-}
-
-- (BOOL)showPromoBookingIfNeeded {
-  PromoAfterBookingCampaign *afterBookingCampaign = [ABTestManager manager].promoAfterBookingCampaign;
-  PromoAfterBookingData *afterBookingData = afterBookingCampaign.afterBookingData;
-  if (!afterBookingData.enabled)
-    return NO;
-
-  MWMVoidBlock ok = ^{
-    auto urlString = afterBookingData.promoUrl;
-    auto url = [NSURL URLWithString:urlString];
-    [MapViewController.sharedController openCatalogAbsoluteUrl:url animated:YES utm:MWMUTMBookingPromo];
-
-    [self.ownerController dismissViewControllerAnimated:YES completion:nil];
-  };
-  MWMVoidBlock cancel = ^{
-    [self.ownerController dismissViewControllerAnimated:YES completion:nil];
-  };
-  NSString *cityImageUrl = afterBookingData.pictureUrl;
-  PromoAfterBookingViewController *alert;
-  alert = [[PromoAfterBookingViewController alloc] initWithCityImageUrl:cityImageUrl okClosure:ok cancelClosure:cancel];
-  [self.ownerController presentViewController:alert animated:YES completion:nil];
-  [MWMEye promoAfterBookingShownWithCityId:afterBookingData.promoId];
-  return YES;
-}
-
-- (BOOL)showTutorialIfNeeded {
-  if (self.tutorialViewContoller != nil)
-    return YES;
-
-  auto ownerController = self.ownerController;
-
-  if ([self.placePageManager isPPShown] || ownerController.downloadDialog.superview != nil) {
-    return NO;
-  }
-
-  self.tutorialType = [MWMEye getTipType];
-  self.tutorialViewContoller = [self tutorialWithType:self.tutorialType];
-  if (!self.tutorialViewContoller)
-    return NO;
-
-  self.hidden = NO;
-  [ownerController addChildViewController:self.tutorialViewContoller];
-  self.tutorialViewContoller.view.frame = ownerController.view.bounds;
-  self.tutorialViewContoller.view.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-  [ownerController.controlsView addSubview:self.tutorialViewContoller.view];
-  [self.tutorialViewContoller didMoveToParentViewController:ownerController];
-
-  return YES;
-}
-
-- (void)didPressCancel:(MWMTutorialViewController *)viewController {
-  [MWMEye tipClickedWithType:self.tutorialType event:MWMTipEventGotIt];
-  [self fadeOutTutorial:viewController];
-}
-
-- (void)didPressTarget:(MWMTutorialViewController *)viewController {
-  [MWMEye tipClickedWithType:self.tutorialType event:MWMTipEventAction];
-  [self fadeOutTutorial:viewController];
-}
-
-- (void)fadeOutTutorial:(MWMTutorialViewController *)viewController {
-  [viewController fadeOutWithCompletion:^{
-    [viewController willMoveToParentViewController:nil];
-    [viewController.view removeFromSuperview];
-    [viewController removeFromParentViewController];
-  }];
-  self.tutorialViewContoller = nil;
 }
 
 @end

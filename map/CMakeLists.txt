@@ -62,7 +62,6 @@ set(
   framework.hpp
   framework_light.cpp
   framework_light.hpp
-  framework_light_delegate.hpp
   gps_track_collection.cpp
   gps_track_collection.hpp
   gps_track_filter.cpp
@@ -81,20 +80,8 @@ set(
   guides_on_map_delegate.hpp
   isolines_manager.cpp
   isolines_manager.hpp
-  layers_statistics.cpp
-  layers_statistics.hpp
   mwm_url.cpp
   mwm_url.hpp
-  notifications/notification_manager.cpp
-  notifications/notification_manager.hpp
-  notifications/notification_manager_delegate.cpp
-  notifications/notification_manager_delegate.hpp
-  notifications/notification_queue.cpp
-  notifications/notification_queue.hpp
-  notifications/notification_queue_serdes.cpp
-  notifications/notification_queue_serdes.hpp
-  notifications/notification_queue_storage.cpp
-  notifications/notification_queue_storage.hpp
   onboarding.cpp
   onboarding.hpp
   place_page_info.cpp
@@ -122,10 +109,6 @@ set(
   search_product_info.hpp
   taxi_delegate.cpp
   taxi_delegate.hpp
-  tips_api.cpp
-  tips_api.hpp
-  tips_api_delegate.cpp
-  tips_api_delegate.hpp
   track.cpp
   track.hpp
   track_mark.cpp
@@ -144,8 +127,6 @@ set(
   user_mark_layer.hpp
   user_mark.cpp
   user_mark.hpp
-  utils.cpp
-  utils.hpp
   viewport_search_params.hpp
   viewport_search_callback.cpp
   viewport_search_callback.hpp

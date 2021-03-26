@@ -10,7 +10,6 @@ import androidx.annotation.Nullable;
 import com.mapswithme.maps.PrivateVariables;
 import com.mapswithme.maps.base.DataChangedListener;
 import com.mapswithme.maps.base.Observable;
-import com.mapswithme.maps.metrics.UserActionsLogger;
 import com.mapswithme.util.KeyValue;
 import com.mapswithme.util.UTM;
 
@@ -149,10 +148,6 @@ public enum BookmarkManager
   public Bookmark addNewBookmark(double lat, double lon)
   {
     final Bookmark bookmark = nativeAddBookmarkToLastEditedCategory(lat, lon);
-    if (bookmark != null)
-    {
-      UserActionsLogger.logAddToBookmarkEvent();
-    }
     return bookmark;
   }
 

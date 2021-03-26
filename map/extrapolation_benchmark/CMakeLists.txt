@@ -18,7 +18,6 @@ omim_link_libraries(
   ge0
   web_api
   routing
-  metrics
   platform
   geometry
   coding

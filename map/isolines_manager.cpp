@@ -1,7 +1,5 @@
 #include "map/isolines_manager.hpp"
 
-#include "metrics/eye.hpp"
-
 #include "drape_frontend/drape_engine.hpp"
 #include "drape_frontend/visual_params.hpp"
 
@@ -15,7 +13,6 @@ int constexpr kMinIsolinesZoom = 11;
 IsolinesManager::IsolinesManager(DataSource & dataSource, GetMwmsByRectFn const & getMwmsByRectFn)
   : m_dataSource(dataSource)
   , m_getMwmsByRectFn(getMwmsByRectFn)
-  , m_statistics("isolines")
 {
   CHECK(m_getMwmsByRectFn != nullptr, ());
 }
@@ -68,7 +65,6 @@ void IsolinesManager::SetEnabled(bool enabled)
 {
   ChangeState(enabled ? IsolinesState::Enabled : IsolinesState::Disabled);
   m_drapeEngine.SafeCall(&df::DrapeEngine::EnableIsolines, enabled);
-  m_trackFirstSchemeData = enabled;
   if (enabled)
   {
     Invalidate();
@@ -125,7 +121,6 @@ void IsolinesManager::UpdateState()
   bool available = false;
   bool expired = false;
   bool noData = false;
-  std::set<int64_t> mwmVersions;
   for (auto const & mwmId : m_lastMwms)
   {
     if (!mwmId.IsAlive())
@@ -137,23 +132,6 @@ void IsolinesManager::UpdateState()
     case Availability::Available: available = true; break;
     case Availability::ExpiredData: expired = true; break;
     case Availability::NoData: noData = true; break;
-    }
-
-    if (m_trackFirstSchemeData)
-      mwmVersions.insert(mwmId.GetInfo()->GetVersion());
-  }
-
-  if (m_trackFirstSchemeData)
-  {
-    if (available)
-    {
-      eye::Eye::Event::LayerShown(eye::Layer::Type::Isolines);
-      m_statistics.LogActivate(LayersStatistics::Status::Success, mwmVersions);
-      m_trackFirstSchemeData = false;
-    }
-    else
-    {
-      m_statistics.LogActivate(LayersStatistics::Status::Unavailable, mwmVersions);
     }
   }
 

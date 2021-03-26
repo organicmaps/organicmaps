@@ -8,14 +8,12 @@ import androidx.annotation.StyleRes;
 import androidx.fragment.app.Fragment;
 
 import com.mapswithme.maps.base.BaseMwmFragmentActivity;
-import com.mapswithme.maps.metrics.UserActionsLogger;
 import com.mapswithme.util.ThemeUtils;
 
 public class UGCEditorActivity extends BaseMwmFragmentActivity
 {
   public static void start(@NonNull Activity activity, @NonNull EditParams params)
   {
-    UserActionsLogger.logUgcEditorOpened();
     final Intent i = new Intent(activity, UGCEditorActivity.class);
     Bundle args = new Bundle();
     args.putParcelable(UGCEditorFragment.ARG_FEATURE_ID, params.getFeatureId());

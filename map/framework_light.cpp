@@ -47,17 +47,7 @@ Framework::Framework(RequestTypeMask request) : m_request(request)
     request ^= REQUEST_TYPE_LOCATION;
   }
 
-  if (request & REQUEST_TYPE_NOTIFICATION)
-  {
-    request ^= REQUEST_TYPE_NOTIFICATION;
-  }
-
   CHECK_EQUAL(request, REQUEST_TYPE_EMPTY, ("Incorrect mask type:", request));
-}
-
-void Framework::SetDelegate(std::unique_ptr<Delegate> delegate)
-{
-  m_delegate = std::move(delegate);
 }
 
 bool Framework::IsUserAuthenticated() const
@@ -91,22 +81,6 @@ CountryInfoReader::Info Framework::GetLocation(m2::PointD const & pt) const
   CHECK(m_countryInfoReader, ());
 
   return m_countryInfoReader->GetMwmInfo(pt);
-}
-
-notifications::Notification Framework::GetNotification() const
-{
-  // Do not disturb from 9p.m. to 10 a.m.
-  auto const time = notifications::Clock::to_time_t(notifications::Clock::now());
-  auto const localTime = std::localtime(&time);
-  if (localTime->tm_hour <= 9 || localTime->tm_hour >= 21)
-    return {};
-
-  if (m_delegate)
-    return m_delegate->GetNotificationManager().GetNotification();
-
-  notifications::NotificationManager notificationManager;
-  notificationManager.Load();
-  return notificationManager.GetNotification();
 }
 
 std::string FeatureParamsToString(int64_t mwmVersion, std::string const & countryId, uint32_t featureIndex)

@@ -28,7 +28,6 @@
 		3D18DC3422953FF600A583A6 /* rutaxi_tests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D18DC3222953FF600A583A6 /* rutaxi_tests.cpp */; };
 		3D18DC4122956DFA00A583A6 /* promo_api.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 3D18DC3F22956DFA00A583A6 /* promo_api.hpp */; };
 		3D18DC4222956DFA00A583A6 /* promo_api.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D18DC4022956DFA00A583A6 /* promo_api.cpp */; };
-		3D18DC4422956E0900A583A6 /* promo_tests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D18DC4322956E0900A583A6 /* promo_tests.cpp */; };
 		3D47B29A1F054C89000828D2 /* taxi_base.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D47B2961F054C89000828D2 /* taxi_base.cpp */; };
 		3D47B2B11F14FA14000828D2 /* utils.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 3D47B2B01F14FA14000828D2 /* utils.hpp */; };
 		3D4E997C1FB439260025B48C /* booking_availability_params.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 3D4E997A1FB439260025B48C /* booking_availability_params.hpp */; };
@@ -111,7 +110,6 @@
 		3D18DC3222953FF600A583A6 /* rutaxi_tests.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = rutaxi_tests.cpp; sourceTree = "<group>"; };
 		3D18DC3F22956DFA00A583A6 /* promo_api.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = promo_api.hpp; sourceTree = "<group>"; };
 		3D18DC4022956DFA00A583A6 /* promo_api.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = promo_api.cpp; sourceTree = "<group>"; };
-		3D18DC4322956E0900A583A6 /* promo_tests.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = promo_tests.cpp; sourceTree = "<group>"; };
 		3D47B2961F054C89000828D2 /* taxi_base.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = taxi_base.cpp; sourceTree = "<group>"; };
 		3D47B2B01F14FA14000828D2 /* utils.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = utils.hpp; sourceTree = "<group>"; };
 		3D4E997A1FB439260025B48C /* booking_availability_params.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = booking_availability_params.hpp; sourceTree = "<group>"; };
@@ -291,7 +289,6 @@
 				3DA6BCE12535B53C00DF0DA5 /* citymobil_tests.cpp */,
 				3D035CA4245195EF00C21B57 /* guides_on_map_tests.cpp */,
 				3DBD7B9A24112DEA00ED9FE8 /* freenow_tests.cpp */,
-				3D18DC4322956E0900A583A6 /* promo_tests.cpp */,
 				3D18DC3222953FF600A583A6 /* rutaxi_tests.cpp */,
 				F6B536451DA5213D0067EEA5 /* booking_tests.cpp */,
 				349CFD0C2045720700569949 /* maxim_tests.cpp */,
@@ -483,7 +480,6 @@
 				3DFEBF9B1EFBFC1500317D5C /* taxi_engine.cpp in Sources */,
 				3DF01C2D20652463005DDF8C /* taxi_places.cpp in Sources */,
 				F67E75251DB8F06F00D6741F /* opentable_api.cpp in Sources */,
-				3D18DC4422956E0900A583A6 /* promo_tests.cpp in Sources */,
 				BB1956E61F543D7C003ECE6C /* locals_api.cpp in Sources */,
 				3DBD7B9B24112DEA00ED9FE8 /* freenow_tests.cpp in Sources */,
 				3DFEBFA31EFBFC2300317D5C /* taxi_engine_tests.cpp in Sources */,

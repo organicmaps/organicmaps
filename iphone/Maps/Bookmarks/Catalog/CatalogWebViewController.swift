@@ -32,7 +32,6 @@ final class CatalogWebViewController: WebViewController {
   let pendingTransactionsHandler = InAppPurchase.pendingTransactionsHandler()
   var deeplink: URL?
   var categoryInfo: CatalogCategoryInfo?
-  var statSent = false
   var billing = InAppPurchase.inAppBilling()
   var noInternetView: CatalogConnectionErrorView!
 
@@ -186,10 +185,6 @@ final class CatalogWebViewController: WebViewController {
   }
 
   override func webView(_ webView: WKWebView, didCommit navigation: WKNavigation!) {
-    if !statSent {
-      statSent = true
-      MWMEye.boomarksCatalogShown()
-    }
     loadingIndicator.stopAnimating()
   }
 

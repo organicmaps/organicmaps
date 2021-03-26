@@ -10,7 +10,6 @@ set(
   guides_on_map_tests.cpp
 # Maxim taxi project is disabled.
 # maxim_tests.cpp
-  promo_tests.cpp
   rutaxi_tests.cpp
   taxi_engine_tests.cpp
   taxi_places_tests.cpp
@@ -23,10 +22,8 @@ omim_add_test(${PROJECT_NAME} ${SRC})
 omim_link_libraries(
   ${PROJECT_NAME}
   platform_tests_support
-  metrics_tests_support
   partners_api
   web_api
-  metrics
   storage
   indexer
   platform

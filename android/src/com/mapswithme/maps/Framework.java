@@ -15,7 +15,6 @@ import com.mapswithme.maps.api.ParsedSearchRequest;
 import com.mapswithme.maps.api.ParsedUrlMwmRequest;
 import com.mapswithme.maps.api.ParsingResult;
 import com.mapswithme.maps.auth.AuthorizationListener;
-import com.mapswithme.maps.background.NotificationCandidate;
 import com.mapswithme.maps.bookmarks.data.DistanceAndAzimut;
 import com.mapswithme.maps.bookmarks.data.FeatureId;
 import com.mapswithme.maps.bookmarks.data.MapObject;
@@ -498,16 +497,10 @@ public class Framework
 
   public static native int nativeGetCurrentTipIndex();
 
-  public static native void nativeBindUser(@NonNull UserBindingListener listener);
-
   @Nullable
   public static native String nativeGetAccessToken();
 
-  @Nullable
-  public static native MapObject nativeGetMapObject(
-      @NonNull NotificationCandidate notificationCandidate);
-
-  public static native void nativeSetPowerManagerFacility(int facilityType, boolean state);
+    public static native void nativeSetPowerManagerFacility(int facilityType, boolean state);
   public static native int nativeGetPowerManagerScheme();
   public static native void nativeSetPowerManagerScheme(int schemeType);
   public static native void nativeSetViewportCenter(double lat, double lon, int zoom,

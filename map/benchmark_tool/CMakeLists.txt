@@ -22,7 +22,6 @@ omim_link_libraries(
   web_api
   editor
   indexer
-  metrics
   geometry
   platform
   coding

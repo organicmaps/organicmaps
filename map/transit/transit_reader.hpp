@@ -1,7 +1,5 @@
 #pragma once
 
-#include "map/layers_statistics.hpp"
-
 #include "drape_frontend/drape_engine_safe_ptr.hpp"
 
 #include "transit/experimental/transit_data.hpp"
@@ -123,8 +121,6 @@ private:
   void ShrinkCacheToAllowableSize();
   void ClearCache(MwmSet::MwmId const & mwmId);
 
-  void TrackStatistics(std::set<int64_t> const & mwmVersions);
-
   std::unique_ptr<base::thread_pool::routine::ThreadPool> m_threadsPool;
 
   std::mutex m_mutex;
@@ -159,8 +155,4 @@ private:
   bool m_isSchemeMode = false;
   bool m_isSchemeModeBlocked = false;
   std::pair<ScreenBase, bool> m_currentModelView = {ScreenBase(), false /* initialized */};
-
-  bool m_trackFirstSchemeData = false;
-  std::optional<LayersStatistics::Status> m_lastTrackedStatus;
-  LayersStatistics m_statistics;
 };

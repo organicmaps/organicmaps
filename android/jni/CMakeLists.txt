@@ -60,7 +60,6 @@ set(
   com/mapswithme/maps/LocationState.cpp
   com/mapswithme/maps/MapFragment.cpp
   com/mapswithme/maps/MapManager.cpp
-  com/mapswithme/maps/metrics/UserActionsLogger.cpp
   com/mapswithme/maps/MwmApplication.cpp
   com/mapswithme/maps/onboarding/Onboarding.cpp
   com/mapswithme/maps/PrivateVariables.cpp
@@ -132,7 +131,6 @@ target_link_libraries(
   editor
   transit
   indexer
-  metrics
   platform
   partners_api
   web_api

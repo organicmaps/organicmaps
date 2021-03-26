@@ -1,6 +1,5 @@
 @objc protocol IABTestManager {
   @objc var promoDiscoveryCampaign: PromoDiscoveryCampaign { get }
-  @objc var promoAfterBookingCampaign: PromoAfterBookingCampaign { get }
   @objc var paidRoutesSubscriptionCampaign: PaidRoutesSubscriptionCampaign { get }
   @objc var abTestBookingBackButtonColor: ABTestBookingBackButtonColor { get }
 }
@@ -14,10 +13,6 @@
 
   @objc lazy var promoDiscoveryCampaign: PromoDiscoveryCampaign = {
     return PromoDiscoveryCampaign()
-  }()
-
-  @objc lazy var promoAfterBookingCampaign: PromoAfterBookingCampaign = {
-    return PromoAfterBookingCampaign()
   }()
 
   @objc lazy var paidRoutesSubscriptionCampaign: PaidRoutesSubscriptionCampaign = {

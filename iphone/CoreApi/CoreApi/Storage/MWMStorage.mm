@@ -125,7 +125,6 @@ using namespace storage;
     }
   } else {
     f.GetStorage().DeleteNode(countryId.UTF8String);
-    f.GetNotificationManager().DeleteCandidatesForCountry(countryId.UTF8String);
     return YES;
   }
 

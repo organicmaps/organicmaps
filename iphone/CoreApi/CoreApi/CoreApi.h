@@ -11,7 +11,6 @@ FOUNDATION_EXPORT const unsigned char CoreApiVersionString[];
 #import <CoreApi/MWMBookmarksObserver.h>
 #import <CoreApi/MWMCarPlayBookmarkObject.h>
 #import <CoreApi/MWMCommon.h>
-#import <CoreApi/MWMEye.h>
 #import <CoreApi/MWMFrameworkHelper.h>
 #import <CoreApi/MWMGuidesManager.h>
 #import <CoreApi/MWMMapOverlayManager.h>

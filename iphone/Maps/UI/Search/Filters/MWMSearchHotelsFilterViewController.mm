@@ -1,7 +1,5 @@
 #import "MWMSearchHotelsFilterViewController.h"
 
-#import <CoreApi/MWMEye.h>
-
 #import "MWMSearchFilterViewController_Protected.h"
 #import "SwiftBridge.h"
 
@@ -165,7 +163,6 @@ void configButton(UIButton *button, NSString *primaryText, NSString *secondaryTe
 }
 
 - (IBAction)applyAction {
-  [MWMEye bookingFilterUsed];
   [self.delegate hotelsFilterViewController:self didSelectParams:[self getSelectedHotelParams]];
 }
 

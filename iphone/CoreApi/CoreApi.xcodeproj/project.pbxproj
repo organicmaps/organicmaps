@@ -84,8 +84,6 @@
 		479F7062234FBC4700011E2E /* MWMCarPlayBookmarkObject.mm in Sources */ = {isa = PBXBuildFile; fileRef = 479F7061234FBC4600011E2E /* MWMCarPlayBookmarkObject.mm */; };
 		479F7063234FBC5900011E2E /* MWMCarPlayBookmarkObject.h in Headers */ = {isa = PBXBuildFile; fileRef = 479F7060234FBC4500011E2E /* MWMCarPlayBookmarkObject.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		47A65CAF235008E100DCD85F /* CoreApi-swift.h in Headers */ = {isa = PBXBuildFile; fileRef = 47A65CAE235008C700DCD85F /* CoreApi-swift.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		47C637D12354A6FB00E12DE0 /* MWMEye.mm in Sources */ = {isa = PBXBuildFile; fileRef = 47C637CF2354A6FA00E12DE0 /* MWMEye.mm */; };
-		47C637D22354A6FB00E12DE0 /* MWMEye.h in Headers */ = {isa = PBXBuildFile; fileRef = 47C637D02354A6FB00E12DE0 /* MWMEye.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		47C637D62354AEBE00E12DE0 /* MWMMapOverlayManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = 47C637D42354AEBD00E12DE0 /* MWMMapOverlayManager.mm */; };
 		47C637D72354AEBE00E12DE0 /* MWMMapOverlayManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 47C637D52354AEBE00E12DE0 /* MWMMapOverlayManager.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		47C637DC2354B79B00E12DE0 /* MWMSearchFrameworkHelper.mm in Sources */ = {isa = PBXBuildFile; fileRef = 47C637DA2354B79A00E12DE0 /* MWMSearchFrameworkHelper.mm */; };
@@ -121,9 +119,7 @@
 		99103843237EDFA200893C9F /* DeepLinkData.h in Headers */ = {isa = PBXBuildFile; fileRef = 99103841237EDFA200893C9F /* DeepLinkData.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		99103844237EDFA200893C9F /* DeepLinkData.m in Sources */ = {isa = PBXBuildFile; fileRef = 99103842237EDFA200893C9F /* DeepLinkData.m */; };
 		993F54F2237C5D1100545511 /* PromoDiscoveryCampaignAdapter.h in Headers */ = {isa = PBXBuildFile; fileRef = 993F54EE237C5D1000545511 /* PromoDiscoveryCampaignAdapter.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		993F54F3237C5D1100545511 /* PromoAfterBookingCampaignAdapter.mm in Sources */ = {isa = PBXBuildFile; fileRef = 993F54EF237C5D1000545511 /* PromoAfterBookingCampaignAdapter.mm */; };
 		993F54F4237C5D1100545511 /* PromoDiscoveryCampaignAdapter.mm in Sources */ = {isa = PBXBuildFile; fileRef = 993F54F0237C5D1000545511 /* PromoDiscoveryCampaignAdapter.mm */; };
-		993F54F5237C5D1100545511 /* PromoAfterBookingCampaignAdapter.h in Headers */ = {isa = PBXBuildFile; fileRef = 993F54F1237C5D1000545511 /* PromoAfterBookingCampaignAdapter.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		9940622023EAC57900493D1A /* ElevationHeightPoint.h in Headers */ = {isa = PBXBuildFile; fileRef = 9940621E23EAC57900493D1A /* ElevationHeightPoint.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		9940622123EAC57900493D1A /* ElevationHeightPoint.m in Sources */ = {isa = PBXBuildFile; fileRef = 9940621F23EAC57900493D1A /* ElevationHeightPoint.m */; };
 		99447849238559F2004DAEE5 /* DeeplinkUrlType.h in Headers */ = {isa = PBXBuildFile; fileRef = 99447847238559F2004DAEE5 /* DeeplinkUrlType.h */; };
@@ -233,8 +229,6 @@
 		479F7060234FBC4500011E2E /* MWMCarPlayBookmarkObject.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MWMCarPlayBookmarkObject.h; sourceTree = "<group>"; };
 		479F7061234FBC4600011E2E /* MWMCarPlayBookmarkObject.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMCarPlayBookmarkObject.mm; sourceTree = "<group>"; };
 		47A65CAE235008C700DCD85F /* CoreApi-swift.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "CoreApi-swift.h"; sourceTree = "<group>"; };
-		47C637CF2354A6FA00E12DE0 /* MWMEye.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMEye.mm; sourceTree = "<group>"; };
-		47C637D02354A6FB00E12DE0 /* MWMEye.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMEye.h; sourceTree = "<group>"; };
 		47C637D42354AEBD00E12DE0 /* MWMMapOverlayManager.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMMapOverlayManager.mm; sourceTree = "<group>"; };
 		47C637D52354AEBE00E12DE0 /* MWMMapOverlayManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMMapOverlayManager.h; sourceTree = "<group>"; };
 		47C637DA2354B79A00E12DE0 /* MWMSearchFrameworkHelper.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMSearchFrameworkHelper.mm; sourceTree = "<group>"; };
@@ -275,9 +269,7 @@
 		991CE2EC2375AF25009EB02A /* PromoDiscoveryCampaignAdapter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PromoDiscoveryCampaignAdapter.h; sourceTree = "<group>"; };
 		991CE2ED2375AF25009EB02A /* PromoDiscoveryCampaignAdapter.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = PromoDiscoveryCampaignAdapter.mm; sourceTree = "<group>"; };
 		993F54EE237C5D1000545511 /* PromoDiscoveryCampaignAdapter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PromoDiscoveryCampaignAdapter.h; sourceTree = "<group>"; };
-		993F54EF237C5D1000545511 /* PromoAfterBookingCampaignAdapter.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = PromoAfterBookingCampaignAdapter.mm; sourceTree = "<group>"; };
 		993F54F0237C5D1000545511 /* PromoDiscoveryCampaignAdapter.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = PromoDiscoveryCampaignAdapter.mm; sourceTree = "<group>"; };
-		993F54F1237C5D1000545511 /* PromoAfterBookingCampaignAdapter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PromoAfterBookingCampaignAdapter.h; sourceTree = "<group>"; };
 		9940621E23EAC57900493D1A /* ElevationHeightPoint.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ElevationHeightPoint.h; sourceTree = "<group>"; };
 		9940621F23EAC57900493D1A /* ElevationHeightPoint.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ElevationHeightPoint.m; sourceTree = "<group>"; };
 		99447847238559F2004DAEE5 /* DeeplinkUrlType.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DeeplinkUrlType.h; sourceTree = "<group>"; };
@@ -360,7 +352,6 @@
 				4718C42F2355FC0D00640DF1 /* NetworkPolicy */,
 				47C637D92354B76700E12DE0 /* Search */,
 				47C637D32354AEA800E12DE0 /* Traffic */,
-				47C637CE2354A6E600E12DE0 /* Metrics */,
 				479F704C234FB5C800011E2E /* Bookmarks */,
 				479F7048234F784B00011E2E /* Common */,
 				477C775523435B69001C5B4E /* Framework */,
@@ -552,15 +543,6 @@
 			path = Catalog;
 			sourceTree = "<group>";
 		};
-		47C637CE2354A6E600E12DE0 /* Metrics */ = {
-			isa = PBXGroup;
-			children = (
-				47C637D02354A6FB00E12DE0 /* MWMEye.h */,
-				47C637CF2354A6FA00E12DE0 /* MWMEye.mm */,
-			);
-			path = Metrics;
-			sourceTree = "<group>";
-		};
 		47C637D32354AEA800E12DE0 /* Traffic */ = {
 			isa = PBXGroup;
 			children = (
@@ -662,9 +644,7 @@
 				99F31EB523D5DD8F00CE2CE1 /* PromoAfterBookingData.mm */,
 				99F31EB623D5DD8F00CE2CE1 /* PromoAfterBookingData+Core.h */,
 				993F54EE237C5D1000545511 /* PromoDiscoveryCampaignAdapter.h */,
-				993F54EF237C5D1000545511 /* PromoAfterBookingCampaignAdapter.mm */,
 				993F54F0237C5D1000545511 /* PromoDiscoveryCampaignAdapter.mm */,
-				993F54F1237C5D1000545511 /* PromoAfterBookingCampaignAdapter.h */,
 			);
 			path = Promo;
 			sourceTree = "<group>";
@@ -742,7 +722,6 @@
 				3D40DED523ED9C7F00A0153A /* WebApi.h in Headers */,
 				47A65CAF235008E100DCD85F /* CoreApi-swift.h in Headers */,
 				9957FACE237AB01400855F48 /* DeepLinkParser.h in Headers */,
-				993F54F5237C5D1100545511 /* PromoAfterBookingCampaignAdapter.h in Headers */,
 				47942D7D237CC42B00DEFAE3 /* UgcData.h in Headers */,
 				47942D77237CC41A00DEFAE3 /* HotelRooms.h in Headers */,
 				9974CA2D23DF197B003FE824 /* ElevationProfileData+Core.h in Headers */,
@@ -812,7 +791,6 @@
 				47942D6F237CC3F400DEFAE3 /* PlacePageInfoData.h in Headers */,
 				470B362C244DDBF600C0EA9E /* GuidesGalleryItem+Core.h in Headers */,
 				475784C22344B422008291A4 /* Framework.h in Headers */,
-				47C637D22354A6FB00E12DE0 /* MWMEye.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -893,7 +871,6 @@
 				470B3625244DDA0A00C0EA9E /* GuidesGalleryItem.mm in Sources */,
 				47942D7F237CC43300DEFAE3 /* UgcData.mm in Sources */,
 				99F31EB823D5DD9000CE2CE1 /* PromoAfterBookingData.mm in Sources */,
-				47C637D12354A6FB00E12DE0 /* MWMEye.mm in Sources */,
 				47942D9D237D927800DEFAE3 /* PlacePageBookmarkData.mm in Sources */,
 				47942D86237CC55500DEFAE3 /* MWMOpeningHoursCommon.mm in Sources */,
 				9974CA2A23DF1968003FE824 /* ElevationProfileData.mm in Sources */,
@@ -927,7 +904,6 @@
 				4718C4332355FC3C00640DF1 /* MWMNetworkPolicy.mm in Sources */,
 				47CA68E92506F61400671019 /* MWMTrack.mm in Sources */,
 				472602A924092C5B00731135 /* MWMGeoUtil.mm in Sources */,
-				993F54F3237C5D1100545511 /* PromoAfterBookingCampaignAdapter.mm in Sources */,
 				99D934B424CA0052002E4802 /* MWMPurchaseValidation.mm in Sources */,
 				47F701F0238C86F000D18E95 /* PlacePageButtonsData.mm in Sources */,
 				9940622123EAC57900493D1A /* ElevationHeightPoint.m in Sources */,

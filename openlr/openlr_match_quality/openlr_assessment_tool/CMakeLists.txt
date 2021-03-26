@@ -53,7 +53,6 @@ omim_link_libraries(
   kml
   editor
   indexer
-  metrics
   platform
   mwm_diff
   bsdiff

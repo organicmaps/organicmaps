@@ -115,7 +115,6 @@ Some of these contain their own README files.
 * `iphone` - iOS UI.
 * `kml` - manipulation of KML files.
 * `mapshot` - generate screenshots of maps, specified by coordinates and zoom level.
-* `metrics` -
 * `openlr` -
 * `partners_api` - API for partners of the OMaps project.
 * `pyhelpers` -

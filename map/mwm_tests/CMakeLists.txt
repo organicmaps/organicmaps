@@ -18,7 +18,6 @@ omim_link_libraries(
   kml
   editor
   indexer
-  metrics
   platform
   geometry
   coding

@@ -55,7 +55,6 @@ SortedGuides SortGuidesByPositions(std::vector<guides_on_map::GuidesNode> const 
 
 GuidesManager::GuidesManager(CloseGalleryFn && closeGalleryFn)
   : m_closeGallery(std::move(closeGalleryFn))
-  , m_statistics("guides")
 {
   CHECK(m_closeGallery != nullptr, ());
 }
@@ -167,9 +166,6 @@ void GuidesManager::ChangeState(GuidesState newState, bool force /* = false */, 
   m_state = newState;
   if (m_onStateChanged != nullptr && needNotify)
     m_onStateChanged(newState);
-
-  if (m_shownGuides.empty())
-    TrackStatistics();
 }
 
 void GuidesManager::RequestGuides(bool suggestZoom)
@@ -444,18 +440,12 @@ void GuidesManager::OnClusterSelected(GuidesClusterMark const & mark, ScreenBase
   m_drapeEngine.SafeCall(&df::DrapeEngine::ScaleAndSetCenter, mark.GetPivot(),
                          2.0 /* scaleFactor */, true /* isAnim */,
                          false /* trackVisibleViewport */);
-  m_statistics.LogItemSelected(LayersStatistics::LayerItemType::Cluster);
 }
 
 void GuidesManager::OnGuideSelected()
 {
   if (m_onGalleryChanged)
     m_onGalleryChanged(false /* reload */);
-}
-
-void GuidesManager::LogGuideSelectedStatistic()
-{
-  m_statistics.LogItemSelected(LayersStatistics::LayerItemType::Point);
 }
 
 void GuidesManager::UpdateActiveGuide()
@@ -478,18 +468,6 @@ void GuidesManager::UpdateActiveGuide()
 bool GuidesManager::IsRequestParamsInitialized() const
 {
   return m_screen.GlobalRect().GetLocalRect().IsEmptyInterior() || m_zoom != 0;
-}
-
-void GuidesManager::TrackStatistics() const
-{
-  auto const initType = m_silentMode ? LayersStatistics::InitType::Auto
-                                     : LayersStatistics::InitType::User;
-  if (m_state == GuidesState::HasData)
-    m_statistics.LogActivate(LayersStatistics::Status::Success, {} /* mwmVersions */, initType);
-  else if (m_state == GuidesState::NoData)
-    m_statistics.LogActivate(LayersStatistics::Status::Unavailable, {} /* mwmVersions */, initType);
-  else if (m_state == GuidesState::NetworkError || m_state == GuidesState::FatalNetworkError)
-    m_statistics.LogActivate(LayersStatistics::Status::Error, {} /* mwmVersions */, initType);
 }
 
 GalleryItem GuidesManager::MakeGalleryItem(guides_on_map::GuidesNode const & guide) const

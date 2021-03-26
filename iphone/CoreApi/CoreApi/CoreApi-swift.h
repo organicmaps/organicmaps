@@ -16,7 +16,6 @@ FOUNDATION_EXPORT const unsigned char CoreApiVersionString[];
 #import <CoreApi/MWMBookmarksObserver.h>
 #import <CoreApi/MWMCarPlayBookmarkObject.h>
 #import <CoreApi/MWMCommon.h>
-#import <CoreApi/MWMEye.h>
 #import <CoreApi/MWMFrameworkHelper.h>
 #import <CoreApi/MWMGeoUtil.h>
 #import <CoreApi/MWMGuidesManager.h>
@@ -34,7 +33,6 @@ FOUNDATION_EXPORT const unsigned char CoreApiVersionString[];
 #import <CoreApi/MWMTypes.h>
 #import <CoreApi/MWMUTM.h>
 #import <CoreApi/MWMUser.h>
-#import <CoreApi/PromoAfterBookingCampaignAdapter.h>
 #import <CoreApi/PromoDiscoveryCampaignAdapter.h>
 #import <CoreApi/WebApi.h>
 

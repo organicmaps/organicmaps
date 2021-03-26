@@ -182,25 +182,6 @@ Java_com_mapswithme_maps_promo_Promo_nativeRequestPoiGallery(JNIEnv * env, jclas
                                   std::bind(OnError, g_lastRequestId));
 }
 
-JNIEXPORT jobject JNICALL
-Java_com_mapswithme_maps_promo_Promo_nativeGetPromoAfterBooking(JNIEnv * env, jclass,
-                                                                jobject policy)
-{
-  PrepareClassRefs(env);
-
-  auto const result = g_framework->GetPromoAfterBooking(env, policy);
-
-  if (result.IsEmpty())
-    return nullptr;
-
-  auto const id = jni::ToJavaString(env, result.m_id);
-  auto const promoUrl = jni::ToJavaString(env, result.m_promoUrl);
-  auto const pictureUrl = jni::ToJavaString(env, result.m_pictureUrl);
-
-
-  return env->NewObject(g_afterBooking, g_afterBookingConstructor, id, promoUrl, pictureUrl);
-}
-
 JNIEXPORT jstring JNICALL
 Java_com_mapswithme_maps_promo_Promo_nativeGetCityUrl(JNIEnv * env, jclass, jobject policy,
                                                       jdouble lat, jdouble lon)

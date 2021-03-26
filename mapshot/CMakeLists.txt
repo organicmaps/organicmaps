@@ -23,7 +23,6 @@ omim_link_libraries(
   routing
   search
   storage
-  metrics
   tracking
   traffic
   routing_common

@@ -444,7 +444,6 @@ Java_com_mapswithme_maps_downloader_MapManager_nativeDelete(JNIEnv * env, jclass
   StartBatchingCallbacks();
   auto const countryId = jni::ToNativeString(env, root);
   GetStorage().DeleteNode(countryId);
-  g_framework->NativeFramework()->GetNotificationManager().DeleteCandidatesForCountry(countryId);
   EndBatchingCallbacks(env);
 }
 

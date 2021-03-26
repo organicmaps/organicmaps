@@ -1,7 +1,6 @@
 #pragma once
 
 #include "map/bookmark_manager.hpp"
-#include "map/notifications/notification_manager.hpp"
 #include "map/user.hpp"
 
 #include "ugc/storage.hpp"
@@ -32,7 +31,6 @@ enum RequestType
   // and takes much time.  For example it takes ~50ms on LG Nexus 5, ~100ms on Samsung A5, ~200ms on
   // Fly IQ4403.
   REQUEST_TYPE_LOCATION = 1u << 4,
-  REQUEST_TYPE_NOTIFICATION = 1u << 5,
 };
 
 using RequestTypeMask = unsigned;
@@ -47,17 +45,9 @@ using RequestTypeMask = unsigned;
 class Framework
 {
 public:
-  class Delegate
-  {
-  public:
-    virtual ~Delegate() = default;
-    virtual notifications::NotificationManager & GetNotificationManager() = 0;
-  };
   friend struct LightFrameworkTest;
 
   explicit Framework(RequestTypeMask request);
-
-  void SetDelegate(std::unique_ptr<Delegate> delegate);
 
   bool IsUserAuthenticated() const;
   size_t GetNumberOfUnsentUGC() const;
@@ -67,11 +57,8 @@ public:
   /// @note Be careful here, because "lightweight" has no region's geometry cache.
   CountryInfoReader::Info GetLocation(m2::PointD const & pt) const;
 
-  notifications::Notification GetNotification() const;
-
 private:
   RequestTypeMask m_request;
-  std::unique_ptr<Delegate> m_delegate;
   bool m_userAuthStatus = false;
   size_t m_numberOfUnsentUGC = 0;
   size_t m_numberOfUnsentEdits = 0;

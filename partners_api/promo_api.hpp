@@ -2,8 +2,6 @@
 
 #include "partners_api/utm.hpp"
 
-#include "metrics/eye.hpp"
-
 #include "platform/http_client.hpp"
 #include "platform/safe_callback.hpp"
 
@@ -78,7 +76,7 @@ using CityGalleryCallback = platform::SafeCallback<void(CityGallery const & gall
 using OnError = platform::SafeCallback<void()>;
 using Tags = std::vector<std::string>;
 
-class Api : public eye::Subscriber
+class Api
 {
 public:
   class Delegate
@@ -94,7 +92,6 @@ public:
       std::string const & basePicturesUrl = PICTURES_URL);
 
   void SetDelegate(std::unique_ptr<Delegate> delegate);
-  AfterBooking GetAfterBooking(std::string const & lang) const;
   std::string GetLinkForDownloader(std::string const & id) const;
   std::string GetCityUrl(m2::PointD const & point) const;
   void GetCityGallery(m2::PointD const & point, std::string const & lang, UTM utm,
@@ -102,9 +99,6 @@ public:
   void GetPoiGallery(m2::PointD const & point, std::string const & lang, Tags const & tags,
                      bool useCoordinates, UTM utm, CityGalleryCallback const & onSuccess,
                      OnError const & onError) const;
-
-  // eye::Subscriber overrides:
-  void OnTransitionToBooking(m2::PointD const & hotelPos) override;
 
 private:
   std::unique_ptr<Delegate> m_delegate;

@@ -62,7 +62,6 @@ import com.mapswithme.maps.gallery.Constants;
 import com.mapswithme.maps.gallery.FullScreenGalleryActivity;
 import com.mapswithme.maps.gallery.GalleryActivity;
 import com.mapswithme.maps.location.LocationHelper;
-import com.mapswithme.maps.metrics.UserActionsLogger;
 import com.mapswithme.maps.promo.CatalogPromoController;
 import com.mapswithme.maps.promo.PromoCityGallery;
 import com.mapswithme.maps.promo.PromoEntity;
@@ -72,7 +71,6 @@ import com.mapswithme.maps.search.FilterUtils;
 import com.mapswithme.maps.search.HotelsFilter;
 import com.mapswithme.maps.search.Popularity;
 import com.mapswithme.maps.settings.RoadType;
-import com.mapswithme.maps.taxi.TaxiType;
 import com.mapswithme.maps.ugc.Impress;
 import com.mapswithme.maps.ugc.UGCController;
 import com.mapswithme.maps.widget.ArrowView;
@@ -1025,15 +1023,6 @@ public class PlacePageView extends NestedScrollViewClickFixed
                 if (book)
                 {
                   partnerAppOpenMode = Utils.PartnerAppOpenMode.Direct;
-                  UserActionsLogger.logBookingBookClicked();
-                }
-                else if (isDetails)
-                {
-                  UserActionsLogger.logBookingDetailsClicked();
-                }
-                else
-                {
-                  UserActionsLogger.logBookingMoreClicked();
                 }
                 break;
               case Sponsored.TYPE_OPENTABLE:
@@ -1817,7 +1806,6 @@ public class PlacePageView extends NestedScrollViewClickFixed
           //null checking is done in 'isSponsored' method
           //noinspection ConstantConditions
           Utils.openUrl(getContext(), mSponsored.getReviewUrl());
-          UserActionsLogger.logBookingReviewsClicked();
         }
         break;
       case R.id.tv__place_page_order_taxi:
