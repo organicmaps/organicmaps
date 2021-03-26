@@ -62,8 +62,8 @@ namespace threads
 
     uint64_t deltaNanoSec = curtv.tv_usec * 1000 + ms * 1000000;
 
-    ts.tv_sec = curtv.tv_sec + deltaNanoSec / 1000000000;
-    ts.tv_nsec = deltaNanoSec % 1000000000;
+    ts.tv_sec = curtv.tv_sec + static_cast<decltype(ts.tv_sec)>(deltaNanoSec / 1000000000);
+    ts.tv_nsec = static_cast<decltype(ts.tv_nsec)>(deltaNanoSec % 1000000000);
 
     int res = ::pthread_cond_timedwait(&m_pImpl->m_Condition, &m_pImpl->m_Mutex.m_Mutex, &ts);
 
