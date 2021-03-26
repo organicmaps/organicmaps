@@ -18,6 +18,7 @@
 #include "base/logging.hpp"
 
 #include <algorithm>
+#include <array>
 #include <memory>
 
 using namespace std::placeholders;
@@ -144,7 +145,7 @@ void TrafficGenerator::GenerateSegmentsGeometry(ref_ptr<dp::GraphicsContext> con
                                                 traffic::TrafficInfo::Coloring const & coloring,
                                                 ref_ptr<dp::TextureManager> texturesMgr)
 {
-  static std::vector<int> const kGenerateCirclesZoomLevel = {14, 14, 16};
+  static std::array<int, 3> const kGenerateCirclesZoomLevel = {14, 14, 16};
 
   ASSERT(m_colorsCacheValid, ());
   auto const colorTexture = m_colorsCache[static_cast<size_t>(traffic::SpeedGroup::G0)].GetTexture();
@@ -167,7 +168,7 @@ void TrafficGenerator::GenerateSegmentsGeometry(ref_ptr<dp::GraphicsContext> con
     isLeftHand = (regionData.Get(feature::RegionData::RD_DRIVING) == "l");
   }
 
-  static std::vector<float> const kRoadClassDepths = {30.0f, 20.0f, 10.0f};
+  static std::array<float, 3> const kRoadClassDepths = {30.0f, 20.0f, 10.0f};
 
   for (auto const & geomPair : geometry)
   {
@@ -237,7 +238,7 @@ void TrafficGenerator::FlushSegmentsGeometry(ref_ptr<dp::GraphicsContext> contex
 {
   FillColorsCache(textures);
 
-  static std::vector<RoadClass> const kRoadClasses = {RoadClass::Class0, RoadClass::Class1,
+  static std::array<RoadClass, 3> const kRoadClasses = {RoadClass::Class0, RoadClass::Class1,
                                                       RoadClass::Class2};
   for (auto const & g : geom)
   {

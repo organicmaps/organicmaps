@@ -31,6 +31,7 @@
 #include "base/string_utils.hpp"
 #endif
 
+#include <array>
 #include <functional>
 #include <utility>
 #include <vector>
@@ -41,7 +42,7 @@ namespace
 {
 // The first zoom level in kAverageSegmentsCount.
 int constexpr kFirstZoomInAverageSegments = 10;
-std::vector<size_t> const kAverageSegmentsCount =
+std::array<size_t, 10> const kAverageSegmentsCount =
 {
   // 10  11    12     13    14    15    16    17    18   19
   10000, 5000, 10000, 5000, 2500, 5000, 2000, 1000, 500, 500
@@ -115,8 +116,8 @@ void ExtractTrafficGeometry(FeatureType const & f, df::RoadClass const & roadCla
   if (!oneWay)
     twoWayOffset = pixelToGlobalScale * df::TrafficRenderer::GetTwoWayOffset(roadClass, zoomLevel);
 
-  static std::vector<uint8_t> directions = {traffic::TrafficInfo::RoadSegmentId::kForwardDirection,
-                                            traffic::TrafficInfo::RoadSegmentId::kReverseDirection};
+  static std::array<uint8_t, 2> const directions = {traffic::TrafficInfo::RoadSegmentId::kForwardDirection,
+                                                    traffic::TrafficInfo::RoadSegmentId::kReverseDirection};
   auto & segments = geometry[f.GetID().m_mwmId];
 
   int const index = zoomLevel - kFirstZoomInAverageSegments;

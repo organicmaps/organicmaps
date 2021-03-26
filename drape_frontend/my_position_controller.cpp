@@ -15,6 +15,7 @@
 
 
 #include <algorithm>
+#include <array>
 #include <chrono>
 #include <string>
 #include <vector>
@@ -55,7 +56,7 @@ int GetZoomLevel(ScreenBase const & screen, m2::PointD const & position, double 
 double CalculateZoomBySpeed(double speed, bool isPerspectiveAllowed)
 {
   using TSpeedScale = std::pair<double, double>;
-  static std::vector<TSpeedScale> const scales3d = {
+  static std::array<TSpeedScale, 6> const scales3d = {
     std::make_pair(20.0, 0.25),
     std::make_pair(40.0, 0.75),
     std::make_pair(60.0, 1.5),
@@ -64,7 +65,7 @@ double CalculateZoomBySpeed(double speed, bool isPerspectiveAllowed)
     std::make_pair(95.0, 6.0),
   };
 
-  static std::vector<TSpeedScale> const scales2d = {
+  static std::array<TSpeedScale, 6> const scales2d = {
     std::make_pair(20.0, 0.7),
     std::make_pair(40.0, 1.25),
     std::make_pair(60.0, 2.25),
@@ -73,7 +74,7 @@ double CalculateZoomBySpeed(double speed, bool isPerspectiveAllowed)
     std::make_pair(95.0, 6.0),
   };
 
-  std::vector<TSpeedScale> const & scales = isPerspectiveAllowed ? scales3d : scales2d;
+  std::array<TSpeedScale, 6> const & scales = isPerspectiveAllowed ? scales3d : scales2d;
 
   double const kDefaultSpeed = 80.0;
   if (speed < 0.0)
