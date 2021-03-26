@@ -178,7 +178,7 @@ bool ParseSetGpsTrackMinAccuracyCommand(string const & query)
   GpsTrackFilter::StoreMinHorizontalAccuracy(value);
   return true;
 }
-
+/*
 string MakeSearchBookingUrl(booking::Api const & bookingApi, search::CityFinder & cityFinder,
                             FeatureType & ft)
 {
@@ -194,7 +194,7 @@ string MakeSearchBookingUrl(booking::Api const & bookingApi, search::CityFinder 
   string city = cityFinder.GetCityName(feature::GetCenter(ft), lang);
 
   return bookingApi.GetSearchUrl(city, name);
-}
+}*/
 
 void OnRouteStartBuild(DataSource const & dataSource,
                        std::vector<RouteMarkData> const & routePoints, m2::PointD const & userPos)

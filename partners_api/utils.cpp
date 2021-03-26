@@ -25,7 +25,7 @@ Result RunSimpleRequest(std::string const & url)
 
 string FormatTime(system_clock::time_point p, string const & format)
 {
-  time_t t = duration_cast<seconds>(p.time_since_epoch()).count();
+  time_t const t = static_cast<time_t>(duration_cast<seconds>(p.time_since_epoch()).count());
   ostringstream os;
   os << put_time(gmtime(&t), format.c_str());
   return os.str();

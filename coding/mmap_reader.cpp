@@ -50,7 +50,7 @@ public:
     case Advice::Normal: adv = MADV_NORMAL; break;
     }
 
-    if (madvise(m_memory, s.st_size, adv) != 0)
+    if (madvise(m_memory, static_cast<size_t>(s.st_size), adv) != 0)
       LOG(LWARNING, ("madvise error:", strerror(errno)));
 #endif
   }

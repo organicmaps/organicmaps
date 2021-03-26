@@ -162,13 +162,13 @@ void HouseToStreetTableBuilder::Put(uint32_t houseId, uint32_t streetId)
 
 void HouseToStreetTableBuilder::Freeze(Writer & writer) const
 {
-  size_t const startOffset = writer.Pos();
+  uint64_t const startOffset = writer.Pos();
   CHECK(coding::IsAlign8(startOffset), ());
 
   HouseToStreetTable::Header header;
   header.Serialize(writer);
 
-  uint64_t bytesWritten = static_cast<uint64_t>(writer.Pos());
+  uint64_t bytesWritten = writer.Pos();
   coding::WritePadding(writer, bytesWritten);
 
   // Each street id is encoded as delta from some prediction.

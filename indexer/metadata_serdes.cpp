@@ -129,7 +129,7 @@ void MetadataBuilder::Put(uint32_t featureId, feature::MetadataBase const & meta
 
 void MetadataBuilder::Freeze(Writer & writer) const
 {
-  size_t startOffset = writer.Pos();
+  uint64_t const startOffset = writer.Pos();
   CHECK(coding::IsAlign8(startOffset), ());
 
   MetadataDeserializer::Header header;

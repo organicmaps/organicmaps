@@ -150,7 +150,7 @@ void CentersTableBuilder::WriteBlock(Writer & w, vector<m2::PointU>::const_itera
 
 void CentersTableBuilder::Freeze(Writer & writer) const
 {
-  size_t startOffset = writer.Pos();
+  uint64_t const startOffset = writer.Pos();
   CHECK(coding::IsAlign8(startOffset), ());
 
   CentersTable::Header header;
