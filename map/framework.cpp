@@ -7,14 +7,10 @@
 #include "map/everywhere_search_params.hpp"
 #include "map/gps_tracker.hpp"
 #include "map/guides_on_map_delegate.hpp"
-#include "map/notifications/notification_manager_delegate.hpp"
-#include "map/notifications/notification_queue.hpp"
 #include "map/promo_catalog_poi_checker.hpp"
 #include "map/promo_delegate.hpp"
 #include "map/taxi_delegate.hpp"
-#include "map/tips_api_delegate.hpp"
 #include "map/user_mark.hpp"
-#include "map/utils.hpp"
 #include "map/viewport_search_params.hpp"
 
 #include "ge0/parser.hpp"
@@ -68,8 +64,6 @@
 #include "indexer/scales.hpp"
 #include "indexer/transliteration_loader.hpp"
 
-#include "metrics/eye.hpp"
-
 #include "platform/local_country_file_utils.hpp"
 #include "platform/localization.hpp"
 #include "platform/measurement_utils.hpp"
@@ -116,7 +110,6 @@
 
 
 using namespace location;
-using namespace notifications;
 using namespace routing;
 using namespace storage;
 using namespace std::chrono;
@@ -193,37 +186,6 @@ string MakeSearchBookingUrl(booking::Api const & bookingApi, search::CityFinder 
 
   return bookingApi.GetSearchUrl(city, name);
 }*/
-
-void OnRouteStartBuild(DataSource const & dataSource,
-                       std::vector<RouteMarkData> const & routePoints, m2::PointD const & userPos)
-{
-  using eye::MapObject;
-
-  if (routePoints.size() < 2)
-    return;
-
-  for (auto const & pt : routePoints)
-  {
-    if (pt.m_isMyPosition || pt.m_pointType == RouteMarkType::Start)
-      continue;
-
-    m2::RectD rect = mercator::RectByCenterXYAndOffset(pt.m_position, kMwmPointAccuracy);
-    bool found = false;
-    dataSource.ForEachInRect([&userPos, &pt, &found](FeatureType & ft)
-    {
-      if (found || !feature::GetCenter(ft).EqualDxDy(pt.m_position, kMwmPointAccuracy))
-        return;
-      auto const & editor = osm::Editor::Instance();
-      auto const mapObject = utils::MakeEyeMapObject(ft, editor);
-      if (!mapObject.IsEmpty())
-      {
-        eye::Eye::Event::MapObjectEvent(mapObject, MapObject::Event::Type::RouteToCreated, userPos);
-        found = true;
-      }
-    },
-    rect, scales::GetUpperScale());
-  }
-}
 }  // namespace
 
 pair<MwmSet::MwmId, MwmSet::RegResult> Framework::RegisterMap(
@@ -390,7 +352,6 @@ Framework::Framework(FrameworkParams const & params)
   , m_popularityLoader(m_featuresFetcher.GetDataSource(), POPULARITY_RANKS_FILE_TAG)
   , m_descriptionsLoader(std::make_unique<descriptions::Loader>(m_featuresFetcher.GetDataSource()))
   , m_purchase(std::make_unique<Purchase>([this] { m_user.ResetAccessToken(); }))
-  , m_tipsApi(std::make_unique<TipsApiDelegate>(*this))
 {
   CHECK(IsLittleEndian(), ("Only little-endian architectures are supported."));
 
@@ -460,12 +421,6 @@ Framework::Framework(FrameworkParams const & params)
   m_user.AddSubscriber(m_bmManager->GetUserSubscriber());
 
   m_routingManager.SetTransitManager(&m_transitManager);
-  m_routingManager.SetRouteStartBuildListener([this](std::vector<RouteMarkData> const & points)
-  {
-    auto const userPos = GetCurrentPosition();
-    if (userPos)
-      OnRouteStartBuild(m_featuresFetcher.GetDataSource(), points, *userPos);
-  });
 
   InitCityFinder();
   InitDiscoveryManager();
@@ -513,22 +468,11 @@ Framework::Framework(FrameworkParams const & params)
   InitTransliteration();
   LOG(LDEBUG, ("Transliterators initialized"));
 
-  m_notificationManager.SetDelegate(
-    std::make_unique<NotificationManagerDelegate>(m_featuresFetcher.GetDataSource(), *m_cityFinder,
-                                                  m_addressGetter, *m_ugcApi, m_storage,
-                                                  *m_infoGetter));
-  m_notificationManager.Load();
-  m_notificationManager.TrimExpired();
-
-  eye::Eye::Instance().TrimExpired();
-  eye::Eye::Instance().Subscribe(&m_notificationManager);
-
   GetPowerManager().Subscribe(this);
   GetPowerManager().Load();
 
   m_promoApi->SetDelegate(make_unique<PromoDelegate>(m_featuresFetcher.GetDataSource(),
                           *m_cityFinder, catalogHeadersProvider));
-  eye::Eye::Instance().Subscribe(m_promoApi.get());
 
   // Clean the no longer used key from old devices.
   // Remove this line after April 2020 (assuming the majority of devices
@@ -538,7 +482,6 @@ Framework::Framework(FrameworkParams const & params)
 
 Framework::~Framework()
 {
-  eye::Eye::Instance().UnsubscribeAll();
   GetPowerManager().UnsubscribeAll();
 
   m_threadRunner.reset();
@@ -1415,7 +1358,6 @@ void Framework::EnterBackground()
 
   m_trafficManager.OnEnterBackground();
   m_routingManager.SetAllowSendingPoints(false);
-  m_tipsApi.SetEnabled(true);
 
   // Do not clear caches for Android. This function is called when main activity is paused,
   // but at the same time search activity (for example) is enabled.
@@ -2448,7 +2390,6 @@ void Framework::OnTapEvent(place_page::BuildInfo const & buildInfo)
 
     if (m_currentPlacePageInfo->IsGuide())
     {
-      m_guidesManager.LogGuideSelectedStatistic();
       if (prevIsGuide)
       {
         m_guidesManager.OnGuideSelected();
@@ -2584,8 +2525,6 @@ std::optional<place_page::Info> Framework::BuildPlacePageInfo(
       }
       SetPlacePageLocation(outInfo);
 
-      utils::RegisterEyeEventIfPossible(eye::MapObject::Event::Type::Open, GetCurrentPosition(),
-                                        outInfo);
       return outInfo;
     }
   }
@@ -2605,8 +2544,6 @@ std::optional<place_page::Info> Framework::BuildPlacePageInfo(
     GetBookmarkManager().SelectionMark().SetPtOrg(outInfo.GetMercator());
     SetPlacePageLocation(outInfo);
 
-    utils::RegisterEyeEventIfPossible(eye::MapObject::Event::Type::Open, GetCurrentPosition(),
-                                      outInfo);
     return outInfo;
   }
 
@@ -2650,8 +2587,6 @@ std::optional<place_page::Info> Framework::BuildPlacePageInfo(
     GetBookmarkManager().SelectionMark().SetPtOrg(outInfo.GetMercator());
     SetPlacePageLocation(outInfo);
 
-    utils::RegisterEyeEventIfPossible(eye::MapObject::Event::Type::Open, GetCurrentPosition(),
-                                      outInfo);
     return outInfo;
   }
 
@@ -4049,11 +3984,6 @@ booking::AvailabilityParams const & Framework::GetLastBookingAvailabilityParams(
   return m_bookingAvailabilityParams;
 }
 
-TipsApi const & Framework::GetTipsApi() const
-{
-  return m_tipsApi;
-}
-
 bool Framework::HaveTransit(m2::PointD const & pt) const
 {
   auto const & dataSource = m_featuresFetcher.GetDataSource();
@@ -4070,40 +4000,6 @@ bool Framework::HaveTransit(m2::PointD const & pt) const
 double Framework::GetLastBackgroundTime() const
 {
   return m_startBackgroundTime;
-}
-
-bool Framework::MakePlacePageForNotification(NotificationCandidate const & notification)
-{
-  if (notification.GetType() != NotificationCandidate::Type::UgcReview)
-    return false;
-
-  m2::RectD rect = mercator::RectByCenterXYAndOffset(notification.GetPos(), kMwmPointAccuracy);
-  bool found = false;
-
-  m_featuresFetcher.GetDataSource().ForEachInRect(
-      [this, &notification, &found](FeatureType & ft) {
-        auto const featureCenter = feature::GetCenter(ft);
-        if (found || !featureCenter.EqualDxDy(notification.GetPos(), kMwmPointAccuracy))
-          return;
-
-        auto const & editor = osm::Editor::Instance();
-        auto const foundMapObject = utils::MakeEyeMapObject(ft, editor);
-        if (!foundMapObject.IsEmpty() && notification.IsSameMapObject(foundMapObject))
-        {
-          place_page::BuildInfo buildInfo;
-          buildInfo.m_mercator = featureCenter;
-          buildInfo.m_featureId = ft.GetID();
-          m_currentPlacePageInfo = BuildPlacePageInfo(buildInfo);
-          if (m_currentPlacePageInfo)
-          {
-            ActivateMapSelection();
-            found = true;
-          }
-        }
-      },
-      rect, scales::GetUpperScale());
-
-  return found;
 }
 
 void Framework::OnPowerFacilityChanged(power_management::Facility const facility, bool enabled)
@@ -4137,11 +4033,6 @@ void Framework::OnPowerSchemeChanged(power_management::Scheme const actualScheme
     GetTrafficManager().SetEnabled(false);
 }
 
-notifications::NotificationManager & Framework::GetNotificationManager()
-{
-  return m_notificationManager;
-}
-
 void Framework::EnableGuidesOnce(bool isFirstLaunch, bool isLaunchByDeeplink)
 {
   if (m_guidesManager.IsEnabled() || !GetPlatform().IsConnected() || !platform::IsGuidesLayerFirstLaunch())
@@ -4158,8 +4049,6 @@ void Framework::EnableGuidesOnce(bool isFirstLaunch, bool isLaunchByDeeplink)
 
   platform::SetGuidesLayerFirstLaunch(true);
   SaveGuidesEnabled(true);
-
-  m_tipsApi.SetEnabled(false);
 
   bool suggestZoom = !m_routingManager.IsRoutingActive() && !isFirstLaunch && !isLaunchByDeeplink;
   m_guidesManager.SetEnabled(true /* enabled */, true /* silentMode */, suggestZoom);

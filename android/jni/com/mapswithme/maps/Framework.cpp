@@ -11,7 +11,6 @@
 
 #include "map/chart_generator.hpp"
 #include "map/everywhere_search_params.hpp"
-#include "map/notifications/notification_queue.hpp"
 #include "map/user_mark.hpp"
 #include "map/purchase.hpp"
 
@@ -65,7 +64,6 @@
 
 using namespace std;
 using namespace std::placeholders;
-using namespace notifications;
 
 unique_ptr<android::Framework> g_framework;
 
@@ -92,7 +90,6 @@ namespace
 }
 
 jobject g_placePageActivationListener = nullptr;
-int const kUndefinedTip = -1;
 
 android::AndroidVulkanContextFactory * CastFactory(drape_ptr<dp::GraphicsContextFactory> const & f)
 {
@@ -830,15 +827,6 @@ void Framework::GetPromoPoiGallery(JNIEnv * env, jobject policy,
 
   api->GetPoiGallery(point, languages::GetCurrentNorm(), tags, useCoordinates, utm, onSuccess,
                      onError);
-}
-
-promo::AfterBooking Framework::GetPromoAfterBooking(JNIEnv * env, jobject policy)
-{
-  auto api = NativeFramework()->GetPromoApi(ToNativeNetworkPolicy(env, policy));
-  if (api == nullptr)
-    return {};
-
-  return api->GetAfterBooking(languages::GetCurrentNorm());
 }
 
 std::string Framework::GetPromoCityUrl(JNIEnv * env, jobject policy, jdouble lat, jdouble lon)
@@ -2104,68 +2092,11 @@ Java_com_mapswithme_maps_Framework_nativeSetActiveSubscription(JNIEnv *, jclass,
                                    static_cast<bool>(isTrial));
 }
 
-JNIEXPORT jint JNICALL
-Java_com_mapswithme_maps_Framework_nativeGetCurrentTipIndex(JNIEnv * env, jclass)
-{
-  auto const & tipsApi = frm()->GetTipsApi();
-  auto const tip = tipsApi.GetTip();
-  if (!tip)
-    return kUndefinedTip;
-  return static_cast<jint>(*tip);
-}
-
-JNIEXPORT void JNICALL
-Java_com_mapswithme_maps_Framework_nativeBindUser(JNIEnv * env, jclass, jobject listener)
-{
-  auto listenerRef = jni::make_global_ref(listener);
-  auto & user = frm()->GetUser();
-  user.BindUser([listenerRef](bool success)
-  {
-    auto e = jni::GetEnv();
-    jmethodID const callback = jni::GetMethodID(e, *listenerRef, "onUserBound", "(Z)V");
-    e->CallVoidMethod(*listenerRef, callback, static_cast<jboolean>(success));
-  });
-}
-
 JNIEXPORT jstring JNICALL
 Java_com_mapswithme_maps_Framework_nativeGetAccessToken(JNIEnv * env, jclass)
 {
   auto & user = frm()->GetUser();
   return jni::ToJavaString(env, user.GetAccessToken());
-}
-
-JNIEXPORT jobject JNICALL
-Java_com_mapswithme_maps_Framework_nativeGetMapObject(JNIEnv * env, jclass,
-                                                      jobject notificationCandidate)
-{
-  NotificationCandidate notification(NotificationCandidate::Type::UgcReview);
-  auto const getBestTypeId =
-      jni::GetMethodID(env, notificationCandidate, "getFeatureBestType", "()Ljava/lang/String;");
-  auto const bestType =
-      static_cast<jstring>(env->CallObjectMethod(notificationCandidate, getBestTypeId));
-  notification.SetBestFeatureType(jni::ToNativeString(env, bestType));
-
-  auto const getMercatorPosXId =
-      jni::GetMethodID(env, notificationCandidate, "getMercatorPosX", "()D");
-  auto const getMercatorPosYId =
-      jni::GetMethodID(env, notificationCandidate, "getMercatorPosY", "()D");
-
-  auto const posX =
-      static_cast<double>(env->CallDoubleMethod(notificationCandidate, getMercatorPosXId));
-  auto const posY =
-      static_cast<double>(env->CallDoubleMethod(notificationCandidate, getMercatorPosYId));
-  notification.SetPos({posX, posY});
-
-  auto const getDefaultNameId =
-      jni::GetMethodID(env, notificationCandidate, "getDefaultName", "()Ljava/lang/String;");
-  auto const defaultName =
-      static_cast<jstring>(env->CallObjectMethod(notificationCandidate, getDefaultNameId));
-  notification.SetDefaultName(jni::ToNativeString(env, defaultName));
-
-  if (frm()->MakePlacePageForNotification(notification))
-    return usermark_helper::CreateMapObject(env, frm()->GetCurrentPlacePageInfo());
-
-  return nullptr;
 }
 
 JNIEXPORT void JNICALL

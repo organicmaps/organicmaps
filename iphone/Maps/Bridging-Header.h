@@ -13,7 +13,6 @@
 
 #import <CoreApi/CoreApi-swift.h>
 
-#import "CoreNotificationWrapper.h"
 #import "DeepLinkRouteStrategyAdapter.h"
 #import "EAGLView.h"
 #import "FirstSession.h"

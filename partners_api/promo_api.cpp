@@ -5,6 +5,8 @@
 #include "platform/preferred_languages.hpp"
 #include "platform/settings.hpp"
 
+#include "geometry/mercator.hpp"
+
 #include "coding/url.hpp"
 
 #include "base/assert.hpp"
@@ -26,27 +28,6 @@ namespace promo
 {
 namespace
 {
-constexpr minutes kMinMinutesAfterBooking = minutes(5);
-constexpr minutes kMaxMinutesAfterBooking = minutes(60);
-constexpr hours kShowPromoNotRaterThan = hours(24);
-
-bool NeedToShowImpl(std::string const & bookingPromoAwaitingForId, eye::Eye::InfoType const & eyeInfo)
-{
-  if (bookingPromoAwaitingForId.empty() ||
-      bookingPromoAwaitingForId == eyeInfo->m_promo.m_lastTimeShownAfterBookingCityId)
-  {
-    return false;
-  }
-
-  auto const timeSinceLastShown = eye::Clock::now() - eyeInfo->m_promo.m_lastTimeShownAfterBooking;
-  auto const timeSinceLastTransitionToBooking =
-      eye::Clock::now() - eyeInfo->m_promo.m_transitionToBookingTime;
-
-  return timeSinceLastTransitionToBooking >= kMinMinutesAfterBooking &&
-         timeSinceLastTransitionToBooking <= kMaxMinutesAfterBooking &&
-         timeSinceLastShown > kShowPromoNotRaterThan;
-}
-
 void ParseCityGallery(std::string const & src, UTM utm, std::string const & utmTerm,
                       promo::CityGallery & result)
 {
@@ -149,17 +130,6 @@ std::string MakePoiGalleryUrl(std::string const & baseUrl, std::string const & i
   return url::Make(url::Join(baseUrl, "gallery/v2/search/"), params);
 }
 
-std::string GetPictureUrl(std::string const & baseUrl, std::string const & id)
-{
-  // Support opensource build.
-  if (baseUrl.empty())
-    return {};
-
-  ASSERT_EQUAL(baseUrl.back(), '/', ());
-
-  return baseUrl + "bookmarks_catalogue/city/" + ToSignedId(id) + ".jpg";
-}
-
 std::string GetCityCatalogueUrl(std::string const & baseUrl, std::string const & id)
 {
   // Support opensource build.
@@ -208,27 +178,6 @@ void GetPromoGalleryImpl(std::string const & url, platform::HttpClient::Headers 
     onSuccess(result.IsEmpty() ? CityGallery{} : std::move(result));
   });
 }
-
-std::string LoadPromoIdForBooking(eye::Eye::InfoType const & eyeInfo)
-{
-  std::string bookingPromoAwaitingForId;
-  settings::TryGet("BookingPromoAwaitingForId", bookingPromoAwaitingForId);
-
-  if (bookingPromoAwaitingForId.empty())
-    return bookingPromoAwaitingForId;
-
-  auto const timeSinceLastTransitionToBooking =
-    eye::Clock::now() - eyeInfo->m_promo.m_transitionToBookingTime;
-
-  if (timeSinceLastTransitionToBooking < kMinMinutesAfterBooking ||
-      timeSinceLastTransitionToBooking > kMaxMinutesAfterBooking)
-  {
-    settings::Delete("BookingPromoAwaitingForId");
-    bookingPromoAwaitingForId.clear();
-  }
-
-  return bookingPromoAwaitingForId;
-}
 }  // namespace
 
 Api::Api(std::string const & baseUrl /* = BOOKMARKS_CATALOG_FRONT_URL */,
@@ -241,19 +190,6 @@ Api::Api(std::string const & baseUrl /* = BOOKMARKS_CATALOG_FRONT_URL */,
 void Api::SetDelegate(std::unique_ptr<Delegate> delegate)
 {
   m_delegate = std::move(delegate);
-}
-
-AfterBooking Api::GetAfterBooking(std::string const & lang) const
-{
-  auto const eyeInfo = eye::Eye::Instance().GetInfo();
-
-  auto const promoId = LoadPromoIdForBooking(eyeInfo);
-
-  if (!NeedToShowImpl(promoId, eyeInfo))
-    return {};
-
-  return {promoId, InjectUTM(GetCityCatalogueUrl(m_baseUrl, promoId), UTM::BookingPromo),
-          GetPictureUrl(m_basePicturesUrl, promoId)};
 }
 
 std::string Api::GetLinkForDownloader(std::string const & id) const
@@ -291,13 +227,5 @@ void Api::GetPoiGallery(m2::PointD const & point, std::string const & lang, Tags
       MakePoiGalleryUrl(m_baseUrl, m_delegate->GetCityId(point), point, lang, tags, useCoordinates);
   auto const headers = m_delegate->GetHeaders();
   GetPromoGalleryImpl(url, headers, utm, "", onSuccess, onError);
-}
-
-void Api::OnTransitionToBooking(m2::PointD const & hotelPos)
-{
-  auto const id = m_delegate->GetCityId(hotelPos);
-
-  if (!id.empty())
-    settings::Set("BookingPromoAwaitingForId", id);
 }
 }  // namespace promo

@@ -40,7 +40,6 @@ omim_link_libraries(
   kml
   editor
   indexer
-  metrics
   platform
   opening_hours
   mwm_diff

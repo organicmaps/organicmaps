@@ -53,14 +53,8 @@ IncludeCategories:
   - Regex:           '^"openlr/openlr_tests/'
     Priority:        4770
 
-  - Regex:           '^"local_ads/local_ads_tests/'
-    Priority:        4780
-
   - Regex:           '^"descriptions/descriptions_tests/'
     Priority:        4790
-
-  - Regex:           '^"metrics/metrics_tests/'
-    Priority:        4800
 
   - Regex:           '^"ugc/ugc_tests'
     Priority:        4810
@@ -218,11 +212,6 @@ IncludeCategories:
   - Regex:           '^"openlr/'
     Priority:        47100
 
-  - Regex:           '^"local_ads/pylocal_ads/'
-    Priority:        47209
-  - Regex:           '^"local_ads/'
-    Priority:        47210
-
   - Regex:           '^"descriptions/'
     Priority:        47300
 
@@ -257,11 +246,6 @@ IncludeCategories:
 
   - Regex:           '^"partners_api/'
     Priority:        47900
-
-  - Regex:           '^"metrics/metrics_tests_support/'
-    Priority:        48009
-  - Regex:           '^"metrics/'
-    Priority:        48010
 
   - Regex:           '^"traffic/pytraffic/'
     Priority:        48109
@@ -318,7 +302,7 @@ IncludeCategories:
 
   - Regex:           '^"geometry/'
     Priority:        49600
-  
+
   - Regex:           '^"base/'
     Priority:        49700
 
@@ -413,12 +397,12 @@ DerivePointerAlignment: false
 DisableFormat:   false
 ExperimentalAutoDetectBinPacking: false
 FixNamespaceComments: true
-ForEachMacros:   
+ForEachMacros:
   - foreach
   - Q_FOREACH
   - BOOST_FOREACH
 IncludeBlocks:   Preserve
-IncludeCategories: 
+IncludeCategories:
   - Regex:           '^<.*\.h>'
     Priority:        1
   - Regex:           '^<.*'

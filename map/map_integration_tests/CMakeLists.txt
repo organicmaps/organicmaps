@@ -22,7 +22,6 @@ omim_link_libraries(
   editor
   indexer
   ge0
-  metrics
   platform
   mwm_diff
   bsdiff

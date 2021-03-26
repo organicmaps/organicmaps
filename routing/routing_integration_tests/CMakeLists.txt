@@ -64,7 +64,6 @@ omim_link_libraries(
   kml
   editor
   indexer
-  metrics
   platform
   oauthcpp
   geometry

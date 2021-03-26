@@ -26,9 +26,8 @@ import com.mapswithme.maps.bookmarks.data.MapObject;
 import com.mapswithme.maps.gallery.GalleryAdapter;
 import com.mapswithme.maps.gallery.ItemSelectedListener;
 import com.mapswithme.maps.gallery.Items;
+import com.mapswithme.maps.gallery.impl.BaseItemSelectedListener;
 import com.mapswithme.maps.gallery.impl.Factory;
-import com.mapswithme.maps.gallery.impl.LoggableItemSelectedListener;
-import com.mapswithme.maps.metrics.UserActionsLogger;
 import com.mapswithme.maps.promo.PromoCityGallery;
 import com.mapswithme.maps.promo.PromoEntity;
 import com.mapswithme.maps.search.SearchResult;
@@ -96,7 +95,6 @@ public class DiscoveryFragment extends BaseMwmToolbarFragment implements Discove
                            @Nullable Bundle savedInstanceState)
   {
     View root = inflater.inflate(R.layout.fragment_discovery, container, false);
-    UserActionsLogger.logDiscoveryShownEvent();
     return root;
   }
 
@@ -194,7 +192,7 @@ public class DiscoveryFragment extends BaseMwmToolbarFragment implements Discove
     RecyclerView promoRecycler = getGallery(R.id.catalog_promo_recycler);
     ItemSelectedListener<Items.Item> listener = mOnlineMode
                                                 ?
-                                                new CatalogPromoSelectedListener(requireActivity())
+                                                new BaseItemSelectedListener<>(requireActivity())
                                                 : new ErrorCatalogPromoListener<>(requireActivity(),
                                                                                   this::onNetworkPolicyResult);
 
@@ -264,8 +262,7 @@ public class DiscoveryFragment extends BaseMwmToolbarFragment implements Discove
     updateViewsVisibility(experts, R.id.localGuidesTitle, R.id.localGuides);
     String url = DiscoveryManager.nativeGetLocalExpertsUrl();
 
-    ItemSelectedListener<Items.LocalExpertItem> listener
-        = createOnlineProductItemListener(ItemType.LOCAL_EXPERTS);
+    ItemSelectedListener<Items.LocalExpertItem> listener = new BaseItemSelectedListener<>(getActivity());
 
     RecyclerView gallery = getGallery(R.id.localGuides);
     GalleryAdapter adapter = Factory.createLocalExpertsAdapter(experts, url, listener);
@@ -400,32 +397,19 @@ public class DiscoveryFragment extends BaseMwmToolbarFragment implements Discove
     };
   }
 
-  private <I extends Items.Item> ItemSelectedListener<I> createOnlineProductItemListener(@NonNull ItemType itemType)
-  {
-    return new LoggableItemSelectedListener<I>(getActivity(), itemType)
-    {
-      @Override
-      public void onItemSelectedInternal(@NonNull I item, int position)
-      {
-      }
-
-      @Override
-      public void onMoreItemSelectedInternal(@NonNull I item)
-      {
-      }
-    };
-  }
-
-  private static class SearchBasedListener extends LoggableItemSelectedListener<Items.SearchItem>
+  private static class SearchBasedListener extends BaseItemSelectedListener<Items.SearchItem>
   {
     @NonNull
     private final DiscoveryFragment mFragment;
+    @NonNull
+    private final ItemType mItemType;
 
     private SearchBasedListener(@NonNull DiscoveryFragment fragment,
                                 @NonNull ItemType itemType)
     {
-      super(fragment.getActivity(), itemType);
+      super(fragment.getActivity());
       mFragment = fragment;
+      mItemType = itemType;
     }
 
     @Override
@@ -435,14 +419,14 @@ public class DiscoveryFragment extends BaseMwmToolbarFragment implements Discove
     }
 
     @Override
-    public void onMoreItemSelectedInternal(@NonNull Items.SearchItem item)
+    public void onMoreItemSelected(@NonNull Items.SearchItem item)
     {
-      mFragment.showSimilarItems(item, getType());
+      mFragment.showSimilarItems(item, mItemType);
     }
 
     @Override
     @CallSuper
-    public void onItemSelectedInternal(@NonNull Items.SearchItem item, int position)
+    public void onItemSelected(@NonNull Items.SearchItem item, int position)
     {
       mFragment.showOnMap(item);
     }
@@ -469,7 +453,7 @@ public class DiscoveryFragment extends BaseMwmToolbarFragment implements Discove
     }
 
     @Override
-    public void onMoreItemSelectedInternal(@NonNull Items.SearchItem item)
+    public void onMoreItemSelected(@NonNull Items.SearchItem item)
     {
       getFragment().showFilter();
     }
@@ -482,22 +466,4 @@ public class DiscoveryFragment extends BaseMwmToolbarFragment implements Discove
     void onShowSimilarObjects(@NonNull Items.SearchItem item, @NonNull ItemType type);
   }
 
-
-  private static class CatalogPromoSelectedListener extends LoggableItemSelectedListener<Items.Item>
-  {
-    public CatalogPromoSelectedListener(@NonNull Activity activity)
-    {
-      super(activity, ItemType.PROMO);
-    }
-
-    @Override
-    protected void onMoreItemSelectedInternal(@NonNull Items.Item item)
-    {
-    }
-
-    @Override
-    protected void onItemSelectedInternal(@NonNull Items.Item item, int position)
-    {
-    }
-  }
 }

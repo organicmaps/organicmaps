@@ -1,8 +1,6 @@
 #import "MapsAppDelegate.h"
 
-#import "CoreNotificationWrapper+Core.h"
 #import "EAGLView.h"
-#import "LocalNotificationManager.h"
 #import "MWMAuthorizationCommon.h"
 #import "MWMCoreRouterType.h"
 #import "MWMFrameworkListener.h"
@@ -76,13 +74,11 @@ void OverrideUserAgent() {
 using namespace osm_auth_ios;
 
 @interface MapsAppDelegate () <MWMStorageObserver,
-                               NotificationManagerDelegate,
                                CPApplicationDelegate>
 
 @property(nonatomic) NSInteger standbyCounter;
 @property(nonatomic) MWMBackgroundFetchScheduler *backgroundFetchScheduler;
 @property(nonatomic) id<IPendingTransactionsHandler> pendingTransactionHandler;
-@property(nonatomic) NotificationManager *notificationManager;
 
 @end
 
@@ -148,10 +144,6 @@ using namespace osm_auth_ios;
   }
   [self enableTTSForTheFirstTime];
 
-  self.notificationManager = [[NotificationManager alloc] init];
-  self.notificationManager.delegate = self;
-  [UNUserNotificationCenter currentNotificationCenter].delegate = self.notificationManager;
-
   if ([MWMFrameworkHelper isWiFiConnected]) {
     [[InAppPurchase bookmarksSubscriptionManager] validateWithCompletion:^(MWMValidationResult result, BOOL isTrial) {
       if (result == MWMValidationResultNotValid) {
@@ -192,30 +184,6 @@ using namespace osm_auth_ios;
                                                                        completionHandler(result);
                                                                    }];
   [self.backgroundFetchScheduler run];
-}
-
-- (void)application:(UIApplication *)application
-  performFetchWithCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler {
-  if ([LocalNotificationManager shouldShowAuthNotification]) {
-    AuthNotification *n = [[AuthNotification alloc] initWithTitle:L(@"notification_unsent_reviews_title")
-                                                             text:L(@"notification_unsent_reviews_message")];
-    [self.notificationManager showNotification:n];
-    [LocalNotificationManager authNotificationWasShown];
-    completionHandler(UIBackgroundFetchResultNewData);
-    return;
-  }
-
-  CoreNotificationWrapper *reviewNotification = [LocalNotificationManager reviewNotificationWrapper];
-  if (reviewNotification) {
-    NSString *text =
-      reviewNotification.address.length > 0
-        ? [NSString stringWithFormat:@"%@, %@", reviewNotification.readableName, reviewNotification.address]
-        : reviewNotification.readableName;
-    ReviewNotification *n = [[ReviewNotification alloc] initWithTitle:L(@"notification_leave_review_v2_title")
-                                                                 text:text
-                                                  notificationWrapper:reviewNotification];
-    [self.notificationManager showNotification:n];
-  }
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application {
@@ -511,20 +479,6 @@ using namespace osm_auth_ios;
     return NO;
 
   return YES;
-}
-
-#pragma mark - NotificationManagerDelegate
-
-- (void)didOpenNotification:(Notification *)notification {
-  if (notification.class == ReviewNotification.class) {
-    ReviewNotification *reviewNotification = (ReviewNotification *)notification;
-    if (GetFramework().MakePlacePageForNotification(reviewNotification.notificationWrapper.notificationCandidate))
-      [[MapViewController sharedController].controlsManager showPlacePageReview];
-  } else if (notification.class == AuthNotification.class) {
-    MapViewController *mapViewController = [MapViewController sharedController];
-    [mapViewController.navigationController popToRootViewControllerAnimated:NO];
-    [mapViewController showUGCAuth];
-  }
 }
 
 #pragma mark - CPApplicationDelegate implementation

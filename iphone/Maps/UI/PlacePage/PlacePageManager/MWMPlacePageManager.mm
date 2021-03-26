@@ -12,20 +12,9 @@
 
 #import <CoreApi/CoreApi.h>
 
-#include "map/utils.hpp"
-
 #include "platform/downloader_defines.hpp"
 
 using namespace storage;
-
-namespace {
-void RegisterEventIfPossible(eye::MapObject::Event::Type const type)
-{
-  auto const userPos = GetFramework().GetCurrentPosition();
-  auto const & info = GetFramework().GetCurrentPlacePageInfo();
-  utils::RegisterEyeEventIfPossible(type, userPos, info);
-}
-}  // namespace
 
 @interface MWMPlacePageManager ()<MWMGCReviewSaver>
 
@@ -187,8 +176,6 @@ void RegisterEventIfPossible(eye::MapObject::Event::Type const type)
 }
 
 - (void)addBookmark:(PlacePageData *)data {
-  RegisterEventIfPossible(eye::MapObject::Event::Type::AddToBookmark);
-
   auto &f = GetFramework();
   auto &bmManager = f.GetBookmarkManager();
   auto &info = f.GetCurrentPlacePageInfo();
@@ -258,11 +245,6 @@ void RegisterEventIfPossible(eye::MapObject::Event::Type const type)
     NSAssert(proposedUrl, @"Sponsored url can't be nil!");
     return;
   }
-
-  if (data.previewData.isBookingPlace) {
-    auto mercator = location_helpers::ToMercator(data.locationCoordinate);
-    [MWMEye transitionToBookingWithPos:CGPointMake(mercator.x, mercator.y)];
-  }
 }
 
 - (void)book:(PlacePageData *)data {
@@ -279,8 +261,6 @@ void RegisterEventIfPossible(eye::MapObject::Event::Type const type)
   NSURL *url = [NSURL URLWithString:data.sponsoredMoreURL];
   if (!url) { return; }
   [UIApplication.sharedApplication openURL:url options:@{} completionHandler:nil];
-  auto mercator = location_helpers::ToMercator(data.locationCoordinate);
-  [MWMEye transitionToBookingWithPos:CGPointMake(mercator.x, mercator.y)];
 }
 
 - (void)openReviewUrl:(PlacePageData *)data {
@@ -315,7 +295,6 @@ void RegisterEventIfPossible(eye::MapObject::Event::Type const type)
 - (void)showUGCAddReview:(PlacePageData *)data
                   rating:(UgcSummaryRatingType)value
               fromSource:(MWMUGCReviewSource)source {
-  RegisterEventIfPossible(eye::MapObject::Event::Type::UgcEditorOpened);
   MWMUGCAddReviewController *ugcVC = [[MWMUGCAddReviewController alloc] initWithPlacePageData:data
                                                                                        rating:value
                                                                                         saver:self];
@@ -415,9 +394,6 @@ void RegisterEventIfPossible(eye::MapObject::Event::Type const type)
     resultHandler(YES);
     GetFramework().UpdatePlacePageInfoForCurrentSelection();
     [placePageData updateUgcStatus];
-
-    utils::RegisterEyeEventIfPossible(eye::MapObject::Event::Type::UgcSaved,
-                                      GetFramework().GetCurrentPosition(), info);
   });
 }
 

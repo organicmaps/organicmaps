@@ -9,33 +9,24 @@ import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.widget.Toolbar;
-import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
-import com.google.android.material.appbar.AppBarLayout;
 import com.mapswithme.maps.DownloadResourcesLegacyActivity;
 import com.mapswithme.maps.Framework;
 import com.mapswithme.maps.MapFragment;
 import com.mapswithme.maps.MwmActivity;
-import com.mapswithme.maps.R;
 import com.mapswithme.maps.api.Const;
 import com.mapswithme.maps.api.ParsedMwmRequest;
 import com.mapswithme.maps.api.ParsedRoutingData;
 import com.mapswithme.maps.api.ParsedSearchRequest;
-import com.mapswithme.maps.api.ParsedUrlMwmRequest;
 import com.mapswithme.maps.api.ParsingResult;
 import com.mapswithme.maps.api.RoutePoint;
-import com.mapswithme.maps.background.NotificationCandidate;
 import com.mapswithme.maps.bookmarks.BookmarkCategoriesActivity;
 import com.mapswithme.maps.bookmarks.BookmarksCatalogActivity;
 import com.mapswithme.maps.bookmarks.BookmarksPageFactory;
-import com.mapswithme.maps.bookmarks.data.BookmarkCategory;
-import com.mapswithme.maps.bookmarks.data.BookmarkInfo;
 import com.mapswithme.maps.bookmarks.data.BookmarkManager;
 import com.mapswithme.maps.bookmarks.data.FeatureId;
 import com.mapswithme.maps.bookmarks.data.MapObject;
-import com.mapswithme.maps.location.LocationHelper;
 import com.mapswithme.maps.onboarding.IntroductionScreenFactory;
 import com.mapswithme.maps.purchase.BookmarksAllSubscriptionActivity;
 import com.mapswithme.maps.purchase.BookmarksSightsSubscriptionActivity;
@@ -53,7 +44,6 @@ import com.mapswithme.util.CrashlyticsUtils;
 import com.mapswithme.util.KeyValue;
 import com.mapswithme.util.StorageUtils;
 import com.mapswithme.util.UTM;
-import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.Utils;
 import com.mapswithme.util.concurrency.ThreadPool;
 import com.mapswithme.util.log.Logger;
@@ -1182,37 +1172,6 @@ public class Factory
     public boolean run(@NonNull MwmActivity target)
     {
       RoutingController.get().restoreRoute();
-      return true;
-    }
-  }
-
-  public static class ShowUGCEditorTask implements MapTask
-  {
-    private static final long serialVersionUID = 1636712824900113568L;
-    // Nullable because of possible serialization from previous incompatible version of class.
-    @Nullable
-    private final NotificationCandidate.UgcReview mNotificationCandidate;
-
-    public ShowUGCEditorTask(@Nullable NotificationCandidate.UgcReview notificationCandidate)
-    {
-      mNotificationCandidate = notificationCandidate;
-    }
-
-    @Override
-    public boolean run(@NonNull MwmActivity target)
-    {
-      if (mNotificationCandidate == null)
-        return false;
-
-      MapObject mapObject = Framework.nativeGetMapObject(mNotificationCandidate);
-
-      if (mapObject == null)
-        return false;
-
-      EditParams.Builder builder = EditParams.Builder.fromMapObject(mapObject)
-                                                     .setDefaultRating(UGC.RATING_NONE)
-                                                     .setFromNotification(true);
-      UGCEditorActivity.start(target, builder.build());
       return true;
     }
   }

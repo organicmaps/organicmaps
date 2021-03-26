@@ -137,9 +137,6 @@
       location = "container:mapshot/mapshot.xcodeproj">
    </FileRef>
    <FileRef
-      location = "group:metrics/metrics.xcodeproj">
-   </FileRef>
-   <FileRef
       location = "container:openlr/openlr.xcodeproj">
    </FileRef>
    <FileRef

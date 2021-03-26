@@ -3,7 +3,6 @@ package com.mapswithme.maps.tips;
 import androidx.annotation.NonNull;
 
 import com.mapswithme.maps.MwmActivity;
-import com.mapswithme.maps.metrics.UserActionsLogger;
 
 public abstract class AbstractClickInterceptor implements ClickInterceptor
 {
@@ -24,7 +23,6 @@ public abstract class AbstractClickInterceptor implements ClickInterceptor
   @Override
   public final void onInterceptClick(@NonNull MwmActivity activity)
   {
-    UserActionsLogger.logTipClickedEvent(getType(), TutorialAction.ACTION_CLICKED);
     onInterceptClickInternal(activity);
   }
 

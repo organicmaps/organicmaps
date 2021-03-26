@@ -9,9 +9,7 @@ import com.mapswithme.util.UiUtils;
 
 public enum ItemType
 {
-  ATTRACTIONS(R.string.tourism,
-              DiscoveryUserEvent.MORE_ATTRACTIONS_CLICKED,
-              DiscoveryUserEvent.ATTRACTIONS_CLICKED)
+  ATTRACTIONS(R.string.tourism)
       {
         @Override
         public void onResultReceived(@NonNull DiscoveryResultReceiver callback,
@@ -27,7 +25,7 @@ public enum ItemType
         }
       },
 
-  CAFES(R.string.eat, DiscoveryUserEvent.MORE_CAFES_CLICKED, DiscoveryUserEvent.CAFES_CLICKED)
+  CAFES(R.string.eat)
       {
         @Override
         public void onResultReceived(@NonNull DiscoveryResultReceiver callback,
@@ -43,8 +41,7 @@ public enum ItemType
         }
       },
 
-  HOTELS(UiUtils.NO_ID, DiscoveryUserEvent.MORE_HOTELS_CLICKED,
-         DiscoveryUserEvent.HOTELS_CLICKED)
+  HOTELS(UiUtils.NO_ID)
       {
         @Override
         public int getSearchCategory()
@@ -59,8 +56,7 @@ public enum ItemType
         }
       },
 
-  LOCAL_EXPERTS(UiUtils.NO_ID, DiscoveryUserEvent.MORE_LOCALS_CLICKED,
-                DiscoveryUserEvent.LOCALS_CLICKED)
+  LOCAL_EXPERTS(UiUtils.NO_ID)
       {
         @Override
         public int getSearchCategory()
@@ -69,38 +65,19 @@ public enum ItemType
         }
       },
 
-  PROMO(UiUtils.NO_ID, DiscoveryUserEvent.MORE_PROMO_CLICKED, DiscoveryUserEvent.PROMO_CLICKED);
+  PROMO(UiUtils.NO_ID);
 
   @StringRes
   private final int mSearchCategory;
-  @NonNull
-  private final DiscoveryUserEvent mMoreClickEvent;
-  @NonNull
-  private final DiscoveryUserEvent mItemClickEvent;
 
-  ItemType(@StringRes int searchCategory, @NonNull DiscoveryUserEvent moreClickEvent,
-           @NonNull DiscoveryUserEvent itemClickEvent)
+  ItemType(@StringRes int searchCategory)
   {
     mSearchCategory = searchCategory;
-    mMoreClickEvent = moreClickEvent;
-    mItemClickEvent = itemClickEvent;
   }
 
   ItemType()
   {
-    this(UiUtils.NO_ID, DiscoveryUserEvent.STUB, DiscoveryUserEvent.STUB);
-  }
-
-  @NonNull
-  public DiscoveryUserEvent getMoreClickEvent()
-  {
-    return mMoreClickEvent;
-  }
-
-  @NonNull
-  public DiscoveryUserEvent getItemClickEvent()
-  {
-    return mItemClickEvent;
+    this(UiUtils.NO_ID);
   }
 
   @StringRes

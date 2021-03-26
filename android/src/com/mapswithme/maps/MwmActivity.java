@@ -34,7 +34,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.mapswithme.maps.Framework.PlacePageActivationListener;
 import com.mapswithme.maps.api.ParsedMwmRequest;
 import com.mapswithme.maps.background.AppBackgroundTracker;
-import com.mapswithme.maps.background.NotificationCandidate;
 import com.mapswithme.maps.background.Notifier;
 import com.mapswithme.maps.base.BaseMwmFragmentActivity;
 import com.mapswithme.maps.base.CustomNavigateUpListener;
@@ -83,7 +82,6 @@ import com.mapswithme.maps.maplayer.subway.SubwayManager;
 import com.mapswithme.maps.maplayer.traffic.OnTrafficLayerToggleListener;
 import com.mapswithme.maps.maplayer.traffic.TrafficManager;
 import com.mapswithme.maps.maplayer.traffic.widget.TrafficButton;
-import com.mapswithme.maps.metrics.UserActionsLogger;
 import com.mapswithme.maps.news.OnboardingStep;
 import com.mapswithme.maps.onboarding.IntroductionDialogFragment;
 import com.mapswithme.maps.onboarding.IntroductionScreenFactory;
@@ -317,29 +315,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
   {
     return new Intent(context, DownloadResourcesLegacyActivity.class)
         .putExtra(DownloadResourcesLegacyActivity.EXTRA_COUNTRY, countryId);
-  }
-
-//  @NonNull
-//  public static Intent createAuthenticateIntent(@NonNull Context context)
-//  {
-//    ArrayList<KeyValue> params = new ArrayList<>();
-//    params.add(new KeyValue(Statistics.EventParam.FROM, Statistics.ParamValue.NOTIFICATION));
-//
-//    return new Intent(context, MwmActivity.class)
-//        .addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
-//        .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
-//        .putExtra(MwmActivity.EXTRA_TASK,
-//                  new Factory.ShowDialogTask(PassportAuthDialogFragment.class.getName(), params));
-//  }
-
-  @NonNull
-  public static Intent createLeaveReviewIntent(@NonNull Context context,
-                                               @NonNull NotificationCandidate.UgcReview nc)
-  {
-    return new Intent(context, MwmActivity.class)
-        .addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
-        .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
-        .putExtra(MwmActivity.EXTRA_TASK, new Factory.ShowUGCEditorTask(nc));
   }
 
   @Override
@@ -2460,7 +2435,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
       return;
     }
 
-    UserActionsLogger.logTipClickedEvent(mTutorial, TutorialAction.GOT_IT_CLICKED);
     mTutorial = null;
   }
 
@@ -2483,33 +2457,8 @@ public class MwmActivity extends BaseMwmFragmentActivity
     addTask(new Factory.ShowTutorialTask());
   }
 
-  private boolean tryToShowPromoAfterBooking()
-  {
-    NetworkPolicy policy = NetworkPolicy.newInstance(NetworkPolicy.getCurrentNetworkUsageStatus());
-    PromoAfterBooking promo = Promo.nativeGetPromoAfterBooking(policy);
-    if (promo == null)
-      return false;
-
-    String dialogName = PromoBookingDialogFragment.class.getName();
-    if (getSupportFragmentManager().findFragmentByTag(dialogName) != null)
-      return true;
-
-    final Bundle args = new Bundle();
-    args.putString(PromoBookingDialogFragment.EXTRA_CITY_GUIDES_URL, promo.getGuidesUrl());
-    args.putString(PromoBookingDialogFragment.EXTRA_CITY_IMAGE_URL, promo.getImageUrl());
-
-    final DialogFragment fragment = (DialogFragment) Fragment.instantiate(this, dialogName, args);
-    fragment.show(getSupportFragmentManager(), dialogName);
-
-    UserActionsLogger.logPromoAfterBookingShown(promo.getId());
-    return true;
-  }
-
   private void tryToShowAdditionalViewOnTop()
   {
-    if (tryToShowPromoAfterBooking())
-      return;
-
     tryToShowTutorial();
   }
 

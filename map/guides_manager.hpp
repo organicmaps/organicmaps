@@ -4,7 +4,6 @@
 #include "map/catalog_headers_provider.hpp"
 #include "map/guides_marks.hpp"
 #include "map/guides_on_map_delegate.hpp"
-#include "map/layers_statistics.hpp"
 
 #include "partners_api/guides_on_map_api.hpp"
 
@@ -113,8 +112,6 @@ public:
   void OnClusterSelected(GuidesClusterMark const & mark, ScreenBase const & screen);
   void OnGuideSelected();
 
-  void LogGuideSelectedStatistic();
-
 private:
   void ChangeState(GuidesState newState, bool force = false, bool needNotify = true);
   void RequestGuides(bool suggestZoom = false);
@@ -126,8 +123,6 @@ private:
   void UpdateActiveGuide();
 
   bool IsRequestParamsInitialized() const;
-
-  void TrackStatistics() const;
 
   GuidesGallery::Item MakeGalleryItem(guides_on_map::GuidesNode const & guide) const;
 
@@ -158,7 +153,6 @@ private:
   df::DrapeEngineSafePtr m_drapeEngine;
 
   std::unordered_set<std::string> m_shownGuides;
-  LayersStatistics m_statistics;
 
   bool m_silentMode = false;
 };

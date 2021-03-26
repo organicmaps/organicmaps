@@ -129,7 +129,6 @@ struct Callback
                           [self](uint32_t const requestId, ItemType const type) {
                             [self.tableManager errorAtItem:type];
                           });
-  [MWMEye discoveryShown];
   
   [NSNotificationCenter.defaultCenter addObserver:self
                                          selector:@selector(didBecomeActive)
@@ -145,33 +144,26 @@ struct Callback
 }
 
 - (void)tapOnItem:(ItemType const)type atIndex:(NSInteger)index {
-  MWMEyeDiscoveryEvent eyeEvent;
   switch (type) {
     case ItemType::Attractions:
       if (index == [self.viewModel itemsCountForType:type]) {
         [self searchTourism];
-        eyeEvent = MWMEyeDiscoveryEventMoreAttractions;
       } else {
         [self showSearchResult:[self.viewModel.attractions searchResultAtIndex:index]];
-        eyeEvent = MWMEyeDiscoveryEventAttractions;
       }
       break;
     case ItemType::Cafes:
       if (index == [self.viewModel itemsCountForType:type]) {
         [self searchFood];
-        eyeEvent = MWMEyeDiscoveryEventMoreCafes;
       } else {
         [self showSearchResult:[self.viewModel.cafes searchResultAtIndex:index]];
-        eyeEvent = MWMEyeDiscoveryEventCafes;
       }
       break;
     case ItemType::Hotels:
       if (index == [self.viewModel itemsCountForType:type]) {
         [self openFilters];
-        eyeEvent = MWMEyeDiscoveryEventMoreHotels;
       } else {
         [self showSearchResult:[self.viewModel.hotels searchResultAtIndex:index]];
-        eyeEvent = MWMEyeDiscoveryEventHotels;
       }
       break;
     case ItemType::Promo:
@@ -185,8 +177,6 @@ struct Callback
     case ItemType::LocalExperts:
       return;
   }
-
-  [MWMEye discoveryItemClickedWithEvent:eyeEvent];
 }
 
 - (void)openFilters {

@@ -36,7 +36,6 @@ import com.mapswithme.maps.bookmarks.data.BookmarkCategory;
 import com.mapswithme.maps.bookmarks.data.BookmarkManager;
 import com.mapswithme.maps.dialog.AlertDialog;
 import com.mapswithme.maps.dialog.AlertDialogCallback;
-import com.mapswithme.maps.metrics.UserActionsLogger;
 import com.mapswithme.maps.purchase.AbstractProductDetailsLoadingCallback;
 import com.mapswithme.maps.purchase.BillingManager;
 import com.mapswithme.maps.purchase.BookmarksAllSubscriptionActivity;
@@ -318,8 +317,6 @@ public class BookmarksCatalogFragment extends BaseWebViewMwmFragment
     if (TextUtils.isEmpty(url))
       url = getCatalogUrlOrThrow();
     mWebView.loadUrl(url, headers);
-
-    UserActionsLogger.logBookmarksCatalogShownEvent();
   }
 
   @Override

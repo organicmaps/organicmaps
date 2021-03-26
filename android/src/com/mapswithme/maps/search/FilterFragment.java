@@ -14,7 +14,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.base.BaseMwmToolbarFragment;
 import com.mapswithme.maps.base.CustomNavigateUpListener;
-import com.mapswithme.maps.metrics.UserActionsLogger;
 import com.mapswithme.maps.widget.ToolbarController;
 import com.mapswithme.maps.widget.recycler.TagItemDecoration;
 import com.mapswithme.maps.widget.recycler.TagLayoutManager;
@@ -123,7 +122,6 @@ public class FilterFragment extends BaseMwmToolbarFragment
 
     HotelsFilter filter = populateFilter();
     mListener.onFilterApply(filter);
-    UserActionsLogger.logBookingFilterUsedEvent();
   }
 
   @Override

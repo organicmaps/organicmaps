@@ -12,7 +12,6 @@
 #include "map/guides_manager.hpp"
 #include "map/isolines_manager.hpp"
 #include "map/mwm_url.hpp"
-#include "map/notifications/notification_manager.hpp"
 #include "map/place_page_info.hpp"
 #include "map/position_provider.hpp"
 #include "map/power_management/power_management_schemas.hpp"
@@ -22,7 +21,6 @@
 #include "map/routing_mark.hpp"
 #include "map/search_api.hpp"
 #include "map/search_mark.hpp"
-#include "map/tips_api.hpp"
 #include "map/track.hpp"
 #include "map/traffic_manager.hpp"
 #include "map/transit/transit_reader.hpp"
@@ -66,8 +64,6 @@
 #include "partners_api/locals_api.hpp"
 #include "partners_api/promo_api.hpp"
 #include "partners_api/taxi_engine.hpp"
-
-#include "metrics/eye_info.hpp"
 
 #include "platform/country_defines.hpp"
 #include "platform/location.hpp"
@@ -124,11 +120,6 @@ namespace descriptions
 class Loader;
 }
 
-namespace notifications
-{
-class NotificationCandidate;
-}
-
 /// Uncomment line to make fixed position settings and
 /// build version for screenshots.
 //#define FIXED_LOCATION
@@ -169,7 +160,7 @@ class Framework : public PositionProvider,
 
   } m_fixedPos;
 #endif
-    
+
 private:
   // Must be first member in Framework and must be destroyed first in Framework destructor.
   std::unique_ptr<Platform::ThreadRunner> m_threadRunner = std::make_unique<Platform::ThreadRunner>();
@@ -883,25 +874,17 @@ public:
 
 private:
   std::unique_ptr<Purchase> m_purchase;
-  TipsApi m_tipsApi;
-  notifications::NotificationManager m_notificationManager;
 
   void EnableGuidesOnce(bool isFirstLaunch, bool isLaunchByDeeplink);
 
 public:
-  TipsApi const & GetTipsApi() const;
-
   // TipsApi::Delegate override.
   bool HaveTransit(m2::PointD const & pt) const;
   double GetLastBackgroundTime() const;
-
-  bool MakePlacePageForNotification(notifications::NotificationCandidate const & notification);
 
   power_management::PowerManager & GetPowerManager() { return m_powerManager; }
 
   // PowerManager::Subscriber override.
   void OnPowerFacilityChanged(power_management::Facility const facility, bool enabled) override;
   void OnPowerSchemeChanged(power_management::Scheme const actualScheme) override;
-
-  notifications::NotificationManager & GetNotificationManager();
 };

@@ -75,31 +75,6 @@ public final class Notifier
 //
 //  }
 
-  void notifyLeaveReview(@NonNull NotificationCandidate.UgcReview source)
-  {
-    Intent reviewIntent = MwmActivity.createLeaveReviewIntent(mContext, source);
-    reviewIntent.putExtra(EXTRA_CANCEL_NOTIFICATION, Notifier.ID_LEAVE_REVIEW);
-    PendingIntent pi =
-        PendingIntent.getActivity(mContext, 0, reviewIntent, PendingIntent.FLAG_UPDATE_CURRENT);
-
-    String channel = NotificationChannelFactory.createProvider(mContext).getUGCChannel();
-    String content = source.getAddress().isEmpty()
-                     ? source.getReadableName()
-                     : source.getReadableName() + ", " + source.getAddress();
-
-    NotificationCompat.Builder builder =
-        getBuilder(mContext.getString(R.string.notification_leave_review_v2_android_short_title),
-                   content, pi, channel)
-        .setStyle(new NotificationCompat.BigTextStyle()
-                       .setBigContentTitle(
-                         mContext.getString(R.string.notification_leave_review_v2_title))
-                       .bigText(content))
-        .addAction(0, mContext.getString(R.string.leave_a_review), pi);
-
-    getNotificationManager().notify(ID_LEAVE_REVIEW, builder.build());
-
-  }
-
   public void cancelNotification(@NotificationId int id)
   {
     if (id == ID_NONE)
