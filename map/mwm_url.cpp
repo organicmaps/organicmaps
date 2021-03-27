@@ -229,7 +229,8 @@ bool ParsedMapApi::Parse(url::Url const & url, UrlType type)
       m_request = request;
       return true;
     }
-    case UrlType::Lead: break;
+    case UrlType::Lead:
+      return false;
     case UrlType::Catalogue:
     {
       Catalog item;

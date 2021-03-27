@@ -223,36 +223,7 @@ UNIT_TEST(LeadApiSmoke)
   string const urlString = "mapsme://lead?utm_source=a&utm_medium=b&utm_campaign=c&utm_content=d&utm_term=e";
   TEST(url::Url(urlString).IsValid(), ());
   ApiTest test(urlString);
-  TEST(test.IsValid(), ());
-
-  auto checkEqual = [](string const & key, string const & value)
-  {
-    string result;
-    TEST(marketing::Settings::Get(key, result), ());
-    TEST_EQUAL(result, value, ());
-  };
-
-  checkEqual("utm_source", "a");
-  checkEqual("utm_medium", "b");
-  checkEqual("utm_campaign", "c");
-  checkEqual("utm_content", "d");
-  checkEqual("utm_term", "e");
-}
-
-UNIT_TEST(LeadApiInvalid)
-{
-  Framework f(kFrameworkParams);
-  TEST(!IsValid(f, "mapsme://lead?", UrlType::Lead), ("From, type and name parameters are necessary"));
-  TEST(!IsValid(f, "mapsme://lead?utm_source&utm_medium&utm_campaign", UrlType::Lead),
-       ("Parameters can't be empty"));
-  TEST(!IsValid(f, "mapsme://leed?utm_source=a&utm_medium=b&utm_campaign=c", UrlType::Incorrect),
-       ("Incorrect url type"));
-  TEST(IsValid(f, "mapsme://lead?utm_source=a&utm_medium=b&utm_campaign=c", UrlType::Lead),
-       ("These parameters are enough"));
-  TEST(IsValid(f, "mapsme://lead?utm_source=a&utm_medium=b&utm_campaign=c&smh=smh", UrlType::Lead),
-       ("If there is an excess parameter just ignore it"));
-  TEST(!IsValid(f, "mapsme://lead?utm_source=a&UTM_MEDIUM=b&utm_campaign=c&smh=smh", UrlType::Lead),
-       ("The parser is case sensitive"));
+  TEST(!test.IsValid(), ());
 }
 
 UNIT_TEST(MapApiInvalidUrl)
