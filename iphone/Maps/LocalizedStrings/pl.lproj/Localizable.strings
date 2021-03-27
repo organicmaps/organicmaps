@@ -1312,22 +1312,6 @@
 
 "whatsnew_editor_message_2" = "* OMaps korzysta z danych społeczności OpenStreetMap.";
 
-"onboarding_offline_navigation_title" = "Nigdy się już nie zgubisz";
-
-"onboarding_offline_navigation_message" = "Planuj optymalne trasy samochodowe i piesze, nawet gdy nie masz połączenia z Internetem!";
-
-"onboarding_offline_navigation_title_2" = "Nawigacja offline";
-
-"onboarding_offline_navigation_message_2" = "Planuj optymalne trasy samochodowe i piesze.";
-
-"onboarding_offline_maps_title" = "OMaps — uzyskaj dostęp do map świata bez łączenia się z Internetem";
-
-"onboarding_offline_maps_message" = "Pobierz jednorazowo mapy dla wybranego obszaru, aby korzystać z nawigacji i wyszukiwania bez połączenia sieciowego.";
-
-"onboarding_notifications_message" = "Aby pobierać najnowsze mapy, włącz powiadomienia o aktualizacjach";
-
-"onboarding_notifications_title" = "Włącz powiadomienia o aktualizacjach";
-
 "onboarding_location_title" = "Pomaga nam znaleźć Ciebie";
 
 "onboarding_location_message" = "Abyś mógł korzystać z nawigacji i innych funkcji, musimy uzyskać dostęp do twojej geolokalizacji.";
@@ -1335,8 +1319,6 @@
 "onboarding_permissions_title" = "Zezwól OMaps na dostęp do pamięci masowej i lokalizacji";
 
 "onboarding_permissions_message" = "Aby pobierać mapy, sprawdzać miejsca i ruch drogowy w twojej okolicy i móc korzystać z nawigacji.";
-
-"onboarding_welcome_second_subtitle" = "Poprzez uruchomienie aplikacji wyrażasz zgodę na <a href=\"%s\">warunki użytkowania</a> i <a href=\"%s\">politykę prywatności</a>.";
 
 "dialog_incorrect_feature_position" = "Zmień lokalizację";
 
@@ -1898,15 +1880,6 @@
 "routing_add_start_point" = "Aby zaplanować trasę, dodaj punkt początkowy";
 
 "routing_add_finish_point" = "Aby zaplanować trasę, dodaj punkt końcowy";
-
-"onboarding_welcome_message" = "Bezpłatne, szybkie i szczegółowe mapy offline z funkcją nawigacji.";
-
-/* нужно как-то выделять документы, чтобы привязать позже ссылки. */
-"onboarding_welcome_agree" = "Poprzez uruchomienie aplikacji wyrażasz zgodę na warunki użytkowania i politykę prywatności.";
-
-"button_accept_and_continue" = "Zaakceptuj i kontynuuj";
-
-"button_learn_more" = "Dowiedz się więcej";
 
 "onboarding_storage_permissions_title" = "Udziel dostępu";
 
@@ -2726,10 +2699,6 @@
 "download_guides_button" = "Przejdź do katalogu";
 
 "type.cuisine.uzbek" = "Kuchnia uzbecka";
-
-"onboarding_welcome_title" = "Planuj i podróżuj z OMaps";
-
-"onboarding_welcome_first_subtitle" = "Zapisuj ciekawe miejsca, rezerwuj hotele, buduj trasy offline";
 
 "onboarding_guide_direct_download_title" = "Przewodnik jest gotowy do pobrania";
 

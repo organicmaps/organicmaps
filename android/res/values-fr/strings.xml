@@ -795,19 +795,10 @@
 	<string name="whatsnew_editor_title">Modifier la carte*</string>
 	<string name="whatsnew_editor_message_1">Ajoutez de nouveaux lieux sur la carte et modifiez les lieux existants directement depuis l\'appli.</string>
 	<string name="whatsnew_editor_message_2">* OMaps utilise les données de la communauté OpenStreetMap.</string>
-	<string name="onboarding_offline_navigation_title">Vous ne vous perdrez plus jamais</string>
-	<string name="onboarding_offline_navigation_message">Planifiez des itinéraires optimaux en voiture ou à pied, même en l\'absence de connexion Internet !</string>
-	<string name="onboarding_offline_navigation_title_2">Navigation hors-ligne</string>
-	<string name="onboarding_offline_navigation_message_2">Planifiez des itinéraires optimaux en voiture ou à pied.</string>
-	<string name="onboarding_offline_maps_title">OMaps — accédez à une carte mondiale hors connexion</string>
-	<string name="onboarding_offline_maps_message">Téléchargez une seule fois les cartes de la zone désirée, et utilisez les fonctions de navigation et de recherche sans connexion Internet.</string>
-	<string name="onboarding_notifications_message">Pour recevoir les dernières cartes, recevez des notifications de mise à jour</string>
-	<string name="onboarding_notifications_title">Activer les notifications de mise à jour</string>
 	<string name="onboarding_location_title">Aidez-nous à vous trouver</string>
 	<string name="onboarding_location_message">Pour utiliser la navigation et d\'autres fonctionnalités, nous devons pouvoir accéder à votre position géographique.</string>
 	<string name="onboarding_permissions_title">Autoriser OMaps à accéder au stockage et à la localisation</string>
 	<string name="onboarding_permissions_message">Afin de pouvoir télécharger des cartes, voir les lieux et le trafic près de vous et utiliser la navigation.</string>
-	<string name="onboarding_welcome_second_subtitle">En lançant l’application, vous acceptez les &lt;a href="%1$s">Conditions d’utilisation&lt;/a> et la &lt;a href="%2$s">Politique de confidentialité&lt;/a>.</string>
 	<string name="dialog_incorrect_feature_position">Modifier l\'emplacement</string>
 	<string name="message_invalid_feature_position">Aucun objet ne peut être localisé ici</string>
 	<string name="login_to_make_edits_visible">Se connecter pour que d\'autres utilisateurs puissent voir les changements que vous avez effectués.</string>
@@ -1108,11 +1099,6 @@
 	<string name="core_exit">Quitter</string>
 	<string name="routing_add_start_point">Ajouter un point de départ pour planifier un itinéraire</string>
 	<string name="routing_add_finish_point">Ajouter un point d\'arrivée pour planifier un itinéraire</string>
-	<string name="onboarding_welcome_message">Cartes avec navigation étape par étape, gratuites, rapides, détaillées et totalement hors ligne.</string>
-	<!-- нужно как-то выделять документы, чтобы привязать позже ссылки. -->
-	<string name="onboarding_welcome_agree">En lançant l’application, vous acceptez les Conditions d’utilisation et la Politique de confidentialité.</string>
-	<string name="button_accept_and_continue">Accepter et continuer</string>
-	<string name="button_learn_more">En savoir plus</string>
 	<string name="onboarding_storage_permissions_title">Autoriser l\'accès</string>
 	<string name="onboarding_storage_permissions_message">Modifiez les paramètres d’autorisation dans votre appareil. Il est nécessaire d’accéder à un stockage pour utiliser OMaps.</string>
 	<string name="button_exit">Quitter</string>
@@ -1534,8 +1520,6 @@
 	  <item quantity="other">Basé sur %d avis</item>
 	</plurals>
 	<string name="type.cuisine.uzbek">Cuisine ouzbek</string>
-	<string name="onboarding_welcome_title">Planifiez et voyagez avec OMaps</string>
-	<string name="onboarding_welcome_first_subtitle">Enregistrez des lieux intéressants, réservez des hôtels, créez des itinéraires hors ligne</string>
 	<string name="onboarding_guide_direct_download_title">Le guide est prêt pour le téléchargement</string>
 	<string name="onboarding_guide_direct_download_subtitle">Il sera affiché sur la carte et fonctionnera hors ligne</string>
 	<string name="onboarding_guide_direct_download_button">Télécharger</string>

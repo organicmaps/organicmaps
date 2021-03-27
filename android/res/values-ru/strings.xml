@@ -797,19 +797,10 @@
 	<string name="whatsnew_editor_title">Редактируйте карту*</string>
 	<string name="whatsnew_editor_message_1">Добавляйте новые объекты и редактируйте старые прямо из приложения.</string>
 	<string name="whatsnew_editor_message_2">* OMaps использует данные открытых карт сообщества OpenStreetMap.</string>
-	<string name="onboarding_offline_navigation_title">Вы никогда больше не заблудитесь</string>
-	<string name="onboarding_offline_navigation_message">Прокладывайте самые оптимальные автомобильные и пешеходные маршруты даже там, где нет связи!</string>
-	<string name="onboarding_offline_navigation_title_2">Оффлайн навигация</string>
-	<string name="onboarding_offline_navigation_message_2">Прокладывайте оптимальные автомобильные и пешеходные маршруты.</string>
-	<string name="onboarding_offline_maps_title">OMaps — используй карты всего мира без интернета</string>
-	<string name="onboarding_offline_maps_message">Загрузите карты необходимого региона один раз и пользуйтесь навигацией и поиском без подключения к интернету.</string>
-	<string name="onboarding_notifications_message">Получайте уведомления об обновлениях, чтобы всегда иметь актуальные карты</string>
-	<string name="onboarding_notifications_title">Разрешите отправку уведомлений</string>
 	<string name="onboarding_location_title">Помогите найти вас</string>
 	<string name="onboarding_location_message">Чтобы пользоваться навигацией и другими функциями приложения, нам необходим доступ к вашей геопозиции.</string>
 	<string name="onboarding_permissions_title">Предоставьте OMaps доступ к памяти и местоположению.</string>
 	<string name="onboarding_permissions_message">Чтобы скачивать карты, смотреть места вокруг вас и пользоваться навигацией.</string>
-	<string name="onboarding_welcome_second_subtitle">Запуская приложение, вы соглашаетесь с &lt;a href="%1$s">Условиями использования&lt;/a> и &lt;a href="%2$s">Политикой конфиденциальности&lt;/a>.</string>
 	<string name="dialog_incorrect_feature_position">Измените местоположение</string>
 	<string name="message_invalid_feature_position">Объект не может находиться в этом месте</string>
 	<string name="login_to_make_edits_visible">Войдите, чтобы ваши изменения увидели другие пользователи.</string>
@@ -1111,11 +1102,6 @@
 	<string name="core_exit">Выход</string>
 	<string name="routing_add_start_point">Добавьте стартовую точку, чтобы построить маршрут</string>
 	<string name="routing_add_finish_point">Добавьте конечную точку, чтобы построить маршрут</string>
-	<string name="onboarding_welcome_message">Бесплатные, быстрые, подробные и полностью автономные карты с пошаговой навигацией.</string>
-	<!-- нужно как-то выделять документы, чтобы привязать позже ссылки. -->
-	<string name="onboarding_welcome_agree">Запуская приложение, вы соглашаетесь с условиями использования и политикой конфиденциальности.</string>
-	<string name="button_accept_and_continue">Принять и продолжить</string>
-	<string name="button_learn_more">Подробнее</string>
 	<string name="onboarding_storage_permissions_title">Предоставьте доступ</string>
 	<string name="onboarding_storage_permissions_message">Предоставьте OMaps доступ к памяти в настройках вашего устройства, иначе использовать OMaps будет невозможно.</string>
 	<string name="button_exit">Выход</string>
@@ -1561,8 +1547,6 @@
 	  <item quantity="other">На основе %d отзывов</item>
 	</plurals>
 	<string name="type.cuisine.uzbek">Узбекская кухня</string>
-	<string name="onboarding_welcome_title">Планируйте и путешествуйте с OMaps</string>
-	<string name="onboarding_welcome_first_subtitle">Сохраняйте интересные места, бронируйте отели, стройте маршруты офлайн</string>
 	<string name="onboarding_guide_direct_download_title">Путеводитель готов к загрузке</string>
 	<string name="onboarding_guide_direct_download_subtitle">Он отобразится на карте и будет работать офлайн</string>
 	<string name="onboarding_guide_direct_download_button">Скачать</string>

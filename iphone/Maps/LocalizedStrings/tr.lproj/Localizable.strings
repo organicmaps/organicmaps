@@ -1312,22 +1312,6 @@
 
 "whatsnew_editor_message_2" = "* OMaps, OpenStreetMap topluluğu verilerini kullanmaktadır.";
 
-"onboarding_offline_navigation_title" = "Bir daha asla kaybolmayacaksınız";
-
-"onboarding_offline_navigation_message" = "En iyi araba ve yaya rotalarını planlayın, hatta internet bağlantısı olmadığında bile!";
-
-"onboarding_offline_navigation_title_2" = "Farklı bir problem";
-
-"onboarding_offline_navigation_message_2" = "En iyi araba ve yaya rotalarını planlayın.";
-
-"onboarding_offline_maps_title" = "OMaps — dünya genelinde haritaya internetsiz erişim";
-
-"onboarding_offline_maps_message" = "İlk önce istenilen alanın haritasını indirin ve internet bağlantısı olmadan navigasyonu ve arama fonksiyonlarını kullanın.";
-
-"onboarding_notifications_message" = "En son haritaları almak için güncelleme bildirimlerini alın";
-
-"onboarding_notifications_title" = "Güncelleme bildirimlerini etkinleştir";
-
 "onboarding_location_title" = "Sizi bulmamıza yardım edin";
 
 "onboarding_location_message" = "Navigasyon ve diğer özellikleri kullanmak için konum belirlemenize erişmeye ihtiyacımız var.";
@@ -1335,8 +1319,6 @@
 "onboarding_permissions_title" = "OMaps'nin depolama alanına ve konum bilgilerine erişmesine izin verin";
 
 "onboarding_permissions_message" = "Böylece haritaları indirebilir, size yakın olan yerleri ve trafik bilgilerini görebilir ve navigasyonu kullanabilirsiniz.";
-
-"onboarding_welcome_second_subtitle" = "Uygulamayı başlatarak <a href=\"%s\">Kullanım Koşullarını</a> ve <a href=\"%s\">Gizlilik Politikasını</a> kabul etmiş sayılırsınız.";
 
 "dialog_incorrect_feature_position" = "Konumu değiştir";
 
@@ -1898,15 +1880,6 @@
 "routing_add_start_point" = "Güzergâhı planlamak için bir başlangıç noktası ekleyin";
 
 "routing_add_finish_point" = "Güzergâhı planlamak için bir varış noktası ekleyin";
-
-"onboarding_welcome_message" = "Gideceğiniz yeri adım adım gösteren navigasyon ile birlikte ücretsiz, hızlı, detaylı ve tamamen çevrimdışı haritalar.";
-
-/* нужно как-то выделять документы, чтобы привязать позже ссылки. */
-"onboarding_welcome_agree" = "Uygulamayı başlatarak, Kullanım Şartları'nı ve Gizlilik Politikası'nı kabul etmiş sayılırsınız.";
-
-"button_accept_and_continue" = "Kabul et ve devam et";
-
-"button_learn_more" = "Daha fazla bilgi edinin";
 
 "onboarding_storage_permissions_title" = "Erişime izin ver";
 
@@ -2726,10 +2699,6 @@
 "download_guides_button" = "Kataloğa";
 
 "type.cuisine.uzbek" = "Özbek mutfağı";
-
-"onboarding_welcome_title" = "OMaps ile planlayın ve seyahat edin";
-
-"onboarding_welcome_first_subtitle" = "İlginç yerleri işaretleyin, otel rezervasyonu yapın, çevrimdışıyken rota hesaplayın";
 
 "onboarding_guide_direct_download_title" = "Rehber indirmeye hazır";
 

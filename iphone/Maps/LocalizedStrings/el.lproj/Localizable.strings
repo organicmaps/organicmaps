@@ -1312,22 +1312,6 @@
 
 "whatsnew_editor_message_2" = "* Το OMaps χρησιμοποιεί δεδομένα της κοινότητας OpenStreetMap.";
 
-"onboarding_offline_navigation_title" = "Δεν θα χαθείτε ποτέ ξανά";
-
-"onboarding_offline_navigation_message" = "Σχεδιασμός βέλτισης διαδρομής αυτοκινήτων και πεζών, ακόμα και χωρίς σύνδεση στο Internet!";
-
-"onboarding_offline_navigation_title_2" = "Offline navigation";
-
-"onboarding_offline_navigation_message_2" = "Plan optimal car and pedestrian routes.";
-
-"onboarding_offline_maps_title" = "OMaps — χρησιμοποιήστε χάρτες από όλο τον κόσμο χωρίς σύνδεση στο Internet";
-
-"onboarding_offline_maps_message" = "Κατεβάστε τους χάρτες της περιοχής που επιθυμείτε μια φορά και χρησιμοποιήστε τις λειτουργίες πλοήγησης και αναζήτησης χωρίς σύνδεση στο Internet.";
-
-"onboarding_notifications_message" = "Για να λάβετε τους πιο πρόσφατους χάρτες, επιλέξτε να λαμβάνετε ειδοποιήσεις ενημερώσεων";
-
-"onboarding_notifications_title" = "Ενεργοποιήσετε τις ειδοποιήσεις για ενημερώσεις";
-
 "onboarding_location_title" = "Βοηθήστε μας να σας βρούμε";
 
 "onboarding_location_message" = "Προκειμένου να χρησιμοποιήσετε την πλοήγηση και τις άλλες λειτουργίες του OMaps χρειάζεται πρόσβαση στη γεωγραφική σας θέση.";
@@ -1335,8 +1319,6 @@
 "onboarding_permissions_title" = "Να επιτραπεί στο OMaps πρόσβαση στον αποθηκευτικό χώρο και την τοποθεσία";
 
 "onboarding_permissions_message" = "Μπορείτε να κατεβάσετε χάρτες, να δείτε μέρη και πληροφορίες για την κίνηση κοντά σε εσάς και να χρησιμοποιήσεττ την πλοήγηση.";
-
-"onboarding_welcome_second_subtitle" = "Με την εκκίνηση της εφαρμογής συμφωνείτε με <a href=\"%s\">τους Όρους χρήσης</a> και <a href=\"%s\">την Πολιτική απορρήτου</a>.";
 
 "dialog_incorrect_feature_position" = "Αλλαγή τοποθεσίας";
 
@@ -1898,15 +1880,6 @@
 "routing_add_start_point" = "Προσθέστε αφετηρία για να σχεδιάσετε μια διαδρομή";
 
 "routing_add_finish_point" = "Προσθέστε τελικό προορισμό, για να σχεδιάσετε μια διαδρομή";
-
-"onboarding_welcome_message" = "Δωρεάν, γρήγοροι, λεπτομερείς χάρτες αποκλειστικά εκτός σύνδεσης με πλοήγηση αννά στροφή.";
-
-/* нужно как-то выделять документы, чтобы привязать позже ссылки. */
-"onboarding_welcome_agree" = "Με την εκκίνηση αυτής της εφαρμογής, συμφωνείτε με τους όρους χρήσης και την πολιτική προστασίας προσωπικών δεδομένων.";
-
-"button_accept_and_continue" = "Αποδοχή και συνέχεια";
-
-"button_learn_more" = "Μάθετε περισσότερα";
 
 "onboarding_storage_permissions_title" = "Εκχώρηση άδειας";
 
@@ -2726,10 +2699,6 @@
 "download_guides_button" = "Μετάβαση στον κατάλογο";
 
 "type.cuisine.uzbek" = "Ουζμπεκική κουζίνα";
-
-"onboarding_welcome_title" = "Σχεδιάστε και ταξιδέψτε με το OMaps";
-
-"onboarding_welcome_first_subtitle" = "Αποθηκεύετε τα ενδιαφέροντα μέρη, κάντε κράτηση ξενοδοχείων, χτίστε τις διαδρομές εκτός σύνδεσης";
 
 "onboarding_guide_direct_download_title" = "Ο οδηγός είναι έτοιμος για λήψη";
 

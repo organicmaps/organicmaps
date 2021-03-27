@@ -777,19 +777,10 @@
 	<string name="whatsnew_editor_title">Rediger kartet*</string>
 	<string name="whatsnew_editor_message_1">Legg til nye steder i kartet og rediger eksisterende steder direkte fra appen.</string>
 	<string name="whatsnew_editor_message_2">* OMaps bruker data fra OpenStreetMap-samfunnet.</string>
-	<string name="onboarding_offline_navigation_title">Du vil aldri havne på villspor igjen</string>
-	<string name="onboarding_offline_navigation_message">Planlegg optimale reiseruter med bil og til fots, selv uten internettforbindelse!</string>
-	<string name="onboarding_offline_navigation_title_2">Offline-navigering</string>
-	<string name="onboarding_offline_navigation_message_2">Planlegg optimale reiseruter med bil og til fots.</string>
-	<string name="onboarding_offline_maps_title">OMaps — se verdensvide kart uten Internett</string>
-	<string name="onboarding_offline_maps_message">Last ned kartene for et ønsket område én gang, og bruk navigeringen og andre søkefunksjoner uten internettforbindelse.</string>
-	<string name="onboarding_notifications_message">Få oppdateringsvarsler for å motta de nyeste kartene</string>
-	<string name="onboarding_notifications_title">Aktiver oppdateringsvarsler</string>
 	<string name="onboarding_location_title">Hjelp oss med å finne deg</string>
 	<string name="onboarding_location_message">For å bruke navigering og andre funksjoner må vi ha tilgang til posisjonen din.</string>
 	<string name="onboarding_permissions_title">Tillat OMaps tilgang til minnet og plasseringen</string>
 	<string name="onboarding_permissions_message">Du kan laste ned kart, se steder og trafikk nær deg og bruke navigasjon.</string>
-	<string name="onboarding_welcome_second_subtitle">Når du starter programmet samtykker du til &lt;a href="%1$s">bruksvilkårene&lt;/a> og &lt;a href="%2$s">reglene for personvern&lt;/a>.</string>
 	<string name="dialog_incorrect_feature_position">Endre plassering</string>
 	<string name="message_invalid_feature_position">Et objekt kan ikke plasseres her</string>
 	<string name="login_to_make_edits_visible">Logg inn slik at andre brukere kan se endringene du har utført.</string>
@@ -1087,11 +1078,6 @@
 	<string name="core_exit">Avslutt</string>
 	<string name="routing_add_start_point">Angi startpunkt for å planlegge rute</string>
 	<string name="routing_add_finish_point">Angi sluttpunkt for å planlegge rute</string>
-	<string name="onboarding_welcome_message">Gratis, rask, detaljert og helt offline kart med rutenavigasjon.</string>
-	<!-- нужно как-то выделять документы, чтобы привязать позже ссылки. -->
-	<string name="onboarding_welcome_agree">Ved å starte programmet samtykker du til brukervilkårene og reglene for personvern.</string>
-	<string name="button_accept_and_continue">Godta og fortsett</string>
-	<string name="button_learn_more">Finn ut mer</string>
 	<string name="onboarding_storage_permissions_title">Gi tilgang</string>
 	<string name="onboarding_storage_permissions_message">Endre innstillinger for tillatelser på enheten din. Det er nødvendig med tilgang til minnet for å kunne bruke OMaps.</string>
 	<string name="button_exit">Avslutt</string>
@@ -1416,8 +1402,6 @@
 	  <item quantity="other">Basert på %d anmeldelser</item>
 	</plurals>
 	<string name="type.cuisine.uzbek">Usbekisk mat</string>
-	<string name="onboarding_welcome_title">Planlegg og reis med OMaps</string>
-	<string name="onboarding_welcome_first_subtitle">Bokmerk interessante steder, bestill hotell, beregn ruter også offline</string>
 	<string name="onboarding_guide_direct_download_title">Guide er klar for nedlasting</string>
 	<string name="onboarding_guide_direct_download_subtitle">Det vil bli vist på kart og kan brukes offline</string>
 	<string name="onboarding_guide_direct_download_button">Last ned</string>

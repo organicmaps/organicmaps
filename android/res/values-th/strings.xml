@@ -789,19 +789,10 @@
 	<string name="whatsnew_editor_title">แก้ไขแผนที่*</string>
 	<string name="whatsnew_editor_message_1">เพิ่มสถานที่ใหม่ ๆ ไปยังแผนที่ และแก้ไขสถานที่ที่มีอยู่เดิมจากแอปโดยตรง</string>
 	<string name="whatsnew_editor_message_2">* OMaps ใช้ข้อมูลจากชุมชน OpenStreetMap</string>
-	<string name="onboarding_offline_navigation_title">คุณจะไม่หลงทางอีกต่อไป</string>
-	<string name="onboarding_offline_navigation_message">วางแผนเส้นทางรถยนต์และเส้นทางเดินที่เหมาะสมที่สุด แม้ว่าจะไม่มีการเชื่อมต่ออินเทอร์เน็ต!</string>
-	<string name="onboarding_offline_navigation_title_2">การนำทางออฟไลน์</string>
-	<string name="onboarding_offline_navigation_message_2">วางแผนเส้นทางรถยนต์และเส้นทางเดินที่เหมาะสมที่สุด</string>
-	<string name="onboarding_offline_maps_title">OMaps — เข้าถึงแผนที่ทั่วโลกโดยไม่ใช้อินเทอร์เน็ต</string>
-	<string name="onboarding_offline_maps_message">ดาวน์โหลดแผนที่สำหรับพื้นที่ที่ต้องการเพียงหนึ่งครั้ง แล้วใช้การฟังก์ชันการนำทางและการค้นหาโดยไม่ต้องเชื่อมต่ออินเทอร์เน็ต</string>
-	<string name="onboarding_notifications_message">เพื่อรับแผนที่ล่าสุดและรับการแจ้งเตือนอัปเดต</string>
-	<string name="onboarding_notifications_title">เปิดการแจ้งเตือนการอัปเดต</string>
 	<string name="onboarding_location_title">ช่วยให้เราค้นหาคุณ</string>
 	<string name="onboarding_location_message">เพื่อใช้การนำทางและฟีเจอร์อื่น ๆ เราต้องการเข้าถึงตำแหน่งทางภูมิศาสตร์ของคุณ</string>
 	<string name="onboarding_permissions_title">อนุญาตให้ OMaps เข้าถึงที่เก็บข้อมูลและตำแหน่งที่ตั้ง</string>
 	<string name="onboarding_permissions_message">เพื่อที่คุณจะได้สามารถดาวน์โหลดแผนที่ ดูสถานที่ต่าง ๆ และการจราจรที่อยู่ใกล้ ๆ คุณแล้วใช้งานการนำทางได้</string>
-	<string name="onboarding_welcome_second_subtitle">ด้วยการเรียกใช้แอปพลิเคชั่นคุณได้ตกลงต่อ &lt;a href="%1$s">เงื่อนไขการใช้งาน&lt;/a> และ &lt;a href="%2$s">นโยบายความเป็นส่วนตัว&lt;/a></string>
 	<string name="dialog_incorrect_feature_position">เปลี่ยนสถานที่ตั้ง</string>
 	<string name="message_invalid_feature_position">ไม่สามารถตั้งวัตถุได้ที่นี่</string>
 	<string name="login_to_make_edits_visible">ล็อกอินเพื่อให้ผู้ใช้คนอื่นสามารถเห็นการเปลี่ยนแปลงของคุณได้</string>
@@ -1101,11 +1092,6 @@
 	<string name="core_exit">ออก</string>
 	<string name="routing_add_start_point">เพิ่มจุดเริ่มต้นเพื่อวางแผนเส้นทาง</string>
 	<string name="routing_add_finish_point">เพิ่มจุดสิ้นสุดเพื่อวางแผนเส้นทาง</string>
-	<string name="onboarding_welcome_message">แผนที่ที่ฟรี รวดเร็ว มีรายละเอียด และออฟไลน์พร้อมกับการนำทางแบบทีละขั้นตอน</string>
-	<!-- нужно как-то выделять документы, чтобы привязать позже ссылки. -->
-	<string name="onboarding_welcome_agree">ด้วยการเรียกใช้แอปพลิเคชั่นคุณได้ตกลงต่อเงื่อนไขการใช้งานและนโยบายความเป็นส่วนตัว</string>
-	<string name="button_accept_and_continue">ตกลงและดำเนินการต่อไป</string>
-	<string name="button_learn_more">ศึกษาเพิ่มเติม</string>
 	<string name="onboarding_storage_permissions_title">ให้สิทธิ์เข้าถึง</string>
 	<string name="onboarding_storage_permissions_message">เปลี่ยนการตั้งค่าการให้สิทธิ์ในเครื่องของคุณ จำเป็นต้องได้สิทธิ์การเข้าถึงที่เก็บข้อมูลเพื่อใช้งาน OMaps</string>
 	<string name="button_exit">ออก</string>
@@ -1521,8 +1507,6 @@
 	  <item quantity="other">ยึดตาม%d การรีวิว</item>
 	</plurals>
 	<string name="type.cuisine.uzbek">อาหารแนวอุซเบค</string>
-	<string name="onboarding_welcome_title">วางแผนและท่องเที่ยวด้วย OMaps</string>
-	<string name="onboarding_welcome_first_subtitle">บุ๊ตมาร์คสถานที่ที่น่าสนใจ จองโรงแรม และคำนวณเส้นทางแบบไม่ต้องใช้สัญญาณอินเทอร์เน็ต</string>
 	<string name="onboarding_guide_direct_download_title">ไกด์พร้อมให้ดาวน์โหลดแล้ว</string>
 	<string name="onboarding_guide_direct_download_subtitle">ไกด์จะแสดงบนแผนที่และทำงานโดยไม่ต้องใช้สัญญาณอินเทอร์เน็ต</string>
 	<string name="onboarding_guide_direct_download_button">ดาวน์โหลด</string>

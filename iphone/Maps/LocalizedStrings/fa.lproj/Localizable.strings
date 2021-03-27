@@ -1312,22 +1312,6 @@
 
 "whatsnew_editor_message_2" = "* OMaps از دیتای انجمن  OpenStreetMap.";
 
-"onboarding_offline_navigation_title" = "شما دیگر هیچ چیز را از دست نمی دهید";
-
-"onboarding_offline_navigation_message" = "برنامه ریزی بهینه ترین مسیر برای ماشین و پیاده حتی زمانی که شما دسترسی به اینترنتی ندارید!";
-
-"onboarding_offline_navigation_title_2" = "ناوبری افلاین";
-
-"onboarding_offline_navigation_message_2" = "برنامه ریزی بهینه مسیر برای ماشین و پیاده.";
-
-"onboarding_offline_maps_title" = "استفاده از نقشه تمام دنیا بدون اتصال به اینترنت";
-
-"onboarding_offline_maps_message" = "دانلود نقشه های مناطق دلخواه و استفاده از ویژگی های ناوبری و جست وجو بدون نیاز به اینترنت.";
-
-"onboarding_notifications_message" = "برای دریافت اخرین بروزرسانی ها اطلاعیه های بروزرسانی را دریافت کنید";
-
-"onboarding_notifications_title" = "فعال سازی اطلاعیه های بروزرسانی";
-
 "onboarding_location_title" = "کمک کنید تا شما را بیابیم";
 
 "onboarding_location_message" = "به منظور استفاده شما از ناوبری و دیگر ویژگی های این اپلیکیشن OMaps نیازمند دسترسی به موقعیت مکانی تان است.";
@@ -1335,8 +1319,6 @@
 "onboarding_permissions_title" = "به OMaps اجازه دسترسی به محل ذخیره سازی و موقعیت مکانی خود را بدهید.";
 
 "onboarding_permissions_message" = "خب شما می تونید نقشه رو دانلود کنید و مکان های دور اطراف را به همراه حجم ترافیک دوروبرتان ببینید و از مسیر یابی استفاده کنید.";
-
-"onboarding_welcome_second_subtitle" = "با اجرای این اپلیکیشن, شما موافقت خود را با  <a href=\"%s\">Terms of Use</a> و <a href=\"%s\">Privacy Policy</a>اعلام می کنید.";
 
 "dialog_incorrect_feature_position" = "تغییر موقعیت";
 
@@ -1898,15 +1880,6 @@
 "routing_add_start_point" = "یک نقطه شروع برای برنامه ریزی یک مسیر اضافه کنید";
 
 "routing_add_finish_point" = "یک مقصد برای برنامه ریزی یک مسیر اضافه کنید";
-
-"onboarding_welcome_message" = "نقشه های رایگان، سریع، دقیق و کاملا آفلاین با ناوبری نقطه به نقطه.";
-
-/* нужно как-то выделять документы, чтобы привязать позже ссылки. */
-"onboarding_welcome_agree" = "با راه اندازی برنامه، شما با شرایط استفاده و خطمشی رازداری موافقید.";
-
-"button_accept_and_continue" = "پذیرش و ادامه";
-
-"button_learn_more" = "بیشتر بدانید";
 
 "onboarding_storage_permissions_title" = "مجوز دسترسی";
 
@@ -2726,10 +2699,6 @@
 "download_guides_button" = "به کاتالوگ";
 
 "type.cuisine.uzbek" = "غذای ازبکستانی";
-
-"onboarding_welcome_title" = "برنامه ریزی و سفر با OMaps";
-
-"onboarding_welcome_first_subtitle" = "مکان های جالب را نشان دار کنید ، هتل رزرو کنید، مسیرها را به صورت آفلاین محاسبه کنید";
 
 "onboarding_guide_direct_download_title" = "راهنما آماده دریافت است";
 

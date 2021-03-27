@@ -1312,22 +1312,6 @@
 
 "whatsnew_editor_message_2" = "* OMaps 使用 OpenStreetMap 社群的數據。";
 
-"onboarding_offline_navigation_title" = "您將不再迷路";
-
-"onboarding_offline_navigation_message" = "規劃最佳的行車和步行路線，即使在沒有網絡連接的情況下！";
-
-"onboarding_offline_navigation_title_2" = "離線導航";
-
-"onboarding_offline_navigation_message_2" = "規劃最佳的行車和步行路線。";
-
-"onboarding_offline_maps_title" = "OMaps — 無需網際網路獲取全球地圖";
-
-"onboarding_offline_maps_message" = "一次下載所需地區的地圖，無需網絡連接就能使用導航和搜索功能。";
-
-"onboarding_notifications_message" = "為了接收最新的地圖，請接收更新通知";
-
-"onboarding_notifications_title" = "啟用更新通知";
-
 "onboarding_location_title" = "幫我們找到您";
 
 "onboarding_location_message" = "如要使用導航和其他功能，我們需要能獲取您的地理位置.";
@@ -1335,8 +1319,6 @@
 "onboarding_permissions_title" = "允許 OMaps 存儲和定位的權限";
 
 "onboarding_permissions_message" = "所以，您可以下載地圖，查看您附近的地點和交通，以及使用導航服務。";
-
-"onboarding_welcome_second_subtitle" = "啟用本應用程式，即表示您同意 <a href=\"%s\">服務條款</a>和 <a href=\"%s\">隱私權原則</a>。";
 
 "dialog_incorrect_feature_position" = "改變位置";
 
@@ -1898,15 +1880,6 @@
 "routing_add_start_point" = "新增起點以計劃路線";
 
 "routing_add_finish_point" = "新增終點以計劃路線";
-
-"onboarding_welcome_message" = "免費、快速、詳盡又全面的地圖，提供逐向導航服務。";
-
-/* нужно как-то выделять документы, чтобы привязать позже ссылки. */
-"onboarding_welcome_agree" = "啟動本應用程式，即表示您同意服務條款和隱私權原則。";
-
-"button_accept_and_continue" = "接受並繼續";
-
-"button_learn_more" = "瞭解更多資訊";
 
 "onboarding_storage_permissions_title" = "授與存取權";
 
@@ -2726,10 +2699,6 @@
 "download_guides_button" = "轉至目錄";
 
 "type.cuisine.uzbek" = "烏茲別克美食";
-
-"onboarding_welcome_title" = "請使用OMaps開始規劃和旅行";
-
-"onboarding_welcome_first_subtitle" = "請保存有趣的地方，預訂酒店，離線規劃路線";
 
 "onboarding_guide_direct_download_title" = "該指南已準備好下載";
 

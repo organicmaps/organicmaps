@@ -751,19 +751,10 @@
 	<string name="whatsnew_editor_title">ویرایش نقشه*</string>
 	<string name="whatsnew_editor_message_1">اضافه کردن مکان به نقشه و ویرایش ان مستقیما از طریق این اپلیکیشن.</string>
 	<string name="whatsnew_editor_message_2">* OMaps از دیتای انجمن  OpenStreetMap.</string>
-	<string name="onboarding_offline_navigation_title">شما دیگر هیچ چیز را از دست نمی دهید</string>
-	<string name="onboarding_offline_navigation_message">برنامه ریزی بهینه ترین مسیر برای ماشین و پیاده حتی زمانی که شما دسترسی به اینترنتی ندارید!</string>
-	<string name="onboarding_offline_navigation_title_2">ناوبری افلاین</string>
-	<string name="onboarding_offline_navigation_message_2">برنامه ریزی بهینه مسیر برای ماشین و پیاده.</string>
-	<string name="onboarding_offline_maps_title">استفاده از نقشه تمام دنیا بدون اتصال به اینترنت</string>
-	<string name="onboarding_offline_maps_message">دانلود نقشه های مناطق دلخواه و استفاده از ویژگی های ناوبری و جست وجو بدون نیاز به اینترنت.</string>
-	<string name="onboarding_notifications_message">برای دریافت اخرین بروزرسانی ها اطلاعیه های بروزرسانی را دریافت کنید</string>
-	<string name="onboarding_notifications_title">فعال سازی اطلاعیه های بروزرسانی</string>
 	<string name="onboarding_location_title">کمک کنید تا شما را بیابیم</string>
 	<string name="onboarding_location_message">به منظور استفاده شما از ناوبری و دیگر ویژگی های این اپلیکیشن OMaps نیازمند دسترسی به موقعیت مکانی تان است.</string>
 	<string name="onboarding_permissions_title">به OMaps اجازه دسترسی به محل ذخیره سازی و موقعیت مکانی خود را بدهید.</string>
 	<string name="onboarding_permissions_message">خب شما می تونید نقشه رو دانلود کنید و مکان های دور اطراف را به همراه حجم ترافیک دوروبرتان ببینید و از مسیر یابی استفاده کنید.</string>
-	<string name="onboarding_welcome_second_subtitle">با اجرای این اپلیکیشن, شما موافقت خود را با  &lt;a href="%1$s">Terms of Use&lt;/a> و &lt;a href="%2$s">Privacy Policy&lt;/a>اعلام می کنید.</string>
 	<string name="dialog_incorrect_feature_position">تغییر موقعیت</string>
 	<string name="message_invalid_feature_position">نمی توان شی ای در این مکان باشد</string>
 	<string name="login_to_make_edits_visible">وارد شوید تا دیگر کاربران نیز بتوانند تغییرات ایجاد شده توسط شما را ببینند</string>
@@ -1042,11 +1033,6 @@
 	<string name="core_exit">خروج</string>
 	<string name="routing_add_start_point">یک نقطه شروع برای برنامه ریزی یک مسیر اضافه کنید</string>
 	<string name="routing_add_finish_point">یک مقصد برای برنامه ریزی یک مسیر اضافه کنید</string>
-	<string name="onboarding_welcome_message">نقشه های رایگان، سریع، دقیق و کاملا آفلاین با ناوبری نقطه به نقطه.</string>
-	<!-- нужно как-то выделять документы, чтобы привязать позже ссылки. -->
-	<string name="onboarding_welcome_agree">با راه اندازی برنامه، شما با شرایط استفاده و خطمشی رازداری موافقید.</string>
-	<string name="button_accept_and_continue">پذیرش و ادامه</string>
-	<string name="button_learn_more">بیشتر بدانید</string>
 	<string name="onboarding_storage_permissions_title">مجوز دسترسی</string>
 	<string name="onboarding_storage_permissions_message">لطفا OMaps را مجاز به استفاده از ذخیره سازی در تنظیمات دستگاه خود کنید، در غیر این صورت نمی توانید از OMaps استفاده کنید.</string>
 	<string name="button_exit">خروج</string>
@@ -1458,8 +1444,6 @@
 	  <item quantity="other">بر اساس نظرات %d</item>
 	</plurals>
 	<string name="type.cuisine.uzbek">غذای ازبکستانی</string>
-	<string name="onboarding_welcome_title">برنامه ریزی و سفر با OMaps</string>
-	<string name="onboarding_welcome_first_subtitle">مکان های جالب را نشان دار کنید ، هتل رزرو کنید، مسیرها را به صورت آفلاین محاسبه کنید</string>
 	<string name="onboarding_guide_direct_download_title">راهنما آماده دریافت است</string>
 	<string name="onboarding_guide_direct_download_subtitle">بر روی نقشه نمایش داده می شود و به صورت آفلاین کار می کند</string>
 	<string name="onboarding_guide_direct_download_button">دریافت</string>

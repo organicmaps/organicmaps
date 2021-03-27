@@ -785,19 +785,10 @@
 	<string name="whatsnew_editor_title">Térkép szerkesztése*</string>
 	<string name="whatsnew_editor_message_1">Adj hozzá új helyeket a térképhez, és szerkeszd a meglévőket közvetlenül az alkalmazásból.</string>
 	<string name="whatsnew_editor_message_2">* A OMaps az OpenStreetMap közösség adatait használja.</string>
-	<string name="onboarding_offline_navigation_title">Többé nem fogsz eltévedni</string>
-	<string name="onboarding_offline_navigation_message">Tervezd meg az optimális autós és gyalogos útvonalakat, akkor is, ha nincs internetkapcsolat!</string>
-	<string name="onboarding_offline_navigation_title_2">Offline navigáció</string>
-	<string name="onboarding_offline_navigation_message_2">Tervezd meg az optimális autós és gyalogos útvonalakat.</string>
-	<string name="onboarding_offline_maps_title">OMaps — hozzáférés a világ térképéhez Internet nélkül</string>
-	<string name="onboarding_offline_maps_message">Mindössze egyszer kell letöltened egy adott helyszín térképét, azt követően internetkapcsolat nélkül is használhatod a navigációs és keresési funkciókat.</string>
-	<string name="onboarding_notifications_message">Fogadj értesítő üzeneteket a legfrissebb térképekről</string>
-	<string name="onboarding_notifications_title">Értesítések engedélyezése</string>
 	<string name="onboarding_location_title">Segíts, hogy megtaláljunk</string>
 	<string name="onboarding_location_message">A navigáció és egyéb funkciók használatához hozzá kell férnünk a geolokációdhoz.</string>
 	<string name="onboarding_permissions_title">Engedélyezi a OMaps számára, hogy hozzáférjen a tárolóhoz és a tartózkodási helyhez</string>
 	<string name="onboarding_permissions_message">Így tehát Ön letölthet térképeket, megtekintheti az Önhöz közeli helyeket és forgalmat, és használhatja a navigációt.</string>
-	<string name="onboarding_welcome_second_subtitle">Az alkalmazás indításával Ön elfogadja a &lt;a href="%1$s">Felhasználási feltételeket&lt;/a> és &lt;a href="%2$s">az Adatvédelmi szabályzatot&lt;/a>.</string>
 	<string name="dialog_incorrect_feature_position">Helyszín megváltoztatása</string>
 	<string name="message_invalid_feature_position">Célpont áthelyezése ide nem lehetséges</string>
 	<string name="login_to_make_edits_visible">Jelentkezz be, hogy más felhasználók is láthassák a változtatásaidat.</string>
@@ -1096,11 +1087,6 @@
 	<string name="core_exit">Kilépés</string>
 	<string name="routing_add_start_point">Adjon hozzá kiindulási pontot az útvonal megtervezéséhez</string>
 	<string name="routing_add_finish_point">Adjon hozzá végpontot az útvonal tervezéséhez</string>
-	<string name="onboarding_welcome_message">Ingyenes, gyors, részletes és teljes egészében offline térképek navigációval lépésről lépésre.</string>
-	<!-- нужно как-то выделять документы, чтобы привязать позже ссылки. -->
-	<string name="onboarding_welcome_agree">Az alkalmazás indításával Ön elfogadja a felhasználási és adatvédelmi feltételeket.</string>
-	<string name="button_accept_and_continue">Fogadja el, és folytassa</string>
-	<string name="button_learn_more">Tudjon meg többet</string>
 	<string name="onboarding_storage_permissions_title">Hozzáférés biztosítása</string>
 	<string name="onboarding_storage_permissions_message">Engedélyek módosításának engedélyezése az Ön készüléken. Hozzáférésre van szükség a tárolóhoz, hogy használja a OMaps alkalmazást.</string>
 	<string name="button_exit">Kilépés</string>
@@ -1517,8 +1503,6 @@
 	  <item quantity="other">%d értékelés alapján</item>
 	</plurals>
 	<string name="type.cuisine.uzbek">Üzbég konyha</string>
-	<string name="onboarding_welcome_title">Tervezz és utazz a OMaps-vel</string>
-	<string name="onboarding_welcome_first_subtitle">Könyvjelzőzz érdekes helyeket, foglalj szállásokat, számíts ki útvonalakat offline</string>
 	<string name="onboarding_guide_direct_download_title">Az útmutató készen áll a letöltésre</string>
 	<string name="onboarding_guide_direct_download_subtitle">Jelölve lesz a térképen és offline fog működni</string>
 	<string name="onboarding_guide_direct_download_button">Letöltés</string>

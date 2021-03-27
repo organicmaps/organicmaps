@@ -1312,22 +1312,6 @@
 
 "whatsnew_editor_message_2" = "* A OMaps az OpenStreetMap közösség adatait használja.";
 
-"onboarding_offline_navigation_title" = "Többé nem fogsz eltévedni";
-
-"onboarding_offline_navigation_message" = "Tervezd meg az optimális autós és gyalogos útvonalakat, akkor is, ha nincs internetkapcsolat!";
-
-"onboarding_offline_navigation_title_2" = "Offline navigáció";
-
-"onboarding_offline_navigation_message_2" = "Tervezd meg az optimális autós és gyalogos útvonalakat.";
-
-"onboarding_offline_maps_title" = "OMaps — hozzáférés a világ térképéhez Internet nélkül";
-
-"onboarding_offline_maps_message" = "Mindössze egyszer kell letöltened egy adott helyszín térképét, azt követően internetkapcsolat nélkül is használhatod a navigációs és keresési funkciókat.";
-
-"onboarding_notifications_message" = "Fogadj értesítő üzeneteket a legfrissebb térképekről";
-
-"onboarding_notifications_title" = "Értesítések engedélyezése";
-
 "onboarding_location_title" = "Segíts, hogy megtaláljunk";
 
 "onboarding_location_message" = "A navigáció és egyéb funkciók használatához hozzá kell férnünk a geolokációdhoz.";
@@ -1335,8 +1319,6 @@
 "onboarding_permissions_title" = "Engedélyezi a OMaps számára, hogy hozzáférjen a tárolóhoz és a tartózkodási helyhez";
 
 "onboarding_permissions_message" = "Így tehát Ön letölthet térképeket, megtekintheti az Önhöz közeli helyeket és forgalmat, és használhatja a navigációt.";
-
-"onboarding_welcome_second_subtitle" = "Az alkalmazás indításával Ön elfogadja a <a href=\"%s\">Felhasználási feltételeket</a> és <a href=\"%s\">az Adatvédelmi szabályzatot</a>.";
 
 "dialog_incorrect_feature_position" = "Helyszín megváltoztatása";
 
@@ -1898,15 +1880,6 @@
 "routing_add_start_point" = "Adjon hozzá kiindulási pontot az útvonal megtervezéséhez";
 
 "routing_add_finish_point" = "Adjon hozzá végpontot az útvonal tervezéséhez";
-
-"onboarding_welcome_message" = "Ingyenes, gyors, részletes és teljes egészében offline térképek navigációval lépésről lépésre.";
-
-/* нужно как-то выделять документы, чтобы привязать позже ссылки. */
-"onboarding_welcome_agree" = "Az alkalmazás indításával Ön elfogadja a felhasználási és adatvédelmi feltételeket.";
-
-"button_accept_and_continue" = "Fogadja el, és folytassa";
-
-"button_learn_more" = "Tudjon meg többet";
 
 "onboarding_storage_permissions_title" = "Hozzáférés biztosítása";
 
@@ -2726,10 +2699,6 @@
 "download_guides_button" = "A katalógushoz";
 
 "type.cuisine.uzbek" = "Üzbég konyha";
-
-"onboarding_welcome_title" = "Tervezz és utazz a OMaps-vel";
-
-"onboarding_welcome_first_subtitle" = "Könyvjelzőzz érdekes helyeket, foglalj szállásokat, számíts ki útvonalakat offline";
 
 "onboarding_guide_direct_download_title" = "Az útmutató készen áll a letöltésre";
 

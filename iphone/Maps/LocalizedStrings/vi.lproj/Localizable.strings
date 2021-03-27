@@ -1312,22 +1312,6 @@
 
 "whatsnew_editor_message_2" = "* OMaps sử dụng dữ liệu của cộng đồng OpenStreetMap.";
 
-"onboarding_offline_navigation_title" = "Bạn sẽ không bao giờ bị lạc nữa";
-
-"onboarding_offline_navigation_message" = "Lập tuyến đường xe hơi và đi bộ tối ưu, mặc dù không có kết nối Internet!";
-
-"onboarding_offline_navigation_title_2" = "Chỉ đường ngoại tuyến";
-
-"onboarding_offline_navigation_message_2" = "Lập tuyến đường xe hơi và đi bộ tối ưu.";
-
-"onboarding_offline_maps_title" = "OMaps — truy cập bản đồ trên toàn thế giới không cần Internet";
-
-"onboarding_offline_maps_message" = "Chỉ tải xuống các bản đồ của khu vực bạn muốn một lần, và sử dụng các chức năng dẫn đường và tìm kiếm mà không cần kết nối Internet.";
-
-"onboarding_notifications_message" = "Để nhận các bản đồ mới nhất, hãy nhận thông báo cập nhật";
-
-"onboarding_notifications_title" = "Cho phép thông báo cập nhật";
-
 "onboarding_location_title" = "Giúp chúng tôi tìm bạn";
 
 "onboarding_location_message" = "Để sử dụng tính năng dẫn đường và các tính năng khác, chúng tôi cần truy cập vị trí địa lý của bạn.";
@@ -1335,8 +1319,6 @@
 "onboarding_permissions_title" = "Cho phép OMaps truy cập ổ lưu trữ và vị trí";
 
 "onboarding_permissions_message" = "Để bạn có thể tải về các bản đồ, xem các địa điểm và lưu lượng giao thông gần bạn và sử dụng điều hướng.";
-
-"onboarding_welcome_second_subtitle" = "Bằng cách khởi chạy ứng dụng, bạn đồng ý với <a href=\"%s\">Điều khoản Sử dụng</a> và <a href=\"%s\">Chính sách Riêng tư</a>.";
 
 "dialog_incorrect_feature_position" = "Thay đổi địa điểm";
 
@@ -1898,15 +1880,6 @@
 "routing_add_start_point" = "Bổ sung điểm bắt đầu để lập kế hoạch lộ trình";
 
 "routing_add_finish_point" = "Bổ sung điểm kết thúc để lập kế hoạch lộ trình";
-
-"onboarding_welcome_message" = "Các bản đồ hoàn toàn ngoại tuyến miễn phí, nhanh và chi tiết với điều hướng qua từng khúc quanh.";
-
-/* нужно как-то выделять документы, чтобы привязать позже ссылки. */
-"onboarding_welcome_agree" = "Thông qua việc khởi chạy ứng dụng, bạn đồng ý với các Điều khoản Sử dụng và Chính sách Riêng tư.";
-
-"button_accept_and_continue" = "Chấp nhận và tiếp tục";
-
-"button_learn_more" = "Tìm hiểu thêm";
 
 "onboarding_storage_permissions_title" = "Cho phép truy cập";
 
@@ -2726,10 +2699,6 @@
 "download_guides_button" = "Chuyển tới danh mục";
 
 "type.cuisine.uzbek" = "Ẩm thực của Uzbekistan";
-
-"onboarding_welcome_title" = "Hãy lên kế hoạch và đi du lịch cùng với OMaps";
-
-"onboarding_welcome_first_subtitle" = "Hãy lưu lại những địa chỉ hấp dẫn, đặt phòng khách sạn và xây dựng lộ trình đi ngoại tuyến";
 
 "onboarding_guide_direct_download_title" = "Sác hướng dẫn đã sẵn sàng cho phép tải xuống";
 

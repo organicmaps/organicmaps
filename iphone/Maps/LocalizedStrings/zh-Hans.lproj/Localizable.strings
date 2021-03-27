@@ -1312,22 +1312,6 @@
 
 "whatsnew_editor_message_2" = "* OMaps使用OpenStreetMap社区的数据。";
 
-"onboarding_offline_navigation_title" = "您将不再迷路";
-
-"onboarding_offline_navigation_message" = "规划最佳的驾车和步行路线，即使在没有网络连接的情况下！";
-
-"onboarding_offline_navigation_title_2" = "离线导航";
-
-"onboarding_offline_navigation_message_2" = "规划最佳的驾车和步行路线。";
-
-"onboarding_offline_maps_title" = "OMaps — 无需互联网获取全球地图";
-
-"onboarding_offline_maps_message" = "下载一次所需区域的地图，您便可以在无网络连接的情况下使用导航和搜索功能。";
-
-"onboarding_notifications_message" = "为了接收最新的地图，请获取更新通知";
-
-"onboarding_notifications_title" = "允许更新通知";
-
 "onboarding_location_title" = "帮助我们找到您";
 
 "onboarding_location_message" = "为了使用导航和其他功能，我们需要访问您的地理位置信息.";
@@ -1335,8 +1319,6 @@
 "onboarding_permissions_title" = "允许 OMaps 访问存储空间和地点";
 
 "onboarding_permissions_message" = "因此，您可以下载地图，查看您附近的地点和交通状况并使用导航。";
-
-"onboarding_welcome_second_subtitle" = "启动应用程序即表明您同意<a href=\"%s\">使用条款</a>和<a href=\"%s\">隐私政策</a>。";
 
 "dialog_incorrect_feature_position" = "改变位置";
 
@@ -1898,15 +1880,6 @@
 "routing_add_start_point" = "添加起点以规划路线";
 
 "routing_add_finish_point" = "添加终点以规划路线";
-
-"onboarding_welcome_message" = "免费、快速、详细且完全离线的地图，并且带有精细导航功能。";
-
-/* нужно как-то выделять документы, чтобы привязать позже ссылки. */
-"onboarding_welcome_agree" = "启动应用程序即表明同意“使用条款”和“隐私政策”。";
-
-"button_accept_and_continue" = "接受并继续";
-
-"button_learn_more" = "了解更多";
 
 "onboarding_storage_permissions_title" = "授予访问权限";
 
@@ -2726,10 +2699,6 @@
 "download_guides_button" = "转至目录";
 
 "type.cuisine.uzbek" = "乌兹别克美食";
-
-"onboarding_welcome_title" = "请使用OMaps开始规划和旅行";
-
-"onboarding_welcome_first_subtitle" = "请保存有趣的地方，预订酒店，离线规划路线";
 
 "onboarding_guide_direct_download_title" = "该指南已准备好下载";
 

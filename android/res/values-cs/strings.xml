@@ -785,19 +785,10 @@
 	<string name="whatsnew_editor_title">Upravit mapu*</string>
 	<string name="whatsnew_editor_message_1">Přidejte na mapu nová místa a upravte existující místa přímo z aplikace.</string>
 	<string name="whatsnew_editor_message_2">* OMaps používá komunitní data OpenStreetMap.</string>
-	<string name="onboarding_offline_navigation_title">Již nikdy nezabloudíte</string>
-	<string name="onboarding_offline_navigation_message">Naplánujte si optimální trasy pro auto nebo pěší chůzi, i když tam nebude připojení k internetu!</string>
-	<string name="onboarding_offline_navigation_title_2">Offline navigace</string>
-	<string name="onboarding_offline_navigation_message_2">Naplánujte si optimální trasy pro auto nebo pěší chůzi.</string>
-	<string name="onboarding_offline_maps_title">OMaps — přistupte k celosvětovým mapám bez internetu</string>
-	<string name="onboarding_offline_maps_message">Stáhněte si jednou mapy požadované oblasti a poté používejte navigaci a vyhledávací funkce bez připojení k internetu.</string>
-	<string name="onboarding_notifications_message">Chcete-li získat nejnovější mapy, pak zapněte upozornění na aktualizace</string>
-	<string name="onboarding_notifications_title">Povolit upozornění na aktualizace</string>
 	<string name="onboarding_location_title">Pomozte nám vás najít</string>
 	<string name="onboarding_location_message">Chcete-li používat navigaci a další funkce, pak potřebujeme přístup k vaší zeměpisné poloze.</string>
 	<string name="onboarding_permissions_title">Povolte OMaps přístup k úložišti a určení polohy</string>
 	<string name="onboarding_permissions_message">Tím umožníte stahování map, zobrazovat místa a dopravu ve vaší blízkosti a používat navigaci.</string>
-	<string name="onboarding_welcome_second_subtitle">Spuštěním aplikace souhlasíte s &lt;a href="%1$s">Podmínkami použití&lt;/a> a &lt;a href="%2$s">Zásadami ochrany osobních údajů&lt;/a>.</string>
 	<string name="dialog_incorrect_feature_position">Změnit umístění</string>
 	<string name="message_invalid_feature_position">Objekt zde nemůže být umístěn</string>
 	<string name="login_to_make_edits_visible">Přihlaste se, aby ostatní uživatelé mohli vidět změny, které jste provedli.</string>
@@ -1097,11 +1088,6 @@
 	<string name="core_exit">Ukončit</string>
 	<string name="routing_add_start_point">Zadejte výchozí bod pro plánování trasy</string>
 	<string name="routing_add_finish_point">Zadejte cílový bod pro plánování trasy</string>
-	<string name="onboarding_welcome_message">Bezplatné, rychlé, podrobné a zcela offline mapy s navigací \"turn-by-turn\".</string>
-	<!-- нужно как-то выделять документы, чтобы привязать позже ссылки. -->
-	<string name="onboarding_welcome_agree">Spuštěním aplikace souhlasíte s podmínkami použití a zásadami ochrany osobních údajů.</string>
-	<string name="button_accept_and_continue">Přijmout a pokračovat</string>
-	<string name="button_learn_more">Zjistit více</string>
 	<string name="onboarding_storage_permissions_title">Povolit přístup</string>
 	<string name="onboarding_storage_permissions_message">Změňte nastavení oprávnění ve vašem zařízení. OMaps vyžaduje přístup k úložišti.</string>
 	<string name="button_exit">Ukončit</string>
@@ -1519,8 +1505,6 @@
 	  <item quantity="other">Založeno na %d recenzích</item>
 	</plurals>
 	<string name="type.cuisine.uzbek">Uzbecká kuchyně</string>
-	<string name="onboarding_welcome_title">Plánujte a cestujte s OMaps</string>
-	<string name="onboarding_welcome_first_subtitle">Přidejte si do záložek zajímavá místa, rezervujte hotely, vypočítejte si trasy offline</string>
 	<string name="onboarding_guide_direct_download_title">Průvodce je připraven ke stažení</string>
 	<string name="onboarding_guide_direct_download_subtitle">Bude zobrazen na mapě a bude pracovat offline</string>
 	<string name="onboarding_guide_direct_download_button">Stáhnout</string>

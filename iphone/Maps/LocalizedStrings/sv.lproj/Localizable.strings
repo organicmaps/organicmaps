@@ -1312,22 +1312,6 @@
 
 "whatsnew_editor_message_2" = "* OMaps använder data från OpenStreetMaps community.";
 
-"onboarding_offline_navigation_title" = "Du kommer aldrig att gå vilse igen";
-
-"onboarding_offline_navigation_message" = "Planera dina optimala bil- eller promenadrutter även när du saknar internetanslutning!";
-
-"onboarding_offline_navigation_title_2" = "Navigering offline";
-
-"onboarding_offline_navigation_message_2" = "Planera optimala bil- och promenadrutter.";
-
-"onboarding_offline_maps_title" = "OMaps — se världsomspännande kartor utan internet";
-
-"onboarding_offline_maps_message" = "Ladda ned kartorna för önskat område en gång och använd funktionerna för navigering och sökning utan en internetanslutning.";
-
-"onboarding_notifications_message" = "Få avisering om uppdateringar för de senaste kartorna";
-
-"onboarding_notifications_title" = "Aktivera avisering om uppdateringar";
-
 "onboarding_location_title" = "Hjälp oss att hitta dig";
 
 "onboarding_location_message" = "För att använda navigering och andra funktioner behöver vi tillgång till din geografiska plats.";
@@ -1335,8 +1319,6 @@
 "onboarding_permissions_title" = "Ge OMaps åtkomst till lagring och plats";
 
 "onboarding_permissions_message" = "Så att du kan ladda ned kartor, visa platser och trafik i närheten och använda navigering.";
-
-"onboarding_welcome_second_subtitle" = "Genom att starta applikationen godkänner du <a href=\"%s\">användningsvillkoren</a> och <a href=\"%s\">sekretesspolicyn</a>.";
 
 "dialog_incorrect_feature_position" = "Ändra placering";
 
@@ -1898,15 +1880,6 @@
 "routing_add_start_point" = "Lägg till startpunkt för att planera en rutt";
 
 "routing_add_finish_point" = "Lägg till slutpunkt för att planera en rutt";
-
-"onboarding_welcome_message" = "Gratis, snabba, detaljerade och fullständiga kartor offline med sväng-för-sväng-navigering.";
-
-/* нужно как-то выделять документы, чтобы привязать позже ссылки. */
-"onboarding_welcome_agree" = "När du startar applikationen godkänner du våra användningsvillkor och sekretesspolicy.";
-
-"button_accept_and_continue" = "Godkänn och fortsätt";
-
-"button_learn_more" = "Läs mer";
 
 "onboarding_storage_permissions_title" = "Bevilja åtkomst";
 
@@ -2726,10 +2699,6 @@
 "download_guides_button" = "Gå till katalogen";
 
 "type.cuisine.uzbek" = "Uzbekiska mat";
-
-"onboarding_welcome_title" = "Planera och resa med OMaps";
-
-"onboarding_welcome_first_subtitle" = "Spara intressanta platser, boka hotell, bygga rutten offline";
 
 "onboarding_guide_direct_download_title" = "Guiden är klar för nedladdning";
 
