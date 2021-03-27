@@ -61,6 +61,8 @@ Clone the repository:
 git clone --recursive https://github.com/omapsapp/omapsapp.git
 ```
 
+Default clone destination directory is omapsapp.
+
 Update git submodules (sometimes doesn't work automatically):
 
 ```bash
@@ -70,13 +72,13 @@ git submodule update --init --recursive
 Configure the repository for the debug mode:
 
 ```bash
-./configure debug
+./configure.sh debug
 ```
 
 ### Building
 
 With all tools installed, just run `tools/unix/build_omim.sh`.
-It will build both debug and release versions to `../omim-build-<target>`.
+It will build both debug and release versions to `../omim-build-<buildtype>`.
 Command-line switches are:
 
 * `-r` to build a release version
@@ -86,8 +88,19 @@ Command-line switches are:
 * `-p` with a path to where the binaries will be built.
 
 After switches, you can specify a target (everything by default). For example,
-to build a generator tool only, use `generator_tool`.  If you have Qt installed
-in an unusual directory, use `QMAKE` variable. You can skip building tests
+to build a generator tool release version only:
+
+```
+tools/unix/build_omim.sh -r generator_tool
+```
+
+Targets list can be viewed:
+
+```bash
+cmake --build ../omim-build-<buildtype> --target help
+```
+
+If you have Qt installed in an unusual directory, use `QMAKE` variable. You can skip building tests
 with `CMAKE_CONFIG=-DSKIP_TESTS` variable. You would need 1.5 GB of memory
 to compile the `stats` module.
 
@@ -99,14 +112,22 @@ The `build_omim.sh` script basically runs these commands:
 
 ### Running
 
-The generated binaries appear in `../omim-build-release`.
+The generated binaries appear in `../omim-build-<buildtype>`.
 
-Run `OMaps` binary from `../omim-build-release`:
+Run `OMaps` binary from `../omim-build-<buildtype>`, for example, for release:
 
 **Linux**:
 
+```bash
+../omim-build-release/OMaps -data_path ./data
 ```
-../omim-build-release/OMaps -data-path ./data
+
+or create `data` symlink in build dir to `omapsapp/data` directory and run
+
+```bash
+cd ../omim-build-release
+ln -s ../omapsapp/data ./data
+./OMaps -data_path ./data
 ```
 
 **macOS**:
@@ -124,7 +145,7 @@ and run
 
 ### Testing
 
-Run tests from the binary directory with `omim/tools/unix/run_tests.sh`.
+Run tests from the binary directory with `omapsapp/tools/unix/run_tests.sh`.
 
 ## Android app
 
@@ -171,7 +192,7 @@ git submodule update --init --recursive
 Configure the repository for the debug mode:
 
 ```bash
-./configure debug
+./configure.sh debug
 ```
 
 Set Android SDK and NDK path:
@@ -254,7 +275,7 @@ git submodule update --init --recursive
 Configure the repository for the debug mode:
 
 ```bash
-./configure debug
+./configure.sh debug
 ```
 
 Install [CocoaPods](https://cocoapods.org/):
