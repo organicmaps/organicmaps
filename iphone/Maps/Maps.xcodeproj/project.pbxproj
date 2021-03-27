@@ -260,7 +260,6 @@
 		34FE5A6F1F18F30F00BCA729 /* TrafficButtonArea.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34FE5A6D1F18F30F00BCA729 /* TrafficButtonArea.swift */; };
 		39CDE69123E1B6C8007CDA58 /* libge0.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 39CDE69023E1B6C8007CDA58 /* libge0.a */; };
 		3D15ACEE2155117000F725D5 /* MWMObjectsCategorySelectorDataSource.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3D15ACED2155117000F725D5 /* MWMObjectsCategorySelectorDataSource.mm */; };
-		3D1958EB213804B6009A83EC /* libmetrics.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3D1958EA213804B6009A83EC /* libmetrics.a */; };
 		3DB1C57122D5DDA60097EC4C /* PromoAfterBookingViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3DB1C57022D5DDA60097EC4C /* PromoAfterBookingViewController.xib */; };
 		3DBD7BE42425015C00ED9FE8 /* ParntersStyleSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DBD7BE32425015C00ED9FE8 /* ParntersStyleSheet.swift */; };
 		3DE1762422D614B8000214FF /* PromoAfterBookingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DE1762322D614B8000214FF /* PromoAfterBookingViewController.swift */; };
@@ -2096,7 +2095,6 @@
 				4577B28121F2066A00864FAC /* libvulkan_wrapper.a in Frameworks */,
 				CDB4D4D5222D118E00104869 /* CarPlay.framework in Frameworks */,
 				BB2C99B021B6AB4500F7371C /* libdescriptions.a in Frameworks */,
-				3D1958EB213804B6009A83EC /* libmetrics.a in Frameworks */,
 				4598438621394CFD00F8CAB2 /* MetalPerformanceShaders.framework in Frameworks */,
 				BB8123CF212C264700ADE512 /* Metal.framework in Frameworks */,
 				BB8123D0212C264700ADE512 /* MetalKit.framework in Frameworks */,
