@@ -62,16 +62,17 @@ vector<uint32_t> CalcRoadFeatureIds(string const & dataPath, string const & boun
   CitiesBoundariesChecker const checker(citiesBoundaries);
 
   vector<uint32_t> cityRoadFeatureIds;
-  ForEachFeature(dataPath, [&cityRoadFeatureIds, &checker](FeatureType & ft, uint32_t fid) {
-    bool const needToProcess =
-        routing::IsCarRoad(TypesHolder(ft)) || routing::IsBicycleRoad(TypesHolder(ft));
-    if (!needToProcess)
+  ForEachFeature(dataPath, [&cityRoadFeatureIds, &checker](FeatureType & ft, uint32_t)
+  {
+    TypesHolder types(ft);
+    if (!routing::IsCarRoad(types) && !routing::IsBicycleRoad(types))
       return;
 
     ft.ParseGeometry(FeatureType::BEST_GEOMETRY);
 
     size_t inCityPointsCounter = 0;
-    for (size_t i = 0; i < ft.GetPointsCount(); ++i)
+    size_t const count = ft.GetPointsCount();
+    for (size_t i = 0; i < count; ++i)
     {
       if (checker.InCity(ft.GetPoint(i)))
         ++inCityPointsCounter;
@@ -82,7 +83,7 @@ vector<uint32_t> CalcRoadFeatureIds(string const & dataPath, string const & boun
     // match some long roads as city roads, because they pass near city, but
     // not though it.
     double constexpr kPointsRatioInCity = 0.8;
-    if (inCityPointsCounter > kPointsRatioInCity * ft.GetPointsCount())
+    if (inCityPointsCounter > kPointsRatioInCity * count)
       cityRoadFeatureIds.push_back(ft.GetID().m_index);
   });
 
@@ -112,8 +113,7 @@ bool BuildCityRoads(string const & mwmPath, string const & boundariesPath)
     // * calculating feature ids and building section when feature ids are available
     // As a result of dumping cities boundaries instances of indexer::CityBoundary objects
     // are generated and dumped. These objects are used for generating city roads section.
-    auto cityRoadFeatureIds = CalcRoadFeatureIds(mwmPath, boundariesPath);
-    SerializeCityRoads(mwmPath, move(cityRoadFeatureIds));
+    SerializeCityRoads(mwmPath, CalcRoadFeatureIds(mwmPath, boundariesPath));
   }
   catch (Reader::Exception const & e)
   {
