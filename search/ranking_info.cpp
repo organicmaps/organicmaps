@@ -258,7 +258,10 @@ double RankingInfo::GetLinearModelRank() const
     result += m_falseCats * kFalseCats;
     result += kType[m_type];
     if (Model::IsPoi(m_type))
+    {
+      CHECK_NOT_EQUAL(m_resultType, ResultType::Count, ());
       result += kResultType[base::Underlying(m_resultType)];
+    }
     result += (m_allTokensUsed ? 1 : 0) * kAllTokensUsed;
     result += (m_exactCountryOrCapital ? 1 : 0) * kExactCountryOrCapital;
     auto const nameRank = kNameScore[nameScore] + kErrorsMade * GetErrorsMadePerToken() +

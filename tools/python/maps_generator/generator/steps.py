@@ -216,7 +216,7 @@ def filter_roads(
         output=output,
         error=error,
         keep="",
-        keep_ways="highway=*",
+        keep_ways="highway=motorway =trunk =primary =secondary =tertiary",
     )
 
 

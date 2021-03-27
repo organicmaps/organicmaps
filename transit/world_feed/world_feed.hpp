@@ -5,6 +5,7 @@
 #include "transit/transit_entities.hpp"
 #include "transit/transit_schedule.hpp"
 #include "transit/world_feed/color_picker.hpp"
+#include "transit/world_feed/feed_helpers.hpp"
 
 #include "geometry/mercator.hpp"
 #include "geometry/point2d.hpp"
@@ -244,6 +245,7 @@ struct StopsOnLines
   IdList m_stopSeq;
   IdSet m_lines;
   bool m_isValid = true;
+  transit::Direction m_direction = Direction::Forward;
 };
 
 using IdsInRegion = std::unordered_map<std::string, IdSet>;
@@ -328,8 +330,9 @@ private:
 
   std::unordered_map<TransitId, std::vector<StopsOnLines>> GetStopsForShapeMatching();
 
-  // Adds stops projections to shapes. Updates corresponding links to shapes.
-  size_t ModifyShapes();
+  // Adds stops projections to shapes. Updates corresponding links to shapes. Returns number of
+  // invalid and valid shapes.
+  std::pair<size_t, size_t> ModifyShapes();
   // Fills transfers based on GTFS transfers.
   void FillTransfers();
   // Fills gates based on GTFS stops.
@@ -337,8 +340,9 @@ private:
   // Recalculates 0-weights of edges based on the shape length.
   bool UpdateEdgeWeights();
 
-  bool ProjectStopsToShape(ShapesIter & itShape, StopsOnLines const & stopsOnLines,
-                           std::unordered_map<TransitId, std::vector<size_t>> & stopsToIndexes);
+  std::optional<Direction> ProjectStopsToShape(
+      ShapesIter & itShape, StopsOnLines const & stopsOnLines,
+      std::unordered_map<TransitId, std::vector<size_t>> & stopsToIndexes);
 
   // Splits data into regions.
   void SplitFeedIntoRegions();
