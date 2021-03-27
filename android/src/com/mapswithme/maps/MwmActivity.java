@@ -2638,12 +2638,13 @@ public class MwmActivity extends BaseMwmFragmentActivity
     {
       if (!PermissionsUtils.isLocationGranted(getApplicationContext()))
       {
-        if (PermissionsUtils.isLocationExplanationNeeded(MwmActivity.this))
-          PermissionsUtils.requestLocationPermission(MwmActivity.this, REQ_CODE_LOCATION_PERMISSION);
-        else
+        PermissionsUtils.requestLocationPermission(MwmActivity.this, REQ_CODE_LOCATION_PERMISSION);
+        if (!PermissionsUtils.isLocationGranted(getApplicationContext()))
+        {
           Utils.showSnackbar(getActivity(), findViewById(R.id.coordinator), findViewById(R.id.menu_frame),
-                             R.string.enable_location_services);
-        return;
+                                                  R.string.enable_location_services);
+          return;
+        }
       }
 
       myPositionClick();
