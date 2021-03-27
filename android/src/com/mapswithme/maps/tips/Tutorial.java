@@ -22,6 +22,7 @@ import uk.co.samuelwall.materialtaptargetprompt.MaterialTapTargetPrompt;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Random;
 
 public enum Tutorial
 {
@@ -102,6 +103,7 @@ public enum Tutorial
 
   private static final Logger LOGGER = LoggerFactory.INSTANCE.getLogger(LoggerFactory.Type.MISC);
   private static final String TAG = Tutorial.class.getSimpleName();
+  private static final Random RANDOM = new Random();
 
   @StringRes
   private final int mPrimaryText;
@@ -174,10 +176,8 @@ public enum Tutorial
     if (MwmApplication.from(context).isFirstLaunch())
       return STUB;
 
-    int index = Framework.nativeGetCurrentTipIndex();
-    Tutorial value = index >= 0 ? values()[index] : STUB;
-    Tutorial tipsApi = value != STUB && value.isScreenAllowed(requiredScreenClass) ? value
-                                                                                   : STUB;
+    Tutorial value = values()[RANDOM.nextInt(values().length)];
+    Tutorial tipsApi = value.isScreenAllowed(requiredScreenClass) ? value : STUB;
     LOGGER.d(TAG, "tipsApi = " + tipsApi);
     return tipsApi;
   }

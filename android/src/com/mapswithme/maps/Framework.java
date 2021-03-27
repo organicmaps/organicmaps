@@ -495,8 +495,6 @@ public class Framework
   public static native void nativeSetActiveSubscription(@SubscriptionType int type,
                                                         boolean isActive, boolean isTrial);
 
-  public static native int nativeGetCurrentTipIndex();
-
   @Nullable
   public static native String nativeGetAccessToken();
 
