@@ -81,8 +81,6 @@ public class NavigationController implements Application.ActivityLifecycleCallba
   private final SearchWheel mSearchWheel;
   @NonNull
   private final View mSpeedViewContainer;
-  @NonNull
-  private final View mOnboardingBtn;
 
   private boolean mShowTimeLeft = true;
 
@@ -155,7 +153,6 @@ public class NavigationController implements Application.ActivityLifecycleCallba
 
     mSearchButtonFrame = activity.findViewById(R.id.search_button_frame);
     mSearchWheel = new SearchWheel(mSearchButtonFrame);
-    mOnboardingBtn = activity.findViewById(R.id.onboarding_btn);
 
     ImageView bookmarkButton = mSearchButtonFrame.findViewById(R.id.btn_bookmarks);
     bookmarkButton.setImageDrawable(Graphics.tint(bookmarkButton.getContext(),
@@ -383,8 +380,7 @@ public class NavigationController implements Application.ActivityLifecycleCallba
 
   public void updateSearchButtonsTranslation(float translation)
   {
-    int offset = UiUtils.isVisible(mOnboardingBtn) ? mOnboardingBtn.getHeight() : 0;
-    mSearchButtonFrame.setTranslationY(translation + offset);
+    mSearchButtonFrame.setTranslationY(translation);
   }
 
   public void fadeInSearchButtons()

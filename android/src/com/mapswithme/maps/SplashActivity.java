@@ -12,15 +12,14 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.DialogFragment;
+import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
 import com.mapswithme.maps.base.BaseActivity;
 import com.mapswithme.maps.base.BaseActivityDelegate;
 import com.mapswithme.maps.downloader.UpdaterDialogFragment;
 import com.mapswithme.maps.editor.ViralFragment;
 import com.mapswithme.maps.location.LocationHelper;
-import com.mapswithme.maps.news.OnboardingStep;
 import com.mapswithme.maps.onboarding.BaseNewsFragment;
-import com.mapswithme.maps.onboarding.WelcomeDialogFragment;
 import com.mapswithme.maps.permissions.PermissionsDialogFragment;
 import com.mapswithme.maps.permissions.StoragePermissionsDialogFragment;
 import com.mapswithme.util.Config;
@@ -33,11 +32,8 @@ import com.mapswithme.util.log.Logger;
 import com.mapswithme.util.log.LoggerFactory;
 
 public class SplashActivity extends AppCompatActivity
-    implements BaseNewsFragment.NewsDialogListener, BaseActivity,
-               WelcomeDialogFragment.PolicyAgreementListener,
-               WelcomeDialogFragment.OnboardingStepPassedListener
+    implements BaseNewsFragment.NewsDialogListener, BaseActivity
 {
-  private static final String EXTRA_CURRENT_ONBOARDING_STEP = "extra_current_onboarding_step";
   private static final Logger LOGGER = LoggerFactory.INSTANCE.getLogger(LoggerFactory.Type.MISC);
   private static final String TAG = SplashActivity.class.getSimpleName();
   private static final String EXTRA_ACTIVITY_TO_START = "extra_activity_to_start";
@@ -52,33 +48,6 @@ public class SplashActivity extends AppCompatActivity
   private boolean mPermissionsGranted;
   private boolean mNeedStoragePermission;
   private boolean mCanceled;
-
-  @NonNull
-  private final Runnable mUserAgreementDelayedTask = new Runnable()
-  {
-    @Override
-    public void run()
-    {
-      WelcomeDialogFragment.show(SplashActivity.this);
-    }
-  };
-
-  @NonNull
-  private final Runnable mOnboardingStepsTask = new Runnable()
-  {
-    @Override
-    public void run()
-    {
-      if (mCurrentOnboardingStep != null)
-      {
-        WelcomeDialogFragment.showOnboardinStepsStartWith(SplashActivity.this,
-                                                          mCurrentOnboardingStep);
-        return;
-      }
-
-      WelcomeDialogFragment.showOnboardinSteps(SplashActivity.this);
-    }
-  };
 
   @NonNull
   private final Runnable mPermissionsDelayedTask = new Runnable()
@@ -127,9 +96,6 @@ public class SplashActivity extends AppCompatActivity
   @NonNull
   private final BaseActivityDelegate mBaseDelegate = new BaseActivityDelegate(this);
 
-  @Nullable
-  private OnboardingStep mCurrentOnboardingStep;
-
   public static void start(@NonNull Context context,
                            @Nullable Class<? extends Activity> activityToStart,
                            @Nullable Intent initialIntent)
@@ -147,27 +113,12 @@ public class SplashActivity extends AppCompatActivity
   {
     super.onCreate(savedInstanceState);
     mBaseDelegate.onCreate();
-    handleOnboardingStep(savedInstanceState);
     handleUpdateMapsFragmentCorrectly(savedInstanceState);
-    UiThread.cancelDelayedTasks(mUserAgreementDelayedTask);
-    UiThread.cancelDelayedTasks(mOnboardingStepsTask);
     UiThread.cancelDelayedTasks(mPermissionsDelayedTask);
     UiThread.cancelDelayedTasks(mInitCoreDelayedTask);
     UiThread.cancelDelayedTasks(mFinalDelayedTask);
     Counters.initCounters(this);
     initView();
-  }
-
-  private void handleOnboardingStep(@Nullable Bundle savedInstanceState)
-  {
-    if (savedInstanceState == null)
-      return;
-
-    if (!savedInstanceState.containsKey(EXTRA_CURRENT_ONBOARDING_STEP))
-      return;
-
-    int step = savedInstanceState.getInt(EXTRA_CURRENT_ONBOARDING_STEP);
-    mCurrentOnboardingStep = OnboardingStep.values()[step];
   }
 
   @Override
@@ -231,34 +182,9 @@ public class SplashActivity extends AppCompatActivity
       Counters.setMigrationExecuted(context);
     }
     
-    final boolean isFirstLaunch = WelcomeDialogFragment.isFirstLaunch(this);
+    final boolean isFirstLaunch = isFirstLaunch();
     if (isFirstLaunch)
       MwmApplication.from(this).setFirstLaunch(true);
-
-    boolean isWelcomeFragmentOnScreen = false;
-    DialogFragment welcomeFragment = WelcomeDialogFragment.find(this);
-    if (welcomeFragment != null)
-    {
-      isWelcomeFragmentOnScreen = true;
-      welcomeFragment.dismissAllowingStateLoss();
-    }
-
-    if (isFirstLaunch || isWelcomeFragmentOnScreen)
-    {
-      if (WelcomeDialogFragment.isAgreementDeclined(this))
-      {
-        UiThread.runLater(mUserAgreementDelayedTask, FIRST_START_DELAY);
-        return;
-      }
-      else
-      {
-        if (processPermissionGranting())
-        {
-          UiThread.runLater(mOnboardingStepsTask, DELAY);
-          return;
-        }
-      }
-    }
 
     if (processPermissionGranting())
       runInitCoreTask();
@@ -306,8 +232,6 @@ public class SplashActivity extends AppCompatActivity
     super.onPause();
     mBaseDelegate.onPause();
     mCanceled = true;
-    UiThread.cancelDelayedTasks(mUserAgreementDelayedTask);
-    UiThread.cancelDelayedTasks(mOnboardingStepsTask);
     UiThread.cancelDelayedTasks(mPermissionsDelayedTask);
     UiThread.cancelDelayedTasks(mInitCoreDelayedTask);
     UiThread.cancelDelayedTasks(mFinalDelayedTask);
@@ -318,14 +242,6 @@ public class SplashActivity extends AppCompatActivity
   {
     super.onStop();
     mBaseDelegate.onStop();
-  }
-
-  @Override
-  protected void onSaveInstanceState(Bundle outState)
-  {
-    super.onSaveInstanceState(outState);
-    if (mCurrentOnboardingStep != null)
-      outState.putInt(EXTRA_CURRENT_ONBOARDING_STEP, mCurrentOnboardingStep.ordinal());
   }
 
   @Override
@@ -412,41 +328,6 @@ public class SplashActivity extends AppCompatActivity
     processNavigation();
   }
 
-  @Override
-  public void onPolicyAgreementApplied()
-  {
-    boolean permissionsGranted = processPermissionGranting();
-    if (!permissionsGranted)
-      return;
-
-    boolean isFirstLaunch = WelcomeDialogFragment.isFirstLaunch(this);
-    if (isFirstLaunch)
-    {
-      UiThread.runLater(mOnboardingStepsTask, DELAY);
-      return;
-    }
-
-    runInitCoreTask();
-  }
-
-  @Override
-  public void onLastOnboardingStepPassed()
-  {
-    runInitCoreTask();
-  }
-
-  @Override
-  public void onOnboardingStepCancelled()
-  {
-    finish();
-  }
-
-  @Override
-  public void onOnboardingStepPassed(@NonNull OnboardingStep step)
-  {
-    mCurrentOnboardingStep = step;
-  }
-
   private void initView()
   {
     UiUtils.setupStatusBar(this);
@@ -507,5 +388,17 @@ public class SplashActivity extends AppCompatActivity
       return R.style.MwmTheme_Night;
 
     throw new IllegalArgumentException("Attempt to apply unsupported theme: " + theme);
+  }
+
+  boolean isFirstLaunch()
+  {
+    if (Counters.getFirstInstallVersion(getApplicationContext()) < BuildConfig.VERSION_CODE)
+      return false;
+
+    FragmentManager fm = getSupportFragmentManager();
+    if (fm.isDestroyed())
+      return false;
+
+    return !Counters.isFirstStartDialogSeen(this);
   }
 }

@@ -4,8 +4,6 @@ import android.content.res.Resources;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import android.view.View;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 
 import com.mapswithme.maps.location.LocationHelper;
 import com.mapswithme.maps.location.LocationState;
@@ -21,8 +19,6 @@ class NavigationButtonsAnimationController
   private final View mZoomOut;
   @NonNull
   private final View mMyPosition;
-  @Nullable
-  private View mObBoardingTipBtnContainer;
 
   @Nullable
   private final OnTranslationChangedListener mTranslationListener;
@@ -38,12 +34,10 @@ class NavigationButtonsAnimationController
 
   NavigationButtonsAnimationController(@NonNull View zoomIn, @NonNull View zoomOut,
                                        @NonNull View myPosition, @NonNull final View contentView,
-                                       @Nullable OnTranslationChangedListener translationListener,
-                                       @Nullable View onBoardingTipBtnContainer)
+                                       @Nullable OnTranslationChangedListener translationListener)
   {
     mZoomOut = zoomOut;
     mZoomIn = zoomIn;
-    mObBoardingTipBtnContainer = onBoardingTipBtnContainer;
     checkZoomButtonsVisibility();
     mMyPosition = myPosition;
     Resources res = mZoomIn.getResources();
@@ -53,12 +47,6 @@ class NavigationButtonsAnimationController
     calculateLimitTranslations();
     contentView.addOnLayoutChangeListener(new ContentViewLayoutChangeListener(contentView));
     mTranslationListener = translationListener;
-    if (onBoardingTipBtnContainer != null)
-    {
-      Animation animation = AnimationUtils.loadAnimation(onBoardingTipBtnContainer.getContext(),
-                                                         R.anim.dog_btn_rotation);
-      onBoardingTipBtnContainer.findViewById(R.id.onboarding_btn).setAnimation(animation);
-    }
   }
 
   private void checkZoomButtonsVisibility()
@@ -113,15 +101,12 @@ class NavigationButtonsAnimationController
     mMyPosition.setTranslationY(translation);
     mZoomOut.setTranslationY(translation);
     mZoomIn.setTranslationY(translation);
-    if (mObBoardingTipBtnContainer != null)
-      mObBoardingTipBtnContainer.setTranslationY(translation);
+
 
     if (mZoomIn.getVisibility() == View.VISIBLE
         && !isViewInsideLimits(mZoomIn))
     {
       UiUtils.invisible(mZoomIn, mZoomOut);
-      if (mObBoardingTipBtnContainer != null)
-        UiUtils.invisible(mObBoardingTipBtnContainer);
 
       if (mTranslationListener != null)
         mTranslationListener.onFadeOutZoomButtons();
@@ -130,8 +115,6 @@ class NavigationButtonsAnimationController
              && isViewInsideLimits(mZoomIn))
     {
       UiUtils.show(mZoomIn, mZoomOut);
-      if (mObBoardingTipBtnContainer != null)
-        UiUtils.show(mObBoardingTipBtnContainer);
       if (mTranslationListener != null)
         mTranslationListener.onFadeInZoomButtons();
     }
@@ -168,19 +151,6 @@ class NavigationButtonsAnimationController
       return;
 
     UiUtils.hide(mZoomIn, mZoomOut);
-    if (mObBoardingTipBtnContainer == null)
-      return;
-
-    UiUtils.hide(mObBoardingTipBtnContainer);
-  }
-
-  void hideOnBoardingTipBtn()
-  {
-    if (mObBoardingTipBtnContainer == null)
-      return;
-
-    mObBoardingTipBtnContainer.setVisibility(View.GONE);
-    mObBoardingTipBtnContainer = null;
   }
 
   void appearZoomButtons()
@@ -189,11 +159,6 @@ class NavigationButtonsAnimationController
       return;
 
     UiUtils.show(mZoomIn, mZoomOut);
-
-    if (mObBoardingTipBtnContainer == null)
-      return;
-
-    UiUtils.show(mObBoardingTipBtnContainer);
   }
 
   private static boolean showZoomButtons()
