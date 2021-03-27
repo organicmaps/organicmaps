@@ -16,7 +16,6 @@ import java.util.Map;
 import static android.Manifest.permission.ACCESS_COARSE_LOCATION;
 import static android.Manifest.permission.ACCESS_FINE_LOCATION;
 import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
-import static androidx.core.app.ActivityCompat.shouldShowRequestPermissionRationale;
 
 public final class PermissionsUtils
 {
@@ -51,12 +50,6 @@ public final class PermissionsUtils
   public static boolean isLocationGranted(@NonNull Context context)
   {
     return checkPermissions(context).isLocationGranted();
-  }
-
-  public static boolean isLocationExplanationNeeded(@NonNull Activity activity)
-  {
-    return shouldShowRequestPermissionRationale(activity, ACCESS_COARSE_LOCATION)
-        || shouldShowRequestPermissionRationale(activity, ACCESS_FINE_LOCATION);
   }
 
   public static boolean isExternalStorageGranted(@NonNull Context context)
