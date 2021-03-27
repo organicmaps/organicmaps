@@ -777,19 +777,10 @@
 	<string name="whatsnew_editor_title">地図を編集*</string>
 	<string name="whatsnew_editor_message_1">アプリから直接地図に新しい場所を追加したり、既存の場所を編集できます。</string>
 	<string name="whatsnew_editor_message_2">* OMapsはOpenStreetMapコミュニティのデータを使用しています。</string>
-	<string name="onboarding_offline_navigation_title">もう道に迷うことは絶対ありません</string>
-	<string name="onboarding_offline_navigation_message">インターネット接続がなくても、車や徒歩での最短ルートを計画できます!</string>
-	<string name="onboarding_offline_navigation_title_2">オフラインナビゲーション</string>
-	<string name="onboarding_offline_navigation_message_2">車や徒歩での最短ルートを計画できます。</string>
-	<string name="onboarding_offline_maps_title">OMaps — 世界中の地図にインターネットなしでアクセス</string>
-	<string name="onboarding_offline_maps_message">希望するエリアの地図を一回ダウンロードするだけで、インターネット接続なしでもナビゲーションや検索の機能を使用できます。</string>
-	<string name="onboarding_notifications_message">最新地図の入手のためにアップデート通知を受信</string>
-	<string name="onboarding_notifications_title">アップデート通知を有効にする</string>
 	<string name="onboarding_location_title">現在地判定のお手伝い</string>
 	<string name="onboarding_location_message">ナビゲーションやその他の機能の使用のために、アプリがGeolocationにアクセスする必要があります</string>
 	<string name="onboarding_permissions_title">OMaps によるストレージと位置情報へのアクセスを許可する</string>
 	<string name="onboarding_permissions_message">これにより地図のダウンロード、近隣のスポットや交通情報の確認、およびナビゲーションを利用できるようになります。</string>
-	<string name="onboarding_welcome_second_subtitle">アプリケーションを起動することで、&lt;a href="%1$s">利用規約&lt;/a>および&lt;a href="%2$s">プライバシーポリシー&lt;/a>にご同意いただいたものとみなします。</string>
 	<string name="dialog_incorrect_feature_position">位置を変更してください</string>
 	<string name="message_invalid_feature_position">ここにはオブジェクトを配置できません</string>
 	<string name="login_to_make_edits_visible">他のユーザーにも変更が表示されるようログインしてください。</string>
@@ -1089,11 +1080,6 @@
 	<string name="core_exit">終了</string>
 	<string name="routing_add_start_point">ルートを計画するには出発地点を追加してください</string>
 	<string name="routing_add_finish_point">ルートを計画するには到着地点を追加してください</string>
-	<string name="onboarding_welcome_message">ターンバイターン方式のナビゲーションを採用した、完全にオフラインで利用できる無料・高速かつ詳細な地図を提供します。</string>
-	<!-- нужно как-то выделять документы, чтобы привязать позже ссылки. -->
-	<string name="onboarding_welcome_agree">アプリケーションを起動することで、利用規約およびプライバシーポリシーにご同意いただいたものとみなします。</string>
-	<string name="button_accept_and_continue">同意して続ける</string>
-	<string name="button_learn_more">詳細情報</string>
 	<string name="onboarding_storage_permissions_title">アクセス権の付与</string>
 	<string name="onboarding_storage_permissions_message">お使いのデバイスのアクセス許可設定を変更してください。OMaps を使用するには、ストレージへのアクセス権限が必要です。</string>
 	<string name="button_exit">終了</string>
@@ -1509,8 +1495,6 @@
 	  <item quantity="other">%dのレビューに基づいて</item>
 	</plurals>
 	<string name="type.cuisine.uzbek">ウズベキスタン料理</string>
-	<string name="onboarding_welcome_title">OMapsで計画および旅行</string>
-	<string name="onboarding_welcome_first_subtitle">興味のある場所をブックマークし、ホテルを予約して、オフラインでルートを検索</string>
 	<string name="onboarding_guide_direct_download_title">ガイドはダウンロードできます</string>
 	<string name="onboarding_guide_direct_download_subtitle">これはマップ上に表示され、オフラインでも機能します</string>
 	<string name="onboarding_guide_direct_download_button">ダウンロード</string>

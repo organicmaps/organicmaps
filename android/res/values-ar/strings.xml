@@ -789,19 +789,10 @@
 	<string name="whatsnew_editor_title">تعديل الخريطة *</string>
 	<string name="whatsnew_editor_message_1">قم بإضافة أماكن جديدة للخريطة، وعدل أماكن حالية مباشرة من التطبيق.</string>
 	<string name="whatsnew_editor_message_2">*تستخدم OMaps البيانات الخاصة بخريطة OpenStreetMap.</string>
-	<string name="onboarding_offline_navigation_title">لن تضل الطريق أبدا بعد الآن</string>
-	<string name="onboarding_offline_navigation_message">قم بتخطيط أفضل طرق السيارات والمشاة، حتى مع عدم وجود اتصال بالإنترنت!</string>
-	<string name="onboarding_offline_navigation_title_2">الملاحة في وضع غير متصل</string>
-	<string name="onboarding_offline_navigation_message_2">خطط أفضل طرق السيارات والمشاة.</string>
-	<string name="onboarding_offline_maps_title">OMaps — وصول إلى الخرائط على مستوى العالم دون إنترنت</string>
-	<string name="onboarding_offline_maps_message">قم بتنزيل خرائط للمنطقة المطلوب مرة واحدة، واستخدم وظائف الملاحة والبحث دون الحاجة للاتصال بالإنترنت.</string>
-	<string name="onboarding_notifications_message">تابع إخطارات التحديث للحصول على أحدث الخرائط</string>
-	<string name="onboarding_notifications_title">تفعيل إخطارات التحديث</string>
 	<string name="onboarding_location_title">ساعدنا في العثور عليك</string>
 	<string name="onboarding_location_message">لاستخدام الملاحة والميزات الأخرى، فنحن بحاجة إلى تحديد موقعك الجغرافي.</string>
 	<string name="onboarding_permissions_title">السماح لـ OMaps بالوصول إلى ذاكرة التخزين والموقع</string>
 	<string name="onboarding_permissions_message">من ثم يمكنك تنزيل الخرائط وعرض الأماكن وحركة المرور القريبة منك استخدام الملاحة.</string>
-	<string name="onboarding_welcome_second_subtitle">من خلال إطلاق التطبيق، فإنك توافق على &lt;a href="%1$s">شروط الاستخدام&lt;/a> و&lt;a href="%2$s">سياسة الخصوصية&lt;/a>.</string>
 	<string name="dialog_incorrect_feature_position">تغيير الموقع</string>
 	<string name="message_invalid_feature_position">لا يمكن تحديد موقع الكائن هنا</string>
 	<string name="login_to_make_edits_visible">قم بتسجيل الدخول حتى يتمكن باقي المستخدمين من رؤية التغييرات التي قمت بها.</string>
@@ -1101,11 +1092,6 @@
 	<string name="core_exit">خروج</string>
 	<string name="routing_add_start_point">أضف نقطة البداية لتخطيط المسار</string>
 	<string name="routing_add_finish_point">أضف النهاية لتخطيط المسار</string>
-	<string name="onboarding_welcome_message">خرائط تفصيلية مجانية وسريعة وتفصيلية وبدون اتصال بالكامل مع الملاحة منعطف بمنعطف.</string>
-	<!-- нужно как-то выделять документы, чтобы привязать позже ссылки. -->
-	<string name="onboarding_welcome_agree">من خلال بدء تشغيل التطبيق، فإنك توافق على شروط الاستخدام وسياسة الخصوصية.</string>
-	<string name="button_accept_and_continue">قبول ومتابعة</string>
-	<string name="button_learn_more">تعلم المزيد</string>
 	<string name="onboarding_storage_permissions_title">منح حق الوصول</string>
 	<string name="onboarding_storage_permissions_message">قم بتغيير إعدادات الأذونات في جهازك. يلزم الوصول إلى ذاكرة التخزين لاستخدام OMaps.</string>
 	<string name="button_exit">خروج</string>
@@ -1521,8 +1507,6 @@
 	  <item quantity="other">بناءًا على %d مراجعات</item>
 	</plurals>
 	<string name="type.cuisine.uzbek">مطعم أوزبكي</string>
-	<string name="onboarding_welcome_title">خطط وسافر مع OMaps</string>
-	<string name="onboarding_welcome_first_subtitle">ضع علامة مرجعية على الأماكن المثيرة للاهتمام، احجز الفنادق، احسب الطرق بدون اتصال بالانترنت</string>
 	<string name="onboarding_guide_direct_download_title">الدليل جاهز للتحميل</string>
 	<string name="onboarding_guide_direct_download_subtitle">سيتم عرضه على الخريطة وبدون اتصال بالانترنت</string>
 	<string name="onboarding_guide_direct_download_button">تحميل</string>

@@ -1312,22 +1312,6 @@
 
 "whatsnew_editor_message_2" = "* OMaps використовує дані спільноти OpenStreetMap.";
 
-"onboarding_offline_navigation_title" = "Ви ніколи не загубитеся знову";
-
-"onboarding_offline_navigation_message" = "Плануйте оптимальні маршрути для поїздок і піших походів навіть без Інтернет з'єднання!";
-
-"onboarding_offline_navigation_title_2" = "Офлайн навігація";
-
-"onboarding_offline_navigation_message_2" = "Плануйте оптимальні маршрути для поїздок і піших походів.";
-
-"onboarding_offline_maps_title" = "OMaps — використовуй карти всього світу без інтернету";
-
-"onboarding_offline_maps_message" = "Завантажте мапи необхідного регіону один раз та користуйтесь навігацією та пошуком без підключення до інтернету.";
-
-"onboarding_notifications_message" = "Отримуйте повідомлення про оновлення, щоб завжди мати актуальні мапи";
-
-"onboarding_notifications_title" = "Дозвольте відправлення повідомлень";
-
 "onboarding_location_title" = "Допоможіть знайти вас";
 
 "onboarding_location_message" = "Щоб користуватися навігацією та іншими функціями додатку, нам необхідний доступ до вашого місцезнаходження.";
@@ -1335,8 +1319,6 @@
 "onboarding_permissions_title" = "Дозволити OMaps доступ до сховища та функції визначення геолокації";
 
 "onboarding_permissions_message" = "Таким чином ви зможете завантажувати карти, переглядати місцевість і трафік, а також використовувати навігацію.";
-
-"onboarding_welcome_second_subtitle" = "Використовуючи цей додаток, ви погоджуєтеся з <a href=\"%s\">Умовами використання</a> та <a href=\"%s\">Політикою конфіденційності</a>.";
 
 "dialog_incorrect_feature_position" = "Змініть розташування";
 
@@ -1898,15 +1880,6 @@
 "routing_add_start_point" = "Вкажіть початкову точку для побудови маршруту";
 
 "routing_add_finish_point" = "Вкажіть кінцеву точку для побудови маршруту";
-
-"onboarding_welcome_message" = "Безкоштовні, швидкі, деталізовані та повністю офлайнові карти з покроковою навігацією.";
-
-/* нужно как-то выделять документы, чтобы привязать позже ссылки. */
-"onboarding_welcome_agree" = "Запускаючи цей додаток, ви погоджуєтеся з Умовами використання та Політикою конфіденційності.";
-
-"button_accept_and_continue" = "Прийняти та продовжити";
-
-"button_learn_more" = "Докладніше";
 
 "onboarding_storage_permissions_title" = "Надати доступ";
 
@@ -2726,10 +2699,6 @@
 "download_guides_button" = "Перейти до каталогу";
 
 "type.cuisine.uzbek" = "Узбецька кухня";
-
-"onboarding_welcome_title" = "Плануйте та подорожуйте з OMaps";
-
-"onboarding_welcome_first_subtitle" = "Зберігайте цікаві місця, бронюйте готелі, будуйте маршрути офлайн";
 
 "onboarding_guide_direct_download_title" = "Путівник готовий до завантаження";
 

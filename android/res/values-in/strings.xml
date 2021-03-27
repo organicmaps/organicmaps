@@ -776,19 +776,10 @@
 	<string name="whatsnew_editor_title">Edit peta*</string>
 	<string name="whatsnew_editor_message_1">Tambahkan tempat-tempat baru di peta, dan edit peta-peta yang ada langsung dari aplikasi.</string>
 	<string name="whatsnew_editor_message_2">* OMaps menggunakan data komunitas OpenStreetMap.</string>
-	<string name="onboarding_offline_navigation_title">Anda tidak akan tersesat lagi</string>
-	<string name="onboarding_offline_navigation_message">Rencanakan rute mobil dan pejalan kaki yang optimal, meskipun tidak ada koneksi internet!</string>
-	<string name="onboarding_offline_navigation_title_2">Navigasi Offline</string>
-	<string name="onboarding_offline_navigation_message_2">Rencanakan rute mobil dan pejalan kaki yang optimal.</string>
-	<string name="onboarding_offline_maps_title">OMaps — akses peta seluruh dunia tanpa internet</string>
-	<string name="onboarding_offline_maps_message">Unduh peta untuk daerah yang diinginkan sekali, dan gunakan navigasi dan fungsi pencarian tanpa koneksi internet.</string>
-	<string name="onboarding_notifications_message">Untuk menerima peta-peta terbaru, dapatkan pemberitahuan pembaruan</string>
-	<string name="onboarding_notifications_title">Aktifkan pemberitahuan pembaruan</string>
 	<string name="onboarding_location_title">Membantu kami menemukan Anda</string>
 	<string name="onboarding_location_message">Untuk menggunakan navigasi dan fitur-fitur lainnya, kami perlu mengakses geolokasi Anda.</string>
 	<string name="onboarding_permissions_title">Izinkan OMaps mengakses penyimpanan dan lokasi</string>
 	<string name="onboarding_permissions_message">Agar Anda dapat mengunduh peta, melihat tempat dan lalu lintas di dekat Anda, dan menggunakan navigasi.</string>
-	<string name="onboarding_welcome_second_subtitle">Dengan menjalankan aplikasi ini, Anda menyetujui &lt;a href="%1$s">Syarat-Syarat Penggunaan&lt;/a> dan &lt;a href="%2$s">Kebijakan Privasi&lt;/a>.</string>
 	<string name="dialog_incorrect_feature_position">Ubah lokasi</string>
 	<string name="message_invalid_feature_position">Objek tidak dapat diletakkan di sini</string>
 	<string name="login_to_make_edits_visible">Masuk agar pengguna lain dapat melihat perubahan yang Anda buat.</string>
@@ -1088,11 +1079,6 @@
 	<string name="core_exit">Keluar</string>
 	<string name="routing_add_start_point">Tambahkan titik awal untuk merencanakan rute</string>
 	<string name="routing_add_finish_point">Tambahkan titik akhir untuk merencanakan rute</string>
-	<string name="onboarding_welcome_message">Peta gratis, cepat, terperinci, dan sepenuhnya tanpa internet dengan navigasi untuk setiap belokan.</string>
-	<!-- нужно как-то выделять документы, чтобы привязать позже ссылки. -->
-	<string name="onboarding_welcome_agree">Dengan meluncurkan aplikasi ini, Anda menyetujui Syarat-Syarat Penggunaan dan Kebijakan Privasi.</string>
-	<string name="button_accept_and_continue">Terima dan lanjutkan</string>
-	<string name="button_learn_more">Pelajari selengkapnya</string>
 	<string name="onboarding_storage_permissions_title">Berikan akses</string>
 	<string name="onboarding_storage_permissions_message">Ubah pengaturan izin di perangkat Anda. Perlu akses penyimpanan untuk menggunakan OMaps.</string>
 	<string name="button_exit">Keluar</string>
@@ -1509,8 +1495,6 @@
 	  <item quantity="other">Berdasarkan ulasan %d</item>
 	</plurals>
 	<string name="type.cuisine.uzbek">Masakan Uzbek</string>
-	<string name="onboarding_welcome_title">Rencanakan dan bepergian dengan OMaps</string>
-	<string name="onboarding_welcome_first_subtitle">Menandai tempat menarik, memesan hotel, menghitung rute secara offline</string>
 	<string name="onboarding_guide_direct_download_title">Panduan siap diunduh</string>
 	<string name="onboarding_guide_direct_download_subtitle">Panduan akan ditampilkan di peta dan berfungsi offline</string>
 	<string name="onboarding_guide_direct_download_button">Unduh</string>

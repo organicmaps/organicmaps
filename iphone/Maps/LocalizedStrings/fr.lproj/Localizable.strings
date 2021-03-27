@@ -1312,22 +1312,6 @@
 
 "whatsnew_editor_message_2" = "* OMaps utilise les données de la communauté OpenStreetMap.";
 
-"onboarding_offline_navigation_title" = "Vous ne vous perdrez plus jamais";
-
-"onboarding_offline_navigation_message" = "Planifiez des itinéraires optimaux en voiture ou à pied, même en l'absence de connexion Internet !";
-
-"onboarding_offline_navigation_title_2" = "Navigation hors-ligne";
-
-"onboarding_offline_navigation_message_2" = "Planifiez des itinéraires optimaux en voiture ou à pied.";
-
-"onboarding_offline_maps_title" = "OMaps — accédez à une carte mondiale hors connexion";
-
-"onboarding_offline_maps_message" = "Téléchargez une seule fois les cartes de la zone désirée, et utilisez les fonctions de navigation et de recherche sans connexion Internet.";
-
-"onboarding_notifications_message" = "Pour recevoir les dernières cartes, recevez des notifications de mise à jour";
-
-"onboarding_notifications_title" = "Activer les notifications de mise à jour";
-
 "onboarding_location_title" = "Aidez-nous à vous trouver";
 
 "onboarding_location_message" = "Pour utiliser la navigation et d'autres fonctionnalités, nous devons pouvoir accéder à votre position géographique.";
@@ -1335,8 +1319,6 @@
 "onboarding_permissions_title" = "Autoriser OMaps à accéder au stockage et à la localisation";
 
 "onboarding_permissions_message" = "Afin de pouvoir télécharger des cartes, voir les lieux et le trafic près de vous et utiliser la navigation.";
-
-"onboarding_welcome_second_subtitle" = "En lançant l’application, vous acceptez les <a href=\"%s\">Conditions d’utilisation</a> et la <a href=\"%s\">Politique de confidentialité</a>.";
 
 "dialog_incorrect_feature_position" = "Modifier l'emplacement";
 
@@ -1898,15 +1880,6 @@
 "routing_add_start_point" = "Ajouter un point de départ pour planifier un itinéraire";
 
 "routing_add_finish_point" = "Ajouter un point d'arrivée pour planifier un itinéraire";
-
-"onboarding_welcome_message" = "Cartes avec navigation étape par étape, gratuites, rapides, détaillées et totalement hors ligne.";
-
-/* нужно как-то выделять документы, чтобы привязать позже ссылки. */
-"onboarding_welcome_agree" = "En lançant l’application, vous acceptez les Conditions d’utilisation et la Politique de confidentialité.";
-
-"button_accept_and_continue" = "Accepter et continuer";
-
-"button_learn_more" = "En savoir plus";
 
 "onboarding_storage_permissions_title" = "Autoriser l'accès";
 
@@ -2726,10 +2699,6 @@
 "download_guides_button" = "Passer au catalogue";
 
 "type.cuisine.uzbek" = "Cuisine ouzbek";
-
-"onboarding_welcome_title" = "Planifiez et voyagez avec OMaps";
-
-"onboarding_welcome_first_subtitle" = "Enregistrez des lieux intéressants, réservez des hôtels, créez des itinéraires hors ligne";
 
 "onboarding_guide_direct_download_title" = "Le guide est prêt pour le téléchargement";
 

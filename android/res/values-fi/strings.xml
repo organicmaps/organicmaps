@@ -777,19 +777,10 @@
 	<string name="whatsnew_editor_title">Muokkaa karttaa*</string>
 	<string name="whatsnew_editor_message_1">Lisää karttaan uusia paikkoja ja muokkaa sovelluksessa olevia karttoja suoraan sovelluksessa.</string>
 	<string name="whatsnew_editor_message_2">* OMaps käyttää OpenStreetMap -yhteisön dataa.</string>
-	<string name="onboarding_offline_navigation_title">Et eksy enää koskaan</string>
-	<string name="onboarding_offline_navigation_message">Suunnittele ihanteellinen autoilu- tai kävelyreitti jopa ilman Internet-yhteyttä!</string>
-	<string name="onboarding_offline_navigation_title_2">Offline-navigointi</string>
-	<string name="onboarding_offline_navigation_message_2">Suunnittele ihanteelliset autoilu- ja kävelyreitit.</string>
-	<string name="onboarding_offline_maps_title">OMaps — koko maailman kartat ilman Internet-yhteyttä</string>
-	<string name="onboarding_offline_maps_message">Lataa haluamasi alueen kartat yhden kerran ja voit käyttää navigointi- ja hakutoimintoja ilman Internet-yhteyttä.</string>
-	<string name="onboarding_notifications_message">Ota päivitysilmoitukset käyttöön saadaksesi tuoreimmat kartat</string>
-	<string name="onboarding_notifications_title">Ota päivitysilmoitukset käyttöön</string>
 	<string name="onboarding_location_title">Auta meitä löytämään sinut</string>
 	<string name="onboarding_location_message">Tarvitsemme sijaintisi käyttääksemme navigointia ja muita ominaisuuksia.</string>
 	<string name="onboarding_permissions_title">Anna OMaps:lle tallennustilan ja sijainnin käyttöoikeus</string>
 	<string name="onboarding_permissions_message">Jotta voisit ladata karttoja, nähdä lähistöllä olevat paikan ja liikenteen sekä käyttää navigointia.</string>
-	<string name="onboarding_welcome_second_subtitle">Käynnistämällä sovelluksen hyväksyt &lt;a href="%1$s">käyttöehdot&lt;/a> ja &lt;a href="%2$s">tietosuojakäytännön&lt;/a>.</string>
 	<string name="dialog_incorrect_feature_position">Vaihda sijaintia</string>
 	<string name="message_invalid_feature_position">Kohdetta ei voida asettaa tänne</string>
 	<string name="login_to_make_edits_visible">Kirjaudu sisään jotta muut käyttäjät voivat nähdä tekemäsi muokkaukset.</string>
@@ -1089,11 +1080,6 @@
 	<string name="core_exit">Poistu</string>
 	<string name="routing_add_start_point">Lisää alkupiste reitin suunnittelua varten</string>
 	<string name="routing_add_finish_point">Lisää määränpää reitin suunnittelua varten</string>
-	<string name="onboarding_welcome_message">Ilmaiset, nopeat, yksityiskohtaiset ja offline-tilassa täysin toimivat kartat käännös käännökseltä -navigoinnilla.</string>
-	<!-- нужно как-то выделять документы, чтобы привязать позже ссылки. -->
-	<string name="onboarding_welcome_agree">Käynnistämällä sovelluksen hyväksyt käyttöehdot ja tietosuojakäytännön.</string>
-	<string name="button_accept_and_continue">Hyväksy ja jatka</string>
-	<string name="button_learn_more">Lisätietoja</string>
 	<string name="onboarding_storage_permissions_title">Myönnä käyttöoikeus</string>
 	<string name="onboarding_storage_permissions_message">Muuta laitteesi käyttöoikeusasetuksia. OMaps:n käyttö edellyttää tallennustilan käyttöoikeutta.</string>
 	<string name="button_exit">Poistu</string>
@@ -1510,8 +1496,6 @@
 	  <item quantity="other">%d palautteen perusteella</item>
 	</plurals>
 	<string name="type.cuisine.uzbek">Uzbekistanilainen ruokaa</string>
-	<string name="onboarding_welcome_title">Suunnittele ja matkusta OMaps:n kanssa</string>
-	<string name="onboarding_welcome_first_subtitle">Tallenna mielenkiintoisia paikkoja, varaa hotelleja, luo reittejä offline-tilassa</string>
 	<string name="onboarding_guide_direct_download_title">Opas on valmis ladattavaksi</string>
 	<string name="onboarding_guide_direct_download_subtitle">Opas näkyy kartalla ja toimii offline-tilassa</string>
 	<string name="onboarding_guide_direct_download_button">Ladata</string>

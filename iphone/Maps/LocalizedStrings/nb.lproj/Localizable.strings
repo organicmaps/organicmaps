@@ -1312,22 +1312,6 @@
 
 "whatsnew_editor_message_2" = "* OMaps bruker data fra OpenStreetMap-samfunnet.";
 
-"onboarding_offline_navigation_title" = "Du vil aldri havne på villspor igjen";
-
-"onboarding_offline_navigation_message" = "Planlegg optimale reiseruter med bil og til fots, selv uten internettforbindelse!";
-
-"onboarding_offline_navigation_title_2" = "Offline-navigering";
-
-"onboarding_offline_navigation_message_2" = "Planlegg optimale reiseruter med bil og til fots.";
-
-"onboarding_offline_maps_title" = "OMaps — se verdensvide kart uten Internett";
-
-"onboarding_offline_maps_message" = "Last ned kartene for et ønsket område én gang, og bruk navigeringen og andre søkefunksjoner uten internettforbindelse.";
-
-"onboarding_notifications_message" = "Få oppdateringsvarsler for å motta de nyeste kartene";
-
-"onboarding_notifications_title" = "Aktiver oppdateringsvarsler";
-
 "onboarding_location_title" = "Hjelp oss med å finne deg";
 
 "onboarding_location_message" = "For å bruke navigering og andre funksjoner må vi ha tilgang til posisjonen din.";
@@ -1335,8 +1319,6 @@
 "onboarding_permissions_title" = "Tillat OMaps tilgang til minnet og plasseringen";
 
 "onboarding_permissions_message" = "Du kan laste ned kart, se steder og trafikk nær deg og bruke navigasjon.";
-
-"onboarding_welcome_second_subtitle" = "Når du starter programmet samtykker du til <a href=\"%s\">bruksvilkårene</a> og <a href=\"%s\">reglene for personvern</a>.";
 
 "dialog_incorrect_feature_position" = "Endre plassering";
 
@@ -1898,15 +1880,6 @@
 "routing_add_start_point" = "Angi startpunkt for å planlegge rute";
 
 "routing_add_finish_point" = "Angi sluttpunkt for å planlegge rute";
-
-"onboarding_welcome_message" = "Gratis, rask, detaljert og helt offline kart med rutenavigasjon.";
-
-/* нужно как-то выделять документы, чтобы привязать позже ссылки. */
-"onboarding_welcome_agree" = "Ved å starte programmet samtykker du til brukervilkårene og reglene for personvern.";
-
-"button_accept_and_continue" = "Godta og fortsett";
-
-"button_learn_more" = "Finn ut mer";
 
 "onboarding_storage_permissions_title" = "Gi tilgang";
 
@@ -2726,10 +2699,6 @@
 "download_guides_button" = "Til katalogen";
 
 "type.cuisine.uzbek" = "Usbekisk mat";
-
-"onboarding_welcome_title" = "Planlegg og reis med OMaps";
-
-"onboarding_welcome_first_subtitle" = "Bokmerk interessante steder, bestill hotell, beregn ruter også offline";
 
 "onboarding_guide_direct_download_title" = "Guide er klar for nedlasting";
 

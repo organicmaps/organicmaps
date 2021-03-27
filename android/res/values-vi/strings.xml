@@ -777,19 +777,10 @@
 	<string name="whatsnew_editor_title">Chỉnh sửa bản đồ*</string>
 	<string name="whatsnew_editor_message_1">Nhập các địa điểm mới vào bản đồ, và trực tiếp chỉnh sửa những địa điểm hiện có trên ứng dụng.</string>
 	<string name="whatsnew_editor_message_2">* OMaps sử dụng dữ liệu của cộng đồng OpenStreetMap.</string>
-	<string name="onboarding_offline_navigation_title">Bạn sẽ không bao giờ bị lạc nữa</string>
-	<string name="onboarding_offline_navigation_message">Lập tuyến đường xe hơi và đi bộ tối ưu, mặc dù không có kết nối Internet!</string>
-	<string name="onboarding_offline_navigation_title_2">Chỉ đường ngoại tuyến</string>
-	<string name="onboarding_offline_navigation_message_2">Lập tuyến đường xe hơi và đi bộ tối ưu.</string>
-	<string name="onboarding_offline_maps_title">OMaps — truy cập bản đồ trên toàn thế giới không cần Internet</string>
-	<string name="onboarding_offline_maps_message">Chỉ tải xuống các bản đồ của khu vực bạn muốn một lần, và sử dụng các chức năng dẫn đường và tìm kiếm mà không cần kết nối Internet.</string>
-	<string name="onboarding_notifications_message">Để nhận các bản đồ mới nhất, hãy nhận thông báo cập nhật</string>
-	<string name="onboarding_notifications_title">Cho phép thông báo cập nhật</string>
 	<string name="onboarding_location_title">Giúp chúng tôi tìm bạn</string>
 	<string name="onboarding_location_message">Để sử dụng tính năng dẫn đường và các tính năng khác, chúng tôi cần truy cập vị trí địa lý của bạn.</string>
 	<string name="onboarding_permissions_title">Cho phép OMaps truy cập ổ lưu trữ và vị trí</string>
 	<string name="onboarding_permissions_message">Để bạn có thể tải về các bản đồ, xem các địa điểm và lưu lượng giao thông gần bạn và sử dụng điều hướng.</string>
-	<string name="onboarding_welcome_second_subtitle">Bằng cách khởi chạy ứng dụng, bạn đồng ý với &lt;a href="%1$s">Điều khoản Sử dụng&lt;/a> và &lt;a href="%2$s">Chính sách Riêng tư&lt;/a>.</string>
 	<string name="dialog_incorrect_feature_position">Thay đổi địa điểm</string>
 	<string name="message_invalid_feature_position">Một đối tượng không thể đặt được ở đây</string>
 	<string name="login_to_make_edits_visible">Đăng nhập để người dùng khác có thể nhìn thấy những thay đổi bạn đã thực hiện.</string>
@@ -1089,11 +1080,6 @@
 	<string name="core_exit">Lối ra</string>
 	<string name="routing_add_start_point">Bổ sung điểm bắt đầu để lập kế hoạch lộ trình</string>
 	<string name="routing_add_finish_point">Bổ sung điểm kết thúc để lập kế hoạch lộ trình</string>
-	<string name="onboarding_welcome_message">Các bản đồ hoàn toàn ngoại tuyến miễn phí, nhanh và chi tiết với điều hướng qua từng khúc quanh.</string>
-	<!-- нужно как-то выделять документы, чтобы привязать позже ссылки. -->
-	<string name="onboarding_welcome_agree">Thông qua việc khởi chạy ứng dụng, bạn đồng ý với các Điều khoản Sử dụng và Chính sách Riêng tư.</string>
-	<string name="button_accept_and_continue">Chấp nhận và tiếp tục</string>
-	<string name="button_learn_more">Tìm hiểu thêm</string>
 	<string name="onboarding_storage_permissions_title">Cho phép truy cập</string>
 	<string name="onboarding_storage_permissions_message">Thay đổi các cài đặt cho phép trong thiết bị của bạn. Cần quyền truy cập ổ lưu trữ để sử dụng OMaps.</string>
 	<string name="button_exit">Thoát</string>
@@ -1506,8 +1492,6 @@
 	  <item quantity="other">Căn cứ vào %d những nhận xét</item>
 	</plurals>
 	<string name="type.cuisine.uzbek">Ẩm thực của Uzbekistan</string>
-	<string name="onboarding_welcome_title">Hãy lên kế hoạch và đi du lịch cùng với OMaps</string>
-	<string name="onboarding_welcome_first_subtitle">Hãy lưu lại những địa chỉ hấp dẫn, đặt phòng khách sạn và xây dựng lộ trình đi ngoại tuyến</string>
 	<string name="onboarding_guide_direct_download_title">Sác hướng dẫn đã sẵn sàng cho phép tải xuống</string>
 	<string name="onboarding_guide_direct_download_subtitle">Nó hiển thị trên bản đồ và sẽ hoạt động ngoại tuyến</string>
 	<string name="onboarding_guide_direct_download_button">Tải về</string>

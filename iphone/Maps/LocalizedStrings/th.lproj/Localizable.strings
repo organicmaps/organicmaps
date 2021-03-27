@@ -1312,22 +1312,6 @@
 
 "whatsnew_editor_message_2" = "* OMaps ใช้ข้อมูลจากชุมชน OpenStreetMap";
 
-"onboarding_offline_navigation_title" = "คุณจะไม่หลงทางอีกต่อไป";
-
-"onboarding_offline_navigation_message" = "วางแผนเส้นทางรถยนต์และเส้นทางเดินที่เหมาะสมที่สุด แม้ว่าจะไม่มีการเชื่อมต่ออินเทอร์เน็ต!";
-
-"onboarding_offline_navigation_title_2" = "การนำทางออฟไลน์";
-
-"onboarding_offline_navigation_message_2" = "วางแผนเส้นทางรถยนต์และเส้นทางเดินที่เหมาะสมที่สุด";
-
-"onboarding_offline_maps_title" = "OMaps — เข้าถึงแผนที่ทั่วโลกโดยไม่ใช้อินเทอร์เน็ต";
-
-"onboarding_offline_maps_message" = "ดาวน์โหลดแผนที่สำหรับพื้นที่ที่ต้องการเพียงหนึ่งครั้ง แล้วใช้การฟังก์ชันการนำทางและการค้นหาโดยไม่ต้องเชื่อมต่ออินเทอร์เน็ต";
-
-"onboarding_notifications_message" = "เพื่อรับแผนที่ล่าสุดและรับการแจ้งเตือนอัปเดต";
-
-"onboarding_notifications_title" = "เปิดการแจ้งเตือนการอัปเดต";
-
 "onboarding_location_title" = "ช่วยให้เราค้นหาคุณ";
 
 "onboarding_location_message" = "เพื่อใช้การนำทางและฟีเจอร์อื่น ๆ เราต้องการเข้าถึงตำแหน่งทางภูมิศาสตร์ของคุณ";
@@ -1335,8 +1319,6 @@
 "onboarding_permissions_title" = "อนุญาตให้ OMaps เข้าถึงที่เก็บข้อมูลและตำแหน่งที่ตั้ง";
 
 "onboarding_permissions_message" = "เพื่อที่คุณจะได้สามารถดาวน์โหลดแผนที่ ดูสถานที่ต่าง ๆ และการจราจรที่อยู่ใกล้ ๆ คุณแล้วใช้งานการนำทางได้";
-
-"onboarding_welcome_second_subtitle" = "ด้วยการเรียกใช้แอปพลิเคชั่นคุณได้ตกลงต่อ <a href=\"%s\">เงื่อนไขการใช้งาน</a> และ <a href=\"%s\">นโยบายความเป็นส่วนตัว</a>";
 
 "dialog_incorrect_feature_position" = "เปลี่ยนสถานที่ตั้ง";
 
@@ -1898,15 +1880,6 @@
 "routing_add_start_point" = "เพิ่มจุดเริ่มต้นเพื่อวางแผนเส้นทาง";
 
 "routing_add_finish_point" = "เพิ่มจุดสิ้นสุดเพื่อวางแผนเส้นทาง";
-
-"onboarding_welcome_message" = "แผนที่ที่ฟรี รวดเร็ว มีรายละเอียด และออฟไลน์พร้อมกับการนำทางแบบทีละขั้นตอน";
-
-/* нужно как-то выделять документы, чтобы привязать позже ссылки. */
-"onboarding_welcome_agree" = "ด้วยการเรียกใช้แอปพลิเคชั่นคุณได้ตกลงต่อเงื่อนไขการใช้งานและนโยบายความเป็นส่วนตัว";
-
-"button_accept_and_continue" = "ตกลงและดำเนินการต่อไป";
-
-"button_learn_more" = "ศึกษาเพิ่มเติม";
 
 "onboarding_storage_permissions_title" = "ให้สิทธิ์เข้าถึง";
 
@@ -2726,10 +2699,6 @@
 "download_guides_button" = "ไปที่แคตตาล็อก";
 
 "type.cuisine.uzbek" = "อาหารแนวอุซเบค";
-
-"onboarding_welcome_title" = "วางแผนและท่องเที่ยวด้วย OMaps";
-
-"onboarding_welcome_first_subtitle" = "บุ๊ตมาร์คสถานที่ที่น่าสนใจ จองโรงแรม และคำนวณเส้นทางแบบไม่ต้องใช้สัญญาณอินเทอร์เน็ต";
 
 "onboarding_guide_direct_download_title" = "ไกด์พร้อมให้ดาวน์โหลดแล้ว";
 

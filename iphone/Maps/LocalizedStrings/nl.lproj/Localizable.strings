@@ -1312,22 +1312,6 @@
 
 "whatsnew_editor_message_2" = "* OMaps gebruikt OpenStreetMap-communitiedata.";
 
-"onboarding_offline_navigation_title" = "Je zult nooit meer verdwalen";
-
-"onboarding_offline_navigation_message" = "Plan optimale auto- en wandelroutes, zelfs als er geen internetverbinding is!";
-
-"onboarding_offline_navigation_title_2" = "Offline navigatie";
-
-"onboarding_offline_navigation_message_2" = "Plan optimale auto- en wandelroutes.";
-
-"onboarding_offline_maps_title" = "OMaps — toegang tot kaarten van de hele wereld, zonder verbinding met het internet";
-
-"onboarding_offline_maps_message" = "Download eenmaal de kaarten voor het gewenste gebied en gebruik de navigatie- en zoekfuncties zonder een internetverbinding.";
-
-"onboarding_notifications_message" = "Ontvang update-meldingen om de nieuwste kaarten te ontvangen";
-
-"onboarding_notifications_title" = "Schakel update-meldingen in";
-
 "onboarding_location_title" = "Help ons om je te vinden";
 
 "onboarding_location_message" = "Om de navigatie en andere functies te kunnen gebruiken, hebben we toegang tot je geolocatie nodig.";
@@ -1335,8 +1319,6 @@
 "onboarding_permissions_title" = "OMaps toegang geven tot opslag en locatie";
 
 "onboarding_permissions_message" = "Zodat u kaarten kunt downloaden, plaatsen en verkeer rondom u kunt zien, en navigatie kunt gebruiken.";
-
-"onboarding_welcome_second_subtitle" = "Door de toepassing te starten, gaat u akkoord met de <a href=\"%s\">Gebruiksvoorwaarden</a> en het <a href=\"%s\">Privacybeleid</a>.";
 
 "dialog_incorrect_feature_position" = "Locatie wijzigen";
 
@@ -1898,15 +1880,6 @@
 "routing_add_start_point" = "Voeg beginpunt toe om een route te plannen";
 
 "routing_add_finish_point" = "Voeg eindpunt toe om een route te plannen";
-
-"onboarding_welcome_message" = "Gratis, snelle, gedetailleerde en volledig offline kaarten met turn-by-turn navigatie.";
-
-/* нужно как-то выделять документы, чтобы привязать позже ссылки. */
-"onboarding_welcome_agree" = "Door de applicatie te starten, gaat u akkoord met de Gebruiksvoorwaarden en het Privacybeleid.";
-
-"button_accept_and_continue" = "Aanvaarden en doorgaan";
-
-"button_learn_more" = "Meer informatie";
 
 "onboarding_storage_permissions_title" = "Toegang verlenen";
 
@@ -2726,10 +2699,6 @@
 "download_guides_button" = "Ga naar de catalogus";
 
 "type.cuisine.uzbek" = "Oezbeekse keuken";
-
-"onboarding_welcome_title" = "Plan en reis met OMaps";
-
-"onboarding_welcome_first_subtitle" = "Slaat op interessante plaatsen, boek hotels, bouw routen offline";
 
 "onboarding_guide_direct_download_title" = "De reisgids is klaar om te downloaden";
 

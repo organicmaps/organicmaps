@@ -787,19 +787,10 @@
 	<string name="whatsnew_editor_title">編輯此地圖*</string>
 	<string name="whatsnew_editor_message_1">新增新地點到該地圖，並直接通過此應用程式編輯已存在的地點。</string>
 	<string name="whatsnew_editor_message_2">* OMaps 使用 OpenStreetMap 社群的數據。</string>
-	<string name="onboarding_offline_navigation_title">您將不再迷路</string>
-	<string name="onboarding_offline_navigation_message">規劃最佳的行車和步行路線，即使在沒有網絡連接的情況下！</string>
-	<string name="onboarding_offline_navigation_title_2">離線導航</string>
-	<string name="onboarding_offline_navigation_message_2">規劃最佳的行車和步行路線。</string>
-	<string name="onboarding_offline_maps_title">OMaps — 無需網際網路獲取全球地圖</string>
-	<string name="onboarding_offline_maps_message">一次下載所需地區的地圖，無需網絡連接就能使用導航和搜索功能。</string>
-	<string name="onboarding_notifications_message">為了接收最新的地圖，請接收更新通知</string>
-	<string name="onboarding_notifications_title">啟用更新通知</string>
 	<string name="onboarding_location_title">幫我們找到您</string>
 	<string name="onboarding_location_message">如要使用導航和其他功能，我們需要能獲取您的地理位置.</string>
 	<string name="onboarding_permissions_title">允許 OMaps 存儲和定位的權限</string>
 	<string name="onboarding_permissions_message">所以，您可以下載地圖，查看您附近的地點和交通，以及使用導航服務。</string>
-	<string name="onboarding_welcome_second_subtitle">啟用本應用程式，即表示您同意 &lt;a href="%1$s">服務條款&lt;/a>和 &lt;a href="%2$s">隱私權原則&lt;/a>。</string>
 	<string name="dialog_incorrect_feature_position">改變位置</string>
 	<string name="message_invalid_feature_position">物件無法設置在這裡</string>
 	<string name="login_to_make_edits_visible">登入來讓其他使用者能看到您所作出的修改。</string>
@@ -1099,11 +1090,6 @@
 	<string name="core_exit">退出</string>
 	<string name="routing_add_start_point">新增起點以計劃路線</string>
 	<string name="routing_add_finish_point">新增終點以計劃路線</string>
-	<string name="onboarding_welcome_message">免費、快速、詳盡又全面的地圖，提供逐向導航服務。</string>
-	<!-- нужно как-то выделять документы, чтобы привязать позже ссылки. -->
-	<string name="onboarding_welcome_agree">啟動本應用程式，即表示您同意服務條款和隱私權原則。</string>
-	<string name="button_accept_and_continue">接受並繼續</string>
-	<string name="button_learn_more">瞭解更多資訊</string>
 	<string name="onboarding_storage_permissions_title">授與存取權</string>
 	<string name="onboarding_storage_permissions_message">變更您裝置中的權限設定。需要存儲權限才能使用 OMaps。</string>
 	<string name="button_exit">退出</string>
@@ -1518,8 +1504,6 @@
 	  <item quantity="other">基於%d的評論</item>
 	</plurals>
 	<string name="type.cuisine.uzbek">烏茲別克美食</string>
-	<string name="onboarding_welcome_title">請使用OMaps開始規劃和旅行</string>
-	<string name="onboarding_welcome_first_subtitle">請保存有趣的地方，預訂酒店，離線規劃路線</string>
 	<string name="onboarding_guide_direct_download_title">該指南已準備好下載</string>
 	<string name="onboarding_guide_direct_download_subtitle">它將在地圖上顯示並將脫機工作</string>
 	<string name="onboarding_guide_direct_download_button">下載</string>

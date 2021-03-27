@@ -1312,22 +1312,6 @@
 
 "whatsnew_editor_message_2" = "* OMaps verwendet Community-Daten von OpenStreetMap.";
 
-"onboarding_offline_navigation_title" = "Sie werden sich nie wieder verfahren oder verlaufen";
-
-"onboarding_offline_navigation_message" = "Planen Sie die optimalen Auto- und Fußgängerstrecken, selbst wenn es keine Internetverbindung gibt!";
-
-"onboarding_offline_navigation_title_2" = "Offline-Navigation";
-
-"onboarding_offline_navigation_message_2" = "Planen Sie optimale Auto- und Fußgängerstrecken.";
-
-"onboarding_offline_maps_title" = "OMaps — weltweit ohne Internetzugriff auf die Karte zugreifen";
-
-"onboarding_offline_maps_message" = "Laden Sie die Karten für das gewünschte Gebiet auf einmal herunter und verwenden Sie die Navigation- und Such-Funktion ohne eine Internetverbindung.";
-
-"onboarding_notifications_message" = "Erhalten Sie Aktualisierungsbenachrichtigungen, um die neuesten Karten zu erhalten";
-
-"onboarding_notifications_title" = "Aktualisierungsbenachrichtigungen aktivieren";
-
 "onboarding_location_title" = "Helfen Sie uns dabei, Sie zu finden";
 
 "onboarding_location_message" = "Um Navigation und andere Funktionen zu verwenden, brauchen wir Zugriff auf Ihren Geo-Standort.";
@@ -1335,8 +1319,6 @@
 "onboarding_permissions_title" = "Erlauben Sie OMaps, auf Speicher und Standort zuzugreifen";
 
 "onboarding_permissions_message" = "So können Sie Karten herunterladen, Orte und Verkehrslage in Ihrer Nähe sehen und die Navigation nutzen.";
-
-"onboarding_welcome_second_subtitle" = "Durch das Starten der Anwendung stimmen Sie den <a href=\"%s\">Nutzungsbedingungen</a> und der <a href=\"%s\">Datenschutzrichtlinie</a> zu.";
 
 "dialog_incorrect_feature_position" = "Standort wechseln";
 
@@ -1898,15 +1880,6 @@
 "routing_add_start_point" = "Fügen Sie einen Startpunkt hinzu, um eine Route zu planen";
 
 "routing_add_finish_point" = "Fügen Sie ein Ziel hinzu, um eine Route zu planen";
-
-"onboarding_welcome_message" = "Kostenlose, schnelle, detaillierte und vollständig offline benutzbare Karten mit genauer Navigation.";
-
-/* нужно как-то выделять документы, чтобы привязать позже ссылки. */
-"onboarding_welcome_agree" = "Durch das Starten der App stimmen Sie den Nutzungsbedingungen und der Datenschutzrichtlinie zu.";
-
-"button_accept_and_continue" = "Zustimmen und fortfahren";
-
-"button_learn_more" = "Weitere Informationen";
 
 "onboarding_storage_permissions_title" = "Zugriff gewähren";
 
@@ -2726,10 +2699,6 @@
 "download_guides_button" = "In den Katalog übergehen";
 
 "type.cuisine.uzbek" = "Usbekische Küche";
-
-"onboarding_welcome_title" = "Planen und reisen Sie mit OMaps";
-
-"onboarding_welcome_first_subtitle" = "Bewahren Sie interessante Stellen, reservieren Sie Hotels, planen Sie Reiserouten offline";
 
 "onboarding_guide_direct_download_title" = "Der Reiseführer ist zum Laden bereit";
 

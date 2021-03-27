@@ -604,17 +604,10 @@
 	<string name="whatsnew_editor_title">Επεξεργαστείτε το χάρτη*</string>
 	<string name="whatsnew_editor_message_1">Προσθέστε νέες τοποθεσίες στο χάρτη, και επεξεργαστείτε τις υπάρχουσες απευθείας από την εφαρμογή.</string>
 	<string name="whatsnew_editor_message_2">* Το OMaps χρησιμοποιεί δεδομένα της κοινότητας OpenStreetMap.</string>
-	<string name="onboarding_offline_navigation_title">Δεν θα χαθείτε ποτέ ξανά</string>
-	<string name="onboarding_offline_navigation_message">Σχεδιασμός βέλτισης διαδρομής αυτοκινήτων και πεζών, ακόμα και χωρίς σύνδεση στο Internet!</string>
-	<string name="onboarding_offline_maps_title">OMaps — χρησιμοποιήστε χάρτες από όλο τον κόσμο χωρίς σύνδεση στο Internet</string>
-	<string name="onboarding_offline_maps_message">Κατεβάστε τους χάρτες της περιοχής που επιθυμείτε μια φορά και χρησιμοποιήστε τις λειτουργίες πλοήγησης και αναζήτησης χωρίς σύνδεση στο Internet.</string>
-	<string name="onboarding_notifications_message">Για να λάβετε τους πιο πρόσφατους χάρτες, επιλέξτε να λαμβάνετε ειδοποιήσεις ενημερώσεων</string>
-	<string name="onboarding_notifications_title">Ενεργοποιήσετε τις ειδοποιήσεις για ενημερώσεις</string>
 	<string name="onboarding_location_title">Βοηθήστε μας να σας βρούμε</string>
 	<string name="onboarding_location_message">Προκειμένου να χρησιμοποιήσετε την πλοήγηση και τις άλλες λειτουργίες του OMaps χρειάζεται πρόσβαση στη γεωγραφική σας θέση.</string>
 	<string name="onboarding_permissions_title">Να επιτραπεί στο OMaps πρόσβαση στον αποθηκευτικό χώρο και την τοποθεσία</string>
 	<string name="onboarding_permissions_message">Μπορείτε να κατεβάσετε χάρτες, να δείτε μέρη και πληροφορίες για την κίνηση κοντά σε εσάς και να χρησιμοποιήσεττ την πλοήγηση.</string>
-	<string name="onboarding_welcome_second_subtitle">Με την εκκίνηση της εφαρμογής συμφωνείτε με &lt;a href="%1$s">τους Όρους χρήσης&lt;/a> και &lt;a href="%2$s">την Πολιτική απορρήτου&lt;/a>.</string>
 	<string name="dialog_incorrect_feature_position">Αλλαγή τοποθεσίας</string>
 	<string name="message_invalid_feature_position">Δε μπορεί να εντοπιστεί αντικείμενο εδώ</string>
 	<string name="login_to_make_edits_visible">Συνδεθείτε ώστε άλλοι χρήστες να μπορούν να δουν τις αλλαγές που έχετε κάνει</string>
@@ -864,11 +857,6 @@
 	<string name="core_exit">Έξοδος</string>
 	<string name="routing_add_start_point">Προσθέστε αφετηρία για να σχεδιάσετε μια διαδρομή</string>
 	<string name="routing_add_finish_point">Προσθέστε τελικό προορισμό, για να σχεδιάσετε μια διαδρομή</string>
-	<string name="onboarding_welcome_message">Δωρεάν, γρήγοροι, λεπτομερείς χάρτες αποκλειστικά εκτός σύνδεσης με πλοήγηση αννά στροφή.</string>
-	<!-- нужно как-то выделять документы, чтобы привязать позже ссылки. -->
-	<string name="onboarding_welcome_agree">Με την εκκίνηση αυτής της εφαρμογής, συμφωνείτε με τους όρους χρήσης και την πολιτική προστασίας προσωπικών δεδομένων.</string>
-	<string name="button_accept_and_continue">Αποδοχή και συνέχεια</string>
-	<string name="button_learn_more">Μάθετε περισσότερα</string>
 	<string name="onboarding_storage_permissions_title">Εκχώρηση άδειας</string>
 	<string name="onboarding_storage_permissions_message">Αλλάξτε τις ρυθμίσεις άδειας στη συσκευή σας. Χρειάζεται πρόσβαση στον αποθηκευτικό χώρο για τη χρήση του OMaps</string>
 	<string name="button_exit">Έξοδος</string>
@@ -1278,8 +1266,6 @@
 	  <item quantity="other">Βάσει %d κριτικών</item>
 	</plurals>
 	<string name="type.cuisine.uzbek">Ουζμπεκική κουζίνα</string>
-	<string name="onboarding_welcome_title">Σχεδιάστε και ταξιδέψτε με το OMaps</string>
-	<string name="onboarding_welcome_first_subtitle">Αποθηκεύετε τα ενδιαφέροντα μέρη, κάντε κράτηση ξενοδοχείων, χτίστε τις διαδρομές εκτός σύνδεσης</string>
 	<string name="onboarding_guide_direct_download_title">Ο οδηγός είναι έτοιμος για λήψη</string>
 	<string name="onboarding_guide_direct_download_subtitle">Θα εμφανίζεται στον χάρτη και θα λειτουργεί εκτός σύνδεσης</string>
 	<string name="onboarding_guide_direct_download_button">Λήψη</string>

@@ -1312,22 +1312,6 @@
 
 "whatsnew_editor_message_2" = "* OMaps využíva dáta komunity OpenStreetMap.";
 
-"onboarding_offline_navigation_title" = "Už sa nikdy nestratíte";
-
-"onboarding_offline_navigation_message" = "Naplánujte si vhodné trasy na cestu autom alebo peši. Internetové pripojenie sa nevyžaduje!";
-
-"onboarding_offline_navigation_title_2" = "Offline navigácia";
-
-"onboarding_offline_navigation_message_2" = "Naplánujte si vhodné trasy na cestu autom alebo peši.";
-
-"onboarding_offline_maps_title" = "OMaps — globálny prístup k mapám bez internetu";
-
-"onboarding_offline_maps_message" = "Stiahnite si jednorázovo potrebné mapy - navigáciu a funkcie vyhľadávania môžete využívať aj bez internetového pripojenia.";
-
-"onboarding_notifications_message" = "Ak chcete získavať najnovšie mapy, zapnite si notifikácie aktualizácií";
-
-"onboarding_notifications_title" = "Povoliť notifikácie aktualizácií";
-
 "onboarding_location_title" = "Pomôžte nám a my vás nájdeme";
 
 "onboarding_location_message" = "Ak chcete používať navigáciu a ostatné funkcie, potrebujeme prístup k vašej aktuálnej polohe.";
@@ -1335,8 +1319,6 @@
 "onboarding_permissions_title" = "Povoliť aplikácii OMaps prístup do ukladacieho priestoru a k polohe";
 
 "onboarding_permissions_message" = "Tak si budete môcť sťahovať mapy, prezerať miesta a dopravnú situáciu vo svojom okolí a používať navigáciu.";
-
-"onboarding_welcome_second_subtitle" = "Spustením aplikácie súhlasíte s <a href=\"%s\">Podmienkami používania</a> a <a href=\"%s\">Zásadami ochrany osobných údajov</a>.";
 
 "dialog_incorrect_feature_position" = "Zmeniť polohu";
 
@@ -1898,15 +1880,6 @@
 "routing_add_start_point" = "Pridaním počiatočného bodu začnite plánovať trasu";
 
 "routing_add_finish_point" = "Pridaním cieľového bodu naplánujete trasu";
-
-"onboarding_welcome_message" = "Bezplatné, rýchle, podrobné a úplne offline mapy s podrobnou navigáciou.";
-
-/* нужно как-то выделять документы, чтобы привязать позже ссылки. */
-"onboarding_welcome_agree" = "Spustením aplikácie súhlasíte s našimi podmienkami používania a zásadami ochrany osobných údajov.";
-
-"button_accept_and_continue" = "Prijať a pokračovať";
-
-"button_learn_more" = "Zistiť viac";
 
 "onboarding_storage_permissions_title" = "Prideliť prístup";
 
@@ -2726,10 +2699,6 @@
 "download_guides_button" = "Do katalógu";
 
 "type.cuisine.uzbek" = "Uzbecká kuchyňa";
-
-"onboarding_welcome_title" = "Plánujte a cestujte s OMaps";
-
-"onboarding_welcome_first_subtitle" = "Pridajte si k záložkám zaujímavé miesta, zarezervujte si hotely, vypočítajte si trasy offline";
 
 "onboarding_guide_direct_download_title" = "Sprievodca je pripravený na stiahnutie";
 

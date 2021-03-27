@@ -1312,22 +1312,6 @@
 
 "whatsnew_editor_message_2" = "*تستخدم OMaps البيانات الخاصة بخريطة OpenStreetMap.";
 
-"onboarding_offline_navigation_title" = "لن تضل الطريق أبدا بعد الآن";
-
-"onboarding_offline_navigation_message" = "قم بتخطيط أفضل طرق السيارات والمشاة، حتى مع عدم وجود اتصال بالإنترنت!";
-
-"onboarding_offline_navigation_title_2" = "الملاحة في وضع غير متصل";
-
-"onboarding_offline_navigation_message_2" = "خطط أفضل طرق السيارات والمشاة.";
-
-"onboarding_offline_maps_title" = "OMaps — وصول إلى الخرائط على مستوى العالم دون إنترنت";
-
-"onboarding_offline_maps_message" = "قم بتنزيل خرائط للمنطقة المطلوب مرة واحدة، واستخدم وظائف الملاحة والبحث دون الحاجة للاتصال بالإنترنت.";
-
-"onboarding_notifications_message" = "تابع إخطارات التحديث للحصول على أحدث الخرائط";
-
-"onboarding_notifications_title" = "تفعيل إخطارات التحديث";
-
 "onboarding_location_title" = "ساعدنا في العثور عليك";
 
 "onboarding_location_message" = "لاستخدام الملاحة والميزات الأخرى، فنحن بحاجة إلى تحديد موقعك الجغرافي.";
@@ -1335,8 +1319,6 @@
 "onboarding_permissions_title" = "السماح لـ OMaps بالوصول إلى ذاكرة التخزين والموقع";
 
 "onboarding_permissions_message" = "من ثم يمكنك تنزيل الخرائط وعرض الأماكن وحركة المرور القريبة منك استخدام الملاحة.";
-
-"onboarding_welcome_second_subtitle" = "من خلال إطلاق التطبيق، فإنك توافق على <a href=\"%s\">شروط الاستخدام</a> و<a href=\"%s\">سياسة الخصوصية</a>.";
 
 "dialog_incorrect_feature_position" = "تغيير الموقع";
 
@@ -1898,15 +1880,6 @@
 "routing_add_start_point" = "أضف نقطة البداية لتخطيط المسار";
 
 "routing_add_finish_point" = "أضف النهاية لتخطيط المسار";
-
-"onboarding_welcome_message" = "خرائط تفصيلية مجانية وسريعة وتفصيلية وبدون اتصال بالكامل مع الملاحة منعطف بمنعطف.";
-
-/* нужно как-то выделять документы, чтобы привязать позже ссылки. */
-"onboarding_welcome_agree" = "من خلال بدء تشغيل التطبيق، فإنك توافق على شروط الاستخدام وسياسة الخصوصية.";
-
-"button_accept_and_continue" = "قبول ومتابعة";
-
-"button_learn_more" = "تعلم المزيد";
 
 "onboarding_storage_permissions_title" = "منح حق الوصول";
 
@@ -2726,10 +2699,6 @@
 "download_guides_button" = "إلى الفهرس";
 
 "type.cuisine.uzbek" = "مطعم أوزبكي";
-
-"onboarding_welcome_title" = "خطط وسافر مع OMaps";
-
-"onboarding_welcome_first_subtitle" = "ضع علامة مرجعية على الأماكن المثيرة للاهتمام، احجز الفنادق، احسب الطرق بدون اتصال بالانترنت";
 
 "onboarding_guide_direct_download_title" = "الدليل جاهز للتحميل";
 

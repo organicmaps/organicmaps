@@ -1312,22 +1312,6 @@
 
 "whatsnew_editor_message_2" = "* OMaps käyttää OpenStreetMap -yhteisön dataa.";
 
-"onboarding_offline_navigation_title" = "Et eksy enää koskaan";
-
-"onboarding_offline_navigation_message" = "Suunnittele ihanteellinen autoilu- tai kävelyreitti jopa ilman Internet-yhteyttä!";
-
-"onboarding_offline_navigation_title_2" = "Offline-navigointi";
-
-"onboarding_offline_navigation_message_2" = "Suunnittele ihanteelliset autoilu- ja kävelyreitit.";
-
-"onboarding_offline_maps_title" = "OMaps — koko maailman kartat ilman Internet-yhteyttä";
-
-"onboarding_offline_maps_message" = "Lataa haluamasi alueen kartat yhden kerran ja voit käyttää navigointi- ja hakutoimintoja ilman Internet-yhteyttä.";
-
-"onboarding_notifications_message" = "Ota päivitysilmoitukset käyttöön saadaksesi tuoreimmat kartat";
-
-"onboarding_notifications_title" = "Ota päivitysilmoitukset käyttöön";
-
 "onboarding_location_title" = "Auta meitä löytämään sinut";
 
 "onboarding_location_message" = "Tarvitsemme sijaintisi käyttääksemme navigointia ja muita ominaisuuksia.";
@@ -1335,8 +1319,6 @@
 "onboarding_permissions_title" = "Anna OMaps:lle tallennustilan ja sijainnin käyttöoikeus";
 
 "onboarding_permissions_message" = "Jotta voisit ladata karttoja, nähdä lähistöllä olevat paikan ja liikenteen sekä käyttää navigointia.";
-
-"onboarding_welcome_second_subtitle" = "Käynnistämällä sovelluksen hyväksyt <a href=\"%s\">käyttöehdot</a> ja <a href=\"%s\">tietosuojakäytännön</a>.";
 
 "dialog_incorrect_feature_position" = "Vaihda sijaintia";
 
@@ -1898,15 +1880,6 @@
 "routing_add_start_point" = "Lisää alkupiste reitin suunnittelua varten";
 
 "routing_add_finish_point" = "Lisää määränpää reitin suunnittelua varten";
-
-"onboarding_welcome_message" = "Ilmaiset, nopeat, yksityiskohtaiset ja offline-tilassa täysin toimivat kartat käännös käännökseltä -navigoinnilla.";
-
-/* нужно как-то выделять документы, чтобы привязать позже ссылки. */
-"onboarding_welcome_agree" = "Käynnistämällä sovelluksen hyväksyt käyttöehdot ja tietosuojakäytännön.";
-
-"button_accept_and_continue" = "Hyväksy ja jatka";
-
-"button_learn_more" = "Lisätietoja";
 
 "onboarding_storage_permissions_title" = "Myönnä käyttöoikeus";
 
@@ -2726,10 +2699,6 @@
 "download_guides_button" = "Mene hakemistoon";
 
 "type.cuisine.uzbek" = "Uzbekistanilainen ruokaa";
-
-"onboarding_welcome_title" = "Suunnittele ja matkusta OMaps:n kanssa";
-
-"onboarding_welcome_first_subtitle" = "Tallenna mielenkiintoisia paikkoja, varaa hotelleja, luo reittejä offline-tilassa";
 
 "onboarding_guide_direct_download_title" = "Opas on valmis ladattavaksi";
 

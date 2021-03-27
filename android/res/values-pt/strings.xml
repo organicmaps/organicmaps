@@ -787,19 +787,10 @@
 	<string name="whatsnew_editor_title">Editar o mapa*</string>
 	<string name="whatsnew_editor_message_1">Adicione novos lugares ao mapa e edite os já existentes diretamente a partir do app.</string>
 	<string name="whatsnew_editor_message_2">* A OMaps utiliza dados da comunidade OpenStreetMap.</string>
-	<string name="onboarding_offline_navigation_title">Nunca mais voltará a perder-se</string>
-	<string name="onboarding_offline_navigation_message">Planeie itinerários ideais de automóvel e a pé, mesmo se não houver ligação à Internet!</string>
-	<string name="onboarding_offline_navigation_title_2">Navegação offline</string>
-	<string name="onboarding_offline_navigation_message_2">Planeie itinerários ideais de automóvel e a pé.</string>
-	<string name="onboarding_offline_maps_title">OMaps — acesse os mapas do mundo inteiro sem internet</string>
-	<string name="onboarding_offline_maps_message">Descarregue uma vez os mapas para a área desejada e utilize as funções de navegação e de pesquisa sem uma ligação à Internet.</string>
-	<string name="onboarding_notifications_message">Para receber os mapas mais recentes, receba notificações de atualizações</string>
-	<string name="onboarding_notifications_title">Ativar as notificações de atualizações</string>
 	<string name="onboarding_location_title">Ajude-nos a encontrá-lo</string>
 	<string name="onboarding_location_message">Para utilizar a navegação e outros recursos, precisamos de aceder à sua localização geográfica.</string>
 	<string name="onboarding_permissions_title">Permitir que o OMaps tenha acesso ao armazenamento e localização</string>
 	<string name="onboarding_permissions_message">Para que possa transferir mapas, ver locais e o trânsito perto e si e utilizar a navegação.</string>
-	<string name="onboarding_welcome_second_subtitle">Ao lançar a aplicação, o utilizador concorda com os &lt;a href="%1$s">Termos de Utilização&lt;/a> e a &lt;a href="%2$s">Política de Privacidade&lt;/a>.</string>
 	<string name="dialog_incorrect_feature_position">Mudar local</string>
 	<string name="message_invalid_feature_position">Um objeto não pode ser posicionado aqui</string>
 	<string name="login_to_make_edits_visible">Inicie sessão para que outros usuários vejam as mudanças que você fez.</string>
@@ -1099,11 +1090,6 @@
 	<string name="core_exit">Sair</string>
 	<string name="routing_add_start_point">Adicionar ponto de partida para planear uma rota</string>
 	<string name="routing_add_finish_point">Adicionar final da viagem para planear uma rota</string>
-	<string name="onboarding_welcome_message">Mapas com navegação curva a curva grátis, rápidos, detalhados e totalmente offline.</string>
-	<!-- нужно как-то выделять документы, чтобы привязать позже ссылки. -->
-	<string name="onboarding_welcome_agree">Ao lançar a aplicação, o utilizador concorda com os Termos de Utilização e a Política de Privacidade.</string>
-	<string name="button_accept_and_continue">Aceitar e continuar</string>
-	<string name="button_learn_more">Saber mais</string>
 	<string name="onboarding_storage_permissions_title">Conceder acesso</string>
 	<string name="onboarding_storage_permissions_message">Alterar configurações de permissões no seu dispositivo. Necessário acesso ao armazenamento para utilizar o OMaps.</string>
 	<string name="button_exit">Sair</string>
@@ -1520,8 +1506,6 @@
 	  <item quantity="other">Baseado em %d comentários</item>
 	</plurals>
 	<string name="type.cuisine.uzbek">Cozinha uzbeque</string>
-	<string name="onboarding_welcome_title">Planeje e viaje com a OMaps</string>
-	<string name="onboarding_welcome_first_subtitle">Salve lugares interessantes, reserve hotéis, crie percursos offline</string>
 	<string name="onboarding_guide_direct_download_title">O guia está pronto para ser iniciado</string>
 	<string name="onboarding_guide_direct_download_subtitle">Será exibido no mapa e funcionará offline</string>
 	<string name="onboarding_guide_direct_download_button">Baixar</string>

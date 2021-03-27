@@ -784,19 +784,10 @@
 	<string name="whatsnew_editor_title">Bewerk de kaart*</string>
 	<string name="whatsnew_editor_message_1">Voeg nieuwe plaatsen toe aan de kaart en bewerk de bestaande rechtstreeks vanuit de app.</string>
 	<string name="whatsnew_editor_message_2">* OMaps gebruikt OpenStreetMap-communitiedata.</string>
-	<string name="onboarding_offline_navigation_title">Je zult nooit meer verdwalen</string>
-	<string name="onboarding_offline_navigation_message">Plan optimale auto- en wandelroutes, zelfs als er geen internetverbinding is!</string>
-	<string name="onboarding_offline_navigation_title_2">Offline navigatie</string>
-	<string name="onboarding_offline_navigation_message_2">Plan optimale auto- en wandelroutes.</string>
-	<string name="onboarding_offline_maps_title">OMaps — toegang tot kaarten van de hele wereld, zonder verbinding met het internet</string>
-	<string name="onboarding_offline_maps_message">Download eenmaal de kaarten voor het gewenste gebied en gebruik de navigatie- en zoekfuncties zonder een internetverbinding.</string>
-	<string name="onboarding_notifications_message">Ontvang update-meldingen om de nieuwste kaarten te ontvangen</string>
-	<string name="onboarding_notifications_title">Schakel update-meldingen in</string>
 	<string name="onboarding_location_title">Help ons om je te vinden</string>
 	<string name="onboarding_location_message">Om de navigatie en andere functies te kunnen gebruiken, hebben we toegang tot je geolocatie nodig.</string>
 	<string name="onboarding_permissions_title">OMaps toegang geven tot opslag en locatie</string>
 	<string name="onboarding_permissions_message">Zodat u kaarten kunt downloaden, plaatsen en verkeer rondom u kunt zien, en navigatie kunt gebruiken.</string>
-	<string name="onboarding_welcome_second_subtitle">Door de toepassing te starten, gaat u akkoord met de &lt;a href="%1$s">Gebruiksvoorwaarden&lt;/a> en het &lt;a href="%2$s">Privacybeleid&lt;/a>.</string>
 	<string name="dialog_incorrect_feature_position">Locatie wijzigen</string>
 	<string name="message_invalid_feature_position">Hier kan geen object worden geplaatst</string>
 	<string name="login_to_make_edits_visible">Log in zodat andere gebruikers kunnen zien wat u hebt gewijzigd.</string>
@@ -1096,11 +1087,6 @@
 	<string name="core_exit">Verlaten</string>
 	<string name="routing_add_start_point">Voeg beginpunt toe om een route te plannen</string>
 	<string name="routing_add_finish_point">Voeg eindpunt toe om een route te plannen</string>
-	<string name="onboarding_welcome_message">Gratis, snelle, gedetailleerde en volledig offline kaarten met turn-by-turn navigatie.</string>
-	<!-- нужно как-то выделять документы, чтобы привязать позже ссылки. -->
-	<string name="onboarding_welcome_agree">Door de applicatie te starten, gaat u akkoord met de Gebruiksvoorwaarden en het Privacybeleid.</string>
-	<string name="button_accept_and_continue">Aanvaarden en doorgaan</string>
-	<string name="button_learn_more">Meer informatie</string>
 	<string name="onboarding_storage_permissions_title">Toegang verlenen</string>
 	<string name="onboarding_storage_permissions_message">Wijzig instellingen machtigingen op uw toestel. Toegang tot opslag nodig voor gebruik OMaps.</string>
 	<string name="button_exit">Verlaten</string>
@@ -1517,8 +1503,6 @@
 	  <item quantity="other">Gebaseerd op %d feedbacks</item>
 	</plurals>
 	<string name="type.cuisine.uzbek">Oezbeekse keuken</string>
-	<string name="onboarding_welcome_title">Plan en reis met OMaps</string>
-	<string name="onboarding_welcome_first_subtitle">Slaat op interessante plaatsen, boek hotels, bouw routen offline</string>
 	<string name="onboarding_guide_direct_download_title">De reisgids is klaar om te downloaden</string>
 	<string name="onboarding_guide_direct_download_subtitle">Hij wordt weergegeven op de kaart en zal offline werken</string>
 	<string name="onboarding_guide_direct_download_button">Downloaden</string>

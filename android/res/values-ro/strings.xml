@@ -774,19 +774,10 @@
 	<string name="whatsnew_editor_title">Editați harta*</string>
 	<string name="whatsnew_editor_message_1">Adăugați locuri noi pe hartă și modificați-le pe cele existente direct din aplicație.</string>
 	<string name="whatsnew_editor_message_2">* OMaps folosește datele comunității OpenStreetMap community.</string>
-	<string name="onboarding_offline_navigation_title">Niciodată nu vă veți rătăci din nou</string>
-	<string name="onboarding_offline_navigation_message">Planificați traseele optime cu mașina și cele pietonale, chiar dacă nu există conexiune la Internet!</string>
-	<string name="onboarding_offline_navigation_title_2">Navigare offline</string>
-	<string name="onboarding_offline_navigation_message_2">Planificați traseele optime cu mașina și cele pietonale.</string>
-	<string name="onboarding_offline_maps_title">OMaps — accesați hărți din întreaga lume fără conexiune Internet</string>
-	<string name="onboarding_offline_maps_message">Descărcați o dată hărțile pentru zona dorită, pentru a naviga și folosi funcțiile de căutare fără conexiune la Internet.</string>
-	<string name="onboarding_notifications_message">Pentru a obține cele mai recente hărți, obțineți notificările de actualizări</string>
-	<string name="onboarding_notifications_title">Activați notificările de actualizări</string>
 	<string name="onboarding_location_title">Ajutați-ne să vă găsim</string>
 	<string name="onboarding_location_message">Ca să puteți naviga și folosi alte funcții, trebuie să accesăm poziționarea dvs. geografică.</string>
 	<string name="onboarding_permissions_title">Permiteți aplicației OMaps accesul la spațiul de stocare și locație</string>
 	<string name="onboarding_permissions_message">Puteți să descărcați hărți, să vedeți locurile și starea traficului din apropiere și să utilizați navigația.</string>
-	<string name="onboarding_welcome_second_subtitle">Lansând aplicația confirmați că sunteți de acord cu &lt;a href="%1$s">Condițiile de utilizare&lt;/a> și &lt;a href="%2$s">Politica de confidențialitate&lt;/a>.</string>
 	<string name="dialog_incorrect_feature_position">Schimbare locație</string>
 	<string name="message_invalid_feature_position">În acest loc nu poate fi localizat un obiect</string>
 	<string name="login_to_make_edits_visible">Autentificați-vă pentru ca modificările pe care le-ați efectuat să poată fi văzute și de alți utilizatori.</string>
@@ -1085,11 +1076,6 @@
 	<string name="core_exit">Ieșire</string>
 	<string name="routing_add_start_point">Adăugați punctul de plecare pentru a planifica un traseu</string>
 	<string name="routing_add_finish_point">Adăugați punctul de sosire pentru a planifica un traseu</string>
-	<string name="onboarding_welcome_message">Hărți gratuite, accesibile și disponibile offline, alături de navigație pas cu pas.</string>
-	<!-- нужно как-то выделять документы, чтобы привязать позже ссылки. -->
-	<string name="onboarding_welcome_agree">Dacă lansați aplicația, confirmați că sunteți de acord cu Condițiile de utilizare și Politica de confidențialitate.</string>
-	<string name="button_accept_and_continue">Acceptare și continuare</string>
-	<string name="button_learn_more">Aflați mai multe</string>
 	<string name="onboarding_storage_permissions_title">Acordați acces</string>
 	<string name="onboarding_storage_permissions_message">Schimbați setările permisiunilor de pe dispozitiv. Pentru a utiliza OMaps este nevoie de acces la spațiul de stocare.</string>
 	<string name="button_exit">Ieșire</string>
@@ -1506,8 +1492,6 @@
 	  <item quantity="other">În baza %d comentariilor</item>
 	</plurals>
 	<string name="type.cuisine.uzbek">Bucătărie uzbecă</string>
-	<string name="onboarding_welcome_title">Planifică și călătorește cu OMaps</string>
-	<string name="onboarding_welcome_first_subtitle">Salvați locurile interesante, rezervați hotele, elaborați trasee</string>
 	<string name="onboarding_guide_direct_download_title">Ghidul este gata pentru a fi încărcat</string>
 	<string name="onboarding_guide_direct_download_subtitle">Se va reflecta pe hartă și va funcționa on-line</string>
 	<string name="onboarding_guide_direct_download_button">De descărcat</string>
