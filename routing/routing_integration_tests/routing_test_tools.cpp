@@ -104,6 +104,9 @@ unique_ptr<IndexRouter> CreateVehicleRouter(DataSource & dataSource,
       numMwmIds->RegisterFile(countryFile);
   }
 
+  // You should have at least one country file to make further tests.
+  TEST(!numMwmIds->IsEmpty(), ());
+
   bool const loadAltitudes = vehicleType != VehicleType::Car;
   auto indexRouter = make_unique<IndexRouter>(vehicleType, loadAltitudes,
                                               *countryParentGetter, countryFileGetter,
