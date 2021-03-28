@@ -40,6 +40,8 @@ protected:
 };
 }  // namespace
 
+/// @todo Need TRAFFIC_DATA_BASE_URL for this test.
+/*
 UNIT_TEST(TrafficInfo_RemoteFile)
 {
   WritableDirChanger writableDirChanger(kMapTestDir);
@@ -68,6 +70,7 @@ UNIT_TEST(TrafficInfo_RemoteFile)
     TEST(trafficInfo.ReceiveTrafficData(etag), ());
   }
 }
+*/
 
 UNIT_TEST(TrafficInfo_Serialization)
 {
