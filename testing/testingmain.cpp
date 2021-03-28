@@ -199,7 +199,10 @@ int main(int argc, char * argv[])
   if (options.m_dataPath)
     pl.SetWritableDirForTests(options.m_dataPath);
   if (options.m_resourcePath)
+  {
     pl.SetResourceDir(options.m_resourcePath);
+    pl.SetSettingsDir(options.m_resourcePath);
+  }
 #endif
 
   for (TestRegister * test = TestRegister::FirstRegister(); test; test = test->m_next)
