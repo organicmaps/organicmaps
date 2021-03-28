@@ -771,10 +771,6 @@
 	<string name="whatsnew_editor_title">Muokkaa karttaa*</string>
 	<string name="whatsnew_editor_message_1">Lisää karttaan uusia paikkoja ja muokkaa sovelluksessa olevia karttoja suoraan sovelluksessa.</string>
 	<string name="whatsnew_editor_message_2">* OMaps käyttää OpenStreetMap -yhteisön dataa.</string>
-	<string name="onboarding_location_title">Auta meitä löytämään sinut</string>
-	<string name="onboarding_location_message">Tarvitsemme sijaintisi käyttääksemme navigointia ja muita ominaisuuksia.</string>
-	<string name="onboarding_permissions_title">Anna OMaps:lle tallennustilan ja sijainnin käyttöoikeus</string>
-	<string name="onboarding_permissions_message">Jotta voisit ladata karttoja, nähdä lähistöllä olevat paikan ja liikenteen sekä käyttää navigointia.</string>
 	<string name="dialog_incorrect_feature_position">Vaihda sijaintia</string>
 	<string name="message_invalid_feature_position">Kohdetta ei voida asettaa tänne</string>
 	<string name="login_to_make_edits_visible">Kirjaudu sisään jotta muut käyttäjät voivat nähdä tekemäsi muokkaukset.</string>
@@ -1075,10 +1071,6 @@
 	<string name="routing_add_start_point">Lisää alkupiste reitin suunnittelua varten</string>
 	<string name="routing_add_finish_point">Lisää määränpää reitin suunnittelua varten</string>
 	<string name="button_exit">Poistu</string>
-	<string name="onboarding_detail_permissions_title">OMaps tarvitsee seuraavat käyttöoikeudet:</string>
-	<!-- Default permission's name from Android settings. -->
-	<string name="onboarding_detail_permissions_location_title">Sijainti</string>
-	<string name="onboarding_detail_permissions_location_message">Jotta voisit nähdä lähistöllä olevia paikkoja ja liikenteen sekä käyttää navigointia.</string>
 	<string name="settings_device_memory">Laitteen muisti</string>
 	<string name="settings_card_memory">Muistkortti</string>
 	<string name="settings_storage_available">%s käytettävissä</string>

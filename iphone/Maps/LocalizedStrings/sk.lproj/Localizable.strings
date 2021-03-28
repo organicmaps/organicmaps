@@ -1303,14 +1303,6 @@
 
 "whatsnew_editor_message_2" = "* OMaps využíva dáta komunity OpenStreetMap.";
 
-"onboarding_location_title" = "Pomôžte nám a my vás nájdeme";
-
-"onboarding_location_message" = "Ak chcete používať navigáciu a ostatné funkcie, potrebujeme prístup k vašej aktuálnej polohe.";
-
-"onboarding_permissions_title" = "Povoliť aplikácii OMaps prístup do ukladacieho priestoru a k polohe";
-
-"onboarding_permissions_message" = "Tak si budete môcť sťahovať mapy, prezerať miesta a dopravnú situáciu vo svojom okolí a používať navigáciu.";
-
 "dialog_incorrect_feature_position" = "Zmeniť polohu";
 
 "message_invalid_feature_position" = "Objekt sa tu nedá umiestniť";
@@ -1873,13 +1865,6 @@
 "routing_add_finish_point" = "Pridaním cieľového bodu naplánujete trasu";
 
 "button_exit" = "Ukončiť";
-
-"onboarding_detail_permissions_title" = "Aplikácia OMaps si vyžaduje prístup k";
-
-/* Default permission's name from Android settings. */
-"onboarding_detail_permissions_location_title" = "Poloha";
-
-"onboarding_detail_permissions_location_message" = "Na zobrazovanie miest a dopravnej situácie v okolí a používanie navigácie.";
 
 "settings_device_memory" = "Pamäť zariadenia";
 

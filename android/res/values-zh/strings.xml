@@ -777,10 +777,6 @@
 	<string name="whatsnew_editor_title">编辑此地图*</string>
 	<string name="whatsnew_editor_message_1">添加新地点到该地图，并直接通过此应用编辑已存在的地点。</string>
 	<string name="whatsnew_editor_message_2">* OMaps使用OpenStreetMap社区的数据。</string>
-	<string name="onboarding_location_title">帮助我们找到您</string>
-	<string name="onboarding_location_message">为了使用导航和其他功能，我们需要访问您的地理位置信息.</string>
-	<string name="onboarding_permissions_title">允许 OMaps 访问存储空间和地点</string>
-	<string name="onboarding_permissions_message">因此，您可以下载地图，查看您附近的地点和交通状况并使用导航。</string>
 	<string name="dialog_incorrect_feature_position">改变位置</string>
 	<string name="message_invalid_feature_position">对象无法设置在这里</string>
 	<string name="login_to_make_edits_visible">登陆，让其他用户能看到您所作出的修改。</string>
@@ -1081,10 +1077,6 @@
 	<string name="routing_add_start_point">添加起点以规划路线</string>
 	<string name="routing_add_finish_point">添加终点以规划路线</string>
 	<string name="button_exit">退出</string>
-	<string name="onboarding_detail_permissions_title">OMaps 需要以下访问权限</string>
-	<!-- Default permission's name from Android settings. -->
-	<string name="onboarding_detail_permissions_location_title">地点</string>
-	<string name="onboarding_detail_permissions_location_message">查看您附近的地点和交通状况并使用导航。</string>
 	<string name="settings_device_memory">设备内存</string>
 	<string name="settings_card_memory">存储卡</string>
 	<string name="settings_storage_available">%s 可用</string>

@@ -770,10 +770,6 @@
 	<string name="whatsnew_editor_title">Edit peta*</string>
 	<string name="whatsnew_editor_message_1">Tambahkan tempat-tempat baru di peta, dan edit peta-peta yang ada langsung dari aplikasi.</string>
 	<string name="whatsnew_editor_message_2">* OMaps menggunakan data komunitas OpenStreetMap.</string>
-	<string name="onboarding_location_title">Membantu kami menemukan Anda</string>
-	<string name="onboarding_location_message">Untuk menggunakan navigasi dan fitur-fitur lainnya, kami perlu mengakses geolokasi Anda.</string>
-	<string name="onboarding_permissions_title">Izinkan OMaps mengakses penyimpanan dan lokasi</string>
-	<string name="onboarding_permissions_message">Agar Anda dapat mengunduh peta, melihat tempat dan lalu lintas di dekat Anda, dan menggunakan navigasi.</string>
 	<string name="dialog_incorrect_feature_position">Ubah lokasi</string>
 	<string name="message_invalid_feature_position">Objek tidak dapat diletakkan di sini</string>
 	<string name="login_to_make_edits_visible">Masuk agar pengguna lain dapat melihat perubahan yang Anda buat.</string>
@@ -1074,10 +1070,6 @@
 	<string name="routing_add_start_point">Tambahkan titik awal untuk merencanakan rute</string>
 	<string name="routing_add_finish_point">Tambahkan titik akhir untuk merencanakan rute</string>
 	<string name="button_exit">Keluar</string>
-	<string name="onboarding_detail_permissions_title">OMaps membutuhkan akses ke</string>
-	<!-- Default permission's name from Android settings. -->
-	<string name="onboarding_detail_permissions_location_title">Lokasi</string>
-	<string name="onboarding_detail_permissions_location_message">Untuk melihat tempat dan lalu lintas di dekat Anda dan menggunakan navigasi.</string>
 	<string name="settings_device_memory">Memori perangkat</string>
 	<string name="settings_card_memory">Memori kartu</string>
 	<string name="settings_storage_available">%s tersedia</string>

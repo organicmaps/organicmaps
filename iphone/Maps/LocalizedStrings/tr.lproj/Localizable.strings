@@ -1303,14 +1303,6 @@
 
 "whatsnew_editor_message_2" = "* OMaps, OpenStreetMap topluluğu verilerini kullanmaktadır.";
 
-"onboarding_location_title" = "Sizi bulmamıza yardım edin";
-
-"onboarding_location_message" = "Navigasyon ve diğer özellikleri kullanmak için konum belirlemenize erişmeye ihtiyacımız var.";
-
-"onboarding_permissions_title" = "OMaps'nin depolama alanına ve konum bilgilerine erişmesine izin verin";
-
-"onboarding_permissions_message" = "Böylece haritaları indirebilir, size yakın olan yerleri ve trafik bilgilerini görebilir ve navigasyonu kullanabilirsiniz.";
-
 "dialog_incorrect_feature_position" = "Konumu değiştir";
 
 "message_invalid_feature_position" = "Buraya bir nesne konumlandırılamıyor";
@@ -1873,13 +1865,6 @@
 "routing_add_finish_point" = "Güzergâhı planlamak için bir varış noktası ekleyin";
 
 "button_exit" = "Çık";
-
-"onboarding_detail_permissions_title" = "OMaps'nin şuraya erişmesi gerekiyor:";
-
-/* Default permission's name from Android settings. */
-"onboarding_detail_permissions_location_title" = "Konum";
-
-"onboarding_detail_permissions_location_message" = "Yakınınızdaki yerleri ve trafiği görmek ve navigasyonu kullanmak.";
 
 "settings_device_memory" = "Cihaz belleği";
 

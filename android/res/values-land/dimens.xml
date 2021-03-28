@@ -19,11 +19,6 @@
 
   <dimen name="start_button_width">128dp</dimen>
 
-  <dimen name="permissions_title_top_margin">52dp</dimen>
-  <dimen name="permissions_title_bottom_margin">@dimen/margin_half</dimen>
-  <dimen name="permissions_title_note_margin">@dimen/margin_half</dimen>
-  <dimen name="permissions_items_margin">@dimen/margin_half</dimen>
-
   <!-- Purchases-->
   <dimen name="ads_removal_dialog_min_height">360dp</dimen>
 </resources>

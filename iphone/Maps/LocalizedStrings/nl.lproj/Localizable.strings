@@ -1303,14 +1303,6 @@
 
 "whatsnew_editor_message_2" = "* OMaps gebruikt OpenStreetMap-communitiedata.";
 
-"onboarding_location_title" = "Help ons om je te vinden";
-
-"onboarding_location_message" = "Om de navigatie en andere functies te kunnen gebruiken, hebben we toegang tot je geolocatie nodig.";
-
-"onboarding_permissions_title" = "OMaps toegang geven tot opslag en locatie";
-
-"onboarding_permissions_message" = "Zodat u kaarten kunt downloaden, plaatsen en verkeer rondom u kunt zien, en navigatie kunt gebruiken.";
-
 "dialog_incorrect_feature_position" = "Locatie wijzigen";
 
 "message_invalid_feature_position" = "Hier kan geen object worden geplaatst";
@@ -1873,13 +1865,6 @@
 "routing_add_finish_point" = "Voeg eindpunt toe om een route te plannen";
 
 "button_exit" = "Verlaten";
-
-"onboarding_detail_permissions_title" = "OMaps heeft toegang nodig tot";
-
-/* Default permission's name from Android settings. */
-"onboarding_detail_permissions_location_title" = "Locatie";
-
-"onboarding_detail_permissions_location_message" = "Om plaatsen en verkeer rondom u te zien en navigatie te gebruiken.";
 
 "settings_device_memory" = "Apparaatgeheugen";
 

@@ -768,10 +768,6 @@
 	<string name="whatsnew_editor_title">Editați harta*</string>
 	<string name="whatsnew_editor_message_1">Adăugați locuri noi pe hartă și modificați-le pe cele existente direct din aplicație.</string>
 	<string name="whatsnew_editor_message_2">* OMaps folosește datele comunității OpenStreetMap community.</string>
-	<string name="onboarding_location_title">Ajutați-ne să vă găsim</string>
-	<string name="onboarding_location_message">Ca să puteți naviga și folosi alte funcții, trebuie să accesăm poziționarea dvs. geografică.</string>
-	<string name="onboarding_permissions_title">Permiteți aplicației OMaps accesul la spațiul de stocare și locație</string>
-	<string name="onboarding_permissions_message">Puteți să descărcați hărți, să vedeți locurile și starea traficului din apropiere și să utilizați navigația.</string>
 	<string name="dialog_incorrect_feature_position">Schimbare locație</string>
 	<string name="message_invalid_feature_position">În acest loc nu poate fi localizat un obiect</string>
 	<string name="login_to_make_edits_visible">Autentificați-vă pentru ca modificările pe care le-ați efectuat să poată fi văzute și de alți utilizatori.</string>
@@ -1071,10 +1067,6 @@
 	<string name="routing_add_start_point">Adăugați punctul de plecare pentru a planifica un traseu</string>
 	<string name="routing_add_finish_point">Adăugați punctul de sosire pentru a planifica un traseu</string>
 	<string name="button_exit">Ieșire</string>
-	<string name="onboarding_detail_permissions_title">OMaps necesită acces la</string>
-	<!-- Default permission's name from Android settings. -->
-	<string name="onboarding_detail_permissions_location_title">Locație</string>
-	<string name="onboarding_detail_permissions_location_message">Pentru a vedea locurile și traficul din apropiere și a utiliza navigația.</string>
 	<string name="settings_device_memory">Memoria dispozitivului</string>
 	<string name="settings_card_memory">Card</string>
 	<string name="settings_storage_available">%s disponibil</string>

@@ -751,10 +751,6 @@
 	<string name="whatsnew_editor_title">ویرایش نقشه*</string>
 	<string name="whatsnew_editor_message_1">اضافه کردن مکان به نقشه و ویرایش ان مستقیما از طریق این اپلیکیشن.</string>
 	<string name="whatsnew_editor_message_2">* OMaps از دیتای انجمن  OpenStreetMap.</string>
-	<string name="onboarding_location_title">کمک کنید تا شما را بیابیم</string>
-	<string name="onboarding_location_message">به منظور استفاده شما از ناوبری و دیگر ویژگی های این اپلیکیشن OMaps نیازمند دسترسی به موقعیت مکانی تان است.</string>
-	<string name="onboarding_permissions_title">به OMaps اجازه دسترسی به محل ذخیره سازی و موقعیت مکانی خود را بدهید.</string>
-	<string name="onboarding_permissions_message">خب شما می تونید نقشه رو دانلود کنید و مکان های دور اطراف را به همراه حجم ترافیک دوروبرتان ببینید و از مسیر یابی استفاده کنید.</string>
 	<string name="dialog_incorrect_feature_position">تغییر موقعیت</string>
 	<string name="message_invalid_feature_position">نمی توان شی ای در این مکان باشد</string>
 	<string name="login_to_make_edits_visible">وارد شوید تا دیگر کاربران نیز بتوانند تغییرات ایجاد شده توسط شما را ببینند</string>
@@ -1034,10 +1030,6 @@
 	<string name="routing_add_start_point">یک نقطه شروع برای برنامه ریزی یک مسیر اضافه کنید</string>
 	<string name="routing_add_finish_point">یک مقصد برای برنامه ریزی یک مسیر اضافه کنید</string>
 	<string name="button_exit">خروج</string>
-	<string name="onboarding_detail_permissions_title">OMaps نیاز به دسترسی دارد</string>
-	<!-- Default permission's name from Android settings. -->
-	<string name="onboarding_detail_permissions_location_title">موقعیت</string>
-	<string name="onboarding_detail_permissions_location_message">برای دیدن مکان ها و ترافیک در نزدیکی شما و استفاده از ناوبری.</string>
 	<string name="settings_device_memory">حافظه دستگاه</string>
 	<string name="settings_card_memory">کارت حافظه</string>
 	<string name="settings_storage_available">%s موجود</string>

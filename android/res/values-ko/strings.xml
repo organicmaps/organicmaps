@@ -773,10 +773,6 @@
 	<string name="whatsnew_editor_title">지도 편집*</string>
 	<string name="whatsnew_editor_message_1">지도에 새로운 장소를 추가하고 응용 프로그램에서 직접 기존 편집 할 수 있습니다.</string>
 	<string name="whatsnew_editor_message_2">* OMaps는 OpenStreetMap 커뮤니티 데이터를 사용합니다.</string>
-	<string name="onboarding_location_title">사용자를 찾도록 돕기</string>
-	<string name="onboarding_location_message">탐색 및 기타 기능을 사용하려면, 위치 정보에 액세스해야 합니다.</string>
-	<string name="onboarding_permissions_title">저장소 및 위치에 대한 OMaps 액세스 허용</string>
-	<string name="onboarding_permissions_message">따라서 지도를 다운로드하고, 근처의 장소와 교통 상황을 보고, 네비게이션을 사용할 수 있습니다.</string>
 	<string name="dialog_incorrect_feature_position">위치 변경</string>
 	<string name="message_invalid_feature_position">목적지를 이곳에서 찾을 수 없습니다</string>
 	<string name="login_to_make_edits_visible">로그인하여 다른 사용자가 변경한 내용을 볼 수 있도록 하십시오.</string>
@@ -1077,10 +1073,6 @@
 	<string name="routing_add_start_point">경로 계획을 세우기 위한 시작 지점을 추가하세요</string>
 	<string name="routing_add_finish_point">경로 계획을 세우기 위한 끝 지점을 추가하세요</string>
 	<string name="button_exit">끝내기</string>
-	<string name="onboarding_detail_permissions_title">OMaps에는 다음에 대한 액세스가 필요합니다:</string>
-	<!-- Default permission's name from Android settings. -->
-	<string name="onboarding_detail_permissions_location_title">위치</string>
-	<string name="onboarding_detail_permissions_location_message">근처의 장소와 교통 상황을 보고 네비게이션을 사용하기 위한 것입니다.</string>
 	<string name="settings_device_memory">장치 메모리</string>
 	<string name="settings_card_memory">카드 메모리</string>
 	<string name="settings_storage_available">%s 사용 가능</string>

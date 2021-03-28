@@ -779,10 +779,6 @@
 	<string name="whatsnew_editor_title">Upravit mapu*</string>
 	<string name="whatsnew_editor_message_1">Přidejte na mapu nová místa a upravte existující místa přímo z aplikace.</string>
 	<string name="whatsnew_editor_message_2">* OMaps používá komunitní data OpenStreetMap.</string>
-	<string name="onboarding_location_title">Pomozte nám vás najít</string>
-	<string name="onboarding_location_message">Chcete-li používat navigaci a další funkce, pak potřebujeme přístup k vaší zeměpisné poloze.</string>
-	<string name="onboarding_permissions_title">Povolte OMaps přístup k úložišti a určení polohy</string>
-	<string name="onboarding_permissions_message">Tím umožníte stahování map, zobrazovat místa a dopravu ve vaší blízkosti a používat navigaci.</string>
 	<string name="dialog_incorrect_feature_position">Změnit umístění</string>
 	<string name="message_invalid_feature_position">Objekt zde nemůže být umístěn</string>
 	<string name="login_to_make_edits_visible">Přihlaste se, aby ostatní uživatelé mohli vidět změny, které jste provedli.</string>
@@ -1083,10 +1079,6 @@
 	<string name="routing_add_start_point">Zadejte výchozí bod pro plánování trasy</string>
 	<string name="routing_add_finish_point">Zadejte cílový bod pro plánování trasy</string>
 	<string name="button_exit">Ukončit</string>
-	<string name="onboarding_detail_permissions_title">OMaps vyžaduje přístup k</string>
-	<!-- Default permission's name from Android settings. -->
-	<string name="onboarding_detail_permissions_location_title">Určení polohy</string>
-	<string name="onboarding_detail_permissions_location_message">Umožní to zobrazení míst a dopravy ve vaší blízkosti a použití navigace.</string>
 	<string name="settings_device_memory">Paměť zařízení</string>
 	<string name="settings_card_memory">Paměťovou kartu</string>
 	<string name="settings_storage_available">%s k dispozici</string>

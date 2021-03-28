@@ -778,10 +778,6 @@
 	<string name="whatsnew_editor_title">Bewerk de kaart*</string>
 	<string name="whatsnew_editor_message_1">Voeg nieuwe plaatsen toe aan de kaart en bewerk de bestaande rechtstreeks vanuit de app.</string>
 	<string name="whatsnew_editor_message_2">* OMaps gebruikt OpenStreetMap-communitiedata.</string>
-	<string name="onboarding_location_title">Help ons om je te vinden</string>
-	<string name="onboarding_location_message">Om de navigatie en andere functies te kunnen gebruiken, hebben we toegang tot je geolocatie nodig.</string>
-	<string name="onboarding_permissions_title">OMaps toegang geven tot opslag en locatie</string>
-	<string name="onboarding_permissions_message">Zodat u kaarten kunt downloaden, plaatsen en verkeer rondom u kunt zien, en navigatie kunt gebruiken.</string>
 	<string name="dialog_incorrect_feature_position">Locatie wijzigen</string>
 	<string name="message_invalid_feature_position">Hier kan geen object worden geplaatst</string>
 	<string name="login_to_make_edits_visible">Log in zodat andere gebruikers kunnen zien wat u hebt gewijzigd.</string>
@@ -1082,10 +1078,6 @@
 	<string name="routing_add_start_point">Voeg beginpunt toe om een route te plannen</string>
 	<string name="routing_add_finish_point">Voeg eindpunt toe om een route te plannen</string>
 	<string name="button_exit">Verlaten</string>
-	<string name="onboarding_detail_permissions_title">OMaps heeft toegang nodig tot</string>
-	<!-- Default permission's name from Android settings. -->
-	<string name="onboarding_detail_permissions_location_title">Locatie</string>
-	<string name="onboarding_detail_permissions_location_message">Om plaatsen en verkeer rondom u te zien en navigatie te gebruiken.</string>
 	<string name="settings_device_memory">Apparaatgeheugen</string>
 	<string name="settings_card_memory">Kaartgeheugen</string>
 	<string name="settings_storage_available">%s beschikbaar</string>

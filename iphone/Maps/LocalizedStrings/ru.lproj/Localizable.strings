@@ -1303,14 +1303,6 @@
 
 "whatsnew_editor_message_2" = "* OMaps использует данные открытых карт сообщества OpenStreetMap.";
 
-"onboarding_location_title" = "Помогите найти вас";
-
-"onboarding_location_message" = "Чтобы пользоваться навигацией и другими функциями приложения, нам необходим доступ к вашей геопозиции.";
-
-"onboarding_permissions_title" = "Предоставьте OMaps доступ к памяти и местоположению.";
-
-"onboarding_permissions_message" = "Чтобы скачивать карты, смотреть места вокруг вас и пользоваться навигацией.";
-
 "dialog_incorrect_feature_position" = "Измените местоположение";
 
 "message_invalid_feature_position" = "Объект не может находиться в этом месте";
@@ -1873,13 +1865,6 @@
 "routing_add_finish_point" = "Добавьте конечную точку, чтобы построить маршрут";
 
 "button_exit" = "Выход";
-
-"onboarding_detail_permissions_title" = "OMaps нужен доступ к";
-
-/* Default permission's name from Android settings. */
-"onboarding_detail_permissions_location_title" = "Местоположение";
-
-"onboarding_detail_permissions_location_message" = "Чтобы смотреть места и пробки рядом с вами и пользоваться навигацией.";
 
 "settings_device_memory" = "Память устроства";
 

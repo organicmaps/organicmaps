@@ -785,10 +785,6 @@
 	<string name="whatsnew_editor_title">Karte bearbeiten*</string>
 	<string name="whatsnew_editor_message_1">Fügen Sie auf der Karte einen neuen Ort hinzu und bearbeiten Sie existierende Ort direkt in der App.</string>
 	<string name="whatsnew_editor_message_2">* OMaps verwendet Community-Daten von OpenStreetMap.</string>
-	<string name="onboarding_location_title">Helfen Sie uns dabei, Sie zu finden</string>
-	<string name="onboarding_location_message">Um Navigation und andere Funktionen zu verwenden, brauchen wir Zugriff auf Ihren Geo-Standort.</string>
-	<string name="onboarding_permissions_title">Erlauben Sie OMaps, auf Speicher und Standort zuzugreifen</string>
-	<string name="onboarding_permissions_message">So können Sie Karten herunterladen, Orte und Verkehrslage in Ihrer Nähe sehen und die Navigation nutzen.</string>
 	<string name="dialog_incorrect_feature_position">Standort wechseln</string>
 	<string name="message_invalid_feature_position">Ein Objekt kann hier nicht positioniert werden</string>
 	<string name="login_to_make_edits_visible">Melden Sie sich an, damit andere Benutzer Ihre Änderungen sehen können.</string>
@@ -1089,10 +1085,6 @@
 	<string name="routing_add_start_point">Fügen Sie einen Startpunkt hinzu, um eine Route zu planen</string>
 	<string name="routing_add_finish_point">Fügen Sie ein Ziel hinzu, um eine Route zu planen</string>
 	<string name="button_exit">Beenden</string>
-	<string name="onboarding_detail_permissions_title">OMaps benötigt Zugriff auf</string>
-	<!-- Default permission's name from Android settings. -->
-	<string name="onboarding_detail_permissions_location_title">Standort</string>
-	<string name="onboarding_detail_permissions_location_message">Um Orte und Verkehrslage in Ihrer Nähe zu sehen und die Navigation zu nutzen.</string>
 	<string name="settings_device_memory">Gerätespeicher</string>
 	<string name="settings_card_memory">Speicherkarte</string>
 	<string name="settings_storage_available">%s verfügbar</string>

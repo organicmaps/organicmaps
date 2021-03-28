@@ -1303,14 +1303,6 @@
 
 "whatsnew_editor_message_2" = "* OMaps使用OpenStreetMap社区的数据。";
 
-"onboarding_location_title" = "帮助我们找到您";
-
-"onboarding_location_message" = "为了使用导航和其他功能，我们需要访问您的地理位置信息.";
-
-"onboarding_permissions_title" = "允许 OMaps 访问存储空间和地点";
-
-"onboarding_permissions_message" = "因此，您可以下载地图，查看您附近的地点和交通状况并使用导航。";
-
 "dialog_incorrect_feature_position" = "改变位置";
 
 "message_invalid_feature_position" = "对象无法设置在这里";
@@ -1873,13 +1865,6 @@
 "routing_add_finish_point" = "添加终点以规划路线";
 
 "button_exit" = "退出";
-
-"onboarding_detail_permissions_title" = "OMaps 需要以下访问权限";
-
-/* Default permission's name from Android settings. */
-"onboarding_detail_permissions_location_title" = "地点";
-
-"onboarding_detail_permissions_location_message" = "查看您附近的地点和交通状况并使用导航。";
 
 "settings_device_memory" = "设备内存";
 

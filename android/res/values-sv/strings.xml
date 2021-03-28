@@ -777,10 +777,6 @@
 	<string name="whatsnew_editor_title">Redigera kartan*</string>
 	<string name="whatsnew_editor_message_1">Lägg till nya platser till kartan och redigera de befintliga direkt från appen.</string>
 	<string name="whatsnew_editor_message_2">* OMaps använder data från OpenStreetMaps community.</string>
-	<string name="onboarding_location_title">Hjälp oss att hitta dig</string>
-	<string name="onboarding_location_message">För att använda navigering och andra funktioner behöver vi tillgång till din geografiska plats.</string>
-	<string name="onboarding_permissions_title">Ge OMaps åtkomst till lagring och plats</string>
-	<string name="onboarding_permissions_message">Så att du kan ladda ned kartor, visa platser och trafik i närheten och använda navigering.</string>
 	<string name="dialog_incorrect_feature_position">Ändra placering</string>
 	<string name="message_invalid_feature_position">Ett objekt kan inte placeras här</string>
 	<string name="login_to_make_edits_visible">Logga in så att andra användare kan se de ändringar du gjort.</string>
@@ -1081,10 +1077,6 @@
 	<string name="routing_add_start_point">Lägg till startpunkt för att planera en rutt</string>
 	<string name="routing_add_finish_point">Lägg till slutpunkt för att planera en rutt</string>
 	<string name="button_exit">Avsluta</string>
-	<string name="onboarding_detail_permissions_title">OMaps behöver åtkomst till</string>
-	<!-- Default permission's name from Android settings. -->
-	<string name="onboarding_detail_permissions_location_title">Plats</string>
-	<string name="onboarding_detail_permissions_location_message">För att visa platser och trafik i närheten och använda navigering.</string>
 	<string name="settings_device_memory">Enhetens minne</string>
 	<string name="settings_card_memory">Kortets minne</string>
 	<string name="settings_storage_available">%s tillgängligt</string>

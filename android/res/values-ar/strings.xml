@@ -783,10 +783,6 @@
 	<string name="whatsnew_editor_title">تعديل الخريطة *</string>
 	<string name="whatsnew_editor_message_1">قم بإضافة أماكن جديدة للخريطة، وعدل أماكن حالية مباشرة من التطبيق.</string>
 	<string name="whatsnew_editor_message_2">*تستخدم OMaps البيانات الخاصة بخريطة OpenStreetMap.</string>
-	<string name="onboarding_location_title">ساعدنا في العثور عليك</string>
-	<string name="onboarding_location_message">لاستخدام الملاحة والميزات الأخرى، فنحن بحاجة إلى تحديد موقعك الجغرافي.</string>
-	<string name="onboarding_permissions_title">السماح لـ OMaps بالوصول إلى ذاكرة التخزين والموقع</string>
-	<string name="onboarding_permissions_message">من ثم يمكنك تنزيل الخرائط وعرض الأماكن وحركة المرور القريبة منك استخدام الملاحة.</string>
 	<string name="dialog_incorrect_feature_position">تغيير الموقع</string>
 	<string name="message_invalid_feature_position">لا يمكن تحديد موقع الكائن هنا</string>
 	<string name="login_to_make_edits_visible">قم بتسجيل الدخول حتى يتمكن باقي المستخدمين من رؤية التغييرات التي قمت بها.</string>
@@ -1087,10 +1083,6 @@
 	<string name="routing_add_start_point">أضف نقطة البداية لتخطيط المسار</string>
 	<string name="routing_add_finish_point">أضف النهاية لتخطيط المسار</string>
 	<string name="button_exit">خروج</string>
-	<string name="onboarding_detail_permissions_title">OMaps يحتاج إلى الوصول إلى</string>
-	<!-- Default permission's name from Android settings. -->
-	<string name="onboarding_detail_permissions_location_title">الموقع</string>
-	<string name="onboarding_detail_permissions_location_message">لعرض الأماكن وحركة المرور القريبة منك واستخدام الملاحة.</string>
 	<string name="settings_device_memory">ذاكرة الجهاز</string>
 	<string name="settings_card_memory">بطاقة الذاكرة</string>
 	<string name="settings_storage_available">%s متوفر</string>

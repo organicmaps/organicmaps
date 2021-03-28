@@ -783,10 +783,6 @@
 	<string name="whatsnew_editor_title">แก้ไขแผนที่*</string>
 	<string name="whatsnew_editor_message_1">เพิ่มสถานที่ใหม่ ๆ ไปยังแผนที่ และแก้ไขสถานที่ที่มีอยู่เดิมจากแอปโดยตรง</string>
 	<string name="whatsnew_editor_message_2">* OMaps ใช้ข้อมูลจากชุมชน OpenStreetMap</string>
-	<string name="onboarding_location_title">ช่วยให้เราค้นหาคุณ</string>
-	<string name="onboarding_location_message">เพื่อใช้การนำทางและฟีเจอร์อื่น ๆ เราต้องการเข้าถึงตำแหน่งทางภูมิศาสตร์ของคุณ</string>
-	<string name="onboarding_permissions_title">อนุญาตให้ OMaps เข้าถึงที่เก็บข้อมูลและตำแหน่งที่ตั้ง</string>
-	<string name="onboarding_permissions_message">เพื่อที่คุณจะได้สามารถดาวน์โหลดแผนที่ ดูสถานที่ต่าง ๆ และการจราจรที่อยู่ใกล้ ๆ คุณแล้วใช้งานการนำทางได้</string>
 	<string name="dialog_incorrect_feature_position">เปลี่ยนสถานที่ตั้ง</string>
 	<string name="message_invalid_feature_position">ไม่สามารถตั้งวัตถุได้ที่นี่</string>
 	<string name="login_to_make_edits_visible">ล็อกอินเพื่อให้ผู้ใช้คนอื่นสามารถเห็นการเปลี่ยนแปลงของคุณได้</string>
@@ -1087,10 +1083,6 @@
 	<string name="routing_add_start_point">เพิ่มจุดเริ่มต้นเพื่อวางแผนเส้นทาง</string>
 	<string name="routing_add_finish_point">เพิ่มจุดสิ้นสุดเพื่อวางแผนเส้นทาง</string>
 	<string name="button_exit">ออก</string>
-	<string name="onboarding_detail_permissions_title">OMaps จำเป็นต้องได้สิทธิ์การเข้าถึง</string>
-	<!-- Default permission's name from Android settings. -->
-	<string name="onboarding_detail_permissions_location_title">ตำแหน่งที่ตั้ง</string>
-	<string name="onboarding_detail_permissions_location_message">เพื่อดูสถานที่ต่าง ๆ และการจราจรที่อยู่ใกล้ ๆ คุณแล้วใช้งานการนำทาง</string>
 	<string name="settings_device_memory">หน่วยความจำเครื่อง</string>
 	<string name="settings_card_memory">หน่วยความจำการ์ด</string>
 	<string name="settings_storage_available">เหลือให้ใช้ได้ %s</string>

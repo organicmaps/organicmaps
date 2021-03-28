@@ -1303,14 +1303,6 @@
 
 "whatsnew_editor_message_2" = "* OMaps ใช้ข้อมูลจากชุมชน OpenStreetMap";
 
-"onboarding_location_title" = "ช่วยให้เราค้นหาคุณ";
-
-"onboarding_location_message" = "เพื่อใช้การนำทางและฟีเจอร์อื่น ๆ เราต้องการเข้าถึงตำแหน่งทางภูมิศาสตร์ของคุณ";
-
-"onboarding_permissions_title" = "อนุญาตให้ OMaps เข้าถึงที่เก็บข้อมูลและตำแหน่งที่ตั้ง";
-
-"onboarding_permissions_message" = "เพื่อที่คุณจะได้สามารถดาวน์โหลดแผนที่ ดูสถานที่ต่าง ๆ และการจราจรที่อยู่ใกล้ ๆ คุณแล้วใช้งานการนำทางได้";
-
 "dialog_incorrect_feature_position" = "เปลี่ยนสถานที่ตั้ง";
 
 "message_invalid_feature_position" = "ไม่สามารถตั้งวัตถุได้ที่นี่";
@@ -1873,13 +1865,6 @@
 "routing_add_finish_point" = "เพิ่มจุดสิ้นสุดเพื่อวางแผนเส้นทาง";
 
 "button_exit" = "ออก";
-
-"onboarding_detail_permissions_title" = "OMaps จำเป็นต้องได้สิทธิ์การเข้าถึง";
-
-/* Default permission's name from Android settings. */
-"onboarding_detail_permissions_location_title" = "ตำแหน่งที่ตั้ง";
-
-"onboarding_detail_permissions_location_message" = "เพื่อดูสถานที่ต่าง ๆ และการจราจรที่อยู่ใกล้ ๆ คุณแล้วใช้งานการนำทาง";
 
 "settings_device_memory" = "หน่วยความจำเครื่อง";
 

@@ -1303,14 +1303,6 @@
 
 "whatsnew_editor_message_2" = "* OMaps käyttää OpenStreetMap -yhteisön dataa.";
 
-"onboarding_location_title" = "Auta meitä löytämään sinut";
-
-"onboarding_location_message" = "Tarvitsemme sijaintisi käyttääksemme navigointia ja muita ominaisuuksia.";
-
-"onboarding_permissions_title" = "Anna OMaps:lle tallennustilan ja sijainnin käyttöoikeus";
-
-"onboarding_permissions_message" = "Jotta voisit ladata karttoja, nähdä lähistöllä olevat paikan ja liikenteen sekä käyttää navigointia.";
-
 "dialog_incorrect_feature_position" = "Vaihda sijaintia";
 
 "message_invalid_feature_position" = "Kohdetta ei voida asettaa tänne";
@@ -1873,13 +1865,6 @@
 "routing_add_finish_point" = "Lisää määränpää reitin suunnittelua varten";
 
 "button_exit" = "Poistu";
-
-"onboarding_detail_permissions_title" = "OMaps tarvitsee seuraavat käyttöoikeudet:";
-
-/* Default permission's name from Android settings. */
-"onboarding_detail_permissions_location_title" = "Sijainti";
-
-"onboarding_detail_permissions_location_message" = "Jotta voisit nähdä lähistöllä olevia paikkoja ja liikenteen sekä käyttää navigointia.";
 
 "settings_device_memory" = "Laitteen muisti";
 

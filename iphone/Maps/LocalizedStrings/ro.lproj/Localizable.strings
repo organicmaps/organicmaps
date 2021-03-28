@@ -1303,14 +1303,6 @@
 
 "whatsnew_editor_message_2" = "* OMaps folosește datele comunității OpenStreetMap community.";
 
-"onboarding_location_title" = "Ajutați-ne să vă găsim";
-
-"onboarding_location_message" = "Ca să puteți naviga și folosi alte funcții, trebuie să accesăm poziționarea dvs. geografică.";
-
-"onboarding_permissions_title" = "Permiteți aplicației OMaps accesul la spațiul de stocare și locație";
-
-"onboarding_permissions_message" = "Puteți să descărcați hărți, să vedeți locurile și starea traficului din apropiere și să utilizați navigația.";
-
 "dialog_incorrect_feature_position" = "Schimbare locație";
 
 "message_invalid_feature_position" = "În acest loc nu poate fi localizat un obiect";
@@ -1873,13 +1865,6 @@
 "routing_add_finish_point" = "Adăugați punctul de sosire pentru a planifica un traseu";
 
 "button_exit" = "Ieșire";
-
-"onboarding_detail_permissions_title" = "OMaps necesită acces la";
-
-/* Default permission's name from Android settings. */
-"onboarding_detail_permissions_location_title" = "Locație";
-
-"onboarding_detail_permissions_location_message" = "Pentru a vedea locurile și traficul din apropiere și a utiliza navigația.";
 
 "settings_device_memory" = "Memoria dispozitivului";
 

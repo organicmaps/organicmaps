@@ -1303,14 +1303,6 @@
 
 "whatsnew_editor_message_2" = "* Το OMaps χρησιμοποιεί δεδομένα της κοινότητας OpenStreetMap.";
 
-"onboarding_location_title" = "Βοηθήστε μας να σας βρούμε";
-
-"onboarding_location_message" = "Προκειμένου να χρησιμοποιήσετε την πλοήγηση και τις άλλες λειτουργίες του OMaps χρειάζεται πρόσβαση στη γεωγραφική σας θέση.";
-
-"onboarding_permissions_title" = "Να επιτραπεί στο OMaps πρόσβαση στον αποθηκευτικό χώρο και την τοποθεσία";
-
-"onboarding_permissions_message" = "Μπορείτε να κατεβάσετε χάρτες, να δείτε μέρη και πληροφορίες για την κίνηση κοντά σε εσάς και να χρησιμοποιήσεττ την πλοήγηση.";
-
 "dialog_incorrect_feature_position" = "Αλλαγή τοποθεσίας";
 
 "message_invalid_feature_position" = "Δε μπορεί να εντοπιστεί αντικείμενο εδώ";
@@ -1873,13 +1865,6 @@
 "routing_add_finish_point" = "Προσθέστε τελικό προορισμό, για να σχεδιάσετε μια διαδρομή";
 
 "button_exit" = "Έξοδος";
-
-"onboarding_detail_permissions_title" = "Το OMaps χρειάζεται πρόσβαση στο";
-
-/* Default permission's name from Android settings. */
-"onboarding_detail_permissions_location_title" = "Τοποθεσία";
-
-"onboarding_detail_permissions_location_message" = "Για την προβολή μερών και της κυκλοφορίας κοντά σας εσάς και τη χρήση της πλοήγησης.";
 
 "settings_device_memory" = "Μνήμη συσκευής";
 

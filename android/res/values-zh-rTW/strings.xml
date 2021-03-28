@@ -781,10 +781,6 @@
 	<string name="whatsnew_editor_title">編輯此地圖*</string>
 	<string name="whatsnew_editor_message_1">新增新地點到該地圖，並直接通過此應用程式編輯已存在的地點。</string>
 	<string name="whatsnew_editor_message_2">* OMaps 使用 OpenStreetMap 社群的數據。</string>
-	<string name="onboarding_location_title">幫我們找到您</string>
-	<string name="onboarding_location_message">如要使用導航和其他功能，我們需要能獲取您的地理位置.</string>
-	<string name="onboarding_permissions_title">允許 OMaps 存儲和定位的權限</string>
-	<string name="onboarding_permissions_message">所以，您可以下載地圖，查看您附近的地點和交通，以及使用導航服務。</string>
 	<string name="dialog_incorrect_feature_position">改變位置</string>
 	<string name="message_invalid_feature_position">物件無法設置在這裡</string>
 	<string name="login_to_make_edits_visible">登入來讓其他使用者能看到您所作出的修改。</string>
@@ -1085,10 +1081,6 @@
 	<string name="routing_add_start_point">新增起點以計劃路線</string>
 	<string name="routing_add_finish_point">新增終點以計劃路線</string>
 	<string name="button_exit">退出</string>
-	<string name="onboarding_detail_permissions_title">OMaps 需要下列存取權限：</string>
-	<!-- Default permission's name from Android settings. -->
-	<string name="onboarding_detail_permissions_location_title">位置</string>
-	<string name="onboarding_detail_permissions_location_message">查看您附近的地點和交通，以及使用導航服務。</string>
 	<string name="settings_device_memory">裝置記憶體</string>
 	<string name="settings_card_memory">卡記憶體</string>
 	<string name="settings_storage_available">%s 可用</string>

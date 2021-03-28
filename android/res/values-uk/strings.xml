@@ -784,10 +784,6 @@
 	<string name="whatsnew_editor_title">Редагувати карту*</string>
 	<string name="whatsnew_editor_message_1">Додати нові місця до карти і редагувати існуючі місця прямо з програми.</string>
 	<string name="whatsnew_editor_message_2">* OMaps використовує дані спільноти OpenStreetMap.</string>
-	<string name="onboarding_location_title">Допоможіть знайти вас</string>
-	<string name="onboarding_location_message">Щоб користуватися навігацією та іншими функціями додатку, нам необхідний доступ до вашого місцезнаходження.</string>
-	<string name="onboarding_permissions_title">Дозволити OMaps доступ до сховища та функції визначення геолокації</string>
-	<string name="onboarding_permissions_message">Таким чином ви зможете завантажувати карти, переглядати місцевість і трафік, а також використовувати навігацію.</string>
 	<string name="dialog_incorrect_feature_position">Змініть розташування</string>
 	<string name="message_invalid_feature_position">Об\'єкт не може перебувати в цьому місцезнаходженні</string>
 	<string name="login_to_make_edits_visible">Увійдіть, щоб ваші зміни побачили інші користувачі.</string>
@@ -1088,10 +1084,6 @@
 	<string name="routing_add_start_point">Вкажіть початкову точку для побудови маршруту</string>
 	<string name="routing_add_finish_point">Вкажіть кінцеву точку для побудови маршруту</string>
 	<string name="button_exit">Вихід</string>
-	<string name="onboarding_detail_permissions_title">OMaps необхідно надати доступ до</string>
-	<!-- Default permission's name from Android settings. -->
-	<string name="onboarding_detail_permissions_location_title">Функція визначення геолокації</string>
-	<string name="onboarding_detail_permissions_location_message">Для перегляду місцевості та трафіку, а також використання навігації.</string>
 	<string name="settings_device_memory">Вбудована пам\'ять</string>
 	<string name="settings_card_memory">Карта пам\'яті</string>
 	<string name="settings_storage_available">Доступно: %s</string>

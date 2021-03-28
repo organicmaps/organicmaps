@@ -1303,14 +1303,6 @@
 
 "whatsnew_editor_message_2" = "* OMapsはOpenStreetMapコミュニティのデータを使用しています。";
 
-"onboarding_location_title" = "現在地判定のお手伝い";
-
-"onboarding_location_message" = "ナビゲーションやその他の機能の使用のために、アプリがGeolocationにアクセスする必要があります";
-
-"onboarding_permissions_title" = "OMaps によるストレージと位置情報へのアクセスを許可する";
-
-"onboarding_permissions_message" = "これにより地図のダウンロード、近隣のスポットや交通情報の確認、およびナビゲーションを利用できるようになります。";
-
 "dialog_incorrect_feature_position" = "位置を変更してください";
 
 "message_invalid_feature_position" = "ここにはオブジェクトを配置できません";
@@ -1873,13 +1865,6 @@
 "routing_add_finish_point" = "ルートを計画するには到着地点を追加してください";
 
 "button_exit" = "終了";
-
-"onboarding_detail_permissions_title" = "OMaps がアクセス許可を必要とする項目";
-
-/* Default permission's name from Android settings. */
-"onboarding_detail_permissions_location_title" = "位置情報";
-
-"onboarding_detail_permissions_location_message" = "近隣のスポットや交通情報の確認、およびナビゲーションの使用に必要です。";
 
 "settings_device_memory" = "デバイスのメモリ";
 

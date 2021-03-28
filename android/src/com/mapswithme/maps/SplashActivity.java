@@ -11,12 +11,10 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.FragmentManager;
 import com.mapswithme.maps.base.BaseActivity;
 import com.mapswithme.maps.base.BaseActivityDelegate;
 import com.mapswithme.maps.location.LocationHelper;
-import com.mapswithme.maps.permissions.PermissionsDialogFragment;
 import com.mapswithme.util.Config;
 import com.mapswithme.util.Counters;
 import com.mapswithme.util.PermissionsUtils;
@@ -33,7 +31,6 @@ public class SplashActivity extends AppCompatActivity implements BaseActivity
   private static final String EXTRA_ACTIVITY_TO_START = "extra_activity_to_start";
   public static final String EXTRA_INITIAL_INTENT = "extra_initial_intent";
   private static final int REQUEST_PERMISSIONS = 1;
-  private static final long FIRST_START_DELAY = 300;
   private static final long DELAY = 100;
 
   private View mIvLogo;
@@ -48,7 +45,7 @@ public class SplashActivity extends AppCompatActivity implements BaseActivity
     @Override
     public void run()
     {
-      PermissionsDialogFragment.show(SplashActivity.this, REQUEST_PERMISSIONS);
+      PermissionsUtils.requestLocationPermission(SplashActivity.this, REQUEST_PERMISSIONS);
     }
   };
 
@@ -152,18 +149,11 @@ public class SplashActivity extends AppCompatActivity implements BaseActivity
   private boolean processPermissionGranting()
   {
     mPermissionsGranted = PermissionsUtils.isLocationGranted(this);
-    DialogFragment permissionsDialog = PermissionsDialogFragment.find(this);
     if (!mPermissionsGranted)
     {
-      permissionsDialog = PermissionsDialogFragment.find(this);
-      if (permissionsDialog == null)
-        UiThread.runLater(mPermissionsDelayedTask, DELAY);
-
+      UiThread.runLater(mPermissionsDelayedTask, DELAY);
       return false;
     }
-
-    if (permissionsDialog != null)
-      permissionsDialog.dismiss();
 
     return true;
   }
