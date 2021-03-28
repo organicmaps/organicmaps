@@ -13,22 +13,13 @@ compile_commands.json
 stxxl.errlog
 stxxl.log
 screenlog.0
-data/*.mwm.osm2ft
-data/*.mwm.routing
-data/*.mwmmeta
-data/[!W]*.mwm
-data/local_ads*.dat
-data/local_ads_*/*.*
-data/shaders_compiler/*
+
 data/styles/*/*/out/*
 data/resources-*_design/*
 data/drules_proto_design.bin
 data/colors_design.txt
 data/patterns_design.txt
-data/route_points.dat
-data/bookmarks/
-data/bookmarks_backup/
-data/vulkan_shaders/debug/*
+data/bookmarks
 
 # Compiled Python
 *.pyc
@@ -94,29 +85,10 @@ tools/win/MapsWithMe*
 GeneratedFiles
 
 # data
-data/intermediate_data
 data/[0-9][0-9][0-9][0-9][0-9][0-9]
 data/gps_track.dat
 # temporary files for downloader
-data/*.mwm.downloading2
-data/*.mwm.resume2
-data/*.ready
-# data folder on server stores different planet files
-data/*.osm
-data/*.bz2
 data/settings.ini
-!data/minsk-pass.mwm
-!data/minsk-pass.osm.bz2
-data/index.idx
-data/index.stamp
-# local statistics storage
-data/stats
-# generated routing indices
-data/*/*.bftsegbits
-data/*/*.bftsegnodes
-data/*/*.offsets
-# notifications
-data/notifications/*
 
 # benchmark results
 data/benchmarks/*.trace
