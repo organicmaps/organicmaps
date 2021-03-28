@@ -452,10 +452,13 @@ private:
   void Init(std::string const & archiveName)
   {
     classificator::Load();
-    auto const & options = GetTestingOptions();
     auto & platform = GetPlatform();
-    platform.SetResourceDir(options.m_resourcePath);
-    platform.SetSettingsDir(options.m_resourcePath);
+
+    // Should be initialized in testingmain.cpp
+    //auto const & options = GetTestingOptions();
+    //platform.SetResourceDir(options.m_resourcePath);
+    //platform.SetSettingsDir(options.m_resourcePath);
+
     m_threadCount = static_cast<size_t>(platform.CpuCores());
     m_testPath = base::JoinPath(platform.WritableDir(), "gen-test");
     m_genInfo.SetNodeStorageType("map");
@@ -467,7 +470,7 @@ private:
     m_genInfo.m_osmFileName = base::JoinPath(m_testPath, "planet.o5m");
     m_genInfo.m_popularPlacesFilename = m_genInfo.GetIntermediateFileName("popular_places.csv");
     m_genInfo.m_idToWikidataFilename = m_genInfo.GetIntermediateFileName("wiki_urls.csv");
-    DecompressZipArchive(base::JoinPath(options.m_dataPath, archiveName + ".zip"), m_testPath);
+    DecompressZipArchive(base::JoinPath(platform.WritableDir(), archiveName + ".zip"), m_testPath);
 
     m_mixedNodesFilenames.first = base::JoinPath(platform.ResourcesDir(), MIXED_NODES_FILE);
     m_mixedNodesFilenames.second = base::JoinPath(platform.ResourcesDir(), MIXED_NODES_FILE "_");

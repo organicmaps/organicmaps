@@ -95,6 +95,7 @@ namespace
 
 UNIT_TEST(ApkReader_Multithreaded)
 {
+  /// @todo Update test with current apk path.
   string const path = GetPlatform().WritableDir() + "../android/MapsWithMePro/bin/MapsWithMePro-production.apk";
 
   uint64_t size;

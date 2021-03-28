@@ -18,6 +18,8 @@ NumMwmId constexpr kFakeNumMwmId = std::numeric_limits<NumMwmId>::max();
 class NumMwmIds final
 {
 public:
+  bool IsEmpty() const { return m_idToFile.empty(); }
+
   void RegisterFile(platform::CountryFile const & file)
   {
     if (ContainsFile(file))
