@@ -29,10 +29,10 @@
 ** Author: Eric Veach, July 1994.
 */
 
-//#include "tesos.h"
-#include <assert.h>
 #include "mesh.h"
 #include "geom.h"
+
+#include <assert.h>
 #include <math.h>
 
 int tesvertLeq( TESSvertex *u, TESSvertex *v )
@@ -287,6 +287,9 @@ TESSreal calcAngle( TESSvertex *v0, TESSvertex *v1, TESSvertex *v2 )
  */
 int tesedgeIsLocallyDelaunay( TESShalfEdge *e )
 {
-	return (calcAngle(e->Lnext->Org, e->Lnext->Lnext->Org, e->Org) +
-					calcAngle(e->Sym->Lnext->Org, e->Sym->Lnext->Lnext->Org, e->Sym->Org)) < (M_PI + 0.01);
+  // If we add 0.01 to compare, take 5-digits PI here.
+  // M_PI constant is undefined in gcc ..
+
+  return (calcAngle(e->Lnext->Org, e->Lnext->Lnext->Org, e->Org) +
+          calcAngle(e->Sym->Lnext->Org, e->Sym->Lnext->Lnext->Org, e->Sym->Org)) < (3.14159 + 0.01);
 }
