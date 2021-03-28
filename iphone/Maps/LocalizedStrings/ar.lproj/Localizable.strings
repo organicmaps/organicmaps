@@ -1303,14 +1303,6 @@
 
 "whatsnew_editor_message_2" = "*تستخدم OMaps البيانات الخاصة بخريطة OpenStreetMap.";
 
-"onboarding_location_title" = "ساعدنا في العثور عليك";
-
-"onboarding_location_message" = "لاستخدام الملاحة والميزات الأخرى، فنحن بحاجة إلى تحديد موقعك الجغرافي.";
-
-"onboarding_permissions_title" = "السماح لـ OMaps بالوصول إلى ذاكرة التخزين والموقع";
-
-"onboarding_permissions_message" = "من ثم يمكنك تنزيل الخرائط وعرض الأماكن وحركة المرور القريبة منك استخدام الملاحة.";
-
 "dialog_incorrect_feature_position" = "تغيير الموقع";
 
 "message_invalid_feature_position" = "لا يمكن تحديد موقع الكائن هنا";
@@ -1873,13 +1865,6 @@
 "routing_add_finish_point" = "أضف النهاية لتخطيط المسار";
 
 "button_exit" = "خروج";
-
-"onboarding_detail_permissions_title" = "OMaps يحتاج إلى الوصول إلى";
-
-/* Default permission's name from Android settings. */
-"onboarding_detail_permissions_location_title" = "الموقع";
-
-"onboarding_detail_permissions_location_message" = "لعرض الأماكن وحركة المرور القريبة منك واستخدام الملاحة.";
 
 "settings_device_memory" = "ذاكرة الجهاز";
 

@@ -783,10 +783,6 @@
 	<string name="whatsnew_editor_title">Haritayı düzenleyin*</string>
 	<string name="whatsnew_editor_message_1">Doğrudan uygulamadan haritaya yeni yerler ekle ve mevcut yerleri düzenleyin.</string>
 	<string name="whatsnew_editor_message_2">* OMaps, OpenStreetMap topluluğu verilerini kullanmaktadır.</string>
-	<string name="onboarding_location_title">Sizi bulmamıza yardım edin</string>
-	<string name="onboarding_location_message">Navigasyon ve diğer özellikleri kullanmak için konum belirlemenize erişmeye ihtiyacımız var.</string>
-	<string name="onboarding_permissions_title">OMaps\'nin depolama alanına ve konum bilgilerine erişmesine izin verin</string>
-	<string name="onboarding_permissions_message">Böylece haritaları indirebilir, size yakın olan yerleri ve trafik bilgilerini görebilir ve navigasyonu kullanabilirsiniz.</string>
 	<string name="dialog_incorrect_feature_position">Konumu değiştir</string>
 	<string name="message_invalid_feature_position">Buraya bir nesne konumlandırılamıyor</string>
 	<string name="login_to_make_edits_visible">Giriş yapın böylelikle diğer kullanıcılar yaptığınız değişiklikleri görebilirler.</string>
@@ -1087,10 +1083,6 @@
 	<string name="routing_add_start_point">Güzergâhı planlamak için bir başlangıç noktası ekleyin</string>
 	<string name="routing_add_finish_point">Güzergâhı planlamak için bir varış noktası ekleyin</string>
 	<string name="button_exit">Çık</string>
-	<string name="onboarding_detail_permissions_title">OMaps\'nin şuraya erişmesi gerekiyor:</string>
-	<!-- Default permission's name from Android settings. -->
-	<string name="onboarding_detail_permissions_location_title">Konum</string>
-	<string name="onboarding_detail_permissions_location_message">Yakınınızdaki yerleri ve trafiği görmek ve navigasyonu kullanmak.</string>
 	<string name="settings_device_memory">Cihaz belleği</string>
 	<string name="settings_card_memory">Kart belleği</string>
 	<string name="settings_storage_available">%s kullanılabilir</string>

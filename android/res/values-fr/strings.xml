@@ -789,10 +789,6 @@
 	<string name="whatsnew_editor_title">Modifier la carte*</string>
 	<string name="whatsnew_editor_message_1">Ajoutez de nouveaux lieux sur la carte et modifiez les lieux existants directement depuis l\'appli.</string>
 	<string name="whatsnew_editor_message_2">* OMaps utilise les données de la communauté OpenStreetMap.</string>
-	<string name="onboarding_location_title">Aidez-nous à vous trouver</string>
-	<string name="onboarding_location_message">Pour utiliser la navigation et d\'autres fonctionnalités, nous devons pouvoir accéder à votre position géographique.</string>
-	<string name="onboarding_permissions_title">Autoriser OMaps à accéder au stockage et à la localisation</string>
-	<string name="onboarding_permissions_message">Afin de pouvoir télécharger des cartes, voir les lieux et le trafic près de vous et utiliser la navigation.</string>
 	<string name="dialog_incorrect_feature_position">Modifier l\'emplacement</string>
 	<string name="message_invalid_feature_position">Aucun objet ne peut être localisé ici</string>
 	<string name="login_to_make_edits_visible">Se connecter pour que d\'autres utilisateurs puissent voir les changements que vous avez effectués.</string>
@@ -1094,10 +1090,6 @@
 	<string name="routing_add_start_point">Ajouter un point de départ pour planifier un itinéraire</string>
 	<string name="routing_add_finish_point">Ajouter un point d\'arrivée pour planifier un itinéraire</string>
 	<string name="button_exit">Quitter</string>
-	<string name="onboarding_detail_permissions_title">OMaps doit avoir accès à</string>
-	<!-- Default permission's name from Android settings. -->
-	<string name="onboarding_detail_permissions_location_title">Localisation</string>
-	<string name="onboarding_detail_permissions_location_message">Pour voir les lieux et le trafic près de vous et utiliser la navigation.</string>
 	<string name="settings_device_memory">Mémoire de l’appareil</string>
 	<string name="settings_card_memory">Mémoire carte</string>
 	<string name="settings_storage_available">%s disponible</string>

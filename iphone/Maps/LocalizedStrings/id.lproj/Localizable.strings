@@ -1303,14 +1303,6 @@
 
 "whatsnew_editor_message_2" = "* OMaps menggunakan data komunitas OpenStreetMap.";
 
-"onboarding_location_title" = "Membantu kami menemukan Anda";
-
-"onboarding_location_message" = "Untuk menggunakan navigasi dan fitur-fitur lainnya, kami perlu mengakses geolokasi Anda.";
-
-"onboarding_permissions_title" = "Izinkan OMaps mengakses penyimpanan dan lokasi";
-
-"onboarding_permissions_message" = "Agar Anda dapat mengunduh peta, melihat tempat dan lalu lintas di dekat Anda, dan menggunakan navigasi.";
-
 "dialog_incorrect_feature_position" = "Ubah lokasi";
 
 "message_invalid_feature_position" = "Objek tidak dapat diletakkan di sini";
@@ -1873,13 +1865,6 @@
 "routing_add_finish_point" = "Tambahkan titik akhir untuk merencanakan rute";
 
 "button_exit" = "Keluar";
-
-"onboarding_detail_permissions_title" = "OMaps membutuhkan akses ke";
-
-/* Default permission's name from Android settings. */
-"onboarding_detail_permissions_location_title" = "Lokasi";
-
-"onboarding_detail_permissions_location_message" = "Untuk melihat tempat dan lalu lintas di dekat Anda dan menggunakan navigasi.";
 
 "settings_device_memory" = "Memori perangkat";
 

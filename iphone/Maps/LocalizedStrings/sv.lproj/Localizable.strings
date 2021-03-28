@@ -1303,14 +1303,6 @@
 
 "whatsnew_editor_message_2" = "* OMaps använder data från OpenStreetMaps community.";
 
-"onboarding_location_title" = "Hjälp oss att hitta dig";
-
-"onboarding_location_message" = "För att använda navigering och andra funktioner behöver vi tillgång till din geografiska plats.";
-
-"onboarding_permissions_title" = "Ge OMaps åtkomst till lagring och plats";
-
-"onboarding_permissions_message" = "Så att du kan ladda ned kartor, visa platser och trafik i närheten och använda navigering.";
-
 "dialog_incorrect_feature_position" = "Ändra placering";
 
 "message_invalid_feature_position" = "Ett objekt kan inte placeras här";
@@ -1873,13 +1865,6 @@
 "routing_add_finish_point" = "Lägg till slutpunkt för att planera en rutt";
 
 "button_exit" = "Avsluta";
-
-"onboarding_detail_permissions_title" = "OMaps behöver åtkomst till";
-
-/* Default permission's name from Android settings. */
-"onboarding_detail_permissions_location_title" = "Plats";
-
-"onboarding_detail_permissions_location_message" = "För att visa platser och trafik i närheten och använda navigering.";
 
 "settings_device_memory" = "Enhetens minne";
 

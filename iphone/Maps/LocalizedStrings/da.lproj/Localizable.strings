@@ -1303,14 +1303,6 @@
 
 "whatsnew_editor_message_2" = "* OMaps bruger fællesskabsdata fra OpenStreetMap.";
 
-"onboarding_location_title" = "Hjælp os med at finde dig";
-
-"onboarding_location_message" = "For at bruge navigering og andre funktioner skal vi have adgang til din geolokation.";
-
-"onboarding_permissions_title" = "Giv OMaps adgang til lager og position";
-
-"onboarding_permissions_message" = "Så du kan hente kort, se steder og trafik i nærheden af dig og benytte navigation.";
-
 "dialog_incorrect_feature_position" = "Skift lokation";
 
 "message_invalid_feature_position" = "Et objekt kan ikke placeres her";
@@ -1873,13 +1865,6 @@
 "routing_add_finish_point" = "Tilføj slutpunkt for at planlægge en rute";
 
 "button_exit" = "Afslut";
-
-"onboarding_detail_permissions_title" = "OMaps skal have adgang til";
-
-/* Default permission's name from Android settings. */
-"onboarding_detail_permissions_location_title" = "Position";
-
-"onboarding_detail_permissions_location_message" = "For at se steder og trafik i nærheden af dig og benytte navigation.";
 
 "settings_device_memory" = "Enhedens hukommelse";
 

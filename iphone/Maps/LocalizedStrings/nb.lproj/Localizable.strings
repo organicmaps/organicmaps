@@ -1303,14 +1303,6 @@
 
 "whatsnew_editor_message_2" = "* OMaps bruker data fra OpenStreetMap-samfunnet.";
 
-"onboarding_location_title" = "Hjelp oss med å finne deg";
-
-"onboarding_location_message" = "For å bruke navigering og andre funksjoner må vi ha tilgang til posisjonen din.";
-
-"onboarding_permissions_title" = "Tillat OMaps tilgang til minnet og plasseringen";
-
-"onboarding_permissions_message" = "Du kan laste ned kart, se steder og trafikk nær deg og bruke navigasjon.";
-
 "dialog_incorrect_feature_position" = "Endre plassering";
 
 "message_invalid_feature_position" = "Et objekt kan ikke plasseres her";
@@ -1873,13 +1865,6 @@
 "routing_add_finish_point" = "Angi sluttpunkt for å planlegge rute";
 
 "button_exit" = "Avslutt";
-
-"onboarding_detail_permissions_title" = "OMaps trenger tilgang til";
-
-/* Default permission's name from Android settings. */
-"onboarding_detail_permissions_location_title" = "Plassering";
-
-"onboarding_detail_permissions_location_message" = "For å se steder og trafikk nær deg og bruke navigasjon.";
 
 "settings_device_memory" = "Enhetsminnet";
 

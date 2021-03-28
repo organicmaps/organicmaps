@@ -1303,14 +1303,6 @@
 
 "whatsnew_editor_message_2" = "* OMaps utiliza datos de la comunidad de OpenStreetMap.";
 
-"onboarding_location_title" = "Ayúdanos a encontrarte";
-
-"onboarding_location_message" = "Para utilizar la navegación y otras funciones, necesitamos acceso a tu geolocalización.";
-
-"onboarding_permissions_title" = "Permita el acceso de OMaps a los servicios de almacenamiento y ubicación";
-
-"onboarding_permissions_message" = "Así podrá descargar mapas, ver lugares y el estado de tráfico en su zona y utilizar navegación.";
-
 "dialog_incorrect_feature_position" = "Cambiar ubicación";
 
 "message_invalid_feature_position" = "No se puede ubicar ningún objeto aquí";
@@ -1873,13 +1865,6 @@
 "routing_add_finish_point" = "Buscar un destino para el plan de ruta";
 
 "button_exit" = "Salir";
-
-"onboarding_detail_permissions_title" = "OMaps necesita tener acceso a";
-
-/* Default permission's name from Android settings. */
-"onboarding_detail_permissions_location_title" = "Ubicación";
-
-"onboarding_detail_permissions_location_message" = "Para ver lugares y el estado de tráfico en su zona, y utilizar navegación.";
 
 "settings_device_memory" = "Memoria del dispositivo";
 

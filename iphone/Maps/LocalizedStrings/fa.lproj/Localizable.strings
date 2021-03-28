@@ -1303,14 +1303,6 @@
 
 "whatsnew_editor_message_2" = "* OMaps از دیتای انجمن  OpenStreetMap.";
 
-"onboarding_location_title" = "کمک کنید تا شما را بیابیم";
-
-"onboarding_location_message" = "به منظور استفاده شما از ناوبری و دیگر ویژگی های این اپلیکیشن OMaps نیازمند دسترسی به موقعیت مکانی تان است.";
-
-"onboarding_permissions_title" = "به OMaps اجازه دسترسی به محل ذخیره سازی و موقعیت مکانی خود را بدهید.";
-
-"onboarding_permissions_message" = "خب شما می تونید نقشه رو دانلود کنید و مکان های دور اطراف را به همراه حجم ترافیک دوروبرتان ببینید و از مسیر یابی استفاده کنید.";
-
 "dialog_incorrect_feature_position" = "تغییر موقعیت";
 
 "message_invalid_feature_position" = "نمی توان شی ای در این مکان باشد";
@@ -1873,13 +1865,6 @@
 "routing_add_finish_point" = "یک مقصد برای برنامه ریزی یک مسیر اضافه کنید";
 
 "button_exit" = "خروج";
-
-"onboarding_detail_permissions_title" = "OMaps نیاز به دسترسی دارد";
-
-/* Default permission's name from Android settings. */
-"onboarding_detail_permissions_location_title" = "موقعیت";
-
-"onboarding_detail_permissions_location_message" = "برای دیدن مکان ها و ترافیک در نزدیکی شما و استفاده از ناوبری.";
 
 "settings_device_memory" = "حافظه دستگاه";
 

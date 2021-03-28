@@ -1303,14 +1303,6 @@
 
 "whatsnew_editor_message_2" = "* A OMaps az OpenStreetMap közösség adatait használja.";
 
-"onboarding_location_title" = "Segíts, hogy megtaláljunk";
-
-"onboarding_location_message" = "A navigáció és egyéb funkciók használatához hozzá kell férnünk a geolokációdhoz.";
-
-"onboarding_permissions_title" = "Engedélyezi a OMaps számára, hogy hozzáférjen a tárolóhoz és a tartózkodási helyhez";
-
-"onboarding_permissions_message" = "Így tehát Ön letölthet térképeket, megtekintheti az Önhöz közeli helyeket és forgalmat, és használhatja a navigációt.";
-
 "dialog_incorrect_feature_position" = "Helyszín megváltoztatása";
 
 "message_invalid_feature_position" = "Célpont áthelyezése ide nem lehetséges";
@@ -1873,13 +1865,6 @@
 "routing_add_finish_point" = "Adjon hozzá végpontot az útvonal tervezéséhez";
 
 "button_exit" = "Kilépés";
-
-"onboarding_detail_permissions_title" = "A OMaps.-nek hozzáférésre van szüksége a következőhöz: ";
-
-/* Default permission's name from Android settings. */
-"onboarding_detail_permissions_location_title" = "Helymeghatározás";
-
-"onboarding_detail_permissions_location_message" = "Önhöz közeli helyek és a forgalom megtekintéséhez és a navigáció használatához.";
 
 "settings_device_memory" = "Készülék memóriája";
 

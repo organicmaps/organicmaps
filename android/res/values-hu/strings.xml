@@ -779,10 +779,6 @@
 	<string name="whatsnew_editor_title">Térkép szerkesztése*</string>
 	<string name="whatsnew_editor_message_1">Adj hozzá új helyeket a térképhez, és szerkeszd a meglévőket közvetlenül az alkalmazásból.</string>
 	<string name="whatsnew_editor_message_2">* A OMaps az OpenStreetMap közösség adatait használja.</string>
-	<string name="onboarding_location_title">Segíts, hogy megtaláljunk</string>
-	<string name="onboarding_location_message">A navigáció és egyéb funkciók használatához hozzá kell férnünk a geolokációdhoz.</string>
-	<string name="onboarding_permissions_title">Engedélyezi a OMaps számára, hogy hozzáférjen a tárolóhoz és a tartózkodási helyhez</string>
-	<string name="onboarding_permissions_message">Így tehát Ön letölthet térképeket, megtekintheti az Önhöz közeli helyeket és forgalmat, és használhatja a navigációt.</string>
 	<string name="dialog_incorrect_feature_position">Helyszín megváltoztatása</string>
 	<string name="message_invalid_feature_position">Célpont áthelyezése ide nem lehetséges</string>
 	<string name="login_to_make_edits_visible">Jelentkezz be, hogy más felhasználók is láthassák a változtatásaidat.</string>
@@ -1082,10 +1078,6 @@
 	<string name="routing_add_start_point">Adjon hozzá kiindulási pontot az útvonal megtervezéséhez</string>
 	<string name="routing_add_finish_point">Adjon hozzá végpontot az útvonal tervezéséhez</string>
 	<string name="button_exit">Kilépés</string>
-	<string name="onboarding_detail_permissions_title">A OMaps.-nek hozzáférésre van szüksége a következőhöz:\u0020</string>
-	<!-- Default permission's name from Android settings. -->
-	<string name="onboarding_detail_permissions_location_title">Helymeghatározás</string>
-	<string name="onboarding_detail_permissions_location_message">Önhöz közeli helyek és a forgalom megtekintéséhez és a navigáció használatához.</string>
 	<string name="settings_device_memory">Készülék memóriája</string>
 	<string name="settings_card_memory">Memóriakártya</string>
 	<string name="settings_storage_available">%s rendelkezésre áll</string>
