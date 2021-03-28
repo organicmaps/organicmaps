@@ -26,7 +26,6 @@ import androidx.annotation.Nullable;
 import androidx.annotation.StyleRes;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.Toolbar;
-import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
@@ -82,8 +81,6 @@ import com.mapswithme.maps.maplayer.subway.SubwayManager;
 import com.mapswithme.maps.maplayer.traffic.OnTrafficLayerToggleListener;
 import com.mapswithme.maps.maplayer.traffic.TrafficManager;
 import com.mapswithme.maps.maplayer.traffic.widget.TrafficButton;
-import com.mapswithme.maps.onboarding.IntroductionDialogFragment;
-import com.mapswithme.maps.onboarding.IntroductionScreenFactory;
 import com.mapswithme.maps.purchase.FailedPurchaseChecker;
 import com.mapswithme.maps.purchase.PurchaseCallback;
 import com.mapswithme.maps.purchase.PurchaseController;
@@ -117,7 +114,6 @@ import com.mapswithme.maps.sound.TtsPlayer;
 import com.mapswithme.maps.taxi.TaxiInfo;
 import com.mapswithme.maps.taxi.TaxiManager;
 import com.mapswithme.maps.tips.Tutorial;
-import com.mapswithme.maps.tips.TutorialAction;
 import com.mapswithme.maps.widget.FadeView;
 import com.mapswithme.maps.widget.SearchToolbarController;
 import com.mapswithme.maps.widget.menu.BaseMenu;
@@ -131,9 +127,7 @@ import com.mapswithme.maps.widget.placepage.PlacePageController;
 import com.mapswithme.maps.widget.placepage.PlacePageData;
 import com.mapswithme.maps.widget.placepage.PlacePageFactory;
 import com.mapswithme.maps.widget.placepage.RoutingModeListener;
-import com.mapswithme.util.Counters;
 import com.mapswithme.util.InputUtils;
-import com.mapswithme.util.NetworkPolicy;
 import com.mapswithme.util.PermissionsUtils;
 import com.mapswithme.util.SharedPropertiesUtils;
 import com.mapswithme.util.ThemeSwitcher;
@@ -2520,12 +2514,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
   {
     if (isOpen)
       closePlacePage();
-  }
-
-  public void showIntroductionScreenForDeeplink(@NonNull String deepLink,
-                                                @NonNull IntroductionScreenFactory factory)
-  {
-    IntroductionDialogFragment.show(getSupportFragmentManager(), deepLink, factory);
   }
 
   @Override

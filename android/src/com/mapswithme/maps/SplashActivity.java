@@ -12,14 +12,10 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.DialogFragment;
-import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
 import com.mapswithme.maps.base.BaseActivity;
 import com.mapswithme.maps.base.BaseActivityDelegate;
-import com.mapswithme.maps.downloader.UpdaterDialogFragment;
-import com.mapswithme.maps.editor.ViralFragment;
 import com.mapswithme.maps.location.LocationHelper;
-import com.mapswithme.maps.onboarding.BaseNewsFragment;
 import com.mapswithme.maps.permissions.PermissionsDialogFragment;
 import com.mapswithme.util.Config;
 import com.mapswithme.util.Counters;
@@ -30,8 +26,7 @@ import com.mapswithme.util.concurrency.UiThread;
 import com.mapswithme.util.log.Logger;
 import com.mapswithme.util.log.LoggerFactory;
 
-public class SplashActivity extends AppCompatActivity
-    implements BaseNewsFragment.NewsDialogListener, BaseActivity
+public class SplashActivity extends AppCompatActivity implements BaseActivity
 {
   private static final Logger LOGGER = LoggerFactory.INSTANCE.getLogger(LoggerFactory.Type.MISC);
   private static final String TAG = SplashActivity.class.getSimpleName();
@@ -111,7 +106,6 @@ public class SplashActivity extends AppCompatActivity
   {
     super.onCreate(savedInstanceState);
     mBaseDelegate.onCreate();
-    handleUpdateMapsFragmentCorrectly(savedInstanceState);
     UiThread.cancelDelayedTasks(mPermissionsDelayedTask);
     UiThread.cancelDelayedTasks(mInitCoreDelayedTask);
     UiThread.cancelDelayedTasks(mFinalDelayedTask);
@@ -124,26 +118,6 @@ public class SplashActivity extends AppCompatActivity
   {
     super.onNewIntent(intent);
     mBaseDelegate.onNewIntent(intent);
-  }
-
-  private void handleUpdateMapsFragmentCorrectly(@Nullable Bundle savedInstanceState)
-  {
-    if (savedInstanceState == null)
-      return;
-
-    FragmentManager fm = getSupportFragmentManager();
-    DialogFragment updaterFragment = (DialogFragment) fm
-        .findFragmentByTag(UpdaterDialogFragment.class.getName());
-
-    if (updaterFragment == null)
-      return;
-
-    // Check platform and core initialization, because we may be in the recovering process,
-    // i.e. method onResume() may not be invoked in that case.
-    if (!MwmApplication.from(getApplicationContext()).arePlatformAndCoreInitialized())
-    {
-      init();
-    }
   }
 
   @Override
@@ -236,32 +210,7 @@ public class SplashActivity extends AppCompatActivity
       return;
     }
 
-    boolean showNews = false;
-    if (!showNews)
-    {
-      if (ViralFragment.shouldDisplay(getApplicationContext()))
-      {
-        UiUtils.hide(mIvLogo, mAppName);
-        ViralFragment dialog = new ViralFragment();
-        dialog.onDismissListener(new Runnable()
-        {
-          @Override
-          public void run()
-          {
-            onDialogDone();
-          }
-        });
-        dialog.show(getSupportFragmentManager(), "");
-      }
-      else
-      {
-        processNavigation();
-      }
-    }
-    else
-    {
-      UiUtils.hide(mIvLogo, mAppName);
-    }
+    processNavigation();
   }
 
   private void showExternalStorageErrorDialog()
@@ -292,12 +241,6 @@ public class SplashActivity extends AppCompatActivity
 
     mPermissionsGranted = PermissionsUtils.computePermissionsResult(permissions, grantResults)
                                           .isLocationGranted();
-  }
-
-  @Override
-  public void onDialogDone()
-  {
-    processNavigation();
   }
 
   private void initView()

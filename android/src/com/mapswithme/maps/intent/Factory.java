@@ -27,7 +27,6 @@ import com.mapswithme.maps.bookmarks.BookmarksPageFactory;
 import com.mapswithme.maps.bookmarks.data.BookmarkManager;
 import com.mapswithme.maps.bookmarks.data.FeatureId;
 import com.mapswithme.maps.bookmarks.data.MapObject;
-import com.mapswithme.maps.onboarding.IntroductionScreenFactory;
 import com.mapswithme.maps.purchase.BookmarksAllSubscriptionActivity;
 import com.mapswithme.maps.purchase.BookmarksSightsSubscriptionActivity;
 import com.mapswithme.maps.purchase.PurchaseUtils;
@@ -85,18 +84,6 @@ public class Factory
   public static IntentProcessor createOldCoreLinkAdapterProcessor()
   {
     return new OldCoreLinkAdapterProcessor();
-  }
-
-  @NonNull
-  public static IntentProcessor createDlinkBookmarkCatalogueProcessor()
-  {
-    return new DlinkBookmarkCatalogueIntentProcessor();
-  }
-
-  @NonNull
-  public static IntentProcessor createDlinkBookmarkGuidesPageProcessor()
-  {
-    return new DlinkGuidesPageIntentProcessor();
   }
 
   @NonNull
@@ -348,56 +335,6 @@ public class Factory
     }
   }
 
-  private static class DlinkBookmarkCatalogueIntentProcessor extends DlinkIntentProcessor
-  {
-    static final String CATALOGUE = "catalogue";
-
-    @Override
-    boolean isLinkSupported(@NonNull Uri data)
-    {
-      return (File.separator + CATALOGUE).equals(data.getPath());
-    }
-
-    @Nullable
-    @Override
-    MapTask createIntroductionTask(@NonNull String url)
-    {
-      return new FreeGuideReadyToDownloadIntroductionTask(url);
-    }
-
-    @NonNull
-    @Override
-    MapTask createTargetTask(@NonNull String url)
-    {
-      return new ImportBookmarkCatalogueTask(url);
-    }
-  }
-
-  public static class DlinkGuidesPageIntentProcessor extends DlinkIntentProcessor
-  {
-    static final String GUIDES_PAGE = "guides_page";
-
-    @Override
-    boolean isLinkSupported(@NonNull Uri data)
-    {
-      return (File.separator + GUIDES_PAGE).equals(data.getPath());
-    }
-
-    @Nullable
-    @Override
-    MapTask createIntroductionTask(@NonNull String url)
-    {
-      return new GuidesPageToOpenIntroductionTask(url);
-    }
-
-    @NonNull
-    @Override
-    MapTask createTargetTask(@NonNull String url)
-    {
-      return new GuidesPageToOpenTask(url);
-    }
-  }
-
   public static class DlinkBookmarksSubscriptionIntentProcessor extends DlinkIntentProcessor
   {
     static final String SUBSCRIPTION = "subscription";
@@ -426,6 +363,8 @@ public class Factory
 
   private static class MapsmeBookmarkCatalogueProcessor extends MapsmeProcessor
   {
+    static final String CATALOGUE = "catalogue";
+
     @NonNull
     @Override
     MapTask createMapTask(@NonNull String uri)
@@ -433,7 +372,7 @@ public class Factory
       String url = Uri.parse(uri).buildUpon()
                       .scheme(DlinkIntentProcessor.SCHEME_HTTPS)
                       .authority(DlinkIntentProcessor.HOST)
-                      .path(DlinkBookmarkCatalogueIntentProcessor.CATALOGUE)
+                      .path(CATALOGUE)
                       .build().toString();
       return new ImportBookmarkCatalogueTask(url);
     }
@@ -449,7 +388,7 @@ public class Factory
         return false;
 
       String host = data.getHost();
-      return DlinkBookmarkCatalogueIntentProcessor.CATALOGUE.equals(host);
+      return CATALOGUE.equals(host);
     }
   }
 
@@ -817,59 +756,6 @@ public class Factory
                                               BookmarkCategoriesActivity.REQ_CODE_DOWNLOAD_BOOKMARK_CATEGORY,
                                               deeplink);
       return true;
-    }
-  }
-
-  static class FreeGuideReadyToDownloadIntroductionTask extends BaseUrlTask
-  {
-    private static final long serialVersionUID = -6851782210156017186L;
-
-    FreeGuideReadyToDownloadIntroductionTask(@NonNull String url)
-    {
-      super(url);
-    }
-
-    @Override
-    public boolean run(@NonNull MwmActivity target)
-    {
-      target.showIntroductionScreenForDeeplink(getUrl(), IntroductionScreenFactory.FREE_GUIDE);
-      return true;
-    }
-  }
-
-  public static class GuidesPageToOpenIntroductionTask extends BaseUrlTask
-  {
-    private static final long serialVersionUID = 8388101038319062165L;
-
-    GuidesPageToOpenIntroductionTask(@NonNull String url)
-    {
-      super(url);
-    }
-
-    @Override
-    public boolean run(@NonNull MwmActivity target)
-    {
-      String deeplink = convertUrlToGuidesPageDeeplink(getUrl());
-      target.showIntroductionScreenForDeeplink(deeplink, IntroductionScreenFactory.GUIDES_PAGE);
-      return true;
-    }
-  }
-
-  abstract static class BaseUrlTask implements MapTask
-  {
-    private static final long serialVersionUID = 9077126080900672394L;
-    @NonNull
-    private final String mUrl;
-
-    BaseUrlTask(@NonNull String url)
-    {
-      mUrl = url;
-    }
-
-    @NonNull
-    String getUrl()
-    {
-      return mUrl;
     }
   }
 

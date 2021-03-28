@@ -17,7 +17,6 @@ import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
 
 import com.mapswithme.maps.R;
-import com.mapswithme.maps.news.OnboardingStep;
 
 public class PermissionsDialogFragment extends BasePermissionsDialogFragment
 {
