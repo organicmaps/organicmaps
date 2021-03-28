@@ -54,6 +54,8 @@
   <application
       android:name=".MwmApplication"
       android:allowBackup="true"
+      android:backupInForeground="true"
+      android:fullBackupContent="@xml/backup_content"
       android:icon="@mipmap/ic_launcher"
       android:label="@string/app_name"
       android:theme="@style/MwmTheme"
