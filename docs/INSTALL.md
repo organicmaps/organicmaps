@@ -69,11 +69,19 @@ Update git submodules (sometimes doesn't work automatically):
 git submodule update --init --recursive
 ```
 
-Configure the repository for the debug mode:
+Configure the repository as opensource build:
 
 ```bash
-./configure.sh debug
+./configure.sh
 ```
+
+or with private repository
+
+```bash
+./configure.sh <private-repo-name>
+```
+
+You can check usage `./configure.sh --help`
 
 ### Building
 
@@ -100,7 +108,7 @@ Targets list can be viewed:
 cmake --build ../omim-build-<buildtype> --target help
 ```
 
-If you have Qt installed in an unusual directory, use `QMAKE` variable. You can skip building tests
+If you have Qt installed in an unusual directory, use `QT_PATH` variable (`SET (QT_PATH "your-path-to-qt")`). You can skip building tests
 with `CMAKE_CONFIG=-DSKIP_TESTS` variable. You would need 1.5 GB of memory
 to compile the `stats` module.
 
@@ -189,10 +197,17 @@ Update git submodules (sometimes doesn't work automatically):
 git submodule update --init --recursive
 ```
 
-Configure the repository for the debug mode:
+Configure the repository as opensource build:
 
 ```bash
-./configure.sh debug
+./configure.sh
+
+```
+
+or with private repository
+
+```bash
+./configure.sh <private-repo-name>
 ```
 
 Set Android SDK and NDK path:
@@ -272,10 +287,16 @@ Update git submodules (sometimes doesn't work automatically):
 git submodule update --init --recursive
 ```
 
-Configure the repository for the debug mode:
+Configure the repository as opensource build:
 
 ```bash
-./configure.sh debug
+./configure.sh
+```
+
+or with private repository
+
+```bash
+./configure.sh <private-repo-name>
 ```
 
 Install [CocoaPods](https://cocoapods.org/):
