@@ -43,3 +43,4 @@
 *.ttf     binary
 *.slf     binary
 *.borders binary
+*.pdf     binary
