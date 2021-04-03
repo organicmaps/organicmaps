@@ -1,1 +1,11 @@
-<svg height="24" viewBox="0 0 24 24" width="24"><g fill="none" fill-rule="evenodd"><rect fill="#b38f36" height="24" rx="12" width="24"/><rect fill="#204366" height="22" rx="11" width="22" x="1" y="1"/><path d="m10 11h4v-4h2v10h-2v-4h-4v4h-2v-10h2z" fill="#fff" opacity=".6"/></g></svg>
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>helipad-m</title>
+    <g id="Page-2:-Night" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" opacity="0.6">
+        <g id="helipad-m" fill-rule="nonzero">
+            <rect id="Rectangle" fill="#FECB4B" x="0" y="0" width="24" height="24" rx="12"></rect>
+            <rect id="Rectangle" fill="#2F6499" x="1" y="1" width="22" height="22" rx="11"></rect>
+            <polygon id="Path" fill="#FFFFFF" points="10 11 14 11 14 7 16 7 16 17 14 17 14 13 10 13 10 17 8 17 8 7 10 7"></polygon>
+        </g>
+    </g>
+</svg>

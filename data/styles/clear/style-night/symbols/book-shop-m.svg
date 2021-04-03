@@ -1,1 +1,11 @@
-<svg height="24" viewBox="0 0 24 24" width="24"><g fill="none" fill-rule="evenodd"><circle cx="12" cy="12" fill="#fff" opacity=".4" r="12"/><circle cx="12" cy="12" fill="#4e3552" r="11"/><path d="m6 18h12v-.9627345h-12zm11.112-3.2992911-4.6504615 1.3738221v-8.66461033l4.6504615-1.37382211c.4901538-.14441017.888.16847853.888.7008707v6.73914144c0 .5314294-.3978462 1.0792253-.888 1.2245982zm-11.112-1.225561v-6.73914137c0-.53142944.39784615-.84528088.888-.70087071l4.6504615 1.37478485v8.66461033l-4.6504615-1.3738221c-.49015385-.1453729-.888-.6931688-.888-1.225561z" fill="#fff" opacity=".6"/></g></svg>
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>book-shop-m</title>
+    <g id="Page-2:-Night" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" opacity="0.6">
+        <g id="book-shop-m">
+            <circle id="Oval" fill="#FFFFFF" fill-rule="nonzero" cx="12" cy="12" r="12"></circle>
+            <circle id="Oval" fill="#8C5F93" fill-rule="nonzero" cx="12" cy="12" r="11"></circle>
+            <path d="M12,8.28126545 C12,8.28126545 9,5.70983688 6,7.85269402 L6,17.2812654 C9,15.1384083 12,17.2812654 12,17.2812654 C12,17.2812654 15,15.1384083 18,17.2812654 L18,7.85269402 C15,5.70983688 12,8.28126545 12,8.28126545 Z M12,8.28126545 L12,17.2812654" id="Shape" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+        </g>
+    </g>
+</svg>

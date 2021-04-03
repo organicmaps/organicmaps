@@ -1,7 +1,10 @@
-<svg width="24" height="24" viewBox="0 0 24 24">
-  <g fill="none" fill-rule="evenodd">
-    <circle cx="12" cy="12" r="12" fill="#FFF" opacity=".4"/>
-    <circle cx="12" cy="12" r="11" fill="#133B4C" opacity="0"/>
-    <path fill="#133B4C" d="M12.5,19 C10.16814,19 8,17 8,14.5 C8,11.9722 11.41667,7.4444 12.5,6 C13.58334,7.4444 17,11.9722 17,14.5 C17,17 14.83187,19 12.5,19 L12.5,19 Z"/>
-  </g>
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>drinking-water-m</title>
+    <g id="Page-2:-Night" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" opacity="0.6">
+        <g id="drinking-water-m" fill-rule="nonzero">
+            <circle id="Oval" fill="#FFFFFF" cx="12" cy="12" r="12"></circle>
+            <path d="M11.8461538,19 C9.33492,19 7,16.8461538 7,14.1538462 C7,11.4316 10.6794908,6.55550769 11.8461538,5 C13.0128277,6.55550769 16.6923077,11.4316 16.6923077,14.1538462 C16.6923077,16.8461538 14.3573985,19 11.8461538,19 Z" id="Path" fill="#14A0C2"></path>
+        </g>
+    </g>
 </svg>

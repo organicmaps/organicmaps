@@ -1,7 +1,11 @@
-<svg width="16" height="16" viewBox="0 0 16 16">
-  <g fill="none" fill-rule="evenodd">
-    <rect width="16" height="16" fill="#FFF" opacity=".4" rx="1.5"/>
-    <rect width="14" height="14" x="1" y="1" fill="#1F4366" rx="1"/>
-    <path fill="#FFF" d="M12,8.55516558 L12,9.10631594 L9,9.10631574 L9,10.553158 L10,11.5713489 L10,12 L6,12 L6,11.5713489 L7,10.553158 L7,9.10631574 L4,9.10631594 L4,8.55516558 L7,7.17719323 L7,5.24807053 C7,4.81941946 7.55369837,4 7.99809837,4 C8.44253837,4 9,4.81941946 9,5.24807053 L9,7.17719323 L12,8.55516558 Z" opacity=".6"/>
-  </g>
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="16px" height="16px" viewBox="0 0 16 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>airport-s</title>
+    <g id="Page-2:-Night" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" opacity="0.6">
+        <g id="airport-s" fill-rule="nonzero">
+            <rect id="Rectangle" fill="#FFFFFF" x="0" y="0" width="16" height="16" rx="1.5"></rect>
+            <rect id="Rectangle" fill="#2F6499" x="1" y="1" width="14" height="14" rx="1"></rect>
+            <path d="M12,9.6 L12,8.8 L8.63157895,6.8 L8.63157895,4.6 C8.63157895,4.268 8.34947368,4 8,4 C7.65052632,4 7.36842105,4.268 7.36842105,4.6 L7.36842105,6.8 L4,8.8 L4,9.6 L7.36842105,8.6 L7.36842105,10.8 L6.52631579,11.4 L6.52631579,12 L8,11.6 L9.47368421,12 L9.47368421,11.4 L8.63157895,10.8 L8.63157895,8.6 L12,9.6 Z" id="Path" fill="#FFFFFF"></path>
+        </g>
+    </g>
 </svg>
