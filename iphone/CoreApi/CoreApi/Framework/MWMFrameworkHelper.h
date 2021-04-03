@@ -32,7 +32,6 @@ NS_SWIFT_NAME(FrameworkHelper)
 + (NSArray<NSString *> *)obtainLastSearchQueries;
 + (void)rotateMap:(double)azimuth animated:(BOOL)isAnimated;
 + (void)updatePositionArrowOffset:(BOOL)useDefault offset:(int)offsetY;
-+ (void)uploadUGC:(void (^)(UIBackgroundFetchResult))completionHandler;
 + (NSString *)userAccessToken;
 + (NSString *)userAgent;
 + (int64_t)dataVersion;

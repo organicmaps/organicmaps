@@ -36,9 +36,6 @@ import com.mapswithme.maps.routing.RoutingController;
 import com.mapswithme.maps.search.SearchActivity;
 import com.mapswithme.maps.search.SearchEngine;
 import com.mapswithme.maps.tips.Tutorial;
-import com.mapswithme.maps.ugc.EditParams;
-import com.mapswithme.maps.ugc.UGC;
-import com.mapswithme.maps.ugc.UGCEditorActivity;
 import com.mapswithme.util.Constants;
 import com.mapswithme.util.CrashlyticsUtils;
 import com.mapswithme.util.KeyValue;
@@ -53,11 +50,8 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
-import java.util.Map;
-import java.util.Objects;
 
 public class Factory
 {

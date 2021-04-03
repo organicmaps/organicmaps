@@ -392,9 +392,6 @@ Framework::Framework(FrameworkParams const & params)
   InitCountryInfoGetter();
   LOG(LDEBUG, ("Country info getter initialized"));
 
-  InitUGC();
-  LOG(LDEBUG, ("UGC initialized"));
-
   InitSearchAPI(params.m_numSearchAPIThreads);
   LOG(LDEBUG, ("Search API initialized"));
 
@@ -1396,26 +1393,6 @@ void Framework::InitCountryInfoGetter()
   m_infoGetter->SetAffiliations(&m_storage.GetAffiliations());
 }
 
-void Framework::InitUGC()
-{
-  ASSERT(!m_ugcApi.get(), ("InitUGC() must be called only once."));
-
-  m_ugcApi = make_unique<ugc::Api>(m_featuresFetcher.GetDataSource(), [](size_t numberOfUnsynchronized) {
-    if (numberOfUnsynchronized == 0)
-      return;
-    LOG(LWARNING, ("UGC Unsent", numberOfUnsynchronized));
-  });
-
-  bool ugcStorageValidationExecuted = false;
-  settings::TryGet("WasUgcStorageValidationExecuted", ugcStorageValidationExecuted);
-
-  if (!ugcStorageValidationExecuted)
-  {
-    m_ugcApi->ValidateStorage();
-    settings::Set("WasUgcStorageValidationExecuted", true);
-  }
-}
-
 void Framework::InitSearchAPI(size_t numThreads)
 {
   ASSERT(!m_searchAPI.get(), ("InitSearchAPI() must be called only once."));
@@ -1690,9 +1667,6 @@ void Framework::FillSearchResultsMarks(search::Results::ConstIter begin,
         mark->SetHotelType();
       else
         mark->SetFromType(r.GetFeatureType());
-      auto product = GetProductInfo(r);
-      if (product.m_ugcRating != search::ProductInfo::kInvalidRating)
-        mark->SetRating(product.m_ugcRating);
     }
 
     if (isFeature)
@@ -1781,10 +1755,9 @@ void Framework::CreateDrapeEngine(ref_ptr<dp::GraphicsContextFactory> contextFac
     });
   };
 
-  auto isUGCFn = [this](FeatureID const & id)
+  auto isUGCFn = [](FeatureID const &)
   {
-    auto const ugc = m_ugcApi->GetLoader().GetUGC(id);
-    return !ugc.IsEmpty();
+    return false;
   };
   auto isCountryLoadedByNameFn = bind(&Framework::IsCountryLoadedByName, this, _1);
   auto updateCurrentCountryFn = bind(&Framework::OnUpdateCurrentCountry, this, _1, _2);
@@ -3751,20 +3724,6 @@ bool Framework::ParseSearchQueryCommand(search::SearchParams const & params)
   return false;
 }
 
-search::ProductInfo Framework::GetProductInfo(search::Result const & result) const
-{
-  ASSERT(m_ugcApi, ());
-  if (result.GetResultType() != search::Result::Type::Feature)
-    return {};
-
-  search::ProductInfo productInfo;
-
-  auto const ugc = m_ugcApi->GetLoader().GetUGC(result.GetFeatureID());
-  productInfo.m_ugcRating = ugc.m_totalRating;
-
-  return productInfo;
-}
-
 m2::PointD Framework::GetMinDistanceBetweenResults() const
 {
   return m_searchMarks.GetMaxDimension(m_currentModelView);
@@ -3888,67 +3847,6 @@ void Framework::FillDescription(FeatureType & ft, place_page::Info & info) const
                         ? place_page::OpeningMode::Preview
                         : place_page::OpeningMode::PreviewPlus);
   }
-}
-
-void Framework::UploadUGC(User::CompleteUploadingHandler const & onCompleteUploading)
-{
-  if (GetPlatform().ConnectionStatus() == Platform::EConnectionType::CONNECTION_NONE ||
-      !m_user.IsAuthenticated())
-  {
-    if (onCompleteUploading != nullptr)
-      onCompleteUploading(false);
-
-    return;
-  }
-
-  m_ugcApi->GetUGCToSend([this, onCompleteUploading](string && json, size_t numberOfUnsynchronized)
-  {
-    if (!json.empty())
-    {
-      m_user.UploadUserReviews(std::move(json), numberOfUnsynchronized,
-                               [this, onCompleteUploading](bool isSuccessful)
-      {
-        if (onCompleteUploading != nullptr)
-          onCompleteUploading(isSuccessful);
-
-        if (isSuccessful)
-          m_ugcApi->SendingCompleted();
-      });
-    }
-    else
-    {
-      if (onCompleteUploading != nullptr)
-        onCompleteUploading(true);
-    }
-  });
-}
-
-void Framework::GetUGC(FeatureID const & id, ugc::Api::UGCCallback const & callback)
-{
-  m_ugcApi->GetUGC(id, [this, callback](ugc::UGC const & ugc, ugc::UGCUpdate const & update)
-  {
-    ugc::UGC filteredUGC = ugc;
-    filteredUGC.m_reviews = FilterUGCReviews(ugc.m_reviews);
-    std::sort(filteredUGC.m_reviews.begin(), filteredUGC.m_reviews.end(),
-              [](ugc::Review const & r1, ugc::Review const & r2)
-    {
-      return r1.m_time > r2.m_time;
-    });
-    callback(filteredUGC, update);
-  });
-}
-
-ugc::Reviews Framework::FilterUGCReviews(ugc::Reviews const & reviews) const
-{
-  ugc::Reviews result;
-  auto const details = m_user.GetDetails();
-  ASSERT(std::is_sorted(details.m_reviewIds.begin(), details.m_reviewIds.end()), ());
-  for (auto const & review : reviews)
-  {
-    if (!std::binary_search(details.m_reviewIds.begin(), details.m_reviewIds.end(), review.m_id))
-      result.push_back(review);
-  }
-  return result;
 }
 
 void Framework::FilterResultsForHotelsQuery(booking::filter::Tasks const & filterTasks,

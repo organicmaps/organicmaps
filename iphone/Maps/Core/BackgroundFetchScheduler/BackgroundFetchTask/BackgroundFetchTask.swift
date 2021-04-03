@@ -36,16 +36,3 @@ final class BackgroundEditsUpload: BackgroundFetchTask {
     return "Edits upload"
   }
 }
-
-@objc(MWMBackgroundUGCUpload)
-final class BackgroundUGCUpload: BackgroundFetchTask {
-  override var frameworkType: BackgroundFetchTaskFrameworkType { return .full }
-
-  override fileprivate func fire() {
-    FrameworkHelper.uploadUGC(self.finish)
-  }
-
-  override var description: String {
-    return "UGC upload"
-  }
-}

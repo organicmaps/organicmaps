@@ -135,12 +135,6 @@
   GetFramework().UpdateMyPositionRoutingOffset(useDefault, offsetY);
 }
 
-+ (void)uploadUGC:(void (^)(UIBackgroundFetchResult))completionHandler {
-  GetFramework().UploadUGC([completionHandler](bool isSuccessful) {
-    completionHandler(isSuccessful ? UIBackgroundFetchResultNewData : UIBackgroundFetchResultFailed);
-  });
-}
-
 + (NSString *)userAccessToken {
   return @(GetFramework().GetUser().GetAccessToken().c_str());
 }

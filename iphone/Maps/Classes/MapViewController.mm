@@ -568,28 +568,6 @@ NSString *const kPP2BookmarkEditingSegue = @"PP2BookmarkEditing";
   [self.navigationController pushViewController:descriptionViewController animated:YES];
 }
 
-- (void)showUGCAuth {
-  if (IPAD) {
-    auto controller = [[MWMAuthorizationViewController alloc] initWithPopoverSourceView:self.controlsManager.anchorView
-                                                                                 source:AuthorizationSourceAfterSaveReview
-                                                               permittedArrowDirections:UIPopoverArrowDirectionDown
-                                                                         successHandler:nil
-                                                                           errorHandler:nil
-                                                                      completionHandler:nil];
-
-    [self presentViewController:controller animated:YES completion:nil];
-    return;
-  }
-
-  auto controller = [[MWMAuthorizationViewController alloc] initWithBarButtonItem:nil
-                                                                           source:AuthorizationSourceAfterSaveReview
-                                                                   successHandler:nil
-                                                                     errorHandler:nil
-                                                                completionHandler:nil];
-
-  [self presentViewController:controller animated:YES completion:nil];
-}
-
 - (void)showBookmarksLoadedAlert:(UInt64)categoryId {
   for (UIViewController *vc in self.navigationController.viewControllers) {
     if ([vc isMemberOfClass:MWMCatalogWebViewController.class]) {

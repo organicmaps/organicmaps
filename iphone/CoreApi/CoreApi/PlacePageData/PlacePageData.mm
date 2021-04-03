@@ -198,20 +198,6 @@ static PlacePageRoadType convertRoadType(RoadWarningMarkType roadType) {
   });
 }
 
-- (void)loadUgcWithCompletion:(MWMVoidBlock)completion {
-  __weak __typeof(self) wSelf = self;
-  GetFramework().GetUGC(m_featureID, [wSelf, completion] (ugc::UGC const & ugc, ugc::UGCUpdate const & update) {
-    __strong __typeof(wSelf) self = wSelf;
-    if (self == nil) {
-      completion();
-      return;
-    }
-
-    _ugcData = [[UgcData alloc] initWithUgc:ugc ugcUpdate:update];
-    completion();
-  });
-}
-
 - (void)loadCatalogPromoWithCompletion:(MWMVoidBlock)completion {
   auto const api = GetFramework().GetPromoApi(platform::GetCurrentNetworkPolicy());
   if (!api) {
@@ -326,20 +312,6 @@ static PlacePageRoadType convertRoadType(RoadWarningMarkType roadType) {
   if (self.onBookmarkStatusUpdate != nil) {
     self.onBookmarkStatusUpdate();
   }
-}
-
-- (void)updateUgcStatus {
-  if (!GetFramework().HasPlacePageInfo()) {
-    return;
-  }
-
-  __weak __typeof(self) wSelf = self;
-  [self loadUgcWithCompletion:^{
-    __strong __typeof(wSelf) self = wSelf;
-    if (self.onUgcStatusUpdate != nil) {
-      self.onUgcStatusUpdate();
-    }
-  }];
 }
 
 #pragma mark - MWMStorageObserver

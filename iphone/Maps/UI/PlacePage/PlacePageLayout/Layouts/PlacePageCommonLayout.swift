@@ -103,14 +103,7 @@ class PlacePageCommonLayout: NSObject, IPlacePageLayout {
     vc.view.isHidden = true
     return vc
   } ()
-  
-  lazy var addReviewViewController: AddReviewViewController = {
-    let vc = storyboard.instantiateViewController(ofType: AddReviewViewController.self)
-    vc.view.isHidden = true
-    vc.delegate = interactor
-    return vc
-  } ()
-  
+
   lazy var reviewsViewController: PlacePageReviewsViewController = {
     let vc = storyboard.instantiateViewController(ofType: PlacePageReviewsViewController.self)
     vc.view.isHidden = true
@@ -323,23 +316,6 @@ extension PlacePageCommonLayout {
         }
         self.presenter?.layoutIfNeeded()
       }
-    }
-  }
-
-  func onLoadUgc() {
-    if let ugcData = self.placePageData.ugcData {
-      previewViewController.updateUgc(ugcData)
-
-      if !ugcData.isTotalRatingEmpty {
-        ratingSummaryViewController.ugcData = ugcData
-        ratingSummaryViewController.view.isHidden = false
-      }
-      addReviewViewController.view.isHidden = !ugcData.isUpdateEmpty
-      if !ugcData.isEmpty || !ugcData.isUpdateEmpty {
-        reviewsViewController.ugcData = ugcData
-        reviewsViewController.view.isHidden = false
-      }
-      presenter?.updatePreviewOffset()
     }
   }
 

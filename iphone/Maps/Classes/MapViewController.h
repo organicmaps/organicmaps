@@ -29,7 +29,6 @@
 - (void)openEditor;
 - (void)openBookmarkEditor;
 - (void)openFullPlaceDescriptionWithHtml:(NSString *_Nonnull)htmlString;
-- (void)showUGCAuth;
 - (void)showBookmarksLoadedAlert:(UInt64)categoryId;
 - (void)openCatalogAnimated:(BOOL)animated utm:(MWMUTM)utm;
 - (void)openCatalogDeeplink:(NSURL *_Nonnull)deeplinkUrl animated:(BOOL)animated utm:(MWMUTM)utm;

@@ -36,8 +36,6 @@
 
 #include "kml/type_utils.hpp"
 
-#include "ugc/api.hpp"
-
 #include "editor/new_feature_categories.hpp"
 #include "editor/user_stats.hpp"
 
@@ -181,10 +179,6 @@ protected:
   // search::Engine and, therefore, destroyed after search::Engine.
   std::unique_ptr<storage::CountryInfoGetter> m_infoGetter;
 
-  // The order matters here: ugc::Api should be destroyed after
-  // SearchAPI and notifications::NotificationManager.
-  std::unique_ptr<ugc::Api> m_ugcApi;
-
   std::unique_ptr<SearchAPI> m_searchAPI;
 
   ScreenBase m_currentModelView;
@@ -264,8 +258,6 @@ public:
   taxi::Engine * GetTaxiEngine(platform::NetworkPolicy const & policy);
   locals::Api * GetLocalsApi(platform::NetworkPolicy const & policy);
   promo::Api * GetPromoApi(platform::NetworkPolicy const & policy) const;
-  ugc::Api * GetUGCApi() { return m_ugcApi.get(); }
-  ugc::Api const * GetUGCApi() const { return m_ugcApi.get(); }
 
   df::DrapeApi & GetDrapeApi() { return m_drapeApi; }
 
@@ -362,7 +354,6 @@ public:
   // PositionProvider, SearchApi::Delegate and TipsApi::Delegate override.
   std::optional<m2::PointD> GetCurrentPosition() const override;
   bool ParseSearchQueryCommand(search::SearchParams const & params) override;
-  search::ProductInfo GetProductInfo(search::Result const & result) const override;
   m2::PointD GetMinDistanceBetweenResults() const override;
 
 private:
@@ -511,7 +502,6 @@ public:
 
 private:
   void InitCountryInfoGetter();
-  void InitUGC();
   void InitSearchAPI(size_t numThreads);
   void InitDiscoveryManager();
 
@@ -845,15 +835,6 @@ private:
 
   void InitCityFinder();
   void InitTaxiEngine();
-
-public:
-  // UGC.
-  void UploadUGC(User::CompleteUploadingHandler const & onCompleteUploading);
-  void GetUGC(FeatureID const & id, ugc::Api::UGCCallback const & callback);
-
-private:
-  // Filters user's reviews.
-  ugc::Reviews FilterUGCReviews(ugc::Reviews const & reviews) const;
 
 public:
   void FilterResultsForHotelsQuery(booking::filter::Tasks const & filterTasks,

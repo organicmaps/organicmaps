@@ -72,7 +72,6 @@ import com.mapswithme.maps.search.HotelsFilter;
 import com.mapswithme.maps.search.Popularity;
 import com.mapswithme.maps.settings.RoadType;
 import com.mapswithme.maps.ugc.Impress;
-import com.mapswithme.maps.ugc.UGCController;
 import com.mapswithme.maps.widget.ArrowView;
 import com.mapswithme.maps.widget.LineCountTextView;
 import com.mapswithme.maps.widget.RatingView;
@@ -216,10 +215,6 @@ public class PlacePageView extends NestedScrollViewClickFixed
   @SuppressWarnings("NullableProblems")
   @NonNull
   private View mPopularityView;
-
-  @SuppressWarnings("NullableProblems")
-  @NonNull
-  private UGCController mUgcController;
 
   @SuppressWarnings("NullableProblems")
   @NonNull
@@ -465,8 +460,6 @@ public class PlacePageView extends NestedScrollViewClickFixed
     initHotelRatingView();
 
     mCatalogPromoController = new CatalogPromoController(this);
-
-    mUgcController = new UGCController(this);
 
     mDownloaderIcon = new DownloaderStatusIcon(mPreview.findViewById(R.id.downloader_status_frame));
 
@@ -1142,7 +1135,6 @@ public class PlacePageView extends NestedScrollViewClickFixed
       clearHotelViews();
       processSponsored(policy);
       initEditMapObjectBtn();
-      mUgcController.clearViewsFor(mMapObject);
 
       setCurrentCountry();
     }
@@ -1193,7 +1185,6 @@ public class PlacePageView extends NestedScrollViewClickFixed
     refreshDetails(mMapObject);
     refreshHotelDetailViews(policy);
     refreshViewsInternal(mMapObject);
-    mUgcController.getUGC(mMapObject);
     mCatalogPromoController.updateCatalogPromo(policy, mMapObject);
   }
 
