@@ -18,33 +18,16 @@
 /* Button which deletes downloaded country */
 "delete" = "Slet";
 
-/* Button to dismiss dialog forever */
-"do_not_ask_me_again" = "Spørg mig ikke igen";
-
 /* Button "do not interrupt download" if user touched actively downloading country */
 "do_nothing" = "Fortsæt";
 
 "download_maps" = "Download kort";
 
-/* Settings/Downloader - Download confirmation button */
-"download_x_kb" = "Download %qu kB";
-
-/* Settings/Downloader - Download confirmation button */
-"download_x_mb" = "Download %qu MB";
-
 /* Settings/Downloader - info for country when download fails */
 "download_has_failed" = "Der skete en fejl ved download, tryk for at prøve igen.";
 
-/* Settings/Downloader - info for downloaded country */
-"downloaded_x_y_touch_to_delete" = "Downloaded (%1$qu %2$@), tryk for at slette";
-
-/* Settings/Downloader - country info current download progress */
-"downloading_x_touch_to_cancel" = "Downloader %qu%%, tryk for at afbryde";
-
 /* Settings/Downloader - info for country which started downloading */
 "downloading" = "Downloader…";
-
-"get_it_now" = "Få det nu";
 
 /* Settings/Downloader - size string, only strings different from English should be translated */
 "kb" = "kB";
@@ -58,12 +41,6 @@
 /* View and button titles for accessibility */
 "maps" = "Kort";
 
-/* View and button titles for accessibility */
-"downloader_maps" = "Kort:";
-
-/* Settings/Downloader - info for country in the download queue */
-"marked_for_downloading" = "Markeret til download, tryk for at afbryde";
-
 /* Settings/Downloader - size string, only strings different from English should be translated */
 "mb" = "MB";
 
@@ -75,20 +52,11 @@
 /* View and button titles for accessibility */
 "core_my_position" = "Min position";
 
-/* Settings/Downloader - No free space dialog message */
-"free_disk_space_for_country_x" = "Frigør venligst noget plads på din telefon først for at downloade %@";
-
-/* Leave Review dialog - Not now button (remind me later) */
-"remind_me_later" = "Påmind mig senere";
-
 /* Update maps later/Buy pro version later button text */
 "later" = "Senere";
 
 /* Don't show some dialog any more */
 "never" = "Aldrig";
-
-/* Leave Review dialog - Complain button (goes to support site) */
-"report_an_issue" = "Rapporter et problem";
 
 /* View and button titles for accessibility */
 "search" = "Søg";
@@ -102,9 +70,6 @@
 /* Settings/Downloader - 3G download warning dialog confirm button */
 "use_cellular_data" = "Ja";
 
-/* Choose measurement on first launch alert - title */
-"which_measurement_system" = "Hvilken måleenhed foretrækker du?";
-
 /* Location services are disabled by user alert - message */
 "location_is_disabled_long_text" = "Du har alle lokationstjenester for denne enhed eller applikation slukket. Slå dem venligst til i Indstillinger.";
 
@@ -113,12 +78,6 @@
 
 /* View and button titles for accessibility */
 "zoom_to_country" = "Vis på kortet";
-
-/* Message to display at the center of the screen when the country is added to the downloading queue */
-"country_status_added_to_queue" = "^\ner tilføjet til download-køen";
-
-/* Message to display at the center of the screen when the country is downloading */
-"country_status_downloading" = "Downloader\n^\n^";
 
 /* Button text for the button at the center of the screen when the country is not downloaded */
 "country_status_download" = "Download kort\n(^ ^)";
@@ -136,8 +95,6 @@
 "try_again" = "Prøv igen";
 
 "about_menu_title" = "Om OMaps";
-
-"downloading_touch_to_cancel" = "Downloader %d%%, tryk for at afbryde";
 
 "downloaded_touch_to_delete" = "Downloaded (%@), tryk for at slette";
 
@@ -159,8 +116,6 @@
 
 "not_enough_memory" = "Ikke nok hukommelse til at åbne app";
 
-"free_space_for_country" = "Frigør venligst %1$@ på din enhed først for at downloade %2$@";
-
 "download_resources" = "Før du starter, så lad os downloade det generelle verdenskort til din enhed.\nIt behøver %@ af data.";
 
 "getting_position" = "Henter nuværende lokation";
@@ -174,35 +129,10 @@
 "update_country_ask" = "Opdater %@?";
 
 /* REMOVE THIS STRING AFTER REFACTORING */
-"download_location_map_proposal" = "Du kan downloade kort\nassocieret til din nuværende lokation.";
-
-/* REMOVE THIS_STRING AFTER REFACTORING */
-"download_location_update_map_proposal" = "Du kan opdatere kortet associeret\ntil din nuværende lokation.";
-
-/* REMOVE THIS STRING AFTER REFACTORING */
-"download_location_map_up_to_date" = "Kortet associeret til din nuværende\nlokation (%@) er up to date";
-
-/* REMOVE THIS STRING AFTER REFACTORING */
 "pause" = "Pause";
 
 /* REMOVE THIS STRING AFTER REFACTORING */
 "continue_download" = "Fortsæt";
-
-"downloaded_touch_to_update" = "Downloadet (%@), tryk for at opdatere eller slet";
-
-"update_mb_or_kb" = "Opdater %@";
-
-/* Show popup notification when we have downloaded countries without search (from Lite version) */
-"search_update_maps" = "Du har brug for opdaterede kort for at benytte søgefunktionen:";
-
-/* Show popup notification on app start when we have out-of-date maps */
-"advise_update_maps" = "Der er opdateringer klar til følgende kort:";
-
-/* Show popup notification in Pro version that Lite can be deleted */
-"suggest_uninstall_lite" = "Du har ikke brug for OMaps Lite længere, så du kan godt afinstallere den.";
-
-/* Show popup notification on top of the map when country was downloaded. */
-"download_country_success" = "%@ download succesfuldt";
 
 /* Show popup notification on top of the map when country download has failed. */
 "download_country_failed" = "%@ download mislykkedes";
@@ -245,9 +175,6 @@
 
 /* Text hint in Bookmarks dialog when no any bookmarks are added */
 "bookmarks_usage_hint" = "Du har ingen bogmærker endnu.\nTryk på et sted på kortet for at kunne tilføje det til bogmærker. Bogmærker fra andre kilder kan også blive importeret og vist i OMaps.\nÅbn en KML/KMZ fil med gemte bogmærker/knappenåle på i Mail, Dropbox eller på et link.";
-
-/* Text hint in Bookmarks dialog when at least one bookmark is added */
-"bookmarks_usage_hint_import_only" = "Du har ingen bogmærker endnu. Tryk på et sted på kortet for at kunne tilføje det til bogmærker. Bogmærker fra andre kilder kan også blive importeret og vist i OMaps. Åbn en KML/KMZ fil med gemte bogmærker/knappenåle på i Mail, Dropbox eller på et link.";
 
 /* Settings button in system menu */
 "settings" = "Indstillinger";
@@ -1289,16 +1216,6 @@
 
 "placepage_add_business_button" = "Tilføj organisationen";
 
-"whatsnew_smallmwm_header" = "I har bedt om det, og vi har gjort det";
-
-"whatsnew_smallmwm_message" = "Vi har delt kort op i dele. Nu kan man downloade separate regioner, ikke hele landet.";
-
-"whatsnew_search_header" = "Ny søgning";
-
-"whatsnew_search_message" = "Vi har forbedret søgningen efter adresse betydeligt. Se selv.";
-
-"whatsnew_editor_title" = "Redigér kortet*";
-
 "whatsnew_editor_message_1" = "Tilføj nye steder til kortet og redigér eksisterende direkte fra app'en.";
 
 "whatsnew_editor_message_2" = "* OMaps bruger fællesskabsdata fra OpenStreetMap.";
@@ -1382,13 +1299,6 @@
 "current_location_unknown_error_title" = "Aktuel position er ukendt.";
 
 "current_location_unknown_error_message" = "Der opstod en fejl under søgning efter din position. Kontrollér at din enhed fungerer korrekt, og prøv igen senere.";
-
-"whatsnew_update_editor_title" = "Har vi opdateret korteditoren";
-
-"whatsnew_update_editor_message" = "OMaps brugere har foretaget 200.000 kortændringer. Sammen laver vi det mest detaljerede kort i verden. Tilmeld dig!";
-
-/* Additional text in whats new */
-"whatsnew_update_editor_message_update" = "For at bruge kortredigering, bedes du opdatere alle kort.";
 
 "location_services_disabled_header" = "Placeringsservices er slået fra";
 
@@ -1555,22 +1465,6 @@
 
 "recent_track_background_dialog_message" = "OMaps anvender din geoposition i baggrunden til at gemme din seneste rejserute.";
 
-"whatsnew_car_navigation_header" = "Brugervenlig navigation i køretøjer";
-
-"whatsnew_car_navigation_message" = "• Navigationselementerne fylder mindre.\n• Vi viser hastigheden og har tilføjet auto-zoom.";
-
-"whatsnew_cycle_navigation_2_header" = "Cykelnavigation";
-
-"whatsnew_cycle_navigation_2_message" = "• Cykelnavigation tager forbehold for terrænet.\n• Vi opretter lettere ruter baseret på vejens hældning.";
-
-"whatsnew_booking_2_header" = "Enkel hotelsøgning";
-
-"whatsnew_booking_2_message" = "Søgeresultaterne viser hotelbedømmelser og priskategori.";
-
-"whatsnew_cycle_navigation_header" = "Cykelnavigation (beta-version)";
-
-"whatsnew_cycle_navigation_message" = "Vi tester cykelnavigation til den nye sæson. Prøv din favoritcykelrute med OMaps, og del dine kommentarer med os.";
-
 /* Rate on Google Play (Android only) */
 "rate_gp" = "Bedøm på Google Play";
 
@@ -1673,10 +1567,6 @@
 /* Verb. Text on a button that opens the chat. */
 "chat_open" = "Åbn";
 
-"whatsnew_uber_header" = "OMaps & Uber";
-
-"whatsnew_uber_message" = "Bestil Uber taxi direkte fra app'en!";
-
 "dialog_taxi_offline" = "Det er ikke muligt at bestille en taxi i offlinetilstand.";
 
 "dialog_taxi_error" = "Bestilling af en taxi er ikke muligt lige nu.";
@@ -1714,42 +1604,6 @@
 /* "traffic" as in "road congestion" */
 "traffic_data_unavailable" = "Trafikdata er ikke tilgængelige";
 
-/* december */
-"whatsnew_traffic" = "Trafikdata i 36 lande";
-
-/* december */
-"whatsnew_traffic_text" = "Opdateret trafikinformation og hurtigste ruter baseret på den!";
-
-/* december */
-"whatsnew_traffic_roaming" = "Trafikinfo ved roaming";
-
-/* december */
-"whatsnew_traffic_roaming_text" = "Kræver mindre end 1 MB mobildata pr. tur.";
-
-/* december */
-"whatsnew_order_taxi" = "Bestil en taxa";
-
-/* december */
-"whatsnew_order_taxi_text" = "De fleste af siderne indeholder nu en knap til bestilling af en taxa.";
-
-/* january */
-"whatsnew_improved_search" = "Forbedret søgning";
-
-/* january */
-"whatsnew_improved_search_text" = "Selv fejlstavede forespørgsler giver præcise søgeresultater.";
-
-/* january */
-"whatsnew_filters_in_search" = "Søgefiltre";
-
-/* january */
-"whatsnew_filters_in_search_text" = "Søg hoteller baseret på pris og vurdering.";
-
-/* january */
-"whatsnew_font_size" = "Skriftstørrelse";
-
-/* january */
-"whatsnew_font_size_text" = "Etiketterne på kortet kan gøres større.";
-
 /* "Translation is no needed, because it's a company name" */
 "uber" = "Uber";
 
@@ -1772,26 +1626,6 @@
 "pref_traffic_simplified_colors_title" = "Forenklede trafikfarver";
 
 "enable_logging" = "Aktiver logføring";
-
-"whatsnew_more_info_on_hotels_title" = "Flere oplysninger om hoteller";
-
-"whatsnew_more_info_on_hotels_message" = "Helt nyt look på hotelsider: Tjek billeder, brugeranmeldelser og andre oplysninger på nettet.";
-
-"whatsnew_better_routing_title" = "Forbedret ruteplanlægning";
-
-"whatsnew_better_routing_message" = "• Mere præcis beregning af ankomsttid.\n• App tager hensyn til utilgængelige områder og vejskilte.";
-
-"whatsnew_smaller_mwm_title" = "Maps er blevet mindre";
-
-"whatsnew_smaller_mwm_message" = "Maps kræver op til 20% mindre lager.";
-
-"whatsnew_waypoints_title" = "Vejpunkter i ruteføring";
-
-"whatsnew_waypoints_message" = "Tryk på positioner for at føje vejsteder til din rute.";
-
-"whatsnew_driving_style_title" = "Nyt kortformat til kørsel";
-
-"whatsnew_driving_style_message" = "Bilnavigationstilstand er blevet lettere at bruge.";
 
 "more_on_bookingcom" = "Mere på Booking.com";
 
@@ -1852,8 +1686,6 @@
 
 "whatsnew_transliteration_title" = "Translitteration til latinsk";
 
-"whatsnew_transliteration_message" = "Hvis en gade eller et objekt ikke har et navn på dit sprog, vil det blive stavet ved hjælp af det latinske alfabet.";
-
 "yandex_taxi_title" = "Yandex.Taxi";
 
 "learn_more" = "Flere oplysninger";
@@ -1891,10 +1723,6 @@
 "button_replace" = "Flyt";
 
 "placepage_add_stop" = "Tilføj stop";
-
-"whatsnew_intermediate_point_title" = "Ekstra stop";
-
-"whatsnew_intermediate_point_message" = "Planlæg en rute med et mellemliggende punkt.";
 
 /* Only ru/en are needed */
 "subtitle_rent" = "Rent";
@@ -2503,24 +2331,6 @@
 
 "whats_new_ugc_routes_message2" = "Tilføj fotos og detaljerede historier i webredaktøren.";
 
-"whatsnew_standard_routes_title" = "Standard ruter";
-
-"whatsnew_standard_routes_message" = "Basis sæt af interesse punkter og korte beskrivelser; men en masse oplevelser!";
-
-"whatsnew_city_overview_title" = "Oversigt over by";
-
-"whatsnew_city_overview_message" = "Op til 200 interesse points på kortet over byen: alt rejsende kan finde nyttig og interessant!";
-
-"whatsnew_pro_guides_title" = "Professionel ruter";
-
-"whatsnew_pro_guides_message" = "Meget grundig, med detaljerede beskrivelser af steder og evnen til at beregne turens afstand og tid";
-
-"whatsnew_paid_routes_title" = "Flere nye oplevelser!";
-
-"whatsnew_paid_routes_message" = "Udover de gratis ruter har vi tilføjet 3 betalte rutekategorier til vores katalog. Over 700 nye ruter!";
-
-"whats_new_ugc_routes_title_android_only" = "Det er nemt at dele dine indtryk";
-
 "ugc_thanks_message_auth" = "Din anmeldelse er blevet gemt";
 
 "ugc_thanks_message_not_auth" = "Log ind for efterlade en anmeldelse";
@@ -2681,14 +2491,6 @@
 
 "whats_new_auto_update_and_proceed_button_size" = "Opdater (%s) og fortsæt";
 
-"whatsnew_toll_unpaved_title" = "Layout for kørselsruter medtager alle typer af veje";
-
-"whatsnew_toll_unpaved_message" = "Vælg omveje for at undgå vejbaner, grusveje og færgeoverfarter";
-
-"whatsnew_new_catalogue_title" = "Opdaterede katalogsider";
-
-"whatsnew_new_catalogue_message" = "Vi har tilføjet detaljerede oplysninger om partnerguider, for at gøre valg af rute let og bekvemt";
-
 "purchase_please_wait_toast" = "Forlad ikke denne skærm, før købet er gennemført";
 
 "trip_start" = "Lad os komme i gang";
@@ -2803,18 +2605,6 @@
 
 "subscription_terms" = "Betalingen opkræves via din iTunes-konto ved bekræftelse af købet. Abonnementet fornys automatisk, medmindre den automatiske fornyelse er slået fra senest 24 timer før udgangen af den aktuelle periode. Din konto debiteres i overensstemmelse med din plan for fornyelse indenfor 24 timer før udgangen af den aktuelle periode. Du kan administrere eller slukke for automatisk fornyelse i dine Apple ID-kontoindstillinger på ethvert tidspunkt af dit køb.";
 
-"whatsnew_carplay_title" = "OMaps bil navigation i CarPlay!";
-
-"whatsnew_carplay_message" = "Bogmærker, søgning, fartkameraer og køre muligheder er tilgængelige offline";
-
-"whatsnew_subscription_title" = "Hele verdenen via abonnement!";
-
-"whatsnew_subscription_message" = "Ubegrænset adgang til Katalog over Guider er mere rentabelt end et engangskøb";
-
-"whatsnew_carnavi_fixes_for_android_title" = "Opdater navigation";
-
-"whatsnew_carnavi_fixes_for_android_message" = "Vi har forbedret ruteplanlægning til steder, som er lang fra veje";
-
 "avoid_unpaved_carplay_1" = "Ingen grus";
 
 "avoid_unpaved_carplay_2" = "Undgå grus";
@@ -2918,10 +2708,6 @@
 /* Android, max 18 symbols */
 "bookmarks_delete_list" = "Slet liste";
 
-"whatsnew_bookmarks_search_sort_title" = "Rækkefølgen i bookmarks gør en rejse behagelig";
-
-"whatsnew_bookmarks_search_sort_message" = "Sortere favoritsteder efter kategori, placering og rækkefølge, samt finde specifikke bogmærker hurtigt, efter deres navn";
-
 "popup_subscription_success_map_title" = "Juuhuu, du har abonnement!";
 
 "popup_subscription_success_map_message" = "Opdag nu de bedste turisthøjdepunkter i OMaps kataloget";
@@ -2961,10 +2747,6 @@
 "catalog_no_internet_title" = "Ingen internetforbindelse";
 
 "catalog_no_internet_button" = "Prøv igen";
-
-"whatsnew_map_updates_title" = "Reaktive kortopdateringer";
-
-"whatsnew_map_updates_message" = "Fra nu af, opdaterer vi dataerne dobbelt så hurtigt";
 
 "new_onboarding_button" = "Næste";
 
@@ -3053,14 +2835,6 @@
 
 "dialog_pedestrian_route_is_long" = "Gåturen til transportens boardingsted er for lang";
 
-"whatsnew_outdoor_guides_title" = "Vi har tilføjet 15000+ udendørs ruter!";
-
-"whatsnew_outdoor_guides_message" = "Ruter fra Outdooractive til vinter- og summerture venter i kataloget!";
-
-"whatsnew_guides_galleries_title" = "Planlæg din kommende tur med OMaps";
-
-"whatsnew_guides_galleries_message" = "Nu kan du finde anbefalede guides på stedsiderne om populære turistbyer og syn";
-
 "new_onboarding_step3_header" = "Oplevelse";
 
 "all_pass_screen_best_value" = "Bedste værdi";
@@ -3075,11 +2849,6 @@
 
 /* Failed planning SUBWAY route message in navigation view */
 "routing_planning_error_subway_special" = "Planlægning af metro-rute mislykkedes";
-
-"whatsnew_isolines_title" = "Nyt til udenfor: offline topografiske lag!";
-
-/* as less symbols as possible */
-"whatsnew_isolines_message" = "Følg dig selvsikker i det bjergrige område. Tænd bare for laget i det øverste venstre hjørne";
 
 "button_layer_isolines" = "Terræn";
 
@@ -3169,18 +2938,6 @@
 /* as few symbols as possible */
 "routes_card_hide" = "Skjul fra kort";
 
-"whatsnew_catalog_new_title" = "Nye guidekataloger og tusindvis af rejseideer";
-
-"whatsnew_catalog_new_message" = "Vi har opdateret guidekataloget og tilføjet oversættelser til populære sprog. Begynd at planlægge din tur i forvejen!";
-
-"whatsnew_elevation_profile_title" = "Højdeprofil i rejseguides";
-
-"whatsnew_elevation_profile_message" = "Vurder kompleksiteten af kommende offline stigninger og nedstigninger med markøren i profilen af den købte rute.";
-
-"whatsnew_guides_on_map_title" = "Nyt lag til at finde guider let";
-
-"whatsnew_guides_on_map_message" = "Aktiver laget i applikationens indstillinger for hurtigt at finde interessante byruter og rejseguides for udendørs aktiviteter.";
-
 "downloader_updating_ios" = "Opdaterer";
 
 "downloader_loading_ios" = "Downloader";
@@ -3238,10 +2995,6 @@
 "choose_dates_online_only_dialog_cta" = "Indstillinger";
 
 "thirty_days_limit_dialog" = "Du kan booke maksimalt 30 nætter";
-
-"whatsnew_trial_title" = "Gratis afgang til guidekataloget";
-
-"whatsnew_trial_message" = "Vi tilbyder nu en gratis 7 dages prøveperiode. Få adgang til tusindvis af rejseguider i hele verden og en interaktiv elevationsprofil til udendørsguider.";
 
 "whatsnew_trial_cta" = "Prøv det nu";
 

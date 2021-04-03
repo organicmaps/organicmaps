@@ -12,48 +12,27 @@
 	<string name="cancel_download">다운로드 취소하기</string>
 	<!-- Button which deletes downloaded country -->
 	<string name="delete">삭제하기</string>
-	<!-- Button to dismiss dialog forever -->
-	<string name="do_not_ask_me_again">또 묻지 마세요.</string>
 	<!-- Button "do not interrupt download" if user touched actively downloading country -->
 	<string name="do_nothing">아무것도 하지 마세요</string>
 	<string name="download_maps">지도 다운로드받기</string>
-	<!-- Settings/Downloader - Download confirmation button -->
-	<string name="download_x_kb">%qu 다운로드하기</string>
-	<!-- Settings/Downloader - Download confirmation button -->
-	<string name="download_x_mb">%qu 다운로드하기</string>
 	<!-- Settings/Downloader - info for country when download fails -->
 	<string name="download_has_failed">다운로드에 실패하였습니다. 다시 두드려 시도하여 주십시요.</string>
-	<!-- Settings/Downloader - info for downloaded country -->
-	<string name="downloaded_x_y_touch_to_delete">(%1$qu %2$s)가 다운로드 되었습니다, 두드려 삭제하십시요.</string>
-	<!-- Settings/Downloader - country info current download progress -->
-	<string name="downloading_x_touch_to_cancel">%qu%%를 다운로드 중, 두드려 취소하십시요</string>
 	<!-- Settings/Downloader - info for country which started downloading -->
 	<string name="downloading">다운로드 중…</string>
-	<string name="get_it_now">지금 가져오기</string>
 	<!-- Choose measurement on first launch alert - choose metric system button -->
 	<string name="kilometres">킬로미터</string>
 	<!-- Leave Review dialog - Review button -->
 	<string name="leave_a_review">평 남기기</string>
 	<!-- View and button titles for accessibility -->
 	<string name="maps">지도</string>
-	<!-- View and button titles for accessibility -->
-	<string name="downloader_maps">지도:</string>
-	<!-- Settings/Downloader - info for country in the download queue -->
-	<string name="marked_for_downloading">다운로드로 표시하였습니다. 두드려 취소하십시요.</string>
 	<!-- Choose measurement on first launch alert - choose imperial system button -->
 	<string name="miles">마일</string>
 	<!-- View and button titles for accessibility -->
 	<string name="core_my_position">나의 위치</string>
-	<!-- Settings/Downloader - No free space dialog message -->
-	<string name="free_disk_space_for_country_x">먼저 귀하의 장치에 어느 정도의 공간을 확보하여 %s를 다운로드하여 주십시요.</string>
-	<!-- Leave Review dialog - Not now button (remind me later) -->
-	<string name="remind_me_later">이후에 기억시키기</string>
 	<!-- Update maps later/Buy pro version later button text -->
 	<string name="later">후</string>
 	<!-- Don't show some dialog any more -->
 	<string name="never">거절</string>
-	<!-- Leave Review dialog - Complain button (goes to support site) -->
-	<string name="report_an_issue">문제 보고하기</string>
 	<!-- View and button titles for accessibility -->
 	<string name="search">검색하기</string>
 	<!-- Search box placeholder text -->
@@ -62,18 +41,12 @@
 	<string name="touch_to_download">두드려 다운로드하세요</string>
 	<!-- Settings/Downloader - 3G download warning dialog confirm button -->
 	<string name="use_cellular_data">네</string>
-	<!-- Choose measurement on first launch alert - title -->
-	<string name="which_measurement_system">어느 측정 시스템을 선호하십니까?</string>
 	<!-- Location services are disabled by user alert - message -->
 	<string name="location_is_disabled_long_text">현재 이 장치나 애플리케이션을 위한 전 위치 서비스를 불능시키셨습니다. 설정에서 이를 작동시켜 주시기 바랍니다.</string>
 	<!-- Location Services are not available on the device alert - message -->
 	<string name="device_doesnot_support_location_services">귀하의장치가 위치 서비스를 지원하지 않습니다.</string>
 	<!-- View and button titles for accessibility -->
 	<string name="zoom_to_country">지도에 표시</string>
-	<!-- Message to display at the center of the screen when the country is added to the downloading queue -->
-	<string name="country_status_added_to_queue">^\n는 다운로드 대기열에추가됩니다</string>
-	<!-- Message to display at the center of the screen when the country is downloading -->
-	<string name="country_status_downloading">다운로드 중\n^\n^</string>
 	<!-- Button text for the button at the center of the screen when the country is not downloaded -->
 	<string name="country_status_download">지도 다운로드\n(^ ^)</string>
 	<!-- Button text for the button at the center of the screen when the country is not downloaded and the size should not be shown -->
@@ -85,7 +58,6 @@
 	<!-- Button text for the button under the country_status_download_failed message -->
 	<string name="try_again">다시 시도</string>
 	<string name="about_menu_title">소개</string>
-	<string name="downloading_touch_to_cancel">%d%%를 다운로드 중, 두드려 취소하십시요</string>
 	<string name="downloaded_touch_to_delete">(%s)가 다운로드 되었습니다, 두드려 삭제하십시요.</string>
 	<string name="connection_settings">연결 설정</string>
 	<string name="download_mb_or_kb">%s 다운로드하기</string>
@@ -96,7 +68,6 @@
 	<string name="disconnect_usb_cable">OMaps를 사용하려면 USB 케이블이나 삽입 메모리 카드를 분리하십시오</string>
 	<string name="not_enough_free_space_on_sdcard">응용 프로그램을 사용하기 위해서는 첫째 SD 카드 / USB 저장 장치에 여유 공간을 확보하십시오</string>
 	<string name="not_enough_memory">응용 프로그램을 실행하기위한 메모리가 충분하지 않다</string>
-	<string name="free_space_for_country">%2$s를 다운로드하기 위해서는 먼저 장치에서 무료로 %1$s를주세요</string>
 	<string name="download_resources">시작하시기 전에 일반 세계 지도를 귀하의 장치로 다운로드하겠습니다.\n%s 데이터가 필요합니다.</string>
 	<string name="getting_position">현재 위치 얻기</string>
 	<string name="download_resources_continue">지도로 이동</string>
@@ -104,25 +75,9 @@
 	<string name="download_country_ask">%s다운로드?</string>
 	<string name="update_country_ask">%s업데이트?</string>
 	<!-- REMOVE THIS STRING AFTER REFACTORING -->
-	<string name="download_location_map_proposal">당신의 현재 위치의지도를 다운로드할 수 있습니다.</string>
-	<!-- REMOVE THIS_STRING AFTER REFACTORING -->
-	<string name="download_location_update_map_proposal">귀하의 현재 위치의지도를 업데이트할 수 있습니다.</string>
-	<!-- REMOVE THIS STRING AFTER REFACTORING -->
-	<string name="download_location_map_up_to_date">현재 위치 (%s)\n에서지도는 최신이다</string>
-	<!-- REMOVE THIS STRING AFTER REFACTORING -->
 	<string name="pause">중지</string>
 	<!-- REMOVE THIS STRING AFTER REFACTORING -->
 	<string name="continue_download">계속</string>
-	<string name="downloaded_touch_to_update">다운로드 (%s), 터치를 업데이 트하거나 삭제하는 방법</string>
-	<string name="update_mb_or_kb">%s업데이트</string>
-	<!-- Show popup notification when we have downloaded countries without search (from Lite version) -->
-	<string name="search_update_maps">당신은 검색 기능에 대한 업데이트된지도 필요</string>
-	<!-- Show popup notification on app start when we have out-of-date maps -->
-	<string name="advise_update_maps">이지도에 사용할 수있는 업데이트:</string>
-	<!-- Show popup notification in Pro version that Lite can be deleted -->
-	<string name="suggest_uninstall_lite">당신은 더 이상 OMaps 라이트는 필요 없어, 당신은 그것을 제거할 수 있습니다.</string>
-	<!-- Show popup notification on top of the map when country was downloaded. -->
-	<string name="download_country_success">%s이 성공적으로 다운로드</string>
 	<!-- Show popup notification on top of the map when country download has failed. -->
 	<string name="download_country_failed">%s다운로드가 실패했습니다</string>
 	<!-- Add New Bookmark Set dialog title -->
@@ -151,8 +106,6 @@
 	<string name="set">집합</string>
 	<!-- Text hint in Bookmarks dialog when no any bookmarks are added -->
 	<string name="bookmarks_usage_hint">즐겨찾기가 없습니다.\n즐겨찾기를 추가하도록 지도에 어떤 장소를 누릅니다.\n다른 소스에서 북마크는 OMaps 앱에서 가져와서 표시할 수 있습니다. 메일, 드롭박스 또는 웹링크에서 저장한 핀으로 KML/KMZ 파일을 열 수 있습니다.</string>
-	<!-- Text hint in Bookmarks dialog when at least one bookmark is added -->
-	<string name="bookmarks_usage_hint_import_only">다른 소스에서 북마크는 OMaps 앱에서 가져와서 표시할 수 있습니다. 메일, 드롭박스 또는 웹링크에서 저장한 핀으로 KML/KMZ 파일을 열 수 있습니다.</string>
 	<!-- Settings button in system menu -->
 	<string name="settings">설정</string>
 	<!-- Header of settings activity where user defines storage path -->
@@ -766,11 +719,6 @@
 	<string name="editor_report_problem_other_title">다른 문제</string>
 	<string name="placepage_report_problem_button">문제 신고</string>
 	<string name="placepage_add_business_button">조직 추가</string>
-	<string name="whatsnew_smallmwm_header">여러분이 요청한 것을 저희가 해냈습니다</string>
-	<string name="whatsnew_smallmwm_message">지도를 여러 부분으로 나눴습니다. 이제는 전체 국가가 아닌 개별 지역을 다운로드할 수 있습니다.</string>
-	<string name="whatsnew_search_header">새로운 검색</string>
-	<string name="whatsnew_search_message">저희는 주소에 의한 검색을 놀랍게 개선 했습니다. 직접 경험해 보세요.</string>
-	<string name="whatsnew_editor_title">지도 편집*</string>
 	<string name="whatsnew_editor_message_1">지도에 새로운 장소를 추가하고 응용 프로그램에서 직접 기존 편집 할 수 있습니다.</string>
 	<string name="whatsnew_editor_message_2">* OMaps는 OpenStreetMap 커뮤니티 데이터를 사용합니다.</string>
 	<string name="dialog_incorrect_feature_position">위치 변경</string>
@@ -816,10 +764,6 @@
 	<string name="current_location_unknown_stop_button">중지</string>
 	<string name="current_location_unknown_error_title">현재 위치를 알 수 없습니다.</string>
 	<string name="current_location_unknown_error_message">위치 검색 중 오류가 발생했습니다. 장치가 올바르게 작동되는지 확인하고 다시 시도하세요.</string>
-	<string name="whatsnew_update_editor_title">지도 편집기를 업데이트했습니다</string>
-	<string name="whatsnew_update_editor_message">OMaps 사용자는 200000개의 지도를 변경했습니다. 전 세계에서 가장 정확한 지도를 만들고 있습니다. 사용해 보세요!</string>
-	<!-- Additional text in whats new -->
-	<string name="whatsnew_update_editor_message_update">지도 편집기를 사용하려면, 모든 지도를 업데이트하십시오.</string>
 	<string name="location_services_disabled_header">위치 식별 사용할 수 없음</string>
 	<string name="location_services_disabled_message">장치 설정에서 위치 정보에 액세스할 수 있음</string>
 	<string name="location_services_disabled_1">1. 설정 열기</string>
@@ -907,14 +851,6 @@
 	<string name="sharing_call_action_look">체크아웃</string>
 	<string name="continue_recent_track_background_button">계속</string>
 	<string name="recent_track_background_dialog_message">OMaps는 최근 여행한 경로를 녹음하기 위해 배경 화면에서 지역 위치 서비스를 사용합니다.</string>
-	<string name="whatsnew_car_navigation_header">사용자 친화적인 차량 네비게이션</string>
-	<string name="whatsnew_car_navigation_message">• 탐색 요소는 더 적은 공간을 차지합니다.\n• 저희는 속도를 표시하고 자동 줌을 추가했습니다.</string>
-	<string name="whatsnew_cycle_navigation_2_header">자전거 네비게이션</string>
-	<string name="whatsnew_cycle_navigation_2_message">• 자전거 탐색은 계정 지형 데이터를 고려합니다.\n• 저희는 계정 도로 경사를 고려하여 쉽게 경로를 만들 수 있습니다.</string>
-	<string name="whatsnew_booking_2_header">쉬운 호텔 검색</string>
-	<string name="whatsnew_booking_2_message">검색 결과는 호텔 평가 및 가격 범주를 표시합니다.</string>
-	<string name="whatsnew_cycle_navigation_header">자전거 네비게이션 (베타 버전)</string>
-	<string name="whatsnew_cycle_navigation_message">저희는 새로운 시즌을 맞이하여 자전거 네비게이션을 테스트하고 있습니다. OMaps에서 귀하가 자주 이용하는 자전거 경로를 사용해 보고, 사용 소감을 알려주세요.</string>
 	<!-- Rate on Google Play (Android only) -->
 	<string name="rate_gp">Google Play에서 평가</string>
 	<!-- Share with friends: menu item title -->
@@ -975,8 +911,6 @@
 	<string name="chat">Geochat</string>
 	<!-- Verb. Text on a button that opens the chat. -->
 	<string name="chat_open">열기</string>
-	<string name="whatsnew_uber_header">OMaps &amp; Uber</string>
-	<string name="whatsnew_uber_message">Uber 택시를 직접 앱에서 예약하세요.</string>
 	<string name="dialog_taxi_offline">오프라인 모드에서는 택시를 예약할 수 없습니다.</string>
 	<string name="dialog_taxi_error">일시적으로 택시를 예약할 수 없습니다.</string>
 	<string name="mobile_data_dialog">모바일 인터넷을 사용하여 자세한 정보를 표시하시겠습니까?</string>
@@ -995,30 +929,6 @@
 	<string name="traffic_update_app_message">교통 데이터를 표시하려면 응용 프로그램을 업데이트해야 합니다.</string>
 	<!-- "traffic" as in "road congestion" -->
 	<string name="traffic_data_unavailable">교통 데이터를 사용할 수 없습니다</string>
-	<!-- december -->
-	<string name="whatsnew_traffic">36개국의 교통 데이터</string>
-	<!-- december -->
-	<string name="whatsnew_traffic_text">최신 교통 정보 및 이 정보에 따른 가장 빠른 운전 경로!</string>
-	<!-- december -->
-	<string name="whatsnew_traffic_roaming">로밍의 교통 정보</string>
-	<!-- december -->
-	<string name="whatsnew_traffic_roaming_text">승차당 모바일 대역폭 1MB 미만이 필요합니다.</string>
-	<!-- december -->
-	<string name="whatsnew_order_taxi">택시 주문</string>
-	<!-- december -->
-	<string name="whatsnew_order_taxi_text">이제 대부분의 위치 페이지에 택시 주문을 위한 버튼이 포함되어 있습니다.</string>
-	<!-- january -->
-	<string name="whatsnew_improved_search">향상된 검색</string>
-	<!-- january -->
-	<string name="whatsnew_improved_search_text">철자가 틀린 쿼리도 정확한 검색 결과를 표시합니다.</string>
-	<!-- january -->
-	<string name="whatsnew_filters_in_search">검색 필터</string>
-	<!-- january -->
-	<string name="whatsnew_filters_in_search_text">가격 및 등급에 따라 호텔을 검색합니다.</string>
-	<!-- january -->
-	<string name="whatsnew_font_size">글꼴 크기</string>
-	<!-- january -->
-	<string name="whatsnew_font_size_text">지도의 레이블을 더 크게 할 수 있습니다.</string>
 	<!-- Seven points and higher -->
 	<string name="booking_filter_rating_num_good">7.0+</string>
 	<!-- Eight points and higher -->
@@ -1028,16 +938,6 @@
 	<!-- Simplified colour scheme for traffic information, fewer colours are used to display traffic jams on the map. The string should be kept as short as possible -->
 	<string name="pref_traffic_simplified_colors_title">단순화된 트래픽 색상</string>
 	<string name="enable_logging">로깅 사용</string>
-	<string name="whatsnew_more_info_on_hotels_title">호텔에 대한 자세한 정보</string>
-	<string name="whatsnew_more_info_on_hotels_message">호텔 페이지의 새로운 모습: 온라인으로 사진, 사용자 리뷰 및 기타 정보를 확인하세요.</string>
-	<string name="whatsnew_better_routing_title">향상된 경로 계획</string>
-	<string name="whatsnew_better_routing_message">• 보다 정확한 도착 시간 추정. \n• 앱이 제한 지역 및 도로 표지판을 고려합니다.</string>
-	<string name="whatsnew_smaller_mwm_title">더 작아진 지도</string>
-	<string name="whatsnew_smaller_mwm_message">지도가 저장소를 최대 20% 적게 필요로 합니다.</string>
-	<string name="whatsnew_waypoints_title">경로의 중간 지점</string>
-	<string name="whatsnew_waypoints_message">경로에 중간 지점을 추가할 위치를 탭하세요.</string>
-	<string name="whatsnew_driving_style_title">운전을 위한 새로운 지도 스타일</string>
-	<string name="whatsnew_driving_style_message">자동차 네비게이션 모드 사용이 더욱 쉬워졌습니다.</string>
 	<string name="more_on_bookingcom">Booking.com의 추가 정보</string>
 	<string name="details_on_bookingcom">Booking.com의 세부 정보</string>
 	<string name="reviews_on_bookingcom">Booking.com의 추가 리뷰</string>
@@ -1067,7 +967,6 @@
 	<string name="prefs_languages_information_off">일부 언어의 경우 앱 스토어(Google Play Market, Samsung Apps)에서 다른 음성 합성기 또는 추가 언어 팩을 설치해야 합니다.\n장치의 설정 → 언어 및 입력 → 음성 → 텍스트-음성 변환 출력을 엽니다.\n여기서 음성 합성에 대한 설정을 관리하고(예: 오프라인 사용을 위한 언어 팩 다운로드) 다른 텍스트-음성 변환 엔진을 선택할 수 있습니다.</string>
 	<string name="prefs_languages_information_off_link">자세한 내용을 보려면 이 가이드를 확인하세요.</string>
 	<string name="whatsnew_transliteration_title">라틴어로 음역</string>
-	<string name="whatsnew_transliteration_message">거리 또는 개체에 사용자 언어로 된 이름이 없는 경우, 라틴 알파벳을 사용하여 나옵니다.</string>
 	<string name="learn_more">자세히 알아보기</string>
 	<string name="core_exit">끝내기</string>
 	<string name="routing_add_start_point">경로 계획을 세우기 위한 시작 지점을 추가하세요</string>
@@ -1086,8 +985,6 @@
 	<string name="dialog_change_start_point_message">시작 지점을 현재 위치로 바꾸시겠습니까?</string>
 	<string name="button_replace">바꾸기</string>
 	<string name="placepage_add_stop">스톱 추가</string>
-	<string name="whatsnew_intermediate_point_title">추가 스톱</string>
-	<string name="whatsnew_intermediate_point_message">중간 지점을 사용하여 경로를 계획하세요.</string>
 	<string name="add_my_position">내 위치 추가</string>
 	<string name="choose_start_point">시작 지점 선택</string>
 	<string name="choose_destination">목적지 선택</string>
@@ -1393,15 +1290,6 @@
 	<string name="whats_new_ugc_routes_subtitle">잊지 못할 장소들을 저장하고 즐겨찾기를 사용해 길을 만들어 OMaps의 모두와 나눠보세요.</string>
 	<string name="whats_new_webeditor_title">당신의 지나온 길들을 이야기로 바꿔보세요</string>
 	<string name="whats_new_ugc_routes_message2">웹 에디터 안에서 사진들과 자세한 이야기들을 추가해보세요.</string>
-	<string name="whatsnew_standard_routes_title">표준 루트</string>
-	<string name="whatsnew_standard_routes_message">흥미로운 곳들의 기본 내용과 간략한 묘사, 하지만 풍부한 경험들!</string>
-	<string name="whatsnew_city_overview_title">도시 개관</string>
-	<string name="whatsnew_city_overview_message">도시 지도에 200여개의 흥미로운 지점: 모든 여행자들이 유용함과 재미를 발견 할 수 있습니다!</string>
-	<string name="whatsnew_pro_guides_title">전문가 루트</string>
-	<string name="whatsnew_pro_guides_message">장소에 대한 자세한 묘사와 통행 거리, 시간 계산 능력이 매우 철저합니다</string>
-	<string name="whatsnew_paid_routes_title">더 새로운 경험들!</string>
-	<string name="whatsnew_paid_routes_message">무료 루트뿐만 아니라, 3개의 유료 루트 카테고리들도 우리의 카탈로그에 추가했습니다 700개 이상의 새로운 루트들!</string>
-	<string name="whats_new_ugc_routes_title_android_only">당신의 감동을 공유하기 좋습니다</string>
 	<string name="ugc_thanks_message_auth">리뷰가 저장되었습니다</string>
 	<string name="ugc_thanks_message_not_auth">리뷰를 남기시려면 로그인을 하세요</string>
 	<string name="notification_leave_review_v2_title">방문하신 장소를 평가하셔서 여행객들을 도와주세요!</string>
@@ -1485,10 +1373,6 @@
 	<string name="whats_new_auto_update_bydeeplink_title">가이드를 진행하시기 전에…</string>
 	<string name="whats_new_auto_update_bydeeplink_message">맵들을 업데이트하셔서 최신 사항에 대한 정보를 유지하세요!</string>
 	<string name="whats_new_auto_update_and_proceed_button_size">(%s) 업데이트 그리고 진행</string>
-	<string name="whatsnew_toll_unpaved_title">모든 도로를 고려한 자동차 노선 배치</string>
-	<string name="whatsnew_toll_unpaved_message">유료도로, 비포장 도로, 여객선 횡단길 우회 선택</string>
-	<string name="whatsnew_new_catalogue_title">업데이트된 카탈로그 페이지들</string>
-	<string name="whatsnew_new_catalogue_message">우리는 루티 선택을 쉽고 편리하게 하려고 파트너 가이드에 대한 자세한 정보를 추가했습니다</string>
 	<string name="purchase_please_wait_toast">구매가 완료되기 전에 이 화면을 떠나지 마세요</string>
 	<string name="trip_start">가자</string>
 	<string name="pick_destination">목적지</string>
@@ -1544,12 +1428,6 @@
 	<string name="buy_btn_for_subscription_ios_only_year">%s/년 으로 무제한 액세스</string>
 	<string name="subscription_terms_guides">구매 확인 후 비용이 귀하의 iTunes 계정에 청구됩니다. 현재 기한 종료 전 적어도 24시간 전에 자동 갱신 기능이 꺼져있어야 합니다. 그렇지 않으면 구독은 자동 갱신됩니다. 현재 기한 종료 후 24시간 이내에 갱신에 대한 귀하의 계획에 따라 계정에 비용이 청구됩니다. 귀하가 구매 시 아무 때나 귀하의 Apple ID 계정에서 자동 갱신 기능을 끄거나 관리할 수 있습니다. 구독 만료 기간까지만 구독 시 다운로드한 가이드를 사용할 수 있습니다. 구독 만료일에서 30일이 지나면 북마크와 가이드는 자동으로 삭제됩니다.</string>
 	<string name="subscription_terms">결제 확인시 iTunes 계정에 요금이 부과됩니다. 현재 구독 기간 종료 최소 24 시간 전에 자동 갱신을 해제하지 않을 경우, 구독은 자동으로 갱신됩니다. 현재 구독 기간 종료 최소 24 시간 이전에 갱신하신 플랜의 상세 정보에 따라 계정의 비용이 청구될 것입니다. 구입 시 Apple ID 계정 설정에서 자동 갱신을 관리하거나 해제할 수 있습니다.</string>
-	<string name="whatsnew_carplay_title">CarPlay의 OMaps 자동차 내비게이션!</string>
-	<string name="whatsnew_carplay_message">북마크, 찾기, 속도 감시 카메라 및 루트 옵션이 오프라인에서 가능합니다</string>
-	<string name="whatsnew_subscription_title">구독으로 전 세계를 알게 됩니다!</string>
-	<string name="whatsnew_subscription_message">안내 카탈로그의 무제한 액세스는 한번 구매보다 더 이득입니다</string>
-	<string name="whatsnew_carnavi_fixes_for_android_title">내비게이션 업데이트</string>
-	<string name="whatsnew_carnavi_fixes_for_android_message">도로로부터 멀리 떨어져 있는 지점들에 대한 루트 계획을 개선했습니다</string>
 	<string name="avoid_unpaved_carplay_1">비포장 도로 없음</string>
 	<string name="avoid_unpaved_carplay_2">비포장 도로 없음</string>
 	<string name="avoid_ferry_carplay_1">여객선 없음</string>
@@ -1606,8 +1484,6 @@
 	<string name="bookmarks_edit_list">리스트 수정</string>
 	<!-- Android, max 18 symbols -->
 	<string name="bookmarks_delete_list">리스트 삭제</string>
-	<string name="whatsnew_bookmarks_search_sort_title">북마크를 정리하시고 편안한 여행되세요</string>
-	<string name="whatsnew_bookmarks_search_sort_message">카테고리, 위치, 추가한 시간대 별로 좋아하는 장소를 분류하세요. 이름으로 특정한 북마크를 빠르게 찾으실 수도 있습니다</string>
 	<string name="popup_subscription_success_map_title">우후, 구독을 하셨군요!</string>
 	<string name="popup_subscription_success_map_message">지금 OMaps 카탈로그와 함께 최고의 여행 명소를 찾아보세요</string>
 	<string name="popup_subscription_success_map_start_button">보기 시작</string>
@@ -1628,8 +1504,6 @@
 	<string name="subscription_screen_native_message_version_2">600개 이상의 도시와 100 곳 이상의 나라에 언제라도 갈 수 있습니다</string>
 	<string name="catalog_no_internet_title">인터넷 연결이 되어있지 않습니다</string>
 	<string name="catalog_no_internet_button">다시 시도</string>
-	<string name="whatsnew_map_updates_title">매우 빠른 맵 업데이트</string>
-	<string name="whatsnew_map_updates_message">이제부터데이터를 2배로 업데이트 합니다</string>
 	<string name="new_onboarding_button">다음</string>
 	<string name="new_onboarding_button_2">시작하기</string>
 	<string name="new_onboarding_step1_header_2">여행 친구는 이 친구 하나면 됩니다</string>
@@ -1674,10 +1548,6 @@
 	<string name="downloader_country_no_guides_gallery_header">이 나라에는 아직 가이드가 없습니다</string>
 	<string name="downloader_country_no_guides_gallery_message">도시 및 야외 활동을 위해 100개 이상의 국가의 다른 오프라인 가이드가 확인 가능합니다</string>
 	<string name="dialog_pedestrian_route_is_long">교통 탑승지까지 보행자 경로는 너무 기네요</string>
-	<string name="whatsnew_outdoor_guides_title">1만 5천개 이상의 야외 길을 추가했습니다!</string>
-	<string name="whatsnew_outdoor_guides_message">여름과 겨울 여행을 위한 Outdooractive에서 온 경로들이 카탈로그에서 기다리고 있습니다!</string>
-	<string name="whatsnew_guides_galleries_title">OMaps와 함께 앞으로의 여행을 계획해보세요</string>
-	<string name="whatsnew_guides_galleries_message">이제 인기 있는 관광 도시와 명소들의 장소 페이지에서 추천 가이드를 찾을 수 있습니다</string>
 	<string name="new_onboarding_step3_header">경험하세요</string>
 	<string name="all_pass_screen_best_value">최고가치</string>
 	<string name="buy_btn_for_subscription_3">모든 카탈로그가 %s/년</string>
@@ -1686,9 +1556,6 @@
 	<string name="dialog_pedestrian_route_is_long_message">지하철역에서 가까운 출발점 또는 종점을 선택하세요</string>
 	<!-- Failed planning SUBWAY route message in navigation view -->
 	<string name="routing_planning_error_subway_special">지하철 루트 계획 생성 실패</string>
-	<string name="whatsnew_isolines_title">아웃도어용 새 기능: 오프라인 지형 레이어!</string>
-	<!-- as less symbols as possible -->
-	<string name="whatsnew_isolines_message">산 지형에서도 자신감 있게. 왼쪽 구성 상단의 레이어를 키세요</string>
 	<string name="button_layer_isolines">지형</string>
 	<string name="tips_map_layers_title_countour">OMaps의 새 기능: 오프라인 지형 레이어!</string>
 	<string name="tips_map_layers_message_countour">이 지역에 대한 모든 것을 알고 있는지 확인하면서 자연 여행을 계획하고 즐기세요</string>
@@ -1725,12 +1592,6 @@
 	<string name="routes_card_show">지도에서 보이기</string>
 	<!-- as few symbols as possible -->
 	<string name="routes_card_hide">지도에서 숨기기</string>
-	<string name="whatsnew_catalog_new_title">새로운 가이드 카탈로그 및 수천 개의 여행 아이디어</string>
-	<string name="whatsnew_catalog_new_message">가이드 카탈로그를 업데이트하고 통역을 인기 있는 언어로 추가했습니다. 미래의 여행을 계획해보세요!</string>
-	<string name="whatsnew_elevation_profile_title">여행 가이드의 고도 단면도</string>
-	<string name="whatsnew_elevation_profile_message">구매한 경로의 프로필에 커서를 두고 곧 있을 오프라인 올라가기 및 내려가기의 어려움을 평가합니다.</string>
-	<string name="whatsnew_guides_on_map_title">가이드를 쉽게 찾을 수 있는 새로운 레이어</string>
-	<string name="whatsnew_guides_on_map_message">애플리케이션 설정 메뉴에서 레이어를 활성화하여 야외 활동을 위한 흥미로운 도시 경로 및 여행 가이드를 신속하게 찾을 수 있습니다.</string>
 	<string name="downloader_updating_ios">업데이트 중</string>
 	<string name="downloader_loading_ios">다운로드 중</string>
 	<string name="routes_card_plus_track">+ 경로</string>
@@ -1766,8 +1627,6 @@
 	<string name="choose_dates_online_only_dialog_message">날짜 및 고객 수는 온라인 상태일 때만 선택이 가능합니다. 설정을 확인하시고 인터넷에 연결되어 있는지 확인하십시오.</string>
 	<string name="choose_dates_online_only_dialog_cta">설정</string>
 	<string name="thirty_days_limit_dialog">최대 30일 숙박을 예약하실 수 있습니다</string>
-	<string name="whatsnew_trial_title">가이드 카탈로그에 무료 액세스</string>
-	<string name="whatsnew_trial_message">7일 무료 체험을 제공하고 있습니다. 전 세계 수천 개의 여행 가이드와 아웃도어 활동용 상호작용식 산행 가이드에 액세스하실 수 있습니다.</string>
 	<string name="whatsnew_trial_cta">지금 체험해보세요</string>
 	<string name="subscription_terms_guides_outdoor">구매 완료 후, 비용이 귀하의 iTunes 계정에 청구됩니다. 현재 가입 기간이 종료되기 최소 24시간 전에 자동 갱신 기능이 비활성화되지 않으면 가입이 자동으로 갱신됩니다. 귀하의 계정에서 현재 가입 기간이 종료되기 24시간 이내에 갱신 플랜에 따라 청구됩니다. 구매 후 언제든지 Apple ID 계정 설정에서 자동 갱신을 관리하시거나 비활성화하실 수 있습니다. 구독이 만료될 때까지 구독 기간 동안 다운로드한 가이드만 사용하십시오. 가이드와 모든 책갈피는 가입이 만료된 후 7일 후에 자동으로 삭제됩니다.\n* 무료 평가판 사용 기간이 있는 가입은 유료 가입으로 자동 갱신됩니다. 구매 후 계정 설정에서 무료 평가판의 자동 갱신을 취소하거나 관리하실 수 있습니다. 취소는 현행 가입기간 마지막 날로부터 24시간 이후부터 효력이 발생합니다. 그 후에 귀하의 서비스는 무료 서비스로 바뀝니다. 참고: 무료 평가판 중 프리미엄 서비스를 구입할 경우 무료 평가판의 사용하지 않은 부분은 사라집니다.</string>
 	<string name="subscription_terms_android_outdoor">구매를 확인하면 귀하의 Google Play 계정에 대금이 청구됩니다. 현재 가입 기간이 종료되기 최소 24시간 전에 자동 갱신 기능이 비활성화되지 않으면 가입이 자동으로 갱신됩니다. 귀하의 계정에서 현재 가입 기간이 종료되기 24시간 이내에 갱신 플랜에 따라 청구됩니다. 구매 후 언제든지 계정 설정에서 자동 갱신을 관리하거나 비활성화할 수 있습니다. 구독이 만료될 때까지 구독 기간 동안 다운로드한 가이드만 사용하십시오. 가이드는 가입 만료 7일 후 자동으로 삭제됩니다.\n* 무료 평가판 사용 기간이 있는 가입은 유료 가입으로 자동 갱신됩니다. 구매 후 계정 설정에서 무료 평가판의 자동 갱신을 취소하거나 관리하실 수 있습니다. 취소는 현행 가입기간 마지막 날로부터 24시간 이후부터 효력이 발생합니다. 그 후에 귀하의 서비스는 무료 서비스로 바뀝니다. 참고: 무료 평가판 중 프리미엄 서비스를 구입할 경우 무료 평가판의 사용하지 않은 부분은 사라집니다.</string>

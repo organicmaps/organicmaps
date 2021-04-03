@@ -18,33 +18,16 @@
 /* Button which deletes downloaded country */
 "delete" = "Ta bort";
 
-/* Button to dismiss dialog forever */
-"do_not_ask_me_again" = "Fråga mig inte igen";
-
 /* Button "do not interrupt download" if user touched actively downloading country */
 "do_nothing" = "Fortsätt";
 
 "download_maps" = "Ladda ner kartor";
 
-/* Settings/Downloader - Download confirmation button */
-"download_x_kb" = "Ladda ner %qu kB";
-
-/* Settings/Downloader - Download confirmation button */
-"download_x_mb" = "Ladda ner %qu MB";
-
 /* Settings/Downloader - info for country when download fails */
 "download_has_failed" = "Nedladdningen misslyckades, tryck för att försöka igen";
 
-/* Settings/Downloader - info for downloaded country */
-"downloaded_x_y_touch_to_delete" = "Nedladdad (%1$qu %2$@), tryck för att ta bort";
-
-/* Settings/Downloader - country info current download progress */
-"downloading_x_touch_to_cancel" = "Laddar ner %qu%%, tryck för att avbryta";
-
 /* Settings/Downloader - info for country which started downloading */
 "downloading" = "Laddar ner…";
-
-"get_it_now" = "Skaffa det nu";
 
 /* Settings/Downloader - size string, only strings different from English should be translated */
 "kb" = "kB";
@@ -58,12 +41,6 @@
 /* View and button titles for accessibility */
 "maps" = "Kartor";
 
-/* View and button titles for accessibility */
-"downloader_maps" = "Kartor:";
-
-/* Settings/Downloader - info for country in the download queue */
-"marked_for_downloading" = "Markerad för nedladdning, tryck för att avbryta";
-
 /* Settings/Downloader - size string, only strings different from English should be translated */
 "mb" = "MB";
 
@@ -75,20 +52,11 @@
 /* View and button titles for accessibility */
 "core_my_position" = "Min position";
 
-/* Settings/Downloader - No free space dialog message */
-"free_disk_space_for_country_x" = "Frigör mer utrymme på din enhet först för att kunna ladda ner %@";
-
-/* Leave Review dialog - Not now button (remind me later) */
-"remind_me_later" = "Påminn mig senare";
-
 /* Update maps later/Buy pro version later button text */
 "later" = "Senare";
 
 /* Don't show some dialog any more */
 "never" = "Aldrig";
-
-/* Leave Review dialog - Complain button (goes to support site) */
-"report_an_issue" = "Rapportera ett problem";
 
 /* View and button titles for accessibility */
 "search" = "Sök";
@@ -102,9 +70,6 @@
 /* Settings/Downloader - 3G download warning dialog confirm button */
 "use_cellular_data" = "Ja";
 
-/* Choose measurement on first launch alert - title */
-"which_measurement_system" = "Vilket mätsystem föredrar du?";
-
 /* Location services are disabled by user alert - message */
 "location_is_disabled_long_text" = "Du har inaktiverat alla platstjänster för denna enhet eller program. Vänligen aktivera dem i Inställningar.";
 
@@ -113,12 +78,6 @@
 
 /* View and button titles for accessibility */
 "zoom_to_country" = "Visa på kartan";
-
-/* Message to display at the center of the screen when the country is added to the downloading queue */
-"country_status_added_to_queue" = "^\när tillagd till nedladdningskön";
-
-/* Message to display at the center of the screen when the country is downloading */
-"country_status_downloading" = "Laddar ner\n^\n^";
 
 /* Button text for the button at the center of the screen when the country is not downloaded */
 "country_status_download" = "Ladda ner karta\n(^ ^)";
@@ -136,8 +95,6 @@
 "try_again" = "Försök igen";
 
 "about_menu_title" = "Om OMaps";
-
-"downloading_touch_to_cancel" = "Laddar ner %d%%, tryck för att avbryta";
 
 "downloaded_touch_to_delete" = "Nedladdad (%@), tryck för att ta bort";
 
@@ -159,8 +116,6 @@
 
 "not_enough_memory" = "Inte tillräckligt med utrymme för att starta appen";
 
-"free_space_for_country" = "Vänligen frigör %1$@ på din enhet för att kunna ladda ner %2$@";
-
 "download_resources" = "Innan du startar, låt oss ladda ner den generella världskartan på din enhet.\nDen behöver %@ data.";
 
 "getting_position" = "Hämtar nuvarande position";
@@ -174,35 +129,10 @@
 "update_country_ask" = "Uppdatera %@?";
 
 /* REMOVE THIS STRING AFTER REFACTORING */
-"download_location_map_proposal" = "Du kan ladda ner kartan\növer din nuvarande plats.";
-
-/* REMOVE THIS_STRING AFTER REFACTORING */
-"download_location_update_map_proposal" = "Du kan uppdatera kartan\növer din nuvarande plats.";
-
-/* REMOVE THIS STRING AFTER REFACTORING */
-"download_location_map_up_to_date" = "Kartan över din nuvarande\nplats (%@) är akutell";
-
-/* REMOVE THIS STRING AFTER REFACTORING */
 "pause" = "Pausa";
 
 /* REMOVE THIS STRING AFTER REFACTORING */
 "continue_download" = "Fortsätt";
-
-"downloaded_touch_to_update" = "Nedladdad (%@), tryck för att uppdatera eller ta bort";
-
-"update_mb_or_kb" = "Uppdatera %@";
-
-/* Show popup notification when we have downloaded countries without search (from Lite version) */
-"search_update_maps" = "Du behöver uppdaterade kartor för sökfunktionen:";
-
-/* Show popup notification on app start when we have out-of-date maps */
-"advise_update_maps" = "Uppdatering tillgänglig för dessa kartor:";
-
-/* Show popup notification in Pro version that Lite can be deleted */
-"suggest_uninstall_lite" = "Du behöver inte OMaps Lite mer, så du kan avinstallera den.";
-
-/* Show popup notification on top of the map when country was downloaded. */
-"download_country_success" = "%@ nedladdat lyckat";
 
 /* Show popup notification on top of the map when country download has failed. */
 "download_country_failed" = "%@ nedladdning misslyckades";
@@ -245,9 +175,6 @@
 
 /* Text hint in Bookmarks dialog when no any bookmarks are added */
 "bookmarks_usage_hint" = "Du har inga bokmärken än.\nTryck var som helst på kartan för att lägga till ett bokmärke.\nBokmärken från andra källor kan också importeras och visas i OMaps. Öppna KML/KMZ filer med sparade bokmärken från mail, Dropbox eller webadress.";
-
-/* Text hint in Bookmarks dialog when at least one bookmark is added */
-"bookmarks_usage_hint_import_only" = "Bokmärken från andra källor kan importeras och visas i OMaps. Öppna KML/KMZ filer med sparade bokmärken från mail, Dropbox eller webadress.";
 
 /* Settings button in system menu */
 "settings" = "Inställningar";
@@ -1289,16 +1216,6 @@
 
 "placepage_add_business_button" = "Lägg till organisation";
 
-"whatsnew_smallmwm_header" = "Du har bett om det och vi har gjort det";
-
-"whatsnew_smallmwm_message" = "Vi har delat in kartor i delar. Nu kan du ladda ner separata regioner, inte hela landet.";
-
-"whatsnew_search_header" = "Ny sökning";
-
-"whatsnew_search_message" = "Vi har avsevärt förbättrat sökningen på adress. Se själv.";
-
-"whatsnew_editor_title" = "Redigera kartan*";
-
 "whatsnew_editor_message_1" = "Lägg till nya platser till kartan och redigera de befintliga direkt från appen.";
 
 "whatsnew_editor_message_2" = "* OMaps använder data från OpenStreetMaps community.";
@@ -1382,13 +1299,6 @@
 "current_location_unknown_error_title" = "Den nuvarande platsen är okänd.";
 
 "current_location_unknown_error_message" = "Ett fel inträffade vid sökning efter din plats. Kontrollera att din enhet fungerar och försök igen senare.";
-
-"whatsnew_update_editor_title" = "Vi har uppdaterat kartredigeraren";
-
-"whatsnew_update_editor_message" = "OMaps-användare har gjort 200 000 kartändringar. Tillsammans skapar vi de mest detaljerade kartonera i världen. Var med!";
-
-/* Additional text in whats new */
-"whatsnew_update_editor_message_update" = "Uppdatera alla kartor för att använda kartredigeraren.";
 
 "location_services_disabled_header" = "Platsidentifiering avaktiverad";
 
@@ -1555,22 +1465,6 @@
 
 "recent_track_background_dialog_message" = "OMaps använder din geografiska position i bakgrunden för att spela in din senaste resta rutt.";
 
-"whatsnew_car_navigation_header" = "Användarvänlig fordonsnavigering";
-
-"whatsnew_car_navigation_message" = "• Navigeringselementen tar upp mindre plats.\n• Vi visar hastigheten och har tillagd automatiskt zoom.";
-
-"whatsnew_cycle_navigation_2_header" = "Cykelnavigering";
-
-"whatsnew_cycle_navigation_2_message" = "• Cykelnavigering tar med terrängdata i beräkningen.\n• Vi skapar lättare rutter med väglutningar i beräkningen.";
-
-"whatsnew_booking_2_header" = "Enkel hotellsökning";
-
-"whatsnew_booking_2_message" = "Sökresultaten visar hotellbetyget och priskategorin.";
-
-"whatsnew_cycle_navigation_header" = "Cykelnavigering (betaversion)";
-
-"whatsnew_cycle_navigation_message" = "Vi testar cykelnavigeringen för den nya säsongen. Testa din favoritcykelrutt med OMaps och berätta för oss vad du tycker.";
-
 /* Rate on Google Play (Android only) */
 "rate_gp" = "Betygsätt på Google Play";
 
@@ -1673,10 +1567,6 @@
 /* Verb. Text on a button that opens the chat. */
 "chat_open" = "Öppna";
 
-"whatsnew_uber_header" = "OMaps och Uber";
-
-"whatsnew_uber_message" = "Beställ en Uber direkt från appen!";
-
 "dialog_taxi_offline" = "Du kan inte beställa en taxi i offlineläge.";
 
 "dialog_taxi_error" = "Du kan inte beställa en taxi just nu.";
@@ -1714,42 +1604,6 @@
 /* "traffic" as in "road congestion" */
 "traffic_data_unavailable" = "Trafikdata är inte tillgänglig";
 
-/* december */
-"whatsnew_traffic" = "Trafikdata i 36 länder";
-
-/* december */
-"whatsnew_traffic_text" = "Aktuell trafikinformation och de snabbaste körrutterna som baseras på informationen!";
-
-/* december */
-"whatsnew_traffic_roaming" = "Trafikinformation i roaming";
-
-/* december */
-"whatsnew_traffic_roaming_text" = "Kräver mindre än 1 MB av mobil bandbredd per resa.";
-
-/* december */
-"whatsnew_order_taxi" = "Beställ en taxi";
-
-/* december */
-"whatsnew_order_taxi_text" = "De flesta platssidorna har nu en knapp för att beställa en taxi.";
-
-/* january */
-"whatsnew_improved_search" = "Förbättrad sökning";
-
-/* january */
-"whatsnew_improved_search_text" = "Till och med felstavade frågor skapar resultat med hög kvalitet.";
-
-/* january */
-"whatsnew_filters_in_search" = "Sökfilter";
-
-/* january */
-"whatsnew_filters_in_search_text" = "Sök hotell efter pris och omdöme.";
-
-/* january */
-"whatsnew_font_size" = "Teckenstorlek";
-
-/* january */
-"whatsnew_font_size_text" = "Etiketter på kartan kan göras större.";
-
 /* "Translation is no needed, because it's a company name" */
 "uber" = "Uber";
 
@@ -1772,26 +1626,6 @@
 "pref_traffic_simplified_colors_title" = "Enkla trafikfärger";
 
 "enable_logging" = "Aktivera loggning";
-
-"whatsnew_more_info_on_hotels_title" = "Mer Information om hotell";
-
-"whatsnew_more_info_on_hotels_message" = "Ett helt nytt utseende för hotellsidor: kolla in foton, användaromdömen och mer information online.";
-
-"whatsnew_better_routing_title" = "Förbättrad ruttplanering";
-
-"whatsnew_better_routing_message" = "• En mer exakt beräknad ankomsttid.\n• Appen tar hänsyn till begränsade områden och vägskyltar.";
-
-"whatsnew_smaller_mwm_title" = "Kartorna har blivit mindre";
-
-"whatsnew_smaller_mwm_message" = "Kartor kräver upp till 20 % mindre lagringsutrymme.";
-
-"whatsnew_waypoints_title" = "Vägpunkter i ruttning";
-
-"whatsnew_waypoints_message" = "Tryck på platser för att lägga till vägpunkter till din rutt.";
-
-"whatsnew_driving_style_title" = "En ny kartstil när du kör";
-
-"whatsnew_driving_style_message" = "Bilens navigeringsläge är lättare att använda.";
 
 "more_on_bookingcom" = "Mer på Booking.com";
 
@@ -1852,8 +1686,6 @@
 
 "whatsnew_transliteration_title" = "Transkribering till latin";
 
-"whatsnew_transliteration_message" = "Om en gata eller ett objekt saknar ett namn på ditt språk kommer det att stavas med det latinska alfabetet.";
-
 "yandex_taxi_title" = "Yandex.Taxi";
 
 "learn_more" = "Läs mer";
@@ -1891,10 +1723,6 @@
 "button_replace" = "Ersätt";
 
 "placepage_add_stop" = "Lägg till stopp";
-
-"whatsnew_intermediate_point_title" = "Ytterligare stopp";
-
-"whatsnew_intermediate_point_message" = "Planera rutter med ett uppehåll.";
 
 /* Only ru/en are needed */
 "subtitle_rent" = "Rent";
@@ -2503,24 +2331,6 @@
 
 "whats_new_ugc_routes_message2" = "Lägg till fotografier och detaljerade berättelser i webeditorn.";
 
-"whatsnew_standard_routes_title" = "Standardrutter";
-
-"whatsnew_standard_routes_message" = "Grundläggande uppsättning punkter, korta beskrivningar, men många intryck!";
-
-"whatsnew_city_overview_title" = "Stadsöversikt";
-
-"whatsnew_city_overview_message" = "Upp till 200 punkter på stadskartan: allt som är det mest nyttiga och intressanta för en resenär!";
-
-"whatsnew_pro_guides_title" = "Professionella rutter";
-
-"whatsnew_pro_guides_message" = "Hög detaljeringsnivå, detaljbeskrivningar av platser och en möjlighet att beräkna avstånd och tid för en vandring";
-
-"whatsnew_paid_routes_title" = "Mer positiva intryck!";
-
-"whatsnew_paid_routes_message" = "Förutom gratis rutter har vi lagt 3 kategorier av betalade vägvisare till katalogen. Mer än 700 nya rutter!";
-
-"whats_new_ugc_routes_title_android_only" = "Det är lätt att dela dina intryck";
-
 "ugc_thanks_message_auth" = "Din recension har sparats";
 
 "ugc_thanks_message_not_auth" = "Registrera för att lämna en recension";
@@ -2681,14 +2491,6 @@
 
 "whats_new_auto_update_and_proceed_button_size" = "Uppdatera (%s) och fortsätt";
 
-"whatsnew_toll_unpaved_title" = "Bygga rutter med hänsyn till alla typer av vägar";
-
-"whatsnew_toll_unpaved_message" = "Välj omvägsvägar genom betalvägar, kärrvägar och färjetrafik";
-
-"whatsnew_new_catalogue_title" = "Uppdaterade katalog sidor";
-
-"whatsnew_new_catalogue_message" = "Vi lade till detaljerad information om partnerguider så att valet av rutten är enkelt och bekvämt";
-
 "purchase_please_wait_toast" = "Vänligen lämna inte skärmen tills inköpet är klart";
 
 "trip_start" = "Kom igen";
@@ -2803,18 +2605,6 @@
 
 "subscription_terms" = "Betalning kommer att debiteras ditt iTunes-konto vid bekräftelsen av köpet. Prenumerationen kommer att förnyas automatiskt om inte automat-förnyelse är avstängt minst 24 timmar före utgången av innevarande period. Ditt konto kommer att debiteras enligt din plan för förnyelse inom 24 timmar före utgången av innevarande period. Du kan hantera eller stänga av automatisk förnyelse för ditt inköp när som helst i ditt Apple-ID-konto.";
 
-"whatsnew_carplay_title" = "OMaps autonavigering i CarPlay!";
-
-"whatsnew_carplay_message" = "Bokmärken, sök, hastighetskameror och omvägsinställningar - allt fungerar utan internet";
-
-"whatsnew_subscription_title" = "Upptäck världen på en prenumeration!";
-
-"whatsnew_subscription_message" = "Obegränsad tillgång till ruttkatalogen är mer lönsam än ett enstaka köp";
-
-"whatsnew_carnavi_fixes_for_android_title" = "Uppdatering av navigering";
-
-"whatsnew_carnavi_fixes_for_android_message" = "Vi har förbättrat byggandet av rutter till punkter som ligger långt ifrån vägarna";
-
 "avoid_unpaved_carplay_1" = "Utan kärrväg";
 
 "avoid_unpaved_carplay_2" = "Utan kärrvägar";
@@ -2918,10 +2708,6 @@
 /* Android, max 18 symbols */
 "bookmarks_delete_list" = "Ta bort listan";
 
-"whatsnew_bookmarks_search_sort_title" = "Ordningen i bokmärken — bekvämlighet i resan";
-
-"whatsnew_bookmarks_search_sort_message" = "Sortera favoritplatser efter kategorier, tid för tilläggning och geolokation, samt hitta snabbt specifika bokmärken efter namn";
-
 "popup_subscription_success_map_title" = "Hurra! Du är prenumererad!";
 
 "popup_subscription_success_map_message" = "Nu kan du utforska de bästa turistiska sevärdheterna i OMaps-katalogen";
@@ -2961,10 +2747,6 @@
 "catalog_no_internet_title" = "Ingen internetanslutning";
 
 "catalog_no_internet_button" = "Försöka igen";
-
-"whatsnew_map_updates_title" = "Reaktionskartuppdateringar";
-
-"whatsnew_map_updates_message" = "Nu uppdaterar vi data två gånger snabbare";
 
 "new_onboarding_button" = "Nästa";
 
@@ -3053,14 +2835,6 @@
 
 "dialog_pedestrian_route_is_long" = "Gångvägen till transportstigningen är för lång";
 
-"whatsnew_outdoor_guides_title" = "Vi har lagt till 15 000+ spår för utomhusaktiviteter!";
-
-"whatsnew_outdoor_guides_message" = "Rutter från Outdooractive för vinter- och sommarresor väntar i katalogen!";
-
-"whatsnew_guides_galleries_title" = "Planera din kommande resa med OMaps";
-
-"whatsnew_guides_galleries_message" = "Nu kan du hitta rekommenderade guider på platssidor för populära städer och attraktioner";
-
 "new_onboarding_step3_header" = "Resa";
 
 "all_pass_screen_best_value" = "Lönsamt pris";
@@ -3075,11 +2849,6 @@
 
 /* Failed planning SUBWAY route message in navigation view */
 "routing_planning_error_subway_special" = "Fel vid byggande av metro rutt";
-
-"whatsnew_isolines_title" = "Nyhet för utomhusaktiviteter – höjdlinjer offline!";
-
-/* as less symbols as possible */
-"whatsnew_isolines_message" = "Navigera i högländerna – slå på lagret med knappen i det övre vänstra hörnet av skärmen";
 
 "button_layer_isolines" = "Terräng";
 
@@ -3169,18 +2938,6 @@
 /* as few symbols as possible */
 "routes_card_hide" = "Dölja på kartan";
 
-"whatsnew_catalog_new_title" = "En ny katalog och tusentals idéer för rekreation";
-
-"whatsnew_catalog_new_message" = "Vi har uppdaterat guidebok katalogen och lagt till översättningar till populära språk. Börja planera i förväg!";
-
-"whatsnew_elevation_profile_title" = "Terräng profil i guiderna";
-
-"whatsnew_elevation_profile_message" = "Utvärdera komplexitet för kommande stigningar och backar offline med hjälp av markören i profilen för den förvärvade rutten.";
-
-"whatsnew_guides_on_map_title" = "Nytt lager för att hitta guider enkelt!";
-
-"whatsnew_guides_on_map_message" = "Aktivera lagret i menyn för applikationsinställningar för att hitta snabbt intressanta stadsrutter och guider för utomhusaktiviteter.";
-
 "downloader_updating_ios" = "Uppdatering";
 
 "downloader_loading_ios" = "Nedladdning";
@@ -3238,10 +2995,6 @@
 "choose_dates_online_only_dialog_cta" = "Inställningar";
 
 "thirty_days_limit_dialog" = "Kan bokas för högst 30 nätter";
-
-"whatsnew_trial_title" = "Gratis tillgång till guider";
-
-"whatsnew_trial_message" = "Vi har lanserat en 7-dagars period för provprenumeration. Tusentals rutter runt om i världen, samt en interaktiv terräng profil i guider för utomhusaktiviteter.";
 
 "whatsnew_trial_cta" = "Prova";
 

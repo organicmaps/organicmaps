@@ -12,48 +12,27 @@
 	<string name="cancel_download">Letöltés megszakítása</string>
 	<!-- Button which deletes downloaded country -->
 	<string name="delete">Törlés</string>
-	<!-- Button to dismiss dialog forever -->
-	<string name="do_not_ask_me_again">Ne kérdezze többször</string>
 	<!-- Button "do not interrupt download" if user touched actively downloading country -->
 	<string name="do_nothing">Folytatás</string>
 	<string name="download_maps">Térképek letöltése</string>
-	<!-- Settings/Downloader - Download confirmation button -->
-	<string name="download_x_kb">%qu kB letöltése</string>
-	<!-- Settings/Downloader - Download confirmation button -->
-	<string name="download_x_mb">%qu MB letöltése</string>
 	<!-- Settings/Downloader - info for country when download fails -->
 	<string name="download_has_failed">Letöltés sikertelen. Kérjük próbálja újra!</string>
-	<!-- Settings/Downloader - info for downloaded country -->
-	<string name="downloaded_x_y_touch_to_delete">Letöltve (%1$qu %2$s), érintse meg a törléshez</string>
-	<!-- Settings/Downloader - country info current download progress -->
-	<string name="downloading_x_touch_to_cancel">%qu%% töltése, leállításhoz érintse meg.</string>
 	<!-- Settings/Downloader - info for country which started downloading -->
 	<string name="downloading">Letöltés…</string>
-	<string name="get_it_now">Telepítés most</string>
 	<!-- Choose measurement on first launch alert - choose metric system button -->
 	<string name="kilometres">Kilométer</string>
 	<!-- Leave Review dialog - Review button -->
 	<string name="leave_a_review">Ajánlás írása</string>
 	<!-- View and button titles for accessibility -->
 	<string name="maps">Térképek</string>
-	<!-- View and button titles for accessibility -->
-	<string name="downloader_maps">Térképek:</string>
-	<!-- Settings/Downloader - info for country in the download queue -->
-	<string name="marked_for_downloading">Letöltésre kijelölve, elvetéshez érintse meg</string>
 	<!-- Choose measurement on first launch alert - choose imperial system button -->
 	<string name="miles">Mérföld</string>
 	<!-- View and button titles for accessibility -->
 	<string name="core_my_position">Saját helyzet</string>
-	<!-- Settings/Downloader - No free space dialog message -->
-	<string name="free_disk_space_for_country_x">Kérjük szabadítson fel helyet az eszközön, hogy le tudja tölteni %s-t</string>
-	<!-- Leave Review dialog - Not now button (remind me later) -->
-	<string name="remind_me_later">Emlékeztessen később</string>
 	<!-- Update maps later/Buy pro version later button text -->
 	<string name="later">Később</string>
 	<!-- Don't show some dialog any more -->
 	<string name="never">Soha</string>
-	<!-- Leave Review dialog - Complain button (goes to support site) -->
-	<string name="report_an_issue">Hiba jelentése</string>
 	<!-- View and button titles for accessibility -->
 	<string name="search">Keresés</string>
 	<!-- Search box placeholder text -->
@@ -62,18 +41,12 @@
 	<string name="touch_to_download">Érintse meg letöltéshez</string>
 	<!-- Settings/Downloader - 3G download warning dialog confirm button -->
 	<string name="use_cellular_data">Igen</string>
-	<!-- Choose measurement on first launch alert - title -->
-	<string name="which_measurement_system">Milyen mértékegységet használjunk?</string>
 	<!-- Location services are disabled by user alert - message -->
 	<string name="location_is_disabled_long_text">Ezen az eszközön jelenleg minden helyzetmeghatározó szolgáltatás ki van kapcsolva. Kérjük kapcsolja be ezeket a Beállítások között.</string>
 	<!-- Location Services are not available on the device alert - message -->
 	<string name="device_doesnot_support_location_services">Az eszköz nem támogatja a helyzetmeghatározó szolgáltatásokat</string>
 	<!-- View and button titles for accessibility -->
 	<string name="zoom_to_country">Megjelenítés a térképen</string>
-	<!-- Message to display at the center of the screen when the country is added to the downloading queue -->
-	<string name="country_status_added_to_queue">^\n-t hozzáadtuk a letöltési sorhoz</string>
-	<!-- Message to display at the center of the screen when the country is downloading -->
-	<string name="country_status_downloading">^\n^\nletöltése folyamatban</string>
 	<!-- Button text for the button at the center of the screen when the country is not downloaded -->
 	<string name="country_status_download">Térkép letöltése\n(^ ^)</string>
 	<!-- Button text for the button at the center of the screen when the country is not downloaded and the size should not be shown -->
@@ -85,7 +58,6 @@
 	<!-- Button text for the button under the country_status_download_failed message -->
 	<string name="try_again">Újrapróbálkozás</string>
 	<string name="about_menu_title">A OMaps programról</string>
-	<string name="downloading_touch_to_cancel">%d%% letöltése, elvetéshez érintse meg</string>
 	<string name="downloaded_touch_to_delete">Letöltve (%s), érintse meg törléshez</string>
 	<string name="connection_settings">Kapcsolat beállítások</string>
 	<string name="download_mb_or_kb">Letöltés %s</string>
@@ -96,7 +68,6 @@
 	<string name="disconnect_usb_cable">Kérjük bontsa az USB kapcsolatot vagy helyezzen be memóriakártyát a OMaps használatához</string>
 	<string name="not_enough_free_space_on_sdcard">Kérjük szabadítson fel helyet az SD kártyán / USB tárolón az alkalmazás használatához!</string>
 	<string name="not_enough_memory">Nincs elegendő memória az alkalmazás futtatásához</string>
-	<string name="free_space_for_country">Kérjük szabadítson fel %1$s-t az eszközön %2$s letöltéséhez!</string>
 	<string name="download_resources">Első használat előtt letöltjük a világtérképet.\n%s tárolóhely szükséges.</string>
 	<string name="getting_position">Aktuális pozíció meghatározása…</string>
 	<string name="download_resources_continue">Térképhez ugrás</string>
@@ -104,25 +75,9 @@
 	<string name="download_country_ask">Letöltsem %s-t?</string>
 	<string name="update_country_ask">Frissítsem %s-t?</string>
 	<!-- REMOVE THIS STRING AFTER REFACTORING -->
-	<string name="download_location_map_proposal">Letöltheti az aktuális\npozícióhoz tartozó térképet.</string>
-	<!-- REMOVE THIS_STRING AFTER REFACTORING -->
-	<string name="download_location_update_map_proposal">Frissítheti az aktuális pozícióhoz\ntartozó térképet.</string>
-	<!-- REMOVE THIS STRING AFTER REFACTORING -->
-	<string name="download_location_map_up_to_date">A jelenlegi pozícióhoz tartozó\ntérkép (%s) naprakész.</string>
-	<!-- REMOVE THIS STRING AFTER REFACTORING -->
 	<string name="pause">Szünet</string>
 	<!-- REMOVE THIS STRING AFTER REFACTORING -->
 	<string name="continue_download">Folytatás</string>
-	<string name="downloaded_touch_to_update">Letöltve (%s), érintse meg frissítéshez vagy törléshez</string>
-	<string name="update_mb_or_kb">%s Frissítés</string>
-	<!-- Show popup notification when we have downloaded countries without search (from Lite version) -->
-	<string name="search_update_maps">Frissített térképekre lesz szüksége a kereséshez:</string>
-	<!-- Show popup notification on app start when we have out-of-date maps -->
-	<string name="advise_update_maps">Az aktuális térképhez elérhető frissítések:</string>
-	<!-- Show popup notification in Pro version that Lite can be deleted -->
-	<string name="suggest_uninstall_lite">Már nincs szüksége a OMaps lite alkalmazásra, nyugodtan letörölheti.</string>
-	<!-- Show popup notification on top of the map when country was downloaded. -->
-	<string name="download_country_success">%s letöltése sikeres</string>
 	<!-- Show popup notification on top of the map when country download has failed. -->
 	<string name="download_country_failed">%s letöltése sikertelen</string>
 	<!-- Add New Bookmark Set dialog title -->
@@ -151,8 +106,6 @@
 	<string name="set">Csoport</string>
 	<!-- Text hint in Bookmarks dialog when no any bookmarks are added -->
 	<string name="bookmarks_usage_hint">Nincsenek megjelölt helyeid.\nHely megjelöléséhez koppints a térkép bármelyik pontjára.\nSzintén más forrásokból származó könyvjelzőket is beolvashat a OMaps programba. Nyisson meg KML/KMZ fájlt egy levélből, Dropbox-ból vagy internetről.</string>
-	<!-- Text hint in Bookmarks dialog when at least one bookmark is added -->
-	<string name="bookmarks_usage_hint_import_only">Más forrásokból származó könyvjelzőket is beolvashat a OMaps programba. Nyisson meg KML/KMZ fájlt egy levélből, Dropbox-ból vagy internetről.</string>
 	<!-- Settings button in system menu -->
 	<string name="settings">Beállítások</string>
 	<!-- Header of settings activity where user defines storage path -->
@@ -772,11 +725,6 @@
 	<string name="editor_report_problem_other_title">Különböző probléma</string>
 	<string name="placepage_report_problem_button">Hibabejelentés</string>
 	<string name="placepage_add_business_button">Szervezet hozzáadása</string>
-	<string name="whatsnew_smallmwm_header">Te kérted, mi elkészítettük</string>
-	<string name="whatsnew_smallmwm_message">Felosztottuk részekre a térképeket. Mostantól az egyes régiókat is letöltheted, nem csak az egész országot.</string>
-	<string name="whatsnew_search_header">Új keresés</string>
-	<string name="whatsnew_search_message">Jelentősen javítottunk a címen alapuló keresésünkön. Nézd meg magadnak.</string>
-	<string name="whatsnew_editor_title">Térkép szerkesztése*</string>
 	<string name="whatsnew_editor_message_1">Adj hozzá új helyeket a térképhez, és szerkeszd a meglévőket közvetlenül az alkalmazásból.</string>
 	<string name="whatsnew_editor_message_2">* A OMaps az OpenStreetMap közösség adatait használja.</string>
 	<string name="dialog_incorrect_feature_position">Helyszín megváltoztatása</string>
@@ -821,10 +769,6 @@
 	<string name="current_location_unknown_continue_button">Folytatás</string>
 	<string name="current_location_unknown_stop_button">Leállítás</string>
 	<string name="current_location_unknown_error_message">Hiba történt tartózkodási helye keresésekor. Ellenőrizze készüléke működését és próbálkozzon újra.</string>
-	<string name="whatsnew_update_editor_title">Frissítettük a szerkesztőt</string>
-	<string name="whatsnew_update_editor_message">A OMaps felhasználói 200 ezer változtatást vittek fel a térképre. Együtt a világ legrészletesebb térképét készítjük. Csatlakozzon hozzánk!</string>
-	<!-- Additional text in whats new -->
-	<string name="whatsnew_update_editor_message_update">A térképszerkesztő használatához, kérjük, frissítsd az összes térképet.</string>
 	<string name="location_services_disabled_header">Helyzetmeghatározás kikapcsolva</string>
 	<string name="location_services_disabled_message">Kapcsolja be a földrajzi helymeghatározást a készülék beállításaiban</string>
 	<string name="location_services_disabled_1">1. Nyissa meg a Beállításokat</string>
@@ -912,14 +856,6 @@
 	<string name="sharing_call_action_look">Tekintse meg</string>
 	<string name="continue_recent_track_background_button">Folytatás</string>
 	<string name="recent_track_background_dialog_message">A OMaps a geopozíciód használatával a háttérben rögzíti a legutóbb megtett utad.</string>
-	<string name="whatsnew_car_navigation_header">Felhasználóbarát járműnavigáció</string>
-	<string name="whatsnew_car_navigation_message">• A navigációs elemek kevesebb helyet foglalnak.\n• Megjelenítjük a sebességet és hozzáadtunk egy automatikus nagyítási lehetőséget is.</string>
-	<string name="whatsnew_cycle_navigation_2_header">Biciklinavigáció</string>
-	<string name="whatsnew_cycle_navigation_2_message">• A biciklinavigáció figyelembe veszi a terepadatokat.\n• Az út meredekségét figyelembe véve alakítjuk ki az könnyebb útvonalat.</string>
-	<string name="whatsnew_booking_2_header">Könnyű szállodakeresés</string>
-	<string name="whatsnew_booking_2_message">A keresési eredmények megjelenítik a szálloda értékelését és árkategóriáját.</string>
-	<string name="whatsnew_cycle_navigation_header">Kerékpáros navigáció (béta verzió)</string>
-	<string name="whatsnew_cycle_navigation_message">Most teszteljük a kerékpáros navigációt a következő évszakra. Próbáld ki kedvenc kerékpáros útvonalad a OMaps-vel és oszd meg velünk véleményedet.</string>
 	<!-- Rate on Google Play (Android only) -->
 	<string name="rate_gp">Arány a Google Play-n</string>
 	<!-- Share with friends: menu item title -->
@@ -980,8 +916,6 @@
 	<string name="chat">Geochat</string>
 	<!-- Verb. Text on a button that opens the chat. -->
 	<string name="chat_open">Megnyitás</string>
-	<string name="whatsnew_uber_header">OMaps és Uber</string>
-	<string name="whatsnew_uber_message">Hívj Uber-taxit közvetlenül az alkalmazásból!</string>
 	<string name="dialog_taxi_offline">Taxirendelés offline módban nem lehetséges.</string>
 	<string name="dialog_taxi_error">A taxirendelés átmenetileg nem elérhető.</string>
 	<string name="mobile_data_dialog">Részletes információk megjelenítése a mobil internet segítségével?</string>
@@ -1000,30 +934,6 @@
 	<string name="traffic_update_app_message">A forgalmi adatok megjelenítéséhez frissíteni kell az alkalmazást.</string>
 	<!-- "traffic" as in "road congestion" -->
 	<string name="traffic_data_unavailable">Forgalmi adatok nem állnak rendelkezésre</string>
-	<!-- december -->
-	<string name="whatsnew_traffic">Forgalmi adatok 36 országban</string>
-	<!-- december -->
-	<string name="whatsnew_traffic_text">Aktuális forgalmi információk és a leggyorsabb útvonalak ezek alapján!</string>
-	<!-- december -->
-	<string name="whatsnew_traffic_roaming">Forgalmi információ a barangolásban</string>
-	<!-- december -->
-	<string name="whatsnew_traffic_roaming_text">Utazásonként kevesebb, mint 1 MB mobil sávszélességet igényel.</string>
-	<!-- december -->
-	<string name="whatsnew_order_taxi">Taxi rendelés</string>
-	<!-- december -->
-	<string name="whatsnew_order_taxi_text">A legtöbb helymeghatározó oldalon már megtalálható a taxirendelés gombja.</string>
-	<!-- january -->
-	<string name="whatsnew_improved_search">Továbbfejlesztett keresés</string>
-	<!-- january -->
-	<string name="whatsnew_improved_search_text">Még a hibásan írt lekérdezések is pontos keresési eredményeket adnak.</string>
-	<!-- january -->
-	<string name="whatsnew_filters_in_search">Keresési szűrők</string>
-	<!-- january -->
-	<string name="whatsnew_filters_in_search_text">Szálláshelyek keresése ár és minősítés alapján.</string>
-	<!-- january -->
-	<string name="whatsnew_font_size">Betűméret</string>
-	<!-- january -->
-	<string name="whatsnew_font_size_text">A térképen a címkék lehetnek nagyobbak.</string>
 	<!-- Seven points and higher -->
 	<string name="booking_filter_rating_num_good">7.0+</string>
 	<!-- Eight points and higher -->
@@ -1033,16 +943,6 @@
 	<!-- Simplified colour scheme for traffic information, fewer colours are used to display traffic jams on the map. The string should be kept as short as possible -->
 	<string name="pref_traffic_simplified_colors_title">Egyszerűsített forgalmi színek</string>
 	<string name="enable_logging">Naplózás engedélyezése</string>
-	<string name="whatsnew_more_info_on_hotels_title">További információ szállodákról</string>
-	<string name="whatsnew_more_info_on_hotels_message">A szálloda oldalak teljesen megújult arculata: Nézze meg online fényképeinket, a felhasználói véleményeket és egyéb tudnivalókat.</string>
-	<string name="whatsnew_better_routing_title">Továbbfejlesztett útvonaltervezés</string>
-	<string name="whatsnew_better_routing_message">• A várható érkezési időpont Pontosabb becslése. \n• Az alkalmazás figyelembe veszi a lezárt területeket és útjelző táblákat.</string>
-	<string name="whatsnew_smaller_mwm_title">A térképek kisebbek lettek</string>
-	<string name="whatsnew_smaller_mwm_message">A térképek 20 %-kal kevesebb tárolóterületet igényelnek.</string>
-	<string name="whatsnew_waypoints_title">Iránypontok az útvonaltervezésben</string>
-	<string name="whatsnew_waypoints_message">Érintsen meg helyeket iránypontok hozzáadásához az útvonatervhez.</string>
-	<string name="whatsnew_driving_style_title">Új térképstílus vezetéshez</string>
-	<string name="whatsnew_driving_style_message">Az autós navigáció üzemmód használata egyszerűbb lett.</string>
 	<string name="more_on_bookingcom">Továbbiak a Booking.com-on</string>
 	<string name="details_on_bookingcom">Részletek a Booking.com-on</string>
 	<string name="reviews_on_bookingcom">További vélemények a Booking.com-on</string>
@@ -1072,7 +972,6 @@
 	<string name="prefs_languages_information_off">Egyes nyelveknél másik beszédszintetizátort vagy további nyelvi csomagot kell telepítenie az alkalmazás-áruházból (Google Play Market, Samsung Apps). Nyissa meg a készülék beállításait → Nyelv és bevitel → Beszéd → Szöveg-beszéd átalakító kimenet. Itt kezelheti a beszédszintézis beállításokat (például nyelvi csomag letöltése kapcsolat nélküli használatra) és másik szövegfelolvasót jelölhe tki.</string>
 	<string name="prefs_languages_information_off_link">További tájékoztatást találhat még ebben az útmutatóban.</string>
 	<string name="whatsnew_transliteration_title">Átírás latin nyelvre</string>
-	<string name="whatsnew_transliteration_message">Ha egy utcának vagy egy objektumnak nincs neve az Ön nyelvén, latin ábécével kerül átírásra.</string>
 	<string name="learn_more">Tudjon meg többet</string>
 	<string name="core_exit">Kilépés</string>
 	<string name="routing_add_start_point">Adjon hozzá kiindulási pontot az útvonal megtervezéséhez</string>
@@ -1091,8 +990,6 @@
 	<string name="dialog_change_start_point_message">Kicseréli a kiindulási pontot az aktuális pozícióval?</string>
 	<string name="button_replace">Csere</string>
 	<string name="placepage_add_stop">Hozzáad megállót</string>
-	<string name="whatsnew_intermediate_point_title">További megálló</string>
-	<string name="whatsnew_intermediate_point_message">Útvonaltervezés egy közbenső ponttal.</string>
 	<string name="add_my_position">Add hozzá saját pozíciómat</string>
 	<string name="choose_start_point">Válasszon egy kiindulási pontot</string>
 	<string name="choose_destination">Válassza ki a célt</string>
@@ -1399,15 +1296,6 @@
 	<string name="whats_new_ugc_routes_subtitle">Ments el emlékezetes helyeket, hozz létre útvonalakat könyvjelzők segítségével és oszd meg őket mindenkivel a OMaps katalógusban.</string>
 	<string name="whats_new_webeditor_title">Alakítsd át az útvonalaidat történetekké</string>
 	<string name="whats_new_ugc_routes_message2">Adj hozzá fényképeket és részletes történeteket a webes szerkesztőben.</string>
-	<string name="whatsnew_standard_routes_title">Normál útvonalak</string>
-	<string name="whatsnew_standard_routes_message">A látnivalók alapvető gyűjteménye és rövid leírásuk, de sok-sok tapasztalat!</string>
-	<string name="whatsnew_city_overview_title">Város áttekintése</string>
-	<string name="whatsnew_city_overview_message">Akár 200 érdekesség a város térképén: minden, amit az utazók hasznosnak vagy érdekesnek találhatnak!</string>
-	<string name="whatsnew_pro_guides_title">Profi útvonalak</string>
-	<string name="whatsnew_pro_guides_message">A helyek nagyon alapos és részletes leírása és lehetőség az utazás távolságának és idejének kiszámítására</string>
-	<string name="whatsnew_paid_routes_title">Új tapasztalatok!</string>
-	<string name="whatsnew_paid_routes_message">Az ingyenes útvonalakon felül 3 fizetős útvonalkategóriát is hozzáadtunk a katalógusunkhoz. Több mint 700 új útvonal!</string>
-	<string name="whats_new_ugc_routes_title_android_only">Könnyű megosztani a benyomásaidat</string>
 	<string name="ugc_thanks_message_auth">Az értékelésed elmentve</string>
 	<string name="ugc_thanks_message_not_auth">Kérjük jelentkezz be az értékeléshez</string>
 	<string name="notification_leave_review_v2_title">Értékelj egy meglátogatott helyet és segíts az utazóknak!</string>
@@ -1491,10 +1379,6 @@
 	<string name="whats_new_auto_update_bydeeplink_title">Mielőtt továbblépnél az útmutatókhoz…</string>
 	<string name="whats_new_auto_update_bydeeplink_message">Frissítsd a térképeket, hogy az objektumok információi naprakészek legyenek!</string>
 	<string name="whats_new_auto_update_and_proceed_button_size">Frissítés (%s) és folytatás</string>
-	<string name="whatsnew_toll_unpaved_title">Autó útvonalak elrendezése minden úttípus figyelembe vételével</string>
-	<string name="whatsnew_toll_unpaved_message">Kitérők választása fizetős utak, földutak és kompátvelők figyelembe vételével</string>
-	<string name="whatsnew_new_catalogue_title">Frissített katalógus oldalak</string>
-	<string name="whatsnew_new_catalogue_message">Részletes információkat adtunk hozzá a partner útmutatókhoz, hogy az útvonal kiválasztását könnyűvé és kényelmessé tegyük</string>
 	<string name="purchase_please_wait_toast">Kérjük, ne hagyd el ezt a képernyőt a vásárlás befejezése előtt</string>
 	<string name="trip_start">Gyerünk</string>
 	<string name="pick_destination">Cél</string>
@@ -1550,12 +1434,6 @@
 	<string name="buy_btn_for_subscription_ios_only_year">Korlátlan hozzáférés %s/év-ért</string>
 	<string name="subscription_terms_guides">A fizetség az iTunes fiókodat fogja megterhelni a fizetés megerősítése után. Az előfizetés automatikusan meg fog újulni, hacsak az automatikus megújítás ki nem lesz kapcsolva legalább 24 órával a jelenlegi időszak vége előtt. A fiókod meg lesz terhelve a megújítási tervednek megfelelően, 24 órával a jelenlegi időszak vége előtt. Kezelheted vagy bármikor kikapcsolhatod a vásárlásod automatikus megújítás funkcióját az Apple ID fiókbeállításaidban Az előfizetéssel letöltött útikönyveket azok lejárati idejéig használhatod. Harminc nappal az előfizetés lejárta után a könyvjelzőkkel ellátott útikönyvek automatikusan törölve lesznek.</string>
 	<string name="subscription_terms">A vásárlás megerősítésekor az összeg az iTunes számládra lesz terhelve. Az előfizetés automatikusan megújul, ha csak az automatikus megújítást 24 órával a jelenlegi időszak vége előtt ki nem kapcsolod. A számlád az előfizetésednek megfelelően a jelenlegi időszak lejárta előtti 24 órában lesz megterhelve. Az automatikus megújítást az Apple ID fiókod beállításaidban az előfizetés bármely szakaszában kikapcsolhatod.</string>
-	<string name="whatsnew_carplay_title">OMaps autós navigáció CarPlayben!</string>
-	<string name="whatsnew_carplay_message">Könyvjelzők, keresés, traffipax és útvonalválasztási lehetőség offline is elérhető</string>
-	<string name="whatsnew_subscription_title">Az egész világ az előfizetésed által!</string>
-	<string name="whatsnew_subscription_message">A korlátlan hozzáférés az útikönyvkatalógushoz sokkal gazdaságosabb, mint az egyszeri vásárlás</string>
-	<string name="whatsnew_carnavi_fixes_for_android_title">Navigációs frissítés</string>
-	<string name="whatsnew_carnavi_fixes_for_android_message">Fejlesztettük az útvonaltervezést olyan pontokhoz, melyek távol esnek az utaktól</string>
 	<string name="avoid_unpaved_carplay_1">Nem földút</string>
 	<string name="avoid_unpaved_carplay_2">Földút kerülése</string>
 	<string name="avoid_ferry_carplay_1">Komp nélkül</string>
@@ -1612,8 +1490,6 @@
 	<string name="bookmarks_edit_list">Lista szerkesztése</string>
 	<!-- Android, max 18 symbols -->
 	<string name="bookmarks_delete_list">Lista törlése</string>
-	<string name="whatsnew_bookmarks_search_sort_title">A könyvjelzők rendezése kényelmes utazást tesz lehetővé</string>
-	<string name="whatsnew_bookmarks_search_sort_message">Rendezze kedvenc helyeit kategóriánként, helyenként és időrendbe, és találja meg őket gyorsan a nevük alapján</string>
 	<string name="popup_subscription_success_map_title">Hohó, előfizettél!</string>
 	<string name="popup_subscription_success_map_message">Most már felfedezheted a legjobb turisztikai dolgokat a OMaps katalógusban</string>
 	<string name="popup_subscription_success_map_start_button">Böngészés megkezdése</string>
@@ -1634,8 +1510,6 @@
 	<string name="subscription_screen_native_message_version_2">Állj készen bármilyen utazásra 600+ városba és 100+ országba</string>
 	<string name="catalog_no_internet_title">Nincs internetkapcsolat</string>
 	<string name="catalog_no_internet_button">Próbáld újra</string>
-	<string name="whatsnew_map_updates_title">Reaktív térkép frissítések</string>
-	<string name="whatsnew_map_updates_message">Mostantól kétszer olyan gyorsan frissítjük az adatokat</string>
 	<string name="new_onboarding_button">Következő</string>
 	<string name="new_onboarding_button_2">Kezdés</string>
 	<string name="new_onboarding_step1_header_2">A mindenes útitárs</string>
@@ -1680,10 +1554,6 @@
 	<string name="downloader_country_no_guides_gallery_header">Ebben az országban nincs elérhető útmutatónk még</string>
 	<string name="downloader_country_no_guides_gallery_message">Más offline útmutatókat is megnézhetsz 100+ országban városnézési és szabadtéri programokhoz</string>
 	<string name="dialog_pedestrian_route_is_long">A gyalogos útvonal az utazás indulási pontjáig túl hosszú</string>
-	<string name="whatsnew_outdoor_guides_title">Hozzáadásra került 15 000+ szabadtéri útvonal!</string>
-	<string name="whatsnew_outdoor_guides_message">Az Outdooractive téli és nyári utazásai várnak rád a katalógusban!</string>
-	<string name="whatsnew_guides_galleries_title">Tervezd meg a következő utad a OMaps-vel</string>
-	<string name="whatsnew_guides_galleries_message">Megtalálhatod az ajánlott útmutatókat a népszerű túristavárosok és látnivalók helyoldalain</string>
 	<string name="new_onboarding_step3_header">Éld át</string>
 	<string name="all_pass_screen_best_value">Legjobb ajánlat</string>
 	<string name="buy_btn_for_subscription_3">A teljes katalógus %s/év</string>
@@ -1692,9 +1562,6 @@
 	<string name="dialog_pedestrian_route_is_long_message">Válasszon indulási vagy végpontot közelebb a metróállomáshoz</string>
 	<!-- Failed planning SUBWAY route message in navigation view -->
 	<string name="routing_planning_error_subway_special">A metró útvonaltervezése sikertelen</string>
-	<string name="whatsnew_isolines_title">Újdonság a szabadtérhez: offline topográfiai réteg!</string>
-	<!-- as less symbols as possible -->
-	<string name="whatsnew_isolines_message">Legyen magabiztos a hegyvidéki területen. Csak kapcsolja be a réteget a bal felső sarokban</string>
 	<string name="button_layer_isolines">Terep</string>
 	<string name="tips_map_layers_title_countour">Újdonság a OMaps-n: offline topográfiai réteg!</string>
 	<string name="tips_map_layers_message_countour">Tervezze meg és élvezze a természetjáró kirándulásait, és tudjon meg mindent a környékről</string>
@@ -1731,12 +1598,6 @@
 	<string name="routes_card_show">Térképen megjelenítés</string>
 	<!-- as few symbols as possible -->
 	<string name="routes_card_hide">Térképről elrejtés</string>
-	<string name="whatsnew_catalog_new_title">Új útmutatók katalógus és ezer utazási ötlet</string>
-	<string name="whatsnew_catalog_new_message">Frissítettük az útmutató katalógust és fordítást adtunk hozzá a népszerű nyelveken. Kezdje el az utazás tervezését időben!</string>
-	<string name="whatsnew_elevation_profile_title">Emelkedési profil az utazási útmutatókban</string>
-	<string name="whatsnew_elevation_profile_message">A kurzorral becsülje meg a közelgő offline felemelkedések és leereszkedések nehézségét a megvásárolt útvonal profiljában.</string>
-	<string name="whatsnew_guides_on_map_title">Új réteg az útmutatók egyszerű megtalálásához</string>
-	<string name="whatsnew_guides_on_map_message">Aktiválja az alkalmazás beállításai menüben a réteget, hogy gyorsan megtalálja az érdekes városi útvonalakat és a szabadtéri tevékenységek útmutatóit.</string>
 	<string name="downloader_updating_ios">Feltöltés</string>
 	<string name="downloader_loading_ios">Letöltés</string>
 	<string name="routes_card_plus_track">+ útvonal</string>
@@ -1772,8 +1633,6 @@
 	<string name="choose_dates_online_only_dialog_message">A dátumok és a vendégek száma csak online választható ki. Kérjük, ellenőrizze a beállításait, és bizonyosodjon meg arról, hogy csatlakozva van az internethez.</string>
 	<string name="choose_dates_online_only_dialog_cta">Beállítások</string>
 	<string name="thirty_days_limit_dialog">Maximum 30 éjszakára foglalhat</string>
-	<string name="whatsnew_trial_title">Ingyenes hozzáférés az útmutatók katalógushoz</string>
-	<string name="whatsnew_trial_message">Most 7 napos ingyenes próbaverziót kínálunk. Hozzáférés ezer útmutatóhoz a világ minden tájáról, és egy interaktív emelkedési profil a szabadtéri útmutatókhoz.</string>
 	<string name="whatsnew_trial_cta">Próbálja ki most</string>
 	<string name="subscription_terms_guides_outdoor">Amikor megerősíti a vásárlást, a fizetést az iTunes számlájára terheljük. Az előfizetés automatikusan megújul, kivéve, ha az automatikus megújítás funkció legalább 24 órával a jelenlegi előfizetési időszak vége előtt letiltásra kerül. Fiókját a megújítási terv szerint 24 órán belül terheljük a jelenlegi előfizetési időszak lejárta előtt. Az automatikus megújítást az Apple ID-fiók beállításaiban a vásárlás után bármikor ellenőrizheti és letilthatja. Az előfizetés alatt letöltött útmutatásokat csak az előfizetés lejártáig használhatja. Az útmutatók és az összes könyvjelző automatikusan törlésre kerül az előfizetés lejárta után 7 nappal.\n* Az ingyenes próbaidőszakra szóló feliratkozás automatikusan fizetett előfizetésként kerül megújításra. Az ingyenes próbaverzió automatikus megújítását a vásárlás után a fiókbeállításaiban törölheti vagy ellenőrizheti. A lemondás a jelenlegi előfizetési időszak utolsó napját követő 24 órában lép életbe. Ezt követően az ingyenes szolgáltatásra kerül át. Megjegyzés: Az ingyenes próbaverzió fel nem használt része elvész, ha prémium előfizetést vásárol az ingyenes próbaverzió alatt.</string>
 	<string name="subscription_terms_android_outdoor">Amikor megerősíti a vásárlást, a fizetést a Google Play számlájára terheljük. Az előfizetés automatikusan megújul, kivéve, ha az automatikus megújítás funkció legalább 24 órával a jelenlegi előfizetési időszak vége előtt letiltásra kerül. Fiókját a megújítási terv szerint 24 órán belül terheljük a jelenlegi előfizetési időszak lejárta előtt. Vásárlás után bármikor ellenőrizheti vagy törölheti az automatikus megújítást a fiókbeállításokban. Az előfizetés alatt letöltött útmutatásokat csak az előfizetés lejártáig használhatja. Az útmutatók automatikusan törlésre kerülnek az előfizetés lejárta után 7 nappal.\n* Az ingyenes próbaidőszakra szóló feliratkozás automatikusan fizetett előfizetésként kerül megújításra. Az ingyenes próbaverzió automatikus megújítását a vásárlás után a fiókbeállításaiban törölheti vagy ellenőrizheti. A lemondás a jelenlegi előfizetési időszak utolsó napját követő 24 órában lép életbe. Ezt követően az ingyenes szolgáltatásra kerül át. Megjegyzés: Az ingyenes próbaverzió fel nem használt része elvész, ha prémium előfizetést vásárol az ingyenes próbaverzió alatt.</string>

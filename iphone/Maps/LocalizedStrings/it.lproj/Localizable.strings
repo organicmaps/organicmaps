@@ -18,33 +18,16 @@
 /* Button which deletes downloaded country */
 "delete" = "Cancella";
 
-/* Button to dismiss dialog forever */
-"do_not_ask_me_again" = "Non me lo chiedere di nuovo";
-
 /* Button "do not interrupt download" if user touched actively downloading country */
 "do_nothing" = "Continua";
 
 "download_maps" = "Scarica le mappe";
 
-/* Settings/Downloader - Download confirmation button */
-"download_x_kb" = "Scarica %qu kB";
-
-/* Settings/Downloader - Download confirmation button */
-"download_x_mb" = "Scarica %qu MB";
-
 /* Settings/Downloader - info for country when download fails */
 "download_has_failed" = "Download fallito, tocca di nuovo per un altro tentativo";
 
-/* Settings/Downloader - info for downloaded country */
-"downloaded_x_y_touch_to_delete" = "Scaricato (%1$qu %2$@), tocca per annullare";
-
-/* Settings/Downloader - country info current download progress */
-"downloading_x_touch_to_cancel" = "Download di %qu%%, tocca per annullare";
-
 /* Settings/Downloader - info for country which started downloading */
 "downloading" = "In fase di download…";
-
-"get_it_now" = "Prendila ora";
 
 /* Settings/Downloader - size string, only strings different from English should be translated */
 "kb" = "kB";
@@ -58,12 +41,6 @@
 /* View and button titles for accessibility */
 "maps" = "Mappe";
 
-/* View and button titles for accessibility */
-"downloader_maps" = "Mappe:";
-
-/* Settings/Downloader - info for country in the download queue */
-"marked_for_downloading" = "Contrassegnato per il download, tocca per cancellare";
-
 /* Settings/Downloader - size string, only strings different from English should be translated */
 "mb" = "MB";
 
@@ -75,20 +52,11 @@
 /* View and button titles for accessibility */
 "core_my_position" = "La mia posizione";
 
-/* Settings/Downloader - No free space dialog message */
-"free_disk_space_for_country_x" = "Cortesemente libera spazio sul tuo dispositivo prima per poter scaricare %@";
-
-/* Leave Review dialog - Not now button (remind me later) */
-"remind_me_later" = "Ricordamelo in seguito";
-
 /* Update maps later/Buy pro version later button text */
 "later" = "Più tardi";
 
 /* Don't show some dialog any more */
 "never" = "Mai";
-
-/* Leave Review dialog - Complain button (goes to support site) */
-"report_an_issue" = "Segnala un problema";
 
 /* View and button titles for accessibility */
 "search" = "Cerca";
@@ -102,9 +70,6 @@
 /* Settings/Downloader - 3G download warning dialog confirm button */
 "use_cellular_data" = "Sì";
 
-/* Choose measurement on first launch alert - title */
-"which_measurement_system" = "Quale sistema di misura preferisci?";
-
 /* Location services are disabled by user alert - message */
 "location_is_disabled_long_text" = "Attualmente hai disattivati tutti i servizi di locazione per questo dispositivo o applicazione. Cortesemente abilitali nelle Impostazioni.";
 
@@ -113,12 +78,6 @@
 
 /* View and button titles for accessibility */
 "zoom_to_country" = "Mostra sulla mappa";
-
-/* Message to display at the center of the screen when the country is added to the downloading queue */
-"country_status_added_to_queue" = "^\naggiunto alla coda di download";
-
-/* Message to display at the center of the screen when the country is downloading */
-"country_status_downloading" = "Sto scaricando\n^\n^";
 
 /* Button text for the button at the center of the screen when the country is not downloaded */
 "country_status_download" = "Scarica Map\n(^ ^)";
@@ -136,8 +95,6 @@
 "try_again" = "Riprova";
 
 "about_menu_title" = "Informazioni su OMaps";
-
-"downloading_touch_to_cancel" = "Download di %d%%, tocca per cancellare";
 
 "downloaded_touch_to_delete" = "Scaricato (%@), tocca per cancellare";
 
@@ -159,8 +116,6 @@
 
 "not_enough_memory" = "Memoria insufficiente per lanciare l'app";
 
-"free_space_for_country" = "Libera %1$@ sul dispositivo prima per poter scaricare %2$@";
-
 "download_resources" = "Prima di iniziare è necessario scaricare la mappa generale del mondo sul tuo dispositivo.\nLa dimensione del download è di %@.";
 
 "getting_position" = "Ottieni la posizione corrente";
@@ -174,35 +129,10 @@
 "update_country_ask" = "Vuoi aggiornare %@?";
 
 /* REMOVE THIS STRING AFTER REFACTORING */
-"download_location_map_proposal" = "Puoi scaricare la mappa\ndella tua posizione corrente.";
-
-/* REMOVE THIS_STRING AFTER REFACTORING */
-"download_location_update_map_proposal" = "Puoi aggiornare la mappa\ndella tua posizione corrente.";
-
-/* REMOVE THIS STRING AFTER REFACTORING */
-"download_location_map_up_to_date" = "La mappa della tua attuale\nposizione (%@) è aggiornata";
-
-/* REMOVE THIS STRING AFTER REFACTORING */
 "pause" = "Pausa";
 
 /* REMOVE THIS STRING AFTER REFACTORING */
 "continue_download" = "Continua";
-
-"downloaded_touch_to_update" = "Scaricato (%@), tocca per aggiornare o cancellare";
-
-"update_mb_or_kb" = "Aggiorna %@";
-
-/* Show popup notification when we have downloaded countries without search (from Lite version) */
-"search_update_maps" = "Hai bisogno di mappe aggiornate per la funzione di ricerca:";
-
-/* Show popup notification on app start when we have out-of-date maps */
-"advise_update_maps" = "Aggiornamento disponibile per queste mappe:";
-
-/* Show popup notification in Pro version that Lite can be deleted */
-"suggest_uninstall_lite" = "Non hai più bisogno di OMaps Lite, quindi puoi disinstallarlo.";
-
-/* Show popup notification on top of the map when country was downloaded. */
-"download_country_success" = "Scaricato %@ con successo";
 
 /* Show popup notification on top of the map when country download has failed. */
 "download_country_failed" = "Il trasferimento di %@ non è riuscito";
@@ -245,9 +175,6 @@
 
 /* Text hint in Bookmarks dialog when no any bookmarks are added */
 "bookmarks_usage_hint" = "Non hai ancora nessun segnalibro.\nTocca qualsiasi luogo sulla cartina per aggiungere un segnalibro.\nPossono essere anche importati Preferiti da altre fonti e visualizzate nell'app OMaps. Apri il file KML/KMZ con i pin salvati da una casella di posta, Dropbox o un link web.";
-
-/* Text hint in Bookmarks dialog when at least one bookmark is added */
-"bookmarks_usage_hint_import_only" = "Possono essere anche importati Preferiti da altre fonti e visualizzate nell'app OMaps. Apri il file KML/KMZ con i pin salvati da una casella di posta, Dropbox o un link web.";
 
 /* Settings button in system menu */
 "settings" = "Impostazioni";
@@ -1289,16 +1216,6 @@
 
 "placepage_add_business_button" = "Aggiungi organizzazione";
 
-"whatsnew_smallmwm_header" = "Ce lo avete chiesto e noi lo abbiamo fatto";
-
-"whatsnew_smallmwm_message" = "Abbiamo diviso le mappe in parti. Ora puoi scaricare le regioni separate, non l'intero paese.";
-
-"whatsnew_search_header" = "Nuova ricerca";
-
-"whatsnew_search_message" = "Abbiamo migliorato significativamente la ricerca per indirizzo. Guarda tu stesso.";
-
-"whatsnew_editor_title" = "Modifica la mappa*";
-
 "whatsnew_editor_message_1" = "Aggiungi nuovi luoghi alla mappa, e modifica quelli già esistenti direttamente dall’app.";
 
 "whatsnew_editor_message_2" = "* OMaps usa i dati della community OpenStreetMap.";
@@ -1382,13 +1299,6 @@
 "current_location_unknown_error_title" = "La posizione attuale è sconosciuta.";
 
 "current_location_unknown_error_message" = "Si è verificato un errore durante la ricerca della posizione. Controllare che il dispositivo utilizzato funzioni correttamente e riprovare.";
-
-"whatsnew_update_editor_title" = "Abbiamo aggiornato l'editor mappe";
-
-"whatsnew_update_editor_message" = "Gli utenti di OMaps hanno apportato 200.000 modifiche alle mappe. Stiamo costruendo insieme le mappe più dettagliate al mondo. Unisciti a noi!";
-
-/* Additional text in whats new */
-"whatsnew_update_editor_message_update" = "Per utilizzare l'editor delle mappe, aggiorna tutte le mappe.";
 
 "location_services_disabled_header" = "La geolocalizzazione è disabilitata";
 
@@ -1555,22 +1465,6 @@
 
 "recent_track_background_dialog_message" = "OMaps usa la tua posizione geografica in background per registrare il tuo percorso effettuato più di recente.";
 
-"whatsnew_car_navigation_header" = "Navigazione veicoli user-friendly";
-
-"whatsnew_car_navigation_message" = "• Gli elementi di navigazione occupano meno spazio\n• La velocità viene mostrata ed è stato aggiunto lo zoom automatico.";
-
-"whatsnew_cycle_navigation_2_header" = "Navigazione con biciclette";
-
-"whatsnew_cycle_navigation_2_message" = "• La navigazione con biciclette prende in considerazione i dati sul terreno.\n• Abbiamo creato dei percorsi più semplici che prendono in considerazione le pendenze del terreno.";
-
-"whatsnew_booking_2_header" = "Ricerca di hotel semplificata";
-
-"whatsnew_booking_2_message" = "I risultati di ricerca mostrano la valutazione dell'hotel e la categoria del prezzo.";
-
-"whatsnew_cycle_navigation_header" = "Navigazione in bici (versione beta)";
-
-"whatsnew_cycle_navigation_message" = "Stiamo collaudando la navigazione in bici per la nuova stagione. Prova il tuo itinerario ciclistico preferito con OMaps e condividi con noi le tue opinioni.";
-
 /* Rate on Google Play (Android only) */
 "rate_gp" = "Vota su Google Play";
 
@@ -1673,10 +1567,6 @@
 /* Verb. Text on a button that opens the chat. */
 "chat_open" = "Apri";
 
-"whatsnew_uber_header" = "OMaps e Uber";
-
-"whatsnew_uber_message" = "Prenota un taxi Uber direttamente dalla app!";
-
 "dialog_taxi_offline" = "La chiamata taxi non è disponibile in modalità offline.";
 
 "dialog_taxi_error" = "La chiamata taxi è temporaneamente non disponibile.";
@@ -1714,42 +1604,6 @@
 /* "traffic" as in "road congestion" */
 "traffic_data_unavailable" = "Dati sul traffico non disponibili";
 
-/* december */
-"whatsnew_traffic" = "Dati sul traffico in 36 Paesi";
-
-/* december */
-"whatsnew_traffic_text" = "Info sul traffico aggiornate e itinerari più veloci sulla loro base!";
-
-/* december */
-"whatsnew_traffic_roaming" = "Info sul traffico in roaming";
-
-/* december */
-"whatsnew_traffic_roaming_text" = "Richiede meno di 1 MB di larghezza di banda mobile per viaggio.";
-
-/* december */
-"whatsnew_order_taxi" = "Prenota un taxi";
-
-/* december */
-"whatsnew_order_taxi_text" = "La maggior parte delle pagine di posizione contiene ora un pulsante per prenotare un taxi.";
-
-/* january */
-"whatsnew_improved_search" = "Ricerca migliorata";
-
-/* january */
-"whatsnew_improved_search_text" = "Anche le query con errori di ortografia restituiscono risultati di ricerca accurati.";
-
-/* january */
-"whatsnew_filters_in_search" = "Filtri di ricerca";
-
-/* january */
-"whatsnew_filters_in_search_text" = "Cerca hotel in base a prezzo e voto.";
-
-/* january */
-"whatsnew_font_size" = "Dimensione carattere";
-
-/* january */
-"whatsnew_font_size_text" = "Le etichette sulla mappa possono essere ingrandite.";
-
 /* "Translation is no needed, because it's a company name" */
 "uber" = "Uber";
 
@@ -1772,26 +1626,6 @@
 "pref_traffic_simplified_colors_title" = "Colori traffico semplificati";
 
 "enable_logging" = "Abilita registrazione";
-
-"whatsnew_more_info_on_hotels_title" = "Maggiori info su Hotel";
-
-"whatsnew_more_info_on_hotels_message" = "Aspetto totalmente nuovo per le pagine dedicate agli hotel: online, per te, foto, recensioni degli utenti e molto altro.";
-
-"whatsnew_better_routing_title" = "Pianificazione percorso migliorata";
-
-"whatsnew_better_routing_message" = "• Stima più accurata del tempo di arrivo.\n• La app tiene in considerazione le zone con limitazione di velocità e i segnali stradali.";
-
-"whatsnew_smaller_mwm_title" = "Maps si fa più piccolo";
-
-"whatsnew_smaller_mwm_message" = "Maps richiede fino al 20% in meno di memoria.";
-
-"whatsnew_waypoints_title" = "Waypoint di percorso";
-
-"whatsnew_waypoints_message" = "Tocca i luoghi e aggiungi waypoint al tuo percorso.";
-
-"whatsnew_driving_style_title" = "Nuovo stile di mappa per la guida";
-
-"whatsnew_driving_style_message" = "Modalità di navigazione in auto più semplice da usare.";
 
 "more_on_bookingcom" = "Altro su Booking.com";
 
@@ -1852,8 +1686,6 @@
 
 "whatsnew_transliteration_title" = "Traslitterazione in latino";
 
-"whatsnew_transliteration_message" = "Se una strada o un oggetto non ha un nome nella tua lingua, tale nome sarà scritto utilizzando l'alfabeto latino.";
-
 "yandex_taxi_title" = "Yandex.Taxi";
 
 "learn_more" = "Ulteriori informazioni";
@@ -1891,10 +1723,6 @@
 "button_replace" = "Sostituisci";
 
 "placepage_add_stop" = "Aggiungi sosta";
-
-"whatsnew_intermediate_point_title" = "Ulteriore sosta";
-
-"whatsnew_intermediate_point_message" = "Pianifica un percorso con un punto intermedio.";
 
 /* Only ru/en are needed */
 "subtitle_rent" = "Rent";
@@ -2503,24 +2331,6 @@
 
 "whats_new_ugc_routes_message2" = "Aggiungi foto e storie dettagliate nell'editor web.";
 
-"whatsnew_standard_routes_title" = "Itinerari standard";
-
-"whatsnew_standard_routes_message" = "Punti d'interesse principali con una breve descrizione. Divertimento garantito!";
-
-"whatsnew_city_overview_title" = "Visita della città";
-
-"whatsnew_city_overview_message" = "Fino a 200 attrazioni sulla mappa della città: tutto utile ed interessante per chi viaggia!";
-
-"whatsnew_pro_guides_title" = "Itinerari professionali";
-
-"whatsnew_pro_guides_message" = "Gli itinerari più precisi con una descrizione dettagliata. Possibilità di calcolare la distanza e i tempi di percorrenza";
-
-"whatsnew_paid_routes_title" = "Nuove emozioni da scoprire!";
-
-"whatsnew_paid_routes_message" = "Ora, insieme ai percorsi gratuiti, nel catalogo troverete anche guide a pagamento suddivise in 3 categorie. Più di 700 itinerari nuovi!";
-
-"whats_new_ugc_routes_title_android_only" = "È facile condividere le tue impressioni";
-
 "ugc_thanks_message_auth" = "Commento salvato";
 
 "ugc_thanks_message_not_auth" = "Registrarsi per lasciare un commento";
@@ -2681,14 +2491,6 @@
 
 "whats_new_auto_update_and_proceed_button_size" = "Aggiorna (%s) e continua";
 
-"whatsnew_toll_unpaved_title" = "Pianificare percorsi in auto su tutti i tipi di strade";
-
-"whatsnew_toll_unpaved_message" = "Scegli modalità di percorso e deviazione su strade a pedaggio, strade sterrate e traghetti";
-
-"whatsnew_new_catalogue_title" = "Aggiornamento del catalogo";
-
-"whatsnew_new_catalogue_message" = "Le guide dei partner ora con le informazioni dettagliate per rendere la scelta del percorso facile e pratica";
-
 "purchase_please_wait_toast" = "Si prega di non chiudere la scheda per completare l'acquisto";
 
 "trip_start" = "Si parte";
@@ -2803,18 +2605,6 @@
 
 "subscription_terms" = "Il pagamento verrà addebitato sul tuo account iTunes alla conferma dell'acquisto. L'abbonamento verrà rinnovato automaticamente a meno che l'opzione di rinnovo automatico non venga disattivata almeno 24 ore prima del termine dell'attuale periodo di fatturazione. L'addebito sull'account dipenderà dal piano di rinnovo e verrà effettuato nelle 24 ore precedenti alla fine del ciclo di fatturazione esistente. Puoi gestire o disattivare il rinnovo automatico dalle impostazioni dell'account Apple ID in qualsiasi momento.";
 
-"whatsnew_carplay_title" = "CarPlay supporta la navigazione OMaps!";
-
-"whatsnew_carplay_message" = "Segnalibri, ricerca, autovelox e impostazioni di deviazione: tutto perfettamente funzionante offline";
-
-"whatsnew_subscription_title" = "Scopri il mondo con l'abbonamento!";
-
-"whatsnew_subscription_message" = "Accesso illimitato al catalogo è molto più conveniente dell'acquisto di una guida separata";
-
-"whatsnew_carnavi_fixes_for_android_title" = "Aggiornare navigazione";
-
-"whatsnew_carnavi_fixes_for_android_message" = "Abbiamo migliorato la pianificazione di itinerari per i luoghi situati lontano dalle strade principali";
-
 "avoid_unpaved_carplay_1" = "No sterrati";
 
 "avoid_unpaved_carplay_2" = "No sterrati";
@@ -2918,10 +2708,6 @@
 /* Android, max 18 symbols */
 "bookmarks_delete_list" = "Cancella la lista";
 
-"whatsnew_bookmarks_search_sort_title" = "I segnalibri ordinati rendono un viaggio piacevole";
-
-"whatsnew_bookmarks_search_sort_message" = "Ordina i tuoi posti preferiti per categoria, data di aggiunta e posizione geografica, inoltre trova velocemente dei segnalibri specifici cercando per nome";
-
 "popup_subscription_success_map_title" = "Grande! Sei abbonato!";
 
 "popup_subscription_success_map_message" = "Esplora ora le migliori attrazioni turistiche del catalogo di OMaps";
@@ -2961,10 +2747,6 @@
 "catalog_no_internet_title" = "Nessuna connessione internet";
 
 "catalog_no_internet_button" = "Riprovare";
-
-"whatsnew_map_updates_title" = "Aggiornamenti rapidi delle mappe";
-
-"whatsnew_map_updates_message" = "Ora l'aggiornamento dei dati è 2 volte più veloce";
 
 "new_onboarding_button" = "Avanti";
 
@@ -3053,14 +2835,6 @@
 
 "dialog_pedestrian_route_is_long" = "Raggiungere la fermata dei mezzi di trasporto a piedi richiede troppo tempo";
 
-"whatsnew_outdoor_guides_title" = "Abbiamo aggiunto più di 15000 sentieri!";
-
-"whatsnew_outdoor_guides_message" = "I percorsi di Outdooractive ti aspettano all'interno del catalogo, sia per vacanze invernali che estive!";
-
-"whatsnew_guides_galleries_title" = "Pianifica il tuo prossimo viaggio con OMaps";
-
-"whatsnew_guides_galleries_message" = "Adesso puoi trovare le guide consigliate sulle pagine dedicate alle città e alla attrazioni più popolari";
-
 "new_onboarding_step3_header" = "Viaggia";
 
 "all_pass_screen_best_value" = "Prezzo vantaggioso";
@@ -3075,11 +2849,6 @@
 
 /* Failed planning SUBWAY route message in navigation view */
 "routing_planning_error_subway_special" = "Errore di creazione del percorso della metro";
-
-"whatsnew_isolines_title" = "Novità per le attività all'aria aperta: modalità topografica offline!";
-
-/* as less symbols as possible */
-"whatsnew_isolines_message" = "Orientatevi nelle aree montuose: attivate la modalità premendo nell'angolo in cima a sinistra";
 
 "button_layer_isolines" = "Terreno";
 
@@ -3169,18 +2938,6 @@
 /* as few symbols as possible */
 "routes_card_hide" = "Nascondi dalla mappa";
 
-"whatsnew_catalog_new_title" = "Nuovo catalogo guide e migliaia di idee di viaggio";
-
-"whatsnew_catalog_new_message" = "Abbiamo aggiornato il catalogo guide e aggiunto traduzioni nelle lingue più diffuse. Programma i tuoi viaggi in anticipo!";
-
-"whatsnew_elevation_profile_title" = "Profilo altimetrico e guide";
-
-"whatsnew_elevation_profile_message" = "Valuta offline la difficoltà di ascesa e discesa grazie al cursore del profilo altimetrico del percorso acquistato.";
-
-"whatsnew_guides_on_map_title" = "Nuova modalità: guide sulla mappa!";
-
-"whatsnew_guides_on_map_message" = "Attiva questa modalità nel menu delle impostazione dell'app per trovare velocemente percorsi cittadini interessanti e guide per sentieri nella natura.";
-
 "downloader_updating_ios" = "Aggiornamento in corso";
 
 "downloader_loading_ios" = "Caricamento";
@@ -3238,10 +2995,6 @@
 "choose_dates_online_only_dialog_cta" = "Impostazioni";
 
 "thirty_days_limit_dialog" = "È possibile prenotare una struttura al massimo per 30 notti";
-
-"whatsnew_trial_title" = "Accesso gratuito al catalogo guide";
-
-"whatsnew_trial_message" = "Abbiamo aggiunto un periodo di prova gratuito dell'abbonamento. Migliaia di percorsi in tutto il mondo e addirittura un profilo altimetrico interattivo per le guide all'aria aperta.";
 
 "whatsnew_trial_cta" = "Provalo";
 

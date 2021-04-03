@@ -18,33 +18,16 @@
 /* Button which deletes downloaded country */
 "delete" = "Ștergere";
 
-/* Button to dismiss dialog forever */
-"do_not_ask_me_again" = "Nu mă mai întreba";
-
 /* Button "do not interrupt download" if user touched actively downloading country */
 "do_nothing" = "Continuare";
 
 "download_maps" = "Descărcare hărți";
 
-/* Settings/Downloader - Download confirmation button */
-"download_x_kb" = "Descărcare %qu kB";
-
-/* Settings/Downloader - Download confirmation button */
-"download_x_mb" = "Descărcare %qu MB";
-
 /* Settings/Downloader - info for country when download fails */
 "download_has_failed" = "Descărcarea a eșuat. Atingeți pentru a încerca din nou.";
 
-/* Settings/Downloader - info for downloaded country */
-"downloaded_x_y_touch_to_delete" = "Descărcat (%1$qu %2$@). Atingeți pentru a șterge.";
-
-/* Settings/Downloader - country info current download progress */
-"downloading_x_touch_to_cancel" = "Se descarcă %qu%%. Atingeți pentru a anula.";
-
 /* Settings/Downloader - info for country which started downloading */
 "downloading" = "Se descarcă…";
-
-"get_it_now" = "Obțineți acum";
 
 /* Settings/Downloader - size string, only strings different from English should be translated */
 "kb" = "kB";
@@ -58,12 +41,6 @@
 /* View and button titles for accessibility */
 "maps" = "Hărţi";
 
-/* View and button titles for accessibility */
-"downloader_maps" = "Hărţi:";
-
-/* Settings/Downloader - info for country in the download queue */
-"marked_for_downloading" = "Marcat pentru descărcare. Atingeți pentru a anula.";
-
 /* Settings/Downloader - size string, only strings different from English should be translated */
 "mb" = "MB";
 
@@ -75,20 +52,11 @@
 /* View and button titles for accessibility */
 "core_my_position" = "Poziția mea";
 
-/* Settings/Downloader - No free space dialog message */
-"free_disk_space_for_country_x" = "Vă rugăm să eliberați niște spațiu pe dispozitivul dvs. mai întâi, pentru a descărca %@.";
-
-/* Leave Review dialog - Not now button (remind me later) */
-"remind_me_later" = "Amintește-mi mai târziu";
-
 /* Update maps later/Buy pro version later button text */
 "later" = "Mai târziu";
 
 /* Don't show some dialog any more */
 "never" = "Niciodată";
-
-/* Leave Review dialog - Complain button (goes to support site) */
-"report_an_issue" = "Raportează o problemă";
 
 /* View and button titles for accessibility */
 "search" = "Căutare";
@@ -102,9 +70,6 @@
 /* Settings/Downloader - 3G download warning dialog confirm button */
 "use_cellular_data" = "Da";
 
-/* Choose measurement on first launch alert - title */
-"which_measurement_system" = "Ce sistem de măsură preferați?";
-
 /* Location services are disabled by user alert - message */
 "location_is_disabled_long_text" = "În acest moment aveți dezactivate toate serviciile de localizare pentru acest dispozitiv sau aplicație. Vă rugăm să le activați la setări.";
 
@@ -113,12 +78,6 @@
 
 /* View and button titles for accessibility */
 "zoom_to_country" = "Afișare pe hartă";
-
-/* Message to display at the center of the screen when the country is added to the downloading queue */
-"country_status_added_to_queue" = "^\neste adăugată la coada de descărcare.";
-
-/* Message to display at the center of the screen when the country is downloading */
-"country_status_downloading" = "Se descarcă\n^\n^";
 
 /* Button text for the button at the center of the screen when the country is not downloaded */
 "country_status_download" = "Descărcare hartă\n(^ ^)";
@@ -136,8 +95,6 @@
 "try_again" = "Încercați din nou";
 
 "about_menu_title" = "Despre OMaps";
-
-"downloading_touch_to_cancel" = "Se descarcă %d%%. Atingeți pentru a anula.";
 
 "downloaded_touch_to_delete" = "Descărcat (%@). Atingeți pentru a șterge.";
 
@@ -159,8 +116,6 @@
 
 "not_enough_memory" = "Nu este suficientă memorie pentru a lansa aplicația.";
 
-"free_space_for_country" = "Vă rugăm să eliberați %1$@ spațiu pe dispozitivul dvs., pentru a putea descărca %2$@.";
-
 "download_resources" = "Înainte de a începe, permiteți-ne să descărcăm harta generală a lumii pe dispozitivul dvs.\nAre nevoie de %@ de date.";
 
 "getting_position" = "Se obține poziția actuală";
@@ -174,35 +129,10 @@
 "update_country_ask" = "Actualizați %@?";
 
 /* REMOVE THIS STRING AFTER REFACTORING */
-"download_location_map_proposal" = "Puteți descărca harta\npentru poziția dvs. actuală.";
-
-/* REMOVE THIS_STRING AFTER REFACTORING */
-"download_location_update_map_proposal" = "Puteți actualiza harta\npentru poziția dvs. actuală.";
-
-/* REMOVE THIS STRING AFTER REFACTORING */
-"download_location_map_up_to_date" = "Harta poziției dvs.\nactuale (%@) este la zi.";
-
-/* REMOVE THIS STRING AFTER REFACTORING */
 "pause" = "Pauză";
 
 /* REMOVE THIS STRING AFTER REFACTORING */
 "continue_download" = "Continuare";
-
-"downloaded_touch_to_update" = "Descărcat (%@). Atingeți pentru a actualiza sau a șterge.";
-
-"update_mb_or_kb" = "Actualizați %@";
-
-/* Show popup notification when we have downloaded countries without search (from Lite version) */
-"search_update_maps" = "Aveți nevoie de hărți actualizate pentru funcția de căutare:";
-
-/* Show popup notification on app start when we have out-of-date maps */
-"advise_update_maps" = "Actualizări disponibile pentru aceste hărți:";
-
-/* Show popup notification in Pro version that Lite can be deleted */
-"suggest_uninstall_lite" = "Nu mai aveți nevoie de OMaps Lite, îl puteți dezinstala.";
-
-/* Show popup notification on top of the map when country was downloaded. */
-"download_country_success" = "%@, descărcată cu succes";
 
 /* Show popup notification on top of the map when country download has failed. */
 "download_country_failed" = "%@ - descărcarea a eșuat";
@@ -245,9 +175,6 @@
 
 /* Text hint in Bookmarks dialog when no any bookmarks are added */
 "bookmarks_usage_hint" = "Încă nu aveți niciun marcaj.\nAtingeți orice loc de pe hartă pentru a adăuga un marcaj.\nPot fi importate și afișate pe OMaps și marcaje din alte surse. Deschideți fișierul KML/KMZ, cu marcajele salvate din email, Dropbox sau de la un link web.";
-
-/* Text hint in Bookmarks dialog when at least one bookmark is added */
-"bookmarks_usage_hint_import_only" = "Pot fi importate și afișate pe OMaps și marcaje din alte surse. Deschideți fișierul KML/KMZ, cu marcajele salvate din email, Dropbox sau de la un link web.";
 
 /* Settings button in system menu */
 "settings" = "Setări";
@@ -1289,16 +1216,6 @@
 
 "placepage_add_business_button" = "Adăugare organizație";
 
-"whatsnew_smallmwm_header" = "Ne-ați cerut, iar noi am făcut";
-
-"whatsnew_smallmwm_message" = "Am împărțit hărțile în mai multe secțiuni. Acum, puteți descărca și regiuni separate, nu doar țara întreagă.";
-
-"whatsnew_search_header" = "Căutare nouă";
-
-"whatsnew_search_message" = "Am îmbunătățit semnificativ căutarea după adresă. Convinge-te singur.";
-
-"whatsnew_editor_title" = "Editați harta*";
-
 "whatsnew_editor_message_1" = "Adăugați locuri noi pe hartă și modificați-le pe cele existente direct din aplicație.";
 
 "whatsnew_editor_message_2" = "* OMaps folosește datele comunității OpenStreetMap community.";
@@ -1382,13 +1299,6 @@
 "current_location_unknown_error_title" = "Locația curentă este necunoscută.";
 
 "current_location_unknown_error_message" = "S-a produs o eroare la căutarea locației. Verificați dacă dispozitivul funcționează corect și încercați din nou.";
-
-"whatsnew_update_editor_title" = "Am actualizat editorul de hărți";
-
-"whatsnew_update_editor_message" = "Utilizatorii OMaps au făcut 200.000 de modificări de hărți. Împreună alcătuim cele mai detaliate hărți din lume. Alăturați-vă comunității!";
-
-/* Additional text in whats new */
-"whatsnew_update_editor_message_update" = "Pentru a utiliza funcția editor hartă, vă rugăm să actualizați toate hărțile.";
 
 "location_services_disabled_header" = "Geolocalizarea este dezactivată";
 
@@ -1555,22 +1465,6 @@
 
 "recent_track_background_dialog_message" = "OMaps folosește în fundal geo-locația pentru a înregistra cel mai recent traseu urmat.";
 
-"whatsnew_car_navigation_header" = "Navigație pentru vehicule, ușor de folosit";
-
-"whatsnew_car_navigation_message" = "• Elementele aparținând navigației ocupă mai puțin spațiu.\n• Afișăm viteza și am adăugat o funcție de zoom automat.";
-
-"whatsnew_cycle_navigation_2_header" = "Navigație pentru biciclete";
-
-"whatsnew_cycle_navigation_2_message" = "• Navigația pentru biciclete ia în considerare caracteristicile traseului.\n• Creăm trasee mai ușoare, luând în considerare gradul de înclinare al drumului.";
-
-"whatsnew_booking_2_header" = "Căutarea hotelurilor este mai ușoară";
-
-"whatsnew_booking_2_message" = "Rezultatele de căutare indică nota hotelului și categoria de preț.";
-
-"whatsnew_cycle_navigation_header" = "Navigaţie pentru biciclete (versiune beta)";
-
-"whatsnew_cycle_navigation_message" = "În prezent testăm navigaţia pentru biciclete pentru noul sezon. Încercaţi traseul dvs. favorit cu OMaps şi împărtăşiţi-ne opinia dvs.";
-
 /* Rate on Google Play (Android only) */
 "rate_gp" = "Dați un calificativ pe Google Play";
 
@@ -1673,10 +1567,6 @@
 /* Verb. Text on a button that opens the chat. */
 "chat_open" = "Deschideți";
 
-"whatsnew_uber_header" = "OMaps și Uber";
-
-"whatsnew_uber_message" = "Comandați un taxi Uber direct din aplicație!";
-
 "dialog_taxi_offline" = "Comandarea unui taxi nu se poate face în modul offline.";
 
 "dialog_taxi_error" = "Comandarea unui taxi este momentan indisponibilă.";
@@ -1714,42 +1604,6 @@
 /* "traffic" as in "road congestion" */
 "traffic_data_unavailable" = "Datele privind traficul nu sunt disponibile";
 
-/* december */
-"whatsnew_traffic" = "Date privind traficul în 36 de țări";
-
-/* december */
-"whatsnew_traffic_text" = "Informații actualizate privind traficul și rutele cele mai rapide calculate în funcție de acestea!";
-
-/* december */
-"whatsnew_traffic_roaming" = "Informații privind traficul în roaming";
-
-/* december */
-"whatsnew_traffic_roaming_text" = "Necesită mai puţin de 1 MB de lățime de bandă mobilă pe călătorie.";
-
-/* december */
-"whatsnew_order_taxi" = "Comandați un taxi";
-
-/* december */
-"whatsnew_order_taxi_text" = "Majoritatea paginilor privind locația conțin acum un buton pentru a comanda un taxi.";
-
-/* january */
-"whatsnew_improved_search" = "Căutare îmbunătățită";
-
-/* january */
-"whatsnew_improved_search_text" = "Chiar și căutările scrise greșit aduc rezultate de căutare precise.";
-
-/* january */
-"whatsnew_filters_in_search" = "Filtre de căutare";
-
-/* january */
-"whatsnew_filters_in_search_text" = "Căutați hoteluri în funcție de preț și calificare.";
-
-/* january */
-"whatsnew_font_size" = "Dimensiunea fontului";
-
-/* january */
-"whatsnew_font_size_text" = "Etichetele de pe hartă pot fi făcute mai mari.";
-
 /* "Translation is no needed, because it's a company name" */
 "uber" = "Uber";
 
@@ -1772,26 +1626,6 @@
 "pref_traffic_simplified_colors_title" = "Culori trafic simplificate";
 
 "enable_logging" = "Activare jurnalizare";
-
-"whatsnew_more_info_on_hotels_title" = "Informaţii suplimentare despre hoteluri";
-
-"whatsnew_more_info_on_hotels_message" = "Un aspect nou al paginilor hotelurilor: fotografii, recenzii ale utilizatorilor și alte informații online.";
-
-"whatsnew_better_routing_title" = "Planificare îmbunătățită a rutei";
-
-"whatsnew_better_routing_message" = "• Estimare mai exactă a timpului de sosire.\n• Aplicația ia în calcul zonele cu restricții și semnele de circulație.";
-
-"whatsnew_smaller_mwm_title" = "Hărţile sunt acum mai mici";
-
-"whatsnew_smaller_mwm_message" = "Hărţile necesită cu 20% mai puțin spațiu de stocare.";
-
-"whatsnew_waypoints_title" = "Puncte de schimbare a direcției de pe traseu";
-
-"whatsnew_waypoints_message" = "Atingeți locații pentru a adăuga puncte de schimbare a direcției pe traseu.";
-
-"whatsnew_driving_style_title" = "Un nou stil de hartă pentru condus";
-
-"whatsnew_driving_style_message" = "Modul de navigare din mașină este acum mai ușor de utilizat.";
 
 "more_on_bookingcom" = "Mai multe pe Booking.com";
 
@@ -1852,8 +1686,6 @@
 
 "whatsnew_transliteration_title" = "Transcriere în alfabet latin";
 
-"whatsnew_transliteration_message" = "Dacă o stradă sau un obiect nu are un nume în limba dvs., va fi exprimat utilizând alfabetul latin.";
-
 "yandex_taxi_title" = "Yandex.Taxi";
 
 "learn_more" = "Mai multe";
@@ -1891,10 +1723,6 @@
 "button_replace" = "Înlocuire";
 
 "placepage_add_stop" = "Adăugare oprire";
-
-"whatsnew_intermediate_point_title" = "Oprire suplimentară";
-
-"whatsnew_intermediate_point_message" = "Planificați o rută cu un punct intermediar.";
 
 /* Only ru/en are needed */
 "subtitle_rent" = "Rent";
@@ -2503,24 +2331,6 @@
 
 "whats_new_ugc_routes_message2" = "Adăugați fotografii și povești detaliate în editorul web.";
 
-"whatsnew_standard_routes_title" = "Trasee standarte";
-
-"whatsnew_standard_routes_message" = "Setul principal de puncte, descrieri scurte, dar o mulțime de impresii!";
-
-"whatsnew_city_overview_title" = "Prezentarea orașului";
-
-"whatsnew_city_overview_message" = "Până la 200 de puncte pe harta orașului: toate cele mai utile și interesante pentru călător!";
-
-"whatsnew_pro_guides_title" = "Trasee profesionale";
-
-"whatsnew_pro_guides_message" = "Nivel înalt de detalii, descrieri detaliate ale locurilor și posibilitatea de a calcula distanța și timpul de mers pe jos";
-
-"whatsnew_paid_routes_title" = "Mai multe experiențe noi!";
-
-"whatsnew_paid_routes_message" = "Pe lângă rutele gratuite, în catalogul nostru am adăugat 3 categorii de rute plătite. Peste 700 de rute noi!";
-
-"whats_new_ugc_routes_title_android_only" = "Este ușor să vă împărtășiți impresiile";
-
 "ugc_thanks_message_auth" = "Comentariul dvs. a fost salvat";
 
 "ugc_thanks_message_not_auth" = "Înregistrați-vă pentru a lăsa comentarii";
@@ -2681,14 +2491,6 @@
 
 "whats_new_auto_update_and_proceed_button_size" = "De actualizat (%s) și de continuat";
 
-"whatsnew_toll_unpaved_title" = "Elaborați trasee auto ținând cont de toate tipurile de drumuri";
-
-"whatsnew_toll_unpaved_message" = "Selectați căile de ocolire pe drumurile cu plată, de țară și trecerile cu bacul";
-
-"whatsnew_new_catalogue_title" = "Paginile actualizate ale catalogului";
-
-"whatsnew_new_catalogue_message" = "Am adăugat informație detaliată privind ghidurile partenerilor, pentru ca selectarea traseelor să fie simplă și comodă";
-
 "purchase_please_wait_toast" = "Vă rugăm să nu părăsiți ecranul până la finalizarea cumpărăturii";
 
 "trip_start" = "Mergem";
@@ -2803,18 +2605,6 @@
 
 "subscription_terms" = "Plata va fi percepută din contul dvs. iTunes la confirmarea achiziției. Abonamentul va fi reînnoit în mod automat, cu excepția cazului în care reînnoirea automată este oprită cu cel puțin 24 de ore înainte de sfârșitul perioadei curente. Plata va fi percepută din contul dvs. în conformitate cu planul dvs. de reînnoire într-un interval de timp de 24 de ore înainte de încheierea perioadei curente. Puteți administra sau dezactiva reînnoirea automată din setările contului dvs. Apple ID în orice moment al achiziției.";
 
-"whatsnew_carplay_title" = "Autonavigare OMaps în CarPlay!";
-
-"whatsnew_carplay_message" = "Marcaje, căutare, camere-radar și setări de ocolire - totul funcționează fără Internet";
-
-"whatsnew_subscription_title" = "Descoperă lumea la abonament!";
-
-"whatsnew_subscription_message" = "Acces nelimitat la catalogul traseelor sunt mai convenabile decât achizițiile unice";
-
-"whatsnew_carnavi_fixes_for_android_title" = "Actualizarea navigării";
-
-"whatsnew_carnavi_fixes_for_android_message" = "Am îmbunătățit elaborarea traseelor până la punctele, amplasate departe de drum";
-
 "avoid_unpaved_carplay_1" = "Fără neasfal";
 
 "avoid_unpaved_carplay_2" = "Fără neasfaltat";
@@ -2918,10 +2708,6 @@
 /* Android, max 18 symbols */
 "bookmarks_delete_list" = "Ștergeți lista";
 
-"whatsnew_bookmarks_search_sort_title" = "Ordine în inscripții – comoditate în călătorie";
-
-"whatsnew_bookmarks_search_sort_message" = "Sortați locurile preferate după categorie, ora adăugării și geolocalizarea și găsiți rapid inscripțiile după nume";
-
 "popup_subscription_success_map_title" = "Ura! Sunteți abonat!";
 
 "popup_subscription_success_map_message" = "Explorați acum cele mai faimoase obiective turistice în catalogul OMaps";
@@ -2961,10 +2747,6 @@
 "catalog_no_internet_title" = "Fără conexiune la internet";
 
 "catalog_no_internet_button" = "Încercați din nou";
-
-"whatsnew_map_updates_title" = "Actualizarea reactiva a hărților";
-
-"whatsnew_map_updates_message" = "Acum actualizam hărțile de 2 ori mai repede";
 
 "new_onboarding_button" = "Mai departe";
 
@@ -3053,14 +2835,6 @@
 
 "dialog_pedestrian_route_is_long" = "E prea mult timp ca sa ajungi la vehicul pe jos";
 
-"whatsnew_outdoor_guides_title" = "Am adăugat 15000+ de trasee pentru activități în aer liber!";
-
-"whatsnew_outdoor_guides_message" = "Rute Outdooractive de vacanță de iarnă și de vară te așteaptă în catalog!";
-
-"whatsnew_guides_galleries_title" = "Planificați-vă următoarea călătorie cu OMaps";
-
-"whatsnew_guides_galleries_message" = "Acum puteți găsi ghiduri recomandate în cartelele orașelor și atracțiilor populare";
-
 "new_onboarding_step3_header" = "Călătoriți";
 
 "all_pass_screen_best_value" = "Preț avantajos";
@@ -3075,11 +2849,6 @@
 
 /* Failed planning SUBWAY route message in navigation view */
 "routing_planning_error_subway_special" = "Eroare la construirea rutei metroului";
-
-"whatsnew_isolines_title" = "Noutatea pentru activități în aer liber – linii de înălțimi offline!";
-
-/* as less symbols as possible */
-"whatsnew_isolines_message" = "Ghidați-vă în zona montană-activați butonul de strat în colțul din stânga sus pe ecran";
 
 "button_layer_isolines" = "Înălțimi";
 
@@ -3169,18 +2938,6 @@
 /* as few symbols as possible */
 "routes_card_hide" = "Ascunde de pe hartă";
 
-"whatsnew_catalog_new_title" = "Catalog nou și mii de idei pentru vacanță";
-
-"whatsnew_catalog_new_message" = "Am actualizat catalogul ghidurilor de călătorie și am adăugat traduceri în limbi populare. Începeți planificarea înainte!";
-
-"whatsnew_elevation_profile_title" = "Profilul înălțimilor în ghiduri";
-
-"whatsnew_elevation_profile_message" = "Evaluați complexitatea urcărilor și coborârilor viitoare offline cu cursorul în profilul traseului achiziționat.";
-
-"whatsnew_guides_on_map_title" = "Strat nou - ghiduri pe hartă!";
-
-"whatsnew_guides_on_map_message" = "Activați stratul din meniul setărilor aplicației pentru a găsi rapid rute interesante pentru orașe și ghiduri de călătorie pentru activități în aer liber.";
-
 "downloader_updating_ios" = "Actualizare";
 
 "downloader_loading_ios" = "Încărcare";
@@ -3238,10 +2995,6 @@
 "choose_dates_online_only_dialog_cta" = "Setări";
 
 "thirty_days_limit_dialog" = "Rezervabil pentru maxim 30 de nopți";
-
-"whatsnew_trial_title" = "Acces gratuit la ghiduri";
-
-"whatsnew_trial_message" = "Am lansat o perioadă de abonament de încercare de 7 zile. Mii de rute din întreaga lume, precum și un profil interactiv de înălțimi în ghidurile de activități în aer liber.";
 
 "whatsnew_trial_cta" = "Încercați";
 

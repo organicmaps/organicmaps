@@ -12,24 +12,13 @@
 	<string name="cancel_download">Отменить загрузку</string>
 	<!-- Button which deletes downloaded country -->
 	<string name="delete">Удалить</string>
-	<!-- Button to dismiss dialog forever -->
-	<string name="do_not_ask_me_again">Больше не спрашивать</string>
 	<!-- Button "do not interrupt download" if user touched actively downloading country -->
 	<string name="do_nothing">Продолжить загрузку</string>
 	<string name="download_maps">Загрузить карты</string>
-	<!-- Settings/Downloader - Download confirmation button -->
-	<string name="download_x_kb">Загрузить %qu кБ</string>
-	<!-- Settings/Downloader - Download confirmation button -->
-	<string name="download_x_mb">Загрузить %qu МБ</string>
 	<!-- Settings/Downloader - info for country when download fails -->
 	<string name="download_has_failed">Ошибка загрузки. Нажмите, чтобы повторить попытку</string>
-	<!-- Settings/Downloader - info for downloaded country -->
-	<string name="downloaded_x_y_touch_to_delete">Загружено (%1$qu %2$s), нажмите для удаления</string>
-	<!-- Settings/Downloader - country info current download progress -->
-	<string name="downloading_x_touch_to_cancel">Загружается %qu%%, нажмите, чтобы прервать</string>
 	<!-- Settings/Downloader - info for country which started downloading -->
 	<string name="downloading">Загружается…</string>
-	<string name="get_it_now">Установить</string>
 	<!-- Settings/Downloader - size string, only strings different from English should be translated -->
 	<string name="kb">кБ</string>
 	<!-- Choose measurement on first launch alert - choose metric system button -->
@@ -38,10 +27,6 @@
 	<string name="leave_a_review">Написать отзыв</string>
 	<!-- View and button titles for accessibility -->
 	<string name="maps">Карты</string>
-	<!-- View and button titles for accessibility -->
-	<string name="downloader_maps">Карты:</string>
-	<!-- Settings/Downloader - info for country in the download queue -->
-	<string name="marked_for_downloading">Поставлено в очередь на загрузку, нажмите для отмены</string>
 	<!-- Settings/Downloader - size string, only strings different from English should be translated -->
 	<string name="mb">МБ</string>
 	<string name="gb">ГБ</string>
@@ -49,16 +34,10 @@
 	<string name="miles">Мили</string>
 	<!-- View and button titles for accessibility -->
 	<string name="core_my_position">Мое местоположение</string>
-	<!-- Settings/Downloader - No free space dialog message -->
-	<string name="free_disk_space_for_country_x">Нет свободного места. Пожалуйста, удалите ненужные карты или приложения, чтобы загрузить %s</string>
-	<!-- Leave Review dialog - Not now button (remind me later) -->
-	<string name="remind_me_later">Напомнить позже</string>
 	<!-- Update maps later/Buy pro version later button text -->
 	<string name="later">Не сейчас</string>
 	<!-- Don't show some dialog any more -->
 	<string name="never">Не показывать</string>
-	<!-- Leave Review dialog - Complain button (goes to support site) -->
-	<string name="report_an_issue">Сообщить о проблеме</string>
 	<!-- View and button titles for accessibility -->
 	<string name="search">Поиск</string>
 	<!-- Search box placeholder text -->
@@ -67,18 +46,12 @@
 	<string name="touch_to_download">Нажмите для загрузки</string>
 	<!-- Settings/Downloader - 3G download warning dialog confirm button -->
 	<string name="use_cellular_data">Да</string>
-	<!-- Choose measurement on first launch alert - title -->
-	<string name="which_measurement_system">Какую систему измерения вы предпочитаете?</string>
 	<!-- Location services are disabled by user alert - message -->
 	<string name="location_is_disabled_long_text">Геолокация выключена в настройках устройства. Пожалуйста, включите её для удобного использования программы.</string>
 	<!-- Location Services are not available on the device alert - message -->
 	<string name="device_doesnot_support_location_services">Ваше устройство не поддерживает геолокацию</string>
 	<!-- View and button titles for accessibility -->
 	<string name="zoom_to_country">Показать на карте</string>
-	<!-- Message to display at the center of the screen when the country is added to the downloading queue -->
-	<string name="country_status_added_to_queue">^\nдобавлено в очередь загрузки</string>
-	<!-- Message to display at the center of the screen when the country is downloading -->
-	<string name="country_status_downloading">Загружается\n^\n^</string>
 	<!-- Button text for the button at the center of the screen when the country is not downloaded -->
 	<string name="country_status_download">Загрузить карту\n(^ ^)</string>
 	<!-- Button text for the button at the center of the screen when the country is not downloaded and the size should not be shown -->
@@ -90,7 +63,6 @@
 	<!-- Button text for the button under the country_status_download_failed message -->
 	<string name="try_again">Попробуйте еще раз</string>
 	<string name="about_menu_title">О программе</string>
-	<string name="downloading_touch_to_cancel">Загружается %d%%, нажмите, чтобы прервать</string>
 	<string name="downloaded_touch_to_delete">Загружено (%s), нажмите для удаления</string>
 	<string name="connection_settings">Настройки подключения</string>
 	<string name="download_mb_or_kb">Загрузить %s</string>
@@ -101,7 +73,6 @@
 	<string name="disconnect_usb_cable">Отключите USB кабель или вставьте SD-карту</string>
 	<string name="not_enough_free_space_on_sdcard">Недостаточно свободного места на SD карте/в памяти устройства для использования программы</string>
 	<string name="not_enough_memory">Недостаточно памяти для запуска программы</string>
-	<string name="free_space_for_country">Для загрузки %2$s нужно %1$s свободного места</string>
 	<string name="download_resources">Перед началом работы разрешите нам загрузить общую карту мира на ваше устройство.\nЭто потребует %s данных.</string>
 	<string name="getting_position">Получаем местоположение</string>
 	<string name="download_resources_continue">Перейти на карту</string>
@@ -109,25 +80,9 @@
 	<string name="download_country_ask">Загрузить %s?</string>
 	<string name="update_country_ask">Обновить %s?</string>
 	<!-- REMOVE THIS STRING AFTER REFACTORING -->
-	<string name="download_location_map_proposal">Вы можете загрузить карту\nвашего текущего местоположения.</string>
-	<!-- REMOVE THIS_STRING AFTER REFACTORING -->
-	<string name="download_location_update_map_proposal">Вы можете обновить карту\nвашего текущего местоположения.</string>
-	<!-- REMOVE THIS STRING AFTER REFACTORING -->
-	<string name="download_location_map_up_to_date">Карта местности, в которой\nвы находитесь (%s), уже загружена.</string>
-	<!-- REMOVE THIS STRING AFTER REFACTORING -->
 	<string name="pause">Приостановить</string>
 	<!-- REMOVE THIS STRING AFTER REFACTORING -->
 	<string name="continue_download">Продолжить</string>
-	<string name="downloaded_touch_to_update">Загружено (%s), нажмите для обновления или удаления</string>
-	<string name="update_mb_or_kb">Обновить %s</string>
-	<!-- Show popup notification when we have downloaded countries without search (from Lite version) -->
-	<string name="search_update_maps">Для функции поиска необходимо обновить устаревшие карты:</string>
-	<!-- Show popup notification on app start when we have out-of-date maps -->
-	<string name="advise_update_maps">Доступно обновление для следующих карт:</string>
-	<!-- Show popup notification in Pro version that Lite can be deleted -->
-	<string name="suggest_uninstall_lite">OMaps Lite больше не нужна. Рекомендуем её удалить.</string>
-	<!-- Show popup notification on top of the map when country was downloaded. -->
-	<string name="download_country_success">%s успешно загружена</string>
 	<!-- Show popup notification on top of the map when country download has failed. -->
 	<string name="download_country_failed">Не удалось загрузить %s</string>
 	<!-- Add New Bookmark Set dialog title -->
@@ -156,8 +111,6 @@
 	<string name="set">Группа</string>
 	<!-- Text hint in Bookmarks dialog when no any bookmarks are added -->
 	<string name="bookmarks_usage_hint">У вас пока нет меток.\nВыберите любое место на карте, чтобы добавить его.\nТакже метки можно импортировать из OMaps либо других приложений и сайтов. Для этого откройте KML/KMZ файл из Dropbox, почты или по веб-ссылке.</string>
-	<!-- Text hint in Bookmarks dialog when at least one bookmark is added -->
-	<string name="bookmarks_usage_hint_import_only">Метки можно импортировать из OMaps либо других приложений и сайтов. Для этого откройте KML/KMZ файл из Dropbox, почты или по веб-ссылке.</string>
 	<!-- Settings button in system menu -->
 	<string name="settings">Настройки</string>
 	<!-- Header of settings activity where user defines storage path -->
@@ -784,11 +737,6 @@
 	<string name="editor_report_problem_other_title">Другая проблема</string>
 	<string name="placepage_report_problem_button">Сообщить о проблеме</string>
 	<string name="placepage_add_business_button">Добавить организацию</string>
-	<string name="whatsnew_smallmwm_header">Вы долго просили — мы наконец сделали</string>
-	<string name="whatsnew_smallmwm_message">Мы разрезали большие карты на части: загружайте только нужные области, а не целые страны.</string>
-	<string name="whatsnew_search_header">Новый поиск</string>
-	<string name="whatsnew_search_message">Качественно улучшили поиск по адресам. Проверяйте.</string>
-	<string name="whatsnew_editor_title">Редактируйте карту*</string>
 	<string name="whatsnew_editor_message_1">Добавляйте новые объекты и редактируйте старые прямо из приложения.</string>
 	<string name="whatsnew_editor_message_2">* OMaps использует данные открытых карт сообщества OpenStreetMap.</string>
 	<string name="dialog_incorrect_feature_position">Измените местоположение</string>
@@ -834,10 +782,6 @@
 	<string name="current_location_unknown_stop_button">Стоп</string>
 	<string name="current_location_unknown_error_title">Местоположение не найдено.</string>
 	<string name="current_location_unknown_error_message">При поиске местоположения произошла неизвестная ошибка. Проверьте работоспособность устройства и попробуйте найти местоположение позднее.</string>
-	<string name="whatsnew_update_editor_title">Мы обновили редактор</string>
-	<string name="whatsnew_update_editor_message">Пользователи OMaps внесли уже 200 000 правок на карту. Вместе мы сделаем карты самыми подробными в мире. Присоединяйся!</string>
-	<!-- Additional text in whats new -->
-	<string name="whatsnew_update_editor_message_update">Обновите все карты, чтобы использовать редактор.</string>
 	<string name="location_services_disabled_header">Определение местоположения отключено</string>
 	<string name="location_services_disabled_message">Разрешите доступ к геопозиции в настройках устройства.</string>
 	<string name="location_services_disabled_1">1. Откройте Настройки</string>
@@ -925,14 +869,6 @@
 	<string name="sharing_call_action_look">Посмотри</string>
 	<string name="continue_recent_track_background_button">Продолжить</string>
 	<string name="recent_track_background_dialog_message">OMaps использует вашу геопозицию в фоновом режиме для записи недавно пройденного пути.</string>
-	<string name="whatsnew_car_navigation_header">Режим автонавигации стал удобнее</string>
-	<string name="whatsnew_car_navigation_message">• Элементы навигации занимают меньше места.\n• Показываем скорость и добавили автомасштабирование.</string>
-	<string name="whatsnew_cycle_navigation_2_header">Велонавигация</string>
-	<string name="whatsnew_cycle_navigation_2_message">• Велонавигация учитывает рельеф.\n• Мы строим оптимальный маршрут с учетом перепада высот.</string>
-	<string name="whatsnew_booking_2_header">Поиск отелей стал проще</string>
-	<string name="whatsnew_booking_2_message">При поиске отображается рейтинг и ценовая категория отеля.</string>
-	<string name="whatsnew_cycle_navigation_header">Велонавигация (бета-версия)</string>
-	<string name="whatsnew_cycle_navigation_message">К открытию сезона мы тестируем велонавигацию. Прокатитесь по своему любимому веломаршруту с OMaps и поделитесь с нами впечатлениями.</string>
 	<!-- Rate on Google Play (Android only) -->
 	<string name="rate_gp">Оценить в Google Play</string>
 	<!-- Share with friends: menu item title -->
@@ -994,8 +930,6 @@
 	<string name="chat">Геочат</string>
 	<!-- Verb. Text on a button that opens the chat. -->
 	<string name="chat_open">Открыть</string>
-	<string name="whatsnew_uber_header">OMaps и Uber</string>
-	<string name="whatsnew_uber_message">Закажите такси прямо из приложения!</string>
 	<string name="dialog_taxi_offline">Заказ такси недоступен офлайн.</string>
 	<string name="dialog_taxi_error">Заказ такси временно недоступен.</string>
 	<string name="mobile_data_dialog">Загружать дополнительную информацию через мобильный интернет?</string>
@@ -1014,30 +948,6 @@
 	<string name="traffic_update_app_message">Для отображения пробок необходимо обновить приложение.</string>
 	<!-- "traffic" as in "road congestion" -->
 	<string name="traffic_data_unavailable">Данные о пробках недоступны</string>
-	<!-- december -->
-	<string name="whatsnew_traffic">Пробки в 36 странах мира</string>
-	<!-- december -->
-	<string name="whatsnew_traffic_text">Актуальная информация о пробках на дорогах и самые быстрые маршруты с их учетом!</string>
-	<!-- december -->
-	<string name="whatsnew_traffic_roaming">Пробки даже в роуминге</string>
-	<!-- december -->
-	<string name="whatsnew_traffic_roaming_text">Требует менее 1 МБ мобильного трафика за поездку.</string>
-	<!-- december -->
-	<string name="whatsnew_order_taxi">Вызов такси</string>
-	<!-- december -->
-	<string name="whatsnew_order_taxi_text">В карточке большинства объектов появилась кнопка заказа такси.</string>
-	<!-- january -->
-	<string name="whatsnew_improved_search">Улучшен поиск</string>
-	<!-- january -->
-	<string name="whatsnew_improved_search_text">Опечатки в запросах не влияют на результаты поиска.</string>
-	<!-- january -->
-	<string name="whatsnew_filters_in_search">Фильтры в поиске</string>
-	<!-- january -->
-	<string name="whatsnew_filters_in_search_text">Можно искать отели с учетом цены и рейтинга.</string>
-	<!-- january -->
-	<string name="whatsnew_font_size">Размер шрифта</string>
-	<!-- january -->
-	<string name="whatsnew_font_size_text">Названия объектов на карте теперь можно сделать крупнее.</string>
 	<!-- Seven points and higher -->
 	<string name="booking_filter_rating_num_good">7.0+</string>
 	<!-- Eight points and higher -->
@@ -1047,16 +957,6 @@
 	<!-- Simplified colour scheme for traffic information, fewer colours are used to display traffic jams on the map. The string should be kept as short as possible -->
 	<string name="pref_traffic_simplified_colors_title">Простые цвета пробок</string>
 	<string name="enable_logging">Включить запись логов</string>
-	<string name="whatsnew_more_info_on_hotels_title">Подробная информация об отелях</string>
-	<string name="whatsnew_more_info_on_hotels_message">Новые расширенные карточки гостиниц: смотрите фотографии, отзывы и другую информацию онлайн.</string>
-	<string name="whatsnew_better_routing_title">Улучшено построение маршрутов</string>
-	<string name="whatsnew_better_routing_message">• Более точная оценка времени в пути.\n• Учитываем знаки и запрещенные дороги при построении маршрута.</string>
-	<string name="whatsnew_smaller_mwm_title">Карты стали меньше</string>
-	<string name="whatsnew_smaller_mwm_message">Занимают на 20% меньше места на телефоне.</string>
-	<string name="whatsnew_waypoints_title">Маршруты с промежуточными точками</string>
-	<string name="whatsnew_waypoints_message">Нажмите на объекты, чтобы включить их в маршрут.</string>
-	<string name="whatsnew_driving_style_title">Новый автомобильный стиль карт</string>
-	<string name="whatsnew_driving_style_message">Режим автомобильной навигации стал удобнее.</string>
 	<string name="more_on_bookingcom">Больше на Booking.com</string>
 	<string name="details_on_bookingcom">Подробней на Booking.com</string>
 	<string name="reviews_on_bookingcom">Больше отзывов на Booking.com</string>
@@ -1086,7 +986,6 @@
 	<string name="prefs_languages_information_off">Для некоторых языков, возможно, необходимо установить дополнительный синтезатор речи (TTS) из магазина приложений (Google Play Market, Samsung Apps).\nЧтобы настроить синтезатор речи, перейдите в Настройки → Язык и ввод → Синтез речи.\nЗдесь можно установить дополнительные языковые пакеты или выбрать синтезатор речи.</string>
 	<string name="prefs_languages_information_off_link">Более подробная информация — в этом руководстве.</string>
 	<string name="whatsnew_transliteration_title">Латинская транслитерация</string>
-	<string name="whatsnew_transliteration_message">Если у улицы или объекта нет названия на вашем языке, то мы покажем его латиницей.</string>
 	<string name="yandex_taxi_title">Яндекс.Такси</string>
 	<string name="learn_more">Узнать больше</string>
 	<string name="core_exit">Выход</string>
@@ -1106,8 +1005,6 @@
 	<string name="dialog_change_start_point_message">Заменить стартовую точку на текущее местоположение?</string>
 	<string name="button_replace">Заменить</string>
 	<string name="placepage_add_stop">Заехать</string>
-	<string name="whatsnew_intermediate_point_title">Промежуточная остановка</string>
-	<string name="whatsnew_intermediate_point_message">Планируйте маршрут с дополнительной остановкой.</string>
 	<!-- Only ru/en are needed -->
 	<string name="subtitle_rent">Аренда</string>
 	<!-- Only ru/en are needed -->
@@ -1442,15 +1339,6 @@
 	<string name="whats_new_ugc_routes_subtitle">Сохраняй запомнившиеся места, создавай из меток маршруты и делись со всеми в каталоге OMaps.</string>
 	<string name="whats_new_webeditor_title">Превращай маршруты в истории</string>
 	<string name="whats_new_ugc_routes_message2">Добавляй фото и подробные рассказы в веб-редакторе.</string>
-	<string name="whatsnew_standard_routes_title">Стандартные маршруты</string>
-	<string name="whatsnew_standard_routes_message">Основной набор точек, краткие описания, но много впечатлений!</string>
-	<string name="whatsnew_city_overview_title">Обзор города</string>
-	<string name="whatsnew_city_overview_message">До 200 точек на карте города: все самое полезное и интересное для путешественника!</string>
-	<string name="whatsnew_pro_guides_title">Профессиональные маршруты</string>
-	<string name="whatsnew_pro_guides_message">Высокий уровень детализации, подробные описания мест и возможность рассчитать расстояние и время прогулки</string>
-	<string name="whatsnew_paid_routes_title">Больше новых впечатлений!</string>
-	<string name="whatsnew_paid_routes_message">В дополнение к бесплатным маршрутам мы добавили в каталог 3 категории платных путеводителей. Более 700 новых маршрутов!</string>
-	<string name="whats_new_ugc_routes_title_android_only">Делиться впечатлениями просто</string>
 	<string name="ugc_thanks_message_auth">Ваш отзыв сохранен</string>
 	<string name="ugc_thanks_message_not_auth">Зарегистрируйтесь, чтобы оставить отзыв</string>
 	<string name="notification_leave_review_v2_title">Оставьте отзыв и помогите путешественникам!</string>
@@ -1535,10 +1423,6 @@
 	<string name="whats_new_auto_update_bydeeplink_title">Прежде, чем перейти к путеводителям…</string>
 	<string name="whats_new_auto_update_bydeeplink_message">Обновите карты для получения актуальной информации об объектах!</string>
 	<string name="whats_new_auto_update_and_proceed_button_size">Обновить (%s) и продолжить</string>
-	<string name="whatsnew_toll_unpaved_title">Прокладывайте автомобильные маршруты с учетом типа дороги</string>
-	<string name="whatsnew_toll_unpaved_message">Объезжайте платные и грунтовые дороги и паромные переправы</string>
-	<string name="whatsnew_new_catalogue_title">Обновленные страницы каталога</string>
-	<string name="whatsnew_new_catalogue_message">Мы добавили подробную информацию о партнерских путеводителях, чтобы выбор маршрута был простым и удобным</string>
 	<string name="purchase_please_wait_toast">Пожалуйста, не покидайте экран до завершения покупки</string>
 	<string name="trip_start">Поехали</string>
 	<string name="pick_destination">Цель</string>
@@ -1595,12 +1479,6 @@
 	<string name="buy_btn_for_subscription_ios_only_year">Полный доступ за %s/год</string>
 	<string name="subscription_terms_guides">Оплата будет произведена с вашего счета iTunes при подтверждении покупки. Подписка автоматически возобновится, если автоматическое продление не будет отключено по крайней мере за 24 часа до окончания текущего периода. Денежные средства будут списываться с вашей учетной записи в соответствии с вашим тарифным планом продления в течение 24 часов до конца текущего периода. Вы можете управлять автоматическим продлением или отключать его в настройках учетной записи Apple ID в любое время после покупки. Вы сможете использовать путеводители, скачанные по подписке, только в течение ее срока действия. По истечении 30 дней после окончания подписки путеводители со всеми закладками будут автоматически удалены.</string>
 	<string name="subscription_terms">Оплата будет списана с вашего счета iTunes при подтверждении покупки. Подписка автоматически возобновится, если автоматическое продление не будет отключено по крайней мере за 24 часа до окончания текущего периода. Деньги будут списываться с вашей учетной записи в соответствии с вашим планом продления в течение 24 часов до конца текущего периода. Вы можете управлять или отключать автоматическое продление в настройках учетной записи Apple ID в любое время после покупки.</string>
-	<string name="whatsnew_carplay_title">Автонавигация OMaps в CarPlay!</string>
-	<string name="whatsnew_carplay_message">Метки, поиск, камеры скорости и настройки объезда — все работает без Интернета</string>
-	<string name="whatsnew_subscription_title">Открой мир по подписке!</string>
-	<string name="whatsnew_subscription_message">Неограниченный доступ к каталогу маршрутов выгоднее одноразовой покупки</string>
-	<string name="whatsnew_carnavi_fixes_for_android_title">Обновление навигации</string>
-	<string name="whatsnew_carnavi_fixes_for_android_message">Мы улучшили построение маршрутов до точек, расположенных далеко от дорог</string>
 	<string name="avoid_unpaved_carplay_1">Без грунт.</string>
 	<string name="avoid_unpaved_carplay_2">Без грунтовых</string>
 	<string name="avoid_ferry_carplay_1">Без паромов</string>
@@ -1657,8 +1535,6 @@
 	<string name="bookmarks_edit_list">Редактировать</string>
 	<!-- Android, max 18 symbols -->
 	<string name="bookmarks_delete_list">Удалить список</string>
-	<string name="whatsnew_bookmarks_search_sort_title">Порядок в метках — удобство в путешествии</string>
-	<string name="whatsnew_bookmarks_search_sort_message">Сортируйте избранные места по категориям, времени добавления и геолокации, а также быстро находите конкретные метки по названию</string>
 	<string name="popup_subscription_success_map_title">Ура! Вы подписаны!</string>
 	<string name="popup_subscription_success_map_message">Теперь исследуйте лучшие туристические достопримечательности в каталоге OMaps</string>
 	<string name="popup_subscription_success_map_start_button">Просмотреть</string>
@@ -1679,8 +1555,6 @@
 	<string name="subscription_screen_native_message_version_2">Будьте готовы к любому путешествию в 600+ городах и 100+ странах</string>
 	<string name="catalog_no_internet_title">Нет интернет-подключения</string>
 	<string name="catalog_no_internet_button">Попробовать снова</string>
-	<string name="whatsnew_map_updates_title">Реактивные обновления карт</string>
-	<string name="whatsnew_map_updates_message">Теперь обновляем данные в 2 раза быстрее</string>
 	<string name="new_onboarding_button">Далее</string>
 	<string name="new_onboarding_button_2">Начать</string>
 	<string name="new_onboarding_step1_header_2">Универсальный помощник в путешествиях</string>
@@ -1725,10 +1599,6 @@
 	<string name="downloader_country_no_guides_gallery_header">Пока нет путеводителей по этой стране</string>
 	<string name="downloader_country_no_guides_gallery_message">Ознакомьтесь с другими маршрутами в 100+ странах для городского и активного отдыха</string>
 	<string name="dialog_pedestrian_route_is_long">Добираться до транспорта пешком слишком долго</string>
-	<string name="whatsnew_outdoor_guides_title">Мы добавили 15000+ троп для активного отдыха!</string>
-	<string name="whatsnew_outdoor_guides_message">Маршруты от Outdooractive для зимних и летних отпусков ждут в каталоге!</string>
-	<string name="whatsnew_guides_galleries_title">Планируйте ближайшую поездку с OMaps</string>
-	<string name="whatsnew_guides_galleries_message">Теперь вы можете найти рекомендованные путеводители в карточках популярных городов и достопримечательностей</string>
 	<string name="new_onboarding_step3_header">Путешествуйте</string>
 	<string name="all_pass_screen_best_value">Выгодная цена</string>
 	<string name="buy_btn_for_subscription_3">Весь каталог за %s/год</string>
@@ -1737,9 +1607,6 @@
 	<string name="dialog_pedestrian_route_is_long_message">Выберите начальную или конечную точку маршрута ближе к станции метро</string>
 	<!-- Failed planning SUBWAY route message in navigation view -->
 	<string name="routing_planning_error_subway_special">Ошибка построения маршрута метро</string>
-	<string name="whatsnew_isolines_title">Новинка для активного отдыха – линии высот офлайн!</string>
-	<!-- as less symbols as possible -->
-	<string name="whatsnew_isolines_message">Ориентируйтесь в горной местности – включите слой кнопкой в левом верхнем углу экрана</string>
 	<string name="button_layer_isolines">Высоты</string>
 	<string name="tips_map_layers_title_countour">Линии высот офлайн в OMaps!</string>
 	<string name="tips_map_layers_message_countour">Линии высот помогут спланировать путешествие на природу и не потеряться на местности</string>
@@ -1776,12 +1643,6 @@
 	<string name="routes_card_show">Показать на карте</string>
 	<!-- as few symbols as possible -->
 	<string name="routes_card_hide">Скрыть с карты</string>
-	<string name="whatsnew_catalog_new_title">Новый каталог и тысячи идей для отдыха</string>
-	<string name="whatsnew_catalog_new_message">Мы обновили каталог путеводителей и добавили переводы на популярные языки. Начните планировать заранее!</string>
-	<string name="whatsnew_elevation_profile_title">Профиль высот в путеводителях</string>
-	<string name="whatsnew_elevation_profile_message">Оценивайте сложность предстоящих подъемов и спусков офлайн с помощью курсора в профиле приобретенного маршрута.</string>
-	<string name="whatsnew_guides_on_map_title">Новый слой — путеводители на карте!</string>
-	<string name="whatsnew_guides_on_map_message">Активируйте слой в меню настроек приложения, чтобы быстро найти интересные городские маршруты и путеводители для активного отдыха.</string>
 	<string name="downloader_updating_ios">Обновление</string>
 	<string name="downloader_loading_ios">Загрузка</string>
 	<string name="routes_card_plus_track">+ трек</string>
@@ -1817,8 +1678,6 @@
 	<string name="choose_dates_online_only_dialog_message">Выбор дат и количества гостей доступен только онлайн. Проверьте настройки и убедитесь, что вы подключены к Интернету.</string>
 	<string name="choose_dates_online_only_dialog_cta">Настройки</string>
 	<string name="thirty_days_limit_dialog">Забронировать можно максимум на 30 ночей</string>
-	<string name="whatsnew_trial_title">Бесплатный доступ к путеводителям</string>
-	<string name="whatsnew_trial_message">Мы запустили 7-дневный пробный период подписки. Тысячи маршрутов по всему миру, а также интерактивный профиль высот в путеводителях для активного отдыха.</string>
 	<string name="whatsnew_trial_cta">Попробовать</string>
 	<string name="subscription_terms_guides_outdoor">Оплата будет произведена с вашего счета iTunes при подтверждении покупки. Подписка автоматически возобновится, если автоматическое продление не будет отключено по крайней мере за 24 часа до окончания текущего периода. Денежные средства будут списываться с вашей учетной записи в соответствии с вашим тарифным планом продления в течение 24 часов до конца текущего периода. Вы можете управлять автоматическим продлением или отключать его в настройках учетной записи Apple ID в любое время после покупки. Вы сможете использовать путеводители, скачанные по подписке, только в течение ее срока действия. По истечении 7 дней после окончания подписки путеводители со всеми закладками будут автоматически удалены.\n* Подписка с бесплатным пробным периодом автоматически преобразуется в платную подписку. Вы можете отменить или управлять автоматическим продлением бесплатной пробной версии в настройках своего аккаунта после покупки. Отмена вступит в силу через 24 часа после последнего дня текущего периода подписки, и вы будете переведены на бесплатную подписку. Обратите внимание: любая неиспользованная часть бесплатного пробного периода будет аннулирована при покупке платной подписки в течение этого периода.</string>
 	<string name="subscription_terms_android_outdoor">Оплата будет произведена с вашего счета Google Play при подтверждении покупки. Подписка автоматически возобновится, если автоматическое продление не будет отключено по крайней мере за 24 часа до окончания текущего периода. Денежные средства будут списываться с вашей учетной записи в соответствии с вашим тарифным планом продления в течение 24 часов до конца текущего периода. Вы можете управлять автоматическим продлением или отключать его в настройках учетной записи после покупки. Вы сможете использовать путеводители, скачанные по подписке, только в течение ее срока действия. По истечении 7 дней после окончания подписки путеводители будут автоматически удалены.\n* Подписка с бесплатным пробным периодом автоматически преобразуется в платную подписку. Вы можете отменить или управлять автоматическим продлением бесплатной пробной версии в настройках своего аккаунта после покупки. Отмена вступит в силу через 24 часа после последнего дня текущего периода подписки, и вы будете переведены на бесплатную подписку. Обратите внимание: любая неиспользованная часть бесплатного пробного периода будет аннулирована при покупке платной подписки в течение этого периода.</string>

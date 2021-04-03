@@ -12,24 +12,13 @@
 	<string name="cancel_download">Peruuta lataus</string>
 	<!-- Button which deletes downloaded country -->
 	<string name="delete">Poista</string>
-	<!-- Button to dismiss dialog forever -->
-	<string name="do_not_ask_me_again">Älä kysy uudelleen</string>
 	<!-- Button "do not interrupt download" if user touched actively downloading country -->
 	<string name="do_nothing">Jatka</string>
 	<string name="download_maps">Lataa karttoja</string>
-	<!-- Settings/Downloader - Download confirmation button -->
-	<string name="download_x_kb">Lataa %qu Kt</string>
-	<!-- Settings/Downloader - Download confirmation button -->
-	<string name="download_x_mb">Lataa %qu Mt</string>
 	<!-- Settings/Downloader - info for country when download fails -->
 	<string name="download_has_failed">Lataus epäonnistui, yritä uudelleen koskettamalla</string>
-	<!-- Settings/Downloader - info for downloaded country -->
-	<string name="downloaded_x_y_touch_to_delete">Ladattu (%1$qu %2$s), poista koskettamalla</string>
-	<!-- Settings/Downloader - country info current download progress -->
-	<string name="downloading_x_touch_to_cancel">Ladataan %qu%%, peruuta koskettamalla</string>
 	<!-- Settings/Downloader - info for country which started downloading -->
 	<string name="downloading">Ladataan…</string>
-	<string name="get_it_now">Hanki nyt</string>
 	<!-- Settings/Downloader - size string, only strings different from English should be translated -->
 	<string name="kb">Kt</string>
 	<!-- Choose measurement on first launch alert - choose metric system button -->
@@ -38,26 +27,16 @@
 	<string name="leave_a_review">Jätä arviointi</string>
 	<!-- View and button titles for accessibility -->
 	<string name="maps">Kartat</string>
-	<!-- View and button titles for accessibility -->
-	<string name="downloader_maps">Kartat:</string>
-	<!-- Settings/Downloader - info for country in the download queue -->
-	<string name="marked_for_downloading">Merkitty ladattavaksi, peruuta koskettamalla</string>
 	<!-- Settings/Downloader - size string, only strings different from English should be translated -->
 	<string name="mb">Mt</string>
 	<!-- Choose measurement on first launch alert - choose imperial system button -->
 	<string name="miles">Mailit</string>
 	<!-- View and button titles for accessibility -->
 	<string name="core_my_position">Sijaintini</string>
-	<!-- Settings/Downloader - No free space dialog message -->
-	<string name="free_disk_space_for_country_x">Vapauta tilaa laitteellasi ladataksesi tiedoston %s</string>
-	<!-- Leave Review dialog - Not now button (remind me later) -->
-	<string name="remind_me_later">Muistuta myöhemmin</string>
 	<!-- Update maps later/Buy pro version later button text -->
 	<string name="later">Myöhemmin</string>
 	<!-- Don't show some dialog any more -->
 	<string name="never">Ei koskaan</string>
-	<!-- Leave Review dialog - Complain button (goes to support site) -->
-	<string name="report_an_issue">Ilmoita virheestä</string>
 	<!-- View and button titles for accessibility -->
 	<string name="search">Haku</string>
 	<!-- Search box placeholder text -->
@@ -66,18 +45,12 @@
 	<string name="touch_to_download">Lataa koskettamalla</string>
 	<!-- Settings/Downloader - 3G download warning dialog confirm button -->
 	<string name="use_cellular_data">Kyllä</string>
-	<!-- Choose measurement on first launch alert - title -->
-	<string name="which_measurement_system">Mitä mittayksikköä haluat käyttää?</string>
 	<!-- Location services are disabled by user alert - message -->
 	<string name="location_is_disabled_long_text">Laitteen tai sovelluksen kaikki sijaintipalvelut ovat tällä hetkellä poissa käytöstä. Ota ne käyttöön Asetukset-valikossa.</string>
 	<!-- Location Services are not available on the device alert - message -->
 	<string name="device_doesnot_support_location_services">Laitteesi ei tue sijaintipalveluita</string>
 	<!-- View and button titles for accessibility -->
 	<string name="zoom_to_country">Näytä kartalla</string>
-	<!-- Message to display at the center of the screen when the country is added to the downloading queue -->
-	<string name="country_status_added_to_queue">^\non lisätty latausjonoon.</string>
-	<!-- Message to display at the center of the screen when the country is downloading -->
-	<string name="country_status_downloading">Ladataan\n^\n^</string>
 	<!-- Button text for the button at the center of the screen when the country is not downloaded -->
 	<string name="country_status_download">Lataa kartta\n(^ ^)</string>
 	<!-- Button text for the button at the center of the screen when the country is not downloaded and the size should not be shown -->
@@ -89,7 +62,6 @@
 	<!-- Button text for the button under the country_status_download_failed message -->
 	<string name="try_again">Yritä uudelleen</string>
 	<string name="about_menu_title">Tietoa OMaps:stä</string>
-	<string name="downloading_touch_to_cancel">Ladataan %d%%, peruuta koskettamalla</string>
 	<string name="downloaded_touch_to_delete">Ladattu (%s), poista koskettamalla</string>
 	<string name="connection_settings">Yhteysasetukset</string>
 	<string name="download_mb_or_kb">Lataa %s</string>
@@ -100,7 +72,6 @@
 	<string name="disconnect_usb_cable">Irrota USB-kaapeli tai syötä muistikortti käyttääksesi OMaps -sovellusta</string>
 	<string name="not_enough_free_space_on_sdcard">Vapauta ensin tilaa SD-kortilta/USB-massamuistilta käyttääksesi sovellusta</string>
 	<string name="not_enough_memory">Ei tarpeeksi muistia sovelluksen avaamiseksi</string>
-	<string name="free_space_for_country">Ole hyvä ja vapauta ensin %1$s laitteeltasi ladataksesi %2$s</string>
 	<string name="download_resources">Ennen aloitusta laitteelle tulee ladata yleinen maailmankartta.\nSe tarvitsee yhteensä %s dataa.</string>
 	<string name="getting_position">Etsitään sijaintia</string>
 	<string name="download_resources_continue">Siirry karttaan</string>
@@ -108,25 +79,9 @@
 	<string name="download_country_ask">Ladataanko %s?</string>
 	<string name="update_country_ask">Päivitetäänkö %s?</string>
 	<!-- REMOVE THIS STRING AFTER REFACTORING -->
-	<string name="download_location_map_proposal">Voit ladata nykyisen sijaintisi kartan.</string>
-	<!-- REMOVE THIS_STRING AFTER REFACTORING -->
-	<string name="download_location_update_map_proposal">Voit päivittää nykyisen sijaintisi kartan.</string>
-	<!-- REMOVE THIS STRING AFTER REFACTORING -->
-	<string name="download_location_map_up_to_date">Nykyisen sijaintisi (%s) kartta on ajan tasalla</string>
-	<!-- REMOVE THIS STRING AFTER REFACTORING -->
 	<string name="pause">Pysäytä</string>
 	<!-- REMOVE THIS STRING AFTER REFACTORING -->
 	<string name="continue_download">Jatka</string>
-	<string name="downloaded_touch_to_update">Ladattu (%s), päivitä tai poista koskettamalla</string>
-	<string name="update_mb_or_kb">Päivitä %s</string>
-	<!-- Show popup notification when we have downloaded countries without search (from Lite version) -->
-	<string name="search_update_maps">Hakutoimintoa varten tarvitset päivitetyt kartat:</string>
-	<!-- Show popup notification on app start when we have out-of-date maps -->
-	<string name="advise_update_maps">Päivitys saatavissa seuraaville kartoille:</string>
-	<!-- Show popup notification in Pro version that Lite can be deleted -->
-	<string name="suggest_uninstall_lite">Et tarvitse enää OMaps Lite:ä, joten voit poistaa sen.</string>
-	<!-- Show popup notification on top of the map when country was downloaded. -->
-	<string name="download_country_success">%s ladattu onnistuneesti</string>
 	<!-- Show popup notification on top of the map when country download has failed. -->
 	<string name="download_country_failed">%s lataus epäonnistui</string>
 	<!-- Add New Bookmark Set dialog title -->
@@ -155,8 +110,6 @@
 	<string name="set">Aseta</string>
 	<!-- Text hint in Bookmarks dialog when no any bookmarks are added -->
 	<string name="bookmarks_usage_hint">Sinulla ei vielä ole kirjanmerkkejä.\nLisää kirjanmerkki napsauttamalla mitä tahansa paikkaa kartalla.\nVoit myös tuoda kirjanmerkkejä muista lähteistä OMaps:ssä käytettäviksi avaamalla KML/KMZ-kirjanmerkkitiedoston sähköpostistasi, Dropbox-tililtäsi tai verkko-osoitteesta.</string>
-	<!-- Text hint in Bookmarks dialog when at least one bookmark is added -->
-	<string name="bookmarks_usage_hint_import_only">Voit tuoda kirjanmerkkejä OMaps:ssä käytettäväksi muista lähteistä avaamalla KML/KMZ-kirjanmerkkitiedoston sähköpostistasi, Dropbox-tililtäsi tai verkko-osoitteesta.</string>
 	<!-- Settings button in system menu -->
 	<string name="settings">Asetukset</string>
 	<!-- Header of settings activity where user defines storage path -->
@@ -764,11 +717,6 @@
 	<string name="editor_report_problem_other_title">Eri ongelma</string>
 	<string name="placepage_report_problem_button">Ilmoita ongelmasta</string>
 	<string name="placepage_add_business_button">Lisää organisaatio</string>
-	<string name="whatsnew_smallmwm_header">Sitä on pyydetty, ja nyt se on tarjolla</string>
-	<string name="whatsnew_smallmwm_message">Olemme jakaneet kartat osiin, joten voitkin nyt ladata pelkkiä alueita lataamatta koko maan karttaa.</string>
-	<string name="whatsnew_search_header">Uusittu haku</string>
-	<string name="whatsnew_search_message">Olemme selkeästi parantaneet osoitehakua - kokeile vaikka itse.</string>
-	<string name="whatsnew_editor_title">Muokkaa karttaa*</string>
 	<string name="whatsnew_editor_message_1">Lisää karttaan uusia paikkoja ja muokkaa sovelluksessa olevia karttoja suoraan sovelluksessa.</string>
 	<string name="whatsnew_editor_message_2">* OMaps käyttää OpenStreetMap -yhteisön dataa.</string>
 	<string name="dialog_incorrect_feature_position">Vaihda sijaintia</string>
@@ -814,10 +762,6 @@
 	<string name="current_location_unknown_stop_button">Seis</string>
 	<string name="current_location_unknown_error_title">Nykyinen sijainti on tuntematon.</string>
 	<string name="current_location_unknown_error_message">Tapahtui virhe määritettäessä sijaintiasi. Tarkista laitteesi ja yritä myöhemmin uudelleen.</string>
-	<string name="whatsnew_update_editor_title">Olemme päivittäneet karttamuokkaimen</string>
-	<string name="whatsnew_update_editor_message">OMaps -käyttäjät ovat tehneet 200 000 karttavaihtoehtoa. Yhdessä teemme maailman yksityiskohtaisimmat kartat. Liity meihin!</string>
-	<!-- Additional text in whats new -->
-	<string name="whatsnew_update_editor_message_update">Päivitä kaikki kartat käyttääksesi Karttamuokkainta.</string>
 	<string name="location_services_disabled_header">Sijaintipalvelut on poistettu käytöstä</string>
 	<string name="location_services_disabled_message">Schakel de toegang tot geolocaties in in de instellingen van het apparaat</string>
 	<string name="location_services_disabled_1">1. Avaa asetukset</string>
@@ -905,14 +849,6 @@
 	<string name="sharing_call_action_look">Tarkastele</string>
 	<string name="continue_recent_track_background_button">Jatka</string>
 	<string name="recent_track_background_dialog_message">MAPS.SE käyttää taustalla geosijaintia sinun viimeisen matkareitin tallentamiseksi.</string>
-	<string name="whatsnew_car_navigation_header">Käyttäjäystävällinen kulkuneuvon navigointi</string>
-	<string name="whatsnew_car_navigation_message">• Navigointielementit vievät vähemmän tilaa.\n• Näytämme nopeutesi ja lisäsimme automaattisen zoomauksen.</string>
-	<string name="whatsnew_cycle_navigation_2_header">Pyörän navigointi</string>
-	<string name="whatsnew_cycle_navigation_2_message">• Pyörän navigointi ottaa maaperän huomioon.\n• Loimme helpompia reittejä huomioiden mäet.</string>
-	<string name="whatsnew_booking_2_header">Helppo hotellihaku</string>
-	<string name="whatsnew_booking_2_message">Hakutulokset näyttävät hotellin arvostelut ja hintaluokan.</string>
-	<string name="whatsnew_cycle_navigation_header">Polkupyöränavigointi (betaversio)</string>
-	<string name="whatsnew_cycle_navigation_message">Testaamme polkupyöränavigointia uudelle kaudelle. Kokeile suosikkipyöräilyreittiäsi OMaps-sovelluksella ja jaa mielipiteesi kanssamme.</string>
 	<!-- Rate on Google Play (Android only) -->
 	<string name="rate_gp">Arvioi Google Playssa</string>
 	<!-- Share with friends: menu item title -->
@@ -973,8 +909,6 @@
 	<string name="chat">Geochat</string>
 	<!-- Verb. Text on a button that opens the chat. -->
 	<string name="chat_open">Avaa</string>
-	<string name="whatsnew_uber_header">OMaps &amp; Uber</string>
-	<string name="whatsnew_uber_message">Tilaa Uber -taksi suoraan sovelluksesta!</string>
 	<string name="dialog_taxi_offline">Taksin tilaaminen ei ole mahdollista ilman verkkoyhteyttä.</string>
 	<string name="dialog_taxi_error">Taksin tilaaminen ei ole tällä hetkellä mahdollista.</string>
 	<string name="mobile_data_dialog">Näytetäänkö lisätiedot mobiili-internetillä?</string>
@@ -993,30 +927,6 @@
 	<string name="traffic_update_app_message">Liikennetietojen näyttämiseksi sovellus on päivitettävä.</string>
 	<!-- "traffic" as in "road congestion" -->
 	<string name="traffic_data_unavailable">Liikennetietoja ei ole saatavilla</string>
-	<!-- december -->
-	<string name="whatsnew_traffic">Liikennetiedot 36 maassa</string>
-	<!-- december -->
-	<string name="whatsnew_traffic_text">Ajankohtaiset liikennetiedot ja parhaat ajoreitit sen perusteella!</string>
-	<!-- december -->
-	<string name="whatsnew_traffic_roaming">Liikennetiedot verkkovierailussa</string>
-	<!-- december -->
-	<string name="whatsnew_traffic_roaming_text">Vaatii alle 1 MB mobiilidataa per matka.</string>
-	<!-- december -->
-	<string name="whatsnew_order_taxi">Taksin tilaaminen</string>
-	<!-- december -->
-	<string name="whatsnew_order_taxi_text">Useimpien sijaintien sivulla on nyt painike taksin tilaamiseen.</string>
-	<!-- january -->
-	<string name="whatsnew_improved_search">Parannettu haku</string>
-	<!-- january -->
-	<string name="whatsnew_improved_search_text">Jopa väärin kirjoitetut kyselyt antavat tarkat hakutulokset.</string>
-	<!-- january -->
-	<string name="whatsnew_filters_in_search">Hakusuodattimet</string>
-	<!-- january -->
-	<string name="whatsnew_filters_in_search_text">Hotellien haku hinnan ja arvion perusteella.</string>
-	<!-- january -->
-	<string name="whatsnew_font_size">Fonttikoko</string>
-	<!-- january -->
-	<string name="whatsnew_font_size_text">Kartan selityksiä voi suurentaa.</string>
 	<!-- Seven points and higher -->
 	<string name="booking_filter_rating_num_good">7.0+</string>
 	<!-- Eight points and higher -->
@@ -1026,16 +936,6 @@
 	<!-- Simplified colour scheme for traffic information, fewer colours are used to display traffic jams on the map. The string should be kept as short as possible -->
 	<string name="pref_traffic_simplified_colors_title">Simppelit liikennevärit</string>
 	<string name="enable_logging">Ota loki käyttöön</string>
-	<string name="whatsnew_more_info_on_hotels_title">Lisätietoa hotelleista</string>
-	<string name="whatsnew_more_info_on_hotels_message">Hotellisivujen uusi ulkoasu: katsele kuvia, käyttäjäarvioita ja muuta tietoa verkossa.</string>
-	<string name="whatsnew_better_routing_title">Parannettu reittisuunnittelu</string>
-	<string name="whatsnew_better_routing_message">• Tarkempi arvioitu saapumisaika.\n• Sovellus huomioi kielletyt alueet ja liikennemerkit.</string>
-	<string name="whatsnew_smaller_mwm_title">Kartat ovat pienempiä</string>
-	<string name="whatsnew_smaller_mwm_message">Kartat vaativat jopa 20 % vähemmän tilaa.</string>
-	<string name="whatsnew_waypoints_title">Reittipisteet reitillä</string>
-	<string name="whatsnew_waypoints_message">Lisää reittiisi reittipisteitä napauttamalla paikkoja.</string>
-	<string name="whatsnew_driving_style_title">Uusi karttatyyli ajettaessa</string>
-	<string name="whatsnew_driving_style_message">Auton navigointitila on helppokäyttöisempi.</string>
 	<string name="more_on_bookingcom">Lisää osoitteessa Booking.com</string>
 	<string name="details_on_bookingcom">Lisätietoa osoitteessa Booking.com</string>
 	<string name="reviews_on_bookingcom">Lisää arvosteluja osoitteessa Booking.com</string>
@@ -1065,7 +965,6 @@
 	<string name="prefs_languages_information_off">Joidenkin kielien osalta sinun täytyy asentaa toinen puhesyntetisaattori tai lisäkielipaketti sovelluskaupasta (Google Play Market, Samsung Apps). Avaa laitteen asetukset → Kieli ja syöttötapa → Puhe → Teksistä puheeksi -toisto. Täällä voit hallita puhesynteesin asetuksia (esimerkiksi ladata offline-tilassa käytettävän kielipaketin) ja valita toisen tekstistä puheeksi -moottorin.</string>
 	<string name="prefs_languages_information_off_link">Lisätietoja saat tästä oppaasta.</string>
 	<string name="whatsnew_transliteration_title">Translitterointi latinaksi</string>
-	<string name="whatsnew_transliteration_message">Jos kadulla tai kohteella ei ole nimeä kielelläsi, se kirjoitetetaan latinalaisilla kirjaimilla.</string>
 	<string name="learn_more">Lisätietoja</string>
 	<string name="core_exit">Poistu</string>
 	<string name="routing_add_start_point">Lisää alkupiste reitin suunnittelua varten</string>
@@ -1084,8 +983,6 @@
 	<string name="dialog_change_start_point_message">Haluatko korvata alkupisteen nykyisellä sijainnilla?</string>
 	<string name="button_replace">Korvaa</string>
 	<string name="placepage_add_stop">Lisää pysähdys</string>
-	<string name="whatsnew_intermediate_point_title">Lisäpysähdys</string>
-	<string name="whatsnew_intermediate_point_message">Suunnittele reitti välipisteellä.</string>
 	<string name="add_my_position">Lisää oma sijainti</string>
 	<string name="choose_start_point">Valitse aloituspiste</string>
 	<string name="choose_destination">Valitse kohde</string>
@@ -1392,15 +1289,6 @@
 	<string name="whats_new_ugc_routes_subtitle">Tallenna ikimuistoiset paikat, luo reittejä kirjainmerkkien avulla ja jaa ne kaikkien kanssa OMaps-luettelossa.</string>
 	<string name="whats_new_webeditor_title">Muuta reittisi tarinoiksi</string>
 	<string name="whats_new_ugc_routes_message2">Lisää verkkoeditorin avulla kuvia ja yksityiskohtaisia ​​tarinoita.</string>
-	<string name="whatsnew_standard_routes_title">Vakioreitit</string>
-	<string name="whatsnew_standard_routes_message">Pääpisteet, lyhyitä kuvauksia, mutta paljon vaikutelmia!</string>
-	<string name="whatsnew_city_overview_title">Kaupunkikuvaus</string>
-	<string name="whatsnew_city_overview_message">Jopa 200 pistettä kaupungin kartalla: kaikki, josta matkustaja hyötyy ja kiinnostuu!</string>
-	<string name="whatsnew_pro_guides_title">Ammattilaisen reitit</string>
-	<string name="whatsnew_pro_guides_message">Korkeat yksityiskohdat, yksityiskohtaiset paikkojen kuvaukset ja mahdollisuus laskea kävelymatkan pituus ja aika</string>
-	<string name="whatsnew_paid_routes_title">Enemmän uusia elämyksiä!</string>
-	<string name="whatsnew_paid_routes_message">Ilmaisten reittien lisäksi nyt 3 kategoriaa maksullisia matkaoppaita lisätty luetteloon. Yli 700 uusia reittejä!</string>
-	<string name="whats_new_ugc_routes_title_android_only">Voit helposti jakaa kokemuksiasi</string>
 	<string name="ugc_thanks_message_auth">Arvostelusi tallennettiin</string>
 	<string name="ugc_thanks_message_not_auth">Kirjaudu sisään jättääksesi arvostelun</string>
 	<string name="notification_leave_review_v2_title">Arvostele paikka, jossa kävit, ja auta matkailijoita!</string>
@@ -1484,10 +1372,6 @@
 	<string name="whats_new_auto_update_bydeeplink_title">Ennen kuin siirtytään oppaille…</string>
 	<string name="whats_new_auto_update_bydeeplink_message">Päivitä kartat saadaksesi ajankohtaista tietoa kohteista!</string>
 	<string name="whats_new_auto_update_and_proceed_button_size">Päivitä (%s) ja jatka</string>
-	<string name="whatsnew_toll_unpaved_title">Luo reittejä ottaen huomioon kaikentyyppiset tiet</string>
-	<string name="whatsnew_toll_unpaved_message">Valitse kiertoreitit maksullisten teiden, päällystämättömien teiden ja lauttojen ohi</string>
-	<string name="whatsnew_new_catalogue_title">Päivitetyt hakemistosivut</string>
-	<string name="whatsnew_new_catalogue_message">Me lisäsimme yksityiskohtaisia tietoja kumppaneiden oppaista, jotta reitin valinta on helppoa ja kätevää</string>
 	<string name="purchase_please_wait_toast">Älä poistu näytöltä ennen kuin ostos on tehty</string>
 	<string name="trip_start">Mennään</string>
 	<string name="pick_destination">Kohde</string>
@@ -1543,12 +1427,6 @@
 	<string name="buy_btn_for_subscription_ios_only_year">Rajoittamaton pääsy hintaan %s/vuosi</string>
 	<string name="subscription_terms_guides">Maksu suoritetaan iTunes-tililtäsi oston vahvistamisen jälkeen. Tilaus uusitaan automaattisesti, ellei automaattinen uusiminen ole laitettu pois päältä vähintään 24 tuntia ennen nykyisen kauden päättymistä. Varat veloitetaan tililtäsi uusintasuunnitelmasi mukaisesti 24 tunnin kuluessa nykyisen kauden päättymisestä. Sinä voit hallita automaattista uusimista tai poistaa sen käytöstä Apple ID -tili-asetuksissa milloin tahansa oston jälkeen. Voit käyttää tilauksen kautta ladattuja oppaita vain sen voimassaoloaikana. 30 päivän kuluttua tilauksen päättymisestä matkaoppaat kaikkine kirjanmerkkeineen poistetaan automaattisesti.</string>
 	<string name="subscription_terms">Maksu veloitetaan iTunes-tililtäsi maksuvahvistuksen yhteydessä. Tilauksesi uusitaan automaattisesti ellei automaattista uusintaa ole otettu pois käytöstä vähintään 24 tuntia ennen nykyisen tilausjakson päättymistä. Tilauksen uusinta veloitetaan tililtäsi 24 tunnin kuluessa ennen nykyisen tilausjakson päättymistä. Voit hallita tai ottaa tilausten automaattisen uusinnan pois käytöstä Apple ID -tilisi asetuksissa oston jälkeen.</string>
-	<string name="whatsnew_carplay_title">OMaps -autonavigointi CarPlayssa!</string>
-	<string name="whatsnew_carplay_message">Kirjanmerkit, haku, nopeuskamerat ja kiertotien asetukset ovat käytettävissä offline-tilassa</string>
-	<string name="whatsnew_subscription_title">Tilauksella koko maailma!</string>
-	<string name="whatsnew_subscription_message">Rajaton käyttöoikeus ohjekirjoihin on hyödyllisempi kuin kertaluontoinen ostos</string>
-	<string name="whatsnew_carnavi_fixes_for_android_title">Navigointipäivitys</string>
-	<string name="whatsnew_carnavi_fixes_for_android_message">Olemme parantaneet reittisuunnittelua kaukana teistä oleviin kohteisiin</string>
 	<string name="avoid_unpaved_carplay_1">Päällyste</string>
 	<string name="avoid_unpaved_carplay_2">Vain päällyste</string>
 	<string name="avoid_ferry_carplay_1">Ei lauttoja</string>
@@ -1605,8 +1483,6 @@
 	<string name="bookmarks_edit_list">Muokkaa listaa</string>
 	<!-- Android, max 18 symbols -->
 	<string name="bookmarks_delete_list">Poista lista</string>
-	<string name="whatsnew_bookmarks_search_sort_title">Järjestellyt kirjanmerkit tekevät matkailusta mukavampaa</string>
-	<string name="whatsnew_bookmarks_search_sort_message">Järjestä suosikkipaikkasi kategorian, sijainnin tai kronologisen järjestyksen mukaan ja etsi kirjanmerkkejä nopeasti nimen perusteella</string>
 	<string name="popup_subscription_success_map_title">Hurraa! Tilauksesi on voimassa!</string>
 	<string name="popup_subscription_success_map_message">Tutustu nyt parhaisiin nähtävyyksiin OMaps-luettelossa</string>
 	<string name="popup_subscription_success_map_start_button">Näytä</string>
@@ -1627,8 +1503,6 @@
 	<string name="subscription_screen_native_message_version_2">Ole valmiita mihin tahansa matkaan yli 600 kaupungissa ja yli 100 maassa</string>
 	<string name="catalog_no_internet_title">Ei ole Internet-yhteyttä</string>
 	<string name="catalog_no_internet_button">Yritä uudelleen</string>
-	<string name="whatsnew_map_updates_title">Erittäin nopeat karttapäivitykset</string>
-	<string name="whatsnew_map_updates_message">Nyt me päivitämme tietoja 2 kertaa nopeammin</string>
 	<string name="new_onboarding_button">Edelleen</string>
 	<string name="new_onboarding_button_2">Aloita</string>
 	<string name="new_onboarding_step1_header_2">Yleisavustaja matkojen aikana</string>
@@ -1673,10 +1547,6 @@
 	<string name="downloader_country_no_guides_gallery_header">Tätä maata varten ei ole vielä matkaoppaita</string>
 	<string name="downloader_country_no_guides_gallery_message">Tutustu muihin kaupunki- ja ulkoilureitteihin 100+ maassa</string>
 	<string name="dialog_pedestrian_route_is_long">Liian pitkä jalankulkumatka joukkoliikenteen pysäkille</string>
-	<string name="whatsnew_outdoor_guides_title">Me olemme lisänneet 15000+ polkua ulkoilua varten!</string>
-	<string name="whatsnew_outdoor_guides_message">Outdooractiven talvi- ja kesälomareitit odottavat luettelossa!</string>
-	<string name="whatsnew_guides_galleries_title">Suunnittele seuraava matka OMaps:n kanssa</string>
-	<string name="whatsnew_guides_galleries_message">Nyt te voitte löytää suositeltuja matkaoppaita suosittujen kaupunkien ja nähtävyyksien korteista</string>
 	<string name="new_onboarding_step3_header">Matkusta</string>
 	<string name="all_pass_screen_best_value">Edullinen hinta</string>
 	<string name="buy_btn_for_subscription_3">Koko luettelo %s/vuosi</string>
@@ -1685,9 +1555,6 @@
 	<string name="dialog_pedestrian_route_is_long_message">Valitse reitin aloitus- tai loppupiste lähemmäksi metroasemaa</string>
 	<!-- Failed planning SUBWAY route message in navigation view -->
 	<string name="routing_planning_error_subway_special">Virhe metroreitin luomisessa</string>
-	<string name="whatsnew_isolines_title">Uutuus aktiivilomalle – korkeus linjat offline-tilassa!</string>
-	<!-- as less symbols as possible -->
-	<string name="whatsnew_isolines_message">Suunnistaudu vuorimaastossa – käynnistä kerros päälle näytön vasemmassa yläkulmassa olevalla painikkeella</string>
 	<string name="button_layer_isolines">Korkeudet</string>
 	<string name="tips_map_layers_title_countour">Korkeuslinjat offline-tilassa OMaps:ssä!</string>
 	<string name="tips_map_layers_message_countour">Korkeuslinjat auttavat suunnittelemaan luontomatkan etkä enää eksy maastolla</string>
@@ -1724,12 +1591,6 @@
 	<string name="routes_card_show">Näytä kartalla</string>
 	<!-- as few symbols as possible -->
 	<string name="routes_card_hide">Piilota kartalta</string>
-	<string name="whatsnew_catalog_new_title">Uudet matkaoppaat sekä tuhansia ideoita vapaa-ajan viettoon</string>
-	<string name="whatsnew_catalog_new_message">Olemme uusineet matkaoppaamme ja lisänneet näihin käännöksiä käytetyimmille kielille. Aloita matkan suunnittelu etukäteen!</string>
-	<string name="whatsnew_elevation_profile_title">Korkeuslinjat matkaoppaissa</string>
-	<string name="whatsnew_elevation_profile_message">Arvioi tulevien ylä- ja alamäkien vaikeus offline-tilassa hankitun reitin profiilissa kursorin avulla.</string>
-	<string name="whatsnew_guides_on_map_title">Uusi taso — matkaoppaat kartalla!</string>
-	<string name="whatsnew_guides_on_map_message">Aktivoi taso sovellusasetusvalikossa löytääksesi nopeasti mielenkiintoisia kaupunkireittejä ja ulkoilumatkaoppaita.</string>
 	<string name="downloader_updating_ios">Päivitys</string>
 	<string name="downloader_loading_ios">Lataus</string>
 	<string name="routes_card_plus_track">+ reitti</string>
@@ -1765,8 +1626,6 @@
 	<string name="choose_dates_online_only_dialog_message">Ajankohdat ja matkustajien lukumäärä on mahdollista valita ainoastaan verkossa. Tarkista verkkoasetukset ja varmista, että laitteesi saa yhteyttä verkkoon.</string>
 	<string name="choose_dates_online_only_dialog_cta">Asetukset</string>
 	<string name="thirty_days_limit_dialog">Varauksen voi tehdä enintään 30:ksi yöksi</string>
-	<string name="whatsnew_trial_title">Matkaoppaiden vapaa käyttöoikeus</string>
-	<string name="whatsnew_trial_message">Sovellus antaa 7 päivää kokeilla matkaoppaita ilmaiseksi. Tuhansia reittejä kaikkialla maailmassa sekä interaktiivinen korkeusprofiili matkaoppaissa ulkoiluun ja liikuntaan.</string>
 	<string name="whatsnew_trial_cta">Kokeile</string>
 	<string name="subscription_terms_guides_outdoor">Summa veloitetaan iTunes -tililtäsi ostosta vahvistettaessa. Tilaus jatkuu automaattisesti ellei sitä peruuteta vähintään 24 tuntia ennen kuluvan tilauskauden päättymistä. Raha kirjataan pois käyttäjätililtäsi jatkoliittymäehtojen mukaan 24 tunnin kuluessa ennen kuluvan jakson päättymistä. Voit hallita automaatista jatkoa tai ottaa sen pois päältä Apple ID -käyttäjätilisi asetuksissa milloin hyvänsä ostoksen jälkeen. Tilauksen puitteissa ladattuja matkaoppaita voit käyttää ainoastaan tilauksen voimassaoloaikana. 7 päivän kuluttua tilauksen päättymisestä matkaoppaat on poistettu automaattisesti.\n* Ilmainen kokeilujaksotilaus automaattisesti muuttuu maksulliseksi tilaukseksi. Voit hallita ilmaisen kokeilujaksotilauksen automaatista jatkoa tai peruuttaa sen käyttäjätilisi asetuksissa milloin tahansa ostoksen jälkeen. Peruutus astuu voimaan 24 tunnin päästä kuluvan tilausjakson viimeisestä päivästä. Sen jälkeen tilaus siirtyy toimimaan maksuttomam tilauksen ehdoilla. Huom. Ilmaisen kokeilujakson kaikki käyttämättömät osat on lopetettu, jos teet maksullisen tilauksen kokeilujakson aikana.</string>
 	<string name="subscription_terms_android_outdoor">Summa veloitetaan Google Play -tililtäsi oston vahvistamisen yhteydessä. Tilaus jatkuu automaattisesti ellei sitä peruuteta vähintään 24 tuntia ennen kuluvan tilauskauden päättymistä. Raha kirjataan pois käyttäjätililtäsi jatkoliittymäehtojen mukaan 24 tunnin kuluessa ennen kuluvan jakson päättymistä. Voit hallita automaatista jatkoa tai ottaa sen pois päältä käyttäjätilisi asetuksissa ostoksen jälkeen. Tilauksen puitteissa ladattuja matkaoppaita voit käyttää ainoastaan tilauksen voimassaoloaikana. 7 päivän kuluttua tilauksen päättymisestä matkaoppaat on poistettu automaattisesti.\n* Ilmainen kokeilujaksotilaus automaattisesti muuttuu maksulliseksi tilaukseksi. Voit hallita ilmaisen kokeilujaksotilauksen automaatista jatkoa tai peruuttaa sen käyttäjätilisi asetuksissa milloin tahansa ostoksen jälkeen. Peruutus astuu voimaan 24 tunnin päästä kuluvan tilausjakson viimeisestä päivästä. Sen jälkeen tilaus siirtyy toimimaan maksuttomam tilauksen ehdoilla. Huom. Ilmaisen kokeilujakson kaikki käyttämättömät osat on lopetettu, jos teet maksullisen tilauksen kokeilujakson aikana.</string>

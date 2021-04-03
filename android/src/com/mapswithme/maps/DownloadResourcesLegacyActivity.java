@@ -209,7 +209,6 @@ public class DownloadResourcesLegacyActivity extends BaseMwmFragmentActivity imp
     if (prepareFilesDownload(false))
     {
       Utils.keepScreenOn(true, getWindow());
-      suggestRemoveLiteOrSamsung();
 
       setAction(DOWNLOAD);
 
@@ -250,15 +249,6 @@ public class DownloadResourcesLegacyActivity extends BaseMwmFragmentActivity imp
   {
     super.onPause();
     LocationHelper.INSTANCE.removeListener(mLocationListener);
-  }
-
-  private void suggestRemoveLiteOrSamsung()
-  {
-    Context context = getApplicationContext();
-    if (Utils.isPackageInstalled(context, Constants.Package.MWM_LITE_PACKAGE) ||
-        Utils.isPackageInstalled(context, Constants.Package.MWM_SAMSUNG_PACKAGE))
-      Utils.showSnackbar(context, findViewById(R.id.layout),
-                         findViewById(R.id.button_container), R.string.suggest_uninstall_lite);
   }
 
   private void setDownloadMessage(int bytesToDownload)

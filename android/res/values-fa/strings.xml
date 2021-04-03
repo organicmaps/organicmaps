@@ -12,24 +12,13 @@
 	<string name="cancel_download">لغو دانلود</string>
 	<!-- Button which deletes downloaded country -->
 	<string name="delete">حذف</string>
-	<!-- Button to dismiss dialog forever -->
-	<string name="do_not_ask_me_again">دوباره نپرس</string>
 	<!-- Button "do not interrupt download" if user touched actively downloading country -->
 	<string name="do_nothing">ادامه</string>
 	<string name="download_maps">دانلود نقشه ها</string>
-	<!-- Settings/Downloader - Download confirmation button -->
-	<string name="download_x_kb">دانلود شد  %qu کیلوبایت</string>
-	<!-- Settings/Downloader - Download confirmation button -->
-	<string name="download_x_mb">دانلود شد %qu مگابایت</string>
 	<!-- Settings/Downloader - info for country when download fails -->
 	<string name="download_has_failed">دانلود ناموفق بود . برای تلاش مجدد لمس کنید</string>
-	<!-- Settings/Downloader - info for downloaded country -->
-	<string name="downloaded_x_y_touch_to_delete">دانلودشده (%1$qu %2$s), برای حذف لمس کنید</string>
-	<!-- Settings/Downloader - country info current download progress -->
-	<string name="downloading_x_touch_to_cancel">درحال دانلود %qu%%, برای لغو لمس کنید</string>
 	<!-- Settings/Downloader - info for country which started downloading -->
 	<string name="downloading">درحال دانلود</string>
-	<string name="get_it_now">هم اکنون دریافت کنید</string>
 	<!-- Settings/Downloader - size string, only strings different from English should be translated -->
 	<string name="kb">کیلوبایت</string>
 	<!-- Choose measurement on first launch alert - choose metric system button -->
@@ -38,8 +27,6 @@
 	<string name="leave_a_review">نظر خود را بیان کنید</string>
 	<!-- View and button titles for accessibility -->
 	<string name="maps">نقشه ها</string>
-	<!-- View and button titles for accessibility -->
-	<string name="downloader_maps">:نقشه ها</string>
 	<!-- Settings/Downloader - size string, only strings different from English should be translated -->
 	<string name="mb">مگابایت</string>
 	<string name="gb">گیگابایت</string>
@@ -47,16 +34,10 @@
 	<string name="miles">مایل</string>
 	<!-- View and button titles for accessibility -->
 	<string name="core_my_position">مکان من</string>
-	<!-- Settings/Downloader - No free space dialog message -->
-	<string name="free_disk_space_for_country_x">لطفا مقداری از فضای ذخیره سازی تلفن همراهتان را جهت دانلود خالی نمایید %s</string>
-	<!-- Leave Review dialog - Not now button (remind me later) -->
-	<string name="remind_me_later">بعدا یاداوری کن</string>
 	<!-- Update maps later/Buy pro version later button text -->
 	<string name="later">بعداً</string>
 	<!-- Don't show some dialog any more -->
 	<string name="never">هرگز</string>
-	<!-- Leave Review dialog - Complain button (goes to support site) -->
-	<string name="report_an_issue">گزارش مشکل</string>
 	<!-- View and button titles for accessibility -->
 	<string name="search">جست‌وجو</string>
 	<!-- Search box placeholder text -->
@@ -65,18 +46,12 @@
 	<string name="touch_to_download">برای دانلود لمس کنید</string>
 	<!-- Settings/Downloader - 3G download warning dialog confirm button -->
 	<string name="use_cellular_data">بله</string>
-	<!-- Choose measurement on first launch alert - title -->
-	<string name="which_measurement_system">کدام واحد اندازه گیری را ترجیح می دهید؟</string>
 	<!-- Location services are disabled by user alert - message -->
 	<string name="location_is_disabled_long_text">سرویس موقعیت مکانی شما غیر فعال است .لطفا جهت کارکرد صحیح نرم افزار ان را فعال کنید.</string>
 	<!-- Location Services are not available on the device alert - message -->
 	<string name="device_doesnot_support_location_services">دستگاه شماازسرویس موقعیت مکانی پشتیبانی نمی کند</string>
 	<!-- View and button titles for accessibility -->
 	<string name="zoom_to_country">بر روی نقشه نمایش بده</string>
-	<!-- Message to display at the center of the screen when the country is added to the downloading queue -->
-	<string name="country_status_added_to_queue">^\nis اضافه کردن به صف دانلود</string>
-	<!-- Message to display at the center of the screen when the country is downloading -->
-	<string name="country_status_downloading">درحال دانلود\n^\n^</string>
 	<!-- Button text for the button at the center of the screen when the country is not downloaded -->
 	<string name="country_status_download">دانلود نقشه\n(^ ^)</string>
 	<!-- Button text for the button at the center of the screen when the country is not downloaded and the size should not be shown -->
@@ -86,7 +61,6 @@
 	<!-- Button text for the button under the country_status_download_failed message -->
 	<string name="try_again">تلاش مجدد</string>
 	<string name="about_menu_title">OMaps درباره‌ی</string>
-	<string name="downloading_touch_to_cancel">درحال دانلود %d%%, برای لغو لمس کنید</string>
 	<string name="downloaded_touch_to_delete">دانلود شده (%s),  برای حذف لمس کنید</string>
 	<string name="connection_settings">تنظیمات اتصال</string>
 	<string name="download_mb_or_kb">دانلود %s</string>
@@ -103,23 +77,9 @@
 	<string name="download_country_ask">دانلود  %s?</string>
 	<string name="update_country_ask">اپدیت %s?</string>
 	<!-- REMOVE THIS STRING AFTER REFACTORING -->
-	<string name="download_location_map_proposal">شما می توانید نقشه\nموقعیت فعلیتان را دانلود کنید.</string>
-	<!-- REMOVE THIS_STRING AFTER REFACTORING -->
-	<string name="download_location_update_map_proposal">شما می توانید نقشه\nموقعیت فعلیتان را اپدیت نمایید.</string>
-	<!-- REMOVE THIS STRING AFTER REFACTORING -->
 	<string name="pause">مکث</string>
 	<!-- REMOVE THIS STRING AFTER REFACTORING -->
 	<string name="continue_download">ادامه</string>
-	<string name="downloaded_touch_to_update">دانلود شده (%s), برای اپدیت یا حذف لمس کنید</string>
-	<string name="update_mb_or_kb">بروزرسانی %s</string>
-	<!-- Show popup notification when we have downloaded countries without search (from Lite version) -->
-	<string name="search_update_maps">شما برای استفاده از قابلیت جست‌وجو نیاز به اپدیت نقشه دارید:</string>
-	<!-- Show popup notification on app start when we have out-of-date maps -->
-	<string name="advise_update_maps">اپدیتی برای نقشه مورد نظر موجود است:</string>
-	<!-- Show popup notification in Pro version that Lite can be deleted -->
-	<string name="suggest_uninstall_lite">شما دیگر نیازی به نسخه رایگان OMaps ندارید, پس ان را از روی دیوایستان حذف نمایید.</string>
-	<!-- Show popup notification on top of the map when country was downloaded. -->
-	<string name="download_country_success">%s دانلود با موفقیت انجام شد</string>
 	<!-- Show popup notification on top of the map when country download has failed. -->
 	<string name="download_country_failed">%s دانلود با شکست مواجه شد</string>
 	<!-- Add New Bookmark Set dialog title -->
@@ -744,11 +704,6 @@
 	<string name="editor_report_problem_other_title">مشکلی دیگر</string>
 	<string name="placepage_report_problem_button">گزارش یک مشکل</string>
 	<string name="placepage_add_business_button">اضافه کردن یک تجارت</string>
-	<string name="whatsnew_smallmwm_header">شما درخواست زیادی داشتید و ما ان ها را نهایتا افزودیم</string>
-	<string name="whatsnew_smallmwm_message">ما نقشه های بزرگ را به چند بخش تقسیم کردیم.اکنون شما می توانید فقط منطقه مورد نیازتان را به جای تمام کشور دانلود کنید.</string>
-	<string name="whatsnew_search_header">جست وجوی جدید</string>
-	<string name="whatsnew_search_message">ما بطور قابل توجه ای در جست وجو از طریق ادرس پیشرفت کردیم.خودتان ببینید.</string>
-	<string name="whatsnew_editor_title">ویرایش نقشه*</string>
 	<string name="whatsnew_editor_message_1">اضافه کردن مکان به نقشه و ویرایش ان مستقیما از طریق این اپلیکیشن.</string>
 	<string name="whatsnew_editor_message_2">* OMaps از دیتای انجمن  OpenStreetMap.</string>
 	<string name="dialog_incorrect_feature_position">تغییر موقعیت</string>
@@ -793,10 +748,6 @@
 	<string name="current_location_unknown_stop_button">توقف</string>
 	<string name="current_location_unknown_error_title">مکان فعلیتان ناشناس است.</string>
 	<string name="current_location_unknown_error_message">خطایی در هنگام جست وجوی مکان شمارخ داده است.بررسی کنیید دستگاهتان به درستی کار می کند و دوباره تلاش کنید.</string>
-	<string name="whatsnew_update_editor_title">ما ویرایشگر نقشه را بروزرسانی کرده ایم</string>
-	<string name="whatsnew_update_editor_message">کاربران OMaps تا کنون 200,000 تغییر در نقشه انجام داده اند.با یکدیگر می توانیم جزئیات بیشتری را به نقشه جهان اضافه کنیم.به ما بپیوندید!</string>
-	<!-- Additional text in whats new -->
-	<string name="whatsnew_update_editor_message_update">برای استفاده از ویرایشگر نقشه ابتدا تمامی نقشه های خود را بروزرسانی کنید.</string>
 	<string name="location_services_disabled_header">سرویس موقعیت مکانی شما غیرفعال است</string>
 	<string name="location_services_disabled_message">سرویس موقعیت مکانی خود را در بخش تنظیمات فعال کنید.</string>
 	<string name="location_services_disabled_1">1. بازکردن تنظیمات</string>
@@ -878,8 +829,6 @@
 	<string name="sharing_call_action_look">بررسی کنید</string>
 	<string name="continue_recent_track_background_button">ادامه</string>
 	<string name="recent_track_background_dialog_message">OMaps  از اطلاعات موقعیت مکانی شما در پس ضمینه برای ذخیره مسیر هایی که اخیرا سفر کرده اید استفاده می کند.</string>
-	<string name="whatsnew_booking_2_header">جست وجوی اسان هتل ها</string>
-	<string name="whatsnew_booking_2_message">نتایج جست وجوی شما شامل رده بندی و قیمت هتل ها می شود.</string>
 	<!-- Rate on Google Play (Android only) -->
 	<string name="rate_gp">امتیاز دادن در گوگل پلی</string>
 	<!-- Share with friends: menu item title -->
@@ -932,8 +881,6 @@
 	<string name="chat">چت مکانی</string>
 	<!-- Verb. Text on a button that opens the chat. -->
 	<string name="chat_open">باز</string>
-	<string name="whatsnew_uber_header">OMaps &amp; اوبر</string>
-	<string name="whatsnew_uber_message">سفارش تاکسی, مستقیم از طریق اپلیکیشن!</string>
 	<string name="dialog_taxi_offline">سفارش تاکسی در حالت افلاین موجود نیست!</string>
 	<string name="dialog_taxi_error">سفارش تاکسی موقتا موجود نیست.</string>
 	<string name="mobile_data_dialog">از دیتای موبایل برای نمایش اطلاعات بیشتر استفاده شود؟</string>
@@ -952,30 +899,6 @@
 	<string name="traffic_update_app_message">برای نمایش ترافیک باید اپلیکیشن را بروزرسانی کنید.</string>
 	<!-- "traffic" as in "road congestion" -->
 	<string name="traffic_data_unavailable">اطلاعات ترافیکی موجود نیست</string>
-	<!-- december -->
-	<string name="whatsnew_traffic">اطلاعات ترافیکی در 36 کشور</string>
-	<!-- december -->
-	<string name="whatsnew_traffic_text">تا به امروز اطلاعات ترافیک و سریعترین مسیرهای رانندگی بر اساس آن!</string>
-	<!-- december -->
-	<string name="whatsnew_traffic_roaming">اطلاعات ترافیکی در رومینگ</string>
-	<!-- december -->
-	<string name="whatsnew_traffic_roaming_text">نیاز به کمتر از 1 مگابایت پهنای باند تلفن همراه در هر سفر.</string>
-	<!-- december -->
-	<string name="whatsnew_order_taxi">سفارش تاکسی</string>
-	<!-- december -->
-	<string name="whatsnew_order_taxi_text">در حال حاضر اکثر صفحات مکان دارای یک دکمه برای سفارش تاکسی هستند.</string>
-	<!-- january -->
-	<string name="whatsnew_improved_search">جستجوی پیشرفته</string>
-	<!-- january -->
-	<string name="whatsnew_improved_search_text">اشتباهات در جستجوها بر نتایج جستجو تاثیر نمی گذارد.</string>
-	<!-- january -->
-	<string name="whatsnew_filters_in_search">فیلترهای جستجو</string>
-	<!-- january -->
-	<string name="whatsnew_filters_in_search_text">جستجوی هتل ها براساس قیمت و امتیاز.</string>
-	<!-- january -->
-	<string name="whatsnew_font_size">اندازه فونت</string>
-	<!-- january -->
-	<string name="whatsnew_font_size_text">برچسب ها در نقشه می توانند بزرگتر شوند</string>
 	<!-- Seven points and higher -->
 	<string name="booking_filter_rating_num_good">7.0+</string>
 	<!-- Eight points and higher -->
@@ -985,16 +908,6 @@
 	<!-- Simplified colour scheme for traffic information, fewer colours are used to display traffic jams on the map. The string should be kept as short as possible -->
 	<string name="pref_traffic_simplified_colors_title">رنگ های ترافیکی ساده شده</string>
 	<string name="enable_logging">ورود به سیستم را فعال کنید</string>
-	<string name="whatsnew_more_info_on_hotels_title">اطلاعات بیشتر در مورد هتل ها</string>
-	<string name="whatsnew_more_info_on_hotels_message">نگاهی به نام تجاری جدید برای صفحات هتل: بررسی عکس، بررسی کاربر و سایر اطلاعات آنلاین.</string>
-	<string name="whatsnew_better_routing_title">بهبود مسیر برنامه ریزی</string>
-	<string name="whatsnew_better_routing_message">تخمین دقیق تر از زمان ورود. \n • برنامه به مناطق محدود و نشانه های جاده اشاره دارد.</string>
-	<string name="whatsnew_smaller_mwm_title">نقشه کوچکتر شده است</string>
-	<string name="whatsnew_smaller_mwm_message">نقشه ها نیاز به ذخیره سازی 20٪ کمتر دارند.</string>
-	<string name="whatsnew_waypoints_title">مسیرهای مسیریابی</string>
-	<string name="whatsnew_waypoints_message">مکان ها را برای افزودن ایستگاه های راه به مسیر خود ضربه بزنید.</string>
-	<string name="whatsnew_driving_style_title">نقشه جدید برای رانندگی</string>
-	<string name="whatsnew_driving_style_message">حالت ناوبری خودرو برای استفاده آسان تر شد.</string>
 	<string name="more_on_bookingcom">بیشتر در Booking.com</string>
 	<string name="details_on_bookingcom">جزئیات در Booking.com</string>
 	<string name="reviews_on_bookingcom">بررسی بیشتر در Booking.com</string>
@@ -1024,7 +937,6 @@
 	<string name="prefs_languages_information_off">برای بعضی از زبان ها، شما باید speech synthesizer یا یک بسته زبان دیگر را از فروشگاه برنامه (بازار Google Play، Samsung Apps) نصب کنید. \n تنظیمات دستگاه خود را باز کنید. → زبان و ورودی → گفتار → خروجی متن به گفتار. می توانید تنظیمات برای ترکیب گفتار (به عنوان مثال، بسته های زبان را برای استفاده آفلاین دانلود کنید) را مدیریت کنید و یک موتور دیگر متن به گفتار را انتخاب کنید.</string>
 	<string name="prefs_languages_information_off_link">برای اطلاعات بیشتر لطفا این راهنما را بررسی کنید.</string>
 	<string name="whatsnew_transliteration_title">ترجمه به لاتین</string>
-	<string name="whatsnew_transliteration_message">اگر یک خیابان یا یک شیء یک نام در زبان شما نداشته باشد، با استفاده از الفبای لاتین، املای آن نوشته می شود.</string>
 	<string name="learn_more">بیشتر بدانید</string>
 	<string name="core_exit">خروج</string>
 	<string name="routing_add_start_point">یک نقطه شروع برای برنامه ریزی یک مسیر اضافه کنید</string>
@@ -1043,8 +955,6 @@
 	<string name="dialog_change_start_point_message">مکان فعلی را به عنوان نقطه شروع تعیین کنید؟</string>
 	<string name="button_replace">جایگزین کردن</string>
 	<string name="placepage_add_stop">اضافه کردن توقف</string>
-	<string name="whatsnew_intermediate_point_title">توقف اضافی</string>
-	<string name="whatsnew_intermediate_point_message">یک مسیر را با یک نقطه متوسط طراحی کنید.</string>
 	<string name="add_my_position">موقعیت من را اضافه کنید</string>
 	<string name="choose_start_point">نقطه شروع را انتخاب کنید</string>
 	<string name="choose_destination">یک مقصد را انتخاب کنید</string>
@@ -1347,14 +1257,6 @@
 	<string name="warning_speedcams_title">هدایتگر هنگامی که از محدوده سرعت %d کیلومتر بر ساعت تجاوز نمایید، در مورد دوربین هشدار می دهد</string>
 	<string name="warning_speedcams_subtitle">لطفا قوانین رانندگی کشوری که به آن سفر می کنید، را رعایت کنید.</string>
 	<string name="speedcams_notice_message">خودکار- در صورتی که خطر تجاوز از سرعت مجاز وجود داشت، نسبت به دوربین های کنترل سرعت هشدار دهد\nهمیشه-همیشه درباره دوربین های کنترل سرعت هشدار دهد\nهرگز-هرگز درباره دوربین های کنترل سرعت هشدار ندهد</string>
-	<string name="whatsnew_standard_routes_title">مسیرهای استاندارد</string>
-	<string name="whatsnew_standard_routes_message">مجموعه ای اولیه از نقاط مورد علاقه و توضیحات مختصر، اما همراه با تجربیات فراوان!</string>
-	<string name="whatsnew_city_overview_title">نمای کلی شهر</string>
-	<string name="whatsnew_city_overview_message">تا 200 نقطه مورد علاقه در نقشه شهر: تمامی آنچه برای مسافران می تواند مفید و جالب باشد!</string>
-	<string name="whatsnew_pro_guides_title">مسیرهای حرفه ای</string>
-	<string name="whatsnew_pro_guides_message">بسیار دقیق، با توضیحات مفصلی از مکان ها و توانایی محاسبه فاصله و زمان سفر</string>
-	<string name="whatsnew_paid_routes_title">تجارب جدید بیشتر!</string>
-	<string name="whatsnew_paid_routes_message">علاوه بر مسیرهای رایگان، سه دسته مسیر پولی نیز به فهرست ما افزوده شده است. بیش از ۷۰۰ مسیر جدید!</string>
 	<string name="ugc_thanks_message_auth">نظر شما ذخیره شده‌است</string>
 	<string name="ugc_thanks_message_not_auth">لطفا برای ثبت نظر وارد حساب کاربری شوید</string>
 	<string name="notification_leave_review_v2_title">با ارزیابی یک محل بازدید شده به مسافران کمک کنید!</string>
@@ -1438,10 +1340,6 @@
 	<string name="whats_new_auto_update_bydeeplink_title">پیش از رفتن به راهنماها…</string>
 	<string name="whats_new_auto_update_bydeeplink_message">برای به روز نگه داشتن مناظر نقشه ها را به روز رسانی کنید!</string>
 	<string name="whats_new_auto_update_and_proceed_button_size">به روز رسانی (%s) و ادامه</string>
-	<string name="whatsnew_toll_unpaved_title">مسیرهای خودرویی را با توجه به انواع جاده ها تنظیم کنید</string>
-	<string name="whatsnew_toll_unpaved_message">مسیرهای فرعی از طریق مسیرهای دارای عوارض، جاده های خاکی و گذرگاه های جاده ای انتخاب کنید</string>
-	<string name="whatsnew_new_catalogue_title">صفحات کاتالوگ به روز شد</string>
-	<string name="whatsnew_new_catalogue_message">اطلاعات دقیق در مورد راهنماهای همکار اضافه شده است تا انتخاب مسیر آسان و راحت باشد</string>
 	<string name="purchase_please_wait_toast">لطفاً این صفحه را پیش از اتمام خرید ترک نکنید</string>
 	<string name="trip_start">برویم</string>
 	<string name="pick_destination">مقصد</string>
@@ -1496,12 +1394,6 @@
 	<string name="buy_btn_for_subscription_ios_only_mo">دسترسی نامحدود %s\ماه</string>
 	<string name="buy_btn_for_subscription_ios_only_year">دسترسی نامحدود %s\سال</string>
 	<string name="subscription_terms_guides">پس از تأیید خرید پرداخت از طریق حساب iTunes انجام خواهد شد. اشتراک به صورت خودکار تمدید خواهد شد مگر اینکه ویژگی تمدید خودکار حداقل 24 ساعت قبل از پایان دوره فعلی غیر فعال شود. با توجه به طرح تمدیدی شما، 24 ساعت پیش از اتمام دوره اشتراک، هزینه از حساب شما کسر می شود. شما می توانید در هر زمانی ویژگی تمدید خودکار را در تنظیمات حساب Apple ID خود مدیریت یا غیر فعال کنید. شما می توانید راهنماهای دانلود شده توسط اشتراک را تنها تا تاریخ انقضا استفاده کنید. 30 روز پس از تاریخ اتمام اشتراک، راهنما ها با بوک مارک ها به طور خودکار حذف خواهند شد.</string>
-	<string name="whatsnew_carplay_title">مسیر یابی خودرو OMaps در CarPlay!</string>
-	<string name="whatsnew_carplay_message">نشانه ها، جستجو، دوربین های سرعت و گزینه های رانندگی در حالت آفلاین در دسترس هستند</string>
-	<string name="whatsnew_subscription_title">تمام جهان با اشتراک!</string>
-	<string name="whatsnew_subscription_message">دسترسی نامحدود به تمام کاتالوگ راهنما به صرفه تر از خرید یک بار مصرف است</string>
-	<string name="whatsnew_carnavi_fixes_for_android_title">به روز رسانی مسیریابی</string>
-	<string name="whatsnew_carnavi_fixes_for_android_message">مسیر برنامه ریزی به نقاطی دور از جاده‌ها بهبود داده ایم</string>
 	<string name="avoid_unpaved_carplay_1">بی جاده خاکی</string>
 	<string name="avoid_unpaved_carplay_2">پرهیز از خاکی</string>
 	<string name="avoid_ferry_carplay_1">بدون بزرگراه</string>
@@ -1558,8 +1450,6 @@
 	<string name="bookmarks_edit_list">ویرایش فهرست</string>
 	<!-- Android, max 18 symbols -->
 	<string name="bookmarks_delete_list">حذف همه</string>
-	<string name="whatsnew_bookmarks_search_sort_title">سفارش در نشانهها سفری آسوده را رقم می زند</string>
-	<string name="whatsnew_bookmarks_search_sort_message">مکانهای مورد علاقه را بر اساس طبقه بندی ، موقعیت مکانی و ترتیب زمانی مرتب کنید، همچنین نشانههای خاص را به سرعت از روی نام بیابید</string>
 	<string name="popup_subscription_success_map_title">هورا، شما مشترک شدید!</string>
 	<string name="popup_subscription_success_map_message">اکنون بهترین مکان های برجسته گردشگری را در کاتالوگ OMaps کشف کنید</string>
 	<string name="popup_subscription_success_map_start_button">شروع جستجو</string>
@@ -1579,8 +1469,6 @@
 	<string name="subscription_screen_native_message_version_2">برای هر سفر به بیش از 600 شهر و بیش از 100 کشور آماده باش</string>
 	<string name="catalog_no_internet_title">اتصال به اینترنت برقرار نیست</string>
 	<string name="catalog_no_internet_button">تلاش مجدد</string>
-	<string name="whatsnew_map_updates_title">بروزرسانی بسیار سریع ن</string>
-	<string name="whatsnew_map_updates_message">از این پس سرعت بروزرسانی اطلاعات دو برابر است</string>
 	<string name="new_onboarding_button">بعدی</string>
 	<string name="new_onboarding_button_2">شروع کنید</string>
 	<string name="new_onboarding_step1_header_2">همه چیز دریک سفر دوست من</string>
@@ -1625,10 +1513,6 @@
 	<string name="downloader_country_no_guides_gallery_header">هیچ راهنمایی دربارهی این کشور وجود ندارد</string>
 	<string name="downloader_country_no_guides_gallery_message">میتوانید سایر راهنماهای آفلاین را برای فعالیتهای شهری و فضای باز +100 کشور چک کنید</string>
 	<string name="dialog_pedestrian_route_is_long">مسیر عابر پیاده تا نقطه حمل و انتقال بسیار طولانی است</string>
-	<string name="whatsnew_outdoor_guides_title">15000+ مسیر فضای باز اضافه کردهایم!</string>
-	<string name="whatsnew_outdoor_guides_message">مسیرهای Outdooractive برای سفرهای زمستانی و تابستانی در کاتالوگ در حال انتظار هستند!</string>
-	<string name="whatsnew_guides_galleries_title">سفر آتی خود را با OMaps برنامهریزی کنید</string>
-	<string name="whatsnew_guides_galleries_message">حال میتوانید توصیههای پیشنهادی را در صفحه مربوط به مکان شهرها و مکان‎های توریستی مشهور مشاهده کنید</string>
 	<string name="new_onboarding_step3_header">تجربه کنید</string>
 	<string name="all_pass_screen_best_value">بهترین ارزش</string>
 	<string name="buy_btn_for_subscription_3">کلیه کاتالوگ ها با %s در سال</string>
@@ -1637,9 +1521,6 @@
 	<string name="dialog_pedestrian_route_is_long_message">لطفا نقطه آغاز و پایان نزدیک تری به ایستگاه مترو انتخاب کنید</string>
 	<!-- Failed planning SUBWAY route message in navigation view -->
 	<string name="routing_planning_error_subway_special">برنامه ریزی مسیر مترو ناموفق ماند</string>
-	<string name="whatsnew_isolines_title">تازه های فضای باز: لایه توپوگرافی آفلاین!</string>
-	<!-- as less symbols as possible -->
-	<string name="whatsnew_isolines_message">در مناطق کوهستانی خاطر جمع باشید. فقط لایه را در قسمت بالا سمت چپ روشن کنید</string>
 	<string name="button_layer_isolines">ایزومپ</string>
 	<string name="tips_map_layers_title_countour">تازه ها در OMaps: لایه توپوگرافی آفلاین!</string>
 	<string name="tips_map_layers_message_countour">با اطمینان از این که همه چیز را در مورد منطقه می دانید طبیعت گردی خود را برنامه ریزی کنید و لذت ببرید</string>
@@ -1676,12 +1557,6 @@
 	<string name="routes_card_show">نمایش روی نقشه</string>
 	<!-- as few symbols as possible -->
 	<string name="routes_card_hide">مخفی کردن از نقشه</string>
-	<string name="whatsnew_catalog_new_title">کاتالوگ راهنمای جدید با هزاران ایدۀ سفر</string>
-	<string name="whatsnew_catalog_new_message">ما کاتالوگ راهنما را به روزرسانی و ترجمه هایی به زبان های پرطرفدار دنیا را به آن اضافه کرده ایم. از همین الان برای سفرهای خود برنامه ریزی کنید!</string>
-	<string name="whatsnew_elevation_profile_title">پروفایل ارتفاع در راهنمای سفر</string>
-	<string name="whatsnew_elevation_profile_message">پیچیدگی بالا رفتن ها و پایین آمدن های آفلاین بعدی را در پروفایل مسیرهای خریداری شده به وسیله مکان نما ارزیابی کنید.</string>
-	<string name="whatsnew_guides_on_map_title">لایه جدید برای یافتن آسان راهنما</string>
-	<string name="whatsnew_guides_on_map_message">در فهرست تنظیمات برنامه لایه را فعال کنید تا به سرعت مسیرهای جذاب شهری و راهنما های مسافرت برای فعالیت های فضای باز را پیدا کنید.</string>
 	<string name="downloader_updating_ios">در حال بروزرسانی</string>
 	<string name="downloader_loading_ios">در حال دانلود</string>
 	<string name="routes_card_plus_track">+ مسیر</string>
@@ -1717,8 +1592,6 @@
 	<string name="choose_dates_online_only_dialog_message">روزها و تعداد مهمانان را فقط هنگام اتصال به اینترنت میتوانید انتخاب کنید. لطفاً تنظیمات خود را بررسی کرده و از اتصال خود به اینترنت مطمئن شوید.</string>
 	<string name="choose_dates_online_only_dialog_cta">تنظیمات</string>
 	<string name="thirty_days_limit_dialog">شما می توانید حداکثر 30 شب رزرو کنید</string>
-	<string name="whatsnew_trial_title">دسترسی رایگان به کاتالوگ راهنما</string>
-	<string name="whatsnew_trial_message">پیشنهاد میکنیم از دورۀ آزمایشی و رایگان 7 روزه استفاده کنید. به هزاران راهنمای سفر در سراسر جهان و یک نقشۀ ارتفاعنمای مناسب سفرهای برون شهری دسترسی پیدا کنید.</string>
 	<string name="whatsnew_trial_cta">همین الان امتحان کنید</string>
 	<string name="subscription_terms_guides_outdoor">بعد از اینکه خرید را تایید کنید، مبلغ از حساب آی تونز شما کسر خواهد شد. عضویت شما بصورت خودکار تمدید خواهد شد مگر اینکه حداقل 24 ساعت قبل از پایان دوره عضویت فعلی، گزینه \"تمدید خودکار\" را غیرفعال کنید. مبلغ عضویت دوره بعدی بطور خودکار و 24 ساعت قبل از پایان دوره عضویت فعلی، از حساب شما کسر خواهد شد. شما می توانید بعد از خرید، هر زمان که مایل باشید گزینه تمدید خودکار را از قسمت تنظیمات حساب اپل آی دی خود تغییر داده یا غیرفعال کنید. از راهنماهای دانلود شده در دوره عضویت تنها تا پایان دوره عضویت می توانید استفاده کنید. راهنماها و علاقه مندی های شما 7 روز پس از پایان دوره عضویت، بصورت خودکار حذف خواهد شد.\n* عضویت در دوره آزمایشی رایگان، پس از پایان بصورت خودکار تبدیل به عضویت پولی خواهد شد. پس از فعالسازی دوره آزمایشی می توانید از قسمت تنظیمات حساب کاربری خود، گزینه تمدید خودکار دوره آزمایشی را غیرفعال کنید. لغو عضویت، 24 ساعت پس از آخرین روز دوره عضویت فعلی انجام خواهد شد. پس از لغو عضویت، شما تنها به خدمات رایگان ما دسترسی خواهید داشت. لطفا توجه داشته باشید که: پس از خرید و فعالسازی اکانت پولی، بخشهای بلااستفادۀ خود در اکانت رایگان را از دست خواهید داد.</string>
 	<string name="subscription_terms_android_outdoor">پس از تایید خرید، مبلغ از حساب گوگل پلی شما کسر خواهد شد. عضویت شما بصورت خودکار تمدید خواهد شد مگر اینکه حداقل 24 ساعت قبل از پایان دوره عضویت فعلی، گزینه \"تمدید خودکار\" را غیرفعال کنید. مبلغ عضویت دوره بعدی بطور خودکار و 24 ساعت قبل از پایان دوره عضویت فعلی، از حساب شما کسر خواهد شد. شما می توانید بعد از خرید، هر زمان که مایل باشید گزینه تمدید خودکار را از قسمت تنظیمات حساب خود تغییر داده یا غیرفعال کنید. از راهنماهای دانلود شده در دوره عضویت تنها تا پایان دوره عضویت می توانید استفاده کنید. راهنماهای شما 7 روز پس از پایان دوره عضویت، بصورت خودکار حذف خواهد شد.\n* عضویت در دوره آزمایشی رایگان، پس از پایان بصورت خودکار تبدیل به عضویت پولی خواهد شد. پس از فعالسازی دوره آزمایشی می توانید از قسمت تنظیمات حساب کاربری خود، گزینه تمدید خودکار دوره آزمایشی را غیرفعال کنید. لغو عضویت، 24 ساعت پس از آخرین روز دوره عضویت فعلی انجام خواهد شد. پس از لغو عضویت، شما تنها به خدمات رایگان ما دسترسی خواهید داشت. لطفا توجه داشته باشید که: پس از خرید و فعالسازی اکانت پولی، بخشهای بلااستفادۀ خود در اکانت رایگان را از دست خواهید داد.</string>

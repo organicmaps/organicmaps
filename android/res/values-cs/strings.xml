@@ -12,48 +12,27 @@
 	<string name="cancel_download">Zrušit stahování</string>
 	<!-- Button which deletes downloaded country -->
 	<string name="delete">Smazat</string>
-	<!-- Button to dismiss dialog forever -->
-	<string name="do_not_ask_me_again">Už se neptat</string>
 	<!-- Button "do not interrupt download" if user touched actively downloading country -->
 	<string name="do_nothing">Pokračovat</string>
 	<string name="download_maps">Stáhnout mapy</string>
-	<!-- Settings/Downloader - Download confirmation button -->
-	<string name="download_x_kb">Stáhnout %qu kB</string>
-	<!-- Settings/Downloader - Download confirmation button -->
-	<string name="download_x_mb">Stáhnout %qu MB</string>
 	<!-- Settings/Downloader - info for country when download fails -->
 	<string name="download_has_failed">Stahování selhalo, zkuste to znovu.</string>
-	<!-- Settings/Downloader - info for downloaded country -->
-	<string name="downloaded_x_y_touch_to_delete">Staženo (%1$qu %2$s), klepněte pro smazání.</string>
-	<!-- Settings/Downloader - country info current download progress -->
-	<string name="downloading_x_touch_to_cancel">Stahování %qu%%, klepněte pro zrušení.</string>
 	<!-- Settings/Downloader - info for country which started downloading -->
 	<string name="downloading">Stahování…</string>
-	<string name="get_it_now">Získat nyní</string>
 	<!-- Choose measurement on first launch alert - choose metric system button -->
 	<string name="kilometres">Kilometry</string>
 	<!-- Leave Review dialog - Review button -->
 	<string name="leave_a_review">Zpětná vazba</string>
 	<!-- View and button titles for accessibility -->
 	<string name="maps">Mapy</string>
-	<!-- View and button titles for accessibility -->
-	<string name="downloader_maps">Mapy:</string>
-	<!-- Settings/Downloader - info for country in the download queue -->
-	<string name="marked_for_downloading">Připraveno pro stažení, klepněte pro zrušení.</string>
 	<!-- Choose measurement on first launch alert - choose imperial system button -->
 	<string name="miles">Míle</string>
 	<!-- View and button titles for accessibility -->
 	<string name="core_my_position">Moje poloha</string>
-	<!-- Settings/Downloader - No free space dialog message -->
-	<string name="free_disk_space_for_country_x">Prosím, uvolněte nějaké místo ve svém zařízení, než začnete stahovat %s</string>
-	<!-- Leave Review dialog - Not now button (remind me later) -->
-	<string name="remind_me_later">Upozornit mě později</string>
 	<!-- Update maps later/Buy pro version later button text -->
 	<string name="later">Později</string>
 	<!-- Don't show some dialog any more -->
 	<string name="never">Nikdy</string>
-	<!-- Leave Review dialog - Complain button (goes to support site) -->
-	<string name="report_an_issue">Nahlásit chybu</string>
 	<!-- View and button titles for accessibility -->
 	<string name="search">Hledat</string>
 	<!-- Search box placeholder text -->
@@ -62,18 +41,12 @@
 	<string name="touch_to_download">Klepněte pro stažení</string>
 	<!-- Settings/Downloader - 3G download warning dialog confirm button -->
 	<string name="use_cellular_data">Ano</string>
-	<!-- Choose measurement on first launch alert - title -->
-	<string name="which_measurement_system">Jaký systém pro měření preferujete?</string>
 	<!-- Location services are disabled by user alert - message -->
 	<string name="location_is_disabled_long_text">Aktuálně máte všechny možnosti pro určování polohy vypnuté. Prosím, povolte je v Nastavení.</string>
 	<!-- Location Services are not available on the device alert - message -->
 	<string name="device_doesnot_support_location_services">Vaše zařízení nepodporuje služby pro určování polohy</string>
 	<!-- View and button titles for accessibility -->
 	<string name="zoom_to_country">Ukázat na mapě</string>
-	<!-- Message to display at the center of the screen when the country is added to the downloading queue -->
-	<string name="country_status_added_to_queue">^\npřidáno do fronty stahování</string>
-	<!-- Message to display at the center of the screen when the country is downloading -->
-	<string name="country_status_downloading">Stahování\n^\n^</string>
 	<!-- Button text for the button at the center of the screen when the country is not downloaded -->
 	<string name="country_status_download">Stáhnout mapu\n(^ ^)</string>
 	<!-- Button text for the button at the center of the screen when the country is not downloaded and the size should not be shown -->
@@ -85,7 +58,6 @@
 	<!-- Button text for the button under the country_status_download_failed message -->
 	<string name="try_again">Zkusit znovu</string>
 	<string name="about_menu_title">O aplikaci OMaps</string>
-	<string name="downloading_touch_to_cancel">Stahování %d%%, klepněte pro zrušení</string>
 	<string name="downloaded_touch_to_delete">Staženo (%s), klepněte pro smazání</string>
 	<string name="connection_settings">Nastavení připojení</string>
 	<string name="download_mb_or_kb">Stáhnout %s</string>
@@ -96,7 +68,6 @@
 	<string name="disconnect_usb_cable">Prosím, odpojte USB kabel nebo vložte paměťovou kartu pro použití s OMaps</string>
 	<string name="not_enough_free_space_on_sdcard">Prosím, uvolněte nejprve místo na SD kartě/USB uložišti</string>
 	<string name="not_enough_memory">Nedostatek paměti ke spuštění aplikace</string>
-	<string name="free_space_for_country">Prosím, uvolněte nejprve %1$s ve svém zařízení, aby bylo možné stáhnout %2$s</string>
 	<string name="download_resources">Ještě než začnete, bude třeba stáhnout obecnou mapu světa.\nZabere to %s.</string>
 	<string name="getting_position">Získávání aktuální polohy</string>
 	<string name="download_resources_continue">Přejít na mapu</string>
@@ -104,25 +75,9 @@
 	<string name="download_country_ask">Stáhnout %s?</string>
 	<string name="update_country_ask">Aktualizovat %s?</string>
 	<!-- REMOVE THIS STRING AFTER REFACTORING -->
-	<string name="download_location_map_proposal">Můžete stáhnout mapu\npro svou aktuální polohu.</string>
-	<!-- REMOVE THIS_STRING AFTER REFACTORING -->
-	<string name="download_location_update_map_proposal">Můžete aktualizovat mapu\nsvé aktuální polohy.</string>
-	<!-- REMOVE THIS STRING AFTER REFACTORING -->
-	<string name="download_location_map_up_to_date">Mapa vaší současné\npolohy (%s) je aktuální.</string>
-	<!-- REMOVE THIS STRING AFTER REFACTORING -->
 	<string name="pause">Pauza</string>
 	<!-- REMOVE THIS STRING AFTER REFACTORING -->
 	<string name="continue_download">Pokračovat</string>
-	<string name="downloaded_touch_to_update">Staženo (%s), klepněte pro smazání/aktualizaci</string>
-	<string name="update_mb_or_kb">Aktualizace %s</string>
-	<!-- Show popup notification when we have downloaded countries without search (from Lite version) -->
-	<string name="search_update_maps">Pro funkci vyhledávání musíte aktualizovat mapy:</string>
-	<!-- Show popup notification on app start when we have out-of-date maps -->
-	<string name="advise_update_maps">Je k dispozici aktualizace pro tyto mapy:</string>
-	<!-- Show popup notification in Pro version that Lite can be deleted -->
-	<string name="suggest_uninstall_lite">Aplikaci OMaps Lite už nyní nepotřebujete, takže si ji můžete klidně odinstalovat.</string>
-	<!-- Show popup notification on top of the map when country was downloaded. -->
-	<string name="download_country_success">Úspěšně staženo: %s</string>
 	<!-- Show popup notification on top of the map when country download has failed. -->
 	<string name="download_country_failed">Stahování selhalo: %s</string>
 	<!-- Add New Bookmark Set dialog title -->
@@ -151,8 +106,6 @@
 	<string name="set">Skupina</string>
 	<!-- Text hint in Bookmarks dialog when no any bookmarks are added -->
 	<string name="bookmarks_usage_hint">Zatím nemáte žádné záložky.\nZáložku můžete přidat přidržením libovolného místa na mapě.\nV OMaps také umí importovat záložky z jiných zdrojů. Soubor ve formátu KML/KMZ s uloženými záložkami otevřete např. z emailu, Dropboxu nebo webového odkazu v OMaps.</string>
-	<!-- Text hint in Bookmarks dialog when at least one bookmark is added -->
-	<string name="bookmarks_usage_hint_import_only">V OMaps mohou být zobrazeny importované záložky z jiných zdrojů. Soubor ve formátu KML/KMZ s uloženými záložkami lze otevřít např. z emailu, Dropboxu nebo webového odkazu.</string>
 	<!-- Settings button in system menu -->
 	<string name="settings">Nastavení</string>
 	<!-- Header of settings activity where user defines storage path -->
@@ -772,11 +725,6 @@
 	<string name="editor_report_problem_other_title">Jiný problém</string>
 	<string name="placepage_report_problem_button">Nahlásit problém</string>
 	<string name="placepage_add_business_button">Přidat organizaci</string>
-	<string name="whatsnew_smallmwm_header">Říkali jste si o to, a my to udělali</string>
-	<string name="whatsnew_smallmwm_message">Rozdělili jsme mapy na části. Nyní si můžete stáhnout jednotlivé regiony namísto celé země.</string>
-	<string name="whatsnew_search_header">Nové hledání</string>
-	<string name="whatsnew_search_message">Výrazně jsme vylepšili vyhledávání podle adresy. Podívejte se sami.</string>
-	<string name="whatsnew_editor_title">Upravit mapu*</string>
 	<string name="whatsnew_editor_message_1">Přidejte na mapu nová místa a upravte existující místa přímo z aplikace.</string>
 	<string name="whatsnew_editor_message_2">* OMaps používá komunitní data OpenStreetMap.</string>
 	<string name="dialog_incorrect_feature_position">Změnit umístění</string>
@@ -822,10 +770,6 @@
 	<string name="current_location_unknown_stop_button">Zastavit</string>
 	<string name="current_location_unknown_error_title">Současná poloha nezjištěna.</string>
 	<string name="current_location_unknown_error_message">Při zjišťování současné polohy došlo k chybě. Zkontrolujte, že nedošlo k chybě zařízení a pokus prosím opakujte později.</string>
-	<string name="whatsnew_update_editor_title">Aktualizovali jsme editor map</string>
-	<string name="whatsnew_update_editor_message">Uživatelé aplikace OMaps už provedli na 200 000 změn map. Přidejte se k nám a pomozte nám vytvořit nejpodrobnější mapy světa!</string>
-	<!-- Additional text in whats new -->
-	<string name="whatsnew_update_editor_message_update">Chcete-li používat editor map, pak prosím aktualizujte všechny mapy.</string>
 	<string name="location_services_disabled_header">Určení polohy je zakázáno</string>
 	<string name="location_services_disabled_message">Povolte přístup ke geolokaci v nastavení přístroje</string>
 	<string name="location_services_disabled_1">1. Otevřete Nastavení</string>
@@ -913,14 +857,6 @@
 	<string name="sharing_call_action_look">Odjezd</string>
 	<string name="continue_recent_track_background_button">Pokračovat</string>
 	<string name="recent_track_background_dialog_message">OMaps používají geopozici na pozadí, aby se zaznamenala vaše nedávno ujetá trasa.</string>
-	<string name="whatsnew_car_navigation_header">Uživatelsky přívětivá navigace pro vozidla</string>
-	<string name="whatsnew_car_navigation_message">• Navigační prvky zabírají méně místa.\n• Zobrazujeme rychlost a přidali jsme automatické zvětšení.</string>
-	<string name="whatsnew_cycle_navigation_2_header">Navigace pro kola</string>
-	<string name="whatsnew_cycle_navigation_2_message">• Navigace pro kola bere v potaz data o terénu.\n• Bereme v úvahu sklon cesty a vytváříme snazší trasy.</string>
-	<string name="whatsnew_booking_2_header">Snadné hledání hotelu</string>
-	<string name="whatsnew_booking_2_message">Výsledky hledání zobrazují hodnocení a cenovou kategorii hotelu.</string>
-	<string name="whatsnew_cycle_navigation_header">Navigace pro kola (beta verze)</string>
-	<string name="whatsnew_cycle_navigation_message">Tuto sezónu testujeme novou navigaci pro kola. Projeďte si svou oblíbenou trasu s OMaps a podělte se s námi o svůj názor.</string>
 	<!-- Rate on Google Play (Android only) -->
 	<string name="rate_gp">Ohodnotit na Google Play</string>
 	<!-- Share with friends: menu item title -->
@@ -981,8 +917,6 @@
 	<string name="chat">Geochat</string>
 	<!-- Verb. Text on a button that opens the chat. -->
 	<string name="chat_open">Otevřít</string>
-	<string name="whatsnew_uber_header">OMaps a Uber</string>
-	<string name="whatsnew_uber_message">Objednejte si taxi Uber přímo z aplikace!</string>
 	<string name="dialog_taxi_offline">Objednání taxi není v režimu offline k dispozici.</string>
 	<string name="dialog_taxi_error">Objednání taxi není dočasně k dispozici.</string>
 	<string name="mobile_data_dialog">Použít mobilní data k zobrazení podrobnějších informací?</string>
@@ -1001,30 +935,6 @@
 	<string name="traffic_update_app_message">Ke zobrazení dat o provozu je nutné aplikaci aktualizovat.</string>
 	<!-- "traffic" as in "road congestion" -->
 	<string name="traffic_data_unavailable">Data o provozu nejsou k dispozici</string>
-	<!-- december -->
-	<string name="whatsnew_traffic">Údaje o provozu ve 36 zemích</string>
-	<!-- december -->
-	<string name="whatsnew_traffic_text">Na nich jsou založeny aktuální dopravní informace a nejrychlejší jízdní trasy!</string>
-	<!-- december -->
-	<string name="whatsnew_traffic_roaming">Dopravní informace při roamingu</string>
-	<!-- december -->
-	<string name="whatsnew_traffic_roaming_text">Vyžaduje necelý 1 MB mobilních dat na jednu cestu.</string>
-	<!-- december -->
-	<string name="whatsnew_order_taxi">Objednat taxi</string>
-	<!-- december -->
-	<string name="whatsnew_order_taxi_text">Většina stránek umístění nyní obsahuje tlačítko k objednání taxi.</string>
-	<!-- january -->
-	<string name="whatsnew_improved_search">Vylepšené vyhledávání</string>
-	<!-- january -->
-	<string name="whatsnew_improved_search_text">I nesprávně napsané dotazy přinesou přesné výsledky vyhledávání.</string>
-	<!-- january -->
-	<string name="whatsnew_filters_in_search">Vyhledávací filtry</string>
-	<!-- january -->
-	<string name="whatsnew_filters_in_search_text">Hledat hotely na základě ceny a hodnocení.</string>
-	<!-- january -->
-	<string name="whatsnew_font_size">Velikost písma</string>
-	<!-- january -->
-	<string name="whatsnew_font_size_text">Popisky na mapě lze zvětšit.</string>
 	<!-- Seven points and higher -->
 	<string name="booking_filter_rating_num_good">7,0+</string>
 	<!-- Eight points and higher -->
@@ -1034,16 +944,6 @@
 	<!-- Simplified colour scheme for traffic information, fewer colours are used to display traffic jams on the map. The string should be kept as short as possible -->
 	<string name="pref_traffic_simplified_colors_title">Zjednodušené barvy provozu</string>
 	<string name="enable_logging">Povolit protokolování</string>
-	<string name="whatsnew_more_info_on_hotels_title">Více informací o hotelech</string>
-	<string name="whatsnew_more_info_on_hotels_message">Zbrusu nový vzhled stránek: Podívejte se na fotografie, recenze a další informace online.</string>
-	<string name="whatsnew_better_routing_title">Vylepšené plánování trasy</string>
-	<string name="whatsnew_better_routing_message">• Přesnější odhad času příjezdu. \n• Aplikace bere v úvahu dopravní omezení a dopravní značky.</string>
-	<string name="whatsnew_smaller_mwm_title">Mapy jsou menší</string>
-	<string name="whatsnew_smaller_mwm_message">Mapy vyžadují až o 20 % méně místa.</string>
-	<string name="whatsnew_waypoints_title">Body průjezdu na trase</string>
-	<string name="whatsnew_waypoints_message">Klepněte na místo a přidejte bod průjezdu.</string>
-	<string name="whatsnew_driving_style_title">Nový styl mapy pro vozidla</string>
-	<string name="whatsnew_driving_style_message">Navigační režim pro auto ještě snadnější.</string>
 	<string name="more_on_bookingcom">Více na Booking.com</string>
 	<string name="details_on_bookingcom">Podrobnosti na Booking.com</string>
 	<string name="reviews_on_bookingcom">Více recenzí na Booking.com</string>
@@ -1073,7 +973,6 @@
 	<string name="prefs_languages_information_off">U některých jazyků je třeba nainstalovat jiný hlasový syntetizátor nebo další jazykové sady z obchodu s aplikacemi (Google Play, Samsung Apps).\nOtevřete zařízení → Nastavení jazyka a zadávání → Hlasitost → Převod textu na řeč. \nZde můžete spravovat nastavení pro syntézu řeči (například stáhnout jazykový balíček pro použití offline) a vybrat jiný modul převodu textu na řeč.</string>
 	<string name="prefs_languages_information_off_link">Více informací najdete v tomto návodu.</string>
 	<string name="whatsnew_transliteration_title">Přepis do latinky</string>
-	<string name="whatsnew_transliteration_message">Pokud ulice nebo objekt nemá název ve vašem jazyce, bude zobrazeno latinkou.</string>
 	<string name="learn_more">Zjistit více</string>
 	<string name="core_exit">Ukončit</string>
 	<string name="routing_add_start_point">Zadejte výchozí bod pro plánování trasy</string>
@@ -1092,8 +991,6 @@
 	<string name="dialog_change_start_point_message">Nastavit aktuální polohu jako výchozí bod?</string>
 	<string name="button_replace">Nastavit</string>
 	<string name="placepage_add_stop">Přidat zastávku</string>
-	<string name="whatsnew_intermediate_point_title">Další zastávka</string>
-	<string name="whatsnew_intermediate_point_message">Naplánujte trasu s průjezdním bodem.</string>
 	<string name="add_my_position">Přidat moji polohu</string>
 	<string name="choose_start_point">Vybrat počáteční bod</string>
 	<string name="choose_destination">Vybrat cílové místo</string>
@@ -1401,15 +1298,6 @@
 	<string name="whats_new_ugc_routes_subtitle">Uložte si nezapomenutelná místa, vytvořte trasy pomocí záložek a sdílejte je se všemi v katalogu OMaps.</string>
 	<string name="whats_new_webeditor_title">Proměňte své trasy v příběhy</string>
 	<string name="whats_new_ugc_routes_message2">Přidejte fotky a detailní příběhy ve webovém editoru.</string>
-	<string name="whatsnew_standard_routes_title">Standardní trasy</string>
-	<string name="whatsnew_standard_routes_message">Základní sada míst, krátké popisy, ale mnoho zážitků!</string>
-	<string name="whatsnew_city_overview_title">Prohlídka města</string>
-	<string name="whatsnew_city_overview_message">Do 200 míst na mapě města: To nejužitečnější a nejzajímavější pro cestovatele!</string>
-	<string name="whatsnew_pro_guides_title">Profesionální trasy</string>
-	<string name="whatsnew_pro_guides_message">Velmi detailní, podrobné popisy míst a možností, jak spočítat vzdálenost a dobu procházky</string>
-	<string name="whatsnew_paid_routes_title">Více nových zážitků!</string>
-	<string name="whatsnew_paid_routes_message">K trasám zdarma jsme do katalogu navíc přidali 3 kategorie zpoplatněných průvodců. Více než 700 nových tras!</string>
-	<string name="whats_new_ugc_routes_title_android_only">Sdílet své dojmy je jednoduché</string>
 	<string name="ugc_thanks_message_auth">Váš ohlas je uložen</string>
 	<string name="ugc_thanks_message_not_auth">Zaregistrujte se, abyste mohli podat ohlas</string>
 	<string name="notification_leave_review_v2_title">Podejte ohlas a pomozte cestovatelům!</string>
@@ -1493,10 +1381,6 @@
 	<string name="whats_new_auto_update_bydeeplink_title">Předtím než přejdete k průvodcům…</string>
 	<string name="whats_new_auto_update_bydeeplink_message">Aktualizujte mapy a udržujte informace o objektech aktualizované!</string>
 	<string name="whats_new_auto_update_and_proceed_button_size">Aktualizujte (%s) a pokračujte</string>
-	<string name="whatsnew_toll_unpaved_title">Rozmístěte automobilové trasy s ohledem na všechny typy silnic</string>
-	<string name="whatsnew_toll_unpaved_message">Vyberte si objížďky podle zpoplatněných silnic, prašných silnic a přejezdů trajektů</string>
-	<string name="whatsnew_new_catalogue_title">Aktualizovat stránky katalogu</string>
-	<string name="whatsnew_new_catalogue_message">Přidali jsme podrobné informace o partnerských průvodcích, aby bylo snadné a pohodlné vybírat trasu</string>
 	<string name="purchase_please_wait_toast">Neopouštějte tuto obrazovku dokud nebude dokončen nákup</string>
 	<string name="trip_start">Pojďme</string>
 	<string name="pick_destination">Destinace</string>
@@ -1552,12 +1436,6 @@
 	<string name="buy_btn_for_subscription_ios_only_year">Neomezený přístup za %s/rok</string>
 	<string name="subscription_terms_guides">Platba bude účtována na účet iTunes po potvrzení nákupu. Předplatné se automaticky obnoví, pokud není funkce automatického obnovení vypnuta alespoň 24 hodin před koncem aktuálního období. Váš účet bude zpoplatněn podle vašeho plánu pro obnovení do 24 hodin před koncem aktuálního období. Funkci automatického obnovení můžete v nastavení účtu Apple ID kdykoli spravovat nebo vypnout. Průvodce stažené podle předplatného můžete používat pouze do data expirace. Po 30 dnech od data vypršení předplatného budou automaticky odstraněni průvodci se záložkami.</string>
 	<string name="subscription_terms">Platba bude automaticky zaúčtována na váš účet iTunes v době potvrzení nákupu. Předplatné se automaticky obnoví, pokud automatické obnovení nevypnete nejméně 24 hodin před koncem aktuálního období. Váš účet bude zpoplatněn podle plánu období během 24 hodin před koncem aktuálního období. Automatické obnovení můžete vypnout nebo spravovat kdykoliv v nastavení účtu Apple ID.</string>
-	<string name="whatsnew_carplay_title">Auto navigace OMaps v CarPlay!</string>
-	<string name="whatsnew_carplay_message">Záložky, vyhledávání, rychlostní kamery a možnosti řízení jsou dostupné v režimu offline</string>
-	<string name="whatsnew_subscription_title">Celý svět za předplatné!</string>
-	<string name="whatsnew_subscription_message">Neomezený přístup ke katalogu průvodců je výhodnější než jednorázová koupě</string>
-	<string name="whatsnew_carnavi_fixes_for_android_title">Aktualizace navigace</string>
-	<string name="whatsnew_carnavi_fixes_for_android_message">Zlepšili jsme plánování cesty do míst, která jsou vzdálená od silnic</string>
 	<string name="avoid_unpaved_carplay_1">Bez pr. cest</string>
 	<string name="avoid_unpaved_carplay_2">Vyhnout se nezp</string>
 	<string name="avoid_ferry_carplay_1">Bez trajektů</string>
@@ -1614,8 +1492,6 @@
 	<string name="bookmarks_edit_list">Upravit seznam</string>
 	<!-- Android, max 18 symbols -->
 	<string name="bookmarks_delete_list">Odstranit seznam</string>
-	<string name="whatsnew_bookmarks_search_sort_title">Pořadí v záložkách tvoří pohodlnou cestu</string>
-	<string name="whatsnew_bookmarks_search_sort_message">Seřaďte oblíbená místa podle kategorie, umístění a chronologického pořadí a také rychle najděte konkrétní záložky podle jejich názvu</string>
 	<string name="popup_subscription_success_map_title">Woohoo, máte přeplaceno!</string>
 	<string name="popup_subscription_success_map_message">Objevte nyní ty nejlepší turistické atrakce v katalogu OMaps</string>
 	<string name="popup_subscription_success_map_start_button">Začít s prohlížením</string>
@@ -1636,8 +1512,6 @@
 	<string name="subscription_screen_native_message_version_2">Buďte připraveni na jakoukoli cestu do více než 600 měst a více než 100 zemí</string>
 	<string name="catalog_no_internet_title">Připojení k internetu není k dispozici</string>
 	<string name="catalog_no_internet_button">Zkusit znovu</string>
-	<string name="whatsnew_map_updates_title">Bleskové aktualizace mapy</string>
-	<string name="whatsnew_map_updates_message">Od nynějška aktualizujeme údaje dvakrát rychleji</string>
 	<string name="new_onboarding_button">Další</string>
 	<string name="new_onboarding_button_2">Začínáme</string>
 	<string name="new_onboarding_step1_header_2">Všestranný parťák na cesty</string>
@@ -1682,10 +1556,6 @@
 	<string name="downloader_country_no_guides_gallery_header">V této zemi ještě nejsou průvodci</string>
 	<string name="downloader_country_no_guides_gallery_message">Můžete si prohlédnout další offline průvodce ve více než 100 zemích a nalézt zde městské a venkovní aktivity</string>
 	<string name="dialog_pedestrian_route_is_long">Pěší trasa k dopravnímu nástupnímu bodu je příliš dlouhá</string>
-	<string name="whatsnew_outdoor_guides_title">Přidali jsme více než 15000 venkovních tras!</string>
-	<string name="whatsnew_outdoor_guides_message">V katalogu čekají trasy od Outdooractive pro zimní a letní cesty!</string>
-	<string name="whatsnew_guides_galleries_title">Plánujte váš nadcházející výlet s OMaps</string>
-	<string name="whatsnew_guides_galleries_message">Nyní najdete doporučené průvodce na místě na stránkách oblíbených turistických měst a památek</string>
 	<string name="new_onboarding_step3_header">Zažijte</string>
 	<string name="all_pass_screen_best_value">Nejvýhodnější</string>
 	<string name="buy_btn_for_subscription_3">Celý katalog za %s/rok</string>
@@ -1694,9 +1564,6 @@
 	<string name="dialog_pedestrian_route_is_long_message">Zvolte prosím počáteční nebo koncový bod blíže k stanici metra</string>
 	<!-- Failed planning SUBWAY route message in navigation view -->
 	<string name="routing_planning_error_subway_special">Plánování trasy metra selhalo</string>
-	<string name="whatsnew_isolines_title">Nové pro outdoor: topografická vrstva offline!</string>
-	<!-- as less symbols as possible -->
-	<string name="whatsnew_isolines_message">Buďte sebevědomí v hornaté oblasti. Stačí zapnout vrstvu v levém horním rohu</string>
 	<string name="button_layer_isolines">Terén</string>
 	<string name="tips_map_layers_title_countour">Novinka v OMaps: offline topografická vrstva!</string>
 	<string name="tips_map_layers_message_countour">Naplánujte si a užijte si své výlety do přírody s jistotou, že víte vše o této oblasti</string>
@@ -1733,12 +1600,6 @@
 	<string name="routes_card_show">Ukázat na mapě</string>
 	<!-- as few symbols as possible -->
 	<string name="routes_card_hide">Skrýt na mapě</string>
-	<string name="whatsnew_catalog_new_title">Nový katalog průvodců a tisíce nápadů na cestování</string>
-	<string name="whatsnew_catalog_new_message">Aktualizovali jsme katalog průvodců a přidali překlady do populárních jazyků. Začněte dopředu s plánováním vašich cest!</string>
-	<string name="whatsnew_elevation_profile_title">Výškový profil v cestovních průvodcích</string>
-	<string name="whatsnew_elevation_profile_message">Vyhodnoťte obtížnost nadcházejících offline stoupání a klesání pomocí kurzoru v profilu zakoupené trasy.</string>
-	<string name="whatsnew_guides_on_map_title">Nová vrstva pro snadné nalezení průvodců</string>
-	<string name="whatsnew_guides_on_map_message">Aktivujte vrstvu v nabídce nastavení aplikace pro rychlé nalezení zajímavých městských tras a cestovních průvodců pro venkovní aktivity.</string>
 	<string name="downloader_updating_ios">Probíhá aktualizace</string>
 	<string name="downloader_loading_ios">Probíhá stahování</string>
 	<string name="routes_card_plus_track">+ cesta</string>
@@ -1774,8 +1635,6 @@
 	<string name="choose_dates_online_only_dialog_message">Datum a počet hostů je možné vybrat pouze v režimu online. Zkontrolujte prosím nastavení a ujistěte se, že jste připojeni k internetu.</string>
 	<string name="choose_dates_online_only_dialog_cta">Nastavení</string>
 	<string name="thirty_days_limit_dialog">Rezervaci můžete provést maximálně na 30 nocí</string>
-	<string name="whatsnew_trial_title">Bezplatný přístup do katalogu průvodců</string>
-	<string name="whatsnew_trial_message">Nyní nabízíme 7denní zkušební verzi. Získejte přístup k tisícům cestovních průvodců po celém světě a interaktivnímu výškovému profilu pro outdoorové průvodce.</string>
 	<string name="whatsnew_trial_cta">Vyzkoušejte nyní</string>
 	<string name="subscription_terms_guides_outdoor">Po potvrzení nákupu bude platba naúčtována na váš účet v iTunes. Předplatné se automaticky obnoví, pokud není automatické obnovení vypnuto nejméně 24 hodin před koncem aktuálního období předplatného. V souladu s plánem obnovy bude na váš účet naúčtována částka za obnovení během 24 hodin před koncem aktuálního období předplatného. Automatické obnovení můžete spravovat nebo zakázat kdykoli po zakoupení v nastavení vašeho účtu Apple ID. Průvodce stažené během období předplatného můžete používat pouze do doby vypršení platnosti předplatného. 7 dnů po vypršení platnosti předplatného dojde k automatickému smazání průvodců a záložek.\n* Předplatné s bezplatným zkušebním obdobím se automaticky obnoví na placené předplatné. Automatické obnovení vaší bezplatné zkušební verze můžete rušit nebo spravovat v nastavení vašeho účtu. Zrušení nabude účinku 24 hodin po posledním dni aktuálního období předplatného. Poté budete přeřazeni na bezplatnou variantu. Upozornění: Jakákoli nevyužitá část bezplatné zkušební verze propadne, pokud si během tohoto zkušebního období zakoupíte prémiové předplatné.</string>
 	<string name="subscription_terms_android_outdoor">Po potvrzení nákupu bude platba naúčtována na váš účet Google Play. Předplatné se automaticky obnoví, pokud není automatické obnovení vypnuto nejméně 24 hodin před koncem aktuálního období předplatného. V souladu s plánem obnovy bude na váš účet naúčtována částka za obnovení během 24 hodin před koncem aktuálního období předplatného. Automatické obnovení můžete spravovat nebo zakázat kdykoli po zakoupení v nastavení účtu. Průvodce stažené během období předplatného můžete používat pouze do doby vypršení platnosti předplatného. 7 dnů po vypršení platnosti předplatného dojde k automatickému smazání průvodců.\n* Předplatné s bezplatným zkušebním obdobím se automaticky obnoví na placené předplatné. Automatické obnovení vaší bezplatné zkušební verze můžete rušit nebo spravovat v nastavení vašeho účtu. Zrušení nabude účinku 24 hodin po posledním dni aktuálního období předplatného. Poté budete přeřazeni na bezplatnou variantu. Upozornění: Jakákoli nevyužitá část bezplatné zkušební verze propadne, pokud si během tohoto zkušebního období zakoupíte prémiové předplatné.</string>

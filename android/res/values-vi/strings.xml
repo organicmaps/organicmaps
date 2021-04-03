@@ -12,24 +12,13 @@
 	<string name="cancel_download">Huỷ bỏ Tải xuống</string>
 	<!-- Button which deletes downloaded country -->
 	<string name="delete">Xóa</string>
-	<!-- Button to dismiss dialog forever -->
-	<string name="do_not_ask_me_again">Không hỏi tôi một lần nữa</string>
 	<!-- Button "do not interrupt download" if user touched actively downloading country -->
 	<string name="do_nothing">Tiếp tục</string>
 	<string name="download_maps">Tải xuống Bản đồ</string>
-	<!-- Settings/Downloader - Download confirmation button -->
-	<string name="download_x_kb">Tải xuống %qu kB</string>
-	<!-- Settings/Downloader - Download confirmation button -->
-	<string name="download_x_mb">Tải xuống %qu MB</string>
 	<!-- Settings/Downloader - info for country when download fails -->
 	<string name="download_has_failed">Tải xuống thất bại, hãy chạm lại để thử một lần nữa</string>
-	<!-- Settings/Downloader - info for downloaded country -->
-	<string name="downloaded_x_y_touch_to_delete">Đã tải xuống (%1$qu %2$s), chạm để xóa</string>
-	<!-- Settings/Downloader - country info current download progress -->
-	<string name="downloading_x_touch_to_cancel">Đang tải xuống %qu%%, chạm để hủy bỏ</string>
 	<!-- Settings/Downloader - info for country which started downloading -->
 	<string name="downloading">Đang tải xuống…</string>
-	<string name="get_it_now">Tải xuống ngay</string>
 	<!-- Settings/Downloader - size string, only strings different from English should be translated -->
 	<string name="kb">kB</string>
 	<!-- Choose measurement on first launch alert - choose metric system button -->
@@ -38,26 +27,16 @@
 	<string name="leave_a_review">Để lại Đánh giá</string>
 	<!-- View and button titles for accessibility -->
 	<string name="maps">Bản đồ</string>
-	<!-- View and button titles for accessibility -->
-	<string name="downloader_maps">Bản đồ:</string>
-	<!-- Settings/Downloader - info for country in the download queue -->
-	<string name="marked_for_downloading">Đã đánh dấu để tải xuống, chạm để hủy bỏ</string>
 	<!-- Settings/Downloader - size string, only strings different from English should be translated -->
 	<string name="mb">MB</string>
 	<!-- Choose measurement on first launch alert - choose imperial system button -->
 	<string name="miles">Dặm</string>
 	<!-- View and button titles for accessibility -->
 	<string name="core_my_position">Vị trí của Tôi</string>
-	<!-- Settings/Downloader - No free space dialog message -->
-	<string name="free_disk_space_for_country_x">Bạn vui lòng giải phóng dung lượng trên thiết bị của mình để có thể tải xuống %s</string>
-	<!-- Leave Review dialog - Not now button (remind me later) -->
-	<string name="remind_me_later">Nhắc tôi sau</string>
 	<!-- Update maps later/Buy pro version later button text -->
 	<string name="later">Để sau</string>
 	<!-- Don't show some dialog any more -->
 	<string name="never">Không bao giờ</string>
-	<!-- Leave Review dialog - Complain button (goes to support site) -->
-	<string name="report_an_issue">Báo cáo một vấn đề</string>
 	<!-- View and button titles for accessibility -->
 	<string name="search">Tìm kiếm</string>
 	<!-- Search box placeholder text -->
@@ -66,18 +45,12 @@
 	<string name="touch_to_download">Chạm để tải xuống</string>
 	<!-- Settings/Downloader - 3G download warning dialog confirm button -->
 	<string name="use_cellular_data">Có</string>
-	<!-- Choose measurement on first launch alert - title -->
-	<string name="which_measurement_system">Bạn thích sử dụng hệ thống đo lường nào?</string>
 	<!-- Location services are disabled by user alert - message -->
 	<string name="location_is_disabled_long_text">Bạn hiện đang tắt tất cả Dịch vụ Định vị cho thiết bị hoặc ứng dụng này. Bạn vui lòng bật lại chúng trong Thiết lập.</string>
 	<!-- Location Services are not available on the device alert - message -->
 	<string name="device_doesnot_support_location_services">Thiết bị của bạn không hỗ trợ Dịch vụ Định vị</string>
 	<!-- View and button titles for accessibility -->
 	<string name="zoom_to_country">Hiển thị trên bản đồ</string>
-	<!-- Message to display at the center of the screen when the country is added to the downloading queue -->
-	<string name="country_status_added_to_queue">^\nđã được thêm vào danh sách đợi tải xuống.</string>
-	<!-- Message to display at the center of the screen when the country is downloading -->
-	<string name="country_status_downloading">Đang tải xuống\n^\n^</string>
 	<!-- Button text for the button at the center of the screen when the country is not downloaded -->
 	<string name="country_status_download">Tải xuống Bản đồ\n(^ ^)</string>
 	<!-- Button text for the button at the center of the screen when the country is not downloaded and the size should not be shown -->
@@ -89,7 +62,6 @@
 	<!-- Button text for the button under the country_status_download_failed message -->
 	<string name="try_again">Thử lại</string>
 	<string name="about_menu_title">Giới thiệu về OMaps</string>
-	<string name="downloading_touch_to_cancel">Đang tải xuống %d%%, chạm để hủy bỏ</string>
 	<string name="downloaded_touch_to_delete">Đã tải xuống (%s), chạm để xóa</string>
 	<string name="connection_settings">Thiết lập Kết nối</string>
 	<string name="download_mb_or_kb">Tải xuống %s</string>
@@ -100,7 +72,6 @@
 	<string name="disconnect_usb_cable">Bạn vui lòng tháo cáp USB hoặc lắp thẻ nhớ vào để sử dụng OMaps</string>
 	<string name="not_enough_free_space_on_sdcard">Bạn vui lòng giải phóng dung lượng trên ổ lưu trữ thẻ SD/USB để có thể sử dụng ứng dụng</string>
 	<string name="not_enough_memory">Không đủ bộ nhớ để chạy ứng dụng</string>
-	<string name="free_space_for_country">Bạn vui lòng giải phóng %1$s trên thiết bị của mình để có thể tải xuống %2$s</string>
 	<string name="download_resources">Trước khi bạn bắt đầu, hãy để chúng tôi tải bản đồ thế giới vào thiết bị của bạn.\nBản đồ này cần %s dữ liệu.</string>
 	<string name="getting_position">Đang tìm vị trí hiện tại</string>
 	<string name="download_resources_continue">Đến Bản đồ</string>
@@ -108,25 +79,9 @@
 	<string name="download_country_ask">Tải xuống %s?</string>
 	<string name="update_country_ask">Cập nhật %s?</string>
 	<!-- REMOVE THIS STRING AFTER REFACTORING -->
-	<string name="download_location_map_proposal">Bạn có thể tải xuống bản đồ\ncủa địa điểm hiện tại của bạn.</string>
-	<!-- REMOVE THIS_STRING AFTER REFACTORING -->
-	<string name="download_location_update_map_proposal">Bạn có thể cập nhật bản đồ\ncủa địa điểm hiện tại của bạn.</string>
-	<!-- REMOVE THIS STRING AFTER REFACTORING -->
-	<string name="download_location_map_up_to_date">Bản đồ của địa điểm\nhiện tại của bạn (%s) là bản mới nhất</string>
-	<!-- REMOVE THIS STRING AFTER REFACTORING -->
 	<string name="pause">Tạm dừng</string>
 	<!-- REMOVE THIS STRING AFTER REFACTORING -->
 	<string name="continue_download">Tiếp tục</string>
-	<string name="downloaded_touch_to_update">Đã tải xuống (%s), chạm để cập nhật hoặc xóa</string>
-	<string name="update_mb_or_kb">Cập nhật %s</string>
-	<!-- Show popup notification when we have downloaded countries without search (from Lite version) -->
-	<string name="search_update_maps">Bạn cần bản đồ được cập nhật cho chức năng tìm kiếm:</string>
-	<!-- Show popup notification on app start when we have out-of-date maps -->
-	<string name="advise_update_maps">Bạn cần bản đồ được cập nhật cho chức năng tìm kiếm:</string>
-	<!-- Show popup notification in Pro version that Lite can be deleted -->
-	<string name="suggest_uninstall_lite">Bạn không cần OMaps Lite nữa, vì vậy bạn có thể gỡ cài đặt nó.</string>
-	<!-- Show popup notification on top of the map when country was downloaded. -->
-	<string name="download_country_success">%s, descărcată cu succes</string>
 	<!-- Show popup notification on top of the map when country download has failed. -->
 	<string name="download_country_failed">%s - descărcarea a eșuat</string>
 	<!-- Add New Bookmark Set dialog title -->
@@ -155,8 +110,6 @@
 	<string name="set">Đặt</string>
 	<!-- Text hint in Bookmarks dialog when no any bookmarks are added -->
 	<string name="bookmarks_usage_hint">Bạn chưa có điểm đánh dấu.\nChạm vào bất kỳ địa điểm nào trên bản đồ để thêm một điểm đánh dấu.\nĐiểm đánh dấu từ các nguồn khác cũng có thể được nhập và hiển thị trong OMaps. Mở tập tin KML/KMZ với các điểm đánh dấu được lưu từ email, Dropbox hoặc liên kết web.</string>
-	<!-- Text hint in Bookmarks dialog when at least one bookmark is added -->
-	<string name="bookmarks_usage_hint_import_only">Điểm đánh dấu từ các nguồn khác có thể được nhập và hiển thị trong OMaps. Mở tập tin KML/KMZ với các điểm đánh dấu được lưu từ thư, Dropbox hoặc liên kết web.</string>
 	<!-- Settings button in system menu -->
 	<string name="settings">Thiết lập</string>
 	<!-- Header of settings activity where user defines storage path -->
@@ -764,11 +717,6 @@
 	<string name="editor_report_problem_other_title">Một vấn đề khác</string>
 	<string name="placepage_report_problem_button">Báo cáo vấn đề</string>
 	<string name="placepage_add_business_button">Thêm tổ chức</string>
-	<string name="whatsnew_smallmwm_header">Bạn đã yêu cầu điều đó và chúng tôi đã thực hiện nó</string>
-	<string name="whatsnew_smallmwm_message">Chúng tôi đã chia bản đồ thành nhiều phần. Bây giờ bạn có thể tải về các vùng riêng biệt, không phải là toàn bộ quốc gia.</string>
-	<string name="whatsnew_search_header">Tìm kiếm mới</string>
-	<string name="whatsnew_search_message">Chúng tôi đã cải thiện đáng kể việc tìm kiếm theo địa chỉ. Bạn hãy tự xem thử.</string>
-	<string name="whatsnew_editor_title">Chỉnh sửa bản đồ*</string>
 	<string name="whatsnew_editor_message_1">Nhập các địa điểm mới vào bản đồ, và trực tiếp chỉnh sửa những địa điểm hiện có trên ứng dụng.</string>
 	<string name="whatsnew_editor_message_2">* OMaps sử dụng dữ liệu của cộng đồng OpenStreetMap.</string>
 	<string name="dialog_incorrect_feature_position">Thay đổi địa điểm</string>
@@ -814,10 +762,6 @@
 	<string name="current_location_unknown_stop_button">Dừng</string>
 	<string name="current_location_unknown_error_title">Chưa biết địa điểm hiện tại.</string>
 	<string name="current_location_unknown_error_message">Có lỗi khi tìm kiếm địa điểm của bạn. Đảm bảo rằng thiết bị của bạn hoạt động tốt và thử lại sau.</string>
-	<string name="whatsnew_update_editor_title">Chúng tôi đã cập nhật trình biên tập bản đồ</string>
-	<string name="whatsnew_update_editor_message">Người dùng OMaps đã thực hiện 200 000 thay đổi cho bản đồ. Cùng nhau chúng ta đang tạo ra những bản đồ chi tiết nhất trên thế giới. Hãy tham gia cùng chúng tôi!</string>
-	<!-- Additional text in whats new -->
-	<string name="whatsnew_update_editor_message_update">Để sử dụng Ứng dụng Điều chỉnh Bản đồ, xin vui lòng cập nhật tất cả các bản đồ.</string>
 	<string name="location_services_disabled_header">Chức năng nhận biết địa điểm bị tắt</string>
 	<string name="location_services_disabled_message">Bật truy cập định vị địa lý trong thiết lập thiết bị</string>
 	<string name="location_services_disabled_1">1. Mở Thiết lập</string>
@@ -905,14 +849,6 @@
 	<string name="sharing_call_action_look">Xem</string>
 	<string name="continue_recent_track_background_button">Tiếp tục</string>
 	<string name="recent_track_background_dialog_message">OMaps sử dụng định vị của bạn trong ứng dụng chạy nền để ghi lại tuyến đường đã đi gần đây của bạn.</string>
-	<string name="whatsnew_car_navigation_header">Phần mềm dẫn đường dành cho xe cộ thân thiện với người dùng</string>
-	<string name="whatsnew_car_navigation_message">• Các thành phần của phần mềm dẫn đường chiếm ít bộ nhớ.\n• Phần mềm có hiển thị tốc độ và đã được thêm tính năng tự động thu phóng.</string>
-	<string name="whatsnew_cycle_navigation_2_header">Phần mềm dẫn đường dành cho xe đạp</string>
-	<string name="whatsnew_cycle_navigation_2_message">• Phần mềm dẫn đường dành cho điện thoại dựa trên các dữ liệu về địa hình.\n• Chúng tôi tạo nên những tuyến đường tối ưu dựa trên độ dốc của con đường.</string>
-	<string name="whatsnew_booking_2_header">Tìm kiếm khách sạn dễ dàng</string>
-	<string name="whatsnew_booking_2_message">Kết quả tìm kiếm cho thấy các đánh giá và mức giá của khách sạn.</string>
-	<string name="whatsnew_cycle_navigation_header">Định vị xe đạp (phiên bản beta)</string>
-	<string name="whatsnew_cycle_navigation_message">Chúng tôi đang thử nghiệm định vị xe đạp cho mùa mới. Hãy thử tuyến đường xe đạp ưa thích của bạn với OMaps, và chia sẻ ý kiến của bạn với chúng tôi.</string>
 	<!-- Rate on Google Play (Android only) -->
 	<string name="rate_gp">Cho điểm trên Google Play</string>
 	<!-- Share with friends: menu item title -->
@@ -973,8 +909,6 @@
 	<string name="chat">Geochat</string>
 	<!-- Verb. Text on a button that opens the chat. -->
 	<string name="chat_open">Mở</string>
-	<string name="whatsnew_uber_header">OMaps &amp; Uber</string>
-	<string name="whatsnew_uber_message">Đặt taxi Uber trực tiếp từ ứng dụng!</string>
 	<string name="dialog_taxi_offline">Gọi taxi không khả dụng trong chế độ ngoại tuyến.</string>
 	<string name="dialog_taxi_error">Gọi taxi tạm thời không khả dụng.</string>
 	<string name="mobile_data_dialog">Sử dụng mạng Internet di động để hiển thị thông tin chi tiết?</string>
@@ -993,30 +927,6 @@
 	<string name="traffic_update_app_message">Để hiển thị dữ liệu giao thông, ứng dụng cần phải được cập nhật.</string>
 	<!-- "traffic" as in "road congestion" -->
 	<string name="traffic_data_unavailable">Dữ liệu giao thông không khả dụng</string>
-	<!-- december -->
-	<string name="whatsnew_traffic">Dữ liệu Giao thông tại 36 Quốc gia</string>
-	<!-- december -->
-	<string name="whatsnew_traffic_text">Thông tin giao thông cập nhật và lộ trình lái xe nhanh nhất dựa trên đó!</string>
-	<!-- december -->
-	<string name="whatsnew_traffic_roaming">Thông tin Giao thông khi Chuyển vùng</string>
-	<!-- december -->
-	<string name="whatsnew_traffic_roaming_text">Cần ít hơn 1 MB băng thông di động cho mỗi chuyến đi.</string>
-	<!-- december -->
-	<string name="whatsnew_order_taxi">Đặt Xe Taxi</string>
-	<!-- december -->
-	<string name="whatsnew_order_taxi_text">Hầu hết các trang địa điểm giờ đây đều có một nút để gọi taxi.</string>
-	<!-- january -->
-	<string name="whatsnew_improved_search">Cải thiện Tìm kiếm</string>
-	<!-- january -->
-	<string name="whatsnew_improved_search_text">Kể cả các truy vấn bị lỗi chính tả vẫn có thể cho kết quả tìm kiếm chính xác.</string>
-	<!-- january -->
-	<string name="whatsnew_filters_in_search">Bộ lọc Tìm kiếm</string>
-	<!-- january -->
-	<string name="whatsnew_filters_in_search_text">Tìm kiếm khách sạn dựa trên giá cả và xếp hạng.</string>
-	<!-- january -->
-	<string name="whatsnew_font_size">Kích cỡ Phông chữ</string>
-	<!-- january -->
-	<string name="whatsnew_font_size_text">Các nhãn mác trên bản đồ có thể được phóng to hơn.</string>
 	<!-- Seven points and higher -->
 	<string name="booking_filter_rating_num_good">7.0+</string>
 	<!-- Eight points and higher -->
@@ -1026,16 +936,6 @@
 	<!-- Simplified colour scheme for traffic information, fewer colours are used to display traffic jams on the map. The string should be kept as short as possible -->
 	<string name="pref_traffic_simplified_colors_title">Màu sắc giao thông đơn giản</string>
 	<string name="enable_logging">Bật nhật ký</string>
-	<string name="whatsnew_more_info_on_hotels_title">Thêm thông tin trên Khách sạn</string>
-	<string name="whatsnew_more_info_on_hotels_message">Giao diện hoàn toàn mới cho trang khách sạn: hãy xem các ảnh, đánh giá của người dùng và các thông tin khác trên mạng.</string>
-	<string name="whatsnew_better_routing_title">Cải thiện Lập Kế hoạch Lộ trình</string>
-	<string name="whatsnew_better_routing_message">• Ước tỉnh chính xác hơn về thời gian đến.\n• Ứng dụng sẽ tính đến các khu vực bị hạn chế và biển báo đường.</string>
-	<string name="whatsnew_smaller_mwm_title">Bản đồ nhỏ hơn</string>
-	<string name="whatsnew_smaller_mwm_message">Giảm đến 20% kích cỡ của các bản đồ.</string>
-	<string name="whatsnew_waypoints_title">Điểm tọa độ trong Lộ trình</string>
-	<string name="whatsnew_waypoints_message">Chạm vào các điểm để thêm điểm tọa độ vào lộ trình của bạn.</string>
-	<string name="whatsnew_driving_style_title">Phong cách Bản đồ Mới cho Lái xe</string>
-	<string name="whatsnew_driving_style_message">Chế độ điều hướng ô tô dễ sử dụng hơn.</string>
 	<string name="more_on_bookingcom">Xem thêm trên Booking.com</string>
 	<string name="details_on_bookingcom">Chi tiết trên Booking.com</string>
 	<string name="reviews_on_bookingcom">Xem thêm đánh giá trên Booking.com</string>
@@ -1065,7 +965,6 @@
 	<string name="prefs_languages_information_off">Đối với một số ngôn ngữ, bạn sẽ cần cài đặt một trình tổng hợp lời nói khác hoặc một gói ngôn ngữ bổ sung từ cửa hàng ứng dụng (Google Play Market, Samsung Apps).\nMở cài đặt của thiết bị → Ngôn ngữ và nhập liệu → Lời nói → Đầu ra văn bản sang lời nói.\nTại đây bạn có thể quản lý các cài đặt tổng hợp lời nói (ví dụ, tải về các gói ngôn ngữ để sử dụng ngoại tuyến) và chọn một công cụ chuyển đổi văn bản sang lời nói khác.</string>
 	<string name="prefs_languages_information_off_link">Để biết thêm thông tin, vui lòng kiểm tra bài hướng dẫn này.</string>
 	<string name="whatsnew_transliteration_title">Chuyển ngữ sang chữ Latinh</string>
-	<string name="whatsnew_transliteration_message">Nếu một đường phố hoặc đối tượng không có tên trong ngôn ngữ của bạn, nó sẽ được đánh vần sử dụng bảng chữ cái alphabet.</string>
 	<string name="learn_more">Tìm hiểu thêm</string>
 	<string name="core_exit">Lối ra</string>
 	<string name="routing_add_start_point">Bổ sung điểm bắt đầu để lập kế hoạch lộ trình</string>
@@ -1084,8 +983,6 @@
 	<string name="dialog_change_start_point_message">Thay điểm bắt đầu cho vị trí hiện tại?</string>
 	<string name="button_replace">Thay thế</string>
 	<string name="placepage_add_stop">Thêm điểm dừng</string>
-	<string name="whatsnew_intermediate_point_title">Điểm dừng bổ sung</string>
-	<string name="whatsnew_intermediate_point_message">Lập một lộ trình với một điểm trung gian.</string>
 	<string name="add_my_position">Thêm vị trí của tôi</string>
 	<string name="choose_start_point">Chọn một điểm bắt đầu</string>
 	<string name="choose_destination">Chọn một điểm đến</string>
@@ -1388,15 +1285,6 @@
 	<string name="whats_new_ugc_routes_subtitle">Lưu các địa điểm đáng nhớ, tạo tuyến đường bằng cách sử dụng chỉ mục và chia sẻ chúng với mọi người trong danh mục OMaps.</string>
 	<string name="whats_new_webeditor_title">Biến tuyến đường của bạn thành câu chuyện</string>
 	<string name="whats_new_ugc_routes_message2">Thêm ảnh và câu chuyện chi tiết trong trình chỉnh sửa web.</string>
-	<string name="whatsnew_standard_routes_title">Các tuyến đường chuẩn</string>
-	<string name="whatsnew_standard_routes_message">Các điểm ưa thích cơ bản và mô tả ngắn gọn nhưng rất nhiều trải nghiệm!</string>
-	<string name="whatsnew_city_overview_title">Tổng quan thành phố</string>
-	<string name="whatsnew_city_overview_message">Lên đến 200 điểm ưa thích trên bản đồ thành phố: mọi thứ du khách có thể sẽ cảm giác hữu ích và thú vị!</string>
-	<string name="whatsnew_pro_guides_title">Các tuyến đườn Chuyên nghiệp</string>
-	<string name="whatsnew_pro_guides_message">Rất kỹ lưỡng, với các mô tả chi tiết về địa điểm và khả năng tính toán khoảng cách và thời gian chuyến đi</string>
-	<string name="whatsnew_paid_routes_title">Thêm nhiều trải nghiệm mới!</string>
-	<string name="whatsnew_paid_routes_message">Ngoài các tuyến đường miễn phí, chúng tôi đã thêm 3 danh mục tuyến đường có trả tiền vào danh mục của mình. Hơn 700 tuyến đường mới!</string>
-	<string name="whats_new_ugc_routes_title_android_only">Rất dễ để chia sẻ những sự ấn tượng của bạn</string>
 	<string name="ugc_thanks_message_auth">Ý kiến của bạn đã được bảo lưu</string>
 	<string name="ugc_thanks_message_not_auth">Hãy đăng ký để có thể để lại ý kiến nhận xét</string>
 	<string name="notification_leave_review_v2_title">Hãy để lại ý kiến nhận xét và giúp đỡ du khách!</string>
@@ -1480,10 +1368,6 @@
 	<string name="whats_new_auto_update_bydeeplink_title">Trước khi chuyển sang hướng dẫn…</string>
 	<string name="whats_new_auto_update_bydeeplink_message">Hãy cập nhật bản đồ để nhận được những thông tin mới nhất về các đối tượng, chủ thể!</string>
 	<string name="whats_new_auto_update_and_proceed_button_size">Cập nhận được (%s) và tiếp tục</string>
-	<string name="whatsnew_toll_unpaved_title">Hãy xây dựng tuyến đường có tính đến tất cả các loại đường</string>
-	<string name="whatsnew_toll_unpaved_message">Hãy lựa chọn những đường vòng qua đường thu phí, đường đất và các bến phà</string>
-	<string name="whatsnew_new_catalogue_title">Những trang đã được cập nhật của danh sách</string>
-	<string name="whatsnew_new_catalogue_message">Chúng tôi đã bổ sung thông tin cụ thể về các sách hướng dẫn đồng hành để việc lựa chọn tuyến đường trở nên đơn giản và thuận tiên</string>
 	<string name="purchase_please_wait_toast">Vui lòng đừng rời bỏ màn hình đến khi hoàn tất việc mua</string>
 	<string name="trip_start">Đi nào</string>
 	<string name="pick_destination">Mục đích</string>
@@ -1539,12 +1423,6 @@
 	<string name="buy_btn_for_subscription_ios_only_year">Truy cập toàn với %s/năm</string>
 	<string name="subscription_terms_guides">Thanh toán sẽ được thực hiện từ tài khoản iTunes khi xác nhận mua. Việc đăng ký sẽ tự động gia hạn nếu như tự động gia hạn không bị tắt ít nhất 24h trước khi kết thúc kỳ đăng ký hiện tại. Tiền sẽ được trừ từ tài khoản của bạn tương ứng với gói dịch vụ bạn chọn và kéo dài trong 24h đồng hồ đến khi kết thúc kỳ đăng ký hiện tại. Bạn cũng có thể điều chỉnh việc tự động gia hạn hoặc tắt nó đi trong phần cài đặt tài khoản Apple ID vào bất cứ thời gian nào sau khi mua. Bạn chỉ có thể sử dụng các sách hướng dẫn đã tải khi đăng ký trong thời gian chúng có hiệu lực. Sau thời hạn 30 ngày kể từ khi kết thúc việc đăng ký, các sách hướng dẫn cùng với phần đánh dấu trang sẽ được xóa một cách tự động.</string>
 	<string name="subscription_terms">Thanh toán sẽ được tính vào tài khoản iTunes của bạn khi xác nhận mua. Đăng ký sẽ tự động gia hạn trừ khi tính năng tự động gia hạn được tắt ít nhất 24 giờ trước khi kết thúc kỳ đăng ký hiện tại. Tài khoản của bạn sẽ được tính phí theo gói gia hạn trong vòng 24 giờ trước khi kết thúc kỳ đăng ký hiện tại. Bạn có thể quản lý hoặc tắt tính năng tự động gia hạn trong cài đặt tài khoản Apple ID của mình bất kỳ lúc nào sau khi mua.</string>
-	<string name="whatsnew_carplay_title">Điều hướng tự động OMaps trong CarPlay!</string>
-	<string name="whatsnew_carplay_message">Đánh dấu, tìm kiếm, camera tốc độ và thiết lập đi vòng, đường tránh – tất cả đều hoạt động mà không cần Internet</string>
-	<string name="whatsnew_subscription_title">Hãy mở cánh cửa thế giới bằng cách đăng ký!</string>
-	<string name="whatsnew_subscription_message">Truy cập không giới hạn tới cả danh mục các tuyến đường có lợi hơn là mua từng tuyến một</string>
-	<string name="whatsnew_carnavi_fixes_for_android_title">Cập nhận định hướng</string>
-	<string name="whatsnew_carnavi_fixes_for_android_message">Chúng tôi đã cải thiện việc xây dựng các tuyến đường tới cả những điểm ở xa các thành phố</string>
 	<string name="avoid_unpaved_carplay_1">Trừ đườg đất</string>
 	<string name="avoid_unpaved_carplay_2">Trừ khôg trnhựa</string>
 	<string name="avoid_ferry_carplay_1">Không có phà</string>
@@ -1601,8 +1479,6 @@
 	<string name="bookmarks_edit_list">Chỉnh sửa</string>
 	<!-- Android, max 18 symbols -->
 	<string name="bookmarks_delete_list">Xóa dánh sách</string>
-	<string name="whatsnew_bookmarks_search_sort_title">Trật tự trong các dấu trang – đó là sự tiện nghi, thoải mái cho chuyến du lịch</string>
-	<string name="whatsnew_bookmarks_search_sort_message">Hãy sắp xếp các địa điểm yêu thích theo thể loại, thời gian thêm vào và vị trí địa lý, đồng thời bạn cũng sẽ nhanh chóng tìm thấy các dấu trang cụ thể theo tên gọi</string>
 	<string name="popup_subscription_success_map_title">Ura! Bạn đã đăng ký mua!</string>
 	<string name="popup_subscription_success_map_message">Bây giờ hãy khám phá những điểm du lịch tốt nhất trong danh mục của OMaps</string>
 	<string name="popup_subscription_success_map_start_button">Xem xét</string>
@@ -1623,8 +1499,6 @@
 	<string name="subscription_screen_native_message_version_2">Hãy sẵn sàng cho mọi chuyến đi tới hơn 600 thành phố và hơn 100 quốc gia</string>
 	<string name="catalog_no_internet_title">Không có kết nối internet</string>
 	<string name="catalog_no_internet_button">Thử lại</string>
-	<string name="whatsnew_map_updates_title">Cập nhật bản đồ siêu nhanh</string>
-	<string name="whatsnew_map_updates_message">Giờ thì dữ liệu sẽ được cập nhật nhanh hơn gấp 2 lần</string>
 	<string name="new_onboarding_button">Tiếp theo</string>
 	<string name="new_onboarding_button_2">Bắt đầu</string>
 	<string name="new_onboarding_step1_header_2">Người trợ lý độc đáo cho các chuyến du lịch</string>
@@ -1669,10 +1543,6 @@
 	<string name="downloader_country_no_guides_gallery_header">Tạm thời không có hướng dẫn tại quốc gia này</string>
 	<string name="downloader_country_no_guides_gallery_message">Hãy tìm hiểu các tuyến đường khác ở hơn 100 quốc gia dùng cho khu vực đường phố hay hoạt động ngoài trời</string>
 	<string name="dialog_pedestrian_route_is_long">ĐI bộ đến phương tiện quá lâu</string>
-	<string name="whatsnew_outdoor_guides_title">Chúng tôi đã bổ sung hơn 15000 đường mòn cho các hoạt động ngoài trời!</string>
-	<string name="whatsnew_outdoor_guides_message">Các tuyến đường từ Outdooractive cho kỳ nghỉ mùa đông, mùa hè đang chờ đón bạn trong danh sách!</string>
-	<string name="whatsnew_guides_galleries_title">Hãy lên kế hoạch cho chuyến đi sắp tới cùng với OMaps</string>
-	<string name="whatsnew_guides_galleries_message">Bây giờ bạn có thể tìm thấy hướng dẫn được đề xuất trong các thẻ của các thành phố và điểm tham quan nổi tiếng</string>
 	<string name="new_onboarding_step3_header">Đi du lịch nào</string>
 	<string name="all_pass_screen_best_value">Giá tốt</string>
 	<string name="buy_btn_for_subscription_3">Cả danh mục chỉ với %s/năm</string>
@@ -1681,9 +1551,6 @@
 	<string name="dialog_pedestrian_route_is_long_message">Hãy chọn điểm đầu hoặc điểm cuối của tuyến gần với bến Metro</string>
 	<!-- Failed planning SUBWAY route message in navigation view -->
 	<string name="routing_planning_error_subway_special">Lỗi xây dựng tuyến Metro</string>
-	<string name="whatsnew_isolines_title">Tính năng mới cho kỳ nghỉ năng động – đường chỉ độ cao ngoại tuyến!</string>
-	<!-- as less symbols as possible -->
-	<string name="whatsnew_isolines_message">Xác định phương hướng ở vùng đồi núi – hãy bật nút chỉ lớp ở góc trái trên màn hình</string>
 	<string name="button_layer_isolines">Độ cao</string>
 	<string name="tips_map_layers_title_countour">Đường độ cao ngoại tuyến trong OMaps!</string>
 	<string name="tips_map_layers_message_countour">Đường độ cao giúp lên kế hoạch du lịch hòa mình với thiên nhiên và không bị lạc khi di chuyển</string>
@@ -1720,12 +1587,6 @@
 	<string name="routes_card_show">Chỉ trên bản đồ</string>
 	<!-- as few symbols as possible -->
 	<string name="routes_card_hide">Ẩn khỏi bản đồ</string>
-	<string name="whatsnew_catalog_new_title">Danh mục hướng dẫn mới và hàng ngàn ý tưởng cho kỳ nghỉ</string>
-	<string name="whatsnew_catalog_new_message">Chúng tôi đã cập nhận danh mục hướng dẫn và bổ sung các phần dịch với những thứ tiếng phổ biến. Hãy sớm lên kế hoạch đi thôi!</string>
-	<string name="whatsnew_elevation_profile_title">Hồ sơ độ cao trong các hướng dẫn</string>
-	<string name="whatsnew_elevation_profile_message">Hãy đánh giá độ khó khi sắp tới điểm đi lên và đi xuống ngoại tuyến bằng cách sử dụng con trỏ trong hồ sơ của tuyến đường đã mua.</string>
-	<string name="whatsnew_guides_on_map_title">Lớp bản đồ mới giúp tìm hướng dẫn dễ dàng!</string>
-	<string name="whatsnew_guides_on_map_message">Kích hoạt lớp bản đồ trong menu cài đặt ứng dụng để nhanh chóng tìm thấy các tuyến đường thành phố thú vị và hướng dẫn du lịch cho các hoạt động ngoài trời.</string>
 	<string name="downloader_updating_ios">Cập nhật</string>
 	<string name="downloader_loading_ios">Tải xuống</string>
 	<string name="routes_card_plus_track">+ tuyến đường</string>
@@ -1761,8 +1622,6 @@
 	<string name="choose_dates_online_only_dialog_message">Chọn ngày và số lượng khách chỉ có ở chế độ trực tuyến. Hãy kiểm tra cài đặt để có kết nối internet.</string>
 	<string name="choose_dates_online_only_dialog_cta">Cài đặt</string>
 	<string name="thirty_days_limit_dialog">Đặt phòng tối đa cho 30 đêm</string>
-	<string name="whatsnew_trial_title">Truy cập miễn phí vào các hướng dẫn</string>
-	<string name="whatsnew_trial_message">Chúng tôi đã đưa ra giai đoạn đăng ký dùng thử 7 ngày. Hàng ngàn tuyến di chuyển trên khắp thế giới cũng như hồ sơ độ cao cho các hướng dẫn du lịch ngoài trời.</string>
 	<string name="whatsnew_trial_cta">Dùng thử</string>
 	<string name="subscription_terms_guides_outdoor">Việc thanh toán sẽ được thực hiện từ tài khoản iTunes khi xác nhận mua. Việc đăng ký sẽ được tự động gia hạn nếu tự động gia hạn không được tắt ít nhất 24h đồng hồ trước thời điểm kết thúc giai đoạn hiện tại. Tài khoản của bạn sẽ được tính phí dựa trên gói gia hạn của bạn trong vòng 24 giờ trước khi kết thúc giai đoạn hiện tại. Bạn có thể quản lý để tự động gia hạn hoặc tắt nó đi ở phần cài đặt tài khoản Apple ID vào bất cứ lúc nào sau khi mua. Bạn chỉ có thể sử dụng các hướng dẫn đã tải theo gói đăng ký trong thời gian gói đăng ký còn hiệu lực. 7 ngày sau khi kết thúc đăng ký, các hướng dẫn bao gồm tất cả dấu trang sẽ tự động bị xóa.\n* Đăng ký với giai đoạn dùng thử miễn phí sẽ được tự động chuyển sang đăng ký trả phí. Bạn có thể hủy hoặc quản lý việc tự động gia hạn phiên bản dùng thử miễn phí trong cài đặt tài khoản của mình sau khi mua. Việc hủy sẽ có hiệu lực sau 24h sau ngày cuối cùng của giai đoạn đã đăng ký hiện tại, và bạn sẽ được chuyển sang đăng ký miễn phí. Chú ý: bất kỳ phần chưa sử dụng nào trong thời gian dùng thử miễn phí đều sẽ bị mất đi khi bạn mua đăng ký trả phí trong khoảng thời gian đó.</string>
 	<string name="subscription_terms_android_outdoor">Việc thanh toán sẽ được thực hiện từ tài khoản Google Play của bạn khi xác nhận mua. Việc đăng ký sẽ được tự động gia hạn nếu tự động gia hạn không được tắt ít nhất 24h đồng hồ trước thời điểm kết thúc giai đoạn hiện tại. Tài khoản của bạn sẽ được tính phí dựa trên gói gia hạn của bạn trong vòng 24 giờ trước khi kết thúc giai đoạn hiện tại. Bạn có thể quản lý để tự động gia hạn hoặc tắt nó ở phần cài đặt tài khoản sau khi mua. Bạn chỉ có thể sử dụng các hướng dẫn đã tải theo gói đăng ký trong thời gian gói đăng ký còn hiệu lực. 7 ngày sau khi kết thúc đăng ký, các hướng dẫn sẽ tự động bị xóa đi.\n* Đăng ký với giai đoạn dùng thử miễn phí sẽ được tự động chuyển sang đăng ký trả phí. Bạn có thể hủy hoặc quản lý việc tự động gia hạn phiên bản dùng thử miễn phí trong cài đặt tài khoản của mình sau khi mua. Việc hủy sẽ có hiệu lực sau 24h sau ngày cuối cùng của giai đoạn đã đăng ký hiện tại, và bạn sẽ được chuyển sang đăng ký miễn phí. Chú ý: bất kỳ phần chưa sử dụng nào trong thời gian dùng thử miễn phí đều sẽ bị mất đi khi bạn mua đăng ký trả phí trong khoảng thời gian đó.</string>

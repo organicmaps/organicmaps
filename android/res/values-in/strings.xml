@@ -12,24 +12,13 @@
 	<string name="cancel_download">Batalkan Pengunduhan</string>
 	<!-- Button which deletes downloaded country -->
 	<string name="delete">Hapus</string>
-	<!-- Button to dismiss dialog forever -->
-	<string name="do_not_ask_me_again">Jangan tanyai saya lagi</string>
 	<!-- Button "do not interrupt download" if user touched actively downloading country -->
 	<string name="do_nothing">Lanjutkan</string>
 	<string name="download_maps">Unduh Peta</string>
-	<!-- Settings/Downloader - Download confirmation button -->
-	<string name="download_x_kb">Unduh %qu kB</string>
-	<!-- Settings/Downloader - Download confirmation button -->
-	<string name="download_x_mb">Unduh %qu MB</string>
 	<!-- Settings/Downloader - info for country when download fails -->
 	<string name="download_has_failed">Pengunduhan gagal, sentuh untuk mencoba sekali lagi</string>
-	<!-- Settings/Downloader - info for downloaded country -->
-	<string name="downloaded_x_y_touch_to_delete">Telah mengunduh (%1$qu %2$s), sentuh untuk menghapus</string>
-	<!-- Settings/Downloader - country info current download progress -->
-	<string name="downloading_x_touch_to_cancel">Sedang mengunduh %qu%%, sentuh untuk membatalkan</string>
 	<!-- Settings/Downloader - info for country which started downloading -->
 	<string name="downloading">Sedang mengunduh…</string>
-	<string name="get_it_now">Dapatkan sekarang</string>
 	<!-- Settings/Downloader - size string, only strings different from English should be translated -->
 	<string name="kb">kB</string>
 	<!-- Choose measurement on first launch alert - choose metric system button -->
@@ -38,26 +27,16 @@
 	<string name="leave_a_review">Tulis Ulasan</string>
 	<!-- View and button titles for accessibility -->
 	<string name="maps">Peta</string>
-	<!-- View and button titles for accessibility -->
-	<string name="downloader_maps">Peta:</string>
-	<!-- Settings/Downloader - info for country in the download queue -->
-	<string name="marked_for_downloading">Ditandai untuk pengunduhan, sentuh untuk membatalkan</string>
 	<!-- Settings/Downloader - size string, only strings different from English should be translated -->
 	<string name="mb">MB</string>
 	<!-- Choose measurement on first launch alert - choose imperial system button -->
 	<string name="miles">Mil</string>
 	<!-- View and button titles for accessibility -->
 	<string name="core_my_position">Posisi Saya</string>
-	<!-- Settings/Downloader - No free space dialog message -->
-	<string name="free_disk_space_for_country_x">Mohon bebaskan ruang pada perangkat Anda terlebih dahulu untuk mengunduh %s</string>
-	<!-- Leave Review dialog - Not now button (remind me later) -->
-	<string name="remind_me_later">Ingatkan saya lagi nanti</string>
 	<!-- Update maps later/Buy pro version later button text -->
 	<string name="later">Nanti</string>
 	<!-- Don't show some dialog any more -->
 	<string name="never">Tidak akan pernah</string>
-	<!-- Leave Review dialog - Complain button (goes to support site) -->
-	<string name="report_an_issue">Laporkan sebuah masalah</string>
 	<!-- View and button titles for accessibility -->
 	<string name="search">Cari</string>
 	<!-- Search box placeholder text -->
@@ -66,18 +45,12 @@
 	<string name="touch_to_download">Sentuh untuk mengunduh</string>
 	<!-- Settings/Downloader - 3G download warning dialog confirm button -->
 	<string name="use_cellular_data">Ya</string>
-	<!-- Choose measurement on first launch alert - title -->
-	<string name="which_measurement_system">Sistem pengukuran manakah yang lebih Anda sukai?</string>
 	<!-- Location services are disabled by user alert - message -->
 	<string name="location_is_disabled_long_text">Saat ini semua Layanan Lokasi untuk perangkat atau aplikasi ini non-aktif. Mohon aktifkan lewat Setelan.</string>
 	<!-- Location Services are not available on the device alert - message -->
 	<string name="device_doesnot_support_location_services">Perangkat Anda tidak mendukung Layanan Lokasi</string>
 	<!-- View and button titles for accessibility -->
 	<string name="zoom_to_country">Tampilkan di peta</string>
-	<!-- Message to display at the center of the screen when the country is added to the downloading queue -->
-	<string name="country_status_added_to_queue">^\ntelah ditambahkan ke antrean pengunduhan.</string>
-	<!-- Message to display at the center of the screen when the country is downloading -->
-	<string name="country_status_downloading">Sedang mengunduh\n^\n^</string>
 	<!-- Button text for the button at the center of the screen when the country is not downloaded -->
 	<string name="country_status_download">Unduh Peta\n(^ ^)</string>
 	<!-- Button text for the button at the center of the screen when the country is not downloaded and the size should not be shown -->
@@ -89,7 +62,6 @@
 	<!-- Button text for the button under the country_status_download_failed message -->
 	<string name="try_again">Coba Lagi</string>
 	<string name="about_menu_title">Tentang OMaps</string>
-	<string name="downloading_touch_to_cancel">Sedang mengunduh %d%%, sentuh untuk membatalkan</string>
 	<string name="downloaded_touch_to_delete">(%s) telah diunduh, sentuh untuk menghapus</string>
 	<string name="connection_settings">Pengaturan Koneksi</string>
 	<string name="download_mb_or_kb">Unduh %s</string>
@@ -100,7 +72,6 @@
 	<string name="disconnect_usb_cable">Mohon lepas kabel USB atau masukkan kartu memori untuk menggunakan OMaps</string>
 	<string name="not_enough_free_space_on_sdcard">Mohon bebaskan sejumlah ruang pada kartu SD/penyimpanan USB terlebih dahulu untuk menggunakan aplikasi</string>
 	<string name="not_enough_memory">Memori tidak cukup untuk meluncurkan aplikasi</string>
-	<string name="free_space_for_country">Mohon bebaskan %1$s pada perangkat Anda terlebih dahulu untuk mengunduh %2$s</string>
 	<string name="download_resources">Sebelum Anda mulai izinkan kami mengunduh peta dunia secara umum ke perangkat Anda.\nHal ini memerlukan data %s.</string>
 	<string name="getting_position">Sedang mencari lokasi saat ini</string>
 	<string name="download_resources_continue">Pergi ke Peta</string>
@@ -108,25 +79,9 @@
 	<string name="download_country_ask">Unduh %s?</string>
 	<string name="update_country_ask">Perbarui %s?</string>
 	<!-- REMOVE THIS STRING AFTER REFACTORING -->
-	<string name="download_location_map_proposal">Anda dapat mengunduh peta lokasi Anda saat ini.</string>
-	<!-- REMOVE THIS_STRING AFTER REFACTORING -->
-	<string name="download_location_update_map_proposal">Anda dapat memperbarui peta lokasi Anda saat ini.</string>
-	<!-- REMOVE THIS STRING AFTER REFACTORING -->
-	<string name="download_location_map_up_to_date">Peta lokasi Anda saat ini (%s) sudah yang terkini</string>
-	<!-- REMOVE THIS STRING AFTER REFACTORING -->
 	<string name="pause">Jeda</string>
 	<!-- REMOVE THIS STRING AFTER REFACTORING -->
 	<string name="continue_download">Lanjutkan</string>
-	<string name="downloaded_touch_to_update">(%s) telah diunduh, sentuh untuk memperbarui atau menghapus</string>
-	<string name="update_mb_or_kb">Perbarui %s</string>
-	<!-- Show popup notification when we have downloaded countries without search (from Lite version) -->
-	<string name="search_update_maps">Anda memerlukan peta terbaru untuk fungsi pencarian:</string>
-	<!-- Show popup notification on app start when we have out-of-date maps -->
-	<string name="advise_update_maps">Tersedia pembaruan untuk peta ini:</string>
-	<!-- Show popup notification in Pro version that Lite can be deleted -->
-	<string name="suggest_uninstall_lite">Anda tidak lagi memerlukan OMaps Lite, sehingga Anda dapat menghapusnya.</string>
-	<!-- Show popup notification on top of the map when country was downloaded. -->
-	<string name="download_country_success">%s berhasil diunduh</string>
 	<!-- Show popup notification on top of the map when country download has failed. -->
 	<string name="download_country_failed">%s gagal diunduh</string>
 	<!-- Add New Bookmark Set dialog title -->
@@ -155,8 +110,6 @@
 	<string name="set">Set</string>
 	<!-- Text hint in Bookmarks dialog when no any bookmarks are added -->
 	<string name="bookmarks_usage_hint">Belum ada yang ditandai.\nSentuh lokasi apa pun pada peta untuk menandai.\nPenanda dari sumber lainnya juga dapat di impor dan ditampilkan pada OMaps. Buka berkas KML/KMZ tersebut dengan penanda yang disimpan dari surel, Dropbox atau tautan jaringan.</string>
-	<!-- Text hint in Bookmarks dialog when at least one bookmark is added -->
-	<string name="bookmarks_usage_hint_import_only">Penanda dari sumber lainnya dapat diimpor dan ditampilkan pada OMaps. Buka berkas KML/KMZ tersebut dengan penanda yang disimpan dari surel, Dropbox atau tautan jaringan.</string>
 	<!-- Settings button in system menu -->
 	<string name="settings">Pengaturan</string>
 	<!-- Header of settings activity where user defines storage path -->
@@ -763,11 +716,6 @@
 	<string name="editor_report_problem_other_title">Masalah yang berbeda</string>
 	<string name="placepage_report_problem_button">Laporkan masalah</string>
 	<string name="placepage_add_business_button">Tambahkan organisasi</string>
-	<string name="whatsnew_smallmwm_header">Anda memintanya dan kami telah malakukannya</string>
-	<string name="whatsnew_smallmwm_message">Kami telah membagi peta menjadi beberapa bagian. Sekarang Anda dapat mengunduh wilayah-wilayah yang terpisah, bukan seluruh negara.</string>
-	<string name="whatsnew_search_header">Penelusuran baru</string>
-	<string name="whatsnew_search_message">Kami secara signifikan telah meningkatkan pencarian menurut alamat. Lihat sendiri.</string>
-	<string name="whatsnew_editor_title">Edit peta*</string>
 	<string name="whatsnew_editor_message_1">Tambahkan tempat-tempat baru di peta, dan edit peta-peta yang ada langsung dari aplikasi.</string>
 	<string name="whatsnew_editor_message_2">* OMaps menggunakan data komunitas OpenStreetMap.</string>
 	<string name="dialog_incorrect_feature_position">Ubah lokasi</string>
@@ -813,10 +761,6 @@
 	<string name="current_location_unknown_stop_button">Berhenti</string>
 	<string name="current_location_unknown_error_title">Lokasi saat ini tidak diketahui.</string>
 	<string name="current_location_unknown_error_message">Terjadi kesalahan saat mencari lokasi Anda. Periksa apakah perangkat Anda bekerja dengan benar dan coba lagi nanti.</string>
-	<string name="whatsnew_update_editor_title">Kami telah memperbarui editor peta</string>
-	<string name="whatsnew_update_editor_message">Pengguna OMaps telah membuat 200 000 perubahan peta. Bersama-sama kami membuat peta paling detail di Dunia. Bergabunglah bersama kami!</string>
-	<!-- Additional text in whats new -->
-	<string name="whatsnew_update_editor_message_update">Untuk menggunakan editor peta, silakan perbarui semua peta.</string>
 	<string name="location_services_disabled_header">Identifikasi lokasi dinonaktifkan</string>
 	<string name="location_services_disabled_message">Izinkan akses ke geolokasi pada pengaturan perangkat</string>
 	<string name="location_services_disabled_1">1. Buka Pengaturan</string>
@@ -904,14 +848,6 @@
 	<string name="sharing_call_action_look">Lihat</string>
 	<string name="continue_recent_track_background_button">Teruskan</string>
 	<string name="recent_track_background_dialog_message">OMaps menggunakan geoposisi di latar belakang untuk merekam rute yang baru Anda lalui.</string>
-	<string name="whatsnew_car_navigation_header">Navigasi kendaraan yang mudah digunakan</string>
-	<string name="whatsnew_car_navigation_message">• Elemen-elemen navigasi membutuhkan ruang lebih sedikit\n• Kami menampilkan kecepatan dan telah menambahkan zoom otomatis</string>
-	<string name="whatsnew_cycle_navigation_2_header">Navigasi sepeda</string>
-	<string name="whatsnew_cycle_navigation_2_message">• Navigasi sepeda menghitung data medan\n• Kami membuat rute lebih mudah dengan menghitung kemiringan jalan</string>
-	<string name="whatsnew_booking_2_header">Pencarian hotel mudah</string>
-	<string name="whatsnew_booking_2_message">Hasil pencarian menampilkan kategori peringkat dan harga hotel</string>
-	<string name="whatsnew_cycle_navigation_header">Navigasi bersepeda (versi beta)</string>
-	<string name="whatsnew_cycle_navigation_message">Kami sedang menguji navigasi bersepeda untuk musim baru. Coba rute bersepeda favorit Anda dengan OMaps dan sampaikan pendapat Anda.</string>
 	<!-- Rate on Google Play (Android only) -->
 	<string name="rate_gp">Beri nilai di Google Play</string>
 	<!-- Share with friends: menu item title -->
@@ -972,8 +908,6 @@
 	<string name="chat">Geochat</string>
 	<!-- Verb. Text on a button that opens the chat. -->
 	<string name="chat_open">Buka</string>
-	<string name="whatsnew_uber_header">OMaps &amp; Uber</string>
-	<string name="whatsnew_uber_message">Pesan taksi Uber langsung dari aplikasi!</string>
 	<string name="dialog_taxi_offline">Memesan taksi tidak tersedia dalam modus offline.</string>
 	<string name="dialog_taxi_error">Memesan taksi untuk sementara tidak tersedia.</string>
 	<string name="mobile_data_dialog">Gunakan internet seluler untuk memperlihatkan informasi terperinci?</string>
@@ -992,30 +926,6 @@
 	<string name="traffic_update_app_message">Untuk menampilkan data lalu lintas, aplikasi ini harus diperbarui.</string>
 	<!-- "traffic" as in "road congestion" -->
 	<string name="traffic_data_unavailable">Data lalu lintas tidak tersedia</string>
-	<!-- december -->
-	<string name="whatsnew_traffic">Data Lalu Lintas di 36 Negara</string>
-	<!-- december -->
-	<string name="whatsnew_traffic_text">Info lalu lintas terbaru dan rute berkendara tercepat berdasarkan ini!</string>
-	<!-- december -->
-	<string name="whatsnew_traffic_roaming">Info Lalu Lintas saat Roaming</string>
-	<!-- december -->
-	<string name="whatsnew_traffic_roaming_text">Memerlukan kurang dari 1 MB dari bandwidth seluler perjalanan.</string>
-	<!-- december -->
-	<string name="whatsnew_order_taxi">Pesan Taksi</string>
-	<!-- december -->
-	<string name="whatsnew_order_taxi_text">Sebagian besar halaman lokasi sekarang mempunyai tombol untuk memesan taksi.</string>
-	<!-- january -->
-	<string name="whatsnew_improved_search">Pencarian yang Diperbagus</string>
-	<!-- january -->
-	<string name="whatsnew_improved_search_text">Bahkan pertanyaan dengan kesalahan eja akan memberikan hasil pencarian yang akurat.</string>
-	<!-- january -->
-	<string name="whatsnew_filters_in_search">Filter Pencarian</string>
-	<!-- january -->
-	<string name="whatsnew_filters_in_search_text">Cari hotel berdasarkan harga dan peringkat.</string>
-	<!-- january -->
-	<string name="whatsnew_font_size">Ukuran Huruf</string>
-	<!-- january -->
-	<string name="whatsnew_font_size_text">Label pada peta bisa dijadikan lebih besar.</string>
 	<!-- Seven points and higher -->
 	<string name="booking_filter_rating_num_good">7,0+</string>
 	<!-- Eight points and higher -->
@@ -1025,16 +935,6 @@
 	<!-- Simplified colour scheme for traffic information, fewer colours are used to display traffic jams on the map. The string should be kept as short as possible -->
 	<string name="pref_traffic_simplified_colors_title">Warna lalu lintas sederhana</string>
 	<string name="enable_logging">Aktifkan pencatatan</string>
-	<string name="whatsnew_more_info_on_hotels_title">Informasi Selengkapnya tentang Hotel</string>
-	<string name="whatsnew_more_info_on_hotels_message">Penampilan baru halaman hotel: lihat foto, ulasan pengguna, dan informasi lain secara online.</string>
-	<string name="whatsnew_better_routing_title">Perencanaan Rute yang Lebih Baik</string>
-	<string name="whatsnew_better_routing_message">• Perkiraan waktu tiba yang lebih akurat.\n• Aplikasi ini mempertimbangkan area terbatas dan markah jalan.</string>
-	<string name="whatsnew_smaller_mwm_title">Peta Semakin Kecil</string>
-	<string name="whatsnew_smaller_mwm_message">Peta memerlukan pengurangan penyimpanan hingga 20%.</string>
-	<string name="whatsnew_waypoints_title">Titik Koordinat dalam Pembuatan Rute</string>
-	<string name="whatsnew_waypoints_message">Ketuk tempat untuk menambahkan titik acuan koordinat ke rute Anda.</string>
-	<string name="whatsnew_driving_style_title">Model Peta Baru untuk Berkendara</string>
-	<string name="whatsnew_driving_style_message">Mode navigasi mobil menjadi semakin mudah digunakan.</string>
 	<string name="more_on_bookingcom">Selengkapnya di Booking.com</string>
 	<string name="details_on_bookingcom">Perincian di Booking.com</string>
 	<string name="reviews_on_bookingcom">Ulasan lain di Booking.com</string>
@@ -1064,7 +964,6 @@
 	<string name="prefs_languages_information_off">Untuk beberapa bahasa, Anda perlu menginstal synthesizer suara atau paket bahasa tambahan dari toko aplikasi (Google Play Market, Samsung Apps).\nBuka pengaturan perangkat Anda → Language and input (Bahasa dan input) → Speech (Suara) → Text to speech (Teks ke suara).\nDi sini, Anda dapat mengelola pengaturan untuk sintesis suara (contohnya, mengunduh paket bahasa untuk penggunaan tanpa internet) dan memilih mesin tekske suara lain.</string>
 	<string name="prefs_languages_information_off_link">Untuk informasi selengkapnya, bacalah panduan ini.</string>
 	<string name="whatsnew_transliteration_title">Transliterasi ke dalam bahasa Latin</string>
-	<string name="whatsnew_transliteration_message">Jika jalan atau objek tidak memiliki nama dalam bahasa Anda, namanya akan dieja menggunakan alfabet Latin.</string>
 	<string name="learn_more">Pelajari selengkapnya</string>
 	<string name="core_exit">Keluar</string>
 	<string name="routing_add_start_point">Tambahkan titik awal untuk merencanakan rute</string>
@@ -1083,8 +982,6 @@
 	<string name="dialog_change_start_point_message">Ganti titik awal ke lokasi saat ini?</string>
 	<string name="button_replace">Ganti</string>
 	<string name="placepage_add_stop">Tambah perhentian</string>
-	<string name="whatsnew_intermediate_point_title">Perhentian tambahan</string>
-	<string name="whatsnew_intermediate_point_message">Rencanakan rute dengan titik antara.</string>
 	<string name="add_my_position">Tambahkan posisi saya</string>
 	<string name="choose_start_point">Pilih titik awal</string>
 	<string name="choose_destination">Pilih destinasi</string>
@@ -1391,15 +1288,6 @@
 	<string name="whats_new_ugc_routes_subtitle">Simpan tempat-tempat penuh kenangan, buat rute menggunakan markah dan bagikan kepada semua orang di katalog OMaps.</string>
 	<string name="whats_new_webeditor_title">Ubah rute Anda menjadi cerita</string>
 	<string name="whats_new_ugc_routes_message2">Tambahkan foto dan kisah detail di editor web.</string>
-	<string name="whatsnew_standard_routes_title">Rute Standar</string>
-	<string name="whatsnew_standard_routes_message">Kumpulan dasar berisi lokasi-lokasi menarik berikut deskripsi singkat namun penuh dengan pengalaman!</string>
-	<string name="whatsnew_city_overview_title">Ringkasan Kota</string>
-	<string name="whatsnew_city_overview_message">Hingga 200 lokasi menarik dalam peta kota: semua yang diperlukan dan berguna bagi para wisatawan!</string>
-	<string name="whatsnew_pro_guides_title">Rute Profesional</string>
-	<string name="whatsnew_pro_guides_message">Sangat mendalam, disertai dengan deskripsi terperinci mengenai tempat dan memiliki kemampuan untuk menghitung jarak serta waktu perjalanan</string>
-	<string name="whatsnew_paid_routes_title">Lebih banyak pengalaman baru!</string>
-	<string name="whatsnew_paid_routes_message">Sebagai tambahan untuk rute-rute gratis, kami juga telah menambahkan 3 kategori rute berbayar ke dalam katalog kami. Lebih dari 700 rute baru!</string>
-	<string name="whats_new_ugc_routes_title_android_only">Mudah untuk membagikan kesan Anda</string>
 	<string name="ugc_thanks_message_auth">Ulasan Anda telah disimpan</string>
 	<string name="ugc_thanks_message_not_auth">Harap masuk untuk memberikan ulasan</string>
 	<string name="notification_leave_review_v2_title">Beri nilai tempat yang sudah dikunjungi dan bantu para traveler!</string>
@@ -1483,10 +1371,6 @@
 	<string name="whats_new_auto_update_bydeeplink_title">Sebelum Anda lanjut ke panduan…</string>
 	<string name="whats_new_auto_update_bydeeplink_message">Perbarui peta agar informasi tentang obyek tetap terbaru!</string>
 	<string name="whats_new_auto_update_and_proceed_button_size">Perbarui (%s) dan lanjutkan</string>
-	<string name="whatsnew_toll_unpaved_title">Susun rute mobil dengan mempertimbangkan semua jenis jalan</string>
-	<string name="whatsnew_toll_unpaved_message">Pilih jalan memutar untuk hindari jalan tol, jalan tanah, dan penyeberangan kapal feri</string>
-	<string name="whatsnew_new_catalogue_title">Halaman katalog diperbarui</string>
-	<string name="whatsnew_new_catalogue_message">Kami menambahkan detail informasi tentang panduan mitra agar pemilihan rute menjadi mudah dan nyaman</string>
 	<string name="purchase_please_wait_toast">Jangan keluar dari layar ini sebelum pembelian selesai</string>
 	<string name="trip_start">Ayo</string>
 	<string name="pick_destination">Tujuan</string>
@@ -1542,12 +1426,6 @@
 	<string name="buy_btn_for_subscription_ios_only_year">Akses tanpa batas seharga %s/tahun</string>
 	<string name="subscription_terms_guides">Pembayaran akan dibebankan pada akun iTunes anda setelah dilakukan pembelian. Program berlangganan akan diperbarui secara otomatis selama fitur pembaruan otomatis tetap menyala dalam waktu 24 jam sebelum waktu berlangganan berakhir. Anda akan dikenai biaya sesuai dengan program berlangganan anda yang baru dalam waktu 24 jam sebelum masa berlangganan yang lama berakhir. Anda setiap waktu bisa mengatur atau mematikan fitur perbarui otomatis di pengaturan akun Apple ID anda. Anda hanya bisa menggunakan panduan yang telah diunduh lewat program berlangganan sampai masa berlangganan tersebut habis. Setelah 30 hari dari habisnya masa berlangganan, panduan dengan bookmark akan dihapus secara otomatis.</string>
 	<string name="subscription_terms">Pembayaran akan dibebankan ke akun iTunes Anda pada konfirmasi pembelian. Langganan akan diperbarui secara otomatis kecuali jika langganan otomatis dinonaktifkan setidaknya 24 jam sebelum akhir periode berjalan. Akun Anda akan dikenakan biaya sesuai dengan paket langganan Anda untuk perpanjangan dalam 24 jam sebelum akhir periode berjalan. Anda dapat mengelola atau menonaktifkan perpanjangan otomatis pada pengaturan akun ID Apple Anda kapan saja dari pembelian Anda.</string>
-	<string name="whatsnew_carplay_title">Navigasi OMaps ada di CarPlay!</string>
-	<string name="whatsnew_carplay_message">Kini fitur penanda, pencarian, kamera kecepatan dan pemilihan rute bisa dilakukan secara offline</string>
-	<string name="whatsnew_subscription_title">Dapatkan semua akses dengan berlangganan!</string>
-	<string name="whatsnew_subscription_message">Lebih hemat dengan akses tanpa batas ke katalog panduan tanpa harus membelinya</string>
-	<string name="whatsnew_carnavi_fixes_for_android_title">Pembaruan navigasi</string>
-	<string name="whatsnew_carnavi_fixes_for_android_message">Kami meningkatkan perencanaan rute hingga ke titik titik yang jauh lokasinya dengan jalan</string>
 	<string name="avoid_unpaved_carplay_1">Jalan aspal</string>
 	<string name="avoid_unpaved_carplay_2">Hindari tanah</string>
 	<string name="avoid_ferry_carplay_1">Tanpa feri</string>
@@ -1604,8 +1482,6 @@
 	<string name="bookmarks_edit_list">Ubah daftar</string>
 	<!-- Android, max 18 symbols -->
 	<string name="bookmarks_delete_list">Hapus daftar</string>
-	<string name="whatsnew_bookmarks_search_sort_title">Bookmark yang rapi membuat perjalanan menjadi nyaman</string>
-	<string name="whatsnew_bookmarks_search_sort_message">Urutkan tempat favorit berdasarkan kategori, lokasi dan waktu kunjungan, serta temukan bookmark secara cepat hanya dengan menggunakan nama</string>
 	<string name="popup_subscription_success_map_title">Woohoo, anda telah berlangganan!</string>
 	<string name="popup_subscription_success_map_message">Kini saatnya menemukan tempat wisata terbaik di katalog OMaps</string>
 	<string name="popup_subscription_success_map_start_button">Mulai menjelajah</string>
@@ -1626,8 +1502,6 @@
 	<string name="subscription_screen_native_message_version_2">Bersiaplah untuk melakukan perjalanan di lebih dari 600 kota dan 100 negara</string>
 	<string name="catalog_no_internet_title">Tidak ada sambungan internet</string>
 	<string name="catalog_no_internet_button">Coba lagi</string>
-	<string name="whatsnew_map_updates_title">Pembaruan peta secara cepat</string>
-	<string name="whatsnew_map_updates_message">Mulai sekarang kami memperbarui data dua kali lebih cepat</string>
 	<string name="new_onboarding_button">Berikutnya</string>
 	<string name="new_onboarding_button_2">Memulai</string>
 	<string name="new_onboarding_step1_header_2">Teman perjalanan yang lengkap</string>
@@ -1672,10 +1546,6 @@
 	<string name="downloader_country_no_guides_gallery_header">Belum ada panduan di negara ini</string>
 	<string name="downloader_country_no_guides_gallery_message">Anda bisa melihat panduan offline lainnya di 100+ negara yang berisi kota dan berbagai panduan perjalanan</string>
 	<string name="dialog_pedestrian_route_is_long">Rute pejalan kaki ke halte atau stasiun terlalu jauh</string>
-	<string name="whatsnew_outdoor_guides_title">Kami telah menambahkan 15000+ jalur luar ruangan!</string>
-	<string name="whatsnew_outdoor_guides_message">Rute dari Outdooractive untuk perjalanan musim dingin dan panas tengah menunggu di katalog!</string>
-	<string name="whatsnew_guides_galleries_title">Rencanakan perjalanan Anda selanjutnya dengan OMaps</string>
-	<string name="whatsnew_guides_galleries_message">Kini Anda dapat menemukan panduan yang disarankan di halaman tempat wisata yang paling populer dikunjungi turis</string>
 	<string name="new_onboarding_step3_header">Pengalaman</string>
 	<string name="all_pass_screen_best_value">Harga terbaik</string>
 	<string name="buy_btn_for_subscription_3">Katalog lengkap hanya dengan %s/tahun</string>
@@ -1684,9 +1554,6 @@
 	<string name="dialog_pedestrian_route_is_long_message">Silakan pilih titik awal atau akhir yang lebih dekat ke stasiun kereta bawah tanah</string>
 	<!-- Failed planning SUBWAY route message in navigation view -->
 	<string name="routing_planning_error_subway_special">Perencanaan jalur kereta bawah tanah gagal</string>
-	<string name="whatsnew_isolines_title">Yang baru di outdoor: lapisan topografi offline!</string>
-	<!-- as less symbols as possible -->
-	<string name="whatsnew_isolines_message">Merasa percaya diri di daerah pegunungan. Cukup aktifkan layer di sudut kiri atas</string>
 	<string name="button_layer_isolines">Isometrik</string>
 	<string name="tips_map_layers_title_countour">Yang baru di OMaps: lapisan topografi offline!</string>
 	<string name="tips_map_layers_message_countour">Rencanakan dan nikmati perjalanan alam Anda dan pastikan Anda tahu segalanya tentang daerah tersebut</string>
@@ -1723,12 +1590,6 @@
 	<string name="routes_card_show">Tampilkan di peta</string>
 	<!-- as few symbols as possible -->
 	<string name="routes_card_hide">Sembunyikan dari peta</string>
-	<string name="whatsnew_catalog_new_title">Katalog panduan baru dan ribuan ide perjalanan</string>
-	<string name="whatsnew_catalog_new_message">Kami telah memperbarui katalog panduan dan menambahkan terjemahan dalam bahasa populer. Mulailah merencanakan perjalanan Anda di awal!</string>
-	<string name="whatsnew_elevation_profile_title">Profil elevasi dalam panduan perjalanan</string>
-	<string name="whatsnew_elevation_profile_message">Mengevaluasi kerumitan kenaikan dan penurunan offline yang akan datang dengan kursor di profil dari rute yang dibeli.</string>
-	<string name="whatsnew_guides_on_map_title">Lapisan baru untuk menemukan panduan dengan mudah</string>
-	<string name="whatsnew_guides_on_map_message">Aktifkan lapisan di menu pengaturan aplikasi untuk dengan cepat menemukan rute kota yang menarik dan panduan perjalanan untuk kegiatan di luar ruangan.</string>
 	<string name="downloader_updating_ios">Memperbarui</string>
 	<string name="downloader_loading_ios">Mengunduh</string>
 	<string name="routes_card_plus_track">+ lintasan</string>
@@ -1764,8 +1625,6 @@
 	<string name="choose_dates_online_only_dialog_message">Tanggal dan jumlah tamu hanya dapat dipilih saat online. Silakan periksa pengaturan Anda dan pastikan Anda terhubung ke internet.</string>
 	<string name="choose_dates_online_only_dialog_cta">Pengaturan</string>
 	<string name="thirty_days_limit_dialog">Anda dapat memesan untuk maksimum 30 malam</string>
-	<string name="whatsnew_trial_title">Akses gratis ke katalog panduan</string>
-	<string name="whatsnew_trial_message">Kami sekarang menawarkan uji coba 7 hari gratis. Akses ribuan panduan perjalanan di seluruh dunia dan profil ketinggian interaktif untuk panduan luar ruangan.</string>
 	<string name="whatsnew_trial_cta">Cobalah sekarang</string>
 	<string name="subscription_terms_guides_outdoor">Saat Anda mengkonfirmasi pembelian, pembayaran akan dibebankan ke akun iTunes Anda. Langganan akan diperpanjang secara otomatis kecuali fitur perpanjangan otomatis dinonaktifkan setidaknya 24 jam sebelum akhir periode berlangganan saat ini. Akun Anda akan dikenai biaya sesuai dengan rencana perpanjangan Anda dalam waktu 24 jam sebelum periode berlangganan saat ini berakhir. Anda dapat mengelola atau menonaktifkan perpanjangan otomatis di pengaturan akun ID Apple Anda kapan saja setelah pembelian. Anda hanya dapat menggunakan panduan yang diunduh selama berlangganan hingga berlangganan berakhir. Panduan dan semua bookmark akan dihapus secara otomatis 7 hari setelah berlangganan berakhir.\n* Langganan dengan masa uji coba gratis akan secara otomatis diperbarui ke langganan berbayar. Anda dapat membatalkan atau mengelola pembaruan otomatis percobaan gratis di pengaturan akun setelah pembelian. Pembatalan akan berlaku 24 jam setelah hari terakhir periode berlangganan saat ini. Setelah itu, Anda akan diturunkan ke layanan gratis. Harap diperhatikan: Setiap bagian dari uji coba gratis yang tidak digunakan akan hangus ketika Anda membeli langganan premium selama uji coba gratis.</string>
 	<string name="subscription_terms_android_outdoor">Saat Anda mengkonfirmasi pembelian, pembayaran akan dibebankan ke akun Google Play Anda. Langganan akan diperpanjang secara otomatis kecuali fitur perpanjangan otomatis dinonaktifkan setidaknya 24 jam sebelum akhir periode berlangganan saat ini. Akun Anda akan dikenai biaya sesuai dengan rencana perpanjangan Anda dalam waktu 24 jam sebelum periode berlangganan saat ini berakhir. Anda dapat mengelola atau menonaktifkan perpanjangan otomatis di pengaturan akun Anda kapan saja setelah pembelian. Anda hanya dapat menggunakan panduan yang diunduh selama berlangganan hingga berlangganan berakhir. Panduan akan dihapus secara otomatis 7 hari setelah berlangganan berakhir.\n* Langganan dengan masa uji coba gratis akan secara otomatis diperbarui ke langganan berbayar. Anda dapat membatalkan atau mengelola pembaruan otomatis percobaan gratis di pengaturan akun setelah pembelian. Pembatalan akan berlaku 24 jam setelah hari terakhir periode berlangganan saat ini. Setelah itu, Anda akan diturunkan ke layanan gratis. Harap diperhatikan: Setiap bagian dari uji coba gratis yang tidak digunakan akan hangus ketika Anda membeli langganan premium selama uji coba gratis.</string>

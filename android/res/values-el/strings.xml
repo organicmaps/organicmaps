@@ -23,8 +23,6 @@
 	<string name="leave_a_review">Αφήστε μια κριτική</string>
 	<!-- View and button titles for accessibility -->
 	<string name="maps">Χάρτες</string>
-	<!-- View and button titles for accessibility -->
-	<string name="downloader_maps">Χάρτες:</string>
 	<!-- Settings/Downloader - size string, only strings different from English should be translated -->
 	<string name="mb">MB</string>
 	<string name="gb">GB</string>
@@ -32,8 +30,6 @@
 	<string name="miles">Μίλια</string>
 	<!-- View and button titles for accessibility -->
 	<string name="core_my_position">Η θέση μου</string>
-	<!-- Leave Review dialog - Not now button (remind me later) -->
-	<string name="remind_me_later">Υπενθύμιση αργότερα</string>
 	<!-- Update maps later/Buy pro version later button text -->
 	<string name="later">Αργότερα</string>
 	<!-- View and button titles for accessibility -->
@@ -46,10 +42,6 @@
 	<string name="location_is_disabled_long_text">Οι υπηρεσίες εντοπισμού τοποθεσίας είναι προς το παρόν απενεργοποιημένες σε αυτή τη συσκευή ή για αυτή την εφαρμογή. Ενεργοποιήστε τις από τις Ρυθμίσεις.</string>
 	<!-- View and button titles for accessibility -->
 	<string name="zoom_to_country">Εμφάνιση στο χάρτη</string>
-	<!-- Message to display at the center of the screen when the country is added to the downloading queue -->
-	<string name="country_status_added_to_queue">^\nis προστέθηκε στην ουρά λήψης.</string>
-	<!-- Message to display at the center of the screen when the country is downloading -->
-	<string name="country_status_downloading">Λήψη\n^\n^</string>
 	<!-- Button text for the button at the center of the screen when the country is not downloaded -->
 	<string name="country_status_download">Λήψη Χάρτη\n(^ ^)</string>
 	<!-- Button text for the button at the center of the screen when the country is not downloaded and the size should not be shown -->
@@ -75,19 +67,9 @@
 	<string name="download_country_ask">Να γίνει λήψη %s;</string>
 	<string name="update_country_ask">Να γίνει ενημέρωση %s;</string>
 	<!-- REMOVE THIS STRING AFTER REFACTORING -->
-	<string name="download_location_map_proposal">Μπορείτε να κατεβάσετε το χάρτη\nτης τρέχουσας τοποθεσίας σας.</string>
-	<!-- REMOVE THIS_STRING AFTER REFACTORING -->
-	<string name="download_location_update_map_proposal">Μπορείτε να ενημερώσετε το χάρτη\nτης τρέχουσας τοποθεσίας σας.</string>
-	<!-- REMOVE THIS STRING AFTER REFACTORING -->
-	<string name="download_location_map_up_to_date">Ο χάρτης της τρέχουσας\nτοποθεσίας σας (%s) είναι ενημερωμένος.</string>
-	<!-- REMOVE THIS STRING AFTER REFACTORING -->
 	<string name="pause">Παύση</string>
 	<!-- REMOVE THIS STRING AFTER REFACTORING -->
 	<string name="continue_download">Συνέχεια</string>
-	<!-- Show popup notification on app start when we have out-of-date maps -->
-	<string name="advise_update_maps">Υπάρχει διαθέσιμη ενημέρωση για τους παρακάτω χάρτες:</string>
-	<!-- Show popup notification in Pro version that Lite can be deleted -->
-	<string name="suggest_uninstall_lite">Δε χρειάζεστε το OMaps Lite πλέον, μπορείτε να το απεγκαταστήσετε.</string>
 	<!-- Show popup notification on top of the map when country download has failed. -->
 	<string name="download_country_failed">η λήψη %s απέτυχε</string>
 	<!-- Add New Bookmark Set dialog title -->
@@ -110,8 +92,6 @@
 	<string name="set">Σύνολο</string>
 	<!-- Text hint in Bookmarks dialog when no any bookmarks are added -->
 	<string name="bookmarks_usage_hint">Δεν έχετε αγαπημένα ακόμα.\nΠατήστε σε οποιοδήποτε σημείο στο χάρτη για να προσθέσετε αγαπημένο.\nΜπορείτε επίσης να εισάγετε αγαπημένα από άλλες πηγές και να τα εμφανίσετε στο OMaps. Ανοίξτε το αρχείο KML/KMZ με τα αποθηκευμένα αγαπημένα από το email, το Dropbox ή τους υπερσυνδέσμους.</string>
-	<!-- Text hint in Bookmarks dialog when at least one bookmark is added -->
-	<string name="bookmarks_usage_hint_import_only">Μπορείτε επίσης να εισάγετε αγαπημένα από άλλες πηγές και να τα εμφανίσετε στο OMaps. Ανοίξτε το αρχείο KML/KMZ με τα αποθηκευμένα αγαπημένα από το email, το Dropbox ή τους υπερσυνδέσμους.</string>
 	<!-- Settings button in system menu -->
 	<string name="settings">Ρυθμίσεις</string>
 	<!-- Header of settings activity where user defines storage path -->
@@ -591,11 +571,6 @@
 	<string name="detailed_problem_description">Λεπτομερή περιγραφή του θέματος</string>
 	<string name="editor_report_problem_other_title">Διαφορετικό πρόβλημα</string>
 	<string name="placepage_add_business_button">Προσθήκη επιχείρησης</string>
-	<string name="whatsnew_smallmwm_header">Το έχετε ζητήσει εδώ και καιρό, το προσθέσαμε τελικά</string>
-	<string name="whatsnew_smallmwm_message">Χωρίσαμε μεγάλους χάρτες σε τμήματα. Μπορείτε πλέον να κατεβάσετε μόνο τις περιοχές που χρειάζεστε σε αντίθεση με τους χάρτες για ολόκληρες χώρες.</string>
-	<string name="whatsnew_search_header">Νέα αναζήτηση</string>
-	<string name="whatsnew_search_message">Έχουμε βελτιώσει σημαντικά την αναζήτηση μέσω διεύθυνσης. Δοκιμάστε το.</string>
-	<string name="whatsnew_editor_title">Επεξεργαστείτε το χάρτη*</string>
 	<string name="whatsnew_editor_message_1">Προσθέστε νέες τοποθεσίες στο χάρτη, και επεξεργαστείτε τις υπάρχουσες απευθείας από την εφαρμογή.</string>
 	<string name="whatsnew_editor_message_2">* Το OMaps χρησιμοποιεί δεδομένα της κοινότητας OpenStreetMap.</string>
 	<string name="dialog_incorrect_feature_position">Αλλαγή τοποθεσίας</string>
@@ -633,10 +608,6 @@
 	<string name="current_location_unknown_stop_button">Στοπ</string>
 	<string name="current_location_unknown_error_title">Η τρέχουσα τοποθεσία είναι άγνωστη.</string>
 	<string name="current_location_unknown_error_message">Παρουσιάστηκε σφάλμα κατά την αναζήτηση της τοποθεσίας σας. Ελέγξτε αν η συσκευή σας λειτουργεί κανονικά και δοκιμάστε ξανά αργότερα.</string>
-	<string name="whatsnew_update_editor_title">Έχουμε ενημερωθεί το πρόγραμμα επεξεργασίας του χάρτη</string>
-	<string name="whatsnew_update_editor_message">Οι χρήστες OMaps έχουν ήδη κάνει 200.000 αλλαγές χάρτη. Μαζί δημιουργούμε τους πιο λεπτομερείς χάρτες του κόσμου. Ελάτε μαζί μας!</string>
-	<!-- Additional text in whats new -->
-	<string name="whatsnew_update_editor_message_update">Ενημερώστε όλους τους χάρτες για να χρησιμοποιήσετε το πρόγραμμα επεξεργασίας του χάρτη.</string>
 	<string name="location_services_disabled_header">Οι υπηρεσίες εντοπισμού τοποθεσίας είναι απενεργοποιημένες</string>
 	<string name="location_services_disabled_message">Ενεργοποίηση πρόσβασης γεωγραφικού εντοπισμού τοποθεσίας στις ρυθμίσεις της συσκευής</string>
 	<string name="location_services_disabled_1">1. Ανοίξτε τις ρυθμίσεις</string>
@@ -682,14 +653,6 @@
 	<!-- For sharing via SMS and so on -->
 	<string name="sharing_call_action_look">Αναχώρηση</string>
 	<string name="recent_track_background_dialog_message">Το OMaps χρησιμοποιεί τη γεωγραφική σας τοποθεσία στο παρασκήνιο για την καταγραφή των πρόσφατων διαδρομών σας.</string>
-	<string name="whatsnew_car_navigation_header">Πλοήγηση οχήματος φιλική προς το χρήστη</string>
-	<string name="whatsnew_car_navigation_message">• Τα στοιχεία πλοήγησης καταλαμβάνουν λιγότερο χώρο. \n• Εμφανίζεται η ταχύτητα και προστέθηκε αυτόματη μεγέθυνση.</string>
-	<string name="whatsnew_cycle_navigation_2_header">Πλοήγηση με ποδήλατο</string>
-	<string name="whatsnew_cycle_navigation_2_message">• Η πλοήγηση με ποδήλατο λαμβάνει υπόψη τα δεδομένα της μορφολογίας του εδάφους. \n• Δημιουργούνται πιο εύκολες διαδρομές λαμβάνοντας υπόψη την κλίση του εδάφους.</string>
-	<string name="whatsnew_booking_2_header">Εύκολη αναζήτηση ξενοδοχείου</string>
-	<string name="whatsnew_booking_2_message">Τα αποτελέσματα αναζήτησης δείχνουν τη βαθμολογία του ξενοδοχείου και την κατηγορία τιμής.</string>
-	<string name="whatsnew_cycle_navigation_header">Πλοήγηση με ποδήλατο (έκδοση beta)</string>
-	<string name="whatsnew_cycle_navigation_message">Δοκιμάζουμε την πλοήγησης με ποδήλατο για τη νέα σεζόν. Δοκιμάστε την αγαπημένη σας διαδρομή με ποδήλατο με το OMaps και μοιραστείτε τη γνώμη σας μαζί μας.</string>
 	<!-- Rate on Google Play (Android only) -->
 	<string name="rate_gp">Βαθμολογήστε το στο Google Play</string>
 	<!-- Share with friends: menu item title -->
@@ -750,8 +713,6 @@
 	<string name="chat">Geochat</string>
 	<!-- Verb. Text on a button that opens the chat. -->
 	<string name="chat_open">Άνοιγμα</string>
-	<string name="whatsnew_uber_header">OMaps &amp; Uber</string>
-	<string name="whatsnew_uber_message">Καλέστε ταξί Uber απευθείας μέσα από την εφαρμογή!</string>
 	<string name="dialog_taxi_offline">Η παραγγελία ταξί δεν είναι διαθέσιμη σε offline ρύθμιση.</string>
 	<string name="dialog_taxi_error">Η παραγγελία ταξί είναι προσωρινά μη διαθέσιμη.</string>
 	<string name="mobile_data_dialog">Θέλετε να χρησιμοποιήσετε το δίκτυο κινητής τηλεφωνίας για να εμφανίσετε αναλυτικές πληροφορίες;</string>
@@ -770,30 +731,6 @@
 	<string name="traffic_update_app_message">Για να εμφανιστούν πληροφορίες για την κίνηση, πρέπει να γίνει ενημέρωση της εφαρμογής.</string>
 	<!-- "traffic" as in "road congestion" -->
 	<string name="traffic_data_unavailable">Οι πληροφορίες για την κίνηση δεν είναι διαθέσιμες</string>
-	<!-- december -->
-	<string name="whatsnew_traffic">Πληροφορίες για την κίνηση σε 36 χώρες</string>
-	<!-- december -->
-	<string name="whatsnew_traffic_text">Ενημερωμένες πληροφορίες για την κίνηση και για γρηγορότερες διαδρομές οδήγησης!</string>
-	<!-- december -->
-	<string name="whatsnew_traffic_roaming">Πληροφορίες για την κίνηση κατά την περιαγωγή</string>
-	<!-- december -->
-	<string name="whatsnew_traffic_roaming_text">Χρησιμοποιεί λιγότερο από 1 MB από το δίκτυο κινητής τηλεφωνίας ανά ταξίδι.</string>
-	<!-- december -->
-	<string name="whatsnew_order_taxi">Παραγγελία ταξί</string>
-	<!-- december -->
-	<string name="whatsnew_order_taxi_text">Οι περισσότερες από τις σελίδες της τοποθεσίας περιέχουν πλέον πλήκτρο για την παραγγελία ταξί.</string>
-	<!-- january -->
-	<string name="whatsnew_improved_search">Βελτιωμένη αναζήτηση</string>
-	<!-- january -->
-	<string name="whatsnew_improved_search_text">Ακόμη και τα ερωτήματα με ορθογραφικά λάθη δημιουργούν ακριβή αποτελέσματα αναζήτησης.</string>
-	<!-- january -->
-	<string name="whatsnew_filters_in_search">Φίλτρα αναζήτησης</string>
-	<!-- january -->
-	<string name="whatsnew_filters_in_search_text">Αναζήτηση ξενοδοχείων με βάση την τιμή και τις κριτικές.</string>
-	<!-- january -->
-	<string name="whatsnew_font_size">Μέγεθος γραμματοσειράς</string>
-	<!-- january -->
-	<string name="whatsnew_font_size_text">Οι ετικέτες στον χάρτη μπορούν να μεγαλώσουν.</string>
 	<!-- Seven points and higher -->
 	<string name="booking_filter_rating_num_good">7,0+</string>
 	<!-- Eight points and higher -->
@@ -803,16 +740,6 @@
 	<!-- Simplified colour scheme for traffic information, fewer colours are used to display traffic jams on the map. The string should be kept as short as possible -->
 	<string name="pref_traffic_simplified_colors_title">Εύκολα χρώματα για την κίνηση</string>
 	<string name="enable_logging">Ενεργοποίηση δυνατότητας καταγραφής</string>
-	<string name="whatsnew_more_info_on_hotels_title">Περισσότερες πληροφορίες για τα ξενοδοχεία</string>
-	<string name="whatsnew_more_info_on_hotels_message">Ολοκαίνουργια εμφάνιση για τις σελίδες των ξενοδοχείων: Δείτε φωτογραφίες, κριτικές χρηστών και άλλες πληροφορίες online.</string>
-	<string name="whatsnew_better_routing_title">Βελτιωμένη σχεδίαση διαδρομής</string>
-	<string name="whatsnew_better_routing_message">• Ακριβέστερη εκτίμηση ώρας άφιξης. \n• Η εφαρμογή λαμβάνει υπόψη τις περιοχές που απαγορεύονται και την οδική σήμανση.</string>
-	<string name="whatsnew_smaller_mwm_title">Μικρότερο μέγεθος χαρτών</string>
-	<string name="whatsnew_smaller_mwm_message">Οι χάρτες απαιτούν 20% λιγότερο αποθηκευτικό χώρο.</string>
-	<string name="whatsnew_waypoints_title">Ενδιάμεσα σημεία στη διαδρομή</string>
-	<string name="whatsnew_waypoints_message">Πατήστε στα μέρη για να προσθέσετε ενδιάμεσα σημεία στη διαδρομή σας.</string>
-	<string name="whatsnew_driving_style_title">Νέο στυλ χάρτη για την οδήγηση</string>
-	<string name="whatsnew_driving_style_message">Ευκολότερη λειτουργία πλοήγησης αυτοκινήτου.</string>
 	<string name="more_on_bookingcom">Περισσότερα στο Booking.com</string>
 	<string name="details_on_bookingcom">Λεπτομέρειες στο Booking.com</string>
 	<string name="reviews_on_bookingcom">Περισσότερες κριτικές στο Booking.com</string>
@@ -842,7 +769,6 @@
 	<string name="prefs_languages_information_off">Για μερικές γλώσσες θα χρειαστεί να εγκαταστήσετε συνθεσάιζερ ομιλίας ή συμπληρωματικό πακέτο γλώσσας από το app store (Google Play Market, Samsung Apps).\nΑνοίξτε τις Ρυθμίσεις της συσκευής σας → Γλώσσα και εισαγωγή → Ομιλία → Μετατροπή κειμένου σε ομιλία.\nΕδώ μπορείτε να διαχειριστείτε τις ρυθμίσεις της σύνθεσης ομιλίας (για παράδειγμα, μπορείτε να κατεβάσετε πακέτο γλώσσας για χρήση εκτός σύνδεσης) και να επιλέξετε άλλη μηχανή μετατροπής κειμένου σε ομιλία.</string>
 	<string name="prefs_languages_information_off_link">Για περισσότερες πληροφορίες δείτε αυτό τον οδηγό.</string>
 	<string name="whatsnew_transliteration_title">Μεταγραφή στα Λατινικά</string>
-	<string name="whatsnew_transliteration_message">Εάν ένας δρόμος ή ένα αντικείμενο δεν έχει όνομα στη γλώσσα σας, θα διατυπωθεί χρησιμοποιώντας το λατινικό αλφάβητο.</string>
 	<string name="learn_more">Μάθετε περισσότερα</string>
 	<string name="core_exit">Έξοδος</string>
 	<string name="routing_add_start_point">Προσθέστε αφετηρία για να σχεδιάσετε μια διαδρομή</string>
@@ -861,8 +787,6 @@
 	<string name="dialog_change_start_point_message">Θέλετε να αλλάξετε την αφετηρία στην τρέχουσα θέση;</string>
 	<string name="button_replace">Αλλαγή</string>
 	<string name="placepage_add_stop">Προσθήκη στάσης</string>
-	<string name="whatsnew_intermediate_point_title">Επιπλέον στάση</string>
-	<string name="whatsnew_intermediate_point_message">Σχεδιάστε μια διαδρομή με ενδιάμεσο προορισμό.</string>
 	<string name="add_my_position">Πρόσθεσε τη θέση μου</string>
 	<string name="choose_start_point">Επιλέξτε αφετηρία</string>
 	<string name="choose_destination">Επιλέξτε προορισμό</string>
@@ -1163,14 +1087,6 @@
 	<string name="warning_speedcams_title">Ο πλοηγός θα σας ειδοποιεί για κάμερες όταν υπερβαίνετε το όριο ταχύτητας των %d km/h</string>
 	<string name="warning_speedcams_subtitle">Παρακαλώ να προσέχετε τους κανόνες οδήγησης της χώρας στην οποία ταξιδεύετε.</string>
 	<string name="speedcams_notice_message">Αυτόματο- Να ειδοποιούμαι για κάμερες αν υπάρχει κίνδυνος να υπερβώ το όριο ταχύτητας\nΠάντα- Πάντα να ειδοποιούμαι για κάμερες\nΠοτέ- Ποτέ να μην ειδοποιούμαι για κάμερες</string>
-	<string name="whatsnew_standard_routes_title">Τυπικές διαδρομές</string>
-	<string name="whatsnew_standard_routes_message">Ένα βασικό σύνολο των σημείων, σύντομες περιγραφές, αλλά πολλές εντυπώσεις!</string>
-	<string name="whatsnew_city_overview_title">Περιήγηση στα αξιοθέατα της πόλης</string>
-	<string name="whatsnew_city_overview_message">Μέχρι 200 σημεία στον χάρτη της πόλης: ότι πιο χρήσιμο και ενδιαφέρον για τον ταξιδιώτη!</string>
-	<string name="whatsnew_pro_guides_title">Επαγγελματικές διαδρομές</string>
-	<string name="whatsnew_pro_guides_message">Υψηλό επίπεδο λεπτομέρειας, αναλυτικές περιγραφές τοποθεσιών και δυνατότητα υπολογισμού της απόστασης και του χρόνου της βόλτας</string>
-	<string name="whatsnew_paid_routes_title">Περισσότερες νέες εμπειρίες!</string>
-	<string name="whatsnew_paid_routes_message">Εκτός από τις δωρεάν διαδρομές έχουμε προσθέσει στον κατάλογο και 3 κατηγορίες ταξιδιωτικών οδηγών επί πληρωμή. Περισσότερες από 700 νέες διαδρομές!</string>
 	<string name="ugc_thanks_message_auth">Το σχόλιό σας έχει αποθηκευτεί</string>
 	<string name="ugc_thanks_message_not_auth">Εγγραφείτε για ν\' αφήσετε σχόλια</string>
 	<string name="notification_leave_review_v2_title">Αφήστε τα σχόλιά σας και βοηθήστε τους ταξιδιώτες!</string>
@@ -1254,10 +1170,6 @@
 	<string name="whats_new_auto_update_bydeeplink_title">Πριν τη μετάβαση στους οδηγούς…</string>
 	<string name="whats_new_auto_update_bydeeplink_message">Ενημερώστε τους χάρτες για να λάβετε τις έγκυρες πληροφορίες σχετικά με τα αντικείμενα!</string>
 	<string name="whats_new_auto_update_and_proceed_button_size">Ενημέρωση (%s) και συνέχεια</string>
-	<string name="whatsnew_toll_unpaved_title">Σχεδιάστε τις διαδρομές με αυτοκίνητο λαμβάνοντας υπόψη όλους τους τύπους δρόμων</string>
-	<string name="whatsnew_toll_unpaved_message">Επιλέγετε τις διαδρομές παρακάμπτοντας δρόμους με διόδια, χωματόδρομους και πορθμεία</string>
-	<string name="whatsnew_new_catalogue_title">Ενημερωμένες σελίδες καταλόγου</string>
-	<string name="whatsnew_new_catalogue_message">Προσθέσαμε λεπτομερείς πληροφορίες σχετικά με τους οδηγούς συνεργατών έτσι ώστε η επιλογή της διαδρομής να είναι εύκολη και άνετη</string>
 	<string name="purchase_please_wait_toast">Παρακαλείστε να μην μετακινηθείτε από την οθόνη πριν ολοκληρωθεί η αγορά</string>
 	<string name="trip_start">Πάμε</string>
 	<string name="pick_destination">Προορισμός</string>
@@ -1313,12 +1225,6 @@
 	<string name="buy_btn_for_subscription_ios_only_year">Πλήρης πρόσβαση για %s/το έτος</string>
 	<string name="subscription_terms_guides">Η πληρωμή θα πραγματοποιηθεί από το λογαριασμό σας στο iTunes μετά την επιβεβαίωση αγοράς. Η συνδρομή σας θα ανανεώνεται αυτόματα εκτός εάν η αυτόματη ανανέωση απενεργοποιηθεί τουλάχιστον 24 ώρες πριν από τη λήξη της τρέχουσας περιόδου. Τα ποσά θα χρεώνονται στο λογαριασμό σας σύμφωνα με το πρόγραμμα ανανέωσής σας εντός των 24 ωρών πριν από τη λήξη της τρέχουσας περιόδου. Μπορείτε να διαχειριστείτε την αυτόματη ανανέωση ή να την απενεργοποιήσετε στις ρυθμίσεις λογαριασμού Apple ID οποιαδήποτε στιγμή μετά την αγορά. Θα μπορείτε να χρησιμοποιήσετε τους οδηγούς που έχετε κατεβάσει με τη συνδρομή μόνο κατά τη διάρκεια της περιόδου ισχύος της. Οι οδηγοί με όλους τους σελιδοδείκτες θα διαγραφτούν αυτόματα αφού περάσουν 30 ημέρες μετά τη λήξη της συνδρομής.</string>
 	<string name="subscription_terms">Η πληρωμή θα χρεωθεί στον iTunes λογαριασμό σας κατά την επιβεβαίωση της αγοράς. Η συνδρομή θα ανανεωθεί αυτόματα εκτός εάν η αυτόματη ανανέωση είναι απενεργοποιημένη τουλάχιστον 24 ώρες πριν από το τέλος της τρέχουσας περιόδου. Ο λογαριασμός σας θα χρεωθεί σύμφωνα με το σχέδιο ανανέωσής σας εντός 24 ωρών πριν από το τέλος της τρέχουσας περιόδου. Μπορείτε να διαχειριστείτε ή να απενεργοποιήσετε την αυτόματη ανανέωση στις ρυθμίσεις του Apple ID λογαριασμού σας ανά πάσα στιγμή κατά την αγορά σας.</string>
-	<string name="whatsnew_carplay_title">Αυτοπλοήγηση OMaps στο CarPlay!</string>
-	<string name="whatsnew_carplay_message">Ετικέτες, αναζήτηση, κάμερες ταχύτητας και ρυθμίσεις παράκαμψης — όλα λειτουργούν χωρίς την πρόσβαση στο διαδίκτυο</string>
-	<string name="whatsnew_subscription_title">Ανακάλυψε τον κόσμο με συνδρομή!</string>
-	<string name="whatsnew_subscription_message">Η απεριόριστη πρόσβαση στον κατάλογο των διαδρομών συμφέρει πιο πολύ από μια μεμονωμένη αγορά</string>
-	<string name="whatsnew_carnavi_fixes_for_android_title">Ενημέρωση πλοήγησης</string>
-	<string name="whatsnew_carnavi_fixes_for_android_message">Έχουμε βελτιώσει τη δημιουργία διαδρομών έως τα σημεία που βρίσκονται μακριά από τους δρόμους</string>
 	<string name="avoid_unpaved_carplay_1">Χ/χωματόδρ.</string>
 	<string name="avoid_unpaved_carplay_2">Χ/χωματόδρομους</string>
 	<string name="avoid_ferry_carplay_1">Χ/πορθμεία</string>
@@ -1375,8 +1281,6 @@
 	<string name="bookmarks_edit_list">Επεξεργασία</string>
 	<!-- Android, max 18 symbols -->
 	<string name="bookmarks_delete_list">Διαγραφή λίστας</string>
-	<string name="whatsnew_bookmarks_search_sort_title">Τάξη στους σελιδοδείκτες κάνει το ταξίδι άνετο</string>
-	<string name="whatsnew_bookmarks_search_sort_message">Ταξινόμηση των αγαπημένων σας τοποθεσιών ανά κατηγορία, ώρα προσθήκης και γεωγραφική κατανομή και γρήγορη εύρεση συγκεκριμένων σελιδοδεικτών με το όνομα</string>
 	<string name="popup_subscription_success_map_title">Ζήτω! Είστε συνδρομητής!</string>
 	<string name="popup_subscription_success_map_message">Τώρα μελετήστε τα καλύτερα τουριστικά αξιοθέατα στον κατάλογο OMaps</string>
 	<string name="popup_subscription_success_map_start_button">Προβολή</string>
@@ -1397,8 +1301,6 @@
 	<string name="subscription_screen_native_message_version_2">Για να είστε έτοιμοι για κάθε ταξίδι σε 600+ πόλεις και 100+ χώρες</string>
 	<string name="catalog_no_internet_title">Δεν υπάρχει σύνδεση στο διαδίκτυο</string>
 	<string name="catalog_no_internet_button">Δοκιμάστε ξανά</string>
-	<string name="whatsnew_map_updates_title">Αεριωθούμενες ενημερώσεις χαρτών</string>
-	<string name="whatsnew_map_updates_message">Από εδώ και πέρα ενημερώνουμε τα δεδομένα 2 φορές πιο γρήγορα</string>
 	<string name="new_onboarding_button">Επόμενο</string>
 	<string name="new_onboarding_button_2">Εκκίνηση</string>
 	<string name="new_onboarding_step1_header_2">Ολοκληρωμένος βοηθός στα ταξίδια</string>
@@ -1443,10 +1345,6 @@
 	<string name="downloader_country_no_guides_gallery_header">Προς το παρόν δεν υπάρχουν οδηγοί γι\' αυτή τη χώρα</string>
 	<string name="downloader_country_no_guides_gallery_message">Ρίξτε μια ματιά σε άλλες διαδρομές σε 100+ χώρες για τις αστικές και υπαίθριες δραστηριότητες</string>
 	<string name="dialog_pedestrian_route_is_long">Η διαδρομή με τα πόδια μέχρι το σημείο επιβίβασης είναι πολύ μεγάλη</string>
-	<string name="whatsnew_outdoor_guides_title">Έχουμε προσθέσει 15.000 + μονοπάτια για υπαίθριες δραστηριότητες!</string>
-	<string name="whatsnew_outdoor_guides_message">Οι διαδρομές από την Outdooractive για χειμερινές και καλοκαιρινές διακοπές σας περιμένουν στον κατάλογο!</string>
-	<string name="whatsnew_guides_galleries_title">Προγραμματίστε το επόμενο ταξίδι με το OMaps</string>
-	<string name="whatsnew_guides_galleries_message">Τώρα μπορείτε να βρείτε τους συνιστώμενους οδηγούς στις κάρτες των δημοφιλών πόλεων και αξιοθέατων</string>
 	<string name="new_onboarding_step3_header">Ταξιδέψτε</string>
 	<string name="all_pass_screen_best_value">Καλύτερη τιμή</string>
 	<string name="buy_btn_for_subscription_3">Ολόκληρος κατάλογος με %s/έτος</string>
@@ -1455,9 +1353,6 @@
 	<string name="dialog_pedestrian_route_is_long_message">Επιλέξτε το σημείο έναρξης ή τέλους διαδρομής πιο κοντά στο σταθμό του μετρό</string>
 	<!-- Failed planning SUBWAY route message in navigation view -->
 	<string name="routing_planning_error_subway_special">Σφάλμα κατά την δημιουργία διαδρομής του μετρό</string>
-	<string name="whatsnew_isolines_title">Νέο για υπαίθριες δραστηριότητες – τοπογραφικά στρώματα εκτός σύνδεσης!</string>
-	<!-- as less symbols as possible -->
-	<string name="whatsnew_isolines_message">Νιώστε σίγουροι στα ορεινά – ενεργοποιήστε το στρώμα στην πάνω αριστερή γωνία της οθόνης</string>
 	<string name="button_layer_isolines">Υψόμετρα</string>
 	<string name="tips_map_layers_title_countour">Τοπογραφικά στρώματα εκτός σύνδεσης στο OMaps!</string>
 	<string name="tips_map_layers_message_countour">Τα τοπογραφικά στρώματα θα σας βοηθήσουν να σχεδιάσετε το ταξίδι σας στη φύση και να μην χαθείτε στην περιοχή</string>
@@ -1494,12 +1389,6 @@
 	<string name="routes_card_show">Εμφάνιση στον χάρτη</string>
 	<!-- as few symbols as possible -->
 	<string name="routes_card_hide">Απόκρυψη από τον χάρτη</string>
-	<string name="whatsnew_catalog_new_title">Νέος κατάλογος οδηγών και χιλιάδες ιδέες για διακοπές</string>
-	<string name="whatsnew_catalog_new_message">Έχουμε ενημερώσει τον κατάλογο οδηγών και έχουμε προσθέσει μεταφράσεις σε δημοφιλείς γλώσσες. Ξεκινήστε να σχεδιάζετε από νωρίς!</string>
-	<string name="whatsnew_elevation_profile_title">Προφίλ υψόμετρου στους οδηγούς</string>
-	<string name="whatsnew_elevation_profile_message">Αξιολογήστε τη δυσκολία των επερχόμενων αναβάσεων και καταβάσεων εκτός σύνδεσης με τη βοήθεια του δρομέα στο προφίλ της διαδρομής που αποκτήσατε.</string>
-	<string name="whatsnew_guides_on_map_title">Νέο στρώμα για να βρίσκετε τους οδηγούς πιο εύκολα!</string>
-	<string name="whatsnew_guides_on_map_message">Ενεργοποιήστε το στρώμα στο μενού ρυθμίσεων της εφαρμογής για να βρείτε γρήγορα ενδιαφέρουσες διαδρομές πόλεων και οδηγούς για υπαίθριες δραστηριότητες.</string>
 	<string name="downloader_updating_ios">Ενημέρωση</string>
 	<string name="downloader_loading_ios">Φόρτωση</string>
 	<string name="routes_card_plus_track">+ δρόμος</string>
@@ -1535,8 +1424,6 @@
 	<string name="choose_dates_online_only_dialog_message">Η επιλογή ημερομηνιών και αριθμού επισκεπτών είναι διαθέσιμη μόνο σε απευθείας σύνδεση. Ελέγξτε τις ρυθμίσεις σας και βεβαιωθείτε ότι είστε συνδεδεμένοι στο Διαδίκτυο.</string>
 	<string name="choose_dates_online_only_dialog_cta">Ρυθμίσεις</string>
 	<string name="thirty_days_limit_dialog">Μπορείτε να κάνετε κράτηση έως και για 30 διανυκτερεύσεις</string>
-	<string name="whatsnew_trial_title">Δωρεάν πρόσβαση στους ταξιδιωτικούς οδηγούς</string>
-	<string name="whatsnew_trial_message">Έχουμε εισαγάγει μια δοκιμαστική περίοδο 7 ημερών. Έχουμε ενημερώσει τον κατάλογο οδηγών και έχουμε προσθέσει μεταφράσεις σε δημοφιλείς γλώσσες.</string>
 	<string name="whatsnew_trial_cta">Δοκιμή</string>
 	<string name="subscription_terms_guides_outdoor">Η πληρωμή θα χρεωθεί στον λογαριασμό σας iTunes κατά την επιβεβαίωση της αγοράς. Η συνδρομή σας θα ανανεωθεί αυτόματα εκτός εάν η αυτόματη ανανέωση απενεργοποιηθεί τουλάχιστον 24 ώρες πριν από το τέλος της τρέχουσας περιόδου. Ο λογαριασμός σας θα χρεωθεί με βάση το πρόγραμμα ανανέωσής σας εντός 24 ωρών πριν από το τέλος της τρέχουσας περιόδου. Μπορείτε να διαχειριστείτε ή να απενεργοποιήσετε την αυτόματη ανανέωση μεταβαίνοντας στις ρυθμίσεις του λογαριασμού σας Apple ID οποιαδήποτε στιγμή μετά την αγορά. Θα μπορείτε να χρησιμοποιήσετε τους ταξιδιωτικούς οδηγούς που έχετε κατεβάσει με συνδρομή μόνο κατά τη διάρκεια ισχύος της. 7 ημέρες μετά το τέλος της συνδρομής οι οδηγοί με όλους τους σελιδοδείκτες θα διαγραφούν αυτόματα.\n* Η συνδρομή με δωρεάν δοκιμαστική περίοδο μετατρέπεται αυτόματα σε συνδρομή επί πληρωμή. Μπορείτε να ακυρώσετε ή να διαχειριστείτε την αυτόματη ανανέωση της δωρεάν δοκιμής μεταβαίνοντας στις ρυθμίσεις του λογαριασμού σας μετά την αγορά. Η ακύρωση θα τεθεί σε ισχύ 24 ώρες μετά την τελευταία ημέρα της τρέχουσας περιόδου συνδρομής και θα μεταφερθείτε σε μια δωρεάν συνδρομή. Λάβετε υπόψη ότι οποιοδήποτε αχρησιμοποίητο τμήμα της δωρεάν δοκιμαστικής περιόδου θα χαθεί με την αγορά συνδρομής επί πληρωμή κατά τη διάρκεια αυτής της περιόδου.</string>
 	<string name="subscription_terms_android_outdoor">Η πληρωμή θα χρεωθεί στον λογαριασμό σας Google Play κατά την επιβεβαίωση της αγοράς. Η συνδρομή σας θα ανανεωθεί αυτόματα εκτός εάν η αυτόματη ανανέωση απενεργοποιηθεί τουλάχιστον 24 ώρες πριν από το τέλος της τρέχουσας περιόδου. Ο λογαριασμός σας θα χρεωθεί με βάση το πρόγραμμα ανανέωσής σας εντός 24 ωρών πριν από το τέλος της τρέχουσας περιόδου. Μπορείτε να διαχειριστείτε ή να απενεργοποιήσετε την αυτόματη ανανέωση μεταβαίνοντας στις ρυθμίσεις του λογαριασμού σας μετά την αγορά. Θα μπορείτε να χρησιμοποιήσετε τους ταξιδιωτικούς οδηγούς που έχετε κατεβάσει με συνδρομή μόνο κατά τη διάρκεια ισχύος της. 7 ημέρες μετά το τέλος της συνδρομής οι οδηγοί θα διαγραφούν αυτόματα.\n* Η συνδρομή με δωρεάν δοκιμαστική περίοδο μετατρέπεται αυτόματα σε συνδρομή επί πληρωμή. Μπορείτε να ακυρώσετε ή να διαχειριστείτε την αυτόματη ανανέωση της δωρεάν δοκιμής μεταβαίνοντας στις ρυθμίσεις του λογαριασμού σας μετά την αγορά. Η ακύρωση θα τεθεί σε ισχύ 24 ώρες μετά την τελευταία ημέρα της τρέχουσας περιόδου συνδρομής και θα μεταφερθείτε σε μια δωρεάν συνδρομή. Λάβετε υπόψη ότι οποιοδήποτε αχρησιμοποίητο τμήμα της δωρεάν δοκιμαστικής περιόδου θα χαθεί με την αγορά συνδρομής επί πληρωμή κατά τη διάρκεια αυτής της περιόδου.</string>

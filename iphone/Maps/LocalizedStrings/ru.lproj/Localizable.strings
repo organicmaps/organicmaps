@@ -18,33 +18,16 @@
 /* Button which deletes downloaded country */
 "delete" = "Удалить";
 
-/* Button to dismiss dialog forever */
-"do_not_ask_me_again" = "Больше не спрашивать";
-
 /* Button "do not interrupt download" if user touched actively downloading country */
 "do_nothing" = "Продолжить загрузку";
 
 "download_maps" = "Загрузить карты";
 
-/* Settings/Downloader - Download confirmation button */
-"download_x_kb" = "Загрузить %qu кБ";
-
-/* Settings/Downloader - Download confirmation button */
-"download_x_mb" = "Загрузить %qu МБ";
-
 /* Settings/Downloader - info for country when download fails */
 "download_has_failed" = "Ошибка загрузки. Нажмите, чтобы повторить попытку";
 
-/* Settings/Downloader - info for downloaded country */
-"downloaded_x_y_touch_to_delete" = "Загружено (%1$qu %2$@), нажмите для удаления";
-
-/* Settings/Downloader - country info current download progress */
-"downloading_x_touch_to_cancel" = "Загружается %qu%%, нажмите, чтобы прервать";
-
 /* Settings/Downloader - info for country which started downloading */
 "downloading" = "Загружается…";
-
-"get_it_now" = "Установить";
 
 /* Settings/Downloader - size string, only strings different from English should be translated */
 "kb" = "кБ";
@@ -58,12 +41,6 @@
 /* View and button titles for accessibility */
 "maps" = "Карты";
 
-/* View and button titles for accessibility */
-"downloader_maps" = "Карты:";
-
-/* Settings/Downloader - info for country in the download queue */
-"marked_for_downloading" = "Поставлено в очередь на загрузку, нажмите для отмены";
-
 /* Settings/Downloader - size string, only strings different from English should be translated */
 "mb" = "МБ";
 
@@ -75,20 +52,11 @@
 /* View and button titles for accessibility */
 "core_my_position" = "Мое местоположение";
 
-/* Settings/Downloader - No free space dialog message */
-"free_disk_space_for_country_x" = "Нет свободного места. Пожалуйста, удалите ненужные карты или приложения, чтобы загрузить %@";
-
-/* Leave Review dialog - Not now button (remind me later) */
-"remind_me_later" = "Напомнить позже";
-
 /* Update maps later/Buy pro version later button text */
 "later" = "Не сейчас";
 
 /* Don't show some dialog any more */
 "never" = "Не показывать";
-
-/* Leave Review dialog - Complain button (goes to support site) */
-"report_an_issue" = "Сообщить о проблеме";
 
 /* View and button titles for accessibility */
 "search" = "Поиск";
@@ -102,9 +70,6 @@
 /* Settings/Downloader - 3G download warning dialog confirm button */
 "use_cellular_data" = "Да";
 
-/* Choose measurement on first launch alert - title */
-"which_measurement_system" = "Какую систему измерения вы предпочитаете?";
-
 /* Location services are disabled by user alert - message */
 "location_is_disabled_long_text" = "Геолокация выключена в настройках устройства. Пожалуйста, включите её для удобного использования программы.";
 
@@ -113,12 +78,6 @@
 
 /* View and button titles for accessibility */
 "zoom_to_country" = "Показать на карте";
-
-/* Message to display at the center of the screen when the country is added to the downloading queue */
-"country_status_added_to_queue" = "^\nдобавлено в очередь загрузки";
-
-/* Message to display at the center of the screen when the country is downloading */
-"country_status_downloading" = "Загружается\n^\n^";
 
 /* Button text for the button at the center of the screen when the country is not downloaded */
 "country_status_download" = "Загрузить карту\n(^ ^)";
@@ -136,8 +95,6 @@
 "try_again" = "Попробуйте еще раз";
 
 "about_menu_title" = "О программе";
-
-"downloading_touch_to_cancel" = "Загружается %d%%, нажмите, чтобы прервать";
 
 "downloaded_touch_to_delete" = "Загружено (%@), нажмите для удаления";
 
@@ -159,8 +116,6 @@
 
 "not_enough_memory" = "Недостаточно памяти для запуска программы";
 
-"free_space_for_country" = "Для загрузки %2$@ нужно %1$@ свободного места";
-
 "download_resources" = "Перед началом работы разрешите нам загрузить общую карту мира на ваше устройство.\nЭто потребует %@ данных.";
 
 "getting_position" = "Получаем местоположение";
@@ -174,35 +129,10 @@
 "update_country_ask" = "Обновить %@?";
 
 /* REMOVE THIS STRING AFTER REFACTORING */
-"download_location_map_proposal" = "Вы можете загрузить карту\nвашего текущего местоположения.";
-
-/* REMOVE THIS_STRING AFTER REFACTORING */
-"download_location_update_map_proposal" = "Вы можете обновить карту\nвашего текущего местоположения.";
-
-/* REMOVE THIS STRING AFTER REFACTORING */
-"download_location_map_up_to_date" = "Карта местности, в которой\nвы находитесь (%@), уже загружена.";
-
-/* REMOVE THIS STRING AFTER REFACTORING */
 "pause" = "Приостановить";
 
 /* REMOVE THIS STRING AFTER REFACTORING */
 "continue_download" = "Продолжить";
-
-"downloaded_touch_to_update" = "Загружено (%@), нажмите для обновления или удаления";
-
-"update_mb_or_kb" = "Обновить %@";
-
-/* Show popup notification when we have downloaded countries without search (from Lite version) */
-"search_update_maps" = "Для функции поиска необходимо обновить устаревшие карты:";
-
-/* Show popup notification on app start when we have out-of-date maps */
-"advise_update_maps" = "Доступно обновление для следующих карт:";
-
-/* Show popup notification in Pro version that Lite can be deleted */
-"suggest_uninstall_lite" = "OMaps Lite больше не нужна. Рекомендуем её удалить.";
-
-/* Show popup notification on top of the map when country was downloaded. */
-"download_country_success" = "%@ успешно загружена";
 
 /* Show popup notification on top of the map when country download has failed. */
 "download_country_failed" = "Не удалось загрузить %@";
@@ -245,9 +175,6 @@
 
 /* Text hint in Bookmarks dialog when no any bookmarks are added */
 "bookmarks_usage_hint" = "У вас пока нет меток.\nВыберите любое место на карте, чтобы добавить его.\nТакже метки можно импортировать из OMaps либо других приложений и сайтов. Для этого откройте KML/KMZ файл из Dropbox, почты или по веб-ссылке.";
-
-/* Text hint in Bookmarks dialog when at least one bookmark is added */
-"bookmarks_usage_hint_import_only" = "Метки можно импортировать из OMaps либо других приложений и сайтов. Для этого откройте KML/KMZ файл из Dropbox, почты или по веб-ссылке.";
 
 /* Settings button in system menu */
 "settings" = "Настройки";
@@ -1289,16 +1216,6 @@
 
 "placepage_add_business_button" = "Добавить организацию";
 
-"whatsnew_smallmwm_header" = "Вы долго просили — мы наконец сделали";
-
-"whatsnew_smallmwm_message" = "Мы разрезали большие карты на части: загружайте только нужные области, а не целые страны.";
-
-"whatsnew_search_header" = "Новый поиск";
-
-"whatsnew_search_message" = "Качественно улучшили поиск по адресам. Проверяйте.";
-
-"whatsnew_editor_title" = "Редактируйте карту*";
-
 "whatsnew_editor_message_1" = "Добавляйте новые объекты и редактируйте старые прямо из приложения.";
 
 "whatsnew_editor_message_2" = "* OMaps использует данные открытых карт сообщества OpenStreetMap.";
@@ -1382,13 +1299,6 @@
 "current_location_unknown_error_title" = "Местоположение не найдено.";
 
 "current_location_unknown_error_message" = "При поиске местоположения произошла неизвестная ошибка. Проверьте работоспособность устройства и попробуйте найти местоположение позднее.";
-
-"whatsnew_update_editor_title" = "Мы обновили редактор";
-
-"whatsnew_update_editor_message" = "Пользователи OMaps внесли уже 200 000 правок на карту. Вместе мы сделаем карты самыми подробными в мире. Присоединяйся!";
-
-/* Additional text in whats new */
-"whatsnew_update_editor_message_update" = "Обновите все карты, чтобы использовать редактор.";
 
 "location_services_disabled_header" = "Определение местоположения отключено";
 
@@ -1555,22 +1465,6 @@
 
 "recent_track_background_dialog_message" = "OMaps использует вашу геопозицию в фоновом режиме для записи недавно пройденного пути.";
 
-"whatsnew_car_navigation_header" = "Режим автонавигации стал удобнее";
-
-"whatsnew_car_navigation_message" = "• Элементы навигации занимают меньше места.\n• Показываем скорость и добавили автомасштабирование.";
-
-"whatsnew_cycle_navigation_2_header" = "Велонавигация";
-
-"whatsnew_cycle_navigation_2_message" = "• Велонавигация учитывает рельеф.\n• Мы строим оптимальный маршрут с учетом перепада высот.";
-
-"whatsnew_booking_2_header" = "Поиск отелей стал проще";
-
-"whatsnew_booking_2_message" = "При поиске отображается рейтинг и ценовая категория отеля.";
-
-"whatsnew_cycle_navigation_header" = "Велонавигация (бета-версия)";
-
-"whatsnew_cycle_navigation_message" = "К открытию сезона мы тестируем велонавигацию. Прокатитесь по своему любимому веломаршруту с OMaps и поделитесь с нами впечатлениями.";
-
 /* Rate on Google Play (Android only) */
 "rate_gp" = "Оценить в Google Play";
 
@@ -1673,10 +1567,6 @@
 /* Verb. Text on a button that opens the chat. */
 "chat_open" = "Открыть";
 
-"whatsnew_uber_header" = "OMaps и Uber";
-
-"whatsnew_uber_message" = "Закажите такси прямо из приложения!";
-
 "dialog_taxi_offline" = "Заказ такси недоступен офлайн.";
 
 "dialog_taxi_error" = "Заказ такси временно недоступен.";
@@ -1714,42 +1604,6 @@
 /* "traffic" as in "road congestion" */
 "traffic_data_unavailable" = "Данные о пробках недоступны";
 
-/* december */
-"whatsnew_traffic" = "Пробки в 36 странах мира";
-
-/* december */
-"whatsnew_traffic_text" = "Актуальная информация о пробках на дорогах и самые быстрые маршруты с их учетом!";
-
-/* december */
-"whatsnew_traffic_roaming" = "Пробки даже в роуминге";
-
-/* december */
-"whatsnew_traffic_roaming_text" = "Требует менее 1 МБ мобильного трафика за поездку.";
-
-/* december */
-"whatsnew_order_taxi" = "Вызов такси";
-
-/* december */
-"whatsnew_order_taxi_text" = "В карточке большинства объектов появилась кнопка заказа такси.";
-
-/* january */
-"whatsnew_improved_search" = "Улучшен поиск";
-
-/* january */
-"whatsnew_improved_search_text" = "Опечатки в запросах не влияют на результаты поиска.";
-
-/* january */
-"whatsnew_filters_in_search" = "Фильтры в поиске";
-
-/* january */
-"whatsnew_filters_in_search_text" = "Можно искать отели с учетом цены и рейтинга.";
-
-/* january */
-"whatsnew_font_size" = "Размер шрифта";
-
-/* january */
-"whatsnew_font_size_text" = "Названия объектов на карте теперь можно сделать крупнее.";
-
 /* "Translation is no needed, because it's a company name" */
 "uber" = "Uber";
 
@@ -1772,26 +1626,6 @@
 "pref_traffic_simplified_colors_title" = "Простые цвета пробок";
 
 "enable_logging" = "Включить запись логов";
-
-"whatsnew_more_info_on_hotels_title" = "Подробная информация об отелях";
-
-"whatsnew_more_info_on_hotels_message" = "Новые расширенные карточки гостиниц: смотрите фотографии, отзывы и другую информацию онлайн.";
-
-"whatsnew_better_routing_title" = "Улучшено построение маршрутов";
-
-"whatsnew_better_routing_message" = "• Более точная оценка времени в пути.\n• Учитываем знаки и запрещенные дороги при построении маршрута.";
-
-"whatsnew_smaller_mwm_title" = "Карты стали меньше";
-
-"whatsnew_smaller_mwm_message" = "Занимают на 20% меньше места на телефоне.";
-
-"whatsnew_waypoints_title" = "Маршруты с промежуточными точками";
-
-"whatsnew_waypoints_message" = "Нажмите на объекты, чтобы включить их в маршрут.";
-
-"whatsnew_driving_style_title" = "Новый автомобильный стиль карт";
-
-"whatsnew_driving_style_message" = "Режим автомобильной навигации стал удобнее.";
 
 "more_on_bookingcom" = "Больше на Booking.com";
 
@@ -1852,8 +1686,6 @@
 
 "whatsnew_transliteration_title" = "Латинская транслитерация";
 
-"whatsnew_transliteration_message" = "Если у улицы или объекта нет названия на вашем языке, то мы покажем его латиницей.";
-
 "yandex_taxi_title" = "Яндекс.Такси";
 
 "learn_more" = "Узнать больше";
@@ -1891,10 +1723,6 @@
 "button_replace" = "Заменить";
 
 "placepage_add_stop" = "Заехать";
-
-"whatsnew_intermediate_point_title" = "Промежуточная остановка";
-
-"whatsnew_intermediate_point_message" = "Планируйте маршрут с дополнительной остановкой.";
 
 /* Only ru/en are needed */
 "subtitle_rent" = "Аренда";
@@ -2503,24 +2331,6 @@
 
 "whats_new_ugc_routes_message2" = "Добавляй фото и подробные рассказы в веб-редакторе.";
 
-"whatsnew_standard_routes_title" = "Стандартные маршруты";
-
-"whatsnew_standard_routes_message" = "Основной набор точек, краткие описания, но много впечатлений!";
-
-"whatsnew_city_overview_title" = "Обзор города";
-
-"whatsnew_city_overview_message" = "До 200 точек на карте города: все самое полезное и интересное для путешественника!";
-
-"whatsnew_pro_guides_title" = "Профессиональные маршруты";
-
-"whatsnew_pro_guides_message" = "Высокий уровень детализации, подробные описания мест и возможность рассчитать расстояние и время прогулки";
-
-"whatsnew_paid_routes_title" = "Больше новых впечатлений!";
-
-"whatsnew_paid_routes_message" = "В дополнение к бесплатным маршрутам мы добавили в каталог 3 категории платных путеводителей. Более 700 новых маршрутов!";
-
-"whats_new_ugc_routes_title_android_only" = "Делиться впечатлениями просто";
-
 "ugc_thanks_message_auth" = "Ваш отзыв сохранен";
 
 "ugc_thanks_message_not_auth" = "Зарегистрируйтесь, чтобы оставить отзыв";
@@ -2681,14 +2491,6 @@
 
 "whats_new_auto_update_and_proceed_button_size" = "Обновить (%s) и продолжить";
 
-"whatsnew_toll_unpaved_title" = "Прокладывайте автомобильные маршруты с учетом типа дороги";
-
-"whatsnew_toll_unpaved_message" = "Объезжайте платные и грунтовые дороги и паромные переправы";
-
-"whatsnew_new_catalogue_title" = "Обновленные страницы каталога";
-
-"whatsnew_new_catalogue_message" = "Мы добавили подробную информацию о партнерских путеводителях, чтобы выбор маршрута был простым и удобным";
-
 "purchase_please_wait_toast" = "Пожалуйста, не покидайте экран до завершения покупки";
 
 "trip_start" = "Поехали";
@@ -2803,18 +2605,6 @@
 
 "subscription_terms" = "Оплата будет списана с вашего счета iTunes при подтверждении покупки. Подписка автоматически возобновится, если автоматическое продление не будет отключено по крайней мере за 24 часа до окончания текущего периода. Деньги будут списываться с вашей учетной записи в соответствии с вашим планом продления в течение 24 часов до конца текущего периода. Вы можете управлять или отключать автоматическое продление в настройках учетной записи Apple ID в любое время после покупки.";
 
-"whatsnew_carplay_title" = "Автонавигация OMaps в CarPlay!";
-
-"whatsnew_carplay_message" = "Метки, поиск, камеры скорости и настройки объезда — все работает без Интернета";
-
-"whatsnew_subscription_title" = "Открой мир по подписке!";
-
-"whatsnew_subscription_message" = "Неограниченный доступ к каталогу маршрутов выгоднее одноразовой покупки";
-
-"whatsnew_carnavi_fixes_for_android_title" = "Обновление навигации";
-
-"whatsnew_carnavi_fixes_for_android_message" = "Мы улучшили построение маршрутов до точек, расположенных далеко от дорог";
-
 "avoid_unpaved_carplay_1" = "Без грунт.";
 
 "avoid_unpaved_carplay_2" = "Без грунтовых";
@@ -2918,10 +2708,6 @@
 /* Android, max 18 symbols */
 "bookmarks_delete_list" = "Удалить список";
 
-"whatsnew_bookmarks_search_sort_title" = "Порядок в метках — удобство в путешествии";
-
-"whatsnew_bookmarks_search_sort_message" = "Сортируйте избранные места по категориям, времени добавления и геолокации, а также быстро находите конкретные метки по названию";
-
 "popup_subscription_success_map_title" = "Ура! Вы подписаны!";
 
 "popup_subscription_success_map_message" = "Теперь исследуйте лучшие туристические достопримечательности в каталоге OMaps";
@@ -2961,10 +2747,6 @@
 "catalog_no_internet_title" = "Нет интернет-подключения";
 
 "catalog_no_internet_button" = "Попробовать снова";
-
-"whatsnew_map_updates_title" = "Реактивные обновления карт";
-
-"whatsnew_map_updates_message" = "Теперь обновляем данные в 2 раза быстрее";
 
 "new_onboarding_button" = "Далее";
 
@@ -3053,14 +2835,6 @@
 
 "dialog_pedestrian_route_is_long" = "Добираться до транспорта пешком слишком долго";
 
-"whatsnew_outdoor_guides_title" = "Мы добавили 15000+ троп для активного отдыха!";
-
-"whatsnew_outdoor_guides_message" = "Маршруты от Outdooractive для зимних и летних отпусков ждут в каталоге!";
-
-"whatsnew_guides_galleries_title" = "Планируйте ближайшую поездку с OMaps";
-
-"whatsnew_guides_galleries_message" = "Теперь вы можете найти рекомендованные путеводители в карточках популярных городов и достопримечательностей";
-
 "new_onboarding_step3_header" = "Путешествуйте";
 
 "all_pass_screen_best_value" = "Выгодная цена";
@@ -3075,11 +2849,6 @@
 
 /* Failed planning SUBWAY route message in navigation view */
 "routing_planning_error_subway_special" = "Ошибка построения маршрута метро";
-
-"whatsnew_isolines_title" = "Новинка для активного отдыха – линии высот офлайн!";
-
-/* as less symbols as possible */
-"whatsnew_isolines_message" = "Ориентируйтесь в горной местности – включите слой кнопкой в левом верхнем углу экрана";
 
 "button_layer_isolines" = "Высоты";
 
@@ -3169,18 +2938,6 @@
 /* as few symbols as possible */
 "routes_card_hide" = "Скрыть с карты";
 
-"whatsnew_catalog_new_title" = "Новый каталог и тысячи идей для отдыха";
-
-"whatsnew_catalog_new_message" = "Мы обновили каталог путеводителей и добавили переводы на популярные языки. Начните планировать заранее!";
-
-"whatsnew_elevation_profile_title" = "Профиль высот в путеводителях";
-
-"whatsnew_elevation_profile_message" = "Оценивайте сложность предстоящих подъемов и спусков офлайн с помощью курсора в профиле приобретенного маршрута.";
-
-"whatsnew_guides_on_map_title" = "Новый слой — путеводители на карте!";
-
-"whatsnew_guides_on_map_message" = "Активируйте слой в меню настроек приложения, чтобы быстро найти интересные городские маршруты и путеводители для активного отдыха.";
-
 "downloader_updating_ios" = "Обновление";
 
 "downloader_loading_ios" = "Загрузка";
@@ -3238,10 +2995,6 @@
 "choose_dates_online_only_dialog_cta" = "Настройки";
 
 "thirty_days_limit_dialog" = "Забронировать можно максимум на 30 ночей";
-
-"whatsnew_trial_title" = "Бесплатный доступ к путеводителям";
-
-"whatsnew_trial_message" = "Мы запустили 7-дневный пробный период подписки. Тысячи маршрутов по всему миру, а также интерактивный профиль высот в путеводителях для активного отдыха.";
 
 "whatsnew_trial_cta" = "Попробовать";
 

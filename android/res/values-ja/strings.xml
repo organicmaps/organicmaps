@@ -12,48 +12,27 @@
 	<string name="cancel_download">ダウンロードをキャンセル</string>
 	<!-- Button which deletes downloaded country -->
 	<string name="delete">削除</string>
-	<!-- Button to dismiss dialog forever -->
-	<string name="do_not_ask_me_again">以後、このメッセージを表示しない</string>
 	<!-- Button "do not interrupt download" if user touched actively downloading country -->
 	<string name="do_nothing">何もしない</string>
 	<string name="download_maps">マップをダウンロード</string>
-	<!-- Settings/Downloader - Download confirmation button -->
-	<string name="download_x_kb">%quをダウンロード</string>
-	<!-- Settings/Downloader - Download confirmation button -->
-	<string name="download_x_mb">%quをダウンロード</string>
 	<!-- Settings/Downloader - info for country when download fails -->
 	<string name="download_has_failed">ダウンロードが失敗しました。もう一度試すには画面をタッチしてください。</string>
-	<!-- Settings/Downloader - info for downloaded country -->
-	<string name="downloaded_x_y_touch_to_delete">(%1$qu %2$s)をダウンロードしました。削除するには画面をタッチしてください。</string>
-	<!-- Settings/Downloader - country info current download progress -->
-	<string name="downloading_x_touch_to_cancel">%qu%%をダウンロード中です。キャンセルするには画面をタッチしてください。</string>
 	<!-- Settings/Downloader - info for country which started downloading -->
 	<string name="downloading">ダウンロード中…</string>
-	<string name="get_it_now">今すぐ入手</string>
 	<!-- Choose measurement on first launch alert - choose metric system button -->
 	<string name="kilometres">キロメートル</string>
 	<!-- Leave Review dialog - Review button -->
 	<string name="leave_a_review">評価する</string>
 	<!-- View and button titles for accessibility -->
 	<string name="maps">マップ</string>
-	<!-- View and button titles for accessibility -->
-	<string name="downloader_maps">マップ：</string>
-	<!-- Settings/Downloader - info for country in the download queue -->
-	<string name="marked_for_downloading">ダウンロードを開始します。キャンセルするには画面をタッチしてください。</string>
 	<!-- Choose measurement on first launch alert - choose imperial system button -->
 	<string name="miles">マイル</string>
 	<!-- View and button titles for accessibility -->
 	<string name="core_my_position">現在地</string>
-	<!-- Settings/Downloader - No free space dialog message -->
-	<string name="free_disk_space_for_country_x">%sをダウンロードするため、デバイスの空き容量を確認してください</string>
-	<!-- Leave Review dialog - Not now button (remind me later) -->
-	<string name="remind_me_later">後で通知</string>
 	<!-- Update maps later/Buy pro version later button text -->
 	<string name="later">次の機会に</string>
 	<!-- Don't show some dialog any more -->
 	<string name="never">今後表示しない</string>
-	<!-- Leave Review dialog - Complain button (goes to support site) -->
-	<string name="report_an_issue">問題を報告</string>
 	<!-- View and button titles for accessibility -->
 	<string name="search">検索</string>
 	<!-- Search box placeholder text -->
@@ -62,18 +41,12 @@
 	<string name="touch_to_download">タッチしてダウンロード</string>
 	<!-- Settings/Downloader - 3G download warning dialog confirm button -->
 	<string name="use_cellular_data">はい</string>
-	<!-- Choose measurement on first launch alert - title -->
-	<string name="which_measurement_system">どちらの距離単位を使いますか？</string>
 	<!-- Location services are disabled by user alert - message -->
 	<string name="location_is_disabled_long_text">端末の位置情報サービスが無効になっているか、このアプリケーションからの位置情報利用が制限されています。端末の設定を有効化してください。</string>
 	<!-- Location Services are not available on the device alert - message -->
 	<string name="device_doesnot_support_location_services">ご使用中の端末は位置情報サービスをサポートしていません。</string>
 	<!-- View and button titles for accessibility -->
 	<string name="zoom_to_country">地図に表示</string>
-	<!-- Message to display at the center of the screen when the country is added to the downloading queue -->
-	<string name="country_status_added_to_queue">^\nをダウンロードキューに追加しました</string>
-	<!-- Message to display at the center of the screen when the country is downloading -->
-	<string name="country_status_downloading">^\n^\nをダウンロード中</string>
 	<!-- Button text for the button at the center of the screen when the country is not downloaded -->
 	<string name="country_status_download">地図をダウンロード\n(^ ^)</string>
 	<!-- Button text for the button at the center of the screen when the country is not downloaded and the size should not be shown -->
@@ -85,7 +58,6 @@
 	<!-- Button text for the button under the country_status_download_failed message -->
 	<string name="try_again">再実行</string>
 	<string name="about_menu_title">OMapsについて</string>
-	<string name="downloading_touch_to_cancel">%d%%をダウンロード中です。キャンセルするには画面をタッチしてください。</string>
 	<string name="downloaded_touch_to_delete">(%s)をダウンロードしました。削除するには画面をタッチしてください。</string>
 	<string name="connection_settings">接続設定</string>
 	<string name="download_mb_or_kb">%sをダウンロード</string>
@@ -96,7 +68,6 @@
 	<string name="disconnect_usb_cable">OMapsを利用するにはUSBケーブルを抜くかメモリーカードを挿入してください</string>
 	<string name="not_enough_free_space_on_sdcard">アプリを起動するにはSDカード/USBストレージの空き容量を確保する必要があります</string>
 	<string name="not_enough_memory">メモリ不足のためアプリを起動できません</string>
-	<string name="free_space_for_country">%2$sをダウンロードするにはデバイスに%1$sの空き容量が必要です</string>
 	<string name="download_resources">利用を開始する前におおまかな世界地図をダウンロードします。これには%sの空き容量が必要です。</string>
 	<string name="getting_position">現在地を取得中</string>
 	<string name="download_resources_continue">マップを表示</string>
@@ -104,25 +75,9 @@
 	<string name="download_country_ask">%sをダウンロードしますか？</string>
 	<string name="update_country_ask">%sを更新しますか？</string>
 	<!-- REMOVE THIS STRING AFTER REFACTORING -->
-	<string name="download_location_map_proposal">現在地のマップを\nダウンロードできます</string>
-	<!-- REMOVE THIS_STRING AFTER REFACTORING -->
-	<string name="download_location_update_map_proposal">現在地のマップを\n更新できます</string>
-	<!-- REMOVE THIS STRING AFTER REFACTORING -->
-	<string name="download_location_map_up_to_date">現在地のマップは\n最新です (%s)</string>
-	<!-- REMOVE THIS STRING AFTER REFACTORING -->
 	<string name="pause">一時停止</string>
 	<!-- REMOVE THIS STRING AFTER REFACTORING -->
 	<string name="continue_download">続行</string>
-	<string name="downloaded_touch_to_update">(%s)をダウンロードしました。タップして更新、削除できます</string>
-	<string name="update_mb_or_kb">%sを更新</string>
-	<!-- Show popup notification when we have downloaded countries without search (from Lite version) -->
-	<string name="search_update_maps">検索機能を利用するにはマップを更新する必要があります</string>
-	<!-- Show popup notification on app start when we have out-of-date maps -->
-	<string name="advise_update_maps">以下のマップが更新されています:</string>
-	<!-- Show popup notification in Pro version that Lite can be deleted -->
-	<string name="suggest_uninstall_lite">OMaps Liteは削除してもかまいません</string>
-	<!-- Show popup notification on top of the map when country was downloaded. -->
-	<string name="download_country_success">%sのダウンロードが成功しました</string>
 	<!-- Show popup notification on top of the map when country download has failed. -->
 	<string name="download_country_failed">%sのダウンロードが失敗しました</string>
 	<!-- Add New Bookmark Set dialog title -->
@@ -151,8 +106,6 @@
 	<string name="set">セット</string>
 	<!-- Text hint in Bookmarks dialog when no any bookmarks are added -->
 	<string name="bookmarks_usage_hint">未だブックマークがありません。\nマップ上をタップすればブックマークを追加できます。\nOMaps以外のアプリで作成したブックマークの表示も可能です。KML/KMZ形式のピン情報をメールやDropbox、URLから取得してください。</string>
-	<!-- Text hint in Bookmarks dialog when at least one bookmark is added -->
-	<string name="bookmarks_usage_hint_import_only">OMaps以外のアプリで作成したブックマークの表示も可能です。KML/KMZ形式のピン情報をメールやDropbox、URLから取得してください。</string>
 	<!-- Settings button in system menu -->
 	<string name="settings">設定</string>
 	<!-- Header of settings activity where user defines storage path -->
@@ -764,11 +717,6 @@
 	<string name="editor_report_problem_other_title">異なる問題</string>
 	<string name="placepage_report_problem_button">問題を報告</string>
 	<string name="placepage_add_business_button">団体を追加</string>
-	<string name="whatsnew_smallmwm_header">皆様のご要望にお応えして、実現を果たしました</string>
-	<string name="whatsnew_smallmwm_message">マップを分割し、国全体でなく個別の地域をダウンロードできるようにしました。</string>
-	<string name="whatsnew_search_header">新しい検索機能</string>
-	<string name="whatsnew_search_message">住所での検索機能を大幅に改善しました。ご自身の目でご覧ください。</string>
-	<string name="whatsnew_editor_title">地図を編集*</string>
 	<string name="whatsnew_editor_message_1">アプリから直接地図に新しい場所を追加したり、既存の場所を編集できます。</string>
 	<string name="whatsnew_editor_message_2">* OMapsはOpenStreetMapコミュニティのデータを使用しています。</string>
 	<string name="dialog_incorrect_feature_position">位置を変更してください</string>
@@ -814,10 +762,6 @@
 	<string name="current_location_unknown_stop_button">止める</string>
 	<string name="current_location_unknown_error_title">現在地は不明です。</string>
 	<string name="current_location_unknown_error_message">お住まいの地域の検索中にエラーが発生しました。お使いのデバイスが正常に動作していることを確認してから再度試してください。</string>
-	<string name="whatsnew_update_editor_title">マップエディタを更新しました</string>
-	<string name="whatsnew_update_editor_message">OMapsユーザーは200000マップの変更を行いました。我々は協力して、世界で最も詳細な地図を作っています。参加しませんか！</string>
-	<!-- Additional text in whats new -->
-	<string name="whatsnew_update_editor_message_update">マップエディタを利用するには、全てのアップをアップデートしてください。</string>
 	<string name="location_services_disabled_header">位置情報認識機能が無効になっています</string>
 	<string name="location_services_disabled_message">デバイスの設定で位置情報へのアクセスを有効にしてください</string>
 	<string name="location_services_disabled_1">1. 設定を開きます</string>
@@ -905,14 +849,6 @@
 	<string name="sharing_call_action_look">ご覧ください</string>
 	<string name="continue_recent_track_background_button">続行</string>
 	<string name="recent_track_background_dialog_message">OMapsは、あなたの位置情報をバックグラウンドで使用して最近の走行ルートを記録します。</string>
-	<string name="whatsnew_car_navigation_header">ユーザーフレンドリーなカーナビゲーション</string>
-	<string name="whatsnew_car_navigation_message">• ナビゲーションエレメントに必要なスペースが削減されました。\n• 速度の表示と自動ズームが追加されました。</string>
-	<string name="whatsnew_cycle_navigation_2_header">自転車用ナビゲーション</string>
-	<string name="whatsnew_cycle_navigation_2_message">• 自転車用ナビゲーションはサイクリングコースのデータも使用します。\n• 道の傾斜を考え、最も走りやすいルートを作成します。</string>
-	<string name="whatsnew_booking_2_header">簡単ホテル検索</string>
-	<string name="whatsnew_booking_2_message">検索結果にホテルの評価と宿泊料カテゴリーが表示されます。</string>
-	<string name="whatsnew_cycle_navigation_header">バイクナビゲーション（ベータ版）</string>
-	<string name="whatsnew_cycle_navigation_message">新シーズンに向けてバイクナビゲーションをテスト中です。OMapsで、お気に入りのサイクリングルートを試してみませんか。ご感想をお待ちしています。</string>
 	<!-- Rate on Google Play (Android only) -->
 	<string name="rate_gp">Google Play で評価</string>
 	<!-- Share with friends: menu item title -->
@@ -973,8 +909,6 @@
 	<string name="chat">ジオチャット</string>
 	<!-- Verb. Text on a button that opens the chat. -->
 	<string name="chat_open">開始</string>
-	<string name="whatsnew_uber_header">OMaps &amp; Uber</string>
-	<string name="whatsnew_uber_message">アプリから直接Uberの配車リクエストができます！</string>
 	<string name="dialog_taxi_offline">タクシーの予約がオフラインモードでは使用できません。</string>
 	<string name="dialog_taxi_error">タクシーの予約が一時的に使用できません。</string>
 	<string name="mobile_data_dialog">モバイルインターネットを使用して詳細な情報を表示しますか？</string>
@@ -993,30 +927,6 @@
 	<string name="traffic_update_app_message">交通データを表示するには、アプリケーションをアップデートする必要があります。</string>
 	<!-- "traffic" as in "road congestion" -->
 	<string name="traffic_data_unavailable">交通データは利用できません</string>
-	<!-- december -->
-	<string name="whatsnew_traffic">36か国の交通データ</string>
-	<!-- december -->
-	<string name="whatsnew_traffic_text">最新の交通データと、データに基づく最速のドライブルートをご提供致します！</string>
-	<!-- december -->
-	<string name="whatsnew_traffic_roaming">ローミング中の交通情報</string>
-	<!-- december -->
-	<string name="whatsnew_traffic_roaming_text">移動毎に 1 MB 未満のモバイル帯域幅が必要です。</string>
-	<!-- december -->
-	<string name="whatsnew_order_taxi">タクシーの呼び出し</string>
-	<!-- december -->
-	<string name="whatsnew_order_taxi_text">ほとんど場所のページに、タクシーを呼ぶためのボタンが表示されるようになりました。</string>
-	<!-- january -->
-	<string name="whatsnew_improved_search">検索機能の向上</string>
-	<!-- january -->
-	<string name="whatsnew_improved_search_text">スペルミスのある検索を行なっても、正確な検索結果を表示します。</string>
-	<!-- january -->
-	<string name="whatsnew_filters_in_search">検索フィルター</string>
-	<!-- january -->
-	<string name="whatsnew_filters_in_search_text">価格と評価に基づくホテルの検索。</string>
-	<!-- january -->
-	<string name="whatsnew_font_size">フォントサイズ</string>
-	<!-- january -->
-	<string name="whatsnew_font_size_text">地図上のラベルを大きくすることができます。</string>
 	<!-- Seven points and higher -->
 	<string name="booking_filter_rating_num_good">7.0+</string>
 	<!-- Eight points and higher -->
@@ -1026,16 +936,6 @@
 	<!-- Simplified colour scheme for traffic information, fewer colours are used to display traffic jams on the map. The string should be kept as short as possible -->
 	<string name="pref_traffic_simplified_colors_title">簡易的な交通状況色</string>
 	<string name="enable_logging">ログを有効化</string>
-	<string name="whatsnew_more_info_on_hotels_title">ホテルの詳細情報</string>
-	<string name="whatsnew_more_info_on_hotels_message">ホテルページの見映えを一新: 写真、ユーザーレビューやその他の情報をオンラインでチェックしてください。</string>
-	<string name="whatsnew_better_routing_title">ルート選定処理を改善</string>
-	<string name="whatsnew_better_routing_message">• より正確な到着時間の見積もりを出せるようになりました。\n• このアプリは制限区域や道路標識を考慮に入れています。</string>
-	<string name="whatsnew_smaller_mwm_title">地図のサイズが小さくなりました</string>
-	<string name="whatsnew_smaller_mwm_message">地図が必要とするストレージ容量が最大で 20% 少なくなりました。</string>
-	<string name="whatsnew_waypoints_title">ルート上の経由地</string>
-	<string name="whatsnew_waypoints_message">場所をタップしてルートに経由地を追加します。</string>
-	<string name="whatsnew_driving_style_title">運転用の新しい地図のスタイル</string>
-	<string name="whatsnew_driving_style_message">カーナビゲーションモードの使用がより簡単になりました。</string>
 	<string name="more_on_bookingcom">さらに Booking.com で表示</string>
 	<string name="details_on_bookingcom">Booking.com で詳細表示</string>
 	<string name="reviews_on_bookingcom">Booking.com の詳細レビュー</string>
@@ -1065,7 +965,6 @@
 	<string name="prefs_languages_information_off">いくつかの言語では、アプリストアからその他の音声合成または追加の言語パックをインストールする必要があります (Google Play マーケット、Samsung Apps) 。お使いのデバイスで [設定] → [言語と入力] → [音声] → [音声出力] を開いてください。ここで音声合成の設定 (たとえば、オフラインで使用する言語パックのダウンロードなど) を管理し、別の音声合成エンジンを選択することができます。</string>
 	<string name="prefs_languages_information_off_link">詳細については、このガイドをご確認ください。</string>
 	<string name="whatsnew_transliteration_title">ラテン文字への字訳</string>
-	<string name="whatsnew_transliteration_message">通り名や物件名をあなたの言語で表示できない場合、ラテン文字のアルファベットで綴られます。</string>
 	<string name="learn_more">詳細情報</string>
 	<string name="core_exit">終了</string>
 	<string name="routing_add_start_point">ルートを計画するには出発地点を追加してください</string>
@@ -1084,8 +983,6 @@
 	<string name="dialog_change_start_point_message">出発地点を現在の場所に変更しますか？</string>
 	<string name="button_replace">変更する</string>
 	<string name="placepage_add_stop">経由地点を追加</string>
-	<string name="whatsnew_intermediate_point_title">その他の経由地点</string>
-	<string name="whatsnew_intermediate_point_message">中間地点のあるルートを計画します。</string>
 	<string name="add_my_position">自分の場所を追加</string>
 	<string name="choose_start_point">出発地点を選択</string>
 	<string name="choose_destination">目的地を選択</string>
@@ -1391,15 +1288,6 @@
 	<string name="whats_new_ugc_routes_subtitle">記憶に残る場所を保存して、ブックマークでルートを作成し OMapsカタログを利用するすべての人達と共有しましょう。</string>
 	<string name="whats_new_webeditor_title">ルートをストーリーに変えましょう</string>
 	<string name="whats_new_ugc_routes_message2">ウェブエディタで写真と詳細なストーリーを追加しましょう。</string>
-	<string name="whatsnew_standard_routes_title">標準的ルート</string>
-	<string name="whatsnew_standard_routes_message">基本的な一連の関心地点(POI)と簡潔な説明ですが、多くの体験があり余す！</string>
-	<string name="whatsnew_city_overview_title">街の概要</string>
-	<string name="whatsnew_city_overview_message">街の地図上の最大200の関心地点(POI)：すべて旅行者にとって有用で興味深いものです！</string>
-	<string name="whatsnew_pro_guides_title">プロフェッショナルルート</string>
-	<string name="whatsnew_pro_guides_message">非常に綿密で詳細な場所の説明と、移動距離および時間の計算能力</string>
-	<string name="whatsnew_paid_routes_title">さらなある新たな体験！</string>
-	<string name="whatsnew_paid_routes_message">無料のルートに加え、カタログに3つの有料のルートを追加しました。700を超える新たなルート！</string>
-	<string name="whats_new_ugc_routes_title_android_only">印象を共有するのは簡単です</string>
 	<string name="ugc_thanks_message_auth">あなたのレビューが保存されました</string>
 	<string name="ugc_thanks_message_not_auth">レビューを残すにはログインしてください</string>
 	<string name="notification_leave_review_v2_title">訪れた場所を評価して旅行者を助けましょう！</string>
@@ -1483,10 +1371,6 @@
 	<string name="whats_new_auto_update_bydeeplink_title">ガイドへ進む前に…</string>
 	<string name="whats_new_auto_update_bydeeplink_message">オブジェクトについての情報を最新に保つためにマップをアップデートしましょう!</string>
 	<string name="whats_new_auto_update_and_proceed_button_size">アップデート(%s) して進む</string>
-	<string name="whatsnew_toll_unpaved_title">全てのタイプの道を考慮に入れて自動車ルートをレイアウト</string>
-	<string name="whatsnew_toll_unpaved_message">有料道路、未舗装道路、およびフェリー航路を回避するために迂回路を選択</string>
-	<string name="whatsnew_new_catalogue_title">カタログのページをアップデート</string>
-	<string name="whatsnew_new_catalogue_message">ルートの選択を簡単かつ便利にするためにパートナーのガイドの詳細な情報を追加しました</string>
 	<string name="purchase_please_wait_toast">購入が完了するまでこの画面を閉じないでください</string>
 	<string name="trip_start">レッツゴー</string>
 	<string name="pick_destination">目的地</string>
@@ -1542,12 +1426,6 @@
 	<string name="buy_btn_for_subscription_ios_only_year">%s/年で無制限のアクセス</string>
 	<string name="subscription_terms_guides">支払いは購入の確認後にiTunesのアカウントに請求されます。サブスクリプションは、現在の有効期限が失効する24時間前までに自動更新機能を無効にしていない限り、自動的に更新されます。あなたのアカウントは現在の有効期限が失効する24時間前までの更新計画に基づいて請求されます。自動更新機能はApple IDのアカウント設定からにいつでも無効化する事ができます。ダウンロードしたガイドはサブスクリプションの失効日までしか利用できません。サブスクリプションの消失から30日でブックマークの付いたガイドは自動的に削除されます。</string>
 	<string name="subscription_terms">ご購入確定時にお客様のiTunesアカウントにお支払いが請求されます。現在のご利用期間が終了する最低でも24時間前に自動更新が解除されなければ、サブスクリプションは自動的に更新されます。現在のご利用期間が終了する24時間以内に、ご利用プランの更新がアカウントに請求されます。ご購入期間中にApple IDアカウント設定より自動更新を管理または解除することができます。</string>
-	<string name="whatsnew_carplay_title">CarPlay対応OMapsのカーナビゲーションです！</string>
-	<string name="whatsnew_carplay_message">ブックマークや、検索、自動速度違反取締装置、運転オプションがオフラインで利用できます</string>
-	<string name="whatsnew_subscription_title">サブスクライブすれば世界中で利用できます！</string>
-	<string name="whatsnew_subscription_message">ガイドのカタログへの無制限のアクセスはワンタイム購入よりもお得です</string>
-	<string name="whatsnew_carnavi_fixes_for_android_title">ナビゲーションの更新</string>
-	<string name="whatsnew_carnavi_fixes_for_android_message">道から遠く離れた地点へのルート計画を改善しました</string>
 	<string name="avoid_unpaved_carplay_1">未舗装道路無し</string>
 	<string name="avoid_unpaved_carplay_2">未舗装道路無し</string>
 	<string name="avoid_ferry_carplay_1">フェリー無し</string>
@@ -1604,8 +1482,6 @@
 	<string name="bookmarks_edit_list">リストの編集</string>
 	<!-- Android, max 18 symbols -->
 	<string name="bookmarks_delete_list">リストの削除</string>
-	<string name="whatsnew_bookmarks_search_sort_title">ブックマークの順番で快適な旅ができます</string>
-	<string name="whatsnew_bookmarks_search_sort_message">お気に入りの場所をカテゴリーや、位置、時系列順で並び替えたり、名前で素早く特定のブックマークを検索しましょう。</string>
 	<string name="popup_subscription_success_map_title">おめでとうございます、サブスクライブしました!</string>
 	<string name="popup_subscription_success_map_message">OMapsのカタログで最高の観光地を見つけましょう</string>
 	<string name="popup_subscription_success_map_start_button">ブラウジングを開始</string>
@@ -1626,8 +1502,6 @@
 	<string name="subscription_screen_native_message_version_2">600以上の都市と100以上の国々への旅の準備を整えましょう</string>
 	<string name="catalog_no_internet_title">インターネット接続がありません</string>
 	<string name="catalog_no_internet_button">もう一度お試しください</string>
-	<string name="whatsnew_map_updates_title">高速のマップ更新</string>
-	<string name="whatsnew_map_updates_message">これからは更新速度が二倍になります</string>
 	<string name="new_onboarding_button">次へ</string>
 	<string name="new_onboarding_button_2">開始</string>
 	<string name="new_onboarding_step1_header_2">オールインワンの旅の友</string>
@@ -1672,10 +1546,6 @@
 	<string name="downloader_country_no_guides_gallery_header">この国にはまだガイドがありません</string>
 	<string name="downloader_country_no_guides_gallery_message">100以上の国の都市とアウトドア活動のための他のオフラインガイドをチェックできます</string>
 	<string name="dialog_pedestrian_route_is_long">交通機関の登場ポイントまでの歩行ルートが長すぎます</string>
-	<string name="whatsnew_outdoor_guides_title">15000以上のアウトドアトレイルを追加しました！</string>
-	<string name="whatsnew_outdoor_guides_message">Outdooractiveが提供する冬と夏の旅のためのルートをカタログから利用できます!</string>
-	<string name="whatsnew_guides_galleries_title">OMapsで今後の旅の計画を立てましょう</string>
-	<string name="whatsnew_guides_galleries_message">人気の観光都市と景色の場所のページでお勧めのガイドを見つける事ができるようになりました</string>
 	<string name="new_onboarding_step3_header">体験しましょう</string>
 	<string name="all_pass_screen_best_value">ベストバリュー</string>
 	<string name="buy_btn_for_subscription_3">カタログ全体が年々%s</string>
@@ -1684,9 +1554,6 @@
 	<string name="dialog_pedestrian_route_is_long_message">もっと地下鉄駅に近い出発地または目的地を選択してください</string>
 	<!-- Failed planning SUBWAY route message in navigation view -->
 	<string name="routing_planning_error_subway_special">地下鉄ルートの計画ができませんでした</string>
-	<string name="whatsnew_isolines_title">アウトドアの新要素：オフラインのトポグラフィーレイヤー！</string>
-	<!-- as less symbols as possible -->
-	<string name="whatsnew_isolines_message">山地でも安心。左上でレイヤーを起動するだけです</string>
 	<string name="button_layer_isolines">地形</string>
 	<string name="tips_map_layers_title_countour">OMapsの新要素：オフラインのトポグラフィーレイヤー！</string>
 	<string name="tips_map_layers_message_countour">自然の旅で訪れる地域を全てを把握しながら計画を立て楽しみましょう</string>
@@ -1723,12 +1590,6 @@
 	<string name="routes_card_show">マップ上に表示</string>
 	<!-- as few symbols as possible -->
 	<string name="routes_card_hide">マップから非表示</string>
-	<string name="whatsnew_catalog_new_title">新しいガイドのカタログと数千の旅行アイディア</string>
-	<string name="whatsnew_catalog_new_message">ガイドのカタログを更新し、人気の言語の翻訳を追加しました。事前に旅行の計画を立てましょう！</string>
-	<string name="whatsnew_elevation_profile_title">旅行ガイドの標高情報</string>
-	<string name="whatsnew_elevation_profile_message">購入したルートのプロフィールでカーソルを使って今後のオフラインの上昇と下降の難易度を調べましょう。</string>
-	<string name="whatsnew_guides_on_map_title">簡単にガイドをみつけるための新しいレイヤー</string>
-	<string name="whatsnew_guides_on_map_message">興味深い都市ルートとアウトドア活動のための旅行ガイドを素早くみつけるためにアプリの設定メニューでレイヤーを有効化しましょう。</string>
 	<string name="downloader_updating_ios">更新中</string>
 	<string name="downloader_loading_ios">ダウンロード中</string>
 	<string name="routes_card_plus_track">+トラック</string>
@@ -1764,8 +1625,6 @@
 	<string name="choose_dates_online_only_dialog_message">日付と人数はオンライン時に選択できます。設定を確認し、インターネットに接続している事を確かめてください。</string>
 	<string name="choose_dates_online_only_dialog_cta">設定</string>
 	<string name="thirty_days_limit_dialog">最大で30泊まで予約する事ができます</string>
-	<string name="whatsnew_trial_title">ガイドのカタログへの無料アクセス</string>
-	<string name="whatsnew_trial_message">無料で7日間のトライアルを提供しています。世界中の数千の旅行ガイドとアウトドアガイドのためのインタラクティブな標高情報へのアクセス。</string>
 	<string name="whatsnew_trial_cta">今すぐ試してみましょう</string>
 	<string name="subscription_terms_guides_outdoor">購入を確認すると、iTunesのアカウントに請求がなされます。このサブスクリプションは、現在のサブスクリプション期間が終了する24時間前までに自動更新機能を無効化しない限り、自動的に更新されます。あなたのアカウントには、あなたの更新プランに従って、現在のサブスクリプション期間が終了する24時間以内に請求がなされます。自動更新は、購入後にいつでもApple IDの設定から管理または無効化する事ができます。ガイドは、サブスクリプションが失効するまでの期間内にダウンロードしたものしか利用できません。ガイドと全てのブックマークは、サブスクリプションの失効後7日で自動的に削除されます。\n*無料トライアル期間を持つサブスクリプションは、有料サブスクリプションに自動的に更新されます。無料トライアルの自動更新は、購入後にアカウント設定からキャンセルまたは管理をする事ができます。このキャンセルは、現在のサブスクリプション期間の最終日の24時間後から発効します。その後は無料サービスにダウングレードされます。注意：無料トライアル期間中に有料サブスクリプションを購入すると、無料トライアルの未使用の期間は喪失します。</string>
 	<string name="subscription_terms_android_outdoor">購入を確認すると、支払はGoogle Playのアカウントに請求されます。このサブスクリプションは、現在のサブスクリプション期間が終了する24時間前までに自動更新機能を無効化しない限り、自動的に更新されます。あなたのアカウントには、あなたの更新プランに従って、現在のサブスクリプション期間が終了する24時間以内に請求がなされます。自動更新は、購入後にいつでもアカウント設定から管理または無効化する事ができます。ガイドは、サブスクリプションが失効するまでの期間内にダウンロードしたものしか利用できません。ガイドは、サブスクリプションの失効後7日で自動的に削除されます。\n*無料トライアル期間を持つサブスクリプションは、有料サブスクリプションに自動的に更新されます。無料トライアルの自動更新は、購入後にアカウント設定からキャンセルまたは管理をする事ができます。このキャンセルは、現在のサブスクリプション期間の最終日の24時間後から発効します。その後は無料サービスにダウングレードされます。注意：無料トライアル期間中に有料サブスクリプションを購入すると、無料トライアルの未使用の期間は喪失します。</string>

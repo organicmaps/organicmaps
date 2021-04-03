@@ -12,24 +12,13 @@
 	<string name="cancel_download">Anulare descărcare</string>
 	<!-- Button which deletes downloaded country -->
 	<string name="delete">Ștergere</string>
-	<!-- Button to dismiss dialog forever -->
-	<string name="do_not_ask_me_again">Nu mă mai întreba</string>
 	<!-- Button "do not interrupt download" if user touched actively downloading country -->
 	<string name="do_nothing">Continuare</string>
 	<string name="download_maps">Descărcare hărți</string>
-	<!-- Settings/Downloader - Download confirmation button -->
-	<string name="download_x_kb">Descărcare %qu kB</string>
-	<!-- Settings/Downloader - Download confirmation button -->
-	<string name="download_x_mb">Descărcare %qu MB</string>
 	<!-- Settings/Downloader - info for country when download fails -->
 	<string name="download_has_failed">Descărcarea a eșuat. Atingeți pentru a încerca din nou.</string>
-	<!-- Settings/Downloader - info for downloaded country -->
-	<string name="downloaded_x_y_touch_to_delete">Descărcat (%1$qu %2$s). Atingeți pentru a șterge.</string>
-	<!-- Settings/Downloader - country info current download progress -->
-	<string name="downloading_x_touch_to_cancel">Se descarcă %qu%%. Atingeți pentru a anula.</string>
 	<!-- Settings/Downloader - info for country which started downloading -->
 	<string name="downloading">Se descarcă…</string>
-	<string name="get_it_now">Obțineți acum</string>
 	<!-- Settings/Downloader - size string, only strings different from English should be translated -->
 	<string name="kb">kB</string>
 	<!-- Choose measurement on first launch alert - choose metric system button -->
@@ -38,26 +27,16 @@
 	<string name="leave_a_review">Scrieți o recenzie</string>
 	<!-- View and button titles for accessibility -->
 	<string name="maps">Hărţi</string>
-	<!-- View and button titles for accessibility -->
-	<string name="downloader_maps">Hărţi:</string>
-	<!-- Settings/Downloader - info for country in the download queue -->
-	<string name="marked_for_downloading">Marcat pentru descărcare. Atingeți pentru a anula.</string>
 	<!-- Settings/Downloader - size string, only strings different from English should be translated -->
 	<string name="mb">MB</string>
 	<!-- Choose measurement on first launch alert - choose imperial system button -->
 	<string name="miles">Mile</string>
 	<!-- View and button titles for accessibility -->
 	<string name="core_my_position">Poziția mea</string>
-	<!-- Settings/Downloader - No free space dialog message -->
-	<string name="free_disk_space_for_country_x">Vă rugăm să eliberați niște spațiu pe dispozitivul dvs. mai întâi, pentru a descărca %s.</string>
-	<!-- Leave Review dialog - Not now button (remind me later) -->
-	<string name="remind_me_later">Amintește-mi mai târziu</string>
 	<!-- Update maps later/Buy pro version later button text -->
 	<string name="later">Mai târziu</string>
 	<!-- Don't show some dialog any more -->
 	<string name="never">Niciodată</string>
-	<!-- Leave Review dialog - Complain button (goes to support site) -->
-	<string name="report_an_issue">Raportează o problemă</string>
 	<!-- View and button titles for accessibility -->
 	<string name="search">Căutare</string>
 	<!-- Search box placeholder text -->
@@ -66,18 +45,12 @@
 	<string name="touch_to_download">Atingeți pentru a descărca.</string>
 	<!-- Settings/Downloader - 3G download warning dialog confirm button -->
 	<string name="use_cellular_data">Da</string>
-	<!-- Choose measurement on first launch alert - title -->
-	<string name="which_measurement_system">Ce sistem de măsură preferați?</string>
 	<!-- Location services are disabled by user alert - message -->
 	<string name="location_is_disabled_long_text">În acest moment aveți dezactivate toate serviciile de localizare pentru acest dispozitiv sau aplicație. Vă rugăm să le activați la setări.</string>
 	<!-- Location Services are not available on the device alert - message -->
 	<string name="device_doesnot_support_location_services">Dispozitivul dvs. nu acceptă servicii de localizare.</string>
 	<!-- View and button titles for accessibility -->
 	<string name="zoom_to_country">Afișare pe hartă</string>
-	<!-- Message to display at the center of the screen when the country is added to the downloading queue -->
-	<string name="country_status_added_to_queue">^\neste adăugată la coada de descărcare.</string>
-	<!-- Message to display at the center of the screen when the country is downloading -->
-	<string name="country_status_downloading">Se descarcă\n^\n^</string>
 	<!-- Button text for the button at the center of the screen when the country is not downloaded -->
 	<string name="country_status_download">Descărcare hartă\n(^ ^)</string>
 	<!-- Button text for the button at the center of the screen when the country is not downloaded and the size should not be shown -->
@@ -89,7 +62,6 @@
 	<!-- Button text for the button under the country_status_download_failed message -->
 	<string name="try_again">Încercați din nou</string>
 	<string name="about_menu_title">Despre OMaps</string>
-	<string name="downloading_touch_to_cancel">Se descarcă %d%%. Atingeți pentru a anula.</string>
 	<string name="downloaded_touch_to_delete">Descărcat (%s). Atingeți pentru a șterge.</string>
 	<string name="connection_settings">Setări conexiune</string>
 	<string name="download_mb_or_kb">Descărcare %s</string>
@@ -100,7 +72,6 @@
 	<string name="disconnect_usb_cable">Vă rugăm să deconectați cablul USB sau să introduceți cartela de memorie pentru a putea utiliza OMaps.</string>
 	<string name="not_enough_free_space_on_sdcard">Vă rugăm să eliberați spațiu pe cartela SD/dispozitivul de stocare USB pentru a putea utiliza aplicația.</string>
 	<string name="not_enough_memory">Nu este suficientă memorie pentru a lansa aplicația.</string>
-	<string name="free_space_for_country">Vă rugăm să eliberați %1$s spațiu pe dispozitivul dvs., pentru a putea descărca %2$s.</string>
 	<string name="download_resources">Înainte de a începe, permiteți-ne să descărcăm harta generală a lumii pe dispozitivul dvs.\nAre nevoie de %s de date.</string>
 	<string name="getting_position">Se obține poziția actuală</string>
 	<string name="download_resources_continue">Mergeți la hartă.</string>
@@ -108,25 +79,9 @@
 	<string name="download_country_ask">Descărcați %s?</string>
 	<string name="update_country_ask">Actualizați %s?</string>
 	<!-- REMOVE THIS STRING AFTER REFACTORING -->
-	<string name="download_location_map_proposal">Puteți descărca harta\npentru poziția dvs. actuală.</string>
-	<!-- REMOVE THIS_STRING AFTER REFACTORING -->
-	<string name="download_location_update_map_proposal">Puteți actualiza harta\npentru poziția dvs. actuală.</string>
-	<!-- REMOVE THIS STRING AFTER REFACTORING -->
-	<string name="download_location_map_up_to_date">Harta poziției dvs.\nactuale (%s) este la zi.</string>
-	<!-- REMOVE THIS STRING AFTER REFACTORING -->
 	<string name="pause">Pauză</string>
 	<!-- REMOVE THIS STRING AFTER REFACTORING -->
 	<string name="continue_download">Continuare</string>
-	<string name="downloaded_touch_to_update">Descărcat (%s). Atingeți pentru a actualiza sau a șterge.</string>
-	<string name="update_mb_or_kb">Actualizați %s</string>
-	<!-- Show popup notification when we have downloaded countries without search (from Lite version) -->
-	<string name="search_update_maps">Aveți nevoie de hărți actualizate pentru funcția de căutare:</string>
-	<!-- Show popup notification on app start when we have out-of-date maps -->
-	<string name="advise_update_maps">Actualizări disponibile pentru aceste hărți:</string>
-	<!-- Show popup notification in Pro version that Lite can be deleted -->
-	<string name="suggest_uninstall_lite">Nu mai aveți nevoie de OMaps Lite, îl puteți dezinstala.</string>
-	<!-- Show popup notification on top of the map when country was downloaded. -->
-	<string name="download_country_success">%s, descărcată cu succes</string>
 	<!-- Show popup notification on top of the map when country download has failed. -->
 	<string name="download_country_failed">%s - descărcarea a eșuat</string>
 	<!-- Add New Bookmark Set dialog title -->
@@ -155,8 +110,6 @@
 	<string name="set">Set</string>
 	<!-- Text hint in Bookmarks dialog when no any bookmarks are added -->
 	<string name="bookmarks_usage_hint">Încă nu aveți niciun marcaj.\nAtingeți orice loc de pe hartă pentru a adăuga un marcaj.\nPot fi importate și afișate pe OMaps și marcaje din alte surse. Deschideți fișierul KML/KMZ, cu marcajele salvate din email, Dropbox sau de la un link web.</string>
-	<!-- Text hint in Bookmarks dialog when at least one bookmark is added -->
-	<string name="bookmarks_usage_hint_import_only">Pot fi importate și afișate pe OMaps și marcaje din alte surse. Deschideți fișierul KML/KMZ, cu marcajele salvate din email, Dropbox sau de la un link web.</string>
 	<!-- Settings button in system menu -->
 	<string name="settings">Setări</string>
 	<!-- Header of settings activity where user defines storage path -->
@@ -761,11 +714,6 @@
 	<string name="editor_report_problem_other_title">O problemă diferită</string>
 	<string name="placepage_report_problem_button">Raportați o problemă</string>
 	<string name="placepage_add_business_button">Adăugare organizație</string>
-	<string name="whatsnew_smallmwm_header">Ne-ați cerut, iar noi am făcut</string>
-	<string name="whatsnew_smallmwm_message">Am împărțit hărțile în mai multe secțiuni. Acum, puteți descărca și regiuni separate, nu doar țara întreagă.</string>
-	<string name="whatsnew_search_header">Căutare nouă</string>
-	<string name="whatsnew_search_message">Am îmbunătățit semnificativ căutarea după adresă. Convinge-te singur.</string>
-	<string name="whatsnew_editor_title">Editați harta*</string>
 	<string name="whatsnew_editor_message_1">Adăugați locuri noi pe hartă și modificați-le pe cele existente direct din aplicație.</string>
 	<string name="whatsnew_editor_message_2">* OMaps folosește datele comunității OpenStreetMap community.</string>
 	<string name="dialog_incorrect_feature_position">Schimbare locație</string>
@@ -811,10 +759,6 @@
 	<string name="current_location_unknown_stop_button">Oprire</string>
 	<string name="current_location_unknown_error_title">Locația curentă este necunoscută.</string>
 	<string name="current_location_unknown_error_message">S-a produs o eroare la căutarea locației. Verificați dacă dispozitivul funcționează corect și încercați din nou.</string>
-	<string name="whatsnew_update_editor_title">Am actualizat editorul de hărți</string>
-	<string name="whatsnew_update_editor_message">Utilizatorii OMaps au făcut 200.000 de modificări de hărți. Împreună alcătuim cele mai detaliate hărți din lume. Alăturați-vă comunității!</string>
-	<!-- Additional text in whats new -->
-	<string name="whatsnew_update_editor_message_update">Pentru a utiliza funcția editor hartă, vă rugăm să actualizați toate hărțile.</string>
 	<string name="location_services_disabled_header">Geolocalizarea este dezactivată</string>
 	<string name="location_services_disabled_message">Activaţi accesul la geolocalizare din setările dispozitivului</string>
 	<string name="location_services_disabled_1">1. Deschideți setările</string>
@@ -901,14 +845,6 @@
 	<string name="sharing_call_action_look">Aruncați o privire</string>
 	<string name="continue_recent_track_background_button">Continuare</string>
 	<string name="recent_track_background_dialog_message">OMaps folosește în fundal geo-locația pentru a înregistra cel mai recent traseu urmat.</string>
-	<string name="whatsnew_car_navigation_header">Navigație pentru vehicule, ușor de folosit</string>
-	<string name="whatsnew_car_navigation_message">• Elementele aparținând navigației ocupă mai puțin spațiu.\n• Afișăm viteza și am adăugat o funcție de zoom automat.</string>
-	<string name="whatsnew_cycle_navigation_2_header">Navigație pentru biciclete</string>
-	<string name="whatsnew_cycle_navigation_2_message">• Navigația pentru biciclete ia în considerare caracteristicile traseului.\n• Creăm trasee mai ușoare, luând în considerare gradul de înclinare al drumului.</string>
-	<string name="whatsnew_booking_2_header">Căutarea hotelurilor este mai ușoară</string>
-	<string name="whatsnew_booking_2_message">Rezultatele de căutare indică nota hotelului și categoria de preț.</string>
-	<string name="whatsnew_cycle_navigation_header">Navigaţie pentru biciclete (versiune beta)</string>
-	<string name="whatsnew_cycle_navigation_message">În prezent testăm navigaţia pentru biciclete pentru noul sezon. Încercaţi traseul dvs. favorit cu OMaps şi împărtăşiţi-ne opinia dvs.</string>
 	<!-- Rate on Google Play (Android only) -->
 	<string name="rate_gp">Dați un calificativ pe Google Play</string>
 	<!-- Share with friends: menu item title -->
@@ -969,8 +905,6 @@
 	<string name="chat">Geochat</string>
 	<!-- Verb. Text on a button that opens the chat. -->
 	<string name="chat_open">Deschideți</string>
-	<string name="whatsnew_uber_header">OMaps și Uber</string>
-	<string name="whatsnew_uber_message">Comandați un taxi Uber direct din aplicație!</string>
 	<string name="dialog_taxi_offline">Comandarea unui taxi nu se poate face în modul offline.</string>
 	<string name="dialog_taxi_error">Comandarea unui taxi este momentan indisponibilă.</string>
 	<string name="mobile_data_dialog">Folosiți internetul mobil pentru a afişa informaţii detaliate?</string>
@@ -989,30 +923,6 @@
 	<string name="traffic_update_app_message">Pentru a afişa datele privind traficul, aplicația trebuie actualizată.</string>
 	<!-- "traffic" as in "road congestion" -->
 	<string name="traffic_data_unavailable">Datele privind traficul nu sunt disponibile</string>
-	<!-- december -->
-	<string name="whatsnew_traffic">Date privind traficul în 36 de țări</string>
-	<!-- december -->
-	<string name="whatsnew_traffic_text">Informații actualizate privind traficul și rutele cele mai rapide calculate în funcție de acestea!</string>
-	<!-- december -->
-	<string name="whatsnew_traffic_roaming">Informații privind traficul în roaming</string>
-	<!-- december -->
-	<string name="whatsnew_traffic_roaming_text">Necesită mai puţin de 1 MB de lățime de bandă mobilă pe călătorie.</string>
-	<!-- december -->
-	<string name="whatsnew_order_taxi">Comandați un taxi</string>
-	<!-- december -->
-	<string name="whatsnew_order_taxi_text">Majoritatea paginilor privind locația conțin acum un buton pentru a comanda un taxi.</string>
-	<!-- january -->
-	<string name="whatsnew_improved_search">Căutare îmbunătățită</string>
-	<!-- january -->
-	<string name="whatsnew_improved_search_text">Chiar și căutările scrise greșit aduc rezultate de căutare precise.</string>
-	<!-- january -->
-	<string name="whatsnew_filters_in_search">Filtre de căutare</string>
-	<!-- january -->
-	<string name="whatsnew_filters_in_search_text">Căutați hoteluri în funcție de preț și calificare.</string>
-	<!-- january -->
-	<string name="whatsnew_font_size">Dimensiunea fontului</string>
-	<!-- january -->
-	<string name="whatsnew_font_size_text">Etichetele de pe hartă pot fi făcute mai mari.</string>
 	<!-- Seven points and higher -->
 	<string name="booking_filter_rating_num_good">7.0+</string>
 	<!-- Eight points and higher -->
@@ -1022,16 +932,6 @@
 	<!-- Simplified colour scheme for traffic information, fewer colours are used to display traffic jams on the map. The string should be kept as short as possible -->
 	<string name="pref_traffic_simplified_colors_title">Culori trafic simplificate</string>
 	<string name="enable_logging">Activare jurnalizare</string>
-	<string name="whatsnew_more_info_on_hotels_title">Informaţii suplimentare despre hoteluri</string>
-	<string name="whatsnew_more_info_on_hotels_message">Un aspect nou al paginilor hotelurilor: fotografii, recenzii ale utilizatorilor și alte informații online.</string>
-	<string name="whatsnew_better_routing_title">Planificare îmbunătățită a rutei</string>
-	<string name="whatsnew_better_routing_message">• Estimare mai exactă a timpului de sosire.\n• Aplicația ia în calcul zonele cu restricții și semnele de circulație.</string>
-	<string name="whatsnew_smaller_mwm_title">Hărţile sunt acum mai mici</string>
-	<string name="whatsnew_smaller_mwm_message">Hărţile necesită cu 20% mai puțin spațiu de stocare.</string>
-	<string name="whatsnew_waypoints_title">Puncte de schimbare a direcției de pe traseu</string>
-	<string name="whatsnew_waypoints_message">Atingeți locații pentru a adăuga puncte de schimbare a direcției pe traseu.</string>
-	<string name="whatsnew_driving_style_title">Un nou stil de hartă pentru condus</string>
-	<string name="whatsnew_driving_style_message">Modul de navigare din mașină este acum mai ușor de utilizat.</string>
 	<string name="more_on_bookingcom">Mai multe pe Booking.com</string>
 	<string name="details_on_bookingcom">Detalii pe Booking.com</string>
 	<string name="reviews_on_bookingcom">Mai multe recenzii pe Booking.com</string>
@@ -1061,7 +961,6 @@
 	<string name="prefs_languages_information_off">Pentru unele limbi trebuie să instalați alt sintetizator de voce sau un pachet lingvistic suplimentar din Magazinul de aplicații (Google Play Market, Samsung Apps).\nDeschideți setările aplicației → Limbă și introducere → Voce → Conversie text în voce.\nAici puteți administra setările pentru sintetizatoarele vocale (de exemplu, descărcați pachetul lingvistic pentru utilizare offline) și selectați alt motor de conversie din text în voce.</string>
 	<string name="prefs_languages_information_off_link">Consultați acest ghid pentru informații suplimentare.</string>
 	<string name="whatsnew_transliteration_title">Transcriere în alfabet latin</string>
-	<string name="whatsnew_transliteration_message">Dacă o stradă sau un obiect nu are un nume în limba dvs., va fi exprimat utilizând alfabetul latin.</string>
 	<string name="learn_more">Mai multe</string>
 	<string name="core_exit">Ieșire</string>
 	<string name="routing_add_start_point">Adăugați punctul de plecare pentru a planifica un traseu</string>
@@ -1080,8 +979,6 @@
 	<string name="dialog_change_start_point_message">Înlocuiți punctul de plecare cu locația curentă?</string>
 	<string name="button_replace">Înlocuire</string>
 	<string name="placepage_add_stop">Adăugare oprire</string>
-	<string name="whatsnew_intermediate_point_title">Oprire suplimentară</string>
-	<string name="whatsnew_intermediate_point_message">Planificați o rută cu un punct intermediar.</string>
 	<string name="add_my_position">Adaugă poziția mea</string>
 	<string name="choose_start_point">Alege un punct de plecare</string>
 	<string name="choose_destination">Alege o destinație</string>
@@ -1388,15 +1285,6 @@
 	<string name="whats_new_ugc_routes_subtitle">Salvați locurile memorabile, creați rute cu ajutorul marcajelor și distribuiți-le tuturor în catalogul OMaps.</string>
 	<string name="whats_new_webeditor_title">Transformați-vă rutele în povești</string>
 	<string name="whats_new_ugc_routes_message2">Adăugați fotografii și povești detaliate în editorul web.</string>
-	<string name="whatsnew_standard_routes_title">Trasee standarte</string>
-	<string name="whatsnew_standard_routes_message">Setul principal de puncte, descrieri scurte, dar o mulțime de impresii!</string>
-	<string name="whatsnew_city_overview_title">Prezentarea orașului</string>
-	<string name="whatsnew_city_overview_message">Până la 200 de puncte pe harta orașului: toate cele mai utile și interesante pentru călător!</string>
-	<string name="whatsnew_pro_guides_title">Trasee profesionale</string>
-	<string name="whatsnew_pro_guides_message">Nivel înalt de detalii, descrieri detaliate ale locurilor și posibilitatea de a calcula distanța și timpul de mers pe jos</string>
-	<string name="whatsnew_paid_routes_title">Mai multe experiențe noi!</string>
-	<string name="whatsnew_paid_routes_message">Pe lângă rutele gratuite, în catalogul nostru am adăugat 3 categorii de rute plătite. Peste 700 de rute noi!</string>
-	<string name="whats_new_ugc_routes_title_android_only">Este ușor să vă împărtășiți impresiile</string>
 	<string name="ugc_thanks_message_auth">Comentariul dvs. a fost salvat</string>
 	<string name="ugc_thanks_message_not_auth">Înregistrați-vă pentru a lăsa comentarii</string>
 	<string name="notification_leave_review_v2_title">Lăsați comentarii și ajutați călătorii!</string>
@@ -1480,10 +1368,6 @@
 	<string name="whats_new_auto_update_bydeeplink_title">Înainte de a trece la ghiduri…</string>
 	<string name="whats_new_auto_update_bydeeplink_message">Actualizați hărțile pentru a primi informație actuală despre obiecte!</string>
 	<string name="whats_new_auto_update_and_proceed_button_size">De actualizat (%s) și de continuat</string>
-	<string name="whatsnew_toll_unpaved_title">Elaborați trasee auto ținând cont de toate tipurile de drumuri</string>
-	<string name="whatsnew_toll_unpaved_message">Selectați căile de ocolire pe drumurile cu plată, de țară și trecerile cu bacul</string>
-	<string name="whatsnew_new_catalogue_title">Paginile actualizate ale catalogului</string>
-	<string name="whatsnew_new_catalogue_message">Am adăugat informație detaliată privind ghidurile partenerilor, pentru ca selectarea traseelor să fie simplă și comodă</string>
 	<string name="purchase_please_wait_toast">Vă rugăm să nu părăsiți ecranul până la finalizarea cumpărăturii</string>
 	<string name="trip_start">Mergem</string>
 	<string name="pick_destination">Scop</string>
@@ -1539,12 +1423,6 @@
 	<string name="buy_btn_for_subscription_ios_only_year">Acces complet de %s/an</string>
 	<string name="subscription_terms_guides">Plata se va efectua de pe contul dvs. iTunes la confirmarea cumpărăturii. Abonamentul va fi reînnoit automat, cu excepția cazului în care reînnoirea automată este oprită cu cel puțin 24 de ore înainte de sfârșitul perioadei curente. Banii vor fi debitați din contul dvs. în conformitate cu planul dvs. de tarifare de reînnoire în termen de 24 de ore de la sfârșitul perioadei curente. Aveți posibilitatea să gestionați reînnoirea automată sau s-o dezactivați în setările contului dvs. Apple ID în orice moment după cumpărare. Veți putea utiliza ghidurile descărcate prin abonament numai în perioada de valabilitate a acestuia. La expirarea a 30 de zile de la încheierea abonamentului, ghidurile cu toate marcajele vor fi șterse automat.</string>
 	<string name="subscription_terms">Plata va fi percepută din contul dvs. iTunes la confirmarea achiziției. Abonamentul va fi reînnoit în mod automat, cu excepția cazului în care reînnoirea automată este oprită cu cel puțin 24 de ore înainte de sfârșitul perioadei curente. Plata va fi percepută din contul dvs. în conformitate cu planul dvs. de reînnoire într-un interval de timp de 24 de ore înainte de încheierea perioadei curente. Puteți administra sau dezactiva reînnoirea automată din setările contului dvs. Apple ID în orice moment al achiziției.</string>
-	<string name="whatsnew_carplay_title">Autonavigare OMaps în CarPlay!</string>
-	<string name="whatsnew_carplay_message">Marcaje, căutare, camere-radar și setări de ocolire - totul funcționează fără Internet</string>
-	<string name="whatsnew_subscription_title">Descoperă lumea la abonament!</string>
-	<string name="whatsnew_subscription_message">Acces nelimitat la catalogul traseelor sunt mai convenabile decât achizițiile unice</string>
-	<string name="whatsnew_carnavi_fixes_for_android_title">Actualizarea navigării</string>
-	<string name="whatsnew_carnavi_fixes_for_android_message">Am îmbunătățit elaborarea traseelor până la punctele, amplasate departe de drum</string>
 	<string name="avoid_unpaved_carplay_1">Fără neasfal</string>
 	<string name="avoid_unpaved_carplay_2">Fără neasfaltat</string>
 	<string name="avoid_ferry_carplay_1">Fără bacuri</string>
@@ -1601,8 +1479,6 @@
 	<string name="bookmarks_edit_list">Redactați</string>
 	<!-- Android, max 18 symbols -->
 	<string name="bookmarks_delete_list">Ștergeți lista</string>
-	<string name="whatsnew_bookmarks_search_sort_title">Ordine în inscripții – comoditate în călătorie</string>
-	<string name="whatsnew_bookmarks_search_sort_message">Sortați locurile preferate după categorie, ora adăugării și geolocalizarea și găsiți rapid inscripțiile după nume</string>
 	<string name="popup_subscription_success_map_title">Ura! Sunteți abonat!</string>
 	<string name="popup_subscription_success_map_message">Explorați acum cele mai faimoase obiective turistice în catalogul OMaps</string>
 	<string name="popup_subscription_success_map_start_button">Uitați-vă</string>
@@ -1623,8 +1499,6 @@
 	<string name="subscription_screen_native_message_version_2">Fiți pregătiți pentru orice călătorie în peste 600+ orașe și în peste 100+ țări</string>
 	<string name="catalog_no_internet_title">Fără conexiune la internet</string>
 	<string name="catalog_no_internet_button">Încercați din nou</string>
-	<string name="whatsnew_map_updates_title">Actualizarea reactiva a hărților</string>
-	<string name="whatsnew_map_updates_message">Acum actualizam hărțile de 2 ori mai repede</string>
 	<string name="new_onboarding_button">Mai departe</string>
 	<string name="new_onboarding_button_2">Începeți</string>
 	<string name="new_onboarding_step1_header_2">Asistent universal în călătorii</string>
@@ -1669,10 +1543,6 @@
 	<string name="downloader_country_no_guides_gallery_header">Nu există încă ghiduri în această țară</string>
 	<string name="downloader_country_no_guides_gallery_message">Consultați alte rute din 100+ de țări pentru activități în aer liber și oraș</string>
 	<string name="dialog_pedestrian_route_is_long">E prea mult timp ca sa ajungi la vehicul pe jos</string>
-	<string name="whatsnew_outdoor_guides_title">Am adăugat 15000+ de trasee pentru activități în aer liber!</string>
-	<string name="whatsnew_outdoor_guides_message">Rute Outdooractive de vacanță de iarnă și de vară te așteaptă în catalog!</string>
-	<string name="whatsnew_guides_galleries_title">Planificați-vă următoarea călătorie cu OMaps</string>
-	<string name="whatsnew_guides_galleries_message">Acum puteți găsi ghiduri recomandate în cartelele orașelor și atracțiilor populare</string>
 	<string name="new_onboarding_step3_header">Călătoriți</string>
 	<string name="all_pass_screen_best_value">Preț avantajos</string>
 	<string name="buy_btn_for_subscription_3">Tot catalogul pentru %s/an</string>
@@ -1681,9 +1551,6 @@
 	<string name="dialog_pedestrian_route_is_long_message">Selectați punctul de început sau de sfârșit al rutei mai aproape de stația de metrou</string>
 	<!-- Failed planning SUBWAY route message in navigation view -->
 	<string name="routing_planning_error_subway_special">Eroare la construirea rutei metroului</string>
-	<string name="whatsnew_isolines_title">Noutatea pentru activități în aer liber – linii de înălțimi offline!</string>
-	<!-- as less symbols as possible -->
-	<string name="whatsnew_isolines_message">Ghidați-vă în zona montană-activați butonul de strat în colțul din stânga sus pe ecran</string>
 	<string name="button_layer_isolines">Înălțimi</string>
 	<string name="tips_map_layers_title_countour">Linii de înălțimi offline pe OMaps!</string>
 	<string name="tips_map_layers_message_countour">Liniile de înălțimi vă vor ajuta să planificați o călătorie în natură și să nu vă pierdeți</string>
@@ -1720,12 +1587,6 @@
 	<string name="routes_card_show">Arată pe hartă</string>
 	<!-- as few symbols as possible -->
 	<string name="routes_card_hide">Ascunde de pe hartă</string>
-	<string name="whatsnew_catalog_new_title">Catalog nou și mii de idei pentru vacanță</string>
-	<string name="whatsnew_catalog_new_message">Am actualizat catalogul ghidurilor de călătorie și am adăugat traduceri în limbi populare. Începeți planificarea înainte!</string>
-	<string name="whatsnew_elevation_profile_title">Profilul înălțimilor în ghiduri</string>
-	<string name="whatsnew_elevation_profile_message">Evaluați complexitatea urcărilor și coborârilor viitoare offline cu cursorul în profilul traseului achiziționat.</string>
-	<string name="whatsnew_guides_on_map_title">Strat nou - ghiduri pe hartă!</string>
-	<string name="whatsnew_guides_on_map_message">Activați stratul din meniul setărilor aplicației pentru a găsi rapid rute interesante pentru orașe și ghiduri de călătorie pentru activități în aer liber.</string>
 	<string name="downloader_updating_ios">Actualizare</string>
 	<string name="downloader_loading_ios">Încărcare</string>
 	<string name="routes_card_plus_track">+ track</string>
@@ -1761,8 +1622,6 @@
 	<string name="choose_dates_online_only_dialog_message">Alegerea datelor și a numărului de oaspeți este disponibilă doar online. Verificați-vă setările și asigurați-vă că sunteți conectat la Internet.</string>
 	<string name="choose_dates_online_only_dialog_cta">Setări</string>
 	<string name="thirty_days_limit_dialog">Rezervabil pentru maxim 30 de nopți</string>
-	<string name="whatsnew_trial_title">Acces gratuit la ghiduri</string>
-	<string name="whatsnew_trial_message">Am lansat o perioadă de abonament de încercare de 7 zile. Mii de rute din întreaga lume, precum și un profil interactiv de înălțimi în ghidurile de activități în aer liber.</string>
 	<string name="whatsnew_trial_cta">Încercați</string>
 	<string name="subscription_terms_guides_outdoor">Plata va fi percepută pe contul dvs. iTunes la confirmarea achiziției. Abonamentul se va reînnoi automat, cu excepția cazului în care reînnoirea automată este dezactivată cu cel puțin 24 de ore înainte de sfârșitul perioadei curente. Numerarul va fi debitat din contul dvs. în conformitate cu planul dvs. de reînnoire în termen de 24 de ore înainte de sfârșitul perioadei curente. Puteți gestiona sau dezactiva reînnoirea automată accesând setările contului dvs. Apple ID în orice moment după cumpărare. Veți putea utiliza ghidurile descărcate prin abonament doar în perioada de valabilitate. După 7 de zile de la încheierea abonamentului, ghidurile cu toate marcajele vor fi șterse automat.\n* Abonamentul cu o perioadă de încercare gratuită se transformă automat într-un abonament plătit. Puteți anula sau gestiona reînnoirea automată a procesului gratuit accesând Setările contului dvs. după cumpărare. Anularea va intra în vigoare la 24 de ore de la ultima zi a perioadei curente de abonare și veți fi transferat la un abonament gratuit. Vă rugăm să rețineți: orice parte neutilizată a perioadei de încercare gratuită va fi anulată atunci când achiziționați un abonament plătit în această perioadă.</string>
 	<string name="subscription_terms_android_outdoor">Plata va fi percepută în contul dvs. Google Play la confirmarea achiziției. Abonamentul se va reînnoi automat, cu excepția cazului în care reînnoirea automată este dezactivată cu cel puțin 24 de ore înainte de sfârșitul perioadei curente. Numerarul va fi debitat din contul dvs. în conformitate cu planul dvs. de reînnoire în termen de 24 de ore înainte de sfârșitul perioadei curente. Puteți gestiona sau dezactiva reînnoirea automată accesând Setările contului dvs. după cumpărare. Veți putea utiliza ghidurile descărcate prin abonament doar în perioada de valabilitate. După 7 de zile de la încheierea abonamentului, ghidurile vor fi șterse automat.\n* Abonamentul cu o perioadă de încercare gratuită se transformă automat într-un abonament plătit. Puteți anula sau gestiona reînnoirea automată a procesului gratuit accesând Setările contului dvs. după cumpărare. Anularea va intra în vigoare la 24 de ore de la ultima zi a perioadei curente de abonare și veți fi transferat la un abonament gratuit. Vă rugăm să rețineți: orice parte neutilizată a perioadei de încercare gratuită va fi anulată atunci când achiziționați un abonament plătit în această perioadă.</string>
