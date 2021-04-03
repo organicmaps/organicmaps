@@ -29,10 +29,6 @@ extension PlacePageInteractor: PlacePagePreviewViewControllerDelegate {
     MWMPlacePageManagerHelper.showRemoveAds()
   }
 
-  func previewDidPressAddReview() {
-    MWMPlacePageManagerHelper.showUGCAddReview(placePageData, rating: .none, from: .placePagePreview)
-  }
-
   func previewDidPressSimilarHotels() {
     MWMPlacePageManagerHelper.searchSimilar(placePageData)
   }
@@ -71,14 +67,6 @@ extension PlacePageInteractor: TaxiViewControllerDelegate {
   
   func didShowTaxi() {
     MWMPlacePageManagerHelper.taxiShown(placePageData)
-  }
-}
-
-// MARK: - AddReviewViewControllerDelegate
-
-extension PlacePageInteractor: AddReviewViewControllerDelegate {
-  func didRate(_ rating: UgcSummaryRatingType) {
-    MWMPlacePageManagerHelper.showUGCAddReview(placePageData, rating: rating, from: .placePage)
   }
 }
 

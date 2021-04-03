@@ -20,7 +20,6 @@ public class WorkerService extends JobIntentService
   private static final Logger LOGGER = LoggerFactory.INSTANCE.getLogger(LoggerFactory.Type.MISC);
   private static final String TAG = WorkerService.class.getSimpleName();
   private static final String ACTION_UPLOAD_OSM_CHANGES = "com.mapswithme.maps.action.upload_osm_changes";
-  private static final String ACTION_UPLOAD_UGC = "com.mapswithme.maps.action.upload_ugc";
 
   /**
    * Starts this service to upload map edits to osm servers.
@@ -31,17 +30,6 @@ public class WorkerService extends JobIntentService
     intent.setAction(WorkerService.ACTION_UPLOAD_OSM_CHANGES);
     JobIntentService.enqueueWork(context.getApplicationContext(), WorkerService.class,
                                  JobIdMap.getId(WorkerService.class), intent);
-  }
-
-  /**
-   * Starts this service to upload UGC to our servers.
-   */
-  public static void startActionUploadUGC(@NonNull Context context)
-  {
-    final Intent intent = new Intent(context, WorkerService.class);
-    intent.setAction(WorkerService.ACTION_UPLOAD_UGC);
-    final int jobId = JobIdMap.getId(WorkerService.class);
-    JobIntentService.enqueueWork(context, WorkerService.class, jobId, intent);
   }
 
   @Override
@@ -65,20 +53,11 @@ public class WorkerService extends JobIntentService
       case ACTION_UPLOAD_OSM_CHANGES:
         handleActionUploadOsmChanges(context);
         break;
-
-      case ACTION_UPLOAD_UGC:
-        handleUploadUGC();
-        break;
     }
   }
 
   private static void handleActionUploadOsmChanges(@NonNull Context context)
   {
     Editor.uploadChanges(context);
-  }
-
-  private static void handleUploadUGC()
-  {
-    UGC.nativeUploadUGC();
   }
 }

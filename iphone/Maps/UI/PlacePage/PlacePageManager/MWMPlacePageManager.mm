@@ -292,15 +292,6 @@ using namespace storage;
   [self closePlacePage];
 }
 
-- (void)showUGCAddReview:(PlacePageData *)data
-                  rating:(UgcSummaryRatingType)value
-              fromSource:(MWMUGCReviewSource)source {
-  MWMUGCAddReviewController *ugcVC = [[MWMUGCAddReviewController alloc] initWithPlacePageData:data
-                                                                                       rating:value
-                                                                                        saver:self];
-  [[MapViewController sharedController].navigationController pushViewController:ugcVC animated:YES];
-}
-
 - (void)searchSimilar:(PlacePageData *)data
 {
   MWMHotelParams * params = [[MWMHotelParams alloc] initWithPlacePageData:data];
@@ -360,42 +351,6 @@ using namespace storage;
 #pragma mark - Ownerfacilities
 
 - (MapViewController *)ownerViewController { return [MapViewController sharedController]; }
-
-- (void)saveUgcWithPlacePageData:(PlacePageData *)placePageData
-                           model:(MWMUGCReviewModel *)model
-                        language:(NSString *)language
-                   resultHandler:(void (^)(BOOL))resultHandler {
-  using namespace ugc;
-  auto appInfo = AppInfo.sharedInfo;
-  auto const locale =
-      static_cast<uint8_t>(StringUtf8Multilang::GetLangIndex(appInfo.twoLetterLanguageId.UTF8String));
-  std::vector<uint8_t> keyboardLanguages;
-  // TODO: Set the list of used keyboard languages (not only the recent one).
-  auto twoLetterInputLanguage = languages::Normalize(language.UTF8String);
-  keyboardLanguages.emplace_back(StringUtf8Multilang::GetLangIndex(twoLetterInputLanguage));
-
-  KeyboardText t{model.text.UTF8String, locale, keyboardLanguages};
-  Ratings r;
-  for (MWMUGCRatingStars * star in model.ratings)
-    r.emplace_back(star.title.UTF8String, star.value);
-
-  UGCUpdate update{r, t, std::chrono::system_clock::now()};
-
-  place_page::Info const & info = GetFramework().GetCurrentPlacePageInfo();
-  GetFramework().GetUGCApi()->SetUGCUpdate(info.GetID(), update,
-  [resultHandler, info, placePageData](ugc::Storage::SettingResult const result)
-  {
-    if (result != ugc::Storage::SettingResult::Success)
-    {
-      resultHandler(NO);
-      return;
-    }
-
-    resultHandler(YES);
-    GetFramework().UpdatePlacePageInfoForCurrentSelection();
-    [placePageData updateUgcStatus];
-  });
-}
 
 #pragma mark - MWMPlacePagePromoProtocol
 

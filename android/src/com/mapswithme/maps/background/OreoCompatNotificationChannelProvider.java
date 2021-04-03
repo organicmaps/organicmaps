@@ -22,13 +22,6 @@ public class OreoCompatNotificationChannelProvider extends StubNotificationChann
     super(app, AUTH_NOTIFICATION_CHANNEL, DOWNLOADING_NOTIFICATION_CHANNEL);
   }
 
-  @Override
-  public void setUGCChannel()
-  {
-    String name = getApplication().getString(R.string.notification_channel_ugc);
-    setChannelInternal(getUGCChannel(), name);
-  }
-
   private void setChannelInternal(@NonNull String id, @NonNull String name)
   {
     NotificationManager notificationManager = getApplication().getSystemService(NotificationManager.class);

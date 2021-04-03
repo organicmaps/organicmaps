@@ -4,7 +4,6 @@ final class PlacePageDirectionView: UIView {
 }
 
 protocol PlacePagePreviewViewControllerDelegate: AnyObject {
-  func previewDidPressAddReview()
   func previewDidPressSimilarHotels()
   func previewDidPressRemoveAds()
 }
@@ -202,10 +201,6 @@ final class PlacePagePreviewViewController: UIViewController {
   func updateSpeedAndAltitude(_ speedAndAltitude: String) {
     self.speedAndAltitude = speedAndAltitude
     subtitleLabel?.text = speedAndAltitude
-  }
-
-  @IBAction func onAddReview(_ sender: UIButton) {
-    delegate?.previewDidPressAddReview()
   }
 
   @IBAction func onSimilarHotels(_ sender: UIButton) {

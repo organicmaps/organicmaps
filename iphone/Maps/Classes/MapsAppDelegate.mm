@@ -202,7 +202,7 @@ using namespace osm_auth_ios;
     }];
   }
 
-  auto tasks = @[[[MWMBackgroundEditsUpload alloc] init], [[MWMBackgroundUGCUpload alloc] init]];
+  auto tasks = @[[[MWMBackgroundEditsUpload alloc] init]];
   [self runBackgroundTasks:tasks completionHandler:nil];
 
   [MWMRouter saveRouteIfNeeded];

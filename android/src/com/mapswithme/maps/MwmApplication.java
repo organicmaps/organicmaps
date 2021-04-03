@@ -29,12 +29,10 @@ import com.mapswithme.maps.scheduling.ConnectivityJobScheduler;
 import com.mapswithme.maps.scheduling.ConnectivityListener;
 import com.mapswithme.maps.search.SearchEngine;
 import com.mapswithme.maps.sound.TtsPlayer;
-import com.mapswithme.maps.ugc.UGC;
 import com.mapswithme.util.Config;
 import com.mapswithme.util.ConnectionState;
 import com.mapswithme.util.Counters;
 import com.mapswithme.util.CrashlyticsUtils;
-import com.mapswithme.util.KeyValue;
 import com.mapswithme.util.SharedPropertiesUtils;
 import com.mapswithme.util.StorageUtils;
 import com.mapswithme.util.ThemeSwitcher;
@@ -43,7 +41,6 @@ import com.mapswithme.util.Utils;
 import com.mapswithme.util.log.Logger;
 import com.mapswithme.util.log.LoggerFactory;
 
-import java.util.HashMap;
 import java.util.List;
 
 public class MwmApplication extends Application implements AppBackgroundTracker.OnTransitionListener
@@ -156,7 +153,6 @@ public class MwmApplication extends Application implements AppBackgroundTracker.
   private void initNotificationChannels()
   {
     NotificationChannelProvider channelProvider = NotificationChannelFactory.createProvider(this);
-    channelProvider.setUGCChannel();
     channelProvider.setDownloadingChannel();
   }
 
@@ -205,7 +201,6 @@ public class MwmApplication extends Application implements AppBackgroundTracker.
     Config.setStatisticsEnabled(SharedPropertiesUtils.isStatisticsEnabled(this));
 
     Editor.init(this);
-    UGC.init(this);
     mPlatformInitialized = true;
   }
 

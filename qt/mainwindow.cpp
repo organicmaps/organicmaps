@@ -269,8 +269,6 @@ MainWindow::MainWindow(Framework & framework, bool apiOpenGLES3,
 #endif // NO_DOWNLOADER
 
   m_pDrawWidget->UpdateAfterSettingsChanged();
-
-  m_pDrawWidget->GetFramework().UploadUGC(nullptr /* onCompleteUploading */);
   
   if (RoutingSettings::IsCacheEnabled())
     RoutingSettings::LoadSettings(m_pDrawWidget->GetFramework());

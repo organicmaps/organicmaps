@@ -95,10 +95,8 @@ NS_ASSUME_NONNULL_BEGIN
 - (instancetype)init NS_UNAVAILABLE;
 
 - (void)loadOnlineDataWithCompletion:(MWMVoidBlock)completion;
-- (void)loadUgcWithCompletion:(MWMVoidBlock)completion;
 - (void)loadCatalogPromoWithCompletion:(MWMVoidBlock)completion;
 - (void)updateBookmarkStatus;
-- (void)updateUgcStatus;
 
 @end
 

@@ -30,19 +30,6 @@ public class StubNotificationChannelProvider implements NotificationChannelProvi
     this(context, DEFAULT_NOTIFICATION_CHANNEL, DEFAULT_NOTIFICATION_CHANNEL);
   }
 
-  @Override
-  @NonNull
-  public String getUGCChannel()
-  {
-    return mAuthChannel;
-  }
-
-  @Override
-  public void setUGCChannel()
-  {
-    /*Do nothing */
-  }
-
   @NonNull
   @Override
   public String getDownloadingChannel()

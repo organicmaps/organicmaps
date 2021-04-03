@@ -762,22 +762,6 @@ taxi::RideRequestLinks Framework::GetTaxiLinks(JNIEnv * env, jobject policy, tax
   return taxiEngine->GetRideRequestLinks(type, productId, from, to);
 }
 
-void Framework::RequestUGC(FeatureID const & fid, ugc::Api::UGCCallback const & ugcCallback)
-{
-  m_work.GetUGC(fid, ugcCallback);
-}
-
-void Framework::SetUGCUpdate(FeatureID const & fid, ugc::UGCUpdate const & ugc,
-                             ugc::Api::OnResultCallback const & callback /*  = nullptr */)
-{
-  m_work.GetUGCApi()->SetUGCUpdate(fid, ugc, callback);
-}
-
-void Framework::UploadUGC()
-{
-  m_work.UploadUGC(nullptr /* onCompleteUploading */);
-}
-
 int Framework::ToDoAfterUpdate() const
 {
   return (int) m_work.ToDoAfterUpdate();

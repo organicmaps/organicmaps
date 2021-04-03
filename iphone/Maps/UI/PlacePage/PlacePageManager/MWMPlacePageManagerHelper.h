@@ -1,15 +1,9 @@
-#import "MWMUGCReviewSource.h"
-#import <CoreApi/UgcSummaryRatingType.h>
-
 @class PlacePageData;
 @class ElevationProfileData;
 
 @interface MWMPlacePageManagerHelper : NSObject
 
 + (void)updateAvailableArea:(CGRect)frame;
-+ (void)showUGCAddReview:(PlacePageData *)data
-                  rating:(UgcSummaryRatingType)value
-              fromSource:(MWMUGCReviewSource)source;
 + (void)searchSimilar:(PlacePageData *)data;
 + (void)editPlace;
 + (void)addBusiness;

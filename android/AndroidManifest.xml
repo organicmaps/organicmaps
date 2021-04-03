@@ -293,11 +293,6 @@
         android:parentActivityName="com.mapswithme.maps.MwmActivity" />
 
     <activity
-      android:name=".ugc.UGCEditorActivity"
-      android:configChanges="keyboardHidden|orientation|screenSize"
-      android:parentActivityName=".MwmActivity" />
-
-    <activity
       android:name=".discovery.DiscoveryActivity"
       android:parentActivityName=".MwmActivity" />
 
