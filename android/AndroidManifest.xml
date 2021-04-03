@@ -45,7 +45,6 @@
       android:protectionLevel="signature"/>
 
   <uses-permission android:name="${applicationId}.permission.C2D_MESSAGE"/>
-  <uses-permission android:name="android.permission.READ_PHONE_STATE" tools:node="remove"/>
 
   <!-- -->
   <supports-screens
@@ -60,9 +59,7 @@
       android:theme="@style/MwmTheme"
       android:supportsRtl="false"
       android:networkSecurityConfig="@xml/network_security_config"
-      android:requestLegacyExternalStorage="true"
-      tools:replace="android:supportsRtl"
-      tools:ignore="UnusedAttribute">
+      android:requestLegacyExternalStorage="true">
 
     <activity
       android:name="com.mapswithme.maps.SplashActivity"
