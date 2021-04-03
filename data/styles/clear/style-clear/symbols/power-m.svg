@@ -1,1 +1,11 @@
-<svg height="24" viewBox="0 0 24 24" width="24"><g fill="none" fill-rule="evenodd"><circle cx="12" cy="12" fill="#fff" opacity=".6" r="12"/><circle cx="12" cy="12" fill="#717065" r="11"/><path d="m12.641 5 3.359.012-3.359 5.432h3.315l-7.293 8.556 2.652-7.002h-3.315z" fill="#fff"/></g></svg>
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>power-m</title>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="power-m" fill-rule="nonzero">
+            <circle id="Oval" fill="#FFFFFF" opacity="0.6" cx="12" cy="12" r="12"></circle>
+            <circle id="Oval" fill="#717065" cx="12" cy="12" r="11"></circle>
+            <path d="M11.1081612,19 L10.3303834,19 L11.1081612,13.5555556 L8.385939,13.5555556 C7.93482789,13.5555556 7.94260567,13.3066667 8.09038345,13.0422222 C8.23816122,12.7777778 8.12927233,12.98 8.14482789,12.9488889 C9.14816122,11.1755556 10.6570501,8.53111111 12.6637168,5 L13.4414946,5 L12.6637168,10.4444444 L15.385939,10.4444444 C15.7670501,10.4444444 15.8214946,10.7011111 15.7514946,10.8411111 L15.6970501,10.9577778 C12.6326057,16.3166667 11.1081612,19 11.1081612,19 Z" id="Path" fill="#FFFFFF"></path>
+        </g>
+    </g>
+</svg>

@@ -1,1 +1,11 @@
-<svg height="24" viewBox="0 0 24 24" width="24"><g fill="none" fill-rule="evenodd"><circle cx="12" cy="12" fill="#fff" opacity=".4" r="12"/><circle cx="12" cy="12" fill="#4d361f" r="11"/><path d="m13.1111111 8.23076923h3.8888889v2.15384617h-3.8888889v8.6153846h-2.2222222v-8.6153846h-3.8888889v-2.15384617h3.8888889v-3.23076923h2.2222222z" fill="#fff" opacity=".6"/></g></svg>
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>christian-m</title>
+    <g id="Page-2:-Night" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" opacity="0.6">
+        <g id="christian-m" fill-rule="nonzero">
+            <circle id="Oval" fill="#FFFFFF" cx="12" cy="12" r="12"></circle>
+            <circle id="Oval" fill="#7F5933" cx="12" cy="12" r="11"></circle>
+            <polygon id="Path" fill="#FFFFFF" points="13.1111111 8.23076923 17 8.23076923 17 10.3846154 13.1111111 10.3846154 13.1111111 19 10.8888889 19 10.8888889 10.3846154 7 10.3846154 7 8.23076923 10.8888889 8.23076923 10.8888889 5 13.1111111 5"></polygon>
+        </g>
+    </g>
+</svg>

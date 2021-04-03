@@ -1,1 +1,20 @@
-<svg height="24" viewBox="0 0 24 24" width="24"><g fill="none" fill-rule="evenodd"><rect fill="#fff" height="24" opacity=".4" rx="2.5" width="24"/><rect fill="#204366" height="22" rx="2" width="22" x="1" y="1"/><path d="m7.99079514 6c-1.09258276 0-1.99079514.89112225-1.99079514 1.99037724v2.97345036l-.12261963.0657453c-.48215389.2585176-.87738037.9220754-.87738037 1.4792119v3.4824304c0 .5586967.44715386 1.0087848.99874609 1.0087848h7.03669831c-.0233584-.1633015-.0354444-.3302393-.0354444-.5 0-1.9329966 1.5670034-3.5 3.5-3.5s3.5 1.5670034 3.5 3.5c0 .1697607-.012086.3366985-.0354444.5h3.0354444v-5h-.9970707c-.5539025 0-1.0029293-.4433532-1.0029293-1.0093689v-1.9812622c0-.55745905.4378814-1.0093689 1.0029293-1.0093689h.9970707v-2zm6.00920486 3.0093689c0-.55745905.4437166-1.0093689.9998075-1.0093689h3.000385c.5521784 0 .9998075.44335318.9998075 1.0093689v1.9812622c0 .5574591-.4437166 1.0093689-.9998075 1.0093689h-3.000385c-.5521784 0-.9998075-.4433532-.9998075-1.0093689zm-6-.01233876c0-.55064454.44335318-.99703014 1.0093689-.99703014h1.9812622c.5574591 0 1.0093689.45303631 1.0093689.99703014v7.00296986h-4zm8.5 10.00296986c1.3807119 0 2.5-1.1192881 2.5-2.5s-1.1192881-2.5-2.5-2.5-2.5 1.1192881-2.5 2.5 1.1192881 2.5 2.5 2.5z" fill="#fff" opacity=".6"/></g></svg>
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>bus-m</title>
+    <g id="Page-2:-Night" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" opacity="0.6">
+        <g id="bus-m">
+            <rect id="Rectangle" fill="#FFFFFF" fill-rule="nonzero" x="0" y="0" width="24" height="24" rx="2.5"></rect>
+            <rect id="Rectangle" fill="#2F6499" fill-rule="nonzero" x="1" y="1" width="22" height="22" rx="2"></rect>
+            <g id="bus" transform="translate(4.000000, 4.000000)">
+                <polygon id="Path" points="0 0 16 0 16 16 0 16"></polygon>
+                <circle id="Oval" stroke="#FFFFFF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" cx="4" cy="11.3333333" r="1.33333333"></circle>
+                <circle id="Oval" stroke="#FFFFFF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" cx="12" cy="11.3333333" r="1.33333333"></circle>
+                <path d="M2.66666667,11.3333333 L1.33333333,11.3333333 L1.33333333,4 C1.33333333,3.63181017 1.63181017,3.33333333 2,3.33333333 L11.3333333,3.33333333 C13.1742825,3.33333333 14.6666667,5.42267117 14.6666667,8 L14.6666667,11.3333333 L13.3333333,11.3333333 M10.6666667,11.3333333 L5.33333333,11.3333333" id="Shape" stroke="#FFFFFF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+                <polyline id="Path" stroke="#FFFFFF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" points="10.6666667 3.33333333 11.6666667 8 14.6666667 8"></polyline>
+                <line x1="1.33333333" y1="6.66666667" x2="11.3333333" y2="6.66666667" id="Path" stroke="#FFFFFF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></line>
+                <line x1="4.66666667" y1="3.33333333" x2="4.66666667" y2="6.66666667" id="Path" stroke="#FFFFFF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></line>
+                <line x1="8" y1="3.33333333" x2="8" y2="6.66666667" id="Path" stroke="#FFFFFF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></line>
+            </g>
+        </g>
+    </g>
+</svg>
