@@ -165,10 +165,6 @@ public:
     m_routeSpeedCamsClearCallback = speedCamsClearCallback;
   }
   
-  void SetRouteStartBuildListener(RouteStartBuildCallback const & startBuildCallback)
-  {
-    m_routingStartBuildCallback = startBuildCallback;
-  }
   /// See warning above.
   void SetRouteProgressListener(routing::ProgressCallback const & progressCallback)
   {
@@ -261,7 +257,6 @@ public:
   void OnRemoveRoute(routing::RouterResultCode code);
   void OnRoutePointPassed(RouteMarkType type, size_t intermediateIndex);
   void OnLocationUpdate(location::GpsInfo const & info);
-  void CallRouteBuildStart(std::vector<RouteMarkData> const & points);
   void SetAllowSendingPoints(bool isAllowed)
   {
     m_trackingReporter.SetAllowSendingPoints(isAllowed);
@@ -379,7 +374,6 @@ private:
   RouteSpeedCamShowCallback m_routeSpeedCamShowCallback;
   RouteSpeedCamsClearCallback m_routeSpeedCamsClearCallback;
   RouteRecommendCallback m_routeRecommendCallback;
-  RouteStartBuildCallback m_routingStartBuildCallback;
   Callbacks m_callbacks;
   df::DrapeEngineSafePtr m_drapeEngine;
   routing::RouterType m_currentRouterType = routing::RouterType::Count;

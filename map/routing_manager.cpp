@@ -1046,8 +1046,6 @@ void RoutingManager::BuildRoute(uint32_t timeoutSec)
     }
   }
 
-  CallRouteBuildStart(routePoints);
-
   if (IsRoutingActive())
     CloseRouting(false /* remove route points */);
 
@@ -1125,11 +1123,6 @@ void RoutingManager::CallRouteBuilded(RouterResultCode code,
 void RoutingManager::ConfigureArchivalReporter(tracking::ArchivingSettings const & settings)
 {
   m_trackingReporterArchive.SetArchivalManagerSettings(settings);
-}
-
-void RoutingManager::CallRouteBuildStart(std::vector<RouteMarkData> const & points)
-{
-  m_routingStartBuildCallback(points);
 }
 
 void RoutingManager::MatchLocationToRoute(location::GpsInfo & location,
