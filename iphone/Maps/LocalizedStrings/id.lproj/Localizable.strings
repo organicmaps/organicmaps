@@ -18,33 +18,16 @@
 /* Button which deletes downloaded country */
 "delete" = "Hapus";
 
-/* Button to dismiss dialog forever */
-"do_not_ask_me_again" = "Jangan tanyai saya lagi";
-
 /* Button "do not interrupt download" if user touched actively downloading country */
 "do_nothing" = "Lanjutkan";
 
 "download_maps" = "Unduh Peta";
 
-/* Settings/Downloader - Download confirmation button */
-"download_x_kb" = "Unduh %qu kB";
-
-/* Settings/Downloader - Download confirmation button */
-"download_x_mb" = "Unduh %qu MB";
-
 /* Settings/Downloader - info for country when download fails */
 "download_has_failed" = "Pengunduhan gagal, sentuh untuk mencoba sekali lagi";
 
-/* Settings/Downloader - info for downloaded country */
-"downloaded_x_y_touch_to_delete" = "Telah mengunduh (%1$qu %2$@), sentuh untuk menghapus";
-
-/* Settings/Downloader - country info current download progress */
-"downloading_x_touch_to_cancel" = "Sedang mengunduh %qu%%, sentuh untuk membatalkan";
-
 /* Settings/Downloader - info for country which started downloading */
 "downloading" = "Sedang mengunduh…";
-
-"get_it_now" = "Dapatkan sekarang";
 
 /* Settings/Downloader - size string, only strings different from English should be translated */
 "kb" = "kB";
@@ -58,12 +41,6 @@
 /* View and button titles for accessibility */
 "maps" = "Peta";
 
-/* View and button titles for accessibility */
-"downloader_maps" = "Peta:";
-
-/* Settings/Downloader - info for country in the download queue */
-"marked_for_downloading" = "Ditandai untuk pengunduhan, sentuh untuk membatalkan";
-
 /* Settings/Downloader - size string, only strings different from English should be translated */
 "mb" = "MB";
 
@@ -75,20 +52,11 @@
 /* View and button titles for accessibility */
 "core_my_position" = "Posisi Saya";
 
-/* Settings/Downloader - No free space dialog message */
-"free_disk_space_for_country_x" = "Mohon bebaskan ruang pada perangkat Anda terlebih dahulu untuk mengunduh %@";
-
-/* Leave Review dialog - Not now button (remind me later) */
-"remind_me_later" = "Ingatkan saya lagi nanti";
-
 /* Update maps later/Buy pro version later button text */
 "later" = "Nanti";
 
 /* Don't show some dialog any more */
 "never" = "Tidak akan pernah";
-
-/* Leave Review dialog - Complain button (goes to support site) */
-"report_an_issue" = "Laporkan sebuah masalah";
 
 /* View and button titles for accessibility */
 "search" = "Cari";
@@ -102,9 +70,6 @@
 /* Settings/Downloader - 3G download warning dialog confirm button */
 "use_cellular_data" = "Ya";
 
-/* Choose measurement on first launch alert - title */
-"which_measurement_system" = "Sistem pengukuran manakah yang lebih Anda sukai?";
-
 /* Location services are disabled by user alert - message */
 "location_is_disabled_long_text" = "Saat ini semua Layanan Lokasi untuk perangkat atau aplikasi ini non-aktif. Mohon aktifkan lewat Setelan.";
 
@@ -113,12 +78,6 @@
 
 /* View and button titles for accessibility */
 "zoom_to_country" = "Tampilkan di peta";
-
-/* Message to display at the center of the screen when the country is added to the downloading queue */
-"country_status_added_to_queue" = "^\ntelah ditambahkan ke antrean pengunduhan.";
-
-/* Message to display at the center of the screen when the country is downloading */
-"country_status_downloading" = "Sedang mengunduh\n^\n^";
 
 /* Button text for the button at the center of the screen when the country is not downloaded */
 "country_status_download" = "Unduh Peta\n(^ ^)";
@@ -136,8 +95,6 @@
 "try_again" = "Coba Lagi";
 
 "about_menu_title" = "Tentang OMaps";
-
-"downloading_touch_to_cancel" = "Sedang mengunduh %d%%, sentuh untuk membatalkan";
 
 "downloaded_touch_to_delete" = "(%@) telah diunduh, sentuh untuk menghapus";
 
@@ -159,8 +116,6 @@
 
 "not_enough_memory" = "Memori tidak cukup untuk meluncurkan aplikasi";
 
-"free_space_for_country" = "Mohon bebaskan %1$@ pada perangkat Anda terlebih dahulu untuk mengunduh %2$@";
-
 "download_resources" = "Sebelum Anda mulai izinkan kami mengunduh peta dunia secara umum ke perangkat Anda.\nHal ini memerlukan data %@.";
 
 "getting_position" = "Sedang mencari lokasi saat ini";
@@ -174,35 +129,10 @@
 "update_country_ask" = "Perbarui %@?";
 
 /* REMOVE THIS STRING AFTER REFACTORING */
-"download_location_map_proposal" = "Anda dapat mengunduh peta lokasi Anda saat ini.";
-
-/* REMOVE THIS_STRING AFTER REFACTORING */
-"download_location_update_map_proposal" = "Anda dapat memperbarui peta lokasi Anda saat ini.";
-
-/* REMOVE THIS STRING AFTER REFACTORING */
-"download_location_map_up_to_date" = "Peta lokasi Anda saat ini (%@) sudah yang terkini";
-
-/* REMOVE THIS STRING AFTER REFACTORING */
 "pause" = "Jeda";
 
 /* REMOVE THIS STRING AFTER REFACTORING */
 "continue_download" = "Lanjutkan";
-
-"downloaded_touch_to_update" = "(%@) telah diunduh, sentuh untuk memperbarui atau menghapus";
-
-"update_mb_or_kb" = "Perbarui %@";
-
-/* Show popup notification when we have downloaded countries without search (from Lite version) */
-"search_update_maps" = "Anda memerlukan peta terbaru untuk fungsi pencarian:";
-
-/* Show popup notification on app start when we have out-of-date maps */
-"advise_update_maps" = "Tersedia pembaruan untuk peta ini:";
-
-/* Show popup notification in Pro version that Lite can be deleted */
-"suggest_uninstall_lite" = "Anda tidak lagi memerlukan OMaps Lite, sehingga Anda dapat menghapusnya.";
-
-/* Show popup notification on top of the map when country was downloaded. */
-"download_country_success" = "%@ berhasil diunduh";
 
 /* Show popup notification on top of the map when country download has failed. */
 "download_country_failed" = "%@ gagal diunduh";
@@ -245,9 +175,6 @@
 
 /* Text hint in Bookmarks dialog when no any bookmarks are added */
 "bookmarks_usage_hint" = "Belum ada yang ditandai.\nSentuh lokasi apa pun pada peta untuk menandai.\nPenanda dari sumber lainnya juga dapat di impor dan ditampilkan pada OMaps. Buka berkas KML/KMZ tersebut dengan penanda yang disimpan dari surel, Dropbox atau tautan jaringan.";
-
-/* Text hint in Bookmarks dialog when at least one bookmark is added */
-"bookmarks_usage_hint_import_only" = "Penanda dari sumber lainnya dapat diimpor dan ditampilkan pada OMaps. Buka berkas KML/KMZ tersebut dengan penanda yang disimpan dari surel, Dropbox atau tautan jaringan.";
 
 /* Settings button in system menu */
 "settings" = "Pengaturan";
@@ -1289,16 +1216,6 @@
 
 "placepage_add_business_button" = "Tambahkan organisasi";
 
-"whatsnew_smallmwm_header" = "Anda memintanya dan kami telah malakukannya";
-
-"whatsnew_smallmwm_message" = "Kami telah membagi peta menjadi beberapa bagian. Sekarang Anda dapat mengunduh wilayah-wilayah yang terpisah, bukan seluruh negara.";
-
-"whatsnew_search_header" = "Penelusuran baru";
-
-"whatsnew_search_message" = "Kami secara signifikan telah meningkatkan pencarian menurut alamat. Lihat sendiri.";
-
-"whatsnew_editor_title" = "Edit peta*";
-
 "whatsnew_editor_message_1" = "Tambahkan tempat-tempat baru di peta, dan edit peta-peta yang ada langsung dari aplikasi.";
 
 "whatsnew_editor_message_2" = "* OMaps menggunakan data komunitas OpenStreetMap.";
@@ -1382,13 +1299,6 @@
 "current_location_unknown_error_title" = "Lokasi saat ini tidak diketahui.";
 
 "current_location_unknown_error_message" = "Terjadi kesalahan saat mencari lokasi Anda. Periksa apakah perangkat Anda bekerja dengan benar dan coba lagi nanti.";
-
-"whatsnew_update_editor_title" = "Kami telah memperbarui editor peta";
-
-"whatsnew_update_editor_message" = "Pengguna OMaps telah membuat 200 000 perubahan peta. Bersama-sama kami membuat peta paling detail di Dunia. Bergabunglah bersama kami!";
-
-/* Additional text in whats new */
-"whatsnew_update_editor_message_update" = "Untuk menggunakan editor peta, silakan perbarui semua peta.";
 
 "location_services_disabled_header" = "Identifikasi lokasi dinonaktifkan";
 
@@ -1555,22 +1465,6 @@
 
 "recent_track_background_dialog_message" = "OMaps menggunakan geoposisi di latar belakang untuk merekam rute yang baru Anda lalui.";
 
-"whatsnew_car_navigation_header" = "Navigasi kendaraan yang mudah digunakan";
-
-"whatsnew_car_navigation_message" = "• Elemen-elemen navigasi membutuhkan ruang lebih sedikit\n• Kami menampilkan kecepatan dan telah menambahkan zoom otomatis";
-
-"whatsnew_cycle_navigation_2_header" = "Navigasi sepeda";
-
-"whatsnew_cycle_navigation_2_message" = "• Navigasi sepeda menghitung data medan\n• Kami membuat rute lebih mudah dengan menghitung kemiringan jalan";
-
-"whatsnew_booking_2_header" = "Pencarian hotel mudah";
-
-"whatsnew_booking_2_message" = "Hasil pencarian menampilkan kategori peringkat dan harga hotel";
-
-"whatsnew_cycle_navigation_header" = "Navigasi bersepeda (versi beta)";
-
-"whatsnew_cycle_navigation_message" = "Kami sedang menguji navigasi bersepeda untuk musim baru. Coba rute bersepeda favorit Anda dengan OMaps dan sampaikan pendapat Anda.";
-
 /* Rate on Google Play (Android only) */
 "rate_gp" = "Beri nilai di Google Play";
 
@@ -1673,10 +1567,6 @@
 /* Verb. Text on a button that opens the chat. */
 "chat_open" = "Buka";
 
-"whatsnew_uber_header" = "OMaps & Uber";
-
-"whatsnew_uber_message" = "Pesan taksi Uber langsung dari aplikasi!";
-
 "dialog_taxi_offline" = "Memesan taksi tidak tersedia dalam modus offline.";
 
 "dialog_taxi_error" = "Memesan taksi untuk sementara tidak tersedia.";
@@ -1714,42 +1604,6 @@
 /* "traffic" as in "road congestion" */
 "traffic_data_unavailable" = "Data lalu lintas tidak tersedia";
 
-/* december */
-"whatsnew_traffic" = "Data Lalu Lintas di 36 Negara";
-
-/* december */
-"whatsnew_traffic_text" = "Info lalu lintas terbaru dan rute berkendara tercepat berdasarkan ini!";
-
-/* december */
-"whatsnew_traffic_roaming" = "Info Lalu Lintas saat Roaming";
-
-/* december */
-"whatsnew_traffic_roaming_text" = "Memerlukan kurang dari 1 MB dari bandwidth seluler perjalanan.";
-
-/* december */
-"whatsnew_order_taxi" = "Pesan Taksi";
-
-/* december */
-"whatsnew_order_taxi_text" = "Sebagian besar halaman lokasi sekarang mempunyai tombol untuk memesan taksi.";
-
-/* january */
-"whatsnew_improved_search" = "Pencarian yang Diperbagus";
-
-/* january */
-"whatsnew_improved_search_text" = "Bahkan pertanyaan dengan kesalahan eja akan memberikan hasil pencarian yang akurat.";
-
-/* january */
-"whatsnew_filters_in_search" = "Filter Pencarian";
-
-/* january */
-"whatsnew_filters_in_search_text" = "Cari hotel berdasarkan harga dan peringkat.";
-
-/* january */
-"whatsnew_font_size" = "Ukuran Huruf";
-
-/* january */
-"whatsnew_font_size_text" = "Label pada peta bisa dijadikan lebih besar.";
-
 /* "Translation is no needed, because it's a company name" */
 "uber" = "Uber";
 
@@ -1772,26 +1626,6 @@
 "pref_traffic_simplified_colors_title" = "Warna lalu lintas sederhana";
 
 "enable_logging" = "Aktifkan pencatatan";
-
-"whatsnew_more_info_on_hotels_title" = "Informasi Selengkapnya tentang Hotel";
-
-"whatsnew_more_info_on_hotels_message" = "Penampilan baru halaman hotel: lihat foto, ulasan pengguna, dan informasi lain secara online.";
-
-"whatsnew_better_routing_title" = "Perencanaan Rute yang Lebih Baik";
-
-"whatsnew_better_routing_message" = "• Perkiraan waktu tiba yang lebih akurat.\n• Aplikasi ini mempertimbangkan area terbatas dan markah jalan.";
-
-"whatsnew_smaller_mwm_title" = "Peta Semakin Kecil";
-
-"whatsnew_smaller_mwm_message" = "Peta memerlukan pengurangan penyimpanan hingga 20%.";
-
-"whatsnew_waypoints_title" = "Titik Koordinat dalam Pembuatan Rute";
-
-"whatsnew_waypoints_message" = "Ketuk tempat untuk menambahkan titik acuan koordinat ke rute Anda.";
-
-"whatsnew_driving_style_title" = "Model Peta Baru untuk Berkendara";
-
-"whatsnew_driving_style_message" = "Mode navigasi mobil menjadi semakin mudah digunakan.";
 
 "more_on_bookingcom" = "Selengkapnya di Booking.com";
 
@@ -1852,8 +1686,6 @@
 
 "whatsnew_transliteration_title" = "Transliterasi ke dalam bahasa Latin";
 
-"whatsnew_transliteration_message" = "Jika jalan atau objek tidak memiliki nama dalam bahasa Anda, namanya akan dieja menggunakan alfabet Latin.";
-
 "yandex_taxi_title" = "Yandex.Taxi";
 
 "learn_more" = "Pelajari selengkapnya";
@@ -1891,10 +1723,6 @@
 "button_replace" = "Ganti";
 
 "placepage_add_stop" = "Tambah perhentian";
-
-"whatsnew_intermediate_point_title" = "Perhentian tambahan";
-
-"whatsnew_intermediate_point_message" = "Rencanakan rute dengan titik antara.";
 
 /* Only ru/en are needed */
 "subtitle_rent" = "Rent";
@@ -2503,24 +2331,6 @@
 
 "whats_new_ugc_routes_message2" = "Tambahkan foto dan kisah detail di editor web.";
 
-"whatsnew_standard_routes_title" = "Rute Standar";
-
-"whatsnew_standard_routes_message" = "Kumpulan dasar berisi lokasi-lokasi menarik berikut deskripsi singkat namun penuh dengan pengalaman!";
-
-"whatsnew_city_overview_title" = "Ringkasan Kota";
-
-"whatsnew_city_overview_message" = "Hingga 200 lokasi menarik dalam peta kota: semua yang diperlukan dan berguna bagi para wisatawan!";
-
-"whatsnew_pro_guides_title" = "Rute Profesional";
-
-"whatsnew_pro_guides_message" = "Sangat mendalam, disertai dengan deskripsi terperinci mengenai tempat dan memiliki kemampuan untuk menghitung jarak serta waktu perjalanan";
-
-"whatsnew_paid_routes_title" = "Lebih banyak pengalaman baru!";
-
-"whatsnew_paid_routes_message" = "Sebagai tambahan untuk rute-rute gratis, kami juga telah menambahkan 3 kategori rute berbayar ke dalam katalog kami. Lebih dari 700 rute baru!";
-
-"whats_new_ugc_routes_title_android_only" = "Mudah untuk membagikan kesan Anda";
-
 "ugc_thanks_message_auth" = "Ulasan Anda telah disimpan";
 
 "ugc_thanks_message_not_auth" = "Harap masuk untuk memberikan ulasan";
@@ -2681,14 +2491,6 @@
 
 "whats_new_auto_update_and_proceed_button_size" = "Perbarui (%s) dan lanjutkan";
 
-"whatsnew_toll_unpaved_title" = "Susun rute mobil dengan mempertimbangkan semua jenis jalan";
-
-"whatsnew_toll_unpaved_message" = "Pilih jalan memutar untuk hindari jalan tol, jalan tanah, dan penyeberangan kapal feri";
-
-"whatsnew_new_catalogue_title" = "Halaman katalog diperbarui";
-
-"whatsnew_new_catalogue_message" = "Kami menambahkan detail informasi tentang panduan mitra agar pemilihan rute menjadi mudah dan nyaman";
-
 "purchase_please_wait_toast" = "Jangan keluar dari layar ini sebelum pembelian selesai";
 
 "trip_start" = "Ayo";
@@ -2803,18 +2605,6 @@
 
 "subscription_terms" = "Pembayaran akan dibebankan ke akun iTunes Anda pada konfirmasi pembelian. Langganan akan diperbarui secara otomatis kecuali jika langganan otomatis dinonaktifkan setidaknya 24 jam sebelum akhir periode berjalan. Akun Anda akan dikenakan biaya sesuai dengan paket langganan Anda untuk perpanjangan dalam 24 jam sebelum akhir periode berjalan. Anda dapat mengelola atau menonaktifkan perpanjangan otomatis pada pengaturan akun ID Apple Anda kapan saja dari pembelian Anda.";
 
-"whatsnew_carplay_title" = "Navigasi OMaps ada di CarPlay!";
-
-"whatsnew_carplay_message" = "Kini fitur penanda, pencarian, kamera kecepatan dan pemilihan rute bisa dilakukan secara offline";
-
-"whatsnew_subscription_title" = "Dapatkan semua akses dengan berlangganan!";
-
-"whatsnew_subscription_message" = "Lebih hemat dengan akses tanpa batas ke katalog panduan tanpa harus membelinya";
-
-"whatsnew_carnavi_fixes_for_android_title" = "Pembaruan navigasi";
-
-"whatsnew_carnavi_fixes_for_android_message" = "Kami meningkatkan perencanaan rute hingga ke titik titik yang jauh lokasinya dengan jalan";
-
 "avoid_unpaved_carplay_1" = "Jalan aspal";
 
 "avoid_unpaved_carplay_2" = "Hindari tanah";
@@ -2918,10 +2708,6 @@
 /* Android, max 18 symbols */
 "bookmarks_delete_list" = "Hapus daftar";
 
-"whatsnew_bookmarks_search_sort_title" = "Bookmark yang rapi membuat perjalanan menjadi nyaman";
-
-"whatsnew_bookmarks_search_sort_message" = "Urutkan tempat favorit berdasarkan kategori, lokasi dan waktu kunjungan, serta temukan bookmark secara cepat hanya dengan menggunakan nama";
-
 "popup_subscription_success_map_title" = "Woohoo, anda telah berlangganan!";
 
 "popup_subscription_success_map_message" = "Kini saatnya menemukan tempat wisata terbaik di katalog OMaps";
@@ -2961,10 +2747,6 @@
 "catalog_no_internet_title" = "Tidak ada sambungan internet";
 
 "catalog_no_internet_button" = "Coba lagi";
-
-"whatsnew_map_updates_title" = "Pembaruan peta secara cepat";
-
-"whatsnew_map_updates_message" = "Mulai sekarang kami memperbarui data dua kali lebih cepat";
 
 "new_onboarding_button" = "Berikutnya";
 
@@ -3053,14 +2835,6 @@
 
 "dialog_pedestrian_route_is_long" = "Rute pejalan kaki ke halte atau stasiun terlalu jauh";
 
-"whatsnew_outdoor_guides_title" = "Kami telah menambahkan 15000+ jalur luar ruangan!";
-
-"whatsnew_outdoor_guides_message" = "Rute dari Outdooractive untuk perjalanan musim dingin dan panas tengah menunggu di katalog!";
-
-"whatsnew_guides_galleries_title" = "Rencanakan perjalanan Anda selanjutnya dengan OMaps";
-
-"whatsnew_guides_galleries_message" = "Kini Anda dapat menemukan panduan yang disarankan di halaman tempat wisata yang paling populer dikunjungi turis";
-
 "new_onboarding_step3_header" = "Pengalaman";
 
 "all_pass_screen_best_value" = "Harga terbaik";
@@ -3075,11 +2849,6 @@
 
 /* Failed planning SUBWAY route message in navigation view */
 "routing_planning_error_subway_special" = "Perencanaan jalur kereta bawah tanah gagal";
-
-"whatsnew_isolines_title" = "Yang baru di outdoor: lapisan topografi offline!";
-
-/* as less symbols as possible */
-"whatsnew_isolines_message" = "Merasa percaya diri di daerah pegunungan. Cukup aktifkan layer di sudut kiri atas";
 
 "button_layer_isolines" = "Isometrik";
 
@@ -3169,18 +2938,6 @@
 /* as few symbols as possible */
 "routes_card_hide" = "Sembunyikan dari peta";
 
-"whatsnew_catalog_new_title" = "Katalog panduan baru dan ribuan ide perjalanan";
-
-"whatsnew_catalog_new_message" = "Kami telah memperbarui katalog panduan dan menambahkan terjemahan dalam bahasa populer. Mulailah merencanakan perjalanan Anda di awal!";
-
-"whatsnew_elevation_profile_title" = "Profil elevasi dalam panduan perjalanan";
-
-"whatsnew_elevation_profile_message" = "Mengevaluasi kerumitan kenaikan dan penurunan offline yang akan datang dengan kursor di profil dari rute yang dibeli.";
-
-"whatsnew_guides_on_map_title" = "Lapisan baru untuk menemukan panduan dengan mudah";
-
-"whatsnew_guides_on_map_message" = "Aktifkan lapisan di menu pengaturan aplikasi untuk dengan cepat menemukan rute kota yang menarik dan panduan perjalanan untuk kegiatan di luar ruangan.";
-
 "downloader_updating_ios" = "Memperbarui";
 
 "downloader_loading_ios" = "Mengunduh";
@@ -3238,10 +2995,6 @@
 "choose_dates_online_only_dialog_cta" = "Pengaturan";
 
 "thirty_days_limit_dialog" = "Anda dapat memesan untuk maksimum 30 malam";
-
-"whatsnew_trial_title" = "Akses gratis ke katalog panduan";
-
-"whatsnew_trial_message" = "Kami sekarang menawarkan uji coba 7 hari gratis. Akses ribuan panduan perjalanan di seluruh dunia dan profil ketinggian interaktif untuk panduan luar ruangan.";
 
 "whatsnew_trial_cta" = "Cobalah sekarang";
 

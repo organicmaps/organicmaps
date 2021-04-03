@@ -12,24 +12,13 @@
 	<string name="cancel_download">Download annuleer</string>
 	<!-- Button which deletes downloaded country -->
 	<string name="delete">Verwijder</string>
-	<!-- Button to dismiss dialog forever -->
-	<string name="do_not_ask_me_again">Nooit meer vragen</string>
 	<!-- Button "do not interrupt download" if user touched actively downloading country -->
 	<string name="do_nothing">Doorgaan</string>
 	<string name="download_maps">Gedownloade Kaarten</string>
-	<!-- Settings/Downloader - Download confirmation button -->
-	<string name="download_x_kb">Download %qu KB</string>
-	<!-- Settings/Downloader - Download confirmation button -->
-	<string name="download_x_mb">Download %qu MB</string>
 	<!-- Settings/Downloader - info for country when download fails -->
 	<string name="download_has_failed">Download is afgebroken, klik om nog een keer te proberen</string>
-	<!-- Settings/Downloader - info for downloaded country -->
-	<string name="downloaded_x_y_touch_to_delete">(%1$qu %2$s) gedownload, klik om te verwijderen</string>
-	<!-- Settings/Downloader - country info current download progress -->
-	<string name="downloading_x_touch_to_cancel">%qu%% downloaden, klik om te annuleren</string>
 	<!-- Settings/Downloader - info for country which started downloading -->
 	<string name="downloading">Downloaden…</string>
-	<string name="get_it_now">Installeren</string>
 	<!-- Settings/Downloader - size string, only strings different from English should be translated -->
 	<string name="kb">KB</string>
 	<!-- Choose measurement on first launch alert - choose metric system button -->
@@ -38,22 +27,12 @@
 	<string name="leave_a_review">Laat een review achter</string>
 	<!-- View and button titles for accessibility -->
 	<string name="maps">Kaarten</string>
-	<!-- View and button titles for accessibility -->
-	<string name="downloader_maps">Kaarten:</string>
-	<!-- Settings/Downloader - info for country in the download queue -->
-	<string name="marked_for_downloading">Geselecteerd om te downloaden, raak aan om te annuleren</string>
 	<!-- Choose measurement on first launch alert - choose imperial system button -->
 	<string name="miles">Mijlen</string>
 	<!-- View and button titles for accessibility -->
 	<string name="core_my_position">Mijn Locatie</string>
-	<!-- Settings/Downloader - No free space dialog message -->
-	<string name="free_disk_space_for_country_x">Maak ruimte vrij op uw apparaat om %s te kunnen downloaden</string>
-	<!-- Leave Review dialog - Not now button (remind me later) -->
-	<string name="remind_me_later">Herinner me later</string>
 	<!-- Don't show some dialog any more -->
 	<string name="never">Nooit</string>
-	<!-- Leave Review dialog - Complain button (goes to support site) -->
-	<string name="report_an_issue">Meld een probleem</string>
 	<!-- View and button titles for accessibility -->
 	<string name="search">Zoeken</string>
 	<!-- Search box placeholder text -->
@@ -62,18 +41,12 @@
 	<string name="touch_to_download">Klik om te downloaden</string>
 	<!-- Settings/Downloader - 3G download warning dialog confirm button -->
 	<string name="use_cellular_data">Ja</string>
-	<!-- Choose measurement on first launch alert - title -->
-	<string name="which_measurement_system">Welk meetstelsel heeft u liever?</string>
 	<!-- Location services are disabled by user alert - message -->
 	<string name="location_is_disabled_long_text">U heeft momenteel alle Locatie Services voor dit apparaat of deze app uitgeschakeld. Schakel ze in bij Instellingen</string>
 	<!-- Location Services are not available on the device alert - message -->
 	<string name="device_doesnot_support_location_services">Uw apparaat ondersteunt geen Locatie Services</string>
 	<!-- View and button titles for accessibility -->
 	<string name="zoom_to_country">Op de kaart tonen</string>
-	<!-- Message to display at the center of the screen when the country is added to the downloading queue -->
-	<string name="country_status_added_to_queue">^\nis toegevoegd aan de download wachtrij</string>
-	<!-- Message to display at the center of the screen when the country is downloading -->
-	<string name="country_status_downloading">aan het downloaden\n^\n^</string>
 	<!-- Button text for the button at the center of the screen when the country is not downloaded -->
 	<string name="country_status_download">Kaart downloaden\n(^ ^)</string>
 	<!-- Button text for the button at the center of the screen when the country is not downloaded and the size should not be shown -->
@@ -85,7 +58,6 @@
 	<!-- Button text for the button under the country_status_download_failed message -->
 	<string name="try_again">Probeer opnieuw</string>
 	<string name="about_menu_title">Over OMaps</string>
-	<string name="downloading_touch_to_cancel">%d%% aan het downloaden, klik om te annuleren</string>
 	<string name="downloaded_touch_to_delete">Downloaded (%s), klik om te verwijderen</string>
 	<string name="connection_settings">Verbindingsinstellingen</string>
 	<string name="download_mb_or_kb">Download %s</string>
@@ -95,7 +67,6 @@
 	<string name="disconnect_usb_cable">Verwijder de USB kabel of plaats een geheugen kaart om OMaps te gebruiken</string>
 	<string name="not_enough_free_space_on_sdcard">Maak eerst ruimte vrij op de SD kaart/USB opslag om de app te gebruiken</string>
 	<string name="not_enough_memory">Not genoeg geheugen om app te starten</string>
-	<string name="free_space_for_country">Maak %1$s aan ruimte vrij op uw apparaat om %2$s te downloaden</string>
 	<string name="download_resources">Voor u van start gaat downloaden we een wereldkaart naar uw apparaat.\nDe kaart neemt %s in beslag.</string>
 	<string name="getting_position">Huidige locatie opvragen</string>
 	<string name="download_resources_continue">Ga naar de Kaart</string>
@@ -103,25 +74,9 @@
 	<string name="download_country_ask">%s downloaden?</string>
 	<string name="update_country_ask">%s updaten?</string>
 	<!-- REMOVE THIS STRING AFTER REFACTORING -->
-	<string name="download_location_map_proposal">U kunt de kaart van\nuw huidige locatie downloaden</string>
-	<!-- REMOVE THIS_STRING AFTER REFACTORING -->
-	<string name="download_location_update_map_proposal">U kunt de kaart\nvan uw huidige locatie kunnen geupdate worden</string>
-	<!-- REMOVE THIS STRING AFTER REFACTORING -->
-	<string name="download_location_map_up_to_date">De kaart op uw huidige\nlocatie (%s) is up-to-date</string>
-	<!-- REMOVE THIS STRING AFTER REFACTORING -->
 	<string name="pause">Pauze</string>
 	<!-- REMOVE THIS STRING AFTER REFACTORING -->
 	<string name="continue_download">Doorgaan</string>
-	<string name="downloaded_touch_to_update">(%s) gedownload, klik om te updaten of te verwijderen</string>
-	<string name="update_mb_or_kb">%s Bijwerken</string>
-	<!-- Show popup notification when we have downloaded countries without search (from Lite version) -->
-	<string name="search_update_maps">Om de zoekfunctie te kunnen gebruiken moet u de kaarten updaten</string>
-	<!-- Show popup notification on app start when we have out-of-date maps -->
-	<string name="advise_update_maps">Update beschikbaar voor deze kaarten:</string>
-	<!-- Show popup notification in Pro version that Lite can be deleted -->
-	<string name="suggest_uninstall_lite">U heeft OMaps Lite niet meer nodig, dus u kunt de app deïnstalleren</string>
-	<!-- Show popup notification on top of the map when country was downloaded. -->
-	<string name="download_country_success">%s is succesvol gedownload</string>
 	<!-- Show popup notification on top of the map when country download has failed. -->
 	<string name="download_country_failed">%s download is afgebroken</string>
 	<!-- Add New Bookmark Set dialog title -->
@@ -150,8 +105,6 @@
 	<string name="set">Groep</string>
 	<!-- Text hint in Bookmarks dialog when no any bookmarks are added -->
 	<string name="bookmarks_usage_hint">Je hebt nog geen bladwijzers.\nTik op een plek op de kaart om een bladwijzer toe te voegen.\nBladwijzers uit andere bronnen kunnen ook worden geïmporteerd en weergegeven in de OMaps app. Open KML/KMZ bestand met opgeslagen speldjes uit mail, Dropbox of weblink.</string>
-	<!-- Text hint in Bookmarks dialog when at least one bookmark is added -->
-	<string name="bookmarks_usage_hint_import_only">Bladwijzers uit andere bronnen kunnen worden geïmporteerd en weergegeven in de OMaps app. Open KML/KMZ bestand met opgeslagen speldjes uit mail, Dropbox of weblink.</string>
 	<!-- Settings button in system menu -->
 	<string name="settings">Instellingen</string>
 	<!-- Header of settings activity where user defines storage path -->
@@ -771,11 +724,6 @@
 	<string name="editor_report_problem_other_title">Een ander probleem</string>
 	<string name="placepage_report_problem_button">Meld een probleem</string>
 	<string name="placepage_add_business_button">Een organisatie toevoegen</string>
-	<string name="whatsnew_smallmwm_header">Op veler verzoek hebben we het voor elkaar gekregen</string>
-	<string name="whatsnew_smallmwm_message">We hebben kaarten in delen verdeeld. Nu kunt u afzonderlijke regio\'s downloaden in plaats van het hele land.</string>
-	<string name="whatsnew_search_header">Nieuwe zoekopdracht</string>
-	<string name="whatsnew_search_message">We hebben het zoeken op adres significant verbeterd. Bekijk het zelf.</string>
-	<string name="whatsnew_editor_title">Bewerk de kaart*</string>
 	<string name="whatsnew_editor_message_1">Voeg nieuwe plaatsen toe aan de kaart en bewerk de bestaande rechtstreeks vanuit de app.</string>
 	<string name="whatsnew_editor_message_2">* OMaps gebruikt OpenStreetMap-communitiedata.</string>
 	<string name="dialog_incorrect_feature_position">Locatie wijzigen</string>
@@ -821,10 +769,6 @@
 	<string name="current_location_unknown_stop_button">Stoppen</string>
 	<string name="current_location_unknown_error_title">Huidige locatie is onbekend.</string>
 	<string name="current_location_unknown_error_message">Er is een fout opgetreden tijdens het zoeken naar uw locatie. Controleer of uw apparaat goed werkt en probeer het later opnieuw.</string>
-	<string name="whatsnew_update_editor_title">We hebben de kaarteditor bijgewerkt</string>
-	<string name="whatsnew_update_editor_message">OMaps-gebruikers hebben 200.000 kaartwijzigingen doorgevoerd. Samen maken we de meest gedetailleerde kaarten ter wereld. Doe met ons mee!</string>
-	<!-- Additional text in whats new -->
-	<string name="whatsnew_update_editor_message_update">Om de kaartaanpasser te kunnen gebruiken, moet je alle kaarten actualiseren.</string>
 	<string name="location_services_disabled_header">Locatie-identificatie is uitgeschakeld</string>
 	<string name="location_services_disabled_message">Schakel de toegang tot geolocaties in in de instellingen van het apparaat</string>
 	<string name="location_services_disabled_1">1. Instellingen openen</string>
@@ -912,14 +856,6 @@
 	<string name="sharing_call_action_look">Bekijk</string>
 	<string name="continue_recent_track_background_button">Verdergaan</string>
 	<string name="recent_track_background_dialog_message">OMaps gebruikt uw geografische positie op de achtergrond om uw onlangs afgelegde route vast te leggen.</string>
-	<string name="whatsnew_car_navigation_header">Gebruikersvriendelijke voertuignavigatie</string>
-	<string name="whatsnew_car_navigation_message">• De navigatie-elementen nemen minder ruimte in beslag.\n• We tonen de snelheid en hebben automatisch zoomen toegevoegd.</string>
-	<string name="whatsnew_cycle_navigation_2_header">Fietsnavigatie</string>
-	<string name="whatsnew_cycle_navigation_2_message">• Fietsnavigatie houdt rekening met terreingegevens.\n• We maken eenvoudigere routes waarbij rekening wordt gehouden met hellingen.</string>
-	<string name="whatsnew_booking_2_header">Eenvoudig zoeken naar hotels</string>
-	<string name="whatsnew_booking_2_message">De zoekresultaten voor hotels tonen de hotelbeoordeling en prijscategorie.</string>
-	<string name="whatsnew_cycle_navigation_header">Fietsnavigatie (bèta-versie)</string>
-	<string name="whatsnew_cycle_navigation_message">We testen de fietsnavigatie voor het nieuwe seizoen. Probeer uw favoriete fietsroute met OMaps en deel uw ervaringen met ons.</string>
 	<!-- Rate on Google Play (Android only) -->
 	<string name="rate_gp">Beoordeel op Google Play</string>
 	<!-- Share with friends: menu item title -->
@@ -980,8 +916,6 @@
 	<string name="chat">Geochat</string>
 	<!-- Verb. Text on a button that opens the chat. -->
 	<string name="chat_open">Openen</string>
-	<string name="whatsnew_uber_header">OMaps en Uber</string>
-	<string name="whatsnew_uber_message">Bestel een Uber-taxi rechtstreeks vanuit de app!</string>
 	<string name="dialog_taxi_offline">Het bestellen van een taxi is niet beschikbaar in de offline modus.</string>
 	<string name="dialog_taxi_error">Het bestellen van een taxi is tijdelijk niet beschikbaar.</string>
 	<string name="mobile_data_dialog">Mobiel internet gebruiken om gedetailleerde informatie weer te geven?</string>
@@ -1000,30 +934,6 @@
 	<string name="traffic_update_app_message">Om de verkeersgegevens weer te geven, moet de applicatie bijgewerkt worden.</string>
 	<!-- "traffic" as in "road congestion" -->
 	<string name="traffic_data_unavailable">Verkeersgegevens zijn niet beschikbaar</string>
-	<!-- december -->
-	<string name="whatsnew_traffic">Verkeersgegevens in 36 Landen</string>
-	<!-- december -->
-	<string name="whatsnew_traffic_text">Actuele verkeersinformatie, en de snelste reisroutes hierop gebaseerd!</string>
-	<!-- december -->
-	<string name="whatsnew_traffic_roaming">Verkeersinfo in Roaming</string>
-	<!-- december -->
-	<string name="whatsnew_traffic_roaming_text">Vereist minder dan 1 MB mobiele bandbreedte per trip.</string>
-	<!-- december -->
-	<string name="whatsnew_order_taxi">Bestel een Taxi</string>
-	<!-- december -->
-	<string name="whatsnew_order_taxi_text">De meeste locatiepagina\'s bevatten nu een knop om een taxi te bestellen.</string>
-	<!-- january -->
-	<string name="whatsnew_improved_search">Verbeterde Zoekfunctie</string>
-	<!-- january -->
-	<string name="whatsnew_improved_search_text">Zelfs verkeerd gespelde zoekopdrachten geven nauwkeurige zoekresultaten.</string>
-	<!-- january -->
-	<string name="whatsnew_filters_in_search">Zoekfilters</string>
-	<!-- january -->
-	<string name="whatsnew_filters_in_search_text">Hotels zoeken gebaseerd op prijs en rating.</string>
-	<!-- january -->
-	<string name="whatsnew_font_size">Lettergrootte</string>
-	<!-- january -->
-	<string name="whatsnew_font_size_text">Labels op de map kunnen groter gemaakt worden.</string>
 	<!-- Seven points and higher -->
 	<string name="booking_filter_rating_num_good">7.0+</string>
 	<!-- Eight points and higher -->
@@ -1033,16 +943,6 @@
 	<!-- Simplified colour scheme for traffic information, fewer colours are used to display traffic jams on the map. The string should be kept as short as possible -->
 	<string name="pref_traffic_simplified_colors_title">Eenvoudige verkeerskleuren</string>
 	<string name="enable_logging">Logboekregistratie inschakelen</string>
-	<string name="whatsnew_more_info_on_hotels_title">Meer Informatie over Hotels</string>
-	<string name="whatsnew_more_info_on_hotels_message">Gloednieuw uiterlijk van hotelpagina\\\'s: bekijk foto\\\'s, beoordelingen van gebruikers en andere informatie online.</string>
-	<string name="whatsnew_better_routing_title">Verbeterde Routeplanning</string>
-	<string name="whatsnew_better_routing_message">• Nauwkeurigere schatting van aankomsttijd\n• De app houdt rekening met afgezette gebieden en verkeersborden.</string>
-	<string name="whatsnew_smaller_mwm_title">Kaarten Werden Kleiner</string>
-	<string name="whatsnew_smaller_mwm_message">Kaarten vereisen tot 20% minder opslagruimte.</string>
-	<string name="whatsnew_waypoints_title">Tussenstops in Route</string>
-	<string name="whatsnew_waypoints_message">Tap op plaatsen om tussenstops toe te voegen aan uw route.</string>
-	<string name="whatsnew_driving_style_title">Nieuwe Kaartstijl voor het Rijden</string>
-	<string name="whatsnew_driving_style_message">Modus autonavigatie is eenvoudiger te gebruiken.</string>
 	<string name="more_on_bookingcom">Meer op Booking.com</string>
 	<string name="details_on_bookingcom">Details op Booking.com</string>
 	<string name="reviews_on_bookingcom">Meer beoordelingen op Booking.com</string>
@@ -1072,7 +972,6 @@
 	<string name="prefs_languages_information_off">Voor sommige talen dient u een andere spraaksynthese software of een aanvullende taalpakket te installeren van de app store (Google Play Market, Samsung Apps).\nOpen de instellingen van uw toestel → Taal en invoer → Spraak → Uitvoer voor tekst-naar-spraak.\nHier kunt u instellingen voor spraaksynthese beheren (bijvoorbeeld taalpakket downloaden voor offline gebruik) en een andere tekst-naar-spraak engine selecteren.</string>
 	<string name="prefs_languages_information_off_link">Gelieve deze handleiding te lezen voor meer informatie.</string>
 	<string name="whatsnew_transliteration_title">Transliteratie in het Latijn</string>
-	<string name="whatsnew_transliteration_message">Indien een straat of object geen naam heeft in uw taal, wordt deze gespeld door gebruik van het Latijns alfabet.</string>
 	<string name="learn_more">Meer informatie</string>
 	<string name="core_exit">Verlaten</string>
 	<string name="routing_add_start_point">Voeg beginpunt toe om een route te plannen</string>
@@ -1091,8 +990,6 @@
 	<string name="dialog_change_start_point_message">Het beginpunt vervangen met de huidige locatie?</string>
 	<string name="button_replace">Vervangen</string>
 	<string name="placepage_add_stop">Tussenstop toevoegen</string>
-	<string name="whatsnew_intermediate_point_title">Extra stop</string>
-	<string name="whatsnew_intermediate_point_message">Plan een route met een tussenstop.</string>
 	<string name="add_my_position">Voeg mijn positie toe</string>
 	<string name="choose_start_point">Kies een vertrekpunt</string>
 	<string name="choose_destination">Kies een bestemming</string>
@@ -1399,15 +1296,6 @@
 	<string name="whats_new_ugc_routes_subtitle">Bewaar gedenkwaardige plaatsen, maak routes met behulp van bladwijzers en deel ze met iedereen in de OMaps-catalogus.</string>
 	<string name="whats_new_webeditor_title">Maak verhalen van je routes</string>
 	<string name="whats_new_ugc_routes_message2">Voeg foto\'s en gedetailleerde verhalen toe in de webbewerker.</string>
-	<string name="whatsnew_standard_routes_title">Standaard routes</string>
-	<string name="whatsnew_standard_routes_message">Basisset van interessante punten en korte beschrijvingen, maar veel ervaringen!</string>
-	<string name="whatsnew_city_overview_title">Stadsoverzicht</string>
-	<string name="whatsnew_city_overview_message">Tot 200 bezienswaardigheden op de stadsmap: alles wat reizigers nuttig en interessant kunnen vinden!</string>
-	<string name="whatsnew_pro_guides_title">Professionele routes</string>
-	<string name="whatsnew_pro_guides_message">Zeer grondig, met gedetailleerde beschrijvingen van plaatsen en de mogelijkheid om reisafstand en -tijd te berekenen</string>
-	<string name="whatsnew_paid_routes_title">Nog nieuwe ervaringen!</string>
-	<string name="whatsnew_paid_routes_message">Bovenop de gratis routes, hebben we 3 betalende routes toegevoegd aan onze catalogus. Meer dan 700 routes!</string>
-	<string name="whats_new_ugc_routes_title_android_only">Het is eenvoudig om je indrukken te delen</string>
 	<string name="ugc_thanks_message_auth">Uw feedback is opgeslagen</string>
 	<string name="ugc_thanks_message_not_auth">Meld je aan om een feedback achter te laten</string>
 	<string name="notification_leave_review_v2_title">Laat een feedback achter en help de reizigers!</string>
@@ -1491,10 +1379,6 @@
 	<string name="whats_new_auto_update_bydeeplink_title">Voordat u naar reisgids gaat…</string>
 	<string name="whats_new_auto_update_bydeeplink_message">Heerladt de kaarten op actuele informatie over objecten te krijgen!</string>
 	<string name="whats_new_auto_update_and_proceed_button_size">Bijwerken (%s) en verder gaan</string>
-	<string name="whatsnew_toll_unpaved_title">Bouw routen met inachtneming van alle soorten wegen</string>
-	<string name="whatsnew_toll_unpaved_message">Kies omwegen via tolwegen, aardewegen en ferries</string>
-	<string name="whatsnew_new_catalogue_title">Bijgewerkte cataloguspagina\'s</string>
-	<string name="whatsnew_new_catalogue_message">We hebben gedetailleerde informatie over partnerhandleidingen toegevoegd, zodat de routekeuze gemakkelijk en handig is</string>
 	<string name="purchase_please_wait_toast">Verlaat het scherm niet, alstublieft, voordat het aankoopproces is voltooid</string>
 	<string name="trip_start">Kom op</string>
 	<string name="pick_destination">Doel</string>
@@ -1550,12 +1434,6 @@
 	<string name="buy_btn_for_subscription_ios_only_year">Volledige toegang voor %s/jaar</string>
 	<string name="subscription_terms_guides">De betaling wordt gedaan vanaf uw iTunes-account na bevestiging van de aankoop. Abonnement wordt automatisch verlengd tenzij automatisch vernieuwen is uitgeschakeld ten minste 24 uur vóór het einde van de huidige periode. Het geld wordt binnen 24 uur na afloop van de lopende periode van uw rekening afgeschreven volgens uw verlengingsplan. Je kunt automatische verlenging beheren of uitschakelen in de instellingen van je Apple ID-account op elk moment na aankoop. U kunt de gidsen die u via abonnement hebt gedownload alleen gebruiken tijdens de abonnementsperiode. Na 30 dagen na het einde van het abonnement worden gidsen met alle bladwijzers automatisch verwijderd.</string>
 	<string name="subscription_terms">Payment will be charged to your iTunes account at confirmation of purchase. The subscription will automatically renew unless auto-renew is turned off at least 24 hours before the end of the current period. Your account will be charged according to your plan for renewal within 24 hours prior to the end of the current period. You can manage or turn off auto-renew in your Apple ID account settings at any time of your purchase.</string>
-	<string name="whatsnew_carplay_title">Automatische navigatie OMaps met CarPlay!</string>
-	<string name="whatsnew_carplay_message">Bladwijzers, zoeken, snelheidscamera\'s en omweginstellingen – alles werkt zonder internet</string>
-	<string name="whatsnew_subscription_title">Ontdek de wereld met een abonnement!</string>
-	<string name="whatsnew_subscription_message">Onbeperkte toegang tot de catalogus met routes is winstgevender dan een enige aankoop</string>
-	<string name="whatsnew_carnavi_fixes_for_android_title">Navigatie update</string>
-	<string name="whatsnew_carnavi_fixes_for_android_message">We hebben de aanleg van routes naar punten ver van de weggen verbeterd</string>
 	<string name="avoid_unpaved_carplay_1">Geen aardew.</string>
 	<string name="avoid_unpaved_carplay_2">Geen aardewegen</string>
 	<string name="avoid_ferry_carplay_1">Geen ferry\'s</string>
@@ -1612,8 +1490,6 @@
 	<string name="bookmarks_edit_list">Bewerken</string>
 	<!-- Android, max 18 symbols -->
 	<string name="bookmarks_delete_list">Lijst verwijderen</string>
-	<string name="whatsnew_bookmarks_search_sort_title">Bladwijzerts in orde om gemakkelijk te reizen</string>
-	<string name="whatsnew_bookmarks_search_sort_message">Sorteer uw favoriete plaatsen op categorie, tijdstip van toevoegen en geolocatie, en vind ook snel specifieke bladwijzers op hun namen</string>
 	<string name="popup_subscription_success_map_title">Hoera! U bent opgeschreven!</string>
 	<string name="popup_subscription_success_map_message">Ontdekt u nu de beste toeristische attracties in de OMaps catalogus</string>
 	<string name="popup_subscription_success_map_start_button">Kijken</string>
@@ -1634,8 +1510,6 @@
 	<string name="subscription_screen_native_message_version_2">Bereidt u voor op elke reis in meer dan 600 steden en meer dan 100 landen</string>
 	<string name="catalog_no_internet_title">Geen internetverbinding</string>
 	<string name="catalog_no_internet_button">Opnieuw verzoeken</string>
-	<string name="whatsnew_map_updates_title">Supersnelle updates van kaarten</string>
-	<string name="whatsnew_map_updates_message">Nu updaten we de gegevens twee keer zo snel als vroeger</string>
 	<string name="new_onboarding_button">Verder</string>
 	<string name="new_onboarding_button_2">Start</string>
 	<string name="new_onboarding_step1_header_2">Een universele reisadviseur</string>
@@ -1680,10 +1554,6 @@
 	<string name="downloader_country_no_guides_gallery_header">Nog geen handleidingen in dit land</string>
 	<string name="downloader_country_no_guides_gallery_message">U kunt andere offline gidsen in 100+ landen bekijken voor stads- en buitenactiviteiten</string>
 	<string name="dialog_pedestrian_route_is_long">De voetgangersroute naar het instappunt is te lang</string>
-	<string name="whatsnew_outdoor_guides_title">We hebben 15000+ buitenpaden toegevoegd!</string>
-	<string name="whatsnew_outdoor_guides_message">Routes van Outdooractive voor winter- en zomerreizen wachten op u in de catalogus!</string>
-	<string name="whatsnew_guides_galleries_title">Plan uw volgende reis met OMaps</string>
-	<string name="whatsnew_guides_galleries_message">Nu kunt u de aanbevolen handleidingen in de populaire steden en sightseeing kaarten vinden</string>
 	<string name="new_onboarding_step3_header">Reist</string>
 	<string name="all_pass_screen_best_value">Gunstige prijs</string>
 	<string name="buy_btn_for_subscription_3">De hele catalogus voor %s per jaar</string>
@@ -1692,9 +1562,6 @@
 	<string name="dialog_pedestrian_route_is_long_message">Kies een begin- of eindpunt dichter bij het metrostation</string>
 	<!-- Failed planning SUBWAY route message in navigation view -->
 	<string name="routing_planning_error_subway_special">Routeplanner per metro is mislukt</string>
-	<string name="whatsnew_isolines_title">Nieuwigheid voor buitenactiviteiten: hoogtelijnen offline!</string>
-	<!-- as less symbols as possible -->
-	<string name="whatsnew_isolines_message">Navigeer probleemloos in bergachtig gebied. Schakel gewoon de hoogtelijn in via de toets in de linkerbovenhoek van het scherm</string>
 	<string name="button_layer_isolines">Hoogtes</string>
 	<string name="tips_map_layers_title_countour">Hoogtelijnen offline in OMaps!</string>
 	<string name="tips_map_layers_message_countour">Dankzij de hoogtelijnen kunt u probleemloos natuurreizen plannen en er zeker van zijn dat u niet verdwalen zult</string>
@@ -1731,12 +1598,6 @@
 	<string name="routes_card_show">Tonen op kaart</string>
 	<!-- as few symbols as possible -->
 	<string name="routes_card_hide">Verbergen op kaart</string>
-	<string name="whatsnew_catalog_new_title">Nieuwe reisgidsencatalogus en duizenden reisideeën</string>
-	<string name="whatsnew_catalog_new_message">We hebben de reisgidsencatalogus bijgewerkt en vertalingen in populaire talen toegevoegd. Plan uw reis van tevoren!</string>
-	<string name="whatsnew_elevation_profile_title">Hoogteprofiel in reisgidsen</string>
-	<string name="whatsnew_elevation_profile_message">Evalueer de moeilijkheidsgraad van komende beklimmingen en afdalingen offline met de cursor in het profiel van de aangeschafte route.</string>
-	<string name="whatsnew_guides_on_map_title">Nieuwe laag om gemakkelijk gidsen te vinden</string>
-	<string name="whatsnew_guides_on_map_message">Activeer de laag in het menu met applicatie-instellingen om snel interessante stadsroutes en reisgidsen voor buitenactiviteiten te vinden.</string>
 	<string name="downloader_updating_ios">Updaten</string>
 	<string name="downloader_loading_ios">Downloaden</string>
 	<string name="routes_card_plus_track">+ route</string>
@@ -1767,8 +1628,6 @@
 	<string name="choose_dates_online_only_dialog_message">Datums en het aantal gasten kunnen alleen online worden geselecteerd. Controleer uw instellingen en zorg ervoor dat u internetverbinding heeft.</string>
 	<string name="choose_dates_online_only_dialog_cta">Instellingen</string>
 	<string name="thirty_days_limit_dialog">U kunt maximaal 30 nachten boeken</string>
-	<string name="whatsnew_trial_title">Gratis toegang tot de reisgidsencatalogus</string>
-	<string name="whatsnew_trial_message">We bieden nu een gratis proefperiode van 7 dagen aan. Heb toegang tot duizenden reisgidsen over de hele wereld en een interactief hoogteprofiel voor outdoor-reisgidsen.</string>
 	<string name="whatsnew_trial_cta">Probeer het nu</string>
 	<string name="subscription_terms_guides_outdoor">Wanneer u de aankoop bevestigt, wordt de betaling in rekening gebracht op uw iTunes-account. Het abonnement wordt automatisch verlengd, tenzij de functie voor automatisch verlengen ten minste 24 uur voor het einde van de huidige abonnementsperiode is uitgeschakeld. Uw account wordt binnen 24 uur voordat de huidige abonnementsperiode eindigt, volgens uw verlengingsplan in rekening gebracht. U kunt automatische verlenging op elk gewenst moment na aankoop beheren of uitschakelen in uw Apple ID-accountinstellingen. U kunt alleen reisgidsen gebruiken die tijdens uw abonnement zijn gedownload totdat het abonnement verloopt. Reisgidsen en alle bladwijzers worden automatisch 7 dagen na het verlopen van het abonnement verwijderd.\n* Het abonnement met een gratis proefperiode wordt automatisch verlengd tot een betaald abonnement. U kunt de automatische verlenging van uw gratis proefperiode na aankoop annuleren of beheren in uw accountinstellingen. De opzegging wordt van kracht 24 uur na de laatste dag van de huidige abonnementsperiode. Daarna wordt u gedowngraded naar de gratis service. Let op: elk ongebruikt deel van de gratis proefperiode vervalt wanneer u tijdens de gratis proefperiode een premium abonnement koopt.</string>
 	<string name="subscription_terms_android_outdoor">Wanneer u de aankoop bevestigt, wordt de betaling in rekening gebracht op uw Google Play-account. Het abonnement wordt automatisch verlengd, tenzij de functie voor automatisch verlengen ten minste 24 uur voor het einde van de huidige abonnementsperiode is uitgeschakeld. Uw account wordt binnen 24 uur voordat de huidige abonnementsperiode eindigt, volgens uw verlengingsplan in rekening gebracht. U kunt automatische verlenging op elk gewenst moment na aankoop beheren of uitschakelen in accountinstellingen. U kunt alleen reisgidsen gebruiken die tijdens uw abonnement zijn gedownload totdat het abonnement verloopt. Reisgidsen worden automatisch verwijderd 7 dagen nadat het abonnement is verlopen.\n* Het abonnement met een gratis proefperiode wordt automatisch verlengd tot een betaald abonnement. U kunt de automatische verlenging van uw gratis proefperiode na aankoop annuleren of beheren in uw accountinstellingen. De opzegging wordt van kracht 24 uur na de laatste dag van de huidige abonnementsperiode. Daarna wordt u gedowngraded naar de gratis service. Let op: elk ongebruikt deel van de gratis proefperiode vervalt wanneer u tijdens de gratis proefperiode een premium abonnement koopt.</string>

@@ -12,24 +12,13 @@
 	<string name="cancel_download">ยกเลิกการดาวน์โหลด</string>
 	<!-- Button which deletes downloaded country -->
 	<string name="delete">ลบ</string>
-	<!-- Button to dismiss dialog forever -->
-	<string name="do_not_ask_me_again">อย่าถามฉันอีก</string>
 	<!-- Button "do not interrupt download" if user touched actively downloading country -->
 	<string name="do_nothing">ดำเนินการต่อ</string>
 	<string name="download_maps">ดาวน์โหลดแผนที่</string>
-	<!-- Settings/Downloader - Download confirmation button -->
-	<string name="download_x_kb">ดาวน์โหลด %qu กิโลไบต์</string>
-	<!-- Settings/Downloader - Download confirmation button -->
-	<string name="download_x_mb">ดาวน์โหลด %qu เมกกะไบต์</string>
 	<!-- Settings/Downloader - info for country when download fails -->
 	<string name="download_has_failed">การดาวน์โหลดล้มเหลว แตะอีกครั้งเพื่อลองใหม่</string>
-	<!-- Settings/Downloader - info for downloaded country -->
-	<string name="downloaded_x_y_touch_to_delete">ดาวน์โหลดแล้ว (%1$qu %2$s), แตะเพื่อลบ</string>
-	<!-- Settings/Downloader - country info current download progress -->
-	<string name="downloading_x_touch_to_cancel">กำลังดาวน์โหลด %qu%%, แตะเพื่อยกเลิก</string>
 	<!-- Settings/Downloader - info for country which started downloading -->
 	<string name="downloading">กำลังดาวน์โหลด…</string>
-	<string name="get_it_now">รับมันตอนนี้</string>
 	<!-- Settings/Downloader - size string, only strings different from English should be translated -->
 	<string name="kb">กิโลไบต์</string>
 	<!-- Choose measurement on first launch alert - choose metric system button -->
@@ -38,26 +27,16 @@
 	<string name="leave_a_review">ให้คำวิจารณ์</string>
 	<!-- View and button titles for accessibility -->
 	<string name="maps">แผนที่</string>
-	<!-- View and button titles for accessibility -->
-	<string name="downloader_maps">แผนที่:</string>
-	<!-- Settings/Downloader - info for country in the download queue -->
-	<string name="marked_for_downloading">ทำเครื่องหมายสำหรับการดาวน์โหลดแล้ว แตะเพื่อยกเลิก</string>
 	<!-- Settings/Downloader - size string, only strings different from English should be translated -->
 	<string name="mb">MB</string>
 	<!-- Choose measurement on first launch alert - choose imperial system button -->
 	<string name="miles">ไมล์</string>
 	<!-- View and button titles for accessibility -->
 	<string name="core_my_position">ตำแหน่งของฉัน</string>
-	<!-- Settings/Downloader - No free space dialog message -->
-	<string name="free_disk_space_for_country_x">โปรดเพิ่มพื้นที่บนอุปกรณ์ของคุณก่อนเพื่อดาวน์โหลด %s</string>
-	<!-- Leave Review dialog - Not now button (remind me later) -->
-	<string name="remind_me_later">เตือนฉันในภายหลัง</string>
 	<!-- Update maps later/Buy pro version later button text -->
 	<string name="later">ภายหลัง</string>
 	<!-- Don't show some dialog any more -->
 	<string name="never">ไม่ต้องเตือนอีก</string>
-	<!-- Leave Review dialog - Complain button (goes to support site) -->
-	<string name="report_an_issue">รายงานปัญหา</string>
 	<!-- View and button titles for accessibility -->
 	<string name="search">ค้นหา</string>
 	<!-- Search box placeholder text -->
@@ -66,18 +45,12 @@
 	<string name="touch_to_download">แตะเพื่อดาวน์โหลด</string>
 	<!-- Settings/Downloader - 3G download warning dialog confirm button -->
 	<string name="use_cellular_data">ใช่</string>
-	<!-- Choose measurement on first launch alert - title -->
-	<string name="which_measurement_system">ระบบการวัดใดที่คุณต้องการใช้?</string>
 	<!-- Location services are disabled by user alert - message -->
 	<string name="location_is_disabled_long_text">ในปัจจุบันนี้มีการปิดการใช้งานการบริการตำแหน่งที่ตั้งสำหรับอุปกรณ์หรือแอปพลิเคชันนี้ โปรดเปิดใช้งานในการตั้งค่า</string>
 	<!-- Location Services are not available on the device alert - message -->
 	<string name="device_doesnot_support_location_services">อุปกรณ์ของคุณไม่รองรับการบริการตำแหน่งที่ตั้ง</string>
 	<!-- View and button titles for accessibility -->
 	<string name="zoom_to_country">แสดงบนแผนที่</string>
-	<!-- Message to display at the center of the screen when the country is added to the downloading queue -->
-	<string name="country_status_added_to_queue">มีการเพิ่ม ^\nไปยังลำดับการดาวน์โหลดแล้ว</string>
-	<!-- Message to display at the center of the screen when the country is downloading -->
-	<string name="country_status_downloading">กำลังดาวน์โหลด\n^\n^</string>
 	<!-- Button text for the button at the center of the screen when the country is not downloaded -->
 	<string name="country_status_download">ดาวน์โหลดแผนที่\n(^ ^)</string>
 	<!-- Button text for the button at the center of the screen when the country is not downloaded and the size should not be shown -->
@@ -89,7 +62,6 @@
 	<!-- Button text for the button under the country_status_download_failed message -->
 	<string name="try_again">ลองอีกครั้ง</string>
 	<string name="about_menu_title">เกี่ยวกับ OMaps</string>
-	<string name="downloading_touch_to_cancel">กำลังดาวน์โหลด %d%%, แตะเพื่อยกเลิก</string>
 	<string name="downloaded_touch_to_delete">ดาวน์โหลดแล้ว (%s), แตะเพื่อลบ</string>
 	<string name="connection_settings">การตั้งค่าการเชื่อมต่อ</string>
 	<string name="download_mb_or_kb">ดาวน์โหลด %s</string>
@@ -100,7 +72,6 @@
 	<string name="disconnect_usb_cable">โปรดยกเลิกการเชื่อมต่อสาย USB หรือใส่การ์ดหน่วยความจำเพื่อใช้ OMaps</string>
 	<string name="not_enough_free_space_on_sdcard">โปรดเพิ่มพื้นที่บางส่วนบนการ์ด SD /พื้นที่จัดเก็บ USB ก่อนเพื่อใช้แอป</string>
 	<string name="not_enough_memory">มีหน่วยความจำไม่เพียงพอสำหรับการเปิดแอป</string>
-	<string name="free_space_for_country">โปรดเพิ่ม %1$s บนอุปกรณ์ของคุณก่อนเพื่อดาวน์โหลด %2$s</string>
 	<string name="download_resources">ก่อนที่คุณจะเริ่มต้น โปรดให้เราดาวน์โหลดแผนที่โลกลงในอุปกรณ์ของคุณ\nจำเป็นต้องใช้ %s ของข้อมูล</string>
 	<string name="getting_position">กำลังรับตำแหน่งปัจจุบัน</string>
 	<string name="download_resources_continue">ไปยังแผนที่</string>
@@ -108,25 +79,9 @@
 	<string name="download_country_ask">ดาวน์โหลด %s?</string>
 	<string name="update_country_ask">อัปเดต %s?</string>
 	<!-- REMOVE THIS STRING AFTER REFACTORING -->
-	<string name="download_location_map_proposal">คุณสามารถดาวน์โหลดแผนที่\nของตำแหน่งที่ตั้งปัจจุบันของคุณ</string>
-	<!-- REMOVE THIS_STRING AFTER REFACTORING -->
-	<string name="download_location_update_map_proposal">คุณสามารถอัปเดตแผนที่\nของตำแหน่งที่ตั้งปัจจุบันของคุณ</string>
-	<!-- REMOVE THIS STRING AFTER REFACTORING -->
-	<string name="download_location_map_up_to_date">แผนที่ของ\nสถานที่ตั้งปัจจุบันของคุณ (%s) เป็นปัจจุบันแล้ว</string>
-	<!-- REMOVE THIS STRING AFTER REFACTORING -->
 	<string name="pause">หยุดชั่วคราว</string>
 	<!-- REMOVE THIS STRING AFTER REFACTORING -->
 	<string name="continue_download">ดำเนินการต่อ</string>
-	<string name="downloaded_touch_to_update">ดาวน์โหลด (%s) แล้ว, แตะเพื่ออัปเดตหรือลบ</string>
-	<string name="update_mb_or_kb">ัปเดต %s</string>
-	<!-- Show popup notification when we have downloaded countries without search (from Lite version) -->
-	<string name="search_update_maps">คุณจำเป็นต้องใช้แผนที่ที่มีการอัปเดตเพื่อค้นหาฟังก์ชัน:</string>
-	<!-- Show popup notification on app start when we have out-of-date maps -->
-	<string name="advise_update_maps">สามารถใช้การอัปเดตสำหรับแผนที่เหล่านี้:</string>
-	<!-- Show popup notification in Pro version that Lite can be deleted -->
-	<string name="suggest_uninstall_lite">คุณไม่จำเป็นต้องใช้ OMaps ไลท์ (Lite) อีกต่อไปแล้ว ดังนั้นคุณสามารถถอนการติดตั้ง</string>
-	<!-- Show popup notification on top of the map when country was downloaded. -->
-	<string name="download_country_success">%s ได้รับการดาวน์โหลดสำเร็จแล้ว</string>
 	<!-- Show popup notification on top of the map when country download has failed. -->
 	<string name="download_country_failed">การดาวน์โหลด %s ล้มเหลว</string>
 	<!-- Add New Bookmark Set dialog title -->
@@ -155,8 +110,6 @@
 	<string name="set">ชุด</string>
 	<!-- Text hint in Bookmarks dialog when no any bookmarks are added -->
 	<string name="bookmarks_usage_hint">คุณยังไม่มีบุ๊กมาร์ก\nแตะที่ใด ๆ บนแผนที่เพื่อเพิ่มบุ๊กมาร์ก\nสามารถนำเข้าบุ๊กมาร์กจากแหล่งอื่น ๆ และแสดงบน OMaps เปิดไฟล์ KML/KMZ ด้วยหมุดที่บันทึกไว้จากอีเมล ดรอปบ็อกซ์ หรือเว็บลิงก์</string>
-	<!-- Text hint in Bookmarks dialog when at least one bookmark is added -->
-	<string name="bookmarks_usage_hint_import_only">สามารถนำเข้าบุ๊กมาร์กจากแหล่งอื่น ๆ และแสดงบน OMaps เปิดไฟล์ KML/KMZ ด้วยหมุดที่บันทึกไว้จากอีเมล ดรอปบ็อกซ์ หรือเว็บลิงก์</string>
 	<!-- Settings button in system menu -->
 	<string name="settings">การตั้งค่า</string>
 	<!-- Header of settings activity where user defines storage path -->
@@ -776,11 +729,6 @@
 	<string name="editor_report_problem_other_title">ปัญหาอีกอย่างหนึ่ง</string>
 	<string name="placepage_report_problem_button">แจ้งปัญหา</string>
 	<string name="placepage_add_business_button">เพิ่มองค์กร</string>
-	<string name="whatsnew_smallmwm_header">คุณได้ขอมา เราจึงทำมัน</string>
-	<string name="whatsnew_smallmwm_message">เราได้แบ่งแผนที่ออกเป็นส่วน ๆ ตอนนี้คุณสามารถดาวน์โหลดภูมิภาคแยกต่างหากได้แล้ว</string>
-	<string name="whatsnew_search_header">การค้นหาใหม่</string>
-	<string name="whatsnew_search_message">เราได้ปรับปรุงครั้งใหญ่สำหรับการค้นหาตามที่อยู่ ลองดูด้วยตัวเอง</string>
-	<string name="whatsnew_editor_title">แก้ไขแผนที่*</string>
 	<string name="whatsnew_editor_message_1">เพิ่มสถานที่ใหม่ ๆ ไปยังแผนที่ และแก้ไขสถานที่ที่มีอยู่เดิมจากแอปโดยตรง</string>
 	<string name="whatsnew_editor_message_2">* OMaps ใช้ข้อมูลจากชุมชน OpenStreetMap</string>
 	<string name="dialog_incorrect_feature_position">เปลี่ยนสถานที่ตั้ง</string>
@@ -826,10 +774,6 @@
 	<string name="current_location_unknown_stop_button">หยุด</string>
 	<string name="current_location_unknown_error_title">ไม่ทราบชื่อของที่ตั้งปัจจุบัน</string>
 	<string name="current_location_unknown_error_message">มีข้อผิดพลาดเกิดขึ้นในขณะที่กำลังหาที่ตั้งที่คุณอยู่ โปรดตรวจสอบอุปกรณ์ของคุณว่าทำงานถูกต้อง และลองใหม่อีกครั้ง</string>
-	<string name="whatsnew_update_editor_title">เราได้ทำการอัพเดตตัวแก้ไขแผนที่แล้ว</string>
-	<string name="whatsnew_update_editor_message">ผู้ใช้ OMaps ได้ทำการเปลี่ยนแปลงแผนที่เป็นจำนวนมากกว่า 200 000 ครั้งแล้ว เรากำลังทำให้แผนที่นี้มีรายละเอียดมากที่สุดในโลก มาร่วมมือกัน!</string>
-	<!-- Additional text in whats new -->
-	<string name="whatsnew_update_editor_message_update">ในการใช้เครื่องมือการแก้ไขแผนที่ โปรดอัปเดตแผนที่ทั้งหมด</string>
 	<string name="location_services_disabled_header">ปิดการใช้งานการระบุตำแหน่งที่ตั้งแล้ว</string>
 	<string name="location_services_disabled_message">เปิดใช้งานการเข้าถึงตำแหน่งภูมิศาสตร์ในการตั้งค่าอุปกรณ์</string>
 	<string name="location_services_disabled_1">1. เปิดการตั้งค่า</string>
@@ -917,14 +861,6 @@
 	<string name="sharing_call_action_look">ตรวจชม</string>
 	<string name="continue_recent_track_background_button">ดำเนินการต่อ</string>
 	<string name="recent_track_background_dialog_message">OMaps ใช้ตำแหน่งทางภูมิศาสตร์ของคุณในพื้นหลังเพื่อบันทึกเส้นทางที่คุณเดินทางเมื่อเร็ว ๆ นี้</string>
-	<string name="whatsnew_car_navigation_header">การนำทางยานพาหนะอย่างเป็นมิตรต่อผู้ใช้</string>
-	<string name="whatsnew_car_navigation_message">• องค์ประกอบการนำทางใช้พื้นที่น้อยลง\n• เราแสดงความเร็ว และได้เพิ่มการซูมอัตโนมัติ</string>
-	<string name="whatsnew_cycle_navigation_2_header">การนำทางจักรยาน</string>
-	<string name="whatsnew_cycle_navigation_2_message">• การนำทางจักรยานพิจารณาถึงข้อมูลด้านภูมิประเทศ\n• เราสร้างเส้นทางที่ง่ายยิ่งขึ้นโดยพิจารณาถึงความลาดเอียงของถนน</string>
-	<string name="whatsnew_booking_2_header">การค้นหาโรงแรมอย่างง่ายดาย</string>
-	<string name="whatsnew_booking_2_message">ผลการค้นหาจะแสดงการให้คะแนนโรงแรมและหมวดหมู่ราคา</string>
-	<string name="whatsnew_cycle_navigation_header">การนำทางจักรยาน (beta-version)</string>
-	<string name="whatsnew_cycle_navigation_message">เรากำลังทดสอบการนำทางจักรยานในฤดูกาลใหม่ ลองเส้นทางการขี่จักรยานด้วย OMaps และแชร์ความคิดเห็นของคุณมาให้เรา</string>
 	<!-- Rate on Google Play (Android only) -->
 	<string name="rate_gp">ให้คะแนนบน Google Play</string>
 	<!-- Share with friends: menu item title -->
@@ -985,8 +921,6 @@
 	<string name="chat">Geochat</string>
 	<!-- Verb. Text on a button that opens the chat. -->
 	<string name="chat_open">เปิด</string>
-	<string name="whatsnew_uber_header">OMaps &amp; Uber</string>
-	<string name="whatsnew_uber_message">เรียกแท็กซี่ Uber โดยตรงจากแอป!</string>
 	<string name="dialog_taxi_offline">ไม่สามารถทำการจองแท็กซี่ได้ในโหมดออฟไลน์</string>
 	<string name="dialog_taxi_error">ไม่สามารถทำการจองแท็กซี่ได้ชั่วคราว</string>
 	<string name="mobile_data_dialog">ใช้อินเทอร์เน็ตมือถือแสดงข้อมูลโดยรายละเอียดหรือไม่?</string>
@@ -1005,30 +939,6 @@
 	<string name="traffic_update_app_message">ในการแสดงข้อมูลการจราจร แอปพลิเคชั่นจะต้องอัปเดตก่อน</string>
 	<!-- "traffic" as in "road congestion" -->
 	<string name="traffic_data_unavailable">ไม่มีข้อมูลการจราจร</string>
-	<!-- december -->
-	<string name="whatsnew_traffic">ข้อมูลการจราจรใน 36 ประเทศ</string>
-	<!-- december -->
-	<string name="whatsnew_traffic_text">ข้อมูลการจราจรที่ทันสมัยและเส้นทางการขับรถที่เร็วที่สุดตามข้อมูลนั้น!</string>
-	<!-- december -->
-	<string name="whatsnew_traffic_roaming">ข้อมูลการจราจรในการใช้โรมมิ่ง</string>
-	<!-- december -->
-	<string name="whatsnew_traffic_roaming_text">ใช้แบนด์วิดท์มือถือน้อยกว่า 1 MB ต่อเที่ยว</string>
-	<!-- december -->
-	<string name="whatsnew_order_taxi">เรียกแท็กซี่</string>
-	<!-- december -->
-	<string name="whatsnew_order_taxi_text">หน้าตำแหน่งที่ตั้งส่วนใหญ่ในขณะนี้มีปุ่มเรียกแท็กซี่</string>
-	<!-- january -->
-	<string name="whatsnew_improved_search">การค้นหาที่ได้รับการปรับปรุง</string>
-	<!-- january -->
-	<string name="whatsnew_improved_search_text">แม้แต่คำถามที่สะกดผิดก็ยังให้ผลลัพธ์การค้นหาที่ถูกต้องได้</string>
-	<!-- january -->
-	<string name="whatsnew_filters_in_search">ตัวกรองการค้นหา</string>
-	<!-- january -->
-	<string name="whatsnew_filters_in_search_text">ค้นหาโรงแรมตามราคาและการจัดอันดับ</string>
-	<!-- january -->
-	<string name="whatsnew_font_size">ขนาดฟอนต์</string>
-	<!-- january -->
-	<string name="whatsnew_font_size_text">ป้ายบนแผนที่สามารถทำให้ใหญ่ขึ้นได้</string>
 	<!-- Seven points and higher -->
 	<string name="booking_filter_rating_num_good">7.0+</string>
 	<!-- Eight points and higher -->
@@ -1038,16 +948,6 @@
 	<!-- Simplified colour scheme for traffic information, fewer colours are used to display traffic jams on the map. The string should be kept as short as possible -->
 	<string name="pref_traffic_simplified_colors_title">ไฟจราจรแบบง่าย</string>
 	<string name="enable_logging">เปิดใช้งานการเก็บล็อก</string>
-	<string name="whatsnew_more_info_on_hotels_title">ข้อมูลเพิ่มเติมเกี่ยวกับโรงแรม</string>
-	<string name="whatsnew_more_info_on_hotels_message">หน้าเว็บโรงแรมโฉมใหม่: ลองดูรูป รีวิวจากผู้ใช้งาน และข้อมูลอื่น ๆ ทางออนไลน์</string>
-	<string name="whatsnew_better_routing_title">การวางแผนเส้นทางที่ดีขึ้น</string>
-	<string name="whatsnew_better_routing_message">• การประมาณเวลาที่ไปถึงจุดหมายแม่นยำยิ่งขึ้น\n• แอปมีการคำนึงถึงพื้นที่ต้องห้ามและป้ายถนน</string>
-	<string name="whatsnew_smaller_mwm_title">แผนที่เล็กลง</string>
-	<string name="whatsnew_smaller_mwm_message">แผนที่ใช้พื้นที่เก็บน้อยลง 20%</string>
-	<string name="whatsnew_waypoints_title">จุดกำหนดในเส้นทาง</string>
-	<string name="whatsnew_waypoints_message">แตะสถานที่เพื่อเพิ่มจุดกำหนดเข้าไปยังเส้นทางของคุณ</string>
-	<string name="whatsnew_driving_style_title">แผนที่รูปแบบใหม่สำหรับการขับขี่</string>
-	<string name="whatsnew_driving_style_message">โหมดการนำทางรถยนต์ใช้งานได้ง่ายยิ่งขึ้น</string>
 	<string name="more_on_bookingcom">เพิ่มเติมบน Booking.com</string>
 	<string name="details_on_bookingcom">รายละเอียดบน Booking.com</string>
 	<string name="reviews_on_bookingcom">รีวิวเพิ่มเติมบน Booking.com</string>
@@ -1077,7 +977,6 @@
 	<string name="prefs_languages_information_off">สำหรับบางภาษาคุณจำเป็นต้องติดตั้งตัวสังเคราะห์เสียงหรือชุดภาษาเพิ่มเติมจากแอปสโตร์ (Google Play Market, Samsung Apps)\nเปิดการตั้งค่าของเครื่องคุณ → ภาษาและการป้อนข้อมูล → คำพูด → เอาต์พุตการอ่านออกเสียง\nที่นี่คุณสามารถจัดการการตั้งค่าสำหรับการสังเคราะห์เสียง (ตัวอย่างเช่น ดาวน์โหลดชุดภาษาสำหรับใช้งานออฟไลน์) และเลือกเครื่องมืออ่านออกเสียงข้อความตัวอื่นได้</string>
 	<string name="prefs_languages_information_off_link">สำหรับข้อมูลเพิ่มเติม กรุณาเข้าชมคำแนะนำนี้</string>
 	<string name="whatsnew_transliteration_title">การทับศัพท์เป็นภาษาละติน</string>
-	<string name="whatsnew_transliteration_message">หากถนนหรือเป้าหมายไม่มีชื่อในภาษาของคุณก็จะสะกดโดยใช้ตัวอักษรละติน</string>
 	<string name="learn_more">ศึกษาเพิ่มเติม</string>
 	<string name="core_exit">ออก</string>
 	<string name="routing_add_start_point">เพิ่มจุดเริ่มต้นเพื่อวางแผนเส้นทาง</string>
@@ -1096,8 +995,6 @@
 	<string name="dialog_change_start_point_message">แทนที่จุดเริ่มต้นไปยังตำแหน่งปัจจุบันหรือไม่?</string>
 	<string name="button_replace">แทนที่</string>
 	<string name="placepage_add_stop">เพิ่มจุดแวะพัก</string>
-	<string name="whatsnew_intermediate_point_title">จุดแวะพักเพิ่มเติม</string>
-	<string name="whatsnew_intermediate_point_message">วางแผนเส้นทางด้วยจุดแวะพักระหว่างทาง</string>
 	<string name="add_my_position">เพิ่มตำแหน่งของฉัน</string>
 	<string name="choose_start_point">เลือกจุดเริ่มต้น</string>
 	<string name="choose_destination">เลือกปลายทาง</string>
@@ -1403,15 +1300,6 @@
 	<string name="whats_new_ugc_routes_subtitle">บันทึกสถานที่ที่น่าจดจำ สร้างสรรค์การเดินทางต่าง ๆโดยใช้บุ๊กมาร์ก และแบ่งปันกับทุกคนในแคตตาล็อก OMaps</string>
 	<string name="whats_new_webeditor_title">เปลี่ยนการเดินทางต่าง ๆ ของคุณให้กลายเป็นเรื่องราว</string>
 	<string name="whats_new_ugc_routes_message2">เพิ่มรูปภาพและเรื่องราวอย่างละเอียดลงในโปรแกรมสำหรับเขียนเว็บ</string>
-	<string name="whatsnew_standard_routes_title">เส้นทางมาตรฐาน</string>
-	<string name="whatsnew_standard_routes_message">ชุดพื้นฐานของสถานที่ที่น่าสนใจ และคำอธิบายสั้น ๆ แต่มีประสบการณ์มากมาย!</string>
-	<string name="whatsnew_city_overview_title">ภาพรวมของเมือง</string>
-	<string name="whatsnew_city_overview_message">สถานที่ที่น่าสนใจมากถึง 200 แห่ง บนแผนที่เมือง: ทุกสิ่งที่นักท่องเที่ยวอาจพบว่ามีประโยชน์ และน่าสนใจ!</string>
-	<string name="whatsnew_pro_guides_title">เส้นทางอย่างมืออาชีพ</string>
-	<string name="whatsnew_pro_guides_message">มีความละเอียดมาก พร้อมรายละเอียดของสถานที่ และความสามารถในการคำนวณระยะทาง และเวลาในการเดินทาง</string>
-	<string name="whatsnew_paid_routes_title">ประสบการณ์ใหม่ ๆ ที่มากขึ้น!</string>
-	<string name="whatsnew_paid_routes_message">นอกเหนือจากเส้นทางที่ไม่เสียค่าใช้จ่ายแล้ว เราได้เพิ่มหมวดหมู่เส้นทางที่ต้องชำระเงิน 3 ประเภทลงในแคตตาล็อกของเรา มีเส้นทางใหม่มากกว่า 700 เส้นทาง!</string>
-	<string name="whats_new_ugc_routes_title_android_only">แบ่งปันความประทับใจของคุณได้ง่าย ๆ</string>
 	<string name="ugc_thanks_message_auth">รีวิวของคุณได้รับการบันทึก</string>
 	<string name="ugc_thanks_message_not_auth">โปรดเข้าสู่ระบบเพื่อการรีวิว</string>
 	<string name="notification_leave_review_v2_title">โปรดให้คะแนนสถานที่เพื่อเป็นตัวช่วยแก่นักท่องเที่ยวคนอื่นๆ</string>
@@ -1495,10 +1383,6 @@
 	<string name="whats_new_auto_update_bydeeplink_title">ก่อนที่คุณจะเริ่มใช้งานไกด์…</string>
 	<string name="whats_new_auto_update_bydeeplink_message">อัพเดตแผนที่เพื่อให้ข้อมูลเกี่ยวกับสถานที่นั้นตรงกับปัจจุบัน</string>
 	<string name="whats_new_auto_update_and_proceed_button_size">อัพเดต (%s) และกำลังอยู่ในขั้นตอนการทำงาน</string>
-	<string name="whatsnew_toll_unpaved_title">วางเส้นทางสำหรับรถยนต์โดยพิจารณาใช้ถนนทุกประเภท</string>
-	<string name="whatsnew_toll_unpaved_message">เลือกเส้นทางอ้อมจากถนนที่เก็บค่าผ่านทาง ถนนดิน หรือจำเป็นต้องใช้เรือข้าม</string>
-	<string name="whatsnew_new_catalogue_title">เพจของแคตตาล็อกที่ได้รับการอัพเดตแล้ว</string>
-	<string name="whatsnew_new_catalogue_message">เราเพิ่มรายละเอียดข้อมูลเพิ่มเติมเกี่ยวกับไกด์ที่คอยช่วยเหลือ ที่ทำให้การเลือกเส้นทางนั้นง่ายและสะดวกขึ้น</string>
 	<string name="purchase_please_wait_toast">โปรดอย่าเพิ่งออกจากหน้านี้ก่อนที่การซื้อจะเสร็จสิ้น</string>
 	<string name="trip_start">ไปกันเลย</string>
 	<string name="pick_destination">จุดหมาย</string>
@@ -1554,12 +1438,6 @@
 	<string name="buy_btn_for_subscription_ios_only_year">เข้าชมได้ไม่จำกัดในราคา %s/ปี</string>
 	<string name="subscription_terms_guides">การจายเงินนั้นจะเก็บจากบัญชี iTunes ของคุณหลังจากที่ยืนยัน การสมัครสมาชิกจะต่ออายุอัตโนมัติ ยกเว้นฟีเจอร์สมัครสมาชิกอัตโนมัติถูกปิดอยู่อย่างน้อย 24 ชั่วโมง ก่อนที่สมาชิกจะหมดอายุ บัญชีของคุณจะถูกเรียกคิดเงินตามที่คุณวางแผนการต่ออายุภายใน 24 ชั่วโมงก่อนหน้าที่สมาชิกจะหมดอายุ คุณสามารถจัดการกับฟีเจอร์ต่ออายุอัตโนมัติ ในบัญชีผู้ใช้ของ Apple ได้ทุกเวลาหลังจากที่คุณจ่ายเงินแล้ว คุณสามารถใช้งานไกด์ที่ดาวน์โหลดมาจนถึงวันหมดอายุสมาชิกเท่านั้น ภายใน 30 วันหลังจากวันหมดอายุสมาชิก ไกด์ที่มีบุ๊กมาร์กจะถูกลบโดยอัตโนมัติ</string>
 	<string name="subscription_terms">จะเรียกเก็บการชำระเงินไปยังบัญชี iTunes ของคุณเมื่อทำการยืนยันการซื้อ การสมัครสมาชิกจะได้รับการต่ออายุโดยอัตโนมัติ เว้นเสียแต่จะมีการปิดการต่ออายุอัตโนมัติอย่างน้อย 24 ชั่วโมงก่อนสิ้นสุดรอบปัจจุบัน บัญชีของของคุณจะได้รับการเรียกเก็บค่าบริการตามแผนสำหรับการต่ออายุของคุณภายใน 24 ชั่วโมงก่อนสิ้นสุดรอบปัจจุบัน คุณสามารถจัดการหรือปิดการต่ออายุอัตโนมัติได้ในการตั้งค่าบัญชี ID Apple ได้ทุกเมื่อเมื่อทำการซื้อของคุณ</string>
-	<string name="whatsnew_carplay_title">นำทางรถใน CarPlay ของ OMaps!</string>
-	<string name="whatsnew_carplay_message">บุ๊คมาร์ก การค้นหา ความเร็วของกล้อง และตัวเลือกของเส้นทางพร้อมให้ใช้งานในแบบออฟไลน์</string>
-	<string name="whatsnew_subscription_title">ข้อมูลของโลกทั้งใบจากการสมัครสมาชิก!</string>
-	<string name="whatsnew_subscription_message">เข้าถึงแคตตาล็อกคู่มือได้ไม่จำกัดได้รับกำไรมากกว่าการซื้อแค่ครั้งเดียว</string>
-	<string name="whatsnew_carnavi_fixes_for_android_title">ปรับปรุงการนำทาง</string>
-	<string name="whatsnew_carnavi_fixes_for_android_message">เราได้ปรับปรุงเส้นทางการวางแผนไปยังจุดต่าง ๆ ซึ่งตั้งอยู่ห่างจากถนนต่าง ๆ</string>
 	<string name="avoid_unpaved_carplay_1">ไม่มีลูกรัง</string>
 	<string name="avoid_unpaved_carplay_2">หลีกเลี่ยงทาง</string>
 	<string name="avoid_ferry_carplay_1">ไม่มีเรือ</string>
@@ -1616,8 +1494,6 @@
 	<string name="bookmarks_edit_list">แก้ไขรายการ</string>
 	<!-- Android, max 18 symbols -->
 	<string name="bookmarks_delete_list">ลบรายการ</string>
-	<string name="whatsnew_bookmarks_search_sort_title">ลำดับในบุ๊กมาร์กทำให้การเดินทางสะดวกมากขึ้น</string>
-	<string name="whatsnew_bookmarks_search_sort_message">เรียงสถานที่โปรดตามหมวดหมู่ ตำแหน่ง และลำดับ ตลอดจนค้นหาบุ๊กมาร์กที่กำหนดอย่างรวดเร็วด้วยชื่อ</string>
 	<string name="popup_subscription_success_map_title">วู้ว ฮู้วว คุณได้สมัครสมาชิกแล้ว!</string>
 	<string name="popup_subscription_success_map_message">ค้นพบการท่องเที่ยวโดดเด่นที่ดีที่สุดในแคตตาล็อก OMaps</string>
 	<string name="popup_subscription_success_map_start_button">เริ่มค้นหา</string>
@@ -1638,8 +1514,6 @@
 	<string name="subscription_screen_native_message_version_2">เตรียมพร้อมสำหรับการเดินทางมากกว่า 600 เมือง และมากกว่า 100 ประเทศ</string>
 	<string name="catalog_no_internet_title">ไม่มีการเชื่อมต่ออินเตอร์เน็ต</string>
 	<string name="catalog_no_internet_button">ลองใหม่อีกครั้ง</string>
-	<string name="whatsnew_map_updates_title">ปรับปรุงแผนที่ได้รวดเร็ว</string>
-	<string name="whatsnew_map_updates_message">นับตั้งแต่นี้ไปเราทำการปรับปรุงข้อมูลได้เร็วขึ้นเป็นสองเท่า</string>
 	<string name="new_onboarding_button">ถัดไป</string>
 	<string name="new_onboarding_button_2">เริ่มเลย</string>
 	<string name="new_onboarding_step1_header_2">เพื่อนคู่การท่องเที่ยวแบบเบ็ดเสร็จ</string>
@@ -1684,10 +1558,6 @@
 	<string name="downloader_country_no_guides_gallery_header">ยังไม่มีคู่มือใช้งานในประเทศนี้</string>
 	<string name="downloader_country_no_guides_gallery_message">คุณสามารถเช็คคู่มือใช้งานอื่นๆ ในมากกว่า 100 ประเทศสำหรับเมืองใหญ่และกิจกรรมเอาท์ดอร์</string>
 	<string name="dialog_pedestrian_route_is_long">เส้นทางเดินเท้าไปยังจุดขึ้นรถโดยสารนั้นไกลเกินไป</string>
-	<string name="whatsnew_outdoor_guides_title">เราเพิ่มเส้นทางเอาท์ดอร์มากกว่า 15000 เส้นทาง!</string>
-	<string name="whatsnew_outdoor_guides_message">เส้นทางจากOutdooractiveสำหรับการเดินทางในฤดูหนาวและฤดูร้อนนั้นรอยู่ในแคตตาล็อก!</string>
-	<string name="whatsnew_guides_galleries_title">วางแผนทริปที่คุณกำลังไปด้วย OMaps</string>
-	<string name="whatsnew_guides_galleries_message">ตอนนี้คุณสามารถค้นหาคู่มือใช้งานที่เราแนะนำในเว็บเพจเกี่ยวกับสถานที่ของเมืองและสถานที่ที่เป็นสถานที่ท่องเที่ยวยอดนิยม</string>
 	<string name="new_onboarding_step3_header">ประสบการณ์</string>
 	<string name="all_pass_screen_best_value">คุ้มค่าที่สุด</string>
 	<string name="buy_btn_for_subscription_3">ทั้งแคตตาล็อคราคา %s/ปี</string>
@@ -1696,9 +1566,6 @@
 	<string name="dialog_pedestrian_route_is_long_message">โปรดเลือกจุดเริ่มต้นและสิ้นสุดที่อยู่ใกล้สถานีรถไฟใต้ดิน</string>
 	<!-- Failed planning SUBWAY route message in navigation view -->
 	<string name="routing_planning_error_subway_special">การวางแผนเส้นทางของทางรถไฟใต้ดินล้มเหลว</string>
-	<string name="whatsnew_isolines_title">เลเยอร์แผนที่ภูมิประเทศแบบออฟไลน์ ใหม่สำหรับกิจกรรมกลางแจ้ง!</string>
-	<!-- as less symbols as possible -->
-	<string name="whatsnew_isolines_message">รู้สึกมั่นใจได้ในพื้นที่แถบภูเขา เพียงแค่เปิดเลเยอร์ที่มุมบนซ้าย</string>
 	<string name="button_layer_isolines">ความสูง</string>
 	<string name="tips_map_layers_title_countour">เลเยอร์แผนที่ภูมิประเทศแบบออฟไลน์ ใหม่ในแอป OMaps!</string>
 	<string name="tips_map_layers_message_countour">วางแผนและสนุกไปกับทริปท่องธรรมชาติโดยมั่นใจว่าคุณรู้ทุกอย่างเกี่ยวกับพื้นที่นั้น</string>
@@ -1735,12 +1602,6 @@
 	<string name="routes_card_show">แสดงบนแผนที่</string>
 	<!-- as few symbols as possible -->
 	<string name="routes_card_hide">ซ่อนจากแผนที่</string>
-	<string name="whatsnew_catalog_new_title">ไกด์แคตตาล็อกใหม่ และไอเดียการท่องเที่ยวนับพันแห่ง</string>
-	<string name="whatsnew_catalog_new_message">เราได้อัปเดตไกด์แคตตาล็อกและได้แปลคู่มือใช้งานในภาษาที่ยอดนิยมหลากหลายภาษา มาเริ่มวางแผนทริปกันล่วงหน้า!</string>
-	<string name="whatsnew_elevation_profile_title">ข้อมูลของความสูงในคู่มือใช้งานเพื่อการท่องเที่ยว</string>
-	<string name="whatsnew_elevation_profile_message">ประเมินความลำบากของการขึ้นและการลงในเส้นทางข้างหน้าแบบออฟไลน์ ด้วยเคอร์เซอร์ในโปรไฟล์ของเส้นทางที่คุณซื้อไว้</string>
-	<string name="whatsnew_guides_on_map_title">เลเยอร์ใหม่เพื่อหาคู่มือใช้งานเจอได้อย่างง่ายดาย</string>
-	<string name="whatsnew_guides_on_map_message">เปิดใช้งานเลเยอร์ในเมนูการตั้งค่าแอปพลิเคชันเพื่อพบกับเส้นทางของเมืองที่น่าสนใจ และคู่มือใช้งานเพื่อการท่องเที่ยวสำหรับกิจกรรมกลางแจ้งได้อย่างรวดเร็ว</string>
 	<string name="downloader_updating_ios">การอัปเดต</string>
 	<string name="downloader_loading_ios">การดาวน์โหลด</string>
 	<string name="routes_card_plus_track">+ เส้นทาง</string>
@@ -1776,8 +1637,6 @@
 	<string name="choose_dates_online_only_dialog_message">เลือกวันที่และจำนวนของแขกได้ตอนแอปออนไลน์อยู่เท่านั้น โปรดตรวจสอบการตั้งค่าให้มั่นใจว่าอุปกรณ์เชื่อมต่อกับอินเทอร์เน็ต</string>
 	<string name="choose_dates_online_only_dialog_cta">ตั้งค่า</string>
 	<string name="thirty_days_limit_dialog">คุณจองห้องพักได้นานที่สุด 30 คืน</string>
-	<string name="whatsnew_trial_title">เขาถึงไกด์แคตตาล็อกได้ฟรี</string>
-	<string name="whatsnew_trial_message">ตอนนี้เราเสนอการทดลองใช้งานฟรี 7 วัน เข้าถึงคู่มือใช้งานเพื่อการท่องเที่ยวนับพันฉบับของทั่วโลก และข้อมูลความสูงของพื้นที่แบบอินเตอร์แอคทีฟเพื่อกิจกรรมกลางแจ้ง</string>
 	<string name="whatsnew_trial_cta">ลองใช้เลยตอนนี้</string>
 	<string name="subscription_terms_guides_outdoor">เมื่อคุณยืนยันการชำระเงิน เงินจะถูกหักจากบัญชี iTunes ของคุณ การสมัครสมาชิกจะต่ออายุอัตโนมัติยกเว้นว่าคุณเลือกให้การต่ออายุอัตโนมัติปิดใช้งานอย่างน้อย 24 ชั่วโมง ก่อนเวลาที่หมดอายุของสมาชิกในปัจจุบัน บัญชีของคุณจะถูกตัดเงินตามแผนการต่ออายุภายใน 24 ชั่วโมงก่อนเวลาที่หมดอายุของสมาชิกในปัจจุบัน คุณสามารถจัดการหรือปิดการต่ออายุอัตโนมัติในการตั้งค่าบัญชี Apple ID ของคุณเมื่อใดก็ได้หลังจากที่คุณชำระเงิน คุณสามารถใช้คู่มือใช้งานที่ดาวน์โหลดในช่วงการสมัครสมาชิกของคุณจนถึงการสมัครหมดสมาชิกหมดอายุเท่านั้น คู่มือใช้งานและบุ๊กมาร์กจะถูกลบอัตโนมัติหลังจากที่การสมัครสมาชิกหมดอายุ 7 วัน\n* การสมัครสมาชิกแบบทดลองใช้งานจะตั้งค่าเป็นการต่ออายุแบบเสียเงินอัตโนมัติ คุณสามารถยกเลิก หรือจัดการการต่ออายุอัตโนมัติในช่วงทดลองใช้งานที่การตั้งค่าบัญชีของคุณหลังจากที่คุณสมัครสมาชิกและเลือกว่าจะจ่ายเงินหรือทดลองใช้ก่อน การยกเลิกจะมีผล 24 ชั่วโมงหลังวันสุดท้ายของช่วงการสมัครสมาชิกปัจจุบัน หลังจากนั้น คุณจะถูกลดระดับเป็นบริการแบบใช้งานฟรี หมายเหตุ: เวลาทดลองใช้งานฟรีที่เหลือจะถูกยกเลิก เมื่อคุณจ่ายเงินสมัครสมาชิกแบบพรีเมียมในช่วงของการทดลองใช้งานฟรี</string>
 	<string name="subscription_terms_android_outdoor">เมื่อคุณยืนยันที่จะชำระเงิน เงินจะถูกหักจากบัญชี Google Play ของคุณ การสมัครสมาชิกจะต่ออายุอัตโนมัติยกเว้นว่าคุณเลือกให้การต่ออายุอัตโนมัติปิดใช้งานอย่างน้อย 24 ชั่วโมง ก่อนเวลาที่หมดอายุของสมาชิกในปัจจุบัน บัญชีของคุณจะถูกตัดเงินตามแผนการต่ออายุภายใน 24 ชั่วโมงก่อนเวลาที่หมดอายุของสมาชิกในปัจจุบัน คุณสามารถจัดการหรือปิดการต่ออายุอัตโนมัติเมื่อใดก็ได้หลังจากที่คุณชำระเงิน คุณสามารถใช้คู่มือใช้งานที่ดาวน์โหลดในช่วงการสมัครสมาชิกของคุณจนถึงการสมัครหมดสมาชิกหมดอายุเท่านั้น คู่มือใช้งานถูกลบอัตโนมัติหลังจากที่การสมัครสมาชิกหมดอายุ 7 วัน\n* การสมัครสมาชิกแบบทดลองใช้งานจะตั้งค่าเป็นการต่ออายุแบบเสียเงินอัตโนมัติ คุณสามารถยกเลิก หรือจัดการการต่ออายุอัตโนมัติในช่วงทดลองใช้งานที่การตั้งค่าบัญชีของคุณหลังจากที่คุณสมัครสมาชิกและเลือกว่าจะจ่ายเงินหรือทดลองใช้ก่อน การยกเลิกจะมีผล 24 ชั่วโมงหลังวันสุดท้ายของช่วงการสมัครสมาชิกปัจจุบัน หลังจากนั้น คุณจะถูกลดระดับเป็นบริการแบบใช้งานฟรี หมายเหตุ: เวลาทดลองใช้งานฟรีที่เหลือจะถูกยกเลิก เมื่อคุณจ่ายเงินสมัครสมาชิกแบบพรีเมียมในช่วงของการทดลองใช้งานฟรี</string>

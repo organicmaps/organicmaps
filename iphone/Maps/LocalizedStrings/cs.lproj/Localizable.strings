@@ -18,33 +18,16 @@
 /* Button which deletes downloaded country */
 "delete" = "Smazat";
 
-/* Button to dismiss dialog forever */
-"do_not_ask_me_again" = "Už se neptat";
-
 /* Button "do not interrupt download" if user touched actively downloading country */
 "do_nothing" = "Pokračovat";
 
 "download_maps" = "Stáhnout mapy";
 
-/* Settings/Downloader - Download confirmation button */
-"download_x_kb" = "Stáhnout %qu kB";
-
-/* Settings/Downloader - Download confirmation button */
-"download_x_mb" = "Stáhnout %qu MB";
-
 /* Settings/Downloader - info for country when download fails */
 "download_has_failed" = "Stahování selhalo, zkuste to znovu.";
 
-/* Settings/Downloader - info for downloaded country */
-"downloaded_x_y_touch_to_delete" = "Staženo (%1$qu %2$@), klepněte pro smazání.";
-
-/* Settings/Downloader - country info current download progress */
-"downloading_x_touch_to_cancel" = "Stahování %qu%%, klepněte pro zrušení.";
-
 /* Settings/Downloader - info for country which started downloading */
 "downloading" = "Stahování…";
-
-"get_it_now" = "Získat nyní";
 
 /* Settings/Downloader - size string, only strings different from English should be translated */
 "kb" = "kB";
@@ -58,12 +41,6 @@
 /* View and button titles for accessibility */
 "maps" = "Mapy";
 
-/* View and button titles for accessibility */
-"downloader_maps" = "Mapy:";
-
-/* Settings/Downloader - info for country in the download queue */
-"marked_for_downloading" = "Připraveno pro stažení, klepněte pro zrušení.";
-
 /* Settings/Downloader - size string, only strings different from English should be translated */
 "mb" = "MB";
 
@@ -75,20 +52,11 @@
 /* View and button titles for accessibility */
 "core_my_position" = "Moje poloha";
 
-/* Settings/Downloader - No free space dialog message */
-"free_disk_space_for_country_x" = "Prosím, uvolněte nějaké místo ve svém zařízení, než začnete stahovat %@";
-
-/* Leave Review dialog - Not now button (remind me later) */
-"remind_me_later" = "Upozornit mě později";
-
 /* Update maps later/Buy pro version later button text */
 "later" = "Později";
 
 /* Don't show some dialog any more */
 "never" = "Nikdy";
-
-/* Leave Review dialog - Complain button (goes to support site) */
-"report_an_issue" = "Nahlásit chybu";
 
 /* View and button titles for accessibility */
 "search" = "Hledat";
@@ -102,9 +70,6 @@
 /* Settings/Downloader - 3G download warning dialog confirm button */
 "use_cellular_data" = "Ano";
 
-/* Choose measurement on first launch alert - title */
-"which_measurement_system" = "Jaký systém pro měření preferujete?";
-
 /* Location services are disabled by user alert - message */
 "location_is_disabled_long_text" = "Aktuálně máte všechny možnosti pro určování polohy vypnuté. Prosím, povolte je v Nastavení.";
 
@@ -113,12 +78,6 @@
 
 /* View and button titles for accessibility */
 "zoom_to_country" = "Ukázat na mapě";
-
-/* Message to display at the center of the screen when the country is added to the downloading queue */
-"country_status_added_to_queue" = "^\npřidáno do fronty stahování";
-
-/* Message to display at the center of the screen when the country is downloading */
-"country_status_downloading" = "Stahování\n^\n^";
 
 /* Button text for the button at the center of the screen when the country is not downloaded */
 "country_status_download" = "Stáhnout mapu\n(^ ^)";
@@ -136,8 +95,6 @@
 "try_again" = "Zkusit znovu";
 
 "about_menu_title" = "O aplikaci OMaps";
-
-"downloading_touch_to_cancel" = "Stahování %d%%, klepněte pro zrušení";
 
 "downloaded_touch_to_delete" = "Staženo (%@), klepněte pro smazání";
 
@@ -159,8 +116,6 @@
 
 "not_enough_memory" = "Nedostatek paměti ke spuštění aplikace";
 
-"free_space_for_country" = "Prosím, uvolněte nejprve %1$@ ve svém zařízení, aby bylo možné stáhnout %2$@";
-
 "download_resources" = "Ještě než začnete, bude třeba stáhnout obecnou mapu světa.\nZabere to %@.";
 
 "getting_position" = "Získávání aktuální polohy";
@@ -174,35 +129,10 @@
 "update_country_ask" = "Aktualizovat %@?";
 
 /* REMOVE THIS STRING AFTER REFACTORING */
-"download_location_map_proposal" = "Můžete stáhnout mapu\npro svou aktuální polohu.";
-
-/* REMOVE THIS_STRING AFTER REFACTORING */
-"download_location_update_map_proposal" = "Můžete aktualizovat mapu\nsvé aktuální polohy.";
-
-/* REMOVE THIS STRING AFTER REFACTORING */
-"download_location_map_up_to_date" = "Mapa vaší současné\npolohy (%@) je aktuální.";
-
-/* REMOVE THIS STRING AFTER REFACTORING */
 "pause" = "Pauza";
 
 /* REMOVE THIS STRING AFTER REFACTORING */
 "continue_download" = "Pokračovat";
-
-"downloaded_touch_to_update" = "Staženo (%@), klepněte pro smazání/aktualizaci";
-
-"update_mb_or_kb" = "Aktualizace %@";
-
-/* Show popup notification when we have downloaded countries without search (from Lite version) */
-"search_update_maps" = "Pro funkci vyhledávání musíte aktualizovat mapy:";
-
-/* Show popup notification on app start when we have out-of-date maps */
-"advise_update_maps" = "Je k dispozici aktualizace pro tyto mapy:";
-
-/* Show popup notification in Pro version that Lite can be deleted */
-"suggest_uninstall_lite" = "Aplikaci OMaps Lite už nyní nepotřebujete, takže si ji můžete klidně odinstalovat.";
-
-/* Show popup notification on top of the map when country was downloaded. */
-"download_country_success" = "Úspěšně staženo: %@";
 
 /* Show popup notification on top of the map when country download has failed. */
 "download_country_failed" = "Stahování selhalo: %@";
@@ -245,9 +175,6 @@
 
 /* Text hint in Bookmarks dialog when no any bookmarks are added */
 "bookmarks_usage_hint" = "Zatím nemáte žádné záložky.\nZáložku můžete přidat přidržením libovolného místa na mapě.\nV OMaps také umí importovat záložky z jiných zdrojů. Soubor ve formátu KML/KMZ s uloženými záložkami otevřete např. z emailu, Dropboxu nebo webového odkazu v OMaps.";
-
-/* Text hint in Bookmarks dialog when at least one bookmark is added */
-"bookmarks_usage_hint_import_only" = "V OMaps mohou být zobrazeny importované záložky z jiných zdrojů. Soubor ve formátu KML/KMZ s uloženými záložkami lze otevřít např. z emailu, Dropboxu nebo webového odkazu.";
 
 /* Settings button in system menu */
 "settings" = "Nastavení";
@@ -1289,16 +1216,6 @@
 
 "placepage_add_business_button" = "Přidat organizaci";
 
-"whatsnew_smallmwm_header" = "Říkali jste si o to, a my to udělali";
-
-"whatsnew_smallmwm_message" = "Rozdělili jsme mapy na části. Nyní si můžete stáhnout jednotlivé regiony namísto celé země.";
-
-"whatsnew_search_header" = "Nové hledání";
-
-"whatsnew_search_message" = "Výrazně jsme vylepšili vyhledávání podle adresy. Podívejte se sami.";
-
-"whatsnew_editor_title" = "Upravit mapu*";
-
 "whatsnew_editor_message_1" = "Přidejte na mapu nová místa a upravte existující místa přímo z aplikace.";
 
 "whatsnew_editor_message_2" = "* OMaps používá komunitní data OpenStreetMap.";
@@ -1382,13 +1299,6 @@
 "current_location_unknown_error_title" = "Současná poloha nezjištěna.";
 
 "current_location_unknown_error_message" = "Při zjišťování současné polohy došlo k chybě. Zkontrolujte, že nedošlo k chybě zařízení a pokus prosím opakujte později.";
-
-"whatsnew_update_editor_title" = "Aktualizovali jsme editor map";
-
-"whatsnew_update_editor_message" = "Uživatelé aplikace OMaps už provedli na 200 000 změn map. Přidejte se k nám a pomozte nám vytvořit nejpodrobnější mapy světa!";
-
-/* Additional text in whats new */
-"whatsnew_update_editor_message_update" = "Chcete-li používat editor map, pak prosím aktualizujte všechny mapy.";
 
 "location_services_disabled_header" = "Určení polohy je zakázáno";
 
@@ -1555,22 +1465,6 @@
 
 "recent_track_background_dialog_message" = "OMaps používají geopozici na pozadí, aby se zaznamenala vaše nedávno ujetá trasa.";
 
-"whatsnew_car_navigation_header" = "Uživatelsky přívětivá navigace pro vozidla";
-
-"whatsnew_car_navigation_message" = "• Navigační prvky zabírají méně místa.\n• Zobrazujeme rychlost a přidali jsme automatické zvětšení.";
-
-"whatsnew_cycle_navigation_2_header" = "Navigace pro kola";
-
-"whatsnew_cycle_navigation_2_message" = "• Navigace pro kola bere v potaz data o terénu.\n• Bereme v úvahu sklon cesty a vytváříme snazší trasy.";
-
-"whatsnew_booking_2_header" = "Snadné hledání hotelu";
-
-"whatsnew_booking_2_message" = "Výsledky hledání zobrazují hodnocení a cenovou kategorii hotelu.";
-
-"whatsnew_cycle_navigation_header" = "Navigace pro kola (beta verze)";
-
-"whatsnew_cycle_navigation_message" = "Tuto sezónu testujeme novou navigaci pro kola. Projeďte si svou oblíbenou trasu s OMaps a podělte se s námi o svůj názor.";
-
 /* Rate on Google Play (Android only) */
 "rate_gp" = "Ohodnotit na Google Play";
 
@@ -1673,10 +1567,6 @@
 /* Verb. Text on a button that opens the chat. */
 "chat_open" = "Otevřít";
 
-"whatsnew_uber_header" = "OMaps a Uber";
-
-"whatsnew_uber_message" = "Objednejte si taxi Uber přímo z aplikace!";
-
 "dialog_taxi_offline" = "Objednání taxi není v režimu offline k dispozici.";
 
 "dialog_taxi_error" = "Objednání taxi není dočasně k dispozici.";
@@ -1714,42 +1604,6 @@
 /* "traffic" as in "road congestion" */
 "traffic_data_unavailable" = "Data o provozu nejsou k dispozici";
 
-/* december */
-"whatsnew_traffic" = "Údaje o provozu ve 36 zemích";
-
-/* december */
-"whatsnew_traffic_text" = "Na nich jsou založeny aktuální dopravní informace a nejrychlejší jízdní trasy!";
-
-/* december */
-"whatsnew_traffic_roaming" = "Dopravní informace při roamingu";
-
-/* december */
-"whatsnew_traffic_roaming_text" = "Vyžaduje necelý 1 MB mobilních dat na jednu cestu.";
-
-/* december */
-"whatsnew_order_taxi" = "Objednat taxi";
-
-/* december */
-"whatsnew_order_taxi_text" = "Většina stránek umístění nyní obsahuje tlačítko k objednání taxi.";
-
-/* january */
-"whatsnew_improved_search" = "Vylepšené vyhledávání";
-
-/* january */
-"whatsnew_improved_search_text" = "I nesprávně napsané dotazy přinesou přesné výsledky vyhledávání.";
-
-/* january */
-"whatsnew_filters_in_search" = "Vyhledávací filtry";
-
-/* january */
-"whatsnew_filters_in_search_text" = "Hledat hotely na základě ceny a hodnocení.";
-
-/* january */
-"whatsnew_font_size" = "Velikost písma";
-
-/* january */
-"whatsnew_font_size_text" = "Popisky na mapě lze zvětšit.";
-
 /* "Translation is no needed, because it's a company name" */
 "uber" = "Uber";
 
@@ -1772,26 +1626,6 @@
 "pref_traffic_simplified_colors_title" = "Zjednodušené barvy provozu";
 
 "enable_logging" = "Povolit protokolování";
-
-"whatsnew_more_info_on_hotels_title" = "Více informací o hotelech";
-
-"whatsnew_more_info_on_hotels_message" = "Zbrusu nový vzhled stránek: Podívejte se na fotografie, recenze a další informace online.";
-
-"whatsnew_better_routing_title" = "Vylepšené plánování trasy";
-
-"whatsnew_better_routing_message" = "• Přesnější odhad času příjezdu. \n• Aplikace bere v úvahu dopravní omezení a dopravní značky.";
-
-"whatsnew_smaller_mwm_title" = "Mapy jsou menší";
-
-"whatsnew_smaller_mwm_message" = "Mapy vyžadují až o 20 % méně místa.";
-
-"whatsnew_waypoints_title" = "Body průjezdu na trase";
-
-"whatsnew_waypoints_message" = "Klepněte na místo a přidejte bod průjezdu.";
-
-"whatsnew_driving_style_title" = "Nový styl mapy pro vozidla";
-
-"whatsnew_driving_style_message" = "Navigační režim pro auto ještě snadnější.";
 
 "more_on_bookingcom" = "Více na Booking.com";
 
@@ -1852,8 +1686,6 @@
 
 "whatsnew_transliteration_title" = "Přepis do latinky";
 
-"whatsnew_transliteration_message" = "Pokud ulice nebo objekt nemá název ve vašem jazyce, bude zobrazeno latinkou.";
-
 "yandex_taxi_title" = "Yandex.Taxi";
 
 "learn_more" = "Zjistit více";
@@ -1891,10 +1723,6 @@
 "button_replace" = "Nastavit";
 
 "placepage_add_stop" = "Přidat zastávku";
-
-"whatsnew_intermediate_point_title" = "Další zastávka";
-
-"whatsnew_intermediate_point_message" = "Naplánujte trasu s průjezdním bodem.";
 
 /* Only ru/en are needed */
 "subtitle_rent" = "Rent";
@@ -2503,24 +2331,6 @@
 
 "whats_new_ugc_routes_message2" = "Přidejte fotky a detailní příběhy ve webovém editoru.";
 
-"whatsnew_standard_routes_title" = "Standardní trasy";
-
-"whatsnew_standard_routes_message" = "Základní sada míst, krátké popisy, ale mnoho zážitků!";
-
-"whatsnew_city_overview_title" = "Prohlídka města";
-
-"whatsnew_city_overview_message" = "Do 200 míst na mapě města: To nejužitečnější a nejzajímavější pro cestovatele!";
-
-"whatsnew_pro_guides_title" = "Profesionální trasy";
-
-"whatsnew_pro_guides_message" = "Velmi detailní, podrobné popisy míst a možností, jak spočítat vzdálenost a dobu procházky";
-
-"whatsnew_paid_routes_title" = "Více nových zážitků!";
-
-"whatsnew_paid_routes_message" = "K trasám zdarma jsme do katalogu navíc přidali 3 kategorie zpoplatněných průvodců. Více než 700 nových tras!";
-
-"whats_new_ugc_routes_title_android_only" = "Sdílet své dojmy je jednoduché";
-
 "ugc_thanks_message_auth" = "Váš ohlas je uložen";
 
 "ugc_thanks_message_not_auth" = "Zaregistrujte se, abyste mohli podat ohlas";
@@ -2681,14 +2491,6 @@
 
 "whats_new_auto_update_and_proceed_button_size" = "Aktualizujte (%s) a pokračujte";
 
-"whatsnew_toll_unpaved_title" = "Rozmístěte automobilové trasy s ohledem na všechny typy silnic";
-
-"whatsnew_toll_unpaved_message" = "Vyberte si objížďky podle zpoplatněných silnic, prašných silnic a přejezdů trajektů";
-
-"whatsnew_new_catalogue_title" = "Aktualizovat stránky katalogu";
-
-"whatsnew_new_catalogue_message" = "Přidali jsme podrobné informace o partnerských průvodcích, aby bylo snadné a pohodlné vybírat trasu";
-
 "purchase_please_wait_toast" = "Neopouštějte tuto obrazovku dokud nebude dokončen nákup";
 
 "trip_start" = "Pojďme";
@@ -2803,18 +2605,6 @@
 
 "subscription_terms" = "Platba bude automaticky zaúčtována na váš účet iTunes v době potvrzení nákupu. Předplatné se automaticky obnoví, pokud automatické obnovení nevypnete nejméně 24 hodin před koncem aktuálního období. Váš účet bude zpoplatněn podle plánu období během 24 hodin před koncem aktuálního období. Automatické obnovení můžete vypnout nebo spravovat kdykoliv v nastavení účtu Apple ID.";
 
-"whatsnew_carplay_title" = "Auto navigace OMaps v CarPlay!";
-
-"whatsnew_carplay_message" = "Záložky, vyhledávání, rychlostní kamery a možnosti řízení jsou dostupné v režimu offline";
-
-"whatsnew_subscription_title" = "Celý svět za předplatné!";
-
-"whatsnew_subscription_message" = "Neomezený přístup ke katalogu průvodců je výhodnější než jednorázová koupě";
-
-"whatsnew_carnavi_fixes_for_android_title" = "Aktualizace navigace";
-
-"whatsnew_carnavi_fixes_for_android_message" = "Zlepšili jsme plánování cesty do míst, která jsou vzdálená od silnic";
-
 "avoid_unpaved_carplay_1" = "Bez pr. cest";
 
 "avoid_unpaved_carplay_2" = "Vyhnout se nezp";
@@ -2918,10 +2708,6 @@
 /* Android, max 18 symbols */
 "bookmarks_delete_list" = "Odstranit seznam";
 
-"whatsnew_bookmarks_search_sort_title" = "Pořadí v záložkách tvoří pohodlnou cestu";
-
-"whatsnew_bookmarks_search_sort_message" = "Seřaďte oblíbená místa podle kategorie, umístění a chronologického pořadí a také rychle najděte konkrétní záložky podle jejich názvu";
-
 "popup_subscription_success_map_title" = "Woohoo, máte přeplaceno!";
 
 "popup_subscription_success_map_message" = "Objevte nyní ty nejlepší turistické atrakce v katalogu OMaps";
@@ -2961,10 +2747,6 @@
 "catalog_no_internet_title" = "Připojení k internetu není k dispozici";
 
 "catalog_no_internet_button" = "Zkusit znovu";
-
-"whatsnew_map_updates_title" = "Bleskové aktualizace mapy";
-
-"whatsnew_map_updates_message" = "Od nynějška aktualizujeme údaje dvakrát rychleji";
 
 "new_onboarding_button" = "Další";
 
@@ -3053,14 +2835,6 @@
 
 "dialog_pedestrian_route_is_long" = "Pěší trasa k dopravnímu nástupnímu bodu je příliš dlouhá";
 
-"whatsnew_outdoor_guides_title" = "Přidali jsme více než 15000 venkovních tras!";
-
-"whatsnew_outdoor_guides_message" = "V katalogu čekají trasy od Outdooractive pro zimní a letní cesty!";
-
-"whatsnew_guides_galleries_title" = "Plánujte váš nadcházející výlet s OMaps";
-
-"whatsnew_guides_galleries_message" = "Nyní najdete doporučené průvodce na místě na stránkách oblíbených turistických měst a památek";
-
 "new_onboarding_step3_header" = "Zažijte";
 
 "all_pass_screen_best_value" = "Nejvýhodnější";
@@ -3075,11 +2849,6 @@
 
 /* Failed planning SUBWAY route message in navigation view */
 "routing_planning_error_subway_special" = "Plánování trasy metra selhalo";
-
-"whatsnew_isolines_title" = "Nové pro outdoor: topografická vrstva offline!";
-
-/* as less symbols as possible */
-"whatsnew_isolines_message" = "Buďte sebevědomí v hornaté oblasti. Stačí zapnout vrstvu v levém horním rohu";
 
 "button_layer_isolines" = "Terén";
 
@@ -3169,18 +2938,6 @@
 /* as few symbols as possible */
 "routes_card_hide" = "Skrýt na mapě";
 
-"whatsnew_catalog_new_title" = "Nový katalog průvodců a tisíce nápadů na cestování";
-
-"whatsnew_catalog_new_message" = "Aktualizovali jsme katalog průvodců a přidali překlady do populárních jazyků. Začněte dopředu s plánováním vašich cest!";
-
-"whatsnew_elevation_profile_title" = "Výškový profil v cestovních průvodcích";
-
-"whatsnew_elevation_profile_message" = "Vyhodnoťte obtížnost nadcházejících offline stoupání a klesání pomocí kurzoru v profilu zakoupené trasy.";
-
-"whatsnew_guides_on_map_title" = "Nová vrstva pro snadné nalezení průvodců";
-
-"whatsnew_guides_on_map_message" = "Aktivujte vrstvu v nabídce nastavení aplikace pro rychlé nalezení zajímavých městských tras a cestovních průvodců pro venkovní aktivity.";
-
 "downloader_updating_ios" = "Probíhá aktualizace";
 
 "downloader_loading_ios" = "Probíhá stahování";
@@ -3238,10 +2995,6 @@
 "choose_dates_online_only_dialog_cta" = "Nastavení";
 
 "thirty_days_limit_dialog" = "Rezervaci můžete provést maximálně na 30 nocí";
-
-"whatsnew_trial_title" = "Bezplatný přístup do katalogu průvodců";
-
-"whatsnew_trial_message" = "Nyní nabízíme 7denní zkušební verzi. Získejte přístup k tisícům cestovních průvodců po celém světě a interaktivnímu výškovému profilu pro outdoorové průvodce.";
 
 "whatsnew_trial_cta" = "Vyzkoušejte nyní";
 

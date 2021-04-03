@@ -18,33 +18,16 @@
 /* Button which deletes downloaded country */
 "delete" = "Xóa";
 
-/* Button to dismiss dialog forever */
-"do_not_ask_me_again" = "Không hỏi tôi một lần nữa";
-
 /* Button "do not interrupt download" if user touched actively downloading country */
 "do_nothing" = "Tiếp tục";
 
 "download_maps" = "Tải xuống Bản đồ";
 
-/* Settings/Downloader - Download confirmation button */
-"download_x_kb" = "Tải xuống %qu kB";
-
-/* Settings/Downloader - Download confirmation button */
-"download_x_mb" = "Tải xuống %qu MB";
-
 /* Settings/Downloader - info for country when download fails */
 "download_has_failed" = "Tải xuống thất bại, hãy chạm lại để thử một lần nữa";
 
-/* Settings/Downloader - info for downloaded country */
-"downloaded_x_y_touch_to_delete" = "Đã tải xuống (%1$qu %2$@), chạm để xóa";
-
-/* Settings/Downloader - country info current download progress */
-"downloading_x_touch_to_cancel" = "Đang tải xuống %qu%%, chạm để hủy bỏ";
-
 /* Settings/Downloader - info for country which started downloading */
 "downloading" = "Đang tải xuống…";
-
-"get_it_now" = "Tải xuống ngay";
 
 /* Settings/Downloader - size string, only strings different from English should be translated */
 "kb" = "kB";
@@ -58,12 +41,6 @@
 /* View and button titles for accessibility */
 "maps" = "Bản đồ";
 
-/* View and button titles for accessibility */
-"downloader_maps" = "Bản đồ:";
-
-/* Settings/Downloader - info for country in the download queue */
-"marked_for_downloading" = "Đã đánh dấu để tải xuống, chạm để hủy bỏ";
-
 /* Settings/Downloader - size string, only strings different from English should be translated */
 "mb" = "MB";
 
@@ -75,20 +52,11 @@
 /* View and button titles for accessibility */
 "core_my_position" = "Vị trí của Tôi";
 
-/* Settings/Downloader - No free space dialog message */
-"free_disk_space_for_country_x" = "Bạn vui lòng giải phóng dung lượng trên thiết bị của mình để có thể tải xuống %@";
-
-/* Leave Review dialog - Not now button (remind me later) */
-"remind_me_later" = "Nhắc tôi sau";
-
 /* Update maps later/Buy pro version later button text */
 "later" = "Để sau";
 
 /* Don't show some dialog any more */
 "never" = "Không bao giờ";
-
-/* Leave Review dialog - Complain button (goes to support site) */
-"report_an_issue" = "Báo cáo một vấn đề";
 
 /* View and button titles for accessibility */
 "search" = "Tìm kiếm";
@@ -102,9 +70,6 @@
 /* Settings/Downloader - 3G download warning dialog confirm button */
 "use_cellular_data" = "Có";
 
-/* Choose measurement on first launch alert - title */
-"which_measurement_system" = "Bạn thích sử dụng hệ thống đo lường nào?";
-
 /* Location services are disabled by user alert - message */
 "location_is_disabled_long_text" = "Bạn hiện đang tắt tất cả Dịch vụ Định vị cho thiết bị hoặc ứng dụng này. Bạn vui lòng bật lại chúng trong Thiết lập.";
 
@@ -113,12 +78,6 @@
 
 /* View and button titles for accessibility */
 "zoom_to_country" = "Hiển thị trên bản đồ";
-
-/* Message to display at the center of the screen when the country is added to the downloading queue */
-"country_status_added_to_queue" = "^\nđã được thêm vào danh sách đợi tải xuống.";
-
-/* Message to display at the center of the screen when the country is downloading */
-"country_status_downloading" = "Đang tải xuống\n^\n^";
 
 /* Button text for the button at the center of the screen when the country is not downloaded */
 "country_status_download" = "Tải xuống Bản đồ\n(^ ^)";
@@ -136,8 +95,6 @@
 "try_again" = "Thử lại";
 
 "about_menu_title" = "Giới thiệu về OMaps";
-
-"downloading_touch_to_cancel" = "Đang tải xuống %d%%, chạm để hủy bỏ";
 
 "downloaded_touch_to_delete" = "Đã tải xuống (%@), chạm để xóa";
 
@@ -159,8 +116,6 @@
 
 "not_enough_memory" = "Không đủ bộ nhớ để chạy ứng dụng";
 
-"free_space_for_country" = "Bạn vui lòng giải phóng %1$@ trên thiết bị của mình để có thể tải xuống %2$@";
-
 "download_resources" = "Trước khi bạn bắt đầu, hãy để chúng tôi tải bản đồ thế giới vào thiết bị của bạn.\nBản đồ này cần %@ dữ liệu.";
 
 "getting_position" = "Đang tìm vị trí hiện tại";
@@ -174,35 +129,10 @@
 "update_country_ask" = "Cập nhật %@?";
 
 /* REMOVE THIS STRING AFTER REFACTORING */
-"download_location_map_proposal" = "Bạn có thể tải xuống bản đồ\ncủa địa điểm hiện tại của bạn.";
-
-/* REMOVE THIS_STRING AFTER REFACTORING */
-"download_location_update_map_proposal" = "Bạn có thể cập nhật bản đồ\ncủa địa điểm hiện tại của bạn.";
-
-/* REMOVE THIS STRING AFTER REFACTORING */
-"download_location_map_up_to_date" = "Bản đồ của địa điểm\nhiện tại của bạn (%@) là bản mới nhất";
-
-/* REMOVE THIS STRING AFTER REFACTORING */
 "pause" = "Tạm dừng";
 
 /* REMOVE THIS STRING AFTER REFACTORING */
 "continue_download" = "Tiếp tục";
-
-"downloaded_touch_to_update" = "Đã tải xuống (%@), chạm để cập nhật hoặc xóa";
-
-"update_mb_or_kb" = "Cập nhật %@";
-
-/* Show popup notification when we have downloaded countries without search (from Lite version) */
-"search_update_maps" = "Bạn cần bản đồ được cập nhật cho chức năng tìm kiếm:";
-
-/* Show popup notification on app start when we have out-of-date maps */
-"advise_update_maps" = "Bạn cần bản đồ được cập nhật cho chức năng tìm kiếm:";
-
-/* Show popup notification in Pro version that Lite can be deleted */
-"suggest_uninstall_lite" = "Bạn không cần OMaps Lite nữa, vì vậy bạn có thể gỡ cài đặt nó.";
-
-/* Show popup notification on top of the map when country was downloaded. */
-"download_country_success" = "%@, descărcată cu succes";
 
 /* Show popup notification on top of the map when country download has failed. */
 "download_country_failed" = "%@ - descărcarea a eșuat";
@@ -245,9 +175,6 @@
 
 /* Text hint in Bookmarks dialog when no any bookmarks are added */
 "bookmarks_usage_hint" = "Bạn chưa có điểm đánh dấu.\nChạm vào bất kỳ địa điểm nào trên bản đồ để thêm một điểm đánh dấu.\nĐiểm đánh dấu từ các nguồn khác cũng có thể được nhập và hiển thị trong OMaps. Mở tập tin KML/KMZ với các điểm đánh dấu được lưu từ email, Dropbox hoặc liên kết web.";
-
-/* Text hint in Bookmarks dialog when at least one bookmark is added */
-"bookmarks_usage_hint_import_only" = "Điểm đánh dấu từ các nguồn khác có thể được nhập và hiển thị trong OMaps. Mở tập tin KML/KMZ với các điểm đánh dấu được lưu từ thư, Dropbox hoặc liên kết web.";
 
 /* Settings button in system menu */
 "settings" = "Thiết lập";
@@ -1289,16 +1216,6 @@
 
 "placepage_add_business_button" = "Thêm tổ chức";
 
-"whatsnew_smallmwm_header" = "Bạn đã yêu cầu điều đó và chúng tôi đã thực hiện nó";
-
-"whatsnew_smallmwm_message" = "Chúng tôi đã chia bản đồ thành nhiều phần. Bây giờ bạn có thể tải về các vùng riêng biệt, không phải là toàn bộ quốc gia.";
-
-"whatsnew_search_header" = "Tìm kiếm mới";
-
-"whatsnew_search_message" = "Chúng tôi đã cải thiện đáng kể việc tìm kiếm theo địa chỉ. Bạn hãy tự xem thử.";
-
-"whatsnew_editor_title" = "Chỉnh sửa bản đồ*";
-
 "whatsnew_editor_message_1" = "Nhập các địa điểm mới vào bản đồ, và trực tiếp chỉnh sửa những địa điểm hiện có trên ứng dụng.";
 
 "whatsnew_editor_message_2" = "* OMaps sử dụng dữ liệu của cộng đồng OpenStreetMap.";
@@ -1382,13 +1299,6 @@
 "current_location_unknown_error_title" = "Chưa biết địa điểm hiện tại.";
 
 "current_location_unknown_error_message" = "Có lỗi khi tìm kiếm địa điểm của bạn. Đảm bảo rằng thiết bị của bạn hoạt động tốt và thử lại sau.";
-
-"whatsnew_update_editor_title" = "Chúng tôi đã cập nhật trình biên tập bản đồ";
-
-"whatsnew_update_editor_message" = "Người dùng OMaps đã thực hiện 200 000 thay đổi cho bản đồ. Cùng nhau chúng ta đang tạo ra những bản đồ chi tiết nhất trên thế giới. Hãy tham gia cùng chúng tôi!";
-
-/* Additional text in whats new */
-"whatsnew_update_editor_message_update" = "Để sử dụng Ứng dụng Điều chỉnh Bản đồ, xin vui lòng cập nhật tất cả các bản đồ.";
 
 "location_services_disabled_header" = "Chức năng nhận biết địa điểm bị tắt";
 
@@ -1555,22 +1465,6 @@
 
 "recent_track_background_dialog_message" = "OMaps sử dụng định vị của bạn trong ứng dụng chạy nền để ghi lại tuyến đường đã đi gần đây của bạn.";
 
-"whatsnew_car_navigation_header" = "Phần mềm dẫn đường dành cho xe cộ thân thiện với người dùng";
-
-"whatsnew_car_navigation_message" = "• Các thành phần của phần mềm dẫn đường chiếm ít bộ nhớ.\n• Phần mềm có hiển thị tốc độ và đã được thêm tính năng tự động thu phóng.";
-
-"whatsnew_cycle_navigation_2_header" = "Phần mềm dẫn đường dành cho xe đạp";
-
-"whatsnew_cycle_navigation_2_message" = "• Phần mềm dẫn đường dành cho điện thoại dựa trên các dữ liệu về địa hình.\n• Chúng tôi tạo nên những tuyến đường tối ưu dựa trên độ dốc của con đường.";
-
-"whatsnew_booking_2_header" = "Tìm kiếm khách sạn dễ dàng";
-
-"whatsnew_booking_2_message" = "Kết quả tìm kiếm cho thấy các đánh giá và mức giá của khách sạn.";
-
-"whatsnew_cycle_navigation_header" = "Định vị xe đạp (phiên bản beta)";
-
-"whatsnew_cycle_navigation_message" = "Chúng tôi đang thử nghiệm định vị xe đạp cho mùa mới. Hãy thử tuyến đường xe đạp ưa thích của bạn với OMaps, và chia sẻ ý kiến của bạn với chúng tôi.";
-
 /* Rate on Google Play (Android only) */
 "rate_gp" = "Cho điểm trên Google Play";
 
@@ -1673,10 +1567,6 @@
 /* Verb. Text on a button that opens the chat. */
 "chat_open" = "Mở";
 
-"whatsnew_uber_header" = "OMaps & Uber";
-
-"whatsnew_uber_message" = "Đặt taxi Uber trực tiếp từ ứng dụng!";
-
 "dialog_taxi_offline" = "Gọi taxi không khả dụng trong chế độ ngoại tuyến.";
 
 "dialog_taxi_error" = "Gọi taxi tạm thời không khả dụng.";
@@ -1714,42 +1604,6 @@
 /* "traffic" as in "road congestion" */
 "traffic_data_unavailable" = "Dữ liệu giao thông không khả dụng";
 
-/* december */
-"whatsnew_traffic" = "Dữ liệu Giao thông tại 36 Quốc gia";
-
-/* december */
-"whatsnew_traffic_text" = "Thông tin giao thông cập nhật và lộ trình lái xe nhanh nhất dựa trên đó!";
-
-/* december */
-"whatsnew_traffic_roaming" = "Thông tin Giao thông khi Chuyển vùng";
-
-/* december */
-"whatsnew_traffic_roaming_text" = "Cần ít hơn 1 MB băng thông di động cho mỗi chuyến đi.";
-
-/* december */
-"whatsnew_order_taxi" = "Đặt Xe Taxi";
-
-/* december */
-"whatsnew_order_taxi_text" = "Hầu hết các trang địa điểm giờ đây đều có một nút để gọi taxi.";
-
-/* january */
-"whatsnew_improved_search" = "Cải thiện Tìm kiếm";
-
-/* january */
-"whatsnew_improved_search_text" = "Kể cả các truy vấn bị lỗi chính tả vẫn có thể cho kết quả tìm kiếm chính xác.";
-
-/* january */
-"whatsnew_filters_in_search" = "Bộ lọc Tìm kiếm";
-
-/* january */
-"whatsnew_filters_in_search_text" = "Tìm kiếm khách sạn dựa trên giá cả và xếp hạng.";
-
-/* january */
-"whatsnew_font_size" = "Kích cỡ Phông chữ";
-
-/* january */
-"whatsnew_font_size_text" = "Các nhãn mác trên bản đồ có thể được phóng to hơn.";
-
 /* "Translation is no needed, because it's a company name" */
 "uber" = "Uber";
 
@@ -1772,26 +1626,6 @@
 "pref_traffic_simplified_colors_title" = "Màu sắc giao thông đơn giản";
 
 "enable_logging" = "Bật nhật ký";
-
-"whatsnew_more_info_on_hotels_title" = "Thêm thông tin trên Khách sạn";
-
-"whatsnew_more_info_on_hotels_message" = "Giao diện hoàn toàn mới cho trang khách sạn: hãy xem các ảnh, đánh giá của người dùng và các thông tin khác trên mạng.";
-
-"whatsnew_better_routing_title" = "Cải thiện Lập Kế hoạch Lộ trình";
-
-"whatsnew_better_routing_message" = "• Ước tỉnh chính xác hơn về thời gian đến.\n• Ứng dụng sẽ tính đến các khu vực bị hạn chế và biển báo đường.";
-
-"whatsnew_smaller_mwm_title" = "Bản đồ nhỏ hơn";
-
-"whatsnew_smaller_mwm_message" = "Giảm đến 20% kích cỡ của các bản đồ.";
-
-"whatsnew_waypoints_title" = "Điểm tọa độ trong Lộ trình";
-
-"whatsnew_waypoints_message" = "Chạm vào các điểm để thêm điểm tọa độ vào lộ trình của bạn.";
-
-"whatsnew_driving_style_title" = "Phong cách Bản đồ Mới cho Lái xe";
-
-"whatsnew_driving_style_message" = "Chế độ điều hướng ô tô dễ sử dụng hơn.";
 
 "more_on_bookingcom" = "Xem thêm trên Booking.com";
 
@@ -1852,8 +1686,6 @@
 
 "whatsnew_transliteration_title" = "Chuyển ngữ sang chữ Latinh";
 
-"whatsnew_transliteration_message" = "Nếu một đường phố hoặc đối tượng không có tên trong ngôn ngữ của bạn, nó sẽ được đánh vần sử dụng bảng chữ cái alphabet.";
-
 "yandex_taxi_title" = "Yandex.Taxi";
 
 "learn_more" = "Tìm hiểu thêm";
@@ -1891,10 +1723,6 @@
 "button_replace" = "Thay thế";
 
 "placepage_add_stop" = "Thêm điểm dừng";
-
-"whatsnew_intermediate_point_title" = "Điểm dừng bổ sung";
-
-"whatsnew_intermediate_point_message" = "Lập một lộ trình với một điểm trung gian.";
 
 /* Only ru/en are needed */
 "subtitle_rent" = "Rent";
@@ -2503,24 +2331,6 @@
 
 "whats_new_ugc_routes_message2" = "Thêm ảnh và câu chuyện chi tiết trong trình chỉnh sửa web.";
 
-"whatsnew_standard_routes_title" = "Các tuyến đường chuẩn";
-
-"whatsnew_standard_routes_message" = "Các điểm ưa thích cơ bản và mô tả ngắn gọn nhưng rất nhiều trải nghiệm!";
-
-"whatsnew_city_overview_title" = "Tổng quan thành phố";
-
-"whatsnew_city_overview_message" = "Lên đến 200 điểm ưa thích trên bản đồ thành phố: mọi thứ du khách có thể sẽ cảm giác hữu ích và thú vị!";
-
-"whatsnew_pro_guides_title" = "Các tuyến đườn Chuyên nghiệp";
-
-"whatsnew_pro_guides_message" = "Rất kỹ lưỡng, với các mô tả chi tiết về địa điểm và khả năng tính toán khoảng cách và thời gian chuyến đi";
-
-"whatsnew_paid_routes_title" = "Thêm nhiều trải nghiệm mới!";
-
-"whatsnew_paid_routes_message" = "Ngoài các tuyến đường miễn phí, chúng tôi đã thêm 3 danh mục tuyến đường có trả tiền vào danh mục của mình. Hơn 700 tuyến đường mới!";
-
-"whats_new_ugc_routes_title_android_only" = "Rất dễ để chia sẻ những sự ấn tượng của bạn";
-
 "ugc_thanks_message_auth" = "Ý kiến của bạn đã được bảo lưu";
 
 "ugc_thanks_message_not_auth" = "Hãy đăng ký để có thể để lại ý kiến nhận xét";
@@ -2681,14 +2491,6 @@
 
 "whats_new_auto_update_and_proceed_button_size" = "Cập nhận được (%s) và tiếp tục";
 
-"whatsnew_toll_unpaved_title" = "Hãy xây dựng tuyến đường có tính đến tất cả các loại đường";
-
-"whatsnew_toll_unpaved_message" = "Hãy lựa chọn những đường vòng qua đường thu phí, đường đất và các bến phà";
-
-"whatsnew_new_catalogue_title" = "Những trang đã được cập nhật của danh sách";
-
-"whatsnew_new_catalogue_message" = "Chúng tôi đã bổ sung thông tin cụ thể về các sách hướng dẫn đồng hành để việc lựa chọn tuyến đường trở nên đơn giản và thuận tiên";
-
 "purchase_please_wait_toast" = "Vui lòng đừng rời bỏ màn hình đến khi hoàn tất việc mua";
 
 "trip_start" = "Đi nào";
@@ -2803,18 +2605,6 @@
 
 "subscription_terms" = "Thanh toán sẽ được tính vào tài khoản iTunes của bạn khi xác nhận mua. Đăng ký sẽ tự động gia hạn trừ khi tính năng tự động gia hạn được tắt ít nhất 24 giờ trước khi kết thúc kỳ đăng ký hiện tại. Tài khoản của bạn sẽ được tính phí theo gói gia hạn trong vòng 24 giờ trước khi kết thúc kỳ đăng ký hiện tại. Bạn có thể quản lý hoặc tắt tính năng tự động gia hạn trong cài đặt tài khoản Apple ID của mình bất kỳ lúc nào sau khi mua.";
 
-"whatsnew_carplay_title" = "Điều hướng tự động OMaps trong CarPlay!";
-
-"whatsnew_carplay_message" = "Đánh dấu, tìm kiếm, camera tốc độ và thiết lập đi vòng, đường tránh – tất cả đều hoạt động mà không cần Internet";
-
-"whatsnew_subscription_title" = "Hãy mở cánh cửa thế giới bằng cách đăng ký!";
-
-"whatsnew_subscription_message" = "Truy cập không giới hạn tới cả danh mục các tuyến đường có lợi hơn là mua từng tuyến một";
-
-"whatsnew_carnavi_fixes_for_android_title" = "Cập nhận định hướng";
-
-"whatsnew_carnavi_fixes_for_android_message" = "Chúng tôi đã cải thiện việc xây dựng các tuyến đường tới cả những điểm ở xa các thành phố";
-
 "avoid_unpaved_carplay_1" = "Trừ đườg đất";
 
 "avoid_unpaved_carplay_2" = "Trừ khôg trnhựa";
@@ -2918,10 +2708,6 @@
 /* Android, max 18 symbols */
 "bookmarks_delete_list" = "Xóa dánh sách";
 
-"whatsnew_bookmarks_search_sort_title" = "Trật tự trong các dấu trang – đó là sự tiện nghi, thoải mái cho chuyến du lịch";
-
-"whatsnew_bookmarks_search_sort_message" = "Hãy sắp xếp các địa điểm yêu thích theo thể loại, thời gian thêm vào và vị trí địa lý, đồng thời bạn cũng sẽ nhanh chóng tìm thấy các dấu trang cụ thể theo tên gọi";
-
 "popup_subscription_success_map_title" = "Ura! Bạn đã đăng ký mua!";
 
 "popup_subscription_success_map_message" = "Bây giờ hãy khám phá những điểm du lịch tốt nhất trong danh mục của OMaps";
@@ -2961,10 +2747,6 @@
 "catalog_no_internet_title" = "Không có kết nối internet";
 
 "catalog_no_internet_button" = "Thử lại";
-
-"whatsnew_map_updates_title" = "Cập nhật bản đồ siêu nhanh";
-
-"whatsnew_map_updates_message" = "Giờ thì dữ liệu sẽ được cập nhật nhanh hơn gấp 2 lần";
 
 "new_onboarding_button" = "Tiếp theo";
 
@@ -3053,14 +2835,6 @@
 
 "dialog_pedestrian_route_is_long" = "ĐI bộ đến phương tiện quá lâu";
 
-"whatsnew_outdoor_guides_title" = "Chúng tôi đã bổ sung hơn 15000 đường mòn cho các hoạt động ngoài trời!";
-
-"whatsnew_outdoor_guides_message" = "Các tuyến đường từ Outdooractive cho kỳ nghỉ mùa đông, mùa hè đang chờ đón bạn trong danh sách!";
-
-"whatsnew_guides_galleries_title" = "Hãy lên kế hoạch cho chuyến đi sắp tới cùng với OMaps";
-
-"whatsnew_guides_galleries_message" = "Bây giờ bạn có thể tìm thấy hướng dẫn được đề xuất trong các thẻ của các thành phố và điểm tham quan nổi tiếng";
-
 "new_onboarding_step3_header" = "Đi du lịch nào";
 
 "all_pass_screen_best_value" = "Giá tốt";
@@ -3075,11 +2849,6 @@
 
 /* Failed planning SUBWAY route message in navigation view */
 "routing_planning_error_subway_special" = "Lỗi xây dựng tuyến Metro";
-
-"whatsnew_isolines_title" = "Tính năng mới cho kỳ nghỉ năng động – đường chỉ độ cao ngoại tuyến!";
-
-/* as less symbols as possible */
-"whatsnew_isolines_message" = "Xác định phương hướng ở vùng đồi núi – hãy bật nút chỉ lớp ở góc trái trên màn hình";
 
 "button_layer_isolines" = "Độ cao";
 
@@ -3169,18 +2938,6 @@
 /* as few symbols as possible */
 "routes_card_hide" = "Ẩn khỏi bản đồ";
 
-"whatsnew_catalog_new_title" = "Danh mục hướng dẫn mới và hàng ngàn ý tưởng cho kỳ nghỉ";
-
-"whatsnew_catalog_new_message" = "Chúng tôi đã cập nhận danh mục hướng dẫn và bổ sung các phần dịch với những thứ tiếng phổ biến. Hãy sớm lên kế hoạch đi thôi!";
-
-"whatsnew_elevation_profile_title" = "Hồ sơ độ cao trong các hướng dẫn";
-
-"whatsnew_elevation_profile_message" = "Hãy đánh giá độ khó khi sắp tới điểm đi lên và đi xuống ngoại tuyến bằng cách sử dụng con trỏ trong hồ sơ của tuyến đường đã mua.";
-
-"whatsnew_guides_on_map_title" = "Lớp bản đồ mới giúp tìm hướng dẫn dễ dàng!";
-
-"whatsnew_guides_on_map_message" = "Kích hoạt lớp bản đồ trong menu cài đặt ứng dụng để nhanh chóng tìm thấy các tuyến đường thành phố thú vị và hướng dẫn du lịch cho các hoạt động ngoài trời.";
-
 "downloader_updating_ios" = "Cập nhật";
 
 "downloader_loading_ios" = "Tải xuống";
@@ -3238,10 +2995,6 @@
 "choose_dates_online_only_dialog_cta" = "Cài đặt";
 
 "thirty_days_limit_dialog" = "Đặt phòng tối đa cho 30 đêm";
-
-"whatsnew_trial_title" = "Truy cập miễn phí vào các hướng dẫn";
-
-"whatsnew_trial_message" = "Chúng tôi đã đưa ra giai đoạn đăng ký dùng thử 7 ngày. Hàng ngàn tuyến di chuyển trên khắp thế giới cũng như hồ sơ độ cao cho các hướng dẫn du lịch ngoài trời.";
 
 "whatsnew_trial_cta" = "Dùng thử";
 

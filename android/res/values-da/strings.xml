@@ -12,50 +12,29 @@
 	<string name="cancel_download">Annuller download</string>
 	<!-- Button which deletes downloaded country -->
 	<string name="delete">Slet</string>
-	<!-- Button to dismiss dialog forever -->
-	<string name="do_not_ask_me_again">Spørg mig ikke igen</string>
 	<!-- Button "do not interrupt download" if user touched actively downloading country -->
 	<string name="do_nothing">Fortsæt</string>
 	<string name="download_maps">Download kort</string>
-	<!-- Settings/Downloader - Download confirmation button -->
-	<string name="download_x_kb">Download %qu kB</string>
-	<!-- Settings/Downloader - Download confirmation button -->
-	<string name="download_x_mb">Download %qu MB</string>
 	<!-- Settings/Downloader - info for country when download fails -->
 	<string name="download_has_failed">Der skete en fejl ved download, tryk for at prøve igen.</string>
-	<!-- Settings/Downloader - info for downloaded country -->
-	<string name="downloaded_x_y_touch_to_delete">Downloaded (%1$qu %2$s), tryk for at slette</string>
-	<!-- Settings/Downloader - country info current download progress -->
-	<string name="downloading_x_touch_to_cancel">Downloader %qu%%, tryk for at afbryde</string>
 	<!-- Settings/Downloader - info for country which started downloading -->
 	<string name="downloading">Downloader…</string>
-	<string name="get_it_now">Få det nu</string>
 	<!-- Choose measurement on first launch alert - choose metric system button -->
 	<string name="kilometres">Kilometre</string>
 	<!-- Leave Review dialog - Review button -->
 	<string name="leave_a_review">Lav en bedømmelse</string>
 	<!-- View and button titles for accessibility -->
 	<string name="maps">Kort</string>
-	<!-- View and button titles for accessibility -->
-	<string name="downloader_maps">Kort:</string>
-	<!-- Settings/Downloader - info for country in the download queue -->
-	<string name="marked_for_downloading">Markeret til download, tryk for at afbryde</string>
 	<!-- Settings/Downloader - size string, only strings different from English should be translated -->
 	<string name="mb">MB</string>
 	<!-- Choose measurement on first launch alert - choose imperial system button -->
 	<string name="miles">Mil</string>
 	<!-- View and button titles for accessibility -->
 	<string name="core_my_position">Min position</string>
-	<!-- Settings/Downloader - No free space dialog message -->
-	<string name="free_disk_space_for_country_x">Frigør venligst noget plads på din telefon først for at downloade %s</string>
-	<!-- Leave Review dialog - Not now button (remind me later) -->
-	<string name="remind_me_later">Påmind mig senere</string>
 	<!-- Update maps later/Buy pro version later button text -->
 	<string name="later">Senere</string>
 	<!-- Don't show some dialog any more -->
 	<string name="never">Aldrig</string>
-	<!-- Leave Review dialog - Complain button (goes to support site) -->
-	<string name="report_an_issue">Rapporter et problem</string>
 	<!-- View and button titles for accessibility -->
 	<string name="search">Søg</string>
 	<!-- Search box placeholder text -->
@@ -64,18 +43,12 @@
 	<string name="touch_to_download">Tryk for at downloade</string>
 	<!-- Settings/Downloader - 3G download warning dialog confirm button -->
 	<string name="use_cellular_data">Ja</string>
-	<!-- Choose measurement on first launch alert - title -->
-	<string name="which_measurement_system">Hvilken måleenhed foretrækker du?</string>
 	<!-- Location services are disabled by user alert - message -->
 	<string name="location_is_disabled_long_text">Du har alle lokationstjenester for denne enhed eller applikation slukket. Slå dem venligst til i Indstillinger.</string>
 	<!-- Location Services are not available on the device alert - message -->
 	<string name="device_doesnot_support_location_services">Din enhed understøtter ikke lokationstjenester</string>
 	<!-- View and button titles for accessibility -->
 	<string name="zoom_to_country">Vis på kortet</string>
-	<!-- Message to display at the center of the screen when the country is added to the downloading queue -->
-	<string name="country_status_added_to_queue">^\ner tilføjet til download-køen</string>
-	<!-- Message to display at the center of the screen when the country is downloading -->
-	<string name="country_status_downloading">Downloader\n^\n^</string>
 	<!-- Button text for the button at the center of the screen when the country is not downloaded -->
 	<string name="country_status_download">Download kort\n(^ ^)</string>
 	<!-- Button text for the button at the center of the screen when the country is not downloaded and the size should not be shown -->
@@ -87,7 +60,6 @@
 	<!-- Button text for the button under the country_status_download_failed message -->
 	<string name="try_again">Prøv igen</string>
 	<string name="about_menu_title">Om OMaps</string>
-	<string name="downloading_touch_to_cancel">Downloader %d%%, tryk for at afbryde</string>
 	<string name="downloaded_touch_to_delete">Downloaded (%s), tryk for at slette</string>
 	<string name="connection_settings">Forbindelsesindstillinger</string>
 	<string name="download_mb_or_kb">Download %s</string>
@@ -98,7 +70,6 @@
 	<string name="disconnect_usb_cable">Frakobl venligst USB-kabel eller indsæt et memory kort for at bruge OMaps</string>
 	<string name="not_enough_free_space_on_sdcard">Frigør venligst plads på dit SD-kort/USB lager først for at bruge denne app</string>
 	<string name="not_enough_memory">Ikke nok hukommelse til at åbne app</string>
-	<string name="free_space_for_country">Frigør venligst %1$s på din enhed først for at downloade %2$s</string>
 	<string name="download_resources">Før du starter, så lad os downloade det generelle verdenskort til din enhed.\nIt behøver %s af data.</string>
 	<string name="getting_position">Henter nuværende lokation</string>
 	<string name="download_resources_continue">Gå til kort</string>
@@ -106,25 +77,9 @@
 	<string name="download_country_ask">Download %s?</string>
 	<string name="update_country_ask">Opdater %s?</string>
 	<!-- REMOVE THIS STRING AFTER REFACTORING -->
-	<string name="download_location_map_proposal">Du kan downloade kort\nassocieret til din nuværende lokation.</string>
-	<!-- REMOVE THIS_STRING AFTER REFACTORING -->
-	<string name="download_location_update_map_proposal">Du kan opdatere kortet associeret\ntil din nuværende lokation.</string>
-	<!-- REMOVE THIS STRING AFTER REFACTORING -->
-	<string name="download_location_map_up_to_date">Kortet associeret til din nuværende\nlokation (%s) er up to date</string>
-	<!-- REMOVE THIS STRING AFTER REFACTORING -->
 	<string name="pause">Pause</string>
 	<!-- REMOVE THIS STRING AFTER REFACTORING -->
 	<string name="continue_download">Fortsæt</string>
-	<string name="downloaded_touch_to_update">Downloadet (%s), tryk for at opdatere eller slet</string>
-	<string name="update_mb_or_kb">Opdater %s</string>
-	<!-- Show popup notification when we have downloaded countries without search (from Lite version) -->
-	<string name="search_update_maps">Du har brug for opdaterede kort for at benytte søgefunktionen:</string>
-	<!-- Show popup notification on app start when we have out-of-date maps -->
-	<string name="advise_update_maps">Der er opdateringer klar til følgende kort:</string>
-	<!-- Show popup notification in Pro version that Lite can be deleted -->
-	<string name="suggest_uninstall_lite">Du har ikke brug for OMaps Lite længere, så du kan godt afinstallere den.</string>
-	<!-- Show popup notification on top of the map when country was downloaded. -->
-	<string name="download_country_success">%s download succesfuldt</string>
 	<!-- Show popup notification on top of the map when country download has failed. -->
 	<string name="download_country_failed">%s download mislykkedes</string>
 	<!-- Add New Bookmark Set dialog title -->
@@ -153,8 +108,6 @@
 	<string name="set">Sæt</string>
 	<!-- Text hint in Bookmarks dialog when no any bookmarks are added -->
 	<string name="bookmarks_usage_hint">Du har ingen bogmærker endnu.\nTryk på et sted på kortet for at kunne tilføje det til bogmærker. Bogmærker fra andre kilder kan også blive importeret og vist i OMaps.\nÅbn en KML/KMZ fil med gemte bogmærker/knappenåle på i Mail, Dropbox eller på et link.</string>
-	<!-- Text hint in Bookmarks dialog when at least one bookmark is added -->
-	<string name="bookmarks_usage_hint_import_only">Du har ingen bogmærker endnu. Tryk på et sted på kortet for at kunne tilføje det til bogmærker. Bogmærker fra andre kilder kan også blive importeret og vist i OMaps. Åbn en KML/KMZ fil med gemte bogmærker/knappenåle på i Mail, Dropbox eller på et link.</string>
 	<!-- Settings button in system menu -->
 	<string name="settings">Indstillinger</string>
 	<!-- Header of settings activity where user defines storage path -->
@@ -774,11 +727,6 @@
 	<string name="editor_report_problem_other_title">Et anderledes problem</string>
 	<string name="placepage_report_problem_button">Anmeld et problem</string>
 	<string name="placepage_add_business_button">Tilføj organisationen</string>
-	<string name="whatsnew_smallmwm_header">I har bedt om det, og vi har gjort det</string>
-	<string name="whatsnew_smallmwm_message">Vi har delt kort op i dele. Nu kan man downloade separate regioner, ikke hele landet.</string>
-	<string name="whatsnew_search_header">Ny søgning</string>
-	<string name="whatsnew_search_message">Vi har forbedret søgningen efter adresse betydeligt. Se selv.</string>
-	<string name="whatsnew_editor_title">Redigér kortet*</string>
 	<string name="whatsnew_editor_message_1">Tilføj nye steder til kortet og redigér eksisterende direkte fra app\'en.</string>
 	<string name="whatsnew_editor_message_2">* OMaps bruger fællesskabsdata fra OpenStreetMap.</string>
 	<string name="dialog_incorrect_feature_position">Skift lokation</string>
@@ -824,10 +772,6 @@
 	<string name="current_location_unknown_stop_button">Stop</string>
 	<string name="current_location_unknown_error_title">Aktuel position er ukendt.</string>
 	<string name="current_location_unknown_error_message">Der opstod en fejl under søgning efter din position. Kontrollér at din enhed fungerer korrekt, og prøv igen senere.</string>
-	<string name="whatsnew_update_editor_title">Har vi opdateret korteditoren</string>
-	<string name="whatsnew_update_editor_message">OMaps brugere har foretaget 200.000 kortændringer. Sammen laver vi det mest detaljerede kort i verden. Tilmeld dig!</string>
-	<!-- Additional text in whats new -->
-	<string name="whatsnew_update_editor_message_update">For at bruge kortredigering, bedes du opdatere alle kort.</string>
 	<string name="location_services_disabled_header">Placeringsservices er slået fra</string>
 	<string name="location_services_disabled_message">Slå adgang til geoposition til i enhedens indstillinger</string>
 	<string name="location_services_disabled_1">1. Åbn Indstillinger</string>
@@ -915,14 +859,6 @@
 	<string name="sharing_call_action_look">Tjek</string>
 	<string name="continue_recent_track_background_button">Fortsæt</string>
 	<string name="recent_track_background_dialog_message">OMaps anvender din geoposition i baggrunden til at gemme din seneste rejserute.</string>
-	<string name="whatsnew_car_navigation_header">Brugervenlig navigation i køretøjer</string>
-	<string name="whatsnew_car_navigation_message">• Navigationselementerne fylder mindre.\n• Vi viser hastigheden og har tilføjet auto-zoom.</string>
-	<string name="whatsnew_cycle_navigation_2_header">Cykelnavigation</string>
-	<string name="whatsnew_cycle_navigation_2_message">• Cykelnavigation tager forbehold for terrænet.\n• Vi opretter lettere ruter baseret på vejens hældning.</string>
-	<string name="whatsnew_booking_2_header">Enkel hotelsøgning</string>
-	<string name="whatsnew_booking_2_message">Søgeresultaterne viser hotelbedømmelser og priskategori.</string>
-	<string name="whatsnew_cycle_navigation_header">Cykelnavigation (beta-version)</string>
-	<string name="whatsnew_cycle_navigation_message">Vi tester cykelnavigation til den nye sæson. Prøv din favoritcykelrute med OMaps, og del dine kommentarer med os.</string>
 	<!-- Rate on Google Play (Android only) -->
 	<string name="rate_gp">Bedøm på Google Play</string>
 	<!-- Share with friends: menu item title -->
@@ -983,8 +919,6 @@
 	<string name="chat">Geochat</string>
 	<!-- Verb. Text on a button that opens the chat. -->
 	<string name="chat_open">Åbn</string>
-	<string name="whatsnew_uber_header">OMaps &amp; Uber</string>
-	<string name="whatsnew_uber_message">Bestil Uber taxi direkte fra app\'en!</string>
 	<string name="dialog_taxi_offline">Det er ikke muligt at bestille en taxi i offlinetilstand.</string>
 	<string name="dialog_taxi_error">Bestilling af en taxi er ikke muligt lige nu.</string>
 	<string name="mobile_data_dialog">Skal mobilt internet bruges til at vise detaljerede oplysninger?</string>
@@ -1003,30 +937,6 @@
 	<string name="traffic_update_app_message">Appen skal opdateres for at kunne vise trafikdata.</string>
 	<!-- "traffic" as in "road congestion" -->
 	<string name="traffic_data_unavailable">Trafikdata er ikke tilgængelige</string>
-	<!-- december -->
-	<string name="whatsnew_traffic">Trafikdata i 36 lande</string>
-	<!-- december -->
-	<string name="whatsnew_traffic_text">Opdateret trafikinformation og hurtigste ruter baseret på den!</string>
-	<!-- december -->
-	<string name="whatsnew_traffic_roaming">Trafikinfo ved roaming</string>
-	<!-- december -->
-	<string name="whatsnew_traffic_roaming_text">Kræver mindre end 1 MB mobildata pr. tur.</string>
-	<!-- december -->
-	<string name="whatsnew_order_taxi">Bestil en taxa</string>
-	<!-- december -->
-	<string name="whatsnew_order_taxi_text">De fleste af siderne indeholder nu en knap til bestilling af en taxa.</string>
-	<!-- january -->
-	<string name="whatsnew_improved_search">Forbedret søgning</string>
-	<!-- january -->
-	<string name="whatsnew_improved_search_text">Selv fejlstavede forespørgsler giver præcise søgeresultater.</string>
-	<!-- january -->
-	<string name="whatsnew_filters_in_search">Søgefiltre</string>
-	<!-- january -->
-	<string name="whatsnew_filters_in_search_text">Søg hoteller baseret på pris og vurdering.</string>
-	<!-- january -->
-	<string name="whatsnew_font_size">Skriftstørrelse</string>
-	<!-- january -->
-	<string name="whatsnew_font_size_text">Etiketterne på kortet kan gøres større.</string>
 	<!-- Seven points and higher -->
 	<string name="booking_filter_rating_num_good">7,0+</string>
 	<!-- Eight points and higher -->
@@ -1036,16 +946,6 @@
 	<!-- Simplified colour scheme for traffic information, fewer colours are used to display traffic jams on the map. The string should be kept as short as possible -->
 	<string name="pref_traffic_simplified_colors_title">Forenklede trafikfarver</string>
 	<string name="enable_logging">Aktiver logføring</string>
-	<string name="whatsnew_more_info_on_hotels_title">Flere oplysninger om hoteller</string>
-	<string name="whatsnew_more_info_on_hotels_message">Helt nyt look på hotelsider: Tjek billeder, brugeranmeldelser og andre oplysninger på nettet.</string>
-	<string name="whatsnew_better_routing_title">Forbedret ruteplanlægning</string>
-	<string name="whatsnew_better_routing_message">• Mere præcis beregning af ankomsttid.\n• App tager hensyn til utilgængelige områder og vejskilte.</string>
-	<string name="whatsnew_smaller_mwm_title">Maps er blevet mindre</string>
-	<string name="whatsnew_smaller_mwm_message">Maps kræver op til 20% mindre lager.</string>
-	<string name="whatsnew_waypoints_title">Vejpunkter i ruteføring</string>
-	<string name="whatsnew_waypoints_message">Tryk på positioner for at føje vejsteder til din rute.</string>
-	<string name="whatsnew_driving_style_title">Nyt kortformat til kørsel</string>
-	<string name="whatsnew_driving_style_message">Bilnavigationstilstand er blevet lettere at bruge.</string>
 	<string name="more_on_bookingcom">Mere på Booking.com</string>
 	<string name="details_on_bookingcom">Detaljer på Booking.com</string>
 	<string name="reviews_on_bookingcom">Flere anmeldelser på Booking.com</string>
@@ -1075,7 +975,6 @@
 	<string name="prefs_languages_information_off">For nogle sprog skal du installere en anden talesyntese eller en yderligere sprogpakke fra appbutiken (Google Play Market, Samsung Apps).\nÅbn enhedens indstillinger → Sprog og input → Tale → Tekst til tale. Her kan du administrere indstillingerne for talesyntese (f. eks downloade en sprogpakke til brug offline) og vælge et andet tekst-til-tale program.</string>
 	<string name="prefs_languages_information_off_link">Se denne vejledning for flere oplysninger.</string>
 	<string name="whatsnew_transliteration_title">Translitteration til latinsk</string>
-	<string name="whatsnew_transliteration_message">Hvis en gade eller et objekt ikke har et navn på dit sprog, vil det blive stavet ved hjælp af det latinske alfabet.</string>
 	<string name="learn_more">Flere oplysninger</string>
 	<string name="core_exit">Afslut</string>
 	<string name="routing_add_start_point">Tilføj startpunkt for at planlægge en rute</string>
@@ -1094,8 +993,6 @@
 	<string name="dialog_change_start_point_message">Flyt startpunktet til den aktuelle placering?</string>
 	<string name="button_replace">Flyt</string>
 	<string name="placepage_add_stop">Tilføj stop</string>
-	<string name="whatsnew_intermediate_point_title">Ekstra stop</string>
-	<string name="whatsnew_intermediate_point_message">Planlæg en rute med et mellemliggende punkt.</string>
 	<string name="add_my_position">Tilføj min position</string>
 	<string name="choose_start_point">Vælg et udgangspunkt</string>
 	<string name="choose_destination">Vælg en destination</string>
@@ -1402,15 +1299,6 @@
 	<string name="whats_new_ugc_routes_subtitle">Gem mindeværdige steder, lav ruter ved hjælp af bogmærker og del dem med alle i OMaps kataloget.</string>
 	<string name="whats_new_webeditor_title">Lav dine ruter om til historier</string>
 	<string name="whats_new_ugc_routes_message2">Tilføj fotos og detaljerede historier i webredaktøren.</string>
-	<string name="whatsnew_standard_routes_title">Standard ruter</string>
-	<string name="whatsnew_standard_routes_message">Basis sæt af interesse punkter og korte beskrivelser; men en masse oplevelser!</string>
-	<string name="whatsnew_city_overview_title">Oversigt over by</string>
-	<string name="whatsnew_city_overview_message">Op til 200 interesse points på kortet over byen: alt rejsende kan finde nyttig og interessant!</string>
-	<string name="whatsnew_pro_guides_title">Professionel ruter</string>
-	<string name="whatsnew_pro_guides_message">Meget grundig, med detaljerede beskrivelser af steder og evnen til at beregne turens afstand og tid</string>
-	<string name="whatsnew_paid_routes_title">Flere nye oplevelser!</string>
-	<string name="whatsnew_paid_routes_message">Udover de gratis ruter har vi tilføjet 3 betalte rutekategorier til vores katalog. Over 700 nye ruter!</string>
-	<string name="whats_new_ugc_routes_title_android_only">Det er nemt at dele dine indtryk</string>
 	<string name="ugc_thanks_message_auth">Din anmeldelse er blevet gemt</string>
 	<string name="ugc_thanks_message_not_auth">Log ind for efterlade en anmeldelse</string>
 	<string name="notification_leave_review_v2_title">Vurder et besøgt sted og hjælp rejsende!</string>
@@ -1494,10 +1382,6 @@
 	<string name="whats_new_auto_update_bydeeplink_title">Før du fortsætter til guider…</string>
 	<string name="whats_new_auto_update_bydeeplink_message">Opdater kort for at holde informationen opdateret!</string>
 	<string name="whats_new_auto_update_and_proceed_button_size">Opdater (%s) og fortsæt</string>
-	<string name="whatsnew_toll_unpaved_title">Layout for kørselsruter medtager alle typer af veje</string>
-	<string name="whatsnew_toll_unpaved_message">Vælg omveje for at undgå vejbaner, grusveje og færgeoverfarter</string>
-	<string name="whatsnew_new_catalogue_title">Opdaterede katalogsider</string>
-	<string name="whatsnew_new_catalogue_message">Vi har tilføjet detaljerede oplysninger om partnerguider, for at gøre valg af rute let og bekvemt</string>
 	<string name="purchase_please_wait_toast">Forlad ikke denne skærm, før købet er gennemført</string>
 	<string name="trip_start">Lad os komme i gang</string>
 	<string name="pick_destination">Destination</string>
@@ -1553,12 +1437,6 @@
 	<string name="buy_btn_for_subscription_ios_only_year">Ubegrænset adgang til %s/år</string>
 	<string name="subscription_terms_guides">Betalingen vil blive opkrævet via din iTunes konto, efter købet er bekræftet. Abonnementet fornys automatisk, medmindre automatisk fornyelse er slået fra mindst 24 timer før udgangen af nuværende periode. Din konto vil blive ændret ifølge din fornyelsesplan, indenfor 24 timer før udgangen af den aktuelle periode. Du kan administrere eller deaktivere automatisk fornyelse i dine Apple ID-kontoindstillinger på ethvert tidspunkt for dit køb. Du kan kun bruge downloadede guider indtil dennes udløbsdato. Efter 30 dage fra abonnementets udløbsdato, vil guider med bookmarks automatisk blive slettet.</string>
 	<string name="subscription_terms">Betalingen opkræves via din iTunes-konto ved bekræftelse af købet. Abonnementet fornys automatisk, medmindre den automatiske fornyelse er slået fra senest 24 timer før udgangen af den aktuelle periode. Din konto debiteres i overensstemmelse med din plan for fornyelse indenfor 24 timer før udgangen af den aktuelle periode. Du kan administrere eller slukke for automatisk fornyelse i dine Apple ID-kontoindstillinger på ethvert tidspunkt af dit køb.</string>
-	<string name="whatsnew_carplay_title">OMaps bil navigation i CarPlay!</string>
-	<string name="whatsnew_carplay_message">Bogmærker, søgning, fartkameraer og køre muligheder er tilgængelige offline</string>
-	<string name="whatsnew_subscription_title">Hele verdenen via abonnement!</string>
-	<string name="whatsnew_subscription_message">Ubegrænset adgang til Katalog over Guider er mere rentabelt end et engangskøb</string>
-	<string name="whatsnew_carnavi_fixes_for_android_title">Opdater navigation</string>
-	<string name="whatsnew_carnavi_fixes_for_android_message">Vi har forbedret ruteplanlægning til steder, som er lang fra veje</string>
 	<string name="avoid_unpaved_carplay_1">Ingen grus</string>
 	<string name="avoid_unpaved_carplay_2">Undgå grus</string>
 	<string name="avoid_ferry_carplay_1">Ingen færger</string>
@@ -1615,8 +1493,6 @@
 	<string name="bookmarks_edit_list">Redigér liste</string>
 	<!-- Android, max 18 symbols -->
 	<string name="bookmarks_delete_list">Slet liste</string>
-	<string name="whatsnew_bookmarks_search_sort_title">Rækkefølgen i bookmarks gør en rejse behagelig</string>
-	<string name="whatsnew_bookmarks_search_sort_message">Sortere favoritsteder efter kategori, placering og rækkefølge, samt finde specifikke bogmærker hurtigt, efter deres navn</string>
 	<string name="popup_subscription_success_map_title">Juuhuu, du har abonnement!</string>
 	<string name="popup_subscription_success_map_message">Opdag nu de bedste turisthøjdepunkter i OMaps kataloget</string>
 	<string name="popup_subscription_success_map_start_button">Begynd at udforske</string>
@@ -1637,8 +1513,6 @@
 	<string name="subscription_screen_native_message_version_2">Bliv klar til enhver rejse i 600+ byer og 100+ lande</string>
 	<string name="catalog_no_internet_title">Ingen internetforbindelse</string>
 	<string name="catalog_no_internet_button">Prøv igen</string>
-	<string name="whatsnew_map_updates_title">Reaktive kortopdateringer</string>
-	<string name="whatsnew_map_updates_message">Fra nu af, opdaterer vi dataerne dobbelt så hurtigt</string>
 	<string name="new_onboarding_button">Næste</string>
 	<string name="new_onboarding_button_2">Kom i gang</string>
 	<string name="new_onboarding_step1_header_2">Alt i en rejsekammerat</string>
@@ -1683,10 +1557,6 @@
 	<string name="downloader_country_no_guides_gallery_header">Der er ingen guides i dette land endnu</string>
 	<string name="downloader_country_no_guides_gallery_message">Du kan checke andre offline guides ud i 100+ lande til by- og udendørsaktiviteter</string>
 	<string name="dialog_pedestrian_route_is_long">Gåturen til transportens boardingsted er for lang</string>
-	<string name="whatsnew_outdoor_guides_title">Vi har tilføjet 15000+ udendørs ruter!</string>
-	<string name="whatsnew_outdoor_guides_message">Ruter fra Outdooractive til vinter- og summerture venter i kataloget!</string>
-	<string name="whatsnew_guides_galleries_title">Planlæg din kommende tur med OMaps</string>
-	<string name="whatsnew_guides_galleries_message">Nu kan du finde anbefalede guides på stedsiderne om populære turistbyer og syn</string>
 	<string name="new_onboarding_step3_header">Oplevelse</string>
 	<string name="all_pass_screen_best_value">Bedste værdi</string>
 	<string name="buy_btn_for_subscription_3">Hele kataloget for %s/år</string>
@@ -1695,9 +1565,6 @@
 	<string name="dialog_pedestrian_route_is_long_message">Vælg venligst et start- eller stoppunkt, tættere på metrostationen</string>
 	<!-- Failed planning SUBWAY route message in navigation view -->
 	<string name="routing_planning_error_subway_special">Planlægning af metro-rute mislykkedes</string>
-	<string name="whatsnew_isolines_title">Nyt til udenfor: offline topografiske lag!</string>
-	<!-- as less symbols as possible -->
-	<string name="whatsnew_isolines_message">Følg dig selvsikker i det bjergrige område. Tænd bare for laget i det øverste venstre hjørne</string>
 	<string name="button_layer_isolines">Terræn</string>
 	<string name="tips_map_layers_title_countour">Nyt på OMaps: offline topografiske lag!</string>
 	<string name="tips_map_layers_message_countour">Planlæg og nyd din naturtur ved at være sikker på, at du ved alt om området</string>
@@ -1734,12 +1601,6 @@
 	<string name="routes_card_show">Vis på kort</string>
 	<!-- as few symbols as possible -->
 	<string name="routes_card_hide">Skjul fra kort</string>
-	<string name="whatsnew_catalog_new_title">Nye guidekataloger og tusindvis af rejseideer</string>
-	<string name="whatsnew_catalog_new_message">Vi har opdateret guidekataloget og tilføjet oversættelser til populære sprog. Begynd at planlægge din tur i forvejen!</string>
-	<string name="whatsnew_elevation_profile_title">Højdeprofil i rejseguides</string>
-	<string name="whatsnew_elevation_profile_message">Vurder kompleksiteten af kommende offline stigninger og nedstigninger med markøren i profilen af den købte rute.</string>
-	<string name="whatsnew_guides_on_map_title">Nyt lag til at finde guider let</string>
-	<string name="whatsnew_guides_on_map_message">Aktiver laget i applikationens indstillinger for hurtigt at finde interessante byruter og rejseguides for udendørs aktiviteter.</string>
 	<string name="downloader_updating_ios">Opdaterer</string>
 	<string name="downloader_loading_ios">Downloader</string>
 	<string name="routes_card_plus_track">+ rute</string>
@@ -1775,8 +1636,6 @@
 	<string name="choose_dates_online_only_dialog_message">Datoer og antal gæster kan kun vælges, når du er online. Kontroller venligst dine indstillinger og sørg for, du er forbundet til internettet.</string>
 	<string name="choose_dates_online_only_dialog_cta">Indstillinger</string>
 	<string name="thirty_days_limit_dialog">Du kan booke maksimalt 30 nætter</string>
-	<string name="whatsnew_trial_title">Gratis afgang til guidekataloget</string>
-	<string name="whatsnew_trial_message">Vi tilbyder nu en gratis 7 dages prøveperiode. Få adgang til tusindvis af rejseguider i hele verden og en interaktiv elevationsprofil til udendørsguider.</string>
 	<string name="whatsnew_trial_cta">Prøv det nu</string>
 	<string name="subscription_terms_guides_outdoor">Når du bekræfter købet, vil betalingen blive debiteret på din iTunes-konto. Abonnementet vil automatisk blive fornyet, med mindre automatisk fornyelse slås fra mindst 24 timer før slutningen af den nuværende abonnementsperiode. Din konto vil blive debiteret ifølge din fornyelsesplan inden for 24 timer før den nuværende abonnementsperiode slutter. Du kan administrere eller slå automatisk fornyelse fra i dine Apple ID-kontoindstillinger når som helst efter købet. Du kan kun bruge de downloadede guider i løbet af dit abonnement, indtil abonnementet udløber. Guider og bogmærker vil automatisk blive slettet 7 dage efter abonnementet udløber.\n* Abonnementet med gratis prøveperiode vil automatisk blive fornyet til et betalt abonnement. Du kan annullere eller administrere automatisk fornyelse af din gratis prøveperiode i dine kontoindstillinger efter købet. Annulleringen træder i kraft 24 timer efter den sidste dag af den nuværende abonnementsperiode. Derefter vil du blive nedgraderet til den gratis tjeneste. Bemærk venligst: Enhver ubrugt del af den gratis prøveperiode går tabt, når du køber et premium-abonnement i løbet af den gratis prøveperiode.</string>
 	<string name="subscription_terms_android_outdoor">Når du bekræfter købet, vil betalingen blive debiteret på din Google Play-konto. Abonnementet vil automatisk blive fornyet, med mindre automatisk fornyelse slås fra mindst 24 timer før slutningen af den nuværende abonnementsperiode. Din konto vil blive debiteret ifølge din fornyelsesplan inden for 24 timer før den nuværende abonnementsperiode slutter. Du kan administrere eller slå automatisk fornyelse fra i dine kontoindstillinger når som helst efter købet. Du kan kun bruge de downloadede guider i løbet af dit abonnement, indtil abonnementet udløber. Guider vil automatisk blive slettet 7 dage efter abonnementet udløber.\n* Abonnementet med gratis prøveperiode vil automatisk blive fornyet til et betalt abonnement. Du kan annullere eller administrere automatisk fornyelse af din gratis prøveperiode i dine kontoindstillinger efter købet. Annulleringen træder i kraft 24 timer efter den sidste dag af den nuværende abonnementsperiode. Derefter vil du blive nedgraderet til den gratis tjeneste. Bemærk venligst: Enhver ubrugt del af den gratis prøveperiode går tabt, når du køber et premium-abonnement i løbet af den gratis prøveperiode.</string>

@@ -12,24 +12,13 @@
 	<string name="cancel_download">إلغاء التنزيل</string>
 	<!-- Button which deletes downloaded country -->
 	<string name="delete">حذف</string>
-	<!-- Button to dismiss dialog forever -->
-	<string name="do_not_ask_me_again">لا تسئلني مرة أخرى</string>
 	<!-- Button "do not interrupt download" if user touched actively downloading country -->
 	<string name="do_nothing">استمرار</string>
 	<string name="download_maps">تنزيل الخرائط</string>
-	<!-- Settings/Downloader - Download confirmation button -->
-	<string name="download_x_kb">التنزيل %qu كيلو بايت</string>
-	<!-- Settings/Downloader - Download confirmation button -->
-	<string name="download_x_mb">التنزيل %qu ميجا بايت</string>
 	<!-- Settings/Downloader - info for country when download fails -->
 	<string name="download_has_failed">فشلت عملية التنزيل، انقر مرة أخرى لإعداة المحاولة</string>
-	<!-- Settings/Downloader - info for downloaded country -->
-	<string name="downloaded_x_y_touch_to_delete">تم تنزيل (%1$qu %2$s)، المس لحذفها</string>
-	<!-- Settings/Downloader - country info current download progress -->
-	<string name="downloading_x_touch_to_cancel">جاري التنزيل %qu%%، انقر للإلغاء</string>
 	<!-- Settings/Downloader - info for country which started downloading -->
 	<string name="downloading">جاري التنزيل…</string>
-	<string name="get_it_now">احصل عليه الآن</string>
 	<!-- Settings/Downloader - size string, only strings different from English should be translated -->
 	<string name="kb">ك.ب.</string>
 	<!-- Choose measurement on first launch alert - choose metric system button -->
@@ -38,26 +27,16 @@
 	<string name="leave_a_review">اترك تعليق</string>
 	<!-- View and button titles for accessibility -->
 	<string name="maps">الخرائط</string>
-	<!-- View and button titles for accessibility -->
-	<string name="downloader_maps">الخرائط:</string>
-	<!-- Settings/Downloader - info for country in the download queue -->
-	<string name="marked_for_downloading">تم تحديد العنصر لتنزيله، انقر للإلغاء</string>
 	<!-- Settings/Downloader - size string, only strings different from English should be translated -->
 	<string name="mb">م.ب.</string>
 	<!-- Choose measurement on first launch alert - choose imperial system button -->
 	<string name="miles">ميل</string>
 	<!-- View and button titles for accessibility -->
 	<string name="core_my_position">موقعي</string>
-	<!-- Settings/Downloader - No free space dialog message -->
-	<string name="free_disk_space_for_country_x">الرجاء إخلاء بعض المساحة في ذاكرة جهازك أولا لكي تتمكن من تنزيل %s</string>
-	<!-- Leave Review dialog - Not now button (remind me later) -->
-	<string name="remind_me_later">ذكرني لاحقاً</string>
 	<!-- Update maps later/Buy pro version later button text -->
 	<string name="later">لاحقا</string>
 	<!-- Don't show some dialog any more -->
 	<string name="never">أبدا</string>
-	<!-- Leave Review dialog - Complain button (goes to support site) -->
-	<string name="report_an_issue">الإبلاغ عن مشكلة</string>
 	<!-- View and button titles for accessibility -->
 	<string name="search">البحث</string>
 	<!-- Search box placeholder text -->
@@ -66,18 +45,12 @@
 	<string name="touch_to_download">انقر للتنزيل</string>
 	<!-- Settings/Downloader - 3G download warning dialog confirm button -->
 	<string name="use_cellular_data">نعم</string>
-	<!-- Choose measurement on first launch alert - title -->
-	<string name="which_measurement_system">ما هو نظام القياس المفضل لديك؟</string>
 	<!-- Location services are disabled by user alert - message -->
 	<string name="location_is_disabled_long_text">التطبيق أو جميع خدمات تحديد المواقع معطلة لديك في الوقت الحالي. الرجاء تفعيلها في الإعدادات.</string>
 	<!-- Location Services are not available on the device alert - message -->
 	<string name="device_doesnot_support_location_services">جهازك لا يدعم خدمات تحديد المواقع.</string>
 	<!-- View and button titles for accessibility -->
 	<string name="zoom_to_country">عرض على الخريطة</string>
-	<!-- Message to display at the center of the screen when the country is added to the downloading queue -->
-	<string name="country_status_added_to_queue">^\nقد تم إضافته الى صف الانتظار لعملية التنزيل</string>
-	<!-- Message to display at the center of the screen when the country is downloading -->
-	<string name="country_status_downloading">جاري التنزيل\n^\n^</string>
 	<!-- Button text for the button at the center of the screen when the country is not downloaded -->
 	<string name="country_status_download">(^ ^)\nتحميل الخريطة</string>
 	<!-- Button text for the button at the center of the screen when the country is not downloaded and the size should not be shown -->
@@ -89,7 +62,6 @@
 	<!-- Button text for the button under the country_status_download_failed message -->
 	<string name="try_again">محاولة مرة أخرى</string>
 	<string name="about_menu_title">حول OMaps</string>
-	<string name="downloading_touch_to_cancel">جاري تنزيل %d%% ، انقر للإلغاء</string>
 	<string name="downloaded_touch_to_delete">تم تنزيل (%s)، انقر للحذف</string>
 	<string name="connection_settings">اعدادات الاتصال</string>
 	<string name="download_mb_or_kb">تنزيل %s</string>
@@ -100,7 +72,6 @@
 	<string name="disconnect_usb_cable">الرجاء فصل كابل الناقل التسلسلي الشامل أو إدخال بطاقة الذاكرة من أجل استخدام OMaps.</string>
 	<string name="not_enough_free_space_on_sdcard">الرجاء إخلاء بعض المساحة في تخزين البطاقة الرقمية الآمنة\الناقل التسلسلي الشامل أولا من أجل استخدام هذا التطبيق.</string>
 	<string name="not_enough_memory">لا يوجد ذاكرة كافية لتشغيل التطبيق.</string>
-	<string name="free_space_for_country">الرجاء إخلاء %1$s على جهازك أولا من أجل تنزيل %2$s</string>
 	<string name="download_resources">قبل أن تبدأ، دعنا نقوم بتنزيل خريطة العالم العامة على جهازك.\nانها بحاجة الى %s من البيانات.</string>
 	<string name="getting_position">الحصول على الموقع الحالي</string>
 	<string name="download_resources_continue">الذهاب الى الخريطة</string>
@@ -108,25 +79,9 @@
 	<string name="download_country_ask">هل تريد تنزيل %s؟</string>
 	<string name="update_country_ask">هل تريد تحديث %s ؟</string>
 	<!-- REMOVE THIS STRING AFTER REFACTORING -->
-	<string name="download_location_map_proposal">يمكنك تنزيل خريطة\nموقعك الحالية.</string>
-	<!-- REMOVE THIS_STRING AFTER REFACTORING -->
-	<string name="download_location_update_map_proposal">يمكنك تحديث خريطة\nموقعك الحالي.</string>
-	<!-- REMOVE THIS STRING AFTER REFACTORING -->
-	<string name="download_location_map_up_to_date">خريطة موقعك\nالحالي (%s) مُحَدَثَة</string>
-	<!-- REMOVE THIS STRING AFTER REFACTORING -->
 	<string name="pause">توقف مؤقت</string>
 	<!-- REMOVE THIS STRING AFTER REFACTORING -->
 	<string name="continue_download">استمرار</string>
-	<string name="downloaded_touch_to_update">تم تنزيل (%s) ، انقر للتحديث أو الحذف</string>
-	<string name="update_mb_or_kb">تحديث %s</string>
-	<!-- Show popup notification when we have downloaded countries without search (from Lite version) -->
-	<string name="search_update_maps">أنت بحاجة الى تحديث الخرائط من أجل وظيفة البحث:</string>
-	<!-- Show popup notification on app start when we have out-of-date maps -->
-	<string name="advise_update_maps">هناك تحديثات متوافرة للخرائط التالية:</string>
-	<!-- Show popup notification in Pro version that Lite can be deleted -->
-	<string name="suggest_uninstall_lite">أنت لست بحاجة الى  OMaps Lite بعد الآن، لذلك يمكنك إلغاء تثبيته.</string>
-	<!-- Show popup notification on top of the map when country was downloaded. -->
-	<string name="download_country_success">تم تنزيل %s بنجاح.</string>
 	<!-- Show popup notification on top of the map when country download has failed. -->
 	<string name="download_country_failed">فشلت عملية تنزيل %s</string>
 	<!-- Add New Bookmark Set dialog title -->
@@ -155,8 +110,6 @@
 	<string name="set">المجموعة</string>
 	<!-- Text hint in Bookmarks dialog when no any bookmarks are added -->
 	<string name="bookmarks_usage_hint">ليس لديك أي إشارات مرجعية بعد.\nانقر على أي مكان على الخريطة لإضافة إشارة مرجعية.\nيمكنك أيضا استيراد الإشارات المرجعية من المصادر الأخرى وعرضها في OMaps. افتح ملف KML/KMZ الذي يحتوي على الدبابيس المحفوظة من البريد الالكتروني، دروب بوكس أو ويب لينك.</string>
-	<!-- Text hint in Bookmarks dialog when at least one bookmark is added -->
-	<string name="bookmarks_usage_hint_import_only">يمكن استيراد الإشارات المرجعية من المصادر الأخرى و عرضها على OMaps. افتح ملف KML/KMZ الذي يحتوي على الإشارات المرجعية المحفوظة من البريد الالكتروني، دروب بوكس أو ويب لينك.</string>
 	<!-- Settings button in system menu -->
 	<string name="settings">الإعدادات</string>
 	<!-- Header of settings activity where user defines storage path -->
@@ -776,11 +729,6 @@
 	<string name="editor_report_problem_other_title">مشكلة مختلفة</string>
 	<string name="placepage_report_problem_button">الإبلاغ عن مشكلة</string>
 	<string name="placepage_add_business_button">إضافة مؤسسة</string>
-	<string name="whatsnew_smallmwm_header">لقد طلبتم ذلك، وها نحن قد لبينا طلبكم</string>
-	<string name="whatsnew_smallmwm_message">لقد قسمنا الخرائط إلى أجزاء. الآن يمكنك تنزيل مناطق منفصلة، وليس البلد بأكمله.</string>
-	<string name="whatsnew_search_header">بحث جديد</string>
-	<string name="whatsnew_search_message">لقد طورنا كليا البحث بالعنوان. فلترى بنفسك.</string>
-	<string name="whatsnew_editor_title">تعديل الخريطة *</string>
 	<string name="whatsnew_editor_message_1">قم بإضافة أماكن جديدة للخريطة، وعدل أماكن حالية مباشرة من التطبيق.</string>
 	<string name="whatsnew_editor_message_2">*تستخدم OMaps البيانات الخاصة بخريطة OpenStreetMap.</string>
 	<string name="dialog_incorrect_feature_position">تغيير الموقع</string>
@@ -826,10 +774,6 @@
 	<string name="current_location_unknown_stop_button">إيقاف</string>
 	<string name="current_location_unknown_error_title">الموقع الحالي غير معروف.</string>
 	<string name="current_location_unknown_error_message">حدث خطأ أثناء البحث عن موقعك. تأكد من أن جهازك يعمل بشكل صحيح وأعد المحاولة لاحقًا.</string>
-	<string name="whatsnew_update_editor_title">لقد قمنا بتحديث محرر الخريطة</string>
-	<string name="whatsnew_update_editor_message">قام مستخدمو OMaps بإجراء 200000 تغيير على الخرائط. معًا سنحصل على الخرائط الأكثر تفصيلاً في العالم. انضم إلينا!</string>
-	<!-- Additional text in whats new -->
-	<string name="whatsnew_update_editor_message_update">لاستخدام مُحَرّر الخريطة، يرجى تحديث جميع الخرائط.</string>
 	<string name="location_services_disabled_header">تم تعطيل تحديد الموقع</string>
 	<string name="location_services_disabled_message">قم بتفعيل الوصول إلى الموقع الجغرافي في إعدادات الجهاز</string>
 	<string name="location_services_disabled_1">1. افتح الإعدادات</string>
@@ -917,14 +861,6 @@
 	<string name="sharing_call_action_look">انظر</string>
 	<string name="continue_recent_track_background_button">استمرار</string>
 	<string name="recent_track_background_dialog_message">يستخدم OMaps موقعك الجغرافي في الخلفية لتسجيل مسار سفرك الأخير.</string>
-	<string name="whatsnew_car_navigation_header">ملاحة المركبات سهلة الاستخدام</string>
-	<string name="whatsnew_car_navigation_message">• تستحوذ عناصر الملاحة على مساحة أقل.\n• نحن نعرض السرعة كما وأضفنا كذلك التكبير التلقائي.</string>
-	<string name="whatsnew_cycle_navigation_2_header">ملاحة الدراجات</string>
-	<string name="whatsnew_cycle_navigation_2_message">• تضع ملاحة الدراجات بيانات التضاريس في الاعتبار.\n• نحن نخلق طرق أسهل مع الأخذ بعين الاعتبار منحدرات الطريق.</string>
-	<string name="whatsnew_booking_2_header">البحث بسهولة عن فندق</string>
-	<string name="whatsnew_booking_2_message">تظهر نتائج البحث التقييم والفئة السعرية للفندق.</string>
-	<string name="whatsnew_cycle_navigation_header">التوجيه الملاحي مع الدراجات (إصدار تجريبي)</string>
-	<string name="whatsnew_cycle_navigation_message">نختبر الآن التوجيه الملاحي مع الدراجات للموسم الجديد. جرب طريق الدراجات المفضل لديك باستخدام OMaps، واطلعنا على رأيك.</string>
 	<!-- Rate on Google Play (Android only) -->
 	<string name="rate_gp">تصنيف على Google Play</string>
 	<!-- Share with friends: menu item title -->
@@ -985,8 +921,6 @@
 	<string name="chat">Geochat</string>
 	<!-- Verb. Text on a button that opens the chat. -->
 	<string name="chat_open">فتح</string>
-	<string name="whatsnew_uber_header">OMaps وUber</string>
-	<string name="whatsnew_uber_message">اطلب تاكسي Uber مباشرة من التطبيق!</string>
 	<string name="dialog_taxi_offline">طلب تاكسي غير متاح في وضع الطيران.</string>
 	<string name="dialog_taxi_error">طلب تاكسي غير متاح مؤقتا.</string>
 	<string name="mobile_data_dialog">استخدام إنترنت المحمول لإظهار المعلومات التفصيلية؟</string>
@@ -1005,30 +939,6 @@
 	<string name="traffic_update_app_message">لعرض البيانات المرورية، يجب تحديث التطبيق.</string>
 	<!-- "traffic" as in "road congestion" -->
 	<string name="traffic_data_unavailable">البيانات المرورية غير متاحة</string>
-	<!-- december -->
-	<string name="whatsnew_traffic">البيانات المرورية في 36 دولة</string>
-	<!-- december -->
-	<string name="whatsnew_traffic_text">معلومات مرورية حديثة وأسرع مسارات القيادة التي تعتمد عليها!</string>
-	<!-- december -->
-	<string name="whatsnew_traffic_roaming">المعلومات المرورية أثناء التجوال</string>
-	<!-- december -->
-	<string name="whatsnew_traffic_roaming_text">يتطلب أقل من 1 ميجابايت من عرض نطاق المحمول لكل رحلة.</string>
-	<!-- december -->
-	<string name="whatsnew_order_taxi">طلب تاكسي</string>
-	<!-- december -->
-	<string name="whatsnew_order_taxi_text">تحتوي معظم صفحات المواقع الآن على زر لطلب تاكسي.</string>
-	<!-- january -->
-	<string name="whatsnew_improved_search">بحث محسّن</string>
-	<!-- january -->
-	<string name="whatsnew_improved_search_text">حتى الاستعلامات التي بها أخطاء إملائية يمكن أن تحقق نتائج بحث دقيقة.</string>
-	<!-- january -->
-	<string name="whatsnew_filters_in_search">عوامل تصفية البحث</string>
-	<!-- january -->
-	<string name="whatsnew_filters_in_search_text">البحث عن الفنادق وفقًا للسعر والتصنيف.</string>
-	<!-- january -->
-	<string name="whatsnew_font_size">حجم الخط</string>
-	<!-- january -->
-	<string name="whatsnew_font_size_text">يمكن جعل التسميات على الخريطة أكبر.</string>
 	<!-- Seven points and higher -->
 	<string name="booking_filter_rating_num_good">7.0+</string>
 	<!-- Eight points and higher -->
@@ -1038,16 +948,6 @@
 	<!-- Simplified colour scheme for traffic information, fewer colours are used to display traffic jams on the map. The string should be kept as short as possible -->
 	<string name="pref_traffic_simplified_colors_title">ألوان مرور مبسطة</string>
 	<string name="enable_logging">تمكين التسجيل</string>
-	<string name="whatsnew_more_info_on_hotels_title">معلومات إضافية عن الفنادق</string>
-	<string name="whatsnew_more_info_on_hotels_message">مظهر جديد كلية لصفحات الفنادق: افحص الصور، ومراجعات المستخدمين والمعلومات الأخرى على الإنترنت.</string>
-	<string name="whatsnew_better_routing_title">تخطيط المسارات المحسّن</string>
-	<string name="whatsnew_better_routing_message">• المزيد من التقدير الدقيق لوقت الوصول.\n• يضع التطبيق في الاعتبار المناطق المحظورة وعلامات الطريق.</string>
-	<string name="whatsnew_smaller_mwm_title">الخرائط أصبحت أصغر</string>
-	<string name="whatsnew_smaller_mwm_message">الخرائط تتطلب مساحة تخزين أقل بمقدار 20%.</string>
-	<string name="whatsnew_waypoints_title">نقاط الطريق في المسار</string>
-	<string name="whatsnew_waypoints_message">المس الأماكن لإضافة نقاط طريق إلى المسار.</string>
-	<string name="whatsnew_driving_style_title">نمط خريطة جديد للقيادة</string>
-	<string name="whatsnew_driving_style_message">وضع التنقل بالسيارة أصبح سهل الاستخدام.</string>
 	<string name="more_on_bookingcom">المزيد عن Booking.com</string>
 	<string name="details_on_bookingcom">تفاصيل حول Booking.com</string>
 	<string name="reviews_on_bookingcom">المزيد من المراجعات عن Booking.com</string>
@@ -1077,7 +977,6 @@
 	<string name="prefs_languages_information_off">(TTS) إضافي (حيث إن نظام Google TTS لا يدعم اللغات بعد (من Google Play مثل Vocalizer TTS أو SVOX Classics.\nلإدارة الإعدادات لتخليق الكلام، في الجهاز الخاص بك افتح الإعدادات –> اللغة والإدخال –> الكلام –> إخراج نص إلى كلام. هنا يمكنك تنزيل حزمة لغة إضافية أو تحديد محرك النص إلى كلام المفضل.</string>
 	<string name="prefs_languages_information_off_link">لمزيد من المعلومات الرجاء مراجعة هذا الدليل.</string>
 	<string name="whatsnew_transliteration_title">كتابة بالحروف اللاتينية</string>
-	<string name="whatsnew_transliteration_message">إذا كان الشارع أو الهدف ليس له اسم بلغتك. فسيتم هجاؤه بالحروف اللاتينية.</string>
 	<string name="learn_more">تعلم المزيد</string>
 	<string name="core_exit">خروج</string>
 	<string name="routing_add_start_point">أضف نقطة البداية لتخطيط المسار</string>
@@ -1096,8 +995,6 @@
 	<string name="dialog_change_start_point_message">استبدال نقطة البدء إلى الموقع الحالي؟</string>
 	<string name="button_replace">استبدال</string>
 	<string name="placepage_add_stop">إضافة نقطة توقف</string>
-	<string name="whatsnew_intermediate_point_title">نقطة توقف إضافية</string>
-	<string name="whatsnew_intermediate_point_message">خطط مسارًا مع نقطة وسيطة.</string>
 	<string name="add_my_position">إضافة موضعي</string>
 	<string name="choose_start_point">اختيار نقطة البداية</string>
 	<string name="choose_destination">اختيار الوجهة</string>
@@ -1403,15 +1300,6 @@
 	<string name="whats_new_ugc_routes_subtitle">يمكنك حفظ الأماكن التي لا تنسى وإنشاء مسارات باستخدام الإشارات المرجعية ومشاركتها مع الجميع في كتالوج OMaps</string>
 	<string name="whats_new_webeditor_title">حوّل مساراتك إلى قصص</string>
 	<string name="whats_new_ugc_routes_message2">أضفْ صور وقصص مفصلة في محرر الويب</string>
-	<string name="whatsnew_standard_routes_title">المسارات القياسية</string>
-	<string name="whatsnew_standard_routes_message">مجموعة أساسية من النقاط المثيرة للاهتمام وأوصاف مختصرة مع الكثير من التجارب!</string>
-	<string name="whatsnew_city_overview_title">نظرة عامة على المدينة</string>
-	<string name="whatsnew_city_overview_message">ما يصل إلى 200 نقطة هامة على خريطة المدينة: كل ما قد يجده المسافرون مفيدًا ومثيرًا للاهتمام!</string>
-	<string name="whatsnew_pro_guides_title">المسارات المحترفة</string>
-	<string name="whatsnew_pro_guides_message">شامل جدا ، مع وصف مفصل للأماكن والقدرة على حساب مسافة الرحلة والوقت</string>
-	<string name="whatsnew_paid_routes_title">المزيد من الخبرات الجديدة!</string>
-	<string name="whatsnew_paid_routes_message">بالإضافة إلى الطرقات المجانية ، قمنا بإضافة 3 فئات للمسارات المدفوعة إلى الكتالوج الخاص بنا. أكثر من 700 طريق جديد!</string>
-	<string name="whats_new_ugc_routes_title_android_only">من السهل مشاركة انطباعاتك</string>
 	<string name="ugc_thanks_message_auth">تم حفظ تعليقك</string>
 	<string name="ugc_thanks_message_not_auth">يرجي تسجيل الدخول لوضع تعليق</string>
 	<string name="notification_leave_review_v2_title">ضع تقييمًا لمكان زيارتك و ساعد المسافرين!</string>
@@ -1495,10 +1383,6 @@
 	<string name="whats_new_auto_update_bydeeplink_title">قبل الدخول إلى الدليل…</string>
 	<string name="whats_new_auto_update_bydeeplink_message">قم بتحديث الخرائط للحصول على أحدث المعلومات!</string>
 	<string name="whats_new_auto_update_and_proceed_button_size">تحديث (%s) والمتابعة</string>
-	<string name="whatsnew_toll_unpaved_title">نسق طرق السيارات يشمل جميع أنواع الطرق</string>
-	<string name="whatsnew_toll_unpaved_message">حدد الطرق التي تحتوي: نقط تحصيل رسوم، طرق غير ممهدة، تفاطعات العبارات</string>
-	<string name="whatsnew_new_catalogue_title">صفحات القائمة المحدثة</string>
-	<string name="whatsnew_new_catalogue_message">قمنا بإضافة معلومات مفصلة حول دلائل الشركاء لجعل اختيار الطريق سهل ومناسب</string>
 	<string name="purchase_please_wait_toast">يرجى عدم مغادرة الصفحة قبل اكتمال عملية الشراء</string>
 	<string name="trip_start">هيا بنا</string>
 	<string name="pick_destination">جهة الوصول</string>
@@ -1554,12 +1438,6 @@
 	<string name="buy_btn_for_subscription_ios_only_year">وصول غير محدود %s/سنة</string>
 	<string name="subscription_terms_guides">سيتم خصم المدفوعات من حساب iTunes الخاص بك مع تأكيد عملية الشراء. سيتم تجديد الاشتراك تلقائيًا ما لم يتم تعطيل خاصية التجديد التلقائي قبل 24 ساعة من انتهاء فترة الاشتراك الحالية. سيتم خصم قيمة الاشتراك طبقًا لخطة الاشتراك الخاصة بك للتجديد خلال 24 ساعة قبل انتهاء فترة الاشتراك الحالية. يمكنك ادارة أو تعطيل خاصية التجديد التلقائي في حساب Apple ID الخاص بك في أي وقت بعد شرائك. يمكنك استخدام الدلائل التي تم تحميلها فقط عن طريق اشتراكك حتى تاريخ انتهاء الاشتراك  سيتم حذف الدلائل والعلامات المميزة عليها تلقائيًا بعد 30 يومًا من انتهاء فترة الاشتراك.</string>
 	<string name="subscription_terms">سيتم خصم المبلغ من حساب iTunes الخاص بك عند تأكيد عملية الشراء. سيتم تجديد الاشتراك تلقائياً ما لم يتم إيقاف التجديد التلقائي قبل 24 ساعة على الأقل من نهاية الفترة الحالية. سيتم الخصم من حسابك وفقاً لخطة التجديد الخاصة بك وذلك خلال 24 ساعة قبل انتهاء الفترة الحالية. يمكنك إدارة أو إيقاف التجديد التلقائي عبر إعدادات حساب Apple ID الخاص بك في أي وقت عند الشراء.</string>
-	<string name="whatsnew_carplay_title">نظام ملاحة السيارات OMaps في CarPlay!</string>
-	<string name="whatsnew_carplay_message">خصائص تحديد علامات الأماكن، والبحث، وكاميرات السرعة والمسارات متاحة بدون اتصال بالانترنت</string>
-	<string name="whatsnew_subscription_title">كل العالم بواسطة الاشتراك!</string>
-	<string name="whatsnew_subscription_message">الوصول الغير محدود لفهرس الدلائل مربح أكثر من الشراء لمرة واحدة</string>
-	<string name="whatsnew_carnavi_fixes_for_android_title">تحديث الملاحة</string>
-	<string name="whatsnew_carnavi_fixes_for_android_message">لقد طورنا تخطيط المسارات لأماكن موجودة بعيدة عن الطرق</string>
 	<string name="avoid_unpaved_carplay_1">غير ترابي</string>
 	<string name="avoid_unpaved_carplay_2">تجنب غير الممهد</string>
 	<string name="avoid_ferry_carplay_1">بدون عبََارة</string>
@@ -1616,8 +1494,6 @@
 	<string name="bookmarks_edit_list">تحرير القائمة</string>
 	<!-- Android, max 18 symbols -->
 	<string name="bookmarks_delete_list">حذف القائمة</string>
-	<string name="whatsnew_bookmarks_search_sort_title">ترتيب الإشارات المرجعية لرحلة مريحة</string>
-	<string name="whatsnew_bookmarks_search_sort_message">رتب الأماكن المفضلة حسب الفئة والموقع وترتيبها الزمني، وكذلك البحث عن إشارات مرجعية محددة بسرعة حسب اسمهم</string>
 	<string name="popup_subscription_success_map_title">يا للروعة، لقد قمت بالاشتراك!</string>
 	<string name="popup_subscription_success_map_message">اكتشف الآن أفضل المعالم السياحية في كتالوج OMaps</string>
 	<string name="popup_subscription_success_map_start_button">ابدأ البحث</string>
@@ -1638,8 +1514,6 @@
 	<string name="subscription_screen_native_message_version_2">كن مستعداً لأي رحلة إلى أكثر من 600 مدينة و100 دولة</string>
 	<string name="catalog_no_internet_title">غير متصل</string>
 	<string name="catalog_no_internet_button">حاول مرة أخرى</string>
-	<string name="whatsnew_map_updates_title">تحديث الخارطة بشكل سريع جداً</string>
-	<string name="whatsnew_map_updates_message">منالآن فصاعداً نقوم بتحديث البيانات مرتين بسرعة</string>
 	<string name="new_onboarding_button">التالي</string>
 	<string name="new_onboarding_button_2">ابدأ الآن</string>
 	<string name="new_onboarding_step1_header_2">كل ما تريده في صديق سفر واحد</string>
@@ -1684,10 +1558,6 @@
 	<string name="downloader_country_no_guides_gallery_header">لا توجد دلائل في هذه الدولة بعد</string>
 	<string name="downloader_country_no_guides_gallery_message">يمكنك الاطلاع على دلائل أخرى بدون اتصال في أكثر من 100 دولة للتعرف على أنشطة المدن والمناطق الخارجية</string>
 	<string name="dialog_pedestrian_route_is_long">طريق المشاة إلى نقطة ركوب وسيلة النقل طويل جدًا</string>
-	<string name="whatsnew_outdoor_guides_title">أضفنا أكثر من 15000 مسار خارجي!</string>
-	<string name="whatsnew_outdoor_guides_message">تتواجد الطرق من Outdooractive لرحلات الشتاء والصيف في القائمة!</string>
-	<string name="whatsnew_guides_galleries_title">خطط لرحلتك القادمة مع OMaps</string>
-	<string name="whatsnew_guides_galleries_message">يمكنك الآن العثور على دلائل موصى بها في صفحات الأماكن للمدن والمعالم السياحية الشهيرة</string>
 	<string name="new_onboarding_step3_header">جرب</string>
 	<string name="all_pass_screen_best_value">أفضل قيمة</string>
 	<string name="buy_btn_for_subscription_3">كامل الكتالوج من أجل %s / سنة</string>
@@ -1696,9 +1566,6 @@
 	<string name="dialog_pedestrian_route_is_long_message">يرجى اختيار نقطة بداية أو نهاية أقرب لمحطة المترو</string>
 	<!-- Failed planning SUBWAY route message in navigation view -->
 	<string name="routing_planning_error_subway_special">فشل تخطيط طريق لمترو الانفاق</string>
-	<string name="whatsnew_isolines_title">الجديد في الخارج: طبقة طبوغرافية بدون انترنت!</string>
-	<!-- as less symbols as possible -->
-	<string name="whatsnew_isolines_message">كن واثق في المنطقة الجبلية. فقط أشعل الطبقة في الزاوية العلوية اليسرى</string>
 	<string name="button_layer_isolines">تضاريس</string>
 	<string name="tips_map_layers_title_countour">الجديد في OMaps: طبقة طبوغرافية بدون انترنت!</string>
 	<string name="tips_map_layers_message_countour">خطط و استمتع برحلاتك في الطبيعة و أنت متأكد من أنك تعرف كل شيء عن المنطقة</string>
@@ -1735,12 +1602,6 @@
 	<string name="routes_card_show">أظهر على الخريطة</string>
 	<!-- as few symbols as possible -->
 	<string name="routes_card_hide">إخفاء من الخريطة</string>
-	<string name="whatsnew_catalog_new_title">قائمة دلائل جديدة والآلاف من أفكار السفر</string>
-	<string name="whatsnew_catalog_new_message">لقد قمنا بتحديث قائمة الدلائل وإضافة ترجمات باللغات المشهورة. ابدأ بتخطيط رحلتك مسبقًا!</string>
-	<string name="whatsnew_elevation_profile_title">ملف تحديد الارتفاع في أدلة السفر</string>
-	<string name="whatsnew_elevation_profile_message">قم بتقييم درجة صعوبة الصعود والهبوط التاليين دون اتصال باستخدام المؤشر في الملف الخاص بالمسار الذي تم شراؤه.</string>
-	<string name="whatsnew_guides_on_map_title">طبقة جديدة للعثور على الأدلة بسهولة</string>
-	<string name="whatsnew_guides_on_map_message">قم بتنشيط الطبقة في قائمة إعدادات التطبيق للعثور على مسارات المدينة المثيرة للاهتمام وأدلة السفر الخاصة بالأنشطة الخارجية بسرعة.</string>
 	<string name="downloader_updating_ios">جار التحديث</string>
 	<string name="downloader_loading_ios">جار التحميل</string>
 	<string name="routes_card_plus_track">+ مسار</string>
@@ -1776,8 +1637,6 @@
 	<string name="choose_dates_online_only_dialog_message">لا يمكن اختيار التواريخ وعدد الضيوف إلا عند الاتصال بالإنترنت. يرجى التحقق من إعداداتك والتأكد أنك متصل بالإنترنت.</string>
 	<string name="choose_dates_online_only_dialog_cta">الإعدادات</string>
 	<string name="thirty_days_limit_dialog">يمكنك الحجز لـ 30 ليلة كحد أقصى</string>
-	<string name="whatsnew_trial_title">وصول مجاني إلى قائمة الدلائل</string>
-	<string name="whatsnew_trial_message">نقدم الآن تجربة مجانية لمدة 7 أيام. يمكنك الوصول إلى الآلاف من أدلة السفر حول العالم وملف تحديد الارتفاع التفاعلي لأدلة الأنشطة الخارجية.</string>
 	<string name="whatsnew_trial_cta">جربه الآن</string>
 	<string name="subscription_terms_guides_outdoor">عندما تأكيد عملية الشراء، سيتم خصم المبلغ من حساب iTunes الخاص بك. سيتم تجديد الاشتراك تلقائيًا ما لم تقم بإلغاء خاصية التجديد التلقائي قبل 24 ساعة على الأقل من نهاية فترة الاشتراك الحالية. سيتم تحصيل مبلغ الاشتراك من حسابك وفقًا لخطة التجديد خلال 24 ساعة قبل انتهاء فترة الاشتراك الحالية. يمكنك إدارة أو إلغاء التجديد التلقائي من إعدادات حساب Apple ID الخاص بك في أي وقت بعد الشراء. يمكنك استخدام الأدلة التي تم تحميلها أثناء اشتراكك فقط حتى انتهاء فترة صلاحية الاشتراك. سيتم حذف الأدلة وجميع الإشارات المرجعية تلقائيًا بعد 7 يومًا من انتهاء فترة صلاحية الاشتراك.\n* سيتم تجديد الاشتراك للفترة التجريبية المجانية تلقائيًا إلى اشتراك مدفوع. يمكنك إلغاء أو إدارة التجديد التلقائي للفترة التجريبية المجانية من إعدادات حسابك بعد الشراء. سيتم الإلغاء بعد 24 ساعة من اليوم الأخير من فترة الاشتراك الحالية. بعد ذلك، سيتم إرجاعك إلى الخدمة المجانية. يرجى الملاحظة: سيتم فقدان أي خاصية غير مستخدمة من الإصدار التجريبي المجاني عند شراء اشتراك مدفوع أثناء الفترة التجريبية المجانية.</string>
 	<string name="subscription_terms_android_outdoor">عندما تأكيد عملية الشراء، سيتم خصم المبلغ من حساب Google Play الخاص بك سيتم تجديد الاشتراك تلقائيًا ما لم تقم بإلغاء خاصية التجديد التلقائي قبل 24 ساعة على الأقل من نهاية فترة الاشتراك الحالية. سيتم تحصيل مبلغ الاشتراك من حسابك وفقًا لخطة التجديد خلال 24 ساعة قبل انتهاء فترة الاشتراك الحالية. يمنكن إدارة أو إلغاء التجديد التلقائي من إعدادات الحساب في أي وقت بعد الشراء. يمكنك استخدام الأدلة التي تم تحميلها أثناء اشتراكك فقط حتى انتهاء فترة صلاحية الاشتراك. سيتم حذف الأدلة تلقائيًا بعد 7 يومًا من انتهاء فترة صلاحية الاشتراك.\n* سيتم تجديد الاشتراك للفترة التجريبية المجانية تلقائيًا إلى اشتراك مدفوع. يمكنك إلغاء أو إدارة التجديد التلقائي للفترة التجريبية المجانية من إعدادات حسابك بعد الشراء. سيتم الإلغاء بعد 24 ساعة من اليوم الأخير من فترة الاشتراك الحالية. بعد ذلك، سيتم إرجاعك إلى الخدمة المجانية. يرجى الملاحظة: سيتم فقدان أي خاصية غير مستخدمة من الإصدار التجريبي المجاني عند شراء اشتراك مدفوع أثناء الفترة التجريبية المجانية.</string>

@@ -12,24 +12,13 @@
 	<string name="cancel_download">İndirme İşlemini İptal Et</string>
 	<!-- Button which deletes downloaded country -->
 	<string name="delete">Sil</string>
-	<!-- Button to dismiss dialog forever -->
-	<string name="do_not_ask_me_again">Bunu tekrar sorma</string>
 	<!-- Button "do not interrupt download" if user touched actively downloading country -->
 	<string name="do_nothing">Devam</string>
 	<string name="download_maps">Haritaları İndir</string>
-	<!-- Settings/Downloader - Download confirmation button -->
-	<string name="download_x_kb">%qu kB indir</string>
-	<!-- Settings/Downloader - Download confirmation button -->
-	<string name="download_x_mb">%qu MB indir</string>
 	<!-- Settings/Downloader - info for country when download fails -->
 	<string name="download_has_failed">İndirme işlemi başarısız oldu, bir kez daha denemek için tekrar dokunun</string>
-	<!-- Settings/Downloader - info for downloaded country -->
-	<string name="downloaded_x_y_touch_to_delete">(%1$qu %2$s) indirildi, silmek için dokunun</string>
-	<!-- Settings/Downloader - country info current download progress -->
-	<string name="downloading_x_touch_to_cancel">%qu%% indiriliyor, iptal etmek için dokunun</string>
 	<!-- Settings/Downloader - info for country which started downloading -->
 	<string name="downloading">İndiriliyor…</string>
-	<string name="get_it_now">Hemen al</string>
 	<!-- Settings/Downloader - size string, only strings different from English should be translated -->
 	<string name="kb">kB</string>
 	<!-- Choose measurement on first launch alert - choose metric system button -->
@@ -38,26 +27,16 @@
 	<string name="leave_a_review">Bir Yorum Bırak</string>
 	<!-- View and button titles for accessibility -->
 	<string name="maps">Haritalar</string>
-	<!-- View and button titles for accessibility -->
-	<string name="downloader_maps">Haritalar:</string>
-	<!-- Settings/Downloader - info for country in the download queue -->
-	<string name="marked_for_downloading">İndirmek üzere işaretlendi, iptal etmek için dokunun</string>
 	<!-- Settings/Downloader - size string, only strings different from English should be translated -->
 	<string name="mb">MB</string>
 	<!-- Choose measurement on first launch alert - choose imperial system button -->
 	<string name="miles">Mil</string>
 	<!-- View and button titles for accessibility -->
 	<string name="core_my_position">Konumum</string>
-	<!-- Settings/Downloader - No free space dialog message -->
-	<string name="free_disk_space_for_country_x">%s indirmek için lütfen ilk önce cihazınızda biraz alan boşaltın</string>
-	<!-- Leave Review dialog - Not now button (remind me later) -->
-	<string name="remind_me_later">Daha sonra hatırlat</string>
 	<!-- Update maps later/Buy pro version later button text -->
 	<string name="later">Daha sonra</string>
 	<!-- Don't show some dialog any more -->
 	<string name="never">Asla</string>
-	<!-- Leave Review dialog - Complain button (goes to support site) -->
-	<string name="report_an_issue">Bir sorunu bildir</string>
 	<!-- View and button titles for accessibility -->
 	<string name="search">Ara</string>
 	<!-- Search box placeholder text -->
@@ -66,18 +45,12 @@
 	<string name="touch_to_download">İndirmek için dokunun</string>
 	<!-- Settings/Downloader - 3G download warning dialog confirm button -->
 	<string name="use_cellular_data">Evet</string>
-	<!-- Choose measurement on first launch alert - title -->
-	<string name="which_measurement_system">Hangi ölçü sistemini tercih edersiniz?</string>
 	<!-- Location services are disabled by user alert - message -->
 	<string name="location_is_disabled_long_text">Şu anda bu cihaz için tüm Yer Hizmetleri veya uygulama devre dışı bırakılmış. Lütfen Ayarlar bölümünden etkinleştirin.</string>
 	<!-- Location Services are not available on the device alert - message -->
 	<string name="device_doesnot_support_location_services">Cihazınız Yer Hizmetlerini desteklemiyor</string>
 	<!-- View and button titles for accessibility -->
 	<string name="zoom_to_country">Haritada göster</string>
-	<!-- Message to display at the center of the screen when the country is added to the downloading queue -->
-	<string name="country_status_added_to_queue">^\nindirme kuyruğuna eklendi</string>
-	<!-- Message to display at the center of the screen when the country is downloading -->
-	<string name="country_status_downloading">^\n^\nindiriliyor</string>
 	<!-- Button text for the button at the center of the screen when the country is not downloaded -->
 	<string name="country_status_download">Haritayı İndir\n(^ ^)</string>
 	<!-- Button text for the button at the center of the screen when the country is not downloaded and the size should not be shown -->
@@ -89,7 +62,6 @@
 	<!-- Button text for the button under the country_status_download_failed message -->
 	<string name="try_again">Tekrar Deneyin</string>
 	<string name="about_menu_title">OMaps Hakkında</string>
-	<string name="downloading_touch_to_cancel">%d%% indiriliyor, iptal etmek için dokunun</string>
 	<string name="downloaded_touch_to_delete">(%s) indirildi, silmek için dokunun</string>
 	<string name="connection_settings">Bağlantı Ayarları</string>
 	<string name="download_mb_or_kb">%s indir</string>
@@ -100,7 +72,6 @@
 	<string name="disconnect_usb_cable">OMaps’yi kullanabilmeniz için lütfen USB kablosunun bağlantısını kesin veya hafıza kartı takın</string>
 	<string name="not_enough_free_space_on_sdcard">Uygulamayı kullanabilmeniz için lütfen SD kart/USB depolama aygıtında biraz alan boşaltın</string>
 	<string name="not_enough_memory">Uygulamayı başlatmak için yeterli hafıza yok</string>
-	<string name="free_space_for_country">%2$s indirebilmeniz için lütfen ilk önce cihazınızda %1$s alan boşaltın</string>
 	<string name="download_resources">Başlamadan önce cihazınıza genel dünya haritasını indirelim.\nVerilerin %s’si gerekli.</string>
 	<string name="getting_position">Geçerli konum alınıyor</string>
 	<string name="download_resources_continue">Haritaya Git</string>
@@ -108,25 +79,9 @@
 	<string name="download_country_ask">%s indir?</string>
 	<string name="update_country_ask">%s güncelle?</string>
 	<!-- REMOVE THIS STRING AFTER REFACTORING -->
-	<string name="download_location_map_proposal">Geçerli konumunuzun haritasını\nindirebilirsiniz.</string>
-	<!-- REMOVE THIS_STRING AFTER REFACTORING -->
-	<string name="download_location_update_map_proposal">Geçerli konumunuzun haritasını\ngüncelleyebilirsiniz.</string>
-	<!-- REMOVE THIS STRING AFTER REFACTORING -->
-	<string name="download_location_map_up_to_date">Geçerli\nkonumunuzun haritası (%s) güncel</string>
-	<!-- REMOVE THIS STRING AFTER REFACTORING -->
 	<string name="pause">Duraklat</string>
 	<!-- REMOVE THIS STRING AFTER REFACTORING -->
 	<string name="continue_download">Devam</string>
-	<string name="downloaded_touch_to_update">(%s) indirildi, güncellemek veya silmek için dokunun</string>
-	<string name="update_mb_or_kb">%s güncelle</string>
-	<!-- Show popup notification when we have downloaded countries without search (from Lite version) -->
-	<string name="search_update_maps">Arama işlevi için güncellenmiş haritalara ihtiyacınız var:</string>
-	<!-- Show popup notification on app start when we have out-of-date maps -->
-	<string name="advise_update_maps">Bu haritalar için güncelleme kullanılabilir:</string>
-	<!-- Show popup notification in Pro version that Lite can be deleted -->
-	<string name="suggest_uninstall_lite">OMaps Lite’e artık ihtiyacınız yok; bu nedenle uygulamayı kaldırabilirsiniz.</string>
-	<!-- Show popup notification on top of the map when country was downloaded. -->
-	<string name="download_country_success">%s başarılı bir şekilde indirildi</string>
 	<!-- Show popup notification on top of the map when country download has failed. -->
 	<string name="download_country_failed">%s indirme işlemi başarısız oldu</string>
 	<!-- Add New Bookmark Set dialog title -->
@@ -155,8 +110,6 @@
 	<string name="set">Ayarla</string>
 	<!-- Text hint in Bookmarks dialog when no any bookmarks are added -->
 	<string name="bookmarks_usage_hint">Henüz hiç yer iminiz yok.\nYer imi eklemek için haritada bir yere dokunun.\nBaşka kaynaklardan da yer imleri alınıp OMaps’de gösterilebilir KML/KMZ dosyasını posta, Dropbox veya web bağlantısından kaydedilen pinlerle aç.</string>
-	<!-- Text hint in Bookmarks dialog when at least one bookmark is added -->
-	<string name="bookmarks_usage_hint_import_only">Başka kaynaklardan yer imleri alınıp OMaps’de gösterilebilir. KML/KMZ dosyasını posta, Dropbox veya web bağlantısından kaydedilen yer imleriyle aç.</string>
 	<!-- Settings button in system menu -->
 	<string name="settings">Ayarlar</string>
 	<!-- Header of settings activity where user defines storage path -->
@@ -776,11 +729,6 @@
 	<string name="editor_report_problem_other_title">Farklı bir problem</string>
 	<string name="placepage_report_problem_button">Bir problem bildirin</string>
 	<string name="placepage_add_business_button">Kuruluş ekle</string>
-	<string name="whatsnew_smallmwm_header">Siz istediniz biz yaptık</string>
-	<string name="whatsnew_smallmwm_message">Haritaları parçalara ayırdık. Artık tüm ülke yerine belirli bölgeleri indirebilirsiniz.</string>
-	<string name="whatsnew_search_header">Yeni arama</string>
-	<string name="whatsnew_search_message">Adres ile aramayı önemli ölçüde geliştirdik. Kendiniz görün.</string>
-	<string name="whatsnew_editor_title">Haritayı düzenleyin*</string>
 	<string name="whatsnew_editor_message_1">Doğrudan uygulamadan haritaya yeni yerler ekle ve mevcut yerleri düzenleyin.</string>
 	<string name="whatsnew_editor_message_2">* OMaps, OpenStreetMap topluluğu verilerini kullanmaktadır.</string>
 	<string name="dialog_incorrect_feature_position">Konumu değiştir</string>
@@ -826,10 +774,6 @@
 	<string name="current_location_unknown_stop_button">Dur</string>
 	<string name="current_location_unknown_error_title">Geçerli konum bilinmiyor.</string>
 	<string name="current_location_unknown_error_message">Konumunuz aranırken bir hata oluştu. Cihazının düzgün çalışıp çalışmadığını kontrol edip daha sonra tekrar deneyin.</string>
-	<string name="whatsnew_update_editor_title">Harita düzenleyicisini güncelledik</string>
-	<string name="whatsnew_update_editor_message">OMaps kullanıcıları, haritalar üzerinde 200.000 değişiklik yaptı. Birlikte, dünyanın en detaylı haritalarını yaratıyoruz. Bize katılın!</string>
-	<!-- Additional text in whats new -->
-	<string name="whatsnew_update_editor_message_update">Harita Editörü\'nü kullanmak için lütfen tüm haritaları güncelleyin.</string>
 	<string name="location_services_disabled_header">Konum tanımlama devre dışı bırakıldı</string>
 	<string name="location_services_disabled_message">Cihaz ayarlarında konum belirlemeye erişimi etkinleştirin</string>
 	<string name="location_services_disabled_1">1. Ayarları Açın</string>
@@ -917,14 +861,6 @@
 	<string name="sharing_call_action_look">İncele</string>
 	<string name="continue_recent_track_background_button">Devam Et</string>
 	<string name="recent_track_background_dialog_message">OMaps, en son seyahat ettiğiniz rotayı kaydetmek için arka planda coğrafi konumunuzu kullanır.</string>
-	<string name="whatsnew_car_navigation_header">Kullanıcı dostu araç navigasyonu</string>
-	<string name="whatsnew_car_navigation_message">• Navigasyon ögeleri daha az yer kaplıyor.\n• Hızı gösteriyoruz ve otomatik yakınlaştırma ilave ettik.</string>
-	<string name="whatsnew_cycle_navigation_2_header">Bisiklet navigasyonu</string>
-	<string name="whatsnew_cycle_navigation_2_message">• Bisiklet navigasyonu arazi verilerini hesaba katar.\n• Yol eğimlerini hesaba katarak daha kolay rotalar oluşturuyoruz.</string>
-	<string name="whatsnew_booking_2_header">Kolay otel arama</string>
-	<string name="whatsnew_booking_2_message">Arama sonuçları otel puan ve fiyat kategorisini gösterir.</string>
-	<string name="whatsnew_cycle_navigation_header">Bisiklet navigasyonu (beta sürüm)</string>
-	<string name="whatsnew_cycle_navigation_message">Yeni sezon için bisiklet navigasyonu özelliğini test ediyoruz. En sık kullandığınız bisiklet rotasını OMaps ile deneyin ve görüşlerinizi bizimle paylaşın.</string>
 	<!-- Rate on Google Play (Android only) -->
 	<string name="rate_gp">Google Play\'de Oy Ver</string>
 	<!-- Share with friends: menu item title -->
@@ -985,8 +921,6 @@
 	<string name="chat">GeoChat</string>
 	<!-- Verb. Text on a button that opens the chat. -->
 	<string name="chat_open">Aç</string>
-	<string name="whatsnew_uber_header">OMaps ve Uber</string>
-	<string name="whatsnew_uber_message">Doğrudan uygulamadan Uber taksi isteyin!</string>
 	<string name="dialog_taxi_offline">Taksi çağırma çevrimdışı modda kullanılamıyor.</string>
 	<string name="dialog_taxi_error">Taksi çağırma geçici olarak kullanılamıyor.</string>
 	<string name="mobile_data_dialog">Ayrıntılı bilgileri görüntülemek için mobil internet kullanılsın mı?</string>
@@ -1005,30 +939,6 @@
 	<string name="traffic_update_app_message">Trafik verilerini görüntülemek için uygulamanın güncellenmesi gerekiyor.</string>
 	<!-- "traffic" as in "road congestion" -->
 	<string name="traffic_data_unavailable">Trafik verileri kullanılamıyor</string>
-	<!-- december -->
-	<string name="whatsnew_traffic">36 Ülkeden Trafik Verileri</string>
-	<!-- december -->
-	<string name="whatsnew_traffic_text">En güncel trafik verileri ve en hızlı sürüş güzergâhları!</string>
-	<!-- december -->
-	<string name="whatsnew_traffic_roaming">Roaming (Dolaşım) esnasında trafik bilgileri</string>
-	<!-- december -->
-	<string name="whatsnew_traffic_roaming_text">Her yolculuk için en az 1 MB mobil bant genişliği gereklidir.</string>
-	<!-- december -->
-	<string name="whatsnew_order_taxi">Taksi Çağırma</string>
-	<!-- december -->
-	<string name="whatsnew_order_taxi_text">Artık çoğu konum sayfalarında taksi çağırmak için bir düğme bulunuyor.</string>
-	<!-- january -->
-	<string name="whatsnew_improved_search">Gelişmiş Arama</string>
-	<!-- january -->
-	<string name="whatsnew_improved_search_text">Hatalı yazılan sorguları bile doğru getiren arama sonuçları.</string>
-	<!-- january -->
-	<string name="whatsnew_filters_in_search">Arama Filtreleri</string>
-	<!-- january -->
-	<string name="whatsnew_filters_in_search_text">Ücret ve puana göre otel arama.</string>
-	<!-- january -->
-	<string name="whatsnew_font_size">Yazı Tipi Boyutu</string>
-	<!-- january -->
-	<string name="whatsnew_font_size_text">Harita üzerindeki etiketler daha büyük hale getirilebilir.</string>
 	<!-- Seven points and higher -->
 	<string name="booking_filter_rating_num_good">7.0+</string>
 	<!-- Eight points and higher -->
@@ -1038,16 +948,6 @@
 	<!-- Simplified colour scheme for traffic information, fewer colours are used to display traffic jams on the map. The string should be kept as short as possible -->
 	<string name="pref_traffic_simplified_colors_title">Sadeleştirilmiş trafik renkleri</string>
 	<string name="enable_logging">Günlüğü etkinleştir</string>
-	<string name="whatsnew_more_info_on_hotels_title">Oteller hakkında daha fazla bilgi</string>
-	<string name="whatsnew_more_info_on_hotels_message">Otel sayfalarına yeni bir bakış: fotoğraflara, kullanıcı yorumlarına ve diğer bilgilere çevrimiçi olarak gözatın.</string>
-	<string name="whatsnew_better_routing_title">Geliştirilmiş Güzergâh Planlama</string>
-	<string name="whatsnew_better_routing_message">• Daha doğru varış zamanı tahmini.\n• Uygulama, sınırlı alanları ve yol işaretlerini dikkate alır.</string>
-	<string name="whatsnew_smaller_mwm_title">Haritalar Küçültüldü</string>
-	<string name="whatsnew_smaller_mwm_message">Artık haritalar %20\'ye kadar daha az depolama alanı gerektiriyor.</string>
-	<string name="whatsnew_waypoints_title">Güzergâhtaki Yol Noktaları</string>
-	<string name="whatsnew_waypoints_message">Güzergâhınıza yol noktası olarak eklemek istediğiniz yerlere dokunun.</string>
-	<string name="whatsnew_driving_style_title">Sürüş İçin Yeni Harita Stili</string>
-	<string name="whatsnew_driving_style_message">Araç navigasyon modunu kullanmak şimdi çok daha kolay.</string>
 	<string name="more_on_bookingcom">Booking.com hakkında daha fazla</string>
 	<string name="details_on_bookingcom">Booking.com hakkında detaylar</string>
 	<string name="reviews_on_bookingcom">Booking.com hakkında daha fazla değerlendirme</string>
@@ -1077,7 +977,6 @@
 	<string name="prefs_languages_information_off">Bazı diller için uygulama mağazasından (Google Play Market, Samsung Apps) farklı bir konuşma sentezleyicisi veya ek bir dil paketi yüklemeniz gerekebilir. Cihaz ayarları → Dil ve Giriş → Konuşma → Metin Okuma sekmelerini açın. Buradan konuşma sentezi ayarlarını yönetebilir (örneğin, çevrimdışı kullanım için bir dil paketini karşıdan yükleyebilir) ve başka bir metin okuma motorunu seçebilirsiniz.</string>
 	<string name="prefs_languages_information_off_link">Daha fazla bilgi için lütfen bu kılavuzu inceleyin.</string>
 	<string name="whatsnew_transliteration_title">Latince alfabesine çevirme</string>
-	<string name="whatsnew_transliteration_message">Bir caddenin veya bir nesnenin adının kendi dilinizde mevcut olmaması durumunda, Latin alfabesi kullanılarak yazılır.</string>
 	<string name="learn_more">Daha fazla bilgi edinin</string>
 	<string name="core_exit">Çık</string>
 	<string name="routing_add_start_point">Güzergâhı planlamak için bir başlangıç noktası ekleyin</string>
@@ -1096,8 +995,6 @@
 	<string name="dialog_change_start_point_message">Başlangıç noktası mevcut konumla değiştirilsin mi?</string>
 	<string name="button_replace">Değiştir</string>
 	<string name="placepage_add_stop">Ara nokta ekle</string>
-	<string name="whatsnew_intermediate_point_title">Ek ara nokta</string>
-	<string name="whatsnew_intermediate_point_message">Güzergâhlarınızı ara noktalarla planlayın.</string>
 	<string name="add_my_position">Konumumu ekle</string>
 	<string name="choose_start_point">Bir başlangıç noktası seçin</string>
 	<string name="choose_destination">Bir hedef seçin</string>
@@ -1403,15 +1300,6 @@
 	<string name="whats_new_ugc_routes_subtitle">nutulmaz mekanları kaydedin, sayfa işaretleri kullanarak rotalar oluşturun ve bunları OMaps kataloğundaki herkesle paylaşın.</string>
 	<string name="whats_new_webeditor_title">Rotalarınızı hikayelere dönüştürün</string>
 	<string name="whats_new_ugc_routes_message2">Web editöre fotoğraflar ve detaylı hikayeler ekleyin.</string>
-	<string name="whatsnew_standard_routes_title">Standart rotalar</string>
-	<string name="whatsnew_standard_routes_message">Temel ilgi noktaları ve kısa açıklamalar kümesi fakat fazla deneyim!</string>
-	<string name="whatsnew_city_overview_title">Şehre genel bakış</string>
-	<string name="whatsnew_city_overview_message">Şehir haritasında 200\'e kadar ilgi noktası: Gezginlerin yararlı ve ilginç bulabileceği her şey var!</string>
-	<string name="whatsnew_pro_guides_title">Profesyonel rotalar</string>
-	<string name="whatsnew_pro_guides_message">Yerlerin ayrıntılı açıklamaları ve yolculuk mesafesini ve zamanını hesaplama becerisi ile çok ayrıntılı</string>
-	<string name="whatsnew_paid_routes_title">Daha fazla yeni deneyimler!</string>
-	<string name="whatsnew_paid_routes_message">Ücretsiz rotalara ek olarak, kataloğumuza 3 ücretli rota kategorisi ekledik. 700\'den fazla yeni rota!</string>
-	<string name="whats_new_ugc_routes_title_android_only">İzlenimlerinizi paylaşmak çok kolay</string>
 	<string name="ugc_thanks_message_auth">Yorumunuz kaydedildi</string>
 	<string name="ugc_thanks_message_not_auth">Yorum yapmak için lütfen giriş yapınız</string>
 	<string name="notification_leave_review_v2_title">Ziyaret edilen bir yere puan verin ve gezginlere yardım edin!</string>
@@ -1495,10 +1383,6 @@
 	<string name="whats_new_auto_update_bydeeplink_title">Rehberlere geçmeden önce…</string>
 	<string name="whats_new_auto_update_bydeeplink_message">Nesneler hakkındaki bilgileri güncel tutmak için haritaları güncelleyin!</string>
 	<string name="whats_new_auto_update_and_proceed_button_size">(%s) güncelle ve devam et</string>
-	<string name="whatsnew_toll_unpaved_title">Her türlü yolu göz önünde bulundurarak otomobil rotalarını düzenleyin</string>
-	<string name="whatsnew_toll_unpaved_message">Paralı yollar, toprak yollar ve feribot seferlerine göre gideceğiniz dolambaçlı yolları seçin</string>
-	<string name="whatsnew_new_catalogue_title">Katalog sayfaları güncellendi</string>
-	<string name="whatsnew_new_catalogue_message">Rota seçimini kolay ve rahat hale getirmek için ortak rehnerleri hakkında ayrıntılı bilgiler ekledik</string>
 	<string name="purchase_please_wait_toast">Lütfen satın alma işlemi tamamlanmadan önce bu ekrandan çıkmayın</string>
 	<string name="trip_start">Hadi gidelim</string>
 	<string name="pick_destination">Hedef</string>
@@ -1554,12 +1438,6 @@
 	<string name="buy_btn_for_subscription_ios_only_year">%s/yıl için sınırsız erişim</string>
 	<string name="subscription_terms_guides">Satın alma onayından sonra, ödeme iTunes hesabınızdan ücretlendirilecektir. Otomatik yenileme özelliği, geçerli dönemin sona ermesinden en az 24 saat önce kapatılmadıkça, abonelik otomatik olarak yenilenecektir. Hesabınız cari dönem sonundan önce, 24 saat içinde yenileme planınıza göre tahsil edilecektir. Apple ID hesap ayarlarınızdaki otomatik yenileme özelliğini, satın aldığınız her an, yönetebilir veya kapatabilirsiniz. Abonelikle indirilen rehberleri yalnızca son kullanma tarihine kadar kullanabilirsiniz. Abonelik bitiminden 30 gün sonra, son kullanma tarihi geçmiş yer imleri olan rehberler, otomatik olarak silinir.</string>
 	<string name="subscription_terms">Ödeme, satın alma onayında iTunes hesabınızdan alınacaktır. Otomatik yenileme geçerli dönemin sona ermesinden en az 24 saat önce kapatılmadıkça abonelik otomatik olarak yenilenecektir. Hesabınızdan, geçerli dönemin sona ermesinden önce 24 saat içinde planınıza göre yenileme için ücret alınacaktır. Otomatik yenilemeyi satın alma işleminizde dilediğiniz zaman Apple ID hesap ayarlarınızda yönetebilir veya kapatabilirsiniz.</string>
-	<string name="whatsnew_carplay_title">CarPlay\'de OMaps araç navigasyonu!</string>
-	<string name="whatsnew_carplay_message">Yer imleri, arama, hız kameraları ve sürüş seçenekleri çevrimdışı da mevcut</string>
-	<string name="whatsnew_subscription_title">Tüm dünya abonelikle elinizin altında!</string>
-	<string name="whatsnew_subscription_message">Rehber kataloğuna sınırsız erişim, bir kerelik satın almadan daha karlıdır</string>
-	<string name="whatsnew_carnavi_fixes_for_android_title">Navigasyon güncellemesi</string>
-	<string name="whatsnew_carnavi_fixes_for_android_message">Güzergah planlamayı yollardan uzakta bulunan noktalara erişecek kadar iyileştirdik</string>
 	<string name="avoid_unpaved_carplay_1">Stabilizesiz</string>
 	<string name="avoid_unpaved_carplay_2">Asfaltsız hariç</string>
 	<string name="avoid_ferry_carplay_1">Feribotsuz</string>
@@ -1616,8 +1494,6 @@
 	<string name="bookmarks_edit_list">Listeyi düzenle</string>
 	<!-- Android, max 18 symbols -->
 	<string name="bookmarks_delete_list">Listeyi sil</string>
-	<string name="whatsnew_bookmarks_search_sort_title">Yer imlerine göre sıralamak yolculuğunuzu rahatlaştırır</string>
-	<string name="whatsnew_bookmarks_search_sort_message">Favori yerleri kategori, konum ve kronolojik sıraya göre sıralayın ve belirli yer imlerini isimleriyle hızlı bir şekilde bulun</string>
 	<string name="popup_subscription_success_map_title">Yaşasın, abone oldun!</string>
 	<string name="popup_subscription_success_map_message">Şimdi OMaps kataloğunda en iyi turistik yerleri keşfedin</string>
 	<string name="popup_subscription_success_map_start_button">Göz atmaya başla</string>
@@ -1638,8 +1514,6 @@
 	<string name="subscription_screen_native_message_version_2">600\'den fazla şehir ve 100\'den fazla ülkede seyahat etmeye hazır olun</string>
 	<string name="catalog_no_internet_title">İnternet bağlantısı yok</string>
 	<string name="catalog_no_internet_button">Tekrar deneyin</string>
-	<string name="whatsnew_map_updates_title">Daha hızlı harita güncellemeleri</string>
-	<string name="whatsnew_map_updates_message">Artık verilerimizi iki kat daha hızlı güncelliyoruz</string>
 	<string name="new_onboarding_button">İleri</string>
 	<string name="new_onboarding_button_2">Başla</string>
 	<string name="new_onboarding_step1_header_2">Her şey dahil seyahat arkadaşı</string>
@@ -1684,10 +1558,6 @@
 	<string name="downloader_country_no_guides_gallery_header">Bu ülkede henüz rehber yok</string>
 	<string name="downloader_country_no_guides_gallery_message">Şehir ve açık hava etkinlikleri için 100\'den fazla ülkedeki diğer çevrimdışı kılavuzlara göz atabilirsiniz</string>
 	<string name="dialog_pedestrian_route_is_long">Araç biniş noktasına giden yaya yolu çok uzun</string>
-	<string name="whatsnew_outdoor_guides_title">15000\'den fazla açık hava güzergahı ekledik!</string>
-	<string name="whatsnew_outdoor_guides_message">Outdooractive\'in kış ve yaz seyahatleri için güzergahlar katalogda bekliyor!</string>
-	<string name="whatsnew_guides_galleries_title">Yaklaşan seyahatinizi OMaps ile planlayın</string>
-	<string name="whatsnew_guides_galleries_message">Artık popüler turistik şehirlerin ve turistik mekanların yer sayfalarında önerilen rehberleri bulabilirsiniz</string>
 	<string name="new_onboarding_step3_header">Deneyimle</string>
 	<string name="all_pass_screen_best_value">En İyi Teklif</string>
 	<string name="buy_btn_for_subscription_3">Tüm katalog %s/yıl</string>
@@ -1696,9 +1566,6 @@
 	<string name="dialog_pedestrian_route_is_long_message">Metro istasyonuna en yakın rotanın başlangıç veya bitiş noktasını seçin</string>
 	<!-- Failed planning SUBWAY route message in navigation view -->
 	<string name="routing_planning_error_subway_special">Metro güzergahı oluşturma hatası</string>
-	<string name="whatsnew_isolines_title">Açık hava etkinlikleri için yenilik – yükseklik çizgileri çevrimdışı!</string>
-	<!-- as less symbols as possible -->
-	<string name="whatsnew_isolines_message">Dağlık alanda kendinizi yönlendirin – ekranın sol üst köşesindeki düğmeyi kullanarak katmanı açın</string>
 	<string name="button_layer_isolines">Yükseklikler</string>
 	<string name="tips_map_layers_title_countour">OMaps\'de yükseklik çizgileri çevrimdışı!</string>
 	<string name="tips_map_layers_message_countour">Yükseklik çizgileri, doğaya bir gezi planlamanıza ve arazide kaybolmamanıza yardımcı olacaktır</string>
@@ -1735,12 +1602,6 @@
 	<string name="routes_card_show">Haritada göster</string>
 	<!-- as few symbols as possible -->
 	<string name="routes_card_hide">Haritadan gizle</string>
-	<string name="whatsnew_catalog_new_title">Yeni rehber kataloğu ve yüzlerce seyahat fikri</string>
-	<string name="whatsnew_catalog_new_message">Rehber kataloğumuzu güncelledik ve popüler dillerde çeviriler ekledik. Gezinizi önceden planlamaya başlayın!</string>
-	<string name="whatsnew_elevation_profile_title">Rehberlerde yükseklik profili</string>
-	<string name="whatsnew_elevation_profile_message">Satın alınan rotanın profilindeki imleci kullanarak, yaklaşan yükselişlerin ve inişlerin zorluk derecesini çevrimdışı olarak değerlendirin.</string>
-	<string name="whatsnew_guides_on_map_title">Rehberleri kolayca bulmak için yeni katman!</string>
-	<string name="whatsnew_guides_on_map_message">Açık hava etkinlikleri için ilginç şehir rotalarını ve seyahat rehberlerini hızlı bir şekilde bulmak için uygulamanın ayarlar menüsündeki katmanı etkinleştirin.</string>
 	<string name="downloader_updating_ios">Güncelleme</string>
 	<string name="downloader_loading_ios">İndir</string>
 	<string name="routes_card_plus_track">+ rota</string>
@@ -1776,8 +1637,6 @@
 	<string name="choose_dates_online_only_dialog_message">Tarihler ve konuk sayısı sadece çevrimiçi iken seçilebilir. Lütfen ayarlarını kontrol edin ve internete bağlı olduğunuzdan emin olun.</string>
 	<string name="choose_dates_online_only_dialog_cta">Ayarlar</string>
 	<string name="thirty_days_limit_dialog">Maksimum 30 gecelik rezervasyon yapabilirsiniz</string>
-	<string name="whatsnew_trial_title">Rehber kataloğuna ücretsiz erişim</string>
-	<string name="whatsnew_trial_message">Artık kullanıcılarımıza 7 günlük deneme süresi sunuyoruz. Tüm dünyadan seyahat rehberlerine ve doğa gezilerini seven kullanıcılar için interaktif dağ profillerine erişim.</string>
 	<string name="whatsnew_trial_cta">Hemen deneyin</string>
 	<string name="subscription_terms_guides_outdoor">Satın alma işlemini onayladığınızda, ödeme iTunes hesabınızdan gerçekleştirilecektir. Otomatik yenileme özelliği mevcut abonelik döneminin sona ermesinden en az 24 saat önce devre dışı bırakılmadığı sürece abonelik otomatik olarak yenilenir. Yenileme planı çerçevesinde, mevcut abonelik döneminizin sona ermesinden önceki 24 saat içinde hesabınızdan para çekilecektir. Satın alma işleminden sonra dilediğiniz zaman Apple Kimliği hesap ayarlarından otomatik yenilemeyi yönetebilir veya devre dışı bırakabilirsiniz. Aboneliğiniz süresinde indirdiğiniz rehberleri sadece aboneliğiniz geçerli olduğu sürece kullanabilirsiniz. Rehberler ve tüm yer işaretleri, aboneliğin sona ermesinden 7 gün sonra otomatik olarak silinecektir.\n* Ücretsiz deneme süresinde sahip abonelikler, otomatik olarak ücretli abonelik şeklinde yenilenir. Satın alma işleminden sonra hesap ayarlarından ücretsiz deneme süresi sonunda otomatik yenilemeyi iptal edebilir veya yönetebilirsiniz. İptal işlemi, mevcut abonelik döneminin son gününden 24 saat sonra geçerli olacaktır. Bu aşamadan sonra ücretsiz hizmete geçersiniz. Lütfen unutmayın: Ücretsiz deneme süresinde premium abonelik satın almanız durumunda, ücretsiz deneme süresinde henüz kullanmadığınız günlerden feragat etmiş sayılırsınız.</string>
 	<string name="subscription_terms_android_outdoor">Satın alma işlemini onayladığınızda, ödeme Google Play hesabınızdan gerçekleştirilecektir. Otomatik yenileme özelliği mevcut abonelik döneminin sona ermesinden en az 24 saat önce devre dışı bırakılmadığı sürece abonelik otomatik olarak yenilenir. Yenileme planı çerçevesinde, mevcut abonelik döneminizin sona ermesinden önceki 24 saat içinde hesabınızdan para çekilecektir. Satın alma işleminden sonra dilediğiniz zaman hesap ayarlarından otomatik yenilemeyi yönetebilir veya devre dışı bırakabilirsiniz. Aboneliğiniz süresinde indirdiğiniz rehberleri sadece aboneliğiniz geçerli olduğu sürece kullanabilirsiniz. Rehberler, aboneliğin sona ermesinden 7 gün sonra otomatik olarak silinecektir.\n* Ücretsiz deneme süresinde sahip abonelikler, otomatik olarak ücretli abonelik şeklinde yenilenir. Satın alma işleminden sonra hesap ayarlarından ücretsiz deneme süresi sonunda otomatik yenilemeyi iptal edebilir veya yönetebilirsiniz. İptal işlemi, mevcut abonelik döneminin son gününden 24 saat sonra geçerli olacaktır. Bu aşamadan sonra ücretsiz hizmete geçersiniz. Lütfen unutmayın: Ücretsiz deneme süresinde premium abonelik satın almanız durumunda, ücretsiz deneme süresinde henüz kullanmadığınız günlerden feragat etmiş sayılırsınız.</string>

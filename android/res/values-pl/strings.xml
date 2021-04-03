@@ -12,24 +12,13 @@
 	<string name="cancel_download">Anuluj pobieranie</string>
 	<!-- Button which deletes downloaded country -->
 	<string name="delete">Usuń</string>
-	<!-- Button to dismiss dialog forever -->
-	<string name="do_not_ask_me_again">Nie pytaj ponownie</string>
 	<!-- Button "do not interrupt download" if user touched actively downloading country -->
 	<string name="do_nothing">Kontynuuj</string>
 	<string name="download_maps">Pobierz mapy</string>
-	<!-- Settings/Downloader - Download confirmation button -->
-	<string name="download_x_kb">Pobierz %qu kB</string>
-	<!-- Settings/Downloader - Download confirmation button -->
-	<string name="download_x_mb">Pobierz %qu MB</string>
 	<!-- Settings/Downloader - info for country when download fails -->
 	<string name="download_has_failed">Nie udało się pobrać. Proszę nacisnąć, aby spróbować ponownie.</string>
-	<!-- Settings/Downloader - info for downloaded country -->
-	<string name="downloaded_x_y_touch_to_delete">Pobrano (%1$qu %2$s). Proszę nacisnąć, aby usunąć.</string>
-	<!-- Settings/Downloader - country info current download progress -->
-	<string name="downloading_x_touch_to_cancel">Pobieranie %qu%%. Proszę nacisnąć, aby anulować.</string>
 	<!-- Settings/Downloader - info for country which started downloading -->
 	<string name="downloading">Pobieranie…</string>
-	<string name="get_it_now">Pobierz</string>
 	<!-- Settings/Downloader - size string, only strings different from English should be translated -->
 	<string name="kb">KB</string>
 	<!-- Choose measurement on first launch alert - choose metric system button -->
@@ -38,24 +27,14 @@
 	<string name="leave_a_review">Napisz recenzję</string>
 	<!-- View and button titles for accessibility -->
 	<string name="maps">Mapy</string>
-	<!-- View and button titles for accessibility -->
-	<string name="downloader_maps">Mapy:</string>
-	<!-- Settings/Downloader - info for country in the download queue -->
-	<string name="marked_for_downloading">Oznaczono do pobrania. Proszę nacisnąć, aby anulować</string>
 	<!-- Choose measurement on first launch alert - choose imperial system button -->
 	<string name="miles">Mile</string>
 	<!-- View and button titles for accessibility -->
 	<string name="core_my_position">Moje położenie</string>
-	<!-- Settings/Downloader - No free space dialog message -->
-	<string name="free_disk_space_for_country_x">Aby pobrać %s, musisz najpierw zwolnić nieco miejsca na swoim urządzeniu.</string>
-	<!-- Leave Review dialog - Not now button (remind me later) -->
-	<string name="remind_me_later">Przypomnij później</string>
 	<!-- Update maps later/Buy pro version later button text -->
 	<string name="later">Później</string>
 	<!-- Don't show some dialog any more -->
 	<string name="never">Nigdy</string>
-	<!-- Leave Review dialog - Complain button (goes to support site) -->
-	<string name="report_an_issue">Zgłoś błąd</string>
 	<!-- View and button titles for accessibility -->
 	<string name="search">Wyszukaj</string>
 	<!-- Search box placeholder text -->
@@ -64,18 +43,12 @@
 	<string name="touch_to_download">Proszę nacisnąć, aby pobrać.</string>
 	<!-- Settings/Downloader - 3G download warning dialog confirm button -->
 	<string name="use_cellular_data">Tak</string>
-	<!-- Choose measurement on first launch alert - title -->
-	<string name="which_measurement_system">Który system miar jest najbardziej dogodny?</string>
 	<!-- Location services are disabled by user alert - message -->
 	<string name="location_is_disabled_long_text">Usługi lokalizacji są aktualnie wyłączone dla tego urządzenia lub aplikacji. Proszę włączyć je w ustawieniach.</string>
 	<!-- Location Services are not available on the device alert - message -->
 	<string name="device_doesnot_support_location_services">Urządzenie nie obsługuje usług lokalizacji</string>
 	<!-- View and button titles for accessibility -->
 	<string name="zoom_to_country">Wyświetl na mapie</string>
-	<!-- Message to display at the center of the screen when the country is added to the downloading queue -->
-	<string name="country_status_added_to_queue">^\ndodano do kolejki pobierania</string>
-	<!-- Message to display at the center of the screen when the country is downloading -->
-	<string name="country_status_downloading">Pobieranie\n^\n^</string>
 	<!-- Button text for the button at the center of the screen when the country is not downloaded -->
 	<string name="country_status_download">Pobierz mapę\n(^ ^)</string>
 	<!-- Button text for the button at the center of the screen when the country is not downloaded and the size should not be shown -->
@@ -87,7 +60,6 @@
 	<!-- Button text for the button under the country_status_download_failed message -->
 	<string name="try_again">Spróbuj ponownie</string>
 	<string name="about_menu_title">O aplikacji OMaps</string>
-	<string name="downloading_touch_to_cancel">Pobieranie %d%%. Proszę nacisnąć, aby anulować.</string>
 	<string name="downloaded_touch_to_delete">Pobrano (%s). Proszę nacisnąć, aby usunąć.</string>
 	<string name="connection_settings">Ustawienia połączenia</string>
 	<string name="download_mb_or_kb">Pobierz %s</string>
@@ -98,7 +70,6 @@
 	<string name="disconnect_usb_cable">Proszę odłączyć kabel USB albo włożyć kartę pamięci, aby korzystać z OMaps</string>
 	<string name="not_enough_free_space_on_sdcard">Proszę zwolnić trochę pamięci na karcie SD/pamięci USB, aby korzystać z aplikacji</string>
 	<string name="not_enough_memory">Za mało pamięci, aby uruchomić aplikację</string>
-	<string name="free_space_for_country">Proszę zwolnić %1$s na urządzeniu, aby pobrać %2$s</string>
 	<string name="download_resources">Przed rozpoczęciem prosimy o pobranie ogólnej mapy świata na urządzenie.\nWymaga to %s danych.</string>
 	<string name="getting_position">Określanie aktualnego położenia</string>
 	<string name="download_resources_continue">Przejdź do mapy</string>
@@ -106,25 +77,9 @@
 	<string name="download_country_ask">Pobrać %s?</string>
 	<string name="update_country_ask">Uaktualnić %s?</string>
 	<!-- REMOVE THIS STRING AFTER REFACTORING -->
-	<string name="download_location_map_proposal">Można pobrać mapę terenu\nwokół bieżącego położenia.</string>
-	<!-- REMOVE THIS_STRING AFTER REFACTORING -->
-	<string name="download_location_update_map_proposal">Można uaktualnić mapę terenu\nwokół bieżącego położenia.</string>
-	<!-- REMOVE THIS STRING AFTER REFACTORING -->
-	<string name="download_location_map_up_to_date">Mapa wokół bieżącego\npołożenia (%s) jest aktualna</string>
-	<!-- REMOVE THIS STRING AFTER REFACTORING -->
 	<string name="pause">Wstrzymaj</string>
 	<!-- REMOVE THIS STRING AFTER REFACTORING -->
 	<string name="continue_download">Kontynuuj</string>
-	<string name="downloaded_touch_to_update">Pobrano (%s). Proszę nacisnąć, aby uaktualnić lub usunąć.</string>
-	<string name="update_mb_or_kb">Aktualizacja %s</string>
-	<!-- Show popup notification when we have downloaded countries without search (from Lite version) -->
-	<string name="search_update_maps">Aby korzystać z funkcji wyszukiwania, należy posiadać aktualne mapy:</string>
-	<!-- Show popup notification on app start when we have out-of-date maps -->
-	<string name="advise_update_maps">Dostępne uaktualnienia dla tych map:</string>
-	<!-- Show popup notification in Pro version that Lite can be deleted -->
-	<string name="suggest_uninstall_lite">Nie potrzeba już więcej OMaps Lite, więc można je usunąć.</string>
-	<!-- Show popup notification on top of the map when country was downloaded. -->
-	<string name="download_country_success">Pobrano %s</string>
 	<!-- Show popup notification on top of the map when country download has failed. -->
 	<string name="download_country_failed">Nie udało się pobrać %s</string>
 	<!-- Add New Bookmark Set dialog title -->
@@ -153,8 +108,6 @@
 	<string name="set">Zestaw</string>
 	<!-- Text hint in Bookmarks dialog when no any bookmarks are added -->
 	<string name="bookmarks_usage_hint">Nie oznaczono jeszcze żadnych zakładek.\nProszę dotknąć dowolnego miejsca na mapie, aby dodać zakładkę.\nMożna importować i wyświetlać zakładki z innych zasobów. Program otwiera pliki KML/KMZ z zapisanymi zakładkami, pochodzące z wiadomości email, Dropboxa lub odnośników internetowych.</string>
-	<!-- Text hint in Bookmarks dialog when at least one bookmark is added -->
-	<string name="bookmarks_usage_hint_import_only">Można importować i wyświetlać zakładki z innych zasobów. Program otwiera pliki KML/KMZ z zapisanymi zakładkami, pochodzące z wiadomości email, Dropboxa lub odnośników internetowych.</string>
 	<!-- Settings button in system menu -->
 	<string name="settings">Ustawienia</string>
 	<!-- Header of settings activity where user defines storage path -->
@@ -780,11 +733,6 @@
 	<string name="editor_report_problem_other_title">Inny problem</string>
 	<string name="placepage_report_problem_button">Zgłoś problem</string>
 	<string name="placepage_add_business_button">Dodaj organizację</string>
-	<string name="whatsnew_smallmwm_header">Prosiliście o to, więc to zrobiliśmy</string>
-	<string name="whatsnew_smallmwm_message">Podzieliliśmy mapy na części. Teraz możesz pobierać oddzielne regiony, zamiast całego kraju</string>
-	<string name="whatsnew_search_header">Nowe wyszukiwanie</string>
-	<string name="whatsnew_search_message">Znacząco usprawniliśmy wyszukiwanie po adresie. Przekonaj się sam.</string>
-	<string name="whatsnew_editor_title">Edytuj mapę*</string>
 	<string name="whatsnew_editor_message_1">Dodawaj nowe miejsca do mapy i edytuj już istniejące bezpośrednio z poziomu aplikacji.</string>
 	<string name="whatsnew_editor_message_2">* OMaps korzysta z danych społeczności OpenStreetMap.</string>
 	<string name="dialog_incorrect_feature_position">Zmień lokalizację</string>
@@ -830,10 +778,6 @@
 	<string name="current_location_unknown_stop_button">Stop</string>
 	<string name="current_location_unknown_error_title">Aktualna lokalizacja jest nieznana.</string>
 	<string name="current_location_unknown_error_message">Podczas szukania twojej lokalizacji wystąpił błąd. Sprawdź czy twoje urządzenie działa poprawnie i spróbuj ponownie później.</string>
-	<string name="whatsnew_update_editor_title">Zaktualizowaliśmy edytor map</string>
-	<string name="whatsnew_update_editor_message">Użytkownicy OMaps dokonali 200 000 zmian w mapach. Wspólnie tworzymy najbardziej szczegółowe mapy na świecie. Przyłącz się do nas!</string>
-	<!-- Additional text in whats new -->
-	<string name="whatsnew_update_editor_message_update">Aby korzystać z edytora map, zaktualizuj wszystkie mapy.</string>
 	<string name="location_services_disabled_header">Identyfikacja lokalizacji jest wyłączona</string>
 	<string name="location_services_disabled_message">Włącz dostęp do geolokalizacji w ustawieniach urządzenia</string>
 	<string name="location_services_disabled_1">1. Uruchom ustawienia</string>
@@ -921,14 +865,6 @@
 	<string name="sharing_call_action_look">Sprawdź</string>
 	<string name="continue_recent_track_background_button">Kontynuuj</string>
 	<string name="recent_track_background_dialog_message">OMaps używa w tle geolokalizacji w celu rejestrowania niedawno przebytej trasy.</string>
-	<string name="whatsnew_car_navigation_header">Przyjazna użytkownikowi nawigacja dla pojazdów</string>
-	<string name="whatsnew_car_navigation_message">• Elementy nawigacji zajmują mniej miejsca.\n• Wyświetlamy prędkość i dodaliśmy automatyczne powiększanie.</string>
-	<string name="whatsnew_cycle_navigation_2_header">Nawigacja dla rowerów</string>
-	<string name="whatsnew_cycle_navigation_2_message">• Nawigacja dla rowerów bierze pod uwagę dane terenu.\n• Tworzymy łatwiejsze trasy, biorąc pod uwagę nachylenie dróg.</string>
-	<string name="whatsnew_booking_2_header">Łatwe wyszukiwanie hoteli</string>
-	<string name="whatsnew_booking_2_message">Wyniki wyszukiwania pokazują kategorie oceny hoteli i ceny.</string>
-	<string name="whatsnew_cycle_navigation_header">Nawigacja rowerowa (wersja beta)</string>
-	<string name="whatsnew_cycle_navigation_message">Testujemy nawigację rowerową na nowy sezon. Wypróbuj swoją ulubioną trasę z OMaps i napisz nam, co myślisz o naszej nawigacji.</string>
 	<!-- Rate on Google Play (Android only) -->
 	<string name="rate_gp">Oceń w Google Play</string>
 	<!-- Share with friends: menu item title -->
@@ -989,8 +925,6 @@
 	<string name="chat">Geochat</string>
 	<!-- Verb. Text on a button that opens the chat. -->
 	<string name="chat_open">Otwórz</string>
-	<string name="whatsnew_uber_header">OMaps i Uber</string>
-	<string name="whatsnew_uber_message">Zamów taksówkę Uber bezpośrednio z aplikacji!</string>
 	<string name="dialog_taxi_offline">Zamawianie taksówek nie jest dostępne w trybie offline.</string>
 	<string name="dialog_taxi_error">Zamawianie taksówek jest tymczasowo niedostępne.</string>
 	<string name="mobile_data_dialog">Wykorzystać internet mobilny, aby wyświetlić dane szczegółowe?</string>
@@ -1009,30 +943,6 @@
 	<string name="traffic_update_app_message">Aby wyświetlić dane o ruchu, należy zaktualizować aplikację.</string>
 	<!-- "traffic" as in "road congestion" -->
 	<string name="traffic_data_unavailable">Dane o ruchu są niedostępne</string>
-	<!-- december -->
-	<string name="whatsnew_traffic">Dane o ruchu w 36 krajach</string>
-	<!-- december -->
-	<string name="whatsnew_traffic_text">Bieżące dane o ruchu drogowym oraz oparte o nie najszybsze trasy!</string>
-	<!-- december -->
-	<string name="whatsnew_traffic_roaming">Dane o ruchu w trybie roamingu</string>
-	<!-- december -->
-	<string name="whatsnew_traffic_roaming_text">Wymaga mniej niż 1 MB transferu mobilnego w ciągu 1 podróży.</string>
-	<!-- december -->
-	<string name="whatsnew_order_taxi">Zamów taksówkę</string>
-	<!-- december -->
-	<string name="whatsnew_order_taxi_text">Większość stron z lokalizacjami zawiera teraz przycisk do zamówienia taksówki.</string>
-	<!-- january -->
-	<string name="whatsnew_improved_search">Poprawiona opcja wyszukiwania</string>
-	<!-- january -->
-	<string name="whatsnew_improved_search_text">Dokładne wyniki wyszukiwania nawet przy błędnych zapytaniach.</string>
-	<!-- january -->
-	<string name="whatsnew_filters_in_search">Filtry wyszukiwania</string>
-	<!-- january -->
-	<string name="whatsnew_filters_in_search_text">Szukaj hoteli w oparciu o cenę i oceny.</string>
-	<!-- january -->
-	<string name="whatsnew_font_size">Rozmiar czcionki</string>
-	<!-- january -->
-	<string name="whatsnew_font_size_text">Etykiety na mapie dają się powiększyć.</string>
 	<!-- Seven points and higher -->
 	<string name="booking_filter_rating_num_good">7,0+</string>
 	<!-- Eight points and higher -->
@@ -1042,16 +952,6 @@
 	<!-- Simplified colour scheme for traffic information, fewer colours are used to display traffic jams on the map. The string should be kept as short as possible -->
 	<string name="pref_traffic_simplified_colors_title">Uproszczone kolory sygnalizacji</string>
 	<string name="enable_logging">Włącz logowanie</string>
-	<string name="whatsnew_more_info_on_hotels_title">Więcej informacji o hotelach</string>
-	<string name="whatsnew_more_info_on_hotels_message">Całkiem nowy wygląd stron hotelowych: przeglądaj zdjęcia, recenzje użytkowników i inne informacje online.</string>
-	<string name="whatsnew_better_routing_title">Ulepszone planowanie tras</string>
-	<string name="whatsnew_better_routing_message">• Dokładniejsze szacunki czasu przyjazdu.\n• Aplikacja uwzględnia obszary z ograniczonym dostępem i znaki drogowe.</string>
-	<string name="whatsnew_smaller_mwm_title">Mapy stały się mniejsze</string>
-	<string name="whatsnew_smaller_mwm_message">Mapy wymagają o 20% mniej pamięci.</string>
-	<string name="whatsnew_waypoints_title">Punkty nawigacyjne w trasowaniu</string>
-	<string name="whatsnew_waypoints_message">Naciśnij punkt nawigacyjny, aby dodać go do trasy.</string>
-	<string name="whatsnew_driving_style_title">Nowy styl mapy dla jazdy</string>
-	<string name="whatsnew_driving_style_message">Uproszczono tryb nawigacji pojazdu.</string>
 	<string name="more_on_bookingcom">Więcej na Booking.com</string>
 	<string name="details_on_bookingcom">Szczegóły na Booking.com</string>
 	<string name="reviews_on_bookingcom">Więcej opinii na Booking.com</string>
@@ -1081,7 +981,6 @@
 	<string name="prefs_languages_information_off">W przypadku niektórych języków wymagana będzie instalacja innego syntezatora lub pakietu językowego ze strony aplikacji (Google Play Market, Samsung Apps). Otwórz ustawienia urządzenia → Język i klawiatura → Mowa → Przetwarzanie tekstu na mowę.\nMożesz w tym miejscu zarządzać ustawieniami syntezy mowy (np. pobrać pakiet językowy do stosowania offline) i wybrać inny silnik przetwarzania tekstu na mowę.</string>
 	<string name="prefs_languages_information_off_link">Aby uzyskać więcej informacji, sprawdź ten poradnik.</string>
 	<string name="whatsnew_transliteration_title">Transkrypcja na alfabet łaciński</string>
-	<string name="whatsnew_transliteration_message">Jeśli dana ulica lub obiekt nie posiada nazwy w twoim języku, ich nazwa zapisana zostanie w alfabecie łacińskim.</string>
 	<string name="learn_more">Dowiedz się więcej</string>
 	<string name="core_exit">Wyjdź</string>
 	<string name="routing_add_start_point">Aby zaplanować trasę, dodaj punkt początkowy</string>
@@ -1100,8 +999,6 @@
 	<string name="dialog_change_start_point_message">Zamienić punkt początkowy na bieżącą lokalizację?</string>
 	<string name="button_replace">Zamień</string>
 	<string name="placepage_add_stop">Dodaj postój</string>
-	<string name="whatsnew_intermediate_point_title">Dodatkowy postój</string>
-	<string name="whatsnew_intermediate_point_message">Zaplanuj trasę z postojem.</string>
 	<string name="add_my_position">Dodaj moją pozycję</string>
 	<string name="choose_start_point">Wybierz punkty początkowy</string>
 	<string name="choose_destination">Wybierz punkt docelowy</string>
@@ -1409,15 +1306,6 @@
 	<string name="whats_new_ugc_routes_subtitle">Zapisuj zapamiętane miejsca, twórz trasy ze znaczników i udostępniaj je wszystkim w katalogu OMaps.</string>
 	<string name="whats_new_webeditor_title">Przeistaczaj trasy w historii</string>
 	<string name="whats_new_ugc_routes_message2">Dodaj zdjęcia i szczegółowe historie w edytorze stron internetowych.</string>
-	<string name="whatsnew_standard_routes_title">Trasy standardowe</string>
-	<string name="whatsnew_standard_routes_message">Główny zbiór punktów, krótkie opisy, oraz bardzo dużo nowych wrażeń!</string>
-	<string name="whatsnew_city_overview_title">Przegląd miasta</string>
-	<string name="whatsnew_city_overview_message">Do 200 punktów na mapie miasta: wszystko, co najbardziej przydatne i ciekawe dla podróżnika!</string>
-	<string name="whatsnew_pro_guides_title">Profesjonalne trasy</string>
-	<string name="whatsnew_pro_guides_message">Wysoki poziom detalizacji, szczegółowe opisy miejsc i możliwość obliczenia odległości i czasu spaceru</string>
-	<string name="whatsnew_paid_routes_title">Więcej nowych wrażeń!</string>
-	<string name="whatsnew_paid_routes_message">Do bezpłatnych tras jako dodatek do katalogu dodaliśmy 3 kategorie płatnych przewodników. Ponad 700 nowych tras!</string>
-	<string name="whats_new_ugc_routes_title_android_only">Chce się podzielić wrażeniami? To proste!</string>
 	<string name="ugc_thanks_message_auth">Twój komentarz został zapisany</string>
 	<string name="ugc_thanks_message_not_auth">Zarejestruj się, aby wystawić komentarz</string>
 	<string name="notification_leave_review_v2_title">Zostaw komentarz i pomóż podróżującym!</string>
@@ -1501,10 +1389,6 @@
 	<string name="whats_new_auto_update_bydeeplink_title">Zanim przejdziesz do przewodników…</string>
 	<string name="whats_new_auto_update_bydeeplink_message">Zaktualizuj mapy, aby uzyskać aktualne informacje o obiektach!</string>
 	<string name="whats_new_auto_update_and_proceed_button_size">Zaktualizuj (%s) i kontynuuj</string>
-	<string name="whatsnew_toll_unpaved_title">Buduj trasy z uwzględnieniem wszystkich rodzajów dróg</string>
-	<string name="whatsnew_toll_unpaved_message">Wybierz trasy objazdowe przez płatne, drogi gruntowe i przeprawy promowe</string>
-	<string name="whatsnew_new_catalogue_title">Zaktualizowane strony katalogu</string>
-	<string name="whatsnew_new_catalogue_message">Dodaliśmy szczegółowe informacje o przewodnikach od partnerów, aby uczynić wybór trasy był łatwym i wygodnym</string>
 	<string name="purchase_please_wait_toast">Proszę, nie opuszczaj ekranu, dopóki zakup nie zostanie zakończony</string>
 	<string name="trip_start">Jedźmy</string>
 	<string name="pick_destination">Meta</string>
@@ -1560,12 +1444,6 @@
 	<string name="buy_btn_for_subscription_ios_only_year">Pełny dostęp już za %s/rok</string>
 	<string name="subscription_terms_guides">Twoje konto iTunes zostanie obciążono opłatą po potwierdzeniu zakupu. Subskrypcja zostanie automatycznie odnowiona, jeżeli nie wyłączysz automatycznego odnawiania co najmniej 24 godziny przed zakończeniem bieżącego okresu subskrypcji. Twoje konto zostanie obciążono opłatą zgodnie z Twoim planem taryfowym w ciągu 24 godzin przed zakończeniem bieżącego okresu subskrypcji. Możesz zarządzać automatycznym odnawianiem subskrypcji lub wyłączyć automatyczne odnawianie subskrypcji w ustawieniach konta Apple ID w dowolnym momencie po zakupie. Będziesz mógł korzystać z przewodników pobranych w ramach subskrypcji tylko dopóki masz aktywną subskrypcję. Po upływie 30 dni po wygaśnięciu subskrypcji przewodniki ze wszystkimi zakładkami zostaną automatycznie usunięte.</string>
 	<string name="subscription_terms">Po zatwierdzeniu płatności zostanie nią obciążone Twoje konto iTunes. Subskrypcja odnowi się automatycznie, chyba że opcja automatycznego odnawiania zostanie wyłączona co najmniej 24 godziny przed końcem bieżącego okresu rozliczeniowego. Twoje konto zostanie obciążone kwotą za odnowienie subskrypcji zgodnie z wybranym planem w przeciągu 24 godzin przed końcem bieżącego okresu rozliczeniowego. Automatycznym odnawianiem zarządzać można lub wyłączyć je w ustawieniach konta Apple ID w dowolnej chwili po dokonaniu zakupu.</string>
-	<string name="whatsnew_carplay_title">Nawigacja automatyczna OMaps w CarPlay!</string>
-	<string name="whatsnew_carplay_message">Zakładki, wyszukiwanie, fotoradary i ustawienia objazdu — wszystko działa bez Internetu</string>
-	<string name="whatsnew_subscription_title">Otwórz świat, używając subskrypcji!</string>
-	<string name="whatsnew_subscription_message">Nieograniczony dostęp do katalogu tras jest bardziej opłacalny, w porównaniu z jednorazowym zakupem</string>
-	<string name="whatsnew_carnavi_fixes_for_android_title">Aktualizacja nawigacji</string>
-	<string name="whatsnew_carnavi_fixes_for_android_message">Ulepszyliśmy budowę tras do punktów, rozlokowanych z dala od dróg</string>
 	<string name="avoid_unpaved_carplay_1">Bez gruntow.</string>
 	<string name="avoid_unpaved_carplay_2">Bez gruntowych</string>
 	<string name="avoid_ferry_carplay_1">Bez promów</string>
@@ -1622,8 +1500,6 @@
 	<string name="bookmarks_edit_list">Redaguj</string>
 	<!-- Android, max 18 symbols -->
 	<string name="bookmarks_delete_list">Usuń listę</string>
-	<string name="whatsnew_bookmarks_search_sort_title">Porządek w znacznikach — wygoda w podróży</string>
-	<string name="whatsnew_bookmarks_search_sort_message">Sortuj ulubione miejsca wg kategorii, czasu dodania i geolokalizacji, również szybko wyszukaj konkretne znaczniki wg nazwy</string>
 	<string name="popup_subscription_success_map_title">Hura! Jesteś subskrybentem!</string>
 	<string name="popup_subscription_success_map_message">Teraz odkryj najlepsze atrakcje turystyczne w katalogu OMaps</string>
 	<string name="popup_subscription_success_map_start_button">Rozpocznij przeglądanie</string>
@@ -1644,8 +1520,6 @@
 	<string name="subscription_screen_native_message_version_2">Bądź gotowy na każdą podróż w ponad 600 miastach i ponad 100 krajach</string>
 	<string name="catalog_no_internet_title">Brak połączenia internetowego</string>
 	<string name="catalog_no_internet_button">Spróbuj ponownie</string>
-	<string name="whatsnew_map_updates_title">Błyskawiczne aktualizacje map</string>
-	<string name="whatsnew_map_updates_message">Teraz aktualizujemy dane o 2 razy szybciej</string>
 	<string name="new_onboarding_button">Dalej</string>
 	<string name="new_onboarding_button_2">Rozpocznij</string>
 	<string name="new_onboarding_step1_header_2">Uniwersalny pomocnik w podróżach</string>
@@ -1690,10 +1564,6 @@
 	<string name="downloader_country_no_guides_gallery_header">Obecnie brak przewodników dla tego kraju</string>
 	<string name="downloader_country_no_guides_gallery_message">Zapoznaj się z innymi trasami w 100+ krajach dla zwiedzania i aktywnego wypoczynku poza miastem</string>
 	<string name="dialog_pedestrian_route_is_long">Zbyt długie dojście do transportu na piechotę</string>
-	<string name="whatsnew_outdoor_guides_title">Dodaliśmy 15000+ szlaków do aktywnego wypoczynku!</string>
-	<string name="whatsnew_outdoor_guides_message">Trasy z Outdooractive do zimowych i letnich wakacji czekają w katalogu!</string>
-	<string name="whatsnew_guides_galleries_title">Zaplanuj swoją nadchodzącą podróż z OMaps</string>
-	<string name="whatsnew_guides_galleries_message">Teraz możesz znaleźć polecane przewodniki na stronach popularnych miast turystycznych i zabytków</string>
 	<string name="new_onboarding_step3_header">Podróżuj</string>
 	<string name="all_pass_screen_best_value">Atrakcyjna cena</string>
 	<string name="buy_btn_for_subscription_3">Cały katalog za %s/rok</string>
@@ -1702,9 +1572,6 @@
 	<string name="dialog_pedestrian_route_is_long_message">Wybierz punkt początkowy lub końcowy trasy najbliżej do stacji metra</string>
 	<!-- Failed planning SUBWAY route message in navigation view -->
 	<string name="routing_planning_error_subway_special">Błąd tworzenia trasy metra</string>
-	<string name="whatsnew_isolines_title">Nowość do wypoczynku aktywnego – linie wysokości offline!</string>
-	<!-- as less symbols as possible -->
-	<string name="whatsnew_isolines_message">Nawiguj w górach – włącz warstwę za pomocą przycisku w lewym górnym rogu ekranu</string>
 	<string name="button_layer_isolines">Wysokości</string>
 	<string name="tips_map_layers_title_countour">Linie wysokości w trybie offline w OMaps!</string>
 	<string name="tips_map_layers_message_countour">Linie wysokości pomogą zaplanować podróż i nie zgubić się w terenie</string>
@@ -1741,12 +1608,6 @@
 	<string name="routes_card_show">Pokazać na mapie</string>
 	<!-- as few symbols as possible -->
 	<string name="routes_card_hide">Ukryć na mapie</string>
-	<string name="whatsnew_catalog_new_title">Nowy katalog i tysiące pomysłów na wakacje</string>
-	<string name="whatsnew_catalog_new_message">Zaktualizowaliśmy katalog przewodników turystycznych i dodaliśmy tłumaczenia na popularne języki. Zacznij planować z wyprzedzeniem!</string>
-	<string name="whatsnew_elevation_profile_title">Profil wysokości w przewodnikach</string>
-	<string name="whatsnew_elevation_profile_message">Oceń złożoność nadchodzących zjazdów i zejść offline za pomocą kursora w profilu zakupionej trasy.</string>
-	<string name="whatsnew_guides_on_map_title">Nowa warstwa — przewodniki na mapie!</string>
-	<string name="whatsnew_guides_on_map_message">Aktywuj warstwę w menu ustawień aplikacji, aby szybko znaleźć ciekawe trasy miejskie i przewodniki do aktywnego wypoczynku.</string>
 	<string name="downloader_updating_ios">Aktualizacja</string>
 	<string name="downloader_loading_ios">Pobieranie</string>
 	<string name="routes_card_plus_track">+ trasa</string>
@@ -1782,8 +1643,6 @@
 	<string name="choose_dates_online_only_dialog_message">Wybór dat i liczby gości jest dostępny tylko online. Sprawdź swoje ustawienia i upewnij się, że masz połączenie z Internetem.</string>
 	<string name="choose_dates_online_only_dialog_cta">Ustawienia</string>
 	<string name="thirty_days_limit_dialog">Możliwość rezerwacji na maksymalnie 30 nocy</string>
-	<string name="whatsnew_trial_title">Bezpłatny dostęp do przewodników</string>
-	<string name="whatsnew_trial_message">Uruchomiliśmy 7-dniowy okres próbny subskrypcji. Tysiące tras na całym świecie oraz interaktywny profil wysokości w zewnętrznych przewodnikach turystycznych.</string>
 	<string name="whatsnew_trial_cta">Spróbuj</string>
 	<string name="subscription_terms_guides_outdoor">Płatność zostanie pobrana z Twojego konta iTunes po potwierdzeniu zakupu. Subskrypcja zostanie automatycznie wznowiona, chyba że automatyczne wznowienie zostanie wyłączone co najmniej 24 godziny przed końcem okresu bieżącego. Środki zostaną pobrane z Twojego konta zgodnie z Twoim planem wznowienia w ciągu 24 godzin przed końcem bieżącego okresu. Możesz zarządzać automatycznym wznowieniem lub wyłączyć go w ustawieniach konta Apple ID w dowolnym momencie po zakupie. Możesz korzystać z przewodników, pobranych w ramach subskrypcji, tylko w okresie ich obowiązywania. Po upływie 7 dni od zakończenia subskrypcji przewodniki ze wszystkimi zakładkami zostaną automatycznie usunięte.\n* Subskrypcja z darmowym okresem próbnym jest automatycznie konwertowana na subskrypcję płatną. Możesz anulować lub zarządzać automatycznym przedłużeniem darmowego okresu próbnego w ustawieniach konta po dokonaniu zakupu. Anulowanie zacznie obowiązywać 24 godziny po ostatnim dniu bieżącego okresu subskrypcji, a zostaniesz przeniesiony do subskrypcji darmowej. Uwaga: Każda niewykorzystana część darmowego okresu próbnego zostanie anulowana przy zakupie płatnej subskrypcji w tym okresie.</string>
 	<string name="subscription_terms_android_outdoor">Płatność zostanie pobrana z Twojego konta Google Play po potwierdzeniu zakupu. Subskrypcja zostanie automatycznie wznowiona, chyba że automatyczne wznowienie zostanie wyłączone co najmniej 24 godziny przed końcem okresu bieżącego. Środki zostaną pobrane z Twojego konta zgodnie z Twoim planem wznowienia w ciągu 24 godzin przed końcem bieżącego okresu. Możesz zarządzać automatycznym odnowieniem lub wyłączyć go w ustawieniach konta po zakupie. Możesz korzystać z przewodników, pobranych w ramach subskrypcji, tylko w okresie ich obowiązywania. Po upływie 7 dni od zakończenia subskrypcji przewodniki zostaną automatycznie usunięte.\n* Subskrypcja z darmowym okresem próbnym jest automatycznie konwertowana na subskrypcję płatną. Możesz anulować lub zarządzać automatycznym przedłużeniem darmowego okresu próbnego w ustawieniach konta po dokonaniu zakupu. Anulowanie zacznie obowiązywać 24 godziny po ostatnim dniu bieżącego okresu subskrypcji, a zostaniesz przeniesiony do subskrypcji darmowej. Uwaga: Każda niewykorzystana część darmowego okresu próbnego zostanie anulowana przy zakupie płatnej subskrypcji w tym okresie.</string>

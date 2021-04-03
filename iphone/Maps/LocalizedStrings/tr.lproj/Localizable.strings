@@ -18,33 +18,16 @@
 /* Button which deletes downloaded country */
 "delete" = "Sil";
 
-/* Button to dismiss dialog forever */
-"do_not_ask_me_again" = "Bunu tekrar sorma";
-
 /* Button "do not interrupt download" if user touched actively downloading country */
 "do_nothing" = "Devam";
 
 "download_maps" = "Haritaları İndir";
 
-/* Settings/Downloader - Download confirmation button */
-"download_x_kb" = "%qu kB indir";
-
-/* Settings/Downloader - Download confirmation button */
-"download_x_mb" = "%qu MB indir";
-
 /* Settings/Downloader - info for country when download fails */
 "download_has_failed" = "İndirme işlemi başarısız oldu, bir kez daha denemek için tekrar dokunun";
 
-/* Settings/Downloader - info for downloaded country */
-"downloaded_x_y_touch_to_delete" = "(%1$qu %2$@) indirildi, silmek için dokunun";
-
-/* Settings/Downloader - country info current download progress */
-"downloading_x_touch_to_cancel" = "%qu%% indiriliyor, iptal etmek için dokunun";
-
 /* Settings/Downloader - info for country which started downloading */
 "downloading" = "İndiriliyor…";
-
-"get_it_now" = "Hemen al";
 
 /* Settings/Downloader - size string, only strings different from English should be translated */
 "kb" = "kB";
@@ -58,12 +41,6 @@
 /* View and button titles for accessibility */
 "maps" = "Haritalar";
 
-/* View and button titles for accessibility */
-"downloader_maps" = "Haritalar:";
-
-/* Settings/Downloader - info for country in the download queue */
-"marked_for_downloading" = "İndirmek üzere işaretlendi, iptal etmek için dokunun";
-
 /* Settings/Downloader - size string, only strings different from English should be translated */
 "mb" = "MB";
 
@@ -75,20 +52,11 @@
 /* View and button titles for accessibility */
 "core_my_position" = "Konumum";
 
-/* Settings/Downloader - No free space dialog message */
-"free_disk_space_for_country_x" = "%@ indirmek için lütfen ilk önce cihazınızda biraz alan boşaltın";
-
-/* Leave Review dialog - Not now button (remind me later) */
-"remind_me_later" = "Daha sonra hatırlat";
-
 /* Update maps later/Buy pro version later button text */
 "later" = "Daha sonra";
 
 /* Don't show some dialog any more */
 "never" = "Asla";
-
-/* Leave Review dialog - Complain button (goes to support site) */
-"report_an_issue" = "Bir sorunu bildir";
 
 /* View and button titles for accessibility */
 "search" = "Ara";
@@ -102,9 +70,6 @@
 /* Settings/Downloader - 3G download warning dialog confirm button */
 "use_cellular_data" = "Evet";
 
-/* Choose measurement on first launch alert - title */
-"which_measurement_system" = "Hangi ölçü sistemini tercih edersiniz?";
-
 /* Location services are disabled by user alert - message */
 "location_is_disabled_long_text" = "Şu anda bu cihaz için tüm Yer Hizmetleri veya uygulama devre dışı bırakılmış. Lütfen Ayarlar bölümünden etkinleştirin.";
 
@@ -113,12 +78,6 @@
 
 /* View and button titles for accessibility */
 "zoom_to_country" = "Haritada göster";
-
-/* Message to display at the center of the screen when the country is added to the downloading queue */
-"country_status_added_to_queue" = "^\nindirme kuyruğuna eklendi";
-
-/* Message to display at the center of the screen when the country is downloading */
-"country_status_downloading" = "^\n^\nindiriliyor";
 
 /* Button text for the button at the center of the screen when the country is not downloaded */
 "country_status_download" = "Haritayı İndir\n(^ ^)";
@@ -136,8 +95,6 @@
 "try_again" = "Tekrar Deneyin";
 
 "about_menu_title" = "OMaps Hakkında";
-
-"downloading_touch_to_cancel" = "%d%% indiriliyor, iptal etmek için dokunun";
 
 "downloaded_touch_to_delete" = "(%@) indirildi, silmek için dokunun";
 
@@ -159,8 +116,6 @@
 
 "not_enough_memory" = "Uygulamayı başlatmak için yeterli hafıza yok";
 
-"free_space_for_country" = "%2$@ indirebilmeniz için lütfen ilk önce cihazınızda %1$@ alan boşaltın";
-
 "download_resources" = "Başlamadan önce cihazınıza genel dünya haritasını indirelim.\nVerilerin %@’si gerekli.";
 
 "getting_position" = "Geçerli konum alınıyor";
@@ -174,35 +129,10 @@
 "update_country_ask" = "%@ güncelle?";
 
 /* REMOVE THIS STRING AFTER REFACTORING */
-"download_location_map_proposal" = "Geçerli konumunuzun haritasını\nindirebilirsiniz.";
-
-/* REMOVE THIS_STRING AFTER REFACTORING */
-"download_location_update_map_proposal" = "Geçerli konumunuzun haritasını\ngüncelleyebilirsiniz.";
-
-/* REMOVE THIS STRING AFTER REFACTORING */
-"download_location_map_up_to_date" = "Geçerli\nkonumunuzun haritası (%@) güncel";
-
-/* REMOVE THIS STRING AFTER REFACTORING */
 "pause" = "Duraklat";
 
 /* REMOVE THIS STRING AFTER REFACTORING */
 "continue_download" = "Devam";
-
-"downloaded_touch_to_update" = "(%@) indirildi, güncellemek veya silmek için dokunun";
-
-"update_mb_or_kb" = "%@ güncelle";
-
-/* Show popup notification when we have downloaded countries without search (from Lite version) */
-"search_update_maps" = "Arama işlevi için güncellenmiş haritalara ihtiyacınız var:";
-
-/* Show popup notification on app start when we have out-of-date maps */
-"advise_update_maps" = "Bu haritalar için güncelleme kullanılabilir:";
-
-/* Show popup notification in Pro version that Lite can be deleted */
-"suggest_uninstall_lite" = "OMaps Lite’e artık ihtiyacınız yok; bu nedenle uygulamayı kaldırabilirsiniz.";
-
-/* Show popup notification on top of the map when country was downloaded. */
-"download_country_success" = "%@ başarılı bir şekilde indirildi";
 
 /* Show popup notification on top of the map when country download has failed. */
 "download_country_failed" = "%@ indirme işlemi başarısız oldu";
@@ -245,9 +175,6 @@
 
 /* Text hint in Bookmarks dialog when no any bookmarks are added */
 "bookmarks_usage_hint" = "Henüz hiç yer iminiz yok.\nYer imi eklemek için haritada bir yere dokunun.\nBaşka kaynaklardan da yer imleri alınıp OMaps’de gösterilebilir KML/KMZ dosyasını posta, Dropbox veya web bağlantısından kaydedilen pinlerle aç.";
-
-/* Text hint in Bookmarks dialog when at least one bookmark is added */
-"bookmarks_usage_hint_import_only" = "Başka kaynaklardan yer imleri alınıp OMaps’de gösterilebilir. KML/KMZ dosyasını posta, Dropbox veya web bağlantısından kaydedilen yer imleriyle aç.";
 
 /* Settings button in system menu */
 "settings" = "Ayarlar";
@@ -1289,16 +1216,6 @@
 
 "placepage_add_business_button" = "Kuruluş ekle";
 
-"whatsnew_smallmwm_header" = "Siz istediniz biz yaptık";
-
-"whatsnew_smallmwm_message" = "Haritaları parçalara ayırdık. Artık tüm ülke yerine belirli bölgeleri indirebilirsiniz.";
-
-"whatsnew_search_header" = "Yeni arama";
-
-"whatsnew_search_message" = "Adres ile aramayı önemli ölçüde geliştirdik. Kendiniz görün.";
-
-"whatsnew_editor_title" = "Haritayı düzenleyin*";
-
 "whatsnew_editor_message_1" = "Doğrudan uygulamadan haritaya yeni yerler ekle ve mevcut yerleri düzenleyin.";
 
 "whatsnew_editor_message_2" = "* OMaps, OpenStreetMap topluluğu verilerini kullanmaktadır.";
@@ -1382,13 +1299,6 @@
 "current_location_unknown_error_title" = "Geçerli konum bilinmiyor.";
 
 "current_location_unknown_error_message" = "Konumunuz aranırken bir hata oluştu. Cihazının düzgün çalışıp çalışmadığını kontrol edip daha sonra tekrar deneyin.";
-
-"whatsnew_update_editor_title" = "Harita düzenleyicisini güncelledik";
-
-"whatsnew_update_editor_message" = "OMaps kullanıcıları, haritalar üzerinde 200.000 değişiklik yaptı. Birlikte, dünyanın en detaylı haritalarını yaratıyoruz. Bize katılın!";
-
-/* Additional text in whats new */
-"whatsnew_update_editor_message_update" = "Harita Editörü'nü kullanmak için lütfen tüm haritaları güncelleyin.";
 
 "location_services_disabled_header" = "Konum tanımlama devre dışı bırakıldı";
 
@@ -1555,22 +1465,6 @@
 
 "recent_track_background_dialog_message" = "OMaps, en son seyahat ettiğiniz rotayı kaydetmek için arka planda coğrafi konumunuzu kullanır.";
 
-"whatsnew_car_navigation_header" = "Kullanıcı dostu araç navigasyonu";
-
-"whatsnew_car_navigation_message" = "• Navigasyon ögeleri daha az yer kaplıyor.\n• Hızı gösteriyoruz ve otomatik yakınlaştırma ilave ettik.";
-
-"whatsnew_cycle_navigation_2_header" = "Bisiklet navigasyonu";
-
-"whatsnew_cycle_navigation_2_message" = "• Bisiklet navigasyonu arazi verilerini hesaba katar.\n• Yol eğimlerini hesaba katarak daha kolay rotalar oluşturuyoruz.";
-
-"whatsnew_booking_2_header" = "Kolay otel arama";
-
-"whatsnew_booking_2_message" = "Arama sonuçları otel puan ve fiyat kategorisini gösterir.";
-
-"whatsnew_cycle_navigation_header" = "Bisiklet navigasyonu (beta sürüm)";
-
-"whatsnew_cycle_navigation_message" = "Yeni sezon için bisiklet navigasyonu özelliğini test ediyoruz. En sık kullandığınız bisiklet rotasını OMaps ile deneyin ve görüşlerinizi bizimle paylaşın.";
-
 /* Rate on Google Play (Android only) */
 "rate_gp" = "Google Play'de Oy Ver";
 
@@ -1673,10 +1567,6 @@
 /* Verb. Text on a button that opens the chat. */
 "chat_open" = "Aç";
 
-"whatsnew_uber_header" = "OMaps ve Uber";
-
-"whatsnew_uber_message" = "Doğrudan uygulamadan Uber taksi isteyin!";
-
 "dialog_taxi_offline" = "Taksi çağırma çevrimdışı modda kullanılamıyor.";
 
 "dialog_taxi_error" = "Taksi çağırma geçici olarak kullanılamıyor.";
@@ -1714,42 +1604,6 @@
 /* "traffic" as in "road congestion" */
 "traffic_data_unavailable" = "Trafik verileri kullanılamıyor";
 
-/* december */
-"whatsnew_traffic" = "36 Ülkeden Trafik Verileri";
-
-/* december */
-"whatsnew_traffic_text" = "En güncel trafik verileri ve en hızlı sürüş güzergâhları!";
-
-/* december */
-"whatsnew_traffic_roaming" = "Roaming (Dolaşım) esnasında trafik bilgileri";
-
-/* december */
-"whatsnew_traffic_roaming_text" = "Her yolculuk için en az 1 MB mobil bant genişliği gereklidir.";
-
-/* december */
-"whatsnew_order_taxi" = "Taksi Çağırma";
-
-/* december */
-"whatsnew_order_taxi_text" = "Artık çoğu konum sayfalarında taksi çağırmak için bir düğme bulunuyor.";
-
-/* january */
-"whatsnew_improved_search" = "Gelişmiş Arama";
-
-/* january */
-"whatsnew_improved_search_text" = "Hatalı yazılan sorguları bile doğru getiren arama sonuçları.";
-
-/* january */
-"whatsnew_filters_in_search" = "Arama Filtreleri";
-
-/* january */
-"whatsnew_filters_in_search_text" = "Ücret ve puana göre otel arama.";
-
-/* january */
-"whatsnew_font_size" = "Yazı Tipi Boyutu";
-
-/* january */
-"whatsnew_font_size_text" = "Harita üzerindeki etiketler daha büyük hale getirilebilir.";
-
 /* "Translation is no needed, because it's a company name" */
 "uber" = "Uber";
 
@@ -1772,26 +1626,6 @@
 "pref_traffic_simplified_colors_title" = "Sadeleştirilmiş trafik renkleri";
 
 "enable_logging" = "Günlüğü etkinleştir";
-
-"whatsnew_more_info_on_hotels_title" = "Oteller hakkında daha fazla bilgi";
-
-"whatsnew_more_info_on_hotels_message" = "Otel sayfalarına yeni bir bakış: fotoğraflara, kullanıcı yorumlarına ve diğer bilgilere çevrimiçi olarak gözatın.";
-
-"whatsnew_better_routing_title" = "Geliştirilmiş Güzergâh Planlama";
-
-"whatsnew_better_routing_message" = "• Daha doğru varış zamanı tahmini.\n• Uygulama, sınırlı alanları ve yol işaretlerini dikkate alır.";
-
-"whatsnew_smaller_mwm_title" = "Haritalar Küçültüldü";
-
-"whatsnew_smaller_mwm_message" = "Artık haritalar %20'ye kadar daha az depolama alanı gerektiriyor.";
-
-"whatsnew_waypoints_title" = "Güzergâhtaki Yol Noktaları";
-
-"whatsnew_waypoints_message" = "Güzergâhınıza yol noktası olarak eklemek istediğiniz yerlere dokunun.";
-
-"whatsnew_driving_style_title" = "Sürüş İçin Yeni Harita Stili";
-
-"whatsnew_driving_style_message" = "Araç navigasyon modunu kullanmak şimdi çok daha kolay.";
 
 "more_on_bookingcom" = "Booking.com hakkında daha fazla";
 
@@ -1852,8 +1686,6 @@
 
 "whatsnew_transliteration_title" = "Latince alfabesine çevirme";
 
-"whatsnew_transliteration_message" = "Bir caddenin veya bir nesnenin adının kendi dilinizde mevcut olmaması durumunda, Latin alfabesi kullanılarak yazılır.";
-
 "yandex_taxi_title" = "Yandex.Taxi";
 
 "learn_more" = "Daha fazla bilgi edinin";
@@ -1891,10 +1723,6 @@
 "button_replace" = "Değiştir";
 
 "placepage_add_stop" = "Ara nokta ekle";
-
-"whatsnew_intermediate_point_title" = "Ek ara nokta";
-
-"whatsnew_intermediate_point_message" = "Güzergâhlarınızı ara noktalarla planlayın.";
 
 /* Only ru/en are needed */
 "subtitle_rent" = "Rent";
@@ -2503,24 +2331,6 @@
 
 "whats_new_ugc_routes_message2" = "Web editöre fotoğraflar ve detaylı hikayeler ekleyin.";
 
-"whatsnew_standard_routes_title" = "Standart rotalar";
-
-"whatsnew_standard_routes_message" = "Temel ilgi noktaları ve kısa açıklamalar kümesi fakat fazla deneyim!";
-
-"whatsnew_city_overview_title" = "Şehre genel bakış";
-
-"whatsnew_city_overview_message" = "Şehir haritasında 200'e kadar ilgi noktası: Gezginlerin yararlı ve ilginç bulabileceği her şey var!";
-
-"whatsnew_pro_guides_title" = "Profesyonel rotalar";
-
-"whatsnew_pro_guides_message" = "Yerlerin ayrıntılı açıklamaları ve yolculuk mesafesini ve zamanını hesaplama becerisi ile çok ayrıntılı";
-
-"whatsnew_paid_routes_title" = "Daha fazla yeni deneyimler!";
-
-"whatsnew_paid_routes_message" = "Ücretsiz rotalara ek olarak, kataloğumuza 3 ücretli rota kategorisi ekledik. 700'den fazla yeni rota!";
-
-"whats_new_ugc_routes_title_android_only" = "İzlenimlerinizi paylaşmak çok kolay";
-
 "ugc_thanks_message_auth" = "Yorumunuz kaydedildi";
 
 "ugc_thanks_message_not_auth" = "Yorum yapmak için lütfen giriş yapınız";
@@ -2681,14 +2491,6 @@
 
 "whats_new_auto_update_and_proceed_button_size" = "(%s) güncelle ve devam et";
 
-"whatsnew_toll_unpaved_title" = "Her türlü yolu göz önünde bulundurarak otomobil rotalarını düzenleyin";
-
-"whatsnew_toll_unpaved_message" = "Paralı yollar, toprak yollar ve feribot seferlerine göre gideceğiniz dolambaçlı yolları seçin";
-
-"whatsnew_new_catalogue_title" = "Katalog sayfaları güncellendi";
-
-"whatsnew_new_catalogue_message" = "Rota seçimini kolay ve rahat hale getirmek için ortak rehnerleri hakkında ayrıntılı bilgiler ekledik";
-
 "purchase_please_wait_toast" = "Lütfen satın alma işlemi tamamlanmadan önce bu ekrandan çıkmayın";
 
 "trip_start" = "Hadi gidelim";
@@ -2803,18 +2605,6 @@
 
 "subscription_terms" = "Ödeme, satın alma onayında iTunes hesabınızdan alınacaktır. Otomatik yenileme geçerli dönemin sona ermesinden en az 24 saat önce kapatılmadıkça abonelik otomatik olarak yenilenecektir. Hesabınızdan, geçerli dönemin sona ermesinden önce 24 saat içinde planınıza göre yenileme için ücret alınacaktır. Otomatik yenilemeyi satın alma işleminizde dilediğiniz zaman Apple ID hesap ayarlarınızda yönetebilir veya kapatabilirsiniz.";
 
-"whatsnew_carplay_title" = "CarPlay'de OMaps araç navigasyonu!";
-
-"whatsnew_carplay_message" = "Yer imleri, arama, hız kameraları ve sürüş seçenekleri çevrimdışı da mevcut";
-
-"whatsnew_subscription_title" = "Tüm dünya abonelikle elinizin altında!";
-
-"whatsnew_subscription_message" = "Rehber kataloğuna sınırsız erişim, bir kerelik satın almadan daha karlıdır";
-
-"whatsnew_carnavi_fixes_for_android_title" = "Navigasyon güncellemesi";
-
-"whatsnew_carnavi_fixes_for_android_message" = "Güzergah planlamayı yollardan uzakta bulunan noktalara erişecek kadar iyileştirdik";
-
 "avoid_unpaved_carplay_1" = "Stabilizesiz";
 
 "avoid_unpaved_carplay_2" = "Asfaltsız hariç";
@@ -2918,10 +2708,6 @@
 /* Android, max 18 symbols */
 "bookmarks_delete_list" = "Listeyi sil";
 
-"whatsnew_bookmarks_search_sort_title" = "Yer imlerine göre sıralamak yolculuğunuzu rahatlaştırır";
-
-"whatsnew_bookmarks_search_sort_message" = "Favori yerleri kategori, konum ve kronolojik sıraya göre sıralayın ve belirli yer imlerini isimleriyle hızlı bir şekilde bulun";
-
 "popup_subscription_success_map_title" = "Yaşasın, abone oldun!";
 
 "popup_subscription_success_map_message" = "Şimdi OMaps kataloğunda en iyi turistik yerleri keşfedin";
@@ -2961,10 +2747,6 @@
 "catalog_no_internet_title" = "İnternet bağlantısı yok";
 
 "catalog_no_internet_button" = "Tekrar deneyin";
-
-"whatsnew_map_updates_title" = "Daha hızlı harita güncellemeleri";
-
-"whatsnew_map_updates_message" = "Artık verilerimizi iki kat daha hızlı güncelliyoruz";
 
 "new_onboarding_button" = "İleri";
 
@@ -3053,14 +2835,6 @@
 
 "dialog_pedestrian_route_is_long" = "Araç biniş noktasına giden yaya yolu çok uzun";
 
-"whatsnew_outdoor_guides_title" = "15000'den fazla açık hava güzergahı ekledik!";
-
-"whatsnew_outdoor_guides_message" = "Outdooractive'in kış ve yaz seyahatleri için güzergahlar katalogda bekliyor!";
-
-"whatsnew_guides_galleries_title" = "Yaklaşan seyahatinizi OMaps ile planlayın";
-
-"whatsnew_guides_galleries_message" = "Artık popüler turistik şehirlerin ve turistik mekanların yer sayfalarında önerilen rehberleri bulabilirsiniz";
-
 "new_onboarding_step3_header" = "Deneyimle";
 
 "all_pass_screen_best_value" = "En İyi Teklif";
@@ -3075,11 +2849,6 @@
 
 /* Failed planning SUBWAY route message in navigation view */
 "routing_planning_error_subway_special" = "Metro güzergahı oluşturma hatası";
-
-"whatsnew_isolines_title" = "Açık hava etkinlikleri için yenilik – yükseklik çizgileri çevrimdışı!";
-
-/* as less symbols as possible */
-"whatsnew_isolines_message" = "Dağlık alanda kendinizi yönlendirin – ekranın sol üst köşesindeki düğmeyi kullanarak katmanı açın";
 
 "button_layer_isolines" = "Yükseklikler";
 
@@ -3169,18 +2938,6 @@
 /* as few symbols as possible */
 "routes_card_hide" = "Haritadan gizle";
 
-"whatsnew_catalog_new_title" = "Yeni rehber kataloğu ve yüzlerce seyahat fikri";
-
-"whatsnew_catalog_new_message" = "Rehber kataloğumuzu güncelledik ve popüler dillerde çeviriler ekledik. Gezinizi önceden planlamaya başlayın!";
-
-"whatsnew_elevation_profile_title" = "Rehberlerde yükseklik profili";
-
-"whatsnew_elevation_profile_message" = "Satın alınan rotanın profilindeki imleci kullanarak, yaklaşan yükselişlerin ve inişlerin zorluk derecesini çevrimdışı olarak değerlendirin.";
-
-"whatsnew_guides_on_map_title" = "Rehberleri kolayca bulmak için yeni katman!";
-
-"whatsnew_guides_on_map_message" = "Açık hava etkinlikleri için ilginç şehir rotalarını ve seyahat rehberlerini hızlı bir şekilde bulmak için uygulamanın ayarlar menüsündeki katmanı etkinleştirin.";
-
 "downloader_updating_ios" = "Güncelleme";
 
 "downloader_loading_ios" = "İndir";
@@ -3238,10 +2995,6 @@
 "choose_dates_online_only_dialog_cta" = "Ayarlar";
 
 "thirty_days_limit_dialog" = "Maksimum 30 gecelik rezervasyon yapabilirsiniz";
-
-"whatsnew_trial_title" = "Rehber kataloğuna ücretsiz erişim";
-
-"whatsnew_trial_message" = "Artık kullanıcılarımıza 7 günlük deneme süresi sunuyoruz. Tüm dünyadan seyahat rehberlerine ve doğa gezilerini seven kullanıcılar için interaktif dağ profillerine erişim.";
 
 "whatsnew_trial_cta" = "Hemen deneyin";
 

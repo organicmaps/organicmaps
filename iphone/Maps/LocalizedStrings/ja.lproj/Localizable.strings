@@ -18,33 +18,16 @@
 /* Button which deletes downloaded country */
 "delete" = "削除";
 
-/* Button to dismiss dialog forever */
-"do_not_ask_me_again" = "以後、このメッセージを表示しない";
-
 /* Button "do not interrupt download" if user touched actively downloading country */
 "do_nothing" = "何もしない";
 
 "download_maps" = "マップをダウンロード";
 
-/* Settings/Downloader - Download confirmation button */
-"download_x_kb" = "%quをダウンロード";
-
-/* Settings/Downloader - Download confirmation button */
-"download_x_mb" = "%quをダウンロード";
-
 /* Settings/Downloader - info for country when download fails */
 "download_has_failed" = "ダウンロードが失敗しました。もう一度試すには画面をタッチしてください。";
 
-/* Settings/Downloader - info for downloaded country */
-"downloaded_x_y_touch_to_delete" = "(%1$qu %2$@)をダウンロードしました。削除するには画面をタッチしてください。";
-
-/* Settings/Downloader - country info current download progress */
-"downloading_x_touch_to_cancel" = "%qu%%をダウンロード中です。キャンセルするには画面をタッチしてください。";
-
 /* Settings/Downloader - info for country which started downloading */
 "downloading" = "ダウンロード中…";
-
-"get_it_now" = "今すぐ入手";
 
 /* Settings/Downloader - size string, only strings different from English should be translated */
 "kb" = "kB";
@@ -58,12 +41,6 @@
 /* View and button titles for accessibility */
 "maps" = "マップ";
 
-/* View and button titles for accessibility */
-"downloader_maps" = "マップ：";
-
-/* Settings/Downloader - info for country in the download queue */
-"marked_for_downloading" = "ダウンロードを開始します。キャンセルするには画面をタッチしてください。";
-
 /* Settings/Downloader - size string, only strings different from English should be translated */
 "mb" = "MB";
 
@@ -75,20 +52,11 @@
 /* View and button titles for accessibility */
 "core_my_position" = "現在地";
 
-/* Settings/Downloader - No free space dialog message */
-"free_disk_space_for_country_x" = "%@をダウンロードするため、デバイスの空き容量を確認してください";
-
-/* Leave Review dialog - Not now button (remind me later) */
-"remind_me_later" = "後で通知";
-
 /* Update maps later/Buy pro version later button text */
 "later" = "次の機会に";
 
 /* Don't show some dialog any more */
 "never" = "今後表示しない";
-
-/* Leave Review dialog - Complain button (goes to support site) */
-"report_an_issue" = "問題を報告";
 
 /* View and button titles for accessibility */
 "search" = "検索";
@@ -102,9 +70,6 @@
 /* Settings/Downloader - 3G download warning dialog confirm button */
 "use_cellular_data" = "はい";
 
-/* Choose measurement on first launch alert - title */
-"which_measurement_system" = "どちらの距離単位を使いますか？";
-
 /* Location services are disabled by user alert - message */
 "location_is_disabled_long_text" = "端末の位置情報サービスが無効になっているか、このアプリケーションからの位置情報利用が制限されています。端末の設定を有効化してください。";
 
@@ -113,12 +78,6 @@
 
 /* View and button titles for accessibility */
 "zoom_to_country" = "地図に表示";
-
-/* Message to display at the center of the screen when the country is added to the downloading queue */
-"country_status_added_to_queue" = "^\nをダウンロードキューに追加しました";
-
-/* Message to display at the center of the screen when the country is downloading */
-"country_status_downloading" = "^\n^\nをダウンロード中";
 
 /* Button text for the button at the center of the screen when the country is not downloaded */
 "country_status_download" = "地図をダウンロード\n(^ ^)";
@@ -136,8 +95,6 @@
 "try_again" = "再実行";
 
 "about_menu_title" = "OMapsについて";
-
-"downloading_touch_to_cancel" = "%d%%をダウンロード中です。キャンセルするには画面をタッチしてください。";
 
 "downloaded_touch_to_delete" = "(%@)をダウンロードしました。削除するには画面をタッチしてください。";
 
@@ -159,8 +116,6 @@
 
 "not_enough_memory" = "メモリ不足のためアプリを起動できません";
 
-"free_space_for_country" = "%2$@をダウンロードするにはデバイスに%1$@の空き容量が必要です";
-
 "download_resources" = "利用を開始する前におおまかな世界地図をダウンロードします。これには%@の空き容量が必要です。";
 
 "getting_position" = "現在地を取得中";
@@ -174,35 +129,10 @@
 "update_country_ask" = "%@を更新しますか？";
 
 /* REMOVE THIS STRING AFTER REFACTORING */
-"download_location_map_proposal" = "現在地のマップを\nダウンロードできます";
-
-/* REMOVE THIS_STRING AFTER REFACTORING */
-"download_location_update_map_proposal" = "現在地のマップを\n更新できます";
-
-/* REMOVE THIS STRING AFTER REFACTORING */
-"download_location_map_up_to_date" = "現在地のマップは\n最新です (%@)";
-
-/* REMOVE THIS STRING AFTER REFACTORING */
 "pause" = "一時停止";
 
 /* REMOVE THIS STRING AFTER REFACTORING */
 "continue_download" = "続行";
-
-"downloaded_touch_to_update" = "(%@)をダウンロードしました。タップして更新、削除できます";
-
-"update_mb_or_kb" = "%@を更新";
-
-/* Show popup notification when we have downloaded countries without search (from Lite version) */
-"search_update_maps" = "検索機能を利用するにはマップを更新する必要があります";
-
-/* Show popup notification on app start when we have out-of-date maps */
-"advise_update_maps" = "以下のマップが更新されています:";
-
-/* Show popup notification in Pro version that Lite can be deleted */
-"suggest_uninstall_lite" = "OMaps Liteは削除してもかまいません";
-
-/* Show popup notification on top of the map when country was downloaded. */
-"download_country_success" = "%@のダウンロードが成功しました";
 
 /* Show popup notification on top of the map when country download has failed. */
 "download_country_failed" = "%@のダウンロードが失敗しました";
@@ -245,9 +175,6 @@
 
 /* Text hint in Bookmarks dialog when no any bookmarks are added */
 "bookmarks_usage_hint" = "未だブックマークがありません。\nマップ上をタップすればブックマークを追加できます。\nOMaps以外のアプリで作成したブックマークの表示も可能です。KML/KMZ形式のピン情報をメールやDropbox、URLから取得してください。";
-
-/* Text hint in Bookmarks dialog when at least one bookmark is added */
-"bookmarks_usage_hint_import_only" = "OMaps以外のアプリで作成したブックマークの表示も可能です。KML/KMZ形式のピン情報をメールやDropbox、URLから取得してください。";
 
 /* Settings button in system menu */
 "settings" = "設定";
@@ -1289,16 +1216,6 @@
 
 "placepage_add_business_button" = "団体を追加";
 
-"whatsnew_smallmwm_header" = "皆様のご要望にお応えして、実現を果たしました";
-
-"whatsnew_smallmwm_message" = "マップを分割し、国全体でなく個別の地域をダウンロードできるようにしました。";
-
-"whatsnew_search_header" = "新しい検索機能";
-
-"whatsnew_search_message" = "住所での検索機能を大幅に改善しました。ご自身の目でご覧ください。";
-
-"whatsnew_editor_title" = "地図を編集*";
-
 "whatsnew_editor_message_1" = "アプリから直接地図に新しい場所を追加したり、既存の場所を編集できます。";
 
 "whatsnew_editor_message_2" = "* OMapsはOpenStreetMapコミュニティのデータを使用しています。";
@@ -1382,13 +1299,6 @@
 "current_location_unknown_error_title" = "現在地は不明です。";
 
 "current_location_unknown_error_message" = "お住まいの地域の検索中にエラーが発生しました。お使いのデバイスが正常に動作していることを確認してから再度試してください。";
-
-"whatsnew_update_editor_title" = "マップエディタを更新しました";
-
-"whatsnew_update_editor_message" = "OMapsユーザーは200000マップの変更を行いました。我々は協力して、世界で最も詳細な地図を作っています。参加しませんか！";
-
-/* Additional text in whats new */
-"whatsnew_update_editor_message_update" = "マップエディタを利用するには、全てのアップをアップデートしてください。";
 
 "location_services_disabled_header" = "位置情報認識機能が無効になっています";
 
@@ -1555,22 +1465,6 @@
 
 "recent_track_background_dialog_message" = "OMapsは、あなたの位置情報をバックグラウンドで使用して最近の走行ルートを記録します。";
 
-"whatsnew_car_navigation_header" = "ユーザーフレンドリーなカーナビゲーション";
-
-"whatsnew_car_navigation_message" = "• ナビゲーションエレメントに必要なスペースが削減されました。\n• 速度の表示と自動ズームが追加されました。";
-
-"whatsnew_cycle_navigation_2_header" = "自転車用ナビゲーション";
-
-"whatsnew_cycle_navigation_2_message" = "• 自転車用ナビゲーションはサイクリングコースのデータも使用します。\n• 道の傾斜を考え、最も走りやすいルートを作成します。";
-
-"whatsnew_booking_2_header" = "簡単ホテル検索";
-
-"whatsnew_booking_2_message" = "検索結果にホテルの評価と宿泊料カテゴリーが表示されます。";
-
-"whatsnew_cycle_navigation_header" = "バイクナビゲーション（ベータ版）";
-
-"whatsnew_cycle_navigation_message" = "新シーズンに向けてバイクナビゲーションをテスト中です。OMapsで、お気に入りのサイクリングルートを試してみませんか。ご感想をお待ちしています。";
-
 /* Rate on Google Play (Android only) */
 "rate_gp" = "Google Play で評価";
 
@@ -1673,10 +1567,6 @@
 /* Verb. Text on a button that opens the chat. */
 "chat_open" = "開始";
 
-"whatsnew_uber_header" = "OMaps & Uber";
-
-"whatsnew_uber_message" = "アプリから直接Uberの配車リクエストができます！";
-
 "dialog_taxi_offline" = "タクシーの予約がオフラインモードでは使用できません。";
 
 "dialog_taxi_error" = "タクシーの予約が一時的に使用できません。";
@@ -1714,42 +1604,6 @@
 /* "traffic" as in "road congestion" */
 "traffic_data_unavailable" = "交通データは利用できません";
 
-/* december */
-"whatsnew_traffic" = "36か国の交通データ";
-
-/* december */
-"whatsnew_traffic_text" = "最新の交通データと、データに基づく最速のドライブルートをご提供致します！";
-
-/* december */
-"whatsnew_traffic_roaming" = "ローミング中の交通情報";
-
-/* december */
-"whatsnew_traffic_roaming_text" = "移動毎に 1 MB 未満のモバイル帯域幅が必要です。";
-
-/* december */
-"whatsnew_order_taxi" = "タクシーの呼び出し";
-
-/* december */
-"whatsnew_order_taxi_text" = "ほとんど場所のページに、タクシーを呼ぶためのボタンが表示されるようになりました。";
-
-/* january */
-"whatsnew_improved_search" = "検索機能の向上";
-
-/* january */
-"whatsnew_improved_search_text" = "スペルミスのある検索を行なっても、正確な検索結果を表示します。";
-
-/* january */
-"whatsnew_filters_in_search" = "検索フィルター";
-
-/* january */
-"whatsnew_filters_in_search_text" = "価格と評価に基づくホテルの検索。";
-
-/* january */
-"whatsnew_font_size" = "フォントサイズ";
-
-/* january */
-"whatsnew_font_size_text" = "地図上のラベルを大きくすることができます。";
-
 /* "Translation is no needed, because it's a company name" */
 "uber" = "Uber";
 
@@ -1772,26 +1626,6 @@
 "pref_traffic_simplified_colors_title" = "簡易的な交通状況色";
 
 "enable_logging" = "ログを有効化";
-
-"whatsnew_more_info_on_hotels_title" = "ホテルの詳細情報";
-
-"whatsnew_more_info_on_hotels_message" = "ホテルページの見映えを一新: 写真、ユーザーレビューやその他の情報をオンラインでチェックしてください。";
-
-"whatsnew_better_routing_title" = "ルート選定処理を改善";
-
-"whatsnew_better_routing_message" = "• より正確な到着時間の見積もりを出せるようになりました。\n• このアプリは制限区域や道路標識を考慮に入れています。";
-
-"whatsnew_smaller_mwm_title" = "地図のサイズが小さくなりました";
-
-"whatsnew_smaller_mwm_message" = "地図が必要とするストレージ容量が最大で 20% 少なくなりました。";
-
-"whatsnew_waypoints_title" = "ルート上の経由地";
-
-"whatsnew_waypoints_message" = "場所をタップしてルートに経由地を追加します。";
-
-"whatsnew_driving_style_title" = "運転用の新しい地図のスタイル";
-
-"whatsnew_driving_style_message" = "カーナビゲーションモードの使用がより簡単になりました。";
 
 "more_on_bookingcom" = "さらに Booking.com で表示";
 
@@ -1852,8 +1686,6 @@
 
 "whatsnew_transliteration_title" = "ラテン文字への字訳";
 
-"whatsnew_transliteration_message" = "通り名や物件名をあなたの言語で表示できない場合、ラテン文字のアルファベットで綴られます。";
-
 "yandex_taxi_title" = "Yandex.Taxi";
 
 "learn_more" = "詳細情報";
@@ -1891,10 +1723,6 @@
 "button_replace" = "変更する";
 
 "placepage_add_stop" = "経由地点を追加";
-
-"whatsnew_intermediate_point_title" = "その他の経由地点";
-
-"whatsnew_intermediate_point_message" = "中間地点のあるルートを計画します。";
 
 /* Only ru/en are needed */
 "subtitle_rent" = "Rent";
@@ -2503,24 +2331,6 @@
 
 "whats_new_ugc_routes_message2" = "ウェブエディタで写真と詳細なストーリーを追加しましょう。";
 
-"whatsnew_standard_routes_title" = "標準的ルート";
-
-"whatsnew_standard_routes_message" = "基本的な一連の関心地点(POI)と簡潔な説明ですが、多くの体験があり余す！";
-
-"whatsnew_city_overview_title" = "街の概要";
-
-"whatsnew_city_overview_message" = "街の地図上の最大200の関心地点(POI)：すべて旅行者にとって有用で興味深いものです！";
-
-"whatsnew_pro_guides_title" = "プロフェッショナルルート";
-
-"whatsnew_pro_guides_message" = "非常に綿密で詳細な場所の説明と、移動距離および時間の計算能力";
-
-"whatsnew_paid_routes_title" = "さらなある新たな体験！";
-
-"whatsnew_paid_routes_message" = "無料のルートに加え、カタログに3つの有料のルートを追加しました。700を超える新たなルート！";
-
-"whats_new_ugc_routes_title_android_only" = "印象を共有するのは簡単です";
-
 "ugc_thanks_message_auth" = "あなたのレビューが保存されました";
 
 "ugc_thanks_message_not_auth" = "レビューを残すにはログインしてください";
@@ -2681,14 +2491,6 @@
 
 "whats_new_auto_update_and_proceed_button_size" = "アップデート(%s) して進む";
 
-"whatsnew_toll_unpaved_title" = "全てのタイプの道を考慮に入れて自動車ルートをレイアウト";
-
-"whatsnew_toll_unpaved_message" = "有料道路、未舗装道路、およびフェリー航路を回避するために迂回路を選択";
-
-"whatsnew_new_catalogue_title" = "カタログのページをアップデート";
-
-"whatsnew_new_catalogue_message" = "ルートの選択を簡単かつ便利にするためにパートナーのガイドの詳細な情報を追加しました";
-
 "purchase_please_wait_toast" = "購入が完了するまでこの画面を閉じないでください";
 
 "trip_start" = "レッツゴー";
@@ -2803,18 +2605,6 @@
 
 "subscription_terms" = "ご購入確定時にお客様のiTunesアカウントにお支払いが請求されます。現在のご利用期間が終了する最低でも24時間前に自動更新が解除されなければ、サブスクリプションは自動的に更新されます。現在のご利用期間が終了する24時間以内に、ご利用プランの更新がアカウントに請求されます。ご購入期間中にApple IDアカウント設定より自動更新を管理または解除することができます。";
 
-"whatsnew_carplay_title" = "CarPlay対応OMapsのカーナビゲーションです！";
-
-"whatsnew_carplay_message" = "ブックマークや、検索、自動速度違反取締装置、運転オプションがオフラインで利用できます";
-
-"whatsnew_subscription_title" = "サブスクライブすれば世界中で利用できます！";
-
-"whatsnew_subscription_message" = "ガイドのカタログへの無制限のアクセスはワンタイム購入よりもお得です";
-
-"whatsnew_carnavi_fixes_for_android_title" = "ナビゲーションの更新";
-
-"whatsnew_carnavi_fixes_for_android_message" = "道から遠く離れた地点へのルート計画を改善しました";
-
 "avoid_unpaved_carplay_1" = "未舗装道路無し";
 
 "avoid_unpaved_carplay_2" = "未舗装道路無し";
@@ -2918,10 +2708,6 @@
 /* Android, max 18 symbols */
 "bookmarks_delete_list" = "リストの削除";
 
-"whatsnew_bookmarks_search_sort_title" = "ブックマークの順番で快適な旅ができます";
-
-"whatsnew_bookmarks_search_sort_message" = "お気に入りの場所をカテゴリーや、位置、時系列順で並び替えたり、名前で素早く特定のブックマークを検索しましょう。";
-
 "popup_subscription_success_map_title" = "おめでとうございます、サブスクライブしました!";
 
 "popup_subscription_success_map_message" = "OMapsのカタログで最高の観光地を見つけましょう";
@@ -2961,10 +2747,6 @@
 "catalog_no_internet_title" = "インターネット接続がありません";
 
 "catalog_no_internet_button" = "もう一度お試しください";
-
-"whatsnew_map_updates_title" = "高速のマップ更新";
-
-"whatsnew_map_updates_message" = "これからは更新速度が二倍になります";
 
 "new_onboarding_button" = "次へ";
 
@@ -3053,14 +2835,6 @@
 
 "dialog_pedestrian_route_is_long" = "交通機関の登場ポイントまでの歩行ルートが長すぎます";
 
-"whatsnew_outdoor_guides_title" = "15000以上のアウトドアトレイルを追加しました！";
-
-"whatsnew_outdoor_guides_message" = "Outdooractiveが提供する冬と夏の旅のためのルートをカタログから利用できます!";
-
-"whatsnew_guides_galleries_title" = "OMapsで今後の旅の計画を立てましょう";
-
-"whatsnew_guides_galleries_message" = "人気の観光都市と景色の場所のページでお勧めのガイドを見つける事ができるようになりました";
-
 "new_onboarding_step3_header" = "体験しましょう";
 
 "all_pass_screen_best_value" = "ベストバリュー";
@@ -3075,11 +2849,6 @@
 
 /* Failed planning SUBWAY route message in navigation view */
 "routing_planning_error_subway_special" = "地下鉄ルートの計画ができませんでした";
-
-"whatsnew_isolines_title" = "アウトドアの新要素：オフラインのトポグラフィーレイヤー！";
-
-/* as less symbols as possible */
-"whatsnew_isolines_message" = "山地でも安心。左上でレイヤーを起動するだけです";
 
 "button_layer_isolines" = "地形";
 
@@ -3169,18 +2938,6 @@
 /* as few symbols as possible */
 "routes_card_hide" = "マップから非表示";
 
-"whatsnew_catalog_new_title" = "新しいガイドのカタログと数千の旅行アイディア";
-
-"whatsnew_catalog_new_message" = "ガイドのカタログを更新し、人気の言語の翻訳を追加しました。事前に旅行の計画を立てましょう！";
-
-"whatsnew_elevation_profile_title" = "旅行ガイドの標高情報";
-
-"whatsnew_elevation_profile_message" = "購入したルートのプロフィールでカーソルを使って今後のオフラインの上昇と下降の難易度を調べましょう。";
-
-"whatsnew_guides_on_map_title" = "簡単にガイドをみつけるための新しいレイヤー";
-
-"whatsnew_guides_on_map_message" = "興味深い都市ルートとアウトドア活動のための旅行ガイドを素早くみつけるためにアプリの設定メニューでレイヤーを有効化しましょう。";
-
 "downloader_updating_ios" = "更新中";
 
 "downloader_loading_ios" = "ダウンロード中";
@@ -3238,10 +2995,6 @@
 "choose_dates_online_only_dialog_cta" = "設定";
 
 "thirty_days_limit_dialog" = "最大で30泊まで予約する事ができます";
-
-"whatsnew_trial_title" = "ガイドのカタログへの無料アクセス";
-
-"whatsnew_trial_message" = "無料で7日間のトライアルを提供しています。世界中の数千の旅行ガイドとアウトドアガイドのためのインタラクティブな標高情報へのアクセス。";
 
 "whatsnew_trial_cta" = "今すぐ試してみましょう";
 

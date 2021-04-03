@@ -18,33 +18,16 @@
 /* Button which deletes downloaded country */
 "delete" = "حذف";
 
-/* Button to dismiss dialog forever */
-"do_not_ask_me_again" = "دوباره نپرس";
-
 /* Button "do not interrupt download" if user touched actively downloading country */
 "do_nothing" = "ادامه";
 
 "download_maps" = "دانلود نقشه ها";
 
-/* Settings/Downloader - Download confirmation button */
-"download_x_kb" = "دانلود شد  %qu کیلوبایت";
-
-/* Settings/Downloader - Download confirmation button */
-"download_x_mb" = "دانلود شد %qu مگابایت";
-
 /* Settings/Downloader - info for country when download fails */
 "download_has_failed" = "دانلود ناموفق بود . برای تلاش مجدد لمس کنید";
 
-/* Settings/Downloader - info for downloaded country */
-"downloaded_x_y_touch_to_delete" = "دانلودشده (%1$qu %2$@), برای حذف لمس کنید";
-
-/* Settings/Downloader - country info current download progress */
-"downloading_x_touch_to_cancel" = "درحال دانلود %qu%%, برای لغو لمس کنید";
-
 /* Settings/Downloader - info for country which started downloading */
 "downloading" = "درحال دانلود";
-
-"get_it_now" = "هم اکنون دریافت کنید";
 
 /* Settings/Downloader - size string, only strings different from English should be translated */
 "kb" = "کیلوبایت";
@@ -58,12 +41,6 @@
 /* View and button titles for accessibility */
 "maps" = "نقشه ها";
 
-/* View and button titles for accessibility */
-"downloader_maps" = ":نقشه ها";
-
-/* Settings/Downloader - info for country in the download queue */
-"marked_for_downloading" = "Marked for downloading, touch to cancel";
-
 /* Settings/Downloader - size string, only strings different from English should be translated */
 "mb" = "مگابایت";
 
@@ -75,20 +52,11 @@
 /* View and button titles for accessibility */
 "core_my_position" = "مکان من";
 
-/* Settings/Downloader - No free space dialog message */
-"free_disk_space_for_country_x" = "لطفا مقداری از فضای ذخیره سازی تلفن همراهتان را جهت دانلود خالی نمایید %@";
-
-/* Leave Review dialog - Not now button (remind me later) */
-"remind_me_later" = "بعدا یاداوری کن";
-
 /* Update maps later/Buy pro version later button text */
 "later" = "بعداً";
 
 /* Don't show some dialog any more */
 "never" = "هرگز";
-
-/* Leave Review dialog - Complain button (goes to support site) */
-"report_an_issue" = "گزارش مشکل";
 
 /* View and button titles for accessibility */
 "search" = "جست‌وجو";
@@ -102,9 +70,6 @@
 /* Settings/Downloader - 3G download warning dialog confirm button */
 "use_cellular_data" = "بله";
 
-/* Choose measurement on first launch alert - title */
-"which_measurement_system" = "کدام واحد اندازه گیری را ترجیح می دهید؟";
-
 /* Location services are disabled by user alert - message */
 "location_is_disabled_long_text" = "سرویس موقعیت مکانی شما غیر فعال است .لطفا جهت کارکرد صحیح نرم افزار ان را فعال کنید.";
 
@@ -113,12 +78,6 @@
 
 /* View and button titles for accessibility */
 "zoom_to_country" = "بر روی نقشه نمایش بده";
-
-/* Message to display at the center of the screen when the country is added to the downloading queue */
-"country_status_added_to_queue" = "^\nis اضافه کردن به صف دانلود";
-
-/* Message to display at the center of the screen when the country is downloading */
-"country_status_downloading" = "درحال دانلود\n^\n^";
 
 /* Button text for the button at the center of the screen when the country is not downloaded */
 "country_status_download" = "دانلود نقشه\n(^ ^)";
@@ -136,8 +95,6 @@
 "try_again" = "تلاش مجدد";
 
 "about_menu_title" = "OMaps درباره‌ی";
-
-"downloading_touch_to_cancel" = "درحال دانلود %d%%, برای لغو لمس کنید";
 
 "downloaded_touch_to_delete" = "دانلود شده (%@),  برای حذف لمس کنید";
 
@@ -159,8 +116,6 @@
 
 "not_enough_memory" = "حافظه کافی برای اجرای برنامه وجود ندارد";
 
-"free_space_for_country" = "Please free %1$@ on your device first in order to download %2$@";
-
 "download_resources" = "قبل از استفاده از اپلیکیشن, اجازه دهید تا ما نقشه جهانی را بر روی موبایل شما دانلود کنیم.\nمقدار %@ از حافظه شما اشغال می شود.";
 
 "getting_position" = "درحال دریافت موقعیت مکانی شما";
@@ -174,35 +129,10 @@
 "update_country_ask" = "اپدیت %@?";
 
 /* REMOVE THIS STRING AFTER REFACTORING */
-"download_location_map_proposal" = "شما می توانید نقشه\nموقعیت فعلیتان را دانلود کنید.";
-
-/* REMOVE THIS_STRING AFTER REFACTORING */
-"download_location_update_map_proposal" = "شما می توانید نقشه\nموقعیت فعلیتان را اپدیت نمایید.";
-
-/* REMOVE THIS STRING AFTER REFACTORING */
-"download_location_map_up_to_date" = "The map of your current\nlocation (%@) is up-to-date.";
-
-/* REMOVE THIS STRING AFTER REFACTORING */
 "pause" = "مکث";
 
 /* REMOVE THIS STRING AFTER REFACTORING */
 "continue_download" = "ادامه";
-
-"downloaded_touch_to_update" = "دانلود شده (%@), برای اپدیت یا حذف لمس کنید";
-
-"update_mb_or_kb" = "بروزرسانی %@";
-
-/* Show popup notification when we have downloaded countries without search (from Lite version) */
-"search_update_maps" = "شما برای استفاده از قابلیت جست‌وجو نیاز به اپدیت نقشه دارید:";
-
-/* Show popup notification on app start when we have out-of-date maps */
-"advise_update_maps" = "اپدیتی برای نقشه مورد نظر موجود است:";
-
-/* Show popup notification in Pro version that Lite can be deleted */
-"suggest_uninstall_lite" = "شما دیگر نیازی به نسخه رایگان OMaps ندارید, پس ان را از روی دیوایستان حذف نمایید.";
-
-/* Show popup notification on top of the map when country was downloaded. */
-"download_country_success" = "%@ دانلود با موفقیت انجام شد";
 
 /* Show popup notification on top of the map when country download has failed. */
 "download_country_failed" = "%@ دانلود با شکست مواجه شد";
@@ -245,9 +175,6 @@
 
 /* Text hint in Bookmarks dialog when no any bookmarks are added */
 "bookmarks_usage_hint" = "شما تا کنون نشانه ای نداشته اید.\nبر روی مکانی از نقشه لمس کنید تا نشانه ای افزوده شود.\nنشانه ها را می توانید از جایی دیگر وارد کرده و در OMaps نمایش دهید.Open KML/KMZ file with saved bookmarks from email, Dropbox or weblink.";
-
-/* Text hint in Bookmarks dialog when at least one bookmark is added */
-"bookmarks_usage_hint_import_only" = "Bookmarks from other sources can be imported and displayed in OMaps. Open a KML/KMZ file with saved bookmarks from email, Dropbox or a weblink.";
 
 /* Settings button in system menu */
 "settings" = "تنظیمات";
@@ -1289,16 +1216,6 @@
 
 "placepage_add_business_button" = "اضافه کردن یک تجارت";
 
-"whatsnew_smallmwm_header" = "شما درخواست زیادی داشتید و ما ان ها را نهایتا افزودیم";
-
-"whatsnew_smallmwm_message" = "ما نقشه های بزرگ را به چند بخش تقسیم کردیم.اکنون شما می توانید فقط منطقه مورد نیازتان را به جای تمام کشور دانلود کنید.";
-
-"whatsnew_search_header" = "جست وجوی جدید";
-
-"whatsnew_search_message" = "ما بطور قابل توجه ای در جست وجو از طریق ادرس پیشرفت کردیم.خودتان ببینید.";
-
-"whatsnew_editor_title" = "ویرایش نقشه*";
-
 "whatsnew_editor_message_1" = "اضافه کردن مکان به نقشه و ویرایش ان مستقیما از طریق این اپلیکیشن.";
 
 "whatsnew_editor_message_2" = "* OMaps از دیتای انجمن  OpenStreetMap.";
@@ -1382,13 +1299,6 @@
 "current_location_unknown_error_title" = "مکان فعلیتان ناشناس است.";
 
 "current_location_unknown_error_message" = "خطایی در هنگام جست وجوی مکان شمارخ داده است.بررسی کنیید دستگاهتان به درستی کار می کند و دوباره تلاش کنید.";
-
-"whatsnew_update_editor_title" = "ما ویرایشگر نقشه را بروزرسانی کرده ایم";
-
-"whatsnew_update_editor_message" = "کاربران OMaps تا کنون 200,000 تغییر در نقشه انجام داده اند.با یکدیگر می توانیم جزئیات بیشتری را به نقشه جهان اضافه کنیم.به ما بپیوندید!";
-
-/* Additional text in whats new */
-"whatsnew_update_editor_message_update" = "برای استفاده از ویرایشگر نقشه ابتدا تمامی نقشه های خود را بروزرسانی کنید.";
 
 "location_services_disabled_header" = "سرویس موقعیت مکانی شما غیرفعال است";
 
@@ -1555,22 +1465,6 @@
 
 "recent_track_background_dialog_message" = "OMaps  از اطلاعات موقعیت مکانی شما در پس ضمینه برای ذخیره مسیر هایی که اخیرا سفر کرده اید استفاده می کند.";
 
-"whatsnew_car_navigation_header" = "User-friendly vehicle navigation";
-
-"whatsnew_car_navigation_message" = "• The navigation elements take up less space.\n• We display the speed and have added auto zoom.";
-
-"whatsnew_cycle_navigation_2_header" = "Bike navigation";
-
-"whatsnew_cycle_navigation_2_message" = "• Bike navigation takes into account terrain data.\n• We create easier routes taking into account road inclines.";
-
-"whatsnew_booking_2_header" = "جست وجوی اسان هتل ها";
-
-"whatsnew_booking_2_message" = "نتایج جست وجوی شما شامل رده بندی و قیمت هتل ها می شود.";
-
-"whatsnew_cycle_navigation_header" = "Bike navigation (beta version)";
-
-"whatsnew_cycle_navigation_message" = "We are testing bike navigation for the new season. Try your favorite bike route with OMaps, and share your opinion with us.";
-
 /* Rate on Google Play (Android only) */
 "rate_gp" = "امتیاز دادن در گوگل پلی";
 
@@ -1673,10 +1567,6 @@
 /* Verb. Text on a button that opens the chat. */
 "chat_open" = "باز";
 
-"whatsnew_uber_header" = "OMaps & اوبر";
-
-"whatsnew_uber_message" = "سفارش تاکسی, مستقیم از طریق اپلیکیشن!";
-
 "dialog_taxi_offline" = "سفارش تاکسی در حالت افلاین موجود نیست!";
 
 "dialog_taxi_error" = "سفارش تاکسی موقتا موجود نیست.";
@@ -1714,42 +1604,6 @@
 /* "traffic" as in "road congestion" */
 "traffic_data_unavailable" = "اطلاعات ترافیکی موجود نیست";
 
-/* december */
-"whatsnew_traffic" = "اطلاعات ترافیکی در 36 کشور";
-
-/* december */
-"whatsnew_traffic_text" = "تا به امروز اطلاعات ترافیک و سریعترین مسیرهای رانندگی بر اساس آن!";
-
-/* december */
-"whatsnew_traffic_roaming" = "اطلاعات ترافیکی در رومینگ";
-
-/* december */
-"whatsnew_traffic_roaming_text" = "نیاز به کمتر از 1 مگابایت پهنای باند تلفن همراه در هر سفر.";
-
-/* december */
-"whatsnew_order_taxi" = "سفارش تاکسی";
-
-/* december */
-"whatsnew_order_taxi_text" = "در حال حاضر اکثر صفحات مکان دارای یک دکمه برای سفارش تاکسی هستند.";
-
-/* january */
-"whatsnew_improved_search" = "جستجوی پیشرفته";
-
-/* january */
-"whatsnew_improved_search_text" = "اشتباهات در جستجوها بر نتایج جستجو تاثیر نمی گذارد.";
-
-/* january */
-"whatsnew_filters_in_search" = "فیلترهای جستجو";
-
-/* january */
-"whatsnew_filters_in_search_text" = "جستجوی هتل ها براساس قیمت و امتیاز.";
-
-/* january */
-"whatsnew_font_size" = "اندازه فونت";
-
-/* january */
-"whatsnew_font_size_text" = "برچسب ها در نقشه می توانند بزرگتر شوند";
-
 /* "Translation is no needed, because it's a company name" */
 "uber" = "Uber";
 
@@ -1772,26 +1626,6 @@
 "pref_traffic_simplified_colors_title" = "رنگ های ترافیکی ساده شده";
 
 "enable_logging" = "ورود به سیستم را فعال کنید";
-
-"whatsnew_more_info_on_hotels_title" = "اطلاعات بیشتر در مورد هتل ها";
-
-"whatsnew_more_info_on_hotels_message" = "نگاهی به نام تجاری جدید برای صفحات هتل: بررسی عکس، بررسی کاربر و سایر اطلاعات آنلاین.";
-
-"whatsnew_better_routing_title" = "بهبود مسیر برنامه ریزی";
-
-"whatsnew_better_routing_message" = "تخمین دقیق تر از زمان ورود. \n • برنامه به مناطق محدود و نشانه های جاده اشاره دارد.";
-
-"whatsnew_smaller_mwm_title" = "نقشه کوچکتر شده است";
-
-"whatsnew_smaller_mwm_message" = "نقشه ها نیاز به ذخیره سازی 20٪ کمتر دارند.";
-
-"whatsnew_waypoints_title" = "مسیرهای مسیریابی";
-
-"whatsnew_waypoints_message" = "مکان ها را برای افزودن ایستگاه های راه به مسیر خود ضربه بزنید.";
-
-"whatsnew_driving_style_title" = "نقشه جدید برای رانندگی";
-
-"whatsnew_driving_style_message" = "حالت ناوبری خودرو برای استفاده آسان تر شد.";
 
 "more_on_bookingcom" = "بیشتر در Booking.com";
 
@@ -1852,8 +1686,6 @@
 
 "whatsnew_transliteration_title" = "ترجمه به لاتین";
 
-"whatsnew_transliteration_message" = "اگر یک خیابان یا یک شیء یک نام در زبان شما نداشته باشد، با استفاده از الفبای لاتین، املای آن نوشته می شود.";
-
 "yandex_taxi_title" = "Yandex.Taxi";
 
 "learn_more" = "بیشتر بدانید";
@@ -1891,10 +1723,6 @@
 "button_replace" = "جایگزین کردن";
 
 "placepage_add_stop" = "اضافه کردن توقف";
-
-"whatsnew_intermediate_point_title" = "توقف اضافی";
-
-"whatsnew_intermediate_point_message" = "یک مسیر را با یک نقطه متوسط طراحی کنید.";
 
 /* Only ru/en are needed */
 "subtitle_rent" = "Rent";
@@ -2503,24 +2331,6 @@
 
 "whats_new_ugc_routes_message2" = "Add photos and detailed stories in the web-editor.";
 
-"whatsnew_standard_routes_title" = "مسیرهای استاندارد";
-
-"whatsnew_standard_routes_message" = "مجموعه ای اولیه از نقاط مورد علاقه و توضیحات مختصر، اما همراه با تجربیات فراوان!";
-
-"whatsnew_city_overview_title" = "نمای کلی شهر";
-
-"whatsnew_city_overview_message" = "تا 200 نقطه مورد علاقه در نقشه شهر: تمامی آنچه برای مسافران می تواند مفید و جالب باشد!";
-
-"whatsnew_pro_guides_title" = "مسیرهای حرفه ای";
-
-"whatsnew_pro_guides_message" = "بسیار دقیق، با توضیحات مفصلی از مکان ها و توانایی محاسبه فاصله و زمان سفر";
-
-"whatsnew_paid_routes_title" = "تجارب جدید بیشتر!";
-
-"whatsnew_paid_routes_message" = "علاوه بر مسیرهای رایگان، سه دسته مسیر پولی نیز به فهرست ما افزوده شده است. بیش از ۷۰۰ مسیر جدید!";
-
-"whats_new_ugc_routes_title_android_only" = "Easy to share your impressions";
-
 "ugc_thanks_message_auth" = "نظر شما ذخیره شده‌است";
 
 "ugc_thanks_message_not_auth" = "لطفا برای ثبت نظر وارد حساب کاربری شوید";
@@ -2681,14 +2491,6 @@
 
 "whats_new_auto_update_and_proceed_button_size" = "به روز رسانی (%s) و ادامه";
 
-"whatsnew_toll_unpaved_title" = "مسیرهای خودرویی را با توجه به انواع جاده ها تنظیم کنید";
-
-"whatsnew_toll_unpaved_message" = "مسیرهای فرعی از طریق مسیرهای دارای عوارض، جاده های خاکی و گذرگاه های جاده ای انتخاب کنید";
-
-"whatsnew_new_catalogue_title" = "صفحات کاتالوگ به روز شد";
-
-"whatsnew_new_catalogue_message" = "اطلاعات دقیق در مورد راهنماهای همکار اضافه شده است تا انتخاب مسیر آسان و راحت باشد";
-
 "purchase_please_wait_toast" = "لطفاً این صفحه را پیش از اتمام خرید ترک نکنید";
 
 "trip_start" = "برویم";
@@ -2803,18 +2605,6 @@
 
 "subscription_terms" = "Payment will be charged to your iTunes account at confirmation of purchase. The subscription will automatically renew unless auto-renew is turned off at least 24 hours before the end of the current period. Your account will be charged according to your plan for renewal within 24 hours prior to the end of the current period. You can manage or turn off auto-renew in your Apple ID account settings at any time of your purchase.";
 
-"whatsnew_carplay_title" = "مسیر یابی خودرو OMaps در CarPlay!";
-
-"whatsnew_carplay_message" = "نشانه ها، جستجو، دوربین های سرعت و گزینه های رانندگی در حالت آفلاین در دسترس هستند";
-
-"whatsnew_subscription_title" = "تمام جهان با اشتراک!";
-
-"whatsnew_subscription_message" = "دسترسی نامحدود به تمام کاتالوگ راهنما به صرفه تر از خرید یک بار مصرف است";
-
-"whatsnew_carnavi_fixes_for_android_title" = "به روز رسانی مسیریابی";
-
-"whatsnew_carnavi_fixes_for_android_message" = "مسیر برنامه ریزی به نقاطی دور از جاده‌ها بهبود داده ایم";
-
 "avoid_unpaved_carplay_1" = "بی جاده خاکی";
 
 "avoid_unpaved_carplay_2" = "پرهیز از خاکی";
@@ -2918,10 +2708,6 @@
 /* Android, max 18 symbols */
 "bookmarks_delete_list" = "حذف همه";
 
-"whatsnew_bookmarks_search_sort_title" = "سفارش در نشانهها سفری آسوده را رقم می زند";
-
-"whatsnew_bookmarks_search_sort_message" = "مکانهای مورد علاقه را بر اساس طبقه بندی ، موقعیت مکانی و ترتیب زمانی مرتب کنید، همچنین نشانههای خاص را به سرعت از روی نام بیابید";
-
 "popup_subscription_success_map_title" = "هورا، شما مشترک شدید!";
 
 "popup_subscription_success_map_message" = "اکنون بهترین مکان های برجسته گردشگری را در کاتالوگ OMaps کشف کنید";
@@ -2961,10 +2747,6 @@
 "catalog_no_internet_title" = "اتصال به اینترنت برقرار نیست";
 
 "catalog_no_internet_button" = "تلاش مجدد";
-
-"whatsnew_map_updates_title" = "بروزرسانی بسیار سریع ن";
-
-"whatsnew_map_updates_message" = "از این پس سرعت بروزرسانی اطلاعات دو برابر است";
 
 "new_onboarding_button" = "بعدی";
 
@@ -3053,14 +2835,6 @@
 
 "dialog_pedestrian_route_is_long" = "مسیر عابر پیاده تا نقطه حمل و انتقال بسیار طولانی است";
 
-"whatsnew_outdoor_guides_title" = "15000+ مسیر فضای باز اضافه کردهایم!";
-
-"whatsnew_outdoor_guides_message" = "مسیرهای Outdooractive برای سفرهای زمستانی و تابستانی در کاتالوگ در حال انتظار هستند!";
-
-"whatsnew_guides_galleries_title" = "سفر آتی خود را با OMaps برنامهریزی کنید";
-
-"whatsnew_guides_galleries_message" = "حال میتوانید توصیههای پیشنهادی را در صفحه مربوط به مکان شهرها و مکان‎های توریستی مشهور مشاهده کنید";
-
 "new_onboarding_step3_header" = "تجربه کنید";
 
 "all_pass_screen_best_value" = "بهترین ارزش";
@@ -3075,11 +2849,6 @@
 
 /* Failed planning SUBWAY route message in navigation view */
 "routing_planning_error_subway_special" = "برنامه ریزی مسیر مترو ناموفق ماند";
-
-"whatsnew_isolines_title" = "تازه های فضای باز: لایه توپوگرافی آفلاین!";
-
-/* as less symbols as possible */
-"whatsnew_isolines_message" = "در مناطق کوهستانی خاطر جمع باشید. فقط لایه را در قسمت بالا سمت چپ روشن کنید";
 
 "button_layer_isolines" = "ایزومپ";
 
@@ -3169,18 +2938,6 @@
 /* as few symbols as possible */
 "routes_card_hide" = "مخفی کردن از نقشه";
 
-"whatsnew_catalog_new_title" = "کاتالوگ راهنمای جدید با هزاران ایدۀ سفر";
-
-"whatsnew_catalog_new_message" = "ما کاتالوگ راهنما را به روزرسانی و ترجمه هایی به زبان های پرطرفدار دنیا را به آن اضافه کرده ایم. از همین الان برای سفرهای خود برنامه ریزی کنید!";
-
-"whatsnew_elevation_profile_title" = "پروفایل ارتفاع در راهنمای سفر";
-
-"whatsnew_elevation_profile_message" = "پیچیدگی بالا رفتن ها و پایین آمدن های آفلاین بعدی را در پروفایل مسیرهای خریداری شده به وسیله مکان نما ارزیابی کنید.";
-
-"whatsnew_guides_on_map_title" = "لایه جدید برای یافتن آسان راهنما";
-
-"whatsnew_guides_on_map_message" = "در فهرست تنظیمات برنامه لایه را فعال کنید تا به سرعت مسیرهای جذاب شهری و راهنما های مسافرت برای فعالیت های فضای باز را پیدا کنید.";
-
 "downloader_updating_ios" = "در حال بروزرسانی";
 
 "downloader_loading_ios" = "در حال دانلود";
@@ -3238,10 +2995,6 @@
 "choose_dates_online_only_dialog_cta" = "تنظیمات";
 
 "thirty_days_limit_dialog" = "شما می توانید حداکثر 30 شب رزرو کنید";
-
-"whatsnew_trial_title" = "دسترسی رایگان به کاتالوگ راهنما";
-
-"whatsnew_trial_message" = "پیشنهاد میکنیم از دورۀ آزمایشی و رایگان 7 روزه استفاده کنید. به هزاران راهنمای سفر در سراسر جهان و یک نقشۀ ارتفاعنمای مناسب سفرهای برون شهری دسترسی پیدا کنید.";
 
 "whatsnew_trial_cta" = "همین الان امتحان کنید";
 

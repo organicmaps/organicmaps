@@ -18,33 +18,16 @@
 /* Button which deletes downloaded country */
 "delete" = "Verwijder";
 
-/* Button to dismiss dialog forever */
-"do_not_ask_me_again" = "Nooit meer vragen";
-
 /* Button "do not interrupt download" if user touched actively downloading country */
 "do_nothing" = "Doorgaan";
 
 "download_maps" = "Gedownloade Kaarten";
 
-/* Settings/Downloader - Download confirmation button */
-"download_x_kb" = "Download %qu KB";
-
-/* Settings/Downloader - Download confirmation button */
-"download_x_mb" = "Download %qu MB";
-
 /* Settings/Downloader - info for country when download fails */
 "download_has_failed" = "Download is afgebroken, klik om nog een keer te proberen";
 
-/* Settings/Downloader - info for downloaded country */
-"downloaded_x_y_touch_to_delete" = "(%1$qu %2$@) gedownload, klik om te verwijderen";
-
-/* Settings/Downloader - country info current download progress */
-"downloading_x_touch_to_cancel" = "%qu%% downloaden, klik om te annuleren";
-
 /* Settings/Downloader - info for country which started downloading */
 "downloading" = "Downloaden…";
-
-"get_it_now" = "Installeren";
 
 /* Settings/Downloader - size string, only strings different from English should be translated */
 "kb" = "KB";
@@ -58,12 +41,6 @@
 /* View and button titles for accessibility */
 "maps" = "Kaarten";
 
-/* View and button titles for accessibility */
-"downloader_maps" = "Kaarten:";
-
-/* Settings/Downloader - info for country in the download queue */
-"marked_for_downloading" = "Geselecteerd om te downloaden, raak aan om te annuleren";
-
 /* Settings/Downloader - size string, only strings different from English should be translated */
 "mb" = "MB";
 
@@ -75,20 +52,11 @@
 /* View and button titles for accessibility */
 "core_my_position" = "Mijn Locatie";
 
-/* Settings/Downloader - No free space dialog message */
-"free_disk_space_for_country_x" = "Maak ruimte vrij op uw apparaat om %@ te kunnen downloaden";
-
-/* Leave Review dialog - Not now button (remind me later) */
-"remind_me_later" = "Herinner me later";
-
 /* Update maps later/Buy pro version later button text */
 "later" = "Later";
 
 /* Don't show some dialog any more */
 "never" = "Nooit";
-
-/* Leave Review dialog - Complain button (goes to support site) */
-"report_an_issue" = "Meld een probleem";
 
 /* View and button titles for accessibility */
 "search" = "Zoeken";
@@ -102,9 +70,6 @@
 /* Settings/Downloader - 3G download warning dialog confirm button */
 "use_cellular_data" = "Ja";
 
-/* Choose measurement on first launch alert - title */
-"which_measurement_system" = "Welk meetstelsel heeft u liever?";
-
 /* Location services are disabled by user alert - message */
 "location_is_disabled_long_text" = "U heeft momenteel alle Locatie Services voor dit apparaat of deze app uitgeschakeld. Schakel ze in bij Instellingen";
 
@@ -113,12 +78,6 @@
 
 /* View and button titles for accessibility */
 "zoom_to_country" = "Op de kaart tonen";
-
-/* Message to display at the center of the screen when the country is added to the downloading queue */
-"country_status_added_to_queue" = "^\nis toegevoegd aan de download wachtrij";
-
-/* Message to display at the center of the screen when the country is downloading */
-"country_status_downloading" = "aan het downloaden\n^\n^";
 
 /* Button text for the button at the center of the screen when the country is not downloaded */
 "country_status_download" = "Kaart downloaden\n(^ ^)";
@@ -136,8 +95,6 @@
 "try_again" = "Probeer opnieuw";
 
 "about_menu_title" = "Over OMaps";
-
-"downloading_touch_to_cancel" = "%d%% aan het downloaden, klik om te annuleren";
 
 "downloaded_touch_to_delete" = "Downloaded (%@), klik om te verwijderen";
 
@@ -159,8 +116,6 @@
 
 "not_enough_memory" = "Not genoeg geheugen om app te starten";
 
-"free_space_for_country" = "Maak %1$@ aan ruimte vrij op uw apparaat om %2$@ te downloaden";
-
 "download_resources" = "Voor u van start gaat downloaden we een wereldkaart naar uw apparaat.\nDe kaart neemt %@ in beslag.";
 
 "getting_position" = "Huidige locatie opvragen";
@@ -174,35 +129,10 @@
 "update_country_ask" = "%@ updaten?";
 
 /* REMOVE THIS STRING AFTER REFACTORING */
-"download_location_map_proposal" = "U kunt de kaart van\nuw huidige locatie downloaden";
-
-/* REMOVE THIS_STRING AFTER REFACTORING */
-"download_location_update_map_proposal" = "U kunt de kaart\nvan uw huidige locatie kunnen geupdate worden";
-
-/* REMOVE THIS STRING AFTER REFACTORING */
-"download_location_map_up_to_date" = "De kaart op uw huidige\nlocatie (%@) is up-to-date";
-
-/* REMOVE THIS STRING AFTER REFACTORING */
 "pause" = "Pauze";
 
 /* REMOVE THIS STRING AFTER REFACTORING */
 "continue_download" = "Doorgaan";
-
-"downloaded_touch_to_update" = "(%@) gedownload, klik om te updaten of te verwijderen";
-
-"update_mb_or_kb" = "%@ Bijwerken";
-
-/* Show popup notification when we have downloaded countries without search (from Lite version) */
-"search_update_maps" = "Om de zoekfunctie te kunnen gebruiken moet u de kaarten updaten";
-
-/* Show popup notification on app start when we have out-of-date maps */
-"advise_update_maps" = "Update beschikbaar voor deze kaarten:";
-
-/* Show popup notification in Pro version that Lite can be deleted */
-"suggest_uninstall_lite" = "U heeft OMaps Lite niet meer nodig, dus u kunt de app deïnstalleren";
-
-/* Show popup notification on top of the map when country was downloaded. */
-"download_country_success" = "%@ is succesvol gedownload";
 
 /* Show popup notification on top of the map when country download has failed. */
 "download_country_failed" = "%@ download is afgebroken";
@@ -245,9 +175,6 @@
 
 /* Text hint in Bookmarks dialog when no any bookmarks are added */
 "bookmarks_usage_hint" = "Je hebt nog geen bladwijzers.\nTik op een plek op de kaart om een bladwijzer toe te voegen.\nBladwijzers uit andere bronnen kunnen ook worden geïmporteerd en weergegeven in de OMaps app. Open KML/KMZ bestand met opgeslagen speldjes uit mail, Dropbox of weblink.";
-
-/* Text hint in Bookmarks dialog when at least one bookmark is added */
-"bookmarks_usage_hint_import_only" = "Bladwijzers uit andere bronnen kunnen worden geïmporteerd en weergegeven in de OMaps app. Open KML/KMZ bestand met opgeslagen speldjes uit mail, Dropbox of weblink.";
 
 /* Settings button in system menu */
 "settings" = "Instellingen";
@@ -1289,16 +1216,6 @@
 
 "placepage_add_business_button" = "Een organisatie toevoegen";
 
-"whatsnew_smallmwm_header" = "Op veler verzoek hebben we het voor elkaar gekregen";
-
-"whatsnew_smallmwm_message" = "We hebben kaarten in delen verdeeld. Nu kunt u afzonderlijke regio's downloaden in plaats van het hele land.";
-
-"whatsnew_search_header" = "Nieuwe zoekopdracht";
-
-"whatsnew_search_message" = "We hebben het zoeken op adres significant verbeterd. Bekijk het zelf.";
-
-"whatsnew_editor_title" = "Bewerk de kaart*";
-
 "whatsnew_editor_message_1" = "Voeg nieuwe plaatsen toe aan de kaart en bewerk de bestaande rechtstreeks vanuit de app.";
 
 "whatsnew_editor_message_2" = "* OMaps gebruikt OpenStreetMap-communitiedata.";
@@ -1382,13 +1299,6 @@
 "current_location_unknown_error_title" = "Huidige locatie is onbekend.";
 
 "current_location_unknown_error_message" = "Er is een fout opgetreden tijdens het zoeken naar uw locatie. Controleer of uw apparaat goed werkt en probeer het later opnieuw.";
-
-"whatsnew_update_editor_title" = "We hebben de kaarteditor bijgewerkt";
-
-"whatsnew_update_editor_message" = "OMaps-gebruikers hebben 200.000 kaartwijzigingen doorgevoerd. Samen maken we de meest gedetailleerde kaarten ter wereld. Doe met ons mee!";
-
-/* Additional text in whats new */
-"whatsnew_update_editor_message_update" = "Om de kaartaanpasser te kunnen gebruiken, moet je alle kaarten actualiseren.";
 
 "location_services_disabled_header" = "Locatie-identificatie is uitgeschakeld";
 
@@ -1555,22 +1465,6 @@
 
 "recent_track_background_dialog_message" = "OMaps gebruikt uw geografische positie op de achtergrond om uw onlangs afgelegde route vast te leggen.";
 
-"whatsnew_car_navigation_header" = "Gebruikersvriendelijke voertuignavigatie";
-
-"whatsnew_car_navigation_message" = "• De navigatie-elementen nemen minder ruimte in beslag.\n• We tonen de snelheid en hebben automatisch zoomen toegevoegd.";
-
-"whatsnew_cycle_navigation_2_header" = "Fietsnavigatie";
-
-"whatsnew_cycle_navigation_2_message" = "• Fietsnavigatie houdt rekening met terreingegevens.\n• We maken eenvoudigere routes waarbij rekening wordt gehouden met hellingen.";
-
-"whatsnew_booking_2_header" = "Eenvoudig zoeken naar hotels";
-
-"whatsnew_booking_2_message" = "De zoekresultaten voor hotels tonen de hotelbeoordeling en prijscategorie.";
-
-"whatsnew_cycle_navigation_header" = "Fietsnavigatie (bèta-versie)";
-
-"whatsnew_cycle_navigation_message" = "We testen de fietsnavigatie voor het nieuwe seizoen. Probeer uw favoriete fietsroute met OMaps en deel uw ervaringen met ons.";
-
 /* Rate on Google Play (Android only) */
 "rate_gp" = "Beoordeel op Google Play";
 
@@ -1673,10 +1567,6 @@
 /* Verb. Text on a button that opens the chat. */
 "chat_open" = "Openen";
 
-"whatsnew_uber_header" = "OMaps en Uber";
-
-"whatsnew_uber_message" = "Bestel een Uber-taxi rechtstreeks vanuit de app!";
-
 "dialog_taxi_offline" = "Het bestellen van een taxi is niet beschikbaar in de offline modus.";
 
 "dialog_taxi_error" = "Het bestellen van een taxi is tijdelijk niet beschikbaar.";
@@ -1714,42 +1604,6 @@
 /* "traffic" as in "road congestion" */
 "traffic_data_unavailable" = "Verkeersgegevens zijn niet beschikbaar";
 
-/* december */
-"whatsnew_traffic" = "Verkeersgegevens in 36 Landen";
-
-/* december */
-"whatsnew_traffic_text" = "Actuele verkeersinformatie, en de snelste reisroutes hierop gebaseerd!";
-
-/* december */
-"whatsnew_traffic_roaming" = "Verkeersinfo in Roaming";
-
-/* december */
-"whatsnew_traffic_roaming_text" = "Vereist minder dan 1 MB mobiele bandbreedte per trip.";
-
-/* december */
-"whatsnew_order_taxi" = "Bestel een Taxi";
-
-/* december */
-"whatsnew_order_taxi_text" = "De meeste locatiepagina's bevatten nu een knop om een taxi te bestellen.";
-
-/* january */
-"whatsnew_improved_search" = "Verbeterde Zoekfunctie";
-
-/* january */
-"whatsnew_improved_search_text" = "Zelfs verkeerd gespelde zoekopdrachten geven nauwkeurige zoekresultaten.";
-
-/* january */
-"whatsnew_filters_in_search" = "Zoekfilters";
-
-/* january */
-"whatsnew_filters_in_search_text" = "Hotels zoeken gebaseerd op prijs en rating.";
-
-/* january */
-"whatsnew_font_size" = "Lettergrootte";
-
-/* january */
-"whatsnew_font_size_text" = "Labels op de map kunnen groter gemaakt worden.";
-
 /* "Translation is no needed, because it's a company name" */
 "uber" = "Uber";
 
@@ -1772,26 +1626,6 @@
 "pref_traffic_simplified_colors_title" = "Eenvoudige verkeerskleuren";
 
 "enable_logging" = "Logboekregistratie inschakelen";
-
-"whatsnew_more_info_on_hotels_title" = "Meer Informatie over Hotels";
-
-"whatsnew_more_info_on_hotels_message" = "Gloednieuw uiterlijk van hotelpagina\\'s: bekijk foto\\'s, beoordelingen van gebruikers en andere informatie online.";
-
-"whatsnew_better_routing_title" = "Verbeterde Routeplanning";
-
-"whatsnew_better_routing_message" = "• Nauwkeurigere schatting van aankomsttijd\n• De app houdt rekening met afgezette gebieden en verkeersborden.";
-
-"whatsnew_smaller_mwm_title" = "Kaarten Werden Kleiner";
-
-"whatsnew_smaller_mwm_message" = "Kaarten vereisen tot 20% minder opslagruimte.";
-
-"whatsnew_waypoints_title" = "Tussenstops in Route";
-
-"whatsnew_waypoints_message" = "Tap op plaatsen om tussenstops toe te voegen aan uw route.";
-
-"whatsnew_driving_style_title" = "Nieuwe Kaartstijl voor het Rijden";
-
-"whatsnew_driving_style_message" = "Modus autonavigatie is eenvoudiger te gebruiken.";
 
 "more_on_bookingcom" = "Meer op Booking.com";
 
@@ -1852,8 +1686,6 @@
 
 "whatsnew_transliteration_title" = "Transliteratie in het Latijn";
 
-"whatsnew_transliteration_message" = "Indien een straat of object geen naam heeft in uw taal, wordt deze gespeld door gebruik van het Latijns alfabet.";
-
 "yandex_taxi_title" = "Yandex.Taxi";
 
 "learn_more" = "Meer informatie";
@@ -1891,10 +1723,6 @@
 "button_replace" = "Vervangen";
 
 "placepage_add_stop" = "Tussenstop toevoegen";
-
-"whatsnew_intermediate_point_title" = "Extra stop";
-
-"whatsnew_intermediate_point_message" = "Plan een route met een tussenstop.";
 
 /* Only ru/en are needed */
 "subtitle_rent" = "Rent";
@@ -2503,24 +2331,6 @@
 
 "whats_new_ugc_routes_message2" = "Voeg foto's en gedetailleerde verhalen toe in de webbewerker.";
 
-"whatsnew_standard_routes_title" = "Standaard routes";
-
-"whatsnew_standard_routes_message" = "Basisset van interessante punten en korte beschrijvingen, maar veel ervaringen!";
-
-"whatsnew_city_overview_title" = "Stadsoverzicht";
-
-"whatsnew_city_overview_message" = "Tot 200 bezienswaardigheden op de stadsmap: alles wat reizigers nuttig en interessant kunnen vinden!";
-
-"whatsnew_pro_guides_title" = "Professionele routes";
-
-"whatsnew_pro_guides_message" = "Zeer grondig, met gedetailleerde beschrijvingen van plaatsen en de mogelijkheid om reisafstand en -tijd te berekenen";
-
-"whatsnew_paid_routes_title" = "Nog nieuwe ervaringen!";
-
-"whatsnew_paid_routes_message" = "Bovenop de gratis routes, hebben we 3 betalende routes toegevoegd aan onze catalogus. Meer dan 700 routes!";
-
-"whats_new_ugc_routes_title_android_only" = "Het is eenvoudig om je indrukken te delen";
-
 "ugc_thanks_message_auth" = "Uw feedback is opgeslagen";
 
 "ugc_thanks_message_not_auth" = "Meld je aan om een feedback achter te laten";
@@ -2681,14 +2491,6 @@
 
 "whats_new_auto_update_and_proceed_button_size" = "Bijwerken (%s) en verder gaan";
 
-"whatsnew_toll_unpaved_title" = "Bouw routen met inachtneming van alle soorten wegen";
-
-"whatsnew_toll_unpaved_message" = "Kies omwegen via tolwegen, aardewegen en ferries";
-
-"whatsnew_new_catalogue_title" = "Bijgewerkte cataloguspagina's";
-
-"whatsnew_new_catalogue_message" = "We hebben gedetailleerde informatie over partnerhandleidingen toegevoegd, zodat de routekeuze gemakkelijk en handig is";
-
 "purchase_please_wait_toast" = "Verlaat het scherm niet, alstublieft, voordat het aankoopproces is voltooid";
 
 "trip_start" = "Kom op";
@@ -2803,18 +2605,6 @@
 
 "subscription_terms" = "Payment will be charged to your iTunes account at confirmation of purchase. The subscription will automatically renew unless auto-renew is turned off at least 24 hours before the end of the current period. Your account will be charged according to your plan for renewal within 24 hours prior to the end of the current period. You can manage or turn off auto-renew in your Apple ID account settings at any time of your purchase.";
 
-"whatsnew_carplay_title" = "Automatische navigatie OMaps met CarPlay!";
-
-"whatsnew_carplay_message" = "Bladwijzers, zoeken, snelheidscamera's en omweginstellingen – alles werkt zonder internet";
-
-"whatsnew_subscription_title" = "Ontdek de wereld met een abonnement!";
-
-"whatsnew_subscription_message" = "Onbeperkte toegang tot de catalogus met routes is winstgevender dan een enige aankoop";
-
-"whatsnew_carnavi_fixes_for_android_title" = "Navigatie update";
-
-"whatsnew_carnavi_fixes_for_android_message" = "We hebben de aanleg van routes naar punten ver van de weggen verbeterd";
-
 "avoid_unpaved_carplay_1" = "Geen aardew.";
 
 "avoid_unpaved_carplay_2" = "Geen aardewegen";
@@ -2918,10 +2708,6 @@
 /* Android, max 18 symbols */
 "bookmarks_delete_list" = "Lijst verwijderen";
 
-"whatsnew_bookmarks_search_sort_title" = "Bladwijzerts in orde om gemakkelijk te reizen";
-
-"whatsnew_bookmarks_search_sort_message" = "Sorteer uw favoriete plaatsen op categorie, tijdstip van toevoegen en geolocatie, en vind ook snel specifieke bladwijzers op hun namen";
-
 "popup_subscription_success_map_title" = "Hoera! U bent opgeschreven!";
 
 "popup_subscription_success_map_message" = "Ontdekt u nu de beste toeristische attracties in de OMaps catalogus";
@@ -2961,10 +2747,6 @@
 "catalog_no_internet_title" = "Geen internetverbinding";
 
 "catalog_no_internet_button" = "Opnieuw verzoeken";
-
-"whatsnew_map_updates_title" = "Supersnelle updates van kaarten";
-
-"whatsnew_map_updates_message" = "Nu updaten we de gegevens twee keer zo snel als vroeger";
 
 "new_onboarding_button" = "Verder";
 
@@ -3053,14 +2835,6 @@
 
 "dialog_pedestrian_route_is_long" = "De voetgangersroute naar het instappunt is te lang";
 
-"whatsnew_outdoor_guides_title" = "We hebben 15000+ buitenpaden toegevoegd!";
-
-"whatsnew_outdoor_guides_message" = "Routes van Outdooractive voor winter- en zomerreizen wachten op u in de catalogus!";
-
-"whatsnew_guides_galleries_title" = "Plan uw volgende reis met OMaps";
-
-"whatsnew_guides_galleries_message" = "Nu kunt u de aanbevolen handleidingen in de populaire steden en sightseeing kaarten vinden";
-
 "new_onboarding_step3_header" = "Reist";
 
 "all_pass_screen_best_value" = "Gunstige prijs";
@@ -3075,11 +2849,6 @@
 
 /* Failed planning SUBWAY route message in navigation view */
 "routing_planning_error_subway_special" = "Routeplanner per metro is mislukt";
-
-"whatsnew_isolines_title" = "Nieuwigheid voor buitenactiviteiten: hoogtelijnen offline!";
-
-/* as less symbols as possible */
-"whatsnew_isolines_message" = "Navigeer probleemloos in bergachtig gebied. Schakel gewoon de hoogtelijn in via de toets in de linkerbovenhoek van het scherm";
 
 "button_layer_isolines" = "Hoogtes";
 
@@ -3169,18 +2938,6 @@
 /* as few symbols as possible */
 "routes_card_hide" = "Verbergen op kaart";
 
-"whatsnew_catalog_new_title" = "Nieuwe reisgidsencatalogus en duizenden reisideeën";
-
-"whatsnew_catalog_new_message" = "We hebben de reisgidsencatalogus bijgewerkt en vertalingen in populaire talen toegevoegd. Plan uw reis van tevoren!";
-
-"whatsnew_elevation_profile_title" = "Hoogteprofiel in reisgidsen";
-
-"whatsnew_elevation_profile_message" = "Evalueer de moeilijkheidsgraad van komende beklimmingen en afdalingen offline met de cursor in het profiel van de aangeschafte route.";
-
-"whatsnew_guides_on_map_title" = "Nieuwe laag om gemakkelijk gidsen te vinden";
-
-"whatsnew_guides_on_map_message" = "Activeer de laag in het menu met applicatie-instellingen om snel interessante stadsroutes en reisgidsen voor buitenactiviteiten te vinden.";
-
 "downloader_updating_ios" = "Updaten";
 
 "downloader_loading_ios" = "Downloaden";
@@ -3238,10 +2995,6 @@
 "choose_dates_online_only_dialog_cta" = "Instellingen";
 
 "thirty_days_limit_dialog" = "U kunt maximaal 30 nachten boeken";
-
-"whatsnew_trial_title" = "Gratis toegang tot de reisgidsencatalogus";
-
-"whatsnew_trial_message" = "We bieden nu een gratis proefperiode van 7 dagen aan. Heb toegang tot duizenden reisgidsen over de hele wereld en een interactief hoogteprofiel voor outdoor-reisgidsen.";
 
 "whatsnew_trial_cta" = "Probeer het nu";
 

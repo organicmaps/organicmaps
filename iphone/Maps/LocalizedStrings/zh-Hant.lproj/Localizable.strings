@@ -18,33 +18,16 @@
 /* Button which deletes downloaded country */
 "delete" = "刪除";
 
-/* Button to dismiss dialog forever */
-"do_not_ask_me_again" = "不再詢問";
-
 /* Button "do not interrupt download" if user touched actively downloading country */
 "do_nothing" = "繼續";
 
 "download_maps" = "下載地圖";
 
-/* Settings/Downloader - Download confirmation button */
-"download_x_kb" = "下載 %qu kB";
-
-/* Settings/Downloader - Download confirmation button */
-"download_x_mb" = "下載 %qu MB";
-
 /* Settings/Downloader - info for country when download fails */
 "download_has_failed" = "下載失敗，輕觸以再試一次";
 
-/* Settings/Downloader - info for downloaded country */
-"downloaded_x_y_touch_to_delete" = "已下載的 (%1$qu %2$@), 輕觸以刪除";
-
-/* Settings/Downloader - country info current download progress */
-"downloading_x_touch_to_cancel" = "正在下載 %qu%%, 輕觸以取消";
-
 /* Settings/Downloader - info for country which started downloading */
 "downloading" = "下載中…";
-
-"get_it_now" = "馬上取得";
 
 /* Settings/Downloader - size string, only strings different from English should be translated */
 "kb" = "kB";
@@ -58,12 +41,6 @@
 /* View and button titles for accessibility */
 "maps" = "地圖";
 
-/* View and button titles for accessibility */
-"downloader_maps" = "地圖：";
-
-/* Settings/Downloader - info for country in the download queue */
-"marked_for_downloading" = "標記為下載，輕觸以取消";
-
 /* Settings/Downloader - size string, only strings different from English should be translated */
 "mb" = "MB";
 
@@ -75,20 +52,11 @@
 /* View and button titles for accessibility */
 "core_my_position" = "我的位置";
 
-/* Settings/Downloader - No free space dialog message */
-"free_disk_space_for_country_x" = "如要下載%@ ，請先釋放一些空間！";
-
-/* Leave Review dialog - Not now button (remind me later) */
-"remind_me_later" = "稍後提醒我";
-
 /* Update maps later/Buy pro version later button text */
 "later" = "稍後";
 
 /* Don't show some dialog any more */
 "never" = "不再提醒";
-
-/* Leave Review dialog - Complain button (goes to support site) */
-"report_an_issue" = "回報問題";
 
 /* View and button titles for accessibility */
 "search" = "搜尋";
@@ -102,9 +70,6 @@
 /* Settings/Downloader - 3G download warning dialog confirm button */
 "use_cellular_data" = "是";
 
-/* Choose measurement on first launch alert - title */
-"which_measurement_system" = "您偏好哪種度量單位系統？";
-
 /* Location services are disabled by user alert - message */
 "location_is_disabled_long_text" = "您目前裝置所有的定位服務或相關應用程式是處於停用的狀態，請從系統設定中選擇啟用。";
 
@@ -113,12 +78,6 @@
 
 /* View and button titles for accessibility */
 "zoom_to_country" = "在地圖上顯示";
-
-/* Message to display at the center of the screen when the country is added to the downloading queue */
-"country_status_added_to_queue" = "^\n已加入到下載佇列中";
-
-/* Message to display at the center of the screen when the country is downloading */
-"country_status_downloading" = "下載中\n^\n^";
 
 /* Button text for the button at the center of the screen when the country is not downloaded */
 "country_status_download" = "下載地圖\n(^ ^)";
@@ -136,8 +95,6 @@
 "try_again" = "再試一次";
 
 "about_menu_title" = "關於 OMaps";
-
-"downloading_touch_to_cancel" = "正在下載 %d%%, 輕觸以取消";
 
 "downloaded_touch_to_delete" = "已下載的 (%@)，輕觸以刪除";
 
@@ -159,8 +116,6 @@
 
 "not_enough_memory" = "沒有足夠的記憶體以啟動應用程式";
 
-"free_space_for_country" = "請先釋放 %1$@ 系統空間以下載 %2$@";
-
 "download_resources" = "在您開始之前，先讓我們下載世界地圖到您的裝置中以便瀏覽。\n這需要資料的 %@。";
 
 "getting_position" = "取得目前所在位置";
@@ -174,35 +129,10 @@
 "update_country_ask" = "更新 %@？";
 
 /* REMOVE THIS STRING AFTER REFACTORING */
-"download_location_map_proposal" = "您可以下載目前所在位置的地圖。";
-
-/* REMOVE THIS_STRING AFTER REFACTORING */
-"download_location_update_map_proposal" = "您可以更新目前所在位置的地圖。";
-
-/* REMOVE THIS STRING AFTER REFACTORING */
-"download_location_map_up_to_date" = "您目前所在位置 (%@)\n的地圖已是最新圖資!";
-
-/* REMOVE THIS STRING AFTER REFACTORING */
 "pause" = "暫停";
 
 /* REMOVE THIS STRING AFTER REFACTORING */
 "continue_download" = "繼續";
-
-"downloaded_touch_to_update" = "下載 (%@), 輕觸以更新或刪除";
-
-"update_mb_or_kb" = "更新 %@";
-
-/* Show popup notification when we have downloaded countries without search (from Lite version) */
-"search_update_maps" = "您需要更新地圖以使用搜尋功能：";
-
-/* Show popup notification on app start when we have out-of-date maps */
-"advise_update_maps" = "以下為可更新的地圖：";
-
-/* Show popup notification in Pro version that Lite can be deleted */
-"suggest_uninstall_lite" = "你再也不需要 OMaps Lite 了，所以您可以移除它！";
-
-/* Show popup notification on top of the map when country was downloaded. */
-"download_country_success" = "%@ 已成功下載";
 
 /* Show popup notification on top of the map when country download has failed. */
 "download_country_failed" = "%@ 下載失敗";
@@ -245,9 +175,6 @@
 
 /* Text hint in Bookmarks dialog when no any bookmarks are added */
 "bookmarks_usage_hint" = "您還沒有任何書籤。\n點擊地圖上的任何地方以新增書籤。\n其他來源的書籤也可導入在 OMaps 中顯示。從電子郵件、Dropbox 或網站連結開啟有著已儲存書籤的 KML/KMZ 檔案。";
-
-/* Text hint in Bookmarks dialog when at least one bookmark is added */
-"bookmarks_usage_hint_import_only" = "其他來源的書籤也可導入在 OMaps 中顯示。從電子郵件、Dropbox 或網站連結開啟有著已儲存書籤的 KML/KMZ 檔案。";
 
 /* Settings button in system menu */
 "settings" = "設定";
@@ -1289,16 +1216,6 @@
 
 "placepage_add_business_button" = "添加組織";
 
-"whatsnew_smallmwm_header" = "您一直在要求，而我們已經完成";
-
-"whatsnew_smallmwm_message" = "我們已將地圖分為若干部分。現在，您可下載各個地區，而非整個國家的地圖。";
-
-"whatsnew_search_header" = "新搜尋";
-
-"whatsnew_search_message" = "我們已明顯改進了按地址的搜尋。親自看看。";
-
-"whatsnew_editor_title" = "編輯此地圖*";
-
 "whatsnew_editor_message_1" = "新增新地點到該地圖，並直接通過此應用程式編輯已存在的地點。";
 
 "whatsnew_editor_message_2" = "* OMaps 使用 OpenStreetMap 社群的數據。";
@@ -1382,13 +1299,6 @@
 "current_location_unknown_error_title" = "目前位置未知。";
 
 "current_location_unknown_error_message" = "搜尋您的位置時發生錯誤。請檢查您的裝置是否正常運作，然後重試。";
-
-"whatsnew_update_editor_title" = "我們已更新地圖編輯器";
-
-"whatsnew_update_editor_message" = "OMaps 使用者已經進行了 200,000 處地圖變更。我們正在齊心協力打造世界上最詳細的地圖，加入我們吧！";
-
-/* Additional text in whats new */
-"whatsnew_update_editor_message_update" = "如要使用地圖編輯器，請更新所有地圖。";
 
 "location_services_disabled_header" = "地點定位被禁用";
 
@@ -1555,22 +1465,6 @@
 
 "recent_track_background_dialog_message" = "OMaps使用背景中的地理位置記錄您最近去過的路徑。";
 
-"whatsnew_car_navigation_header" = "方便用戶使用的車輛導航";
-
-"whatsnew_car_navigation_message" = "• 導航元素所佔用的空間更小。\n• 我們顯示了速度並且已經添加了自動縮放功能。";
-
-"whatsnew_cycle_navigation_2_header" = "自行車導航";
-
-"whatsnew_cycle_navigation_2_message" = "• 自行車導航考慮了地形數據。\n• 考慮到道路斜坡，我們創建了更加優化便捷的路線。";
-
-"whatsnew_booking_2_header" = "便捷的酒店搜索";
-
-"whatsnew_booking_2_message" = "該搜索結果顯示酒店星級和價格分類。";
-
-"whatsnew_cycle_navigation_header" = "自行車導航（beta 版）";
-
-"whatsnew_cycle_navigation_message" = "我們正在為新的一季測試自行車導航功能。請使用 OMaps 嘗試您最喜愛的自行車路徑，並將您的意見與我們分享。";
-
 /* Rate on Google Play (Android only) */
 "rate_gp" = "在 Google Play 評分";
 
@@ -1673,10 +1567,6 @@
 /* Verb. Text on a button that opens the chat. */
 "chat_open" = "開放";
 
-"whatsnew_uber_header" = "優步 & OMaps離綫地圖";
-
-"whatsnew_uber_message" = "直接從應用程序預訂計程車！";
-
 "dialog_taxi_offline" = "叫計程車服務在離線模式下無法使用。";
 
 "dialog_taxi_error" = "叫計程車服務暫時無法使用。";
@@ -1714,42 +1604,6 @@
 /* "traffic" as in "road congestion" */
 "traffic_data_unavailable" = "無法使用交通資訊";
 
-/* december */
-"whatsnew_traffic" = "36 個國家的交通資料";
-
-/* december */
-"whatsnew_traffic_text" = "最新交通資訊與據此得出的最快速路線！";
-
-/* december */
-"whatsnew_traffic_roaming" = "交通資訊使用漫遊";
-
-/* december */
-"whatsnew_traffic_roaming_text" = "每次行程需要的行動頻寬不到 1 MB。";
-
-/* december */
-"whatsnew_order_taxi" = "訂一部計程車";
-
-/* december */
-"whatsnew_order_taxi_text" = "大部分的地點頁面目前已包含可訂計程車的按鈕。";
-
-/* january */
-"whatsnew_improved_search" = "改善的搜尋功能";
-
-/* january */
-"whatsnew_improved_search_text" = "即使拼錯查詢字詞也能獲得準確的搜尋結果。";
-
-/* january */
-"whatsnew_filters_in_search" = "搜尋篩選";
-
-/* january */
-"whatsnew_filters_in_search_text" = "根據價格與評價搜尋飯店。";
-
-/* january */
-"whatsnew_font_size" = "字型大小";
-
-/* january */
-"whatsnew_font_size_text" = "可將地圖上的標籤變大。";
-
 /* "Translation is no needed, because it's a company name" */
 "uber" = "Uber";
 
@@ -1772,26 +1626,6 @@
 "pref_traffic_simplified_colors_title" = "簡化的交通狀況顏色";
 
 "enable_logging" = "啟用記錄";
-
-"whatsnew_more_info_on_hotels_title" = "了解飯店更多資訊";
-
-"whatsnew_more_info_on_hotels_message" = "飯店換新裝：線上查看相片、使用者評論和其他資訊。";
-
-"whatsnew_better_routing_title" = "經過改良的路線規劃";
-
-"whatsnew_better_routing_message" = "• 更精準估計到達時間。\n• 該應用程式已經考慮到限制性區域和道路標誌。";
-
-"whatsnew_smaller_mwm_title" = "Maps 變小";
-
-"whatsnew_smaller_mwm_message" = "Maps 所需存儲空間減少 20%。";
-
-"whatsnew_waypoints_title" = "在路線中新增路徑點";
-
-"whatsnew_waypoints_message" = "點按地點，即可向您的路線新增路徑點。";
-
-"whatsnew_driving_style_title" = "新的駕駛地圖模式";
-
-"whatsnew_driving_style_message" = "汽車導航模式更好用。";
 
 "more_on_bookingcom" = "Booking.com 上的更多資訊";
 
@@ -1852,8 +1686,6 @@
 
 "whatsnew_transliteration_title" = "音譯為拉丁文";
 
-"whatsnew_transliteration_message" = "若街道或物件沒有您語言的名稱，會使用拉丁字母拼出。";
-
 "yandex_taxi_title" = "Yandex.Taxi";
 
 "learn_more" = "瞭解更多資訊";
@@ -1891,10 +1723,6 @@
 "button_replace" = "取代";
 
 "placepage_add_stop" = "新增應用程式";
-
-"whatsnew_intermediate_point_title" = "其他站點";
-
-"whatsnew_intermediate_point_message" = "計劃有中途休息站的路線。";
 
 /* Only ru/en are needed */
 "subtitle_rent" = "Rent";
@@ -2503,24 +2331,6 @@
 
 "whats_new_ugc_routes_message2" = "在网页编辑工具里添加照片和详细的故事。";
 
-"whatsnew_standard_routes_title" = "標準路線";
-
-"whatsnew_standard_routes_message" = "主要景點組合，簡要描述，感觸滿滿！";
-
-"whatsnew_city_overview_title" = "環城旅遊";
-
-"whatsnew_city_overview_message" = "城市地圖上最多200個點：對旅行者來說最有用也是最有趣的！";
-
-"whatsnew_pro_guides_title" = "專業路線";
-
-"whatsnew_pro_guides_message" = "高水平的細節，地點的詳細描述以及計算步行距離和時間的能力";
-
-"whatsnew_paid_routes_title" = "更多新體驗！";
-
-"whatsnew_paid_routes_message" = "除了免費路線，我們還為目錄添加了3類付費指南。超過700條新路線！";
-
-"whats_new_ugc_routes_title_android_only" = "分享您的印象很容易";
-
 "ugc_thanks_message_auth" = "您的評論已保存";
 
 "ugc_thanks_message_not_auth" = "請註冊以留下評論";
@@ -2681,14 +2491,6 @@
 
 "whats_new_auto_update_and_proceed_button_size" = "更新（%s）並繼續";
 
-"whatsnew_toll_unpaved_title" = "考慮到所有道路類型並設立路線";
-
-"whatsnew_toll_unpaved_message" = "請選擇通過收費公路、土路和渡輪過境的迂迴路線";
-
-"whatsnew_new_catalogue_title" = "更新目錄頁面";
-
-"whatsnew_new_catalogue_message" = "我們添加了合作夥伴的指南詳情，以便簡單、便捷的選擇路線";
-
 "purchase_please_wait_toast" = "購買完成後請不要離開屏幕";
 
 "trip_start" = "前往";
@@ -2803,18 +2605,6 @@
 
 "subscription_terms" = "確認購買後將向您的iTunes賬戶收費。除非在當前周期結束前至少24小時關閉自動續訂，訂購會自動延續。在當前周期結束前24小時內，我們會根據您的方案向您的賬戶收費。您能在購買後在Apple ID賬戶設置中隨時管理或關閉自動續訂。";
 
-"whatsnew_carplay_title" = "OMaps 自動導航已被納入CarPlay系統中！";
-
-"whatsnew_carplay_message" = "可在無網絡的條件下使用標記、搜索、車速攝像頭和繞道設置";
-
-"whatsnew_subscription_title" = "訂閱我們的服務，探索新世界！";
-
-"whatsnew_subscription_message" = "無限次使用線路目錄比壹次性購買更劃算";
-
-"whatsnew_carnavi_fixes_for_android_title" = "導航更新";
-
-"whatsnew_carnavi_fixes_for_android_message" = "我們優化了距離道路較遠的目標地點的線路設置";
-
 "avoid_unpaved_carplay_1" = "無土路路段";
 
 "avoid_unpaved_carplay_2" = "無土路路段";
@@ -2918,10 +2708,6 @@
 /* Android, max 18 symbols */
 "bookmarks_delete_list" = "刪除列表";
 
-"whatsnew_bookmarks_search_sort_title" = "標籤中的順序 – 便於旅行";
-
-"whatsnew_bookmarks_search_sort_message" = "請根據類別、添加時間和地理位置對您喜歡的地點進行排序，還可以按名稱快速查找具體的標籤";
-
 "popup_subscription_success_map_title" = "耶！您已訂閱！";
 
 "popup_subscription_success_map_message" = "現在在OMaps畫冊中探索最佳的旅遊景點";
@@ -2961,10 +2747,6 @@
 "catalog_no_internet_title" = "沒有網絡連接";
 
 "catalog_no_internet_button" = "請再試一次";
-
-"whatsnew_map_updates_title" = "地圖的超快更新";
-
-"whatsnew_map_updates_message" = "現在的數據更新速度提高了2倍";
 
 "new_onboarding_button" = "繼續";
 
@@ -3053,14 +2835,6 @@
 
 "dialog_pedestrian_route_is_long" = "步行到達交通工具處需要很長時間";
 
-"whatsnew_outdoor_guides_title" = "我們添加了超過15000條休閑運動道路！";
-
-"whatsnew_outdoor_guides_message" = "目錄中添加了Outdooractive 的冬季和夏季旅行線路！";
-
-"whatsnew_guides_galleries_title" = "與OMaps共同規劃即將到來的旅行";
-
-"whatsnew_guides_galleries_message" = "現在你可在熱門城市與名勝古迹地圖上查找推薦的旅行指南";
-
 "new_onboarding_step3_header" = "去旅行吧";
 
 "all_pass_screen_best_value" = "優惠的價格";
@@ -3075,11 +2849,6 @@
 
 /* Failed planning SUBWAY route message in navigation view */
 "routing_planning_error_subway_special" = "地鐵路線圖設計出錯";
-
-"whatsnew_isolines_title" = "戶外活動的新產品–離線高度線！";
-
-/* as less symbols as possible */
-"whatsnew_isolines_message" = "在山地中導航–使用屏幕左上角的按鈕打開圖層";
 
 "button_layer_isolines" = "高度";
 
@@ -3169,18 +2938,6 @@
 /* as few symbols as possible */
 "routes_card_hide" = "在地圖上隱藏";
 
-"whatsnew_catalog_new_title" = "新指南和数千个度假地";
-
-"whatsnew_catalog_new_message" = "我们更新了指南目录，并添加了常用的语言版本。开始提前计划！";
-
-"whatsnew_elevation_profile_title" = "指南中的高度剖面圖";
-
-"whatsnew_elevation_profile_message" = "使用所獲取路線中的光標離線評估即將遇到的上坡和下坡的難度。";
-
-"whatsnew_guides_on_map_title" = "新圖層—地圖上的指南！";
-
-"whatsnew_guides_on_map_message" = "激活應用程序設置菜單中的圖層，以快速找到有趣的城市路線和戶外活動指南。";
-
 "downloader_updating_ios" = "更新";
 
 "downloader_loading_ios" = "加載";
@@ -3238,10 +2995,6 @@
 "choose_dates_online_only_dialog_cta" = "设置";
 
 "thirty_days_limit_dialog" = "最多可预订30晚";
-
-"whatsnew_trial_title" = "免费访问旅行指南";
-
-"whatsnew_trial_message" = "我们已经推出了7天的试用期。世界各地的数千条路线，以及户外旅行指南中的交互式海拔剖面图。";
 
 "whatsnew_trial_cta" = "试用";
 

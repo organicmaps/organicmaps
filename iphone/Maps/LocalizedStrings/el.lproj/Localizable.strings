@@ -18,33 +18,16 @@
 /* Button which deletes downloaded country */
 "delete" = "Διαγραφή";
 
-/* Button to dismiss dialog forever */
-"do_not_ask_me_again" = "Do not ask me again";
-
 /* Button "do not interrupt download" if user touched actively downloading country */
 "do_nothing" = "Continue";
 
 "download_maps" = "Λήψη χαρτών";
 
-/* Settings/Downloader - Download confirmation button */
-"download_x_kb" = "Download %qu kB";
-
-/* Settings/Downloader - Download confirmation button */
-"download_x_mb" = "Download %qu MB";
-
 /* Settings/Downloader - info for country when download fails */
 "download_has_failed" = "Η λήψη απέτυχε. Αγγίξτε για να προσπαθήσετε ξανά.";
 
-/* Settings/Downloader - info for downloaded country */
-"downloaded_x_y_touch_to_delete" = "Downloaded (%1$qu %2$@), touch to delete";
-
-/* Settings/Downloader - country info current download progress */
-"downloading_x_touch_to_cancel" = "Downloading %qu%%, touch to cancel";
-
 /* Settings/Downloader - info for country which started downloading */
 "downloading" = "Λήψη…";
-
-"get_it_now" = "Get it now";
 
 /* Settings/Downloader - size string, only strings different from English should be translated */
 "kb" = "kB";
@@ -58,12 +41,6 @@
 /* View and button titles for accessibility */
 "maps" = "Χάρτες";
 
-/* View and button titles for accessibility */
-"downloader_maps" = "Χάρτες:";
-
-/* Settings/Downloader - info for country in the download queue */
-"marked_for_downloading" = "Marked for downloading, touch to cancel";
-
 /* Settings/Downloader - size string, only strings different from English should be translated */
 "mb" = "MB";
 
@@ -75,20 +52,11 @@
 /* View and button titles for accessibility */
 "core_my_position" = "Η θέση μου";
 
-/* Settings/Downloader - No free space dialog message */
-"free_disk_space_for_country_x" = "Please free some space on your device first in order to download %@";
-
-/* Leave Review dialog - Not now button (remind me later) */
-"remind_me_later" = "Υπενθύμιση αργότερα";
-
 /* Update maps later/Buy pro version later button text */
 "later" = "Αργότερα";
 
 /* Don't show some dialog any more */
 "never" = "Never";
-
-/* Leave Review dialog - Complain button (goes to support site) */
-"report_an_issue" = "Report an issue";
 
 /* View and button titles for accessibility */
 "search" = "Αναζήτηση";
@@ -102,9 +70,6 @@
 /* Settings/Downloader - 3G download warning dialog confirm button */
 "use_cellular_data" = "Ναι";
 
-/* Choose measurement on first launch alert - title */
-"which_measurement_system" = "Which measurement system do you prefer?";
-
 /* Location services are disabled by user alert - message */
 "location_is_disabled_long_text" = "Οι υπηρεσίες εντοπισμού τοποθεσίας είναι προς το παρόν απενεργοποιημένες σε αυτή τη συσκευή ή για αυτή την εφαρμογή. Ενεργοποιήστε τις από τις Ρυθμίσεις.";
 
@@ -113,12 +78,6 @@
 
 /* View and button titles for accessibility */
 "zoom_to_country" = "Εμφάνιση στο χάρτη";
-
-/* Message to display at the center of the screen when the country is added to the downloading queue */
-"country_status_added_to_queue" = "^\nis προστέθηκε στην ουρά λήψης.";
-
-/* Message to display at the center of the screen when the country is downloading */
-"country_status_downloading" = "Λήψη\n^\n^";
 
 /* Button text for the button at the center of the screen when the country is not downloaded */
 "country_status_download" = "Λήψη Χάρτη\n(^ ^)";
@@ -136,8 +95,6 @@
 "try_again" = "Δοκιμάστε ξανά";
 
 "about_menu_title" = "Σχετικά με το OMaps";
-
-"downloading_touch_to_cancel" = "Downloading %d%%, touch to cancel";
 
 "downloaded_touch_to_delete" = "Downloaded (%@), touch to delete";
 
@@ -159,8 +116,6 @@
 
 "not_enough_memory" = "Δεν υπάρχει αρκετή μνήμη για την έναρξη εφαρμογής";
 
-"free_space_for_country" = "Please free %1$@ on your device first in order to download %2$@";
-
 "download_resources" = "Πριν ξεκινήσετε τη χρήση της εφαρμογής, επιτρέψτε μας να κατεβάσουμε το γενικό παγκόσμιο χάρτη στη συσκευή σας. \nIt θα χρησιμοποιήσει %@ αποθηκευτικού χώρου.";
 
 "getting_position" = "Λήψη τρέχουσας τοποθεσίας";
@@ -174,35 +129,10 @@
 "update_country_ask" = "Να γίνει ενημέρωση %@;";
 
 /* REMOVE THIS STRING AFTER REFACTORING */
-"download_location_map_proposal" = "Μπορείτε να κατεβάσετε το χάρτη\nτης τρέχουσας τοποθεσίας σας.";
-
-/* REMOVE THIS_STRING AFTER REFACTORING */
-"download_location_update_map_proposal" = "Μπορείτε να ενημερώσετε το χάρτη\nτης τρέχουσας τοποθεσίας σας.";
-
-/* REMOVE THIS STRING AFTER REFACTORING */
-"download_location_map_up_to_date" = "Ο χάρτης της τρέχουσας\nτοποθεσίας σας (%@) είναι ενημερωμένος.";
-
-/* REMOVE THIS STRING AFTER REFACTORING */
 "pause" = "Παύση";
 
 /* REMOVE THIS STRING AFTER REFACTORING */
 "continue_download" = "Συνέχεια";
-
-"downloaded_touch_to_update" = "Downloaded (%@), touch to update or delete";
-
-"update_mb_or_kb" = "Update %@";
-
-/* Show popup notification when we have downloaded countries without search (from Lite version) */
-"search_update_maps" = "You need updated maps for search function:";
-
-/* Show popup notification on app start when we have out-of-date maps */
-"advise_update_maps" = "Υπάρχει διαθέσιμη ενημέρωση για τους παρακάτω χάρτες:";
-
-/* Show popup notification in Pro version that Lite can be deleted */
-"suggest_uninstall_lite" = "Δε χρειάζεστε το OMaps Lite πλέον, μπορείτε να το απεγκαταστήσετε.";
-
-/* Show popup notification on top of the map when country was downloaded. */
-"download_country_success" = "%@ downloaded successfully";
 
 /* Show popup notification on top of the map when country download has failed. */
 "download_country_failed" = "η λήψη %@ απέτυχε";
@@ -245,9 +175,6 @@
 
 /* Text hint in Bookmarks dialog when no any bookmarks are added */
 "bookmarks_usage_hint" = "Δεν έχετε αγαπημένα ακόμα.\nΠατήστε σε οποιοδήποτε σημείο στο χάρτη για να προσθέσετε αγαπημένο.\nΜπορείτε επίσης να εισάγετε αγαπημένα από άλλες πηγές και να τα εμφανίσετε στο OMaps. Ανοίξτε το αρχείο KML/KMZ με τα αποθηκευμένα αγαπημένα από το email, το Dropbox ή τους υπερσυνδέσμους.";
-
-/* Text hint in Bookmarks dialog when at least one bookmark is added */
-"bookmarks_usage_hint_import_only" = "Μπορείτε επίσης να εισάγετε αγαπημένα από άλλες πηγές και να τα εμφανίσετε στο OMaps. Ανοίξτε το αρχείο KML/KMZ με τα αποθηκευμένα αγαπημένα από το email, το Dropbox ή τους υπερσυνδέσμους.";
 
 /* Settings button in system menu */
 "settings" = "Ρυθμίσεις";
@@ -1289,16 +1216,6 @@
 
 "placepage_add_business_button" = "Προσθήκη επιχείρησης";
 
-"whatsnew_smallmwm_header" = "Το έχετε ζητήσει εδώ και καιρό, το προσθέσαμε τελικά";
-
-"whatsnew_smallmwm_message" = "Χωρίσαμε μεγάλους χάρτες σε τμήματα. Μπορείτε πλέον να κατεβάσετε μόνο τις περιοχές που χρειάζεστε σε αντίθεση με τους χάρτες για ολόκληρες χώρες.";
-
-"whatsnew_search_header" = "Νέα αναζήτηση";
-
-"whatsnew_search_message" = "Έχουμε βελτιώσει σημαντικά την αναζήτηση μέσω διεύθυνσης. Δοκιμάστε το.";
-
-"whatsnew_editor_title" = "Επεξεργαστείτε το χάρτη*";
-
 "whatsnew_editor_message_1" = "Προσθέστε νέες τοποθεσίες στο χάρτη, και επεξεργαστείτε τις υπάρχουσες απευθείας από την εφαρμογή.";
 
 "whatsnew_editor_message_2" = "* Το OMaps χρησιμοποιεί δεδομένα της κοινότητας OpenStreetMap.";
@@ -1382,13 +1299,6 @@
 "current_location_unknown_error_title" = "Η τρέχουσα τοποθεσία είναι άγνωστη.";
 
 "current_location_unknown_error_message" = "Παρουσιάστηκε σφάλμα κατά την αναζήτηση της τοποθεσίας σας. Ελέγξτε αν η συσκευή σας λειτουργεί κανονικά και δοκιμάστε ξανά αργότερα.";
-
-"whatsnew_update_editor_title" = "Έχουμε ενημερωθεί το πρόγραμμα επεξεργασίας του χάρτη";
-
-"whatsnew_update_editor_message" = "Οι χρήστες OMaps έχουν ήδη κάνει 200.000 αλλαγές χάρτη. Μαζί δημιουργούμε τους πιο λεπτομερείς χάρτες του κόσμου. Ελάτε μαζί μας!";
-
-/* Additional text in whats new */
-"whatsnew_update_editor_message_update" = "Ενημερώστε όλους τους χάρτες για να χρησιμοποιήσετε το πρόγραμμα επεξεργασίας του χάρτη.";
 
 "location_services_disabled_header" = "Οι υπηρεσίες εντοπισμού τοποθεσίας είναι απενεργοποιημένες";
 
@@ -1555,22 +1465,6 @@
 
 "recent_track_background_dialog_message" = "Το OMaps χρησιμοποιεί τη γεωγραφική σας τοποθεσία στο παρασκήνιο για την καταγραφή των πρόσφατων διαδρομών σας.";
 
-"whatsnew_car_navigation_header" = "Πλοήγηση οχήματος φιλική προς το χρήστη";
-
-"whatsnew_car_navigation_message" = "• Τα στοιχεία πλοήγησης καταλαμβάνουν λιγότερο χώρο. \n• Εμφανίζεται η ταχύτητα και προστέθηκε αυτόματη μεγέθυνση.";
-
-"whatsnew_cycle_navigation_2_header" = "Πλοήγηση με ποδήλατο";
-
-"whatsnew_cycle_navigation_2_message" = "• Η πλοήγηση με ποδήλατο λαμβάνει υπόψη τα δεδομένα της μορφολογίας του εδάφους. \n• Δημιουργούνται πιο εύκολες διαδρομές λαμβάνοντας υπόψη την κλίση του εδάφους.";
-
-"whatsnew_booking_2_header" = "Εύκολη αναζήτηση ξενοδοχείου";
-
-"whatsnew_booking_2_message" = "Τα αποτελέσματα αναζήτησης δείχνουν τη βαθμολογία του ξενοδοχείου και την κατηγορία τιμής.";
-
-"whatsnew_cycle_navigation_header" = "Πλοήγηση με ποδήλατο (έκδοση beta)";
-
-"whatsnew_cycle_navigation_message" = "Δοκιμάζουμε την πλοήγησης με ποδήλατο για τη νέα σεζόν. Δοκιμάστε την αγαπημένη σας διαδρομή με ποδήλατο με το OMaps και μοιραστείτε τη γνώμη σας μαζί μας.";
-
 /* Rate on Google Play (Android only) */
 "rate_gp" = "Βαθμολογήστε το στο Google Play";
 
@@ -1673,10 +1567,6 @@
 /* Verb. Text on a button that opens the chat. */
 "chat_open" = "Άνοιγμα";
 
-"whatsnew_uber_header" = "OMaps & Uber";
-
-"whatsnew_uber_message" = "Καλέστε ταξί Uber απευθείας μέσα από την εφαρμογή!";
-
 "dialog_taxi_offline" = "Η παραγγελία ταξί δεν είναι διαθέσιμη σε offline ρύθμιση.";
 
 "dialog_taxi_error" = "Η παραγγελία ταξί είναι προσωρινά μη διαθέσιμη.";
@@ -1714,42 +1604,6 @@
 /* "traffic" as in "road congestion" */
 "traffic_data_unavailable" = "Οι πληροφορίες για την κίνηση δεν είναι διαθέσιμες";
 
-/* december */
-"whatsnew_traffic" = "Πληροφορίες για την κίνηση σε 36 χώρες";
-
-/* december */
-"whatsnew_traffic_text" = "Ενημερωμένες πληροφορίες για την κίνηση και για γρηγορότερες διαδρομές οδήγησης!";
-
-/* december */
-"whatsnew_traffic_roaming" = "Πληροφορίες για την κίνηση κατά την περιαγωγή";
-
-/* december */
-"whatsnew_traffic_roaming_text" = "Χρησιμοποιεί λιγότερο από 1 MB από το δίκτυο κινητής τηλεφωνίας ανά ταξίδι.";
-
-/* december */
-"whatsnew_order_taxi" = "Παραγγελία ταξί";
-
-/* december */
-"whatsnew_order_taxi_text" = "Οι περισσότερες από τις σελίδες της τοποθεσίας περιέχουν πλέον πλήκτρο για την παραγγελία ταξί.";
-
-/* january */
-"whatsnew_improved_search" = "Βελτιωμένη αναζήτηση";
-
-/* january */
-"whatsnew_improved_search_text" = "Ακόμη και τα ερωτήματα με ορθογραφικά λάθη δημιουργούν ακριβή αποτελέσματα αναζήτησης.";
-
-/* january */
-"whatsnew_filters_in_search" = "Φίλτρα αναζήτησης";
-
-/* january */
-"whatsnew_filters_in_search_text" = "Αναζήτηση ξενοδοχείων με βάση την τιμή και τις κριτικές.";
-
-/* january */
-"whatsnew_font_size" = "Μέγεθος γραμματοσειράς";
-
-/* january */
-"whatsnew_font_size_text" = "Οι ετικέτες στον χάρτη μπορούν να μεγαλώσουν.";
-
 /* "Translation is no needed, because it's a company name" */
 "uber" = "Uber";
 
@@ -1772,26 +1626,6 @@
 "pref_traffic_simplified_colors_title" = "Εύκολα χρώματα για την κίνηση";
 
 "enable_logging" = "Ενεργοποίηση δυνατότητας καταγραφής";
-
-"whatsnew_more_info_on_hotels_title" = "Περισσότερες πληροφορίες για τα ξενοδοχεία";
-
-"whatsnew_more_info_on_hotels_message" = "Ολοκαίνουργια εμφάνιση για τις σελίδες των ξενοδοχείων: Δείτε φωτογραφίες, κριτικές χρηστών και άλλες πληροφορίες online.";
-
-"whatsnew_better_routing_title" = "Βελτιωμένη σχεδίαση διαδρομής";
-
-"whatsnew_better_routing_message" = "• Ακριβέστερη εκτίμηση ώρας άφιξης. \n• Η εφαρμογή λαμβάνει υπόψη τις περιοχές που απαγορεύονται και την οδική σήμανση.";
-
-"whatsnew_smaller_mwm_title" = "Μικρότερο μέγεθος χαρτών";
-
-"whatsnew_smaller_mwm_message" = "Οι χάρτες απαιτούν 20% λιγότερο αποθηκευτικό χώρο.";
-
-"whatsnew_waypoints_title" = "Ενδιάμεσα σημεία στη διαδρομή";
-
-"whatsnew_waypoints_message" = "Πατήστε στα μέρη για να προσθέσετε ενδιάμεσα σημεία στη διαδρομή σας.";
-
-"whatsnew_driving_style_title" = "Νέο στυλ χάρτη για την οδήγηση";
-
-"whatsnew_driving_style_message" = "Ευκολότερη λειτουργία πλοήγησης αυτοκινήτου.";
 
 "more_on_bookingcom" = "Περισσότερα στο Booking.com";
 
@@ -1852,8 +1686,6 @@
 
 "whatsnew_transliteration_title" = "Μεταγραφή στα Λατινικά";
 
-"whatsnew_transliteration_message" = "Εάν ένας δρόμος ή ένα αντικείμενο δεν έχει όνομα στη γλώσσα σας, θα διατυπωθεί χρησιμοποιώντας το λατινικό αλφάβητο.";
-
 "yandex_taxi_title" = "Yandex.Taxi";
 
 "learn_more" = "Μάθετε περισσότερα";
@@ -1891,10 +1723,6 @@
 "button_replace" = "Αλλαγή";
 
 "placepage_add_stop" = "Προσθήκη στάσης";
-
-"whatsnew_intermediate_point_title" = "Επιπλέον στάση";
-
-"whatsnew_intermediate_point_message" = "Σχεδιάστε μια διαδρομή με ενδιάμεσο προορισμό.";
 
 /* Only ru/en are needed */
 "subtitle_rent" = "Rent";
@@ -2503,24 +2331,6 @@
 
 "whats_new_ugc_routes_message2" = "Add photos and detailed stories in the web-editor.";
 
-"whatsnew_standard_routes_title" = "Τυπικές διαδρομές";
-
-"whatsnew_standard_routes_message" = "Ένα βασικό σύνολο των σημείων, σύντομες περιγραφές, αλλά πολλές εντυπώσεις!";
-
-"whatsnew_city_overview_title" = "Περιήγηση στα αξιοθέατα της πόλης";
-
-"whatsnew_city_overview_message" = "Μέχρι 200 σημεία στον χάρτη της πόλης: ότι πιο χρήσιμο και ενδιαφέρον για τον ταξιδιώτη!";
-
-"whatsnew_pro_guides_title" = "Επαγγελματικές διαδρομές";
-
-"whatsnew_pro_guides_message" = "Υψηλό επίπεδο λεπτομέρειας, αναλυτικές περιγραφές τοποθεσιών και δυνατότητα υπολογισμού της απόστασης και του χρόνου της βόλτας";
-
-"whatsnew_paid_routes_title" = "Περισσότερες νέες εμπειρίες!";
-
-"whatsnew_paid_routes_message" = "Εκτός από τις δωρεάν διαδρομές έχουμε προσθέσει στον κατάλογο και 3 κατηγορίες ταξιδιωτικών οδηγών επί πληρωμή. Περισσότερες από 700 νέες διαδρομές!";
-
-"whats_new_ugc_routes_title_android_only" = "Easy to share your impressions";
-
 "ugc_thanks_message_auth" = "Το σχόλιό σας έχει αποθηκευτεί";
 
 "ugc_thanks_message_not_auth" = "Εγγραφείτε για ν' αφήσετε σχόλια";
@@ -2681,14 +2491,6 @@
 
 "whats_new_auto_update_and_proceed_button_size" = "Ενημέρωση (%s) και συνέχεια";
 
-"whatsnew_toll_unpaved_title" = "Σχεδιάστε τις διαδρομές με αυτοκίνητο λαμβάνοντας υπόψη όλους τους τύπους δρόμων";
-
-"whatsnew_toll_unpaved_message" = "Επιλέγετε τις διαδρομές παρακάμπτοντας δρόμους με διόδια, χωματόδρομους και πορθμεία";
-
-"whatsnew_new_catalogue_title" = "Ενημερωμένες σελίδες καταλόγου";
-
-"whatsnew_new_catalogue_message" = "Προσθέσαμε λεπτομερείς πληροφορίες σχετικά με τους οδηγούς συνεργατών έτσι ώστε η επιλογή της διαδρομής να είναι εύκολη και άνετη";
-
 "purchase_please_wait_toast" = "Παρακαλείστε να μην μετακινηθείτε από την οθόνη πριν ολοκληρωθεί η αγορά";
 
 "trip_start" = "Πάμε";
@@ -2803,18 +2605,6 @@
 
 "subscription_terms" = "Η πληρωμή θα χρεωθεί στον iTunes λογαριασμό σας κατά την επιβεβαίωση της αγοράς. Η συνδρομή θα ανανεωθεί αυτόματα εκτός εάν η αυτόματη ανανέωση είναι απενεργοποιημένη τουλάχιστον 24 ώρες πριν από το τέλος της τρέχουσας περιόδου. Ο λογαριασμός σας θα χρεωθεί σύμφωνα με το σχέδιο ανανέωσής σας εντός 24 ωρών πριν από το τέλος της τρέχουσας περιόδου. Μπορείτε να διαχειριστείτε ή να απενεργοποιήσετε την αυτόματη ανανέωση στις ρυθμίσεις του Apple ID λογαριασμού σας ανά πάσα στιγμή κατά την αγορά σας.";
 
-"whatsnew_carplay_title" = "Αυτοπλοήγηση OMaps στο CarPlay!";
-
-"whatsnew_carplay_message" = "Ετικέτες, αναζήτηση, κάμερες ταχύτητας και ρυθμίσεις παράκαμψης — όλα λειτουργούν χωρίς την πρόσβαση στο διαδίκτυο";
-
-"whatsnew_subscription_title" = "Ανακάλυψε τον κόσμο με συνδρομή!";
-
-"whatsnew_subscription_message" = "Η απεριόριστη πρόσβαση στον κατάλογο των διαδρομών συμφέρει πιο πολύ από μια μεμονωμένη αγορά";
-
-"whatsnew_carnavi_fixes_for_android_title" = "Ενημέρωση πλοήγησης";
-
-"whatsnew_carnavi_fixes_for_android_message" = "Έχουμε βελτιώσει τη δημιουργία διαδρομών έως τα σημεία που βρίσκονται μακριά από τους δρόμους";
-
 "avoid_unpaved_carplay_1" = "Χ/χωματόδρ.";
 
 "avoid_unpaved_carplay_2" = "Χ/χωματόδρομους";
@@ -2918,10 +2708,6 @@
 /* Android, max 18 symbols */
 "bookmarks_delete_list" = "Διαγραφή λίστας";
 
-"whatsnew_bookmarks_search_sort_title" = "Τάξη στους σελιδοδείκτες κάνει το ταξίδι άνετο";
-
-"whatsnew_bookmarks_search_sort_message" = "Ταξινόμηση των αγαπημένων σας τοποθεσιών ανά κατηγορία, ώρα προσθήκης και γεωγραφική κατανομή και γρήγορη εύρεση συγκεκριμένων σελιδοδεικτών με το όνομα";
-
 "popup_subscription_success_map_title" = "Ζήτω! Είστε συνδρομητής!";
 
 "popup_subscription_success_map_message" = "Τώρα μελετήστε τα καλύτερα τουριστικά αξιοθέατα στον κατάλογο OMaps";
@@ -2961,10 +2747,6 @@
 "catalog_no_internet_title" = "Δεν υπάρχει σύνδεση στο διαδίκτυο";
 
 "catalog_no_internet_button" = "Δοκιμάστε ξανά";
-
-"whatsnew_map_updates_title" = "Αεριωθούμενες ενημερώσεις χαρτών";
-
-"whatsnew_map_updates_message" = "Από εδώ και πέρα ενημερώνουμε τα δεδομένα 2 φορές πιο γρήγορα";
 
 "new_onboarding_button" = "Επόμενο";
 
@@ -3053,14 +2835,6 @@
 
 "dialog_pedestrian_route_is_long" = "Η διαδρομή με τα πόδια μέχρι το σημείο επιβίβασης είναι πολύ μεγάλη";
 
-"whatsnew_outdoor_guides_title" = "Έχουμε προσθέσει 15.000 + μονοπάτια για υπαίθριες δραστηριότητες!";
-
-"whatsnew_outdoor_guides_message" = "Οι διαδρομές από την Outdooractive για χειμερινές και καλοκαιρινές διακοπές σας περιμένουν στον κατάλογο!";
-
-"whatsnew_guides_galleries_title" = "Προγραμματίστε το επόμενο ταξίδι με το OMaps";
-
-"whatsnew_guides_galleries_message" = "Τώρα μπορείτε να βρείτε τους συνιστώμενους οδηγούς στις κάρτες των δημοφιλών πόλεων και αξιοθέατων";
-
 "new_onboarding_step3_header" = "Ταξιδέψτε";
 
 "all_pass_screen_best_value" = "Καλύτερη τιμή";
@@ -3075,11 +2849,6 @@
 
 /* Failed planning SUBWAY route message in navigation view */
 "routing_planning_error_subway_special" = "Σφάλμα κατά την δημιουργία διαδρομής του μετρό";
-
-"whatsnew_isolines_title" = "Νέο για υπαίθριες δραστηριότητες – τοπογραφικά στρώματα εκτός σύνδεσης!";
-
-/* as less symbols as possible */
-"whatsnew_isolines_message" = "Νιώστε σίγουροι στα ορεινά – ενεργοποιήστε το στρώμα στην πάνω αριστερή γωνία της οθόνης";
 
 "button_layer_isolines" = "Υψόμετρα";
 
@@ -3169,18 +2938,6 @@
 /* as few symbols as possible */
 "routes_card_hide" = "Απόκρυψη από τον χάρτη";
 
-"whatsnew_catalog_new_title" = "Νέος κατάλογος οδηγών και χιλιάδες ιδέες για διακοπές";
-
-"whatsnew_catalog_new_message" = "Έχουμε ενημερώσει τον κατάλογο οδηγών και έχουμε προσθέσει μεταφράσεις σε δημοφιλείς γλώσσες. Ξεκινήστε να σχεδιάζετε από νωρίς!";
-
-"whatsnew_elevation_profile_title" = "Προφίλ υψόμετρου στους οδηγούς";
-
-"whatsnew_elevation_profile_message" = "Αξιολογήστε τη δυσκολία των επερχόμενων αναβάσεων και καταβάσεων εκτός σύνδεσης με τη βοήθεια του δρομέα στο προφίλ της διαδρομής που αποκτήσατε.";
-
-"whatsnew_guides_on_map_title" = "Νέο στρώμα για να βρίσκετε τους οδηγούς πιο εύκολα!";
-
-"whatsnew_guides_on_map_message" = "Ενεργοποιήστε το στρώμα στο μενού ρυθμίσεων της εφαρμογής για να βρείτε γρήγορα ενδιαφέρουσες διαδρομές πόλεων και οδηγούς για υπαίθριες δραστηριότητες.";
-
 "downloader_updating_ios" = "Ενημέρωση";
 
 "downloader_loading_ios" = "Φόρτωση";
@@ -3238,10 +2995,6 @@
 "choose_dates_online_only_dialog_cta" = "Ρυθμίσεις";
 
 "thirty_days_limit_dialog" = "Μπορείτε να κάνετε κράτηση έως και για 30 διανυκτερεύσεις";
-
-"whatsnew_trial_title" = "Δωρεάν πρόσβαση στους ταξιδιωτικούς οδηγούς";
-
-"whatsnew_trial_message" = "Έχουμε εισαγάγει μια δοκιμαστική περίοδο 7 ημερών. Έχουμε ενημερώσει τον κατάλογο οδηγών και έχουμε προσθέσει μεταφράσεις σε δημοφιλείς γλώσσες.";
 
 "whatsnew_trial_cta" = "Δοκιμή";
 
