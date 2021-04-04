@@ -651,6 +651,8 @@ UNIT_TEST(StorageTest_FailedDownloading)
   DeleteDownloaderFilesForCountry(storage.GetCurrentDataVersion(), countryFile);
   SCOPE_GUARD(cleanup, [&]() {
     DeleteDownloaderFilesForCountry(storage.GetCurrentDataVersion(), countryFile);
+    // Failed country is added into the "retry later" list, and fails next test.
+    storage.Clear();
   });
 
   {
