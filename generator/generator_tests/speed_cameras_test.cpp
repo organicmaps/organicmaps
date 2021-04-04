@@ -37,6 +37,7 @@
 #include "base/logging.hpp"
 #include "base/macros.hpp"
 #include "base/math.hpp"
+#include "base/scope_guard.hpp"
 
 #include "defines.hpp"
 
@@ -154,7 +155,15 @@ void TestSpeedCameraSectionBuilding(string const & osmContent, CameraMap const &
 
   // Create test dir.
   string const testDirFullPath = base::JoinPath(tmpDir, kTestDir);
-  FORCE_USE_VALUE(Platform::MkDir(testDirFullPath));
+  if (!Platform::MkDirChecked(testDirFullPath))
+  {
+    TEST(false, ("Can't create tmp dir", testDirFullPath));
+    return;
+  }
+  SCOPE_GUARD(cleanupDirGuard, [&testDirFullPath]()
+  {
+    UNUSED_VALUE(Platform::RmDirRecursively(testDirFullPath));
+  });
 
   string const osmRelativePath = base::JoinPath(kTestDir, kOsmFileName);
   ScopedFile const osmScopedFile(osmRelativePath, osmContent);
@@ -174,7 +183,7 @@ void TestSpeedCameraSectionBuilding(string const & osmContent, CameraMap const &
   TEST(GenerateIntermediateData(genInfo), ("Cannot generate intermediate data for speed cam"));
 
   // Building empty mwm.
-  LocalCountryFile country(base::JoinPath(tmpDir, kTestDir), CountryFile(kTestMwm), 0 /* version */);
+  LocalCountryFile country(testDirFullPath, CountryFile(kTestMwm), 0 /* version */);
   string const mwmRelativePath = base::JoinPath(kTestDir, kTestMwm + DATA_FILE_EXTENSION);
   ScopedFile const scopedMwm(mwmRelativePath, ScopedFile::Mode::Create);
 
