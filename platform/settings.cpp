@@ -6,17 +6,13 @@
 
 #include "defines.hpp"
 
-#include "coding/file_reader.hpp"
-#include "coding/file_writer.hpp"
-#include "coding/reader_streambuf.hpp"
 #include "coding/transliteration.hpp"
 
 #include "geometry/any_rect2d.hpp"
 #include "geometry/rect2d.hpp"
 
-#include "base/logging.hpp"
+#include "base/string_utils.hpp"
 
-#include <cmath>
 #include <iostream>
 #include <sstream>
 
@@ -59,7 +55,7 @@ bool FromStringArray(string const & s, T(&arr)[N])
   size_t count = 0;
   while (count < N && in >> arr[count])
   {
-    if (!isfinite(arr[count]))
+    if (!strings::is_finite(arr[count]))
       return false;
     ++count;
   }

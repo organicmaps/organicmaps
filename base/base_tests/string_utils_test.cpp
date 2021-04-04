@@ -3,6 +3,8 @@
 #include "base/logging.hpp"
 #include "base/string_utils.hpp"
 
+#include <cfloat>
+#include <cmath>
 #include <fstream>
 #include <functional>
 #include <iomanip>
@@ -25,9 +27,9 @@ UNIT_TEST(LowerUniChar)
 {
   // Load unicode case folding table.
 
-  // To use Platform class here, we need to add many link stuff into .pro file ...
+  // To use Platform class here, we need to add many link stuff ..
   // string const fName = GetPlatform().WritablePathForFile("CaseFolding.test");
-  std::string const fName = "../../../omim/data/CaseFolding.test";
+  std::string const fName = "./data/CaseFolding.test";
 
   std::ifstream file(fName.c_str());
   if (!file.good())
@@ -142,7 +144,26 @@ UNIT_TEST(MakeLowerCase)
   TEST_EQUAL(cus, strings::MakeLowerCase(us), ());
 }
 
-UNIT_TEST(EqualNoCase) { TEST(strings::EqualNoCase("HaHaHa", "hahaha"), ()); }
+UNIT_TEST(EqualNoCase)
+{
+  TEST(strings::EqualNoCase("HaHaHa", "hahaha"), ());
+}
+
+UNIT_TEST(is_finite)
+{
+  using namespace strings;
+
+  TEST(!is_finite(NAN), ());
+  TEST(!is_finite(INFINITY), ());
+  //TEST(!is_finite(DBL_MIN/2.0), ());
+  TEST(!is_finite(DBL_MAX*2.0), ());
+
+  TEST(is_finite(0.0), ());
+  TEST(is_finite(1.0), ());
+  TEST(is_finite(-2.0), ());
+  TEST(is_finite(DBL_MIN), ());
+  TEST(is_finite(DBL_MAX), ());
+}
 
 UNIT_TEST(to_double)
 {
@@ -178,9 +199,9 @@ UNIT_TEST(to_double)
   s = "123.456 we don't parse it.";
   TEST(!strings::to_double(s, d), ());
 
-  TEST(!strings::to_double("INF", d), ());
-  TEST(!strings::to_double("NAN", d), ());
-  TEST(!strings::to_double("1.18973e+4932", d), ());
+  TEST(!strings::to_double("INF", d), (d));
+  TEST(!strings::to_double("NAN", d), (d));
+  TEST(!strings::to_double("1.18973e+4932", d), (d));
 }
 
 UNIT_TEST(to_float)
@@ -218,9 +239,9 @@ UNIT_TEST(to_float)
   s = "123.456 we don't parse it.";
   TEST(!strings::to_float(s, f), ());
 
-  TEST(!strings::to_float("INF", f), ());
-  TEST(!strings::to_float("NAN", f), ());
-  TEST(!strings::to_float("1.18973e+4932", f), ());
+  TEST(!strings::to_float("INF", f), (f));
+  TEST(!strings::to_float("NAN", f), (f));
+  TEST(!strings::to_float("1.18973e+4932", f), (f));
 }
 
 UNIT_TEST(to_int)

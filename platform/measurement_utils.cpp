@@ -1,6 +1,5 @@
 #include "platform/measurement_utils.hpp"
 
-#include "platform/localization.hpp"
 #include "platform/settings.hpp"
 
 #include "geometry/mercator.hpp"
@@ -15,7 +14,6 @@
 #include <iomanip>
 #include <sstream>
 
-using namespace platform;
 using namespace settings;
 using namespace std;
 using namespace strings;
@@ -86,7 +84,7 @@ double ToSpeedKmPH(double speed, measurement_utils::Units units)
 std::string FormatDistanceWithLocalization(double m, OptionalStringRef high, OptionalStringRef low)
 {
   auto units = Units::Metric;
-  TryGet(settings::kMeasurementUnits, units);
+  TryGet(kMeasurementUnits, units);
 
   switch (units)
   {
@@ -204,7 +202,7 @@ string FormatAltitude(double altitudeInMeters)
 string FormatAltitudeWithLocalization(double altitudeInMeters, OptionalStringRef localizedUnits)
 {
   Units units = Units::Metric;
-  TryGet(settings::kMeasurementUnits, units);
+  TryGet(kMeasurementUnits, units);
 
   switch (units)
   {
@@ -219,7 +217,7 @@ string FormatAltitudeWithLocalization(double altitudeInMeters, OptionalStringRef
 string FormatSpeed(double metersPerSecond)
 {
   auto units = Units::Metric;
-  TryGet(settings::kMeasurementUnits, units);
+  TryGet(kMeasurementUnits, units);
 
   return FormatSpeedNumeric(metersPerSecond, units) + " " + FormatSpeedUnits(units);
 }
@@ -249,6 +247,8 @@ string FormatSpeedUnits(Units units)
 
 bool OSMDistanceToMeters(string const & osmRawValue, double & outMeters)
 {
+  using strings::is_finite;
+
   char * stop;
   char const * s = osmRawValue.c_str();
   outMeters = strtod(s, &stop);
@@ -257,7 +257,7 @@ bool OSMDistanceToMeters(string const & osmRawValue, double & outMeters)
   if (s == stop)
     return false;
 
-  if (!isfinite(outMeters))
+  if (!is_finite(outMeters))
     return false;
 
   switch (*stop)
@@ -271,7 +271,7 @@ bool OSMDistanceToMeters(string const & osmRawValue, double & outMeters)
       outMeters = FeetToMeters(outMeters);
       s = stop + 1;
       double const inches = strtod(s, &stop);
-      if (s != stop && *stop == '"' && isfinite(inches))
+      if (s != stop && *stop == '"' && is_finite(inches))
         outMeters += InchesToMeters(inches);
       return true;
     }
@@ -285,7 +285,7 @@ bool OSMDistanceToMeters(string const & osmRawValue, double & outMeters)
     {
       s = stop + 1;
       double const newValue = strtod(s, &stop);
-      if (s != stop && isfinite(newValue))
+      if (s != stop && is_finite(newValue))
         outMeters = newValue;
     }
     break;
