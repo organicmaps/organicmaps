@@ -372,7 +372,7 @@ public:
 class IsHotelChecker : public BaseChecker
 {
 public:
-  enum class Type
+  enum class Type : uint8_t
   {
     Hotel,
     Apartment,
@@ -388,7 +388,7 @@ public:
 
   using UnderlyingType = std::underlying_type_t<Type>;
 
-  static_assert(base::Underlying(Type::Count) <= CHAR_BIT * sizeof(unsigned),
+  static_assert(base::Underlying(Type::Count) <= std::numeric_limits<UnderlyingType>::digits,
                 "Too many types of hotels");
 
   static char const * GetHotelTypeTag(Type type);
