@@ -382,19 +382,17 @@ public class StoragePathManager
     {
       for (int i = 0; i < oldFiles.length; ++i)
       {
-        if (MapManager.nativeMoveFile(oldFiles[i].getAbsolutePath(), newFiles[i].getAbsolutePath()))
+        File parent = newFiles[i].getParentFile();
+        if (parent != null)
+          parent.mkdirs();
+        if (!MapManager.nativeMoveFile(oldFiles[i].getAbsolutePath(), newFiles[i].getAbsolutePath()))
         {
-          // No need to delete oldFiles[i] because it was moved to newFiles[i].
-          oldFiles[i] = null;
-        } else
-        {
-          File parent = newFiles[i].getParentFile();
-          if (parent != null)
-            parent.mkdirs();
-          StorageUtils.copyFile(oldFiles[i], newFiles[i]);
+          throw new IOException("Failed to move " + oldFiles[i].getAbsolutePath() + " to " + newFiles[i]
+              .getAbsolutePath());
         }
       }
-    } catch (IOException e)
+    }
+    catch (IOException e)
     {
       e.printStackTrace();
       // In the case of failure delete all new files.  Old files will

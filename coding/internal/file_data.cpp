@@ -195,6 +195,23 @@ bool RenameFileX(string const & fOld, string const & fNew)
   return CheckFileOperationResult(res, fOld);
 }
 
+bool MoveFileX(string const & fOld, string const & fNew)
+{
+  // Try to rename the file first.
+  int res = rename(fOld.c_str(), fNew.c_str());
+  if (res == 0)
+    return true;
+
+  // Otherwise perform the full move.
+  if (!CopyFileX(fOld, fNew))
+  {
+    (void) DeleteFileX(fNew);
+    return false;
+  }
+  (void) DeleteFileX(fOld);
+  return true;
+}
+
 bool WriteToTempAndRenameToFile(string const & dest, function<bool(string const &)> const & write,
                                 string const & tmp)
 {
@@ -232,33 +249,22 @@ void AppendFileToFile(string const & fromFilename, string const & toFilename)
 
 bool CopyFileX(string const & fOld, string const & fNew)
 {
+  ifstream ifs;
+  ofstream ofs;
+  ifs.exceptions(ifstream::failbit | ifstream::badbit);
+  ofs.exceptions(ifstream::failbit | ifstream::badbit);
+
   try
   {
-    ifstream ifs(fOld.c_str());
-    ofstream ofs(fNew.c_str());
-
-    if (ifs.is_open() && ofs.is_open())
-    {
-      if (ifs.peek() == ifstream::traits_type::eof())
-        return true;
-
-      ofs << ifs.rdbuf();
-      ofs.flush();
-
-      if (ofs.fail())
-      {
-        LOG(LWARNING, ("Bad or Fail bit is set while writing file:", fNew));
-        return false;
-      }
-
-      return true;
-    }
-    else
-      LOG(LERROR, ("Can't open files:", fOld, fNew));
+    ifs.open(fOld.c_str());
+    ofs.open(fNew.c_str());
+    ofs << ifs.rdbuf();
+    ofs.flush();
+    return true;
   }
   catch (exception const & ex)
   {
-    LOG(LERROR, ("Copy file error:", ex.what()));
+    LOG(LERROR, ("Failed to copy file from", fOld, "to", fNew, ":", strerror(errno)));
   }
 
   return false;
