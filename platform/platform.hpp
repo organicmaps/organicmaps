@@ -315,6 +315,7 @@ public:
     case Thread::Gui: return m_guiThread->Push(std::forward<Task>(task));
     case Thread::Background: return m_backgroundThread->Push(std::forward<Task>(task));
     }
+    UNREACHABLE();
   }
 
   template <typename Task>
@@ -332,6 +333,7 @@ public:
     case Thread::Background:
       return m_backgroundThread->PushDelayed(delay, std::forward<Task>(task));
     }
+    UNREACHABLE();
   }
 
   void CancelTask(Thread thread, base::TaskLoop::TaskId id);
