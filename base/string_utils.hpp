@@ -477,6 +477,7 @@ WARN_UNUSED_RESULT inline bool to_int32(char const * s, int32_t & i)
 WARN_UNUSED_RESULT bool to_size_t(char const * s, size_t & i, int base = 10);
 WARN_UNUSED_RESULT bool to_float(char const * s, float & f);
 WARN_UNUSED_RESULT bool to_double(char const * s, double & d);
+WARN_UNUSED_RESULT bool is_finite(double d);
 
 WARN_UNUSED_RESULT inline bool is_number(std::string const & s)
 {

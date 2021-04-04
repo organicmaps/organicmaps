@@ -13,6 +13,7 @@
 #endif
 
 #include <boost/algorithm/string/trim.hpp>
+#include <boost/math/special_functions/fpclassify.hpp>
 
 #if defined(__clang__)
 #pragma clang diagnostic pop
@@ -38,12 +39,18 @@ double RealConverter<double>(char const * start, char ** stop)
 }
 
 template <typename T>
+bool IsFinite(T t)
+{
+  return boost::math::isfinite(t);
+}
+
+template <typename T>
 bool ToReal(char const * start, T & result)
 {
   char * stop;
   auto const tmp = RealConverter<T>(start, &stop);
 
-  if (*stop != 0 || start == stop || !std::isfinite(tmp))
+  if (*stop != 0 || start == stop || !IsFinite(tmp))
     return false;
 
   result = tmp;
@@ -99,6 +106,11 @@ bool to_float(char const * start, float & f)
 bool to_double(char const * start, double & d)
 {
   return ToReal(start, d);
+}
+
+bool is_finite(double d)
+{
+  return IsFinite(d);
 }
 
 UniString MakeLowerCase(UniString const & s)

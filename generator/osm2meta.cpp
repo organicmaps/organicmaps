@@ -75,6 +75,15 @@ bool IsNoNameNoAddressBuilding(FeatureParams const & params)
   return params.m_types.size() == 1 && params.m_types[0] == buildingType &&
          params.house.Get().empty() && params.name.IsEmpty();
 }
+
+bool Prefix2Double(string const & str, double & d)
+{
+  char * stop;
+  char const * s = str.c_str();
+  d = strtod(s, &stop);
+  return (s != stop && strings::is_finite(d));
+}
+
 }  // namespace
 
 string MetadataTagProcessorImpl::ValidateAndFormat_stars(string const & v) const
@@ -183,10 +192,8 @@ string MetadataTagProcessorImpl::ValidateAndFormat_building_levels(string v) con
 {
   // Some mappers use full width unicode digits. We can handle that.
   strings::NormalizeDigits(v);
-  char * stop;
-  char const * s = v.c_str();
-  double const levels = strtod(s, &stop);
-  if (s != stop && isfinite(levels) && levels >= 0 && levels <= kMaxBuildingLevelsInTheWorld)
+  double levels;
+  if (Prefix2Double(v, levels) && levels >= 0 && levels <= kMaxBuildingLevelsInTheWorld)
     return strings::to_string_dac(levels, 1);
 
   return {};
@@ -196,14 +203,9 @@ string MetadataTagProcessorImpl::ValidateAndFormat_level(string v) const
 {
   // Some mappers use full width unicode digits. We can handle that.
   strings::NormalizeDigits(v);
-  char * stop;
-  char const * s = v.c_str();
-  double const levels = strtod(s, &stop);
-  if (s != stop && isfinite(levels) && levels >= kMinBuildingLevel &&
-      levels <= kMaxBuildingLevelsInTheWorld)
-  {
+  double levels;
+  if (Prefix2Double(v, levels) && levels >= kMinBuildingLevel && levels <= kMaxBuildingLevelsInTheWorld)
     return strings::to_string(levels);
-  }
 
   return {};
 }
