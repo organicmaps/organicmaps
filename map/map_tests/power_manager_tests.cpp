@@ -280,7 +280,7 @@ UNIT_TEST(PowerManager_OnBatteryLevelChanged)
   TEST_EQUAL(manager.GetScheme(), Scheme::Auto, ());
 
   TEST_EQUAL(subscriber.m_onShemeEvents.size(), 0, ());
-  TEST_EQUAL(subscriber.m_onFacilityEvents.size(), 12, ());
+  TEST_EQUAL(subscriber.m_onFacilityEvents.size(), 9, ());
 
   auto const & facilityEvents = subscriber.m_onFacilityEvents;
   for (size_t i = 0; i < facilityEvents.size(); ++i)
