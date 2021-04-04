@@ -49,67 +49,15 @@ bool IsEulaExist(string const & directory)
   return Platform::IsFileExistsByFullPath(base::JoinPath(directory, "eula.html"));
 }
 
-// Makes base::JoinPath(path, dirs) and all intermediate dirs.
-// The directory |path| is assumed to exist already.
-bool MkDirsChecked(string path, initializer_list<string> const & dirs)
-{
-  string accumulatedDirs = path;
-  // Storing full paths is redundant but makes the implementation easier.
-  vector<string> madeDirs;
-  bool ok = true;
-  for (auto const & dir : dirs)
-  {
-    accumulatedDirs = base::JoinPath(accumulatedDirs, dir);
-    auto const result = Platform::MkDir(accumulatedDirs);
-    switch (result)
-    {
-    case Platform::ERR_OK: madeDirs.push_back(accumulatedDirs); break;
-    case Platform::ERR_FILE_ALREADY_EXISTS:
-    {
-      Platform::EFileType type;
-      if (Platform::GetFileType(accumulatedDirs, type) != Platform::ERR_OK ||
-          type != Platform::FILE_TYPE_DIRECTORY)
-      {
-        ok = false;
-      }
-    }
-    break;
-    default: ok = false; break;
-    }
-  }
-
-  if (ok)
-    return true;
-
-  for (; !madeDirs.empty(); madeDirs.pop_back())
-    Platform::RmDir(madeDirs.back());
-
-  return false;
-}
-
-string HomeDir()
+bool GetHomeDir(string & outPath)
 {
   char const * homePath = ::getenv("HOME");
   if (homePath == nullptr)
-    MYTHROW(RootException, ("The environment variable HOME is not set"));
-  return homePath;
+    return false;
+  outPath = homePath;
+  return true;
 }
 
-// Returns the default path to the writable dir, creating the dir if needed.
-// An exception is thrown if the default dir is not already there and we were unable to create it.
-string DefaultWritableDir()
-{
-  initializer_list<string> const dirs = {".local", "share", "MapsWithMe"};
-  string result;
-  for (auto const & dir : dirs)
-    result = base::JoinPath(result, dir);
-  result = base::AddSlashIfNeeded(result);
-
-  auto const home = HomeDir();
-  if (!MkDirsChecked(home, dirs))
-    MYTHROW(FileSystemException, ("Cannot create directory:", result));
-  return result;
-}
 }  // namespace
 
 namespace platform
@@ -118,22 +66,21 @@ unique_ptr<Socket> CreateSocket()
 {
   return unique_ptr<Socket>();
 }
-}
+} // namespace platform
+
 
 Platform::Platform()
 {
   // Init directories.
-  string path;
-  CHECK(GetBinaryDir(path), ("Can't retrieve path to executable"));
+  string execPath, homePath;
+  CHECK(GetBinaryDir(execPath), ("Can't retrieve path to executable"));
+  CHECK(GetHomeDir(homePath), ("Can't retrieve home path"));
 
-  m_settingsDir = base::JoinPath(HomeDir(), ".config", "MapsWithMe");
+  m_settingsDir = base::JoinPath(homePath, ".config", "OMaps");
 
   if (!IsFileExistsByFullPath(base::JoinPath(m_settingsDir, SETTINGS_FILE_NAME)))
   {
-    auto const configDir = base::JoinPath(HomeDir(), ".config");
-    if (!MkDirChecked(configDir))
-      MYTHROW(FileSystemException, ("Can't create directory", configDir));
-    if (!MkDirChecked(m_settingsDir))
+    if (!MkDirRecursively(m_settingsDir))
       MYTHROW(FileSystemException, ("Can't create directory", m_settingsDir));
   }
 
@@ -147,51 +94,50 @@ Platform::Platform()
   else if (resDir)
   {
     m_resourcesDir = resDir;
-    m_writableDir = DefaultWritableDir();
+    m_writableDir = base::JoinPath(homePath, ".local", "share", "OMaps");
+    if (!MkDirRecursively(m_writableDir))
+      MYTHROW(FileSystemException, ("Can't create directory:", m_writableDir));
   }
   else
   {
-    string const devBuildWithSymlink = base::JoinPath(path, "..", "..", "data");
-    string const devBuildWithoutSymlink = base::JoinPath(path, "..", "..", "..", "omim", "data");
-    string const installedVersionWithPackages = base::JoinPath(path, "..", "share");
-    string const installedVersionWithoutPackages = base::JoinPath(path, "..", "MapsWithMe");
-    string const customInstall = path;
+    initializer_list<string> dirs = {
+      "./data",                                     // check symlink in the current folder
+      "../data",                                    // check if we are in the 'build' folder inside repo
+      base::JoinPath(execPath, "..", "..", "data"), // check symlink from bundle?
+      base::JoinPath(execPath, "..", "share"),      // installed version with packages
+      base::JoinPath(execPath, "..", "OMaps")       // installed version without packages
+    };
 
-    if (IsEulaExist(devBuildWithSymlink))
+    for (auto const & dir : dirs)
     {
-      m_resourcesDir = devBuildWithSymlink;
-      m_writableDir = writableDir != nullptr ? writableDir : m_resourcesDir;
-    }
-    else if (IsEulaExist(devBuildWithoutSymlink))
-    {
-      m_resourcesDir = devBuildWithoutSymlink;
-      m_writableDir = writableDir != nullptr ? writableDir : m_resourcesDir;
-    }
-    else if (IsEulaExist(installedVersionWithPackages))
-    {
-      m_resourcesDir = installedVersionWithPackages;
-      m_writableDir = writableDir != nullptr ? writableDir : DefaultWritableDir();
-    }
-    else if (IsEulaExist(installedVersionWithoutPackages))
-    {
-      m_resourcesDir = installedVersionWithoutPackages;
-      m_writableDir = writableDir != nullptr ? writableDir : DefaultWritableDir();
-    }
-    else if (IsEulaExist(customInstall))
-    {
-      m_resourcesDir = path;
-      m_writableDir = writableDir != nullptr ? writableDir : DefaultWritableDir();
+      if (IsEulaExist(dir))
+      {
+        m_resourcesDir = dir;
+        m_writableDir = (writableDir != nullptr) ? writableDir : m_resourcesDir;
+        break;
+      }
     }
   }
+
+  // Actually, m_resourcesDir and m_writableDir maybe empty here and
+  // will be set later by tests infrustructure.
+
   m_resourcesDir += '/';
   m_settingsDir += '/';
   m_writableDir += '/';
 
   char const * tmpDir = ::getenv("TMPDIR");
   if (tmpDir)
+  {
     m_tmpDir = tmpDir;
+  }
   else
-    m_tmpDir = "/tmp";
+  {
+    /// @todo Don't have other good ideas here ..
+    m_tmpDir = base::JoinPath(homePath, "tmp");
+    if (!MkDirRecursively(m_tmpDir))
+      MYTHROW(FileSystemException, ("Can't create tmp directory:", m_tmpDir));
+  }
   m_tmpDir += '/';
 
   m_privateDir = m_settingsDir;
