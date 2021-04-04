@@ -58,7 +58,9 @@ bool WriteToTempAndRenameToFile(std::string const & dest,
 
 void AppendFileToFile(std::string const & fromFilename, std::string const & toFilename);
 
-/// @return false if copy fails. DO NOT THROWS exceptions
+/// @return false if copy fails. DOES NOT THROWS exceptions
 bool CopyFileX(std::string const & fOld, std::string const & fNew);
+/// @return false if moving fails. DOES NOT THROW exceptions
+bool MoveFileX(std::string const & fOld, std::string const & fNew);
 bool IsEqualFiles(std::string const & firstFile, std::string const & secondFile);
 }  // namespace base
