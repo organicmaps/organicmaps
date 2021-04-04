@@ -30,7 +30,7 @@ UNIT_TEST(AreaOnEarth_ThreePoints)
 
   TEST_ALMOST_EQUAL_ABS(ms::AreaOnEarth({90.0, 0.0}, {0.0, 0.0}, {0.0, 90.0}),
                         kEarthSurfaceArea / 8.0,
-                        1e-2, ());
+                        1e-1, ());
 
   TEST_ALMOST_EQUAL_ABS(ms::AreaOnEarth({90.0, 0.0}, {0.0, 90.0}, {0.0, -90.0}),
                         kEarthSurfaceArea / 4.0,
