@@ -1,5 +1,4 @@
-#ifndef __IA__POINT__
-#define __IA__POINT__
+#pragma once
 
 #include <algorithm>
 #include <cmath>
@@ -36,13 +35,8 @@ struct point_base
   T x;
   T y;
 
-  point_base()
-      : x(std::numeric_limits<T>::quiet_NaN()), y(std::numeric_limits<T>::quiet_NaN())
-  {
-  }
+  point_base() = default;
   point_base(T ix, T iy) : x(ix), y(iy) {}
-
-  operator bool() const { return (!std::isnan(x) && !std::isnan(y)); }
 
   T lon() const { return x; }
   T lon(T l) { return (x = l); }
@@ -261,5 +255,3 @@ inline std::ostream & operator<<(std::ostream & s, point_base<T> const & p)
 typedef point_base<double> point_d;
 typedef point_base<int> point_i;
 }
-
-#endif

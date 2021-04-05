@@ -146,6 +146,12 @@ T PowUint(T x, uint64_t n)
 }
 
 template <typename T>
+T Pow2(T x)
+{
+  return x * x;
+}
+
+template <typename T>
 T NextModN(T x, T n)
 {
   ASSERT_GREATER(n, 0, ());
