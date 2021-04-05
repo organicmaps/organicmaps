@@ -177,3 +177,31 @@ UNIT_TEST(Equal_Function_Test_For_Big_Files)
     TEST(base::DeleteFileX(name2), ());
   }
 }
+
+UNIT_TEST(EmptyFile)
+{
+  using namespace base;
+
+  std::string const name = "test.empty";
+  std::string const copy = "test.empty.copy";
+
+  {
+    FileData f(name, base::FileData::OP_WRITE_TRUNCATE);
+  }
+
+  uint64_t sz;
+  TEST(GetFileSize(name, sz), ());
+  TEST_EQUAL(sz, 0, ());
+
+  TEST(CopyFileX(name, copy), ());
+  //TEST(!RenameFileX(name, copy), ());
+
+  TEST(DeleteFileX(copy), ());
+  TEST(RenameFileX(name, copy), ());
+
+  TEST(!GetFileSize(name, sz), ());
+  TEST(GetFileSize(copy, sz), ());
+  TEST_EQUAL(sz, 0, ());
+
+  TEST(DeleteFileX(copy), ());
+}
