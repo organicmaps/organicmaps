@@ -1,14 +1,37 @@
-name: Beta
+name: Android Beta
 on:
   push:
     branches:
       - master
+    paths-ignore:
+      - .github/workflows/linux*
+      - .github/workflows/ios*
+      - '**/*_tests/**'
+      - CONTRIBUTORS
+      - LICENSE
+      - NOTICE
+      - README.md
+      - docs/**
+      - generator/**
+      - iphone/**
+      - packaging/**
+      - pyhelpers/**
+      - qt*/**
+      - skin_generator/**
+      - track_generator/**
+      - xcode/**
 
 jobs:
   android-beta:
     name: Android Beta
     runs-on: ubuntu-latest
     steps:
+      - name: Install build tools and dependencies
+        shell: bash
+        run: |
+          sudo apt-get update -y
+          sudo apt-get install -y ninja-build
+
       - name: Set up JDK 1.8
         uses: actions/setup-java@v1
         with:
@@ -19,8 +42,7 @@ jobs:
 
       - name: Parallel submodules checkout
         shell: bash
-        run: |
-          git submodule update --init --recursive --jobs=10
+        run: git submodule update --init --recursive --jobs=$(($(nproc) * 2))
 
       - name: Checkout private keys
         uses: actions/checkout@v2
@@ -37,22 +59,16 @@ jobs:
           ./configure.sh ./private.git
           rm -rf ./private.git
 
-      - name: Remove old outputs
-        shell: bash
-        run: |
-          rm -rf android/build/outputs/
-
       - name: Set up SDK
         shell: bash
-        run: |
-          (cd tools/android; ./set_up_android.py --sdk $ANDROID_SDK_ROOT)
+        run: (cd tools/android; ./set_up_android.py --sdk $ANDROID_SDK_ROOT)
 
       - name: Compile
         shell: bash
         working-directory: android
         run: |
-          export PATH="$(dirname $ANDROID_SDK_ROOT/cmake/*/bin/.|tail -n1):$PATH" # Use CMake from SDK
-          echo $PATH
+          #export PATH="$(dirname $ANDROID_SDK_ROOT/cmake/*/bin/.|tail -n1):$PATH" # Use CMake from SDK
+          #echo $PATH
           cmake --version
           ninja --version
           ./gradlew -PsplitApk=true -x lint -x lintVitalWebBeta assembleWebBeta uploadCrashlyticsSymbolFileWebBeta
