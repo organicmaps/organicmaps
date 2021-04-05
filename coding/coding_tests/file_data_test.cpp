@@ -185,23 +185,40 @@ UNIT_TEST(EmptyFile)
   std::string const name = "test.empty";
   std::string const copy = "test.empty.copy";
 
+  // Check that both files are not exist.
+  uint64_t sz;
+  TEST(!GetFileSize(name, sz), ());
+  TEST(!GetFileSize(copy, sz), ());
+
+  // Try to copy non existing file - failed.
+  TEST(!CopyFileX(name, copy), ());
+
+  // Again, both files are not exist.
+  TEST(!GetFileSize(name, sz), ());
+  TEST(!GetFileSize(copy, sz), ());
+
   {
+    // Create empty file with zero size.
     FileData f(name, base::FileData::OP_WRITE_TRUNCATE);
   }
 
-  uint64_t sz;
+  // Check that empty file is on disk.
   TEST(GetFileSize(name, sz), ());
   TEST_EQUAL(sz, 0, ());
 
+  // Do copy.
   TEST(CopyFileX(name, copy), ());
   //TEST(!RenameFileX(name, copy), ());
 
+  // Delete copy file and rename name -> copy.
   TEST(DeleteFileX(copy), ());
   TEST(RenameFileX(name, copy), ());
 
+  // Now we don't have an initial file but have a copy.
   TEST(!GetFileSize(name, sz), ());
   TEST(GetFileSize(copy, sz), ());
   TEST_EQUAL(sz, 0, ());
 
+  // Delete copy file.
   TEST(DeleteFileX(copy), ());
 }

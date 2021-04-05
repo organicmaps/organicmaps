@@ -165,6 +165,7 @@ bool GetFileSize(string const & fName, uint64_t & sz)
 
 namespace
 {
+
 bool CheckFileOperationResult(int res, string const & fName)
 {
   if (!res)
@@ -181,6 +182,12 @@ bool CheckFileOperationResult(int res, string const & fName)
 
   return false;
 }
+
+bool IsEOF(ifstream & fs)
+{
+  return fs.peek() == ifstream::traits_type::eof();
+}
+
 }  // namespace
 
 bool DeleteFileX(string const & fName)
@@ -243,7 +250,7 @@ void AppendFileToFile(string const & fromFilename, string const & toFilename)
   to.open(toFilename, ios::binary | ios::app);
 
   auto * buffer = from.rdbuf();
-  if (from.peek() != ifstream::traits_type::eof())
+  if (!IsEOF(from))
     to << buffer;
 }
 
@@ -258,15 +265,26 @@ bool CopyFileX(string const & fOld, string const & fNew)
   {
     ifs.open(fOld.c_str());
     ofs.open(fNew.c_str());
+
+    // If source file is empty - make empty dest file without any errors.
+    if (IsEOF(ifs))
+      return true;
+
     ofs << ifs.rdbuf();
     ofs.flush();
     return true;
   }
-  catch (exception const & ex)
+  catch (system_error const &)
   {
-    LOG(LERROR, ("Failed to copy file from", fOld, "to", fNew, ":", strerror(errno)));
+    LOG(LWARNING, ("Failed to copy file from", fOld, "to", fNew, ":", strerror(errno)));
+  }
+  catch (exception const &)
+  {
+    LOG(LERROR, ("Unknown error when coping files:", fOld, "to", fNew, strerror(errno)));
   }
 
+  // Don't care about possible error here ..
+  (void) DeleteFileX(fNew);
   return false;
 }
 
