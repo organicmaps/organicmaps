@@ -4,8 +4,8 @@
 
 #include "base/math.hpp"
 
+#include <cfloat>
 #include <cmath>
-#include <cstdint>
 #include <limits>
 
 using namespace std;
@@ -25,7 +25,7 @@ double constexpr kB = (1.0 - kF) * kA;
 double constexpr kEps = 1e-10;
 
 // Maximum iterations of distance evaluation.
-int32_t constexpr kIterations = 10;
+int constexpr kIterations = 10;
 
 /// \brief Calculates latitude on the auxiliary sphere for |angleRad| latitude on a spheroid.
 double ReducedLatitude(double angleRad) { return atan((1.0 - kF) * tan(angleRad)); }
@@ -35,8 +35,10 @@ namespace oblate_spheroid
 {
 double GetDistance(ms::LatLon const & point1, ms::LatLon const & point2)
 {
-  m2::PointD const p1 = {base::DegToRad(point1.m_lon), base::DegToRad(point1.m_lat)};
-  m2::PointD const p2 = {base::DegToRad(point2.m_lon), base::DegToRad(point2.m_lat)};
+  using namespace base;
+
+  m2::PointD const p1 = {DegToRad(point1.m_lon), DegToRad(point1.m_lat)};
+  m2::PointD const p2 = {DegToRad(point2.m_lon), DegToRad(point2.m_lat)};
   double const U1 = ReducedLatitude(p1.y);
   double const U2 = ReducedLatitude(p2.y);
   double const sinU1 = sin(U1);
@@ -49,29 +51,28 @@ double GetDistance(ms::LatLon const & point1, ms::LatLon const & point2)
   // Difference in longitude on the auxiliary sphere.
   double lambda = L;
   double lambdaPrev = std::numeric_limits<double>::max();
-  uint32_t iterations = kIterations;
-  double sinSigma = NAN;
-  double cosSigma = NAN;
-  double sigma = NAN;
-  double cosAlphaSquare = NAN;
-  double cosDoubleSigmaMid = NAN;
-  double cosDoubleSigmaMidSquare = NAN;
+  int iterations = kIterations;
+  double sinSigma;
+  double cosSigma;
+  double sigma;
+  double cosAlphaSquare;
+  double cosDoubleSigmaMid;
+  double cosDoubleSigmaMidSquare;
 
-  while (iterations > 0 && !base::AlmostEqualAbs(lambda, lambdaPrev, kEps))
+  while (iterations-- > 0 && !AlmostEqualAbs(lambda, lambdaPrev, kEps))
   {
-    --iterations;
-    sinSigma = sqrt(pow(cosU2 * sin(lambda), 2) +
-                    pow((cosU1 * sinU2 - sinU1 * cosU2 * cos(lambda)), 2));
+    sinSigma = sqrt(Pow2(cosU2 * sin(lambda)) + Pow2(cosU1 * sinU2 - sinU1 * cosU2 * cos(lambda)));
     cosSigma = sinU1 * sinU2 + cosU1 * cosU2 * cos(lambda);
     sigma = atan2(sinSigma, cosSigma);
     double const sinAlpha = cosU1 * cosU2 * sin(lambda) / sinSigma;
-    cosAlphaSquare = (1 - pow(sinAlpha, 2));
+    cosAlphaSquare = 1 - Pow2(sinAlpha);
 
     // Cosine of SigmaMid - angular separation between the midpoint of the line and the equator.
-    cosDoubleSigmaMid = cos(sigma) - 2 * sinU1 * sinU2 / cosAlphaSquare;
-    if (isnan(cosDoubleSigmaMid))
-      cosDoubleSigmaMid = 0.0;
-    cosDoubleSigmaMidSquare = pow(cosDoubleSigmaMid, 2);
+    if (fabs(cosAlphaSquare) < DBL_EPSILON)
+      cosDoubleSigmaMid = 0;
+    else
+      cosDoubleSigmaMid = cos(sigma) - 2 * sinU1 * sinU2 / cosAlphaSquare;
+    cosDoubleSigmaMidSquare = Pow2(cosDoubleSigmaMid);
 
     double const C = (kF / 16.0) * cosAlphaSquare * (4.0 + kF * (4.0 - 3.0 * cosAlphaSquare));
 
@@ -83,24 +84,24 @@ double GetDistance(ms::LatLon const & point1, ms::LatLon const & point2)
   }
 
   // Fallback solution.
-  if (!base::AlmostEqualAbs(lambda, lambdaPrev, kEps))
+  if (!AlmostEqualAbs(lambda, lambdaPrev, kEps))
     return ms::DistanceOnEarth(point1, point2);
 
-  static double constexpr aSquare = kA * kA;
-  static double constexpr bSquare = kB * kB;
+  double constexpr aSquare = kA * kA;
+  double constexpr bSquare = kB * kB;
 
-  double uSquare = cosAlphaSquare * (aSquare - bSquare) / bSquare;
+  double const uSquare = cosAlphaSquare * (aSquare - bSquare) / bSquare;
 
-  double A = 1.0 + (uSquare / 16384.0) *
+  double const A = 1.0 + (uSquare / 16384.0) *
                        (4096.0 + uSquare * (-768.0 + uSquare * (320.0 - 175.0 * uSquare)));
 
-  double B = (uSquare / 1024.0) * (256.0 + uSquare * (-128.0 + uSquare * (74.0 - 47 * uSquare)));
+  double const B = (uSquare / 1024.0) * (256.0 + uSquare * (-128.0 + uSquare * (74.0 - 47 * uSquare)));
 
-  double deltaSigma =
+  double const deltaSigma =
       B * sinSigma *
       (cosDoubleSigmaMid + 0.25 * B *
                                (cosSigma * (-1.0 + 2.0 * cosDoubleSigmaMidSquare) -
-                                (B / 6.0) * cosDoubleSigmaMid * (-3.0 + 4.0 * pow(sinSigma, 2)) *
+                                (B / 6.0) * cosDoubleSigmaMid * (-3.0 + 4.0 * Pow2(sinSigma)) *
                                     (-3.0 + 4 * cosDoubleSigmaMidSquare)));
 
   return kB * A * (sigma - deltaSigma);
