@@ -1,0 +1,88 @@
+name: Linux Check
+on:
+  pull_request:
+    paths-ignore:
+      - .github/workflows/android*
+      - .github/workflows/ios*
+      - CONTRIBUTORS
+      - LICENSE
+      - NOTICE
+      - README.md
+      - android/**
+      - docs/**
+      - iphone/**
+      - packaging/**
+      - pyhelpers/**
+      - xcode/**
+
+jobs:
+  linux-debug:
+    name: Linux Debug Build and Test
+    runs-on: ubuntu-latest
+    env:
+      CC: gcc-10
+      CXX: g++-10
+
+    steps:
+      - name: Checkout sources
+        uses: actions/checkout@v2
+
+      - name: Parallel submodules checkout
+        shell: bash
+        run: git submodule update --init --recursive --jobs=$(($(nproc) * 2))
+
+      - name: Install build tools and dependencies
+        shell: bash
+        run: |
+          sudo apt-get install -y \
+              ninja-build \
+              qtbase5-dev \
+              libqt5svg5-dev
+
+      - name: Configure
+        shell: bash
+        run: ./configure.sh
+
+      - name: CMake
+        shell: bash
+        # -g1 should slightly reduce build time.
+        run: cmake . -B build -G Ninja -DCMAKE_BUILD_TYPE=Debug -DCMAKE_CXX_FLAGS_DEBUG=-g1
+
+      - name: Compile
+        shell: bash
+        working-directory: build
+        run: ninja
+
+      - name: Checkout world_feed_integration_tests_data
+        uses: actions/checkout@v2
+        with:
+          repository: omapsapp/world_feed_integration_tests_data
+          path: data/world_feed_integration_tests_data
+
+      - name: Tests
+        shell: bash
+        # generator_integration_tests - https://github.com/omapsapp/omapsapp/issues/225
+        # partners_api_tests - https://github.com/omapsapp/omapsapp/issues/218
+        # routing_integration_tests - https://github.com/omapsapp/omapsapp/issues/221
+        # routing_quality_tests - https://github.com/omapsapp/omapsapp/issues/215
+        # drape_tests - requires X Window
+        run: |
+          ./tools/python/run_desktop_tests.py \
+            -f ./build \
+            -u ./data \
+            -d ./data \
+            -e generator_integration_tests \
+            -e partners_api_tests \
+            -e routing_integration_tests \
+            -e routing_quality_tests \
+            -e world_feed_integration_tests \
+            -e drape_tests \
+            -e shaders_tests \
+                            \
+            -e routing_tests \
+            -e generator_tests \
+            -e opening_hours_tests \
+            -e opening_hours_integration_tests \
+            -e routing_consistency_tests \
+            -e opening_hours_supported_features_tests \
+            -e storage_integration_tests \

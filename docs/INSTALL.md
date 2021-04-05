@@ -153,7 +153,37 @@ and run
 
 ### Testing
 
-Run tests from the binary directory with `omapsapp/tools/unix/run_tests.sh`.
+Compile all unit tests in Debug mode:
+
+```bash
+cmake . -B build -G Ninja -DCMAKE_BUILD_TYPE=Debug
+cmake --build build --target all
+```
+
+Run all unit tests:
+
+```bash
+cd build
+../tools/python/run_desktop_tests.py -f . -u ../data/ -d ../data/
+```
+
+To run a limited set of tests, use `-i` flag. To exclude some tests, use `-e` flag:
+
+```bash
+cd build
+../tools/python/run_desktop_tests.py -f . -u ../data/ -d ../data/ -i base_tests,coding_tests
+../tools/python/run_desktop_tests.py -f . -u ../data/ -d ../data/ -e routing_integration_tests
+```
+
+When developing, it is more convenient to use a symlink:
+
+```bash
+cd build
+ln -s ../data/ data
+./coding_tests
+```
+
+Some tests [are known to be broken](https://github.com/omapsapp/omapsapp/issues?q=is%3Aissue+is%3Aopen+label%3ATests).
 
 ## Android app
 

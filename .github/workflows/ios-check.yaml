@@ -1,27 +1,39 @@
-name: Check
+name: iOS Check
 on:
   pull_request:
+    paths-ignore:
+    - .github/workflows/android*
+    - .github/workflows/linux*
+    - '**/*_tests/**'
+    - '**/CMakeLists.txt'
+    - CONTRIBUTORS
+    - LICENSE
+    - NOTICE
+    - README.md
+    - android/**
+    - docs/**
+    - generator/**
+    - packaging/**
+    - pyhelpers/**
+    - qt*/**
+    - skin_generator/**
+    - track_generator/**
 
 jobs:
   ios-check:
-    name: iOS Check
+    name: Build iOS Debug
     runs-on: macos-latest
     steps:
       - name: Checkout sources
         uses: actions/checkout@v2
-        with:
-          submodules: recursive
+
+      - name: Parallel submodules checkout
+        shell: bash
+        run: git submodule update --init --recursive --jobs=4
 
       - name: Configure
         shell: bash
-        run: |
-          ./configure.sh
-
-      - name: Restore cache
-        uses: actions/cache@v2
-        with:
-          path: ~/Library/Developer/Xcode/DerivedData/omim-*/Build
-          key: macos-cache
+        run: ./configure.sh
 
       - name: Compile
         shell: bash

@@ -1,12 +1,35 @@
-name: Check
+name: Android Check
 on:
   pull_request:
+    paths-ignore:
+      - .github/workflows/linux*
+      - .github/workflows/ios*
+      - '**/*_tests/**'
+      - CONTRIBUTORS
+      - LICENSE
+      - NOTICE
+      - README.md
+      - docs/**
+      - generator/**
+      - iphone/**
+      - packaging/**
+      - pyhelpers/**
+      - qt*/**
+      - skin_generator/**
+      - track_generator/**
+      - xcode/**
 
 jobs:
   android-check:
-    name: Android Check
+    name: Build Android Debug
     runs-on: ubuntu-latest
     steps:
+      - name: Install build tools and dependencies
+        shell: bash
+        run: |
+          sudo apt-get update -y
+          sudo apt-get install -y ninja-build
+
       - name: Set up JDK 1.8
         uses: actions/setup-java@v1
         with:
@@ -17,25 +40,22 @@ jobs:
 
       - name: Parallel submodules checkout
         shell: bash
-        run: |
-          git submodule update --init --recursive --jobs=10
+        run: git submodule update --init --recursive --jobs=$(($(nproc) * 2))
 
       - name: Configure in Open Source mode
         shell: bash
-        run: |
-          ./configure.sh
+        run: ./configure.sh
 
       - name: Set up SDK
         shell: bash
-        run: |
-          (cd tools/android; ./set_up_android.py --sdk $ANDROID_SDK_ROOT)
+        run: (cd tools/android; ./set_up_android.py --sdk $ANDROID_SDK_ROOT)
 
       - name: Compile
         shell: bash
         working-directory: android
         run: |
-          export PATH="$(dirname $ANDROID_SDK_ROOT/cmake/*/bin/.|tail -n1):$PATH" # Use CMake from SDK
-          echo $PATH
+          #export PATH="$(dirname $ANDROID_SDK_ROOT/cmake/*/bin/.|tail -n1):$PATH" # Use CMake from SDK
+          #echo $PATH
           cmake --version
           ninja --version
           ./gradlew -Parm64 assembleWebDebug
