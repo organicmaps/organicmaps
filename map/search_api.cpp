@@ -1,14 +1,11 @@
 #include "map/search_api.hpp"
 
 #include "map/bookmarks_search_params.hpp"
-#include "map/discovery/discovery_search_params.hpp"
 #include "map/everywhere_search_params.hpp"
 
-#include "partners_api/booking_api.hpp"
 
 #include "search/bookmarks/processor.hpp"
 #include "search/geometry_utils.hpp"
-#include "search/hotels_filter.hpp"
 #include "search/tracer.hpp"
 #include "search/utils.hpp"
 
@@ -38,9 +35,6 @@ using BookmarkIdDoc = pair<bookmarks::Id, bookmarks::Doc>;
 
 double const kDistEqualQueryMeters = 100.0;
 double const kDistEqualQueryMercator = mercator::MetersToMercator(kDistEqualQueryMeters);
-
-// 200 squared kilometers.
-double const kMaxAreaToLoadAllHotelsInViewport = 2e8;
 
 size_t const kMaximumPossibleNumberOfBookmarksToIndex = 5000;
 
@@ -190,22 +184,17 @@ bool SearchAPI::SearchEverywhere(EverywhereSearchParams const & params)
   p.m_suggestsEnabled = true;
   p.m_needAddress = true;
   p.m_needHighlighting = true;
-  p.m_hotelsFilter = params.m_hotelsFilter;
   if (params.m_timeout)
     p.m_timeout = *params.m_timeout;
 
   p.m_onResults = EverywhereSearchCallback(
-      static_cast<EverywhereSearchCallback::Delegate &>(*this),
       static_cast<ProductInfo::Delegate &>(*this),
-      params.m_bookingFilterTasks,
       [this, params](Results const & results, vector<ProductInfo> const & productInfo) {
         if (params.m_onResults)
           RunUITask([params, results, productInfo] {
             params.m_onResults(results, productInfo);
           });
       });
-
-  m_delegate.OnBookingFilterParamsUpdate(params.m_bookingFilterTasks);
 
   return Search(p, true /* forceSearch */);
 }
@@ -222,7 +211,6 @@ bool SearchAPI::SearchInViewport(ViewportSearchParams const & params)
   p.m_suggestsEnabled = false;
   p.m_needAddress = false;
   p.m_needHighlighting = false;
-  p.m_hotelsFilter = params.m_hotelsFilter;
   if (params.m_timeout)
     p.m_timeout = *params.m_timeout;
 
@@ -234,13 +222,10 @@ bool SearchAPI::SearchInViewport(ViewportSearchParams const & params)
   p.m_onResults = ViewportSearchCallback(
     m_viewport,
     static_cast<ViewportSearchCallback::Delegate &>(*this),
-      params.m_bookingFilterTasks,
       [this, params](Results const & results) {
         if (results.IsEndMarker() && params.m_onCompleted)
           RunUITask([params, results] { params.m_onCompleted(results); });
       });
-
-  m_delegate.OnBookingFilterParamsUpdate(params.m_bookingFilterTasks);
 
   m_viewportParams = params;
   return Search(p, false /* forceSearch */);
@@ -306,7 +291,6 @@ void SearchAPI::PokeSearchInViewport(bool forceSearch)
   params.m_onResults = ViewportSearchCallback(
     m_viewport,
     static_cast<ViewportSearchCallback::Delegate &>(*this),
-    m_viewportParams.m_bookingFilterTasks,
     [this](Results const & results) {
       if (results.IsEndMarker() && m_viewportParams.m_onCompleted)
         RunUITask([p = m_viewportParams, results] { p.m_onCompleted(results); });
@@ -321,7 +305,6 @@ void SearchAPI::CancelSearch(Mode mode)
   if (mode == Mode::Viewport)
   {
     m_delegate.ClearViewportSearchResults();
-    m_delegate.SetSearchDisplacementModeEnabled(false /* enabled */);
   }
 
   auto & intent = m_searchIntents[static_cast<size_t>(mode)];
@@ -337,11 +320,6 @@ void SearchAPI::CancelAllSearches()
 
 void SearchAPI::RunUITask(function<void()> fn) { return m_delegate.RunUITask(fn); }
 
-void SearchAPI::SetHotelDisplacementMode()
-{
-  return m_delegate.SetSearchDisplacementModeEnabled(true);
-}
-
 bool SearchAPI::IsViewportSearchActive() const
 {
   return !m_searchIntents[static_cast<size_t>(Mode::Viewport)].m_params.m_query.empty();
@@ -353,45 +331,9 @@ void SearchAPI::ShowViewportSearchResults(Results::ConstIter begin, Results::Con
   return m_delegate.ShowViewportSearchResults(begin, end, clear);
 }
 
-void SearchAPI::ShowViewportSearchResults(Results::ConstIter begin, Results::ConstIter end,
-                                          bool clear, booking::filter::Types types)
-{
-  return m_delegate.ShowViewportSearchResults(begin, end, clear, types);
-}
-
 ProductInfo SearchAPI::GetProductInfo(Result const & result) const
 {
   return m_delegate.GetProductInfo(result);
-}
-
-void SearchAPI::FilterResultsForHotelsQuery(booking::filter::Tasks const & filterTasks,
-                                            search::Results const & results, bool inViewport)
-{
-  m_delegate.FilterResultsForHotelsQuery(filterTasks, results, inViewport);
-}
-
-void SearchAPI::FilterAllHotelsInViewport(m2::RectD const & viewport,
-                                          booking::filter::Tasks const & filterTasks)
-{
-  if (mercator::AreaOnEarth(viewport) > kMaxAreaToLoadAllHotelsInViewport)
-    return;
-
-  auto constexpr kMaxHotelFeatures = booking::RawApi::GetMaxHotelsInAvailabilityRequest();
-  vector<FeatureID> featureIds;
-  auto static const types = search::GetCategoryTypes("hotel", "en", GetDefaultCategories());
-  search::ForEachOfTypesInRect(m_dataSource, types, viewport, [&featureIds](FeatureID const & id) {
-    if (featureIds.size() > kMaxHotelFeatures)
-      return base::ControlFlow::Break;
-
-    featureIds.push_back(id);
-    return base::ControlFlow::Continue;
-  });
-
-  if (featureIds.size() <= kMaxHotelFeatures)
-  {
-    sort(featureIds.begin(), featureIds.end());
-    m_delegate.FilterHotels(filterTasks, move(featureIds));
-  }
 }
 
 void SearchAPI::EnableIndexingOfBookmarksDescriptions(bool enable)
@@ -539,9 +481,6 @@ bool SearchAPI::QueryMayBeSkipped(SearchParams const & prevParams,
   }
 
   if (static_cast<bool>(prevParams.m_position) != static_cast<bool>(currParams.m_position))
-    return false;
-
-  if (!hotels_filter::Rule::IsIdentical(prevParams.m_hotelsFilter, currParams.m_hotelsFilter))
     return false;
 
   return true;

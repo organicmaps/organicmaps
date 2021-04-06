@@ -36,11 +36,7 @@ extension BottomMenuInteractor: BottomMenuInteractorProtocol {
     guard let controlsManager = controlsManager else {
       fatalError()
     }
-    if controlsManager.guidesNavigationBarHidden == false {
-      controlsManager.menuState = .inactive
-    } else {
-      controlsManager.menuState = controlsManager.menuRestoreState
-    }
+    controlsManager.menuState = controlsManager.menuRestoreState
   }
 
   func addPlace() {
@@ -49,7 +45,6 @@ extension BottomMenuInteractor: BottomMenuInteractorProtocol {
 
   func downloadRoutes() {
     close()
-    mapViewController?.openCatalog(animated: true, utm: .toolbarButton)
   }
 
   func downloadMaps() {

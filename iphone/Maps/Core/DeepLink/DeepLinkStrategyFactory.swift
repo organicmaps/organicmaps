@@ -29,17 +29,6 @@ class DeepLinkStrategyFactory {
         return DeepLinkIncorrectStrategy(url: deeplinkURL)
       }
       return DeepLinkSearchStrategy(url: deeplinkURL, data: searchData)
-    case .catalogue:
-      return DeepLinkCatalogueStrategy(url: deeplinkURL)
-    case .cataloguePath:
-      return DeepLinkCataloguePathStrategy(url: deeplinkURL)
-    case .subscription:
-      guard let subscriptionData = data as? DeepLinkSubscriptionData else {
-        return DeepLinkIncorrectStrategy(url: deeplinkURL)
-      }
-      return DeepLinkSubscriptionStrategy(url: deeplinkURL, data: subscriptionData)
-    case .lead:
-      return DeepLinkLeadStrategy(url: deeplinkURL)
     }
   }
 }

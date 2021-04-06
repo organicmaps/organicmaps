@@ -34,22 +34,20 @@ using namespace osm;
           break;
         }
         case Props::Website:
-          if (rawData.GetSponsoredType() != SponsoredType::Booking) {
-            _website = @(rawData.GetWebsite().c_str());
-          }
+          _website = @(rawData.GetWebsite().c_str());
           break;
         case Props::Email:
-            _email = @(rawData.GetEmail().c_str());
-            break;
+          _email = @(rawData.GetEmail().c_str());
+          break;
         case Props::Cuisine:
-            _cuisine = @(strings::JoinStrings(rawData.GetLocalizedCuisines(), Info::kSubtitleSeparator).c_str());
-            break;
+          _cuisine = @(strings::JoinStrings(rawData.GetLocalizedCuisines(), Info::kSubtitleSeparator).c_str());
+          break;
         case Props::Operator:
-            _ppOperator = @(rawData.GetOperator().c_str());
-            break;
+          _ppOperator = @(rawData.GetOperator().c_str());
+          break;
         case Props::Internet:
           _wifiAvailable = YES;
-            break;
+          break;
         default:
           break;
       }

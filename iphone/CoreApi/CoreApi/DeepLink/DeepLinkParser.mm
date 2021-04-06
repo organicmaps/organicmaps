@@ -2,7 +2,6 @@
 #include <CoreApi/Framework.h>
 #import "DeepLinkData.h"
 #import "DeepLinkSearchData.h"
-#import "DeepLinkSubscriptionData.h"
 #import "DeeplinkUrlType.h"
 
 @implementation DeepLinkParser
@@ -15,8 +14,6 @@
   switch (result) {
     case DeeplinkUrlTypeSearch:
       return [[DeepLinkSearchData alloc] init:result success:internalResult.m_isSuccess];
-    case DeeplinkUrlTypeSubscription:
-      return [[DeepLinkSubscriptionData alloc] init:result success:internalResult.m_isSuccess];
     default:
       return [[DeepLinkData alloc] init:result success:internalResult.m_isSuccess];
   }

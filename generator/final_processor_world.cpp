@@ -30,14 +30,9 @@ void WorldFinalProcessor::SetCitiesAreas(std::string const & filename)
   m_citiesAreasTmpFilename = filename;
 }
 
-void WorldFinalProcessor::SetPromoCatalog(std::string const & filename)
-{
-  m_citiesFilename = filename;
-}
-
 void WorldFinalProcessor::Process()
 {
-  if (!m_citiesAreasTmpFilename.empty() || !m_citiesFilename.empty())
+  if (!m_citiesAreasTmpFilename.empty())
     ProcessCities();
 
   auto fbs = ReadAllDatRawFormat<serialization_policy::MaxAccuracy>(m_worldTmpFilename);
@@ -55,7 +50,6 @@ void WorldFinalProcessor::ProcessCities()
   auto citiesHelper =
       m_citiesAreasTmpFilename.empty() ? PlaceHelper() : PlaceHelper(m_citiesAreasTmpFilename);
   ProcessorCities processorCities(m_temporaryMwmPath, affiliation, citiesHelper);
-  processorCities.SetPromoCatalog(m_citiesFilename);
   processorCities.Process();
 }
 }  // namespace generator

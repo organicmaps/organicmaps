@@ -110,12 +110,6 @@ final class BookmarksListPresenter {
 
   private func showMoreMenu() {
     var moreItems: [BookmarksListMenuItem] = []
-    moreItems.append(BookmarksListMenuItem(title: L("sharing_options"),
-                                           enabled: !bookmarkGroup.isEmpty,
-                                           action: { [weak self] in
-      guard let self = self else { return }
-      self.router.sharingOptions(self.bookmarkGroup)
-    }))
     moreItems.append(BookmarksListMenuItem(title: L("search_show_on_map"), action: { [weak self] in
       self?.viewOnMap()
     }))
@@ -184,7 +178,7 @@ extension BookmarksListPresenter: IBookmarksListPresenter {
                                  author: bookmarkGroup.author,
                                  hasDescription: bookmarkGroup.hasDescription,
                                  imageUrl: bookmarkGroup.imageUrl,
-                                 hasLogo: bookmarkGroup.isLonelyPlanet)
+                                 hasLogo: false)
     view.setInfo(info)
   }
 
@@ -253,6 +247,10 @@ extension BookmarksListPresenter: IBookmarksListPresenter {
     }
   }
 
+  func showDescription() {
+    router.showDescription(bookmarkGroup)
+  }
+
   func checkItem(in section: IBookmarksListSectionViewModel, at index: Int, checked: Bool) {
     switch section {
     case let subgroupsSection as ISubgroupsSectionViewModel:
@@ -285,21 +283,6 @@ extension BookmarksListPresenter: IBookmarksListPresenter {
       fatalError("Wrong section type: \(section.self)")
     }
   }
-
-  func showDescription() {
-    router.showDescription(bookmarkGroup)
-  }
-}
-
-extension BookmarksListPresenter: BookmarksSharingViewControllerDelegate {
-  func didShareCategory() {
-    let info = BookmarksListInfo(title: bookmarkGroup.title,
-                                 author: bookmarkGroup.author,
-                                 hasDescription: bookmarkGroup.hasDescription,
-                                 imageUrl: bookmarkGroup.imageUrl,
-                                 hasLogo: bookmarkGroup.isLonelyPlanet)
-    view.setInfo(info)
-  }
 }
 
 extension BookmarksListPresenter: CategorySettingsViewControllerDelegate {
@@ -308,7 +291,7 @@ extension BookmarksListPresenter: CategorySettingsViewControllerDelegate {
                                  author: bookmarkGroup.author,
                                  hasDescription: bookmarkGroup.hasDescription,
                                  imageUrl: bookmarkGroup.imageUrl,
-                                 hasLogo: bookmarkGroup.isLonelyPlanet)
+                                 hasLogo: false)
     view.setInfo(info)
   }
 

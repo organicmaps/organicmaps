@@ -190,28 +190,6 @@ bool SearchPanel::Try3dModeCmd(QString const & str)
   return true;
 }
 
-bool SearchPanel::TryDisplacementModeCmd(QString const & str)
-{
-  bool const isDefaultDisplacementMode = (str == "?dm:default");
-  bool const isHotelDisplacementMode = (str == "?dm:hotel");
-
-  if (!isDefaultDisplacementMode && !isHotelDisplacementMode)
-    return false;
-
-  if (isDefaultDisplacementMode)
-  {
-    m_pDrawWidget->GetFramework().SetDisplacementMode(DisplacementModeManager::SLOT_DEBUG,
-                                                      false /* show */);
-  }
-  else if (isHotelDisplacementMode)
-  {
-    m_pDrawWidget->GetFramework().SetDisplacementMode(DisplacementModeManager::SLOT_DEBUG,
-                                                      true /* show */);
-  }
-
-  return true;
-}
-
 bool SearchPanel::TryTrafficSimplifiedColorsCmd(QString const & str)
 {
   bool const simplifiedMode = (str == "?tc:simp");
@@ -232,8 +210,6 @@ void SearchPanel::OnSearchTextChanged(QString const & str)
   QString const normalized = str.normalized(QString::NormalizationForm_KC);
 
   if (Try3dModeCmd(normalized))
-    return;
-  if (TryDisplacementModeCmd(normalized))
     return;
   if (TryTrafficSimplifiedColorsCmd(normalized))
     return;

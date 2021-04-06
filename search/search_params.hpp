@@ -2,7 +2,6 @@
 
 #include "search/bookmarks/types.hpp"
 
-#include "search/hotels_filter.hpp"
 #include "search/mode.hpp"
 
 #include "geometry/point2d.hpp"
@@ -91,8 +90,6 @@ struct SearchParams
 
   // Needed to highlight matching parts of search result names.
   bool m_needHighlighting = false;
-
-  std::shared_ptr<hotels_filter::Rule> m_hotelsFilter;
 
   bookmarks::GroupId m_bookmarksGroupId = bookmarks::kInvalidGroupId;
 

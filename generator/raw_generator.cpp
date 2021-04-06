@@ -185,9 +185,7 @@ RawGenerator::FinalProcessorPtr RawGenerator::CreateCountryFinalProcessor(bool a
       m_genInfo.m_targetDir, m_genInfo.m_tmpDir, m_genInfo.m_intermediateDir,
       m_genInfo.m_haveBordersForWholeWorld, m_threadsCount);
   finalProcessor->SetIsolinesDir(m_genInfo.m_isolinesDir);
-  finalProcessor->SetBooking(m_genInfo.m_bookingDataFilename);
   finalProcessor->SetCitiesAreas(m_genInfo.GetIntermediateFileName(CITIES_AREAS_TMP_FILENAME));
-  finalProcessor->SetPromoCatalog(m_genInfo.m_promoCatalogCitiesFilename);
   finalProcessor->SetMiniRoundabouts(m_genInfo.GetIntermediateFileName(MINI_ROUNDABOUTS_FILENAME));
   if (addAds)
     finalProcessor->SetFakeNodes(base::JoinPath(GetPlatform().ResourcesDir(), MIXED_NODES_FILE));
@@ -213,7 +211,6 @@ RawGenerator::FinalProcessorPtr RawGenerator::CreateWorldFinalProcessor()
       m_genInfo.GetIntermediateFileName(WORLD_COASTS_FILE_NAME, RAW_GEOM_FILE_EXTENSION));
   finalProcessor->SetPopularPlaces(m_genInfo.m_popularPlacesFilename);
   finalProcessor->SetCitiesAreas(m_genInfo.GetIntermediateFileName(CITIES_AREAS_TMP_FILENAME));
-  finalProcessor->SetPromoCatalog(m_genInfo.m_promoCatalogCitiesFilename);
   return finalProcessor;
 }
 

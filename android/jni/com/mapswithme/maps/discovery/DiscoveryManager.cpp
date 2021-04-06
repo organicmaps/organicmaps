@@ -9,8 +9,6 @@
 
 #include "search/result.hpp"
 
-#include "partners_api/locals_api.hpp"
-#include "partners_api/promo_api.hpp"
 
 #include "geometry/mercator.hpp"
 

@@ -65,7 +65,6 @@ std::string DebugPrint(Message::Type msgType)
   case Message::Type::BlockTapEvents: return "BlockTapEvents";
   case Message::Type::OnEnterForeground: return "OnEnterForeground";
   case Message::Type::SetAddNewPlaceMode: return "SetAddNewPlaceMode";
-  case Message::Type::SetDisplacementMode: return "SetDisplacementMode";
   case Message::Type::AllowAutoZoom: return "AllowAutoZoom";
   case Message::Type::RequestSymbolsSize: return "RequestSymbolsSize";
   case Message::Type::RecoverContextDependentResources: return "RecoverContextDependentResources";
@@ -90,7 +89,6 @@ std::string DebugPrint(Message::Type msgType)
   case Message::Type::PostUserEvent: return "PostUserEvent";
   case Message::Type::FinishTexturesInitialization: return "FinishTexturesInitialization";
   case Message::Type::CleanupTextures: return "CleanupTextures";
-  case Message::Type::EnableUGCRendering: return "EnableUGCRendering";
   case Message::Type::EnableDebugRectRendering: return "EnableDebugRectRendering";
   case Message::Type::EnableTransitScheme: return "EnableTransitScheme";
   case Message::Type::UpdateTransitScheme: return "UpdateTransitScheme";
@@ -102,7 +100,6 @@ std::string DebugPrint(Message::Type msgType)
   case Message::Type::NotifyRenderThread: return "NotifyRenderThread";
   case Message::Type::NotifyGraphicsReady: return "NotifyGraphicsReady";
   case Message::Type::EnableIsolines: return "EnableIsolines";
-  case Message::Type::EnableGuides: return "EnableGuides";
   case Message::Type::OnEnterBackground: return "OnEnterBackground";
   }
   ASSERT(false, ("Unknown message type."));

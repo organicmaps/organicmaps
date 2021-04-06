@@ -127,9 +127,6 @@ NSArray<UIImage *> *imagesWithName(NSString *name) {
   }
 }
 
-- (void)handleGuidesState:(MWMMapOverlayGuidesState)state {
-}
-
 - (void)handleIsolinesState:(MWMMapOverlayIsolinesState)state {
   switch (state) {
     case MWMMapOverlayIsolinesStateDisabled:
@@ -164,9 +161,6 @@ NSArray<UIImage *> *imagesWithName(NSString *name) {
   } else if ([MWMMapOverlayManager isoLinesEnabled]) {
     btn.imageName = @"btn_isoMap_on";
     [self handleIsolinesState:[MWMMapOverlayManager isolinesState]];
-  } else if ([MWMMapOverlayManager guidesEnabled]) {
-    btn.imageName = @"btn_layers_off";
-    [self handleGuidesState:[MWMMapOverlayManager guidesState]];
   } else {
     btn.imageName = @"btn_layers";
   }
@@ -179,8 +173,6 @@ NSArray<UIImage *> *imagesWithName(NSString *name) {
     [MWMMapOverlayManager setTransitEnabled:NO];
   } else if ([MWMMapOverlayManager isoLinesEnabled]) {
     [MWMMapOverlayManager setIsoLinesEnabled:NO];
-  } else if ([MWMMapOverlayManager guidesEnabled]) {
-    [MWMMapOverlayManager setGuidesEnabled:NO];
   } else {
     MWMMapViewControlsManager.manager.menuState = MWMBottomMenuStateLayers;
   }
@@ -203,9 +195,6 @@ NSArray<UIImage *> *imagesWithName(NSString *name) {
   [self applyTheme];
 }
 - (void)onIsoLinesStateUpdated {
-  [self applyTheme];
-}
-- (void)onGuidesStateUpdated {
   [self applyTheme];
 }
 

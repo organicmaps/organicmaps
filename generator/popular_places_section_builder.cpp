@@ -1,11 +1,7 @@
 #include "generator/popular_places_section_builder.hpp"
 
 #include "generator/gen_mwm_info.hpp"
-#include "generator/ugc_translator.hpp"
 #include "generator/utils.hpp"
-
-#include "ugc/binary/index_ugc.hpp"
-#include "ugc/binary/serdes.hpp"
 
 #include "indexer/feature_data.hpp"
 #include "indexer/feature_processor.hpp"
@@ -66,8 +62,6 @@ void LoadPopularPlaces(std::string const & srcFilename, PopularPlaces & places)
 bool BuildPopularPlacesMwmSection(std::string const & srcFilename, std::string const & mwmFile,
                                   std::string const & osmToFeatureFilename)
 {
-  using ugc::binary::IndexUGC;
-
   LOG(LINFO, ("Build Popular Places section"));
 
   std::unordered_map<uint32_t, base::GeoObjectId> featureIdToOsmId;

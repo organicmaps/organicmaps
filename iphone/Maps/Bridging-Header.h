@@ -7,7 +7,6 @@
 #import "AuthenticationServices/AuthenticationServices.h"
 #import "CarPlay/CarPlay.h"
 #import "UIKit/UIKit.h"
-#import "UIKitCategories.h"
 
 #import "private.h"
 
@@ -28,7 +27,6 @@
 #import "MWMCollectionViewController.h"
 #import "MWMConsts.h"
 #import "MWMController.h"
-#import "MWMDiscoveryController.h"
 #import "MWMEditorHelper.h"
 #import "MWMFrameworkListener.h"
 #import "MWMKeyboard.h"
@@ -49,9 +47,7 @@
 #import "MWMNoMapsViewController.h"
 #import "MWMNoteCell.h"
 #import "MWMPlacePageManagerHelper.h"
-#import "MWMPurchaseManager.h"
 #import "MWMRouteManagerPointType.h"
-#import "MWMRoutePreviewTaxiCellType.h"
 #import "MWMRouter.h"
 #import "MWMRouterResultCode.h"
 #import "MWMRouterTransitStepInfo.h"
@@ -77,6 +73,7 @@
 #import "UIColor+MapsMeColor.h"
 #import "UIFont+MapsMeFonts.h"
 #import "UIImageView+WebImage.h"
+#import "UIKitCategories.h"
 #import "UIViewController+Navigation.h"
 #import "WebViewController.h"
 #import "MWMMapViewControlsCommon.h"

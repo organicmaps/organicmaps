@@ -4,7 +4,6 @@
 #import "MWMNavigationDashboardEntity.h"
 #import "MWMNavigationDashboardManager.h"
 #import "MWMRouter.h"
-#import "MWMTaxiPreviewDataSource.h"
 #import "UIButton+Orientation.h"
 #import "UIImageView+Coloring.h"
 

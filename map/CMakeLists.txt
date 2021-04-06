@@ -13,40 +13,18 @@ set(
   api_mark_point.hpp
   benchmark_tools.hpp
   benchmark_tools.cpp
-  booking_availability_filter.cpp
-  booking_availability_filter.hpp
-  booking_filter.hpp
-  booking_filter_cache.cpp
-  booking_filter_cache.hpp
-  booking_filter_params.hpp
-  booking_filter_processor.cpp
-  booking_filter_processor.hpp
-  booking_utils.cpp
-  booking_utils.hpp
   bookmark.cpp
   bookmark.hpp
-  bookmark_catalog.cpp
-  bookmark_catalog.hpp
   bookmark_helpers.cpp
   bookmark_helpers.hpp
   bookmark_manager.cpp
   bookmark_manager.hpp
   bookmarks_search_params.hpp
   caching_address_getter.hpp
-  catalog_headers_provider.cpp
-  catalog_headers_provider.hpp
   chart_generator.cpp
   chart_generator.hpp
   cloud.cpp
   cloud.hpp
-  discovery/discovery_client_params.hpp
-  discovery/discovery_manager.cpp
-  discovery/discovery_manager.hpp
-  discovery/discovery_search.cpp
-  discovery/discovery_search.hpp
-  discovery/discovery_search_params.hpp
-  displacement_mode_manager.cpp
-  displacement_mode_manager.hpp
   displayed_categories_modifiers.cpp
   displayed_categories_modifiers.hpp
   elevation_info.cpp
@@ -72,18 +50,10 @@ set(
   gps_track.hpp
   gps_tracker.cpp
   gps_tracker.hpp
-  guides_manager.cpp
-  guides_manager.hpp
-  guides_marks.cpp
-  guides_marks.hpp
-  guides_on_map_delegate.cpp
-  guides_on_map_delegate.hpp
   isolines_manager.cpp
   isolines_manager.hpp
   mwm_url.cpp
   mwm_url.hpp
-  onboarding.cpp
-  onboarding.hpp
   place_page_info.cpp
   place_page_info.hpp
   position_provider.hpp
@@ -91,13 +61,6 @@ set(
   power_management/power_manager.hpp
   power_management/power_management_schemas.cpp
   power_management/power_management_schemas.hpp
-  promo_catalog_poi_checker.hpp
-  promo_delegate.cpp
-  promo_delegate.hpp
-  purchase.cpp
-  purchase.hpp
-  reachable_by_taxi_checker.cpp
-  reachable_by_taxi_checker.hpp
   routing_manager.cpp
   routing_manager.hpp
   routing_mark.cpp
@@ -107,8 +70,6 @@ set(
   search_mark.cpp
   search_mark.hpp
   search_product_info.hpp
-  taxi_delegate.cpp
-  taxi_delegate.hpp
   track.cpp
   track.hpp
   track_mark.cpp

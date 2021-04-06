@@ -4,7 +4,6 @@
 @interface MWMPlacePageManagerHelper : NSObject
 
 + (void)updateAvailableArea:(CGRect)frame;
-+ (void)searchSimilar:(PlacePageData *)data;
 + (void)editPlace;
 + (void)addBusiness;
 + (void)addPlace:(CLLocationCoordinate2D)coordinate;
@@ -23,7 +22,6 @@
 + (void)removeBookmark:(PlacePageData *)data;
 + (void)editBookmark:(PlacePageData *)data;
 + (void)searchBookingHotels:(PlacePageData *)data;
-+ (void)openPartner:(PlacePageData *)data;
 + (void)book:(PlacePageData *)data;
 + (void)share:(PlacePageData *)data;
 + (void)routeFrom:(PlacePageData *)data;

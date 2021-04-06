@@ -1,9 +1,5 @@
 #pragma once
 
-#include "map/booking_filter_params.hpp"
-
-#include "search/hotels_filter.hpp"
-
 #include <functional>
 #include <memory>
 #include <optional>
@@ -20,8 +16,6 @@ struct ViewportSearchParams
 
   std::string m_query;
   std::string m_inputLocale;
-  std::shared_ptr<hotels_filter::Rule> m_hotelsFilter;
-  booking::filter::Tasks m_bookingFilterTasks;
   std::optional<std::chrono::steady_clock::duration> m_timeout;
 
   OnStarted m_onStarted;

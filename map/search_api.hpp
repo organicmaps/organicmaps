@@ -1,6 +1,5 @@
 #pragma once
 
-#include "map/booking_filter_params.hpp"
 #include "map/bookmark.hpp"
 #include "map/bookmark_helpers.hpp"
 #include "map/everywhere_search_callback.hpp"
@@ -45,7 +44,6 @@ struct DownloaderSearchParams;
 }
 
 class SearchAPI : public search::DownloaderSearchCallback::Delegate,
-                  public search::EverywhereSearchCallback::Delegate,
                   public search::ViewportSearchCallback::Delegate,
                   public search::ProductInfo::Delegate
 {
@@ -56,16 +54,8 @@ public:
 
     virtual void RunUITask(std::function<void()> /* fn */) {}
 
-    virtual void SetSearchDisplacementModeEnabled(bool /* enabled */) {}
-
     virtual void ShowViewportSearchResults(search::Results::ConstIter begin,
                                            search::Results::ConstIter end, bool clear)
-    {
-    }
-
-    virtual void ShowViewportSearchResults(search::Results::ConstIter begin,
-                                           search::Results::ConstIter end, bool clear,
-                                           booking::filter::Types types)
     {
     }
 
@@ -79,18 +69,6 @@ public:
     };
 
     virtual m2::PointD GetMinDistanceBetweenResults() const { return {}; };
-
-    virtual void FilterResultsForHotelsQuery(booking::filter::Tasks const & filterTasks,
-                                             search::Results const & results, bool inViewport)
-    {
-    }
-
-    virtual void FilterHotels(booking::filter::Tasks const & filterTasks,
-                              std::vector<FeatureID> && featureIds)
-    {
-    }
-
-    virtual void OnBookingFilterParamsUpdate(booking::filter::Tasks const & filterTasks) {}
 
     virtual search::ProductInfo GetProductInfo(search::Result const & result) const { return {}; };
   };
@@ -134,18 +112,10 @@ public:
 
   // *SearchCallback::Delegate overrides:
   void RunUITask(std::function<void()> fn) override;
-  void SetHotelDisplacementMode() override;
   bool IsViewportSearchActive() const override;
   void ShowViewportSearchResults(search::Results::ConstIter begin,
                                  search::Results::ConstIter end, bool clear) override;
-  void ShowViewportSearchResults(search::Results::ConstIter begin,
-                                 search::Results::ConstIter end, bool clear,
-                                 booking::filter::Types types) override;
   search::ProductInfo GetProductInfo(search::Result const & result) const override;
-  void FilterResultsForHotelsQuery(booking::filter::Tasks const & filterTasks,
-                                   search::Results const & results, bool inViewport) override;
-  void FilterAllHotelsInViewport(m2::RectD const & viewport,
-                                 booking::filter::Tasks const & filterTasks) override;
 
   std::list<search::QuerySaver::SearchRequest> const & GetLastSearchQueries() const { return m_searchQuerySaver.Get(); }
   void SaveSearchQuery(search::QuerySaver::SearchRequest const & query) { m_searchQuerySaver.Add(query); }

@@ -143,7 +143,6 @@ BookmarkManager::Callbacks const bmCallbacks(
     return dummyBundle;
   },
   static_cast<BookmarkManager::Callbacks::GetSeacrhAPIFn>(nullptr),
-  static_cast<BookmarkCatalog::HeadersProvider>(nullptr),
   static_cast<BookmarkManager::Callbacks::CreatedBookmarksCallback>(nullptr),
   static_cast<BookmarkManager::Callbacks::UpdatedBookmarksCallback>(nullptr),
   static_cast<BookmarkManager::Callbacks::DeletedBookmarksCallback>(nullptr),
@@ -191,7 +190,7 @@ void CheckBookmarks(BookmarkManager const & bmManager, kml::MarkGroupId groupId)
 
 KmlFileType GetActiveKmlFileType()
 {
-  return BookmarkManager::IsMigrated() ? KmlFileType::Binary : KmlFileType::Text;
+  return KmlFileType::Binary;
 }
 }  // namespace
 
@@ -220,8 +219,11 @@ UNIT_CLASS_TEST(Runner, Bookmarks_ImportKML)
 UNIT_CLASS_TEST(Runner, Bookmarks_ExportKML)
 {
   string const dir = BookmarkManager::GetActualBookmarksDirectory();
-  string const ext = BookmarkManager::IsMigrated() ? ".kmb" : BOOKMARKS_FILE_EXTENSION;
+  bool const delDirOnExit = Platform::MkDir(dir) == Platform::ERR_OK;
+  SCOPE_GUARD(dirDeleter, [&](){ if (delDirOnExit) (void)Platform::RmDir(dir); });
+  string const ext = ".kmb";
   string const fileName = base::JoinPath(dir, "UnitTestBookmarks" + ext);
+  SCOPE_GUARD(fileDeleter, [&](){ (void)base::DeleteFileX(fileName); });
 
   User user;
   BookmarkManager bmManager(user, (BookmarkManager::Callbacks(bmCallbacks)));
@@ -272,7 +274,7 @@ UNIT_CLASS_TEST(Runner, Bookmarks_ExportKML)
   kmlDataCollection3.emplace_back(fileName, LoadKmlFile(fileName, GetActiveKmlFileType()));
   TEST(kmlDataCollection3.back().second, ());
 
-  bmManager.CreateCategories(std::move(kmlDataCollection3), BookmarkManager::IsMigrated() /* autoSave */);
+  bmManager.CreateCategories(std::move(kmlDataCollection3), true /* autoSave */);
   TEST_EQUAL(bmManager.GetBmGroupsIdList().size(), 1, ());
 
   auto const groupId3 = bmManager.GetBmGroupsIdList().front();
@@ -282,8 +284,6 @@ UNIT_CLASS_TEST(Runner, Bookmarks_ExportKML)
   // old file shouldn't be deleted if we save bookmarks with new category name
   uint64_t dummy;
   TEST(base::GetFileSize(fileName, dummy), ());
-
-  TEST(base::DeleteFileX(fileName), ());
 }
 
 namespace
@@ -291,7 +291,7 @@ namespace
   void DeleteCategoryFiles(vector<string> const & arrFiles)
   {
     string const path = BookmarkManager::GetActualBookmarksDirectory();
-    string const extension = BookmarkManager::IsMigrated() ? ".kmb" : BOOKMARKS_FILE_EXTENSION;
+    string const extension = ".kmb";
     for (auto const & fileName : arrFiles)
       FileWriter::DeleteFileX(base::JoinPath(path, fileName + extension));
   }
@@ -1224,7 +1224,6 @@ UNIT_CLASS_TEST(Runner, Bookmarks_Listeners)
       return dummyBundle;
     },
     static_cast<BookmarkManager::Callbacks::GetSeacrhAPIFn>(nullptr),
-    static_cast<BookmarkCatalog::HeadersProvider>(nullptr),
     onCreate, onUpdate, onDelete, onAttach, onDetach);
 
   User user;

@@ -103,9 +103,7 @@ DrapeEngine::DrapeEngine(Params && params)
                                    params.m_allow3dBuildings,
                                    params.m_trafficEnabled,
                                    params.m_isolinesEnabled,
-                                   params.m_guidesEnabled,
                                    params.m_simplifiedTrafficColors,
-                                   std::move(params.m_isUGCFn),
                                    params.m_onGraphicsContextInitialized);
 
   m_backend = make_unique_dp<BackendRenderer>(std::move(brParams));
@@ -742,13 +740,6 @@ void DrapeEngine::OnEnterBackground()
                                   MessagePriority::High);
 }
 
-void DrapeEngine::SetDisplacementMode(int mode)
-{
-  m_threadCommutator->PostMessage(ThreadsCommutator::ResourceUploadThread,
-                                  make_unique_dp<SetDisplacementModeMessage>(mode),
-                                  MessagePriority::Normal);
-}
-
 void DrapeEngine::RequestSymbolsSize(std::vector<std::string> const & symbols,
                                      TRequestSymbolsSizeCallback const & callback)
 {
@@ -831,13 +822,6 @@ void DrapeEngine::EnableIsolines(bool enable)
                                   MessagePriority::Normal);
 }
 
-void DrapeEngine::EnableGuides(bool enable)
-{
-  m_threadCommutator->PostMessage(ThreadsCommutator::ResourceUploadThread,
-                                  make_unique_dp<EnableGuidesMessage>(enable),
-                                  MessagePriority::Normal);
-}
-
 void DrapeEngine::SetFontScaleFactor(double scaleFactor)
 {
   double const kMinScaleFactor = 0.5;
@@ -891,13 +875,6 @@ void DrapeEngine::SetPosteffectEnabled(PostprocessRenderer::Effect effect, bool 
                                   MessagePriority::Normal);
 }
 
-void DrapeEngine::EnableUGCRendering(bool enabled)
-{
-  m_threadCommutator->PostMessage(ThreadsCommutator::ResourceUploadThread,
-                                  make_unique_dp<EnableUGCRenderingMessage>(enabled),
-                                  MessagePriority::Normal);
-}
-
 void DrapeEngine::RunFirstLaunchAnimation()
 {
   m_threadCommutator->PostMessage(ThreadsCommutator::RenderThread,
@@ -938,7 +915,6 @@ drape_ptr<UserMarkRenderParams> DrapeEngine::GenerateMarkRenderInfo(UserPointMar
   renderInfo->m_pixelOffset = mark->GetPixelOffset();
   renderInfo->m_titleDecl = mark->GetTitleDecl();
   renderInfo->m_symbolNames = mark->GetSymbolNames();
-  renderInfo->m_badgeInfo = mark->GetBadgeInfo();
   renderInfo->m_coloredSymbols = mark->GetColoredSymbols();
   renderInfo->m_symbolSizes = mark->GetSymbolSizes();
   renderInfo->m_symbolOffsets = mark->GetSymbolOffsets();

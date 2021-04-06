@@ -6,8 +6,6 @@
 #include "map/place_page_info.hpp"
 #include "map/power_management/power_manager.hpp"
 
-#include "ugc/api.hpp"
-
 #include "search/result.hpp"
 
 #include "drape_frontend/gui/skin.hpp"
@@ -15,11 +13,6 @@
 #include "drape/pointers.hpp"
 #include "drape/graphics_context_factory.hpp"
 
-
-#include "partners_api/booking_api.hpp"
-#include "partners_api/locals_api.hpp"
-#include "partners_api/promo_api.hpp"
-#include "partners_api/utm.hpp"
 
 #include "indexer/feature_decl.hpp"
 #include "indexer/map_style.hpp"
@@ -42,11 +35,6 @@ struct FeatureID;
 namespace search
 {
 struct EverywhereSearchParams;
-}
-
-namespace booking
-{
-struct BlockParams;
 }
 
 namespace android
@@ -190,21 +178,10 @@ namespace android
     void CleanWidgets();
 
     place_page::Info & GetPlacePageInfo();
-    void RequestBookingMinPrice(JNIEnv * env, jobject policy, booking::BlockParams && params,
-                                booking::BlockAvailabilityCallback const & callback);
-    void RequestBookingInfo(JNIEnv * env, jobject policy, 
-                            std::string const & hotelId, std::string const & lang,
-                            booking::GetHotelInfoCallback const & callback);
 
     bool IsAutoRetryDownloadFailed();
     bool IsDownloadOn3gEnabled();
     void EnableDownloadOn3g();
-    uint64_t RequestTaxiProducts(JNIEnv * env, jobject policy, ms::LatLon const & from,
-                                 ms::LatLon const & to, taxi::SuccessCallback const & onSuccess,
-                                 taxi::ErrorCallback const & onError);
-    taxi::RideRequestLinks GetTaxiLinks(JNIEnv * env, jobject policy, taxi::Provider::Type type,
-                                        std::string const & productId, ms::LatLon const & from,
-                                        ms::LatLon const & to);
 
     int ToDoAfterUpdate() const;
 

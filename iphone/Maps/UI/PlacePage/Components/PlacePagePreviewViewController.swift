@@ -4,7 +4,6 @@ final class PlacePageDirectionView: UIView {
 }
 
 protocol PlacePagePreviewViewControllerDelegate: AnyObject {
-  func previewDidPressSimilarHotels()
   func previewDidPressRemoveAds()
 }
 
@@ -19,7 +18,6 @@ final class PlacePagePreviewViewController: UIViewController {
   }
   @IBOutlet var subtitleContainerView: UIStackView!
   @IBOutlet var scheduleLabel: UILabel!
-  @IBOutlet var ratingSummaryView: RatingSummaryView!
   @IBOutlet var reviewsLabel: UILabel!
   @IBOutlet var addReviewButton: UIButton! {
     didSet {
@@ -32,9 +30,7 @@ final class PlacePagePreviewViewController: UIViewController {
   @IBOutlet var ugcContainerView: UIStackView!
   @IBOutlet var addressLabel: UILabel!
   @IBOutlet var addressContainerView: UIStackView!
-  @IBOutlet var searchSimilarButton: UIButton!
   @IBOutlet var scheduleContainerView: UIStackView!
-  @IBOutlet var searchSimilarContainerView: UIStackView!
 
   @IBOutlet var subtitleDirectionView: PlacePageDirectionView!
   @IBOutlet var addressDirectionView: PlacePageDirectionView!
@@ -86,10 +82,6 @@ final class PlacePagePreviewViewController: UIViewController {
         subtitleString.append(NSAttributedString(string: L("popular_place"),
                                                  attributes: [.foregroundColor : UIColor.linkBlue(),
                                                               .font : UIFont.regular14()]))
-      } else if placePagePreviewData.isTopChoice {
-        subtitleString.append(NSAttributedString(string: L("mustsee_title"),
-                                                 attributes: [.foregroundColor : UIColor.linkBlue(),
-                                                              .font : UIFont.regular14()]))
       }
 
       if let subtitle = placePagePreviewData.subtitle ?? placePagePreviewData.coordinates {
@@ -110,73 +102,7 @@ final class PlacePagePreviewViewController: UIViewController {
       addressContainerView.isHidden = true
     }
 
-//    if let pricing = placePagePreviewData.pricing {
-//      priceLabel.text = pricing
-//    } else {
-//      priceLabel.isHidden = true
-//    }
-//    searchSimilarContainerView.isHidden = placePagePreviewData.hotelType == .none
     configSchedule()
-//    configUgc()
-//    ugcContainerView.isHidden = !placePagePreviewData.isBookingPlace
-  }
-
-  func updateUgc(_ ugcData: UgcData) {
-    ugcContainerView.isHidden = false
-    if let summaryRating = ugcData.summaryRating {
-      ratingSummaryView.value = summaryRating.ratingString
-      ratingSummaryView.type = summaryRating.ratingType
-      reviewsLabel.text = String(format:L("placepage_summary_rating_description"), ugcData.ratingsCount)
-    } else {
-      if ugcData.isUpdateEmpty {
-        ratingSummaryView.setStyleAndApply("RatingSummaryView12")
-        reviewsLabel.text = ugcData.reviews.count == 0 ? L("placepage_no_reviews") : ""
-      } else {
-        ratingSummaryView.setStyleAndApply("RatingSummaryView12User")
-        reviewsLabel.text = L("placepage_reviewed")
-        addReviewButton.isHidden = true
-      }
-    }
-
-    addReviewButton.isHidden = !ugcData.isUpdateEmpty
-  }
-
-  func updateBooking(_ bookingData: HotelBookingData, rooms: HotelRooms?) {
-    var rawRating: Int
-    switch bookingData.score {
-    case 0..<2:
-      rawRating = 1
-    case 2..<4:
-      rawRating = 2
-    case 4..<6:
-      rawRating = 3
-    case 6..<8:
-      rawRating = 4
-    case 8...10:
-      rawRating = 5
-    default:
-      rawRating = 0
-    }
-
-    ugcContainerView.isHidden = false
-    ratingSummaryView.value = NSNumber(value: bookingData.score).stringValue
-    ratingSummaryView.type = UgcSummaryRatingType(rawValue: rawRating) ?? .none
-    guard let rooms = rooms else { return }
-    let formatter = NumberFormatter()
-    formatter.numberStyle = .currency
-    formatter.currencyCode = rooms.currency
-    formatter.maximumFractionDigits = 0
-    let formattedPrice = formatter.string(from: NSNumber(value: rooms.minPrice))
-
-    priceLabel.text = String(coreFormat: L("place_page_starting_from"), arguments: [formattedPrice ?? rooms.minPrice])
-    priceLabel.isHidden = false
-    if rooms.discount > 0 {
-      discountLabel.text = "-\(rooms.discount)%"
-      discountView.isHidden = false
-    } else if rooms.isSmartDeal {
-      discountLabel.text = "%"
-      discountView.isHidden = false
-    }
   }
 
   func updateDistance(_ distance: String) {
@@ -201,10 +127,6 @@ final class PlacePagePreviewViewController: UIViewController {
   func updateSpeedAndAltitude(_ speedAndAltitude: String) {
     self.speedAndAltitude = speedAndAltitude
     subtitleLabel?.text = speedAndAltitude
-  }
-
-  @IBAction func onSimilarHotels(_ sender: UIButton) {
-    delegate?.previewDidPressSimilarHotels()
   }
 
   @IBAction func onDirectionPressed(_ sender: Any) {
@@ -233,20 +155,6 @@ final class PlacePagePreviewViewController: UIViewController {
       scheduleContainerView.isHidden = true
     @unknown default:
       fatalError()
-    }
-  }
-
-  private func configUgc() {
-    ratingSummaryView.textFont = UIFont.bold12()
-    ratingSummaryView.backgroundOpacity = 0.05
-    ratingSummaryView.value = "-"
-
-    if placePagePreviewData.isBookingPlace {
-      reviewsLabel.isHidden = true
-      addReviewButton.isHidden = true
-    } else {
-      priceLabel.isHidden = true
-      discountView.isHidden = true
     }
   }
 }

@@ -124,14 +124,12 @@ target_link_libraries(
   search
   storage
   descriptions
-  ugc
   drape
   kml
   editor
   transit
   indexer
   platform
-  partners_api
   web_api
   mwm_diff
   bsdiff

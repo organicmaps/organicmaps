@@ -97,15 +97,6 @@ final class BMCViewController: MWMViewController {
     }
   }
 
-
-  private func shareCategory(category: BookmarkGroup, anchor: UIView) {
-    let storyboard = UIStoryboard.instance(.sharing)
-    let shareController = storyboard.instantiateInitialViewController() as! BookmarksSharingViewController
-    shareController.category = BookmarksManager.shared().category(withId: category.categoryId)
-    MapViewController.topViewController().navigationController?.pushViewController(shareController,
-                                                                                   animated: true)
-  }
-  
   private func openCategorySettings(category: BookmarkGroup) {
     let settingsController = CategorySettingsViewController(bookmarkGroup: BookmarksManager.shared().category(withId: category.categoryId))
     settingsController.delegate = self
@@ -376,7 +367,6 @@ extension BMCViewController: CategorySettingsViewControllerDelegate {
 
 extension BMCViewController: BookmarksListDelegate {
   func bookmarksListDidDeleteGroup() {
-    guard let parentVC = parent else { return }
-    navigationController?.popToViewController(parentVC, animated: true)
+    navigationController?.popViewController(animated: true)
   }
 }

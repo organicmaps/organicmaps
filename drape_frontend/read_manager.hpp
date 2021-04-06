@@ -33,8 +33,7 @@ class ReadManager
 {
 public:
   ReadManager(ref_ptr<ThreadsCommutator> commutator, MapDataProvider & model,
-              bool allow3dBuildings, bool trafficEnabled, bool isolinesEnabled, bool guidesEnabled,
-              EngineContext::TIsUGCFn && isUGCFn);
+              bool allow3dBuildings, bool trafficEnabled, bool isolinesEnabled);
 
   void Start();
   void Stop();
@@ -52,9 +51,6 @@ public:
 
   void SetTrafficEnabled(bool trafficEnabled);
   void SetIsolinesEnabled(bool isolinesEnabled);
-  void SetGuidesEnabled(bool guidesEnabled);
-
-  void SetDisplacementMode(int displacementMode);
 
   void SetCustomFeatures(CustomFeatures && ids);
   std::vector<FeatureID> GetCustomFeaturesArray() const;
@@ -85,10 +81,7 @@ private:
   bool m_allow3dBuildings;
   bool m_trafficEnabled;
   bool m_isolinesEnabled;
-  bool m_guidesEnabled;
-  int m_displacementMode;
   bool m_modeChanged;
-  bool m_ugcRenderingEnabled;
 
   struct LessByTileInfo
   {
@@ -110,8 +103,6 @@ private:
   TTilesCollection m_activeTiles;
 
   CustomFeaturesContextPtr m_customFeaturesContext;
-
-  EngineContext::TIsUGCFn m_isUGCFn;
 
   void CancelTileInfo(std::shared_ptr<TileInfo> const & tileToCancel);
   void ClearTileInfo(std::shared_ptr<TileInfo> const & tileToClear);

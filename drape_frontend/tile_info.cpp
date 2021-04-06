@@ -74,7 +74,7 @@ void TileInfo::ReadFeatures(MapDataProvider const & model)
     auto const deviceLang = StringUtf8Multilang::GetLangIndex(languages::GetCurrentNorm());
     RuleDrawer drawer(std::bind(&TileInfo::InitStylist, this, deviceLang, _1, _2),
                       std::bind(&TileInfo::IsCancelled, this), model.m_isCountryLoadedByName,
-                      model.GetFilter(), make_ref(m_context));
+                      make_ref(m_context));
     model.ReadFeatures(std::bind<void>(std::ref(drawer), _1), m_featureInfo);
 #ifdef DRAW_TILE_NET
     drawer.DrawTileNet();

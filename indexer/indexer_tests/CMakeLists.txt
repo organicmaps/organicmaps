@@ -38,7 +38,6 @@ set(
   test_type.cpp
   tree_node_tests.cpp
   trie_test.cpp
-  ugc_types_test.cpp
   visibility_test.cpp
   wheelchair_tests.cpp
 )

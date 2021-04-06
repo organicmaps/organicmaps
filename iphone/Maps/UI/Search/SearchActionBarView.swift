@@ -1,21 +1,14 @@
 @objc class SearchActionBarView: SolidTouchView {
-  @IBOutlet private var filterButton: MWMButton!
-  @IBOutlet private var changeFilterButton: MWMButton!
-  @IBOutlet private var changeFilterView: UIView!
-  @IBOutlet private var filterAppliedLabel: UILabel!
   @IBOutlet private var mapButton: MWMButton!
   @IBOutlet private var listButton: MWMButton!
-  @IBOutlet private var filterDivider: UIView!
+
   @IBOutlet private var stackView: UIStackView!
 
   override func awakeFromNib() {
     super.awakeFromNib()
 
-    hideView(filterButton, isHidden: true, animated: false)
-    hideView(changeFilterView, isHidden: true, animated: false)
     hideView(mapButton, isHidden: true, animated: false)
     hideView(listButton, isHidden: true, animated: false)
-    hideView(filterDivider, isHidden: true, animated: false)
   }
 
   @objc func updateForState(_ state: MWMSearchManagerState) {
@@ -33,19 +26,6 @@
       @unknown default:
         break
       }
-    }
-  }
-
-  @objc func updateFilterButton(showFilter: Bool, filterCount: Int) {
-    filterAppliedLabel.text = "\(filterCount)"
-    if showFilter {
-      hideView(filterButton, isHidden: filterCount > 0, animated: true)
-      hideView(changeFilterView, isHidden: filterCount == 0, animated: true)
-      hideView(filterDivider, isHidden: listButton.isHidden && mapButton.isHidden, animated: false)
-    } else {
-      hideView(filterButton, isHidden: true, animated: false)
-      hideView(changeFilterView, isHidden: true, animated: false)
-      hideView(filterDivider, isHidden: true, animated: false)
     }
   }
 

@@ -26,9 +26,7 @@ omim_link_libraries(
   routing_common
   transit
   descriptions
-  ugc
   drape
-  partners_api
   web_api
   kml
   editor

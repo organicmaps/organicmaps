@@ -152,27 +152,13 @@ extension WelcomePageController: WelcomeViewDelegate {
     if index + 1 < controllers.count {
       nextPage()
     } else {
-      if DeepLinkHandler.shared.needExtraWelcomeScreen {
-        let vc = DeepLinkInfoBuilder.build(delegate: self)
-        controllers.append(vc)
-        nextPage()
-      } else {
-        close()
-        DeepLinkHandler.shared.handleDeeplink()
-      }
+      close()
+      DeepLinkHandler.shared.handleDeeplink()
     }
   }
 
   func welcomeDidPressClose(_ viewContoller: UIViewController) {
     close()
-  }
-}
-
-extension WelcomePageController: DeeplinkInfoViewControllerDelegate {
-  func deeplinkInfoViewControllerDidFinish(_ viewController: UIViewController, deeplink: URL?) {
-    close()
-    guard let dl = deeplink else { return }
-    DeepLinkHandler.shared.handleDeeplink(dl)
   }
 }
 

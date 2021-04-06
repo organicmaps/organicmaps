@@ -29,10 +29,7 @@ public:
 
   bool AddResult(Result && res) { return m_results.AddResult(std::move(res)); }
   void AddResultNoChecks(Result && res) { m_results.AddResultNoChecks(std::move(res)); }
-
   void AddBookmarkResult(bookmarks::Result const & result) { m_results.AddBookmarkResult(result); }
-
-  void PrecheckHotelQuery(std::vector<uint32_t> const & types) { m_results.PrecheckHotelQuery(types); }
 
   void Emit(bool force = false)
   {

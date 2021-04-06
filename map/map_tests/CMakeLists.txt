@@ -5,8 +5,6 @@ add_definitions("-DOMIM_UNIT_TEST_WITH_QT_EVENT_LOOP")
 set(
   SRC
   address_tests.cpp
-  booking_availability_cache_test.cpp
-  booking_filter_test.cpp
   bookmarks_test.cpp
   chart_generator_tests.cpp
   check_mwms.cpp
@@ -50,8 +48,6 @@ omim_link_libraries(
   mwm_diff
   bsdiff
   descriptions
-  ugc
-  partners_api
   web_api
   kml
   editor

@@ -12,7 +12,6 @@ final class BaseRoutePreviewStatus: SolidTouchView {
     }
   }
 
-  @IBOutlet private weak var taxiBox: UIView!
   @IBOutlet private weak var errorLabel: UILabel!
   @IBOutlet private weak var resultLabel: UILabel!
   @IBOutlet private weak var arriveLabel: UILabel?
@@ -33,7 +32,6 @@ final class BaseRoutePreviewStatus: SolidTouchView {
   @IBOutlet private var errorBoxBottom: NSLayoutConstraint!
   @IBOutlet private var resultsBoxBottom: NSLayoutConstraint!
   @IBOutlet private var heightBoxBottom: NSLayoutConstraint!
-  @IBOutlet private var taxiBoxBottom: NSLayoutConstraint!
   @IBOutlet private var manageRouteBoxBottom: NSLayoutConstraint!
   @IBOutlet private var heightBoxBottomManageRouteBoxTop: NSLayoutConstraint!
 
@@ -103,7 +101,6 @@ final class BaseRoutePreviewStatus: SolidTouchView {
         self.resultsBoxBottom.isActive = !self.resultsBox.isHidden
         self.heightBoxBottom.isActive = !self.heightBox.isHidden
         self.heightBoxBottomManageRouteBoxTop.isActive = !self.heightBox.isHidden
-        self.taxiBoxBottom.isActive = !self.taxiBox.isHidden
         self.manageRouteBoxBottom.isActive = !self.manageRouteBox.isHidden
       })
     }
@@ -134,7 +131,6 @@ final class BaseRoutePreviewStatus: SolidTouchView {
     errorBox.isHidden = false
     resultsBox.isHidden = true
     heightBox.isHidden = true
-    taxiBox.isHidden = true
     manageRouteBox.isHidden = true
 
     errorLabel.text = message
@@ -145,31 +141,23 @@ final class BaseRoutePreviewStatus: SolidTouchView {
   @objc func showReady() {
     isVisible = true
     errorBox.isHidden = true
-
-    if MWMRouter.isTaxi() {
-      taxiBox.isHidden = false
-      resultsBox.isHidden = true
-      heightBox.isHidden = true
+    resultsBox.isHidden = false
+    elevation = nil
+    if MWMRouter.hasRouteAltitude() {
+      heightBox.isHidden = false
+      MWMRouter.routeAltitudeImage(for: heightProfileImage.frame.size,
+                                   completion: { image, elevation in
+                                     self.heightProfileImage.image = image
+                                     guard let elevation = elevation else { return }
+                                     let attributes: [NSAttributedString.Key: Any] =
+                                       [
+                                         .foregroundColor: UIColor.linkBlue(),
+                                         .font: UIFont.medium14()
+                                       ]
+                                     self.elevation = NSAttributedString(string: "▲▼ \(elevation)", attributes: attributes)
+      })
     } else {
-      taxiBox.isHidden = true
-      resultsBox.isHidden = false
-      elevation = nil
-      if MWMRouter.hasRouteAltitude() {
-        heightBox.isHidden = false
-        MWMRouter.routeAltitudeImage(for: heightProfileImage.frame.size,
-                                     completion: { image, elevation in
-                                       self.heightProfileImage.image = image
-                                       guard let elevation = elevation else { return }
-                                       let attributes: [NSAttributedString.Key: Any] =
-                                         [
-                                           .foregroundColor: UIColor.linkBlue(),
-                                           .font: UIFont.medium14()
-                                         ]
-                                       self.elevation = NSAttributedString(string: "▲▼ \(elevation)", attributes: attributes)
-        })
-      } else {
-        heightBox.isHidden = true
-      }
+      heightBox.isHidden = true
     }
     updateManageRouteVisibility()
     updateHeight()

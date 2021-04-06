@@ -1,7 +1,6 @@
 #include "generator/final_processor_country.hpp"
 
 #include "generator/affiliation.hpp"
-#include "generator/booking_dataset.hpp"
 #include "generator/boost_helpers.hpp"
 #include "generator/feature_builder.hpp"
 #include "generator/final_processor_utils.hpp"
@@ -9,7 +8,6 @@
 #include "generator/mini_roundabout_transformer.hpp"
 #include "generator/node_mixer.hpp"
 #include "generator/osm2type.hpp"
-#include "generator/promo_catalog_cities.hpp"
 #include "generator/region_meta.hpp"
 #include "generator/routing_city_boundaries_processor.hpp"
 
@@ -55,19 +53,9 @@ bool CountryFinalProcessor::IsCountry(std::string const & filename)
   return m_affiliations->HasCountryByName(filename);
 }
 
-void CountryFinalProcessor::SetBooking(std::string const & filename)
-{
-  m_hotelsFilename = filename;
-}
-
 void CountryFinalProcessor::SetCitiesAreas(std::string const & filename)
 {
   m_citiesAreasTmpFilename = filename;
-}
-
-void CountryFinalProcessor::SetPromoCatalog(std::string const & filename)
-{
-  m_citiesFilename = filename;
 }
 
 void CountryFinalProcessor::DumpCitiesBoundaries(std::string const & filename)
@@ -105,8 +93,6 @@ void CountryFinalProcessor::Process()
 {
   Order();
 
-  if (!m_hotelsFilename.empty())
-    ProcessBooking();
   if (!m_routingCityBoundariesCollectorFilename.empty())
     ProcessRoutingCityBoundaries();
   if (!m_citiesAreasTmpFilename.empty() || !m_citiesFilename.empty())
@@ -141,58 +127,6 @@ void CountryFinalProcessor::Order()
           writer.Write(fb);
       },
       m_threadsCount);
-}
-
-void CountryFinalProcessor::ProcessBooking()
-{
-  BookingDataset dataset(m_hotelsFilename);
-
-  std::ofstream matchingLogStream;
-  matchingLogStream.exceptions(std::fstream::failbit | std::fstream::badbit);
-  matchingLogStream.open(base::JoinPath(m_intermediateDir, "booking_matching_status.csv"));
-
-  std::mutex m;
-  ForEachMwmTmp(m_temporaryMwmPath, [&](auto const & name, auto const & path) {
-    if (!IsCountry(name))
-      return;
-
-    std::stringstream sstream;
-    FeatureBuilderWriter<serialization_policy::MaxAccuracy> writer(path, true /* mangleName */);
-    ForEachFeatureRawFormat<serialization_policy::MaxAccuracy>(path, [&](auto & fb,
-                                                                         auto /* pos */) {
-      auto const id = dataset.FindMatchingObjectId(fb);
-      if (id == BookingHotel::InvalidObjectId())
-      {
-        writer.Write(fb);
-      }
-      else
-      {
-        dataset.PreprocessMatchedOsmObject(id, fb, [&](FeatureBuilder & newFeature) {
-          if (newFeature.PreSerialize())
-            writer.Write(newFeature);
-        });
-      }
-
-      auto const & isHotelChecker = ftypes::IsHotelChecker::Instance();
-      if (isHotelChecker(fb.GetTypes()))
-      {
-        if (id != BookingHotel::InvalidObjectId())
-          sstream << id;
-
-        auto const latLon = mercator::ToLatLon(fb.GetKeyPoint());
-        sstream << ',' << fb.GetMostGenericOsmId().GetEncodedId() << ','
-                << strings::to_string_dac(latLon.m_lat, 7) << ','
-                << strings::to_string_dac(latLon.m_lon, 7) << ',' << name << '\n';
-      }
-    });
-
-    std::lock_guard _(m);
-    matchingLogStream << sstream.str();
-  }, m_threadsCount);
-
-  std::vector<FeatureBuilder> fbs;
-  dataset.BuildOsmObjects([&](auto && fb) { fbs.emplace_back(std::move(fb)); });
-  AppendToMwmTmp(fbs, *m_affiliations, m_temporaryMwmPath, m_threadsCount);
 }
 
 void CountryFinalProcessor::ProcessRoundabouts()
@@ -324,7 +258,6 @@ void CountryFinalProcessor::ProcessCities()
       m_citiesAreasTmpFilename.empty() ? PlaceHelper() : PlaceHelper(m_citiesAreasTmpFilename);
 
   ProcessorCities processorCities(m_temporaryMwmPath, *m_affiliations, citiesHelper, m_threadsCount);
-  processorCities.SetPromoCatalog(m_citiesFilename);
   processorCities.Process();
 
   if (!m_citiesBoundariesFilename.empty())

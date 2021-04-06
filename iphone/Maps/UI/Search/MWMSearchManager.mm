@@ -4,7 +4,6 @@
 #import "MWMNoMapsViewController.h"
 #import "MWMRoutePoint+CPP.h"
 #import "MWMRouter.h"
-#import "MWMSearchManager+Filter.h"
 #import "MWMSearchManager+Layout.h"
 #import "MWMSearchTableViewController.h"
 #import "MapViewController.h"
@@ -31,9 +30,7 @@ using Observers = NSHashTable<Observer>;
                                 MWMSearchTabViewControllerDelegate,
                                 UITextFieldDelegate,
                                 MWMStorageObserver,
-                                MWMSearchObserver,
-                                DatePickerViewControllerDelegate,
-                                GuestsPickerViewControllerDelegate>
+                                MWMSearchObserver>
 
 @property(weak, nonatomic, readonly) UIViewController *ownerController;
 @property(weak, nonatomic, readonly) UIView *searchViewContainer;
@@ -86,8 +83,6 @@ using Observers = NSHashTable<Observer>;
   if (self.state != MWMSearchManagerStateHidden)
     self.state = MWMSearchManagerStateDefault;
   self.searchTextField.text = @"";
-  [self.searchBarView resetDates];
-  [self.searchBarView resetGuestCount];
   [MWMSearch clear];
 }
 
@@ -101,7 +96,6 @@ using Observers = NSHashTable<Observer>;
 - (IBAction)textFieldTextDidChange:(UITextField *)textField {
   NSString *text = textField.text;
   if (text.length > 0) {
-    [self clearFilter];
     [self beginSearch];
     [MWMSearch searchQuery:text forInputLocale:textField.textInputMode.primaryLanguage];
   } else {
@@ -115,52 +109,6 @@ using Observers = NSHashTable<Observer>;
 
 - (IBAction)backButtonPressed {
   self.state = MWMSearchManagerStateTableSearch;
-}
-
-- (IBAction)onBookingDateButtonPressed:(id)sender {
-  [self.searchTextField resignFirstResponder];
-
-  if (Platform::ConnectionStatus() == Platform::EConnectionType::CONNECTION_NONE) {
-    [MWMAlertViewController.activeAlertController presentSearchQuickFilterNoConnectionAlert];
-    return;
-  }
-
-  DatePickerViewController *controller = [[DatePickerViewController alloc] init];
-  controller.delegate = self;
-  MWMHotelParams *filter = [MWMSearch getFilter];
-  if (filter != nil && filter.checkInDate != nil && filter.checkOutDate != nil) {
-    controller.initialCheckInDate = filter.checkInDate;
-    controller.initialCheckOutDate = filter.checkOutDate;
-  }
-  controller.popoverPresentationController.sourceView = self.searchBarView;
-  controller.popoverPresentationController.permittedArrowDirections = UIPopoverArrowDirectionUp;
-  [[MapViewController sharedController] presentViewController:controller animated:YES completion:nil];
-}
-
-- (IBAction)onBookingGuestsButtonPressed:(id)sender {
-  [self.searchTextField resignFirstResponder];
-
-  if (Platform::ConnectionStatus() == Platform::EConnectionType::CONNECTION_NONE) {
-    [MWMAlertViewController.activeAlertController presentSearchQuickFilterNoConnectionAlert];
-    return;
-  }
-
-  GuestsPickerViewController *controller = [[GuestsPickerViewController alloc] init];
-  controller.delegate = self;
-  MWMHotelParams *filter = [MWMSearch getFilter];
-  if (filter != nil) {
-    if (filter.numberOfRooms > 0) {
-      controller.roomsInitialCount = filter.numberOfRooms;
-    }
-    if (filter.numberOfAdults > 0) {
-      controller.adultsInitialCount = filter.numberOfAdults;
-    }
-    controller.childrenInitialCount = filter.numberOfChildren;
-    controller.infantsInitialCount = filter.numberOfInfants;
-  }
-  controller.popoverPresentationController.sourceView = self.searchBarView;
-  controller.popoverPresentationController.permittedArrowDirections = UIPopoverArrowDirectionUp;
-  [[MapViewController sharedController] presentViewController:controller animated:YES completion:nil];
 }
 
 #pragma mark - Layout
@@ -253,7 +201,6 @@ using Observers = NSHashTable<Observer>;
     controlsManager.menuState = controlsManager.menuRestoreState;
   }
   [self viewHidden:YES];
-  self.searchBarView.isBookingSearchViewHidden = YES;
 }
 
 - (void)changeToDefaultState {
@@ -272,7 +219,6 @@ using Observers = NSHashTable<Observer>;
     controlsManager.menuState = controlsManager.menuRestoreState;
   }
   [self viewHidden:NO];
-  self.searchBarView.isBookingSearchViewHidden = YES;
   self.actionBarState = MWMSearchManagerActionBarStateHidden;
   [self.searchTextField becomeFirstResponder];
   [self.searchBarView applyTheme];
@@ -365,9 +311,6 @@ using Observers = NSHashTable<Observer>;
     self.searchBarView.state = SearchBarStateReady;
   }
 
-  self.searchBarView.isBookingSearchViewHidden = !([MWMSearch isHotelResults] || [MWMSearch hasAvailability]);
-  [self.actionBarView updateFilterButtonWithShowFilter:[MWMSearch isHotelResults] || [MWMSearch hasFilter]
-                                           filterCount:[MWMSearch filterCount]];
   if (self.state != MWMSearchManagerStateTableSearch)
     return;
   [self.tableViewController onSearchCompleted];
@@ -376,9 +319,6 @@ using Observers = NSHashTable<Observer>;
 
 - (void)onSearchStarted {
   self.searchBarView.state = SearchBarStateSearching;
-  self.searchBarView.isBookingSearchViewHidden = !([MWMSearch isHotelResults] || [MWMSearch hasAvailability]);
-  [self.actionBarView updateFilterButtonWithShowFilter:[MWMSearch isHotelResults] || [MWMSearch hasFilter]
-                                           filterCount:[MWMSearch filterCount]];
   if (self.state != MWMSearchManagerStateTableSearch)
     return;
   self.actionBarState = MWMSearchManagerActionBarStateModeFilter;
@@ -396,7 +336,7 @@ using Observers = NSHashTable<Observer>;
     if ([MWMSearch resultsCount] == 0)
       hideActionBar = YES;
     else if (IPAD)
-      hideActionBar = !([MWMSearch isHotelResults] || [MWMSearch hasFilter]);
+      hideActionBar = YES;
     self.actionBarState =
       hideActionBar ? MWMSearchManagerActionBarStateHidden : MWMSearchManagerActionBarStateModeFilter;
 
@@ -420,50 +360,6 @@ using Observers = NSHashTable<Observer>;
 - (void)onSearchManagerStateChanged {
   for (Observer observer in self.observers)
     [observer onSearchManagerStateChanged];
-}
-
-#pragma mark - DatePickerViewControllerDelegate
-
-- (void)datePicker:(DatePickerViewController *)datePicker
-  didSelectStartDate:(NSDate *)startDate
-             endDate:(NSDate *)endDate {
-  [self.searchBarView setDatesWithCheckin:startDate checkout:endDate];
-  MWMHotelParams *filter = [MWMSearch getFilter];
-  if (!filter) {
-    filter = [MWMHotelParams new];
-  }
-  filter.checkInDate = startDate;
-  filter.checkOutDate = endDate;
-  [MWMSearch updateHotelFilterWithParams:filter];
-  [[MapViewController sharedController] dismissViewControllerAnimated:YES completion:nil];
-}
-
-- (void)datePickerDidCancel:(DatePickerViewController *)datePicker {
-  [[MapViewController sharedController] dismissViewControllerAnimated:YES completion:nil];
-}
-
-#pragma mark - GuestsPickerViewControllerDelegate
-
-- (void)guestsPicker:(GuestsPickerViewController *)guestsPicker
-      didSelectRooms:(NSInteger)rooms
-              adults:(NSInteger)adults
-            children:(NSInteger)children
-             infants:(NSInteger)infants {
-  [self.searchBarView setGuestCount:adults + children + infants];
-  MWMHotelParams *filter = [MWMSearch getFilter];
-  if (!filter) {
-    filter = [MWMHotelParams new];
-  }
-  filter.numberOfRooms = rooms;
-  filter.numberOfAdults = adults;
-  filter.numberOfChildren = children;
-  filter.numberOfInfants = infants;
-  [MWMSearch updateHotelFilterWithParams:filter];
-  [[MapViewController sharedController] dismissViewControllerAnimated:YES completion:nil];
-}
-
-- (void)guestsPickerDidCancel:(GuestsPickerViewController *)guestsPicker {
-  [[MapViewController sharedController] dismissViewControllerAnimated:YES completion:nil];
 }
 
 #pragma mark - Filters

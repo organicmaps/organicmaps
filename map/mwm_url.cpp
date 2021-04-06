@@ -76,22 +76,6 @@ char const * kLocale = "locale";
 char const * kSearchOnMap = "map";
 }  // namespace search
 
-namespace catalogue
-{
-char const * kId = "id";
-char const * kName = "name";
-}  // namespace catalogue
-
-namespace catalogue_path
-{
-  char const * kUrl = "url";
-}  // namespace catalogue_path
-
-namespace subscription
-{
-  char const * kGroups = "groups";
-} // namespace subscription
-
 namespace
 {
 std::array<std::string, 4> const kAvailableSchemes = {{"mapswithme", "mwm", "mapsme", "om"}};
@@ -108,14 +92,6 @@ ParsedMapApi::UrlType GetUrlType(url::Url const & url)
     return ParsedMapApi::UrlType::Route;
   if (path == "search")
     return ParsedMapApi::UrlType::Search;
-  if (path == "lead")
-    return ParsedMapApi::UrlType::Lead;
-  if (path == "catalogue")
-    return ParsedMapApi::UrlType::Catalogue;
-  if (path == "guides_page")
-    return ParsedMapApi::UrlType::CataloguePath;
-  if (path == "subscription")
-    return ParsedMapApi::UrlType::Subscription;
 
   return ParsedMapApi::UrlType::Incorrect;
 }
@@ -160,9 +136,6 @@ ParsedMapApi::ParsingResult ParsedMapApi::SetUrlAndParse(string const & url)
   auto const u = url::Url(url);
   auto const urlType = GetUrlType(u);
   m_isValid = Parse(u, urlType);
-
-  if (m_isValid)
-    ParseAdditional(u);
 
   return {urlType, m_isValid};
 }
@@ -229,60 +202,8 @@ bool ParsedMapApi::Parse(url::Url const & url, UrlType type)
       m_request = request;
       return true;
     }
-    case UrlType::Lead:
-      return false;
-    case UrlType::Catalogue:
-    {
-      Catalog item;
-      url.ForEachParam([&item, this](url::Param const & param) {
-        ParseCatalogParam(param, item);
-      });
-
-      if (item.m_id.empty())
-        return false;
-
-      m_catalog = item;
-      return true;
-    }
-    case UrlType::CataloguePath:
-    {
-      CatalogPath item;
-      url.ForEachParam([&item, this](url::Param const & param) {
-        ParseCatalogPathParam(param, item);
-      });
-
-      if (item.m_url.empty())
-        return false;
-
-      m_catalogPath = item;
-      return true;
-    }
-    case UrlType::Subscription:
-    {
-     Subscription item;
-     url.ForEachParam([&item, this](url::Param const & param) {
-       ParseSubscriptionParam(param, item);
-     });
-
-     if (item.m_groups.empty())
-       return false;
-
-     m_subscription = item;
-     return true;
-   }
   }
   UNREACHABLE();
-}
-
-void ParsedMapApi::ParseAdditional(url::Url const & url)
-{
-  url.ForEachParam([this](url::Param const & param)
-  {
-    if (param.m_name == "affiliate_id")
-      m_affiliateId = param.m_value;
-
-    return true;
-  });
 }
 
 void ParsedMapApi::ParseMapParam(url::Param const & param, vector<ApiPoint> & points, bool & correctOrder)
@@ -442,42 +363,13 @@ void ParsedMapApi::ParseSearchParam(url::Param const & param, SearchRequest & re
   }
 }
 
-void ParsedMapApi::ParseCatalogParam(url::Param const & param, Catalog & item) const
-{
-  using namespace catalogue;
-
-  string const & key = param.m_name;
-  string const & value = param.m_value;
-
-  if (key == kName)
-    item.m_name = value;
-  else if (key == kId)
-    item.m_id = value;
-}
-
-void ParsedMapApi::ParseCatalogPathParam(url::Param const & param, CatalogPath & item) const
-{
-  if (param.m_name == catalogue_path::kUrl)
-    item.m_url = param.m_value;
-}
-
-void ParsedMapApi::ParseSubscriptionParam(url::Param const & param, Subscription & item) const
-{
-  if (param.m_name == subscription::kGroups)
-    item.m_groups = param.m_value;
-}
-
 void ParsedMapApi::Reset()
 {
   m_routePoints = {};
   m_request = {};
-  m_catalog = {};
-  m_catalogPath = {};
-  m_subscription = {};
   m_globalBackUrl ={};
   m_appTitle = {};
   m_routingType = {};
-  m_affiliateId = {};
   m_version = 0;
   m_zoomLevel = 0.0;
   m_goBackOnBalloonClick = false;
@@ -528,10 +420,6 @@ std::string DebugPrint(ParsedMapApi::UrlType type)
   case ParsedMapApi::UrlType::Map: return "Map";
   case ParsedMapApi::UrlType::Route: return "Route";
   case ParsedMapApi::UrlType::Search: return "Search";
-  case ParsedMapApi::UrlType::Lead: return "Lead";
-  case ParsedMapApi::UrlType::Catalogue: return "Catalogue";
-  case ParsedMapApi::UrlType::CataloguePath: return "CataloguePath";
-  case ParsedMapApi::UrlType::Subscription: return "Subscription";
   }
   UNREACHABLE();
 }

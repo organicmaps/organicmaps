@@ -2,7 +2,6 @@
 
 #include "com/mapswithme/maps/Framework.hpp"
 
-#include "partners_api/promo_api.hpp"
 
 #include "geometry/mercator.hpp"
 

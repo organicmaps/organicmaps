@@ -14,10 +14,7 @@ EngineContext::EngineContext(TileKey tileKey,
                              CustomFeaturesContextWeakPtr customFeaturesContext,
                              bool is3dBuildingsEnabled,
                              bool isTrafficEnabled,
-                             bool isolinesEnabled,
-                             bool guidesEnabled,
-                             int displacementMode,
-                             TIsUGCFn const & isUGCFn)
+                             bool isolinesEnabled)
   : m_tileKey(tileKey)
   , m_commutator(commutator)
   , m_texMng(texMng)
@@ -26,9 +23,6 @@ EngineContext::EngineContext(TileKey tileKey,
   , m_3dBuildingsEnabled(is3dBuildingsEnabled)
   , m_trafficEnabled(isTrafficEnabled)
   , m_isolinesEnabled(isolinesEnabled)
-  , m_guidesEnabled(guidesEnabled)
-  , m_displacementMode(displacementMode)
-  , m_isUGCFn(isUGCFn)
 {}
 
 ref_ptr<dp::TextureManager> EngineContext::GetTextureManager() const

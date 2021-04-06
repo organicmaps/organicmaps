@@ -18,7 +18,6 @@ public:
 
   void SetPopularPlaces(std::string const & filename);
   void SetCitiesAreas(std::string const & filename);
-  void SetPromoCatalog(std::string const & filename);
 
   // FinalProcessorIntermediateMwmInterface overrides:
   void Process() override;
@@ -31,6 +30,5 @@ private:
   std::string m_coastlineGeomFilename;
   std::string m_popularPlacesFilename;
   std::string m_citiesAreasTmpFilename;
-  std::string m_citiesFilename;
 };
 }  // namespace generator

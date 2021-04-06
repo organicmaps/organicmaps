@@ -1,11 +1,6 @@
 import UIKit
 
 class BottomMenuLayersCell: UITableViewCell {
-  @IBOutlet var guidesButton: BottomMenuLayerButton! {
-    didSet {
-      updateGuidesButton()
-    }
-  }
   @IBOutlet private var trafficButton: BottomMenuLayerButton! {
     didSet {
       updateTrafficButton()
@@ -37,14 +32,6 @@ class BottomMenuLayersCell: UITableViewCell {
     super.setSelected(selected, animated: animated)
   }
   
-  private func updateGuidesButton() {
-    // TODO: Either remove guides or enable button back in xib.
-    if guidesButton == nil { return }
-    let enabled = MapOverlayManager.guidesEnabled()
-    guidesButton.setStyleAndApply(enabled ? "MenuButtonEnabled" : "MenuButtonDisabled")
-    guidesButton.isBadgeHidden = !MapOverlayManager.guidesFirstLaunch()
-  }
-  
   private func updateTrafficButton() {
     // TODO: enable button back in xib.
     if trafficButton == nil { return }
@@ -66,10 +53,6 @@ class BottomMenuLayersCell: UITableViewCell {
     onClose?()
   }
   
-  @IBAction func onGuidesButtonPressed(_ sender: Any) {
-    let enable = !MapOverlayManager.guidesEnabled()
-    MapOverlayManager.setGuidesEnabled(enable)
-  }
   @IBAction func onTrafficButton(_ sender: Any) {
     let enable = !MapOverlayManager.trafficEnabled()
     MapOverlayManager.setTrafficEnabled(enable)
@@ -87,10 +70,6 @@ class BottomMenuLayersCell: UITableViewCell {
 }
 
 extension BottomMenuLayersCell: MapOverlayManagerObserver {
-  func onGuidesStateUpdated() {
-    updateGuidesButton()
-  }
-  
   func onTrafficStateUpdated() {
     updateTrafficButton()
   }

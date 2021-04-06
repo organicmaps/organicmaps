@@ -1,15 +1,9 @@
 #include "map/framework.hpp"
 #include "map/benchmark_tools.hpp"
-#include "map/booking_utils.hpp"
-#include "map/catalog_headers_provider.hpp"
 #include "map/chart_generator.hpp"
 #include "map/displayed_categories_modifiers.hpp"
 #include "map/everywhere_search_params.hpp"
 #include "map/gps_tracker.hpp"
-#include "map/guides_on_map_delegate.hpp"
-#include "map/promo_catalog_poi_checker.hpp"
-#include "map/promo_delegate.hpp"
-#include "map/taxi_delegate.hpp"
 #include "map/user_mark.hpp"
 #include "map/viewport_search_params.hpp"
 
@@ -59,7 +53,6 @@
 #include "indexer/feature_source.hpp"
 #include "indexer/feature_utils.hpp"
 #include "indexer/feature_visibility.hpp"
-#include "indexer/ftypes_sponsored.hpp"
 #include "indexer/map_style_reader.hpp"
 #include "indexer/scales.hpp"
 #include "indexer/transliteration_loader.hpp"
@@ -74,7 +67,6 @@
 #include "platform/preferred_languages.hpp"
 #include "platform/settings.hpp"
 #include "platform/socket.hpp"
-#include "platform/utils.hpp"
 
 #include "coding/endianness.hpp"
 #include "coding/point_coding.hpp"
@@ -92,8 +84,6 @@
 #include "geometry/tree4d.hpp"
 #include "geometry/triangle2d.hpp"
 
-#include "partners_api/opentable_api.hpp"
-#include "partners_api/partners.hpp"
 
 #include "base/file_name_utils.hpp"
 #include "base/logging.hpp"
@@ -136,7 +126,6 @@ char const kAllowAutoZoom[] = "AutoZoom";
 char const kTrafficEnabledKey[] = "TrafficEnabled";
 char const kTransitSchemeEnabledKey[] = "TransitSchemeEnabled";
 char const kIsolinesEnabledKey[] = "IsolinesEnabled";
-char const kGuidesEnabledKey[] = "GuidesEnabledKey";
 char const kTrafficSimplifiedColorsKey[] = "TrafficSimplifiedColors";
 char const kLargeFontsSize[] = "LargeFontsSize";
 char const kTranslitMode[] = "TransliterationMode";
@@ -144,7 +133,6 @@ char const kPreferredGraphicsAPI[] = "PreferredGraphicsAPI";
 char const kShowDebugInfo[] = "DebugInfo";
 
 auto constexpr kLargeFontsScaleFactor = 1.6;
-auto constexpr kGuidesEnabledInBackgroundMaxHours = 8;
 size_t constexpr kMaxTrafficCacheSizeBytes = 64 /* Mb */ * 1024 * 1024;
 
 // TODO!
@@ -277,11 +265,6 @@ IsolinesManager const & Framework::GetIsolinesManager() const
   return m_isolinesManager;
 }
 
-GuidesManager & Framework::GetGuidesManager()
-{
-  return m_guidesManager;
-}
-
 void Framework::OnUserPositionChanged(m2::PointD const & position, bool hasPosition)
 {
   GetBookmarkManager().MyPositionMark().SetUserPosition(position, hasPosition);
@@ -311,7 +294,6 @@ void Framework::OnViewportChanged(ScreenBase const & screen)
   m_trafficManager.UpdateViewport(m_currentModelView);
   m_transitManager.UpdateViewport(m_currentModelView);
   m_isolinesManager.UpdateViewport(m_currentModelView);
-  m_guidesManager.UpdateViewport(m_currentModelView);
 
   if (m_viewportChangedFn != nullptr)
     m_viewportChangedFn(screen);
@@ -327,11 +309,6 @@ Framework::Framework(FrameworkParams const & params)
                      bind(&Framework::GetMwmsByRect, this, _1, false /* rough */))
   , m_isolinesManager(m_featuresFetcher.GetDataSource(),
                       bind(&Framework::GetMwmsByRect, this, _1, false /* rough */))
-  , m_guidesManager([this]()
-                    {
-                      if (m_currentPlacePageInfo && m_currentPlacePageInfo->IsGuide())
-                        DeactivateMapSelection(true /* notifyUI */);
-                    })
   , m_routingManager(
         RoutingManager::Callbacks(
             [this]() -> DataSource & { return m_featuresFetcher.GetDataSource(); },
@@ -342,16 +319,9 @@ Framework::Framework(FrameworkParams const & params)
         static_cast<RoutingManager::Delegate &>(*this))
   , m_trafficManager(bind(&Framework::GetMwmsByRect, this, _1, false /* rough */),
                      kMaxTrafficCacheSizeBytes, m_routingManager.RoutingSession())
-  , m_bookingFilterProcessor(m_featuresFetcher.GetDataSource(), *m_bookingApi)
-  , m_displacementModeManager([this](bool show) {
-    int const mode = show ? dp::displacement::kHotelMode : dp::displacement::kDefaultMode;
-    if (m_drapeEngine != nullptr)
-      m_drapeEngine->SetDisplacementMode(mode);
-  })
   , m_lastReportedCountry(kInvalidCountryId)
   , m_popularityLoader(m_featuresFetcher.GetDataSource(), POPULARITY_RANKS_FILE_TAG)
   , m_descriptionsLoader(std::make_unique<descriptions::Loader>(m_featuresFetcher.GetDataSource()))
-  , m_purchase(std::make_unique<Purchase>([this] { m_user.ResetAccessToken(); }))
 {
   CHECK(IsLittleEndian(), ("Only little-endian architectures are supported."));
 
@@ -395,12 +365,9 @@ Framework::Framework(FrameworkParams const & params)
   InitSearchAPI(params.m_numSearchAPIThreads);
   LOG(LDEBUG, ("Search API initialized"));
 
-  auto const catalogHeadersProvider = make_shared<CatalogHeadersProvider>(*this, m_storage);
-
   m_bmManager = make_unique<BookmarkManager>(m_user, BookmarkManager::Callbacks(
       [this]() -> StringsBundle const & { return m_stringsBundle; },
       [this]() -> SearchAPI & { return GetSearchAPI(); },
-      [catalogHeadersProvider]() { return catalogHeadersProvider->GetHeaders(); },
       [this](vector<BookmarkInfo> const & marks) { GetSearchAPI().OnBookmarksCreated(marks); },
       [this](vector<BookmarkInfo> const & marks) { GetSearchAPI().OnBookmarksUpdated(marks); },
       [this](vector<kml::MarkId> const & marks) { GetSearchAPI().OnBookmarksDeleted(marks); },
@@ -409,10 +376,8 @@ Framework::Framework(FrameworkParams const & params)
 
   m_bmManager->InitRegionAddressGetter(m_featuresFetcher.GetDataSource(), *m_infoGetter);
 
-  catalogHeadersProvider->SetBookmarkManager(m_bmManager.get());
   m_parsedMapApi.SetBookmarkManager(m_bmManager.get());
   m_routingManager.SetBookmarkManager(m_bmManager.get());
-  m_guidesManager.SetBookmarkManager(m_bmManager.get());
   m_searchMarks.SetBookmarkManager(m_bmManager.get());
 
   m_user.AddSubscriber(m_bmManager->GetUserSubscriber());
@@ -420,8 +385,6 @@ Framework::Framework(FrameworkParams const & params)
   m_routingManager.SetTransitManager(&m_transitManager);
 
   InitCityFinder();
-  InitDiscoveryManager();
-  InitTaxiEngine();
 
   // Init storage with needed callback.
   m_storage.Init(
@@ -459,17 +422,11 @@ Framework::Framework(FrameworkParams const & params)
 
   m_isolinesManager.SetEnabled(LoadIsolinesEnabled());
 
-  m_guidesManager.SetApiDelegate(make_unique<GuidesOnMapDelegate>(catalogHeadersProvider));
-  m_guidesManager.SetEnabled(LoadGuidesEnabled());
-
   InitTransliteration();
   LOG(LDEBUG, ("Transliterators initialized"));
 
   GetPowerManager().Subscribe(this);
   GetPowerManager().Load();
-
-  m_promoApi->SetDelegate(make_unique<PromoDelegate>(m_featuresFetcher.GetDataSource(),
-                          *m_cityFinder, catalogHeadersProvider));
 
   // Clean the no longer used key from old devices.
   // Remove this line after April 2020 (assuming the majority of devices
@@ -482,10 +439,6 @@ Framework::~Framework()
   GetPowerManager().UnsubscribeAll();
 
   m_threadRunner.reset();
-
-  // Must be destroyed implicitly at the start of destruction,
-  // since it stores raw pointers to other subsystems.
-  m_purchase.reset();
 
   osm::Editor & editor = osm::Editor::Instance();
 
@@ -500,51 +453,6 @@ Framework::~Framework()
   m_user.ClearSubscribers();
   // Must be destroyed implicitly, since it stores reference to m_user.
   m_bmManager.reset();
-}
-
-booking::Api * Framework::GetBookingApi(platform::NetworkPolicy const & policy)
-{
-  ASSERT(m_bookingApi, ());
-  if (policy.CanUse())
-    return m_bookingApi.get();
-
-  return nullptr;
-}
-
-booking::Api const * Framework::GetBookingApi(platform::NetworkPolicy const & policy) const
-{
-  ASSERT(m_bookingApi, ());
-  if (policy.CanUse())
-    return m_bookingApi.get();
-
-  return nullptr;
-}
-
-taxi::Engine * Framework::GetTaxiEngine(platform::NetworkPolicy const & policy)
-{
-  ASSERT(m_taxiEngine, ());
-  if (policy.CanUse())
-    return m_taxiEngine.get();
-
-  return nullptr;
-}
-
-locals::Api * Framework::GetLocalsApi(platform::NetworkPolicy const & policy)
-{
-  ASSERT(m_localsApi, ());
-  if (policy.CanUse())
-    return m_localsApi.get();
-
-  return nullptr;
-}
-
-promo::Api * Framework::GetPromoApi(platform::NetworkPolicy const & policy) const
-{
-  ASSERT(m_promoApi, ());
-  if (policy.CanUse())
-    return m_promoApi.get();
-
-  return nullptr;
 }
 
 void Framework::ShowNode(storage::CountryId const & countryId)
@@ -780,7 +688,6 @@ void Framework::FillPostcodeInfo(string const & postcode, m2::PointD const & mer
 
 void Framework::FillInfoFromFeatureType(FeatureType & ft, place_page::Info & info) const
 {
-  using place_page::SponsoredType;
   auto const featureStatus = osm::Editor::Instance().GetFeatureStatus(ft.GetID());
   ASSERT_NOT_EQUAL(featureStatus, FeatureStatus::Deleted,
                    ("Deleted features cannot be selected from UI."));
@@ -792,95 +699,13 @@ void Framework::FillInfoFromFeatureType(FeatureType & ft, place_page::Info & inf
 
   info.SetFromFeatureType(ft);
 
-  /* Ban all promos now. Actually, they are already banned on generation phase but anyway.
-  if (ftypes::IsBookingChecker::Instance()(ft))
-  {
-    ASSERT(m_bookingApi, ());
-    info.SetSponsoredType(SponsoredType::Booking);
-    auto const & baseUrl = info.GetMetadata().Get(feature::Metadata::FMD_WEBSITE);
-    auto const & hotelId = info.GetMetadata().Get(feature::Metadata::FMD_SPONSORED_ID);
-    info.SetSponsoredUrl(m_bookingApi->GetBookHotelUrl(baseUrl));
-    info.SetSponsoredDeepLink(m_bookingApi->GetDeepLink(hotelId));
-    info.SetSponsoredDescriptionUrl(m_bookingApi->GetDescriptionUrl(baseUrl));
-    info.SetSponsoredMoreUrl(m_bookingApi->GetMoreUrl(baseUrl));
-    info.SetSponsoredReviewUrl(m_bookingApi->GetHotelReviewsUrl(hotelId, baseUrl));
-    if (!m_bookingAvailabilityParams.IsEmpty())
-    {
-      auto const urlSetter = [this](auto const & getter, auto const & setter)
-      {
-        auto const & url = getter();
-        auto const & urlWithParams =
-          m_bookingApi->ApplyAvailabilityParams(url, m_bookingAvailabilityParams);
-        setter(ref(urlWithParams));
-      };
-      using place_page::Info;
-      urlSetter(bind(&Info::GetSponsoredUrl, &info),
-                bind(&Info::SetSponsoredUrl, &info, _1));
-      urlSetter(bind(&Info::GetSponsoredDescriptionUrl, &info),
-                bind(&Info::SetSponsoredDescriptionUrl, &info, _1));
-      urlSetter(bind(&Info::GetSponsoredMoreUrl, &info),
-                bind(&Info::SetSponsoredMoreUrl, &info, _1));
-      urlSetter(bind(&Info::GetSponsoredReviewUrl, &info),
-                bind(&Info::SetSponsoredReviewUrl, &info, _1));
-      urlSetter(bind(&Info::GetSponsoredDeepLink, &info),
-                bind(&Info::SetSponsoredDeepLink, &info, _1));
-    }
-  }
-  else if (ftypes::IsOpentableChecker::Instance()(ft))
-  {
-    info.SetSponsoredType(SponsoredType::Opentable);
-    auto const & sponsoredId = info.GetMetadata().Get(feature::Metadata::FMD_SPONSORED_ID);
-    auto const & url = opentable::Api::GetBookTableUrl(sponsoredId);
-    info.SetSponsoredUrl(url);
-    info.SetSponsoredDescriptionUrl(url);
-  }
-  else if (ftypes::IsHotelChecker::Instance()(ft))
-  {
-    ASSERT(m_cityFinder, ());
-    auto const url = MakeSearchBookingUrl(*m_bookingApi, *m_cityFinder, ft);
-    info.SetBookingSearchUrl(url);
-    LOG(LINFO, (url));
-  }
-  else if (ftypes::IsHolidayChecker::Instance()(ft) &&
-           !info.GetMetadata().Get(feature::Metadata::FMD_RATING).empty())
-  {
-    info.SetSponsoredType(place_page::SponsoredType::Holiday);
-  }
-  else if (ftypes::IsPromoCatalogChecker::Instance()(ft))
-  {
-    info.SetOpeningMode(m_routingManager.IsRoutingActive()
-                        ? place_page::OpeningMode::Preview
-                        : place_page::OpeningMode::PreviewPlus);
-    info.SetSponsoredType(SponsoredType::PromoCatalogCity);
-  }
-  else if (ftypes::IsPromoCatalogSightseeingsChecker::Instance()(ft))
-  {
-    info.SetOpeningMode(m_routingManager.IsRoutingActive() || !GetPlatform().IsConnected()
-                        ? place_page::OpeningMode::Preview
-                        : place_page::OpeningMode::PreviewPlus);
-    info.SetSponsoredType(SponsoredType::PromoCatalogSightseeings);
-  }
-  else if (ftypes::IsPromoCatalogOutdoorChecker::Instance()(ft))
-  {
-    info.SetOpeningMode(m_routingManager.IsRoutingActive() || !GetPlatform().IsConnected()
-                        ? place_page::OpeningMode::Preview
-                        : place_page::OpeningMode::PreviewPlus);
-    info.SetSponsoredType(SponsoredType::PromoCatalogOutdoor);
-  }
-  */
-
-  FillLocalExperts(ft, info);
   FillDescription(ft, info);
 
   auto const mwmInfo = ft.GetID().m_mwmId.GetInfo();
   bool const isMapVersionEditable = mwmInfo && mwmInfo->m_version.IsEditableMap();
   bool const canEditOrAdd = featureStatus != FeatureStatus::Obsolete && CanEditMap() &&
-                            !info.IsNotEditableSponsored() && isMapVersionEditable;
+                            isMapVersionEditable;
   info.SetCanEditOrAdd(canEditOrAdd);
-
-  auto const latlon = mercator::ToLatLon(feature::GetCenter(ft));
-  ASSERT(m_taxiEngine, ());
-  info.SetReachableByTaxiProviders(m_taxiEngine->GetProvidersAtPos(latlon));
   info.SetPopularity(m_popularityLoader.Get(ft.GetID()));
 
   // Fill countryId for place page info
@@ -1083,11 +908,6 @@ void Framework::AddBookmarksFile(string const & filePath, bool isTemporaryFile)
 void Framework::PrepareToShutdown()
 {
   DestroyDrapeEngine();
-}
-
-void Framework::SetDisplacementMode(DisplacementModeManager::Slot slot, bool show)
-{
-  m_displacementModeManager.Set(slot, show);
 }
 
 void Framework::SaveViewport()
@@ -1370,13 +1190,6 @@ void Framework::EnterForeground()
   {
     auto const secondsInBackground = m_startForegroundTime - m_startBackgroundTime;
     m_drapeEngine->OnEnterForeground(secondsInBackground);
-
-    if (m_guidesManager.IsEnabled() &&
-      secondsInBackground / 60 / 60 > kGuidesEnabledInBackgroundMaxHours)
-    {
-      m_guidesManager.SetEnabled(false);
-      SaveGuidesEnabled(false);
-    }
   }
 
   m_trafficManager.OnEnterForeground();
@@ -1405,15 +1218,6 @@ void Framework::InitSearchAPI(size_t numThreads)
   {
     LOG(LCRITICAL, ("Can't load needed resources for SearchAPI:", e.Msg()));
   }
-}
-
-void Framework::InitDiscoveryManager()
-{
-  CHECK(m_searchAPI.get(), ("InitDiscoveryManager() must be called after InitSearchApi()"));
-  CHECK(m_cityFinder.get(), ("InitDiscoveryManager() must be called after InitCityFinder()"));
-
-  discovery::Manager::APIs const apis(*m_searchAPI, *m_promoApi, *m_localsApi);
-  m_discoveryManager = make_unique<discovery::Manager>(m_featuresFetcher.GetDataSource(), apis);
 }
 
 void Framework::InitTransliteration()
@@ -1475,24 +1279,6 @@ SearchAPI const & Framework::GetSearchAPI() const
 search::DisplayedCategories const & Framework::GetDisplayedCategories()
 {
   ASSERT(m_displayedCategories, ());
-  ASSERT(m_cityFinder, ());
-
-  string city;
-
-  if (auto const position = GetCurrentPosition())
-    city = m_cityFinder->GetCityName(*position, StringUtf8Multilang::kEnglishCode);
-
-  // Apply sponsored modifiers.
-  if (m_purchase && !m_purchase->IsSubscriptionActive(SubscriptionType::RemoveAds))
-  {
-    // Add Category modifiers here.
-    //std::tuple<Modifier> modifiers(city);
-    //base::for_each_in_tuple(modifiers, [&](size_t, SponsoredCategoryModifier & modifier)
-    //{
-    //  m_displayedCategories->Modify(modifier);
-    //});
-  }
-
   return *m_displayedCategories;
 }
 
@@ -1534,14 +1320,6 @@ void Framework::SelectSearchResult(search::Result const & result, bool animation
   m_currentPlacePageInfo = BuildPlacePageInfo(info);
   if (m_currentPlacePageInfo)
   {
-    if (result.m_details.m_isHotel && result.HasPoint() && !m_activeFilters.empty())
-    {
-      auto copy = result;
-      search::Results results;
-      results.AddResultNoChecks(move(copy));
-      ShowViewportSearchResults(results, true, m_activeFilters);
-    }
-
     if (scale < 0)
       scale = GetFeatureViewportScale(m_currentPlacePageInfo->GetTypes());
 
@@ -1651,24 +1429,12 @@ void Framework::FillSearchResultsMarks(search::Results::ConstIter begin,
 
     mark->SetMatchedName(r.GetString());
 
-    if (isFeature && r.IsRefusedByFilter())
-      m_searchMarks.SetUnavailable(*mark, "booking_map_component_filters");
-
-    if (r.m_details.m_isSponsoredHotel)
-    {
-      mark->SetRating(r.m_details.m_hotelRating);
-      mark->SetPricing(r.m_details.m_hotelPricing);
-    }
-    else if (isFeature)
+    if (isFeature)
     {
       if (r.m_details.m_isHotel)
         mark->SetHotelType();
       else
         mark->SetFromType(r.GetFeatureType());
-    }
-
-    if (isFeature)
-    {
       mark->SetVisited(m_searchMarks.IsVisited(mark->GetFeatureID()));
       mark->SetSelected(m_searchMarks.IsSelected(mark->GetFeatureID()));
     }
@@ -1733,13 +1499,6 @@ void Framework::CreateDrapeEngine(ref_ptr<dp::GraphicsContextFactory> contextFac
     });
   };
 
-  auto filterFeatureFn = [this](FeatureType & ft) -> bool
-  {
-    if (m_purchase && !m_purchase->IsSubscriptionActive(SubscriptionType::RemoveAds))
-      return false;
-    return PartnerChecker::Instance().IsFakeObject(ft);
-  };
-
   auto overlaysShowStatsFn = [](list<df::OverlayShowEvent> &&)
   {
   };
@@ -1753,10 +1512,6 @@ void Framework::CreateDrapeEngine(ref_ptr<dp::GraphicsContextFactory> contextFac
     });
   };
 
-  auto isUGCFn = [](FeatureID const &)
-  {
-    return false;
-  };
   auto isCountryLoadedByNameFn = bind(&Framework::IsCountryLoadedByName, this, _1);
   auto updateCurrentCountryFn = bind(&Framework::OnUpdateCurrentCountry, this, _1, _2);
 
@@ -1766,10 +1521,8 @@ void Framework::CreateDrapeEngine(ref_ptr<dp::GraphicsContextFactory> contextFac
 
   auto const isAutozoomEnabled = LoadAutoZoom();
 
-  EnableGuidesOnce(params.m_hints.m_isFirstLaunch, params.m_hints.m_isLaunchByDeepLink);
   auto const trafficEnabled = m_trafficManager.IsEnabled();
   auto const isolinesEnabled = m_isolinesManager.IsEnabled();
-  auto const guidesEnabled = m_guidesManager.IsEnabled();
 
   auto const simplifiedTrafficColors = m_trafficManager.HasSimplifiedColorScheme();
   auto const fontsScaleFactor = LoadLargeFontsSize() ? kLargeFontsScaleFactor : 1.0;
@@ -1777,15 +1530,15 @@ void Framework::CreateDrapeEngine(ref_ptr<dp::GraphicsContextFactory> contextFac
   df::DrapeEngine::Params p(
       params.m_apiVersion, contextFactory,
       dp::Viewport(0, 0, params.m_surfaceWidth, params.m_surfaceHeight),
-      df::MapDataProvider(move(idReadFn), move(featureReadFn), move(filterFeatureFn),
+      df::MapDataProvider(move(idReadFn), move(featureReadFn),
                           move(isCountryLoadedByNameFn), move(updateCurrentCountryFn)),
       params.m_hints, params.m_visualScale, fontsScaleFactor, move(params.m_widgetsInitInfo),
       make_pair(params.m_initialMyPositionState, params.m_hasMyPositionState),
       move(myPositionModeChangedFn), allow3dBuildings,
-      trafficEnabled, isolinesEnabled, guidesEnabled,
+      trafficEnabled, isolinesEnabled,
       params.m_isChoosePositionMode, params.m_isChoosePositionMode, GetSelectedFeatureTriangles(),
       m_routingManager.IsRoutingActive() && m_routingManager.IsRoutingFollowing(),
-      isAutozoomEnabled, simplifiedTrafficColors, move(overlaysShowStatsFn), move(isUGCFn),
+      isAutozoomEnabled, simplifiedTrafficColors, move(overlaysShowStatsFn),
       move(onGraphicsContextInitialized));
 
   m_drapeEngine = make_unique_dp<df::DrapeEngine>(move(p));
@@ -1829,7 +1582,6 @@ void Framework::CreateDrapeEngine(ref_ptr<dp::GraphicsContextFactory> contextFac
   m_trafficManager.SetDrapeEngine(make_ref(m_drapeEngine));
   m_transitManager.SetDrapeEngine(make_ref(m_drapeEngine));
   m_isolinesManager.SetDrapeEngine(make_ref(m_drapeEngine));
-  m_guidesManager.SetDrapeEngine(make_ref(m_drapeEngine));
   m_searchMarks.SetDrapeEngine(make_ref(m_drapeEngine));
 
   InvalidateUserMarks();
@@ -1896,7 +1648,6 @@ void Framework::DestroyDrapeEngine()
     m_trafficManager.SetDrapeEngine(nullptr);
     m_transitManager.SetDrapeEngine(nullptr);
     m_isolinesManager.SetDrapeEngine(nullptr);
-    m_guidesManager.SetDrapeEngine(nullptr);
     m_searchMarks.SetDrapeEngine(nullptr);
     GetBookmarkManager().SetDrapeEngine(nullptr);
 
@@ -2110,12 +1861,7 @@ url_scheme::ParsedMapApi::ParsingResult Framework::ParseAndSetApiURL(string cons
     editSession.SetIsVisible(UserMark::Type::API, true);
   }
 
-  auto const result = m_parsedMapApi.SetUrlAndParse(url);
-
-  if (!m_parsedMapApi.GetAffiliateId().empty())
-    m_bookingApi->SetAffiliateId(m_parsedMapApi.GetAffiliateId());
-
-  return result;
+  return m_parsedMapApi.SetUrlAndParse(url);
 }
 
 Framework::ParsedRoutingData Framework::GetParsedRoutingData() const
@@ -2127,11 +1873,6 @@ Framework::ParsedRoutingData Framework::GetParsedRoutingData() const
 url_scheme::SearchRequest Framework::GetParsedSearchRequest() const
 {
   return m_parsedMapApi.GetSearchRequest();
-}
-
-url_scheme::Subscription Framework::GetParsedSubscription() const
-{
-  return m_parsedMapApi.GetSubscription();
 }
 
 FeatureID Framework::GetFeatureAtPoint(m2::PointD const & mercator,
@@ -2237,9 +1978,6 @@ void Framework::ActivateMapSelection()
   if (!m_currentPlacePageInfo)
     return;
 
-  if (m_currentPlacePageInfo->GetSelectedObject() == df::SelectionShape::OBJECT_GUIDE)
-    StopLocationFollow();
-
   auto & bm = GetBookmarkManager();
 
   if (m_currentPlacePageInfo->GetSelectedObject() == df::SelectionShape::OBJECT_TRACK)
@@ -2248,17 +1986,8 @@ void Framework::ActivateMapSelection()
     bm.OnTrackDeselected();
 
   auto const & featureId = m_currentPlacePageInfo->GetID();
-  bool const isHotel = m_currentPlacePageInfo->GetHotelType().has_value();
 
   m_searchMarks.SetSelected(featureId);
-
-  bool isSelectionShapeVisible = true;
-  if (m_currentPlacePageInfo->GetSponsoredType() == place_page::SponsoredType::Booking &&
-      m_searchMarks.IsThereSearchMarkForFeature(featureId))
-  {
-    m_searchMarks.OnActivate(featureId);
-    isSelectionShapeVisible = false;
-  }
 
   CHECK_NOT_EQUAL(m_currentPlacePageInfo->GetSelectedObject(), df::SelectionShape::OBJECT_EMPTY, ("Empty selections are impossible."));
   if (m_drapeEngine != nullptr)
@@ -2267,11 +1996,8 @@ void Framework::ActivateMapSelection()
                                 featureId,
                                 m_currentPlacePageInfo->GetBuildInfo().m_needAnimationOnSelection,
                                 m_currentPlacePageInfo->GetBuildInfo().m_isGeometrySelectionAllowed,
-                                isSelectionShapeVisible);
+                                true);
   }
-
-  SetDisplacementMode(DisplacementModeManager::SLOT_MAP_SELECTION,
-                      isHotel /* show */);
 
   if (m_onPlacePageOpen)
     m_onPlacePageOpen();
@@ -2296,8 +2022,6 @@ void Framework::DeactivateMapSelection(bool notifyUI)
     if (m_drapeEngine != nullptr)
       m_drapeEngine->DeselectObject();
   }
-
-  SetDisplacementMode(DisplacementModeManager::SLOT_MAP_SELECTION, false /* show */);
 }
 
 void Framework::InvalidateUserMarks()
@@ -2329,16 +2053,12 @@ void Framework::DeactivateHotelSearchMark()
 
 void Framework::OnTapEvent(place_page::BuildInfo const & buildInfo)
 {
-  using place_page::SponsoredType;
-
   auto placePageInfo = BuildPlacePageInfo(buildInfo);
 
   if (placePageInfo)
   {
     auto const prevTrackId = m_currentPlacePageInfo ? m_currentPlacePageInfo->GetTrackId()
                                                     : kml::kInvalidTrackId;
-    auto const prevIsGuide = m_currentPlacePageInfo && m_currentPlacePageInfo->IsGuide();
-
     DeactivateHotelSearchMark();
 
     m_currentPlacePageInfo = placePageInfo;
@@ -2359,21 +2079,10 @@ void Framework::OnTapEvent(place_page::BuildInfo const & buildInfo)
       GetBookmarkManager().UpdateElevationMyPosition(m_currentPlacePageInfo->GetTrackId());
     }
 
-    if (m_currentPlacePageInfo->IsGuide())
-    {
-      if (prevIsGuide)
-      {
-        m_guidesManager.OnGuideSelected();
-        return;
-      }
-    }
-
     ActivateMapSelection();
   }
   else
   {
-    m_guidesManager.ResetActiveGuide();
-
     // UI is always notified even if empty map is tapped,
     // because empty tap event switches on/off full screen map view mode.
     DeactivateMapSelection(true /* notifyUI */);
@@ -2426,13 +2135,6 @@ void Framework::BuildTrackPlacePage(BookmarkManager::TrackSelectionInfo const & 
   GetBookmarkManager().SetTrackSelectionInfo(trackSelectionInfo, true /* notifyListeners */);
 }
 
-void Framework::BuildGuidePlacePage(GuideMark const & guideMark, place_page::Info & info)
-{
-  m_guidesManager.SetActiveGuide(guideMark.GetGuideId());
-  info.SetSelectedObject(df::SelectionShape::OBJECT_GUIDE);
-  info.SetIsGuide(true);
-}
-
 std::optional<place_page::Info> Framework::BuildPlacePageInfo(
     place_page::BuildInfo const & buildInfo)
 {
@@ -2478,18 +2180,6 @@ std::optional<place_page::Info> Framework::BuildPlacePageInfo(
         BuildTrackPlacePage(GetBookmarkManager().GetTrackSelectionInfo(selMark.GetTrackId()),
                             outInfo);
         return outInfo;
-      }
-      case UserMark::Type::GUIDE:
-      {
-        auto const & guideMark = *static_cast<GuideMark const *>(mark);
-        BuildGuidePlacePage(guideMark, outInfo);
-        return outInfo;
-      }
-      case UserMark::Type::GUIDE_CLUSTER:
-      {
-        auto const & guideClusterMark = *static_cast<GuidesClusterMark const *>(mark);
-        m_guidesManager.OnClusterSelected(guideClusterMark, m_currentModelView);
-        return {};
       }
       default:
         ASSERT(false, ("FindNearestUserMark returned invalid mark."));
@@ -2616,9 +2306,6 @@ UserMark const * Framework::FindUserMarkInTapPosition(place_page::BuildInfo cons
 
       if (type == UserMark::Type::ROUTING || type == UserMark::Type::ROAD_WARNING)
         return df::TapInfo::GetRoutingPointTapRect(buildInfo.m_mercator, m_currentModelView);
-
-      if (type == UserMark::Type::GUIDE || type == UserMark::Type::GUIDE_CLUSTER)
-        return df::TapInfo::GetGuideTapRect(buildInfo.m_mercator, m_currentModelView);
 
       return df::TapInfo::GetDefaultTapRect(buildInfo.m_mercator, m_currentModelView);
     },
@@ -2854,16 +2541,6 @@ void Framework::SaveIsolinesEnabled(bool enabled)
   settings::Set(kIsolinesEnabledKey, enabled);
 }
 
-bool Framework::LoadGuidesEnabled()
-{
-  bool enabled;
-  if (!settings::Get(kGuidesEnabledKey, enabled))
-    enabled = false;
-  return enabled;
-}
-
-void Framework::SaveGuidesEnabled(bool enabled) { settings::Set(kGuidesEnabledKey, enabled); }
-
 void Framework::EnableChoosePositionMode(bool enable, bool enableBounds, bool applyPosition,
                                          m2::PointD const & position)
 {
@@ -2872,31 +2549,6 @@ void Framework::EnableChoosePositionMode(bool enable, bool enableBounds, bool ap
     m_drapeEngine->EnableChoosePositionMode(enable,
       enableBounds ? GetSelectedFeatureTriangles() : vector<m2::TriangleD>(), applyPosition, position);
   }
-}
-
-discovery::Manager::Params Framework::GetDiscoveryParams(
-    discovery::ClientParams && clientParams) const
-{
-  auto constexpr kRectSideM = 2000.0;
-  discovery::Manager::Params p;
-  p.m_viewportCenter = GetDiscoveryViewportCenter();
-  p.m_viewport = mercator::RectByCenterXYAndSizeInMeters(p.m_viewportCenter, kRectSideM);
-  p.m_curency = clientParams.m_currency;
-  p.m_lang = clientParams.m_lang;
-  p.m_itemsCount = clientParams.m_itemsCount;
-  p.m_itemTypes = move(clientParams.m_itemTypes);
-  return p;
-}
-
-std::string Framework::GetDiscoveryLocalExpertsUrl() const
-{
-  return m_discoveryManager->GetLocalExpertsUrl(GetDiscoveryViewportCenter());
-}
-
-m2::PointD Framework::GetDiscoveryViewportCenter() const
-{
-  auto const currentPosition = GetCurrentPosition();
-  return currentPosition ? *currentPosition : GetViewportCenter();
 }
 
 vector<m2::TriangleD> Framework::GetSelectedFeatureTriangles() const
@@ -2966,16 +2618,6 @@ bool Framework::ParseDrapeDebugCommand(string const & query)
   {
     m_drapeEngine->SetPosteffectEnabled(df::PostprocessRenderer::Antialiasing,
                                         false /* enabled */);
-    return true;
-  }
-  if (query == "?ugc")
-  {
-    m_drapeEngine->EnableUGCRendering(true /* enabled */);
-    return true;
-  }
-  if (query == "?no-ugc")
-  {
-    m_drapeEngine->EnableUGCRendering(false /* enabled */);
     return true;
   }
   if (query == "?scheme")
@@ -3605,94 +3247,11 @@ void Framework::RunUITask(function<void()> fn)
   GetPlatform().RunTask(Platform::Thread::Gui, move(fn));
 }
 
-void Framework::SetSearchDisplacementModeEnabled(bool enabled)
-{
-  SetDisplacementMode(DisplacementModeManager::SLOT_INTERACTIVE_SEARCH, enabled /* show */);
-}
-
 void Framework::ShowViewportSearchResults(search::Results::ConstIter begin,
                                           search::Results::ConstIter end, bool clear)
 {
   FillSearchResultsMarks(begin, end, clear,
                          Framework::SearchMarkPostProcessing());
-}
-
-void Framework::ShowViewportSearchResults(search::Results::ConstIter begin,
-                                          search::Results::ConstIter end, bool clear,
-                                          booking::filter::Types types)
-{
-  search::Results results;
-  results.AddResultsNoChecks(begin, end);
-
-  ShowViewportSearchResults(results, clear, types);
-}
-
-void Framework::ShowViewportSearchResults(search::Results const & results, bool clear,
-                                          booking::filter::Types types)
-{
-  using booking::filter::Type;
-  using booking::filter::CachedResults;
-
-  ASSERT(!types.empty(), ());
-
-  auto const fillCallback = [this, clear, results](CachedResults filtersResults)
-  {
-    auto const postProcessing = [this, filtersResults = move(filtersResults)](SearchMarkPoint & mark)
-    {
-      auto const & id = mark.GetFeatureID();
-
-      if (!id.IsValid())
-        return;
-
-      booking::PriceFormatter formatter;
-      for (auto const & filterResult : filtersResults)
-      {
-        auto const & features = filterResult.m_passedFilter;
-        ASSERT(is_sorted(features.cbegin(), features.cend()), ());
-
-        auto const it = lower_bound(features.cbegin(), features.cend(), id);
-
-        auto const found = it != features.cend() && *it == id;
-        switch (filterResult.m_type)
-        {
-        case Type::Deals:
-          mark.SetSale(found);
-          break;
-        case Type::Availability:
-          // Some hotels might be unavailable by offline filters.
-          auto const isAvailable = found && !m_searchMarks.IsUnavailable(id);
-
-          mark.SetPreparing(!isAvailable);
-
-          if (isAvailable && !filterResult.m_extras.empty())
-          {
-            auto const index = distance(features.cbegin(), it);
-            auto price = formatter.Format(filterResult.m_extras[index].m_price,
-                                          filterResult.m_extras[index].m_currency);
-            mark.SetPrice(move(price));
-          }
-
-          if (!found)
-          {
-            auto const & filteredOut = filterResult.m_filteredOut;
-            ASSERT(is_sorted(filteredOut.cbegin(), filteredOut.cend()), ());
-
-            auto const isFilteredOut = binary_search(filteredOut.cbegin(), filteredOut.cend(), id);
-
-            if (isFilteredOut)
-              m_searchMarks.SetUnavailable(mark, "booking_map_component_availability");
-          }
-
-          break;
-        }
-      }
-    };
-
-    FillSearchResultsMarks(results.begin(), results.end(), clear,
-                           postProcessing);
-  };
-
-  m_bookingFilterProcessor.GetFeaturesFromCache(types, results, fillCallback);
 }
 
 void Framework::ClearViewportSearchResults()
@@ -3789,18 +3348,6 @@ void Framework::InitCityFinder()
   m_cityFinder = make_unique<search::CityFinder>(m_featuresFetcher.GetDataSource());
 }
 
-void Framework::InitTaxiEngine()
-{
-  ASSERT(!m_taxiEngine, ());
-  ASSERT(m_infoGetter, ());
-  ASSERT(m_cityFinder, ());
-
-  m_taxiEngine = std::make_unique<taxi::Engine>();
-
-  m_taxiEngine->SetDelegate(
-      std::make_unique<TaxiDelegate>(GetStorage(), *m_infoGetter, *m_cityFinder));
-}
-
 void Framework::SetPlacePageLocation(place_page::Info & info)
 {
   ASSERT(m_infoGetter, ());
@@ -3814,19 +3361,6 @@ void Framework::SetPlacePageLocation(place_page::Info & info)
     GetStorage().GetTopmostNodesFor(info.GetCountryId(), countries);
     info.SetTopmostCountryIds(move(countries));
   }
-}
-
-void Framework::FillLocalExperts(FeatureType & ft, place_page::Info & info) const
-{
-  if (GetDrawScale() > scales::GetUpperWorldScale() ||
-      !ftypes::IsCityChecker::Instance()(ft))
-  {
-    info.SetLocalsStatus(place_page::LocalsStatus::NotAvailable);
-    return;
-  }
-
-  info.SetLocalsStatus(place_page::LocalsStatus::Available);
-  info.SetLocalsPageUrl(locals::Api::GetLocalsPageUrl());
 }
 
 void Framework::FillDescription(FeatureType & ft, place_page::Info & info) const
@@ -3845,39 +3379,6 @@ void Framework::FillDescription(FeatureType & ft, place_page::Info & info) const
                         ? place_page::OpeningMode::Preview
                         : place_page::OpeningMode::PreviewPlus);
   }
-}
-
-void Framework::FilterResultsForHotelsQuery(booking::filter::Tasks const & filterTasks,
-                                            search::Results const & results, bool inViewport)
-{
-  auto tasksInternal = booking::MakeInternalTasks(filterTasks, m_searchMarks, inViewport);
-  m_bookingFilterProcessor.ApplyFilters(results, move(tasksInternal), filterTasks.GetMode());
-}
-
-void Framework::FilterHotels(booking::filter::Tasks const & filterTasks,
-                             vector<FeatureID> && featureIds)
-{
-  auto tasksInternal = booking::MakeInternalTasks(filterTasks, m_searchMarks);
-  m_bookingFilterProcessor.ApplyFilters(move(featureIds), move(tasksInternal),
-                                        filterTasks.GetMode());
-}
-
-void Framework::OnBookingFilterParamsUpdate(booking::filter::Tasks const & filterTasks)
-{
-  m_activeFilters.clear();
-  for (auto const & task : filterTasks)
-  {
-    if (task.m_type == booking::filter::Type::Availability)
-      m_bookingAvailabilityParams.Set(*task.m_filterParams.m_apiParams);
-
-    m_activeFilters.push_back(task.m_type);
-    m_bookingFilterProcessor.OnParamsUpdated(task.m_type, task.m_filterParams.m_apiParams);
-  }
-}
-
-booking::AvailabilityParams const & Framework::GetLastBookingAvailabilityParams() const
-{
-  return m_bookingAvailabilityParams;
 }
 
 bool Framework::HaveTransit(m2::PointD const & pt) const
@@ -3927,25 +3428,4 @@ void Framework::OnPowerSchemeChanged(power_management::Scheme const actualScheme
 {
   if (actualScheme == power_management::Scheme::EconomyMaximum && GetTrafficManager().IsEnabled())
     GetTrafficManager().SetEnabled(false);
-}
-
-void Framework::EnableGuidesOnce(bool isFirstLaunch, bool isLaunchByDeeplink)
-{
-  if (m_guidesManager.IsEnabled() || !GetPlatform().IsConnected() || !platform::IsGuidesLayerFirstLaunch())
-    return;
-
-  GetTrafficManager().SetEnabled(false);
-  SaveTrafficEnabled(false);
-
-  GetIsolinesManager().SetEnabled(false);
-  SaveIsolinesEnabled(false);
-
-  GetTransitManager().EnableTransitSchemeMode(false);
-  SaveTransitSchemeEnabled(false);
-
-  platform::SetGuidesLayerFirstLaunch(true);
-  SaveGuidesEnabled(true);
-
-  bool suggestZoom = !m_routingManager.IsRoutingActive() && !isFirstLaunch && !isLaunchByDeeplink;
-  m_guidesManager.SetEnabled(true /* enabled */, true /* silentMode */, suggestZoom);
 }

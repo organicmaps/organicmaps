@@ -30,9 +30,7 @@ omim_link_libraries(
     descriptions
     storage
     search
-    ugc
     drape
-    partners_api
     web_api
     kml
     editor

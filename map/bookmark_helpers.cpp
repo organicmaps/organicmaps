@@ -493,16 +493,6 @@ std::string GetPreferredBookmarkName(kml::BookmarkData const & bmData)
   return kml::GetPreferredBookmarkName(bmData, languages::GetCurrentOrig());
 }
 
-bool FromCatalog(kml::FileData const & kmlData)
-{
-  return FromCatalog(kmlData.m_categoryData, kmlData.m_serverId);
-}
-
-bool FromCatalog(kml::CategoryData const & categoryData, std::string const & serverId)
-{
-  return !serverId.empty() && categoryData.m_accessRules != kml::AccessRules::Local;
-}
-
 bool IsMyCategory(std::string const & userId, kml::CategoryData const & categoryData)
 {
   return userId == categoryData.m_authorId;

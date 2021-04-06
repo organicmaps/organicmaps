@@ -29,12 +29,10 @@ final class BookmarksTabViewController: TabViewController {
     super.viewDidLoad()
 
     let bookmarks = BMCViewController(coordinator: coordinator)
-    let catalog = DownloadedBookmarksViewController(coordinator: coordinator)
     bookmarks.title = L("bookmarks")
-    catalog.title = L("guides")
-    viewControllers = [bookmarks, catalog]
+    viewControllers = [bookmarks]
 
-    title = L("bookmarks_guides");
+    title = L("bookmarks");
     tabView.selectedIndex = activeTab.rawValue
   }
 

@@ -11,9 +11,6 @@ set(
   affiliation.hpp
   altitude_generator.cpp
   altitude_generator.hpp
-  booking_dataset.cpp
-  booking_dataset.hpp
-  booking_scoring.cpp
   boost_helpers.hpp
   borders.cpp
   borders.hpp
@@ -143,9 +140,6 @@ set(
   mini_roundabout_transformer.hpp
   node_mixer.cpp
   node_mixer.hpp
-  opentable_dataset.cpp
-  opentable_dataset.hpp
-  opentable_scoring.cpp
   osm2meta.cpp
   osm2meta.hpp
   osm2type.cpp
@@ -165,7 +159,6 @@ set(
   popular_places_section_builder.hpp
   postcode_points_builder.cpp
   postcode_points_builder.hpp
-  processor_booking.hpp
   processor_coastline.cpp
   processor_coastline.hpp
   processor_complex.cpp
@@ -179,9 +172,6 @@ set(
   processor_simple.hpp
   processor_world.cpp
   processor_world.hpp
-  promo_catalog_cities.hpp
-  ratings_section_builder.cpp
-  ratings_section_builder.hpp
   raw_generator.cpp
   raw_generator.hpp
   raw_generator_writer.cpp
@@ -210,12 +200,6 @@ set(
   routing_world_roads_generator.hpp
   search_index_builder.cpp
   search_index_builder.hpp
-  sponsored_dataset.hpp
-  sponsored_dataset_inl.hpp
-  sponsored_object_base.hpp
-  sponsored_object_storage.hpp
-  sponsored_scoring.cpp
-  sponsored_scoring.hpp
   srtm_parser.cpp
   srtm_parser.hpp
   statistics.cpp
@@ -249,12 +233,6 @@ set(
   translators_pool.hpp
   type_helper.cpp
   type_helper.hpp
-  ugc_db.cpp
-  ugc_db.hpp
-  ugc_section_builder.cpp
-  ugc_section_builder.hpp
-  ugc_translator.cpp
-  ugc_translator.hpp
   unpack_mwm.cpp
   unpack_mwm.hpp
   utils.cpp
@@ -276,7 +254,6 @@ omim_add_test_subdirectory(generator_integration_tests)
 
 add_subdirectory(generator_tool)
 add_subdirectory(complex_generator)
-add_subdirectory(booking_quality_check)
 add_subdirectory(feature_segments_checker)
 add_subdirectory(srtm_coverage_checker)
 add_subdirectory(world_roads_builder)

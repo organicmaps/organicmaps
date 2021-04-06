@@ -969,28 +969,6 @@ void RoutingManager::GenerateNotifications(vector<string> & turnNotifications)
   m_routingSession.GenerateNotifications(turnNotifications);
 }
 
-routing::GuidesTracks RoutingManager::GetGuidesTracks() const
-{
-  if (m_currentRouterType != RouterType::Pedestrian && m_currentRouterType != RouterType::Bicycle)
-    return {};
-
-  routing::GuidesTracks guides;
-  for (auto const categoryId : m_bmManager->GetBmGroupsIdList())
-  {
-    if (!m_bmManager->IsCategoryFromCatalog(categoryId) || !m_bmManager->IsVisible(categoryId))
-      continue;
-
-    auto const tracksIds = m_bmManager->GetTrackIds(categoryId);
-    if (tracksIds.empty())
-      continue;
-
-    guides[categoryId].reserve(tracksIds.size());
-    for (auto const & trackId : tracksIds)
-      guides[categoryId].emplace_back(m_bmManager->GetTrack(trackId)->GetPointsWithAltitudes());
-  }
-  return guides;
-}
-
 void RoutingManager::BuildRoute(uint32_t timeoutSec)
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ("BuildRoute"));
@@ -1052,7 +1030,7 @@ void RoutingManager::BuildRoute(uint32_t timeoutSec)
   for (auto const & point : routePoints)
     points.push_back(point.m_position);
 
-  m_routingSession.BuildRoute(Checkpoints(move(points)), GetGuidesTracks(), timeoutSec);
+  m_routingSession.BuildRoute(Checkpoints(move(points)), timeoutSec);
 }
 
 void RoutingManager::SetUserCurrentPosition(m2::PointD const & position)

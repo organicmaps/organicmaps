@@ -107,7 +107,6 @@ protocol IBookmarksListInteractor {
 
 protocol IBookmarksListRouter {
   func listSettings(_ bookmarkGroup: BookmarkGroup, delegate: CategorySettingsViewControllerDelegate?)
-  func sharingOptions(_ bookmarkGroup: BookmarkGroup)
   func viewOnMap(_ bookmarkGroup: BookmarkGroup)
   func showDescription(_ bookmarkGroup: BookmarkGroup)
   func showSubgroup(_ subgroupId: MWMMarkGroupID)
@@ -118,5 +117,4 @@ protocol IBookmakrsListInfoViewModel {
   var author: String { get }
   var hasDescription: Bool { get }
   var imageUrl: URL? { get }
-  var hasLogo: Bool { get } //TODO: maybe replace with logo url or similar
 }

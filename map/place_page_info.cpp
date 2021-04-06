@@ -1,17 +1,14 @@
 #include "map/place_page_info.hpp"
 
 #include "map/bookmark_helpers.hpp"
-#include "map/reachable_by_taxi_checker.hpp"
 
 #include "descriptions/loader.hpp"
 
-#include "partners_api/partners.hpp"
 
 #include "editor/osm_editor.hpp"
 
 #include "indexer/feature_source.hpp"
 #include "indexer/feature_utils.hpp"
-#include "indexer/ftypes_sponsored.hpp"
 #include "indexer/road_shields_parser.hpp"
 
 #include "platform/measurement_utils.hpp"
@@ -26,15 +23,9 @@
 
 namespace place_page
 {
-namespace
-{
-auto constexpr kTopRatingBound = 10.0f;
-}  // namespace
-
 char const * const Info::kSubtitleSeparator = " • ";
 char const * const Info::kStarSymbol = "★";
 char const * const Info::kMountainSymbol = "▲";
-char const * const Info::kPricingSymbol = "$";
 char const * const kWheelchairSymbol = u8"\u267F";
 
 bool Info::IsBookmark() const
@@ -46,13 +37,6 @@ bool Info::ShouldShowAddPlace() const
 {
   auto const isPointOrBuilding = IsPointType() || IsBuilding();
   return m_canEditOrAdd && !(IsFeature() && isPointOrBuilding);
-}
-
-bool Info::ShouldShowUGC() const
-{
-  return ftraits::UGC::IsUGCAvailable(m_sortedTypes) &&
-         (m_featureStatus == FeatureStatus::Untouched ||
-          m_featureStatus == FeatureStatus::Modified);
 }
 
 void Info::SetFromFeatureType(FeatureType & ft)
@@ -245,8 +229,6 @@ void Info::SetFromBookmarkProperties(kml::Properties const & p)
     m_metadata.Set(feature::Metadata::EType::FMD_EMAIL, email->second);
   if (auto const url = p.find("url"); url != p.end() && !url->second.empty())
     m_metadata.Set(feature::Metadata::EType::FMD_URL, url->second);
-  if (auto const isTopChoice = p.find("is_top_choice"); isTopChoice != p.end())
-    m_isTopChoice = isTopChoice->second == "1";
   m_hasMetadata = true;
 }
 
@@ -256,22 +238,11 @@ void Info::SetBookmarkId(kml::MarkId bookmarkId)
   m_uiSubtitle = FormatSubtitle(IsFeature() /* withType */);
 }
 
-bool Info::IsNotEditableSponsored() const
-{
-  return m_sponsoredType == SponsoredType::Booking ||
-         m_sponsoredType == SponsoredType::Holiday;
-}
-
 bool Info::ShouldShowEditPlace() const
 {
   return m_canEditOrAdd &&
          // TODO(mgsergio): Does IsFeature() imply !IsMyPosition()?
          !IsMyPosition() && IsFeature();
-}
-
-ftraits::UGCRatingCategories Info::GetRatingCategories() const
-{
-  return ftraits::UGC::GetCategories(m_sortedTypes);
 }
 
 kml::LocalizableString Info::FormatNewBookmarkName() const
@@ -309,54 +280,6 @@ std::string Info::GetFormattedCoordinate(bool isDMS) const
   auto const & ll = GetLatLon();
   return isDMS ? measurement_utils::FormatLatLon(ll.m_lat, ll.m_lon, true)
                : measurement_utils::FormatLatLonAsDMS(ll.m_lat, ll.m_lon, 2);
-}
-
-float Info::GetRatingRawValue() const
-{
-  if (!IsSponsored() && !ShouldShowUGC())
-    return kIncorrectRating;
-
-  // Only sponsored rating is stored in metadata. UGC rating will be stored in special section and will be ready soon.
-  auto const rating = GetMetadata().Get(feature::Metadata::FMD_RATING);
-  float raw;
-  if (!strings::to_float(rating, raw))
-    return kIncorrectRating;
-
-  return raw;
-}
-
-std::string Info::GetApproximatePricing() const
-{
-  if (!IsSponsored())
-    return std::string();
-
-  int pricing;
-  if (!strings::to_int(GetMetadata().Get(feature::Metadata::FMD_PRICE_RATE), pricing))
-    return std::string();
-
-  std::string result;
-  for (auto i = 0; i < pricing; i++)
-    result.append(kPricingSymbol);
-
-  return result;
-}
-
-std::optional<int> Info::GetRawApproximatePricing() const
-{
-  if (!IsSponsored())
-    return {};
-
-  int pricing;
-  if (strings::to_int(GetMetadata().Get(feature::Metadata::FMD_PRICE_RATE), pricing))
-    return pricing;
-
-  return {};
-}
-
-void Info::SetPartnerIndex(int index)
-{
-  m_partnerIndex = index;
-  m_partnerName = GetPartnerByIndex(m_partnerIndex).m_name;
 }
 
 void Info::SetRoadType(RoadWarningMarkType type, std::string const & localizedType, std::string const & distance)
@@ -411,59 +334,4 @@ void Info::SetRoadType(FeatureType & ft, RoadWarningMarkType type, std::string c
   m_uiSubtitle = strings::JoinStrings(subtitle, kSubtitleSeparator);
 }
 
-namespace rating
-{
-namespace
-{
-std::string const kEmptyRatingSymbol = "-";
-}  // namespace
-
-FilterRating GetFilterRating(float const rawRating)
-{
-  CHECK_LESS_OR_EQUAL(rawRating, kTopRatingBound, ());
-  CHECK_GREATER_OR_EQUAL(rawRating, 0, ());
-
-  auto const rounded = static_cast<int>(rawRating);
-  if (rounded < 7)
-    return FilterRating::Any;
-  if (rounded < 8)
-    return FilterRating::Good;
-  if (rounded < 9)
-    return FilterRating::VeryGood;
-
-  return FilterRating::Excellent;
-}
-
-Impress GetImpress(float const rawRating)
-{
-  CHECK_LESS_OR_EQUAL(rawRating, kTopRatingBound, ());
-  CHECK_GREATER_OR_EQUAL(rawRating, kIncorrectRating, ());
-
-  if (rawRating == kIncorrectRating)
-    return Impress::None;
-  if (rawRating < 0.2f * kTopRatingBound)
-    return Impress::Horrible;
-  if (rawRating < 0.4f * kTopRatingBound)
-    return Impress::Bad;
-  if (rawRating < 0.6f * kTopRatingBound)
-    return Impress::Normal;
-  if (rawRating < 0.8f * kTopRatingBound)
-    return Impress::Good;
-
-  return Impress::Excellent;
-}
-
-std::string GetRatingFormatted(float const rawRating)
-{
-  CHECK_LESS_OR_EQUAL(rawRating, kTopRatingBound, ());
-  CHECK_GREATER_OR_EQUAL(rawRating, kIncorrectRating, ());
-
-  if (rawRating == kIncorrectRating)
-    return kEmptyRatingSymbol;
-
-  std::ostringstream oss;
-  oss << std::setprecision(2) << rawRating;
-  return oss.str();
-}
-}  // namespace rating
 }  // namespace place_page

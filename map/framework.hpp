@@ -1,22 +1,16 @@
 #pragma once
 
 #include "map/api_mark_point.hpp"
-#include "map/booking_filter_params.hpp"
-#include "map/booking_filter_processor.hpp"
 #include "map/bookmark.hpp"
 #include "map/bookmark_manager.hpp"
 #include "map/caching_address_getter.hpp"
-#include "map/discovery/discovery_manager.hpp"
-#include "map/displacement_mode_manager.hpp"
 #include "map/features_fetcher.hpp"
-#include "map/guides_manager.hpp"
 #include "map/isolines_manager.hpp"
 #include "map/mwm_url.hpp"
 #include "map/place_page_info.hpp"
 #include "map/position_provider.hpp"
 #include "map/power_management/power_management_schemas.hpp"
 #include "map/power_management/power_manager.hpp"
-#include "map/purchase.hpp"
 #include "map/routing_manager.hpp"
 #include "map/routing_mark.hpp"
 #include "map/search_api.hpp"
@@ -58,10 +52,6 @@
 
 #include "tracking/reporter.hpp"
 
-#include "partners_api/booking_api.hpp"
-#include "partners_api/locals_api.hpp"
-#include "partners_api/promo_api.hpp"
-#include "partners_api/taxi_engine.hpp"
 
 #include "platform/country_defines.hpp"
 #include "platform/location.hpp"
@@ -204,10 +194,6 @@ protected:
 
   SearchMarks m_searchMarks;
 
-  std::unique_ptr<booking::Api> m_bookingApi = std::make_unique<booking::Api>();
-  std::unique_ptr<locals::Api> m_localsApi = std::make_unique<locals::Api>();
-  std::unique_ptr<promo::Api> m_promoApi = std::make_unique<promo::Api>();
-
   df::DrapeApi m_drapeApi;
 
   bool m_isRenderingEnabled;
@@ -217,17 +203,12 @@ protected:
 
   TransitReadManager m_transitManager;
   IsolinesManager m_isolinesManager;
-  GuidesManager m_guidesManager;
 
   // Note. |m_routingManager| should be declared before |m_trafficManager|
   RoutingManager m_routingManager;
 
   TrafficManager m_trafficManager;
   User m_user;
-
-  booking::filter::FilterProcessor m_bookingFilterProcessor;
-  booking::AvailabilityParams m_bookingAvailabilityParams;
-  booking::filter::Types m_activeFilters;
 
   /// This function will be called by m_storage when latest local files
   /// is downloaded.
@@ -250,14 +231,7 @@ protected:
 
 public:
   explicit Framework(FrameworkParams const & params = {});
-  virtual ~Framework();
-
-  /// Get access to booking api helpers
-  booking::Api * GetBookingApi(platform::NetworkPolicy const & policy);
-  booking::Api const * GetBookingApi(platform::NetworkPolicy const & policy) const;
-  taxi::Engine * GetTaxiEngine(platform::NetworkPolicy const & policy);
-  locals::Api * GetLocalsApi(platform::NetworkPolicy const & policy);
-  promo::Api * GetPromoApi(platform::NetworkPolicy const & policy) const;
+  virtual ~Framework() override;
 
   df::DrapeApi & GetDrapeApi() { return m_drapeApi; }
 
@@ -344,12 +318,8 @@ public:
 public:
   // SearchAPI::Delegate overrides:
   void RunUITask(std::function<void()> fn) override;
-  void SetSearchDisplacementModeEnabled(bool enabled) override;
   void ShowViewportSearchResults(search::Results::ConstIter begin,
                                  search::Results::ConstIter end, bool clear) override;
-  void ShowViewportSearchResults(search::Results::ConstIter begin,
-                                 search::Results::ConstIter end, bool clear,
-                                 booking::filter::Types types) override;
   void ClearViewportSearchResults() override;
   // PositionProvider, SearchApi::Delegate and TipsApi::Delegate override.
   std::optional<m2::PointD> GetCurrentPosition() const override;
@@ -357,8 +327,6 @@ public:
   m2::PointD GetMinDistanceBetweenResults() const override;
 
 private:
-  void ShowViewportSearchResults(search::Results const & results, bool clear, booking::filter::Types types);
-
   void ActivateMapSelection();
   void InvalidateUserMarks();
 
@@ -412,7 +380,6 @@ private:
   std::optional<place_page::Info> BuildPlacePageInfo(place_page::BuildInfo const & buildInfo);
   void BuildTrackPlacePage(BookmarkManager::TrackSelectionInfo const & trackSelectionInfo,
                            place_page::Info & info);
-  void BuildGuidePlacePage(GuideMark const & guideMark, place_page::Info & info);
   BookmarkManager::TrackSelectionInfo FindTrackInTapPosition(place_page::BuildInfo const & buildInfo) const;
   UserMark const * FindUserMarkInTapPosition(place_page::BuildInfo const & buildInfo) const;
   FeatureID FindBuildingAtPoint(m2::PointD const & mercator) const;
@@ -498,14 +465,9 @@ public:
 
   void PrepareToShutdown();
 
-  void SetDisplacementMode(DisplacementModeManager::Slot slot, bool show);
-
 private:
   void InitCountryInfoGetter();
   void InitSearchAPI(size_t numThreads);
-  void InitDiscoveryManager();
-
-  DisplacementModeManager m_displacementModeManager;
 
   bool m_connectToGpsTrack; // need to connect to tracker when Drape is being constructed
 
@@ -629,7 +591,6 @@ public:
 
   ParsedRoutingData GetParsedRoutingData() const;
   url_scheme::SearchRequest GetParsedSearchRequest() const;
-  url_scheme::Subscription GetParsedSubscription() const;
 
   using FeatureMatcher = std::function<bool(FeatureType & ft)>;
 
@@ -664,7 +625,6 @@ private:
   void FillTrackInfo(Track const & track, m2::PointD const & trackPoint,
                      place_page::Info & info) const;
   void SetPlacePageLocation(place_page::Info & info);
-  void FillLocalExperts(FeatureType & ft, place_page::Info & info) const;
   void FillDescription(FeatureType & ft, place_page::Info & info) const;
 
 public:
@@ -741,8 +701,6 @@ public:
   IsolinesManager & GetIsolinesManager();
   IsolinesManager const & GetIsolinesManager() const;
 
-  GuidesManager & GetGuidesManager();
-
   bool LoadTrafficEnabled();
   void SaveTrafficEnabled(bool trafficEnabled);
 
@@ -755,27 +713,8 @@ public:
   bool LoadIsolinesEnabled();
   void SaveIsolinesEnabled(bool enabled);
 
-  bool LoadGuidesEnabled();
-  void SaveGuidesEnabled(bool enabled);
-
   dp::ApiVersion LoadPreferredGraphicsAPI();
   void SavePreferredGraphicsAPI(dp::ApiVersion apiVersion);
-
-public:
-  template <typename ResultCallback>
-  uint32_t Discover(discovery::ClientParams && params, ResultCallback const & onResult,
-                    discovery::Manager::ErrorCalback const & onError) const
-  {
-    CHECK(m_discoveryManager.get(), ());
-    return m_discoveryManager->Discover(GetDiscoveryParams(std::move(params)), onResult, onError);
-  }
-
-  discovery::Manager::Params GetDiscoveryParams(discovery::ClientParams && clientParams) const;
-
-  std::string GetDiscoveryLocalExpertsUrl() const;
-
-private:
-  m2::PointD GetDiscoveryViewportCenter() const;
 
 public:
   /// Routing Manager
@@ -828,35 +767,8 @@ public:
 private:
   std::unique_ptr<search::CityFinder> m_cityFinder;
   CachingAddressGetter m_addressGetter;
-  // The order matters here: storage::CountryInfoGetter and
-  // search::CityFinder must be initialized before
-  // taxi::Engine and, therefore, destroyed after taxi::Engine.
-  std::unique_ptr<taxi::Engine> m_taxiEngine;
 
   void InitCityFinder();
-  void InitTaxiEngine();
-
-public:
-  void FilterResultsForHotelsQuery(booking::filter::Tasks const & filterTasks,
-                                   search::Results const & results, bool inViewport) override;
-  void FilterHotels(booking::filter::Tasks const & filterTasks,
-                    std::vector<FeatureID> && featureIds) override;
-  void OnBookingFilterParamsUpdate(booking::filter::Tasks const & filterTasks) override;
-
-  booking::AvailabilityParams const & GetLastBookingAvailabilityParams() const;
-
-private:
-  // m_discoveryManager must be bellow m_searchApi, m_localsApi
-  std::unique_ptr<discovery::Manager> m_discoveryManager;
-
-public:
-  std::unique_ptr<Purchase> const & GetPurchase() const { return m_purchase; }
-  std::unique_ptr<Purchase> & GetPurchase() { return m_purchase; }
-
-private:
-  std::unique_ptr<Purchase> m_purchase;
-
-  void EnableGuidesOnce(bool isFirstLaunch, bool isLaunchByDeeplink);
 
 public:
   // TipsApi::Delegate override.

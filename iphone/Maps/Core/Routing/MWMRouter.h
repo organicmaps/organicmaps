@@ -15,7 +15,6 @@ typedef void (^MWMImageHeightBlock)(UIImage *, NSString *);
 + (void)subscribeToEvents;
 + (void)unsubscribeFromEvents;
 
-+ (BOOL)isTaxi;
 + (BOOL)isRoutingActive;
 + (BOOL)isRouteBuilt;
 + (BOOL)isRouteFinished;

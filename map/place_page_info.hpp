@@ -3,9 +3,6 @@
 #include "map/bookmark.hpp"
 #include "map/routing_mark.hpp"
 
-#include "ugc/api.hpp"
-
-#include "partners_api/taxi_provider.hpp"
 
 #include "storage/storage_defines.hpp"
 
@@ -35,24 +32,6 @@
 
 namespace place_page
 {
-enum class SponsoredType
-{
-  None,
-  Booking,
-  Opentable,
-  Partner,
-  Holiday,
-  PromoCatalogCity,
-  PromoCatalogSightseeings,
-  PromoCatalogOutdoor,
-};
-
-enum class LocalsStatus
-{
-  NotAvailable,
-  Available
-};
-
 enum class OpeningMode
 {
   Preview = 0,
@@ -60,8 +39,6 @@ enum class OpeningMode
   Details,
   Full
 };
-
-auto constexpr kIncorrectRating = kInvalidRatingValue;
 
 struct BuildInfo
 {
@@ -126,7 +103,6 @@ public:
   static char const * const kSubtitleSeparator;
   static char const * const kStarSymbol;
   static char const * const kMountainSymbol;
-  static char const * const kPricingSymbol;
 
   void SetBuildInfo(place_page::BuildInfo const & info) { m_buildInfo = info; }
   place_page::BuildInfo const & GetBuildInfo() const { return m_buildInfo; }
@@ -138,20 +114,12 @@ public:
   bool IsMyPosition() const { return m_selectedObject == df::SelectionShape::ESelectedObject::OBJECT_MY_POSITION; }
   bool IsRoutePoint() const { return m_isRoutePoint; }
   bool IsRoadType() const { return m_roadType != RoadWarningMarkType::Count; }
-  bool IsGuide() const { return m_isGuide; }
   bool HasMetadata() const { return m_hasMetadata; }
 
   /// Edit and add
   bool ShouldShowAddPlace() const;
   bool ShouldShowAddBusiness() const { return m_canEditOrAdd && IsBuilding(); }
   bool ShouldShowEditPlace() const;
-
-  /// UGC
-  bool ShouldShowUGC() const;
-  bool CanBeRated() const { return ftraits::UGC::IsRatingAvailable(m_sortedTypes); }
-  bool CanBeReviewed() const { return ftraits::UGC::IsReviewsAvailable(m_sortedTypes); }
-  bool CanHaveExtendedReview() const { return ftraits::UGC::IsDetailsAvailable(m_sortedTypes); }
-  ftraits::UGCRatingCategories GetRatingCategories() const;
 
   /// @returns true if Back API button should be displayed.
   bool HasApiUrl() const { return !m_apiUrl.empty(); }
@@ -171,11 +139,6 @@ public:
   std::string const & GetDescription() const { return m_description; }
   /// @returns coordinate in DMS format if isDMS is true
   std::string GetFormattedCoordinate(bool isDMS) const;
-  /// @return rating raw value or kInvalidRating if there is no data.
-  float GetRatingRawValue() const;
-  /// @returns string with |kPricingSymbol| signs or empty std::string if it isn't booking object
-  std::string GetApproximatePricing() const;
-  std::optional<int> GetRawApproximatePricing() const;
 
   /// UI setters
   void SetCustomName(std::string const & name);
@@ -196,66 +159,22 @@ public:
   void SetBookmarkCategoryName(std::string const & name) { m_bookmarkCategoryName = name; }
   void SetBookmarkData(kml::BookmarkData const & data) { m_bookmarkData = data; }
   kml::BookmarkData const & GetBookmarkData() const { return m_bookmarkData; }
-  bool IsTopChoice() const { return m_isTopChoice; }
 
   /// Track
   void SetTrackId(kml::TrackId trackId) { m_trackId = trackId; };
   kml::TrackId GetTrackId() const { return m_trackId; };
-
-  /// Guide
-  void SetIsGuide(bool isGuide) { m_isGuide = isGuide; }
 
   /// Api
   void SetApiId(std::string const & apiId) { m_apiId = apiId; }
   void SetApiUrl(std::string const & url) { m_apiUrl = url; }
   std::string const & GetApiUrl() const { return m_apiUrl; }
 
-  /// Sponsored
-  bool IsSponsored() const { return m_sponsoredType != SponsoredType::None; }
-  bool IsNotEditableSponsored() const;
-  void SetBookingSearchUrl(std::string const & url) { m_bookingSearchUrl = url; }
-  std::string const & GetBookingSearchUrl() const { return m_bookingSearchUrl; }
-  void SetSponsoredUrl(std::string const & url) { m_sponsoredUrl = url; }
-  std::string const & GetSponsoredUrl() const { return m_sponsoredUrl; }
-  void SetSponsoredDeepLink(std::string const & url) { m_sponsoredDeepLink = url; }
-  std::string const & GetSponsoredDeepLink() const { return m_sponsoredDeepLink; }
-  void SetSponsoredDescriptionUrl(std::string const & url) { m_sponsoredDescriptionUrl = url; }
-  std::string const & GetSponsoredDescriptionUrl() const { return m_sponsoredDescriptionUrl; }
-  void SetSponsoredMoreUrl(std::string const & url) { m_sponsoredMoreUrl = url; }
-  std::string const & GetSponsoredMoreUrl() const { return m_sponsoredMoreUrl; }
-  void SetSponsoredReviewUrl(std::string const & url) { m_sponsoredReviewUrl = url; }
-  std::string const & GetSponsoredReviewUrl() const { return m_sponsoredReviewUrl; }
-  void SetSponsoredType(SponsoredType type) { m_sponsoredType = type; }
-  SponsoredType GetSponsoredType() const { return m_sponsoredType; }
-
   void SetOpeningMode(OpeningMode openingMode) { m_openingMode = openingMode; }
   OpeningMode GetOpeningMode() const { return m_openingMode; }
-
-  /// Partners
-  int GetPartnerIndex() const { return m_partnerIndex; }
-  std::string const & GetPartnerName() const { return m_partnerName; }
-  void SetPartnerIndex(int index);
 
   /// Feature status
   void SetFeatureStatus(FeatureStatus const status) { m_featureStatus = status; }
   FeatureStatus GetFeatureStatus() const { return m_featureStatus; }
-
-  /// Taxi
-  void SetReachableByTaxiProviders(std::vector<taxi::Provider::Type> const & providers)
-  {
-    m_reachableByProviders = providers;
-  }
-
-  std::vector<taxi::Provider::Type> const & ReachableByTaxiProviders() const
-  {
-    return m_reachableByProviders;
-  }
-
-  /// Local experts
-  void SetLocalsStatus(LocalsStatus status) { m_localsStatus = status; }
-  LocalsStatus GetLocalsStatus() const { return m_localsStatus; }
-  void SetLocalsPageUrl(std::string const & url) { m_localsUrl = url; }
-  std::string const & GetLocalsPageUrl() const { return m_localsUrl; }
 
   /// Routing
   void SetRouteMarkType(RouteMarkType type) { m_routeMarkType = type; }
@@ -295,7 +214,7 @@ public:
 
   void SetPopularity(uint8_t popularity) { m_popularity = popularity; }
   uint8_t GetPopularity() const { return m_popularity; }
-  std::string const & GetPrimaryFeatureName() const { return m_primaryFeatureName; };
+  std::string const & GetPrimaryFeatureName() const { return m_primaryFeatureName; }
 
   void SetSelectedObject(df::SelectionShape::ESelectedObject selectedObject) { m_selectedObject = selectedObject; }
   df::SelectionShape::ESelectedObject GetSelectedObject() const { return m_selectedObject; }
@@ -339,13 +258,8 @@ private:
   kml::BookmarkData m_bookmarkData;
   /// If not invalid, track is bound to this place page.
   kml::TrackId m_trackId = kml::kInvalidTrackId;
-  /// Whether to show "Must See".
-  bool m_isTopChoice = false;
   /// Whether to treat it as plain feature.
   bool m_hasMetadata = false;
-
-  /// Guide
-  bool m_isGuide = false;
 
   /// Api ID passed for the selected object. It's automatically included in api url below.
   std::string m_apiId;
@@ -367,30 +281,8 @@ private:
   /// See initialization in framework.
   bool m_canEditOrAdd = false;
 
-  std::vector<taxi::Provider::Type> m_reachableByProviders;
-  /// Sponsored type or None.
-  SponsoredType m_sponsoredType = SponsoredType::None;
-
   /// Feature status
   FeatureStatus m_featureStatus = FeatureStatus::Untouched;
-
-  /// Sponsored feature urls.
-  std::string m_sponsoredUrl;
-  std::string m_sponsoredDeepLink;
-  std::string m_sponsoredDescriptionUrl;
-  std::string m_sponsoredMoreUrl;
-  std::string m_sponsoredReviewUrl;
-
-  /// Booking
-  std::string m_bookingSearchUrl;
-
-  /// Local experts
-  std::string m_localsUrl;
-  LocalsStatus m_localsStatus = LocalsStatus::NotAvailable;
-
-  /// Partners
-  int m_partnerIndex = -1;
-  std::string m_partnerName;
 
   feature::TypesHolder m_sortedTypes;
 
@@ -404,30 +296,4 @@ private:
 
   df::SelectionShape::ESelectedObject m_selectedObject = df::SelectionShape::ESelectedObject::OBJECT_EMPTY;
 };
-
-namespace rating
-{
-enum class FilterRating
-{
-  Any,
-  Good,
-  VeryGood,
-  Excellent
-};
-
-enum Impress
-{
-  None,
-  Horrible,
-  Bad,
-  Normal,
-  Good,
-  Excellent
-};
-
-FilterRating GetFilterRating(float const rawRating);
-
-Impress GetImpress(float const rawRating);
-std::string GetRatingFormatted(float const rawRating);
-}  // namespace rating
 }  // namespace place_page

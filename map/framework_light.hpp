@@ -3,8 +3,6 @@
 #include "map/bookmark_manager.hpp"
 #include "map/user.hpp"
 
-#include "ugc/storage.hpp"
-
 #include "storage/country_info_reader_light.hpp"
 
 #include "geometry/point2d.hpp"
@@ -23,7 +21,6 @@ struct LightFrameworkTest;
 enum RequestType
 {
   REQUEST_TYPE_EMPTY = 0u,
-  REQUEST_TYPE_NUMBER_OF_UNSENT_UGC = 1u << 0,
   REQUEST_TYPE_USER_AUTH_STATUS = 1u << 1,
   REQUEST_TYPE_NUMBER_OF_UNSENT_EDITS = 1u << 2,
   REQUEST_TYPE_BOOKMARKS_CLOUD_ENABLED = 1u << 3,
@@ -50,7 +47,6 @@ public:
   explicit Framework(RequestTypeMask request);
 
   bool IsUserAuthenticated() const;
-  size_t GetNumberOfUnsentUGC() const;
   size_t GetNumberOfUnsentEdits() const;
   bool IsBookmarksCloudEnabled() const;
 
@@ -60,7 +56,6 @@ public:
 private:
   RequestTypeMask m_request;
   bool m_userAuthStatus = false;
-  size_t m_numberOfUnsentUGC = 0;
   size_t m_numberOfUnsentEdits = 0;
   bool m_bookmarksCloudEnabled = false;
   std::unique_ptr<CountryInfoReader> m_countryInfoReader;

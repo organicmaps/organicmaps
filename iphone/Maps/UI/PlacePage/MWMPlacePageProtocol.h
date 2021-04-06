@@ -10,7 +10,6 @@ struct FeatureID;
 
 @protocol MWMPlacePageProtocol<MWMFeatureHolder>
 
-- (void)showReview;
 - (BOOL)isPPShown;
 
 @end

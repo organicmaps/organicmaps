@@ -371,35 +371,10 @@ std::string BookmarkCategory::GetName() const
   return GetPreferredBookmarkStr(m_data.m_name);
 }
 
-bool BookmarkCategory::IsCategoryFromCatalog() const
-{
-  return FromCatalog(m_data, m_serverId);
-}
-
 bool BookmarkCategory::HasElevationProfile() const
 {
   auto const it = m_data.m_properties.find(kHasElevationProfileProperty);
   return (it != m_data.m_properties.end()) && (it->second != "0");
-}
-
-std::string BookmarkCategory::GetCatalogDeeplink() const
-{
-  if (kDeepLinkUrl.empty())
-    return {};
-
-  std::ostringstream ss;
-  ss << kDeepLinkUrl << "catalogue?id=" << m_serverId << "&name=" << url::UrlEncode(GetName());
-  return ss.str();
-}
-
-std::string BookmarkCategory::GetCatalogPublicLink() const
-{
-  if (kDeepLinkUrl.empty())
-    return {};
-
-  std::ostringstream ss;
-  ss << kDeepLinkUrl << "guides_page?url=route%2F" << m_serverId;
-  return ss.str();
 }
 
 void BookmarkCategory::SetAuthor(std::string const & name, std::string const & id)

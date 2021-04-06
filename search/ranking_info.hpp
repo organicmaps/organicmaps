@@ -59,9 +59,6 @@ struct RankingInfo
   // Popularity rank of the feature.
   uint8_t m_popularity = 0;
 
-  // Confidence and UGC rating.
-  std::pair<uint8_t, float> m_rating = {0, 0.0f};
-
   // Score for the feature's name.
   NameScore m_nameScore = NAME_SCORE_ZERO;
 
@@ -113,9 +110,6 @@ struct RankingInfo
 
   // True iff the feature has a name.
   bool m_hasName = false;
-
-  // We may want to show results which did not pass filter.
-  bool m_refusedByFilter = false;
 };
 
 ResultType GetResultType(feature::TypesHolder const & th);

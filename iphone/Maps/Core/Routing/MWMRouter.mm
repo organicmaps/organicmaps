@@ -63,19 +63,8 @@ char const *kRenderAltitudeImagesQueueLabel = "mapsme.mwmrouter.renderAltitudeIm
   }
 }
 
-+ (BOOL)isTaxi {
-  return GetFramework().GetRoutingManager().GetRouter() == routing::RouterType::Taxi;
-}
 + (void)startRouting {
-  if (![self isTaxi]) {
-    [self start];
-    return;
-  }
-
-  auto taxiDataSource = [MWMNavigationDashboardManager sharedManager].taxiDataSource;
-  [taxiDataSource taxiURL:^(NSURL *url) {
-    [UIApplication.sharedApplication openURL:url options:@{} completionHandler:nil];
-  }];
+  [self start];
 }
 
 + (void)stopRouting {
@@ -136,7 +125,7 @@ char const *kRenderAltitudeImagesQueueLabel = "mapsme.mwmrouter.renderAltitudeIm
 }
 
 + (BOOL)canAddIntermediatePoint {
-  return GetFramework().GetRoutingManager().CouldAddIntermediatePoint() && ![MWMRouter isTaxi];
+  return GetFramework().GetRoutingManager().CouldAddIntermediatePoint();
 }
 
 - (instancetype)initRouter {
@@ -311,8 +300,7 @@ char const *kRenderAltitudeImagesQueueLabel = "mapsme.mwmrouter.renderAltitudeIm
     [[MWMMapViewControlsManager manager] onRoutePrepare];
     return;
   }
-  // Taxi can't be used as best router.
-  if (bestRouter && ![[self class] isTaxi])
+  if (bestRouter)
     self.type = routerType(rm.GetBestRouter(points.front().m_position, points.back().m_position));
 
   [[MWMMapViewControlsManager manager] onRouteRebuild];
@@ -360,9 +348,6 @@ char const *kRenderAltitudeImagesQueueLabel = "mapsme.mwmrouter.renderAltitudeIm
 
 + (void)stop:(BOOL)removeRoutePoints {
   [self doStop:removeRoutePoints];
-  // Don't save taxi routing type as default.
-  if ([MWMRouter isTaxi])
-    GetFramework().GetRoutingManager().SetRouter(routing::RouterType::Vehicle);
   [self hideNavigationMapControls];
   [MWMRouter router].canAutoAddLastLocation = YES;
 }
@@ -500,8 +485,6 @@ char const *kRenderAltitudeImagesQueueLabel = "mapsme.mwmrouter.renderAltitudeIm
     case routing::RouterResultCode::NeedMoreMaps:
     case routing::RouterResultCode::FileTooOld:
     case routing::RouterResultCode::RouteNotFound:
-      if ([MWMRouter isTaxi])
-        return;
       self.routingOptions = [MWMRoutingOptions new];
       [self presentDownloaderAlert:code countries:absentCountries];
       [[MWMNavigationDashboardManager sharedManager] onRouteError:L(@"routing_planning_error")];
@@ -518,8 +501,6 @@ char const *kRenderAltitudeImagesQueueLabel = "mapsme.mwmrouter.renderAltitudeIm
     case routing::RouterResultCode::TransitRouteNotFoundNoNetwork:
     case routing::RouterResultCode::TransitRouteNotFoundTooLongPedestrian:
     case routing::RouterResultCode::RouteNotFoundRedressRouteError:
-      if ([MWMRouter isTaxi])
-        return;
       [[MWMAlertViewController activeAlertController] presentAlert:code];
       [[MWMNavigationDashboardManager sharedManager] onRouteError:L(@"routing_planning_error")];
       break;
@@ -527,8 +508,7 @@ char const *kRenderAltitudeImagesQueueLabel = "mapsme.mwmrouter.renderAltitudeIm
 }
 
 - (void)processRouteBuilderProgress:(CGFloat)progress {
-  if (![MWMRouter isTaxi])
-    [[MWMNavigationDashboardManager sharedManager] setRouteBuilderProgress:progress];
+  [[MWMNavigationDashboardManager sharedManager] setRouteBuilderProgress:progress];
 }
 
 - (void)processRouteRecommendation:(MWMRouterRecommendation)recommendation {

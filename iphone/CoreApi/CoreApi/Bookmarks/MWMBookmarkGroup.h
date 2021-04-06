@@ -28,8 +28,6 @@ NS_SWIFT_NAME(BookmarkGroup)
 @property(nonatomic, readonly, getter=isVisible) BOOL visible;
 @property(nonatomic, readonly, getter=isEmpty) BOOL empty;
 @property(nonatomic, readonly, getter=isEditable) BOOL editable;
-@property(nonatomic, readonly, getter=isGuide) BOOL guide;
-@property(nonatomic, readonly, getter=isLonelyPlanet) BOOL lonelyPlanet;
 @property(nonatomic, readonly) BOOL hasDescription;
 @property(nonatomic, readonly) MWMBookmarkGroupAccessStatus accessStatus;
 @property(nonatomic, readonly) NSArray<MWMBookmark *> *bookmarks;

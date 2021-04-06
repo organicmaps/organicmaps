@@ -2,8 +2,6 @@
 #import "MWMViewController.h"
 #import "MWMMyPositionMode.h"
 
-#import <CoreApi/MWMUTM.h>
-
 @class MWMWelcomePageController;
 @class MWMMapViewControlsManager;
 @class EAGLView;
@@ -29,10 +27,6 @@
 - (void)openEditor;
 - (void)openBookmarkEditor;
 - (void)openFullPlaceDescriptionWithHtml:(NSString *_Nonnull)htmlString;
-- (void)showBookmarksLoadedAlert:(UInt64)categoryId;
-- (void)openCatalogAnimated:(BOOL)animated utm:(MWMUTM)utm;
-- (void)openCatalogDeeplink:(NSURL *_Nonnull)deeplinkUrl animated:(BOOL)animated utm:(MWMUTM)utm;
-- (void)openCatalogAbsoluteUrl:(NSURL *_Nullable)url animated:(BOOL)animated utm:(MWMUTM)utm;
 - (void)searchText:(NSString *_Nonnull)text;
 - (void)openDrivingOptions;
 

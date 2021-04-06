@@ -71,14 +71,12 @@ void RoutingSession::Init(PointCheckCallback const & pointCheckCallback)
   m_router = make_unique<AsyncRouter>(pointCheckCallback);
 }
 
-void RoutingSession::BuildRoute(Checkpoints const & checkpoints, GuidesTracks && guides,
-                                uint32_t timeoutSec)
+void RoutingSession::BuildRoute(Checkpoints const & checkpoints, uint32_t timeoutSec)
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());
   CHECK(m_router, ());
   m_checkpoints = checkpoints;
   m_router->ClearState();
-  m_router->SetGuidesTracks(std::move(guides));
 
   m_isFollowing = false;
   m_routingRebuildCount = -1; // -1 for the first rebuild.

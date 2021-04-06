@@ -78,7 +78,6 @@ using namespace osm_auth_ios;
 
 @property(nonatomic) NSInteger standbyCounter;
 @property(nonatomic) MWMBackgroundFetchScheduler *backgroundFetchScheduler;
-@property(nonatomic) id<IPendingTransactionsHandler> pendingTransactionHandler;
 
 @end
 
@@ -143,24 +142,6 @@ using namespace osm_auth_ios;
     [self incrementSessionsCountAndCheckForAlert];
   }
   [self enableTTSForTheFirstTime];
-
-  if ([MWMFrameworkHelper isWiFiConnected]) {
-    [[InAppPurchase bookmarksSubscriptionManager] validateWithCompletion:^(MWMValidationResult result, BOOL isTrial) {
-      if (result == MWMValidationResultNotValid) {
-        [[InAppPurchase bookmarksSubscriptionManager] setSubscriptionActive:NO isTrial:NO];
-      }
-    }];
-    [[InAppPurchase allPassSubscriptionManager] validateWithCompletion:^(MWMValidationResult result, BOOL isTrial) {
-      if (result == MWMValidationResultNotValid) {
-        [[InAppPurchase allPassSubscriptionManager] setSubscriptionActive:NO isTrial:NO];
-      }
-    }];
-    self.pendingTransactionHandler = [InAppPurchase pendingTransactionsHandler];
-    __weak __typeof(self) ws = self;
-    [self.pendingTransactionHandler handlePendingTransactions:^(PendingTransactionsStatus) {
-      ws.pendingTransactionHandler = nil;
-    }];
-  }
 
   [[DeepLinkHandler shared] applicationDidFinishLaunching:launchOptions];
   if (@available(iOS 13, *)) {

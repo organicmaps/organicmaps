@@ -3,7 +3,6 @@
 #import "MWMDownloadTransitMapAlert.h"
 #import "MWMLocationAlert.h"
 #import "MWMLocationNotFoundAlert.h"
-#import "MWMSearchNoResultsAlert.h"
 #import "MapViewController.h"
 #import "MapsAppDelegate.h"
 #import "SwiftBridge.h"
@@ -165,25 +164,6 @@ static NSString *const kAlertControllerNibIdentifier = @"MWMAlertViewController"
 
 - (void)presentTrackWarningAlertWithCancelBlock:(nonnull MWMVoidBlock)block {
   [self displayAlert:[MWMAlert trackWarningAlertWithCancelBlock:block]];
-}
-
-- (void)presentSearchNoResultsAlert {
-  Class alertClass = [MWMSearchNoResultsAlert class];
-  NSArray<__kindof MWMAlert *> *subviews = self.view.subviews;
-  MWMSearchNoResultsAlert *alert = nil;
-  for (MWMAlert *view in subviews) {
-    if (![view isKindOfClass:alertClass])
-      continue;
-    alert = static_cast<MWMSearchNoResultsAlert *>(view);
-    alert.alpha = 1;
-    [self.view bringSubviewToFront:alert];
-    break;
-  }
-  if (!alert) {
-    alert = [MWMSearchNoResultsAlert alert];
-    [self displayAlert:alert];
-  }
-  [alert update];
 }
 
 - (void)presentMobileInternetAlertWithBlock:(nonnull MWMMobileInternetAlertCompletionBlock)block {

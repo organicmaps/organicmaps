@@ -6,7 +6,6 @@ typedef NS_ENUM(NSInteger, MWMActionBarButtonType) {
   MWMActionBarButtonTypeDownload,
   MWMActionBarButtonTypeMore,
   MWMActionBarButtonTypeOpentable,
-  MWMActionBarButtonTypePartner,
   MWMActionBarButtonTypeRouteAddStop,
   MWMActionBarButtonTypeRouteFrom,
   MWMActionBarButtonTypeRouteRemoveStop,
@@ -22,7 +21,7 @@ NS_ASSUME_NONNULL_BEGIN
 #ifdef __cplusplus
 extern "C" {
 #endif
-NSString * titleForButton(MWMActionBarButtonType type, NSInteger partnerIndex, BOOL isSelected);
+NSString * titleForButton(MWMActionBarButtonType type, BOOL isSelected);
 #ifdef __cplusplus
 }
 #endif
@@ -42,11 +41,9 @@ NS_SWIFT_NAME(ActionBarButton)
 
 @property(nonatomic, readonly) MWMActionBarButtonType type;
 @property(nonatomic, readonly, nullable) MWMCircularProgress *mapDownloadProgress;
-@property(nonatomic, readonly) NSInteger partnerIndex;
 
 + (MWMActionBarButton *)buttonWithDelegate:(id<MWMActionBarButtonDelegate>)delegate
                                 buttonType:(MWMActionBarButtonType)type
-                              partnerIndex:(NSInteger)partnerIndex
                                 isSelected:(BOOL)isSelected
                                 isEnabled:(BOOL)isEnabled;
 

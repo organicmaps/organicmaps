@@ -74,7 +74,7 @@ final class EditBookmarkViewController: MWMTableViewController {
       switch InfoSectionRows(rawValue: indexPath.row) {
       case .title:
         let cell = tableView.dequeueReusableCell(cell: BookmarkTitleCell.self, indexPath: indexPath)
-        cell.configure(name: bookmarkTitle ?? "", delegate: self)
+        cell.configure(name: bookmarkTitle ?? "", delegate: self, hint: L("placepage_bookmark_name_hint"))
         return cell
       case .color:
         let cell = tableView.dequeueDefaultCell(for: indexPath)

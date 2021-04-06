@@ -321,9 +321,9 @@ void Processor::SetQuery(string const & query)
   auto const tokenSlice = QuerySliceOnRawStrings<decltype(m_tokens)>(m_tokens, m_prefix);
   m_isCategorialRequest = FillCategories(tokenSlice, GetCategoryLocales(), m_categories, m_preferredTypes);
 
-  // Try to match query to cuisine categories.
   if (!m_isCategorialRequest)
   {
+    // Try to match query to cuisine categories.
     bool const isCuisineRequest = FillCategories(
         tokenSlice, GetCategoryLocales(), GetDefaultCuisineCategories(), m_cuisineTypes);
 
@@ -335,13 +335,9 @@ void Processor::SetQuery(string const & query)
 
     // Assign tokens and prefix to scorer.
     m_keywordsScorer.SetKeywords(m_tokens.data(), m_tokens.size(), m_prefix);
-  }
 
-  if (!m_isCategorialRequest)
     ForEachCategoryType(tokenSlice, [&](size_t, uint32_t t) { m_preferredTypes.push_back(t); });
-
-  if (m_isCategorialRequest)
-    m_emitter.PrecheckHotelQuery(m_preferredTypes);
+  }
 
   base::SortUnique(m_preferredTypes);
 }
@@ -840,7 +836,6 @@ void Processor::InitGeocoder(Geocoder::Params & geocoderParams, SearchParams con
   geocoderParams.m_pivot = GetPivotRect(viewportSearch);
   geocoderParams.m_position = m_position;
   geocoderParams.m_categoryLocales = GetCategoryLocales();
-  geocoderParams.m_hotelsFilter = searchParams.m_hotelsFilter;
   geocoderParams.m_cuisineTypes = m_cuisineTypes;
   geocoderParams.m_preferredTypes = m_preferredTypes;
   geocoderParams.m_tracer = searchParams.m_tracer;

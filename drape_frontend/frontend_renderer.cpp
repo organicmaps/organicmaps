@@ -925,11 +925,8 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
 
   case Message::Type::RegenerateTraffic:
   case Message::Type::SetSimplifiedTrafficColors:
-  case Message::Type::SetDisplacementMode:
   case Message::Type::UpdateMetalines:
-  case Message::Type::EnableUGCRendering:
   case Message::Type::EnableIsolines:
-  case Message::Type::EnableGuides:
     {
       m_forceUpdateScene = true;
       break;
@@ -1373,15 +1370,8 @@ void FrontendRenderer::ProcessSelection(ref_ptr<SelectObjectMessage> msg)
       m_selectionShape->Hide();
     if (!m_myPositionController->IsModeChangeViewport())
     {
-      if (msg->GetSelectedObject() == SelectionShape::ESelectedObject::OBJECT_GUIDE)
-      {
-        m_selectionTrackInfo.reset();
-      }
-      else
-      {
-        if (m2::PointD startPosition; m_selectionShape->IsVisible(modelView, startPosition))
-          m_selectionTrackInfo = SelectionTrackInfo(modelView.GlobalRect(), startPosition);
-      }
+      if (m2::PointD startPosition; m_selectionShape->IsVisible(modelView, startPosition))
+        m_selectionTrackInfo = SelectionTrackInfo(modelView.GlobalRect(), startPosition);
     }
 
     if (msg->IsGeometrySelectionAllowed())
@@ -1518,8 +1508,6 @@ void FrontendRenderer::RenderScene(ScreenBase const & modelView, bool activeFram
       RenderUserMarksLayer(modelView, DepthLayer::UserMarkLayer);
       RenderUserMarksLayer(modelView, DepthLayer::RoutingBottomMarkLayer);
       RenderUserMarksLayer(modelView, DepthLayer::RoutingMarkLayer);
-      RenderUserMarksLayer(modelView, DepthLayer::GuidesBottomMarkLayer);
-      RenderNonDisplaceableUserMarksLayer(modelView, DepthLayer::GuidesMarkLayer);
       RenderNonDisplaceableUserMarksLayer(modelView, DepthLayer::SearchMarkLayer);
     }
 
@@ -2753,18 +2741,6 @@ m2::AnyRectD TapInfo::GetRoutingPointTapRect(m2::PointD const & mercator, Screen
   double const bmAddition = kRoutingPointTouchPixelIncrease * VisualParams::Instance().GetVisualScale();
   double const halfSize = VisualParams::Instance().GetTouchRectRadius();
   screen.GetTouchRect(screen.GtoP(mercator), halfSize + bmAddition, result);
-  return result;
-}
-
-// static
-m2::AnyRectD TapInfo::GetGuideTapRect(m2::PointD const & mercator, ScreenBase const & screen)
-{
-  static int constexpr kGuideTouchPixelIncrease = 20;
-
-  m2::AnyRectD result;
-  double const sizeExt = kGuideTouchPixelIncrease * VisualParams::Instance().GetVisualScale();
-  double const halfSize = VisualParams::Instance().GetTouchRectRadius();
-  screen.GetTouchRect(screen.GtoP(mercator), halfSize + sizeExt, result);
   return result;
 }
 

@@ -75,10 +75,6 @@ set(
   geometry_utils.hpp
   highlighting.cpp
   highlighting.hpp
-  hotels_classifier.cpp
-  hotels_classifier.hpp
-  hotels_filter.cpp
-  hotels_filter.hpp
   house_detector.cpp
   house_detector.hpp
   house_numbers_matcher.cpp

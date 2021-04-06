@@ -1,7 +1,6 @@
 #pragma once
 
 #include "map/bookmark.hpp"
-#include "map/bookmark_catalog.hpp"
 #include "map/bookmark_helpers.hpp"
 #include "map/cloud.hpp"
 #include "map/elevation_info.hpp"
@@ -87,16 +86,15 @@ public:
     using DetachedBookmarksCallback = std::function<void(std::vector<BookmarkGroupInfo> const &)>;
 
     template <typename StringsBundleProvider, typename SearchAPIProvider,
-              typename CatalogHeadersProvider, typename CreateListener, typename UpdateListener,
+              typename CreateListener, typename UpdateListener,
               typename DeleteListener, typename AttachListener, typename DetachListener>
     Callbacks(StringsBundleProvider && stringsBundleProvider,
-              SearchAPIProvider && searchAPIProvider, CatalogHeadersProvider && catalogHeaders,
+              SearchAPIProvider && searchAPIProvider,
               CreateListener && createListener, UpdateListener && updateListener,
               DeleteListener && deleteListener, AttachListener && attachListener,
               DetachListener && detachListener)
       : m_getStringsBundle(std::forward<StringsBundleProvider>(stringsBundleProvider))
       , m_getSearchAPI(std::forward<SearchAPIProvider>(searchAPIProvider))
-      , m_catalogHeadersProvider(std::forward<BookmarkCatalog::HeadersProvider>(catalogHeaders))
       , m_createdBookmarksCallback(std::forward<CreateListener>(createListener))
       , m_updatedBookmarksCallback(std::forward<UpdateListener>(updateListener))
       , m_deletedBookmarksCallback(std::forward<DeleteListener>(deleteListener))
@@ -106,7 +104,6 @@ public:
 
     GetStringsBundleFn m_getStringsBundle;
     GetSeacrhAPIFn m_getSearchAPI;
-    BookmarkCatalog::HeadersProvider m_catalogHeadersProvider;
     CreatedBookmarksCallback m_createdBookmarksCallback;
     UpdatedBookmarksCallback m_updatedBookmarksCallback;
     DeletedBookmarksCallback m_deletedBookmarksCallback;
@@ -318,13 +315,6 @@ public:
   uint64_t GetLastSynchronizationTimestampInMs() const;
   std::unique_ptr<User::Subscriber> GetUserSubscriber();
 
-  enum class CategoryFilterType
-  {
-    Private = 0,
-    Public,
-    All
-  };
-
   struct SharingResult
   {
     enum class Code
@@ -368,9 +358,9 @@ public:
   bool IsEditableCategory(kml::MarkGroupId groupId) const;
 
   bool IsUsedCategoryName(std::string const & name) const;
-  bool AreAllCategoriesVisible(CategoryFilterType const filter) const;
-  bool AreAllCategoriesInvisible(CategoryFilterType const filter) const;
-  void SetAllCategoriesVisibility(CategoryFilterType const filter, bool visible);
+  bool AreAllCategoriesVisible() const;
+  bool AreAllCategoriesInvisible() const;
+  void SetAllCategoriesVisibility(bool visible);
   bool AreAllCompilationsVisible(kml::MarkGroupId categoryId, kml::CompilationType compilationType) const;
   bool AreAllCompilationsInvisible(kml::MarkGroupId categoryId, kml::CompilationType compilationType) const;
   void SetChildCategoriesVisibility(kml::MarkGroupId categoryId, kml::CompilationType compilationType,
@@ -396,47 +386,7 @@ public:
   void SetNotificationsEnabled(bool enabled);
   bool AreNotificationsEnabled() const;
 
-  using OnCatalogDownloadStartedHandler = platform::SafeCallback<void(std::string const & id)>;
-  using OnCatalogDownloadFinishedHandler = platform::SafeCallback<void(std::string const & id,
-                                                                       BookmarkCatalog::DownloadResult result)>;
-  using OnCatalogImportStartedHandler = platform::SafeCallback<void(std::string const & id)>;
-  using OnCatalogImportFinishedHandler = platform::SafeCallback<void(std::string const & id,
-                                                                     kml::MarkGroupId categoryId,
-                                                                     bool successful)>;
-  using OnCatalogUploadStartedHandler = std::function<void(kml::MarkGroupId originCategoryId)>;
-  using OnCatalogUploadFinishedHandler = std::function<void(BookmarkCatalog::UploadResult uploadResult,
-                                                            std::string const & description,
-                                                            kml::MarkGroupId originCategoryId,
-                                                            kml::MarkGroupId resultCategoryId)>;
-
-  void SetCatalogHandlers(OnCatalogDownloadStartedHandler && onCatalogDownloadStarted,
-                          OnCatalogDownloadFinishedHandler && onCatalogDownloadFinished,
-                          OnCatalogImportStartedHandler && onCatalogImportStarted,
-                          OnCatalogImportFinishedHandler && onCatalogImportFinished,
-                          OnCatalogUploadStartedHandler && onCatalogUploadStartedHandler,
-                          OnCatalogUploadFinishedHandler && onCatalogUploadFinishedHandler);
-  void DownloadFromCatalogAndImport(std::string const & id, std::string const & name);
-  void ImportDownloadedFromCatalog(std::string const & id, std::string const & filePath);
-  void UploadToCatalog(kml::MarkGroupId categoryId, kml::AccessRules accessRules);
-  bool IsCategoryFromCatalog(kml::MarkGroupId categoryId) const;
-  kml::MarkGroupId GetCategoryIdByServerId(std::string const & serverId) const;
-  std::string GetCategoryServerId(kml::MarkGroupId categoryId) const;
-  std::string GetCategoryCatalogDeeplink(kml::MarkGroupId categoryId) const;
-  std::string GetCategoryCatalogPublicLink(kml::MarkGroupId categoryId) const;
-  BookmarkCatalog const & GetCatalog() const;
-
   bool IsMyCategory(kml::MarkGroupId categoryId) const;
-
-  // CheckExpiredCategories checks invalid categories asynchronously, it prepares a state for following
-  // functions calls.
-  using CheckExpiredCategoriesHandler = std::function<void(bool hasExpiredCategories)>;
-  void CheckExpiredCategories(CheckExpiredCategoriesHandler && handler);
-
-  // The following 2 functions allow to delete invalid categories or forget about them.
-  // These functions are stateful, so they must be called after finishing CheckExpiredCategoriesHandler.
-  // ResetExpiredCategories resets internal state.
-  void DeleteExpiredCategories();
-  void ResetExpiredCategories();
 
   void FilterInvalidBookmarks(kml::MarkIdCollection & bookmarks) const;
   void FilterInvalidTracks(kml::TrackIdCollection & tracks) const;
@@ -451,7 +401,6 @@ public:
   static std::string GenerateValidAndUniqueFilePathForKML(std::string const & fileName);
   static std::string GenerateValidAndUniqueFilePathForKMB(std::string const & fileName);
   static std::string GetActualBookmarksDirectory();
-  static bool IsMigrated();
   static std::string GetTracksSortedBlockName();
   static std::string GetOthersSortedBlockName();
   static std::string GetNearMeSortedBlockName();
@@ -465,10 +414,6 @@ public:
   };
   static std::string GetSortedByTimeBlockName(SortedByTimeBlockType blockType);
   std::string GetLocalizedRegionAddress(m2::PointD const & pt);
-
-  using AccessRulesFilter = std::function<bool(kml::AccessRules)>;
-  std::vector<std::string> GetCategoriesFromCatalog(AccessRulesFilter && filter) const;
-  static bool IsGuide(kml::AccessRules accessRules);
 
   ElevationInfo MakeElevationInfo(kml::TrackId trackId) const;
 
@@ -513,8 +458,6 @@ public:
 
   bool IsCompilation(kml::MarkGroupId id) const;
   kml::CompilationType GetCompilationType(kml::MarkGroupId id) const;
-
-  std::vector<std::string> GetAllPaidCategoriesIds() const;
 
 private:
   class MarksChangesTracker : public df::UserMarksProvider
@@ -737,7 +680,7 @@ private:
   bool HasDuplicatedIds(kml::FileData const & fileData) const;
   template <typename UniquityChecker>
   void SetUniqueName(kml::CategoryData & data, UniquityChecker checker);
-  bool CheckVisibility(CategoryFilterType const filter, bool isVisible) const;
+  bool CheckVisibility(bool isVisible) const;
   bool CheckCompilationsVisibility(kml::MarkGroupId categoryId, kml::CompilationType compilationType, bool isVisible) const;
 
   struct SortBookmarkData
@@ -835,7 +778,6 @@ private:
   bool m_loadBookmarksFinished = false;
   bool m_firstDrapeNotification = false;
   bool m_restoreApplying = false;
-  bool m_migrationInProgress = false;
   bool m_conversionInProgress = false;
   bool m_notificationsEnabled = true;
 
@@ -878,14 +820,6 @@ private:
   Cloud::SynchronizationFinishedHandler m_onSynchronizationFinished;
   Cloud::RestoreRequestedHandler m_onRestoreRequested;
   Cloud::RestoredFilesPreparedHandler m_onRestoredFilesPrepared;
-
-  BookmarkCatalog m_bookmarkCatalog;
-  OnCatalogDownloadStartedHandler m_onCatalogDownloadStarted;
-  OnCatalogDownloadFinishedHandler m_onCatalogDownloadFinished;
-  OnCatalogImportStartedHandler m_onCatalogImportStarted;
-  OnCatalogImportFinishedHandler m_onCatalogImportFinished;
-  OnCatalogUploadStartedHandler m_onCatalogUploadStartedHandler;
-  OnCatalogUploadFinishedHandler m_onCatalogUploadFinishedHandler;
 
   struct RestoringCache
   {

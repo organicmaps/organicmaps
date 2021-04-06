@@ -44,23 +44,18 @@ bool ReadManager::LessByTileInfo::operator()(std::shared_ptr<TileInfo> const & l
 }
 
 ReadManager::ReadManager(ref_ptr<ThreadsCommutator> commutator, MapDataProvider & model,
-                         bool allow3dBuildings, bool trafficEnabled, bool isolinesEnabled,
-                         bool guidesEnabled, EngineContext::TIsUGCFn && isUGCFn)
+                         bool allow3dBuildings, bool trafficEnabled, bool isolinesEnabled)
   : m_commutator(commutator)
   , m_model(model)
   , m_have3dBuildings(false)
   , m_allow3dBuildings(allow3dBuildings)
   , m_trafficEnabled(trafficEnabled)
   , m_isolinesEnabled(isolinesEnabled)
-  , m_guidesEnabled(guidesEnabled)
-  , m_displacementMode(dp::displacement::kDefaultMode)
   , m_modeChanged(false)
-  , m_ugcRenderingEnabled(false)
   , m_tasksPool(64, ReadMWMTaskFactory(m_model))
   , m_counter(0)
   , m_generationCounter(0)
   , m_userMarksGenerationCounter(0)
-  , m_isUGCFn(std::move(isUGCFn))
 {
   Start();
 }
@@ -241,9 +236,7 @@ void ReadManager::PushTaskBackForTileKey(TileKey const & tileKey,
                                                m_commutator, texMng, metalineMng,
                                                m_customFeaturesContext,
                                                m_have3dBuildings && m_allow3dBuildings,
-                                               m_trafficEnabled, m_isolinesEnabled, m_guidesEnabled,
-                                               m_displacementMode,
-                                               m_ugcRenderingEnabled ? m_isUGCFn : nullptr);
+                                               m_trafficEnabled, m_isolinesEnabled);
   std::shared_ptr<TileInfo> tileInfo = std::make_shared<TileInfo>(std::move(context));
   m_tileInfos.insert(tileInfo);
   ReadMWMTask * task = m_tasksPool.Get();
@@ -345,24 +338,6 @@ void ReadManager::SetIsolinesEnabled(bool isolinesEnabled)
   }
 }
 
-void ReadManager::SetGuidesEnabled(bool guidesEnabled)
-{
-  if (m_guidesEnabled != guidesEnabled)
-  {
-    m_modeChanged = true;
-    m_guidesEnabled = guidesEnabled;
-  }
-}
-
-void ReadManager::SetDisplacementMode(int displacementMode)
-{
-  if (m_displacementMode != displacementMode)
-  {
-    m_modeChanged = true;
-    m_displacementMode = displacementMode;
-  }
-}
-
 void ReadManager::SetCustomFeatures(CustomFeatures && ids)
 {
   m_customFeaturesContext = std::make_shared<CustomFeaturesContext>(std::move(ids));
@@ -404,11 +379,6 @@ bool ReadManager::RemoveAllCustomFeatures()
 
   m_customFeaturesContext = std::make_shared<CustomFeaturesContext>(CustomFeatures());
   return true;
-}
-
-void ReadManager::EnableUGCRendering(bool enabled)
-{
-  m_ugcRenderingEnabled = enabled;
 }
 
 } // namespace df

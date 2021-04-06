@@ -4,8 +4,6 @@
 #include "indexer/feature_algo.hpp"
 #include "indexer/feature_visibility.hpp"
 
-#include "indexer/ftypes_sponsored.hpp"
-
 #include "coding/point_coding.hpp"
 
 using namespace feature;
@@ -333,22 +331,17 @@ class RemoveSolver
 {
   int m_lowScale, m_upScale;
   bool m_doNotRemoveSpecialTypes;
-  bool m_doNotRemoveSponsoredTypes;
 
 public:
-  RemoveSolver(int lowScale, int upScale, bool doNotRemoveSpecialTypes, bool doNotRemoveSponsoredTypes)
+  RemoveSolver(int lowScale, int upScale, bool doNotRemoveSpecialTypes)
     : m_lowScale(lowScale)
     , m_upScale(upScale)
     , m_doNotRemoveSpecialTypes(doNotRemoveSpecialTypes)
-    , m_doNotRemoveSponsoredTypes(doNotRemoveSponsoredTypes)
   {
   }
 
   bool operator() (uint32_t type) const
   {
-    if (m_doNotRemoveSponsoredTypes && ftypes::IsSponsoredChecker::Instance()(type))
-      return false;
-
     std::pair<int, int> const range = feature::GetDrawableScaleRange(type);
     // We have feature types without any drawing rules.
     // This case was processed before:
@@ -370,8 +363,7 @@ bool PreprocessForWorldMap(FeatureBuilder & fb)
 {
   int const upperScale = scales::GetUpperWorldScale();
 
-  if (fb.RemoveTypesIf(RemoveSolver(0, upperScale, false /* doNotRemoveSpecialTypes */,
-                                    true /* doNotRemoveSponsoredTypes */)))
+  if (fb.RemoveTypesIf(RemoveSolver(0, upperScale, false /* doNotRemoveSpecialTypes */)))
   {
     return false;
   }
@@ -386,8 +378,7 @@ bool PreprocessForCountryMap(FeatureBuilder & fb)
   using namespace scales;
 
   if (fb.RemoveTypesIf(RemoveSolver(GetUpperWorldScale() + 1, GetUpperStyleScale(),
-                                    true /* doNotRemoveSpecialTypes */,
-                                    true /* doNotRemoveSponsoredTypes */)))
+                                    true /* doNotRemoveSpecialTypes */)))
   {
     return false;
   }

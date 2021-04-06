@@ -110,8 +110,6 @@ std::string GetLocalizedBookmarkBaseType(BookmarkBaseType type);
 kml::BookmarkIcon GetBookmarkIconByFeatureType(uint32_t type);
 BookmarkBaseType GetBookmarkBaseType(std::vector<uint32_t> const & featureTypes);
 
-bool FromCatalog(kml::FileData const & kmlData);
-bool FromCatalog(kml::CategoryData const & categoryData, std::string const & serverId);
 bool IsMyCategory(std::string const & userId, kml::CategoryData const & categoryData);
 bool IsMyCategory(User const & user, kml::CategoryData const & categoryData);
 

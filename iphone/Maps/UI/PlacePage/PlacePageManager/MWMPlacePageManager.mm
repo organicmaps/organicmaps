@@ -4,7 +4,6 @@
 #import "MWMLocationHelpers.h"
 #import "MWMLocationObserver.h"
 #import "MWMRoutePoint+CPP.h"
-#import "MWMSearchManager+Filter.h"
 #import "MWMStorage+UI.h"
 #import "SwiftBridge.h"
 #import "MWMMapViewControlsManager+AddPlace.h"
@@ -16,19 +15,13 @@
 
 using namespace storage;
 
-@interface MWMPlacePageManager ()<MWMGCReviewSaver>
+@interface MWMPlacePageManager ()
 
 @property(nonatomic) storage::NodeStatus currentDownloaderStatus;
 
 @end
 
 @implementation MWMPlacePageManager
-
-- (void)showReview {
-//  [self show];
-//  [self showUGCAddReview:UgcSummaryRatingTypeNone
-//              fromSource:MWMUGCReviewSourceNotification];
-}
 
 - (BOOL)isPPShown {
   return GetFramework().HasPlacePageInfo();
@@ -228,85 +221,19 @@ using namespace storage;
   [self.ownerViewController openFullPlaceDescriptionWithHtml:htmlString];
 }
 
-- (void)searchBookingHotels:(PlacePageData *)data {
-  NSURL *url = [NSURL URLWithString:data.bookingSearchUrl];
-  NSAssert(url, @"Search url can't be nil!");
-  [UIApplication.sharedApplication openURL:url options:@{} completionHandler:nil];
-}
-
-- (void)openPartner:(PlacePageData *)data proposedUrl:(NSURL *)proposedUrl
-{
-  NSURL *deeplink = [NSURL URLWithString:data.sponsoredDeeplink];
-  if (deeplink != nil && [UIApplication.sharedApplication canOpenURL:deeplink]) {
-    [UIApplication.sharedApplication openURL:deeplink options:@{} completionHandler:nil];
-  } else if (proposedUrl != nil) {
-    [UIApplication.sharedApplication openURL:proposedUrl options:@{} completionHandler:nil];
-  } else {
-    NSAssert(proposedUrl, @"Sponsored url can't be nil!");
-    return;
-  }
-}
-
-- (void)book:(PlacePageData *)data {
-  NSURL *url = [NSURL URLWithString:data.sponsoredURL];
-  [self openPartner:data proposedUrl:url];
-}
-
-- (void)openDescriptionUrl:(PlacePageData *)data {
-  NSURL *url = [NSURL URLWithString:data.sponsoredDescriptionURL];
-  [self openPartner:data proposedUrl:url];
-}
-
-- (void)openMoreUrl:(PlacePageData *)data {
-  NSURL *url = [NSURL URLWithString:data.sponsoredMoreURL];
-  if (!url) { return; }
-  [UIApplication.sharedApplication openURL:url options:@{} completionHandler:nil];
-}
-
-- (void)openReviewUrl:(PlacePageData *)data {
-  NSURL *url = [NSURL URLWithString:data.sponsoredReviewURL];
-  [self openPartner:data proposedUrl:url];
-}
-
-- (void)openPartner:(PlacePageData *)data
-{
-  NSURL *url = [NSURL URLWithString:data.sponsoredURL];
-  NSAssert(url, @"Partner url can't be nil!");
-  [UIApplication.sharedApplication openURL:url options:@{} completionHandler:nil];
-}
-
 - (void)avoidDirty {
   [MWMRouter avoidRoadTypeAndRebuild:MWMRoadTypeDirty];
   [self closePlacePage];
 }
-
 
 - (void)avoidFerry {
   [MWMRouter avoidRoadTypeAndRebuild:MWMRoadTypeFerry];
   [self closePlacePage];
 }
 
-
 - (void)avoidToll {
   [MWMRouter avoidRoadTypeAndRebuild:MWMRoadTypeToll];
   [self closePlacePage];
-}
-
-- (void)searchSimilar:(PlacePageData *)data
-{
-  MWMHotelParams * params = [[MWMHotelParams alloc] initWithPlacePageData:data];
-  [[MWMSearchManager manager] showHotelFilterWithParams:params
-                      onFinishCallback:^{
-    [MWMMapViewControlsManager.manager searchTextOnMap:[L(@"booking_hotel") stringByAppendingString:@" "]
-                                        forInputLocale:[NSLocale currentLocale].localeIdentifier];
-  }];
-}
-
-- (void)showAllFacilities:(PlacePageData *)data {
-  MWMFacilitiesController *vc = [[MWMFacilitiesController alloc] init];
-  vc.name = data.previewData.title;
-  vc.facilities = data.hotelBooking.facilities;
-  [[MapViewController sharedController].navigationController pushViewController:vc animated:YES];
 }
 
 - (void)openWebsite:(PlacePageData *)data {
@@ -314,20 +241,6 @@ using namespace storage;
   if (url) {
     [self.ownerViewController openUrl:url];
   }
-}
-
-- (void)openCatalogSingleItem:(PlacePageData *)data atIndex:(NSInteger)index {
-  NSURL *url = [NSURL URLWithString:data.catalogPromo.promoItems[index].catalogUrl];
-  NSURL *patchedUrl = [[MWMBookmarksManager sharedManager] injectCatalogUTMContent:url content:MWMUTMContentView];
-  [self openCatalogForURL:patchedUrl];
-}
-
-- (void)openCatalogMoreItems:(PlacePageData *)data {
-  [self openCatalogForURL:data.catalogPromo.moreUrl];
-}
-
-- (void)showRemoveAds {
-  [[MapViewController sharedController] showRemoveAds];
 }
 
 - (void)openElevationDifficultPopup:(PlacePageData *)data {
@@ -348,18 +261,6 @@ using namespace storage;
 
 - (FeatureID const &)featureId { return GetFramework().GetCurrentPlacePageInfo().GetID(); }
 
-#pragma mark - Ownerfacilities
-
 - (MapViewController *)ownerViewController { return [MapViewController sharedController]; }
-
-#pragma mark - MWMPlacePagePromoProtocol
-
-- (void)openCatalogForURL:(NSURL *)url {
-  // NOTE: UTM is already into URL, core part does it for Placepage Gallery.
-  MWMCatalogWebViewController *catalog = [MWMCatalogWebViewController catalogFromAbsoluteUrl:url utm:MWMUTMNone];
-  NSMutableArray<UIViewController *> * controllers = [self.ownerViewController.navigationController.viewControllers mutableCopy];
-  [controllers addObjectsFromArray:@[catalog]];
-  [self.ownerViewController.navigationController setViewControllers:controllers animated:YES];
-}
 
 @end

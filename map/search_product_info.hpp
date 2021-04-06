@@ -13,9 +13,5 @@ struct ProductInfo
 
     virtual ProductInfo GetProductInfo(Result const & result) const = 0;
   };
-
-  static auto constexpr kInvalidRating = kInvalidRatingValue;
-
-  float m_ugcRating = kInvalidRating;
 };
 }

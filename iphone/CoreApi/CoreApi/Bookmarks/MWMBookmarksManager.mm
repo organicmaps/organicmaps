@@ -4,18 +4,11 @@
 #import "MWMBookmarksSection.h"
 #import "MWMBookmarkGroup.h"
 #import "MWMCarPlayBookmarkObject.h"
-#import "MWMCatalogObserver.h"
-#import "MWMTag.h"
-#import "MWMTagGroup+Convenience.h"
 #import "MWMTrack+Core.h"
-#import "MWMUTM+Core.h"
 
 #include "Framework.h"
 
 #include "map/bookmarks_search_params.hpp"
-#include "map/purchase.hpp"
-
-#include "partners_api/utm.hpp"
 
 #include "web_api/utils.hpp"
 
@@ -99,8 +92,6 @@ static BookmarkManager::SortingType convertSortingTypeToCore(MWMBookmarksSorting
 @property(nonatomic) NSInteger lastSearchId;
 @property(nonatomic) NSInteger lastSortId;
 
-@property(nonatomic) NSMutableDictionary<NSString *, MWMCatalogObserver*> * catalogObservers;
-
 @end
 
 @implementation MWMBookmarksManager
@@ -137,7 +128,6 @@ static BookmarkManager::SortingType convertSortingTypeToCore(MWMBookmarksSorting
   {
     _observers = [NSHashTable<id<MWMBookmarksObserver>> weakObjectsHashTable];
     [self registerBookmarksObserver];
-    [self registerCatalogObservers];
   }
   return self;
 }
@@ -186,65 +176,6 @@ static BookmarkManager::SortingType convertSortingTypeToCore(MWMBookmarksSorting
     };
   }
   self.bm.SetAsyncLoadingCallbacks(std::move(bookmarkCallbacks));
-}
-
-- (void)registerCatalogObservers
-{
-  self.catalogObservers = [NSMutableDictionary dictionary];
-  auto onDownloadStarted = [self](std::string const & serverCatId)
-  {
-    auto observer = self.catalogObservers[@(serverCatId.c_str())];
-    if (observer)
-      [observer onDownloadStart];
-  };
-  auto onDownloadFinished = [self](std::string const & serverCatId, BookmarkCatalog::DownloadResult result)
-  {
-    auto observer = self.catalogObservers[@(serverCatId.c_str())];
-    if (observer)
-    {
-      [observer onDownloadComplete:result];
-      if (result != BookmarkCatalog::DownloadResult::Success) {
-        [self.catalogObservers removeObjectForKey:observer.categoryId];
-      }
-    }
-  };
-  auto onImportStarted = [self](std::string const & serverCatId)
-  {
-    auto observer = self.catalogObservers[@(serverCatId.c_str())];
-    if (observer)
-      [observer onImportStart];
-  };
-  auto onImportFinished = [self](std::string const & serverCatId, kml::MarkGroupId categoryId, bool successful)
-  {
-    auto observer = self.catalogObservers[@(serverCatId.c_str())];
-    if (observer)
-    {
-      [observer onImportCompleteSuccessful:successful forCategoryId:categoryId];
-      [self.catalogObservers removeObjectForKey:observer.categoryId];
-    }
-  };
-  auto onUploadStarted = [self](kml::MarkGroupId originCategoryId)
-  {
-    auto observer = self.catalogObservers[[NSString stringWithFormat:@"%lld", originCategoryId]];
-    if (observer)
-      [observer onUploadStart];
-  };
-  auto onUploadFinished = [self](BookmarkCatalog::UploadResult uploadResult,std::string const & description,
-                             kml::MarkGroupId originCategoryId, kml::MarkGroupId resultCategoryId)
-  {
-    auto observer = self.catalogObservers[[NSString stringWithFormat:@"%lld", originCategoryId]];
-    if (observer)
-    {
-      [observer onUploadComplete:uploadResult];
-      [self.catalogObservers removeObjectForKey:observer.categoryId];
-    }
-  };
-  self.bm.SetCatalogHandlers(std::move(onDownloadStarted),
-                             std::move(onDownloadFinished),
-                             std::move(onImportStarted),
-                             std::move(onImportFinished),
-                             std::move(onUploadStarted),
-                             std::move(onUploadFinished));
 }
 
 #pragma mark - Bookmarks loading
@@ -450,11 +381,11 @@ static BookmarkManager::SortingType convertSortingTypeToCore(MWMBookmarksSorting
 }
 
 - (void)setUserCategoriesVisible:(BOOL)isVisible {
-  self.bm.SetAllCategoriesVisibility(BookmarkManager::CategoryFilterType::Private, isVisible);
+  self.bm.SetAllCategoriesVisibility(isVisible);
 }
 
 - (void)setCatalogCategoriesVisible:(BOOL)isVisible {
-  self.bm.SetAllCategoriesVisibility(BookmarkManager::CategoryFilterType::Public, isVisible);
+  self.bm.SetAllCategoriesVisibility(isVisible);
 }
 
 - (void)deleteCategory:(MWMMarkGroupID)groupId
@@ -791,96 +722,6 @@ static BookmarkManager::SortingType convertSortingTypeToCore(MWMBookmarksSorting
 
 #pragma mark - Catalog
 
-- (NSURL *)catalogFrontendUrl:(MWMUTM)utm
-{
-  NSString * urlString = @(self.bm.GetCatalog().GetFrontendUrl(toUTM(utm)).c_str());
-  return urlString ? [NSURL URLWithString:urlString] : nil;
-}
-
-- (NSURL * _Nullable)injectCatalogUTMContent:(NSURL * _Nullable)url content:(MWMUTMContent)content {
-  if (!url)
-    return nil;
-  NSString * urlString = @(InjectUTMContent(std::string(url.absoluteString.UTF8String),
-                                            toUTMContent(content)).c_str());
-  return urlString ? [NSURL URLWithString:urlString] : nil;
-}
-
-- (NSURL * _Nullable)catalogFrontendUrlPlusPath:(NSString *)path
-                                            utm:(MWMUTM)utm
-{
-  NSString * urlString = @(self.bm.GetCatalog().GetFrontendUrl(toUTM(utm)).c_str());
-  return urlString ? [NSURL URLWithString:[urlString stringByAppendingPathComponent:path]] : nil;
-}
-
-- (NSURL *)deeplinkForCategoryId:(MWMMarkGroupID)groupId {
-  NSString * urlString = @(self.bm.GetCategoryCatalogDeeplink(groupId).c_str());
-  return urlString ? [NSURL URLWithString:urlString] : nil;
-}
-
-- (NSURL *)publicLinkForCategoryId:(MWMMarkGroupID)groupId {
-  NSString *urlString = @(self.bm.GetCategoryCatalogPublicLink(groupId).c_str());
-  return urlString ? [NSURL URLWithString:urlString] : nil;
-}
-
-- (NSURL *)webEditorUrlForCategoryId:(MWMMarkGroupID)groupId language:(NSString *)languageCode {
-  auto serverId = self.bm.GetCategoryServerId(groupId);
-  NSString *urlString = @(self.bm.GetCatalog().GetWebEditorUrl(serverId, languageCode.UTF8String).c_str());
-  return [NSURL URLWithString:urlString];
-}
-
-- (void)downloadItemWithId:(NSString *)itemId
-                      name:(NSString *)name
-                  progress:(ProgressBlock)progress
-                completion:(DownloadCompletionBlock)completion
-{
-  auto observer = [[MWMCatalogObserver alloc] init];
-  observer.categoryId = itemId;
-  observer.progressBlock = progress;
-  observer.downloadCompletionBlock = completion;
-  [self.catalogObservers setObject:observer forKey:itemId];
-  self.bm.DownloadFromCatalogAndImport(itemId.UTF8String, name.UTF8String);
-}
-
-- (void)uploadAndGetDirectLinkCategoryWithId:(MWMMarkGroupID)itemId
-                                    progress:(ProgressBlock)progress
-                                  completion:(UploadCompletionBlock)completion
-{
-  [self registerUploadObserverForCategoryWithId:itemId progress:progress completion:completion];
-  GetFramework().GetBookmarkManager().UploadToCatalog(itemId, kml::AccessRules::DirectLink);
-}
-
-- (void)uploadAndPublishCategoryWithId:(MWMMarkGroupID)itemId
-                              progress:(ProgressBlock)progress
-                            completion:(UploadCompletionBlock)completion
-{
-  [self registerUploadObserverForCategoryWithId:itemId progress:progress completion:completion];
-  GetFramework().GetBookmarkManager().UploadToCatalog(itemId, kml::AccessRules::Public);
-}
-
-- (void)uploadCategoryWithId:(MWMMarkGroupID)itemId
-                    progress:(ProgressBlock)progress
-                  completion:(UploadCompletionBlock)completion
-{
-  [self registerUploadObserverForCategoryWithId:itemId progress:progress completion:completion];
-  GetFramework().GetBookmarkManager().UploadToCatalog(itemId, kml::AccessRules::AuthorOnly);
-}
-
-- (void)registerUploadObserverForCategoryWithId:(MWMMarkGroupID)itemId
-                                       progress:(ProgressBlock)progress
-                                     completion:(UploadCompletionBlock)completion
-{
-  auto observer = [[MWMCatalogObserver alloc] init];
-  observer.categoryId = [NSString stringWithFormat:@"%lld", itemId];
-  observer.progressBlock = progress;
-  observer.uploadCompletionBlock = completion;
-  [self.catalogObservers setObject:observer forKey:observer.categoryId];
-}
-
-- (BOOL)isCategoryFromCatalog:(MWMMarkGroupID)groupId
-{
-  return self.bm.IsCategoryFromCatalog(groupId);
-}
-
 - (NSArray<MWMBookmarkGroup *> *)userCategories
 {
   NSMutableArray<MWMBookmarkGroup *> * result = [NSMutableArray array];
@@ -893,35 +734,8 @@ static BookmarkManager::SortingType convertSortingTypeToCore(MWMBookmarksSorting
   return [result copy];
 }
 
-- (NSArray<MWMBookmarkGroup *> *)categoriesFromCatalog
-{
-  NSMutableArray<MWMBookmarkGroup *>  * result = [NSMutableArray array];
-  auto const & list = self.bm.GetBmGroupsIdList();
-  for (auto const & groupId : list)
-  {
-    if (![self isCategoryEditable:groupId])
-      [result addObject:[self categoryWithId:groupId]];
-  }
-  return [result copy];
-}
-
 - (MWMBookmarkGroup *)categoryWithId:(MWMMarkGroupID)groupId {
   return [[MWMBookmarkGroup alloc] initWithCategoryId:groupId bookmarksManager:self];
-}
-
-- (NSInteger)getCatalogDownloadsCount
-{
-  return self.bm.GetCatalog().GetDownloadingCount();
-}
-
-- (BOOL)isCategoryDownloading:(NSString *)itemId
-{
-  return self.bm.GetCatalog().IsDownloading(itemId.UTF8String);
-}
-
-- (BOOL)hasCategoryDownloaded:(NSString *)itemId
-{
-  return self.bm.GetCatalog().HasDownloaded(itemId.UTF8String);
 }
 
 - (void)updateBookmark:(MWMMarkID)bookmarkId
@@ -951,37 +765,6 @@ static BookmarkManager::SortingType convertSortingTypeToCore(MWMBookmarksSorting
   }
 }
 
-- (void)loadTagsWithLanguage:(NSString *)languageCode completion:(LoadTagsCompletionBlock)completionBlock {
-  auto onTagsCompletion = [completionBlock](bool success, BookmarkCatalog::TagGroups const & tagGroups, uint32_t maxTagsCount)
-  {
-    if (success)
-    {
-      NSMutableArray * groups = [NSMutableArray new];
-      for (auto const & groupData : tagGroups)
-      {
-        MWMTagGroup * tagGroup = [[MWMTagGroup alloc] initWithGroupData:groupData];
-        [groups addObject:tagGroup];
-      }
-      
-      completionBlock([groups copy], maxTagsCount);
-    } else
-      completionBlock(nil, 0);
-  };
-  
-  self.bm.GetCatalog().RequestTagGroups(languageCode.UTF8String, std::move(onTagsCompletion));
-}
-
-- (void)setCategory:(MWMMarkGroupID)groupId tags:(NSArray<MWMTag *> *)tags
-{
-  std::vector<std::string> tagIds;
-  for (MWMTag * tag in tags)
-  {
-    tagIds.push_back(tag.tagId.UTF8String);
-  }
-  
-  self.bm.GetEditSession().SetCategoryTags(groupId, tagIds);
-}
-
 - (void)setCategory:(MWMMarkGroupID)groupId authorType:(MWMBookmarkGroupAuthorType)author
 {
   switch (author)
@@ -992,44 +775,6 @@ static BookmarkManager::SortingType convertSortingTypeToCore(MWMBookmarksSorting
     case MWMBookmarkGroupAuthorTypeTraveler:
       self.bm.GetEditSession().SetCategoryCustomProperty(groupId, @"author_type".UTF8String, @"tourist".UTF8String);
   }
-}
-
-- (void)ping:(PingCompletionBlock)callback {
-  self.bm.GetCatalog().Ping([callback] (bool success) {
-    callback(success);
-  });
-}
-
-- (void)checkForExpiredCategories:(MWMBoolBlock)completion {
-  self.bm.CheckExpiredCategories([completion] (bool hasExpiredCategories) {
-    completion(hasExpiredCategories);
-  });
-}
-
-- (void)deleteExpiredCategories {
-  self.bm.DeleteExpiredCategories();
-}
-
-- (void)resetExpiredCategories {
-  self.bm.ResetExpiredCategories();
-}
-
-- (BOOL)isGuide:(MWMMarkGroupID)groupId {
-  auto const & data = self.bm.GetCategoryData(groupId);
-  return BookmarkManager::IsGuide(data.m_accessRules);
-}
-
-- (NSString *)getServerId:(MWMMarkGroupID)groupId {
-  return @(self.bm.GetCategoryServerId(groupId).c_str());
-}
-
-- (MWMMarkGroupID)getGroupId:(NSString *)serverId {
-  return self.bm.GetCategoryIdByServerId(serverId.UTF8String);
-}
-
-- (NSString *)getGuidesIds {
-  auto const guides = self.bm.GetCategoriesFromCatalog(std::bind(&BookmarkManager::IsGuide, std::placeholders::_1));
-  return @(strings::JoinStrings(guides.begin(), guides.end(), ',').c_str());
 }
 
 #pragma mark - Helpers
@@ -1045,15 +790,6 @@ static BookmarkManager::SortingType convertSortingTypeToCore(MWMBookmarksSorting
 
 - (NSString *)deviceId {
   return @(web_api::DeviceId().c_str());
-}
-
-- (NSDictionary<NSString *, NSString *> *)getCatalogHeaders {
-  NSMutableDictionary<NSString *, NSString *> *result = [NSMutableDictionary dictionary];
-
-  for (auto const &header : self.bm.GetCatalog().GetHeaders())
-    [result setObject:@(header.second.c_str()) forKey:@(header.first.c_str())];
-
-  return [result copy];
 }
 
 - (void)setElevationActivePoint:(double)distance trackId:(uint64_t)trackId {
