@@ -23,7 +23,6 @@
 enum class SearchMarkPoint::SearchMarkType : uint32_t
 {
   Default = 0,
-  Booking,
   Hotel,
   Cafe,
   Bakery,
@@ -65,32 +64,14 @@ using SearchMarkType = SearchMarkPoint::SearchMarkType;
 namespace
 {
 df::ColorConstant const kPoiVisitedMaskColor = "PoiVisitedMask";
+df::ColorConstant const kColorConstant = "SearchmarkDefault";
 
 float const kVisitedSymbolOpacity = 0.7f;
 float const kOutOfFiltersSymbolOpacity = 0.4f;
-float const kOutOfFiltersTextOpacity = 0.54f;
-
-std::string const kColoredmarkSmall = "coloredmark-default-s";
-
-std::string const kSmallChip = "chips-s";
-std::string const kSmallSelectedChip = "chips-selected-s";
-
-std::string const kPriceChip = "price-chips";
-std::string const kPriceChipSelected = "price-chips-selected";
-std::string const kPriceChipDiscount = "price-chips-discount";
-std::string const kPriceChipSelectedDiscount = "price-chips-selected-discount";
-
-std::string const kRatedDefaultSearchIcon = "rated-default-search-result";
-
-std::string const kBookingNoRatingSearchIcon = "norating-default-l";
-std::string const & kOsmHotelSearchIcon = kBookingNoRatingSearchIcon;
-
-std::string const kSelectionChipSmall = "selection-chips-s";
 
 std::array<std::string, static_cast<size_t>(SearchMarkType::Count)> const kSymbols = {
     "search-result",                        // Default.
-    "coloredmark-default-l",                // Booking.
-    "coloredmark-default-l",                // Hotel
+    "norating-default-l",                   // Hotel
     "search-result-cafe",                   // Cafe.
     "search-result-bakery",                 // Bakery.
     "search-result-bar",                    // Bar.
@@ -125,26 +106,8 @@ std::array<std::string, static_cast<size_t>(SearchMarkType::Count)> const kSymbo
     "non-found-search-result",  // NotFound.
 };
 
-float constexpr kFontSize = 10.0f;
-
-float const kRatingThreshold = 6.0f;
-
-int constexpr kWorldZoomLevel = 1;
-int constexpr kUGCBadgeMinZoomLevel = scales::GetUpperCountryScale();
-int constexpr kGoodRatingZoomLevel = kWorldZoomLevel;
-int constexpr kBadRatingZoomLevel = scales::GetUpperComfortScale();
-
-std::string GetSymbol(SearchMarkType searchMarkType, bool hasRating)
+std::string GetSymbol(SearchMarkType searchMarkType)
 {
-  if (searchMarkType == SearchMarkType::Default && hasRating)
-    return kRatedDefaultSearchIcon;
-
-  if (searchMarkType == SearchMarkType::Booking && !hasRating)
-    return kBookingNoRatingSearchIcon;
-
-  if (searchMarkType == SearchMarkType::Hotel)
-    return kOsmHotelSearchIcon;
-
   auto const index = static_cast<size_t>(searchMarkType);
   ASSERT_LESS(index, kSymbols.size(), ());
 
@@ -237,7 +200,7 @@ SearchMarkPoint::SearchMarkPoint(m2::PointD const & ptOrg)
 
 m2::PointD SearchMarkPoint::GetPixelOffset() const
 {
-  if (!IsBookingSpecialMark() && !IsHotel())
+  if (!IsHotel())
     return {0.0, 4.0};
   return {};
 }
@@ -249,125 +212,21 @@ drape_ptr<df::UserPointMark::SymbolNameZoomInfo> SearchMarkPoint::GetSymbolNames
     return nullptr;
 
   auto symbolZoomInfo = make_unique_dp<SymbolNameZoomInfo>();
-  if (IsBookingSpecialMark())
-  {
-    if (!m_isAvailable)
-    {
-      symbolZoomInfo->emplace(kWorldZoomLevel, symbolName);
-    }
-    else if (m_isPreparing)
-    {
-      symbolZoomInfo->emplace(kWorldZoomLevel, symbolName);
-    }
-    else
-    {
-      if (HasGoodRating())
-      {
-        symbolZoomInfo->emplace(kGoodRatingZoomLevel, symbolName);
-      }
-      else  // bad or no rating
-      {
-        symbolZoomInfo->emplace(kWorldZoomLevel, kColoredmarkSmall);
-        symbolZoomInfo->emplace(kBadRatingZoomLevel, symbolName);
-      }
-    }
-    return symbolZoomInfo;
-  }
-
-  if (IsHotel() && !HasRating())
-  {
-    symbolZoomInfo->emplace(kWorldZoomLevel, kColoredmarkSmall);
-    symbolZoomInfo->emplace(kBadRatingZoomLevel, symbolName);
-  }
-  else
-  {
-    symbolZoomInfo->emplace(kWorldZoomLevel, symbolName);
-  }
+  symbolZoomInfo->emplace(1 /*kWorldZoomLevel*/, symbolName);
   return symbolZoomInfo;
-}
-
-drape_ptr<df::UserPointMark::BageInfo> SearchMarkPoint::GetBadgeInfo() const
-{
-  auto const badgeName = GetBadgeName();
-  if (badgeName.empty())
-    return nullptr;
-
-  std::string const badgeMaskColor = m_isVisited ? kPoiVisitedMaskColor : "";
-
-  if (IsBookingSpecialMark())
-  {
-    if (!m_isAvailable)
-    {
-      if (HasReason() && m_isSelected)
-      {
-        auto badgeInfo = make_unique_dp<BageInfo>();
-        badgeInfo->m_maskColor = badgeMaskColor;
-        badgeInfo->m_badgeTitleIndex = 0;
-        badgeInfo->m_zoomInfo.emplace(kWorldZoomLevel, badgeName);
-        return badgeInfo;
-      }
-    }
-    else if (m_isPreparing)
-    {
-      if (m_isSelected)
-      {
-        auto badgeInfo = make_unique_dp<BageInfo>();
-        badgeInfo->m_maskColor = badgeMaskColor;
-        badgeInfo->m_zoomInfo.emplace(kWorldZoomLevel, badgeName);
-        return badgeInfo;
-      }
-    }
-    else if (HasPrice() || HasPricing() || m_isSelected)
-    {
-      auto badgeInfo = make_unique_dp<BageInfo>();
-
-      badgeInfo->m_maskColor = badgeMaskColor;
-
-      if (HasPrice() || HasPricing())
-        badgeInfo->m_badgeTitleIndex = 1;
-
-      if (HasGoodRating())
-      {
-        badgeInfo->m_zoomInfo.emplace(kGoodRatingZoomLevel, badgeName);
-      }
-      else  // bad or no rating
-      {
-        if (m_isSelected)
-          badgeInfo->m_zoomInfo.emplace(kWorldZoomLevel, kSelectionChipSmall);
-        badgeInfo->m_zoomInfo.emplace(kBadRatingZoomLevel, badgeName);
-      }
-
-      return badgeInfo;
-    }
-    return nullptr;
-  }
-
-  if (HasRating())
-  {
-    auto badgeInfo = make_unique_dp<BageInfo>();
-
-    badgeInfo->m_maskColor = badgeMaskColor;
-
-    badgeInfo->m_badgeTitleIndex = 0;
-
-    badgeInfo->m_zoomInfo.emplace(kUGCBadgeMinZoomLevel, badgeName);
-    return badgeInfo;
-  }
-
-  return nullptr;
 }
 
 drape_ptr<df::UserPointMark::SymbolOffsets> SearchMarkPoint::GetSymbolOffsets() const
 {
   m2::PointF offset;
-  if (!IsBookingSpecialMark() && !IsHotel())
+  if (!IsHotel())
     offset = m2::PointF{0.0, 1.0};
   return make_unique_dp<SymbolOffsets>(static_cast<size_t>(scales::UPPER_STYLE_SCALE), offset);
 }
 
 bool SearchMarkPoint::IsMarkAboveText() const
 {
-  return !IsBookingSpecialMark();
+  return true;
 }
 
 float SearchMarkPoint::GetSymbolOpacity() const
@@ -379,125 +238,17 @@ float SearchMarkPoint::GetSymbolOpacity() const
 
 df::ColorConstant SearchMarkPoint::GetColorConstant() const
 {
-  if (IsBookingSpecialMark())
-  {
-    if (!m_isAvailable)
-      return m_isSelected ? "SearchmarkSelectedNotAvailable" : "SearchmarkNotAvailable";
-    if (m_isPreparing)
-      return "SearchmarkPreparing";
-    if (!HasRating())
-      return "RatingNone";
-    if (!HasGoodRating())
-      return "RatingBad";
-    return "RatingGood";
-  }
-
-  return "SearchmarkDefault";
+  return kColorConstant;
 }
 
 drape_ptr<df::UserPointMark::TitlesInfo> SearchMarkPoint::GetTitleDecl() const
 {
-  drape_ptr<TitlesInfo> titles;
-
-  double const fs = df::VisualParams::Instance().GetFontScale();
-  float const fontSize = static_cast<float>(kFontSize / fs);
-  if (IsBookingSpecialMark())
-  {
-    if (!m_isAvailable)
-    {
-      if (HasReason() && m_isSelected)
-      {
-        titles = make_unique_dp<TitlesInfo>();
-
-        dp::TitleDecl & reasonTitleDecl = titles->emplace_back();
-        reasonTitleDecl.m_anchor = dp::Left;
-        reasonTitleDecl.m_forceNoWrap = true;
-        reasonTitleDecl.m_primaryTextFont.m_color = df::GetColorConstant("HotelPriceText");
-        reasonTitleDecl.m_primaryTextFont.m_color.PremultiplyAlpha(kOutOfFiltersTextOpacity);
-        reasonTitleDecl.m_primaryTextFont.m_size = fontSize;
-
-        reasonTitleDecl.m_primaryText = m_reason;
-      }
-    }
-    else if (m_isPreparing)
-    {
-      /* do nothing */;
-    }
-    else
-    {
-      titles = make_unique_dp<TitlesInfo>();
-
-      dp::TitleDecl & ratingTitleDecl = titles->emplace_back();
-      ratingTitleDecl.m_anchor = dp::Center;
-      ratingTitleDecl.m_forceNoWrap = true;
-      ratingTitleDecl.m_primaryTextFont.m_color = df::GetColorConstant("RatingText");
-      ratingTitleDecl.m_primaryTextFont.m_color.PremultiplyAlpha(GetSymbolOpacity());
-      ratingTitleDecl.m_primaryTextFont.m_size = fontSize;
-
-      ratingTitleDecl.m_primaryText = place_page::rating::GetRatingFormatted(m_rating);
-
-      if (HasPrice() || HasPricing())
-      {
-        dp::TitleDecl & badgeTitleDecl = titles->emplace_back();
-        badgeTitleDecl.m_anchor = dp::Left;
-        badgeTitleDecl.m_forceNoWrap = true;
-        badgeTitleDecl.m_primaryTextFont.m_color = df::GetColorConstant("HotelPriceText");
-        badgeTitleDecl.m_primaryTextFont.m_color.PremultiplyAlpha(GetSymbolOpacity());
-        badgeTitleDecl.m_primaryTextFont.m_size = fontSize;
-
-        if (HasPrice())
-        {
-          badgeTitleDecl.m_primaryText = m_price;
-        }
-        else if (HasPricing())
-        {
-          badgeTitleDecl.m_primaryText.assign(static_cast<size_t>(m_pricing), '$');
-        }
-      }
-    }
-    return titles;
-  }
-
-  if (HasRating())
-  {
-    titles = make_unique_dp<TitlesInfo>();
-
-    dp::TitleDecl & ugcRatingTitleDecl = titles->emplace_back();
-    ugcRatingTitleDecl.m_anchor = dp::Left;
-    ugcRatingTitleDecl.m_forceNoWrap = true;
-    ugcRatingTitleDecl.m_primaryTextFont.m_color = df::GetColorConstant("UGCRatingText");
-    ugcRatingTitleDecl.m_primaryTextFont.m_color.PremultiplyAlpha(GetSymbolOpacity());
-    ugcRatingTitleDecl.m_primaryTextFont.m_size = fontSize;
-
-    ugcRatingTitleDecl.m_primaryText = place_page::rating::GetRatingFormatted(m_rating);
-  }
-  return titles;
+  return {};
 }
 
 int SearchMarkPoint::GetMinTitleZoom() const
 {
-  if (IsBookingSpecialMark())
-  {
-    if (!m_isAvailable)
-    {
-      if (HasReason() && m_isSelected)
-        return kWorldZoomLevel;
-    }
-    else if (m_isPreparing)
-    {
-      return kWorldZoomLevel;
-    }
-    else
-    {
-      if (HasGoodRating())
-        return kGoodRatingZoomLevel;
-      else
-        return kBadRatingZoomLevel;
-    }
-    return kWorldZoomLevel;
-  }
-
-  return kUGCBadgeMinZoomLevel;
+  return scales::GetUpperCountryScale();
 }
 
 df::DepthLayer SearchMarkPoint::GetDepthLayer() const
@@ -520,11 +271,6 @@ void SearchMarkPoint::SetFromType(uint32_t type)
   SetAttributeValue(m_type, GetSearchMarkType(type));
 }
 
-void SearchMarkPoint::SetBookingType()
-{
-  SetAttributeValue(m_type, SearchMarkType::Booking);
-}
-
 void SearchMarkPoint::SetHotelType()
 {
   SetAttributeValue(m_type, SearchMarkType::Hotel);
@@ -538,21 +284,6 @@ void SearchMarkPoint::SetNotFoundType()
 void SearchMarkPoint::SetPreparing(bool isPreparing)
 {
   SetAttributeValue(m_isPreparing, isPreparing);
-}
-
-void SearchMarkPoint::SetRating(float rating)
-{
-  SetAttributeValue(m_rating, rating);
-}
-
-void SearchMarkPoint::SetPricing(int pricing)
-{
-  SetAttributeValue(m_pricing, pricing);
-}
-
-void SearchMarkPoint::SetPrice(std::string && price)
-{
-  SetAttributeValue(m_price, std::move(price));
 }
 
 void SearchMarkPoint::SetSale(bool hasSale)
@@ -586,17 +317,7 @@ bool SearchMarkPoint::IsAvailable() const { return m_isAvailable; }
 
 std::string const & SearchMarkPoint::GetReason() const { return m_reason; }
 
-bool SearchMarkPoint::IsBookingSpecialMark() const { return m_type == SearchMarkType::Booking; }
-
 bool SearchMarkPoint::IsHotel() const { return m_type == SearchMarkType::Hotel; }
-
-bool SearchMarkPoint::HasRating() const { return m_rating > kInvalidRatingValue; }
-
-bool SearchMarkPoint::HasGoodRating() const { return m_rating >= kRatingThreshold; }
-
-bool SearchMarkPoint::HasPrice() const { return !m_price.empty(); }
-
-bool SearchMarkPoint::HasPricing() const { return m_pricing > 0; }
 
 bool SearchMarkPoint::HasReason() const { return !m_reason.empty(); }
 
@@ -609,67 +330,17 @@ std::string SearchMarkPoint::GetSymbolName() const
   if (m_type >= SearchMarkType::Count)
   {
     ASSERT(false, ("Unknown search mark symbol."));
-    symbolName = GetSymbol(SearchMarkType::Default, HasRating());
+    symbolName = GetSymbol(SearchMarkType::Default);
   }
   else
   {
-    if (IsBookingSpecialMark())
-    {
-      if (!m_isAvailable)
-        symbolName = kColoredmarkSmall;
-      else if (m_isPreparing)
-        symbolName = kColoredmarkSmall;
-      else
-        symbolName = GetSymbol(m_type, HasRating());
-    }
-    else
-    {
-      symbolName = GetSymbol(m_type, HasRating());
-    }
+    symbolName = GetSymbol(m_type);
   }
 
   if (symbolName.empty() || !SearchMarks::GetSize(symbolName))
     return {};
 
   return symbolName;
-}
-
-std::string SearchMarkPoint::GetBadgeName() const
-{
-  std::string badgeName;
-  if (!SearchMarks::HaveSizes())
-    return badgeName;
-
-  if (IsBookingSpecialMark())
-  {
-    if (!m_isAvailable)
-    {
-      if (HasReason() && m_isSelected)
-        badgeName = kSmallSelectedChip;
-    }
-    else if (m_isPreparing)
-    {
-      if (m_isSelected)
-        badgeName = kSelectionChipSmall;
-    }
-    else
-    {
-      if (m_isSelected)
-        badgeName = m_hasSale ? kPriceChipSelectedDiscount : kPriceChipSelected;
-      else
-        badgeName = m_hasSale ? kPriceChipDiscount : kPriceChip;
-    }
-  }
-  else
-  {
-    if (HasRating())
-      badgeName = kPriceChip;
-  }
-
-  if (badgeName.empty() || !SearchMarks::GetSize(badgeName))
-    return {};
-
-  return badgeName;
 }
 
 // static
@@ -686,29 +357,8 @@ void SearchMarks::SetDrapeEngine(ref_ptr<df::DrapeEngine> engine)
     return;
 
   std::vector<std::string> symbols;
-  auto const searchMarkTypesCount = static_cast<uint32_t>(SearchMarkType::Count);
-  for (uint32_t t = 0; t < searchMarkTypesCount; ++t)
-  {
-    auto const searchMarkType = static_cast<SearchMarkType>(t);
-    symbols.push_back(GetSymbol(searchMarkType, false /* isRated */));
-    symbols.push_back(GetSymbol(searchMarkType, true /* isRated */));
-  }
-
-  symbols.push_back(kColoredmarkSmall);
-
-  symbols.push_back(kSmallChip);
-  symbols.push_back(kSmallSelectedChip);
-
-  symbols.push_back(kPriceChip);
-  symbols.push_back(kPriceChipSelected);
-  symbols.push_back(kPriceChipDiscount);
-  symbols.push_back(kPriceChipSelectedDiscount);
-
-  symbols.push_back(kRatedDefaultSearchIcon);
-
-  symbols.push_back(kBookingNoRatingSearchIcon);
-
-  symbols.push_back(kSelectionChipSmall);
+  for (uint32_t t = 0; t < static_cast<uint32_t>(SearchMarkType::Count); ++t)
+    symbols.push_back(GetSymbol(static_cast<SearchMarkType>(t)));
 
   base::SortUnique(symbols);
 
@@ -770,25 +420,6 @@ void SearchMarks::SetSales(std::vector<FeatureID> const & features, bool hasSale
     ASSERT(std::is_sorted(features.cbegin(), features.cend()), ());
     if (std::binary_search(features.cbegin(), features.cend(), mark->GetFeatureID()))
       mark->SetSale(hasSale);
-    return base::ControlFlow::Continue;
-  });
-}
-
-void SearchMarks::SetPrices(std::vector<FeatureID> const & features, std::vector<std::string> && prices)
-{
-  if (features.empty() || prices.empty())
-    return;
-
-  ProcessMarks([&features, &prices](SearchMarkPoint * mark) -> base::ControlFlow
-  {
-    ASSERT(std::is_sorted(features.cbegin(), features.cend()), ());
-    auto const it = std::lower_bound(features.cbegin(), features.cend(), mark->GetFeatureID());
-    if (it != features.cend() && *it == mark->GetFeatureID())
-    {
-      auto const index = std::distance(features.cbegin(), it);
-      ASSERT_LESS(static_cast<size_t>(index), prices.size(), ());
-      mark->SetPrice(std::move(prices[index]));
-    }
     return base::ControlFlow::Continue;
   });
 }

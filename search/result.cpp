@@ -243,7 +243,6 @@ void Results::Clear()
   m_results.clear();
   m_bookmarksResults.clear();
   m_status = Status::None;
-  m_hotelsClassif.Clear();
 }
 
 size_t Results::GetSuggestsCount() const
@@ -274,7 +273,6 @@ void Results::InsertResult(vector<Result>::iterator where, Result && result)
   }
 
   result.SetPositionInResults(static_cast<int32_t>(distance(m_results.begin(), where)));
-  m_hotelsClassif.Add(result);
   m_results.insert(where, move(result));
 }
 

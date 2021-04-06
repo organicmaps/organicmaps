@@ -1,7 +1,5 @@
 #include "generator/final_processor_utils.hpp"
 
-#include "generator/promo_catalog_cities.hpp"
-
 #include "indexer/feature_data.hpp"
 
 #include "base/stl_helpers.hpp"
@@ -27,8 +25,6 @@ ProcessorCities::ProcessorCities(std::string const & temporaryMwmPath,
   , m_threadsCount(threadsCount)
 {
 }
-
-void ProcessorCities::SetPromoCatalog(std::string const & filename) { m_citiesFilename = filename; }
 
 void ProcessorCities::Process()
 {
@@ -56,31 +52,12 @@ void ProcessorCities::Process()
     m_citiesHelper.Process(city);
 
   auto fbsWithIds = m_citiesHelper.GetFeatures();
-  if (!m_citiesFilename.empty())
-    ProcessForPromoCatalog(fbsWithIds);
 
   std::vector<FeatureBuilder> fbs;
   fbs.reserve(fbsWithIds.size());
   base::Transform(fbsWithIds, std::back_inserter(fbs), base::RetrieveFirst());
 
   AppendToMwmTmp(fbs, m_affiliation, m_temporaryMwmPath, m_threadsCount);
-}
-
-void ProcessorCities::ProcessForPromoCatalog(std::vector<PlaceProcessor::PlaceWithIds> & fbsWithIds)
-{
-  auto const cities = promo::LoadCities(m_citiesFilename);
-  for (auto & [feature, ids] : fbsWithIds)
-  {
-    for (auto const & id : ids)
-    {
-      if (cities.count(id) == 0)
-        continue;
-
-      auto static const kPromoType = classif().GetTypeByPath({"sponsored", "promo_catalog"});
-      FeatureParams & params = feature.GetParams();
-      params.AddType(kPromoType);
-    }
-  }
 }
 
 PlaceHelper::PlaceHelper()

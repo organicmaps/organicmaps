@@ -36,8 +36,6 @@ using Observers = NSHashTable<Observer>;
 @property(nonatomic) MWMNavigationDashboardEntity *entity;
 @property(nonatomic) MWMRouteManagerTransitioningManager *routeManagerTransitioningManager;
 @property(nonatomic) Observers *observers;
-@property(nonatomic, readwrite) MWMTaxiPreviewDataSource *taxiDataSource;
-@property(weak, nonatomic) IBOutlet MWMTaxiCollectionView *taxiCollectionView;
 @property(weak, nonatomic) IBOutlet UIButton *showRouteManagerButton;
 @property(weak, nonatomic) IBOutlet UIView *goButtonsContainer;
 @property(weak, nonatomic) UIView *ownerView;
@@ -78,11 +76,7 @@ using Observers = NSHashTable<Observer>;
   [MWMRouter startRouting];
 }
 - (void)updateGoButtonTitle {
-  NSString *title = nil;
-  if ([MWMRouter isTaxi])
-    title = [self.taxiDataSource isTaxiInstalled] ? L(@"taxi_order") : L(@"install_app");
-  else
-    title = L(@"p2p_start");
+  NSString *title = L(@"p2p_start");
 
   for (MWMRouteStartButton *button in self.goButtons)
     [button setTitle:title forState:UIControlStateNormal];
@@ -120,7 +114,7 @@ using Observers = NSHashTable<Observer>;
 }
 
 - (void)onRouteReady:(BOOL)hasWarnings {
-  if (self.state != MWMNavigationDashboardStateNavigation && ![MWMRouter isTaxi])
+  if (self.state != MWMNavigationDashboardStateNavigation)
     self.state = MWMNavigationDashboardStateReady;
   if ([MWMRouter hasActiveDrivingOptions]) {
     self.routePreview.drivingOptionsState = MWMDrivingOptionsStateChange;
@@ -138,7 +132,6 @@ using Observers = NSHashTable<Observer>;
 #pragma mark - State changes
 
 - (void)stateHidden {
-  self.taxiDataSource = nil;
   self.routePreview = nil;
   self.navigationInfoView.state = MWMNavigationInfoViewStateHidden;
   self.navigationInfoView = nil;
@@ -167,27 +160,6 @@ using Observers = NSHashTable<Observer>;
   [self statePrepare];
   [self.routePreview router:[MWMRouter type] setState:MWMCircularProgressStateSpinner];
   [self setRouteBuilderProgress:0.];
-  if (![MWMRouter isTaxi])
-    return;
-
-  auto pFrom = [MWMRouter startPoint];
-  auto pTo = [MWMRouter finishPoint];
-  if (!pFrom || !pTo)
-    return;
-  if (!Platform::IsConnected()) {
-    [[MapViewController sharedController].alertController presentNoConnectionAlert];
-    [self onRouteError:L(@"dialog_taxi_offline")];
-    return;
-  }
-  __weak auto wSelf = self;
-  [self.taxiDataSource requestTaxiFrom:pFrom
-    to:pTo
-    completion:^{
-      wSelf.state = MWMNavigationDashboardStateReady;
-    }
-    failure:^(NSString *error) {
-      [wSelf onRouteError:error];
-    }];
 }
 
 - (void)stateError {
@@ -348,12 +320,6 @@ using Observers = NSHashTable<Observer>;
   _state = state;
   [[MapViewController sharedController] updateStatusBarStyle];
   [self onNavigationDashboardStateChanged];
-}
-
-- (MWMTaxiPreviewDataSource *)taxiDataSource {
-  if (!_taxiDataSource)
-    _taxiDataSource = [[MWMTaxiPreviewDataSource alloc] initWithCollectionView:self.taxiCollectionView];
-  return _taxiDataSource;
 }
 
 @synthesize routePreview = _routePreview;

@@ -7,11 +7,8 @@ import AuthenticationServices
 }
 
 @objc enum AuthorizationSource: Int {
-  case afterSaveReview
   case bookmarksBackup
-  case guideCatalogue
   case exportBookmarks
-  case subscription
 }
 
 @objc(MWMAuthorizationViewController)

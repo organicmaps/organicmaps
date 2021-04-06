@@ -18,11 +18,6 @@ class DeepLinkURL {
   private(set) var isLaunchedByDeeplink = false
   private(set) var deeplinkURL: DeepLinkURL?
 
-  var needExtraWelcomeScreen: Bool {
-    guard let host = deeplinkURL?.url.host else { return false }
-    return host == "catalogue" || host == "guides_page"
-  }
-
   private var canHandleLink = false
 
   private override init() {

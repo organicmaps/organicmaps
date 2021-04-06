@@ -17,12 +17,6 @@ Framework::Framework(RequestTypeMask request) : m_request(request)
 {
   CHECK_NOT_EQUAL(request, REQUEST_TYPE_EMPTY, ("Mask is empty"));
 
-  if (request & REQUEST_TYPE_NUMBER_OF_UNSENT_UGC)
-  {
-    m_numberOfUnsentUGC = impl::GetNumberOfUnsentUGC();
-    request ^= REQUEST_TYPE_NUMBER_OF_UNSENT_UGC;
-  }
-
   if (request & REQUEST_TYPE_USER_AUTH_STATUS)
   {
     m_userAuthStatus = impl::IsUserAuthenticated();
@@ -55,13 +49,6 @@ bool Framework::IsUserAuthenticated() const
   ASSERT(m_request & REQUEST_TYPE_USER_AUTH_STATUS, (m_request));
   return m_userAuthStatus;
 }
-
-size_t Framework::GetNumberOfUnsentUGC() const
-{
-  ASSERT(m_request & REQUEST_TYPE_NUMBER_OF_UNSENT_UGC, (m_request));
-  return m_numberOfUnsentUGC;
-}
-
 
 size_t Framework::GetNumberOfUnsentEdits() const
 {

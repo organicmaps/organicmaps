@@ -12,7 +12,6 @@
 #include "indexer/feature_algo.hpp"
 #include "indexer/feature_utils.hpp"
 #include "indexer/ftypes_matcher.hpp"
-#include "indexer/ftypes_sponsored.hpp"
 #include "indexer/scales.hpp"
 
 #include "platform/measurement_utils.hpp"
@@ -34,8 +33,6 @@ namespace search
 {
 namespace
 {
-char const * const kPricingSymbol = "$";
-
 class SkipRegionInfo
 {
   static size_t const kCount = 2;
@@ -249,32 +246,6 @@ void FillDetails(FeatureType & ft, Result::Details & details)
     details.m_stars = base::Clamp(details.m_stars, 0, 5);
   else
     details.m_stars = 0;
-
-  bool const isSponsoredHotel = ftypes::IsBookingChecker::Instance()(ft);
-  details.m_isSponsoredHotel = isSponsoredHotel;
-  details.m_isHotel = ftypes::IsHotelChecker::Instance()(ft);
-
-  if (isSponsoredHotel)
-  {
-    auto const r = ft.GetMetadata(feature::Metadata::FMD_RATING);
-    if (!r.empty())
-    {
-      float raw;
-      if (strings::to_float(r.c_str(), raw))
-        details.m_hotelRating = raw;
-    }
-
-    int pricing;
-    if (!strings::to_int(ft.GetMetadata(feature::Metadata::FMD_PRICE_RATE), pricing))
-      pricing = 0;
-    string pricingStr;
-    CHECK_GREATER_OR_EQUAL(pricing, 0, ("Pricing must be positive!"));
-    for (auto i = 0; i < pricing; i++)
-      pricingStr.append(kPricingSymbol);
-
-    details.m_hotelPricing = pricing;
-    details.m_hotelApproximatePricing = pricingStr;
-  }
 
   string const kFieldsSeparator = " • ";
   auto const cuisines = feature::GetLocalizedCuisines(feature::TypesHolder(ft));

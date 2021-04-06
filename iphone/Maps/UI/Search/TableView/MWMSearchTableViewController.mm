@@ -89,14 +89,9 @@ NSString *GetLocalizedTypeName(search::Result const &result) {
         static_cast<MWMSearchCommonCell *>([tableView dequeueReusableCellWithCellClass:[MWMSearchCommonCell class]
                                                                              indexPath:indexPath]);
       auto const &result = [MWMSearch resultWithContainerIndex:containerIndex];
-      auto const isBookingAvailable = [MWMSearch isBookingAvailableWithContainerIndex:containerIndex];
-      auto const isDealAvailable = [MWMSearch isDealAvailableWithContainerIndex:containerIndex];
       auto const &productInfo = [MWMSearch productInfoWithContainerIndex:containerIndex];
       auto const typeName = GetLocalizedTypeName(result);
-      [cell config:result
-              isAvailable:isBookingAvailable
-               isHotOffer:isDealAvailable
-              productInfo:productInfo
+      [cell config:result productInfo:productInfo
         localizedTypeName:typeName];
       return cell;
     }

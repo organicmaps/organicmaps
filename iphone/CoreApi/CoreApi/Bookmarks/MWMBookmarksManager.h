@@ -1,8 +1,6 @@
 #import "MWMTypes.h"
 
 #import "MWMBookmarksObserver.h"
-#import "MWMCatalogCommon.h"
-#import "MWMUTM.h"
 #import "PlacePageBookmarkData.h"
 
 @class CLLocation;
@@ -10,8 +8,6 @@
 @class MWMBookmarkGroup;
 @class MWMBookmarksSection;
 @class MWMCarPlayBookmarkObject;
-@class MWMTagGroup;
-@class MWMTag;
 @class MWMTrack;
 
 NS_ASSUME_NONNULL_BEGIN
@@ -22,7 +18,6 @@ typedef NS_ENUM(NSInteger, MWMBookmarksSortingType) {
   MWMBookmarksSortingTypeByTime
 } NS_SWIFT_NAME(BookmarksSortingType);
 
-typedef void (^LoadTagsCompletionBlock)(NSArray<MWMTagGroup *> * _Nullable tags, NSInteger maxTagsNumber);
 typedef void (^PingCompletionBlock)(BOOL success);
 typedef void (^ElevationPointChangedBlock)(double distance);
 typedef void (^SearchBookmarksCompletionBlock)(NSArray<MWMBookmark *> *bookmarks);
@@ -61,7 +56,6 @@ NS_SWIFT_NAME(BookmarksManager)
 - (BOOL)isCategoryVisible:(MWMMarkGroupID)groupId;
 - (void)setCategory:(MWMMarkGroupID)groupId isVisible:(BOOL)isVisible;
 - (void)setUserCategoriesVisible:(BOOL)isVisible;
-- (void)setCatalogCategoriesVisible:(BOOL)isVisible;
 - (void)deleteCategory:(MWMMarkGroupID)groupId;
 - (BOOL)checkCategoryName:(NSString *)name;
 - (NSArray<NSNumber *> *)availableSortingTypes:(MWMMarkGroupID)groupId hasMyPosition:(BOOL)hasMyPosition;
@@ -103,62 +97,19 @@ NS_SWIFT_NAME(BookmarksManager)
 - (void)setNotificationsEnabled:(BOOL)enabled;
 - (BOOL)areNotificationsEnabled;
 
-- (NSURL * _Nullable)catalogFrontendUrl:(MWMUTM)utm;
-- (NSURL * _Nullable)injectCatalogUTMContent:(NSURL * _Nullable)url content:(MWMUTMContent)content;
-- (NSURL * _Nullable)catalogFrontendUrlPlusPath:(NSString *)path
-                                            utm:(MWMUTM)utm;
-- (NSURL * _Nullable)deeplinkForCategoryId:(MWMMarkGroupID)groupId;
-- (NSURL * _Nullable)publicLinkForCategoryId:(MWMMarkGroupID)groupId;
-- (NSURL * _Nullable)webEditorUrlForCategoryId:(MWMMarkGroupID)groupId language:(NSString *)languageCode;
-- (void)downloadItemWithId:(NSString *)itemId
-                      name:(NSString *)name
-                  progress:(_Nullable ProgressBlock)progress
-                completion:(_Nullable DownloadCompletionBlock)completion;
-- (BOOL)isCategoryFromCatalog:(MWMMarkGroupID)groupId;
 - (NSArray<MWMBookmarkGroup *> *)userCategories;
-- (NSArray<MWMBookmarkGroup *> *)categoriesFromCatalog;
 - (MWMBookmarkGroup *)categoryWithId:(MWMMarkGroupID)groupId;
-- (NSInteger)getCatalogDownloadsCount;
-- (BOOL)isCategoryDownloading:(NSString *)itemId;
-- (BOOL)hasCategoryDownloaded:(NSString *)itemId;
 - (void)updateBookmark:(MWMMarkID)bookmarkId
             setGroupId:(MWMMarkGroupID)groupId
                  title:(NSString *)title
                  color:(MWMBookmarkColor)color
            description:(NSString *)description;
 
-- (void)loadTagsWithLanguage:(NSString * _Nullable)languageCode completion:(LoadTagsCompletionBlock)completionBlock;
-- (void)setCategory:(MWMMarkGroupID)groupId tags:(NSArray<MWMTag *> *)tags;
-- (void)setCategory:(MWMMarkGroupID)groupId authorType:(MWMBookmarkGroupAuthorType)author;
-
-- (void)uploadAndGetDirectLinkCategoryWithId:(MWMMarkGroupID)itemId
-                                    progress:(_Nullable ProgressBlock)progress
-                                  completion:(UploadCompletionBlock)completion;
-
-- (void)uploadAndPublishCategoryWithId:(MWMMarkGroupID)itemId
-                              progress:(_Nullable ProgressBlock)progress
-                            completion:(UploadCompletionBlock)completion;
-
-- (void)uploadCategoryWithId:(MWMMarkGroupID)itemId
-                    progress:(_Nullable ProgressBlock)progress
-                  completion:(UploadCompletionBlock)completion;
-- (void)ping:(PingCompletionBlock)callback;
-- (void)checkForExpiredCategories:(MWMBoolBlock)completion;
-- (void)deleteExpiredCategories;
-- (void)resetExpiredCategories;
-
 - (instancetype)init __attribute__((unavailable("call +manager instead")));
 - (instancetype)copy __attribute__((unavailable("call +manager instead")));
 - (instancetype)copyWithZone:(NSZone *)zone __attribute__((unavailable("call +manager instead")));
 + (instancetype)allocWithZone:(struct _NSZone *)zone __attribute__((unavailable("call +manager instead")));
 + (instancetype) new __attribute__((unavailable("call +manager instead")));
-
-- (BOOL)isGuide:(MWMMarkGroupID)groupId;
-- (NSString *)getServerId:(MWMMarkGroupID)groupId;
-- (MWMMarkGroupID)getGroupId:(NSString *)serverId;
-- (NSString *)getGuidesIds;
-- (NSString *)deviceId;
-- (NSDictionary<NSString *, NSString *> *)getCatalogHeaders;
 
 - (void)setElevationActivePoint:(double)distance trackId:(uint64_t)trackId;
 - (void)setElevationActivePointChanged:(uint64_t)trackId callback:(ElevationPointChangedBlock)callback;

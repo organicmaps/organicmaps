@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17125"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -12,9 +12,7 @@
             <connections>
                 <outlet property="baseRoutePreviewStatus" destination="hIE-BJ-nFm" id="Kwy-sL-krz"/>
                 <outlet property="routePreview" destination="aNH-vh-DPz" id="ORz-pz-7sV"/>
-                <outlet property="taxiCollectionView" destination="Dm8-yS-U68" id="crw-jv-vGq"/>
                 <outlet property="transportRoutePreviewStatus" destination="iWi-pM-AJF" id="ah9-rm-QeN"/>
-                <outletCollection property="goButtons" destination="ZXz-KM-xQz" id="14O-qB-UJl"/>
                 <outletCollection property="goButtons" destination="CQB-xn-DSM" id="FPU-6h-5CN"/>
             </connections>
         </placeholder>
@@ -191,7 +189,6 @@
                 <outlet property="drivingOptionsButton" destination="ZXA-Og-q2I" id="IZf-0l-IIV"/>
                 <outlet property="pedestrian" destination="6D3-QF-6wm" id="bdh-zx-9LW"/>
                 <outlet property="publicTransport" destination="yIt-eq-pV5" id="yIX-eM-Hrs"/>
-                <outlet property="taxi" destination="15Q-ZN-NzE" id="RaD-7N-ZE2"/>
                 <outlet property="vehicle" destination="cZF-Ha-2tB" id="QP3-tU-nfO"/>
             </connections>
             <point key="canvasLocation" x="448" y="364.31784107946032"/>
@@ -344,69 +341,17 @@
                         <constraint firstItem="Yia-YS-2aZ" firstAttribute="top" secondItem="fzb-1W-zFB" secondAttribute="top" id="ejL-T8-2eh"/>
                     </constraints>
                 </view>
-                <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5a5-vb-p6T" userLabel="Taxi Box">
-                    <rect key="frame" x="0.0" y="0.0" width="320" height="60"/>
-                    <subviews>
-                        <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" pagingEnabled="YES" dataMode="none" prefetchingEnabled="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Dm8-yS-U68" customClass="MWMTaxiCollectionView">
-                            <rect key="frame" x="0.0" y="0.0" width="190" height="60"/>
-                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                            <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="yr1-ni-nMn" customClass="MWMTaxiCollectionLayout">
-                                <size key="itemSize" width="320" height="100"/>
-                                <size key="headerReferenceSize" width="0.0" height="0.0"/>
-                                <size key="footerReferenceSize" width="0.0" height="0.0"/>
-                                <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
-                            </collectionViewFlowLayout>
-                            <userDefinedRuntimeAttributes>
-                                <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="Background"/>
-                            </userDefinedRuntimeAttributes>
-                        </collectionView>
-                        <button hidden="YES" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="tailTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZXz-KM-xQz" userLabel="Go" customClass="MWMRouteStartButton">
-                            <rect key="frame" x="198" y="14" width="110" height="32"/>
-                            <accessibility key="accessibilityConfiguration" identifier="goButton"/>
-                            <constraints>
-                                <constraint firstAttribute="width" constant="110" id="COX-gy-Yq7"/>
-                                <constraint firstAttribute="height" constant="32" id="qWi-sH-wKR"/>
-                            </constraints>
-                            <inset key="contentEdgeInsets" minX="8" minY="0.0" maxX="8" maxY="0.0"/>
-                            <state key="normal" title="Start"/>
-                            <state key="selected">
-                                <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="0.26000000000000001" colorSpace="custom" customColorSpace="sRGB"/>
-                            </state>
-                            <userDefinedRuntimeAttributes>
-                                <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="FlatNormalButtonBig"/>
-                                <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="p2p_start"/>
-                            </userDefinedRuntimeAttributes>
-                            <connections>
-                                <action selector="routingStartTouchUpInside" destination="-1" eventType="touchUpInside" id="zAg-HJ-CL1"/>
-                            </connections>
-                        </button>
-                    </subviews>
-                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                    <constraints>
-                        <constraint firstItem="Dm8-yS-U68" firstAttribute="top" secondItem="5a5-vb-p6T" secondAttribute="top" id="1BT-nc-NyC"/>
-                        <constraint firstItem="ZXz-KM-xQz" firstAttribute="centerY" secondItem="5a5-vb-p6T" secondAttribute="centerY" id="5PF-pY-ZFu"/>
-                        <constraint firstItem="Dm8-yS-U68" firstAttribute="leading" secondItem="5a5-vb-p6T" secondAttribute="leading" id="GAn-kd-ghT"/>
-                        <constraint firstAttribute="height" constant="60" id="NNM-cn-dVc"/>
-                        <constraint firstAttribute="trailing" secondItem="ZXz-KM-xQz" secondAttribute="trailing" constant="12" id="Ufj-hl-7zb"/>
-                        <constraint firstAttribute="bottom" secondItem="Dm8-yS-U68" secondAttribute="bottom" id="bnt-sj-3pO"/>
-                        <constraint firstItem="ZXz-KM-xQz" firstAttribute="leading" secondItem="Dm8-yS-U68" secondAttribute="trailing" constant="8" id="kmB-Ak-gu0"/>
-                    </constraints>
-                </view>
             </subviews>
             <viewLayoutGuide key="safeArea" id="Mhb-kh-JDR"/>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
                 <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="FBs-iT-nWY" secondAttribute="bottom" id="0pP-L9-PjJ"/>
-                <constraint firstItem="5a5-vb-p6T" firstAttribute="leading" secondItem="hIE-BJ-nFm" secondAttribute="leading" id="378-vg-65G"/>
                 <constraint firstItem="fzb-1W-zFB" firstAttribute="top" relation="greaterThanOrEqual" secondItem="FBs-iT-nWY" secondAttribute="bottom" id="939-g8-UFV"/>
                 <constraint firstItem="Mhb-kh-JDR" firstAttribute="trailing" secondItem="o7e-Ce-Flg" secondAttribute="trailing" constant="-100" id="AkP-e9-DhZ"/>
                 <constraint firstAttribute="trailing" secondItem="fD2-1N-x27" secondAttribute="trailing" id="Alb-Vc-3pV"/>
-                <constraint firstItem="5a5-vb-p6T" firstAttribute="top" secondItem="hIE-BJ-nFm" secondAttribute="top" id="C3e-aL-kQq"/>
                 <constraint firstItem="Tai-sE-6DC" firstAttribute="top" secondItem="hIE-BJ-nFm" secondAttribute="top" id="D1o-4y-GV6"/>
                 <constraint firstItem="o7e-Ce-Flg" firstAttribute="leading" secondItem="Mhb-kh-JDR" secondAttribute="leading" constant="-100" id="H9m-LI-nmf"/>
                 <constraint firstAttribute="height" priority="100" constant="48" id="HTC-IH-1gA"/>
-                <constraint firstAttribute="trailing" secondItem="5a5-vb-p6T" secondAttribute="trailing" id="I7D-Xr-4Bd"/>
-                <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="5a5-vb-p6T" secondAttribute="bottom" id="LNP-ys-o3e"/>
                 <constraint firstItem="fD2-1N-x27" firstAttribute="leading" secondItem="hIE-BJ-nFm" secondAttribute="leading" id="OkZ-n1-6M1"/>
                 <constraint firstItem="fzb-1W-zFB" firstAttribute="top" secondItem="hIE-BJ-nFm" secondAttribute="top" priority="100" id="PEO-jz-737"/>
                 <constraint firstItem="Mhb-kh-JDR" firstAttribute="bottom" secondItem="o7e-Ce-Flg" secondAttribute="bottom" constant="-100" id="Qif-Nu-kov"/>
@@ -442,8 +387,6 @@
                 <outlet property="resultLabel" destination="sjQ-Sc-mtN" id="GLa-P4-7XO"/>
                 <outlet property="resultsBox" destination="Tai-sE-6DC" id="l4p-m2-z4z"/>
                 <outlet property="resultsBoxBottom" destination="trf-mi-xeb" id="tdb-sa-2ak"/>
-                <outlet property="taxiBox" destination="5a5-vb-p6T" id="MLv-mh-dK2"/>
-                <outlet property="taxiBoxBottom" destination="LNP-ys-o3e" id="B9A-Lx-cDJ"/>
             </connections>
             <point key="canvasLocation" x="448" y="521"/>
         </view>
@@ -463,13 +406,13 @@
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <collectionView userInteractionEnabled="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" alwaysBounceHorizontal="YES" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" delaysContentTouches="NO" canCancelContentTouches="NO" bouncesZoom="NO" dataMode="none" prefetchingEnabled="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RVh-LF-kSn" customClass="TransportTransitStepsCollectionView" customModule="maps_me" customModuleProvider="target">
+                <collectionView userInteractionEnabled="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" alwaysBounceHorizontal="YES" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" delaysContentTouches="NO" canCancelContentTouches="NO" bouncesZoom="NO" dataMode="none" prefetchingEnabled="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RVh-LF-kSn" customClass="TransportTransitStepsCollectionView" customModule="OMaps" customModuleProvider="target">
                     <rect key="frame" x="16" y="44" width="288" height="20"/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
                         <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="20" id="eGu-Mr-auv"/>
                     </constraints>
-                    <collectionViewLayout key="collectionViewLayout" id="d3P-nT-IFD" customClass="TransportTransitFlowLayout" customModule="maps_me" customModuleProvider="target"/>
+                    <collectionViewLayout key="collectionViewLayout" id="d3P-nT-IFD" customClass="TransportTransitFlowLayout" customModule="OMaps" customModuleProvider="target"/>
                 </collectionView>
             </subviews>
             <viewLayoutGuide key="safeArea" id="YJK-Xe-9oN"/>

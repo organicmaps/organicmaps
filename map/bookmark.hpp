@@ -110,10 +110,7 @@ public:
   void SetServerId(std::string const & serverId);
   std::string const & GetServerId() const { return m_serverId; }
 
-  bool IsCategoryFromCatalog() const;
   bool HasElevationProfile() const;
-  std::string GetCatalogDeeplink() const;
-  std::string GetCatalogPublicLink() const;
 
   void SetAuthor(std::string const & name, std::string const & id);
   void SetAccessRules(kml::AccessRules accessRules);

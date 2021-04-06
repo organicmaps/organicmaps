@@ -17,7 +17,6 @@ omim_link_libraries(
   routing_common
   descriptions
   transit
-  ugc
   search
   storage
   editor

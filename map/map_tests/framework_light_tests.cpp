@@ -9,21 +9,17 @@ struct LightFrameworkTest
   static void SmokeTest()
   {
     {
-      Framework f(REQUEST_TYPE_NUMBER_OF_UNSENT_UGC | REQUEST_TYPE_USER_AUTH_STATUS);
+      Framework f(REQUEST_TYPE_USER_AUTH_STATUS);
       f.m_userAuthStatus = true;
-      f.m_numberOfUnsentUGC = 30;
-      TEST_EQUAL(f.GetNumberOfUnsentUGC(), 30, ());
       TEST(f.IsUserAuthenticated(), ());
     }
 
     {
       Framework f(REQUEST_TYPE_USER_AUTH_STATUS |
-                  REQUEST_TYPE_NUMBER_OF_UNSENT_EDITS |
-                  REQUEST_TYPE_NUMBER_OF_UNSENT_UGC);
+                  REQUEST_TYPE_NUMBER_OF_UNSENT_EDITS);
 
       f.m_numberOfUnsentEdits = 10;
       TEST_EQUAL(f.GetNumberOfUnsentEdits(), 10, ());
-      TEST_EQUAL(f.GetNumberOfUnsentUGC(), 0, ());
       TEST(!f.IsUserAuthenticated(), ());
     }
   }

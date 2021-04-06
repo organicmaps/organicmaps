@@ -2,8 +2,6 @@
 
 #include "search/utils.hpp"
 
-#include "ugc/types.hpp"
-
 #include "indexer/classificator.hpp"
 #include "indexer/search_string_utils.hpp"
 
@@ -27,14 +25,12 @@ double constexpr kHasName = 0.5;
 double constexpr kCategoriesPopularity = 0.05;
 double constexpr kCategoriesDistanceToPivot = -0.6874177;
 double constexpr kCategoriesRank = 1.0000000;
-double constexpr kCategoriesRating = 0.0500000;
 double constexpr kCategoriesFalseCats = -1.0000000;
 double constexpr kCategoriesRefusedByFilter = -1.0000000;
 
 double constexpr kDistanceToPivot = -0.2123693;
 double constexpr kRank = 0.1065355;
 double constexpr kPopularity = 1.0000000;
-double constexpr kRating = 0.0716319;
 double constexpr kFalseCats = -0.4172461;
 double constexpr kErrorsMade = -0.0391331;
 double constexpr kMatchedFraction = 0.1876736;
@@ -82,20 +78,6 @@ static_assert(kRefusedByFilter < 0, "");
 double TransformDistance(double distance)
 {
   return min(distance, RankingInfo::kMaxDistMeters) / RankingInfo::kMaxDistMeters;
-}
-
-double TransformRating(pair<uint8_t, float> const & rating)
-{
-  double r = 0.0;
-  // From statistics.
-  double constexpr kAverageRating = 7.6;
-  if (rating.first != 0)
-  {
-    r = (static_cast<double>(rating.second) - kAverageRating) /
-        (ugc::UGC::kMaxRating - ugc::UGC::kRatingDetalizationThreshold);
-    r *= static_cast<double>(rating.first) / 3.0 /* maximal confidence */;
-  }
-  return r;
 }
 
 void PrintParse(ostringstream & oss, array<TokenRange, Model::TYPE_COUNT> const & ranges,
@@ -185,8 +167,6 @@ string DebugPrint(RankingInfo const & info)
   os << "m_distanceToPivot:" << info.m_distanceToPivot;
   os << ", m_rank:" << static_cast<int>(info.m_rank);
   os << ", m_popularity:" << static_cast<int>(info.m_popularity);
-  os << ", m_rating:[" << static_cast<int>(info.m_rating.first) << ", " << info.m_rating.second
-     << "]";
   os << ", m_nameScore:" << DebugPrint(info.m_nameScore);
   os << ", m_errorsMade:" << DebugPrint(info.m_errorsMade);
   os << ", m_isAltOrOldName: " << info.m_isAltOrOldName;
@@ -200,7 +180,6 @@ string DebugPrint(RankingInfo const & info)
   os << ", m_exactCountryOrCapital:" << info.m_exactCountryOrCapital;
   os << ", m_categorialRequest:" << info.m_categorialRequest;
   os << ", m_hasName:" << info.m_hasName;
-  os << ", m_refusedByFilter:" << info.m_refusedByFilter;
   os << "]";
   return os.str();
 }
@@ -211,7 +190,6 @@ void RankingInfo::ToCSV(ostream & os) const
   os << m_distanceToPivot << ",";
   os << static_cast<int>(m_rank) << ",";
   os << static_cast<int>(m_popularity) << ",";
-  os << TransformRating(m_rating) << ",";
   os << DebugPrint(m_nameScore) << ",";
   os << GetErrorsMadePerToken() << ",";
   os << m_matchedFraction << ",";
@@ -234,7 +212,6 @@ double RankingInfo::GetLinearModelRank() const
   double const distanceToPivot = TransformDistance(m_distanceToPivot);
   double const rank = static_cast<double>(m_rank) / numeric_limits<uint8_t>::max();
   double const popularity = static_cast<double>(m_popularity) / numeric_limits<uint8_t>::max();
-  double const rating = TransformRating(m_rating);
 
   auto nameScore = m_nameScore;
   if (m_pureCats || m_falseCats)
@@ -254,7 +231,6 @@ double RankingInfo::GetLinearModelRank() const
     result += kDistanceToPivot * distanceToPivot;
     result += kRank * rank;
     result += kPopularity * popularity;
-    result += kRating * rating;
     result += m_falseCats * kFalseCats;
     result += kType[m_type];
     if (Model::IsPoi(m_type))
@@ -267,17 +243,14 @@ double RankingInfo::GetLinearModelRank() const
     auto const nameRank = kNameScore[nameScore] + kErrorsMade * GetErrorsMadePerToken() +
                           kMatchedFraction * m_matchedFraction;
     result += (m_isAltOrOldName ? 0.7 : 1.0) * nameRank;
-    result += (m_refusedByFilter ? 1 : 0) * kRefusedByFilter;
   }
   else
   {
     result += kCategoriesDistanceToPivot * distanceToPivot;
     result += kCategoriesRank * rank;
     result += kCategoriesPopularity * popularity;
-    result += kCategoriesRating * rating;
     result += kCategoriesFalseCats * kFalseCats;
     result += m_hasName * kHasName;
-    result += (m_refusedByFilter ? 1 : 0) * kCategoriesRefusedByFilter;
   }
   return result;
 }

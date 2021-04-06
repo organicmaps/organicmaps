@@ -66,7 +66,6 @@ public:
     BlockTapEvents,
     OnEnterForeground,
     SetAddNewPlaceMode,
-    SetDisplacementMode,
     AllowAutoZoom,
     RequestSymbolsSize,
     RecoverContextDependentResources,
@@ -91,7 +90,6 @@ public:
     PostUserEvent,
     FinishTexturesInitialization,
     CleanupTextures,
-    EnableUGCRendering,
     EnableDebugRectRendering,
     EnableTransitScheme,
     UpdateTransitScheme,
@@ -103,7 +101,6 @@ public:
     NotifyRenderThread,
     NotifyGraphicsReady,
     EnableIsolines,
-    EnableGuides,
     OnEnterBackground,
   };
 

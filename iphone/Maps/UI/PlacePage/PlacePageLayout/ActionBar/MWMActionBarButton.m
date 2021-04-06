@@ -3,14 +3,7 @@
 #import "MWMCircularProgress.h"
 #import "SwiftBridge.h"
 
-static NSString *titleForPartner(NSInteger partnerIndex) {
-  NSString *str = [NSString stringWithFormat:@"sponsored_partner%ld_action", (long)partnerIndex];
-  NSString *localizedStr = L(str);
-  NSCAssert(![str isEqualToString:localizedStr], @"Localization is absent.");
-  return localizedStr;
-}
-
-NSString *titleForButton(MWMActionBarButtonType type, NSInteger partnerIndex, BOOL isSelected) {
+NSString *titleForButton(MWMActionBarButtonType type, BOOL isSelected) {
   switch (type) {
     case MWMActionBarButtonTypeDownload:
       return L(@"download");
@@ -41,40 +34,13 @@ NSString *titleForButton(MWMActionBarButtonType type, NSInteger partnerIndex, BO
       return L(@"avoid_unpaved_roads_placepage");
     case MWMActionBarButtonTypeAvoidFerry:
       return L(@"avoid_ferry_crossing_placepage");
-    case MWMActionBarButtonTypePartner:
-      return titleForPartner(partnerIndex);
   }
-}
-
-static NSString *imageNameForPartner(NSInteger partnerIndex) {
-  return [NSString stringWithFormat:@"ic_28px_logo_partner%ld", (long)partnerIndex];
-}
-
-static UIImage *imageForPartner(NSInteger partnerIndex) {
-  UIImage *img = [UIImage imageNamed:imageNameForPartner(partnerIndex)];
-  NSCAssert(img != nil, @"Partner image is absent.");
-  return img;
-}
-
-static UIColor *textColorForPartner(NSInteger partnerIndex) {
-  NSString *textColor = [NSString stringWithFormat:@"partner%ldTextColor", (long)partnerIndex];
-  UIColor *color = [UIColor colorWithName:textColor];
-  NSCAssert(color != nil, @"Partner text color is absent.");
-  return color;
-}
-
-static UIColor *backgroundColorForPartner(NSInteger partnerIndex) {
-  NSString *colorName = [NSString stringWithFormat:@"partner%ldBackground", (long)partnerIndex];
-  UIColor *color = [UIColor colorWithName:colorName];
-  NSCAssert(color != nil, @"Partner background color is absent.");
-  return color;
 }
 
 @interface MWMActionBarButton () <MWMCircularProgressProtocol>
 
 @property(nonatomic) MWMActionBarButtonType type;
 @property(nonatomic) MWMCircularProgress *mapDownloadProgress;
-@property(nonatomic) NSInteger partnerIndex;
 @property(weak, nonatomic) IBOutlet MWMButton *button;
 @property(weak, nonatomic) IBOutlet UILabel *label;
 @property(weak, nonatomic) IBOutlet UIView *extraBackground;
@@ -85,7 +51,7 @@ static UIColor *backgroundColorForPartner(NSInteger partnerIndex) {
 @implementation MWMActionBarButton
 
 - (void)configButton:(BOOL)isSelected enabled:(BOOL)isEnabled {
-  self.label.text = titleForButton(self.type, self.partnerIndex, isSelected);
+  self.label.text = titleForButton(self.type, isSelected);
   self.extraBackground.hidden = YES;
   switch (self.type) {
     case MWMActionBarButtonTypeDownload: {
@@ -153,12 +119,6 @@ static UIColor *backgroundColorForPartner(NSInteger partnerIndex) {
     case MWMActionBarButtonTypeRouteRemoveStop:
       [self.button setImage:[UIImage imageNamed:@"ic_remove_route_point"] forState:UIControlStateNormal];
       break;
-    case MWMActionBarButtonTypePartner:
-      [self.button setImage:imageForPartner(self.partnerIndex) forState:UIControlStateNormal];
-      self.label.styleName = @"regular10";
-      self.label.textColor = textColorForPartner(self.partnerIndex);
-      self.backgroundColor = backgroundColorForPartner(self.partnerIndex);
-      break;
     case MWMActionBarButtonTypeAvoidToll:
       [self.button setImage:[UIImage imageNamed:@"ic_avoid_tolls"] forState:UIControlStateNormal];
       break;
@@ -174,13 +134,11 @@ static UIColor *backgroundColorForPartner(NSInteger partnerIndex) {
 
 + (MWMActionBarButton *)buttonWithDelegate:(id<MWMActionBarButtonDelegate>)delegate
                                 buttonType:(MWMActionBarButtonType)type
-                              partnerIndex:(NSInteger)partnerIndex
                                 isSelected:(BOOL)isSelected
                                 isEnabled:(BOOL)isEnabled {
   MWMActionBarButton *button = [NSBundle.mainBundle loadNibNamed:[self className] owner:nil options:nil].firstObject;
   button.delegate = delegate;
   button.type = type;
-  button.partnerIndex = partnerIndex;
   [button configButton:isSelected enabled:isEnabled];
   return button;
 }

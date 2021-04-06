@@ -229,25 +229,6 @@ m2::PointF GetOffset(CaptionDefProto const * capRule)
   return result;
 }
 
-uint16_t CalculateHotelOverlayPriority(BaseApplyFeature::HotelData const & data)
-{
-  // NOTE: m_rating is in format X[.Y], where X = [0;10], Y = [0;9], e.g. 8.7
-  std::string s = data.m_rating;
-  s.erase(std::remove(s.begin(), s.end(), '.'), s.end());
-  s.erase(std::remove(s.begin(), s.end(), ','), s.end());
-  if (s.empty())
-    return 0;
-
-  // Special case for integer ratings.
-  if (s.length() == data.m_rating.length())
-    s += '0';
-
-  uint result = 0;
-  if (strings::to_uint(s, result))
-    return static_cast<uint16_t>(result);
-  return 0;
-}
-
 uint16_t CalculateNavigationPoiPriority()
 {
   // All navigation POI have maximum priority in navigation mode.
@@ -459,52 +440,26 @@ void BaseApplyFeature::ExtractCaptionParams(CaptionDefProto const * primaryProto
   }
 }
 
-std::string BaseApplyFeature::ExtractHotelInfo() const
-{
-  if (!m_hotelData.m_isHotel)
-    return "";
-
-  std::ostringstream out;
-  if (!m_hotelData.m_rating.empty() && m_hotelData.m_rating != "0")
-  {
-    out << m_hotelData.m_rating << kStarSymbol;
-    if (m_hotelData.m_priceCategory != 0)
-      out << "  ";
-  }
-  for (int i = 0; i < m_hotelData.m_priceCategory; i++)
-    out << kPriceSymbol;
-
-  return out.str();
-}
-
-void BaseApplyFeature::SetHotelData(HotelData && hotelData)
-{
-  m_hotelData = std::move(hotelData);
-}
-
 ApplyPointFeature::ApplyPointFeature(TileKey const & tileKey, TInsertShapeFn const & insertShape,
                                      FeatureID const & id, int minVisibleScale, uint8_t rank,
                                      CaptionDescription const & captions, float posZ,
-                                     int displacementMode, DepthLayer depthLayer)
+                                     DepthLayer depthLayer)
   : TBase(tileKey, insertShape, id, minVisibleScale, rank, captions)
   , m_posZ(posZ)
   , m_hasPoint(false)
   , m_hasArea(false)
   , m_createdByEditor(false)
   , m_obsoleteInEditor(false)
-  , m_isUGC(false)
   , m_depthLayer(depthLayer)
   , m_symbolDepth(dp::kMinDepth)
   , m_symbolRule(nullptr)
-  , m_displacementMode(displacementMode)
 {}
 
-void ApplyPointFeature::operator()(m2::PointD const & point, bool hasArea, bool isUGC)
+void ApplyPointFeature::operator()(m2::PointD const & point, bool hasArea)
 {
   auto const & editor = osm::Editor::Instance();
   m_hasPoint = true;
   m_hasArea = hasArea;
-  m_isUGC = isUGC;
   auto const featureStatus = editor.GetFeatureStatus(m_id);
   m_createdByEditor = featureStatus == FeatureStatus::Created;
   m_obsoleteInEditor = featureStatus == FeatureStatus::Obsolete;
@@ -542,18 +497,7 @@ void ApplyPointFeature::ProcessPointRule(Stylist::TRuleWrapper const & rule)
     params.m_hasArea = m_hasArea;
     params.m_createdByEditor = m_createdByEditor;
 
-    auto & titleDecl = params.m_titleDecl;
-    if (m_displacementMode == dp::displacement::kHotelMode &&
-        m_hotelData.m_isHotel && !titleDecl.m_primaryText.empty())
-    {
-      titleDecl.m_primaryOptional = false;
-      titleDecl.m_primaryTextFont.m_size *= 1.2;
-      titleDecl.m_primaryTextFont.m_outlineColor = df::GetColorConstant(df::kPoiHotelTextOutlineColor);
-      titleDecl.m_secondaryTextFont = titleDecl.m_primaryTextFont;
-      titleDecl.m_secondaryText = ExtractHotelInfo();
-      titleDecl.m_secondaryOptional = false;
-    }
-
+    auto const & titleDecl = params.m_titleDecl;
     if (!titleDecl.m_primaryText.empty() || !titleDecl.m_secondaryText.empty())
       m_textParams.push_back(params);
   }
@@ -565,12 +509,7 @@ void ApplyPointFeature::Finish(ref_ptr<dp::TextureManager> texMng)
 
   bool specialDisplacementMode = false;
   uint16_t specialModePriority = 0;
-  if (m_displacementMode == dp::displacement::kHotelMode && m_hotelData.m_isHotel)
-  {
-    specialDisplacementMode = true;
-    specialModePriority = CalculateHotelOverlayPriority(m_hotelData);
-  }
-  else if (m_depthLayer == DepthLayer::NavigationLayer && GetStyleReader().IsCarNavigationStyle())
+  if (m_depthLayer == DepthLayer::NavigationLayer && GetStyleReader().IsCarNavigationStyle())
   {
     specialDisplacementMode = true;
     specialModePriority = CalculateNavigationPoiPriority();
@@ -627,38 +566,13 @@ void ApplyPointFeature::Finish(ref_ptr<dp::TextureManager> texMng)
                                             m2::PointF(0.0f, 0.0f) /* symbolOffset */,
                                             dp::Center /* symbolAnchor */, 0 /* textIndex */));
   }
-
-  if (m_isUGC)
-  {
-    df::ColoredSymbolViewParams params;
-    params.m_featureId = m_id;
-    params.m_tileCenter = m_tileRect.Center();
-    params.m_color = dp::Color::Yellow();
-    params.m_radiusInPixels = hasPOI ? static_cast<float>(symbolSize.x / 2.0 + mainScale * 3)
-                                     : static_cast<float>(mainScale * 7);
-    params.m_anchor = dp::Center;
-    params.m_startOverlayRank = hasPOI ? dp::OverlayRank2 : dp::OverlayRank1;
-    params.m_specialDisplacement = specialDisplacementMode ? SpecialDisplacement::SpecialMode
-                                                           : SpecialDisplacement::None;
-    params.m_specialPriority = specialModePriority;
-    params.m_depthLayer = m_depthLayer;
-    params.m_minVisibleScale = m_minVisibleScale;
-    params.m_rank = m_rank;
-    params.m_depthTestEnabled = true;
-    params.m_depth = static_cast<float>(m_symbolDepth);
-
-    auto coloredShape = make_unique_dp<ColoredSymbolShape>(m2::PointD(m_centerPoint), params,
-                                                           m_tileKey, 0 /* textIndex */, true);
-    m_insertShape(std::move(coloredShape));
-  }
 }
 
 ApplyAreaFeature::ApplyAreaFeature(TileKey const & tileKey, TInsertShapeFn const & insertShape,
                                    FeatureID const & id, double currentScaleGtoP, bool isBuilding,
                                    bool skipAreaGeometry, float minPosZ, float posZ, int minVisibleScale,
                                    uint8_t rank, CaptionDescription const & captions, bool hatchingArea)
-  : TBase(tileKey, insertShape, id, minVisibleScale, rank, captions, posZ,
-          dp::displacement::kDefaultMode, DepthLayer::OverlayLayer)
+  : TBase(tileKey, insertShape, id, minVisibleScale, rank, captions, posZ, DepthLayer::OverlayLayer)
   , m_minPosZ(minPosZ)
   , m_isBuilding(isBuilding)
   , m_skipAreaGeometry(skipAreaGeometry)

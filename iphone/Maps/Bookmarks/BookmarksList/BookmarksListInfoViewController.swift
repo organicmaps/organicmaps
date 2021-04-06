@@ -28,7 +28,7 @@ final class BookmarksListInfoViewController: UIViewController {
   
   override func viewDidLoad() {
     super.viewDidLoad()
-    descriptionButton.setTitle(L("description_guide").uppercased(), for: .normal)
+    descriptionButton.setTitle(L("placepage_place_description").uppercased(), for: .normal)
     separatorsConstraints.forEach { $0.constant = 1 / UIScreen.main.scale }
 
     guard let info = info else { return }
@@ -38,7 +38,7 @@ final class BookmarksListInfoViewController: UIViewController {
   private func updateInfo(_ info: IBookmakrsListInfoViewModel) {
     titleLabel.text = info.title
     authorLabel.text = String(coreFormat: L("author_name_by_prefix"), arguments: [info.author])
-    authorImageView.isHidden = !info.hasLogo
+    authorImageView.isHidden = true
     authorContainerView.isHidden = info.author.isEmpty
     descriptionButton.isHidden = !info.hasDescription
 

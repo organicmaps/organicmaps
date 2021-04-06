@@ -249,34 +249,6 @@ void GeneratePoiSymbolShape(ref_ptr<dp::GraphicsContext> context, ref_ptr<dp::Te
   params.m_anchor = renderInfo.m_anchor;
   params.m_offset = symbolOffset;
 
-  if (renderInfo.m_badgeInfo)
-  {
-    params.m_maskColor = renderInfo.m_badgeInfo->m_maskColor;
-    if (renderInfo.m_titleDecl != nullptr && renderInfo.m_badgeInfo->m_badgeTitleIndex &&
-        renderInfo.m_minTitleZoom <= tileKey.m_zoomLevel)
-    {
-      size_t const badgeTitleIndex = *renderInfo.m_badgeInfo->m_badgeTitleIndex;
-      if (badgeTitleIndex < renderInfo.m_titleDecl->size())
-      {
-        dp::TitleDecl const & titleDecl = (*renderInfo.m_titleDecl)[badgeTitleIndex];
-        TextLayout textLayout = MakePrimaryTextLayout(titleDecl, textures);
-        float const textWidth = textLayout.GetPixelLength();
-
-        dp::TextureManager::SymbolRegion region;
-        textures->GetSymbolRegion(symbolName, region);
-        float const pixelHalfWidth = 0.5f * region.GetPixelSize().x;
-
-        auto const vs = static_cast<float>(df::VisualParams::Instance().GetVisualScale());
-        float constexpr kBadgeMarginsAdjustmentFactor = 4.0f;
-        float const badgeMarginsAdjustment =
-            kBadgeMarginsAdjustmentFactor * titleDecl.m_primaryOffset.x * vs;
-
-        params.m_pixelWidth = 3.0f * pixelHalfWidth + textWidth + badgeMarginsAdjustment;
-        params.m_offset.x += 0.5f * (pixelHalfWidth + textWidth + badgeMarginsAdjustment);
-      }
-    }
-  }
-
   bool const hasColoredOverlay = renderInfo.m_coloredSymbols != nullptr && renderInfo.m_coloredSymbols->m_needOverlay;
   params.m_startOverlayRank = hasColoredOverlay ? dp::OverlayRank1 : dp::OverlayRank0;
 
@@ -552,20 +524,6 @@ void CacheUserMarks(ref_ptr<dp::GraphicsContext> context, TileKey const & tileKe
 
     if (renderInfo.m_titleDecl != nullptr)
       GenerateTextShapes(context, textures, renderInfo, tileKey, tileCenter, symbolOffset, symbolSize, batcher);
-
-    if (renderInfo.m_badgeInfo != nullptr)
-    {
-      ASSERT(!renderInfo.m_symbolIsPOI || renderInfo.m_symbolNames == nullptr,
-             ("Multiple POI shapes in an usermark are not supported yet"));
-      auto const badgeName =
-          GetSymbolNameForZoomLevel(make_ref(&renderInfo.m_badgeInfo->m_zoomInfo), tileKey);
-      if (!badgeName.empty())
-      {
-        // TODO: Badges use symbol offset. Refactor and create own "offset"-method for badges.
-        symbolOffset = GetSymbolOffsetForZoomLevel(make_ref(renderInfo.m_symbolOffsets), tileKey);
-        GeneratePoiSymbolShape(context, textures, renderInfo, tileKey, tileCenter, badgeName, symbolOffset, batcher);
-      }
-    }
 
     renderInfo.m_justCreated = false;
   }

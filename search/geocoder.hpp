@@ -11,7 +11,6 @@
 #include "search/geocoder_context.hpp"
 #include "search/geocoder_locality.hpp"
 #include "search/geometry_cache.hpp"
-#include "search/hotels_filter.hpp"
 #include "search/mode.hpp"
 #include "search/model.hpp"
 #include "search/mwm_context.hpp"
@@ -88,7 +87,6 @@ public:
     m2::RectD m_pivot;
     std::optional<m2::PointD> m_position;
     Locales m_categoryLocales;
-    std::shared_ptr<hotels_filter::Rule> m_hotelsFilter;
     std::vector<uint32_t> m_cuisineTypes;
     std::vector<uint32_t> m_preferredTypes;
     std::shared_ptr<Tracer> m_tracer;
@@ -321,7 +319,6 @@ private:
   LocalitiesCaches & m_localitiesCaches;
   HotelsCache m_hotelsCache;
   FoodCache m_foodCache;
-  hotels_filter::HotelsFilter m_hotelsFilter;
   cuisine_filter::CuisineFilter m_cuisineFilter;
 
   base::Cancellable const & m_cancellable;

@@ -48,14 +48,9 @@ public:
                   feature::AffiliationInterface const & affiliation, PlaceHelper & citiesHelper,
                   size_t threadsCount = 1);
 
-  void SetPromoCatalog(std::string const & filename);
-
   void Process();
 
 private:
-  void ProcessForPromoCatalog(std::vector<PlaceProcessor::PlaceWithIds> & fbsWithIds);
-
-  std::string m_citiesFilename;
   std::string m_temporaryMwmPath;
   feature::AffiliationInterface const & m_affiliation;
   PlaceHelper & m_citiesHelper;

@@ -245,7 +245,6 @@ public:
     m_genInfo.m_emitCoasts = true;
     m_genInfo.m_citiesBoundariesFilename =
         m_genInfo.GetIntermediateFileName("citiesboundaries.bin");
-    m_genInfo.m_bookingDataFilename = m_genInfo.GetIntermediateFileName("hotels.csv");
 
     auto const northAuckland = m_genInfo.GetTmpFileName("New Zealand North_Auckland");
     auto const northWellington = m_genInfo.GetTmpFileName("New Zealand North_Wellington");
@@ -276,7 +275,6 @@ public:
     m_genInfo.m_emitCoasts = true;
     m_genInfo.m_citiesBoundariesFilename =
         m_genInfo.GetIntermediateFileName("citiesboundaries.bin");
-    m_genInfo.m_bookingDataFilename = m_genInfo.GetIntermediateFileName("hotels.csv");
     m_genInfo.m_complexHierarchyFilename = base::JoinPath(m_testPath, "hierarchy.csv");
 
     auto const northAuckland = m_genInfo.GetTmpFileName("New Zealand North_Auckland");
@@ -312,7 +310,6 @@ public:
     m_genInfo.m_emitCoasts = true;
     m_genInfo.m_citiesBoundariesFilename =
         m_genInfo.GetIntermediateFileName("citiesboundaries.bin");
-    m_genInfo.m_bookingDataFilename = m_genInfo.GetIntermediateFileName("hotels.csv");
 
     auto const northAuckland = m_genInfo.GetTmpFileName("New Zealand North_Auckland");
     auto const northWellington = m_genInfo.GetTmpFileName("New Zealand North_Wellington");

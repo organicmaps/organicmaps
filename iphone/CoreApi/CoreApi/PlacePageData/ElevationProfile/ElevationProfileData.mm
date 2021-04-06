@@ -21,12 +21,10 @@ static ElevationDifficulty convertDifficulty(uint8_t difficulty) {
 @implementation ElevationProfileData (Core)
 
 - (instancetype)initWithElevationInfo:(ElevationInfo const &)elevationInfo
-                             serverId:(NSString *)serverId
                           activePoint:(double)activePoint
                            myPosition:(double)myPosition {
   self = [super init];
   if (self) {
-    _serverId = serverId;
     _trackId = elevationInfo.GetId();
     _ascent = elevationInfo.GetAscent();
     _descent = elevationInfo.GetDescent();

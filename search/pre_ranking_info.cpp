@@ -21,7 +21,6 @@ std::string DebugPrint(PreRankingInfo const & info)
   os << "m_exactMatch: " << info.m_exactMatch << ", ";
   os << "m_rank: " << static_cast<int>(info.m_rank) << ", ";
   os << "m_popularity: " << static_cast<int>(info.m_popularity) << ", ";
-  os << "m_rating: [" << static_cast<int>(info.m_rating.first) << ", "<< info.m_rating.second << "], ";
   os << "m_type:" << info.m_type;
   os << "]";
   return os.str();

@@ -64,7 +64,6 @@ public:
            bool allow3dBuildings,
            bool trafficEnabled,
            bool isolinesEnabled,
-           bool guidesEnabled,
            bool blockTapEvents,
            bool showChoosePositionMark,
            std::vector<m2::TriangleD> && boundAreaTriangles,
@@ -72,7 +71,6 @@ public:
            bool isAutozoomEnabled,
            bool simplifiedTrafficColors,
            OverlaysShowStatsCallback && overlaysShowStatsCallback,
-           TIsUGCFn && isUGCFn,
            OnGraphicsContextInitialized && onGraphicsContextInitialized)
       : m_apiVersion(apiVersion)
       , m_factory(factory)
@@ -87,7 +85,6 @@ public:
       , m_allow3dBuildings(allow3dBuildings)
       , m_trafficEnabled(trafficEnabled)
       , m_isolinesEnabled(isolinesEnabled)
-      , m_guidesEnabled(guidesEnabled)
       , m_blockTapEvents(blockTapEvents)
       , m_showChoosePositionMark(showChoosePositionMark)
       , m_boundAreaTriangles(std::move(boundAreaTriangles))
@@ -95,7 +92,6 @@ public:
       , m_isAutozoomEnabled(isAutozoomEnabled)
       , m_simplifiedTrafficColors(simplifiedTrafficColors)
       , m_overlaysShowStatsCallback(std::move(overlaysShowStatsCallback))
-      , m_isUGCFn(std::move(isUGCFn))
       , m_onGraphicsContextInitialized(std::move(onGraphicsContextInitialized))
     {}
 
@@ -112,7 +108,6 @@ public:
     bool m_allow3dBuildings;
     bool m_trafficEnabled;
     bool m_isolinesEnabled;
-    bool m_guidesEnabled;
     bool m_blockTapEvents;
     bool m_showChoosePositionMark;
     std::vector<m2::TriangleD> m_boundAreaTriangles;
@@ -120,7 +115,6 @@ public:
     bool m_isAutozoomEnabled;
     bool m_simplifiedTrafficColors;
     OverlaysShowStatsCallback m_overlaysShowStatsCallback;
-    TIsUGCFn m_isUGCFn;
     OnGraphicsContextInitialized m_onGraphicsContextInitialized;
   };
 
@@ -216,8 +210,6 @@ public:
   void OnEnterForeground(double backgroundTime);
   void OnEnterBackground();
 
-  void SetDisplacementMode(int mode);
-
   using TRequestSymbolsSizeCallback = std::function<void(std::map<std::string, m2::PointF> &&)>;
 
   void RequestSymbolsSize(std::vector<std::string> const & symbols,
@@ -235,8 +227,6 @@ public:
 
   void EnableIsolines(bool enable);
 
-  void EnableGuides(bool enable);
-
   void SetFontScaleFactor(double scaleFactor);
 
   void RunScenario(ScenarioManager::ScenarioData && scenarioData,
@@ -251,7 +241,6 @@ public:
   void RemoveAllCustomFeatures();
 
   void SetPosteffectEnabled(PostprocessRenderer::Effect effect, bool enabled);
-  void EnableUGCRendering(bool enabled);
   void EnableDebugRectRendering(bool enabled);
 
   void RunFirstLaunchAnimation();

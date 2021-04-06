@@ -12,7 +12,6 @@ setup(
     __file__,
     "essential",
     [
-        "booking_excluded.txt",
         "borders_vs_osm.csv",
         "categories_brands.txt",
         "categories_cuisines.txt",

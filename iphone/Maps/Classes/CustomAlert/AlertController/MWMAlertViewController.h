@@ -40,7 +40,6 @@
 - (void)presentOsmAuthAlert;
 - (void)presentPersonalInfoWarningAlertWithBlock:(nonnull MWMVoidBlock)block;
 - (void)presentTrackWarningAlertWithCancelBlock:(nonnull MWMVoidBlock)block;
-- (void)presentSearchNoResultsAlert;
 - (void)presentMobileInternetAlertWithBlock:(nonnull MWMMobileInternetAlertCompletionBlock)block;
 - (void)presentInfoAlert:(nonnull NSString *)title text:(nonnull NSString *)text;
 - (void)presentInfoAlert:(nonnull NSString *)title;

@@ -43,7 +43,6 @@ class ActionBarViewController: UIViewController {
       let (selected, enabled) = buttonState(buttonType)
       let button = ActionBarButton(delegate: self,
                                    buttonType: buttonType,
-                                   partnerIndex: placePageData.partnerIndex,
                                    isSelected: selected,
                                    isEnabled: enabled)
       stackView.addArrangedSubview(button)
@@ -161,7 +160,7 @@ class ActionBarViewController: UIViewController {
                                         preferredStyle: .actionSheet)
     for button in additionalButtons {
       let (selected, enabled) = buttonState(button)
-      let action = UIAlertAction(title: titleForButton(button, placePageData.partnerIndex, selected),
+      let action = UIAlertAction(title: titleForButton(button, selected),
                                  style: .default,
                                  handler: { [weak self] _ in
                                   guard let self = self else { return }

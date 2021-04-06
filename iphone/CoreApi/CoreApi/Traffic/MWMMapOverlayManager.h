@@ -24,15 +24,6 @@ typedef NS_ENUM(NSUInteger, MWMMapOverlayIsolinesState) {
   MWMMapOverlayIsolinesStateNoData,
 } NS_SWIFT_NAME(MapOverlayTransitState);
 
-typedef NS_ENUM(NSUInteger, MWMMapOverlayGuidesState) {
-  MWMMapOverlayGuidesStateDisabled,
-  MWMMapOverlayGuidesStateEnabled,
-  MWMMapOverlayGuidesStateHasData,
-  MWMMapOverlayGuidesStateNetworkError,
-  MWMMapOverlayGuidesStateFatalNetworkError,
-  MWMMapOverlayGuidesStateNoData,
-} NS_SWIFT_NAME(MapOverlayGuidesState);
-
 NS_SWIFT_NAME(MapOverlayManagerObserver)
 @protocol MWMMapOverlayManagerObserver <NSObject>
 
@@ -40,7 +31,6 @@ NS_SWIFT_NAME(MapOverlayManagerObserver)
 - (void)onTrafficStateUpdated;
 - (void)onTransitStateUpdated;
 - (void)onIsoLinesStateUpdated;
-- (void)onGuidesStateUpdated;
 
 @end
 
@@ -53,18 +43,14 @@ NS_SWIFT_NAME(MapOverlayManager)
 + (MWMMapOverlayTrafficState)trafficState;
 + (MWMMapOverlayTransitState)transitState;
 + (MWMMapOverlayIsolinesState)isolinesState;
-+ (MWMMapOverlayGuidesState)guidesState;
 
 + (BOOL)trafficEnabled;
 + (BOOL)transitEnabled;
 + (BOOL)isoLinesEnabled;
-+ (BOOL)guidesEnabled;
-+ (BOOL)guidesFirstLaunch;
 + (BOOL)isolinesVisible;
 
 + (void)setTrafficEnabled:(BOOL)enable;
 + (void)setTransitEnabled:(BOOL)enable;
 + (void)setIsoLinesEnabled:(BOOL)enable;
-+ (void)setGuidesEnabled:(BOOL)enable;
 
 @end

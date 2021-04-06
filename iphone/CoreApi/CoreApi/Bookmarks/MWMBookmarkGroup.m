@@ -36,10 +36,6 @@
   return [self.manager getCategoryDescription:self.categoryId];
 }
 
-- (NSString *)serverId {
-  return [self.manager getServerId:self.categoryId];
-}
-
 - (NSURL *)imageUrl {
   return [self.manager getCategoryImageUrl:self.categoryId];
 }
@@ -62,14 +58,6 @@
 
 - (BOOL)isEditable {
   return [self.manager isCategoryEditable:self.categoryId];
-}
-
-- (BOOL)isGuide {
-  return [self.manager isGuide:self.categoryId];
-}
-
-- (BOOL)isLonelyPlanet {
-  return [[self.manager getCategoryAuthorId:self.categoryId] isEqualToString: @"28035594-6457-466d-8f6f-8499607df570"];
 }
 
 - (BOOL)hasDescription {

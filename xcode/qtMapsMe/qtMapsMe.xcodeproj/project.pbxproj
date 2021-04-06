@@ -10,9 +10,7 @@
 		3462FD891DC1DE4600906FD7 /* libeditor.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3462FD881DC1DE4600906FD7 /* libeditor.a */; };
 		3462FD8D1DC1E03300906FD7 /* libpugixml.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3462FD8C1DC1E03300906FD7 /* libpugixml.a */; };
 		3462FD8F1DC1E05D00906FD7 /* liboauthcpp.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3462FD8E1DC1E05D00906FD7 /* liboauthcpp.a */; };
-		3475E0DE1DBF5772004C7E69 /* libpartners_api.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3475E0DD1DBF5772004C7E69 /* libpartners_api.a */; };
 		3475E0E41DBF593D004C7E69 /* libtracking.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3475E0E31DBF593D004C7E69 /* libtracking.a */; };
-		348FE6851F7BBF7000AAA4AF /* libugc.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 348FE6861F7BBF7000AAA4AF /* libugc.a */; };
 		348FE6871F7BBF7A00AAA4AF /* libmwm_diff.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 348FE6881F7BBF7A00AAA4AF /* libmwm_diff.a */; };
 		348FE6891F7BBF9300AAA4AF /* libbsdiff.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 348FE68A1F7BBF9300AAA4AF /* libbsdiff.a */; };
 		34E42EEF20236EA500DF8315 /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 34E42EEE20236EA400DF8315 /* Alamofire.framework */; };
@@ -233,9 +231,7 @@
 		3462FD881DC1DE4600906FD7 /* libeditor.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libeditor.a; path = "../../../omim-build/xcode/Release/libeditor.a"; sourceTree = "<group>"; };
 		3462FD8C1DC1E03300906FD7 /* libpugixml.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libpugixml.a; path = "../../../omim-build/xcode/Release/libpugixml.a"; sourceTree = "<group>"; };
 		3462FD8E1DC1E05D00906FD7 /* liboauthcpp.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = liboauthcpp.a; path = "../../../omim-build/xcode/Release/liboauthcpp.a"; sourceTree = "<group>"; };
-		3475E0DD1DBF5772004C7E69 /* libpartners_api.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libpartners_api.a; path = "../../../omim-xcode-build/Debug/libpartners_api.a"; sourceTree = "<group>"; };
 		3475E0E31DBF593D004C7E69 /* libtracking.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libtracking.a; path = "../../../omim-xcode-build/Debug/libtracking.a"; sourceTree = "<group>"; };
-		348FE6861F7BBF7000AAA4AF /* libugc.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libugc.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		348FE6881F7BBF7A00AAA4AF /* libmwm_diff.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libmwm_diff.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		348FE68A1F7BBF9300AAA4AF /* libbsdiff.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libbsdiff.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		34E42EEE20236EA400DF8315 /* Alamofire.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Alamofire.framework; path = ../../iphone/Maps/3party/Carthage/Build/Mac/Alamofire.framework; sourceTree = "<group>"; };
@@ -393,7 +389,6 @@
 				34E42EEF20236EA500DF8315 /* Alamofire.framework in Frameworks */,
 				348FE6891F7BBF9300AAA4AF /* libbsdiff.a in Frameworks */,
 				348FE6871F7BBF7A00AAA4AF /* libmwm_diff.a in Frameworks */,
-				348FE6851F7BBF7000AAA4AF /* libugc.a in Frameworks */,
 				34FFD30D1E9CEF010010AD12 /* libicu.a in Frameworks */,
 				671E79221E6A508600B2859B /* libopenlr.a in Frameworks */,
 				671E78E51E6A4E1A00B2859B /* librouting_common.a in Frameworks */,
@@ -402,7 +397,6 @@
 				3462FD8D1DC1E03300906FD7 /* libpugixml.a in Frameworks */,
 				3462FD891DC1DE4600906FD7 /* libeditor.a in Frameworks */,
 				3475E0E41DBF593D004C7E69 /* libtracking.a in Frameworks */,
-				3475E0DE1DBF5772004C7E69 /* libpartners_api.a in Frameworks */,
 				674A7E361C0DB727003D48E1 /* libdrape_frontend.a in Frameworks */,
 				674A7E371C0DB727003D48E1 /* libdrape.a in Frameworks */,
 				674A7E381C0DB727003D48E1 /* libsdf_image.a in Frameworks */,
@@ -450,7 +444,6 @@
 				34E42EEE20236EA400DF8315 /* Alamofire.framework */,
 				348FE68A1F7BBF9300AAA4AF /* libbsdiff.a */,
 				348FE6881F7BBF7A00AAA4AF /* libmwm_diff.a */,
-				348FE6861F7BBF7000AAA4AF /* libugc.a */,
 				34FFD30B1E9CEF010010AD12 /* libicu.a */,
 				671E79211E6A508600B2859B /* libopenlr.a */,
 				671E78E41E6A4E1A00B2859B /* librouting_common.a */,
@@ -488,7 +481,6 @@
 				3462FD8C1DC1E03300906FD7 /* libpugixml.a */,
 				3462FD881DC1DE4600906FD7 /* libeditor.a */,
 				3475E0E31DBF593D004C7E69 /* libtracking.a */,
-				3475E0DD1DBF5772004C7E69 /* libpartners_api.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";

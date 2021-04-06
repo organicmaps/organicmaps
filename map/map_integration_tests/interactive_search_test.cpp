@@ -24,7 +24,6 @@ namespace
 struct Stats
 {
   size_t m_numShownResults = 0;
-  bool m_hotelDisplacementModeSet = false;
 };
 
 class TestDelegate : public ViewportSearchCallback::Delegate
@@ -37,8 +36,6 @@ public:
   // ViewportSearchCallback::Delegate overrides:
   void RunUITask(function<void()> fn) override { fn(); }
 
-  void SetHotelDisplacementMode() override { m_stats.m_hotelDisplacementModeSet = true; }
-
   bool IsViewportSearchActive() const override { return true; }
 
   void ShowViewportSearchResults(Results::ConstIter begin, Results::ConstIter end,
@@ -47,21 +44,6 @@ public:
     if (clear)
       m_stats.m_numShownResults = 0;
     m_stats.m_numShownResults += distance(begin, end);
-  }
-
-  void ShowViewportSearchResults(Results::ConstIter begin, Results::ConstIter end,
-                                 bool clear, booking::filter::Types types) override
-  {
-  }
-
-  void FilterResultsForHotelsQuery(booking::filter::Tasks const & filterTasks,
-                                   search::Results const & results, bool inViewport) override
-  {
-  }
-
-  virtual void FilterAllHotelsInViewport(m2::RectD const & viewport,
-                                         booking::filter::Tasks const & filterTasks) override
-  {
   }
 
 private:
@@ -79,7 +61,6 @@ public:
     SetCustomOnResults(
         ViewportSearchCallback(viewport,
                                static_cast<ViewportSearchCallback::Delegate &>(*this),
-                               {} /* bookingFilterTasks */,
                                bind(&InteractiveSearchRequest::OnResults, this, placeholders::_1)));
   }
 };
@@ -122,7 +103,6 @@ UNIT_CLASS_TEST(InteractiveSearchTest, Smoke)
     Rules const rules = {ExactMatch(id, cafes[0]), ExactMatch(id, cafes[1]),
                          ExactMatch(id, cafes[2]), ExactMatch(id, cafes[3])};
 
-    TEST(!stats.m_hotelDisplacementModeSet, ());
     TEST_EQUAL(stats.m_numShownResults, 4, ());
     TEST(MatchResults(m_dataSource, rules, request.Results()), ());
   }
@@ -136,7 +116,6 @@ UNIT_CLASS_TEST(InteractiveSearchTest, Smoke)
     Rules const rules = {ExactMatch(id, hotels[0]), ExactMatch(id, hotels[1]),
                          ExactMatch(id, hotels[2]), ExactMatch(id, hotels[3])};
 
-    TEST(stats.m_hotelDisplacementModeSet, ());
     TEST_EQUAL(stats.m_numShownResults, 4, ());
     TEST(MatchResults(m_dataSource, rules, request.Results()), ());
   }

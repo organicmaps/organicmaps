@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		346B76D11DC1ED0B00C7C87E /* libpartners_api.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 346B76D01DC1ED0B00C7C87E /* libpartners_api.a */; };
 		346B76D31DC1ED3A00C7C87E /* libeditor.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 346B76D21DC1ED3A00C7C87E /* libeditor.a */; };
 		346B76D51DC1ED4D00C7C87E /* libpugixml.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 346B76D41DC1ED4D00C7C87E /* libpugixml.a */; };
 		346B76D71DC1ED5D00C7C87E /* liboauthcpp.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 346B76D61DC1ED5D00C7C87E /* liboauthcpp.a */; };
@@ -73,7 +72,6 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		346B76D01DC1ED0B00C7C87E /* libpartners_api.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libpartners_api.a; path = "../../../omim-build/xcode/Debug/libpartners_api.a"; sourceTree = "<group>"; };
 		346B76D21DC1ED3A00C7C87E /* libeditor.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libeditor.a; path = "../../../omim-build/xcode/Debug/libeditor.a"; sourceTree = "<group>"; };
 		346B76D41DC1ED4D00C7C87E /* libpugixml.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libpugixml.a; path = "../../../omim-build/xcode/Debug/libpugixml.a"; sourceTree = "<group>"; };
 		346B76D61DC1ED5D00C7C87E /* liboauthcpp.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = liboauthcpp.a; path = "../../../omim-build/xcode/Debug/liboauthcpp.a"; sourceTree = "<group>"; };
@@ -131,7 +129,6 @@
 				346B76D71DC1ED5D00C7C87E /* liboauthcpp.a in Frameworks */,
 				346B76D51DC1ED4D00C7C87E /* libpugixml.a in Frameworks */,
 				346B76D31DC1ED3A00C7C87E /* libeditor.a in Frameworks */,
-				346B76D11DC1ED0B00C7C87E /* libpartners_api.a in Frameworks */,
 				675D21CF1BFDDF9300717E4F /* libgflags.a in Frameworks */,
 				675D21C91BFB8F7C00717E4F /* libsdf_image.a in Frameworks */,
 				675D21CA1BFB8F7C00717E4F /* libstb_image.a in Frameworks */,
@@ -179,7 +176,6 @@
 				346B76D61DC1ED5D00C7C87E /* liboauthcpp.a */,
 				346B76D41DC1ED4D00C7C87E /* libpugixml.a */,
 				346B76D21DC1ED3A00C7C87E /* libeditor.a */,
-				346B76D01DC1ED0B00C7C87E /* libpartners_api.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";

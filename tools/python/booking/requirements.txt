@@ -1,4 +1,0 @@
-eviltransform==0.1.1
-ratelimit==2.2.1
-requests==2.23.0
-tqdm==4.32.2

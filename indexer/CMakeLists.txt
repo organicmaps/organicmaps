@@ -86,8 +86,6 @@ set(
   ftraits.hpp
   ftypes_matcher.cpp
   ftypes_matcher.hpp
-  ftypes_sponsored.cpp
-  ftypes_sponsored.hpp
   index_builder.cpp
   index_builder.hpp
   interval_index.hpp

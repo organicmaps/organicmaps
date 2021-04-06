@@ -335,7 +335,6 @@ Geocoder::Geocoder(DataSource const & dataSource, storage::CountryInfoGetter con
   , m_localitiesCaches(localitiesCaches)
   , m_hotelsCache(cancellable)
   , m_foodCache(cancellable)
-  , m_hotelsFilter(m_hotelsCache)
   , m_cuisineFilter(m_foodCache)
   , m_cancellable(cancellable)
   , m_citiesBoundaries(citiesBoundaries)
@@ -443,7 +442,6 @@ void Geocoder::ClearCaches()
   m_streetsCache.Clear();
   m_hotelsCache.Clear();
   m_foodCache.Clear();
-  m_hotelsFilter.ClearCaches();
   m_cuisineFilter.ClearCaches();
   m_postcodePointsCache.Clear();
   m_postcodes.Clear();
@@ -667,7 +665,6 @@ void Geocoder::InitBaseContext(BaseContext & ctx)
     }
   }
 
-  ctx.m_hotelsFilter = m_hotelsFilter.MakeScopedFilter(*m_context, m_params.m_hotelsFilter);
   ctx.m_cuisineFilter = m_cuisineFilter.MakeScopedFilter(*m_context, m_params.m_cuisineTypes);
 }
 
@@ -1678,9 +1675,6 @@ void Geocoder::EmitResult(BaseContext & ctx, MwmSet::MwmId const & mwmId, uint32
   // distant from the pivot when there are enough results close to the
   // pivot.
   PreRankingInfo info(type, tokenRange);
-
-  if (ctx.m_hotelsFilter && !ctx.m_hotelsFilter->Matches(id))
-    info.m_refusedByFilter = true;
 
   for (auto const & layer : ctx.m_layers)
     info.m_tokenRanges[layer.m_type] = layer.m_tokenRange;

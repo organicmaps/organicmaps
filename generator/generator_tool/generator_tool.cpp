@@ -20,7 +20,6 @@
 #include "generator/popular_places_section_builder.hpp"
 #include "generator/postcode_points_builder.hpp"
 #include "generator/processor_factory.hpp"
-#include "generator/ratings_section_builder.hpp"
 #include "generator/raw_generator.hpp"
 #include "generator/restriction_generator.hpp"
 #include "generator/road_access_generator.hpp"
@@ -33,7 +32,6 @@
 #include "generator/transit_generator_experimental.hpp"
 #include "generator/translator_collection.hpp"
 #include "generator/translator_factory.hpp"
-#include "generator/ugc_section_builder.hpp"
 #include "generator/unpack_mwm.hpp"
 #include "generator/utils.hpp"
 #include "generator/wiki_url_dumper.hpp"
@@ -165,13 +163,7 @@ DEFINE_bool(
 DEFINE_bool(generate_maxspeed, false, "Generate section with maxspeed of road features.");
 
 // Sponsored-related.
-DEFINE_string(booking_data, "", "Path to booking data in tsv format.");
-DEFINE_string(opentable_data, "", "Path to opentable data in tsv format.");
-DEFINE_string(promo_catalog_cities, "",
-              "Path to list geo object ids of cities which contain promo catalog in json format.");
 DEFINE_string(complex_hierarchy_data, "", "Path to complex hierarchy in csv format.");
-
-DEFINE_string(ugc_data, "", "Input UGC source database file name.");
 
 DEFINE_string(wikipedia_pages, "", "Input dir with wikipedia pages.");
 DEFINE_string(idToWikidata, "", "Path to file with id to wikidata mapping.");
@@ -267,9 +259,6 @@ MAIN_WITH_ERROR_HANDLING([](int argc, char ** argv)
   genInfo.m_osmFileName = FLAGS_osm_file_name;
   genInfo.m_failOnCoasts = FLAGS_fail_on_coasts;
   genInfo.m_preloadCache = FLAGS_preload_cache;
-  genInfo.m_bookingDataFilename = FLAGS_booking_data;
-  genInfo.m_opentableDataFilename = FLAGS_opentable_data;
-  genInfo.m_promoCatalogCitiesFilename = FLAGS_promo_catalog_cities;
   genInfo.m_popularPlacesFilename = FLAGS_popular_places_data;
   genInfo.m_brandsFilename = FLAGS_brands_data;
   genInfo.m_brandsTranslationsFilename = FLAGS_brands_translations_data;
@@ -571,15 +560,6 @@ MAIN_WITH_ERROR_HANDLING([](int argc, char ** argv)
                                              transitEdgeFeatureIds,
                                              false /* experimentalTransit */);
       }
-    }
-
-    if (!FLAGS_ugc_data.empty())
-    {
-      if (!BuildUgcMwmSection(FLAGS_ugc_data, dataFile, osmToFeatureFilename))
-        LOG(LCRITICAL, ("Error generating UGC mwm section."));
-
-      if (!BuildRatingsMwmSection(FLAGS_ugc_data, dataFile, osmToFeatureFilename))
-        LOG(LCRITICAL, ("Error generating ratings mwm section."));
     }
 
     if (!FLAGS_wikipedia_pages.empty())

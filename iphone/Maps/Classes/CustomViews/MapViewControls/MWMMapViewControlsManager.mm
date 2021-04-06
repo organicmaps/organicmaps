@@ -89,18 +89,10 @@ NSString *const kMapToCategorySelectorSegue = @"MapToCategorySelectorSegue";
        withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator {
   [self.trafficButton viewWillTransitionToSize:size withTransitionCoordinator:coordinator];
   [self.tabBarController viewWillTransitionToSize:size withTransitionCoordinator:coordinator];
-  [self.guidesNavigationBar viewWillTransitionToSize:size withTransitionCoordinator:coordinator];
   [self.searchManager viewWillTransitionToSize:size withTransitionCoordinator:coordinator];
 }
 
 #pragma mark - MWMPlacePageViewManager
-
-- (void)showPlacePageReview {
-  [[MWMNetworkPolicy sharedPolicy] callOnlineApi:^(BOOL) {
-    self.trafficButtonHidden = YES;
-    [self.placePageManager showReview];
-  }];
-}
 
 - (void)searchTextOnMap:(NSString *)text forInputLocale:(NSString *)locale {
   if (![self searchText:text forInputLocale:locale])
@@ -183,8 +175,6 @@ NSString *const kMapToCategorySelectorSegue = @"MapToCategorySelectorSegue";
   auto state = [MWMSearchManager manager].state;
   if (!IPAD && state == MWMSearchManagerStateHidden) {
     self.hidden = NO;
-  } else if (state != MWMSearchManagerStateHidden) {
-    [self hideGuidesNavigationBar];
   }
 }
 
@@ -313,28 +303,6 @@ NSString *const kMapToCategorySelectorSegue = @"MapToCategorySelectorSegue";
   BOOL const isNavigation = self.navigationManager.state == MWMNavigationDashboardStateNavigation;
   _trafficButtonHidden = isNavigation || trafficButtonHidden;
   self.trafficButton.hidden = self.hidden || _trafficButtonHidden;
-}
-
-- (void)showGuidesNavigationBar:(MWMMarkGroupID)categoryId {
-  if (!_guidesNavigationBar) {
-    MapViewController *parentViewController = self.ownerController;
-    _guidesNavigationBar = [[GuidesNavigationBarViewController alloc] initWithCategoryId:categoryId];
-    [parentViewController addChildViewController:_guidesNavigationBar];
-    [parentViewController.controlsView addSubview:_guidesNavigationBar.view];
-    [_guidesNavigationBar configLayout];
-    _guidesNavigationBarHidden = NO;
-    self.menuState = MWMBottomMenuStateHidden;
-  }
-}
-
-- (void)hideGuidesNavigationBar {
-  if (_guidesNavigationBar) {
-    [_guidesNavigationBar removeFromParentViewController];
-    [_guidesNavigationBar.view removeFromSuperview];
-    _guidesNavigationBar = nil;
-    _guidesNavigationBarHidden = YES;
-    self.menuState = _menuRestoreState;
-  }
 }
 
 - (void)setMenuState:(MWMBottomMenuState)menuState {

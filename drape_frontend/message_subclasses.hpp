@@ -982,21 +982,6 @@ public:
   Type GetType() const override { return Type::OnEnterBackground; }
 };
 
-class SetDisplacementModeMessage : public Message
-{
-public:
-  explicit SetDisplacementModeMessage(int mode)
-    : m_mode(mode)
-  {}
-
-  Type GetType() const override { return Type::SetDisplacementMode; }
-
-  int GetMode() const { return m_mode; }
-
-private:
-  int m_mode;
-};
-
 class RequestSymbolsSizeMessage : public Message
 {
 public:
@@ -1137,21 +1122,6 @@ public:
   {}
 
   Type GetType() const override { return Type::EnableIsolines; }
-
-  bool IsEnabled() const { return m_isEnabled; }
-
-private:
-  bool m_isEnabled = false;
-};
-
-class EnableGuidesMessage : public Message
-{
-public:
-  explicit EnableGuidesMessage(bool isEnabled)
-      : m_isEnabled(isEnabled)
-  {}
-
-  Type GetType() const override { return Type::EnableGuides; }
 
   bool IsEnabled() const { return m_isEnabled; }
 
@@ -1349,20 +1319,6 @@ public:
 
 private:
   PostprocessRenderer::Effect const m_effect;
-  bool const m_enabled;
-};
-
-class EnableUGCRenderingMessage : public Message
-{
-public:
-  explicit EnableUGCRenderingMessage(bool enabled)
-    : m_enabled(enabled)
-  {}
-
-  Type GetType() const override { return Type::EnableUGCRendering; }
-  bool IsEnabled() const { return m_enabled; }
-
-private:
   bool const m_enabled;
 };
 

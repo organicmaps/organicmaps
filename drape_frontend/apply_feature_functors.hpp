@@ -46,16 +46,6 @@ public:
 
   virtual ~BaseApplyFeature() = default;
 
-  struct HotelData
-  {
-    bool m_isHotel = false;
-    std::string m_rating;
-    int m_stars = 0;
-    int m_priceCategory = 0;
-  };
-
-  void SetHotelData(HotelData && hotelData);
-
 protected:
   void ExtractCaptionParams(CaptionDefProto const * primaryProto,
                             CaptionDefProto const * secondaryProto,
@@ -67,7 +57,6 @@ protected:
   CaptionDescription const & m_captions;
   int m_minVisibleScale;
   uint8_t m_rank;
-  HotelData m_hotelData;
 
   TileKey const m_tileKey;
   m2::RectD const m_tileRect;
@@ -81,9 +70,9 @@ public:
   ApplyPointFeature(TileKey const & tileKey, TInsertShapeFn const & insertShape,
                     FeatureID const & id, int minVisibleScale, uint8_t rank,
                     CaptionDescription const & captions, float posZ,
-                    int displacementMode, DepthLayer depthLayer);
+                    DepthLayer depthLayer);
 
-  void operator()(m2::PointD const & point, bool hasArea, bool isUGC);
+  void operator()(m2::PointD const & point, bool hasArea);
   void ProcessPointRule(Stylist::TRuleWrapper const & rule);
   void Finish(ref_ptr<dp::TextureManager> texMng);
 
@@ -95,12 +84,10 @@ private:
   bool m_hasArea;
   bool m_createdByEditor;
   bool m_obsoleteInEditor;
-  bool m_isUGC;
   DepthLayer m_depthLayer;
   double m_symbolDepth;
   SymbolRuleProto const * m_symbolRule;
   m2::PointF m_centerPoint;
-  int m_displacementMode;
   std::vector<TextViewParams> m_textParams;
 };
 

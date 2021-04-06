@@ -12,7 +12,6 @@
 #include "indexer/feature_algo.hpp"
 #include "indexer/feature_visibility.hpp"
 #include "indexer/ftypes_matcher.hpp"
-#include "indexer/ftypes_sponsored.hpp"
 #include "indexer/map_style_reader.hpp"
 #include "indexer/road_shields_parser.hpp"
 #include "indexer/scales.hpp"
@@ -84,21 +83,6 @@ double GetBuildingMinHeightInMeters(FeatureType & f)
     minHeightInMeters = 0.0;
 
   return minHeightInMeters;
-}
-
-df::BaseApplyFeature::HotelData ExtractHotelData(FeatureType & f)
-{
-  df::BaseApplyFeature::HotelData result;
-  if (ftypes::IsBookingChecker::Instance()(f))
-  {
-    result.m_isHotel = true;
-    result.m_rating = f.GetMetadata(feature::Metadata::FMD_RATING);
-    if (!strings::to_int(f.GetMetadata(feature::Metadata::FMD_STARS), result.m_stars))
-      result.m_stars = 0;
-    if (!strings::to_int(f.GetMetadata(feature::Metadata::FMD_PRICE_RATE), result.m_priceCategory))
-      result.m_priceCategory = 0;
-  }
-  return result;
 }
 
 void ExtractTrafficGeometry(FeatureType const & f, df::RoadClass const & roadClass,
@@ -175,19 +159,16 @@ namespace df
 RuleDrawer::RuleDrawer(TDrawerCallback const & drawerFn,
                        TCheckCancelledCallback const & checkCancelled,
                        TIsCountryLoadedByNameFn const & isLoadedFn,
-                       TFilterFeatureFn const & filterFn,
                        ref_ptr<EngineContext> engineContext)
   : m_callback(drawerFn)
   , m_checkCancelled(checkCancelled)
   , m_isLoadedFn(isLoadedFn)
-  , m_filter(filterFn)
   , m_context(engineContext)
   , m_customFeaturesContext(engineContext->GetCustomFeaturesContext().lock())
   , m_wasCancelled(false)
 {
   ASSERT(m_callback != nullptr, ());
   ASSERT(m_checkCancelled != nullptr, ());
-  ASSERT(m_filter != nullptr, ());
 
   m_globalRect = m_context->GetTileKey().GetGlobalRect();
 
@@ -197,7 +178,7 @@ RuleDrawer::RuleDrawer(TDrawerCallback const & drawerFn,
   ScreenBase geometryConvertor;
   geometryConvertor.OnSize(0, 0, tileSize, tileSize);
   geometryConvertor.SetFromRect(m2::AnyRectD(r));
-  m_currentScaleGtoP = 1.0f / geometryConvertor.GetScale();
+  m_currentScaleGtoP = 1.0 / geometryConvertor.GetScale();
 
   // Here we support only two virtual tile size: 2048 px for high resolution and 1024 px for others.
   // It helps to render traffic the same on wide range of devices.
@@ -323,7 +304,6 @@ void RuleDrawer::ProcessAreaStyle(FeatureType & f, Stylist const & s,
                          areaMinHeight, areaHeight, minVisibleScale, f.GetRank(),
                          s.GetCaptionDescription(), hatchingArea);
   f.ForEachTriangle(apply, zoomLevel);
-  apply.SetHotelData(ExtractHotelData(f));
   if (applyPointStyle)
   {
     if (UsePreciseFeatureCenter(f))
@@ -331,8 +311,7 @@ void RuleDrawer::ProcessAreaStyle(FeatureType & f, Stylist const & s,
       f.ResetGeometry();
       featureCenter = feature::GetCenter(f, FeatureType::BEST_GEOMETRY);
     }
-    bool const isUGC = m_context->IsUGC(f.GetID());
-    apply(featureCenter, true /* hasArea */, isUGC);
+    apply(featureCenter, true /* hasArea */);
   }
 
   if (CheckCancelled())
@@ -450,11 +429,8 @@ void RuleDrawer::ProcessPointStyle(FeatureType & f, Stylist const & s,
 
   minVisibleScale = feature::GetMinDrawableScale(f);
   ApplyPointFeature apply(m_context->GetTileKey(), insertShape, f.GetID(), minVisibleScale, f.GetRank(),
-                          s.GetCaptionDescription(), 0.0f /* posZ */, m_context->GetDisplacementMode(),
-                          depthLayer);
-  apply.SetHotelData(ExtractHotelData(f));
-  bool const isUGC = m_context->IsUGC(f.GetID());
-  f.ForEachPoint([&apply, isUGC](m2::PointD const & pt) { apply(pt, false /* hasArea */, isUGC); }, zoomLevel);
+                          s.GetCaptionDescription(), 0.0f /* posZ */, depthLayer);
+  f.ForEachPoint([&apply](m2::PointD const & pt) { apply(pt, false /* hasArea */); }, zoomLevel);
 
   if (CheckCancelled())
     return;
@@ -466,9 +442,6 @@ void RuleDrawer::ProcessPointStyle(FeatureType & f, Stylist const & s,
 void RuleDrawer::operator()(FeatureType & f)
 {
   if (CheckCancelled())
-    return;
-
-  if (m_filter(f))
     return;
 
   if (!m_context->IsolinesEnabled() && ftypes::IsIsolineChecker::Instance()(f))

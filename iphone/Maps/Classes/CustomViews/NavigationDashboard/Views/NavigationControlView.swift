@@ -148,8 +148,6 @@ final class NavigationControlView: SolidTouchView, MWMTextToSpeechObserver, MapO
 
   @objc func onNavigationInfoUpdated(_ info: MWMNavigationDashboardEntity) {
     navigationInfo = info
-    guard !MWMRouter.isTaxi() else { return }
-
     let routingNumberAttributes: [NSAttributedString.Key: Any] =
       [
         NSAttributedString.Key.foregroundColor: UIColor.blackPrimaryText(),

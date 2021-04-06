@@ -7,11 +7,6 @@ class WhatsNewBuilder {
                                        buttonNextTitle: "whatsnew_trial_cta",
                                        isCloseButtonHidden: false,
                                        action: {
-                                        guard let mvc = MapViewController.shared() else { return }
-                                        let subscribeViewController = SubscriptionViewBuilder.buildLonelyPlanet(parentViewController: mvc,
-                                                                                                                successDialog: .goToCatalog,
-                                                                                                                completion: nil)
-                                        mvc.present(subscribeViewController, animated: true)
       }),
       WhatsNewPresenter.WhatsNewConfig(image: UIImage(named: "img_whatsnew_lp"),
                                        title: "whatsnew_lp_title",

@@ -16,7 +16,6 @@
 #include "indexer/feature.hpp"
 #include "indexer/feature_processor.hpp"
 #include "indexer/ftypes_matcher.hpp"
-#include "indexer/ftypes_sponsored.hpp"
 #include "indexer/map_object.hpp"
 #include "indexer/map_style_reader.hpp"
 
@@ -235,12 +234,6 @@ public:
     if (name.empty())
       name = operatr;
     string osmId = osmIt != ft2osm.cend() ? to_string(osmIt->second.GetEncodedId()) : "";
-    if (osmId.empty())
-    {
-      // For sponsored types, adding invented sponsored ids (booking = 00) to the id tail.
-      if (ftypes::IsBookingChecker::Instance()(f))
-        osmId = meta.Get(feature::Metadata::FMD_SPONSORED_ID) + "00";
-    }
     string const & uid = BuildUniqueId(ll, name);
     string const & lat = strings::to_string_with_digits_after_comma(ll.m_lat, 6);
     string const & lon = strings::to_string_with_digits_after_comma(ll.m_lon, 6);

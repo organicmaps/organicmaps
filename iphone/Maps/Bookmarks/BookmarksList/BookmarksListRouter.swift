@@ -15,13 +15,6 @@ extension BookmarksListRouter: IBookmarksListRouter {
     mapViewController.navigationController?.pushViewController(listSettingsController, animated: true)
   }
   
-  func sharingOptions(_ bookmarkGroup: BookmarkGroup) {
-    let storyboard = UIStoryboard.instance(.sharing)
-    let shareController = storyboard.instantiateInitialViewController() as! BookmarksSharingViewController
-    shareController.category = bookmarkGroup
-    mapViewController.navigationController?.pushViewController(shareController, animated: true)
-  }
-
   func viewOnMap(_ bookmarkGroup: BookmarkGroup) {
     coordinator?.hide(categoryId: bookmarkGroup.categoryId)
   }

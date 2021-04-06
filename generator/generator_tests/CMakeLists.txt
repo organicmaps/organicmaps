@@ -4,7 +4,6 @@ set(
   SRC
   affiliation_tests.cpp
   altitude_test.cpp
-  booking_tests.cpp
   brands_loader_test.cpp
   camera_collector_tests.cpp
   cells_merger_tests.cpp
@@ -47,13 +46,11 @@ set(
   source_data.hpp
   source_to_element_test.cpp
   speed_cameras_test.cpp
-  sponsored_storage_tests.cpp
   srtm_parser_test.cpp
   tag_admixer_test.cpp
   tesselator_test.cpp
   triangles_tree_coding_test.cpp
   types_helper.hpp
-  ugc_test.cpp
 )
 
 omim_add_test(${PROJECT_NAME} ${SRC})
@@ -87,7 +84,6 @@ omim_link_libraries(
   gflags
   oauthcpp
   opening_hours
-  ugc
   # TODO(syershov): Use FindPackage.
   sqlite3
   ${LIBZ}

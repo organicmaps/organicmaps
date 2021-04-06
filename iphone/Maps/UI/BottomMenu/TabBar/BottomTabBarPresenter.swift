@@ -16,16 +16,11 @@ class BottomTabBarPresenter: NSObject {
     self.view = view
     self.interactor = interactor
   }
-
-  deinit {
-    MapOverlayManager.remove(self)
-  }
 }
 
 extension BottomTabBarPresenter: BottomTabBarPresenterProtocol {
   func configure() {
-    view?.isLayersBadgeHidden = !MapOverlayManager.guidesFirstLaunch()
-    MapOverlayManager.add(self)
+    view?.isLayersBadgeHidden = true
   }
 
   func onSearchButtonPressed() {
@@ -46,12 +41,6 @@ extension BottomTabBarPresenter: BottomTabBarPresenterProtocol {
   
   func onMenuButtonPressed() {
     interactor.openMenu()
-  }
-}
-
-extension BottomTabBarPresenter: MapOverlayManagerObserver {
-  func onGuidesStateUpdated() {
-    view?.isLayersBadgeHidden = !MapOverlayManager.guidesFirstLaunch()
   }
 }
 

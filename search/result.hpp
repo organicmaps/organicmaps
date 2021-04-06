@@ -1,7 +1,6 @@
 #pragma once
 
 #include "search/bookmarks/results.hpp"
-#include "search/hotels_classifier.hpp"
 #include "search/ranking_info.hpp"
 #include "search/tracer.hpp"
 
@@ -57,11 +56,7 @@ public:
     std::string m_roadShields;
 
     // Following fields are used for hotels only.
-    int m_hotelPricing = 0;
-    std::string m_hotelApproximatePricing;
-    float m_hotelRating = kInvalidRatingValue;
     int m_stars = 0;
-    bool m_isSponsoredHotel = false;
     bool m_isHotel = false;
 
     // Valid for any result.
@@ -97,13 +92,7 @@ public:
   std::string const & GetAirportIata() const { return m_details.m_airportIata; }
   std::string const & GetBrand() const { return m_details.m_brand; }
   std::string const & GetRoadShields() const { return m_details.m_roadShields; }
-  float GetHotelRating() const { return m_details.m_hotelRating; }
-  std::string const & GetHotelApproximatePricing() const
-  {
-    return m_details.m_hotelApproximatePricing;
-  }
   bool IsHotel() const { return m_details.m_isHotel; }
-  bool IsRefusedByFilter() const { return m_info.m_refusedByFilter; }
 
   osm::YesNoUnknown IsOpenNow() const { return m_details.m_isOpenNow; }
   int GetStarsCount() const { return m_details.m_stars; }
@@ -218,8 +207,6 @@ public:
 
   void AddBookmarkResult(bookmarks::Result const & result);
 
-  void PrecheckHotelQuery(std::vector<uint32_t> const & types) { m_hotelsClassif.PrecheckHotelQuery(types); }
-
   void Clear();
 
   Iter begin() { return m_results.begin(); }
@@ -252,11 +239,6 @@ public:
       operator[](i).SetPositionInResults(i);
   }
 
-  Type GetType() const
-  {
-    return m_hotelsClassif.IsHotelResults() ? Type::Hotels : Type::Default;
-  }
-
 private:
   enum class Status
   {
@@ -274,7 +256,6 @@ private:
   std::vector<Result> m_results;
   bookmarks::Results m_bookmarksResults;
   Status m_status;
-  HotelsClassifier m_hotelsClassif;
 };
 
 std::string DebugPrint(search::Results const & results);

@@ -149,8 +149,6 @@ bool RenderGroup::IsUserMark() const
          depthLayer == DepthLayer::UserMarkLayer ||
          depthLayer == DepthLayer::RoutingBottomMarkLayer ||
          depthLayer == DepthLayer::RoutingMarkLayer ||
-         depthLayer == DepthLayer::GuidesBottomMarkLayer ||
-         depthLayer == DepthLayer::GuidesMarkLayer ||
          depthLayer == DepthLayer::SearchMarkLayer;
 }
 

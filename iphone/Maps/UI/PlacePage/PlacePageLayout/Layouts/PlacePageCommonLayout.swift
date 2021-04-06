@@ -38,20 +38,6 @@ class PlacePageCommonLayout: NSObject, IPlacePageLayout {
     return vc
   } ()
   
-  lazy var catalogSingleItemViewController: CatalogSingleItemViewController = {
-    let vc = storyboard.instantiateViewController(ofType: CatalogSingleItemViewController.self)
-    vc.view.isHidden = true
-    vc.delegate = interactor
-    return vc
-  } ()
-  
-  lazy var catalogGalleryViewController: CatalogGalleryViewController = {
-    let vc = storyboard.instantiateViewController(ofType: CatalogGalleryViewController.self)
-    vc.view.isHidden = true
-    vc.delegate = interactor
-    return vc
-  } ()
-  
   lazy var wikiDescriptionViewController: WikiDescriptionViewController = {
     let vc = storyboard.instantiateViewController(ofType: WikiDescriptionViewController.self)
     vc.view.isHidden = true
@@ -64,7 +50,7 @@ class PlacePageCommonLayout: NSObject, IPlacePageLayout {
     vc.view.isHidden = true
     if let bookmarkData = placePageData.bookmarkData {
       let group = BookmarkGroup(categoryId: bookmarkData.bookmarkGroupId, bookmarksManager: BookmarksManager.shared())
-      vc.isAuthorIconHidden = !group.isLonelyPlanet
+      vc.isAuthorIconHidden = true
     }
     vc.titleText = L("placepage_place_description").uppercased()
     return vc
@@ -91,58 +77,10 @@ class PlacePageCommonLayout: NSObject, IPlacePageLayout {
     return vc
   } ()
   
-  lazy var taxiViewController: TaxiViewController = {
-    let vc = storyboard.instantiateViewController(ofType: TaxiViewController.self)
-    vc.taxiProvider = placePageData.taxiProvider
-    vc.delegate = interactor
-    return vc
-  } ()
-  
-  lazy var ratingSummaryViewController: RatingSummaryViewController = {
-    let vc = storyboard.instantiateViewController(ofType: RatingSummaryViewController.self)
-    vc.view.isHidden = true
-    return vc
-  } ()
-
-  lazy var reviewsViewController: PlacePageReviewsViewController = {
-    let vc = storyboard.instantiateViewController(ofType: PlacePageReviewsViewController.self)
-    vc.view.isHidden = true
-    vc.delegate = interactor
-    return vc
-  } ()
-  
   lazy var buttonsViewController: PlacePageButtonsViewController = {
     let vc = storyboard.instantiateViewController(ofType: PlacePageButtonsViewController.self)
     vc.buttonsData = placePageData.buttonsData!
     vc.buttonsEnabled = placePageData.mapNodeAttributes?.nodeStatus == .onDisk
-    vc.delegate = interactor
-    return vc
-  } ()
-  
-  lazy var hotelPhotosViewController: HotelPhotosViewController = {
-    let vc = storyboard.instantiateViewController(ofType: HotelPhotosViewController.self)
-    vc.view.isHidden = true
-    vc.delegate = interactor
-    return vc
-  } ()
-  
-  lazy var hotelDescriptionViewController: HotelDescriptionViewController = {
-    let vc = storyboard.instantiateViewController(ofType: HotelDescriptionViewController.self)
-    vc.view.isHidden = true
-    vc.delegate = interactor
-    return vc
-  } ()
-  
-  lazy var hotelFacilitiesViewController: HotelFacilitiesViewController = {
-    let vc = storyboard.instantiateViewController(ofType: HotelFacilitiesViewController.self)
-    vc.view.isHidden = true
-    vc.delegate = interactor
-    return vc
-  } ()
-  
-  lazy var hotelReviewsViewController: HotelReviewsViewController = {
-    let vc = storyboard.instantiateViewController(ofType: HotelReviewsViewController.self)
-    vc.view.isHidden = true
     vc.delegate = interactor
     return vc
   } ()
@@ -173,17 +111,11 @@ class PlacePageCommonLayout: NSObject, IPlacePageLayout {
   private func configureViewControllers() -> [UIViewController] {
     var viewControllers = [UIViewController]()
     viewControllers.append(previewViewController)
-    if placePageData.isPromoCatalog {
-      viewControllers.append(catalogSingleItemViewController)
-      viewControllers.append(catalogGalleryViewController)
-      placePageData.loadCatalogPromo(completion: onLoadCatalogPromo)
-    }
-
     viewControllers.append(descriptionDividerViewController)
     viewControllers.append(wikiDescriptionViewController)
     if let wikiDescriptionHtml = placePageData.wikiDescriptionHtml {
       wikiDescriptionViewController.descriptionHtml = wikiDescriptionHtml
-      if placePageData.bookmarkData?.bookmarkDescription == nil && !placePageData.isPromoCatalog {
+      if placePageData.bookmarkData?.bookmarkDescription == nil {
         wikiDescriptionViewController.view.isHidden = false
         descriptionDividerViewController.view.isHidden = false
       }
@@ -198,35 +130,16 @@ class PlacePageCommonLayout: NSObject, IPlacePageLayout {
       }
     }
 
-//    viewControllers.append(hotelPhotosViewController)
-//    viewControllers.append(hotelDescriptionViewController)
-//    viewControllers.append(hotelFacilitiesViewController)
-//    viewControllers.append(hotelReviewsViewController)
-
     if placePageData.infoData != nil {
       viewControllers.append(keyInformationDividerViewController)
       keyInformationDividerViewController.view.isHidden = false
       viewControllers.append(infoViewController)
     }
 
-//    if placePageData.taxiProvider != .none &&
-//      !LocationManager.isLocationProhibited() &&
-//      FrameworkHelper.isNetworkConnected() {
-//        viewControllers.append(taxiViewController)
-//    }
-
-//    if placePageData.previewData.showUgc {
-//      viewControllers.append(ratingSummaryViewController)
-//      viewControllers.append(addReviewViewController)
-//      viewControllers.append(reviewsViewController)
-//      placePageData.loadUgc(completion: onLoadUgc)
-//    }
-
     if placePageData.buttonsData != nil {
       viewControllers.append(buttonsViewController)
     }
     
-//    placePageData.loadOnlineData(completion: onLoadOnlineData)
     placePageData.onBookmarkStatusUpdate = { [weak self] in
       guard let self = self else { return }
       if self.placePageData.bookmarkData == nil {
@@ -235,9 +148,6 @@ class PlacePageCommonLayout: NSObject, IPlacePageLayout {
       self.previewViewController.placePagePreviewData = self.placePageData.previewData
       self.updateBookmarkRelatedSections()
     }
-//    placePageData.onUgcStatusUpdate = { [weak self] in
-//      self?.onLoadUgc()
-//    }
 
     LocationManager.add(observer: self)
     if let lastLocation = LocationManager.lastLocation() {
@@ -293,69 +203,6 @@ class PlacePageCommonLayout: NSObject, IPlacePageLayout {
 // MARK: - PlacePageData async callbacks for loaders
 
 extension PlacePageCommonLayout {
-  func onLoadOnlineData() {
-    if let bookingData = self.placePageData.hotelBooking {
-      previewViewController.updateBooking(bookingData, rooms: self.placePageData.hotelRooms)
-      presenter?.layoutIfNeeded()
-      UIView.animate(withDuration: kDefaultAnimationDuration) {
-        if !bookingData.photos.isEmpty {
-          self.hotelPhotosViewController.photos = bookingData.photos
-          self.hotelPhotosViewController.view.isHidden = false
-        }
-        self.hotelDescriptionViewController.hotelDescription = bookingData.hotelDescription
-        self.hotelDescriptionViewController.view.isHidden = false
-        if bookingData.facilities.count > 0 {
-          self.hotelFacilitiesViewController.facilities = bookingData.facilities
-          self.hotelFacilitiesViewController.view.isHidden = false
-        }
-        if bookingData.reviews.count > 0 {
-          self.hotelReviewsViewController.reviewCount = bookingData.scoreCount
-          self.hotelReviewsViewController.totalScore = bookingData.score
-          self.hotelReviewsViewController.reviews = bookingData.reviews
-          self.hotelReviewsViewController.view.isHidden = false
-        }
-        self.presenter?.layoutIfNeeded()
-      }
-    }
-  }
-
-  func onLoadCatalogPromo() {
-    guard let catalogPromo = self.placePageData.catalogPromo, catalogPromo.promoItems.count > 0 else {
-      if self.placePageData.wikiDescriptionHtml != nil {
-        wikiDescriptionViewController.view.isHidden = false
-      }
-      return
-    }
-
-    updateCatalogPromoVisibility()
-  }
-
-  func updateCatalogPromoVisibility() {
-    guard let catalogPromo = self.placePageData.catalogPromo, catalogPromo.promoItems.count > 0 else {
-      catalogSingleItemViewController.view.isHidden = true
-      catalogGalleryViewController.view.isHidden = true
-      return
-    }
-
-    let isBookmark = placePageData.bookmarkData != nil
-    if isBookmark {
-      catalogSingleItemViewController.view.isHidden = true
-      catalogGalleryViewController.view.isHidden = true
-      return
-    }
-
-    if catalogPromo.promoItems.count == 1 {
-      catalogSingleItemViewController.promoItem = catalogPromo.promoItems.first!
-      catalogSingleItemViewController.view.isHidden = false
-    } else {
-      catalogGalleryViewController.promoData = catalogPromo
-      catalogGalleryViewController.view.isHidden = false
-      if self.placePageData.wikiDescriptionHtml != nil {
-        wikiDescriptionViewController.view.isHidden = false
-      }
-    }
-  }
-
   func updateBookmarkRelatedSections() {
     var isBookmark = false
     if let bookmarkData = placePageData.bookmarkData {
@@ -365,12 +212,6 @@ extension PlacePageCommonLayout {
     self.presenter?.layoutIfNeeded()
     UIView.animate(withDuration: kDefaultAnimationDuration) { [unowned self] in
       self.bookmarkViewController.view.isHidden = !isBookmark
-      if (isBookmark) {
-        self.catalogGalleryViewController.view.isHidden = true
-        self.catalogSingleItemViewController.view.isHidden = true
-      } else {
-        self.updateCatalogPromoVisibility()
-      }
       self.presenter?.layoutIfNeeded()
     }
   }

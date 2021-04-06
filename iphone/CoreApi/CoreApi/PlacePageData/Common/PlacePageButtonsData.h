@@ -4,7 +4,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface PlacePageButtonsData : NSObject
 
-@property(nonatomic, readonly) BOOL showHotelDescription;
 @property(nonatomic, readonly) BOOL showAddPlace;
 @property(nonatomic, readonly) BOOL showEditPlace;
 @property(nonatomic, readonly) BOOL showAddBusiness;

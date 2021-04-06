@@ -15,7 +15,6 @@ final class CategorySettingsViewController: MWMTableViewController {
 
   private enum InfoSectionRows: Int {
     case title
-    case sharingOptions
   }
 
   private let bookmarkGroup: BookmarkGroup
@@ -55,7 +54,7 @@ final class CategorySettingsViewController: MWMTableViewController {
   override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
     switch Sections(rawValue: section) {
     case .info:
-      return bookmarkGroup.isEmpty ? 1 : 2
+      return 1
     case .description, .delete:
       return 1
     default:
@@ -69,12 +68,7 @@ final class CategorySettingsViewController: MWMTableViewController {
       switch InfoSectionRows(rawValue: indexPath.row) {
       case .title:
         let cell = tableView.dequeueReusableCell(cell: BookmarkTitleCell.self, indexPath: indexPath)
-        cell.configure(name: bookmarkGroup.title, delegate: self)
-        return cell
-      case .sharingOptions:
-        let cell = tableView.dequeueDefaultCell(for: indexPath)
-        cell.accessoryType = .disclosureIndicator
-        cell.textLabel?.text = L("sharing_options")
+        cell.configure(name: bookmarkGroup.title, delegate: self, hint: L("bookmarks_error_message_empty_list_name"))
         return cell
       default:
         fatalError()
@@ -85,7 +79,7 @@ final class CategorySettingsViewController: MWMTableViewController {
       } else {
         let cell = tableView.dequeueReusableCell(cell: MWMNoteCell.self, indexPath: indexPath)
         cell.config(with: self, noteText: bookmarkGroup.detailedAnnotation,
-                    placeholder: L("ugc_route_edit_description_hint"))
+                    placeholder: L("bookmark_category_description_hint"))
         noteCell = cell
         return cell
       }
@@ -97,19 +91,6 @@ final class CategorySettingsViewController: MWMTableViewController {
       return cell
     default:
       fatalError()
-    }
-  }
-
-  override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-    switch InfoSectionRows(rawValue: indexPath.row) {
-    case .sharingOptions:
-      let sharingViewController = UIStoryboard.instance(.sharing).instantiateInitialViewController()
-        as! BookmarksSharingViewController
-      sharingViewController.category = bookmarkGroup
-      navigationController?.pushViewController(sharingViewController, animated: true)
-      break
-    default:
-      break
     }
   }
 

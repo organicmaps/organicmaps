@@ -33,9 +33,7 @@ omim_link_libraries(
   tracking
   traffic
   descriptions
-  ugc
   drape
-  partners_api
   web_api
   kml
   editor

@@ -7,10 +7,6 @@ typedef NS_ENUM(NSUInteger, DeeplinkUrlType) {
   DeeplinkUrlTypeMap,
   DeeplinkUrlTypeRoute,
   DeeplinkUrlTypeSearch,
-  DeeplinkUrlTypeLead,
-  DeeplinkUrlTypeCatalogue,
-  DeeplinkUrlTypeCataloguePath,
-  DeeplinkUrlTypeSubscription
 };
 
 @protocol IDeepLinkData <NSObject>

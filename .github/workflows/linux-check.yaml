@@ -62,7 +62,6 @@ jobs:
       - name: Tests
         shell: bash
         # generator_integration_tests - https://github.com/omapsapp/omapsapp/issues/225
-        # partners_api_tests - https://github.com/omapsapp/omapsapp/issues/218
         # routing_integration_tests - https://github.com/omapsapp/omapsapp/issues/221
         # routing_quality_tests - https://github.com/omapsapp/omapsapp/issues/215
         # drape_tests - requires X Window
@@ -72,7 +71,6 @@ jobs:
             -u ./data \
             -d ./data \
             -e generator_integration_tests \
-            -e partners_api_tests \
             -e routing_integration_tests \
             -e routing_quality_tests \
             -e world_feed_integration_tests \

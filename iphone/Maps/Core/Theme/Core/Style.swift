@@ -40,7 +40,6 @@ class Style: ExpressibleByDictionaryLiteral {
     case pageIndicatorTintColor
     case currentPageIndicatorTintColor
 
-    case ratingViewSettings
     case coloring
     case colors
     case images
@@ -284,11 +283,6 @@ extension Style {
   var currentPageIndicatorTintColor: UIColor? {
     get { return self[.currentPageIndicatorTintColor] as? UIColor }
     set { params[.currentPageIndicatorTintColor] = newValue }
-  }
-
-  var ratingViewSettings: RatingViewSettings? {
-    get { return self[.ratingViewSettings] as? RatingViewSettings }
-    set { params[.ratingViewSettings] = newValue }
   }
 
   var colors: [UIColor]? {

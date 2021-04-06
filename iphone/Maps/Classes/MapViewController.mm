@@ -86,9 +86,6 @@ NSString *const kPP2BookmarkEditingSegue = @"PP2BookmarkEditing";
 @property(strong, nonatomic) IBOutlet NSLayoutConstraint *placePageAreaKeyboard;
 @property(strong, nonatomic) IBOutlet NSLayoutConstraint *sideButtonsAreaBottom;
 @property(strong, nonatomic) IBOutlet NSLayoutConstraint *sideButtonsAreaKeyboard;
-@property(strong, nonatomic) IBOutlet NSLayoutConstraint *guidesNavigationBarAreaBottom;
-@property(strong, nonatomic) IBOutlet NSLayoutConstraint *guidesVisibleConstraint;;
-@property(strong, nonatomic) IBOutlet NSLayoutConstraint *guidesHiddenConstraint;
 @property(strong, nonatomic) IBOutlet UIImageView *carplayPlaceholderLogo;
 @property(strong, nonatomic) BookmarksCoordinator * bookmarksCoordinator;
 
@@ -97,9 +94,7 @@ NSString *const kPP2BookmarkEditingSegue = @"PP2BookmarkEditing";
 @property(nonatomic) BOOL needDeferFocusNotification;
 @property(nonatomic) BOOL deferredFocusValue;
 @property(nonatomic) UIViewController *placePageVC;
-@property(nonatomic) UIViewController *guidesGalleryVC;
 @property(nonatomic) IBOutlet UIView *placePageContainer;
-@property(nonatomic) IBOutlet UIView *guidesCollectionContainer;
 
 @end
 
@@ -128,43 +123,13 @@ NSString *const kPP2BookmarkEditingSegue = @"PP2BookmarkEditing";
   [self.placePageVC didMoveToParentViewController:self];
 }
 
-- (void)showGuidesGallery {
-  self.guidesGalleryVC = [MWMGuidesGalleryBuilder build];
-  self.guidesCollectionContainer.hidden = NO;
-  [self.guidesCollectionContainer addSubview:self.guidesGalleryVC.view];
-  [NSLayoutConstraint activateConstraints:@[
-    [self.guidesGalleryVC.view.topAnchor constraintEqualToAnchor:self.guidesCollectionContainer.topAnchor],
-    [self.guidesGalleryVC.view.leftAnchor constraintEqualToAnchor:self.guidesCollectionContainer.leftAnchor],
-    [self.guidesGalleryVC.view.bottomAnchor constraintEqualToAnchor:self.guidesCollectionContainer.bottomAnchor],
-    [self.guidesGalleryVC.view.rightAnchor constraintEqualToAnchor:self.guidesCollectionContainer.rightAnchor]
-  ]];
-  self.guidesGalleryVC.view.translatesAutoresizingMaskIntoConstraints = NO;
-  [self addChildViewController:self.guidesGalleryVC];
-  [self.guidesGalleryVC didMoveToParentViewController:self];
-  self.guidesVisibleConstraint.priority = UILayoutPriorityDefaultLow;
-  self.guidesHiddenConstraint.priority = UILayoutPriorityDefaultHigh;
-  self.guidesCollectionContainer.alpha = 0;
-  [self.view layoutIfNeeded];
-  [UIView animateWithDuration:kDefaultAnimationDuration animations:^{
-    self.guidesVisibleConstraint.priority = UILayoutPriorityDefaultHigh;
-    self.guidesHiddenConstraint.priority = UILayoutPriorityDefaultLow;
-    [self.view layoutIfNeeded];
-    self.guidesCollectionContainer.alpha = 1;
-  }];
-  [self setPlacePageTopBound:self.view.height - self.guidesCollectionContainer.minY duration:kDefaultAnimationDuration];
-}
-
 - (void)showPlacePage {
   if (!PlacePageData.hasData) {
     return;
   }
   
   self.controlsManager.trafficButtonHidden = YES;
-  if (PlacePageData.isGuide) {
-    [self showGuidesGallery];
-  } else {
-    [self showRegularPlacePage];
-  }
+  [self showRegularPlacePage];
 }
 
 - (void)dismissPlacePage {
@@ -180,29 +145,9 @@ NSString *const kPP2BookmarkEditingSegue = @"PP2BookmarkEditing";
   [self setPlacePageTopBound:0 duration:0];
 }
 
-- (void)hideGuidesGallery {
-  [self.view layoutIfNeeded];
-  [UIView animateWithDuration:kDefaultAnimationDuration animations:^{
-    self.guidesVisibleConstraint.priority = UILayoutPriorityDefaultLow;
-    self.guidesHiddenConstraint.priority = UILayoutPriorityDefaultHigh;
-    [self.view layoutIfNeeded];
-    self.guidesCollectionContainer.alpha = 0;
-  } completion:^(BOOL finished) {
-    [self.guidesGalleryVC.view removeFromSuperview];
-    [self.guidesGalleryVC willMoveToParentViewController:nil];
-    [self.guidesGalleryVC removeFromParentViewController];
-    self.guidesGalleryVC = nil;
-    self.guidesCollectionContainer.hidden = YES;
-    self.guidesVisibleConstraint.constant = 48;
-  }];
-  [self setPlacePageTopBound:0 duration:kDefaultAnimationDuration];
-}
-
 - (void)hidePlacePage {
   if (self.placePageVC != nil) {
     [self hideRegularPlacePage];
-  } else if (self.guidesGalleryVC != nil) {
-    [self hideGuidesGallery];
   }
   self.controlsManager.trafficButtonHidden = NO;
 }
@@ -241,39 +186,6 @@ NSString *const kPP2BookmarkEditingSegue = @"PP2BookmarkEditing";
 
 - (void)onMapObjectUpdated {
   //  [self.controlsManager updatePlacePage];
-}
-
-- (IBAction)onGudesGalleryPan:(UIPanGestureRecognizer *)sender {
-  CGFloat originalConstant = 48;
-  UIView *galleryView = self.guidesCollectionContainer;
-  switch (sender.state) {
-    case UIGestureRecognizerStatePossible:
-    case UIGestureRecognizerStateBegan:
-      break;
-    case UIGestureRecognizerStateChanged: {
-      CGFloat dy = [sender translationInView:galleryView].y;
-      [sender setTranslation:CGPointZero inView:galleryView];
-      CGFloat constant = MIN(self.guidesVisibleConstraint.constant - dy, originalConstant);
-      self.guidesVisibleConstraint.constant = constant;
-      galleryView.alpha = (constant + galleryView.frame.size.height) / (galleryView.frame.size.height + originalConstant);
-      break;
-    }
-    case UIGestureRecognizerStateEnded:
-    case UIGestureRecognizerStateCancelled:
-    case UIGestureRecognizerStateFailed:
-      CGFloat velocity = [sender velocityInView:galleryView].y;
-      if (velocity < 0 || (velocity == 0 && galleryView.alpha > 0.8)) {
-        [self.view layoutIfNeeded];
-        [UIView animateWithDuration:kDefaultAnimationDuration animations:^{
-          self.guidesVisibleConstraint.constant = originalConstant;
-          galleryView.alpha = 1;
-          [self.view layoutIfNeeded];
-        }];
-      } else {
-        [self dismissPlacePage];
-      }
-      break;
-  }
 }
 
 - (void)checkMaskedPointer:(UITouch *)touch withEvent:(df::TouchEvent &)e {
@@ -386,8 +298,7 @@ NSString *const kPP2BookmarkEditingSegue = @"PP2BookmarkEditing";
   [super viewWillAppear:animated];
 
   if ([MWMNavigationDashboardManager sharedManager].state == MWMNavigationDashboardStateHidden &&
-      [MWMSearchManager manager].state == MWMSearchManagerStateHidden &&
-      [MWMMapViewControlsManager manager].guidesNavigationBarHidden == YES)
+      [MWMSearchManager manager].state == MWMSearchManagerStateHidden)
     self.controlsManager.menuState = self.controlsManager.menuRestoreState;
 
   [self updateStatusBarStyle];
@@ -484,8 +395,7 @@ NSString *const kPP2BookmarkEditingSegue = @"PP2BookmarkEditing";
   [super viewWillDisappear:animated];
 
   if ([MWMNavigationDashboardManager sharedManager].state == MWMNavigationDashboardStateHidden &&
-      [MWMSearchManager manager].state == MWMSearchManagerStateHidden &&
-      [MWMMapViewControlsManager manager].guidesNavigationBarHidden == YES)
+      [MWMSearchManager manager].state == MWMSearchManagerStateHidden)
     self.controlsManager.menuRestoreState = self.controlsManager.menuState;
   GetFramework().SetRenderingDisabled(false);
 }
@@ -566,53 +476,6 @@ NSString *const kPP2BookmarkEditingSegue = @"PP2BookmarkEditing";
                                                        title:L(@"place_description_title")];
   descriptionViewController.openInSafari = YES;
   [self.navigationController pushViewController:descriptionViewController animated:YES];
-}
-
-- (void)showBookmarksLoadedAlert:(UInt64)categoryId {
-  for (UIViewController *vc in self.navigationController.viewControllers) {
-    if ([vc isMemberOfClass:MWMCatalogWebViewController.class]) {
-      auto alert = [[BookmarksLoadedViewController alloc] init];
-      alert.onViewBlock = ^{
-        [self dismissViewControllerAnimated:YES completion:nil];
-        [self.navigationController popToRootViewControllerAnimated:YES];
-        GetFramework().ShowBookmarkCategory(categoryId);
-      };
-      alert.onCancelBlock = ^{
-        [self.navigationController dismissViewControllerAnimated:YES completion:nil];
-      };
-      [self.navigationController presentViewController:alert animated:YES completion:nil];
-      return;
-    }
-  }
-  if (![MWMRouter isOnRoute])
-    [[MWMToast toastWithText:L(@"guide_downloaded_title")] show];
-}
-
-- (void)openCatalogAnimated:(BOOL)animated utm:(MWMUTM)utm {
-  [self openCatalogAbsoluteUrl:nil animated:animated utm:utm];
-}
-
-- (void)openCatalogInternal:(MWMCatalogWebViewController *)catalog animated:(BOOL)animated utm:(MWMUTM)utm {
-  [self.navigationController popToRootViewControllerAnimated:NO];
-  auto bookmarks = [[MWMBookmarksTabViewController alloc] initWithCoordinator:self.bookmarksCoordinator];
-  bookmarks.activeTab = ActiveTabCatalog;
-  NSMutableArray<UIViewController *> *controllers = [self.navigationController.viewControllers mutableCopy];
-  [controllers addObjectsFromArray:@[bookmarks, catalog]];
-  [self.navigationController setViewControllers:controllers animated:animated];
-}
-
-- (void)openCatalogDeeplink:(NSURL *)deeplinkUrl animated:(BOOL)animated utm:(MWMUTM)utm {
-  MWMCatalogWebViewController *catalog;
-  catalog = [MWMCatalogWebViewController catalogFromDeeplink:deeplinkUrl utm:utm];
-  [self openCatalogInternal:catalog animated:animated utm:utm];
-}
-
-- (void)openCatalogAbsoluteUrl:(NSURL *)url animated:(BOOL)animated utm:(MWMUTM)utm {
-  MWMCatalogWebViewController *catalog;
-  catalog = [MWMCatalogWebViewController catalogFromAbsoluteUrl:url utm:utm];
-  NSMutableArray<UIViewController *> *controllers = [self.navigationController.viewControllers mutableCopy];
-  [controllers addObjectsFromArray:@[catalog]];
-  [self.navigationController setViewControllers:controllers animated:animated];
 }
 
 - (void)searchText:(NSString *)text {
@@ -786,7 +649,6 @@ NSString *const kPP2BookmarkEditingSegue = @"PP2BookmarkEditing";
 - (void)setPlacePageTopBound:(CGFloat)bound duration:(double)duration {
   self.visibleAreaBottom.constant = bound;
   self.sideButtonsAreaBottom.constant = bound;
-  self.guidesNavigationBarAreaBottom.constant = bound;
   [UIView animateWithDuration:duration delay:0 options:UIViewAnimationOptionBeginFromCurrentState animations:^{
     [self.view layoutIfNeeded];
   } completion:nil];

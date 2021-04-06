@@ -56,7 +56,6 @@
 #define TRAFFIC_KEYS_FILE_TAG "traffic"
 #define TRANSIT_CROSS_MWM_FILE_TAG "transit_cross_mwm"
 #define TRANSIT_FILE_TAG "transit"
-#define UGC_FILE_TAG "ugc"
 #define CITY_ROADS_FILE_TAG "city_roads"
 #define DESCRIPTIONS_FILE_TAG "descriptions"
 #define MAXSPEEDS_FILE_TAG "maxspeeds"
@@ -124,8 +123,4 @@
 
 #define LOCALIZATION_DESCRIPTION_SUFFIX " Description"
 
-#define BOOKING_EXCLUDED_FILE "booking_excluded.txt"
-
 #define BUILDING_PARTS_MAPPING_FILE "building_parts_mapping.bin"
-
-auto constexpr kInvalidRatingValue = 0.0f;

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -14,7 +14,6 @@
                 <outlet property="goButtonsContainer" destination="gcR-zj-b7P" id="RuF-Qu-ahX"/>
                 <outlet property="routePreview" destination="u2u-Vb-2eH" id="VZw-5q-2P6"/>
                 <outlet property="showRouteManagerButton" destination="NAs-km-8uw" id="pJx-0l-Skz"/>
-                <outlet property="taxiCollectionView" destination="t6d-gI-JcN" id="b5y-vn-rwV"/>
                 <outlet property="transportRoutePreviewStatus" destination="FXb-tH-ZTF" id="P0g-ys-6wW"/>
                 <outletCollection property="goButtons" destination="4IJ-pR-Ztp" id="ePc-jh-SfE"/>
             </connections>
@@ -47,6 +46,7 @@
                             </connections>
                         </button>
                     </subviews>
+                    <viewLayoutGuide key="safeArea" id="THL-V3-3xS"/>
                     <color key="backgroundColor" red="0.1215686275" green="0.59999999999999998" blue="0.32156862749999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <constraints>
                         <constraint firstItem="Opi-yT-xIZ" firstAttribute="centerX" secondItem="l7E-Ns-2Nn" secondAttribute="centerX" id="5DK-9d-8qb"/>
@@ -55,7 +55,6 @@
                         <constraint firstAttribute="height" constant="48" id="mCi-1V-xX4"/>
                         <constraint firstItem="Opi-yT-xIZ" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="l7E-Ns-2Nn" secondAttribute="leading" constant="16" id="vdk-Ef-Kk1"/>
                     </constraints>
-                    <viewLayoutGuide key="safeArea" id="THL-V3-3xS"/>
                     <userDefinedRuntimeAttributes>
                         <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="SecondaryBackground"/>
                     </userDefinedRuntimeAttributes>
@@ -275,7 +274,7 @@
                                         <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="Divider"/>
                                     </userDefinedRuntimeAttributes>
                                 </view>
-                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NAs-km-8uw">
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NAs-km-8uw">
                                     <rect key="frame" x="20" y="12" width="127" height="24"/>
                                     <inset key="contentEdgeInsets" minX="8" minY="0.0" maxX="0.0" maxY="0.0"/>
                                     <inset key="imageEdgeInsets" minX="-16" minY="0.0" maxX="0.0" maxY="0.0"/>
@@ -298,45 +297,16 @@
                                 <constraint firstItem="LyQ-pQ-XyG" firstAttribute="leading" secondItem="EY6-SY-ner" secondAttribute="leading" constant="16" id="fSG-dw-XFn"/>
                             </constraints>
                         </view>
-                        <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xAP-RW-zvp" userLabel="Taxi Box">
-                            <rect key="frame" x="0.0" y="0.0" width="320" height="84"/>
-                            <subviews>
-                                <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" pagingEnabled="YES" dataMode="none" prefetchingEnabled="NO" translatesAutoresizingMaskIntoConstraints="NO" id="t6d-gI-JcN" customClass="MWMTaxiCollectionView">
-                                    <rect key="frame" x="0.0" y="0.0" width="320" height="84"/>
-                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                    <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="9nw-pA-D89" customClass="MWMTaxiCollectionLayout">
-                                        <size key="itemSize" width="320" height="100"/>
-                                        <size key="headerReferenceSize" width="0.0" height="0.0"/>
-                                        <size key="footerReferenceSize" width="0.0" height="0.0"/>
-                                        <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
-                                    </collectionViewFlowLayout>
-                                    <userDefinedRuntimeAttributes>
-                                        <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="Background"/>
-                                    </userDefinedRuntimeAttributes>
-                                </collectionView>
-                            </subviews>
-                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                            <constraints>
-                                <constraint firstItem="t6d-gI-JcN" firstAttribute="top" secondItem="xAP-RW-zvp" secondAttribute="top" id="Q7e-1w-LMz"/>
-                                <constraint firstItem="t6d-gI-JcN" firstAttribute="leading" secondItem="xAP-RW-zvp" secondAttribute="leading" id="TYJ-1W-jS1"/>
-                                <constraint firstAttribute="bottom" secondItem="t6d-gI-JcN" secondAttribute="bottom" id="ecY-4e-IOw"/>
-                                <constraint firstAttribute="height" constant="84" id="omI-i2-fRh"/>
-                                <constraint firstAttribute="trailing" secondItem="t6d-gI-JcN" secondAttribute="trailing" id="wfq-F4-Ftw"/>
-                            </constraints>
-                        </view>
                     </subviews>
                     <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <constraints>
-                        <constraint firstItem="xAP-RW-zvp" firstAttribute="top" secondItem="87p-Qg-8f3" secondAttribute="top" id="4Zu-Ow-GQe"/>
                         <constraint firstAttribute="height" priority="100" constant="64" id="4qT-ha-p75"/>
                         <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="Rqr-bu-crx" secondAttribute="bottom" id="82W-n1-9wJ"/>
                         <constraint firstItem="EY6-SY-ner" firstAttribute="top" relation="greaterThanOrEqual" secondItem="Rqr-bu-crx" secondAttribute="bottom" id="8we-Hd-BFi"/>
-                        <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="xAP-RW-zvp" secondAttribute="bottom" id="CCT-23-3wk"/>
                         <constraint firstItem="EY6-SY-ner" firstAttribute="top" secondItem="87p-Qg-8f3" secondAttribute="top" priority="100" id="DLg-g3-d3N"/>
                         <constraint firstItem="Rqr-bu-crx" firstAttribute="leading" secondItem="87p-Qg-8f3" secondAttribute="leading" id="Fkj-U2-xyQ"/>
                         <constraint firstItem="6iM-A6-4JK" firstAttribute="top" secondItem="Rqr-bu-crx" secondAttribute="bottom" id="HfZ-Ca-Mmj"/>
                         <constraint firstItem="QEP-6s-YTM" firstAttribute="top" secondItem="87p-Qg-8f3" secondAttribute="top" id="LrP-YM-0DL"/>
-                        <constraint firstItem="xAP-RW-zvp" firstAttribute="leading" secondItem="87p-Qg-8f3" secondAttribute="leading" id="Lyf-8P-Jd6"/>
                         <constraint firstItem="Rqr-bu-crx" firstAttribute="top" secondItem="87p-Qg-8f3" secondAttribute="top" id="N7H-ZL-K7y"/>
                         <constraint firstAttribute="trailing" secondItem="Rqr-bu-crx" secondAttribute="trailing" id="QH4-pv-oKn"/>
                         <constraint firstAttribute="trailing" secondItem="QEP-6s-YTM" secondAttribute="trailing" id="QOg-C7-dgi"/>
@@ -345,7 +315,6 @@
                         <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="6iM-A6-4JK" secondAttribute="bottom" id="a6M-h3-DzB"/>
                         <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="QEP-6s-YTM" secondAttribute="bottom" id="c3U-eM-8ig"/>
                         <constraint firstItem="rXP-rM-9cx" firstAttribute="leading" secondItem="zml-eW-DsI" secondAttribute="trailing" constant="4" id="fqI-7g-oBJ"/>
-                        <constraint firstAttribute="trailing" secondItem="xAP-RW-zvp" secondAttribute="trailing" id="hFn-i8-Do8"/>
                         <constraint firstItem="EY6-SY-ner" firstAttribute="leading" secondItem="87p-Qg-8f3" secondAttribute="leading" id="iIn-NA-fpZ"/>
                         <constraint firstAttribute="trailing" secondItem="6iM-A6-4JK" secondAttribute="trailing" id="kek-Gu-EN2"/>
                         <constraint firstItem="Rqr-bu-crx" firstAttribute="trailing" secondItem="rXP-rM-9cx" secondAttribute="trailing" constant="16" id="mHh-IV-b00"/>
@@ -373,8 +342,6 @@
                         <outlet property="resultLabel" destination="zml-eW-DsI" id="lP5-pC-IIe"/>
                         <outlet property="resultsBox" destination="Rqr-bu-crx" id="iaF-Im-C5p"/>
                         <outlet property="resultsBoxBottom" destination="82W-n1-9wJ" id="RLp-VX-RD7"/>
-                        <outlet property="taxiBox" destination="xAP-RW-zvp" id="SOO-SU-fDu"/>
-                        <outlet property="taxiBoxBottom" destination="CCT-23-3wk" id="e2w-eO-HqA"/>
                     </connections>
                 </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FXb-tH-ZTF" customClass="MWMTransportRoutePreviewStatus">
@@ -386,13 +353,13 @@
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>
                         </label>
-                        <collectionView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" alwaysBounceHorizontal="YES" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" delaysContentTouches="NO" canCancelContentTouches="NO" bouncesZoom="NO" dataMode="none" prefetchingEnabled="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8Ey-lL-uzF" customClass="TransportTransitStepsCollectionView" customModule="maps_me" customModuleProvider="target">
+                        <collectionView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" alwaysBounceHorizontal="YES" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" delaysContentTouches="NO" canCancelContentTouches="NO" bouncesZoom="NO" dataMode="none" prefetchingEnabled="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8Ey-lL-uzF" customClass="TransportTransitStepsCollectionView" customModule="OMaps" customModuleProvider="target">
                             <rect key="frame" x="16" y="44" width="288" height="20"/>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <constraints>
                                 <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="20" id="4NI-xp-o3L"/>
                             </constraints>
-                            <collectionViewLayout key="collectionViewLayout" id="PJv-Hi-Xu3" customClass="TransportTransitFlowLayout" customModule="maps_me" customModuleProvider="target"/>
+                            <collectionViewLayout key="collectionViewLayout" id="PJv-Hi-Xu3" customClass="TransportTransitFlowLayout" customModule="OMaps" customModuleProvider="target"/>
                         </collectionView>
                     </subviews>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -447,6 +414,7 @@
                     </userDefinedRuntimeAttributes>
                 </view>
             </subviews>
+            <viewLayoutGuide key="safeArea" id="rhh-dY-ZHT"/>
             <color key="backgroundColor" red="0.96078431372549022" green="0.96078431372549022" blue="0.96078431372549022" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
                 <constraint firstItem="gcR-zj-b7P" firstAttribute="leading" secondItem="u2u-Vb-2eH" secondAttribute="leading" id="1RD-kG-W2O"/>
@@ -469,7 +437,6 @@
                 <constraint firstItem="3zr-me-gbI" firstAttribute="leading" secondItem="u2u-Vb-2eH" secondAttribute="leading" id="xgY-7G-jgv"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-            <viewLayoutGuide key="safeArea" id="rhh-dY-ZHT"/>
             <userDefinedRuntimeAttributes>
                 <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="RoutePreview"/>
             </userDefinedRuntimeAttributes>

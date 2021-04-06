@@ -10,7 +10,6 @@
 		3462FDAF1DC1E62F00906FD7 /* libgenerator_tests_support.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3462FDAE1DC1E62F00906FD7 /* libgenerator_tests_support.a */; };
 		3462FDB11DC1E65B00906FD7 /* libgenerator.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3462FDB01DC1E65B00906FD7 /* libgenerator.a */; };
 		3462FDB31DC1E68C00906FD7 /* libtess2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3462FDB21DC1E68C00906FD7 /* libtess2.a */; };
-		349756231DC1E6DD0058742A /* libpartners_api.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 349756221DC1E6DD0058742A /* libpartners_api.a */; };
 		349756251DC1E6EE0058742A /* libtracking.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 349756241DC1E6EE0058742A /* libtracking.a */; };
 		34B093221C61F9BA0066F4C3 /* storage_helpers.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 34B0931D1C61F9BA0066F4C3 /* storage_helpers.cpp */; };
 		34B093231C61F9BA0066F4C3 /* storage_helpers.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 34B0931E1C61F9BA0066F4C3 /* storage_helpers.hpp */; };
@@ -60,7 +59,6 @@
 		5670EAFA1FF1150C002495D8 /* libtransit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5670EAFB1FF1150C002495D8 /* libtransit.a */; };
 		5670EAFC1FF11535002495D8 /* libmwm_diff.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5670EAFD1FF11535002495D8 /* libmwm_diff.a */; };
 		5670EAFE1FF11558002495D8 /* libbsdiff.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5670EAFF1FF11558002495D8 /* libbsdiff.a */; };
-		5670EB001FF11574002495D8 /* libugc.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5670EB011FF11574002495D8 /* libugc.a */; };
 		56D0E4801F8E40340084B18C /* routing_helpers.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 56D0E47E1F8E40340084B18C /* routing_helpers.hpp */; };
 		56D0E4811F8E40340084B18C /* routing_helpers.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56D0E47F1F8E40340084B18C /* routing_helpers.cpp */; };
 		56D8CB991CAC17A80003F420 /* test_defines.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56D8CB971CAC17A80003F420 /* test_defines.cpp */; };
@@ -230,7 +228,6 @@
 		3462FDAE1DC1E62F00906FD7 /* libgenerator_tests_support.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libgenerator_tests_support.a; path = "../../../omim-build/xcode/Debug/libgenerator_tests_support.a"; sourceTree = "<group>"; };
 		3462FDB01DC1E65B00906FD7 /* libgenerator.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libgenerator.a; path = "../../../omim-build/xcode/Debug/libgenerator.a"; sourceTree = "<group>"; };
 		3462FDB21DC1E68C00906FD7 /* libtess2.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libtess2.a; path = "../../../omim-build/xcode/Debug/libtess2.a"; sourceTree = "<group>"; };
-		349756221DC1E6DD0058742A /* libpartners_api.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libpartners_api.a; path = "../../../omim-build/xcode/Debug/libpartners_api.a"; sourceTree = "<group>"; };
 		349756241DC1E6EE0058742A /* libtracking.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libtracking.a; path = "../../../omim-build/xcode/Debug/libtracking.a"; sourceTree = "<group>"; };
 		34B0931D1C61F9BA0066F4C3 /* storage_helpers.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = storage_helpers.cpp; sourceTree = "<group>"; };
 		34B0931E1C61F9BA0066F4C3 /* storage_helpers.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = storage_helpers.hpp; sourceTree = "<group>"; };
@@ -279,7 +276,6 @@
 		5670EAFB1FF1150C002495D8 /* libtransit.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libtransit.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		5670EAFD1FF11535002495D8 /* libmwm_diff.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libmwm_diff.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		5670EAFF1FF11558002495D8 /* libbsdiff.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libbsdiff.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		5670EB011FF11574002495D8 /* libugc.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libugc.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		56D0E47E1F8E40340084B18C /* routing_helpers.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = routing_helpers.hpp; sourceTree = "<group>"; };
 		56D0E47F1F8E40340084B18C /* routing_helpers.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = routing_helpers.cpp; sourceTree = "<group>"; };
 		56D8CB971CAC17A80003F420 /* test_defines.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = test_defines.cpp; sourceTree = "<group>"; };
@@ -446,7 +442,6 @@
 				56FB436F2164A848002099B3 /* libshaders.a in Frameworks */,
 				56FB436D2164A801002099B3 /* libmetrics.a in Frameworks */,
 				56FB436B2164A79C002099B3 /* libopen_location_code.a in Frameworks */,
-				5670EB001FF11574002495D8 /* libugc.a in Frameworks */,
 				5670EAFE1FF11558002495D8 /* libbsdiff.a in Frameworks */,
 				5670EAFC1FF11535002495D8 /* libmwm_diff.a in Frameworks */,
 				5670EAFA1FF1150C002495D8 /* libtransit.a in Frameworks */,
@@ -454,7 +449,6 @@
 				F66D56A81EAE37F90081E883 /* librouting_common.a in Frameworks */,
 				F66D56A61EAE37EE0081E883 /* libicu.a in Frameworks */,
 				349756251DC1E6EE0058742A /* libtracking.a in Frameworks */,
-				349756231DC1E6DD0058742A /* libpartners_api.a in Frameworks */,
 				67F90BF21C6A2AAB00CD458E /* libstorage.a in Frameworks */,
 				67F90BEC1C6A2A3000CD458E /* libindexer.a in Frameworks */,
 				67F90BE71C6A2A3000CD458E /* libmap.a in Frameworks */,
@@ -503,7 +497,6 @@
 				56FB436E2164A848002099B3 /* libshaders.a */,
 				56FB436C2164A801002099B3 /* libmetrics.a */,
 				56FB436A2164A79C002099B3 /* libopen_location_code.a */,
-				5670EB011FF11574002495D8 /* libugc.a */,
 				5670EAFF1FF11558002495D8 /* libbsdiff.a */,
 				5670EAFD1FF11535002495D8 /* libmwm_diff.a */,
 				5670EAFB1FF1150C002495D8 /* libtransit.a */,
@@ -517,7 +510,6 @@
 				F66D56971EAE36280081E883 /* libicu.a */,
 				F66D56951EAE35CB0081E883 /* libicu.a */,
 				349756241DC1E6EE0058742A /* libtracking.a */,
-				349756221DC1E6DD0058742A /* libpartners_api.a */,
 				3462FDB21DC1E68C00906FD7 /* libtess2.a */,
 				3462FDB01DC1E65B00906FD7 /* libgenerator.a */,
 				3462FDAE1DC1E62F00906FD7 /* libgenerator_tests_support.a */,

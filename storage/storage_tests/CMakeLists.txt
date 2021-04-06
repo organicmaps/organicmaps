@@ -35,7 +35,6 @@ omim_link_libraries(
   routing
   traffic
   routing_common
-  ugc
   kml
   editor
   indexer

@@ -5,7 +5,6 @@
 #include "map/bookmark_helpers.hpp"
 #include "map/place_page_info.hpp"
 
-#include "partners_api/utm.hpp"
 
 #include "coding/zip_creator.hpp"
 

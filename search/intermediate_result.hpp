@@ -53,7 +53,6 @@ public:
   double GetDistance() const { return m_info.m_distanceToPivot; }
   uint8_t GetRank() const { return m_info.m_rank; }
   uint8_t GetPopularity() const { return m_info.m_popularity; }
-  std::pair<uint8_t, float> GetRating() const { return m_info.m_rating; }
   PreRankingInfo const & GetInfo() const { return m_info; }
   std::vector<ResultTracer::Branch> const & GetProvenance() const { return m_provenance; }
   size_t GetInnermostTokensNumber() const { return m_info.InnermostTokenRange().Size(); }
@@ -61,7 +60,6 @@ public:
 
   void SetRank(uint8_t rank) { m_info.m_rank = rank; }
   void SetPopularity(uint8_t popularity) { m_info.m_popularity = popularity; }
-  void SetRating(std::pair<uint8_t, float> const & rating) { m_info.m_rating = rating; }
   void SetDistanceToPivot(double distance) { m_info.m_distanceToPivot = distance; }
   void SetCenter(m2::PointD const & center)
   {

@@ -24,7 +24,6 @@ public:
 
   void SetBooking(std::string const & filename);
   void SetCitiesAreas(std::string const & filename);
-  void SetPromoCatalog(std::string const & filename);
   void SetCoastlines(std::string const & coastlineGeomFilename,
                      std::string const & worldCoastsFilename);
   void SetFakeNodes(std::string const & filename);
@@ -40,7 +39,6 @@ public:
 
 private:
   void Order();
-  void ProcessBooking();
   void ProcessRoutingCityBoundaries();
   void ProcessCities();
   void ProcessCoastline();
@@ -59,7 +57,6 @@ private:
   std::string m_isolinesPath;
   std::string m_citiesAreasTmpFilename;
   std::string m_citiesBoundariesFilename;
-  std::string m_hotelsFilename;
   std::string m_coastlineGeomFilename;
   std::string m_worldCoastsFilename;
   std::string m_citiesFilename;

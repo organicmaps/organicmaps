@@ -8,8 +8,9 @@ final class BookmarkTitleCell: MWMTableViewCell {
   @IBOutlet var textField: UITextField!
   weak var delegate: BookmarkTitleCellDelegate?
 
-  func configure(name: String, delegate: BookmarkTitleCellDelegate) {
+  func configure(name: String, delegate: BookmarkTitleCellDelegate, hint: String) {
     textField.text = name
+    textField.placeholder = hint
     self.delegate = delegate
   }
 }

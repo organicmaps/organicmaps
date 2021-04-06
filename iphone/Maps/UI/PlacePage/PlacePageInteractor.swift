@@ -28,10 +28,6 @@ extension PlacePageInteractor: PlacePagePreviewViewControllerDelegate {
   func previewDidPressRemoveAds() {
     MWMPlacePageManagerHelper.showRemoveAds()
   }
-
-  func previewDidPressSimilarHotels() {
-    MWMPlacePageManagerHelper.searchSimilar(placePageData)
-  }
 }
 
 // MARK: - PlacePageInfoViewControllerDelegate
@@ -58,29 +54,6 @@ extension PlacePageInteractor: WikiDescriptionViewControllerDelegate {
   }
 }
 
-// MARK: - TaxiViewControllerDelegate
-
-extension PlacePageInteractor: TaxiViewControllerDelegate {
-  func didPressOrder() {
-    MWMPlacePageManagerHelper.orderTaxi(placePageData)
-  }
-  
-  func didShowTaxi() {
-    MWMPlacePageManagerHelper.taxiShown(placePageData)
-  }
-}
-
-// MARK: - PlacePageReviewsViewControllerDelegate
-
-extension PlacePageInteractor: PlacePageReviewsViewControllerDelegate {
-  func didPressMoreReviews() {
-    let moreReviews = viewController!.storyboard!.instantiateViewController(ofType: MoreReviewsViewController.self)
-    moreReviews.ugcData = placePageData.ugcData
-    moreReviews.title = placePageData.previewData.title
-    MapViewController.shared()?.navigationController?.pushViewController(moreReviews, animated: true)
-  }
-}
-
 // MARK: - PlacePageButtonsViewControllerDelegate
 
 extension PlacePageInteractor: PlacePageButtonsViewControllerDelegate {
@@ -98,76 +71,6 @@ extension PlacePageInteractor: PlacePageButtonsViewControllerDelegate {
 
   func didPressAddBusiness() {
     MWMPlacePageManagerHelper.addBusiness()
-  }
-}
-
-// MARK: - HotelPhotosViewControllerDelegate
-
-extension PlacePageInteractor: HotelPhotosViewControllerDelegate {
-  func didSelectItemAt(_ hotelPhotosViewController: HotelPhotosViewController, index: Int, lastItemIndex: Int) {
-    guard let photos = placePageData.hotelBooking?.photos else { return }
-    if index == lastItemIndex {
-      let galleryController = GalleryViewController.instance(photos: photos)
-      galleryController.title = placePageData.previewData.title
-      MapViewController.shared()?.navigationController?.pushViewController(galleryController, animated: true)
-    } else {
-      let currentPhoto = photos[index]
-      let view = hotelPhotosViewController.viewForPhoto(currentPhoto)
-      let photoVC = PhotosViewController(photos: photos, initialPhoto: currentPhoto, referenceView: view)
-
-      photoVC.referenceViewForPhotoWhenDismissingHandler = {
-        hotelPhotosViewController.viewForPhoto($0)
-      }
-      viewController?.present(photoVC, animated: true)
-    }
-  }
-}
-
-// MARK: - HotelDescriptionViewControllerDelegate
-
-extension PlacePageInteractor: HotelDescriptionViewControllerDelegate {
-  func hotelDescriptionDidPressMore() {
-    MWMPlacePageManagerHelper.openMoreUrl(placePageData)
-  }
-}
-
-// MARK: - HotelFacilitiesViewControllerDelegate
-
-extension PlacePageInteractor: HotelFacilitiesViewControllerDelegate {
-  func facilitiesDidPressMore() {
-    MWMPlacePageManagerHelper.showAllFacilities(placePageData)
-  }
-}
-
-// MARK: - HotelReviewsViewControllerDelegate
-
-extension PlacePageInteractor: HotelReviewsViewControllerDelegate {
-  func hotelReviewsDidPressMore() {
-    MWMPlacePageManagerHelper.openReviewUrl(placePageData)
-  }
-}
-
-// MARK: - CatalogSingleItemViewControllerDelegate
-
-extension PlacePageInteractor: CatalogSingleItemViewControllerDelegate {
-  func catalogPromoItemDidPressView() {
-    MWMPlacePageManagerHelper.openCatalogSingleItem(placePageData, at: 0)
-  }
-
-  func catalogPromoItemDidPressMore() {
-    MWMPlacePageManagerHelper.openCatalogSingleItem(placePageData, at: 0)
-  }
-}
-
-// MARK: - CatalogGalleryViewControllerDelegate
-
-extension PlacePageInteractor: CatalogGalleryViewControllerDelegate {
-  func promoGalleryDidPressMore() {
-    MWMPlacePageManagerHelper.openCatalogMoreItems(placePageData)
-  }
-
-  func promoGalleryDidSelectItemAtIndex(_ index: Int) {
-    MWMPlacePageManagerHelper.openCatalogSingleItem(placePageData, at: index)
   }
 }
 
@@ -212,8 +115,6 @@ extension PlacePageInteractor: ActionBarViewControllerDelegate {
       }
     case .opentable:
       fatalError("Opentable is not supported and will be deleted")
-    case .partner:
-      MWMPlacePageManagerHelper.openPartner(placePageData)
     case .routeAddStop:
       MWMPlacePageManagerHelper.routeAddStop(placePageData)
     case .routeFrom:

@@ -10,33 +10,7 @@
 namespace {
 using Observer = id<MWMSearchObserver>;
 using Observers = NSHashTable<Observer>;
-
-booking::filter::Tasks MakeBookingFilterTasks(booking::filter::Params &&availabilityParams) {
-  booking::filter::Tasks tasks;
-  if (availabilityParams.IsEmpty()) {
-    if (!platform::GetCurrentNetworkPolicy().CanUse())
-      return {};
-
-    auto params = GetFramework().GetLastBookingAvailabilityParams();
-    if (params.IsEmpty())
-      params = booking::AvailabilityParams::MakeDefault();
-    params.m_dealsOnly = true;
-
-    booking::filter::Params dp(std::make_shared<booking::AvailabilityParams>(params), {});
-    tasks.EmplaceBack(booking::filter::Type::Deals, move(dp));
-  } else {
-    booking::AvailabilityParams dp;
-    dp.Set(*(availabilityParams.m_apiParams));
-    dp.m_dealsOnly = true;
-    booking::filter::Params dealsParams(std::make_shared<booking::AvailabilityParams>(dp), {});
-
-    tasks.EmplaceBack(booking::filter::Type::Availability, std::move(availabilityParams));
-    tasks.EmplaceBack(booking::filter::Type::Deals, std::move(dealsParams));
-  }
-
-  return tasks;
-}
-}  // namespace
+} // namespace
 
 @interface MWMSearch () <MWMFrameworkDrapeObserver>
 
@@ -48,8 +22,6 @@ booking::filter::Tasks MakeBookingFilterTasks(booking::filter::Params &&availabi
 @property(nonatomic) Observers *observers;
 
 @property(nonatomic) NSUInteger lastSearchTimestamp;
-
-@property(nonatomic) MWMHotelParams *filter;
 
 @property(nonatomic) MWMSearchIndex *itemsIndex;
 
@@ -64,7 +36,6 @@ booking::filter::Tasks MakeBookingFilterTasks(booking::filter::Params &&availabi
   search::ViewportSearchParams m_viewportParams;
   search::Results m_everywhereResults;
   search::Results m_viewportResults;
-  std::unordered_map<booking::filter::Type, std::vector<FeatureID>> m_filterResults;
   std::vector<search::ProductInfo> m_productInfo;
 }
 
@@ -88,29 +59,6 @@ booking::filter::Tasks MakeBookingFilterTasks(booking::filter::Params &&availabi
   return self;
 }
 
-- (void)enableCallbackFor:(booking::filter::Type const)filterType {
-  auto &tasks = self->m_everywhereParams.m_bookingFilterTasks;
-  auto availabilityTaskIt = tasks.Find(filterType);
-  if (availabilityTaskIt != tasks.end()) {
-    availabilityTaskIt->m_filterParams.m_callback = [self, filterType](
-                                                      std::shared_ptr<booking::ParamsBase> const &apiParams,
-                                                      std::vector<FeatureID> const &sortedFeatures) {
-      auto &t = self->m_everywhereParams.m_bookingFilterTasks;
-      auto const it = t.Find(filterType);
-
-      if (it == t.end())
-        return;
-
-      auto const &p = it->m_filterParams.m_apiParams;
-      if (p->IsEmpty() || !p->Equals(*apiParams))
-        return;
-
-      self->m_filterResults[filterType] = sortedFeatures;
-      [self onSearchResultsUpdated];
-    };
-  }
-}
-
 - (void)searchEverywhere {
   self.lastSearchTimestamp += 1;
   NSUInteger const timestamp = self.lastSearchTimestamp;
@@ -127,9 +75,6 @@ booking::filter::Tasks MakeBookingFilterTasks(booking::filter::Params &&availabi
     if (results.IsEndMarker())
       self.searchCount -= 1;
   };
-
-  [self enableCallbackFor:booking::filter::Type::Availability];
-  [self enableCallbackFor:booking::filter::Type::Deals];
 
   GetFramework().GetSearchAPI().SearchEverywhere(m_everywhereParams);
   self.searchCount += 1;
@@ -148,24 +93,10 @@ booking::filter::Tasks MakeBookingFilterTasks(booking::filter::Params &&availabi
   GetFramework().GetSearchAPI().SearchInViewport(m_viewportParams);
 }
 
-- (void)updateFilters {
-  std::shared_ptr<search::hotels_filter::Rule> const hotelsRules = self.filter ? [self.filter rules] : nullptr;
-  m_viewportParams.m_hotelsFilter = hotelsRules;
-  m_everywhereParams.m_hotelsFilter = hotelsRules;
-
-  auto availabilityParams = self.filter ? [self.filter availabilityParams] : booking::filter::Params();
-
-  auto const tasks = MakeBookingFilterTasks(std::move(availabilityParams));
-
-  m_viewportParams.m_bookingFilterTasks = tasks;
-  m_everywhereParams.m_bookingFilterTasks = tasks;
-}
-
 - (void)update {
   [self reset];
   if (m_everywhereParams.m_query.empty())
     return;
-  [self updateFilters];
 
   if (IPAD) {
     [self searchInViewport];
@@ -238,14 +169,6 @@ booking::filter::Tasks MakeBookingFilterTasks(booking::filter::Params &&availabi
   return std::binary_search(array.begin(), array.end(), resultFeatureID);
 }
 
-+ (BOOL)isBookingAvailableWithContainerIndex:(NSUInteger)index {
-  return [self isFeatureAt:index in:[MWMSearch manager]->m_filterResults[booking::filter::Type::Availability]];
-}
-
-+ (BOOL)isDealAvailableWithContainerIndex:(NSUInteger)index {
-  return [self isFeatureAt:index in:[MWMSearch manager]->m_filterResults[booking::filter::Type::Deals]];
-}
-
 + (MWMSearchItemType)resultTypeWithRow:(NSUInteger)row {
   auto itemsIndex = [MWMSearch manager].itemsIndex;
   return [itemsIndex resultTypeWithRow:row];
@@ -256,28 +179,12 @@ booking::filter::Tasks MakeBookingFilterTasks(booking::filter::Params &&availabi
   return [itemsIndex resultContainerIndexWithRow:row];
 }
 
-+ (void)updateHotelFilterWithParams:(MWMHotelParams *)params {
-  [MWMSearch manager].filter = params;
-  [[MWMSearch manager] update];
-
-  std::string priceCategory = strings::JoinAny(params.price, ',', [](auto const &item) {
-    return std::to_string(static_cast<int>(item));
-  });
-  std::string types = strings::JoinAny(params.types, ',', [](auto const &item) {
-    return std::to_string(static_cast<int>(item));
-  });
-}
-
 - (void)reset {
   self.lastSearchTimestamp += 1;
   GetFramework().GetSearchAPI().CancelAllSearches();
 
   m_everywhereResults.Clear();
   m_viewportResults.Clear();
-
-  m_filterResults.clear();
-  m_viewportParams.m_bookingFilterTasks.Clear();
-  m_everywhereParams.m_bookingFilterTasks.Clear();
 
   [self onSearchResultsUpdated];
 }
@@ -287,7 +194,6 @@ booking::filter::Tasks MakeBookingFilterTasks(booking::filter::Params &&availabi
   manager->m_everywhereParams.m_query.clear();
   manager->m_viewportParams.m_query.clear();
   manager.suggestionsCount = 0;
-  manager.filter = nil;
   [manager reset];
 }
 
@@ -308,43 +214,6 @@ booking::filter::Tasks MakeBookingFilterTasks(booking::filter::Params &&availabi
 }
 + (NSUInteger)resultsCount {
   return [MWMSearch manager].itemsIndex.count;
-}
-+ (BOOL)isHotelResults {
-  return [[MWMSearch manager] isHotelResults];
-}
-
-#pragma mark - Filters
-
-+ (BOOL)hasFilter {
-  auto filter = [MWMSearch manager].filter;
-  if (!filter)
-    return NO;
-  return [filter rules] != nullptr;
-}
-
-+ (BOOL)hasAvailability {
-  auto filter = [MWMSearch manager].filter;
-  if (!filter)
-    return NO;
-  return !filter.availabilityParams.IsEmpty();
-}
-+ (int)filterCount {
-  auto filter = [MWMSearch manager].filter;
-  if (filter && [filter rules]) {
-    return [filter rulesCount];
-  }
-  return 0;
-}
-
-+ (MWMHotelParams *)getFilter {
-  MWMSearch *manager = [MWMSearch manager];
-  return manager.filter;
-}
-
-+ (void)clearFilter {
-  MWMSearch *manager = [MWMSearch manager];
-  manager.filter = nil;
-  [manager update];
 }
 
 - (void)updateItemsIndexWithBannerReload:(BOOL)reloadBanner {
@@ -399,11 +268,6 @@ booking::filter::Tasks MakeBookingFilterTasks(booking::filter::Params &&availabi
   else if (searchCount == 0)
     [self onSearchCompleted];
   _searchCount = searchCount;
-}
-
-- (BOOL)isHotelResults {
-  return m_everywhereResults.GetType() == search::Results::Type::Hotels ||
-         m_viewportResults.GetType() == search::Results::Type::Hotels;
 }
 
 @end

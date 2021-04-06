@@ -61,11 +61,9 @@ import UIKit
       }, completion: nil)
       FrameworkHelper.deactivateMapSelection(notifyUI: true)
       self.bookmarksControllers = nil
-      controlsManager?.hideGuidesNavigationBar()
     case .closed:
       navigationController.popToRootViewController(animated: true)
       bookmarksControllers = nil
-      controlsManager?.hideGuidesNavigationBar()
     case let .hidden(categoryId):
       UIView.transition(with: self.navigationController!.view,
                         duration: kDefaultAnimationDuration,
@@ -73,10 +71,6 @@ import UIKit
                         animations: {
                           self.bookmarksControllers = navigationController.popToRootViewController(animated: false)
       }, completion: nil)
-      let isNavigation = navigationManager?.state != .hidden
-      if isNavigation == false {
-        controlsManager?.showGuidesNavigationBar(categoryId)
-      }
     }
   }
 }

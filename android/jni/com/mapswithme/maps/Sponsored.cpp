@@ -5,8 +5,6 @@
 
 #include "map/place_page_info.hpp"
 
-#include "partners_api/booking_api.hpp"
-#include "partners_api/booking_block_params.hpp"
 
 #include <chrono>
 #include <functional>

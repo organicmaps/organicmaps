@@ -12,15 +12,9 @@ FOUNDATION_EXPORT const unsigned char CoreApiVersionString[];
 #import <CoreApi/MWMCarPlayBookmarkObject.h>
 #import <CoreApi/MWMCommon.h>
 #import <CoreApi/MWMFrameworkHelper.h>
-#import <CoreApi/MWMGuidesManager.h>
 #import <CoreApi/MWMMapOverlayManager.h>
 #import <CoreApi/MWMNetworkPolicy.h>
-#import <CoreApi/MWMPurchaseValidation.h>
 #import <CoreApi/MWMSearchFrameworkHelper.h>
 #import <CoreApi/MWMStorage.h>
-#import <CoreApi/MWMTag.h>
-#import <CoreApi/MWMTagGroup.h>
-#import <CoreApi/MWMTrialEligibility.h>
 #import <CoreApi/MWMTypes.h>
-#import <CoreApi/MWMUTM.h>
 #import <CoreApi/MWMUser.h>

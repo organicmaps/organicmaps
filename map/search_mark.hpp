@@ -36,7 +36,6 @@ public:
   drape_ptr<TitlesInfo> GetTitleDecl() const override;
   int GetMinTitleZoom() const override;
   df::DepthLayer GetDepthLayer() const override;
-  drape_ptr<BageInfo> GetBadgeInfo() const override;
   drape_ptr<SymbolOffsets> GetSymbolOffsets() const override;
   bool GetDepthTestEnabled() const override { return false; }
   bool IsMarkAboveText() const override;
@@ -51,14 +50,10 @@ public:
   void SetMatchedName(std::string const & name);
 
   void SetFromType(uint32_t type);
-  void SetBookingType();
   void SetHotelType();
   void SetNotFoundType();
 
   void SetPreparing(bool isPreparing);
-  void SetRating(float rating);
-  void SetPricing(int pricing);
-  void SetPrice(std::string && price);
   void SetSale(bool hasSale);
   void SetSelected(bool isSelected);
   void SetVisited(bool isVisited);
@@ -80,26 +75,17 @@ protected:
     dst = std::forward<U>(src);
   }
 
-  bool IsBookingSpecialMark() const;
   bool IsHotel() const;
 
-  bool HasRating() const;
-  bool HasGoodRating() const;
-  bool HasPrice() const;
-  bool HasPricing() const;
   bool HasReason() const;
 
   std::string GetSymbolName() const;
-  std::string GetBadgeName() const;
 
   SearchMarkType m_type{};
   FeatureID m_featureID;
   // Used to pass exact search result matched string into a place page.
   std::string m_matchedName;
   bool m_isPreparing = false;
-  float m_rating = 0.0f;
-  int m_pricing = 0;
-  std::string m_price;
   bool m_hasSale = false;
   bool m_isSelected = false;
   bool m_isVisited = false;
@@ -122,9 +108,6 @@ public:
 
   // NOTE: Vector of features must be sorted.
   void SetSales(std::vector<FeatureID> const & features, bool hasSale);
-
-  // NOTE: Vector of features must be sorted.
-  void SetPrices(std::vector<FeatureID> const & features, std::vector<std::string> && prices);
 
   bool IsThereSearchMarkForFeature(FeatureID const & featureId) const;
   void OnActivate(FeatureID const & featureId);

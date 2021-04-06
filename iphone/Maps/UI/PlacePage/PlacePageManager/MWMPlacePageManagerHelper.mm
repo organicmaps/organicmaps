@@ -11,7 +11,6 @@
 @interface MWMPlacePageManager ()
 
 - (void)updateAvailableArea:(CGRect)frame;
-- (void)searchSimilar:(PlacePageData *)data;
 - (void)editPlace;
 - (void)addBusiness;
 - (void)addPlace:(CLLocationCoordinate2D)coordinate;
@@ -30,7 +29,6 @@
 - (void)removeBookmark:(PlacePageData *)data;
 - (void)editBookmark:(PlacePageData *)data;
 - (void)searchBookingHotels:(PlacePageData *)data;
-- (void)openPartner:(PlacePageData *)data;
 - (void)book:(PlacePageData *)data;
 - (void)share:(PlacePageData *)data;
 - (void)routeFrom:(PlacePageData *)data;
@@ -50,11 +48,6 @@
 + (void)updateAvailableArea:(CGRect)frame
 {
   [[MWMMapViewControlsManager manager].placePageManager updateAvailableArea:frame];
-}
-
-+ (void)searchSimilar:(PlacePageData *)data
-{
-  [[MWMMapViewControlsManager manager].placePageManager searchSimilar:data];
 }
 
 + (void)editPlace {
@@ -127,10 +120,6 @@
 
 + (void)searchBookingHotels:(PlacePageData *)data {
   [[MWMMapViewControlsManager manager].placePageManager searchBookingHotels:data];
-}
-
-+ (void)openPartner:(PlacePageData *)data {
-  [[MWMMapViewControlsManager manager].placePageManager openPartner:data];
 }
 
 + (void)book:(PlacePageData *)data {

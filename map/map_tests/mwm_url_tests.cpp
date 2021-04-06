@@ -66,7 +66,6 @@ public:
     return m_m->GetUserMarkIds(type).size();
   }
 
-  Catalog const & GetCatalog() const { return m_api.GetCatalog(); }
   vector<RoutePoint> GetRoutePoints() const { return m_api.GetRoutePoints(); }
   url_scheme::SearchRequest const & GetSearchRequest() const { return m_api.GetSearchRequest(); }
   string const & GetGlobalBackUrl() const { return m_api.GetGlobalBackUrl(); }
@@ -152,37 +151,6 @@ UNIT_TEST(RouteApiSmoke)
   TEST(test.TestRoutePoint(0, 1, 1, "name0"), ());
   TEST(test.TestRoutePoint(1, 2, 2, "name1"), ());
   TEST(test.TestRouteType("vehicle"), ());
-}
-
-UNIT_TEST(CatalogueApiSmoke)
-{
-  string const urlString = "mapsme://catalogue?id=440f02e5-ff38-45ed-95c0-44587c9a5fc7&name=CatalogGroupName";
-  TEST(url::Url(urlString).IsValid(), ());
-
-  ApiTest test(urlString);
-  TEST(test.IsValid(), ());
-
-  auto const & catalogItem = test.GetCatalog();
-  TEST_EQUAL(catalogItem.m_id, "440f02e5-ff38-45ed-95c0-44587c9a5fc7", ());
-  TEST_EQUAL(catalogItem.m_name, "CatalogGroupName", ());
-}
-
-UNIT_TEST(CatalogueApiInvalidUrl)
-{
-  Framework f(kFrameworkParams);
-  TEST(!IsValid(f, "mapsme://catalogue?", UrlType::Catalogue), ("id parameter is required"));
-  TEST(!IsValid(f, "mapsme://catalog?id=440f02e5-ff38-45ed-95c0-44587c9a5fc7", UrlType::Incorrect),
-       ("Incorrect url type"));
-  TEST(IsValid(f, "mapsme://catalogue?id=440f02e5-ff38-45ed-95c0-44587c9a5fc7", UrlType::Catalogue),
-       ("Name is optional"));
-  TEST(IsValid(f, "mapsme://catalogue?id=440f02e5-ff38-45ed-95c0-44587c9a5fc7&name=CatalogGroupName&otherExtraParam=xyz",
-               UrlType::Catalogue),
-       ("We shouldn't fail on extra params"));
-  TEST(IsValid(f, "mapsme://catalogue?name=CatalogGroupName&id=440f02e5-ff38-45ed-95c0-44587c9a5fc7",
-               UrlType::Catalogue),
-       ("parameter position doesn't matter"));
-  TEST(!IsValid(f, "mapsme://catalogue?ID=440f02e5-ff38-45ed-95c0-44587c9a5fc7", UrlType::Catalogue),
-       ("The parser is case sensitive"));
 }
 
 UNIT_TEST(SearchApiSmoke)

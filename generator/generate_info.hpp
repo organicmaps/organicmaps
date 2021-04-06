@@ -49,10 +49,6 @@ struct GenerateInfo
   OsmSourceType m_osmFileType = OsmSourceType::XML;
   std::string m_osmFileName;
 
-  std::string m_bookingDataFilename;
-  std::string m_opentableDataFilename;
-  std::string m_promoCatalogCitiesFilename;
-
   std::string m_brandsFilename;
   std::string m_brandsTranslationsFilename;
 

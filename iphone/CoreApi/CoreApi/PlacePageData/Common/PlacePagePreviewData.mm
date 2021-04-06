@@ -1,7 +1,5 @@
 #import "PlacePagePreviewData+Core.h"
 
-#import "UgcSummaryRating.h"
-
 #include "3party/opening_hours/opening_hours.hpp"
 
 static PlacePageDataSchedule convertOpeningHours(std::string rawOpeningHours) {
@@ -75,16 +73,10 @@ static PlacePageDataHotelType convertHotelType(std::optional<ftypes::IsHotelChec
     _subtitle = rawData.GetSubtitle().empty() ? nil : @(rawData.GetSubtitle().c_str());
     _coordinates = rawData.GetFormattedCoordinate(true).empty() ? nil : @(rawData.GetFormattedCoordinate(true).c_str());
     _address = rawData.GetAddress().empty() ? nil : @(rawData.GetAddress().c_str());
-    _pricing = rawData.GetApproximatePricing().empty() ? nil : @(rawData.GetApproximatePricing().c_str());
-    _rawPricing = rawData.GetRawApproximatePricing() ? nil : [[NSNumber alloc] initWithInt: *(rawData.GetRawApproximatePricing())];
-    _rawRating = rawData.GetRatingRawValue();
     _isMyPosition = rawData.IsMyPosition();
     _isPopular = rawData.GetPopularity() > 0;
-    _isTopChoice = rawData.IsTopChoice();
-    _isBookingPlace = rawData.GetSponsoredType() == place_page::SponsoredType::Booking;
     _schedule = convertOpeningHours(rawData.GetOpeningHours());
     _hotelType = convertHotelType(rawData.GetHotelType());
-    _showUgc = rawData.ShouldShowUGC();
   }
   return self;
 }

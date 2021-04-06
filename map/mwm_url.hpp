@@ -44,27 +44,6 @@ struct SearchRequest
   bool m_isSearchOnMap = false;
 };
 
-struct Catalog
-{
-  std::string m_id;
-  std::string m_name;
-};
-
-struct CatalogPath
-{
-  std::string m_url;
-};
-
-struct Subscription
-{
-  std::string m_groups;
-};
-
-namespace lead
-{
-struct CampaignDescription;
-}
-
 /// Handles [mapswithme|mwm|mapsme]://map|route|search?params - everything related to displaying info on a map
 class ParsedMapApi
 {
@@ -75,10 +54,6 @@ public:
     Map,
     Route,
     Search,
-    Lead,
-    Catalogue,
-    CataloguePath,
-    Subscription
   };
   
   struct ParsingResult
@@ -105,10 +80,6 @@ public:
   std::vector<RoutePoint> const & GetRoutePoints() const { return m_routePoints; }
   std::string const & GetRoutingType() const { return m_routingType; }
   SearchRequest const & GetSearchRequest() const { return m_request; }
-  Catalog const & GetCatalog() const { return m_catalog; }
-  CatalogPath const & GetCatalogPath() const { return m_catalogPath; }
-  Subscription const & GetSubscription() const { return m_subscription; }
-  std::string const & GetAffiliateId() const { return m_affiliateId; }
 
 private:
   /// Returns true when all statements are true:
@@ -116,24 +87,16 @@ private:
   ///  - all mandatory parameters for url type |type| are provided;
   ///  - the order of params is correct (for UrlType::Map)
   bool Parse(url::Url const & url, UrlType type);
-  void ParseAdditional(url::Url const & url);
   void ParseMapParam(url::Param const & param, std::vector<ApiPoint> & points, bool & correctOrder);
   void ParseRouteParam(url::Param const & param, std::vector<std::string> & pattern);
   void ParseSearchParam(url::Param const & param, SearchRequest & request) const;
-  void ParseCatalogParam(url::Param const & param, Catalog & item) const;
-  void ParseCatalogPathParam(url::Param const & param, CatalogPath & item) const;
-  void ParseSubscriptionParam(url::Param const & param, Subscription & item) const;
 
   BookmarkManager * m_bmManager = nullptr;
   std::vector<RoutePoint> m_routePoints;
   SearchRequest m_request;
-  Catalog m_catalog;
-  CatalogPath m_catalogPath;
-  Subscription m_subscription;
   std::string m_globalBackUrl;
   std::string m_appTitle;
   std::string m_routingType;
-  std::string m_affiliateId;
   int m_version = 0;
   /// Zoom level in OSM format (e.g. from 1.0 to 20.0)
   /// Taken into an account when calculating viewport rect, but only if points count is == 1
