@@ -4,12 +4,4 @@
     <meta-data
       android:name="com.google.android.gms.version"
       android:value="@integer/google_play_services_version"/>
-
-    <service
-      android:exported="false"
-      android:name="com.mapswithme.maps.scheduling.FirebaseJobService">
-      <intent-filter>
-        <action android:name="com.firebase.jobdispatcher.ACTION_EXECUTE"/>
-      </intent-filter>
-    </service>
 </manifest>
