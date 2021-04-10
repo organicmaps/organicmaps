@@ -76,11 +76,7 @@ OsmOAuth::OsmOAuth(string const & consumerKey, string const & consumerSecret,
 // static
 OsmOAuth OsmOAuth::ServerAuth() noexcept
 {
-#ifdef DEBUG
-  return DevServerAuth();
-#else
   return ProductionServerAuth();
-#endif
 }
 // static
 OsmOAuth OsmOAuth::ServerAuth(KeySecret const & userKeySecret) noexcept
