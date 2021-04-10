@@ -4,15 +4,14 @@ import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.drawable.AnimationDrawable;
 import android.graphics.drawable.Drawable;
-import androidx.annotation.NonNull;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.RelativeLayout;
+import androidx.annotation.NonNull;
 
 import com.mapswithme.maps.R;
 import com.mapswithme.util.ThemeUtils;
 import com.mapswithme.util.UiUtils;
-import com.mapswithme.util.Utils;
 
 public class TrafficButton
 {
@@ -36,9 +35,7 @@ public class TrafficButton
     Context context = trafficBtn.getContext();
     Resources res = context.getResources();
     final int animResId = ThemeUtils.getResource(context, R.attr.trafficLoadingAnimation);
-    return Utils.isLollipopOrLater()
-           ? (AnimationDrawable) res.getDrawable(animResId, context.getTheme())
-           : (AnimationDrawable) res.getDrawable(animResId);
+    return (AnimationDrawable) res.getDrawable(animResId, context.getTheme());
   }
 
   void turnOff()

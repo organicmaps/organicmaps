@@ -3,7 +3,6 @@ package com.mapswithme.maps.widget;
 import android.content.Context;
 import android.content.res.ColorStateList;
 import android.content.res.TypedArray;
-import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.util.AttributeSet;
@@ -13,13 +12,13 @@ import android.widget.FrameLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.mapswithme.maps.R;
+import com.mapswithme.util.UiUtils;
+
 import androidx.annotation.ColorInt;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
-import com.mapswithme.maps.R;
-import com.mapswithme.util.UiUtils;
-import com.mapswithme.util.Utils;
 
 public class SubscriptionButton extends FrameLayout
 {
@@ -125,10 +124,7 @@ public class SubscriptionButton extends FrameLayout
 
   private void setProgressBarColor()
   {
-    if (Utils.isLollipopOrLater())
-      mProgressBar.setIndeterminateTintList(ColorStateList.valueOf(mProgressColor));
-    else
-      mProgressBar.getIndeterminateDrawable().setColorFilter(mProgressColor, PorterDuff.Mode.SRC_IN);
+    mProgressBar.setIndeterminateTintList(ColorStateList.valueOf(mProgressColor));
   }
 
   public void setName(@NonNull String name)

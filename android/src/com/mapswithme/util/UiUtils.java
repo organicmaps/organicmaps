@@ -23,13 +23,10 @@ import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 import android.view.Window;
 import android.view.WindowManager;
-import android.view.animation.Animation;
-import android.view.animation.Animation.AnimationListener;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import androidx.annotation.AnyRes;
 import androidx.annotation.AttrRes;
 import androidx.annotation.ColorInt;
@@ -41,6 +38,7 @@ import androidx.annotation.StringRes;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
+
 import com.google.android.material.textfield.TextInputLayout;
 import com.mapswithme.maps.MwmApplication;
 import com.mapswithme.maps.R;
@@ -62,10 +60,7 @@ public final class UiUtils
 
   public static void bringViewToFrontOf(@NonNull View frontView, @NonNull View backView)
   {
-    if (Utils.isLollipopOrLater())
-      frontView.setZ(backView.getZ() + 1);
-    else
-      frontView.bringToFront();
+    frontView.setZ(backView.getZ() + 1);
   }
 
   public static void linkifyView(@NonNull View view, @IdRes int id, @StringRes int stringId,

@@ -1,17 +1,16 @@
 package com.mapswithme.maps.location;
 
+import androidx.annotation.NonNull;
+import androidx.core.app.JobIntentService;
 import android.app.job.JobInfo;
 import android.app.job.JobScheduler;
 import android.content.Context;
 import android.content.Intent;
-import androidx.annotation.NonNull;
-import androidx.core.app.JobIntentService;
 import android.util.Log;
 
 import com.mapswithme.maps.MwmApplication;
 import com.mapswithme.maps.scheduling.JobIdMap;
 import com.mapswithme.util.CrashlyticsUtils;
-import com.mapswithme.util.Utils;
 import com.mapswithme.util.log.Logger;
 import com.mapswithme.util.log.LoggerFactory;
 
@@ -69,20 +68,17 @@ public class TrackRecorderWakeService extends JobIntentService
 
     Intent intent = new Intent(app, TrackRecorderWakeService.class);
     final int jobId = JobIdMap.getId(TrackRecorderWakeService.class);
-    if (Utils.isLollipopOrLater())
+    JobScheduler scheduler = (JobScheduler) context.getSystemService(Context.JOB_SCHEDULER_SERVICE);
+    Objects.requireNonNull(scheduler);
+    List<JobInfo> pendingJobs = scheduler.getAllPendingJobs();
+    String jobsRepresentation = Arrays.toString(pendingJobs.toArray());
+    for (JobInfo each : pendingJobs)
     {
-      JobScheduler scheduler = (JobScheduler) context.getSystemService(Context.JOB_SCHEDULER_SERVICE);
-      Objects.requireNonNull(scheduler);
-      List<JobInfo> pendingJobs = scheduler.getAllPendingJobs();
-      String jobsRepresentation = Arrays.toString(pendingJobs.toArray());
-      for (JobInfo each : pendingJobs)
+      if (TrackRecorderWakeService.class.getName().equals(each.getService().getClassName()))
       {
-        if (TrackRecorderWakeService.class.getName().equals(each.getService().getClassName()))
-        {
-          scheduler.cancel(each.getId());
-          String logMsg = "Canceled job: " + each + ". All jobs: " + jobsRepresentation;
-          CrashlyticsUtils.INSTANCE.log(Log.INFO, TAG, logMsg);
-        }
+        scheduler.cancel(each.getId());
+        String logMsg = "Canceled job: " + each + ". All jobs: " + jobsRepresentation;
+        CrashlyticsUtils.INSTANCE.log(Log.INFO, TAG, logMsg);
       }
     }
     JobIntentService.enqueueWork(app, TrackRecorderWakeService.class, jobId, intent);

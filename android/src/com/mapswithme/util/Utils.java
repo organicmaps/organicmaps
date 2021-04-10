@@ -68,16 +68,6 @@ public class Utils
 
   private Utils() {}
 
-  public static boolean isJellyBeanOrLater()
-  {
-    return isTargetOrLater(Build.VERSION_CODES.JELLY_BEAN_MR1);
-  }
-
-  public static boolean isLollipopOrLater()
-  {
-    return isTargetOrLater(Build.VERSION_CODES.LOLLIPOP);
-  }
-
   public static boolean isMarshmallowOrLater()
   {
     return isTargetOrLater(Build.VERSION_CODES.M);

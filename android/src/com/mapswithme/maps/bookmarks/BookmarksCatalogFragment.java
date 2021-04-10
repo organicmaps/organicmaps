@@ -21,10 +21,10 @@ import android.webkit.WebResourceRequest;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+
 import com.android.billingclient.api.SkuDetails;
 import com.mapswithme.maps.Framework;
 import com.mapswithme.maps.PrivateVariables;
@@ -206,8 +206,7 @@ public class BookmarksCatalogFragment extends BaseWebViewMwmFragment
     final WebSettings webSettings = mWebView.getSettings();
     webSettings.setJavaScriptEnabled(true);
     webSettings.setUserAgentString(Framework.nativeGetUserAgent());
-    if (Utils.isLollipopOrLater())
-      webSettings.setMixedContentMode(WebSettings.MIXED_CONTENT_ALWAYS_ALLOW);
+    webSettings.setMixedContentMode(WebSettings.MIXED_CONTENT_ALWAYS_ALLOW);
   }
 
   @NonNull
