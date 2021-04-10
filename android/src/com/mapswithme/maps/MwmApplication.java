@@ -25,8 +25,6 @@ import com.mapswithme.maps.maplayer.isolines.IsolinesManager;
 import com.mapswithme.maps.maplayer.subway.SubwayManager;
 import com.mapswithme.maps.maplayer.traffic.TrafficManager;
 import com.mapswithme.maps.routing.RoutingController;
-import com.mapswithme.maps.scheduling.ConnectivityJobScheduler;
-import com.mapswithme.maps.scheduling.ConnectivityListener;
 import com.mapswithme.maps.search.SearchEngine;
 import com.mapswithme.maps.settings.StoragePathManager;
 import com.mapswithme.maps.sound.TtsPlayer;
@@ -69,9 +67,6 @@ public class MwmApplication extends Application implements AppBackgroundTracker.
 
   private Handler mMainLoopHandler;
   private final Object mMainQueueToken = new Object();
-  @SuppressWarnings("NullableProblems")
-  @NonNull
-  private ConnectivityListener mConnectivityListener;
   @NonNull
   private final MapManager.StorageCallback mStorageCallbacks = new StorageCallbackImpl();
   @SuppressWarnings("NullableProblems")
@@ -146,8 +141,6 @@ public class MwmApplication extends Application implements AppBackgroundTracker.
     mSubwayManager = new SubwayManager(this);
     mIsolinesManager = new IsolinesManager(this);
     mGuidesManager = new GuidesManager(this);
-    mConnectivityListener = new ConnectivityJobScheduler(this);
-    mConnectivityListener.listen();
 
     mPurchaseOperationObservable = new PurchaseOperationObservable();
     mPlayer = new MediaPlayerWrapper(this);
@@ -315,12 +308,6 @@ public class MwmApplication extends Application implements AppBackgroundTracker.
     });
     m.obj = mMainQueueToken;
     mMainLoopHandler.sendMessage(m);
-  }
-
-  @NonNull
-  public ConnectivityListener getConnectivityListener()
-  {
-    return mConnectivityListener;
   }
 
   @NonNull

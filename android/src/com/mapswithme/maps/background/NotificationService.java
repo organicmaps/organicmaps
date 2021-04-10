@@ -34,7 +34,7 @@ public class NotificationService extends JobIntentService
     final Intent intent = new Intent(context, NotificationService.class)
         .setAction(CONNECTIVITY_ACTION);
 
-    int id = JobIdMap.getId(NotificationService.class);
+    int id = JobIdMap.getId(NotificationService.class.hashCode();
     JobIntentService.enqueueWork(context, NotificationService.class, id, intent);
   }
 

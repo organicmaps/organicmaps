@@ -4,7 +4,6 @@ import com.mapswithme.maps.background.NotificationService;
 import com.mapswithme.maps.background.WorkerService;
 import com.mapswithme.maps.bookmarks.SystemDownloadCompletedService;
 import com.mapswithme.maps.location.TrackRecorderWakeService;
-import com.mapswithme.util.Utils;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -14,7 +13,6 @@ public class JobIdMap
   private static final Map<Class<?>, Integer> MAP = new HashMap<>();
 
   static {
-    MAP.put(NativeJobService.class, calcIdentifier(MAP.size()));
     MAP.put(NotificationService.class, calcIdentifier(MAP.size()));
     MAP.put(TrackRecorderWakeService.class, calcIdentifier(MAP.size()));
     MAP.put(SystemDownloadCompletedService.class, calcIdentifier(MAP.size()));
