@@ -8,12 +8,11 @@ import android.graphics.PointF;
 import android.graphics.Rect;
 import android.graphics.RectF;
 import android.os.Build;
-import androidx.annotation.ColorInt;
-import androidx.annotation.NonNull;
 import android.util.DisplayMetrics;
 import android.view.WindowManager;
+import androidx.annotation.ColorInt;
+import androidx.annotation.NonNull;
 
-import com.mapswithme.util.Utils;
 import uk.co.samuelwall.materialtaptargetprompt.extras.PromptBackground;
 import uk.co.samuelwall.materialtaptargetprompt.extras.PromptOptions;
 import uk.co.samuelwall.materialtaptargetprompt.extras.PromptUtils;
@@ -69,10 +68,7 @@ public class ImmersiveModeCompatPromptBackground extends PromptBackground
   @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
   private void initDisplayMetrics()
   {
-    if (Utils.isJellyBeanOrLater())
-      mWindowManager.getDefaultDisplay().getRealMetrics(mBaseMetrics);
-    else
-      mWindowManager.getDefaultDisplay().getMetrics(mBaseMetrics);
+    mWindowManager.getDefaultDisplay().getRealMetrics(mBaseMetrics);
   }
 
   @Override
