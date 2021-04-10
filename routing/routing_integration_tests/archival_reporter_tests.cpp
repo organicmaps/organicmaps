@@ -158,6 +158,7 @@ UNIT_TEST(TestArchivalReporter_DeleteOldData)
 
 // ArchivalReporter pipeline with no dumping.
 // Checks behaviour if there is no free space on device.
+/*
 UNIT_CLASS_TEST(TestArchivalReporter, FreeSpaceOnDisk)
 {
   tracking::ArchivingSettings settings;
@@ -171,4 +172,6 @@ UNIT_CLASS_TEST(TestArchivalReporter, FreeSpaceOnDisk)
     TEST_EQUAL(GetFilesCount(m_tracksDir), 0, ());
   }
 }
+*/
+
 }  // namespace

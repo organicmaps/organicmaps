@@ -257,11 +257,6 @@ public:
   void OnRemoveRoute(routing::RouterResultCode code);
   void OnRoutePointPassed(RouteMarkType type, size_t intermediateIndex);
   void OnLocationUpdate(location::GpsInfo const & info);
-  void SetAllowSendingPoints(bool isAllowed)
-  {
-    m_trackingReporter.SetAllowSendingPoints(isAllowed);
-  }
-  void ConfigureArchivalReporter(tracking::ArchivingSettings const & settings);
 
   routing::SpeedCameraManager & GetSpeedCamManager() { return m_routingSession.GetSpeedCamManager(); }
   bool IsSpeedLimitExceeded() const;
@@ -346,8 +341,6 @@ private:
                            double baseDistance, GetMwmIdFn const & getMwmIdFn, RoadWarningsCollection & roadWarnings);
   void CreateRoadWarningMarks(RoadWarningsCollection && roadWarnings);
 
-  bool IsTrackingReporterEnabled() const;
-  bool IsTrackingReporterArchiveEnabled() const;
   /// \returns false if the location could not be matched to the route and should be matched to the
   /// road graph. Otherwise returns true.
   void MatchLocationToRoute(location::GpsInfo & info,
@@ -380,8 +373,6 @@ private:
   bool m_loadAltitudes = false;
   routing::RoutingSession m_routingSession;
   Delegate & m_delegate;
-  tracking::Reporter m_trackingReporter;
-  tracking::ArchivalReporter m_trackingReporterArchive;
 
   BookmarkManager * m_bmManager = nullptr;
   extrapolation::Extrapolator m_extrapolator;

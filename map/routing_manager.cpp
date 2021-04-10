@@ -306,9 +306,6 @@ drape_ptr<df::Subroute> CreateDrapeSubroute(vector<RouteSegment> const & segment
 RoutingManager::RoutingManager(Callbacks && callbacks, Delegate & delegate)
   : m_callbacks(move(callbacks))
   , m_delegate(delegate)
-  , m_trackingReporter(platform::CreateSocket(), TRACKING_REALTIME_HOST, TRACKING_REALTIME_PORT,
-                       tracking::Reporter::kPushDelayMs)
-  , m_trackingReporterArchive(TRACKING_HISTORICAL_HOST)
   , m_extrapolator(
         [this](location::GpsInfo const & gpsInfo) { this->OnExtrapolatedLocationUpdate(gpsInfo); })
 {
@@ -471,14 +468,6 @@ void RoutingManager::OnRoutePointPassed(RouteMarkType type, size_t intermediateI
 void RoutingManager::OnLocationUpdate(location::GpsInfo const & info)
 {
   m_extrapolator.OnLocationUpdate(info);
-
-  if (IsTrackingReporterArchiveEnabled())
-  {
-     location::GpsInfo gpsInfo(info);
-     auto routeMatchingInfo = GetRouteMatchingInfo(gpsInfo);
-     m_trackingReporterArchive.Insert(m_currentRouterType, info,
-                                    m_routingSession.MatchTraffic(routeMatchingInfo));
-  }
 }
 
 RouterType RoutingManager::GetBestRouter(m2::PointD const & startPoint,
@@ -1120,11 +1109,6 @@ void RoutingManager::CallRouteBuilded(RouterResultCode code,
   m_routingBuildingCallback(code, absentCountries);
 }
 
-void RoutingManager::ConfigureArchivalReporter(tracking::ArchivingSettings const & settings)
-{
-  m_trackingReporterArchive.SetArchivalManagerSettings(settings);
-}
-
 void RoutingManager::MatchLocationToRoute(location::GpsInfo & location,
                                           location::RouteMatchingInfo & routeMatchingInfo)
 {
@@ -1237,41 +1221,6 @@ bool RoutingManager::GenerateRouteAltitudeChart(uint32_t width, uint32_t height,
     break;
   }
   return true;
-}
-
-bool RoutingManager::IsTrackingReporterEnabled() const
-{
-  auto const & pm = m_callbacks.m_powerManagerGetter();
-  if (!pm.IsFacilityEnabled(power_management::Facility::GpsTrackingForTraffic))
-    return false;
-
-  if (m_currentRouterType != RouterType::Vehicle)
-    return false;
-
-  if (!m_routingSession.IsFollowing())
-    return false;
-
-  bool enableTracking = true;
-  settings::TryGet(tracking::Reporter::kEnableTrackingKey, enableTracking);
-
-  return enableTracking;
-}
-
-bool RoutingManager::IsTrackingReporterArchiveEnabled() const
-{
-  if (m_currentRouterType != RouterType::Vehicle && m_currentRouterType != RouterType::Bicycle &&
-      m_currentRouterType != RouterType::Pedestrian)
-  {
-    return false;
-  }
-
-  if (!m_routingSession.IsFollowing())
-    return false;
-
-  bool enableTracking = true;
-  settings::TryGet(tracking::Reporter::kEnableTrackingKey, enableTracking);
-
-  return enableTracking;
 }
 
 void RoutingManager::SetRouter(RouterType type)
@@ -1486,9 +1435,6 @@ void RoutingManager::OnExtrapolatedLocationUpdate(location::GpsInfo const & info
   auto routeMatchingInfo = GetRouteMatchingInfo(gpsInfo);
   m_drapeEngine.SafeCall(&df::DrapeEngine::SetGpsInfo, gpsInfo, m_routingSession.IsNavigable(),
                          routeMatchingInfo);
-
-  if (IsTrackingReporterEnabled())
-    m_trackingReporter.AddLocation(gpsInfo, m_routingSession.MatchTraffic(routeMatchingInfo));
 }
 
 void RoutingManager::DeleteSavedRoutePoints()

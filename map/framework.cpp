@@ -1354,7 +1354,6 @@ void Framework::EnterBackground()
   SaveViewport();
 
   m_trafficManager.OnEnterBackground();
-  m_routingManager.SetAllowSendingPoints(false);
 
   // Do not clear caches for Android. This function is called when main activity is paused,
   // but at the same time search activity (for example) is enabled.
@@ -1381,7 +1380,6 @@ void Framework::EnterForeground()
   }
 
   m_trafficManager.OnEnterForeground();
-  m_routingManager.SetAllowSendingPoints(true);
 }
 
 void Framework::InitCountryInfoGetter()
