@@ -11,7 +11,6 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-
 import androidx.annotation.CallSuper;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -22,6 +21,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.SimpleItemAnimator;
 import com.cocosw.bottomsheet.BottomSheet;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
 import com.mapswithme.maps.MwmActivity;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.base.BaseMwmRecyclerFragment;
@@ -47,9 +47,8 @@ import com.mapswithme.maps.widget.placepage.Sponsored;
 import com.mapswithme.maps.widget.recycler.ItemDecoratorFactory;
 import com.mapswithme.util.BottomSheetHelper;
 import com.mapswithme.util.CrashlyticsUtils;
+import com.mapswithme.util.SharingUtils;
 import com.mapswithme.util.UiUtils;
-import com.mapswithme.util.sharing.ShareOption;
-import com.mapswithme.util.sharing.SharingHelper;
 
 import java.util.List;
 
@@ -693,8 +692,7 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<MergeAdapter>
     switch (menuItem.getItemId())
     {
       case R.id.share:
-        ShareOption.AnyShareOption.ANY.shareBookmarkObject(requireActivity(), item,
-                                                           Sponsored.nativeGetCurrent());
+        SharingUtils.shareBookmark(requireContext(), item, Sponsored.nativeGetCurrent());
         break;
 
       case R.id.edit:
@@ -738,7 +736,7 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<MergeAdapter>
 
       case R.id.share_category:
         long catId = mCategoryDataSource.getData().getId();
-        SharingHelper.INSTANCE.prepareBookmarkCategoryForSharing(requireActivity(), catId);
+        BookmarksSharingHelper.INSTANCE.prepareBookmarkCategoryForSharing(requireActivity(), catId);
         return false;
 
       case R.id.settings:
@@ -827,7 +825,7 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<MergeAdapter>
   @Override
   public void onPreparedFileForSharing(@NonNull BookmarkSharingResult result)
   {
-    SharingHelper.INSTANCE.onPreparedFileForSharing(requireActivity(), result);
+    BookmarksSharingHelper.INSTANCE.onPreparedFileForSharing(requireActivity(), result);
   }
 
   private void openSharingOptionsScreen()

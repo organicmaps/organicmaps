@@ -21,7 +21,6 @@ import com.mapswithme.maps.base.DataChangedListener;
 import com.mapswithme.maps.bookmarks.data.AbstractCategoriesSnapshot;
 import com.mapswithme.maps.bookmarks.data.BookmarkCategory;
 import com.mapswithme.maps.bookmarks.data.BookmarkManager;
-import com.mapswithme.maps.bookmarks.data.BookmarkSharingResult;
 import com.mapswithme.maps.bookmarks.data.FilterStrategy;
 import com.mapswithme.maps.dialog.EditTextDialogFragment;
 import com.mapswithme.maps.ugc.routes.UgcRouteEditSettingsActivity;
@@ -30,7 +29,6 @@ import com.mapswithme.maps.widget.PlaceholderView;
 import com.mapswithme.maps.widget.recycler.ItemDecoratorFactory;
 import com.mapswithme.util.BottomSheetHelper;
 import com.mapswithme.util.UiUtils;
-import com.mapswithme.util.sharing.SharingHelper;
 
 import java.util.List;
 
@@ -270,7 +268,7 @@ public abstract class BaseBookmarkCategoriesFragment extends BaseMwmRecyclerFrag
 
   protected void onShareActionSelected(@NonNull BookmarkCategory category)
   {
-    SharingHelper.INSTANCE.prepareBookmarkCategoryForSharing(getActivity(), category.getId());
+    BookmarksSharingHelper.INSTANCE.prepareBookmarkCategoryForSharing(getActivity(), category.getId());
   }
 
   private void onDeleteActionSelected(@NonNull BookmarkCategory category)

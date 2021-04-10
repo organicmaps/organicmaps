@@ -2,11 +2,11 @@ package com.mapswithme.maps.bookmarks.data;
 
 import androidx.annotation.IntRange;
 import androidx.annotation.NonNull;
+
 import com.mapswithme.maps.Framework;
 import com.mapswithme.util.GeoUtils;
-import com.mapswithme.util.sharing.ShareableInfoProvider;
 
-public class BookmarkInfo implements ShareableInfoProvider
+public class BookmarkInfo
 {
   private final long mCategoryId;
   private final long mBookmarkId;
@@ -59,7 +59,6 @@ public class BookmarkInfo implements ShareableInfoProvider
   public String getFeatureType() { return mFeatureType; }
 
   @NonNull
-  @Override
   public String getName()
   {
     return mTitle;
@@ -77,26 +76,22 @@ public class BookmarkInfo implements ShareableInfoProvider
     return getDistanceAndAzimuth(latitude, longitude, v).getDistance();
   }
 
-  @Override
   public double getLat()
   {
     return mLatLonPoint.x;
   }
 
-  @Override
   public double getLon()
   {
     return mLatLonPoint.y;
   }
 
-  @Override
   public double getScale()
   {
     return mScale;
   }
 
   @NonNull
-  @Override
   public String getAddress()
   {
     return mAddress;

@@ -19,7 +19,6 @@ import android.view.View.OnClickListener;
 import android.view.ViewTreeObserver;
 import android.view.WindowManager;
 import android.widget.ImageButton;
-
 import androidx.annotation.CallSuper;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -30,6 +29,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
+
 import com.mapswithme.maps.Framework.PlacePageActivationListener;
 import com.mapswithme.maps.api.ParsedMwmRequest;
 import com.mapswithme.maps.background.AppBackgroundTracker;
@@ -130,6 +130,7 @@ import com.mapswithme.maps.widget.placepage.RoutingModeListener;
 import com.mapswithme.util.InputUtils;
 import com.mapswithme.util.PermissionsUtils;
 import com.mapswithme.util.SharedPropertiesUtils;
+import com.mapswithme.util.SharingUtils;
 import com.mapswithme.util.ThemeSwitcher;
 import com.mapswithme.util.ThemeUtils;
 import com.mapswithme.util.UTM;
@@ -138,9 +139,6 @@ import com.mapswithme.util.Utils;
 import com.mapswithme.util.log.Logger;
 import com.mapswithme.util.log.LoggerFactory;
 import com.mapswithme.util.permissions.PermissionsResult;
-import com.mapswithme.util.sharing.ShareOption;
-import com.mapswithme.util.sharing.SharingHelper;
-import com.mapswithme.util.sharing.TargetUtils;
 import uk.co.samuelwall.materialtaptargetprompt.MaterialTapTargetPrompt;
 
 import java.util.List;
@@ -439,12 +437,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     final Location loc = LocationHelper.INSTANCE.getSavedLocation();
     if (loc != null)
     {
-      final String geoUrl = Framework.nativeGetGe0Url(loc.getLatitude(), loc.getLongitude(), Framework
-          .nativeGetDrawScale(), "");
-      final String httpUrl = Framework.getHttpGe0Url(loc.getLatitude(), loc.getLongitude(), Framework
-          .nativeGetDrawScale(), "");
-      final String body = getString(R.string.my_position_share_sms, geoUrl, httpUrl);
-      ShareOption.AnyShareOption.ANY.share(this, body);
+      SharingUtils.shareLocation(this, loc);
       return;
     }
 
@@ -530,8 +523,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
     initViews(isLaunchByDeepLink);
 
     SearchEngine.INSTANCE.addListener(this);
-
-    SharingHelper.INSTANCE.initialize(this);
 
     initControllersAndValidatePurchases(savedInstanceState);
 
@@ -2289,10 +2280,20 @@ public class MwmActivity extends BaseMwmFragmentActivity
     if (mLocationErrorDialogAnnoying)
       return;
 
-    Intent intent = TargetUtils.makeAppSettingsLocationIntent(getApplicationContext());
+    Intent intent = makeAppSettingsLocationIntent();
     if (intent == null)
       return;
     showLocationErrorDialog(intent);
+  }
+
+  private Intent makeAppSettingsLocationIntent()
+  {
+    Intent intent = new Intent(android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+    if (intent.resolveActivity(getPackageManager()) != null)
+      return intent;
+
+    intent = new Intent(android.provider.Settings.ACTION_SECURITY_SETTINGS);
+    return intent.resolveActivity(getPackageManager()) == null ? null : intent;
   }
 
   @Override

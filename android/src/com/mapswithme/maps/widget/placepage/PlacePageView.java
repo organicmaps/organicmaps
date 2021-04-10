@@ -29,7 +29,6 @@ import android.widget.LinearLayout;
 import android.widget.PopupMenu;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-
 import androidx.annotation.ColorInt;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -39,6 +38,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
 import com.mapswithme.maps.Framework;
 import com.mapswithme.maps.MwmActivity;
 import com.mapswithme.maps.MwmApplication;
@@ -80,6 +80,7 @@ import com.mapswithme.maps.widget.recycler.RecyclerClickListener;
 import com.mapswithme.util.ConnectionState;
 import com.mapswithme.util.Graphics;
 import com.mapswithme.util.NetworkPolicy;
+import com.mapswithme.util.SharingUtils;
 import com.mapswithme.util.SponsoredLinks;
 import com.mapswithme.util.StringUtils;
 import com.mapswithme.util.ThemeUtils;
@@ -88,7 +89,6 @@ import com.mapswithme.util.Utils;
 import com.mapswithme.util.concurrency.UiThread;
 import com.mapswithme.util.log.Logger;
 import com.mapswithme.util.log.LoggerFactory;
-import com.mapswithme.util.sharing.ShareOption;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -621,7 +621,7 @@ public class PlacePageView extends NestedScrollViewClickFixed
       LOGGER.e(TAG, "A map object cannot be shared, it's null!");
       return;
     }
-    ShareOption.AnyShareOption.ANY.shareMapObject(getActivity(), mMapObject, mSponsored);
+    SharingUtils.shareMapObject(getContext(), mMapObject, mSponsored);
   }
 
   private void onBackBtnClicked()
