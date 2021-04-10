@@ -13,6 +13,7 @@ import android.widget.TextView;
 import androidx.annotation.DrawableRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+
 import com.mapswithme.maps.R;
 import com.mapswithme.util.UiUtils;
 

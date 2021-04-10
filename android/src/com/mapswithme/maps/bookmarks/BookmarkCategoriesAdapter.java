@@ -1,5 +1,9 @@
 package com.mapswithme.maps.bookmarks;
 
+import static com.mapswithme.maps.bookmarks.Holders.CategoryViewHolder;
+import static com.mapswithme.maps.bookmarks.Holders.HeaderViewHolder;
+import static com.mapswithme.util.UiUtils.PHRASE_SEPARATOR;
+
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,6 +12,7 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.RecyclerView;
+
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.adapter.OnItemClickListener;
 import com.mapswithme.maps.bookmarks.data.BookmarkCategory;
@@ -15,10 +20,6 @@ import com.mapswithme.maps.bookmarks.data.BookmarkManager;
 import com.mapswithme.util.UiUtils;
 
 import java.util.List;
-
-import static com.mapswithme.maps.bookmarks.Holders.CategoryViewHolder;
-import static com.mapswithme.maps.bookmarks.Holders.HeaderViewHolder;
-import static com.mapswithme.util.UiUtils.PHRASE_SEPARATOR;
 
 public class BookmarkCategoriesAdapter extends BaseBookmarkCategoryAdapter<RecyclerView.ViewHolder>
 {

@@ -4,6 +4,7 @@ import android.view.View;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+
 import com.mapswithme.maps.ClickMenuDelegate;
 import com.mapswithme.maps.MwmActivity;
 import com.mapswithme.maps.R;

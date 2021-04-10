@@ -5,6 +5,7 @@ import android.content.Context;
 import androidx.annotation.NonNull;
 import androidx.work.Worker;
 import androidx.work.WorkerParameters;
+
 import com.google.gson.Gson;
 import com.mapswithme.util.log.Logger;
 import com.mapswithme.util.log.LoggerFactory;

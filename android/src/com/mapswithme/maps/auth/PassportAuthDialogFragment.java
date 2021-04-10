@@ -2,6 +2,7 @@ package com.mapswithme.maps.auth;
 
 import android.content.Intent;
 import android.os.Bundle;
+
 import androidx.annotation.CallSuper;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;

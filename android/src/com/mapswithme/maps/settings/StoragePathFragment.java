@@ -2,13 +2,14 @@ package com.mapswithme.maps.settings;
 
 import android.app.Activity;
 import android.os.Bundle;
-import androidx.appcompat.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
+
+import androidx.appcompat.app.AlertDialog;
 
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.base.OnBackPressListener;

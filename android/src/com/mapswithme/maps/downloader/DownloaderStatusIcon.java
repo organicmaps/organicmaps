@@ -1,10 +1,11 @@
 package com.mapswithme.maps.downloader;
 
-import androidx.annotation.AttrRes;
-import androidx.annotation.DrawableRes;
 import android.util.SparseIntArray;
 import android.view.View;
 import android.widget.ImageView;
+
+import androidx.annotation.AttrRes;
+import androidx.annotation.DrawableRes;
 
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.widget.WheelProgressView;

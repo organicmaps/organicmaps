@@ -2,6 +2,7 @@ package com.mapswithme.maps.search;
 
 import android.os.Parcel;
 import android.os.Parcelable;
+
 import androidx.annotation.NonNull;
 
 public class Popularity implements Parcelable

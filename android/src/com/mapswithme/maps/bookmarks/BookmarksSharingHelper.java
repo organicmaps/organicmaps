@@ -2,6 +2,7 @@ package com.mapswithme.maps.bookmarks;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 

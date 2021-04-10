@@ -4,13 +4,13 @@ import android.content.Context;
 import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.TransitionDrawable;
-import androidx.annotation.DimenRes;
-import androidx.annotation.DrawableRes;
 import android.view.View;
 import android.widget.ImageView;
 
+import androidx.annotation.DimenRes;
+import androidx.annotation.DrawableRes;
 import androidx.annotation.IntegerRes;
-import com.mapswithme.maps.MwmApplication;
+
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.widget.RotateByAlphaDrawable;
 import com.mapswithme.maps.widget.TrackedTransitionDrawable;

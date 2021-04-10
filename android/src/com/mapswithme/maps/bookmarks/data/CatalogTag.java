@@ -3,6 +3,7 @@ package com.mapswithme.maps.bookmarks.data;
 import android.graphics.Color;
 import android.os.Parcel;
 import android.os.Parcelable;
+
 import androidx.annotation.NonNull;
 
 public class CatalogTag implements Parcelable

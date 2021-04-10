@@ -1,5 +1,7 @@
 package com.mapswithme.maps.location;
 
+import static com.mapswithme.maps.MwmApplication.backgroundTracker;
+
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -7,8 +9,6 @@ import android.content.Intent;
 import com.mapswithme.maps.MwmApplication;
 import com.mapswithme.util.log.Logger;
 import com.mapswithme.util.log.LoggerFactory;
-
-import static com.mapswithme.maps.MwmApplication.backgroundTracker;
 
 public class GPSCheck extends BroadcastReceiver
 {

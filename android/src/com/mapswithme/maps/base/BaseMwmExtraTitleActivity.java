@@ -1,6 +1,7 @@
 package com.mapswithme.maps.base;
 
 import android.os.Bundle;
+
 import androidx.annotation.CallSuper;
 import androidx.appcompat.widget.Toolbar;
 

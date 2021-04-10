@@ -1,20 +1,21 @@
 package com.mapswithme.util;
 
+import static com.mapswithme.util.Config.KEY_PREF_CRASHLYTICS;
+import static com.mapswithme.util.Config.KEY_PREF_STATISTICS;
+
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+
 import com.mapswithme.maps.MwmApplication;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.bookmarks.BookmarksPageFactory;
 import com.mapswithme.maps.maplayer.Mode;
 
 import java.util.Locale;
-
-import static com.mapswithme.util.Config.KEY_PREF_STATISTICS;
-import static com.mapswithme.util.Config.KEY_PREF_CRASHLYTICS;
 
 public final class SharedPropertiesUtils
 {

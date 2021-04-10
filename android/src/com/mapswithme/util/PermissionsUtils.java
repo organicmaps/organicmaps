@@ -1,21 +1,20 @@
 package com.mapswithme.util;
 
+import static android.Manifest.permission.ACCESS_COARSE_LOCATION;
+import static android.Manifest.permission.ACCESS_FINE_LOCATION;
+
 import android.app.Activity;
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.os.Build;
+
 import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
 
-import com.mapswithme.maps.MwmApplication;
 import com.mapswithme.util.permissions.PermissionsResult;
 
 import java.util.HashMap;
 import java.util.Map;
-
-import static android.Manifest.permission.ACCESS_COARSE_LOCATION;
-import static android.Manifest.permission.ACCESS_FINE_LOCATION;
-import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
 
 public final class PermissionsUtils
 {

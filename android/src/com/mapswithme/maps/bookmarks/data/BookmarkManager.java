@@ -7,7 +7,7 @@ import androidx.annotation.IntRange;
 import androidx.annotation.MainThread;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import com.mapswithme.maps.PrivateVariables;
+
 import com.mapswithme.maps.base.DataChangedListener;
 import com.mapswithme.maps.base.Observable;
 import com.mapswithme.util.KeyValue;

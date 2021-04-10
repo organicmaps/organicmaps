@@ -1,31 +1,5 @@
 package com.mapswithme.maps.bookmarks;
 
-import android.app.ProgressDialog;
-import android.content.DialogInterface;
-import android.content.Intent;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.FragmentActivity;
-import android.view.View;
-import android.widget.Button;
-
-import com.mapswithme.maps.Framework;
-import com.mapswithme.maps.R;
-import com.mapswithme.maps.auth.Authorizer;
-import com.mapswithme.maps.background.Notifier;
-import com.mapswithme.maps.bookmarks.data.BookmarkManager;
-import com.mapswithme.maps.widget.BookmarkBackupView;
-import com.mapswithme.util.ConnectionState;
-import com.mapswithme.util.DateUtils;
-import com.mapswithme.maps.dialog.DialogUtils;
-import com.mapswithme.util.NetworkPolicy;
-import com.mapswithme.util.SharedPropertiesUtils;
-import com.mapswithme.util.Utils;
-import com.mapswithme.util.log.Logger;
-import com.mapswithme.util.log.LoggerFactory;
-
-import java.util.Date;
-
 import static com.mapswithme.maps.bookmarks.data.BookmarkManager.CLOUD_AUTH_ERROR;
 import static com.mapswithme.maps.bookmarks.data.BookmarkManager.CLOUD_BACKUP;
 import static com.mapswithme.maps.bookmarks.data.BookmarkManager.CLOUD_BACKUP_EXISTS;
@@ -37,6 +11,33 @@ import static com.mapswithme.maps.bookmarks.data.BookmarkManager.CLOUD_NO_BACKUP
 import static com.mapswithme.maps.bookmarks.data.BookmarkManager.CLOUD_RESTORE;
 import static com.mapswithme.maps.bookmarks.data.BookmarkManager.CLOUD_SUCCESS;
 import static com.mapswithme.maps.bookmarks.data.BookmarkManager.CLOUD_USER_INTERRUPTED;
+
+import android.app.ProgressDialog;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.view.View;
+import android.widget.Button;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.FragmentActivity;
+
+import com.mapswithme.maps.Framework;
+import com.mapswithme.maps.R;
+import com.mapswithme.maps.auth.Authorizer;
+import com.mapswithme.maps.background.Notifier;
+import com.mapswithme.maps.bookmarks.data.BookmarkManager;
+import com.mapswithme.maps.dialog.DialogUtils;
+import com.mapswithme.maps.widget.BookmarkBackupView;
+import com.mapswithme.util.ConnectionState;
+import com.mapswithme.util.DateUtils;
+import com.mapswithme.util.NetworkPolicy;
+import com.mapswithme.util.SharedPropertiesUtils;
+import com.mapswithme.util.Utils;
+import com.mapswithme.util.log.Logger;
+import com.mapswithme.util.log.LoggerFactory;
+
+import java.util.Date;
 
 public class BookmarkBackupController implements Authorizer.Callback,
                                                  BookmarkManager.BookmarksCloudListener

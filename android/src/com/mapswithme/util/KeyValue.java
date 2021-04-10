@@ -1,6 +1,7 @@
 package com.mapswithme.util;
 
 import androidx.annotation.NonNull;
+
 import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;

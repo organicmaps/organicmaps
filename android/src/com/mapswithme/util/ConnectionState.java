@@ -1,5 +1,7 @@
 package com.mapswithme.util;
 
+import static com.mapswithme.util.ConnectionState.Type.NONE;
+
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -7,10 +9,9 @@ import android.telephony.TelephonyManager;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+
 import com.mapswithme.maps.MwmApplication;
 import com.mapswithme.maps.base.Initializable;
-
-import static com.mapswithme.util.ConnectionState.Type.NONE;
 
 public enum ConnectionState implements Initializable<Context>
 {

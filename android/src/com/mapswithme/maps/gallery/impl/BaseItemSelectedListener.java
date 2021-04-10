@@ -1,6 +1,7 @@
 package com.mapswithme.maps.gallery.impl;
 
 import android.app.Activity;
+
 import androidx.annotation.NonNull;
 
 import com.mapswithme.maps.gallery.ItemSelectedListener;

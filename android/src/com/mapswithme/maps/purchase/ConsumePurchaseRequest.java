@@ -1,12 +1,12 @@
 package com.mapswithme.maps.purchase;
 
+import static com.mapswithme.maps.purchase.PlayStoreBillingManager.LOGGER;
+import static com.mapswithme.maps.purchase.PlayStoreBillingManager.TAG;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.android.billingclient.api.BillingClient;
-
-import static com.mapswithme.maps.purchase.PlayStoreBillingManager.LOGGER;
-import static com.mapswithme.maps.purchase.PlayStoreBillingManager.TAG;
 
 public class ConsumePurchaseRequest extends PlayStoreBillingRequest<PlayStoreBillingCallback>
 {

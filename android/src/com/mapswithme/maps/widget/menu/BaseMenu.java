@@ -6,7 +6,7 @@ import androidx.annotation.DimenRes;
 import androidx.annotation.IdRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import com.mapswithme.maps.MwmApplication;
+
 import com.mapswithme.maps.R;
 import com.mapswithme.util.ThemeUtils;
 import com.mapswithme.util.UiUtils;

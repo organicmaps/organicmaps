@@ -1,14 +1,15 @@
 package com.mapswithme.maps.bookmarks;
 
 import android.app.Activity;
+import android.text.TextUtils;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import android.text.TextUtils;
 
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.bookmarks.data.BookmarkManager;
-import com.mapswithme.maps.dialog.EditTextDialogFragment;
 import com.mapswithme.maps.dialog.DialogUtils;
+import com.mapswithme.maps.dialog.EditTextDialogFragment;
 
 class CategoryValidator implements EditTextDialogFragment.Validator
 {

@@ -1,8 +1,12 @@
 package com.mapswithme.maps.background;
 
+import static android.net.ConnectivityManager.CONNECTIVITY_ACTION;
+import static com.mapswithme.maps.MwmApplication.prefs;
+
 import android.content.Context;
 import android.content.Intent;
 import android.net.ConnectivityManager;
+
 import androidx.annotation.NonNull;
 import androidx.core.app.JobIntentService;
 
@@ -12,11 +16,6 @@ import com.mapswithme.maps.scheduling.JobIdMap;
 import com.mapswithme.util.PermissionsUtils;
 import com.mapswithme.util.log.Logger;
 import com.mapswithme.util.log.LoggerFactory;
-
-import java.util.concurrent.TimeUnit;
-
-import static android.net.ConnectivityManager.CONNECTIVITY_ACTION;
-import static com.mapswithme.maps.MwmApplication.prefs;
 
 public class NotificationService extends JobIntentService
 {

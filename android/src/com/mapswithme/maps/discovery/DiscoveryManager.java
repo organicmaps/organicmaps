@@ -1,6 +1,7 @@
 package com.mapswithme.maps.discovery;
 
 import android.annotation.SuppressLint;
+
 import androidx.annotation.MainThread;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;

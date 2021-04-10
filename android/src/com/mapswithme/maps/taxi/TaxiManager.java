@@ -1,14 +1,12 @@
 package com.mapswithme.maps.taxi;
 
 import android.content.Context;
-import android.location.Location;
+
 import androidx.annotation.MainThread;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.mapswithme.maps.bookmarks.data.MapObject;
-import com.mapswithme.maps.location.LocationHelper;
-import com.mapswithme.maps.routing.RoutingController;
 import com.mapswithme.util.NetworkPolicy;
 import com.mapswithme.util.SponsoredLinks;
 import com.mapswithme.util.Utils;

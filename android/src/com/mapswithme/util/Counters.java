@@ -1,11 +1,12 @@
 package com.mapswithme.util;
 
 import android.content.Context;
+import android.text.TextUtils;
+import android.text.format.DateUtils;
+
 import androidx.annotation.NonNull;
 import androidx.fragment.app.DialogFragment;
 import androidx.preference.PreferenceManager;
-import android.text.TextUtils;
-import android.text.format.DateUtils;
 
 import com.mapswithme.maps.BuildConfig;
 import com.mapswithme.maps.MwmApplication;

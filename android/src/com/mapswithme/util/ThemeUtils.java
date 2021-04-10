@@ -2,11 +2,12 @@ package com.mapswithme.util;
 
 import android.content.Context;
 import android.content.res.TypedArray;
+import android.util.TypedValue;
+
 import androidx.annotation.AttrRes;
 import androidx.annotation.ColorInt;
 import androidx.annotation.NonNull;
 import androidx.annotation.StyleRes;
-import android.util.TypedValue;
 
 import com.mapswithme.maps.R;
 

@@ -17,6 +17,8 @@
 
 package androidx.core.widget;
 
+import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP;
+
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Canvas;
@@ -58,8 +60,6 @@ import androidx.core.view.accessibility.AccessibilityNodeInfoCompat;
 import androidx.core.view.accessibility.AccessibilityRecordCompat;
 
 import java.util.List;
-
-import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP;
 
 /**
  * NestedScrollViewClickFixed is just like {@link android.widget.ScrollView}, but it supports acting

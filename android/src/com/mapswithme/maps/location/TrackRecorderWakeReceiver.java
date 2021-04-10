@@ -1,5 +1,7 @@
 package com.mapswithme.maps.location;
 
+import static com.mapswithme.maps.MwmApplication.backgroundTracker;
+
 import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
@@ -11,8 +13,6 @@ import com.mapswithme.maps.MwmBroadcastReceiver;
 import com.mapswithme.util.CrashlyticsUtils;
 import com.mapswithme.util.log.Logger;
 import com.mapswithme.util.log.LoggerFactory;
-
-import static com.mapswithme.maps.MwmApplication.backgroundTracker;
 
 public class TrackRecorderWakeReceiver extends MwmBroadcastReceiver
 {

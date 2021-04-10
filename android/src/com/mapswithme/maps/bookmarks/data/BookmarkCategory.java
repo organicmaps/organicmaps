@@ -4,12 +4,13 @@ import android.content.Context;
 import android.content.res.Resources;
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.text.TextUtils;
+
 import androidx.annotation.DrawableRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.PluralsRes;
 import androidx.annotation.StringRes;
-import android.text.TextUtils;
 
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.bookmarks.BookmarksPageFactory;

@@ -1,5 +1,11 @@
 package com.mapswithme.maps.search;
 
+import static com.mapswithme.maps.search.FilterUtils.combineFilters;
+import static com.mapswithme.maps.search.FilterUtils.findPriceFilter;
+import static com.mapswithme.maps.search.FilterUtils.findRatingFilter;
+import static com.mapswithme.maps.search.FilterUtils.findTypeFilter;
+import static com.mapswithme.maps.search.FilterUtils.makeOneOf;
+
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -11,6 +17,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
+
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.base.BaseMwmToolbarFragment;
 import com.mapswithme.maps.base.CustomNavigateUpListener;
@@ -21,12 +28,6 @@ import com.mapswithme.maps.widget.recycler.TagLayoutManager;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
-
-import static com.mapswithme.maps.search.FilterUtils.combineFilters;
-import static com.mapswithme.maps.search.FilterUtils.findPriceFilter;
-import static com.mapswithme.maps.search.FilterUtils.findRatingFilter;
-import static com.mapswithme.maps.search.FilterUtils.findTypeFilter;
-import static com.mapswithme.maps.search.FilterUtils.makeOneOf;
 
 public class FilterFragment extends BaseMwmToolbarFragment
     implements HotelsTypeAdapter.OnTypeSelectedListener

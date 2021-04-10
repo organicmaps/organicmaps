@@ -1,18 +1,17 @@
 package com.mapswithme.maps.search;
 
 import android.content.Context;
-import android.content.res.ColorStateList;
+import android.util.SparseArray;
+
 import androidx.annotation.NonNull;
-import com.google.android.material.tabs.TabLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.ViewPager;
-import android.util.SparseArray;
 
+import com.google.android.material.tabs.TabLayout;
 import com.mapswithme.maps.R;
 import com.mapswithme.util.Graphics;
-import com.mapswithme.util.ThemeUtils;
 
 import java.util.ArrayList;
 import java.util.List;

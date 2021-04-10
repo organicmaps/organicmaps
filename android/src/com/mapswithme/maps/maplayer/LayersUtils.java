@@ -4,6 +4,7 @@ import android.content.Context;
 import android.util.Pair;
 
 import androidx.annotation.NonNull;
+
 import com.mapswithme.maps.adapter.OnItemClickListener;
 
 import java.util.Arrays;

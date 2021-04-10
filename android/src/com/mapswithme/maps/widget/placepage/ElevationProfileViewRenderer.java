@@ -8,6 +8,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.widget.NestedScrollView;
+
 import com.mapswithme.maps.ChartController;
 import com.mapswithme.maps.Framework;
 import com.mapswithme.maps.R;

@@ -1,8 +1,17 @@
 package com.mapswithme.maps.search;
 
+import static com.mapswithme.maps.search.HotelsFilter.Op.OP_EQ;
+
 import android.annotation.TargetApi;
 import android.content.Context;
 import android.os.Build;
+import android.util.AttributeSet;
+import android.util.SparseArray;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.widget.LinearLayout;
+import android.widget.TextView;
+
 import androidx.annotation.ColorRes;
 import androidx.annotation.DrawableRes;
 import androidx.annotation.IdRes;
@@ -10,13 +19,6 @@ import androidx.annotation.IntDef;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
-import android.util.AttributeSet;
-import android.util.Pair;
-import android.util.SparseArray;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.widget.LinearLayout;
-import android.widget.TextView;
 
 import com.mapswithme.maps.R;
 import com.mapswithme.util.UiUtils;
@@ -25,8 +27,6 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.util.ArrayList;
 import java.util.List;
-
-import static com.mapswithme.maps.search.HotelsFilter.Op.OP_EQ;
 
 public class PriceFilterView extends LinearLayout implements View.OnClickListener
 {

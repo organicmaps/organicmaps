@@ -2,6 +2,7 @@ package com.mapswithme.maps.widget.placepage;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.guides.GuidesGalleryListener;
 

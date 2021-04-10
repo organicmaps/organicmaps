@@ -5,6 +5,7 @@ import android.util.Base64;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+
 import com.mapswithme.maps.base.Initializable;
 import com.mapswithme.maps.purchase.CoreStartTransactionObserver;
 import com.mapswithme.maps.purchase.CoreValidationObserver;

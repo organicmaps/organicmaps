@@ -8,10 +8,10 @@ import androidx.annotation.Nullable;
 import androidx.annotation.Size;
 import androidx.annotation.WorkerThread;
 
-import java.lang.ref.WeakReference;
-
 import com.mapswithme.maps.MwmApplication;
 import com.mapswithme.maps.editor.data.UserStats;
+
+import java.lang.ref.WeakReference;
 
 public final class OsmOAuth
 {

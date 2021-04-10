@@ -1,6 +1,7 @@
 package com.mapswithme.maps.ugc.routes;
 
 import android.content.Intent;
+
 import androidx.annotation.NonNull;
 
 import com.mapswithme.maps.R;

@@ -18,9 +18,14 @@
   <option name="PACKAGES_TO_USE_IMPORT_ON_DEMAND">
     <value />
   </option>
+  <option name="USE_FQ_CLASS_NAMES" value="true" />
   <option name="IMPORT_LAYOUT_TABLE">
     <value>
+      <package name="" withSubpackages="true" static="true" />
+      <emptyLine />
       <package name="android" withSubpackages="true" static="false" />
+      <emptyLine />
+      <package name="androidx" withSubpackages="true" static="false" />
       <emptyLine />
       <package name="com" withSubpackages="true" static="false" />
       <emptyLine />
@@ -30,13 +35,13 @@
       <emptyLine />
       <package name="org" withSubpackages="true" static="false" />
       <emptyLine />
-      <package name="java" withSubpackages="true" static="false" />
-      <emptyLine />
-      <package name="javax" withSubpackages="true" static="false" />
+      <package name="uk" withSubpackages="true" static="false" />
       <emptyLine />
       <package name="" withSubpackages="true" static="false" />
       <emptyLine />
-      <package name="" withSubpackages="true" static="true" />
+      <package name="java" withSubpackages="true" static="false" />
+      <emptyLine />
+      <package name="javax" withSubpackages="true" static="false" />
       <emptyLine />
     </value>
   </option>

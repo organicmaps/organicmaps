@@ -10,6 +10,7 @@ import android.graphics.RectF;
 import android.os.Build;
 import android.util.DisplayMetrics;
 import android.view.WindowManager;
+
 import androidx.annotation.ColorInt;
 import androidx.annotation.NonNull;
 

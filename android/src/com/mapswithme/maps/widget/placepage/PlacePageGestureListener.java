@@ -5,6 +5,7 @@ import android.view.MotionEvent;
 import android.view.View;
 
 import androidx.annotation.NonNull;
+
 import com.trafi.anchorbottomsheetbehavior.AnchorBottomSheetBehavior;
 
 class PlacePageGestureListener extends GestureDetector.SimpleOnGestureListener

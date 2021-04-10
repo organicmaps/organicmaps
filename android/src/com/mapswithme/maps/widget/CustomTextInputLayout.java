@@ -2,11 +2,13 @@ package com.mapswithme.maps.widget;
 
 import android.content.Context;
 import android.graphics.Canvas;
-import androidx.annotation.Nullable;
-import com.google.android.material.textfield.TextInputLayout;
-import androidx.core.view.ViewCompat;
 import android.text.TextUtils;
 import android.util.AttributeSet;
+
+import androidx.annotation.Nullable;
+import androidx.core.view.ViewCompat;
+
+import com.google.android.material.textfield.TextInputLayout;
 
 /**
  * Fixes bug mentioned here https://code.google.com/p/android/issues/detail?id=175228

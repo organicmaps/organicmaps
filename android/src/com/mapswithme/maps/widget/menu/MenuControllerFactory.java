@@ -2,6 +2,7 @@ package com.mapswithme.maps.widget.menu;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.base.NoConnectionListener;
 import com.mapswithme.maps.search.FilterUtils;

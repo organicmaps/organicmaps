@@ -1,5 +1,7 @@
 package com.mapswithme.maps.bookmarks;
 
+import static com.mapswithme.maps.bookmarks.BookmarksListFragment.EXTRA_BUNDLE;
+
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -9,13 +11,12 @@ import androidx.annotation.CallSuper;
 import androidx.annotation.NonNull;
 import androidx.annotation.StyleRes;
 import androidx.fragment.app.Fragment;
+
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.base.BaseToolbarActivity;
 import com.mapswithme.maps.bookmarks.data.BookmarkCategory;
 import com.mapswithme.maps.bookmarks.data.BookmarkManager;
 import com.mapswithme.util.ThemeUtils;
-
-import static com.mapswithme.maps.bookmarks.BookmarksListFragment.EXTRA_BUNDLE;
 
 public class BookmarkListActivity extends BaseToolbarActivity
 {

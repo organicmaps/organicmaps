@@ -1,6 +1,7 @@
 package com.mapswithme.maps.location;
 
 import android.location.Location;
+
 import androidx.annotation.NonNull;
 
 class FusedLocationFixChecker extends DefaultLocationFixChecker

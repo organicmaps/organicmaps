@@ -1,10 +1,13 @@
 package com.mapswithme.maps.gallery.impl;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
+import static com.mapswithme.maps.gallery.Constants.TYPE_PRODUCT;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.discovery.LocalExpert;
@@ -15,8 +18,6 @@ import com.mapswithme.maps.gallery.RegularAdapterStrategy;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import static com.mapswithme.maps.gallery.Constants.TYPE_PRODUCT;
 
 public class LocalExpertsAdapterStrategy extends RegularAdapterStrategy<Items.LocalExpertItem>
 {

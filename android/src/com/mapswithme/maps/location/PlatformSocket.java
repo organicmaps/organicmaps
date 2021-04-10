@@ -3,6 +3,7 @@ package com.mapswithme.maps.location;
 import android.annotation.SuppressLint;
 import android.net.SSLCertificateSocketFactory;
 import android.os.SystemClock;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
@@ -10,14 +11,15 @@ import com.mapswithme.maps.BuildConfig;
 import com.mapswithme.util.log.Logger;
 import com.mapswithme.util.log.LoggerFactory;
 
-import javax.net.SocketFactory;
-import javax.net.ssl.SSLSocketFactory;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.Socket;
 import java.net.SocketException;
 import java.net.SocketTimeoutException;
+
+import javax.net.SocketFactory;
+import javax.net.ssl.SSLSocketFactory;
 
 /**
  * Implements interface that will be used by the core for

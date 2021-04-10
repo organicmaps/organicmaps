@@ -1,9 +1,10 @@
 package com.mapswithme.maps.base;
 
 import android.content.Context;
+import android.view.View;
+
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import android.view.View;
 
 import com.mapswithme.util.Utils;
 

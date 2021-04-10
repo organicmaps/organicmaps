@@ -12,6 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.app.JobIntentService;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
+
 import com.mapswithme.maps.MwmApplication;
 import com.mapswithme.maps.bookmarks.data.Error;
 import com.mapswithme.maps.bookmarks.data.Result;

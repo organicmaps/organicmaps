@@ -1,20 +1,21 @@
 package com.mapswithme.maps.editor;
 
-import androidx.annotation.NonNull;
-import com.google.android.material.textfield.TextInputLayout;
-import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 
-import java.util.List;
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.textfield.TextInputLayout;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.editor.data.LocalizedName;
 import com.mapswithme.util.StringUtils;
 import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.Utils;
+
+import java.util.List;
 
 public class MultilanguageAdapter extends RecyclerView.Adapter<MultilanguageAdapter.Holder>
 {

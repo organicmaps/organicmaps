@@ -8,6 +8,7 @@ import android.util.Pair;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+
 import com.mapswithme.maps.Framework;
 import com.mapswithme.maps.bookmarks.data.BookmarkManager;
 import com.mapswithme.util.HttpClient;

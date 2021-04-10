@@ -1,9 +1,9 @@
 package com.mapswithme.maps.routing;
 
+import android.widget.ImageView;
+
 import androidx.annotation.DrawableRes;
 import androidx.annotation.NonNull;
-
-import android.widget.ImageView;
 
 import com.mapswithme.maps.R;
 

@@ -5,6 +5,7 @@ import android.text.TextUtils;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+
 import com.mapswithme.maps.bookmarks.data.PaymentData;
 import com.mapswithme.util.CrashlyticsUtils;
 import com.mapswithme.util.log.Logger;

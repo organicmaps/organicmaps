@@ -3,6 +3,7 @@ package com.mapswithme.maps.routing;
 import android.animation.Animator;
 import android.animation.ValueAnimator;
 import android.os.Bundle;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 

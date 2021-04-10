@@ -7,6 +7,7 @@ import android.widget.TextView;
 import androidx.annotation.CallSuper;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.widget.SubscriptionButton;
 import com.mapswithme.util.UiUtils;

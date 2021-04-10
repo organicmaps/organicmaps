@@ -1,7 +1,7 @@
 package com.mapswithme.maps.maplayer.subway;
 
 import android.app.Application;
-import android.content.Context;
+
 import androidx.annotation.MainThread;
 import androidx.annotation.NonNull;
 

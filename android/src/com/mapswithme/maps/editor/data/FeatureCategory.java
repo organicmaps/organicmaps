@@ -2,6 +2,7 @@ package com.mapswithme.maps.editor.data;
 
 import android.os.Parcel;
 import android.os.Parcelable;
+
 import androidx.annotation.NonNull;
 
 public class FeatureCategory implements Parcelable

@@ -4,11 +4,8 @@ import android.graphics.Canvas;
 import android.graphics.ColorFilter;
 import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
-import androidx.annotation.DrawableRes;
-import androidx.annotation.NonNull;
-import androidx.core.content.ContextCompat;
 
-import com.mapswithme.maps.MwmApplication;
+import androidx.annotation.NonNull;
 
 public class RotateDrawable extends Drawable
 {

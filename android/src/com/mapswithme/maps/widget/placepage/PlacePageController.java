@@ -5,6 +5,7 @@ import android.app.Application;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+
 import com.mapswithme.maps.base.Initializable;
 import com.mapswithme.maps.base.Savable;
 import com.mapswithme.maps.base.Supportable;

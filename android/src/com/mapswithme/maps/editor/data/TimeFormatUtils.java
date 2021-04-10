@@ -2,15 +2,16 @@ package com.mapswithme.maps.editor.data;
 
 import android.content.Context;
 import android.content.res.Resources;
+
 import androidx.annotation.IntRange;
 import androidx.annotation.NonNull;
-
-import java.text.DateFormatSymbols;
-import java.util.Locale;
 
 import com.mapswithme.maps.MwmApplication;
 import com.mapswithme.maps.R;
 import com.mapswithme.util.Utils;
+
+import java.text.DateFormatSymbols;
+import java.util.Locale;
 
 public class TimeFormatUtils
 {

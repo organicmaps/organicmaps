@@ -1,7 +1,8 @@
 package com.mapswithme.maps.adapter;
 
-import androidx.annotation.NonNull;
 import android.view.View;
+
+import androidx.annotation.NonNull;
 
 public interface OnItemClickListener<T>
 {

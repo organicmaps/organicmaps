@@ -8,6 +8,7 @@ import android.widget.FrameLayout;
 
 import androidx.annotation.IntegerRes;
 import androidx.annotation.NonNull;
+
 import com.mapswithme.maps.R;
 import com.mapswithme.util.UiUtils;
 

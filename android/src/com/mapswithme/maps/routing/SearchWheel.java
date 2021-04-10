@@ -4,16 +4,16 @@ import android.animation.Animator;
 import android.animation.AnimatorInflater;
 import android.content.Context;
 import android.os.Bundle;
+import android.text.TextUtils;
+import android.view.ContextThemeWrapper;
+import android.view.View;
+import android.widget.ImageView;
+
 import androidx.annotation.DrawableRes;
 import androidx.annotation.IdRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
-import android.text.TextUtils;
-import android.view.ContextThemeWrapper;
-import android.view.View;
-import android.view.ViewTreeObserver;
-import android.widget.ImageView;
 
 import com.mapswithme.maps.MwmActivity;
 import com.mapswithme.maps.R;

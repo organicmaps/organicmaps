@@ -10,6 +10,7 @@ import androidx.annotation.StringRes;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.base.Detachable;
 import com.mapswithme.util.UiUtils;

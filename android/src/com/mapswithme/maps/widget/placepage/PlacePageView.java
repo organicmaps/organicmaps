@@ -1,5 +1,8 @@
 package com.mapswithme.maps.widget.placepage;
 
+import static com.mapswithme.maps.bookmarks.BookmarkHeaderView.AUTHOR_LONELY_PLANET_ID;
+import static com.mapswithme.maps.widget.placepage.PlacePageButtons.Item.BOOKING;
+
 import android.app.Activity;
 import android.content.ActivityNotFoundException;
 import android.content.Context;
@@ -29,6 +32,7 @@ import android.widget.LinearLayout;
 import android.widget.PopupMenu;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+
 import androidx.annotation.ColorInt;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -97,9 +101,6 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
 import java.util.Objects;
-
-import static com.mapswithme.maps.bookmarks.BookmarkHeaderView.AUTHOR_LONELY_PLANET_ID;
-import static com.mapswithme.maps.widget.placepage.PlacePageButtons.Item.BOOKING;
 
 public class PlacePageView extends NestedScrollViewClickFixed
     implements View.OnClickListener,

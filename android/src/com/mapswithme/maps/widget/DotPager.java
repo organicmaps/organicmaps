@@ -11,6 +11,7 @@ import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
 import androidx.viewpager.widget.PagerAdapter;
 import androidx.viewpager.widget.ViewPager;
+
 import com.mapswithme.maps.R;
 import com.mapswithme.util.ThemeUtils;
 import com.mapswithme.util.UiUtils;

@@ -2,6 +2,7 @@ package com.mapswithme.maps.bookmarks.data;
 
 import android.annotation.SuppressLint;
 import android.os.Parcel;
+
 import androidx.annotation.IntRange;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;

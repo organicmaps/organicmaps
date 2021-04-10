@@ -1,6 +1,7 @@
 package com.mapswithme.maps.maplayer;
 
 import android.content.Context;
+
 import androidx.annotation.DrawableRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.StringRes;

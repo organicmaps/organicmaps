@@ -6,12 +6,14 @@ import android.location.LocationManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Build;
-import androidx.annotation.NonNull;
 import android.util.Log;
+
+import androidx.annotation.NonNull;
 
 import com.mapswithme.maps.BuildConfig;
 import com.mapswithme.util.StorageUtils;
 import com.mapswithme.util.Utils;
+
 import net.jcip.annotations.Immutable;
 
 import java.io.File;

@@ -25,7 +25,6 @@ import com.mapswithme.util.log.LoggerFactory;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.Objects;
 
 public class SocialAuthDialogFragment extends BaseMwmDialogFragment
 {

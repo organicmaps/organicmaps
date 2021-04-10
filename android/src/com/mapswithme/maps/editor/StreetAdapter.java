@@ -1,13 +1,14 @@
 package com.mapswithme.maps.editor;
 
 import android.content.res.Resources;
-import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CompoundButton;
 import android.widget.TextView;
+
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.mapswithme.maps.MwmApplication;
 import com.mapswithme.maps.R;

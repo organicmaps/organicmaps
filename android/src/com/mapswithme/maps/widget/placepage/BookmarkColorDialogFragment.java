@@ -2,20 +2,21 @@ package com.mapswithme.maps.widget.placepage;
 
 import android.app.Dialog;
 import android.os.Bundle;
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.GridView;
 
-import java.util.List;
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.base.BaseMwmDialogFragment;
 import com.mapswithme.maps.bookmarks.IconsAdapter;
 import com.mapswithme.maps.bookmarks.data.BookmarkManager;
 import com.mapswithme.maps.bookmarks.data.Icon;
+
+import java.util.List;
 
 public class BookmarkColorDialogFragment extends BaseMwmDialogFragment
 {

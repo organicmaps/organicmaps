@@ -12,13 +12,13 @@ import android.widget.FrameLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import com.mapswithme.maps.R;
-import com.mapswithme.util.UiUtils;
-
 import androidx.annotation.ColorInt;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
+
+import com.mapswithme.maps.R;
+import com.mapswithme.util.UiUtils;
 
 public class SubscriptionButton extends FrameLayout
 {

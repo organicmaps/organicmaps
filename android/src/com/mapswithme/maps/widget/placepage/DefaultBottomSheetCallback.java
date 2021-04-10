@@ -1,14 +1,15 @@
 package com.mapswithme.maps.widget.placepage;
 
+import static com.mapswithme.maps.widget.placepage.PlacePageUtils.isAnchoredState;
+import static com.mapswithme.maps.widget.placepage.PlacePageUtils.isExpandedState;
+
 import android.view.View;
 
 import androidx.annotation.NonNull;
+
 import com.mapswithme.util.log.Logger;
 import com.mapswithme.util.log.LoggerFactory;
 import com.trafi.anchorbottomsheetbehavior.AnchorBottomSheetBehavior;
-
-import static com.mapswithme.maps.widget.placepage.PlacePageUtils.isAnchoredState;
-import static com.mapswithme.maps.widget.placepage.PlacePageUtils.isExpandedState;
 
 public class DefaultBottomSheetCallback extends AnchorBottomSheetBehavior.BottomSheetCallback
 {

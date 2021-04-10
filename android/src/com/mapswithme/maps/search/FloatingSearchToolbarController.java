@@ -2,8 +2,10 @@ package com.mapswithme.maps.search;
 
 import android.app.Activity;
 import android.text.TextUtils;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+
 import com.mapswithme.maps.api.ParsedMwmRequest;
 import com.mapswithme.maps.widget.SearchToolbarController;
 import com.mapswithme.util.UiUtils;

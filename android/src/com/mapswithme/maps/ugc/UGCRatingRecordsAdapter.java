@@ -1,13 +1,14 @@
 package com.mapswithme.maps.ugc;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.StringRes;
-import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RatingBar;
 import android.widget.TextView;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.StringRes;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.mapswithme.maps.R;
 import com.mapswithme.util.Utils;

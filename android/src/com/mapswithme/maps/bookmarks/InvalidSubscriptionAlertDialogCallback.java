@@ -2,6 +2,7 @@ package com.mapswithme.maps.bookmarks;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+
 import com.mapswithme.maps.bookmarks.data.BookmarkManager;
 import com.mapswithme.maps.dialog.AlertDialogCallback;
 import com.mapswithme.maps.purchase.BookmarksAllSubscriptionActivity;

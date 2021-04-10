@@ -1,6 +1,7 @@
 package com.mapswithme.maps.bookmarks;
 
 import android.content.Context;
+
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 

@@ -3,6 +3,7 @@ package com.mapswithme.maps.maplayer;
 import android.view.View;
 
 import androidx.annotation.NonNull;
+
 import com.mapswithme.maps.adapter.OnItemClickListener;
 import com.mapswithme.util.SharedPropertiesUtils;
 

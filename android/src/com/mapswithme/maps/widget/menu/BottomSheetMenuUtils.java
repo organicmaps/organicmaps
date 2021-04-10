@@ -1,6 +1,7 @@
 package com.mapswithme.maps.widget.menu;
 
 import androidx.annotation.NonNull;
+
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 
 class BottomSheetMenuUtils

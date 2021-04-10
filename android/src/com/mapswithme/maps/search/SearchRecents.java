@@ -1,10 +1,11 @@
 package com.mapswithme.maps.search;
 
-import androidx.annotation.NonNull;
-
 import android.content.Context;
 import android.text.TextUtils;
 import android.util.Pair;
+
+import androidx.annotation.NonNull;
+
 import com.mapswithme.util.Language;
 
 import java.util.ArrayList;

@@ -6,6 +6,7 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.gallery.Holders;
 import com.mapswithme.maps.gallery.ItemSelectedListener;

@@ -3,6 +3,7 @@ package com.mapswithme.util.log;
 import android.util.Log;
 
 import com.mapswithme.maps.BuildConfig;
+
 import net.jcip.annotations.Immutable;
 
 @Immutable

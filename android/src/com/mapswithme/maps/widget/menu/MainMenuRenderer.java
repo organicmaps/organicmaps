@@ -8,6 +8,7 @@ import androidx.annotation.Nullable;
 import androidx.core.widget.NestedScrollView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.base.NoConnectionListener;
 import com.mapswithme.maps.downloader.MapManager;

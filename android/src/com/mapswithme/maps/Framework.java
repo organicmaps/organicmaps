@@ -1,7 +1,6 @@
 package com.mapswithme.maps;
 
 import android.graphics.Bitmap;
-import android.location.Location;
 import android.text.TextUtils;
 
 import androidx.annotation.IntDef;
@@ -10,15 +9,14 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.Size;
 import androidx.annotation.UiThread;
+
 import com.mapswithme.maps.api.ParsedRoutingData;
 import com.mapswithme.maps.api.ParsedSearchRequest;
-import com.mapswithme.maps.api.ParsedUrlMwmRequest;
 import com.mapswithme.maps.api.ParsingResult;
 import com.mapswithme.maps.auth.AuthorizationListener;
 import com.mapswithme.maps.bookmarks.data.DistanceAndAzimut;
 import com.mapswithme.maps.bookmarks.data.FeatureId;
 import com.mapswithme.maps.bookmarks.data.MapObject;
-import com.mapswithme.maps.location.LocationHelper;
 import com.mapswithme.maps.routing.RouteMarkData;
 import com.mapswithme.maps.routing.RoutePointInfo;
 import com.mapswithme.maps.routing.RoutingInfo;

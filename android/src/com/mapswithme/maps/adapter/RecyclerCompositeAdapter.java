@@ -1,8 +1,9 @@
 package com.mapswithme.maps.adapter;
 
+import android.view.ViewGroup;
+
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-import android.view.ViewGroup;
 
 import java.util.ArrayList;
 import java.util.Arrays;

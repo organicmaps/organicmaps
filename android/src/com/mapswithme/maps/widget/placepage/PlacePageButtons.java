@@ -1,9 +1,5 @@
 package com.mapswithme.maps.widget.placepage;
 
-import androidx.annotation.DrawableRes;
-import androidx.annotation.NonNull;
-import androidx.annotation.StringRes;
-
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -11,6 +7,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import androidx.annotation.DrawableRes;
+import androidx.annotation.NonNull;
+import androidx.annotation.StringRes;
 
 import com.cocosw.bottomsheet.BottomSheet;
 import com.mapswithme.maps.MwmApplication;

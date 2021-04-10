@@ -1,25 +1,25 @@
 package com.mapswithme.maps.search;
 
+import static com.mapswithme.maps.search.HotelsFilter.Op.OP_GE;
+
 import android.annotation.TargetApi;
 import android.content.Context;
 import android.os.Build;
-import androidx.annotation.ColorRes;
-import androidx.annotation.DrawableRes;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.core.content.ContextCompat;
 import android.util.AttributeSet;
-import android.util.Pair;
 import android.util.SparseArray;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import androidx.annotation.ColorRes;
+import androidx.annotation.DrawableRes;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
+
 import com.mapswithme.maps.R;
 import com.mapswithme.util.UiUtils;
-
-import static com.mapswithme.maps.search.HotelsFilter.Op.OP_GE;
 
 public class RatingFilterView extends LinearLayout implements View.OnClickListener
 {

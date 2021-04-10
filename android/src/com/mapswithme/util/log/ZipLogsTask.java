@@ -1,9 +1,10 @@
 package com.mapswithme.util.log;
 
 import android.app.Application;
+import android.util.Log;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import android.util.Log;
 
 import com.mapswithme.util.StorageUtils;
 import com.mapswithme.util.Utils;

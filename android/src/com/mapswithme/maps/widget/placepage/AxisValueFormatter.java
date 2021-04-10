@@ -1,6 +1,7 @@
 package com.mapswithme.maps.widget.placepage;
 
 import androidx.annotation.NonNull;
+
 import com.github.mikephil.charting.charts.BarLineChartBase;
 import com.github.mikephil.charting.formatter.DefaultValueFormatter;
 import com.mapswithme.maps.Framework;

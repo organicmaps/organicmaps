@@ -1,7 +1,6 @@
 package com.mapswithme.util;
 
 import android.annotation.SuppressLint;
-import android.app.Application;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.location.Location;
@@ -9,11 +8,10 @@ import android.location.LocationManager;
 import android.os.Build;
 import android.os.SystemClock;
 import android.provider.Settings;
-import androidx.annotation.NonNull;
-import android.text.TextUtils;
 import android.view.Surface;
 
-import com.mapswithme.maps.MwmApplication;
+import androidx.annotation.NonNull;
+
 import com.mapswithme.maps.location.LocationHelper;
 import com.mapswithme.util.log.Logger;
 import com.mapswithme.util.log.LoggerFactory;
