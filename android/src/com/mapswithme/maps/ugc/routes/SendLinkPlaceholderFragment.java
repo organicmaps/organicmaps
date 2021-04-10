@@ -1,13 +1,13 @@
 package com.mapswithme.maps.ugc.routes;
 
 import android.os.Bundle;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.FragmentActivity;
-import androidx.core.app.ShareCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.core.app.ShareCompat;
+import androidx.fragment.app.FragmentActivity;
 
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.base.BaseAuthFragment;
@@ -17,7 +17,6 @@ import com.mapswithme.maps.bookmarks.data.CatalogCustomProperty;
 import com.mapswithme.maps.bookmarks.data.CatalogTagsGroup;
 import com.mapswithme.maps.dialog.AlertDialog;
 import com.mapswithme.maps.dialog.AlertDialogCallback;
-import com.mapswithme.util.sharing.TargetUtils;
 
 import java.util.List;
 import java.util.Objects;
@@ -88,7 +87,7 @@ public class SendLinkPlaceholderFragment extends BaseAuthFragment implements Boo
                        + BODY_STRINGS_SEPARATOR + url;
 
     ShareCompat.IntentBuilder.from(activity)
-                             .setType(TargetUtils.TYPE_TEXT_PLAIN)
+                             .setType("text/plain")
                              .setSubject(activity.getString(R.string.edit_guide_title))
                              .setText(emailBody)
                              .setChooserTitle(activity.getString(R.string.share))

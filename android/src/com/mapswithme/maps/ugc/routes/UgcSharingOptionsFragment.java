@@ -3,10 +3,6 @@ package com.mapswithme.maps.ugc.routes;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.annotation.StringRes;
-import androidx.fragment.app.Fragment;
 import android.text.Html;
 import android.text.Spanned;
 import android.text.method.LinkMovementMethod;
@@ -14,6 +10,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.annotation.StringRes;
+import androidx.fragment.app.Fragment;
 
 import com.mapswithme.maps.Framework;
 import com.mapswithme.maps.R;
@@ -33,7 +33,6 @@ import com.mapswithme.maps.widget.ToolbarController;
 import com.mapswithme.util.ConnectionState;
 import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.Utils;
-import com.mapswithme.util.sharing.TargetUtils;
 
 import java.util.List;
 import java.util.Objects;
@@ -259,7 +258,7 @@ public class UgcSharingOptionsFragment extends BaseToolbarAuthFragment implement
   private void shareCategory(@NonNull String link)
   {
     Intent intent = new Intent(Intent.ACTION_SEND)
-        .setType(TargetUtils.TYPE_TEXT_PLAIN)
+        .setType("text/plain")
         .putExtra(Intent.EXTRA_TEXT, getString(R.string.share_bookmarks_email_body_link, link));
     startActivity(Intent.createChooser(intent, getString(R.string.share)));
   }

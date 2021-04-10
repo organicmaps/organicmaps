@@ -5,21 +5,21 @@ import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import androidx.annotation.IdRes;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import androidx.annotation.IdRes;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 import com.mapswithme.maps.BuildConfig;
 import com.mapswithme.maps.Framework;
 import com.mapswithme.maps.R;
 import com.mapswithme.util.Constants;
 import com.mapswithme.util.Graphics;
+import com.mapswithme.util.SharingUtils;
 import com.mapswithme.util.Utils;
-import com.mapswithme.util.sharing.ShareOption;
 
 public class AboutFragment extends BaseSettingsFragment
                         implements View.OnClickListener
@@ -102,8 +102,7 @@ public class AboutFragment extends BaseSettingsFragment
         break;
 
       case R.id.share:
-        ShareOption.AnyShareOption.ANY.share(getActivity(), getString(R.string.tell_friends_text),
-                                             R.string.tell_friends);
+        SharingUtils.shareApplication(getContext());
         break;
 
       case R.id.copyright:

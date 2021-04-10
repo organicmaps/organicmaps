@@ -14,8 +14,6 @@ import com.mapswithme.maps.bookmarks.data.BookmarkCategory;
 import com.mapswithme.maps.bookmarks.data.BookmarkManager;
 import com.mapswithme.maps.bookmarks.data.BookmarkSharingResult;
 import com.mapswithme.maps.widget.BookmarkBackupView;
-import com.mapswithme.util.UiUtils;
-import com.mapswithme.util.sharing.SharingHelper;
 
 public class BookmarkCategoriesFragment extends BaseBookmarkCategoriesFragment
     implements TargetFragmentCallback, AuthCompleteListener, BookmarkManager.BookmarksSharingListener
@@ -36,7 +34,7 @@ public class BookmarkCategoriesFragment extends BaseBookmarkCategoriesFragment
   @Override
   public void onPreparedFileForSharing(@NonNull BookmarkSharingResult result)
   {
-    SharingHelper.INSTANCE.onPreparedFileForSharing(requireActivity(), result);
+    BookmarksSharingHelper.INSTANCE.onPreparedFileForSharing(requireActivity(), result);
   }
 
   @Override
