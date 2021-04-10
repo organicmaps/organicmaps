@@ -1,13 +1,14 @@
 package com.mapswithme.maps.widget.recycler;
 
+import android.view.View;
+import android.view.ViewGroup;
+
 import androidx.annotation.Nullable;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.ViewPropertyAnimatorCompat;
 import androidx.core.view.ViewPropertyAnimatorListener;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.SimpleItemAnimator;
-import android.view.View;
-import android.view.ViewGroup;
 
 import com.mapswithme.util.UiUtils;
 

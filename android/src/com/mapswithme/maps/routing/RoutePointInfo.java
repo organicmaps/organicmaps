@@ -2,6 +2,7 @@ package com.mapswithme.maps.routing;
 
 import android.os.Parcel;
 import android.os.Parcelable;
+
 import androidx.annotation.IntDef;
 
 import java.lang.annotation.Retention;

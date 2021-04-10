@@ -1,9 +1,10 @@
 package com.mapswithme.maps.auth;
 
 import android.content.Intent;
+import android.text.TextUtils;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import android.text.TextUtils;
 
 import com.mapswithme.maps.Framework;
 

@@ -2,6 +2,7 @@ package com.mapswithme.maps.ugc.routes;
 
 import android.app.Activity;
 import android.content.Intent;
+
 import androidx.annotation.NonNull;
 
 import com.mapswithme.maps.base.BaseMwmFragmentActivity;

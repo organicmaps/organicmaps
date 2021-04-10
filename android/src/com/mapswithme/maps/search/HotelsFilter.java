@@ -1,11 +1,12 @@
 package com.mapswithme.maps.search;
 
+import static com.mapswithme.maps.search.HotelsFilter.Op.FIELD_RATING;
+
 import android.os.Parcel;
 import android.os.Parcelable;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-
-import static com.mapswithme.maps.search.HotelsFilter.Op.FIELD_RATING;
 
 public class HotelsFilter implements Parcelable
 {

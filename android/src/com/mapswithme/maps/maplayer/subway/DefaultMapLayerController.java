@@ -4,6 +4,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
+
 import com.mapswithme.maps.maplayer.MapLayerController;
 import com.mapswithme.util.UiUtils;
 

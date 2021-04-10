@@ -1,14 +1,14 @@
 package com.mapswithme.maps.base;
 
 import android.content.Intent;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import android.text.TextUtils;
 import android.util.Log;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+
 import com.mapswithme.util.Config;
 import com.mapswithme.util.CrashlyticsUtils;
-import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.ViewServer;
 import com.mapswithme.util.concurrency.UiThread;
 import com.mapswithme.util.log.Logger;

@@ -8,11 +8,11 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 
-import java.util.List;
-
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.bookmarks.data.Icon;
 import com.mapswithme.util.Graphics;
+
+import java.util.List;
 
 public class IconsAdapter extends ArrayAdapter<Icon>
 {

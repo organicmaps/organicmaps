@@ -6,6 +6,7 @@ import android.view.View;
 
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.ListFragment;
+
 import com.mapswithme.maps.R;
 import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.Utils;

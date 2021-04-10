@@ -1,7 +1,5 @@
 package com.mapswithme.maps.editor;
 
-import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,14 +7,17 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
+
+import com.mapswithme.maps.R;
+import com.mapswithme.util.StringUtils;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-
-import com.mapswithme.maps.R;
-import com.mapswithme.util.StringUtils;
 
 public class CuisineAdapter extends RecyclerView.Adapter<CuisineAdapter.ViewHolder>
 {

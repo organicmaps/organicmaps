@@ -1,5 +1,7 @@
 package com.mapswithme.maps.routing;
 
+import static androidx.core.app.NotificationCompat.Builder;
+
 import android.app.ActivityManager;
 import android.app.Notification;
 import android.app.NotificationChannel;
@@ -17,6 +19,7 @@ import android.widget.RemoteViews;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.app.NotificationCompat;
+
 import com.mapswithme.maps.Framework;
 import com.mapswithme.maps.MwmActivity;
 import com.mapswithme.maps.R;
@@ -26,8 +29,6 @@ import com.mapswithme.maps.sound.TtsPlayer;
 import com.mapswithme.util.Utils;
 import com.mapswithme.util.log.Logger;
 import com.mapswithme.util.log.LoggerFactory;
-
-import static androidx.core.app.NotificationCompat.*;
 
 public class NavigationService extends Service
 {

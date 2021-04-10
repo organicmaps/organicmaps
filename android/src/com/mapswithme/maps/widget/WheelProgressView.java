@@ -11,11 +11,12 @@ import android.graphics.RectF;
 import android.graphics.drawable.AnimationDrawable;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
+import android.util.AttributeSet;
+
 import androidx.annotation.NonNull;
-import androidx.core.graphics.drawable.DrawableCompat;
 import androidx.appcompat.graphics.drawable.DrawableWrapper;
 import androidx.appcompat.widget.AppCompatImageView;
-import android.util.AttributeSet;
+import androidx.core.graphics.drawable.DrawableCompat;
 
 import com.mapswithme.maps.R;
 import com.mapswithme.util.Graphics;

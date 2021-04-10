@@ -7,10 +7,10 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.CheckedTextView;
 
+import com.mapswithme.maps.R;
+
 import java.util.ArrayList;
 import java.util.List;
-
-import com.mapswithme.maps.R;
 
 class StoragePathAdapter extends BaseAdapter
 {

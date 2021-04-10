@@ -12,6 +12,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.viewpager.widget.ViewPager;
+
 import com.google.android.material.tabs.TabLayout;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.auth.TargetFragmentCallback;
@@ -23,7 +24,6 @@ import com.mapswithme.maps.purchase.PurchaseUtils;
 import com.mapswithme.util.SharedPropertiesUtils;
 
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 
 public class BookmarkCategoriesPagerFragment extends BaseMwmFragment

@@ -1,8 +1,8 @@
 package com.mapswithme.maps.tips;
 
 import androidx.annotation.NonNull;
+
 import com.mapswithme.maps.MwmActivity;
-import com.mapswithme.maps.R;
 import com.mapswithme.maps.bookmarks.BookmarkCategoriesActivity;
 import com.mapswithme.maps.bookmarks.BookmarksCatalogActivity;
 import com.mapswithme.maps.bookmarks.data.BookmarkManager;

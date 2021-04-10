@@ -1,7 +1,8 @@
 package com.mapswithme.maps.widget.recycler;
 
-import androidx.recyclerview.widget.RecyclerView;
 import android.view.View;
+
+import androidx.recyclerview.widget.RecyclerView;
 
 /**
  * This LayoutManager designed only for use with RecyclerView.setNestedScrollingEnabled(false)

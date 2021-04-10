@@ -2,7 +2,6 @@ package com.mapswithme.maps.downloader;
 
 import android.location.Location;
 import android.os.Bundle;
-import androidx.annotation.Nullable;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,8 +10,7 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import java.util.List;
-import java.util.Locale;
+import androidx.annotation.Nullable;
 
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.base.BaseMwmFragment;
@@ -20,6 +18,9 @@ import com.mapswithme.maps.location.LocationHelper;
 import com.mapswithme.maps.widget.WheelProgressView;
 import com.mapswithme.util.StringUtils;
 import com.mapswithme.util.UiUtils;
+
+import java.util.List;
+import java.util.Locale;
 
 public class CountrySuggestFragment extends BaseMwmFragment implements View.OnClickListener
 {

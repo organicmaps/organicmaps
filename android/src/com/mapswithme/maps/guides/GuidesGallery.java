@@ -5,6 +5,7 @@ import android.os.Parcelable;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+
 import com.mapswithme.maps.gallery.Constants;
 import com.mapswithme.maps.gallery.RegularAdapterStrategy;
 import com.mapswithme.maps.widget.placepage.PlacePageData;

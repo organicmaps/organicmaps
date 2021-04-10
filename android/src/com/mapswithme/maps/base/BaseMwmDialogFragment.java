@@ -3,11 +3,12 @@ package com.mapswithme.maps.base;
 import android.app.Application;
 import android.content.Context;
 import android.os.Bundle;
+import android.view.View;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.StyleRes;
 import androidx.fragment.app.DialogFragment;
-import android.view.View;
 
 import com.mapswithme.maps.R;
 import com.mapswithme.util.ThemeUtils;

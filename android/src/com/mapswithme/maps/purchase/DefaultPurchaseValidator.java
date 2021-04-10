@@ -1,10 +1,11 @@
 package com.mapswithme.maps.purchase;
 
 import android.os.Bundle;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import android.text.TextUtils;
 import android.util.Base64;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 import com.mapswithme.maps.Framework;
 import com.mapswithme.maps.PurchaseOperationObservable;

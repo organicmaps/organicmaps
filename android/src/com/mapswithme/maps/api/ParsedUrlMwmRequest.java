@@ -1,10 +1,5 @@
 package com.mapswithme.maps.api;
 
-import androidx.annotation.IntDef;
-
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
-
 public class ParsedUrlMwmRequest
 {
   public final RoutePoint[] mRoutePoints;

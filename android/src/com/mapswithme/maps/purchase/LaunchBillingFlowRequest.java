@@ -1,13 +1,14 @@
 package com.mapswithme.maps.purchase;
 
+import static com.mapswithme.maps.purchase.PlayStoreBillingManager.LOGGER;
+import static com.mapswithme.maps.purchase.PlayStoreBillingManager.TAG;
+
 import android.app.Activity;
+
 import androidx.annotation.NonNull;
 
 import com.android.billingclient.api.BillingClient;
 import com.android.billingclient.api.BillingFlowParams;
-
-import static com.mapswithme.maps.purchase.PlayStoreBillingManager.LOGGER;
-import static com.mapswithme.maps.purchase.PlayStoreBillingManager.TAG;
 
 class LaunchBillingFlowRequest extends PlayStoreBillingRequest
 {

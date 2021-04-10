@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.location.LocationManager;
+
 import androidx.annotation.NonNull;
 
 import com.mapswithme.maps.MwmApplication;

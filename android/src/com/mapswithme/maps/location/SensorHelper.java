@@ -8,6 +8,7 @@ import android.hardware.SensorManager;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+
 import com.mapswithme.maps.MwmApplication;
 
 class SensorHelper implements SensorEventListener

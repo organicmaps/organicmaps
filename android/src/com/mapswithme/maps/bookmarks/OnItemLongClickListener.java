@@ -1,7 +1,8 @@
 package com.mapswithme.maps.bookmarks;
 
-import androidx.annotation.NonNull;
 import android.view.View;
+
+import androidx.annotation.NonNull;
 
 public interface OnItemLongClickListener<T>
 {

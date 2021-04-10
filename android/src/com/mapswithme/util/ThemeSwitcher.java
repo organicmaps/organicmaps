@@ -3,9 +3,10 @@ package com.mapswithme.util;
 import android.app.Activity;
 import android.content.Context;
 import android.location.Location;
-import androidx.annotation.NonNull;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+
 import com.mapswithme.maps.Framework;
 import com.mapswithme.maps.MwmApplication;
 import com.mapswithme.maps.R;

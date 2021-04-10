@@ -1,12 +1,13 @@
 package com.mapswithme.maps.location;
 
-import androidx.annotation.NonNull;
-import androidx.core.app.JobIntentService;
 import android.app.job.JobInfo;
 import android.app.job.JobScheduler;
 import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
+
+import androidx.annotation.NonNull;
+import androidx.core.app.JobIntentService;
 
 import com.mapswithme.maps.MwmApplication;
 import com.mapswithme.maps.scheduling.JobIdMap;

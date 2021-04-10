@@ -1,12 +1,13 @@
 package com.mapswithme.maps.taxi;
 
 import android.content.Context;
-import androidx.annotation.NonNull;
-import androidx.viewpager.widget.PagerAdapter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
+import androidx.annotation.NonNull;
+import androidx.viewpager.widget.PagerAdapter;
 
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.routing.RoutingController;

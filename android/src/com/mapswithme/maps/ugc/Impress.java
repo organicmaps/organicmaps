@@ -2,8 +2,8 @@ package com.mapswithme.maps.ugc;
 
 import androidx.annotation.ColorRes;
 import androidx.annotation.DrawableRes;
-
 import androidx.annotation.StringRes;
+
 import com.mapswithme.maps.R;
 import com.mapswithme.util.UiUtils;
 

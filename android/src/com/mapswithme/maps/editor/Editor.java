@@ -1,13 +1,11 @@
 package com.mapswithme.maps.editor;
 
 import android.content.Context;
+
 import androidx.annotation.IntDef;
 import androidx.annotation.NonNull;
 import androidx.annotation.Size;
 import androidx.annotation.WorkerThread;
-
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
 
 import com.mapswithme.maps.BuildConfig;
 import com.mapswithme.maps.Framework;
@@ -19,6 +17,9 @@ import com.mapswithme.maps.editor.data.Language;
 import com.mapswithme.maps.editor.data.LocalizedName;
 import com.mapswithme.maps.editor.data.LocalizedStreet;
 import com.mapswithme.maps.editor.data.NamesDataSource;
+
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
 
 
 /**

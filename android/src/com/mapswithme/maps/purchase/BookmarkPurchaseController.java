@@ -1,6 +1,7 @@
 package com.mapswithme.maps.purchase;
 
 import android.app.Activity;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 

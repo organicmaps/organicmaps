@@ -1,6 +1,7 @@
 package com.mapswithme.maps.promo;
 
 import android.graphics.Color;
+
 import androidx.annotation.ColorInt;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;

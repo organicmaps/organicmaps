@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.text.TextUtils;
 
 import androidx.annotation.NonNull;
+
 import com.android.billingclient.api.Purchase;
 import com.mapswithme.maps.Framework;
 import com.mapswithme.util.ConnectionState;

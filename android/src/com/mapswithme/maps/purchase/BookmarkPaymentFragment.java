@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+
 import com.android.billingclient.api.SkuDetails;
 import com.bumptech.glide.Glide;
 import com.mapswithme.maps.Framework;

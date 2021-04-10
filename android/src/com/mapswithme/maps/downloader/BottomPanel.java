@@ -1,14 +1,14 @@
 package com.mapswithme.maps.downloader;
 
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import android.view.View;
 import android.widget.Button;
 
-import java.util.Locale;
-
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.mapswithme.maps.R;
 import com.mapswithme.util.StringUtils;
 import com.mapswithme.util.UiUtils;
+
+import java.util.Locale;
 
 class BottomPanel
 {

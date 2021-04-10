@@ -2,13 +2,12 @@ package com.mapswithme.maps.auth;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.text.TextUtils;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
-
-import android.os.Bundle;
-import android.text.TextUtils;
 
 import com.mapswithme.maps.Framework;
 

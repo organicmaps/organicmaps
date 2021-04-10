@@ -1,9 +1,9 @@
 package com.mapswithme.maps.bookmarks;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
 import android.text.TextUtils;
+
+import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
 
 import com.mapswithme.maps.R;
 

@@ -1,8 +1,9 @@
 package com.mapswithme.maps.gallery;
 
+import android.view.ViewGroup;
+
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-import android.view.ViewGroup;
 
 public class GalleryAdapter<VH extends Holders.BaseViewHolder<I>, I extends Items.Item>
     extends RecyclerView.Adapter<VH>

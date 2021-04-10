@@ -1,9 +1,6 @@
 package com.mapswithme.maps.widget.placepage;
 
 import android.os.Bundle;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.widget.Toolbar;
 import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,13 +9,17 @@ import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import java.lang.ref.WeakReference;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.widget.Toolbar;
 
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.base.BaseMwmDialogFragment;
 import com.mapswithme.maps.bookmarks.data.Bookmark;
 import com.mapswithme.util.StringUtils;
 import com.mapswithme.util.UiUtils;
+
+import java.lang.ref.WeakReference;
 
 public class EditDescriptionFragment extends BaseMwmDialogFragment
 {

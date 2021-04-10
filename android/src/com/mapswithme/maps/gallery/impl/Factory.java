@@ -1,6 +1,7 @@
 package com.mapswithme.maps.gallery.impl;
 
 import android.content.Context;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 

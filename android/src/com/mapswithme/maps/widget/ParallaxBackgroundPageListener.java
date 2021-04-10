@@ -1,17 +1,18 @@
 package com.mapswithme.maps.widget;
 
+import static androidx.viewpager.widget.ViewPager.SCROLL_STATE_DRAGGING;
+import static androidx.viewpager.widget.ViewPager.SCROLL_STATE_IDLE;
+import static androidx.viewpager.widget.ViewPager.SCROLL_STATE_SETTLING;
+
 import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
 import androidx.viewpager.widget.ViewPager;
+
 import com.mapswithme.maps.purchase.BookmarksAllSubscriptionPageData;
 
 import java.util.Collections;
 import java.util.List;
-
-import static androidx.viewpager.widget.ViewPager.SCROLL_STATE_DRAGGING;
-import static androidx.viewpager.widget.ViewPager.SCROLL_STATE_IDLE;
-import static androidx.viewpager.widget.ViewPager.SCROLL_STATE_SETTLING;
 
 public class ParallaxBackgroundPageListener implements ViewPager.OnPageChangeListener
 {

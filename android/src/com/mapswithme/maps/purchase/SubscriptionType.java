@@ -1,6 +1,7 @@
 package com.mapswithme.maps.purchase;
 
 import androidx.annotation.NonNull;
+
 import com.mapswithme.maps.PrivateVariables;
 import com.mapswithme.util.Utils;
 

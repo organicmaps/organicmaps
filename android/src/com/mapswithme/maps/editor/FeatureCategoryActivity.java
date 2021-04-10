@@ -1,6 +1,7 @@
 package com.mapswithme.maps.editor;
 
 import android.content.Intent;
+
 import androidx.fragment.app.Fragment;
 
 import com.mapswithme.maps.base.BaseMwmFragmentActivity;

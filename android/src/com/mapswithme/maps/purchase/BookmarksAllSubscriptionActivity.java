@@ -1,17 +1,18 @@
 package com.mapswithme.maps.purchase;
 
+import static com.mapswithme.maps.purchase.BookmarksAllSubscriptionPage.BOOKMARKS;
+import static com.mapswithme.maps.purchase.BookmarksAllSubscriptionPage.ELEVATION;
+import static com.mapswithme.maps.purchase.BookmarksAllSubscriptionPage.GUIDES;
+import static com.mapswithme.maps.purchase.BookmarksAllSubscriptionPage.LONELY;
+
 import android.content.Intent;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
+
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.base.BaseMwmFragmentActivity;
-
-import static com.mapswithme.maps.purchase.BookmarksAllSubscriptionPage.GUIDES;
-import static com.mapswithme.maps.purchase.BookmarksAllSubscriptionPage.LONELY;
-import static com.mapswithme.maps.purchase.BookmarksAllSubscriptionPage.BOOKMARKS;
-import static com.mapswithme.maps.purchase.BookmarksAllSubscriptionPage.ELEVATION;
 
 public class BookmarksAllSubscriptionActivity extends BaseMwmFragmentActivity
 {

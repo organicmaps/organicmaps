@@ -3,6 +3,7 @@ package com.mapswithme.maps.maplayer;
 import android.content.Context;
 
 import androidx.annotation.NonNull;
+
 import com.mapswithme.maps.maplayer.guides.GuidesManager;
 import com.mapswithme.maps.maplayer.isolines.IsolinesManager;
 import com.mapswithme.maps.maplayer.subway.SubwayManager;

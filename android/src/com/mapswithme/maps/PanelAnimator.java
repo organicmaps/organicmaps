@@ -3,13 +3,13 @@ package com.mapswithme.maps;
 import android.animation.Animator;
 import android.animation.ValueAnimator;
 import android.os.Bundle;
+import android.view.View;
+import android.view.animation.AccelerateInterpolator;
 
 import androidx.annotation.IntegerRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import android.view.View;
-import android.view.animation.AccelerateInterpolator;
 
 import com.mapswithme.util.Listeners;
 import com.mapswithme.util.UiUtils;

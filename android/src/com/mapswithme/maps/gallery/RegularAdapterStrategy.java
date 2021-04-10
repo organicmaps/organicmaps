@@ -1,17 +1,16 @@
 package com.mapswithme.maps.gallery;
 
+import static com.mapswithme.maps.gallery.Constants.TYPE_MORE;
+import static com.mapswithme.maps.gallery.Constants.TYPE_PRODUCT;
+
+import android.os.Parcel;
+import android.view.ViewGroup;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
 
-import android.os.Parcel;
-import android.os.Parcelable;
-import android.view.ViewGroup;
-
 import java.util.List;
-
-import static com.mapswithme.maps.gallery.Constants.TYPE_MORE;
-import static com.mapswithme.maps.gallery.Constants.TYPE_PRODUCT;
 
 public abstract class RegularAdapterStrategy<T extends RegularAdapterStrategy.Item>
     extends AdapterStrategy<Holders.BaseViewHolder<T>, T>

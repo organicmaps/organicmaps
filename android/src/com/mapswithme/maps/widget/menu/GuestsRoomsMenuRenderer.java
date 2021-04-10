@@ -4,6 +4,7 @@ import android.view.View;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+
 import com.mapswithme.maps.search.FilterUtils;
 import com.mapswithme.maps.widget.InteractiveCounterView;
 

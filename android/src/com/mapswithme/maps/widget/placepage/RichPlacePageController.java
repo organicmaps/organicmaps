@@ -15,6 +15,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GestureDetectorCompat;
+
 import com.google.android.material.appbar.AppBarLayout;
 import com.mapswithme.maps.Framework;
 import com.mapswithme.maps.R;

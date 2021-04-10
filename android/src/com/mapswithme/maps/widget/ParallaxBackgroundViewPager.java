@@ -3,12 +3,13 @@ package com.mapswithme.maps.widget;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.os.Handler;
+import android.util.AttributeSet;
+import android.view.MotionEvent;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.viewpager.widget.PagerAdapter;
 import androidx.viewpager.widget.ViewPager;
-import android.util.AttributeSet;
-import android.view.MotionEvent;
 
 import com.mapswithme.maps.R;
 

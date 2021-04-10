@@ -1,5 +1,7 @@
 package com.mapswithme.maps.purchase;
 
+import static com.mapswithme.maps.purchase.BookmarksAllSubscriptionFragment.BUNDLE_DATA;
+
 import android.os.Bundle;
 import android.text.Html;
 import android.view.LayoutInflater;
@@ -10,12 +12,11 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
+
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.databinding.FragmentBookmarksAllSubscriptionBinding;
 
 import java.util.Objects;
-
-import static com.mapswithme.maps.purchase.BookmarksAllSubscriptionFragment.BUNDLE_DATA;
 
 public class BookmarksAllSubscriptionPageFragment extends Fragment
 {

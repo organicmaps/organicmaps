@@ -1,6 +1,7 @@
 package com.mapswithme.maps.purchase;
 
 import androidx.annotation.StringRes;
+
 import com.mapswithme.maps.R;
 
 public enum BookmarksAllSubscriptionPage

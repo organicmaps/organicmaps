@@ -3,6 +3,7 @@ package com.mapswithme.maps.maplayer.traffic;
 import androidx.annotation.MainThread;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+
 import com.mapswithme.maps.base.Initializable;
 import com.mapswithme.util.log.Logger;
 import com.mapswithme.util.log.LoggerFactory;

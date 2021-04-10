@@ -1,23 +1,22 @@
 package com.mapswithme.maps.gallery;
 
+import static com.mapswithme.maps.gallery.Constants.TYPE_MORE;
+import static com.mapswithme.maps.gallery.Constants.TYPE_PRODUCT;
+import static com.mapswithme.util.Constants.Rating.RATING_INCORRECT_VALUE;
+
 import android.content.Context;
 import android.os.Parcel;
 import android.os.Parcelable;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-
 import androidx.annotation.StringRes;
-import com.mapswithme.maps.MwmApplication;
+
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.bookmarks.data.FeatureId;
 import com.mapswithme.maps.search.Popularity;
 import com.mapswithme.maps.search.SearchResult;
 import com.mapswithme.util.UiUtils;
-
-import static com.mapswithme.maps.gallery.Constants.TYPE_MORE;
-import static com.mapswithme.maps.gallery.Constants.TYPE_PRODUCT;
-import static com.mapswithme.util.Constants.Rating.RATING_INCORRECT_VALUE;
 
 public class Items
 {

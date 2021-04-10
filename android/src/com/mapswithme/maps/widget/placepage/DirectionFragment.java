@@ -2,13 +2,13 @@ package com.mapswithme.maps.widget.placepage;
 
 import android.location.Location;
 import android.os.Bundle;
-import androidx.annotation.Nullable;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 import android.widget.TextView;
+
+import androidx.annotation.Nullable;
 
 import com.mapswithme.maps.Framework;
 import com.mapswithme.maps.R;

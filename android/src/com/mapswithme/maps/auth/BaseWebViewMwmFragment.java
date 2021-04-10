@@ -1,8 +1,9 @@
 package com.mapswithme.maps.auth;
 
-import androidx.annotation.IdRes;
 import android.view.View;
 import android.webkit.WebView;
+
+import androidx.annotation.IdRes;
 
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.base.BaseMwmFragment;

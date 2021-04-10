@@ -7,6 +7,7 @@ import android.view.View;
 import androidx.annotation.Dimension;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
 import com.mapswithme.maps.bookmarks.Holders;
 
 public class DividerItemDecorationWithPadding extends RecyclerView.ItemDecoration

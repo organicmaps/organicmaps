@@ -6,9 +6,10 @@ import android.content.Context;
 import android.content.Intent;
 import android.location.Location;
 import android.os.SystemClock;
-import androidx.annotation.NonNull;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+
 import com.mapswithme.maps.MwmApplication;
 import com.mapswithme.maps.base.Initializable;
 import com.mapswithme.util.concurrency.UiThread;

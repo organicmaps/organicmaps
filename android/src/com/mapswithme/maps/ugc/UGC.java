@@ -1,16 +1,11 @@
 package com.mapswithme.maps.ugc;
 
-import android.content.Context;
 import android.os.Parcel;
 import android.os.Parcelable;
+
 import androidx.annotation.IntDef;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-
-import com.mapswithme.maps.MwmApplication;
-import com.mapswithme.maps.background.AppBackgroundTracker;
-import com.mapswithme.maps.background.WorkerService;
-import com.mapswithme.maps.bookmarks.data.FeatureId;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;

@@ -5,6 +5,7 @@ import android.net.Uri;
 import android.text.TextUtils;
 
 import androidx.annotation.NonNull;
+
 import com.mapswithme.maps.MwmActivity;
 
 public class BackUrlMapTaskWrapper implements MapTask

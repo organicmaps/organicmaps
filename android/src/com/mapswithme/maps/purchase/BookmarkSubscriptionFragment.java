@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+
 import com.mapswithme.maps.R;
 
 public class BookmarkSubscriptionFragment extends AbstractBookmarkSubscriptionFragment

@@ -6,6 +6,7 @@ import android.text.TextWatcher;
 import android.util.Pair;
 
 import androidx.annotation.NonNull;
+
 import com.mapswithme.maps.MwmApplication;
 import com.mapswithme.maps.R;
 

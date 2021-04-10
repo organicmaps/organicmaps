@@ -6,14 +6,15 @@ import android.content.Context;
 import android.os.Bundle;
 import android.util.SparseArray;
 
-import java.lang.ref.WeakReference;
-
 import androidx.annotation.NonNull;
+
 import com.mapswithme.maps.MwmApplication;
 import com.mapswithme.util.Listeners;
 import com.mapswithme.util.concurrency.UiThread;
 import com.mapswithme.util.log.Logger;
 import com.mapswithme.util.log.LoggerFactory;
+
+import java.lang.ref.WeakReference;
 
 /**
  * Helper class that detects when the application goes to background and back to foreground.

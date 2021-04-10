@@ -7,6 +7,7 @@ import android.location.LocationManager;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+
 import com.mapswithme.maps.MwmApplication;
 
 import java.util.ArrayList;

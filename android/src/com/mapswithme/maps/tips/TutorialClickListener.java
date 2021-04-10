@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.view.View;
 
 import androidx.annotation.NonNull;
+
 import com.mapswithme.maps.MwmActivity;
 
 public abstract class TutorialClickListener implements View.OnClickListener

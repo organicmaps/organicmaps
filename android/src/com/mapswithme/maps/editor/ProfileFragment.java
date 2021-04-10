@@ -1,21 +1,18 @@
 package com.mapswithme.maps.editor;
 
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.text.format.DateUtils;
+import android.view.View;
+import android.widget.TextView;
+
 import androidx.annotation.DrawableRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
 import androidx.appcompat.app.AlertDialog;
-import android.text.format.DateUtils;
-import android.view.View;
-import android.widget.TextView;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import com.cocosw.bottomsheet.BottomSheet;
 import com.mapswithme.maps.R;
@@ -23,6 +20,9 @@ import com.mapswithme.maps.editor.data.UserStats;
 import com.mapswithme.util.BottomSheetHelper;
 import com.mapswithme.util.Constants;
 import com.mapswithme.util.UiUtils;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class ProfileFragment extends AuthFragment implements View.OnClickListener, OsmOAuth.OnUserStatsChanged
 {

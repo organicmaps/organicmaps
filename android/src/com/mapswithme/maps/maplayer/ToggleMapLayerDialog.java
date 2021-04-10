@@ -14,13 +14,14 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.mapswithme.maps.R;
+import com.mapswithme.maps.base.NoConnectionListener;
+import com.mapswithme.maps.maplayer.guides.AbstractGuidesClickListener;
 import com.mapswithme.maps.maplayer.subway.OnSubwayLayerToggleListener;
 import com.mapswithme.maps.maplayer.traffic.OnTrafficLayerToggleListener;
-import com.mapswithme.maps.maplayer.guides.AbstractGuidesClickListener;
-import com.mapswithme.maps.base.NoConnectionListener;
 import com.mapswithme.maps.widget.recycler.SpanningLinearLayoutManager;
 
 import java.util.Objects;

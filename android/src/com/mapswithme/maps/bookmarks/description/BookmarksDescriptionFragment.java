@@ -1,5 +1,7 @@
 package com.mapswithme.maps.bookmarks.description;
 
+import static com.mapswithme.maps.bookmarks.description.BookmarksDescriptionActivity.EXTRA_CATEGORY;
+
 import android.os.Bundle;
 import android.util.Base64;
 import android.view.LayoutInflater;
@@ -12,6 +14,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.base.BaseMwmFragment;
 import com.mapswithme.maps.bookmarks.BookmarkHeaderView;
@@ -20,8 +23,6 @@ import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.Utils;
 
 import java.util.Objects;
-
-import static com.mapswithme.maps.bookmarks.description.BookmarksDescriptionActivity.EXTRA_CATEGORY;
 
 public class BookmarksDescriptionFragment extends BaseMwmFragment
 {

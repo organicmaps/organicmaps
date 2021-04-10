@@ -5,6 +5,7 @@ import android.view.MotionEvent;
 import android.view.View;
 
 import androidx.annotation.NonNull;
+
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.trafi.anchorbottomsheetbehavior.AnchorBottomSheetBehavior;
 

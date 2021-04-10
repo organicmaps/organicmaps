@@ -5,11 +5,10 @@ import android.view.View;
 
 import androidx.annotation.CallSuper;
 import androidx.annotation.NonNull;
+
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.maplayer.isolines.IsolinesManager;
 import com.mapswithme.util.Utils;
-
-import java.util.Collections;
 
 public abstract class AbstractIsoLinesClickListener extends DefaultClickListener
 {

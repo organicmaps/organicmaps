@@ -1,11 +1,12 @@
 package com.mapswithme.maps.widget.recycler;
 
 import android.content.Context;
+import android.util.AttributeSet;
+import android.view.ViewGroup;
+
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import android.util.AttributeSet;
-import android.view.ViewGroup;
 
 public class SpanningLinearLayoutManager extends LinearLayoutManager
 {

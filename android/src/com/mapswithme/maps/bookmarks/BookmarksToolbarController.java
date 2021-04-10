@@ -1,8 +1,9 @@
 package com.mapswithme.maps.bookmarks;
 
 import android.app.Activity;
-import androidx.annotation.NonNull;
 import android.view.View;
+
+import androidx.annotation.NonNull;
 
 import com.mapswithme.maps.widget.SearchToolbarController;
 

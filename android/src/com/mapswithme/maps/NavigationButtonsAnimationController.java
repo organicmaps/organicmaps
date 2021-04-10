@@ -1,9 +1,10 @@
 package com.mapswithme.maps;
 
 import android.content.res.Resources;
+import android.view.View;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import android.view.View;
 
 import com.mapswithme.maps.location.LocationHelper;
 import com.mapswithme.maps.location.LocationState;

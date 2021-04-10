@@ -11,6 +11,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
+
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.auth.AuthorizationListener;
 import com.mapswithme.maps.auth.Authorizer;

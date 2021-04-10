@@ -2,11 +2,10 @@ package com.mapswithme.util.log;
 
 import android.app.ActivityManager;
 import android.content.Context;
-import android.os.Debug;
 import android.os.Build;
+import android.os.Debug;
 
 import androidx.annotation.NonNull;
-import com.mapswithme.maps.MwmApplication;
 
 @SuppressWarnings("unused")
 public class MemLogging

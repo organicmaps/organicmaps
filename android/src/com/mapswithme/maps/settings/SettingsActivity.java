@@ -1,14 +1,15 @@
 package com.mapswithme.maps.settings;
 
 import android.os.Bundle;
+import android.text.TextUtils;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.preference.Preference;
 import androidx.preference.PreferenceFragmentCompat;
 import androidx.preference.PreferenceScreen;
-import androidx.appcompat.widget.Toolbar;
-import android.text.TextUtils;
 
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.base.BaseToolbarActivity;

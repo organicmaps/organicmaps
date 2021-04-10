@@ -2,10 +2,12 @@ package com.mapswithme.maps.settings;
 
 import android.content.Intent;
 import android.os.Bundle;
-import androidx.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import androidx.annotation.Nullable;
+
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.WebContainerDelegate;
 import com.mapswithme.maps.base.OnBackPressListener;

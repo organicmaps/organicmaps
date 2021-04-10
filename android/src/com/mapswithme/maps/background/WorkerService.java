@@ -2,15 +2,15 @@ package com.mapswithme.maps.background;
 
 import android.content.Context;
 import android.content.Intent;
-import androidx.annotation.NonNull;
-import androidx.core.app.JobIntentService;
 import android.text.TextUtils;
 import android.util.Log;
+
+import androidx.annotation.NonNull;
+import androidx.core.app.JobIntentService;
 
 import com.mapswithme.maps.MwmApplication;
 import com.mapswithme.maps.editor.Editor;
 import com.mapswithme.maps.scheduling.JobIdMap;
-import com.mapswithme.maps.ugc.UGC;
 import com.mapswithme.util.CrashlyticsUtils;
 import com.mapswithme.util.log.Logger;
 import com.mapswithme.util.log.LoggerFactory;

@@ -3,23 +3,22 @@ package com.mapswithme.maps.routing;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.fragment.app.Fragment;
-import androidx.appcompat.app.AlertDialog;
 import android.view.View;
 import android.view.ViewGroup;
 
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
+import androidx.fragment.app.Fragment;
 
-import com.mapswithme.maps.MwmApplication;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.downloader.CountryItem;
 import com.mapswithme.maps.downloader.MapManager;
 import com.mapswithme.maps.widget.WheelProgressView;
 import com.mapswithme.util.UiUtils;
+
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 public class RoutingMapsDownloadFragment extends BaseRoutingErrorDialogFragment
 {

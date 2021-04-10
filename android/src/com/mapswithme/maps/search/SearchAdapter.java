@@ -1,5 +1,9 @@
 package com.mapswithme.maps.search;
 
+import static com.mapswithme.maps.search.SearchResult.TYPE_RESULT;
+import static com.mapswithme.maps.search.SearchResult.TYPE_SUGGEST;
+import static com.mapswithme.util.Constants.Rating.RATING_INCORRECT_VALUE;
+
 import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Typeface;
@@ -21,10 +25,10 @@ import androidx.annotation.DrawableRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.RecyclerView;
+
 import com.mapswithme.HotelUtils;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.bookmarks.data.FeatureId;
-import com.mapswithme.maps.routing.RoutingController;
 import com.mapswithme.maps.ugc.UGC;
 import com.mapswithme.util.Graphics;
 import com.mapswithme.util.ThemeUtils;
@@ -34,10 +38,6 @@ import com.mapswithme.util.Utils;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
-
-import static com.mapswithme.maps.search.SearchResult.TYPE_RESULT;
-import static com.mapswithme.maps.search.SearchResult.TYPE_SUGGEST;
-import static com.mapswithme.util.Constants.Rating.RATING_INCORRECT_VALUE;
 
 class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchDataViewHolder>
 {

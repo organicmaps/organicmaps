@@ -10,6 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.StyleRes;
 import androidx.fragment.app.Fragment;
+
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.base.BaseToolbarActivity;
 import com.mapswithme.maps.bookmarks.data.BookmarkCategory;

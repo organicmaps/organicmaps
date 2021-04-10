@@ -7,6 +7,7 @@ import androidx.annotation.IdRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.view.GestureDetectorCompat;
+
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.mapswithme.util.log.Logger;
 import com.mapswithme.util.log.LoggerFactory;
