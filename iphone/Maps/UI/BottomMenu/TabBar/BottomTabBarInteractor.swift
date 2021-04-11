@@ -47,10 +47,10 @@ extension BottomTabBarInteractor: BottomTabBarInteractorProtocol {
   }
   
   func openDiscovery() {
-    NetworkPolicy.shared().callOnlineApi { (canUseNetwork) in
-      let vc = MWMDiscoveryController.instance(withConnection: canUseNetwork)
-      MapViewController.shared()?.navigationController?.pushViewController(vc!, animated: true)
-    }
+//    NetworkPolicy.shared().callOnlineApi { (canUseNetwork) in
+//      let vc = MWMDiscoveryController.instance(withConnection: canUseNetwork)
+//      MapViewController.shared()?.navigationController?.pushViewController(vc!, animated: true)
+//    }
   }
   
   func openBookmarks() {

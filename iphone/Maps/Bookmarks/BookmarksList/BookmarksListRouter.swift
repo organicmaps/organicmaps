@@ -27,8 +27,8 @@ extension BookmarksListRouter: IBookmarksListRouter {
   }
 
   func showDescription(_ bookmarkGroup: BookmarkGroup) {
-    let descriptionViewController = GuideDescriptionViewController(category: bookmarkGroup)
-    mapViewController.navigationController?.pushViewController(descriptionViewController, animated: true)
+//    let descriptionViewController = GuideDescriptionViewController(category: bookmarkGroup)
+//    mapViewController.navigationController?.pushViewController(descriptionViewController, animated: true)
   }
 
   func showSubgroup(_ subgroupId: MWMMarkGroupID) {
