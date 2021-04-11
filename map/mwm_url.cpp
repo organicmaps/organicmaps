@@ -94,7 +94,7 @@ namespace subscription
 
 namespace
 {
-std::array<std::string, 3> const kAvailableSchemes = {{"mapswithme", "mwm", "mapsme"}};
+std::array<std::string, 4> const kAvailableSchemes = {{"mapswithme", "mwm", "mapsme", "om"}};
 
 ParsedMapApi::UrlType GetUrlType(url::Url const & url)
 {

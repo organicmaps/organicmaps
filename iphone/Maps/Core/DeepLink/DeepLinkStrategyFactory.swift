@@ -5,7 +5,7 @@ class DeepLinkStrategyFactory {
       return DeepLinkGeoStrategy(url: deeplinkURL)
     case "file":
       return DeepLinkFileStrategy(url: deeplinkURL)
-    case "mapswithme", "mapsme", "mwm":
+    case "mapswithme", "mapsme", "mwm", "om":
       return DeepLinkStrategyFactory.createCommon(url: deeplinkURL)
     default:
       return DeepLinkIncorrectStrategy(url: deeplinkURL)
