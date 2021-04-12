@@ -22,6 +22,7 @@ using namespace coding;
 using namespace std;
 
 using PU = m2::PointU;
+using PD = m2::PointD;
 
 namespace
 {
@@ -113,20 +114,27 @@ UNIT_TEST(EncodePointDeltaAsUint)
 UNIT_TEST(PredictPointsInPolyline2)
 {
   // Ci = Ci-1 + (Ci-1 + Ci-2) / 2
-  TEST_EQUAL(PU(5, 5), PredictPointInPolyline(PU(8, 7), PU(4, 4), PU(1, 2)), ());
+  TEST_EQUAL(PU(5, 5), PredictPointInPolyline(PD(8, 7), PU(4, 4), PU(1, 2)), ());
+
+  // Clamp max
+  TEST_EQUAL(PU(4, 4), PredictPointInPolyline(PD(4, 4), PU(4, 4), PU(1, 2)), ());
+  TEST_EQUAL(PU(5, 5), PredictPointInPolyline(PD(8, 7), PU(4, 4), PU(1, 2)), ());
+  TEST_EQUAL(PU(5, 5), PredictPointInPolyline(PD(5, 5), PU(4, 4), PU(1, 2)), ());
+
+  // Clamp 0
+  TEST_EQUAL(PU(4, 0), PredictPointInPolyline(PD(5, 5), PU(4, 1), PU(4, 4)), ());
 }
 
-UNIT_TEST(PredictPointsInPolyline2_ClampMax)
+UNIT_TEST(PredictPointsInTriangle)
 {
-  // Ci = Ci-1 + (Ci-1 + Ci-2) / 2
-  TEST_EQUAL(PU(4, 4), PredictPointInPolyline(PU(4, 4), PU(4, 4), PU(1, 2)), ());
-  TEST_EQUAL(PU(5, 5), PredictPointInPolyline(PU(8, 7), PU(4, 4), PU(1, 2)), ());
-  TEST_EQUAL(PU(5, 5), PredictPointInPolyline(PU(5, 5), PU(4, 4), PU(1, 2)), ());
-}
+  // Ci = Ci-1 + Ci-2 - Ci-3
+  TEST_EQUAL(PU(1, 1), PredictPointInTriangle(PD(100, 100), PU(1, 0), PU(0, 1), PU(0, 0)), ());
 
-UNIT_TEST(PredictPointsInPolyline2_Clamp0)
-{
-  TEST_EQUAL(PU(4, 0), PredictPointInPolyline(PU(5, 5), PU(4, 1), PU(4, 4)), ());
+  // Clamp 0
+  TEST_EQUAL(PU(0, 0), PredictPointInTriangle(PD(100, 100), PU(1, 0), PU(0, 1), PU(5, 5)), ());
+
+  // Clamp max
+  TEST_EQUAL(PU(10, 10), PredictPointInTriangle(PD(10, 10), PU(8, 7), PU(6, 5), PU(1, 1)), ());
 }
 
 /*

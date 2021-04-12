@@ -56,16 +56,16 @@ m2::PointU DecodePointDelta(Source & source, m2::PointU const & base)
 }
 
 /// Predict next point for polyline with given previous points (p1, p2).
-m2::PointU PredictPointInPolyline(m2::PointU const & maxPoint, m2::PointU const & p1,
+m2::PointU PredictPointInPolyline(m2::PointD const & maxPoint, m2::PointU const & p1,
                                   m2::PointU const & p2);
 
 /// Predict next point for polyline with given previous points (p1, p2, p3).
-m2::PointU PredictPointInPolyline(m2::PointU const & maxPoint, m2::PointU const & p1,
+m2::PointU PredictPointInPolyline(m2::PointD const & maxPoint, m2::PointU const & p1,
                                   m2::PointU const & p2, m2::PointU const & p3);
 
 /// Predict point for neighbour triangle with given
 /// previous triangle (p1, p2, p3) and common edge (p1, p2).
-m2::PointU PredictPointInTriangle(m2::PointU const & maxPoint, m2::PointU const & p1,
+m2::PointU PredictPointInTriangle(m2::PointD const & maxPoint, m2::PointU const & p1,
                                   m2::PointU const & p2, m2::PointU const & p3);
 
 void EncodePolylinePrev1(InPointsT const & points, m2::PointU const & basePoint,

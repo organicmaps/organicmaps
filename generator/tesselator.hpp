@@ -47,9 +47,9 @@ namespace tesselator
   // Converted points, prepared for serialization.
   struct PointsInfo
   {
-    typedef m2::PointU PointT;
-    std::vector<PointT> m_points;
-    PointT m_base, m_max;
+    std::vector<m2::PointU> m_points;
+    m2::PointU m_base;
+    m2::PointD m_max;
   };
 
   class TrianglesInfo
