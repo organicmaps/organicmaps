@@ -601,7 +601,6 @@ Ranker::Ranker(DataSource const & dataSource, CitiesBoundariesTable const & boun
   , m_categories(categories)
   , m_suggests(suggests)
 {
-  SetLocale("default");
 }
 
 void Ranker::Init(Params const & params, Geocoder::Params const & geocoderParams)
