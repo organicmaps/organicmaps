@@ -206,8 +206,6 @@ Processor::Processor(DataSource const & dataSource, CategoriesHolder const & cat
       LanguageTier::LANGUAGE_TIER_ALT_AND_OLD,
       {StringUtf8Multilang::kAltNameCode, StringUtf8Multilang::kOldNameCode});
 
-  SetPreferredLocale("en");
-
   for (auto const & country : m_infoGetter.GetCountries())
     m_countriesTrie.Add(country.m_countryId, true);
 }
