@@ -247,7 +247,7 @@ int TesselateInterior(PolygonsT const & polys, TrianglesInfo & info)
                                     PointsInfo & info) const
   {
     info.m_base = baseP;
-    info.m_max = maxP;
+    info.m_max = m2::PointD(maxP);
 
     size_t const count = m_points.size();
     info.m_points.reserve(count);
