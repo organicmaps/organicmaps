@@ -139,8 +139,6 @@ public:
         m_currentElement = WIDGET_COMPASS;
       else if (element == "copyright")
         m_currentElement = WIDGET_COPYRIGHT;
-      else if (element == "watermark")
-        m_currentElement = WIDGET_WATERMARK;
       else
         ASSERT(false, ());
     }
@@ -183,7 +181,7 @@ public:
       m_inConfiguration = false;
     }
     else if (element == "ruler" || element == "compass" || element == "copyright" ||
-             element == "country_status" || element == "watermark")
+             element == "country_status")
     {
       m_inElement = false;
     }

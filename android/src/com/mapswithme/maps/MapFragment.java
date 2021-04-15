@@ -44,7 +44,6 @@ public class MapFragment extends BaseMwmFragment
   private static final int WIDGET_COMPASS = 0x02;
   private static final int WIDGET_COPYRIGHT = 0x04;
   private static final int WIDGET_SCALE_FPS_LABEL = 0x08;
-  private static final int WIDGET_WATERMARK = 0x10;
 
   // Should correspond to dp::Anchor from drape_global.hpp
   private static final int ANCHOR_CENTER = 0x00;
@@ -107,14 +106,11 @@ public class MapFragment extends BaseMwmFragment
   private void setupWidgetOffsets()
   {
     int rulerOffset = 0;
-    int watermarkOffset = 0;
     if (mWidgetOffsetsProvider != null)
     {
       rulerOffset = mWidgetOffsetsProvider.getRulerOffsetY();
-      watermarkOffset = mWidgetOffsetsProvider.getWaterMarkOffsetY();
     }
     setupRuler(rulerOffset, false);
-    setupWatermark(watermarkOffset, false);
   }
 
   void setupCompass(int offsetY, boolean forceRedraw)
@@ -138,17 +134,6 @@ public class MapFragment extends BaseMwmFragment
                       UiUtils.dimen(context, R.dimen.margin_ruler_left),
                       mHeight - UiUtils.dimen(context, R.dimen.margin_ruler_bottom) + offsetY,
                       ANCHOR_LEFT_BOTTOM);
-    if (forceRedraw && mSurfaceCreated)
-      nativeApplyWidgets();
-  }
-
-  void setupWatermark(int offsetY, boolean forceRedraw)
-  {
-    Context context = requireContext();
-    nativeSetupWidget(WIDGET_WATERMARK,
-                      mWidth - UiUtils.dimen(context, R.dimen.margin_watermark_right),
-                      mHeight - UiUtils.dimen(context, R.dimen.margin_watermark_bottom) + offsetY,
-                      ANCHOR_RIGHT_BOTTOM);
     if (forceRedraw && mSurfaceCreated)
       nativeApplyWidgets();
   }

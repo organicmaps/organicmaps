@@ -7,7 +7,6 @@
 #include "drape_frontend/gui/layer_render.hpp"
 #include "drape_frontend/gui/ruler.hpp"
 #include "drape_frontend/gui/ruler_helper.hpp"
-#include "drape_frontend/gui/watermark.hpp"
 
 #include "drape_frontend/visual_params.hpp"
 
@@ -211,7 +210,6 @@ drape_ptr<LayerRenderer> LayerCacher::RecacheWidgets(ref_ptr<dp::GraphicsContext
       std::make_pair(WIDGET_RULER, std::bind(&LayerCacher::CacheRuler, this, _1, _2, _3, _4)),
       std::make_pair(WIDGET_COPYRIGHT, std::bind(&LayerCacher::CacheCopyright, this, _1, _2, _3, _4)),
       std::make_pair(WIDGET_SCALE_FPS_LABEL, std::bind(&LayerCacher::CacheScaleFpsLabel, this, _1, _2, _3, _4)),
-//      std::make_pair(WIDGET_WATERMARK, std::bind(&LayerCacher::CacheWatermark, this, _1, _2, _3, _4))
   };
 
   drape_ptr<LayerRenderer> renderer = make_unique_dp<LayerRenderer>();
@@ -401,15 +399,6 @@ m2::PointF LayerCacher::CacheScaleFpsLabel(ref_ptr<dp::GraphicsContext> context,
     std::bind(&ShapeRenderer::AddShape, scaleRenderer.get(), _1, _2));
 
   renderer->AddShapeRenderer(WIDGET_SCALE_FPS_LABEL, std::move(scaleRenderer));
-  return size;
-}
-
-m2::PointF LayerCacher::CacheWatermark(ref_ptr<dp::GraphicsContext> context,
-                                       Position const & position, ref_ptr<LayerRenderer> renderer,
-                                       ref_ptr<dp::TextureManager> textures)
-{
-  m2::PointF size;
-  renderer->AddShapeRenderer(WIDGET_WATERMARK, Watermark(position).Draw(context, size, textures));
   return size;
 }
 }  // namespace gui
