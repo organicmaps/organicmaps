@@ -109,8 +109,6 @@ set(
   gui/shape.hpp
   gui/skin.cpp
   gui/skin.hpp
-  gui/watermark.cpp
-  gui/watermark.hpp
   kinetic_scroller.cpp
   kinetic_scroller.hpp
   line_shape.cpp
