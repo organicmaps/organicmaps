@@ -58,7 +58,6 @@ namespace android
     void TrafficStateChanged(TrafficManager::TrafficState state);
     void TransitSchemeStateChanged(TransitReadManager::TransitSchemeState state);
     void IsolinesSchemeStateChanged(IsolinesManager::IsolinesState state);
-    void GuidesLayerStateChanged(GuidesManager::GuidesState state);
 
     void MyPositionModeChanged(location::EMyPositionMode mode, bool routingActive);
 
@@ -69,7 +68,6 @@ namespace android
     TrafficManager::TrafficStateChangedFn m_onTrafficStateChangedFn;
     TransitReadManager::TransitStateChangedFn m_onTransitStateChangedFn;
     IsolinesManager::IsolinesStateChangedFn m_onIsolinesStateChangedFn;
-    GuidesManager::GuidesStateChangedFn m_onGuidesStateChangedFn;
 
     bool m_isChoosePositionMode;
 
@@ -160,7 +158,6 @@ namespace android
     void SetTrafficStateListener(TrafficManager::TrafficStateChangedFn const & fn);
     void SetTransitSchemeListener(TransitReadManager::TransitStateChangedFn const & fn);
     void SetIsolinesListener(IsolinesManager::IsolinesStateChangedFn const & fn);
-    void SetGuidesListener(GuidesManager::GuidesStateChangedFn const & fn);
 
     bool IsTrafficEnabled();
     void EnableTraffic();
@@ -184,20 +181,6 @@ namespace android
     void EnableDownloadOn3g();
 
     int ToDoAfterUpdate() const;
-
-    uint64_t GetLocals(JNIEnv * env, jobject policy, double lat, double lon,
-                       locals::LocalsSuccessCallback const & successFn,
-                       locals::LocalsErrorCallback const & errorFn);
-    void GetPromoCityGallery(JNIEnv * env, jobject policy, m2::PointD const & point, UTM utm,
-                             promo::CityGalleryCallback const & onSuccess,
-                             promo::OnError const & onError);
-    void GetPromoPoiGallery(JNIEnv * env, jobject policy, m2::PointD const & point,
-                            promo::Tags const & tags, bool useCoordinates, UTM utm,
-                            promo::CityGalleryCallback const & onSuccess,
-                            promo::OnError const & onError);
-    promo::AfterBooking GetPromoAfterBooking(JNIEnv * env, jobject policy);
-    std::string GetPromoCityUrl(JNIEnv * env, jobject policy, jdouble lat, jdouble lon);
-
 
     // PowerManager::Subscriber overrides:
     void OnPowerFacilityChanged(power_management::Facility const facility, bool enabled) override;

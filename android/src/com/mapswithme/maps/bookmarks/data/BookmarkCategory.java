@@ -4,46 +4,30 @@ import android.content.Context;
 import android.content.res.Resources;
 import android.os.Parcel;
 import android.os.Parcelable;
-import android.text.TextUtils;
 
 import androidx.annotation.DrawableRes;
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.annotation.PluralsRes;
 import androidx.annotation.StringRes;
 
 import com.mapswithme.maps.R;
-import com.mapswithme.maps.bookmarks.BookmarksPageFactory;
-import com.mapswithme.util.TypeConverter;
 
 public class BookmarkCategory implements Parcelable
 {
   private final long mId;
   @NonNull
   private final String mName;
-  @Nullable
-  private final Author mAuthor;
   @NonNull
   private final String mAnnotation;
   @NonNull
   private final String mDescription;
   private final int mTracksCount;
   private final int mBookmarksCount;
-  private final int mTypeIndex;
-  private final int mAccessRulesIndex;
-  private final boolean mIsMyCategory;
   private boolean mIsVisible;
-  @NonNull
-  private final String mServerId;
-  @NonNull
-  private final String mImageUrl;
 
-
-  public BookmarkCategory(long id, @NonNull String name, @NonNull String authorId,
-                          @NonNull String authorName, @NonNull String annotation,
+  public BookmarkCategory(long id, @NonNull String name, @NonNull String annotation,
                           @NonNull String description, int tracksCount, int bookmarksCount,
-                          boolean fromCatalog, boolean isMyCategory, boolean isVisible,
-                          int accessRulesIndex, @NonNull String serverId, @NonNull String imageUrl)
+                           boolean isVisible)
   {
     mId = id;
     mName = name;
@@ -51,15 +35,7 @@ public class BookmarkCategory implements Parcelable
     mDescription = description;
     mTracksCount = tracksCount;
     mBookmarksCount = bookmarksCount;
-    mIsMyCategory = isMyCategory;
-    mServerId = serverId;
-    mTypeIndex = fromCatalog && !isMyCategory ? Type.DOWNLOADED.ordinal() : Type.PRIVATE.ordinal();
     mIsVisible = isVisible;
-    mAuthor = TextUtils.isEmpty(authorId) || TextUtils.isEmpty(authorName)
-              ? null
-              : new Author(authorId, authorName);
-    mAccessRulesIndex = accessRulesIndex;
-    mImageUrl = imageUrl;
   }
 
   @Override
@@ -88,12 +64,6 @@ public class BookmarkCategory implements Parcelable
     return mName;
   }
 
-  @Nullable
-  public Author getAuthor()
-  {
-    return mAuthor;
-  }
-
   public int getTracksCount()
   {
     return mTracksCount;
@@ -104,23 +74,6 @@ public class BookmarkCategory implements Parcelable
     return mBookmarksCount;
   }
 
-  @NonNull
-  public Type getType()
-  {
-    return Type.values()[mTypeIndex];
-  }
-
-  @NonNull
-  public AccessRules getAccessRules()
-  {
-    return AccessRules.values()[mAccessRulesIndex];
-  }
-
-  public boolean isFromCatalog()
-  {
-    return Type.values()[mTypeIndex] == Type.DOWNLOADED;
-  }
-
   public boolean isVisible()
   {
     return mIsVisible;
@@ -129,11 +82,6 @@ public class BookmarkCategory implements Parcelable
   public void setVisible(boolean isVisible)
   {
     mIsVisible = isVisible;
-  }
-
-  public boolean isMyCategory()
-  {
-    return mIsMyCategory;
   }
 
   public int size()
@@ -154,18 +102,6 @@ public class BookmarkCategory implements Parcelable
   }
 
   @NonNull
-  public String getServerId()
-  {
-    return mServerId;
-  }
-
-  @NonNull
-  public String getImageUrl()
-  {
-    return mImageUrl;
-  }
-
-  @NonNull
   public CountAndPlurals getPluralsCountTemplate()
   {
     if (size() == 0)
@@ -178,21 +114,6 @@ public class BookmarkCategory implements Parcelable
       return new CountAndPlurals(getBookmarksCount(), R.plurals.places);
 
     return new CountAndPlurals(size(), R.plurals.objects);
-  }
-
-  public boolean isSharingOptionsAllowed()
-  {
-    BookmarkCategory.AccessRules rules = getAccessRules();
-    return rules != BookmarkCategory.AccessRules.ACCESS_RULES_PAID
-           && rules != BookmarkCategory.AccessRules.ACCESS_RULES_P2P
-           && size() > 0;
-  }
-
-  public boolean isExportAllowed()
-  {
-    BookmarkCategory.AccessRules rules = getAccessRules();
-    boolean isLocal = rules == BookmarkCategory.AccessRules.ACCESS_RULES_LOCAL;
-    return isLocal && size() > 0;
   }
 
   public static class CountAndPlurals {
@@ -280,13 +201,6 @@ public class BookmarkCategory implements Parcelable
       return String.format(res.getString(R.string.author_name_by_prefix), author.getName());
     }
 
-    @NonNull
-    public static String getContentByString(@NonNull Context context, @NonNull Author author)
-    {
-      Resources res = context.getResources();
-      return res.getString(R.string.content_by_component, author.getName());
-    }
-
     @Override
     public void writeToParcel(Parcel dest, int flags)
     {
@@ -322,57 +236,14 @@ public class BookmarkCategory implements Parcelable
     final StringBuilder sb = new StringBuilder("BookmarkCategory{");
     sb.append("mId=").append(mId);
     sb.append(", mName='").append(mName).append('\'');
-    sb.append(", mAuthor=").append(mAuthor);
     sb.append(", mAnnotation='").append(mAnnotation).append('\'');
     sb.append(", mDescription='").append(mDescription).append('\'');
     sb.append(", mTracksCount=").append(mTracksCount);
     sb.append(", mBookmarksCount=").append(mBookmarksCount);
-    sb.append(", mType=").append(Type.values()[mTypeIndex]);
-    sb.append(", mIsMyCategory=").append(mIsMyCategory);
     sb.append(", mIsVisible=").append(mIsVisible);
-    sb.append(", mAccessRules=").append(getAccessRules());
-    sb.append(", mServerId=").append(mServerId);
-    sb.append(", mImageUrl=").append(mImageUrl);
+
     sb.append('}');
     return sb.toString();
-  }
-
-  public static class Downloaded implements TypeConverter<BookmarkCategory, Boolean>
-  {
-    @Override
-    public Boolean convert(@NonNull BookmarkCategory data)
-    {
-      return data.getType() == Type.DOWNLOADED;
-    }
-  }
-
-  public enum Type
-  {
-    PRIVATE(BookmarksPageFactory.PRIVATE, FilterStrategy.PredicativeStrategy.makePrivateInstance()),
-    DOWNLOADED(BookmarksPageFactory.DOWNLOADED, FilterStrategy.PredicativeStrategy.makeDownloadedInstance());
-
-    @NonNull
-    private final BookmarksPageFactory mFactory;
-    @NonNull
-    private final FilterStrategy mFilterStrategy;
-
-    Type(@NonNull BookmarksPageFactory pageFactory, @NonNull FilterStrategy filterStrategy)
-    {
-      mFactory = pageFactory;
-      mFilterStrategy = filterStrategy;
-    }
-
-    @NonNull
-    public BookmarksPageFactory getFactory()
-    {
-      return mFactory;
-    }
-
-    @NonNull
-    public FilterStrategy getFilterStrategy()
-    {
-      return mFilterStrategy;
-    }
   }
 
   @Override
@@ -386,34 +257,22 @@ public class BookmarkCategory implements Parcelable
   {
     dest.writeLong(this.mId);
     dest.writeString(this.mName);
-    dest.writeParcelable(this.mAuthor, flags);
     dest.writeString(this.mAnnotation);
     dest.writeString(this.mDescription);
     dest.writeInt(this.mTracksCount);
     dest.writeInt(this.mBookmarksCount);
-    dest.writeInt(this.mTypeIndex);
-    dest.writeByte(this.mIsMyCategory ? (byte) 1 : (byte) 0);
     dest.writeByte(this.mIsVisible ? (byte) 1 : (byte) 0);
-    dest.writeInt(this.mAccessRulesIndex);
-    dest.writeString(this.mServerId);
-    dest.writeString(this.mImageUrl);
   }
 
   protected BookmarkCategory(Parcel in)
   {
     this.mId = in.readLong();
     this.mName = in.readString();
-    this.mAuthor = in.readParcelable(Author.class.getClassLoader());
     this.mAnnotation = in.readString();
     this.mDescription = in.readString();
     this.mTracksCount = in.readInt();
     this.mBookmarksCount = in.readInt();
-    this.mTypeIndex = in.readInt();
-    this.mIsMyCategory = in.readByte() != 0;
     this.mIsVisible = in.readByte() != 0;
-    this.mAccessRulesIndex = in.readInt();
-    this.mServerId = in.readString();
-    this.mImageUrl = in.readString();
   }
 
   public static final Creator<BookmarkCategory> CREATOR = new Creator<BookmarkCategory>()
@@ -436,8 +295,6 @@ public class BookmarkCategory implements Parcelable
     ACCESS_RULES_LOCAL(R.string.not_shared, R.drawable.ic_lock),
     ACCESS_RULES_PUBLIC(R.string.public_access, R.drawable.ic_public_inline),
     ACCESS_RULES_DIRECT_LINK(R.string.limited_access, R.drawable.ic_link_inline),
-    ACCESS_RULES_P2P(R.string.access_rules_p_to_p, R.drawable.ic_public_inline),
-    ACCESS_RULES_PAID(R.string.access_rules_paid, R.drawable.ic_public_inline),
     ACCESS_RULES_AUTHOR_ONLY(R.string.access_rules_author_only, R.drawable.ic_lock);
 
     private final int mResId;

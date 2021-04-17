@@ -1,7 +1,5 @@
 package com.mapswithme.maps.bookmarks.data;
 
-import android.text.TextUtils;
-
 import androidx.annotation.IntDef;
 import androidx.annotation.IntRange;
 import androidx.annotation.MainThread;
@@ -17,7 +15,6 @@ import java.io.File;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
@@ -61,14 +58,8 @@ public enum BookmarkManager
   public static final int SORT_BY_DISTANCE = 1;
   public static final int SORT_BY_TIME = 2;
 
-  @Retention(RetentionPolicy.SOURCE)
-  @IntDef({ CATEGORY, COLLECTION, DAY })
-  public @interface CompilationType {}
-
   // These values have to match the values of kml::CompilationType from kml/types.hpp
   public static final int CATEGORY = 0;
-  public static final int COLLECTION = 1;
-  public static final int DAY = 2;
 
   public static final List<Icon> ICONS = new ArrayList<>();
 
@@ -95,9 +86,6 @@ public enum BookmarkManager
 
   @NonNull
   private final List<BookmarksCloudListener> mCloudListeners = new ArrayList<>();
-
-  @NonNull
-  private final List<BookmarksCatalogListener> mCatalogListeners = new ArrayList<>();
 
   @NonNull
   private final List<BookmarksCatalogPingListener> mCatalogPingListeners = new ArrayList<>();
@@ -129,13 +117,6 @@ public enum BookmarkManager
     ICONS.add(new Icon(Icon.PREDEFINED_COLOR_BROWN, Icon.BOOKMARK_ICON_TYPE_NONE));
     ICONS.add(new Icon(Icon.PREDEFINED_COLOR_GRAY, Icon.BOOKMARK_ICON_TYPE_NONE));
     ICONS.add(new Icon(Icon.PREDEFINED_COLOR_BLUEGRAY, Icon.BOOKMARK_ICON_TYPE_NONE));
-  }
-
-  public void toggleCompilationVisibility(@NonNull BookmarkCategory category,
-                                          @CompilationType int type)
-  {
-    boolean isVisible = isVisible(category.getId());
-    setVisibility(category.getId(), !isVisible);
   }
 
   public void toggleCategoryVisibility(@NonNull BookmarkCategory category)
@@ -199,36 +180,6 @@ public enum BookmarkManager
   public void removeCloudListener(@NonNull BookmarksCloudListener listener)
   {
     mCloudListeners.remove(listener);
-  }
-
-  public void addCatalogListener(@NonNull BookmarksCatalogListener listener)
-  {
-    mCatalogListeners.add(listener);
-  }
-
-  public void removeCatalogListener(@NonNull BookmarksCatalogListener listener)
-  {
-    mCatalogListeners.remove(listener);
-  }
-
-  public void addExpiredCategoriesListener(@NonNull BookmarksExpiredCategoriesListener listener)
-  {
-    mExpiredCategoriesListeners.add(listener);
-  }
-
-  public void removeExpiredCategoriesListener(@NonNull BookmarksExpiredCategoriesListener listener)
-  {
-    mExpiredCategoriesListeners.remove(listener);
-  }
-
-  public void addCatalogPingListener(@NonNull BookmarksCatalogPingListener listener)
-  {
-    mCatalogPingListeners.add(listener);
-  }
-
-  public void removeCatalogPingListener(@NonNull BookmarksCatalogPingListener listener)
-  {
-    mCatalogPingListeners.remove(listener);
   }
 
   public void setElevationActivePointChangedListener(
@@ -365,88 +316,6 @@ public enum BookmarkManager
   // Called from JNI.
   @SuppressWarnings("unused")
   @MainThread
-  public void onImportStarted(@NonNull String id)
-  {
-    for (BookmarksCatalogListener listener : mCatalogListeners)
-      listener.onImportStarted(id);
-  }
-
-  // Called from JNI.
-  @SuppressWarnings("unused")
-  @MainThread
-  public void onImportFinished(@NonNull String id, long catId, boolean successful)
-  {
-    for (BookmarksCatalogListener listener : mCatalogListeners)
-      listener.onImportFinished(id, catId, successful);
-  }
-
-  // Called from JNI.
-  @SuppressWarnings("unused")
-  @MainThread
-  public void onTagsReceived(boolean successful, @NonNull CatalogTagsGroup[] tagsGroups,
-                             int maxTagsCount)
-  {
-    List<CatalogTagsGroup> unmodifiableData = Collections.unmodifiableList(Arrays.asList(tagsGroups));
-    for (BookmarksCatalogListener listener : mCatalogListeners)
-    {
-      listener.onTagsReceived(successful, unmodifiableData, maxTagsCount);
-    }
-  }
-
-  // Called from JNI.
-  @SuppressWarnings("unused")
-  @MainThread
-  public void onCustomPropertiesReceived(boolean successful,
-                                         @NonNull CatalogCustomProperty[] properties)
-  {
-    List<CatalogCustomProperty> unmodifiableProperties = Collections.unmodifiableList(Arrays.asList(properties));
-    for (BookmarksCatalogListener listener : mCatalogListeners)
-      listener.onCustomPropertiesReceived(successful, unmodifiableProperties);
-  }
-
-  // Called from JNI.
-  @SuppressWarnings("unused")
-  @MainThread
-  public void onUploadStarted(long originCategoryId)
-  {
-    for (BookmarksCatalogListener listener : mCatalogListeners)
-      listener.onUploadStarted(originCategoryId);
-  }
-
-  // Called from JNI.
-  @SuppressWarnings("unused")
-  @MainThread
-  public void onUploadFinished(int index, @NonNull String description,
-                               long originCategoryId, long resultCategoryId)
-  {
-    UploadResult result = UploadResult.values()[index];
-    for (BookmarksCatalogListener listener : mCatalogListeners)
-    {
-      listener.onUploadFinished(result, description, originCategoryId, resultCategoryId);
-    }
-  }
-
-  // Called from JNI.
-  @SuppressWarnings("unused")
-  @MainThread
-  public void onPingFinished(boolean isServiceAvailable)
-  {
-    for (BookmarksCatalogPingListener listener : mCatalogPingListeners)
-      listener.onPingFinished(isServiceAvailable);
-  }
-
-  // Called from JNI.
-  @SuppressWarnings("unused")
-  @MainThread
-  public void onCheckExpiredCategories(boolean hasExpiredCategories)
-  {
-    for (BookmarksExpiredCategoriesListener listener : mExpiredCategoriesListeners)
-      listener.onCheckExpiredCategories(hasExpiredCategories);
-  }
-
-  // Called from JNI.
-  @SuppressWarnings("unused")
-  @MainThread
   public void onElevationCurrentPositionChanged()
   {
     if (mOnElevationCurrentPositionChangedListener != null)
@@ -472,17 +341,6 @@ public enum BookmarkManager
       mOnElevationActivePointChangedListener.onElevationActivePointChanged();
   }
 
-  @NonNull
-  public BookmarkCategory getCategoryByServerId(@NonNull String guideId)
-  {
-    List<BookmarkCategory> items = getAllCategoriesSnapshot().getItems();
-    for (BookmarkCategory each : items)
-      if (TextUtils.equals(each.getServerId(), guideId))
-        return each;
-
-    throw new IllegalArgumentException("Guide id not found : " + guideId);
-  }
-
   public boolean isVisible(long catId)
   {
     return nativeIsVisible(catId);
@@ -501,35 +359,6 @@ public enum BookmarkManager
   public void setCategoryDescription(long id, @NonNull String categoryDesc)
   {
     nativeSetCategoryDescription(id, categoryDesc);
-  }
-
-  public void setCategoryTags(@NonNull BookmarkCategory category, @NonNull List<CatalogTag> tags)
-  {
-    String[] ids = new String[tags.size()];
-    for (int i = 0; i < tags.size(); i++)
-    {
-      ids[i] = tags.get(i).getId();
-    }
-    nativeSetCategoryTags(category.getId(), ids);
-  }
-
-  public void setCategoryProperties(@NonNull BookmarkCategory category,
-                                    @NonNull List<CatalogPropertyOptionAndKey> properties)
-  {
-    for (CatalogPropertyOptionAndKey each : properties)
-    {
-      nativeSetCategoryCustomProperty(category.getId(), each.getKey(), each.getOption().getValue());
-    }
-  }
-
-  public void setAccessRules(long id, @NonNull BookmarkCategory.AccessRules rules)
-  {
-    nativeSetCategoryAccessRules(id, rules.ordinal());
-  }
-
-  public void uploadToCatalog(@NonNull BookmarkCategory.AccessRules rules, @NonNull BookmarkCategory category)
-  {
-    nativeUploadToCatalog(rules.ordinal(), category.getId());
   }
 
   @Nullable
@@ -589,11 +418,6 @@ public enum BookmarkManager
 
   public boolean isCloudEnabled() { return nativeIsCloudEnabled(); }
 
-  public long getLastSynchronizationTimestampInMs()
-  {
-    return nativeGetLastSynchronizationTimestampInMs();
-  }
-
   public void loadKmzFile(@NonNull String path, boolean isTemporaryFile)
   {
     nativeLoadKmzFile(path, isTemporaryFile);
@@ -605,31 +429,9 @@ public enum BookmarkManager
   }
 
   @NonNull
-  public AbstractCategoriesSnapshot.Default getDownloadedCategoriesSnapshot()
+  public List<BookmarkCategory> getCategories()
   {
-    List<BookmarkCategory> items = mCurrentDataProvider.getCategories();
-    return new AbstractCategoriesSnapshot.Default(items, new FilterStrategy.Downloaded());
-  }
-
-  @NonNull
-  public AbstractCategoriesSnapshot.Default getOwnedCategoriesSnapshot()
-  {
-    List<BookmarkCategory> items = mCurrentDataProvider.getCategories();
-    return new AbstractCategoriesSnapshot.Default(items, new FilterStrategy.Private());
-  }
-
-  @NonNull
-  public AbstractCategoriesSnapshot.Default getAllCategoriesSnapshot()
-  {
-    List<BookmarkCategory> items = mCurrentDataProvider.getCategories();
-    return new AbstractCategoriesSnapshot.Default(items, new FilterStrategy.All());
-  }
-
-  @NonNull
-  public AbstractCategoriesSnapshot.Default getCategoriesSnapshot(FilterStrategy strategy)
-  {
-    List<BookmarkCategory> items = mCurrentDataProvider.getCategories();
-    return new AbstractCategoriesSnapshot.Default(items, strategy);
+    return mCurrentDataProvider.getCategories();
   }
 
   @NonNull
@@ -666,52 +468,28 @@ public enum BookmarkManager
 
   public boolean isEditableBookmark(long bmkId) { return nativeIsEditableBookmark(bmkId); }
 
-  public boolean isEditableTrack(long trackId) { return nativeIsEditableTrack(trackId); }
-
-  public boolean isEditableCategory(long catId) { return nativeIsEditableCategory(catId); }
-
   public boolean isSearchAllowed(long catId) { return nativeIsSearchAllowed(catId); }
 
   public void prepareForSearch(long catId) { nativePrepareForSearch(catId); }
 
-  public boolean areAllCategoriesVisible(BookmarkCategory.Type type)
+  public boolean areAllCategoriesVisible()
   {
-    return nativeAreAllCategoriesVisible(type.ordinal());
+    return nativeAreAllCategoriesVisible();
   }
 
-  public boolean areAllCategoriesInvisible(BookmarkCategory.Type type)
+  public boolean areAllCategoriesInvisible()
   {
-    return nativeAreAllCategoriesInvisible(type.ordinal());
+    return nativeAreAllCategoriesInvisible();
   }
 
-  public boolean areAllCatalogCategoriesInvisible()
+  public void setAllCategoriesVisibility(boolean visible)
   {
-    return areAllCategoriesInvisible(BookmarkCategory.Type.DOWNLOADED);
+    nativeSetAllCategoriesVisibility(visible);
   }
 
-  public boolean areAllOwnedCategoriesInvisible()
+  public void setChildCategoriesVisibility(long catId, boolean visible)
   {
-    return areAllCategoriesInvisible(BookmarkCategory.Type.PRIVATE);
-  }
-
-  public void setAllCategoriesVisibility(boolean visible, @NonNull BookmarkCategory.Type type)
-  {
-    nativeSetAllCategoriesVisibility(visible, type.ordinal());
-  }
-
-  public boolean areAllCompilationsVisible(long catId, @CompilationType int compilationType)
-  {
-    return nativeAreAllCompilationsVisible(catId, compilationType);
-  }
-
-  public boolean areAllCompilationsInvisible(long catId, @CompilationType int compilationType)
-  {
-    return nativeAreAllCompilationsInvisible(catId, compilationType);
-  }
-
-  public void setChildCategoriesVisibility(long catId, @CompilationType int compilationType, boolean visible)
-  {
-    nativeSetChildCategoriesVisibility(catId, compilationType, visible);
+    nativeSetChildCategoriesVisibility(catId, visible);
   }
 
   public int getKmlFilesCountForConversion()
@@ -724,34 +502,9 @@ public enum BookmarkManager
     nativeConvertAllKmlFiles();
   }
 
-  public void prepareFileForSharing(long catId)
-  {
-    nativePrepareFileForSharing(catId);
-  }
-
-  public boolean isCategoryEmpty(long catId)
-  {
-    return nativeIsCategoryEmpty(catId);
-  }
-
   public void prepareCategoryForSharing(long catId)
   {
     nativePrepareFileForSharing(catId);
-  }
-
-  public void requestRestoring()
-  {
-    nativeRequestRestoring();
-  }
-
-  public void applyRestoring()
-  {
-    nativeApplyRestoring();
-  }
-
-  public void cancelRestoring()
-  {
-    nativeCancelRestoring();
   }
 
   public void setNotificationsEnabled(boolean enabled)
@@ -764,38 +517,9 @@ public enum BookmarkManager
     return nativeAreNotificationsEnabled();
   }
 
-  public void importFromCatalog(@NonNull String serverId, @NonNull String filePath)
-  {
-    nativeImportFromCatalog(serverId, filePath);
-  }
-
   public void uploadRoutes(int accessRules, @NonNull BookmarkCategory bookmarkCategory)
   {
     nativeUploadToCatalog(accessRules, bookmarkCategory.getId());
-  }
-
-  @NonNull
-  public String getCatalogDeeplink(long catId)
-  {
-    return nativeGetCatalogDeeplink(catId);
-  }
-
-  @NonNull
-  public String getCatalogPublicLink(long catId)
-  {
-    return nativeGetCatalogPublicLink(catId);
-  }
-
-  @NonNull
-  public String getCatalogDownloadUrl(@NonNull String serverId)
-  {
-    return nativeGetCatalogDownloadUrl(serverId);
-  }
-
-  @NonNull
-  public String getWebEditorUrl(@NonNull String serverId)
-  {
-    return nativeGetWebEditorUrl(serverId);
   }
 
   @NonNull
@@ -804,62 +528,9 @@ public enum BookmarkManager
     return nativeGetCatalogFrontendUrl(utm);
   }
 
-  @NonNull
-  public KeyValue[] getCatalogHeaders()
-  {
-    return nativeGetCatalogHeaders();
-  }
-
-  @NonNull
-  public String injectCatalogUTMContent(@NonNull String url,  @UTM.UTMContentType int content)
-  {
-    return nativeInjectCatalogUTMContent(url, content);
-  }
-
-  @NonNull
-  public String getGuidesIds()
-  {
-    return nativeGuidesIds();
-  }
-
-  public boolean isGuide(@NonNull BookmarkCategory category)
-  {
-    return category.isFromCatalog() && nativeIsGuide(category.getAccessRules().ordinal());
-  }
-
   public void requestRouteTags()
   {
     nativeRequestCatalogTags();
-  }
-
-  public void requestCustomProperties()
-  {
-    nativeRequestCatalogCustomProperties();
-  }
-
-  public void pingBookmarkCatalog()
-  {
-    nativePingBookmarkCatalog();
-  }
-
-  public void checkExpiredCategories()
-  {
-    nativeCheckExpiredCategories();
-  }
-
-  public void deleteExpiredCategories()
-  {
-    nativeDeleteExpiredCategories();
-  }
-
-  public void resetExpiredCategories()
-  {
-    nativeResetExpiredCategories();
-  }
-
-  public boolean isCategoryFromCatalog(long catId)
-  {
-    return nativeIsCategoryFromCatalog(catId);
   }
 
   public boolean hasLastSortingType(long catId) { return nativeHasLastSortingType(catId); }
@@ -895,33 +566,11 @@ public enum BookmarkManager
   }
 
   @NonNull
-  public List<BookmarkCategory> getChildrenCollections(long catId)
-  {
-    return mCurrentDataProvider.getChildrenCollections(catId);
-  }
-
-  public boolean isCompilation(long catId)
-  {
-    return nativeIsCompilation(catId);
-  }
-
-  public int getCompilationType(long catId)
-  {
-    return nativeGetCompilationType(catId);
-  }
-
-  @NonNull
   native BookmarkCategory nativeGetBookmarkCategory(long catId);
   @NonNull
   native BookmarkCategory[] nativeGetBookmarkCategories();
   @NonNull
   native BookmarkCategory[] nativeGetChildrenCategories(long catId);
-  @NonNull
-  native BookmarkCategory[] nativeGetChildrenCollections(long catId);
-
-  native boolean nativeIsCompilation(long catId);
-
-  native int nativeGetCompilationType(long catId);
 
   @NonNull
   public String getBookmarkName(@IntRange(from = 0) long bookmarkId)
@@ -1048,16 +697,6 @@ public enum BookmarkManager
     return nativeGetElevationActivePointDistance(trackId);
   }
 
-  private native int nativeGetCategoriesCount();
-
-  private native int nativeGetCategoryPositionById(long catId);
-
-  private native long nativeGetCategoryIdByPosition(int position);
-
-  private native int nativeGetBookmarksCount(long catId);
-
-  private native int nativeGetTracksCount(long catId);
-
   @Nullable
   private native Bookmark nativeUpdateBookmarkPlacePage(long bmkId);
 
@@ -1124,25 +763,19 @@ public enum BookmarkManager
 
   private static native boolean nativeIsEditableBookmark(long bmkId);
 
-  private static native boolean nativeIsEditableTrack(long trackId);
-
   private static native boolean nativeIsEditableCategory(long catId);
 
   private static native boolean nativeIsSearchAllowed(long catId);
 
   private static native void nativePrepareForSearch(long catId);
 
-  private static native boolean nativeAreAllCategoriesVisible(int type);
+  private static native boolean nativeAreAllCategoriesVisible();
 
-  private static native boolean nativeAreAllCategoriesInvisible(int type);
+  private static native boolean nativeAreAllCategoriesInvisible();
 
-  private static native void nativeSetAllCategoriesVisibility(boolean visible, int type);
+  private static native void nativeSetChildCategoriesVisibility(long catId, boolean visible);
 
-  private static native boolean nativeAreAllCompilationsVisible(long catId, @CompilationType int compilationType);
-
-  private static native boolean nativeAreAllCompilationsInvisible(long catId, @CompilationType int compilationType);
-  
-  private static native void nativeSetChildCategoriesVisibility(long catId, @CompilationType int compilationType, boolean visible);
+  private static native void nativeSetAllCategoriesVisibility(boolean visible);
 
   private static native int nativeGetKmlFilesCountForConversion();
 
@@ -1162,9 +795,6 @@ public enum BookmarkManager
 
   private static native boolean nativeAreNotificationsEnabled();
 
-  private static native void nativeImportFromCatalog(@NonNull String serverId,
-                                                     @NonNull String filePath);
-
   private static native void nativeUploadToCatalog(int accessRules,
                                                    long catId);
 
@@ -1173,9 +803,6 @@ public enum BookmarkManager
 
   @NonNull
   private static native String nativeGetCatalogPublicLink(long catId);
-
-  @NonNull
-  private static native String nativeGetCatalogDownloadUrl(@NonNull String serverId);
 
   @NonNull
   private static native String nativeGetWebEditorUrl(@NonNull String serverId);
@@ -1190,17 +817,9 @@ public enum BookmarkManager
   private static native String nativeInjectCatalogUTMContent(@NonNull String url,
                                                              @UTM.UTMContentType int content);
 
-  private static native boolean nativeIsCategoryFromCatalog(long catId);
-
   private static native void nativeRequestCatalogTags();
 
   private static native void nativeRequestCatalogCustomProperties();
-
-  private static native void nativePingBookmarkCatalog();
-
-  private static native void nativeCheckExpiredCategories();
-  private static native void nativeDeleteExpiredCategories();
-  private static native void nativeResetExpiredCategories();
 
   private native boolean nativeHasLastSortingType(long catId);
 
@@ -1218,10 +837,6 @@ public enum BookmarkManager
   private native boolean nativeGetSortedCategory(long catId, @SortingType int sortingType,
                                                  boolean hasMyPosition, double lat, double lon,
                                                  long timestamp);
-
-  @NonNull
-  private static native String nativeGuidesIds();
-  private static native boolean nativeIsGuide(int accessRulesIndex);
 
   @NonNull
   private static native String nativeGetBookmarkName(@IntRange(from = 0) long bookmarkId);
@@ -1347,100 +962,6 @@ public enum BookmarkManager
   public interface BookmarksExpiredCategoriesListener
   {
     void onCheckExpiredCategories(boolean hasExpiredCategories);
-  }
-
-  public interface BookmarksCatalogListener
-  {
-    /**
-     * The method is called when the importing of a file from the catalog is started.
-     *
-     * @param serverId is server identifier of the file.
-     */
-    void onImportStarted(@NonNull String serverId);
-
-    /**
-     * The method is called when the importing of a file from the catalog is finished.
-     *
-     * @param serverId is server identifier of the file.
-     * @param catId is client identifier of the created bookmarks category.
-     * @param successful is result of the importing.
-     */
-    void onImportFinished(@NonNull String serverId, long catId, boolean successful);
-
-    /**
-     * The method is called when the tags were received from the server.
-     * @param successful is the result of the receiving.
-     * @param tagsGroups is the tags collection.
-     */
-    void onTagsReceived(boolean successful, @NonNull List<CatalogTagsGroup> tagsGroups, int tagsLimit);
-
-    /**
-     * The method is called when the custom properties were received from the server.
-     *  @param successful is the result of the receiving.
-     * @param properties is the properties collection.
-     */
-    void onCustomPropertiesReceived(boolean successful,
-                                    @NonNull List<CatalogCustomProperty> properties);
-
-    /**
-     * The method is called when the uploading to the catalog is started.
-     *
-     * @param originCategoryId is identifier of the uploading bookmarks category.
-     */
-    void onUploadStarted(long originCategoryId);
-
-    /**
-     * The method is called when the uploading to the catalog is finished.
-     *  @param uploadResult is result of the uploading.
-     * @param description is detailed description of the uploading result.
-     * @param originCategoryId is original identifier of the uploaded bookmarks category.
-     * @param resultCategoryId is identifier of the uploaded category after finishing.
-*                         In the case of bookmarks modification during uploading
-     */
-    void onUploadFinished(@NonNull UploadResult uploadResult, @NonNull String description,
-                          long originCategoryId, long resultCategoryId);
-  }
-
-  public static class DefaultBookmarksCatalogListener implements BookmarksCatalogListener
-  {
-    @Override
-    public void onImportStarted(@NonNull String serverId)
-    {
-      /* do noting by default */
-    }
-
-    @Override
-    public void onImportFinished(@NonNull String serverId, long catId, boolean successful)
-    {
-      /* do noting by default */
-    }
-
-    @Override
-    public void onTagsReceived(boolean successful, @NonNull List<CatalogTagsGroup> tagsGroups,
-                               int tagsLimit)
-    {
-      /* do noting by default */
-    }
-
-    @Override
-    public void onCustomPropertiesReceived(boolean successful,
-                                           @NonNull List<CatalogCustomProperty> properties)
-    {
-      /* do noting by default */
-    }
-
-    @Override
-    public void onUploadStarted(long originCategoryId)
-    {
-      /* do noting by default */
-    }
-
-    @Override
-    public void onUploadFinished(@NonNull UploadResult uploadResult, @NonNull String description,
-                                 long originCategoryId, long resultCategoryId)
-    {
-      /* do noting by default */
-    }
   }
 
   public interface OnElevationActivePointChangedListener

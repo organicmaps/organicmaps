@@ -9,10 +9,7 @@ import androidx.annotation.Nullable;
 
 import com.mapswithme.maps.Framework;
 import com.mapswithme.maps.routing.RoutePointInfo;
-import com.mapswithme.maps.search.HotelsFilter;
 import com.mapswithme.maps.search.Popularity;
-import com.mapswithme.maps.search.PriceFilterView;
-import com.mapswithme.maps.ugc.UGC;
 import com.mapswithme.util.Constants;
 
 // TODO consider refactoring to remove hack with MapObject unmarshalling itself and Bookmark at the same time.
@@ -27,19 +24,12 @@ public class Bookmark extends MapObject
 
   public Bookmark(@NonNull FeatureId featureId, @IntRange(from = 0) long categoryId,
                   @IntRange(from = 0) long bookmarkId, String title, @Nullable String secondaryTitle,
-                  @Nullable String subtitle, @Nullable String address,
-                  @Nullable int[] reachableByTaxiTypes, @Nullable String bookingSearchUrl,
-                  @Nullable RoutePointInfo routePointInfo,
-                  @OpeningMode int openingMode, boolean shouldShowUGC, boolean canBeRated,
-                  boolean canBeReviewed, @Nullable UGC.Rating[] ratings,
-                  @Nullable HotelsFilter.HotelType hotelType, @PriceFilterView.PriceDef int priceRate,
-                  @NonNull Popularity popularity, @NonNull String description,
-                  boolean isTopChoice, @Nullable String[] rawTypes)
+                  @Nullable String subtitle, @Nullable String address, @Nullable RoutePointInfo routePointInfo,
+                  @OpeningMode int openingMode, @NonNull Popularity popularity, @NonNull String description,
+                  @Nullable String[] rawTypes)
   {
     super(featureId, BOOKMARK, title, secondaryTitle, subtitle, address, 0, 0, "",
-          reachableByTaxiTypes, bookingSearchUrl, routePointInfo,
-          openingMode, shouldShowUGC, canBeRated, canBeReviewed, ratings, hotelType, priceRate,
-          popularity, description, RoadWarningMarkType.UNKNOWN.ordinal(), isTopChoice, rawTypes);
+          routePointInfo, openingMode, popularity, description, RoadWarningMarkType.UNKNOWN.ordinal(), rawTypes);
 
     mCategoryId = categoryId;
     mBookmarkId = bookmarkId;
@@ -159,13 +149,5 @@ public class Bookmark extends MapObject
   public String getHttpGe0Url(boolean addName)
   {
     return getGe0Url(addName).replaceFirst(Constants.Url.GE0_PREFIX, Constants.Url.HTTP_GE0_PREFIX);
-  }
-
-  @Nullable
-  public String getRelatedAuthorId()
-  {
-    BookmarkCategory.Author author = BookmarkManager.INSTANCE.getCategoryById(mCategoryId)
-                                                             .getAuthor();
-    return author != null ? author.getId() : null;
   }
 }

@@ -15,18 +15,10 @@ import com.mapswithme.maps.R;
 import com.mapswithme.maps.base.BaseToolbarActivity;
 import com.mapswithme.maps.bookmarks.data.BookmarkCategory;
 import com.mapswithme.maps.bookmarks.data.BookmarkManager;
-import com.mapswithme.util.SharedPropertiesUtils;
 import com.mapswithme.util.ThemeUtils;
 
 public class BookmarkCategoriesActivity extends BaseToolbarActivity
 {
-  public static final int REQ_CODE_DOWNLOAD_BOOKMARK_CATEGORY = 102;
-
-  public static void start(@NonNull Context context)
-  {
-    context.startActivity(new Intent(context, BookmarkCategoriesActivity.class));
-  }
-
   @CallSuper
   @Override
   public void onResume()
@@ -59,7 +51,7 @@ public class BookmarkCategoriesActivity extends BaseToolbarActivity
   @Override
   protected Class<? extends Fragment> getFragmentClass()
   {
-    return BookmarkCategoriesPagerFragment.class;
+    return BookmarkCategoriesFragment.class;
   }
 
   @Override
@@ -68,34 +60,22 @@ public class BookmarkCategoriesActivity extends BaseToolbarActivity
     return R.layout.bookmarks_activity;
   }
 
-  public static void startForResult(@NonNull Activity context, int initialPage,
-                                    @Nullable String catalogDeeplink,
-                                    @Nullable BookmarkCategory category)
+  public static void start(@NonNull Context context)
+  {
+    context.startActivity(new Intent(context, BookmarkCategoriesActivity.class));
+  }
+
+  public static void start(@NonNull Activity context, @Nullable BookmarkCategory category)
   {
     Bundle args = new Bundle();
-    args.putInt(BookmarkCategoriesPagerFragment.ARG_CATEGORIES_PAGE, initialPage);
-    args.putString(BookmarkCategoriesPagerFragment.ARG_CATALOG_DEEPLINK, catalogDeeplink);
     args.putParcelable(BookmarksListFragment.EXTRA_CATEGORY, category);
     Intent intent = new Intent(context, BookmarkCategoriesActivity.class);
     intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP).putExtras(args);
-    context.startActivityForResult(intent, REQ_CODE_DOWNLOAD_BOOKMARK_CATEGORY);
+    context.startActivity(intent);
   }
 
-  public static void startForResult(@NonNull Activity context, int initialPage,
-                                    @Nullable String catalogDeeplink)
+  public static void start(@NonNull Activity context)
   {
-    startForResult(context, initialPage, catalogDeeplink, null);
-  }
-
-  public static void startForResult(@NonNull Activity context)
-  {
-    int initialPage = SharedPropertiesUtils.getLastVisibleBookmarkCategoriesPage(context);
-    startForResult(context, initialPage, null, null);
-  }
-
-  public static void startForResult(@NonNull Activity context, @Nullable BookmarkCategory category)
-  {
-    int initialPage = SharedPropertiesUtils.getLastVisibleBookmarkCategoriesPage(context);
-    startForResult(context, initialPage, null, category);
+    start(context, null);
   }
 }

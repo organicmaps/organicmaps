@@ -4,7 +4,6 @@ import android.content.Context;
 
 import androidx.annotation.NonNull;
 
-import com.mapswithme.maps.maplayer.guides.GuidesManager;
 import com.mapswithme.maps.maplayer.isolines.IsolinesManager;
 import com.mapswithme.maps.maplayer.subway.SubwayManager;
 import com.mapswithme.maps.maplayer.traffic.TrafficManager;
@@ -33,7 +32,6 @@ public enum Mode
           TrafficManager.INSTANCE.toggle();
           SubwayManager.from(context).setEnabled(false);
           IsolinesManager.from(context).setEnabled(false);
-          GuidesManager.from(context).setEnabled(false);
         }
       },
   SUBWAY
@@ -56,7 +54,6 @@ public enum Mode
           SubwayManager.from(context).toggle();
           TrafficManager.INSTANCE.setEnabled(false);
           IsolinesManager.from(context).setEnabled(false);
-          GuidesManager.from(context).setEnabled(false);
         }
       },
 
@@ -78,30 +75,6 @@ public enum Mode
         public void toggle(@NonNull Context context)
         {
           IsolinesManager.from(context).toggle();
-          TrafficManager.INSTANCE.setEnabled(false);
-          SubwayManager.from(context).setEnabled(false);
-          GuidesManager.from(context).setEnabled(false);
-        }
-      },
-  GUIDES
-      {
-        @Override
-        public boolean isEnabled(@NonNull Context context)
-        {
-          return GuidesManager.from(context).isEnabled();
-        }
-
-        @Override
-        public void setEnabled(@NonNull Context context, boolean isEnabled)
-        {
-          GuidesManager.from(context).setEnabled(isEnabled);
-        }
-
-        @Override
-        public void toggle(@NonNull Context context)
-        {
-          GuidesManager.from(context).toggle();
-          IsolinesManager.from(context).setEnabled(false);
           TrafficManager.INSTANCE.setEnabled(false);
           SubwayManager.from(context).setEnabled(false);
         }

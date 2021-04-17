@@ -2,7 +2,6 @@
 <manifest
     package="com.mapswithme.maps"
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:installLocation="auto">
 
   <uses-feature
@@ -30,10 +29,6 @@
   <uses-permission android:name="android.permission.WAKE_LOCK"/>
   <uses-permission android:name="android.permission.BATTERY_STATS"/>
   <uses-permission android:name="android.permission.FOREGROUND_SERVICE"/>
-
-  <!-- Temporary disable in-app purchases //-->
-  <uses-permission android:name="com.android.vending.BILLING" tools:node="remove" />
-
 
   <!-- -->
   <supports-screens
@@ -116,20 +111,6 @@
           android:scheme="mapswithme"/>
       </intent-filter>
 
-      <intent-filter android:autoVerify="true">
-        <action android:name="android.intent.action.VIEW"/>
-
-        <category android:name="android.intent.category.DEFAULT"/>
-        <category android:name="android.intent.category.BROWSABLE"/>
-
-        <data
-          android:host="dlink.maps.me"
-          android:scheme="https"/>
-        <data
-          android:host="dlink.mapsme.devmail.ru"
-          android:scheme="https"/>
-      </intent-filter>
-
       <intent-filter>
         <action android:name="android.intent.action.VIEW"/>
 
@@ -198,11 +179,6 @@
         android:configChanges="screenLayout|screenSize"
         android:label="@string/app_name"/>
 
-    <activity
-      android:name="com.mapswithme.maps.bookmarks.BookmarksCatalogActivity"
-      android:configChanges="orientation|screenLayout|screenSize"
-      android:label="@string/guides_catalogue_title"/>
-
     <activity-alias
       android:name="com.mapswithme.maps.DownloadResourcesActivity"
       android:label="@string/app_name"
@@ -241,7 +217,7 @@
     <activity
         android:name="com.mapswithme.maps.bookmarks.BookmarkCategoriesActivity"
         android:configChanges="orientation|screenLayout|screenSize"
-        android:label="@string/bookmarks_guides"
+        android:label="@string/bookmarks"
         android:parentActivityName="com.mapswithme.maps.MwmActivity"
         android:windowSoftInputMode="adjustResize" />
 
@@ -275,69 +251,14 @@
         android:parentActivityName="com.mapswithme.maps.MwmActivity" />
 
     <activity
-        android:name="com.mapswithme.maps.gallery.GalleryActivity"
-        android:parentActivityName="com.mapswithme.maps.MwmActivity" />
-
-    <activity
-        android:name="com.mapswithme.maps.gallery.FullScreenGalleryActivity"
-        android:parentActivityName="com.mapswithme.maps.MwmActivity" />
-
-    <activity
-      android:name=".discovery.DiscoveryActivity"
-      android:parentActivityName=".MwmActivity" />
-
-    <activity
-      android:name="com.mapswithme.maps.auth.PhoneAuthActivity"
-      android:configChanges="orientation|screenLayout|screenSize|keyboardHidden"
-      android:label="@string/authorization_button_sign_in"/>
-    
-    <activity
-      android:name="com.mapswithme.maps.gdpr.MwmOptOutActivity"
-      android:label="@string/subtittle_opt_out"
-      android:configChanges="keyboardHidden|orientation|screenSize">
-    </activity>
-    <activity
-      android:name="com.mapswithme.maps.ugc.routes.UgcRouteTagsActivity"
-      android:label="@string/ugc_route_tags_screen_label">
-    </activity>
-    <activity
-      android:name="com.mapswithme.maps.ugc.routes.UgcRouteSharingOptionsActivity"
-      android:label="@string/sharing_options"/>
-    <activity
-      android:name="com.mapswithme.maps.ugc.routes.UgcRouteEditSettingsActivity"
+      android:name="com.mapswithme.maps.bookmarks.BookmarkCategorySettingsActivity"
       android:label="@string/list_settings"/>
-    <activity android:name=".purchase.BookmarkPaymentActivity"/>
-    <activity android:name="com.mapswithme.maps.ugc.routes.SendLinkPlaceholderActivity"/>
-    <activity
-      android:name="com.mapswithme.maps.ugc.routes.UgcRoutePropertiesActivity"
-      android:label="@string/select_properties"/>
     <activity
       android:name="com.mapswithme.maps.widget.placepage.PlaceDescriptionActivity"
       android:label="@string/place_description_title"/>
     <activity
-      android:name="com.mapswithme.maps.bookmarks.description.BookmarksDescriptionActivity"
-      android:label="@string/description_guide"/>
-    <activity
-      android:name="com.mapswithme.maps.ugc.routes.EditCategoryNameActivity"
-      android:label="@string/name"/>
-    <activity
-      android:name="com.mapswithme.maps.ugc.routes.EditCategoryDescriptionActivity"
-      android:label="@string/description_guide"/>
-    <activity
       android:name="com.mapswithme.maps.settings.DrivingOptionsActivity"
       android:label="@string/driving_options_title"/>
-    <activity
-      android:name="com.mapswithme.maps.purchase.BookmarkSubscriptionActivity"
-      android:screenOrientation="portrait"
-      android:configChanges="orientation|screenLayout|screenSize|keyboardHidden"/>
-    <activity
-      android:name="com.mapswithme.maps.purchase.BookmarksAllSubscriptionActivity"
-      android:screenOrientation="portrait"
-      android:configChanges="orientation|screenLayout|screenSize|keyboardHidden"/>
-    <activity
-      android:name="com.mapswithme.maps.purchase.BookmarksSightsSubscriptionActivity"
-      android:screenOrientation="portrait"
-      android:configChanges="orientation|screenLayout|screenSize|keyboardHidden"/>
     <service
       android:name="com.mapswithme.maps.background.WorkerService"
       android:permission="android.permission.BIND_JOB_SERVICE"
@@ -357,15 +278,6 @@
     <service android:name="com.mapswithme.maps.location.TrackRecorderWakeService"
              android:permission="android.permission.BIND_JOB_SERVICE"
              android:exported="false"/>
-
-    <!-- our custom receiver, that will call Aloha & other handlers -->
-    <receiver
-        android:name="com.mapswithme.util.MultipleTrackerReferrerReceiver"
-        android:exported="true">
-      <intent-filter>
-        <action android:name="com.android.vending.INSTALL_REFERRER"/>
-      </intent-filter>
-    </receiver>
 
     <receiver
       android:name="com.mapswithme.maps.bookmarks.SystemDownloadCompletedReceiver"

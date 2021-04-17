@@ -12,8 +12,6 @@ import com.mapswithme.maps.Framework;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.base.BaseMwmFragment;
 import com.mapswithme.maps.base.OnBackPressListener;
-import com.mapswithme.maps.taxi.TaxiInfo;
-import com.mapswithme.maps.taxi.TaxiManager;
 
 public class RoutingPlanFragment extends BaseMwmFragment
                               implements OnBackPressListener
@@ -39,16 +37,6 @@ public class RoutingPlanFragment extends BaseMwmFragment
   public void updateBuildProgress(int progress, @Framework.RouterType int router)
   {
     mPlanController.updateBuildProgress(progress, router);
-  }
-
-  public void showTaxiInfo(@NonNull TaxiInfo info)
-  {
-    mPlanController.showTaxiInfo(info);
-  }
-
-  public void showTaxiError(@NonNull TaxiManager.ErrorCode code)
-  {
-    mPlanController.showTaxiError(code);
   }
 
   @Override

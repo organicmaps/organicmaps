@@ -1,11 +1,6 @@
 package com.mapswithme.maps.search;
 
-import static com.mapswithme.maps.search.SearchResult.TYPE_RESULT;
-import static com.mapswithme.maps.search.SearchResult.TYPE_SUGGEST;
-import static com.mapswithme.util.Constants.Rating.RATING_INCORRECT_VALUE;
-
 import android.content.Context;
-import android.content.res.Resources;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.text.SpannableStringBuilder;
@@ -13,31 +8,24 @@ import android.text.Spanned;
 import android.text.TextUtils;
 import android.text.style.ForegroundColorSpan;
 import android.text.style.StyleSpan;
-import android.util.SparseArray;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-
 import androidx.annotation.AttrRes;
 import androidx.annotation.ColorInt;
-import androidx.annotation.DrawableRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.mapswithme.HotelUtils;
 import com.mapswithme.maps.R;
-import com.mapswithme.maps.bookmarks.data.FeatureId;
-import com.mapswithme.maps.ugc.UGC;
 import com.mapswithme.util.Graphics;
 import com.mapswithme.util.ThemeUtils;
 import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.Utils;
 
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.Set;
+import static com.mapswithme.maps.search.SearchResult.TYPE_RESULT;
+import static com.mapswithme.maps.search.SearchResult.TYPE_SUGGEST;
 
 class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchDataViewHolder>
 {
@@ -45,7 +33,6 @@ class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchDataViewHol
   @Nullable
   private SearchResult[] mResults;
   @NonNull
-  private final FilteredHotelIds mFilteredHotelIds = new FilteredHotelIds();
   private final Drawable mClosedMarkerBackground;
 
   static abstract class SearchDataViewHolder extends RecyclerView.ViewHolder
@@ -128,24 +115,6 @@ class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchDataViewHol
     abstract void processClick(SearchResult result, int order);
   }
 
-  private static class FilteredHotelIds
-  {
-    @NonNull
-    private final SparseArray<Set<FeatureId>> mFilteredHotelIds = new SparseArray<>();
-
-    void put(@BookingFilter.Type int type, @NonNull FeatureId[] hotelsId)
-    {
-      mFilteredHotelIds.put(type, new HashSet<>(Arrays.asList(hotelsId)));
-    }
-
-    boolean contains(@BookingFilter.Type int type, @NonNull FeatureId id)
-    {
-      Set<FeatureId>  ids = mFilteredHotelIds.get(type);
-
-      return ids != null && ids.contains(id);
-    }
-  }
-
   private class SuggestViewHolder extends BaseResultViewHolder
   {
     SuggestViewHolder(@NonNull View view)
@@ -175,17 +144,11 @@ class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchDataViewHol
     @NonNull
     final View mClosedMarker;
     @NonNull
-    final View mPopularity;
-    @NonNull
     final TextView mDescription;
     @NonNull
     final TextView mRegion;
     @NonNull
     final TextView mDistance;
-    @NonNull
-    final TextView mPriceCategory;
-    @NonNull
-    final View mSale;
 
     @Override
     int getTintAttr()
@@ -194,42 +157,14 @@ class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchDataViewHol
     }
 
     // FIXME: Better format based on result type
-    private CharSequence formatDescription(SearchResult result, boolean isHotelAvailable)
+    private CharSequence formatDescription(SearchResult result)
     {
       String localizedType = Utils.getLocalizedFeatureType(mFrame.getContext(),
                                                            result.description.featureType);
       final SpannableStringBuilder res = new SpannableStringBuilder(localizedType);
       final SpannableStringBuilder tail = new SpannableStringBuilder();
 
-      int stars = result.description.stars;
-      if (stars > 0 || result.description.rating != RATING_INCORRECT_VALUE || isHotelAvailable)
-      {
-        if (stars > 0)
-        {
-          tail.append(" • ");
-          tail.append(HotelUtils.formatStars(stars, itemView.getResources()));
-        }
-
-        if (result.description.rating != RATING_INCORRECT_VALUE)
-        {
-          Resources rs = itemView.getResources();
-          String s = rs.getString(R.string.place_page_booking_rating,
-                                  UGC.nativeFormatRating(result.description.rating));
-          tail
-            .append(" • ")
-            .append(colorizeString(s, rs.getColor(R.color.base_green)));
-        }
-
-        if (isHotelAvailable)
-        {
-          Resources rs = itemView.getResources();
-          String s = itemView.getResources().getString(R.string.hotel_available);
-          tail
-            .append(" • ")
-            .append(colorizeString(s, rs.getColor(R.color.base_green)));
-        }
-      }
-      else if (!TextUtils.isEmpty(result.description.airportIata))
+      if (!TextUtils.isEmpty(result.description.airportIata))
       {
         tail.append(" • " + result.description.airportIata);
       }
@@ -269,12 +204,9 @@ class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchDataViewHol
       mFrame = view;
       mName = view.findViewById(R.id.title);
       mClosedMarker = view.findViewById(R.id.closed);
-      mPopularity = view.findViewById(R.id.popular_rating_view);
       mDescription =  view.findViewById(R.id.description);
       mRegion = view.findViewById(R.id.region);
       mDistance = view.findViewById(R.id.distance);
-      mPriceCategory = view.findViewById(R.id.price_category);
-      mSale = view.findViewById(R.id.sale);
 
       mClosedMarker.setBackgroundDrawable(mClosedMarkerBackground);
     }
@@ -293,20 +225,9 @@ class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchDataViewHol
       // TODO: Support also "Open Now" mark.
 
       UiUtils.showIf(isClosedVisible(), mClosedMarker);
-      boolean isHotelAvailable = mResult.isHotel &&
-                                 mFilteredHotelIds.contains(BookingFilter.TYPE_AVAILABILITY,
-                                                            mResult.description.featureId);
-
-      UiUtils.showIf(isPopularVisible(), mPopularity);
-      UiUtils.setTextAndHideIfEmpty(mDescription, formatDescription(mResult, isHotelAvailable));
+      UiUtils.setTextAndHideIfEmpty(mDescription, formatDescription(mResult));
       UiUtils.setTextAndHideIfEmpty(mRegion, mResult.description.region);
       UiUtils.setTextAndHideIfEmpty(mDistance, mResult.description.distance);
-      UiUtils.setTextAndHideIfEmpty(mPriceCategory, mResult.description.pricing);
-
-      boolean hasDeal = mResult.isHotel &&
-                        mFilteredHotelIds.contains(BookingFilter.TYPE_DEALS,
-                                                   mResult.description.featureId);
-      UiUtils.showIf(hasDeal, mSale);
     }
 
     private boolean isClosedVisible()
@@ -334,29 +255,15 @@ class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchDataViewHol
     private void setBackground()
     {
       Context context = mSearchFragment.getActivity();
-      @AttrRes
       int itemBg = ThemeUtils.getResource(context, R.attr.clickableBackground);
       int bottomPad = mFrame.getPaddingBottom();
       int topPad = mFrame.getPaddingTop();
       int rightPad = mFrame.getPaddingRight();
       int leftPad = mFrame.getPaddingLeft();
-      mFrame.setBackgroundResource(needSpecificBackground() ? getSpecificBackground() : itemBg);
+      mFrame.setBackgroundResource(itemBg);
       // On old Android (4.1) after setting the view background the previous paddings
       // are discarded for unknown reasons, that's why restoring the previous paddings is needed.
       mFrame.setPadding(leftPad, topPad, rightPad, bottomPad);
-    }
-
-    @DrawableRes
-    int getSpecificBackground()
-    {
-      return R.color.bg_search_available_hotel;
-    }
-
-    boolean needSpecificBackground()
-    {
-      return mResult.isHotel &&
-             mFilteredHotelIds.contains(BookingFilter.TYPE_AVAILABILITY,
-                                        mResult.description.featureId);
     }
 
     @Override
@@ -430,12 +337,6 @@ class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchDataViewHol
   void refreshData(@Nullable SearchResult[] results)
   {
     mResults = results;
-    notifyDataSetChanged();
-  }
-
-  void setFilteredHotels(@BookingFilter.Type int type, @NonNull FeatureId[] hotelsId)
-  {
-    mFilteredHotelIds.put(type, hotelsId);
     notifyDataSetChanged();
   }
 }

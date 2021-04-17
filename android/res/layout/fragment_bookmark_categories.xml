@@ -14,12 +14,6 @@
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:orientation="vertical">
-      <com.mapswithme.maps.widget.BookmarkBackupView
-        android:id="@+id/backup"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:visibility="gone"
-        android:background="?cardBackground"/>
       <include
         layout="@layout/recycler_default"
         android:id="@+id/recycler"
@@ -27,10 +21,5 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="@dimen/bookmark_recycler_view_bottom_margin"/>
     </LinearLayout>
-    <include
-      android:id="@+id/placeholder_loading"
-      layout="@layout/placeholder_with_progressbar_layout"
-      android:visibility="gone"
-      tools:visibility="visible" />
   </FrameLayout>
 </androidx.core.widget.NestedScrollView>

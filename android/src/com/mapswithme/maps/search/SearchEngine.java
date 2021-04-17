@@ -9,7 +9,6 @@ import androidx.annotation.Nullable;
 import com.mapswithme.maps.Framework;
 import com.mapswithme.maps.api.ParsedMwmRequest;
 import com.mapswithme.maps.base.Initializable;
-import com.mapswithme.maps.bookmarks.data.FeatureId;
 import com.mapswithme.util.Language;
 import com.mapswithme.util.Listeners;
 import com.mapswithme.util.concurrency.UiThread;
@@ -21,7 +20,6 @@ import java.nio.charset.StandardCharsets;
 public enum SearchEngine implements NativeSearchListener,
                                     NativeMapSearchListener,
                                     NativeBookmarkSearchListener,
-                                    NativeBookingFilterListener,
                                     Initializable<Void>
 {
   INSTANCE;
@@ -34,26 +32,25 @@ public enum SearchEngine implements NativeSearchListener,
   private String mQuery;
 
   @Override
-  public void onResultsUpdate(@NonNull final SearchResult[] results, final long timestamp,
-                              final boolean isHotel)
+  public void onResultsUpdate(@NonNull final SearchResult[] results, final long timestamp)
   {
     UiThread.run(
         () ->
         {
           for (NativeSearchListener listener : mListeners)
-            listener.onResultsUpdate(results, timestamp, isHotel);
+            listener.onResultsUpdate(results, timestamp);
           mListeners.finishIterate();
         });
   }
 
   @Override
-  public void onResultsEnd(final long timestamp, final boolean isHotel)
+  public void onResultsEnd(final long timestamp)
   {
     UiThread.run(
         () ->
         {
           for (NativeSearchListener listener : mListeners)
-            listener.onResultsEnd(timestamp, isHotel);
+            listener.onResultsEnd(timestamp);
           mListeners.finishIterate();
         });
   }
@@ -84,26 +81,12 @@ public enum SearchEngine implements NativeSearchListener,
     mBookmarkListeners.finishIterate();
   }
 
-  @Override
-  public void onFilterHotels(@BookingFilter.Type int type, @Nullable FeatureId[] hotels)
-  {
-    UiThread.run(
-        () ->
-        {
-          for (NativeBookingFilterListener listener : mHotelListeners)
-            listener.onFilterHotels(type, hotels);
-          mHotelListeners.finishIterate();
-        });
-  }
-
   @NonNull
   private final Listeners<NativeSearchListener> mListeners = new Listeners<>();
   @NonNull
   private final Listeners<NativeMapSearchListener> mMapListeners = new Listeners<>();
   @NonNull
   private final Listeners<NativeBookmarkSearchListener> mBookmarkListeners = new Listeners<>();
-  @NonNull
-  private final Listeners<NativeBookingFilterListener> mHotelListeners = new Listeners<>();
 
   public void addListener(NativeSearchListener listener)
   {
@@ -135,16 +118,6 @@ public enum SearchEngine implements NativeSearchListener,
     mBookmarkListeners.unregister(listener);
   }
 
-  public void addHotelListener(@NonNull NativeBookingFilterListener listener)
-  {
-    mHotelListeners.register(listener);
-  }
-
-  public void removeHotelListener(@NonNull NativeBookingFilterListener listener)
-  {
-    mHotelListeners.unregister(listener);
-  }
-
   private native void nativeInit();
 
   /**
@@ -155,28 +128,24 @@ public enum SearchEngine implements NativeSearchListener,
    */
   @MainThread
   public boolean search(@NonNull Context context, String query, long timestamp, boolean hasLocation,
-                        double lat, double lon, @Nullable HotelsFilter hotelsFilter,
-                        @Nullable BookingFilterParams bookingParams)
+                        double lat, double lon)
   {
     return nativeRunSearch(query.getBytes(StandardCharsets.UTF_8), Language.getKeyboardLocale(context),
-                           timestamp, hasLocation, lat, lon, hotelsFilter, bookingParams);
+                           timestamp, hasLocation, lat, lon);
   }
 
   @MainThread
   public void searchInteractive(@NonNull String query, @NonNull String locale, long timestamp,
-                                       boolean isMapAndTable, @Nullable HotelsFilter hotelsFilter,
-                                       @Nullable BookingFilterParams bookingParams)
+                                       boolean isMapAndTable)
   {
-    nativeRunInteractiveSearch(query.getBytes(StandardCharsets.UTF_8), locale, timestamp, isMapAndTable,
-                               hotelsFilter, bookingParams);
+    nativeRunInteractiveSearch(query.getBytes(StandardCharsets.UTF_8), locale, timestamp, isMapAndTable);
   }
 
   @MainThread
   public void searchInteractive(@NonNull Context context, @NonNull String query, long timestamp,
-                                boolean isMapAndTable, @Nullable HotelsFilter hotelsFilter,
-                                @Nullable BookingFilterParams bookingParams)
+                                boolean isMapAndTable)
   {
-    searchInteractive(query, Language.getKeyboardLocale(context), timestamp, isMapAndTable, hotelsFilter, bookingParams);
+    searchInteractive(query, Language.getKeyboardLocale(context), timestamp, isMapAndTable);
   }
 
   @MainThread
@@ -255,16 +224,13 @@ public enum SearchEngine implements NativeSearchListener,
    * @param bytes utf-8 formatted bytes of query.
    */
   private static native boolean nativeRunSearch(byte[] bytes, String language, long timestamp, boolean hasLocation,
-                                                double lat, double lon, @Nullable HotelsFilter hotelsFilter,
-                                                @Nullable BookingFilterParams bookingParams);
+                                                double lat, double lon);
 
   /**
    * @param bytes utf-8 formatted query bytes
-   * @param bookingParams
    */
   private static native void nativeRunInteractiveSearch(byte[] bytes, String language, long timestamp,
-                                                        boolean isMapAndTable, @Nullable HotelsFilter hotelsFilter,
-                                                        @Nullable BookingFilterParams bookingParams);
+                                                        boolean isMapAndTable);
 
   /**
    * @param bytes utf-8 formatted query bytes
@@ -280,10 +246,4 @@ public enum SearchEngine implements NativeSearchListener,
   private static native void nativeCancelEverywhereSearch();
 
   private static native void nativeCancelAllSearches();
-
-  /**
-   * @return all existing hotel types
-   */
-  @NonNull
-  static native HotelsFilter.HotelType[] nativeGetHotelTypes();
 }

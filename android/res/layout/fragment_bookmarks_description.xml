@@ -9,10 +9,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
-    <com.mapswithme.maps.bookmarks.BookmarkHeaderView
-      android:id="@+id/guide_info"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content" />
     <WebView
       android:id="@+id/webview"
       android:layout_width="match_parent"

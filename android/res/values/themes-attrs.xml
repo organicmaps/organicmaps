@@ -58,7 +58,6 @@
     <attr name="activeIconTint" format="color" />
     <attr name="activeIconBackground" format="reference" />
     <attr name="warmGray" format="color" />
-    <attr name="tagBackground" format="reference" />
     <attr name="sponsoredGalleryMore" format="reference" />
     <attr name="luggageLogo" format="reference" />
     <attr name="drivingOptionsViewBg" format="color" />

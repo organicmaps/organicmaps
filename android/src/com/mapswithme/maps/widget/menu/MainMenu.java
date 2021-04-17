@@ -1,18 +1,13 @@
 package com.mapswithme.maps.widget.menu;
 
 import android.view.View;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.mapswithme.maps.ClickMenuDelegate;
 import com.mapswithme.maps.MwmActivity;
 import com.mapswithme.maps.R;
-import com.mapswithme.maps.downloader.MapManager;
-import com.mapswithme.maps.downloader.UpdateInfo;
-import com.mapswithme.maps.maplayer.Mode;
 import com.mapswithme.maps.routing.RoutingController;
-import com.mapswithme.util.SharedPropertiesUtils;
 import com.mapswithme.util.UiUtils;
 
 public class MainMenu extends BaseMenu
@@ -45,7 +40,6 @@ public class MainMenu extends BaseMenu
 
   private final View mButtonsFrame;
   private final View mRoutePlanFrame;
-  private final View mNewsMarker;
 
   private final MenuToggle mToggle;
 
@@ -62,16 +56,6 @@ public class MainMenu extends BaseMenu
           }
         },
     ADD_PLACE(R.id.add_place)
-        {
-          @NonNull
-          @Override
-          public ClickMenuDelegate createClickDelegate(@NonNull MwmActivity activity,
-                                                       @NonNull Item item)
-          {
-            throw new UnsupportedOperationException("Main menu option doesn't support it!");
-          }
-        },
-    DOWNLOAD_GUIDES(R.id.download_guides)
         {
           @NonNull
           @Override
@@ -101,16 +85,6 @@ public class MainMenu extends BaseMenu
             return new MwmActivity.PointToPointDelegate(activity, item);
           }
         },
-//    DISCOVERY(R.id.discovery)
-//        {
-//          @NonNull
-//          @Override
-//          public ClickMenuDelegate createClickDelegate(@NonNull MwmActivity activity,
-//                                                       @NonNull Item item)
-//          {
-//            return new MwmActivity.DiscoveryDelegate(activity, item);
-//          }
-//        },
     BOOKMARKS(R.id.bookmarks)
         {
           @NonNull
@@ -227,29 +201,6 @@ public class MainMenu extends BaseMenu
   }
 
   @Override
-  public void updateMarker()
-  {
-    UpdateInfo info = MapManager.nativeGetUpdateInfo(null);
-    int count = (info == null ? 0 : info.filesCount);
-
-    boolean show = (count > 0 && !isOpen());
-
-    UiUtils.showIf(show, mNewsMarker);
-
-    if (show)
-      return;
-
-    for (Mode mode : Mode.values())
-    {
-      show = SharedPropertiesUtils.shouldShowNewMarkerForLayerMode(mFrame.getContext(), mode);
-      if (show)
-        break;
-    }
-
-    UiUtils.showIf(show, mNewsMarker);
-  }
-
-  @Override
   protected void setToggleState(boolean open, boolean animate)
   {
     // Do nothing.
@@ -258,10 +209,8 @@ public class MainMenu extends BaseMenu
   private void init()
   {
     mapItem(Item.ADD_PLACE);
-    mapItem(Item.DOWNLOAD_GUIDES);
     mapItem(Item.SEARCH);
     mapItem(Item.POINT_TO_POINT);
-//    mapItem(Item.DISCOVERY);
     mapItem(Item.BOOKMARKS);
     mapItem(Item.SHARE_MY_LOCATION);
     mapItem(Item.DOWNLOAD_MAPS);
@@ -279,8 +228,6 @@ public class MainMenu extends BaseMenu
 
     mToggle = new MenuToggle(mLineFrame, getHeightResId());
     mapItem(Item.MENU, mLineFrame);
-
-    mNewsMarker = mButtonsFrame.findViewById(R.id.marker);
 
     init();
   }

@@ -29,12 +29,4 @@ class CoreBookmarkCategoriesDataProvider implements BookmarkCategoriesDataProvid
     BookmarkCategory[] categories = BookmarkManager.INSTANCE.nativeGetChildrenCategories(parentId);
     return Arrays.asList(categories);
   }
-
-  @NonNull
-  @Override
-  public List<BookmarkCategory> getChildrenCollections(long parentId)
-  {
-    BookmarkCategory[] collections = BookmarkManager.INSTANCE.nativeGetChildrenCollections(parentId);
-    return Arrays.asList(collections);
-  }
 }

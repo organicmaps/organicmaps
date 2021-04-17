@@ -26,10 +26,7 @@ set(
   com/mapswithme/core/logging.hpp
   com/mapswithme/core/ScopedEnv.hpp
   com/mapswithme/core/ScopedLocalRef.hpp
-  com/mapswithme/maps/discovery/Locals.hpp
   com/mapswithme/maps/Framework.hpp
-  com/mapswithme/maps/guides/Guides.hpp
-  com/mapswithme/maps/promo/Promo.hpp
   com/mapswithme/maps/SearchEngine.hpp
   com/mapswithme/opengl/android_gl_utils.hpp
   com/mapswithme/opengl/androidoglcontext.hpp
@@ -44,16 +41,12 @@ set(
   com/mapswithme/core/jni_helper.cpp
   com/mapswithme/core/logging.cpp
   com/mapswithme/maps/bookmarks/data/BookmarkManager.cpp
-  com/mapswithme/maps/discovery/DiscoveryManager.cpp
-  com/mapswithme/maps/discovery/Locals.cpp
   com/mapswithme/maps/DisplayedCategories.cpp
   com/mapswithme/maps/DownloadResourcesLegacyActivity.cpp
   com/mapswithme/maps/editor/Editor.cpp
   com/mapswithme/maps/editor/OpeningHours.cpp
   com/mapswithme/maps/editor/OsmOAuth.cpp
   com/mapswithme/maps/Framework.cpp
-  com/mapswithme/maps/guides/Guides.cpp
-  com/mapswithme/maps/guides/GuidesManager.cpp
   com/mapswithme/maps/isolines/IsolinesManager.cpp
   com/mapswithme/maps/LightFramework.cpp
   com/mapswithme/maps/LocationHelper.cpp
@@ -61,17 +54,13 @@ set(
   com/mapswithme/maps/MapFragment.cpp
   com/mapswithme/maps/MapManager.cpp
   com/mapswithme/maps/MwmApplication.cpp
-  com/mapswithme/maps/onboarding/Onboarding.cpp
   com/mapswithme/maps/PrivateVariables.cpp
-  com/mapswithme/maps/promo/Promo.cpp
   com/mapswithme/maps/routing/RoutingOptions.cpp
   com/mapswithme/maps/SearchEngine.cpp
   com/mapswithme/maps/SearchRecents.cpp
   com/mapswithme/maps/settings/UnitLocale.cpp
   com/mapswithme/maps/sound/tts.cpp
-  com/mapswithme/maps/Sponsored.cpp
   com/mapswithme/maps/subway/SubwayManager.cpp
-  com/mapswithme/maps/taxi/TaxiManager.cpp
   com/mapswithme/maps/TrackRecorder.cpp
   com/mapswithme/maps/TrafficState.cpp
   com/mapswithme/maps/UserMarkHelper.cpp

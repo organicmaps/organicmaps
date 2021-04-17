@@ -23,10 +23,9 @@ public class FloatingSearchToolbarController extends SearchToolbarController
   }
 
   public FloatingSearchToolbarController(@NonNull Activity activity,
-                                         @Nullable SearchToolbarListener listener,
-                                         @Nullable RoomsGuestsMenuStateCallback callback)
+                                         @Nullable SearchToolbarListener listener)
   {
-    super(activity.getWindow().getDecorView(), activity, callback);
+    super(activity.getWindow().getDecorView(), activity);
     mListener = listener;
   }
 

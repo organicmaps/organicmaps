@@ -5,10 +5,6 @@
         android:title="@string/sort"
         android:icon="@drawable/ic_sort"/>
 
-<!--  <item android:id="@+id/sharing_options"-->
-<!--        android:title="@string/sharing_options"-->
-<!--        android:icon="@drawable/ic_add_members"/>-->
-
   <item android:id="@+id/share_category"
         android:title="@string/export_file"
         android:icon="@drawable/ic_share"/>
