@@ -18,7 +18,6 @@ import com.mapswithme.maps.maplayer.BottomSheetItem;
 import com.mapswithme.maps.maplayer.DefaultClickListener;
 import com.mapswithme.maps.maplayer.LayersAdapter;
 import com.mapswithme.maps.maplayer.LayersUtils;
-import com.mapswithme.maps.maplayer.guides.AbstractGuidesClickListener;
 import com.mapswithme.maps.widget.recycler.SpanningLinearLayoutManager;
 import com.mapswithme.util.Graphics;
 import com.mapswithme.util.UiUtils;
@@ -73,9 +72,6 @@ public class MainMenuRenderer implements MenuRenderer
     TextView addPlace = view.findViewById(R.id.add_place);
     addPlace.setOnClickListener(v -> mListener.onAddPlaceOptionSelected());
     Graphics.tint(addPlace);
-    TextView downloadGuides = view.findViewById(R.id.download_guides);
-    downloadGuides.setOnClickListener(v -> mListener.onSearchGuidesOptionSelected());
-    Graphics.tint(downloadGuides);
     View downloadMapsContainer = view.findViewById(R.id.download_maps_container);
     downloadMapsContainer.setOnClickListener(v -> mListener.onDownloadMapsOptionSelected());
     TextView downloadMaps = downloadMapsContainer.findViewById(R.id.download_maps);
@@ -100,8 +96,7 @@ public class MainMenuRenderer implements MenuRenderer
     mLayersAdapter.setLayerModes(LayersUtils.createItems(layersRecycler.getContext(),
                                                          new SubwayItemClickListener(),
                                                          new TrafficItemClickListener(),
-                                                         new IsolinesItemClickListener(),
-                                                         new GuidesItemClickListener(mNoConnectionListener)));
+                                                         new IsolinesItemClickListener()));
     layersRecycler.setAdapter(mLayersAdapter);
   }
 
@@ -157,20 +152,6 @@ public class MainMenuRenderer implements MenuRenderer
     {
       super.onItemClickInternal(v, item);
       mListener.onIsolinesLayerOptionSelected();
-    }
-  }
-
-  private class GuidesItemClickListener extends AbstractGuidesClickListener
-  {
-    GuidesItemClickListener(@NonNull NoConnectionListener connectionListener)
-    {
-      super(mLayersAdapter, connectionListener);
-    }
-
-    @Override
-    public void onItemClickInternal(@NonNull View v, @NonNull BottomSheetItem item)
-    {
-      mListener.onGuidesLayerOptionSelected();
     }
   }
 }

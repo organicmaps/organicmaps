@@ -5,6 +5,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.mapswithme.maps.content.DataSource;
 
+import java.util.List;
+
 public class CategoryDataSource extends RecyclerView.AdapterDataObserver implements
                                                                          DataSource<BookmarkCategory>
 {
@@ -27,10 +29,9 @@ public class CategoryDataSource extends RecyclerView.AdapterDataObserver impleme
   public void onChanged()
   {
     super.onChanged();
-    AbstractCategoriesSnapshot.Default snapshot =
-        BookmarkManager.INSTANCE.getCategoriesSnapshot(mCategory.getType().getFilterStrategy());
-    int index = snapshot.indexOfOrInvalidIndex(mCategory);
+    List<BookmarkCategory> categories = BookmarkManager.INSTANCE.getCategories();
+    int index = categories.indexOf(mCategory);
     if (index >= 0)
-      mCategory = snapshot.getItems().get(index);
+      mCategory = categories.get(index);
   }
 }

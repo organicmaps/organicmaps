@@ -12,14 +12,11 @@ import androidx.annotation.DrawableRes;
 import androidx.annotation.IdRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.annotation.StringRes;
 
 import com.mapswithme.maps.Framework;
 import com.mapswithme.maps.MwmApplication;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.settings.DrivingOptionsActivity;
-import com.mapswithme.maps.taxi.TaxiInfo;
-import com.mapswithme.maps.taxi.TaxiManager;
 import com.mapswithme.maps.widget.RoutingToolbarButton;
 import com.mapswithme.maps.widget.ToolbarController;
 import com.mapswithme.maps.widget.WheelProgressView;
@@ -135,11 +132,6 @@ public class RoutingPlanController extends ToolbarController
     RoutingController.get().setRouterType(Framework.ROUTER_TYPE_TRANSIT);
   }
 
-  private void onTaxiModeSelected(@NonNull View v)
-  {
-    RoutingController.get().setRouterType(Framework.ROUTER_TYPE_TAXI);
-  }
-
   private void onBicycleModeSelected(@NonNull View v)
   {
     RoutingController.get().setRouterType(Framework.ROUTER_TYPE_BICYCLE);
@@ -190,11 +182,8 @@ public class RoutingPlanController extends ToolbarController
       return;
     }
 
-    if (!isTaxiRouterType())
-    {
-      mRoutingBottomMenuController.setStartButton();
-      mRoutingBottomMenuController.showAltitudeChartAndRoutingDetails();
-    }
+    mRoutingBottomMenuController.setStartButton();
+    mRoutingBottomMenuController.showAltitudeChartAndRoutingDetails();
   }
 
   public void updateBuildProgress(int progress, @Framework.RouterType int router)
@@ -234,18 +223,7 @@ public class RoutingPlanController extends ToolbarController
 
     updateProgressLabels();
 
-    if (RoutingController.get().isTaxiRequestHandled())
-    {
-      if (!RoutingController.get().isInternetConnected())
-      {
-        showNoInternetError();
-        return;
-      }
-      button.complete();
-      return;
-    }
-
-    if (!RoutingController.get().isBuilding() && !RoutingController.get().isTaxiPlanning())
+    if (!RoutingController.get().isBuilding())
     {
       button.complete();
       return;
@@ -257,56 +235,9 @@ public class RoutingPlanController extends ToolbarController
       progressView.setProgress(progress);
   }
 
-  private boolean isTaxiRouterType()
-  {
-    return RoutingController.get().isTaxiRouterType();
-  }
-
   private boolean isTransitType()
   {
     return RoutingController.get().isTransitType();
-  }
-
-  public void showTaxiInfo(@NonNull TaxiInfo info)
-  {
-    mRoutingBottomMenuController.showTaxiInfo(info);
-  }
-
-  public void showTaxiError(@NonNull TaxiManager.ErrorCode code)
-  {
-    switch (code)
-    {
-      case NoProducts:
-        showError(R.string.taxi_not_found);
-        break;
-      case RemoteError:
-        showError(R.string.dialog_taxi_error);
-        break;
-      case NoProviders:
-        showError(R.string.taxi_no_providers);
-        break;
-      default:
-        throw new AssertionError("Unsupported uber error: " + code);
-    }
-  }
-
-  private void showNoInternetError()
-  {
-    @IdRes
-    int checkedId = mRouterTypes.getCheckedRadioButtonId();
-    RoutingToolbarButton rb = mRouterTypes.findViewById(checkedId);
-    rb.error();
-    showError(R.string.dialog_taxi_offline);
-  }
-
-  private void showError(@StringRes int message)
-  {
-    mRoutingBottomMenuController.showError(message);
-  }
-
-  void showStartButton(boolean show)
-  {
-    mRoutingBottomMenuController.showStartButton(show);
   }
 
   void saveRoutingPanelState(@NonNull Bundle outState)

@@ -21,14 +21,14 @@ import com.mapswithme.maps.R;
 import com.mapswithme.maps.base.BaseMwmDialogFragment;
 import com.mapswithme.maps.bookmarks.ChooseBookmarkCategoryFragment;
 import com.mapswithme.maps.bookmarks.ChooseBookmarkCategoryFragment.Listener;
-import com.mapswithme.maps.bookmarks.data.AbstractCategoriesSnapshot;
 import com.mapswithme.maps.bookmarks.data.BookmarkCategory;
 import com.mapswithme.maps.bookmarks.data.BookmarkInfo;
 import com.mapswithme.maps.bookmarks.data.BookmarkManager;
-import com.mapswithme.maps.bookmarks.data.FilterStrategy;
 import com.mapswithme.maps.bookmarks.data.Icon;
 import com.mapswithme.util.Graphics;
 import com.mapswithme.util.UiUtils;
+
+import java.util.List;
 
 public class EditBookmarkFragment extends BaseMwmDialogFragment implements View.OnClickListener, Listener
 {
@@ -164,12 +164,9 @@ public class EditBookmarkFragment extends BaseMwmDialogFragment implements View.
       return;
 
     final Bundle args = new Bundle();
-    FilterStrategy strategy = mBookmarkCategory.getType()
-                                               .getFilterStrategy();
-    AbstractCategoriesSnapshot.Default snapshot = BookmarkManager
-        .INSTANCE
-        .getCategoriesSnapshot(strategy);
-    final int index = snapshot.indexOfOrThrow(mBookmarkCategory);
+    final List<BookmarkCategory> categories = BookmarkManager.INSTANCE.getCategories();
+    final int index = categories.indexOf(mBookmarkCategory);
+
     args.putInt(ChooseBookmarkCategoryFragment.CATEGORY_POSITION, index);
     String className = ChooseBookmarkCategoryFragment.class.getName();
     ChooseBookmarkCategoryFragment frag =

@@ -22,20 +22,12 @@ import com.mapswithme.maps.api.ParsedRoutingData;
 import com.mapswithme.maps.api.ParsedSearchRequest;
 import com.mapswithme.maps.api.ParsingResult;
 import com.mapswithme.maps.api.RoutePoint;
-import com.mapswithme.maps.bookmarks.BookmarkCategoriesActivity;
-import com.mapswithme.maps.bookmarks.BookmarksCatalogActivity;
-import com.mapswithme.maps.bookmarks.BookmarksPageFactory;
 import com.mapswithme.maps.bookmarks.data.BookmarkManager;
 import com.mapswithme.maps.bookmarks.data.FeatureId;
 import com.mapswithme.maps.bookmarks.data.MapObject;
-import com.mapswithme.maps.purchase.BookmarksAllSubscriptionActivity;
-import com.mapswithme.maps.purchase.BookmarksSightsSubscriptionActivity;
-import com.mapswithme.maps.purchase.PurchaseUtils;
-import com.mapswithme.maps.purchase.SubscriptionType;
 import com.mapswithme.maps.routing.RoutingController;
 import com.mapswithme.maps.search.SearchActivity;
 import com.mapswithme.maps.search.SearchEngine;
-import com.mapswithme.maps.tips.Tutorial;
 import com.mapswithme.util.Constants;
 import com.mapswithme.util.CrashlyticsUtils;
 import com.mapswithme.util.KeyValue;
@@ -88,12 +80,6 @@ public class Factory
   }
 
   @NonNull
-  public static IntentProcessor createDlinkBookmarksSubscriptionProcessor()
-  {
-    return new DlinkBookmarksSubscriptionIntentProcessor();
-  }
-
-  @NonNull
   public static IntentProcessor createOldLeadUrlProcessor()
   {
     return new OldLeadUrlIntentProcessor();
@@ -121,12 +107,6 @@ public class Factory
   public static IntentProcessor createHttpGe0IntentProcessor()
   {
     return new HttpGe0IntentProcessor();
-  }
-
-  @NonNull
-  public static IntentProcessor createMapsmeBookmarkCatalogueProcessor()
-  {
-    return new MapsmeBookmarkCatalogueProcessor();
   }
 
   @NonNull
@@ -333,63 +313,6 @@ public class Factory
     MapTask createMapTask(@NonNull String uri)
     {
       return new OpenUrlTask(uri);
-    }
-  }
-
-  public static class DlinkBookmarksSubscriptionIntentProcessor extends DlinkIntentProcessor
-  {
-    static final String SUBSCRIPTION = "subscription";
-
-    @Override
-    boolean isLinkSupported(@NonNull Uri data)
-    {
-      return (File.separator + SUBSCRIPTION).equals(data.getPath());
-    }
-
-    @Nullable
-    @Override
-    MapTask createIntroductionTask(@NonNull String url)
-    {
-      // In release 9.5 the introduction screen for this deeplink is forgotten.
-      return null;
-    }
-
-    @NonNull
-    @Override
-    MapTask createTargetTask(@NonNull String url)
-    {
-      return new BookmarksSubscriptionTask(url);
-    }
-  }
-
-  private static class MapsmeBookmarkCatalogueProcessor extends MapsmeProcessor
-  {
-    static final String CATALOGUE = "catalogue";
-
-    @NonNull
-    @Override
-    MapTask createMapTask(@NonNull String uri)
-    {
-      String url = Uri.parse(uri).buildUpon()
-                      .scheme(DlinkIntentProcessor.SCHEME_HTTPS)
-                      .authority(DlinkIntentProcessor.HOST)
-                      .path(CATALOGUE)
-                      .build().toString();
-      return new ImportBookmarkCatalogueTask(url);
-    }
-
-    @Override
-    public boolean isSupported(@NonNull Intent intent)
-    {
-      if (!super.isSupported(intent))
-        return false;
-
-      Uri data = intent.getData();
-      if (data == null)
-        return false;
-
-      String host = data.getHost();
-      return CATALOGUE.equals(host);
     }
   }
 
@@ -688,78 +611,6 @@ public class Factory
     return value;
   }
 
-  public static class BookmarksSubscriptionTask extends UrlTaskWithStatistics
-  {
-    private static final long serialVersionUID = 8378582625122063605L;
-
-    BookmarksSubscriptionTask(@NonNull String url)
-    {
-      super(url);
-    }
-
-    @Override
-    public boolean run(@NonNull MwmActivity target)
-    {
-      Uri uri = Uri.parse(getUrl());
-      String serverId = uri.getQueryParameter(PurchaseUtils.GROUPS);
-      if (TextUtils.isEmpty(serverId))
-        return false;
-
-      SubscriptionType type = SubscriptionType.getTypeByBookmarksGroup(serverId);
-
-      if (type.equals(SubscriptionType.BOOKMARKS_ALL))
-      {
-        BookmarksAllSubscriptionActivity.startForResult(target);
-        return true;
-      }
-
-      if (type.equals(SubscriptionType.BOOKMARKS_SIGHTS))
-      {
-        BookmarksSightsSubscriptionActivity.startForResult(target);
-        return true;
-      }
-
-      return false;
-    }
-  }
-
-  public static class ImportBookmarkCatalogueTask extends UrlTaskWithStatistics
-  {
-    private static final long serialVersionUID = 5363722491377575159L;
-
-    ImportBookmarkCatalogueTask(@NonNull String url)
-    {
-      super(url);
-    }
-
-    @Override
-    public boolean run(@NonNull MwmActivity target)
-    {
-      BookmarkCategoriesActivity.startForResult(target, BookmarksPageFactory.DOWNLOADED.ordinal(), getUrl());
-      return true;
-    }
-  }
-
-  public static class GuidesPageToOpenTask extends UrlTaskWithStatistics
-  {
-    private static final long serialVersionUID = 8388101038319062165L;
-
-    GuidesPageToOpenTask(@NonNull String url)
-    {
-      super(url);
-    }
-
-    @Override
-    public boolean run(@NonNull MwmActivity target)
-    {
-      String deeplink = convertUrlToGuidesPageDeeplink(getUrl());
-      BookmarksCatalogActivity.startForResult(target,
-                                              BookmarkCategoriesActivity.REQ_CODE_DOWNLOAD_BOOKMARK_CATEGORY,
-                                              deeplink);
-      return true;
-    }
-  }
-
   abstract static class UrlTaskWithStatistics implements MapTask
   {
     private static final long serialVersionUID = -8661639898700431066L;
@@ -834,8 +685,7 @@ public class Factory
             if (!request.mIsSearchOnMap)
               Framework.nativeSetSearchViewport(request.mLat, request.mLon, SEARCH_IN_VIEWPORT_ZOOM);
           }
-          SearchActivity.start(target, request.mQuery, request.mLocale, request.mIsSearchOnMap,
-                               null, null);
+          SearchActivity.start(target, request.mQuery, request.mLocale, request.mIsSearchOnMap);
           return true;
         case ParsingResult.TYPE_LEAD:
           return true;
@@ -1010,9 +860,6 @@ public class Factory
           case "bicycle":
             routerType = Framework.ROUTER_TYPE_BICYCLE;
             break;
-          case "taxi":
-            routerType = Framework.ROUTER_TYPE_TAXI;
-            break;
           case "transit":
             routerType = Framework.ROUTER_TYPE_TRANSIT;
             break;
@@ -1087,27 +934,6 @@ public class Factory
       for (KeyValue each : pairs)
         bundle.putString(each.getKey(), each.getValue());
       return bundle;
-    }
-  }
-
-  public static class ShowTutorialTask implements MapTask
-  {
-    private static final long serialVersionUID = -7565474616748655191L;
-
-    @Override
-    public boolean run(@NonNull MwmActivity target)
-    {
-      Tutorial tutorial = Tutorial.requestCurrent(target, target.getClass());
-      if (tutorial == Tutorial.STUB)
-        return false;
-
-      if (target.getTutorial() != null)
-        return false;
-
-      target.setTutorial(tutorial);
-      tutorial.show(target, target);
-
-      return true;
     }
   }
 }

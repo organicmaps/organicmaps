@@ -15,35 +15,28 @@ import com.mapswithme.maps.R;
 import com.mapswithme.maps.base.BaseMwmFragmentActivity;
 import com.mapswithme.maps.base.CustomNavigateUpListener;
 import com.mapswithme.maps.base.OnBackPressListener;
-import com.mapswithme.maps.dialog.AlertDialogCallback;
 import com.mapswithme.util.ThemeUtils;
-import com.mapswithme.util.Utils;
 
 public class SearchActivity extends BaseMwmFragmentActivity
-    implements CustomNavigateUpListener, AlertDialogCallback
+    implements CustomNavigateUpListener
 {
   public static final String EXTRA_QUERY = "search_query";
   public static final String EXTRA_LOCALE = "locale";
   public static final String EXTRA_SEARCH_ON_MAP = "search_on_map";
 
-  public static void start(@NonNull Activity activity, @Nullable String query,
-                           @Nullable HotelsFilter filter, @Nullable BookingFilterParams params)
+  public static void start(@NonNull Activity activity, @Nullable String query)
   {
-    start(activity, query, null /* locale */, false /* isSearchOnMap */,
-          filter, params);
+    start(activity, query, null /* locale */, false /* isSearchOnMap */);
   }
 
   public static void start(@NonNull Activity activity, @Nullable String query, @Nullable String locale,
-                           boolean isSearchOnMap, @Nullable HotelsFilter filter,
-                           @Nullable BookingFilterParams params)
+                           boolean isSearchOnMap)
   {
     final Intent i = new Intent(activity, SearchActivity.class);
     Bundle args = new Bundle();
     args.putString(EXTRA_QUERY, query);
     args.putString(EXTRA_LOCALE, locale);
     args.putBoolean(EXTRA_SEARCH_ON_MAP, isSearchOnMap);
-    args.putParcelable(FilterActivity.EXTRA_FILTER, filter);
-    args.putParcelable(FilterUtils.EXTRA_FILTER_PARAMS, params);
     i.putExtras(args);
     activity.startActivity(i);
     activity.overridePendingTransition(R.anim.search_fade_in, R.anim.search_fade_out);
@@ -80,23 +73,6 @@ public class SearchActivity extends BaseMwmFragmentActivity
     final FragmentManager manager = getSupportFragmentManager();
     if (manager.getBackStackEntryCount() == 0)
     {
-      for (Fragment fragment : manager.getFragments())
-      {
-        if (fragment instanceof HotelsFilterHolder)
-        {
-          HotelsFilterHolder holder = (HotelsFilterHolder) fragment;
-          HotelsFilter filter = holder.getHotelsFilter();
-          BookingFilterParams params = holder.getFilterParams();
-          if (filter != null || params != null)
-          {
-            Intent intent = NavUtils.getParentActivityIntent(this);
-            intent.putExtra(FilterActivity.EXTRA_FILTER, filter);
-            intent.putExtra(FilterUtils.EXTRA_FILTER_PARAMS, params);
-            NavUtils.navigateUpTo(this, intent);
-            return;
-          }
-        }
-      }
       NavUtils.navigateUpFromSameTask(this);
       overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
       return;
@@ -114,24 +90,5 @@ public class SearchActivity extends BaseMwmFragmentActivity
 
     super.onBackPressed();
     overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
-  }
-
-  @Override
-  public void onAlertDialogPositiveClick(int requestCode, int which)
-  {
-    if (requestCode == FilterUtils.REQ_CODE_NO_NETWORK_CONNECTION_DIALOG)
-      Utils.showSystemConnectionSettings(this);
-  }
-
-  @Override
-  public void onAlertDialogNegativeClick(int requestCode, int which)
-  {
-    // No op.
-  }
-
-  @Override
-  public void onAlertDialogCancel(int requestCode)
-  {
-    // No op.
   }
 }

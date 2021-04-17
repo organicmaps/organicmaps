@@ -23,12 +23,7 @@ import com.mapswithme.maps.base.Initializable;
 import com.mapswithme.maps.bookmarks.data.FeatureId;
 import com.mapswithme.maps.bookmarks.data.MapObject;
 import com.mapswithme.maps.location.LocationHelper;
-import com.mapswithme.maps.taxi.TaxiInfo;
-import com.mapswithme.maps.taxi.TaxiInfoError;
-import com.mapswithme.maps.taxi.TaxiManager;
 import com.mapswithme.util.Config;
-import com.mapswithme.util.ConnectionState;
-import com.mapswithme.util.NetworkPolicy;
 import com.mapswithme.util.StringUtils;
 import com.mapswithme.util.Utils;
 import com.mapswithme.util.concurrency.UiThread;
@@ -40,7 +35,7 @@ import java.util.concurrent.TimeUnit;
 
 
 @androidx.annotation.UiThread
-public class RoutingController implements TaxiManager.TaxiListener, Initializable<Void>
+public class RoutingController implements Initializable<Void>
 {
   private static final String TAG = RoutingController.class.getSimpleName();
 
@@ -67,8 +62,6 @@ public class RoutingController implements TaxiManager.TaxiListener, Initializabl
     void showNavigation(boolean show);
     void showDownloader(boolean openDownloaded);
     void updateMenu();
-    void onTaxiInfoReceived(@NonNull TaxiInfo info);
-    void onTaxiError(@NonNull TaxiManager.ErrorCode code);
     void onNavigationCancelled();
     void onNavigationStarted();
     void onAddedStop();
@@ -94,7 +87,7 @@ public class RoutingController implements TaxiManager.TaxiListener, Initializabl
 
   private BuildState mBuildState = BuildState.NONE;
   private State mState = State.NONE;
-  @RoutePointInfo.RouteMarkType
+  //@RoutePointInfo.RouteMarkType
   private int mWaitingPoiPickType = NO_WAITING_POI_PICK;
   private int mLastBuildProgress;
   @Framework.RouterType
@@ -108,9 +101,6 @@ public class RoutingController implements TaxiManager.TaxiListener, Initializabl
   private RoutingInfo mCachedRoutingInfo;
   @Nullable
   private TransitRouteInfo mCachedTransitRouteInfo;
-  private boolean mTaxiRequestHandled;
-  private boolean mTaxiPlanning;
-  private boolean mInternetConnected;
 
   private int mInvalidRoutePointsTransactionId;
   private int mRemovingIntermediatePointsTransactionId;
@@ -251,9 +241,6 @@ public class RoutingController implements TaxiManager.TaxiListener, Initializabl
 
   private void updateProgress()
   {
-    if (isTaxiPlanning())
-      return;
-
     if (mContainer != null)
       mContainer.updateBuildProgress(mLastBuildProgress, mLastRouterType);
   }
@@ -287,7 +274,6 @@ public class RoutingController implements TaxiManager.TaxiListener, Initializabl
     Framework.nativeSetRouteProgressListener(mRoutingProgressListener);
     Framework.nativeSetRoutingRecommendationListener(mRoutingRecommendationListener);
     Framework.nativeSetRoutingLoadPointsListener(mRoutingLoadPointsListener);
-    TaxiManager.INSTANCE.setTaxiListener(this);
   }
 
   @Override
@@ -310,9 +296,6 @@ public class RoutingController implements TaxiManager.TaxiListener, Initializabl
 
     if (mContainer != null)
     {
-      if (isTaxiPlanning())
-        mContainer.updateBuildProgress(0, mLastRouterType);
-
       mContainer.showNavigation(isNavigating());
       mContainer.updateMenu();
     }
@@ -329,23 +312,7 @@ public class RoutingController implements TaxiManager.TaxiListener, Initializabl
     Framework.nativeRemoveRoute();
 
     mLogger.d(TAG, "build");
-    mTaxiRequestHandled = false;
     mLastBuildProgress = 0;
-    mInternetConnected = ConnectionState.INSTANCE.isConnected();
-
-    if (isTaxiRouterType())
-    {
-      if (!mInternetConnected)
-      {
-        completeTaxiRequest();
-        return;
-      }
-
-      MapObject start = getStartPoint();
-      MapObject end = getEndPoint();
-      if (start != null && end != null)
-        requestTaxiInfo(start, end);
-    }
 
     setBuildState(BuildState.BUILDING);
     if (mContainer != null)
@@ -354,16 +321,6 @@ public class RoutingController implements TaxiManager.TaxiListener, Initializabl
     updatePlan();
 
     Framework.nativeBuildRoute();
-  }
-
-  private void completeTaxiRequest()
-  {
-    mTaxiRequestHandled = true;
-    if (mContainer != null)
-    {
-      mContainer.updateBuildProgress(100, mLastRouterType);
-      mContainer.updateMenu();
-    }
   }
 
   private void showDisclaimer(final MapObject startPoint, final MapObject endPoint,
@@ -593,7 +550,7 @@ public class RoutingController implements TaxiManager.TaxiListener, Initializabl
 
   public boolean isStopPointAllowed()
   {
-    return Framework.nativeCouldAddIntermediatePoint() && !isTaxiRouterType();
+    return Framework.nativeCouldAddIntermediatePoint();
   }
 
   public boolean isRoutePoint(@NonNull MapObject mapObject)
@@ -655,7 +612,6 @@ public class RoutingController implements TaxiManager.TaxiListener, Initializabl
 
     //noinspection WrongConstant
     mWaitingPoiPickType = NO_WAITING_POI_PICK;
-    mTaxiRequestHandled = false;
 
     setBuildState(BuildState.NONE);
     setState(State.NONE);
@@ -701,16 +657,6 @@ public class RoutingController implements TaxiManager.TaxiListener, Initializabl
     return mState == State.PREPARE;
   }
 
-  boolean isTaxiPlanning()
-  {
-    return isTaxiRouterType() && mTaxiPlanning;
-  }
-
-  boolean isTaxiRouterType()
-  {
-    return mLastRouterType == Framework.ROUTER_TYPE_TAXI;
-  }
-
   boolean isTransitType()
   {
     return mLastRouterType == Framework.ROUTER_TYPE_TRANSIT;
@@ -753,16 +699,6 @@ public class RoutingController implements TaxiManager.TaxiListener, Initializabl
   public boolean isWaitingPoiPick()
   {
     return mWaitingPoiPickType != NO_WAITING_POI_PICK;
-  }
-
-  public boolean isTaxiRequestHandled()
-  {
-    return mTaxiRequestHandled;
-  }
-
-  boolean isInternetConnected()
-  {
-    return mInternetConnected;
   }
 
   BuildState getBuildState()
@@ -1025,22 +961,13 @@ public class RoutingController implements TaxiManager.TaxiListener, Initializabl
 
     // Repeating tap on Taxi icon should trigger the route building always,
     // because it may be "No internet connection, try later" case
-    if (router == mLastRouterType && !isTaxiRouterType())
+    if (router == mLastRouterType)
       return;
 
     mLastRouterType = router;
     Framework.nativeSetRouter(router);
 
-    // Taxi routing does not support intermediate points.
-    if (isTaxiRouterType())
-    {
-      openRemovingIntermediatePointsTransaction();
-      removeIntermediatePoints();
-    }
-    else
-    {
-      cancelRemovingIntermediatePointsTransaction();
-    }
+    cancelRemovingIntermediatePointsTransaction();
 
     if (getStartPoint() != null && getEndPoint() != null)
       build();
@@ -1050,12 +977,6 @@ public class RoutingController implements TaxiManager.TaxiListener, Initializabl
   public int getLastRouterType()
   {
     return mLastRouterType;
-  }
-
-  private void openRemovingIntermediatePointsTransaction()
-  {
-    if (mRemovingIntermediatePointsTransactionId == mInvalidRoutePointsTransactionId)
-      mRemovingIntermediatePointsTransactionId = Framework.nativeOpenRoutePointsTransaction();
   }
 
   private void cancelRemovingIntermediatePointsTransaction()
@@ -1129,52 +1050,5 @@ public class RoutingController implements TaxiManager.TaxiListener, Initializabl
     current.set(Calendar.SECOND, 0);
     current.add(Calendar.SECOND, seconds);
     return StringUtils.formatUsingUsLocale("%d:%02d", current.get(Calendar.HOUR_OF_DAY), current.get(Calendar.MINUTE));
-  }
-
-  private void requestTaxiInfo(@NonNull MapObject startPoint, @NonNull MapObject endPoint)
-  {
-    mTaxiPlanning = true;
-
-    TaxiManager.INSTANCE.nativeRequestTaxiProducts(NetworkPolicy.newInstance(true /* canUse */),
-                                   startPoint.getLat(), startPoint.getLon(),
-                                   endPoint.getLat(), endPoint.getLon());
-    if (mContainer != null)
-      mContainer.updateBuildProgress(0, mLastRouterType);
-  }
-
-  @Override
-  public void onTaxiProviderReceived(@NonNull TaxiInfo provider)
-  {
-    mTaxiPlanning = false;
-    mLogger.d(TAG, "onTaxiInfoReceived provider = " + provider);
-    if (isTaxiRouterType() && mContainer != null)
-    {
-      mContainer.onTaxiInfoReceived(provider);
-      completeTaxiRequest();
-    }
-  }
-
-  @Override
-  public void onTaxiErrorReceived(@NonNull TaxiInfoError error)
-  {
-    mTaxiPlanning = false;
-    mLogger.e(TAG, "onTaxiError error = " + error);
-    if (isTaxiRouterType() && mContainer != null)
-    {
-      mContainer.onTaxiError(error.getCode());
-      completeTaxiRequest();
-    }
-  }
-
-  @Override
-  public void onNoTaxiProviders()
-  {
-    mTaxiPlanning = false;
-    mLogger.e(TAG, "onNoTaxiProviders");
-    if (isTaxiRouterType() && mContainer != null)
-    {
-      mContainer.onTaxiError(TaxiManager.ErrorCode.NoProviders);
-      completeTaxiRequest();
-    }
   }
 }

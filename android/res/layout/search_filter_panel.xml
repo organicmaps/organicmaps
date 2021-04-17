@@ -25,46 +25,6 @@
     android:textSize="@dimen/text_size_caption"
     android:text="@string/search_show_on_map"
     tools:targetApi="jelly_bean"/>
-  <RelativeLayout
-    android:id="@+id/filter_button"
-    android:layout_width="wrap_content"
-    android:layout_height="@dimen/hotel_filters_tag_height"
-    android:paddingLeft="@dimen/margin_half_plus"
-    android:paddingRight="@dimen/margin_half_plus"
-    android:layout_alignParentEnd="true"
-    android:layout_alignParentRight="true"
-    android:layout_centerVertical="true"
-    android:background="?clickableBackground"
-    android:visibility="gone"
-    tools:background="?accentButtonRoundBackground"
-    tools:visibility="visible">
-    <ImageView
-      android:id="@+id/filter_icon"
-      android:layout_width="@dimen/margin_base_plus"
-      android:layout_height="@dimen/margin_base_plus"
-      android:layout_marginEnd="@dimen/margin_half"
-      android:layout_marginRight="@dimen/margin_half"
-      android:layout_centerVertical="true"
-      android:scaleType="centerInside"
-      android:src="@drawable/ic_filter_list"
-      android:tint="?colorAccent"
-      tools:src="@drawable/ic_cancel"
-      tools:tint="?accentButtonTextColor"/>
-    <TextView
-      android:id="@+id/filter_text"
-      style="@style/MwmTextAppearance.Button"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:layout_centerVertical="true"
-      android:layout_toEndOf="@id/filter_icon"
-      android:layout_toRightOf="@id/filter_icon"
-      android:textSize="@dimen/text_size_caption"
-      android:text="@string/booking_filters"
-      android:fontFamily="@string/robotoMedium"
-      android:layout_gravity="end"
-      tools:textColor="?accentButtonTextColor"
-      tools:targetApi="jelly_bean"/>
-  </RelativeLayout>
   <include
     android:id="@+id/divider"
     layout="@layout/divider_horizontal"

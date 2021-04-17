@@ -15,13 +15,6 @@ Java_com_mapswithme_maps_LightFramework_nativeIsAuthenticated(JNIEnv * env, jcla
   return static_cast<jboolean>(framework.IsUserAuthenticated());
 }
 
-JNIEXPORT jint JNICALL
-Java_com_mapswithme_maps_LightFramework_nativeGetNumberUnsentUGC(JNIEnv * env, jclass clazz)
-{
-  lightweight::Framework const framework(lightweight::REQUEST_TYPE_NUMBER_OF_UNSENT_UGC);
-  return static_cast<jint>(framework.GetNumberOfUnsentUGC());
-}
-
 JNIEXPORT jstring JNICALL
 Java_com_mapswithme_maps_LightFramework_nativeMakeFeatureId(JNIEnv * env, jclass clazz,
                                                             jstring mwmName, jlong mwmVersion,

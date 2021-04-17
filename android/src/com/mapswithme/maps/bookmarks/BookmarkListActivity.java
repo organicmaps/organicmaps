@@ -2,8 +2,6 @@ package com.mapswithme.maps.bookmarks;
 
 import static com.mapswithme.maps.bookmarks.BookmarksListFragment.EXTRA_BUNDLE;
 
-import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -61,27 +59,12 @@ public class BookmarkListActivity extends BaseToolbarActivity
     return R.layout.bookmarks_activity;
   }
 
-  static void startForResult(@NonNull Activity activity, @NonNull BookmarkCategory category)
+  static void startForResult(@NonNull Fragment fragment, @NonNull BookmarkCategory category)
   {
-    activity.startActivityForResult(getStartIntent(activity, category),
-                                    BaseBookmarkCategoriesFragment.REQ_CODE_DELETE_CATEGORY);
-  }
-
-  @NonNull
-  static Intent getStartIntent(@NonNull Context context,
-                                        @NonNull BookmarkCategory bookmarkCategory)
-  {
-    Intent intent = new Intent(context, BookmarkListActivity.class);
-    return wrapDataToBundle(intent, bookmarkCategory);
-  }
-
-  @NonNull
-  private static Intent wrapDataToBundle(@NonNull Intent intent,
-                                                  @NonNull BookmarkCategory bookmarkCategory)
-  {
-    Bundle bundle = new Bundle();
-    bundle.putParcelable(BookmarksListFragment.EXTRA_CATEGORY, bookmarkCategory);
-    intent.putExtra(EXTRA_BUNDLE, bundle);
-    return intent;
+    Bundle args = new Bundle();
+    args.putParcelable(BookmarksListFragment.EXTRA_CATEGORY, category);
+    Intent intent = new Intent(fragment.requireActivity(), BookmarkListActivity.class);
+    intent.putExtra(EXTRA_BUNDLE, args);
+    fragment.startActivityForResult(intent, BookmarkCategoriesFragment.REQ_CODE_DELETE_CATEGORY);
   }
 }

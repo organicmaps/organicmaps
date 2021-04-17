@@ -32,17 +32,6 @@
       android:layout_height="match_parent"
       android:layout_weight="1"/>
 
-<!--    <ImageView-->
-<!--      android:id="@+id/discovery"-->
-<!--      style="@style/MwmTheme.Menu.Line.Button"-->
-<!--      android:src="@drawable/ic_menu_discovery"-->
-<!--      android:tag="@string/tag_menu_collapse"/>-->
-
-<!--    <Space-->
-<!--      android:layout_width="0dp"-->
-<!--      android:layout_height="match_parent"-->
-<!--      android:layout_weight="1"/>-->
-
     <ImageView
       android:id="@+id/bookmarks"
       style="@style/MwmTheme.Menu.Line.Button"
@@ -60,11 +49,4 @@
       android:layout_width="@dimen/menu_line_button_width_edge"
       android:layout_height="match_parent"/>
   </LinearLayout>
-
-  <FrameLayout
-    android:layout_width="@dimen/menu_line_button_width_edge"
-    android:layout_height="match_parent"
-    android:layout_gravity="end">
-    <include layout="@layout/menu_news_marker"/>
-  </FrameLayout>
 </FrameLayout>

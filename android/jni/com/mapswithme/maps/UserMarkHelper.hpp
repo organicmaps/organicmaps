@@ -34,12 +34,9 @@ void InjectMetadata(JNIEnv * env, jclass clazz, jobject const mapObject, feature
 
 jobject CreateMapObject(JNIEnv * env, place_page::Info const & info);
 
-jobject CreateElevationInfo(JNIEnv * env, std::string const & serverId, ElevationInfo const & info);
+jobject CreateElevationInfo(JNIEnv * env, ElevationInfo const & info);
 
 jobjectArray ToRatingArray(JNIEnv * env, std::vector<std::string> const & ratingCategories);
-
-jintArray ToReachableByTaxiProvidersArray(JNIEnv * env,
-                                          std::vector<taxi::Provider::Type> const & types);
 
 jobject CreateLocalAdInfo(JNIEnv * env, place_page::Info const & info);
 

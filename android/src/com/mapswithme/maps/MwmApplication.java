@@ -21,7 +21,6 @@ import com.mapswithme.maps.downloader.MapManager;
 import com.mapswithme.maps.editor.Editor;
 import com.mapswithme.maps.location.LocationHelper;
 import com.mapswithme.maps.location.TrackRecorder;
-import com.mapswithme.maps.maplayer.guides.GuidesManager;
 import com.mapswithme.maps.maplayer.isolines.IsolinesManager;
 import com.mapswithme.maps.maplayer.subway.SubwayManager;
 import com.mapswithme.maps.maplayer.traffic.TrafficManager;
@@ -59,10 +58,6 @@ public class MwmApplication extends Application implements AppBackgroundTracker.
   @NonNull
   private IsolinesManager mIsolinesManager;
 
-  @SuppressWarnings("NullableProblems")
-  @NonNull
-  private GuidesManager mGuidesManager;
-
   private boolean mFrameworkInitialized;
   private boolean mPlatformInitialized;
 
@@ -70,9 +65,6 @@ public class MwmApplication extends Application implements AppBackgroundTracker.
   private final Object mMainQueueToken = new Object();
   @NonNull
   private final MapManager.StorageCallback mStorageCallbacks = new StorageCallbackImpl();
-  @SuppressWarnings("NullableProblems")
-  @NonNull
-  private PurchaseOperationObservable mPurchaseOperationObservable;
   @SuppressWarnings("NullableProblems")
   @NonNull
   private MediaPlayerWrapper mPlayer;
@@ -141,9 +133,7 @@ public class MwmApplication extends Application implements AppBackgroundTracker.
     mBackgroundTracker = new AppBackgroundTracker(this);
     mSubwayManager = new SubwayManager(this);
     mIsolinesManager = new IsolinesManager(this);
-    mGuidesManager = new GuidesManager(this);
 
-    mPurchaseOperationObservable = new PurchaseOperationObservable();
     mPlayer = new MediaPlayerWrapper(this);
     WebView.setWebContentsDebuggingEnabled(Utils.isDebugOrBeta());
   }
@@ -251,9 +241,7 @@ public class MwmApplication extends Application implements AppBackgroundTracker.
     TrafficManager.INSTANCE.initialize(null);
     SubwayManager.from(this).initialize(null);
     IsolinesManager.from(this).initialize(null);
-    GuidesManager.from(this).initialize(null);
     TrackRecorder.INSTANCE.initialize(this);
-    mPurchaseOperationObservable.initialize(null);
     mBackgroundTracker.addListener(this);
     mFrameworkInitialized = true;
   }
@@ -283,12 +271,6 @@ public class MwmApplication extends Application implements AppBackgroundTracker.
   static
   {
     System.loadLibrary("mapswithme");
-  }
-
-  @NonNull
-  PurchaseOperationObservable getPurchaseOperationObservable()
-  {
-    return mPurchaseOperationObservable;
   }
 
   public static void onUpgrade(@NonNull Context context)
@@ -346,12 +328,6 @@ public class MwmApplication extends Application implements AppBackgroundTracker.
   public void onTransit(boolean foreground)
   {
     nativeOnTransit(foreground);
-  }
-
-  @NonNull
-  public GuidesManager getGuidesManager()
-  {
-    return mGuidesManager;
   }
 
   private class StorageCallbackImpl implements MapManager.StorageCallback

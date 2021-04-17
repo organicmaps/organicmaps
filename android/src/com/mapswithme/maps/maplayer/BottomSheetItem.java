@@ -99,19 +99,4 @@ public abstract class BottomSheetItem
       return new Isolines(enabled, disabled);
     }
   }
-
-  public static class Guides extends BottomSheetItem
-  {
-    private Guides(int drawableResId, int disabledStateDrawableResId)
-    {
-      super(drawableResId, disabledStateDrawableResId, R.string.button_layer_guides, Mode.GUIDES);
-    }
-
-    public static BottomSheetItem makeInstance(@NonNull Context mContext)
-    {
-      int disabled = ThemeUtils.getResource(mContext, R.attr.guidesMenuDisabled);
-      int enabled = ThemeUtils.getResource(mContext, R.attr.guidesMenuEnabled);
-      return new Guides(enabled, disabled);
-    }
-  }
 }

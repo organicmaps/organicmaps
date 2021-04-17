@@ -33,14 +33,6 @@
     android:background="?nav_bg_isolines"/>
 
   <ImageButton
-    android:id="@+id/guides"
-    style="@style/MwmWidget.MapButton.Traffic"
-    android:layout_alignParentStart="true"
-    android:layout_alignParentTop="true"
-    android:visibility="invisible"
-    android:background="?guidesIcon"/>
-
-  <ImageButton
     android:id="@+id/my_position"
     style="@style/MwmWidget.MapButton"
     android:layout_alignParentEnd="true"

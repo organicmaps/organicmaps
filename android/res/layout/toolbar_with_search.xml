@@ -15,6 +15,5 @@
     android:layout_height="wrap_content"
     android:orientation="vertical">
     <include layout="@layout/toolbar_search_controls" />
-    <include layout="@layout/toolbar_filter_controls" />
   </LinearLayout>
 </androidx.appcompat.widget.Toolbar>

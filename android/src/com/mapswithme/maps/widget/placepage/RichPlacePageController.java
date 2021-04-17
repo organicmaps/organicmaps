@@ -22,8 +22,6 @@ import com.mapswithme.maps.R;
 import com.mapswithme.maps.bookmarks.data.MapObject;
 import com.mapswithme.maps.location.LocationHelper;
 import com.mapswithme.maps.location.LocationListener;
-import com.mapswithme.maps.promo.Promo;
-import com.mapswithme.util.NetworkPolicy;
 import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.log.Logger;
 import com.mapswithme.util.log.LoggerFactory;
@@ -169,7 +167,7 @@ public class RichPlacePageController implements PlacePageController, LocationLis
   {
     mDeactivateMapSelection = true;
     MapObject object = (MapObject) data;
-    mPlacePage.setMapObject(object, (policy, isSameObject) -> {
+    mPlacePage.setMapObject(object, (isSameObject) -> {
       @AnchorBottomSheetBehavior.State
       int state = mPlacePageBehavior.getState();
       if (isSameObject && !PlacePageUtils.isHiddenState(state))
@@ -368,14 +366,13 @@ public class RichPlacePageController implements PlacePageController, LocationLis
 
     @AnchorBottomSheetBehavior.State
     int state = mPlacePageBehavior.getState();
-    mPlacePage.setMapObject(object, (policy, isSameObject) -> {
-      restorePlacePageState(object, policy, state);
+    mPlacePage.setMapObject(object, (isSameObject) -> {
+      restorePlacePageState(object, state);
     });
     mToolbar.setTitle(object.getTitle());
   }
 
-  private void restorePlacePageState(@NonNull MapObject object, @NonNull NetworkPolicy policy,
-                                     @AnchorBottomSheetBehavior.State int state)
+  private void restorePlacePageState(@NonNull MapObject object, @AnchorBottomSheetBehavior.State int state)
   {
     mPlacePage.post(() -> {
       setPlacePageAnchor();
@@ -389,28 +386,31 @@ public class RichPlacePageController implements PlacePageController, LocationLis
   @Override
   public void onActivityCreated(Activity activity, Bundle savedInstanceState)
   {
+    // No op.
   }
 
   @Override
   public void onActivityStarted(Activity activity)
   {
-    mPlacePage.attach(activity);
+    // No op.
   }
 
   @Override
   public void onActivityResumed(Activity activity)
   {
+    // No op.
   }
 
   @Override
   public void onActivityPaused(Activity activity)
   {
+    // No op.
   }
 
   @Override
   public void onActivityStopped(Activity activity)
   {
-    mPlacePage.detach();
+    // No op.
   }
 
   @Override
@@ -422,7 +422,7 @@ public class RichPlacePageController implements PlacePageController, LocationLis
   @Override
   public void onActivityDestroyed(Activity activity)
   {
-    Promo.INSTANCE.setListener(null);
+    // No op.
   }
 
   @Override

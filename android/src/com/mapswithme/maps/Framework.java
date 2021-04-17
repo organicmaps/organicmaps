@@ -1,7 +1,6 @@
 package com.mapswithme.maps;
 
 import android.graphics.Bitmap;
-import android.text.TextUtils;
 
 import androidx.annotation.IntDef;
 import androidx.annotation.MainThread;
@@ -13,7 +12,6 @@ import androidx.annotation.UiThread;
 import com.mapswithme.maps.api.ParsedRoutingData;
 import com.mapswithme.maps.api.ParsedSearchRequest;
 import com.mapswithme.maps.api.ParsingResult;
-import com.mapswithme.maps.auth.AuthorizationListener;
 import com.mapswithme.maps.bookmarks.data.DistanceAndAzimut;
 import com.mapswithme.maps.bookmarks.data.FeatureId;
 import com.mapswithme.maps.bookmarks.data.MapObject;
@@ -21,7 +19,6 @@ import com.mapswithme.maps.routing.RouteMarkData;
 import com.mapswithme.maps.routing.RoutePointInfo;
 import com.mapswithme.maps.routing.RoutingInfo;
 import com.mapswithme.maps.routing.TransitRouteInfo;
-import com.mapswithme.maps.search.FilterUtils;
 import com.mapswithme.maps.settings.SettingsPrefsFragment;
 import com.mapswithme.maps.widget.placepage.PlacePageData;
 import com.mapswithme.util.Constants;
@@ -54,16 +51,14 @@ public class Framework
   public static final int MAP_STYLE_VEHICLE_DARK = 4;
 
   @Retention(RetentionPolicy.SOURCE)
-  @IntDef({ ROUTER_TYPE_VEHICLE, ROUTER_TYPE_PEDESTRIAN, ROUTER_TYPE_BICYCLE, ROUTER_TYPE_TAXI,
-            ROUTER_TYPE_TRANSIT })
+  @IntDef({ ROUTER_TYPE_VEHICLE, ROUTER_TYPE_PEDESTRIAN, ROUTER_TYPE_BICYCLE, ROUTER_TYPE_TRANSIT })
 
   public @interface RouterType {}
 
   public static final int ROUTER_TYPE_VEHICLE = 0;
   public static final int ROUTER_TYPE_PEDESTRIAN = 1;
   public static final int ROUTER_TYPE_BICYCLE = 2;
-  public static final int ROUTER_TYPE_TAXI = 3;
-  public static final int ROUTER_TYPE_TRANSIT = 4;
+  public static final int ROUTER_TYPE_TRANSIT = 3;
 
   @Retention(RetentionPolicy.SOURCE)
   @IntDef({DO_AFTER_UPDATE_NOTHING, DO_AFTER_UPDATE_AUTO_UPDATE, DO_AFTER_UPDATE_ASK_FOR_UPDATE})
@@ -196,39 +191,9 @@ public class Framework
     return Bitmap.createBitmap(altitudeChartBits, width, height, Bitmap.Config.ARGB_8888);
   }
 
-  @FilterUtils.RatingDef
-  public static int getFilterRating(@Nullable String ratingString)
-  {
-    if (TextUtils.isEmpty(ratingString))
-      return FilterUtils.RATING_ANY;
-
-    try
-    {
-      float rawRating = Float.valueOf(ratingString);
-      return Framework.nativeGetFilterRating(rawRating);
-    }
-    catch (NumberFormatException e)
-    {
-      LOGGER.w(TAG, "Rating string is not valid: " + ratingString);
-    }
-
-    return FilterUtils.RATING_ANY;
-  }
-
   public static void setSpeedCamerasMode(@NonNull SettingsPrefsFragment.SpeedCameraMode mode)
   {
     nativeSetSpeedCamManagerMode(mode.ordinal());
-  }
-
-  @NonNull
-  public static Map<String, String> getDefaultAuthHeaders()
-  {
-    KeyValue[] headers = nativeGetDefaultAuthHeaders();
-    Map<String, String> result = new HashMap<>();
-    for (KeyValue header: headers)
-      result.put(header.getKey(), header.getValue());
-
-    return result;
   }
 
   public static native void nativeShowTrackRect(long track);
@@ -317,8 +282,6 @@ public class Framework
   public static native void nativeDisableFollowing();
 
   public static native String nativeGetUserAgent();
-
-  public static native String nativeGetDeviceId();
 
   @Nullable
   public static native RoutingInfo nativeGetRouteFollowingInfo();
@@ -454,46 +417,14 @@ public class Framework
   public static native void nativeSaveRoutePoints();
   public static native void nativeDeleteSavedRoutePoints();
 
-  public static native void nativeAuthenticateUser(@NonNull String socialToken,
-                                                   @AuthTokenType int socialTokenType,
-                                                   boolean privacyAccepted,
-                                                   boolean termsAccepted,
-                                                   boolean promoAccepted,
-                                                   @NonNull AuthorizationListener listener);
-  public static native boolean nativeIsUserAuthenticated();
-  @NonNull
-  public static native String nativeGetPhoneAuthUrl(@NonNull String redirectUrl);
-  @NonNull
-  public static native KeyValue[] nativeGetDefaultAuthHeaders();
   @NonNull
   public static native String nativeGetPrivacyPolicyLink();
   @NonNull
   public static native String nativeGetTermsOfUseLink();
 
   public static native void nativeShowFeature(@NonNull FeatureId featureId);
-  public static native void nativeShowBookmarkCategory(long cat);
-
-  private static native int nativeGetFilterRating(float rawRating);
 
   public static native void nativeMakeCrash();
-
-  public static native void nativeStartPurchaseTransaction(@NonNull String serverId,
-                                                           @NonNull String vendorId);
-  public static native void nativeStartPurchaseTransactionListener(@Nullable
-    StartTransactionListener listener);
-
-  public static native void nativeValidatePurchase(@NonNull String serverId,
-                                                   @NonNull String vendorId,
-                                                   @NonNull String purchaseData);
-  public static native void nativeSetPurchaseValidationListener(@Nullable
-    PurchaseValidationListener listener);
-
-  public static native boolean nativeHasActiveSubscription(@SubscriptionType int type);
-  public static native void nativeSetActiveSubscription(@SubscriptionType int type,
-                                                        boolean isActive, boolean isTrial);
-
-  @Nullable
-  public static native String nativeGetAccessToken();
 
     public static native void nativeSetPowerManagerFacility(int facilityType, boolean state);
   public static native int nativeGetPowerManagerScheme();

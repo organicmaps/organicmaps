@@ -24,34 +24,23 @@ import android.widget.TextView;
 import androidx.annotation.IdRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.annotation.StringRes;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.viewpager.widget.PagerAdapter;
 
 import com.mapswithme.maps.Framework;
 import com.mapswithme.maps.R;
-import com.mapswithme.maps.bookmarks.data.MapObject;
 import com.mapswithme.maps.location.LocationHelper;
-import com.mapswithme.maps.taxi.TaxiAdapter;
-import com.mapswithme.maps.taxi.TaxiInfo;
-import com.mapswithme.maps.taxi.TaxiManager;
-import com.mapswithme.maps.widget.DotPager;
 import com.mapswithme.maps.widget.recycler.DotDividerItemDecoration;
 import com.mapswithme.maps.widget.recycler.MultilineLayoutManager;
 import com.mapswithme.util.Graphics;
-import com.mapswithme.util.SponsoredLinks;
 import com.mapswithme.util.ThemeUtils;
 import com.mapswithme.util.UiUtils;
-import com.mapswithme.util.Utils;
 
-import java.util.List;
 import java.util.Locale;
 
 final class RoutingBottomMenuController implements View.OnClickListener
 {
   private static final String STATE_ALTITUDE_CHART_SHOWN = "altitude_chart_shown";
-  private static final String STATE_TAXI_INFO = "taxi_info";
   private static final String STATE_ERROR = "error";
 
   @NonNull
@@ -60,8 +49,6 @@ final class RoutingBottomMenuController implements View.OnClickListener
   private final View mAltitudeChartFrame;
   @NonNull
   private final View mTransitFrame;
-  @NonNull
-  private final View mTaxiFrame;
   @NonNull
   private final TextView mError;
   @NonNull
@@ -82,10 +69,6 @@ final class RoutingBottomMenuController implements View.OnClickListener
   private final ImageView mActionIcon;
   @NonNull
   private final DotDividerItemDecoration mTransitViewDecorator;
-  @Nullable
-  private TaxiInfo mTaxiInfo;
-  @Nullable
-  private TaxiInfo.Product mTaxiProduct;
 
   @Nullable
   private final RoutingBottomMenuListener mListener;
@@ -96,7 +79,6 @@ final class RoutingBottomMenuController implements View.OnClickListener
   {
     View altitudeChartFrame = getViewById(activity, frame, R.id.altitude_chart_panel);
     View transitFrame = getViewById(activity, frame, R.id.transit_panel);
-    View taxiFrame = getViewById(activity, frame, R.id.taxi_panel);
     TextView error = (TextView) getViewById(activity, frame, R.id.error);
     Button start = (Button) getViewById(activity, frame, R.id.start);
     ImageView altitudeChart = (ImageView) getViewById(activity, frame, R.id.altitude_chart);
@@ -104,8 +86,7 @@ final class RoutingBottomMenuController implements View.OnClickListener
     View numbersFrame = getViewById(activity, frame, R.id.numbers);
     View actionFrame = getViewById(activity, frame, R.id.routing_action_frame);
 
-    return new RoutingBottomMenuController(activity, altitudeChartFrame, transitFrame, taxiFrame,
-                                           error, start, altitudeChart, altitudeDifference,
+    return new RoutingBottomMenuController(activity, altitudeChartFrame, transitFrame, error, start, altitudeChart, altitudeDifference,
                                            numbersFrame, actionFrame, listener);
   }
 
@@ -120,7 +101,6 @@ final class RoutingBottomMenuController implements View.OnClickListener
   private RoutingBottomMenuController(@NonNull Activity context,
                                       @NonNull View altitudeChartFrame,
                                       @NonNull View transitFrame,
-                                      @NonNull View taxiFrame,
                                       @NonNull TextView error,
                                       @NonNull Button start,
                                       @NonNull ImageView altitudeChart,
@@ -132,7 +112,6 @@ final class RoutingBottomMenuController implements View.OnClickListener
     mContext = context;
     mAltitudeChartFrame = altitudeChartFrame;
     mTransitFrame = transitFrame;
-    mTaxiFrame = taxiFrame;
     mError = error;
     mStart = start;
     mAltitudeChart = altitudeChart;
@@ -145,7 +124,7 @@ final class RoutingBottomMenuController implements View.OnClickListener
     View actionSearchButton = actionFrame.findViewById(R.id.btn__search_point);
     actionSearchButton.setOnClickListener(this);
     mActionIcon = mActionButton.findViewById(R.id.iv__icon);
-    UiUtils.hide(mAltitudeChartFrame, mTaxiFrame, mActionFrame);
+    UiUtils.hide(mAltitudeChartFrame, mActionFrame);
     mListener = listener;
     int dividerRes = ThemeUtils.getResource(mContext, R.attr.transitStepDivider);
     Drawable dividerDrawable = ContextCompat.getDrawable(mContext, dividerRes);
@@ -156,7 +135,7 @@ final class RoutingBottomMenuController implements View.OnClickListener
 
   void showAltitudeChartAndRoutingDetails()
   {
-    UiUtils.hide(mError, mTaxiFrame, mActionFrame, mTransitFrame);
+    UiUtils.hide(mError, mActionFrame, mTransitFrame);
 
     showRouteAltitudeChart();
     showRoutingDetails();
@@ -168,36 +147,10 @@ final class RoutingBottomMenuController implements View.OnClickListener
     UiUtils.hide(mAltitudeChartFrame, mTransitFrame);
   }
 
-  void showTaxiInfo(@NonNull TaxiInfo info)
-  {
-    UiUtils.hide(mError, mAltitudeChartFrame, mActionFrame, mTransitFrame);
-    ImageView logo = mTaxiFrame.findViewById(R.id.iv__logo);
-    logo.setImageResource(info.getType().getIcon());
-    final List<TaxiInfo.Product> products = info.getProducts();
-    mTaxiInfo = info;
-    mTaxiProduct = products.get(0);
-    final PagerAdapter adapter = new TaxiAdapter(mContext, mTaxiInfo.getType(), products);
-    DotPager pager = new DotPager.Builder(mContext, mTaxiFrame.findViewById(R.id.pager),
-                                          adapter)
-        .setIndicatorContainer(mTaxiFrame.findViewById(R.id.indicator))
-        .setPageChangedListener(new DotPager.OnPageChangedListener()
-        {
-          @Override
-          public void onPageChanged(int position)
-          {
-            mTaxiProduct = products.get(position);
-          }
-        }).build();
-    pager.show();
-
-    setStartButton();
-    UiUtils.show(mTaxiFrame);
-  }
-
   @SuppressLint("SetTextI18n")
   void showTransitInfo(@NonNull TransitRouteInfo info)
   {
-    UiUtils.hide(mError, mAltitudeChartFrame, mActionFrame, mAltitudeChartFrame, mTaxiFrame);
+    UiUtils.hide(mError, mAltitudeChartFrame, mActionFrame, mAltitudeChartFrame);
     showStartButton(false);
     UiUtils.show(mTransitFrame);
     RecyclerView rv = mTransitFrame.findViewById(R.id.transit_recycler_view);
@@ -221,7 +174,7 @@ final class RoutingBottomMenuController implements View.OnClickListener
 
   void showAddStartFrame()
   {
-    UiUtils.hide(mTaxiFrame, mError, mTransitFrame);
+    UiUtils.hide(mError, mTransitFrame);
     UiUtils.show(mActionFrame);
     mActionMessage.setText(R.string.routing_add_start_point);
     mActionMessage.setTag(RoutePointInfo.ROUTE_MARK_START);
@@ -241,7 +194,7 @@ final class RoutingBottomMenuController implements View.OnClickListener
 
   void showAddFinishFrame()
   {
-    UiUtils.hide(mTaxiFrame, mError, mTransitFrame);
+    UiUtils.hide(mError, mTransitFrame);
     UiUtils.show(mActionFrame);
     mActionMessage.setText(R.string.routing_add_finish_point);
     mActionMessage.setTag(RoutePointInfo.ROUTE_MARK_FINISH);
@@ -255,44 +208,18 @@ final class RoutingBottomMenuController implements View.OnClickListener
 
   void setStartButton()
   {
-    if (RoutingController.get().isTaxiRouterType() && mTaxiInfo != null)
-    {
-      mStart.setText(Utils.isAppInstalled(mContext, mTaxiInfo.getType().getPackageName())
-                     ? R.string.taxi_order : R.string.install_app);
-      mStart.setOnClickListener(v -> handleTaxiClick());
-    } else
-    {
-      mStart.setText(mContext.getText(R.string.p2p_start));
-      mStart.setOnClickListener(v -> {
-        if (mListener != null)
-          mListener.onRoutingStart();
-      });
-    }
+    mStart.setText(mContext.getText(R.string.p2p_start));
+    mStart.setOnClickListener(v -> {
+      if (mListener != null)
+        mListener.onRoutingStart();
+    });
 
     showStartButton(true);
   }
 
-  private void handleTaxiClick()
-  {
-    if (mTaxiProduct == null || mTaxiInfo == null)
-      return;
-
-    MapObject startPoint = RoutingController.get().getStartPoint();
-    MapObject endPoint = RoutingController.get().getEndPoint();
-    SponsoredLinks links = TaxiManager.getTaxiLink(mTaxiProduct.getProductId(), mTaxiInfo.getType(),
-                                                   startPoint, endPoint);
-    if (links != null)
-      TaxiManager.launchTaxiApp(mContext, links, mTaxiInfo.getType());
-  }
-
-  void showError(@StringRes int message)
-  {
-    showError(mError.getContext().getString(message));
-  }
-
   private void showError(@NonNull String message)
   {
-    UiUtils.hide(mTaxiFrame, mAltitudeChartFrame, mActionFrame, mTransitFrame);
+    UiUtils.hide(mAltitudeChartFrame, mActionFrame, mTransitFrame);
     mError.setText(message);
     mError.setVisibility(View.VISIBLE);
     showStartButton(false);
@@ -300,15 +227,13 @@ final class RoutingBottomMenuController implements View.OnClickListener
 
   void showStartButton(boolean show)
   {
-    boolean result = show && (RoutingController.get().isBuilt()
-                              || RoutingController.get().isTaxiRouterType());
+    boolean result = show && RoutingController.get().isBuilt();
     UiUtils.showIf(result, mStart);
   }
 
   void saveRoutingPanelState(@NonNull Bundle outState)
   {
     outState.putBoolean(STATE_ALTITUDE_CHART_SHOWN, UiUtils.isVisible(mAltitudeChartFrame));
-    outState.putParcelable(STATE_TAXI_INFO, mTaxiInfo);
     if (UiUtils.isVisible(mError))
       outState.putString(STATE_ERROR, mError.getText().toString());
   }
@@ -317,10 +242,6 @@ final class RoutingBottomMenuController implements View.OnClickListener
   {
     if (state.getBoolean(STATE_ALTITUDE_CHART_SHOWN))
       showAltitudeChartAndRoutingDetails();
-
-    TaxiInfo info = state.getParcelable(STATE_TAXI_INFO);
-    if (info != null)
-      showTaxiInfo(info);
 
     String error = state.getString(STATE_ERROR);
     if (!TextUtils.isEmpty(error))

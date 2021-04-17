@@ -18,8 +18,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.mapswithme.maps.R;
-import com.mapswithme.maps.base.NoConnectionListener;
-import com.mapswithme.maps.maplayer.guides.AbstractGuidesClickListener;
 import com.mapswithme.maps.maplayer.subway.OnSubwayLayerToggleListener;
 import com.mapswithme.maps.maplayer.traffic.OnTrafficLayerToggleListener;
 import com.mapswithme.maps.widget.recycler.SpanningLinearLayoutManager;
@@ -80,8 +78,7 @@ public class ToggleMapLayerDialog extends DialogFragment
     mAdapter.setLayerModes(LayersUtils.createItems(requireContext(),
                                                    new SubwayItemClickListener(),
                                                    new TrafficItemClickListener(),
-                                                   new IsolinesItemClickListener(),
-                                                   new GuidesItemClickListener()));
+                                                   new IsolinesItemClickListener()));
     recycler.setAdapter(mAdapter);
   }
 
@@ -154,21 +151,6 @@ public class ToggleMapLayerDialog extends DialogFragment
       super.onItemClickInternal(v,item);
       OnIsolinesLayerToggleListener listener = (OnIsolinesLayerToggleListener) requireActivity();
       listener.onIsolinesLayerSelected();
-    }
-  }
-
-  private class GuidesItemClickListener extends AbstractGuidesClickListener
-  {
-    private GuidesItemClickListener()
-    {
-      super(mAdapter, (NoConnectionListener) requireActivity());
-    }
-
-    @Override
-    public void onItemClickInternal(@NonNull View v, @NonNull BottomSheetItem item)
-    {
-      OnGuidesLayerToggleListener listener = (OnGuidesLayerToggleListener) requireActivity();
-      listener.onGuidesLayerSelected();
     }
   }
 }

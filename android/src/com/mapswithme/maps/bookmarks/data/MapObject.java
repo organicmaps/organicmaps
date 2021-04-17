@@ -8,12 +8,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.mapswithme.maps.routing.RoutePointInfo;
-import com.mapswithme.maps.search.HotelsFilter;
 import com.mapswithme.maps.search.Popularity;
 import com.mapswithme.maps.search.PopularityProvider;
-import com.mapswithme.maps.search.PriceFilterView;
-import com.mapswithme.maps.taxi.TaxiType;
-import com.mapswithme.maps.ugc.UGC;
 import com.mapswithme.maps.widget.placepage.PlacePageData;
 
 import java.lang.annotation.Retention;
@@ -80,16 +76,9 @@ public class MapObject implements PopularityProvider, PlacePageData
   private final String mAddress;
   private final Metadata mMetadata;
   private final String mApiId;
-  @Nullable
-  private List<TaxiType> mReachableByTaxiTypes;
-  @Nullable
-  private final String mBookingSearchUrl;
   private final RoutePointInfo mRoutePointInfo;
   @OpeningMode
   private final int mOpeningMode;
-  private final boolean mShouldShowUGC;
-  private final boolean mCanBeRated;
-  private final boolean mCanBeReviewed;
   @NonNull
   private final Popularity mPopularity;
   @NonNull
@@ -97,44 +86,25 @@ public class MapObject implements PopularityProvider, PlacePageData
   @NonNull
   private String mDescription;
   @Nullable
-  private ArrayList<UGC.Rating> mRatings;
-  @Nullable
-  private final HotelsFilter.HotelType mHotelType;
-  @PriceFilterView.PriceDef
-  private final int mPriceRate;
-  @Nullable
   private List<String> mRawTypes;
-  private final boolean mIsTopChoice;
 
   public MapObject(@NonNull FeatureId featureId, @MapObjectType int mapObjectType, String title,
                    @Nullable String secondaryTitle, String subtitle, String address,
-                   double lat, double lon, String apiId,
-                   @Nullable int[] types, @Nullable String bookingSearchUrl,
-                   @Nullable RoutePointInfo routePointInfo,
-                   @OpeningMode int openingMode, boolean shouldShowUGC, boolean canBeRated,
-                   boolean canBeReviewed, @Nullable UGC.Rating[] ratings,
-                   @Nullable HotelsFilter.HotelType hotelType, @PriceFilterView.PriceDef int priceRate,
-                   @NonNull Popularity popularity, @NonNull String description, int roadWarningType,
-                   boolean isTopChoice, @Nullable String[] rawTypes)
+                   double lat, double lon, String apiId, @Nullable RoutePointInfo routePointInfo,
+                   @OpeningMode int openingMode, @NonNull Popularity popularity, @NonNull String description,
+                   int roadWarningType, @Nullable String[] rawTypes)
   {
     this(featureId, mapObjectType, title, secondaryTitle,
-         subtitle, address, lat, lon, new Metadata(), apiId,
-         types, bookingSearchUrl, routePointInfo, openingMode, shouldShowUGC,
-         canBeRated, canBeReviewed, ratings, hotelType, priceRate, popularity, description,
-         roadWarningType, isTopChoice, rawTypes);
+        subtitle, address, lat, lon, new Metadata(), apiId,
+        routePointInfo, openingMode, popularity, description,
+        roadWarningType, rawTypes);
   }
 
   public MapObject(@NonNull FeatureId featureId, @MapObjectType int mapObjectType,
                    String title, @Nullable String secondaryTitle, String subtitle, String address,
                    double lat, double lon, Metadata metadata, String apiId,
-                   @Nullable int[] taxiTypes,
-                   @Nullable String bookingSearchUrl,
-                   @Nullable RoutePointInfo routePointInfo, @OpeningMode int openingMode,
-                   boolean shouldShowUGC, boolean canBeRated, boolean canBeReviewed,
-                   @Nullable UGC.Rating[] ratings, @Nullable HotelsFilter.HotelType hotelType,
-                   @PriceFilterView.PriceDef int priceRate, @NonNull Popularity popularity,
-                   @NonNull String description, int roadWarningType, boolean isTopChoice,
-                   @Nullable String[] rawTypes)
+                   @Nullable RoutePointInfo routePointInfo, @OpeningMode int openingMode, @NonNull Popularity popularity,
+                   @NonNull String description, int roadWarningType, @Nullable String[] rawTypes)
   {
     mFeatureId = featureId;
     mMapObjectType = mapObjectType;
@@ -146,28 +116,13 @@ public class MapObject implements PopularityProvider, PlacePageData
     mLon = lon;
     mMetadata = metadata;
     mApiId = apiId;
-    mBookingSearchUrl = bookingSearchUrl;
     mRoutePointInfo = routePointInfo;
     mOpeningMode = openingMode;
-    mShouldShowUGC = shouldShowUGC;
-    mCanBeRated = canBeRated;
-    mCanBeReviewed = canBeReviewed;
     mPopularity = popularity;
     mDescription = description;
-    if (taxiTypes != null)
-    {
-      mReachableByTaxiTypes = new ArrayList<>();
-      for (int type : taxiTypes)
-        mReachableByTaxiTypes.add(TaxiType.values()[type]);
-    }
-    if (ratings != null)
-      mRatings = new ArrayList<>(Arrays.asList(ratings));
-    mHotelType = hotelType;
-    mPriceRate = priceRate;
     mRoadWarningMarkType = RoadWarningMarkType.values()[roadWarningType];
     if (rawTypes != null)
       mRawTypes = new ArrayList<>(Arrays.asList(rawTypes));
-    mIsTopChoice = isTopChoice;
   }
 
   protected MapObject(@MapObjectType int type, Parcel source)
@@ -183,26 +138,14 @@ public class MapObject implements PopularityProvider, PlacePageData
          source.readDouble(), // Lon
          source.readParcelable(Metadata.class.getClassLoader()),
          source.readString(), // ApiId;
-         null, // mReachableByTaxiTypes
-         source.readString(), // BookingSearchUrl
          source.readParcelable(RoutePointInfo.class.getClassLoader()), // RoutePointInfo
          source.readInt(), // mOpeningMode
-         source.readInt() == 1, // mShouldShowUGC
-         source.readInt() == 1, // mCanBeRated;
-         source.readInt() == 1, // mCanBeReviewed
-         null, // mRatings
-         source.readParcelable(HotelsFilter.HotelType.class.getClassLoader()), // mHotelType
-
-         source.readInt(), // mPriceRate
          source.readParcelable(Popularity.class.getClassLoader()),
          source.readString(),
          source.readInt(),
-         source.readInt() == 1, //mIsTopChoice
          null // mRawTypes
         );
 
-    mReachableByTaxiTypes = readTaxiTypes(source);
-    mRatings = readRatings(source);
     mRawTypes = readRawTypes(source);
   }
 
@@ -211,28 +154,10 @@ public class MapObject implements PopularityProvider, PlacePageData
                                           @NonNull String title, @NonNull String subtitle, double lat, double lon)
   {
     return new MapObject(featureId, mapObjectType, title,
-                         "", subtitle, "", lat, lon, "",
-                         null, "", null, OPENING_MODE_PREVIEW,
-                         false /* shouldShowUGC */, false /* canBeRated */, false /* canBeReviewed */,
-                         null /* ratings */, null /* mHotelType */,
-                         PriceFilterView.UNDEFINED, Popularity.defaultInstance(), "",
-                         RoadWarningMarkType.UNKNOWN.ordinal(), false, new String[0]);
-  }
-
-  @Nullable
-  private static ArrayList<UGC.Rating> readRatings(@NonNull Parcel source)
-  {
-    ArrayList<UGC.Rating> ratings = new ArrayList<>();
-    source.readTypedList(ratings, UGC.Rating.CREATOR);
-    return ratings.isEmpty() ? null : ratings;
-  }
-
-  @NonNull
-  private static List<TaxiType> readTaxiTypes(@NonNull Parcel source)
-  {
-    List<TaxiType> types = new ArrayList<>();
-    source.readList(types, TaxiType.class.getClassLoader());
-    return types;
+                         "", subtitle, "", lat, lon, null,
+                         "", null, OPENING_MODE_PREVIEW,
+                         Popularity.defaultInstance(), "",
+                         RoadWarningMarkType.UNKNOWN.ordinal(), new String[0]);
   }
 
   @NonNull
@@ -373,12 +298,6 @@ public class MapObject implements PopularityProvider, PlacePageData
     return mApiId;
   }
 
-  @Nullable
-  public ArrayList<UGC.Rating> getDefaultRatings()
-  {
-    return mRatings;
-  }
-
   @NonNull
   public  String[] getRawTypes()
   {
@@ -388,11 +307,6 @@ public class MapObject implements PopularityProvider, PlacePageData
     String[] types = new String[mRawTypes.size()];
     mRawTypes.toArray(types);
     return types;
-  }
-
-  public boolean isTopChoice()
-  {
-    return mIsTopChoice;
   }
 
   public void setLat(double lat)
@@ -426,12 +340,6 @@ public class MapObject implements PopularityProvider, PlacePageData
   }
 
   @Nullable
-  public String getBookingSearchUrl()
-  {
-    return mBookingSearchUrl;
-  }
-
-  @Nullable
   public RoutePointInfo getRoutePointInfo()
   {
     return mRoutePointInfo;
@@ -443,37 +351,10 @@ public class MapObject implements PopularityProvider, PlacePageData
     return mOpeningMode;
   }
 
-  public boolean shouldShowUGC()
-  {
-    return mShouldShowUGC;
-  }
-
-  public boolean canBeRated()
-  {
-    return mCanBeRated;
-  }
-
-  public boolean canBeReviewed()
-  {
-    return mCanBeReviewed;
-  }
-
   @NonNull
   public FeatureId getFeatureId()
   {
     return mFeatureId;
-  }
-
-  @Nullable
-  public HotelsFilter.HotelType getHotelType()
-  {
-    return mHotelType;
-  }
-
-  @PriceFilterView.PriceDef
-  public int getPriceRate()
-  {
-    return mPriceRate;
   }
 
   private static MapObject readFromParcel(Parcel source)
@@ -506,22 +387,13 @@ public class MapObject implements PopularityProvider, PlacePageData
     dest.writeDouble(mLon);
     dest.writeParcelable(mMetadata, 0);
     dest.writeString(mApiId);
-    dest.writeString(mBookingSearchUrl);
     dest.writeParcelable(mRoutePointInfo, 0);
     dest.writeInt(mOpeningMode);
-    dest.writeInt(mShouldShowUGC ? 1 : 0);
-    dest.writeInt(mCanBeRated ? 1 : 0);
-    dest.writeInt(mCanBeReviewed ? 1 : 0);
-    dest.writeParcelable(mHotelType, 0);
-    dest.writeInt(mPriceRate);
     dest.writeParcelable(mPopularity, 0);
     dest.writeString(mDescription);
     dest.writeInt(getRoadWarningMarkType().ordinal());
-    dest.writeInt(mIsTopChoice ? 1 : 0);
     // All collections are deserialized AFTER non-collection and primitive type objects,
     // so collections must be always serialized at the end.
-    dest.writeList(mReachableByTaxiTypes);
-    dest.writeTypedList(mRatings);
     dest.writeStringList(mRawTypes);
   }
 

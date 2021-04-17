@@ -281,30 +281,6 @@
     <item name="android:isIndicator">true</item>
   </style>
 
-  <style name="MwmWidget.RatingBar.Ugc">
-    <item name="android:progressDrawable">@drawable/rating_bar_ugc</item>
-    <item name="android:indeterminateDrawable">@drawable/rating_bar_ugc</item>
-    <item name="android:stepSize">1</item>
-  </style>
-
-  <style name="MwmWidget.RatingBar.Ugc.Night">
-    <item name="android:progressDrawable">@drawable/rating_bar_ugc_night</item>
-    <item name="android:indeterminateDrawable">@drawable/rating_bar_ugc_night</item>
-    <item name="android:stepSize">1</item>
-  </style>
-
-  <style name="MwmWidget.RatingBarSmall.Ugc">
-    <item name="android:progressDrawable">@drawable/rating_bar_small_ugc</item>
-    <item name="android:indeterminateDrawable">@drawable/rating_bar_small_ugc</item>
-    <item name="android:stepSize">0.01</item>
-  </style>
-
-  <style name="MwmWidget.RatingBarSmall.Ugc.Night">
-    <item name="android:progressDrawable">@drawable/rating_bar_small_ugc_night</item>
-    <item name="android:indeterminateDrawable">@drawable/rating_bar_small_ugc_night</item>
-    <item name="android:stepSize">0.01</item>
-  </style>
-
   <style name="MwmWidget.Counter">
     <item name="android:layout_width">wrap_content</item>
     <item name="android:layout_height">wrap_content</item>

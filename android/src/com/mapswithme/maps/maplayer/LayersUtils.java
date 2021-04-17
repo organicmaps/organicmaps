@@ -16,8 +16,7 @@ public class LayersUtils
   public static List<Pair<BottomSheetItem, OnItemClickListener<BottomSheetItem>>> createItems(
       @NonNull Context context, @NonNull OnItemClickListener<BottomSheetItem> subwayListener,
       @NonNull OnItemClickListener<BottomSheetItem> trafficListener,
-      @NonNull OnItemClickListener<BottomSheetItem> isoLinesListener,
-      @NonNull OnItemClickListener<BottomSheetItem> guidesListener)
+      @NonNull OnItemClickListener<BottomSheetItem> isoLinesListener)
   {
     Pair<BottomSheetItem, OnItemClickListener<BottomSheetItem>> subway
         = new Pair<>(BottomSheetItem.Subway.makeInstance(context), subwayListener);
@@ -30,11 +29,6 @@ public class LayersUtils
     Pair<BottomSheetItem, OnItemClickListener<BottomSheetItem>> isoLines
         = new Pair<>(BottomSheetItem.Isolines.makeInstance(context), isoLinesListener);
 
-    /*
-    Pair<BottomSheetItem, OnItemClickListener<BottomSheetItem>> guides
-        = new Pair<>(BottomSheetItem.Guides.makeInstance(context), guidesListener);
-     */
-
-    return Arrays.asList(/*guides, traffic,*/ isoLines, subway);
+    return Arrays.asList(/*traffic,*/ isoLines, subway);
   }
 }

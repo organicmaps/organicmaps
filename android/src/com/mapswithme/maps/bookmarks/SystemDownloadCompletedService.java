@@ -1,12 +1,10 @@
 package com.mapswithme.maps.bookmarks;
 
-import android.app.Application;
 import android.app.DownloadManager;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
-import android.text.TextUtils;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -16,16 +14,12 @@ import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import com.mapswithme.maps.MwmApplication;
 import com.mapswithme.maps.bookmarks.data.Error;
 import com.mapswithme.maps.bookmarks.data.Result;
-import com.mapswithme.maps.purchase.BookmarkPaymentDataParser;
-import com.mapswithme.maps.purchase.PaymentDataParser;
 import com.mapswithme.util.Utils;
 import com.mapswithme.util.concurrency.UiThread;
 import com.mapswithme.util.log.Logger;
 import com.mapswithme.util.log.LoggerFactory;
 
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
-import java.net.URLDecoder;
 
 public class SystemDownloadCompletedService extends JobIntentService
 {
@@ -88,8 +82,6 @@ public class SystemDownloadCompletedService extends JobIntentService
           return new OperationStatus(null, error);
         }
 
-        logToPushWoosh((Application) getApplicationContext(), cursor);
-
         Result result = new Result(getFilePath(cursor), getArchiveId(cursor));
         return new OperationStatus(result, null);
       }
@@ -136,30 +128,6 @@ public class SystemDownloadCompletedService extends JobIntentService
   private static String getErrorMessage(@NonNull Cursor cursor)
   {
     return cursor.getString(cursor.getColumnIndex(DownloadManager.COLUMN_REASON));
-  }
-
-  private static void logToPushWoosh(@NonNull Application application, @NonNull Cursor cursor)
-  {
-    String url = getColumnValue(cursor, DownloadManager.COLUMN_URI);
-    if (TextUtils.isEmpty(url))
-      return;
-
-    String decodedUrl;
-    try
-    {
-      decodedUrl = URLDecoder.decode(url, "UTF-8");
-    }
-    catch (UnsupportedEncodingException exception)
-    {
-      decodedUrl = "";
-    }
-
-    PaymentDataParser p = new BookmarkPaymentDataParser();
-    String productId = p.getParameterByName(decodedUrl, BookmarkPaymentDataParser.PRODUCT_ID);
-    String name = p.getParameterByName(decodedUrl, BookmarkPaymentDataParser.NAME);
-
-    MwmApplication app = (MwmApplication) application;
-
   }
 
   private static class SendStatusTask implements Runnable

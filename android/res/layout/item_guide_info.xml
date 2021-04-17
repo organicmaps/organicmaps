@@ -5,12 +5,6 @@
   android:layout_width="match_parent"
   android:layout_height="wrap_content"
   android:background="?cardBackground">
-  <ImageView
-    android:id="@+id/guide_image"
-    android:layout_width="match_parent"
-    android:layout_height="@dimen/guide_image_height"
-    android:background="@color/bg_placeholder"
-    tools:src="@drawable/bg_ads" />
   <LinearLayout
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -25,47 +19,16 @@
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:textColor="?actionMenuTextColor"
-      tools:text="@string/guides" />
+      tools:text="@string/bookmarks" />
     <TextView
       android:id="@+id/btn_description"
       style="?fontSubtitle2"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:layout_marginTop="@dimen/margin_half_plus"
-      android:text="@string/description_guide"
+      android:text="@string/description"
       android:layout_marginBottom="@dimen/margin_half"
       android:textAllCaps="true"
       android:textColor="?colorAccent" />
-  </LinearLayout>
-  <include
-    layout="@layout/divider_horizontal"
-    android:layout_width="match_parent"
-    android:layout_height="@dimen/divider_height"
-    android:layout_marginStart="@dimen/margin_base"
-    android:layout_marginEnd="@dimen/margin_base" />
-  <LinearLayout
-    android:id="@+id/content_by_layout"
-    android:layout_width="match_parent"
-    android:layout_height="@dimen/guide_description_content_by_height"
-    android:orientation="horizontal"
-    android:paddingStart="@dimen/margin_base"
-    android:paddingEnd="@dimen/margin_base">
-    <ImageView
-      android:id="@+id/logo"
-      android:layout_width="@dimen/content_by_logo_width"
-      android:layout_height="match_parent"
-      android:paddingTop="@dimen/margin_half_plus"
-      android:paddingBottom="@dimen/margin_half_plus"
-      android:layout_marginEnd="@dimen/margin_base"
-      android:tint="?tintLonelyPlanetLogo"
-      android:scaleType="fitCenter"
-      tools:src="@drawable/ic_lp_logo" />
-    <TextView
-      android:id="@+id/content_by"
-      style="?fontCaption"
-      android:layout_width="match_parent"
-      android:layout_height="match_parent"
-      android:gravity="center_vertical"
-      tools:text="@string/about_menu_title" />
   </LinearLayout>
 </merge>

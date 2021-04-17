@@ -99,31 +99,6 @@
       tools:text="2.4 GB  •  Maps: 1"
       tools:visibility="visible"/>
   </LinearLayout>
-
-  <com.mapswithme.maps.widget.RatingView
-    android:id="@+id/popular_rating_view"
-    android:layout_below="@id/pull_icon_container"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_alignParentRight="true"
-    android:layout_alignParentEnd="true"
-    android:layout_marginTop="@dimen/margin_quarter"
-    android:layout_marginEnd="@dimen/margin_base"
-    android:layout_marginRight="@dimen/margin_base"
-    android:layout_alignTop="@id/title_container"
-    android:paddingLeft="@dimen/margin_quarter_plus"
-    android:paddingStart="@dimen/margin_quarter_plus"
-    android:paddingRight="@dimen/margin_quarter_plus"
-    android:paddingEnd="@dimen/margin_quarter_plus"
-    android:paddingTop="@dimen/margin_quarter"
-    android:paddingBottom="@dimen/margin_quarter"
-    android:textSize="@dimen/text_size_body_4"
-    android:text="@string/popular_place"
-    android:visibility="gone"
-    app:drawSmile="false"
-    tools:visibility="visible"
-    app:rating="popular"/>
-
   <LinearLayout
     android:id="@+id/direction_frame"
     android:layout_width="wrap_content"
@@ -135,7 +110,7 @@
     android:layout_alignWithParentIfMissing="true"
     android:layout_alignBottom="@id/title_container"
     android:background="?selectableItemBackground"
-    android:layout_below="@id/popular_rating_view"
+    android:layout_below="@id/pull_icon_container"
     android:gravity="bottom"
     android:orientation="horizontal"
     tools:background="#111111F0">
@@ -159,29 +134,12 @@
       tools:text="2000 km"/>
   </LinearLayout>
 
-  <include
-    android:id="@+id/preview_rating_info"
-    android:visibility="gone"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_alignWithParentIfMissing="true"
-    android:layout_below="@id/direction_frame"
-    android:layout_marginTop="@dimen/margin_quarter_plus"
-    android:layout_marginEnd="@dimen/margin_half_double_plus"
-    android:layout_marginRight="@dimen/margin_half_double_plus"
-    android:layout_marginStart="@dimen/margin_half_double_plus"
-    android:layout_marginLeft="@dimen/margin_half_double_plus"
-    tools:background="#8000FFFF"
-    tools:showIn="@layout/place_page_preview"
-    tools:visibility="gone"
-    layout="@layout/place_page_preview_rating"/>
-
   <TextView
     android:id="@+id/tv__address"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_alignWithParentIfMissing="true"
-    android:layout_below="@id/preview_rating_info"
+    android:layout_below="@id/direction_frame"
     android:layout_marginTop="@dimen/margin_quarter"
     android:layout_marginEnd="@dimen/margin_base"
     android:layout_marginRight="@dimen/margin_base"
@@ -220,4 +178,3 @@
     android:visibility="gone"
     tools:visibility="visible" />
 </RelativeLayout>
-

@@ -1,12 +1,9 @@
 package com.mapswithme.maps.bookmarks;
 
-import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.location.Location;
 import android.text.Html;
-import android.text.Layout;
 import android.text.Spanned;
-import android.text.StaticLayout;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.CheckBox;
@@ -97,15 +94,13 @@ public class Holders
     }
 
     void setAction(@NonNull HeaderActionChildCategories action,
-                   final boolean showAll,
-                   @BookmarkManager.CompilationType int compilationType,
-                   @NonNull String serverId)
+                   final boolean showAll)
     {
       mButton.setText(showAll
                       ? R.string.bookmarks_groups_show_all
                       : R.string.bookmarks_groups_hide_all);
       mButton.setOnClickListener(new ToggleShowAllChildCategoryClickListener(
-          action, showAll, compilationType, serverId));
+          action, showAll));
     }
 
     public interface HeaderAction
@@ -117,38 +112,30 @@ public class Holders
 
     public interface HeaderActionChildCategories
     {
-      void onHideAll(@BookmarkManager.CompilationType int compilationType);
+      void onHideAll();
 
-      void onShowAll(@BookmarkManager.CompilationType int compilationType);
+      void onShowAll();
     }
 
     private static class ToggleShowAllChildCategoryClickListener implements View.OnClickListener
     {
       private final HeaderActionChildCategories mAction;
       private final boolean mShowAll;
-      @BookmarkManager.CompilationType
-      private final int mCompilationType;
-      @NonNull
-      private final String mServerId;
 
       ToggleShowAllChildCategoryClickListener(@NonNull HeaderActionChildCategories action,
-                                              boolean showAll,
-                                              @BookmarkManager.CompilationType int compilationType,
-                                              @NonNull String serverId)
+                                              boolean showAll)
       {
         mAction = action;
         mShowAll = showAll;
-        mCompilationType = compilationType;
-        mServerId = serverId;
       }
 
       @Override
       public void onClick(View view)
       {
         if (mShowAll)
-          mAction.onShowAll(mCompilationType);
+          mAction.onShowAll();
         else
-          mAction.onHideAll(mCompilationType);
+          mAction.onHideAll();
       }
     }
 
@@ -246,14 +233,6 @@ public class Holders
     CheckBox mVisibilityMarker;
     @NonNull
     TextView mSize;
-    @NonNull
-    View mMore;
-    @NonNull
-    TextView mAuthorName;
-    @NonNull
-    TextView mAccessRule;
-    @NonNull
-    ImageView mAccessRuleImage;
     @Nullable
     private BookmarkCategory mEntity;
 
@@ -266,10 +245,6 @@ public class Holders
       int right = root.getResources().getDimensionPixelOffset(R.dimen.margin_base_plus);
       UiUtils.expandTouchAreaForView(mVisibilityMarker, 0, left, 0, right);
       mSize = root.findViewById(R.id.size);
-      mMore = root.findViewById(R.id.more);
-      mAuthorName = root.findViewById(R.id.author_name);
-      mAccessRule = root.findViewById(R.id.access_rule);
-      mAccessRuleImage = root.findViewById(R.id.access_rule_img);
     }
 
     void setVisibilityState(boolean visible)
@@ -280,11 +255,6 @@ public class Holders
     void setVisibilityListener(@Nullable View.OnClickListener listener)
     {
       mVisibilityMarker.setOnClickListener(listener);
-    }
-
-    void setMoreListener(@Nullable View.OnClickListener listener)
-    {
-      mMore.setOnClickListener(listener);
     }
 
     void setName(@NonNull String name)
@@ -308,29 +278,6 @@ public class Holders
       if (mEntity == null)
         throw new AssertionError("BookmarkCategory is null");
       return mEntity;
-    }
-
-    @NonNull
-    public TextView getAuthorName()
-    {
-      return mAuthorName;
-    }
-  }
-
-  static class BookmarkDescriptionHolder extends RecyclerView.ViewHolder
-  {
-    @NonNull
-    private final BookmarkHeaderView mDescriptionView;
-
-    public BookmarkDescriptionHolder(@NonNull BookmarkHeaderView itemView)
-    {
-      super(itemView);
-      mDescriptionView = itemView;
-    }
-
-    void bind(@NonNull BookmarkCategory category)
-    {
-      mDescriptionView.setCategory(category);
     }
   }
 
@@ -374,8 +321,6 @@ public class Holders
     private final TextView mName;
     @NonNull
     private final TextView mDistance;
-    @NonNull
-    private final View mMore;
 
     BookmarkViewHolder(@NonNull View itemView)
     {
@@ -383,7 +328,6 @@ public class Holders
       mIcon = itemView.findViewById(R.id.iv__bookmark_color);
       mName = itemView.findViewById(R.id.tv__bookmark_name);
       mDistance = itemView.findViewById(R.id.tv__bookmark_distance);
-      mMore = itemView.findViewById(R.id.more);
     }
 
     @Override
@@ -412,16 +356,6 @@ public class Holders
                                                     R.dimen.bookmark_icon_size,
                                                     mIcon.getContext().getResources());
       mIcon.setImageDrawable(circle);
-
-      UiUtils.visibleIf(sectionsDataSource.getCategory().isSharingOptionsAllowed(), mMore);
-    }
-
-    void setMoreListener(@Nullable RecyclerClickListener listener)
-    {
-      mMore.setOnClickListener(v -> {
-        if (listener != null)
-          listener.onItemClick(v, getAdapterPosition());
-      });
     }
   }
 
@@ -486,31 +420,13 @@ public class Holders
     @NonNull
     private final TextView mTitle;
     @NonNull
-    private final TextView mAuthor;
-    @NonNull
     private final TextView mDescText;
-    @NonNull
-    private final View mMoreBtn;
 
     DescriptionViewHolder(@NonNull View itemView, @NonNull BookmarkCategory category)
     {
       super(itemView);
       mDescText = itemView.findViewById(R.id.text);
       mTitle = itemView.findViewById(R.id.title);
-      mAuthor = itemView.findViewById(R.id.author);
-
-      mMoreBtn = itemView.findViewById(R.id.more_btn);
-      boolean isEmptyDesc = TextUtils.isEmpty(category.getDescription());
-      UiUtils.hideIf(isEmptyDesc, mMoreBtn);
-      mMoreBtn.setOnClickListener(v -> onMoreBtnClicked(v, category));
-    }
-
-    private void onMoreBtnClicked(@NonNull View v, @NonNull BookmarkCategory category)
-    {
-      int lineCount = calcLineCount(mDescText, category.getDescription());
-      mDescText.setMaxLines(lineCount);
-      mDescText.setText(Html.fromHtml(category.getDescription()));
-      v.setVisibility(View.GONE);
     }
 
     @Override
@@ -518,7 +434,6 @@ public class Holders
               @NonNull BookmarkListAdapter.SectionsDataSource sectionsDataSource)
     {
       mTitle.setText(sectionsDataSource.getCategory().getName());
-      bindAuthor(sectionsDataSource.getCategory());
       bindDescriptionIfEmpty(sectionsDataSource.getCategory());
     }
 
@@ -533,29 +448,6 @@ public class Holders
         Spanned spannedDesc = Html.fromHtml(desc);
         mDescText.setText(spannedDesc);
       }
-    }
-
-    private void bindAuthor(@NonNull BookmarkCategory category)
-    {
-      BookmarkCategory.Author author = category.getAuthor();
-      Context c = itemView.getContext();
-      CharSequence authorName = author == null
-                                ? null
-                                : BookmarkCategory.Author.getRepresentation(c, author);
-      mAuthor.setText(authorName);
-    }
-
-    private static int calcLineCount(@NonNull TextView textView, @NonNull String src)
-    {
-      StaticLayout staticLayout = new StaticLayout(src,
-                                                   textView.getPaint(),
-                                                   textView.getWidth(),
-                                                   Layout.Alignment.ALIGN_NORMAL,
-                                                   SPACING_MULTIPLE,
-                                                   SPACING_ADD,
-                                                   true);
-
-      return staticLayout.getLineCount();
     }
   }
 }

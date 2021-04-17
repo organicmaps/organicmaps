@@ -4,18 +4,14 @@ import android.app.Activity;
 import android.view.View;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.mapswithme.maps.maplayer.subway.DefaultMapLayerController;
 import com.mapswithme.maps.maplayer.traffic.widget.TrafficButton;
 import com.mapswithme.maps.maplayer.traffic.widget.TrafficButtonController;
-import com.mapswithme.maps.tips.Tutorial;
-import com.mapswithme.maps.tips.TutorialClickListener;
 import com.mapswithme.util.InputUtils;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 public class MapLayerCompositeController implements MapLayerController
@@ -27,15 +23,14 @@ public class MapLayerCompositeController implements MapLayerController
   @NonNull
   private ControllerAndMode mCurrentLayer;
   @NonNull
-  private final TutorialClickListener mOpenBottomDialogClickListener;
+  private final OpenBottomDialogClickListener mOpenBottomDialogClickListener;
 
   public MapLayerCompositeController(@NonNull TrafficButton traffic, @NonNull View subway,
-                                     @NonNull View isoLines, @NonNull View guides,
-                                     @NonNull AppCompatActivity activity)
+                                     @NonNull View isoLines, @NonNull AppCompatActivity activity)
   {
     mOpenBottomDialogClickListener = new OpenBottomDialogClickListener(activity);
     mActivity = activity;
-    mLayers = createLayers(traffic, subway, isoLines, guides, activity, mOpenBottomDialogClickListener);
+    mLayers = createLayers(traffic, subway, isoLines, activity, mOpenBottomDialogClickListener);
     mCurrentLayer = getCurrentLayer();
     toggleMode(mCurrentLayer.getMode());
   }
@@ -44,59 +39,29 @@ public class MapLayerCompositeController implements MapLayerController
   private static List<ControllerAndMode> createLayers(@NonNull TrafficButton traffic,
                                                       @NonNull View subway,
                                                       @NonNull View isoLinesView,
-                                                      @NonNull View guides,
                                                       @NonNull AppCompatActivity activity,
                                                       @NonNull View.OnClickListener dialogClickListener)
   {
     traffic.setOnclickListener(dialogClickListener);
     TrafficButtonController trafficButtonController = new TrafficButtonController(traffic,
                                                                                   activity);
+
     subway.setOnClickListener(dialogClickListener);
     DefaultMapLayerController subwayMapLayerController = new DefaultMapLayerController(subway);
 
     isoLinesView.setOnClickListener(dialogClickListener);
     DefaultMapLayerController isoLinesController = new DefaultMapLayerController(isoLinesView);
 
-    guides.setOnClickListener(dialogClickListener);
-    DefaultMapLayerController guidesController = new DefaultMapLayerController(guides);
-
-    ControllerAndMode subwayEntry = new ControllerAndMode(Mode.SUBWAY, Tutorial.SUBWAY,
-                                                          subwayMapLayerController);
-    ControllerAndMode trafficEntry = new ControllerAndMode(Mode.TRAFFIC, null,
-                                                           trafficButtonController);
-    ControllerAndMode isoLineEntry = new ControllerAndMode(Mode.ISOLINES, Tutorial.ISOLINES,
-                                                           isoLinesController);
-    ControllerAndMode guidesEntry = new ControllerAndMode(Mode.GUIDES, null,
-                                                          guidesController);
+    ControllerAndMode subwayEntry = new ControllerAndMode(Mode.SUBWAY, subwayMapLayerController);
+    ControllerAndMode trafficEntry = new ControllerAndMode(Mode.TRAFFIC, trafficButtonController);
+    ControllerAndMode isoLineEntry = new ControllerAndMode(Mode.ISOLINES, isoLinesController);
 
     List<ControllerAndMode> entries = new ArrayList<>();
     entries.add(subwayEntry);
     entries.add(isoLineEntry);
     entries.add(trafficEntry);
-    entries.add(guidesEntry);
 
     return entries;
-  }
-
-  public void setTutorial(@NonNull Tutorial tutorial)
-  {
-    mOpenBottomDialogClickListener.setTutorial(tutorial);
-
-    // The sorting is needed to put the controller mode corresponding to the specified tutorial
-    // at the first place in the list. It allows to enable the map layer ignoring the opening the
-    // bottom dialog when user taps on the pulsating map layer button.
-    Collections.sort(mLayers, (lhs, rhs) ->
-    {
-      if (tutorial.equals(lhs.getTutorial()))
-        return -1;
-      if (tutorial.equals(rhs.getTutorial()))
-        return 1;
-      return 0;
-    });
-
-    // The current layer must be updated after the layer controllers are sorted.
-    mCurrentLayer = getCurrentLayer();
-    toggleMode(mCurrentLayer.getMode());
   }
 
   public void toggleMode(@NonNull Mode mode)
@@ -265,16 +230,12 @@ public class MapLayerCompositeController implements MapLayerController
   {
     @NonNull
     private final Mode mMode;
-    @Nullable
-    private final Tutorial mTutorial;
     @NonNull
     private final MapLayerController mController;
 
-    ControllerAndMode(@NonNull Mode mode, @Nullable Tutorial tutorial,
-                      @NonNull MapLayerController controller)
+    ControllerAndMode(@NonNull Mode mode, @NonNull MapLayerController controller)
     {
       mMode = mode;
-      mTutorial = tutorial;
       mController = controller;
     }
 
@@ -304,23 +265,20 @@ public class MapLayerCompositeController implements MapLayerController
     {
       return mMode;
     }
-
-    @Nullable
-    Tutorial getTutorial()
-    {
-      return mTutorial;
-    }
   }
 
-  private class OpenBottomDialogClickListener extends TutorialClickListener
+  private class OpenBottomDialogClickListener implements View.OnClickListener
   {
+    @NonNull
+    private final Activity mActivity;
+
     OpenBottomDialogClickListener(@NonNull Activity activity)
     {
-      super(activity);
+      mActivity = activity;
     }
 
     @Override
-    public void onProcessClick(@NonNull View view)
+    public final void onClick(View v)
     {
       if (mCurrentLayer.getMode().isEnabled(mActivity))
       {

@@ -1,10 +1,5 @@
 package com.mapswithme.maps.widget.placepage;
 
-import static com.mapswithme.maps.bookmarks.BookmarkHeaderView.AUTHOR_LONELY_PLANET_ID;
-import static com.mapswithme.maps.widget.placepage.PlacePageButtons.Item.BOOKING;
-
-import android.app.Activity;
-import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.res.Resources;
 import android.content.res.TypedArray;
@@ -26,7 +21,6 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebView;
-import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupMenu;
@@ -39,16 +33,12 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.widget.NestedScrollViewClickFixed;
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.mapswithme.maps.Framework;
 import com.mapswithme.maps.MwmActivity;
 import com.mapswithme.maps.MwmApplication;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.api.ParsedMwmRequest;
-import com.mapswithme.maps.base.Detachable;
 import com.mapswithme.maps.bookmarks.data.Bookmark;
 import com.mapswithme.maps.bookmarks.data.BookmarkManager;
 import com.mapswithme.maps.bookmarks.data.DistanceAndAzimut;
@@ -62,30 +52,13 @@ import com.mapswithme.maps.editor.Editor;
 import com.mapswithme.maps.editor.OpeningHours;
 import com.mapswithme.maps.editor.data.TimeFormatUtils;
 import com.mapswithme.maps.editor.data.Timetable;
-import com.mapswithme.maps.gallery.Constants;
-import com.mapswithme.maps.gallery.FullScreenGalleryActivity;
-import com.mapswithme.maps.gallery.GalleryActivity;
 import com.mapswithme.maps.location.LocationHelper;
-import com.mapswithme.maps.promo.CatalogPromoController;
-import com.mapswithme.maps.promo.PromoCityGallery;
-import com.mapswithme.maps.promo.PromoEntity;
-import com.mapswithme.maps.review.Review;
 import com.mapswithme.maps.routing.RoutingController;
-import com.mapswithme.maps.search.FilterUtils;
-import com.mapswithme.maps.search.HotelsFilter;
 import com.mapswithme.maps.search.Popularity;
 import com.mapswithme.maps.settings.RoadType;
-import com.mapswithme.maps.ugc.Impress;
 import com.mapswithme.maps.widget.ArrowView;
-import com.mapswithme.maps.widget.LineCountTextView;
-import com.mapswithme.maps.widget.RatingView;
-import com.mapswithme.maps.widget.recycler.ItemDecoratorFactory;
-import com.mapswithme.maps.widget.recycler.RecyclerClickListener;
-import com.mapswithme.util.ConnectionState;
 import com.mapswithme.util.Graphics;
-import com.mapswithme.util.NetworkPolicy;
 import com.mapswithme.util.SharingUtils;
-import com.mapswithme.util.SponsoredLinks;
 import com.mapswithme.util.StringUtils;
 import com.mapswithme.util.ThemeUtils;
 import com.mapswithme.util.UiUtils;
@@ -95,9 +68,7 @@ import com.mapswithme.util.log.Logger;
 import com.mapswithme.util.log.LoggerFactory;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Calendar;
-import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
 import java.util.Objects;
@@ -105,21 +76,12 @@ import java.util.Objects;
 public class PlacePageView extends NestedScrollViewClickFixed
     implements View.OnClickListener,
                View.OnLongClickListener,
-               Sponsored.OnPriceReceivedListener,
-               Sponsored.OnHotelInfoReceivedListener,
-               LineCountTextView.OnLineCountCalculatedListener,
-               RecyclerClickListener,
-               NearbyAdapter.OnItemClickListener,
-               EditBookmarkFragment.EditBookmarkListener,
-               Detachable<Activity>
+               EditBookmarkFragment.EditBookmarkListener
 
 {
   private static final Logger LOGGER = LoggerFactory.INSTANCE.getLogger(LoggerFactory.Type.MISC);
   private static final String TAG = PlacePageView.class.getSimpleName();
   private static final String PREF_USE_DMS = "use_dms";
-  private static final String DISCOUNT_PREFIX = "-";
-  private static final String DISCOUNT_SUFFIX = "%";
-  private static final String DELIMITER_DOT = " • ";
 
   private boolean mIsDocked;
   private boolean mIsFloating;
@@ -133,12 +95,6 @@ public class PlacePageView extends NestedScrollViewClickFixed
   private ArrowView mAvDirection;
   private TextView mTvDistance;
   private TextView mTvAddress;
-  private View mPreviewRatingInfo;
-//  private RatingView mRatingView;
-  private TextView mTvSponsoredPrice;
-  @SuppressWarnings("NullableProblems")
-  @NonNull
-  private RatingView mHotelDiscount;
   private View mPhone;
   private TextView mTvPhone;
   private View mWebsite;
@@ -158,9 +114,6 @@ public class PlacePageView extends NestedScrollViewClickFixed
   private View mWiki;
   private View mEntrance;
   private TextView mTvEntrance;
-  private View mTaxiShadow;
-  private View mTaxiDivider;
-  private View mTaxi;
   private View mEditPlace;
   private View mAddOrganisation;
   private View mAddPlace;
@@ -173,19 +126,6 @@ public class PlacePageView extends NestedScrollViewClickFixed
   // Place page buttons
   private PlacePageButtons mButtons;
   private ImageView mBookmarkButtonIcon;
-  // Hotel
-  private View mHotelDescription;
-  private LineCountTextView mTvHotelDescription;
-  private View mHotelMoreDescription;
-  private View mHotelFacilities;
-  private View mHotelMoreFacilities;
-  private View mHotelGallery;
-  private RecyclerView mRvHotelGallery;
-  private View mHotelNearby;
-  private View mHotelReview;
-  private TextView mHotelRating;
-  private TextView mHotelRatingBase;
-  private View mHotelMore;
   @Nullable
   private View mBookmarkButtonFrame;
 
@@ -196,14 +136,6 @@ public class PlacePageView extends NestedScrollViewClickFixed
   @SuppressWarnings("NotNullFieldNotInitialized")
   @NonNull
   private View mPlaceDescriptionHeaderContainer;
-
-  @SuppressWarnings("NotNullFieldNotInitialized")
-  @NonNull
-  private View mPromoDivider;
-
-  @SuppressWarnings("NotNullFieldNotInitialized")
-  @NonNull
-  private ImageView mPlaceDescriptionImage;
 
   @SuppressWarnings("NullableProblems")
   @NonNull
@@ -217,25 +149,10 @@ public class PlacePageView extends NestedScrollViewClickFixed
   @NonNull
   private View mPopularityView;
 
-  @SuppressWarnings("NullableProblems")
-  @NonNull
-  private CatalogPromoController mCatalogPromoController;
-
   // Data
   @Nullable
   private MapObject mMapObject;
-  @Nullable
-  private Sponsored mSponsored;
-  private String mSponsoredPrice;
   private boolean mIsLatLonDms;
-  @NonNull
-  private final FacilitiesAdapter mFacilitiesAdapter = new FacilitiesAdapter();
-  @NonNull
-  private final com.mapswithme.maps.widget.placepage.GalleryAdapter mGalleryAdapter;
-  @NonNull
-  private final NearbyAdapter mNearbyAdapter = new NearbyAdapter(this);
-  @NonNull
-  private final ReviewAdapter mReviewAdapter = new ReviewAdapter();
 
   // Downloader`s stuff
   private DownloaderStatusIcon mDownloaderIcon;
@@ -306,10 +223,6 @@ public class PlacePageView extends NestedScrollViewClickFixed
   @Nullable
   private RoutingModeListener mRoutingModeListener;
 
-  @SuppressWarnings("NullableProblems")
-  @NonNull
-  private View mCatalogPromoTitleView;
-
   void setScrollable(boolean scrollable)
   {
     mScrollable = scrollable;
@@ -338,21 +251,9 @@ public class PlacePageView extends NestedScrollViewClickFixed
     return mScrollable && super.onInterceptTouchEvent(event);
   }
 
-  @Override
-  public void attach(@NonNull Activity object)
-  {
-    mCatalogPromoController.attach(object);
-  }
-
-  @Override
-  public void detach()
-  {
-    mCatalogPromoController.detach();
-  }
-
   public interface SetMapObjectListener
   {
-    void onSetMapObjectComplete(@NonNull NetworkPolicy policy, boolean isSameObject);
+    void onSetMapObjectComplete(boolean isSameObject);
   }
 
   public PlacePageView(Context context)
@@ -369,7 +270,6 @@ public class PlacePageView extends NestedScrollViewClickFixed
   {
     super(context, attrs);
     mIsLatLonDms = MwmApplication.prefs(context).getBoolean(PREF_USE_DMS, false);
-    mGalleryAdapter = new com.mapswithme.maps.widget.placepage.GalleryAdapter(context);
     init(attrs, defStyleAttr);
   }
 
@@ -379,7 +279,6 @@ public class PlacePageView extends NestedScrollViewClickFixed
     super.onFinishInflate();
     mPreview = findViewById(R.id.pp__preview);
     mTvTitle = mPreview.findViewById(R.id.tv__title);
-    mPopularityView = findViewById(R.id.popular_rating_view);
     mTvSecondaryTitle = mPreview.findViewById(R.id.tv__secondary_title);
     mToolbar = findViewById(R.id.toolbar);
     mTvSubtitle = mPreview.findViewById(R.id.tv__subtitle);
@@ -390,12 +289,6 @@ public class PlacePageView extends NestedScrollViewClickFixed
     directionFrame.setOnClickListener(this);
 
     mTvAddress = mPreview.findViewById(R.id.tv__address);
-    mPreview.findViewById(R.id.search_hotels_btn).setOnClickListener(this);
-
-    mPreviewRatingInfo = mPreview.findViewById(R.id.preview_rating_info);
-//    mRatingView = mPreviewRatingInfo.findViewById(R.id.rating_view);
-    mTvSponsoredPrice = mPreviewRatingInfo.findViewById(R.id.tv__hotel_price);
-    mHotelDiscount = mPreviewRatingInfo.findViewById(R.id.discount_in_percents);
 
     RelativeLayout address = findViewById(R.id.ll__place_name);
     mPhone = findViewById(R.id.ll__place_phone);
@@ -424,11 +317,6 @@ public class PlacePageView extends NestedScrollViewClickFixed
     mWiki.setOnClickListener(this);
     mEntrance = findViewById(R.id.ll__place_entrance);
     mTvEntrance = mEntrance.findViewById(R.id.tv__place_entrance);
-    mTaxiShadow = findViewById(R.id.place_page_taxi_shadow);
-    mTaxiDivider = findViewById(R.id.place_page_taxi_divider);
-//    mTaxi = findViewById(R.id.ll__place_page_taxi);
-//    TextView orderTaxi = mTaxi.findViewById(R.id.tv__place_page_order_taxi);
-//    orderTaxi.setOnClickListener(this);
     mEditPlace = findViewById(R.id.ll__place_editor);
     mEditPlace.setOnClickListener(this);
     mAddOrganisation = findViewById(R.id.ll__add_organisation);
@@ -451,17 +339,6 @@ public class PlacePageView extends NestedScrollViewClickFixed
     mTvBookmarkNote = mBookmarkFrame.findViewById(R.id.tv__bookmark_notes);
     initEditMapObjectBtn();
 
-    mHotelMore = findViewById(R.id.ll__more);
-    mHotelMore.setOnClickListener(this);
-
-    initHotelDescriptionView();
-    initHotelFacilitiesView();
-    initHotelGalleryView();
-    initHotelNearbyView();
-    initHotelRatingView();
-
-    mCatalogPromoController = new CatalogPromoController(this);
-
     mDownloaderIcon = new DownloaderStatusIcon(mPreview.findViewById(R.id.downloader_status_frame));
 
     mDownloaderInfo = mPreview.findViewById(R.id.tv__downloader_details);
@@ -471,9 +348,6 @@ public class PlacePageView extends NestedScrollViewClickFixed
 
     if (UiUtils.isLandscape(getContext()))
       setBackgroundResource(0);
-
-    Sponsored.setPriceListener(this);
-    Sponsored.setInfoListener(this);
 
     initPlaceDescriptionView();
   }
@@ -575,28 +449,6 @@ public class PlacePageView extends NestedScrollViewClickFixed
             onAvoidFerryBtnClicked();
             break;
 
-          case BOOKING:
-          case OPENTABLE:
-            // -----------------------------------------------------------------------------------------
-            // Warning: the following code is autogenerated.
-            // Do NOT change it manually.
-            // %PartnersExtender.SwitchClick
-          case PARTNER1:
-          case PARTNER2:
-          case PARTNER3:
-          case PARTNER18:
-          case PARTNER19:
-          case PARTNER20:
-            // /%PartnersExtender.SwitchClick
-            // End of autogenerated code.
-            // -----------------------------------------------------------------------------------------
-            onSponsoredClick(true /* book */, false);
-            break;
-
-//          case BOOKING_SEARCH:
-//            onBookingSearchBtnClicked();
-//            break;
-
           case CALL:
             onCallBtnClicked();
             break;
@@ -622,7 +474,7 @@ public class PlacePageView extends NestedScrollViewClickFixed
       LOGGER.e(TAG, "A map object cannot be shared, it's null!");
       return;
     }
-    SharingUtils.shareMapObject(getContext(), mMapObject, mSponsored);
+    SharingUtils.shareMapObject(getContext(), mMapObject);
   }
 
   private void onBackBtnClicked()
@@ -690,14 +542,6 @@ public class PlacePageView extends NestedScrollViewClickFixed
     Utils.callPhone(getContext(), mTvPhone.getText().toString());
   }
 
-  private void onBookingSearchBtnClicked()
-  {
-    if (mMapObject != null && !TextUtils.isEmpty(mMapObject.getBookingSearchUrl()))
-    {
-      Utils.openUrl(getContext(), mMapObject.getBookingSearchUrl());
-    }
-  }
-
   public void setRoutingModeListener(@Nullable RoutingModeListener routingModeListener)
   {
     mRoutingModeListener = routingModeListener;
@@ -730,8 +574,6 @@ public class PlacePageView extends NestedScrollViewClickFixed
   {
     mPlaceDescriptionContainer = findViewById(R.id.poi_description_container);
     mPlaceDescriptionView = findViewById(R.id.poi_description);
-    mPlaceDescriptionImage = findViewById(R.id.poi_description_logo);
-    mPromoDivider = findViewById(R.id.place_page_promo_divider);
     mPlaceDescriptionHeaderContainer = findViewById(R.id.pp_description_header_container);
     mPlaceDescriptionMoreBtn = findViewById(R.id.more_btn);
     mPlaceDescriptionMoreBtn.setOnClickListener(v -> showDescriptionScreen());
@@ -763,294 +605,6 @@ public class PlacePageView extends NestedScrollViewClickFixed
     return true;
   }
 
-  private void initHotelRatingView()
-  {
-    mHotelReview = findViewById(R.id.ll__place_hotel_rating);
-    RecyclerView rvHotelReview = findViewById(R.id.rv__place_hotel_review);
-    rvHotelReview.setLayoutManager(new LinearLayoutManager(getContext()));
-    rvHotelReview.getLayoutManager().setAutoMeasureEnabled(true);
-    rvHotelReview.setNestedScrollingEnabled(false);
-    rvHotelReview.setHasFixedSize(false);
-    rvHotelReview.setAdapter(mReviewAdapter);
-    mHotelRating = findViewById(R.id.tv__place_hotel_rating);
-    mHotelRatingBase = findViewById(R.id.tv__place_hotel_rating_base);
-    View hotelMoreReviews = findViewById(R.id.tv__place_hotel_reviews_more);
-    hotelMoreReviews.setOnClickListener(this);
-  }
-
-  private void initHotelNearbyView()
-  {
-    mHotelNearby = findViewById(R.id.ll__place_hotel_nearby);
-    GridView gvHotelNearby = findViewById(R.id.gv__place_hotel_nearby);
-    gvHotelNearby.setAdapter(mNearbyAdapter);
-  }
-
-  private void initHotelGalleryView()
-  {
-    mHotelGallery = findViewById(R.id.ll__place_hotel_gallery);
-    mRvHotelGallery = findViewById(R.id.rv__place_hotel_gallery);
-    mRvHotelGallery.setNestedScrollingEnabled(false);
-    LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(),
-                                                                LinearLayoutManager.HORIZONTAL,
-                                                                false);
-    mRvHotelGallery.setLayoutManager(layoutManager);
-    RecyclerView.ItemDecoration decor = ItemDecoratorFactory
-        .createHotelGalleryDecorator(getContext(), LinearLayoutManager.HORIZONTAL);
-    mRvHotelGallery.addItemDecoration(decor);
-    mGalleryAdapter.setListener(this);
-    mRvHotelGallery.setAdapter(mGalleryAdapter);
-  }
-
-  private void initHotelFacilitiesView()
-  {
-    mHotelFacilities = findViewById(R.id.ll__place_hotel_facilities);
-    RecyclerView rvHotelFacilities = findViewById(R.id.rv__place_hotel_facilities);
-    rvHotelFacilities.setLayoutManager(new GridLayoutManager(getContext(), 2));
-    rvHotelFacilities.getLayoutManager().setAutoMeasureEnabled(true);
-    rvHotelFacilities.setNestedScrollingEnabled(false);
-    rvHotelFacilities.setHasFixedSize(false);
-    mHotelMoreFacilities = findViewById(R.id.tv__place_hotel_facilities_more);
-    rvHotelFacilities.setAdapter(mFacilitiesAdapter);
-    mHotelMoreFacilities.setOnClickListener(this);
-  }
-
-  private void initHotelDescriptionView()
-  {
-    mHotelDescription = findViewById(R.id.ll__place_hotel_description);
-    mTvHotelDescription = findViewById(R.id.tv__place_hotel_details);
-    mHotelMoreDescription = findViewById(R.id.tv__place_hotel_more);
-    View hotelMoreDescriptionOnWeb = findViewById(R.id.tv__place_hotel_more_on_web);
-    mTvHotelDescription.setListener(this);
-    mHotelMoreDescription.setOnClickListener(this);
-    hotelMoreDescriptionOnWeb.setOnClickListener(this);
-  }
-
-  @Override
-  public void onPriceReceived(@NonNull HotelPriceInfo priceInfo)
-  {
-    if (mSponsored == null || !TextUtils.equals(priceInfo.getId(), mSponsored.getId()))
-      return;
-
-    String price = makePrice(getContext(), priceInfo);
-    if (price != null)
-      mSponsoredPrice = price;
-
-    if (mMapObject == null)
-    {
-      LOGGER.e(TAG, "A sponsored info cannot be updated, mMapObject is null!");
-      return;
-    }
-    refreshPreview(mMapObject, priceInfo);
-  }
-
-  @Nullable
-  private static String makePrice(@NonNull Context context, @NonNull HotelPriceInfo priceInfo)
-  {
-    if (TextUtils.isEmpty(priceInfo.getPrice()) || TextUtils.isEmpty(priceInfo.getCurrency()))
-      return null;
-
-    String text = Utils.formatCurrencyString(priceInfo.getPrice(), priceInfo.getCurrency());
-    return context.getString(R.string.place_page_starting_from, text);
-  }
-
-  @Override
-  public void onHotelInfoReceived(@NonNull String id, @NonNull Sponsored.HotelInfo info)
-  {
-    if (mSponsored == null || !TextUtils.equals(id, mSponsored.getId()))
-      return;
-
-    updateHotelDetails(info);
-    updateHotelFacilities(info);
-    updateHotelGallery(info);
-    updateHotelNearby(info);
-    updateHotelRating(info);
-  }
-
-  private void updateHotelRating(@NonNull Sponsored.HotelInfo info)
-  {
-    if (info.mReviews == null || info.mReviews.length == 0)
-    {
-      UiUtils.hide(mHotelReview);
-    }
-    else
-    {
-      UiUtils.show(mHotelReview);
-      mReviewAdapter.setItems(new ArrayList<>(Arrays.asList(info.mReviews)));
-      Objects.requireNonNull(mSponsored);
-      Impress impress = Impress.values()[mSponsored.getImpress()];
-      Context context = getContext();
-      String ratingText = context.getString(R.string.place_page_booking_rating,
-                                            mSponsored.getRating())
-                                 .concat(" (")
-                                 .concat(context.getString(impress.getTextId()))
-                                 .concat(")");
-      mHotelRating.setText(ratingText);
-      int reviewsCount = (int) info.mReviewsAmount;
-      String text = getResources().getQuantityString(
-          R.plurals.placepage_summary_rating_description, reviewsCount, reviewsCount);
-      mHotelRatingBase.setText(text);
-//      TextView previewReviewCountView = mPreviewRatingInfo.findViewById(R.id.tv__review_count);
-//      previewReviewCountView.setText(text);
-    }
-  }
-
-  private void updateHotelNearby(@NonNull Sponsored.HotelInfo info)
-  {
-    if (info.mNearby == null || info.mNearby.length == 0)
-    {
-      UiUtils.hide(mHotelNearby);
-    }
-    else
-    {
-      UiUtils.show(mHotelNearby);
-      mNearbyAdapter.setItems(Arrays.asList(info.mNearby));
-    }
-  }
-
-  private void updateHotelGallery(@NonNull Sponsored.HotelInfo info)
-  {
-    if (info.mPhotos == null || info.mPhotos.length == 0)
-    {
-      UiUtils.hide(mHotelGallery);
-    }
-    else
-    {
-      UiUtils.show(mHotelGallery);
-      mGalleryAdapter.setItems(new ArrayList<>(Arrays.asList(info.mPhotos)));
-      mRvHotelGallery.scrollToPosition(0);
-    }
-  }
-
-  private void updateHotelFacilities(@NonNull Sponsored.HotelInfo info)
-  {
-    if (info.mFacilities == null || info.mFacilities.length == 0)
-    {
-      UiUtils.hide(mHotelFacilities);
-    }
-    else
-    {
-      UiUtils.show(mHotelFacilities);
-      mFacilitiesAdapter.setShowAll(false);
-      mFacilitiesAdapter.setItems(Arrays.asList(info.mFacilities));
-      mHotelMoreFacilities.setVisibility(info.mFacilities.length > FacilitiesAdapter.MAX_COUNT
-                                         ? VISIBLE : GONE);
-    }
-  }
-
-  private void updateHotelDetails(@NonNull Sponsored.HotelInfo info)
-  {
-    mTvHotelDescription.setMaxLines(getResources().getInteger(R.integer.pp_hotel_description_lines));
-    refreshMetadataOrHide(info.mDescription, mHotelDescription, mTvHotelDescription);
-    mHotelMoreDescription.setVisibility(GONE);
-  }
-
-  private void clearHotelViews()
-  {
-    mTvHotelDescription.setText("");
-    mHotelMoreDescription.setVisibility(GONE);
-    mFacilitiesAdapter.setItems(Collections.emptyList());
-    mHotelMoreFacilities.setVisibility(GONE);
-    mGalleryAdapter.setItems(new ArrayList<>());
-    mNearbyAdapter.setItems(Collections.emptyList());
-    mReviewAdapter.setItems(new ArrayList<Review>());
-    mHotelRating.setText("");
-    mHotelRatingBase.setText("");
-    mTvSponsoredPrice.setText("");
-    mGalleryAdapter.setItems(new ArrayList<>());
-  }
-
-  @Override
-  public void onLineCountCalculated(boolean grater)
-  {
-    UiUtils.showIf(grater, mHotelMoreDescription);
-  }
-
-  @Override
-  public void onItemClick(View v, int position)
-  {
-    if (mMapObject == null || mSponsored == null)
-    {
-      LOGGER.e(TAG, "A photo gallery cannot be started, mMapObject/mSponsored is null!");
-      return;
-    }
-
-    if (position == com.mapswithme.maps.widget.placepage.GalleryAdapter.MAX_COUNT - 1
-        && mGalleryAdapter.getItems().size() > com.mapswithme.maps.widget.placepage.GalleryAdapter.MAX_COUNT)
-    {
-      GalleryActivity.start(getContext(), mGalleryAdapter.getItems(), mMapObject.getTitle());
-    }
-    else
-    {
-      FullScreenGalleryActivity.start(getContext(), mGalleryAdapter.getItems(), position);
-    }
-  }
-
-  @Override
-  public void onItemClick(@NonNull Sponsored.NearbyObject item)
-  {
-//  TODO go to selected object on map
-  }
-
-  private void onSponsoredClick(final boolean book, final boolean isDetails)
-  {
-    Utils.checkConnection(
-        getActivity(), R.string.common_check_internet_connection_dialog, new Utils.Proc<Boolean>()
-        {
-          @Override
-          public void invoke(@NonNull Boolean result)
-          {
-            if (!result)
-              return;
-
-            Sponsored info = mSponsored;
-            if (info == null)
-              return;
-
-            Utils.PartnerAppOpenMode partnerAppOpenMode = Utils.PartnerAppOpenMode.None;
-
-            switch (info.getType())
-            {
-              case Sponsored.TYPE_BOOKING:
-                if (mMapObject == null)
-                  break;
-
-                if (book)
-                {
-                  partnerAppOpenMode = Utils.PartnerAppOpenMode.Direct;
-                }
-                break;
-              case Sponsored.TYPE_OPENTABLE:
-              case Sponsored.TYPE_PARTNER:
-              case Sponsored.TYPE_NONE:
-                break;
-            }
-
-            try
-            {
-              if (partnerAppOpenMode != Utils.PartnerAppOpenMode.None)
-              {
-                SponsoredLinks links = new SponsoredLinks(info.getDeepLink(), info.getUrl());
-                String packageName = Sponsored.getPackageName(info.getType());
-
-                Utils.openPartner(getContext(), links, packageName, partnerAppOpenMode);
-              }
-              else
-              {
-                if (book)
-                  Utils.openUrl(getContext(), info.getUrl());
-                else
-                  Utils.openUrl(getContext(), isDetails ? info.getDescriptionUrl()
-                                                        : info.getMoreUrl());
-              }
-            }
-            catch (ActivityNotFoundException e)
-            {
-              LOGGER.e(TAG, "Failed to handle click on sponsored: ", e);
-            }
-          }
-        });
-  }
-
   private void init(AttributeSet attrs, int defStyleAttr)
   {
     LayoutInflater.from(getContext()).inflate(R.layout.place_page, this);
@@ -1059,7 +613,6 @@ public class PlacePageView extends NestedScrollViewClickFixed
       return;
 
     final TypedArray attrArray = getContext().obtainStyledAttributes(attrs, R.styleable.PlacePageView, defStyleAttr, 0);
-    final int animationType = attrArray.getInt(R.styleable.PlacePageView_animationType, 0);
     mIsDocked = attrArray.getBoolean(R.styleable.PlacePageView_docked, false);
     mIsFloating = attrArray.getBoolean(R.styleable.PlacePageView_floating, false);
     attrArray.recycle();
@@ -1090,12 +643,10 @@ public class PlacePageView extends NestedScrollViewClickFixed
     if (MapObject.same(mMapObject, mapObject))
     {
       mMapObject = mapObject;
-      NetworkPolicy policy = NetworkPolicy.newInstance(NetworkPolicy.getCurrentNetworkUsageStatus());
-      refreshViews(policy);
-      processSponsored(policy);
+      refreshViews();
       if (listener != null)
       {
-        listener.onSetMapObjectComplete(policy, true);
+        listener.onSetMapObjectComplete(true);
       }
       if (mCurrentCountry == null)
         setCurrentCountry();
@@ -1103,43 +654,22 @@ public class PlacePageView extends NestedScrollViewClickFixed
     }
 
     mMapObject = mapObject;
-    mSponsored = (mMapObject == null ? null : Sponsored.nativeGetCurrent());
 
-    if (isNetworkNeeded())
-    {
-      NetworkPolicy.checkNetworkPolicy(getActivity().getSupportFragmentManager(),
-                                       new NetworkPolicy.NetworkPolicyListener()
-      {
-        @Override
-        public void onResult(@NonNull NetworkPolicy policy)
-        {
-          setMapObjectInternal(policy);
-          if (listener != null)
-            listener.onSetMapObjectComplete(policy, false);
-        }
-      });
-    }
-    else
-    {
-      NetworkPolicy policy = NetworkPolicy.newInstance(false);
-      setMapObjectInternal(policy);
-      if (listener != null)
-        listener.onSetMapObjectComplete(policy, false);
-    }
+    setMapObjectInternal();
+    if (listener != null)
+      listener.onSetMapObjectComplete(false);
   }
 
-  private void setMapObjectInternal(@NonNull NetworkPolicy policy)
+  private void setMapObjectInternal()
   {
     detachCountry();
     if (mMapObject != null)
     {
-      clearHotelViews();
-      processSponsored(policy);
       initEditMapObjectBtn();
 
       setCurrentCountry();
     }
-    refreshViews(policy);
+    refreshViews();
   }
 
   private void setCurrentCountry()
@@ -1151,42 +681,16 @@ public class PlacePageView extends NestedScrollViewClickFixed
       attachCountry(country);
   }
 
-  private void processSponsored(@NonNull NetworkPolicy policy)
-  {
-    if (mSponsored == null || mMapObject == null)
-      return;
-
-    mSponsored.updateId(mMapObject);
-    mSponsoredPrice = mSponsored.getPrice();
-    String currencyCode = Utils.getCurrencyCode();
-
-    if (mSponsored.getId() == null || TextUtils.isEmpty(currencyCode))
-      return;
-
-    if (mSponsored.getType() != Sponsored.TYPE_BOOKING)
-      return;
-
-    Sponsored.requestPrice(mSponsored.getId(), currencyCode, policy);
-    Sponsored.requestInfo(mSponsored, Locale.getDefault().toString(), policy);
-  }
-
-  private boolean isNetworkNeeded()
-  {
-    return mMapObject != null && (isSponsored());
-  }
-
-  void refreshViews(@NonNull NetworkPolicy policy)
+  void refreshViews()
   {
     if (mMapObject == null)
     {
       LOGGER.e(TAG, "A place page views cannot be refreshed, mMapObject is null");
       return;
     }
-    refreshPreview(mMapObject, null);
+    refreshPreview(mMapObject);
     refreshDetails(mMapObject);
-    refreshHotelDetailViews(policy);
     refreshViewsInternal(mMapObject);
-    mCatalogPromoController.updateCatalogPromo(policy, mMapObject);
   }
 
   private void refreshViewsInternal(@NonNull MapObject mapObject)
@@ -1231,22 +735,12 @@ public class PlacePageView extends NestedScrollViewClickFixed
 
     if (isBookmark)
     {
-      Bookmark bmk = (Bookmark) mapObject;
-      String authorId = bmk.getRelatedAuthorId();
-      if (!TextUtils.isEmpty(authorId) && authorId.equals(AUTHOR_LONELY_PLANET_ID))
-      {
-        UiUtils.show(mPlaceDescriptionImage);
-        mPlaceDescriptionImage.setImageDrawable(getContext().getDrawable(R.drawable.ic_lp_logo));
-      }
-      else
-        UiUtils.hide(mPlaceDescriptionImage);
-
+      final Bookmark bmk = (Bookmark) mapObject;
       UiUtils.showIf(!TextUtils.isEmpty(bmk.getBookmarkDescription()), mPlaceDescriptionHeaderContainer);
-      UiUtils.hide(mPlaceDescriptionContainer, mPromoDivider);
+      UiUtils.hide(mPlaceDescriptionContainer);
       return;
     }
     UiUtils.show(mPlaceDescriptionContainer, mPlaceDescriptionHeaderContainer);
-    UiUtils.hide(mPromoDivider, mPlaceDescriptionImage);
     mPlaceDescriptionView.setText(Html.fromHtml(mapObject.getDescription()));
   }
 
@@ -1257,14 +751,6 @@ public class PlacePageView extends NestedScrollViewClickFixed
     if (!TextUtils.isEmpty(text))
     {
       SpannableStringBuilder sb = new SpannableStringBuilder(text);
-      if (mapObject.isTopChoice()) {
-        String mustSee = getContext().getResources().getString(R.string.mustsee_title);
-        StringBuilder stringBuilder = new StringBuilder();
-        text = stringBuilder.append(mustSee).append(DELIMITER_DOT).append(text).toString();
-        sb = new SpannableStringBuilder(text);
-        sb.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.base_accent)),
-                   0, mustSee.length(), Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
-      }
       int start = text.indexOf("★");
       if (start > -1)
       {
@@ -1276,75 +762,27 @@ public class PlacePageView extends NestedScrollViewClickFixed
     }
   }
 
-  private void refreshPreview(@NonNull MapObject mapObject, @Nullable HotelPriceInfo priceInfo)
+  private void refreshPreview(@NonNull MapObject mapObject)
   {
     UiUtils.setTextAndHideIfEmpty(mTvTitle, mapObject.getTitle());
     UiUtils.setTextAndHideIfEmpty(mTvSecondaryTitle, mapObject.getSecondaryTitle());
     boolean isPopular = mapObject.getPopularity().getType() == Popularity.Type.POPULAR;
-    UiUtils.showIf(isPopular, mPopularityView);
+    if (mPopularityView != null)
+      UiUtils.showIf(isPopular, mPopularityView);
     if (mToolbar != null)
       mToolbar.setTitle(mapObject.getTitle());
     setTextAndColorizeSubtitle(mapObject);
     UiUtils.hide(mAvDirection);
     UiUtils.setTextAndHideIfEmpty(mTvAddress, mapObject.getAddress());
-    boolean sponsored = isSponsored();
-    UiUtils.showIf(sponsored || mapObject.shouldShowUGC(), mPreviewRatingInfo);
-    UiUtils.showIf(sponsored, mHotelDiscount);
-//   UiUtils.showIf(mapObject.getHotelType() != null, mPreview, R.id.search_hotels_btn);
-    if (sponsored)
-      refreshSponsoredViews(mapObject, priceInfo);
-  }
-
-  private void refreshSponsoredViews(@NonNull MapObject mapObject,
-                                     @Nullable HotelPriceInfo priceInfo)
-  {
-    boolean isPriceEmpty = TextUtils.isEmpty(mSponsoredPrice);
-    @SuppressWarnings("ConstantConditions")
-    boolean isRatingEmpty = TextUtils.isEmpty(mSponsored.getRating());
-    Impress impress = Impress.values()[mSponsored.getImpress()];
-//    mRatingView.setRating(impress, mSponsored.getRating());
-//    UiUtils.showIf(!isRatingEmpty, mRatingView);
-    mTvSponsoredPrice.setText(mSponsoredPrice);
-    UiUtils.showIf(!isPriceEmpty, mTvSponsoredPrice);
-    boolean isBookingInfoExist = (!isRatingEmpty || !isPriceEmpty) &&
-                                 mSponsored.getType() == Sponsored.TYPE_BOOKING;
-    UiUtils.showIf(isBookingInfoExist || mapObject.shouldShowUGC(), mPreviewRatingInfo);
-    String discount = getHotelDiscount(priceInfo);
-    UiUtils.hideIf(TextUtils.isEmpty(discount), mHotelDiscount);
-    mHotelDiscount.setRating(Impress.DISCOUNT, discount);
-  }
-
-  @Nullable
-  private String getHotelDiscount(@Nullable HotelPriceInfo priceInfo)
-  {
-    boolean hasPercentsDiscount = priceInfo != null && priceInfo.getDiscount() > 0;
-    if (hasPercentsDiscount)
-      return DISCOUNT_PREFIX + priceInfo.getDiscount() + DISCOUNT_SUFFIX;
-
-    return priceInfo != null && priceInfo.hasSmartDeal() ? DISCOUNT_SUFFIX : null;
-  }
-
-  private boolean isSponsored()
-  {
-    return mSponsored != null && mSponsored.getType() != Sponsored.TYPE_NONE;
-  }
-
-  @Nullable
-  public Sponsored getSponsored()
-  {
-    return mSponsored;
   }
 
   private void refreshDetails(@NonNull MapObject mapObject)
   {
     refreshLatLon(mapObject);
 
-    if (mSponsored == null || mSponsored.getType() != Sponsored.TYPE_BOOKING)
-    {
-      String website = mapObject.getMetadata(Metadata.MetadataType.FMD_WEBSITE);
-      String url = mapObject.getMetadata(Metadata.MetadataType.FMD_URL);
-      refreshMetadataOrHide(TextUtils.isEmpty(website) ? url : website, mWebsite, mTvWebsite);
-    }
+    String website = mapObject.getMetadata(Metadata.MetadataType.FMD_WEBSITE);
+    String url = mapObject.getMetadata(Metadata.MetadataType.FMD_URL);
+    refreshMetadataOrHide(TextUtils.isEmpty(website) ? url : website, mWebsite, mTvWebsite);
     refreshMetadataOrHide(mapObject.getMetadata(Metadata.MetadataType.FMD_PHONE_NUMBER), mPhone, mTvPhone);
     refreshMetadataOrHide(mapObject.getMetadata(Metadata.MetadataType.FMD_EMAIL), mEmail, mTvEmail);
     refreshMetadataOrHide(mapObject.getMetadata(Metadata.MetadataType.FMD_OPERATOR), mOperator, mTvOperator);
@@ -1371,63 +809,6 @@ public class PlacePageView extends NestedScrollViewClickFixed
                      || UiUtils.isVisible(mAddPlace), mEditTopSpace);
     }
     setPlaceDescription(mapObject);
-  }
-
-  private void refreshHotelDetailViews(@NonNull NetworkPolicy policy)
-  {
-    if (mSponsored == null)
-    {
-      hideHotelDetailViews();
-      return;
-    }
-
-    boolean isConnected = ConnectionState.INSTANCE.isConnected();
-    if (isConnected && policy.canUseNetwork())
-      showHotelDetailViews();
-    else
-      hideHotelDetailViews();
-
-    if (mSponsored.getType() == Sponsored.TYPE_BOOKING)
-    {
-      UiUtils.hide(mWebsite);
-      UiUtils.show(mHotelMore);
-    }
-
-    if (mSponsored.getType() != Sponsored.TYPE_BOOKING)
-      hideHotelDetailViews();
-  }
-
-//  private void showTaxiOffer(@NonNull MapObject mapObject)
-//  {
-//    List<TaxiType> taxiTypes = mapObject.getReachableByTaxiTypes();
-//
-//    boolean showTaxiOffer = taxiTypes != null && !taxiTypes.isEmpty() &&
-//                            LocationHelper.INSTANCE.getMyPosition() != null &&
-//                            ConnectionState.INSTANCE.isConnected()
-//                            && mapObject.getRoadWarningMarkType() == RoadWarningMarkType.UNKNOWN;
-//    UiUtils.showIf(showTaxiOffer, mTaxi, mTaxiShadow, mTaxiDivider);
-//
-//    if (!showTaxiOffer)
-//      return;
-//
-//    // At this moment we display only a one taxi provider at the same time.
-//    TaxiType type = taxiTypes.get(0);
-//    ImageView logo = mTaxi.findViewById(R.id.iv__place_page_taxi);
-//    logo.setImageResource(type.getIcon());
-//    TextView title = mTaxi.findViewById(R.id.tv__place_page_taxi);
-//    title.setText(type.getTitle());
-//  }
-
-  private void hideHotelDetailViews()
-  {
-    UiUtils.hide(mHotelDescription, mHotelFacilities, mHotelGallery, mHotelNearby,
-                 mHotelReview, mHotelMore);
-  }
-
-  private void showHotelDetailViews()
-  {
-    UiUtils.show(mHotelDescription, mHotelFacilities, mHotelGallery, mHotelNearby,
-                 mHotelReview, mHotelMore);
   }
 
   private void refreshOpeningHours(@NonNull MapObject mapObject)
@@ -1583,29 +964,6 @@ public class PlacePageView extends NestedScrollViewClickFixed
     if (showBackButton || ParsedMwmRequest.isPickPointMode())
       buttons.add(PlacePageButtons.Item.BACK);
 
-    if (mSponsored != null)
-    {
-      switch (mSponsored.getType())
-      {
-        case Sponsored.TYPE_BOOKING:
-          buttons.add(BOOKING);
-          break;
-        case Sponsored.TYPE_OPENTABLE:
-          buttons.add(PlacePageButtons.Item.OPENTABLE);
-          break;
-        case Sponsored.TYPE_PARTNER:
-          int partnerIndex = mSponsored.getPartnerIndex();
-          if (partnerIndex >= 0 && !mSponsored.getUrl().isEmpty())
-            buttons.add(PlacePageButtons.getPartnerItem(partnerIndex));
-          break;
-        case Sponsored.TYPE_NONE:
-          break;
-      }
-    }
-
-//    if (!TextUtils.isEmpty(mapObject.getBookingSearchUrl()))
-//      buttons.add(PlacePageButtons.Item.BOOKING_SEARCH);
-
     if (mapObject.hasPhoneNumber())
       buttons.add(PlacePageButtons.Item.CALL);
 
@@ -1747,12 +1105,6 @@ public class PlacePageView extends NestedScrollViewClickFixed
       case R.id.ll__place_add:
         addPlace();
         break;
-      case R.id.ll__more:
-        onSponsoredClick(false /* book */, true /* isMoreDetails */);
-        break;
-      case R.id.tv__place_hotel_more_on_web:
-        onSponsoredClick(false /* book */, false /* isMoreDetails */);
-        break;
       case R.id.ll__place_latlon:
         mIsLatLonDms = !mIsLatLonDms;
         MwmApplication.prefs(getContext()).edit().putBoolean(PREF_USE_DMS, mIsLatLonDms).apply();
@@ -1783,39 +1135,6 @@ public class PlacePageView extends NestedScrollViewClickFixed
         break;
       case R.id.ll__place_email:
         Utils.sendTo(getContext(), mTvEmail.getText().toString());
-        break;
-      case R.id.tv__place_hotel_more:
-        UiUtils.hide(mHotelMoreDescription);
-        mTvHotelDescription.setMaxLines(Integer.MAX_VALUE);
-        break;
-      case R.id.tv__place_hotel_facilities_more:
-        UiUtils.hide(mHotelMoreFacilities);
-        mFacilitiesAdapter.setShowAll(true);
-        break;
-      case R.id.tv__place_hotel_reviews_more:
-        if (isSponsored())
-        {
-          //null checking is done in 'isSponsored' method
-          //noinspection ConstantConditions
-          Utils.openUrl(getContext(), mSponsored.getReviewUrl());
-        }
-        break;
-      case R.id.tv__place_page_order_taxi:
-        RoutingController.get().prepare(LocationHelper.INSTANCE.getMyPosition(), mMapObject,
-                                        Framework.ROUTER_TYPE_TAXI);
-        close();
-        break;
-      case R.id.search_hotels_btn:
-        if (mMapObject == null)
-          break;
-
-        @FilterUtils.RatingDef
-        int filterRating = mSponsored != null ? Framework.getFilterRating(mSponsored.getRating())
-                           : FilterUtils.RATING_ANY;
-        HotelsFilter filter = FilterUtils.createHotelFilter(filterRating,
-                                                            mMapObject.getPriceRate(),
-                                                            mMapObject.getHotelType());
-        getActivity().onSearchSimilarHotels(filter);
         break;
     }
   }
@@ -2002,32 +1321,12 @@ public class PlacePageView extends NestedScrollViewClickFixed
       return;
 
     setMapObject(updatedBookmark, null);
-    NetworkPolicy policy = NetworkPolicy.newInstance(NetworkPolicy.getCurrentNetworkUsageStatus());
-    refreshViews(policy);
+    refreshViews();
   }
 
   int getPreviewHeight()
   {
     return mPreview.getHeight();
-  }
-
-  @NonNull
-  public static List<PromoEntity> toEntities(@NonNull PromoCityGallery gallery)
-  {
-    List<PromoEntity> items = new ArrayList<>();
-    for (PromoCityGallery.Item each : gallery.getItems())
-    {
-      String subtitle = TextUtils.isEmpty(each.getTourCategory()) ? each.getAuthor().getName()
-                                                                  : each.getTourCategory();
-      PromoEntity item = new PromoEntity(Constants.TYPE_PRODUCT,
-                                         each.getName(),
-                                         subtitle,
-                                         each.getUrl(),
-                                         each.getLuxCategory(),
-                                         each.getImageUrl());
-      items.add(item);
-    }
-    return items;
   }
 
   private class EditBookmarkClickListener implements OnClickListener

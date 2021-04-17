@@ -1,7 +1,6 @@
 #include "com/mapswithme/maps/Framework.hpp"
 
 #include "com/mapswithme/core/jni_helper.hpp"
-#include "com/mapswithme/maps/guides/Guides.hpp"
 #include "com/mapswithme/maps/UserMarkHelper.hpp"
 #include "com/mapswithme/opengl/androidoglcontextfactory.hpp"
 #include "com/mapswithme/platform/Platform.hpp"
@@ -12,10 +11,6 @@
 #include "map/chart_generator.hpp"
 #include "map/everywhere_search_params.hpp"
 #include "map/user_mark.hpp"
-#include "map/purchase.hpp"
-
-
-#include "web_api/utils.hpp"
 
 #include "storage/storage_defines.hpp"
 #include "storage/storage_helpers.hpp"
@@ -118,7 +113,6 @@ Framework::Framework()
   m_work.GetTrafficManager().SetStateListener(bind(&Framework::TrafficStateChanged, this, _1));
   m_work.GetTransitManager().SetStateListener(bind(&Framework::TransitSchemeStateChanged, this, _1));
   m_work.GetIsolinesManager().SetStateListener(bind(&Framework::IsolinesSchemeStateChanged, this, _1));
-  m_work.GetGuidesManager().SetStateListener(bind(&Framework::GuidesLayerStateChanged, this, _1));
   m_work.GetPowerManager().Subscribe(this);
 }
 
@@ -168,12 +162,6 @@ void Framework::IsolinesSchemeStateChanged(IsolinesManager::IsolinesState state)
 {
   if (m_onIsolinesStateChangedFn)
     m_onIsolinesStateChangedFn(state);
-}
-
-void Framework::GuidesLayerStateChanged(GuidesManager::GuidesState state)
-{
-  if (m_onGuidesStateChangedFn)
-    m_onGuidesStateChangedFn(state);
 }
 
 bool Framework::DestroySurfaceOnDetach()
@@ -624,11 +612,6 @@ void Framework::SetIsolinesListener(IsolinesManager::IsolinesStateChangedFn cons
   m_onIsolinesStateChangedFn = function;
 }
 
-void Framework::SetGuidesListener(GuidesManager::GuidesStateChangedFn const & function)
-{
-  m_onGuidesStateChangedFn = function;
-}
-
 bool Framework::IsTrafficEnabled()
 {
   return m_work.GetTrafficManager().IsEnabled();
@@ -705,24 +688,6 @@ place_page::Info & Framework::GetPlacePageInfo()
   return m_work.GetCurrentPlacePageInfo();
 }
 
-void Framework::RequestBookingMinPrice(JNIEnv * env, jobject policy,
-                                       booking::BlockParams && params,
-                                       booking::BlockAvailabilityCallback const & callback)
-{
-  auto const bookingApi = m_work.GetBookingApi(ToNativeNetworkPolicy(env, policy));
-  if (bookingApi)
-    bookingApi->GetBlockAvailability(move(params), callback);
-}
-
-void Framework::RequestBookingInfo(JNIEnv * env, jobject policy,
-                                   string const & hotelId, string const & lang,
-                                   booking::GetHotelInfoCallback const & callback)
-{
-  auto const bookingApi = m_work.GetBookingApi(ToNativeNetworkPolicy(env, policy));
-  if (bookingApi)
-    bookingApi->GetHotelInfo(hotelId, lang, callback);
-}
-
 bool Framework::IsAutoRetryDownloadFailed()
 {
   return m_work.GetDownloadingPolicy().IsAutoRetryDownloadFailed();
@@ -738,87 +703,9 @@ void Framework::EnableDownloadOn3g()
   m_work.GetDownloadingPolicy().EnableCellularDownload(true);
 }
 
-uint64_t Framework::RequestTaxiProducts(JNIEnv * env, jobject policy, ms::LatLon const & from,
-                                        ms::LatLon const & to,
-                                        taxi::SuccessCallback const & onSuccess,
-                                        taxi::ErrorCallback const & onError)
-{
-  auto const taxiEngine = m_work.GetTaxiEngine(ToNativeNetworkPolicy(env, policy));
-  if (!taxiEngine)
-    return 0;
-
-  return taxiEngine->GetAvailableProducts(from, to, onSuccess, onError);
-}
-
-taxi::RideRequestLinks Framework::GetTaxiLinks(JNIEnv * env, jobject policy, taxi::Provider::Type type,
-                                               string const & productId, ms::LatLon const & from,
-                                               ms::LatLon const & to)
-{
-  auto const taxiEngine = m_work.GetTaxiEngine(ToNativeNetworkPolicy(env, policy));
-  if (!taxiEngine)
-    return {};
-
-  return taxiEngine->GetRideRequestLinks(type, productId, from, to);
-}
-
 int Framework::ToDoAfterUpdate() const
 {
   return (int) m_work.ToDoAfterUpdate();
-}
-
-uint64_t Framework::GetLocals(JNIEnv * env, jobject policy, double lat, double lon,
-                              locals::LocalsSuccessCallback const & successFn,
-                              locals::LocalsErrorCallback const & errorFn)
-{
-  auto api = NativeFramework()->GetLocalsApi(ToNativeNetworkPolicy(env, policy));
-  if (api == nullptr)
-    return 0;
-
-  std::string const langStr = languages::GetCurrentNorm();
-  size_t constexpr kResultsOnPage = 5;
-  size_t constexpr kPageNumber = 1;
-  return api->GetLocals(lat, lon, langStr, kResultsOnPage, kPageNumber, successFn, errorFn);
-}
-
-void Framework::GetPromoCityGallery(JNIEnv * env, jobject policy,
-                                    m2::PointD const & point, UTM utm,
-                                    promo::CityGalleryCallback const & onSuccess,
-                                    promo::OnError const & onError)
-{
-  auto api = NativeFramework()->GetPromoApi(ToNativeNetworkPolicy(env, policy));
-  if (api == nullptr)
-  {
-    onError();
-    return;
-  }
-
-  api->GetCityGallery(point, languages::GetCurrentNorm(), utm, onSuccess, onError);
-}
-
-void Framework::GetPromoPoiGallery(JNIEnv * env, jobject policy,
-                                   m2::PointD const & point, promo::Tags const & tags,
-                                   bool useCoordinates, UTM utm,
-                                   promo::CityGalleryCallback const & onSuccess,
-                                   promo::OnError const & onError)
-{
-  auto api = NativeFramework()->GetPromoApi(ToNativeNetworkPolicy(env, policy));
-  if (api == nullptr)
-  {
-    onError();
-    return;
-  }
-
-  api->GetPoiGallery(point, languages::GetCurrentNorm(), tags, useCoordinates, utm, onSuccess,
-                     onError);
-}
-
-std::string Framework::GetPromoCityUrl(JNIEnv * env, jobject policy, jdouble lat, jdouble lon)
-{
-  auto api = NativeFramework()->GetPromoApi(ToNativeNetworkPolicy(env, policy));
-  if (api == nullptr)
-    return {};
-  auto const point = mercator::FromLatLon(static_cast<double>(lat), static_cast<double>(lon));
-  return api->GetCityUrl(point);
 }
 
 void Framework::OnPowerFacilityChanged(power_management::Facility const facility, bool enabled)
@@ -885,36 +772,6 @@ void CallSetRoutingLoadPointsListener(shared_ptr<jobject> listener, bool success
 }
 
 RoutingManager::LoadRouteHandler g_loadRouteHandler;
-
-void CallPurchaseValidationListener(shared_ptr<jobject> listener, Purchase::ValidationCode code,
-                                    Purchase::ValidationResponse const & validationResponse)
-{
-  JNIEnv * env = jni::GetEnv();
-  jmethodID const methodId = jni::GetMethodID(env, *listener, "onValidatePurchase",
-    "(ILjava/lang/String;Ljava/lang/String;Ljava/lang/String;Z)V");
-
-  jni::TScopedLocalRef const serverId(env, jni::ToJavaString(env, validationResponse.m_info.m_serverId));
-  jni::TScopedLocalRef const vendorId(env, jni::ToJavaString(env, validationResponse.m_info.m_vendorId));
-  jni::TScopedLocalRef const receiptData(env, jni::ToJavaString(env, validationResponse.m_info.m_receiptData));
-
-  env->CallVoidMethod(*listener, methodId, static_cast<jint>(code), serverId.get(), vendorId.get(),
-                      receiptData.get(), static_cast<jboolean>(validationResponse.m_isTrial));
-}
-
-void CallStartPurchaseTransactionListener(shared_ptr<jobject> listener, bool success,
-                                          std::string const & serverId,
-                                          std::string const & vendorId)
-{
-  JNIEnv * env = jni::GetEnv();
-  jmethodID const methodId = jni::GetMethodID(env, *listener, "onStartTransaction",
-                                              "(ZLjava/lang/String;Ljava/lang/String;)V");
-
-  jni::TScopedLocalRef const serverIdStr(env, jni::ToJavaString(env, serverId));
-  jni::TScopedLocalRef const vendorIdStr(env, jni::ToJavaString(env, vendorId));
-
-  env->CallVoidMethod(*listener, methodId, static_cast<jboolean>(success),
-                      serverIdStr.get(), vendorIdStr.get());
-}
 
 /// @name JNI EXPORTS
 JNIEXPORT jstring JNICALL
@@ -995,16 +852,8 @@ Java_com_mapswithme_maps_Framework_nativePlacePageActivationListener(JNIEnv *env
     jni::TScopedLocalRef placePageDataRef(env, nullptr);
     if (info.IsTrack())
     {
-      auto const categoryId = info.GetBookmarkCategoryId();
-      auto const serverId = frm()->GetBookmarkManager().GetCategoryServerId(categoryId);
       auto const elevationInfo = frm()->GetBookmarkManager().MakeElevationInfo(info.GetTrackId());
-      placePageDataRef.reset(usermark_helper::CreateElevationInfo(env, serverId, elevationInfo));
-    }
-    else if (info.IsGuide())
-    {
-      auto const & guidesManager = frm()->GetGuidesManager();
-      auto const gallery = guidesManager.GetGallery();
-      placePageDataRef.reset(guides::CreateGallery(env, gallery));
+      placePageDataRef.reset(usermark_helper::CreateElevationInfo(env, elevationInfo));
     }
     else
     {
@@ -1274,12 +1123,6 @@ JNIEXPORT jstring JNICALL
 Java_com_mapswithme_maps_Framework_nativeGetUserAgent(JNIEnv * env, jclass)
 {
   return jni::ToJavaString(env, GetPlatform().GetAppUserAgent());
-}
-
-JNIEXPORT jstring JNICALL
-Java_com_mapswithme_maps_Framework_nativeGetDeviceId(JNIEnv * env, jclass)
-{
-  return jni::ToJavaString(env, web_api::DeviceId());
 }
 
 JNIEXPORT jobjectArray JNICALL
@@ -1740,19 +1583,6 @@ Java_com_mapswithme_maps_Framework_nativeIsIsolinesLayerEnabled(JNIEnv * env, jc
   return static_cast<jboolean>(frm()->LoadIsolinesEnabled());
 }
 
-JNIEXPORT void JNICALL Java_com_mapswithme_maps_Framework_nativeSetGuidesLayerEnabled(
-    JNIEnv * env, jclass, jboolean enabled)
-{
-  frm()->SaveGuidesEnabled(static_cast<bool>(enabled));
-  frm()->GetGuidesManager().SetEnabled(static_cast<bool>(enabled));
-}
-
-JNIEXPORT jboolean JNICALL
-Java_com_mapswithme_maps_Framework_nativeIsGuidesLayerEnabled(JNIEnv * env, jclass)
-{
-  return static_cast<jboolean>(frm()->LoadGuidesEnabled());
-}
-
 JNIEXPORT void JNICALL
 Java_com_mapswithme_maps_Framework_nativeSaveSettingSchemeEnabled(JNIEnv * env, jclass, jboolean enabled)
 {
@@ -1897,56 +1727,6 @@ Java_com_mapswithme_maps_Framework_nativeDeleteSavedRoutePoints()
   frm()->GetRoutingManager().DeleteSavedRoutePoints();
 }
 
-JNIEXPORT void JNICALL
-Java_com_mapswithme_maps_Framework_nativeAuthenticateUser(JNIEnv * env, jclass, jstring socialToken,
-                                                          jint socialTokenType,
-                                                          jboolean privacyAccepted,
-                                                          jboolean termsAccepted,
-                                                          jboolean promoAccepted,
-                                                          jobject listener)
-{
-  std::shared_ptr<_jobject> gListener(env->NewGlobalRef(listener), [](jobject l)
-  {
-    jni::GetEnv()->DeleteGlobalRef(l);
-  });
-
-  auto const tokenStr = jni::ToNativeString(env, socialToken);
-  auto & user = frm()->GetUser();
-  auto s = make_unique<User::Subscriber>();
-  s->m_postCallAction = User::Subscriber::Action::RemoveSubscriber;
-  s->m_onAuthenticate = [gListener](bool success)
-  {
-    GetPlatform().RunTask(Platform::Thread::Gui, [gListener, success]
-    {
-      auto e = jni::GetEnv();
-      jmethodID const callback = jni::GetMethodID(e, gListener.get(), "onAuthorized", "(Z)V");
-      e->CallVoidMethod(gListener.get(), callback, success);
-    });
-  };
-  user.AddSubscriber(std::move(s));
-  user.Authenticate(tokenStr, static_cast<User::SocialTokenType>(socialTokenType),
-                    static_cast<bool>(privacyAccepted), static_cast<bool>(termsAccepted),
-                    static_cast<bool>(promoAccepted));
-}
-
-JNIEXPORT jboolean JNICALL
-Java_com_mapswithme_maps_Framework_nativeIsUserAuthenticated()
-{
-  return frm()->GetUser().IsAuthenticated();
-}
-
-JNIEXPORT jstring JNICALL
-Java_com_mapswithme_maps_Framework_nativeGetPhoneAuthUrl(JNIEnv * env, jclass, jstring redirectUrl)
-{
-  return jni::ToJavaString(env, User::GetPhoneAuthUrl(jni::ToNativeString(env, redirectUrl)));
-}
-
-JNIEXPORT jobjectArray JNICALL
-Java_com_mapswithme_maps_Framework_nativeGetDefaultAuthHeaders(JNIEnv * env, jobject)
-{
-  return jni::ToKeyValueArray(env, web_api::GetDefaultAuthHeaders());
-}
-
 JNIEXPORT jstring JNICALL
 Java_com_mapswithme_maps_Framework_nativeGetPrivacyPolicyLink(JNIEnv * env, jclass)
 {
@@ -1969,117 +1749,9 @@ Java_com_mapswithme_maps_Framework_nativeShowFeature(JNIEnv * env, jclass, jobje
 }
 
 JNIEXPORT void JNICALL
-Java_com_mapswithme_maps_Framework_nativeShowBookmarkCategory(JNIEnv * env, jclass, jlong cat)
-{
-  frm()->ShowBookmarkCategory(static_cast<kml::MarkGroupId>(cat));
-}
-
-JNIEXPORT jint JNICALL
-Java_com_mapswithme_maps_Framework_nativeGetFilterRating(JNIEnv * env, jclass, jfloat rawRating)
-{
-  return static_cast<jint>(place_page::rating::GetFilterRating(rawRating));
-}
-
-JNIEXPORT void JNICALL
 Java_com_mapswithme_maps_Framework_nativeMakeCrash(JNIEnv *env, jclass type)
 {
   CHECK(false, ("Diagnostic native crash!"));
-}
-
-JNIEXPORT void JNICALL
-Java_com_mapswithme_maps_Framework_nativeValidatePurchase(JNIEnv * env, jclass, jstring serverId,
-                                                          jstring vendorId, jstring purchaseData)
-{
-  auto const & purchase = frm()->GetPurchase();
-  if (purchase == nullptr)
-    return;
-
-  Purchase::ValidationInfo info;
-  info.m_serverId = jni::ToNativeString(env, serverId);
-  info.m_vendorId = jni::ToNativeString(env, vendorId);
-  info.m_receiptData = jni::ToNativeString(env, purchaseData);
-
-  purchase->Validate(info, frm()->GetUser().GetAccessToken());
-}
-
-JNIEXPORT void JNICALL
-Java_com_mapswithme_maps_Framework_nativeStartPurchaseTransaction(JNIEnv * env, jclass,
-                                                                  jstring serverId,
-                                                                  jstring vendorId)
-{
-  auto const & purchase = frm()->GetPurchase();
-  if (purchase == nullptr)
-    return;
-
-  purchase->StartTransaction(jni::ToNativeString(env, serverId),
-                             jni::ToNativeString(env, vendorId),
-                             frm()->GetUser().GetAccessToken());
-}
-
-JNIEXPORT void JNICALL
-Java_com_mapswithme_maps_Framework_nativeSetPurchaseValidationListener(JNIEnv *, jclass,
-                                                                       jobject listener)
-{
-  auto const & purchase = frm()->GetPurchase();
-  if (purchase == nullptr)
-    return;
-
-  if (listener != nullptr)
-  {
-    purchase->SetValidationCallback(bind(&CallPurchaseValidationListener,
-                                         jni::make_global_ref(listener), _1, _2));
-  }
-  else
-  {
-    purchase->SetValidationCallback(nullptr);
-  }
-}
-
-JNIEXPORT void JNICALL
-Java_com_mapswithme_maps_Framework_nativeStartPurchaseTransactionListener(JNIEnv *, jclass,
-                                                                          jobject listener)
-{
-  auto const & purchase = frm()->GetPurchase();
-  if (purchase == nullptr)
-    return;
-
-  if (listener != nullptr)
-  {
-    purchase->SetStartTransactionCallback(bind(&CallStartPurchaseTransactionListener,
-                                          jni::make_global_ref(listener), _1, _2, _3));
-  }
-  else
-  {
-    purchase->SetStartTransactionCallback(nullptr);
-  }
-}
-
-JNIEXPORT jboolean JNICALL
-Java_com_mapswithme_maps_Framework_nativeHasActiveSubscription(JNIEnv *, jclass, jint type)
-{
-  auto const & purchase = frm()->GetPurchase();
-  return purchase != nullptr ?
-    static_cast<jboolean>(purchase->IsSubscriptionActive(static_cast<SubscriptionType>(type))) :
-    static_cast<jboolean>(false);
-}
-
-JNIEXPORT void JNICALL
-Java_com_mapswithme_maps_Framework_nativeSetActiveSubscription(JNIEnv *, jclass, jint type,
-                                                               jboolean isActive, jboolean isTrial)
-{
-  auto const & purchase = frm()->GetPurchase();
-  if (purchase == nullptr)
-    return;
-
-  purchase->SetSubscriptionEnabled(static_cast<SubscriptionType>(type), static_cast<bool>(isActive),
-                                   static_cast<bool>(isTrial));
-}
-
-JNIEXPORT jstring JNICALL
-Java_com_mapswithme_maps_Framework_nativeGetAccessToken(JNIEnv * env, jclass)
-{
-  auto & user = frm()->GetUser();
-  return jni::ToJavaString(env, user.GetAccessToken());
 }
 
 JNIEXPORT void JNICALL

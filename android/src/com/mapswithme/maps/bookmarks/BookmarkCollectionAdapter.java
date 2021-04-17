@@ -23,10 +23,9 @@ import java.util.List;
 public class BookmarkCollectionAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 {
   @Retention(RetentionPolicy.SOURCE)
-  @IntDef({ TYPE_HEADER_ITEM, TYPE_COLLECTION_ITEM, TYPE_CATEGORY_ITEM })
+  @IntDef({ TYPE_HEADER_ITEM, TYPE_CATEGORY_ITEM })
   public @interface SectionType { }
 
-  private final static int TYPE_COLLECTION_ITEM = BookmarkManager.COLLECTION;
   private final static int TYPE_CATEGORY_ITEM = BookmarkManager.CATEGORY;
   private final static int TYPE_HEADER_ITEM = 3;
 
@@ -34,12 +33,9 @@ public class BookmarkCollectionAdapter extends RecyclerView.Adapter<RecyclerView
   private final BookmarkCategory mBookmarkCategory;
 
   @NonNull
-  private List<BookmarkCategory> mItemsCollection;
-  @NonNull
   private List<BookmarkCategory> mItemsCategory;
 
   private int mSectionCount;
-  private int mCollectionSectionIndex = SectionPosition.INVALID_POSITION;
   private int mCategorySectionIndex = SectionPosition.INVALID_POSITION;
 
   private boolean mVisible;
@@ -63,52 +59,25 @@ public class BookmarkCollectionAdapter extends RecyclerView.Adapter<RecyclerView
     public void onClick(View v)
     {
       BookmarkCategory category = mHolder.getEntity();
-      int type = BookmarkManager.INSTANCE.getCompilationType(category.getId());
-      BookmarkManager.INSTANCE.toggleCompilationVisibility(category, type);
-
-      if (type == BookmarkManager.COLLECTION)
-      {
-        notifyItemChanged(0);
-        mItemsCollection = BookmarkManager.INSTANCE.getChildrenCollections(mBookmarkCategory.getId());
-      }
-      else if (mItemsCollection.size() > 0)
-      {
-        notifyItemChanged(mItemsCollection.size() + 1);
-        mItemsCategory = BookmarkManager.INSTANCE.getChildrenCategories(mBookmarkCategory.getId());
-      }
-      else
-        notifyItemChanged(0);
+      BookmarkManager.INSTANCE.toggleCategoryVisibility(category);
+      notifyItemChanged(0);
     }
   }
 
   BookmarkCollectionAdapter(@NonNull BookmarkCategory bookmarkCategory,
-                            @NonNull List<BookmarkCategory> itemsCategories,
-                            @NonNull List<BookmarkCategory> itemsCollection)
+                            @NonNull List<BookmarkCategory> itemsCategories)
   {
     mBookmarkCategory = bookmarkCategory;
     //noinspection AssignmentOrReturnOfFieldWithMutableType
     mItemsCategory = itemsCategories;
-    //noinspection AssignmentOrReturnOfFieldWithMutableType
-    mItemsCollection = itemsCollection;
 
     mSectionCount = 0;
-    if (mItemsCollection.size() > 0)
-      mCollectionSectionIndex = mSectionCount++;
     if (mItemsCategory.size() > 0)
       mCategorySectionIndex = mSectionCount++;
   }
 
-  public String getTitle(int sectionIndex, @NonNull Resources rs)
-  {
-    if (sectionIndex == mCollectionSectionIndex)
-      return rs.getString(R.string.collections_title);
-    return rs.getString(R.string.categories);
-  }
-
   public int getItemsCount(int sectionIndex)
   {
-    if (sectionIndex == mCollectionSectionIndex)
-      return mItemsCollection.size();
     if (sectionIndex == mCategorySectionIndex)
       return mItemsCategory.size();
     return 0;
@@ -117,8 +86,6 @@ public class BookmarkCollectionAdapter extends RecyclerView.Adapter<RecyclerView
   @SectionType
   public int getItemsType(int sectionIndex)
   {
-    if (sectionIndex == mCollectionSectionIndex)
-      return TYPE_COLLECTION_ITEM;
     if (sectionIndex == mCategorySectionIndex)
       return TYPE_CATEGORY_ITEM;
     throw new AssertionError("Invalid section index: " + sectionIndex);
@@ -127,9 +94,6 @@ public class BookmarkCollectionAdapter extends RecyclerView.Adapter<RecyclerView
   @NonNull
   private List<BookmarkCategory> getItemsListByType(@SectionType int type)
   {
-    if (type == TYPE_COLLECTION_ITEM)
-      return mItemsCollection;
-    else
       return mItemsCategory;
   }
 
@@ -175,7 +139,7 @@ public class BookmarkCollectionAdapter extends RecyclerView.Adapter<RecyclerView
     if (viewType == TYPE_HEADER_ITEM)
       holder = new Holders.HeaderViewHolder(inflater.inflate(R.layout.item_bookmark_group_list_header,
                                                              parent, false));
-    if (viewType == TYPE_CATEGORY_ITEM || viewType == TYPE_COLLECTION_ITEM)
+    if (viewType == TYPE_CATEGORY_ITEM)
       holder = new Holders.CollectionViewHolder(inflater.inflate(R.layout.item_bookmark_collection,
                                                                  parent, false));
 
@@ -232,14 +196,9 @@ public class BookmarkCollectionAdapter extends RecyclerView.Adapter<RecyclerView
   {
     Holders.HeaderViewHolder headerViewHolder = (Holders.HeaderViewHolder) holder;
     headerViewHolder.getText()
-                    .setText(getTitle(nextSectionPosition, holder.itemView.getResources()));
-
-    int compilationType = nextSectionPosition == mCategorySectionIndex ?
-                          BookmarkManager.CATEGORY : BookmarkManager.COLLECTION;
-    boolean visibility = !BookmarkManager.INSTANCE.areAllCompilationsVisible(
-        mBookmarkCategory.getId(), compilationType);
-    headerViewHolder.setAction(mMassOperationAction, visibility, compilationType,
-                               mBookmarkCategory.getServerId());
+                    .setText(holder.itemView.getResources().getString(R.string.bookmarks));
+    final boolean visibility = !BookmarkManager.INSTANCE.areAllCategoriesVisible();
+    headerViewHolder.setAction(mMassOperationAction, visibility);
     updateVisibility(headerViewHolder.itemView);
   }
 
@@ -271,7 +230,6 @@ public class BookmarkCollectionAdapter extends RecyclerView.Adapter<RecyclerView
 
   private void updateAllItems()
   {
-    mItemsCollection = BookmarkManager.INSTANCE.getChildrenCollections(mBookmarkCategory.getId());
     mItemsCategory = BookmarkManager.INSTANCE.getChildrenCategories(mBookmarkCategory.getId());
   }
 
@@ -284,19 +242,17 @@ public class BookmarkCollectionAdapter extends RecyclerView.Adapter<RecyclerView
   class MassOperationAction implements Holders.HeaderViewHolder.HeaderActionChildCategories
   {
     @Override
-    public void onHideAll(@BookmarkManager.CompilationType int compilationType)
+    public void onHideAll()
     {
-      BookmarkManager.INSTANCE.setChildCategoriesVisibility(mBookmarkCategory.getId(),
-                                                            compilationType, false);
+      BookmarkManager.INSTANCE.setChildCategoriesVisibility(mBookmarkCategory.getId(), false);
       updateAllItems();
       notifyDataSetChanged();
     }
 
     @Override
-    public void onShowAll(@BookmarkManager.CompilationType int compilationType)
+    public void onShowAll()
     {
-      BookmarkManager.INSTANCE.setChildCategoriesVisibility(mBookmarkCategory.getId(),
-                                                            compilationType, true);
+      BookmarkManager.INSTANCE.setChildCategoriesVisibility(mBookmarkCategory.getId(), true);
       updateAllItems();
       notifyDataSetChanged();
     }

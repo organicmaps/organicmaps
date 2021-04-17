@@ -26,27 +26,6 @@
       android:paddingBottom="@dimen/margin_eighth"
       android:textAppearance="@style/MwmTextAppearance.Body4.Light"
       android:text="@string/closed"/>
-
-    <com.mapswithme.maps.widget.RatingView
-      android:id="@+id/popular_rating_view"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:layout_marginTop="@dimen/margin_eighth"
-      android:layout_marginBottom="@dimen/margin_half"
-      android:layout_marginStart="@dimen/margin_half"
-      android:layout_marginLeft="@dimen/margin_half"
-      android:paddingLeft="@dimen/margin_quarter_plus"
-      android:paddingStart="@dimen/margin_quarter_plus"
-      android:paddingRight="@dimen/margin_quarter_plus"
-      android:paddingEnd="@dimen/margin_quarter_plus"
-      android:paddingTop="@dimen/margin_quarter"
-      android:paddingBottom="@dimen/margin_quarter"
-      android:gravity="center"
-      android:layout_gravity="center_horizontal|start"
-      android:textSize="@dimen/text_size_body_4"
-      android:text="@string/popular_place"
-      app:rating="popular"
-      app:drawSmile="false"/>
   </FrameLayout>
 
   <TextView
@@ -87,6 +66,7 @@
     android:layout_alignParentRight="true"
     android:layout_alignParentEnd="true"
     android:layout_alignTop="@id/description"
+    android:visibility="invisible"
     android:gravity="center">
 
     <TextView

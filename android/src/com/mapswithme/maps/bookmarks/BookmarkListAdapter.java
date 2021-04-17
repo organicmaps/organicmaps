@@ -63,8 +63,7 @@ public class BookmarkListAdapter extends RecyclerView.Adapter<Holders.BaseBookma
 
     boolean hasDescription()
     {
-      return mDataSource.getData().isMyCategory() &&
-             (!mDataSource.getData().getAnnotation().isEmpty() ||
+      return (!mDataSource.getData().getAnnotation().isEmpty() ||
               !mDataSource.getData().getDescription().isEmpty());
     }
 
@@ -100,8 +99,9 @@ public class BookmarkListAdapter extends RecyclerView.Adapter<Holders.BaseBookma
       mDescriptionSectionIndex = SectionPosition.INVALID_POSITION;
 
       mSectionsCount = 0;
-      if (hasDescription())
-        mDescriptionSectionIndex = mSectionsCount++;
+      // Hide the category description
+      //if (hasDescription())
+      //  mDescriptionSectionIndex = mSectionsCount++;
       if (getCategory().getTracksCount() > 0)
         mTracksSectionIndex = mSectionsCount++;
       if (getCategory().getBookmarksCount() > 0)
@@ -114,7 +114,7 @@ public class BookmarkListAdapter extends RecyclerView.Adapter<Holders.BaseBookma
     @Override
     public boolean isEditable(int sectionIndex)
     {
-      return sectionIndex != mDescriptionSectionIndex && !getCategory().isFromCatalog();
+      return sectionIndex != mDescriptionSectionIndex;
     }
 
     @Override
@@ -420,7 +420,6 @@ public class BookmarkListAdapter extends RecyclerView.Adapter<Holders.BaseBookma
                                                             false));
         bookmarkHolder.setOnClickListener(mClickListener);
         bookmarkHolder.setOnLongClickListener(mLongClickListener);
-        bookmarkHolder.setMoreListener(mMoreListener);
         holder = bookmarkHolder;
         break;
       case TYPE_SECTION:

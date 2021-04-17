@@ -66,7 +66,7 @@ public interface BookmarkCategoriesPageResProvider
     @Override
     public int getHeaderText()
     {
-      return R.string.guides;
+      return R.string.bookmarks;
     }
 
     @Override
@@ -78,7 +78,7 @@ public interface BookmarkCategoriesPageResProvider
     @Override
     public int getFooterText()
     {
-      return R.string.download_guides;
+      return R.string.bookmarks;
     }
   }
 

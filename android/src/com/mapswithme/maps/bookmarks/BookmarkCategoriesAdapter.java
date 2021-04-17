@@ -2,7 +2,6 @@ package com.mapswithme.maps.bookmarks;
 
 import static com.mapswithme.maps.bookmarks.Holders.CategoryViewHolder;
 import static com.mapswithme.maps.bookmarks.Holders.HeaderViewHolder;
-import static com.mapswithme.util.UiUtils.PHRASE_SEPARATOR;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -17,7 +16,6 @@ import com.mapswithme.maps.R;
 import com.mapswithme.maps.adapter.OnItemClickListener;
 import com.mapswithme.maps.bookmarks.data.BookmarkCategory;
 import com.mapswithme.maps.bookmarks.data.BookmarkManager;
-import com.mapswithme.util.UiUtils;
 
 import java.util.List;
 
@@ -37,15 +35,11 @@ public class BookmarkCategoriesAdapter extends BaseBookmarkCategoryAdapter<Recyc
   private CategoryListCallback mCategoryListCallback;
   @NonNull
   private final MassOperationAction mMassOperationAction = new MassOperationAction();
-  @NonNull
-  private final BookmarkCategory.Type mType;
 
-  BookmarkCategoriesAdapter(@NonNull Context context, @NonNull BookmarkCategory.Type type,
-                            @NonNull List<BookmarkCategory> categories)
+  BookmarkCategoriesAdapter(@NonNull Context context, @NonNull List<BookmarkCategory> categories)
   {
     super(context.getApplicationContext(), categories);
-    mType = type;
-    mResProvider = type.getFactory().getResProvider();
+    mResProvider = new BookmarkCategoriesPageResProvider.Default();
   }
 
   public void setOnClickListener(@Nullable OnItemClickListener<BookmarkCategory> listener)
@@ -119,7 +113,7 @@ public class BookmarkCategoriesAdapter extends BaseBookmarkCategoryAdapter<Recyc
     HeaderViewHolder headerViewHolder = (HeaderViewHolder) holder;
     headerViewHolder.setAction(mMassOperationAction,
                                mResProvider,
-                               BookmarkManager.INSTANCE.areAllCategoriesInvisible(mType));
+                               BookmarkManager.INSTANCE.areAllCategoriesInvisible());
     headerViewHolder.getText().setText(mResProvider.getHeaderText());
   }
 
@@ -130,30 +124,9 @@ public class BookmarkCategoriesAdapter extends BaseBookmarkCategoryAdapter<Recyc
     categoryHolder.setCategory(category);
     categoryHolder.setName(category.getName());
     bindSize(categoryHolder, category);
-    bindAuthor(categoryHolder, category);
-    bindAccessRules(category, categoryHolder);
     categoryHolder.setVisibilityState(category.isVisible());
     ToggleVisibilityClickListener listener = new ToggleVisibilityClickListener(categoryHolder);
     categoryHolder.setVisibilityListener(listener);
-    categoryHolder.setMoreListener(v -> onMoreOperationClicked(category));
-  }
-
-  private void bindAccessRules(@NonNull BookmarkCategory category,
-                               @NonNull CategoryViewHolder categoryHolder)
-  {
-    BookmarkCategory.AccessRules rules = category.getAccessRules();
-    categoryHolder.mAccessRuleImage.setImageResource(rules.getDrawableResId());
-    String representation = categoryHolder.itemView.getResources().getString(rules.getNameResId())
-                            + UiUtils.PHRASE_SEPARATOR;
-    categoryHolder.mAccessRule.setText(representation);
-    UiUtils.hideIf(rules == BookmarkCategory.AccessRules.ACCESS_RULES_P2P
-                   || rules == BookmarkCategory.AccessRules.ACCESS_RULES_PAID);
-  }
-
-  private void onMoreOperationClicked(@NonNull BookmarkCategory category)
-  {
-    if (mCategoryListCallback != null)
-      mCategoryListCallback.onMoreOperationClick(category);
   }
 
   private void bindSize(@NonNull CategoryViewHolder categoryHolder,
@@ -163,31 +136,13 @@ public class BookmarkCategoriesAdapter extends BaseBookmarkCategoryAdapter<Recyc
     categoryHolder.setSize(template.getPlurals(), template.getCount());
   }
 
-  private void bindAuthor(@NonNull CategoryViewHolder categoryHolder,
-                          @NonNull BookmarkCategory category)
-  {
-    BookmarkCategory.Author author = category.getAuthor();
-    CharSequence authorName = author == null
-                              ? null
-                              : getAuthorRepresentation(author, getContext());
-    categoryHolder.getAuthorName().setText(authorName);
-  }
-
-  @NonNull
-  private static String getAuthorRepresentation(@NonNull BookmarkCategory.Author author,
-                                                @NonNull Context context)
-  {
-    return PHRASE_SEPARATOR + BookmarkCategory.Author.getRepresentation(context, author);
-  }
-
   @Override
   public int getItemViewType(int position)
   {
     if (position == 0)
       return TYPE_ACTION_HEADER;
 
-    return (position == getItemCount() - 1) && mType.getFactory().hasAdapterFooter() ? TYPE_ACTION_FOOTER
-                                                                                     : TYPE_CATEGORY_ITEM;
+    return (position == getItemCount() - 1) ? TYPE_ACTION_FOOTER : TYPE_CATEGORY_ITEM;
   }
 
   private int toCategoryPosition(int adapterPosition)
@@ -205,13 +160,7 @@ public class BookmarkCategoriesAdapter extends BaseBookmarkCategoryAdapter<Recyc
   public int getItemCount()
   {
     int count = super.getItemCount();
-    return count > 0 ? count + 1 /* header */ + (mType.getFactory().hasAdapterFooter() ? 1 : 0) : 0;
-  }
-
-  @NonNull
-  public BookmarksPageFactory getFactory()
-  {
-    return mType.getFactory();
+    return count > 0 ? (count + 1 /* header */ + 1 /* footer */) : 0;
   }
 
   private class LongClickListener implements View.OnLongClickListener
@@ -240,14 +189,14 @@ public class BookmarkCategoriesAdapter extends BaseBookmarkCategoryAdapter<Recyc
     @Override
     public void onHideAll()
     {
-      BookmarkManager.INSTANCE.setAllCategoriesVisibility(false, mType);
+      BookmarkManager.INSTANCE.setAllCategoriesVisibility(false);
       notifyDataSetChanged();
     }
 
     @Override
     public void onShowAll()
     {
-      BookmarkManager.INSTANCE.setAllCategoriesVisibility(true, mType);
+      BookmarkManager.INSTANCE.setAllCategoriesVisibility(true);
       notifyDataSetChanged();
     }
   }
