@@ -130,7 +130,7 @@ set(EXECUTABLE_OUTPUT_PATH ${CMAKE_CURRENT_BINARY_DIR})
 set(LIBRARY_OUTPUT_PATH ${CMAKE_CURRENT_BINARY_DIR})
 
 if (NOT (ENV{CCACHE_DISABLE} EQUAL "1"))
-  find_program(CCACHE_PROGRAM ccache)
+  find_program(CCACHE_PROGRAM ccache HINTS /usr/local/bin/)
   if (CCACHE_PROGRAM)
     message(STATUS "Using ccache, export CCACHE_DISABLE=1 to disable it.")
     set_property(GLOBAL PROPERTY RULE_LAUNCH_COMPILE "${CCACHE_PROGRAM}")
