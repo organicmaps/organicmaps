@@ -17,13 +17,11 @@ bool PopularityHasHigherPriority(bool hasPosition, double distanceInMeters)
 
 @interface MWMSearchCommonCell ()
 
-@property(nonatomic) IBOutletCollection(UIImageView) NSArray * infoRatingStars;
 @property(weak, nonatomic) IBOutlet UILabel * distanceLabel;
 @property(weak, nonatomic) IBOutlet UILabel * infoLabel;
 @property(weak, nonatomic) IBOutlet UILabel * locationLabel;
 @property(weak, nonatomic) IBOutlet UILabel * typeLabel;
 @property(weak, nonatomic) IBOutlet UIView * closedView;
-@property(weak, nonatomic) IBOutlet UIView * infoRatingView;
 @property(weak, nonatomic) IBOutlet UIView * infoView;
 @property(weak, nonatomic) IBOutlet UIView * popularView;
 
@@ -50,8 +48,9 @@ bool PopularityHasHigherPriority(bool hasPosition, double distanceInMeters)
   if (!result.GetBrand().empty())
     brand = @(platform::GetLocalizedBrandName(result.GetBrand()).c_str());
 
+  static NSString * fiveStars = [NSString stringWithUTF8String:"★★★★★"];
   if (starsCount > 0)
-    [self setInfoRating:starsCount];
+    [self setInfoText:[fiveStars substringToIndex:starsCount]];
   else if (airportIata.length > 0)
     [self setInfoText:airportIata];
   else if (roadShields.length > 0)
@@ -102,21 +101,11 @@ bool PopularityHasHigherPriority(bool hasPosition, double distanceInMeters)
 - (void)setInfoText:(NSString *)infoText
 {
   self.infoView.hidden = NO;
-  self.infoLabel.hidden = NO;
   self.infoLabel.text = infoText;
 }
 
-- (void)setInfoRating:(NSUInteger)infoRating
-{
-  self.infoView.hidden = NO;
-  self.infoLabel.hidden = YES;
-  [self.infoRatingStars
-      enumerateObjectsUsingBlock:^(UIImageView * star, NSUInteger idx, BOOL * stop) {
-        star.highlighted = star.tag <= infoRating;
-      }];
-}
-
 - (void)clearInfo { self.infoView.hidden = YES; }
+
 - (NSDictionary *)selectedTitleAttributes
 {
   return @{
