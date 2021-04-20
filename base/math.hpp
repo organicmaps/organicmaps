@@ -5,6 +5,7 @@
 #include <algorithm>
 #include <climits>
 #include <cmath>
+#include <cstring>
 #include <functional>
 #include <limits>
 #include <type_traits>
@@ -55,10 +56,10 @@ bool AlmostEqualULPs(Float x, Float y, unsigned int maxULPs = 256)
   int const bits = CHAR_BIT * sizeof(Float);
   typedef typename boost::int_t<bits>::exact IntType;
   typedef typename boost::uint_t<bits>::exact UIntType;
-
-  IntType xInt = *reinterpret_cast<IntType const *>(&x);
-  IntType yInt = *reinterpret_cast<IntType const *>(&y);
-
+  IntType xInt, yInt;
+  static_assert(sizeof(xInt) == sizeof(x), "bit_cast impossible");
+  std::memcpy(&xInt, &x, sizeof(x));
+  std::memcpy(&yInt, &y, sizeof(y));
   // Make xInt and yInt lexicographically ordered as a twos-complement int
   IntType const highestBit = IntType(1) << (bits - 1);
   if (xInt < 0)
