@@ -61,7 +61,7 @@
 	<string name="country_status_download_failed">Indirme işlemi başarısız oldu</string>
 	<!-- Button text for the button under the country_status_download_failed message -->
 	<string name="try_again">Tekrar Deneyin</string>
-	<string name="about_menu_title">OMaps Hakkında</string>
+	<string name="about_menu_title">Organic Maps Hakkında</string>
 	<string name="downloaded_touch_to_delete">(%s) indirildi, silmek için dokunun</string>
 	<string name="connection_settings">Bağlantı Ayarları</string>
 	<string name="download_mb_or_kb">%s indir</string>
@@ -69,7 +69,7 @@
 	<string name="unsupported_phone">Hızlı donanıma sahip bir OpenGL gerekli. Ne yazık ki cihazınız desteklenmiyor.</string>
 	<string name="download">İndir</string>
 	<string name="external_storage_is_not_available">İndirilen haritalarla SD kart/USB depolama aygıtı kullanılamıyor</string>
-	<string name="disconnect_usb_cable">OMaps’yi kullanabilmeniz için lütfen USB kablosunun bağlantısını kesin veya hafıza kartı takın</string>
+	<string name="disconnect_usb_cable">Organic Maps’yi kullanabilmeniz için lütfen USB kablosunun bağlantısını kesin veya hafıza kartı takın</string>
 	<string name="not_enough_free_space_on_sdcard">Uygulamayı kullanabilmeniz için lütfen SD kart/USB depolama aygıtında biraz alan boşaltın</string>
 	<string name="not_enough_memory">Uygulamayı başlatmak için yeterli hafıza yok</string>
 	<string name="download_resources">Başlamadan önce cihazınıza genel dünya haritasını indirelim.\nVerilerin %s’si gerekli.</string>
@@ -109,7 +109,7 @@
 	<!-- Add bookmark dialog - bookmark set, Bookmarks dialog - Bookmark set cell -->
 	<string name="set">Ayarla</string>
 	<!-- Text hint in Bookmarks dialog when no any bookmarks are added -->
-	<string name="bookmarks_usage_hint">Henüz hiç yer iminiz yok.\nYer imi eklemek için haritada bir yere dokunun.\nBaşka kaynaklardan da yer imleri alınıp OMaps’de gösterilebilir KML/KMZ dosyasını posta, Dropbox veya web bağlantısından kaydedilen pinlerle aç.</string>
+	<string name="bookmarks_usage_hint">Henüz hiç yer iminiz yok.\nYer imi eklemek için haritada bir yere dokunun.\nBaşka kaynaklardan da yer imleri alınıp Organic Maps’de gösterilebilir KML/KMZ dosyasını posta, Dropbox veya web bağlantısından kaydedilen pinlerle aç.</string>
 	<!-- Settings button in system menu -->
 	<string name="settings">Ayarlar</string>
 	<!-- Header of settings activity where user defines storage path -->
@@ -177,7 +177,7 @@
 	<!-- Button text -->
 	<string name="share_by_email">E-postayla paylaş</string>
 	<!-- Email Subject when sharing bookmarks category -->
-	<string name="share_bookmarks_email_subject">Paylaşılan OMaps yer imleri</string>
+	<string name="share_bookmarks_email_subject">Paylaşılan Organic Maps yer imleri</string>
 	<!-- message title of loading file -->
 	<string name="load_kmz_title">Yer İmleri Yükleniyor</string>
 	<!-- Kmz file successful loading -->
@@ -197,17 +197,17 @@
 	<!-- Alert message that downloading is in progress. -->
 	<string name="downloading_is_active">Ülke indirme işlemi şu anda sürüyor.</string>
 	<!-- Message that will be shown in alert view, when we ask user to leave review on App Store -->
-	<string name="appStore_message">OMaps kullanmaktan keyif aldığınızı umuyoruz! Öyleyse, lütfen App Store’da uygulamaya puan verin veya uygulama hakkında yorum yapın. Bir dakikadan daha kısa sürer ama bize gerçekten yardımcı olabilir. Desteğiniz için teşekkürler!</string>
+	<string name="appStore_message">Organic Maps kullanmaktan keyif aldığınızı umuyoruz! Öyleyse, lütfen App Store’da uygulamaya puan verin veya uygulama hakkında yorum yapın. Bir dakikadan daha kısa sürer ama bize gerçekten yardımcı olabilir. Desteğiniz için teşekkürler!</string>
 	<!-- No, thanks -->
 	<string name="no_thanks">Hayır, teşekkürler</string>
 	<!-- Share one specific bookmark using SMS, %1$@ contains ge0:// and %2$@ http://ge0.me link. @NOTE non-ascii symbols in the link will make 70 bytes sms instead of 140 -->
-	<string name="bookmark_share_sms">Hey, OMaps’de pinimi incele! %1$s veya %2$s Çevrimiçi haritalar sende yüklü değil mi? Buradan indir: https://omaps.app/get</string>
+	<string name="bookmark_share_sms">Hey, Organic Maps’de pinimi incele! %1$s veya %2$s Çevrimiçi haritalar sende yüklü değil mi? Buradan indir: https://organicmaps.app/get</string>
 	<!-- Share my position using SMS, %1$@ contains ge0:// and %2$@ http://ge0.me link WITHOUT NAME. @NOTE non-ascii symbols in the link will make 70 bytes sms instead of 140 -->
-	<string name="my_position_share_sms">Hey, OMaps’de geçerli konumumu incele! %1$s veya %2$s Çevrimiçi haritalar sende yok mu? Buradan indir: https://omaps.app/get</string>
+	<string name="my_position_share_sms">Hey, Organic Maps’de geçerli konumumu incele! %1$s veya %2$s Çevrimiçi haritalar sende yok mu? Buradan indir: https://organicmaps.app/get</string>
 	<!-- Subject for emailed bookmark -->
-	<string name="bookmark_share_email_subject">Hey, OMaps haritasında pinimi incele!</string>
+	<string name="bookmark_share_email_subject">Hey, Organic Maps haritasında pinimi incele!</string>
 	<!-- Subject for emailed position -->
-	<string name="my_position_share_email_subject">Hey, OMaps’de geçerli konumumu incele!</string>
+	<string name="my_position_share_email_subject">Hey, Organic Maps’de geçerli konumumu incele!</string>
 	<!-- Share my position using EMail, %1$@ is ge0:// and %2$@ is http://ge0.me link WITHOUT NAME -->
 	<string name="my_position_share_email">Merhaba,\n\nŞu anda bulunduğum yer: %1$s. Yeri haritada görmek için bu bağlantıya %2$s veya şuna %3$s tıkla.\n\nTeşekkürler.</string>
 	<!-- Android share by Message/SMS button text (including SMS) -->
@@ -307,19 +307,19 @@
 	<!-- text of notification -->
 	<string name="download_map_notification">Bulunduğun yerin haritasını indir</string>
 	<!-- text of notification -->
-	<string name="pro_version_is_free_today">OMaps tam sürümü bugün ücretsiz! İndir ve arkadaşlarına haber ver.</string>
+	<string name="pro_version_is_free_today">Organic Maps tam sürümü bugün ücretsiz! İndir ve arkadaşlarına haber ver.</string>
 	<!-- Dialog for transferring maps from lite to pro. -->
-	<string name="move_lite_maps_to_pro">OMaps Lite\'den indirmiş olduğunuz haritaları OMaps\'ye aktarıyoruz. Bu bir kaç dakika sürebilir.</string>
+	<string name="move_lite_maps_to_pro">Organic Maps Lite\'den indirmiş olduğunuz haritaları Organic Maps\'ye aktarıyoruz. Bu bir kaç dakika sürebilir.</string>
 	<!-- Message to display when maps moved. -->
-	<string name="move_lite_maps_to_pro_ok">İndirmiş olduğunuz haritalar başarılı bir şekilde OMaps\'ye aktarıldı.</string>
+	<string name="move_lite_maps_to_pro_ok">İndirmiş olduğunuz haritalar başarılı bir şekilde Organic Maps\'ye aktarıldı.</string>
 	<!-- Message to display when maps move failed. -->
-	<string name="move_lite_maps_to_pro_failed">Haritanızın aktarımı başarısız oldu. Lütfen OMaps Lite\'yi silin ve haritaları tekrar indirin.</string>
+	<string name="move_lite_maps_to_pro_failed">Haritanızın aktarımı başarısız oldu. Lütfen Organic Maps Lite\'yi silin ve haritaları tekrar indirin.</string>
 	<!-- Text in menu -->
 	<string name="settings_and_more">Ayarlar &amp; Fazlası</string>
 	<!-- Text in menu -->
 	<string name="website">Web Sitesi</string>
 	<!-- Text in menu -->
-	<string name="maps_me_community">OMaps Topluluğu</string>
+	<string name="maps_me_community">Organic Maps Topluluğu</string>
 	<!-- Text in menu -->
 	<string name="like_on_facebook">Facebook\'da beğen</string>
 	<!-- Text in menu -->
@@ -339,11 +339,11 @@
 	<!-- Text in menu -->
 	<string name="report_a_bug">Hata bildir</string>
 	<!-- Email subject -->
-	<string name="subscribe_me_subject">Lütfen OMaps haber bültenine beni abone yap</string>
+	<string name="subscribe_me_subject">Lütfen Organic Maps haber bültenine beni abone yap</string>
 	<!-- Email body -->
 	<string name="subscribe_me_body">En son haberlerden güncellemelerden ve tanıtımlardan ilk önce haberdar olmak istiyorum. Aboneliğimi herhangi bir zaman iptal edebilirim.</string>
 	<!-- About text -->
-	<string name="about_text">OMaps dünyadaki tüm ülkelerdeki şehirlerin en hızlı çevrimdışı haritalarını sunuyor. Tam güven ile seyahat edin: nerede olursanız olun, OMaps harita üzerinde nerede olduğunuzu belirlemeye, en yakın restoranı, oteli, bankayı, benzin istasyonunu v.b. bulmaya yardımcı olur. İnternet bağlantısı gerektirmez.\n\nHer zaman yeni özellikler üzerinde çalışıyoruz ve sizlerin OMaps\'yi nasıl geliştirebileceğimize dair görüşlerinizi almaktan mutluluk duyuyoruz. Eğer uygulama ile ilgili herhangi bir probleminiz varsa, bizimle support\@omaps.app adresinden temasa geçmekten çekinmeyin. Her talebe cevap veriyoruz!\n\nOMaps\'yi beğendiniz ve bize destek olmak ister misiniz? Bunun bazı basit ve tamamıyla ücretsiz yolları var:\n\n- Uygulama Marketinizde bir yorum yazın\n- Facebook sayfamızı beğenin http://www.facebook.com/mapswithme\n- veya sadece annenize, arkadaşlarınıza ve iş arkadaşlarınıza OMaps\'den bahsedin :)\n\nBizi tercih ettiğiniz için teşekkür ederiz. Desteğinizden dolayı çok memnuniyet duyarız!\n\nNot: Verileri haritaları kullanıcıların yaratmasına ve düzenlemesine olanak veren Wikipedia benzeri bir proje olan OpenStreetMap\'dan almaktayız. Eğer haritada eksik ya da hatalı bir şeyler görürseniz doğrudan haritaları\n\nhttps://www.openstreetmap.org, adresinden düzeltebilirsiniz ve yaptığınız değişiklikler OMaps\'de bir sonraki sürüm yayınlandığında görülebilir olacaktır.</string>
+	<string name="about_text">Organic Maps dünyadaki tüm ülkelerdeki şehirlerin en hızlı çevrimdışı haritalarını sunuyor. Tam güven ile seyahat edin: nerede olursanız olun, Organic Maps harita üzerinde nerede olduğunuzu belirlemeye, en yakın restoranı, oteli, bankayı, benzin istasyonunu v.b. bulmaya yardımcı olur. İnternet bağlantısı gerektirmez.\n\nHer zaman yeni özellikler üzerinde çalışıyoruz ve sizlerin Organic Maps\'yi nasıl geliştirebileceğimize dair görüşlerinizi almaktan mutluluk duyuyoruz. Eğer uygulama ile ilgili herhangi bir probleminiz varsa, bizimle support\@organicmaps.app adresinden temasa geçmekten çekinmeyin. Her talebe cevap veriyoruz!\n\nOrganic Maps\'yi beğendiniz ve bize destek olmak ister misiniz? Bunun bazı basit ve tamamıyla ücretsiz yolları var:\n\n- Uygulama Marketinizde bir yorum yazın\n- Facebook sayfamızı beğenin http://www.facebook.com/OMapsApp\n- veya sadece annenize, arkadaşlarınıza ve iş arkadaşlarınıza Organic Maps\'den bahsedin :)\n\nBizi tercih ettiğiniz için teşekkür ederiz. Desteğinizden dolayı çok memnuniyet duyarız!\n\nNot: Verileri haritaları kullanıcıların yaratmasına ve düzenlemesine olanak veren Wikipedia benzeri bir proje olan OpenStreetMap\'dan almaktayız. Eğer haritada eksik ya da hatalı bir şeyler görürseniz doğrudan haritaları\n\nhttps://www.openstreetmap.org, adresinden düzeltebilirsiniz ve yaptığınız değişiklikler Organic Maps\'de bir sonraki sürüm yayınlandığında görülebilir olacaktır.</string>
 	<!-- Alert text -->
 	<string name="email_error_body">E-posta istemcisi henüz kurulmamış. Lütfen e-posta istemcisini yapılandırın ya da bize %s adresinden ulaşmak için başka bir yöntem deneyin</string>
 	<!-- Alert title -->
@@ -355,7 +355,7 @@
 	<!-- Update map suggestion -->
 	<string name="routing_map_outdated">Yeni bir rota oluşturmak için lütfen haritayı güncelleyin.</string>
 	<!-- Update maps suggestion -->
-	<string name="routing_update_maps">OMaps\'nin yeni sürümü mevcut pozisyonunuzdan varış noktasına rotalar oluşturmanıza imkan verir. Lütfen bu özelliği kullanmak için haritaları güncelleyin.</string>
+	<string name="routing_update_maps">Organic Maps\'nin yeni sürümü mevcut pozisyonunuzdan varış noktasına rotalar oluşturmanıza imkan verir. Lütfen bu özelliği kullanmak için haritaları güncelleyin.</string>
 	<!-- Update all button text -->
 	<string name="downloader_update_all_button">Hepsini güncelle</string>
 	<!-- Cancel all button text -->
@@ -372,7 +372,7 @@
 	<string name="downloader_downloading">İndiriliyor:</string>
 	<string name="downloader_search_results">Bulundu</string>
 	<!-- Disclaimer message -->
-	<string name="routing_disclaimer">OMaps uygulamasında rota yaratırken lütfen aşağıdakileri dikkate alın:\n\n  - Önerilen rotalar sadece tavsiyeler olarak düşünülmelidir.\n - Yol koşulları, trafik kuralları ve işaretleri navigasyon tavsiyelerden daha önceliklidir.\n - Harita doğru olmayabilir ya da eskimiş olabilir ve rotalar en iyi mümkün yola göre oluşturulmamış olabilir.\n\n  Yollarda güvende olun ve kendinize dikkat edin!</string>
+	<string name="routing_disclaimer">Organic Maps uygulamasında rota yaratırken lütfen aşağıdakileri dikkate alın:\n\n  - Önerilen rotalar sadece tavsiyeler olarak düşünülmelidir.\n - Yol koşulları, trafik kuralları ve işaretleri navigasyon tavsiyelerden daha önceliklidir.\n - Harita doğru olmayabilir ya da eskimiş olabilir ve rotalar en iyi mümkün yola göre oluşturulmamış olabilir.\n\n  Yollarda güvende olun ve kendinize dikkat edin!</string>
 	<!-- Outdated maps category -->
 	<string name="downloader_outdated_maps">Güncel değil</string>
 	<!-- Up to date maps category -->
@@ -396,7 +396,7 @@
 	<!-- RouteNotFound -->
 	<string name="routing_failed_route_not_found">Seçilen kalkış yeriyle varış yeri arasında hiçbir rota bulunamadı. Lütfen farklı bir başlangıç veya bitiş noktası seçin.</string>
 	<!-- InternalError -->
-	<string name="routing_failed_internal_error">Sistem içi hata oluştu. Lütfen haritayı silin ve tekrar yüklemeyi deneyin. Sorun devam ettiği takdirde lütfen support\@omaps.app adresinden bize ulaşın.</string>
+	<string name="routing_failed_internal_error">Sistem içi hata oluştu. Lütfen haritayı silin ve tekrar yüklemeyi deneyin. Sorun devam ettiği takdirde lütfen support\@organicmaps.app adresinden bize ulaşın.</string>
 	<!-- Context menu item for downloader. -->
 	<string name="downloader_download_map_and_routing">Harita + Rota İndir</string>
 	<!-- Context menu item for downloader. -->
@@ -427,9 +427,9 @@
 	<!-- Text for rating dialog -->
 	<string name="rating_just_rated">Uygulamanıza az önce puan verdim</string>
 	<!-- Text for rating dialog -->
-	<string name="rating_user_since">%s yılından beri OMaps kullanıcısıyım</string>
+	<string name="rating_user_since">%s yılından beri Organic Maps kullanıcısıyım</string>
 	<!-- Text for rating dialog -->
-	<string name="rating_do_like_maps">OMaps\'yi beğeniyor musunuz?</string>
+	<string name="rating_do_like_maps">Organic Maps\'yi beğeniyor musunuz?</string>
 	<!-- Text for rating dialog -->
 	<string name="rating_tap_star">Uygulamamıza puan vermek için bir yıldıza dokunun.</string>
 	<!-- Text for rating dialog -->
@@ -445,7 +445,7 @@
 	<!-- Text for routing error dialog -->
 	<string name="routing_download_map">Harita alın</string>
 	<!-- Text for routing error dialog -->
-	<string name="routing_download_map_and_routing">Tüm OMaps özelliklerini edinmek için güncellenmiş harita ve rota verilerini indirin.</string>
+	<string name="routing_download_map_and_routing">Tüm Organic Maps özelliklerini edinmek için güncellenmiş harita ve rota verilerini indirin.</string>
 	<!-- Text for routing error dialog -->
 	<string name="routing_get_routing_data">Rota verileri edin</string>
 	<!-- Text for routing error dialog -->
@@ -577,7 +577,7 @@
 	<!-- Text for routing::RouterResultCode::FileTooOld dialog. -->
 	<string name="dialog_routing_download_and_update_maps">Bir rota oluşturmak için lütfen rota üzerindeki tüm haritaları indirin ve güncelleyin.</string>
 	<string name="rate_alert_title">Uygulamayı beğendiniz mi?</string>
-	<string name="rate_alert_default_message">OMaps’yi kullandığınız için teşekkür ederiz. Lütfen uygulamaya puan verin. Geri bildiriminiz daha iyi hale gelebilmemize yardımcı olur.</string>
+	<string name="rate_alert_default_message">Organic Maps’yi kullandığınız için teşekkür ederiz. Lütfen uygulamaya puan verin. Geri bildiriminiz daha iyi hale gelebilmemize yardımcı olur.</string>
 	<string name="rate_alert_five_star_message">Yaşasın! Biz de sizi seviyoruz!</string>
 	<string name="rate_alert_four_star_message">Teşekkür ederiz, elimizden geleni yapacağız!</string>
 	<string name="rate_alert_less_than_four_star_message">Daha iyi hale getirebilmemiz için herhangi bir fikriniz var mı?</string>
@@ -632,7 +632,7 @@
 	<string name="editor_report_problem_no_place_title">Yer mevcut değil</string>
 	<string name="editor_report_problem_under_construction_title">Bakım için kapalı</string>
 	<string name="editor_report_problem_duplicate_place_title">Kopyalanmış yer</string>
-	<string name="first_launch_congrats_title">OMaps kullanıma hazır</string>
+	<string name="first_launch_congrats_title">Organic Maps kullanıma hazır</string>
 	<string name="first_launch_congrats_text">Dünyanın her yerinde çevrimdışı olarak ücretsiz arama yapın ve gezinin.</string>
 	<string name="migrate_title">Önemli!</string>
 	<!-- Android uses image instead of text. -->
@@ -730,14 +730,14 @@
 	<string name="placepage_report_problem_button">Bir problem bildirin</string>
 	<string name="placepage_add_business_button">Kuruluş ekle</string>
 	<string name="whatsnew_editor_message_1">Doğrudan uygulamadan haritaya yeni yerler ekle ve mevcut yerleri düzenleyin.</string>
-	<string name="whatsnew_editor_message_2">* OMaps, OpenStreetMap topluluğu verilerini kullanmaktadır.</string>
+	<string name="whatsnew_editor_message_2">* Organic Maps, OpenStreetMap topluluğu verilerini kullanmaktadır.</string>
 	<string name="dialog_incorrect_feature_position">Konumu değiştir</string>
 	<string name="message_invalid_feature_position">Buraya bir nesne konumlandırılamıyor</string>
 	<string name="login_to_make_edits_visible">Giriş yapın böylelikle diğer kullanıcılar yaptığınız değişiklikleri görebilirler.</string>
 	<string name="no_migration_during_navigation">Navigasyon sırasında güncelleme yasaktır.</string>
 	<!-- Error dialog no space -->
 	<string name="migration_no_space_message">İndirmek için daha fazla alana ihtiyacınız var. Lütfen gereksiz verileri silin.</string>
-	<string name="editor_sharing_title">OMaps haritalarını iyileştirdim</string>
+	<string name="editor_sharing_title">Organic Maps haritalarını iyileştirdim</string>
 	<string name="editor_comment_will_be_sent">Yorumunuzu haritacılara göndereceğiz.</string>
 	<string name="editor_unsupported_category_message">Henüz desteklemediğimiz bir kategori yeri eklediniz. Bir süre sonra haritada yer alacaktır.</string>
 	<!-- Downloaded 10 **of** 20 <- it is that "of" -->
@@ -754,7 +754,7 @@
 	<string name="core_placepage_unknown_place">Bilinmeyen Yer</string>
 	<string name="editor_other_info">OSM editörlerine bir not gönderin</string>
 	<string name="editor_detailed_description_hint">Ayrıntılı yorum</string>
-	<string name="editor_detailed_description">Önerdiğiniz değişiklikler OpenStreetMap topluluğuna gönderilecek. OMaps’de düzenlenemeyen ayrıntıları açıklayın.</string>
+	<string name="editor_detailed_description">Önerdiğiniz değişiklikler OpenStreetMap topluluğuna gönderilecek. Organic Maps’de düzenlenemeyen ayrıntıları açıklayın.</string>
 	<string name="editor_more_about_osm">OpenStreetMap hakkında ek bilgi</string>
 	<string name="editor_operator">İşletmeci</string>
 	<string name="editor_tag_description">Tesislerden sorumlu şirketi, kurumu veya bireyi girin.</string>
@@ -794,8 +794,6 @@
 	<string name="placepage_entrance_type">Giriş</string>
 	<string name="placepage_flat">uygulama</string>
 	<string name="placepage_open_24_7">24 / 7</string>
-	<string name="place_page_booking_rating">Derecelendirme: %s</string>
-	<string name="place_page_starting_from">%s’dan</string>
 	<string name="meter">m</string>
 	<string name="kilometer">km</string>
 	<string name="kilometers_per_hour">km/s</string>
@@ -830,12 +828,8 @@
 	<string name="error_enter_correct">Geçerli bir değer girin</string>
 	<string name="editor_profile_changes_for_next_place">Sonraki yerdeki değişiklikler: %d</string>
 	<string name="editor_profile_rating_place">Sıralamadaki yeri</string>
-	<string name="booking_dialog_not_connect_header">Bunlar, onaylanmış harita değişiklikleridir</string>
-	<string name="button_try">Deneyin</string>
 	<string name="refresh">Güncelleştirme</string>
 	<string name="last_update">Son güncelleme: %s</string>
-	<string name="booking_checkin">giriş: %s</string>
-	<string name="booking_checkout">çıkış: %s</string>
 	<string name="placepage_add_place_button">Haritaya bir yer ekleyin</string>
 	<!-- Displayed when saving some edits to the map to warn against publishing personal data -->
 	<string name="editor_share_to_all_dialog_title">Bunu tüm kullanıcılara göndermek ister misiniz?</string>
@@ -854,21 +848,19 @@
 	<string name="place_page_button_read_descriprion">Oku</string>
 	<!-- iOS dialog for the case when recent track recording is on and the app comes back from background -->
 	<string name="recent_track_background_dialog_title">En son seyahat edilen rotanızı kaydetmeyi devre dışı bırakmak istiyor musunuz?</string>
-	<!-- If a hotel is being shared -->
-	<string name="sharing_booking">veya booking.com\'dan yer ayırt</string>
 	<string name="off_recent_track_background_button">Devre Dışı Bırak</string>
 	<!-- For sharing via SMS and so on -->
 	<string name="sharing_call_action_look">İncele</string>
 	<string name="continue_recent_track_background_button">Devam Et</string>
-	<string name="recent_track_background_dialog_message">OMaps, en son seyahat ettiğiniz rotayı kaydetmek için arka planda coğrafi konumunuzu kullanır.</string>
+	<string name="recent_track_background_dialog_message">Organic Maps, en son seyahat ettiğiniz rotayı kaydetmek için arka planda coğrafi konumunuzu kullanır.</string>
 	<!-- Rate on Google Play (Android only) -->
 	<string name="rate_gp">Google Play\'de Oy Ver</string>
 	<!-- Share with friends: menu item title -->
 	<string name="tell_friends">Arkadaşınıza söyleyin</string>
 	<!-- Share with friends: sharing text -->
-	<string name="tell_friends_text">Merhaba! OMaps\'yi hemen yükle!</string>
+	<string name="tell_friends_text">Merhaba! Organic Maps\'yi hemen yükle!</string>
 	<!-- About short text (below logo) -->
-	<string name="about_description">OMaps, seyahatler için vazgeçilmez bir çevrimdışı uygulamadır. OMaps, OpenStreetMap verilerine dayanmakta ve bu verilerin düzenlenmesini sağlamaktadır.</string>
+	<string name="about_description">Organic Maps, seyahatler için vazgeçilmez bir çevrimdışı uygulamadır. Organic Maps, OpenStreetMap verilerine dayanmakta ve bu verilerin düzenlenmesini sağlamaktadır.</string>
 	<!-- Text in menu -->
 	<string name="blog">Blog</string>
 	<string name="general_settings">Genel ayarlar</string>
@@ -879,50 +871,13 @@
 	<string name="accept">Kabul</string>
 	<!-- For the first routing -->
 	<string name="decline">Ret</string>
-	<string name="whats_new_route_profile_title">Düz yoldan gitmek çukura düşmekten daha iyidir</string>
-	<string name="whats_new_route_profile_message">Yürüyüş ve bisiklet yolları şimdi yükseklik profilli olarak görüntüleniyor.</string>
-	<string name="whats_new_booking_improve_title">Otel rezervasyonlarınızdan tasarruf edin</string>
-	<string name="whats_new_booking_improve_message">Artık otel arama sonuçlarında fiyat kategorisi de gösteriliyor.\nVe 110,000\'den fazla oteli sistemimize ekledik.</string>
-	<!-- For place page hotel facilities block -->
-	<string name="placepage_hotel_facilities">Tesisler</string>
-	<!-- For place page hotel nearby block -->
-	<string name="placepage_hotel_nearby">Yakınlarda</string>
-	<!-- For ordering a taxi (as opposed to hotels or other things) -->
-	<string name="taxi_order">Taksi çağır</string>
-	<!-- How long it is until the taxi arrives -->
-	<string name="taxi_wait">%s içinde bekleniyor</string>
-	<!-- When there are no available taxis nearby -->
-	<string name="taxi_not_found">Yakın hiç taksi bulunamadı</string>
-	<!-- When there are no available taxi providers nearby -->
-	<string name="taxi_no_providers">Bu bölgede hiç taksi yok</string>
 	<string name="install_app">Kur</string>
-	<!-- `Filter` is a noun here -->
-	<string name="booking_filters">Filtre</string>
-	<string name="booking_filters_reset">Sıfırla</string>
-	<!-- Beginning from a particular value and -->
-	<string name="booking_filters_rating">En düşük derece</string>
-	<string name="booking_filters_rating_any">Herhangi biri</string>
-	<string name="booking_filters_ragting_good">İyi</string>
-	<string name="booking_filters_rating_very_good">Çok iyi</string>
-	<string name="booking_filters_rating_excellent">Mükemmel</string>
-	<string name="booking_filters_price_category">Fiyat Kategorisi</string>
 	<string name="search_no_results_title">Hiçbir Sonuç Bulunamadı</string>
 	<string name="search_no_results_message">Daha genel bir terimi aramayı deneyin, uzaklaşın veya filtreyi Sıfırlayın.</string>
 	<string name="search_no_results_expand_area_button">Uzaklaş</string>
 	<string name="search_no_results_reset_button">Filtreyi Sıfırla</string>
 	<!-- noun -->
 	<string name="search_in_table">Liste</string>
-	<string name="booking_show_more">Daha fazla göster</string>
-	<string name="booking_reviews">Değerlendirmeler</string>
-	<string name="booking_hotel">Otel</string>
-	<!-- hotel room -->
-	<string name="booking_hotel_room">Oda</string>
-	<!-- A neologism for a chat based on geographical proximity -->
-	<string name="chat">GeoChat</string>
-	<!-- Verb. Text on a button that opens the chat. -->
-	<string name="chat_open">Aç</string>
-	<string name="dialog_taxi_offline">Taksi çağırma çevrimdışı modda kullanılamıyor.</string>
-	<string name="dialog_taxi_error">Taksi çağırma geçici olarak kullanılamıyor.</string>
 	<string name="mobile_data_dialog">Ayrıntılı bilgileri görüntülemek için mobil internet kullanılsın mı?</string>
 	<string name="mobile_data_option_always">Her zaman kullan</string>
 	<string name="mobile_data_option_today">Sadece Bugün</string>
@@ -934,41 +889,16 @@
 	<string name="traffic_update_maps_text">Trafik verilerini görüntülemek için haritaların güncellenmesi gerekiyor.</string>
 	<string name="traffic_outdated">Trafik verileri güncel değil.</string>
 	<string name="big_font">Harita üzerindeki yazı tipi boyutunu artır</string>
-	<string name="traffic_update_app">Lütfen OMaps uygulamasını güncelleyin</string>
+	<string name="traffic_update_app">Lütfen Organic Maps uygulamasını güncelleyin</string>
 	<!-- "traffic" as in road congestion -->
 	<string name="traffic_update_app_message">Trafik verilerini görüntülemek için uygulamanın güncellenmesi gerekiyor.</string>
 	<!-- "traffic" as in "road congestion" -->
 	<string name="traffic_data_unavailable">Trafik verileri kullanılamıyor</string>
-	<!-- Seven points and higher -->
-	<string name="booking_filter_rating_num_good">7.0+</string>
-	<!-- Eight points and higher -->
-	<string name="booking_filter_rating_num_very_good">8.0+</string>
-	<!-- Nine points and higher -->
-	<string name="booking_filter_rating_num_excellent">9.0+</string>
 	<!-- Simplified colour scheme for traffic information, fewer colours are used to display traffic jams on the map. The string should be kept as short as possible -->
 	<string name="pref_traffic_simplified_colors_title">Sadeleştirilmiş trafik renkleri</string>
 	<string name="enable_logging">Günlüğü etkinleştir</string>
-	<string name="more_on_bookingcom">Booking.com hakkında daha fazla</string>
-	<string name="details_on_bookingcom">Booking.com hakkında detaylar</string>
-	<string name="reviews_on_bookingcom">Booking.com hakkında daha fazla değerlendirme</string>
 	<string name="offline_place_page_more_information">Yerle ilgili daha fazla bilgi almak için internete bağlanın.</string>
 	<string name="failed_load_information">Bilgiler yüklenemedi.</string>
-	<string name="whats_new_auto_update_updating_maps">Haritalar güncelleniyor</string>
-	<string name="whats_new_auto_update_title">İndirdiğiniz haritaları güncelleyin</string>
-	<string name="whats_new_auto_update_message">Haritaları güncellemek, nesnelerle ilgili bilgilerin güncel kalmasını sağlar</string>
-	<string name="whats_new_auto_update_button_size">Güncelle (%s)</string>
-	<string name="whats_new_auto_update_button_later">Daha sonra manüel olarak güncelle</string>
-	<string name="search_hotel_filter_apartment">Apart otel</string>
-	<string name="search_hotel_filter_camp_site">Kamp alanı</string>
-	<string name="search_hotel_filter_chalet">Chalet</string>
-	<string name="search_hotel_filter_guest_house">Misafir evi</string>
-	<string name="search_hotel_filter_hostel">Pansiyon</string>
-	<string name="search_hotel_filter_resort">Tatil köyü</string>
-	<string name="search_hotel_filter_hotel">Otel</string>
-	<string name="search_hotel_filter_motel">Motel</string>
-	<string name="create_campaign_button">Bu iş yerinin sahibiyim</string>
-	<string name="view_campaign_button">İşletme reklamı verildi</string>
-	<string name="search_hotel_filters_type">Tür</string>
 	<!-- Settings: "Send general feedback" button -->
 	<string name="feedback_general">Genel Geribildirim</string>
 	<string name="on">Aç</string>
@@ -999,36 +929,7 @@
 	<string name="choose_start_point">Bir başlangıç noktası seçin</string>
 	<string name="choose_destination">Bir hedef seçin</string>
 	<string name="preloader_viator_button">Daha fazla bilgi edinin</string>
-	<string name="whats_new_title_route">Bisiklet ve yaya güzergahları iyileştirildi</string>
-	<string name="whats_new_message_route">Hataları düzelttik, güzergah oluşturmayı daha hızlı hale getirdik ve ara duraklar ekledik</string>
-	<string name="whats_new_message_title_update">Harita güncellemelerinin boyutunu 10 kat daha küçülttük</string>
-	<string name="whats_new_message_maps_update">Artık bir haritayı güncellemek için sadece eksik verileri indirmeniz yeterli</string>
 	<string name="start_from_my_position">Buradan başla</string>
-	<string name="rating">Oy Verin</string>
-	<string name="placepage_no_reviews">Değerlendirme yok</string>
-	<string name="placepage_reviewed">Bu yer için zaten yorum eklediniz</string>
-	<string name="placepage_summary_rating">Değerlendirme özeti</string>
-	<string name="placepage_rate_comment">Bu yeri değerlendirmek ve oylamak için dokunun.</string>
-	<string name="placepage_rate_horrible">Korkunç</string>
-	<string name="placepage_rate_bad">Kötü</string>
-	<string name="placepage_rate_normal">Normal</string>
-	<string name="placepage_rate_good">İyi</string>
-	<string name="placepage_rate_excellent">Mükemmel</string>
-	<string name="placepage_reviews_most_recent">En son</string>
-	<string name="placepage_reviews_most_useful">En yararlı</string>
-	<string name="placepage_reviews_highest_rated">En yüksek oy</string>
-	<string name="placepage_reviews_lowest_rated">En düşük oy</string>
-	<string name="placepage_reviews_offline_comment">Çevrimdışı modda sadece en yararlı değerlendirmeler gösterilir</string>
-	<string name="placepage_reviews_your_comment">Yorumunuz</string>
-	<string name="placepage_reviews_unhelpful">Yararsız</string>
-	<string name="placepage_reviews_inappropriate">Uygunsuz</string>
-	<string name="placepage_reviews_spam">Spam</string>
-	<string name="placepage_reviews_hint">Buranın iyi ve kötü yanları nedir?</string>
-	<string name="placepage_reviews_edit_your_review">Değerlendirmenizi düzenleyin</string>
-	<string name="placepage_reviews_new_review">Yeni değerlendirme</string>
-	<string name="placepage_translate_button">Çevir</string>
-	<string name="placepage_show_original_button">Orijinali göster</string>
-	<string name="placepage_more_reviews_booking_button">Booking.com hakkında daha fazla değerlendirme</string>
 	<string name="profile_authorization_title">Oturum aç</string>
 	<string name="profile_authorization_message">Kullanıcı adı ve şifreye gerek kalmadan saniyeler içinde kolayca oturum açın</string>
 	<string name="profile_authorization_error">Üzgünüz, bir hata oluştu. Tekrar oturum açmayı deneyin.</string>
@@ -1040,24 +941,9 @@
 	<string name="expertise">Uzmanlık</string>
 	<string name="equipment">Ekipman</string>
 	<string name="quality">Kalite</string>
-	<string name="whats_new_ugc_title_updated_v840">Puanlamalar ve değerlendirmeler</string>
-	<string name="whats_new_ugc_message">Artık puanlamalarınızı ve değerlendirmelerinizi çevrimdışıyken bırakabilirsiniz! Değişiklikleri görebilmek için haritalarınızı güncellemeyi unutmayın.</string>
 	<string name="dialog_error_storage_title">Depolama alanı erişim sorunu</string>
-	<string name="dialog_error_storage_message">Harici bellek kullanılamıyor, muhtemelen SD Kart çıkarılmış, hasarlı veya dosya sistemi salt okunur. Lütfen kontrol edin ve support\@omaps.app adresinden bizimle iletişime geçin</string>
+	<string name="dialog_error_storage_message">Harici bellek kullanılamıyor, muhtemelen SD Kart çıkarılmış, hasarlı veya dosya sistemi salt okunur. Lütfen kontrol edin ve support\@organicmaps.app adresinden bizimle iletişime geçin</string>
 	<string name="setting_emulate_bad_storage">Bozuk depolama alanını taklit et</string>
-	<string name="discovery_button_title">Yakın çevreyi keşfedin</string>
-	<string name="discovery_button_subtitle_things_to_do">Yapılacaklar</string>
-	<string name="discovery_button_subtitle_attractions">Cazibe Merkezleri</string>
-	<string name="discovery_button_subtitle_eat_and_drink">Yeme-içme</string>
-	<string name="discovery_button_subtitle_local_guides">Yerel Rehberler</string>
-	<string name="discovery_button_viator_error_title">Veri yükleme hatası</string>
-	<string name="discovery_button_other_error_message">Veri yükleme hatası</string>
-	<string name="discovery_button_other_loading_message">Veriler yükleniyor</string>
-	<string name="discovery_button_404_error_title">Bulunamadı</string>
-	<string name="discovery_button_404_error_message">Maalesef, çevrede ilginç bir şey bulamadık.</string>
-	<string name="booking_filters_check_in">Giriş</string>
-	<string name="booking_filters_check_out">Çıkış</string>
-	<string name="booking_filters_offline">Çevrimdışı kullanılamıyor.</string>
 	<string name="directions_finish">Varış konumu</string>
 	<string name="directions_on_foot">%s doğru yürüyün</string>
 	<string name="core_entrance">Giriş</string>
@@ -1065,12 +951,6 @@
 	<string name="cleanliness">Temizlik</string>
 	<string name="crowdedness">Doluluk</string>
 	<string name="error_enter_correct_name">Lütfen, doğru bir isim girin</string>
-	<string name="hotel_available">Uygun</string>
-	<string name="whats_new_transit_title">Metro mevcut</string>
-	<string name="whats_new_transit_message">Metroyu kullanarak rotanızı oluşturun! Değişiklikleri görmek için lütfen haritayı güncelleyin.</string>
-	<string name="whats_new_discovery_title">Keşif düğmesi</string>
-	<string name="whats_new_discovery_message">Tek bir tıklamayla çevrenizdeki şeyleri keşfedin!</string>
-	<string name="price_per_hour">%s/saat</string>
 	<string name="bookmarks_backup">Yedeklemeyi etkinleştir</string>
 	<string name="authorization_button_sign_in">Oturum Aç</string>
 	<string name="bookmarks_message_authorized_user">Yer imleriniz otomatik olarak güvenli bir bulut depolama alanında yedeklenir. Yedeklemeyi etkinleştirmek istiyor musunuz?</string>
@@ -1089,15 +969,10 @@
 	<string name="downloader_percent">%1$s (%2$s / %3$s)</string>
 	<string name="downloader_process">%s indiriliyor...</string>
 	<string name="downloader_applying">%s uygulanıyor...</string>
-	<string name="whats_new_title_hotel_filter">Yeni otel filtreleri kullanımda!</string>
-	<string name="whats_new_message_hotel_filter">İstediğiniz tarihte otel rezervasyonu yapın! Check-in ve check-out filtrelerini kullanın</string>
-	<string name="whats_new_title_ugc_travel">Deneyimlerinizi diğer gezginlerle paylaşın!</string>
-	<string name="whats_new_message_ugc_travel">Son ziyaret ettiğiniz yerleri değerlendirin ve görüşlerinizi paylaşın!</string>
 	<string name="dialog_message_transit_not_found_connection">Tek transit bir ağda bir rota planla</string>
 	<string name="bookmarks_error_message_share_general">Bir uygulama hatasından dolayı paylaşılamıyor</string>
 	<string name="bookmarks_error_title_share_empty">Paylaşma hatası</string>
 	<string name="bookmarks_error_message_share_empty">Boş bir liste paylaşılamaz</string>
-	<string name="discovery_button_subtitle_book_hotels">Otellerde rezervasyon yap</string>
 	<string name="bookmarks_error_title_empty_list_name">Isim boş olamaz</string>
 	<string name="bookmarks_error_message_empty_list_name">Lütfen liste ismini giriniz</string>
 	<string name="bookmarks_new_list_hint">Yeni liste</string>
@@ -1121,8 +996,6 @@
 	<string name="converting">Dönüştürme...</string>
 	<string name="wn_reinvented_bookmarks_title">Yer imlerini yeniden keşfettik!</string>
 	<string name="wn_reinvented_bookmarks_message">Yer imlerini yedekleyebilir, listeler oluşturabilirsin... Harika...</string>
-	<string name="wn_way_of_booking_title">Rezervasyon yolunu yeniden tasarladık!</string>
-	<string name="wn_way_of_booking_message">Haritadaki bir oteli bulup rezervasyon yapın ya da benzer olanı seçin.</string>
 	<string name="bookmarks_restore">Yer işaretlerini geri yükle</string>
 	<string name="bookmarks_restore_process">Geri yükleniyor...</string>
 	<string name="bookmarks_restore_title">Bu sürümü geri yükle?</string>
@@ -1134,19 +1007,12 @@
 	<string name="error_server_message">Sunucuda bir hata oluştu, lütfen daha sonra tekrar deneyin</string>
 	<string name="error_system_message">Bilinmeyen bir hata oluştu</string>
 	<string name="restore">Restore</string>
-	<string name="sign_message_gdpr">Devam etmek için Kullanım Şartları ve Gizlilik Politikası bölümlerimizi kabul etmelisiniz. Lütfen onları dikkatle okuyun.</string>
-	<string name="sign_agree_pp_gdpr">&lt;a href="%s">Gizlilik Politikası&lt;/a> bölümünü kabul ediyorum</string>
-	<string name="sign_agree_tof_gdpr">&lt;a href="%s">Kullanım Şartları&lt;/a> bölümünü kabul ediyorum</string>
-	<string name="sign_agree_news_gdpr">OMaps ürünleri hakkında en yeni haberleri almayı kabul ediyorum</string>
-	<string name="whats_new_localbiz_title">Küçük işletmeler de ilgi hak ediyor</string>
-	<string name="whats_new_localbiz_message">Seyahatlerinizi unutulmaz kılan bölgedeki kafeler, konforlu oteller ve alışveriş yapabileceğiniz mağazalardır. Tüm bunların ön plana çıkabilmesi için OMaps sayfanızı optimize edeceğiz.</string>
-	<string name="whats_new_order_button">İsteğinizi iletin</string>
 	<string name="bookmarks_page_downloaded">İndirildi</string>
 	<string name="bookmarks_page_my">Bana ait</string>
 	<string name="routes_and_bookmarks">Rotalar ve yer imleri</string>
 	<string name="bookmarks_webview_success_toast">Yer imleri başarıyla indirildi</string>
 	<string name="cached_bookmarks_placeholder_title">Yeni yerler indirin</string>
-	<string name="cached_bookmarks_placeholder_subtitle">OMaps kullanıcılarının oluşturduğu binlerce ilgi çekici yeri ve rotayı indirmek için düğmeye basın. İnternet bağlantınızın olması gerekir.</string>
+	<string name="cached_bookmarks_placeholder_subtitle">Organic Maps kullanıcılarının oluşturduğu binlerce ilgi çekici yeri ve rotayı indirmek için düğmeye basın. İnternet bağlantınızın olması gerekir.</string>
 	<string name="downloader_download_routers">İndirilen yer imleri</string>
 	<string name="bookmarks_groups_cached">İndirilen listeler</string>
 	<string name="author_name_by_prefix">- %s</string>
@@ -1164,7 +1030,7 @@
 	</plurals>
 	<string name="subtittle_opt_out">İzleme ayarları</string>
 	<string name="crash_reports">Kilitlenme raporu</string>
-	<string name="crash_reports_description">OMaps deneyimini geliştirmek için verilerinizi kullanabiliriz. Değişiklikler, uygulama yeniden başlatıldıktan sonra geçerli olur.</string>
+	<string name="crash_reports_description">Organic Maps deneyimini geliştirmek için verilerinizi kullanabiliriz. Değişiklikler, uygulama yeniden başlatıldıktan sonra geçerli olur.</string>
 	<string name="opt_out_help_ios_1">Mobil cihazınız, “Reklam İzlemeyi Sınırla” veya “İlgiye dayalı reklamcılığı devre dışı bırak” ayarı sunar.</string>
 	<string name="opt_out_help_ios_2">iOS 9 veya Üstü</string>
 	<string name="opt_out_help_ios_3">Ayarlar → Gizlilik → Reklamcılık\'a gidin ve “Reklam İzlemeyi Sınırla” ayarını etkinleştirin</string>
@@ -1183,101 +1049,31 @@
 	<string name="category_desc_more">…daha fazla</string>
 	<string name="title_error_downloading_bookmarks">Bir hata oluştu</string>
 	<string name="subtitle_error_downloading_bookmarks">Yer imleri indirilmedi</string>
-	<string name="whats_new_bookmarks_catalog_title">OMaps\'de artık yeni bir rota kategorisi var</string>
-	<string name="whats_new_bookmarks_catalog_message">Dünyanın dört bir yanından yüzlerce ayrıntılı rota: Nereye gidilir? Nereleri ziyaret edilir? Ne yenir?</string>
-	<string name="whats_new_popularity_label_title">Yakındaki popüler yerler</string>
-	<string name="whats_new_popularity_label_message">Yakın çevreyi keşfedin kısmı şehirdeki en popüler yerleri bulmana yardımcı olacak.</string>
-	<string name="whats_new_hot_offers_title">İlgi çekici otel teklifleri</string>
-	<string name="whats_new_hot_offers_message">Arama bölümündeki Oteller kategorisini kullanarak ilgi çekici teklifleri bulabilirsiniz. Otel teklifleri, haritada ve arama sonuçlarında bir yüzdelik sembolü ile işaretlenir.</string>
 	<string name="error_already_downloaded">Bu liste zaten indirildi</string>
-	<string name="guides">El kitapları</string>
-	<string name="guide_downloaded_title">El kitabı başarılı bir şekilde indirildi</string>
-	<!-- as few symbols as possible -->
-	<string name="download_guides">Yol rehberlerini bul</string>
-	<string name="guides_groups_cached">İndirilen el kitapları</string>
-	<string name="subtitle_error_downloading_guide">El kitabı indirilmedi</string>
-	<string name="error_already_downloaded_guide">Bu el kitabı zaten indirildi</string>
-	<string name="guide_downloaded_subtitle">El kitabını keşfetmek için ‘Haritada görüntüle’ düğmesine bas</string>
-	<string name="bookmarks_guides">Yer imleri ve el kitapları</string>
-	<string name="paybtn_title">Yıllık %s/ödeyin</string>
-	<string name="paybtn_subtitle">Yıllık %s tasarruf edin</string>
-	<string name="options_dropdown_title">Diğer seçenekler</string>
-	<string name="why_support">OMaps\'yi neden desteklemeliyim?</string>
-	<string name="options_dropdown_item1">%1$s/ay (yıllık %2$s tasarruf)</string>
-	<string name="options_dropdown_item2">%s/hafta (tasarruf yok)</string>
-	<string name="why_support_item1">Sizin için tüm reklamları kaldıracağız</string>
-	<string name="why_support_item2">OMaps\'yi geliştirmemize yardımcı oldunuz</string>
+	<string name="why_support">Organic Maps\'yi neden desteklemeliyim?</string>
+	<string name="why_support_item2">Organic Maps\'yi geliştirmemize yardımcı oldunuz</string>
 	<string name="why_support_item3">OpenStreetMap.org\'daki açık haritaları geliştirmemize yardımcı oldunuz</string>
-	<string name="purchase_processing">Alışverişin işleniyor…</string>
-	<string name="tips_bookmarks_catalog_title">Her türlü seyahat için çevrimdışı kılavuzlar</string>
-	<string name="tips_bookmarks_catalog_message">Dünyanın farklı kentlerindeki ilgi çekici noktaları kapsayan turist rotalarını indirin ve bu rotaları planlayın.</string>
-	<string name="tips_discover_button_title">Yakın çevrenizdeki popüler yerleri bulmak ister misiniz?</string>
-	<string name="tips_discover_button_message">“Yakın çevreyi keşfedin” bölümünde en iyi restoranları, otelleri ve görülmesi gereken yerleri bulabilirsiniz.</string>
-	<string name="tips_book_hotel_title">Seyahatiniz için en konforlu otelleri rezerve edin</string>
-	<string name="tips_book_hotel_message">Arama özelliğini ve filtreleri kullanarak sizin için en iyi otelleri bulun. Bir otelde rezervasyon yapmak için konum sayfasındaki “Rezervasyon” düğmesini kullanın.</string>
-	<string name="tips_map_layers_title">Hangi istasyonda aktarma yapacağınızı bilmiyor musunuz?</string>
-	<string name="tips_map_layers_message">Metro haritasını görmek için tek yapmanız gereken metro katmanını açmak, şehirde bir daha hiç kaybolmayacaksınız.</string>
 	<string name="channels_map_update">Harita güncellemeleri</string>
-	<string name="channels_reviews">Gönderilmemiş incelemeler</string>
-	<string name="purchase_loading">Satın alma bilgileri yükleniyor…</string>
-	<string name="purchase_error_subtitle">Satın alma işleminiz işleme koyulurken bir hata oluştu</string>
-	<string name="awaiting_approval">Ebeveyn onayı bekleniyor</string>
-	<string name="whats_new_leave_review">İnceleme yazın! Tatiliniz boyunca ziyaret ettiğiniz yerler hakkındaki görüşlerinizi paylaşın.</string>
 	<string name="server_unavailable_title">Hizmet kullanılamıyor</string>
-	<string name="server_unavailable_message">Satın alma işlemi daha sonra tamamlanacak. Sorun devam ederse lütfen support\@omaps.app adresine ulaşın.</string>
-	<string name="offline_fiters_check_in">Otelleri tarihe göre filtrelemek için internete bağlanın.</string>
-	<string name="restore_subscription">Aboneliği geri yükle</string>
-	<string name="restore_success_alert">Abonelik başarılı bir şekilde geri yüklendi</string>
-	<string name="restore_error_alert">Abonelik geri yüklenirken bir hata oluştu</string>
-	<string name="restore_no_subscription_alert">Aktif abonelik yok</string>
-	<string name="subscriptions_title">Abonelikler</string>
-	<string name="manage_subscription">Aboneliği yönet</string>
 	<string name="sharing_options">Paylaşma seçenekleri</string>
 	<string name="export_file">Dosyayı dışa aktar</string>
 	<string name="list_settings">Liste Ayarları</string>
 	<string name="delete_list">Listeyi sil</string>
 	<string name="hide_from_map">Haritadan gizle</string>
-	<string name="ugc_route_tags_screen_label">Etiketleri seç</string>
-	<string name="ugc_route_tags_progress_msg">Etiketler yükleniyor…</string>
 	<string name="public_access">Genel erişim</string>
 	<string name="limited_access">Sınırlı erişim</string>
-	<string name="upload_and_publish_desc">Bu kılavuz, herkese açık OMaps kataloğuna yüklenecek ve diğer kullanıcılara sunulacaktır</string>
-	<string name="upload_and_publish">Yükle ve yayınla</string>
-	<string name="upload_and_get_direct_link">Yükle ve direkt bağlantı al</string>
-	<string name="get_direct_link_desc">Kılavuzunuz, bağlantıya sahip olan herkese açık olacak</string>
-	<string name="upload_and_publish_progress_text">Kılavuzunuz yayınlanıyor…</string>
-	<string name="upload_and_publish_success">Kılavuz yayınlandı</string>
-	<string name="ugc_routes_user_agreement">&lt;b>LÜTFEN DİKKATE:&lt;/b> devam ederek &lt;a href="%s">lisans sözleşmesini&lt;/a> kabul edersiniz</string>
-	<string name="ugc_route_edit_list_name">Kılavuz adı</string>
-	<string name="ugc_route_edit_description_hint">Bir açıklama yazın (metin veya html)</string>
+	<string name="bookmark_category_name">Kategori</string>
+	<string name="bookmark_category_description_hint">Bir açıklama yazın (metin veya html)</string>
 	<string name="not_shared">Şahsi</string>
 	<string name="direct_link_progress_text">Dosyanız yükleniyor…</string>
 	<string name="direct_link_success">Bağlantı oluşturuldu</string>
-	<string name="edit_guide_title">Kılavuzunuzu web üzerinde düzenleyin</string>
-	<string name="edit_guide_subtitle">Web uygulaması aracılığıyla rehberinizi düzenlemek için bir bağlantı edinin: açıklama ekleyin, fotoğraf yükleyin ve yer imlerini satırlarla bağlayın.</string>
 	<string name="send_a_link_btn">Bana bir bağlantı gönder</string>
 	<string name="upload_error_toast">Dosyanızı yüklerken bir hata oluştu</string>
 	<string name="tags_loading_error_subtitle">Etiketler yüklenirken bir hata oluştu, lütfen tekrar deneyin</string>
 	<string name="unable_upload_errorr_title">Dosya yükleme başarısız</string>
 	<string name="unable_upload_error_subtitle_edited">Bu dosya web uygulamasıyla düzenlendi</string>
 	<string name="unable_upload_error_subtitle_broken">Bu dosya bozuk olduğundan yüklenemedi. Lütfen başka bir dosya yükleyin.</string>
-	<string name="buy_btn">Bunu %s karşılığında satın alın</string>
-	<string name="download_guide_progress">Kılavuzunuz indiriliyor…</string>
-	<string name="price_error_title">Fiyat alınamadı</string>
-	<string name="price_error_subtitle">Lütfen birkaç dakika içinde tekrar deneyin</string>
-	<string name="edit_your_guide_email_body">Bilgisayarınızı kullanarak kılavuzunuzu web üzerinde kolayca düzenleyin: açıklama ekleyin, fotoğraf yükleyin ve yer imlerini satırlarla bağlayın.</string>
-	<string name="edit_on_web">Web üzerinde düzenle</string>
-	<string name="properties_loading_error_subtitle">Seçenekler yüklenirken bir hata oluştu, lütfen tekrar deneyin</string>
-	<string name="custom_props_desc">Bu kılavuzda etrafı şu şekilde gezdiniz</string>
-	<string name="custom_props_title">Yerli veya gezgin</string>
-	<string name="custom_props_local">yerli</string>
-	<string name="custom_props_traveler">gezgin</string>
-	<string name="select_properties">Seçenekleri belirle</string>
-	<string name="access_rules_p_to_p">Özel erişim</string>
-	<string name="access_rules_paid">Satın alındı</string>
-	<string name="failed_purchase_support_message">Üzgünüz, ancak muhtemelen tamamlanmamış bir satın alma işleminiz var. Lütfen desteğe başvurun. Sorunu çözeceğiz.</string>
 	<string name="contact">İletişim</string>
-	<string name="check_price_button">Fiyatı kontrol et</string>
 	<string name="download_button">İndir</string>
 	<string name="speedcams_alert_title">Hız kameraları</string>
 	<string name="speedcams_alert_subtitle">Hız limitleri hakkında uyar</string>
@@ -1286,70 +1082,26 @@
 	<string name="speedcam_option_never">Asla</string>
 	<string name="bookmark_description_title">Yer İmi Açıklaması</string>
 	<string name="place_description_title">Yer Açıklaması</string>
-	<string name="ugc_routes_error_uploading_file_toast">Maalesef yer işaretlerinizi yüklerken bir hata oluştu. Lütfen tekrar deneyin.</string>
-	<string name="notification_channel_ugc">Sosyal içerik</string>
 	<!-- this text will be shown in application notification preferences opposite checkbox which enable/disable downloader notifications. Devices on Android 8+ are affected. -->
 	<string name="notification_channel_downloader">Harita indiricisi</string>
-	<string name="notification_leave_review_title">%s - nasıldı?</string>
-	<string name="notification_leave_review_content">Yorum bırakarak gezginlere yardım edin!</string>
-	<string name="share_bookmarks_email_body_link">Merhaba!\n\nİşte yer işaretlerinizi indirebileceğiniz bağlantı: %s. OMaps ile listeyi açın ve yolculuğunuzun tadını çıkarın!\n\nUygulamayı indir: https://omaps.app/get?kmz</string>
+	<string name="share_bookmarks_email_body_link">Merhaba!\n\nİşte yer işaretlerinizi indirebileceğiniz bağlantı: %s. Organic Maps ile listeyi açın ve yolculuğunuzun tadını çıkarın!\n\nUygulamayı indir: https://organicmaps.app/get?kmz</string>
 	<string name="warning_speedcams_title">%d km/sa hız limitini aştığınızda navigasyon, kameralar hakkında sizi uyaracak</string>
 	<string name="warning_speedcams_subtitle">Lütfen bulunduğunuz ülkenin trafik kurallarına dikkat edin.</string>
 	<string name="speedcams_notice_message">Otomatik - Hız sınırını aşma riski varsa hız kameraları hakkında uyar\nHer zaman - Hız kameraları hakkında her zaman uyar\nAsla - Hız kameraları hakkında hiçbir zaman uyarma</string>
-	<string name="whats_new_ugc_routes_title">İzlenimlerinizi paylaşmak çok kolay</string>
-	<string name="whats_new_ugc_routes_subtitle">nutulmaz mekanları kaydedin, sayfa işaretleri kullanarak rotalar oluşturun ve bunları OMaps kataloğundaki herkesle paylaşın.</string>
-	<string name="whats_new_webeditor_title">Rotalarınızı hikayelere dönüştürün</string>
-	<string name="whats_new_ugc_routes_message2">Web editöre fotoğraflar ve detaylı hikayeler ekleyin.</string>
-	<string name="ugc_thanks_message_auth">Yorumunuz kaydedildi</string>
-	<string name="ugc_thanks_message_not_auth">Yorum yapmak için lütfen giriş yapınız</string>
-	<string name="notification_leave_review_v2_title">Ziyaret edilen bir yere puan verin ve gezginlere yardım edin!</string>
-	<string name="error_public_not_enought_title">Yeterli yer imi yok</string>
-	<string name="error_public_not_enought_subtitle">Kılavuzunuzu genel kataloğa yükleyebilmek için en az 3 yer iminiz olmalı</string>
-	<string name="bookmark_public_upload_alert_title">Yer imlerinizi tüm OMaps gezginleriyle paylaşmanıza az kaldı!</string>
-	<string name="bookmark_public_upload_alert_subtitle">Lütfen listeniz için belirli bir ad ve açıklamanız olduğundan ve tüm yer imlerinde yerler hakkında biraz bilgi bulunduğundan emin olun. Bu şekilde listeniz başkaları tarafından bulunabilir ve kullanılabilir.</string>
-	<string name="bookmark_public_upload_alert_ok_button">Evet, eminim!</string>
-	<string name="name_title">Kılavuzunuzun adını girin</string>
-	<string name="name_placeholder">örneğin: Londra Barları</string>
-	<string name="name_comment1">Lütfen kılavuzunuzu gezginlerin kolayca bulabilmesi için adlandırın: örneğin, \"Londra Pubs\"</string>
-	<string name="name_comment2">Koyduğunuz ad, özel sembol içermemelidir. Ad, \"Yerlerim\" olmamalı</string>
-	<string name="description_guide">Açıklama</string>
-	<string name="description_title">Kılavuzunuzun açıklamasını girin</string>
-	<string name="description_placeholder">Kılavuzunuzu ayrıntılı olarak tanımlayın</string>
-	<string name="description_comment1">Kılavuz açıklamanız en az 30 karakter içermelidir.</string>
-	<string name="ugc_route_tags_desc">Diğer gezginlerin kılavuzunuzu bulmasına yardımcı olmak için lütfen etiketleri seçin. Bu zorunludur. En fazla %s etiket.</string>
-	<string name="html_format_error_title">Kılavuzunuz yayınlanmadı</string>
-	<string name="html_format_error_subtitle">Lütfen yer imlerinizin adlarının ve açıklamalarının geçerli bir biçimde olduğundan emin olun. Aşağıdaki \"Çevrimiçi düzenle\" butonuna tıklayarak bir masaüstü tarayıcısında kontrol edebilirsiniz.</string>
-	<string name="web_editor_description">Kılavuzunuzu yükleyin ve düzenleme bağlantısını masaüstünden alın</string>
-	<string name="edit_on_web_confirm">Çevrimiçi düzenle</string>
-	<string name="update_guide">Güncelleme yükle</string>
-	<string name="direct_link_updating_text">Dosyanız güncelleniyor…</string>
-	<string name="direct_link_updating_success">Kılavuzunuz güncellendi</string>
-	<string name="unable_get_direct_link_desc">Kılavuzunuzu genel bir bağlantı yoluyla paylaşabilirsiniz</string>
-	<string name="any_access_update_alert_title">Bazı değişiklikler olmuş olabilir</string>
-	<string name="any_access_update_alert_message">Yer imlerinizi güncellemek ister misiniz? Yeni sürüm aynı link üzerinden erişilebilecektir.</string>
-	<string name="any_access_update_alert_update">Güncelleştirme</string>
-	<string name="public_or_limited_access_after_edit_online_error_title">Yer imlerinizi çevrimiçi düzenlediniz</string>
-	<string name="public_or_limited_access_after_edit_online_error_message">Gelecekte lütfen web sitemiz üzerinden kılavuzu düzenleyin, yayınlayın veya arkadaşlarınızla paylaşın</string>
 	<string name="power_managment_title">Güç tasarrufu modu</string>
 	<string name="power_managment_description">Otomatik mod seçildiğinde, uygulama geçerli pil seviyesine bağlı olarak şarj harcayan özellikleri devre dışı bırakmaya başlar</string>
 	<string name="power_managment_setting_never">Asla</string>
 	<string name="power_managment_setting_auto">Otomatik</string>
 	<string name="power_managment_setting_manual_max">Maksimum güç tasarrufu</string>
-	<string name="enable_logging_warning_message">Seçenek tanı amaçlı, günlüğe kaydetmeyi açar. Uygulamayla ilgili sorunları gideren destek ekibimiz için yardımcı olabilir. Bu seçeneği yalnızca OMaps desteğinin isteği üzerine etkinleştirin.</string>
+	<string name="enable_logging_warning_message">Seçenek tanı amaçlı, günlüğe kaydetmeyi açar. Uygulamayla ilgili sorunları gideren destek ekibimiz için yardımcı olabilir. Bu seçeneği yalnızca Organic Maps desteğinin isteği üzerine etkinleştirin.</string>
 	<string name="html_error_upload_message_try_again">Lütfen ağ ayarlarınızı kontrol edip tekrar deneyin</string>
 	<string name="html_error_upload_title_try_again">İnternet bağlantısı yok</string>
 	<string name="notification_leave_review_v2_android_short_title">İnceleyin ve gezginlere yardım edin!</string>
 	<string name="notifications_illegal_alert_disable_button">Bildirimleri kapat</string>
 	<string name="access_rules_author_only">Çevrimiçi düzenleme</string>
 	<string name="privacy_settings_menu">Gizlilik ayarları</string>
-	<string name="gdpr_request_setting">GDPR isteği için kimlik al</string>
-	<string name="gdpr_request_window_title">Kimliğiniz: %s.</string>
-	<string name="gdpr_request_window_message">Lütfen kopyalayın ve talebi support\@omaps.app adresine gönderin</string>
-	<string name="gdpr_request_window_copy">Kimliği kopyala</string>
 	<string name="unable_upadate_error_title">Dosya güncellemesi başarısız oldu</string>
 	<string name="unable_upadate_error_message">Güncelleme sırasında bazı hatalar oluştu. Lütfen değişiklikleri kontrol edip tekrar deneyin</string>
-	<string name="whats_new_wiki_title">O yer neresi?</string>
-	<string name="whats_new_wiki_message">En popüler turistik mekanların sayfalarına Wikipedia.org makaleleri ekledik. Çevrimdışı kullanılabilirler</string>
 	<string name="driving_options_title">Sürüş seçenekleri</string>
 	<string name="driving_options_subheader">Her rotada kaçının</string>
 	<string name="avoid_tolls">Paralı yollar</string>
@@ -1367,23 +1119,7 @@
 	<string name="avoid_toll_roads_placepage">Paralı yollardan kaçın</string>
 	<string name="avoid_unpaved_roads_placepage">Asfaltsız yollardan kaçın</string>
 	<string name="avoid_ferry_crossing_placepage">Feribot geçişlerinden kaçın</string>
-	<string name="cached_guides_placeholder_subtitle">OMaps, harita üzerinde görüntülenen ve çevrimdışı kullanılabilen, fotoğraf ve açıklamaların bulunduğu seçili yerler için hazır rehberler sunar.</string>
-	<string name="guides_catalogue_title">Rehber kataloğu</string>
-	<string name="download_guides_button">Kataloğa</string>
-	<plurals name="placepage_summary_rating_description">
-	  <item quantity="one">%d incelemeye göre</item>
-	  <item quantity="other">%d incelemeye göre</item>
-	</plurals>
 	<string name="type.cuisine.uzbek">Özbek mutfağı</string>
-	<string name="onboarding_guide_direct_download_title">Rehber indirmeye hazır</string>
-	<string name="onboarding_guide_direct_download_subtitle">Haritada görüntülenecek ve çevrimdışı kullanılabilecek</string>
-	<string name="onboarding_guide_direct_download_button">İndir</string>
-	<string name="onboarding_bydeeplink_guide_title">OMaps’de kullanıma hazır rehberler</string>
-	<string name="onboarding_bydeeplink_guide_subtitle">Ziyaret edilecek en iyi yerler fotoğraf ve açıklamalarla birlikte haritada görüntülenir. Çevrimdışı kullanın.</string>
-	<string name="whats_new_auto_update_bydeeplink_title">Rehberlere geçmeden önce…</string>
-	<string name="whats_new_auto_update_bydeeplink_message">Nesneler hakkındaki bilgileri güncel tutmak için haritaları güncelleyin!</string>
-	<string name="whats_new_auto_update_and_proceed_button_size">(%s) güncelle ve devam et</string>
-	<string name="purchase_please_wait_toast">Lütfen satın alma işlemi tamamlanmadan önce bu ekrandan çıkmayın</string>
 	<string name="trip_start">Hadi gidelim</string>
 	<string name="pick_destination">Hedef</string>
 	<string name="follow_my_position">Tekrar ortala</string>
@@ -1403,41 +1139,6 @@
 	<string name="dialog_routing_rebuild_from_current_location_carplay">Rota, mevcut konumunuzdan yeniden oluşturulacak</string>
 	<string name="dialog_routing_rebuild_for_vehicle_carplay">Rota, bir arabalı seyahat rotasına dönüştürülecek</string>
 	<string name="ok">Tamam</string>
-	<string name="booking_button_toolbar">Haritada bir otel seçin</string>
-	<string name="popup_booking_download_guides_title">Otel rezervasyonu yaptırdınız mı?</string>
-	<string name="popup_booking_download_guides_message">OMaps adresinden, hazır rehberler ile rotanızı planlayın</string>
-	<string name="popup_mwm_download_guides_title">Çevrimdışı şehir rehberleri</string>
-	<string name="popup_mwm_download_guides_cta">Birini seçin</string>
-	<string name="popup_mwm_download_guides_cta_1">Bir göz atın</string>
-	<string name="gallery_pp_download_guides_offline_title">Tatilinizi OMaps ile planlayın!</string>
-	<string name="gallery_pp_download_guides_offline_subtitle">Deneyimli gezginler tarafından yapılan rehberlerle, hiçbir şeyi kaçırmayın</string>
-	<string name="gallery_pp_download_guides_offline_cta">İnterneti aç</string>
-	<string name="gallery_pp_download_guides_title">Rehberler</string>
-	<string name="native_screen_subscription_title">2000+ seyahat rehberine sınırsız erişim!</string>
-	<string name="native_screen_subscription_message">Nerede ve kiminle seyahat ediyorsanız, unutulmaz bir tatil fırsatı</string>
-	<string name="annual_subscription_title">Yıllık</string>
-	<string name="montly_subscription_title">Aylık</string>
-	<string name="annual_subscription_message">12 aylık sınırsız erişim</string>
-	<string name="montly_subscription_message">1 aylık sınırsız erişim</string>
-	<string name="subscription_success_dialog_title">Abone olduğun için teşekkürler!</string>
-	<string name="subscription_success_dialog_message">Artık, tüm rehber kataloguna sınırsız erişim hakkınız var</string>
-	<string name="renewal_screen_title">Aboneliğinizin süresi doldu</string>
-	<string name="renewal_screen_message">Abonelik süresince indirilen tüm rehberler silinecek. Aboneliği devam ettirmek ve saklamak ister misiniz?</string>
-	<string name="renewal_screen_button_restore">Evet, yenile</string>
-	<string name="renewal_screen_button_cancel">Hayır, rehberleri sil</string>
-	<string name="subscription_error_ping_title">Satın alma başarısız oldu</string>
-	<string name="subscription_error_message">Hizmet şu anda bölgenizde kullanılamıyor. Lütfen, daha sonra tekrar deneyiniz</string>
-	<string name="subscription_error_button">Anladım</string>
-	<string name="timeout_error_title">Hata! Zaman doldu!</string>
-	<string name="timeout_error_message">Sunucularımız cevap vermiyor. Lütfen, internet bağlantısını kontrol edip tekrar deneyin.</string>
-	<string name="per_month">/ay</string>
-	<string name="per_year">/yıl</string>
-	<string name="buy_btn_for_subscription">%s üzerinden sınırsız erişim</string>
-	<string name="buy_btn_for_subscription_1">%s için TÜM rehberleri satın al</string>
-	<string name="buy_btn_for_subscription_ios_only_mo">%s/ay için sınırsız erişim</string>
-	<string name="buy_btn_for_subscription_ios_only_year">%s/yıl için sınırsız erişim</string>
-	<string name="subscription_terms_guides">Satın alma onayından sonra, ödeme iTunes hesabınızdan ücretlendirilecektir. Otomatik yenileme özelliği, geçerli dönemin sona ermesinden en az 24 saat önce kapatılmadıkça, abonelik otomatik olarak yenilenecektir. Hesabınız cari dönem sonundan önce, 24 saat içinde yenileme planınıza göre tahsil edilecektir. Apple ID hesap ayarlarınızdaki otomatik yenileme özelliğini, satın aldığınız her an, yönetebilir veya kapatabilirsiniz. Abonelikle indirilen rehberleri yalnızca son kullanma tarihine kadar kullanabilirsiniz. Abonelik bitiminden 30 gün sonra, son kullanma tarihi geçmiş yer imleri olan rehberler, otomatik olarak silinir.</string>
-	<string name="subscription_terms">Ödeme, satın alma onayında iTunes hesabınızdan alınacaktır. Otomatik yenileme geçerli dönemin sona ermesinden en az 24 saat önce kapatılmadıkça abonelik otomatik olarak yenilenecektir. Hesabınızdan, geçerli dönemin sona ermesinden önce 24 saat içinde planınıza göre yenileme için ücret alınacaktır. Otomatik yenilemeyi satın alma işleminizde dilediğiniz zaman Apple ID hesap ayarlarınızda yönetebilir veya kapatabilirsiniz.</string>
 	<string name="avoid_unpaved_carplay_1">Stabilizesiz</string>
 	<string name="avoid_unpaved_carplay_2">Asfaltsız hariç</string>
 	<string name="avoid_ferry_carplay_1">Feribotsuz</string>
@@ -1446,7 +1147,7 @@
 	<string name="avoid_tolls_carplay_2">Paralı hariç</string>
 	<string name="speedcams_alert_title_carplay_1">Hız kamerası</string>
 	<string name="speedcams_alert_title_carplay_2">Hız uyarıları</string>
-	<string name="download_map_carplay">Lütfen haritaları cihazınıza OMaps uygulamasından indirin</string>
+	<string name="download_map_carplay">Lütfen haritaları cihazınıza Organic Maps uygulamasından indirin</string>
 	<string name="carplay_roundabout_exit">%s çıkış</string>
 	<!-- max. 10 symbols, both iOS and Android -->
 	<string name="sort">Sırala…</string>
@@ -1494,80 +1195,15 @@
 	<string name="bookmarks_edit_list">Listeyi düzenle</string>
 	<!-- Android, max 18 symbols -->
 	<string name="bookmarks_delete_list">Listeyi sil</string>
-	<string name="popup_subscription_success_map_title">Yaşasın, abone oldun!</string>
-	<string name="popup_subscription_success_map_message">Şimdi OMaps kataloğunda en iyi turistik yerleri keşfedin</string>
-	<string name="popup_subscription_success_map_start_button">Göz atmaya başla</string>
-	<string name="popup_subscription_success_map_not_now_button">Şimdi değil</string>
 	<string name="religious_places">Dini yerler</string>
-	<string name="subscription_terms_android">Bir satın alma işlemini onayladığınızda, ödeme Google Play hesabınızdan tahsil edilecektir. Otomatik yenileme özelliği, geçerli dönemin sona ermesinden en az 24 saat önce kapatılmadıkça abonelik otomatik olarak yenilenecektir. Hesabınız cari dönemin bitiminden 24 saat önce yenileme planınıza uygun olarak ücretlendirilecektir. Satın alma işleminden sonra otomatik yenileme özelliğini Hesap Ayarları bölümünden yönetebilir veya kapatabilirsiniz. Abonelikle indirilen rehberlerinizi yalnızca son kullanma tarihine kadar kullanabilirsiniz. Abonelik sona erme tarihinden 30 gün sonra, indirilen rehberlerini otomatik olarak silinir.</string>
 	<string name="select_list">Liste seç</string>
-	<string name="pp_discovery_place_related_header">Bu yer, rehber kataloğunda</string>
-	<string name="pp_discovery_place_related_header_1">Bu mekana kılavuzda yer verilmekte</string>
-	<string name="pp_discovery_place_related_cta_button">Gör</string>
-	<string name="pp_discovery_place_related_tag_header">“%s” etiketli kılavuzlar</string>
-	<string name="pp_discovery_place_related_tag_header_1">Şunları da beğenebilirsiniz</string>
-	<string name="buy_btn_for_subscription_version_2">TÜM rehber sadece %s/ay</string>
-	<string name="buy_btn_for_subscription_version_3">Tüm katalog %s/ay</string>
-	<string name="buy_btn_for_subscription_ios_only_mo_version_2">Kataloğa erişim %s/ay</string>
-	<string name="buy_btn_for_subscription_ios_only_year_version_2">Kataloğa erişim %s/yıl</string>
-	<string name="subscription_screen_native_title_version_2">Yer imleri ile rehberlere erişin!</string>
-	<string name="subscription_screen_native_message_version_2">600\'den fazla şehir ve 100\'den fazla ülkede seyahat etmeye hazır olun</string>
-	<string name="catalog_no_internet_title">İnternet bağlantısı yok</string>
-	<string name="catalog_no_internet_button">Tekrar deneyin</string>
-	<string name="new_onboarding_button">İleri</string>
-	<string name="new_onboarding_button_2">Başla</string>
-	<string name="new_onboarding_step1_header_2">Her şey dahil seyahat arkadaşı</string>
-	<string name="new_onboarding_step2_header">Düşle ve planla</string>
-	<string name="new_onboarding_step2_message">70 milyondan fazla yer, haritadan hazır rehberler ve otel rezervasyonuyla seyahate hazırsın!</string>
-	<string name="new_onboarding_step3_message">Tüm ülkelerin ayrıntılı haritaları ve navigasyonuyla asla kaybolmayın. Ayrıca her şey çevrimdışı da çalışıyor!</string>
-	<string name="new_onboarding_step4_header">İzlenimlerini paylaş</string>
-	<string name="new_onboarding_step4_message">Yer imlerini favori yerlere yerleştir ve arkadaşlarına gönder</string>
-	<string name="new_onboarding_step5.1_header">Başlamadan önce bir şey daha…</string>
-	<string name="new_onboarding_step5.1_message">Yaklaşan seyahatiniz için çevrimdışı bir rehber bulmak adına yeni rehber kataloğumuzu ziyaret etmeyi unutmayın!</string>
-	<string name="new_onboarding_step5.1_button">Kataloğu aç</string>
-	<string name="new_onboarding_step5.2_message">OMaps rehber kataloğu aboneliğiniz çok değerlidir. Tüm dünyadan hem şehir içi hem de doğa rehberlerine tam erişim elde edin!</string>
-	<string name="new_onboarding_step5.2_button">Şartlara göz at</string>
-	<string name="new_onboarding_step5.3_message">Ücretsiz OMaps seçeneği ile hazır şehir ve açık hava güzergahlarından ücretsiz örnekleri inceleyin!</string>
-	<string name="new_onboarding_step5.3_button">Ücretsiz indir</string>
-	<string name="new_onboarding_additional_steps_later_button">Sonra</string>
-	<string name="all_pass_subscription_header">Üye olun</string>
-	<string name="all_pass_subscription_subheader">Rehber kataloğu</string>
-	<!-- \n - for a break between lines. Max. 15 characters per 1 line. -->
-	<string name="all_pass_subscription_message_title">30000+\nrehberler\nve yollar</string>
-	<!-- <b> & </b> tag to make a part of the line bold -->
-	<string name="all_pass_subscription_message_subtitle"><b>Sınırsız çevrimdışı indirme</b> şehir ve açık hava etkinlikleri için yollar</string>
-	<!-- \n - for a break between lines. Max. 17 characters per 1 line. -->
-	<string name="all_pass_subscription_message_title_2">Etkileşimli\nyükseklik profili</string>
-	<!-- <b> & </b> tag to make a part of the line bold -->
-	<string name="all_pass_subscription_message_subtitle_2">Tüm yollar <b>yükseklik ve temel rota bilgileri ile</b> yüklenir</string>
-	<!-- \n - for a break between lines. Max. 15 characters per 1 line. -->
-	<string name="all_pass_subscription_message_title_3">Favori\nyerler, fotolar\nve öneriler</string>
-	<!-- <b> & </b> tag to make a part of the line bold -->
-	<string name="all_pass_subscription_message_subtitle_3">Gitmek üzere olduğunuz <b>rota hakkında her şeyi öğrenin</b></string>
-	<string name="sightseeing_subscription_header_subscription">Rehber Aboneliği</string>
-	<string name="sightseeing_subscription_message">700+ şehir ve 100+ ülke</string>
-	<string name="sightseeing_subscription_message_2">Çevrimdışı kullanılabilir</string>
-	<string name="sightseeing_subscription_message_3">Fotoğraflar ve yürüme güzergahları</string>
-	<string name="subscription_success_dialog_title_sightseeing_pass">Abone olduğunuz için teşekkürler!</string>
-	<string name="subscription_success_dialog_message_sightseeing_pass">Artık katalogdaki tüm gezi rehberlerine erişim hakkınız var</string>
-	<string name="downloader_main_gallery_header">Haritalar ve rehberler</string>
-	<string name="downloader_main_gallery_message">Artık bu bölümde yalnızca haritaları indirmekle kalmayacak, aynı zamanda yaklaşan yolculuğun için rehberlere de göz atabileceksin</string>
-	<string name="downloader_main_1_element_gallery_header">Tüm rehberler</string>
-	<string name="downloader_main_1_element_gallery_message">100\'den fazla şehirde</string>
-	<string name="downloader_country_1_element_gallery_header">%s rehber</string>
-	<string name="downloader_country_no_guides_gallery_header">Bu ülkede henüz rehber yok</string>
-	<string name="downloader_country_no_guides_gallery_message">Şehir ve açık hava etkinlikleri için 100\'den fazla ülkedeki diğer çevrimdışı kılavuzlara göz atabilirsiniz</string>
-	<string name="dialog_pedestrian_route_is_long">Araç biniş noktasına giden yaya yolu çok uzun</string>
-	<string name="new_onboarding_step3_header">Deneyimle</string>
-	<string name="all_pass_screen_best_value">En İyi Teklif</string>
-	<string name="buy_btn_for_subscription_3">Tüm katalog %s/yıl</string>
 	<string name="transit_not_found">Metro navigasyonu bu bölgede henüz mevcut değil</string>
 	<string name="dialog_pedestrian_route_is_long_header">Metro güzergahı bulunamadı</string>
 	<string name="dialog_pedestrian_route_is_long_message">Metro istasyonuna en yakın rotanın başlangıç veya bitiş noktasını seçin</string>
 	<!-- Failed planning SUBWAY route message in navigation view -->
 	<string name="routing_planning_error_subway_special">Metro güzergahı oluşturma hatası</string>
 	<string name="button_layer_isolines">Yükseklikler</string>
-	<string name="tips_map_layers_title_countour">OMaps\'de yükseklik çizgileri çevrimdışı!</string>
+	<string name="tips_map_layers_title_countour">Organic Maps\'de yükseklik çizgileri çevrimdışı!</string>
 	<string name="tips_map_layers_message_countour">Yükseklik çizgileri, doğaya bir gezi planlamanıza ve arazide kaybolmamanıza yardımcı olacaktır</string>
 	<string name="isolines_activation_error_dialog">Yükseklik çizgilerini kullanmak için, istediğiniz arazinin haritasını güncelleyin veya indirin</string>
 	<string name="isolines_location_error_dialog">Bu bölgede henüz yükseklik çizgileri mevcut değil</string>
@@ -1586,79 +1222,10 @@
 	<string name="elevation_profile_time">Süre:</string>
 	<string name="elevation_profile_hours">sa.</string>
 	<string name="elevation_profile_minutes">dk.</string>
-	<string name="view_on_map_downloaded_error">Bu rehber cihazdan kaldırıldı</string>
-	<string name="subscription">Abone</string>
-	<string name="button_layer_guides">Rehberler (yeni)</string>
-	<string name="no_routes_in_the_area_toast">Burada seyahat rehberi yok</string>
 	<string name="isolines_toast_zooms_1_10">Konturları görmek için haritayı büyütün</string>
-	<string name="routes_layer_in_menu_toast">Çevrimdışı rehberleri bulmak, konturları, metro hatlarını veya trafik sıkışıklıklarını keşfetmek için katmanları çevirin</string>
-	<string name="routes_layer_is_on_toast">Rehberleri bulmak için haritayı hareket ettirin</string>
-	<string name="connection_error_dialog_guides_title">Bağlantı hatası</string>
-	<string name="connection_error_dialog_guides_message">Katman çalışmıyor çünkü internet yok veya sinyal zayıf. Devam etmek için bağlantıyı kontrol edin veya katmanı kapatın.</string>
-	<string name="connection_error_dialog_guides_try">Tekrar deneyin</string>
-	<string name="connection_error_dialog_guides_layer_turn_off">Kapat</string>
-	<string name="connection_error_toast_guides">İnternete yeniden bağlanıyoruz</string>
-	<!-- as few symbols as possible -->
-	<string name="routes_card_show">Haritada göster</string>
-	<!-- as few symbols as possible -->
-	<string name="routes_card_hide">Haritadan gizle</string>
 	<string name="downloader_updating_ios">Güncelleme</string>
 	<string name="downloader_loading_ios">İndir</string>
-	<string name="routes_card_plus_track">+ rota</string>
-	<string name="routes_card_number_of_points">%s yer</string>
-	<string name="routes_card_routes_tag">Yol</string>
-	<string name="routes_card_set_tag">Öne çıkan yerler</string>
-	<!-- as few symbols as possible -->
-	<string name="guides_trial_cta_button">7 günlük ücretsiz denemeyi başlatın</string>
-	<string name="guides_trial_message">Sonra yılda %s ödeyin. Dilediğinizde iptal edin</string>
-	<string name="trial_error_dialog">Üzgünüz, deneme süresini zaten kullandınız</string>
-	<!-- as few symbols as possible -->
-	<string name="floating_button_filters">Filtreler</string>
-	<plurals name="date_picker_amout_of_days">
-	  <item quantity="one">%d gün</item>
-	  <item quantity="few">%d gün</item>
-	  <item quantity="other">%d gün</item>
-	</plurals>
-	<!-- as few symbols as possible -->
-	<string name="date_picker_сhoose_dates_cta">Tarihleri seçin</string>
-	<!-- as few symbols as possible -->
-	<string name="guests_picker_rooms_title">Odalar ve konuk sayısı</string>
-	<string name="guests_picker_rooms">Odalar</string>
-	<string name="guests_picker_adults">Yetişkin</string>
-	<string name="guests_picker_children_title">Çocuk</string>
-	<string name="guests_picker_children_subtitle">1-17 yaş</string>
-	<string name="guests_picker_infants_title">Bebek</string>
-	<string name="guests_picker_infants_subtitle">0-12 ay</string>
-	<!-- as less symbols as possible -->
-	<string name="booking_map_component_availability">Oda mevcut değil</string>
-	<!-- as few symbols as possible -->
-	<string name="booking_map_component_filters">Filtre kalmadı</string>
-	<string name="choose_dates_online_only_dialog_title">Ağ bağlantısı yok</string>
-	<string name="choose_dates_online_only_dialog_message">Tarihler ve konuk sayısı sadece çevrimiçi iken seçilebilir. Lütfen ayarlarını kontrol edin ve internete bağlı olduğunuzdan emin olun.</string>
-	<string name="choose_dates_online_only_dialog_cta">Ayarlar</string>
-	<string name="thirty_days_limit_dialog">Maksimum 30 gecelik rezervasyon yapabilirsiniz</string>
-	<string name="whatsnew_trial_cta">Hemen deneyin</string>
-	<string name="subscription_terms_guides_outdoor">Satın alma işlemini onayladığınızda, ödeme iTunes hesabınızdan gerçekleştirilecektir. Otomatik yenileme özelliği mevcut abonelik döneminin sona ermesinden en az 24 saat önce devre dışı bırakılmadığı sürece abonelik otomatik olarak yenilenir. Yenileme planı çerçevesinde, mevcut abonelik döneminizin sona ermesinden önceki 24 saat içinde hesabınızdan para çekilecektir. Satın alma işleminden sonra dilediğiniz zaman Apple Kimliği hesap ayarlarından otomatik yenilemeyi yönetebilir veya devre dışı bırakabilirsiniz. Aboneliğiniz süresinde indirdiğiniz rehberleri sadece aboneliğiniz geçerli olduğu sürece kullanabilirsiniz. Rehberler ve tüm yer işaretleri, aboneliğin sona ermesinden 7 gün sonra otomatik olarak silinecektir.\n* Ücretsiz deneme süresinde sahip abonelikler, otomatik olarak ücretli abonelik şeklinde yenilenir. Satın alma işleminden sonra hesap ayarlarından ücretsiz deneme süresi sonunda otomatik yenilemeyi iptal edebilir veya yönetebilirsiniz. İptal işlemi, mevcut abonelik döneminin son gününden 24 saat sonra geçerli olacaktır. Bu aşamadan sonra ücretsiz hizmete geçersiniz. Lütfen unutmayın: Ücretsiz deneme süresinde premium abonelik satın almanız durumunda, ücretsiz deneme süresinde henüz kullanmadığınız günlerden feragat etmiş sayılırsınız.</string>
-	<string name="subscription_terms_android_outdoor">Satın alma işlemini onayladığınızda, ödeme Google Play hesabınızdan gerçekleştirilecektir. Otomatik yenileme özelliği mevcut abonelik döneminin sona ermesinden en az 24 saat önce devre dışı bırakılmadığı sürece abonelik otomatik olarak yenilenir. Yenileme planı çerçevesinde, mevcut abonelik döneminizin sona ermesinden önceki 24 saat içinde hesabınızdan para çekilecektir. Satın alma işleminden sonra dilediğiniz zaman hesap ayarlarından otomatik yenilemeyi yönetebilir veya devre dışı bırakabilirsiniz. Aboneliğiniz süresinde indirdiğiniz rehberleri sadece aboneliğiniz geçerli olduğu sürece kullanabilirsiniz. Rehberler, aboneliğin sona ermesinden 7 gün sonra otomatik olarak silinecektir.\n* Ücretsiz deneme süresinde sahip abonelikler, otomatik olarak ücretli abonelik şeklinde yenilenir. Satın alma işleminden sonra hesap ayarlarından ücretsiz deneme süresi sonunda otomatik yenilemeyi iptal edebilir veya yönetebilirsiniz. İptal işlemi, mevcut abonelik döneminin son gününden 24 saat sonra geçerli olacaktır. Bu aşamadan sonra ücretsiz hizmete geçersiniz. Lütfen unutmayın: Ücretsiz deneme süresinde premium abonelik satın almanız durumunda, ücretsiz deneme süresinde henüz kullanmadığınız günlerden feragat etmiş sayılırsınız.</string>
-	<string name="subscription_header"><b>Rehber kataloğuna</b>\nüye olun</string>
-	<!-- Max. 20 characters per 1 line. -->
-	<string name="all_pass_subscription_message_title_4">Lonely Planet®\nseyahat rehberleri</string>
-	<!-- <b> & </b> tag to make a part of the line bold -->
-	<string name="all_pass_subscription_message_subtitle_4"><b>Dünyanın dört bir yanındaki</b> binlerce ilginç yer sayesinde <b>daha da fazla deneyim</b></string>
-	<string name="content_by_component">Yayınlayan: %s</string>
-	<string name="whatsnew_lp_title">Daha da fazla duygu</string>
-	<string name="whatsnew_lp_message">Lonely Planet rehberlerine uygulamamızdan erişebilirsiniz! 7000\'den fazla şehirde eşsiz seyahat noktaları, cazibe yerleri ve tematik yürüyüşler.</string>
-	<string name="collections_title">Koleksiyonlar</string>
 	<string name="key_information_title">Anahtar bilgisi</string>
-	<string name="mustsee_title">Görmeden geçme</string>
-	<string name="see_lp_category">Görülecek Yerler</string>
-	<string name="play_lp_category">Eğlence</string>
-	<string name="shop_lp_category">Alışveriş</string>
-	<string name="transport_lp_category">Ulaşım</string>
-	<string name="sleep_lp_category">Dinlenme</string>
-	<string name="general_lp_category">Genel</string>
-	<string name="drink_lp_category">İçecek</string>
-	<string name="eat_lp_category">Yiyecek</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Remontées mécaniques</string>

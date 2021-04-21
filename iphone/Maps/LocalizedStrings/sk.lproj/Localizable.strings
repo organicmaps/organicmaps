@@ -94,7 +94,7 @@
 /* Button text for the button under the country_status_download_failed message */
 "try_again" = "Skúsiť znova";
 
-"about_menu_title" = "O aplikácii OMaps";
+"about_menu_title" = "O aplikácii Organic Maps";
 
 "downloaded_touch_to_delete" = "Stiahnuté (%@), stlačte pre zmazanie";
 
@@ -110,7 +110,7 @@
 
 "external_storage_is_not_available" = "SD karta/USB úložisko s uloženými mapami nie je k dispozícii";
 
-"disconnect_usb_cable" = "Prosím, odpojte USB kábel alebo vložte pamäťovú kartu pre použitie s OMaps";
+"disconnect_usb_cable" = "Prosím, odpojte USB kábel alebo vložte pamäťovú kartu pre použitie s Organic Maps";
 
 "not_enough_free_space_on_sdcard" = "Prosím, uvoľnite najprv miesto na SD karte/USB úložisku";
 
@@ -174,7 +174,7 @@
 "set" = "Skupina";
 
 /* Text hint in Bookmarks dialog when no any bookmarks are added */
-"bookmarks_usage_hint" = "Zatiaľ nemáte žiadne záložky.\nZáložku môžete pridať pridržaním ľubovolného miesta na mape.\nV OMaps môžu byť tiež zobrazené importované záložky z iných zdrojov. Súbor vo formáte KML/KMZ s uloženými záložkami môžete otvoriť napr. z emailu, Dropboxu alebo z webového odkazu.";
+"bookmarks_usage_hint" = "Zatiaľ nemáte žiadne záložky.\nZáložku môžete pridať pridržaním ľubovolného miesta na mape.\nV Organic Maps môžu byť tiež zobrazené importované záložky z iných zdrojov. Súbor vo formáte KML/KMZ s uloženými záložkami môžete otvoriť napr. z emailu, Dropboxu alebo z webového odkazu.";
 
 /* Settings button in system menu */
 "settings" = "Nastavenia";
@@ -276,9 +276,9 @@
 "share_by_email" = "Share by email";
 
 /* Email Subject when sharing bookmarks category */
-"share_bookmarks_email_subject" = "Zdielané záložky OMaps";
+"share_bookmarks_email_subject" = "Zdielané záložky Organic Maps";
 
-"share_bookmarks_email_body" = "Hello!\n\nAttached are my bookmarks from OMaps offline maps. Please open them if you have OMaps installed. Or, if you don't, download the app for your iOS or Android device by following this link: https://omaps.app/get?kmz\n\nEnjoy traveling with OMaps!";
+"share_bookmarks_email_body" = "Hello!\n\nAttached are my bookmarks from Organic Maps offline maps. Please open them if you have Organic Maps installed. Or, if you don't, download the app for your iOS or Android device by following this link: https://organicmaps.app/get?kmz\n\nEnjoy traveling with Organic Maps!";
 
 /* message title of loading file */
 "load_kmz_title" = "Načítavanie záložiek";
@@ -308,7 +308,7 @@
 "downloading_is_active" = "Práve prebieha sťahovanie krajiny.";
 
 /* Message that will be shown in alert view, when we ask user to leave review on App Store */
-"appStore_message" = "Dúfame, že sa vám používánie OMaps páči! Ak to je tak, ohodnoťte prosím našu aplikáciu alebo napíšte na ňu recenziu v Obchode s aplikáciami. Nezaberie vám to ani minútu času, ale nám s tým môžete veľmi pomôoť. Ďakujeme vám za vašu podporu!";
+"appStore_message" = "Dúfame, že sa vám používánie Organic Maps páči! Ak to je tak, ohodnoťte prosím našu aplikáciu alebo napíšte na ňu recenziu v Obchode s aplikáciami. Nezaberie vám to ani minútu času, ale nám s tým môžete veľmi pomôoť. Ďakujeme vám za vašu podporu!";
 
 /* No, thanks */
 "no_thanks" = "Nie, ďakujem";
@@ -320,10 +320,10 @@
 "my_position_share_sms" = "Pozri kde som. Otvor odkaz: %1$@ alebo %2$@";
 
 /* Subject for emailed bookmark */
-"bookmark_share_email_subject" = "Pozri na moju značku na mape OMaps";
+"bookmark_share_email_subject" = "Pozri na moju značku na mape Organic Maps";
 
 /* Subject for emailed position */
-"my_position_share_email_subject" = "Pozrite si moju aktuálnu polohu na mape OMaps";
+"my_position_share_email_subject" = "Pozrite si moju aktuálnu polohu na mape Organic Maps";
 
 /* Share my position using EMail, %1$@ is ge0:// and %2$@ is http://ge0.me link WITHOUT NAME */
 "my_position_share_email" = "Ahoj,\n\nPráve som tu: %1$@. Stlačte jeden z týchto odkazov %2$@, %3$@ a uvidíte toto miesto na mape.\n\nVďaka";
@@ -492,16 +492,16 @@
 "download_map_notification" = "Stiahnite si mapu miesta, kde sa práve nachádzate";
 
 /* text of notification */
-"pro_version_is_free_today" = "Plná verzia OMaps dnes zadarmo! Stiahnite si teraz a povedzte to svojim priateľom.";
+"pro_version_is_free_today" = "Plná verzia Organic Maps dnes zadarmo! Stiahnite si teraz a povedzte to svojim priateľom.";
 
 /* Dialog for transferring maps from lite to pro. */
-"move_lite_maps_to_pro" = "Práve prenášame Vaše stiahnuté mapy z OMaps lite na OMaps. Môže to trvať niekoľko minút.";
+"move_lite_maps_to_pro" = "Práve prenášame Vaše stiahnuté mapy z Organic Maps lite na Organic Maps. Môže to trvať niekoľko minút.";
 
 /* Message to display when maps moved. */
-"move_lite_maps_to_pro_ok" = "Vaše stiahnuté mapy sú úspešne prenesené na OMaps.";
+"move_lite_maps_to_pro_ok" = "Vaše stiahnuté mapy sú úspešne prenesené na Organic Maps.";
 
 /* Message to display when maps move failed. */
-"move_lite_maps_to_pro_failed" = "Vaše mapy sa nepodarilo preniesť. Vymažte prosím OMaps Lite a stiahnite si mapy znova.";
+"move_lite_maps_to_pro_failed" = "Vaše mapy sa nepodarilo preniesť. Vymažte prosím Organic Maps Lite a stiahnite si mapy znova.";
 
 /* Text in menu */
 "settings_and_more" = "Nastavenia a viac";
@@ -510,7 +510,7 @@
 "website" = "Webové stránky";
 
 /* Text in menu */
-"maps_me_community" = "Komunita OMaps";
+"maps_me_community" = "Komunita Organic Maps";
 
 /* Text in menu */
 "like_on_facebook" = "Označiť pomocou Páči sa mi to na Facebooku";
@@ -540,13 +540,13 @@
 "report_a_bug" = "Nahlásiť chybu";
 
 /* Email subject */
-"subscribe_me_subject" = "Prihláste ma prosím k odberu spravodaja OMaps";
+"subscribe_me_subject" = "Prihláste ma prosím k odberu spravodaja Organic Maps";
 
 /* Email body */
 "subscribe_me_body" = "Chcem sa vždy ako prvý dozvedať o najnovších správach, aktualizáciách a akčných ponukách. Svoje prihlásenie k odberu môžem kedykoľvek zrušiť.";
 
 /* About text */
-"about_text" = "OMaps ponúka najrýchlejšie offline mapy všetkých miest a krajín po celom svete. Cestujte s úplnou dôverou: kdekoľvek ste, OMaps vám pomôže sa nájsť na mape, nájsť najbližšiu reštauráciu, hotel, banku, benzínovú pumpu atď. Nevyžaduje pripojenie k internetu.\n\nNeustále pracujeme na nových funkciách a radi by sme počuli váš názor, ako môžeme vylepšiť OMaps. Pokiaľ máte s touto aplikáciou akékoľvek problémy, tak nás neváhajte kontaktovať na support@omaps.app. Odpovedáme na každú požiadavku!\n\nPáči sa vám OMaps a chceli by ste nás podporiť? Existuje niekoľko ľahkých spôsobov celkom zadarmo:\n\n-napíšte recenziu vo svojom obchode s aplikáciami\n-označte našu stránku http://www.facebook.com/mapswithme pomocou Páči sa mi to\n- alebo len povedzte o OMaps svojej mame, priateľom a kolegom :)\n\nĎakujeme, že ste s nami. Veľmi oceňujeme vašu podporu!\n\nP.S. Mapové dáta získavame z OpenStreetMap, čo je mapový projekt podobný Wikipédii, ktorý umožňuje užívateľom vytvárať a upravovať mapy. Pokiaľ zistíte, že na mape niečo chýba alebo je nesprávné, môžete to opraviť priamo na https://www.openstreetmap.org, a vaše zmeny sa objavia v budúcej verzii OMaps.";
+"about_text" = "Organic Maps ponúka najrýchlejšie offline mapy všetkých miest a krajín po celom svete. Cestujte s úplnou dôverou: kdekoľvek ste, Organic Maps vám pomôže sa nájsť na mape, nájsť najbližšiu reštauráciu, hotel, banku, benzínovú pumpu atď. Nevyžaduje pripojenie k internetu.\n\nNeustále pracujeme na nových funkciách a radi by sme počuli váš názor, ako môžeme vylepšiť Organic Maps. Pokiaľ máte s touto aplikáciou akékoľvek problémy, tak nás neváhajte kontaktovať na support@organicmaps.app. Odpovedáme na každú požiadavku!\n\nPáči sa vám Organic Maps a chceli by ste nás podporiť? Existuje niekoľko ľahkých spôsobov celkom zadarmo:\n\n-napíšte recenziu vo svojom obchode s aplikáciami\n-označte našu stránku http://www.facebook.com/OMapsApp pomocou Páči sa mi to\n- alebo len povedzte o Organic Maps svojej mame, priateľom a kolegom :)\n\nĎakujeme, že ste s nami. Veľmi oceňujeme vašu podporu!\n\nP.S. Mapové dáta získavame z OpenStreetMap, čo je mapový projekt podobný Wikipédii, ktorý umožňuje užívateľom vytvárať a upravovať mapy. Pokiaľ zistíte, že na mape niečo chýba alebo je nesprávné, môžete to opraviť priamo na https://www.openstreetmap.org, a vaše zmeny sa objavia v budúcej verzii Organic Maps.";
 
 /* Alert text */
 "email_error_body" = "Emailový klient nebol nastavený. Nakonfigurujte ho prosím alebo použite iný spôsob k tomu, abyste nás kontaktovali na %@";
@@ -564,7 +564,7 @@
 "routing_map_outdated" = "Pre vytvorenie trasy si, prosím, aktualizujte mapu.";
 
 /* Update maps suggestion */
-"routing_update_maps" = "Nová verzia aplikácie OMaps umožňuje vytvárať trasy z vašej aktuálnej polohy do cieľového bodu. Pre použitie tejto funkcie si, prosím, aktualizujte mapy.";
+"routing_update_maps" = "Nová verzia aplikácie Organic Maps umožňuje vytvárať trasy z vašej aktuálnej polohy do cieľového bodu. Pre použitie tejto funkcie si, prosím, aktualizujte mapy.";
 
 /* Update all button text */
 "downloader_update_all_button" = "Aktualizovať všetko";
@@ -592,7 +592,7 @@
 "downloader_search_results" = "Nájdených";
 
 /* Disclaimer message */
-"routing_disclaimer" = "Tvorenie trás v aplikácii OMaps, prosím, majte na pamäti nasledovné:\n\n  - Navrhnuté trasy možno považovať iba za odporúčanie.\n - Stav vozovky, dopravné predpisy a značenie majú vyššiu prioritu, ako navigačné rady.\n - Mapa môže byť nesprávna alebo zastaraná a trasy nemusia byť vytvorené tým najlepším možným spôsobom.\n\n  Buďte na cestách v bezpečí a postarajte sa o seba!";
+"routing_disclaimer" = "Tvorenie trás v aplikácii Organic Maps, prosím, majte na pamäti nasledovné:\n\n  - Navrhnuté trasy možno považovať iba za odporúčanie.\n - Stav vozovky, dopravné predpisy a značenie majú vyššiu prioritu, ako navigačné rady.\n - Mapa môže byť nesprávna alebo zastaraná a trasy nemusia byť vytvorené tým najlepším možným spôsobom.\n\n  Buďte na cestách v bezpečí a postarajte sa o seba!";
 
 /* Outdated maps category */
 "downloader_outdated_maps" = "Zastarané";
@@ -628,7 +628,7 @@
 "routing_failed_route_not_found" = "Nebol nájdená trasa medzi vybraným východiskom a cieľom. Prosím vyberte iný počiatočný a koncový bod.";
 
 /* InternalError */
-"routing_failed_internal_error" = "Došlo k vnútornej chybe. Prosím, skúste zmazať a znovu stiahnuť mapu. Ak problém pretrvá, prosím, kontaktujte nás na support@omaps.app.";
+"routing_failed_internal_error" = "Došlo k vnútornej chybe. Prosím, skúste zmazať a znovu stiahnuť mapu. Ak problém pretrvá, prosím, kontaktujte nás na support@organicmaps.app.";
 
 /* Context menu item for downloader. */
 "downloader_download_map_and_routing" = "Na stiahnutie Mapa + Trasa";
@@ -675,10 +675,10 @@
 "rating_just_rated" = "Práve som hodnotil vašu aplikáciu";
 
 /* Text for rating dialog */
-"rating_user_since" = "Som používateľ OMaps od roku %@";
+"rating_user_since" = "Som používateľ Organic Maps od roku %@";
 
 /* Text for rating dialog */
-"rating_do_like_maps" = "Páči sa vám OMaps?";
+"rating_do_like_maps" = "Páči sa vám Organic Maps?";
 
 /* Text for rating dialog */
 "rating_tap_star" = "Kliknutím na hviezdu ohodnotíte našu aplikáciu.";
@@ -702,7 +702,7 @@
 "routing_download_map" = "Stiahnuť mapu";
 
 /* Text for routing error dialog */
-"routing_download_map_and_routing" = "Aktualizovať mapu a trasové dáta na to aby ste mohli získajte všetky funkcie OMaps.";
+"routing_download_map_and_routing" = "Aktualizovať mapu a trasové dáta na to aby ste mohli získajte všetky funkcie Organic Maps.";
 
 /* Text for routing error dialog */
 "routing_get_routing_data" = "Získať trasové dáta";
@@ -923,7 +923,7 @@
 
 "rate_alert_title" = "Páči sa vám aplikácia?";
 
-"rate_alert_default_message" = "Ďakujeme, že používate OMaps. Prosím, ohodnoťte aplikáciu. Vaše názory nám pomôžu zlepšiť sa.";
+"rate_alert_default_message" = "Ďakujeme, že používate Organic Maps. Prosím, ohodnoťte aplikáciu. Vaše názory nám pomôžu zlepšiť sa.";
 
 "rate_alert_five_star_message" = "Hurá! Aj my vás taky páči!";
 
@@ -1034,7 +1034,7 @@
 
 "editor_report_problem_duplicate_place_title" = "Duplicitné miesto";
 
-"first_launch_congrats_title" = "Aplikácia OMaps je pripravená na použitie";
+"first_launch_congrats_title" = "Aplikácia Organic Maps je pripravená na použitie";
 
 "first_launch_congrats_text" = "Vyhľadávajte a určujte trasu bez pripojenia všade na svete bez poplatkov.";
 
@@ -1218,7 +1218,7 @@
 
 "whatsnew_editor_message_1" = "Na mapu môžete pridávať nové miesta a upravovať tie, ktoré sú už pridané.";
 
-"whatsnew_editor_message_2" = "* OMaps využíva dáta komunity OpenStreetMap.";
+"whatsnew_editor_message_2" = "* Organic Maps využíva dáta komunity OpenStreetMap.";
 
 "dialog_incorrect_feature_position" = "Zmeniť polohu";
 
@@ -1231,7 +1231,7 @@
 /* Error dialog no space */
 "migration_no_space_message" = "Ak chcete pokračovať v sťahovaní, musíte uvoľniť viac miesta na ukladacom priestore. Prosím, odstráňte prebytočné dáta.";
 
-"editor_sharing_title" = "Vďaka mne sú mapy na OMaps lepšie";
+"editor_sharing_title" = "Vďaka mne sú mapy na Organic Maps lepšie";
 
 "editor_comment_will_be_sent" = "Pošleme Váš príspevok kartografom.";
 
@@ -1262,7 +1262,7 @@
 
 "editor_detailed_description_hint" = "Zmazaná poznámka";
 
-"editor_detailed_description" = "Vami navrhované zmeny sa odošlú do komunity OpenStreetMap. Popíšte detaily, ktoré sa nedajú upraviť v OMaps.";
+"editor_detailed_description" = "Vami navrhované zmeny sa odošlú do komunity OpenStreetMap. Popíšte detaily, ktoré sa nedajú upraviť v Organic Maps.";
 
 "editor_more_about_osm" = "Viac o OpenStreetMap";
 
@@ -1339,10 +1339,6 @@
 
 "placepage_open_24_7" = "24 / 7";
 
-"place_page_booking_rating" = "Hodnotenie: %s";
-
-"place_page_starting_from" = "od %s";
-
 "meter" = "m";
 
 "kilometer" = "km";
@@ -1410,17 +1406,9 @@
 
 "editor_profile_rating_place" = "Hodnotiaca pozícia";
 
-"booking_dialog_not_connect_header" = "Rezervácia hotela vyžaduje aktiváciu pripojenia k Internetu";
-
-"button_try" = "Vyskúšajte to";
-
 "refresh" = "Aktualizovať";
 
 "last_update" = "Naposledy aktualizované: %s";
-
-"booking_checkin" = "príchod: %s";
-
-"booking_checkout" = "odchod: %s";
 
 "placepage_add_place_button" = "Pridať miesto na mape";
 
@@ -1453,9 +1441,6 @@
 /* iOS dialog for the case when recent track recording is on and the app comes back from background */
 "recent_track_background_dialog_title" = "Znemožniť nahrávanie vami nedávno precestovanej trasy?";
 
-/* If a hotel is being shared */
-"sharing_booking" = "alebo si rezervujte na booking.com";
-
 "off_recent_track_background_button" = "Znemožniť";
 
 /* For sharing via SMS and so on */
@@ -1463,7 +1448,7 @@
 
 "continue_recent_track_background_button" = "Pokračovať";
 
-"recent_track_background_dialog_message" = "OMaps používa vašu geopozíciu na pozadí pre zaznamenávanie vami nedávno precestovanej trasy.";
+"recent_track_background_dialog_message" = "Organic Maps používa vašu geopozíciu na pozadí pre zaznamenávanie vami nedávno precestovanej trasy.";
 
 /* Rate on Google Play (Android only) */
 "rate_gp" = "Ohodnotiť v službe Google Play";
@@ -1472,10 +1457,10 @@
 "tell_friends" = "Povedať priateľovi";
 
 /* Share with friends: sharing text */
-"tell_friends_text" = "Ahoj! Nainštaluj si aplikáciu OMaps";
+"tell_friends_text" = "Ahoj! Nainštaluj si aplikáciu Organic Maps";
 
 /* About short text (below logo) */
-"about_description" = "OMaps je offine aplikácia na cestovanie. Základom aplikácie OMaps sú dáta OpenStreetMap, pričom aplikácia nám ich umožňuje upravovať.";
+"about_description" = "Organic Maps je offine aplikácia na cestovanie. Základom aplikácie Organic Maps sú dáta OpenStreetMap, pričom aplikácia nám ich umožňuje upravovať.";
 
 /* Text in menu */
 "blog" = "Blog";
@@ -1495,51 +1480,7 @@
 /* For the first routing */
 "decline" = "Odmietnuť";
 
-"whats_new_route_profile_title" = "Radšej dlhšia cesta, ale bezpečná";
-
-"whats_new_route_profile_message" = "Pre pešie trasy a cyklotrasy sa odteraz zobrazuje aj výškový profil.";
-
-"whats_new_booking_improve_title" = "Ušetriť pri rezervácii hotelov";
-
-"whats_new_booking_improve_message" = "Výsledky vyhľadávania hotelov odteraz obsahujú aj cenové kategórie. \nTiež sme pridali viac ako 110 000 hotelov.";
-
-/* For place page hotel facilities block */
-"placepage_hotel_facilities" = "Zariadenia";
-
-/* For place page hotel nearby block */
-"placepage_hotel_nearby" = "V blízkosti";
-
-/* For ordering a taxi (as opposed to hotels or other things) */
-"taxi_order" = "Objednať taxík";
-
-/* How long it is until the taxi arrives */
-"taxi_wait" = "Očakávaný príjazd o %s";
-
-/* When there are no available taxis nearby */
-"taxi_not_found" = "V okolí sa nepodarilo nájsť žiaden taxík";
-
-/* When there are no available taxi providers nearby */
-"taxi_no_providers" = "Taxík to nie je k dispozícii";
-
 "install_app" = "Nainštalovať";
-
-/* `Filter` is a noun here */
-"booking_filters" = "Filter";
-
-"booking_filters_reset" = "Obnoviť";
-
-/* Beginning from a particular value and */
-"booking_filters_rating" = "Hodnotenie nad";
-
-"booking_filters_rating_any" = "Akékoľvek";
-
-"booking_filters_ragting_good" = "Dobré";
-
-"booking_filters_rating_very_good" = "Veľmi dobré";
-
-"booking_filters_rating_excellent" = "Výborné";
-
-"booking_filters_price_category" = "Cenová kategória";
 
 "search_no_results_title" = "Nenašli sa žiadne výsledky";
 
@@ -1551,28 +1492,6 @@
 
 /* noun */
 "search_in_table" = "Zoznam";
-
-"booking_show_more" = "Zobraziť viac";
-
-"booking_reviews" = "Recenzie";
-
-"booking_hotel" = "Hotel";
-
-/* hotel room */
-"booking_hotel_room" = "Izba";
-
-/* A neologism for a chat based on geographical proximity */
-"chat" = "GeoChat";
-
-/* Verb. Text on a button that opens the chat. */
-"chat_open" = "Otvoriť";
-
-"dialog_taxi_offline" = "Objednanie taxíka nie je k dispozícii v režime offline.";
-
-"dialog_taxi_error" = "Objednanie taxíka je dočasne nedostupné.";
-
-/* Abbreviated for all languages. */
-"advertisement" = "AD";
 
 "mobile_data_dialog" = "Použiť mobilný internet na zobrazenie podrobnejších informácií?";
 
@@ -1596,7 +1515,7 @@
 
 "big_font" = "Zväčšiť veľkosť písma na mape";
 
-"traffic_update_app" = "Aktualizujte si aplikáciu OMaps";
+"traffic_update_app" = "Aktualizujte si aplikáciu Organic Maps";
 
 /* "traffic" as in road congestion */
 "traffic_update_app_message" = "Ak chcete zobraziť dopravné informácie, musíte si aktualizovať aplikáciu.";
@@ -1607,69 +1526,14 @@
 /* "Translation is no needed, because it's a company name" */
 "uber" = "Uber";
 
-/* Seven points and higher */
-"booking_filter_rating_num_good" = "7,0 a viac";
-
-/* Eight points and higher */
-"booking_filter_rating_num_very_good" = "8,0 a viac";
-
-/* Nine points and higher */
-"booking_filter_rating_num_excellent" = "9,0 a viac";
-
-"booking_filter_price_low" = "$";
-
-"booking_filter_price_medium" = "$$";
-
-"booking_filter_price_high" = "$$$";
-
 /* Simplified colour scheme for traffic information, fewer colours are used to display traffic jams on the map. The string should be kept as short as possible */
 "pref_traffic_simplified_colors_title" = "Zjednodušené farby dopravy";
 
 "enable_logging" = "Zapnúť zaznamenávanie";
 
-"more_on_bookingcom" = "Viac na Booking.com";
-
-"details_on_bookingcom" = "Podrobnosti na Booking.com";
-
-"reviews_on_bookingcom" = "Viac recenzií na Booking.com";
-
 "offline_place_page_more_information" = "Viac informácií o mieste získate po pripojení na internet.";
 
 "failed_load_information" = "Nepodarilo sa načítať informácie.";
-
-"booking_search" = "Booking.com";
-
-"whats_new_auto_update_updating_maps" = "Prebieha aktualizácia máp";
-
-"whats_new_auto_update_title" = "Aktualizujte svoje stiahnuté mapy";
-
-"whats_new_auto_update_message" = "Vďaka aktualizácii máp budú informácie o objektoch na mape aktualizované";
-
-"whats_new_auto_update_button_size" = "Aktualizovať (%s)";
-
-"whats_new_auto_update_button_later" = "Manuálne aktualizovať neskôr";
-
-"search_hotel_filter_apartment" = "Apartmány";
-
-"search_hotel_filter_camp_site" = "Camping";
-
-"search_hotel_filter_chalet" = "Chata";
-
-"search_hotel_filter_guest_house" = "Penzión";
-
-"search_hotel_filter_hostel" = "Hostel";
-
-"search_hotel_filter_resort" = "Rezort";
-
-"search_hotel_filter_hotel" = "Hotel";
-
-"search_hotel_filter_motel" = "Motel";
-
-"create_campaign_button" = "Nárokovať záznam firmy";
-
-"view_campaign_button" = "Firma sa inzeruje";
-
-"search_hotel_filters_type" = "Typ";
 
 /* Settings: "Send general feedback" button */
 "feedback_general" = "Všeobecné pripomienky";
@@ -1744,65 +1608,7 @@
 
 "preloader_viator_button" = "Zistiť viac";
 
-"whats_new_title_route" = "Vylepšili sme cyklotrasy a pešie trasy";
-
-"whats_new_message_route" = "Opravili sme chyby, niekoľkonásobne sme zrýchlili zostavovanie trasy a pridali sme zastávky na trase";
-
-"whats_new_message_title_update" = "Desaťnásobne sme zmenšili veľkosť aktualizácií máp";
-
-"whats_new_message_maps_update" = "Odteraz na aktualizáciu máp stačí prevziať len chýbajúce dáta";
-
 "start_from_my_position" = "Začať od";
-
-"rating" = "Hodnotenie";
-
-"placepage_no_reviews" = "Žiadne hodnotenie";
-
-"placepage_reviewed" = "Už ste hodnotili toto miesto";
-
-"placepage_summary_rating" = "Súhrnné hodnotenie";
-
-"placepage_rate_comment" = "Ťuknutím ohodnoťte a preskúmajte toto miesto.";
-
-"placepage_rate_horrible" = "Hrozné";
-
-"placepage_rate_bad" = "Zlé";
-
-"placepage_rate_normal" = "Normálne";
-
-"placepage_rate_good" = "Dobré";
-
-"placepage_rate_excellent" = "Výborné";
-
-"placepage_reviews_most_recent" = "Najnovšie";
-
-"placepage_reviews_most_useful" = "Najužitočnejšie";
-
-"placepage_reviews_highest_rated" = "Najvyššie hodnotené";
-
-"placepage_reviews_lowest_rated" = "Najnižšie hodnotené";
-
-"placepage_reviews_offline_comment" = "V režime offline sa zobrazujú len najužitočnejšie recenzie";
-
-"placepage_reviews_your_comment" = "Vaša recenzia";
-
-"placepage_reviews_unhelpful" = "Neužitočné";
-
-"placepage_reviews_inappropriate" = "Nevhodné";
-
-"placepage_reviews_spam" = "Spam";
-
-"placepage_reviews_hint" = "Čo je tu dobré alebo zlé?";
-
-"placepage_reviews_edit_your_review" = "Upraviť svoju recenziu";
-
-"placepage_reviews_new_review" = "Nová recenzia";
-
-"placepage_translate_button" = "Preložiť";
-
-"placepage_show_original_button" = "Zobraziť originál";
-
-"placepage_more_reviews_booking_button" = "Viac recenzií na Booking.com";
 
 "profile_authorization_title" = "Prihlásiť sa pomocou";
 
@@ -1826,41 +1632,11 @@
 
 "quality" = "Kvalita";
 
-"whats_new_ugc_title_updated_v840" = "Hodnotenia a recenzie";
-
-"whats_new_ugc_message" = "Teraz môžete napísať hodnotenia a recenzie aj offline! Nezabudnite si aktualizovať mapy, aby ste videli zmeny.";
-
 "dialog_error_storage_title" = "Problém s prístupom k úložisku";
 
-"dialog_error_storage_message" = "Externý úložný priestor nie je dostupný, pravdepodobne je vytiahnutá alebo poškodená SD karta alebo je systém súborov určený iba na čítanie. Skontrolujte to, prosím, a kontaktujte nás na support@omaps.app";
+"dialog_error_storage_message" = "Externý úložný priestor nie je dostupný, pravdepodobne je vytiahnutá alebo poškodená SD karta alebo je systém súborov určený iba na čítanie. Skontrolujte to, prosím, a kontaktujte nás na support@organicmaps.app";
 
 "setting_emulate_bad_storage" = "Imitovať poškodené úložisko";
-
-"discovery_button_title" = "Poznávajte svoje okolie";
-
-"discovery_button_subtitle_things_to_do" = "Aktivity";
-
-"discovery_button_subtitle_attractions" = "Atrakcie";
-
-"discovery_button_subtitle_eat_and_drink" = "Jedlo a pitie";
-
-"discovery_button_subtitle_local_guides" = "Miestni sprievodcovia";
-
-"discovery_button_viator_error_title" = "Chyba pri načítaní dat";
-
-"discovery_button_other_error_message" = "Chyba pri načítaní dat";
-
-"discovery_button_other_loading_message" = "Prebieha načítanie dát";
-
-"discovery_button_404_error_title" = "Nič nebolo nájdené";
-
-"discovery_button_404_error_message" = "Ejha, nenašli sme v okolí nič zaujímavé.";
-
-"booking_filters_check_in" = "Prihlásiť sa";
-
-"booking_filters_check_out" = "Odhlásiť sa";
-
-"booking_filters_offline" = "Nie sú k dispozícii offline.";
 
 "directions_finish" = "Ciel";
 
@@ -1875,18 +1651,6 @@
 "crowdedness" = "Preplnenosť";
 
 "error_enter_correct_name" = "Prosím, zadajte správne meno";
-
-"hotel_available" = "K dispozícii";
-
-"whats_new_transit_title" = "Metro k dispozícii";
-
-"whats_new_transit_message" = "Vyhľadávajte trasy aj s využitím metra! Pre zobrazenie zmien, prosím, zaktualizujte mapy.";
-
-"whats_new_discovery_title" = "Tlačidlo Priezkum";
-
-"whats_new_discovery_message" = "Preskúmajte veci okolo Vás pomocou jedného kliku!";
-
-"price_per_hour" = "%s/hodina";
 
 "bookmarks_backup" = "Povoliť zálohovanie";
 
@@ -1918,14 +1682,6 @@
 
 "downloader_applying" = "Použitie %s...";
 
-"whats_new_title_hotel_filter" = "Nové filtre pre hotely k dispozícii!";
-
-"whats_new_message_hotel_filter" = "Rezervujte si hotely, ktoré sú k dispozícii vo vami požadovanom dátume! Použiť filtre pre prihlásenie a odhlásenie v hoteli";
-
-"whats_new_title_ugc_travel" = "Podeľte sa o svoje skúsenosti s ďalšími cestovateľmi!";
-
-"whats_new_message_ugc_travel" = "Ohodnoťte a napíšte recenziu miest, ktoré ste navštívili!";
-
 "dialog_message_transit_not_found_connection" = "Naplánujte si trasu v jednej sieti verejnej dopravy";
 
 "bookmarks_error_message_share_general" = "Pre chybu aplikácie nie je zdieľanie možné";
@@ -1933,10 +1689,6 @@
 "bookmarks_error_title_share_empty" = "Chyba zdieľania";
 
 "bookmarks_error_message_share_empty" = "Prázdny zoznam nie je možné zdieľať";
-
-"discovery_button_subtitle_book_hotels" = "Rezervovať hotely";
-
-"maxim_taxi_title" = "maxim";
 
 "bookmarks_error_title_empty_list_name" = "Názov nemôže byť prázdny";
 
@@ -1978,10 +1730,6 @@
 
 "wn_reinvented_bookmarks_message" = "Môžete zálohovať záložky, vytvárať zoznamy... Je to úžasné...";
 
-"wn_way_of_booking_title" = "Zmenili sme spôsob rezervácie!";
-
-"wn_way_of_booking_message" = "Stačí nájsť hotel na mape a rezervovať ho, alebo si vybrať podobný hotel.";
-
 "bookmarks_restore" = "Obnoviť záložky";
 
 "bookmarks_restore_process" = "Obnovenie...";
@@ -2004,20 +1752,6 @@
 
 "restore" = "Obnoviť";
 
-"sign_message_gdpr" = "Musíte prijať naše Zmluvné podmienky a Pravidlá ochrany osobných údajov. Prečítajte si ich pozorne.";
-
-"sign_agree_pp_gdpr" = "Súhlasím s <a href=\"%s\">Zásadami ochrany osobných údajov</a>";
-
-"sign_agree_tof_gdpr" = "Súhlasím s <a href=\"%s\">zmluvnými podmienkami</a>";
-
-"sign_agree_news_gdpr" = "Súhlasím so zasielaním najnovších správ o produktoch OMaps";
-
-"whats_new_localbiz_title" = "Malé podniky si zaslúžia pozornosť";
-
-"whats_new_localbiz_message" = "Jedná sa o miestne kaviarne, útulné hostely a obchody, ktoré spravia z vašich ciest nezabudnuteľné. Vašu stránku optimalizujeme v OMaps, aby vynikla.";
-
-"whats_new_order_button" = "Zanechať žiadosť";
-
 "bookmarks_page_downloaded" = "Prevzaté";
 
 "bookmarks_page_my" = "Moje";
@@ -2028,7 +1762,7 @@
 
 "cached_bookmarks_placeholder_title" = "Prevziať nové miesta";
 
-"cached_bookmarks_placeholder_subtitle" = "Stlačením tlačidla stiahnete tisíce zaujímavých miest a trás vytvorených používateľmi OMaps. Budete potrebovať internetové pripojenie.";
+"cached_bookmarks_placeholder_subtitle" = "Stlačením tlačidla stiahnete tisíce zaujímavých miest a trás vytvorených používateľmi Organic Maps. Budete potrebovať internetové pripojenie.";
 
 "downloader_download_routers" = "Prevziať záložky";
 
@@ -2040,7 +1774,7 @@
 
 "crash_reports" = "Hlásenie chýb";
 
-"crash_reports_description" = "Vaše údaje môžeme použiť na zlepšenie skúseností s programom OMaps. Zmeny sa prejavia po reštartovaní aplikácie.";
+"crash_reports_description" = "Vaše údaje môžeme použiť na zlepšenie skúseností s programom Organic Maps. Zmeny sa prejavia po reštartovaní aplikácie.";
 
 "opt_out_help_ios_1" = "Vaše mobilné zariadenie môže poskytnúť nastavenie „Obmedziť reklamné sledovanie“ alebo „Zrušiť inzerciu založenú na záujmoch“.";
 
@@ -2078,18 +1812,6 @@
 
 "subtitle_error_downloading_bookmarks" = "Záložky neboli stiahnuté";
 
-"whats_new_bookmarks_catalog_title" = "OMaps má teraz katalóg trás";
-
-"whats_new_bookmarks_catalog_message" = "Stovky podrobných trás po celom svete: kam ísť, čo vidieť, kde sa ísť najesť.";
-
-"whats_new_popularity_label_title" = "Obľúbené miesta v okolí";
-
-"whats_new_popularity_label_message" = "Sekcia Čo robiť vám pomôže nájsť najobľúbenejšie miesta v meste.";
-
-"whats_new_hot_offers_title" = "Atraktívne ponuky hotelov";
-
-"whats_new_hot_offers_message" = "Môžete ich vyhľadávať pomocou kategórie Hotely vo vyhľadávaní. Ponuky budú označené percentuálnym symbolom na mape a vo výsledkoch vyhľadávania.";
-
 "error_already_downloaded" = "Tento zoznam už bol stiahnutý";
 
 "popular_place" = "Popular";
@@ -2100,92 +1822,17 @@
 
 "bookmarks_downloaded_subtitle" = "Press ‘View on map’ to explore new places from the list";
 
-"guides" = "Príručky";
+"why_support" = "Prečo podporiť Organic Maps?";
 
-"guide_downloaded_title" = "Príručka bola úspešne stiahnutá";
+"why_support_item1" = "We respect your privacy: there are zero trackers in the app, and we are open source";
 
-/* as few symbols as possible */
-"download_guides" = "Vyhľadať sprievodcov";
-
-"guides_groups_cached" = "Stiahnuté príručky";
-
-"subtitle_error_downloading_guide" = "Príručka nebola stiahnutá";
-
-"error_already_downloaded_guide" = "Táto príručka už bola stiahnutá";
-
-"guide_downloaded_subtitle" = "Stlačením tlačidla ,Zobraziť na mape' si spustíte príručku";
-
-"bookmarks_guides" = "Záložky a príručky";
-
-"paybtn_title" = "Zaplaťte %s/rok";
-
-"paybtn_subtitle" = "Ušetrite %s/rok";
-
-"options_dropdown_title" = "Viac možností";
-
-"why_support" = "Prečo podporiť OMaps?";
-
-"options_dropdown_item1" = "%s/mesačne (ušetrite %s/ročne)";
-
-"options_dropdown_item2" = "%s/týždenne (žiadne šetrenie)";
-
-"why_support_item1" = "Odstránime pre vás všetky reklamy";
-
-"why_support_item2" = "Pomôžete nám zlepšiť OMaps";
+"why_support_item2" = "Pomôžete nám zlepšiť Organic Maps";
 
 "why_support_item3" = "Pomôžete nám vylepšiť otvorené mapy OpenStreetMap.org";
 
-"purchase_processing" = "Váš nákup sa spracováva…";
-
-"tips_bookmarks_catalog_title" = "Offline sprievodcovia pre akýkoľvek druh cesty";
-
-"tips_bookmarks_catalog_message" = "Stiahnite si a naplánujte turistické trasy na zaujímavých miestach v rôznych mestách sveta.";
-
-"tips_discover_button_title" = "Chcete nájsť obľúbené miesta v okolí?";
-
-"tips_discover_button_message" = "Sekcia „Poznávajte svoje okolie“ obsahuje najlepšie reštaurácie, hotely a pamiatky.";
-
-"tips_book_hotel_title" = "Zarezervujte si najútulnejšie hotely pre svoje cesty";
-
-"tips_book_hotel_message" = "Pomocou vyhľadávania a filtrov nájdite pre Vás najvhodnejšie hotely. Použite tlačidlo „Rezervovať“ na mieste, kde si môžete rezervovať hotel okamžite.";
-
-"tips_map_layers_title" = "Neviete, na ktorú stanicu ísť, ak chcete chytiť spoj?";
-
-"tips_map_layers_message" = "Zapnite vrstvu metra a zobrazte mapu metra a v novom meste vždy nájdete cestu.";
-
 "channels_map_update" = "Aktualizácia máp";
 
-"channels_reviews" = "Neodoslané recenzie";
-
-"purchase_loading" = "Načítavajú sa informácie o nákupe…";
-
-"purchase_error_subtitle" = "Počas spracovania nákupu sa vyskytla chyba";
-
-"awaiting_approval" = "Očakáva sa schválenie rodiča";
-
-"whats_new_leave_review" = "Zanechať recenziu! Podeľte sa o svoj názor o miestach, ktoré ste navštívili počas dovolenky.";
-
 "server_unavailable_title" = "Server je nedostupný";
-
-"server_unavailable_message" = "Nákup bude dokončený neskôr. Ak chyba pretrváva, kontaktujte support@omaps.app.";
-
-"offline_fiters_check_in" = "Pripojte sa na internet, aby ste filtrovali hotely podľa dátumov.";
-
-"rutaxi_title" = "RuTaxi";
-
-"restore_subscription" = "Obnovte si predplatné";
-
-"restore_success_alert" = "Predplatné bolo úspešne obnovené";
-
-"restore_error_alert" = "Pri obnovení predplatného sa vyskytla chyba";
-
-"restore_no_subscription_alert" = "Neexistuje žiadne aktívne predplatné";
-
-"subscriptions_title" = "Predplatné";
-
-"manage_subscription" = "Správa predplatného";
-
-"taxi" = "Taxi";
 
 "sharing_options" = "Možnosti zdieľania";
 
@@ -2197,13 +1844,13 @@
 
 "hide_from_map" = "Skryť z mapy";
 
-"ugc_route_tags_screen_label" = "Vyberte značky";
-
-"ugc_route_tags_progress_msg" = "Načítavanie značiek…";
-
 "public_access" = "Verejný prístup";
 
 "limited_access" = "Obmedzený prístup";
+
+"bookmark_category_name" = "Kategória";
+
+"bookmark_category_description_hint" = "Zadajte popis (text alebo html)";
 
 /* FIXME */
 "bookmarks_public_access" = "bookmarks_public_access";
@@ -2214,33 +1861,11 @@
 /* FIXME */
 "bookmarks_private_access" = "bookmarks_private_access";
 
-"upload_and_publish_desc" = "Táto príručka bude nahraná do verejného katalógu OMaps a bude dostupná ostatným používateľom";
-
-"upload_and_publish" = "Nahrať a publikovať";
-
-"upload_and_get_direct_link" = "Nahrať a získať priamy odkaz";
-
-"get_direct_link_desc" = "Váš sprievodca bude dostupný každému, kto má odkaz";
-
-"upload_and_publish_progress_text" = "Publikovanie vášho sprievodcu…";
-
-"upload_and_publish_success" = "Sprievodca bol publikovaný";
-
-"ugc_routes_user_agreement" = "<b>POZNÁMKA:</b> pokračovaním akceptujte <a href=\"%s\">licenčnú zmluvu</a>";
-
-"ugc_route_edit_list_name" = "Názov sprievodcu";
-
-"ugc_route_edit_description_hint" = "Zadajte popis (text alebo html)";
-
 "not_shared" = "Súkromné";
 
 "direct_link_progress_text" = "Nahrávanie váľho súboru…";
 
 "direct_link_success" = "Odkaz bol vytvorený";
-
-"edit_guide_title" = "Upravte vášho sprievodcu na webe";
-
-"edit_guide_subtitle" = "Získajte odkaz na úpravu sprievodcu prostredníctvom webovej aplikácie: pridajte popisy, odovzdajte fotografie a prepojte záložky s riadkami.";
 
 "send_a_link_btn" = "Poslať mi odkaz";
 
@@ -2254,39 +1879,7 @@
 
 "unable_upload_error_subtitle_broken" = "Tento súbor je poškodený a nedá sa nahrať. Prosím nahrajte iný súbor.";
 
-"buy_btn" = "Kúpte si tento za %s";
-
-"download_guide_progress" = "Sťahovanie vášho sprievodcu…";
-
-"price_error_title" = "Nebolo možné získať cenu";
-
-"price_error_subtitle" = "Prosím skúste to znovu o pár minút";
-
-"edit_your_guide_email_body" = "Upravte svojho sprievodcu na webe jednoducho pomocou počítača: pridajte popisy, odovzdajte fotografie a prepojte záložky s riadkami.";
-
-"edit_on_web" = "Upraviť na webe";
-
-"properties_loading_error_subtitle" = "Pri načítavaní možností sa vyskytla chyba, skúste to znova";
-
-"custom_props_desc" = "V tomto sprievodcovi ste navštívili miesta ako";
-
-"custom_props_title" = "Miestny alebo cestovateľ";
-
-"custom_props_local" = "miestny";
-
-"custom_props_traveler" = "cestovateľ";
-
-"select_properties" = "Vyberte možnosti";
-
-"access_rules_p_to_p" = "Špeciálny prístup";
-
-"access_rules_paid" = "Zakúpené";
-
-"failed_purchase_support_message" = "Je nám ľúto, ale pravdepodobne máte nedokončený nákup. Obráťte sa na podporu a my problém vyriešime.";
-
 "contact" = "Kontakt";
-
-"check_price_button" = "Skontrolovať cenu";
 
 "download_button" = "Stiahnuť";
 
@@ -2304,92 +1897,16 @@
 
 "place_description_title" = "Popis miesta";
 
-"ugc_routes_error_uploading_file_toast" = "Bohužiaľ, počas nahrávania záložiek sa vyskytla chyba. Prosím skúste znova.";
-
-"notification_channel_ugc" = "Sociálny obsah";
-
 /* this text will be shown in application notification preferences opposite checkbox which enable/disable downloader notifications. Devices on Android 8+ are affected. */
 "notification_channel_downloader" = "Sťahovač máp";
 
-"notification_leave_review_title" = "%s - aké to bolo?";
-
-"notification_leave_review_content" = "Pomôžte cestujúcim tým, že zanecháte recenziu!";
-
-"share_bookmarks_email_body_link" = "Dobrý deň!\n\nTu je odkaz, kde si môžete stiahnuť svoje záložky: %s. Otvorte zoznam prostredníctvom služby OMaps a užite si výlet!\n\nZískajte aplikáciu: https://omaps.app/get?kmz";
+"share_bookmarks_email_body_link" = "Dobrý deň!\n\nTu je odkaz, kde si môžete stiahnuť svoje záložky: %s. Otvorte zoznam prostredníctvom služby Organic Maps a užite si výlet!\n\nZískajte aplikáciu: https://organicmaps.app/get?kmz";
 
 "warning_speedcams_title" = "Navigátor vás upozorní na kamery, keď prekročíte rýchlostný limit %d km/h";
 
 "warning_speedcams_subtitle" = "Dodržujte pravidlá cestnej premávky v krajine, do ktorej cestujete.";
 
 "speedcams_notice_message" = "Automaticky - Upozornenie na rýchlostné kamery, ak existuje riziko prekročenia rýchlostného limitu\nVždy - Vždy upozorniť na rýchlostné kamery\nNikdy - Nikdy neupozorňovať na rýchlostné kamery";
-
-"whats_new_ugc_routes_title" = "Je ľahké podeliť sa o vaše dojmy";
-
-"whats_new_ugc_routes_subtitle" = "Uložte si nezabudnuteľné miesta, vytvorte trasy pomocou záložiek a zdieľajte ich so všetkými v katalógu OMaps.";
-
-"whats_new_webeditor_title" = "Premeňte svoje trasy na príbehy";
-
-"whats_new_ugc_routes_message2" = "Pridajte fotografie a podrobné príbehy do webového editora.";
-
-"ugc_thanks_message_auth" = "Recenzia bola uložená";
-
-"ugc_thanks_message_not_auth" = "Ak chcete zanechať recenziu, prihláste sa";
-
-"notification_leave_review_v2_title" = "Ohodnoťte navštívené miesto a pomôžte cestujúcim!";
-
-"error_public_not_enought_title" = "Nie je dostatok záložiek";
-
-"error_public_not_enought_subtitle" = "Mali by ste mať minimálne 3 záložky, aby ste mohli nahrať sprievodcu do verejného katalógu";
-
-"bookmark_public_upload_alert_title" = "Ste pár krokov od zdieľania vašich záložiek so všetkými cestujúcimi OMaps!";
-
-"bookmark_public_upload_alert_subtitle" = "Uistite sa, že máte presný názov a popis svojho zoznamu a všetky záložky obsahujú určité informácie o miestach. Týmto spôsobom môžu váš zoznam nájsť a používať iní.";
-
-"bookmark_public_upload_alert_ok_button" = "Áno som si istý!";
-
-"name_title" = "Zadajte názov sprievodcu";
-
-"name_placeholder" = "napr. Londýnske krčmy";
-
-"name_comment1" = "Prosím pomenujte svojho sprievodcu tak, aby ho mohli cestujúci ľahko nájsť: napríklad \"Londýnske krčmy\"";
-
-"name_comment2" = "Názov by nemal obsahovať špeciálne symboly. Názov by nemal byť \"Moje miesta\"";
-
-"description_guide" = "Popis";
-
-"description_title" = "Zadajte popis vášho sprievodcu";
-
-"description_placeholder" = "Opíšte podrobne svojho sprievodcu";
-
-"description_comment1" = "Váš popis sprievodcu by mal obsahovať najmenej 30 symbolov.";
-
-"ugc_route_tags_desc" = "Vyberte značky, ktoré pomáhajú ostatným cestovateľom nájsť sprievodcu. Je to povinné. Maximálny počet značiek je %s.";
-
-"html_format_error_title" = "Váš sprievodca nebol uverejnený";
-
-"html_format_error_subtitle" = "Uistite sa, že názvy a popisy vašich záložiek majú platný formát. Môžete si ho skontrolovať v prehliadači pre stolné počítače kliknutím na tlačidlo \"Upraviť online\" nižšie.";
-
-"web_editor_description" = "Nahrajte si sprievodcu a získajte odkaz na úpravu z pracovnej plochy";
-
-"edit_on_web_confirm" = "Upraviť online";
-
-"update_guide" = "Nahrať aktualizáciu";
-
-"direct_link_updating_text" = "Aktualizácia vášho súboru…";
-
-"direct_link_updating_success" = "Váš sprievodca bol aktualizovaný";
-
-"unable_get_direct_link_desc" = "Sprievodcu môžete zdieľať prostredníctvom verejného odkazu";
-
-"any_access_update_alert_title" = "Je možné, že sa vyskytli nejaké zmeny";
-
-"any_access_update_alert_message" = "Chcete aktualizovať svoje záložky? Nová verzia bude k dispozícii prostredníctvom toho istého odkazu.";
-
-"any_access_update_alert_update" = "Aktualizácia";
-
-"public_or_limited_access_after_edit_online_error_title" = "Upravili ste záložky online";
-
-"public_or_limited_access_after_edit_online_error_message" = "V budúcnosti môžete upravovať, publikovať alebo zdieľať sprievodcu s priateľmi prostredníctvom našich webových stránok";
 
 "power_managment_title" = "Úsporný režim";
 
@@ -2401,7 +1918,7 @@
 
 "power_managment_setting_manual_max" = "Maximálna úspora batérie";
 
-"enable_logging_warning_message" = "Táto možnosť zapína zaznamenávanie na diagnostické účely. Môže to byť užitočné pre našu technickú podporu, ktorá rieši problémy s aplikáciou. Povoliť túto možnosť iba na požiadanie podpory OMaps.";
+"enable_logging_warning_message" = "Táto možnosť zapína zaznamenávanie na diagnostické účely. Môže to byť užitočné pre našu technickú podporu, ktorá rieši problémy s aplikáciou. Povoliť túto možnosť iba na požiadanie podpory Organic Maps.";
 
 "html_error_upload_message_try_again" = "Skontrolujte svoje sieťové nastavenia a skúste to znova";
 
@@ -2417,21 +1934,9 @@
 
 "privacy_settings_menu" = "Nastavenia ochrany osobných údajov";
 
-"gdpr_request_setting" = "Získajte ID pre GDPR žiadosť";
-
-"gdpr_request_window_title" = "Vaše ID: %s.";
-
-"gdpr_request_window_message" = "Skopírujte ho a pošlite žiadosť na adresu support@omaps.app";
-
-"gdpr_request_window_copy" = "Skopírujte ID";
-
 "unable_upadate_error_title" = "Aktualizácia súboru zlyhala";
 
 "unable_upadate_error_message" = "Počas aktualizácie sa vyskytli určité chyby. Skontrolujte zmeny a skúste to znova";
-
-"whats_new_wiki_title" = "Čo je to za miesto?";
-
-"whats_new_wiki_message" = "Pridali sme články Wikipedia.org na stránky najobľúbenejších turistických atrakcií. Sú k dispozícii offline";
 
 "driving_options_title" = "Možnosti jazdy";
 
@@ -2467,31 +1972,7 @@
 
 "avoid_ferry_crossing_placepage" = "Vyhnúť sa prechodom na trajekte";
 
-"cached_guides_placeholder_subtitle" = "OMaps ponúka hotových sprievodcov pre vybrané miesta s fotografiami a popismi, ktoré sú zobrazené na mape a sú dostupné v režime offline.";
-
-"guides_catalogue_title" = "Katalóg sprievodcov";
-
-"download_guides_button" = "Do katalógu";
-
 "type.cuisine.uzbek" = "Uzbecká kuchyňa";
-
-"onboarding_guide_direct_download_title" = "Sprievodca je pripravený na stiahnutie";
-
-"onboarding_guide_direct_download_subtitle" = "Zobrazí sa na mape a bude pracovať v režime offline";
-
-"onboarding_guide_direct_download_button" = "Stiahnuť";
-
-"onboarding_bydeeplink_guide_title" = "Sprievodcovia pripravení na používanie v aplikácii OMaps";
-
-"onboarding_bydeeplink_guide_subtitle" = "Najlepšie miesta na navštívenie zobrazené na mape s fotografiami a popismi. Pracujú offline.";
-
-"whats_new_auto_update_bydeeplink_title" = "Skôr ako prejdete na sprievodcu…";
-
-"whats_new_auto_update_bydeeplink_message" = "Aktualizujte mapy, aby boli informácie o objektoch aktuálne!";
-
-"whats_new_auto_update_and_proceed_button_size" = "Aktualizovať (%s) a pokračovať";
-
-"purchase_please_wait_toast" = "Pred dokončením nákupu neopúšťajte túto obrazovku";
 
 "trip_start" = "Poďme";
 
@@ -2531,80 +2012,6 @@
 
 "ok" = "Ok";
 
-"vezet_taxi" = "Vezet";
-
-"booking_button_toolbar" = "Vyberte si hotel na mape";
-
-"popup_booking_download_guides_title" = "Rezervovaný hotel?";
-
-"popup_booking_download_guides_message" = "Naplánujte si trasu s hotovými sprievodcami z OMaps";
-
-"popup_mwm_download_guides_title" = "Offline mestskí sprievodcovia";
-
-"popup_mwm_download_guides_cta" = "Zvoľte jedno";
-
-"popup_mwm_download_guides_cta_1" = "Pozrite sa";
-
-"gallery_pp_download_guides_offline_title" = "Naplánujte si dovolenku s OMaps!";
-
-"gallery_pp_download_guides_offline_subtitle" = "Nenechajte si ujsť nič so sprievodcami skúsených cestovateľov";
-
-"gallery_pp_download_guides_offline_cta" = "Zapnite internet";
-
-"gallery_pp_download_guides_title" = "Sprievodcovia";
-
-"native_screen_subscription_title" = "Neobmedzený prístup k 2000+ cestovným sprievodcom!";
-
-"native_screen_subscription_message" = "Pamätná dovolenka kdekoľvek a s kýmkoľvek cestujete";
-
-"annual_subscription_title" = "Ročne";
-
-"montly_subscription_title" = "Mesačne";
-
-"annual_subscription_message" = "12 mesiacov neobmedzeného prístupu";
-
-"montly_subscription_message" = "1 mesiac neobmedzeného prístupu";
-
-"annual_save_component" = "- %d%";
-
-"subscription_success_dialog_title" = "Ďakujeme za prihlásenie!";
-
-"subscription_success_dialog_message" = "Teraz máte neobmedzený prístup do celého katalógu sprievodcov";
-
-"renewal_screen_title" = "Platnosť vášho odberu vypršala";
-
-"renewal_screen_message" = "Všetci sprievocovia prevzaté predplatným budú odstránení. Chcete obnoviť predplatné a ponechať si ich?";
-
-"renewal_screen_button_restore" = "Áno, obnoviť";
-
-"renewal_screen_button_cancel" = "Nie, odstráňte sprievodcov";
-
-"subscription_error_ping_title" = "Nákup zlyhal";
-
-"subscription_error_message" = "Služba je momentálne vo vašom regióne nedostupná. Skúste to prosím neskôr";
-
-"subscription_error_button" = "Rozumiem";
-
-"timeout_error_title" = "Hops, čas vypršal!";
-
-"timeout_error_message" = "Naše servery nereagujú. Skontrolujte internetové pripojenie a skúste to znova.";
-
-"per_month" = "/mesiac";
-
-"per_year" = "/rok";
-
-"buy_btn_for_subscription" = "Neobmedzený prístup od %s";
-
-"buy_btn_for_subscription_1" = "Kúpiť VŠETKÝCH sprievodcov za %s";
-
-"buy_btn_for_subscription_ios_only_mo" = "Neobmedzený prístup za %s/mes";
-
-"buy_btn_for_subscription_ios_only_year" = "Neobmedzený prístup za %s/rok";
-
-"subscription_terms_guides" = "Platba bude účtovaná cez váš účet iTunes po potvrdení nákupu. Predplatné sa automaticky obnoví, pokiaľ sa funkcia automatického obnovenia nevypne aspoň 24 hodín pred koncom aktuálneho obdobia. Vaše predplatné bude účtované podľa plánu na obnovenie do 24 hodín pred koncom aktuálneho obdobia. Funkciu automatického obnovenia v nastaveniach účtu Apple ID môžete kedykoľvek spravovať alebo vypnúť. Sprievodcov prevzatých prostredníctvom predplatného môžete používať len do dátumu vypršania platnosti. Po 30 dňoch od dátumu skončenia platnosti sa automaticky odstránia sprievodcovia so záložkami.";
-
-"subscription_terms" = "Platba bude účtovaná na váš účet iTunes pri potvrdení nákupu. Predplatné sa automaticky obnoví, pokiaľ nebude automatické obnovenie vypnuté minimálne 24 hodín pred koncom aktuálneho obdobia. Váš účet sa bude účtovať podľa vášho plánu obnovy do 24 hodín pred koncom aktuálneho obdobia. Automatickú obnovu vo vašom ID nastavení účtu Apple môžete spravovať alebo vypnúť kedykoľvek pri kúpe.";
-
 "avoid_unpaved_carplay_1" = "Nespevn. NIE";
 
 "avoid_unpaved_carplay_2" = "Nespevnené ÁNO";
@@ -2621,7 +2028,7 @@
 
 "speedcams_alert_title_carplay_2" = "Rýchl. upozorn.";
 
-"download_map_carplay" = "Prosím stiahnite si mapy v aplikácii OMaps vo vašom zariadení";
+"download_map_carplay" = "Prosím stiahnite si mapy v aplikácii Organic Maps vo vašom zariadení";
 
 "carplay_roundabout_exit" = "%s výjazd";
 
@@ -2708,138 +2115,9 @@
 /* Android, max 18 symbols */
 "bookmarks_delete_list" = "Vymazať zoznam";
 
-"popup_subscription_success_map_title" = "Woohoo, ste prihlásení!";
-
-"popup_subscription_success_map_message" = "Teraz objavte najlepšie turistické body v katalógu OMaps";
-
-"popup_subscription_success_map_start_button" = "Začnite si prehliadať";
-
-"popup_subscription_success_map_not_now_button" = "Teraz nie";
-
 "religious_places" = "Náboženské miesta";
 
-"subscription_terms_android" = "Po potvrdení nákupu sa platba naúčtuje na váš účet Google Play. Ak sa funkcia automatického obnovenia nevypne najmenej 24 hodín pred koncom aktuálneho obdobia, odber sa automaticky obnoví. Váš účet bude naúčtovaný podľa plánu obnovenia do 24 hodín pred koncom aktuálneho obdobia. Po zakúpení môžete funkciu automatického obnovenia spravovať alebo vypnúť v Nastaveniach účtu. Sprievodcov stiahnutých s predplatným môžete používať až do dátumu skončenia ich platnosti. Po 30 dňoch od dátumu skončenia platnosti predplatného sa stiahnutí sprievodcovia automaticky odstránia.";
-
 "select_list" = "Vybrať zoznam";
-
-"pp_discovery_place_related_header" = "Toto miesto sa nachádza v katalógu sprievodcov";
-
-"pp_discovery_place_related_header_1" = "Toto miesto je uvedené v sprievodcovi";
-
-"pp_discovery_place_related_cta_button" = "Pozrieť";
-
-"pp_discovery_place_related_tag_header" = "Sprievodcovia podľa štítku „%s“";
-
-"pp_discovery_place_related_tag_header_1" = "Môže sa vám páčiť";
-
-"buy_btn_for_subscription_version_2" = "VŠETCI sprievodcovia len za %s/m";
-
-"buy_btn_for_subscription_version_3" = "Celý katalóg za %s/m";
-
-"buy_btn_for_subscription_ios_only_mo_version_2" = "Prístup ku katalógu za %s/m";
-
-"buy_btn_for_subscription_ios_only_year_version_2" = "Prístup ku katalógu za %s/r";
-
-"subscription_screen_native_title_version_2" = "Prístup k sprievodcom so záložkami!";
-
-"subscription_screen_native_message_version_2" = "Buďte pripravení na akúkoľvek cestu v 600+ mestách a 100+ krajinách";
-
-"catalog_no_internet_title" = "Žiadne internetové pripojenie";
-
-"catalog_no_internet_button" = "Skúste to znova";
-
-"new_onboarding_button" = "Ďalej";
-
-"new_onboarding_button_2" = "Začať";
-
-"new_onboarding_step1_header" = "OMaps";
-
-"new_onboarding_step1_header_2" = "Všestranný pomocník na cestovanie";
-
-"new_onboarding_step2_header" = "Sen a plán";
-
-"new_onboarding_step2_message" = "70+ miliónov miest, hotových sprievodcov a rezervácie hotelov priamo z mapy – ste pripravení na cestu!";
-
-"new_onboarding_step3_message" = "Nikdy sa nestratíte pomocou podrobných máp ktorejkoľvek krajiny a navigácie – všetko funguje offline!";
-
-"new_onboarding_step4_header" = "Zdieľajte dojmy";
-
-"new_onboarding_step4_message" = "Umiestnite záložky na obľúbené miesta a pošlite ich priateľom";
-
-"new_onboarding_step5.1_header" = "Ešte jedna vec, než začnete…";
-
-"new_onboarding_step5.1_message" = "Nezabudnite navštíviť náš úplne nový katalóg sprievodcov a nájsť offline sprievodcu pre svoju nadchádzajúcu cestu!";
-
-"new_onboarding_step5.1_button" = "Otvoriť katalóg";
-
-"new_onboarding_step5.2_message" = "Vaše predplatné katalógu sprievodcov OMaps má skvelú hodnotu. Získajte plný prístup k mestským a outdoorovým sprievodcom po celom svete!";
-
-"new_onboarding_step5.2_button" = "Skontrolovať podmienky";
-
-"new_onboarding_step5.3_message" = "Vyskúšajte bezplatné ukážky hotových mestských a vonkajších trás s bezplatným výberom OMaps!";
-
-"new_onboarding_step5.3_button" = "Bezplatné stiahnutie";
-
-"new_onboarding_additional_steps_later_button" = "Neskôr";
-
-"all_pass_subscription_header" = "Prihlásiť sa do";
-
-"all_pass_subscription_subheader" = "Katalóg sprievodcov";
-
-/* \n - for a break between lines. Max. 15 characters per 1 line. */
-"all_pass_subscription_message_title" = "30000+\nsprievodcov\na tratí";
-
-/* <b> & </b> tag to make a part of the line bold */
-"all_pass_subscription_message_subtitle" = "<b>Neobmedzené sťahovanie</b> mestských a vonkajších trás <b>do režimu offline</b>";
-
-/* \n - for a break between lines. Max. 17 characters per 1 line. */
-"all_pass_subscription_message_title_2" = "Interaktívny\nvýškový profil";
-
-/* <b> & </b> tag to make a part of the line bold */
-"all_pass_subscription_message_subtitle_2" = "Každá trasa obsahuje <b>prevýšenie a základné informácie o trase</b>";
-
-/* \n - for a break between lines. Max. 15 characters per 1 line. */
-"all_pass_subscription_message_title_3" = "Záložky,\nfotky a\nodporúčania";
-
-/* <b> & </b> tag to make a part of the line bold */
-"all_pass_subscription_message_subtitle_3" = "<b>Dozviete sa všetko o trase</b>, ktorou sa vydáte";
-
-/* do not translate */
-"sightseeing_subscription_header_sightseeing" = "City Pass";
-
-"sightseeing_subscription_header_subscription" = "Predplatné sprievodcov";
-
-"sightseeing_subscription_message" = "700+ miest a 100+ krajín";
-
-"sightseeing_subscription_message_2" = "Dostupné offline";
-
-"sightseeing_subscription_message_3" = "Fotografie a turistické trasy";
-
-"subscription_success_dialog_title_sightseeing_pass" = "Ďakujeme, že ste sa prihlásili na odber!";
-
-"subscription_success_dialog_message_sightseeing_pass" = "Teraz máte prístup ku všetkým sprievodcom v katalógu";
-
-"downloader_main_gallery_header" = "Mapy a sprievodcovia";
-
-"downloader_main_gallery_message" = "Teraz v tejto sekcii môžete nielen sťahovať mapy, ale tiež si pozrieť sprievodcov pre svoju nadchádzajúcu cestu";
-
-"downloader_main_1_element_gallery_header" = "Všetci sprievodcovia";
-
-"downloader_main_1_element_gallery_message" = "vo viac ako 100 krajinách";
-
-"downloader_country_1_element_gallery_header" = "%s sprievodcov";
-
-"downloader_country_no_guides_gallery_header" = "V tejto krajine zatiaľ nie sú žiadni sprievodcovia";
-
-"downloader_country_no_guides_gallery_message" = "Môžete navštíviť ďalších sprievodcov offline vo viac ako 100 krajinách, v ktorých nájdete aktivity v meste a vonku";
-
-"dialog_pedestrian_route_is_long" = "Trasa pre chodcov k miestu nalodenia je príliš dlhá";
-
-"new_onboarding_step3_header" = "Zážitok";
-
-"all_pass_screen_best_value" = "Najlepšia hodnota";
-
-"buy_btn_for_subscription_3" = "Celý katalóg za %s/rok";
 
 "transit_not_found" = "Navigácia metra v tejto oblasti ešte nie je k dispozícii";
 
@@ -2852,7 +2130,7 @@
 
 "button_layer_isolines" = "Terén";
 
-"tips_map_layers_title_countour" = "Nové v OMaps: offline topografická vrstva!";
+"tips_map_layers_title_countour" = "Nové v Organic Maps: offline topografická vrstva!";
 
 "tips_map_layers_message_countour" = "Naplánujte a užite si výlety do prírody s istotou, že viete o tejto oblasti všetko";
 
@@ -2890,175 +2168,13 @@
 
 "elevation_profile_minutes" = "min";
 
-"view_on_map_downloaded_error" = "Tento sprievodca bol z tohto zariadenia odstránený";
-
-"subscription" = "Predplatné";
-
-"freenow_taxi_title" = "FREE NOW";
-
-"tinkoff_allairlines_map_downloader_title" = "Карта Тинькофф All Airlines. 3000 миль в подарок";
-
-"tinkoff_allairlines_map_downloader_cta_button" = "Оформить карту";
-
-"tinkoff_insurance_map_downloader_title" = "Полис Тинькофф со скидкой! Подходит для любых виз.";
-
-"tinkoff_insurance_map_downloader_cta_button" = "Промокод";
-
-"mts_map_downloader_title" = "Забугорище: интернет и звонки за границей как дома";
-
-"mts_map_downloader_cta_button" = "Подключить";
-
-"skyeng_map_downloader_title" = "Дарим 4 бесплатных урока английского от Skyeng.";
-
-"skyeng_map_downloader_cta_button" = "Подробнее";
-
-"button_layer_guides" = "Sprievodcovia (noví)";
-
-"no_routes_in_the_area_toast" = "Nenašli sa tu žiadni sprievodcovia";
-
 "isolines_toast_zooms_1_10" = "Priblížením preskúmajte izočiary";
-
-"routes_layer_in_menu_toast" = "Ak chcete nájsť offline príručky, preskúmať izočiary, trasy metra alebo dopravné zápchy, zapnite vrstvy";
-
-"routes_layer_is_on_toast" = "Potiahnutím mapy preskúmate sprievodcov";
-
-"connection_error_dialog_guides_title" = "Chyba spojenia";
-
-"connection_error_dialog_guides_message" = "Vrstva nefunguje, pretože nemáte prístup k internetu alebo máte slabý signál. Ak chcete pokračovať, skontrolujte pripojenie alebo vypnite vrstvu.";
-
-"connection_error_dialog_guides_try" = "Skúste to znova";
-
-"connection_error_dialog_guides_layer_turn_off" = "Vypnúť";
-
-"connection_error_toast_guides" = "Pokus o opätovné pripojenie";
-
-/* as few symbols as possible */
-"routes_card_show" = "Zobraziť na mape";
-
-/* as few symbols as possible */
-"routes_card_hide" = "Skryť z mapy";
 
 "downloader_updating_ios" = "Aktualizovanie";
 
 "downloader_loading_ios" = "Sťahovanie";
 
-"routes_card_plus_track" = "+ trasu";
-
-"routes_card_city" = "City";
-
-"routes_card_outdoor" = "Outdoor";
-
-"routes_card_number_of_points" = "%s miest";
-
-"routes_card_routes_tag" = "Itinerár";
-
-"routes_card_set_tag" = "Odporúčané miesta";
-
-/* as few symbols as possible */
-"guides_trial_cta_button" = "Spustite si 7-dňovú bezplatnú skúšobnú verziu";
-
-"guides_trial_message" = "Potom %s ročne. Zrušte kedykoľvek";
-
-"trial_error_dialog" = "Ľutujeme, skúšobnú verziu ste už využili";
-
-/* as few symbols as possible */
-"floating_button_filters" = "Filtre";
-
-/* as few symbols as possible */
-"date_picker_сhoose_dates_cta" = "Zvolené dátumy";
-
-/* as few symbols as possible */
-"guests_picker_rooms_title" = "Izby a hostia";
-
-"guests_picker_rooms" = "Izby";
-
-"guests_picker_adults" = "Dospelí";
-
-"guests_picker_children_title" = "Deti";
-
-"guests_picker_children_subtitle" = "1-17 rokov";
-
-"guests_picker_infants_title" = "Batoľatá";
-
-"guests_picker_infants_subtitle" = "0-12 mesiacov";
-
-/* as less symbols as possible */
-"booking_map_component_availability" = "Žiadne voľné izby";
-
-/* as few symbols as possible */
-"booking_map_component_filters" = "Mimo filtrov";
-
-"choose_dates_online_only_dialog_title" = "Žiadne sieťové pripojenie";
-
-"choose_dates_online_only_dialog_message" = "Dátumy a počet hostí je možné zvoliť iba v režime online. Skontrolujte svoje nastavenia a uistite sa, že ste pripojení k internetu.";
-
-"choose_dates_online_only_dialog_cta" = "Nastavenia";
-
-"thirty_days_limit_dialog" = "Môžete si rezervovať maximálne 30 nocí";
-
-"whatsnew_trial_cta" = "Vyskúšajte to teraz";
-
-"subscription_terms_guides_outdoor" = "Po potvrdení nákupu sa platba naúčtuje na váš iTunes účet. Predplatné sa automaticky obnoví, pokiaľ nie je funkcia automatického obnovenia vypnutá najmenej 24 hodín pred koncom aktuálneho obdobia predplatného. Váš účet bude zaúčtovaný podľa plánu obnovenia do 24 hodín pred koncom súčasného obdobia predplatného. Automatické obnovenie môžete spravovať alebo deaktivovať v nastaveniach účtu Apple ID kedykoľvek po zakúpení. Sprievodcov, ktorých ste si stiahli počas predplatného, môžete používať iba do vypršania platnosti predplatného. Sprievodcovia a všetky záložky sa automaticky odstránia 7 dní po uplynutí platnosti predplatného.\n* Predplatné s bezplatnou skúšobnou dobou sa automaticky obnoví na platené predplatné. Po zakúpení môžete automatické obnovenie bezplatnej skúšobnej verzie zrušiť alebo spravovať v nastaveniach svojho účtu. Zrušenie nadobudne účinnosť 24 hodín po poslednom dni aktuálneho obdobia predplatného. Potom budete zaradení do bezplatnej služby. Upozornenie: Akákoľvek nevyužitá časť bezplatnej skúšobnej verzie prepadne, keď si počas nej zakúpite prémiové predplatné.";
-
-"subscription_terms_android_outdoor" = "Po potvrdení nákupu sa platba naúčtuje na váš Google Play účet. Predplatné sa automaticky obnoví, pokiaľ nie je funkcia automatického obnovenia vypnutá najmenej 24 hodín pred koncom aktuálneho obdobia predplatného. Váš účet bude zaúčtovaný podľa plánu obnovenia do 24 hodín pred koncom súčasného obdobia predplatného. Automatické obnovenie môžete spravovať alebo deaktivovať v nastaveniach účtu kedykoľvek po zakúpení. Sprievodcov, ktorých ste si stiahli počas predplatného, môžete používať iba do vypršania platnosti predplatného. Sprievodcovia sa automaticky odstránia 7 dní po uplynutí platnosti predplatného.\n* Predplatné s bezplatnou skúšobnou dobou sa automaticky obnoví na platené predplatné. Po zakúpení môžete automatické obnovenie bezplatnej skúšobnej verzie zrušiť alebo spravovať v nastaveniach svojho účtu. Zrušenie nadobudne účinnosť 24 hodín po poslednom dni aktuálneho obdobia predplatného. Potom budete zaradení do bezplatnej služby. Upozornenie: Akákoľvek nevyužitá časť bezplatnej skúšobnej verzie prepadne, keď si počas nej zakúpite prémiové predplatné.";
-
-"sberbank_map_downloader_title" = "Откройте Сберкарту Тревел Mastercard и копите мили";
-
-"sberbank_map_downloader_cta_button" = "Узнать больше";
-
-"yango_taxi_title" = "Yango";
-
-"citymobil_taxi_title" = "Citymobil";
-
-"subscription_header" = "Prihlásiť sa do\n<b>Katalógu sprievodcov</b>";
-
-/* Max. 20 characters per 1 line. */
-"all_pass_subscription_message_title_4" = "Sprievodcovia\nod Lonely Planet®";
-
-/* <b> & </b> tag to make a part of the line bold */
-"all_pass_subscription_message_subtitle_4" = "Ešte <b>viac zážitkov</b> s tisíckami zaujímavých miest <b>po celom svete</b>";
-
-"content_by_component" = "Obsah od: %s";
-
-"whatsnew_lp_title" = "Ešte viac emócií";
-
-"whatsnew_lp_message" = "Sprievodcovia Lonely Planet sú teraz v našej aplikácii! Najlepšie atrakcie, tematické prechádzky a jedinečné turistické miesta pre viac ako 7 000 miest.";
-
-"collections_title" = "Kolekcie";
-
 "key_information_title" = "Kľúčová informácia";
-
-"mustsee_title" = "Treba vidieť";
-
-"see_lp_category" = "Čo vidieť";
-
-"play_lp_category" = "Zábava";
-
-"shop_lp_category" = "Nakupovanie";
-
-"transport_lp_category" = "Doprava";
-
-"sleep_lp_category" = "Ubytovanie";
-
-"general_lp_category" = "Všeobecné";
-
-"drink_lp_category" = "Nápoje";
-
-"eat_lp_category" = "Jedlo";
-
-"taxi_category_order" = "Order";
-
-"arsenal_telemed_map_downloader_title" = "Онлайн консультации профессиональных врачей 24/7";
-
-"arsenal_flat_map_downloader_title" = "Уезжаешь? Позаботься о своей квартире и соседях.";
-
-"arsenal_crimea_map_downloader_title" = "Туристическая страховка отдыха в Крыму. От 15₽/день";
-
-"arsenal_russia_map_downloader_title" = "Путешествуй по России. Лечение COVID-19 включено!";
-
-"arsenal_abroad_map_downloader_title" = "Полис «Выезд за рубеж». Лечение COVID-19 включено!";
-
-"arsenal_cta_button" = "Оформить полис";
 
 "download_map_title" = "Download the world map";
 

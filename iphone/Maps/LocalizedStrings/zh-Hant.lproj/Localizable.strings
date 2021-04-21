@@ -94,7 +94,7 @@
 /* Button text for the button under the country_status_download_failed message */
 "try_again" = "再試一次";
 
-"about_menu_title" = "關於 OMaps";
+"about_menu_title" = "關於 Organic Maps";
 
 "downloaded_touch_to_delete" = "已下載的 (%@)，輕觸以刪除";
 
@@ -110,7 +110,7 @@
 
 "external_storage_is_not_available" = "SD 卡/USB 無法有效儲存下載的地圖";
 
-"disconnect_usb_cable" = "請拔除 USB 線或插入 SD 卡以使用 OMaps";
+"disconnect_usb_cable" = "請拔除 USB 線或插入 SD 卡以使用 Organic Maps";
 
 "not_enough_free_space_on_sdcard" = "如要繼續使用，請先釋放一些 SD 卡/ USB 儲存空間";
 
@@ -174,7 +174,7 @@
 "set" = "收藏夾";
 
 /* Text hint in Bookmarks dialog when no any bookmarks are added */
-"bookmarks_usage_hint" = "您還沒有任何書籤。\n點擊地圖上的任何地方以新增書籤。\n其他來源的書籤也可導入在 OMaps 中顯示。從電子郵件、Dropbox 或網站連結開啟有著已儲存書籤的 KML/KMZ 檔案。";
+"bookmarks_usage_hint" = "您還沒有任何書籤。\n點擊地圖上的任何地方以新增書籤。\n其他來源的書籤也可導入在 Organic Maps 中顯示。從電子郵件、Dropbox 或網站連結開啟有著已儲存書籤的 KML/KMZ 檔案。";
 
 /* Settings button in system menu */
 "settings" = "設定";
@@ -276,9 +276,9 @@
 "share_by_email" = "以電子郵件分享";
 
 /* Email Subject when sharing bookmarks category */
-"share_bookmarks_email_subject" = "已分享 OMaps 書籤";
+"share_bookmarks_email_subject" = "已分享 Organic Maps 書籤";
 
-"share_bookmarks_email_body" = "Hello!\n\nAttached are my bookmarks from OMaps offline maps. Please open them if you have OMaps installed. Or, if you don't, download the app for your iOS or Android device by following this link: https://omaps.app/get?kmz\n\nEnjoy traveling with OMaps!";
+"share_bookmarks_email_body" = "Hello!\n\nAttached are my bookmarks from Organic Maps offline maps. Please open them if you have Organic Maps installed. Or, if you don't, download the app for your iOS or Android device by following this link: https://organicmaps.app/get?kmz\n\nEnjoy traveling with Organic Maps!";
 
 /* message title of loading file */
 "load_kmz_title" = "正在載入書籤…";
@@ -308,22 +308,22 @@
 "downloading_is_active" = "國家地圖正在進行下載";
 
 /* Message that will be shown in alert view, when we ask user to leave review on App Store */
-"appStore_message" = "祝您使用 OMaps 愉快！ 方便的話，請到 App Store 幫我們評分或寫寫評論。在這短短的時間當中卻能夠真正的協助我們改善，再次感謝您的支持！";
+"appStore_message" = "祝您使用 Organic Maps 愉快！ 方便的話，請到 App Store 幫我們評分或寫寫評論。在這短短的時間當中卻能夠真正的協助我們改善，再次感謝您的支持！";
 
 /* No, thanks */
 "no_thanks" = "不，謝了";
 
 /* Share one specific bookmark using SMS, %1$@ contains ge0:// and %2$@ http://ge0.me link. @NOTE non-ascii symbols in the link will make 70 bytes sms instead of 140 */
-"bookmark_share_sms" = "嘿，看看我在 OMaps 標記的圖釘吧！ %1$@ 或%2$@ 沒安裝離線地圖？在此下載: https://omaps.app/get";
+"bookmark_share_sms" = "嘿，看看我在 Organic Maps 標記的圖釘吧！ %1$@ 或%2$@ 沒安裝離線地圖？在此下載: https://organicmaps.app/get";
 
 /* Share my position using SMS, %1$@ contains ge0:// and %2$@ http://ge0.me link WITHOUT NAME. @NOTE non-ascii symbols in the link will make 70 bytes sms instead of 140 */
-"my_position_share_sms" = "嘿，在 OMaps 查看我的目前位置吧！ %1$@ 或%2$@ 沒安裝離線地圖？在此下載: https://omaps.app/get";
+"my_position_share_sms" = "嘿，在 Organic Maps 查看我的目前位置吧！ %1$@ 或%2$@ 沒安裝離線地圖？在此下載: https://organicmaps.app/get";
 
 /* Subject for emailed bookmark */
-"bookmark_share_email_subject" = "嘿，看看我在 OMaps 地圖上的圖釘！";
+"bookmark_share_email_subject" = "嘿，看看我在 Organic Maps 地圖上的圖釘！";
 
 /* Subject for emailed position */
-"my_position_share_email_subject" = "嗨，到 OMaps 地圖查看我的目前位置！";
+"my_position_share_email_subject" = "嗨，到 Organic Maps 地圖查看我的目前位置！";
 
 /* Share my position using EMail, %1$@ is ge0:// and %2$@ is http://ge0.me link WITHOUT NAME */
 "my_position_share_email" = "嗨，\n\n我現在在這：%1$@。點擊此連結 %2$@ 或此連結 %3$@ 來查看在地圖上的位置。\n\n謝謝。";
@@ -492,16 +492,16 @@
 "download_map_notification" = "下載您所在地方的地圖";
 
 /* text of notification */
-"pro_version_is_free_today" = "現在完整版 OMaps 是免費的！馬上下載並告訴您的朋友。";
+"pro_version_is_free_today" = "現在完整版 Organic Maps 是免費的！馬上下載並告訴您的朋友。";
 
 /* Dialog for transferring maps from lite to pro. */
-"move_lite_maps_to_pro" = "我們正在將您從 OMaps Lite 下載的地圖傳輸至 OMaps。這可能需要幾分鐘的時間。";
+"move_lite_maps_to_pro" = "我們正在將您從 Organic Maps Lite 下載的地圖傳輸至 Organic Maps。這可能需要幾分鐘的時間。";
 
 /* Message to display when maps moved. */
-"move_lite_maps_to_pro_ok" = "您下載的地圖已成功傳輸至 OMaps。";
+"move_lite_maps_to_pro_ok" = "您下載的地圖已成功傳輸至 Organic Maps。";
 
 /* Message to display when maps move failed. */
-"move_lite_maps_to_pro_failed" = "您的地圖傳輸失敗。請刪除 OMaps Lite，然後再次下載地圖。";
+"move_lite_maps_to_pro_failed" = "您的地圖傳輸失敗。請刪除 Organic Maps Lite，然後再次下載地圖。";
 
 /* Text in menu */
 "settings_and_more" = "設定及更多";
@@ -510,7 +510,7 @@
 "website" = "網站";
 
 /* Text in menu */
-"maps_me_community" = "OMaps 社群";
+"maps_me_community" = "Organic Maps 社群";
 
 /* Text in menu */
 "like_on_facebook" = "在 Facebook 上按讚";
@@ -540,13 +540,13 @@
 "report_a_bug" = "報告錯誤";
 
 /* Email subject */
-"subscribe_me_subject" = "請幫我訂閱 OMaps 新聞郵件、";
+"subscribe_me_subject" = "請幫我訂閱 Organic Maps 新聞郵件、";
 
 /* Email body */
 "subscribe_me_body" = "我想搶先了解最新新聞、更新和促銷活動。我可以隨時取消我的訂閱。";
 
 /* About text */
-"about_text" = "OMaps 提供全球所有國家和所有城市的最快速的離線地圖。充滿自信地出行：無論您在哪，OMaps都能夠幫助您在地圖上找到您自己的位置，找到最近的餐館、酒店、銀行、加油站，等等。無需網路連接。 我們始終在為增加新功能而努力，並希望能夠聽到您對我們應如何改進 OMaps 的想法。若您在使用本應用程式時遇到任何問題，請隨時聯繫我們：support@omaps.app。我們會回覆每一條請求！\n\n您喜歡 OMaps 並想支持我們嗎？以下為一些簡單且完全免費的方法：\n- 在您的應用程式商店上發表評論\n- 在我們的 Facebook 頁面 http://www.facebook.com/mapswithme 上按讚\n- 或者向您的母親、朋友，以及同事介紹 OMaps :)\n\n感謝您與我們在一起。非常感謝您的支持。\n\nP.S.：我們從 OpenStreetMap 獲得地圖資訊，這是一個類似維基百科的地圖繪製專案，能夠讓使用者建立並編輯編輯地圖。若您看到地圖上缺少了什麽或者有什麽錯誤，可以直接在 https://www.openstreetmap.org 上進行糾正。在下一個版本發佈時，您做出的更改便會出現在 OMaps 應用程式中。";
+"about_text" = "Organic Maps 提供全球所有國家和所有城市的最快速的離線地圖。充滿自信地出行：無論您在哪，Organic Maps都能夠幫助您在地圖上找到您自己的位置，找到最近的餐館、酒店、銀行、加油站，等等。無需網路連接。 我們始終在為增加新功能而努力，並希望能夠聽到您對我們應如何改進 Organic Maps 的想法。若您在使用本應用程式時遇到任何問題，請隨時聯繫我們：support@organicmaps.app。我們會回覆每一條請求！\n\n您喜歡 Organic Maps 並想支持我們嗎？以下為一些簡單且完全免費的方法：\n- 在您的應用程式商店上發表評論\n- 在我們的 Facebook 頁面 http://www.facebook.com/OMapsApp 上按讚\n- 或者向您的母親、朋友，以及同事介紹 Organic Maps :)\n\n感謝您與我們在一起。非常感謝您的支持。\n\nP.S.：我們從 OpenStreetMap 獲得地圖資訊，這是一個類似維基百科的地圖繪製專案，能夠讓使用者建立並編輯編輯地圖。若您看到地圖上缺少了什麽或者有什麽錯誤，可以直接在 https://www.openstreetmap.org 上進行糾正。在下一個版本發佈時，您做出的更改便會出現在 Organic Maps 應用程式中。";
 
 /* Alert text */
 "email_error_body" = "電子郵件客戶端尚未建立。請設定或使用任何其他方式與我們聯絡%@";
@@ -564,7 +564,7 @@
 "routing_map_outdated" = "請更新地圖以建立一條路線。";
 
 /* Update maps suggestion */
-"routing_update_maps" = "使用新版本的 OMaps 可以建立從您的目前位置至一個目的地的路線。請更新地圖以使用該功能。";
+"routing_update_maps" = "使用新版本的 Organic Maps 可以建立從您的目前位置至一個目的地的路線。請更新地圖以使用該功能。";
 
 /* Update all button text */
 "downloader_update_all_button" = "更新全部";
@@ -592,7 +592,7 @@
 "downloader_search_results" = "已找到";
 
 /* Disclaimer message */
-"routing_disclaimer" = "在 OMaps 應用程式中建立路線時請謹記以下幾點：\n\n  - 建議路線僅可當作推薦路線。\n - 路況、交通規則以及標誌應優先於導航建議。\n - 地圖可能會不正確或者過時，路線也可能不是以最佳可能方式建立的。\n\n  行車安全，請照顧好您自己！";
+"routing_disclaimer" = "在 Organic Maps 應用程式中建立路線時請謹記以下幾點：\n\n  - 建議路線僅可當作推薦路線。\n - 路況、交通規則以及標誌應優先於導航建議。\n - 地圖可能會不正確或者過時，路線也可能不是以最佳可能方式建立的。\n\n  行車安全，請照顧好您自己！";
 
 /* Outdated maps category */
 "downloader_outdated_maps" = "過時的";
@@ -628,7 +628,7 @@
 "routing_failed_route_not_found" = "找不到所選起點和終點間的路程。請選擇不同的起點或終點。";
 
 /* InternalError */
-"routing_failed_internal_error" = "出現內部錯誤。請嘗試刪除並再次下載地圖。如果還有問題請聯絡我們：support@omaps.app。";
+"routing_failed_internal_error" = "出現內部錯誤。請嘗試刪除並再次下載地圖。如果還有問題請聯絡我們：support@organicmaps.app。";
 
 /* Context menu item for downloader. */
 "downloader_download_map_and_routing" = "下載地圖 + 路線";
@@ -675,10 +675,10 @@
 "rating_just_rated" = "我剛剛評價了您的應用";
 
 /* Text for rating dialog */
-"rating_user_since" = "我是從 %@ 年起的 OMaps 使用者";
+"rating_user_since" = "我是從 %@ 年起的 Organic Maps 使用者";
 
 /* Text for rating dialog */
-"rating_do_like_maps" = "您喜歡 OMaps 嗎？";
+"rating_do_like_maps" = "您喜歡 Organic Maps 嗎？";
 
 /* Text for rating dialog */
 "rating_tap_star" = "點擊星星給我們應用程式評分。";
@@ -702,7 +702,7 @@
 "routing_download_map" = "獲取地圖";
 
 /* Text for routing error dialog */
-"routing_download_map_and_routing" = "下載更新的地圖和路線數據，獲取所有 OMaps 的特色功能。";
+"routing_download_map_and_routing" = "下載更新的地圖和路線數據，獲取所有 Organic Maps 的特色功能。";
 
 /* Text for routing error dialog */
 "routing_get_routing_data" = "獲取所需的路線數據";
@@ -923,7 +923,7 @@
 
 "rate_alert_title" = "喜歡這個應用程式嗎？";
 
-"rate_alert_default_message" = "感謝您使用 OMaps。請評價此應用程式。您的回饋幫助我們改善我們的產品。";
+"rate_alert_default_message" = "感謝您使用 Organic Maps。請評價此應用程式。您的回饋幫助我們改善我們的產品。";
 
 "rate_alert_five_star_message" = "太棒了！我們也愛您！";
 
@@ -1034,7 +1034,7 @@
 
 "editor_report_problem_duplicate_place_title" = "重複的地點";
 
-"first_launch_congrats_title" = "OMaps 已做好使用準備";
+"first_launch_congrats_title" = "Organic Maps 已做好使用準備";
 
 "first_launch_congrats_text" = "在世界各地離線搜尋和導航，免費。";
 
@@ -1218,7 +1218,7 @@
 
 "whatsnew_editor_message_1" = "新增新地點到該地圖，並直接通過此應用程式編輯已存在的地點。";
 
-"whatsnew_editor_message_2" = "* OMaps 使用 OpenStreetMap 社群的數據。";
+"whatsnew_editor_message_2" = "* Organic Maps 使用 OpenStreetMap 社群的數據。";
 
 "dialog_incorrect_feature_position" = "改變位置";
 
@@ -1231,7 +1231,7 @@
 /* Error dialog no space */
 "migration_no_space_message" = "為了下載，您需要更多的空間。請刪除不必要的數據。";
 
-"editor_sharing_title" = "我改進了 OMaps 地圖";
+"editor_sharing_title" = "我改進了 Organic Maps 地圖";
 
 "editor_comment_will_be_sent" = "我們將把您的評論發送給地圖編輯者。";
 
@@ -1262,7 +1262,7 @@
 
 "editor_detailed_description_hint" = "詳細註釋";
 
-"editor_detailed_description" = "您建議的變更將傳送至 OpenStreetMap 社群。說明無法在 OMaps 中編輯的詳細資料。";
+"editor_detailed_description" = "您建議的變更將傳送至 OpenStreetMap 社群。說明無法在 Organic Maps 中編輯的詳細資料。";
 
 "editor_more_about_osm" = "關於 OpenStreetMap 的更多資訊";
 
@@ -1339,10 +1339,6 @@
 
 "placepage_open_24_7" = "全天候";
 
-"place_page_booking_rating" = "評分： %s";
-
-"place_page_starting_from" = "從%s";
-
 "meter" = "米";
 
 "kilometer" = "公里";
@@ -1410,17 +1406,9 @@
 
 "editor_profile_rating_place" = "排名位置";
 
-"booking_dialog_not_connect_header" = "要預訂酒店，請啟用您的網際網路連線";
-
-"button_try" = "試用";
-
 "refresh" = "更新";
 
 "last_update" = "上次更新於：%s";
-
-"booking_checkin" = "入住： %s";
-
-"booking_checkout" = "退房： %s";
 
 "placepage_add_place_button" = "添加地點到地圖上";
 
@@ -1453,9 +1441,6 @@
 /* iOS dialog for the case when recent track recording is on and the app comes back from background */
 "recent_track_background_dialog_title" = "禁止記錄您最近去過的路徑？";
 
-/* If a hotel is being shared */
-"sharing_booking" = "或在booking.com上預訂";
-
 "off_recent_track_background_button" = "禁用";
 
 /* For sharing via SMS and so on */
@@ -1463,7 +1448,7 @@
 
 "continue_recent_track_background_button" = "繼續";
 
-"recent_track_background_dialog_message" = "OMaps使用背景中的地理位置記錄您最近去過的路徑。";
+"recent_track_background_dialog_message" = "Organic Maps使用背景中的地理位置記錄您最近去過的路徑。";
 
 /* Rate on Google Play (Android only) */
 "rate_gp" = "在 Google Play 評分";
@@ -1472,10 +1457,10 @@
 "tell_friends" = "告訴朋友";
 
 /* Share with friends: sharing text */
-"tell_friends_text" = "嗨！安裝 OMaps！";
+"tell_friends_text" = "嗨！安裝 Organic Maps！";
 
 /* About short text (below logo) */
-"about_description" = "OMaps 是一款基本離線旅遊應用程式。OMaps 以 OpenStreetMap 數據為基礎，並允許對其進行編輯。";
+"about_description" = "Organic Maps 是一款基本離線旅遊應用程式。Organic Maps 以 OpenStreetMap 數據為基礎，並允許對其進行編輯。";
 
 /* Text in menu */
 "blog" = "部落格";
@@ -1495,51 +1480,7 @@
 /* For the first routing */
 "decline" = "拒絕";
 
-"whats_new_route_profile_title" = "與其長年勞而無功，不如奮起振作";
-
-"whats_new_route_profile_message" = "對於行人和自行車路線，我們現在顯示海拔剖面圖。";
-
-"whats_new_booking_improve_title" = "優惠預訂飯店";
-
-"whats_new_booking_improve_message" = "飯店搜尋結果現在還包含價格類別。\n我們還加入了超過 110,000 間飯店。";
-
-/* For place page hotel facilities block */
-"placepage_hotel_facilities" = "設施";
-
-/* For place page hotel nearby block */
-"placepage_hotel_nearby" = "附近";
-
-/* For ordering a taxi (as opposed to hotels or other things) */
-"taxi_order" = "訂一部計程車";
-
-/* How long it is until the taxi arrives */
-"taxi_wait" = "預計 %s 內到達";
-
-/* When there are no available taxis nearby */
-"taxi_not_found" = "無法在附近找到計程車";
-
-/* When there are no available taxi providers nearby */
-"taxi_no_providers" = "此處不提供計程車服務";
-
 "install_app" = "安裝";
-
-/* `Filter` is a noun here */
-"booking_filters" = "篩選條件";
-
-"booking_filters_reset" = "重設";
-
-/* Beginning from a particular value and */
-"booking_filters_rating" = "評分下限";
-
-"booking_filters_rating_any" = "任意";
-
-"booking_filters_ragting_good" = "好";
-
-"booking_filters_rating_very_good" = "很好";
-
-"booking_filters_rating_excellent" = "極好";
-
-"booking_filters_price_category" = "價格類別";
 
 "search_no_results_title" = "找不到任何結果";
 
@@ -1551,28 +1492,6 @@
 
 /* noun */
 "search_in_table" = "清單";
-
-"booking_show_more" = "顯示更多";
-
-"booking_reviews" = "評論";
-
-"booking_hotel" = "飯店";
-
-/* hotel room */
-"booking_hotel_room" = "客房";
-
-/* A neologism for a chat based on geographical proximity */
-"chat" = "Geochat";
-
-/* Verb. Text on a button that opens the chat. */
-"chat_open" = "開放";
-
-"dialog_taxi_offline" = "叫計程車服務在離線模式下無法使用。";
-
-"dialog_taxi_error" = "叫計程車服務暫時無法使用。";
-
-/* Abbreviated for all languages. */
-"advertisement" = "AD";
 
 "mobile_data_dialog" = "使用手機網路顯示詳細資訊？";
 
@@ -1596,7 +1515,7 @@
 
 "big_font" = "增加地圖上的字體大小";
 
-"traffic_update_app" = "請更新 OMaps";
+"traffic_update_app" = "請更新 Organic Maps";
 
 /* "traffic" as in road congestion */
 "traffic_update_app_message" = "若要顯示交通資訊，必須更新應用程式。";
@@ -1607,69 +1526,14 @@
 /* "Translation is no needed, because it's a company name" */
 "uber" = "Uber";
 
-/* Seven points and higher */
-"booking_filter_rating_num_good" = "7.0+";
-
-/* Eight points and higher */
-"booking_filter_rating_num_very_good" = "8.0+";
-
-/* Nine points and higher */
-"booking_filter_rating_num_excellent" = "9.0+";
-
-"booking_filter_price_low" = "$";
-
-"booking_filter_price_medium" = "$$";
-
-"booking_filter_price_high" = "$$$";
-
 /* Simplified colour scheme for traffic information, fewer colours are used to display traffic jams on the map. The string should be kept as short as possible */
 "pref_traffic_simplified_colors_title" = "簡化的交通狀況顏色";
 
 "enable_logging" = "啟用記錄";
 
-"more_on_bookingcom" = "Booking.com 上的更多資訊";
-
-"details_on_bookingcom" = "Booking.com 上的詳細資訊";
-
-"reviews_on_bookingcom" = "Booking.com 上的更多評價";
-
 "offline_place_page_more_information" = "連上網路以取得關於地點的更多資訊。";
 
 "failed_load_information" = "無法載入資訊。";
-
-"booking_search" = "Booking.com";
-
-"whats_new_auto_update_updating_maps" = "更新地圖";
-
-"whats_new_auto_update_title" = "更新您下載的地圖";
-
-"whats_new_auto_update_message" = "更新地圖以讓物件資訊保持在最新狀態";
-
-"whats_new_auto_update_button_size" = "更新 (%s)";
-
-"whats_new_auto_update_button_later" = "稍後手動更新";
-
-"search_hotel_filter_apartment" = "公寓";
-
-"search_hotel_filter_camp_site" = "露營";
-
-"search_hotel_filter_chalet" = "木屋";
-
-"search_hotel_filter_guest_house" = "賓館";
-
-"search_hotel_filter_hostel" = "旅舍";
-
-"search_hotel_filter_resort" = "度假酒店";
-
-"search_hotel_filter_hotel" = "飯店";
-
-"search_hotel_filter_motel" = "汽車旅館";
-
-"create_campaign_button" = "聲明這是你的公司";
-
-"view_campaign_button" = "業務已發出廣告";
-
-"search_hotel_filters_type" = "類型";
 
 /* Settings: "Send general feedback" button */
 "feedback_general" = "一般反應";
@@ -1744,65 +1608,7 @@
 
 "preloader_viator_button" = "進一步了解";
 
-"whats_new_title_route" = "改善自行車路線與行人路線";
-
-"whats_new_message_route" = "我們修正了錯誤，讓路線產生的速度加快好幾倍，並新增了中途點";
-
-"whats_new_message_title_update" = "我們讓地圖體積小了 10 倍";
-
-"whats_new_message_maps_update" = "若要更新地圖，現在您只需要下載缺少的資料即可";
-
 "start_from_my_position" = "起點";
-
-"rating" = "評分";
-
-"placepage_no_reviews" = "無評論";
-
-"placepage_reviewed" = "您已評論過這個地方";
-
-"placepage_summary_rating" = "評分摘要";
-
-"placepage_rate_comment" = "點選以為這個地點評分或評論。";
-
-"placepage_rate_horrible" = "很糟";
-
-"placepage_rate_bad" = "不好";
-
-"placepage_rate_normal" = "一般";
-
-"placepage_rate_good" = "好";
-
-"placepage_rate_excellent" = "極好";
-
-"placepage_reviews_most_recent" = "最近";
-
-"placepage_reviews_most_useful" = "最實用";
-
-"placepage_reviews_highest_rated" = "最高評分";
-
-"placepage_reviews_lowest_rated" = "最低評分";
-
-"placepage_reviews_offline_comment" = "離線模式中只會顯示最實用的評論";
-
-"placepage_reviews_your_comment" = "您的評論";
-
-"placepage_reviews_unhelpful" = "沒有幫助";
-
-"placepage_reviews_inappropriate" = "不恰當";
-
-"placepage_reviews_spam" = "垃圾訊息";
-
-"placepage_reviews_hint" = "這裡的優點與缺點是什麼？";
-
-"placepage_reviews_edit_your_review" = "編輯您的評論";
-
-"placepage_reviews_new_review" = "新評論";
-
-"placepage_translate_button" = "翻譯";
-
-"placepage_show_original_button" = "顯示原文";
-
-"placepage_more_reviews_booking_button" = "Booking.com 上的更多評價";
 
 "profile_authorization_title" = "登入方式";
 
@@ -1826,41 +1632,11 @@
 
 "quality" = "品質";
 
-"whats_new_ugc_title_updated_v840" = "評分與評論";
-
-"whats_new_ugc_message" = "現在即使離線，您也能留下評分和評論！別忘了更新地圖，才能看到變更。";
-
 "dialog_error_storage_title" = "儲存空間存取問題";
 
-"dialog_error_storage_message" = "外部儲存空間不可用，很可能是因為 SD 卡已移除、毀損，或檔案系統處於唯讀狀態。請進行檢查，然後以 support@omaps.app 方式聯繫我們";
+"dialog_error_storage_message" = "外部儲存空間不可用，很可能是因為 SD 卡已移除、毀損，或檔案系統處於唯讀狀態。請進行檢查，然後以 support@organicmaps.app 方式聯繫我們";
 
 "setting_emulate_bad_storage" = "模擬不良儲存空間";
-
-"discovery_button_title" = "探索鄰近區域";
-
-"discovery_button_subtitle_things_to_do" = "活動";
-
-"discovery_button_subtitle_attractions" = "景點";
-
-"discovery_button_subtitle_eat_and_drink" = "餐飲";
-
-"discovery_button_subtitle_local_guides" = "本地指南";
-
-"discovery_button_viator_error_title" = "載入數據時，發生錯誤";
-
-"discovery_button_other_error_message" = "載入數據時，發生錯誤";
-
-"discovery_button_other_loading_message" = "正在載入數據";
-
-"discovery_button_404_error_title" = "未找到";
-
-"discovery_button_404_error_message" = "哎呀，我們沒在周圍找到任何有趣的事情。";
-
-"booking_filters_check_in" = "入住登記";
-
-"booking_filters_check_out" = "退房登記";
-
-"booking_filters_offline" = "無法使用。";
 
 "directions_finish" = "目的地";
 
@@ -1875,18 +1651,6 @@
 "crowdedness" = "擁擠程度";
 
 "error_enter_correct_name" = "請輸入正確的名稱";
-
-"hotel_available" = "可用";
-
-"whats_new_transit_title" = "地鐵可用";
-
-"whats_new_transit_message" = "使用地鐵規劃您的路線！請更新地圖以查看變更。";
-
-"whats_new_discovery_title" = "探索按鈕";
-
-"whats_new_discovery_message" = "只要點按一下，就能探索周圍一切！";
-
-"price_per_hour" = "%s/小時";
 
 "bookmarks_backup" = "入口";
 
@@ -1918,14 +1682,6 @@
 
 "downloader_applying" = "應用 %s 中……";
 
-"whats_new_title_hotel_filter" = "有新的賓館篩選！";
-
-"whats_new_message_hotel_filter" = "預訂在您所選日期有空的賓館！用入住和離店篩選";
-
-"whats_new_title_ugc_travel" = "和其他旅客分享您的體驗！";
-
-"whats_new_message_ugc_travel" = "給您訪問過的地方打分和評價！";
-
 "dialog_message_transit_not_found_connection" = "規劃一個交通網絡內的路線";
 
 "bookmarks_error_message_share_general" = "由於應用程序出錯而無法分享";
@@ -1933,10 +1689,6 @@
 "bookmarks_error_title_share_empty" = "分享錯誤";
 
 "bookmarks_error_message_share_empty" = "無法分享空列表";
-
-"discovery_button_subtitle_book_hotels" = "訂賓館";
-
-"maxim_taxi_title" = "maxim";
 
 "bookmarks_error_title_empty_list_name" = "名字不能為空";
 
@@ -1978,10 +1730,6 @@
 
 "wn_reinvented_bookmarks_message" = "你可以備份書籤，創建列表...這太神奇了...";
 
-"wn_way_of_booking_title" = "我們重新定位了預訂方式！";
-
-"wn_way_of_booking_message" = "只需在地圖上找到一家酒店並預訂，或選擇類似的酒店即可。";
-
 "bookmarks_restore" = "恢復書籤";
 
 "bookmarks_restore_process" = "恢復...";
@@ -2004,20 +1752,6 @@
 
 "restore" = "恢復";
 
-"sign_message_gdpr" = "您必須接受我們的使用條款和隱私政策。 請仔細閱讀。";
-
-"sign_agree_pp_gdpr" = "我同意<a href=\"%s\">隱私政策</a>";
-
-"sign_agree_tof_gdpr" = "我同意<a href=\"%s\">使用條款</a>";
-
-"sign_agree_news_gdpr" = "我同意接收有關OMaps產品的最新消息";
-
-"whats_new_localbiz_title" = "Small business deserves attention";
-
-"whats_new_localbiz_message" = "當地的咖啡館、旅館和小商店令旅行難以忘懷。我們在OMaps中免費優化您的商家頁面，以便它可以被看見。";
-
-"whats_new_order_button" = "留下申請表";
-
 "bookmarks_page_downloaded" = "加載";
 
 "bookmarks_page_my" = "我的";
@@ -2028,7 +1762,7 @@
 
 "cached_bookmarks_placeholder_title" = "上傳新地點";
 
-"cached_bookmarks_placeholder_subtitle" = "單擊按鈕下載OMaps用戶創建的數千個有趣的地點和路線。您需要網絡連接。";
+"cached_bookmarks_placeholder_subtitle" = "單擊按鈕下載Organic Maps用戶創建的數千個有趣的地點和路線。您需要網絡連接。";
 
 "downloader_download_routers" = "加載標籤";
 
@@ -2040,7 +1774,7 @@
 
 "crash_reports" = "錯誤報告";
 
-"crash_reports_description" = "我們可以使用您的數據來開發和改進OMaps。更改將再重新啟動應用程序后生效。";
+"crash_reports_description" = "我們可以使用您的數據來開發和改進Organic Maps。更改將再重新啟動應用程序后生效。";
 
 "opt_out_help_ios_1" = "您可以選擇停止在設備設置中接受定向廣告。";
 
@@ -2078,18 +1812,6 @@
 
 "subtitle_error_downloading_bookmarks" = "標籤未加載";
 
-"whats_new_bookmarks_catalog_title" = "在OMaps中有路線目錄";
-
-"whats_new_bookmarks_catalog_message" = "全球數十條詳細路線去哪裡、看什麼、在哪吃飯。";
-
-"whats_new_popularity_label_title" = "附近景點";
-
-"whats_new_popularity_label_message" = "“探索鄰近區域”部分將幫您找到該城市最受歡迎的地方。";
-
-"whats_new_hot_offers_title" = "酒店的優惠報價";
-
-"whats_new_hot_offers_message" = "使用搜索中的“酒店”類別來尋找它們報價將在地圖和列表中以百分比圖標來表示。";
-
 "error_already_downloaded" = "這個列表已被下載";
 
 "popular_place" = "Popular";
@@ -2100,92 +1822,17 @@
 
 "bookmarks_downloaded_subtitle" = "Press ‘View on map’ to explore new places from the list";
 
-"guides" = "指南";
+"why_support" = "為什麼支持Organic Maps?";
 
-"guide_downloaded_title" = "指南已被成功下載";
+"why_support_item1" = "We respect your privacy: there are zero trackers in the app, and we are open source";
 
-/* as few symbols as possible */
-"download_guides" = "查找指南";
-
-"guides_groups_cached" = "已下載的指南";
-
-"subtitle_error_downloading_guide" = "該指南沒有被下載";
-
-"error_already_downloaded_guide" = "這個指南已被下載過了";
-
-"guide_downloaded_subtitle" = "按下‘在地圖上查看’探索指南";
-
-"bookmarks_guides" = "書籤和指南";
-
-"paybtn_title" = "支付%s/年";
-
-"paybtn_subtitle" = "節省%s/年";
-
-"options_dropdown_title" = "其他選擇";
-
-"why_support" = "為什麼支持OMaps?";
-
-"options_dropdown_item1" = "%s/月 (節省%s/年)";
-
-"options_dropdown_item2" = "%s/周 (未節省)";
-
-"why_support_item1" = "我們將為您關閉所有廣告";
-
-"why_support_item2" = "您幫助我們改進OMaps";
+"why_support_item2" = "您幫助我們改進Organic Maps";
 
 "why_support_item3" = "您幫助我們改進OpenStreetMap.org地圖";
 
-"purchase_processing" = "正在處理您的購買訂單……";
-
-"tips_bookmarks_catalog_title" = "所有類型旅行的離線指南";
-
-"tips_bookmarks_catalog_message" = "下載并設置到世界各地各個城市景點的旅遊路線。";
-
-"tips_discover_button_title" = "想在該地區找到受歡迎的機構嗎？";
-
-"tips_discover_button_message" = "在“探索鄰近區域“部分中收集了最近最好的餐館、酒店和名勝古跡。";
-
-"tips_book_hotel_title" = "請為您的假期預訂最舒適的酒店";
-
-"tips_book_hotel_message" = "在搜索和过滤器的帮助下，您将找到最好的酒店。在搜索和過濾器的幫助下，您將找到最好的酒店。點擊地點卡中“預約”鍵即可立即預訂酒店。";
-
-"tips_map_layers_title" = "不知道在哪個地鐵站換乘？";
-
-"tips_map_layers_message" = "請打開地圖上的地鐵圖層以顯示地鐵圖，您在新的城市中始終有導航。";
-
 "channels_map_update" = "更新地圖";
 
-"channels_reviews" = "未發送的意見";
-
-"purchase_loading" = "加載購買信息……";
-
-"purchase_error_subtitle" = "處理購買時出錯";
-
-"awaiting_approval" = "我們正在等待父母確認";
-
-"whats_new_leave_review" = "請留言！請分享您對度假時索取過的地方的看法。";
-
 "server_unavailable_title" = "服務不可用";
-
-"server_unavailable_message" = "購買將在稍後完成。如果錯誤仍然存在，請聯繫support@omaps.app。";
-
-"offline_fiters_check_in" = "連接到網絡已選擇到達和離開的日期。";
-
-"rutaxi_title" = "RuTaxi";
-
-"restore_subscription" = "恢復訂閱";
-
-"restore_success_alert" = "訂閱已成功恢復";
-
-"restore_error_alert" = "恢復訂閱時發生錯誤";
-
-"restore_no_subscription_alert" = "沒有有效訂閱";
-
-"subscriptions_title" = "訂購";
-
-"manage_subscription" = "管理訂購";
-
-"taxi" = "Taxi";
 
 "sharing_options" = "登錄設置";
 
@@ -2197,13 +1844,13 @@
 
 "hide_from_map" = "從卡中隱藏";
 
-"ugc_route_tags_screen_label" = "請選擇標籤";
-
-"ugc_route_tags_progress_msg" = "正在加載標籤......";
-
 "public_access" = "公共訪問";
 
 "limited_access" = "私人訪問";
+
+"bookmark_category_name" = "類別";
+
+"bookmark_category_description_hint" = "添加說明(文字或html)";
 
 /* FIXME */
 "bookmarks_public_access" = "bookmarks_public_access";
@@ -2214,33 +1861,11 @@
 /* FIXME */
 "bookmarks_private_access" = "bookmarks_private_access";
 
-"upload_and_publish_desc" = "本指南將上傳到OMaps公共目錄，並可供其他用戶使用";
-
-"upload_and_publish" = "加載並發布";
-
-"upload_and_get_direct_link" = "加載並獲取鏈接";
-
-"get_direct_link_desc" = "您的指南將通過直接鏈接提供";
-
-"upload_and_publish_progress_text" = "該指南正在發布......";
-
-"upload_and_publish_success" = "該指南已發布";
-
-"ugc_routes_user_agreement" = "<b>請注意:</b>繼續，即表示您接受<a href=\"%s\">許可協議</a>";
-
-"ugc_route_edit_list_name" = "指南名稱";
-
-"ugc_route_edit_description_hint" = "添加說明(文字或html)";
-
 "not_shared" = "個人";
 
 "direct_link_progress_text" = "正在上傳您的文件......";
 
 "direct_link_success" = "鏈接已創建";
-
-"edit_guide_title" = "請在線編輯旅行指南";
-
-"edit_guide_subtitle" = "請通過網絡應用獲取編輯指南的鏈接：請添加地點描述，上傳照片和用線條連接標籤。";
 
 "send_a_link_btn" = "發送鏈接";
 
@@ -2254,39 +1879,7 @@
 
 "unable_upload_error_subtitle_broken" = "該文件已損壞，無法上傳。請上傳其他文件。";
 
-"buy_btn" = "購買%s的旅行指南";
-
-"download_guide_progress" = "指南正在加載......";
-
-"price_error_title" = "無法得知價格";
-
-"price_error_subtitle" = "請在幾分鐘之後再試一次";
-
-"edit_your_guide_email_body" = "在計算機上編輯您的旅行指南：請添加地點描述，上傳照片和用線條連接標籤。";
-
-"edit_on_web" = "在線編輯";
-
-"properties_loading_error_subtitle" = "加載選項時出錯，請重試";
-
-"custom_props_desc" = "本指南您編制為";
-
-"custom_props_title" = "當地貨遊客";
-
-"custom_props_local" = "當地";
-
-"custom_props_traveler" = "遊客";
-
-"select_properties" = "選擇選項";
-
-"access_rules_p_to_p" = "特殊訪問";
-
-"access_rules_paid" = "已購買";
-
-"failed_purchase_support_message" = "您似乎還有待定購買。請寫支持，我們將解決問題。";
-
 "contact" = "寫";
-
-"check_price_button" = "了解價格";
 
 "download_button" = "下載";
 
@@ -2304,92 +1897,16 @@
 
 "place_description_title" = "地點說明";
 
-"ugc_routes_error_uploading_file_toast" = "抱歉，加載代碼時出錯。請再試一次。";
-
-"notification_channel_ugc" = "用戶內容";
-
 /* this text will be shown in application notification preferences opposite checkbox which enable/disable downloader notifications. Devices on Android 8+ are affected. */
 "notification_channel_downloader" = "加載地圖";
 
-"notification_leave_review_title" = "%s - 您在這裡怎麼樣?";
-
-"notification_leave_review_content" = "請發表評論並幫助旅客！";
-
-"share_bookmarks_email_body_link" = "您好！\n\n您的標籤可以從鏈接下載：%s.使用OMaps打開列表並享受旅行!\n\n下載應用程序：https://omaps.app/get?kmz";
+"share_bookmarks_email_body_link" = "您好！\n\n您的標籤可以從鏈接下載：%s.使用Organic Maps打開列表並享受旅行!\n\n下載應用程序：https://organicmaps.app/get?kmz";
 
 "warning_speedcams_title" = "當速度限制超過%d km / h時，導航會通知您的攝像機";
 
 "warning_speedcams_subtitle" = "請不要忘記閱讀旅行國的道路規則。";
 
 "speedcams_notice_message" = "自動 - 如果存在超出速度限制的風險，則對速度攝像頭髮出警告\n總是 - 始終提醒攝像頭\n從不 - 永遠不會對攝像頭發出警告";
-
-"whats_new_ugc_routes_title" = "分享您的印象很容易";
-
-"whats_new_ugc_routes_subtitle" = "保存有印象的地点、用书签创建路线，并在OMaps目录中和大家分享。";
-
-"whats_new_webeditor_title" = "把路线变成故事";
-
-"whats_new_ugc_routes_message2" = "在网页编辑工具里添加照片和详细的故事。";
-
-"ugc_thanks_message_auth" = "您的評論已保存";
-
-"ugc_thanks_message_not_auth" = "請註冊以留下評論";
-
-"notification_leave_review_v2_title" = "請發表評論來幫助旅行者們！";
-
-"error_public_not_enought_title" = "標籤不足";
-
-"error_public_not_enought_subtitle" = "您的路線至少應有3個標籤才能上傳到公共目錄中";
-
-"bookmark_public_upload_alert_title" = "您只需幾步即可將您的路徑加載到OMaps目錄中！";
-
-"bookmark_public_upload_alert_subtitle" = "請確保路線具有名稱和描述，並且所有標籤都包含場地信息。這樣用戶就能找到路線並在旅途中使用它們。";
-
-"bookmark_public_upload_alert_ok_button" = "是的，全部正確！";
-
-"name_title" = "請輸入名稱";
-
-"name_placeholder" = "例如，倫敦酒吧";
-
-"name_comment1" = "請具體化命名線路以便用戶能夠找到它們，例如\"倫敦酒吧\"";
-
-"name_comment2" = "名稱不應包含特殊字符. 請不要發布名稱為\"我的標籤\"的路線";
-
-"description_guide" = "描述";
-
-"description_title" = "請輸入線路描述";
-
-"description_placeholder" = "請詳細描述您的路線";
-
-"description_comment1" = "路線描述至少應為30個字符。";
-
-"ugc_route_tags_desc" = "請選擇標籤以幫助其他旅行者找到您的指南。這是必須的。不要超過 %s 標籤。";
-
-"html_format_error_title" = "您的路線尚未發布";
-
-"html_format_error_subtitle" = "請確保線路中標籤的名稱和描述格式正確。您可以單擊下面的\"在線編輯\"鍵在我們的編輯器中進行檢查。";
-
-"web_editor_description" = "請下載路線並獲取在電腦上編輯的鏈接";
-
-"edit_on_web_confirm" = "在線編輯";
-
-"update_guide" = "下載新版本";
-
-"direct_link_updating_text" = "更新路線中……";
-
-"direct_link_updating_success" = "路線已更新";
-
-"unable_get_direct_link_desc" = "您可以使用公共鏈接共享路線";
-
-"any_access_update_alert_title" = "可能有路線新版本";
-
-"any_access_update_alert_message" = "您是否更新標籤？新版本將在同一連鏈接上訪問。";
-
-"any_access_update_alert_update" = "更新";
-
-"public_or_limited_access_after_edit_online_error_title" = "您在線編輯了路線";
-
-"public_or_limited_access_after_edit_online_error_message" = "以後請通過我們的網站編輯、發布或與朋友分享路線";
 
 "power_managment_title" = "省電模式";
 
@@ -2401,7 +1918,7 @@
 
 "power_managment_setting_manual_max" = "最大程度省電";
 
-"enable_logging_warning_message" = "此選項啟用以記錄操作來進行診斷。這有助於團隊識別應用程序的問題。請僅在OMaps支持請求時開啟該選項。";
+"enable_logging_warning_message" = "此選項啟用以記錄操作來進行診斷。這有助於團隊識別應用程序的問題。請僅在Organic Maps支持請求時開啟該選項。";
 
 "html_error_upload_message_try_again" = "請檢查網絡訪問，然後再重試";
 
@@ -2417,21 +1934,9 @@
 
 "privacy_settings_menu" = "隱私設置";
 
-"gdpr_request_setting" = "GDPR請求獲取ID";
-
-"gdpr_request_window_title" = "您的ID：%s。";
-
-"gdpr_request_window_message" = "請複制並發送請求至support@omaps.app";
-
-"gdpr_request_window_copy" = "複製ID";
-
 "unable_upadate_error_title" = "無法更新路線";
 
 "unable_upadate_error_message" = "更新時出錯。請檢查更改，然後再重試";
-
-"whats_new_wiki_title" = "這是什麼地方？";
-
-"whats_new_wiki_message" = "在熱門景點的卡片中，我們添加了來自Wikipedia.org的文章，可以離線使用";
 
 "driving_options_title" = "繞行設置";
 
@@ -2467,31 +1972,7 @@
 
 "avoid_ferry_crossing_placepage" = "規避輪渡";
 
-"cached_guides_placeholder_subtitle" = "OMaps中的現有指南是精選出來的地點，其中包含在地圖上顯示並可離線使用的照片和說明。";
-
-"guides_catalogue_title" = "指南目錄";
-
-"download_guides_button" = "轉至目錄";
-
 "type.cuisine.uzbek" = "烏茲別克美食";
-
-"onboarding_guide_direct_download_title" = "該指南已準備好下載";
-
-"onboarding_guide_direct_download_subtitle" = "它將在地圖上顯示並將脫機工作";
-
-"onboarding_guide_direct_download_button" = "下載";
-
-"onboarding_bydeeplink_guide_title" = "OMaps上現成的指南";
-
-"onboarding_bydeeplink_guide_subtitle" = "帶有照片和說明的競選地點會顯示在地圖中，並且可以離線使用。";
-
-"whats_new_auto_update_bydeeplink_title" = "在轉到指南之前……";
-
-"whats_new_auto_update_bydeeplink_message" = "請更新有關對像以獲取實時信息的地圖!";
-
-"whats_new_auto_update_and_proceed_button_size" = "更新（%s）並繼續";
-
-"purchase_please_wait_toast" = "購買完成後請不要離開屏幕";
 
 "trip_start" = "前往";
 
@@ -2531,80 +2012,6 @@
 
 "ok" = "好的";
 
-"vezet_taxi" = "Vezet";
-
-"booking_button_toolbar" = "在地圖上選擇酒店";
-
-"popup_booking_download_guides_title" = "已預訂酒店？";
-
-"popup_booking_download_guides_message" = "和OMaps壹起規劃行程吧";
-
-"popup_mwm_download_guides_title" = "在線指南";
-
-"popup_mwm_download_guides_cta" = "選擇";
-
-"popup_mwm_download_guides_cta_1" = "查看";
-
-"gallery_pp_download_guides_offline_title" = "和 OMaps壹起規劃妳的假期吧！";
-
-"gallery_pp_download_guides_offline_subtitle" = "不要錯過資深驢友提供線路中最重要的內容";
-
-"gallery_pp_download_guides_offline_cta" = "開啟網絡";
-
-"gallery_pp_download_guides_title" = "旅行指南";
-
-"native_screen_subscription_title" = "2000+ 旅行指南向您完全開放！";
-
-"native_screen_subscription_message" = "令人回味無窮的旅行，和新旅伴探索新世界";
-
-"annual_subscription_title" = "按年訂閱";
-
-"montly_subscription_title" = "按月訂閱";
-
-"annual_subscription_message" = "12個月內無限使用";
-
-"montly_subscription_message" = "1個月內無限使用";
-
-"annual_save_component" = "- %d%";
-
-"subscription_success_dialog_title" = "謝謝訂閱！";
-
-"subscription_success_dialog_message" = "您現在已經可以無限使用旅行指南目錄了";
-
-"renewal_screen_title" = "訂閱有效期已結束";
-
-"renewal_screen_message" = "所有通過訂閱下載的旅行指南將被刪除。希望恢復訂閱並保存它們？";
-
-"renewal_screen_button_restore" = "是的，恢復";
-
-"renewal_screen_button_cancel" = "不，刪除旅行指南";
-
-"subscription_error_ping_title" = "未能成功購買";
-
-"subscription_error_message" = "服務器無法在您所在的地區使用。請稍後再試";
-
-"subscription_error_button" = "明白";
-
-"timeout_error_title" = "糟糕，時間到了！";
-
-"timeout_error_message" = "我們的服務器無法響應。請檢查網絡連接狀況並重試。";
-
-"per_month" = "/月";
-
-"per_year" = "/年";
-
-"buy_btn_for_subscription" = "%s起可自由訪問";
-
-"buy_btn_for_subscription_1" = "在%s內購買全部旅行指南";
-
-"buy_btn_for_subscription_ios_only_mo" = "%s/月起可自由訪問";
-
-"buy_btn_for_subscription_ios_only_year" = "%s/年起可自由訪問";
-
-"subscription_terms_guides" = "在確認購買後，將通過您的 iTunes賬戶完成付款。如果在當前使用期限結束前的24小時內未關閉自動延長功能，則訂閱將自動更新。在當前使用期限結束前的24小時內，將根據您所選擇的套餐計劃，從您的賬戶中扣除相應金額。您可在購買後的任意時間內，在Apple ID的賬戶設置中調節或關閉自動延長功能。 您只能在訂閱有效期內使用通過訂閱下載的旅行指南。在訂閱結束後的30天內，旅行指南和全部書簽將被自動刪除。";
-
-"subscription_terms" = "確認購買後將向您的iTunes賬戶收費。除非在當前周期結束前至少24小時關閉自動續訂，訂購會自動延續。在當前周期結束前24小時內，我們會根據您的方案向您的賬戶收費。您能在購買後在Apple ID賬戶設置中隨時管理或關閉自動續訂。";
-
 "avoid_unpaved_carplay_1" = "無土路路段";
 
 "avoid_unpaved_carplay_2" = "無土路路段";
@@ -2621,7 +2028,7 @@
 
 "speedcams_alert_title_carplay_2" = "攝像頭信息";
 
-"download_map_carplay" = "將OMaps軟件中的地圖下載至個人設備中";
+"download_map_carplay" = "將Organic Maps軟件中的地圖下載至個人設備中";
 
 "carplay_roundabout_exit" = "%s號坡道";
 
@@ -2708,138 +2115,9 @@
 /* Android, max 18 symbols */
 "bookmarks_delete_list" = "刪除列表";
 
-"popup_subscription_success_map_title" = "耶！您已訂閱！";
-
-"popup_subscription_success_map_message" = "現在在OMaps畫冊中探索最佳的旅遊景點";
-
-"popup_subscription_success_map_start_button" = "瀏覽";
-
-"popup_subscription_success_map_not_now_button" = "不是現在";
-
 "religious_places" = "聖地";
 
-"subscription_terms_android" = "在確認購買時，將從您的Google Play帳戶付款。如果在本期訂閱結束前24小時內沒有取消自動續訂，續訂將自動延續。資金將在本期訂閱結束前24小時內根據續訂計劃從您的帳戶中扣除。您可以在購買後管理自動續訂或在賬戶設置中將其停用。您只能在有效期內使用訂閱下載的指南。訂閱結束30天后，指南將自動刪除。";
-
 "select_list" = "選擇列表";
-
-"pp_discovery_place_related_header" = "這是指南目錄中標記的位置";
-
-"pp_discovery_place_related_header_1" = "這個位置在指南中出現過";
-
-"pp_discovery_place_related_cta_button" = "查看";
-
-"pp_discovery_place_related_tag_header" = "指南和按標記 “%s”";
-
-"pp_discovery_place_related_tag_header_1" = "您會喜歡這樣的";
-
-"buy_btn_for_subscription_version_2" = "所有指南%s/月";
-
-"buy_btn_for_subscription_version_3" = "整個畫冊%s/月";
-
-"buy_btn_for_subscription_ios_only_mo_version_2" = "訪問畫冊%s/月";
-
-"buy_btn_for_subscription_ios_only_year_version_2" = "訪問畫冊%s/年";
-
-"subscription_screen_native_title_version_2" = "在地圖上訪問帶有標記的指南！";
-
-"subscription_screen_native_message_version_2" = "請為600多個城市和100多個國家的任何旅行做好準備";
-
-"catalog_no_internet_title" = "沒有網絡連接";
-
-"catalog_no_internet_button" = "請再試一次";
-
-"new_onboarding_button" = "繼續";
-
-"new_onboarding_button_2" = "開始";
-
-"new_onboarding_step1_header" = "OMaps";
-
-"new_onboarding_step1_header_2" = "旅行中的萬能助手";
-
-"new_onboarding_step2_header" = "憧憬並付諸實踐";
-
-"new_onboarding_step2_message" = "超過7千萬個有趣的地方，指南目錄，從地圖上預定旅店-爲出行做好一切准備！";
-
-"new_onboarding_step3_message" = "周祥的離線地圖和離線導航在陌生的地方助你一臂之力！";
-
-"new_onboarding_step4_header" = "分享感受";
-
-"new_onboarding_step4_message" = "收藏喜歡的地方並分享給朋友們";
-
-"new_onboarding_step5.1_header" = "在開始前……";
-
-"new_onboarding_step5.1_message" = "不要忘記訪問我們新的線路，爲即將的出行找到離線導航！";
-
-"new_onboarding_step5.1_button" = "打開目錄";
-
-"new_onboarding_step5.2_message" = "订阅OMaps中的旅行指南会让您受益匪浅。全面访问城市散步路线和户外活动路线！";
-
-"new_onboarding_step5.2_button" = "查看條件";
-
-"new_onboarding_step5.3_message" = "下載或評論帶有 OMaps免費編錄的市內旅行和休閑運動的線路！";
-
-"new_onboarding_step5.3_button" = "免費下載";
-
-"new_onboarding_additional_steps_later_button" = "稍後";
-
-"all_pass_subscription_header" = "訂閱";
-
-"all_pass_subscription_subheader" = "指南目錄";
-
-/* \n - for a break between lines. Max. 15 characters per 1 line. */
-"all_pass_subscription_message_title" = "30000+\n指南\n和道路";
-
-/* <b> & </b> tag to make a part of the line bold */
-"all_pass_subscription_message_subtitle" = "<b>無限離線下載</b>城市和戶外活動的路線";
-
-/* \n - for a break between lines. Max. 17 characters per 1 line. */
-"all_pass_subscription_message_title_2" = "互動\n高度剖面圖";
-
-/* <b> & </b> tag to make a part of the line bold */
-"all_pass_subscription_message_subtitle_2" = "<b>所有道路均已加載高度和路線基本信息</b>";
-
-/* \n - for a break between lines. Max. 15 characters per 1 line. */
-"all_pass_subscription_message_title_3" = "默認\n地點，照片\n和推薦";
-
-/* <b> & </b> tag to make a part of the line bold */
-"all_pass_subscription_message_subtitle_3" = "<b>了解您準備前往的路線</b>，的所有信息";
-
-/* do not translate */
-"sightseeing_subscription_header_sightseeing" = "City Pass";
-
-"sightseeing_subscription_header_subscription" = "訂閱指南";
-
-"sightseeing_subscription_message" = "超過700座城市和100個國家";
-
-"sightseeing_subscription_message_2" = "支持離線訪問";
-
-"sightseeing_subscription_message_3" = "照片與人行道路";
-
-"subscription_success_dialog_title_sightseeing_pass" = "感謝訂閱！";
-
-"subscription_success_dialog_message_sightseeing_pass" = "現在你可使用目錄中的全部城市指南";
-
-"downloader_main_gallery_header" = "地圖與指南";
-
-"downloader_main_gallery_message" = "在本單元中你不僅可以下載地圖，還可以爲即將到來的出行選擇指南";
-
-"downloader_main_1_element_gallery_header" = "所有指南";
-
-"downloader_main_1_element_gallery_message" = "超過100個國家";
-
-"downloader_country_1_element_gallery_header" = "%s 條線路";
-
-"downloader_country_no_guides_gallery_header" = "暫時沒有該國家的指南";
-
-"downloader_country_no_guides_gallery_message" = "了解其他100多個國家的城市與休閑活動線路";
-
-"dialog_pedestrian_route_is_long" = "步行到達交通工具處需要很長時間";
-
-"new_onboarding_step3_header" = "去旅行吧";
-
-"all_pass_screen_best_value" = "優惠的價格";
-
-"buy_btn_for_subscription_3" = "整個畫冊%s/年";
 
 "transit_not_found" = "本區域的地鐵導航目前不可用";
 
@@ -2852,7 +2130,7 @@
 
 "button_layer_isolines" = "高度";
 
-"tips_map_layers_title_countour" = "離線高度線在OMaps中！";
+"tips_map_layers_title_countour" = "離線高度線在Organic Maps中！";
 
 "tips_map_layers_message_countour" = "高度線可以幫您規劃通往大自然地區的路線，不會迷路";
 
@@ -2890,175 +2168,13 @@
 
 "elevation_profile_minutes" = "分鐘";
 
-"view_on_map_downloaded_error" = "該指南已從設備中刪除";
-
-"subscription" = "訂閱";
-
-"freenow_taxi_title" = "FREE NOW";
-
-"tinkoff_allairlines_map_downloader_title" = "Карта Тинькофф All Airlines. 3000 миль в подарок";
-
-"tinkoff_allairlines_map_downloader_cta_button" = "Оформить карту";
-
-"tinkoff_insurance_map_downloader_title" = "Полис Тинькофф со скидкой! Подходит для любых виз.";
-
-"tinkoff_insurance_map_downloader_cta_button" = "Промокод";
-
-"mts_map_downloader_title" = "Забугорище: интернет и звонки за границей как дома";
-
-"mts_map_downloader_cta_button" = "Подключить";
-
-"skyeng_map_downloader_title" = "Дарим 4 бесплатных урока английского от Skyeng.";
-
-"skyeng_map_downloader_cta_button" = "Подробнее";
-
-"button_layer_guides" = "指南（新）";
-
-"no_routes_in_the_area_toast" = "這裡沒有指南";
-
 "isolines_toast_zooms_1_10" = "放大地圖以查看等高線";
-
-"routes_layer_in_menu_toast" = "打開圖層以查找離線指南，查看等值線，地鐵線路或交通擁堵狀況";
-
-"routes_layer_is_on_toast" = "移動地圖以尋找指南";
-
-"connection_error_dialog_guides_title" = "連接錯誤";
-
-"connection_error_dialog_guides_message" = "本身無法加載，因為沒有網絡或信號較弱。如要繼續，請檢查連接或關閉位置。";
-
-"connection_error_dialog_guides_try" = "再試一次";
-
-"connection_error_dialog_guides_layer_turn_off" = "關閉";
-
-"connection_error_toast_guides" = "恢復網絡連接";
-
-/* as few symbols as possible */
-"routes_card_show" = "在地圖上顯示";
-
-/* as few symbols as possible */
-"routes_card_hide" = "在地圖上隱藏";
 
 "downloader_updating_ios" = "更新";
 
 "downloader_loading_ios" = "加載";
 
-"routes_card_plus_track" = "+路線";
-
-"routes_card_city" = "City";
-
-"routes_card_outdoor" = "Outdoor";
-
-"routes_card_number_of_points" = "%s位置";
-
-"routes_card_routes_tag" = "路線";
-
-"routes_card_set_tag" = "特色景點";
-
-/* as few symbols as possible */
-"guides_trial_cta_button" = "免费试用7天";
-
-"guides_trial_message" = "之后每年%s。随时取消";
-
-"trial_error_dialog" = "您已经使用了试用期";
-
-/* as few symbols as possible */
-"floating_button_filters" = "筛选";
-
-/* as few symbols as possible */
-"date_picker_сhoose_dates_cta" = "选择日期";
-
-/* as few symbols as possible */
-"guests_picker_rooms_title" = "客房和客人";
-
-"guests_picker_rooms" = "客房";
-
-"guests_picker_adults" = "成人";
-
-"guests_picker_children_title" = "儿童";
-
-"guests_picker_children_subtitle" = "1-17岁";
-
-"guests_picker_infants_title" = "婴儿";
-
-"guests_picker_infants_subtitle" = "0-12个月";
-
-/* as less symbols as possible */
-"booking_map_component_availability" = "沒有可用的房間";
-
-/* as few symbols as possible */
-"booking_map_component_filters" = "未筛选到";
-
-"choose_dates_online_only_dialog_title" = "没有网络连接";
-
-"choose_dates_online_only_dialog_message" = "日期和入住人数仅可在线选择。检查您的设置，并确保您已连网。";
-
-"choose_dates_online_only_dialog_cta" = "设置";
-
-"thirty_days_limit_dialog" = "最多可预订30晚";
-
-"whatsnew_trial_cta" = "试用";
-
-"subscription_terms_guides_outdoor" = "确认购买后，付款将从您的iTunes帐户中扣除。订阅将自动续订，除非在到期前至少24小时关闭自动续订。在到期前的24小时内，将根据您的续订计划从您的帐户扣费。购买成功后，您可以随时进入Apple ID帐户设置来管理或关闭自动更新。您只能在有效期内使用通过订阅下载的指南。订阅结束后7天，带有所有标签的指南将被自动删除。\n*免费试用期的订阅会自动转换为付费订阅。购买后，您可以转到“帐户设置”来取消或管理免费试用版的自动续订。取消将在当前订阅期最后一天的24小时后生效，您将被转为免费订阅。请注意，免费试用期内未使用的部分在该期间购买付费订阅时将被收回。";
-
-"subscription_terms_android_outdoor" = "确认购买后，付款将从您的Google Play帐户中扣除。订阅将自动续订，除非在到期前至少24小时关闭自动续订。在到期前的24小时内，将根据您的续订计划从您的帐户扣费。购买后，您可以转到“帐户设置”来管理或关闭自动续订。您只能在有效期内使用通过订阅下载的指南。订阅结束后7天后，指南将自动删除。\n*免费试用期的订阅会自动转换为付费订阅。购买后，您可以转到“帐户设置”来取消或管理免费试用版的自动续订。取消将在当前订阅期最后一天的24小时后生效，您将被转为免费订阅。请注意，免费试用期内未使用的部分在该期间购买付费订阅时将被收回。";
-
-"sberbank_map_downloader_title" = "Откройте Сберкарту Тревел Mastercard и копите мили";
-
-"sberbank_map_downloader_cta_button" = "Узнать больше";
-
-"yango_taxi_title" = "Yango";
-
-"citymobil_taxi_title" = "Citymobil";
-
-"subscription_header" = "訂閱\n<b>旅行指南目錄</b>";
-
-/* Max. 20 characters per 1 line. */
-"all_pass_subscription_message_title_4" = "旅行指南\nLonely Planet®出品";
-
-/* <b> & </b> tag to make a part of the line bold */
-"all_pass_subscription_message_subtitle_4" = "還有<b>來自全球各地</b> 千萬有趣景點的 <b>無窮印象</b>";
-
-"content_by_component" = "內容來源：%s";
-
-"whatsnew_lp_title" = "更多印象";
-
-"whatsnew_lp_message" = "歡迎Lonely Planet旅行指南加入我們！7000余座城市的名勝古跡、主題路線和獨特景點。";
-
-"collections_title" = "專欄";
-
 "key_information_title" = "關鍵信息";
-
-"mustsee_title" = "必看";
-
-"see_lp_category" = "名勝古跡";
-
-"play_lp_category" = "休閑娛樂";
-
-"shop_lp_category" = "購物";
-
-"transport_lp_category" = "交通";
-
-"sleep_lp_category" = "住宿";
-
-"general_lp_category" = "主要";
-
-"drink_lp_category" = "酒吧";
-
-"eat_lp_category" = "餐廳";
-
-"taxi_category_order" = "Order";
-
-"arsenal_telemed_map_downloader_title" = "Онлайн консультации профессиональных врачей 24/7";
-
-"arsenal_flat_map_downloader_title" = "Уезжаешь? Позаботься о своей квартире и соседях.";
-
-"arsenal_crimea_map_downloader_title" = "Туристическая страховка отдыха в Крыму. От 15₽/день";
-
-"arsenal_russia_map_downloader_title" = "Путешествуй по России. Лечение COVID-19 включено!";
-
-"arsenal_abroad_map_downloader_title" = "Полис «Выезд за рубеж». Лечение COVID-19 включено!";
-
-"arsenal_cta_button" = "Оформить полис";
 
 "download_map_title" = "Download the world map";
 

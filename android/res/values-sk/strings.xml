@@ -57,7 +57,7 @@
 	<string name="country_status_download_failed">Sťahovanie zlyhalo</string>
 	<!-- Button text for the button under the country_status_download_failed message -->
 	<string name="try_again">Skúsiť znova</string>
-	<string name="about_menu_title">O aplikácii OMaps</string>
+	<string name="about_menu_title">O aplikácii Organic Maps</string>
 	<string name="downloaded_touch_to_delete">Stiahnuté (%s), stlačte pre zmazanie</string>
 	<string name="connection_settings">Nastavenie pripojenia</string>
 	<string name="download_mb_or_kb">Stiahnuť %s</string>
@@ -65,7 +65,7 @@
 	<string name="unsupported_phone">Je vyžadovaná hardwarová akcelerácia OpenGL. Bohužial, vaše zariadenie nie je podporované.</string>
 	<string name="download">Stiahnuť</string>
 	<string name="external_storage_is_not_available">SD karta/USB úložisko s uloženými mapami nie je k dispozícii</string>
-	<string name="disconnect_usb_cable">Prosím, odpojte USB kábel alebo vložte pamäťovú kartu pre použitie s OMaps</string>
+	<string name="disconnect_usb_cable">Prosím, odpojte USB kábel alebo vložte pamäťovú kartu pre použitie s Organic Maps</string>
 	<string name="not_enough_free_space_on_sdcard">Prosím, uvoľnite najprv miesto na SD karte/USB úložisku</string>
 	<string name="not_enough_memory">Nedostatok pamäti k spusteniu aplikácie</string>
 	<string name="download_resources">Skôr ako začnete, bude treba stiahnuť základnú mapu sveta.\nZaberie to %s.</string>
@@ -105,7 +105,7 @@
 	<!-- Add bookmark dialog - bookmark set, Bookmarks dialog - Bookmark set cell -->
 	<string name="set">Skupina</string>
 	<!-- Text hint in Bookmarks dialog when no any bookmarks are added -->
-	<string name="bookmarks_usage_hint">Zatiaľ nemáte žiadne záložky.\nZáložku môžete pridať pridržaním ľubovolného miesta na mape.\nV OMaps môžu byť tiež zobrazené importované záložky z iných zdrojov. Súbor vo formáte KML/KMZ s uloženými záložkami môžete otvoriť napr. z emailu, Dropboxu alebo z webového odkazu.</string>
+	<string name="bookmarks_usage_hint">Zatiaľ nemáte žiadne záložky.\nZáložku môžete pridať pridržaním ľubovolného miesta na mape.\nV Organic Maps môžu byť tiež zobrazené importované záložky z iných zdrojov. Súbor vo formáte KML/KMZ s uloženými záložkami môžete otvoriť napr. z emailu, Dropboxu alebo z webového odkazu.</string>
 	<!-- Settings button in system menu -->
 	<string name="settings">Nastavenia</string>
 	<!-- Header of settings activity where user defines storage path -->
@@ -171,7 +171,7 @@
 	<!-- Notes field in Bookmarks view -->
 	<string name="description">Poznámky</string>
 	<!-- Email Subject when sharing bookmarks category -->
-	<string name="share_bookmarks_email_subject">Zdielané záložky OMaps</string>
+	<string name="share_bookmarks_email_subject">Zdielané záložky Organic Maps</string>
 	<!-- message title of loading file -->
 	<string name="load_kmz_title">Načítavanie záložiek</string>
 	<!-- Kmz file successful loading -->
@@ -191,7 +191,7 @@
 	<!-- Alert message that downloading is in progress. -->
 	<string name="downloading_is_active">Práve prebieha sťahovanie krajiny.</string>
 	<!-- Message that will be shown in alert view, when we ask user to leave review on App Store -->
-	<string name="appStore_message">Dúfame, že sa vám používánie OMaps páči! Ak to je tak, ohodnoťte prosím našu aplikáciu alebo napíšte na ňu recenziu v Obchode s aplikáciami. Nezaberie vám to ani minútu času, ale nám s tým môžete veľmi pomôoť. Ďakujeme vám za vašu podporu!</string>
+	<string name="appStore_message">Dúfame, že sa vám používánie Organic Maps páči! Ak to je tak, ohodnoťte prosím našu aplikáciu alebo napíšte na ňu recenziu v Obchode s aplikáciami. Nezaberie vám to ani minútu času, ale nám s tým môžete veľmi pomôoť. Ďakujeme vám za vašu podporu!</string>
 	<!-- No, thanks -->
 	<string name="no_thanks">Nie, ďakujem</string>
 	<!-- Share one specific bookmark using SMS, %1$@ contains ge0:// and %2$@ http://ge0.me link. @NOTE non-ascii symbols in the link will make 70 bytes sms instead of 140 -->
@@ -199,9 +199,9 @@
 	<!-- Share my position using SMS, %1$@ contains ge0:// and %2$@ http://ge0.me link WITHOUT NAME. @NOTE non-ascii symbols in the link will make 70 bytes sms instead of 140 -->
 	<string name="my_position_share_sms">Pozri kde som. Otvor odkaz: %1$s alebo %2$s</string>
 	<!-- Subject for emailed bookmark -->
-	<string name="bookmark_share_email_subject">Pozri na moju značku na mape OMaps</string>
+	<string name="bookmark_share_email_subject">Pozri na moju značku na mape Organic Maps</string>
 	<!-- Subject for emailed position -->
-	<string name="my_position_share_email_subject">Pozrite si moju aktuálnu polohu na mape OMaps</string>
+	<string name="my_position_share_email_subject">Pozrite si moju aktuálnu polohu na mape Organic Maps</string>
 	<!-- Share my position using EMail, %1$@ is ge0:// and %2$@ is http://ge0.me link WITHOUT NAME -->
 	<string name="my_position_share_email">Ahoj,\n\nPráve som tu: %1$s. Stlačte jeden z týchto odkazov %2$s, %3$s a uvidíte toto miesto na mape.\n\nVďaka</string>
 	<!-- Android share by Message/SMS button text (including SMS) -->
@@ -301,19 +301,19 @@
 	<!-- text of notification -->
 	<string name="download_map_notification">Stiahnite si mapu miesta, kde sa práve nachádzate</string>
 	<!-- text of notification -->
-	<string name="pro_version_is_free_today">Plná verzia OMaps dnes zadarmo! Stiahnite si teraz a povedzte to svojim priateľom.</string>
+	<string name="pro_version_is_free_today">Plná verzia Organic Maps dnes zadarmo! Stiahnite si teraz a povedzte to svojim priateľom.</string>
 	<!-- Dialog for transferring maps from lite to pro. -->
-	<string name="move_lite_maps_to_pro">Práve prenášame Vaše stiahnuté mapy z OMaps lite na OMaps. Môže to trvať niekoľko minút.</string>
+	<string name="move_lite_maps_to_pro">Práve prenášame Vaše stiahnuté mapy z Organic Maps lite na Organic Maps. Môže to trvať niekoľko minút.</string>
 	<!-- Message to display when maps moved. -->
-	<string name="move_lite_maps_to_pro_ok">Vaše stiahnuté mapy sú úspešne prenesené na OMaps.</string>
+	<string name="move_lite_maps_to_pro_ok">Vaše stiahnuté mapy sú úspešne prenesené na Organic Maps.</string>
 	<!-- Message to display when maps move failed. -->
-	<string name="move_lite_maps_to_pro_failed">Vaše mapy sa nepodarilo preniesť. Vymažte prosím OMaps Lite a stiahnite si mapy znova.</string>
+	<string name="move_lite_maps_to_pro_failed">Vaše mapy sa nepodarilo preniesť. Vymažte prosím Organic Maps Lite a stiahnite si mapy znova.</string>
 	<!-- Text in menu -->
 	<string name="settings_and_more">Nastavenia a viac</string>
 	<!-- Text in menu -->
 	<string name="website">Webové stránky</string>
 	<!-- Text in menu -->
-	<string name="maps_me_community">Komunita OMaps</string>
+	<string name="maps_me_community">Komunita Organic Maps</string>
 	<!-- Text in menu -->
 	<string name="like_on_facebook">Označiť pomocou Páči sa mi to na Facebooku</string>
 	<!-- Text in menu -->
@@ -333,11 +333,11 @@
 	<!-- Text in menu -->
 	<string name="report_a_bug">Nahlásiť chybu</string>
 	<!-- Email subject -->
-	<string name="subscribe_me_subject">Prihláste ma prosím k odberu spravodaja OMaps</string>
+	<string name="subscribe_me_subject">Prihláste ma prosím k odberu spravodaja Organic Maps</string>
 	<!-- Email body -->
 	<string name="subscribe_me_body">Chcem sa vždy ako prvý dozvedať o najnovších správach, aktualizáciách a akčných ponukách. Svoje prihlásenie k odberu môžem kedykoľvek zrušiť.</string>
 	<!-- About text -->
-	<string name="about_text">OMaps ponúka najrýchlejšie offline mapy všetkých miest a krajín po celom svete. Cestujte s úplnou dôverou: kdekoľvek ste, OMaps vám pomôže sa nájsť na mape, nájsť najbližšiu reštauráciu, hotel, banku, benzínovú pumpu atď. Nevyžaduje pripojenie k internetu.\n\nNeustále pracujeme na nových funkciách a radi by sme počuli váš názor, ako môžeme vylepšiť OMaps. Pokiaľ máte s touto aplikáciou akékoľvek problémy, tak nás neváhajte kontaktovať na support\@omaps.app. Odpovedáme na každú požiadavku!\n\nPáči sa vám OMaps a chceli by ste nás podporiť? Existuje niekoľko ľahkých spôsobov celkom zadarmo:\n\n-napíšte recenziu vo svojom obchode s aplikáciami\n-označte našu stránku http://www.facebook.com/mapswithme pomocou Páči sa mi to\n- alebo len povedzte o OMaps svojej mame, priateľom a kolegom :)\n\nĎakujeme, že ste s nami. Veľmi oceňujeme vašu podporu!\n\nP.S. Mapové dáta získavame z OpenStreetMap, čo je mapový projekt podobný Wikipédii, ktorý umožňuje užívateľom vytvárať a upravovať mapy. Pokiaľ zistíte, že na mape niečo chýba alebo je nesprávné, môžete to opraviť priamo na https://www.openstreetmap.org, a vaše zmeny sa objavia v budúcej verzii OMaps.</string>
+	<string name="about_text">Organic Maps ponúka najrýchlejšie offline mapy všetkých miest a krajín po celom svete. Cestujte s úplnou dôverou: kdekoľvek ste, Organic Maps vám pomôže sa nájsť na mape, nájsť najbližšiu reštauráciu, hotel, banku, benzínovú pumpu atď. Nevyžaduje pripojenie k internetu.\n\nNeustále pracujeme na nových funkciách a radi by sme počuli váš názor, ako môžeme vylepšiť Organic Maps. Pokiaľ máte s touto aplikáciou akékoľvek problémy, tak nás neváhajte kontaktovať na support\@organicmaps.app. Odpovedáme na každú požiadavku!\n\nPáči sa vám Organic Maps a chceli by ste nás podporiť? Existuje niekoľko ľahkých spôsobov celkom zadarmo:\n\n-napíšte recenziu vo svojom obchode s aplikáciami\n-označte našu stránku http://www.facebook.com/OMapsApp pomocou Páči sa mi to\n- alebo len povedzte o Organic Maps svojej mame, priateľom a kolegom :)\n\nĎakujeme, že ste s nami. Veľmi oceňujeme vašu podporu!\n\nP.S. Mapové dáta získavame z OpenStreetMap, čo je mapový projekt podobný Wikipédii, ktorý umožňuje užívateľom vytvárať a upravovať mapy. Pokiaľ zistíte, že na mape niečo chýba alebo je nesprávné, môžete to opraviť priamo na https://www.openstreetmap.org, a vaše zmeny sa objavia v budúcej verzii Organic Maps.</string>
 	<!-- Alert text -->
 	<string name="email_error_body">Emailový klient nebol nastavený. Nakonfigurujte ho prosím alebo použite iný spôsob k tomu, abyste nás kontaktovali na %s</string>
 	<!-- Alert title -->
@@ -349,7 +349,7 @@
 	<!-- Update map suggestion -->
 	<string name="routing_map_outdated">Pre vytvorenie trasy si, prosím, aktualizujte mapu.</string>
 	<!-- Update maps suggestion -->
-	<string name="routing_update_maps">Nová verzia aplikácie OMaps umožňuje vytvárať trasy z vašej aktuálnej polohy do cieľového bodu. Pre použitie tejto funkcie si, prosím, aktualizujte mapy.</string>
+	<string name="routing_update_maps">Nová verzia aplikácie Organic Maps umožňuje vytvárať trasy z vašej aktuálnej polohy do cieľového bodu. Pre použitie tejto funkcie si, prosím, aktualizujte mapy.</string>
 	<!-- Update all button text -->
 	<string name="downloader_update_all_button">Aktualizovať všetko</string>
 	<!-- Cancel all button text -->
@@ -366,7 +366,7 @@
 	<string name="downloader_downloading">Sťahovanie:</string>
 	<string name="downloader_search_results">Nájdených</string>
 	<!-- Disclaimer message -->
-	<string name="routing_disclaimer">Tvorenie trás v aplikácii OMaps, prosím, majte na pamäti nasledovné:\n\n  - Navrhnuté trasy možno považovať iba za odporúčanie.\n - Stav vozovky, dopravné predpisy a značenie majú vyššiu prioritu, ako navigačné rady.\n - Mapa môže byť nesprávna alebo zastaraná a trasy nemusia byť vytvorené tým najlepším možným spôsobom.\n\n  Buďte na cestách v bezpečí a postarajte sa o seba!</string>
+	<string name="routing_disclaimer">Tvorenie trás v aplikácii Organic Maps, prosím, majte na pamäti nasledovné:\n\n  - Navrhnuté trasy možno považovať iba za odporúčanie.\n - Stav vozovky, dopravné predpisy a značenie majú vyššiu prioritu, ako navigačné rady.\n - Mapa môže byť nesprávna alebo zastaraná a trasy nemusia byť vytvorené tým najlepším možným spôsobom.\n\n  Buďte na cestách v bezpečí a postarajte sa o seba!</string>
 	<!-- Outdated maps category -->
 	<string name="downloader_outdated_maps">Zastarané</string>
 	<!-- Up to date maps category -->
@@ -390,7 +390,7 @@
 	<!-- RouteNotFound -->
 	<string name="routing_failed_route_not_found">Nebol nájdená trasa medzi vybraným východiskom a cieľom. Prosím vyberte iný počiatočný a koncový bod.</string>
 	<!-- InternalError -->
-	<string name="routing_failed_internal_error">Došlo k vnútornej chybe. Prosím, skúste zmazať a znovu stiahnuť mapu. Ak problém pretrvá, prosím, kontaktujte nás na support\@omaps.app.</string>
+	<string name="routing_failed_internal_error">Došlo k vnútornej chybe. Prosím, skúste zmazať a znovu stiahnuť mapu. Ak problém pretrvá, prosím, kontaktujte nás na support\@organicmaps.app.</string>
 	<!-- Context menu item for downloader. -->
 	<string name="downloader_download_map_and_routing">Na stiahnutie Mapa + Trasa</string>
 	<!-- Context menu item for downloader. -->
@@ -421,9 +421,9 @@
 	<!-- Text for rating dialog -->
 	<string name="rating_just_rated">Práve som hodnotil vašu aplikáciu</string>
 	<!-- Text for rating dialog -->
-	<string name="rating_user_since">Som používateľ OMaps od roku %s</string>
+	<string name="rating_user_since">Som používateľ Organic Maps od roku %s</string>
 	<!-- Text for rating dialog -->
-	<string name="rating_do_like_maps">Páči sa vám OMaps?</string>
+	<string name="rating_do_like_maps">Páči sa vám Organic Maps?</string>
 	<!-- Text for rating dialog -->
 	<string name="rating_tap_star">Kliknutím na hviezdu ohodnotíte našu aplikáciu.</string>
 	<!-- Text for rating dialog -->
@@ -439,7 +439,7 @@
 	<!-- Text for routing error dialog -->
 	<string name="routing_download_map">Stiahnuť mapu</string>
 	<!-- Text for routing error dialog -->
-	<string name="routing_download_map_and_routing">Aktualizovať mapu a trasové dáta na to aby ste mohli získajte všetky funkcie OMaps.</string>
+	<string name="routing_download_map_and_routing">Aktualizovať mapu a trasové dáta na to aby ste mohli získajte všetky funkcie Organic Maps.</string>
 	<!-- Text for routing error dialog -->
 	<string name="routing_get_routing_data">Získať trasové dáta</string>
 	<!-- Text for routing error dialog -->
@@ -569,7 +569,7 @@
 	<!-- Text for routing::RouterResultCode::FileTooOld dialog. -->
 	<string name="dialog_routing_download_and_update_maps">Prosím, pre vytvorenie trasy si stiahnite a aktualizujte všetky mapy pozdĺž trasy.</string>
 	<string name="rate_alert_title">Páči sa vám aplikácia?</string>
-	<string name="rate_alert_default_message">Ďakujeme, že používate OMaps. Prosím, ohodnoťte aplikáciu. Vaše názory nám pomôžu zlepšiť sa.</string>
+	<string name="rate_alert_default_message">Ďakujeme, že používate Organic Maps. Prosím, ohodnoťte aplikáciu. Vaše názory nám pomôžu zlepšiť sa.</string>
 	<string name="rate_alert_five_star_message">Hurá! Aj my vás taky páči!</string>
 	<string name="rate_alert_four_star_message">Ďakujeme vám, urobíme, čo bude v našich silách!</string>
 	<string name="rate_alert_less_than_four_star_message">Nejaký nápad, ako ju môžeme vylepšiť?</string>
@@ -624,7 +624,7 @@
 	<string name="editor_report_problem_no_place_title">Dané miesto neexistuje</string>
 	<string name="editor_report_problem_under_construction_title">Zatvorené kvôli prebiehajúcej údržbe</string>
 	<string name="editor_report_problem_duplicate_place_title">Duplicitné miesto</string>
-	<string name="first_launch_congrats_title">Aplikácia OMaps je pripravená na použitie</string>
+	<string name="first_launch_congrats_title">Aplikácia Organic Maps je pripravená na použitie</string>
 	<string name="first_launch_congrats_text">Vyhľadávajte a určujte trasu bez pripojenia všade na svete bez poplatkov.</string>
 	<string name="migrate_title">Dôležité!</string>
 	<!-- Android uses image instead of text. -->
@@ -722,14 +722,14 @@
 	<string name="placepage_report_problem_button">Nahlásiť problém</string>
 	<string name="placepage_add_business_button">Pridať organizáciu</string>
 	<string name="whatsnew_editor_message_1">Na mapu môžete pridávať nové miesta a upravovať tie, ktoré sú už pridané.</string>
-	<string name="whatsnew_editor_message_2">* OMaps využíva dáta komunity OpenStreetMap.</string>
+	<string name="whatsnew_editor_message_2">* Organic Maps využíva dáta komunity OpenStreetMap.</string>
 	<string name="dialog_incorrect_feature_position">Zmeniť polohu</string>
 	<string name="message_invalid_feature_position">Objekt sa tu nedá umiestniť</string>
 	<string name="login_to_make_edits_visible">Prihláste sa, aby mohli ostatní užívatelia vidieť Vami vykonané zmeny.</string>
 	<string name="no_migration_during_navigation">Počas hľadania trasy nie je možné vykonať aktualizáciu.</string>
 	<!-- Error dialog no space -->
 	<string name="migration_no_space_message">Ak chcete pokračovať v sťahovaní, musíte uvoľniť viac miesta na ukladacom priestore. Prosím, odstráňte prebytočné dáta.</string>
-	<string name="editor_sharing_title">Vďaka mne sú mapy na OMaps lepšie</string>
+	<string name="editor_sharing_title">Vďaka mne sú mapy na Organic Maps lepšie</string>
 	<string name="editor_comment_will_be_sent">Pošleme Váš príspevok kartografom.</string>
 	<string name="editor_unsupported_category_message">Pridali ste miesto z kategórie, ktorú zatiaľ nepodporujeme. Na mape sa zobrazí až za istú dobu.</string>
 	<!-- Downloaded 10 **of** 20 <- it is that "of" -->
@@ -746,7 +746,7 @@
 	<string name="core_placepage_unknown_place">Neznáme miesto</string>
 	<string name="editor_other_info">Odoslať poznámku OSM editorom</string>
 	<string name="editor_detailed_description_hint">Zmazaná poznámka</string>
-	<string name="editor_detailed_description">Vami navrhované zmeny sa odošlú do komunity OpenStreetMap. Popíšte detaily, ktoré sa nedajú upraviť v OMaps.</string>
+	<string name="editor_detailed_description">Vami navrhované zmeny sa odošlú do komunity OpenStreetMap. Popíšte detaily, ktoré sa nedajú upraviť v Organic Maps.</string>
 	<string name="editor_more_about_osm">Viac o OpenStreetMap</string>
 	<string name="editor_operator">Prevádzkovateľ</string>
 	<string name="editor_tag_description">Zadajte spoločnosť, organizáciu alebo osobu zodpovednú za prevádzku.</string>
@@ -786,8 +786,6 @@
 	<string name="placepage_entrance_type">Vstup</string>
 	<string name="placepage_flat">Byt</string>
 	<string name="placepage_open_24_7">24 / 7</string>
-	<string name="place_page_booking_rating">Hodnotenie: %s</string>
-	<string name="place_page_starting_from">od %s</string>
 	<string name="meter">m</string>
 	<string name="kilometer">km</string>
 	<string name="kilometers_per_hour">km/h</string>
@@ -822,12 +820,8 @@
 	<string name="error_enter_correct">Zadajte platnú hodnotu</string>
 	<string name="editor_profile_changes_for_next_place">Zmeny pre ďalšie miesto: %d</string>
 	<string name="editor_profile_rating_place">Hodnotiaca pozícia</string>
-	<string name="booking_dialog_not_connect_header">Rezervácia hotela vyžaduje aktiváciu pripojenia k Internetu</string>
-	<string name="button_try">Vyskúšajte to</string>
 	<string name="refresh">Aktualizovať</string>
 	<string name="last_update">Naposledy aktualizované: %s</string>
-	<string name="booking_checkin">príchod: %s</string>
-	<string name="booking_checkout">odchod: %s</string>
 	<string name="placepage_add_place_button">Pridať miesto na mape</string>
 	<!-- Displayed when saving some edits to the map to warn against publishing personal data -->
 	<string name="editor_share_to_all_dialog_title">Odoslať všetkým používateľom?</string>
@@ -846,21 +840,19 @@
 	<string name="place_page_button_read_descriprion">Prečítajte si</string>
 	<!-- iOS dialog for the case when recent track recording is on and the app comes back from background -->
 	<string name="recent_track_background_dialog_title">Znemožniť nahrávanie vami nedávno precestovanej trasy?</string>
-	<!-- If a hotel is being shared -->
-	<string name="sharing_booking">alebo si rezervujte na booking.com</string>
 	<string name="off_recent_track_background_button">Znemožniť</string>
 	<!-- For sharing via SMS and so on -->
 	<string name="sharing_call_action_look">Pozrite si</string>
 	<string name="continue_recent_track_background_button">Pokračovať</string>
-	<string name="recent_track_background_dialog_message">OMaps používa vašu geopozíciu na pozadí pre zaznamenávanie vami nedávno precestovanej trasy.</string>
+	<string name="recent_track_background_dialog_message">Organic Maps používa vašu geopozíciu na pozadí pre zaznamenávanie vami nedávno precestovanej trasy.</string>
 	<!-- Rate on Google Play (Android only) -->
 	<string name="rate_gp">Ohodnotiť v službe Google Play</string>
 	<!-- Share with friends: menu item title -->
 	<string name="tell_friends">Povedať priateľovi</string>
 	<!-- Share with friends: sharing text -->
-	<string name="tell_friends_text">Ahoj! Nainštaluj si aplikáciu OMaps</string>
+	<string name="tell_friends_text">Ahoj! Nainštaluj si aplikáciu Organic Maps</string>
 	<!-- About short text (below logo) -->
-	<string name="about_description">OMaps je offine aplikácia na cestovanie. Základom aplikácie OMaps sú dáta OpenStreetMap, pričom aplikácia nám ich umožňuje upravovať.</string>
+	<string name="about_description">Organic Maps je offine aplikácia na cestovanie. Základom aplikácie Organic Maps sú dáta OpenStreetMap, pričom aplikácia nám ich umožňuje upravovať.</string>
 	<!-- Text in menu -->
 	<string name="blog">Blog</string>
 	<string name="general_settings">Všeobecné nastavenia</string>
@@ -871,50 +863,13 @@
 	<string name="accept">Prijať</string>
 	<!-- For the first routing -->
 	<string name="decline">Odmietnuť</string>
-	<string name="whats_new_route_profile_title">Radšej dlhšia cesta, ale bezpečná</string>
-	<string name="whats_new_route_profile_message">Pre pešie trasy a cyklotrasy sa odteraz zobrazuje aj výškový profil.</string>
-	<string name="whats_new_booking_improve_title">Ušetriť pri rezervácii hotelov</string>
-	<string name="whats_new_booking_improve_message">Výsledky vyhľadávania hotelov odteraz obsahujú aj cenové kategórie. \nTiež sme pridali viac ako 110 000 hotelov.</string>
-	<!-- For place page hotel facilities block -->
-	<string name="placepage_hotel_facilities">Zariadenia</string>
-	<!-- For place page hotel nearby block -->
-	<string name="placepage_hotel_nearby">V blízkosti</string>
-	<!-- For ordering a taxi (as opposed to hotels or other things) -->
-	<string name="taxi_order">Objednať taxík</string>
-	<!-- How long it is until the taxi arrives -->
-	<string name="taxi_wait">Očakávaný príjazd o %s</string>
-	<!-- When there are no available taxis nearby -->
-	<string name="taxi_not_found">V okolí sa nepodarilo nájsť žiaden taxík</string>
-	<!-- When there are no available taxi providers nearby -->
-	<string name="taxi_no_providers">Taxík to nie je k dispozícii</string>
 	<string name="install_app">Nainštalovať</string>
-	<!-- `Filter` is a noun here -->
-	<string name="booking_filters">Filter</string>
-	<string name="booking_filters_reset">Obnoviť</string>
-	<!-- Beginning from a particular value and -->
-	<string name="booking_filters_rating">Hodnotenie nad</string>
-	<string name="booking_filters_rating_any">Akékoľvek</string>
-	<string name="booking_filters_ragting_good">Dobré</string>
-	<string name="booking_filters_rating_very_good">Veľmi dobré</string>
-	<string name="booking_filters_rating_excellent">Výborné</string>
-	<string name="booking_filters_price_category">Cenová kategória</string>
 	<string name="search_no_results_title">Nenašli sa žiadne výsledky</string>
 	<string name="search_no_results_message">Skúste vyhľadávať všeobecnejší výraz, vzdialiť alebo obnoviť nastavenie filtra.</string>
 	<string name="search_no_results_expand_area_button">Vzdialiť</string>
 	<string name="search_no_results_reset_button">Obnoviť filter</string>
 	<!-- noun -->
 	<string name="search_in_table">Zoznam</string>
-	<string name="booking_show_more">Zobraziť viac</string>
-	<string name="booking_reviews">Recenzie</string>
-	<string name="booking_hotel">Hotel</string>
-	<!-- hotel room -->
-	<string name="booking_hotel_room">Izba</string>
-	<!-- A neologism for a chat based on geographical proximity -->
-	<string name="chat">GeoChat</string>
-	<!-- Verb. Text on a button that opens the chat. -->
-	<string name="chat_open">Otvoriť</string>
-	<string name="dialog_taxi_offline">Objednanie taxíka nie je k dispozícii v režime offline.</string>
-	<string name="dialog_taxi_error">Objednanie taxíka je dočasne nedostupné.</string>
 	<string name="mobile_data_dialog">Použiť mobilný internet na zobrazenie podrobnejších informácií?</string>
 	<string name="mobile_data_option_always">Vždy použiť</string>
 	<string name="mobile_data_option_today">Iba dnes</string>
@@ -926,41 +881,16 @@
 	<string name="traffic_update_maps_text">Na zobrazenie dopravných informácií je potrebné aktualizovať mapy.</string>
 	<string name="traffic_outdated">Dopravné informácie sú neaktuálne.</string>
 	<string name="big_font">Zväčšiť veľkosť písma na mape</string>
-	<string name="traffic_update_app">Aktualizujte si aplikáciu OMaps</string>
+	<string name="traffic_update_app">Aktualizujte si aplikáciu Organic Maps</string>
 	<!-- "traffic" as in road congestion -->
 	<string name="traffic_update_app_message">Ak chcete zobraziť dopravné informácie, musíte si aktualizovať aplikáciu.</string>
 	<!-- "traffic" as in "road congestion" -->
 	<string name="traffic_data_unavailable">Dopravné informácie nie sú k dispozícii</string>
-	<!-- Seven points and higher -->
-	<string name="booking_filter_rating_num_good">7,0 a viac</string>
-	<!-- Eight points and higher -->
-	<string name="booking_filter_rating_num_very_good">8,0 a viac</string>
-	<!-- Nine points and higher -->
-	<string name="booking_filter_rating_num_excellent">9,0 a viac</string>
 	<!-- Simplified colour scheme for traffic information, fewer colours are used to display traffic jams on the map. The string should be kept as short as possible -->
 	<string name="pref_traffic_simplified_colors_title">Zjednodušené farby dopravy</string>
 	<string name="enable_logging">Zapnúť zaznamenávanie</string>
-	<string name="more_on_bookingcom">Viac na Booking.com</string>
-	<string name="details_on_bookingcom">Podrobnosti na Booking.com</string>
-	<string name="reviews_on_bookingcom">Viac recenzií na Booking.com</string>
 	<string name="offline_place_page_more_information">Viac informácií o mieste získate po pripojení na internet.</string>
 	<string name="failed_load_information">Nepodarilo sa načítať informácie.</string>
-	<string name="whats_new_auto_update_updating_maps">Prebieha aktualizácia máp</string>
-	<string name="whats_new_auto_update_title">Aktualizujte svoje stiahnuté mapy</string>
-	<string name="whats_new_auto_update_message">Vďaka aktualizácii máp budú informácie o objektoch na mape aktualizované</string>
-	<string name="whats_new_auto_update_button_size">Aktualizovať (%s)</string>
-	<string name="whats_new_auto_update_button_later">Manuálne aktualizovať neskôr</string>
-	<string name="search_hotel_filter_apartment">Apartmány</string>
-	<string name="search_hotel_filter_camp_site">Camping</string>
-	<string name="search_hotel_filter_chalet">Chata</string>
-	<string name="search_hotel_filter_guest_house">Penzión</string>
-	<string name="search_hotel_filter_hostel">Hostel</string>
-	<string name="search_hotel_filter_resort">Rezort</string>
-	<string name="search_hotel_filter_hotel">Hotel</string>
-	<string name="search_hotel_filter_motel">Motel</string>
-	<string name="create_campaign_button">Nárokovať záznam firmy</string>
-	<string name="view_campaign_button">Firma sa inzeruje</string>
-	<string name="search_hotel_filters_type">Typ</string>
 	<!-- Settings: "Send general feedback" button -->
 	<string name="feedback_general">Všeobecné pripomienky</string>
 	<string name="on">Zap.</string>
@@ -991,36 +921,7 @@
 	<string name="choose_start_point">Vyberte počiatočný bod</string>
 	<string name="choose_destination">Vyberte cieľ</string>
 	<string name="preloader_viator_button">Zistiť viac</string>
-	<string name="whats_new_title_route">Vylepšili sme cyklotrasy a pešie trasy</string>
-	<string name="whats_new_message_route">Opravili sme chyby, niekoľkonásobne sme zrýchlili zostavovanie trasy a pridali sme zastávky na trase</string>
-	<string name="whats_new_message_title_update">Desaťnásobne sme zmenšili veľkosť aktualizácií máp</string>
-	<string name="whats_new_message_maps_update">Odteraz na aktualizáciu máp stačí prevziať len chýbajúce dáta</string>
 	<string name="start_from_my_position">Začať od</string>
-	<string name="rating">Hodnotenie</string>
-	<string name="placepage_no_reviews">Žiadne hodnotenie</string>
-	<string name="placepage_reviewed">Už ste hodnotili toto miesto</string>
-	<string name="placepage_summary_rating">Súhrnné hodnotenie</string>
-	<string name="placepage_rate_comment">Ťuknutím ohodnoťte a preskúmajte toto miesto.</string>
-	<string name="placepage_rate_horrible">Hrozné</string>
-	<string name="placepage_rate_bad">Zlé</string>
-	<string name="placepage_rate_normal">Normálne</string>
-	<string name="placepage_rate_good">Dobré</string>
-	<string name="placepage_rate_excellent">Výborné</string>
-	<string name="placepage_reviews_most_recent">Najnovšie</string>
-	<string name="placepage_reviews_most_useful">Najužitočnejšie</string>
-	<string name="placepage_reviews_highest_rated">Najvyššie hodnotené</string>
-	<string name="placepage_reviews_lowest_rated">Najnižšie hodnotené</string>
-	<string name="placepage_reviews_offline_comment">V režime offline sa zobrazujú len najužitočnejšie recenzie</string>
-	<string name="placepage_reviews_your_comment">Vaša recenzia</string>
-	<string name="placepage_reviews_unhelpful">Neužitočné</string>
-	<string name="placepage_reviews_inappropriate">Nevhodné</string>
-	<string name="placepage_reviews_spam">Spam</string>
-	<string name="placepage_reviews_hint">Čo je tu dobré alebo zlé?</string>
-	<string name="placepage_reviews_edit_your_review">Upraviť svoju recenziu</string>
-	<string name="placepage_reviews_new_review">Nová recenzia</string>
-	<string name="placepage_translate_button">Preložiť</string>
-	<string name="placepage_show_original_button">Zobraziť originál</string>
-	<string name="placepage_more_reviews_booking_button">Viac recenzií na Booking.com</string>
 	<string name="profile_authorization_title">Prihlásiť sa pomocou</string>
 	<string name="profile_authorization_message">Jednoduché prihlásenie bez zadávania mena a hesla za pár sekúnd</string>
 	<string name="profile_authorization_error">Ups, vyskytla sa chyba. Skúste sa prihlásiť znova.</string>
@@ -1032,24 +933,9 @@
 	<string name="expertise">Odbornosť</string>
 	<string name="equipment">Vybavenie</string>
 	<string name="quality">Kvalita</string>
-	<string name="whats_new_ugc_title_updated_v840">Hodnotenia a recenzie</string>
-	<string name="whats_new_ugc_message">Teraz môžete napísať hodnotenia a recenzie aj offline! Nezabudnite si aktualizovať mapy, aby ste videli zmeny.</string>
 	<string name="dialog_error_storage_title">Problém s prístupom k úložisku</string>
-	<string name="dialog_error_storage_message">Externý úložný priestor nie je dostupný, pravdepodobne je vytiahnutá alebo poškodená SD karta alebo je systém súborov určený iba na čítanie. Skontrolujte to, prosím, a kontaktujte nás na support\@omaps.app</string>
+	<string name="dialog_error_storage_message">Externý úložný priestor nie je dostupný, pravdepodobne je vytiahnutá alebo poškodená SD karta alebo je systém súborov určený iba na čítanie. Skontrolujte to, prosím, a kontaktujte nás na support\@organicmaps.app</string>
 	<string name="setting_emulate_bad_storage">Imitovať poškodené úložisko</string>
-	<string name="discovery_button_title">Poznávajte svoje okolie</string>
-	<string name="discovery_button_subtitle_things_to_do">Aktivity</string>
-	<string name="discovery_button_subtitle_attractions">Atrakcie</string>
-	<string name="discovery_button_subtitle_eat_and_drink">Jedlo a pitie</string>
-	<string name="discovery_button_subtitle_local_guides">Miestni sprievodcovia</string>
-	<string name="discovery_button_viator_error_title">Chyba pri načítaní dat</string>
-	<string name="discovery_button_other_error_message">Chyba pri načítaní dat</string>
-	<string name="discovery_button_other_loading_message">Prebieha načítanie dát</string>
-	<string name="discovery_button_404_error_title">Nič nebolo nájdené</string>
-	<string name="discovery_button_404_error_message">Ejha, nenašli sme v okolí nič zaujímavé.</string>
-	<string name="booking_filters_check_in">Prihlásiť sa</string>
-	<string name="booking_filters_check_out">Odhlásiť sa</string>
-	<string name="booking_filters_offline">Nie sú k dispozícii offline.</string>
 	<string name="directions_finish">Ciel</string>
 	<string name="directions_on_foot">Chôdza %s</string>
 	<string name="core_entrance">Vchod  | vjazd</string>
@@ -1057,12 +943,6 @@
 	<string name="cleanliness">Čistota</string>
 	<string name="crowdedness">Preplnenosť</string>
 	<string name="error_enter_correct_name">Prosím, zadajte správne meno</string>
-	<string name="hotel_available">K dispozícii</string>
-	<string name="whats_new_transit_title">Metro k dispozícii</string>
-	<string name="whats_new_transit_message">Vyhľadávajte trasy aj s využitím metra! Pre zobrazenie zmien, prosím, zaktualizujte mapy.</string>
-	<string name="whats_new_discovery_title">Tlačidlo Priezkum</string>
-	<string name="whats_new_discovery_message">Preskúmajte veci okolo Vás pomocou jedného kliku!</string>
-	<string name="price_per_hour">%s/hodina</string>
 	<string name="bookmarks_backup">Povoliť zálohovanie</string>
 	<string name="authorization_button_sign_in">Prihlásiť sa</string>
 	<string name="bookmarks_message_authorized_user">Vaše záložky sa zálohujú automaticky v zabezpečenom cloudovom úložisku. Chcete povoliť zálohovanie?</string>
@@ -1081,15 +961,10 @@
 	<string name="downloader_percent">%1$s (%2$s z %3$s)</string>
 	<string name="downloader_process">Sťahovanie %s...</string>
 	<string name="downloader_applying">Použitie %s...</string>
-	<string name="whats_new_title_hotel_filter">Nové filtre pre hotely k dispozícii!</string>
-	<string name="whats_new_message_hotel_filter">Rezervujte si hotely, ktoré sú k dispozícii vo vami požadovanom dátume! Použiť filtre pre prihlásenie a odhlásenie v hoteli</string>
-	<string name="whats_new_title_ugc_travel">Podeľte sa o svoje skúsenosti s ďalšími cestovateľmi!</string>
-	<string name="whats_new_message_ugc_travel">Ohodnoťte a napíšte recenziu miest, ktoré ste navštívili!</string>
 	<string name="dialog_message_transit_not_found_connection">Naplánujte si trasu v jednej sieti verejnej dopravy</string>
 	<string name="bookmarks_error_message_share_general">Pre chybu aplikácie nie je zdieľanie možné</string>
 	<string name="bookmarks_error_title_share_empty">Chyba zdieľania</string>
 	<string name="bookmarks_error_message_share_empty">Prázdny zoznam nie je možné zdieľať</string>
-	<string name="discovery_button_subtitle_book_hotels">Rezervovať hotely</string>
 	<string name="bookmarks_error_title_empty_list_name">Názov nemôže byť prázdny</string>
 	<string name="bookmarks_error_message_empty_list_name">Zadajte názov zoznamu</string>
 	<string name="bookmarks_new_list_hint">Nový zoznam</string>
@@ -1115,8 +990,6 @@
 	<string name="converting">Konverziu...</string>
 	<string name="wn_reinvented_bookmarks_title">Znovu sme vytvorili záložky!</string>
 	<string name="wn_reinvented_bookmarks_message">Môžete zálohovať záložky, vytvárať zoznamy... Je to úžasné...</string>
-	<string name="wn_way_of_booking_title">Zmenili sme spôsob rezervácie!</string>
-	<string name="wn_way_of_booking_message">Stačí nájsť hotel na mape a rezervovať ho, alebo si vybrať podobný hotel.</string>
 	<string name="bookmarks_restore">Obnoviť záložky</string>
 	<string name="bookmarks_restore_process">Obnovenie...</string>
 	<string name="bookmarks_restore_title">Obnoviť túto verziu?</string>
@@ -1128,19 +1001,12 @@
 	<string name="error_server_message">Na serveri sa vyskytla chyba, skúste to znova neskôr</string>
 	<string name="error_system_message">Vyskytla sa neznáma chyba</string>
 	<string name="restore">Obnoviť</string>
-	<string name="sign_message_gdpr">Musíte prijať naše Zmluvné podmienky a Pravidlá ochrany osobných údajov. Prečítajte si ich pozorne.</string>
-	<string name="sign_agree_pp_gdpr">Súhlasím s &lt;a href="%s">Zásadami ochrany osobných údajov&lt;/a></string>
-	<string name="sign_agree_tof_gdpr">Súhlasím s &lt;a href="%s">zmluvnými podmienkami&lt;/a></string>
-	<string name="sign_agree_news_gdpr">Súhlasím so zasielaním najnovších správ o produktoch OMaps</string>
-	<string name="whats_new_localbiz_title">Malé podniky si zaslúžia pozornosť</string>
-	<string name="whats_new_localbiz_message">Jedná sa o miestne kaviarne, útulné hostely a obchody, ktoré spravia z vašich ciest nezabudnuteľné. Vašu stránku optimalizujeme v OMaps, aby vynikla.</string>
-	<string name="whats_new_order_button">Zanechať žiadosť</string>
 	<string name="bookmarks_page_downloaded">Prevzaté</string>
 	<string name="bookmarks_page_my">Moje</string>
 	<string name="routes_and_bookmarks">Trasy a záložky</string>
 	<string name="bookmarks_webview_success_toast">Záložky úspešne prevzaté</string>
 	<string name="cached_bookmarks_placeholder_title">Prevziať nové miesta</string>
-	<string name="cached_bookmarks_placeholder_subtitle">Stlačením tlačidla stiahnete tisíce zaujímavých miest a trás vytvorených používateľmi OMaps. Budete potrebovať internetové pripojenie.</string>
+	<string name="cached_bookmarks_placeholder_subtitle">Stlačením tlačidla stiahnete tisíce zaujímavých miest a trás vytvorených používateľmi Organic Maps. Budete potrebovať internetové pripojenie.</string>
 	<string name="downloader_download_routers">Prevziať záložky</string>
 	<string name="bookmarks_groups_cached">Prevziať zoznamy</string>
 	<string name="author_name_by_prefix">od %s</string>
@@ -1158,7 +1024,7 @@
 	</plurals>
 	<string name="subtittle_opt_out">Nastavenie sledovania</string>
 	<string name="crash_reports">Hlásenie chýb</string>
-	<string name="crash_reports_description">Vaše údaje môžeme použiť na zlepšenie skúseností s programom OMaps. Zmeny sa prejavia po reštartovaní aplikácie.</string>
+	<string name="crash_reports_description">Vaše údaje môžeme použiť na zlepšenie skúseností s programom Organic Maps. Zmeny sa prejavia po reštartovaní aplikácie.</string>
 	<string name="opt_out_help_ios_1">Vaše mobilné zariadenie môže poskytnúť nastavenie „Obmedziť reklamné sledovanie“ alebo „Zrušiť inzerciu založenú na záujmoch“.</string>
 	<string name="opt_out_help_ios_2">iOS 9 alebo vyšší</string>
 	<string name="opt_out_help_ios_3">Prejdite do nastavenia → Ochrana osobných údajov → Reklama → Povolenie nastavenia „Obmedziť reklamné sledovanie“</string>
@@ -1177,101 +1043,31 @@
 	<string name="category_desc_more">…viac</string>
 	<string name="title_error_downloading_bookmarks">Vyskytla sa chyba</string>
 	<string name="subtitle_error_downloading_bookmarks">Záložky neboli stiahnuté</string>
-	<string name="whats_new_bookmarks_catalog_title">OMaps má teraz katalóg trás</string>
-	<string name="whats_new_bookmarks_catalog_message">Stovky podrobných trás po celom svete: kam ísť, čo vidieť, kde sa ísť najesť.</string>
-	<string name="whats_new_popularity_label_title">Obľúbené miesta v okolí</string>
-	<string name="whats_new_popularity_label_message">Sekcia Čo robiť vám pomôže nájsť najobľúbenejšie miesta v meste.</string>
-	<string name="whats_new_hot_offers_title">Atraktívne ponuky hotelov</string>
-	<string name="whats_new_hot_offers_message">Môžete ich vyhľadávať pomocou kategórie Hotely vo vyhľadávaní. Ponuky budú označené percentuálnym symbolom na mape a vo výsledkoch vyhľadávania.</string>
 	<string name="error_already_downloaded">Tento zoznam už bol stiahnutý</string>
-	<string name="guides">Príručky</string>
-	<string name="guide_downloaded_title">Príručka bola úspešne stiahnutá</string>
-	<!-- as few symbols as possible -->
-	<string name="download_guides">Vyhľadať sprievodcov</string>
-	<string name="guides_groups_cached">Stiahnuté príručky</string>
-	<string name="subtitle_error_downloading_guide">Príručka nebola stiahnutá</string>
-	<string name="error_already_downloaded_guide">Táto príručka už bola stiahnutá</string>
-	<string name="guide_downloaded_subtitle">Stlačením tlačidla ,Zobraziť na mape\' si spustíte príručku</string>
-	<string name="bookmarks_guides">Záložky a príručky</string>
-	<string name="paybtn_title">Zaplaťte %s/rok</string>
-	<string name="paybtn_subtitle">Ušetrite %s/rok</string>
-	<string name="options_dropdown_title">Viac možností</string>
-	<string name="why_support">Prečo podporiť OMaps?</string>
-	<string name="options_dropdown_item1">%1$s/mesačne (ušetrite %2$s/ročne)</string>
-	<string name="options_dropdown_item2">%s/týždenne (žiadne šetrenie)</string>
-	<string name="why_support_item1">Odstránime pre vás všetky reklamy</string>
-	<string name="why_support_item2">Pomôžete nám zlepšiť OMaps</string>
+	<string name="why_support">Prečo podporiť Organic Maps?</string>
+	<string name="why_support_item2">Pomôžete nám zlepšiť Organic Maps</string>
 	<string name="why_support_item3">Pomôžete nám vylepšiť otvorené mapy OpenStreetMap.org</string>
-	<string name="purchase_processing">Váš nákup sa spracováva…</string>
-	<string name="tips_bookmarks_catalog_title">Offline sprievodcovia pre akýkoľvek druh cesty</string>
-	<string name="tips_bookmarks_catalog_message">Stiahnite si a naplánujte turistické trasy na zaujímavých miestach v rôznych mestách sveta.</string>
-	<string name="tips_discover_button_title">Chcete nájsť obľúbené miesta v okolí?</string>
-	<string name="tips_discover_button_message">Sekcia „Poznávajte svoje okolie“ obsahuje najlepšie reštaurácie, hotely a pamiatky.</string>
-	<string name="tips_book_hotel_title">Zarezervujte si najútulnejšie hotely pre svoje cesty</string>
-	<string name="tips_book_hotel_message">Pomocou vyhľadávania a filtrov nájdite pre Vás najvhodnejšie hotely. Použite tlačidlo „Rezervovať“ na mieste, kde si môžete rezervovať hotel okamžite.</string>
-	<string name="tips_map_layers_title">Neviete, na ktorú stanicu ísť, ak chcete chytiť spoj?</string>
-	<string name="tips_map_layers_message">Zapnite vrstvu metra a zobrazte mapu metra a v novom meste vždy nájdete cestu.</string>
 	<string name="channels_map_update">Aktualizácia máp</string>
-	<string name="channels_reviews">Neodoslané recenzie</string>
-	<string name="purchase_loading">Načítavajú sa informácie o nákupe…</string>
-	<string name="purchase_error_subtitle">Počas spracovania nákupu sa vyskytla chyba</string>
-	<string name="awaiting_approval">Očakáva sa schválenie rodiča</string>
-	<string name="whats_new_leave_review">Zanechať recenziu! Podeľte sa o svoj názor o miestach, ktoré ste navštívili počas dovolenky.</string>
 	<string name="server_unavailable_title">Server je nedostupný</string>
-	<string name="server_unavailable_message">Nákup bude dokončený neskôr. Ak chyba pretrváva, kontaktujte support\@omaps.app.</string>
-	<string name="offline_fiters_check_in">Pripojte sa na internet, aby ste filtrovali hotely podľa dátumov.</string>
-	<string name="restore_subscription">Obnovte si predplatné</string>
-	<string name="restore_success_alert">Predplatné bolo úspešne obnovené</string>
-	<string name="restore_error_alert">Pri obnovení predplatného sa vyskytla chyba</string>
-	<string name="restore_no_subscription_alert">Neexistuje žiadne aktívne predplatné</string>
-	<string name="subscriptions_title">Predplatné</string>
-	<string name="manage_subscription">Správa predplatného</string>
 	<string name="sharing_options">Možnosti zdieľania</string>
 	<string name="export_file">Exportovať súbor</string>
 	<string name="list_settings">Nastavenie zoznamu</string>
 	<string name="delete_list">Vymazať zoznam</string>
 	<string name="hide_from_map">Skryť z mapy</string>
-	<string name="ugc_route_tags_screen_label">Vyberte značky</string>
-	<string name="ugc_route_tags_progress_msg">Načítavanie značiek…</string>
 	<string name="public_access">Verejný prístup</string>
 	<string name="limited_access">Obmedzený prístup</string>
-	<string name="upload_and_publish_desc">Táto príručka bude nahraná do verejného katalógu OMaps a bude dostupná ostatným používateľom</string>
-	<string name="upload_and_publish">Nahrať a publikovať</string>
-	<string name="upload_and_get_direct_link">Nahrať a získať priamy odkaz</string>
-	<string name="get_direct_link_desc">Váš sprievodca bude dostupný každému, kto má odkaz</string>
-	<string name="upload_and_publish_progress_text">Publikovanie vášho sprievodcu…</string>
-	<string name="upload_and_publish_success">Sprievodca bol publikovaný</string>
-	<string name="ugc_routes_user_agreement">&lt;b>POZNÁMKA:&lt;/b> pokračovaním akceptujte &lt;a href="%s">licenčnú zmluvu&lt;/a></string>
-	<string name="ugc_route_edit_list_name">Názov sprievodcu</string>
-	<string name="ugc_route_edit_description_hint">Zadajte popis (text alebo html)</string>
+	<string name="bookmark_category_name">Kategória</string>
+	<string name="bookmark_category_description_hint">Zadajte popis (text alebo html)</string>
 	<string name="not_shared">Súkromné</string>
 	<string name="direct_link_progress_text">Nahrávanie váľho súboru…</string>
 	<string name="direct_link_success">Odkaz bol vytvorený</string>
-	<string name="edit_guide_title">Upravte vášho sprievodcu na webe</string>
-	<string name="edit_guide_subtitle">Získajte odkaz na úpravu sprievodcu prostredníctvom webovej aplikácie: pridajte popisy, odovzdajte fotografie a prepojte záložky s riadkami.</string>
 	<string name="send_a_link_btn">Poslať mi odkaz</string>
 	<string name="upload_error_toast">Počas nahrávania súboru sa vyskytla chyba</string>
 	<string name="tags_loading_error_subtitle">Počas načítavania značiek sa vyskytla chyba, skúste to znova</string>
 	<string name="unable_upload_errorr_title">Nahrávanie súboru zlyhalo</string>
 	<string name="unable_upload_error_subtitle_edited">Tento súbor bol upravený prostredníctvom webovej aplikácie</string>
 	<string name="unable_upload_error_subtitle_broken">Tento súbor je poškodený a nedá sa nahrať. Prosím nahrajte iný súbor.</string>
-	<string name="buy_btn">Kúpte si tento za %s</string>
-	<string name="download_guide_progress">Sťahovanie vášho sprievodcu…</string>
-	<string name="price_error_title">Nebolo možné získať cenu</string>
-	<string name="price_error_subtitle">Prosím skúste to znovu o pár minút</string>
-	<string name="edit_your_guide_email_body">Upravte svojho sprievodcu na webe jednoducho pomocou počítača: pridajte popisy, odovzdajte fotografie a prepojte záložky s riadkami.</string>
-	<string name="edit_on_web">Upraviť na webe</string>
-	<string name="properties_loading_error_subtitle">Pri načítavaní možností sa vyskytla chyba, skúste to znova</string>
-	<string name="custom_props_desc">V tomto sprievodcovi ste navštívili miesta ako</string>
-	<string name="custom_props_title">Miestny alebo cestovateľ</string>
-	<string name="custom_props_local">miestny</string>
-	<string name="custom_props_traveler">cestovateľ</string>
-	<string name="select_properties">Vyberte možnosti</string>
-	<string name="access_rules_p_to_p">Špeciálny prístup</string>
-	<string name="access_rules_paid">Zakúpené</string>
-	<string name="failed_purchase_support_message">Je nám ľúto, ale pravdepodobne máte nedokončený nákup. Obráťte sa na podporu a my problém vyriešime.</string>
 	<string name="contact">Kontakt</string>
-	<string name="check_price_button">Skontrolovať cenu</string>
 	<string name="download_button">Stiahnuť</string>
 	<string name="speedcams_alert_title">Rýchlostné kamery</string>
 	<string name="speedcams_alert_subtitle">Upozornenie na rýchlostné obmedzenia</string>
@@ -1280,70 +1076,26 @@
 	<string name="speedcam_option_never">Nikdy</string>
 	<string name="bookmark_description_title">Popis záložiek</string>
 	<string name="place_description_title">Popis miesta</string>
-	<string name="ugc_routes_error_uploading_file_toast">Bohužiaľ, počas nahrávania záložiek sa vyskytla chyba. Prosím skúste znova.</string>
-	<string name="notification_channel_ugc">Sociálny obsah</string>
 	<!-- this text will be shown in application notification preferences opposite checkbox which enable/disable downloader notifications. Devices on Android 8+ are affected. -->
 	<string name="notification_channel_downloader">Sťahovač máp</string>
-	<string name="notification_leave_review_title">%s - aké to bolo?</string>
-	<string name="notification_leave_review_content">Pomôžte cestujúcim tým, že zanecháte recenziu!</string>
-	<string name="share_bookmarks_email_body_link">Dobrý deň!\n\nTu je odkaz, kde si môžete stiahnuť svoje záložky: %s. Otvorte zoznam prostredníctvom služby OMaps a užite si výlet!\n\nZískajte aplikáciu: https://omaps.app/get?kmz</string>
+	<string name="share_bookmarks_email_body_link">Dobrý deň!\n\nTu je odkaz, kde si môžete stiahnuť svoje záložky: %s. Otvorte zoznam prostredníctvom služby Organic Maps a užite si výlet!\n\nZískajte aplikáciu: https://organicmaps.app/get?kmz</string>
 	<string name="warning_speedcams_title">Navigátor vás upozorní na kamery, keď prekročíte rýchlostný limit %d km/h</string>
 	<string name="warning_speedcams_subtitle">Dodržujte pravidlá cestnej premávky v krajine, do ktorej cestujete.</string>
 	<string name="speedcams_notice_message">Automaticky - Upozornenie na rýchlostné kamery, ak existuje riziko prekročenia rýchlostného limitu\nVždy - Vždy upozorniť na rýchlostné kamery\nNikdy - Nikdy neupozorňovať na rýchlostné kamery</string>
-	<string name="whats_new_ugc_routes_title">Je ľahké podeliť sa o vaše dojmy</string>
-	<string name="whats_new_ugc_routes_subtitle">Uložte si nezabudnuteľné miesta, vytvorte trasy pomocou záložiek a zdieľajte ich so všetkými v katalógu OMaps.</string>
-	<string name="whats_new_webeditor_title">Premeňte svoje trasy na príbehy</string>
-	<string name="whats_new_ugc_routes_message2">Pridajte fotografie a podrobné príbehy do webového editora.</string>
-	<string name="ugc_thanks_message_auth">Recenzia bola uložená</string>
-	<string name="ugc_thanks_message_not_auth">Ak chcete zanechať recenziu, prihláste sa</string>
-	<string name="notification_leave_review_v2_title">Ohodnoťte navštívené miesto a pomôžte cestujúcim!</string>
-	<string name="error_public_not_enought_title">Nie je dostatok záložiek</string>
-	<string name="error_public_not_enought_subtitle">Mali by ste mať minimálne 3 záložky, aby ste mohli nahrať sprievodcu do verejného katalógu</string>
-	<string name="bookmark_public_upload_alert_title">Ste pár krokov od zdieľania vašich záložiek so všetkými cestujúcimi OMaps!</string>
-	<string name="bookmark_public_upload_alert_subtitle">Uistite sa, že máte presný názov a popis svojho zoznamu a všetky záložky obsahujú určité informácie o miestach. Týmto spôsobom môžu váš zoznam nájsť a používať iní.</string>
-	<string name="bookmark_public_upload_alert_ok_button">Áno som si istý!</string>
-	<string name="name_title">Zadajte názov sprievodcu</string>
-	<string name="name_placeholder">napr. Londýnske krčmy</string>
-	<string name="name_comment1">Prosím pomenujte svojho sprievodcu tak, aby ho mohli cestujúci ľahko nájsť: napríklad \"Londýnske krčmy\"</string>
-	<string name="name_comment2">Názov by nemal obsahovať špeciálne symboly. Názov by nemal byť \"Moje miesta\"</string>
-	<string name="description_guide">Popis</string>
-	<string name="description_title">Zadajte popis vášho sprievodcu</string>
-	<string name="description_placeholder">Opíšte podrobne svojho sprievodcu</string>
-	<string name="description_comment1">Váš popis sprievodcu by mal obsahovať najmenej 30 symbolov.</string>
-	<string name="ugc_route_tags_desc">Vyberte značky, ktoré pomáhajú ostatným cestovateľom nájsť sprievodcu. Je to povinné. Maximálny počet značiek je %s.</string>
-	<string name="html_format_error_title">Váš sprievodca nebol uverejnený</string>
-	<string name="html_format_error_subtitle">Uistite sa, že názvy a popisy vašich záložiek majú platný formát. Môžete si ho skontrolovať v prehliadači pre stolné počítače kliknutím na tlačidlo \"Upraviť online\" nižšie.</string>
-	<string name="web_editor_description">Nahrajte si sprievodcu a získajte odkaz na úpravu z pracovnej plochy</string>
-	<string name="edit_on_web_confirm">Upraviť online</string>
-	<string name="update_guide">Nahrať aktualizáciu</string>
-	<string name="direct_link_updating_text">Aktualizácia vášho súboru…</string>
-	<string name="direct_link_updating_success">Váš sprievodca bol aktualizovaný</string>
-	<string name="unable_get_direct_link_desc">Sprievodcu môžete zdieľať prostredníctvom verejného odkazu</string>
-	<string name="any_access_update_alert_title">Je možné, že sa vyskytli nejaké zmeny</string>
-	<string name="any_access_update_alert_message">Chcete aktualizovať svoje záložky? Nová verzia bude k dispozícii prostredníctvom toho istého odkazu.</string>
-	<string name="any_access_update_alert_update">Aktualizácia</string>
-	<string name="public_or_limited_access_after_edit_online_error_title">Upravili ste záložky online</string>
-	<string name="public_or_limited_access_after_edit_online_error_message">V budúcnosti môžete upravovať, publikovať alebo zdieľať sprievodcu s priateľmi prostredníctvom našich webových stránok</string>
 	<string name="power_managment_title">Úsporný režim</string>
 	<string name="power_managment_description">Keď je zvolený automatický režim, aplikácia začne vypínať funkcie, ktoré vybíjajú batériu v závislosti od aktuálnej úrovne nabitia batérie</string>
 	<string name="power_managment_setting_never">Nikdy</string>
 	<string name="power_managment_setting_auto">Automaticky</string>
 	<string name="power_managment_setting_manual_max">Maximálna úspora batérie</string>
-	<string name="enable_logging_warning_message">Táto možnosť zapína zaznamenávanie na diagnostické účely. Môže to byť užitočné pre našu technickú podporu, ktorá rieši problémy s aplikáciou. Povoliť túto možnosť iba na požiadanie podpory OMaps.</string>
+	<string name="enable_logging_warning_message">Táto možnosť zapína zaznamenávanie na diagnostické účely. Môže to byť užitočné pre našu technickú podporu, ktorá rieši problémy s aplikáciou. Povoliť túto možnosť iba na požiadanie podpory Organic Maps.</string>
 	<string name="html_error_upload_message_try_again">Skontrolujte svoje sieťové nastavenia a skúste to znova</string>
 	<string name="html_error_upload_title_try_again">Žiadne internetové pripojenie</string>
 	<string name="notification_leave_review_v2_android_short_title">Ohodnotiť a pomôcť cestujúcim!</string>
 	<string name="notifications_illegal_alert_disable_button">Vypnite upozornenia</string>
 	<string name="access_rules_author_only">Online úprava</string>
 	<string name="privacy_settings_menu">Nastavenia ochrany osobných údajov</string>
-	<string name="gdpr_request_setting">Získajte ID pre GDPR žiadosť</string>
-	<string name="gdpr_request_window_title">Vaše ID: %s.</string>
-	<string name="gdpr_request_window_message">Skopírujte ho a pošlite žiadosť na adresu support\@omaps.app</string>
-	<string name="gdpr_request_window_copy">Skopírujte ID</string>
 	<string name="unable_upadate_error_title">Aktualizácia súboru zlyhala</string>
 	<string name="unable_upadate_error_message">Počas aktualizácie sa vyskytli určité chyby. Skontrolujte zmeny a skúste to znova</string>
-	<string name="whats_new_wiki_title">Čo je to za miesto?</string>
-	<string name="whats_new_wiki_message">Pridali sme články Wikipedia.org na stránky najobľúbenejších turistických atrakcií. Sú k dispozícii offline</string>
 	<string name="driving_options_title">Možnosti jazdy</string>
 	<string name="driving_options_subheader">Vyhnúť sa na každej trase</string>
 	<string name="avoid_tolls">Spoplatnené cesty</string>
@@ -1361,23 +1113,7 @@
 	<string name="avoid_toll_roads_placepage">Vyhnúť sa spoplatneným cestám</string>
 	<string name="avoid_unpaved_roads_placepage">Vyhnúť sa nespevneným cestám</string>
 	<string name="avoid_ferry_crossing_placepage">Vyhnúť sa prechodom na trajekte</string>
-	<string name="cached_guides_placeholder_subtitle">OMaps ponúka hotových sprievodcov pre vybrané miesta s fotografiami a popismi, ktoré sú zobrazené na mape a sú dostupné v režime offline.</string>
-	<string name="guides_catalogue_title">Katalóg sprievodcov</string>
-	<string name="download_guides_button">Do katalógu</string>
-	<plurals name="placepage_summary_rating_description">
-	  <item quantity="one">Na základe %d recenzie</item>
-	  <item quantity="other">Na základe %d recenzií</item>
-	</plurals>
 	<string name="type.cuisine.uzbek">Uzbecká kuchyňa</string>
-	<string name="onboarding_guide_direct_download_title">Sprievodca je pripravený na stiahnutie</string>
-	<string name="onboarding_guide_direct_download_subtitle">Zobrazí sa na mape a bude pracovať v režime offline</string>
-	<string name="onboarding_guide_direct_download_button">Stiahnuť</string>
-	<string name="onboarding_bydeeplink_guide_title">Sprievodcovia pripravení na používanie v aplikácii OMaps</string>
-	<string name="onboarding_bydeeplink_guide_subtitle">Najlepšie miesta na navštívenie zobrazené na mape s fotografiami a popismi. Pracujú offline.</string>
-	<string name="whats_new_auto_update_bydeeplink_title">Skôr ako prejdete na sprievodcu…</string>
-	<string name="whats_new_auto_update_bydeeplink_message">Aktualizujte mapy, aby boli informácie o objektoch aktuálne!</string>
-	<string name="whats_new_auto_update_and_proceed_button_size">Aktualizovať (%s) a pokračovať</string>
-	<string name="purchase_please_wait_toast">Pred dokončením nákupu neopúšťajte túto obrazovku</string>
 	<string name="trip_start">Poďme</string>
 	<string name="pick_destination">Cieľ</string>
 	<string name="follow_my_position">Vycentrovať</string>
@@ -1397,41 +1133,6 @@
 	<string name="dialog_routing_rebuild_from_current_location_carplay">Trasa bude obnovená z vašej aktuálnej polohy</string>
 	<string name="dialog_routing_rebuild_for_vehicle_carplay">Trasa bude upravená na jazdu autom</string>
 	<string name="ok">Ok</string>
-	<string name="booking_button_toolbar">Vyberte si hotel na mape</string>
-	<string name="popup_booking_download_guides_title">Rezervovaný hotel?</string>
-	<string name="popup_booking_download_guides_message">Naplánujte si trasu s hotovými sprievodcami z OMaps</string>
-	<string name="popup_mwm_download_guides_title">Offline mestskí sprievodcovia</string>
-	<string name="popup_mwm_download_guides_cta">Zvoľte jedno</string>
-	<string name="popup_mwm_download_guides_cta_1">Pozrite sa</string>
-	<string name="gallery_pp_download_guides_offline_title">Naplánujte si dovolenku s OMaps!</string>
-	<string name="gallery_pp_download_guides_offline_subtitle">Nenechajte si ujsť nič so sprievodcami skúsených cestovateľov</string>
-	<string name="gallery_pp_download_guides_offline_cta">Zapnite internet</string>
-	<string name="gallery_pp_download_guides_title">Sprievodcovia</string>
-	<string name="native_screen_subscription_title">Neobmedzený prístup k 2000+ cestovným sprievodcom!</string>
-	<string name="native_screen_subscription_message">Pamätná dovolenka kdekoľvek a s kýmkoľvek cestujete</string>
-	<string name="annual_subscription_title">Ročne</string>
-	<string name="montly_subscription_title">Mesačne</string>
-	<string name="annual_subscription_message">12 mesiacov neobmedzeného prístupu</string>
-	<string name="montly_subscription_message">1 mesiac neobmedzeného prístupu</string>
-	<string name="subscription_success_dialog_title">Ďakujeme za prihlásenie!</string>
-	<string name="subscription_success_dialog_message">Teraz máte neobmedzený prístup do celého katalógu sprievodcov</string>
-	<string name="renewal_screen_title">Platnosť vášho odberu vypršala</string>
-	<string name="renewal_screen_message">Všetci sprievocovia prevzaté predplatným budú odstránení. Chcete obnoviť predplatné a ponechať si ich?</string>
-	<string name="renewal_screen_button_restore">Áno, obnoviť</string>
-	<string name="renewal_screen_button_cancel">Nie, odstráňte sprievodcov</string>
-	<string name="subscription_error_ping_title">Nákup zlyhal</string>
-	<string name="subscription_error_message">Služba je momentálne vo vašom regióne nedostupná. Skúste to prosím neskôr</string>
-	<string name="subscription_error_button">Rozumiem</string>
-	<string name="timeout_error_title">Hops, čas vypršal!</string>
-	<string name="timeout_error_message">Naše servery nereagujú. Skontrolujte internetové pripojenie a skúste to znova.</string>
-	<string name="per_month">/mesiac</string>
-	<string name="per_year">/rok</string>
-	<string name="buy_btn_for_subscription">Neobmedzený prístup od %s</string>
-	<string name="buy_btn_for_subscription_1">Kúpiť VŠETKÝCH sprievodcov za %s</string>
-	<string name="buy_btn_for_subscription_ios_only_mo">Neobmedzený prístup za %s/mes</string>
-	<string name="buy_btn_for_subscription_ios_only_year">Neobmedzený prístup za %s/rok</string>
-	<string name="subscription_terms_guides">Platba bude účtovaná cez váš účet iTunes po potvrdení nákupu. Predplatné sa automaticky obnoví, pokiaľ sa funkcia automatického obnovenia nevypne aspoň 24 hodín pred koncom aktuálneho obdobia. Vaše predplatné bude účtované podľa plánu na obnovenie do 24 hodín pred koncom aktuálneho obdobia. Funkciu automatického obnovenia v nastaveniach účtu Apple ID môžete kedykoľvek spravovať alebo vypnúť. Sprievodcov prevzatých prostredníctvom predplatného môžete používať len do dátumu vypršania platnosti. Po 30 dňoch od dátumu skončenia platnosti sa automaticky odstránia sprievodcovia so záložkami.</string>
-	<string name="subscription_terms">Platba bude účtovaná na váš účet iTunes pri potvrdení nákupu. Predplatné sa automaticky obnoví, pokiaľ nebude automatické obnovenie vypnuté minimálne 24 hodín pred koncom aktuálneho obdobia. Váš účet sa bude účtovať podľa vášho plánu obnovy do 24 hodín pred koncom aktuálneho obdobia. Automatickú obnovu vo vašom ID nastavení účtu Apple môžete spravovať alebo vypnúť kedykoľvek pri kúpe.</string>
 	<string name="avoid_unpaved_carplay_1">Nespevn. NIE</string>
 	<string name="avoid_unpaved_carplay_2">Nespevnené ÁNO</string>
 	<string name="avoid_ferry_carplay_1">Trajekty NIE</string>
@@ -1440,7 +1141,7 @@
 	<string name="avoid_tolls_carplay_2">Spoplatnené ÁNO</string>
 	<string name="speedcams_alert_title_carplay_1">Radary</string>
 	<string name="speedcams_alert_title_carplay_2">Rýchl. upozorn.</string>
-	<string name="download_map_carplay">Prosím stiahnite si mapy v aplikácii OMaps vo vašom zariadení</string>
+	<string name="download_map_carplay">Prosím stiahnite si mapy v aplikácii Organic Maps vo vašom zariadení</string>
 	<string name="carplay_roundabout_exit">%s výjazd</string>
 	<!-- max. 10 symbols, both iOS and Android -->
 	<string name="sort">Zoradiť…</string>
@@ -1488,80 +1189,15 @@
 	<string name="bookmarks_edit_list">Upraviť zoznam</string>
 	<!-- Android, max 18 symbols -->
 	<string name="bookmarks_delete_list">Vymazať zoznam</string>
-	<string name="popup_subscription_success_map_title">Woohoo, ste prihlásení!</string>
-	<string name="popup_subscription_success_map_message">Teraz objavte najlepšie turistické body v katalógu OMaps</string>
-	<string name="popup_subscription_success_map_start_button">Začnite si prehliadať</string>
-	<string name="popup_subscription_success_map_not_now_button">Teraz nie</string>
 	<string name="religious_places">Náboženské miesta</string>
-	<string name="subscription_terms_android">Po potvrdení nákupu sa platba naúčtuje na váš účet Google Play. Ak sa funkcia automatického obnovenia nevypne najmenej 24 hodín pred koncom aktuálneho obdobia, odber sa automaticky obnoví. Váš účet bude naúčtovaný podľa plánu obnovenia do 24 hodín pred koncom aktuálneho obdobia. Po zakúpení môžete funkciu automatického obnovenia spravovať alebo vypnúť v Nastaveniach účtu. Sprievodcov stiahnutých s predplatným môžete používať až do dátumu skončenia ich platnosti. Po 30 dňoch od dátumu skončenia platnosti predplatného sa stiahnutí sprievodcovia automaticky odstránia.</string>
 	<string name="select_list">Vybrať zoznam</string>
-	<string name="pp_discovery_place_related_header">Toto miesto sa nachádza v katalógu sprievodcov</string>
-	<string name="pp_discovery_place_related_header_1">Toto miesto je uvedené v sprievodcovi</string>
-	<string name="pp_discovery_place_related_cta_button">Pozrieť</string>
-	<string name="pp_discovery_place_related_tag_header">Sprievodcovia podľa štítku „%s“</string>
-	<string name="pp_discovery_place_related_tag_header_1">Môže sa vám páčiť</string>
-	<string name="buy_btn_for_subscription_version_2">VŠETCI sprievodcovia len za %s/m</string>
-	<string name="buy_btn_for_subscription_version_3">Celý katalóg za %s/m</string>
-	<string name="buy_btn_for_subscription_ios_only_mo_version_2">Prístup ku katalógu za %s/m</string>
-	<string name="buy_btn_for_subscription_ios_only_year_version_2">Prístup ku katalógu za %s/r</string>
-	<string name="subscription_screen_native_title_version_2">Prístup k sprievodcom so záložkami!</string>
-	<string name="subscription_screen_native_message_version_2">Buďte pripravení na akúkoľvek cestu v 600+ mestách a 100+ krajinách</string>
-	<string name="catalog_no_internet_title">Žiadne internetové pripojenie</string>
-	<string name="catalog_no_internet_button">Skúste to znova</string>
-	<string name="new_onboarding_button">Ďalej</string>
-	<string name="new_onboarding_button_2">Začať</string>
-	<string name="new_onboarding_step1_header_2">Všestranný pomocník na cestovanie</string>
-	<string name="new_onboarding_step2_header">Sen a plán</string>
-	<string name="new_onboarding_step2_message">70+ miliónov miest, hotových sprievodcov a rezervácie hotelov priamo z mapy – ste pripravení na cestu!</string>
-	<string name="new_onboarding_step3_message">Nikdy sa nestratíte pomocou podrobných máp ktorejkoľvek krajiny a navigácie – všetko funguje offline!</string>
-	<string name="new_onboarding_step4_header">Zdieľajte dojmy</string>
-	<string name="new_onboarding_step4_message">Umiestnite záložky na obľúbené miesta a pošlite ich priateľom</string>
-	<string name="new_onboarding_step5.1_header">Ešte jedna vec, než začnete…</string>
-	<string name="new_onboarding_step5.1_message">Nezabudnite navštíviť náš úplne nový katalóg sprievodcov a nájsť offline sprievodcu pre svoju nadchádzajúcu cestu!</string>
-	<string name="new_onboarding_step5.1_button">Otvoriť katalóg</string>
-	<string name="new_onboarding_step5.2_message">Vaše predplatné katalógu sprievodcov OMaps má skvelú hodnotu. Získajte plný prístup k mestským a outdoorovým sprievodcom po celom svete!</string>
-	<string name="new_onboarding_step5.2_button">Skontrolovať podmienky</string>
-	<string name="new_onboarding_step5.3_message">Vyskúšajte bezplatné ukážky hotových mestských a vonkajších trás s bezplatným výberom OMaps!</string>
-	<string name="new_onboarding_step5.3_button">Bezplatné stiahnutie</string>
-	<string name="new_onboarding_additional_steps_later_button">Neskôr</string>
-	<string name="all_pass_subscription_header">Prihlásiť sa do</string>
-	<string name="all_pass_subscription_subheader">Katalóg sprievodcov</string>
-	<!-- \n - for a break between lines. Max. 15 characters per 1 line. -->
-	<string name="all_pass_subscription_message_title">30000+\nsprievodcov\na tratí</string>
-	<!-- <b> & </b> tag to make a part of the line bold -->
-	<string name="all_pass_subscription_message_subtitle"><b>Neobmedzené sťahovanie</b> mestských a vonkajších trás <b>do režimu offline</b></string>
-	<!-- \n - for a break between lines. Max. 17 characters per 1 line. -->
-	<string name="all_pass_subscription_message_title_2">Interaktívny\nvýškový profil</string>
-	<!-- <b> & </b> tag to make a part of the line bold -->
-	<string name="all_pass_subscription_message_subtitle_2">Každá trasa obsahuje <b>prevýšenie a základné informácie o trase</b></string>
-	<!-- \n - for a break between lines. Max. 15 characters per 1 line. -->
-	<string name="all_pass_subscription_message_title_3">Záložky,\nfotky a\nodporúčania</string>
-	<!-- <b> & </b> tag to make a part of the line bold -->
-	<string name="all_pass_subscription_message_subtitle_3"><b>Dozviete sa všetko o trase</b>, ktorou sa vydáte</string>
-	<string name="sightseeing_subscription_header_subscription">Predplatné sprievodcov</string>
-	<string name="sightseeing_subscription_message">700+ miest a 100+ krajín</string>
-	<string name="sightseeing_subscription_message_2">Dostupné offline</string>
-	<string name="sightseeing_subscription_message_3">Fotografie a turistické trasy</string>
-	<string name="subscription_success_dialog_title_sightseeing_pass">Ďakujeme, že ste sa prihlásili na odber!</string>
-	<string name="subscription_success_dialog_message_sightseeing_pass">Teraz máte prístup ku všetkým sprievodcom v katalógu</string>
-	<string name="downloader_main_gallery_header">Mapy a sprievodcovia</string>
-	<string name="downloader_main_gallery_message">Teraz v tejto sekcii môžete nielen sťahovať mapy, ale tiež si pozrieť sprievodcov pre svoju nadchádzajúcu cestu</string>
-	<string name="downloader_main_1_element_gallery_header">Všetci sprievodcovia</string>
-	<string name="downloader_main_1_element_gallery_message">vo viac ako 100 krajinách</string>
-	<string name="downloader_country_1_element_gallery_header">%s sprievodcov</string>
-	<string name="downloader_country_no_guides_gallery_header">V tejto krajine zatiaľ nie sú žiadni sprievodcovia</string>
-	<string name="downloader_country_no_guides_gallery_message">Môžete navštíviť ďalších sprievodcov offline vo viac ako 100 krajinách, v ktorých nájdete aktivity v meste a vonku</string>
-	<string name="dialog_pedestrian_route_is_long">Trasa pre chodcov k miestu nalodenia je príliš dlhá</string>
-	<string name="new_onboarding_step3_header">Zážitok</string>
-	<string name="all_pass_screen_best_value">Najlepšia hodnota</string>
-	<string name="buy_btn_for_subscription_3">Celý katalóg za %s/rok</string>
 	<string name="transit_not_found">Navigácia metra v tejto oblasti ešte nie je k dispozícii</string>
 	<string name="dialog_pedestrian_route_is_long_header">Trasa metra sa nenašla</string>
 	<string name="dialog_pedestrian_route_is_long_message">Vyberte počiatočný alebo konečný bod bližšie k stanici metra</string>
 	<!-- Failed planning SUBWAY route message in navigation view -->
 	<string name="routing_planning_error_subway_special">Plánovanie trasy metra zlyhalo</string>
 	<string name="button_layer_isolines">Terén</string>
-	<string name="tips_map_layers_title_countour">Nové v OMaps: offline topografická vrstva!</string>
+	<string name="tips_map_layers_title_countour">Nové v Organic Maps: offline topografická vrstva!</string>
 	<string name="tips_map_layers_message_countour">Naplánujte a užite si výlety do prírody s istotou, že viete o tejto oblasti všetko</string>
 	<string name="isolines_activation_error_dialog">Ak chcete aktivovať a používať topografickú vrstvu, aktualizujte alebo stiahnite mapu oblasti</string>
 	<string name="isolines_location_error_dialog">Topografická vrstva ešte nie je v tejto oblasti k dispozícii</string>
@@ -1580,79 +1216,10 @@
 	<string name="elevation_profile_time">Čas:</string>
 	<string name="elevation_profile_hours">h.</string>
 	<string name="elevation_profile_minutes">min</string>
-	<string name="view_on_map_downloaded_error">Tento sprievodca bol z tohto zariadenia odstránený</string>
-	<string name="subscription">Predplatné</string>
-	<string name="button_layer_guides">Sprievodcovia (noví)</string>
-	<string name="no_routes_in_the_area_toast">Nenašli sa tu žiadni sprievodcovia</string>
 	<string name="isolines_toast_zooms_1_10">Priblížením preskúmajte izočiary</string>
-	<string name="routes_layer_in_menu_toast">Ak chcete nájsť offline príručky, preskúmať izočiary, trasy metra alebo dopravné zápchy, zapnite vrstvy</string>
-	<string name="routes_layer_is_on_toast">Potiahnutím mapy preskúmate sprievodcov</string>
-	<string name="connection_error_dialog_guides_title">Chyba spojenia</string>
-	<string name="connection_error_dialog_guides_message">Vrstva nefunguje, pretože nemáte prístup k internetu alebo máte slabý signál. Ak chcete pokračovať, skontrolujte pripojenie alebo vypnite vrstvu.</string>
-	<string name="connection_error_dialog_guides_try">Skúste to znova</string>
-	<string name="connection_error_dialog_guides_layer_turn_off">Vypnúť</string>
-	<string name="connection_error_toast_guides">Pokus o opätovné pripojenie</string>
-	<!-- as few symbols as possible -->
-	<string name="routes_card_show">Zobraziť na mape</string>
-	<!-- as few symbols as possible -->
-	<string name="routes_card_hide">Skryť z mapy</string>
 	<string name="downloader_updating_ios">Aktualizovanie</string>
 	<string name="downloader_loading_ios">Sťahovanie</string>
-	<string name="routes_card_plus_track">+ trasu</string>
-	<string name="routes_card_number_of_points">%s miest</string>
-	<string name="routes_card_routes_tag">Itinerár</string>
-	<string name="routes_card_set_tag">Odporúčané miesta</string>
-	<!-- as few symbols as possible -->
-	<string name="guides_trial_cta_button">Spustite si 7-dňovú bezplatnú skúšobnú verziu</string>
-	<string name="guides_trial_message">Potom %s ročne. Zrušte kedykoľvek</string>
-	<string name="trial_error_dialog">Ľutujeme, skúšobnú verziu ste už využili</string>
-	<!-- as few symbols as possible -->
-	<string name="floating_button_filters">Filtre</string>
-	<plurals name="date_picker_amout_of_days">
-	  <item quantity="one">%d deň</item>
-	  <item quantity="few">%d dní</item>
-	  <item quantity="other">%d dní</item>
-	</plurals>
-	<!-- as few symbols as possible -->
-	<string name="date_picker_сhoose_dates_cta">Zvolené dátumy</string>
-	<!-- as few symbols as possible -->
-	<string name="guests_picker_rooms_title">Izby a hostia</string>
-	<string name="guests_picker_rooms">Izby</string>
-	<string name="guests_picker_adults">Dospelí</string>
-	<string name="guests_picker_children_title">Deti</string>
-	<string name="guests_picker_children_subtitle">1-17 rokov</string>
-	<string name="guests_picker_infants_title">Batoľatá</string>
-	<string name="guests_picker_infants_subtitle">0-12 mesiacov</string>
-	<!-- as less symbols as possible -->
-	<string name="booking_map_component_availability">Žiadne voľné izby</string>
-	<!-- as few symbols as possible -->
-	<string name="booking_map_component_filters">Mimo filtrov</string>
-	<string name="choose_dates_online_only_dialog_title">Žiadne sieťové pripojenie</string>
-	<string name="choose_dates_online_only_dialog_message">Dátumy a počet hostí je možné zvoliť iba v režime online. Skontrolujte svoje nastavenia a uistite sa, že ste pripojení k internetu.</string>
-	<string name="choose_dates_online_only_dialog_cta">Nastavenia</string>
-	<string name="thirty_days_limit_dialog">Môžete si rezervovať maximálne 30 nocí</string>
-	<string name="whatsnew_trial_cta">Vyskúšajte to teraz</string>
-	<string name="subscription_terms_guides_outdoor">Po potvrdení nákupu sa platba naúčtuje na váš iTunes účet. Predplatné sa automaticky obnoví, pokiaľ nie je funkcia automatického obnovenia vypnutá najmenej 24 hodín pred koncom aktuálneho obdobia predplatného. Váš účet bude zaúčtovaný podľa plánu obnovenia do 24 hodín pred koncom súčasného obdobia predplatného. Automatické obnovenie môžete spravovať alebo deaktivovať v nastaveniach účtu Apple ID kedykoľvek po zakúpení. Sprievodcov, ktorých ste si stiahli počas predplatného, môžete používať iba do vypršania platnosti predplatného. Sprievodcovia a všetky záložky sa automaticky odstránia 7 dní po uplynutí platnosti predplatného.\n* Predplatné s bezplatnou skúšobnou dobou sa automaticky obnoví na platené predplatné. Po zakúpení môžete automatické obnovenie bezplatnej skúšobnej verzie zrušiť alebo spravovať v nastaveniach svojho účtu. Zrušenie nadobudne účinnosť 24 hodín po poslednom dni aktuálneho obdobia predplatného. Potom budete zaradení do bezplatnej služby. Upozornenie: Akákoľvek nevyužitá časť bezplatnej skúšobnej verzie prepadne, keď si počas nej zakúpite prémiové predplatné.</string>
-	<string name="subscription_terms_android_outdoor">Po potvrdení nákupu sa platba naúčtuje na váš Google Play účet. Predplatné sa automaticky obnoví, pokiaľ nie je funkcia automatického obnovenia vypnutá najmenej 24 hodín pred koncom aktuálneho obdobia predplatného. Váš účet bude zaúčtovaný podľa plánu obnovenia do 24 hodín pred koncom súčasného obdobia predplatného. Automatické obnovenie môžete spravovať alebo deaktivovať v nastaveniach účtu kedykoľvek po zakúpení. Sprievodcov, ktorých ste si stiahli počas predplatného, môžete používať iba do vypršania platnosti predplatného. Sprievodcovia sa automaticky odstránia 7 dní po uplynutí platnosti predplatného.\n* Predplatné s bezplatnou skúšobnou dobou sa automaticky obnoví na platené predplatné. Po zakúpení môžete automatické obnovenie bezplatnej skúšobnej verzie zrušiť alebo spravovať v nastaveniach svojho účtu. Zrušenie nadobudne účinnosť 24 hodín po poslednom dni aktuálneho obdobia predplatného. Potom budete zaradení do bezplatnej služby. Upozornenie: Akákoľvek nevyužitá časť bezplatnej skúšobnej verzie prepadne, keď si počas nej zakúpite prémiové predplatné.</string>
-	<string name="subscription_header">Prihlásiť sa do\n<b>Katalógu sprievodcov</b></string>
-	<!-- Max. 20 characters per 1 line. -->
-	<string name="all_pass_subscription_message_title_4">Sprievodcovia\nod Lonely Planet®</string>
-	<!-- <b> & </b> tag to make a part of the line bold -->
-	<string name="all_pass_subscription_message_subtitle_4">Ešte <b>viac zážitkov</b> s tisíckami zaujímavých miest <b>po celom svete</b></string>
-	<string name="content_by_component">Obsah od: %s</string>
-	<string name="whatsnew_lp_title">Ešte viac emócií</string>
-	<string name="whatsnew_lp_message">Sprievodcovia Lonely Planet sú teraz v našej aplikácii! Najlepšie atrakcie, tematické prechádzky a jedinečné turistické miesta pre viac ako 7 000 miest.</string>
-	<string name="collections_title">Kolekcie</string>
 	<string name="key_information_title">Kľúčová informácia</string>
-	<string name="mustsee_title">Treba vidieť</string>
-	<string name="see_lp_category">Čo vidieť</string>
-	<string name="play_lp_category">Zábava</string>
-	<string name="shop_lp_category">Nakupovanie</string>
-	<string name="transport_lp_category">Doprava</string>
-	<string name="sleep_lp_category">Ubytovanie</string>
-	<string name="general_lp_category">Všeobecné</string>
-	<string name="drink_lp_category">Nápoje</string>
-	<string name="eat_lp_category">Jedlo</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Lanovka</string>

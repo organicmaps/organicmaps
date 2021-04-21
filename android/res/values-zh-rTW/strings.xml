@@ -57,7 +57,7 @@
 	<string name="country_status_download_failed">下載失敗</string>
 	<!-- Button text for the button under the country_status_download_failed message -->
 	<string name="try_again">再試一次</string>
-	<string name="about_menu_title">關於 OMaps</string>
+	<string name="about_menu_title">關於 Organic Maps</string>
 	<string name="downloaded_touch_to_delete">已下載的 (%s)，輕觸以刪除</string>
 	<string name="connection_settings">連線設定</string>
 	<string name="download_mb_or_kb">下載 %s</string>
@@ -65,7 +65,7 @@
 	<string name="unsupported_phone">需要 OpenGL 硬體加速功能的支援。但很不幸的，您的裝置並不支援此功能！</string>
 	<string name="download">下載</string>
 	<string name="external_storage_is_not_available">SD 卡/USB 無法有效儲存下載的地圖</string>
-	<string name="disconnect_usb_cable">請拔除 USB 線或插入 SD 卡以使用 OMaps</string>
+	<string name="disconnect_usb_cable">請拔除 USB 線或插入 SD 卡以使用 Organic Maps</string>
 	<string name="not_enough_free_space_on_sdcard">如要繼續使用，請先釋放一些 SD 卡/ USB 儲存空間</string>
 	<string name="not_enough_memory">沒有足夠的記憶體以啟動應用程式</string>
 	<string name="download_resources">在您開始之前，先讓我們下載世界地圖到您的裝置中以便瀏覽。\n這需要資料的 %s。</string>
@@ -105,7 +105,7 @@
 	<!-- Add bookmark dialog - bookmark set, Bookmarks dialog - Bookmark set cell -->
 	<string name="set">收藏夾</string>
 	<!-- Text hint in Bookmarks dialog when no any bookmarks are added -->
-	<string name="bookmarks_usage_hint">您還沒有任何書籤。\n點擊地圖上的任何地方以新增書籤。\n其他來源的書籤也可導入在 OMaps 中顯示。從電子郵件、Dropbox 或網站連結開啟有著已儲存書籤的 KML/KMZ 檔案。</string>
+	<string name="bookmarks_usage_hint">您還沒有任何書籤。\n點擊地圖上的任何地方以新增書籤。\n其他來源的書籤也可導入在 Organic Maps 中顯示。從電子郵件、Dropbox 或網站連結開啟有著已儲存書籤的 KML/KMZ 檔案。</string>
 	<!-- Settings button in system menu -->
 	<string name="settings">設定</string>
 	<!-- Header of settings activity where user defines storage path -->
@@ -173,7 +173,7 @@
 	<!-- Button text -->
 	<string name="share_by_email">以電子郵件分享</string>
 	<!-- Email Subject when sharing bookmarks category -->
-	<string name="share_bookmarks_email_subject">已分享 OMaps 書籤</string>
+	<string name="share_bookmarks_email_subject">已分享 Organic Maps 書籤</string>
 	<!-- message title of loading file -->
 	<string name="load_kmz_title">正在載入書籤…</string>
 	<!-- Kmz file successful loading -->
@@ -193,17 +193,17 @@
 	<!-- Alert message that downloading is in progress. -->
 	<string name="downloading_is_active">國家地圖正在進行下載</string>
 	<!-- Message that will be shown in alert view, when we ask user to leave review on App Store -->
-	<string name="appStore_message">祝您使用 OMaps 愉快！ 方便的話，請到 App Store 幫我們評分或寫寫評論。在這短短的時間當中卻能夠真正的協助我們改善，再次感謝您的支持！</string>
+	<string name="appStore_message">祝您使用 Organic Maps 愉快！ 方便的話，請到 App Store 幫我們評分或寫寫評論。在這短短的時間當中卻能夠真正的協助我們改善，再次感謝您的支持！</string>
 	<!-- No, thanks -->
 	<string name="no_thanks">不，謝了</string>
 	<!-- Share one specific bookmark using SMS, %1$@ contains ge0:// and %2$@ http://ge0.me link. @NOTE non-ascii symbols in the link will make 70 bytes sms instead of 140 -->
-	<string name="bookmark_share_sms">嘿，看看我在 OMaps 標記的圖釘吧！ %1$s 或%2$s 沒安裝離線地圖？在此下載: https://omaps.app/get</string>
+	<string name="bookmark_share_sms">嘿，看看我在 Organic Maps 標記的圖釘吧！ %1$s 或%2$s 沒安裝離線地圖？在此下載: https://organicmaps.app/get</string>
 	<!-- Share my position using SMS, %1$@ contains ge0:// and %2$@ http://ge0.me link WITHOUT NAME. @NOTE non-ascii symbols in the link will make 70 bytes sms instead of 140 -->
-	<string name="my_position_share_sms">嘿，在 OMaps 查看我的目前位置吧！ %1$s 或%2$s 沒安裝離線地圖？在此下載: https://omaps.app/get</string>
+	<string name="my_position_share_sms">嘿，在 Organic Maps 查看我的目前位置吧！ %1$s 或%2$s 沒安裝離線地圖？在此下載: https://organicmaps.app/get</string>
 	<!-- Subject for emailed bookmark -->
-	<string name="bookmark_share_email_subject">嘿，看看我在 OMaps 地圖上的圖釘！</string>
+	<string name="bookmark_share_email_subject">嘿，看看我在 Organic Maps 地圖上的圖釘！</string>
 	<!-- Subject for emailed position -->
-	<string name="my_position_share_email_subject">嗨，到 OMaps 地圖查看我的目前位置！</string>
+	<string name="my_position_share_email_subject">嗨，到 Organic Maps 地圖查看我的目前位置！</string>
 	<!-- Share my position using EMail, %1$@ is ge0:// and %2$@ is http://ge0.me link WITHOUT NAME -->
 	<string name="my_position_share_email">嗨，\n\n我現在在這：%1$s。點擊此連結 %2$s 或此連結 %3$s 來查看在地圖上的位置。\n\n謝謝。</string>
 	<!-- Android share by Message/SMS button text (including SMS) -->
@@ -305,19 +305,19 @@
 	<!-- text of notification -->
 	<string name="download_map_notification">下載您所在地方的地圖</string>
 	<!-- text of notification -->
-	<string name="pro_version_is_free_today">現在完整版 OMaps 是免費的！馬上下載並告訴您的朋友。</string>
+	<string name="pro_version_is_free_today">現在完整版 Organic Maps 是免費的！馬上下載並告訴您的朋友。</string>
 	<!-- Dialog for transferring maps from lite to pro. -->
-	<string name="move_lite_maps_to_pro">我們正在將您從 OMaps Lite 下載的地圖傳輸至 OMaps。這可能需要幾分鐘的時間。</string>
+	<string name="move_lite_maps_to_pro">我們正在將您從 Organic Maps Lite 下載的地圖傳輸至 Organic Maps。這可能需要幾分鐘的時間。</string>
 	<!-- Message to display when maps moved. -->
-	<string name="move_lite_maps_to_pro_ok">您下載的地圖已成功傳輸至 OMaps。</string>
+	<string name="move_lite_maps_to_pro_ok">您下載的地圖已成功傳輸至 Organic Maps。</string>
 	<!-- Message to display when maps move failed. -->
-	<string name="move_lite_maps_to_pro_failed">您的地圖傳輸失敗。請刪除 OMaps Lite，然後再次下載地圖。</string>
+	<string name="move_lite_maps_to_pro_failed">您的地圖傳輸失敗。請刪除 Organic Maps Lite，然後再次下載地圖。</string>
 	<!-- Text in menu -->
 	<string name="settings_and_more">設定及更多</string>
 	<!-- Text in menu -->
 	<string name="website">網站</string>
 	<!-- Text in menu -->
-	<string name="maps_me_community">OMaps 社群</string>
+	<string name="maps_me_community">Organic Maps 社群</string>
 	<!-- Text in menu -->
 	<string name="like_on_facebook">在 Facebook 上按讚</string>
 	<!-- Text in menu -->
@@ -337,11 +337,11 @@
 	<!-- Text in menu -->
 	<string name="report_a_bug">報告錯誤</string>
 	<!-- Email subject -->
-	<string name="subscribe_me_subject">請幫我訂閱 OMaps 新聞郵件、</string>
+	<string name="subscribe_me_subject">請幫我訂閱 Organic Maps 新聞郵件、</string>
 	<!-- Email body -->
 	<string name="subscribe_me_body">我想搶先了解最新新聞、更新和促銷活動。我可以隨時取消我的訂閱。</string>
 	<!-- About text -->
-	<string name="about_text">OMaps 提供全球所有國家和所有城市的最快速的離線地圖。充滿自信地出行：無論您在哪，OMaps都能夠幫助您在地圖上找到您自己的位置，找到最近的餐館、酒店、銀行、加油站，等等。無需網路連接。 我們始終在為增加新功能而努力，並希望能夠聽到您對我們應如何改進 OMaps 的想法。若您在使用本應用程式時遇到任何問題，請隨時聯繫我們：support\@omaps.app。我們會回覆每一條請求！\n\n您喜歡 OMaps 並想支持我們嗎？以下為一些簡單且完全免費的方法：\n- 在您的應用程式商店上發表評論\n- 在我們的 Facebook 頁面 http://www.facebook.com/mapswithme 上按讚\n- 或者向您的母親、朋友，以及同事介紹 OMaps :)\n\n感謝您與我們在一起。非常感謝您的支持。\n\nP.S.：我們從 OpenStreetMap 獲得地圖資訊，這是一個類似維基百科的地圖繪製專案，能夠讓使用者建立並編輯編輯地圖。若您看到地圖上缺少了什麽或者有什麽錯誤，可以直接在 https://www.openstreetmap.org 上進行糾正。在下一個版本發佈時，您做出的更改便會出現在 OMaps 應用程式中。</string>
+	<string name="about_text">Organic Maps 提供全球所有國家和所有城市的最快速的離線地圖。充滿自信地出行：無論您在哪，Organic Maps都能夠幫助您在地圖上找到您自己的位置，找到最近的餐館、酒店、銀行、加油站，等等。無需網路連接。 我們始終在為增加新功能而努力，並希望能夠聽到您對我們應如何改進 Organic Maps 的想法。若您在使用本應用程式時遇到任何問題，請隨時聯繫我們：support\@organicmaps.app。我們會回覆每一條請求！\n\n您喜歡 Organic Maps 並想支持我們嗎？以下為一些簡單且完全免費的方法：\n- 在您的應用程式商店上發表評論\n- 在我們的 Facebook 頁面 http://www.facebook.com/OMapsApp 上按讚\n- 或者向您的母親、朋友，以及同事介紹 Organic Maps :)\n\n感謝您與我們在一起。非常感謝您的支持。\n\nP.S.：我們從 OpenStreetMap 獲得地圖資訊，這是一個類似維基百科的地圖繪製專案，能夠讓使用者建立並編輯編輯地圖。若您看到地圖上缺少了什麽或者有什麽錯誤，可以直接在 https://www.openstreetmap.org 上進行糾正。在下一個版本發佈時，您做出的更改便會出現在 Organic Maps 應用程式中。</string>
 	<!-- Alert text -->
 	<string name="email_error_body">電子郵件客戶端尚未建立。請設定或使用任何其他方式與我們聯絡%s</string>
 	<!-- Alert title -->
@@ -353,7 +353,7 @@
 	<!-- Update map suggestion -->
 	<string name="routing_map_outdated">請更新地圖以建立一條路線。</string>
 	<!-- Update maps suggestion -->
-	<string name="routing_update_maps">使用新版本的 OMaps 可以建立從您的目前位置至一個目的地的路線。請更新地圖以使用該功能。</string>
+	<string name="routing_update_maps">使用新版本的 Organic Maps 可以建立從您的目前位置至一個目的地的路線。請更新地圖以使用該功能。</string>
 	<!-- Update all button text -->
 	<string name="downloader_update_all_button">更新全部</string>
 	<!-- Cancel all button text -->
@@ -370,7 +370,7 @@
 	<string name="downloader_downloading">正在下載：</string>
 	<string name="downloader_search_results">已找到</string>
 	<!-- Disclaimer message -->
-	<string name="routing_disclaimer">在 OMaps 應用程式中建立路線時請謹記以下幾點：\n\n  - 建議路線僅可當作推薦路線。\n - 路況、交通規則以及標誌應優先於導航建議。\n - 地圖可能會不正確或者過時，路線也可能不是以最佳可能方式建立的。\n\n  行車安全，請照顧好您自己！</string>
+	<string name="routing_disclaimer">在 Organic Maps 應用程式中建立路線時請謹記以下幾點：\n\n  - 建議路線僅可當作推薦路線。\n - 路況、交通規則以及標誌應優先於導航建議。\n - 地圖可能會不正確或者過時，路線也可能不是以最佳可能方式建立的。\n\n  行車安全，請照顧好您自己！</string>
 	<!-- Outdated maps category -->
 	<string name="downloader_outdated_maps">過時的</string>
 	<!-- Up to date maps category -->
@@ -394,7 +394,7 @@
 	<!-- RouteNotFound -->
 	<string name="routing_failed_route_not_found">找不到所選起點和終點間的路程。請選擇不同的起點或終點。</string>
 	<!-- InternalError -->
-	<string name="routing_failed_internal_error">出現內部錯誤。請嘗試刪除並再次下載地圖。如果還有問題請聯絡我們：support\@omaps.app。</string>
+	<string name="routing_failed_internal_error">出現內部錯誤。請嘗試刪除並再次下載地圖。如果還有問題請聯絡我們：support\@organicmaps.app。</string>
 	<!-- Context menu item for downloader. -->
 	<string name="downloader_download_map_and_routing">下載地圖 + 路線</string>
 	<!-- Context menu item for downloader. -->
@@ -423,9 +423,9 @@
 	<!-- Text for rating dialog -->
 	<string name="rating_just_rated">我剛剛評價了您的應用</string>
 	<!-- Text for rating dialog -->
-	<string name="rating_user_since">我是從 %s 年起的 OMaps 使用者</string>
+	<string name="rating_user_since">我是從 %s 年起的 Organic Maps 使用者</string>
 	<!-- Text for rating dialog -->
-	<string name="rating_do_like_maps">您喜歡 OMaps 嗎？</string>
+	<string name="rating_do_like_maps">您喜歡 Organic Maps 嗎？</string>
 	<!-- Text for rating dialog -->
 	<string name="rating_tap_star">點擊星星給我們應用程式評分。</string>
 	<!-- Text for rating dialog -->
@@ -441,7 +441,7 @@
 	<!-- Text for routing error dialog -->
 	<string name="routing_download_map">獲取地圖</string>
 	<!-- Text for routing error dialog -->
-	<string name="routing_download_map_and_routing">下載更新的地圖和路線數據，獲取所有 OMaps 的特色功能。</string>
+	<string name="routing_download_map_and_routing">下載更新的地圖和路線數據，獲取所有 Organic Maps 的特色功能。</string>
 	<!-- Text for routing error dialog -->
 	<string name="routing_get_routing_data">獲取所需的路線數據</string>
 	<!-- Text for routing error dialog -->
@@ -573,7 +573,7 @@
 	<!-- Text for routing::RouterResultCode::FileTooOld dialog. -->
 	<string name="dialog_routing_download_and_update_maps">要建立路線，請下載並更新所有沿線的地圖。</string>
 	<string name="rate_alert_title">喜歡這個應用程式嗎？</string>
-	<string name="rate_alert_default_message">感謝您使用 OMaps。請評價此應用程式。您的回饋幫助我們改善我們的產品。</string>
+	<string name="rate_alert_default_message">感謝您使用 Organic Maps。請評價此應用程式。您的回饋幫助我們改善我們的產品。</string>
 	<string name="rate_alert_five_star_message">太棒了！我們也愛您！</string>
 	<string name="rate_alert_four_star_message">謝謝您，我們會盡可能做好!</string>
 	<string name="rate_alert_less_than_four_star_message">有沒有想法我們能怎麽把它變得更好？</string>
@@ -630,7 +630,7 @@
 	<string name="editor_report_problem_no_place_title">該地點不存在</string>
 	<string name="editor_report_problem_under_construction_title">因維護而關閉</string>
 	<string name="editor_report_problem_duplicate_place_title">重複的地點</string>
-	<string name="first_launch_congrats_title">OMaps 已做好使用準備</string>
+	<string name="first_launch_congrats_title">Organic Maps 已做好使用準備</string>
 	<string name="first_launch_congrats_text">在世界各地離線搜尋和導航，免費。</string>
 	<string name="migrate_title">重要！</string>
 	<!-- Android uses image instead of text. -->
@@ -728,14 +728,14 @@
 	<string name="placepage_report_problem_button">回報問題</string>
 	<string name="placepage_add_business_button">添加組織</string>
 	<string name="whatsnew_editor_message_1">新增新地點到該地圖，並直接通過此應用程式編輯已存在的地點。</string>
-	<string name="whatsnew_editor_message_2">* OMaps 使用 OpenStreetMap 社群的數據。</string>
+	<string name="whatsnew_editor_message_2">* Organic Maps 使用 OpenStreetMap 社群的數據。</string>
 	<string name="dialog_incorrect_feature_position">改變位置</string>
 	<string name="message_invalid_feature_position">物件無法設置在這裡</string>
 	<string name="login_to_make_edits_visible">登入來讓其他使用者能看到您所作出的修改。</string>
 	<string name="no_migration_during_navigation">導航中禁止更新。</string>
 	<!-- Error dialog no space -->
 	<string name="migration_no_space_message">為了下載，您需要更多的空間。請刪除不必要的數據。</string>
-	<string name="editor_sharing_title">我改進了 OMaps 地圖</string>
+	<string name="editor_sharing_title">我改進了 Organic Maps 地圖</string>
 	<string name="editor_comment_will_be_sent">我們將把您的評論發送給地圖編輯者。</string>
 	<string name="editor_unsupported_category_message">您已新增了一個我們尚未支援的類別的地點。它未來會顯示在地圖上。</string>
 	<!-- Downloaded 10 **of** 20 <- it is that "of" -->
@@ -752,7 +752,7 @@
 	<string name="core_placepage_unknown_place">未知的位置</string>
 	<string name="editor_other_info">給OSM編輯器發送標記</string>
 	<string name="editor_detailed_description_hint">詳細註釋</string>
-	<string name="editor_detailed_description">您建議的變更將傳送至 OpenStreetMap 社群。說明無法在 OMaps 中編輯的詳細資料。</string>
+	<string name="editor_detailed_description">您建議的變更將傳送至 OpenStreetMap 社群。說明無法在 Organic Maps 中編輯的詳細資料。</string>
 	<string name="editor_more_about_osm">關於 OpenStreetMap 的更多資訊</string>
 	<string name="editor_operator">營運者</string>
 	<string name="editor_tag_description">輸入公司、組織或設施負責人。</string>
@@ -792,8 +792,6 @@
 	<string name="placepage_entrance_type">入口</string>
 	<string name="placepage_flat">公寓</string>
 	<string name="placepage_open_24_7">全天候</string>
-	<string name="place_page_booking_rating">評分： %s</string>
-	<string name="place_page_starting_from">從%s</string>
 	<string name="meter">米</string>
 	<string name="kilometer">公里</string>
 	<string name="kilometers_per_hour">公里每小時</string>
@@ -828,12 +826,8 @@
 	<string name="error_enter_correct">輸入有效值</string>
 	<string name="editor_profile_changes_for_next_place">對下一個地點的變更：%d</string>
 	<string name="editor_profile_rating_place">排名位置</string>
-	<string name="booking_dialog_not_connect_header">要預訂酒店，請啟用您的網際網路連線</string>
-	<string name="button_try">試用</string>
 	<string name="refresh">更新</string>
 	<string name="last_update">上次更新於：%s</string>
-	<string name="booking_checkin">入住： %s</string>
-	<string name="booking_checkout">退房： %s</string>
 	<string name="placepage_add_place_button">添加地點到地圖上</string>
 	<!-- Displayed when saving some edits to the map to warn against publishing personal data -->
 	<string name="editor_share_to_all_dialog_title">您想要發給所有用戶嗎？</string>
@@ -852,21 +846,19 @@
 	<string name="place_page_button_read_descriprion">閱讀</string>
 	<!-- iOS dialog for the case when recent track recording is on and the app comes back from background -->
 	<string name="recent_track_background_dialog_title">禁止記錄您最近去過的路徑？</string>
-	<!-- If a hotel is being shared -->
-	<string name="sharing_booking">或在booking.com上預訂</string>
 	<string name="off_recent_track_background_button">禁用</string>
 	<!-- For sharing via SMS and so on -->
 	<string name="sharing_call_action_look">看一看</string>
 	<string name="continue_recent_track_background_button">繼續</string>
-	<string name="recent_track_background_dialog_message">OMaps使用背景中的地理位置記錄您最近去過的路徑。</string>
+	<string name="recent_track_background_dialog_message">Organic Maps使用背景中的地理位置記錄您最近去過的路徑。</string>
 	<!-- Rate on Google Play (Android only) -->
 	<string name="rate_gp">在 Google Play 評分</string>
 	<!-- Share with friends: menu item title -->
 	<string name="tell_friends">告訴朋友</string>
 	<!-- Share with friends: sharing text -->
-	<string name="tell_friends_text">嗨！安裝 OMaps！</string>
+	<string name="tell_friends_text">嗨！安裝 Organic Maps！</string>
 	<!-- About short text (below logo) -->
-	<string name="about_description">OMaps 是一款基本離線旅遊應用程式。OMaps 以 OpenStreetMap 數據為基礎，並允許對其進行編輯。</string>
+	<string name="about_description">Organic Maps 是一款基本離線旅遊應用程式。Organic Maps 以 OpenStreetMap 數據為基礎，並允許對其進行編輯。</string>
 	<!-- Text in menu -->
 	<string name="blog">部落格</string>
 	<string name="general_settings">一般設定</string>
@@ -877,50 +869,13 @@
 	<string name="accept">接受</string>
 	<!-- For the first routing -->
 	<string name="decline">拒絕</string>
-	<string name="whats_new_route_profile_title">與其長年勞而無功，不如奮起振作</string>
-	<string name="whats_new_route_profile_message">對於行人和自行車路線，我們現在顯示海拔剖面圖。</string>
-	<string name="whats_new_booking_improve_title">優惠預訂飯店</string>
-	<string name="whats_new_booking_improve_message">飯店搜尋結果現在還包含價格類別。\n我們還加入了超過 110,000 間飯店。</string>
-	<!-- For place page hotel facilities block -->
-	<string name="placepage_hotel_facilities">設施</string>
-	<!-- For place page hotel nearby block -->
-	<string name="placepage_hotel_nearby">附近</string>
-	<!-- For ordering a taxi (as opposed to hotels or other things) -->
-	<string name="taxi_order">訂一部計程車</string>
-	<!-- How long it is until the taxi arrives -->
-	<string name="taxi_wait">預計 %s 內到達</string>
-	<!-- When there are no available taxis nearby -->
-	<string name="taxi_not_found">無法在附近找到計程車</string>
-	<!-- When there are no available taxi providers nearby -->
-	<string name="taxi_no_providers">此處不提供計程車服務</string>
 	<string name="install_app">安裝</string>
-	<!-- `Filter` is a noun here -->
-	<string name="booking_filters">篩選條件</string>
-	<string name="booking_filters_reset">重設</string>
-	<!-- Beginning from a particular value and -->
-	<string name="booking_filters_rating">評分下限</string>
-	<string name="booking_filters_rating_any">任意</string>
-	<string name="booking_filters_ragting_good">好</string>
-	<string name="booking_filters_rating_very_good">很好</string>
-	<string name="booking_filters_rating_excellent">極好</string>
-	<string name="booking_filters_price_category">價格類別</string>
 	<string name="search_no_results_title">找不到任何結果</string>
 	<string name="search_no_results_message">嘗試一個更普通的搜尋字詞、縮小顯示或重設篩選條件。</string>
 	<string name="search_no_results_expand_area_button">縮小</string>
 	<string name="search_no_results_reset_button">重設篩選條件</string>
 	<!-- noun -->
 	<string name="search_in_table">清單</string>
-	<string name="booking_show_more">顯示更多</string>
-	<string name="booking_reviews">評論</string>
-	<string name="booking_hotel">飯店</string>
-	<!-- hotel room -->
-	<string name="booking_hotel_room">客房</string>
-	<!-- A neologism for a chat based on geographical proximity -->
-	<string name="chat">Geochat</string>
-	<!-- Verb. Text on a button that opens the chat. -->
-	<string name="chat_open">開放</string>
-	<string name="dialog_taxi_offline">叫計程車服務在離線模式下無法使用。</string>
-	<string name="dialog_taxi_error">叫計程車服務暫時無法使用。</string>
 	<string name="mobile_data_dialog">使用手機網路顯示詳細資訊？</string>
 	<string name="mobile_data_option_always">一律使用</string>
 	<string name="mobile_data_option_today">僅限今天</string>
@@ -932,41 +887,16 @@
 	<string name="traffic_update_maps_text">若要顯示交通資料，必須更新地圖。</string>
 	<string name="traffic_outdated">交通資料已過時。</string>
 	<string name="big_font">增加地圖上的字體大小</string>
-	<string name="traffic_update_app">請更新 OMaps</string>
+	<string name="traffic_update_app">請更新 Organic Maps</string>
 	<!-- "traffic" as in road congestion -->
 	<string name="traffic_update_app_message">若要顯示交通資訊，必須更新應用程式。</string>
 	<!-- "traffic" as in "road congestion" -->
 	<string name="traffic_data_unavailable">無法使用交通資訊</string>
-	<!-- Seven points and higher -->
-	<string name="booking_filter_rating_num_good">7.0+</string>
-	<!-- Eight points and higher -->
-	<string name="booking_filter_rating_num_very_good">8.0+</string>
-	<!-- Nine points and higher -->
-	<string name="booking_filter_rating_num_excellent">9.0+</string>
 	<!-- Simplified colour scheme for traffic information, fewer colours are used to display traffic jams on the map. The string should be kept as short as possible -->
 	<string name="pref_traffic_simplified_colors_title">簡化的交通狀況顏色</string>
 	<string name="enable_logging">啟用記錄</string>
-	<string name="more_on_bookingcom">Booking.com 上的更多資訊</string>
-	<string name="details_on_bookingcom">Booking.com 上的詳細資訊</string>
-	<string name="reviews_on_bookingcom">Booking.com 上的更多評價</string>
 	<string name="offline_place_page_more_information">連上網路以取得關於地點的更多資訊。</string>
 	<string name="failed_load_information">無法載入資訊。</string>
-	<string name="whats_new_auto_update_updating_maps">更新地圖</string>
-	<string name="whats_new_auto_update_title">更新您下載的地圖</string>
-	<string name="whats_new_auto_update_message">更新地圖以讓物件資訊保持在最新狀態</string>
-	<string name="whats_new_auto_update_button_size">更新 (%s)</string>
-	<string name="whats_new_auto_update_button_later">稍後手動更新</string>
-	<string name="search_hotel_filter_apartment">公寓</string>
-	<string name="search_hotel_filter_camp_site">露營</string>
-	<string name="search_hotel_filter_chalet">木屋</string>
-	<string name="search_hotel_filter_guest_house">賓館</string>
-	<string name="search_hotel_filter_hostel">旅舍</string>
-	<string name="search_hotel_filter_resort">度假酒店</string>
-	<string name="search_hotel_filter_hotel">飯店</string>
-	<string name="search_hotel_filter_motel">汽車旅館</string>
-	<string name="create_campaign_button">聲明這是你的公司</string>
-	<string name="view_campaign_button">業務已發出廣告</string>
-	<string name="search_hotel_filters_type">類型</string>
 	<!-- Settings: "Send general feedback" button -->
 	<string name="feedback_general">一般反應</string>
 	<string name="on">開</string>
@@ -997,36 +927,7 @@
 	<string name="choose_start_point">選擇起點</string>
 	<string name="choose_destination">選擇目的地</string>
 	<string name="preloader_viator_button">進一步了解</string>
-	<string name="whats_new_title_route">改善自行車路線與行人路線</string>
-	<string name="whats_new_message_route">我們修正了錯誤，讓路線產生的速度加快好幾倍，並新增了中途點</string>
-	<string name="whats_new_message_title_update">我們讓地圖體積小了 10 倍</string>
-	<string name="whats_new_message_maps_update">若要更新地圖，現在您只需要下載缺少的資料即可</string>
 	<string name="start_from_my_position">起點</string>
-	<string name="rating">評分</string>
-	<string name="placepage_no_reviews">無評論</string>
-	<string name="placepage_reviewed">您已評論過這個地方</string>
-	<string name="placepage_summary_rating">評分摘要</string>
-	<string name="placepage_rate_comment">點選以為這個地點評分或評論。</string>
-	<string name="placepage_rate_horrible">很糟</string>
-	<string name="placepage_rate_bad">不好</string>
-	<string name="placepage_rate_normal">一般</string>
-	<string name="placepage_rate_good">好</string>
-	<string name="placepage_rate_excellent">極好</string>
-	<string name="placepage_reviews_most_recent">最近</string>
-	<string name="placepage_reviews_most_useful">最實用</string>
-	<string name="placepage_reviews_highest_rated">最高評分</string>
-	<string name="placepage_reviews_lowest_rated">最低評分</string>
-	<string name="placepage_reviews_offline_comment">離線模式中只會顯示最實用的評論</string>
-	<string name="placepage_reviews_your_comment">您的評論</string>
-	<string name="placepage_reviews_unhelpful">沒有幫助</string>
-	<string name="placepage_reviews_inappropriate">不恰當</string>
-	<string name="placepage_reviews_spam">垃圾訊息</string>
-	<string name="placepage_reviews_hint">這裡的優點與缺點是什麼？</string>
-	<string name="placepage_reviews_edit_your_review">編輯您的評論</string>
-	<string name="placepage_reviews_new_review">新評論</string>
-	<string name="placepage_translate_button">翻譯</string>
-	<string name="placepage_show_original_button">顯示原文</string>
-	<string name="placepage_more_reviews_booking_button">Booking.com 上的更多評價</string>
 	<string name="profile_authorization_title">登入方式</string>
 	<string name="profile_authorization_message">無須帳號密碼，在幾秒內輕鬆登入。</string>
 	<string name="profile_authorization_error">噢，發生錯誤。請嘗試再次登入。</string>
@@ -1038,24 +939,9 @@
 	<string name="expertise">專業</string>
 	<string name="equipment">設備</string>
 	<string name="quality">品質</string>
-	<string name="whats_new_ugc_title_updated_v840">評分與評論</string>
-	<string name="whats_new_ugc_message">現在即使離線，您也能留下評分和評論！別忘了更新地圖，才能看到變更。</string>
 	<string name="dialog_error_storage_title">儲存空間存取問題</string>
-	<string name="dialog_error_storage_message">外部儲存空間不可用，很可能是因為 SD 卡已移除、毀損，或檔案系統處於唯讀狀態。請進行檢查，然後以 support\@omaps.app 方式聯繫我們</string>
+	<string name="dialog_error_storage_message">外部儲存空間不可用，很可能是因為 SD 卡已移除、毀損，或檔案系統處於唯讀狀態。請進行檢查，然後以 support\@organicmaps.app 方式聯繫我們</string>
 	<string name="setting_emulate_bad_storage">模擬不良儲存空間</string>
-	<string name="discovery_button_title">探索鄰近區域</string>
-	<string name="discovery_button_subtitle_things_to_do">活動</string>
-	<string name="discovery_button_subtitle_attractions">景點</string>
-	<string name="discovery_button_subtitle_eat_and_drink">餐飲</string>
-	<string name="discovery_button_subtitle_local_guides">本地指南</string>
-	<string name="discovery_button_viator_error_title">載入數據時，發生錯誤</string>
-	<string name="discovery_button_other_error_message">載入數據時，發生錯誤</string>
-	<string name="discovery_button_other_loading_message">正在載入數據</string>
-	<string name="discovery_button_404_error_title">未找到</string>
-	<string name="discovery_button_404_error_message">哎呀，我們沒在周圍找到任何有趣的事情。</string>
-	<string name="booking_filters_check_in">入住登記</string>
-	<string name="booking_filters_check_out">退房登記</string>
-	<string name="booking_filters_offline">無法使用。</string>
 	<string name="directions_finish">目的地</string>
 	<string name="directions_on_foot">步行 %s</string>
 	<string name="core_entrance">入口</string>
@@ -1063,12 +949,6 @@
 	<string name="cleanliness">清潔程度</string>
 	<string name="crowdedness">擁擠程度</string>
 	<string name="error_enter_correct_name">請輸入正確的名稱</string>
-	<string name="hotel_available">可用</string>
-	<string name="whats_new_transit_title">地鐵可用</string>
-	<string name="whats_new_transit_message">使用地鐵規劃您的路線！請更新地圖以查看變更。</string>
-	<string name="whats_new_discovery_title">探索按鈕</string>
-	<string name="whats_new_discovery_message">只要點按一下，就能探索周圍一切！</string>
-	<string name="price_per_hour">%s/小時</string>
 	<string name="bookmarks_backup">入口</string>
 	<string name="authorization_button_sign_in">登錄</string>
 	<string name="bookmarks_message_authorized_user">您的書籤自動備份在安全的云儲存中。您想要啟用備份嗎？</string>
@@ -1087,15 +967,10 @@
 	<string name="downloader_percent">%1$s (%2$s，共%3$s)</string>
 	<string name="downloader_process">下載 %s 中……</string>
 	<string name="downloader_applying">應用 %s 中……</string>
-	<string name="whats_new_title_hotel_filter">有新的賓館篩選！</string>
-	<string name="whats_new_message_hotel_filter">預訂在您所選日期有空的賓館！用入住和離店篩選</string>
-	<string name="whats_new_title_ugc_travel">和其他旅客分享您的體驗！</string>
-	<string name="whats_new_message_ugc_travel">給您訪問過的地方打分和評價！</string>
 	<string name="dialog_message_transit_not_found_connection">規劃一個交通網絡內的路線</string>
 	<string name="bookmarks_error_message_share_general">由於應用程序出錯而無法分享</string>
 	<string name="bookmarks_error_title_share_empty">分享錯誤</string>
 	<string name="bookmarks_error_message_share_empty">無法分享空列表</string>
-	<string name="discovery_button_subtitle_book_hotels">訂賓館</string>
 	<string name="bookmarks_error_title_empty_list_name">名字不能為空</string>
 	<string name="bookmarks_error_message_empty_list_name">請輸入列表名稱</string>
 	<string name="bookmarks_new_list_hint">新的列表</string>
@@ -1119,8 +994,6 @@
 	<string name="converting">轉換...</string>
 	<string name="wn_reinvented_bookmarks_title">我們改造了書籤！</string>
 	<string name="wn_reinvented_bookmarks_message">你可以備份書籤，創建列表...這太神奇了...</string>
-	<string name="wn_way_of_booking_title">我們重新定位了預訂方式！</string>
-	<string name="wn_way_of_booking_message">只需在地圖上找到一家酒店並預訂，或選擇類似的酒店即可。</string>
 	<string name="bookmarks_restore">恢復書籤</string>
 	<string name="bookmarks_restore_process">恢復...</string>
 	<string name="bookmarks_restore_title">還原這個版本？</string>
@@ -1132,18 +1005,12 @@
 	<string name="error_server_message">服務器發生錯誤，請稍後重試</string>
 	<string name="error_system_message">出現未知錯誤</string>
 	<string name="restore">恢復</string>
-	<string name="sign_message_gdpr">您必須接受我們的使用條款和隱私政策。 請仔細閱讀。</string>
-	<string name="sign_agree_pp_gdpr">我同意&lt;a href="%s">隱私政策&lt;/a></string>
-	<string name="sign_agree_tof_gdpr">我同意&lt;a href="%s">使用條款&lt;/a></string>
-	<string name="sign_agree_news_gdpr">我同意接收有關OMaps產品的最新消息</string>
-	<string name="whats_new_localbiz_message">當地的咖啡館、旅館和小商店令旅行難以忘懷。我們在OMaps中免費優化您的商家頁面，以便它可以被看見。</string>
-	<string name="whats_new_order_button">留下申請表</string>
 	<string name="bookmarks_page_downloaded">加載</string>
 	<string name="bookmarks_page_my">我的</string>
 	<string name="routes_and_bookmarks">路線和標籤</string>
 	<string name="bookmarks_webview_success_toast">標籤已成功加載</string>
 	<string name="cached_bookmarks_placeholder_title">上傳新地點</string>
-	<string name="cached_bookmarks_placeholder_subtitle">單擊按鈕下載OMaps用戶創建的數千個有趣的地點和路線。您需要網絡連接。</string>
+	<string name="cached_bookmarks_placeholder_subtitle">單擊按鈕下載Organic Maps用戶創建的數千個有趣的地點和路線。您需要網絡連接。</string>
 	<string name="downloader_download_routers">加載標籤</string>
 	<string name="bookmarks_groups_cached">加載的列表</string>
 	<string name="author_name_by_prefix">%s</string>
@@ -1161,7 +1028,7 @@
 	</plurals>
 	<string name="subtittle_opt_out">跟蹤設置</string>
 	<string name="crash_reports">錯誤報告</string>
-	<string name="crash_reports_description">我們可以使用您的數據來開發和改進OMaps。更改將再重新啟動應用程序后生效。</string>
+	<string name="crash_reports_description">我們可以使用您的數據來開發和改進Organic Maps。更改將再重新啟動應用程序后生效。</string>
 	<string name="opt_out_help_ios_1">您可以選擇停止在設備設置中接受定向廣告。</string>
 	<string name="opt_out_help_ios_2">iOS 9或更高版本</string>
 	<string name="opt_out_help_ios_3">請打開設置 → 隱私 → 廣告 → 啟用“跟蹤限制”</string>
@@ -1180,101 +1047,31 @@
 	<string name="category_desc_more">…更多</string>
 	<string name="title_error_downloading_bookmarks">發生錯誤</string>
 	<string name="subtitle_error_downloading_bookmarks">標籤未加載</string>
-	<string name="whats_new_bookmarks_catalog_title">在OMaps中有路線目錄</string>
-	<string name="whats_new_bookmarks_catalog_message">全球數十條詳細路線去哪裡、看什麼、在哪吃飯。</string>
-	<string name="whats_new_popularity_label_title">附近景點</string>
-	<string name="whats_new_popularity_label_message">“探索鄰近區域”部分將幫您找到該城市最受歡迎的地方。</string>
-	<string name="whats_new_hot_offers_title">酒店的優惠報價</string>
-	<string name="whats_new_hot_offers_message">使用搜索中的“酒店”類別來尋找它們報價將在地圖和列表中以百分比圖標來表示。</string>
 	<string name="error_already_downloaded">這個列表已被下載</string>
-	<string name="guides">指南</string>
-	<string name="guide_downloaded_title">指南已被成功下載</string>
-	<!-- as few symbols as possible -->
-	<string name="download_guides">查找指南</string>
-	<string name="guides_groups_cached">已下載的指南</string>
-	<string name="subtitle_error_downloading_guide">該指南沒有被下載</string>
-	<string name="error_already_downloaded_guide">這個指南已被下載過了</string>
-	<string name="guide_downloaded_subtitle">按下‘在地圖上查看’探索指南</string>
-	<string name="bookmarks_guides">書籤和指南</string>
-	<string name="paybtn_title">支付%s/年</string>
-	<string name="paybtn_subtitle">節省%s/年</string>
-	<string name="options_dropdown_title">其他選擇</string>
-	<string name="why_support">為什麼支持OMaps?</string>
-	<string name="options_dropdown_item1">%1$s/月 (節省%2$s/年)</string>
-	<string name="options_dropdown_item2">%s/周 (未節省)</string>
-	<string name="why_support_item1">我們將為您關閉所有廣告</string>
-	<string name="why_support_item2">您幫助我們改進OMaps</string>
+	<string name="why_support">為什麼支持Organic Maps?</string>
+	<string name="why_support_item2">您幫助我們改進Organic Maps</string>
 	<string name="why_support_item3">您幫助我們改進OpenStreetMap.org地圖</string>
-	<string name="purchase_processing">正在處理您的購買訂單……</string>
-	<string name="tips_bookmarks_catalog_title">所有類型旅行的離線指南</string>
-	<string name="tips_bookmarks_catalog_message">下載并設置到世界各地各個城市景點的旅遊路線。</string>
-	<string name="tips_discover_button_title">想在該地區找到受歡迎的機構嗎？</string>
-	<string name="tips_discover_button_message">在“探索鄰近區域“部分中收集了最近最好的餐館、酒店和名勝古跡。</string>
-	<string name="tips_book_hotel_title">請為您的假期預訂最舒適的酒店</string>
-	<string name="tips_book_hotel_message">在搜索和过滤器的帮助下，您将找到最好的酒店。在搜索和過濾器的幫助下，您將找到最好的酒店。點擊地點卡中“預約”鍵即可立即預訂酒店。</string>
-	<string name="tips_map_layers_title">不知道在哪個地鐵站換乘？</string>
-	<string name="tips_map_layers_message">請打開地圖上的地鐵圖層以顯示地鐵圖，您在新的城市中始終有導航。</string>
 	<string name="channels_map_update">更新地圖</string>
-	<string name="channels_reviews">未發送的意見</string>
-	<string name="purchase_loading">加載購買信息……</string>
-	<string name="purchase_error_subtitle">處理購買時出錯</string>
-	<string name="awaiting_approval">我們正在等待父母確認</string>
-	<string name="whats_new_leave_review">請留言！請分享您對度假時索取過的地方的看法。</string>
 	<string name="server_unavailable_title">服務不可用</string>
-	<string name="server_unavailable_message">購買將在稍後完成。如果錯誤仍然存在，請聯繫support\@omaps.app。</string>
-	<string name="offline_fiters_check_in">連接到網絡已選擇到達和離開的日期。</string>
-	<string name="restore_subscription">恢復訂閱</string>
-	<string name="restore_success_alert">訂閱已成功恢復</string>
-	<string name="restore_error_alert">恢復訂閱時發生錯誤</string>
-	<string name="restore_no_subscription_alert">沒有有效訂閱</string>
-	<string name="subscriptions_title">訂購</string>
-	<string name="manage_subscription">管理訂購</string>
 	<string name="sharing_options">登錄設置</string>
 	<string name="export_file">導出文件</string>
 	<string name="list_settings">列表設置</string>
 	<string name="delete_list">刪除列表</string>
 	<string name="hide_from_map">從卡中隱藏</string>
-	<string name="ugc_route_tags_screen_label">請選擇標籤</string>
-	<string name="ugc_route_tags_progress_msg">正在加載標籤......</string>
 	<string name="public_access">公共訪問</string>
 	<string name="limited_access">私人訪問</string>
-	<string name="upload_and_publish_desc">本指南將上傳到OMaps公共目錄，並可供其他用戶使用</string>
-	<string name="upload_and_publish">加載並發布</string>
-	<string name="upload_and_get_direct_link">加載並獲取鏈接</string>
-	<string name="get_direct_link_desc">您的指南將通過直接鏈接提供</string>
-	<string name="upload_and_publish_progress_text">該指南正在發布......</string>
-	<string name="upload_and_publish_success">該指南已發布</string>
-	<string name="ugc_routes_user_agreement">&lt;b>請注意:&lt;/b>繼續，即表示您接受&lt;a href="%s">許可協議&lt;/a></string>
-	<string name="ugc_route_edit_list_name">指南名稱</string>
-	<string name="ugc_route_edit_description_hint">添加說明(文字或html)</string>
+	<string name="bookmark_category_name">類別</string>
+	<string name="bookmark_category_description_hint">添加說明(文字或html)</string>
 	<string name="not_shared">個人</string>
 	<string name="direct_link_progress_text">正在上傳您的文件......</string>
 	<string name="direct_link_success">鏈接已創建</string>
-	<string name="edit_guide_title">請在線編輯旅行指南</string>
-	<string name="edit_guide_subtitle">請通過網絡應用獲取編輯指南的鏈接：請添加地點描述，上傳照片和用線條連接標籤。</string>
 	<string name="send_a_link_btn">發送鏈接</string>
 	<string name="upload_error_toast">加載文件時出錯</string>
 	<string name="tags_loading_error_subtitle">加載代碼時出錯，請重試</string>
 	<string name="unable_upload_errorr_title">無法上傳文件</string>
 	<string name="unable_upload_error_subtitle_edited">文件是通過Web應用程序編輯的</string>
 	<string name="unable_upload_error_subtitle_broken">該文件已損壞，無法上傳。請上傳其他文件。</string>
-	<string name="buy_btn">購買%s的旅行指南</string>
-	<string name="download_guide_progress">指南正在加載......</string>
-	<string name="price_error_title">無法得知價格</string>
-	<string name="price_error_subtitle">請在幾分鐘之後再試一次</string>
-	<string name="edit_your_guide_email_body">在計算機上編輯您的旅行指南：請添加地點描述，上傳照片和用線條連接標籤。</string>
-	<string name="edit_on_web">在線編輯</string>
-	<string name="properties_loading_error_subtitle">加載選項時出錯，請重試</string>
-	<string name="custom_props_desc">本指南您編制為</string>
-	<string name="custom_props_title">當地貨遊客</string>
-	<string name="custom_props_local">當地</string>
-	<string name="custom_props_traveler">遊客</string>
-	<string name="select_properties">選擇選項</string>
-	<string name="access_rules_p_to_p">特殊訪問</string>
-	<string name="access_rules_paid">已購買</string>
-	<string name="failed_purchase_support_message">您似乎還有待定購買。請寫支持，我們將解決問題。</string>
 	<string name="contact">寫</string>
-	<string name="check_price_button">了解價格</string>
 	<string name="download_button">下載</string>
 	<string name="speedcams_alert_title">高速相機</string>
 	<string name="speedcams_alert_subtitle">警告速度限制</string>
@@ -1283,70 +1080,26 @@
 	<string name="speedcam_option_never">從不</string>
 	<string name="bookmark_description_title">標籤說明</string>
 	<string name="place_description_title">地點說明</string>
-	<string name="ugc_routes_error_uploading_file_toast">抱歉，加載代碼時出錯。請再試一次。</string>
-	<string name="notification_channel_ugc">用戶內容</string>
 	<!-- this text will be shown in application notification preferences opposite checkbox which enable/disable downloader notifications. Devices on Android 8+ are affected. -->
 	<string name="notification_channel_downloader">加載地圖</string>
-	<string name="notification_leave_review_title">%s - 您在這裡怎麼樣?</string>
-	<string name="notification_leave_review_content">請發表評論並幫助旅客！</string>
-	<string name="share_bookmarks_email_body_link">您好！\n\n您的標籤可以從鏈接下載：%s.使用OMaps打開列表並享受旅行!\n\n下載應用程序：https://omaps.app/get?kmz</string>
+	<string name="share_bookmarks_email_body_link">您好！\n\n您的標籤可以從鏈接下載：%s.使用Organic Maps打開列表並享受旅行!\n\n下載應用程序：https://organicmaps.app/get?kmz</string>
 	<string name="warning_speedcams_title">當速度限制超過%d km / h時，導航會通知您的攝像機</string>
 	<string name="warning_speedcams_subtitle">請不要忘記閱讀旅行國的道路規則。</string>
 	<string name="speedcams_notice_message">自動 - 如果存在超出速度限制的風險，則對速度攝像頭髮出警告\n總是 - 始終提醒攝像頭\n從不 - 永遠不會對攝像頭發出警告</string>
-	<string name="whats_new_ugc_routes_title">分享您的印象很容易</string>
-	<string name="whats_new_ugc_routes_subtitle">保存有印象的地点、用书签创建路线，并在OMaps目录中和大家分享。</string>
-	<string name="whats_new_webeditor_title">把路线变成故事</string>
-	<string name="whats_new_ugc_routes_message2">在网页编辑工具里添加照片和详细的故事。</string>
-	<string name="ugc_thanks_message_auth">您的評論已保存</string>
-	<string name="ugc_thanks_message_not_auth">請註冊以留下評論</string>
-	<string name="notification_leave_review_v2_title">請發表評論來幫助旅行者們！</string>
-	<string name="error_public_not_enought_title">標籤不足</string>
-	<string name="error_public_not_enought_subtitle">您的路線至少應有3個標籤才能上傳到公共目錄中</string>
-	<string name="bookmark_public_upload_alert_title">您只需幾步即可將您的路徑加載到OMaps目錄中！</string>
-	<string name="bookmark_public_upload_alert_subtitle">請確保路線具有名稱和描述，並且所有標籤都包含場地信息。這樣用戶就能找到路線並在旅途中使用它們。</string>
-	<string name="bookmark_public_upload_alert_ok_button">是的，全部正確！</string>
-	<string name="name_title">請輸入名稱</string>
-	<string name="name_placeholder">例如，倫敦酒吧</string>
-	<string name="name_comment1">請具體化命名線路以便用戶能夠找到它們，例如\"倫敦酒吧\"</string>
-	<string name="name_comment2">名稱不應包含特殊字符. 請不要發布名稱為\"我的標籤\"的路線</string>
-	<string name="description_guide">描述</string>
-	<string name="description_title">請輸入線路描述</string>
-	<string name="description_placeholder">請詳細描述您的路線</string>
-	<string name="description_comment1">路線描述至少應為30個字符。</string>
-	<string name="ugc_route_tags_desc">請選擇標籤以幫助其他旅行者找到您的指南。這是必須的。不要超過 %s 標籤。</string>
-	<string name="html_format_error_title">您的路線尚未發布</string>
-	<string name="html_format_error_subtitle">請確保線路中標籤的名稱和描述格式正確。您可以單擊下面的\"在線編輯\"鍵在我們的編輯器中進行檢查。</string>
-	<string name="web_editor_description">請下載路線並獲取在電腦上編輯的鏈接</string>
-	<string name="edit_on_web_confirm">在線編輯</string>
-	<string name="update_guide">下載新版本</string>
-	<string name="direct_link_updating_text">更新路線中……</string>
-	<string name="direct_link_updating_success">路線已更新</string>
-	<string name="unable_get_direct_link_desc">您可以使用公共鏈接共享路線</string>
-	<string name="any_access_update_alert_title">可能有路線新版本</string>
-	<string name="any_access_update_alert_message">您是否更新標籤？新版本將在同一連鏈接上訪問。</string>
-	<string name="any_access_update_alert_update">更新</string>
-	<string name="public_or_limited_access_after_edit_online_error_title">您在線編輯了路線</string>
-	<string name="public_or_limited_access_after_edit_online_error_message">以後請通過我們的網站編輯、發布或與朋友分享路線</string>
 	<string name="power_managment_title">省電模式</string>
 	<string name="power_managment_description">如果開啟省電模式，應用程序將根據手機的當前電量關耗電功能</string>
 	<string name="power_managment_setting_never">從不</string>
 	<string name="power_managment_setting_auto">自動</string>
 	<string name="power_managment_setting_manual_max">最大程度省電</string>
-	<string name="enable_logging_warning_message">此選項啟用以記錄操作來進行診斷。這有助於團隊識別應用程序的問題。請僅在OMaps支持請求時開啟該選項。</string>
+	<string name="enable_logging_warning_message">此選項啟用以記錄操作來進行診斷。這有助於團隊識別應用程序的問題。請僅在Organic Maps支持請求時開啟該選項。</string>
 	<string name="html_error_upload_message_try_again">請檢查網絡訪問，然後再重試</string>
 	<string name="html_error_upload_title_try_again">未連接到網絡</string>
 	<string name="notification_leave_review_v2_android_short_title">請發表評論來幫助旅行者們！</string>
 	<string name="notifications_illegal_alert_disable_button">關閉通知</string>
 	<string name="access_rules_author_only">在線編輯</string>
 	<string name="privacy_settings_menu">隱私設置</string>
-	<string name="gdpr_request_setting">GDPR請求獲取ID</string>
-	<string name="gdpr_request_window_title">您的ID：%s。</string>
-	<string name="gdpr_request_window_message">請複制並發送請求至support\@omaps.app</string>
-	<string name="gdpr_request_window_copy">複製ID</string>
 	<string name="unable_upadate_error_title">無法更新路線</string>
 	<string name="unable_upadate_error_message">更新時出錯。請檢查更改，然後再重試</string>
-	<string name="whats_new_wiki_title">這是什麼地方？</string>
-	<string name="whats_new_wiki_message">在熱門景點的卡片中，我們添加了來自Wikipedia.org的文章，可以離線使用</string>
 	<string name="driving_options_title">繞行設置</string>
 	<string name="driving_options_subheader">在每條線路上規避</string>
 	<string name="avoid_tolls">收費公路</string>
@@ -1364,23 +1117,7 @@
 	<string name="avoid_toll_roads_placepage">規避收費公路</string>
 	<string name="avoid_unpaved_roads_placepage">規避土路</string>
 	<string name="avoid_ferry_crossing_placepage">規避輪渡</string>
-	<string name="cached_guides_placeholder_subtitle">OMaps中的現有指南是精選出來的地點，其中包含在地圖上顯示並可離線使用的照片和說明。</string>
-	<string name="guides_catalogue_title">指南目錄</string>
-	<string name="download_guides_button">轉至目錄</string>
-	<plurals name="placepage_summary_rating_description">
-	  <item quantity="one">基於%d的評論</item>
-	  <item quantity="other">基於%d的評論</item>
-	</plurals>
 	<string name="type.cuisine.uzbek">烏茲別克美食</string>
-	<string name="onboarding_guide_direct_download_title">該指南已準備好下載</string>
-	<string name="onboarding_guide_direct_download_subtitle">它將在地圖上顯示並將脫機工作</string>
-	<string name="onboarding_guide_direct_download_button">下載</string>
-	<string name="onboarding_bydeeplink_guide_title">OMaps上現成的指南</string>
-	<string name="onboarding_bydeeplink_guide_subtitle">帶有照片和說明的競選地點會顯示在地圖中，並且可以離線使用。</string>
-	<string name="whats_new_auto_update_bydeeplink_title">在轉到指南之前……</string>
-	<string name="whats_new_auto_update_bydeeplink_message">請更新有關對像以獲取實時信息的地圖!</string>
-	<string name="whats_new_auto_update_and_proceed_button_size">更新（%s）並繼續</string>
-	<string name="purchase_please_wait_toast">購買完成後請不要離開屏幕</string>
 	<string name="trip_start">前往</string>
 	<string name="pick_destination">目標</string>
 	<string name="follow_my_position">定好中心</string>
@@ -1400,41 +1137,6 @@
 	<string name="dialog_routing_rebuild_from_current_location_carplay">該路線將從您的當前位置重建</string>
 	<string name="dialog_routing_rebuild_for_vehicle_carplay">該路線將改為汽車（路線）</string>
 	<string name="ok">好的</string>
-	<string name="booking_button_toolbar">在地圖上選擇酒店</string>
-	<string name="popup_booking_download_guides_title">已預訂酒店？</string>
-	<string name="popup_booking_download_guides_message">和OMaps壹起規劃行程吧</string>
-	<string name="popup_mwm_download_guides_title">在線指南</string>
-	<string name="popup_mwm_download_guides_cta">選擇</string>
-	<string name="popup_mwm_download_guides_cta_1">查看</string>
-	<string name="gallery_pp_download_guides_offline_title">和 OMaps壹起規劃妳的假期吧！</string>
-	<string name="gallery_pp_download_guides_offline_subtitle">不要錯過資深驢友提供線路中最重要的內容</string>
-	<string name="gallery_pp_download_guides_offline_cta">開啟網絡</string>
-	<string name="gallery_pp_download_guides_title">旅行指南</string>
-	<string name="native_screen_subscription_title">2000+ 旅行指南向您完全開放！</string>
-	<string name="native_screen_subscription_message">令人回味無窮的旅行，和新旅伴探索新世界</string>
-	<string name="annual_subscription_title">按年訂閱</string>
-	<string name="montly_subscription_title">按月訂閱</string>
-	<string name="annual_subscription_message">12個月內無限使用</string>
-	<string name="montly_subscription_message">1個月內無限使用</string>
-	<string name="subscription_success_dialog_title">謝謝訂閱！</string>
-	<string name="subscription_success_dialog_message">您現在已經可以無限使用旅行指南目錄了</string>
-	<string name="renewal_screen_title">訂閱有效期已結束</string>
-	<string name="renewal_screen_message">所有通過訂閱下載的旅行指南將被刪除。希望恢復訂閱並保存它們？</string>
-	<string name="renewal_screen_button_restore">是的，恢復</string>
-	<string name="renewal_screen_button_cancel">不，刪除旅行指南</string>
-	<string name="subscription_error_ping_title">未能成功購買</string>
-	<string name="subscription_error_message">服務器無法在您所在的地區使用。請稍後再試</string>
-	<string name="subscription_error_button">明白</string>
-	<string name="timeout_error_title">糟糕，時間到了！</string>
-	<string name="timeout_error_message">我們的服務器無法響應。請檢查網絡連接狀況並重試。</string>
-	<string name="per_month">/月</string>
-	<string name="per_year">/年</string>
-	<string name="buy_btn_for_subscription">%s起可自由訪問</string>
-	<string name="buy_btn_for_subscription_1">在%s內購買全部旅行指南</string>
-	<string name="buy_btn_for_subscription_ios_only_mo">%s/月起可自由訪問</string>
-	<string name="buy_btn_for_subscription_ios_only_year">%s/年起可自由訪問</string>
-	<string name="subscription_terms_guides">在確認購買後，將通過您的 iTunes賬戶完成付款。如果在當前使用期限結束前的24小時內未關閉自動延長功能，則訂閱將自動更新。在當前使用期限結束前的24小時內，將根據您所選擇的套餐計劃，從您的賬戶中扣除相應金額。您可在購買後的任意時間內，在Apple ID的賬戶設置中調節或關閉自動延長功能。 您只能在訂閱有效期內使用通過訂閱下載的旅行指南。在訂閱結束後的30天內，旅行指南和全部書簽將被自動刪除。</string>
-	<string name="subscription_terms">確認購買後將向您的iTunes賬戶收費。除非在當前周期結束前至少24小時關閉自動續訂，訂購會自動延續。在當前周期結束前24小時內，我們會根據您的方案向您的賬戶收費。您能在購買後在Apple ID賬戶設置中隨時管理或關閉自動續訂。</string>
 	<string name="avoid_unpaved_carplay_1">無土路路段</string>
 	<string name="avoid_unpaved_carplay_2">無土路路段</string>
 	<string name="avoid_ferry_carplay_1">無渡船</string>
@@ -1443,7 +1145,7 @@
 	<string name="avoid_tolls_carplay_2">無付費路段</string>
 	<string name="speedcams_alert_title_carplay_1">攝像頭</string>
 	<string name="speedcams_alert_title_carplay_2">攝像頭信息</string>
-	<string name="download_map_carplay">將OMaps軟件中的地圖下載至個人設備中</string>
+	<string name="download_map_carplay">將Organic Maps軟件中的地圖下載至個人設備中</string>
 	<string name="carplay_roundabout_exit">%s號坡道</string>
 	<!-- max. 10 symbols, both iOS and Android -->
 	<string name="sort">分類……</string>
@@ -1491,80 +1193,15 @@
 	<string name="bookmarks_edit_list">編輯</string>
 	<!-- Android, max 18 symbols -->
 	<string name="bookmarks_delete_list">刪除列表</string>
-	<string name="popup_subscription_success_map_title">耶！您已訂閱！</string>
-	<string name="popup_subscription_success_map_message">現在在OMaps畫冊中探索最佳的旅遊景點</string>
-	<string name="popup_subscription_success_map_start_button">瀏覽</string>
-	<string name="popup_subscription_success_map_not_now_button">不是現在</string>
 	<string name="religious_places">聖地</string>
-	<string name="subscription_terms_android">在確認購買時，將從您的Google Play帳戶付款。如果在本期訂閱結束前24小時內沒有取消自動續訂，續訂將自動延續。資金將在本期訂閱結束前24小時內根據續訂計劃從您的帳戶中扣除。您可以在購買後管理自動續訂或在賬戶設置中將其停用。您只能在有效期內使用訂閱下載的指南。訂閱結束30天后，指南將自動刪除。</string>
 	<string name="select_list">選擇列表</string>
-	<string name="pp_discovery_place_related_header">這是指南目錄中標記的位置</string>
-	<string name="pp_discovery_place_related_header_1">這個位置在指南中出現過</string>
-	<string name="pp_discovery_place_related_cta_button">查看</string>
-	<string name="pp_discovery_place_related_tag_header">指南和按標記 “%s”</string>
-	<string name="pp_discovery_place_related_tag_header_1">您會喜歡這樣的</string>
-	<string name="buy_btn_for_subscription_version_2">所有指南%s/月</string>
-	<string name="buy_btn_for_subscription_version_3">整個畫冊%s/月</string>
-	<string name="buy_btn_for_subscription_ios_only_mo_version_2">訪問畫冊%s/月</string>
-	<string name="buy_btn_for_subscription_ios_only_year_version_2">訪問畫冊%s/年</string>
-	<string name="subscription_screen_native_title_version_2">在地圖上訪問帶有標記的指南！</string>
-	<string name="subscription_screen_native_message_version_2">請為600多個城市和100多個國家的任何旅行做好準備</string>
-	<string name="catalog_no_internet_title">沒有網絡連接</string>
-	<string name="catalog_no_internet_button">請再試一次</string>
-	<string name="new_onboarding_button">繼續</string>
-	<string name="new_onboarding_button_2">開始</string>
-	<string name="new_onboarding_step1_header_2">旅行中的萬能助手</string>
-	<string name="new_onboarding_step2_header">憧憬並付諸實踐</string>
-	<string name="new_onboarding_step2_message">超過7千萬個有趣的地方，指南目錄，從地圖上預定旅店-爲出行做好一切准備！</string>
-	<string name="new_onboarding_step3_message">周祥的離線地圖和離線導航在陌生的地方助你一臂之力！</string>
-	<string name="new_onboarding_step4_header">分享感受</string>
-	<string name="new_onboarding_step4_message">收藏喜歡的地方並分享給朋友們</string>
-	<string name="new_onboarding_step5.1_header">在開始前……</string>
-	<string name="new_onboarding_step5.1_message">不要忘記訪問我們新的線路，爲即將的出行找到離線導航！</string>
-	<string name="new_onboarding_step5.1_button">打開目錄</string>
-	<string name="new_onboarding_step5.2_message">订阅OMaps中的旅行指南会让您受益匪浅。全面访问城市散步路线和户外活动路线！</string>
-	<string name="new_onboarding_step5.2_button">查看條件</string>
-	<string name="new_onboarding_step5.3_message">下載或評論帶有 OMaps免費編錄的市內旅行和休閑運動的線路！</string>
-	<string name="new_onboarding_step5.3_button">免費下載</string>
-	<string name="new_onboarding_additional_steps_later_button">稍後</string>
-	<string name="all_pass_subscription_header">訂閱</string>
-	<string name="all_pass_subscription_subheader">指南目錄</string>
-	<!-- \n - for a break between lines. Max. 15 characters per 1 line. -->
-	<string name="all_pass_subscription_message_title">30000+\n指南\n和道路</string>
-	<!-- <b> & </b> tag to make a part of the line bold -->
-	<string name="all_pass_subscription_message_subtitle"><b>無限離線下載</b>城市和戶外活動的路線</string>
-	<!-- \n - for a break between lines. Max. 17 characters per 1 line. -->
-	<string name="all_pass_subscription_message_title_2">互動\n高度剖面圖</string>
-	<!-- <b> & </b> tag to make a part of the line bold -->
-	<string name="all_pass_subscription_message_subtitle_2"><b>所有道路均已加載高度和路線基本信息</b></string>
-	<!-- \n - for a break between lines. Max. 15 characters per 1 line. -->
-	<string name="all_pass_subscription_message_title_3">默認\n地點，照片\n和推薦</string>
-	<!-- <b> & </b> tag to make a part of the line bold -->
-	<string name="all_pass_subscription_message_subtitle_3"><b>了解您準備前往的路線</b>，的所有信息</string>
-	<string name="sightseeing_subscription_header_subscription">訂閱指南</string>
-	<string name="sightseeing_subscription_message">超過700座城市和100個國家</string>
-	<string name="sightseeing_subscription_message_2">支持離線訪問</string>
-	<string name="sightseeing_subscription_message_3">照片與人行道路</string>
-	<string name="subscription_success_dialog_title_sightseeing_pass">感謝訂閱！</string>
-	<string name="subscription_success_dialog_message_sightseeing_pass">現在你可使用目錄中的全部城市指南</string>
-	<string name="downloader_main_gallery_header">地圖與指南</string>
-	<string name="downloader_main_gallery_message">在本單元中你不僅可以下載地圖，還可以爲即將到來的出行選擇指南</string>
-	<string name="downloader_main_1_element_gallery_header">所有指南</string>
-	<string name="downloader_main_1_element_gallery_message">超過100個國家</string>
-	<string name="downloader_country_1_element_gallery_header">%s 條線路</string>
-	<string name="downloader_country_no_guides_gallery_header">暫時沒有該國家的指南</string>
-	<string name="downloader_country_no_guides_gallery_message">了解其他100多個國家的城市與休閑活動線路</string>
-	<string name="dialog_pedestrian_route_is_long">步行到達交通工具處需要很長時間</string>
-	<string name="new_onboarding_step3_header">去旅行吧</string>
-	<string name="all_pass_screen_best_value">優惠的價格</string>
-	<string name="buy_btn_for_subscription_3">整個畫冊%s/年</string>
 	<string name="transit_not_found">本區域的地鐵導航目前不可用</string>
 	<string name="dialog_pedestrian_route_is_long_header">地鐵路線圖未找到</string>
 	<string name="dialog_pedestrian_route_is_long_message">選擇地鐵站附近的起點和終點</string>
 	<!-- Failed planning SUBWAY route message in navigation view -->
 	<string name="routing_planning_error_subway_special">地鐵路線圖設計出錯</string>
 	<string name="button_layer_isolines">高度</string>
-	<string name="tips_map_layers_title_countour">離線高度線在OMaps中！</string>
+	<string name="tips_map_layers_title_countour">離線高度線在Organic Maps中！</string>
 	<string name="tips_map_layers_message_countour">高度線可以幫您規劃通往大自然地區的路線，不會迷路</string>
 	<string name="isolines_activation_error_dialog">如需使用高度线，请更新或下载所需区域的地图</string>
 	<string name="isolines_location_error_dialog">暫時無法獲取該地區的高低線</string>
@@ -1583,79 +1220,10 @@
 	<string name="elevation_profile_time">在路上：</string>
 	<string name="elevation_profile_hours">小時</string>
 	<string name="elevation_profile_minutes">分鐘</string>
-	<string name="view_on_map_downloaded_error">該指南已從設備中刪除</string>
-	<string name="subscription">訂閱</string>
-	<string name="button_layer_guides">指南（新）</string>
-	<string name="no_routes_in_the_area_toast">這裡沒有指南</string>
 	<string name="isolines_toast_zooms_1_10">放大地圖以查看等高線</string>
-	<string name="routes_layer_in_menu_toast">打開圖層以查找離線指南，查看等值線，地鐵線路或交通擁堵狀況</string>
-	<string name="routes_layer_is_on_toast">移動地圖以尋找指南</string>
-	<string name="connection_error_dialog_guides_title">連接錯誤</string>
-	<string name="connection_error_dialog_guides_message">本身無法加載，因為沒有網絡或信號較弱。如要繼續，請檢查連接或關閉位置。</string>
-	<string name="connection_error_dialog_guides_try">再試一次</string>
-	<string name="connection_error_dialog_guides_layer_turn_off">關閉</string>
-	<string name="connection_error_toast_guides">恢復網絡連接</string>
-	<!-- as few symbols as possible -->
-	<string name="routes_card_show">在地圖上顯示</string>
-	<!-- as few symbols as possible -->
-	<string name="routes_card_hide">在地圖上隱藏</string>
 	<string name="downloader_updating_ios">更新</string>
 	<string name="downloader_loading_ios">加載</string>
-	<string name="routes_card_plus_track">+路線</string>
-	<string name="routes_card_number_of_points">%s位置</string>
-	<string name="routes_card_routes_tag">路線</string>
-	<string name="routes_card_set_tag">特色景點</string>
-	<!-- as few symbols as possible -->
-	<string name="guides_trial_cta_button">免费试用7天</string>
-	<string name="guides_trial_message">之后每年%s。随时取消</string>
-	<string name="trial_error_dialog">您已经使用了试用期</string>
-	<!-- as few symbols as possible -->
-	<string name="floating_button_filters">筛选</string>
-	<plurals name="date_picker_amout_of_days">
-	  <item quantity="one">%d天</item>
-	  <item quantity="few">%d天</item>
-	  <item quantity="other">%d天</item>
-	</plurals>
-	<!-- as few symbols as possible -->
-	<string name="date_picker_сhoose_dates_cta">选择日期</string>
-	<!-- as few symbols as possible -->
-	<string name="guests_picker_rooms_title">客房和客人</string>
-	<string name="guests_picker_rooms">客房</string>
-	<string name="guests_picker_adults">成人</string>
-	<string name="guests_picker_children_title">儿童</string>
-	<string name="guests_picker_children_subtitle">1-17岁</string>
-	<string name="guests_picker_infants_title">婴儿</string>
-	<string name="guests_picker_infants_subtitle">0-12个月</string>
-	<!-- as less symbols as possible -->
-	<string name="booking_map_component_availability">沒有可用的房間</string>
-	<!-- as few symbols as possible -->
-	<string name="booking_map_component_filters">未筛选到</string>
-	<string name="choose_dates_online_only_dialog_title">没有网络连接</string>
-	<string name="choose_dates_online_only_dialog_message">日期和入住人数仅可在线选择。检查您的设置，并确保您已连网。</string>
-	<string name="choose_dates_online_only_dialog_cta">设置</string>
-	<string name="thirty_days_limit_dialog">最多可预订30晚</string>
-	<string name="whatsnew_trial_cta">试用</string>
-	<string name="subscription_terms_guides_outdoor">确认购买后，付款将从您的iTunes帐户中扣除。订阅将自动续订，除非在到期前至少24小时关闭自动续订。在到期前的24小时内，将根据您的续订计划从您的帐户扣费。购买成功后，您可以随时进入Apple ID帐户设置来管理或关闭自动更新。您只能在有效期内使用通过订阅下载的指南。订阅结束后7天，带有所有标签的指南将被自动删除。\n*免费试用期的订阅会自动转换为付费订阅。购买后，您可以转到“帐户设置”来取消或管理免费试用版的自动续订。取消将在当前订阅期最后一天的24小时后生效，您将被转为免费订阅。请注意，免费试用期内未使用的部分在该期间购买付费订阅时将被收回。</string>
-	<string name="subscription_terms_android_outdoor">确认购买后，付款将从您的Google Play帐户中扣除。订阅将自动续订，除非在到期前至少24小时关闭自动续订。在到期前的24小时内，将根据您的续订计划从您的帐户扣费。购买后，您可以转到“帐户设置”来管理或关闭自动续订。您只能在有效期内使用通过订阅下载的指南。订阅结束后7天后，指南将自动删除。\n*免费试用期的订阅会自动转换为付费订阅。购买后，您可以转到“帐户设置”来取消或管理免费试用版的自动续订。取消将在当前订阅期最后一天的24小时后生效，您将被转为免费订阅。请注意，免费试用期内未使用的部分在该期间购买付费订阅时将被收回。</string>
-	<string name="subscription_header">訂閱\n<b>旅行指南目錄</b></string>
-	<!-- Max. 20 characters per 1 line. -->
-	<string name="all_pass_subscription_message_title_4">旅行指南\nLonely Planet®出品</string>
-	<!-- <b> & </b> tag to make a part of the line bold -->
-	<string name="all_pass_subscription_message_subtitle_4">還有<b>來自全球各地</b> 千萬有趣景點的 <b>無窮印象</b></string>
-	<string name="content_by_component">內容來源：%s</string>
-	<string name="whatsnew_lp_title">更多印象</string>
-	<string name="whatsnew_lp_message">歡迎Lonely Planet旅行指南加入我們！7000余座城市的名勝古跡、主題路線和獨特景點。</string>
-	<string name="collections_title">專欄</string>
 	<string name="key_information_title">關鍵信息</string>
-	<string name="mustsee_title">必看</string>
-	<string name="see_lp_category">名勝古跡</string>
-	<string name="play_lp_category">休閑娛樂</string>
-	<string name="shop_lp_category">購物</string>
-	<string name="transport_lp_category">交通</string>
-	<string name="sleep_lp_category">住宿</string>
-	<string name="general_lp_category">主要</string>
-	<string name="drink_lp_category">酒吧</string>
-	<string name="eat_lp_category">餐廳</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">纜車站</string>

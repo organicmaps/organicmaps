@@ -57,7 +57,7 @@
 	<string name="country_status_download_failed">Letöltése sikertelen</string>
 	<!-- Button text for the button under the country_status_download_failed message -->
 	<string name="try_again">Újrapróbálkozás</string>
-	<string name="about_menu_title">A OMaps programról</string>
+	<string name="about_menu_title">A Organic Maps programról</string>
 	<string name="downloaded_touch_to_delete">Letöltve (%s), érintse meg törléshez</string>
 	<string name="connection_settings">Kapcsolat beállítások</string>
 	<string name="download_mb_or_kb">Letöltés %s</string>
@@ -65,7 +65,7 @@
 	<string name="unsupported_phone">Hardware-s gyorsítású OpenGL szükséges. Sajnos az Ön eszköze nem támogatott.</string>
 	<string name="download">Letöltés</string>
 	<string name="external_storage_is_not_available">Nem található téképeket tartalmazó SD kártya / USB tároló</string>
-	<string name="disconnect_usb_cable">Kérjük bontsa az USB kapcsolatot vagy helyezzen be memóriakártyát a OMaps használatához</string>
+	<string name="disconnect_usb_cable">Kérjük bontsa az USB kapcsolatot vagy helyezzen be memóriakártyát a Organic Maps használatához</string>
 	<string name="not_enough_free_space_on_sdcard">Kérjük szabadítson fel helyet az SD kártyán / USB tárolón az alkalmazás használatához!</string>
 	<string name="not_enough_memory">Nincs elegendő memória az alkalmazás futtatásához</string>
 	<string name="download_resources">Első használat előtt letöltjük a világtérképet.\n%s tárolóhely szükséges.</string>
@@ -105,7 +105,7 @@
 	<!-- Add bookmark dialog - bookmark set, Bookmarks dialog - Bookmark set cell -->
 	<string name="set">Csoport</string>
 	<!-- Text hint in Bookmarks dialog when no any bookmarks are added -->
-	<string name="bookmarks_usage_hint">Nincsenek megjelölt helyeid.\nHely megjelöléséhez koppints a térkép bármelyik pontjára.\nSzintén más forrásokból származó könyvjelzőket is beolvashat a OMaps programba. Nyisson meg KML/KMZ fájlt egy levélből, Dropbox-ból vagy internetről.</string>
+	<string name="bookmarks_usage_hint">Nincsenek megjelölt helyeid.\nHely megjelöléséhez koppints a térkép bármelyik pontjára.\nSzintén más forrásokból származó könyvjelzőket is beolvashat a Organic Maps programba. Nyisson meg KML/KMZ fájlt egy levélből, Dropbox-ból vagy internetről.</string>
 	<!-- Settings button in system menu -->
 	<string name="settings">Beállítások</string>
 	<!-- Header of settings activity where user defines storage path -->
@@ -173,7 +173,7 @@
 	<!-- Button text -->
 	<string name="share_by_email">Megosztás email-en</string>
 	<!-- Email Subject when sharing bookmarks category -->
-	<string name="share_bookmarks_email_subject">Egy OMaps könyvjelzőt osztottak meg Önnel</string>
+	<string name="share_bookmarks_email_subject">Egy Organic Maps könyvjelzőt osztottak meg Önnel</string>
 	<!-- message title of loading file -->
 	<string name="load_kmz_title">Könyvjelzők letöltése</string>
 	<!-- Kmz file successful loading -->
@@ -193,17 +193,17 @@
 	<!-- Alert message that downloading is in progress. -->
 	<string name="downloading_is_active">Országletöltés folyamatban.</string>
 	<!-- Message that will be shown in alert view, when we ask user to leave review on App Store -->
-	<string name="appStore_message">Reméljük élvezi a OMaps használatát. Ha igen, kérjük írjon ajánlást az App Store-ban! Kevesebb mint egy perc, és valóban segít nekünk. Köszönjük!</string>
+	<string name="appStore_message">Reméljük élvezi a Organic Maps használatát. Ha igen, kérjük írjon ajánlást az App Store-ban! Kevesebb mint egy perc, és valóban segít nekünk. Köszönjük!</string>
 	<!-- No, thanks -->
 	<string name="no_thanks">Köszönöm, nem</string>
 	<!-- Share one specific bookmark using SMS, %1$@ contains ge0:// and %2$@ http://ge0.me link. @NOTE non-ascii symbols in the link will make 70 bytes sms instead of 140 -->
-	<string name="bookmark_share_sms">Nézd meg a OMaps jelzőt! %1$s vagy %2$s A program letöltése: https://omaps.app/get</string>
+	<string name="bookmark_share_sms">Nézd meg a Organic Maps jelzőt! %1$s vagy %2$s A program letöltése: https://organicmaps.app/get</string>
 	<!-- Share my position using SMS, %1$@ contains ge0:// and %2$@ http://ge0.me link WITHOUT NAME. @NOTE non-ascii symbols in the link will make 70 bytes sms instead of 140 -->
-	<string name="my_position_share_sms">Nézd meg a OMaps helyzetemet! %1$s vagy %2$s A program letöltése: https://omaps.app/get</string>
+	<string name="my_position_share_sms">Nézd meg a Organic Maps helyzetemet! %1$s vagy %2$s A program letöltése: https://organicmaps.app/get</string>
 	<!-- Subject for emailed bookmark -->
-	<string name="bookmark_share_email_subject">Nézze meg a OMaps jelzőmet</string>
+	<string name="bookmark_share_email_subject">Nézze meg a Organic Maps jelzőmet</string>
 	<!-- Subject for emailed position -->
-	<string name="my_position_share_email_subject">Nézze meg a helyzetemet a OMaps térképen!</string>
+	<string name="my_position_share_email_subject">Nézze meg a helyzetemet a Organic Maps térképen!</string>
 	<!-- Share my position using EMail, %1$@ is ge0:// and %2$@ is http://ge0.me link WITHOUT NAME -->
 	<string name="my_position_share_email">Üdvözlöm!\n\nJelenleg itt vagyok: %1$s Kattintson erre a hivatkozásra %2$s vagy erre %3$s, hogy lássa a helyet a térképen.\n\nKöszönöm.</string>
 	<!-- Android share by Message/SMS button text (including SMS) -->
@@ -303,19 +303,19 @@
 	<!-- text of notification -->
 	<string name="download_map_notification">Töltsd le annak a helynek a térképét, ahol most vagy</string>
 	<!-- text of notification -->
-	<string name="pro_version_is_free_today">A teljes verzió OMaps ma ingyenes! Töltsd le most és meséld el barátaidnak.</string>
+	<string name="pro_version_is_free_today">A teljes verzió Organic Maps ma ingyenes! Töltsd le most és meséld el barátaidnak.</string>
 	<!-- Dialog for transferring maps from lite to pro. -->
-	<string name="move_lite_maps_to_pro">Letöltött térképeidet áthelyezzük a OMaps Lite-ból a OMaps-be. Ez eltarthat pár percig.</string>
+	<string name="move_lite_maps_to_pro">Letöltött térképeidet áthelyezzük a Organic Maps Lite-ból a Organic Maps-be. Ez eltarthat pár percig.</string>
 	<!-- Message to display when maps moved. -->
-	<string name="move_lite_maps_to_pro_ok">Letöltött térképeidet sikeresen áthelyeztük a OMaps-be.</string>
+	<string name="move_lite_maps_to_pro_ok">Letöltött térképeidet sikeresen áthelyeztük a Organic Maps-be.</string>
 	<!-- Message to display when maps move failed. -->
-	<string name="move_lite_maps_to_pro_failed">Térképeid áthelyezése nem sikerült. Kérjük, töröld a OMaps Lite-t és töltsd le a térképet megint.</string>
+	<string name="move_lite_maps_to_pro_failed">Térképeid áthelyezése nem sikerült. Kérjük, töröld a Organic Maps Lite-t és töltsd le a térképet megint.</string>
 	<!-- Text in menu -->
 	<string name="settings_and_more">Beállítások és egyéb</string>
 	<!-- Text in menu -->
 	<string name="website">Honlap</string>
 	<!-- Text in menu -->
-	<string name="maps_me_community">OMaps közösség</string>
+	<string name="maps_me_community">Organic Maps közösség</string>
 	<!-- Text in menu -->
 	<string name="like_on_facebook">Lájkolj minket Facebookon</string>
 	<!-- Text in menu -->
@@ -335,11 +335,11 @@
 	<!-- Text in menu -->
 	<string name="report_a_bug">Hibabejelentés</string>
 	<!-- Email subject -->
-	<string name="subscribe_me_subject">Fel szeretnék iratkozni a OMaps hírlevelére</string>
+	<string name="subscribe_me_subject">Fel szeretnék iratkozni a Organic Maps hírlevelére</string>
 	<!-- Email body -->
 	<string name="subscribe_me_body">Elsőként szeretnék értesülni a legújabb hírekről frissítésekről és promóciókról. A feliratkozásom bármikor törölhetem.</string>
 	<!-- About text -->
-	<string name="about_text">A OMaps kínálja a leggyorsabb offline térképeket, a világ összes városáról és országáról. Utazz magabiztosan: bárhol is vagy, a OMaps segít, hogy megtaláld magad a térképen, valamint segít a legközelebbi étterem, hotel, bank, benzinkút stb. felkutatásában is. Nem igényel internet kapcsolatot.\n\nMindig dolgozunk új fejlesztéseken és örömmel vennénk a te véleményedet is arról, hogyan tudnánk tovább fejleszteni a OMaps-t. Bármely probléma esetén írj nekünk a support\@omaps.app email címre. Minden levélre válaszolunk!\n\nSzereted a OMaps-t és szeretnél támogatni minket? Van erre pár egyszerű és teljesen ingyenes lehetőséged:\n\n- írj rólunk értékelést az App Market-en\n- kedveld a Facebook oldalunkat: http://www.facebook.com/mapswithme\n- vagy csak mesélj a OMaps-ről anyukádnak, barátaidnak és munkatársaidnak :)\n\nKöszönjük, hogy velünk vagy. Nagyra értékeljük támogatásodat!\n\nU.i: Adatainkat az OpenStreetMap-ről vesszük, ami egy, a Wikipedia-hoz hasonló térképes projekt, ami megengedi felhasználóinak a térképek létrehozását és szerkesztését. Ha bármi hiányzik vagy rossz a térképpel, közvetlenül te is kijavíthatod a https://www.openstreetmap.org-on és változtatásaid a OMaps következő verziójában már meg fognak jelenni.</string>
+	<string name="about_text">A Organic Maps kínálja a leggyorsabb offline térképeket, a világ összes városáról és országáról. Utazz magabiztosan: bárhol is vagy, a Organic Maps segít, hogy megtaláld magad a térképen, valamint segít a legközelebbi étterem, hotel, bank, benzinkút stb. felkutatásában is. Nem igényel internet kapcsolatot.\n\nMindig dolgozunk új fejlesztéseken és örömmel vennénk a te véleményedet is arról, hogyan tudnánk tovább fejleszteni a Organic Maps-t. Bármely probléma esetén írj nekünk a support\@organicmaps.app email címre. Minden levélre válaszolunk!\n\nSzereted a Organic Maps-t és szeretnél támogatni minket? Van erre pár egyszerű és teljesen ingyenes lehetőséged:\n\n- írj rólunk értékelést az App Market-en\n- kedveld a Facebook oldalunkat: http://www.facebook.com/OMapsApp\n- vagy csak mesélj a Organic Maps-ről anyukádnak, barátaidnak és munkatársaidnak :)\n\nKöszönjük, hogy velünk vagy. Nagyra értékeljük támogatásodat!\n\nU.i: Adatainkat az OpenStreetMap-ről vesszük, ami egy, a Wikipedia-hoz hasonló térképes projekt, ami megengedi felhasználóinak a térképek létrehozását és szerkesztését. Ha bármi hiányzik vagy rossz a térképpel, közvetlenül te is kijavíthatod a https://www.openstreetmap.org-on és változtatásaid a Organic Maps következő verziójában már meg fognak jelenni.</string>
 	<!-- Alert text -->
 	<string name="email_error_body">Az email kliens nincs beállítva. Kérjük, konfiguráld vagy próbálj meg valamilyen más módon kapcsolatba lépni velünk a %s email címen keresztül.</string>
 	<!-- Alert title -->
@@ -351,7 +351,7 @@
 	<!-- Update map suggestion -->
 	<string name="routing_map_outdated">Kérjük, útvonal létrehozásához frissítsd a térképet.</string>
 	<!-- Update maps suggestion -->
-	<string name="routing_update_maps">A OMaps új verziójában már útvonalakt is létrehozhatsz tartózkodási helyedtől az úticélodig. Kérjük, ennek a funkciónak a használatához frissítsd a térképeket.</string>
+	<string name="routing_update_maps">A Organic Maps új verziójában már útvonalakt is létrehozhatsz tartózkodási helyedtől az úticélodig. Kérjük, ennek a funkciónak a használatához frissítsd a térképeket.</string>
 	<!-- Update all button text -->
 	<string name="downloader_update_all_button">Mindegyik frissítése</string>
 	<!-- Cancel all button text -->
@@ -368,7 +368,7 @@
 	<string name="downloader_downloading">Letöltés:</string>
 	<string name="downloader_search_results">Megtalálva</string>
 	<!-- Disclaimer message -->
-	<string name="routing_disclaimer">Amikor útvonalakat készít a OMaps appban, kérjük, vegye figyelembe a következőket:\n\n  - Az ajánlott útvonalak csak javaslatoknak tekintendők.\n - Az utak kondíciója, a forgalmi szabályok és jelzőtáblák magasabb prioritásúak, mint a navigációs javaslatok.\n - A térkép lehet, hogy hibás vagy idejétmúlt, az útvonalak pedig lehet, hogy nem a lehető legjobb módon készülnek el.\n\n  Legyen óvatos az utakon és vigyázzon magára!</string>
+	<string name="routing_disclaimer">Amikor útvonalakat készít a Organic Maps appban, kérjük, vegye figyelembe a következőket:\n\n  - Az ajánlott útvonalak csak javaslatoknak tekintendők.\n - Az utak kondíciója, a forgalmi szabályok és jelzőtáblák magasabb prioritásúak, mint a navigációs javaslatok.\n - A térkép lehet, hogy hibás vagy idejétmúlt, az útvonalak pedig lehet, hogy nem a lehető legjobb módon készülnek el.\n\n  Legyen óvatos az utakon és vigyázzon magára!</string>
 	<!-- Outdated maps category -->
 	<string name="downloader_outdated_maps">Elavult</string>
 	<!-- Up to date maps category -->
@@ -392,7 +392,7 @@
 	<!-- RouteNotFound -->
 	<string name="routing_failed_route_not_found">Nem találtunk útvonalat a kiválasztott kiindulópont és az úti cél között. Kérjük, válasszon másik kiinduló- vagy végpontot.</string>
 	<!-- InternalError -->
-	<string name="routing_failed_internal_error">Belső hiba történt. Kérjük, próbálja meg kitörölni és újra letölteni a térképet. Ha a probléma továbbra is fennáll, kérjük, vegye fel velünk a kapcsolatot a support\@omaps.app email címen.</string>
+	<string name="routing_failed_internal_error">Belső hiba történt. Kérjük, próbálja meg kitörölni és újra letölteni a térképet. Ha a probléma továbbra is fennáll, kérjük, vegye fel velünk a kapcsolatot a support\@organicmaps.app email címen.</string>
 	<!-- Context menu item for downloader. -->
 	<string name="downloader_download_map_and_routing">Térkép + útvonal letöltése</string>
 	<!-- Context menu item for downloader. -->
@@ -423,9 +423,9 @@
 	<!-- Text for rating dialog -->
 	<string name="rating_just_rated">Most értékeltem az alkalmazásodat</string>
 	<!-- Text for rating dialog -->
-	<string name="rating_user_since">OMaps felhasználó vagyok %s óta</string>
+	<string name="rating_user_since">Organic Maps felhasználó vagyok %s óta</string>
 	<!-- Text for rating dialog -->
-	<string name="rating_do_like_maps">Szereted a OMaps-t?</string>
+	<string name="rating_do_like_maps">Szereted a Organic Maps-t?</string>
 	<!-- Text for rating dialog -->
 	<string name="rating_tap_star">Érints meg egy csillagot az alkalmazás értékeléséhez.</string>
 	<!-- Text for rating dialog -->
@@ -441,7 +441,7 @@
 	<!-- Text for routing error dialog -->
 	<string name="routing_download_map">Térkép megszerzése</string>
 	<!-- Text for routing error dialog -->
-	<string name="routing_download_map_and_routing">Frissített térkép és útvonaltervezési adatok letöltése az összes OMaps tulajdonság megszerzése érdekében.</string>
+	<string name="routing_download_map_and_routing">Frissített térkép és útvonaltervezési adatok letöltése az összes Organic Maps tulajdonság megszerzése érdekében.</string>
 	<!-- Text for routing error dialog -->
 	<string name="routing_get_routing_data">Útvonaltervezési adatok megszerzése</string>
 	<!-- Text for routing error dialog -->
@@ -573,7 +573,7 @@
 	<!-- Text for routing::RouterResultCode::FileTooOld dialog. -->
 	<string name="dialog_routing_download_and_update_maps">Útvonal létrehozásához kérjük, töltse le és frissítse az összes térképet az útvonal mentén.</string>
 	<string name="rate_alert_title">Tetszik az app?</string>
-	<string name="rate_alert_default_message">Köszönjük, hogy a OMaps-t használta. Kérjük, értékelje az appot. A visszajelzéseik segítenek bennünket abban, hogy jobbá váljunk.</string>
+	<string name="rate_alert_default_message">Köszönjük, hogy a Organic Maps-t használta. Kérjük, értékelje az appot. A visszajelzéseik segítenek bennünket abban, hogy jobbá váljunk.</string>
 	<string name="rate_alert_five_star_message">Hurrá! Mi is szeretjük magát!</string>
 	<string name="rate_alert_four_star_message">Köszönjük, igyekszünk a legjobbunkat nyújtani!</string>
 	<string name="rate_alert_less_than_four_star_message">Van valami ötlete, amivel jobbá tehetnénk?</string>
@@ -628,7 +628,7 @@
 	<string name="editor_report_problem_no_place_title">A hely nem létezik</string>
 	<string name="editor_report_problem_under_construction_title">Karbantartás miatt nem elérhető</string>
 	<string name="editor_report_problem_duplicate_place_title">Duplikált hely</string>
-	<string name="first_launch_congrats_title">A OMaps használatra készen áll</string>
+	<string name="first_launch_congrats_title">A Organic Maps használatra készen áll</string>
 	<string name="first_launch_congrats_text">Keress és navigálj offline a világon mindenhol, térítésmentesen.</string>
 	<string name="migrate_title">Fontos!</string>
 	<!-- Android uses image instead of text. -->
@@ -726,14 +726,14 @@
 	<string name="placepage_report_problem_button">Hibabejelentés</string>
 	<string name="placepage_add_business_button">Szervezet hozzáadása</string>
 	<string name="whatsnew_editor_message_1">Adj hozzá új helyeket a térképhez, és szerkeszd a meglévőket közvetlenül az alkalmazásból.</string>
-	<string name="whatsnew_editor_message_2">* A OMaps az OpenStreetMap közösség adatait használja.</string>
+	<string name="whatsnew_editor_message_2">* A Organic Maps az OpenStreetMap közösség adatait használja.</string>
 	<string name="dialog_incorrect_feature_position">Helyszín megváltoztatása</string>
 	<string name="message_invalid_feature_position">Célpont áthelyezése ide nem lehetséges</string>
 	<string name="login_to_make_edits_visible">Jelentkezz be, hogy más felhasználók is láthassák a változtatásaidat.</string>
 	<string name="no_migration_during_navigation">Navigáció közbeni módosítás nem engedélyezett.</string>
 	<!-- Error dialog no space -->
 	<string name="migration_no_space_message">A letöltéshez több szabad tárhelyre van szükség. Kérjük, töröld a szükségtelen adatokat.</string>
-	<string name="editor_sharing_title">Én fejlesztettem a OMaps térképeket</string>
+	<string name="editor_sharing_title">Én fejlesztettem a Organic Maps térképeket</string>
 	<string name="editor_comment_will_be_sent">Megjegyzését elküldjük a térképészeknek.</string>
 	<string name="editor_unsupported_category_message">Olyan kategóriához adott helyet, amelyet még nem támogatunk. Ez a kategória később fog megjelenni a térképen.</string>
 	<!-- Downloaded 10 **of** 20 <- it is that "of" -->
@@ -750,7 +750,7 @@
 	<string name="core_placepage_unknown_place">Ismeretlen hely</string>
 	<string name="editor_other_info">Küldjön jegyzetet az OSM editornak</string>
 	<string name="editor_detailed_description_hint">Részletes megjegyzés</string>
-	<string name="editor_detailed_description">Javasolt változtatásait elküldjük az OpenStreetMap közösségnek. Írja le a további információkat, amelyek nem szerkeszthetők a OMaps-ben.</string>
+	<string name="editor_detailed_description">Javasolt változtatásait elküldjük az OpenStreetMap közösségnek. Írja le a további információkat, amelyek nem szerkeszthetők a Organic Maps-ben.</string>
 	<string name="editor_more_about_osm">További részletek az OpenStreetMap-ról</string>
 	<string name="editor_operator">Üzemeltető</string>
 	<string name="editor_tag_description">Írja ide a működtetésért felelős cég, szervezet vagy magánszemély nevét.</string>
@@ -789,8 +789,6 @@
 	<string name="placepage_entrance_type">Bejárat</string>
 	<string name="placepage_flat">lakás</string>
 	<string name="placepage_open_24_7">24 órás</string>
-	<string name="place_page_booking_rating">Kategória: %s</string>
-	<string name="place_page_starting_from">kezdőár %s</string>
 	<string name="meter">m</string>
 	<string name="kilometer">km</string>
 	<string name="kilometers_per_hour">km/h</string>
@@ -825,12 +823,8 @@
 	<string name="error_enter_correct">Adj meg egy érvényes értéket</string>
 	<string name="editor_profile_changes_for_next_place">Változtatások a jobb helyért: %d</string>
 	<string name="editor_profile_rating_place">Ranglista helyezés</string>
-	<string name="booking_dialog_not_connect_header">A szálloda lefoglalásához csatlakozzon az internethez</string>
-	<string name="button_try">Próbáld ki</string>
 	<string name="refresh">Frissítés</string>
 	<string name="last_update">Utolsó frissítés: %s</string>
-	<string name="booking_checkin">bejelentkezés: %s</string>
-	<string name="booking_checkout">kijelentkezés: %s</string>
 	<string name="placepage_add_place_button">Hely hozzáadása a térképhez</string>
 	<!-- Displayed when saving some edits to the map to warn against publishing personal data -->
 	<string name="editor_share_to_all_dialog_title">Szeretnéd elküldeni az összes felhasználónak?</string>
@@ -849,21 +843,19 @@
 	<string name="place_page_button_read_descriprion">Olvassa el</string>
 	<!-- iOS dialog for the case when recent track recording is on and the app comes back from background -->
 	<string name="recent_track_background_dialog_title">Megszakítod a legutóbb megtett utad rögzítését?</string>
-	<!-- If a hotel is being shared -->
-	<string name="sharing_booking">vagy foglaljon a booking.com-on</string>
 	<string name="off_recent_track_background_button">Megszakítás</string>
 	<!-- For sharing via SMS and so on -->
 	<string name="sharing_call_action_look">Tekintse meg</string>
 	<string name="continue_recent_track_background_button">Folytatás</string>
-	<string name="recent_track_background_dialog_message">A OMaps a geopozíciód használatával a háttérben rögzíti a legutóbb megtett utad.</string>
+	<string name="recent_track_background_dialog_message">A Organic Maps a geopozíciód használatával a háttérben rögzíti a legutóbb megtett utad.</string>
 	<!-- Rate on Google Play (Android only) -->
 	<string name="rate_gp">Arány a Google Play-n</string>
 	<!-- Share with friends: menu item title -->
 	<string name="tell_friends">Mondja el egy ismerősének</string>
 	<!-- Share with friends: sharing text -->
-	<string name="tell_friends_text">Szia! Telepítsd a OMaps alkalmazást!</string>
+	<string name="tell_friends_text">Szia! Telepítsd a Organic Maps alkalmazást!</string>
 	<!-- About short text (below logo) -->
-	<string name="about_description">A OMaps egy nélkülözhetetlen alkalmazás utazáshoz. A OMaps az OpenStreetMap adataira épül, és lehetővé teszi ezek szerkesztését.</string>
+	<string name="about_description">A Organic Maps egy nélkülözhetetlen alkalmazás utazáshoz. A Organic Maps az OpenStreetMap adataira épül, és lehetővé teszi ezek szerkesztését.</string>
 	<!-- Text in menu -->
 	<string name="blog">Blog</string>
 	<string name="general_settings">Általános beállítások</string>
@@ -874,50 +866,13 @@
 	<string name="accept">Elfogadja</string>
 	<!-- For the first routing -->
 	<string name="decline">Elutasítja</string>
-	<string name="whats_new_route_profile_title">Az árkot jobb megkerülni, mint beleesni</string>
-	<string name="whats_new_route_profile_message">A gyalogos és kerékpáros utakat most már emelkedési profillal jelenítjük meg.</string>
-	<string name="whats_new_booking_improve_title">Takarékoskodjon szálláshely foglalásakor</string>
-	<string name="whats_new_booking_improve_message">A szálláshely keresési eredménye már tartalmazza az árkategóriát. \nEmellett kiegészítettük több mint 110.000 szálláshellyel.</string>
-	<!-- For place page hotel facilities block -->
-	<string name="placepage_hotel_facilities">Létesítmények</string>
-	<!-- For place page hotel nearby block -->
-	<string name="placepage_hotel_nearby">Közeli</string>
-	<!-- For ordering a taxi (as opposed to hotels or other things) -->
-	<string name="taxi_order">Taxi rendelés</string>
-	<!-- How long it is until the taxi arrives -->
-	<string name="taxi_wait">Várható %s</string>
-	<!-- When there are no available taxis nearby -->
-	<string name="taxi_not_found">Nem talált taxit a közelben</string>
-	<!-- When there are no available taxi providers nearby -->
-	<string name="taxi_no_providers">Itt nincs taxi</string>
 	<string name="install_app">Telepítés</string>
-	<!-- `Filter` is a noun here -->
-	<string name="booking_filters">Szűrő</string>
-	<string name="booking_filters_reset">Alaphelyzetbe állítás</string>
-	<!-- Beginning from a particular value and -->
-	<string name="booking_filters_rating">Besorolás innentől</string>
-	<string name="booking_filters_rating_any">Bármelyik</string>
-	<string name="booking_filters_ragting_good">Jó</string>
-	<string name="booking_filters_rating_very_good">Nagyon jó</string>
-	<string name="booking_filters_rating_excellent">Kiváló</string>
-	<string name="booking_filters_price_category">Árkategória</string>
 	<string name="search_no_results_title">Nincs találat</string>
 	<string name="search_no_results_message">Próbálkozzon általánosabb kereső kifejezéssel, tágítsa vagy törölje a szűrőt.</string>
 	<string name="search_no_results_expand_area_button">Kicsinyítés</string>
 	<string name="search_no_results_reset_button">Szűrő nullázása</string>
 	<!-- noun -->
 	<string name="search_in_table">Lista</string>
-	<string name="booking_show_more">Több megjelenítése</string>
-	<string name="booking_reviews">Bírálatok</string>
-	<string name="booking_hotel">Szálloda</string>
-	<!-- hotel room -->
-	<string name="booking_hotel_room">Szoba</string>
-	<!-- A neologism for a chat based on geographical proximity -->
-	<string name="chat">Geochat</string>
-	<!-- Verb. Text on a button that opens the chat. -->
-	<string name="chat_open">Megnyitás</string>
-	<string name="dialog_taxi_offline">Taxirendelés offline módban nem lehetséges.</string>
-	<string name="dialog_taxi_error">A taxirendelés átmenetileg nem elérhető.</string>
 	<string name="mobile_data_dialog">Részletes információk megjelenítése a mobil internet segítségével?</string>
 	<string name="mobile_data_option_always">Mindig használja</string>
 	<string name="mobile_data_option_today">Csak ma</string>
@@ -929,41 +884,16 @@
 	<string name="traffic_update_maps_text">Forgalmi adatok megjelenítéséhez a térképeket frissíteni kell.</string>
 	<string name="traffic_outdated">A forgalmi adatok elavultak.</string>
 	<string name="big_font">Betűméret növelése a térképen</string>
-	<string name="traffic_update_app">Kérjük, frissítse a OMaps alkalmazást</string>
+	<string name="traffic_update_app">Kérjük, frissítse a Organic Maps alkalmazást</string>
 	<!-- "traffic" as in road congestion -->
 	<string name="traffic_update_app_message">A forgalmi adatok megjelenítéséhez frissíteni kell az alkalmazást.</string>
 	<!-- "traffic" as in "road congestion" -->
 	<string name="traffic_data_unavailable">Forgalmi adatok nem állnak rendelkezésre</string>
-	<!-- Seven points and higher -->
-	<string name="booking_filter_rating_num_good">7.0+</string>
-	<!-- Eight points and higher -->
-	<string name="booking_filter_rating_num_very_good">8.0+</string>
-	<!-- Nine points and higher -->
-	<string name="booking_filter_rating_num_excellent">9,0+</string>
 	<!-- Simplified colour scheme for traffic information, fewer colours are used to display traffic jams on the map. The string should be kept as short as possible -->
 	<string name="pref_traffic_simplified_colors_title">Egyszerűsített forgalmi színek</string>
 	<string name="enable_logging">Naplózás engedélyezése</string>
-	<string name="more_on_bookingcom">Továbbiak a Booking.com-on</string>
-	<string name="details_on_bookingcom">Részletek a Booking.com-on</string>
-	<string name="reviews_on_bookingcom">További vélemények a Booking.com-on</string>
 	<string name="offline_place_page_more_information">A helyszínről további tájékoztatást kaphat, ha csatlakozik az internethez.</string>
 	<string name="failed_load_information">Nem sikerült betölteni az adatokat.</string>
-	<string name="whats_new_auto_update_updating_maps">Térképek frissítése</string>
-	<string name="whats_new_auto_update_title">Frissítse a letöltött térképeit</string>
-	<string name="whats_new_auto_update_message">A térképek frissítésével naprakészen tarthatja az objektumokra vonatkozó adatokat</string>
-	<string name="whats_new_auto_update_button_size">Frissítés (%s)</string>
-	<string name="whats_new_auto_update_button_later">Kézi frissítés később</string>
-	<string name="search_hotel_filter_apartment">Apartmanok</string>
-	<string name="search_hotel_filter_camp_site">Kemping</string>
-	<string name="search_hotel_filter_chalet">Turistaház</string>
-	<string name="search_hotel_filter_guest_house">Vendégház</string>
-	<string name="search_hotel_filter_hostel">Hostel</string>
-	<string name="search_hotel_filter_resort">Resort hotel</string>
-	<string name="search_hotel_filter_hotel">Szálloda</string>
-	<string name="search_hotel_filter_motel">Motel</string>
-	<string name="create_campaign_button">Igényelje ezt az üzletet</string>
-	<string name="view_campaign_button">Hirdetett üzlet</string>
-	<string name="search_hotel_filters_type">Típus</string>
 	<!-- Settings: "Send general feedback" button -->
 	<string name="feedback_general">Általános visszajelzés</string>
 	<string name="on">Be</string>
@@ -994,36 +924,7 @@
 	<string name="choose_start_point">Válasszon egy kiindulási pontot</string>
 	<string name="choose_destination">Válassza ki a célt</string>
 	<string name="preloader_viator_button">Tudjon meg többet</string>
-	<string name="whats_new_title_route">A kerékpáros és gyalogos útvonalakat is tovább javítottuk</string>
-	<string name="whats_new_message_route">Kijavítottuk a hibákat, töredékére csökkentettük az útvonalak felépítéséhez szükséges időt, közbülső megállókat építettünk be</string>
-	<string name="whats_new_message_title_update">A térkép frissítéseinek terjedelmét a tizedére csökkentettük</string>
-	<string name="whats_new_message_maps_update">Egy térkép frissítéséhez már elegendő a hiányzó adatok letöltése</string>
 	<string name="start_from_my_position">Elkezdi innen:</string>
-	<string name="rating">Minősítés</string>
-	<string name="placepage_no_reviews">Nincs véleményezés</string>
-	<string name="placepage_reviewed">Ezt a helyet már átnézte</string>
-	<string name="placepage_summary_rating">Összesített minősítés</string>
-	<string name="placepage_rate_comment">A hely értékeléséhez és minősítéséhez koppintson rá.</string>
-	<string name="placepage_rate_horrible">Borzalmas</string>
-	<string name="placepage_rate_bad">Rossz</string>
-	<string name="placepage_rate_normal">Normál</string>
-	<string name="placepage_rate_good">Jó</string>
-	<string name="placepage_rate_excellent">Kiváló</string>
-	<string name="placepage_reviews_most_recent">Legutóbbi</string>
-	<string name="placepage_reviews_most_useful">Leghasznosabb</string>
-	<string name="placepage_reviews_highest_rated">Legmagasabb értékelés</string>
-	<string name="placepage_reviews_lowest_rated">Legalacsonyabb értékelés</string>
-	<string name="placepage_reviews_offline_comment">Csak a leghasznosabb értékelések láthatók kapcsolat nélküli módban</string>
-	<string name="placepage_reviews_your_comment">Az Ön felülvizsgálata</string>
-	<string name="placepage_reviews_unhelpful">Haszontalan</string>
-	<string name="placepage_reviews_inappropriate">Nem megfelelő</string>
-	<string name="placepage_reviews_spam">Spam</string>
-	<string name="placepage_reviews_hint">Mi a jó vagy rossz itt?</string>
-	<string name="placepage_reviews_edit_your_review">Szerkessze értékelését</string>
-	<string name="placepage_reviews_new_review">Új értékelés</string>
-	<string name="placepage_translate_button">Lefordítja</string>
-	<string name="placepage_show_original_button">Az eredeti megjelenítése</string>
-	<string name="placepage_more_reviews_booking_button">További vélemények a Booking.com-on</string>
 	<string name="profile_authorization_title">Bejelentkezés ezzel</string>
 	<string name="profile_authorization_message">Egyszerű bejelentkezés jelszó és bejelentkezési név nélkül, pár másodperc alatt</string>
 	<string name="profile_authorization_error">Hoppá, volt egy hiba. Próbáljon meg újra bejelentkezni.</string>
@@ -1035,24 +936,9 @@
 	<string name="expertise">Szakértelem</string>
 	<string name="equipment">Berendezések</string>
 	<string name="quality">Minőség</string>
-	<string name="whats_new_ugc_title_updated_v840">Minősítések és értékelések</string>
-	<string name="whats_new_ugc_message">Most már kapcsolat nélkül is hagyhat minősítéseket és értékeléseket! Ne felejtse el frissíteni a térképeket, hogy láthassa a módosításokat.</string>
 	<string name="dialog_error_storage_title">Tároló hozzáférési hiba</string>
-	<string name="dialog_error_storage_message">Külső tároló nem áll rendelkezésre, valószínűleg az SD-kártyát eltávolították vagy sérült, vagy rendszerfájl csak olvasható. Ellenőrizze, és lépjen kapcsolatba velünk a support\@omaps.app címen</string>
+	<string name="dialog_error_storage_message">Külső tároló nem áll rendelkezésre, valószínűleg az SD-kártyát eltávolították vagy sérült, vagy rendszerfájl csak olvasható. Ellenőrizze, és lépjen kapcsolatba velünk a support\@organicmaps.app címen</string>
 	<string name="setting_emulate_bad_storage">Sérült tároló emulálása</string>
-	<string name="discovery_button_title">A közelben felfedezi</string>
-	<string name="discovery_button_subtitle_things_to_do">Teendők</string>
-	<string name="discovery_button_subtitle_attractions">Látnivalók</string>
-	<string name="discovery_button_subtitle_eat_and_drink">Enni és inni</string>
-	<string name="discovery_button_subtitle_local_guides">Helyi idegenvezetők</string>
-	<string name="discovery_button_viator_error_title">Hiba az adatok betöltésekor</string>
-	<string name="discovery_button_other_error_message">Hiba az adatok betöltésekor</string>
-	<string name="discovery_button_other_loading_message">Adatok betöltése</string>
-	<string name="discovery_button_404_error_title">Nem található</string>
-	<string name="discovery_button_404_error_message">Hoppá, nem találtunk semmit érdekeset ezen a környéken.</string>
-	<string name="booking_filters_check_in">Bejelentkezés</string>
-	<string name="booking_filters_check_out">Kijelentkezés</string>
-	<string name="booking_filters_offline">Nem érhető el offline.</string>
 	<string name="directions_finish">Rendeltetési hely</string>
 	<string name="directions_on_foot">%s séta</string>
 	<string name="core_entrance">Bejárat</string>
@@ -1060,12 +946,6 @@
 	<string name="cleanliness">Tisztaság</string>
 	<string name="crowdedness">Zsúfoltság</string>
 	<string name="error_enter_correct_name">Kérjük adja meg a helyes nevet</string>
-	<string name="hotel_available">Rendelkezésre áll</string>
-	<string name="whats_new_transit_title">Van metró</string>
-	<string name="whats_new_transit_message">Építse fel útvonalát metrójáratok segítségével! Kérjük, frissítse a térképeket a változások megjelenítéséhez.</string>
-	<string name="whats_new_discovery_title">Felfedezés gomb</string>
-	<string name="whats_new_discovery_message">Fedezze fel a dolgokat a környéken egy kattintással!</string>
-	<string name="price_per_hour">%s/óra</string>
 	<string name="bookmarks_backup">Engedélyezi a biztonsági mentést</string>
 	<string name="authorization_button_sign_in">Bejelentkezés</string>
 	<string name="bookmarks_message_authorized_user">A könyvjelzőit automatikusan egy biztonságos felhőalapú tárolóba menti a rendszer. Engedélyezi a biztonsági mentést?</string>
@@ -1084,15 +964,10 @@
 	<string name="downloader_percent">%1$s (%2$s / %3$s)</string>
 	<string name="downloader_process">%s letöltése...</string>
 	<string name="downloader_applying">%s alkalmazása...</string>
-	<string name="whats_new_title_hotel_filter">Új szálloda szűrők!</string>
-	<string name="whats_new_message_hotel_filter">Foglaljon elérhető szobát az Ön dátumain! Használja a be- ás kijelentkezési szűrőket</string>
-	<string name="whats_new_title_ugc_travel">Ossza meg tapasztalatait más utasokkal!</string>
-	<string name="whats_new_message_ugc_travel">Értékelje és ismertesse a meglátogatott helyeket!</string>
 	<string name="dialog_message_transit_not_found_connection">Útvonaltervezés egy összekötő hálózaton belül</string>
 	<string name="bookmarks_error_message_share_general">Nem lehet megosztani alkalmazáshiba miatt</string>
 	<string name="bookmarks_error_title_share_empty">Megosztási hiba</string>
 	<string name="bookmarks_error_message_share_empty">Üres lista nem osztható meg</string>
-	<string name="discovery_button_subtitle_book_hotels">Szállodák foglalása</string>
 	<string name="bookmarks_error_title_empty_list_name">A név nem lehet üres</string>
 	<string name="bookmarks_error_message_empty_list_name">Adja meg a lista nevét</string>
 	<string name="bookmarks_new_list_hint">Új lista</string>
@@ -1117,8 +992,6 @@
 	<string name="converting">Átalakítás...</string>
 	<string name="wn_reinvented_bookmarks_title">Új könyveket készítettünk!</string>
 	<string name="wn_reinvented_bookmarks_message">Könyvjelzőket menthet, listákat hozhat létre... Hihetetlen...</string>
-	<string name="wn_way_of_booking_title">Újra átfogtuk a foglalás módját!</string>
-	<string name="wn_way_of_booking_message">Csak keresse meg a szállodát a térképen, és foglalja le, vagy válassza ki a megfelelőt.</string>
 	<string name="bookmarks_restore">Könyvjelzők visszaállítása</string>
 	<string name="bookmarks_restore_process">Visszaállítása ...</string>
 	<string name="bookmarks_restore_title">A verzió visszaállítása?</string>
@@ -1130,19 +1003,12 @@
 	<string name="error_server_message">Hiba történt a szerveren, próbálkozzon később</string>
 	<string name="error_system_message">Ismeretlen hiba történt</string>
 	<string name="restore">Visszaállítás</string>
-	<string name="sign_message_gdpr">A folytatáshoz el kell fogadnia a Felhasználási feltételeinket és az adatvédelmi irányelveinket. Kérjük, figyelmesen olvassa el őket.</string>
-	<string name="sign_agree_pp_gdpr">Elfogadom a &lt;a href="%s">adatvédelmi irányelveket&lt;/a></string>
-	<string name="sign_agree_tof_gdpr">Elfogadom a &lt;a href="%s">Általános Szerződési Feltételeket&lt;/a></string>
-	<string name="sign_agree_news_gdpr">Elfogadom, hogy megkapja a OMaps termékekkel kapcsolatos legfrissebb híreke</string>
-	<string name="whats_new_localbiz_title">A kis cégek is figyelmet érdemelnek</string>
-	<string name="whats_new_localbiz_message">Legyenek helyi kávézók, kényelmes szállók és üzletek, amik feledhetetlenné teszik az utazást. A weboldaladat úgy optimalizáljuk a OMaps-ben, hogy igazán kitűnjön.</string>
-	<string name="whats_new_order_button">Kérés küldése</string>
 	<string name="bookmarks_page_downloaded">Letöltött</string>
 	<string name="bookmarks_page_my">Az én</string>
 	<string name="routes_and_bookmarks">Útvonalaim és könyvjelzőim</string>
 	<string name="bookmarks_webview_success_toast">Könyvjelzők sikeresen letöltve</string>
 	<string name="cached_bookmarks_placeholder_title">Új helyek letöltése</string>
-	<string name="cached_bookmarks_placeholder_subtitle">Nyomja meg a gombot, hogy OMaps felhasználók ezrei által gyűjtött érdekes helyet és útvonalat tölthessen le. Ehhez internetkapcsolatra van szükség.</string>
+	<string name="cached_bookmarks_placeholder_subtitle">Nyomja meg a gombot, hogy Organic Maps felhasználók ezrei által gyűjtött érdekes helyet és útvonalat tölthessen le. Ehhez internetkapcsolatra van szükség.</string>
 	<string name="downloader_download_routers">Könyvjelzők letöltése</string>
 	<string name="bookmarks_groups_cached">Letöltött listák</string>
 	<string name="author_name_by_prefix">%s</string>
@@ -1160,7 +1026,7 @@
 	</plurals>
 	<string name="subtittle_opt_out">Követési beállítások</string>
 	<string name="crash_reports">Hibajelentés</string>
-	<string name="crash_reports_description">A OMaps fejlesztéséhez felhasználhatjuk az adatait. A változtatások az alkalmazás újraindítása után lépnek életbe.</string>
+	<string name="crash_reports_description">A Organic Maps fejlesztéséhez felhasználhatjuk az adatait. A változtatások az alkalmazás újraindítása után lépnek életbe.</string>
 	<string name="opt_out_help_ios_1">A mobileszköz „Reklámkövetés korlátozása” vagy „Érdeklődési kör alapú reklámozás” beállítással rendelkezhet.</string>
 	<string name="opt_out_help_ios_2">iOS 9 vagy újabb</string>
 	<string name="opt_out_help_ios_3">Nyissa meg a Beállítások → Adatvédelem→ Reklámok→ és engedélyezze a “Reklámkövetés korlátozása” beállítást</string>
@@ -1179,101 +1045,31 @@
 	<string name="category_desc_more">…tovább</string>
 	<string name="title_error_downloading_bookmarks">Hiba történt</string>
 	<string name="subtitle_error_downloading_bookmarks">Nem került letöltésre könyvjelző</string>
-	<string name="whats_new_bookmarks_catalog_title">A OMaps már útvonal-katalógussal is rendelkezik</string>
-	<string name="whats_new_bookmarks_catalog_message">Több száz részletes útvonal a világszerte: hova érdemes menni, mit érdemes megnézni, hol együnk.</string>
-	<string name="whats_new_popularity_label_title">Népszerű helyek a közelben</string>
-	<string name="whats_new_popularity_label_message">A közelben felfedezni rész segít neked megtalálni a legnépszerűbb helyeket a városban.</string>
-	<string name="whats_new_hot_offers_title">Hotelek vonzó ajánlatai</string>
-	<string name="whats_new_hot_offers_message">Kereshetőek a Hotel kategóriában a kereséssel. A kedvezményes ajánlatok a térképen és a keresési eredményekben százalékjellel vannak megjelölve.</string>
 	<string name="error_already_downloaded">Ezt a listát már letöltötték</string>
-	<string name="guides">Útmutatók</string>
-	<string name="guide_downloaded_title">Az útmutató sikeresen letöltésre került</string>
-	<!-- as few symbols as possible -->
-	<string name="download_guides">Útmutatók keresése</string>
-	<string name="guides_groups_cached">Letöltött útmutatók</string>
-	<string name="subtitle_error_downloading_guide">Az útmutató nem került letöltésre</string>
-	<string name="error_already_downloaded_guide">Ez az útmutató már letöltésre került</string>
-	<string name="guide_downloaded_subtitle">Az Útmutató megtekintéséhez nyomd meg a „Megtekintés a térképen” lehetőséget</string>
-	<string name="bookmarks_guides">Könyvjelzők és útmutatók</string>
-	<string name="paybtn_title">Fizessen %s/év</string>
-	<string name="paybtn_subtitle">%s/év megtakarítás</string>
-	<string name="options_dropdown_title">További lehetőségek</string>
-	<string name="why_support">Miért éri meg támogatni a OMaps-t?</string>
-	<string name="options_dropdown_item1">%1$s/hó (%2$s/év megtakarítás)</string>
-	<string name="options_dropdown_item2">%s/hét (nincs megtakarítás)</string>
-	<string name="why_support_item1">Eltávolítjuk a reklámokat</string>
-	<string name="why_support_item2">Ön segít a OMaps-t fejleszteni</string>
+	<string name="why_support">Miért éri meg támogatni a Organic Maps-t?</string>
+	<string name="why_support_item2">Ön segít a Organic Maps-t fejleszteni</string>
 	<string name="why_support_item3">Segítsen a térkép fejlesztésében az OpenStreetMap.org-on</string>
-	<string name="purchase_processing">Vásárlása feldolgozás alatt van…</string>
-	<string name="tips_bookmarks_catalog_title">Kapcsolat nélküli útmutatók mindenféle utazáshoz</string>
-	<string name="tips_bookmarks_catalog_message">Töltse le és tervezzen érdekességeket érintő turistaútvonalakat a világ bármely országában.</string>
-	<string name="tips_discover_button_title">Népszerű érdekességeket keres a közelben?</string>
-	<string name="tips_discover_button_message">„A közelben felfedezi” résznél megtalálja a legjobb éttermeket, hoteleket és látnivalókat.</string>
-	<string name="tips_book_hotel_title">Foglaljon utazásához a legkényelmesebb hotelekben</string>
-	<string name="tips_book_hotel_message">Használja a keresés és szűrés lehetőségeket a legjobb hotel megtalálásához. A helyek oldalon a „Foglalás” gombbal azonnal foglalhat hotelt.</string>
-	<string name="tips_map_layers_title">Nem tudja, melyik állomáson kell átszállni?</string>
-	<string name="tips_map_layers_message">Kapcsolja be a metró réteget a térképen, így könnyen eligazodhat egy új városban is.</string>
 	<string name="channels_map_update">Térképfrissítések</string>
-	<string name="channels_reviews">Elküldetlen értékelések</string>
-	<string name="purchase_loading">Vásárlási információk betöltése…</string>
-	<string name="purchase_error_subtitle">Hiba történt a vásárlás feldolgozása közben</string>
-	<string name="awaiting_approval">Szülői jóváhagyásra vár</string>
-	<string name="whats_new_leave_review">Hagyjon értékelést! Ossza meg véleményét a meglátogatott helyekkel kapcsolatban.</string>
 	<string name="server_unavailable_title">A szerver nem elérhető</string>
-	<string name="server_unavailable_message">A vásárlás később kerül befejezésre. Ha továbbra is fennáll a hiba írjon ide: support\@omaps.app.</string>
-	<string name="offline_fiters_check_in">Csatlakozzon az internetre a hotelek dátum alapú szűréséhez.</string>
-	<string name="restore_subscription">Előfizetés visszaállítása</string>
-	<string name="restore_success_alert">Az előfizetés sikeresen visszaállításra került</string>
-	<string name="restore_error_alert">Hiba lépett fel az előfizetés visszaállítása során</string>
-	<string name="restore_no_subscription_alert">Nincs aktív előfizetés</string>
-	<string name="subscriptions_title">Előfizetések</string>
-	<string name="manage_subscription">Előfizetés kezelése</string>
 	<string name="sharing_options">A hozzáférés beállításai</string>
 	<string name="export_file">Fájl exportálása</string>
 	<string name="list_settings">Lista beállításai</string>
 	<string name="delete_list">Törölni a listát</string>
 	<string name="hide_from_map">Lefedés a térképen</string>
-	<string name="ugc_route_tags_screen_label">A tag-ek kiválasztása</string>
-	<string name="ugc_route_tags_progress_msg">Tag-ek betöltése…</string>
 	<string name="public_access">Nyílt hozzáférés</string>
 	<string name="limited_access">Személyes hozzáférés</string>
-	<string name="upload_and_publish_desc">Ez az útikalauz a OMaps nyitott katalógusba lesz feltöltve, és mindenki számára elérhető lesz</string>
-	<string name="upload_and_publish">Feltöltés és megjelenítés</string>
-	<string name="upload_and_get_direct_link">Feltöltés és hivatkozás elérése</string>
-	<string name="get_direct_link_desc">Az Ön útikalauza egyenes hivatkozásban lesz elérhető</string>
-	<string name="upload_and_publish_progress_text">Az útikalauz megjelenítődik…</string>
-	<string name="upload_and_publish_success">Az útikalauz meg van jelenítve</string>
-	<string name="ugc_routes_user_agreement">&lt;b>FIGYELEM:&lt;/b> folytatva, Ön elfogadja &lt;a href="%s">licensz szerződést&lt;/a></string>
-	<string name="ugc_route_edit_list_name">Az útikalauz megnevezése</string>
-	<string name="ugc_route_edit_description_hint">Leírás hozzáadása (szöveg vagy html)</string>
+	<string name="bookmark_category_name">Kategória</string>
+	<string name="bookmark_category_description_hint">Leírás hozzáadása (szöveg vagy html)</string>
 	<string name="not_shared">Privát</string>
 	<string name="direct_link_progress_text">Betöltjük az Ön fájlát…</string>
 	<string name="direct_link_success">A hivatkozás létre van hozva</string>
-	<string name="edit_guide_title">Szerkessze az útikalauzát online</string>
-	<string name="edit_guide_subtitle">A web alkalmazáson keresztül kapjon hivatkozást az útikalauzának szerkesztésére: adjon hozzá helyek ismertetését, töltsön fel fényképeket és kösse össze a jeleket vonalakkal.</string>
 	<string name="send_a_link_btn">Hivatkozás küldése</string>
 	<string name="upload_error_toast">A fájl feltöltésekor hiba történt</string>
 	<string name="tags_loading_error_subtitle">A tag-ek feltöltésekor hiba történt, kérjük próbálja meg még egyszer</string>
 	<string name="unable_upload_errorr_title">Nem sikerült a fájl feltöltése</string>
 	<string name="unable_upload_error_subtitle_edited">A fájl a web alkalmazáson keresztül volt újraszerkesztve</string>
 	<string name="unable_upload_error_subtitle_broken">A fájl sérült és nem lehet feltölteni. Kérjük, más fájlt töltsön fel.</string>
-	<string name="buy_btn">Vedd meg ezt ennyiért: %s</string>
-	<string name="download_guide_progress">Az útikalauz töltődik…</string>
-	<string name="price_error_title">Lehetetlen megtudni az értékét</string>
-	<string name="price_error_subtitle">Kérem egy néhány perc múlva próbálkozzon újra</string>
-	<string name="edit_your_guide_email_body">Szerkessze az Ön útikalauzát a számítógépen: adjon hozzá helyek ismertetését, töltsön fel fényképeket és kösse össze a jeleket vonalakkal.</string>
-	<string name="edit_on_web">Online szerkesztés</string>
-	<string name="properties_loading_error_subtitle">Az opciók feltöltésekor hiba történt, kérjük, próbálja meg még egyszer</string>
-	<string name="custom_props_desc">Ezt az útikalauzt Ön úgy állította össze, mint</string>
-	<string name="custom_props_title">Helyi lakos vagy turista</string>
-	<string name="custom_props_local">helyi lakos</string>
-	<string name="custom_props_traveler">turista</string>
-	<string name="select_properties">Opció kiválasztása</string>
-	<string name="access_rules_p_to_p">Speciális hozzáférés</string>
-	<string name="access_rules_paid">Megvásárolt</string>
-	<string name="failed_purchase_support_message">Úgy látszik, hogy Önnek van egy be nem fejezett vásárlása. Kérjük, írjon a támogatásba, és mi megoldjuk az Ön problémáját.</string>
 	<string name="contact">Írás</string>
-	<string name="check_price_button">Az ár tudakolozása</string>
 	<string name="download_button">Letöltés</string>
 	<string name="speedcams_alert_title">Sebességmérő kamerák</string>
 	<string name="speedcams_alert_subtitle">Figyelmeztetés a sebessség korlátozására</string>
@@ -1282,70 +1078,26 @@
 	<string name="speedcam_option_never">Soha</string>
 	<string name="bookmark_description_title">A jel ismertetése</string>
 	<string name="place_description_title">A hely ismertetése</string>
-	<string name="ugc_routes_error_uploading_file_toast">Sajnálatos módon, a jelek letöltésénél hiba történt. Kérem, próbálja meg még egyszer.</string>
-	<string name="notification_channel_ugc">Felhasználói tartalom</string>
 	<!-- this text will be shown in application notification preferences opposite checkbox which enable/disable downloader notifications. Devices on Android 8+ are affected. -->
 	<string name="notification_channel_downloader">Kártyák letöltése</string>
-	<string name="notification_leave_review_title">%s - hogy érzi itt magát?</string>
-	<string name="notification_leave_review_content">Írja meg a véleményét és segítsen a kirándulóknak!</string>
-	<string name="share_bookmarks_email_body_link">Üdvözlöm!\n\nA jeleit le lehet tölteni ezzel a linkkel: %s. Nyíssa meg a listát OMaps segítségével és élvezze az utazását!\n\nAlkalmazás letöltése: https://omaps.app/get?kmz</string>
+	<string name="share_bookmarks_email_body_link">Üdvözlöm!\n\nA jeleit le lehet tölteni ezzel a linkkel: %s. Nyíssa meg a listát Organic Maps segítségével és élvezze az utazását!\n\nAlkalmazás letöltése: https://organicmaps.app/get?kmz</string>
 	<string name="warning_speedcams_title">Navigátor értesít a kamerákról sebességkorlátozás megsértésénél %d km/óra-ra</string>
 	<string name="warning_speedcams_subtitle">Ne felejtse el megismerkedni a cél ország közlekedési szabályaival.</string>
 	<string name="speedcams_notice_message">Autó - Figyelmeztetés a sebesség kamerákról, ha van kockázat a sebesség korlátozás megsértéséről\nMindig - Mindig figyelmeztet a kamerákról\nSoha - Soha ne figyelmezet a kamerákról</string>
-	<string name="whats_new_ugc_routes_title">Könnyű megosztani a benyomásaidat</string>
-	<string name="whats_new_ugc_routes_subtitle">Ments el emlékezetes helyeket, hozz létre útvonalakat könyvjelzők segítségével és oszd meg őket mindenkivel a OMaps katalógusban.</string>
-	<string name="whats_new_webeditor_title">Alakítsd át az útvonalaidat történetekké</string>
-	<string name="whats_new_ugc_routes_message2">Adj hozzá fényképeket és részletes történeteket a webes szerkesztőben.</string>
-	<string name="ugc_thanks_message_auth">Az értékelésed elmentve</string>
-	<string name="ugc_thanks_message_not_auth">Kérjük jelentkezz be az értékeléshez</string>
-	<string name="notification_leave_review_v2_title">Értékelj egy meglátogatott helyet és segíts az utazóknak!</string>
-	<string name="error_public_not_enought_title">Nincs elegendő könyvjelző</string>
-	<string name="error_public_not_enought_subtitle">Legalább 3 könyvjelződnek kell lennie, hogy az útmutatódat feltölthesd a nyilvános katalógusba</string>
-	<string name="bookmark_public_upload_alert_title">Csak pár lépésnyire vagy attól, hogy megoszthasd a könyvjelzőidet minden OMaps utazóval!</string>
-	<string name="bookmark_public_upload_alert_subtitle">Kéjük győződj meg róla, hogy egy jellemző neved és leírásod van a listádhoz, és hogy minden könyvjelzőnél van információ a helyekről. Ily módon a listádat mások is megtalálhatják és használhatják.</string>
-	<string name="bookmark_public_upload_alert_ok_button">Igen, biztos vagyok benne!</string>
-	<string name="name_title">Add meg az útmutatód nevét</string>
-	<string name="name_placeholder">pl.: Londoni kocsmák</string>
-	<string name="name_comment1">Kérjük adj nevet az útmutatódnak, így az utazók könnyen megtalálhatják: például \"Londoni kocsmák\"</string>
-	<string name="name_comment2">A név ne tartalmazzon speciális szimbólumokat. A név ne legyen a \"Saját helyeim\"</string>
-	<string name="description_guide">Leírás</string>
-	<string name="description_title">Add meg az útmutatód leírását</string>
-	<string name="description_placeholder">Fejtsd ki az útmutatód részleteit</string>
-	<string name="description_comment1">Az útmutató leírásodnak legalább 30 szimbólumot kellene tartalmaznia.</string>
-	<string name="ugc_route_tags_desc">Kérjük válassz címkéket, hogy segíts más utazóknak megtalálni az útmutatódat. Ez kötelező. Maximum %s címke.</string>
-	<string name="html_format_error_title">Az útmutatód nem lett közzétéve</string>
-	<string name="html_format_error_subtitle">Kérjük győződj meg róla, hogy a könyvjelzőid nevei és könyvjelzői mind érvényes formátumúak. Ellenőrizheted egy asztali böngészőn a lenti \"Online szerkesztés\" gombra kattintva.</string>
-	<string name="web_editor_description">Töltsd fel az útmutatódat és szerezd be a szerkesztési linket az asztaliról</string>
-	<string name="edit_on_web_confirm">Online szerkesztés</string>
-	<string name="update_guide">Egy frissítés feltöltése</string>
-	<string name="direct_link_updating_text">A fájlod frissítése…</string>
-	<string name="direct_link_updating_success">Az útmutatód frissítve lett</string>
-	<string name="unable_get_direct_link_desc">Egy nyilvános linkkel megoszthatod az útmutatódat</string>
-	<string name="any_access_update_alert_title">Néhány változás történhetett</string>
-	<string name="any_access_update_alert_message">Szeretnéd frissíteni a könyvjelzőidet? Az új verzió ugyanazon a linken keresztül lesz elérhető.</string>
-	<string name="any_access_update_alert_update">Frissítés</string>
-	<string name="public_or_limited_access_after_edit_online_error_title">Online szerkesztetted a könyvjelzőidet</string>
-	<string name="public_or_limited_access_after_edit_online_error_message">A jövőben kérjük a weboldalunkon keresztül szerkeszd, publikáld vagy oszd meg az útmutatót a barátaiddal</string>
 	<string name="power_managment_title">Energiatakarékos mód</string>
 	<string name="power_managment_description">Amikor az automatikus mód van kiválasztva, az alkalmazás elkezdi kikapcsolni az akkumulátort merítő funkciókat a jelenlegi akkumulátor töltöttség alapján</string>
 	<string name="power_managment_setting_never">Soha</string>
 	<string name="power_managment_setting_auto">Automatikus</string>
 	<string name="power_managment_setting_manual_max">Maximális energiatakarékosság</string>
-	<string name="enable_logging_warning_message">Az opció bekapcsolja a diagnosztikai célú naplózást. Hasznos lehet a support csapatunknak, akik elhárítják az alkalmazás hibáit. Csak a OMaps support kérésére kapcsold be ezt az opciót.</string>
+	<string name="enable_logging_warning_message">Az opció bekapcsolja a diagnosztikai célú naplózást. Hasznos lehet a support csapatunknak, akik elhárítják az alkalmazás hibáit. Csak a Organic Maps support kérésére kapcsold be ezt az opciót.</string>
 	<string name="html_error_upload_message_try_again">Kérjük ellenőrizd a hálózati beállításaidat és próbáld újra</string>
 	<string name="html_error_upload_title_try_again">Nincs internetkapcsolat</string>
 	<string name="notification_leave_review_v2_android_short_title">Értékelj és segítsd az utazókat!</string>
 	<string name="notifications_illegal_alert_disable_button">Értesítések kikapcsolása</string>
 	<string name="access_rules_author_only">Online szerkesztés</string>
 	<string name="privacy_settings_menu">Adatvédelmi beállítások</string>
-	<string name="gdpr_request_setting">ID beszerzése GDPR kéréshez</string>
-	<string name="gdpr_request_window_title">A te ID-d: %s.</string>
-	<string name="gdpr_request_window_message">Kérjük másold le és küldd el a kérést a support\@omaps.app címre</string>
-	<string name="gdpr_request_window_copy">ID lemásolása</string>
 	<string name="unable_upadate_error_title">Fájl frissítés sikertelen</string>
 	<string name="unable_upadate_error_message">Néhány hiba történt frissítés közben. Kérjük ellenőrizd a változtatásokat és próbáld újra</string>
-	<string name="whats_new_wiki_title">Mi ez a hely?</string>
-	<string name="whats_new_wiki_message">Wikipedia.org cikkeket adtunk hozzá a legnépszerűbb látnivalók oldalaihoz. Offline elérhetőek</string>
 	<string name="driving_options_title">Vezetési lehetőségek</string>
 	<string name="driving_options_subheader">Elkerülés minden útvonalon</string>
 	<string name="avoid_tolls">Fizetős utak</string>
@@ -1363,23 +1115,7 @@
 	<string name="avoid_toll_roads_placepage">Fizetős utak elkerülése</string>
 	<string name="avoid_unpaved_roads_placepage">Kövezetlen utak elkerülése</string>
 	<string name="avoid_ferry_crossing_placepage">Kompátkelők elkerülése</string>
-	<string name="cached_guides_placeholder_subtitle">A OMaps használatra kész útmutatókat kínál azon kiválasztott helyekhez fényképekkel és leírásokkal, amelyek a térképen jelölve vannak és offline elérhetőek.</string>
-	<string name="guides_catalogue_title">Útmutató katalógus</string>
-	<string name="download_guides_button">A katalógushoz</string>
-	<plurals name="placepage_summary_rating_description">
-	  <item quantity="one">%d értékelés alapján</item>
-	  <item quantity="other">%d értékelés alapján</item>
-	</plurals>
 	<string name="type.cuisine.uzbek">Üzbég konyha</string>
-	<string name="onboarding_guide_direct_download_title">Az útmutató készen áll a letöltésre</string>
-	<string name="onboarding_guide_direct_download_subtitle">Jelölve lesz a térképen és offline fog működni</string>
-	<string name="onboarding_guide_direct_download_button">Letöltés</string>
-	<string name="onboarding_bydeeplink_guide_title">Használatra kész útmutatók a OMaps-ben</string>
-	<string name="onboarding_bydeeplink_guide_subtitle">A legjobb meglátogatandó helyeket a térkép fényképekkel és leírásokkal jelöli. Offline munka.</string>
-	<string name="whats_new_auto_update_bydeeplink_title">Mielőtt továbblépnél az útmutatókhoz…</string>
-	<string name="whats_new_auto_update_bydeeplink_message">Frissítsd a térképeket, hogy az objektumok információi naprakészek legyenek!</string>
-	<string name="whats_new_auto_update_and_proceed_button_size">Frissítés (%s) és folytatás</string>
-	<string name="purchase_please_wait_toast">Kérjük, ne hagyd el ezt a képernyőt a vásárlás befejezése előtt</string>
 	<string name="trip_start">Gyerünk</string>
 	<string name="pick_destination">Cél</string>
 	<string name="follow_my_position">Középre</string>
@@ -1399,41 +1135,6 @@
 	<string name="dialog_routing_rebuild_from_current_location_carplay">Az útvonal újra lesz tervezve a jelenlegi helyzetedről</string>
 	<string name="dialog_routing_rebuild_for_vehicle_carplay">Az útvonal módosítva lesz egy autó számára</string>
 	<string name="ok">Oké</string>
-	<string name="booking_button_toolbar">Válassz egy hotelt a térképeb</string>
-	<string name="popup_booking_download_guides_title">Foglaltál egy hotelben?</string>
-	<string name="popup_booking_download_guides_message">Tervezd meg az útvonaladat a naprakész útikönyvekkel a OMaps-től</string>
-	<string name="popup_mwm_download_guides_title">Offline városi útikönyvek</string>
-	<string name="popup_mwm_download_guides_cta">Válassz egyet</string>
-	<string name="popup_mwm_download_guides_cta_1">Vess rá egy pillantást</string>
-	<string name="gallery_pp_download_guides_offline_title">Tervezd meg a nyaralásodat OMaps-vel!</string>
-	<string name="gallery_pp_download_guides_offline_subtitle">Ne mulassz el semmit az útikönyvekkel, amiket tapasztalt utazók készítettek</string>
-	<string name="gallery_pp_download_guides_offline_cta">Kapcsold be az internetet</string>
-	<string name="gallery_pp_download_guides_title">Útikönyvek</string>
-	<string name="native_screen_subscription_title">Korlátlan hozzáférés 2000+ utazási útikönyvhöz!</string>
-	<string name="native_screen_subscription_message">Egy emlékezetes nyaralás, bármivel és bárkivel is utazol</string>
-	<string name="annual_subscription_title">Éves</string>
-	<string name="montly_subscription_title">Havi</string>
-	<string name="annual_subscription_message">12 hónap korlátlan hozzáférés</string>
-	<string name="montly_subscription_message">1 hónap korlátlan hozzáférés</string>
-	<string name="subscription_success_dialog_title">Köszönjük az előfizetést!</string>
-	<string name="subscription_success_dialog_message">Most már korlátlan hozzáférésed van a teljes útikönyv katalógushoz</string>
-	<string name="renewal_screen_title">Az előfizetésed lejárt</string>
-	<string name="renewal_screen_message">Minden, az előfizetéssel letöltött útikönyv törölve lesz. Szeretnéd folytatni az előfizetést és megtartani őket?</string>
-	<string name="renewal_screen_button_restore">Igen, megújítás</string>
-	<string name="renewal_screen_button_cancel">Nem, útikönyvek törlése</string>
-	<string name="subscription_error_ping_title">Vásárlás sikertelen</string>
-	<string name="subscription_error_message">A szolgáltatás jelenleg nem elérhető a régiódban. Kérjük próbálja újra később</string>
-	<string name="subscription_error_button">Értem</string>
-	<string name="timeout_error_title">Hoppá, lejárt az idő!</string>
-	<string name="timeout_error_message">A szervereink nem válaszolnak. Kérjük ellenírizd az internetkapcsolatot és próbáld újra.</string>
-	<string name="per_month">/hó</string>
-	<string name="per_year">/év</string>
-	<string name="buy_btn_for_subscription">Korlátlan hozzáférés %s-től</string>
-	<string name="buy_btn_for_subscription_1">Az ÖSSZES útikönyv megvásárlása %s-ért</string>
-	<string name="buy_btn_for_subscription_ios_only_mo">Korlátlan hozzáférés %s/hó-ért</string>
-	<string name="buy_btn_for_subscription_ios_only_year">Korlátlan hozzáférés %s/év-ért</string>
-	<string name="subscription_terms_guides">A fizetség az iTunes fiókodat fogja megterhelni a fizetés megerősítése után. Az előfizetés automatikusan meg fog újulni, hacsak az automatikus megújítás ki nem lesz kapcsolva legalább 24 órával a jelenlegi időszak vége előtt. A fiókod meg lesz terhelve a megújítási tervednek megfelelően, 24 órával a jelenlegi időszak vége előtt. Kezelheted vagy bármikor kikapcsolhatod a vásárlásod automatikus megújítás funkcióját az Apple ID fiókbeállításaidban Az előfizetéssel letöltött útikönyveket azok lejárati idejéig használhatod. Harminc nappal az előfizetés lejárta után a könyvjelzőkkel ellátott útikönyvek automatikusan törölve lesznek.</string>
-	<string name="subscription_terms">A vásárlás megerősítésekor az összeg az iTunes számládra lesz terhelve. Az előfizetés automatikusan megújul, ha csak az automatikus megújítást 24 órával a jelenlegi időszak vége előtt ki nem kapcsolod. A számlád az előfizetésednek megfelelően a jelenlegi időszak lejárta előtti 24 órában lesz megterhelve. Az automatikus megújítást az Apple ID fiókod beállításaidban az előfizetés bármely szakaszában kikapcsolhatod.</string>
 	<string name="avoid_unpaved_carplay_1">Nem földút</string>
 	<string name="avoid_unpaved_carplay_2">Földút kerülése</string>
 	<string name="avoid_ferry_carplay_1">Komp nélkül</string>
@@ -1442,7 +1143,7 @@
 	<string name="avoid_tolls_carplay_2">Útdíj kerülése</string>
 	<string name="speedcams_alert_title_carplay_1">Traffipaxok</string>
 	<string name="speedcams_alert_title_carplay_2">Sebességjelzés</string>
-	<string name="download_map_carplay">Kérjük, töltsd le a térképeket a OMaps alkalmazásban az eszközödre</string>
+	<string name="download_map_carplay">Kérjük, töltsd le a térképeket a Organic Maps alkalmazásban az eszközödre</string>
 	<string name="carplay_roundabout_exit">%s kijárat</string>
 	<!-- max. 10 symbols, both iOS and Android -->
 	<string name="sort">Rendezd…</string>
@@ -1490,80 +1191,15 @@
 	<string name="bookmarks_edit_list">Lista szerkesztése</string>
 	<!-- Android, max 18 symbols -->
 	<string name="bookmarks_delete_list">Lista törlése</string>
-	<string name="popup_subscription_success_map_title">Hohó, előfizettél!</string>
-	<string name="popup_subscription_success_map_message">Most már felfedezheted a legjobb turisztikai dolgokat a OMaps katalógusban</string>
-	<string name="popup_subscription_success_map_start_button">Böngészés megkezdése</string>
-	<string name="popup_subscription_success_map_not_now_button">Ne most</string>
 	<string name="religious_places">Vallási helyek</string>
-	<string name="subscription_terms_android">Amikor megerősíted a vásárlást, a fizetség a Google Play fiókodat fogja megterhelni. Az előfizetés automatikusan megújul, hacsak az automatikus megújulás funkció ki nem lesz kapcsolva legalább 24 órával a jelenlegi időszak vége előtt. A fiókod a megújítási terved értelmében a jelenlegi időszak vége előtt 24 órán belül meg lesz terhelve. Az automatikus megújítás funkciót kezelheted vagy kikapcsolhatod vásárlás után a Fiókbeállításokban. Az előfizetéssel letöltött útikönyveket csak annak lejárati idejéig használhatod. A letöltött útikönyvek 30 nappal az előfizetés lejárati dátuma után automatikusan törölve lesznek.</string>
 	<string name="select_list">Lista kiválasztása</string>
-	<string name="pp_discovery_place_related_header">Ez a hely az útikönyv katalógusban van</string>
-	<string name="pp_discovery_place_related_header_1">Ez a hely kiemelt az útikönyvben</string>
-	<string name="pp_discovery_place_related_cta_button">Megnézés</string>
-	<string name="pp_discovery_place_related_tag_header">„%s” címkéjű útikönyvek</string>
-	<string name="pp_discovery_place_related_tag_header_1">Tetszhet még</string>
-	<string name="buy_btn_for_subscription_version_2">Az ÖSSZES útikönyv csak %s/hó</string>
-	<string name="buy_btn_for_subscription_version_3">A teljes katalógus %s/hó</string>
-	<string name="buy_btn_for_subscription_ios_only_mo_version_2">Hozzáférés a katalógushoz %s/hó</string>
-	<string name="buy_btn_for_subscription_ios_only_year_version_2">Hozzáférés a katalógushoz %s/év</string>
-	<string name="subscription_screen_native_title_version_2">Férj hozzá az útikönyvekhez könyvjelzőkkel!</string>
-	<string name="subscription_screen_native_message_version_2">Állj készen bármilyen utazásra 600+ városba és 100+ országba</string>
-	<string name="catalog_no_internet_title">Nincs internetkapcsolat</string>
-	<string name="catalog_no_internet_button">Próbáld újra</string>
-	<string name="new_onboarding_button">Következő</string>
-	<string name="new_onboarding_button_2">Kezdés</string>
-	<string name="new_onboarding_step1_header_2">A mindenes útitárs</string>
-	<string name="new_onboarding_step2_header">Álmodd meg és tervezd</string>
-	<string name="new_onboarding_step2_message">70+ millió látnivaló, kész útmutatók és hotelfoglalás egyenesen a térképről – készen állsz az indulásra?</string>
-	<string name="new_onboarding_step3_message">Maradj mindig az úton az országok részletes térképeivel – minden offline működik!</string>
-	<string name="new_onboarding_step4_header">Oszd meg tapasztalataid</string>
-	<string name="new_onboarding_step4_message">Helyezz könyvjelzőket a kedvenc helyekre és küldd tovább barátaidnak</string>
-	<string name="new_onboarding_step5.1_header">Még egy dolog kezdés előtt…</string>
-	<string name="new_onboarding_step5.1_message">Ne felejtsd el megnézni az új útmutató katalógusunkat és találd meg a következő utazásodhoz az offline útmutatókat!</string>
-	<string name="new_onboarding_step5.1_button">Katalógus megnyitása</string>
-	<string name="new_onboarding_step5.2_message">A OMaps útmutató katalógusra való feliratkozás nagyon értékes. Legyen teljes hozzáférés a városi és szabadtéri útmutatókhoz az egész világon!</string>
-	<string name="new_onboarding_step5.2_button">Nézd meg a feltételeinket</string>
-	<string name="new_onboarding_step5.3_message">Nézd meg a szabadon válaztható városi és szabadtéri túrák ingyenes példáit a OMaps-ről!</string>
-	<string name="new_onboarding_step5.3_button">Ingyenes letöltés</string>
-	<string name="new_onboarding_additional_steps_later_button">Később</string>
-	<string name="all_pass_subscription_header">Iratkozzon fel az</string>
-	<string name="all_pass_subscription_subheader">Útmutató katalógus</string>
-	<!-- \n - for a break between lines. Max. 15 characters per 1 line. -->
-	<string name="all_pass_subscription_message_title">30000+\nútmutatók\n&amp; sávok</string>
-	<!-- <b> & </b> tag to make a part of the line bold -->
-	<string name="all_pass_subscription_message_subtitle"><b>Korlátlan letöltése</b> a városi és szabadtéri útvonalaknak <b>offline módhoz</b></string>
-	<!-- \n - for a break between lines. Max. 17 characters per 1 line. -->
-	<string name="all_pass_subscription_message_title_2">Interaktív\nemelkedési profil</string>
-	<!-- <b> & </b> tag to make a part of the line bold -->
-	<string name="all_pass_subscription_message_subtitle_2">Minden nyomvonal<b>tartalmazza a magassági és alapinfót az útvonalról</b></string>
-	<!-- \n - for a break between lines. Max. 15 characters per 1 line. -->
-	<string name="all_pass_subscription_message_title_3">Könyvjelzők,\nfotók és\njavaslatok</string>
-	<!-- <b> & </b> tag to make a part of the line bold -->
-	<string name="all_pass_subscription_message_subtitle_3"><b>Tudjon meg mindent az útvonalról</b> amit megtesz</string>
-	<string name="sightseeing_subscription_header_subscription">Útmutató előfizetés</string>
-	<string name="sightseeing_subscription_message">700+ város és 100+ ország</string>
-	<string name="sightseeing_subscription_message_2">Elérhető offline</string>
-	<string name="sightseeing_subscription_message_3">Fényépek és séta útvonalak</string>
-	<string name="subscription_success_dialog_title_sightseeing_pass">Köszönjük előfizetését!</string>
-	<string name="subscription_success_dialog_message_sightseeing_pass">Így minden városnéző útmutatóhoz hozzáférsz a katalógusból</string>
-	<string name="downloader_main_gallery_header">Térképek és útmutatók</string>
-	<string name="downloader_main_gallery_message">Ebben a részben nem csak térképeket tölthetsz le, de a következő utazásod útmutatóit is megtekintheted</string>
-	<string name="downloader_main_1_element_gallery_header">Minden útmutató</string>
-	<string name="downloader_main_1_element_gallery_message">100+ országban</string>
-	<string name="downloader_country_1_element_gallery_header">%s útmutató</string>
-	<string name="downloader_country_no_guides_gallery_header">Ebben az országban nincs elérhető útmutatónk még</string>
-	<string name="downloader_country_no_guides_gallery_message">Más offline útmutatókat is megnézhetsz 100+ országban városnézési és szabadtéri programokhoz</string>
-	<string name="dialog_pedestrian_route_is_long">A gyalogos útvonal az utazás indulási pontjáig túl hosszú</string>
-	<string name="new_onboarding_step3_header">Éld át</string>
-	<string name="all_pass_screen_best_value">Legjobb ajánlat</string>
-	<string name="buy_btn_for_subscription_3">A teljes katalógus %s/év</string>
 	<string name="transit_not_found">Metró navigáció ebben a régióban még nem érhető el</string>
 	<string name="dialog_pedestrian_route_is_long_header">Metró útvonal nem található</string>
 	<string name="dialog_pedestrian_route_is_long_message">Válasszon indulási vagy végpontot közelebb a metróállomáshoz</string>
 	<!-- Failed planning SUBWAY route message in navigation view -->
 	<string name="routing_planning_error_subway_special">A metró útvonaltervezése sikertelen</string>
 	<string name="button_layer_isolines">Terep</string>
-	<string name="tips_map_layers_title_countour">Újdonság a OMaps-n: offline topográfiai réteg!</string>
+	<string name="tips_map_layers_title_countour">Újdonság a Organic Maps-n: offline topográfiai réteg!</string>
 	<string name="tips_map_layers_message_countour">Tervezze meg és élvezze a természetjáró kirándulásait, és tudjon meg mindent a környékről</string>
 	<string name="isolines_activation_error_dialog">A topográfiai réteg aktiválásához és használatához kérjük frissítse vagy töltse le az adott terület térképét</string>
 	<string name="isolines_location_error_dialog">Ezen a területen a topográfiai réteg még nem elérhető</string>
@@ -1582,79 +1218,10 @@
 	<string name="elevation_profile_time">Idő</string>
 	<string name="elevation_profile_hours">ó.</string>
 	<string name="elevation_profile_minutes">p.</string>
-	<string name="view_on_map_downloaded_error">Ezt az útmutatót törölték erről az eszközről</string>
-	<string name="subscription">Feliratkozás</string>
-	<string name="button_layer_guides">Útmutatók (új)</string>
-	<string name="no_routes_in_the_area_toast">Útmutató itt nem található</string>
 	<string name="isolines_toast_zooms_1_10">Nagyítás az isovonalak felfedezéséhez</string>
-	<string name="routes_layer_in_menu_toast">Az offline útmutatók, az isovonalak, a metróvonalak vagy a forgalmi dugók megkereséséhez kapcsolja be a rétegeket</string>
-	<string name="routes_layer_is_on_toast">Az útmutatók felfedezéséhez húzza el a térképet</string>
-	<string name="connection_error_dialog_guides_title">Csatlakozási hiba</string>
-	<string name="connection_error_dialog_guides_message">A réteg nem működik, mert nincs internet kapcsolat vagy gyenge a jel. A folytatáshoz ellenőrizze a kapcsolatot vagy kapcsolja ki a réteget.</string>
-	<string name="connection_error_dialog_guides_try">Próbálja újra</string>
-	<string name="connection_error_dialog_guides_layer_turn_off">Kapcsolja ki</string>
-	<string name="connection_error_toast_guides">Újracsatlakozás</string>
-	<!-- as few symbols as possible -->
-	<string name="routes_card_show">Térképen megjelenítés</string>
-	<!-- as few symbols as possible -->
-	<string name="routes_card_hide">Térképről elrejtés</string>
 	<string name="downloader_updating_ios">Feltöltés</string>
 	<string name="downloader_loading_ios">Letöltés</string>
-	<string name="routes_card_plus_track">+ útvonal</string>
-	<string name="routes_card_number_of_points">%s hely</string>
-	<string name="routes_card_routes_tag">Útiterv</string>
-	<string name="routes_card_set_tag">Kiemelt helyek</string>
-	<!-- as few symbols as possible -->
-	<string name="guides_trial_cta_button">7 napos ingyenes próbaverzió elindítása</string>
-	<string name="guides_trial_message">Ezt követően évente %s. Bármikor törölheti</string>
-	<string name="trial_error_dialog">Sajnáljuk, már használta a próbaverziót</string>
-	<!-- as few symbols as possible -->
-	<string name="floating_button_filters">Szűrők</string>
-	<plurals name="date_picker_amout_of_days">
-	  <item quantity="one">%d nap</item>
-	  <item quantity="few">%d napok</item>
-	  <item quantity="other">%d napok</item>
-	</plurals>
-	<!-- as few symbols as possible -->
-	<string name="date_picker_сhoose_dates_cta">Dátumok kiválasztása</string>
-	<!-- as few symbols as possible -->
-	<string name="guests_picker_rooms_title">Szobák és vendégek</string>
-	<string name="guests_picker_rooms">Szobák</string>
-	<string name="guests_picker_adults">Felnőttek</string>
-	<string name="guests_picker_children_title">Gyerekek</string>
-	<string name="guests_picker_children_subtitle">1-17 éves</string>
-	<string name="guests_picker_infants_title">Csecsemők</string>
-	<string name="guests_picker_infants_subtitle">0-12 hónapos</string>
-	<!-- as less symbols as possible -->
-	<string name="booking_map_component_availability">Nincs elérhető szoba</string>
-	<!-- as few symbols as possible -->
-	<string name="booking_map_component_filters">Szűrőn kívül esik</string>
-	<string name="choose_dates_online_only_dialog_title">Nincs internetkapcsolat</string>
-	<string name="choose_dates_online_only_dialog_message">A dátumok és a vendégek száma csak online választható ki. Kérjük, ellenőrizze a beállításait, és bizonyosodjon meg arról, hogy csatlakozva van az internethez.</string>
-	<string name="choose_dates_online_only_dialog_cta">Beállítások</string>
-	<string name="thirty_days_limit_dialog">Maximum 30 éjszakára foglalhat</string>
-	<string name="whatsnew_trial_cta">Próbálja ki most</string>
-	<string name="subscription_terms_guides_outdoor">Amikor megerősíti a vásárlást, a fizetést az iTunes számlájára terheljük. Az előfizetés automatikusan megújul, kivéve, ha az automatikus megújítás funkció legalább 24 órával a jelenlegi előfizetési időszak vége előtt letiltásra kerül. Fiókját a megújítási terv szerint 24 órán belül terheljük a jelenlegi előfizetési időszak lejárta előtt. Az automatikus megújítást az Apple ID-fiók beállításaiban a vásárlás után bármikor ellenőrizheti és letilthatja. Az előfizetés alatt letöltött útmutatásokat csak az előfizetés lejártáig használhatja. Az útmutatók és az összes könyvjelző automatikusan törlésre kerül az előfizetés lejárta után 7 nappal.\n* Az ingyenes próbaidőszakra szóló feliratkozás automatikusan fizetett előfizetésként kerül megújításra. Az ingyenes próbaverzió automatikus megújítását a vásárlás után a fiókbeállításaiban törölheti vagy ellenőrizheti. A lemondás a jelenlegi előfizetési időszak utolsó napját követő 24 órában lép életbe. Ezt követően az ingyenes szolgáltatásra kerül át. Megjegyzés: Az ingyenes próbaverzió fel nem használt része elvész, ha prémium előfizetést vásárol az ingyenes próbaverzió alatt.</string>
-	<string name="subscription_terms_android_outdoor">Amikor megerősíti a vásárlást, a fizetést a Google Play számlájára terheljük. Az előfizetés automatikusan megújul, kivéve, ha az automatikus megújítás funkció legalább 24 órával a jelenlegi előfizetési időszak vége előtt letiltásra kerül. Fiókját a megújítási terv szerint 24 órán belül terheljük a jelenlegi előfizetési időszak lejárta előtt. Vásárlás után bármikor ellenőrizheti vagy törölheti az automatikus megújítást a fiókbeállításokban. Az előfizetés alatt letöltött útmutatásokat csak az előfizetés lejártáig használhatja. Az útmutatók automatikusan törlésre kerülnek az előfizetés lejárta után 7 nappal.\n* Az ingyenes próbaidőszakra szóló feliratkozás automatikusan fizetett előfizetésként kerül megújításra. Az ingyenes próbaverzió automatikus megújítását a vásárlás után a fiókbeállításaiban törölheti vagy ellenőrizheti. A lemondás a jelenlegi előfizetési időszak utolsó napját követő 24 órában lép életbe. Ezt követően az ingyenes szolgáltatásra kerül át. Megjegyzés: Az ingyenes próbaverzió fel nem használt része elvész, ha prémium előfizetést vásárol az ingyenes próbaverzió alatt.</string>
-	<string name="subscription_header">Iratkozzon fel az\n<b>Útmutató katalógusra</b></string>
-	<!-- Max. 20 characters per 1 line. -->
-	<string name="all_pass_subscription_message_title_4">Útikalauzok\na Lonely Planet®-től</string>
-	<!-- <b> & </b> tag to make a part of the line bold -->
-	<string name="all_pass_subscription_message_subtitle_4">Még <b>több élmény</b> érdekes helyszínek ezreivel <b>a világon</b></string>
-	<string name="content_by_component">Tartalom: %s</string>
-	<string name="whatsnew_lp_title">Még több izgalom</string>
-	<string name="whatsnew_lp_message">Mostantól Lonely Planet útmutatók vannak az alkalmazásunkban! A legjobb látnivalók, tematikus séták, egyedi úti helyek több mint 7000 városhoz.</string>
-	<string name="collections_title">Gyűjtemények</string>
 	<string name="key_information_title">Kulcs információ</string>
-	<string name="mustsee_title">Látnia kell</string>
-	<string name="see_lp_category">Lásd</string>
-	<string name="play_lp_category">Játék</string>
-	<string name="shop_lp_category">Vásárlás</string>
-	<string name="transport_lp_category">Utazás</string>
-	<string name="sleep_lp_category">Szállás</string>
-	<string name="general_lp_category">Általános</string>
-	<string name="drink_lp_category">Ital</string>
-	<string name="eat_lp_category">Étel</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Felvonóállomás</string>

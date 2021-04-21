@@ -94,7 +94,7 @@
 /* Button text for the button under the country_status_download_failed message */
 "try_again" = "Tekrar Deneyin";
 
-"about_menu_title" = "OMaps Hakkında";
+"about_menu_title" = "Organic Maps Hakkında";
 
 "downloaded_touch_to_delete" = "(%@) indirildi, silmek için dokunun";
 
@@ -110,7 +110,7 @@
 
 "external_storage_is_not_available" = "İndirilen haritalarla SD kart/USB depolama aygıtı kullanılamıyor";
 
-"disconnect_usb_cable" = "OMaps’yi kullanabilmeniz için lütfen USB kablosunun bağlantısını kesin veya hafıza kartı takın";
+"disconnect_usb_cable" = "Organic Maps’yi kullanabilmeniz için lütfen USB kablosunun bağlantısını kesin veya hafıza kartı takın";
 
 "not_enough_free_space_on_sdcard" = "Uygulamayı kullanabilmeniz için lütfen SD kart/USB depolama aygıtında biraz alan boşaltın";
 
@@ -174,7 +174,7 @@
 "set" = "Ayarla";
 
 /* Text hint in Bookmarks dialog when no any bookmarks are added */
-"bookmarks_usage_hint" = "Henüz hiç yer iminiz yok.\nYer imi eklemek için haritada bir yere dokunun.\nBaşka kaynaklardan da yer imleri alınıp OMaps’de gösterilebilir KML/KMZ dosyasını posta, Dropbox veya web bağlantısından kaydedilen pinlerle aç.";
+"bookmarks_usage_hint" = "Henüz hiç yer iminiz yok.\nYer imi eklemek için haritada bir yere dokunun.\nBaşka kaynaklardan da yer imleri alınıp Organic Maps’de gösterilebilir KML/KMZ dosyasını posta, Dropbox veya web bağlantısından kaydedilen pinlerle aç.";
 
 /* Settings button in system menu */
 "settings" = "Ayarlar";
@@ -276,9 +276,9 @@
 "share_by_email" = "E-postayla paylaş";
 
 /* Email Subject when sharing bookmarks category */
-"share_bookmarks_email_subject" = "Paylaşılan OMaps yer imleri";
+"share_bookmarks_email_subject" = "Paylaşılan Organic Maps yer imleri";
 
-"share_bookmarks_email_body" = "Hello!\n\nAttached are my bookmarks from OMaps offline maps. Please open them if you have OMaps installed. Or, if you don't, download the app for your iOS or Android device by following this link: https://omaps.app/get?kmz\n\nEnjoy traveling with OMaps!";
+"share_bookmarks_email_body" = "Hello!\n\nAttached are my bookmarks from Organic Maps offline maps. Please open them if you have Organic Maps installed. Or, if you don't, download the app for your iOS or Android device by following this link: https://organicmaps.app/get?kmz\n\nEnjoy traveling with Organic Maps!";
 
 /* message title of loading file */
 "load_kmz_title" = "Yer İmleri Yükleniyor";
@@ -308,22 +308,22 @@
 "downloading_is_active" = "Ülke indirme işlemi şu anda sürüyor.";
 
 /* Message that will be shown in alert view, when we ask user to leave review on App Store */
-"appStore_message" = "OMaps kullanmaktan keyif aldığınızı umuyoruz! Öyleyse, lütfen App Store’da uygulamaya puan verin veya uygulama hakkında yorum yapın. Bir dakikadan daha kısa sürer ama bize gerçekten yardımcı olabilir. Desteğiniz için teşekkürler!";
+"appStore_message" = "Organic Maps kullanmaktan keyif aldığınızı umuyoruz! Öyleyse, lütfen App Store’da uygulamaya puan verin veya uygulama hakkında yorum yapın. Bir dakikadan daha kısa sürer ama bize gerçekten yardımcı olabilir. Desteğiniz için teşekkürler!";
 
 /* No, thanks */
 "no_thanks" = "Hayır, teşekkürler";
 
 /* Share one specific bookmark using SMS, %1$@ contains ge0:// and %2$@ http://ge0.me link. @NOTE non-ascii symbols in the link will make 70 bytes sms instead of 140 */
-"bookmark_share_sms" = "Hey, OMaps’de pinimi incele! %1$@ veya %2$@ Çevrimiçi haritalar sende yüklü değil mi? Buradan indir: https://omaps.app/get";
+"bookmark_share_sms" = "Hey, Organic Maps’de pinimi incele! %1$@ veya %2$@ Çevrimiçi haritalar sende yüklü değil mi? Buradan indir: https://organicmaps.app/get";
 
 /* Share my position using SMS, %1$@ contains ge0:// and %2$@ http://ge0.me link WITHOUT NAME. @NOTE non-ascii symbols in the link will make 70 bytes sms instead of 140 */
-"my_position_share_sms" = "Hey, OMaps’de geçerli konumumu incele! %1$@ veya %2$@ Çevrimiçi haritalar sende yok mu? Buradan indir: https://omaps.app/get";
+"my_position_share_sms" = "Hey, Organic Maps’de geçerli konumumu incele! %1$@ veya %2$@ Çevrimiçi haritalar sende yok mu? Buradan indir: https://organicmaps.app/get";
 
 /* Subject for emailed bookmark */
-"bookmark_share_email_subject" = "Hey, OMaps haritasında pinimi incele!";
+"bookmark_share_email_subject" = "Hey, Organic Maps haritasında pinimi incele!";
 
 /* Subject for emailed position */
-"my_position_share_email_subject" = "Hey, OMaps’de geçerli konumumu incele!";
+"my_position_share_email_subject" = "Hey, Organic Maps’de geçerli konumumu incele!";
 
 /* Share my position using EMail, %1$@ is ge0:// and %2$@ is http://ge0.me link WITHOUT NAME */
 "my_position_share_email" = "Merhaba,\n\nŞu anda bulunduğum yer: %1$@. Yeri haritada görmek için bu bağlantıya %2$@ veya şuna %3$@ tıkla.\n\nTeşekkürler.";
@@ -492,16 +492,16 @@
 "download_map_notification" = "Bulunduğun yerin haritasını indir";
 
 /* text of notification */
-"pro_version_is_free_today" = "OMaps tam sürümü bugün ücretsiz! İndir ve arkadaşlarına haber ver.";
+"pro_version_is_free_today" = "Organic Maps tam sürümü bugün ücretsiz! İndir ve arkadaşlarına haber ver.";
 
 /* Dialog for transferring maps from lite to pro. */
-"move_lite_maps_to_pro" = "OMaps Lite'den indirmiş olduğunuz haritaları OMaps'ye aktarıyoruz. Bu bir kaç dakika sürebilir.";
+"move_lite_maps_to_pro" = "Organic Maps Lite'den indirmiş olduğunuz haritaları Organic Maps'ye aktarıyoruz. Bu bir kaç dakika sürebilir.";
 
 /* Message to display when maps moved. */
-"move_lite_maps_to_pro_ok" = "İndirmiş olduğunuz haritalar başarılı bir şekilde OMaps'ye aktarıldı.";
+"move_lite_maps_to_pro_ok" = "İndirmiş olduğunuz haritalar başarılı bir şekilde Organic Maps'ye aktarıldı.";
 
 /* Message to display when maps move failed. */
-"move_lite_maps_to_pro_failed" = "Haritanızın aktarımı başarısız oldu. Lütfen OMaps Lite'yi silin ve haritaları tekrar indirin.";
+"move_lite_maps_to_pro_failed" = "Haritanızın aktarımı başarısız oldu. Lütfen Organic Maps Lite'yi silin ve haritaları tekrar indirin.";
 
 /* Text in menu */
 "settings_and_more" = "Ayarlar & Fazlası";
@@ -510,7 +510,7 @@
 "website" = "Web Sitesi";
 
 /* Text in menu */
-"maps_me_community" = "OMaps Topluluğu";
+"maps_me_community" = "Organic Maps Topluluğu";
 
 /* Text in menu */
 "like_on_facebook" = "Facebook'da beğen";
@@ -540,13 +540,13 @@
 "report_a_bug" = "Hata bildir";
 
 /* Email subject */
-"subscribe_me_subject" = "Lütfen OMaps haber bültenine beni abone yap";
+"subscribe_me_subject" = "Lütfen Organic Maps haber bültenine beni abone yap";
 
 /* Email body */
 "subscribe_me_body" = "En son haberlerden güncellemelerden ve tanıtımlardan ilk önce haberdar olmak istiyorum. Aboneliğimi herhangi bir zaman iptal edebilirim.";
 
 /* About text */
-"about_text" = "OMaps dünyadaki tüm ülkelerdeki şehirlerin en hızlı çevrimdışı haritalarını sunuyor. Tam güven ile seyahat edin: nerede olursanız olun, OMaps harita üzerinde nerede olduğunuzu belirlemeye, en yakın restoranı, oteli, bankayı, benzin istasyonunu v.b. bulmaya yardımcı olur. İnternet bağlantısı gerektirmez.\n\nHer zaman yeni özellikler üzerinde çalışıyoruz ve sizlerin OMaps'yi nasıl geliştirebileceğimize dair görüşlerinizi almaktan mutluluk duyuyoruz. Eğer uygulama ile ilgili herhangi bir probleminiz varsa, bizimle support@omaps.app adresinden temasa geçmekten çekinmeyin. Her talebe cevap veriyoruz!\n\nOMaps'yi beğendiniz ve bize destek olmak ister misiniz? Bunun bazı basit ve tamamıyla ücretsiz yolları var:\n\n- Uygulama Marketinizde bir yorum yazın\n- Facebook sayfamızı beğenin http://www.facebook.com/mapswithme\n- veya sadece annenize, arkadaşlarınıza ve iş arkadaşlarınıza OMaps'den bahsedin :)\n\nBizi tercih ettiğiniz için teşekkür ederiz. Desteğinizden dolayı çok memnuniyet duyarız!\n\nNot: Verileri haritaları kullanıcıların yaratmasına ve düzenlemesine olanak veren Wikipedia benzeri bir proje olan OpenStreetMap'dan almaktayız. Eğer haritada eksik ya da hatalı bir şeyler görürseniz doğrudan haritaları\n\nhttps://www.openstreetmap.org, adresinden düzeltebilirsiniz ve yaptığınız değişiklikler OMaps'de bir sonraki sürüm yayınlandığında görülebilir olacaktır.";
+"about_text" = "Organic Maps dünyadaki tüm ülkelerdeki şehirlerin en hızlı çevrimdışı haritalarını sunuyor. Tam güven ile seyahat edin: nerede olursanız olun, Organic Maps harita üzerinde nerede olduğunuzu belirlemeye, en yakın restoranı, oteli, bankayı, benzin istasyonunu v.b. bulmaya yardımcı olur. İnternet bağlantısı gerektirmez.\n\nHer zaman yeni özellikler üzerinde çalışıyoruz ve sizlerin Organic Maps'yi nasıl geliştirebileceğimize dair görüşlerinizi almaktan mutluluk duyuyoruz. Eğer uygulama ile ilgili herhangi bir probleminiz varsa, bizimle support@organicmaps.app adresinden temasa geçmekten çekinmeyin. Her talebe cevap veriyoruz!\n\nOrganic Maps'yi beğendiniz ve bize destek olmak ister misiniz? Bunun bazı basit ve tamamıyla ücretsiz yolları var:\n\n- Uygulama Marketinizde bir yorum yazın\n- Facebook sayfamızı beğenin http://www.facebook.com/OMapsApp\n- veya sadece annenize, arkadaşlarınıza ve iş arkadaşlarınıza Organic Maps'den bahsedin :)\n\nBizi tercih ettiğiniz için teşekkür ederiz. Desteğinizden dolayı çok memnuniyet duyarız!\n\nNot: Verileri haritaları kullanıcıların yaratmasına ve düzenlemesine olanak veren Wikipedia benzeri bir proje olan OpenStreetMap'dan almaktayız. Eğer haritada eksik ya da hatalı bir şeyler görürseniz doğrudan haritaları\n\nhttps://www.openstreetmap.org, adresinden düzeltebilirsiniz ve yaptığınız değişiklikler Organic Maps'de bir sonraki sürüm yayınlandığında görülebilir olacaktır.";
 
 /* Alert text */
 "email_error_body" = "E-posta istemcisi henüz kurulmamış. Lütfen e-posta istemcisini yapılandırın ya da bize %@ adresinden ulaşmak için başka bir yöntem deneyin";
@@ -564,7 +564,7 @@
 "routing_map_outdated" = "Yeni bir rota oluşturmak için lütfen haritayı güncelleyin.";
 
 /* Update maps suggestion */
-"routing_update_maps" = "OMaps'nin yeni sürümü mevcut pozisyonunuzdan varış noktasına rotalar oluşturmanıza imkan verir. Lütfen bu özelliği kullanmak için haritaları güncelleyin.";
+"routing_update_maps" = "Organic Maps'nin yeni sürümü mevcut pozisyonunuzdan varış noktasına rotalar oluşturmanıza imkan verir. Lütfen bu özelliği kullanmak için haritaları güncelleyin.";
 
 /* Update all button text */
 "downloader_update_all_button" = "Hepsini güncelle";
@@ -592,7 +592,7 @@
 "downloader_search_results" = "Bulundu";
 
 /* Disclaimer message */
-"routing_disclaimer" = "OMaps uygulamasında rota yaratırken lütfen aşağıdakileri dikkate alın:\n\n  - Önerilen rotalar sadece tavsiyeler olarak düşünülmelidir.\n - Yol koşulları, trafik kuralları ve işaretleri navigasyon tavsiyelerden daha önceliklidir.\n - Harita doğru olmayabilir ya da eskimiş olabilir ve rotalar en iyi mümkün yola göre oluşturulmamış olabilir.\n\n  Yollarda güvende olun ve kendinize dikkat edin!";
+"routing_disclaimer" = "Organic Maps uygulamasında rota yaratırken lütfen aşağıdakileri dikkate alın:\n\n  - Önerilen rotalar sadece tavsiyeler olarak düşünülmelidir.\n - Yol koşulları, trafik kuralları ve işaretleri navigasyon tavsiyelerden daha önceliklidir.\n - Harita doğru olmayabilir ya da eskimiş olabilir ve rotalar en iyi mümkün yola göre oluşturulmamış olabilir.\n\n  Yollarda güvende olun ve kendinize dikkat edin!";
 
 /* Outdated maps category */
 "downloader_outdated_maps" = "Güncel değil";
@@ -628,7 +628,7 @@
 "routing_failed_route_not_found" = "Seçilen kalkış yeriyle varış yeri arasında hiçbir rota bulunamadı. Lütfen farklı bir başlangıç veya bitiş noktası seçin.";
 
 /* InternalError */
-"routing_failed_internal_error" = "Sistem içi hata oluştu. Lütfen haritayı silin ve tekrar yüklemeyi deneyin. Sorun devam ettiği takdirde lütfen support@omaps.app adresinden bize ulaşın.";
+"routing_failed_internal_error" = "Sistem içi hata oluştu. Lütfen haritayı silin ve tekrar yüklemeyi deneyin. Sorun devam ettiği takdirde lütfen support@organicmaps.app adresinden bize ulaşın.";
 
 /* Context menu item for downloader. */
 "downloader_download_map_and_routing" = "Harita + Rota İndir";
@@ -675,10 +675,10 @@
 "rating_just_rated" = "Uygulamanıza az önce puan verdim";
 
 /* Text for rating dialog */
-"rating_user_since" = "%@ yılından beri OMaps kullanıcısıyım";
+"rating_user_since" = "%@ yılından beri Organic Maps kullanıcısıyım";
 
 /* Text for rating dialog */
-"rating_do_like_maps" = "OMaps'yi beğeniyor musunuz?";
+"rating_do_like_maps" = "Organic Maps'yi beğeniyor musunuz?";
 
 /* Text for rating dialog */
 "rating_tap_star" = "Uygulamamıza puan vermek için bir yıldıza dokunun.";
@@ -702,7 +702,7 @@
 "routing_download_map" = "Harita alın";
 
 /* Text for routing error dialog */
-"routing_download_map_and_routing" = "Tüm OMaps özelliklerini edinmek için güncellenmiş harita ve rota verilerini indirin.";
+"routing_download_map_and_routing" = "Tüm Organic Maps özelliklerini edinmek için güncellenmiş harita ve rota verilerini indirin.";
 
 /* Text for routing error dialog */
 "routing_get_routing_data" = "Rota verileri edin";
@@ -923,7 +923,7 @@
 
 "rate_alert_title" = "Uygulamayı beğendiniz mi?";
 
-"rate_alert_default_message" = "OMaps’yi kullandığınız için teşekkür ederiz. Lütfen uygulamaya puan verin. Geri bildiriminiz daha iyi hale gelebilmemize yardımcı olur.";
+"rate_alert_default_message" = "Organic Maps’yi kullandığınız için teşekkür ederiz. Lütfen uygulamaya puan verin. Geri bildiriminiz daha iyi hale gelebilmemize yardımcı olur.";
 
 "rate_alert_five_star_message" = "Yaşasın! Biz de sizi seviyoruz!";
 
@@ -1034,7 +1034,7 @@
 
 "editor_report_problem_duplicate_place_title" = "Kopyalanmış yer";
 
-"first_launch_congrats_title" = "OMaps kullanıma hazır";
+"first_launch_congrats_title" = "Organic Maps kullanıma hazır";
 
 "first_launch_congrats_text" = "Dünyanın her yerinde çevrimdışı olarak ücretsiz arama yapın ve gezinin.";
 
@@ -1218,7 +1218,7 @@
 
 "whatsnew_editor_message_1" = "Doğrudan uygulamadan haritaya yeni yerler ekle ve mevcut yerleri düzenleyin.";
 
-"whatsnew_editor_message_2" = "* OMaps, OpenStreetMap topluluğu verilerini kullanmaktadır.";
+"whatsnew_editor_message_2" = "* Organic Maps, OpenStreetMap topluluğu verilerini kullanmaktadır.";
 
 "dialog_incorrect_feature_position" = "Konumu değiştir";
 
@@ -1231,7 +1231,7 @@
 /* Error dialog no space */
 "migration_no_space_message" = "İndirmek için daha fazla alana ihtiyacınız var. Lütfen gereksiz verileri silin.";
 
-"editor_sharing_title" = "OMaps haritalarını iyileştirdim";
+"editor_sharing_title" = "Organic Maps haritalarını iyileştirdim";
 
 "editor_comment_will_be_sent" = "Yorumunuzu haritacılara göndereceğiz.";
 
@@ -1262,7 +1262,7 @@
 
 "editor_detailed_description_hint" = "Ayrıntılı yorum";
 
-"editor_detailed_description" = "Önerdiğiniz değişiklikler OpenStreetMap topluluğuna gönderilecek. OMaps’de düzenlenemeyen ayrıntıları açıklayın.";
+"editor_detailed_description" = "Önerdiğiniz değişiklikler OpenStreetMap topluluğuna gönderilecek. Organic Maps’de düzenlenemeyen ayrıntıları açıklayın.";
 
 "editor_more_about_osm" = "OpenStreetMap hakkında ek bilgi";
 
@@ -1339,10 +1339,6 @@
 
 "placepage_open_24_7" = "24 / 7";
 
-"place_page_booking_rating" = "Derecelendirme: %s";
-
-"place_page_starting_from" = "%s’dan";
-
 "meter" = "m";
 
 "kilometer" = "km";
@@ -1410,17 +1406,9 @@
 
 "editor_profile_rating_place" = "Sıralamadaki yeri";
 
-"booking_dialog_not_connect_header" = "Bunlar, onaylanmış harita değişiklikleridir";
-
-"button_try" = "Deneyin";
-
 "refresh" = "Güncelleştirme";
 
 "last_update" = "Son güncelleme: %s";
-
-"booking_checkin" = "giriş: %s";
-
-"booking_checkout" = "çıkış: %s";
 
 "placepage_add_place_button" = "Haritaya bir yer ekleyin";
 
@@ -1453,9 +1441,6 @@
 /* iOS dialog for the case when recent track recording is on and the app comes back from background */
 "recent_track_background_dialog_title" = "En son seyahat edilen rotanızı kaydetmeyi devre dışı bırakmak istiyor musunuz?";
 
-/* If a hotel is being shared */
-"sharing_booking" = "veya booking.com'dan yer ayırt";
-
 "off_recent_track_background_button" = "Devre Dışı Bırak";
 
 /* For sharing via SMS and so on */
@@ -1463,7 +1448,7 @@
 
 "continue_recent_track_background_button" = "Devam Et";
 
-"recent_track_background_dialog_message" = "OMaps, en son seyahat ettiğiniz rotayı kaydetmek için arka planda coğrafi konumunuzu kullanır.";
+"recent_track_background_dialog_message" = "Organic Maps, en son seyahat ettiğiniz rotayı kaydetmek için arka planda coğrafi konumunuzu kullanır.";
 
 /* Rate on Google Play (Android only) */
 "rate_gp" = "Google Play'de Oy Ver";
@@ -1472,10 +1457,10 @@
 "tell_friends" = "Arkadaşınıza söyleyin";
 
 /* Share with friends: sharing text */
-"tell_friends_text" = "Merhaba! OMaps'yi hemen yükle!";
+"tell_friends_text" = "Merhaba! Organic Maps'yi hemen yükle!";
 
 /* About short text (below logo) */
-"about_description" = "OMaps, seyahatler için vazgeçilmez bir çevrimdışı uygulamadır. OMaps, OpenStreetMap verilerine dayanmakta ve bu verilerin düzenlenmesini sağlamaktadır.";
+"about_description" = "Organic Maps, seyahatler için vazgeçilmez bir çevrimdışı uygulamadır. Organic Maps, OpenStreetMap verilerine dayanmakta ve bu verilerin düzenlenmesini sağlamaktadır.";
 
 /* Text in menu */
 "blog" = "Blog";
@@ -1495,51 +1480,7 @@
 /* For the first routing */
 "decline" = "Ret";
 
-"whats_new_route_profile_title" = "Düz yoldan gitmek çukura düşmekten daha iyidir";
-
-"whats_new_route_profile_message" = "Yürüyüş ve bisiklet yolları şimdi yükseklik profilli olarak görüntüleniyor.";
-
-"whats_new_booking_improve_title" = "Otel rezervasyonlarınızdan tasarruf edin";
-
-"whats_new_booking_improve_message" = "Artık otel arama sonuçlarında fiyat kategorisi de gösteriliyor.\nVe 110,000'den fazla oteli sistemimize ekledik.";
-
-/* For place page hotel facilities block */
-"placepage_hotel_facilities" = "Tesisler";
-
-/* For place page hotel nearby block */
-"placepage_hotel_nearby" = "Yakınlarda";
-
-/* For ordering a taxi (as opposed to hotels or other things) */
-"taxi_order" = "Taksi çağır";
-
-/* How long it is until the taxi arrives */
-"taxi_wait" = "%s içinde bekleniyor";
-
-/* When there are no available taxis nearby */
-"taxi_not_found" = "Yakın hiç taksi bulunamadı";
-
-/* When there are no available taxi providers nearby */
-"taxi_no_providers" = "Bu bölgede hiç taksi yok";
-
 "install_app" = "Kur";
-
-/* `Filter` is a noun here */
-"booking_filters" = "Filtre";
-
-"booking_filters_reset" = "Sıfırla";
-
-/* Beginning from a particular value and */
-"booking_filters_rating" = "En düşük derece";
-
-"booking_filters_rating_any" = "Herhangi biri";
-
-"booking_filters_ragting_good" = "İyi";
-
-"booking_filters_rating_very_good" = "Çok iyi";
-
-"booking_filters_rating_excellent" = "Mükemmel";
-
-"booking_filters_price_category" = "Fiyat Kategorisi";
 
 "search_no_results_title" = "Hiçbir Sonuç Bulunamadı";
 
@@ -1551,28 +1492,6 @@
 
 /* noun */
 "search_in_table" = "Liste";
-
-"booking_show_more" = "Daha fazla göster";
-
-"booking_reviews" = "Değerlendirmeler";
-
-"booking_hotel" = "Otel";
-
-/* hotel room */
-"booking_hotel_room" = "Oda";
-
-/* A neologism for a chat based on geographical proximity */
-"chat" = "GeoChat";
-
-/* Verb. Text on a button that opens the chat. */
-"chat_open" = "Aç";
-
-"dialog_taxi_offline" = "Taksi çağırma çevrimdışı modda kullanılamıyor.";
-
-"dialog_taxi_error" = "Taksi çağırma geçici olarak kullanılamıyor.";
-
-/* Abbreviated for all languages. */
-"advertisement" = "AD";
 
 "mobile_data_dialog" = "Ayrıntılı bilgileri görüntülemek için mobil internet kullanılsın mı?";
 
@@ -1596,7 +1515,7 @@
 
 "big_font" = "Harita üzerindeki yazı tipi boyutunu artır";
 
-"traffic_update_app" = "Lütfen OMaps uygulamasını güncelleyin";
+"traffic_update_app" = "Lütfen Organic Maps uygulamasını güncelleyin";
 
 /* "traffic" as in road congestion */
 "traffic_update_app_message" = "Trafik verilerini görüntülemek için uygulamanın güncellenmesi gerekiyor.";
@@ -1607,69 +1526,14 @@
 /* "Translation is no needed, because it's a company name" */
 "uber" = "Uber";
 
-/* Seven points and higher */
-"booking_filter_rating_num_good" = "7.0+";
-
-/* Eight points and higher */
-"booking_filter_rating_num_very_good" = "8.0+";
-
-/* Nine points and higher */
-"booking_filter_rating_num_excellent" = "9.0+";
-
-"booking_filter_price_low" = "$";
-
-"booking_filter_price_medium" = "$$";
-
-"booking_filter_price_high" = "$$$";
-
 /* Simplified colour scheme for traffic information, fewer colours are used to display traffic jams on the map. The string should be kept as short as possible */
 "pref_traffic_simplified_colors_title" = "Sadeleştirilmiş trafik renkleri";
 
 "enable_logging" = "Günlüğü etkinleştir";
 
-"more_on_bookingcom" = "Booking.com hakkında daha fazla";
-
-"details_on_bookingcom" = "Booking.com hakkında detaylar";
-
-"reviews_on_bookingcom" = "Booking.com hakkında daha fazla değerlendirme";
-
 "offline_place_page_more_information" = "Yerle ilgili daha fazla bilgi almak için internete bağlanın.";
 
 "failed_load_information" = "Bilgiler yüklenemedi.";
-
-"booking_search" = "Booking.com";
-
-"whats_new_auto_update_updating_maps" = "Haritalar güncelleniyor";
-
-"whats_new_auto_update_title" = "İndirdiğiniz haritaları güncelleyin";
-
-"whats_new_auto_update_message" = "Haritaları güncellemek, nesnelerle ilgili bilgilerin güncel kalmasını sağlar";
-
-"whats_new_auto_update_button_size" = "Güncelle (%s)";
-
-"whats_new_auto_update_button_later" = "Daha sonra manüel olarak güncelle";
-
-"search_hotel_filter_apartment" = "Apart otel";
-
-"search_hotel_filter_camp_site" = "Kamp alanı";
-
-"search_hotel_filter_chalet" = "Chalet";
-
-"search_hotel_filter_guest_house" = "Misafir evi";
-
-"search_hotel_filter_hostel" = "Pansiyon";
-
-"search_hotel_filter_resort" = "Tatil köyü";
-
-"search_hotel_filter_hotel" = "Otel";
-
-"search_hotel_filter_motel" = "Motel";
-
-"create_campaign_button" = "Bu iş yerinin sahibiyim";
-
-"view_campaign_button" = "İşletme reklamı verildi";
-
-"search_hotel_filters_type" = "Tür";
 
 /* Settings: "Send general feedback" button */
 "feedback_general" = "Genel Geribildirim";
@@ -1744,65 +1608,7 @@
 
 "preloader_viator_button" = "Daha fazla bilgi edinin";
 
-"whats_new_title_route" = "Bisiklet ve yaya güzergahları iyileştirildi";
-
-"whats_new_message_route" = "Hataları düzelttik, güzergah oluşturmayı daha hızlı hale getirdik ve ara duraklar ekledik";
-
-"whats_new_message_title_update" = "Harita güncellemelerinin boyutunu 10 kat daha küçülttük";
-
-"whats_new_message_maps_update" = "Artık bir haritayı güncellemek için sadece eksik verileri indirmeniz yeterli";
-
 "start_from_my_position" = "Buradan başla";
-
-"rating" = "Oy Verin";
-
-"placepage_no_reviews" = "Değerlendirme yok";
-
-"placepage_reviewed" = "Bu yer için zaten yorum eklediniz";
-
-"placepage_summary_rating" = "Değerlendirme özeti";
-
-"placepage_rate_comment" = "Bu yeri değerlendirmek ve oylamak için dokunun.";
-
-"placepage_rate_horrible" = "Korkunç";
-
-"placepage_rate_bad" = "Kötü";
-
-"placepage_rate_normal" = "Normal";
-
-"placepage_rate_good" = "İyi";
-
-"placepage_rate_excellent" = "Mükemmel";
-
-"placepage_reviews_most_recent" = "En son";
-
-"placepage_reviews_most_useful" = "En yararlı";
-
-"placepage_reviews_highest_rated" = "En yüksek oy";
-
-"placepage_reviews_lowest_rated" = "En düşük oy";
-
-"placepage_reviews_offline_comment" = "Çevrimdışı modda sadece en yararlı değerlendirmeler gösterilir";
-
-"placepage_reviews_your_comment" = "Yorumunuz";
-
-"placepage_reviews_unhelpful" = "Yararsız";
-
-"placepage_reviews_inappropriate" = "Uygunsuz";
-
-"placepage_reviews_spam" = "Spam";
-
-"placepage_reviews_hint" = "Buranın iyi ve kötü yanları nedir?";
-
-"placepage_reviews_edit_your_review" = "Değerlendirmenizi düzenleyin";
-
-"placepage_reviews_new_review" = "Yeni değerlendirme";
-
-"placepage_translate_button" = "Çevir";
-
-"placepage_show_original_button" = "Orijinali göster";
-
-"placepage_more_reviews_booking_button" = "Booking.com hakkında daha fazla değerlendirme";
 
 "profile_authorization_title" = "Oturum aç";
 
@@ -1826,41 +1632,11 @@
 
 "quality" = "Kalite";
 
-"whats_new_ugc_title_updated_v840" = "Puanlamalar ve değerlendirmeler";
-
-"whats_new_ugc_message" = "Artık puanlamalarınızı ve değerlendirmelerinizi çevrimdışıyken bırakabilirsiniz! Değişiklikleri görebilmek için haritalarınızı güncellemeyi unutmayın.";
-
 "dialog_error_storage_title" = "Depolama alanı erişim sorunu";
 
-"dialog_error_storage_message" = "Harici bellek kullanılamıyor, muhtemelen SD Kart çıkarılmış, hasarlı veya dosya sistemi salt okunur. Lütfen kontrol edin ve support@omaps.app adresinden bizimle iletişime geçin";
+"dialog_error_storage_message" = "Harici bellek kullanılamıyor, muhtemelen SD Kart çıkarılmış, hasarlı veya dosya sistemi salt okunur. Lütfen kontrol edin ve support@organicmaps.app adresinden bizimle iletişime geçin";
 
 "setting_emulate_bad_storage" = "Bozuk depolama alanını taklit et";
-
-"discovery_button_title" = "Yakın çevreyi keşfedin";
-
-"discovery_button_subtitle_things_to_do" = "Yapılacaklar";
-
-"discovery_button_subtitle_attractions" = "Cazibe Merkezleri";
-
-"discovery_button_subtitle_eat_and_drink" = "Yeme-içme";
-
-"discovery_button_subtitle_local_guides" = "Yerel Rehberler";
-
-"discovery_button_viator_error_title" = "Veri yükleme hatası";
-
-"discovery_button_other_error_message" = "Veri yükleme hatası";
-
-"discovery_button_other_loading_message" = "Veriler yükleniyor";
-
-"discovery_button_404_error_title" = "Bulunamadı";
-
-"discovery_button_404_error_message" = "Maalesef, çevrede ilginç bir şey bulamadık.";
-
-"booking_filters_check_in" = "Giriş";
-
-"booking_filters_check_out" = "Çıkış";
-
-"booking_filters_offline" = "Çevrimdışı kullanılamıyor.";
 
 "directions_finish" = "Varış konumu";
 
@@ -1875,18 +1651,6 @@
 "crowdedness" = "Doluluk";
 
 "error_enter_correct_name" = "Lütfen, doğru bir isim girin";
-
-"hotel_available" = "Uygun";
-
-"whats_new_transit_title" = "Metro mevcut";
-
-"whats_new_transit_message" = "Metroyu kullanarak rotanızı oluşturun! Değişiklikleri görmek için lütfen haritayı güncelleyin.";
-
-"whats_new_discovery_title" = "Keşif düğmesi";
-
-"whats_new_discovery_message" = "Tek bir tıklamayla çevrenizdeki şeyleri keşfedin!";
-
-"price_per_hour" = "%s/saat";
 
 "bookmarks_backup" = "Yedeklemeyi etkinleştir";
 
@@ -1918,14 +1682,6 @@
 
 "downloader_applying" = "%s uygulanıyor...";
 
-"whats_new_title_hotel_filter" = "Yeni otel filtreleri kullanımda!";
-
-"whats_new_message_hotel_filter" = "İstediğiniz tarihte otel rezervasyonu yapın! Check-in ve check-out filtrelerini kullanın";
-
-"whats_new_title_ugc_travel" = "Deneyimlerinizi diğer gezginlerle paylaşın!";
-
-"whats_new_message_ugc_travel" = "Son ziyaret ettiğiniz yerleri değerlendirin ve görüşlerinizi paylaşın!";
-
 "dialog_message_transit_not_found_connection" = "Tek transit bir ağda bir rota planla";
 
 "bookmarks_error_message_share_general" = "Bir uygulama hatasından dolayı paylaşılamıyor";
@@ -1933,10 +1689,6 @@
 "bookmarks_error_title_share_empty" = "Paylaşma hatası";
 
 "bookmarks_error_message_share_empty" = "Boş bir liste paylaşılamaz";
-
-"discovery_button_subtitle_book_hotels" = "Otellerde rezervasyon yap";
-
-"maxim_taxi_title" = "maxim";
 
 "bookmarks_error_title_empty_list_name" = "Isim boş olamaz";
 
@@ -1978,10 +1730,6 @@
 
 "wn_reinvented_bookmarks_message" = "Yer imlerini yedekleyebilir, listeler oluşturabilirsin... Harika...";
 
-"wn_way_of_booking_title" = "Rezervasyon yolunu yeniden tasarladık!";
-
-"wn_way_of_booking_message" = "Haritadaki bir oteli bulup rezervasyon yapın ya da benzer olanı seçin.";
-
 "bookmarks_restore" = "Yer işaretlerini geri yükle";
 
 "bookmarks_restore_process" = "Geri yükleniyor...";
@@ -2004,20 +1752,6 @@
 
 "restore" = "Restore";
 
-"sign_message_gdpr" = "Devam etmek için Kullanım Şartları ve Gizlilik Politikası bölümlerimizi kabul etmelisiniz. Lütfen onları dikkatle okuyun.";
-
-"sign_agree_pp_gdpr" = "<a href=\"%s\">Gizlilik Politikası</a> bölümünü kabul ediyorum";
-
-"sign_agree_tof_gdpr" = "<a href=\"%s\">Kullanım Şartları</a> bölümünü kabul ediyorum";
-
-"sign_agree_news_gdpr" = "OMaps ürünleri hakkında en yeni haberleri almayı kabul ediyorum";
-
-"whats_new_localbiz_title" = "Küçük işletmeler de ilgi hak ediyor";
-
-"whats_new_localbiz_message" = "Seyahatlerinizi unutulmaz kılan bölgedeki kafeler, konforlu oteller ve alışveriş yapabileceğiniz mağazalardır. Tüm bunların ön plana çıkabilmesi için OMaps sayfanızı optimize edeceğiz.";
-
-"whats_new_order_button" = "İsteğinizi iletin";
-
 "bookmarks_page_downloaded" = "İndirildi";
 
 "bookmarks_page_my" = "Bana ait";
@@ -2028,7 +1762,7 @@
 
 "cached_bookmarks_placeholder_title" = "Yeni yerler indirin";
 
-"cached_bookmarks_placeholder_subtitle" = "OMaps kullanıcılarının oluşturduğu binlerce ilgi çekici yeri ve rotayı indirmek için düğmeye basın. İnternet bağlantınızın olması gerekir.";
+"cached_bookmarks_placeholder_subtitle" = "Organic Maps kullanıcılarının oluşturduğu binlerce ilgi çekici yeri ve rotayı indirmek için düğmeye basın. İnternet bağlantınızın olması gerekir.";
 
 "downloader_download_routers" = "İndirilen yer imleri";
 
@@ -2040,7 +1774,7 @@
 
 "crash_reports" = "Kilitlenme raporu";
 
-"crash_reports_description" = "OMaps deneyimini geliştirmek için verilerinizi kullanabiliriz. Değişiklikler, uygulama yeniden başlatıldıktan sonra geçerli olur.";
+"crash_reports_description" = "Organic Maps deneyimini geliştirmek için verilerinizi kullanabiliriz. Değişiklikler, uygulama yeniden başlatıldıktan sonra geçerli olur.";
 
 "opt_out_help_ios_1" = "Mobil cihazınız, “Reklam İzlemeyi Sınırla” veya “İlgiye dayalı reklamcılığı devre dışı bırak” ayarı sunar.";
 
@@ -2078,18 +1812,6 @@
 
 "subtitle_error_downloading_bookmarks" = "Yer imleri indirilmedi";
 
-"whats_new_bookmarks_catalog_title" = "OMaps'de artık yeni bir rota kategorisi var";
-
-"whats_new_bookmarks_catalog_message" = "Dünyanın dört bir yanından yüzlerce ayrıntılı rota: Nereye gidilir? Nereleri ziyaret edilir? Ne yenir?";
-
-"whats_new_popularity_label_title" = "Yakındaki popüler yerler";
-
-"whats_new_popularity_label_message" = "Yakın çevreyi keşfedin kısmı şehirdeki en popüler yerleri bulmana yardımcı olacak.";
-
-"whats_new_hot_offers_title" = "İlgi çekici otel teklifleri";
-
-"whats_new_hot_offers_message" = "Arama bölümündeki Oteller kategorisini kullanarak ilgi çekici teklifleri bulabilirsiniz. Otel teklifleri, haritada ve arama sonuçlarında bir yüzdelik sembolü ile işaretlenir.";
-
 "error_already_downloaded" = "Bu liste zaten indirildi";
 
 "popular_place" = "Popular";
@@ -2100,92 +1822,17 @@
 
 "bookmarks_downloaded_subtitle" = "Press ‘View on map’ to explore new places from the list";
 
-"guides" = "El kitapları";
+"why_support" = "Organic Maps'yi neden desteklemeliyim?";
 
-"guide_downloaded_title" = "El kitabı başarılı bir şekilde indirildi";
+"why_support_item1" = "We respect your privacy: there are zero trackers in the app, and we are open source";
 
-/* as few symbols as possible */
-"download_guides" = "Yol rehberlerini bul";
-
-"guides_groups_cached" = "İndirilen el kitapları";
-
-"subtitle_error_downloading_guide" = "El kitabı indirilmedi";
-
-"error_already_downloaded_guide" = "Bu el kitabı zaten indirildi";
-
-"guide_downloaded_subtitle" = "El kitabını keşfetmek için ‘Haritada görüntüle’ düğmesine bas";
-
-"bookmarks_guides" = "Yer imleri ve el kitapları";
-
-"paybtn_title" = "Yıllık %s/ödeyin";
-
-"paybtn_subtitle" = "Yıllık %s tasarruf edin";
-
-"options_dropdown_title" = "Diğer seçenekler";
-
-"why_support" = "OMaps'yi neden desteklemeliyim?";
-
-"options_dropdown_item1" = "%s/ay (yıllık %s tasarruf)";
-
-"options_dropdown_item2" = "%s/hafta (tasarruf yok)";
-
-"why_support_item1" = "Sizin için tüm reklamları kaldıracağız";
-
-"why_support_item2" = "OMaps'yi geliştirmemize yardımcı oldunuz";
+"why_support_item2" = "Organic Maps'yi geliştirmemize yardımcı oldunuz";
 
 "why_support_item3" = "OpenStreetMap.org'daki açık haritaları geliştirmemize yardımcı oldunuz";
 
-"purchase_processing" = "Alışverişin işleniyor…";
-
-"tips_bookmarks_catalog_title" = "Her türlü seyahat için çevrimdışı kılavuzlar";
-
-"tips_bookmarks_catalog_message" = "Dünyanın farklı kentlerindeki ilgi çekici noktaları kapsayan turist rotalarını indirin ve bu rotaları planlayın.";
-
-"tips_discover_button_title" = "Yakın çevrenizdeki popüler yerleri bulmak ister misiniz?";
-
-"tips_discover_button_message" = "“Yakın çevreyi keşfedin” bölümünde en iyi restoranları, otelleri ve görülmesi gereken yerleri bulabilirsiniz.";
-
-"tips_book_hotel_title" = "Seyahatiniz için en konforlu otelleri rezerve edin";
-
-"tips_book_hotel_message" = "Arama özelliğini ve filtreleri kullanarak sizin için en iyi otelleri bulun. Bir otelde rezervasyon yapmak için konum sayfasındaki “Rezervasyon” düğmesini kullanın.";
-
-"tips_map_layers_title" = "Hangi istasyonda aktarma yapacağınızı bilmiyor musunuz?";
-
-"tips_map_layers_message" = "Metro haritasını görmek için tek yapmanız gereken metro katmanını açmak, şehirde bir daha hiç kaybolmayacaksınız.";
-
 "channels_map_update" = "Harita güncellemeleri";
 
-"channels_reviews" = "Gönderilmemiş incelemeler";
-
-"purchase_loading" = "Satın alma bilgileri yükleniyor…";
-
-"purchase_error_subtitle" = "Satın alma işleminiz işleme koyulurken bir hata oluştu";
-
-"awaiting_approval" = "Ebeveyn onayı bekleniyor";
-
-"whats_new_leave_review" = "İnceleme yazın! Tatiliniz boyunca ziyaret ettiğiniz yerler hakkındaki görüşlerinizi paylaşın.";
-
 "server_unavailable_title" = "Hizmet kullanılamıyor";
-
-"server_unavailable_message" = "Satın alma işlemi daha sonra tamamlanacak. Sorun devam ederse lütfen support@omaps.app adresine ulaşın.";
-
-"offline_fiters_check_in" = "Otelleri tarihe göre filtrelemek için internete bağlanın.";
-
-"rutaxi_title" = "RuTaxi";
-
-"restore_subscription" = "Aboneliği geri yükle";
-
-"restore_success_alert" = "Abonelik başarılı bir şekilde geri yüklendi";
-
-"restore_error_alert" = "Abonelik geri yüklenirken bir hata oluştu";
-
-"restore_no_subscription_alert" = "Aktif abonelik yok";
-
-"subscriptions_title" = "Abonelikler";
-
-"manage_subscription" = "Aboneliği yönet";
-
-"taxi" = "Taxi";
 
 "sharing_options" = "Paylaşma seçenekleri";
 
@@ -2197,13 +1844,13 @@
 
 "hide_from_map" = "Haritadan gizle";
 
-"ugc_route_tags_screen_label" = "Etiketleri seç";
-
-"ugc_route_tags_progress_msg" = "Etiketler yükleniyor…";
-
 "public_access" = "Genel erişim";
 
 "limited_access" = "Sınırlı erişim";
+
+"bookmark_category_name" = "Kategori";
+
+"bookmark_category_description_hint" = "Bir açıklama yazın (metin veya html)";
 
 /* FIXME */
 "bookmarks_public_access" = "bookmarks_public_access";
@@ -2214,33 +1861,11 @@
 /* FIXME */
 "bookmarks_private_access" = "bookmarks_private_access";
 
-"upload_and_publish_desc" = "Bu kılavuz, herkese açık OMaps kataloğuna yüklenecek ve diğer kullanıcılara sunulacaktır";
-
-"upload_and_publish" = "Yükle ve yayınla";
-
-"upload_and_get_direct_link" = "Yükle ve direkt bağlantı al";
-
-"get_direct_link_desc" = "Kılavuzunuz, bağlantıya sahip olan herkese açık olacak";
-
-"upload_and_publish_progress_text" = "Kılavuzunuz yayınlanıyor…";
-
-"upload_and_publish_success" = "Kılavuz yayınlandı";
-
-"ugc_routes_user_agreement" = "<b>LÜTFEN DİKKATE:</b> devam ederek <a href=\"%s\">lisans sözleşmesini</a> kabul edersiniz";
-
-"ugc_route_edit_list_name" = "Kılavuz adı";
-
-"ugc_route_edit_description_hint" = "Bir açıklama yazın (metin veya html)";
-
 "not_shared" = "Şahsi";
 
 "direct_link_progress_text" = "Dosyanız yükleniyor…";
 
 "direct_link_success" = "Bağlantı oluşturuldu";
-
-"edit_guide_title" = "Kılavuzunuzu web üzerinde düzenleyin";
-
-"edit_guide_subtitle" = "Web uygulaması aracılığıyla rehberinizi düzenlemek için bir bağlantı edinin: açıklama ekleyin, fotoğraf yükleyin ve yer imlerini satırlarla bağlayın.";
 
 "send_a_link_btn" = "Bana bir bağlantı gönder";
 
@@ -2254,39 +1879,7 @@
 
 "unable_upload_error_subtitle_broken" = "Bu dosya bozuk olduğundan yüklenemedi. Lütfen başka bir dosya yükleyin.";
 
-"buy_btn" = "Bunu %s karşılığında satın alın";
-
-"download_guide_progress" = "Kılavuzunuz indiriliyor…";
-
-"price_error_title" = "Fiyat alınamadı";
-
-"price_error_subtitle" = "Lütfen birkaç dakika içinde tekrar deneyin";
-
-"edit_your_guide_email_body" = "Bilgisayarınızı kullanarak kılavuzunuzu web üzerinde kolayca düzenleyin: açıklama ekleyin, fotoğraf yükleyin ve yer imlerini satırlarla bağlayın.";
-
-"edit_on_web" = "Web üzerinde düzenle";
-
-"properties_loading_error_subtitle" = "Seçenekler yüklenirken bir hata oluştu, lütfen tekrar deneyin";
-
-"custom_props_desc" = "Bu kılavuzda etrafı şu şekilde gezdiniz";
-
-"custom_props_title" = "Yerli veya gezgin";
-
-"custom_props_local" = "yerli";
-
-"custom_props_traveler" = "gezgin";
-
-"select_properties" = "Seçenekleri belirle";
-
-"access_rules_p_to_p" = "Özel erişim";
-
-"access_rules_paid" = "Satın alındı";
-
-"failed_purchase_support_message" = "Üzgünüz, ancak muhtemelen tamamlanmamış bir satın alma işleminiz var. Lütfen desteğe başvurun. Sorunu çözeceğiz.";
-
 "contact" = "İletişim";
-
-"check_price_button" = "Fiyatı kontrol et";
 
 "download_button" = "İndir";
 
@@ -2304,92 +1897,16 @@
 
 "place_description_title" = "Yer Açıklaması";
 
-"ugc_routes_error_uploading_file_toast" = "Maalesef yer işaretlerinizi yüklerken bir hata oluştu. Lütfen tekrar deneyin.";
-
-"notification_channel_ugc" = "Sosyal içerik";
-
 /* this text will be shown in application notification preferences opposite checkbox which enable/disable downloader notifications. Devices on Android 8+ are affected. */
 "notification_channel_downloader" = "Harita indiricisi";
 
-"notification_leave_review_title" = "%s - nasıldı?";
-
-"notification_leave_review_content" = "Yorum bırakarak gezginlere yardım edin!";
-
-"share_bookmarks_email_body_link" = "Merhaba!\n\nİşte yer işaretlerinizi indirebileceğiniz bağlantı: %s. OMaps ile listeyi açın ve yolculuğunuzun tadını çıkarın!\n\nUygulamayı indir: https://omaps.app/get?kmz";
+"share_bookmarks_email_body_link" = "Merhaba!\n\nİşte yer işaretlerinizi indirebileceğiniz bağlantı: %s. Organic Maps ile listeyi açın ve yolculuğunuzun tadını çıkarın!\n\nUygulamayı indir: https://organicmaps.app/get?kmz";
 
 "warning_speedcams_title" = "%d km/sa hız limitini aştığınızda navigasyon, kameralar hakkında sizi uyaracak";
 
 "warning_speedcams_subtitle" = "Lütfen bulunduğunuz ülkenin trafik kurallarına dikkat edin.";
 
 "speedcams_notice_message" = "Otomatik - Hız sınırını aşma riski varsa hız kameraları hakkında uyar\nHer zaman - Hız kameraları hakkında her zaman uyar\nAsla - Hız kameraları hakkında hiçbir zaman uyarma";
-
-"whats_new_ugc_routes_title" = "İzlenimlerinizi paylaşmak çok kolay";
-
-"whats_new_ugc_routes_subtitle" = "nutulmaz mekanları kaydedin, sayfa işaretleri kullanarak rotalar oluşturun ve bunları OMaps kataloğundaki herkesle paylaşın.";
-
-"whats_new_webeditor_title" = "Rotalarınızı hikayelere dönüştürün";
-
-"whats_new_ugc_routes_message2" = "Web editöre fotoğraflar ve detaylı hikayeler ekleyin.";
-
-"ugc_thanks_message_auth" = "Yorumunuz kaydedildi";
-
-"ugc_thanks_message_not_auth" = "Yorum yapmak için lütfen giriş yapınız";
-
-"notification_leave_review_v2_title" = "Ziyaret edilen bir yere puan verin ve gezginlere yardım edin!";
-
-"error_public_not_enought_title" = "Yeterli yer imi yok";
-
-"error_public_not_enought_subtitle" = "Kılavuzunuzu genel kataloğa yükleyebilmek için en az 3 yer iminiz olmalı";
-
-"bookmark_public_upload_alert_title" = "Yer imlerinizi tüm OMaps gezginleriyle paylaşmanıza az kaldı!";
-
-"bookmark_public_upload_alert_subtitle" = "Lütfen listeniz için belirli bir ad ve açıklamanız olduğundan ve tüm yer imlerinde yerler hakkında biraz bilgi bulunduğundan emin olun. Bu şekilde listeniz başkaları tarafından bulunabilir ve kullanılabilir.";
-
-"bookmark_public_upload_alert_ok_button" = "Evet, eminim!";
-
-"name_title" = "Kılavuzunuzun adını girin";
-
-"name_placeholder" = "örneğin: Londra Barları";
-
-"name_comment1" = "Lütfen kılavuzunuzu gezginlerin kolayca bulabilmesi için adlandırın: örneğin, \"Londra Pubs\"";
-
-"name_comment2" = "Koyduğunuz ad, özel sembol içermemelidir. Ad, \"Yerlerim\" olmamalı";
-
-"description_guide" = "Açıklama";
-
-"description_title" = "Kılavuzunuzun açıklamasını girin";
-
-"description_placeholder" = "Kılavuzunuzu ayrıntılı olarak tanımlayın";
-
-"description_comment1" = "Kılavuz açıklamanız en az 30 karakter içermelidir.";
-
-"ugc_route_tags_desc" = "Diğer gezginlerin kılavuzunuzu bulmasına yardımcı olmak için lütfen etiketleri seçin. Bu zorunludur. En fazla %s etiket.";
-
-"html_format_error_title" = "Kılavuzunuz yayınlanmadı";
-
-"html_format_error_subtitle" = "Lütfen yer imlerinizin adlarının ve açıklamalarının geçerli bir biçimde olduğundan emin olun. Aşağıdaki \"Çevrimiçi düzenle\" butonuna tıklayarak bir masaüstü tarayıcısında kontrol edebilirsiniz.";
-
-"web_editor_description" = "Kılavuzunuzu yükleyin ve düzenleme bağlantısını masaüstünden alın";
-
-"edit_on_web_confirm" = "Çevrimiçi düzenle";
-
-"update_guide" = "Güncelleme yükle";
-
-"direct_link_updating_text" = "Dosyanız güncelleniyor…";
-
-"direct_link_updating_success" = "Kılavuzunuz güncellendi";
-
-"unable_get_direct_link_desc" = "Kılavuzunuzu genel bir bağlantı yoluyla paylaşabilirsiniz";
-
-"any_access_update_alert_title" = "Bazı değişiklikler olmuş olabilir";
-
-"any_access_update_alert_message" = "Yer imlerinizi güncellemek ister misiniz? Yeni sürüm aynı link üzerinden erişilebilecektir.";
-
-"any_access_update_alert_update" = "Güncelleştirme";
-
-"public_or_limited_access_after_edit_online_error_title" = "Yer imlerinizi çevrimiçi düzenlediniz";
-
-"public_or_limited_access_after_edit_online_error_message" = "Gelecekte lütfen web sitemiz üzerinden kılavuzu düzenleyin, yayınlayın veya arkadaşlarınızla paylaşın";
 
 "power_managment_title" = "Güç tasarrufu modu";
 
@@ -2401,7 +1918,7 @@
 
 "power_managment_setting_manual_max" = "Maksimum güç tasarrufu";
 
-"enable_logging_warning_message" = "Seçenek tanı amaçlı, günlüğe kaydetmeyi açar. Uygulamayla ilgili sorunları gideren destek ekibimiz için yardımcı olabilir. Bu seçeneği yalnızca OMaps desteğinin isteği üzerine etkinleştirin.";
+"enable_logging_warning_message" = "Seçenek tanı amaçlı, günlüğe kaydetmeyi açar. Uygulamayla ilgili sorunları gideren destek ekibimiz için yardımcı olabilir. Bu seçeneği yalnızca Organic Maps desteğinin isteği üzerine etkinleştirin.";
 
 "html_error_upload_message_try_again" = "Lütfen ağ ayarlarınızı kontrol edip tekrar deneyin";
 
@@ -2417,21 +1934,9 @@
 
 "privacy_settings_menu" = "Gizlilik ayarları";
 
-"gdpr_request_setting" = "GDPR isteği için kimlik al";
-
-"gdpr_request_window_title" = "Kimliğiniz: %s.";
-
-"gdpr_request_window_message" = "Lütfen kopyalayın ve talebi support@omaps.app adresine gönderin";
-
-"gdpr_request_window_copy" = "Kimliği kopyala";
-
 "unable_upadate_error_title" = "Dosya güncellemesi başarısız oldu";
 
 "unable_upadate_error_message" = "Güncelleme sırasında bazı hatalar oluştu. Lütfen değişiklikleri kontrol edip tekrar deneyin";
-
-"whats_new_wiki_title" = "O yer neresi?";
-
-"whats_new_wiki_message" = "En popüler turistik mekanların sayfalarına Wikipedia.org makaleleri ekledik. Çevrimdışı kullanılabilirler";
 
 "driving_options_title" = "Sürüş seçenekleri";
 
@@ -2467,31 +1972,7 @@
 
 "avoid_ferry_crossing_placepage" = "Feribot geçişlerinden kaçın";
 
-"cached_guides_placeholder_subtitle" = "OMaps, harita üzerinde görüntülenen ve çevrimdışı kullanılabilen, fotoğraf ve açıklamaların bulunduğu seçili yerler için hazır rehberler sunar.";
-
-"guides_catalogue_title" = "Rehber kataloğu";
-
-"download_guides_button" = "Kataloğa";
-
 "type.cuisine.uzbek" = "Özbek mutfağı";
-
-"onboarding_guide_direct_download_title" = "Rehber indirmeye hazır";
-
-"onboarding_guide_direct_download_subtitle" = "Haritada görüntülenecek ve çevrimdışı kullanılabilecek";
-
-"onboarding_guide_direct_download_button" = "İndir";
-
-"onboarding_bydeeplink_guide_title" = "OMaps’de kullanıma hazır rehberler";
-
-"onboarding_bydeeplink_guide_subtitle" = "Ziyaret edilecek en iyi yerler fotoğraf ve açıklamalarla birlikte haritada görüntülenir. Çevrimdışı kullanın.";
-
-"whats_new_auto_update_bydeeplink_title" = "Rehberlere geçmeden önce…";
-
-"whats_new_auto_update_bydeeplink_message" = "Nesneler hakkındaki bilgileri güncel tutmak için haritaları güncelleyin!";
-
-"whats_new_auto_update_and_proceed_button_size" = "(%s) güncelle ve devam et";
-
-"purchase_please_wait_toast" = "Lütfen satın alma işlemi tamamlanmadan önce bu ekrandan çıkmayın";
 
 "trip_start" = "Hadi gidelim";
 
@@ -2531,80 +2012,6 @@
 
 "ok" = "Tamam";
 
-"vezet_taxi" = "Vezet";
-
-"booking_button_toolbar" = "Haritada bir otel seçin";
-
-"popup_booking_download_guides_title" = "Otel rezervasyonu yaptırdınız mı?";
-
-"popup_booking_download_guides_message" = "OMaps adresinden, hazır rehberler ile rotanızı planlayın";
-
-"popup_mwm_download_guides_title" = "Çevrimdışı şehir rehberleri";
-
-"popup_mwm_download_guides_cta" = "Birini seçin";
-
-"popup_mwm_download_guides_cta_1" = "Bir göz atın";
-
-"gallery_pp_download_guides_offline_title" = "Tatilinizi OMaps ile planlayın!";
-
-"gallery_pp_download_guides_offline_subtitle" = "Deneyimli gezginler tarafından yapılan rehberlerle, hiçbir şeyi kaçırmayın";
-
-"gallery_pp_download_guides_offline_cta" = "İnterneti aç";
-
-"gallery_pp_download_guides_title" = "Rehberler";
-
-"native_screen_subscription_title" = "2000+ seyahat rehberine sınırsız erişim!";
-
-"native_screen_subscription_message" = "Nerede ve kiminle seyahat ediyorsanız, unutulmaz bir tatil fırsatı";
-
-"annual_subscription_title" = "Yıllık";
-
-"montly_subscription_title" = "Aylık";
-
-"annual_subscription_message" = "12 aylık sınırsız erişim";
-
-"montly_subscription_message" = "1 aylık sınırsız erişim";
-
-"annual_save_component" = "- %d%";
-
-"subscription_success_dialog_title" = "Abone olduğun için teşekkürler!";
-
-"subscription_success_dialog_message" = "Artık, tüm rehber kataloguna sınırsız erişim hakkınız var";
-
-"renewal_screen_title" = "Aboneliğinizin süresi doldu";
-
-"renewal_screen_message" = "Abonelik süresince indirilen tüm rehberler silinecek. Aboneliği devam ettirmek ve saklamak ister misiniz?";
-
-"renewal_screen_button_restore" = "Evet, yenile";
-
-"renewal_screen_button_cancel" = "Hayır, rehberleri sil";
-
-"subscription_error_ping_title" = "Satın alma başarısız oldu";
-
-"subscription_error_message" = "Hizmet şu anda bölgenizde kullanılamıyor. Lütfen, daha sonra tekrar deneyiniz";
-
-"subscription_error_button" = "Anladım";
-
-"timeout_error_title" = "Hata! Zaman doldu!";
-
-"timeout_error_message" = "Sunucularımız cevap vermiyor. Lütfen, internet bağlantısını kontrol edip tekrar deneyin.";
-
-"per_month" = "/ay";
-
-"per_year" = "/yıl";
-
-"buy_btn_for_subscription" = "%s üzerinden sınırsız erişim";
-
-"buy_btn_for_subscription_1" = "%s için TÜM rehberleri satın al";
-
-"buy_btn_for_subscription_ios_only_mo" = "%s/ay için sınırsız erişim";
-
-"buy_btn_for_subscription_ios_only_year" = "%s/yıl için sınırsız erişim";
-
-"subscription_terms_guides" = "Satın alma onayından sonra, ödeme iTunes hesabınızdan ücretlendirilecektir. Otomatik yenileme özelliği, geçerli dönemin sona ermesinden en az 24 saat önce kapatılmadıkça, abonelik otomatik olarak yenilenecektir. Hesabınız cari dönem sonundan önce, 24 saat içinde yenileme planınıza göre tahsil edilecektir. Apple ID hesap ayarlarınızdaki otomatik yenileme özelliğini, satın aldığınız her an, yönetebilir veya kapatabilirsiniz. Abonelikle indirilen rehberleri yalnızca son kullanma tarihine kadar kullanabilirsiniz. Abonelik bitiminden 30 gün sonra, son kullanma tarihi geçmiş yer imleri olan rehberler, otomatik olarak silinir.";
-
-"subscription_terms" = "Ödeme, satın alma onayında iTunes hesabınızdan alınacaktır. Otomatik yenileme geçerli dönemin sona ermesinden en az 24 saat önce kapatılmadıkça abonelik otomatik olarak yenilenecektir. Hesabınızdan, geçerli dönemin sona ermesinden önce 24 saat içinde planınıza göre yenileme için ücret alınacaktır. Otomatik yenilemeyi satın alma işleminizde dilediğiniz zaman Apple ID hesap ayarlarınızda yönetebilir veya kapatabilirsiniz.";
-
 "avoid_unpaved_carplay_1" = "Stabilizesiz";
 
 "avoid_unpaved_carplay_2" = "Asfaltsız hariç";
@@ -2621,7 +2028,7 @@
 
 "speedcams_alert_title_carplay_2" = "Hız uyarıları";
 
-"download_map_carplay" = "Lütfen haritaları cihazınıza OMaps uygulamasından indirin";
+"download_map_carplay" = "Lütfen haritaları cihazınıza Organic Maps uygulamasından indirin";
 
 "carplay_roundabout_exit" = "%s çıkış";
 
@@ -2708,138 +2115,9 @@
 /* Android, max 18 symbols */
 "bookmarks_delete_list" = "Listeyi sil";
 
-"popup_subscription_success_map_title" = "Yaşasın, abone oldun!";
-
-"popup_subscription_success_map_message" = "Şimdi OMaps kataloğunda en iyi turistik yerleri keşfedin";
-
-"popup_subscription_success_map_start_button" = "Göz atmaya başla";
-
-"popup_subscription_success_map_not_now_button" = "Şimdi değil";
-
 "religious_places" = "Dini yerler";
 
-"subscription_terms_android" = "Bir satın alma işlemini onayladığınızda, ödeme Google Play hesabınızdan tahsil edilecektir. Otomatik yenileme özelliği, geçerli dönemin sona ermesinden en az 24 saat önce kapatılmadıkça abonelik otomatik olarak yenilenecektir. Hesabınız cari dönemin bitiminden 24 saat önce yenileme planınıza uygun olarak ücretlendirilecektir. Satın alma işleminden sonra otomatik yenileme özelliğini Hesap Ayarları bölümünden yönetebilir veya kapatabilirsiniz. Abonelikle indirilen rehberlerinizi yalnızca son kullanma tarihine kadar kullanabilirsiniz. Abonelik sona erme tarihinden 30 gün sonra, indirilen rehberlerini otomatik olarak silinir.";
-
 "select_list" = "Liste seç";
-
-"pp_discovery_place_related_header" = "Bu yer, rehber kataloğunda";
-
-"pp_discovery_place_related_header_1" = "Bu mekana kılavuzda yer verilmekte";
-
-"pp_discovery_place_related_cta_button" = "Gör";
-
-"pp_discovery_place_related_tag_header" = "“%s” etiketli kılavuzlar";
-
-"pp_discovery_place_related_tag_header_1" = "Şunları da beğenebilirsiniz";
-
-"buy_btn_for_subscription_version_2" = "TÜM rehber sadece %s/ay";
-
-"buy_btn_for_subscription_version_3" = "Tüm katalog %s/ay";
-
-"buy_btn_for_subscription_ios_only_mo_version_2" = "Kataloğa erişim %s/ay";
-
-"buy_btn_for_subscription_ios_only_year_version_2" = "Kataloğa erişim %s/yıl";
-
-"subscription_screen_native_title_version_2" = "Yer imleri ile rehberlere erişin!";
-
-"subscription_screen_native_message_version_2" = "600'den fazla şehir ve 100'den fazla ülkede seyahat etmeye hazır olun";
-
-"catalog_no_internet_title" = "İnternet bağlantısı yok";
-
-"catalog_no_internet_button" = "Tekrar deneyin";
-
-"new_onboarding_button" = "İleri";
-
-"new_onboarding_button_2" = "Başla";
-
-"new_onboarding_step1_header" = "OMaps";
-
-"new_onboarding_step1_header_2" = "Her şey dahil seyahat arkadaşı";
-
-"new_onboarding_step2_header" = "Düşle ve planla";
-
-"new_onboarding_step2_message" = "70 milyondan fazla yer, haritadan hazır rehberler ve otel rezervasyonuyla seyahate hazırsın!";
-
-"new_onboarding_step3_message" = "Tüm ülkelerin ayrıntılı haritaları ve navigasyonuyla asla kaybolmayın. Ayrıca her şey çevrimdışı da çalışıyor!";
-
-"new_onboarding_step4_header" = "İzlenimlerini paylaş";
-
-"new_onboarding_step4_message" = "Yer imlerini favori yerlere yerleştir ve arkadaşlarına gönder";
-
-"new_onboarding_step5.1_header" = "Başlamadan önce bir şey daha…";
-
-"new_onboarding_step5.1_message" = "Yaklaşan seyahatiniz için çevrimdışı bir rehber bulmak adına yeni rehber kataloğumuzu ziyaret etmeyi unutmayın!";
-
-"new_onboarding_step5.1_button" = "Kataloğu aç";
-
-"new_onboarding_step5.2_message" = "OMaps rehber kataloğu aboneliğiniz çok değerlidir. Tüm dünyadan hem şehir içi hem de doğa rehberlerine tam erişim elde edin!";
-
-"new_onboarding_step5.2_button" = "Şartlara göz at";
-
-"new_onboarding_step5.3_message" = "Ücretsiz OMaps seçeneği ile hazır şehir ve açık hava güzergahlarından ücretsiz örnekleri inceleyin!";
-
-"new_onboarding_step5.3_button" = "Ücretsiz indir";
-
-"new_onboarding_additional_steps_later_button" = "Sonra";
-
-"all_pass_subscription_header" = "Üye olun";
-
-"all_pass_subscription_subheader" = "Rehber kataloğu";
-
-/* \n - for a break between lines. Max. 15 characters per 1 line. */
-"all_pass_subscription_message_title" = "30000+\nrehberler\nve yollar";
-
-/* <b> & </b> tag to make a part of the line bold */
-"all_pass_subscription_message_subtitle" = "<b>Sınırsız çevrimdışı indirme</b> şehir ve açık hava etkinlikleri için yollar";
-
-/* \n - for a break between lines. Max. 17 characters per 1 line. */
-"all_pass_subscription_message_title_2" = "Etkileşimli\nyükseklik profili";
-
-/* <b> & </b> tag to make a part of the line bold */
-"all_pass_subscription_message_subtitle_2" = "Tüm yollar <b>yükseklik ve temel rota bilgileri ile</b> yüklenir";
-
-/* \n - for a break between lines. Max. 15 characters per 1 line. */
-"all_pass_subscription_message_title_3" = "Favori\nyerler, fotolar\nve öneriler";
-
-/* <b> & </b> tag to make a part of the line bold */
-"all_pass_subscription_message_subtitle_3" = "Gitmek üzere olduğunuz <b>rota hakkında her şeyi öğrenin</b>";
-
-/* do not translate */
-"sightseeing_subscription_header_sightseeing" = "City Pass";
-
-"sightseeing_subscription_header_subscription" = "Rehber Aboneliği";
-
-"sightseeing_subscription_message" = "700+ şehir ve 100+ ülke";
-
-"sightseeing_subscription_message_2" = "Çevrimdışı kullanılabilir";
-
-"sightseeing_subscription_message_3" = "Fotoğraflar ve yürüme güzergahları";
-
-"subscription_success_dialog_title_sightseeing_pass" = "Abone olduğunuz için teşekkürler!";
-
-"subscription_success_dialog_message_sightseeing_pass" = "Artık katalogdaki tüm gezi rehberlerine erişim hakkınız var";
-
-"downloader_main_gallery_header" = "Haritalar ve rehberler";
-
-"downloader_main_gallery_message" = "Artık bu bölümde yalnızca haritaları indirmekle kalmayacak, aynı zamanda yaklaşan yolculuğun için rehberlere de göz atabileceksin";
-
-"downloader_main_1_element_gallery_header" = "Tüm rehberler";
-
-"downloader_main_1_element_gallery_message" = "100'den fazla şehirde";
-
-"downloader_country_1_element_gallery_header" = "%s rehber";
-
-"downloader_country_no_guides_gallery_header" = "Bu ülkede henüz rehber yok";
-
-"downloader_country_no_guides_gallery_message" = "Şehir ve açık hava etkinlikleri için 100'den fazla ülkedeki diğer çevrimdışı kılavuzlara göz atabilirsiniz";
-
-"dialog_pedestrian_route_is_long" = "Araç biniş noktasına giden yaya yolu çok uzun";
-
-"new_onboarding_step3_header" = "Deneyimle";
-
-"all_pass_screen_best_value" = "En İyi Teklif";
-
-"buy_btn_for_subscription_3" = "Tüm katalog %s/yıl";
 
 "transit_not_found" = "Metro navigasyonu bu bölgede henüz mevcut değil";
 
@@ -2852,7 +2130,7 @@
 
 "button_layer_isolines" = "Yükseklikler";
 
-"tips_map_layers_title_countour" = "OMaps'de yükseklik çizgileri çevrimdışı!";
+"tips_map_layers_title_countour" = "Organic Maps'de yükseklik çizgileri çevrimdışı!";
 
 "tips_map_layers_message_countour" = "Yükseklik çizgileri, doğaya bir gezi planlamanıza ve arazide kaybolmamanıza yardımcı olacaktır";
 
@@ -2890,175 +2168,13 @@
 
 "elevation_profile_minutes" = "dk.";
 
-"view_on_map_downloaded_error" = "Bu rehber cihazdan kaldırıldı";
-
-"subscription" = "Abone";
-
-"freenow_taxi_title" = "FREE NOW";
-
-"tinkoff_allairlines_map_downloader_title" = "Карта Тинькофф All Airlines. 3000 миль в подарок";
-
-"tinkoff_allairlines_map_downloader_cta_button" = "Оформить карту";
-
-"tinkoff_insurance_map_downloader_title" = "Полис Тинькофф со скидкой! Подходит для любых виз.";
-
-"tinkoff_insurance_map_downloader_cta_button" = "Промокод";
-
-"mts_map_downloader_title" = "Забугорище: интернет и звонки за границей как дома";
-
-"mts_map_downloader_cta_button" = "Подключить";
-
-"skyeng_map_downloader_title" = "Дарим 4 бесплатных урока английского от Skyeng.";
-
-"skyeng_map_downloader_cta_button" = "Подробнее";
-
-"button_layer_guides" = "Rehberler (yeni)";
-
-"no_routes_in_the_area_toast" = "Burada seyahat rehberi yok";
-
 "isolines_toast_zooms_1_10" = "Konturları görmek için haritayı büyütün";
-
-"routes_layer_in_menu_toast" = "Çevrimdışı rehberleri bulmak, konturları, metro hatlarını veya trafik sıkışıklıklarını keşfetmek için katmanları çevirin";
-
-"routes_layer_is_on_toast" = "Rehberleri bulmak için haritayı hareket ettirin";
-
-"connection_error_dialog_guides_title" = "Bağlantı hatası";
-
-"connection_error_dialog_guides_message" = "Katman çalışmıyor çünkü internet yok veya sinyal zayıf. Devam etmek için bağlantıyı kontrol edin veya katmanı kapatın.";
-
-"connection_error_dialog_guides_try" = "Tekrar deneyin";
-
-"connection_error_dialog_guides_layer_turn_off" = "Kapat";
-
-"connection_error_toast_guides" = "İnternete yeniden bağlanıyoruz";
-
-/* as few symbols as possible */
-"routes_card_show" = "Haritada göster";
-
-/* as few symbols as possible */
-"routes_card_hide" = "Haritadan gizle";
 
 "downloader_updating_ios" = "Güncelleme";
 
 "downloader_loading_ios" = "İndir";
 
-"routes_card_plus_track" = "+ rota";
-
-"routes_card_city" = "City";
-
-"routes_card_outdoor" = "Outdoor";
-
-"routes_card_number_of_points" = "%s yer";
-
-"routes_card_routes_tag" = "Yol";
-
-"routes_card_set_tag" = "Öne çıkan yerler";
-
-/* as few symbols as possible */
-"guides_trial_cta_button" = "7 günlük ücretsiz denemeyi başlatın";
-
-"guides_trial_message" = "Sonra yılda %s ödeyin. Dilediğinizde iptal edin";
-
-"trial_error_dialog" = "Üzgünüz, deneme süresini zaten kullandınız";
-
-/* as few symbols as possible */
-"floating_button_filters" = "Filtreler";
-
-/* as few symbols as possible */
-"date_picker_сhoose_dates_cta" = "Tarihleri seçin";
-
-/* as few symbols as possible */
-"guests_picker_rooms_title" = "Odalar ve konuk sayısı";
-
-"guests_picker_rooms" = "Odalar";
-
-"guests_picker_adults" = "Yetişkin";
-
-"guests_picker_children_title" = "Çocuk";
-
-"guests_picker_children_subtitle" = "1-17 yaş";
-
-"guests_picker_infants_title" = "Bebek";
-
-"guests_picker_infants_subtitle" = "0-12 ay";
-
-/* as less symbols as possible */
-"booking_map_component_availability" = "Oda mevcut değil";
-
-/* as few symbols as possible */
-"booking_map_component_filters" = "Filtre kalmadı";
-
-"choose_dates_online_only_dialog_title" = "Ağ bağlantısı yok";
-
-"choose_dates_online_only_dialog_message" = "Tarihler ve konuk sayısı sadece çevrimiçi iken seçilebilir. Lütfen ayarlarını kontrol edin ve internete bağlı olduğunuzdan emin olun.";
-
-"choose_dates_online_only_dialog_cta" = "Ayarlar";
-
-"thirty_days_limit_dialog" = "Maksimum 30 gecelik rezervasyon yapabilirsiniz";
-
-"whatsnew_trial_cta" = "Hemen deneyin";
-
-"subscription_terms_guides_outdoor" = "Satın alma işlemini onayladığınızda, ödeme iTunes hesabınızdan gerçekleştirilecektir. Otomatik yenileme özelliği mevcut abonelik döneminin sona ermesinden en az 24 saat önce devre dışı bırakılmadığı sürece abonelik otomatik olarak yenilenir. Yenileme planı çerçevesinde, mevcut abonelik döneminizin sona ermesinden önceki 24 saat içinde hesabınızdan para çekilecektir. Satın alma işleminden sonra dilediğiniz zaman Apple Kimliği hesap ayarlarından otomatik yenilemeyi yönetebilir veya devre dışı bırakabilirsiniz. Aboneliğiniz süresinde indirdiğiniz rehberleri sadece aboneliğiniz geçerli olduğu sürece kullanabilirsiniz. Rehberler ve tüm yer işaretleri, aboneliğin sona ermesinden 7 gün sonra otomatik olarak silinecektir.\n* Ücretsiz deneme süresinde sahip abonelikler, otomatik olarak ücretli abonelik şeklinde yenilenir. Satın alma işleminden sonra hesap ayarlarından ücretsiz deneme süresi sonunda otomatik yenilemeyi iptal edebilir veya yönetebilirsiniz. İptal işlemi, mevcut abonelik döneminin son gününden 24 saat sonra geçerli olacaktır. Bu aşamadan sonra ücretsiz hizmete geçersiniz. Lütfen unutmayın: Ücretsiz deneme süresinde premium abonelik satın almanız durumunda, ücretsiz deneme süresinde henüz kullanmadığınız günlerden feragat etmiş sayılırsınız.";
-
-"subscription_terms_android_outdoor" = "Satın alma işlemini onayladığınızda, ödeme Google Play hesabınızdan gerçekleştirilecektir. Otomatik yenileme özelliği mevcut abonelik döneminin sona ermesinden en az 24 saat önce devre dışı bırakılmadığı sürece abonelik otomatik olarak yenilenir. Yenileme planı çerçevesinde, mevcut abonelik döneminizin sona ermesinden önceki 24 saat içinde hesabınızdan para çekilecektir. Satın alma işleminden sonra dilediğiniz zaman hesap ayarlarından otomatik yenilemeyi yönetebilir veya devre dışı bırakabilirsiniz. Aboneliğiniz süresinde indirdiğiniz rehberleri sadece aboneliğiniz geçerli olduğu sürece kullanabilirsiniz. Rehberler, aboneliğin sona ermesinden 7 gün sonra otomatik olarak silinecektir.\n* Ücretsiz deneme süresinde sahip abonelikler, otomatik olarak ücretli abonelik şeklinde yenilenir. Satın alma işleminden sonra hesap ayarlarından ücretsiz deneme süresi sonunda otomatik yenilemeyi iptal edebilir veya yönetebilirsiniz. İptal işlemi, mevcut abonelik döneminin son gününden 24 saat sonra geçerli olacaktır. Bu aşamadan sonra ücretsiz hizmete geçersiniz. Lütfen unutmayın: Ücretsiz deneme süresinde premium abonelik satın almanız durumunda, ücretsiz deneme süresinde henüz kullanmadığınız günlerden feragat etmiş sayılırsınız.";
-
-"sberbank_map_downloader_title" = "Откройте Сберкарту Тревел Mastercard и копите мили";
-
-"sberbank_map_downloader_cta_button" = "Узнать больше";
-
-"yango_taxi_title" = "Yango";
-
-"citymobil_taxi_title" = "Citymobil";
-
-"subscription_header" = "<b>Rehber kataloğuna</b>\nüye olun";
-
-/* Max. 20 characters per 1 line. */
-"all_pass_subscription_message_title_4" = "Lonely Planet®\nseyahat rehberleri";
-
-/* <b> & </b> tag to make a part of the line bold */
-"all_pass_subscription_message_subtitle_4" = "<b>Dünyanın dört bir yanındaki</b> binlerce ilginç yer sayesinde <b>daha da fazla deneyim</b>";
-
-"content_by_component" = "Yayınlayan: %s";
-
-"whatsnew_lp_title" = "Daha da fazla duygu";
-
-"whatsnew_lp_message" = "Lonely Planet rehberlerine uygulamamızdan erişebilirsiniz! 7000'den fazla şehirde eşsiz seyahat noktaları, cazibe yerleri ve tematik yürüyüşler.";
-
-"collections_title" = "Koleksiyonlar";
-
 "key_information_title" = "Anahtar bilgisi";
-
-"mustsee_title" = "Görmeden geçme";
-
-"see_lp_category" = "Görülecek Yerler";
-
-"play_lp_category" = "Eğlence";
-
-"shop_lp_category" = "Alışveriş";
-
-"transport_lp_category" = "Ulaşım";
-
-"sleep_lp_category" = "Dinlenme";
-
-"general_lp_category" = "Genel";
-
-"drink_lp_category" = "İçecek";
-
-"eat_lp_category" = "Yiyecek";
-
-"taxi_category_order" = "Order";
-
-"arsenal_telemed_map_downloader_title" = "Онлайн консультации профессиональных врачей 24/7";
-
-"arsenal_flat_map_downloader_title" = "Уезжаешь? Позаботься о своей квартире и соседях.";
-
-"arsenal_crimea_map_downloader_title" = "Туристическая страховка отдыха в Крыму. От 15₽/день";
-
-"arsenal_russia_map_downloader_title" = "Путешествуй по России. Лечение COVID-19 включено!";
-
-"arsenal_abroad_map_downloader_title" = "Полис «Выезд за рубеж». Лечение COVID-19 включено!";
-
-"arsenal_cta_button" = "Оформить полис";
 
 "download_map_title" = "Download the world map";
 

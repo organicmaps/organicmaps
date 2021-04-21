@@ -94,7 +94,7 @@
 /* Button text for the button under the country_status_download_failed message */
 "try_again" = "Erneut versuchen";
 
-"about_menu_title" = "Über OMaps";
+"about_menu_title" = "Über Organic Maps";
 
 "downloaded_touch_to_delete" = "Heruntergeladen (%@). Antippen, um zu löschen";
 
@@ -110,7 +110,7 @@
 
 "external_storage_is_not_available" = "SD-Karte/USB-Speicher mit heruntergeladenen Karten nicht verfügbar";
 
-"disconnect_usb_cable" = "Bitte USB-Kabel entfernen oder Speicherkarte einsetzen, um OMaps zu verwenden";
+"disconnect_usb_cable" = "Bitte USB-Kabel entfernen oder Speicherkarte einsetzen, um Organic Maps zu verwenden";
 
 "not_enough_free_space_on_sdcard" = "Bitte zuerst Speicherplatz auf SD-Karte/USB-Speicher freigeben, um die Anwendung zu nutzen";
 
@@ -174,7 +174,7 @@
 "set" = "Gruppe";
 
 /* Text hint in Bookmarks dialog when no any bookmarks are added */
-"bookmarks_usage_hint" = "Sie haben bislang noch keine Lesezeichen gesetzt.\nTippen Sie auf der Karte auf irgendeinen Punkt, um ein Lesezeichen hinzuzufügen.\nLesezeichen von anderen Quellen können ebenfalls importiert und in der OMaps-App angezeigt werden. KML-/KMZ-Datei mit gespeicherten Stecknadeln aus einer Email, Dropbox oder einem Weblink öffnen.";
+"bookmarks_usage_hint" = "Sie haben bislang noch keine Lesezeichen gesetzt.\nTippen Sie auf der Karte auf irgendeinen Punkt, um ein Lesezeichen hinzuzufügen.\nLesezeichen von anderen Quellen können ebenfalls importiert und in der Organic Maps-App angezeigt werden. KML-/KMZ-Datei mit gespeicherten Stecknadeln aus einer Email, Dropbox oder einem Weblink öffnen.";
 
 /* Settings button in system menu */
 "settings" = "Einstellungen";
@@ -276,9 +276,9 @@
 "share_by_email" = "Per Email teilen";
 
 /* Email Subject when sharing bookmarks category */
-"share_bookmarks_email_subject" = "OMaps-Lesezeichen mit Ihnen geteilt";
+"share_bookmarks_email_subject" = "Organic Maps-Lesezeichen mit Ihnen geteilt";
 
-"share_bookmarks_email_body" = "Hello!\n\nAttached are my bookmarks from OMaps offline maps. Please open them if you have OMaps installed. Or, if you don't, download the app for your iOS or Android device by following this link: https://omaps.app/get?kmz\n\nEnjoy traveling with OMaps!";
+"share_bookmarks_email_body" = "Hello!\n\nAttached are my bookmarks from Organic Maps offline maps. Please open them if you have Organic Maps installed. Or, if you don't, download the app for your iOS or Android device by following this link: https://organicmaps.app/get?kmz\n\nEnjoy traveling with Organic Maps!";
 
 /* message title of loading file */
 "load_kmz_title" = "Lesezeichen werden geladen";
@@ -308,22 +308,22 @@
 "downloading_is_active" = "Das Land wird gerade heruntergeladen.";
 
 /* Message that will be shown in alert view, when we ask user to leave review on App Store */
-"appStore_message" = "Wir hoffen, dass Ihnen die Verwendung von OMaps Freude bereitet! Wenn ja, geben Sie bitte eine Bewertung oder einen Bericht für die App im App Store ab. Es dauert weniger als eine Minute, kann uns aber wirklich helfen. Danke für Ihre Unterstützung!";
+"appStore_message" = "Wir hoffen, dass Ihnen die Verwendung von Organic Maps Freude bereitet! Wenn ja, geben Sie bitte eine Bewertung oder einen Bericht für die App im App Store ab. Es dauert weniger als eine Minute, kann uns aber wirklich helfen. Danke für Ihre Unterstützung!";
 
 /* No, thanks */
 "no_thanks" = "Nein danke";
 
 /* Share one specific bookmark using SMS, %1$@ contains ge0:// and %2$@ http://ge0.me link. @NOTE non-ascii symbols in the link will make 70 bytes sms instead of 140 */
-"bookmark_share_sms" = "Siehe meine Markierung auf OMaps an. %1$@ oder %2$@ - Keine Offline-Karten installiert? Hier herunterladen: https://omaps.app/get";
+"bookmark_share_sms" = "Siehe meine Markierung auf Organic Maps an. %1$@ oder %2$@ - Keine Offline-Karten installiert? Hier herunterladen: https://organicmaps.app/get";
 
 /* Share my position using SMS, %1$@ contains ge0:// and %2$@ http://ge0.me link WITHOUT NAME. @NOTE non-ascii symbols in the link will make 70 bytes sms instead of 140 */
-"my_position_share_sms" = "Schau wo ich gerade bin. Klicke auf den Link %1$@ oder %2$@ - Keine Offline-Karten installiert? Hier herunterladen: https://omaps.app/get";
+"my_position_share_sms" = "Schau wo ich gerade bin. Klicke auf den Link %1$@ oder %2$@ - Keine Offline-Karten installiert? Hier herunterladen: https://organicmaps.app/get";
 
 /* Subject for emailed bookmark */
-"bookmark_share_email_subject" = "Schau dir meine Stecknadel auf der OMaps-Karte an";
+"bookmark_share_email_subject" = "Schau dir meine Stecknadel auf der Organic Maps-Karte an";
 
 /* Subject for emailed position */
-"my_position_share_email_subject" = "Sieh dir meinen aktuellen Standort auf der OMaps-Karte an";
+"my_position_share_email_subject" = "Sieh dir meinen aktuellen Standort auf der Organic Maps-Karte an";
 
 /* Share my position using EMail, %1$@ is ge0:// and %2$@ is http://ge0.me link WITHOUT NAME */
 "my_position_share_email" = "Hi,\n\nich bin gerade hier: %1$@. Klicke den Link %2$@ oder %3$@, um den Ort auf der Karte anzuzeigen.\n\nVielen Dank.";
@@ -492,16 +492,16 @@
 "download_map_notification" = "Laden Sie die Karte Ihres Standortes herunter";
 
 /* text of notification */
-"pro_version_is_free_today" = "OMaps heute gratis! Jetzt runterladen & Ihre Freunde informieren";
+"pro_version_is_free_today" = "Organic Maps heute gratis! Jetzt runterladen & Ihre Freunde informieren";
 
 /* Dialog for transferring maps from lite to pro. */
-"move_lite_maps_to_pro" = "Wir übertragen Ihre heruntergeladenen Karten von OMaps Lite zu OMaps. Dieser Vorgang kann einige Minuten in Anspruch nehmen.";
+"move_lite_maps_to_pro" = "Wir übertragen Ihre heruntergeladenen Karten von Organic Maps Lite zu Organic Maps. Dieser Vorgang kann einige Minuten in Anspruch nehmen.";
 
 /* Message to display when maps moved. */
-"move_lite_maps_to_pro_ok" = "Ihre heruntergeladenen Karten wurden erfolgreich zu OMaps übertragen.";
+"move_lite_maps_to_pro_ok" = "Ihre heruntergeladenen Karten wurden erfolgreich zu Organic Maps übertragen.";
 
 /* Message to display when maps move failed. */
-"move_lite_maps_to_pro_failed" = "Ihre Karten konnten nicht übertragen werden. Bitte löschen Sie OMaps Lite und laden Sie die Karten erneut herunter.";
+"move_lite_maps_to_pro_failed" = "Ihre Karten konnten nicht übertragen werden. Bitte löschen Sie Organic Maps Lite und laden Sie die Karten erneut herunter.";
 
 /* Text in menu */
 "settings_and_more" = "Einstellungen & mehr";
@@ -510,7 +510,7 @@
 "website" = "Webseite";
 
 /* Text in menu */
-"maps_me_community" = "OMaps-Gemeinschaft";
+"maps_me_community" = "Organic Maps-Gemeinschaft";
 
 /* Text in menu */
 "like_on_facebook" = "„Gefällt mir“ auf Facebook";
@@ -540,13 +540,13 @@
 "report_a_bug" = "Fehler melden";
 
 /* Email subject */
-"subscribe_me_subject" = "Ich möchte gerne den OMaps-Newsletter abonnieren";
+"subscribe_me_subject" = "Ich möchte gerne den Organic Maps-Newsletter abonnieren";
 
 /* Email body */
 "subscribe_me_body" = "Gerne möchte ich zu den Ersten gehören, die aktuelle Neuigkeiten erfahren und über neueste Aktualisierungen und Werbeangebote informiert werden. Mein Abo kann ich jederzeit kündigen.";
 
 /* About text */
-"about_text" = "OMaps bietet die schnellsten Offline-Karten aller Städte weltweit. Reisen Sie mit Vertrauen: wo immer Sie sind hilft Ihnen OMaps, sich auf der Karte zurecht zu finden. Finden Sie das nächstgelegene Restaurant, Hotel, Bank, Tankstelle usw. Es ist keine Internet-Verbindung erforderlich.\n\nWir arbeiten ständig an neuen Funktionen und freuen uns, von Ihnen zu hören, wie wir OMaps verbessern können. Wenn Sie Probleme mit der App haben, zögern Sie nicht, mit uns über support@omaps.app in Verbindung zu treten. Wir reagieren auf jede Anfrage!\n\nMögen Sie OMaps und wollen Sie uns unterstützen? Es gibt einige einfache und absolut kostenlose Möglichkeiten:\n\n- Veröffentlichen Sie eine Bewertung auf Ihrem App-Store\n- Liken Sie unsere Facebook-Seite http://www.facebook.com/mapswithme\n- Oder erzählen einfach nur Ihrer Mutter, Freunden und Kollegen von OMaps:)\n\nDanke, dass Sie bei uns sind. Wir freuen uns sehr über Ihre Unterstützung!\n\nPS: Wir nutzen die Kartendaten von OpenStreetMap, einem Kartierungs-Projekt ähnlich Wikipedia, bei welchem Mitglieder Kartendaten erfassen. Wenn Sie sehen, dass auf der Karte etwas fehlt oder falsch ist, können Sie die Karten direkt auf https://www.openstreetmap.org korrigieren und die Änderungen erscheinen in der nächsten Version der OMaps-App.";
+"about_text" = "Organic Maps bietet die schnellsten Offline-Karten aller Städte weltweit. Reisen Sie mit Vertrauen: wo immer Sie sind hilft Ihnen Organic Maps, sich auf der Karte zurecht zu finden. Finden Sie das nächstgelegene Restaurant, Hotel, Bank, Tankstelle usw. Es ist keine Internet-Verbindung erforderlich.\n\nWir arbeiten ständig an neuen Funktionen und freuen uns, von Ihnen zu hören, wie wir Organic Maps verbessern können. Wenn Sie Probleme mit der App haben, zögern Sie nicht, mit uns über support@organicmaps.app in Verbindung zu treten. Wir reagieren auf jede Anfrage!\n\nMögen Sie Organic Maps und wollen Sie uns unterstützen? Es gibt einige einfache und absolut kostenlose Möglichkeiten:\n\n- Veröffentlichen Sie eine Bewertung auf Ihrem App-Store\n- Liken Sie unsere Facebook-Seite http://www.facebook.com/OMapsApp\n- Oder erzählen einfach nur Ihrer Mutter, Freunden und Kollegen von Organic Maps:)\n\nDanke, dass Sie bei uns sind. Wir freuen uns sehr über Ihre Unterstützung!\n\nPS: Wir nutzen die Kartendaten von OpenStreetMap, einem Kartierungs-Projekt ähnlich Wikipedia, bei welchem Mitglieder Kartendaten erfassen. Wenn Sie sehen, dass auf der Karte etwas fehlt oder falsch ist, können Sie die Karten direkt auf https://www.openstreetmap.org korrigieren und die Änderungen erscheinen in der nächsten Version der Organic Maps-App.";
 
 /* Alert text */
 "email_error_body" = "Der Email-Client ist noch nicht eingerichtet worden. Konfigurieren Sie ihn bitte oder nutzen Sie eine andere Möglichkeit, uns unter %@ zu erreichen.";
@@ -564,7 +564,7 @@
 "routing_map_outdated" = "Bitte aktualisieren Sie die Karte, um eine Route zu erstellen.";
 
 /* Update maps suggestion */
-"routing_update_maps" = "Die neue Version von OMaps ermöglicht das Erzeugen von Routen von Ihrem aktuellen Standort bis zum gewünschten Ziel. Bitte aktualisieren Sie Karten, um diese Funktion nutzen zu können.";
+"routing_update_maps" = "Die neue Version von Organic Maps ermöglicht das Erzeugen von Routen von Ihrem aktuellen Standort bis zum gewünschten Ziel. Bitte aktualisieren Sie Karten, um diese Funktion nutzen zu können.";
 
 /* Update all button text */
 "downloader_update_all_button" = "Alle aktualisieren";
@@ -592,7 +592,7 @@
 "downloader_search_results" = "Gefunden";
 
 /* Disclaimer message */
-"routing_disclaimer" = "Beim Erstellen von Routen mit der OMaps-App sollten Sie Folgendes beachten:\n\n  - Vorgeschlagenen Routen können nur als Empfehlungen angesehen werden.\n - Straßenbedingungen, Verkehrsregeln und Schilder haben höhere Priorität als Navigationsratschläge.\n - Die Karte kann falsch oder veraltet sein und Routen könnten somit nicht auf die bestmögliche Weise erstellt worden sein.\n\n  Bleiben Sie auf der Straße sicher und achten Sie auf sich selbst!";
+"routing_disclaimer" = "Beim Erstellen von Routen mit der Organic Maps-App sollten Sie Folgendes beachten:\n\n  - Vorgeschlagenen Routen können nur als Empfehlungen angesehen werden.\n - Straßenbedingungen, Verkehrsregeln und Schilder haben höhere Priorität als Navigationsratschläge.\n - Die Karte kann falsch oder veraltet sein und Routen könnten somit nicht auf die bestmögliche Weise erstellt worden sein.\n\n  Bleiben Sie auf der Straße sicher und achten Sie auf sich selbst!";
 
 /* Outdated maps category */
 "downloader_outdated_maps" = "Veraltet";
@@ -675,10 +675,10 @@
 "rating_just_rated" = "Ich habe gerade Ihre App bewertet";
 
 /* Text for rating dialog */
-"rating_user_since" = "Ich bin OMaps-Nutzer seit %@";
+"rating_user_since" = "Ich bin Organic Maps-Nutzer seit %@";
 
 /* Text for rating dialog */
-"rating_do_like_maps" = "Mögen Sie OMaps?";
+"rating_do_like_maps" = "Mögen Sie Organic Maps?";
 
 /* Text for rating dialog */
 "rating_tap_star" = "Tippen Sie auf einen Stern, um unsere App zu bewerten.";
@@ -702,7 +702,7 @@
 "routing_download_map" = "Karte abrufen";
 
 /* Text for routing error dialog */
-"routing_download_map_and_routing" = "Laden Sie die aktualisierte Karte und Daten der Routenplanung herunter, um alle OMaps-Funktionen zu nutzen.";
+"routing_download_map_and_routing" = "Laden Sie die aktualisierte Karte und Daten der Routenplanung herunter, um alle Organic Maps-Funktionen zu nutzen.";
 
 /* Text for routing error dialog */
 "routing_get_routing_data" = "Daten für Routenplanung abrufen";
@@ -923,7 +923,7 @@
 
 "rate_alert_title" = "Gefällt Ihnen die App?";
 
-"rate_alert_default_message" = "Danke, dass Sie OMaps nutzen. Bitte bewerten Sie die App. Ihre Rückmeldung hilft uns, besser zu werden.";
+"rate_alert_default_message" = "Danke, dass Sie Organic Maps nutzen. Bitte bewerten Sie die App. Ihre Rückmeldung hilft uns, besser zu werden.";
 
 "rate_alert_five_star_message" = "Hurra! Wir lieben Sie auch!";
 
@@ -1034,7 +1034,7 @@
 
 "editor_report_problem_duplicate_place_title" = "Doppelter Ort";
 
-"first_launch_congrats_title" = "OMaps kann verwendet werden";
+"first_launch_congrats_title" = "Organic Maps kann verwendet werden";
 
 "first_launch_congrats_text" = "Suche und Navigation weltweit offline verfügbar, völlig kostenfrei.";
 
@@ -1218,7 +1218,7 @@
 
 "whatsnew_editor_message_1" = "Fügen Sie auf der Karte einen neuen Ort hinzu und bearbeiten Sie existierende Ort direkt in der App.";
 
-"whatsnew_editor_message_2" = "* OMaps verwendet Community-Daten von OpenStreetMap.";
+"whatsnew_editor_message_2" = "* Organic Maps verwendet Community-Daten von OpenStreetMap.";
 
 "dialog_incorrect_feature_position" = "Standort wechseln";
 
@@ -1231,7 +1231,7 @@
 /* Error dialog no space */
 "migration_no_space_message" = "Zum Herunterladen benötigen Sie mehr Platz. Bitte löschen Sie unnötige Daten.";
 
-"editor_sharing_title" = "Ich habe die OMaps-Karten verbessert";
+"editor_sharing_title" = "Ich habe die Organic Maps-Karten verbessert";
 
 "editor_comment_will_be_sent" = "Wir werden Ihren Kommentar an die Kartografierer weiterleiten.";
 
@@ -1262,7 +1262,7 @@
 
 "editor_detailed_description_hint" = "Ausführlicher Kommentar";
 
-"editor_detailed_description" = "Ihre Änderungsvorschläge für die Karte werden an OpenStreetMap gesendet: Beschreiben Sie die Details der Objekte, die Sie in OMaps nicht bearbeiten können.";
+"editor_detailed_description" = "Ihre Änderungsvorschläge für die Karte werden an OpenStreetMap gesendet: Beschreiben Sie die Details der Objekte, die Sie in Organic Maps nicht bearbeiten können.";
 
 "editor_more_about_osm" = "Mehr Informationen über OpenStreetMap";
 
@@ -1339,10 +1339,6 @@
 
 "placepage_open_24_7" = "Durchgehend geöffnet";
 
-"place_page_booking_rating" = "Rating: %s";
-
-"place_page_starting_from" = "ab %s";
-
 "meter" = "m";
 
 "kilometer" = "km";
@@ -1410,17 +1406,9 @@
 
 "editor_profile_rating_place" = "Platz im Rating";
 
-"booking_dialog_not_connect_header" = "Für die Hotelbuchung benötigen Sie eine Internetverbindung";
-
-"button_try" = "Probieren Sie es aus";
-
 "refresh" = "Aktualisieren";
 
 "last_update" = "Letzte Aktualisierung: %s";
-
-"booking_checkin" = "Einchecken: %s";
-
-"booking_checkout" = "Auschecken: %s";
 
 "placepage_add_place_button" = "Einen Ort zur Karte hinzufügen";
 
@@ -1453,9 +1441,6 @@
 /* iOS dialog for the case when recent track recording is on and the app comes back from background */
 "recent_track_background_dialog_title" = "Aufzeichnung Ihrer kürzlich gefahrenen Route deaktivieren?";
 
-/* If a hotel is being shared */
-"sharing_booking" = "oder auf booking.com buchen";
-
 "off_recent_track_background_button" = "Deaktivieren";
 
 /* For sharing via SMS and so on */
@@ -1463,7 +1448,7 @@
 
 "continue_recent_track_background_button" = "Fortsetzen";
 
-"recent_track_background_dialog_message" = "OMaps verwendet Ihre Geoposition im Hintergrund, um Ihre kürzlich gefahrene Route aufzunehmen.";
+"recent_track_background_dialog_message" = "Organic Maps verwendet Ihre Geoposition im Hintergrund, um Ihre kürzlich gefahrene Route aufzunehmen.";
 
 /* Rate on Google Play (Android only) */
 "rate_gp" = "Bei Google Play bewerten";
@@ -1472,10 +1457,10 @@
 "tell_friends" = "Einem Freund empfehlen";
 
 /* Share with friends: sharing text */
-"tell_friends_text" = "Hallo! Installiere dir OMaps!";
+"tell_friends_text" = "Hallo! Installiere dir Organic Maps!";
 
 /* About short text (below logo) */
-"about_description" = "OMaps ist eine wichtige Offline-App zum Reisen. OMaps basiert auf OpenStreetMap-Daten und ermöglicht das Bearbeiten dieser.";
+"about_description" = "Organic Maps ist eine wichtige Offline-App zum Reisen. Organic Maps basiert auf OpenStreetMap-Daten und ermöglicht das Bearbeiten dieser.";
 
 /* Text in menu */
 "blog" = "Blog";
@@ -1495,51 +1480,7 @@
 /* For the first routing */
 "decline" = "Ablehnen";
 
-"whats_new_route_profile_title" = "Am besten den leichtesten Weg gehen";
-
-"whats_new_route_profile_message" = "Für Fußgänger- und Fahrradrouten zeigen wir nun das Höhenprofil an.";
-
-"whats_new_booking_improve_title" = "Beim Buchen von Hotels sparen";
-
-"whats_new_booking_improve_message" = "Suchergebnisse für Hotels enthalten jetzt die Kategorie Preis.\nAußerdem haben wir über 110.000 Hotels hinzugefügt.";
-
-/* For place page hotel facilities block */
-"placepage_hotel_facilities" = "Ausstattung";
-
-/* For place page hotel nearby block */
-"placepage_hotel_nearby" = "In der Nähe";
-
-/* For ordering a taxi (as opposed to hotels or other things) */
-"taxi_order" = "Taxi rufen";
-
-/* How long it is until the taxi arrives */
-"taxi_wait" = "Erwartet in %s";
-
-/* When there are no available taxis nearby */
-"taxi_not_found" = "Es konnte kein Taxi in der Nähe gefunden werden";
-
-/* When there are no available taxi providers nearby */
-"taxi_no_providers" = "Taxi ist hier nicht verfügbar";
-
 "install_app" = "Installieren";
-
-/* `Filter` is a noun here */
-"booking_filters" = "Filter";
-
-"booking_filters_reset" = "Zurücksetzen";
-
-/* Beginning from a particular value and */
-"booking_filters_rating" = "Bewertung von";
-
-"booking_filters_rating_any" = "Alle";
-
-"booking_filters_ragting_good" = "Gut";
-
-"booking_filters_rating_very_good" = "Sehr gut";
-
-"booking_filters_rating_excellent" = "Ausgezeichnet";
-
-"booking_filters_price_category" = "Preiskategorie";
 
 "search_no_results_title" = "Keine Ergebnisse gefunden";
 
@@ -1551,28 +1492,6 @@
 
 /* noun */
 "search_in_table" = "Liste";
-
-"booking_show_more" = "Mehr anzeigen";
-
-"booking_reviews" = "Bewertungen";
-
-"booking_hotel" = "Hotel";
-
-/* hotel room */
-"booking_hotel_room" = "Zimmer";
-
-/* A neologism for a chat based on geographical proximity */
-"chat" = "Geochat";
-
-/* Verb. Text on a button that opens the chat. */
-"chat_open" = "Öffnen";
-
-"dialog_taxi_offline" = "Das Bestellen eines Taxis ist im Offline-Modus nicht verfügbar.";
-
-"dialog_taxi_error" = "Das Bestellen eines Taxis ist vorübergehend nicht verfügbar.";
-
-/* Abbreviated for all languages. */
-"advertisement" = "AD";
 
 "mobile_data_dialog" = "Mobiles Internet verwenden, um genauere Informationen anzuzeigen?";
 
@@ -1596,7 +1515,7 @@
 
 "big_font" = "Schriftgröße auf der Karte erhöhen";
 
-"traffic_update_app" = "Bitte aktualisieren Sie OMaps";
+"traffic_update_app" = "Bitte aktualisieren Sie Organic Maps";
 
 /* "traffic" as in road congestion */
 "traffic_update_app_message" = "Um Verkehrsdaten anzuzeigen, muss die Anwendung aktualisiert werden.";
@@ -1607,69 +1526,14 @@
 /* "Translation is no needed, because it's a company name" */
 "uber" = "Uber";
 
-/* Seven points and higher */
-"booking_filter_rating_num_good" = "7.0+";
-
-/* Eight points and higher */
-"booking_filter_rating_num_very_good" = "8.0+";
-
-/* Nine points and higher */
-"booking_filter_rating_num_excellent" = "9.0+";
-
-"booking_filter_price_low" = "$";
-
-"booking_filter_price_medium" = "$$";
-
-"booking_filter_price_high" = "$$$";
-
 /* Simplified colour scheme for traffic information, fewer colours are used to display traffic jams on the map. The string should be kept as short as possible */
 "pref_traffic_simplified_colors_title" = "Vereinfachte Verkehrsfarben";
 
 "enable_logging" = "Protokollierung aktivieren";
 
-"more_on_bookingcom" = "Mehr bei Booking.com";
-
-"details_on_bookingcom" = "Einzelheiten bei Booking.com";
-
-"reviews_on_bookingcom" = "Weitere Bewertungen bei Booking.com";
-
 "offline_place_page_more_information" = "Stellen Sie eine Verbindung zum Internet her, um weitere Informationen über den Ort zu erhalten.";
 
 "failed_load_information" = "Informationen konnten nicht geladen werden.";
-
-"booking_search" = "Booking.com";
-
-"whats_new_auto_update_updating_maps" = "Kartenaktualisierung";
-
-"whats_new_auto_update_title" = "Aktualisieren Sie Ihre heruntergeladenen Karten";
-
-"whats_new_auto_update_message" = "Das Aktualisieren der Karten sorgt dafür, dass die Objektinformationen stets auf dem neuesten Stand sind";
-
-"whats_new_auto_update_button_size" = "Aktualisieren (%s)";
-
-"whats_new_auto_update_button_later" = "Später manuell aktualisieren";
-
-"search_hotel_filter_apartment" = "Appartements";
-
-"search_hotel_filter_camp_site" = "Zeltplatz";
-
-"search_hotel_filter_chalet" = "Hütte";
-
-"search_hotel_filter_guest_house" = "Gästehaus";
-
-"search_hotel_filter_hostel" = "Herberge";
-
-"search_hotel_filter_resort" = "Resort";
-
-"search_hotel_filter_hotel" = "Hotel";
-
-"search_hotel_filter_motel" = "Motel";
-
-"create_campaign_button" = "Ist das Ihr Unternehmen?";
-
-"view_campaign_button" = "Es wird für das Unternehmen geworben";
-
-"search_hotel_filters_type" = "Art";
 
 /* Settings: "Send general feedback" button */
 "feedback_general" = "Allgemeines Feedback";
@@ -1744,65 +1608,7 @@
 
 "preloader_viator_button" = "Weitere Informationen";
 
-"whats_new_title_route" = "Fahrradrouten und Routen für Fußgänger wurden verbessert";
-
-"whats_new_message_route" = "Wir haben Fehler behoben, die Routenerstellung deutlich schneller gemacht und Zwischenstopps hinzugefügt";
-
-"whats_new_message_title_update" = "Wir haben Karten-Updates zehnmal kleiner gemacht";
-
-"whats_new_message_maps_update" = "Um eine Karte zu aktualisieren, müssen Sie jetzt nur die fehlenden Daten herunterladen";
-
 "start_from_my_position" = "Starten von";
-
-"rating" = "Bewertung";
-
-"placepage_no_reviews" = "Keine Bewertungen";
-
-"placepage_reviewed" = "Sie haben bereits eine Bewertung für diesen Ort hinterlassen";
-
-"placepage_summary_rating" = "Zusammenfassende Bewertung";
-
-"placepage_rate_comment" = "Tippen Sie, um diesen Ort zu bewerten und einen Kommentar zu hinterlassen.";
-
-"placepage_rate_horrible" = "Schrecklich";
-
-"placepage_rate_bad" = "Schlecht";
-
-"placepage_rate_normal" = "Normal";
-
-"placepage_rate_good" = "Gut";
-
-"placepage_rate_excellent" = "Ausgezeichnet";
-
-"placepage_reviews_most_recent" = "Aktuellste";
-
-"placepage_reviews_most_useful" = "Nützlichste";
-
-"placepage_reviews_highest_rated" = "Höchste Bewertungen zuerst";
-
-"placepage_reviews_lowest_rated" = "Niedrigste Bewertungen zuerst";
-
-"placepage_reviews_offline_comment" = "Nur die nützlichsten Bewertungen werden im Offline-Modus angezeigt.";
-
-"placepage_reviews_your_comment" = "Ihre Bewertung";
-
-"placepage_reviews_unhelpful" = "Nicht hilfreich";
-
-"placepage_reviews_inappropriate" = "Unangemessen";
-
-"placepage_reviews_spam" = "Spam";
-
-"placepage_reviews_hint" = "Was ist hier gut oder schlecht?";
-
-"placepage_reviews_edit_your_review" = "Bearbeiten Sie Ihre Bewertung";
-
-"placepage_reviews_new_review" = "Neue Bewertung";
-
-"placepage_translate_button" = "Übersetzen";
-
-"placepage_show_original_button" = "Original anzeigen";
-
-"placepage_more_reviews_booking_button" = "Weitere Bewertungen bei Booking.com";
 
 "profile_authorization_title" = "Anmelden mit";
 
@@ -1826,41 +1632,11 @@
 
 "quality" = "Qualität";
 
-"whats_new_ugc_title_updated_v840" = "Bewertungen und Kommentare";
-
-"whats_new_ugc_message" = "Sie können jetzt sogar offline Bewertungen und Kommentare abgeben! Vergessen Sie nicht, Ihre Karten zu aktualisieren, damit Sie die Änderungen sehen können.";
-
 "dialog_error_storage_title" = "Problem mit dem Zugreifen auf den Speicher";
 
-"dialog_error_storage_message" = "Der externe Speicher ist nicht verfügbar, möglicherweise wurde die SD-Karte entfernt oder sie ist beschädigt oder das Dateisystem ist schreibgeschützt. Überprüfen Sie das bitte und kontaktieren Sie uns unter support@omaps.app";
+"dialog_error_storage_message" = "Der externe Speicher ist nicht verfügbar, möglicherweise wurde die SD-Karte entfernt oder sie ist beschädigt oder das Dateisystem ist schreibgeschützt. Überprüfen Sie das bitte und kontaktieren Sie uns unter support@organicmaps.app";
 
 "setting_emulate_bad_storage" = "Fehlerhaften Speicher emulieren";
-
-"discovery_button_title" = "In der Nähe entdecken";
-
-"discovery_button_subtitle_things_to_do" = "Aktivitäten";
-
-"discovery_button_subtitle_attractions" = "Sehenswürdigkeiten";
-
-"discovery_button_subtitle_eat_and_drink" = "Essen und Trinken";
-
-"discovery_button_subtitle_local_guides" = "Örtliche Reiseführer";
-
-"discovery_button_viator_error_title" = "Fehler beim Laden der Daten";
-
-"discovery_button_other_error_message" = "Fehler beim Laden der Daten";
-
-"discovery_button_other_loading_message" = "Daten werden geladen";
-
-"discovery_button_404_error_title" = "Nicht gefunden";
-
-"discovery_button_404_error_message" = "Hoppla, wir haben nichts Interessantes in Ihrer Nähe gefunden.";
-
-"booking_filters_check_in" = "Ankunft";
-
-"booking_filters_check_out" = "Abreise";
-
-"booking_filters_offline" = "Offline nicht verfügbar.";
 
 "directions_finish" = "Ziel";
 
@@ -1875,18 +1651,6 @@
 "crowdedness" = "Gedrängtheit";
 
 "error_enter_correct_name" = "Bitte geben Sie einen korrekten Namen ein";
-
-"hotel_available" = "Verfügbar";
-
-"whats_new_transit_title" = "U-Bahnen verfügbar";
-
-"whats_new_transit_message" = "Erstellen Sie Ihre Routen mit der Nutzung von U-Bahnen! Bitte aktualisieren Sie die Karten, um die Änderungen zu sehen.";
-
-"whats_new_discovery_title" = "Schaltfläche Entdecken";
-
-"whats_new_discovery_message" = "Entdecken Sie Dinge in der Umgebung mit nur einem Klick!";
-
-"price_per_hour" = "%s/Stunde";
 
 "bookmarks_backup" = "Sicherung aktivieren";
 
@@ -1918,14 +1682,6 @@
 
 "downloader_applying" = "%s anwenden...";
 
-"whats_new_title_hotel_filter" = "Neue Hotelfilter verfügbar!";
-
-"whats_new_message_hotel_filter" = "Buchen Sie Hotels, die für Ihre Termine verfügbar sind! Nutzen Sie Anreise- und Abreise-Filter";
-
-"whats_new_title_ugc_travel" = "Teilen Sie anderen Reisenden Ihre Erfahrungen mit!";
-
-"whats_new_message_ugc_travel" = "Bewerten Sie Orte, die Sie besucht haben!";
-
 "dialog_message_transit_not_found_connection" = "Eine Route innerhalb eines Transitnetzes planen";
 
 "bookmarks_error_message_share_general" = "Freigabe wegen eines Anwendungsfehlers nicht möglich";
@@ -1933,10 +1689,6 @@
 "bookmarks_error_title_share_empty" = "Fehler bei der Freigabe";
 
 "bookmarks_error_message_share_empty" = "Es kann keine leere Liste freigegeben werden";
-
-"discovery_button_subtitle_book_hotels" = "Hotels buchen";
-
-"maxim_taxi_title" = "maxim";
 
 "bookmarks_error_title_empty_list_name" = "Der Name darf nicht leer sein";
 
@@ -1978,10 +1730,6 @@
 
 "wn_reinvented_bookmarks_message" = "Sie können Lesezeichen sichern, Listen erstellen... Es ist erstaunlich...";
 
-"wn_way_of_booking_title" = "Wir haben die Art der Buchung neu gedacht!";
-
-"wn_way_of_booking_message" = "Suchen Sie einfach ein Hotel auf der Karte und buchen Sie es oder wählen Sie ein ähnliches.";
-
 "bookmarks_restore" = "Lesezeichen wiederherstellen";
 
 "bookmarks_restore_process" = "Wiederherstellen...";
@@ -2004,20 +1752,6 @@
 
 "restore" = "Wiederherstellen";
 
-"sign_message_gdpr" = "Um fortfahren zu können, müssen Sie unsere Nutzungsbedingungen und Datenschutzbestimmungen akzeptieren. Bitte lies sie sorgfältig durch.";
-
-"sign_agree_pp_gdpr" = "Ich stimme den <a href=\"%s\">Datenschutzbestimmungen</a> zu";
-
-"sign_agree_tof_gdpr" = "Ich stimme den <a href=\"%s\">Nutzungsbedingungen</a> zu";
-
-"sign_agree_news_gdpr" = "Ich bin damit einverstanden, die neuesten Nachrichten über OMaps-Produkte zu erhalten";
-
-"whats_new_localbiz_title" = "Kleine Betriebe verdienen Aufmerksamkeit";
-
-"whats_new_localbiz_message" = "Genau die lokalen Cafés, Hostels und Geschäfte machen die Reisen unvergesslich. Wir werden die Seite Ihres Geschäfts bei OMaps kostenlos optimieren, damit es bemerkt wird.";
-
-"whats_new_order_button" = "Einen Antrag hinterlassen";
-
 "bookmarks_page_downloaded" = "Geladene";
 
 "bookmarks_page_my" = "Meine";
@@ -2028,7 +1762,7 @@
 
 "cached_bookmarks_placeholder_title" = "Laden Sie neue Plätze hoch";
 
-"cached_bookmarks_placeholder_subtitle" = "Klicken Sie auf die Schaltfläche, um Tausende von interessanten Orten und Routen, die von den Anwendern von OMaps erstellt wurden, zu laden. Sie werden eine Internetverbindung benötigen.";
+"cached_bookmarks_placeholder_subtitle" = "Klicken Sie auf die Schaltfläche, um Tausende von interessanten Orten und Routen, die von den Anwendern von Organic Maps erstellt wurden, zu laden. Sie werden eine Internetverbindung benötigen.";
 
 "downloader_download_routers" = "Markierungen laden";
 
@@ -2040,7 +1774,7 @@
 
 "crash_reports" = "Berichte über die Fehler";
 
-"crash_reports_description" = "Wir können Ihre Daten benutzen, um OMaps zu entwickeln und zu verbessern. Die Änderungen werden nach dem Neustart der App in Kraft treten.";
+"crash_reports_description" = "Wir können Ihre Daten benutzen, um Organic Maps zu entwickeln und zu verbessern. Die Änderungen werden nach dem Neustart der App in Kraft treten.";
 
 "opt_out_help_ios_1" = "Sie können der Erhalt von gezielter Werbung in den Einstellungen des Geräts verbieten.";
 
@@ -2078,18 +1812,6 @@
 
 "subtitle_error_downloading_bookmarks" = "Die Markierungen wurden nicht geladen";
 
-"whats_new_bookmarks_catalog_title" = "Bei OMaps ist ein Routenkatalog aufgetreten";
-
-"whats_new_bookmarks_catalog_message" = "Dutzende ausführliche Routen weltweit: wo man hingehen kann, was man sich anschauen kann, wohin man essen gehen kann.";
-
-"whats_new_popularity_label_title" = "Beliebtes in der Nähe";
-
-"whats_new_popularity_label_message" = "Der Abschnitte „In der Nähe entdecken“ wird dabei helfen, die beliebtesten Plätze in der Stadt zu finden.";
-
-"whats_new_hot_offers_title" = "Vorteilhafte Hotelangebote";
-
-"whats_new_hot_offers_message" = "Suchen Sie nach ihnen mithilfe der Kategorie „Hotels\"\" in der Suche. Die Angebote werden mit einem auf der Karte und in der Liste Prozentzeichen gekennzeichnet sein.";
-
 "error_already_downloaded" = "Diese Liste wurde bereits heruntergeladen";
 
 "popular_place" = "Popular";
@@ -2100,92 +1822,17 @@
 
 "bookmarks_downloaded_subtitle" = "Press ‘View on map’ to explore new places from the list";
 
-"guides" = "Leitfaden";
+"why_support" = "Warum Organic Maps unterstützen?";
 
-"guide_downloaded_title" = "Der Leitfaden wurde erfolgreich heruntergeladen";
+"why_support_item1" = "We respect your privacy: there are zero trackers in the app, and we are open source";
 
-/* as few symbols as possible */
-"download_guides" = "Reiseführer suchen";
-
-"guides_groups_cached" = "Heruntergeladene Leitfäden";
-
-"subtitle_error_downloading_guide" = "Der Leitfaden wurde nicht heruntergeladen";
-
-"error_already_downloaded_guide" = "Dieser Leitfaden wurde bereits heruntergeladen";
-
-"guide_downloaded_subtitle" = "Drücken Sie ‚Auf der Karte ansehen‘, um den Leitfaden zu erkunden";
-
-"bookmarks_guides" = "Lesezeichengruppen und Leitfäden";
-
-"paybtn_title" = "Bezahlen %s/Jahr";
-
-"paybtn_subtitle" = "Einsparungen %s/Jahr";
-
-"options_dropdown_title" = "Weitere Varianten";
-
-"why_support" = "Warum OMaps unterstützen?";
-
-"options_dropdown_item1" = "%s/Monat (Einsparung %s/Jahr)";
-
-"options_dropdown_item2" = "%s/Woche (keine Einsparung)";
-
-"why_support_item1" = "Wir schalten für Sie die ganze Werbung ab";
-
-"why_support_item2" = "Sie helfen uns OMaps zu verbesern";
+"why_support_item2" = "Sie helfen uns Organic Maps zu verbesern";
 
 "why_support_item3" = "Sie helfen uns die Karten OpenStreetMap.org zu verbessern";
 
-"purchase_processing" = "Ihr Kauf wird bearbeitet…";
-
-"tips_bookmarks_catalog_title" = "Offline-Reiseführer für alle Arten von Reisen";
-
-"tips_bookmarks_catalog_message" = "Laden Sie herunter und legen Sie die touristischen Reiserouten nach den interessanten Stellen in verschiedenen Städten der Welt an.";
-
-"tips_discover_button_title" = "Möchten Sie beliebte Anstalten im Bezirk finden?";
-
-"tips_discover_button_message" = "In der Rubrik „In der Nähe entdecken“ sind die besten Restaurants, Hotels und Sehenswürdigkeiten gesammelt.";
-
-"tips_book_hotel_title" = "Buchen Sie die komfortabelsten Hotels für Ihre Erholung";
-
-"tips_book_hotel_message" = "Mit Hilfe der Suche und der Filter werden Sie die besten Hotels finden. Drücken Sie die Schaltfläche „Buchen“ auf der Karte der Stelle für die sofortige Reservierung des Hotels.";
-
-"tips_map_layers_title" = "Wissen Sie nicht, in welchem U-Bahnhof umzusteigen?";
-
-"tips_map_layers_message" = "Schalten Sie die „U-Bahn“-Ebene auf der Karte ein, um das Metro-Schema anzuzeigen, und Sie werden immer in der neuen Stadt navigieren.";
-
 "channels_map_update" = "Kartenaktualisierungen";
 
-"channels_reviews" = "Nicht abgesandte Rückmeldungen";
-
-"purchase_loading" = "Kaufinformationen werden geladen…";
-
-"purchase_error_subtitle" = "Bei der Bearbeitung Ihres Kaufs ist ein Fehler aufgetreten";
-
-"awaiting_approval" = "Wir warten auf die Bestätigung der Eltern";
-
-"whats_new_leave_review" = "Geben Sie Rückmeldung! Teilen Sie Ihre Meinung über Orte, die Sie im Urlaub besucht haben.";
-
 "server_unavailable_title" = "Server unzugänglich";
-
-"server_unavailable_message" = "Der Kauf wird später abgeschlossen. Wenn der Fehler anhält, kontaktieren Sie support@omaps.app.";
-
-"offline_fiters_check_in" = "Verbinden Sie sich mit dem Internet, um das Datum der Ankunft und der Abreise auszuwählen.";
-
-"rutaxi_title" = "RuTaxi";
-
-"restore_subscription" = "Stellen Sie das Abonnement wieder her";
-
-"restore_success_alert" = "Das Abonnement wurde erfolgreich wiederhergestellt";
-
-"restore_error_alert" = "Ein Fehler ist bei der Wiederherstellung des Abonnements aufgetreten";
-
-"restore_no_subscription_alert" = "Es gibt keine aktiven Abonnements";
-
-"subscriptions_title" = "Abonnements";
-
-"manage_subscription" = "Abonnements verwalten";
-
-"taxi" = "Taxi";
 
 "sharing_options" = "Zugriffseinstellungen";
 
@@ -2197,13 +1844,13 @@
 
 "hide_from_map" = "Auf der Karte ausblenden";
 
-"ugc_route_tags_screen_label" = "Tags wählen";
-
-"ugc_route_tags_progress_msg" = "Tags werden geladen…";
-
 "public_access" = "Öffentlicher Zugriff";
 
 "limited_access" = "Privater Zugriff";
+
+"bookmark_category_name" = "Kategorie";
+
+"bookmark_category_description_hint" = "Fügen Sie die Beschreibung hinzu (Text oder html)";
 
 /* FIXME */
 "bookmarks_public_access" = "bookmarks_public_access";
@@ -2214,33 +1861,11 @@
 /* FIXME */
 "bookmarks_private_access" = "bookmarks_private_access";
 
-"upload_and_publish_desc" = "Dieser Reiseführer wird in das öffentliche Katalog OMaps geladen und wird für andere Benutzer verfügbar sein";
-
-"upload_and_publish" = "Laden und veröffentlichen";
-
-"upload_and_get_direct_link" = "Laden und Link bekommen";
-
-"get_direct_link_desc" = "Ihr Reiseführer wird unter direktem Link verfügbar sein";
-
-"upload_and_publish_progress_text" = "Reiseführer wird veröffentlicht…";
-
-"upload_and_publish_success" = "Reiseführer wurde veröffentlicht";
-
-"ugc_routes_user_agreement" = "<b>WICHTIG:</b> wenn Sie fortsetzen, stimmen Sie <a href=\"%s\">der Lizenzvereinbarung zu</a>";
-
-"ugc_route_edit_list_name" = "Reiseführer Name";
-
-"ugc_route_edit_description_hint" = "Fügen Sie die Beschreibung hinzu (Text oder html)";
-
 "not_shared" = "Persönlich";
 
 "direct_link_progress_text" = "Ihre Datei wird geladen…";
 
 "direct_link_success" = "Link erstellt";
-
-"edit_guide_title" = "Bearbeiten Sie Ihr Reiseführer online";
-
-"edit_guide_subtitle" = "Bekommen Sie den Link für die Bearbeitung Ihres Reiseführers per WebApp: Fügen Sie Ortsbeschreibung hinzu, laden Sie Fotos und verbinden Sie Markierungen mit Linien.";
 
 "send_a_link_btn" = "Link senden";
 
@@ -2254,39 +1879,7 @@
 
 "unable_upload_error_subtitle_broken" = "Datei ist beschädigt und kann nicht geladen werden. Bitte laden Sie eine andere Datei.";
 
-"buy_btn" = "Reiseführer für %s kaufen";
-
-"download_guide_progress" = "Reiseführer wird geladen…";
-
-"price_error_title" = "Der Preis ist momentan unbekannt";
-
-"price_error_subtitle" = "Bitte, versuchen Sie es in ein paar Minuten erneut";
-
-"edit_your_guide_email_body" = "Bearbeiten Sie Ihr Reiseführer auf PC: Fügen Sie Ortsbeschreibung hinzu, laden Sie Fotos und verbinden Sie Markierungen mit Linien.";
-
-"edit_on_web" = "Online bearbeiten";
-
-"properties_loading_error_subtitle" = "Während dem Laden der Optionen ist ein Fehler aufgetreten, bitte, versuchen Sie es erneut";
-
-"custom_props_desc" = "Diesen Reiseführer haben Sie als";
-
-"custom_props_title" = "Einheimischer oder Tourist";
-
-"custom_props_local" = "Einheimischer";
-
-"custom_props_traveler" = "Tourist";
-
-"select_properties" = "Optionen wählen";
-
-"access_rules_p_to_p" = "Sonderzugriff";
-
-"access_rules_paid" = "Gekauft";
-
-"failed_purchase_support_message" = "Möglichkerweise haben Sie einen unvollzogenen Kauf. Bitte schreiben Sie unserem Support-Team und wir helfen Ihnen das Problem zu lösen.";
-
 "contact" = "Schreiben";
-
-"check_price_button" = "Preis erfahren";
 
 "download_button" = "Downloaden";
 
@@ -2304,92 +1897,16 @@
 
 "place_description_title" = "Ortsbeschreibung";
 
-"ugc_routes_error_uploading_file_toast" = "Leider ist beim Hochladen der Markierungen ein Fehler aufgetreten. Bitte versuchen Sie es erneut.";
-
-"notification_channel_ugc" = "Nutzergenerierte Inhalte";
-
 /* this text will be shown in application notification preferences opposite checkbox which enable/disable downloader notifications. Devices on Android 8+ are affected. */
 "notification_channel_downloader" = "Karten werden geladen";
 
-"notification_leave_review_title" = "%s - Gefällt es Ihnen hier?";
-
-"notification_leave_review_content" = "Hinterlassen Sie Ihr Feedback und helfen Sie den Reisenden!";
-
-"share_bookmarks_email_body_link" = "Guten Tag!\n\nIhre Markierungen stehen unter folgendem Link zum Download bereit: %s. Öffnen Sie die Liste mit OMaps und genießen Sie die Reise!\n\nApp downloaden: https://omaps.app/get?kmz";
+"share_bookmarks_email_body_link" = "Guten Tag!\n\nIhre Markierungen stehen unter folgendem Link zum Download bereit: %s. Öffnen Sie die Liste mit Organic Maps und genießen Sie die Reise!\n\nApp downloaden: https://organicmaps.app/get?kmz";
 
 "warning_speedcams_title" = "Der Navigator wird Sie über Geschwindigkeitskameras bei Geschwindigkeitsüberschreitung von %d km/h informieren";
 
 "warning_speedcams_subtitle" = "Vergessen Sie nicht sich mit den Verkehrsregeln im Reisezielland vertraut zu machen.";
 
 "speedcams_notice_message" = "Auto - Über Geschwindigkeitskameras bei Risiko einer Geschwindigkeitsüberschreitung informieren\nImmer - Immer über Geschwindigkeitskameras informieren\nNiemals - Nie über Geschwindigkeitskameras informieren";
-
-"whats_new_ugc_routes_title" = "Es ist einfach, Ihre Eindrücke zu teilen";
-
-"whats_new_ugc_routes_subtitle" = "Speichern Sie unvergessliche Orte, erstellen Sie Routen mithilfe von Lesezeichen und teilen Sie sie mit allen im OMaps-Katalog.";
-
-"whats_new_webeditor_title" = "Verwandeln Sie Ihre Routen in Geschichten";
-
-"whats_new_ugc_routes_message2" = "Fügen Sie Fotos und ausführliche Geschichten im Web-Editor hinzu.";
-
-"ugc_thanks_message_auth" = "Ihr Feedback wurde gespeichert";
-
-"ugc_thanks_message_not_auth" = "Loggen Sie sich bitte ein, um ein Feedback zu hinterlassen";
-
-"notification_leave_review_v2_title" = "Hinterlassen Sie Ihr Feedback und helfen Sie damit den Reisenden!";
-
-"error_public_not_enought_title" = "Ungenügend Markierungen";
-
-"error_public_not_enought_subtitle" = "In Ihrer Route sollen mindestens 3 Markierungen vorhanden sein, um sie in den öffentlichen Katalog zu laden";
-
-"bookmark_public_upload_alert_title" = "Noch ein paar Schritte und Ihre Route wird in den Katalog OMaps geladen!";
-
-"bookmark_public_upload_alert_subtitle" = "Überprüfen Sie, ob die Route einen Titel und Beschreibung hat und alle Markierungen Informationen über die Orte enthalten. So finden Benutzer die Route und werden Sie während der Reise benutzen können.";
-
-"bookmark_public_upload_alert_ok_button" = "Ja, ich bin sicher!";
-
-"name_title" = "Geben Sie den Name ein";
-
-"name_placeholder" = "z.B. Londoner Pubs";
-
-"name_comment1" = "Betiteln Sie die Route konkret, damit die Benutzer sie finden können, z.B. \"Londoner Pubs\"";
-
-"name_comment2" = "Der Titel soll keine Sonderzeichen enthalten. Veröffentlichen Sie keine Routen mit dem Titel \"Meine Markierungen\"";
-
-"description_guide" = "Beschreibung";
-
-"description_title" = "Geben Sie die Beschreibung der Route ein";
-
-"description_placeholder" = "Beschreiben Sie ausführlich Ihre Route";
-
-"description_comment1" = "Die Beschreibung der Route soll mindestes 30 Zeichen enthalten.";
-
-"ugc_route_tags_desc" = "Bitte, wählen Sie Tags, um anderen Reisenden zu helfen Ihren Reiseführer zu finden. Das ist obligatorisch. Nicht mehr als %s Tags.";
-
-"html_format_error_title" = "Ihre Route wurde nicht veröffentlicht";
-
-"html_format_error_subtitle" = "Bitte überprüfen Sie, ob der Titel und die Beschreibung der Markierungen in der Route richtig formatiert sind. Sie können das in unserem Editor überprüfen. Dafür klicken Sie auf die Taste \"Online bearbeiten\" weiter unten.";
-
-"web_editor_description" = "Laden Sie die Route und bekommen Sie ein Link zur Bearbeitung auf dem Computer";
-
-"edit_on_web_confirm" = "Online bearbeiten";
-
-"update_guide" = "Neue Version laden";
-
-"direct_link_updating_text" = "Die Route wird aktualisiert…";
-
-"direct_link_updating_success" = "Die Route wurde erfolgreich aktualisiert";
-
-"unable_get_direct_link_desc" = "Sie können die Route mit Hilfe eines öffentlichen Links mit Ihren Freunden teilen";
-
-"any_access_update_alert_title" = "Möglicherweise gibt es eine neue Version der Route";
-
-"any_access_update_alert_message" = "Möchten Sie die Markierungen aktualisieren? Die neue Version wird unter dem gleichen Link verfügbar sein.";
-
-"any_access_update_alert_update" = "Aktualisieren";
-
-"public_or_limited_access_after_edit_online_error_title" = "Sie haben die Route Online bearbeitet";
-
-"public_or_limited_access_after_edit_online_error_message" = "Ferner bearbeiten, veröffentlichen oder teilen Sie die Route mit Ihren Freunden auf unserer Website";
 
 "power_managment_title" = "Stromsparmodus";
 
@@ -2401,7 +1918,7 @@
 
 "power_managment_setting_manual_max" = "Maximale Stromsparung";
 
-"enable_logging_warning_message" = "Diese Option wird aktiviert, um Aktivitäten zwecks Diagnostik zu loggen. Das hilft unserem Team Probleme mit der App zu erkennen. Aktivieren Sie diese Option nur auf Ersuchen des OMaps-Supports.";
+"enable_logging_warning_message" = "Diese Option wird aktiviert, um Aktivitäten zwecks Diagnostik zu loggen. Das hilft unserem Team Probleme mit der App zu erkennen. Aktivieren Sie diese Option nur auf Ersuchen des Organic Maps-Supports.";
 
 "html_error_upload_message_try_again" = "Überprüfen Sie die Internetverbindung und versuchen Sie es noch einmal";
 
@@ -2417,21 +1934,9 @@
 
 "privacy_settings_menu" = "Datenschutzeinstellungen";
 
-"gdpr_request_setting" = "ID für GDPR-Anfrage bekommen";
-
-"gdpr_request_window_title" = "Ihr ID: %s.";
-
-"gdpr_request_window_message" = "Bitte kopieren und schicken Sie die ID an support@omaps.app";
-
-"gdpr_request_window_copy" = "ID kopieren";
-
 "unable_upadate_error_title" = "Die Aktualisierung der Route konnte nicht durchgeführt werden";
 
 "unable_upadate_error_message" = "Bei der Aktualisierung sind Fehler aufgetreten. Überprüfen Sie die Änderungen und versuchen Sie es noch einmal";
-
-"whats_new_wiki_title" = "Was ist das für ein Ort?";
-
-"whats_new_wiki_message" = "In die Karten berühmter Sehenswürdigkeiten haben wir Artikel aus Wikipedia.org hinzugefügt, die offline verfügbar sind";
 
 "driving_options_title" = "Einstellungen des Umweges";
 
@@ -2467,31 +1972,7 @@
 
 "avoid_ferry_crossing_placepage" = "Fährstellen vermeiden";
 
-"cached_guides_placeholder_subtitle" = "Fertige Reiseführer in OMaps – das sind ausgewählte Orte mit Fotos und Beschreibungen, die auf der Karte angezeigt werden und off-line verfügbar sind.";
-
-"guides_catalogue_title" = "Reiseführer-Katalog";
-
-"download_guides_button" = "In den Katalog übergehen";
-
 "type.cuisine.uzbek" = "Usbekische Küche";
-
-"onboarding_guide_direct_download_title" = "Der Reiseführer ist zum Laden bereit";
-
-"onboarding_guide_direct_download_subtitle" = "Er wird sich auf der Karte widerspiegeln und off-line arbeiten";
-
-"onboarding_guide_direct_download_button" = "Herunterladen";
-
-"onboarding_bydeeplink_guide_title" = "Fertige Reiseführer in OMaps";
-
-"onboarding_bydeeplink_guide_subtitle" = "Ausgewählte Orte mit Fotos und Beschreibungen werden auf der Karte wiederspiegelt und sind offline zugänglich.";
-
-"whats_new_auto_update_bydeeplink_title" = "Bevor zu den Reiseführern überzugehen…";
-
-"whats_new_auto_update_bydeeplink_message" = "Erneuern Sie die Karten für das Erhalten der aktuellen Informationen über die Objekte!";
-
-"whats_new_auto_update_and_proceed_button_size" = "Erneuern (%s) und Fortsetzen";
-
-"purchase_please_wait_toast" = "Bitte verlassen Sie den Bildschirm nicht, bis der Kauf abgeschlossen ist";
 
 "trip_start" = "Fahren wir";
 
@@ -2531,80 +2012,6 @@
 
 "ok" = "Ok";
 
-"vezet_taxi" = "Vezet";
-
-"booking_button_toolbar" = "Hotel auf der Karte suchen";
-
-"popup_booking_download_guides_title" = "Hotel gebucht?";
-
-"popup_booking_download_guides_message" = "Planen Sie die Route mit fertigen Reiseführern von OMaps";
-
-"popup_mwm_download_guides_title" = "Offline-Reiseführer";
-
-"popup_mwm_download_guides_cta" = "Auswählen";
-
-"popup_mwm_download_guides_cta_1" = "Anschauen";
-
-"gallery_pp_download_guides_offline_title" = "Planen Sie Ihren Urlaub mit OMaps!";
-
-"gallery_pp_download_guides_offline_subtitle" = "Verpassen Sie das wichtigste mit den Routen von erfahrenen Reisenden nicht";
-
-"gallery_pp_download_guides_offline_cta" = "Internet ein";
-
-"gallery_pp_download_guides_title" = "Reiseführer";
-
-"native_screen_subscription_title" = "Uneingeschränkter Zugriff auf 2000+ Reiseführer!";
-
-"native_screen_subscription_message" = "Unvergesslicher Urlaub, wohin und mit wem würden Sie nicht reisen";
-
-"annual_subscription_title" = "Jährliche";
-
-"montly_subscription_title" = "Monatliche";
-
-"annual_subscription_message" = "12 Monate uneingeschränkten Zugriffs";
-
-"montly_subscription_message" = "1 Monat uneingeschränkten Zugriffs";
-
-"annual_save_component" = "- %d%";
-
-"subscription_success_dialog_title" = "Danke für die Subskription!";
-
-"subscription_success_dialog_message" = "Jetzt haben sie einen uneingeschränkten Zugriff auf den Reiseführer-Katalog";
-
-"renewal_screen_title" = "Die Subskriptionfrist ist abgelaufen";
-
-"renewal_screen_message" = "Alle Reiseführer, die in Subskription heruntergeladen wurden, werden gelöscht. Möchten Sie die Subskription erneuern und sie behalten?";
-
-"renewal_screen_button_restore" = "Ja, erneuern";
-
-"renewal_screen_button_cancel" = "Nein, Reiseführer löschen";
-
-"subscription_error_ping_title" = "Der Erwerb war nicht erfolgreich";
-
-"subscription_error_message" = "Der Service ist momentan in Ihrer Region nicht verfügbar. Bitte, versuchen Sie es später noch einmal";
-
-"subscription_error_button" = "OK";
-
-"timeout_error_title" = "Ups, die Session ist abgelaufen!";
-
-"timeout_error_message" = "Unsere Server antworten nicht. Bitte überprüfen Sie Ihre Internetverbindung und versuchen Sie es noch einmal.";
-
-"per_month" = "/Monat";
-
-"per_year" = "/Jahr";
-
-"buy_btn_for_subscription" = "Uneingeschränkter Zugriff ab %s";
-
-"buy_btn_for_subscription_1" = "ALLE Reiseführer für %s kaufen";
-
-"buy_btn_for_subscription_ios_only_mo" = "Uneingeschränkter Zugriff für %s/Monat";
-
-"buy_btn_for_subscription_ios_only_year" = "Uneingeschränkter Zugriff für %s/Jahr";
-
-"subscription_terms_guides" = "Der Betrag wird von Ihrem iTunes-Konto bei der Kaufbestätigung abgebucht. Die Subskription wird automatisch erneuert, wenn die automatische Erneuerung wenigstens 24 Stunden vor Ablauf des laufenden Zeitraums nicht deaktiviert wird. Der Betrag wird von ihrem Konto gemäß Ihrem Verlängerungstarifplan innerhalb von 24 Stunden bis zum Ablauf des laufenden Zeitraums abgebucht. Sie können die automatische Verlängerung in den Kontoeinstellungen Apple ID jederzeit nach dem Kauf aktivieren oder deaktivieren. Sie können Reiseführer, die in Subskription heruntergeladen wurden, nur innerhalb der Subskriptionfrist benutzen. Nach 30 Tagen ab dem Ablaufdatum der Subskription werden die Reiseführer mit allen Lesezeichen automatisch gelöscht.";
-
-"subscription_terms" = "Die Zahlung erfolgt nach Kaufbestätigung über Ihr iTunes-Konto. Das Abonnement wird automatisch verlängert, sofern Sie die automatische Verlängerung nicht 24 Stunden vor Ende des aktuellen Zeitraums abgestellt haben. Ihr Konto wird gemäß Ihres Plans für die Verlängerung innerhalb von 24 Stunden vor dem Ende des aktuellen Zeitraums belastet. Sie können bei Kauf die automatisch Verlängerung über Ihre Apple-ID-Kontoeinstellungen jederzeit verwalten oder abstellen.";
-
 "avoid_unpaved_carplay_1" = "Ohne Landstr";
 
 "avoid_unpaved_carplay_2" = "Ohne Landstr.";
@@ -2621,7 +2028,7 @@
 
 "speedcams_alert_title_carplay_2" = "Blitzerwarnung";
 
-"download_map_carplay" = "Laden Sie Karten in der App OMaps auf Ihrem Gerät herunter";
+"download_map_carplay" = "Laden Sie Karten in der App Organic Maps auf Ihrem Gerät herunter";
 
 "carplay_roundabout_exit" = "%s Ausfahrt";
 
@@ -2708,138 +2115,9 @@
 /* Android, max 18 symbols */
 "bookmarks_delete_list" = "Liste löschen";
 
-"popup_subscription_success_map_title" = "Hurra! Sie haben erfolgreich abonniert!";
-
-"popup_subscription_success_map_message" = "Entdecken Sie die besten touristischen Sehenswürdigkeiten im OMaps-Katalog";
-
-"popup_subscription_success_map_start_button" = "Ansehen";
-
-"popup_subscription_success_map_not_now_button" = "Nicht jetzt";
-
 "religious_places" = "Heilige Orte";
 
-"subscription_terms_android" = "Der Betrag wird von Ihrem Google Play Konto bei der Bestätigung der Transaktion abgebucht. Die Subskription wird automatisch verlängert, wenn die automatische Verlängerung mindestens 24 Stunden vor Ablauf des laufenden Zeitraums nicht deaktiviert wurde. Der Betrag wird von Ihrem Account gemäß Ihrem Verlängerungstarifplan innerhalb von 24 Stunden vor zum Ablauf des laufenden Zeitraums abgebucht. Sie können die automatische Verlängerung verwalten oder diese in den Account-Einstellungen nach dem Erwerb deaktivieren. Sie können Reiseführer, die mit einer gültigen Subskription heruntergeladen wurden, nur innerhalb deren Gültigkeitsdauer benutzen. 30 Tage nach Ablauf der Subskription werden die Reiseführer automatisch gelöscht.";
-
 "select_list" = "Wählen Sie die Liste";
-
-"pp_discovery_place_related_header" = "Dieser Ort im Reiseführerkatalog";
-
-"pp_discovery_place_related_header_1" = "Dieser Ort ist im Reiseführer vorhanden";
-
-"pp_discovery_place_related_cta_button" = "Ansehen";
-
-"pp_discovery_place_related_tag_header" = "Reiseführernach Tag „%s“";
-
-"pp_discovery_place_related_tag_header_1" = "Das könnte Ihnen auch gefallen";
-
-"buy_btn_for_subscription_version_2" = "ALLE Reiseführer für nur %s/Monat";
-
-"buy_btn_for_subscription_version_3" = "Das ganze Katalog für %s/Monat";
-
-"buy_btn_for_subscription_ios_only_mo_version_2" = "Zugriff auf das Katalog für %s/Monat";
-
-"buy_btn_for_subscription_ios_only_year_version_2" = "Zugriff auf das Katalog für %s/Jahr";
-
-"subscription_screen_native_title_version_2" = "Zugriff auf Reiseführer mit Lesezeichen auf der Karte!";
-
-"subscription_screen_native_message_version_2" = "Seien Sie für jede Reise in 600+ Städten und 100+ Ländern bereit";
-
-"catalog_no_internet_title" = "Keine Internetverbindung";
-
-"catalog_no_internet_button" = "Noch einmal versuchen";
-
-"new_onboarding_button" = "Weiter";
-
-"new_onboarding_button_2" = "Start";
-
-"new_onboarding_step1_header" = "OMaps";
-
-"new_onboarding_step1_header_2" = "Mehrzweckhilfe für Reisen";
-
-"new_onboarding_step2_header" = "Träumen und planen Sie";
-
-"new_onboarding_step2_message" = "70+ Mio. interessanter Orte, Katalog fertiger Reiseführer und Hotelbuchung auf der Karte – Sie sind reisebereit!";
-
-"new_onboarding_step3_message" = "Detaillierte Offline-Karten und Offline-Navigation helfen Ihnen sich an unbekannten Orten zu orientieren!";
-
-"new_onboarding_step4_header" = "Teilen Sie Ihre Eindrücke";
-
-"new_onboarding_step4_message" = "Speichern Sie Orte, die Ihnen gefallen, in Favoriten und schicken Sie diese an Ihre Freunde";
-
-"new_onboarding_step5.1_header" = "Vor dem Start…";
-
-"new_onboarding_step5.1_message" = "Vergessen Sie nicht in den neuen Routenkatalog hineinzuschauen, um den Offline-Guide für die nächste Reise zu finden!";
-
-"new_onboarding_step5.1_button" = "Katalog öffnen";
-
-"new_onboarding_step5.2_message" = "Es ist günstig den Reiseführerkatalog in OMaps zu abonnieren. Sie bekommen einen uneingeschränkten Zugriff auf die Routen für Stadtspaziergänge und Aktivurlaub!";
-
-"new_onboarding_step5.2_button" = "Bedingungen ansehen";
-
-"new_onboarding_step5.3_message" = "Lade herunter und bewerte Routen für Spaziergänge durch die Stadt und aktive Erholung mit der gratis Sammlung von OMaps!";
-
-"new_onboarding_step5.3_button" = "Download Gratis";
-
-"new_onboarding_additional_steps_later_button" = "Später";
-
-"all_pass_subscription_header" = "Abo";
-
-"all_pass_subscription_subheader" = "Reiseführer-Katalog";
-
-/* \n - for a break between lines. Max. 15 characters per 1 line. */
-"all_pass_subscription_message_title" = "30000+\nReisführer\nund Wanderwege";
-
-/* <b> & </b> tag to make a part of the line bold */
-"all_pass_subscription_message_subtitle" = "<b>Uneingeschränktes Downloaden</b> von Routen durch die Stadt und für aktive Erholung <b>offline</b>";
-
-/* \n - for a break between lines. Max. 17 characters per 1 line. */
-"all_pass_subscription_message_title_2" = "Interaktiver\nHöhenprofil";
-
-/* <b> & </b> tag to make a part of the line bold */
-"all_pass_subscription_message_subtitle_2" = "Alle Wanderwege werden <b>с mit Höhen und Hauptinformationen über die Route angezeigt</b>";
-
-/* \n - for a break between lines. Max. 15 characters per 1 line. */
-"all_pass_subscription_message_title_3" = "Lesezeichen\nFotos und\nEmpfehlungen";
-
-/* <b> & </b> tag to make a part of the line bold */
-"all_pass_subscription_message_subtitle_3" = "<b>Erfahren Sie alles über die Routen</b>, die Sie gehen möchten";
-
-/* do not translate */
-"sightseeing_subscription_header_sightseeing" = "City Pass";
-
-"sightseeing_subscription_header_subscription" = "Reiseführer-Subskription";
-
-"sightseeing_subscription_message" = "700+ Städte und 100+ Länder";
-
-"sightseeing_subscription_message_2" = "Offline verfügbar";
-
-"sightseeing_subscription_message_3" = "Fotos und Wanderwege";
-
-"subscription_success_dialog_title_sightseeing_pass" = "Vielen Dank für Ihre Subskription!";
-
-"subscription_success_dialog_message_sightseeing_pass" = "Jetzt haben Sie einen Zugriff auf alle Stadtreiseführer im Katalog";
-
-"downloader_main_gallery_header" = "Karten und Reiseführer";
-
-"downloader_main_gallery_message" = "Nun können Sie in dieser Rubrik nicht nur Karten herunterladen, sondern auch Reiseführer für die nächsten Reisen auswählen";
-
-"downloader_main_1_element_gallery_header" = "Alle Reiseführer";
-
-"downloader_main_1_element_gallery_message" = "in 100+ Ländern";
-
-"downloader_country_1_element_gallery_header" = "%s Routen";
-
-"downloader_country_no_guides_gallery_header" = "Für dieses Land sind noch keine Reiseführer vorhanden";
-
-"downloader_country_no_guides_gallery_message" = "Schauen Sie sich andere Routen in 100+ Ländern für Spaziergänge durch die Stadt und aktive Erholung an";
-
-"dialog_pedestrian_route_is_long" = "Zu Fuß dauert es zu lange bis man den Verkehr erreicht";
-
-"new_onboarding_step3_header" = "Reisen Sie";
-
-"all_pass_screen_best_value" = "Günstiger Preis";
-
-"buy_btn_for_subscription_3" = "Das ganze Katalog für %s/Jahr";
 
 "transit_not_found" = "Die U-Bahn-Navigation ist in dieser Region noch nicht verfügbar";
 
@@ -2852,7 +2130,7 @@
 
 "button_layer_isolines" = "Terrain";
 
-"tips_map_layers_title_countour" = "Neu in OMaps: Topographie-Layer offline!";
+"tips_map_layers_title_countour" = "Neu in Organic Maps: Topographie-Layer offline!";
 
 "tips_map_layers_message_countour" = "Der Topographie-Layer hilft Ihnen Ihre Reise in die Natur zu planen und sich in der Gegen zurechtzufinden";
 
@@ -2890,175 +2168,13 @@
 
 "elevation_profile_minutes" = "Min";
 
-"view_on_map_downloaded_error" = "Dieser Reiseführer wurde vom Gerät gelöscht";
-
-"subscription" = "Abo";
-
-"freenow_taxi_title" = "FREE NOW";
-
-"tinkoff_allairlines_map_downloader_title" = "Карта Тинькофф All Airlines. 3000 миль в подарок";
-
-"tinkoff_allairlines_map_downloader_cta_button" = "Оформить карту";
-
-"tinkoff_insurance_map_downloader_title" = "Полис Тинькофф со скидкой! Подходит для любых виз.";
-
-"tinkoff_insurance_map_downloader_cta_button" = "Промокод";
-
-"mts_map_downloader_title" = "Забугорище: интернет и звонки за границей как дома";
-
-"mts_map_downloader_cta_button" = "Подключить";
-
-"skyeng_map_downloader_title" = "Дарим 4 бесплатных урока английского от Skyeng.";
-
-"skyeng_map_downloader_cta_button" = "Подробнее";
-
-"button_layer_guides" = "Reiseführer (Neu)";
-
-"no_routes_in_the_area_toast" = "Hier sind keine Reiseführer vorhanden";
-
 "isolines_toast_zooms_1_10" = "Karte vergrößern, um Isolinien zu sehen";
-
-"routes_layer_in_menu_toast" = "Aktivieren Sie den Layer Schichten, um Offline-Reiseführer zu finden, Isolinien, U-Bahnzweige oder Staus zu sehen";
-
-"routes_layer_is_on_toast" = "Bewegen Sie die Karte, um die Reiseführer zu finden";
-
-"connection_error_dialog_guides_title" = "Netzwerkverbindungsfehler";
-
-"connection_error_dialog_guides_message" = "Die Schicht wird nicht angezeigt, da keine Internetverbindung aufgebaut wurde oder das Signal zu schwach ist. Überprüfen Sie die Verbindung oder deaktivieren Sie die Schicht.";
-
-"connection_error_dialog_guides_try" = "Noch einmal versuchen";
-
-"connection_error_dialog_guides_layer_turn_off" = "Deaktivieren";
-
-"connection_error_toast_guides" = "Die Internetverbindung wird hergestellt";
-
-/* as few symbols as possible */
-"routes_card_show" = "Auf der Karte einblenden";
-
-/* as few symbols as possible */
-"routes_card_hide" = "Auf der Karte ausblenden";
 
 "downloader_updating_ios" = "Update";
 
 "downloader_loading_ios" = "Download";
 
-"routes_card_plus_track" = "+ Wanderweg";
-
-"routes_card_city" = "City";
-
-"routes_card_outdoor" = "Outdoor";
-
-"routes_card_number_of_points" = "%s Orte";
-
-"routes_card_routes_tag" = "Route";
-
-"routes_card_set_tag" = "Selektion der Plätze";
-
-/* as few symbols as possible */
-"guides_trial_cta_button" = "7 Tage Gratis testen";
-
-"guides_trial_message" = "Danach %s pro Jahr. Ihr Abo ist jederzeit kündbar";
-
-"trial_error_dialog" = "Ihre Probezeit ist abgelaufen";
-
-/* as few symbols as possible */
-"floating_button_filters" = "Filter";
-
-/* as few symbols as possible */
-"date_picker_сhoose_dates_cta" = "Datum auswählen";
-
-/* as few symbols as possible */
-"guests_picker_rooms_title" = "Zimmer und Gäste";
-
-"guests_picker_rooms" = "Zimmer";
-
-"guests_picker_adults" = "Erwachsene";
-
-"guests_picker_children_title" = "Kinder";
-
-"guests_picker_children_subtitle" = "1-17 Jahre";
-
-"guests_picker_infants_title" = "Babys";
-
-"guests_picker_infants_subtitle" = "0-12 Monate";
-
-/* as less symbols as possible */
-"booking_map_component_availability" = "Keine Plätze";
-
-/* as few symbols as possible */
-"booking_map_component_filters" = "Außerhalb Filter";
-
-"choose_dates_online_only_dialog_title" = "Keine Internetverbindung";
-
-"choose_dates_online_only_dialog_message" = "Die Auswahl des Datums und der Anzahl der Gäste ist nur online möglich. Überprüfen sie Ihre Einstellungen und Ihre Internetverbindung.";
-
-"choose_dates_online_only_dialog_cta" = "Einstellungen";
-
-"thirty_days_limit_dialog" = "Sie können höchstens 30 Nächte buchen";
-
-"whatsnew_trial_cta" = "Ausprobieren";
-
-"subscription_terms_guides_outdoor" = "Die Bezahlung erfolgt über Ihr iTunes-Konto bei der Kaufbestätigung. Ihr Abo wird automatisch erneuert, wenn die automatische Verlängerung mindestens 24 Stunden vor Ablauf der Probezeit nicht deaktiviert wird. Der Betrag wird von Ihrem Konto gemäß unserem Verlängerungstarifplan innerhalb von 24 Stunden bis zum Ende der laufenden Periode abgebucht. Sie können die automatische Verlängerung jederzeit nach dem Kauf in den Kontoeinstellungen Apple ID deaktivieren. Die heruntergeladenen Abo-Reiseführer stehen Ihnen nur für den Abozeitraum zur Verfügung. 7 Tage nach Ablauf des Abozeitraums werden die Reiseführer samt Lesezeichen automatisch gelöscht.\n* Das Gratis-Probeabo wird automatisch kostenpflichtig. Sie können nach dem Kauf die automatische Verlängerung des Probeabos in Ihren Kontoeinstellungen deaktivieren. Die Deaktivierung tritt 24 Stunden nach dem letzten Tag des laufenden Abozeitraums in Kraft und Sie erhalten das Gratis-Abo. Achten Sie bitte darauf, dass jeder ungenutzter Gratis-Probeabozeitraum beim Kauf des kostenpflichtigen Abos für diesen Zeitraum annulliert wird.";
-
-"subscription_terms_android_outdoor" = "Die Bezahlung erfolgt über Ihr Google Play-Konto bei der Kaufbestätigung. Ihr Abo wird automatisch erneuert, wenn die automatische Verlängerung mindestens 24 Stunden vor Ablauf der Probezeit nicht deaktiviert wird. Der Betrag wird von Ihrem Konto gemäß unserem Verlängerungstarifplan innerhalb von 24 Stunden bis zum Ende der laufenden Periode abgebucht. Sie können die automatische Verlängerung jederzeit nach dem Kauf in den Kontoeinstellungen aktivieren oder deaktivieren. Die heruntergeladenen Abo-Reiseführer stehen Ihnen nur für den Abozeitraum zur Verfügung. 7 Tage nach Ablauf des Abozeitraums werden die Reiseführer automatisch gelöscht.\n* Das Gratis-Probeabo wird automatisch kostenpflichtig. Sie können nach dem Kauf die automatische Verlängerung des Probeabos in Ihren Kontoeinstellungen deaktivieren. Die Deaktivierung tritt 24 Stunden nach dem letzten Tag des laufenden Abozeitraums in Kraft und Sie erhalten das Gratis-Abo. Achten Sie bitte darauf, dass jeder ungenutzter Gratis-Probeabozeitraum beim Kauf des kostenpflichtigen Abos für diesen Zeitraum annulliert wird.";
-
-"sberbank_map_downloader_title" = "Откройте Сберкарту Тревел Mastercard и копите мили";
-
-"sberbank_map_downloader_cta_button" = "Узнать больше";
-
-"yango_taxi_title" = "Yango";
-
-"citymobil_taxi_title" = "Citymobil";
-
-"subscription_header" = "<b>Reiseführerkatalog</b>-\nAbo";
-
-/* Max. 20 characters per 1 line. */
-"all_pass_subscription_message_title_4" = "Reiseführer\nvon Lonely Planet®";
-
-/* <b> & </b> tag to make a part of the line bold */
-"all_pass_subscription_message_subtitle_4" = "Noch <b>mehr Eindrücke</b> mit tausenden interessanten Orten <b>weltweit</b>";
-
-"content_by_component" = "Content von: %s";
-
-"whatsnew_lp_title" = "Noch mehr Eindrücke";
-
-"whatsnew_lp_message" = "Wir präsentieren Ihnen die Reiseführer Lonely Planet! Sehenswürdigkeiten, Themenrouten und einzigartige Orte in 7000+ Städten.";
-
-"collections_title" = "Sammlungen";
-
 "key_information_title" = "Wichtige Informationen";
-
-"mustsee_title" = "Sehenswert";
-
-"see_lp_category" = "Sehenswürdigkeiten";
-
-"play_lp_category" = "Unterhaltungen";
-
-"shop_lp_category" = "Shopping";
-
-"transport_lp_category" = "Transport";
-
-"sleep_lp_category" = "Übernachtung";
-
-"general_lp_category" = "Haupt";
-
-"drink_lp_category" = "Bars";
-
-"eat_lp_category" = "Restaurants";
-
-"taxi_category_order" = "Order";
-
-"arsenal_telemed_map_downloader_title" = "Онлайн консультации профессиональных врачей 24/7";
-
-"arsenal_flat_map_downloader_title" = "Уезжаешь? Позаботься о своей квартире и соседях.";
-
-"arsenal_crimea_map_downloader_title" = "Туристическая страховка отдыха в Крыму. От 15₽/день";
-
-"arsenal_russia_map_downloader_title" = "Путешествуй по России. Лечение COVID-19 включено!";
-
-"arsenal_abroad_map_downloader_title" = "Полис «Выезд за рубеж». Лечение COVID-19 включено!";
-
-"arsenal_cta_button" = "Оформить полис";
 
 "download_map_title" = "Download the world map";
 

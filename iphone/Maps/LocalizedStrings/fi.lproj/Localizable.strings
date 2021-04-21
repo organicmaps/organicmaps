@@ -94,7 +94,7 @@
 /* Button text for the button under the country_status_download_failed message */
 "try_again" = "Yritä uudelleen";
 
-"about_menu_title" = "Tietoa OMaps:stä";
+"about_menu_title" = "Tietoa Organic Maps:stä";
 
 "downloaded_touch_to_delete" = "Ladattu (%@), poista koskettamalla";
 
@@ -110,7 +110,7 @@
 
 "external_storage_is_not_available" = "SD-kortti/USB-massamuisti, jolle kartat on ladattu, ei ole käytettävissä";
 
-"disconnect_usb_cable" = "Irrota USB-kaapeli tai syötä muistikortti käyttääksesi OMaps -sovellusta";
+"disconnect_usb_cable" = "Irrota USB-kaapeli tai syötä muistikortti käyttääksesi Organic Maps -sovellusta";
 
 "not_enough_free_space_on_sdcard" = "Vapauta ensin tilaa SD-kortilta/USB-massamuistilta käyttääksesi sovellusta";
 
@@ -174,7 +174,7 @@
 "set" = "Aseta";
 
 /* Text hint in Bookmarks dialog when no any bookmarks are added */
-"bookmarks_usage_hint" = "Sinulla ei vielä ole kirjanmerkkejä.\nLisää kirjanmerkki napsauttamalla mitä tahansa paikkaa kartalla.\nVoit myös tuoda kirjanmerkkejä muista lähteistä OMaps:ssä käytettäviksi avaamalla KML/KMZ-kirjanmerkkitiedoston sähköpostistasi, Dropbox-tililtäsi tai verkko-osoitteesta.";
+"bookmarks_usage_hint" = "Sinulla ei vielä ole kirjanmerkkejä.\nLisää kirjanmerkki napsauttamalla mitä tahansa paikkaa kartalla.\nVoit myös tuoda kirjanmerkkejä muista lähteistä Organic Maps:ssä käytettäviksi avaamalla KML/KMZ-kirjanmerkkitiedoston sähköpostistasi, Dropbox-tililtäsi tai verkko-osoitteesta.";
 
 /* Settings button in system menu */
 "settings" = "Asetukset";
@@ -276,9 +276,9 @@
 "share_by_email" = "Jaa sähköpostilla";
 
 /* Email Subject when sharing bookmarks category */
-"share_bookmarks_email_subject" = "Jaetut OMaps-kirjanmerkit";
+"share_bookmarks_email_subject" = "Jaetut Organic Maps-kirjanmerkit";
 
-"share_bookmarks_email_body" = "Hello!\n\nAttached are my bookmarks from OMaps offline maps. Please open them if you have OMaps installed. Or, if you don't, download the app for your iOS or Android device by following this link: https://omaps.app/get?kmz\n\nEnjoy traveling with OMaps!";
+"share_bookmarks_email_body" = "Hello!\n\nAttached are my bookmarks from Organic Maps offline maps. Please open them if you have Organic Maps installed. Or, if you don't, download the app for your iOS or Android device by following this link: https://organicmaps.app/get?kmz\n\nEnjoy traveling with Organic Maps!";
 
 /* message title of loading file */
 "load_kmz_title" = "Ladataan kirjanmerkkejä";
@@ -308,22 +308,22 @@
 "downloading_is_active" = "Maata ladataan parhaillaan.";
 
 /* Message that will be shown in alert view, when we ask user to leave review on App Store */
-"appStore_message" = "Toivottavasti nautit OMaps -sovelluksen käyttämisestä! Olisimme tyytyväisiä, jos voisit arvioida sovelluksen App Storessa. Se kesää alle minuutin, ja auttaa meitä todella paljon. Kiitos tuestasi!";
+"appStore_message" = "Toivottavasti nautit Organic Maps -sovelluksen käyttämisestä! Olisimme tyytyväisiä, jos voisit arvioida sovelluksen App Storessa. Se kesää alle minuutin, ja auttaa meitä todella paljon. Kiitos tuestasi!";
 
 /* No, thanks */
 "no_thanks" = "Ei kiitos";
 
 /* Share one specific bookmark using SMS, %1$@ contains ge0:// and %2$@ http://ge0.me link. @NOTE non-ascii symbols in the link will make 70 bytes sms instead of 140 */
-"bookmark_share_sms" = "Hei, katso merkintäni OMaps-sovelluksessa! %1$@ tai %2$@ Eikö sinulla ole offline-karttoja? Lataa ne täältä: https://omaps.app/get";
+"bookmark_share_sms" = "Hei, katso merkintäni Organic Maps-sovelluksessa! %1$@ tai %2$@ Eikö sinulla ole offline-karttoja? Lataa ne täältä: https://organicmaps.app/get";
 
 /* Share my position using SMS, %1$@ contains ge0:// and %2$@ http://ge0.me link WITHOUT NAME. @NOTE non-ascii symbols in the link will make 70 bytes sms instead of 140 */
-"my_position_share_sms" = "Hei, katso sijaintini OMaps-sovelluksessa! %1$@ tai %2$@ Eikö sinulla ole vielä offline-karttoja? Lataa ne täältä: https://omaps.app/get";
+"my_position_share_sms" = "Hei, katso sijaintini Organic Maps-sovelluksessa! %1$@ tai %2$@ Eikö sinulla ole vielä offline-karttoja? Lataa ne täältä: https://organicmaps.app/get";
 
 /* Subject for emailed bookmark */
-"bookmark_share_email_subject" = "Hei, katso merkintäni OMaps-kartalla";
+"bookmark_share_email_subject" = "Hei, katso merkintäni Organic Maps-kartalla";
 
 /* Subject for emailed position */
-"my_position_share_email_subject" = "Hei, kurkkaa tämänhetkinen sijaintini OMaps:n kartalla!";
+"my_position_share_email_subject" = "Hei, kurkkaa tämänhetkinen sijaintini Organic Maps:n kartalla!";
 
 /* Share my position using EMail, %1$@ is ge0:// and %2$@ is http://ge0.me link WITHOUT NAME */
 "my_position_share_email" = "Hei,n\nOlen nyt täällä: %1$@. Klikkaa linkkiä %2$@ tai %3$@ nähdäksesi paikan kartalla. Kiitos.";
@@ -492,16 +492,16 @@
 "download_map_notification" = "Lataa sijaintisi kartta";
 
 /* text of notification */
-"pro_version_is_free_today" = "Full version of OMaps is free today! Download now and tell your friends.";
+"pro_version_is_free_today" = "Full version of Organic Maps is free today! Download now and tell your friends.";
 
 /* Dialog for transferring maps from lite to pro. */
-"move_lite_maps_to_pro" = "Me siirrämme lataamasi kartat OMaps Lite:stä OMaps:hen. Siirtäminen voi viedä muutaman minuutin.";
+"move_lite_maps_to_pro" = "Me siirrämme lataamasi kartat Organic Maps Lite:stä Organic Maps:hen. Siirtäminen voi viedä muutaman minuutin.";
 
 /* Message to display when maps moved. */
-"move_lite_maps_to_pro_ok" = "Lataamasi kartat on siirretty onnistuneesti OMaps:hen.";
+"move_lite_maps_to_pro_ok" = "Lataamasi kartat on siirretty onnistuneesti Organic Maps:hen.";
 
 /* Message to display when maps move failed. */
-"move_lite_maps_to_pro_failed" = "Karttoja ei voitu siirtää. Ole hyvä ja poista OMaps Lite ja lataa kartat uudelleen.";
+"move_lite_maps_to_pro_failed" = "Karttoja ei voitu siirtää. Ole hyvä ja poista Organic Maps Lite ja lataa kartat uudelleen.";
 
 /* Text in menu */
 "settings_and_more" = "Asetukset &amp; Lisää";
@@ -510,7 +510,7 @@
 "website" = "Kotisivut";
 
 /* Text in menu */
-"maps_me_community" = "OMaps -yhteisö";
+"maps_me_community" = "Organic Maps -yhteisö";
 
 /* Text in menu */
 "like_on_facebook" = "Tykkää meistä Facebookissa";
@@ -540,13 +540,13 @@
 "report_a_bug" = "Ilmoita virheestä";
 
 /* Email subject */
-"subscribe_me_subject" = "Lisätkää minut OMaps:n uutiskirjeen tilaajaksi";
+"subscribe_me_subject" = "Lisätkää minut Organic Maps:n uutiskirjeen tilaajaksi";
 
 /* Email body */
-"subscribe_me_body" = "Liittäkää minut OMaps -uutiskirjeen tilaajaksi saadakseni ensimmäisenä tietoa uusista päivityksistä ja TARJOUKSISTA. Voin peruuttaa tilaukseni koska tahansa.";
+"subscribe_me_body" = "Liittäkää minut Organic Maps -uutiskirjeen tilaajaksi saadakseni ensimmäisenä tietoa uusista päivityksistä ja TARJOUKSISTA. Voin peruuttaa tilaukseni koska tahansa.";
 
 /* About text */
-"about_text" = "OMaps tarjoaa nopeimmat offline-kartat kaikista kaupungeista, kaikissa maissa ympäri maailman. Matkusta luottavaisin mielin - missä ikinä oletkin, OMaps auttaa sinua löytämään itsesi kartalta, ohjaamaan sinut lähimpään ravintolaan, hotelliin, pankkiin, huoltoasemalle jne. Internet-yhteyttä ei tarvita.\n\nTyöskentelemme jatkuvasti uusien ominaisuuksien parissa, ja haluammekin kuulla sinulta kuinka voimme parantaa MAPS.me -sovellusta entisestään. Mikäli sinulla on ongelmia sovelluksen kanssa, älä epäröi ottaa yhteyttä asiakaspalveluumme osoitteessa support@omaps.app. Vastaamme jokaiseen yhteydenottoon!\n\nTykkäätkö OMaps -sovelluksesta ja haluat tukea meitä? Siihen on muutamia helppoja ja täysin ilmaisia tapoja:\n\n- lisää sovellusarviosi käyttämääsi sovelluskauppaan\n - tykkää Facebook-sivustamme osoitteessa http://www.facebook.com/mapswithme\n- kerro MAPS.me:stä äidillesi, ystävillesi ja kollegoillesi :)\n\nKiitos sovelluksen käytöstä. Arvostamme tukeasi todella paljon!\n\nP.S. Kaikki tiedot noudetaan OpenStreetMap-palvelusta, joka on Wikipedian kaltainen karttaprojekti, jossa kuka tahansa voi lisätä ja muokata karttoja. Mikäli havaitset kartoissa virheitä ja puutteita, voit korjata ne osoitteessa https://www.openstreetmap.org, ja muutokset näkyvät sovelluksessa seuraavan OMaps -päivityksen jälkeen.";
+"about_text" = "Organic Maps tarjoaa nopeimmat offline-kartat kaikista kaupungeista, kaikissa maissa ympäri maailman. Matkusta luottavaisin mielin - missä ikinä oletkin, Organic Maps auttaa sinua löytämään itsesi kartalta, ohjaamaan sinut lähimpään ravintolaan, hotelliin, pankkiin, huoltoasemalle jne. Internet-yhteyttä ei tarvita.\n\nTyöskentelemme jatkuvasti uusien ominaisuuksien parissa, ja haluammekin kuulla sinulta kuinka voimme parantaa MAPS.me -sovellusta entisestään. Mikäli sinulla on ongelmia sovelluksen kanssa, älä epäröi ottaa yhteyttä asiakaspalveluumme osoitteessa support@organicmaps.app. Vastaamme jokaiseen yhteydenottoon!\n\nTykkäätkö Organic Maps -sovelluksesta ja haluat tukea meitä? Siihen on muutamia helppoja ja täysin ilmaisia tapoja:\n\n- lisää sovellusarviosi käyttämääsi sovelluskauppaan\n - tykkää Facebook-sivustamme osoitteessa http://www.facebook.com/OMapsApp\n- kerro MAPS.me:stä äidillesi, ystävillesi ja kollegoillesi :)\n\nKiitos sovelluksen käytöstä. Arvostamme tukeasi todella paljon!\n\nP.S. Kaikki tiedot noudetaan OpenStreetMap-palvelusta, joka on Wikipedian kaltainen karttaprojekti, jossa kuka tahansa voi lisätä ja muokata karttoja. Mikäli havaitset kartoissa virheitä ja puutteita, voit korjata ne osoitteessa https://www.openstreetmap.org, ja muutokset näkyvät sovelluksessa seuraavan Organic Maps -päivityksen jälkeen.";
 
 /* Alert text */
 "email_error_body" = "Sähköpostisovellusta ei ole asetettu. Ole hyvä ja määritä sähköpostiasetukset tai ota meihin yhteyttä toista kautta osoitteessa %@";
@@ -564,7 +564,7 @@
 "routing_map_outdated" = "Päivitä kartta luodaksesi reitin";
 
 /* Update maps suggestion */
-"routing_update_maps" = "Uusi OMaps -versio mahdollistaa reittien luonnin nykyisestä sijainnista määränpäähäsi.Päivitä kartat käyttääksesi tätä ominaisuutta.";
+"routing_update_maps" = "Uusi Organic Maps -versio mahdollistaa reittien luonnin nykyisestä sijainnista määränpäähäsi.Päivitä kartat käyttääksesi tätä ominaisuutta.";
 
 /* Update all button text */
 "downloader_update_all_button" = "Päivitä kaikki";
@@ -592,7 +592,7 @@
 "downloader_search_results" = "Löytyi";
 
 /* Disclaimer message */
-"routing_disclaimer" = "Pidä mielessä seuraavat seikat luodessasi reittejä OMaps -sovelluksella:\n\n- Ehdotettuja reittejä tulee pitää vain suosituksina.\n- Teiden kunto, liikennesäännöt ja -merkit on aina otettava huomioon navigointiehdotuksista huolimatta.\n - Kartassa saattaa olla virheitä, tai se saattaa olla vanhentunut, eikä reittejä sen takia voida luoda parhaalla mahdollisella tavalla.\n\nPysy valppaana liikenteessä ja pidä huolta itsestäsi!";
+"routing_disclaimer" = "Pidä mielessä seuraavat seikat luodessasi reittejä Organic Maps -sovelluksella:\n\n- Ehdotettuja reittejä tulee pitää vain suosituksina.\n- Teiden kunto, liikennesäännöt ja -merkit on aina otettava huomioon navigointiehdotuksista huolimatta.\n - Kartassa saattaa olla virheitä, tai se saattaa olla vanhentunut, eikä reittejä sen takia voida luoda parhaalla mahdollisella tavalla.\n\nPysy valppaana liikenteessä ja pidä huolta itsestäsi!";
 
 /* Outdated maps category */
 "downloader_outdated_maps" = "Vanhentunut";
@@ -628,7 +628,7 @@
 "routing_failed_route_not_found" = "Lähtöpisteen ja määränpään välillä ei löytynyt reittiä. Valitse toinen lähtöpiste tai määränpää.";
 
 /* InternalError */
-"routing_failed_internal_error" = "Sisäinen virhe. Kokeile asentaa kartta uudelleen. Mikäli ongelma jatkuu, ota yhteyttä asiakaspalveluun osoitteessa support@omaps.app.";
+"routing_failed_internal_error" = "Sisäinen virhe. Kokeile asentaa kartta uudelleen. Mikäli ongelma jatkuu, ota yhteyttä asiakaspalveluun osoitteessa support@organicmaps.app.";
 
 /* Context menu item for downloader. */
 "downloader_download_map_and_routing" = "Lataa kartta + reititys";
@@ -675,10 +675,10 @@
 "rating_just_rated" = "Olen juuri arvostellut sovelluksesi.";
 
 /* Text for rating dialog */
-"rating_user_since" = "Olen OMaps käyttäjä vuodesta %@.";
+"rating_user_since" = "Olen Organic Maps käyttäjä vuodesta %@.";
 
 /* Text for rating dialog */
-"rating_do_like_maps" = "Pidätkö OMaps sovelluksesta?";
+"rating_do_like_maps" = "Pidätkö Organic Maps sovelluksesta?";
 
 /* Text for rating dialog */
 "rating_tap_star" = "Napauta tähteä arvostellaksesi sovelluksemme.";
@@ -702,7 +702,7 @@
 "routing_download_map" = "Hanki kartta";
 
 /* Text for routing error dialog */
-"routing_download_map_and_routing" = "Lataa päivitetty kartta ja reititysdata saadaksesi kaikki OMaps -ominaisuudet.";
+"routing_download_map_and_routing" = "Lataa päivitetty kartta ja reititysdata saadaksesi kaikki Organic Maps -ominaisuudet.";
 
 /* Text for routing error dialog */
 "routing_get_routing_data" = "Hanki reitityskartta";
@@ -923,7 +923,7 @@
 
 "rate_alert_title" = "Pidätkö sovelluksesta?";
 
-"rate_alert_default_message" = "Kiitos kun käytät OMaps:tä. Voisitko myös arvostella sovelluksen? Palautteesi avulla tulemme vielä paremmiksi.";
+"rate_alert_default_message" = "Kiitos kun käytät Organic Maps:tä. Voisitko myös arvostella sovelluksen? Palautteesi avulla tulemme vielä paremmiksi.";
 
 "rate_alert_five_star_message" = "Hurraa! Mekin rakastamme sinua!";
 
@@ -1034,7 +1034,7 @@
 
 "editor_report_problem_duplicate_place_title" = "Paikan kaksoiskappale";
 
-"first_launch_congrats_title" = "OMaps on valmiina käyttöön";
+"first_launch_congrats_title" = "Organic Maps on valmiina käyttöön";
 
 "first_launch_congrats_text" = "Etsi ja navigoi ympäri maailman ilman verkkoyhteyttä, ilmaiseksi.";
 
@@ -1218,7 +1218,7 @@
 
 "whatsnew_editor_message_1" = "Lisää karttaan uusia paikkoja ja muokkaa sovelluksessa olevia karttoja suoraan sovelluksessa.";
 
-"whatsnew_editor_message_2" = "* OMaps käyttää OpenStreetMap -yhteisön dataa.";
+"whatsnew_editor_message_2" = "* Organic Maps käyttää OpenStreetMap -yhteisön dataa.";
 
 "dialog_incorrect_feature_position" = "Vaihda sijaintia";
 
@@ -1231,7 +1231,7 @@
 /* Error dialog no space */
 "migration_no_space_message" = "Tarvitset lisää tilaa ladataksesi. Poista tarpeeton data.";
 
-"editor_sharing_title" = "Paransin OMaps-karttoja";
+"editor_sharing_title" = "Paransin Organic Maps-karttoja";
 
 "editor_comment_will_be_sent" = "Lähetämme kommenttisi kartanpiirtäjille.";
 
@@ -1262,7 +1262,7 @@
 
 "editor_detailed_description_hint" = "Yksityiskohtainen kommentti";
 
-"editor_detailed_description" = "Ehdottamasi muutokset lähetetään OpenStreetMap-yhteisöön. Kuvaa tiedot, joita ei voi muokata OMaps:ssä.";
+"editor_detailed_description" = "Ehdottamasi muutokset lähetetään OpenStreetMap-yhteisöön. Kuvaa tiedot, joita ei voi muokata Organic Maps:ssä.";
 
 "editor_more_about_osm" = "Lisätietoja OpenStreetMap:ista";
 
@@ -1339,10 +1339,6 @@
 
 "placepage_open_24_7" = "24 / 7";
 
-"place_page_booking_rating" = "Luokitus: %s";
-
-"place_page_starting_from" = "%s:stä";
-
 "meter" = "m";
 
 "kilometer" = "km";
@@ -1410,17 +1406,9 @@
 
 "editor_profile_rating_place" = "Luokitussija";
 
-"booking_dialog_not_connect_header" = "Ota käyttöön internet-yhteytesi varataksesi hotellin";
-
-"button_try" = "Kokeile sitä";
-
 "refresh" = "Päivitä";
 
 "last_update" = "Viimeisin päivitys: %s";
-
-"booking_checkin" = "kirjaudu sisään: %s";
-
-"booking_checkout" = "kirjaudu ulos: %s";
 
 "placepage_add_place_button" = "Lisää paikka kartalle";
 
@@ -1453,9 +1441,6 @@
 /* iOS dialog for the case when recent track recording is on and the app comes back from background */
 "recent_track_background_dialog_title" = "Poistetaanko viimeisen matkareitin tallennus?";
 
-/* If a hotel is being shared */
-"sharing_booking" = "tai varaa booking.comissa";
-
 "off_recent_track_background_button" = "Poista";
 
 /* For sharing via SMS and so on */
@@ -1472,10 +1457,10 @@
 "tell_friends" = "Kerro kaverille";
 
 /* Share with friends: sharing text */
-"tell_friends_text" = "Hei, asenna OMaps!";
+"tell_friends_text" = "Hei, asenna Organic Maps!";
 
 /* About short text (below logo) */
-"about_description" = "OMaps on ehdoton offline-sovellus matkoja varten. OMaps perustuu OpenStreetMap-dataan ja sallii sen muokkauksen.";
+"about_description" = "Organic Maps on ehdoton offline-sovellus matkoja varten. Organic Maps perustuu OpenStreetMap-dataan ja sallii sen muokkauksen.";
 
 /* Text in menu */
 "blog" = "Blogi";
@@ -1495,51 +1480,7 @@
 /* For the first routing */
 "decline" = "Hylkää";
 
-"whats_new_route_profile_title" = "Parempi katsoa kuin katua";
-
-"whats_new_route_profile_message" = "Näytämme nyt maaston korkeuden kävely- ja pyöräilyreittejä varten.";
-
-"whats_new_booking_improve_title" = "Säästä hotellivarauksissa";
-
-"whats_new_booking_improve_message" = "Hotellien hakutuloksissa näkyy nyt hintakategoria.\nLisäsimme myös yli 110 000 hotellia.";
-
-/* For place page hotel facilities block */
-"placepage_hotel_facilities" = "Palvelut";
-
-/* For place page hotel nearby block */
-"placepage_hotel_nearby" = "Lähellä";
-
-/* For ordering a taxi (as opposed to hotels or other things) */
-"taxi_order" = "Taksin tilaaminen";
-
-/* How long it is until the taxi arrives */
-"taxi_wait" = "Saapumiseen arviolta %s";
-
-/* When there are no available taxis nearby */
-"taxi_not_found" = "Läheltä ei löytynyt taksia";
-
-/* When there are no available taxi providers nearby */
-"taxi_no_providers" = "Taksi ei ole saatavilla täällä";
-
 "install_app" = "Asenna";
-
-/* `Filter` is a noun here */
-"booking_filters" = "Suodatin";
-
-"booking_filters_reset" = "Palauta";
-
-/* Beginning from a particular value and */
-"booking_filters_rating" = "Arvio vähintään";
-
-"booking_filters_rating_any" = "Kaikki";
-
-"booking_filters_ragting_good" = "Hyvä";
-
-"booking_filters_rating_very_good" = "Todella hyvä";
-
-"booking_filters_rating_excellent" = "Erinomainen";
-
-"booking_filters_price_category" = "Hintaluokka";
 
 "search_no_results_title" = "Ei hakutuloksia";
 
@@ -1551,28 +1492,6 @@
 
 /* noun */
 "search_in_table" = "Luettelo";
-
-"booking_show_more" = "Näytä lisää";
-
-"booking_reviews" = "Arviot";
-
-"booking_hotel" = "Hotelli";
-
-/* hotel room */
-"booking_hotel_room" = "Huone";
-
-/* A neologism for a chat based on geographical proximity */
-"chat" = "Geochat";
-
-/* Verb. Text on a button that opens the chat. */
-"chat_open" = "Avaa";
-
-"dialog_taxi_offline" = "Taksin tilaaminen ei ole mahdollista ilman verkkoyhteyttä.";
-
-"dialog_taxi_error" = "Taksin tilaaminen ei ole tällä hetkellä mahdollista.";
-
-/* Abbreviated for all languages. */
-"advertisement" = "AD";
 
 "mobile_data_dialog" = "Näytetäänkö lisätiedot mobiili-internetillä?";
 
@@ -1596,7 +1515,7 @@
 
 "big_font" = "Suurenna fonttikokoa kartalla";
 
-"traffic_update_app" = "Päivitä OMaps";
+"traffic_update_app" = "Päivitä Organic Maps";
 
 /* "traffic" as in road congestion */
 "traffic_update_app_message" = "Liikennetietojen näyttämiseksi sovellus on päivitettävä.";
@@ -1607,69 +1526,14 @@
 /* "Translation is no needed, because it's a company name" */
 "uber" = "Uber";
 
-/* Seven points and higher */
-"booking_filter_rating_num_good" = "7.0+";
-
-/* Eight points and higher */
-"booking_filter_rating_num_very_good" = "8.0+";
-
-/* Nine points and higher */
-"booking_filter_rating_num_excellent" = "9.0+";
-
-"booking_filter_price_low" = "$";
-
-"booking_filter_price_medium" = "$$";
-
-"booking_filter_price_high" = "$$$";
-
 /* Simplified colour scheme for traffic information, fewer colours are used to display traffic jams on the map. The string should be kept as short as possible */
 "pref_traffic_simplified_colors_title" = "Simppelit liikennevärit";
 
 "enable_logging" = "Ota loki käyttöön";
 
-"more_on_bookingcom" = "Lisää osoitteessa Booking.com";
-
-"details_on_bookingcom" = "Lisätietoa osoitteessa Booking.com";
-
-"reviews_on_bookingcom" = "Lisää arvosteluja osoitteessa Booking.com";
-
 "offline_place_page_more_information" = "Yhdistä internetiin saadaksesi lisätietoa paikasta.";
 
 "failed_load_information" = "Tietojen lataaminen epäonnistui.";
-
-"booking_search" = "Booking.com";
-
-"whats_new_auto_update_updating_maps" = "Päivitetään karttoja";
-
-"whats_new_auto_update_title" = "Päivitä ladatut kartat";
-
-"whats_new_auto_update_message" = "Karttojen päivittäminen pitää kohteita koskevat tiedot ajan tasalla";
-
-"whats_new_auto_update_button_size" = "Päivitä (%s)";
-
-"whats_new_auto_update_button_later" = "Päivitä manuaalisesti myöhemmin";
-
-"search_hotel_filter_apartment" = "Loma-asunnot";
-
-"search_hotel_filter_camp_site" = "Retkeily";
-
-"search_hotel_filter_chalet" = "Alppimaja";
-
-"search_hotel_filter_guest_house" = "Majatalo";
-
-"search_hotel_filter_hostel" = "Hostelli";
-
-"search_hotel_filter_resort" = "Lomakohteet";
-
-"search_hotel_filter_hotel" = "Hotelli";
-
-"search_hotel_filter_motel" = "Motelli";
-
-"create_campaign_button" = "Ilmoittaudu yrityksen omistajaksi";
-
-"view_campaign_button" = "Yritystä mainostetaan";
-
-"search_hotel_filters_type" = "Tyyppi";
 
 /* Settings: "Send general feedback" button */
 "feedback_general" = "Yleinen palaute";
@@ -1744,65 +1608,7 @@
 
 "preloader_viator_button" = "Lisätietoja";
 
-"whats_new_title_route" = "Parannetut pyörä- ja kävelyreitit";
-
-"whats_new_message_route" = "Korjasimme virheitä, teimme reittien muodostuksesta monta kertaa nopeampaa ja lisäsimme välipysähdyksiä";
-
-"whats_new_message_title_update" = "Teimme karttapäivityksistä 10 kertaa pienempiä";
-
-"whats_new_message_maps_update" = "Kun päivität kartan, sinun täytyy nyt ladata vain puuttuvat tiedot";
-
 "start_from_my_position" = "Aloita kohdasta";
-
-"rating" = "Arvio";
-
-"placepage_no_reviews" = "Ei arvosteluja";
-
-"placepage_reviewed" = "Olet jo arvioinut tämän paikan";
-
-"placepage_summary_rating" = "Yhteenvetoarvio";
-
-"placepage_rate_comment" = "Arvioi ja arvostele tämä paikka napauttamalla.";
-
-"placepage_rate_horrible" = "Kamala";
-
-"placepage_rate_bad" = "Huono";
-
-"placepage_rate_normal" = "Normaali";
-
-"placepage_rate_good" = "Hyvä";
-
-"placepage_rate_excellent" = "Erinomainen";
-
-"placepage_reviews_most_recent" = "Viimeisimmät";
-
-"placepage_reviews_most_useful" = "Hyödyllisimmät";
-
-"placepage_reviews_highest_rated" = "Parhaat";
-
-"placepage_reviews_lowest_rated" = "Huonoimmat";
-
-"placepage_reviews_offline_comment" = "Vain hyödyllisimmät arvostelut näytetään offline-tilassa";
-
-"placepage_reviews_your_comment" = "Arviosi";
-
-"placepage_reviews_unhelpful" = "Hyödytön";
-
-"placepage_reviews_inappropriate" = "Sopimaton";
-
-"placepage_reviews_spam" = "Spämmi";
-
-"placepage_reviews_hint" = "Mitä hyvää tai huonoa täällä on?";
-
-"placepage_reviews_edit_your_review" = "Muokkaa arviotasi";
-
-"placepage_reviews_new_review" = "Uusi arvio";
-
-"placepage_translate_button" = "Käännä";
-
-"placepage_show_original_button" = "Näytä alkuperäinen";
-
-"placepage_more_reviews_booking_button" = "Lisää arvosteluja Booking.comissa";
 
 "profile_authorization_title" = "Kirjaudu sisään käyttämällä palvelua";
 
@@ -1826,41 +1632,11 @@
 
 "quality" = "Laatu";
 
-"whats_new_ugc_title_updated_v840" = "Arviot ja arvostelut";
-
-"whats_new_ugc_message" = "Nyt voit jättää arvioita ja arvosteluja myös offline-tilassa! Älä unohda päivittää karttojasi, jotta näet muutokset.";
-
 "dialog_error_storage_title" = "Ongelma tallennustilan käyttämisessä";
 
-"dialog_error_storage_message" = "Ulkoinen tallennustila ei ole käytettävissä, SD-kortti on luultavasti poistettu tai vahingoittunut tai tiedostojärjestelmä on vain luku -tilassa. Tarkista ja ota yhteyttä osoitteeseen support@omaps.app";
+"dialog_error_storage_message" = "Ulkoinen tallennustila ei ole käytettävissä, SD-kortti on luultavasti poistettu tai vahingoittunut tai tiedostojärjestelmä on vain luku -tilassa. Tarkista ja ota yhteyttä osoitteeseen support@organicmaps.app";
 
 "setting_emulate_bad_storage" = "Jäljittele virheellistä tallennustilaa";
-
-"discovery_button_title" = "Löydä lähistöllä olevia kohteita";
-
-"discovery_button_subtitle_things_to_do" = "Tekemistä";
-
-"discovery_button_subtitle_attractions" = "Nähtävyydet";
-
-"discovery_button_subtitle_eat_and_drink" = "Syötävää ja juotavaa";
-
-"discovery_button_subtitle_local_guides" = "Paikalliset oppaat";
-
-"discovery_button_viator_error_title" = "Virhe ladattaessa tietoja";
-
-"discovery_button_other_error_message" = "Virhe ladattaessa tietoja";
-
-"discovery_button_other_loading_message" = "Tietoja ladataan";
-
-"discovery_button_404_error_title" = "Ei löytynyt";
-
-"discovery_button_404_error_message" = "Emme löytäneet mitään mielenkiintoista lähistöltä.";
-
-"booking_filters_check_in" = "Sisäänkirjautuminen";
-
-"booking_filters_check_out" = "Uloskirjautuminen";
-
-"booking_filters_offline" = "Ei saatavilla offline.";
 
 "directions_finish" = "Kohde";
 
@@ -1875,18 +1651,6 @@
 "crowdedness" = "Ahtaus";
 
 "error_enter_correct_name" = "Anna oikea nimi";
-
-"hotel_available" = "Saatavilla";
-
-"whats_new_transit_title" = "Metrot käytettävissä";
-
-"whats_new_transit_message" = "Luo reittisi käyttämällä metroja! Päivitä kartat, jotta näet muutokset.";
-
-"whats_new_discovery_title" = "Löytöpainike";
-
-"whats_new_discovery_message" = "Löydä tekemistä lähistöltä yhdellä napsautuksella!";
-
-"price_per_hour" = "%s/tunti";
 
 "bookmarks_backup" = "Ota varmuuskopiointi käyttöön";
 
@@ -1918,14 +1682,6 @@
 
 "downloader_applying" = "%s otetaan käyttöön...";
 
-"whats_new_title_hotel_filter" = "Uusia hotellisuodattimia on saatavana!";
-
-"whats_new_message_hotel_filter" = "Varaa hotelleja, joissa on tilaa valitseminasi päivinä! Käytä sisäänkirjautumis- ja uloskirjautumissuodattimia";
-
-"whats_new_title_ugc_travel" = "Jaa kokemuksesi muille matkailijoille!";
-
-"whats_new_message_ugc_travel" = "Arvioi ja kirjoita arvosteluja vierailemistasi paikoista!";
-
 "dialog_message_transit_not_found_connection" = "Suunnittele reitti yhdellä läpikulkuverkolla";
 
 "bookmarks_error_message_share_general" = "Ei voitu jakaa sovellusvirheen vuoksi";
@@ -1933,10 +1689,6 @@
 "bookmarks_error_title_share_empty" = "Jakamisvirhe";
 
 "bookmarks_error_message_share_empty" = "Tyhjää listaa ei voi jakaa";
-
-"discovery_button_subtitle_book_hotels" = "Varaa hotelleja";
-
-"maxim_taxi_title" = "maxim";
 
 "bookmarks_error_title_empty_list_name" = "Nimi ei voinut olla tyhjä";
 
@@ -1978,10 +1730,6 @@
 
 "wn_reinvented_bookmarks_message" = "Voit varmuuskopioida kirjanmerkkejä, luoda luetteloita... On hämmästyttävää...";
 
-"wn_way_of_booking_title" = "Me kuvittelimme uudelleen varauksen tapaa!";
-
-"wn_way_of_booking_message" = "Etsi hotelli kartalla ja varaa se tai valitse vastaava.";
-
 "bookmarks_restore" = "Palauta kirjanmerkit";
 
 "bookmarks_restore_process" = "Palautetaan...";
@@ -2004,20 +1752,6 @@
 
 "restore" = "Palauttaa";
 
-"sign_message_gdpr" = "Jotta voit jatkaa, sinun on hyväksyttävä käyttöehdot ja tietosuojakäytäntö. Lue ne huolellisesti.";
-
-"sign_agree_pp_gdpr" = "Hyväksyn <a href=\"%s\">tietosuojakäytännön</a>";
-
-"sign_agree_tof_gdpr" = "Hyväksyn <a href=\"%s\">käyttöehdot</a>";
-
-"sign_agree_news_gdpr" = "Hyväksyn viimeisimmät uutiset OMaps-tuotteista";
-
-"whats_new_localbiz_title" = "Pienet yritykset ansaitsevat huomiota";
-
-"whats_new_localbiz_message" = "Juuri paikalliset kahvilat, kotoisat hostellit ja kaupat tekevät matkastasi unohtumattoman. Me optimoimme sivusi OMaps:ssä saadaksesi sen erottumaan joukosta.";
-
-"whats_new_order_button" = "Jätä pyyntö";
-
 "bookmarks_page_downloaded" = "Ladattu";
 
 "bookmarks_page_my" = "Minun";
@@ -2028,7 +1762,7 @@
 
 "cached_bookmarks_placeholder_title" = "Lataa uudet paikat";
 
-"cached_bookmarks_placeholder_subtitle" = "Paina nappulaa ladataksesi tuhansia kiinnostavia paikkoja ja reittejä joita OMaps käyttäjät ovat luoneet. Tarvitset internet yhteyden.";
+"cached_bookmarks_placeholder_subtitle" = "Paina nappulaa ladataksesi tuhansia kiinnostavia paikkoja ja reittejä joita Organic Maps käyttäjät ovat luoneet. Tarvitset internet yhteyden.";
 
 "downloader_download_routers" = "Lataa kirjanmerkit";
 
@@ -2040,7 +1774,7 @@
 
 "crash_reports" = "Kaatumisraportti";
 
-"crash_reports_description" = "Me saatamme käyttää tietojasi parantaaksemme OMaps kokemusta. Muutokset alkavat vaikuttamaan kun käynnistät sovelluksen uudestaan.";
+"crash_reports_description" = "Me saatamme käyttää tietojasi parantaaksemme Organic Maps kokemusta. Muutokset alkavat vaikuttamaan kun käynnistät sovelluksen uudestaan.";
 
 "opt_out_help_ios_1" = "Mobiililaitteesi saattaa tarjota ”Rajoittettu Mainos Seuranta” tai ”Poistu internet-perusteisesta mainnonnasta” asetuksia.";
 
@@ -2078,18 +1812,6 @@
 
 "subtitle_error_downloading_bookmarks" = "Kirjanmerkkejä ei ole ladattu";
 
-"whats_new_bookmarks_catalog_title" = "OMaps:ssä on nyt reitti katalogi";
-
-"whats_new_bookmarks_catalog_message" = "Satoja yksityiskohtaisia reittejä kaikkialta maailmasta: minne mennä, mitä nähdä, missä syödä.";
-
-"whats_new_popularity_label_title" = "Suosittuja kohteita lähellä";
-
-"whats_new_popularity_label_message" = "Mitä Tehdä osio auttaa sinua löytämään suosituimmat paikat kaupungissa.";
-
-"whats_new_hot_offers_title" = "Houkuttelevia tarjouksia hotelleilta";
-
-"whats_new_hot_offers_message" = "Voit etsiä niitä käyttämällä Hotellit kategoriaa haussa. Tulokset näytetään prosentti merkillä kartassa ja hakutuloksissa.";
-
 "error_already_downloaded" = "Tämä lista on jo ladattu";
 
 "popular_place" = "Popular";
@@ -2100,92 +1822,17 @@
 
 "bookmarks_downloaded_subtitle" = "Press ‘View on map’ to explore new places from the list";
 
-"guides" = "Oppaat";
+"why_support" = "Miksi tukea Organic Maps?";
 
-"guide_downloaded_title" = "Opas on onnistuneesti ladattu";
+"why_support_item1" = "We respect your privacy: there are zero trackers in the app, and we are open source";
 
-/* as few symbols as possible */
-"download_guides" = "Etsi matkaoppaita";
-
-"guides_groups_cached" = "Ladatut oppaat";
-
-"subtitle_error_downloading_guide" = "Opasta ei ladattu";
-
-"error_already_downloaded_guide" = "Tämä opas on jo ladattu";
-
-"guide_downloaded_subtitle" = "Paina 'Näytä kartalla' tutkiaksesi opasta";
-
-"bookmarks_guides" = "Kirjanmerkit ja oppaat";
-
-"paybtn_title" = "Maksa %s/vuosi";
-
-"paybtn_subtitle" = "Säästä %s/vuosi";
-
-"options_dropdown_title" = "Lisää vaihtoehtoja";
-
-"why_support" = "Miksi tukea OMaps?";
-
-"options_dropdown_item1" = "%s/kuukausi (Säästä %s/vuosi)";
-
-"options_dropdown_item2" = "%s/viikko (ei säästöä)";
-
-"why_support_item1" = "Poistamme kaikki mainokset sinulta";
-
-"why_support_item2" = "Sinä autat meitä parantamaan OMaps:tä";
+"why_support_item2" = "Sinä autat meitä parantamaan Organic Maps:tä";
 
 "why_support_item3" = "Auta meitä parantamaan avoimia karttoja OpenStreetMap.org";
 
-"purchase_processing" = "Ostostasi käsitellään…";
-
-"tips_bookmarks_catalog_title" = "Offline ohjeet kaikenlaisille matkoille";
-
-"tips_bookmarks_catalog_message" = "Lataa ja suunnittele turistireitit mielenkiintoisin paikkoihin maailman eri kaupungeissa.";
-
-"tips_discover_button_title" = "Haluatko löytää suosittuja lähistöllä olevia kohteita?";
-
-"tips_discover_button_message" = "”Löydä lähistöllä olevia kohteita” osio sisältää parhaat ravintolat, hotellit ja nähtävyydet.";
-
-"tips_book_hotel_title" = "Varaa mukavimmat hotellit matkallesi";
-
-"tips_book_hotel_message" = "Käytä hakua ja filttereitä löytääksesi parhaat hotellit sinulle. Käytä ”Varaa” nappulaa joka on paikka sivulla varataksesi hotellin välittömästi.";
-
-"tips_map_layers_title" = "Etkö tiedä millä asemalla tehdä vaihto?";
-
-"tips_map_layers_message" = "Laita metro taso päälle, nähdäksi metrokartan ja löydät reittisi aina uudessa kaupungissa.";
-
 "channels_map_update" = "Kartan päivitykset";
 
-"channels_reviews" = "Lähettämättömät arviot";
-
-"purchase_loading" = "Maksutietoja ladataan…";
-
-"purchase_error_subtitle" = "Ostosi käsittelyssä tapahtui virhe";
-
-"awaiting_approval" = "Odotetaan vanhemman hyväksyntää";
-
-"whats_new_leave_review" = "Jätä arvio! Jaa mielipiteesi paikoista joissa olet käynyt lomallasi.";
-
 "server_unavailable_title" = "Serveri ei ole saatavilla";
-
-"server_unavailable_message" = "Ostos viimeistellään myöhemmin. Jos virhe jatkuu, ota yhteyttä support@omaps.app.";
-
-"offline_fiters_check_in" = "Yhdistä internettiin suodattaaksesi hotelleja päivillä.";
-
-"rutaxi_title" = "RuTaxi";
-
-"restore_subscription" = "Palauta tilaus";
-
-"restore_success_alert" = "Tilaus on palautettu onnistuneesti";
-
-"restore_error_alert" = "Tilausta palautettaessa ilmeni ongelma";
-
-"restore_no_subscription_alert" = "Aktiivisia tilauksia ei ole";
-
-"subscriptions_title" = "Tilaukset";
-
-"manage_subscription" = "Hallitse tilausta";
-
-"taxi" = "Taxi";
 
 "sharing_options" = "Käyttöasetukset";
 
@@ -2197,13 +1844,13 @@
 
 "hide_from_map" = "Piilottaa kartalta";
 
-"ugc_route_tags_screen_label" = "Valitse tunnisteet";
-
-"ugc_route_tags_progress_msg" = "Lataamme tunnisteita…";
-
 "public_access" = "Julkinen pääsy";
 
 "limited_access" = "Yksityinen pääsy";
+
+"bookmark_category_name" = "Kategoria";
+
+"bookmark_category_description_hint" = "Lisää kuvaus (teksti tai html)";
 
 /* FIXME */
 "bookmarks_public_access" = "bookmarks_public_access";
@@ -2214,33 +1861,11 @@
 /* FIXME */
 "bookmarks_private_access" = "bookmarks_private_access";
 
-"upload_and_publish_desc" = "Tämä matkaopas lähetetään julkiseen hakemistoon OMaps ja se on muiden käyttäjien käytettävissä";
-
-"upload_and_publish" = "Ladata ja julkaista";
-
-"upload_and_get_direct_link" = "Ladata ja saada linkki";
-
-"get_direct_link_desc" = "Matkaoppaanne on saatavana suoralla linkillä";
-
-"upload_and_publish_progress_text" = "Matkaopasta julkaistaan…";
-
-"upload_and_publish_success" = "Matkaopas on julkaistu";
-
-"ugc_routes_user_agreement" = "<b>HUOMAA:</b> jatkamalla, te hyväksytte <a href=\"%s\">lisenssisopimuksen</a>";
-
-"ugc_route_edit_list_name" = "Matkaopasnimi";
-
-"ugc_route_edit_description_hint" = "Lisää kuvaus (teksti tai html)";
-
 "not_shared" = "Henkilökohtainen";
 
 "direct_link_progress_text" = "Lataamme tiedostoanne…";
 
 "direct_link_success" = "Linkki on luotu";
-
-"edit_guide_title" = "Muokkaa matkaoppaasi verkossa";
-
-"edit_guide_subtitle" = "Hanki linkki muokataksesi oppaasi web-sovelluksen kautta: lisää paikkojen kuvauksia, lataa valokuvia ja yhdistä merkkejä viivoilla.";
 
 "send_a_link_btn" = "Lähetä linkki";
 
@@ -2254,39 +1879,7 @@
 
 "unable_upload_error_subtitle_broken" = "Tiedosto on vioittunut eikä sitä voi ladata. Ole hyvä, lataa toinen tiedosto.";
 
-"buy_btn" = "Osta opas hintaan %s";
-
-"download_guide_progress" = "Matkaopas latautuu…";
-
-"price_error_title" = "Hintaa ei voi selvittää";
-
-"price_error_subtitle" = "Yrittä uudelleen muutaman minuutin kuluttua";
-
-"edit_your_guide_email_body" = "Muokkaa matkaopastasi tietokoneella: lisää paikkojen kuvauksia, lataa valokuvia ja yhdistä merkkejä viivoilla.";
-
-"edit_on_web" = "Muokata verkossa";
-
-"properties_loading_error_subtitle" = "Vaihtoehtojen latauksen aikana tapahtui virhe, ole hyvä, yritä uudelleen";
-
-"custom_props_desc" = "Olet tehnyt tämä oppaan";
-
-"custom_props_title" = "Paikallisena tai matkailijana";
-
-"custom_props_local" = "paikallinen";
-
-"custom_props_traveler" = "matkailija";
-
-"select_properties" = "Valitse vaihtoehdot";
-
-"access_rules_p_to_p" = "Erikoispääsy";
-
-"access_rules_paid" = "Ostettu";
-
-"failed_purchase_support_message" = "Näyttää siltä, että sinulla on osto, jota et ole suorittanut loppuun. Ole hyvä, kirjoita asiakastuelle, ja me ratkaisemme ongelman.";
-
 "contact" = "Kirjoita";
-
-"check_price_button" = "Saada hinta";
 
 "download_button" = "Ladata";
 
@@ -2304,92 +1897,16 @@
 
 "place_description_title" = "Paikan kuvaus";
 
-"ugc_routes_error_uploading_file_toast" = "Valitettavasti, merkkien lataamisen aikana tapahtui virhe. Yritä uudelleen.";
-
-"notification_channel_ugc" = "Käyttäjäsisältö";
-
 /* this text will be shown in application notification preferences opposite checkbox which enable/disable downloader notifications. Devices on Android 8+ are affected. */
 "notification_channel_downloader" = "Karttojen lataaminen";
 
-"notification_leave_review_title" = "%s - miten on täällä?";
-
-"notification_leave_review_content" = "Kirjoita arvostelu ja auta matkustajia!";
-
-"share_bookmarks_email_body_link" = "Hei!\n\nMerkkinne voi ladata linkistä: %s. Avaa luettelo OMaps: llä ja nauti matkasta!\n\nLataa sovellus: https://omaps.app/get?kmz";
+"share_bookmarks_email_body_link" = "Hei!\n\nMerkkinne voi ladata linkistä: %s. Avaa luettelo Organic Maps: llä ja nauti matkasta!\n\nLataa sovellus: https://organicmaps.app/get?kmz";
 
 "warning_speedcams_title" = "Navigaattori ilmoittaa sinulle kameroista, kun nopeusraja ylittyy %d km/t";
 
 "warning_speedcams_subtitle" = "Muista tutustua matkustusmaan liikennesääntöihin.";
 
 "speedcams_notice_message" = "Auto - Varoita nopeuskameroista, jos tuntuu siltä, että nopeusrajan ylitys on mahdollista\nAina - Varoita kameroista aina\nEi koskaan - älä koskaan varoita kameroista";
-
-"whats_new_ugc_routes_title" = "Voit helposti jakaa kokemuksiasi";
-
-"whats_new_ugc_routes_subtitle" = "Tallenna ikimuistoiset paikat, luo reittejä kirjainmerkkien avulla ja jaa ne kaikkien kanssa OMaps-luettelossa.";
-
-"whats_new_webeditor_title" = "Muuta reittisi tarinoiksi";
-
-"whats_new_ugc_routes_message2" = "Lisää verkkoeditorin avulla kuvia ja yksityiskohtaisia ​​tarinoita.";
-
-"ugc_thanks_message_auth" = "Arvostelusi tallennettiin";
-
-"ugc_thanks_message_not_auth" = "Kirjaudu sisään jättääksesi arvostelun";
-
-"notification_leave_review_v2_title" = "Arvostele paikka, jossa kävit, ja auta matkailijoita!";
-
-"error_public_not_enought_title" = "Ei tarpeeksi kirjanmerkkejä";
-
-"error_public_not_enought_subtitle" = "Sinulla täytyy olla vähintään 3 kirjanmerkkiä, jotta voit lähettää oppaan julkiseen luetteloon";
-
-"bookmark_public_upload_alert_title" = "Muutama askel vielä, niin voit jakaa kirjanmerkkisi kaikkien OMaps-matkailijoiden kanssa!";
-
-"bookmark_public_upload_alert_subtitle" = "Varmista, että listallasi on kunnollinen nimi ja kuvaus, ja että kaikissa kirjanmerkeissäsi on paikoista jotain tietoa. Näin muut voivat löytää listasi ja käyttää sitä.";
-
-"bookmark_public_upload_alert_ok_button" = "Kyllä, tottakai!";
-
-"name_title" = "Kirjoita oppaasi nimi";
-
-"name_placeholder" = "esim. Lontoon pubit";
-
-"name_comment1" = "Nimeä oppaasi niin, että matkailijat voivat löytää sen helposti: esimerkiksi \"Lontoon pubit\"";
-
-"name_comment2" = "Nimessä ei saa olla erikoismerkkejä. Nimi ei saa olla \"Minun paikkani\"";
-
-"description_guide" = "Kuvaus";
-
-"description_title" = "Kirjoita oppaasi kuvaus";
-
-"description_placeholder" = "Kuvaile opastasi yksityiskohtaisesti";
-
-"description_comment1" = "Oppaasi kuvauksen pitäisi olla vähintään 30 merkin pituinen.";
-
-"ugc_route_tags_desc" = "Valitsethan avainsanoja auttaaksesi muita matkailijoita löytämään oppaasi. Tämä on pakollinen. Enintään %s avainsanaa.";
-
-"html_format_error_title" = "Opastasi ei julkaistu";
-
-"html_format_error_subtitle" = "Varmista, että kaikkien kirjanmerkkien nimet ja kuvaukset ovat oikein muotoiltu. Voit tarkistaa sen tietokoneen selaimella klikkaamalla \"Muokkaa netissä\" -painiketta alla.";
-
-"web_editor_description" = "Lähetä oppaaksi, niin saat muokkaus linkin tietokoneelle";
-
-"edit_on_web_confirm" = "Muokkaa netissä";
-
-"update_guide" = "Lähetä päivitys";
-
-"direct_link_updating_text" = "Tiedostoasi päivitetään…";
-
-"direct_link_updating_success" = "Oppaasi päivitettiin";
-
-"unable_get_direct_link_desc" = "Voit jakaa oppaasi julkisella linkillä";
-
-"any_access_update_alert_title" = "On voinut tapahtua muutoksia";
-
-"any_access_update_alert_message" = "Haluatko päivittää kirjanmerkkisi? Uusi versio on saatavilla saman linkin kautta.";
-
-"any_access_update_alert_update" = "Päivitä";
-
-"public_or_limited_access_after_edit_online_error_title" = "Muokkasit kirjanmerkkejäsi netissä";
-
-"public_or_limited_access_after_edit_online_error_message" = "Muokkaa, julkaise tai jaa opas tulevaisuudessa nettisivujemme kautta";
 
 "power_managment_title" = "Virransäästötila";
 
@@ -2401,7 +1918,7 @@
 
 "power_managment_setting_manual_max" = "Täysi virransäästö";
 
-"enable_logging_warning_message" = "Valinta ottaa käyttöön lokikirjaukset diagnostiikkaa varten. Se voi auttaa tukihenkilöstöämme, kun he korjaavat sovelluksen ongelmia. Ota tämä ominaisuus käyttöön vain, jos OMaps:n tuki pyytää.";
+"enable_logging_warning_message" = "Valinta ottaa käyttöön lokikirjaukset diagnostiikkaa varten. Se voi auttaa tukihenkilöstöämme, kun he korjaavat sovelluksen ongelmia. Ota tämä ominaisuus käyttöön vain, jos Organic Maps:n tuki pyytää.";
 
 "html_error_upload_message_try_again" = "Tarkista verkkoasetukset ja kokeile uudelleen";
 
@@ -2417,21 +1934,9 @@
 
 "privacy_settings_menu" = "Yksityisyysasetukset";
 
-"gdpr_request_setting" = "ID:n hankkiminen GDPR-pyyntöä varten";
-
-"gdpr_request_window_title" = "Sinun ID: %s.";
-
-"gdpr_request_window_message" = "Kopioi se ja lähetä pyyntö osoitteeseen support@omaps.app";
-
-"gdpr_request_window_copy" = "Kopioi ID";
-
 "unable_upadate_error_title" = "Tiedoston päivitys epäonnistui";
 
 "unable_upadate_error_message" = "Päivityksen aikana tapahtui jokin virhe. Tarkista muutokset ja yritä uudelleen";
-
-"whats_new_wiki_title" = "Mikä tuo paikka on?";
-
-"whats_new_wiki_message" = "Olemme lisänneet suosituimpien turistikohteiden sivuille Wikipedia.org-artikkelit. Ne ovat saatilla myös ilman nettiä";
 
 "driving_options_title" = "Kiertotien asetukset";
 
@@ -2467,31 +1972,7 @@
 
 "avoid_ferry_crossing_placepage" = "Vältä lautan käyttöä";
 
-"cached_guides_placeholder_subtitle" = "OMaps:n valmiit oppaat ovat valittuja paikkoja valokuvien ja kuvauksien kanssa, jotka näkyvät kartalla ja ovat käytettävissä offline-tilassa.";
-
-"guides_catalogue_title" = "Oppaiden luettelo";
-
-"download_guides_button" = "Mene hakemistoon";
-
 "type.cuisine.uzbek" = "Uzbekistanilainen ruokaa";
-
-"onboarding_guide_direct_download_title" = "Opas on valmis ladattavaksi";
-
-"onboarding_guide_direct_download_subtitle" = "Opas näkyy kartalla ja toimii offline-tilassa";
-
-"onboarding_guide_direct_download_button" = "Ladata";
-
-"onboarding_bydeeplink_guide_title" = "Valmiit oppaat OMaps:ssä";
-
-"onboarding_bydeeplink_guide_subtitle" = "Valittuja paikkoja valokuvien ja kuvauksien kanssa, jotka näkyvät kartalla ja ovat käytettävissä offline-tilassa.";
-
-"whats_new_auto_update_bydeeplink_title" = "Ennen kuin siirtytään oppaille…";
-
-"whats_new_auto_update_bydeeplink_message" = "Päivitä kartat saadaksesi ajankohtaista tietoa kohteista!";
-
-"whats_new_auto_update_and_proceed_button_size" = "Päivitä (%s) ja jatka";
-
-"purchase_please_wait_toast" = "Älä poistu näytöltä ennen kuin ostos on tehty";
 
 "trip_start" = "Mennään";
 
@@ -2531,80 +2012,6 @@
 
 "ok" = "Ok";
 
-"vezet_taxi" = "Vezet";
-
-"booking_button_toolbar" = "Etsi hotelli kartalla";
-
-"popup_booking_download_guides_title" = "Onko hotellin jo varattu?";
-
-"popup_booking_download_guides_message" = "Suunnittele reittisi valmiilla OMaps -matkaoppailla";
-
-"popup_mwm_download_guides_title" = "Offline-matkaoppaat";
-
-"popup_mwm_download_guides_cta" = "Valitse";
-
-"popup_mwm_download_guides_cta_1" = "Katso";
-
-"gallery_pp_download_guides_offline_title" = "Suunnittele lomasi OMaps:n kanssa!";
-
-"gallery_pp_download_guides_offline_subtitle" = "Älä missaa tärkeimpiä reittejä kokeneilta matkustajilta";
-
-"gallery_pp_download_guides_offline_cta" = "Ota Internet käyttöön";
-
-"gallery_pp_download_guides_title" = "Matkaoppaat";
-
-"native_screen_subscription_title" = "Täysimääräinen pääsy 2000+ matkaoppaaseen!";
-
-"native_screen_subscription_message" = "Vietä ikimuistoista vapaa-aikaa missä tahansa ja kenen tahansa kanssa";
-
-"annual_subscription_title" = "Yhden vuoden";
-
-"montly_subscription_title" = "Yhden kuukauden";
-
-"annual_subscription_message" = "12 kuukautta rajoittamatonta pääsyä";
-
-"montly_subscription_message" = "1 kuukausi rajoittamatonta pääsyä";
-
-"annual_save_component" = "- %d%";
-
-"subscription_success_dialog_title" = "Kiitos tilauksesta!";
-
-"subscription_success_dialog_message" = "Nyt sinulla on rajoittamaton pääsy matkaoppaiden luetteloon";
-
-"renewal_screen_title" = "Tilauksen voimassaoloaika on umpeutunut";
-
-"renewal_screen_message" = "Kaikki tilauksen puitteissa ladatut matkaoppaat poistetaan. Haluatko palauttaa tilauksesi ja pitää ne?";
-
-"renewal_screen_button_restore" = "Kyllä, palauta";
-
-"renewal_screen_button_cancel" = "Ei, poista matkaoppaat";
-
-"subscription_error_ping_title" = "Oston suorittaminen epäonnistui";
-
-"subscription_error_message" = "Nyt palvelu ei ole käytettävissä omalla alueellasi. Ole hyvä, yritä myöhemmin uudelleen";
-
-"subscription_error_button" = "Selvä";
-
-"timeout_error_title" = "Hups, aika on ohi!";
-
-"timeout_error_message" = "Palvelimemme eivät vastaa. Ole hyvä ja tarkista Internet-yhteys ja yritä uudelleen.";
-
-"per_month" = "/kuukausi";
-
-"per_year" = "/vuosi";
-
-"buy_btn_for_subscription" = "Rajoittamaton pääsy alkaen %s";
-
-"buy_btn_for_subscription_1" = "Osta KAIKKI matkaoppaat hintaan %s";
-
-"buy_btn_for_subscription_ios_only_mo" = "Rajoittamaton pääsy hintaan %s/kuu.";
-
-"buy_btn_for_subscription_ios_only_year" = "Rajoittamaton pääsy hintaan %s/vuosi";
-
-"subscription_terms_guides" = "Maksu suoritetaan iTunes-tililtäsi oston vahvistamisen jälkeen. Tilaus uusitaan automaattisesti, ellei automaattinen uusiminen ole laitettu pois päältä vähintään 24 tuntia ennen nykyisen kauden päättymistä. Varat veloitetaan tililtäsi uusintasuunnitelmasi mukaisesti 24 tunnin kuluessa nykyisen kauden päättymisestä. Sinä voit hallita automaattista uusimista tai poistaa sen käytöstä Apple ID -tili-asetuksissa milloin tahansa oston jälkeen. Voit käyttää tilauksen kautta ladattuja oppaita vain sen voimassaoloaikana. 30 päivän kuluttua tilauksen päättymisestä matkaoppaat kaikkine kirjanmerkkeineen poistetaan automaattisesti.";
-
-"subscription_terms" = "Maksu veloitetaan iTunes-tililtäsi maksuvahvistuksen yhteydessä. Tilauksesi uusitaan automaattisesti ellei automaattista uusintaa ole otettu pois käytöstä vähintään 24 tuntia ennen nykyisen tilausjakson päättymistä. Tilauksen uusinta veloitetaan tililtäsi 24 tunnin kuluessa ennen nykyisen tilausjakson päättymistä. Voit hallita tai ottaa tilausten automaattisen uusinnan pois käytöstä Apple ID -tilisi asetuksissa oston jälkeen.";
-
 "avoid_unpaved_carplay_1" = "Päällyste";
 
 "avoid_unpaved_carplay_2" = "Vain päällyste";
@@ -2621,7 +2028,7 @@
 
 "speedcams_alert_title_carplay_2" = "Nopeuskamerat";
 
-"download_map_carplay" = "Lataa kartat laitteesi OMaps-sovelluksessa";
+"download_map_carplay" = "Lataa kartat laitteesi Organic Maps-sovelluksessa";
 
 "carplay_roundabout_exit" = "Poistumisramppi %s";
 
@@ -2708,138 +2115,9 @@
 /* Android, max 18 symbols */
 "bookmarks_delete_list" = "Poista lista";
 
-"popup_subscription_success_map_title" = "Hurraa! Tilauksesi on voimassa!";
-
-"popup_subscription_success_map_message" = "Tutustu nyt parhaisiin nähtävyyksiin OMaps-luettelossa";
-
-"popup_subscription_success_map_start_button" = "Näytä";
-
-"popup_subscription_success_map_not_now_button" = "Ei nyt";
-
 "religious_places" = "Pyhät paikat";
 
-"subscription_terms_android" = "Maksu suoritetaan Google Play-tililtäsi oston vahvistamisen jälkeen. Tilaus uusitaan automaattisesti, ellei automaattinen uusiminen ole laitettu pois päältä vähintään 24 tuntia ennen nykyisen kauden päättymistä. Varat veloitetaan tililtäsi uusintasuunnitelmasi mukaisesti 24 tunnin kuluessa nykyisen kauden päättymisestä. Sinä voit hallita automaattista uusimista tai poistaa sen käytöstä Google Play-tili-asetuksissa oston jälkeen. Voit käyttää tilauksen kautta ladattuja oppaita vain sen voimassaoloaikana. 30 päivän kuluessa tilauksen päättymisestä matkaoppaat kaikkine kirjanmerkkeineen poistetaan automaattisesti.";
-
 "select_list" = "Valitse luettelo";
-
-"pp_discovery_place_related_header" = "Tämä paikka matkaopashakemistoissa";
-
-"pp_discovery_place_related_header_1" = "Tämä paikka löytyy matkaoppaasta";
-
-"pp_discovery_place_related_cta_button" = "Katso";
-
-"pp_discovery_place_related_tag_header" = "”%s”-tagin matkaoppaista";
-
-"pp_discovery_place_related_tag_header_1" = "Saatat myös pitää";
-
-"buy_btn_for_subscription_version_2" = "KAIKKI matkaoppaat vain %s/kk.";
-
-"buy_btn_for_subscription_version_3" = "Koko luettelo %s/kk.";
-
-"buy_btn_for_subscription_ios_only_mo_version_2" = "Pääsy hakemistoon %s/kk.";
-
-"buy_btn_for_subscription_ios_only_year_version_2" = "Pääsy hakemistoon %s/vuosi";
-
-"subscription_screen_native_title_version_2" = "Pääsy matkaoppaan nastojen kanssa kartalla!";
-
-"subscription_screen_native_message_version_2" = "Ole valmiita mihin tahansa matkaan yli 600 kaupungissa ja yli 100 maassa";
-
-"catalog_no_internet_title" = "Ei ole Internet-yhteyttä";
-
-"catalog_no_internet_button" = "Yritä uudelleen";
-
-"new_onboarding_button" = "Edelleen";
-
-"new_onboarding_button_2" = "Aloita";
-
-"new_onboarding_step1_header" = "OMaps";
-
-"new_onboarding_step1_header_2" = "Yleisavustaja matkojen aikana";
-
-"new_onboarding_step2_header" = "Unelmoi ja suunnittele";
-
-"new_onboarding_step2_message" = "70+ miljoonaa mielenkiintoista paikkaa, luettelo valmiita matkaoppaita ja hotellivaraus kartalla – olet valmis matkustamaan!";
-
-"new_onboarding_step3_message" = "Yksityiskohtaisten offline-karttojen ja offline-navigoinnin avulla et eksy tuntemattomissa paikoissa!";
-
-"new_onboarding_step4_header" = "Jaa vaikutelmasi";
-
-"new_onboarding_step4_message" = "Tallenna suosikkipaikat suosikkeihin ja lähetä ne ystävillesi";
-
-"new_onboarding_step5.1_header" = "Ennen aloittamista…";
-
-"new_onboarding_step5.1_message" = "Muista vierailla meidän uuden reittiluettelossamme löytääksesi offline-oppaan seuraavaa matkaa varten!";
-
-"new_onboarding_step5.1_button" = "Avaa luettelo";
-
-"new_onboarding_step5.2_message" = "OMaps -matkaoppaiden tilaus on löytöostos. Käytä vapaasti matkaoppaiden kaikkia mahdollisuuksia!";
-
-"new_onboarding_step5.2_button" = "Näytä ehdot";
-
-"new_onboarding_step5.3_message" = "Lataa ja arvioi kaupunkikierroksia ja ulkoiluaktiviteetteja ilmaisella OMaps-valinnalla!";
-
-"new_onboarding_step5.3_button" = "Lataa ilmaiseksi";
-
-"new_onboarding_additional_steps_later_button" = "Ei nyt";
-
-"all_pass_subscription_header" = "Tilaa";
-
-"all_pass_subscription_subheader" = "Oppaiden luettelo";
-
-/* \n - for a break between lines. Max. 15 characters per 1 line. */
-"all_pass_subscription_message_title" = "30000+\nopasta\nja polkua";
-
-/* <b> & </b> tag to make a part of the line bold */
-"all_pass_subscription_message_subtitle" = "<b>Rajoittamaton lataus offline-reittejä</b> kaupunkiin ja aktiivisia ulkoilua varten";
-
-/* \n - for a break between lines. Max. 17 characters per 1 line. */
-"all_pass_subscription_message_title_2" = "Interaktiivinen\nkorkeusprofiili";
-
-/* <b> & </b> tag to make a part of the line bold */
-"all_pass_subscription_message_subtitle_2" = "Kaikki polut ladataan <b>korkeuksineen ja perustietoineen reiteistä</b>";
-
-/* \n - for a break between lines. Max. 15 characters per 1 line. */
-"all_pass_subscription_message_title_3" = "Valitut\npaikat, kuvat\nja suositukset";
-
-/* <b> & </b> tag to make a part of the line bold */
-"all_pass_subscription_message_subtitle_3" = "<b>Ota kaikki selvää reitistä</b>, jota sinä aiot kulkea";
-
-/* do not translate */
-"sightseeing_subscription_header_sightseeing" = "City Pass";
-
-"sightseeing_subscription_header_subscription" = "Matkaopastilaus";
-
-"sightseeing_subscription_message" = "700+ kaupunkia ja 100+ maata";
-
-"sightseeing_subscription_message_2" = "Saatavilla offline-tilassa";
-
-"sightseeing_subscription_message_3" = "Valokuvat ja kävelyreitit";
-
-"subscription_success_dialog_title_sightseeing_pass" = "Kiitos tilauksesta!";
-
-"subscription_success_dialog_message_sightseeing_pass" = "Nyt teillä on pääsy kaikkiin luettelossa oleviin kaupunkioppaisiin";
-
-"downloader_main_gallery_header" = "Kartat ja matkaoppaat";
-
-"downloader_main_gallery_message" = "Nyt tässä jaksossa voit paitsi ladata karttoja myös valita matkaoppaita seuraavia matkojasi varten";
-
-"downloader_main_1_element_gallery_header" = "Kaikki matkaoppaat";
-
-"downloader_main_1_element_gallery_message" = "100+ maassa";
-
-"downloader_country_1_element_gallery_header" = "%s reittiä";
-
-"downloader_country_no_guides_gallery_header" = "Tätä maata varten ei ole vielä matkaoppaita";
-
-"downloader_country_no_guides_gallery_message" = "Tutustu muihin kaupunki- ja ulkoilureitteihin 100+ maassa";
-
-"dialog_pedestrian_route_is_long" = "Liian pitkä jalankulkumatka joukkoliikenteen pysäkille";
-
-"new_onboarding_step3_header" = "Matkusta";
-
-"all_pass_screen_best_value" = "Edullinen hinta";
-
-"buy_btn_for_subscription_3" = "Koko luettelo %s/vuosi";
 
 "transit_not_found" = "Metron reittiohjeet eivät ole vielä saatavilla tällä alueella";
 
@@ -2852,7 +2130,7 @@
 
 "button_layer_isolines" = "Korkeudet";
 
-"tips_map_layers_title_countour" = "Korkeuslinjat offline-tilassa OMaps:ssä!";
+"tips_map_layers_title_countour" = "Korkeuslinjat offline-tilassa Organic Maps:ssä!";
 
 "tips_map_layers_message_countour" = "Korkeuslinjat auttavat suunnittelemaan luontomatkan etkä enää eksy maastolla";
 
@@ -2890,175 +2168,13 @@
 
 "elevation_profile_minutes" = "min";
 
-"view_on_map_downloaded_error" = "Tämä matkaopas oli poistettu laitteesta";
-
-"subscription" = "Tilaus";
-
-"freenow_taxi_title" = "FREE NOW";
-
-"tinkoff_allairlines_map_downloader_title" = "Карта Тинькофф All Airlines. 3000 миль в подарок";
-
-"tinkoff_allairlines_map_downloader_cta_button" = "Оформить карту";
-
-"tinkoff_insurance_map_downloader_title" = "Полис Тинькофф со скидкой! Подходит для любых виз.";
-
-"tinkoff_insurance_map_downloader_cta_button" = "Промокод";
-
-"mts_map_downloader_title" = "Забугорище: интернет и звонки за границей как дома";
-
-"mts_map_downloader_cta_button" = "Подключить";
-
-"skyeng_map_downloader_title" = "Дарим 4 бесплатных урока английского от Skyeng.";
-
-"skyeng_map_downloader_cta_button" = "Подробнее";
-
-"button_layer_guides" = "Matkaoppaat (uutuus)";
-
-"no_routes_in_the_area_toast" = "Täällä ei ole matkaoppaita";
-
 "isolines_toast_zooms_1_10" = "Suurenna kartta nähdäksesi korkeuslinjat";
-
-"routes_layer_in_menu_toast" = "Laita tasoja päälle löytääksesi offline-matkaoppaita, tutkiaksesi korkeuslinjoja, metrolinjoja tai liikenneruuhkia";
-
-"routes_layer_is_on_toast" = "Siirrä karttaa löytääksesi matkaoppaita";
-
-"connection_error_dialog_guides_title" = "Yhteysvirhe";
-
-"connection_error_dialog_guides_message" = "Taso ei toimi, koska Internetiä ei ole tai signaali on heikko. Jatkaaksesi työskentelyä, tarkista yhteys tai sammuta taso.";
-
-"connection_error_dialog_guides_try" = "Yritä uudelleen";
-
-"connection_error_dialog_guides_layer_turn_off" = "Sammuta";
-
-"connection_error_toast_guides" = "Palauttamme Internet-yhteyden";
-
-/* as few symbols as possible */
-"routes_card_show" = "Näytä kartalla";
-
-/* as few symbols as possible */
-"routes_card_hide" = "Piilota kartalta";
 
 "downloader_updating_ios" = "Päivitys";
 
 "downloader_loading_ios" = "Lataus";
 
-"routes_card_plus_track" = "+ reitti";
-
-"routes_card_city" = "City";
-
-"routes_card_outdoor" = "Outdoor";
-
-"routes_card_number_of_points" = "%s paikoista";
-
-"routes_card_routes_tag" = "Reitti";
-
-"routes_card_set_tag" = "Esitellyt paikat";
-
-/* as few symbols as possible */
-"guides_trial_cta_button" = "Kokeile 7 päivää ilmaiseksi";
-
-"guides_trial_message" = "Sen jälkeen %s vuodessa. Peruutettavissa milloin hyvänsä";
-
-"trial_error_dialog" = "Olet jo käyttänyt maksutonta koekeilujaksoa";
-
-/* as few symbols as possible */
-"floating_button_filters" = "Suodattimet";
-
-/* as few symbols as possible */
-"date_picker_сhoose_dates_cta" = "Valitse ajankohta";
-
-/* as few symbols as possible */
-"guests_picker_rooms_title" = "Hotellihuoneet ja matkustajat";
-
-"guests_picker_rooms" = "Hotellihuoneet";
-
-"guests_picker_adults" = "Aikuiset";
-
-"guests_picker_children_title" = "Lapset";
-
-"guests_picker_children_subtitle" = "1-17 v.";
-
-"guests_picker_infants_title" = "Vauvat";
-
-"guests_picker_infants_subtitle" = "0-12 kk";
-
-/* as less symbols as possible */
-"booking_map_component_availability" = "Loppuunvarattu";
-
-/* as few symbols as possible */
-"booking_map_component_filters" = "Ei osu suodatusaset.";
-
-"choose_dates_online_only_dialog_title" = "Verkkoyhteys poikki";
-
-"choose_dates_online_only_dialog_message" = "Ajankohdat ja matkustajien lukumäärä on mahdollista valita ainoastaan verkossa. Tarkista verkkoasetukset ja varmista, että laitteesi saa yhteyttä verkkoon.";
-
-"choose_dates_online_only_dialog_cta" = "Asetukset";
-
-"thirty_days_limit_dialog" = "Varauksen voi tehdä enintään 30:ksi yöksi";
-
-"whatsnew_trial_cta" = "Kokeile";
-
-"subscription_terms_guides_outdoor" = "Summa veloitetaan iTunes -tililtäsi ostosta vahvistettaessa. Tilaus jatkuu automaattisesti ellei sitä peruuteta vähintään 24 tuntia ennen kuluvan tilauskauden päättymistä. Raha kirjataan pois käyttäjätililtäsi jatkoliittymäehtojen mukaan 24 tunnin kuluessa ennen kuluvan jakson päättymistä. Voit hallita automaatista jatkoa tai ottaa sen pois päältä Apple ID -käyttäjätilisi asetuksissa milloin hyvänsä ostoksen jälkeen. Tilauksen puitteissa ladattuja matkaoppaita voit käyttää ainoastaan tilauksen voimassaoloaikana. 7 päivän kuluttua tilauksen päättymisestä matkaoppaat on poistettu automaattisesti.\n* Ilmainen kokeilujaksotilaus automaattisesti muuttuu maksulliseksi tilaukseksi. Voit hallita ilmaisen kokeilujaksotilauksen automaatista jatkoa tai peruuttaa sen käyttäjätilisi asetuksissa milloin tahansa ostoksen jälkeen. Peruutus astuu voimaan 24 tunnin päästä kuluvan tilausjakson viimeisestä päivästä. Sen jälkeen tilaus siirtyy toimimaan maksuttomam tilauksen ehdoilla. Huom. Ilmaisen kokeilujakson kaikki käyttämättömät osat on lopetettu, jos teet maksullisen tilauksen kokeilujakson aikana.";
-
-"subscription_terms_android_outdoor" = "Summa veloitetaan Google Play -tililtäsi oston vahvistamisen yhteydessä. Tilaus jatkuu automaattisesti ellei sitä peruuteta vähintään 24 tuntia ennen kuluvan tilauskauden päättymistä. Raha kirjataan pois käyttäjätililtäsi jatkoliittymäehtojen mukaan 24 tunnin kuluessa ennen kuluvan jakson päättymistä. Voit hallita automaatista jatkoa tai ottaa sen pois päältä käyttäjätilisi asetuksissa ostoksen jälkeen. Tilauksen puitteissa ladattuja matkaoppaita voit käyttää ainoastaan tilauksen voimassaoloaikana. 7 päivän kuluttua tilauksen päättymisestä matkaoppaat on poistettu automaattisesti.\n* Ilmainen kokeilujaksotilaus automaattisesti muuttuu maksulliseksi tilaukseksi. Voit hallita ilmaisen kokeilujaksotilauksen automaatista jatkoa tai peruuttaa sen käyttäjätilisi asetuksissa milloin tahansa ostoksen jälkeen. Peruutus astuu voimaan 24 tunnin päästä kuluvan tilausjakson viimeisestä päivästä. Sen jälkeen tilaus siirtyy toimimaan maksuttomam tilauksen ehdoilla. Huom. Ilmaisen kokeilujakson kaikki käyttämättömät osat on lopetettu, jos teet maksullisen tilauksen kokeilujakson aikana.";
-
-"sberbank_map_downloader_title" = "Откройте Сберкарту Тревел Mastercard и копите мили";
-
-"sberbank_map_downloader_cta_button" = "Узнать больше";
-
-"yango_taxi_title" = "Yango";
-
-"citymobil_taxi_title" = "Citymobil";
-
-"subscription_header" = "Tilaa\n<b>Verkko-oppaat</b>";
-
-/* Max. 20 characters per 1 line. */
-"all_pass_subscription_message_title_4" = "Lonely Planet®\n-matkaoppaat";
-
-/* <b> & </b> tag to make a part of the line bold */
-"all_pass_subscription_message_subtitle_4" = "Entistä <b>enemmän elämyksiä</b> tuhansista paikoista <b>kaikkialla maailmassa</b>";
-
-"content_by_component" = "Sisällön toimittaja: %s";
-
-"whatsnew_lp_title" = "Entistä enemmän elämyksiä";
-
-"whatsnew_lp_message" = "Lonely Planet -oppaat ovat jo sovelluksessamme! Parhaita nähtävyyksiä, aiheisiin liittyviä kävelyretkejä ja ainutlaatuisia matkailupaikkoja yli 7000 kaupungissa.";
-
-"collections_title" = "Kokoelmia";
-
 "key_information_title" = "Avaintietoa";
-
-"mustsee_title" = "Pakko nähdä";
-
-"see_lp_category" = "Nähtävyydet";
-
-"play_lp_category" = "Viihteet";
-
-"shop_lp_category" = "Ostokset";
-
-"transport_lp_category" = "Liikenneyhteydet";
-
-"sleep_lp_category" = "Majoitus";
-
-"general_lp_category" = "Tärkeimmät";
-
-"drink_lp_category" = "Baarit";
-
-"eat_lp_category" = "Ravintolat";
-
-"taxi_category_order" = "Order";
-
-"arsenal_telemed_map_downloader_title" = "Онлайн консультации профессиональных врачей 24/7";
-
-"arsenal_flat_map_downloader_title" = "Уезжаешь? Позаботься о своей квартире и соседях.";
-
-"arsenal_crimea_map_downloader_title" = "Туристическая страховка отдыха в Крыму. От 15₽/день";
-
-"arsenal_russia_map_downloader_title" = "Путешествуй по России. Лечение COVID-19 включено!";
-
-"arsenal_abroad_map_downloader_title" = "Полис «Выезд за рубеж». Лечение COVID-19 включено!";
-
-"arsenal_cta_button" = "Оформить полис";
 
 "download_map_title" = "Download the world map";
 

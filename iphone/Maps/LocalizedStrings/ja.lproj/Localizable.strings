@@ -94,7 +94,7 @@
 /* Button text for the button under the country_status_download_failed message */
 "try_again" = "再実行";
 
-"about_menu_title" = "OMapsについて";
+"about_menu_title" = "Organic Mapsについて";
 
 "downloaded_touch_to_delete" = "(%@)をダウンロードしました。削除するには画面をタッチしてください。";
 
@@ -110,7 +110,7 @@
 
 "external_storage_is_not_available" = "マップをダウンロードしたSDカード/USBストレージへ接続できません";
 
-"disconnect_usb_cable" = "OMapsを利用するにはUSBケーブルを抜くかメモリーカードを挿入してください";
+"disconnect_usb_cable" = "Organic Mapsを利用するにはUSBケーブルを抜くかメモリーカードを挿入してください";
 
 "not_enough_free_space_on_sdcard" = "アプリを起動するにはSDカード/USBストレージの空き容量を確保する必要があります";
 
@@ -174,7 +174,7 @@
 "set" = "セット";
 
 /* Text hint in Bookmarks dialog when no any bookmarks are added */
-"bookmarks_usage_hint" = "未だブックマークがありません。\nマップ上をタップすればブックマークを追加できます。\nOMaps以外のアプリで作成したブックマークの表示も可能です。KML/KMZ形式のピン情報をメールやDropbox、URLから取得してください。";
+"bookmarks_usage_hint" = "未だブックマークがありません。\nマップ上をタップすればブックマークを追加できます。\nOrganic Maps以外のアプリで作成したブックマークの表示も可能です。KML/KMZ形式のピン情報をメールやDropbox、URLから取得してください。";
 
 /* Settings button in system menu */
 "settings" = "設定";
@@ -276,9 +276,9 @@
 "share_by_email" = "Eメールで共有";
 
 /* Email Subject when sharing bookmarks category */
-"share_bookmarks_email_subject" = "OMapsの位置情報シェア";
+"share_bookmarks_email_subject" = "Organic Mapsの位置情報シェア";
 
-"share_bookmarks_email_body" = "Hello!\n\nAttached are my bookmarks from OMaps offline maps. Please open them if you have OMaps installed. Or, if you don't, download the app for your iOS or Android device by following this link: https://omaps.app/get?kmz\n\nEnjoy traveling with OMaps!";
+"share_bookmarks_email_body" = "Hello!\n\nAttached are my bookmarks from Organic Maps offline maps. Please open them if you have Organic Maps installed. Or, if you don't, download the app for your iOS or Android device by following this link: https://organicmaps.app/get?kmz\n\nEnjoy traveling with Organic Maps!";
 
 /* message title of loading file */
 "load_kmz_title" = "ブックマークの読み込み中";
@@ -308,7 +308,7 @@
 "downloading_is_active" = "ダウンロードを実行中です";
 
 /* Message that will be shown in alert view, when we ask user to leave review on App Store */
-"appStore_message" = "OMapsの使い心地はいかがでしょうか。もしよろしければ、App Storeでレビューや評価をお知らせください。皆様からいただく一言が開発の励みになります。ご支援をよろしくお願いいたします！";
+"appStore_message" = "Organic Mapsの使い心地はいかがでしょうか。もしよろしければ、App Storeでレビューや評価をお知らせください。皆様からいただく一言が開発の励みになります。ご支援をよろしくお願いいたします！";
 
 /* No, thanks */
 "no_thanks" = "いいえ";
@@ -320,10 +320,10 @@
 "my_position_share_sms" = "私は今ここにいます。リンク: %1$@, %2$@";
 
 /* Subject for emailed bookmark */
-"bookmark_share_email_subject" = "OMapsでピン情報を確認";
+"bookmark_share_email_subject" = "Organic Mapsでピン情報を確認";
 
 /* Subject for emailed position */
-"my_position_share_email_subject" = "OMapsで現在地を確認";
+"my_position_share_email_subject" = "Organic Mapsで現在地を確認";
 
 /* Share my position using EMail, %1$@ is ge0:// and %2$@ is http://ge0.me link WITHOUT NAME */
 "my_position_share_email" = "私は今ここにいます: %1$@\n\nリンクをクリックすると詳細がマップに表示されます。\n\n%2$@\n\n%3$@";
@@ -492,16 +492,16 @@
 "download_map_notification" = "あなたがいる場所のマップをダウンロードしよう";
 
 /* text of notification */
-"pro_version_is_free_today" = "OMapsのフルバージョンが本日無料！今すぐダウンロードして友達に教えてあげましょう。";
+"pro_version_is_free_today" = "Organic Mapsのフルバージョンが本日無料！今すぐダウンロードして友達に教えてあげましょう。";
 
 /* Dialog for transferring maps from lite to pro. */
-"move_lite_maps_to_pro" = "ダウンロード済みの地図をOMaps LiteからOMapsに転送します。完了までに数分かかるかもしれません。";
+"move_lite_maps_to_pro" = "ダウンロード済みの地図をOrganic Maps LiteからOrganic Mapsに転送します。完了までに数分かかるかもしれません。";
 
 /* Message to display when maps moved. */
-"move_lite_maps_to_pro_ok" = "ダウンロード済みの地図は無事OMapsに転送されました";
+"move_lite_maps_to_pro_ok" = "ダウンロード済みの地図は無事Organic Mapsに転送されました";
 
 /* Message to display when maps move failed. */
-"move_lite_maps_to_pro_failed" = "地図の転送に失敗しました。OMaps Liteを削除してから地図を再度ダウンロードしてください。";
+"move_lite_maps_to_pro_failed" = "地図の転送に失敗しました。Organic Maps Liteを削除してから地図を再度ダウンロードしてください。";
 
 /* Text in menu */
 "settings_and_more" = "設定&その他";
@@ -510,7 +510,7 @@
 "website" = "ウェブサイト";
 
 /* Text in menu */
-"maps_me_community" = "OMapsコミュニティ";
+"maps_me_community" = "Organic Mapsコミュニティ";
 
 /* Text in menu */
 "like_on_facebook" = "Facebookでいいねをクリック";
@@ -540,13 +540,13 @@
 "report_a_bug" = "バグを報告";
 
 /* Email subject */
-"subscribe_me_subject" = "OMapsニュースレターを購読します";
+"subscribe_me_subject" = "Organic Mapsニュースレターを購読します";
 
 /* Email body */
 "subscribe_me_body" = "最新ニュース、アップデートとプロモーションにすいてまず知りたいです。いつでも購読をキャンセル出来ます。";
 
 /* About text */
-"about_text" = "OMapsは世界の全ての国、全ての都市が載っている最速のオフラインマップ。どこにいてもOMapsの地図上でユーザーの現在地が分かり、付近のレストラン、ホテル、銀行、ガソリンスタンドなどが見つけられるので、自信を持って旅行ができます。インターネット接続は必要ありません。\n\n弊社では常に新機能の開発に取り組んでいるので、OMapsの改善についてユーザーの皆様からのご意見やご感想をお待ちしています。アプリで問題点が見つかった際は、お気軽にsupport@omaps.appまでご連絡ください。どのようなリクエストにでも対応いたします!\n\nOMapsが好きでサポートしていただけますか。シンプルで完全無料の方法がいくつかあります。\n\n- お使いのアプリマーケットでレビューを投稿\n- 弊社のFacebookページで「いいね!」をクリック：http://www.facebook.com/mapswithme\n- OMapsのことをお母様、お友達、同僚の皆様に話す (^_^)\n\n弊社アプリをご利用いただきありがとうございます。皆様からのサポートに大変感謝しております!\n\n追伸：ウィキペディアのようにユーザーによる作成や編集が可能なマッピングプロジェクトOpenStreetMapの地図データを使用しています。地図上で欠けているものや誤りを見つけた場合、https://www.openstreetmap.orgでユーザーが直接修正ができます。このような変更はOMapsのその後のバージョンリリースの際に反映されます。";
+"about_text" = "Organic Mapsは世界の全ての国、全ての都市が載っている最速のオフラインマップ。どこにいてもOrganic Mapsの地図上でユーザーの現在地が分かり、付近のレストラン、ホテル、銀行、ガソリンスタンドなどが見つけられるので、自信を持って旅行ができます。インターネット接続は必要ありません。\n\n弊社では常に新機能の開発に取り組んでいるので、Organic Mapsの改善についてユーザーの皆様からのご意見やご感想をお待ちしています。アプリで問題点が見つかった際は、お気軽にsupport@organicmaps.appまでご連絡ください。どのようなリクエストにでも対応いたします!\n\nOrganic Mapsが好きでサポートしていただけますか。シンプルで完全無料の方法がいくつかあります。\n\n- お使いのアプリマーケットでレビューを投稿\n- 弊社のFacebookページで「いいね!」をクリック：http://www.facebook.com/OMapsApp\n- Organic Mapsのことをお母様、お友達、同僚の皆様に話す (^_^)\n\n弊社アプリをご利用いただきありがとうございます。皆様からのサポートに大変感謝しております!\n\n追伸：ウィキペディアのようにユーザーによる作成や編集が可能なマッピングプロジェクトOpenStreetMapの地図データを使用しています。地図上で欠けているものや誤りを見つけた場合、https://www.openstreetmap.orgでユーザーが直接修正ができます。このような変更はOrganic Mapsのその後のバージョンリリースの際に反映されます。";
 
 /* Alert text */
 "email_error_body" = "このメールクライアントはセットアップされていません。設定するか、他の方法で%@にご連絡ください。";
@@ -564,7 +564,7 @@
 "routing_map_outdated" = "ルートを作成するためにマップを更新してください。";
 
 /* Update maps suggestion */
-"routing_update_maps" = "新バージョンのOMapsは現在地から目的地までのルートを作成可能です。 この機能を使うためにマップを更新してください。";
+"routing_update_maps" = "新バージョンのOrganic Mapsは現在地から目的地までのルートを作成可能です。 この機能を使うためにマップを更新してください。";
 
 /* Update all button text */
 "downloader_update_all_button" = "全てをアップデート";
@@ -592,7 +592,7 @@
 "downloader_search_results" = "見つかりました";
 
 /* Disclaimer message */
-"routing_disclaimer" = "OMapsアプリでルートを作成する時は、以下のことに留意してください：\n\n  - 提案されたルートは推奨するだけです。\n - 道路状況、交通規則と標識はナビゲーションのアドバイスより優先度が高くなっています。\n - マップが不正確または古くなっている場合や、ルートが最適な方法で作成されていないことがあります。\n\n  安全運転でご自愛ください！";
+"routing_disclaimer" = "Organic Mapsアプリでルートを作成する時は、以下のことに留意してください：\n\n  - 提案されたルートは推奨するだけです。\n - 道路状況、交通規則と標識はナビゲーションのアドバイスより優先度が高くなっています。\n - マップが不正確または古くなっている場合や、ルートが最適な方法で作成されていないことがあります。\n\n  安全運転でご自愛ください！";
 
 /* Outdated maps category */
 "downloader_outdated_maps" = "旧式";
@@ -628,7 +628,7 @@
 "routing_failed_route_not_found" = "選択した出発地と目的地との間にルートが見つかりません。別の出発地点と到着地点を選択してください。";
 
 /* InternalError */
-"routing_failed_internal_error" = "内部エラーが発生しました。もう一度地図をダウンロードしてください。問題が解決しない場合は、support@omaps.appまでご連絡ください。";
+"routing_failed_internal_error" = "内部エラーが発生しました。もう一度地図をダウンロードしてください。問題が解決しない場合は、support@organicmaps.appまでご連絡ください。";
 
 /* Context menu item for downloader. */
 "downloader_download_map_and_routing" = "地図とルートをダウンロード";
@@ -675,10 +675,10 @@
 "rating_just_rated" = "たった今アプリを評価したところです";
 
 /* Text for rating dialog */
-"rating_user_since" = "私は%@年からOMapsのユーザーです";
+"rating_user_since" = "私は%@年からOrganic Mapsのユーザーです";
 
 /* Text for rating dialog */
-"rating_do_like_maps" = "OMapsをお気に入りいただいていますか？";
+"rating_do_like_maps" = "Organic Mapsをお気に入りいただいていますか？";
 
 /* Text for rating dialog */
 "rating_tap_star" = "星印をタップしてアプリを評価してください。";
@@ -702,7 +702,7 @@
 "routing_download_map" = "地図を入手";
 
 /* Text for routing error dialog */
-"routing_download_map_and_routing" = "最新の地図とルートデータを入手して、OMapsの全機能をご利用ください。";
+"routing_download_map_and_routing" = "最新の地図とルートデータを入手して、Organic Mapsの全機能をご利用ください。";
 
 /* Text for routing error dialog */
 "routing_get_routing_data" = "ルートデータを入手";
@@ -923,7 +923,7 @@
 
 "rate_alert_title" = "このアプリが好きですか?";
 
-"rate_alert_default_message" = "OMapsをご使用いただきありがとうございます。アプリの評価をお願いいたします。皆様からのフィードバックはアプリの改善に役立つものです。";
+"rate_alert_default_message" = "Organic Mapsをご使用いただきありがとうございます。アプリの評価をお願いいたします。皆様からのフィードバックはアプリの改善に役立つものです。";
 
 "rate_alert_five_star_message" = "やったー! 相思相愛!";
 
@@ -1034,7 +1034,7 @@
 
 "editor_report_problem_duplicate_place_title" = "重複している場所";
 
-"first_launch_congrats_title" = "OMapsを使用する準備が整いました";
+"first_launch_congrats_title" = "Organic Mapsを使用する準備が整いました";
 
 "first_launch_congrats_text" = "世界中どこでも無料で検索・ナビゲーションできます。";
 
@@ -1218,7 +1218,7 @@
 
 "whatsnew_editor_message_1" = "アプリから直接地図に新しい場所を追加したり、既存の場所を編集できます。";
 
-"whatsnew_editor_message_2" = "* OMapsはOpenStreetMapコミュニティのデータを使用しています。";
+"whatsnew_editor_message_2" = "* Organic MapsはOpenStreetMapコミュニティのデータを使用しています。";
 
 "dialog_incorrect_feature_position" = "位置を変更してください";
 
@@ -1231,7 +1231,7 @@
 /* Error dialog no space */
 "migration_no_space_message" = "ダウンロードするには空き容量がさらに必要です。不必要なデータを削除してください。";
 
-"editor_sharing_title" = "OMapsの地図を改善しました";
+"editor_sharing_title" = "Organic Mapsの地図を改善しました";
 
 "editor_comment_will_be_sent" = "いただいたコメントを地図製作者に送ります。";
 
@@ -1262,7 +1262,7 @@
 
 "editor_detailed_description_hint" = "詳細なコメント";
 
-"editor_detailed_description" = "あなたが提案した変更は、OpenStreetMapのコミュニティに送信されます。OMapsで編集できない詳細を説明してください。";
+"editor_detailed_description" = "あなたが提案した変更は、OpenStreetMapのコミュニティに送信されます。Organic Mapsで編集できない詳細を説明してください。";
 
 "editor_more_about_osm" = "OpenStreetMapについての詳細";
 
@@ -1339,10 +1339,6 @@
 
 "placepage_open_24_7" = "24時間体制";
 
-"place_page_booking_rating" = "評価：%s";
-
-"place_page_starting_from" = "%sから";
-
 "meter" = "m";
 
 "kilometer" = "km";
@@ -1410,17 +1406,9 @@
 
 "editor_profile_rating_place" = "ランキングポジション";
 
-"booking_dialog_not_connect_header" = "ホテルを予約するには、インターネット接続を有効にしてください";
-
-"button_try" = "試してみる";
-
 "refresh" = "更新";
 
 "last_update" = "最終更新日: %s";
-
-"booking_checkin" = "チェックイン：%s";
-
-"booking_checkout" = "チェックアウト：%s";
 
 "placepage_add_place_button" = "地図上に場所を追加";
 
@@ -1453,9 +1441,6 @@
 /* iOS dialog for the case when recent track recording is on and the app comes back from background */
 "recent_track_background_dialog_title" = "最近の走行ルートの記録を無効にしますか？";
 
-/* If a hotel is being shared */
-"sharing_booking" = "またはbooking.comで予約";
-
 "off_recent_track_background_button" = "無効にする";
 
 /* For sharing via SMS and so on */
@@ -1463,7 +1448,7 @@
 
 "continue_recent_track_background_button" = "続行";
 
-"recent_track_background_dialog_message" = "OMapsは、あなたの位置情報をバックグラウンドで使用して最近の走行ルートを記録します。";
+"recent_track_background_dialog_message" = "Organic Mapsは、あなたの位置情報をバックグラウンドで使用して最近の走行ルートを記録します。";
 
 /* Rate on Google Play (Android only) */
 "rate_gp" = "Google Play で評価";
@@ -1472,10 +1457,10 @@
 "tell_friends" = "友達に教える";
 
 /* Share with friends: sharing text */
-"tell_friends_text" = "こんにちは！OMaps をインストールしましょう！";
+"tell_friends_text" = "こんにちは！Organic Maps をインストールしましょう！";
 
 /* About short text (below logo) */
-"about_description" = "OMaps は旅に必要不可欠なオフラインアプリケーションです。OMaps は OpenStreetMap データに基づいており、データを編集することができます。";
+"about_description" = "Organic Maps は旅に必要不可欠なオフラインアプリケーションです。Organic Maps は OpenStreetMap データに基づいており、データを編集することができます。";
 
 /* Text in menu */
 "blog" = "ブログ";
@@ -1495,51 +1480,7 @@
 /* For the first routing */
 "decline" = "拒否";
 
-"whats_new_route_profile_title" = "時は金なり。古きを捨て新しきを得よう。";
-
-"whats_new_route_profile_message" = "歩行者とバイク用のルートに高度プロファイルが表示されるようになりました。";
-
-"whats_new_booking_improve_title" = "ホテル予約時に節約しましょう";
-
-"whats_new_booking_improve_message" = "ホテルの検索結果に価格のカテゴリーが表示されるようになりました。\nさらに、 110,000 軒を超えるホテルを追加しました。";
-
-/* For place page hotel facilities block */
-"placepage_hotel_facilities" = "施設";
-
-/* For place page hotel nearby block */
-"placepage_hotel_nearby" = "近隣";
-
-/* For ordering a taxi (as opposed to hotels or other things) */
-"taxi_order" = "タクシーを呼ぶ";
-
-/* How long it is until the taxi arrives */
-"taxi_wait" = "%s 後に到着予定";
-
-/* When there are no available taxis nearby */
-"taxi_not_found" = "近隣にタクシーは見つかりませんでした";
-
-/* When there are no available taxi providers nearby */
-"taxi_no_providers" = "ここには利用可能なタクシーがありません";
-
 "install_app" = "インストール";
-
-/* `Filter` is a noun here */
-"booking_filters" = "フィルター";
-
-"booking_filters_reset" = "リセット";
-
-/* Beginning from a particular value and */
-"booking_filters_rating" = "指定評価以上";
-
-"booking_filters_rating_any" = "すべて";
-
-"booking_filters_ragting_good" = "良い";
-
-"booking_filters_rating_very_good" = "非常に良い";
-
-"booking_filters_rating_excellent" = "最高";
-
-"booking_filters_price_category" = "価格帯";
 
 "search_no_results_title" = "結果が見つかりません";
 
@@ -1551,28 +1492,6 @@
 
 /* noun */
 "search_in_table" = "一覧";
-
-"booking_show_more" = "さらに表示";
-
-"booking_reviews" = "レビュー";
-
-"booking_hotel" = "ホテル";
-
-/* hotel room */
-"booking_hotel_room" = "部屋";
-
-/* A neologism for a chat based on geographical proximity */
-"chat" = "ジオチャット";
-
-/* Verb. Text on a button that opens the chat. */
-"chat_open" = "開始";
-
-"dialog_taxi_offline" = "タクシーの予約がオフラインモードでは使用できません。";
-
-"dialog_taxi_error" = "タクシーの予約が一時的に使用できません。";
-
-/* Abbreviated for all languages. */
-"advertisement" = "AD";
 
 "mobile_data_dialog" = "モバイルインターネットを使用して詳細な情報を表示しますか？";
 
@@ -1596,7 +1515,7 @@
 
 "big_font" = "地図上のフォントサイズを大きく";
 
-"traffic_update_app" = "OMaps をアップデートしてください";
+"traffic_update_app" = "Organic Maps をアップデートしてください";
 
 /* "traffic" as in road congestion */
 "traffic_update_app_message" = "交通データを表示するには、アプリケーションをアップデートする必要があります。";
@@ -1607,69 +1526,14 @@
 /* "Translation is no needed, because it's a company name" */
 "uber" = "Uber";
 
-/* Seven points and higher */
-"booking_filter_rating_num_good" = "7.0+";
-
-/* Eight points and higher */
-"booking_filter_rating_num_very_good" = "8.0+";
-
-/* Nine points and higher */
-"booking_filter_rating_num_excellent" = "9.0+";
-
-"booking_filter_price_low" = "$";
-
-"booking_filter_price_medium" = "$$";
-
-"booking_filter_price_high" = "$$$";
-
 /* Simplified colour scheme for traffic information, fewer colours are used to display traffic jams on the map. The string should be kept as short as possible */
 "pref_traffic_simplified_colors_title" = "簡易的な交通状況色";
 
 "enable_logging" = "ログを有効化";
 
-"more_on_bookingcom" = "さらに Booking.com で表示";
-
-"details_on_bookingcom" = "Booking.com で詳細表示";
-
-"reviews_on_bookingcom" = "Booking.com の詳細レビュー";
-
 "offline_place_page_more_information" = "この場所に関する詳細情報を取得するには、インターネットに接続してください。";
 
 "failed_load_information" = "情報の読み込みに失敗しました。";
-
-"booking_search" = "Booking.com";
-
-"whats_new_auto_update_updating_maps" = "地図を更新中";
-
-"whats_new_auto_update_title" = "ダウンロード済みのマップを更新してください";
-
-"whats_new_auto_update_message" = "地図を更新することで物件情報を最新の状態に保ちます";
-
-"whats_new_auto_update_button_size" = "更新 (%s)";
-
-"whats_new_auto_update_button_later" = "あとで手動で更新";
-
-"search_hotel_filter_apartment" = "アパート";
-
-"search_hotel_filter_camp_site" = "^キャンプ場";
-
-"search_hotel_filter_chalet" = "シャレー|山小屋";
-
-"search_hotel_filter_guest_house" = "ゲストハウス";
-
-"search_hotel_filter_hostel" = "ホステル";
-
-"search_hotel_filter_resort" = "リゾート";
-
-"search_hotel_filter_hotel" = "ホテル";
-
-"search_hotel_filter_motel" = "モーテル";
-
-"create_campaign_button" = "この企業の所有者であることを報告";
-
-"view_campaign_button" = "企業は宣伝中です";
-
-"search_hotel_filters_type" = "種類";
 
 /* Settings: "Send general feedback" button */
 "feedback_general" = "一般的なフィードバック";
@@ -1744,65 +1608,7 @@
 
 "preloader_viator_button" = "詳細情報";
 
-"whats_new_title_route" = "自転車と歩行者用のルートが改良されました";
-
-"whats_new_message_route" = "エラーの修正を行い、ルート探索速度を数倍に改善し、途中経由地点を追加しました。";
-
-"whats_new_message_title_update" = "地図更新プログラムのサイズを 10 倍削減しました。";
-
-"whats_new_message_maps_update" = "地図を更新する際、不足しているデータのみをダウンロードするだけで良くなりました。";
-
 "start_from_my_position" = "開始位置";
-
-"rating" = "評価";
-
-"placepage_no_reviews" = "レビューなし";
-
-"placepage_reviewed" = "このスポットはすでにレビュー済みです";
-
-"placepage_summary_rating" = "評価の概要";
-
-"placepage_rate_comment" = "タップしてこのスポットを評価し、レビューします。";
-
-"placepage_rate_horrible" = "ひどい";
-
-"placepage_rate_bad" = "悪い";
-
-"placepage_rate_normal" = "普通";
-
-"placepage_rate_good" = "良い";
-
-"placepage_rate_excellent" = "最高";
-
-"placepage_reviews_most_recent" = "最新順";
-
-"placepage_reviews_most_useful" = "有用な順";
-
-"placepage_reviews_highest_rated" = "評価の高い順";
-
-"placepage_reviews_lowest_rated" = "評価の低い順";
-
-"placepage_reviews_offline_comment" = "オフラインモードでは最も有用なレビューのみが表示されます";
-
-"placepage_reviews_your_comment" = "あなたのレビュー";
-
-"placepage_reviews_unhelpful" = "役に立たない";
-
-"placepage_reviews_inappropriate" = "不適切";
-
-"placepage_reviews_spam" = "スパム";
-
-"placepage_reviews_hint" = "このスポットの良い点や悪い点は何ですか？";
-
-"placepage_reviews_edit_your_review" = "自分のレビューを編集";
-
-"placepage_reviews_new_review" = "新しいレビュー";
-
-"placepage_translate_button" = "翻訳する";
-
-"placepage_show_original_button" = "オリジナルを表示";
-
-"placepage_more_reviews_booking_button" = "Booking.com の詳細レビュー";
 
 "profile_authorization_title" = "サインイン方法";
 
@@ -1826,41 +1632,11 @@
 
 "quality" = "品質";
 
-"whats_new_ugc_title_updated_v840" = "評価とレビュー";
-
-"whats_new_ugc_message" = "オフライン時にも評価とレビューを残せるようになりました！変更箇所を確認できるよう、忘れずに地図を更新してください。";
-
 "dialog_error_storage_title" = "ストレージアクセスの問題";
 
-"dialog_error_storage_message" = "外部ストレージは使用できません。おそらく SD カードが取り外されたか、破損している、あるいはファイルシステムが読み取り専用になっています。確認後、support@omaps.app までご連絡ください。";
+"dialog_error_storage_message" = "外部ストレージは使用できません。おそらく SD カードが取り外されたか、破損している、あるいはファイルシステムが読み取り専用になっています。確認後、support@organicmaps.app までご連絡ください。";
 
 "setting_emulate_bad_storage" = "壊れたストレージをエミュレート";
-
-"discovery_button_title" = "近隣を探す";
-
-"discovery_button_subtitle_things_to_do" = "活動";
-
-"discovery_button_subtitle_attractions" = "観光地";
-
-"discovery_button_subtitle_eat_and_drink" = "飲食";
-
-"discovery_button_subtitle_local_guides" = "地元のガイド";
-
-"discovery_button_viator_error_title" = "データの読み込みエラー";
-
-"discovery_button_other_error_message" = "データの読み込みエラー";
-
-"discovery_button_other_loading_message" = "データを読み込み中です";
-
-"discovery_button_404_error_title" = "見つかりません";
-
-"discovery_button_404_error_message" = "周辺では面白そうなものが何も見つかりませんでした。";
-
-"booking_filters_check_in" = "チェックイン";
-
-"booking_filters_check_out" = "チェックアウト";
-
-"booking_filters_offline" = "利用不可.";
 
 "directions_finish" = "目的地";
 
@@ -1875,18 +1651,6 @@
 "crowdedness" = "混雑度";
 
 "error_enter_correct_name" = "正しい名前を入力してください";
-
-"hotel_available" = "利用可能";
-
-"whats_new_transit_title" = "地下鉄を利用可能";
-
-"whats_new_transit_message" = "地下鉄を使用してルートを作りましょう！変更を確認するには、地図を更新してください。";
-
-"whats_new_discovery_title" = "探すボタン";
-
-"whats_new_discovery_message" = "ワンクリックで周囲のものを探します！";
-
-"price_per_hour" = "%s/時間";
 
 "bookmarks_backup" = "バックアップを有効化";
 
@@ -1918,14 +1682,6 @@
 
 "downloader_applying" = "%s を適用中です...";
 
-"whats_new_title_hotel_filter" = "新しいホテルのフィルターをご利用いただけます！";
-
-"whats_new_message_hotel_filter" = "あなたの日程で空室のあるホテルを予約できます！チェックインおよびチェックアウトフィルターをご利用ください。";
-
-"whats_new_title_ugc_travel" = "あなたの体験を他の旅行者に共有してください！";
-
-"whats_new_message_ugc_travel" = "訪れた場所の評価やレビューを行ってください！";
-
 "dialog_message_transit_not_found_connection" = "1つの交通ネットワーク内でルートを作成";
 
 "bookmarks_error_message_share_general" = "アプリケーションエラーのため共有できません";
@@ -1933,10 +1689,6 @@
 "bookmarks_error_title_share_empty" = "共有エラー";
 
 "bookmarks_error_message_share_empty" = "空のリストは共有できません";
-
-"discovery_button_subtitle_book_hotels" = "ホテルを予約";
-
-"maxim_taxi_title" = "maxim";
 
 "bookmarks_error_title_empty_list_name" = "名前を空にすることはできませんでした";
 
@@ -1978,10 +1730,6 @@
 
 "wn_reinvented_bookmarks_message" = "あなたはブックマークをバックアップし、リストを作成することができます...それは素晴らしいです...";
 
-"wn_way_of_booking_title" = "我々は予約の方法を想像した！";
-
-"wn_way_of_booking_message" = "地図上のホテルを見つけて予約するか、同様のホテルを選択するだけです。";
-
 "bookmarks_restore" = "ブックマークを復元する";
 
 "bookmarks_restore_process" = "復元中...";
@@ -2004,20 +1752,6 @@
 
 "restore" = "リストア";
 
-"sign_message_gdpr" = "続行するには、利用規約とプライバシーポリシーに同意する必要があります。 注意深くお読みください。";
-
-"sign_agree_pp_gdpr" = "<a href=\"%s\">プライバシーポリシー</a>に同意します";
-
-"sign_agree_tof_gdpr" = "<a href=\"%s\">利用規約</a>に同意します";
-
-"sign_agree_news_gdpr" = "OMaps製品に関する最新ニュースを受け取ることに同意します";
-
-"whats_new_localbiz_title" = "小企業に注目の価値あり";
-
-"whats_new_localbiz_message" = "旅を忘れがたきものにしてくれる現地のカフェ、居心地の良いホテルと店。OMapsで、お客様のページが際立つように最適化いたします。";
-
-"whats_new_order_button" = "リクエストを残す";
-
 "bookmarks_page_downloaded" = "ダウンロード済み";
 
 "bookmarks_page_my" = "私の";
@@ -2028,7 +1762,7 @@
 
 "cached_bookmarks_placeholder_title" = "新しい場所をダウンロード";
 
-"cached_bookmarks_placeholder_subtitle" = "OMapsユーザーが作成した数千ものおもしろい場所やルートをダウンロードするには、このボタンを押します。インターネット接続が必要です。";
+"cached_bookmarks_placeholder_subtitle" = "Organic Mapsユーザーが作成した数千ものおもしろい場所やルートをダウンロードするには、このボタンを押します。インターネット接続が必要です。";
 
 "downloader_download_routers" = "ブックマークをダウンロード";
 
@@ -2040,7 +1774,7 @@
 
 "crash_reports" = "クラッシュレポート";
 
-"crash_reports_description" = "OMaps体験を向上させるため、お客様のデータを使用する可能性があります。変更は、アプリを再起動した後に、反映されます。";
+"crash_reports_description" = "Organic Maps体験を向上させるため、お客様のデータを使用する可能性があります。変更は、アプリを再起動した後に、反映されます。";
 
 "opt_out_help_ios_1" = "お使いの携帯端末には、「追跡型広告を制限」または「関心に基づく広告を非表示」の設定があるかもしれません。";
 
@@ -2078,18 +1812,6 @@
 
 "subtitle_error_downloading_bookmarks" = "ブックマークはダウンロードされませんでした";
 
-"whats_new_bookmarks_catalog_title" = "OMapsにルートカタログができました";
-
-"whats_new_bookmarks_catalog_message" = "世界各地の数百もの詳細なルート：どこに行って、何を見て、何を食べようか。";
-
-"whats_new_popularity_label_title" = "最寄りの人気スポット";
-
-"whats_new_popularity_label_message" = "近隣を探すと、市内で最も人気のある場所を見つけることができます。";
-
-"whats_new_hot_offers_title" = "ホテルからの魅力的な提案";
-
-"whats_new_hot_offers_message" = "これを、検索のホテルカテゴリを使用して、探すことができます。提案は地図上および検索結果の%記号でマークされています。";
-
 "error_already_downloaded" = "このリストは既にダウンロード済みです";
 
 "popular_place" = "Popular";
@@ -2100,92 +1822,17 @@
 
 "bookmarks_downloaded_subtitle" = "Press ‘View on map’ to explore new places from the list";
 
-"guides" = "ガイド";
+"why_support" = "Organic Mapsをサポートする理由？";
 
-"guide_downloaded_title" = "ガイドが正常にダウンロードされました";
+"why_support_item1" = "We respect your privacy: there are zero trackers in the app, and we are open source";
 
-/* as few symbols as possible */
-"download_guides" = "ガイドを検索";
-
-"guides_groups_cached" = "ガイドをダウンロード";
-
-"subtitle_error_downloading_guide" = "ガイドがダウンロードされませんでした";
-
-"error_already_downloaded_guide" = "このガイドはすでにダウンロードされています";
-
-"guide_downloaded_subtitle" = "[地図に表示]を押して、ガイドをご覧ください。";
-
-"bookmarks_guides" = "ブックマークとガイド";
-
-"paybtn_title" = "年間%sの支払い";
-
-"paybtn_subtitle" = "年間%sの割引";
-
-"options_dropdown_title" = "他のオプション";
-
-"why_support" = "OMapsをサポートする理由？";
-
-"options_dropdown_item1" = "%s/月（%s/年の割引）";
-
-"options_dropdown_item2" = "%s/週（割引なし）";
-
-"why_support_item1" = "お客さまのためにすべての広告を削除いたします";
-
-"why_support_item2" = "OMapsの改善にご協力いただいております";
+"why_support_item2" = "Organic Mapsの改善にご協力いただいております";
 
 "why_support_item3" = "オープンマップOpenStreetMap.orgの改善にご協力いただいております";
 
-"purchase_processing" = "購入の処理中です…";
-
-"tips_bookmarks_catalog_title" = "さまざまな旅のオフラインガイド";
-
-"tips_bookmarks_catalog_message" = "世界の異なる都市の興味深い場所をめぐる観光コースをダウンロードして、旅を計画します。";
-
-"tips_discover_button_title" = "近隣の人気スポットをお探しですか？";
-
-"tips_discover_button_message" = "「近隣を探す」セクションには、最高のレストラン、ホテル、名所が含まれます。";
-
-"tips_book_hotel_title" = "旅に一番居心地の良いホテルを予約";
-
-"tips_book_hotel_message" = "検索と絞り込み機能を使用して、最高のホテルを見つけてください。場所ページの [予約] ボタンを使用して、ホテルを瞬時に予約します。";
-
-"tips_map_layers_title" = "乗り換えの駅が不明ですか？";
-
-"tips_map_layers_message" = "地下鉄レイヤーをオンにして地下鉄の路線図を表示すると、新しい街でどんな時でも行き方を見つけることができます。";
-
 "channels_map_update" = "地図の更新";
 
-"channels_reviews" = "未送信のレビュー";
-
-"purchase_loading" = "購入情報を読み込んでいます…";
-
-"purchase_error_subtitle" = "お客さまのご購入の処理中にエラーが発生しました";
-
-"awaiting_approval" = "ご両親の承認待ちです";
-
-"whats_new_leave_review" = "レビューをお書きください！休暇で訪れた場所についてのご意見を共有してください。";
-
 "server_unavailable_title" = "サーバーは利用できません";
-
-"server_unavailable_message" = "ご購入は後ほど完了します。エラーが続く場合は、support@omaps.appまでご連絡ください。";
-
-"offline_fiters_check_in" = "インターネットに接続して、ホテルを日付で絞り込み検索します。";
-
-"rutaxi_title" = "RuTaxi";
-
-"restore_subscription" = "サブスクリプションを復元";
-
-"restore_success_alert" = "サブスクリプションの復元が完了しました";
-
-"restore_error_alert" = "サブスクリプションの復元中にエラーが発生しました";
-
-"restore_no_subscription_alert" = "有効なサブスクリプションはありません";
-
-"subscriptions_title" = "サブスクリプション";
-
-"manage_subscription" = "サブスクリプション管理";
-
-"taxi" = "Taxi";
 
 "sharing_options" = "オプションの共有";
 
@@ -2197,13 +1844,13 @@
 
 "hide_from_map" = "マップから隠す";
 
-"ugc_route_tags_screen_label" = "タグを選択";
-
-"ugc_route_tags_progress_msg" = "タグをロードしています…";
-
 "public_access" = "パブリック・アクセス";
 
 "limited_access" = "制限されたアクセス";
+
+"bookmark_category_name" = "カテゴリ";
+
+"bookmark_category_description_hint" = "説明(テキストまたはhtml)を記入してください";
 
 /* FIXME */
 "bookmarks_public_access" = "bookmarks_public_access";
@@ -2214,33 +1861,11 @@
 /* FIXME */
 "bookmarks_private_access" = "bookmarks_private_access";
 
-"upload_and_publish_desc" = "このガイドはパブリックのOMapsカタログにアップロードされ、他のユーザーに対して利用可能になります";
-
-"upload_and_publish" = "アップロードおよび公開";
-
-"upload_and_get_direct_link" = "アップロードおよび直接リンクの取得";
-
-"get_direct_link_desc" = "あなたのガイドはリンクを持っているあらゆる人物に利用可能になります";
-
-"upload_and_publish_progress_text" = "あなたのガイドを公開しています…";
-
-"upload_and_publish_success" = "ガイドが公開されました";
-
-"ugc_routes_user_agreement" = "<b>ご注意ください:</b> この先へ進む事で <a href=\"%s\">利用許諾</a>に同意する事になります";
-
-"ugc_route_edit_list_name" = "ガイド名";
-
-"ugc_route_edit_description_hint" = "説明(テキストまたはhtml)を記入してください";
-
 "not_shared" = "非公開";
 
 "direct_link_progress_text" = "あなたのファイルをアップロードしています…";
 
 "direct_link_success" = "リンクが作成されました";
-
-"edit_guide_title" = "ガイドをウェブ上で編集";
-
-"edit_guide_subtitle" = "ウェブアプリを通じてガイドを編集するためにリンクを取得しましょう：説明を追加し、写真をアップロードし、線でブックマークを繋げましょう。";
 
 "send_a_link_btn" = "リンクを自分に送る";
 
@@ -2254,39 +1879,7 @@
 
 "unable_upload_error_subtitle_broken" = "このファイルは損傷しており、アップロードできませんでした。別のファイルをアップロードしてください。";
 
-"buy_btn" = "%sでこれを購入";
-
-"download_guide_progress" = "ガイドをダウンロードしています…";
-
-"price_error_title" = "価格を取得できませんでした";
-
-"price_error_subtitle" = "数分後にもう一度試してみてください";
-
-"edit_your_guide_email_body" = "パソコンを使って簡単にウェブ上でガイドを編集しましょう：説明を追加し、写真をアップロードし、線でブックマークを繋げましょう。";
-
-"edit_on_web" = "ウェブ上で編集";
-
-"properties_loading_error_subtitle" = "オプションのロード中にエラーが起きました。もう一度やり直してください";
-
-"custom_props_desc" = "このガイドでは以下の立場で場所を訪れました";
-
-"custom_props_title" = "現地人または旅行者";
-
-"custom_props_local" = "現地人";
-
-"custom_props_traveler" = "旅行者";
-
-"select_properties" = "オプションの選択";
-
-"access_rules_p_to_p" = "特別なアクセス";
-
-"access_rules_paid" = "購入済み";
-
-"failed_purchase_support_message" = "申し訳ございませが、完了していない購入があるようです。サポートまでご連絡いただければ当社が問題を解決いたします。";
-
 "contact" = "連絡";
-
-"check_price_button" = "価格チェック";
 
 "download_button" = "ダウンロード";
 
@@ -2304,92 +1897,16 @@
 
 "place_description_title" = "場所の説明";
 
-"ugc_routes_error_uploading_file_toast" = "残念ながらあなたのブックマークをアップロードしている最中にエラーが発生しました。もう一度お試しください。";
-
-"notification_channel_ugc" = "ソーシャルコンテンツ";
-
 /* this text will be shown in application notification preferences opposite checkbox which enable/disable downloader notifications. Devices on Android 8+ are affected. */
 "notification_channel_downloader" = "マップダウンローダー";
 
-"notification_leave_review_title" = "%s - はいかがでしたか?";
-
-"notification_leave_review_content" = "レビューを残して旅行者を助けましょう！";
-
-"share_bookmarks_email_body_link" = "こんにちは!\n\nこれはあなたのブックマークをダウンロードできるリンクです:%s。OMapsを通じてリストを開いて旅をお楽しみください!\n\nアプリの入手: https://omaps.app/get?kmz";
+"share_bookmarks_email_body_link" = "こんにちは!\n\nこれはあなたのブックマークをダウンロードできるリンクです:%s。Organic Mapsを通じてリストを開いて旅をお楽しみください!\n\nアプリの入手: https://organicmaps.app/get?kmz";
 
 "warning_speedcams_title" = "%d km/hの速度制限を超えているときナビゲーターが自動速度違反取締装置について警告します";
 
 "warning_speedcams_subtitle" = "旅行先の国の道路交通法を考慮してください。";
 
 "speedcams_notice_message" = "自動－速度制限超過の危険性がある場合には、自動速度違反取締装置について警告します\n常時－自動速度違反取締装置について常に警告します\n無効－自動速度違反取締装置を警告しません";
-
-"whats_new_ugc_routes_title" = "印象を共有するのは簡単です";
-
-"whats_new_ugc_routes_subtitle" = "記憶に残る場所を保存して、ブックマークでルートを作成し OMapsカタログを利用するすべての人達と共有しましょう。";
-
-"whats_new_webeditor_title" = "ルートをストーリーに変えましょう";
-
-"whats_new_ugc_routes_message2" = "ウェブエディタで写真と詳細なストーリーを追加しましょう。";
-
-"ugc_thanks_message_auth" = "あなたのレビューが保存されました";
-
-"ugc_thanks_message_not_auth" = "レビューを残すにはログインしてください";
-
-"notification_leave_review_v2_title" = "訪れた場所を評価して旅行者を助けましょう！";
-
-"error_public_not_enought_title" = "ブックマークが足りません";
-
-"error_public_not_enought_subtitle" = "パブリックカタログにあなたのガイドをアップロードするには少なくとも3つのブックマークが必要です";
-
-"bookmark_public_upload_alert_title" = "全てのOMapsの旅行者とあなたのブックマークを共有するために必要なステップはあと少しです！";
-
-"bookmark_public_upload_alert_subtitle" = "リストに具体的な名前と説明が記載されている事、全てのブックマークに場所についての情報が記載されている事をお確かめください。そうする事であなたのリストを他の人が発見および利用できるようになります。";
-
-"bookmark_public_upload_alert_ok_button" = "はい、その通りです！";
-
-"name_title" = "ガイドの名前を入力してください";
-
-"name_placeholder" = "ロンドンパブなど";
-
-"name_comment1" = "旅行者が簡単に発見できるようにガイドに名前を付けてください：例、「ロンドンパブ」";
-
-"name_comment2" = "この名前には特別な記号や含まれていてはなりません。この名前は「マイプレイス」であってはなりません";
-
-"description_guide" = "説明";
-
-"description_title" = "ガイドの説明を入力してください";
-
-"description_placeholder" = "詳しくガイドを説明してください";
-
-"description_comment1" = "ガイドの説明には少なくとも30の記号が含まれていなくてはなりません。";
-
-"ugc_route_tags_desc" = "他の旅行者があなたのガイドを見つけられるようにタグを選択してください。これは必須です。%sのタグが最大です。";
-
-"html_format_error_title" = "あなたのガイドは公開されていません";
-
-"html_format_error_subtitle" = "あなたのブックマークの名前と説明が全て有効なフォーマットである事をお確かめください。以下の「オンラインで編集」ボタンをクリックする事でデスクトップブラウザから確認する事ができます。";
-
-"web_editor_description" = "ガイドをアップロードして、デスクトップから編集リンクを取得しましょう";
-
-"edit_on_web_confirm" = "オンラインで編集";
-
-"update_guide" = "更新をアップロード";
-
-"direct_link_updating_text" = "あなたのファイルを更新しています…";
-
-"direct_link_updating_success" = "あなたのガイドが更新されました";
-
-"unable_get_direct_link_desc" = "パブリックリンクを通じてガイドを共有しています";
-
-"any_access_update_alert_title" = "いくつかの変化が発生した可能性があります";
-
-"any_access_update_alert_message" = "ブックマークを更新しますか？この新しいバージョンは同一のリンクから利用する事ができます。";
-
-"any_access_update_alert_update" = "更新";
-
-"public_or_limited_access_after_edit_online_error_title" = "オンラインでブックマークを編集しました";
-
-"public_or_limited_access_after_edit_online_error_message" = "将来的には当社のウェブサイトを通じてガイドを編集、公開、もしくは友人と共有してください";
 
 "power_managment_title" = "電力節約モード";
 
@@ -2401,7 +1918,7 @@
 
 "power_managment_setting_manual_max" = "最大電力節約";
 
-"enable_logging_warning_message" = "このオプションは診断目的でのデータ記録を有効にします。これはこのアプリケーションのトラブルシューティングを担当する当社のサポートスタッフの助けになります。このオプションはOMapsにリクエストされた場合にのみ有効にしてください。";
+"enable_logging_warning_message" = "このオプションは診断目的でのデータ記録を有効にします。これはこのアプリケーションのトラブルシューティングを担当する当社のサポートスタッフの助けになります。このオプションはOrganic Mapsにリクエストされた場合にのみ有効にしてください。";
 
 "html_error_upload_message_try_again" = "ネットワーク設定をチェックして、もう一度お試しください";
 
@@ -2417,21 +1934,9 @@
 
 "privacy_settings_menu" = "プライバシー設定";
 
-"gdpr_request_setting" = "GDPRリクエストのためのIDを取得";
-
-"gdpr_request_window_title" = "あなたのID：%s。";
-
-"gdpr_request_window_message" = "これをコピーしてsupport@omaps.appにリクエストを送信してください";
-
-"gdpr_request_window_copy" = "IDをコピー";
-
 "unable_upadate_error_title" = "ファイルが更新できませんでした";
 
 "unable_upadate_error_message" = "更新中に何かミスが発生しました。変更を確認して、もう一度お試しください";
-
-"whats_new_wiki_title" = "その場所は何ですか？";
-
-"whats_new_wiki_message" = "当社はWikipedia.orgの記事を最も人気の観光名所のページに追加しました。これらはオフラインで利用する事ができます";
 
 "driving_options_title" = "運転オプション";
 
@@ -2467,31 +1972,7 @@
 
 "avoid_ferry_crossing_placepage" = "フェリー航路を回避";
 
-"cached_guides_placeholder_subtitle" = "OMapsはマップに表示されたオフラインで利用できる写真と説明文がついた選択された場所への便利なガイドを提供しています。";
-
-"guides_catalogue_title" = "ガイドのカタログ";
-
-"download_guides_button" = "カタログへ";
-
 "type.cuisine.uzbek" = "ウズベキスタン料理";
-
-"onboarding_guide_direct_download_title" = "ガイドはダウンロードできます";
-
-"onboarding_guide_direct_download_subtitle" = "これはマップ上に表示され、オフラインでも機能します";
-
-"onboarding_guide_direct_download_button" = "ダウンロード";
-
-"onboarding_bydeeplink_guide_title" = "OMapsのすぐに利用できるガイド";
-
-"onboarding_bydeeplink_guide_subtitle" = "写真と説明文がついたマップ上に表示された名所。オフラインでも機能します。";
-
-"whats_new_auto_update_bydeeplink_title" = "ガイドへ進む前に…";
-
-"whats_new_auto_update_bydeeplink_message" = "オブジェクトについての情報を最新に保つためにマップをアップデートしましょう!";
-
-"whats_new_auto_update_and_proceed_button_size" = "アップデート(%s) して進む";
-
-"purchase_please_wait_toast" = "購入が完了するまでこの画面を閉じないでください";
 
 "trip_start" = "レッツゴー";
 
@@ -2531,80 +2012,6 @@
 
 "ok" = "OK";
 
-"vezet_taxi" = "Vezet";
-
-"booking_button_toolbar" = "マップ上のホテルを選択";
-
-"popup_booking_download_guides_title" = "ホテルを予約しましたか？";
-
-"popup_booking_download_guides_message" = "OMapsのレディメイドなガイドでルートを計画しましょう";
-
-"popup_mwm_download_guides_title" = "オフライン都市ガイド";
-
-"popup_mwm_download_guides_cta" = "1つ選択してください";
-
-"popup_mwm_download_guides_cta_1" = "ご覧ください";
-
-"gallery_pp_download_guides_offline_title" = "OMapsで休暇の計画をたてましょう!";
-
-"gallery_pp_download_guides_offline_subtitle" = "熟練の旅行者が作ったガイドをお見逃しなく";
-
-"gallery_pp_download_guides_offline_cta" = "インターネットを起動";
-
-"gallery_pp_download_guides_title" = "ガイド";
-
-"native_screen_subscription_title" = "2000旅行ガイドへの無制限のアクセス！";
-
-"native_screen_subscription_message" = "誰とでも何処へ行くにしても忘れられない休暇にしましょう";
-
-"annual_subscription_title" = "年ごと";
-
-"montly_subscription_title" = "月ごと";
-
-"annual_subscription_message" = "12ケ月の無制限アクセス";
-
-"montly_subscription_message" = "1ケ月の無制限アクセス";
-
-"annual_save_component" = "- %d%";
-
-"subscription_success_dialog_title" = "ご登録ありがとうございます！";
-
-"subscription_success_dialog_message" = "これで全てのガイドカタログにアクセスできるようになりました";
-
-"renewal_screen_title" = "サブスクリプションの期限が切れました";
-
-"renewal_screen_message" = "サブスクリプションでダウンロードされた全てのガイドが削除されます。サブスクリプションを継続してガイドを維持しますか？";
-
-"renewal_screen_button_restore" = "はい、更新します";
-
-"renewal_screen_button_cancel" = "いいえ、ガイドを削除します";
-
-"subscription_error_ping_title" = "購入できませんでした";
-
-"subscription_error_message" = "このサービスはあなたの地域では現在利用できません。後ほどもう一度お試しください";
-
-"subscription_error_button" = "分かりました";
-
-"timeout_error_title" = "おっと、時間切れです！";
-
-"timeout_error_message" = "当社のサービスが応答しません。インターネット接続を確認して、もう一度お試しください。";
-
-"per_month" = "/月";
-
-"per_year" = "/年";
-
-"buy_btn_for_subscription" = "%sから無制限のアクセス";
-
-"buy_btn_for_subscription_1" = "%sで全てのガイドを購入";
-
-"buy_btn_for_subscription_ios_only_mo" = "%s/月で無制限のアクセス";
-
-"buy_btn_for_subscription_ios_only_year" = "%s/年で無制限のアクセス";
-
-"subscription_terms_guides" = "支払いは購入の確認後にiTunesのアカウントに請求されます。サブスクリプションは、現在の有効期限が失効する24時間前までに自動更新機能を無効にしていない限り、自動的に更新されます。あなたのアカウントは現在の有効期限が失効する24時間前までの更新計画に基づいて請求されます。自動更新機能はApple IDのアカウント設定からにいつでも無効化する事ができます。ダウンロードしたガイドはサブスクリプションの失効日までしか利用できません。サブスクリプションの消失から30日でブックマークの付いたガイドは自動的に削除されます。";
-
-"subscription_terms" = "ご購入確定時にお客様のiTunesアカウントにお支払いが請求されます。現在のご利用期間が終了する最低でも24時間前に自動更新が解除されなければ、サブスクリプションは自動的に更新されます。現在のご利用期間が終了する24時間以内に、ご利用プランの更新がアカウントに請求されます。ご購入期間中にApple IDアカウント設定より自動更新を管理または解除することができます。";
-
 "avoid_unpaved_carplay_1" = "未舗装道路無し";
 
 "avoid_unpaved_carplay_2" = "未舗装道路無し";
@@ -2621,7 +2028,7 @@
 
 "speedcams_alert_title_carplay_2" = "速度警告";
 
-"download_map_carplay" = "あなたの機器のOMapsのアプリにマップをダウンロードしてください";
+"download_map_carplay" = "あなたの機器のOrganic Mapsのアプリにマップをダウンロードしてください";
 
 "carplay_roundabout_exit" = "第%s出口";
 
@@ -2708,138 +2115,9 @@
 /* Android, max 18 symbols */
 "bookmarks_delete_list" = "リストの削除";
 
-"popup_subscription_success_map_title" = "おめでとうございます、サブスクライブしました!";
-
-"popup_subscription_success_map_message" = "OMapsのカタログで最高の観光地を見つけましょう";
-
-"popup_subscription_success_map_start_button" = "ブラウジングを開始";
-
-"popup_subscription_success_map_not_now_button" = "今はしない";
-
 "religious_places" = "宗教に関連した場所";
 
-"subscription_terms_android" = "購入を確認すると支払いはGoogle Playのアカウントに請求されます。サブスクリプションは、自動更新機能が現在の有効期限の24時間前までに無効化されない限り自動的に更新されます。現在の有効期限の終了の24時間以内に更新プランに従ってあなたのアカウントに対して請求されます。購入後にアカウント設定から自動更新機能を管理または無効化する事ができます。有効期限までにサブスクリプションでダウンロードしたガイドだけしか利用する事はできません。サブスクリプションの失効から30日が経過するとダウンロードしたガイドは自動的に削除されます。";
-
 "select_list" = "リストを選択";
-
-"pp_discovery_place_related_header" = "この場所はガイドカタログに記載されています";
-
-"pp_discovery_place_related_header_1" = "この場所はガイドで特集されています";
-
-"pp_discovery_place_related_cta_button" = "閲覧";
-
-"pp_discovery_place_related_tag_header" = "「%s」のタグが付いたガイド";
-
-"pp_discovery_place_related_tag_header_1" = "こちらもいかがですか";
-
-"buy_btn_for_subscription_version_2" = "全てのガイドがたったの月%s";
-
-"buy_btn_for_subscription_version_3" = "カタログ全体が月々%s";
-
-"buy_btn_for_subscription_ios_only_mo_version_2" = "カタログへのアクセスが月々%s";
-
-"buy_btn_for_subscription_ios_only_year_version_2" = "カタログへのアクセスが年間%s";
-
-"subscription_screen_native_title_version_2" = "ブックマーク付きのガイドにアクセスしましょう！";
-
-"subscription_screen_native_message_version_2" = "600以上の都市と100以上の国々への旅の準備を整えましょう";
-
-"catalog_no_internet_title" = "インターネット接続がありません";
-
-"catalog_no_internet_button" = "もう一度お試しください";
-
-"new_onboarding_button" = "次へ";
-
-"new_onboarding_button_2" = "開始";
-
-"new_onboarding_step1_header" = "OMaps";
-
-"new_onboarding_step1_header_2" = "オールインワンの旅の友";
-
-"new_onboarding_step2_header" = "夢を持って計画しましょう";
-
-"new_onboarding_step2_message" = "7000万以上の場所と、レディメイドなガイド、そしてホテル予約がマップから直接利用できます－旅行の準備に最適です！";
-
-"new_onboarding_step3_message" = "全ての国の詳細なマップとナビゲーションで決して迷う事はありません－全てがオフラインの機能します！";
-
-"new_onboarding_step4_header" = "感想を共有しましょう";
-
-"new_onboarding_step4_message" = "お気に入り場所にブックマークをして、友人に送信しましょう";
-
-"new_onboarding_step5.1_header" = "始める前にもう1点…";
-
-"new_onboarding_step5.1_message" = "今後の旅のオフラインのガイドを見つけるために新しいガイドのカタログを見る事をお忘れなく！";
-
-"new_onboarding_step5.1_button" = "カタログを開く";
-
-"new_onboarding_step5.2_message" = "OMapsのガイドのカタログのサブスクリプションは大変お得です。世界中の都市とアウトドアのガイドへのフルアクセスをゲットしましょう！";
-
-"new_onboarding_step5.2_button" = "規約をご確認ください";
-
-"new_onboarding_step5.3_message" = "OMapsの無料セレクションでレディメイドな都市とアウトドアのルートのサンプルをご覧ください！";
-
-"new_onboarding_step5.3_button" = "無料ダウンロード";
-
-"new_onboarding_additional_steps_later_button" = "後で";
-
-"all_pass_subscription_header" = "にサブスクライブ";
-
-"all_pass_subscription_subheader" = "ガイドのカタログ";
-
-/* \n - for a break between lines. Max. 15 characters per 1 line. */
-"all_pass_subscription_message_title" = "30000+の\nガイド&トレイル";
-
-/* <b> & </b> tag to make a part of the line bold */
-"all_pass_subscription_message_subtitle" = "都市とアウトドアのルートの<b>オフラインモード</b>への<b>無制限のダウンロード</b>";
-
-/* \n - for a break between lines. Max. 17 characters per 1 line. */
-"all_pass_subscription_message_title_2" = "インタラクティブな\n高度情報";
-
-/* <b> & </b> tag to make a part of the line bold */
-"all_pass_subscription_message_subtitle_2" = "各トレイルには<b>ルートの高度と基本情報</b>が含まれています";
-
-/* \n - for a break between lines. Max. 15 characters per 1 line. */
-"all_pass_subscription_message_title_3" = "ブックマーク、\n写真、そして\nおススメ";
-
-/* <b> & </b> tag to make a part of the line bold */
-"all_pass_subscription_message_subtitle_3" = "これから旅する<b>ルートの詳細</b>";
-
-/* do not translate */
-"sightseeing_subscription_header_sightseeing" = "City Pass";
-
-"sightseeing_subscription_header_subscription" = "ガイドのサブスクリプション";
-
-"sightseeing_subscription_message" = "700以上の都市と100以上の国";
-
-"sightseeing_subscription_message_2" = "オフラインで利用可能";
-
-"sightseeing_subscription_message_3" = "写真と歩行経路";
-
-"subscription_success_dialog_title_sightseeing_pass" = "ご登録ありがとうございます！";
-
-"subscription_success_dialog_message_sightseeing_pass" = "これでカタログ内の全ての観光ガイドにアクセスできるようになりました";
-
-"downloader_main_gallery_header" = "マップとガイド";
-
-"downloader_main_gallery_message" = "このセクションではマップをダウンロードできるだけでなく、今後の旅のためのガイドをチェックする事もできます";
-
-"downloader_main_1_element_gallery_header" = "全てのガイド";
-
-"downloader_main_1_element_gallery_message" = "100以上の国の";
-
-"downloader_country_1_element_gallery_header" = "%s個のガイド";
-
-"downloader_country_no_guides_gallery_header" = "この国にはまだガイドがありません";
-
-"downloader_country_no_guides_gallery_message" = "100以上の国の都市とアウトドア活動のための他のオフラインガイドをチェックできます";
-
-"dialog_pedestrian_route_is_long" = "交通機関の登場ポイントまでの歩行ルートが長すぎます";
-
-"new_onboarding_step3_header" = "体験しましょう";
-
-"all_pass_screen_best_value" = "ベストバリュー";
-
-"buy_btn_for_subscription_3" = "カタログ全体が年々%s";
 
 "transit_not_found" = "この地域の地下鉄ナビはまだ利用できません";
 
@@ -2852,7 +2130,7 @@
 
 "button_layer_isolines" = "地形";
 
-"tips_map_layers_title_countour" = "OMapsの新要素：オフラインのトポグラフィーレイヤー！";
+"tips_map_layers_title_countour" = "Organic Mapsの新要素：オフラインのトポグラフィーレイヤー！";
 
 "tips_map_layers_message_countour" = "自然の旅で訪れる地域を全てを把握しながら計画を立て楽しみましょう";
 
@@ -2890,175 +2168,13 @@
 
 "elevation_profile_minutes" = "分";
 
-"view_on_map_downloaded_error" = "このガイドはこの機器から削除されました";
-
-"subscription" = "サブスクリプション";
-
-"freenow_taxi_title" = "FREE NOW";
-
-"tinkoff_allairlines_map_downloader_title" = "Карта Тинькофф All Airlines. 3000 миль в подарок";
-
-"tinkoff_allairlines_map_downloader_cta_button" = "Оформить карту";
-
-"tinkoff_insurance_map_downloader_title" = "Полис Тинькофф со скидкой! Подходит для любых виз.";
-
-"tinkoff_insurance_map_downloader_cta_button" = "Промокод";
-
-"mts_map_downloader_title" = "Забугорище: интернет и звонки за границей как дома";
-
-"mts_map_downloader_cta_button" = "Подключить";
-
-"skyeng_map_downloader_title" = "Дарим 4 бесплатных урока английского от Skyeng.";
-
-"skyeng_map_downloader_cta_button" = "Подробнее";
-
-"button_layer_guides" = "ガイド(新)";
-
-"no_routes_in_the_area_toast" = "ここではガイドが見つかりませんでした";
-
 "isolines_toast_zooms_1_10" = "等高線を調べるためにズームインしましょう";
-
-"routes_layer_in_menu_toast" = "オフラインのガイドを検索したり、等高線や、地下鉄、交通渋滞を調べるたりするためにレイヤーを有効化しましょう";
-
-"routes_layer_is_on_toast" = "ガイドを調べるにはマップをドラッグしてください";
-
-"connection_error_dialog_guides_title" = "接続エラー";
-
-"connection_error_dialog_guides_message" = "このレイヤーはインターネット接続がないため、もしくはシグナルが弱いために利用できません。継続して使用するには、インターネット接続を確認するか、レイヤーを無効化してください。";
-
-"connection_error_dialog_guides_try" = "もう一度お試しください";
-
-"connection_error_dialog_guides_layer_turn_off" = "無効化";
-
-"connection_error_toast_guides" = "再接続を試しています";
-
-/* as few symbols as possible */
-"routes_card_show" = "マップ上に表示";
-
-/* as few symbols as possible */
-"routes_card_hide" = "マップから非表示";
 
 "downloader_updating_ios" = "更新中";
 
 "downloader_loading_ios" = "ダウンロード中";
 
-"routes_card_plus_track" = "+トラック";
-
-"routes_card_city" = "City";
-
-"routes_card_outdoor" = "Outdoor";
-
-"routes_card_number_of_points" = "%s個の場所";
-
-"routes_card_routes_tag" = "経路";
-
-"routes_card_set_tag" = "主要な場所";
-
-/* as few symbols as possible */
-"guides_trial_cta_button" = "7日無料トライアルを開始";
-
-"guides_trial_message" = "その後は年間%sです。いつでもキャンセルできます";
-
-"trial_error_dialog" = "申し訳ございません。あなたは既にトライアルを利用しています";
-
-/* as few symbols as possible */
-"floating_button_filters" = "フィルター";
-
-/* as few symbols as possible */
-"date_picker_сhoose_dates_cta" = "日付を選択";
-
-/* as few symbols as possible */
-"guests_picker_rooms_title" = "部屋と人数";
-
-"guests_picker_rooms" = "部屋";
-
-"guests_picker_adults" = "大人";
-
-"guests_picker_children_title" = "子供";
-
-"guests_picker_children_subtitle" = "1歳～17歳";
-
-"guests_picker_infants_title" = "幼児";
-
-"guests_picker_infants_subtitle" = "0ヶ月～12か月";
-
-/* as less symbols as possible */
-"booking_map_component_availability" = "利用できる部屋がありません";
-
-/* as few symbols as possible */
-"booking_map_component_filters" = "フィルター設定にマッチしません";
-
-"choose_dates_online_only_dialog_title" = "ネットワーク接続がありません";
-
-"choose_dates_online_only_dialog_message" = "日付と人数はオンライン時に選択できます。設定を確認し、インターネットに接続している事を確かめてください。";
-
-"choose_dates_online_only_dialog_cta" = "設定";
-
-"thirty_days_limit_dialog" = "最大で30泊まで予約する事ができます";
-
-"whatsnew_trial_cta" = "今すぐ試してみましょう";
-
-"subscription_terms_guides_outdoor" = "購入を確認すると、iTunesのアカウントに請求がなされます。このサブスクリプションは、現在のサブスクリプション期間が終了する24時間前までに自動更新機能を無効化しない限り、自動的に更新されます。あなたのアカウントには、あなたの更新プランに従って、現在のサブスクリプション期間が終了する24時間以内に請求がなされます。自動更新は、購入後にいつでもApple IDの設定から管理または無効化する事ができます。ガイドは、サブスクリプションが失効するまでの期間内にダウンロードしたものしか利用できません。ガイドと全てのブックマークは、サブスクリプションの失効後7日で自動的に削除されます。\n*無料トライアル期間を持つサブスクリプションは、有料サブスクリプションに自動的に更新されます。無料トライアルの自動更新は、購入後にアカウント設定からキャンセルまたは管理をする事ができます。このキャンセルは、現在のサブスクリプション期間の最終日の24時間後から発効します。その後は無料サービスにダウングレードされます。注意：無料トライアル期間中に有料サブスクリプションを購入すると、無料トライアルの未使用の期間は喪失します。";
-
-"subscription_terms_android_outdoor" = "購入を確認すると、支払はGoogle Playのアカウントに請求されます。このサブスクリプションは、現在のサブスクリプション期間が終了する24時間前までに自動更新機能を無効化しない限り、自動的に更新されます。あなたのアカウントには、あなたの更新プランに従って、現在のサブスクリプション期間が終了する24時間以内に請求がなされます。自動更新は、購入後にいつでもアカウント設定から管理または無効化する事ができます。ガイドは、サブスクリプションが失効するまでの期間内にダウンロードしたものしか利用できません。ガイドは、サブスクリプションの失効後7日で自動的に削除されます。\n*無料トライアル期間を持つサブスクリプションは、有料サブスクリプションに自動的に更新されます。無料トライアルの自動更新は、購入後にアカウント設定からキャンセルまたは管理をする事ができます。このキャンセルは、現在のサブスクリプション期間の最終日の24時間後から発効します。その後は無料サービスにダウングレードされます。注意：無料トライアル期間中に有料サブスクリプションを購入すると、無料トライアルの未使用の期間は喪失します。";
-
-"sberbank_map_downloader_title" = "Откройте Сберкарту Тревел Mastercard и копите мили";
-
-"sberbank_map_downloader_cta_button" = "Узнать больше";
-
-"yango_taxi_title" = "Yango";
-
-"citymobil_taxi_title" = "Citymobil";
-
-"subscription_header" = "<b>ガイドのカタログ</b>\nにサブスクライブ";
-
-/* Max. 20 characters per 1 line. */
-"all_pass_subscription_message_title_4" = "トラベルガイド：\nLonely Planet®提供";
-
-/* <b> & </b> tag to make a part of the line bold */
-"all_pass_subscription_message_subtitle_4" = "<b>世界中</b>の数千か所に及ぶ興味深い場所で<b>更なる体験</b> を";
-
-"content_by_component" = "コンテンツ提供：%s";
-
-"whatsnew_lp_title" = "更なる感情を";
-
-"whatsnew_lp_message" = "Lonely Planetのガイドがアプリ内から利用できるようになりました！7000を超える都市の最高のアトラクションや、セマティックウォーク、そしてユニークな旅行スポットがご利用いただけます。";
-
-"collections_title" = "コレクション";
-
 "key_information_title" = "重要情報";
-
-"mustsee_title" = "必見";
-
-"see_lp_category" = "観光";
-
-"play_lp_category" = "娯楽";
-
-"shop_lp_category" = "ショップ";
-
-"transport_lp_category" = "移動";
-
-"sleep_lp_category" = "宿泊";
-
-"general_lp_category" = "一般";
-
-"drink_lp_category" = "お酒";
-
-"eat_lp_category" = "食事";
-
-"taxi_category_order" = "Order";
-
-"arsenal_telemed_map_downloader_title" = "Онлайн консультации профессиональных врачей 24/7";
-
-"arsenal_flat_map_downloader_title" = "Уезжаешь? Позаботься о своей квартире и соседях.";
-
-"arsenal_crimea_map_downloader_title" = "Туристическая страховка отдыха в Крыму. От 15₽/день";
-
-"arsenal_russia_map_downloader_title" = "Путешествуй по России. Лечение COVID-19 включено!";
-
-"arsenal_abroad_map_downloader_title" = "Полис «Выезд за рубеж». Лечение COVID-19 включено!";
-
-"arsenal_cta_button" = "Оформить полис";
 
 "download_map_title" = "Download the world map";
 

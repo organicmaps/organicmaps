@@ -94,7 +94,7 @@
 /* Button text for the button under the country_status_download_failed message */
 "try_again" = "Prøv igen";
 
-"about_menu_title" = "Om OMaps";
+"about_menu_title" = "Om Organic Maps";
 
 "downloaded_touch_to_delete" = "Downloaded (%@), tryk for at slette";
 
@@ -110,7 +110,7 @@
 
 "external_storage_is_not_available" = "SD-kort/USB lagring med de downloadede kort er ikke tilgængeligt";
 
-"disconnect_usb_cable" = "Frakobl venligst USB-kabel eller indsæt et memory kort for at bruge OMaps";
+"disconnect_usb_cable" = "Frakobl venligst USB-kabel eller indsæt et memory kort for at bruge Organic Maps";
 
 "not_enough_free_space_on_sdcard" = "Frigør venligst plads på dit SD-kort/USB lager først for at bruge denne app";
 
@@ -174,7 +174,7 @@
 "set" = "Sæt";
 
 /* Text hint in Bookmarks dialog when no any bookmarks are added */
-"bookmarks_usage_hint" = "Du har ingen bogmærker endnu.\nTryk på et sted på kortet for at kunne tilføje det til bogmærker. Bogmærker fra andre kilder kan også blive importeret og vist i OMaps.\nÅbn en KML/KMZ fil med gemte bogmærker/knappenåle på i Mail, Dropbox eller på et link.";
+"bookmarks_usage_hint" = "Du har ingen bogmærker endnu.\nTryk på et sted på kortet for at kunne tilføje det til bogmærker. Bogmærker fra andre kilder kan også blive importeret og vist i Organic Maps.\nÅbn en KML/KMZ fil med gemte bogmærker/knappenåle på i Mail, Dropbox eller på et link.";
 
 /* Settings button in system menu */
 "settings" = "Indstillinger";
@@ -276,9 +276,9 @@
 "share_by_email" = "Del via email";
 
 /* Email Subject when sharing bookmarks category */
-"share_bookmarks_email_subject" = "OMaps bogmærker er blevet delt med dig";
+"share_bookmarks_email_subject" = "Organic Maps bogmærker er blevet delt med dig";
 
-"share_bookmarks_email_body" = "Hello!\n\nAttached are my bookmarks from OMaps offline maps. Please open them if you have OMaps installed. Or, if you don't, download the app for your iOS or Android device by following this link: https://omaps.app/get?kmz\n\nEnjoy traveling with OMaps!";
+"share_bookmarks_email_body" = "Hello!\n\nAttached are my bookmarks from Organic Maps offline maps. Please open them if you have Organic Maps installed. Or, if you don't, download the app for your iOS or Android device by following this link: https://organicmaps.app/get?kmz\n\nEnjoy traveling with Organic Maps!";
 
 /* message title of loading file */
 "load_kmz_title" = "Indlæser Bogmærker";
@@ -308,22 +308,22 @@
 "downloading_is_active" = "Download af kort over land er i gang nu.";
 
 /* Message that will be shown in alert view, when we ask user to leave review on App Store */
-"appStore_message" = "Vi håber du er glad for at bruge OMaps! Hvis du er, vil du så overveje at bedømme og måske skrive en anmeldelse på App Store? Det tager under et minut, men det kan virkelig hjælpe os. Tak for din hjælp!";
+"appStore_message" = "Vi håber du er glad for at bruge Organic Maps! Hvis du er, vil du så overveje at bedømme og måske skrive en anmeldelse på App Store? Det tager under et minut, men det kan virkelig hjælpe os. Tak for din hjælp!";
 
 /* No, thanks */
 "no_thanks" = "Nej, tak";
 
 /* Share one specific bookmark using SMS, %1$@ contains ge0:// and %2$@ http://ge0.me link. @NOTE non-ascii symbols in the link will make 70 bytes sms instead of 140 */
-"bookmark_share_sms" = "Hey, tjek min knappenål på OMaps ud! %1$@ or %2$@ Har du ikke offline kort? Download her: https://omaps.app/get";
+"bookmark_share_sms" = "Hey, tjek min knappenål på Organic Maps ud! %1$@ or %2$@ Har du ikke offline kort? Download her: https://organicmaps.app/get";
 
 /* Share my position using SMS, %1$@ contains ge0:// and %2$@ http://ge0.me link WITHOUT NAME. @NOTE non-ascii symbols in the link will make 70 bytes sms instead of 140 */
-"my_position_share_sms" = "Hey, tjek min nuværende lokation ud på OMaps! %1$@ or %2$@. Har du ikke offline kort? Download her: https://omaps.app/get";
+"my_position_share_sms" = "Hey, tjek min nuværende lokation ud på Organic Maps! %1$@ or %2$@. Har du ikke offline kort? Download her: https://organicmaps.app/get";
 
 /* Subject for emailed bookmark */
-"bookmark_share_email_subject" = "Hey, tjek min knappenål på OMaps kortet ud!";
+"bookmark_share_email_subject" = "Hey, tjek min knappenål på Organic Maps kortet ud!";
 
 /* Subject for emailed position */
-"my_position_share_email_subject" = "Hey, tjek min nuværende lokation ud på OMaps kortet!";
+"my_position_share_email_subject" = "Hey, tjek min nuværende lokation ud på Organic Maps kortet!";
 
 /* Share my position using EMail, %1$@ is ge0:// and %2$@ is http://ge0.me link WITHOUT NAME */
 "my_position_share_email" = "Hey, her er jeg nu: %1$@. Tryk på dette link %2$@ eller dette %3$@ for at se stedet på kortet. Tak.";
@@ -492,16 +492,16 @@
 "download_map_notification" = "Download kortet over det sted, hvor du befinder dig";
 
 /* text of notification */
-"pro_version_is_free_today" = "Fuld version af OMaps er gratis i dag! Download nu og fortæl dine venner om det.";
+"pro_version_is_free_today" = "Fuld version af Organic Maps er gratis i dag! Download nu og fortæl dine venner om det.";
 
 /* Dialog for transferring maps from lite to pro. */
-"move_lite_maps_to_pro" = "Vi overfører dine downloadede kort fra OMaps Lite til OMaps. Det kan tage et par minutter.";
+"move_lite_maps_to_pro" = "Vi overfører dine downloadede kort fra Organic Maps Lite til Organic Maps. Det kan tage et par minutter.";
 
 /* Message to display when maps moved. */
-"move_lite_maps_to_pro_ok" = "Dine downloadede kort er blevet succesfuldt overført til OMaps.";
+"move_lite_maps_to_pro_ok" = "Dine downloadede kort er blevet succesfuldt overført til Organic Maps.";
 
 /* Message to display when maps move failed. */
-"move_lite_maps_to_pro_failed" = "Det lykkedes ikke at overføre dine kort. Slet venligst OMaps Lite og download kortene igen.";
+"move_lite_maps_to_pro_failed" = "Det lykkedes ikke at overføre dine kort. Slet venligst Organic Maps Lite og download kortene igen.";
 
 /* Text in menu */
 "settings_and_more" = "Indstillinger & Mere";
@@ -510,7 +510,7 @@
 "website" = "Hjemmeside";
 
 /* Text in menu */
-"maps_me_community" = "OMaps Samfund";
+"maps_me_community" = "Organic Maps Samfund";
 
 /* Text in menu */
 "like_on_facebook" = "Synes godt om på Facebook";
@@ -540,13 +540,13 @@
 "report_a_bug" = "Rapportér fejl";
 
 /* Email subject */
-"subscribe_me_subject" = "Tilmeld mig OMaps-nyhedsbrev";
+"subscribe_me_subject" = "Tilmeld mig Organic Maps-nyhedsbrev";
 
 /* Email body */
 "subscribe_me_body" = "Jeg vil være den første til at høre om de seneste nyheder opdateringer og tilbud. Jeg kan opsige abonnementet når som helst.";
 
 /* About text */
-"about_text" = "OMaps tilbyder de hurtigste offline-kort over alle byer og alle lande i verden. Rejs med tillid: Hvor end du befinder dig, hjælper OMaps med at lokalisere din placering på kortet, finde den nærmeste restaurant, hotel, bank, benzintank og så videre. Det er ikke nødvendigt at have forbindelse til internettet.\n\nVi arbejder altid på nye funktioner, og vi vil meget gerne høre fra dig, hvis du har forslag til, hvordan vi kan forbedre OMaps. Hvis du oplever problemer med appen, er du meget velkommen til at kontakte os på support@omaps.app. Vi besvarer alle henvendelser!\n\nSynes du om OMaps, og har du lyst til at støtte os? Her er nogle simple og helt gratis metoder:\n\n-post en anmeldelse i din App Store\n-like vores facebook-side http://www.facebook.com/mapswithme\n-neller fortæl din mor, venner og kollegaer om OMaps :)\n\nTak fordi du støtter os. Vi sætter stor pris på din støtte!\n\nPS: Vi får vores kortdata fra OpenStreetMap, som er et kortprojekt, der minder om Wikipedia, og som gør brugere i stand til at oprette og rette kort. Hvis du oplever, at noget mangler eller er forkert på kortet, kan du rette kortene direkte på https://www.openstreetmap.org, og dine ændringer vil figurere på OMaps-appen i forbindelse med frigivelsen af den næste version.";
+"about_text" = "Organic Maps tilbyder de hurtigste offline-kort over alle byer og alle lande i verden. Rejs med tillid: Hvor end du befinder dig, hjælper Organic Maps med at lokalisere din placering på kortet, finde den nærmeste restaurant, hotel, bank, benzintank og så videre. Det er ikke nødvendigt at have forbindelse til internettet.\n\nVi arbejder altid på nye funktioner, og vi vil meget gerne høre fra dig, hvis du har forslag til, hvordan vi kan forbedre Organic Maps. Hvis du oplever problemer med appen, er du meget velkommen til at kontakte os på support@organicmaps.app. Vi besvarer alle henvendelser!\n\nSynes du om Organic Maps, og har du lyst til at støtte os? Her er nogle simple og helt gratis metoder:\n\n-post en anmeldelse i din App Store\n-like vores facebook-side http://www.facebook.com/OMapsApp\n-neller fortæl din mor, venner og kollegaer om Organic Maps :)\n\nTak fordi du støtter os. Vi sætter stor pris på din støtte!\n\nPS: Vi får vores kortdata fra OpenStreetMap, som er et kortprojekt, der minder om Wikipedia, og som gør brugere i stand til at oprette og rette kort. Hvis du oplever, at noget mangler eller er forkert på kortet, kan du rette kortene direkte på https://www.openstreetmap.org, og dine ændringer vil figurere på Organic Maps-appen i forbindelse med frigivelsen af den næste version.";
 
 /* Alert text */
 "email_error_body" = "Emailklienten er ikke blevet sat op. Venligst konfigurér den eller brug en anden måde til at kontakte os på %@";
@@ -564,7 +564,7 @@
 "routing_map_outdated" = "Venligst opdatér kortet for at oprette en rute.";
 
 /* Update maps suggestion */
-"routing_update_maps" = "Den nye version af OMaps gør det muligt at oprette ruter fra din nuværende position til et destinationspunkt. Venligst opdatér kortene for at bruge denne funktion.";
+"routing_update_maps" = "Den nye version af Organic Maps gør det muligt at oprette ruter fra din nuværende position til et destinationspunkt. Venligst opdatér kortene for at bruge denne funktion.";
 
 /* Update all button text */
 "downloader_update_all_button" = "Opdatér alle";
@@ -592,7 +592,7 @@
 "downloader_search_results" = "Fundet";
 
 /* Disclaimer message */
-"routing_disclaimer" = "Ved oprettelse af ruter i OMaps appen, venligst tænk over følgende:\n\n- Anbefalede ruter kan kun betragtes som anbefalinger.\n- Vejtilstande, trafikregler og skilte har højere prioritet end navigationsråd.\n Kortet kan være ukorrekt eller forældet, og ruter kan muligvis ikke være oprettet på den bedste måde.\n\nVær sikker på vejene og pas på dig selv!";
+"routing_disclaimer" = "Ved oprettelse af ruter i Organic Maps appen, venligst tænk over følgende:\n\n- Anbefalede ruter kan kun betragtes som anbefalinger.\n- Vejtilstande, trafikregler og skilte har højere prioritet end navigationsråd.\n Kortet kan være ukorrekt eller forældet, og ruter kan muligvis ikke være oprettet på den bedste måde.\n\nVær sikker på vejene og pas på dig selv!";
 
 /* Outdated maps category */
 "downloader_outdated_maps" = "Uddateret";
@@ -628,7 +628,7 @@
 "routing_failed_route_not_found" = "Der blev ikke fundet en rute mellem det valgte begyndelsespunkt og destinationen. Venligst vælg et andet start- eller slutpunkt.";
 
 /* InternalError */
-"routing_failed_internal_error" = "Intern fejl opstod. Venligt prøv at slette og downloade kortet igen. Hvis problemet vare ved, venligst kontakt os på support@omaps.app.";
+"routing_failed_internal_error" = "Intern fejl opstod. Venligt prøv at slette og downloade kortet igen. Hvis problemet vare ved, venligst kontakt os på support@organicmaps.app.";
 
 /* Context menu item for downloader. */
 "downloader_download_map_and_routing" = "Hent kort + ruteangivelse";
@@ -675,10 +675,10 @@
 "rating_just_rated" = "Jeg har netop bedømt jeres app";
 
 /* Text for rating dialog */
-"rating_user_since" = "Jeg er OMaps bruger siden %@";
+"rating_user_since" = "Jeg er Organic Maps bruger siden %@";
 
 /* Text for rating dialog */
-"rating_do_like_maps" = "Kan du lide OMaps?";
+"rating_do_like_maps" = "Kan du lide Organic Maps?";
 
 /* Text for rating dialog */
 "rating_tap_star" = "Tryk på en stjerne for at bedømme vores app.";
@@ -702,7 +702,7 @@
 "routing_download_map" = "Få kort";
 
 /* Text for routing error dialog */
-"routing_download_map_and_routing" = "Download opdaterede kort og routing data for at få alle OMaps funktioner.";
+"routing_download_map_and_routing" = "Download opdaterede kort og routing data for at få alle Organic Maps funktioner.";
 
 /* Text for routing error dialog */
 "routing_get_routing_data" = "Få routing data";
@@ -923,7 +923,7 @@
 
 "rate_alert_title" = "Kan du lide appen?";
 
-"rate_alert_default_message" = "Tak for at du bruger OMaps. Venligst bedøm appen. Din feedback hjælper os med at blive bedre.";
+"rate_alert_default_message" = "Tak for at du bruger Organic Maps. Venligst bedøm appen. Din feedback hjælper os med at blive bedre.";
 
 "rate_alert_five_star_message" = "Hurra! Vi elsker også dig!";
 
@@ -1034,7 +1034,7 @@
 
 "editor_report_problem_duplicate_place_title" = "Duplikeret sted";
 
-"first_launch_congrats_title" = "OMaps er klart til brug";
+"first_launch_congrats_title" = "Organic Maps er klart til brug";
 
 "first_launch_congrats_text" = "Søg og navigér i kort over alle verdens lande gratis.";
 
@@ -1218,7 +1218,7 @@
 
 "whatsnew_editor_message_1" = "Tilføj nye steder til kortet og redigér eksisterende direkte fra app'en.";
 
-"whatsnew_editor_message_2" = "* OMaps bruger fællesskabsdata fra OpenStreetMap.";
+"whatsnew_editor_message_2" = "* Organic Maps bruger fællesskabsdata fra OpenStreetMap.";
 
 "dialog_incorrect_feature_position" = "Skift lokation";
 
@@ -1231,7 +1231,7 @@
 /* Error dialog no space */
 "migration_no_space_message" = "For at opdatere app'en skal du bruge mere plads. Slet unødvendig data.";
 
-"editor_sharing_title" = "Jeg forbedrede OMaps kortene";
+"editor_sharing_title" = "Jeg forbedrede Organic Maps kortene";
 
 "editor_comment_will_be_sent" = "Vi vil sende dine kommentarer til kartograferne.";
 
@@ -1262,7 +1262,7 @@
 
 "editor_detailed_description_hint" = "Detaljerede bemærkninger";
 
-"editor_detailed_description" = "Dine foreslåede ændringer vil blive sendt til OpenStreetMap fællesskabet. Beskrive detaljer, som ikke kan redigeres i OMaps.";
+"editor_detailed_description" = "Dine foreslåede ændringer vil blive sendt til OpenStreetMap fællesskabet. Beskrive detaljer, som ikke kan redigeres i Organic Maps.";
 
 "editor_more_about_osm" = "Mere om OpenStreetMap";
 
@@ -1339,10 +1339,6 @@
 
 "placepage_open_24_7" = "24 / 7";
 
-"place_page_booking_rating" = "Bedømmelse: %s";
-
-"place_page_starting_from" = "fra %s";
-
 "meter" = "m";
 
 "kilometer" = "km";
@@ -1410,17 +1406,9 @@
 
 "editor_profile_rating_place" = "Rangorden";
 
-"booking_dialog_not_connect_header" = "For at booke hotellet, bedes du aktivere din internetforbindelse";
-
-"button_try" = "Prøv det";
-
 "refresh" = "Opdater";
 
 "last_update" = "Sidste opdatering: %s";
-
-"booking_checkin" = "tjek ind: %s";
-
-"booking_checkout" = "tjek ud: %s";
 
 "placepage_add_place_button" = "Tilføj et sted på kortet";
 
@@ -1453,9 +1441,6 @@
 /* iOS dialog for the case when recent track recording is on and the app comes back from background */
 "recent_track_background_dialog_title" = "Vil du deaktivere gemningen af din seneste rejserute?";
 
-/* If a hotel is being shared */
-"sharing_booking" = "eller book på booking.com";
-
 "off_recent_track_background_button" = "Deaktiver";
 
 /* For sharing via SMS and so on */
@@ -1463,7 +1448,7 @@
 
 "continue_recent_track_background_button" = "Fortsæt";
 
-"recent_track_background_dialog_message" = "OMaps anvender din geoposition i baggrunden til at gemme din seneste rejserute.";
+"recent_track_background_dialog_message" = "Organic Maps anvender din geoposition i baggrunden til at gemme din seneste rejserute.";
 
 /* Rate on Google Play (Android only) */
 "rate_gp" = "Bedøm på Google Play";
@@ -1472,10 +1457,10 @@
 "tell_friends" = "Sig det videre til en ven";
 
 /* Share with friends: sharing text */
-"tell_friends_text" = "Hej! Installer OMaps!";
+"tell_friends_text" = "Hej! Installer Organic Maps!";
 
 /* About short text (below logo) */
-"about_description" = "OMaps er en essentiel offline-app for rejsende. OMaps er baseret på data fra OpenStreetMap, og gør det muligt at redigere disse data.";
+"about_description" = "Organic Maps er en essentiel offline-app for rejsende. Organic Maps er baseret på data fra OpenStreetMap, og gør det muligt at redigere disse data.";
 
 /* Text in menu */
 "blog" = "Blog";
@@ -1495,51 +1480,7 @@
 /* For the first routing */
 "decline" = "Afvis";
 
-"whats_new_route_profile_title" = "Spring over hvor gærdet er lavest";
-
-"whats_new_route_profile_message" = "Vi viser nu højdeprofilen for fodgænger- og cykelruter.";
-
-"whats_new_booking_improve_title" = "Spar penge når du bestiller hotelværelser";
-
-"whats_new_booking_improve_message" = "Søgeresultater for hoteller viser nu også priskategorien.\nVi har desuden tilføjet mere end 110.000 hoteller.";
-
-/* For place page hotel facilities block */
-"placepage_hotel_facilities" = "Faciliteter";
-
-/* For place page hotel nearby block */
-"placepage_hotel_nearby" = "I nærheden";
-
-/* For ordering a taxi (as opposed to hotels or other things) */
-"taxi_order" = "Bestil en taxa";
-
-/* How long it is until the taxi arrives */
-"taxi_wait" = "Forventes om %s";
-
-/* When there are no available taxis nearby */
-"taxi_not_found" = "Kunne ikke finde en taxi i nærheden";
-
-/* When there are no available taxi providers nearby */
-"taxi_no_providers" = "Taxi ikke tilgængelig her";
-
 "install_app" = "Installer";
-
-/* `Filter` is a noun here */
-"booking_filters" = "Filter";
-
-"booking_filters_reset" = "Nulstil";
-
-/* Beginning from a particular value and */
-"booking_filters_rating" = "Vurdering fra";
-
-"booking_filters_rating_any" = "Hvilken som helst";
-
-"booking_filters_ragting_good" = "God";
-
-"booking_filters_rating_very_good" = "Meget god";
-
-"booking_filters_rating_excellent" = "Fremragende";
-
-"booking_filters_price_category" = "Prisklasse";
 
 "search_no_results_title" = "Ingen resultater fundet";
 
@@ -1551,28 +1492,6 @@
 
 /* noun */
 "search_in_table" = "Liste";
-
-"booking_show_more" = "Vis mere";
-
-"booking_reviews" = "Anmeldelser";
-
-"booking_hotel" = "Hotel";
-
-/* hotel room */
-"booking_hotel_room" = "Værelse";
-
-/* A neologism for a chat based on geographical proximity */
-"chat" = "Geochat";
-
-/* Verb. Text on a button that opens the chat. */
-"chat_open" = "Åbn";
-
-"dialog_taxi_offline" = "Det er ikke muligt at bestille en taxi i offlinetilstand.";
-
-"dialog_taxi_error" = "Bestilling af en taxi er ikke muligt lige nu.";
-
-/* Abbreviated for all languages. */
-"advertisement" = "AD";
 
 "mobile_data_dialog" = "Skal mobilt internet bruges til at vise detaljerede oplysninger?";
 
@@ -1596,7 +1515,7 @@
 
 "big_font" = "Forøg skriftstørrelsen på kortet";
 
-"traffic_update_app" = "Opdater OMaps";
+"traffic_update_app" = "Opdater Organic Maps";
 
 /* "traffic" as in road congestion */
 "traffic_update_app_message" = "Appen skal opdateres for at kunne vise trafikdata.";
@@ -1607,69 +1526,14 @@
 /* "Translation is no needed, because it's a company name" */
 "uber" = "Uber";
 
-/* Seven points and higher */
-"booking_filter_rating_num_good" = "7,0+";
-
-/* Eight points and higher */
-"booking_filter_rating_num_very_good" = "8,0+";
-
-/* Nine points and higher */
-"booking_filter_rating_num_excellent" = "9,0+";
-
-"booking_filter_price_low" = "$";
-
-"booking_filter_price_medium" = "$$";
-
-"booking_filter_price_high" = "$$$";
-
 /* Simplified colour scheme for traffic information, fewer colours are used to display traffic jams on the map. The string should be kept as short as possible */
 "pref_traffic_simplified_colors_title" = "Forenklede trafikfarver";
 
 "enable_logging" = "Aktiver logføring";
 
-"more_on_bookingcom" = "Mere på Booking.com";
-
-"details_on_bookingcom" = "Detaljer på Booking.com";
-
-"reviews_on_bookingcom" = "Flere anmeldelser på Booking.com";
-
 "offline_place_page_more_information" = "Opret forbindelse til internettet for at få flere oplysninger om stedet.";
 
 "failed_load_information" = "Kunne ikke indlæse oplysningerne.";
-
-"booking_search" = "Booking.com";
-
-"whats_new_auto_update_updating_maps" = "Opdaterer kort";
-
-"whats_new_auto_update_title" = "Opdater dine downloadede kort";
-
-"whats_new_auto_update_message" = "Opdatering af kort sikrer, at oplysningerne om objekter er aktuel";
-
-"whats_new_auto_update_button_size" = "Opdater (%s)";
-
-"whats_new_auto_update_button_later" = "Opdater manuelt senere";
-
-"search_hotel_filter_apartment" = "Lejligheder";
-
-"search_hotel_filter_camp_site" = "Camping";
-
-"search_hotel_filter_chalet" = "Hytte";
-
-"search_hotel_filter_guest_house" = "Gæstehus";
-
-"search_hotel_filter_hostel" = "Hostel";
-
-"search_hotel_filter_resort" = "Resort";
-
-"search_hotel_filter_hotel" = "Hotel";
-
-"search_hotel_filter_motel" = "Motel";
-
-"create_campaign_button" = "Denne virksomhed tilhører mig";
-
-"view_campaign_button" = "Virksomhed er annonceret";
-
-"search_hotel_filters_type" = "Type";
 
 /* Settings: "Send general feedback" button */
 "feedback_general" = "Generel feedback";
@@ -1744,65 +1608,7 @@
 
 "preloader_viator_button" = "Flere oplysninger";
 
-"whats_new_title_route" = "Cykelruter og vandreruter blev forbedret";
-
-"whats_new_message_route" = "Vi rettede fejl, gjorte ruteoprettelse flere gange hurtigere og tilføjede mellemliggende stop";
-
-"whats_new_message_title_update" = "Vi gjorde kortopdateringer 10 gange mindre";
-
-"whats_new_message_maps_update" = "For at opdatere et kort skal du nu blot downloade de manglende data";
-
 "start_from_my_position" = "Start fra";
-
-"rating" = "Vurdering";
-
-"placepage_no_reviews" = "Ingen anmeldelser";
-
-"placepage_reviewed" = "Du har allerede anmeldt dette sted";
-
-"placepage_summary_rating" = "Sammenfattende vurdering";
-
-"placepage_rate_comment" = "Tryk for at vurdere og anmelde dette sted.";
-
-"placepage_rate_horrible" = "Forfærdeligt";
-
-"placepage_rate_bad" = "Dårligt";
-
-"placepage_rate_normal" = "Normalt";
-
-"placepage_rate_good" = "Godt";
-
-"placepage_rate_excellent" = "Fremragende";
-
-"placepage_reviews_most_recent" = "Seneste";
-
-"placepage_reviews_most_useful" = "Mest nyttige";
-
-"placepage_reviews_highest_rated" = "Højest vurderede";
-
-"placepage_reviews_lowest_rated" = "Lavest vurderede";
-
-"placepage_reviews_offline_comment" = "Kun de mest nyttige anmeldelser vises i offline-tilstand";
-
-"placepage_reviews_your_comment" = "Din anmeldelse";
-
-"placepage_reviews_unhelpful" = "Ikke nyttig";
-
-"placepage_reviews_inappropriate" = "Upassende";
-
-"placepage_reviews_spam" = "Spam";
-
-"placepage_reviews_hint" = "Hvad er godt eller dårligt her?";
-
-"placepage_reviews_edit_your_review" = "Rediger din anmeldelse";
-
-"placepage_reviews_new_review" = "Ny anmeldelse";
-
-"placepage_translate_button" = "Oversæt";
-
-"placepage_show_original_button" = "Vis oprindelig";
-
-"placepage_more_reviews_booking_button" = "Flere anmeldelser på Booking.com";
 
 "profile_authorization_title" = "Log ind med";
 
@@ -1826,41 +1632,11 @@
 
 "quality" = "Kvalitet";
 
-"whats_new_ugc_title_updated_v840" = "Vurderinger og anmeldelser";
-
-"whats_new_ugc_message" = "Du kan nu afgive vurderinger og anmeldelser, selv offline! Glem ikke at opdatere dit kort, så du kan se ændringerne.";
-
 "dialog_error_storage_title" = "Problem med lageradgang";
 
-"dialog_error_storage_message" = "Eksternt lager er ikke tilgængeligt, formentlig er SD-kortet blevet fjernet eller beskadiget, eller filsystemet er skrivebeskyttet. Kontroller det og kontakt os på support@omaps.app";
+"dialog_error_storage_message" = "Eksternt lager er ikke tilgængeligt, formentlig er SD-kortet blevet fjernet eller beskadiget, eller filsystemet er skrivebeskyttet. Kontroller det og kontakt os på support@organicmaps.app";
 
 "setting_emulate_bad_storage" = "Emulere beskadiget lager";
-
-"discovery_button_title" = "Find noget i nærheden";
-
-"discovery_button_subtitle_things_to_do" = "Aktiviteter";
-
-"discovery_button_subtitle_attractions" = "Seværdigheder";
-
-"discovery_button_subtitle_eat_and_drink" = "Spise og drikke";
-
-"discovery_button_subtitle_local_guides" = "Lokale guider";
-
-"discovery_button_viator_error_title" = "Fejl ved indlæsning af data";
-
-"discovery_button_other_error_message" = "Fejl ved indlæsning af data";
-
-"discovery_button_other_loading_message" = "Data indlæses";
-
-"discovery_button_404_error_title" = "Ikke fundet";
-
-"discovery_button_404_error_message" = "Ups, vi fandt ikke noget interessant i nærheden.";
-
-"booking_filters_check_in" = "Tjek ind";
-
-"booking_filters_check_out" = "Tjek ud";
-
-"booking_filters_offline" = "Ikke tilgængelig offline.";
 
 "directions_finish" = "Destination";
 
@@ -1875,18 +1651,6 @@
 "crowdedness" = "Trængsel";
 
 "error_enter_correct_name" = "Angiv et korrekt navn";
-
-"hotel_available" = "Tiilgængelig";
-
-"whats_new_transit_title" = "Undergrundsbaner tilgængelige";
-
-"whats_new_transit_message" = "Opret ruter med undergrundsbaner! Opdater kortene for at se ændringer.";
-
-"whats_new_discovery_title" = "Opdagelsesknap";
-
-"whats_new_discovery_message" = "Opdag nye ting med et enkelt klik!";
-
-"price_per_hour" = "%s/time";
 
 "bookmarks_backup" = "Aktiver sikkerhedskopi";
 
@@ -1918,14 +1682,6 @@
 
 "downloader_applying" = "Anvender %s...";
 
-"whats_new_title_hotel_filter" = "Nye hotelfiltre til rådighed!";
-
-"whats_new_message_hotel_filter" = "Book hoteller på dine datoer! Brug filtre for check-in og check-out";
-
-"whats_new_title_ugc_travel" = "Del dine erfaringer med andre rejsende!";
-
-"whats_new_message_ugc_travel" = "Vurder og anmeld de steder, du har besøgt!";
-
 "dialog_message_transit_not_found_connection" = "Planlæg en rute inden for et transitnetværk";
 
 "bookmarks_error_message_share_general" = "Ikke i stand til at dele på grund af en programfejl";
@@ -1933,10 +1689,6 @@
 "bookmarks_error_title_share_empty" = "Delingsfejl";
 
 "bookmarks_error_message_share_empty" = "Kan ikke dele en tom liste";
-
-"discovery_button_subtitle_book_hotels" = "Reserver hoteller";
-
-"maxim_taxi_title" = "maxim";
 
 "bookmarks_error_title_empty_list_name" = "Navnet kunne ikke være tomt";
 
@@ -1978,10 +1730,6 @@
 
 "wn_reinvented_bookmarks_message" = "Du kan sikkerhedskopiere bogmærker, oprette lister... Det er fantastisk...";
 
-"wn_way_of_booking_title" = "Vi reimagined måde at reservere!";
-
-"wn_way_of_booking_message" = "Find blot et hotel på kortet og book det, eller vælg det samme.";
-
 "bookmarks_restore" = "Gendan bogmærker";
 
 "bookmarks_restore_process" = "Gendannelse...";
@@ -2004,20 +1752,6 @@
 
 "restore" = "Gendan";
 
-"sign_message_gdpr" = "For at fortsætte skal du acceptere vores Vilkår for brug og Privacy Policy. Læs dem grundigt.";
-
-"sign_agree_pp_gdpr" = "Jeg accepterer <a href=\"%s\">Politik til beskyttelse af personlige oplysninger</a>";
-
-"sign_agree_tof_gdpr" = "Jeg accepterer <a href=\"%s\">Vilkår for brug</a>";
-
-"sign_agree_news_gdpr" = "Jeg accepterer at modtage de seneste nyheder om OMaps produkter";
-
-"whats_new_localbiz_title" = "Mindre virksomheder fortjener opmærksomhed";
-
-"whats_new_localbiz_message" = "Det være sig de lokale caféer, hyggelige hoteller og de butikker, som gør vores rejser uforglemmelige. Vi kan optimere din side på OMaps, så den skiller sig ud fra mængden.";
-
-"whats_new_order_button" = "Send en forespørgsel";
-
 "bookmarks_page_downloaded" = "Downloadet";
 
 "bookmarks_page_my" = "Mine";
@@ -2028,7 +1762,7 @@
 
 "cached_bookmarks_placeholder_title" = "Download nye steder";
 
-"cached_bookmarks_placeholder_subtitle" = "Tryk på knappen for at downloade tusindvis af interessanter steder og ruter oprettet af brugerne på OMaps. Du skal bruge en internetforbindelse.";
+"cached_bookmarks_placeholder_subtitle" = "Tryk på knappen for at downloade tusindvis af interessanter steder og ruter oprettet af brugerne på Organic Maps. Du skal bruge en internetforbindelse.";
 
 "downloader_download_routers" = "Download bogmærker";
 
@@ -2040,7 +1774,7 @@
 
 "crash_reports" = "Nedbrudsrapport";
 
-"crash_reports_description" = "Vi kan anvende dine data til at forbedre brugeroplevelsen på OMaps. Ændringerne træder i kraft, når du har genstartet appen.";
+"crash_reports_description" = "Vi kan anvende dine data til at forbedre brugeroplevelsen på Organic Maps. Ændringerne træder i kraft, når du har genstartet appen.";
 
 "opt_out_help_ios_1" = "Din mobilenhed kan indeholde en »Begræns reklamesporing« eller »Afmeld Tilpasset annoncering« indstiling.";
 
@@ -2078,18 +1812,6 @@
 
 "subtitle_error_downloading_bookmarks" = "Bogmærker er ikke blevet downloadet";
 
-"whats_new_bookmarks_catalog_title" = "OMaps har nu et rutekatalog";
-
-"whats_new_bookmarks_catalog_message" = "Hundreder af detaljerede ruter over hele verden: hvor man kan tage hen, hvad man kan se, hvad man kan spise.";
-
-"whats_new_popularity_label_title" = "Populære steder i nærheden";
-
-"whats_new_popularity_label_message" = "Hvad man kan lave-sektionen hjælper dig til at finde de mest populære steder i byen.";
-
-"whats_new_hot_offers_title" = "Attraktive hoteltilbud";
-
-"whats_new_hot_offers_message" = "Du kan søge efter dem ved at bruge hotel-kategorien under søgefunktionen. Tilbuddene er markedet med et procent-tegn på kortet og i søgeresultaterne.";
-
 "error_already_downloaded" = "Denne liste er allerede blevet downloadet";
 
 "popular_place" = "Popular";
@@ -2100,92 +1822,17 @@
 
 "bookmarks_downloaded_subtitle" = "Press ‘View on map’ to explore new places from the list";
 
-"guides" = "Vejledninger";
+"why_support" = "Hvorfor støtte Organic Maps?";
 
-"guide_downloaded_title" = "Vejledningen er blevet downloadet";
+"why_support_item1" = "We respect your privacy: there are zero trackers in the app, and we are open source";
 
-/* as few symbols as possible */
-"download_guides" = "Søgeguide";
-
-"guides_groups_cached" = "Downloadede vejledninger";
-
-"subtitle_error_downloading_guide" = "Vejledningen blev ikke downloadet";
-
-"error_already_downloaded_guide" = "Denne vejledning er allerede blevet downloadet";
-
-"guide_downloaded_subtitle" = "Tryk på 'Se på kort' for at udforske vejledningen";
-
-"bookmarks_guides" = "Bogmærker og vejledninger";
-
-"paybtn_title" = "Betal %s/år";
-
-"paybtn_subtitle" = "Spar %s/år";
-
-"options_dropdown_title" = "Flere valgmuligheder";
-
-"why_support" = "Hvorfor støtte OMaps?";
-
-"options_dropdown_item1" = "%s/måned (spar %s/år)";
-
-"options_dropdown_item2" = "%s/uge (ingen rabat)";
-
-"why_support_item1" = "Vi fjerner alle reklamer for dig";
-
-"why_support_item2" = "Du hjælper os med at forbedre OMaps";
+"why_support_item2" = "Du hjælper os med at forbedre Organic Maps";
 
 "why_support_item3" = "Du hjælper os med at forbedre de åbne kort på OpenStreetMap.org";
 
-"purchase_processing" = "Dit køb er under behandling…";
-
-"tips_bookmarks_catalog_title" = "Offline-vejvisere til enhver rejse";
-
-"tips_bookmarks_catalog_message" = "Download og planlæg turistruten forbi de interessante steder i forskellige byer over hele verden.";
-
-"tips_discover_button_title" = "Vil du finde populære steder i nærheden?";
-
-"tips_discover_button_message" = "”Find noget i nærheden”-sektionen indeholder de bedste restauranter, hoteller og seværdigheder.";
-
-"tips_book_hotel_title" = "Book de hyggeligste hoteller til dine rejser";
-
-"tips_book_hotel_message" = "Brug søgefunktionen og filtrene til at finde de bedste hoteller til dig. Brug ”Book”-knappen på sted-siden for at booke et hotel med det samme.";
-
-"tips_map_layers_title" = "Ved du ikke, hvilken station du skal skifte på?";
-
-"tips_map_layers_message" = "Slå undergrundsbane-laget til for at vise undergrundsbane-kortet, så kan du altid finde vej i en ny by.";
-
 "channels_map_update" = "Kortopdateringer";
 
-"channels_reviews" = "Uafsendte anmeldelser";
-
-"purchase_loading" = "Købsoplysninger hentes…";
-
-"purchase_error_subtitle" = "En fejl opstod under behandlingen af dit køb";
-
-"awaiting_approval" = "Afventer forældregodkendelse";
-
-"whats_new_leave_review" = "Skriv en anmeldelse! Del din mening om de steder, du har besøgt på din ferie.";
-
 "server_unavailable_title" = "Server er utilgængelig";
-
-"server_unavailable_message" = "Købet vil blive gennemført senere. Hvis fejlen bliver ved med at opstå, så kontakt venligst support@omaps.app.";
-
-"offline_fiters_check_in" = "Tilslutter til internettet for at filtrere hoteller efter datoer.";
-
-"rutaxi_title" = "RuTaxi";
-
-"restore_subscription" = "Genopret abonnementet";
-
-"restore_success_alert" = "Abonnementet er blevet genoprettet";
-
-"restore_error_alert" = "Der er sket en fejl under genoprettelsen af abonnementet";
-
-"restore_no_subscription_alert" = "Der er ingen aktive abonnementer";
-
-"subscriptions_title" = "Abonnementer";
-
-"manage_subscription" = "Administrer abonnementet";
-
-"taxi" = "Taxi";
 
 "sharing_options" = "Deling";
 
@@ -2197,13 +1844,13 @@
 
 "hide_from_map" = "Skjul på kort";
 
-"ugc_route_tags_screen_label" = "Vælg tags";
-
-"ugc_route_tags_progress_msg" = "Indlæser tags…";
-
 "public_access" = "Offentlig adgang";
 
 "limited_access" = "Begrænset adgang";
+
+"bookmark_category_name" = "Kategori";
+
+"bookmark_category_description_hint" = "Lav en beskrivelse (tekst eller html)";
 
 /* FIXME */
 "bookmarks_public_access" = "bookmarks_public_access";
@@ -2214,33 +1861,11 @@
 /* FIXME */
 "bookmarks_private_access" = "bookmarks_private_access";
 
-"upload_and_publish_desc" = "Denne guide vil blive uploadet til det offentlige OMaps katalog, hvor den vil være tilgængelig for andre brugere";
-
-"upload_and_publish" = "Upload og offentliggør";
-
-"upload_and_get_direct_link" = "Upload og få et direkte link";
-
-"get_direct_link_desc" = "Din guide vil være tilgængelig for alle, som har linket";
-
-"upload_and_publish_progress_text" = "Offentliggør din guide…";
-
-"upload_and_publish_success" = "Guiden er blevet offentliggjort";
-
-"ugc_routes_user_agreement" = "<b>BEMÆRK:</b> ved at fortsætte her, accepterer du <a href=\"%s\">licensaftalen</a>";
-
-"ugc_route_edit_list_name" = "Guidenavn";
-
-"ugc_route_edit_description_hint" = "Lav en beskrivelse (tekst eller html)";
-
 "not_shared" = "Privat";
 
 "direct_link_progress_text" = "Uploader din fil…";
 
 "direct_link_success" = "Linket er blevet oprettet";
-
-"edit_guide_title" = "Rediger din guide på web";
-
-"edit_guide_subtitle" = "Få et link til at redigere din guide via web-app: tilføj beskrivelser, upload billeder og forbind dine bogmærker med streger.";
 
 "send_a_link_btn" = "Send mig et link";
 
@@ -2254,39 +1879,7 @@
 
 "unable_upload_error_subtitle_broken" = "Denne fil er beskadiget og kunne ikke uploades. Upload venligst en anden fil.";
 
-"buy_btn" = "Køb denne her til %s";
-
-"download_guide_progress" = "Henter din guide…";
-
-"price_error_title" = "Kunne ikke finde en pris";
-
-"price_error_subtitle" = "Prøv igen om lidt";
-
-"edit_your_guide_email_body" = "Rediger nemt din guide på web ved hjælp af din computer: tilføj beskrivelser, upload billeder og forbind bogmærker med streger.";
-
-"edit_on_web" = "Rediger på web";
-
-"properties_loading_error_subtitle" = "Der opstod en fejl under indlæsning af indstillinger, prøv igen";
-
-"custom_props_desc" = "I denne guide har du besøgt steder som";
-
-"custom_props_title" = "Lokal eller rejsende";
-
-"custom_props_local" = "lokal";
-
-"custom_props_traveler" = "rejsende";
-
-"select_properties" = "Vælg indstillinger";
-
-"access_rules_p_to_p" = "Særlig adgang";
-
-"access_rules_paid" = "Købt";
-
-"failed_purchase_support_message" = "Beklager, men du har formentlig et igangværende køb, som ikke er blevet gennemført. Kontakt venligst support, så løser vi problemet for dig.";
-
 "contact" = "Kontakt";
-
-"check_price_button" = "Tjek pris";
 
 "download_button" = "Download";
 
@@ -2304,92 +1897,16 @@
 
 "place_description_title" = "Beskrivelse af sted";
 
-"ugc_routes_error_uploading_file_toast" = "Der er desværre opstået en fejl ved upload af dine bogmærker. Prøv igen.";
-
-"notification_channel_ugc" = "Socialt indhold";
-
 /* this text will be shown in application notification preferences opposite checkbox which enable/disable downloader notifications. Devices on Android 8+ are affected. */
 "notification_channel_downloader" = "Korthenter";
 
-"notification_leave_review_title" = "%s - hvordan var det?";
-
-"notification_leave_review_content" = "Hjælp rejsende ved at skrive en anmeldelse!";
-
-"share_bookmarks_email_body_link" = "Hej!\n\nHer er et link, hvor du kan hente dine bogmærker: %s. Åben listen via OMaps og nyd turen!\n\nHent applikation: https://omaps.app/get?kmz";
+"share_bookmarks_email_body_link" = "Hej!\n\nHer er et link, hvor du kan hente dine bogmærker: %s. Åben listen via Organic Maps og nyd turen!\n\nHent applikation: https://organicmaps.app/get?kmz";
 
 "warning_speedcams_title" = "Navigator advarer dig om kameraer, når du overskrider hastighedsgrænsen på %d km/t";
 
 "warning_speedcams_subtitle" = "Vær opmærksom på færdselsreglerne i det land, du rejser til.";
 
 "speedcams_notice_message" = "Auto - Advar om fartkameraer, hvis der er en risiko for, at hastighedsgrænsen overskrides\nAltid - Advar altid om fartkameraer\nAldrig - Advar aldrig om fartkameraer";
-
-"whats_new_ugc_routes_title" = "Det er nemt at dele dine indtryk";
-
-"whats_new_ugc_routes_subtitle" = "Gem mindeværdige steder, lav ruter ved hjælp af bogmærker og del dem med alle i OMaps kataloget.";
-
-"whats_new_webeditor_title" = "Lav dine ruter om til historier";
-
-"whats_new_ugc_routes_message2" = "Tilføj fotos og detaljerede historier i webredaktøren.";
-
-"ugc_thanks_message_auth" = "Din anmeldelse er blevet gemt";
-
-"ugc_thanks_message_not_auth" = "Log ind for efterlade en anmeldelse";
-
-"notification_leave_review_v2_title" = "Vurder et besøgt sted og hjælp rejsende!";
-
-"error_public_not_enought_title" = "Ikke nok bogmærker";
-
-"error_public_not_enought_subtitle" = "Du skal have mindst 3 bogmærker, for at kunne uploade din guide til det offentlige katalog";
-
-"bookmark_public_upload_alert_title" = "Du er et par skridt væk fra at dele dine bogmærker med alle OMaps rejsende!";
-
-"bookmark_public_upload_alert_subtitle" = "Sørg for, at du har et bestemt navn og en beskrivelse til din liste, og at alle bogmærker har oplysninger om stederne. På denne måde kan din liste findes og bruges af andre.";
-
-"bookmark_public_upload_alert_ok_button" = "Ja, jeg er sikker!";
-
-"name_title" = "Indtast navn på din guide";
-
-"name_placeholder" = "f.eks. London Pubs";
-
-"name_comment1" = "Navngiv din guide, så rejsende nemt kan finde det, f.eks. \"London Pubs\"";
-
-"name_comment2" = "Navnet bør ikke indeholde specielle symboler. Navnet skal ikke være \"Mine steder\"";
-
-"description_guide" = "Beskrivelse";
-
-"description_title" = "Indtast beskrivelse til din guide";
-
-"description_placeholder" = "Beskriv din guide i detaljer";
-
-"description_comment1" = "Din guide-beskrivelse skal indeholde mindst 30 symboler.";
-
-"ugc_route_tags_desc" = "Vælg tags for at hjælpe andre rejsende med at finde din guide. Dette er obligatorisk. Maksimum %s tags.";
-
-"html_format_error_title" = "Din guide er ikke blevet udgivet";
-
-"html_format_error_subtitle" = "Sørg for at navne og beskrivelser af dine bogmærker alle har et gyldigt format. Du kan tjekke det, via en browser på skrivebordet, ved at klikke på knappen \"Rediger online\", nedenfor.";
-
-"web_editor_description" = "Upload din guide og få rediger linket fra skrivebordet";
-
-"edit_on_web_confirm" = "Rediger online";
-
-"update_guide" = "Upload en opdatering";
-
-"direct_link_updating_text" = "Opdaterer din fil…";
-
-"direct_link_updating_success" = "Din guide er blevet opdateret";
-
-"unable_get_direct_link_desc" = "Du kan dele din guide via et offentligt link";
-
-"any_access_update_alert_title" = "Nogle ændringer kan have fundet sted";
-
-"any_access_update_alert_message" = "Vil du opdatere dine bogmærker? Den nye version vil være tilgængelig via det samme link.";
-
-"any_access_update_alert_update" = "Opdater";
-
-"public_or_limited_access_after_edit_online_error_title" = "Du har redigeret dine bogmærker online";
-
-"public_or_limited_access_after_edit_online_error_message" = "I fremtiden rediger, udgiv eller del guiden, med dine venner, via vores hjemmeside";
 
 "power_managment_title" = "Strømsparetilstand";
 
@@ -2401,7 +1918,7 @@
 
 "power_managment_setting_manual_max" = "Maksimum strømbesparelse";
 
-"enable_logging_warning_message" = "Indstillingen aktiverer logning til diagnostiske formål. Det kan være nyttigt for vores supportere, der fejlfinder problemer med appen. Aktiver kun denne mulighed på anmodning fra OMaps support.";
+"enable_logging_warning_message" = "Indstillingen aktiverer logning til diagnostiske formål. Det kan være nyttigt for vores supportere, der fejlfinder problemer med appen. Aktiver kun denne mulighed på anmodning fra Organic Maps support.";
 
 "html_error_upload_message_try_again" = "Kontroller dine netværksindstillinger, og prøv igen";
 
@@ -2417,21 +1934,9 @@
 
 "privacy_settings_menu" = "Indstillinger for beskyttelse af personlige oplysninger";
 
-"gdpr_request_setting" = "Få ID til GDPR anmodning";
-
-"gdpr_request_window_title" = "Dit ID: %s.";
-
-"gdpr_request_window_message" = "Kopiere det og send anmodningen til support@omaps.app";
-
-"gdpr_request_window_copy" = "Kopier ID'et";
-
 "unable_upadate_error_title" = "Fil opdatering fejlede";
 
 "unable_upadate_error_message" = "Der opstod nogle fejl under opdatering. Kontroller ændringerne, og prøv igen";
-
-"whats_new_wiki_title" = "Hvad er det sted?";
-
-"whats_new_wiki_message" = "Vi har tilføjet Wikipedia.org artikler til siderne, af de mest populære turistattraktioner. De er tilgængelige offline";
 
 "driving_options_title" = "Køre muligheder";
 
@@ -2467,31 +1972,7 @@
 
 "avoid_ferry_crossing_placepage" = "Undgå færgeoverfarter";
 
-"cached_guides_placeholder_subtitle" = "OMaps tilbyder færdiglavede guides med fotos og beskrivelser til de udvalgte steder, der vises på kortet, som er tilgængelige offline.";
-
-"guides_catalogue_title" = "Katalog over Guides";
-
-"download_guides_button" = "Gå til Kataloget";
-
 "type.cuisine.uzbek" = "Usbekisk køkken";
-
-"onboarding_guide_direct_download_title" = "Guide er klar til download";
-
-"onboarding_guide_direct_download_subtitle" = "Det vil blive vist på kort og fungerer offline";
-
-"onboarding_guide_direct_download_button" = "Download";
-
-"onboarding_bydeeplink_guide_title" = "Klar-til-brug guider i OMaps";
-
-"onboarding_bydeeplink_guide_subtitle" = "De bedste steder at besøge er vist på kort med fotos og beskrivelser. Fungerer offline.";
-
-"whats_new_auto_update_bydeeplink_title" = "Før du fortsætter til guider…";
-
-"whats_new_auto_update_bydeeplink_message" = "Opdater kort for at holde informationen opdateret!";
-
-"whats_new_auto_update_and_proceed_button_size" = "Opdater (%s) og fortsæt";
-
-"purchase_please_wait_toast" = "Forlad ikke denne skærm, før købet er gennemført";
 
 "trip_start" = "Lad os komme i gang";
 
@@ -2531,80 +2012,6 @@
 
 "ok" = "Ok";
 
-"vezet_taxi" = "Vezet";
-
-"booking_button_toolbar" = "Vælg et hotel på kortet";
-
-"popup_booking_download_guides_title" = "Book et hotel?";
-
-"popup_booking_download_guides_message" = "Planlæg din rute med færdiglavede guider fra OMaps";
-
-"popup_mwm_download_guides_title" = "Offline byguides";
-
-"popup_mwm_download_guides_cta" = "Vælg en";
-
-"popup_mwm_download_guides_cta_1" = "Tag et kig";
-
-"gallery_pp_download_guides_offline_title" = "Planlæg din ferie med OMaps!";
-
-"gallery_pp_download_guides_offline_subtitle" = "Gå ikke glip af noget med guider lavet af erfarne rejsende";
-
-"gallery_pp_download_guides_offline_cta" = "Tilslut internettet";
-
-"gallery_pp_download_guides_title" = "Guider";
-
-"native_screen_subscription_title" = "Ubegrænset adgang til 2000+ rejseguider!";
-
-"native_screen_subscription_message" = "En mindeværdig ferie uanset hvor og hvem du rejser med";
-
-"annual_subscription_title" = "Årlig";
-
-"montly_subscription_title" = "Månedlig";
-
-"annual_subscription_message" = "12 måneder med ubegrænset adgang";
-
-"montly_subscription_message" = "1 måned med ubegrænset adgang";
-
-"annual_save_component" = "- %d%";
-
-"subscription_success_dialog_title" = "Tak, fordi du abonnere!";
-
-"subscription_success_dialog_message" = "Nu har du ubegrænset til hele kataloget over guider";
-
-"renewal_screen_title" = "Dit abonnement er udløbet";
-
-"renewal_screen_message" = "Alle guider, der er hentet via abonnement vil blive slettet. Vil du forsætte abonnementet og beholde dem?";
-
-"renewal_screen_button_restore" = "Ja, forny";
-
-"renewal_screen_button_cancel" = "Nej, slet guiderne";
-
-"subscription_error_ping_title" = "Købet mislykkedes";
-
-"subscription_error_message" = "Tjenesten er i øjeblikket ikke tilgængelig i dit område. Prøv igen senere";
-
-"subscription_error_button" = "Forstået";
-
-"timeout_error_title" = "Ups, tiden er udløbet!";
-
-"timeout_error_message" = "Vores servere svarer ikke. Tjek din Internetforbindelse, og prøv igen.";
-
-"per_month" = "/md.";
-
-"per_year" = "/år";
-
-"buy_btn_for_subscription" = "Ubegrænset adgang fra %s";
-
-"buy_btn_for_subscription_1" = "Køb ALLE guider til %s";
-
-"buy_btn_for_subscription_ios_only_mo" = "Ubegrænset adgang til %s/md.";
-
-"buy_btn_for_subscription_ios_only_year" = "Ubegrænset adgang til %s/år";
-
-"subscription_terms_guides" = "Betalingen vil blive opkrævet via din iTunes konto, efter købet er bekræftet. Abonnementet fornys automatisk, medmindre automatisk fornyelse er slået fra mindst 24 timer før udgangen af nuværende periode. Din konto vil blive ændret ifølge din fornyelsesplan, indenfor 24 timer før udgangen af den aktuelle periode. Du kan administrere eller deaktivere automatisk fornyelse i dine Apple ID-kontoindstillinger på ethvert tidspunkt for dit køb. Du kan kun bruge downloadede guider indtil dennes udløbsdato. Efter 30 dage fra abonnementets udløbsdato, vil guider med bookmarks automatisk blive slettet.";
-
-"subscription_terms" = "Betalingen opkræves via din iTunes-konto ved bekræftelse af købet. Abonnementet fornys automatisk, medmindre den automatiske fornyelse er slået fra senest 24 timer før udgangen af den aktuelle periode. Din konto debiteres i overensstemmelse med din plan for fornyelse indenfor 24 timer før udgangen af den aktuelle periode. Du kan administrere eller slukke for automatisk fornyelse i dine Apple ID-kontoindstillinger på ethvert tidspunkt af dit køb.";
-
 "avoid_unpaved_carplay_1" = "Ingen grus";
 
 "avoid_unpaved_carplay_2" = "Undgå grus";
@@ -2621,7 +2028,7 @@
 
 "speedcams_alert_title_carplay_2" = "Radar advarsel";
 
-"download_map_carplay" = "Download kort i OMaps appen, på din enhed";
+"download_map_carplay" = "Download kort i Organic Maps appen, på din enhed";
 
 "carplay_roundabout_exit" = "%s exit";
 
@@ -2708,138 +2115,9 @@
 /* Android, max 18 symbols */
 "bookmarks_delete_list" = "Slet liste";
 
-"popup_subscription_success_map_title" = "Juuhuu, du har abonnement!";
-
-"popup_subscription_success_map_message" = "Opdag nu de bedste turisthøjdepunkter i OMaps kataloget";
-
-"popup_subscription_success_map_start_button" = "Begynd at udforske";
-
-"popup_subscription_success_map_not_now_button" = "Ikke nu";
-
 "religious_places" = "Religiøse steder";
 
-"subscription_terms_android" = "Når du bekræfter et køb, vil betalingen blive trukket fra din Google Play konto. Abonnementet bliver automatisk fornyet med mindre auto-forny-funktionen er slået fra mindst 24 timer før den nuværende periode slutter. Din konto vil blive trukket i henhold til din fornyelsesplan inden for 24 timer før den nuværende periode slutter. Du kan administrere eller slå auto-fornyelses funktionen fra i Konto Indstillinger efter købet. Du kan kun bruges guides downloaded med abonnementet indtil dets udløbsdato. Efter 30 dage fra abonnementets udløbsdato, bliver downloadede guides automatisk slettet.";
-
 "select_list" = "Væg liste";
-
-"pp_discovery_place_related_header" = "Dette sted er i guide-katalog";
-
-"pp_discovery_place_related_header_1" = "Dette sted er vist i en guide";
-
-"pp_discovery_place_related_cta_button" = "Se";
-
-"pp_discovery_place_related_tag_header" = "Guider ud fra tag „%s“";
-
-"pp_discovery_place_related_tag_header_1" = "Du vil måske også synes godt om";
-
-"buy_btn_for_subscription_version_2" = "ALLE guides for kun %s/mo";
-
-"buy_btn_for_subscription_version_3" = "Hele kataloget for %s/mo";
-
-"buy_btn_for_subscription_ios_only_mo_version_2" = "Adgang til katalog for %s/mo";
-
-"buy_btn_for_subscription_ios_only_year_version_2" = "Adgang til kataloget for %s/year";
-
-"subscription_screen_native_title_version_2" = "Adgang til guides med bogmærker!";
-
-"subscription_screen_native_message_version_2" = "Bliv klar til enhver rejse i 600+ byer og 100+ lande";
-
-"catalog_no_internet_title" = "Ingen internetforbindelse";
-
-"catalog_no_internet_button" = "Prøv igen";
-
-"new_onboarding_button" = "Næste";
-
-"new_onboarding_button_2" = "Kom i gang";
-
-"new_onboarding_step1_header" = "OMaps";
-
-"new_onboarding_step1_header_2" = "Alt i en rejsekammerat";
-
-"new_onboarding_step2_header" = "Drøm og planlæg";
-
-"new_onboarding_step2_message" = "70+ millioner steder, færdige guides og hotelbooking lige fra kortet – du er klar til turen!";
-
-"new_onboarding_step3_message" = "Far aldrig vild med detaljerede kort over ethvert land og navigation – alt virker offline!";
-
-"new_onboarding_step4_header" = "Del indtryk";
-
-"new_onboarding_step4_message" = "Placer bogmærker på yndlingssteder og send dem til dine venner";
-
-"new_onboarding_step5.1_header" = "En ting mere før du starter…";
-
-"new_onboarding_step5.1_message" = "Glem ikke at besøge vores helt nye guidekatalog for at en finde en offline guide til din kommende rejse!";
-
-"new_onboarding_step5.1_button" = "Åbent katalog";
-
-"new_onboarding_step5.2_message" = "Dit abonnement til OMaps guidekatalog er af stor værdi. Få fuld adgang til byen og udendørsguider i hele verden!";
-
-"new_onboarding_step5.2_button" = "Check betingelserne ud";
-
-"new_onboarding_step5.3_message" = "Check de gratis prøver på færdige by- og udendørsruter med et gratis udvalg af OMaps!";
-
-"new_onboarding_step5.3_button" = "Gratis download";
-
-"new_onboarding_additional_steps_later_button" = "Senere";
-
-"all_pass_subscription_header" = "Abonner på";
-
-"all_pass_subscription_subheader" = "Katalog over Guides";
-
-/* \n - for a break between lines. Max. 15 characters per 1 line. */
-"all_pass_subscription_message_title" = "30000+\nguide & stier";
-
-/* <b> & </b> tag to make a part of the line bold */
-"all_pass_subscription_message_subtitle" = "<b>Ubegrænsede downloads</b> af by og udendørs ruter <b>til offline mode</b>";
-
-/* \n - for a break between lines. Max. 17 characters per 1 line. */
-"all_pass_subscription_message_title_2" = "Interaktiv\nhøjdeprofil";
-
-/* <b> & </b> tag to make a part of the line bold */
-"all_pass_subscription_message_subtitle_2" = "Hver sti indeholder <b>højde og basis info om ruten</b>";
-
-/* \n - for a break between lines. Max. 15 characters per 1 line. */
-"all_pass_subscription_message_title_3" = "Bogmærker,\nbilleder og\nanbefalinger";
-
-/* <b> & </b> tag to make a part of the line bold */
-"all_pass_subscription_message_subtitle_3" = "<b>Lær alt om ruten</b> du skal til at tage";
-
-/* do not translate */
-"sightseeing_subscription_header_sightseeing" = "City Pass";
-
-"sightseeing_subscription_header_subscription" = "Guides Abonnement";
-
-"sightseeing_subscription_message" = "700+ byer og 100+ lande";
-
-"sightseeing_subscription_message_2" = "Tilgængeligt offline";
-
-"sightseeing_subscription_message_3" = "Fotos og gåture";
-
-"subscription_success_dialog_title_sightseeing_pass" = "Tak for din tilmelding!";
-
-"subscription_success_dialog_message_sightseeing_pass" = "Nu har du adgang til alle sightseeing-guides i kataloget";
-
-"downloader_main_gallery_header" = "Kort & kort";
-
-"downloader_main_gallery_message" = "I denne sektion kan du ikke kun downloade kort, men også checke guides ud til din kommen rejse";
-
-"downloader_main_1_element_gallery_header" = "Alle guides";
-
-"downloader_main_1_element_gallery_message" = "i 100+ lande";
-
-"downloader_country_1_element_gallery_header" = "%s guides";
-
-"downloader_country_no_guides_gallery_header" = "Der er ingen guides i dette land endnu";
-
-"downloader_country_no_guides_gallery_message" = "Du kan checke andre offline guides ud i 100+ lande til by- og udendørsaktiviteter";
-
-"dialog_pedestrian_route_is_long" = "Gåturen til transportens boardingsted er for lang";
-
-"new_onboarding_step3_header" = "Oplevelse";
-
-"all_pass_screen_best_value" = "Bedste værdi";
-
-"buy_btn_for_subscription_3" = "Hele kataloget for %s/år";
 
 "transit_not_found" = "Metro-navigation er endnu ikke tilgængelig i denne region";
 
@@ -2852,7 +2130,7 @@
 
 "button_layer_isolines" = "Terræn";
 
-"tips_map_layers_title_countour" = "Nyt på OMaps: offline topografiske lag!";
+"tips_map_layers_title_countour" = "Nyt på Organic Maps: offline topografiske lag!";
 
 "tips_map_layers_message_countour" = "Planlæg og nyd din naturtur ved at være sikker på, at du ved alt om området";
 
@@ -2890,175 +2168,13 @@
 
 "elevation_profile_minutes" = "min";
 
-"view_on_map_downloaded_error" = "Denne guide er blevet fjernet fra denne enhed";
-
-"subscription" = "Abonnement";
-
-"freenow_taxi_title" = "FREE NOW";
-
-"tinkoff_allairlines_map_downloader_title" = "Карта Тинькофф All Airlines. 3000 миль в подарок";
-
-"tinkoff_allairlines_map_downloader_cta_button" = "Оформить карту";
-
-"tinkoff_insurance_map_downloader_title" = "Полис Тинькофф со скидкой! Подходит для любых виз.";
-
-"tinkoff_insurance_map_downloader_cta_button" = "Промокод";
-
-"mts_map_downloader_title" = "Забугорище: интернет и звонки за границей как дома";
-
-"mts_map_downloader_cta_button" = "Подключить";
-
-"skyeng_map_downloader_title" = "Дарим 4 бесплатных урока английского от Skyeng.";
-
-"skyeng_map_downloader_cta_button" = "Подробнее";
-
-"button_layer_guides" = "Guider (ny)";
-
-"no_routes_in_the_area_toast" = "Ingen guider fundet her";
-
 "isolines_toast_zooms_1_10" = "Zoom ind for at udforske isolinjekort";
-
-"routes_layer_in_menu_toast" = "Tænd for lag for at finde offline guider, udforske isolinjekort, undergrundslinjer eller trafikpropper";
-
-"routes_layer_is_on_toast" = "Træk kortet for at udforske guiderne";
-
-"connection_error_dialog_guides_title" = "Forbindelsesfejl";
-
-"connection_error_dialog_guides_message" = "Laget virker ikke fordi der ikke er internet eller et svagt signal. For at fortsætte arbejdet, kontroller forbindelsen eller slå laget fra.";
-
-"connection_error_dialog_guides_try" = "Prøv igen";
-
-"connection_error_dialog_guides_layer_turn_off" = "Sluk";
-
-"connection_error_toast_guides" = "Forsøger at tilslutte";
-
-/* as few symbols as possible */
-"routes_card_show" = "Vis på kort";
-
-/* as few symbols as possible */
-"routes_card_hide" = "Skjul fra kort";
 
 "downloader_updating_ios" = "Opdaterer";
 
 "downloader_loading_ios" = "Downloader";
 
-"routes_card_plus_track" = "+ rute";
-
-"routes_card_city" = "City";
-
-"routes_card_outdoor" = "Outdoor";
-
-"routes_card_number_of_points" = "%s steder";
-
-"routes_card_routes_tag" = "Rejseplan";
-
-"routes_card_set_tag" = "Fremhævede steder";
-
-/* as few symbols as possible */
-"guides_trial_cta_button" = "Start din 7 dages gratis prøveperiode";
-
-"guides_trial_message" = "Derefter, %s per år. Annuller når som helst";
-
-"trial_error_dialog" = "Beklager, du har allerede brugt prøveperioden";
-
-/* as few symbols as possible */
-"floating_button_filters" = "Filtre";
-
-/* as few symbols as possible */
-"date_picker_сhoose_dates_cta" = "Vælg datoer";
-
-/* as few symbols as possible */
-"guests_picker_rooms_title" = "Værelser og gæster";
-
-"guests_picker_rooms" = "Værelser";
-
-"guests_picker_adults" = "Voksne";
-
-"guests_picker_children_title" = "Børn";
-
-"guests_picker_children_subtitle" = "1-17 år";
-
-"guests_picker_infants_title" = "Spædbørn";
-
-"guests_picker_infants_subtitle" = "0-12 mdr.";
-
-/* as less symbols as possible */
-"booking_map_component_availability" = "Ingen værelser";
-
-/* as few symbols as possible */
-"booking_map_component_filters" = "Ikke flere filtre";
-
-"choose_dates_online_only_dialog_title" = "Ingen netværksforbindelse";
-
-"choose_dates_online_only_dialog_message" = "Datoer og antal gæster kan kun vælges, når du er online. Kontroller venligst dine indstillinger og sørg for, du er forbundet til internettet.";
-
-"choose_dates_online_only_dialog_cta" = "Indstillinger";
-
-"thirty_days_limit_dialog" = "Du kan booke maksimalt 30 nætter";
-
-"whatsnew_trial_cta" = "Prøv det nu";
-
-"subscription_terms_guides_outdoor" = "Når du bekræfter købet, vil betalingen blive debiteret på din iTunes-konto. Abonnementet vil automatisk blive fornyet, med mindre automatisk fornyelse slås fra mindst 24 timer før slutningen af den nuværende abonnementsperiode. Din konto vil blive debiteret ifølge din fornyelsesplan inden for 24 timer før den nuværende abonnementsperiode slutter. Du kan administrere eller slå automatisk fornyelse fra i dine Apple ID-kontoindstillinger når som helst efter købet. Du kan kun bruge de downloadede guider i løbet af dit abonnement, indtil abonnementet udløber. Guider og bogmærker vil automatisk blive slettet 7 dage efter abonnementet udløber.\n* Abonnementet med gratis prøveperiode vil automatisk blive fornyet til et betalt abonnement. Du kan annullere eller administrere automatisk fornyelse af din gratis prøveperiode i dine kontoindstillinger efter købet. Annulleringen træder i kraft 24 timer efter den sidste dag af den nuværende abonnementsperiode. Derefter vil du blive nedgraderet til den gratis tjeneste. Bemærk venligst: Enhver ubrugt del af den gratis prøveperiode går tabt, når du køber et premium-abonnement i løbet af den gratis prøveperiode.";
-
-"subscription_terms_android_outdoor" = "Når du bekræfter købet, vil betalingen blive debiteret på din Google Play-konto. Abonnementet vil automatisk blive fornyet, med mindre automatisk fornyelse slås fra mindst 24 timer før slutningen af den nuværende abonnementsperiode. Din konto vil blive debiteret ifølge din fornyelsesplan inden for 24 timer før den nuværende abonnementsperiode slutter. Du kan administrere eller slå automatisk fornyelse fra i dine kontoindstillinger når som helst efter købet. Du kan kun bruge de downloadede guider i løbet af dit abonnement, indtil abonnementet udløber. Guider vil automatisk blive slettet 7 dage efter abonnementet udløber.\n* Abonnementet med gratis prøveperiode vil automatisk blive fornyet til et betalt abonnement. Du kan annullere eller administrere automatisk fornyelse af din gratis prøveperiode i dine kontoindstillinger efter købet. Annulleringen træder i kraft 24 timer efter den sidste dag af den nuværende abonnementsperiode. Derefter vil du blive nedgraderet til den gratis tjeneste. Bemærk venligst: Enhver ubrugt del af den gratis prøveperiode går tabt, når du køber et premium-abonnement i løbet af den gratis prøveperiode.";
-
-"sberbank_map_downloader_title" = "Откройте Сберкарту Тревел Mastercard и копите мили";
-
-"sberbank_map_downloader_cta_button" = "Узнать больше";
-
-"yango_taxi_title" = "Yango";
-
-"citymobil_taxi_title" = "Citymobil";
-
-"subscription_header" = "Abonner på\n<b>Guidekatalog</b>";
-
-/* Max. 20 characters per 1 line. */
-"all_pass_subscription_message_title_4" = "Rejseguider\naf Lonely Planet®";
-
-/* <b> & </b> tag to make a part of the line bold */
-"all_pass_subscription_message_subtitle_4" = "Endnu <b>flere oplevelser</b> med tusindvis af interessante steder <b>i hele verden</b>";
-
-"content_by_component" = "Indhold af: %s";
-
-"whatsnew_lp_title" = "Endnu flere følelser";
-
-"whatsnew_lp_message" = "Lonely Planet guides kan nu findes i vores app! De bedse attraktioner, tematiske gåture og unikke destinationer for 7000+ byer.";
-
-"collections_title" = "Samlinger";
-
 "key_information_title" = "Central information";
-
-"mustsee_title" = "Skal se";
-
-"see_lp_category" = "Attraktioner";
-
-"play_lp_category" = "Underholdning";
-
-"shop_lp_category" = "Forretninger";
-
-"transport_lp_category" = "Transport";
-
-"sleep_lp_category" = "Overnatning";
-
-"general_lp_category" = "Generelt";
-
-"drink_lp_category" = "Drikke";
-
-"eat_lp_category" = "Mad";
-
-"taxi_category_order" = "Order";
-
-"arsenal_telemed_map_downloader_title" = "Онлайн консультации профессиональных врачей 24/7";
-
-"arsenal_flat_map_downloader_title" = "Уезжаешь? Позаботься о своей квартире и соседях.";
-
-"arsenal_crimea_map_downloader_title" = "Туристическая страховка отдыха в Крыму. От 15₽/день";
-
-"arsenal_russia_map_downloader_title" = "Путешествуй по России. Лечение COVID-19 включено!";
-
-"arsenal_abroad_map_downloader_title" = "Полис «Выезд за рубеж». Лечение COVID-19 включено!";
-
-"arsenal_cta_button" = "Оформить полис";
 
 "download_map_title" = "Download the world map";
 

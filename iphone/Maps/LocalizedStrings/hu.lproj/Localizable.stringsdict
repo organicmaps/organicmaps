@@ -100,41 +100,5 @@
       <string>%d út</string>
     </dict>
   </dict>
-
-  <key>placepage_summary_rating_description</key>
-  <dict>
-    <key>NSStringLocalizedFormatKey</key>
-    <string>%#@value@</string>
-    <key>value</key>
-    <dict>
-      <key>NSStringFormatSpecTypeKey</key>
-      <string>NSStringPluralRuleType</string>
-      <key>NSStringFormatValueTypeKey</key>
-      <string>d</string>
-      <key>one</key>
-      <string>%d értékelés alapján</string>
-      <key>other</key>
-      <string>%d értékelés alapján</string>
-    </dict>
-  </dict>
-
-  <key>date_picker_amout_of_days</key>
-  <dict>
-    <key>NSStringLocalizedFormatKey</key>
-    <string>%#@value@</string>
-    <key>value</key>
-    <dict>
-      <key>NSStringFormatSpecTypeKey</key>
-      <string>NSStringPluralRuleType</string>
-      <key>NSStringFormatValueTypeKey</key>
-      <string>d</string>
-      <key>one</key>
-      <string>%d nap</string>
-      <key>few</key>
-      <string>%d napok</string>
-      <key>other</key>
-      <string>%d napok</string>
-    </dict>
-  </dict>
 </dict>
 </plist>

@@ -57,7 +57,7 @@
 	<string name="country_status_download_failed">Lo scaricamento è fallito</string>
 	<!-- Button text for the button under the country_status_download_failed message -->
 	<string name="try_again">Riprova</string>
-	<string name="about_menu_title">Informazioni su OMaps</string>
+	<string name="about_menu_title">Informazioni su Organic Maps</string>
 	<string name="downloaded_touch_to_delete">Scaricato (%s), tocca per cancellare</string>
 	<string name="connection_settings">Impostazioni di connessione</string>
 	<string name="download_mb_or_kb">Scarica %s</string>
@@ -103,7 +103,7 @@
 	<!-- Add bookmark dialog - bookmark set, Bookmarks dialog - Bookmark set cell -->
 	<string name="set">Seleziona</string>
 	<!-- Text hint in Bookmarks dialog when no any bookmarks are added -->
-	<string name="bookmarks_usage_hint">Non hai ancora nessun segnalibro.\nTocca qualsiasi luogo sulla cartina per aggiungere un segnalibro.\nPossono essere anche importati Preferiti da altre fonti e visualizzate nell\'app OMaps. Apri il file KML/KMZ con i pin salvati da una casella di posta, Dropbox o un link web.</string>
+	<string name="bookmarks_usage_hint">Non hai ancora nessun segnalibro.\nTocca qualsiasi luogo sulla cartina per aggiungere un segnalibro.\nPossono essere anche importati Preferiti da altre fonti e visualizzate nell\'app Organic Maps. Apri il file KML/KMZ con i pin salvati da una casella di posta, Dropbox o un link web.</string>
 	<!-- Settings button in system menu -->
 	<string name="settings">Impostazioni</string>
 	<!-- Header of settings activity where user defines storage path -->
@@ -171,7 +171,7 @@
 	<!-- Button text -->
 	<string name="share_by_email">Condividi via email</string>
 	<!-- Email Subject when sharing bookmarks category -->
-	<string name="share_bookmarks_email_subject">Il segnalibri OMaps è stato condiviso con te</string>
+	<string name="share_bookmarks_email_subject">Il segnalibri Organic Maps è stato condiviso con te</string>
 	<!-- message title of loading file -->
 	<string name="load_kmz_title">Caricamento segnalibri in corso</string>
 	<!-- Kmz file successful loading -->
@@ -191,7 +191,7 @@
 	<!-- Alert message that downloading is in progress. -->
 	<string name="downloading_is_active">Il download della nazione è in corso.</string>
 	<!-- Message that will be shown in alert view, when we ask user to leave review on App Store -->
-	<string name="appStore_message">Confidiamo nel fatto che sia piacevole utilizzare OMaps! In caso positivo, ti preghiamo di valutare o recensire l\'app all\'interno dell\'app store. Ti porterà via meno di un minuto e la cosa ci aiuterebbe tantissimo. Grazie per il tuo sostegno!</string>
+	<string name="appStore_message">Confidiamo nel fatto che sia piacevole utilizzare Organic Maps! In caso positivo, ti preghiamo di valutare o recensire l\'app all\'interno dell\'app store. Ti porterà via meno di un minuto e la cosa ci aiuterebbe tantissimo. Grazie per il tuo sostegno!</string>
 	<!-- No, thanks -->
 	<string name="no_thanks">No, grazie</string>
 	<!-- Share one specific bookmark using SMS, %1$@ contains ge0:// and %2$@ http://ge0.me link. @NOTE non-ascii symbols in the link will make 70 bytes sms instead of 140 -->
@@ -199,9 +199,9 @@
 	<!-- Share my position using SMS, %1$@ contains ge0:// and %2$@ http://ge0.me link WITHOUT NAME. @NOTE non-ascii symbols in the link will make 70 bytes sms instead of 140 -->
 	<string name="my_position_share_sms">Vedi dove sono ora. Apri %1$s o %2$s</string>
 	<!-- Subject for emailed bookmark -->
-	<string name="bookmark_share_email_subject">Dai uno sguardo al mio pin sulla mappa di OMaps</string>
+	<string name="bookmark_share_email_subject">Dai uno sguardo al mio pin sulla mappa di Organic Maps</string>
 	<!-- Subject for emailed position -->
-	<string name="my_position_share_email_subject">Guarda dove mi trovo attualmente sulla mappa OMaps</string>
+	<string name="my_position_share_email_subject">Guarda dove mi trovo attualmente sulla mappa Organic Maps</string>
 	<!-- Share my position using EMail, %1$@ is ge0:// and %2$@ is http://ge0.me link WITHOUT NAME -->
 	<string name="my_position_share_email">Ciao,\n\nSono qui adesso: %1$s. Clicca su questo link %2$s oppure su questo %3$s per vedere il posto sulla mappa.\n\nGrazie.</string>
 	<!-- Android share by Message/SMS button text (including SMS) -->
@@ -301,19 +301,19 @@
 	<!-- text of notification -->
 	<string name="download_map_notification">Scarica la mappa del luogo in cui ti trovi</string>
 	<!-- text of notification -->
-	<string name="pro_version_is_free_today">Versione completa di OMaps è oggi gratis! Scaricala ora e dillo ai tuoi amici!</string>
+	<string name="pro_version_is_free_today">Versione completa di Organic Maps è oggi gratis! Scaricala ora e dillo ai tuoi amici!</string>
 	<!-- Dialog for transferring maps from lite to pro. -->
-	<string name="move_lite_maps_to_pro">Stiamo trasferendo le tue mappe scaricate da OMaps Lite a OMaps. Potrebbe richiedere alcuni minuti.</string>
+	<string name="move_lite_maps_to_pro">Stiamo trasferendo le tue mappe scaricate da Organic Maps Lite a Organic Maps. Potrebbe richiedere alcuni minuti.</string>
 	<!-- Message to display when maps moved. -->
-	<string name="move_lite_maps_to_pro_ok">Le mappe che hai scaricato sono state trasferite con successo a OMaps.</string>
+	<string name="move_lite_maps_to_pro_ok">Le mappe che hai scaricato sono state trasferite con successo a Organic Maps.</string>
 	<!-- Message to display when maps move failed. -->
-	<string name="move_lite_maps_to_pro_failed">Non è stato possibile trasferire le tue mappe. Cancella OMaps Lite e scarica le mappe di nuovo.</string>
+	<string name="move_lite_maps_to_pro_failed">Non è stato possibile trasferire le tue mappe. Cancella Organic Maps Lite e scarica le mappe di nuovo.</string>
 	<!-- Text in menu -->
 	<string name="settings_and_more">Impostazioni e Altro</string>
 	<!-- Text in menu -->
 	<string name="website">Sito web</string>
 	<!-- Text in menu -->
-	<string name="maps_me_community">Comunità OMaps</string>
+	<string name="maps_me_community">Comunità Organic Maps</string>
 	<!-- Text in menu -->
 	<string name="like_on_facebook">Dai Mi Piace su Facebook</string>
 	<!-- Text in menu -->
@@ -333,11 +333,11 @@
 	<!-- Text in menu -->
 	<string name="report_a_bug">Riporta un bug</string>
 	<!-- Email subject -->
-	<string name="subscribe_me_subject">Iscrivimi alla newsletter di OMaps</string>
+	<string name="subscribe_me_subject">Iscrivimi alla newsletter di Organic Maps</string>
 	<!-- Email body -->
 	<string name="subscribe_me_body">Voglio essere tra i primi a sapere delle ultime novità aggiornamenti e promozioni. Potrò annullare l\'iscrizione in ogni momento.</string>
 	<!-- About text -->
-	<string name="about_text">OMaps offre le più veloci mappe offline di tutte le città, di tutti i paesi del mondo. Viaggia con piena fiducia: ovunque ti trovi, OMaps ti aiuta a localizzarti sulla mappa, trovare ristoranti, hotel, banche, distributori di benzina ecc.., e non richiede la connessione a internet.\n\nLavoriamo sempre su nuove funzionalità e ci piacerebbe sapere da te in cosa potremmo migliorare OMaps. Se avessi problemi con l\'app, non esitare a contattarci a support\@omaps.app. Rispondiamo ad ogni richiesta!\n\nTi piace OMaps e vuoi sostenerci? Ci sono alcuni modi semplici e assolutamente gratuiti:\n\n- Invia una recensione al tuo App Market\n- Metti mi piace sulla nostra pagina di Facebook http://www.facebook.com/mapswithme\n- O semplicemente fai pubblicità a OMaps con la tua mamma, i tuoi amici e colleghi :)\n\nGrazie per essere stato con noi. Apprezziamo molto il tuo supporto!\n\nP.S. Prendiamo i dati delle mappe da OpenStreetMap, un progetto di mappatura simile a Wikipedia, che permette agli utenti di creare e modificare le mappe. Se vedi che manca qualcosa o se c\'è qualcosa di sbagliato sulla mappa, puoi correggere le mappe direttamente su https://www.openstreetmap.org, e le modifiche appariranno nella prossima versione dell\'app OMaps.</string>
+	<string name="about_text">Organic Maps offre le più veloci mappe offline di tutte le città, di tutti i paesi del mondo. Viaggia con piena fiducia: ovunque ti trovi, Organic Maps ti aiuta a localizzarti sulla mappa, trovare ristoranti, hotel, banche, distributori di benzina ecc.., e non richiede la connessione a internet.\n\nLavoriamo sempre su nuove funzionalità e ci piacerebbe sapere da te in cosa potremmo migliorare Organic Maps. Se avessi problemi con l\'app, non esitare a contattarci a support\@organicmaps.app. Rispondiamo ad ogni richiesta!\n\nTi piace Organic Maps e vuoi sostenerci? Ci sono alcuni modi semplici e assolutamente gratuiti:\n\n- Invia una recensione al tuo App Market\n- Metti mi piace sulla nostra pagina di Facebook http://www.facebook.com/OMapsApp\n- O semplicemente fai pubblicità a Organic Maps con la tua mamma, i tuoi amici e colleghi :)\n\nGrazie per essere stato con noi. Apprezziamo molto il tuo supporto!\n\nP.S. Prendiamo i dati delle mappe da OpenStreetMap, un progetto di mappatura simile a Wikipedia, che permette agli utenti di creare e modificare le mappe. Se vedi che manca qualcosa o se c\'è qualcosa di sbagliato sulla mappa, puoi correggere le mappe direttamente su https://www.openstreetmap.org, e le modifiche appariranno nella prossima versione dell\'app Organic Maps.</string>
 	<!-- Alert text -->
 	<string name="email_error_body">Il client email non è stato configurato. Si prega di configurarlo o di usare qualsiasi altro metodo per contattarci all\'indirizzo %s</string>
 	<!-- Alert title -->
@@ -349,7 +349,7 @@
 	<!-- Update map suggestion -->
 	<string name="routing_map_outdated">Aggiorna la mappa per creare un itinerario.</string>
 	<!-- Update maps suggestion -->
-	<string name="routing_update_maps">La nuova versione di OMaps ti permette di creare itinerari dalla tua posizione attuale a un punto di destinazione. Aggiorna le mappe per utilizzare questa funzione.</string>
+	<string name="routing_update_maps">La nuova versione di Organic Maps ti permette di creare itinerari dalla tua posizione attuale a un punto di destinazione. Aggiorna le mappe per utilizzare questa funzione.</string>
 	<!-- Update all button text -->
 	<string name="downloader_update_all_button">Aggiorna tutte</string>
 	<!-- Cancel all button text -->
@@ -366,7 +366,7 @@
 	<string name="downloader_downloading">In scaricamento:</string>
 	<string name="downloader_search_results">Trovate</string>
 	<!-- Disclaimer message -->
-	<string name="routing_disclaimer">Creando percorsi nell\'app OMaps tieni a mente quanto segue:\n\n  - I percorsi suggeriti possono essere considerati solo come consigliati.\n - Le condizioni della strada, le regole del traffico e i segnali hanno una priorità maggiore rispetto ai consigli sulla circolazione.\n - La mappa potrebbe essere scorretta o datata e i percorsi potrebbero non aver creato la strada migliore possibile.\n\n  Stai attento sulle strade e prenditi cura di te!</string>
+	<string name="routing_disclaimer">Creando percorsi nell\'app Organic Maps tieni a mente quanto segue:\n\n  - I percorsi suggeriti possono essere considerati solo come consigliati.\n - Le condizioni della strada, le regole del traffico e i segnali hanno una priorità maggiore rispetto ai consigli sulla circolazione.\n - La mappa potrebbe essere scorretta o datata e i percorsi potrebbero non aver creato la strada migliore possibile.\n\n  Stai attento sulle strade e prenditi cura di te!</string>
 	<!-- Outdated maps category -->
 	<string name="downloader_outdated_maps">Obsoleto</string>
 	<!-- Up to date maps category -->
@@ -390,7 +390,7 @@
 	<!-- RouteNotFound -->
 	<string name="routing_failed_route_not_found">Non è stata trovata alcuna strada fra il punto di partenza e d\'arrivo selezionati. Seleziona un punto di partenza e d\'arrivo diversi.</string>
 	<!-- InternalError -->
-	<string name="routing_failed_internal_error">Si è verificato un errore interno. Prova ad eliminare la mappa e a scaricarla nuovamente. Se il problema dovesse persistere, contattaci all\'indirizzo support\@omaps.app.</string>
+	<string name="routing_failed_internal_error">Si è verificato un errore interno. Prova ad eliminare la mappa e a scaricarla nuovamente. Se il problema dovesse persistere, contattaci all\'indirizzo support\@organicmaps.app.</string>
 	<!-- Context menu item for downloader. -->
 	<string name="downloader_download_map_and_routing">Scarica mappa e percorso</string>
 	<!-- Context menu item for downloader. -->
@@ -421,9 +421,9 @@
 	<!-- Text for rating dialog -->
 	<string name="rating_just_rated">Ho appena valutato la tua app</string>
 	<!-- Text for rating dialog -->
-	<string name="rating_user_since">Sono un utente OMaps dal %s</string>
+	<string name="rating_user_since">Sono un utente Organic Maps dal %s</string>
 	<!-- Text for rating dialog -->
-	<string name="rating_do_like_maps">Ti piace OMaps?</string>
+	<string name="rating_do_like_maps">Ti piace Organic Maps?</string>
 	<!-- Text for rating dialog -->
 	<string name="rating_tap_star">Fai tap sulla stella per valutare la nostra app.</string>
 	<!-- Text for rating dialog -->
@@ -439,7 +439,7 @@
 	<!-- Text for routing error dialog -->
 	<string name="routing_download_map">Scarica la mappa</string>
 	<!-- Text for routing error dialog -->
-	<string name="routing_download_map_and_routing">Scarica la mappa aggiornata e i dati del percorso per ottenere tutte le funzionalità OMaps.</string>
+	<string name="routing_download_map_and_routing">Scarica la mappa aggiornata e i dati del percorso per ottenere tutte le funzionalità Organic Maps.</string>
 	<!-- Text for routing error dialog -->
 	<string name="routing_get_routing_data">Ottieni i dati del percorso</string>
 	<!-- Text for routing error dialog -->
@@ -571,7 +571,7 @@
 	<!-- Text for routing::RouterResultCode::FileTooOld dialog. -->
 	<string name="dialog_routing_download_and_update_maps">Per creare un percorso, scaricare e aggiornare tutte le mappe interessate dal percorso.</string>
 	<string name="rate_alert_title">Ti piace l’app?</string>
-	<string name="rate_alert_default_message">Grazie per aver utilizzato OMaps. Valuta l’app. Il tuo feedback ci permette di migliorare.</string>
+	<string name="rate_alert_default_message">Grazie per aver utilizzato Organic Maps. Valuta l’app. Il tuo feedback ci permette di migliorare.</string>
 	<string name="rate_alert_five_star_message">Hooray! Anche noi amiamo i nostri utenti!</string>
 	<string name="rate_alert_four_star_message">Grazie, faremo del nostro meglio!</string>
 	<string name="rate_alert_less_than_four_star_message">Hai qualche idea su come migliorarla?</string>
@@ -626,7 +626,7 @@
 	<string name="editor_report_problem_no_place_title">Questo luogo non esiste</string>
 	<string name="editor_report_problem_under_construction_title">Chiuso per manutenzione</string>
 	<string name="editor_report_problem_duplicate_place_title">Luogo duplicato</string>
-	<string name="first_launch_congrats_title">OMaps è pronto per essere usato</string>
+	<string name="first_launch_congrats_title">Organic Maps è pronto per essere usato</string>
 	<string name="first_launch_congrats_text">Cerca e naviga offline, ovunque ti trovi nel mondo, gratis.</string>
 	<string name="migrate_title">Importante!</string>
 	<!-- Android uses image instead of text. -->
@@ -724,14 +724,14 @@
 	<string name="placepage_report_problem_button">Riporta un problema</string>
 	<string name="placepage_add_business_button">Aggiungi organizzazione</string>
 	<string name="whatsnew_editor_message_1">Aggiungi nuovi luoghi alla mappa, e modifica quelli già esistenti direttamente dall’app.</string>
-	<string name="whatsnew_editor_message_2">* OMaps usa i dati della community OpenStreetMap.</string>
+	<string name="whatsnew_editor_message_2">* Organic Maps usa i dati della community OpenStreetMap.</string>
 	<string name="dialog_incorrect_feature_position">Cambia posizione</string>
 	<string name="message_invalid_feature_position">Un oggetto non può essere posizionato qui</string>
 	<string name="login_to_make_edits_visible">Accedi per consentire ad altri utenti di vedere le modifiche apportate.</string>
 	<string name="no_migration_during_navigation">Non è possibile effettuare aggiornamenti durante la navigazione.</string>
 	<!-- Error dialog no space -->
 	<string name="migration_no_space_message">Per scaricare, hai bisogno di più spazio. Sei pregato di eliminare i dati non necessari.</string>
-	<string name="editor_sharing_title">Ho migliorato le mappe OMaps</string>
+	<string name="editor_sharing_title">Ho migliorato le mappe Organic Maps</string>
 	<string name="editor_comment_will_be_sent">Invieremo i tuoi commenti ai cartografi.</string>
 	<string name="editor_unsupported_category_message">Hai aggiunto un luogo di una categoria che non è ancora disponibile. Apparirà sulla mappa in futuro.</string>
 	<!-- Downloaded 10 **of** 20 <- it is that "of" -->
@@ -748,7 +748,7 @@
 	<string name="core_placepage_unknown_place">Luogo sconosciuto</string>
 	<string name="editor_other_info">Invia una nota agli editor di OSM</string>
 	<string name="editor_detailed_description_hint">Commento dettagliato</string>
-	<string name="editor_detailed_description">Le modifiche suggerite saranno inviate alla community OpenStreetMap. Descrivere i dettagli che non è possibile modificare in OMaps.</string>
+	<string name="editor_detailed_description">Le modifiche suggerite saranno inviate alla community OpenStreetMap. Descrivere i dettagli che non è possibile modificare in Organic Maps.</string>
 	<string name="editor_more_about_osm">Ulteriori informazioni su OpenStreetMap</string>
 	<string name="editor_operator">Titolare</string>
 	<string name="editor_tag_description">Inserire la società, organizzazione o soggetto responsabile per la struttura.</string>
@@ -788,8 +788,6 @@
 	<string name="placepage_entrance_type">Ingresso</string>
 	<string name="placepage_flat">app.</string>
 	<string name="placepage_open_24_7">24 / 7</string>
-	<string name="place_page_booking_rating">Valutazione: %s</string>
-	<string name="place_page_starting_from">da %s</string>
 	<string name="meter">m</string>
 	<string name="kilometer">km</string>
 	<string name="kilometers_per_hour">chilometri orari (km/h)</string>
@@ -824,12 +822,8 @@
 	<string name="error_enter_correct">Inserisci un valore valido</string>
 	<string name="editor_profile_changes_for_next_place">Modifiche per posizione successiva: %d</string>
 	<string name="editor_profile_rating_place">Posizione in classifica</string>
-	<string name="booking_dialog_not_connect_header">Per prenotare l\'hotel, attivare la connessione Internet</string>
-	<string name="button_try">Provalo</string>
 	<string name="refresh">Aggiornare</string>
 	<string name="last_update">Ultimo aggiornamento: %s</string>
-	<string name="booking_checkin">check in: %s</string>
-	<string name="booking_checkout">check out: %s</string>
 	<string name="placepage_add_place_button">Aggiungi un luogo sulla mappa</string>
 	<!-- Displayed when saving some edits to the map to warn against publishing personal data -->
 	<string name="editor_share_to_all_dialog_title">Vuoi inviarlo a tutti gli utenti?</string>
@@ -848,21 +842,19 @@
 	<string name="place_page_button_read_descriprion">Leggi</string>
 	<!-- iOS dialog for the case when recent track recording is on and the app comes back from background -->
 	<string name="recent_track_background_dialog_title">Disattivare la registrazione del tuo percorso effettuato di recente?</string>
-	<!-- If a hotel is being shared -->
-	<string name="sharing_booking">o prenota su booking.com</string>
 	<string name="off_recent_track_background_button">Disattiva</string>
 	<!-- For sharing via SMS and so on -->
 	<string name="sharing_call_action_look">Dai uno sguardo</string>
 	<string name="continue_recent_track_background_button">Continua</string>
-	<string name="recent_track_background_dialog_message">OMaps usa la tua posizione geografica in background per registrare il tuo percorso effettuato più di recente.</string>
+	<string name="recent_track_background_dialog_message">Organic Maps usa la tua posizione geografica in background per registrare il tuo percorso effettuato più di recente.</string>
 	<!-- Rate on Google Play (Android only) -->
 	<string name="rate_gp">Vota su Google Play</string>
 	<!-- Share with friends: menu item title -->
 	<string name="tell_friends">Dillo a un amico</string>
 	<!-- Share with friends: sharing text -->
-	<string name="tell_friends_text">Ciao! Installa OMaps!</string>
+	<string name="tell_friends_text">Ciao! Installa Organic Maps!</string>
 	<!-- About short text (below logo) -->
-	<string name="about_description">OMaps è un\'applicazione offline essenziale per chi ama viaggiare. OMaps si basa sui dati OpenStreetMap e consente di apportare modifiche.</string>
+	<string name="about_description">Organic Maps è un\'applicazione offline essenziale per chi ama viaggiare. Organic Maps si basa sui dati OpenStreetMap e consente di apportare modifiche.</string>
 	<!-- Text in menu -->
 	<string name="blog">Blog</string>
 	<string name="general_settings">Impostazioni generali</string>
@@ -873,50 +865,13 @@
 	<string name="accept">Accetta</string>
 	<!-- For the first routing -->
 	<string name="decline">Rifiuta</string>
-	<string name="whats_new_route_profile_title">Meglio è tornar indietro, che correr male avanti</string>
-	<string name="whats_new_route_profile_message">Per gli itinerari pedonali e ciclabili, è ora visualizzato il profilo altimetrico.</string>
-	<string name="whats_new_booking_improve_title">Risparmia alla prenotazione degli hotel</string>
-	<string name="whats_new_booking_improve_message">I risultati della ricerca per gli hotel contengono ora la categoria di prezzo.\nInoltre, abbiamo aggiunto più di 110.000 hotel.</string>
-	<!-- For place page hotel facilities block -->
-	<string name="placepage_hotel_facilities">Servizi</string>
-	<!-- For place page hotel nearby block -->
-	<string name="placepage_hotel_nearby">Nelle vicinanze</string>
-	<!-- For ordering a taxi (as opposed to hotels or other things) -->
-	<string name="taxi_order">Prenota un taxi</string>
-	<!-- How long it is until the taxi arrives -->
-	<string name="taxi_wait">Atteso in %s</string>
-	<!-- When there are no available taxis nearby -->
-	<string name="taxi_not_found">Impossibile trovare un taxi nelle vicinanze</string>
-	<!-- When there are no available taxi providers nearby -->
-	<string name="taxi_no_providers">Taxi non disponibile qui</string>
 	<string name="install_app">Installa</string>
-	<!-- `Filter` is a noun here -->
-	<string name="booking_filters">Filtro</string>
-	<string name="booking_filters_reset">Reimposta</string>
-	<!-- Beginning from a particular value and -->
-	<string name="booking_filters_rating">Voto da</string>
-	<string name="booking_filters_rating_any">Qualsiasi</string>
-	<string name="booking_filters_ragting_good">Buono</string>
-	<string name="booking_filters_rating_very_good">Molto buono</string>
-	<string name="booking_filters_rating_excellent">Eccellente</string>
-	<string name="booking_filters_price_category">Categoria di prezzo</string>
 	<string name="search_no_results_title">Nessun risultato trovato</string>
 	<string name="search_no_results_message">Prova con un termine di ricerca più generale, fai lo zoom indietro o reimposta il filtro.</string>
 	<string name="search_no_results_expand_area_button">Zoom indietro</string>
 	<string name="search_no_results_reset_button">Reimposta filtro</string>
 	<!-- noun -->
 	<string name="search_in_table">Elenco</string>
-	<string name="booking_show_more">Mostra altro</string>
-	<string name="booking_reviews">Recensioni</string>
-	<string name="booking_hotel">Hotel</string>
-	<!-- hotel room -->
-	<string name="booking_hotel_room">Camera</string>
-	<!-- A neologism for a chat based on geographical proximity -->
-	<string name="chat">GeoChat</string>
-	<!-- Verb. Text on a button that opens the chat. -->
-	<string name="chat_open">Apri</string>
-	<string name="dialog_taxi_offline">La chiamata taxi non è disponibile in modalità offline.</string>
-	<string name="dialog_taxi_error">La chiamata taxi è temporaneamente non disponibile.</string>
 	<string name="mobile_data_dialog">Usare l\'Internet mobile per mostrare le informazioni dettagliate?</string>
 	<string name="mobile_data_option_always">Usa sempre</string>
 	<string name="mobile_data_option_today">Solo oggi</string>
@@ -928,41 +883,16 @@
 	<string name="traffic_update_maps_text">Per visualizzare i dati sul traffico, le mappe devono essere aggiornate.</string>
 	<string name="traffic_outdated">Dati sul traffico non aggiornati.</string>
 	<string name="big_font">Aumenta dimensione carattere sulla mappa</string>
-	<string name="traffic_update_app">Aggiorna OMaps</string>
+	<string name="traffic_update_app">Aggiorna Organic Maps</string>
 	<!-- "traffic" as in road congestion -->
 	<string name="traffic_update_app_message">Per visualizzare i dati sul traffico, l\'applicazione deve essere aggiornata.</string>
 	<!-- "traffic" as in "road congestion" -->
 	<string name="traffic_data_unavailable">Dati sul traffico non disponibili</string>
-	<!-- Seven points and higher -->
-	<string name="booking_filter_rating_num_good">7.0+</string>
-	<!-- Eight points and higher -->
-	<string name="booking_filter_rating_num_very_good">8.0+</string>
-	<!-- Nine points and higher -->
-	<string name="booking_filter_rating_num_excellent">9.0+</string>
 	<!-- Simplified colour scheme for traffic information, fewer colours are used to display traffic jams on the map. The string should be kept as short as possible -->
 	<string name="pref_traffic_simplified_colors_title">Colori traffico semplificati</string>
 	<string name="enable_logging">Abilita registrazione</string>
-	<string name="more_on_bookingcom">Altro su Booking.com</string>
-	<string name="details_on_bookingcom">Dettagli su Booking.com</string>
-	<string name="reviews_on_bookingcom">Altre recensioni su Booking.com</string>
 	<string name="offline_place_page_more_information">Connettiti a Internet per ottenere maggiori informazioni sul luogo.</string>
 	<string name="failed_load_information">Impossibile caricare le informazioni.</string>
-	<string name="whats_new_auto_update_updating_maps">Aggiornamento mappe</string>
-	<string name="whats_new_auto_update_title">Aggiorna le mappe scaricate</string>
-	<string name="whats_new_auto_update_message">Aggiornamento mappe mantiene aggiornate le informazioni sugli oggetti</string>
-	<string name="whats_new_auto_update_button_size">Aggiorna (%s)</string>
-	<string name="whats_new_auto_update_button_later">Aggiorna manualmente più tardi</string>
-	<string name="search_hotel_filter_apartment">Residence</string>
-	<string name="search_hotel_filter_camp_site">Campeggio</string>
-	<string name="search_hotel_filter_chalet">Chalet</string>
-	<string name="search_hotel_filter_guest_house">Guest house</string>
-	<string name="search_hotel_filter_hostel">Ostello</string>
-	<string name="search_hotel_filter_resort">Resort</string>
-	<string name="search_hotel_filter_hotel">Hôtel</string>
-	<string name="search_hotel_filter_motel">Motel</string>
-	<string name="create_campaign_button">Rivendica questa attività</string>
-	<string name="view_campaign_button">Attività pubblicizzata</string>
-	<string name="search_hotel_filters_type">Tipo</string>
 	<!-- Settings: "Send general feedback" button -->
 	<string name="feedback_general">Feedback generale</string>
 	<string name="on">On</string>
@@ -993,36 +923,7 @@
 	<string name="choose_start_point">Scegli un punto di partenza</string>
 	<string name="choose_destination">Scegli una destinazione</string>
 	<string name="preloader_viator_button">Ulteriori informazioni</string>
-	<string name="whats_new_title_route">Piste ciclabili e percorsi pedonali migliorati</string>
-	<string name="whats_new_message_route">Abbiamo corretto gli errori, reso la creazione dei percorsi notevolmente più veloce e aggiunto soste intermedie</string>
-	<string name="whats_new_message_title_update">Abbiamo reso gli aggiornamenti mappa 10 volte più piccoli</string>
-	<string name="whats_new_message_maps_update">Per aggiornare una mappa, ora devi solo scaricare i dati mancanti</string>
 	<string name="start_from_my_position">Parti da</string>
-	<string name="rating">Voto</string>
-	<string name="placepage_no_reviews">Nessuna recensione</string>
-	<string name="placepage_reviewed">Hai già recensito questa località</string>
-	<string name="placepage_summary_rating">Riepilogo valutazione</string>
-	<string name="placepage_rate_comment">Tocca per valutare e recensire questa località.</string>
-	<string name="placepage_rate_horrible">Pessimo</string>
-	<string name="placepage_rate_bad">Scarso</string>
-	<string name="placepage_rate_normal">Normale</string>
-	<string name="placepage_rate_good">Buono</string>
-	<string name="placepage_rate_excellent">Eccellente</string>
-	<string name="placepage_reviews_most_recent">Più recenti</string>
-	<string name="placepage_reviews_most_useful">Più utili</string>
-	<string name="placepage_reviews_highest_rated">Valutazioni migliori</string>
-	<string name="placepage_reviews_lowest_rated">Valutazioni peggiori</string>
-	<string name="placepage_reviews_offline_comment">In modalità offline sono mostrate solo le recensioni più utili</string>
-	<string name="placepage_reviews_your_comment">La tua recensione</string>
-	<string name="placepage_reviews_unhelpful">Inutile</string>
-	<string name="placepage_reviews_inappropriate">Inappropriata</string>
-	<string name="placepage_reviews_spam">Spam</string>
-	<string name="placepage_reviews_hint">Quali sono i pregi o quali i difetti?</string>
-	<string name="placepage_reviews_edit_your_review">Modifica la tua recensione</string>
-	<string name="placepage_reviews_new_review">Nuova recensione</string>
-	<string name="placepage_translate_button">Traduci</string>
-	<string name="placepage_show_original_button">Mostra originale</string>
-	<string name="placepage_more_reviews_booking_button">Altre recensioni su Booking.com</string>
 	<string name="profile_authorization_title">Accedi con</string>
 	<string name="profile_authorization_message">Semplice accesso senza login e password in un paio di secondi</string>
 	<string name="profile_authorization_error">Ops, si è verificato un errore. Prova a ripetere l\'accesso più tardi.</string>
@@ -1034,24 +935,9 @@
 	<string name="expertise">Competenza</string>
 	<string name="equipment">Attrezzature</string>
 	<string name="quality">Qualità</string>
-	<string name="whats_new_ugc_title_updated_v840">Valutazioni e recensioni</string>
-	<string name="whats_new_ugc_message">Ora puoi lasciare le tue valutazioni e recensioni anche offline! Non dimenticare di aggiornare le tue mappe per vedere le modifiche.</string>
 	<string name="dialog_error_storage_title">Problema di accesso all\'archivio</string>
-	<string name="dialog_error_storage_message">Archivio esterno non disponibile, probabilmente la scheda SD è stata rimossa, è danneggiata o il file system è di sola lettura. Controllala e contattaci su support\@omaps.app</string>
+	<string name="dialog_error_storage_message">Archivio esterno non disponibile, probabilmente la scheda SD è stata rimossa, è danneggiata o il file system è di sola lettura. Controllala e contattaci su support\@organicmaps.app</string>
 	<string name="setting_emulate_bad_storage">Simula archivio danneggiato</string>
-	<string name="discovery_button_title">Scopri nelle vicinanze</string>
-	<string name="discovery_button_subtitle_things_to_do">Cose da fare</string>
-	<string name="discovery_button_subtitle_attractions">Luoghi di interesse</string>
-	<string name="discovery_button_subtitle_eat_and_drink">Bere e mangiare</string>
-	<string name="discovery_button_subtitle_local_guides">Guide locali</string>
-	<string name="discovery_button_viator_error_title">Errore nel caricamento dei dati</string>
-	<string name="discovery_button_other_error_message">Errore nel caricamento dei dati</string>
-	<string name="discovery_button_other_loading_message">Caricamento dei dati</string>
-	<string name="discovery_button_404_error_title">Non trovato</string>
-	<string name="discovery_button_404_error_message">Ops, non abbiamo trovato nulla di interessante nei dintorni.</string>
-	<string name="booking_filters_check_in">Check-in</string>
-	<string name="booking_filters_check_out">Check-out</string>
-	<string name="booking_filters_offline">Non disponibile offline.</string>
 	<string name="directions_finish">Destinazione</string>
 	<string name="directions_on_foot">Percorri %s</string>
 	<string name="core_entrance">Ingresso</string>
@@ -1059,12 +945,6 @@
 	<string name="cleanliness">Pulizia</string>
 	<string name="crowdedness">Clientela</string>
 	<string name="error_enter_correct_name">Inserisci un nome corretto</string>
-	<string name="hotel_available">Disponibile</string>
-	<string name="whats_new_transit_title">Sottopassaggi disponibili</string>
-	<string name="whats_new_transit_message">Definisci i percorsi utilizzando i sottopassaggi! Aggiorna le mappe per visualizzare le modifiche.</string>
-	<string name="whats_new_discovery_title">Pulsante di scoperta</string>
-	<string name="whats_new_discovery_message">Scopri cosa ti circonda in un click!</string>
-	<string name="price_per_hour">%s/ora</string>
 	<string name="bookmarks_backup">Abilita backup</string>
 	<string name="authorization_button_sign_in">Accedi</string>
 	<string name="bookmarks_message_authorized_user">Il backup dei tuoi preferiti è eseguito automaticamente su un servizio di archiviazione cloud protetto. Abilitare il backup?</string>
@@ -1083,15 +963,10 @@
 	<string name="downloader_percent">%1$s (%2$s di %3$s)</string>
 	<string name="downloader_process">Download di %s...</string>
 	<string name="downloader_applying">Applicazione di %s...</string>
-	<string name="whats_new_title_hotel_filter">Nuovi filtri hotel disponibili!</string>
-	<string name="whats_new_message_hotel_filter">Prenota gli hotel disponibili nelle tue date! Usa i filtri per check-in e check-out</string>
-	<string name="whats_new_title_ugc_travel">Condividi la tua esperienza con altri viaggiatori!</string>
-	<string name="whats_new_message_ugc_travel">Vota e recensisci i luoghi che hai visitato!</string>
 	<string name="dialog_message_transit_not_found_connection">Pianifica un percorso all\'interno di una rete di transito</string>
 	<string name="bookmarks_error_message_share_general">Impossibile condividere a causa di un errore dell\'applicazione</string>
 	<string name="bookmarks_error_title_share_empty">Errore di condivisione</string>
 	<string name="bookmarks_error_message_share_empty">Impossibile condividere una lista vuota</string>
-	<string name="discovery_button_subtitle_book_hotels">Prenota hotel</string>
 	<string name="bookmarks_error_title_empty_list_name">Il nome non può essere vuoto</string>
 	<string name="bookmarks_error_message_empty_list_name">Si prega di inserire il nome della lista</string>
 	<string name="bookmarks_new_list_hint">Nuova lista</string>
@@ -1116,8 +991,6 @@
 	<string name="converting">Conversione...</string>
 	<string name="wn_reinvented_bookmarks_title">Abbiamo reinventato i segnalibri!</string>
 	<string name="wn_reinvented_bookmarks_message">Puoi fare il backup dei segnalibri, creare liste... È incredibile...</string>
-	<string name="wn_way_of_booking_title">Abbiamo reimmaginato il modo di prenotare!</string>
-	<string name="wn_way_of_booking_message">Basta trovare un hotel sulla mappa e prenotarlo, o selezionare quello simile.</string>
 	<string name="bookmarks_restore">Ripristina segnalibri</string>
 	<string name="bookmarks_restore_process">Ripristino...</string>
 	<string name="bookmarks_restore_title">Ripristina questa versione?</string>
@@ -1129,19 +1002,12 @@
 	<string name="error_server_message">Si è verificato un errore sul server, riprova più tardi</string>
 	<string name="error_system_message">Si è verificato un errore sconosciuto</string>
 	<string name="restore">Ristabilire</string>
-	<string name="sign_message_gdpr">Per continuare, devi accettare i nostri Termini di utilizzo e la nostra Informativa sulla Privacy. Ti invitiamo a leggerli attentamente.</string>
-	<string name="sign_agree_pp_gdpr">Accetto la &lt;a href="%s">Informativa sulla Privacy&lt;/a></string>
-	<string name="sign_agree_tof_gdpr">Accetto i &lt;a href="%s">Termini di utilizzo&lt;/a></string>
-	<string name="sign_agree_news_gdpr">Accetto di ricevere le ultime notizie sui prodotti di OMaps</string>
-	<string name="whats_new_localbiz_title">La piccola impresa merita attenzione</string>
-	<string name="whats_new_localbiz_message">Sono le caffetterie locali, gli ostelli accoglienti e i negozi che rendono indimenticabili i nostri viaggi. Ottimizzeremo la tua pagina in OMaps per farla risaltare.</string>
-	<string name="whats_new_order_button">Lascia una richiesta</string>
 	<string name="bookmarks_page_downloaded">Scaricati</string>
 	<string name="bookmarks_page_my">I miei</string>
 	<string name="routes_and_bookmarks">Percorsi e segnalibri</string>
 	<string name="bookmarks_webview_success_toast">Segnalibri scaricati con successo</string>
 	<string name="cached_bookmarks_placeholder_title">Scarica nuovi posti</string>
-	<string name="cached_bookmarks_placeholder_subtitle">Premi il pulsante per scaricare migliaia di luoghi e percorsi interessanti creati dagli utenti di OMaps. Avrai bisogno della connessione internet.</string>
+	<string name="cached_bookmarks_placeholder_subtitle">Premi il pulsante per scaricare migliaia di luoghi e percorsi interessanti creati dagli utenti di Organic Maps. Avrai bisogno della connessione internet.</string>
 	<string name="downloader_download_routers">Scarica i segnalibri</string>
 	<string name="bookmarks_groups_cached">Elenchi scaricati da</string>
 	<string name="author_name_by_prefix">%s</string>
@@ -1159,7 +1025,7 @@
 	</plurals>
 	<string name="subtittle_opt_out">Impostazioni di tracciamento</string>
 	<string name="crash_reports">Rapporto incidenti</string>
-	<string name="crash_reports_description">Potremmo utilizzare i tuoi dati per migliorare l\'esperienza OMaps. Le modifiche avranno effetto dopo il riavvio dell\'applicazione.</string>
+	<string name="crash_reports_description">Potremmo utilizzare i tuoi dati per migliorare l\'esperienza Organic Maps. Le modifiche avranno effetto dopo il riavvio dell\'applicazione.</string>
 	<string name="opt_out_help_ios_1">Il tuo dispositivo mobile potrebbe fornire un\'impostazione «Limita monitoraggio annunci» o «Disattiva la pubblicità mirata».</string>
 	<string name="opt_out_help_ios_2">iOS 9 o versioni successive</string>
 	<string name="opt_out_help_ios_3">Vai a Impostazioni → Privacy → Pubblicità → Abilita l\'impostazione «Limita monitoraggio degli annunci»</string>
@@ -1178,101 +1044,31 @@
 	<string name="category_desc_more">…altro</string>
 	<string name="title_error_downloading_bookmarks">Si è verificato un errore</string>
 	<string name="subtitle_error_downloading_bookmarks">I segnalibri non sono stati scaricati</string>
-	<string name="whats_new_bookmarks_catalog_title">OMaps ora ha un catalogo di percorsi</string>
-	<string name="whats_new_bookmarks_catalog_message">Centinaia di itinerari dettagliati in tutto il mondo: dove andare, cosa vedere, dove mangiare.</string>
-	<string name="whats_new_popularity_label_title">Luoghi popolari nelle vicinanze</string>
-	<string name="whats_new_popularity_label_message">La sezione Cosa fare ti aiuterà a trovare i luoghi più popolari della città.</string>
-	<string name="whats_new_hot_offers_title">Offerte interessanti dagli hotel</string>
-	<string name="whats_new_hot_offers_message">Puoi cercarli utilizzando la categoria Alberghi nella ricerca. Le offerte saranno contrassegnate dal simbolo percentuale sulla mappa e nei risultati della ricerca.</string>
 	<string name="error_already_downloaded">Questa lista è già stata scaricata</string>
-	<string name="guides">Guide</string>
-	<string name="guide_downloaded_title">La guida è stata scaricata correttamente</string>
-	<!-- as few symbols as possible -->
-	<string name="download_guides">Trova guide</string>
-	<string name="guides_groups_cached">Guide scaricate</string>
-	<string name="subtitle_error_downloading_guide">La guida non è stata scaricata</string>
-	<string name="error_already_downloaded_guide">La guida è già stata scaricata</string>
-	<string name="guide_downloaded_subtitle">Premi \"Visualizza sulla mappa\" per esplorare la guida</string>
-	<string name="bookmarks_guides">Segnalibri e guide</string>
-	<string name="paybtn_title">Pagare %s/anno</string>
-	<string name="paybtn_subtitle">Risparmio %s/anno</string>
-	<string name="options_dropdown_title">Altre opzioni</string>
-	<string name="why_support">Perché sostenere OMaps?</string>
-	<string name="options_dropdown_item1">%1$s/mese (risparmio %2$s/anno)</string>
-	<string name="options_dropdown_item2">%s/settimana (nessun risparmio)</string>
-	<string name="why_support_item1">Noi disattiviamo tutta la pubblicità</string>
-	<string name="why_support_item2">Voi ci aiutate a migliorare OMaps</string>
+	<string name="why_support">Perché sostenere Organic Maps?</string>
+	<string name="why_support_item2">Voi ci aiutate a migliorare Organic Maps</string>
 	<string name="why_support_item3">Ci aiutate a migliorare le mappe OpenStreetMap.org</string>
-	<string name="purchase_processing">Il tuo acquisto è in fase di elaborazione…</string>
-	<string name="tips_bookmarks_catalog_title">La guida offline per i vostri viaggi</string>
-	<string name="tips_bookmarks_catalog_message">Potete scaricare l\'applicazione e fare itinerari turistici nelle diverse città del mondo.</string>
-	<string name="tips_discover_button_title">Volete trovare i locali più belli nelle vicinanze?</string>
-	<string name="tips_discover_button_message">Nella pagina «Scopri nelle vicinanze» troverete le migliori scelte di ristoranti, alberghi e punti di interesse.</string>
-	<string name="tips_book_hotel_title">Potete prenotare gli alberghi più confortevoli</string>
-	<string name="tips_book_hotel_message">Applicare i filtri per effettuare la ricerca personalizzata dei migliori alberghi. Per effettuare la prenotazione diretta basta scegliere l\'albergo e cliccare sul tasto «Prenota».</string>
-	<string name="tips_map_layers_title">Non conoscete la stazione metropolitana, dove è possibile cambiare la linea?</string>
-	<string name="tips_map_layers_message">E\' possibile visualizzare la mappa di metropolitana attivando l\'apposito livello. Non vi perderete mai in una nuova città.</string>
 	<string name="channels_map_update">Rinnovare la carta</string>
-	<string name="channels_reviews">Recensioni non inviate</string>
-	<string name="purchase_loading">Caricare informazioni sugli acquisti…</string>
-	<string name="purchase_error_subtitle">Si è verificato un errore durante l\'elaborazione dell\'acquisto</string>
-	<string name="awaiting_approval">Aspettiamo la conferma dei genitori</string>
-	<string name="whats_new_leave_review">Scrivere la recensione! Condividete le vostre emozioni sui luoghi visitati in vacanza.</string>
 	<string name="server_unavailable_title">Server non è disponibile</string>
-	<string name="server_unavailable_message">L\'acquisto verrà completato più tardi. Se l\'errore persiste, si prega di contattare support\@omaps.app.</string>
-	<string name="offline_fiters_check_in">Per scegliere la data di check-in e check-out bisogna collegarsi a internet.</string>
-	<string name="restore_subscription">Ripristina l\'abbonamento</string>
-	<string name="restore_success_alert">L\'abbonamento è stato ripristinato correttamente</string>
-	<string name="restore_error_alert">Si è verificato un errore durante il ripristino dell\'abbonamento</string>
-	<string name="restore_no_subscription_alert">Non vi sono abbonamenti attivi</string>
-	<string name="subscriptions_title">Abbonamenti</string>
-	<string name="manage_subscription">Gestisci abbonamento</string>
 	<string name="sharing_options">Impostazione accesso</string>
 	<string name="export_file">Esportare il file</string>
 	<string name="list_settings">Impostazioni elenco</string>
 	<string name="delete_list">Cancella elenco</string>
 	<string name="hide_from_map">Nascondere sulla mappa</string>
-	<string name="ugc_route_tags_screen_label">Impostare tag</string>
-	<string name="ugc_route_tags_progress_msg">Stiamo caricando tag…</string>
 	<string name="public_access">Accesso pubblico</string>
 	<string name="limited_access">Accesso privato</string>
-	<string name="upload_and_publish_desc">La seguente guida verrà caricata sul catalogo pubblico OMaps in open access</string>
-	<string name="upload_and_publish">Caricare e pubblicare</string>
-	<string name="upload_and_get_direct_link">Caricare e ricevere il link</string>
-	<string name="get_direct_link_desc">La tua guida è accessibile tramite il link diretto</string>
-	<string name="upload_and_publish_progress_text">La guida si sta caricando…</string>
-	<string name="upload_and_publish_success">La guida è stata pubblicata</string>
-	<string name="ugc_routes_user_agreement">&lt;b>ATTENZIONE!&lt;/b> Andando avanti accettate &lt;a href="%s">il contratto di licenza&lt;/a></string>
-	<string name="ugc_route_edit_list_name">Nome della Guida</string>
-	<string name="ugc_route_edit_description_hint">Aggiungere la descrizione (testo o html)</string>
+	<string name="bookmark_category_name">Categoria</string>
+	<string name="bookmark_category_description_hint">Aggiungere la descrizione (testo o html)</string>
 	<string name="not_shared">Personale</string>
 	<string name="direct_link_progress_text">Il file si sta caricando…</string>
 	<string name="direct_link_success">Il link è stato creato</string>
-	<string name="edit_guide_title">Modificare la tua guida online</string>
-	<string name="edit_guide_subtitle">Ricevere il link per modificare la guida tramite l\'App: inserire una descrizione per il posto, caricare foto e collegare i tag.</string>
 	<string name="send_a_link_btn">Mandare il link</string>
 	<string name="upload_error_toast">Errore durante il caricamento</string>
 	<string name="tags_loading_error_subtitle">Si è verificato un errore durante il caricamento dei tag. Si prega di riprovare</string>
 	<string name="unable_upload_errorr_title">Il file non è stato caricato</string>
 	<string name="unable_upload_error_subtitle_edited">Il file è stato modificato tramite web App</string>
 	<string name="unable_upload_error_subtitle_broken">Il file è danneggiato e non può essere caricato. Si prega di caricare un altro file.</string>
-	<string name="buy_btn">Acquista la guida a %s</string>
-	<string name="download_guide_progress">La guida si sta caricando…</string>
-	<string name="price_error_title">Impossibile conoscere il prezzo</string>
-	<string name="price_error_subtitle">Si prega di riprovare più tardi</string>
-	<string name="edit_your_guide_email_body">Modificare sul PC: inserire una descrizione per il posto, caricare foto e collegare i tag.</string>
-	<string name="edit_on_web">Modificare online</string>
-	<string name="properties_loading_error_subtitle">Si è verificato un errore durante il caricamento delle opzioni. Si prega di riprovare</string>
-	<string name="custom_props_desc">La presente guida è stata creata da</string>
-	<string name="custom_props_title">Uno del posto o un turista</string>
-	<string name="custom_props_local">del posto</string>
-	<string name="custom_props_traveler">turista</string>
-	<string name="select_properties">Scegliere opzioni</string>
-	<string name="access_rules_p_to_p">Accesso speciale</string>
-	<string name="access_rules_paid">Acquistato</string>
-	<string name="failed_purchase_support_message">Non hai terminato l\'acquisto. Per risolvere il problema si prega di contattare il servizio assistenza.</string>
 	<string name="contact">Scrivere</string>
-	<string name="check_price_button">Conoscere il prezzo</string>
 	<string name="download_button">Scaricare</string>
 	<string name="speedcams_alert_title">Autovelox o Tutor</string>
 	<string name="speedcams_alert_subtitle">Avvisare sul limite della velocità</string>
@@ -1281,70 +1077,26 @@
 	<string name="speedcam_option_never">Mai</string>
 	<string name="bookmark_description_title">Descrizione tag</string>
 	<string name="place_description_title">Descrizione luogo</string>
-	<string name="ugc_routes_error_uploading_file_toast">Si è verificato un errore durante il caricamento. Si prega di riprovare.</string>
-	<string name="notification_channel_ugc">Contenuto creato dagli utenti</string>
 	<!-- this text will be shown in application notification preferences opposite checkbox which enable/disable downloader notifications. Devices on Android 8+ are affected. -->
 	<string name="notification_channel_downloader">Caricamento mappe</string>
-	<string name="notification_leave_review_title">%s - ti piace quì?</string>
-	<string name="notification_leave_review_content">Lascia una recensione ed aiuta altri viaggiatori!</string>
-	<string name="share_bookmarks_email_body_link">Ciao,\n\npuoi scaricare i tag dal seguente link: %s. Aprire elenco tramite OMaps e godersi viaggio!\n\nScaricare l\'App: https://omaps.app/get?kmz</string>
+	<string name="share_bookmarks_email_body_link">Ciao,\n\npuoi scaricare i tag dal seguente link: %s. Aprire elenco tramite Organic Maps e godersi viaggio!\n\nScaricare l\'App: https://organicmaps.app/get?kmz</string>
 	<string name="warning_speedcams_title">Il navigatore avvisa della presenza della telecamere in caso di eccesso velocità di %d km/o</string>
 	<string name="warning_speedcams_subtitle">Ricorda di informarti sul Codice della Strada del paese che visiti.</string>
 	<string name="speedcams_notice_message">Auto - Avvisare di autovelox in caso di rischio eccesso velocità\nSempre - avvisare sempre di autovelox\nMai - Non avvisare mai di autovelox</string>
-	<string name="whats_new_ugc_routes_title">È facile condividere le tue impressioni</string>
-	<string name="whats_new_ugc_routes_subtitle">Salva luoghi memorabili, crea itinerari utilizzando i segnalibri e condividili con tutti nel catalogo OMaps.</string>
-	<string name="whats_new_webeditor_title">Trasforma i tuoi percorsi in storie</string>
-	<string name="whats_new_ugc_routes_message2">Aggiungi foto e storie dettagliate nell\'editor web.</string>
-	<string name="ugc_thanks_message_auth">Commento salvato</string>
-	<string name="ugc_thanks_message_not_auth">Registrarsi per lasciare un commento</string>
-	<string name="notification_leave_review_v2_title">Scrivi una recensione ed aiuta altri viaggiatori!</string>
-	<string name="error_public_not_enought_title">Segnalibri insufficienti</string>
-	<string name="error_public_not_enought_subtitle">Per poter caricare l\'itinerario sul catalogo pubblico bisogna mettere almeno 3 segnalibri</string>
-	<string name="bookmark_public_upload_alert_title">Ancora alcuni passi per poter caricare l\'itinerario sul catalogo OMaps!</string>
-	<string name="bookmark_public_upload_alert_subtitle">Assicurati che l\'itinerario abbia un nome ed una descrizione e tutti i segnalibri contengano i dettagli del posto. In questo modo gli utenti potranno trovare l\'itinerario e usarlo nel viaggio.</string>
-	<string name="bookmark_public_upload_alert_ok_button">Perfetto!</string>
-	<string name="name_title">Inserire nome</string>
-	<string name="name_placeholder">per esempio, I Pub di Londra</string>
-	<string name="name_comment1">Nome concreto aiuterà i viaggiatori a trovare l\'itinerario, per esempio \"I Pub di Londra\"</string>
-	<string name="name_comment2">Nel nome non usare simboli, caratteri speciali. Non pubblicare itinerari con nome \"I miei luoghi\"</string>
-	<string name="description_guide">Descrizione</string>
-	<string name="description_title">Inserire una descrizione dell\'itinerario</string>
-	<string name="description_placeholder">Fornire una descrizione completa dell\'itinerario</string>
-	<string name="description_comment1">La descrizione deve essere lunga minimo 30 caratteri.</string>
-	<string name="ugc_route_tags_desc">Scegli i segnalibri per aiutare altri viaggiatori a trovare il tuo itinerario. Questo campo è obbligatorio. Non più di %s tag.</string>
-	<string name="html_format_error_title">L\'itinerario non è stato pubblicato</string>
-	<string name="html_format_error_subtitle">Accertare che nomi e descrizioni presenti nell\'itinerario siano stati formattati correttamente. Per verificare la formattazione clicca sul pulsante \"Editor online\".</string>
-	<string name="web_editor_description">Scarica l\'itinerario e ricevi il link per poter modificarlo sul PC</string>
-	<string name="edit_on_web_confirm">Modifica online</string>
-	<string name="update_guide">Carica una nuova versione</string>
-	<string name="direct_link_updating_text">Stiamo aggiornando l\'itinerario…</string>
-	<string name="direct_link_updating_success">Itinerario aggiornato</string>
-	<string name="unable_get_direct_link_desc">Condividere l\'itinerario tramite il link pubblico</string>
-	<string name="any_access_update_alert_title">Disponibile una nuova versione dell\'itinerario</string>
-	<string name="any_access_update_alert_message">Vuoi aggiornare i segnalibri? La nuova versione sarà accessibile tramite lo stesso link.</string>
-	<string name="any_access_update_alert_update">Aggiornare</string>
-	<string name="public_or_limited_access_after_edit_online_error_title">Hai modificato l\'itinerario online</string>
-	<string name="public_or_limited_access_after_edit_online_error_message">Usa il nostro sito per modificare, pubblicare o condividere gli itinerari con amici in futuro</string>
 	<string name="power_managment_title">Modalità di risparmio energetico</string>
 	<string name="power_managment_description">In modalità di risparmio energetico l\'applicazione disattiva alcuni funzioni che hanno un impatto sulla batteria a secondo della carica restante</string>
 	<string name="power_managment_setting_never">Mai</string>
 	<string name="power_managment_setting_auto">Auto</string>
 	<string name="power_managment_setting_manual_max">Massimo risparmio energetico</string>
-	<string name="enable_logging_warning_message">Questa opzione si attiva per registrare tutte le azioni ai fini diagnostici. Ciò aiuta il nostro staff ad ottimizzare il funzionamento dell\'applicazione. Attiva l\'opzione sulla richiesta dello staff di suporto di OMaps.</string>
+	<string name="enable_logging_warning_message">Questa opzione si attiva per registrare tutte le azioni ai fini diagnostici. Ciò aiuta il nostro staff ad ottimizzare il funzionamento dell\'applicazione. Attiva l\'opzione sulla richiesta dello staff di suporto di Organic Maps.</string>
 	<string name="html_error_upload_message_try_again">Controllare la connessione e riprova</string>
 	<string name="html_error_upload_title_try_again">Nessuna connessione a internet</string>
 	<string name="notification_leave_review_v2_android_short_title">Scrivi il commento ed aiuta altri viaggiatori!</string>
 	<string name="notifications_illegal_alert_disable_button">Disattiva le notifiche</string>
 	<string name="access_rules_author_only">Modifica online</string>
 	<string name="privacy_settings_menu">Impostazioni della privacy</string>
-	<string name="gdpr_request_setting">Ottenere ID secondo i requisiti GDPR</string>
-	<string name="gdpr_request_window_title">Tuo ID: %s.</string>
-	<string name="gdpr_request_window_message">Si prega di copiare ID assegnato ed inviare la richiesta a support\@omaps.app</string>
-	<string name="gdpr_request_window_copy">Copia ID</string>
 	<string name="unable_upadate_error_title">Non siamo riusciti ad aggiornare l\'itinerario</string>
 	<string name="unable_upadate_error_message">Si sono verificati errori durante l\'aggiornamento. Controlla le modifiche e riprova</string>
-	<string name="whats_new_wiki_title">Cos\'è questo posto?</string>
-	<string name="whats_new_wiki_message">Abbiamo aggiunto articoli da Wikipedia.org alle pagine dedicate alle attrazioni turistiche più popolari. Disponibili offline</string>
 	<string name="driving_options_title">Impostazioni di deviazione</string>
 	<string name="driving_options_subheader">Evitare in tutti i percorsi</string>
 	<string name="avoid_tolls">Strade a pedaggio</string>
@@ -1362,23 +1114,7 @@
 	<string name="avoid_toll_roads_placepage">Evitare strade a pedaggio</string>
 	<string name="avoid_unpaved_roads_placepage">Evitare strade sterrate</string>
 	<string name="avoid_ferry_crossing_placepage">Evitare i traghetti</string>
-	<string name="cached_guides_placeholder_subtitle">Guide pronte su OMaps sono luoghi preferiti con descrizioni e foto visualizzabili sulle mappe e disponibili offline.</string>
-	<string name="guides_catalogue_title">Catalogo guide</string>
-	<string name="download_guides_button">Passa al catalogo</string>
-	<plurals name="placepage_summary_rating_description">
-	  <item quantity="one">Basato su %d recensione</item>
-	  <item quantity="other">Basato su %d recensioni</item>
-	</plurals>
 	<string name="type.cuisine.uzbek">Cucina uzbeka</string>
-	<string name="onboarding_guide_direct_download_title">La guida è pronta per essere scaricata</string>
-	<string name="onboarding_guide_direct_download_subtitle">Verrà visualizzata sulla mappa e funzionerà in modalità offline</string>
-	<string name="onboarding_guide_direct_download_button">Scarica</string>
-	<string name="onboarding_bydeeplink_guide_title">Guide pronte in OMaps</string>
-	<string name="onboarding_bydeeplink_guide_subtitle">Luoghi preferiti con descrizioni e foto sono visualizzati sulla mappa e disponibili offline.</string>
-	<string name="whats_new_auto_update_bydeeplink_title">Prima di passare alle guide…</string>
-	<string name="whats_new_auto_update_bydeeplink_message">Aggiorna le mappe per avere le informazioni attuali!</string>
-	<string name="whats_new_auto_update_and_proceed_button_size">Aggiorna (%s) e continua</string>
-	<string name="purchase_please_wait_toast">Si prega di non chiudere la scheda per completare l\'acquisto</string>
 	<string name="trip_start">Si parte</string>
 	<string name="pick_destination">Meta</string>
 	<string name="follow_my_position">Centrare</string>
@@ -1398,41 +1134,6 @@
 	<string name="dialog_routing_rebuild_from_current_location_carplay">Il percorso verrà impostato dalla tua posizione corrente</string>
 	<string name="dialog_routing_rebuild_for_vehicle_carplay">Il percorso verrà modificato in modalità Auto</string>
 	<string name="ok">Ok</string>
-	<string name="booking_button_toolbar">Scegliere un albergo sulla mappa</string>
-	<string name="popup_booking_download_guides_title">Hai prenotato un albergo?</string>
-	<string name="popup_booking_download_guides_message">Pianificare il viaggio con le Guide pronte di OMaps</string>
-	<string name="popup_mwm_download_guides_title">Guida offline</string>
-	<string name="popup_mwm_download_guides_cta">Scegliere</string>
-	<string name="popup_mwm_download_guides_cta_1">Scopri</string>
-	<string name="gallery_pp_download_guides_offline_title">Pianifica il viaggio con OMaps!</string>
-	<string name="gallery_pp_download_guides_offline_subtitle">Non perdere i consigli più importanti da viaggiatori esperti</string>
-	<string name="gallery_pp_download_guides_offline_cta">Accedi a internet</string>
-	<string name="gallery_pp_download_guides_title">Guide</string>
-	<string name="native_screen_subscription_title">Accesso illimitato a più di 2000 guide!</string>
-	<string name="native_screen_subscription_message">Una vacanza indimenticabile ovunque tu sia e con chiunque tu stia</string>
-	<string name="annual_subscription_title">Annuale</string>
-	<string name="montly_subscription_title">Mensile</string>
-	<string name="annual_subscription_message">12 mesi di accesso illimitato</string>
-	<string name="montly_subscription_message">1 mese di accesso illimitato</string>
-	<string name="subscription_success_dialog_title">Grazie per esserti abbonato!</string>
-	<string name="subscription_success_dialog_message">Ora hai accesso illimitato al catalogo delle guide</string>
-	<string name="renewal_screen_title">Abbonamento scaduto</string>
-	<string name="renewal_screen_message">Tutte le guide scaricate con l\'abbonamento verranno eliminate. Vuoi riprendere l\'abbonamento e salvarle?</string>
-	<string name="renewal_screen_button_restore">Riprendere</string>
-	<string name="renewal_screen_button_cancel">No, eliminare le guide</string>
-	<string name="subscription_error_ping_title">Acquisto non riuscito</string>
-	<string name="subscription_error_message">Il servizio non disponibile nella regione scelta. Si prega di riprovare più tardi</string>
-	<string name="subscription_error_button">Ho capito</string>
-	<string name="timeout_error_title">Oops! Tempo scaduto</string>
-	<string name="timeout_error_message">I nostri server non rispondono. Si prega di controllare la connessione internet e riprovare.</string>
-	<string name="per_month">/mese</string>
-	<string name="per_year">/anno</string>
-	<string name="buy_btn_for_subscription">Pieno accesso a %s</string>
-	<string name="buy_btn_for_subscription_1">Acquista TUTTE le guide a %s</string>
-	<string name="buy_btn_for_subscription_ios_only_mo">Pieno accesso a %s/mese</string>
-	<string name="buy_btn_for_subscription_ios_only_year">Pieno accesso a %s/anno</string>
-	<string name="subscription_terms_guides">Il pagamento verrà effettuato dal vostro account iTunes dopo la conferma dell\'acquisto. Abbonamento verrà rinnovato automaticamente. Puoi disdire il rinnovo automatico almeno 24 ore prima dello scadere dell\'abbonamento corrente. I costi verranno addebitati a seconda della tariffa prescelta per il rinnovo 24 ore prima dello scadere dell\'abbonamento corrente. Per cambiare o disattivare la funzione del rinnovo automatico accedi al tuo account Apple ID in qualsiasi momento dopo l\'acquisto. Puoi utilizzare le guide scaricate con l\'abbonamento solo fino alla scadenza di esso. Tutte le guide ed i relativi segnalibri verranno eliminati automaticamente dopo 30 giorni dalla data di scadenza dell\'abbonamento.</string>
-	<string name="subscription_terms">Il pagamento verrà addebitato sul tuo account iTunes alla conferma dell\'acquisto. L\'abbonamento verrà rinnovato automaticamente a meno che l\'opzione di rinnovo automatico non venga disattivata almeno 24 ore prima del termine dell\'attuale periodo di fatturazione. L\'addebito sull\'account dipenderà dal piano di rinnovo e verrà effettuato nelle 24 ore precedenti alla fine del ciclo di fatturazione esistente. Puoi gestire o disattivare il rinnovo automatico dalle impostazioni dell\'account Apple ID in qualsiasi momento.</string>
 	<string name="avoid_unpaved_carplay_1">No sterrati</string>
 	<string name="avoid_unpaved_carplay_2">No sterrati</string>
 	<string name="avoid_ferry_carplay_1">No traghetti</string>
@@ -1441,7 +1142,7 @@
 	<string name="avoid_tolls_carplay_2">Senza pedaggi</string>
 	<string name="speedcams_alert_title_carplay_1">Autovelox</string>
 	<string name="speedcams_alert_title_carplay_2">Info autovelox</string>
-	<string name="download_map_carplay">Scarica l\'applicazione OMaps sul tuo smartphone</string>
+	<string name="download_map_carplay">Scarica l\'applicazione Organic Maps sul tuo smartphone</string>
 	<string name="carplay_roundabout_exit">%s uscita</string>
 	<!-- max. 10 symbols, both iOS and Android -->
 	<string name="sort">Ordina…</string>
@@ -1489,80 +1190,15 @@
 	<string name="bookmarks_edit_list">Modifica</string>
 	<!-- Android, max 18 symbols -->
 	<string name="bookmarks_delete_list">Cancella la lista</string>
-	<string name="popup_subscription_success_map_title">Grande! Sei abbonato!</string>
-	<string name="popup_subscription_success_map_message">Esplora ora le migliori attrazioni turistiche del catalogo di OMaps</string>
-	<string name="popup_subscription_success_map_start_button">Scopri</string>
-	<string name="popup_subscription_success_map_not_now_button">Non ora</string>
 	<string name="religious_places">Luoghi di culto</string>
-	<string name="subscription_terms_android">Il pagamento avverrà attraverso Google Play alla conferma dell\'acquisto. L\'abbonamento si rinnova automaticamente a meno che quest\'opzione non venga disattivata almeno entro le 24 ore precedenti alla fine del periodo corrente. Il costo verrà detratto dal tuo account in secondo il tuo piano di rinnovo entro 24 ore dalla fine del periodo corrente. Dopo l\'acquisto è possibile gestire il rinnovo automatico o disattivarlo nelle impostazioni dell\'account. Potrai utilizzare le guide scaricate attraverso l\'abbonamento solo per il periodo di per durata dell\'abbonamento. Entro un termine di 30 giorni dalla fine dell\'abbonamento le guide verranno automaticamente cancellate.</string>
 	<string name="select_list">Scegli la lista</string>
-	<string name="pp_discovery_place_related_header">Questo luogo è presente nel catalogo guide</string>
-	<string name="pp_discovery_place_related_header_1">Questo luogo è presente nella guida</string>
-	<string name="pp_discovery_place_related_cta_button">Scopri</string>
-	<string name="pp_discovery_place_related_tag_header">Guide per tag “%s”</string>
-	<string name="pp_discovery_place_related_tag_header_1">Potrebbero piacerti anche</string>
-	<string name="buy_btn_for_subscription_version_2">TUTTE le guide a %s al mese</string>
-	<string name="buy_btn_for_subscription_version_3">Tutto il catalogo a %s al mese</string>
-	<string name="buy_btn_for_subscription_ios_only_mo_version_2">Accedi al catalogo per %s al mese</string>
-	<string name="buy_btn_for_subscription_ios_only_year_version_2">Accedi al catalogo per %s all\'anno</string>
-	<string name="subscription_screen_native_title_version_2">Accesso a guide con segnalibri sulla mappa!</string>
-	<string name="subscription_screen_native_message_version_2">Sarete pronti per qualsiasi viaggio in più di 600 città e 100 paesi</string>
-	<string name="catalog_no_internet_title">Nessuna connessione internet</string>
-	<string name="catalog_no_internet_button">Riprovare</string>
-	<string name="new_onboarding_button">Avanti</string>
-	<string name="new_onboarding_button_2">Avvia</string>
-	<string name="new_onboarding_step1_header_2">Tutto per i viaggi in un\'unica app</string>
-	<string name="new_onboarding_step2_header">Sogna e pianifica i tuoi viaggi</string>
-	<string name="new_onboarding_step2_message">+ di 70 milioni di luoghi d\'interesse, catalogo di guide pronte all\'uso e prenotazione degli hotel direttamente dalla mappa – tutto è pronto per il tuo viaggio!</string>
-	<string name="new_onboarding_step3_message">Carte e navigazione offline dettagliate ti aiuteranno a non perderti nei luoghi che non conosci!</string>
-	<string name="new_onboarding_step4_header">Condividi le tue esperienze</string>
-	<string name="new_onboarding_step4_message">Salva i posti che ti sono piaciuti nei preferiti e inviali agli amici</string>
-	<string name="new_onboarding_step5.1_header">Prima di iniziare…</string>
-	<string name="new_onboarding_step5.1_message">Non scordarti di dare un\'occhiata al nostro nuovo catalogo per trovare la guida offline per il tuo prossimo viaggio!</string>
-	<string name="new_onboarding_step5.1_button">Apri il catalogo</string>
-	<string name="new_onboarding_step5.2_message">Abbonarsi al catalogo guide di OMaps è conveniente. Ottieni l\'accesso completo a tutti i percorsi cittadini e nella natura!</string>
-	<string name="new_onboarding_step5.2_button">Vedi i termini di utilizzo</string>
-	<string name="new_onboarding_step5.3_message">Scarica gratuitamente una selezione di percorsi cittadini e di attività all\'aria aperta realizzata da OMaps!</string>
-	<string name="new_onboarding_step5.3_button">Scarica gratis</string>
-	<string name="new_onboarding_additional_steps_later_button">Non ora</string>
-	<string name="all_pass_subscription_header">Abbonamento al</string>
-	<string name="all_pass_subscription_subheader">Catalogo guide</string>
-	<!-- \n - for a break between lines. Max. 15 characters per 1 line. -->
-	<string name="all_pass_subscription_message_title">Più di 30000\nguide\ne sentieri</string>
-	<!-- <b> & </b> tag to make a part of the line bold -->
-	<string name="all_pass_subscription_message_subtitle"><b>Download illimitati offline</b> percorsi cittadini e all\'aria aperta</string>
-	<!-- \n - for a break between lines. Max. 17 characters per 1 line. -->
-	<string name="all_pass_subscription_message_title_2">Profilo\naltimetrico\ninterattivo</string>
-	<!-- <b> & </b> tag to make a part of the line bold -->
-	<string name="all_pass_subscription_message_subtitle_2">Tutti i sentieri contengono <b>altitudine e informazioni di base sul percorso</b></string>
-	<!-- \n - for a break between lines. Max. 15 characters per 1 line. -->
-	<string name="all_pass_subscription_message_title_3">Luoghi salvati,\nfoto\ne suggerimenti</string>
-	<!-- <b> & </b> tag to make a part of the line bold -->
-	<string name="all_pass_subscription_message_subtitle_3"><b>Scopri tutto riguardo il percorso</b> che farai</string>
-	<string name="sightseeing_subscription_header_subscription">Iscriviti alle guide</string>
-	<string name="sightseeing_subscription_message">+ di 700 città e 100 Paesi</string>
-	<string name="sightseeing_subscription_message_2">Disponibili offline</string>
-	<string name="sightseeing_subscription_message_3">Foto e percorsi pedonali</string>
-	<string name="subscription_success_dialog_title_sightseeing_pass">Grazie per l\'acquisto!</string>
-	<string name="subscription_success_dialog_message_sightseeing_pass">Adesso hai accesso a tutte le guide alle attrazioni delle città presenti nel catalogo</string>
-	<string name="downloader_main_gallery_header">Carte e guide</string>
-	<string name="downloader_main_gallery_message">Adesso in questa sezione puoi scaricare le mappe e scegliere le guide per i prossimi viaggi</string>
-	<string name="downloader_main_1_element_gallery_header">Tutte le guide</string>
-	<string name="downloader_main_1_element_gallery_message">per + di 100 Paesi</string>
-	<string name="downloader_country_1_element_gallery_header">%s guide</string>
-	<string name="downloader_country_no_guides_gallery_header">Le guide per questo Paese non sono ancora disponibili</string>
-	<string name="downloader_country_no_guides_gallery_message">Puoi dare un\'occhiata ad altri percorsi cittadini e attività all\'aria aperta in più di 100 Paesi</string>
-	<string name="dialog_pedestrian_route_is_long">Raggiungere la fermata dei mezzi di trasporto a piedi richiede troppo tempo</string>
-	<string name="new_onboarding_step3_header">Viaggia</string>
-	<string name="all_pass_screen_best_value">Prezzo vantaggioso</string>
-	<string name="buy_btn_for_subscription_3">Tutto il catalogo a %s all\'anno</string>
 	<string name="transit_not_found">L\'utilizzo della metro non è ancora disponibile in questa regione</string>
 	<string name="dialog_pedestrian_route_is_long_header">Percorso della metro non trovato</string>
 	<string name="dialog_pedestrian_route_is_long_message">Seleziona il punto iniziale o finale del percorso più vicino alla stazione della metro</string>
 	<!-- Failed planning SUBWAY route message in navigation view -->
 	<string name="routing_planning_error_subway_special">Errore di creazione del percorso della metro</string>
 	<string name="button_layer_isolines">Terreno</string>
-	<string name="tips_map_layers_title_countour">Novità su OMaps modalità topografica offline!</string>
+	<string name="tips_map_layers_title_countour">Novità su Organic Maps modalità topografica offline!</string>
 	<string name="tips_map_layers_message_countour">La modalità topografica aiuta a programmare il viaggio nella natura e a non perdersi</string>
 	<string name="isolines_activation_error_dialog">Per utilizzare la modalità topografica, aggiornate o scaricate la mappa dell\'area interessata</string>
 	<string name="isolines_location_error_dialog">La modalità topografica per questa regione non è ancora disponibile</string>
@@ -1581,79 +1217,10 @@
 	<string name="elevation_profile_time">Tempo:</string>
 	<string name="elevation_profile_hours">ore</string>
 	<string name="elevation_profile_minutes">min</string>
-	<string name="view_on_map_downloaded_error">Questa guida è stata cancellata dal dispositivo</string>
-	<string name="subscription">Abbonamento</string>
-	<string name="button_layer_guides">Guide (novità)</string>
-	<string name="no_routes_in_the_area_toast">Non ci sono guide presenti</string>
 	<string name="isolines_toast_zooms_1_10">Ingrandisci mappa per vedere l\'isolinea</string>
-	<string name="routes_layer_in_menu_toast">Attiva la modalità per trovare guide offline, analizzare le linee isometriche, la metro e il traffico</string>
-	<string name="routes_layer_is_on_toast">Trascina la mappa per esplorare le guide</string>
-	<string name="connection_error_dialog_guides_title">Errore di connessione</string>
-	<string name="connection_error_dialog_guides_message">La modalità non funziona perché non è presente alcuna connessione alla rete o il segnale è troppo debole. Per continuare, controlla la connessione o disattiva la modalità.</string>
-	<string name="connection_error_dialog_guides_try">Riprova</string>
-	<string name="connection_error_dialog_guides_layer_turn_off">Disattiva</string>
-	<string name="connection_error_toast_guides">Tentativo di riconnessione in corso</string>
-	<!-- as few symbols as possible -->
-	<string name="routes_card_show">Mostra sulla mappa</string>
-	<!-- as few symbols as possible -->
-	<string name="routes_card_hide">Nascondi dalla mappa</string>
 	<string name="downloader_updating_ios">Aggiornamento in corso</string>
 	<string name="downloader_loading_ios">Caricamento</string>
-	<string name="routes_card_plus_track">+ sentieri</string>
-	<string name="routes_card_number_of_points">%s posti</string>
-	<string name="routes_card_routes_tag">Percorso</string>
-	<string name="routes_card_set_tag">Selezione dei luoghi</string>
-	<!-- as few symbols as possible -->
-	<string name="guides_trial_cta_button">Prova gratis per 7 giorni</string>
-	<string name="guides_trial_message">Dopo il periodo di prova, %s l\'anno. Puoi disdire l\'abbonamento in qualsiasi momento</string>
-	<string name="trial_error_dialog">Hai già usufruito del periodo di prova</string>
-	<!-- as few symbols as possible -->
-	<string name="floating_button_filters">Filtri</string>
-	<plurals name="date_picker_amout_of_days">
-	  <item quantity="one">%d giorno</item>
-	  <item quantity="few">%d giorni</item>
-	  <item quantity="other">%d giorni</item>
-	</plurals>
-	<!-- as few symbols as possible -->
-	<string name="date_picker_сhoose_dates_cta">Seleziona date</string>
-	<!-- as few symbols as possible -->
-	<string name="guests_picker_rooms_title">Camere e ospiti</string>
-	<string name="guests_picker_rooms">Camere</string>
-	<string name="guests_picker_adults">Adulti</string>
-	<string name="guests_picker_children_title">Bambini</string>
-	<string name="guests_picker_children_subtitle">1-17 anni</string>
-	<string name="guests_picker_infants_title">Neonati</string>
-	<string name="guests_picker_infants_subtitle">0-12 mesi</string>
-	<!-- as less symbols as possible -->
-	<string name="booking_map_component_availability">Nessuna camera disp.</string>
-	<!-- as few symbols as possible -->
-	<string name="booking_map_component_filters">Nessun risultato</string>
-	<string name="choose_dates_online_only_dialog_title">Connessione internet assente</string>
-	<string name="choose_dates_online_only_dialog_message">Le date e il numero degli ospiti sono selezionabili solamente online. Controlla le impostazioni e assicurati di essere connesso a internet.</string>
-	<string name="choose_dates_online_only_dialog_cta">Impostazioni</string>
-	<string name="thirty_days_limit_dialog">È possibile prenotare una struttura al massimo per 30 notti</string>
-	<string name="whatsnew_trial_cta">Provalo</string>
-	<string name="subscription_terms_guides_outdoor">Una volta confermato l\'acquisto, il pagamento verrà addebitato sul tuo account iTunes. L\'abbonamento si rinnova automaticamente, a meno che il rinnovo automatico non venga disattivato almeno 24 ore prima della fine del periodo in corso. L\'importo verrà addebitato sul tuo account secondo il tuo piano di rinnovo massimo 24 ore prima della fine del periodo in corso. Dopo l\'acquisto è possibile gestire o disattivare in qualsiasi momento il rinnovo automatico dell\'abbonamento nelle impostazioni dell\'account ID Apple. È possibile utilizzare le guide scaricate tramite l\'abbonamento solamente se questo è attivo. Guide e segnalibri verranno automaticamente eliminati 7 giorni dopo il termine dell\'abbonamento.\n* L\'abbonamento di prova gratuito si rinnova automaticamente passando alla a pagamento. Dopo l\'acquisto è possibile disabilitare o gestire il rinnovo automatico dell\'abbonamento di prova gratuito nelle impostazioni dell\'account. La disdetta avverrà 24 ore dopo l\'ultimo giorno del periodo di abbonamento in corso. Dopo la disdetta, l\'account passerà automaticamente all\'abbonamento gratuito. Nota: al momento dell\'acquisto dell\'abbonamento durante il periodo di prova gratuito, i giorni inutilizzati di tale periodo andranno persi.</string>
-	<string name="subscription_terms_android_outdoor">Una volta confermato l\'acquisto, il pagamento verrà addebitato sul tuo account Google Play. L\'abbonamento si rinnova automaticamente, a meno che il rinnovo automatico non venga disattivato almeno 24 ore prima della fine del periodo in corso. L\'importo verrà addebitato sul tuo account secondo il tuo piano di rinnovo massimo 24 ore prima della fine del periodo in corso. Dopo l\'acquisto è possibile gestire o disattivare in qualsiasi momento il rinnovo automatico dell\'abbonamento nelle impostazioni dell\'account. È possibile utilizzare le guide scaricate tramite l\'abbonamento solamente se questo è attivo. Le guide verranno automaticamente eliminate 7 giorni dopo il termine dell\'abbonamento.\n* L\'abbonamento di prova gratuito si rinnova automaticamente passando alla a pagamento. Dopo l\'acquisto è possibile disabilitare o gestire il rinnovo automatico dell\'abbonamento di prova gratuito nelle impostazioni dell\'account. La disdetta avverrà 24 ore dopo l\'ultimo giorno del periodo di abbonamento in corso. Dopo la disdetta, l\'account passerà automaticamente all\'abbonamento gratuito. Nota: al momento dell\'acquisto dell\'abbonamento durante il periodo di prova gratuito, i giorni inutilizzati di tale periodo andranno persi.</string>
-	<string name="subscription_header">Abbonamento al\n<b>Catalogo guide</b></string>
-	<!-- Max. 20 characters per 1 line. -->
-	<string name="all_pass_subscription_message_title_4">Guide\ndi Lonely Planet®</string>
-	<!-- <b> & </b> tag to make a part of the line bold -->
-	<string name="all_pass_subscription_message_subtitle_4">Altre <b>grandi novità</b> con migliaia di luoghi d\'interesse <b>in tutto il mondo</b></string>
-	<string name="content_by_component">Contenuto di: %s</string>
-	<string name="whatsnew_lp_title">Altre grandi novità</string>
-	<string name="whatsnew_lp_message">Le guide di Lonely Planet! Luoghi da vedere, percorsi a tema e posti unici in più di 7000 città sparse in tutto il mondo.</string>
-	<string name="collections_title">Collezione</string>
 	<string name="key_information_title">Informazioni importanti</string>
-	<string name="mustsee_title">Da non perdere</string>
-	<string name="see_lp_category">Luoghi di interesse</string>
-	<string name="play_lp_category">Tempo libero</string>
-	<string name="shop_lp_category">Negozi</string>
-	<string name="transport_lp_category">Trasporti</string>
-	<string name="sleep_lp_category">Pernottare</string>
-	<string name="general_lp_category">Popolari</string>
-	<string name="drink_lp_category">Bar</string>
-	<string name="eat_lp_category">Ristoranti</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Funivia</string>

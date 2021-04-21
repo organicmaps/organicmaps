@@ -94,7 +94,7 @@
 /* Button text for the button under the country_status_download_failed message */
 "try_again" = "Újrapróbálkozás";
 
-"about_menu_title" = "A OMaps programról";
+"about_menu_title" = "A Organic Maps programról";
 
 "downloaded_touch_to_delete" = "Letöltve (%@), érintse meg törléshez";
 
@@ -110,7 +110,7 @@
 
 "external_storage_is_not_available" = "Nem található téképeket tartalmazó SD kártya / USB tároló";
 
-"disconnect_usb_cable" = "Kérjük bontsa az USB kapcsolatot vagy helyezzen be memóriakártyát a OMaps használatához";
+"disconnect_usb_cable" = "Kérjük bontsa az USB kapcsolatot vagy helyezzen be memóriakártyát a Organic Maps használatához";
 
 "not_enough_free_space_on_sdcard" = "Kérjük szabadítson fel helyet az SD kártyán / USB tárolón az alkalmazás használatához!";
 
@@ -174,7 +174,7 @@
 "set" = "Csoport";
 
 /* Text hint in Bookmarks dialog when no any bookmarks are added */
-"bookmarks_usage_hint" = "Nincsenek megjelölt helyeid.\nHely megjelöléséhez koppints a térkép bármelyik pontjára.\nSzintén más forrásokból származó könyvjelzőket is beolvashat a OMaps programba. Nyisson meg KML/KMZ fájlt egy levélből, Dropbox-ból vagy internetről.";
+"bookmarks_usage_hint" = "Nincsenek megjelölt helyeid.\nHely megjelöléséhez koppints a térkép bármelyik pontjára.\nSzintén más forrásokból származó könyvjelzőket is beolvashat a Organic Maps programba. Nyisson meg KML/KMZ fájlt egy levélből, Dropbox-ból vagy internetről.";
 
 /* Settings button in system menu */
 "settings" = "Beállítások";
@@ -276,9 +276,9 @@
 "share_by_email" = "Megosztás email-en";
 
 /* Email Subject when sharing bookmarks category */
-"share_bookmarks_email_subject" = "Egy OMaps könyvjelzőt osztottak meg Önnel";
+"share_bookmarks_email_subject" = "Egy Organic Maps könyvjelzőt osztottak meg Önnel";
 
-"share_bookmarks_email_body" = "Hello!\n\nAttached are my bookmarks from OMaps offline maps. Please open them if you have OMaps installed. Or, if you don't, download the app for your iOS or Android device by following this link: https://omaps.app/get?kmz\n\nEnjoy traveling with OMaps!";
+"share_bookmarks_email_body" = "Hello!\n\nAttached are my bookmarks from Organic Maps offline maps. Please open them if you have Organic Maps installed. Or, if you don't, download the app for your iOS or Android device by following this link: https://organicmaps.app/get?kmz\n\nEnjoy traveling with Organic Maps!";
 
 /* message title of loading file */
 "load_kmz_title" = "Könyvjelzők letöltése";
@@ -308,22 +308,22 @@
 "downloading_is_active" = "Országletöltés folyamatban.";
 
 /* Message that will be shown in alert view, when we ask user to leave review on App Store */
-"appStore_message" = "Reméljük élvezi a OMaps használatát. Ha igen, kérjük írjon ajánlást az App Store-ban! Kevesebb mint egy perc, és valóban segít nekünk. Köszönjük!";
+"appStore_message" = "Reméljük élvezi a Organic Maps használatát. Ha igen, kérjük írjon ajánlást az App Store-ban! Kevesebb mint egy perc, és valóban segít nekünk. Köszönjük!";
 
 /* No, thanks */
 "no_thanks" = "Köszönöm, nem";
 
 /* Share one specific bookmark using SMS, %1$@ contains ge0:// and %2$@ http://ge0.me link. @NOTE non-ascii symbols in the link will make 70 bytes sms instead of 140 */
-"bookmark_share_sms" = "Nézd meg a OMaps jelzőt! %1$@ vagy %2$@ A program letöltése: https://omaps.app/get";
+"bookmark_share_sms" = "Nézd meg a Organic Maps jelzőt! %1$@ vagy %2$@ A program letöltése: https://organicmaps.app/get";
 
 /* Share my position using SMS, %1$@ contains ge0:// and %2$@ http://ge0.me link WITHOUT NAME. @NOTE non-ascii symbols in the link will make 70 bytes sms instead of 140 */
-"my_position_share_sms" = "Nézd meg a OMaps helyzetemet! %1$@ vagy %2$@ A program letöltése: https://omaps.app/get";
+"my_position_share_sms" = "Nézd meg a Organic Maps helyzetemet! %1$@ vagy %2$@ A program letöltése: https://organicmaps.app/get";
 
 /* Subject for emailed bookmark */
-"bookmark_share_email_subject" = "Nézze meg a OMaps jelzőmet";
+"bookmark_share_email_subject" = "Nézze meg a Organic Maps jelzőmet";
 
 /* Subject for emailed position */
-"my_position_share_email_subject" = "Nézze meg a helyzetemet a OMaps térképen!";
+"my_position_share_email_subject" = "Nézze meg a helyzetemet a Organic Maps térképen!";
 
 /* Share my position using EMail, %1$@ is ge0:// and %2$@ is http://ge0.me link WITHOUT NAME */
 "my_position_share_email" = "Üdvözlöm!\n\nJelenleg itt vagyok: %1$@ Kattintson erre a hivatkozásra %2$@ vagy erre %3$@, hogy lássa a helyet a térképen.\n\nKöszönöm.";
@@ -492,16 +492,16 @@
 "download_map_notification" = "Töltsd le annak a helynek a térképét, ahol most vagy";
 
 /* text of notification */
-"pro_version_is_free_today" = "A teljes verzió OMaps ma ingyenes! Töltsd le most és meséld el barátaidnak.";
+"pro_version_is_free_today" = "A teljes verzió Organic Maps ma ingyenes! Töltsd le most és meséld el barátaidnak.";
 
 /* Dialog for transferring maps from lite to pro. */
-"move_lite_maps_to_pro" = "Letöltött térképeidet áthelyezzük a OMaps Lite-ból a OMaps-be. Ez eltarthat pár percig.";
+"move_lite_maps_to_pro" = "Letöltött térképeidet áthelyezzük a Organic Maps Lite-ból a Organic Maps-be. Ez eltarthat pár percig.";
 
 /* Message to display when maps moved. */
-"move_lite_maps_to_pro_ok" = "Letöltött térképeidet sikeresen áthelyeztük a OMaps-be.";
+"move_lite_maps_to_pro_ok" = "Letöltött térképeidet sikeresen áthelyeztük a Organic Maps-be.";
 
 /* Message to display when maps move failed. */
-"move_lite_maps_to_pro_failed" = "Térképeid áthelyezése nem sikerült. Kérjük, töröld a OMaps Lite-t és töltsd le a térképet megint.";
+"move_lite_maps_to_pro_failed" = "Térképeid áthelyezése nem sikerült. Kérjük, töröld a Organic Maps Lite-t és töltsd le a térképet megint.";
 
 /* Text in menu */
 "settings_and_more" = "Beállítások és egyéb";
@@ -510,7 +510,7 @@
 "website" = "Honlap";
 
 /* Text in menu */
-"maps_me_community" = "OMaps közösség";
+"maps_me_community" = "Organic Maps közösség";
 
 /* Text in menu */
 "like_on_facebook" = "Lájkolj minket Facebookon";
@@ -540,13 +540,13 @@
 "report_a_bug" = "Hibabejelentés";
 
 /* Email subject */
-"subscribe_me_subject" = "Fel szeretnék iratkozni a OMaps hírlevelére";
+"subscribe_me_subject" = "Fel szeretnék iratkozni a Organic Maps hírlevelére";
 
 /* Email body */
 "subscribe_me_body" = "Elsőként szeretnék értesülni a legújabb hírekről frissítésekről és promóciókról. A feliratkozásom bármikor törölhetem.";
 
 /* About text */
-"about_text" = "A OMaps kínálja a leggyorsabb offline térképeket, a világ összes városáról és országáról. Utazz magabiztosan: bárhol is vagy, a OMaps segít, hogy megtaláld magad a térképen, valamint segít a legközelebbi étterem, hotel, bank, benzinkút stb. felkutatásában is. Nem igényel internet kapcsolatot.\n\nMindig dolgozunk új fejlesztéseken és örömmel vennénk a te véleményedet is arról, hogyan tudnánk tovább fejleszteni a OMaps-t. Bármely probléma esetén írj nekünk a support@omaps.app email címre. Minden levélre válaszolunk!\n\nSzereted a OMaps-t és szeretnél támogatni minket? Van erre pár egyszerű és teljesen ingyenes lehetőséged:\n\n- írj rólunk értékelést az App Market-en\n- kedveld a Facebook oldalunkat: http://www.facebook.com/mapswithme\n- vagy csak mesélj a OMaps-ről anyukádnak, barátaidnak és munkatársaidnak :)\n\nKöszönjük, hogy velünk vagy. Nagyra értékeljük támogatásodat!\n\nU.i: Adatainkat az OpenStreetMap-ről vesszük, ami egy, a Wikipedia-hoz hasonló térképes projekt, ami megengedi felhasználóinak a térképek létrehozását és szerkesztését. Ha bármi hiányzik vagy rossz a térképpel, közvetlenül te is kijavíthatod a https://www.openstreetmap.org-on és változtatásaid a OMaps következő verziójában már meg fognak jelenni.";
+"about_text" = "A Organic Maps kínálja a leggyorsabb offline térképeket, a világ összes városáról és országáról. Utazz magabiztosan: bárhol is vagy, a Organic Maps segít, hogy megtaláld magad a térképen, valamint segít a legközelebbi étterem, hotel, bank, benzinkút stb. felkutatásában is. Nem igényel internet kapcsolatot.\n\nMindig dolgozunk új fejlesztéseken és örömmel vennénk a te véleményedet is arról, hogyan tudnánk tovább fejleszteni a Organic Maps-t. Bármely probléma esetén írj nekünk a support@organicmaps.app email címre. Minden levélre válaszolunk!\n\nSzereted a Organic Maps-t és szeretnél támogatni minket? Van erre pár egyszerű és teljesen ingyenes lehetőséged:\n\n- írj rólunk értékelést az App Market-en\n- kedveld a Facebook oldalunkat: http://www.facebook.com/OMapsApp\n- vagy csak mesélj a Organic Maps-ről anyukádnak, barátaidnak és munkatársaidnak :)\n\nKöszönjük, hogy velünk vagy. Nagyra értékeljük támogatásodat!\n\nU.i: Adatainkat az OpenStreetMap-ről vesszük, ami egy, a Wikipedia-hoz hasonló térképes projekt, ami megengedi felhasználóinak a térképek létrehozását és szerkesztését. Ha bármi hiányzik vagy rossz a térképpel, közvetlenül te is kijavíthatod a https://www.openstreetmap.org-on és változtatásaid a Organic Maps következő verziójában már meg fognak jelenni.";
 
 /* Alert text */
 "email_error_body" = "Az email kliens nincs beállítva. Kérjük, konfiguráld vagy próbálj meg valamilyen más módon kapcsolatba lépni velünk a %@ email címen keresztül.";
@@ -564,7 +564,7 @@
 "routing_map_outdated" = "Kérjük, útvonal létrehozásához frissítsd a térképet.";
 
 /* Update maps suggestion */
-"routing_update_maps" = "A OMaps új verziójában már útvonalakt is létrehozhatsz tartózkodási helyedtől az úticélodig. Kérjük, ennek a funkciónak a használatához frissítsd a térképeket.";
+"routing_update_maps" = "A Organic Maps új verziójában már útvonalakt is létrehozhatsz tartózkodási helyedtől az úticélodig. Kérjük, ennek a funkciónak a használatához frissítsd a térképeket.";
 
 /* Update all button text */
 "downloader_update_all_button" = "Mindegyik frissítése";
@@ -592,7 +592,7 @@
 "downloader_search_results" = "Megtalálva";
 
 /* Disclaimer message */
-"routing_disclaimer" = "Amikor útvonalakat készít a OMaps appban, kérjük, vegye figyelembe a következőket:\n\n  - Az ajánlott útvonalak csak javaslatoknak tekintendők.\n - Az utak kondíciója, a forgalmi szabályok és jelzőtáblák magasabb prioritásúak, mint a navigációs javaslatok.\n - A térkép lehet, hogy hibás vagy idejétmúlt, az útvonalak pedig lehet, hogy nem a lehető legjobb módon készülnek el.\n\n  Legyen óvatos az utakon és vigyázzon magára!";
+"routing_disclaimer" = "Amikor útvonalakat készít a Organic Maps appban, kérjük, vegye figyelembe a következőket:\n\n  - Az ajánlott útvonalak csak javaslatoknak tekintendők.\n - Az utak kondíciója, a forgalmi szabályok és jelzőtáblák magasabb prioritásúak, mint a navigációs javaslatok.\n - A térkép lehet, hogy hibás vagy idejétmúlt, az útvonalak pedig lehet, hogy nem a lehető legjobb módon készülnek el.\n\n  Legyen óvatos az utakon és vigyázzon magára!";
 
 /* Outdated maps category */
 "downloader_outdated_maps" = "Elavult";
@@ -628,7 +628,7 @@
 "routing_failed_route_not_found" = "Nem találtunk útvonalat a kiválasztott kiindulópont és az úti cél között. Kérjük, válasszon másik kiinduló- vagy végpontot.";
 
 /* InternalError */
-"routing_failed_internal_error" = "Belső hiba történt. Kérjük, próbálja meg kitörölni és újra letölteni a térképet. Ha a probléma továbbra is fennáll, kérjük, vegye fel velünk a kapcsolatot a support@omaps.app email címen.";
+"routing_failed_internal_error" = "Belső hiba történt. Kérjük, próbálja meg kitörölni és újra letölteni a térképet. Ha a probléma továbbra is fennáll, kérjük, vegye fel velünk a kapcsolatot a support@organicmaps.app email címen.";
 
 /* Context menu item for downloader. */
 "downloader_download_map_and_routing" = "Térkép + útvonal letöltése";
@@ -675,10 +675,10 @@
 "rating_just_rated" = "Most értékeltem az alkalmazásodat";
 
 /* Text for rating dialog */
-"rating_user_since" = "OMaps felhasználó vagyok %@ óta";
+"rating_user_since" = "Organic Maps felhasználó vagyok %@ óta";
 
 /* Text for rating dialog */
-"rating_do_like_maps" = "Szereted a OMaps-t?";
+"rating_do_like_maps" = "Szereted a Organic Maps-t?";
 
 /* Text for rating dialog */
 "rating_tap_star" = "Érints meg egy csillagot az alkalmazás értékeléséhez.";
@@ -702,7 +702,7 @@
 "routing_download_map" = "Térkép megszerzése";
 
 /* Text for routing error dialog */
-"routing_download_map_and_routing" = "Frissített térkép és útvonaltervezési adatok letöltése az összes OMaps tulajdonság megszerzése érdekében.";
+"routing_download_map_and_routing" = "Frissített térkép és útvonaltervezési adatok letöltése az összes Organic Maps tulajdonság megszerzése érdekében.";
 
 /* Text for routing error dialog */
 "routing_get_routing_data" = "Útvonaltervezési adatok megszerzése";
@@ -923,7 +923,7 @@
 
 "rate_alert_title" = "Tetszik az app?";
 
-"rate_alert_default_message" = "Köszönjük, hogy a OMaps-t használta. Kérjük, értékelje az appot. A visszajelzéseik segítenek bennünket abban, hogy jobbá váljunk.";
+"rate_alert_default_message" = "Köszönjük, hogy a Organic Maps-t használta. Kérjük, értékelje az appot. A visszajelzéseik segítenek bennünket abban, hogy jobbá váljunk.";
 
 "rate_alert_five_star_message" = "Hurrá! Mi is szeretjük magát!";
 
@@ -1034,7 +1034,7 @@
 
 "editor_report_problem_duplicate_place_title" = "Duplikált hely";
 
-"first_launch_congrats_title" = "A OMaps használatra készen áll";
+"first_launch_congrats_title" = "A Organic Maps használatra készen áll";
 
 "first_launch_congrats_text" = "Keress és navigálj offline a világon mindenhol, térítésmentesen.";
 
@@ -1218,7 +1218,7 @@
 
 "whatsnew_editor_message_1" = "Adj hozzá új helyeket a térképhez, és szerkeszd a meglévőket közvetlenül az alkalmazásból.";
 
-"whatsnew_editor_message_2" = "* A OMaps az OpenStreetMap közösség adatait használja.";
+"whatsnew_editor_message_2" = "* A Organic Maps az OpenStreetMap közösség adatait használja.";
 
 "dialog_incorrect_feature_position" = "Helyszín megváltoztatása";
 
@@ -1231,7 +1231,7 @@
 /* Error dialog no space */
 "migration_no_space_message" = "A letöltéshez több szabad tárhelyre van szükség. Kérjük, töröld a szükségtelen adatokat.";
 
-"editor_sharing_title" = "Én fejlesztettem a OMaps térképeket";
+"editor_sharing_title" = "Én fejlesztettem a Organic Maps térképeket";
 
 "editor_comment_will_be_sent" = "Megjegyzését elküldjük a térképészeknek.";
 
@@ -1262,7 +1262,7 @@
 
 "editor_detailed_description_hint" = "Részletes megjegyzés";
 
-"editor_detailed_description" = "Javasolt változtatásait elküldjük az OpenStreetMap közösségnek. Írja le a további információkat, amelyek nem szerkeszthetők a OMaps-ben.";
+"editor_detailed_description" = "Javasolt változtatásait elküldjük az OpenStreetMap közösségnek. Írja le a további információkat, amelyek nem szerkeszthetők a Organic Maps-ben.";
 
 "editor_more_about_osm" = "További részletek az OpenStreetMap-ról";
 
@@ -1339,10 +1339,6 @@
 
 "placepage_open_24_7" = "24 órás";
 
-"place_page_booking_rating" = "Kategória: %s";
-
-"place_page_starting_from" = "kezdőár %s";
-
 "meter" = "m";
 
 "kilometer" = "km";
@@ -1410,17 +1406,9 @@
 
 "editor_profile_rating_place" = "Ranglista helyezés";
 
-"booking_dialog_not_connect_header" = "A szálloda lefoglalásához csatlakozzon az internethez";
-
-"button_try" = "Próbáld ki";
-
 "refresh" = "Frissítés";
 
 "last_update" = "Utolsó frissítés: %s";
-
-"booking_checkin" = "bejelentkezés: %s";
-
-"booking_checkout" = "kijelentkezés: %s";
 
 "placepage_add_place_button" = "Hely hozzáadása a térképhez";
 
@@ -1453,9 +1441,6 @@
 /* iOS dialog for the case when recent track recording is on and the app comes back from background */
 "recent_track_background_dialog_title" = "Megszakítod a legutóbb megtett utad rögzítését?";
 
-/* If a hotel is being shared */
-"sharing_booking" = "vagy foglaljon a booking.com-on";
-
 "off_recent_track_background_button" = "Megszakítás";
 
 /* For sharing via SMS and so on */
@@ -1463,7 +1448,7 @@
 
 "continue_recent_track_background_button" = "Folytatás";
 
-"recent_track_background_dialog_message" = "A OMaps a geopozíciód használatával a háttérben rögzíti a legutóbb megtett utad.";
+"recent_track_background_dialog_message" = "A Organic Maps a geopozíciód használatával a háttérben rögzíti a legutóbb megtett utad.";
 
 /* Rate on Google Play (Android only) */
 "rate_gp" = "Arány a Google Play-n";
@@ -1472,10 +1457,10 @@
 "tell_friends" = "Mondja el egy ismerősének";
 
 /* Share with friends: sharing text */
-"tell_friends_text" = "Szia! Telepítsd a OMaps alkalmazást!";
+"tell_friends_text" = "Szia! Telepítsd a Organic Maps alkalmazást!";
 
 /* About short text (below logo) */
-"about_description" = "A OMaps egy nélkülözhetetlen alkalmazás utazáshoz. A OMaps az OpenStreetMap adataira épül, és lehetővé teszi ezek szerkesztését.";
+"about_description" = "A Organic Maps egy nélkülözhetetlen alkalmazás utazáshoz. A Organic Maps az OpenStreetMap adataira épül, és lehetővé teszi ezek szerkesztését.";
 
 /* Text in menu */
 "blog" = "Blog";
@@ -1495,51 +1480,7 @@
 /* For the first routing */
 "decline" = "Elutasítja";
 
-"whats_new_route_profile_title" = "Az árkot jobb megkerülni, mint beleesni";
-
-"whats_new_route_profile_message" = "A gyalogos és kerékpáros utakat most már emelkedési profillal jelenítjük meg.";
-
-"whats_new_booking_improve_title" = "Takarékoskodjon szálláshely foglalásakor";
-
-"whats_new_booking_improve_message" = "A szálláshely keresési eredménye már tartalmazza az árkategóriát. \nEmellett kiegészítettük több mint 110.000 szálláshellyel.";
-
-/* For place page hotel facilities block */
-"placepage_hotel_facilities" = "Létesítmények";
-
-/* For place page hotel nearby block */
-"placepage_hotel_nearby" = "Közeli";
-
-/* For ordering a taxi (as opposed to hotels or other things) */
-"taxi_order" = "Taxi rendelés";
-
-/* How long it is until the taxi arrives */
-"taxi_wait" = "Várható %s";
-
-/* When there are no available taxis nearby */
-"taxi_not_found" = "Nem talált taxit a közelben";
-
-/* When there are no available taxi providers nearby */
-"taxi_no_providers" = "Itt nincs taxi";
-
 "install_app" = "Telepítés";
-
-/* `Filter` is a noun here */
-"booking_filters" = "Szűrő";
-
-"booking_filters_reset" = "Alaphelyzetbe állítás";
-
-/* Beginning from a particular value and */
-"booking_filters_rating" = "Besorolás innentől";
-
-"booking_filters_rating_any" = "Bármelyik";
-
-"booking_filters_ragting_good" = "Jó";
-
-"booking_filters_rating_very_good" = "Nagyon jó";
-
-"booking_filters_rating_excellent" = "Kiváló";
-
-"booking_filters_price_category" = "Árkategória";
 
 "search_no_results_title" = "Nincs találat";
 
@@ -1551,28 +1492,6 @@
 
 /* noun */
 "search_in_table" = "Lista";
-
-"booking_show_more" = "Több megjelenítése";
-
-"booking_reviews" = "Bírálatok";
-
-"booking_hotel" = "Szálloda";
-
-/* hotel room */
-"booking_hotel_room" = "Szoba";
-
-/* A neologism for a chat based on geographical proximity */
-"chat" = "Geochat";
-
-/* Verb. Text on a button that opens the chat. */
-"chat_open" = "Megnyitás";
-
-"dialog_taxi_offline" = "Taxirendelés offline módban nem lehetséges.";
-
-"dialog_taxi_error" = "A taxirendelés átmenetileg nem elérhető.";
-
-/* Abbreviated for all languages. */
-"advertisement" = "AD";
 
 "mobile_data_dialog" = "Részletes információk megjelenítése a mobil internet segítségével?";
 
@@ -1596,7 +1515,7 @@
 
 "big_font" = "Betűméret növelése a térképen";
 
-"traffic_update_app" = "Kérjük, frissítse a OMaps alkalmazást";
+"traffic_update_app" = "Kérjük, frissítse a Organic Maps alkalmazást";
 
 /* "traffic" as in road congestion */
 "traffic_update_app_message" = "A forgalmi adatok megjelenítéséhez frissíteni kell az alkalmazást.";
@@ -1607,69 +1526,14 @@
 /* "Translation is no needed, because it's a company name" */
 "uber" = "Uber";
 
-/* Seven points and higher */
-"booking_filter_rating_num_good" = "7.0+";
-
-/* Eight points and higher */
-"booking_filter_rating_num_very_good" = "8.0+";
-
-/* Nine points and higher */
-"booking_filter_rating_num_excellent" = "9,0+";
-
-"booking_filter_price_low" = "$";
-
-"booking_filter_price_medium" = "$$";
-
-"booking_filter_price_high" = "$$$";
-
 /* Simplified colour scheme for traffic information, fewer colours are used to display traffic jams on the map. The string should be kept as short as possible */
 "pref_traffic_simplified_colors_title" = "Egyszerűsített forgalmi színek";
 
 "enable_logging" = "Naplózás engedélyezése";
 
-"more_on_bookingcom" = "Továbbiak a Booking.com-on";
-
-"details_on_bookingcom" = "Részletek a Booking.com-on";
-
-"reviews_on_bookingcom" = "További vélemények a Booking.com-on";
-
 "offline_place_page_more_information" = "A helyszínről további tájékoztatást kaphat, ha csatlakozik az internethez.";
 
 "failed_load_information" = "Nem sikerült betölteni az adatokat.";
-
-"booking_search" = "Booking.com";
-
-"whats_new_auto_update_updating_maps" = "Térképek frissítése";
-
-"whats_new_auto_update_title" = "Frissítse a letöltött térképeit";
-
-"whats_new_auto_update_message" = "A térképek frissítésével naprakészen tarthatja az objektumokra vonatkozó adatokat";
-
-"whats_new_auto_update_button_size" = "Frissítés (%s)";
-
-"whats_new_auto_update_button_later" = "Kézi frissítés később";
-
-"search_hotel_filter_apartment" = "Apartmanok";
-
-"search_hotel_filter_camp_site" = "Kemping";
-
-"search_hotel_filter_chalet" = "Turistaház";
-
-"search_hotel_filter_guest_house" = "Vendégház";
-
-"search_hotel_filter_hostel" = "Hostel";
-
-"search_hotel_filter_resort" = "Resort hotel";
-
-"search_hotel_filter_hotel" = "Szálloda";
-
-"search_hotel_filter_motel" = "Motel";
-
-"create_campaign_button" = "Igényelje ezt az üzletet";
-
-"view_campaign_button" = "Hirdetett üzlet";
-
-"search_hotel_filters_type" = "Típus";
 
 /* Settings: "Send general feedback" button */
 "feedback_general" = "Általános visszajelzés";
@@ -1744,65 +1608,7 @@
 
 "preloader_viator_button" = "Tudjon meg többet";
 
-"whats_new_title_route" = "A kerékpáros és gyalogos útvonalakat is tovább javítottuk";
-
-"whats_new_message_route" = "Kijavítottuk a hibákat, töredékére csökkentettük az útvonalak felépítéséhez szükséges időt, közbülső megállókat építettünk be";
-
-"whats_new_message_title_update" = "A térkép frissítéseinek terjedelmét a tizedére csökkentettük";
-
-"whats_new_message_maps_update" = "Egy térkép frissítéséhez már elegendő a hiányzó adatok letöltése";
-
 "start_from_my_position" = "Elkezdi innen:";
-
-"rating" = "Minősítés";
-
-"placepage_no_reviews" = "Nincs véleményezés";
-
-"placepage_reviewed" = "Ezt a helyet már átnézte";
-
-"placepage_summary_rating" = "Összesített minősítés";
-
-"placepage_rate_comment" = "A hely értékeléséhez és minősítéséhez koppintson rá.";
-
-"placepage_rate_horrible" = "Borzalmas";
-
-"placepage_rate_bad" = "Rossz";
-
-"placepage_rate_normal" = "Normál";
-
-"placepage_rate_good" = "Jó";
-
-"placepage_rate_excellent" = "Kiváló";
-
-"placepage_reviews_most_recent" = "Legutóbbi";
-
-"placepage_reviews_most_useful" = "Leghasznosabb";
-
-"placepage_reviews_highest_rated" = "Legmagasabb értékelés";
-
-"placepage_reviews_lowest_rated" = "Legalacsonyabb értékelés";
-
-"placepage_reviews_offline_comment" = "Csak a leghasznosabb értékelések láthatók kapcsolat nélküli módban";
-
-"placepage_reviews_your_comment" = "Az Ön felülvizsgálata";
-
-"placepage_reviews_unhelpful" = "Haszontalan";
-
-"placepage_reviews_inappropriate" = "Nem megfelelő";
-
-"placepage_reviews_spam" = "Spam";
-
-"placepage_reviews_hint" = "Mi a jó vagy rossz itt?";
-
-"placepage_reviews_edit_your_review" = "Szerkessze értékelését";
-
-"placepage_reviews_new_review" = "Új értékelés";
-
-"placepage_translate_button" = "Lefordítja";
-
-"placepage_show_original_button" = "Az eredeti megjelenítése";
-
-"placepage_more_reviews_booking_button" = "További vélemények a Booking.com-on";
 
 "profile_authorization_title" = "Bejelentkezés ezzel";
 
@@ -1826,41 +1632,11 @@
 
 "quality" = "Minőség";
 
-"whats_new_ugc_title_updated_v840" = "Minősítések és értékelések";
-
-"whats_new_ugc_message" = "Most már kapcsolat nélkül is hagyhat minősítéseket és értékeléseket! Ne felejtse el frissíteni a térképeket, hogy láthassa a módosításokat.";
-
 "dialog_error_storage_title" = "Tároló hozzáférési hiba";
 
-"dialog_error_storage_message" = "Külső tároló nem áll rendelkezésre, valószínűleg az SD-kártyát eltávolították vagy sérült, vagy rendszerfájl csak olvasható. Ellenőrizze, és lépjen kapcsolatba velünk a support@omaps.app címen";
+"dialog_error_storage_message" = "Külső tároló nem áll rendelkezésre, valószínűleg az SD-kártyát eltávolították vagy sérült, vagy rendszerfájl csak olvasható. Ellenőrizze, és lépjen kapcsolatba velünk a support@organicmaps.app címen";
 
 "setting_emulate_bad_storage" = "Sérült tároló emulálása";
-
-"discovery_button_title" = "A közelben felfedezi";
-
-"discovery_button_subtitle_things_to_do" = "Teendők";
-
-"discovery_button_subtitle_attractions" = "Látnivalók";
-
-"discovery_button_subtitle_eat_and_drink" = "Enni és inni";
-
-"discovery_button_subtitle_local_guides" = "Helyi idegenvezetők";
-
-"discovery_button_viator_error_title" = "Hiba az adatok betöltésekor";
-
-"discovery_button_other_error_message" = "Hiba az adatok betöltésekor";
-
-"discovery_button_other_loading_message" = "Adatok betöltése";
-
-"discovery_button_404_error_title" = "Nem található";
-
-"discovery_button_404_error_message" = "Hoppá, nem találtunk semmit érdekeset ezen a környéken.";
-
-"booking_filters_check_in" = "Bejelentkezés";
-
-"booking_filters_check_out" = "Kijelentkezés";
-
-"booking_filters_offline" = "Nem érhető el offline.";
 
 "directions_finish" = "Rendeltetési hely";
 
@@ -1875,18 +1651,6 @@
 "crowdedness" = "Zsúfoltság";
 
 "error_enter_correct_name" = "Kérjük adja meg a helyes nevet";
-
-"hotel_available" = "Rendelkezésre áll";
-
-"whats_new_transit_title" = "Van metró";
-
-"whats_new_transit_message" = "Építse fel útvonalát metrójáratok segítségével! Kérjük, frissítse a térképeket a változások megjelenítéséhez.";
-
-"whats_new_discovery_title" = "Felfedezés gomb";
-
-"whats_new_discovery_message" = "Fedezze fel a dolgokat a környéken egy kattintással!";
-
-"price_per_hour" = "%s/óra";
 
 "bookmarks_backup" = "Engedélyezi a biztonsági mentést";
 
@@ -1918,14 +1682,6 @@
 
 "downloader_applying" = "%s alkalmazása...";
 
-"whats_new_title_hotel_filter" = "Új szálloda szűrők!";
-
-"whats_new_message_hotel_filter" = "Foglaljon elérhető szobát az Ön dátumain! Használja a be- ás kijelentkezési szűrőket";
-
-"whats_new_title_ugc_travel" = "Ossza meg tapasztalatait más utasokkal!";
-
-"whats_new_message_ugc_travel" = "Értékelje és ismertesse a meglátogatott helyeket!";
-
 "dialog_message_transit_not_found_connection" = "Útvonaltervezés egy összekötő hálózaton belül";
 
 "bookmarks_error_message_share_general" = "Nem lehet megosztani alkalmazáshiba miatt";
@@ -1933,10 +1689,6 @@
 "bookmarks_error_title_share_empty" = "Megosztási hiba";
 
 "bookmarks_error_message_share_empty" = "Üres lista nem osztható meg";
-
-"discovery_button_subtitle_book_hotels" = "Szállodák foglalása";
-
-"maxim_taxi_title" = "maxim";
 
 "bookmarks_error_title_empty_list_name" = "A név nem lehet üres";
 
@@ -1978,10 +1730,6 @@
 
 "wn_reinvented_bookmarks_message" = "Könyvjelzőket menthet, listákat hozhat létre... Hihetetlen...";
 
-"wn_way_of_booking_title" = "Újra átfogtuk a foglalás módját!";
-
-"wn_way_of_booking_message" = "Csak keresse meg a szállodát a térképen, és foglalja le, vagy válassza ki a megfelelőt.";
-
 "bookmarks_restore" = "Könyvjelzők visszaállítása";
 
 "bookmarks_restore_process" = "Visszaállítása ...";
@@ -2004,20 +1752,6 @@
 
 "restore" = "Visszaállítás";
 
-"sign_message_gdpr" = "A folytatáshoz el kell fogadnia a Felhasználási feltételeinket és az adatvédelmi irányelveinket. Kérjük, figyelmesen olvassa el őket.";
-
-"sign_agree_pp_gdpr" = "Elfogadom a <a href=\"%s\">adatvédelmi irányelveket</a>";
-
-"sign_agree_tof_gdpr" = "Elfogadom a <a href=\"%s\">Általános Szerződési Feltételeket</a>";
-
-"sign_agree_news_gdpr" = "Elfogadom, hogy megkapja a OMaps termékekkel kapcsolatos legfrissebb híreke";
-
-"whats_new_localbiz_title" = "A kis cégek is figyelmet érdemelnek";
-
-"whats_new_localbiz_message" = "Legyenek helyi kávézók, kényelmes szállók és üzletek, amik feledhetetlenné teszik az utazást. A weboldaladat úgy optimalizáljuk a OMaps-ben, hogy igazán kitűnjön.";
-
-"whats_new_order_button" = "Kérés küldése";
-
 "bookmarks_page_downloaded" = "Letöltött";
 
 "bookmarks_page_my" = "Az én";
@@ -2028,7 +1762,7 @@
 
 "cached_bookmarks_placeholder_title" = "Új helyek letöltése";
 
-"cached_bookmarks_placeholder_subtitle" = "Nyomja meg a gombot, hogy OMaps felhasználók ezrei által gyűjtött érdekes helyet és útvonalat tölthessen le. Ehhez internetkapcsolatra van szükség.";
+"cached_bookmarks_placeholder_subtitle" = "Nyomja meg a gombot, hogy Organic Maps felhasználók ezrei által gyűjtött érdekes helyet és útvonalat tölthessen le. Ehhez internetkapcsolatra van szükség.";
 
 "downloader_download_routers" = "Könyvjelzők letöltése";
 
@@ -2040,7 +1774,7 @@
 
 "crash_reports" = "Hibajelentés";
 
-"crash_reports_description" = "A OMaps fejlesztéséhez felhasználhatjuk az adatait. A változtatások az alkalmazás újraindítása után lépnek életbe.";
+"crash_reports_description" = "A Organic Maps fejlesztéséhez felhasználhatjuk az adatait. A változtatások az alkalmazás újraindítása után lépnek életbe.";
 
 "opt_out_help_ios_1" = "A mobileszköz „Reklámkövetés korlátozása” vagy „Érdeklődési kör alapú reklámozás” beállítással rendelkezhet.";
 
@@ -2078,18 +1812,6 @@
 
 "subtitle_error_downloading_bookmarks" = "Nem került letöltésre könyvjelző";
 
-"whats_new_bookmarks_catalog_title" = "A OMaps már útvonal-katalógussal is rendelkezik";
-
-"whats_new_bookmarks_catalog_message" = "Több száz részletes útvonal a világszerte: hova érdemes menni, mit érdemes megnézni, hol együnk.";
-
-"whats_new_popularity_label_title" = "Népszerű helyek a közelben";
-
-"whats_new_popularity_label_message" = "A közelben felfedezni rész segít neked megtalálni a legnépszerűbb helyeket a városban.";
-
-"whats_new_hot_offers_title" = "Hotelek vonzó ajánlatai";
-
-"whats_new_hot_offers_message" = "Kereshetőek a Hotel kategóriában a kereséssel. A kedvezményes ajánlatok a térképen és a keresési eredményekben százalékjellel vannak megjelölve.";
-
 "error_already_downloaded" = "Ezt a listát már letöltötték";
 
 "popular_place" = "Popular";
@@ -2100,92 +1822,17 @@
 
 "bookmarks_downloaded_subtitle" = "Press ‘View on map’ to explore new places from the list";
 
-"guides" = "Útmutatók";
+"why_support" = "Miért éri meg támogatni a Organic Maps-t?";
 
-"guide_downloaded_title" = "Az útmutató sikeresen letöltésre került";
+"why_support_item1" = "We respect your privacy: there are zero trackers in the app, and we are open source";
 
-/* as few symbols as possible */
-"download_guides" = "Útmutatók keresése";
-
-"guides_groups_cached" = "Letöltött útmutatók";
-
-"subtitle_error_downloading_guide" = "Az útmutató nem került letöltésre";
-
-"error_already_downloaded_guide" = "Ez az útmutató már letöltésre került";
-
-"guide_downloaded_subtitle" = "Az Útmutató megtekintéséhez nyomd meg a „Megtekintés a térképen” lehetőséget";
-
-"bookmarks_guides" = "Könyvjelzők és útmutatók";
-
-"paybtn_title" = "Fizessen %s/év";
-
-"paybtn_subtitle" = "%s/év megtakarítás";
-
-"options_dropdown_title" = "További lehetőségek";
-
-"why_support" = "Miért éri meg támogatni a OMaps-t?";
-
-"options_dropdown_item1" = "%s/hó (%s/év megtakarítás)";
-
-"options_dropdown_item2" = "%s/hét (nincs megtakarítás)";
-
-"why_support_item1" = "Eltávolítjuk a reklámokat";
-
-"why_support_item2" = "Ön segít a OMaps-t fejleszteni";
+"why_support_item2" = "Ön segít a Organic Maps-t fejleszteni";
 
 "why_support_item3" = "Segítsen a térkép fejlesztésében az OpenStreetMap.org-on";
 
-"purchase_processing" = "Vásárlása feldolgozás alatt van…";
-
-"tips_bookmarks_catalog_title" = "Kapcsolat nélküli útmutatók mindenféle utazáshoz";
-
-"tips_bookmarks_catalog_message" = "Töltse le és tervezzen érdekességeket érintő turistaútvonalakat a világ bármely országában.";
-
-"tips_discover_button_title" = "Népszerű érdekességeket keres a közelben?";
-
-"tips_discover_button_message" = "„A közelben felfedezi” résznél megtalálja a legjobb éttermeket, hoteleket és látnivalókat.";
-
-"tips_book_hotel_title" = "Foglaljon utazásához a legkényelmesebb hotelekben";
-
-"tips_book_hotel_message" = "Használja a keresés és szűrés lehetőségeket a legjobb hotel megtalálásához. A helyek oldalon a „Foglalás” gombbal azonnal foglalhat hotelt.";
-
-"tips_map_layers_title" = "Nem tudja, melyik állomáson kell átszállni?";
-
-"tips_map_layers_message" = "Kapcsolja be a metró réteget a térképen, így könnyen eligazodhat egy új városban is.";
-
 "channels_map_update" = "Térképfrissítések";
 
-"channels_reviews" = "Elküldetlen értékelések";
-
-"purchase_loading" = "Vásárlási információk betöltése…";
-
-"purchase_error_subtitle" = "Hiba történt a vásárlás feldolgozása közben";
-
-"awaiting_approval" = "Szülői jóváhagyásra vár";
-
-"whats_new_leave_review" = "Hagyjon értékelést! Ossza meg véleményét a meglátogatott helyekkel kapcsolatban.";
-
 "server_unavailable_title" = "A szerver nem elérhető";
-
-"server_unavailable_message" = "A vásárlás később kerül befejezésre. Ha továbbra is fennáll a hiba írjon ide: support@omaps.app.";
-
-"offline_fiters_check_in" = "Csatlakozzon az internetre a hotelek dátum alapú szűréséhez.";
-
-"rutaxi_title" = "RuTaxi";
-
-"restore_subscription" = "Előfizetés visszaállítása";
-
-"restore_success_alert" = "Az előfizetés sikeresen visszaállításra került";
-
-"restore_error_alert" = "Hiba lépett fel az előfizetés visszaállítása során";
-
-"restore_no_subscription_alert" = "Nincs aktív előfizetés";
-
-"subscriptions_title" = "Előfizetések";
-
-"manage_subscription" = "Előfizetés kezelése";
-
-"taxi" = "Taxi";
 
 "sharing_options" = "A hozzáférés beállításai";
 
@@ -2197,13 +1844,13 @@
 
 "hide_from_map" = "Lefedés a térképen";
 
-"ugc_route_tags_screen_label" = "A tag-ek kiválasztása";
-
-"ugc_route_tags_progress_msg" = "Tag-ek betöltése…";
-
 "public_access" = "Nyílt hozzáférés";
 
 "limited_access" = "Személyes hozzáférés";
+
+"bookmark_category_name" = "Kategória";
+
+"bookmark_category_description_hint" = "Leírás hozzáadása (szöveg vagy html)";
 
 /* FIXME */
 "bookmarks_public_access" = "bookmarks_public_access";
@@ -2214,33 +1861,11 @@
 /* FIXME */
 "bookmarks_private_access" = "bookmarks_private_access";
 
-"upload_and_publish_desc" = "Ez az útikalauz a OMaps nyitott katalógusba lesz feltöltve, és mindenki számára elérhető lesz";
-
-"upload_and_publish" = "Feltöltés és megjelenítés";
-
-"upload_and_get_direct_link" = "Feltöltés és hivatkozás elérése";
-
-"get_direct_link_desc" = "Az Ön útikalauza egyenes hivatkozásban lesz elérhető";
-
-"upload_and_publish_progress_text" = "Az útikalauz megjelenítődik…";
-
-"upload_and_publish_success" = "Az útikalauz meg van jelenítve";
-
-"ugc_routes_user_agreement" = "<b>FIGYELEM:</b> folytatva, Ön elfogadja <a href=\"%s\">licensz szerződést</a>";
-
-"ugc_route_edit_list_name" = "Az útikalauz megnevezése";
-
-"ugc_route_edit_description_hint" = "Leírás hozzáadása (szöveg vagy html)";
-
 "not_shared" = "Privát";
 
 "direct_link_progress_text" = "Betöltjük az Ön fájlát…";
 
 "direct_link_success" = "A hivatkozás létre van hozva";
-
-"edit_guide_title" = "Szerkessze az útikalauzát online";
-
-"edit_guide_subtitle" = "A web alkalmazáson keresztül kapjon hivatkozást az útikalauzának szerkesztésére: adjon hozzá helyek ismertetését, töltsön fel fényképeket és kösse össze a jeleket vonalakkal.";
 
 "send_a_link_btn" = "Hivatkozás küldése";
 
@@ -2254,39 +1879,7 @@
 
 "unable_upload_error_subtitle_broken" = "A fájl sérült és nem lehet feltölteni. Kérjük, más fájlt töltsön fel.";
 
-"buy_btn" = "Vedd meg ezt ennyiért: %s";
-
-"download_guide_progress" = "Az útikalauz töltődik…";
-
-"price_error_title" = "Lehetetlen megtudni az értékét";
-
-"price_error_subtitle" = "Kérem egy néhány perc múlva próbálkozzon újra";
-
-"edit_your_guide_email_body" = "Szerkessze az Ön útikalauzát a számítógépen: adjon hozzá helyek ismertetését, töltsön fel fényképeket és kösse össze a jeleket vonalakkal.";
-
-"edit_on_web" = "Online szerkesztés";
-
-"properties_loading_error_subtitle" = "Az opciók feltöltésekor hiba történt, kérjük, próbálja meg még egyszer";
-
-"custom_props_desc" = "Ezt az útikalauzt Ön úgy állította össze, mint";
-
-"custom_props_title" = "Helyi lakos vagy turista";
-
-"custom_props_local" = "helyi lakos";
-
-"custom_props_traveler" = "turista";
-
-"select_properties" = "Opció kiválasztása";
-
-"access_rules_p_to_p" = "Speciális hozzáférés";
-
-"access_rules_paid" = "Megvásárolt";
-
-"failed_purchase_support_message" = "Úgy látszik, hogy Önnek van egy be nem fejezett vásárlása. Kérjük, írjon a támogatásba, és mi megoldjuk az Ön problémáját.";
-
 "contact" = "Írás";
-
-"check_price_button" = "Az ár tudakolozása";
 
 "download_button" = "Letöltés";
 
@@ -2304,92 +1897,16 @@
 
 "place_description_title" = "A hely ismertetése";
 
-"ugc_routes_error_uploading_file_toast" = "Sajnálatos módon, a jelek letöltésénél hiba történt. Kérem, próbálja meg még egyszer.";
-
-"notification_channel_ugc" = "Felhasználói tartalom";
-
 /* this text will be shown in application notification preferences opposite checkbox which enable/disable downloader notifications. Devices on Android 8+ are affected. */
 "notification_channel_downloader" = "Kártyák letöltése";
 
-"notification_leave_review_title" = "%s - hogy érzi itt magát?";
-
-"notification_leave_review_content" = "Írja meg a véleményét és segítsen a kirándulóknak!";
-
-"share_bookmarks_email_body_link" = "Üdvözlöm!\n\nA jeleit le lehet tölteni ezzel a linkkel: %s. Nyíssa meg a listát OMaps segítségével és élvezze az utazását!\n\nAlkalmazás letöltése: https://omaps.app/get?kmz";
+"share_bookmarks_email_body_link" = "Üdvözlöm!\n\nA jeleit le lehet tölteni ezzel a linkkel: %s. Nyíssa meg a listát Organic Maps segítségével és élvezze az utazását!\n\nAlkalmazás letöltése: https://organicmaps.app/get?kmz";
 
 "warning_speedcams_title" = "Navigátor értesít a kamerákról sebességkorlátozás megsértésénél %d km/óra-ra";
 
 "warning_speedcams_subtitle" = "Ne felejtse el megismerkedni a cél ország közlekedési szabályaival.";
 
 "speedcams_notice_message" = "Autó - Figyelmeztetés a sebesség kamerákról, ha van kockázat a sebesség korlátozás megsértéséről\nMindig - Mindig figyelmeztet a kamerákról\nSoha - Soha ne figyelmezet a kamerákról";
-
-"whats_new_ugc_routes_title" = "Könnyű megosztani a benyomásaidat";
-
-"whats_new_ugc_routes_subtitle" = "Ments el emlékezetes helyeket, hozz létre útvonalakat könyvjelzők segítségével és oszd meg őket mindenkivel a OMaps katalógusban.";
-
-"whats_new_webeditor_title" = "Alakítsd át az útvonalaidat történetekké";
-
-"whats_new_ugc_routes_message2" = "Adj hozzá fényképeket és részletes történeteket a webes szerkesztőben.";
-
-"ugc_thanks_message_auth" = "Az értékelésed elmentve";
-
-"ugc_thanks_message_not_auth" = "Kérjük jelentkezz be az értékeléshez";
-
-"notification_leave_review_v2_title" = "Értékelj egy meglátogatott helyet és segíts az utazóknak!";
-
-"error_public_not_enought_title" = "Nincs elegendő könyvjelző";
-
-"error_public_not_enought_subtitle" = "Legalább 3 könyvjelződnek kell lennie, hogy az útmutatódat feltölthesd a nyilvános katalógusba";
-
-"bookmark_public_upload_alert_title" = "Csak pár lépésnyire vagy attól, hogy megoszthasd a könyvjelzőidet minden OMaps utazóval!";
-
-"bookmark_public_upload_alert_subtitle" = "Kéjük győződj meg róla, hogy egy jellemző neved és leírásod van a listádhoz, és hogy minden könyvjelzőnél van információ a helyekről. Ily módon a listádat mások is megtalálhatják és használhatják.";
-
-"bookmark_public_upload_alert_ok_button" = "Igen, biztos vagyok benne!";
-
-"name_title" = "Add meg az útmutatód nevét";
-
-"name_placeholder" = "pl.: Londoni kocsmák";
-
-"name_comment1" = "Kérjük adj nevet az útmutatódnak, így az utazók könnyen megtalálhatják: például \"Londoni kocsmák\"";
-
-"name_comment2" = "A név ne tartalmazzon speciális szimbólumokat. A név ne legyen a \"Saját helyeim\"";
-
-"description_guide" = "Leírás";
-
-"description_title" = "Add meg az útmutatód leírását";
-
-"description_placeholder" = "Fejtsd ki az útmutatód részleteit";
-
-"description_comment1" = "Az útmutató leírásodnak legalább 30 szimbólumot kellene tartalmaznia.";
-
-"ugc_route_tags_desc" = "Kérjük válassz címkéket, hogy segíts más utazóknak megtalálni az útmutatódat. Ez kötelező. Maximum %s címke.";
-
-"html_format_error_title" = "Az útmutatód nem lett közzétéve";
-
-"html_format_error_subtitle" = "Kérjük győződj meg róla, hogy a könyvjelzőid nevei és könyvjelzői mind érvényes formátumúak. Ellenőrizheted egy asztali böngészőn a lenti \"Online szerkesztés\" gombra kattintva.";
-
-"web_editor_description" = "Töltsd fel az útmutatódat és szerezd be a szerkesztési linket az asztaliról";
-
-"edit_on_web_confirm" = "Online szerkesztés";
-
-"update_guide" = "Egy frissítés feltöltése";
-
-"direct_link_updating_text" = "A fájlod frissítése…";
-
-"direct_link_updating_success" = "Az útmutatód frissítve lett";
-
-"unable_get_direct_link_desc" = "Egy nyilvános linkkel megoszthatod az útmutatódat";
-
-"any_access_update_alert_title" = "Néhány változás történhetett";
-
-"any_access_update_alert_message" = "Szeretnéd frissíteni a könyvjelzőidet? Az új verzió ugyanazon a linken keresztül lesz elérhető.";
-
-"any_access_update_alert_update" = "Frissítés";
-
-"public_or_limited_access_after_edit_online_error_title" = "Online szerkesztetted a könyvjelzőidet";
-
-"public_or_limited_access_after_edit_online_error_message" = "A jövőben kérjük a weboldalunkon keresztül szerkeszd, publikáld vagy oszd meg az útmutatót a barátaiddal";
 
 "power_managment_title" = "Energiatakarékos mód";
 
@@ -2401,7 +1918,7 @@
 
 "power_managment_setting_manual_max" = "Maximális energiatakarékosság";
 
-"enable_logging_warning_message" = "Az opció bekapcsolja a diagnosztikai célú naplózást. Hasznos lehet a support csapatunknak, akik elhárítják az alkalmazás hibáit. Csak a OMaps support kérésére kapcsold be ezt az opciót.";
+"enable_logging_warning_message" = "Az opció bekapcsolja a diagnosztikai célú naplózást. Hasznos lehet a support csapatunknak, akik elhárítják az alkalmazás hibáit. Csak a Organic Maps support kérésére kapcsold be ezt az opciót.";
 
 "html_error_upload_message_try_again" = "Kérjük ellenőrizd a hálózati beállításaidat és próbáld újra";
 
@@ -2417,21 +1934,9 @@
 
 "privacy_settings_menu" = "Adatvédelmi beállítások";
 
-"gdpr_request_setting" = "ID beszerzése GDPR kéréshez";
-
-"gdpr_request_window_title" = "A te ID-d: %s.";
-
-"gdpr_request_window_message" = "Kérjük másold le és küldd el a kérést a support@omaps.app címre";
-
-"gdpr_request_window_copy" = "ID lemásolása";
-
 "unable_upadate_error_title" = "Fájl frissítés sikertelen";
 
 "unable_upadate_error_message" = "Néhány hiba történt frissítés közben. Kérjük ellenőrizd a változtatásokat és próbáld újra";
-
-"whats_new_wiki_title" = "Mi ez a hely?";
-
-"whats_new_wiki_message" = "Wikipedia.org cikkeket adtunk hozzá a legnépszerűbb látnivalók oldalaihoz. Offline elérhetőek";
 
 "driving_options_title" = "Vezetési lehetőségek";
 
@@ -2467,31 +1972,7 @@
 
 "avoid_ferry_crossing_placepage" = "Kompátkelők elkerülése";
 
-"cached_guides_placeholder_subtitle" = "A OMaps használatra kész útmutatókat kínál azon kiválasztott helyekhez fényképekkel és leírásokkal, amelyek a térképen jelölve vannak és offline elérhetőek.";
-
-"guides_catalogue_title" = "Útmutató katalógus";
-
-"download_guides_button" = "A katalógushoz";
-
 "type.cuisine.uzbek" = "Üzbég konyha";
-
-"onboarding_guide_direct_download_title" = "Az útmutató készen áll a letöltésre";
-
-"onboarding_guide_direct_download_subtitle" = "Jelölve lesz a térképen és offline fog működni";
-
-"onboarding_guide_direct_download_button" = "Letöltés";
-
-"onboarding_bydeeplink_guide_title" = "Használatra kész útmutatók a OMaps-ben";
-
-"onboarding_bydeeplink_guide_subtitle" = "A legjobb meglátogatandó helyeket a térkép fényképekkel és leírásokkal jelöli. Offline munka.";
-
-"whats_new_auto_update_bydeeplink_title" = "Mielőtt továbblépnél az útmutatókhoz…";
-
-"whats_new_auto_update_bydeeplink_message" = "Frissítsd a térképeket, hogy az objektumok információi naprakészek legyenek!";
-
-"whats_new_auto_update_and_proceed_button_size" = "Frissítés (%s) és folytatás";
-
-"purchase_please_wait_toast" = "Kérjük, ne hagyd el ezt a képernyőt a vásárlás befejezése előtt";
 
 "trip_start" = "Gyerünk";
 
@@ -2531,80 +2012,6 @@
 
 "ok" = "Oké";
 
-"vezet_taxi" = "Vezet";
-
-"booking_button_toolbar" = "Válassz egy hotelt a térképeb";
-
-"popup_booking_download_guides_title" = "Foglaltál egy hotelben?";
-
-"popup_booking_download_guides_message" = "Tervezd meg az útvonaladat a naprakész útikönyvekkel a OMaps-től";
-
-"popup_mwm_download_guides_title" = "Offline városi útikönyvek";
-
-"popup_mwm_download_guides_cta" = "Válassz egyet";
-
-"popup_mwm_download_guides_cta_1" = "Vess rá egy pillantást";
-
-"gallery_pp_download_guides_offline_title" = "Tervezd meg a nyaralásodat OMaps-vel!";
-
-"gallery_pp_download_guides_offline_subtitle" = "Ne mulassz el semmit az útikönyvekkel, amiket tapasztalt utazók készítettek";
-
-"gallery_pp_download_guides_offline_cta" = "Kapcsold be az internetet";
-
-"gallery_pp_download_guides_title" = "Útikönyvek";
-
-"native_screen_subscription_title" = "Korlátlan hozzáférés 2000+ utazási útikönyvhöz!";
-
-"native_screen_subscription_message" = "Egy emlékezetes nyaralás, bármivel és bárkivel is utazol";
-
-"annual_subscription_title" = "Éves";
-
-"montly_subscription_title" = "Havi";
-
-"annual_subscription_message" = "12 hónap korlátlan hozzáférés";
-
-"montly_subscription_message" = "1 hónap korlátlan hozzáférés";
-
-"annual_save_component" = "- %d%";
-
-"subscription_success_dialog_title" = "Köszönjük az előfizetést!";
-
-"subscription_success_dialog_message" = "Most már korlátlan hozzáférésed van a teljes útikönyv katalógushoz";
-
-"renewal_screen_title" = "Az előfizetésed lejárt";
-
-"renewal_screen_message" = "Minden, az előfizetéssel letöltött útikönyv törölve lesz. Szeretnéd folytatni az előfizetést és megtartani őket?";
-
-"renewal_screen_button_restore" = "Igen, megújítás";
-
-"renewal_screen_button_cancel" = "Nem, útikönyvek törlése";
-
-"subscription_error_ping_title" = "Vásárlás sikertelen";
-
-"subscription_error_message" = "A szolgáltatás jelenleg nem elérhető a régiódban. Kérjük próbálja újra később";
-
-"subscription_error_button" = "Értem";
-
-"timeout_error_title" = "Hoppá, lejárt az idő!";
-
-"timeout_error_message" = "A szervereink nem válaszolnak. Kérjük ellenírizd az internetkapcsolatot és próbáld újra.";
-
-"per_month" = "/hó";
-
-"per_year" = "/év";
-
-"buy_btn_for_subscription" = "Korlátlan hozzáférés %s-től";
-
-"buy_btn_for_subscription_1" = "Az ÖSSZES útikönyv megvásárlása %s-ért";
-
-"buy_btn_for_subscription_ios_only_mo" = "Korlátlan hozzáférés %s/hó-ért";
-
-"buy_btn_for_subscription_ios_only_year" = "Korlátlan hozzáférés %s/év-ért";
-
-"subscription_terms_guides" = "A fizetség az iTunes fiókodat fogja megterhelni a fizetés megerősítése után. Az előfizetés automatikusan meg fog újulni, hacsak az automatikus megújítás ki nem lesz kapcsolva legalább 24 órával a jelenlegi időszak vége előtt. A fiókod meg lesz terhelve a megújítási tervednek megfelelően, 24 órával a jelenlegi időszak vége előtt. Kezelheted vagy bármikor kikapcsolhatod a vásárlásod automatikus megújítás funkcióját az Apple ID fiókbeállításaidban Az előfizetéssel letöltött útikönyveket azok lejárati idejéig használhatod. Harminc nappal az előfizetés lejárta után a könyvjelzőkkel ellátott útikönyvek automatikusan törölve lesznek.";
-
-"subscription_terms" = "A vásárlás megerősítésekor az összeg az iTunes számládra lesz terhelve. Az előfizetés automatikusan megújul, ha csak az automatikus megújítást 24 órával a jelenlegi időszak vége előtt ki nem kapcsolod. A számlád az előfizetésednek megfelelően a jelenlegi időszak lejárta előtti 24 órában lesz megterhelve. Az automatikus megújítást az Apple ID fiókod beállításaidban az előfizetés bármely szakaszában kikapcsolhatod.";
-
 "avoid_unpaved_carplay_1" = "Nem földút";
 
 "avoid_unpaved_carplay_2" = "Földút kerülése";
@@ -2621,7 +2028,7 @@
 
 "speedcams_alert_title_carplay_2" = "Sebességjelzés";
 
-"download_map_carplay" = "Kérjük, töltsd le a térképeket a OMaps alkalmazásban az eszközödre";
+"download_map_carplay" = "Kérjük, töltsd le a térképeket a Organic Maps alkalmazásban az eszközödre";
 
 "carplay_roundabout_exit" = "%s kijárat";
 
@@ -2708,138 +2115,9 @@
 /* Android, max 18 symbols */
 "bookmarks_delete_list" = "Lista törlése";
 
-"popup_subscription_success_map_title" = "Hohó, előfizettél!";
-
-"popup_subscription_success_map_message" = "Most már felfedezheted a legjobb turisztikai dolgokat a OMaps katalógusban";
-
-"popup_subscription_success_map_start_button" = "Böngészés megkezdése";
-
-"popup_subscription_success_map_not_now_button" = "Ne most";
-
 "religious_places" = "Vallási helyek";
 
-"subscription_terms_android" = "Amikor megerősíted a vásárlást, a fizetség a Google Play fiókodat fogja megterhelni. Az előfizetés automatikusan megújul, hacsak az automatikus megújulás funkció ki nem lesz kapcsolva legalább 24 órával a jelenlegi időszak vége előtt. A fiókod a megújítási terved értelmében a jelenlegi időszak vége előtt 24 órán belül meg lesz terhelve. Az automatikus megújítás funkciót kezelheted vagy kikapcsolhatod vásárlás után a Fiókbeállításokban. Az előfizetéssel letöltött útikönyveket csak annak lejárati idejéig használhatod. A letöltött útikönyvek 30 nappal az előfizetés lejárati dátuma után automatikusan törölve lesznek.";
-
 "select_list" = "Lista kiválasztása";
-
-"pp_discovery_place_related_header" = "Ez a hely az útikönyv katalógusban van";
-
-"pp_discovery_place_related_header_1" = "Ez a hely kiemelt az útikönyvben";
-
-"pp_discovery_place_related_cta_button" = "Megnézés";
-
-"pp_discovery_place_related_tag_header" = "„%s” címkéjű útikönyvek";
-
-"pp_discovery_place_related_tag_header_1" = "Tetszhet még";
-
-"buy_btn_for_subscription_version_2" = "Az ÖSSZES útikönyv csak %s/hó";
-
-"buy_btn_for_subscription_version_3" = "A teljes katalógus %s/hó";
-
-"buy_btn_for_subscription_ios_only_mo_version_2" = "Hozzáférés a katalógushoz %s/hó";
-
-"buy_btn_for_subscription_ios_only_year_version_2" = "Hozzáférés a katalógushoz %s/év";
-
-"subscription_screen_native_title_version_2" = "Férj hozzá az útikönyvekhez könyvjelzőkkel!";
-
-"subscription_screen_native_message_version_2" = "Állj készen bármilyen utazásra 600+ városba és 100+ országba";
-
-"catalog_no_internet_title" = "Nincs internetkapcsolat";
-
-"catalog_no_internet_button" = "Próbáld újra";
-
-"new_onboarding_button" = "Következő";
-
-"new_onboarding_button_2" = "Kezdés";
-
-"new_onboarding_step1_header" = "OMaps";
-
-"new_onboarding_step1_header_2" = "A mindenes útitárs";
-
-"new_onboarding_step2_header" = "Álmodd meg és tervezd";
-
-"new_onboarding_step2_message" = "70+ millió látnivaló, kész útmutatók és hotelfoglalás egyenesen a térképről – készen állsz az indulásra?";
-
-"new_onboarding_step3_message" = "Maradj mindig az úton az országok részletes térképeivel – minden offline működik!";
-
-"new_onboarding_step4_header" = "Oszd meg tapasztalataid";
-
-"new_onboarding_step4_message" = "Helyezz könyvjelzőket a kedvenc helyekre és küldd tovább barátaidnak";
-
-"new_onboarding_step5.1_header" = "Még egy dolog kezdés előtt…";
-
-"new_onboarding_step5.1_message" = "Ne felejtsd el megnézni az új útmutató katalógusunkat és találd meg a következő utazásodhoz az offline útmutatókat!";
-
-"new_onboarding_step5.1_button" = "Katalógus megnyitása";
-
-"new_onboarding_step5.2_message" = "A OMaps útmutató katalógusra való feliratkozás nagyon értékes. Legyen teljes hozzáférés a városi és szabadtéri útmutatókhoz az egész világon!";
-
-"new_onboarding_step5.2_button" = "Nézd meg a feltételeinket";
-
-"new_onboarding_step5.3_message" = "Nézd meg a szabadon válaztható városi és szabadtéri túrák ingyenes példáit a OMaps-ről!";
-
-"new_onboarding_step5.3_button" = "Ingyenes letöltés";
-
-"new_onboarding_additional_steps_later_button" = "Később";
-
-"all_pass_subscription_header" = "Iratkozzon fel az";
-
-"all_pass_subscription_subheader" = "Útmutató katalógus";
-
-/* \n - for a break between lines. Max. 15 characters per 1 line. */
-"all_pass_subscription_message_title" = "30000+\nútmutatók\n& sávok";
-
-/* <b> & </b> tag to make a part of the line bold */
-"all_pass_subscription_message_subtitle" = "<b>Korlátlan letöltése</b> a városi és szabadtéri útvonalaknak <b>offline módhoz</b>";
-
-/* \n - for a break between lines. Max. 17 characters per 1 line. */
-"all_pass_subscription_message_title_2" = "Interaktív\nemelkedési profil";
-
-/* <b> & </b> tag to make a part of the line bold */
-"all_pass_subscription_message_subtitle_2" = "Minden nyomvonal<b>tartalmazza a magassági és alapinfót az útvonalról</b>";
-
-/* \n - for a break between lines. Max. 15 characters per 1 line. */
-"all_pass_subscription_message_title_3" = "Könyvjelzők,\nfotók és\njavaslatok";
-
-/* <b> & </b> tag to make a part of the line bold */
-"all_pass_subscription_message_subtitle_3" = "<b>Tudjon meg mindent az útvonalról</b> amit megtesz";
-
-/* do not translate */
-"sightseeing_subscription_header_sightseeing" = "City Pass";
-
-"sightseeing_subscription_header_subscription" = "Útmutató előfizetés";
-
-"sightseeing_subscription_message" = "700+ város és 100+ ország";
-
-"sightseeing_subscription_message_2" = "Elérhető offline";
-
-"sightseeing_subscription_message_3" = "Fényépek és séta útvonalak";
-
-"subscription_success_dialog_title_sightseeing_pass" = "Köszönjük előfizetését!";
-
-"subscription_success_dialog_message_sightseeing_pass" = "Így minden városnéző útmutatóhoz hozzáférsz a katalógusból";
-
-"downloader_main_gallery_header" = "Térképek és útmutatók";
-
-"downloader_main_gallery_message" = "Ebben a részben nem csak térképeket tölthetsz le, de a következő utazásod útmutatóit is megtekintheted";
-
-"downloader_main_1_element_gallery_header" = "Minden útmutató";
-
-"downloader_main_1_element_gallery_message" = "100+ országban";
-
-"downloader_country_1_element_gallery_header" = "%s útmutató";
-
-"downloader_country_no_guides_gallery_header" = "Ebben az országban nincs elérhető útmutatónk még";
-
-"downloader_country_no_guides_gallery_message" = "Más offline útmutatókat is megnézhetsz 100+ országban városnézési és szabadtéri programokhoz";
-
-"dialog_pedestrian_route_is_long" = "A gyalogos útvonal az utazás indulási pontjáig túl hosszú";
-
-"new_onboarding_step3_header" = "Éld át";
-
-"all_pass_screen_best_value" = "Legjobb ajánlat";
-
-"buy_btn_for_subscription_3" = "A teljes katalógus %s/év";
 
 "transit_not_found" = "Metró navigáció ebben a régióban még nem érhető el";
 
@@ -2852,7 +2130,7 @@
 
 "button_layer_isolines" = "Terep";
 
-"tips_map_layers_title_countour" = "Újdonság a OMaps-n: offline topográfiai réteg!";
+"tips_map_layers_title_countour" = "Újdonság a Organic Maps-n: offline topográfiai réteg!";
 
 "tips_map_layers_message_countour" = "Tervezze meg és élvezze a természetjáró kirándulásait, és tudjon meg mindent a környékről";
 
@@ -2890,175 +2168,13 @@
 
 "elevation_profile_minutes" = "p.";
 
-"view_on_map_downloaded_error" = "Ezt az útmutatót törölték erről az eszközről";
-
-"subscription" = "Feliratkozás";
-
-"freenow_taxi_title" = "FREE NOW";
-
-"tinkoff_allairlines_map_downloader_title" = "Карта Тинькофф All Airlines. 3000 миль в подарок";
-
-"tinkoff_allairlines_map_downloader_cta_button" = "Оформить карту";
-
-"tinkoff_insurance_map_downloader_title" = "Полис Тинькофф со скидкой! Подходит для любых виз.";
-
-"tinkoff_insurance_map_downloader_cta_button" = "Промокод";
-
-"mts_map_downloader_title" = "Забугорище: интернет и звонки за границей как дома";
-
-"mts_map_downloader_cta_button" = "Подключить";
-
-"skyeng_map_downloader_title" = "Дарим 4 бесплатных урока английского от Skyeng.";
-
-"skyeng_map_downloader_cta_button" = "Подробнее";
-
-"button_layer_guides" = "Útmutatók (új)";
-
-"no_routes_in_the_area_toast" = "Útmutató itt nem található";
-
 "isolines_toast_zooms_1_10" = "Nagyítás az isovonalak felfedezéséhez";
-
-"routes_layer_in_menu_toast" = "Az offline útmutatók, az isovonalak, a metróvonalak vagy a forgalmi dugók megkereséséhez kapcsolja be a rétegeket";
-
-"routes_layer_is_on_toast" = "Az útmutatók felfedezéséhez húzza el a térképet";
-
-"connection_error_dialog_guides_title" = "Csatlakozási hiba";
-
-"connection_error_dialog_guides_message" = "A réteg nem működik, mert nincs internet kapcsolat vagy gyenge a jel. A folytatáshoz ellenőrizze a kapcsolatot vagy kapcsolja ki a réteget.";
-
-"connection_error_dialog_guides_try" = "Próbálja újra";
-
-"connection_error_dialog_guides_layer_turn_off" = "Kapcsolja ki";
-
-"connection_error_toast_guides" = "Újracsatlakozás";
-
-/* as few symbols as possible */
-"routes_card_show" = "Térképen megjelenítés";
-
-/* as few symbols as possible */
-"routes_card_hide" = "Térképről elrejtés";
 
 "downloader_updating_ios" = "Feltöltés";
 
 "downloader_loading_ios" = "Letöltés";
 
-"routes_card_plus_track" = "+ útvonal";
-
-"routes_card_city" = "City";
-
-"routes_card_outdoor" = "Outdoor";
-
-"routes_card_number_of_points" = "%s hely";
-
-"routes_card_routes_tag" = "Útiterv";
-
-"routes_card_set_tag" = "Kiemelt helyek";
-
-/* as few symbols as possible */
-"guides_trial_cta_button" = "7 napos ingyenes próbaverzió elindítása";
-
-"guides_trial_message" = "Ezt követően évente %s. Bármikor törölheti";
-
-"trial_error_dialog" = "Sajnáljuk, már használta a próbaverziót";
-
-/* as few symbols as possible */
-"floating_button_filters" = "Szűrők";
-
-/* as few symbols as possible */
-"date_picker_сhoose_dates_cta" = "Dátumok kiválasztása";
-
-/* as few symbols as possible */
-"guests_picker_rooms_title" = "Szobák és vendégek";
-
-"guests_picker_rooms" = "Szobák";
-
-"guests_picker_adults" = "Felnőttek";
-
-"guests_picker_children_title" = "Gyerekek";
-
-"guests_picker_children_subtitle" = "1-17 éves";
-
-"guests_picker_infants_title" = "Csecsemők";
-
-"guests_picker_infants_subtitle" = "0-12 hónapos";
-
-/* as less symbols as possible */
-"booking_map_component_availability" = "Nincs elérhető szoba";
-
-/* as few symbols as possible */
-"booking_map_component_filters" = "Szűrőn kívül esik";
-
-"choose_dates_online_only_dialog_title" = "Nincs internetkapcsolat";
-
-"choose_dates_online_only_dialog_message" = "A dátumok és a vendégek száma csak online választható ki. Kérjük, ellenőrizze a beállításait, és bizonyosodjon meg arról, hogy csatlakozva van az internethez.";
-
-"choose_dates_online_only_dialog_cta" = "Beállítások";
-
-"thirty_days_limit_dialog" = "Maximum 30 éjszakára foglalhat";
-
-"whatsnew_trial_cta" = "Próbálja ki most";
-
-"subscription_terms_guides_outdoor" = "Amikor megerősíti a vásárlást, a fizetést az iTunes számlájára terheljük. Az előfizetés automatikusan megújul, kivéve, ha az automatikus megújítás funkció legalább 24 órával a jelenlegi előfizetési időszak vége előtt letiltásra kerül. Fiókját a megújítási terv szerint 24 órán belül terheljük a jelenlegi előfizetési időszak lejárta előtt. Az automatikus megújítást az Apple ID-fiók beállításaiban a vásárlás után bármikor ellenőrizheti és letilthatja. Az előfizetés alatt letöltött útmutatásokat csak az előfizetés lejártáig használhatja. Az útmutatók és az összes könyvjelző automatikusan törlésre kerül az előfizetés lejárta után 7 nappal.\n* Az ingyenes próbaidőszakra szóló feliratkozás automatikusan fizetett előfizetésként kerül megújításra. Az ingyenes próbaverzió automatikus megújítását a vásárlás után a fiókbeállításaiban törölheti vagy ellenőrizheti. A lemondás a jelenlegi előfizetési időszak utolsó napját követő 24 órában lép életbe. Ezt követően az ingyenes szolgáltatásra kerül át. Megjegyzés: Az ingyenes próbaverzió fel nem használt része elvész, ha prémium előfizetést vásárol az ingyenes próbaverzió alatt.";
-
-"subscription_terms_android_outdoor" = "Amikor megerősíti a vásárlást, a fizetést a Google Play számlájára terheljük. Az előfizetés automatikusan megújul, kivéve, ha az automatikus megújítás funkció legalább 24 órával a jelenlegi előfizetési időszak vége előtt letiltásra kerül. Fiókját a megújítási terv szerint 24 órán belül terheljük a jelenlegi előfizetési időszak lejárta előtt. Vásárlás után bármikor ellenőrizheti vagy törölheti az automatikus megújítást a fiókbeállításokban. Az előfizetés alatt letöltött útmutatásokat csak az előfizetés lejártáig használhatja. Az útmutatók automatikusan törlésre kerülnek az előfizetés lejárta után 7 nappal.\n* Az ingyenes próbaidőszakra szóló feliratkozás automatikusan fizetett előfizetésként kerül megújításra. Az ingyenes próbaverzió automatikus megújítását a vásárlás után a fiókbeállításaiban törölheti vagy ellenőrizheti. A lemondás a jelenlegi előfizetési időszak utolsó napját követő 24 órában lép életbe. Ezt követően az ingyenes szolgáltatásra kerül át. Megjegyzés: Az ingyenes próbaverzió fel nem használt része elvész, ha prémium előfizetést vásárol az ingyenes próbaverzió alatt.";
-
-"sberbank_map_downloader_title" = "Откройте Сберкарту Тревел Mastercard и копите мили";
-
-"sberbank_map_downloader_cta_button" = "Узнать больше";
-
-"yango_taxi_title" = "Yango";
-
-"citymobil_taxi_title" = "Citymobil";
-
-"subscription_header" = "Iratkozzon fel az\n<b>Útmutató katalógusra</b>";
-
-/* Max. 20 characters per 1 line. */
-"all_pass_subscription_message_title_4" = "Útikalauzok\na Lonely Planet®-től";
-
-/* <b> & </b> tag to make a part of the line bold */
-"all_pass_subscription_message_subtitle_4" = "Még <b>több élmény</b> érdekes helyszínek ezreivel <b>a világon</b>";
-
-"content_by_component" = "Tartalom: %s";
-
-"whatsnew_lp_title" = "Még több izgalom";
-
-"whatsnew_lp_message" = "Mostantól Lonely Planet útmutatók vannak az alkalmazásunkban! A legjobb látnivalók, tematikus séták, egyedi úti helyek több mint 7000 városhoz.";
-
-"collections_title" = "Gyűjtemények";
-
 "key_information_title" = "Kulcs információ";
-
-"mustsee_title" = "Látnia kell";
-
-"see_lp_category" = "Lásd";
-
-"play_lp_category" = "Játék";
-
-"shop_lp_category" = "Vásárlás";
-
-"transport_lp_category" = "Utazás";
-
-"sleep_lp_category" = "Szállás";
-
-"general_lp_category" = "Általános";
-
-"drink_lp_category" = "Ital";
-
-"eat_lp_category" = "Étel";
-
-"taxi_category_order" = "Order";
-
-"arsenal_telemed_map_downloader_title" = "Онлайн консультации профессиональных врачей 24/7";
-
-"arsenal_flat_map_downloader_title" = "Уезжаешь? Позаботься о своей квартире и соседях.";
-
-"arsenal_crimea_map_downloader_title" = "Туристическая страховка отдыха в Крыму. От 15₽/день";
-
-"arsenal_russia_map_downloader_title" = "Путешествуй по России. Лечение COVID-19 включено!";
-
-"arsenal_abroad_map_downloader_title" = "Полис «Выезд за рубеж». Лечение COVID-19 включено!";
-
-"arsenal_cta_button" = "Оформить полис";
 
 "download_map_title" = "Download the world map";
 

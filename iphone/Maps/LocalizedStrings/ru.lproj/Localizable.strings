@@ -174,7 +174,7 @@
 "set" = "Группа";
 
 /* Text hint in Bookmarks dialog when no any bookmarks are added */
-"bookmarks_usage_hint" = "У вас пока нет меток.\nВыберите любое место на карте, чтобы добавить его.\nТакже метки можно импортировать из OMaps либо других приложений и сайтов. Для этого откройте KML/KMZ файл из Dropbox, почты или по веб-ссылке.";
+"bookmarks_usage_hint" = "У вас пока нет меток.\nВыберите любое место на карте, чтобы добавить его.\nТакже метки можно импортировать из Organic Maps либо других приложений и сайтов. Для этого откройте KML/KMZ файл из Dropbox, почты или по веб-ссылке.";
 
 /* Settings button in system menu */
 "settings" = "Настройки";
@@ -276,9 +276,9 @@
 "share_by_email" = "Послать по email";
 
 /* Email Subject when sharing bookmarks category */
-"share_bookmarks_email_subject" = "С вами поделились метками OMaps";
+"share_bookmarks_email_subject" = "С вами поделились метками Organic Maps";
 
-"share_bookmarks_email_body" = "Здравствуйте!\n\nВ прикрепленном файле мои метки из офлайновых карт OMaps. Для того чтобы открыть этот файл, вам потребуется приложение OMaps, которое можно установить по ссылке: https://omaps.app/get?kmz\n\nСпасибо!";
+"share_bookmarks_email_body" = "Здравствуйте!\n\nВ прикрепленном файле мои метки из офлайновых карт Organic Maps. Для того чтобы открыть этот файл, вам потребуется приложение Organic Maps, которое можно установить по ссылке: https://organicmaps.app/get?kmz\n\nСпасибо!";
 
 /* message title of loading file */
 "load_kmz_title" = "Загрузка меток";
@@ -308,7 +308,7 @@
 "downloading_is_active" = "Идет процесс загрузки карт.";
 
 /* Message that will be shown in alert view, when we ask user to leave review on App Store */
-"appStore_message" = "Надеемся, вам нравится пользоваться OMaps! Если так, то оставьте, пожалуйста, отзыв в магазине приложений. Это занимает меньше минуты, но может нам реально помочь. Спасибо вам за поддержку!";
+"appStore_message" = "Надеемся, вам нравится пользоваться Organic Maps! Если так, то оставьте, пожалуйста, отзыв в магазине приложений. Это занимает меньше минуты, но может нам реально помочь. Спасибо вам за поддержку!";
 
 /* No, thanks */
 "no_thanks" = "Нет, спасибо";
@@ -320,13 +320,13 @@
 "my_position_share_sms" = "Смотри где я сейчас. Жми %1$@ или %2$@";
 
 /* Subject for emailed bookmark */
-"bookmark_share_email_subject" = "Смотри мою метку на карте OMaps";
+"bookmark_share_email_subject" = "Смотри мою метку на карте Organic Maps";
 
 /* Subject for emailed position */
-"my_position_share_email_subject" = "Посмотри на карте OMaps, где я сейчас нахожусь";
+"my_position_share_email_subject" = "Посмотри на карте Organic Maps, где я сейчас нахожусь";
 
 /* Share my position using EMail, %1$@ is ge0:// and %2$@ is http://ge0.me link WITHOUT NAME */
-"my_position_share_email" = "Привет!\n\nЯ сейчас здесь: %1$@. Чтобы увидеть это место на карте OMaps, открой эту ссылку %2$@ или эту %3$@\n\nСпасибо.";
+"my_position_share_email" = "Привет!\n\nЯ сейчас здесь: %1$@. Чтобы увидеть это место на карте Organic Maps, открой эту ссылку %2$@ или эту %3$@\n\nСпасибо.";
 
 /* Android share by Message/SMS button text (including SMS) */
 "share_by_message" = "Отправить сообщением";
@@ -492,16 +492,16 @@
 "download_map_notification" = "Скачайте карту места, где вы находитесь";
 
 /* text of notification */
-"pro_version_is_free_today" = "Полная версия OMaps сегодня бесплатна! Скачай сейчас и расскажи друзьям.";
+"pro_version_is_free_today" = "Полная версия Organic Maps сегодня бесплатна! Скачай сейчас и расскажи друзьям.";
 
 /* Dialog for transferring maps from lite to pro. */
-"move_lite_maps_to_pro" = "Мы переносим загруженные карты из OMaps Lite в OMaps. Это может занять несколько минут.";
+"move_lite_maps_to_pro" = "Мы переносим загруженные карты из Organic Maps Lite в Organic Maps. Это может занять несколько минут.";
 
 /* Message to display when maps moved. */
-"move_lite_maps_to_pro_ok" = "Ваши карты успешно перенесены в OMaps.";
+"move_lite_maps_to_pro_ok" = "Ваши карты успешно перенесены в Organic Maps.";
 
 /* Message to display when maps move failed. */
-"move_lite_maps_to_pro_failed" = "При переносе карт возникла ошибка. Пожалуйста, удалите OMaps Lite и загрузите карты заново.";
+"move_lite_maps_to_pro_failed" = "При переносе карт возникла ошибка. Пожалуйста, удалите Organic Maps Lite и загрузите карты заново.";
 
 /* Text in menu */
 "settings_and_more" = "Настройки и другое";
@@ -510,13 +510,13 @@
 "website" = "Вебсайт";
 
 /* Text in menu */
-"maps_me_community" = "Сообщество OMaps";
+"maps_me_community" = "Сообщество Organic Maps";
 
 /* Text in menu */
-"like_on_facebook" = "OMaps в Facebook";
+"like_on_facebook" = "Organic Maps в Facebook";
 
 /* Text in menu */
-"follow_on_twitter" = "OMaps в Twitter";
+"follow_on_twitter" = "Organic Maps в Twitter";
 
 /* Text in menu */
 "contact_us" = "Свяжитесь с нами";
@@ -540,13 +540,13 @@
 "report_a_bug" = "Сообщить о проблеме";
 
 /* Email subject */
-"subscribe_me_subject" = "Подпишите меня на email-рассылку OMaps";
+"subscribe_me_subject" = "Подпишите меня на email-рассылку Organic Maps";
 
 /* Email body */
 "subscribe_me_body" = "Я хочу первым узнавать обо всех новостях, обновлениях приложения и акциях. Я могу отписаться от рассылки в любой момент.";
 
 /* About text */
-"about_text" = "OMaps предлагает карты всех городов, всех стран мира, которые работают без подключения к интернету. Путешествуйте с уверенностью: где бы вы ни находились, OMaps помогут решить любую вашу проблему - помогут определить ваше местоположение, найти ресторан, отель, заправку, банк, туалет и т.д.\n\nМы постоянно работаем над добавлением новых функций, поэтому если у вас есть идеи или предложения по улучшению OMaps, пишите нам. Если у вас возникла проблема с приложением, сообщите нам, пожалуйста, о ней. Наш емэйл support@omaps.app. Мы отвечаем на все письма! Если вам нравится приложение и вы хотите поддержать нас, есть несколько простых и абсолютно бесплатных способов:\n\n- оставьте отзыв в вашем магазине приложений\n- подпишитесь на наши новости на Facebook странице http://www.facebook.com/mapswithme\n- или просто расскажите о OMaps своей маме, друзьям и коллегам :)\n\nСпасибо за вашу поддержку!\n\nP.S. В приложении мы используем картографические данные проекта OpenStreetMap, который работает по принципу Википедии, давая возможность пользователям со всего мира создавать и редактировать карты. Если вы заметили, что на карте что-то не соответствует действительности либо отсутствует, вы можете откорректировать это прямо на сайте https://www.openstreetmap.org, и эти исправления появятся во время следующего обновления OMaps.";
+"about_text" = "Organic Maps предлагает карты всех городов, всех стран мира, которые работают без подключения к интернету. Путешествуйте с уверенностью: где бы вы ни находились, Organic Maps помогут решить любую вашу проблему - помогут определить ваше местоположение, найти ресторан, отель, заправку, банк, туалет и т.д.\n\nМы постоянно работаем над добавлением новых функций, поэтому если у вас есть идеи или предложения по улучшению Organic Maps, пишите нам. Если у вас возникла проблема с приложением, сообщите нам, пожалуйста, о ней. Наш емэйл support@organicmaps.app. Мы отвечаем на все письма! Если вам нравится приложение и вы хотите поддержать нас, есть несколько простых и абсолютно бесплатных способов:\n\n- оставьте отзыв в вашем магазине приложений\n- подпишитесь на наши новости на Facebook странице http://www.facebook.com/OMapsApp\n- или просто расскажите о Organic Maps своей маме, друзьям и коллегам :)\n\nСпасибо за вашу поддержку!\n\nP.S. В приложении мы используем картографические данные проекта OpenStreetMap, который работает по принципу Википедии, давая возможность пользователям со всего мира создавать и редактировать карты. Если вы заметили, что на карте что-то не соответствует действительности либо отсутствует, вы можете откорректировать это прямо на сайте https://www.openstreetmap.org, и эти исправления появятся во время следующего обновления Organic Maps.";
 
 /* Alert text */
 "email_error_body" = "Почтовый клиент не настроен. Настройте его или используйте другие способы для связи. Наш адрес - %@.";
@@ -564,7 +564,7 @@
 "routing_map_outdated" = "Пожалуйста, обновите карту для того, чтобы проложить маршрут.";
 
 /* Update maps suggestion */
-"routing_update_maps" = "В новой версии OMaps вы сможете строить маршруты от текущего местоположения до точки назначения. Чтобы воспользоваться этой функцией, обновите, пожалуйста, карты.";
+"routing_update_maps" = "В новой версии Organic Maps вы сможете строить маршруты от текущего местоположения до точки назначения. Чтобы воспользоваться этой функцией, обновите, пожалуйста, карты.";
 
 /* Update all button text */
 "downloader_update_all_button" = "Обновить все";
@@ -592,7 +592,7 @@
 "downloader_search_results" = "Найдено";
 
 /* Disclaimer message */
-"routing_disclaimer" = "Используя маршруты в приложении OMaps, пожалуйста, учитывайте следующее:\n\n  - Предлагаемые маршруты могут рассматриваться только в качестве рекомендации.\n - Дорожная обстановка, правила дорожного движения, знаки являются более приоритетными по сравнению с советами навигационной программы.\n - Карта может быть неточной или неактуальной, а предложенный маршрут не самым оптимальным.\n\n  Будьте внимательны на дорогах и берегите себя!";
+"routing_disclaimer" = "Используя маршруты в приложении Organic Maps, пожалуйста, учитывайте следующее:\n\n  - Предлагаемые маршруты могут рассматриваться только в качестве рекомендации.\n - Дорожная обстановка, правила дорожного движения, знаки являются более приоритетными по сравнению с советами навигационной программы.\n - Карта может быть неточной или неактуальной, а предложенный маршрут не самым оптимальным.\n\n  Будьте внимательны на дорогах и берегите себя!";
 
 /* Outdated maps category */
 "downloader_outdated_maps" = "Неактуальные";
@@ -628,7 +628,7 @@
 "routing_failed_route_not_found" = "Невозможно проложить маршрут между выбранными точками. Пожалуйста, измените начало или конец маршрута.";
 
 /* InternalError */
-"routing_failed_internal_error" = "Внутренняя ошибка. Пожалуйста, удалите карту и скачайте её еще раз. Если это не помогло, напишите нам на support@omaps.app";
+"routing_failed_internal_error" = "Внутренняя ошибка. Пожалуйста, удалите карту и скачайте её еще раз. Если это не помогло, напишите нам на support@organicmaps.app";
 
 /* Context menu item for downloader. */
 "downloader_download_map_and_routing" = "Загрузить карту + маршруты";
@@ -672,16 +672,16 @@
 "pref_use_google_play" = "Использовать Google Play Services для определения позиции";
 
 /* Text for rating dialog */
-"rating_just_rated" = "Я только что оценил OMaps";
+"rating_just_rated" = "Я только что оценил Organic Maps";
 
 /* Text for rating dialog */
-"rating_user_since" = "Я пользуюсь OMaps c %@";
+"rating_user_since" = "Я пользуюсь Organic Maps c %@";
 
 /* Text for rating dialog */
 "rating_do_like_maps" = "Нравится приложение?";
 
 /* Text for rating dialog */
-"rating_tap_star" = "Оцените OMaps.";
+"rating_tap_star" = "Оцените Organic Maps.";
 
 /* Text for rating dialog */
 "rating_thanks" = "Спасибо!";
@@ -923,7 +923,7 @@
 
 "rate_alert_title" = "Нравится приложение?";
 
-"rate_alert_default_message" = "Спасибо что пользуетесь картами OMaps. Пожалуйста, оцените приложение. Ваши оценки и отзывы помогают нам становиться лучше.";
+"rate_alert_default_message" = "Спасибо что пользуетесь картами Organic Maps. Пожалуйста, оцените приложение. Ваши оценки и отзывы помогают нам становиться лучше.";
 
 "rate_alert_five_star_message" = "Ура! Мы вас тоже любим!";
 
@@ -1034,7 +1034,7 @@
 
 "editor_report_problem_duplicate_place_title" = "Повторяющееся место";
 
-"first_launch_congrats_title" = "OMaps готов к работе";
+"first_launch_congrats_title" = "Organic Maps готов к работе";
 
 "first_launch_congrats_text" = "Пользуйтесь поиском и навигацией по всему миру без интернета и бесплатно.";
 
@@ -1218,7 +1218,7 @@
 
 "whatsnew_editor_message_1" = "Добавляйте новые объекты и редактируйте старые прямо из приложения.";
 
-"whatsnew_editor_message_2" = "* OMaps использует данные открытых карт сообщества OpenStreetMap.";
+"whatsnew_editor_message_2" = "* Organic Maps использует данные открытых карт сообщества OpenStreetMap.";
 
 "dialog_incorrect_feature_position" = "Измените местоположение";
 
@@ -1231,7 +1231,7 @@
 /* Error dialog no space */
 "migration_no_space_message" = "Для загрузки требуется больше свободного места. Пожалуйста, удалите ненужные данные.";
 
-"editor_sharing_title" = "Я улучшил карты OMaps";
+"editor_sharing_title" = "Я улучшил карты Organic Maps";
 
 "editor_comment_will_be_sent" = "Мы обязательно отправим ваш комментарий картографам.";
 
@@ -1262,7 +1262,7 @@
 
 "editor_detailed_description_hint" = "Подробный комментарий";
 
-"editor_detailed_description" = "Предложенные вами изменения на карте будут отправлены в OpenStreetMap. Опишите дополнительные сведения об объекте, которые OMaps не позволяет отредактировать.";
+"editor_detailed_description" = "Предложенные вами изменения на карте будут отправлены в OpenStreetMap. Опишите дополнительные сведения об объекте, которые Organic Maps не позволяет отредактировать.";
 
 "editor_more_about_osm" = "Подробнее об OpenStreetMap";
 
@@ -1339,10 +1339,6 @@
 
 "placepage_open_24_7" = "Круглосуточно";
 
-"place_page_booking_rating" = "Рейтинг: %s";
-
-"place_page_starting_from" = "от %s";
-
 "meter" = "м";
 
 "kilometer" = "км";
@@ -1410,17 +1406,9 @@
 
 "editor_profile_rating_place" = "Место в рейтинге";
 
-"booking_dialog_not_connect_header" = "Для бронирования отелей необходим доступ в интернет";
-
-"button_try" = "Попробовать";
-
 "refresh" = "Обновить";
 
 "last_update" = "Последнее обновление: %s";
-
-"booking_checkin" = "заезд: %s";
-
-"booking_checkout" = "выезд: %s";
 
 "placepage_add_place_button" = "Добавить место на карту";
 
@@ -1453,9 +1441,6 @@
 /* iOS dialog for the case when recent track recording is on and the app comes back from background */
 "recent_track_background_dialog_title" = "Выключить запись недавно пройденого пути?";
 
-/* If a hotel is being shared */
-"sharing_booking" = "или забронируй на booking.com";
-
 "off_recent_track_background_button" = "Выключить";
 
 /* For sharing via SMS and so on */
@@ -1463,7 +1448,7 @@
 
 "continue_recent_track_background_button" = "Продолжить";
 
-"recent_track_background_dialog_message" = "OMaps использует вашу геопозицию в фоновом режиме для записи недавно пройденного пути.";
+"recent_track_background_dialog_message" = "Organic Maps использует вашу геопозицию в фоновом режиме для записи недавно пройденного пути.";
 
 /* Rate on Google Play (Android only) */
 "rate_gp" = "Оценить в Google Play";
@@ -1472,10 +1457,10 @@
 "tell_friends" = "Рассказать друзьям";
 
 /* Share with friends: sharing text */
-"tell_friends_text" = "Привет! Установи OMaps!";
+"tell_friends_text" = "Привет! Установи Organic Maps!";
 
 /* About short text (below logo) */
-"about_description" = "OMaps — незаменимое приложение для путешествий, работающее без подключения к интернету. OMaps использует данные OpenStreetMap и позволяет их улучшать.";
+"about_description" = "Organic Maps — незаменимое приложение для путешествий, работающее без подключения к интернету. Organic Maps использует данные OpenStreetMap и позволяет их улучшать.";
 
 /* Text in menu */
 "blog" = "Блог";
@@ -1495,51 +1480,7 @@
 /* For the first routing */
 "decline" = "Отклонить";
 
-"whats_new_route_profile_title" = "Умный в гору не пойдет";
-
-"whats_new_route_profile_message" = "На пеших и веломаршрутах отображается профиль рельефа.";
-
-"whats_new_booking_improve_title" = "Экономь на бронировании отеля";
-
-"whats_new_booking_improve_message" = "Результаты поиска отелей на карте показывают ценовую категорию.\nОтелей для бронирования стало на 110 000 больше.";
-
-/* For place page hotel facilities block */
-"placepage_hotel_facilities" = "Удобства";
-
-/* For place page hotel nearby block */
-"placepage_hotel_nearby" = "Рядом";
-
-/* For ordering a taxi (as opposed to hotels or other things) */
-"taxi_order" = "Заказать такси";
-
-/* How long it is until the taxi arrives */
-"taxi_wait" = "Ожидание %s";
-
-/* When there are no available taxis nearby */
-"taxi_not_found" = "Не удалось найти такси поблизости";
-
-/* When there are no available taxi providers nearby */
-"taxi_no_providers" = "Такси не доступно в данном регионе";
-
 "install_app" = "Установить";
-
-/* `Filter` is a noun here */
-"booking_filters" = "Фильтр";
-
-"booking_filters_reset" = "Сбросить";
-
-/* Beginning from a particular value and */
-"booking_filters_rating" = "Рейтинг от";
-
-"booking_filters_rating_any" = "Любой";
-
-"booking_filters_ragting_good" = "Хорошо";
-
-"booking_filters_rating_very_good" = "Очень хорошо";
-
-"booking_filters_rating_excellent" = "Отлично";
-
-"booking_filters_price_category" = "Ценовая категория";
 
 "search_no_results_title" = "Поиск не дал результатов";
 
@@ -1551,28 +1492,6 @@
 
 /* noun */
 "search_in_table" = "Список";
-
-"booking_show_more" = "Показать еще";
-
-"booking_reviews" = "Отзывы";
-
-"booking_hotel" = "Отель";
-
-/* hotel room */
-"booking_hotel_room" = "Номер";
-
-/* A neologism for a chat based on geographical proximity */
-"chat" = "Геочат";
-
-/* Verb. Text on a button that opens the chat. */
-"chat_open" = "Открыть";
-
-"dialog_taxi_offline" = "Заказ такси недоступен офлайн.";
-
-"dialog_taxi_error" = "Заказ такси временно недоступен.";
-
-/* Abbreviated for all languages. */
-"advertisement" = "AD";
 
 "mobile_data_dialog" = "Загружать дополнительную информацию через мобильный интернет?";
 
@@ -1596,7 +1515,7 @@
 
 "big_font" = "Увеличить шрифт на карте";
 
-"traffic_update_app" = "Обновите OMaps";
+"traffic_update_app" = "Обновите Organic Maps";
 
 /* "traffic" as in road congestion */
 "traffic_update_app_message" = "Для отображения пробок необходимо обновить приложение.";
@@ -1607,69 +1526,14 @@
 /* "Translation is no needed, because it's a company name" */
 "uber" = "Uber";
 
-/* Seven points and higher */
-"booking_filter_rating_num_good" = "7.0+";
-
-/* Eight points and higher */
-"booking_filter_rating_num_very_good" = "8.0+";
-
-/* Nine points and higher */
-"booking_filter_rating_num_excellent" = "9.0+";
-
-"booking_filter_price_low" = "$";
-
-"booking_filter_price_medium" = "$$";
-
-"booking_filter_price_high" = "$$$";
-
 /* Simplified colour scheme for traffic information, fewer colours are used to display traffic jams on the map. The string should be kept as short as possible */
 "pref_traffic_simplified_colors_title" = "Простые цвета пробок";
 
 "enable_logging" = "Включить запись логов";
 
-"more_on_bookingcom" = "Больше на Booking.com";
-
-"details_on_bookingcom" = "Подробней на Booking.com";
-
-"reviews_on_bookingcom" = "Больше отзывов на Booking.com";
-
 "offline_place_page_more_information" = "Подключитесь к интернету, чтобы получить больше информации о месте.";
 
 "failed_load_information" = "Не удалось загрузить информацию.";
-
-"booking_search" = "Booking.com";
-
-"whats_new_auto_update_updating_maps" = "Обновляем карты";
-
-"whats_new_auto_update_title" = "Обновите ваши загруженные карты";
-
-"whats_new_auto_update_message" = "Обновление карт поддерживает информацию об объектах в актуальном состоянии";
-
-"whats_new_auto_update_button_size" = "Обновить (%s)";
-
-"whats_new_auto_update_button_later" = "Обновить вручную позже";
-
-"search_hotel_filter_apartment" = "Апартаменты";
-
-"search_hotel_filter_camp_site" = "Кемпинг";
-
-"search_hotel_filter_chalet" = "Шале";
-
-"search_hotel_filter_guest_house" = "Гостевой дом";
-
-"search_hotel_filter_hostel" = "Хостел";
-
-"search_hotel_filter_resort" = "Дом отдыха";
-
-"search_hotel_filter_hotel" = "Гостиница";
-
-"search_hotel_filter_motel" = "Мотель";
-
-"create_campaign_button" = "Я владелец компании";
-
-"view_campaign_button" = "Эта компания рекламируется";
-
-"search_hotel_filters_type" = "Тип";
 
 /* Settings: "Send general feedback" button */
 "feedback_general" = "Отправить отзыв";
@@ -1744,65 +1608,7 @@
 
 "preloader_viator_button" = "Посмотреть";
 
-"whats_new_title_route" = "Вело- и пешеходные маршруты стали лучше";
-
-"whats_new_message_route" = "Исправили ошибки, ускорили построение маршрутов в несколько раз, а также добавили промежуточные остановки";
-
-"whats_new_message_title_update" = "Мы уменьшили обновления карт в 10 раз";
-
-"whats_new_message_maps_update" = "Теперь для обновления карт нужно загрузить только недостающие данные";
-
 "start_from_my_position" = "Начать от";
-
-"rating" = "Рейтинг";
-
-"placepage_no_reviews" = "Нет отзывов";
-
-"placepage_reviewed" = "Вы уже оставили отзыв";
-
-"placepage_summary_rating" = "Общий рейтинг";
-
-"placepage_rate_comment" = "Нажмите, чтобы оставить оценку и отзыв этого места.";
-
-"placepage_rate_horrible" = "Ужасно";
-
-"placepage_rate_bad" = "Плохо";
-
-"placepage_rate_normal" = "Нормально";
-
-"placepage_rate_good" = "Хорошо";
-
-"placepage_rate_excellent" = "Отлично";
-
-"placepage_reviews_most_recent" = "Самые новые";
-
-"placepage_reviews_most_useful" = "Самые полезные";
-
-"placepage_reviews_highest_rated" = "Самый высокий рейтинг";
-
-"placepage_reviews_lowest_rated" = "Самый низкий рейтинг";
-
-"placepage_reviews_offline_comment" = "В оффлайн показаны самые полезные отзывы";
-
-"placepage_reviews_your_comment" = "Ваш отзыв";
-
-"placepage_reviews_unhelpful" = "Бесполезный";
-
-"placepage_reviews_inappropriate" = "Неуместный";
-
-"placepage_reviews_spam" = "Спам";
-
-"placepage_reviews_hint" = "Что тут хорошо или плохо?";
-
-"placepage_reviews_edit_your_review" = "Редактировать ваш отзыв";
-
-"placepage_reviews_new_review" = "Новый отзыв";
-
-"placepage_translate_button" = "Перевести";
-
-"placepage_show_original_button" = "Показать оригинал";
-
-"placepage_more_reviews_booking_button" = "Больше отзывов на Booking.com";
 
 "profile_authorization_title" = "Авторизуйтесь с помощью";
 
@@ -1826,41 +1632,11 @@
 
 "quality" = "Качество";
 
-"whats_new_ugc_title_updated_v840" = "Оценки и отзывы";
-
-"whats_new_ugc_message" = "Теперь вы можете оставлять оценки и отзывы даже офлайн! Не забудьте обновить карты, чтобы увидеть изменения.";
-
 "dialog_error_storage_title" = "Проблема с доступом к хранилищу";
 
-"dialog_error_storage_message" = "Внешняя память устройства недоступна, возможно SD карта была удалена, повреждена или файловая система доступна только для чтения. Проверьте это и свяжитесь, пожалуйста, с нами support@omaps.app";
+"dialog_error_storage_message" = "Внешняя память устройства недоступна, возможно SD карта была удалена, повреждена или файловая система доступна только для чтения. Проверьте это и свяжитесь, пожалуйста, с нами support@organicmaps.app";
 
 "setting_emulate_bad_storage" = "Эмуляция ошибки с внешней памятью";
-
-"discovery_button_title" = "Чем заняться";
-
-"discovery_button_subtitle_things_to_do" = "Развлечения";
-
-"discovery_button_subtitle_attractions" = "Достопримечательности";
-
-"discovery_button_subtitle_eat_and_drink" = "Перекусить";
-
-"discovery_button_subtitle_local_guides" = "Местные гиды";
-
-"discovery_button_viator_error_title" = "Ошибка загрузки данных";
-
-"discovery_button_other_error_message" = "Ошибка загрузки данных";
-
-"discovery_button_other_loading_message" = "Данные загружаются";
-
-"discovery_button_404_error_title" = "Ничего не найдено";
-
-"discovery_button_404_error_message" = "Ого, мы не нашли ничего интересного вокруг.";
-
-"booking_filters_check_in" = "Заезд";
-
-"booking_filters_check_out" = "Отъезд";
-
-"booking_filters_offline" = "Недоступно без интернета.";
 
 "directions_finish" = "Место назначения";
 
@@ -1875,18 +1651,6 @@
 "crowdedness" = "Многолюдность";
 
 "error_enter_correct_name" = "Пожалуйста, введите название правильно";
-
-"hotel_available" = "Есть места";
-
-"whats_new_transit_title" = "Ура! Метро!";
-
-"whats_new_transit_message" = "Теперь можно строить маршруты с помощью городского метро. Чтобы увидеть изменения, пожалуйста, обновите карты.";
-
-"whats_new_discovery_title" = "Кнопка «Чем заняться»";
-
-"whats_new_discovery_message" = "Ищите в один клик, чем заняться в городе!";
-
-"price_per_hour" = "%s/час";
 
 "bookmarks_backup" = "Разрешить резервное копирование";
 
@@ -1918,14 +1682,6 @@
 
 "downloader_applying" = "Применение %s…";
 
-"whats_new_title_hotel_filter" = "Новые фильтры при поиске отелей!";
-
-"whats_new_message_hotel_filter" = "При поиске отелей используйте фильтрацию по дате заезда и выезда";
-
-"whats_new_title_ugc_travel" = "Делитесь вашими впечатлениями с другими путешественниками!";
-
-"whats_new_message_ugc_travel" = "Оценивайте и пишите отзывы о посещенных местах!";
-
 "dialog_message_transit_not_found_connection" = "Постройте маршрут в пределах одной транспортной сети";
 
 "bookmarks_error_message_share_general" = "Не удалось поделиться из-за ошибки приложения";
@@ -1933,10 +1689,6 @@
 "bookmarks_error_title_share_empty" = "Ошибка при попытке поделиться";
 
 "bookmarks_error_message_share_empty" = "Нельзя делиться пустыми списками";
-
-"discovery_button_subtitle_book_hotels" = "Бронирование отелей";
-
-"maxim_taxi_title" = "maxim";
 
 "bookmarks_error_title_empty_list_name" = "Имя списка не может быть пустым";
 
@@ -1978,10 +1730,6 @@
 
 "wn_reinvented_bookmarks_message" = "Теперь вы можете сделать резервное копирование меток, создать списки. А как круто они смотрятся на карте!";
 
-"wn_way_of_booking_title" = "Больше возможностей для бронирования отелей!";
-
-"wn_way_of_booking_message" = "Если интересующий отель занят, воспользуйтесь кнопкой «Найти похожие отели».";
-
 "bookmarks_restore" = "Восстановить метки";
 
 "bookmarks_restore_process" = "Восстановление...";
@@ -2004,20 +1752,6 @@
 
 "restore" = "Восстановить";
 
-"sign_message_gdpr" = "Чтобы продолжить работу, вы должны принять наши Условия использования и Политику конфиденциальности. Пожалуйста, внимательно их прочитайте.";
-
-"sign_agree_pp_gdpr" = "Я согласен с <a href=\"%s\">Политикой конфиденциальности</a>";
-
-"sign_agree_tof_gdpr" = "Я согласен с <a href=\"%s\">Условиями использования</a>";
-
-"sign_agree_news_gdpr" = "Я согласен получать последние новости о OMaps";
-
-"whats_new_localbiz_title" = "Малый бизнес заслуживает внимания";
-
-"whats_new_localbiz_message" = "Именно локальные кафе, хостелы и магазинчики делают путешествия незабываемыми. Мы бесплатно оптимизируем страницу вашего бизнеса в OMaps, чтобы его заметили.";
-
-"whats_new_order_button" = "Оставить заявку";
-
 "bookmarks_page_downloaded" = "Загруженные";
 
 "bookmarks_page_my" = "Мои";
@@ -2028,7 +1762,7 @@
 
 "cached_bookmarks_placeholder_title" = "Загрузите новые места";
 
-"cached_bookmarks_placeholder_subtitle" = "Нажмите кнопку, чтобы загрузить тысячи интересных мест и маршрутов, созданных пользователями OMaps. Вам понадобится подключение к интернету.";
+"cached_bookmarks_placeholder_subtitle" = "Нажмите кнопку, чтобы загрузить тысячи интересных мест и маршрутов, созданных пользователями Organic Maps. Вам понадобится подключение к интернету.";
 
 "downloader_download_routers" = "Загрузить метки";
 
@@ -2040,7 +1774,7 @@
 
 "crash_reports" = "Отчеты об ошибках";
 
-"crash_reports_description" = "Мы можем использовать ваши данные, чтобы развивать и улучшать OMaps. Изменения вступят в силу после перезапуска приложения.";
+"crash_reports_description" = "Мы можем использовать ваши данные, чтобы развивать и улучшать Organic Maps. Изменения вступят в силу после перезапуска приложения.";
 
 "opt_out_help_ios_1" = "Вы можете отказаться от получения целевой рекламы в настройках устройства.";
 
@@ -2078,18 +1812,6 @@
 
 "subtitle_error_downloading_bookmarks" = "Метки не были загружены";
 
-"whats_new_bookmarks_catalog_title" = "В OMaps появился каталог маршрутов";
-
-"whats_new_bookmarks_catalog_message" = "Десятки подробных маршрутов по всем миру: куда сходить, что посмотреть, где поесть.";
-
-"whats_new_popularity_label_title" = "Популярное поблизости";
-
-"whats_new_popularity_label_message" = "Раздел «Чем заняться» поможет найти самые популярные места в городе.";
-
-"whats_new_hot_offers_title" = "Выгодные предложения отелей";
-
-"whats_new_hot_offers_message" = "Ищите их с помощью категории «Отели» в поиске. Предложения будут обозначены значком процента на карте и в списке.";
-
 "error_already_downloaded" = "Этот список уже был загружен";
 
 "popular_place" = "Популярно";
@@ -2100,92 +1822,17 @@
 
 "bookmarks_downloaded_subtitle" = "Нажмите «Посмотреть на карте» чтобы посмотреть новые места из списка";
 
-"guides" = "Путеводители";
+"why_support" = "Зачем поддерживать Organic Maps?";
 
-"guide_downloaded_title" = "Путеводитель был успешно загружен";
+"why_support_item1" = "Мы никому не отсылаем ваши личные данные, а исходный код нашего приложения открыт";
 
-/* as few symbols as possible */
-"download_guides" = "Найти путеводители";
-
-"guides_groups_cached" = "Загруженные путеводители";
-
-"subtitle_error_downloading_guide" = "Путеводитель не был загружен";
-
-"error_already_downloaded_guide" = "Этот путеводитель уже был загружен";
-
-"guide_downloaded_subtitle" = "Нажмите «Посмотреть на карте» чтобы открыть путеводитель";
-
-"bookmarks_guides" = "Метки и путеводители";
-
-"paybtn_title" = "Заплатить %s/год";
-
-"paybtn_subtitle" = "Экономия %s/год";
-
-"options_dropdown_title" = "Другие варианты";
-
-"why_support" = "Зачем поддерживать OMaps?";
-
-"options_dropdown_item1" = "%s/месяц (экономия %s/год)";
-
-"options_dropdown_item2" = "%s/неделя (экономии нет)";
-
-"why_support_item1" = "Мы отключим для вас всю рекламу";
-
-"why_support_item2" = "Вы помогаете нам улучшать OMaps";
+"why_support_item2" = "Вы помогаете нам улучшать Organic Maps";
 
 "why_support_item3" = "Вы помогаете нам улучшать карты OpenStreetMap.org";
 
-"purchase_processing" = "Ваша покупка обрабатывается…";
-
-"tips_bookmarks_catalog_title" = "Офлайн-путеводители для всех видов путешествий";
-
-"tips_bookmarks_catalog_message" = "Скачивайте и прокладывайте туристические маршруты по интересным местам в разных городах мира.";
-
-"tips_discover_button_title" = "Хотите найти популярые заведения в округе?";
-
-"tips_discover_button_message" = "В разделе «Чем заняться» собраны лучшие ближайшие рестораны, отели и достопримечательности.";
-
-"tips_book_hotel_title" = "Бронируйте самые комфортные отели для вашего отдыха";
-
-"tips_book_hotel_message" = "С помощью поиска и фильтров вы найдете лучшие гостиницы. Нажмите кнопку «Забронировать» в карточке места для моментальной брони отеля.";
-
-"tips_map_layers_title" = "Не знаете на какой станции метро пересесть?";
-
-"tips_map_layers_message" = "Включите слой метро на карте для отображения схемы метро и вы всегда будете ориентироваться в новом городе.";
-
 "channels_map_update" = "Обновления карт";
 
-"channels_reviews" = "Неотправленные отзывы";
-
-"purchase_loading" = "Загружаем информацию о покупках…";
-
-"purchase_error_subtitle" = "Во время обработки вашей покупки произошла ошибка";
-
-"awaiting_approval" = "Ждем подтверждения родителей";
-
-"whats_new_leave_review" = "Оставьте отзыв! Поделитесь своим мнением о местах, которые посетили в отпуске.";
-
 "server_unavailable_title" = "Сервер недоступен";
-
-"server_unavailable_message" = "Покупка будет завершена позже. Если ошибка повторится, свяжитесь с support@omaps.app.";
-
-"offline_fiters_check_in" = "Подключитесь к интернету, чтобы выбрать дату заезда и выезда.";
-
-"rutaxi_title" = "RuTaxi";
-
-"restore_subscription" = "Восстановить подписку";
-
-"restore_success_alert" = "Подписка была успешно восстановлена";
-
-"restore_error_alert" = "Во время восстановления подписки произошла ошибка";
-
-"restore_no_subscription_alert" = "У вас нет активных подписок";
-
-"subscriptions_title" = "Подписки";
-
-"manage_subscription" = "Управление подпиской";
-
-"taxi" = "Такси";
 
 "sharing_options" = "Настройки доступа";
 
@@ -2197,13 +1844,13 @@
 
 "hide_from_map" = "Скрыть с карты";
 
-"ugc_route_tags_screen_label" = "Выберите теги";
-
-"ugc_route_tags_progress_msg" = "Загружаем теги…";
-
 "public_access" = "Публичный доступ";
 
 "limited_access" = "Ограниченный доступ";
+
+"bookmark_category_name" = "Категория";
+
+"bookmark_category_description_hint" = "Добавьте описание (текст или html)";
 
 /* FIXME */
 "bookmarks_public_access" = "bookmarks_public_access";
@@ -2214,33 +1861,11 @@
 /* FIXME */
 "bookmarks_private_access" = "bookmarks_private_access";
 
-"upload_and_publish_desc" = "Этот путеводитель будет загружен в публичный каталог OMaps и будет доступен другим пользователям";
-
-"upload_and_publish" = "Загрузить и опубликовать";
-
-"upload_and_get_direct_link" = "Загрузить и получить ссылку";
-
-"get_direct_link_desc" = "Ваш путеводитель будет доступен по прямой ссылке";
-
-"upload_and_publish_progress_text" = "Путеводитель публикуется…";
-
-"upload_and_publish_success" = "Путеводитель опубликован";
-
-"ugc_routes_user_agreement" = "<b>ОБРАТИТЕ ВНИМАНИЕ:</b> продолжая, вы принимаете <a href=\"%s\">лицензионное соглашение</a>";
-
-"ugc_route_edit_list_name" = "Название путеводителя";
-
-"ugc_route_edit_description_hint" = "Добавьте описание (текст или html)";
-
 "not_shared" = "Личный";
 
 "direct_link_progress_text" = "Загружаем ваш файл…";
 
 "direct_link_success" = "Ссылка создана";
-
-"edit_guide_title" = "Редактируйте ваш путеводитель онлайн";
-
-"edit_guide_subtitle" = "Получите ссылку для редактирования вашего путеводителя через веб-приложение: добавляйте описания мест, загружайте фотографии и соединяйте метки линиями.";
 
 "send_a_link_btn" = "Отправить ссылку";
 
@@ -2254,39 +1879,7 @@
 
 "unable_upload_error_subtitle_broken" = "Файл поврежден и не может быть загружен. Пожалуйста, загрузите другой файл.";
 
-"buy_btn" = "Купить путеводитель за %s";
-
-"download_guide_progress" = "Путеводитель загружается…";
-
-"price_error_title" = "Невозможно узнать стоимость";
-
-"price_error_subtitle" = "Пожалуйста, попробуйте еще раз через пару минут";
-
-"edit_your_guide_email_body" = "Редактируйте ваш путеводитель на компьютере: добавляйте описания мест, загружайте фотографии и соединяйте метки линиями.";
-
-"edit_on_web" = "Редактировать онлайн";
-
-"properties_loading_error_subtitle" = "Во время загрузки опций произошла ошибка, пожалуйста, попробуйте еще раз";
-
-"custom_props_desc" = "Этот путеводитель вы составили как";
-
-"custom_props_title" = "Местный или турист";
-
-"custom_props_local" = "местный";
-
-"custom_props_traveler" = "турист";
-
-"select_properties" = "Выбрать опции";
-
-"access_rules_p_to_p" = "Специальный доступ";
-
-"access_rules_paid" = "Купленный";
-
-"failed_purchase_support_message" = "Кажется, у вас есть незавершённая покупка. Пожалуйста, напишите в поддержку, и мы решим проблему.";
-
 "contact" = "Написать";
-
-"check_price_button" = "Узнать цену";
 
 "download_button" = "Скачать";
 
@@ -2304,92 +1897,16 @@
 
 "place_description_title" = "Описание места";
 
-"ugc_routes_error_uploading_file_toast" = "К сожалению, при загрузке меток произошла ошибка. Пожалуйста, попробуйте еще раз.";
-
-"notification_channel_ugc" = "Пользовательский контент";
-
 /* this text will be shown in application notification preferences opposite checkbox which enable/disable downloader notifications. Devices on Android 8+ are affected. */
 "notification_channel_downloader" = "Загрузка карт";
 
-"notification_leave_review_title" = "%s - как вам здесь?";
-
-"notification_leave_review_content" = "Оставьте отзыв и помогите путешественникам!";
-
-"share_bookmarks_email_body_link" = "Здравствуйте!\n\nМетки можно скачать по ссылке: %s. Открывайте список с помощью OMaps и наслаждайтесь поездкой!\n\nСкачать приложение: https://omaps.app/get?kmz";
+"share_bookmarks_email_body_link" = "Здравствуйте!\n\nМетки можно скачать по ссылке: %s. Открывайте список с помощью Organic Maps и наслаждайтесь поездкой!\n\nСкачать приложение: https://organicmaps.app/get?kmz";
 
 "warning_speedcams_title" = "Навигатор оповестит вас о камерах при превышении скоростного лимита на %d км/ч";
 
 "warning_speedcams_subtitle" = "Не забудьте ознакомиться с правилами дорожного движения в стране путешествия.";
 
 "speedcams_notice_message" = "Авто - Предупреждать о камерах скорости, если есть риск превышения скоростного лимита\nВсегда - Всегда предупреждать о камерах\nНикогда - Никогда не предупреждать о камерах";
-
-"whats_new_ugc_routes_title" = "Делиться впечатлениями просто";
-
-"whats_new_ugc_routes_subtitle" = "Сохраняй запомнившиеся места, создавай из меток маршруты и делись со всеми в каталоге OMaps.";
-
-"whats_new_webeditor_title" = "Превращай маршруты в истории";
-
-"whats_new_ugc_routes_message2" = "Добавляй фото и подробные рассказы в веб-редакторе.";
-
-"ugc_thanks_message_auth" = "Ваш отзыв сохранен";
-
-"ugc_thanks_message_not_auth" = "Зарегистрируйтесь, чтобы оставить отзыв";
-
-"notification_leave_review_v2_title" = "Оставьте отзыв и помогите путешественникам!";
-
-"error_public_not_enought_title" = "Недостаточно меток";
-
-"error_public_not_enought_subtitle" = "В вашем маршруте должно быть как минимум 3 метки, чтобы загрузить его в публичный каталог";
-
-"bookmark_public_upload_alert_title" = "Вы всего в паре шагов от загрузки вашего маршрута в каталог OMaps!";
-
-"bookmark_public_upload_alert_subtitle" = "Убедитесь, что у маршрута есть название и описание, а все метки содержат информацию о местах. Благодаря этому, пользователи найдут маршрут и смогут воспользоваться им в поездке.";
-
-"bookmark_public_upload_alert_ok_button" = "Да, всё хорошо!";
-
-"name_title" = "Введите название";
-
-"name_placeholder" = "например, Пабы Лондона";
-
-"name_comment1" = "Назовите маршрут конкретно, чтобы пользователи смогли найти его, например, \"Пабы Лондона\"";
-
-"name_comment2" = "Название не должно содержать специальных символов. Не публикуйте маршруты с названием \"Мои метки\"";
-
-"description_guide" = "Описание";
-
-"description_title" = "Введите описание маршрута";
-
-"description_placeholder" = "Опишите свой маршрут подробно";
-
-"description_comment1" = "Описание маршрута должно состоять минимум из 30 символов.";
-
-"ugc_route_tags_desc" = "Пожалуйста, выберите теги, чтобы помочь другим путешественникам найти ваш путеводитель. Это обязательно. Не больше %s тегов.";
-
-"html_format_error_title" = "Ваш маршрут не был опубликован";
-
-"html_format_error_subtitle" = "Пожалуйста, убедитесь, что названия и описания меток в маршруте имеют верное форматирование. Вы можете проверить это в браузере на компьютере по кнопке \"Редактировать онлайн\" ниже.";
-
-"web_editor_description" = "Загрузите маршрут и получите ссылку для редактирования на компьютере";
-
-"edit_on_web_confirm" = "Редактировать онлайн";
-
-"update_guide" = "Загрузить новую версию";
-
-"direct_link_updating_text" = "Обновляем маршрут…";
-
-"direct_link_updating_success" = "Маршрут обновлен";
-
-"unable_get_direct_link_desc" = "Вы можете поделиться маршрутом с помощью публичной ссылки";
-
-"any_access_update_alert_title" = "Возможно, есть новая версия маршрута";
-
-"any_access_update_alert_message" = "Вы хотите обновить метки? Новая версия будет доступна по той же ссылке.";
-
-"any_access_update_alert_update" = "Обновить";
-
-"public_or_limited_access_after_edit_online_error_title" = "Вы редактировали маршрут онлайн";
-
-"public_or_limited_access_after_edit_online_error_message" = "В дальнейшем редактируйте, публикуйте или делитесь маршрутом с друзьями через наш вебсайт";
 
 "power_managment_title" = "Режим энергосбережения";
 
@@ -2401,7 +1918,7 @@
 
 "power_managment_setting_manual_max" = "Максимальное энергосбережение";
 
-"enable_logging_warning_message" = "Данная настройка включается для записи действий в целях диагностики. Это помогает команде выявить проблемы с приложением. Включайте настройку только по просьбе поддержки OMaps.";
+"enable_logging_warning_message" = "Данная настройка включается для записи действий в целях диагностики. Это помогает команде выявить проблемы с приложением. Включайте настройку только по просьбе поддержки Organic Maps.";
 
 "html_error_upload_message_try_again" = "Проверьте доступ к сети и повторите попытку";
 
@@ -2417,21 +1934,9 @@
 
 "privacy_settings_menu" = "Настройки конфиденциальности";
 
-"gdpr_request_setting" = "Получить ID для GDPR-запроса";
-
-"gdpr_request_window_title" = "Ваш ID: %s.";
-
-"gdpr_request_window_message" = "Пожалуйста, скопируйте его и отправьте запрос на support@omaps.app";
-
-"gdpr_request_window_copy" = "Скопировать ID";
-
 "unable_upadate_error_title" = "Не удалось обновить маршрут";
 
 "unable_upadate_error_message" = "Возникли ошибки при обновлении. Проверьте изменения и повторите попытку";
-
-"whats_new_wiki_title" = "Что это за место?";
-
-"whats_new_wiki_message" = "В карточки популярных достопримечательностей мы добавили статьи из Wikipedia.org, доступные офлайн";
 
 "driving_options_title" = "Настройки объезда";
 
@@ -2467,31 +1972,7 @@
 
 "avoid_ferry_crossing_placepage" = "Избегать паромных переправ";
 
-"cached_guides_placeholder_subtitle" = "Готовые путеводители в OMaps – это избранные места с фотографиями и описаниями, которые отображаются на карте и доступны офлайн.";
-
-"guides_catalogue_title" = "Каталог путеводителей";
-
-"download_guides_button" = "Перейти в каталог";
-
 "type.cuisine.uzbek" = "Узбекская кухня";
-
-"onboarding_guide_direct_download_title" = "Путеводитель готов к загрузке";
-
-"onboarding_guide_direct_download_subtitle" = "Он отобразится на карте и будет работать офлайн";
-
-"onboarding_guide_direct_download_button" = "Скачать";
-
-"onboarding_bydeeplink_guide_title" = "Готовые путеводители в OMaps";
-
-"onboarding_bydeeplink_guide_subtitle" = "Избранные места с фотографиями и описаниями отображаются на карте и доступны офлайн.";
-
-"whats_new_auto_update_bydeeplink_title" = "Прежде, чем перейти к путеводителям…";
-
-"whats_new_auto_update_bydeeplink_message" = "Обновите карты для получения актуальной информации об объектах!";
-
-"whats_new_auto_update_and_proceed_button_size" = "Обновить (%s) и продолжить";
-
-"purchase_please_wait_toast" = "Пожалуйста, не покидайте экран до завершения покупки";
 
 "trip_start" = "Поехали";
 
@@ -2531,80 +2012,6 @@
 
 "ok" = "Ок";
 
-"vezet_taxi" = "Везет";
-
-"booking_button_toolbar" = "Подобрать отель на карте";
-
-"popup_booking_download_guides_title" = "Забронирован отель?";
-
-"popup_booking_download_guides_message" = "Спланируйте маршрут с готовыми путеводителями OMaps";
-
-"popup_mwm_download_guides_title" = "Офлайн путеводители";
-
-"popup_mwm_download_guides_cta" = "Выбрать";
-
-"popup_mwm_download_guides_cta_1" = "Посмотреть";
-
-"gallery_pp_download_guides_offline_title" = "Планируйте свой отдых с OMaps!";
-
-"gallery_pp_download_guides_offline_subtitle" = "Не упустите самое важное с маршрутами от опытных путешественников";
-
-"gallery_pp_download_guides_offline_cta" = "Включить Интернет";
-
-"gallery_pp_download_guides_title" = "Путеводители";
-
-"native_screen_subscription_title" = "Полный доступ к 2000+ путеводителям!";
-
-"native_screen_subscription_message" = "Запоминающийся отдых, куда бы и с кем бы вы ни путешествовали";
-
-"annual_subscription_title" = "Годовая";
-
-"montly_subscription_title" = "Месячная";
-
-"annual_subscription_message" = "12 месяцев безлимитного доступа";
-
-"montly_subscription_message" = "1 месяц безлимитного доступа";
-
-"annual_save_component" = "- %d%";
-
-"subscription_success_dialog_title" = "Спасибо за подписку!";
-
-"subscription_success_dialog_message" = "Теперь у вас неограниченный доступ к каталогу путеводителей";
-
-"renewal_screen_title" = "Срок действия подписки истек";
-
-"renewal_screen_message" = "Все путеводители, скачанные по подписке, будут удалены. Хотите восстановить подписку и сохранить их?";
-
-"renewal_screen_button_restore" = "Да, восстановить";
-
-"renewal_screen_button_cancel" = "Нет, удалить путеводители";
-
-"subscription_error_ping_title" = "Не удалось совершить покупку";
-
-"subscription_error_message" = "Сейчас сервис недоступен в вашем регионе. Пожалуйста, попробуйте позже";
-
-"subscription_error_button" = "Понятно";
-
-"timeout_error_title" = "Упс, время вышло!";
-
-"timeout_error_message" = "Наши серверы не отвечают. Пожалуйста, проверьте интернет-соединение и повторите попытку.";
-
-"per_month" = "/мес.";
-
-"per_year" = "/год";
-
-"buy_btn_for_subscription" = "Полный доступ от %s";
-
-"buy_btn_for_subscription_1" = "Купить ВСЕ путеводители за %s";
-
-"buy_btn_for_subscription_ios_only_mo" = "Полный доступ за %s/мес.";
-
-"buy_btn_for_subscription_ios_only_year" = "Полный доступ за %s/год";
-
-"subscription_terms_guides" = "Оплата будет произведена с вашего счета iTunes при подтверждении покупки. Подписка автоматически возобновится, если автоматическое продление не будет отключено по крайней мере за 24 часа до окончания текущего периода. Денежные средства будут списываться с вашей учетной записи в соответствии с вашим тарифным планом продления в течение 24 часов до конца текущего периода. Вы можете управлять автоматическим продлением или отключать его в настройках учетной записи Apple ID в любое время после покупки. Вы сможете использовать путеводители, скачанные по подписке, только в течение ее срока действия. По истечении 30 дней после окончания подписки путеводители со всеми закладками будут автоматически удалены.";
-
-"subscription_terms" = "Оплата будет списана с вашего счета iTunes при подтверждении покупки. Подписка автоматически возобновится, если автоматическое продление не будет отключено по крайней мере за 24 часа до окончания текущего периода. Деньги будут списываться с вашей учетной записи в соответствии с вашим планом продления в течение 24 часов до конца текущего периода. Вы можете управлять или отключать автоматическое продление в настройках учетной записи Apple ID в любое время после покупки.";
-
 "avoid_unpaved_carplay_1" = "Без грунт.";
 
 "avoid_unpaved_carplay_2" = "Без грунтовых";
@@ -2621,7 +2028,7 @@
 
 "speedcams_alert_title_carplay_2" = "Инфо о камерах";
 
-"download_map_carplay" = "Скачайте карты в приложении OMaps на своем устройстве";
+"download_map_carplay" = "Скачайте карты в приложении Organic Maps на своем устройстве";
 
 "carplay_roundabout_exit" = "%s съезд";
 
@@ -2708,138 +2115,9 @@
 /* Android, max 18 symbols */
 "bookmarks_delete_list" = "Удалить список";
 
-"popup_subscription_success_map_title" = "Ура! Вы подписаны!";
-
-"popup_subscription_success_map_message" = "Теперь исследуйте лучшие туристические достопримечательности в каталоге OMaps";
-
-"popup_subscription_success_map_start_button" = "Просмотреть";
-
-"popup_subscription_success_map_not_now_button" = "Не сейчас";
-
 "religious_places" = "Святые места";
 
-"subscription_terms_android" = "Оплата будет произведена с вашего счета Google Play при подтверждении покупки. Подписка автоматически возобновится, если автоматическое продление не будет отключено по крайней мере за 24 часа до окончания текущего периода. Денежные средства будут списываться с вашей учетной записи в соответствии с вашим тарифным планом продления в течение 24 часов до конца текущего периода. Вы можете управлять автоматическим продлением или отключать его в настройках учетной записи после покупки. Вы сможете использовать путеводители, скачанные по подписке, только в течение ее срока действия. По истечении 30 дней после окончания подписки путеводители будут автоматически удалены.";
-
 "select_list" = "Выбрать список";
-
-"pp_discovery_place_related_header" = "Это место в каталоге путеводителей";
-
-"pp_discovery_place_related_header_1" = "Это место встречается в путеводителе";
-
-"pp_discovery_place_related_cta_button" = "Посмотреть";
-
-"pp_discovery_place_related_tag_header" = "Путеводители по тегу «%s»";
-
-"pp_discovery_place_related_tag_header_1" = "Вам также могут понравиться";
-
-"buy_btn_for_subscription_version_2" = "ВСЕ путеводители всего за %s/мес.";
-
-"buy_btn_for_subscription_version_3" = "Весь каталог за %s/мес.";
-
-"buy_btn_for_subscription_ios_only_mo_version_2" = "Доступ к каталогу за %s/мес.";
-
-"buy_btn_for_subscription_ios_only_year_version_2" = "Доступ к каталогу за %s/год";
-
-"subscription_screen_native_title_version_2" = "Доступ к путеводителям с метками на карте!";
-
-"subscription_screen_native_message_version_2" = "Будьте готовы к любому путешествию в 600+ городах и 100+ странах";
-
-"catalog_no_internet_title" = "Нет интернет-подключения";
-
-"catalog_no_internet_button" = "Попробовать снова";
-
-"new_onboarding_button" = "Далее";
-
-"new_onboarding_button_2" = "Начать";
-
-"new_onboarding_step1_header" = "OMaps";
-
-"new_onboarding_step1_header_2" = "Универсальный помощник в путешествиях";
-
-"new_onboarding_step2_header" = "Мечтайте и планируйте";
-
-"new_onboarding_step2_message" = "70+ млн интересных мест, каталог готовых путеводителей и бронирование гостиниц с карты – вы готовы к путешествию!";
-
-"new_onboarding_step3_message" = "Детализированные офлайн карты и офлайн навигация помогут не потеряться в незнакомых местах!";
-
-"new_onboarding_step4_header" = "Делитесь впечатлениями";
-
-"new_onboarding_step4_message" = "Сохраняйте понравившиеся места в избранном и отправляйте их друзьям";
-
-"new_onboarding_step5.1_header" = "Перед тем как начать…";
-
-"new_onboarding_step5.1_message" = "Не забудьте посетить наш новый каталог путеводителей, чтобы найти офлайн гид к ближайшей поездке!";
-
-"new_onboarding_step5.1_button" = "Открыть каталог";
-
-"new_onboarding_step5.2_message" = "Подписка на каталог путеводителей в OMaps – это выгодно. Получите полный доступ к маршрутам для городских прогулок и активного отдыха!";
-
-"new_onboarding_step5.2_button" = "Посмотреть условия";
-
-"new_onboarding_step5.3_message" = "Скачайте и оцените маршруты для городских прогулок и активного отдыха с бесплатной подборкой OMaps!";
-
-"new_onboarding_step5.3_button" = "Скачать бесплатно";
-
-"new_onboarding_additional_steps_later_button" = "Не сейчас";
-
-"all_pass_subscription_header" = "Подписка на";
-
-"all_pass_subscription_subheader" = "Каталог путеводителей";
-
-/* \n - for a break between lines. Max. 15 characters per 1 line. */
-"all_pass_subscription_message_title" = "30000+\nпутеводителей\nи троп";
-
-/* <b> & </b> tag to make a part of the line bold */
-"all_pass_subscription_message_subtitle" = "<b>Безлимитное скачивание в офлайн</b> маршрутов для города и активного отдыха";
-
-/* \n - for a break between lines. Max. 17 characters per 1 line. */
-"all_pass_subscription_message_title_2" = "Интерактивный\nпрофиль высот";
-
-/* <b> & </b> tag to make a part of the line bold */
-"all_pass_subscription_message_subtitle_2" = "Все тропы загружаются <b>с высотами и основной информацией о маршруте</b>";
-
-/* \n - for a break between lines. Max. 15 characters per 1 line. */
-"all_pass_subscription_message_title_3" = "Избранные\nместа, фото\nи рекомендации";
-
-/* <b> & </b> tag to make a part of the line bold */
-"all_pass_subscription_message_subtitle_3" = "<b>Узнайте всё о маршруте</b>, по которому собираетесь пройти";
-
-/* do not translate */
-"sightseeing_subscription_header_sightseeing" = "City Pass";
-
-"sightseeing_subscription_header_subscription" = "Подписка на путеводители";
-
-"sightseeing_subscription_message" = "700+ городов и 100+ стран";
-
-"sightseeing_subscription_message_2" = "Доступны офлайн";
-
-"sightseeing_subscription_message_3" = "Фото и пешеходные треки";
-
-"subscription_success_dialog_title_sightseeing_pass" = "Спасибо за подписку!";
-
-"subscription_success_dialog_message_sightseeing_pass" = "Теперь у вас есть доступ ко всем городским путеводителям в каталоге";
-
-"downloader_main_gallery_header" = "Карты и путеводители";
-
-"downloader_main_gallery_message" = "Теперь в этом разделе вы можете не только загрузить карты, но и выбрать путеводители для ближайших путешествий";
-
-"downloader_main_1_element_gallery_header" = "Все путеводители";
-
-"downloader_main_1_element_gallery_message" = "в 100+ странах";
-
-"downloader_country_1_element_gallery_header" = "%s маршрутов";
-
-"downloader_country_no_guides_gallery_header" = "Пока нет путеводителей по этой стране";
-
-"downloader_country_no_guides_gallery_message" = "Ознакомьтесь с другими маршрутами в 100+ странах для городского и активного отдыха";
-
-"dialog_pedestrian_route_is_long" = "Добираться до транспорта пешком слишком долго";
-
-"new_onboarding_step3_header" = "Путешествуйте";
-
-"all_pass_screen_best_value" = "Выгодная цена";
-
-"buy_btn_for_subscription_3" = "Весь каталог за %s/год";
 
 "transit_not_found" = "Навигация на метро ещё недоступна в данном регионе";
 
@@ -2852,7 +2130,7 @@
 
 "button_layer_isolines" = "Высоты";
 
-"tips_map_layers_title_countour" = "Линии высот офлайн в OMaps!";
+"tips_map_layers_title_countour" = "Линии высот офлайн в Organic Maps!";
 
 "tips_map_layers_message_countour" = "Линии высот помогут спланировать путешествие на природу и не потеряться на местности";
 
@@ -2890,179 +2168,17 @@
 
 "elevation_profile_minutes" = "мин";
 
-"view_on_map_downloaded_error" = "Этот путеводитель был удалён с устройства";
-
-"subscription" = "Подписка";
-
-"freenow_taxi_title" = "FREE NOW";
-
-"tinkoff_allairlines_map_downloader_title" = "Карта Тинькофф All Airlines. 3000 миль в подарок";
-
-"tinkoff_allairlines_map_downloader_cta_button" = "Оформить карту";
-
-"tinkoff_insurance_map_downloader_title" = "Полис Тинькофф со скидкой! Подходит для любых виз.";
-
-"tinkoff_insurance_map_downloader_cta_button" = "Промокод";
-
-"mts_map_downloader_title" = "Забугорище: интернет и звонки за границей как дома";
-
-"mts_map_downloader_cta_button" = "Подключить";
-
-"skyeng_map_downloader_title" = "Дарим 4 бесплатных урока английского от Skyeng.";
-
-"skyeng_map_downloader_cta_button" = "Подробнее";
-
-"button_layer_guides" = "Путеводители (новинка)";
-
-"no_routes_in_the_area_toast" = "Здесь нет путеводителей";
-
 "isolines_toast_zooms_1_10" = "Увеличьте карту, чтобы увидеть изолинии";
-
-"routes_layer_in_menu_toast" = "Включайте слои, чтобы найти офлайн-путеводители, изучить изолинии, ветки метро или пробки";
-
-"routes_layer_is_on_toast" = "Передвигайте карту, чтобы найти путеводители";
-
-"connection_error_dialog_guides_title" = "Ошибка соединения";
-
-"connection_error_dialog_guides_message" = "Слой не работает, потому что нет интернета или слабый сигнал. Чтобы продолжить работу, проверьте подключение или выключите слой.";
-
-"connection_error_dialog_guides_try" = "Попробовать снова";
-
-"connection_error_dialog_guides_layer_turn_off" = "Выключить";
-
-"connection_error_toast_guides" = "Восстанавливаем соединение";
-
-/* as few symbols as possible */
-"routes_card_show" = "Показать на карте";
-
-/* as few symbols as possible */
-"routes_card_hide" = "Скрыть с карты";
 
 "downloader_updating_ios" = "Обновление";
 
 "downloader_loading_ios" = "Загрузка";
 
-"routes_card_plus_track" = "+ трек";
-
-"routes_card_city" = "City";
-
-"routes_card_outdoor" = "Outdoor";
-
-"routes_card_number_of_points" = "%s мест";
-
-"routes_card_routes_tag" = "Маршрут";
-
-"routes_card_set_tag" = "Подборка мест";
-
-/* as few symbols as possible */
-"guides_trial_cta_button" = "Попробовать 7 дней бесплатно";
-
-"guides_trial_message" = "Далее %s в год. Отмена в любое время";
-
-"trial_error_dialog" = "Вы уже воспользовались пробным периодом";
-
-/* as few symbols as possible */
-"floating_button_filters" = "Фильтры";
-
-/* as few symbols as possible */
-"date_picker_сhoose_dates_cta" = "Выбрать даты";
-
-/* as few symbols as possible */
-"guests_picker_rooms_title" = "Номера и гости";
-
-"guests_picker_rooms" = "Номера";
-
-"guests_picker_adults" = "Взрослые";
-
-"guests_picker_children_title" = "Дети";
-
-"guests_picker_children_subtitle" = "1-17 лет";
-
-"guests_picker_infants_title" = "Младенцы";
-
-"guests_picker_infants_subtitle" = "0-12 мес.";
-
-/* as less symbols as possible */
-"booking_map_component_availability" = "Нет мест";
-
-/* as few symbols as possible */
-"booking_map_component_filters" = "Вне настроек фильтра";
-
-"choose_dates_online_only_dialog_title" = "Нет соединения";
-
-"choose_dates_online_only_dialog_message" = "Выбор дат и количества гостей доступен только онлайн. Проверьте настройки и убедитесь, что вы подключены к Интернету.";
-
-"choose_dates_online_only_dialog_cta" = "Настройки";
-
-"thirty_days_limit_dialog" = "Забронировать можно максимум на 30 ночей";
-
-"whatsnew_trial_cta" = "Попробовать";
-
-"subscription_terms_guides_outdoor" = "Оплата будет произведена с вашего счета iTunes при подтверждении покупки. Подписка автоматически возобновится, если автоматическое продление не будет отключено по крайней мере за 24 часа до окончания текущего периода. Денежные средства будут списываться с вашей учетной записи в соответствии с вашим тарифным планом продления в течение 24 часов до конца текущего периода. Вы можете управлять автоматическим продлением или отключать его в настройках учетной записи Apple ID в любое время после покупки. Вы сможете использовать путеводители, скачанные по подписке, только в течение ее срока действия. По истечении 7 дней после окончания подписки путеводители со всеми закладками будут автоматически удалены.\n* Подписка с бесплатным пробным периодом автоматически преобразуется в платную подписку. Вы можете отменить или управлять автоматическим продлением бесплатной пробной версии в настройках своего аккаунта после покупки. Отмена вступит в силу через 24 часа после последнего дня текущего периода подписки, и вы будете переведены на бесплатную подписку. Обратите внимание: любая неиспользованная часть бесплатного пробного периода будет аннулирована при покупке платной подписки в течение этого периода.";
-
-"subscription_terms_android_outdoor" = "Оплата будет произведена с вашего счета Google Play при подтверждении покупки. Подписка автоматически возобновится, если автоматическое продление не будет отключено по крайней мере за 24 часа до окончания текущего периода. Денежные средства будут списываться с вашей учетной записи в соответствии с вашим тарифным планом продления в течение 24 часов до конца текущего периода. Вы можете управлять автоматическим продлением или отключать его в настройках учетной записи после покупки. Вы сможете использовать путеводители, скачанные по подписке, только в течение ее срока действия. По истечении 7 дней после окончания подписки путеводители будут автоматически удалены.\n* Подписка с бесплатным пробным периодом автоматически преобразуется в платную подписку. Вы можете отменить или управлять автоматическим продлением бесплатной пробной версии в настройках своего аккаунта после покупки. Отмена вступит в силу через 24 часа после последнего дня текущего периода подписки, и вы будете переведены на бесплатную подписку. Обратите внимание: любая неиспользованная часть бесплатного пробного периода будет аннулирована при покупке платной подписки в течение этого периода.";
-
-"sberbank_map_downloader_title" = "Откройте Сберкарту Тревел Mastercard и копите мили";
-
-"sberbank_map_downloader_cta_button" = "Узнать больше";
-
-"yango_taxi_title" = "Yango";
-
-"citymobil_taxi_title" = "Ситимобил";
-
-"subscription_header" = "Подписка на\n<b>Каталог путеводителей</b>";
-
-/* Max. 20 characters per 1 line. */
-"all_pass_subscription_message_title_4" = "Путеводители\nот Lonely Planet®";
-
-/* <b> & </b> tag to make a part of the line bold */
-"all_pass_subscription_message_subtitle_4" = "Еще <b>больше впечатлений</b> c тысячами интересных мест по <b>всему миру</b>";
-
-"content_by_component" = "Контент от: %s";
-
-"whatsnew_lp_title" = "Еще больше впечатлений";
-
-"whatsnew_lp_message" = "Встречайте путеводители Lonely Planet! Достопримечательности, тематические маршруты и уникальные места в 7000+ городах.";
-
-"collections_title" = "Подборки";
-
 "key_information_title" = "Ключевая информация";
-
-"mustsee_title" = "Надо увидеть";
-
-"see_lp_category" = "Достопримечательности";
-
-"play_lp_category" = "Развлечения";
-
-"shop_lp_category" = "Покупки";
-
-"transport_lp_category" = "Транспорт";
-
-"sleep_lp_category" = "Ночлег";
-
-"general_lp_category" = "Основные";
-
-"drink_lp_category" = "Бары";
-
-"eat_lp_category" = "Рестораны";
-
-"taxi_category_order" = "Заказать";
-
-"arsenal_telemed_map_downloader_title" = "Онлайн консультации профессиональных врачей 24/7";
-
-"arsenal_flat_map_downloader_title" = "Уезжаешь? Позаботься о своей квартире и соседях.";
-
-"arsenal_crimea_map_downloader_title" = "Туристическая страховка отдыха в Крыму. От 15₽/день";
-
-"arsenal_russia_map_downloader_title" = "Путешествуй по России. Лечение COVID-19 включено!";
-
-"arsenal_abroad_map_downloader_title" = "Полис «Выезд за рубеж». Лечение COVID-19 включено!";
-
-"arsenal_cta_button" = "Оформить полис";
 
 "download_map_title" = "Скачать карту мира";
 
-"connection_failure" = "Соединение не выполнено";
+"connection_failure" = "Ошибка подключения";
 
 "disconnect_usb_cable_title" = "Отсоедините USB кабель";
 
