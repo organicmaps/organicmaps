@@ -8,7 +8,7 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
-        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="SearchHistoryViewController" customModule="maps_me" customModuleProvider="target">
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="SearchHistoryViewController" customModule="OMaps" customModuleProvider="target">
             <connections>
                 <outlet property="noResultsViewContainer" destination="bcr-zs-NMw" id="zpc-sP-fbF"/>
                 <outlet property="tableView" destination="cDq-G7-5cR" id="Qo8-a6-Q6V"/>

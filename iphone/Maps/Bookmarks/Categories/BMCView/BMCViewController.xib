@@ -6,7 +6,7 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
-        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="BMCViewController" customModule="maps_me" customModuleProvider="target">
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="BMCViewController" customModule="OMaps" customModuleProvider="target">
             <connections>
                 <outlet property="actionsHeader" destination="DhR-7O-ccQ" id="PPD-Ov-b69"/>
                 <outlet property="notificationsHeader" destination="G0o-Op-zPp" id="PUK-3H-1q3"/>
@@ -41,7 +41,7 @@
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <point key="canvasLocation" x="10" y="54"/>
         </view>
-        <view contentMode="scaleToFill" id="JS4-5h-4t1" customClass="BMCPermissionsHeader" customModule="maps_me" customModuleProvider="target">
+        <view contentMode="scaleToFill" id="JS4-5h-4t1" customClass="BMCPermissionsHeader" customModule="OMaps" customModuleProvider="target">
             <rect key="frame" x="0.0" y="0.0" width="375" height="48"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
@@ -117,7 +117,7 @@
             <viewLayoutGuide key="safeArea" id="Iuf-Mb-Pmk"/>
             <point key="canvasLocation" x="483" y="-50"/>
         </view>
-        <view contentMode="scaleToFill" id="G0o-Op-zPp" customClass="BMCNotificationsHeader" customModule="maps_me" customModuleProvider="target">
+        <view contentMode="scaleToFill" id="G0o-Op-zPp" customClass="BMCNotificationsHeader" customModule="OMaps" customModuleProvider="target">
             <rect key="frame" x="0.0" y="0.0" width="375" height="48"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>

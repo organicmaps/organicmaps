@@ -10,7 +10,7 @@
         <!--Driving Options View Controller-->
         <scene sceneID="BWZ-fX-cej">
             <objects>
-                <tableViewController storyboardIdentifier="DrivingOptionsViewController" id="8YO-Xx-cAh" userLabel="Driving Options View Controller" customClass="DrivingOptionsViewController" customModule="maps_me" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="DrivingOptionsViewController" id="8YO-Xx-cAh" userLabel="Driving Options View Controller" customClass="DrivingOptionsViewController" customModule="OMaps" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" id="Q8U-4Z-lWC">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -18,7 +18,7 @@
                         <sections>
                             <tableViewSection headerTitle="AVOID ON EVERY ROUTE" id="qNN-Uw-84i">
                                 <cells>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="YrA-ve-xPG" customClass="SettingsTableViewSwitchCell" customModule="maps_me" customModuleProvider="target">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="YrA-ve-xPG" customClass="SettingsTableViewSwitchCell" customModule="OMaps" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="55.5" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="YrA-ve-xPG" id="gKI-YE-akp">
@@ -55,7 +55,7 @@
                                             <outlet property="title" destination="PKT-Eh-l9Q" id="FdA-Xd-B6c"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="Edm-gG-iZL" customClass="SettingsTableViewSwitchCell" customModule="maps_me" customModuleProvider="target">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="Edm-gG-iZL" customClass="SettingsTableViewSwitchCell" customModule="OMaps" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="99.5" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Edm-gG-iZL" id="mIt-Ku-xiU">
@@ -92,7 +92,7 @@
                                             <outlet property="title" destination="v9t-VR-YwE" id="Z8m-Ie-Ten"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="ZqG-Fn-9Da" customClass="SettingsTableViewSwitchCell" customModule="maps_me" customModuleProvider="target">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="ZqG-Fn-9Da" customClass="SettingsTableViewSwitchCell" customModule="OMaps" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="143.5" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="ZqG-Fn-9Da" id="7US-xU-xAU">
@@ -129,7 +129,7 @@
                                             <outlet property="title" destination="cIW-w0-eCH" id="Uc5-KH-WaN"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="EZ7-Gy-8aA" customClass="SettingsTableViewSwitchCell" customModule="maps_me" customModuleProvider="target">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="EZ7-Gy-8aA" customClass="SettingsTableViewSwitchCell" customModule="OMaps" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="187.5" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="EZ7-Gy-8aA" id="6ee-yF-kGr">

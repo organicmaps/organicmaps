@@ -13,7 +13,7 @@
         <!--Car Play Map View Controller-->
         <scene sceneID="5vb-C1-ak4">
             <objects>
-                <viewController id="Wnk-yS-70Z" customClass="CarPlayMapViewController" customModule="maps_me" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="Wnk-yS-70Z" customClass="CarPlayMapViewController" customModule="OMaps" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="o9I-Sz-toK">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

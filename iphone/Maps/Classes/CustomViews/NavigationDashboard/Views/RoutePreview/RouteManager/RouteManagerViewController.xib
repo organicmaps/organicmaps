@@ -23,7 +23,7 @@
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3y4-jh-JUF" customClass="RouteManagerDimView" customModule="maps_me" customModuleProvider="target" propertyAccessControl="none">
+        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3y4-jh-JUF" customClass="RouteManagerDimView" customModule="OMaps" customModuleProvider="target" propertyAccessControl="none">
             <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
             <subviews>
                 <view userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TC7-xW-EwE">
@@ -100,7 +100,7 @@
                 <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="i5M-Pr-FkT">
                     <rect key="frame" x="0.0" y="758" width="414" height="138"/>
                     <subviews>
-                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="s0L-ul-gog" customClass="RouteManagerHeaderView" customModule="maps_me" customModuleProvider="target">
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="s0L-ul-gog" customClass="RouteManagerHeaderView" customModule="OMaps" customModuleProvider="target">
                             <rect key="frame" x="0.0" y="0.0" width="414" height="48"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="760" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dQh-uc-65J">
@@ -155,7 +155,7 @@
                                 <outlet property="titleLabel" destination="dQh-uc-65J" id="xKP-bY-mQP"/>
                             </connections>
                         </view>
-                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mqc-M4-MPb" customClass="RouteManagerFooterView" customModule="maps_me" customModuleProvider="target">
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mqc-M4-MPb" customClass="RouteManagerFooterView" customModule="OMaps" customModuleProvider="target">
                             <rect key="frame" x="0.0" y="48" width="414" height="48"/>
                             <subviews>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="or0-Gy-0su">
@@ -225,7 +225,7 @@
                                 <outlet property="separator" destination="pjx-6o-NWS" id="EKT-Ba-Lcy"/>
                             </connections>
                         </view>
-                        <tableView clipsSubviews="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="48" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Zqd-YQ-ksD" customClass="RouteManagerTableView" customModule="maps_me" customModuleProvider="target">
+                        <tableView clipsSubviews="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="48" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Zqd-YQ-ksD" customClass="RouteManagerTableView" customModule="OMaps" customModuleProvider="target">
                             <rect key="frame" x="0.0" y="48" width="414" height="0.0"/>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <gestureRecognizers/>
