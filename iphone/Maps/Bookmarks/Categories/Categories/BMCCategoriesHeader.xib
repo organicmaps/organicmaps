@@ -10,7 +10,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <view contentMode="scaleToFill" id="hpL-he-7N6" customClass="BMCCategoriesHeader" customModule="maps_me" customModuleProvider="target">
+        <view contentMode="scaleToFill" id="hpL-he-7N6" customClass="BMCCategoriesHeader" customModule="OMaps" customModuleProvider="target">
             <rect key="frame" x="0.0" y="0.0" width="375" height="48"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>

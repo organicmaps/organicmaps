@@ -198,7 +198,7 @@
                                                     <constraints>
                                                         <constraint firstAttribute="height" priority="999" constant="43.5" id="wiY-V3-s47"/>
                                                     </constraints>
-                                                    <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="12" minimumInteritemSpacing="8" id="hQi-pH-6ln" customClass="TagsCollectionViewLayout" customModule="maps_me" customModuleProvider="target">
+                                                    <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="12" minimumInteritemSpacing="8" id="hQi-pH-6ln" customClass="TagsCollectionViewLayout" customModule="OMaps" customModuleProvider="target">
                                                         <size key="itemSize" width="50" height="36"/>
                                                         <size key="headerReferenceSize" width="0.0" height="0.0"/>
                                                         <size key="footerReferenceSize" width="0.0" height="0.0"/>

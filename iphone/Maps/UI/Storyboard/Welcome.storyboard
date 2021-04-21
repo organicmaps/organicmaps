@@ -9,7 +9,7 @@
         <!--Terms Of Use View Controller-->
         <scene sceneID="ee6-kg-2w1">
             <objects>
-                <viewController storyboardIdentifier="TermsOfUseViewController" id="GEP-CE-a4y" customClass="TermsOfUseViewController" customModule="maps_me" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="TermsOfUseViewController" id="GEP-CE-a4y" customClass="TermsOfUseViewController" customModule="OMaps" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="0my-eF-8kL" customClass="SolidTouchView">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -46,7 +46,7 @@ All in one travel buddy</string>
                                     <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Zz6-qx-Qge">
                                         <rect key="frame" x="0.0" y="521.5" width="374" height="51.5"/>
                                         <subviews>
-                                            <view opaque="NO" contentMode="center" translatesAutoresizingMaskIntoConstraints="NO" id="60N-32-WZ3" customClass="Checkmark" customModule="maps_me" customModuleProvider="target">
+                                            <view opaque="NO" contentMode="center" translatesAutoresizingMaskIntoConstraints="NO" id="60N-32-WZ3" customClass="Checkmark" customModule="OMaps" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="0.0" width="52" height="51.5"/>
                                                 <accessibility key="accessibilityConfiguration" identifier="welcome_storyboard.agree_privacy.check"/>
                                                 <constraints>
@@ -60,7 +60,7 @@ All in one travel buddy</string>
                                                     <action selector="onCheck:" destination="GEP-CE-a4y" eventType="valueChanged" id="RZQ-B5-DX5"/>
                                                 </connections>
                                             </view>
-                                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" verticalCompressionResistancePriority="1000" scrollEnabled="NO" editable="NO" text="I agree to Privacy Policy" translatesAutoresizingMaskIntoConstraints="NO" id="Ai2-v2-KXg" customClass="LinkTextView" customModule="maps_me" customModuleProvider="target">
+                                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" verticalCompressionResistancePriority="1000" scrollEnabled="NO" editable="NO" text="I agree to Privacy Policy" translatesAutoresizingMaskIntoConstraints="NO" id="Ai2-v2-KXg" customClass="LinkTextView" customModule="OMaps" customModuleProvider="target">
                                                 <rect key="frame" x="52" y="8" width="182.5" height="35.5"/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <accessibility key="accessibilityConfiguration" identifier="welcome_storyboard.agree_privacy.text"/>
@@ -89,7 +89,7 @@ All in one travel buddy</string>
                                     <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="jbF-ri-Vws">
                                         <rect key="frame" x="0.0" y="573" width="374" height="51.5"/>
                                         <subviews>
-                                            <view opaque="NO" contentMode="center" translatesAutoresizingMaskIntoConstraints="NO" id="fjg-ct-dro" customClass="Checkmark" customModule="maps_me" customModuleProvider="target">
+                                            <view opaque="NO" contentMode="center" translatesAutoresizingMaskIntoConstraints="NO" id="fjg-ct-dro" customClass="Checkmark" customModule="OMaps" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="0.0" width="52" height="51.5"/>
                                                 <accessibility key="accessibilityConfiguration" identifier="welcome_storyboard.agree_terms.check"/>
                                                 <constraints>
@@ -103,7 +103,7 @@ All in one travel buddy</string>
                                                     <action selector="onCheck:" destination="GEP-CE-a4y" eventType="valueChanged" id="DAz-wX-Llz"/>
                                                 </connections>
                                             </view>
-                                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" verticalCompressionResistancePriority="1000" scrollEnabled="NO" editable="NO" text="I agree to Terms of Use" translatesAutoresizingMaskIntoConstraints="NO" id="Zoj-oq-U2G" customClass="LinkTextView" customModule="maps_me" customModuleProvider="target">
+                                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" verticalCompressionResistancePriority="1000" scrollEnabled="NO" editable="NO" text="I agree to Terms of Use" translatesAutoresizingMaskIntoConstraints="NO" id="Zoj-oq-U2G" customClass="LinkTextView" customModule="OMaps" customModuleProvider="target">
                                                 <rect key="frame" x="52" y="8" width="178.5" height="35.5"/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <accessibility key="accessibilityConfiguration" identifier="welcome_storyboard.agree_terms.text"/>
@@ -259,7 +259,7 @@ All in one travel buddy</string>
         <!--Welcome View Controller-->
         <scene sceneID="n1B-sA-urT">
             <objects>
-                <viewController storyboardIdentifier="WelcomeViewController" id="297-Lh-69k" customClass="WelcomeViewController" customModule="maps_me" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="WelcomeViewController" id="297-Lh-69k" customClass="WelcomeViewController" customModule="OMaps" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="PbT-65-BE7">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

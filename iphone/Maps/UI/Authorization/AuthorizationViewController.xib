@@ -85,7 +85,7 @@
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Cdf-p5-Bbb">
                                                     <rect key="frame" x="0.0" y="49.5" width="382" height="55.5"/>
                                                     <subviews>
-                                                        <view opaque="NO" contentMode="center" translatesAutoresizingMaskIntoConstraints="NO" id="33D-0u-y3N" customClass="Checkmark" customModule="maps_me" customModuleProvider="target">
+                                                        <view opaque="NO" contentMode="center" translatesAutoresizingMaskIntoConstraints="NO" id="33D-0u-y3N" customClass="Checkmark" customModule="OMaps" customModuleProvider="target">
                                                             <rect key="frame" x="0.0" y="8" width="40" height="40"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="width" constant="40" id="awT-NV-5En"/>
@@ -99,7 +99,7 @@
                                                                 <action selector="onCheck:" destination="-1" eventType="valueChanged" id="GHm-Xj-Fic"/>
                                                             </connections>
                                                         </view>
-                                                        <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" scrollEnabled="NO" editable="NO" text="I agree to Privacy Policy" translatesAutoresizingMaskIntoConstraints="NO" id="LhW-gs-XN9" customClass="LinkTextView" customModule="maps_me" customModuleProvider="target">
+                                                        <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" scrollEnabled="NO" editable="NO" text="I agree to Privacy Policy" translatesAutoresizingMaskIntoConstraints="NO" id="LhW-gs-XN9" customClass="LinkTextView" customModule="OMaps" customModuleProvider="target">
                                                             <rect key="frame" x="40" y="0.0" width="182.5" height="55.5"/>
                                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <fontDescription key="fontDescription" name=".AppleSystemUIFont" family=".AppleSystemUIFont" pointSize="16"/>
@@ -132,7 +132,7 @@
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XHd-bd-GsP">
                                                     <rect key="frame" x="0.0" y="121" width="382" height="55.5"/>
                                                     <subviews>
-                                                        <view opaque="NO" contentMode="center" translatesAutoresizingMaskIntoConstraints="NO" id="3cN-Qb-mdM" customClass="Checkmark" customModule="maps_me" customModuleProvider="target">
+                                                        <view opaque="NO" contentMode="center" translatesAutoresizingMaskIntoConstraints="NO" id="3cN-Qb-mdM" customClass="Checkmark" customModule="OMaps" customModuleProvider="target">
                                                             <rect key="frame" x="0.0" y="8" width="40" height="40"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="width" constant="40" id="Gsk-Bp-DHv"/>
@@ -146,7 +146,7 @@
                                                                 <action selector="onCheck:" destination="-1" eventType="valueChanged" id="3jl-dT-yZS"/>
                                                             </connections>
                                                         </view>
-                                                        <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" editable="NO" text="I agree to Terms of Use" translatesAutoresizingMaskIntoConstraints="NO" id="PBR-9l-2Gh" customClass="LinkTextView" customModule="maps_me" customModuleProvider="target">
+                                                        <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" editable="NO" text="I agree to Terms of Use" translatesAutoresizingMaskIntoConstraints="NO" id="PBR-9l-2Gh" customClass="LinkTextView" customModule="OMaps" customModuleProvider="target">
                                                             <rect key="frame" x="40" y="0.0" width="178.5" height="55.5"/>
                                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <fontDescription key="fontDescription" name=".AppleSystemUIFont" family=".AppleSystemUIFont" pointSize="16"/>
@@ -176,7 +176,7 @@
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4NF-GO-a8Q">
                                                     <rect key="frame" x="0.0" y="192.5" width="382" height="54.5"/>
                                                     <subviews>
-                                                        <view opaque="NO" contentMode="center" translatesAutoresizingMaskIntoConstraints="NO" id="Z2X-Qq-dwV" customClass="Checkmark" customModule="maps_me" customModuleProvider="target">
+                                                        <view opaque="NO" contentMode="center" translatesAutoresizingMaskIntoConstraints="NO" id="Z2X-Qq-dwV" customClass="Checkmark" customModule="OMaps" customModuleProvider="target">
                                                             <rect key="frame" x="0.0" y="7.5" width="40" height="40"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="width" constant="40" id="Ed8-DA-DiE"/>
@@ -221,7 +221,7 @@
                                                         <constraint firstAttribute="height" constant="44" id="O1Z-1l-0jr"/>
                                                     </constraints>
                                                 </view>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8iU-Se-s8N" customClass="LeftAlignedIconButton" customModule="maps_me" customModuleProvider="target">
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8iU-Se-s8N" customClass="LeftAlignedIconButton" customModule="OMaps" customModuleProvider="target">
                                                     <rect key="frame" x="0.0" y="263" width="382" height="44"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="44" id="GEc-UM-DNb"/>
@@ -235,7 +235,7 @@
                                                         <action selector="googleSignIn" destination="-1" eventType="touchUpInside" id="pit-ir-2fB"/>
                                                     </connections>
                                                 </button>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="O8A-fR-loh" customClass="LeftAlignedIconButton" customModule="maps_me" customModuleProvider="target">
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="O8A-fR-loh" customClass="LeftAlignedIconButton" customModule="OMaps" customModuleProvider="target">
                                                     <rect key="frame" x="0.0" y="323" width="382" height="44"/>
                                                     <color key="backgroundColor" red="0.23137254901960785" green="0.34901960784313724" blue="0.59607843137254901" alpha="1" colorSpace="calibratedRGB"/>
                                                     <constraints>
