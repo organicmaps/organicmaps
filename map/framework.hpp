@@ -18,7 +18,6 @@
 #include "map/track.hpp"
 #include "map/traffic_manager.hpp"
 #include "map/transit/transit_reader.hpp"
-#include "map/user.hpp"
 
 #include "drape_frontend/gui/skin.hpp"
 #include "drape_frontend/drape_api.hpp"
@@ -208,7 +207,6 @@ protected:
   RoutingManager m_routingManager;
 
   TrafficManager m_trafficManager;
-  User m_user;
 
   /// This function will be called by m_storage when latest local files
   /// is downloaded.
@@ -234,9 +232,6 @@ public:
   virtual ~Framework() override;
 
   df::DrapeApi & GetDrapeApi() { return m_drapeApi; }
-
-  User & GetUser() { return m_user; }
-  User const & GetUser() const { return m_user; }
 
   /// \returns true if there're unsaved changes in map with |countryId| and false otherwise.
   /// \note It works for group and leaf node.

@@ -1727,18 +1727,6 @@ Java_com_mapswithme_maps_Framework_nativeDeleteSavedRoutePoints()
   frm()->GetRoutingManager().DeleteSavedRoutePoints();
 }
 
-JNIEXPORT jstring JNICALL
-Java_com_mapswithme_maps_Framework_nativeGetPrivacyPolicyLink(JNIEnv * env, jclass)
-{
-  return jni::ToJavaString(env, User::GetPrivacyPolicyLink());
-}
-
-JNIEXPORT jstring JNICALL
-Java_com_mapswithme_maps_Framework_nativeGetTermsOfUseLink(JNIEnv * env, jclass)
-{
-  return jni::ToJavaString(env, User::GetTermsOfUseLink());
-}
-
 JNIEXPORT void JNICALL
 Java_com_mapswithme_maps_Framework_nativeShowFeature(JNIEnv * env, jclass, jobject featureId)
 {

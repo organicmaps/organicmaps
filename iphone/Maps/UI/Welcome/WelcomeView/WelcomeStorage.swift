@@ -15,15 +15,6 @@ class WelcomeStorage {
     }
   }
 
-  static var shouldShowTerms: Bool {
-    get {
-      return UserDefaults.standard.bool(forKey: UserDefaultsKeys.needTermsKey)
-    }
-    set {
-      UserDefaults.standard.set(newValue, forKey: UserDefaultsKeys.needTermsKey)
-    }
-  }
-
   static var privacyPolicyLink: String {
     get {
       return UserDefaults.standard.string(forKey: UserDefaultsKeys.ppLinkKey) ?? ""

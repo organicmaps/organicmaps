@@ -8,6 +8,7 @@
 #include "platform/platform_tests_support/writable_dir_changer.hpp"
 
 #include "base/file_name_utils.hpp"
+#include "base/scope_guard.hpp"
 
 #include <algorithm>
 #include <string>

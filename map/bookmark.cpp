@@ -11,8 +11,6 @@
 
 namespace
 {
-std::string const kDeepLinkUrl = DLINK_URL;
-
 std::string GetBookmarkIconType(kml::BookmarkIcon const & icon)
 {
   switch (icon)

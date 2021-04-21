@@ -171,8 +171,8 @@ extension BookmarksListPresenter: IBookmarksListPresenter {
   func viewDidLoad() {
     reload()
     view.setTitle(bookmarkGroup.title)
-    view.setMoreItemTitle(bookmarkGroup.isEditable ? L("placepage_more_button") : L("view_on_map_bookmarks"))
-    view.enableEditing(bookmarkGroup.isEditable)
+    view.setMoreItemTitle(L("placepage_more_button"))
+    view.enableEditing(true)
 
     let info = BookmarksListInfo(title: bookmarkGroup.title,
                                  author: bookmarkGroup.author,
@@ -204,11 +204,7 @@ extension BookmarksListPresenter: IBookmarksListPresenter {
   }
 
   func more() {
-    if bookmarkGroup.isEditable {
-      showMoreMenu()
-    } else {
-      viewOnMap()
-    }
+    showMoreMenu()
   }
 
   func sort() {

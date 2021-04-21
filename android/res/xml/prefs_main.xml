@@ -31,11 +31,6 @@
       android:title="@string/autodownload"
       android:order="4"/>
     <SwitchPreferenceCompat
-      android:key="@string/pref_backupbookmarks"
-      android:title="@string/settings_backup_bookmarks"
-      android:summary="@string/bookmarks_message_unbackuped_user"
-      android:order="5"/>
-    <SwitchPreferenceCompat
       android:key="@string/pref_large_fonts_size"
       android:title="@string/big_font"
       android:defaultValue="false"

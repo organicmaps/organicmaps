@@ -11,20 +11,12 @@ final class BMCViewController: MWMViewController {
   @IBOutlet private weak var tableView: UITableView! {
     didSet {
       let cells = [
-        BMCPermissionsCell.self,
-        BMCPermissionsPendingCell.self,
         BMCCategoryCell.self,
         BMCActionsCreateCell.self,
         BMCNotificationsCell.self,
       ]
       tableView.registerNibs(cells)
       tableView.registerNibForHeaderFooterView(BMCCategoriesHeader.self)
-    }
-  }
-
-  @IBOutlet private var permissionsHeader: BMCPermissionsHeader! {
-    didSet {
-      permissionsHeader.delegate = self
     }
   }
 
@@ -190,8 +182,6 @@ extension BMCViewController: UITableViewDataSource {
 
   func tableView(_: UITableView, numberOfRowsInSection section: Int) -> Int {
     switch viewModel.sectionType(section: section) {
-    case .permissions:
-      return permissionsHeader.isCollapsed ? 0 : viewModel.numberOfRows(section: section)
     case .categories: fallthrough
     case .actions: fallthrough
     case .notifications: return viewModel.numberOfRows(section: section)
@@ -204,13 +194,6 @@ extension BMCViewController: UITableViewDataSource {
     }
 
     switch viewModel.sectionType(section: indexPath.section) {
-    case .permissions:
-      let permission = viewModel.permission(at: indexPath.row)
-      if viewModel.isPendingPermission {
-        return dequeCell(BMCPermissionsPendingCell.self).config(permission: permission)
-      } else {
-        return dequeCell(BMCPermissionsCell.self).config(permission: permission, delegate: self)
-      }
     case .categories:
       return dequeCell(BMCCategoryCell.self).config(category: viewModel.category(at: indexPath.row),
                                                     delegate: self)
@@ -245,7 +228,6 @@ extension BMCViewController: UITableViewDelegate {
 
   func tableView(_: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
     switch viewModel.sectionType(section: section) {
-    case .permissions: fallthrough
     case .notifications: fallthrough
     case .categories: return 48
     case .actions: return 24
@@ -254,7 +236,6 @@ extension BMCViewController: UITableViewDelegate {
 
   func tableView(_: UITableView, viewForHeaderInSection section: Int) -> UIView? {
     switch viewModel.sectionType(section: section) {
-    case .permissions: return permissionsHeader
     case .categories:
       let categoriesHeader = tableView.dequeueReusableHeaderFooterView(BMCCategoriesHeader.self)
       categoriesHeader.isShowAll = viewModel.areAllCategoriesHidden()
@@ -269,8 +250,6 @@ extension BMCViewController: UITableViewDelegate {
   func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
     tableView.deselectRow(at: indexPath, animated: true)
     switch viewModel.sectionType(section: indexPath.section) {
-    case .permissions:
-      return
     case .categories:
       openCategory(category: viewModel.category(at: indexPath.row))
     case .actions:
@@ -279,31 +258,6 @@ extension BMCViewController: UITableViewDelegate {
       }
     default:
       assertionFailure()
-    }
-  }
-}
-
-extension BMCViewController: BMCPermissionsCellDelegate {
-  func permissionAction(permission: BMCPermission, anchor: UIView) {
-    switch permission {
-    case .signup:
-      viewModel.pendingPermission(isPending: true)
-      signup(anchor: anchor, source: .bookmarksBackup, onComplete: { [weak self, viewModel] result in
-        if result == .succes {
-          viewModel!.grant(permission: .backup)
-        } else if result == .cancel {
-          viewModel?.pendingPermission(isPending: false)
-        } else if result == .error {
-          viewModel?.pendingPermission(isPending: false)
-          MWMAlertViewController.activeAlert().presentAuthErrorAlert {
-            self?.permissionAction(permission: permission, anchor: anchor)
-          }
-        }
-      })
-    case .backup:
-      viewModel.grant(permission: permission)
-    case .restore:
-      viewModel.requestRestoring()
     }
   }
 }
@@ -325,23 +279,6 @@ extension BMCViewController: BMCCategoryCellDelegate {
     }
 
     editCategory(at: indexPath.row, anchor: moreButton)
-  }
-}
-
-extension BMCViewController: BMCPermissionsHeaderDelegate {
-  func collapseAction(isCollapsed: Bool) {
-    permissionsHeader.isCollapsed = !isCollapsed
-    let sectionIndex = viewModel.sectionIndex(section: .permissions)
-    let rowsInSection = viewModel.numberOfRows(section: .permissions)
-    var rowIndexes = [IndexPath]()
-    for rowIndex in 0..<rowsInSection {
-      rowIndexes.append(IndexPath(row: rowIndex, section: sectionIndex))
-    }
-    if (permissionsHeader.isCollapsed) {
-      delete(at: rowIndexes)
-    } else {
-      insert(at: rowIndexes)
-    }
   }
 }
 

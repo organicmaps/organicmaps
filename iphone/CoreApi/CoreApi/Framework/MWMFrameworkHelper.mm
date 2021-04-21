@@ -135,10 +135,6 @@
   GetFramework().UpdateMyPositionRoutingOffset(useDefault, offsetY);
 }
 
-+ (NSString *)userAccessToken {
-  return @(GetFramework().GetUser().GetAccessToken().c_str());
-}
-
 + (NSString *)userAgent {
   return @(GetPlatform().GetAppUserAgent().Get().c_str());
 }

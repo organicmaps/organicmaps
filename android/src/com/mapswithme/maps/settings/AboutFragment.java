@@ -71,12 +71,12 @@ public class AboutFragment extends BaseSettingsFragment
 
   private void onPrivacyPolicyClick()
   {
-    openLink(Framework.nativeGetPrivacyPolicyLink());
+    openLink(getResources().getString(R.string.privacy_policy_url));
   }
 
   private void onTermOfUseClick()
   {
-    openLink(Framework.nativeGetTermsOfUseLink());
+    openLink(getResources().getString(R.string.terms_of_use_url));
   }
 
   @Override

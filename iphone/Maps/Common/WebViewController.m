@@ -99,10 +99,10 @@
           [request setValue:headers[header] forHTTPHeaderField:header];
         }
 
-        if (self.shouldAddAccessToken) {
-          NSString *authHeader = [NSString stringWithFormat:@"Bearer %@", [MWMFrameworkHelper userAccessToken]];
-          [request setValue:authHeader forHTTPHeaderField:@"Authorization"];
-        }
+//        if (self.shouldAddAccessToken) {
+//          NSString *authHeader = [NSString stringWithFormat:@"Bearer %@", [MWMFrameworkHelper userAccessToken]];
+//          [request setValue:authHeader forHTTPHeaderField:@"Authorization"];
+//        }
         if ([UIColor isNightMode]) {
           [request setValue:@"dark" forHTTPHeaderField:@"x-mapsme-theme"];
         }

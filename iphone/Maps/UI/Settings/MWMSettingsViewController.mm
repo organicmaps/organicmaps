@@ -17,7 +17,6 @@ using namespace power_management;
 @property(weak, nonatomic) IBOutlet SettingsTableViewSwitchCell *zoomButtonsCell;
 @property(weak, nonatomic) IBOutlet SettingsTableViewSwitchCell *is3dCell;
 @property(weak, nonatomic) IBOutlet SettingsTableViewSwitchCell *autoDownloadCell;
-@property(weak, nonatomic) IBOutlet SettingsTableViewSwitchCell *backupBookmarksCell;
 @property(weak, nonatomic) IBOutlet SettingsTableViewLinkCell *mobileInternetCell;
 @property(weak, nonatomic) IBOutlet SettingsTableViewLinkCell *powerManagementCell;
 @property(weak, nonatomic) IBOutlet SettingsTableViewLinkCell *recentTrackCell;
@@ -81,10 +80,6 @@ using namespace power_management;
   [self.autoDownloadCell configWithDelegate:self
                                       title:L(@"autodownload")
                                        isOn:[MWMSettings autoDownloadEnabled]];
-
-  [self.backupBookmarksCell configWithDelegate:self
-                                         title:L(@"settings_backup_bookmarks")
-                                          isOn:[[MWMBookmarksManager sharedManager] isCloudEnabled]];
 
   NSString *mobileInternet = nil;
   switch ([MWMNetworkPolicy sharedPolicy].permission) {
@@ -208,8 +203,6 @@ using namespace power_management;
     f.Allow3dMode(_, is3dBuildings);
   } else if (cell == self.autoDownloadCell) {
     [MWMSettings setAutoDownloadEnabled:value];
-  } else if (cell == self.backupBookmarksCell) {
-    [[MWMBookmarksManager sharedManager] setCloudEnabled:value];
   } else if (cell == self.fontScaleCell) {
     [MWMSettings setLargeFontSize:value];
   } else if (cell == self.transliterationCell) {

@@ -414,10 +414,6 @@ public enum BookmarkManager
   @Icon.PredefinedColor
   public int getLastEditedColor() { return nativeGetLastEditedColor(); }
 
-  public void setCloudEnabled(boolean enabled) { nativeSetCloudEnabled(enabled); }
-
-  public boolean isCloudEnabled() { return nativeIsCloudEnabled(); }
-
   public void loadKmzFile(@NonNull String path, boolean isTemporaryFile)
   {
     nativeLoadKmzFile(path, isTemporaryFile);
@@ -515,11 +511,6 @@ public enum BookmarkManager
   public boolean areNotificationsEnabled()
   {
     return nativeAreNotificationsEnabled();
-  }
-
-  public void uploadRoutes(int accessRules, @NonNull BookmarkCategory bookmarkCategory)
-  {
-    nativeUploadToCatalog(accessRules, bookmarkCategory.getId());
   }
 
   @NonNull
@@ -749,12 +740,6 @@ public enum BookmarkManager
   @Icon.PredefinedColor
   private native int nativeGetLastEditedColor();
 
-  private native void nativeSetCloudEnabled(boolean enabled);
-
-  private native boolean nativeIsCloudEnabled();
-
-  private native long nativeGetLastSynchronizationTimestampInMs();
-
   private static native void nativeLoadKmzFile(@NonNull String path, boolean isTemporaryFile);
 
   private static native boolean nativeIsAsyncBookmarksLoadingInProgress();
@@ -785,18 +770,9 @@ public enum BookmarkManager
 
   private static native boolean nativeIsCategoryEmpty(long catId);
 
-  private static native void nativeRequestRestoring();
-
-  private static native void nativeApplyRestoring();
-
-  private static native void nativeCancelRestoring();
-
   private static native void nativeSetNotificationsEnabled(boolean enabled);
 
   private static native boolean nativeAreNotificationsEnabled();
-
-  private static native void nativeUploadToCatalog(int accessRules,
-                                                   long catId);
 
   @NonNull
   private static native String nativeGetCatalogDeeplink(long catId);

@@ -23,8 +23,6 @@ set(
   caching_address_getter.hpp
   chart_generator.cpp
   chart_generator.hpp
-  cloud.cpp
-  cloud.hpp
   displayed_categories_modifiers.cpp
   displayed_categories_modifiers.hpp
   elevation_info.cpp
@@ -38,8 +36,6 @@ set(
   features_fetcher.hpp
   framework.cpp
   framework.hpp
-  framework_light.cpp
-  framework_light.hpp
   gps_track_collection.cpp
   gps_track_collection.hpp
   gps_track_filter.cpp
@@ -80,8 +76,6 @@ set(
   transit/transit_display.hpp
   transit/transit_reader.cpp
   transit/transit_reader.hpp
-  user.cpp
-  user.hpp
   user_mark_id_storage.cpp
   user_mark_id_storage.hpp
   user_mark_layer.cpp
