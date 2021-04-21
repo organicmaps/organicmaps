@@ -59,7 +59,7 @@
 	<string name="country_status_download_failed">Download mislykket</string>
 	<!-- Button text for the button under the country_status_download_failed message -->
 	<string name="try_again">Prøv igen</string>
-	<string name="about_menu_title">Om OMaps</string>
+	<string name="about_menu_title">Om Organic Maps</string>
 	<string name="downloaded_touch_to_delete">Downloaded (%s), tryk for at slette</string>
 	<string name="connection_settings">Forbindelsesindstillinger</string>
 	<string name="download_mb_or_kb">Download %s</string>
@@ -67,7 +67,7 @@
 	<string name="unsupported_phone">En hardware accelereret OpenGL er påkrævet. Din enhed er desværre ikke understøttet.</string>
 	<string name="download">Download</string>
 	<string name="external_storage_is_not_available">SD-kort/USB lagring med de downloadede kort er ikke tilgængeligt</string>
-	<string name="disconnect_usb_cable">Frakobl venligst USB-kabel eller indsæt et memory kort for at bruge OMaps</string>
+	<string name="disconnect_usb_cable">Frakobl venligst USB-kabel eller indsæt et memory kort for at bruge Organic Maps</string>
 	<string name="not_enough_free_space_on_sdcard">Frigør venligst plads på dit SD-kort/USB lager først for at bruge denne app</string>
 	<string name="not_enough_memory">Ikke nok hukommelse til at åbne app</string>
 	<string name="download_resources">Før du starter, så lad os downloade det generelle verdenskort til din enhed.\nIt behøver %s af data.</string>
@@ -107,7 +107,7 @@
 	<!-- Add bookmark dialog - bookmark set, Bookmarks dialog - Bookmark set cell -->
 	<string name="set">Sæt</string>
 	<!-- Text hint in Bookmarks dialog when no any bookmarks are added -->
-	<string name="bookmarks_usage_hint">Du har ingen bogmærker endnu.\nTryk på et sted på kortet for at kunne tilføje det til bogmærker. Bogmærker fra andre kilder kan også blive importeret og vist i OMaps.\nÅbn en KML/KMZ fil med gemte bogmærker/knappenåle på i Mail, Dropbox eller på et link.</string>
+	<string name="bookmarks_usage_hint">Du har ingen bogmærker endnu.\nTryk på et sted på kortet for at kunne tilføje det til bogmærker. Bogmærker fra andre kilder kan også blive importeret og vist i Organic Maps.\nÅbn en KML/KMZ fil med gemte bogmærker/knappenåle på i Mail, Dropbox eller på et link.</string>
 	<!-- Settings button in system menu -->
 	<string name="settings">Indstillinger</string>
 	<!-- Header of settings activity where user defines storage path -->
@@ -175,7 +175,7 @@
 	<!-- Button text -->
 	<string name="share_by_email">Del via email</string>
 	<!-- Email Subject when sharing bookmarks category -->
-	<string name="share_bookmarks_email_subject">OMaps bogmærker er blevet delt med dig</string>
+	<string name="share_bookmarks_email_subject">Organic Maps bogmærker er blevet delt med dig</string>
 	<!-- message title of loading file -->
 	<string name="load_kmz_title">Indlæser Bogmærker</string>
 	<!-- Kmz file successful loading -->
@@ -195,17 +195,17 @@
 	<!-- Alert message that downloading is in progress. -->
 	<string name="downloading_is_active">Download af kort over land er i gang nu.</string>
 	<!-- Message that will be shown in alert view, when we ask user to leave review on App Store -->
-	<string name="appStore_message">Vi håber du er glad for at bruge OMaps! Hvis du er, vil du så overveje at bedømme og måske skrive en anmeldelse på App Store? Det tager under et minut, men det kan virkelig hjælpe os. Tak for din hjælp!</string>
+	<string name="appStore_message">Vi håber du er glad for at bruge Organic Maps! Hvis du er, vil du så overveje at bedømme og måske skrive en anmeldelse på App Store? Det tager under et minut, men det kan virkelig hjælpe os. Tak for din hjælp!</string>
 	<!-- No, thanks -->
 	<string name="no_thanks">Nej, tak</string>
 	<!-- Share one specific bookmark using SMS, %1$@ contains ge0:// and %2$@ http://ge0.me link. @NOTE non-ascii symbols in the link will make 70 bytes sms instead of 140 -->
-	<string name="bookmark_share_sms">Hey, tjek min knappenål på OMaps ud! %1$s or %2$s Har du ikke offline kort? Download her: https://omaps.app/get</string>
+	<string name="bookmark_share_sms">Hey, tjek min knappenål på Organic Maps ud! %1$s or %2$s Har du ikke offline kort? Download her: https://organicmaps.app/get</string>
 	<!-- Share my position using SMS, %1$@ contains ge0:// and %2$@ http://ge0.me link WITHOUT NAME. @NOTE non-ascii symbols in the link will make 70 bytes sms instead of 140 -->
-	<string name="my_position_share_sms">Hey, tjek min nuværende lokation ud på OMaps! %1$s or %2$s. Har du ikke offline kort? Download her: https://omaps.app/get</string>
+	<string name="my_position_share_sms">Hey, tjek min nuværende lokation ud på Organic Maps! %1$s or %2$s. Har du ikke offline kort? Download her: https://organicmaps.app/get</string>
 	<!-- Subject for emailed bookmark -->
-	<string name="bookmark_share_email_subject">Hey, tjek min knappenål på OMaps kortet ud!</string>
+	<string name="bookmark_share_email_subject">Hey, tjek min knappenål på Organic Maps kortet ud!</string>
 	<!-- Subject for emailed position -->
-	<string name="my_position_share_email_subject">Hey, tjek min nuværende lokation ud på OMaps kortet!</string>
+	<string name="my_position_share_email_subject">Hey, tjek min nuværende lokation ud på Organic Maps kortet!</string>
 	<!-- Share my position using EMail, %1$@ is ge0:// and %2$@ is http://ge0.me link WITHOUT NAME -->
 	<string name="my_position_share_email">Hey, her er jeg nu: %1$s. Tryk på dette link %2$s eller dette %3$s for at se stedet på kortet. Tak.</string>
 	<!-- Android share by Message/SMS button text (including SMS) -->
@@ -305,19 +305,19 @@
 	<!-- text of notification -->
 	<string name="download_map_notification">Download kortet over det sted, hvor du befinder dig</string>
 	<!-- text of notification -->
-	<string name="pro_version_is_free_today">Fuld version af OMaps er gratis i dag! Download nu og fortæl dine venner om det.</string>
+	<string name="pro_version_is_free_today">Fuld version af Organic Maps er gratis i dag! Download nu og fortæl dine venner om det.</string>
 	<!-- Dialog for transferring maps from lite to pro. -->
-	<string name="move_lite_maps_to_pro">Vi overfører dine downloadede kort fra OMaps Lite til OMaps. Det kan tage et par minutter.</string>
+	<string name="move_lite_maps_to_pro">Vi overfører dine downloadede kort fra Organic Maps Lite til Organic Maps. Det kan tage et par minutter.</string>
 	<!-- Message to display when maps moved. -->
-	<string name="move_lite_maps_to_pro_ok">Dine downloadede kort er blevet succesfuldt overført til OMaps.</string>
+	<string name="move_lite_maps_to_pro_ok">Dine downloadede kort er blevet succesfuldt overført til Organic Maps.</string>
 	<!-- Message to display when maps move failed. -->
-	<string name="move_lite_maps_to_pro_failed">Det lykkedes ikke at overføre dine kort. Slet venligst OMaps Lite og download kortene igen.</string>
+	<string name="move_lite_maps_to_pro_failed">Det lykkedes ikke at overføre dine kort. Slet venligst Organic Maps Lite og download kortene igen.</string>
 	<!-- Text in menu -->
 	<string name="settings_and_more">Indstillinger &amp; Mere</string>
 	<!-- Text in menu -->
 	<string name="website">Hjemmeside</string>
 	<!-- Text in menu -->
-	<string name="maps_me_community">OMaps Samfund</string>
+	<string name="maps_me_community">Organic Maps Samfund</string>
 	<!-- Text in menu -->
 	<string name="like_on_facebook">Synes godt om på Facebook</string>
 	<!-- Text in menu -->
@@ -337,11 +337,11 @@
 	<!-- Text in menu -->
 	<string name="report_a_bug">Rapportér fejl</string>
 	<!-- Email subject -->
-	<string name="subscribe_me_subject">Tilmeld mig OMaps-nyhedsbrev</string>
+	<string name="subscribe_me_subject">Tilmeld mig Organic Maps-nyhedsbrev</string>
 	<!-- Email body -->
 	<string name="subscribe_me_body">Jeg vil være den første til at høre om de seneste nyheder opdateringer og tilbud. Jeg kan opsige abonnementet når som helst.</string>
 	<!-- About text -->
-	<string name="about_text">OMaps tilbyder de hurtigste offline-kort over alle byer og alle lande i verden. Rejs med tillid: Hvor end du befinder dig, hjælper OMaps med at lokalisere din placering på kortet, finde den nærmeste restaurant, hotel, bank, benzintank og så videre. Det er ikke nødvendigt at have forbindelse til internettet.\n\nVi arbejder altid på nye funktioner, og vi vil meget gerne høre fra dig, hvis du har forslag til, hvordan vi kan forbedre OMaps. Hvis du oplever problemer med appen, er du meget velkommen til at kontakte os på support\@omaps.app. Vi besvarer alle henvendelser!\n\nSynes du om OMaps, og har du lyst til at støtte os? Her er nogle simple og helt gratis metoder:\n\n-post en anmeldelse i din App Store\n-like vores facebook-side http://www.facebook.com/mapswithme\n-neller fortæl din mor, venner og kollegaer om OMaps :)\n\nTak fordi du støtter os. Vi sætter stor pris på din støtte!\n\nPS: Vi får vores kortdata fra OpenStreetMap, som er et kortprojekt, der minder om Wikipedia, og som gør brugere i stand til at oprette og rette kort. Hvis du oplever, at noget mangler eller er forkert på kortet, kan du rette kortene direkte på https://www.openstreetmap.org, og dine ændringer vil figurere på OMaps-appen i forbindelse med frigivelsen af den næste version.</string>
+	<string name="about_text">Organic Maps tilbyder de hurtigste offline-kort over alle byer og alle lande i verden. Rejs med tillid: Hvor end du befinder dig, hjælper Organic Maps med at lokalisere din placering på kortet, finde den nærmeste restaurant, hotel, bank, benzintank og så videre. Det er ikke nødvendigt at have forbindelse til internettet.\n\nVi arbejder altid på nye funktioner, og vi vil meget gerne høre fra dig, hvis du har forslag til, hvordan vi kan forbedre Organic Maps. Hvis du oplever problemer med appen, er du meget velkommen til at kontakte os på support\@organicmaps.app. Vi besvarer alle henvendelser!\n\nSynes du om Organic Maps, og har du lyst til at støtte os? Her er nogle simple og helt gratis metoder:\n\n-post en anmeldelse i din App Store\n-like vores facebook-side http://www.facebook.com/OMapsApp\n-neller fortæl din mor, venner og kollegaer om Organic Maps :)\n\nTak fordi du støtter os. Vi sætter stor pris på din støtte!\n\nPS: Vi får vores kortdata fra OpenStreetMap, som er et kortprojekt, der minder om Wikipedia, og som gør brugere i stand til at oprette og rette kort. Hvis du oplever, at noget mangler eller er forkert på kortet, kan du rette kortene direkte på https://www.openstreetmap.org, og dine ændringer vil figurere på Organic Maps-appen i forbindelse med frigivelsen af den næste version.</string>
 	<!-- Alert text -->
 	<string name="email_error_body">Emailklienten er ikke blevet sat op. Venligst konfigurér den eller brug en anden måde til at kontakte os på %s</string>
 	<!-- Alert title -->
@@ -353,7 +353,7 @@
 	<!-- Update map suggestion -->
 	<string name="routing_map_outdated">Venligst opdatér kortet for at oprette en rute.</string>
 	<!-- Update maps suggestion -->
-	<string name="routing_update_maps">Den nye version af OMaps gør det muligt at oprette ruter fra din nuværende position til et destinationspunkt. Venligst opdatér kortene for at bruge denne funktion.</string>
+	<string name="routing_update_maps">Den nye version af Organic Maps gør det muligt at oprette ruter fra din nuværende position til et destinationspunkt. Venligst opdatér kortene for at bruge denne funktion.</string>
 	<!-- Update all button text -->
 	<string name="downloader_update_all_button">Opdatér alle</string>
 	<!-- Cancel all button text -->
@@ -370,7 +370,7 @@
 	<string name="downloader_downloading">Downloader:</string>
 	<string name="downloader_search_results">Fundet</string>
 	<!-- Disclaimer message -->
-	<string name="routing_disclaimer">Ved oprettelse af ruter i OMaps appen, venligst tænk over følgende:\n\n- Anbefalede ruter kan kun betragtes som anbefalinger.\n- Vejtilstande, trafikregler og skilte har højere prioritet end navigationsråd.\n Kortet kan være ukorrekt eller forældet, og ruter kan muligvis ikke være oprettet på den bedste måde.\n\nVær sikker på vejene og pas på dig selv!</string>
+	<string name="routing_disclaimer">Ved oprettelse af ruter i Organic Maps appen, venligst tænk over følgende:\n\n- Anbefalede ruter kan kun betragtes som anbefalinger.\n- Vejtilstande, trafikregler og skilte har højere prioritet end navigationsråd.\n Kortet kan være ukorrekt eller forældet, og ruter kan muligvis ikke være oprettet på den bedste måde.\n\nVær sikker på vejene og pas på dig selv!</string>
 	<!-- Outdated maps category -->
 	<string name="downloader_outdated_maps">Uddateret</string>
 	<!-- Up to date maps category -->
@@ -394,7 +394,7 @@
 	<!-- RouteNotFound -->
 	<string name="routing_failed_route_not_found">Der blev ikke fundet en rute mellem det valgte begyndelsespunkt og destinationen. Venligst vælg et andet start- eller slutpunkt.</string>
 	<!-- InternalError -->
-	<string name="routing_failed_internal_error">Intern fejl opstod. Venligt prøv at slette og downloade kortet igen. Hvis problemet vare ved, venligst kontakt os på support\@omaps.app.</string>
+	<string name="routing_failed_internal_error">Intern fejl opstod. Venligt prøv at slette og downloade kortet igen. Hvis problemet vare ved, venligst kontakt os på support\@organicmaps.app.</string>
 	<!-- Context menu item for downloader. -->
 	<string name="downloader_download_map_and_routing">Hent kort + ruteangivelse</string>
 	<!-- Context menu item for downloader. -->
@@ -425,9 +425,9 @@
 	<!-- Text for rating dialog -->
 	<string name="rating_just_rated">Jeg har netop bedømt jeres app</string>
 	<!-- Text for rating dialog -->
-	<string name="rating_user_since">Jeg er OMaps bruger siden %s</string>
+	<string name="rating_user_since">Jeg er Organic Maps bruger siden %s</string>
 	<!-- Text for rating dialog -->
-	<string name="rating_do_like_maps">Kan du lide OMaps?</string>
+	<string name="rating_do_like_maps">Kan du lide Organic Maps?</string>
 	<!-- Text for rating dialog -->
 	<string name="rating_tap_star">Tryk på en stjerne for at bedømme vores app.</string>
 	<!-- Text for rating dialog -->
@@ -443,7 +443,7 @@
 	<!-- Text for routing error dialog -->
 	<string name="routing_download_map">Få kort</string>
 	<!-- Text for routing error dialog -->
-	<string name="routing_download_map_and_routing">Download opdaterede kort og routing data for at få alle OMaps funktioner.</string>
+	<string name="routing_download_map_and_routing">Download opdaterede kort og routing data for at få alle Organic Maps funktioner.</string>
 	<!-- Text for routing error dialog -->
 	<string name="routing_get_routing_data">Få routing data</string>
 	<!-- Text for routing error dialog -->
@@ -575,7 +575,7 @@
 	<!-- Text for routing::RouterResultCode::FileTooOld dialog. -->
 	<string name="dialog_routing_download_and_update_maps">For at oprette en rute skal du hente og opdatere alle kort langs ruten.</string>
 	<string name="rate_alert_title">Kan du lide appen?</string>
-	<string name="rate_alert_default_message">Tak for at du bruger OMaps. Venligst bedøm appen. Din feedback hjælper os med at blive bedre.</string>
+	<string name="rate_alert_default_message">Tak for at du bruger Organic Maps. Venligst bedøm appen. Din feedback hjælper os med at blive bedre.</string>
 	<string name="rate_alert_five_star_message">Hurra! Vi elsker også dig!</string>
 	<string name="rate_alert_four_star_message">Mange tak, vi vil gøre vores bedste!</string>
 	<string name="rate_alert_less_than_four_star_message">Har du en idé om, hvordan vi kan gøre den bedre?</string>
@@ -630,7 +630,7 @@
 	<string name="editor_report_problem_no_place_title">Stedet findes ikke</string>
 	<string name="editor_report_problem_under_construction_title">Lukket for vedligeholdelse</string>
 	<string name="editor_report_problem_duplicate_place_title">Duplikeret sted</string>
-	<string name="first_launch_congrats_title">OMaps er klart til brug</string>
+	<string name="first_launch_congrats_title">Organic Maps er klart til brug</string>
 	<string name="first_launch_congrats_text">Søg og navigér i kort over alle verdens lande gratis.</string>
 	<string name="migrate_title">Vigtigt!</string>
 	<!-- Android uses image instead of text. -->
@@ -728,14 +728,14 @@
 	<string name="placepage_report_problem_button">Anmeld et problem</string>
 	<string name="placepage_add_business_button">Tilføj organisationen</string>
 	<string name="whatsnew_editor_message_1">Tilføj nye steder til kortet og redigér eksisterende direkte fra app\'en.</string>
-	<string name="whatsnew_editor_message_2">* OMaps bruger fællesskabsdata fra OpenStreetMap.</string>
+	<string name="whatsnew_editor_message_2">* Organic Maps bruger fællesskabsdata fra OpenStreetMap.</string>
 	<string name="dialog_incorrect_feature_position">Skift lokation</string>
 	<string name="message_invalid_feature_position">Et objekt kan ikke placeres her</string>
 	<string name="login_to_make_edits_visible">Log på så andre brugere kan se ændringerne som du har foretaget.</string>
 	<string name="no_migration_during_navigation">Opdatering er ikke tilladt under navigering.</string>
 	<!-- Error dialog no space -->
 	<string name="migration_no_space_message">For at opdatere app\'en skal du bruge mere plads. Slet unødvendig data.</string>
-	<string name="editor_sharing_title">Jeg forbedrede OMaps kortene</string>
+	<string name="editor_sharing_title">Jeg forbedrede Organic Maps kortene</string>
 	<string name="editor_comment_will_be_sent">Vi vil sende dine kommentarer til kartograferne.</string>
 	<string name="editor_unsupported_category_message">Du har tilføjet en placering i en kategori som vi ikke understøtter på nuværende tidspunkt. Den vil vises på kortet på et senere tidspunkt.</string>
 	<!-- Downloaded 10 **of** 20 <- it is that "of" -->
@@ -752,7 +752,7 @@
 	<string name="core_placepage_unknown_place">Ukendt sted</string>
 	<string name="editor_other_info">Send en besked til OSM-redaktører</string>
 	<string name="editor_detailed_description_hint">Detaljerede bemærkninger</string>
-	<string name="editor_detailed_description">Dine foreslåede ændringer vil blive sendt til OpenStreetMap fællesskabet. Beskrive detaljer, som ikke kan redigeres i OMaps.</string>
+	<string name="editor_detailed_description">Dine foreslåede ændringer vil blive sendt til OpenStreetMap fællesskabet. Beskrive detaljer, som ikke kan redigeres i Organic Maps.</string>
 	<string name="editor_more_about_osm">Mere om OpenStreetMap</string>
 	<string name="editor_operator">Bruger</string>
 	<string name="editor_tag_description">Angiv firmaet, organisationen eller personen som er ansvarlig for faciliteterne.</string>
@@ -792,8 +792,6 @@
 	<string name="placepage_entrance_type">Indgang</string>
 	<string name="placepage_flat">app.</string>
 	<string name="placepage_open_24_7">24 / 7</string>
-	<string name="place_page_booking_rating">Bedømmelse: %s</string>
-	<string name="place_page_starting_from">fra %s</string>
 	<string name="meter">m</string>
 	<string name="kilometer">km</string>
 	<string name="kilometers_per_hour">km/t</string>
@@ -828,12 +826,8 @@
 	<string name="error_enter_correct">Indtast en gyldig værdi</string>
 	<string name="editor_profile_changes_for_next_place">Ændringer for næste sted: %d</string>
 	<string name="editor_profile_rating_place">Rangorden</string>
-	<string name="booking_dialog_not_connect_header">For at booke hotellet, bedes du aktivere din internetforbindelse</string>
-	<string name="button_try">Prøv det</string>
 	<string name="refresh">Opdater</string>
 	<string name="last_update">Sidste opdatering: %s</string>
-	<string name="booking_checkin">tjek ind: %s</string>
-	<string name="booking_checkout">tjek ud: %s</string>
 	<string name="placepage_add_place_button">Tilføj et sted på kortet</string>
 	<!-- Displayed when saving some edits to the map to warn against publishing personal data -->
 	<string name="editor_share_to_all_dialog_title">Ønsker du at sende det til alle brugere?</string>
@@ -852,21 +846,19 @@
 	<string name="place_page_button_read_descriprion">Læs</string>
 	<!-- iOS dialog for the case when recent track recording is on and the app comes back from background -->
 	<string name="recent_track_background_dialog_title">Vil du deaktivere gemningen af din seneste rejserute?</string>
-	<!-- If a hotel is being shared -->
-	<string name="sharing_booking">eller book på booking.com</string>
 	<string name="off_recent_track_background_button">Deaktiver</string>
 	<!-- For sharing via SMS and so on -->
 	<string name="sharing_call_action_look">Tjek</string>
 	<string name="continue_recent_track_background_button">Fortsæt</string>
-	<string name="recent_track_background_dialog_message">OMaps anvender din geoposition i baggrunden til at gemme din seneste rejserute.</string>
+	<string name="recent_track_background_dialog_message">Organic Maps anvender din geoposition i baggrunden til at gemme din seneste rejserute.</string>
 	<!-- Rate on Google Play (Android only) -->
 	<string name="rate_gp">Bedøm på Google Play</string>
 	<!-- Share with friends: menu item title -->
 	<string name="tell_friends">Sig det videre til en ven</string>
 	<!-- Share with friends: sharing text -->
-	<string name="tell_friends_text">Hej! Installer OMaps!</string>
+	<string name="tell_friends_text">Hej! Installer Organic Maps!</string>
 	<!-- About short text (below logo) -->
-	<string name="about_description">OMaps er en essentiel offline-app for rejsende. OMaps er baseret på data fra OpenStreetMap, og gør det muligt at redigere disse data.</string>
+	<string name="about_description">Organic Maps er en essentiel offline-app for rejsende. Organic Maps er baseret på data fra OpenStreetMap, og gør det muligt at redigere disse data.</string>
 	<!-- Text in menu -->
 	<string name="blog">Blog</string>
 	<string name="general_settings">Generelle indstillinger</string>
@@ -877,50 +869,13 @@
 	<string name="accept">Accepter</string>
 	<!-- For the first routing -->
 	<string name="decline">Afvis</string>
-	<string name="whats_new_route_profile_title">Spring over hvor gærdet er lavest</string>
-	<string name="whats_new_route_profile_message">Vi viser nu højdeprofilen for fodgænger- og cykelruter.</string>
-	<string name="whats_new_booking_improve_title">Spar penge når du bestiller hotelværelser</string>
-	<string name="whats_new_booking_improve_message">Søgeresultater for hoteller viser nu også priskategorien.\nVi har desuden tilføjet mere end 110.000 hoteller.</string>
-	<!-- For place page hotel facilities block -->
-	<string name="placepage_hotel_facilities">Faciliteter</string>
-	<!-- For place page hotel nearby block -->
-	<string name="placepage_hotel_nearby">I nærheden</string>
-	<!-- For ordering a taxi (as opposed to hotels or other things) -->
-	<string name="taxi_order">Bestil en taxa</string>
-	<!-- How long it is until the taxi arrives -->
-	<string name="taxi_wait">Forventes om %s</string>
-	<!-- When there are no available taxis nearby -->
-	<string name="taxi_not_found">Kunne ikke finde en taxi i nærheden</string>
-	<!-- When there are no available taxi providers nearby -->
-	<string name="taxi_no_providers">Taxi ikke tilgængelig her</string>
 	<string name="install_app">Installer</string>
-	<!-- `Filter` is a noun here -->
-	<string name="booking_filters">Filter</string>
-	<string name="booking_filters_reset">Nulstil</string>
-	<!-- Beginning from a particular value and -->
-	<string name="booking_filters_rating">Vurdering fra</string>
-	<string name="booking_filters_rating_any">Hvilken som helst</string>
-	<string name="booking_filters_ragting_good">God</string>
-	<string name="booking_filters_rating_very_good">Meget god</string>
-	<string name="booking_filters_rating_excellent">Fremragende</string>
-	<string name="booking_filters_price_category">Prisklasse</string>
 	<string name="search_no_results_title">Ingen resultater fundet</string>
 	<string name="search_no_results_message">Prøv et mere generelt søgeudtryk, zoom ud eller nulstil filteret.</string>
 	<string name="search_no_results_expand_area_button">Zoom ud</string>
 	<string name="search_no_results_reset_button">Nulstil Filter</string>
 	<!-- noun -->
 	<string name="search_in_table">Liste</string>
-	<string name="booking_show_more">Vis mere</string>
-	<string name="booking_reviews">Anmeldelser</string>
-	<string name="booking_hotel">Hotel</string>
-	<!-- hotel room -->
-	<string name="booking_hotel_room">Værelse</string>
-	<!-- A neologism for a chat based on geographical proximity -->
-	<string name="chat">Geochat</string>
-	<!-- Verb. Text on a button that opens the chat. -->
-	<string name="chat_open">Åbn</string>
-	<string name="dialog_taxi_offline">Det er ikke muligt at bestille en taxi i offlinetilstand.</string>
-	<string name="dialog_taxi_error">Bestilling af en taxi er ikke muligt lige nu.</string>
 	<string name="mobile_data_dialog">Skal mobilt internet bruges til at vise detaljerede oplysninger?</string>
 	<string name="mobile_data_option_always">Brug altid</string>
 	<string name="mobile_data_option_today">Kun i dag</string>
@@ -932,41 +887,16 @@
 	<string name="traffic_update_maps_text">Kortet opdateres for kunne vise trafikdata.</string>
 	<string name="traffic_outdated">Trafikdata er forældede.</string>
 	<string name="big_font">Forøg skriftstørrelsen på kortet</string>
-	<string name="traffic_update_app">Opdater OMaps</string>
+	<string name="traffic_update_app">Opdater Organic Maps</string>
 	<!-- "traffic" as in road congestion -->
 	<string name="traffic_update_app_message">Appen skal opdateres for at kunne vise trafikdata.</string>
 	<!-- "traffic" as in "road congestion" -->
 	<string name="traffic_data_unavailable">Trafikdata er ikke tilgængelige</string>
-	<!-- Seven points and higher -->
-	<string name="booking_filter_rating_num_good">7,0+</string>
-	<!-- Eight points and higher -->
-	<string name="booking_filter_rating_num_very_good">8,0+</string>
-	<!-- Nine points and higher -->
-	<string name="booking_filter_rating_num_excellent">9,0+</string>
 	<!-- Simplified colour scheme for traffic information, fewer colours are used to display traffic jams on the map. The string should be kept as short as possible -->
 	<string name="pref_traffic_simplified_colors_title">Forenklede trafikfarver</string>
 	<string name="enable_logging">Aktiver logføring</string>
-	<string name="more_on_bookingcom">Mere på Booking.com</string>
-	<string name="details_on_bookingcom">Detaljer på Booking.com</string>
-	<string name="reviews_on_bookingcom">Flere anmeldelser på Booking.com</string>
 	<string name="offline_place_page_more_information">Opret forbindelse til internettet for at få flere oplysninger om stedet.</string>
 	<string name="failed_load_information">Kunne ikke indlæse oplysningerne.</string>
-	<string name="whats_new_auto_update_updating_maps">Opdaterer kort</string>
-	<string name="whats_new_auto_update_title">Opdater dine downloadede kort</string>
-	<string name="whats_new_auto_update_message">Opdatering af kort sikrer, at oplysningerne om objekter er aktuel</string>
-	<string name="whats_new_auto_update_button_size">Opdater (%s)</string>
-	<string name="whats_new_auto_update_button_later">Opdater manuelt senere</string>
-	<string name="search_hotel_filter_apartment">Lejligheder</string>
-	<string name="search_hotel_filter_camp_site">Camping</string>
-	<string name="search_hotel_filter_chalet">Hytte</string>
-	<string name="search_hotel_filter_guest_house">Gæstehus</string>
-	<string name="search_hotel_filter_hostel">Hostel</string>
-	<string name="search_hotel_filter_resort">Resort</string>
-	<string name="search_hotel_filter_hotel">Hotel</string>
-	<string name="search_hotel_filter_motel">Motel</string>
-	<string name="create_campaign_button">Denne virksomhed tilhører mig</string>
-	<string name="view_campaign_button">Virksomhed er annonceret</string>
-	<string name="search_hotel_filters_type">Type</string>
 	<!-- Settings: "Send general feedback" button -->
 	<string name="feedback_general">Generel feedback</string>
 	<string name="on">Til</string>
@@ -997,36 +927,7 @@
 	<string name="choose_start_point">Vælg et udgangspunkt</string>
 	<string name="choose_destination">Vælg en destination</string>
 	<string name="preloader_viator_button">Flere oplysninger</string>
-	<string name="whats_new_title_route">Cykelruter og vandreruter blev forbedret</string>
-	<string name="whats_new_message_route">Vi rettede fejl, gjorte ruteoprettelse flere gange hurtigere og tilføjede mellemliggende stop</string>
-	<string name="whats_new_message_title_update">Vi gjorde kortopdateringer 10 gange mindre</string>
-	<string name="whats_new_message_maps_update">For at opdatere et kort skal du nu blot downloade de manglende data</string>
 	<string name="start_from_my_position">Start fra</string>
-	<string name="rating">Vurdering</string>
-	<string name="placepage_no_reviews">Ingen anmeldelser</string>
-	<string name="placepage_reviewed">Du har allerede anmeldt dette sted</string>
-	<string name="placepage_summary_rating">Sammenfattende vurdering</string>
-	<string name="placepage_rate_comment">Tryk for at vurdere og anmelde dette sted.</string>
-	<string name="placepage_rate_horrible">Forfærdeligt</string>
-	<string name="placepage_rate_bad">Dårligt</string>
-	<string name="placepage_rate_normal">Normalt</string>
-	<string name="placepage_rate_good">Godt</string>
-	<string name="placepage_rate_excellent">Fremragende</string>
-	<string name="placepage_reviews_most_recent">Seneste</string>
-	<string name="placepage_reviews_most_useful">Mest nyttige</string>
-	<string name="placepage_reviews_highest_rated">Højest vurderede</string>
-	<string name="placepage_reviews_lowest_rated">Lavest vurderede</string>
-	<string name="placepage_reviews_offline_comment">Kun de mest nyttige anmeldelser vises i offline-tilstand</string>
-	<string name="placepage_reviews_your_comment">Din anmeldelse</string>
-	<string name="placepage_reviews_unhelpful">Ikke nyttig</string>
-	<string name="placepage_reviews_inappropriate">Upassende</string>
-	<string name="placepage_reviews_spam">Spam</string>
-	<string name="placepage_reviews_hint">Hvad er godt eller dårligt her?</string>
-	<string name="placepage_reviews_edit_your_review">Rediger din anmeldelse</string>
-	<string name="placepage_reviews_new_review">Ny anmeldelse</string>
-	<string name="placepage_translate_button">Oversæt</string>
-	<string name="placepage_show_original_button">Vis oprindelig</string>
-	<string name="placepage_more_reviews_booking_button">Flere anmeldelser på Booking.com</string>
 	<string name="profile_authorization_title">Log ind med</string>
 	<string name="profile_authorization_message">Nemt login på et par sekunder uden brugernavn og adgangskode</string>
 	<string name="profile_authorization_error">Ups, der skete en fejl. Prøv at logge på igen.</string>
@@ -1038,24 +939,9 @@
 	<string name="expertise">Ekspertise</string>
 	<string name="equipment">Udstyr</string>
 	<string name="quality">Kvalitet</string>
-	<string name="whats_new_ugc_title_updated_v840">Vurderinger og anmeldelser</string>
-	<string name="whats_new_ugc_message">Du kan nu afgive vurderinger og anmeldelser, selv offline! Glem ikke at opdatere dit kort, så du kan se ændringerne.</string>
 	<string name="dialog_error_storage_title">Problem med lageradgang</string>
-	<string name="dialog_error_storage_message">Eksternt lager er ikke tilgængeligt, formentlig er SD-kortet blevet fjernet eller beskadiget, eller filsystemet er skrivebeskyttet. Kontroller det og kontakt os på support\@omaps.app</string>
+	<string name="dialog_error_storage_message">Eksternt lager er ikke tilgængeligt, formentlig er SD-kortet blevet fjernet eller beskadiget, eller filsystemet er skrivebeskyttet. Kontroller det og kontakt os på support\@organicmaps.app</string>
 	<string name="setting_emulate_bad_storage">Emulere beskadiget lager</string>
-	<string name="discovery_button_title">Find noget i nærheden</string>
-	<string name="discovery_button_subtitle_things_to_do">Aktiviteter</string>
-	<string name="discovery_button_subtitle_attractions">Seværdigheder</string>
-	<string name="discovery_button_subtitle_eat_and_drink">Spise og drikke</string>
-	<string name="discovery_button_subtitle_local_guides">Lokale guider</string>
-	<string name="discovery_button_viator_error_title">Fejl ved indlæsning af data</string>
-	<string name="discovery_button_other_error_message">Fejl ved indlæsning af data</string>
-	<string name="discovery_button_other_loading_message">Data indlæses</string>
-	<string name="discovery_button_404_error_title">Ikke fundet</string>
-	<string name="discovery_button_404_error_message">Ups, vi fandt ikke noget interessant i nærheden.</string>
-	<string name="booking_filters_check_in">Tjek ind</string>
-	<string name="booking_filters_check_out">Tjek ud</string>
-	<string name="booking_filters_offline">Ikke tilgængelig offline.</string>
 	<string name="directions_finish">Destination</string>
 	<string name="directions_on_foot">Gå %s</string>
 	<string name="core_entrance">Indgang</string>
@@ -1063,12 +949,6 @@
 	<string name="cleanliness">Renlighed</string>
 	<string name="crowdedness">Trængsel</string>
 	<string name="error_enter_correct_name">Angiv et korrekt navn</string>
-	<string name="hotel_available">Tiilgængelig</string>
-	<string name="whats_new_transit_title">Undergrundsbaner tilgængelige</string>
-	<string name="whats_new_transit_message">Opret ruter med undergrundsbaner! Opdater kortene for at se ændringer.</string>
-	<string name="whats_new_discovery_title">Opdagelsesknap</string>
-	<string name="whats_new_discovery_message">Opdag nye ting med et enkelt klik!</string>
-	<string name="price_per_hour">%s/time</string>
 	<string name="bookmarks_backup">Aktiver sikkerhedskopi</string>
 	<string name="authorization_button_sign_in">Log ind</string>
 	<string name="bookmarks_message_authorized_user">Dine bogmærker sikkerhedskopieres automatisk til en sikker placering i skyen. Vil du aktivere sikkerhedskopiering?</string>
@@ -1087,15 +967,10 @@
 	<string name="downloader_percent">%1$s (%2$s af %3$s)</string>
 	<string name="downloader_process">Downloader %s...</string>
 	<string name="downloader_applying">Anvender %s...</string>
-	<string name="whats_new_title_hotel_filter">Nye hotelfiltre til rådighed!</string>
-	<string name="whats_new_message_hotel_filter">Book hoteller på dine datoer! Brug filtre for check-in og check-out</string>
-	<string name="whats_new_title_ugc_travel">Del dine erfaringer med andre rejsende!</string>
-	<string name="whats_new_message_ugc_travel">Vurder og anmeld de steder, du har besøgt!</string>
 	<string name="dialog_message_transit_not_found_connection">Planlæg en rute inden for et transitnetværk</string>
 	<string name="bookmarks_error_message_share_general">Ikke i stand til at dele på grund af en programfejl</string>
 	<string name="bookmarks_error_title_share_empty">Delingsfejl</string>
 	<string name="bookmarks_error_message_share_empty">Kan ikke dele en tom liste</string>
-	<string name="discovery_button_subtitle_book_hotels">Reserver hoteller</string>
 	<string name="bookmarks_error_title_empty_list_name">Navnet kunne ikke være tomt</string>
 	<string name="bookmarks_error_message_empty_list_name">Indtast venligst listen navn</string>
 	<string name="bookmarks_new_list_hint">Ny liste</string>
@@ -1120,8 +995,6 @@
 	<string name="converting">Konvertering...</string>
 	<string name="wn_reinvented_bookmarks_title">Vi genopfandt bogmærker!</string>
 	<string name="wn_reinvented_bookmarks_message">Du kan sikkerhedskopiere bogmærker, oprette lister... Det er fantastisk...</string>
-	<string name="wn_way_of_booking_title">Vi reimagined måde at reservere!</string>
-	<string name="wn_way_of_booking_message">Find blot et hotel på kortet og book det, eller vælg det samme.</string>
 	<string name="bookmarks_restore">Gendan bogmærker</string>
 	<string name="bookmarks_restore_process">Gendannelse...</string>
 	<string name="bookmarks_restore_title">Gendan denne version?</string>
@@ -1133,19 +1006,12 @@
 	<string name="error_server_message">Der opstod en fejl på serveren, prøv igen senere</string>
 	<string name="error_system_message">Der opstod en ukendt fejl</string>
 	<string name="restore">Gendan</string>
-	<string name="sign_message_gdpr">For at fortsætte skal du acceptere vores Vilkår for brug og Privacy Policy. Læs dem grundigt.</string>
-	<string name="sign_agree_pp_gdpr">Jeg accepterer &lt;a href="%s">Politik til beskyttelse af personlige oplysninger&lt;/a></string>
-	<string name="sign_agree_tof_gdpr">Jeg accepterer &lt;a href="%s">Vilkår for brug&lt;/a></string>
-	<string name="sign_agree_news_gdpr">Jeg accepterer at modtage de seneste nyheder om OMaps produkter</string>
-	<string name="whats_new_localbiz_title">Mindre virksomheder fortjener opmærksomhed</string>
-	<string name="whats_new_localbiz_message">Det være sig de lokale caféer, hyggelige hoteller og de butikker, som gør vores rejser uforglemmelige. Vi kan optimere din side på OMaps, så den skiller sig ud fra mængden.</string>
-	<string name="whats_new_order_button">Send en forespørgsel</string>
 	<string name="bookmarks_page_downloaded">Downloadet</string>
 	<string name="bookmarks_page_my">Mine</string>
 	<string name="routes_and_bookmarks">Ruter og bogmærker</string>
 	<string name="bookmarks_webview_success_toast">Bogmærker er downloadet</string>
 	<string name="cached_bookmarks_placeholder_title">Download nye steder</string>
-	<string name="cached_bookmarks_placeholder_subtitle">Tryk på knappen for at downloade tusindvis af interessanter steder og ruter oprettet af brugerne på OMaps. Du skal bruge en internetforbindelse.</string>
+	<string name="cached_bookmarks_placeholder_subtitle">Tryk på knappen for at downloade tusindvis af interessanter steder og ruter oprettet af brugerne på Organic Maps. Du skal bruge en internetforbindelse.</string>
 	<string name="downloader_download_routers">Download bogmærker</string>
 	<string name="bookmarks_groups_cached">Downloadede lister</string>
 	<string name="author_name_by_prefix">af %s</string>
@@ -1163,7 +1029,7 @@
 	</plurals>
 	<string name="subtittle_opt_out">Tracking-indstillinger</string>
 	<string name="crash_reports">Nedbrudsrapport</string>
-	<string name="crash_reports_description">Vi kan anvende dine data til at forbedre brugeroplevelsen på OMaps. Ændringerne træder i kraft, når du har genstartet appen.</string>
+	<string name="crash_reports_description">Vi kan anvende dine data til at forbedre brugeroplevelsen på Organic Maps. Ændringerne træder i kraft, når du har genstartet appen.</string>
 	<string name="opt_out_help_ios_1">Din mobilenhed kan indeholde en »Begræns reklamesporing« eller »Afmeld Tilpasset annoncering« indstiling.</string>
 	<string name="opt_out_help_ios_2">iOS 9 eller højere</string>
 	<string name="opt_out_help_ios_3">Gå til Indstillinger → Generelt → Begræsninger → Reklamer → Aktiver »Begræns reklamesporing« funktionen</string>
@@ -1182,101 +1048,31 @@
 	<string name="category_desc_more">…mere</string>
 	<string name="title_error_downloading_bookmarks">Der er opstået en fejl</string>
 	<string name="subtitle_error_downloading_bookmarks">Bogmærker er ikke blevet downloadet</string>
-	<string name="whats_new_bookmarks_catalog_title">OMaps har nu et rutekatalog</string>
-	<string name="whats_new_bookmarks_catalog_message">Hundreder af detaljerede ruter over hele verden: hvor man kan tage hen, hvad man kan se, hvad man kan spise.</string>
-	<string name="whats_new_popularity_label_title">Populære steder i nærheden</string>
-	<string name="whats_new_popularity_label_message">Hvad man kan lave-sektionen hjælper dig til at finde de mest populære steder i byen.</string>
-	<string name="whats_new_hot_offers_title">Attraktive hoteltilbud</string>
-	<string name="whats_new_hot_offers_message">Du kan søge efter dem ved at bruge hotel-kategorien under søgefunktionen. Tilbuddene er markedet med et procent-tegn på kortet og i søgeresultaterne.</string>
 	<string name="error_already_downloaded">Denne liste er allerede blevet downloadet</string>
-	<string name="guides">Vejledninger</string>
-	<string name="guide_downloaded_title">Vejledningen er blevet downloadet</string>
-	<!-- as few symbols as possible -->
-	<string name="download_guides">Søgeguide</string>
-	<string name="guides_groups_cached">Downloadede vejledninger</string>
-	<string name="subtitle_error_downloading_guide">Vejledningen blev ikke downloadet</string>
-	<string name="error_already_downloaded_guide">Denne vejledning er allerede blevet downloadet</string>
-	<string name="guide_downloaded_subtitle">Tryk på \'Se på kort\' for at udforske vejledningen</string>
-	<string name="bookmarks_guides">Bogmærker og vejledninger</string>
-	<string name="paybtn_title">Betal %s/år</string>
-	<string name="paybtn_subtitle">Spar %s/år</string>
-	<string name="options_dropdown_title">Flere valgmuligheder</string>
-	<string name="why_support">Hvorfor støtte OMaps?</string>
-	<string name="options_dropdown_item1">%1$s/måned (spar %2$s/år)</string>
-	<string name="options_dropdown_item2">%s/uge (ingen rabat)</string>
-	<string name="why_support_item1">Vi fjerner alle reklamer for dig</string>
-	<string name="why_support_item2">Du hjælper os med at forbedre OMaps</string>
+	<string name="why_support">Hvorfor støtte Organic Maps?</string>
+	<string name="why_support_item2">Du hjælper os med at forbedre Organic Maps</string>
 	<string name="why_support_item3">Du hjælper os med at forbedre de åbne kort på OpenStreetMap.org</string>
-	<string name="purchase_processing">Dit køb er under behandling…</string>
-	<string name="tips_bookmarks_catalog_title">Offline-vejvisere til enhver rejse</string>
-	<string name="tips_bookmarks_catalog_message">Download og planlæg turistruten forbi de interessante steder i forskellige byer over hele verden.</string>
-	<string name="tips_discover_button_title">Vil du finde populære steder i nærheden?</string>
-	<string name="tips_discover_button_message">”Find noget i nærheden”-sektionen indeholder de bedste restauranter, hoteller og seværdigheder.</string>
-	<string name="tips_book_hotel_title">Book de hyggeligste hoteller til dine rejser</string>
-	<string name="tips_book_hotel_message">Brug søgefunktionen og filtrene til at finde de bedste hoteller til dig. Brug ”Book”-knappen på sted-siden for at booke et hotel med det samme.</string>
-	<string name="tips_map_layers_title">Ved du ikke, hvilken station du skal skifte på?</string>
-	<string name="tips_map_layers_message">Slå undergrundsbane-laget til for at vise undergrundsbane-kortet, så kan du altid finde vej i en ny by.</string>
 	<string name="channels_map_update">Kortopdateringer</string>
-	<string name="channels_reviews">Uafsendte anmeldelser</string>
-	<string name="purchase_loading">Købsoplysninger hentes…</string>
-	<string name="purchase_error_subtitle">En fejl opstod under behandlingen af dit køb</string>
-	<string name="awaiting_approval">Afventer forældregodkendelse</string>
-	<string name="whats_new_leave_review">Skriv en anmeldelse! Del din mening om de steder, du har besøgt på din ferie.</string>
 	<string name="server_unavailable_title">Server er utilgængelig</string>
-	<string name="server_unavailable_message">Købet vil blive gennemført senere. Hvis fejlen bliver ved med at opstå, så kontakt venligst support\@omaps.app.</string>
-	<string name="offline_fiters_check_in">Tilslutter til internettet for at filtrere hoteller efter datoer.</string>
-	<string name="restore_subscription">Genopret abonnementet</string>
-	<string name="restore_success_alert">Abonnementet er blevet genoprettet</string>
-	<string name="restore_error_alert">Der er sket en fejl under genoprettelsen af abonnementet</string>
-	<string name="restore_no_subscription_alert">Der er ingen aktive abonnementer</string>
-	<string name="subscriptions_title">Abonnementer</string>
-	<string name="manage_subscription">Administrer abonnementet</string>
 	<string name="sharing_options">Deling</string>
 	<string name="export_file">Eksporter fil</string>
 	<string name="list_settings">Listeindstillinger</string>
 	<string name="delete_list">Slet liste</string>
 	<string name="hide_from_map">Skjul på kort</string>
-	<string name="ugc_route_tags_screen_label">Vælg tags</string>
-	<string name="ugc_route_tags_progress_msg">Indlæser tags…</string>
 	<string name="public_access">Offentlig adgang</string>
 	<string name="limited_access">Begrænset adgang</string>
-	<string name="upload_and_publish_desc">Denne guide vil blive uploadet til det offentlige OMaps katalog, hvor den vil være tilgængelig for andre brugere</string>
-	<string name="upload_and_publish">Upload og offentliggør</string>
-	<string name="upload_and_get_direct_link">Upload og få et direkte link</string>
-	<string name="get_direct_link_desc">Din guide vil være tilgængelig for alle, som har linket</string>
-	<string name="upload_and_publish_progress_text">Offentliggør din guide…</string>
-	<string name="upload_and_publish_success">Guiden er blevet offentliggjort</string>
-	<string name="ugc_routes_user_agreement">&lt;b>BEMÆRK:&lt;/b> ved at fortsætte her, accepterer du &lt;a href="%s">licensaftalen&lt;/a></string>
-	<string name="ugc_route_edit_list_name">Guidenavn</string>
-	<string name="ugc_route_edit_description_hint">Lav en beskrivelse (tekst eller html)</string>
+	<string name="bookmark_category_name">Kategori</string>
+	<string name="bookmark_category_description_hint">Lav en beskrivelse (tekst eller html)</string>
 	<string name="not_shared">Privat</string>
 	<string name="direct_link_progress_text">Uploader din fil…</string>
 	<string name="direct_link_success">Linket er blevet oprettet</string>
-	<string name="edit_guide_title">Rediger din guide på web</string>
-	<string name="edit_guide_subtitle">Få et link til at redigere din guide via web-app: tilføj beskrivelser, upload billeder og forbind dine bogmærker med streger.</string>
 	<string name="send_a_link_btn">Send mig et link</string>
 	<string name="upload_error_toast">Der skete en fejl under upload af filen</string>
 	<string name="tags_loading_error_subtitle">Der skete en fejl under hentning af tags, prøv igen</string>
 	<string name="unable_upload_errorr_title">Upload af fil fejlede</string>
 	<string name="unable_upload_error_subtitle_edited">Denne fil er redigeret ved hjælp af web-appen</string>
 	<string name="unable_upload_error_subtitle_broken">Denne fil er beskadiget og kunne ikke uploades. Upload venligst en anden fil.</string>
-	<string name="buy_btn">Køb denne her til %s</string>
-	<string name="download_guide_progress">Henter din guide…</string>
-	<string name="price_error_title">Kunne ikke finde en pris</string>
-	<string name="price_error_subtitle">Prøv igen om lidt</string>
-	<string name="edit_your_guide_email_body">Rediger nemt din guide på web ved hjælp af din computer: tilføj beskrivelser, upload billeder og forbind bogmærker med streger.</string>
-	<string name="edit_on_web">Rediger på web</string>
-	<string name="properties_loading_error_subtitle">Der opstod en fejl under indlæsning af indstillinger, prøv igen</string>
-	<string name="custom_props_desc">I denne guide har du besøgt steder som</string>
-	<string name="custom_props_title">Lokal eller rejsende</string>
-	<string name="custom_props_local">lokal</string>
-	<string name="custom_props_traveler">rejsende</string>
-	<string name="select_properties">Vælg indstillinger</string>
-	<string name="access_rules_p_to_p">Særlig adgang</string>
-	<string name="access_rules_paid">Købt</string>
-	<string name="failed_purchase_support_message">Beklager, men du har formentlig et igangværende køb, som ikke er blevet gennemført. Kontakt venligst support, så løser vi problemet for dig.</string>
 	<string name="contact">Kontakt</string>
-	<string name="check_price_button">Tjek pris</string>
 	<string name="download_button">Download</string>
 	<string name="speedcams_alert_title">Fartkameraer</string>
 	<string name="speedcams_alert_subtitle">Advar om hastighedsgrænser</string>
@@ -1285,70 +1081,26 @@
 	<string name="speedcam_option_never">Aldrig</string>
 	<string name="bookmark_description_title">Beskrivelse af bogmærke</string>
 	<string name="place_description_title">Beskrivelse af sted</string>
-	<string name="ugc_routes_error_uploading_file_toast">Der er desværre opstået en fejl ved upload af dine bogmærker. Prøv igen.</string>
-	<string name="notification_channel_ugc">Socialt indhold</string>
 	<!-- this text will be shown in application notification preferences opposite checkbox which enable/disable downloader notifications. Devices on Android 8+ are affected. -->
 	<string name="notification_channel_downloader">Korthenter</string>
-	<string name="notification_leave_review_title">%s - hvordan var det?</string>
-	<string name="notification_leave_review_content">Hjælp rejsende ved at skrive en anmeldelse!</string>
-	<string name="share_bookmarks_email_body_link">Hej!\n\nHer er et link, hvor du kan hente dine bogmærker: %s. Åben listen via OMaps og nyd turen!\n\nHent applikation: https://omaps.app/get?kmz</string>
+	<string name="share_bookmarks_email_body_link">Hej!\n\nHer er et link, hvor du kan hente dine bogmærker: %s. Åben listen via Organic Maps og nyd turen!\n\nHent applikation: https://organicmaps.app/get?kmz</string>
 	<string name="warning_speedcams_title">Navigator advarer dig om kameraer, når du overskrider hastighedsgrænsen på %d km/t</string>
 	<string name="warning_speedcams_subtitle">Vær opmærksom på færdselsreglerne i det land, du rejser til.</string>
 	<string name="speedcams_notice_message">Auto - Advar om fartkameraer, hvis der er en risiko for, at hastighedsgrænsen overskrides\nAltid - Advar altid om fartkameraer\nAldrig - Advar aldrig om fartkameraer</string>
-	<string name="whats_new_ugc_routes_title">Det er nemt at dele dine indtryk</string>
-	<string name="whats_new_ugc_routes_subtitle">Gem mindeværdige steder, lav ruter ved hjælp af bogmærker og del dem med alle i OMaps kataloget.</string>
-	<string name="whats_new_webeditor_title">Lav dine ruter om til historier</string>
-	<string name="whats_new_ugc_routes_message2">Tilføj fotos og detaljerede historier i webredaktøren.</string>
-	<string name="ugc_thanks_message_auth">Din anmeldelse er blevet gemt</string>
-	<string name="ugc_thanks_message_not_auth">Log ind for efterlade en anmeldelse</string>
-	<string name="notification_leave_review_v2_title">Vurder et besøgt sted og hjælp rejsende!</string>
-	<string name="error_public_not_enought_title">Ikke nok bogmærker</string>
-	<string name="error_public_not_enought_subtitle">Du skal have mindst 3 bogmærker, for at kunne uploade din guide til det offentlige katalog</string>
-	<string name="bookmark_public_upload_alert_title">Du er et par skridt væk fra at dele dine bogmærker med alle OMaps rejsende!</string>
-	<string name="bookmark_public_upload_alert_subtitle">Sørg for, at du har et bestemt navn og en beskrivelse til din liste, og at alle bogmærker har oplysninger om stederne. På denne måde kan din liste findes og bruges af andre.</string>
-	<string name="bookmark_public_upload_alert_ok_button">Ja, jeg er sikker!</string>
-	<string name="name_title">Indtast navn på din guide</string>
-	<string name="name_placeholder">f.eks. London Pubs</string>
-	<string name="name_comment1">Navngiv din guide, så rejsende nemt kan finde det, f.eks. \"London Pubs\"</string>
-	<string name="name_comment2">Navnet bør ikke indeholde specielle symboler. Navnet skal ikke være \"Mine steder\"</string>
-	<string name="description_guide">Beskrivelse</string>
-	<string name="description_title">Indtast beskrivelse til din guide</string>
-	<string name="description_placeholder">Beskriv din guide i detaljer</string>
-	<string name="description_comment1">Din guide-beskrivelse skal indeholde mindst 30 symboler.</string>
-	<string name="ugc_route_tags_desc">Vælg tags for at hjælpe andre rejsende med at finde din guide. Dette er obligatorisk. Maksimum %s tags.</string>
-	<string name="html_format_error_title">Din guide er ikke blevet udgivet</string>
-	<string name="html_format_error_subtitle">Sørg for at navne og beskrivelser af dine bogmærker alle har et gyldigt format. Du kan tjekke det, via en browser på skrivebordet, ved at klikke på knappen \"Rediger online\", nedenfor.</string>
-	<string name="web_editor_description">Upload din guide og få rediger linket fra skrivebordet</string>
-	<string name="edit_on_web_confirm">Rediger online</string>
-	<string name="update_guide">Upload en opdatering</string>
-	<string name="direct_link_updating_text">Opdaterer din fil…</string>
-	<string name="direct_link_updating_success">Din guide er blevet opdateret</string>
-	<string name="unable_get_direct_link_desc">Du kan dele din guide via et offentligt link</string>
-	<string name="any_access_update_alert_title">Nogle ændringer kan have fundet sted</string>
-	<string name="any_access_update_alert_message">Vil du opdatere dine bogmærker? Den nye version vil være tilgængelig via det samme link.</string>
-	<string name="any_access_update_alert_update">Opdater</string>
-	<string name="public_or_limited_access_after_edit_online_error_title">Du har redigeret dine bogmærker online</string>
-	<string name="public_or_limited_access_after_edit_online_error_message">I fremtiden rediger, udgiv eller del guiden, med dine venner, via vores hjemmeside</string>
 	<string name="power_managment_title">Strømsparetilstand</string>
 	<string name="power_managment_description">Når automatisk tilstand er valgt, begynder applikationen at deaktivere funktioner, med højt batteri-strømforbrug, afhængigt af det aktuelle batteriniveau</string>
 	<string name="power_managment_setting_never">Aldrig</string>
 	<string name="power_managment_setting_auto">Automatisk</string>
 	<string name="power_managment_setting_manual_max">Maksimum strømbesparelse</string>
-	<string name="enable_logging_warning_message">Indstillingen aktiverer logning til diagnostiske formål. Det kan være nyttigt for vores supportere, der fejlfinder problemer med appen. Aktiver kun denne mulighed på anmodning fra OMaps support.</string>
+	<string name="enable_logging_warning_message">Indstillingen aktiverer logning til diagnostiske formål. Det kan være nyttigt for vores supportere, der fejlfinder problemer med appen. Aktiver kun denne mulighed på anmodning fra Organic Maps support.</string>
 	<string name="html_error_upload_message_try_again">Kontroller dine netværksindstillinger, og prøv igen</string>
 	<string name="html_error_upload_title_try_again">Ingen internetforbindelse</string>
 	<string name="notification_leave_review_v2_android_short_title">Anmeld og hjælpe rejsende!</string>
 	<string name="notifications_illegal_alert_disable_button">Slå fra meddelelser</string>
 	<string name="access_rules_author_only">Online redigering</string>
 	<string name="privacy_settings_menu">Indstillinger for beskyttelse af personlige oplysninger</string>
-	<string name="gdpr_request_setting">Få ID til GDPR anmodning</string>
-	<string name="gdpr_request_window_title">Dit ID: %s.</string>
-	<string name="gdpr_request_window_message">Kopiere det og send anmodningen til support\@omaps.app</string>
-	<string name="gdpr_request_window_copy">Kopier ID\'et</string>
 	<string name="unable_upadate_error_title">Fil opdatering fejlede</string>
 	<string name="unable_upadate_error_message">Der opstod nogle fejl under opdatering. Kontroller ændringerne, og prøv igen</string>
-	<string name="whats_new_wiki_title">Hvad er det sted?</string>
-	<string name="whats_new_wiki_message">Vi har tilføjet Wikipedia.org artikler til siderne, af de mest populære turistattraktioner. De er tilgængelige offline</string>
 	<string name="driving_options_title">Køre muligheder</string>
 	<string name="driving_options_subheader">Undgå på enhver rute</string>
 	<string name="avoid_tolls">Betalingsveje</string>
@@ -1366,23 +1118,7 @@
 	<string name="avoid_toll_roads_placepage">Undgå betalingsveje</string>
 	<string name="avoid_unpaved_roads_placepage">Undgå grusveje</string>
 	<string name="avoid_ferry_crossing_placepage">Undgå færgeoverfarter</string>
-	<string name="cached_guides_placeholder_subtitle">OMaps tilbyder færdiglavede guides med fotos og beskrivelser til de udvalgte steder, der vises på kortet, som er tilgængelige offline.</string>
-	<string name="guides_catalogue_title">Katalog over Guides</string>
-	<string name="download_guides_button">Gå til Kataloget</string>
-	<plurals name="placepage_summary_rating_description">
-	  <item quantity="one">Baseret på %d anmeldelse</item>
-	  <item quantity="other">Baseret på %d anmeldelser</item>
-	</plurals>
 	<string name="type.cuisine.uzbek">Usbekisk køkken</string>
-	<string name="onboarding_guide_direct_download_title">Guide er klar til download</string>
-	<string name="onboarding_guide_direct_download_subtitle">Det vil blive vist på kort og fungerer offline</string>
-	<string name="onboarding_guide_direct_download_button">Download</string>
-	<string name="onboarding_bydeeplink_guide_title">Klar-til-brug guider i OMaps</string>
-	<string name="onboarding_bydeeplink_guide_subtitle">De bedste steder at besøge er vist på kort med fotos og beskrivelser. Fungerer offline.</string>
-	<string name="whats_new_auto_update_bydeeplink_title">Før du fortsætter til guider…</string>
-	<string name="whats_new_auto_update_bydeeplink_message">Opdater kort for at holde informationen opdateret!</string>
-	<string name="whats_new_auto_update_and_proceed_button_size">Opdater (%s) og fortsæt</string>
-	<string name="purchase_please_wait_toast">Forlad ikke denne skærm, før købet er gennemført</string>
 	<string name="trip_start">Lad os komme i gang</string>
 	<string name="pick_destination">Destination</string>
 	<string name="follow_my_position">Centrer igen</string>
@@ -1402,41 +1138,6 @@
 	<string name="dialog_routing_rebuild_from_current_location_carplay">Rute vil blive beregnet igen, ud fra din nuværende position</string>
 	<string name="dialog_routing_rebuild_for_vehicle_carplay">Rute vil blive ændret til en kørselsrute</string>
 	<string name="ok">Ok</string>
-	<string name="booking_button_toolbar">Vælg et hotel på kortet</string>
-	<string name="popup_booking_download_guides_title">Book et hotel?</string>
-	<string name="popup_booking_download_guides_message">Planlæg din rute med færdiglavede guider fra OMaps</string>
-	<string name="popup_mwm_download_guides_title">Offline byguides</string>
-	<string name="popup_mwm_download_guides_cta">Vælg en</string>
-	<string name="popup_mwm_download_guides_cta_1">Tag et kig</string>
-	<string name="gallery_pp_download_guides_offline_title">Planlæg din ferie med OMaps!</string>
-	<string name="gallery_pp_download_guides_offline_subtitle">Gå ikke glip af noget med guider lavet af erfarne rejsende</string>
-	<string name="gallery_pp_download_guides_offline_cta">Tilslut internettet</string>
-	<string name="gallery_pp_download_guides_title">Guider</string>
-	<string name="native_screen_subscription_title">Ubegrænset adgang til 2000+ rejseguider!</string>
-	<string name="native_screen_subscription_message">En mindeværdig ferie uanset hvor og hvem du rejser med</string>
-	<string name="annual_subscription_title">Årlig</string>
-	<string name="montly_subscription_title">Månedlig</string>
-	<string name="annual_subscription_message">12 måneder med ubegrænset adgang</string>
-	<string name="montly_subscription_message">1 måned med ubegrænset adgang</string>
-	<string name="subscription_success_dialog_title">Tak, fordi du abonnere!</string>
-	<string name="subscription_success_dialog_message">Nu har du ubegrænset til hele kataloget over guider</string>
-	<string name="renewal_screen_title">Dit abonnement er udløbet</string>
-	<string name="renewal_screen_message">Alle guider, der er hentet via abonnement vil blive slettet. Vil du forsætte abonnementet og beholde dem?</string>
-	<string name="renewal_screen_button_restore">Ja, forny</string>
-	<string name="renewal_screen_button_cancel">Nej, slet guiderne</string>
-	<string name="subscription_error_ping_title">Købet mislykkedes</string>
-	<string name="subscription_error_message">Tjenesten er i øjeblikket ikke tilgængelig i dit område. Prøv igen senere</string>
-	<string name="subscription_error_button">Forstået</string>
-	<string name="timeout_error_title">Ups, tiden er udløbet!</string>
-	<string name="timeout_error_message">Vores servere svarer ikke. Tjek din Internetforbindelse, og prøv igen.</string>
-	<string name="per_month">/md.</string>
-	<string name="per_year">/år</string>
-	<string name="buy_btn_for_subscription">Ubegrænset adgang fra %s</string>
-	<string name="buy_btn_for_subscription_1">Køb ALLE guider til %s</string>
-	<string name="buy_btn_for_subscription_ios_only_mo">Ubegrænset adgang til %s/md.</string>
-	<string name="buy_btn_for_subscription_ios_only_year">Ubegrænset adgang til %s/år</string>
-	<string name="subscription_terms_guides">Betalingen vil blive opkrævet via din iTunes konto, efter købet er bekræftet. Abonnementet fornys automatisk, medmindre automatisk fornyelse er slået fra mindst 24 timer før udgangen af nuværende periode. Din konto vil blive ændret ifølge din fornyelsesplan, indenfor 24 timer før udgangen af den aktuelle periode. Du kan administrere eller deaktivere automatisk fornyelse i dine Apple ID-kontoindstillinger på ethvert tidspunkt for dit køb. Du kan kun bruge downloadede guider indtil dennes udløbsdato. Efter 30 dage fra abonnementets udløbsdato, vil guider med bookmarks automatisk blive slettet.</string>
-	<string name="subscription_terms">Betalingen opkræves via din iTunes-konto ved bekræftelse af købet. Abonnementet fornys automatisk, medmindre den automatiske fornyelse er slået fra senest 24 timer før udgangen af den aktuelle periode. Din konto debiteres i overensstemmelse med din plan for fornyelse indenfor 24 timer før udgangen af den aktuelle periode. Du kan administrere eller slukke for automatisk fornyelse i dine Apple ID-kontoindstillinger på ethvert tidspunkt af dit køb.</string>
 	<string name="avoid_unpaved_carplay_1">Ingen grus</string>
 	<string name="avoid_unpaved_carplay_2">Undgå grus</string>
 	<string name="avoid_ferry_carplay_1">Ingen færger</string>
@@ -1445,7 +1146,7 @@
 	<string name="avoid_tolls_carplay_2">Undgå betaling</string>
 	<string name="speedcams_alert_title_carplay_1">Radarkontrol</string>
 	<string name="speedcams_alert_title_carplay_2">Radar advarsel</string>
-	<string name="download_map_carplay">Download kort i OMaps appen, på din enhed</string>
+	<string name="download_map_carplay">Download kort i Organic Maps appen, på din enhed</string>
 	<string name="carplay_roundabout_exit">%s exit</string>
 	<!-- max. 10 symbols, both iOS and Android -->
 	<string name="sort">Sort…</string>
@@ -1493,80 +1194,15 @@
 	<string name="bookmarks_edit_list">Redigér liste</string>
 	<!-- Android, max 18 symbols -->
 	<string name="bookmarks_delete_list">Slet liste</string>
-	<string name="popup_subscription_success_map_title">Juuhuu, du har abonnement!</string>
-	<string name="popup_subscription_success_map_message">Opdag nu de bedste turisthøjdepunkter i OMaps kataloget</string>
-	<string name="popup_subscription_success_map_start_button">Begynd at udforske</string>
-	<string name="popup_subscription_success_map_not_now_button">Ikke nu</string>
 	<string name="religious_places">Religiøse steder</string>
-	<string name="subscription_terms_android">Når du bekræfter et køb, vil betalingen blive trukket fra din Google Play konto. Abonnementet bliver automatisk fornyet med mindre auto-forny-funktionen er slået fra mindst 24 timer før den nuværende periode slutter. Din konto vil blive trukket i henhold til din fornyelsesplan inden for 24 timer før den nuværende periode slutter. Du kan administrere eller slå auto-fornyelses funktionen fra i Konto Indstillinger efter købet. Du kan kun bruges guides downloaded med abonnementet indtil dets udløbsdato. Efter 30 dage fra abonnementets udløbsdato, bliver downloadede guides automatisk slettet.</string>
 	<string name="select_list">Væg liste</string>
-	<string name="pp_discovery_place_related_header">Dette sted er i guide-katalog</string>
-	<string name="pp_discovery_place_related_header_1">Dette sted er vist i en guide</string>
-	<string name="pp_discovery_place_related_cta_button">Se</string>
-	<string name="pp_discovery_place_related_tag_header">Guider ud fra tag „%s“</string>
-	<string name="pp_discovery_place_related_tag_header_1">Du vil måske også synes godt om</string>
-	<string name="buy_btn_for_subscription_version_2">ALLE guides for kun %s/mo</string>
-	<string name="buy_btn_for_subscription_version_3">Hele kataloget for %s/mo</string>
-	<string name="buy_btn_for_subscription_ios_only_mo_version_2">Adgang til katalog for %s/mo</string>
-	<string name="buy_btn_for_subscription_ios_only_year_version_2">Adgang til kataloget for %s/year</string>
-	<string name="subscription_screen_native_title_version_2">Adgang til guides med bogmærker!</string>
-	<string name="subscription_screen_native_message_version_2">Bliv klar til enhver rejse i 600+ byer og 100+ lande</string>
-	<string name="catalog_no_internet_title">Ingen internetforbindelse</string>
-	<string name="catalog_no_internet_button">Prøv igen</string>
-	<string name="new_onboarding_button">Næste</string>
-	<string name="new_onboarding_button_2">Kom i gang</string>
-	<string name="new_onboarding_step1_header_2">Alt i en rejsekammerat</string>
-	<string name="new_onboarding_step2_header">Drøm og planlæg</string>
-	<string name="new_onboarding_step2_message">70+ millioner steder, færdige guides og hotelbooking lige fra kortet – du er klar til turen!</string>
-	<string name="new_onboarding_step3_message">Far aldrig vild med detaljerede kort over ethvert land og navigation – alt virker offline!</string>
-	<string name="new_onboarding_step4_header">Del indtryk</string>
-	<string name="new_onboarding_step4_message">Placer bogmærker på yndlingssteder og send dem til dine venner</string>
-	<string name="new_onboarding_step5.1_header">En ting mere før du starter…</string>
-	<string name="new_onboarding_step5.1_message">Glem ikke at besøge vores helt nye guidekatalog for at en finde en offline guide til din kommende rejse!</string>
-	<string name="new_onboarding_step5.1_button">Åbent katalog</string>
-	<string name="new_onboarding_step5.2_message">Dit abonnement til OMaps guidekatalog er af stor værdi. Få fuld adgang til byen og udendørsguider i hele verden!</string>
-	<string name="new_onboarding_step5.2_button">Check betingelserne ud</string>
-	<string name="new_onboarding_step5.3_message">Check de gratis prøver på færdige by- og udendørsruter med et gratis udvalg af OMaps!</string>
-	<string name="new_onboarding_step5.3_button">Gratis download</string>
-	<string name="new_onboarding_additional_steps_later_button">Senere</string>
-	<string name="all_pass_subscription_header">Abonner på</string>
-	<string name="all_pass_subscription_subheader">Katalog over Guides</string>
-	<!-- \n - for a break between lines. Max. 15 characters per 1 line. -->
-	<string name="all_pass_subscription_message_title">30000+\nguide &amp; stier</string>
-	<!-- <b> & </b> tag to make a part of the line bold -->
-	<string name="all_pass_subscription_message_subtitle"><b>Ubegrænsede downloads</b> af by og udendørs ruter <b>til offline mode</b></string>
-	<!-- \n - for a break between lines. Max. 17 characters per 1 line. -->
-	<string name="all_pass_subscription_message_title_2">Interaktiv\nhøjdeprofil</string>
-	<!-- <b> & </b> tag to make a part of the line bold -->
-	<string name="all_pass_subscription_message_subtitle_2">Hver sti indeholder <b>højde og basis info om ruten</b></string>
-	<!-- \n - for a break between lines. Max. 15 characters per 1 line. -->
-	<string name="all_pass_subscription_message_title_3">Bogmærker,\nbilleder og\nanbefalinger</string>
-	<!-- <b> & </b> tag to make a part of the line bold -->
-	<string name="all_pass_subscription_message_subtitle_3"><b>Lær alt om ruten</b> du skal til at tage</string>
-	<string name="sightseeing_subscription_header_subscription">Guides Abonnement</string>
-	<string name="sightseeing_subscription_message">700+ byer og 100+ lande</string>
-	<string name="sightseeing_subscription_message_2">Tilgængeligt offline</string>
-	<string name="sightseeing_subscription_message_3">Fotos og gåture</string>
-	<string name="subscription_success_dialog_title_sightseeing_pass">Tak for din tilmelding!</string>
-	<string name="subscription_success_dialog_message_sightseeing_pass">Nu har du adgang til alle sightseeing-guides i kataloget</string>
-	<string name="downloader_main_gallery_header">Kort &amp; kort</string>
-	<string name="downloader_main_gallery_message">I denne sektion kan du ikke kun downloade kort, men også checke guides ud til din kommen rejse</string>
-	<string name="downloader_main_1_element_gallery_header">Alle guides</string>
-	<string name="downloader_main_1_element_gallery_message">i 100+ lande</string>
-	<string name="downloader_country_1_element_gallery_header">%s guides</string>
-	<string name="downloader_country_no_guides_gallery_header">Der er ingen guides i dette land endnu</string>
-	<string name="downloader_country_no_guides_gallery_message">Du kan checke andre offline guides ud i 100+ lande til by- og udendørsaktiviteter</string>
-	<string name="dialog_pedestrian_route_is_long">Gåturen til transportens boardingsted er for lang</string>
-	<string name="new_onboarding_step3_header">Oplevelse</string>
-	<string name="all_pass_screen_best_value">Bedste værdi</string>
-	<string name="buy_btn_for_subscription_3">Hele kataloget for %s/år</string>
 	<string name="transit_not_found">Metro-navigation er endnu ikke tilgængelig i denne region</string>
 	<string name="dialog_pedestrian_route_is_long_header">Metro-rute blev ikke fundet</string>
 	<string name="dialog_pedestrian_route_is_long_message">Vælg venligst et start- eller stoppunkt, tættere på metrostationen</string>
 	<!-- Failed planning SUBWAY route message in navigation view -->
 	<string name="routing_planning_error_subway_special">Planlægning af metro-rute mislykkedes</string>
 	<string name="button_layer_isolines">Terræn</string>
-	<string name="tips_map_layers_title_countour">Nyt på OMaps: offline topografiske lag!</string>
+	<string name="tips_map_layers_title_countour">Nyt på Organic Maps: offline topografiske lag!</string>
 	<string name="tips_map_layers_message_countour">Planlæg og nyd din naturtur ved at være sikker på, at du ved alt om området</string>
 	<string name="isolines_activation_error_dialog">For at aktivere og bruge de topografiske lag, opdater venligst eller download kortet for området</string>
 	<string name="isolines_location_error_dialog">Det topografiske lag er endnu ikke tilgængeligt i dette område</string>
@@ -1585,79 +1221,10 @@
 	<string name="elevation_profile_time">Tid:</string>
 	<string name="elevation_profile_hours">t.</string>
 	<string name="elevation_profile_minutes">min</string>
-	<string name="view_on_map_downloaded_error">Denne guide er blevet fjernet fra denne enhed</string>
-	<string name="subscription">Abonnement</string>
-	<string name="button_layer_guides">Guider (ny)</string>
-	<string name="no_routes_in_the_area_toast">Ingen guider fundet her</string>
 	<string name="isolines_toast_zooms_1_10">Zoom ind for at udforske isolinjekort</string>
-	<string name="routes_layer_in_menu_toast">Tænd for lag for at finde offline guider, udforske isolinjekort, undergrundslinjer eller trafikpropper</string>
-	<string name="routes_layer_is_on_toast">Træk kortet for at udforske guiderne</string>
-	<string name="connection_error_dialog_guides_title">Forbindelsesfejl</string>
-	<string name="connection_error_dialog_guides_message">Laget virker ikke fordi der ikke er internet eller et svagt signal. For at fortsætte arbejdet, kontroller forbindelsen eller slå laget fra.</string>
-	<string name="connection_error_dialog_guides_try">Prøv igen</string>
-	<string name="connection_error_dialog_guides_layer_turn_off">Sluk</string>
-	<string name="connection_error_toast_guides">Forsøger at tilslutte</string>
-	<!-- as few symbols as possible -->
-	<string name="routes_card_show">Vis på kort</string>
-	<!-- as few symbols as possible -->
-	<string name="routes_card_hide">Skjul fra kort</string>
 	<string name="downloader_updating_ios">Opdaterer</string>
 	<string name="downloader_loading_ios">Downloader</string>
-	<string name="routes_card_plus_track">+ rute</string>
-	<string name="routes_card_number_of_points">%s steder</string>
-	<string name="routes_card_routes_tag">Rejseplan</string>
-	<string name="routes_card_set_tag">Fremhævede steder</string>
-	<!-- as few symbols as possible -->
-	<string name="guides_trial_cta_button">Start din 7 dages gratis prøveperiode</string>
-	<string name="guides_trial_message">Derefter, %s per år. Annuller når som helst</string>
-	<string name="trial_error_dialog">Beklager, du har allerede brugt prøveperioden</string>
-	<!-- as few symbols as possible -->
-	<string name="floating_button_filters">Filtre</string>
-	<plurals name="date_picker_amout_of_days">
-	  <item quantity="one">%d dag</item>
-	  <item quantity="few">%d dage</item>
-	  <item quantity="other">%d dage</item>
-	</plurals>
-	<!-- as few symbols as possible -->
-	<string name="date_picker_сhoose_dates_cta">Vælg datoer</string>
-	<!-- as few symbols as possible -->
-	<string name="guests_picker_rooms_title">Værelser og gæster</string>
-	<string name="guests_picker_rooms">Værelser</string>
-	<string name="guests_picker_adults">Voksne</string>
-	<string name="guests_picker_children_title">Børn</string>
-	<string name="guests_picker_children_subtitle">1-17 år</string>
-	<string name="guests_picker_infants_title">Spædbørn</string>
-	<string name="guests_picker_infants_subtitle">0-12 mdr.</string>
-	<!-- as less symbols as possible -->
-	<string name="booking_map_component_availability">Ingen værelser</string>
-	<!-- as few symbols as possible -->
-	<string name="booking_map_component_filters">Ikke flere filtre</string>
-	<string name="choose_dates_online_only_dialog_title">Ingen netværksforbindelse</string>
-	<string name="choose_dates_online_only_dialog_message">Datoer og antal gæster kan kun vælges, når du er online. Kontroller venligst dine indstillinger og sørg for, du er forbundet til internettet.</string>
-	<string name="choose_dates_online_only_dialog_cta">Indstillinger</string>
-	<string name="thirty_days_limit_dialog">Du kan booke maksimalt 30 nætter</string>
-	<string name="whatsnew_trial_cta">Prøv det nu</string>
-	<string name="subscription_terms_guides_outdoor">Når du bekræfter købet, vil betalingen blive debiteret på din iTunes-konto. Abonnementet vil automatisk blive fornyet, med mindre automatisk fornyelse slås fra mindst 24 timer før slutningen af den nuværende abonnementsperiode. Din konto vil blive debiteret ifølge din fornyelsesplan inden for 24 timer før den nuværende abonnementsperiode slutter. Du kan administrere eller slå automatisk fornyelse fra i dine Apple ID-kontoindstillinger når som helst efter købet. Du kan kun bruge de downloadede guider i løbet af dit abonnement, indtil abonnementet udløber. Guider og bogmærker vil automatisk blive slettet 7 dage efter abonnementet udløber.\n* Abonnementet med gratis prøveperiode vil automatisk blive fornyet til et betalt abonnement. Du kan annullere eller administrere automatisk fornyelse af din gratis prøveperiode i dine kontoindstillinger efter købet. Annulleringen træder i kraft 24 timer efter den sidste dag af den nuværende abonnementsperiode. Derefter vil du blive nedgraderet til den gratis tjeneste. Bemærk venligst: Enhver ubrugt del af den gratis prøveperiode går tabt, når du køber et premium-abonnement i løbet af den gratis prøveperiode.</string>
-	<string name="subscription_terms_android_outdoor">Når du bekræfter købet, vil betalingen blive debiteret på din Google Play-konto. Abonnementet vil automatisk blive fornyet, med mindre automatisk fornyelse slås fra mindst 24 timer før slutningen af den nuværende abonnementsperiode. Din konto vil blive debiteret ifølge din fornyelsesplan inden for 24 timer før den nuværende abonnementsperiode slutter. Du kan administrere eller slå automatisk fornyelse fra i dine kontoindstillinger når som helst efter købet. Du kan kun bruge de downloadede guider i løbet af dit abonnement, indtil abonnementet udløber. Guider vil automatisk blive slettet 7 dage efter abonnementet udløber.\n* Abonnementet med gratis prøveperiode vil automatisk blive fornyet til et betalt abonnement. Du kan annullere eller administrere automatisk fornyelse af din gratis prøveperiode i dine kontoindstillinger efter købet. Annulleringen træder i kraft 24 timer efter den sidste dag af den nuværende abonnementsperiode. Derefter vil du blive nedgraderet til den gratis tjeneste. Bemærk venligst: Enhver ubrugt del af den gratis prøveperiode går tabt, når du køber et premium-abonnement i løbet af den gratis prøveperiode.</string>
-	<string name="subscription_header">Abonner på\n<b>Guidekatalog</b></string>
-	<!-- Max. 20 characters per 1 line. -->
-	<string name="all_pass_subscription_message_title_4">Rejseguider\naf Lonely Planet®</string>
-	<!-- <b> & </b> tag to make a part of the line bold -->
-	<string name="all_pass_subscription_message_subtitle_4">Endnu <b>flere oplevelser</b> med tusindvis af interessante steder <b>i hele verden</b></string>
-	<string name="content_by_component">Indhold af: %s</string>
-	<string name="whatsnew_lp_title">Endnu flere følelser</string>
-	<string name="whatsnew_lp_message">Lonely Planet guides kan nu findes i vores app! De bedse attraktioner, tematiske gåture og unikke destinationer for 7000+ byer.</string>
-	<string name="collections_title">Samlinger</string>
 	<string name="key_information_title">Central information</string>
-	<string name="mustsee_title">Skal se</string>
-	<string name="see_lp_category">Attraktioner</string>
-	<string name="play_lp_category">Underholdning</string>
-	<string name="shop_lp_category">Forretninger</string>
-	<string name="transport_lp_category">Transport</string>
-	<string name="sleep_lp_category">Overnatning</string>
-	<string name="general_lp_category">Generelt</string>
-	<string name="drink_lp_category">Drikke</string>
-	<string name="eat_lp_category">Mad</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Kabelbanestation</string>

@@ -100,41 +100,5 @@
       <string>%d διαδρομές</string>
     </dict>
   </dict>
-
-  <key>placepage_summary_rating_description</key>
-  <dict>
-    <key>NSStringLocalizedFormatKey</key>
-    <string>%#@value@</string>
-    <key>value</key>
-    <dict>
-      <key>NSStringFormatSpecTypeKey</key>
-      <string>NSStringPluralRuleType</string>
-      <key>NSStringFormatValueTypeKey</key>
-      <string>d</string>
-      <key>one</key>
-      <string>Βάσει %d κριτικής</string>
-      <key>other</key>
-      <string>Βάσει %d κριτικών</string>
-    </dict>
-  </dict>
-
-  <key>date_picker_amout_of_days</key>
-  <dict>
-    <key>NSStringLocalizedFormatKey</key>
-    <string>%#@value@</string>
-    <key>value</key>
-    <dict>
-      <key>NSStringFormatSpecTypeKey</key>
-      <string>NSStringPluralRuleType</string>
-      <key>NSStringFormatValueTypeKey</key>
-      <string>d</string>
-      <key>one</key>
-      <string>%d ημέρα</string>
-      <key>few</key>
-      <string>%d ημέρες</string>
-      <key>other</key>
-      <string>%d ημέρες</string>
-    </dict>
-  </dict>
 </dict>
 </plist>

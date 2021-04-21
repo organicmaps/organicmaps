@@ -110,7 +110,7 @@
 
 "external_storage_is_not_available" = "다운로드된지도와 SD 카드 / USB 저장 장치를 사용할 수 없습니다";
 
-"disconnect_usb_cable" = "OMaps를 사용하려면 USB 케이블이나 삽입 메모리 카드를 분리하십시오";
+"disconnect_usb_cable" = "Organic Maps를 사용하려면 USB 케이블이나 삽입 메모리 카드를 분리하십시오";
 
 "not_enough_free_space_on_sdcard" = "응용 프로그램을 사용하기 위해서는 첫째 SD 카드 / USB 저장 장치에 여유 공간을 확보하십시오";
 
@@ -174,7 +174,7 @@
 "set" = "집합";
 
 /* Text hint in Bookmarks dialog when no any bookmarks are added */
-"bookmarks_usage_hint" = "즐겨찾기가 없습니다.\n즐겨찾기를 추가하도록 지도에 어떤 장소를 누릅니다.\n다른 소스에서 북마크는 OMaps 앱에서 가져와서 표시할 수 있습니다. 메일, 드롭박스 또는 웹링크에서 저장한 핀으로 KML/KMZ 파일을 열 수 있습니다.";
+"bookmarks_usage_hint" = "즐겨찾기가 없습니다.\n즐겨찾기를 추가하도록 지도에 어떤 장소를 누릅니다.\n다른 소스에서 북마크는 Organic Maps 앱에서 가져와서 표시할 수 있습니다. 메일, 드롭박스 또는 웹링크에서 저장한 핀으로 KML/KMZ 파일을 열 수 있습니다.";
 
 /* Settings button in system menu */
 "settings" = "설정";
@@ -276,9 +276,9 @@
 "share_by_email" = "이메일로 공유";
 
 /* Email Subject when sharing bookmarks category */
-"share_bookmarks_email_subject" = "귀하와 공유된 OMaps 즐겨찾기";
+"share_bookmarks_email_subject" = "귀하와 공유된 Organic Maps 즐겨찾기";
 
-"share_bookmarks_email_body" = "Hello!\n\nAttached are my bookmarks from OMaps offline maps. Please open them if you have OMaps installed. Or, if you don't, download the app for your iOS or Android device by following this link: https://omaps.app/get?kmz\n\nEnjoy traveling with OMaps!";
+"share_bookmarks_email_body" = "Hello!\n\nAttached are my bookmarks from Organic Maps offline maps. Please open them if you have Organic Maps installed. Or, if you don't, download the app for your iOS or Android device by following this link: https://organicmaps.app/get?kmz\n\nEnjoy traveling with Organic Maps!";
 
 /* message title of loading file */
 "load_kmz_title" = "즐겨찾기 로드";
@@ -308,7 +308,7 @@
 "downloading_is_active" = "국가 다운로드가 지금 진행 중입니다.";
 
 /* Message that will be shown in alert view, when we ask user to leave review on App Store */
-"appStore_message" = "OMaps로 즐거운 시간을 보내시기 바랍니다! OMaps가 마음에 드신다면 앱스토어에서 평가를 남겨 주시기 바랍니다. 평가하는 데는 1분이 채 걸리지 않지만 저희에게 큰 도움이 됩니다. 성원해 주셔서 감사합니다!";
+"appStore_message" = "Organic Maps로 즐거운 시간을 보내시기 바랍니다! Organic Maps가 마음에 드신다면 앱스토어에서 평가를 남겨 주시기 바랍니다. 평가하는 데는 1분이 채 걸리지 않지만 저희에게 큰 도움이 됩니다. 성원해 주셔서 감사합니다!";
 
 /* No, thanks */
 "no_thanks" = "평가하지 않겠습니다";
@@ -320,10 +320,10 @@
 "my_position_share_sms" = "현재 위치를 알아 보십시오. %1$@ 또는 %2$@ 열기";
 
 /* Subject for emailed bookmark */
-"bookmark_share_email_subject" = "OMaps 지도에서 내 핀 보기";
+"bookmark_share_email_subject" = "Organic Maps 지도에서 내 핀 보기";
 
 /* Subject for emailed position */
-"my_position_share_email_subject" = "OMaps 지도에서 제 현재 위치를 살펴 보시기 바랍니다";
+"my_position_share_email_subject" = "Organic Maps 지도에서 제 현재 위치를 살펴 보시기 바랍니다";
 
 /* Share my position using EMail, %1$@ is ge0:// and %2$@ is http://ge0.me link WITHOUT NAME */
 "my_position_share_email" = "안녕하세요.\n\n지금 다음 위치에 있습니다: %1$@. %2$@ 또는 %3$@ 링크를 클릭하여 지도상에서 해당 장소를 살펴보시기 바랍니다.\n\n감사합니다.";
@@ -492,16 +492,16 @@
 "download_map_notification" = "당신이 있는 장소의지도를 다운로드 하십시오";
 
 /* text of notification */
-"pro_version_is_free_today" = "OMaps의 전체 버전 오늘 무료! 지금 다운로드하고 친구들에게 알리세요.";
+"pro_version_is_free_today" = "Organic Maps의 전체 버전 오늘 무료! 지금 다운로드하고 친구들에게 알리세요.";
 
 /* Dialog for transferring maps from lite to pro. */
-"move_lite_maps_to_pro" = "우리는 OMaps. Lite에서 OMaps로 다운로드된 지도를 전송하고 있습니다. 이는 몇 분 정도 걸릴 수 있습니다.";
+"move_lite_maps_to_pro" = "우리는 Organic Maps. Lite에서 Organic Maps로 다운로드된 지도를 전송하고 있습니다. 이는 몇 분 정도 걸릴 수 있습니다.";
 
 /* Message to display when maps moved. */
-"move_lite_maps_to_pro_ok" = "다운로드된 지도가 성공적으로 OMaps에 전송됨";
+"move_lite_maps_to_pro_ok" = "다운로드된 지도가 성공적으로 Organic Maps에 전송됨";
 
 /* Message to display when maps move failed. */
-"move_lite_maps_to_pro_failed" = "지도를 전송하지 못했습니다. OMaps Lite를 삭제하고 다시지도를 다운로드하십시오.";
+"move_lite_maps_to_pro_failed" = "지도를 전송하지 못했습니다. Organic Maps Lite를 삭제하고 다시지도를 다운로드하십시오.";
 
 /* Text in menu */
 "settings_and_more" = "설정 및 기타";
@@ -510,7 +510,7 @@
 "website" = "웹사이트";
 
 /* Text in menu */
-"maps_me_community" = "OMaps 커뮤니티";
+"maps_me_community" = "Organic Maps 커뮤니티";
 
 /* Text in menu */
 "like_on_facebook" = "Facebook에서 좋아요";
@@ -540,13 +540,13 @@
 "report_a_bug" = "오류 신고";
 
 /* Email subject */
-"subscribe_me_subject" = "OMaps 뉴스 레터로 나를 구독해 주십시오.";
+"subscribe_me_subject" = "Organic Maps 뉴스 레터로 나를 구독해 주십시오.";
 
 /* Email body */
 "subscribe_me_body" = "나는 최신 뉴스 업데이트 및 프로모션에 대해 알게될 첫번째 사람이 되고 싶습니다. 나는 언제나 구독을 취소할 수 있습니다.";
 
 /* About text */
-"about_text" = "OMaps는 가장 빠른 전 세계 모든 국가 및 도시의 오프라인 지도를 제공하고 있습니다. 자신있게 여행하세요. 계신 곳이 어디이든 OMaps는 지도상에서 위치하고 계신 곳이 어디 있지 알려 주고 가장 가까운 식당, 호텔 및 주유소 등을 찾아 줍니다. 인터넷 접속이 필요없는 서비스입니다.\n\nOMaps는 항상 새로운 기능들에 대해 연구하고 있습니다. OMaps가 더 훌륭한 서비스를 제공할 수 있도록 많은 의견 주시면 감사하겠습니다. 앱을 사용하시다 불편한 점이 있으시면, 주저 마시고 support@omaps.app으로 문의해 주세요. OMaps는 어떤 요청에도 기꺼이 응답할 것입니다.\n\nOMaps가 좋은 앱이라고 생각하시나요? OMaps을 후원할 수 있는 간단하면서도 비용이 전혀 들지 않는 몇 가지 방법을 소개합니다.\n\n- 앱 마켓에 리뷰를 올려주세요.\n- OMaps의 페이스북 페이지 http://www.facebook.com/mapswithme 에 “좋아요”를 남겨 주세요.\n- 가족, 친구 및 동료들에게 OMaps를 자랑해 주세요.\n\nOMaps와 함께 해 주셔서 감사합니다. 여러분의 후원에 정말 감사드립니다!\n\nP.S. OMaps는 OpenStreetMap으로부터 맵 데이터를 수집하고 있습니다. OpenStreetMap은 위키피디아처럼 유저들이 맵을 만들고 편집할 수 있는 맵핑 프로젝트입니다.\n\n혹 맵에서 누락된 곳이나 잘못된 점을 발견하실 경우, https://www.openstreetmap.org에서 직접 맵을 수정하실 수 있습니다. 수정한 부분은 다음 버전으로 출시되는 OMaps 앱에 반영될 것입니다.";
+"about_text" = "Organic Maps는 가장 빠른 전 세계 모든 국가 및 도시의 오프라인 지도를 제공하고 있습니다. 자신있게 여행하세요. 계신 곳이 어디이든 Organic Maps는 지도상에서 위치하고 계신 곳이 어디 있지 알려 주고 가장 가까운 식당, 호텔 및 주유소 등을 찾아 줍니다. 인터넷 접속이 필요없는 서비스입니다.\n\nOrganic Maps는 항상 새로운 기능들에 대해 연구하고 있습니다. Organic Maps가 더 훌륭한 서비스를 제공할 수 있도록 많은 의견 주시면 감사하겠습니다. 앱을 사용하시다 불편한 점이 있으시면, 주저 마시고 support@organicmaps.app으로 문의해 주세요. Organic Maps는 어떤 요청에도 기꺼이 응답할 것입니다.\n\nOrganic Maps가 좋은 앱이라고 생각하시나요? Organic Maps을 후원할 수 있는 간단하면서도 비용이 전혀 들지 않는 몇 가지 방법을 소개합니다.\n\n- 앱 마켓에 리뷰를 올려주세요.\n- Organic Maps의 페이스북 페이지 http://www.facebook.com/OMapsApp 에 “좋아요”를 남겨 주세요.\n- 가족, 친구 및 동료들에게 Organic Maps를 자랑해 주세요.\n\nOrganic Maps와 함께 해 주셔서 감사합니다. 여러분의 후원에 정말 감사드립니다!\n\nP.S. Organic Maps는 OpenStreetMap으로부터 맵 데이터를 수집하고 있습니다. OpenStreetMap은 위키피디아처럼 유저들이 맵을 만들고 편집할 수 있는 맵핑 프로젝트입니다.\n\n혹 맵에서 누락된 곳이나 잘못된 점을 발견하실 경우, https://www.openstreetmap.org에서 직접 맵을 수정하실 수 있습니다. 수정한 부분은 다음 버전으로 출시되는 Organic Maps 앱에 반영될 것입니다.";
 
 /* Alert text */
 "email_error_body" = "이메일 클라이언트가 설정되지 않았습니다. 이를 구성하거나 %@로 연락할 다른 방법을 사용하십시오.";
@@ -564,7 +564,7 @@
 "routing_map_outdated" = "경로를 생성하도록 지도를 업데이트하십시오.";
 
 /* Update maps suggestion */
-"routing_update_maps" = "OMaps의 새로운 버전으로 당신의 현재 위치에서 목적지 지점으로 경로를 생성할 수 있습니다. 이 기능을 사용하려면 지도를 업데이트하십시오.";
+"routing_update_maps" = "Organic Maps의 새로운 버전으로 당신의 현재 위치에서 목적지 지점으로 경로를 생성할 수 있습니다. 이 기능을 사용하려면 지도를 업데이트하십시오.";
 
 /* Update all button text */
 "downloader_update_all_button" = "모두 업데이트";
@@ -592,7 +592,7 @@
 "downloader_search_results" = "검색 결과";
 
 /* Disclaimer message */
-"routing_disclaimer" = "OMaps 앱에서 경로를 작성할 때, 다음에 유의하시기 바랍니다:\n\n  - 추천 루트는 권장 사항으로만 간주될 수 있습니다.\n - 도로 조건, 교통 규칙 및 징후는 탐색 조언보다 더 높은 우선 순위를 갖습니다.\n -지도는 잘못되었거나 만료되었을 수 있으며, 경로는 최상의 방법을 만들어지지 않을 수 있습니다.\n\n  도로에서 안전하게 몸조심하세요!";
+"routing_disclaimer" = "Organic Maps 앱에서 경로를 작성할 때, 다음에 유의하시기 바랍니다:\n\n  - 추천 루트는 권장 사항으로만 간주될 수 있습니다.\n - 도로 조건, 교통 규칙 및 징후는 탐색 조언보다 더 높은 우선 순위를 갖습니다.\n -지도는 잘못되었거나 만료되었을 수 있으며, 경로는 최상의 방법을 만들어지지 않을 수 있습니다.\n\n  도로에서 안전하게 몸조심하세요!";
 
 /* Outdated maps category */
 "downloader_outdated_maps" = "만료됨";
@@ -628,7 +628,7 @@
 "routing_failed_route_not_found" = "선택한 출발지와 목적지 사이에서 발견있는 경로가 없습니다. 다른 출발지 또는 도착지를 선택하십시오.";
 
 /* InternalError */
-"routing_failed_internal_error" = "내부 오류가 발생했습니다. 다시지도를 삭제하고 다운로드하도록 시도하십시오. 문제가 지속되면 support@omaps.app로 문의하시기 바랍니다.";
+"routing_failed_internal_error" = "내부 오류가 발생했습니다. 다시지도를 삭제하고 다운로드하도록 시도하십시오. 문제가 지속되면 support@organicmaps.app로 문의하시기 바랍니다.";
 
 /* Context menu item for downloader. */
 "downloader_download_map_and_routing" = "지도 + 라우팅 다운로드";
@@ -675,10 +675,10 @@
 "rating_just_rated" = "앱 평가 완료";
 
 /* Text for rating dialog */
-"rating_user_since" = "%@ 이후로 OMaps 사용자임";
+"rating_user_since" = "%@ 이후로 Organic Maps 사용자임";
 
 /* Text for rating dialog */
-"rating_do_like_maps" = "OMaps를 좋아하나요?";
+"rating_do_like_maps" = "Organic Maps를 좋아하나요?";
 
 /* Text for rating dialog */
 "rating_tap_star" = "별을 눌러 우리의 앱을 평가하세요.";
@@ -702,7 +702,7 @@
 "routing_download_map" = "지도 가져오기";
 
 /* Text for routing error dialog */
-"routing_download_map_and_routing" = "업데이트된 지도와 라우팅 데이터를 다운로드하여 모든 OMaps 기능을 가져옵니다.";
+"routing_download_map_and_routing" = "업데이트된 지도와 라우팅 데이터를 다운로드하여 모든 Organic Maps 기능을 가져옵니다.";
 
 /* Text for routing error dialog */
 "routing_get_routing_data" = "라우팅 데이터 가져오기";
@@ -923,7 +923,7 @@
 
 "rate_alert_title" = "앱을 좋아하나요?";
 
-"rate_alert_default_message" = "OMaps를 사용해 주셔서 감사합니다. 이 앱을 평가해 주십시오. 당신의 피드백은 이 앱을 더 낫게 만드는데 도움을 줍니다.";
+"rate_alert_default_message" = "Organic Maps를 사용해 주셔서 감사합니다. 이 앱을 평가해 주십시오. 당신의 피드백은 이 앱을 더 낫게 만드는데 도움을 줍니다.";
 
 "rate_alert_five_star_message" = "야호! 저희는 당신도 사랑합니다!";
 
@@ -1034,7 +1034,7 @@
 
 "editor_report_problem_duplicate_place_title" = "중복된 장소";
 
-"first_launch_congrats_title" = "OMaps를 사용할 준비가 완료되었습니다";
+"first_launch_congrats_title" = "Organic Maps를 사용할 준비가 완료되었습니다";
 
 "first_launch_congrats_text" = "무료로 세계 어디에서나 오프라인으로 검색하고 탐색할 수 있습니다.";
 
@@ -1218,7 +1218,7 @@
 
 "whatsnew_editor_message_1" = "지도에 새로운 장소를 추가하고 응용 프로그램에서 직접 기존 편집 할 수 있습니다.";
 
-"whatsnew_editor_message_2" = "* OMaps는 OpenStreetMap 커뮤니티 데이터를 사용합니다.";
+"whatsnew_editor_message_2" = "* Organic Maps는 OpenStreetMap 커뮤니티 데이터를 사용합니다.";
 
 "dialog_incorrect_feature_position" = "위치 변경";
 
@@ -1231,7 +1231,7 @@
 /* Error dialog no space */
 "migration_no_space_message" = "다운로드하려면, 더 많은 여유 공간이 필요합니다. 불필요한 데이터를 삭제하십시오.";
 
-"editor_sharing_title" = "나는 OMaps 지도를 향상함";
+"editor_sharing_title" = "나는 Organic Maps 지도를 향상함";
 
 "editor_comment_will_be_sent" = "지도 제작자에게 의견을 보낼 것입니다.";
 
@@ -1262,7 +1262,7 @@
 
 "editor_detailed_description_hint" = "상세 설명";
 
-"editor_detailed_description" = "귀하가 제안한 변경 사항은 OpenStreetMap 커뮤니티로 전송됩니다. OMaps에서 편집할 수 없는 세부정보를 작성해 주세요.";
+"editor_detailed_description" = "귀하가 제안한 변경 사항은 OpenStreetMap 커뮤니티로 전송됩니다. Organic Maps에서 편집할 수 없는 세부정보를 작성해 주세요.";
 
 "editor_more_about_osm" = "OpenStreetMap 정보";
 
@@ -1339,10 +1339,6 @@
 
 "placepage_open_24_7" = "연중무휴";
 
-"place_page_booking_rating" = "평가: %s";
-
-"place_page_starting_from" = "%s에서";
-
 "meter" = "m";
 
 "kilometer" = "km";
@@ -1410,17 +1406,9 @@
 
 "editor_profile_rating_place" = "평가 순위";
 
-"booking_dialog_not_connect_header" = "호텔을 예약하려면 인터넷에 연결하세요";
-
-"button_try" = "시도해보세요";
-
 "refresh" = "최신 정보";
 
 "last_update" = "마지막 업데이트: %s";
-
-"booking_checkin" = "체크인: %s";
-
-"booking_checkout" = "체크아웃: %s";
 
 "placepage_add_place_button" = "지도에 장소 추가";
 
@@ -1453,9 +1441,6 @@
 /* iOS dialog for the case when recent track recording is on and the app comes back from background */
 "recent_track_background_dialog_title" = "최근 여행한 경로 녹음을 비활성화하시겠습니까?";
 
-/* If a hotel is being shared */
-"sharing_booking" = "또는 booking.com에서 예약";
-
 "off_recent_track_background_button" = "비활성화";
 
 /* For sharing via SMS and so on */
@@ -1463,7 +1448,7 @@
 
 "continue_recent_track_background_button" = "계속";
 
-"recent_track_background_dialog_message" = "OMaps는 최근 여행한 경로를 녹음하기 위해 배경 화면에서 지역 위치 서비스를 사용합니다.";
+"recent_track_background_dialog_message" = "Organic Maps는 최근 여행한 경로를 녹음하기 위해 배경 화면에서 지역 위치 서비스를 사용합니다.";
 
 /* Rate on Google Play (Android only) */
 "rate_gp" = "Google Play에서 평가";
@@ -1472,10 +1457,10 @@
 "tell_friends" = "친구에게 알려주기";
 
 /* Share with friends: sharing text */
-"tell_friends_text" = "안녕하세요! OMaps를 설치하세요!";
+"tell_friends_text" = "안녕하세요! Organic Maps를 설치하세요!";
 
 /* About short text (below logo) */
-"about_description" = "OMaps는 여행용 필수 오프라인 응용 프로그램입니다. OMaps는 OpenStreetMap 데이터를 기반으로 하며 이 데이터 편집을 허용합니다.";
+"about_description" = "Organic Maps는 여행용 필수 오프라인 응용 프로그램입니다. Organic Maps는 OpenStreetMap 데이터를 기반으로 하며 이 데이터 편집을 허용합니다.";
 
 /* Text in menu */
 "blog" = "블로그";
@@ -1495,51 +1480,7 @@
 /* For the first routing */
 "decline" = "거부";
 
-"whats_new_route_profile_title" = "문제가 있으면 계속 어려움을 겪는 것보다 그만두는 게 낫습니다.";
-
-"whats_new_route_profile_message" = "보행자 및 자전거 도로를 위해 이제 고도 단면을 표시합니다.";
-
-"whats_new_booking_improve_title" = "호텔 예약 시 절약";
-
-"whats_new_booking_improve_message" = "이제 가격 범주를 포함하는 호텔에 대한 결과를 검색하세요.\n또한 110,000곳 이상의 호텔이 추가되었습니다.";
-
-/* For place page hotel facilities block */
-"placepage_hotel_facilities" = "시설";
-
-/* For place page hotel nearby block */
-"placepage_hotel_nearby" = "근처";
-
-/* For ordering a taxi (as opposed to hotels or other things) */
-"taxi_order" = "택시 주문";
-
-/* How long it is until the taxi arrives */
-"taxi_wait" = "%s 예상";
-
-/* When there are no available taxis nearby */
-"taxi_not_found" = "근처에서 택시를 찾을 수 없음";
-
-/* When there are no available taxi providers nearby */
-"taxi_no_providers" = "여기서 택시를 이용할 수 없습니다.";
-
 "install_app" = "설치";
-
-/* `Filter` is a noun here */
-"booking_filters" = "필터";
-
-"booking_filters_reset" = "재설정";
-
-/* Beginning from a particular value and */
-"booking_filters_rating" = "등급";
-
-"booking_filters_rating_any" = "모두";
-
-"booking_filters_ragting_good" = "양호";
-
-"booking_filters_rating_very_good" = "매우 양호";
-
-"booking_filters_rating_excellent" = "탁월";
-
-"booking_filters_price_category" = "가격 범주";
 
 "search_no_results_title" = "결과 찾지 못함";
 
@@ -1551,28 +1492,6 @@
 
 /* noun */
 "search_in_table" = "목록";
-
-"booking_show_more" = "자세히 표시";
-
-"booking_reviews" = "리뷰";
-
-"booking_hotel" = "호텔";
-
-/* hotel room */
-"booking_hotel_room" = "객실";
-
-/* A neologism for a chat based on geographical proximity */
-"chat" = "Geochat";
-
-/* Verb. Text on a button that opens the chat. */
-"chat_open" = "열기";
-
-"dialog_taxi_offline" = "오프라인 모드에서는 택시를 예약할 수 없습니다.";
-
-"dialog_taxi_error" = "일시적으로 택시를 예약할 수 없습니다.";
-
-/* Abbreviated for all languages. */
-"advertisement" = "AD";
 
 "mobile_data_dialog" = "모바일 인터넷을 사용하여 자세한 정보를 표시하시겠습니까?";
 
@@ -1596,7 +1515,7 @@
 
 "big_font" = "지도에서 글꼴 크기 늘리기";
 
-"traffic_update_app" = "OMaps를 업데이트하세요.";
+"traffic_update_app" = "Organic Maps를 업데이트하세요.";
 
 /* "traffic" as in road congestion */
 "traffic_update_app_message" = "교통 데이터를 표시하려면 응용 프로그램을 업데이트해야 합니다.";
@@ -1607,69 +1526,14 @@
 /* "Translation is no needed, because it's a company name" */
 "uber" = "Uber";
 
-/* Seven points and higher */
-"booking_filter_rating_num_good" = "7.0+";
-
-/* Eight points and higher */
-"booking_filter_rating_num_very_good" = "8.0+";
-
-/* Nine points and higher */
-"booking_filter_rating_num_excellent" = "9.0+";
-
-"booking_filter_price_low" = "$";
-
-"booking_filter_price_medium" = "$$";
-
-"booking_filter_price_high" = "$$$";
-
 /* Simplified colour scheme for traffic information, fewer colours are used to display traffic jams on the map. The string should be kept as short as possible */
 "pref_traffic_simplified_colors_title" = "단순화된 트래픽 색상";
 
 "enable_logging" = "로깅 사용";
 
-"more_on_bookingcom" = "Booking.com의 추가 정보";
-
-"details_on_bookingcom" = "Booking.com의 세부 정보";
-
-"reviews_on_bookingcom" = "Booking.com의 추가 리뷰";
-
 "offline_place_page_more_information" = "인터넷에 연결하여 그곳에 대한 자세한 정보를 얻으세요.";
 
 "failed_load_information" = "정보를 로드하지 못했습니다.";
-
-"booking_search" = "Booking.com";
-
-"whats_new_auto_update_updating_maps" = "지도 업데이트";
-
-"whats_new_auto_update_title" = "다운로드한 지도를 업데이트해야 합니다";
-
-"whats_new_auto_update_message" = "지도를 업데이트하면 개체에 대한 정보가 최신 상태로 유지됩니다.";
-
-"whats_new_auto_update_button_size" = "업데이트(%s)";
-
-"whats_new_auto_update_button_later" = "나중에 수동으로 업데이트";
-
-"search_hotel_filter_apartment" = "아파트";
-
-"search_hotel_filter_camp_site" = "^캠핑";
-
-"search_hotel_filter_chalet" = "별장";
-
-"search_hotel_filter_guest_house" = "영빈관|호스텔";
-
-"search_hotel_filter_hostel" = "호스텔";
-
-"search_hotel_filter_resort" = "리조트";
-
-"search_hotel_filter_hotel" = "호텔";
-
-"search_hotel_filter_motel" = "모텔";
-
-"create_campaign_button" = "이 비즈니스 클레임";
-
-"view_campaign_button" = "비즈니스 광고를 하고 있습니다.";
-
-"search_hotel_filters_type" = "유형";
 
 /* Settings: "Send general feedback" button */
 "feedback_general" = "일반 피드백";
@@ -1744,65 +1608,7 @@
 
 "preloader_viator_button" = "자세히 알아보기";
 
-"whats_new_title_route" = "자전거 경로 및 보행자 경로가 개선되었습니다.";
-
-"whats_new_message_route" = "오류를 수정하고, 경로 탐색 속도를 몇 배 더 빠르게 개선하고, 중간 정지 지점을 추가했습니다.";
-
-"whats_new_message_title_update" = "지도 업데이트를 10배로 줄였습니다.";
-
-"whats_new_message_maps_update" = "지도를 업데이트하려면, 이제 누락된 데이터만 다운로드하면 됩니다.";
-
 "start_from_my_position" = "시작 위치:";
-
-"rating" = "평가";
-
-"placepage_no_reviews" = "리뷰 없음";
-
-"placepage_reviewed" = "이미 이 곳을 리뷰했습니다.";
-
-"placepage_summary_rating" = "요약 평가";
-
-"placepage_rate_comment" = "탭하여 이곳을 평가하고 리뷰를 남기세요.";
-
-"placepage_rate_horrible" = "최악";
-
-"placepage_rate_bad" = "나쁨";
-
-"placepage_rate_normal" = "보통";
-
-"placepage_rate_good" = "양호";
-
-"placepage_rate_excellent" = "탁월";
-
-"placepage_reviews_most_recent" = "가장 최신";
-
-"placepage_reviews_most_useful" = "가장 유용";
-
-"placepage_reviews_highest_rated" = "최고 평가";
-
-"placepage_reviews_lowest_rated" = "최저 평가";
-
-"placepage_reviews_offline_comment" = "가장 유용한 리뷰만 오프라인 모드에서 표시됩니다.";
-
-"placepage_reviews_your_comment" = "귀하의 리뷰";
-
-"placepage_reviews_unhelpful" = "도움이 되지 않음";
-
-"placepage_reviews_inappropriate" = "부적절함";
-
-"placepage_reviews_spam" = "스팸";
-
-"placepage_reviews_hint" = "좋은 점이나 나쁜 점이 무엇인가요?";
-
-"placepage_reviews_edit_your_review" = "리뷰 편집";
-
-"placepage_reviews_new_review" = "새 리뷰";
-
-"placepage_translate_button" = "번역";
-
-"placepage_show_original_button" = "원본 표시";
-
-"placepage_more_reviews_booking_button" = "Booking.com의 추가 리뷰";
 
 "profile_authorization_title" = "로그인";
 
@@ -1826,41 +1632,11 @@
 
 "quality" = "품질";
 
-"whats_new_ugc_title_updated_v840" = "평점 및 리뷰";
-
-"whats_new_ugc_message" = "이제 평점과 리뷰를 오프라인에서도 남길 수 있습니다! 변경 사항을 볼 수 있도록 지도를 업데이트하는 것을 잊지 마세요.";
-
 "dialog_error_storage_title" = "저장소 액세스 문제";
 
-"dialog_error_storage_message" = "외부 저장소를 사용할 수 없습니다. SD 카드가 제거되었거나 손상되었거나 파일 시스템이 읽기 전용일 수 있습니다. 확인 후 support@omaps.app로 문의하세요.";
+"dialog_error_storage_message" = "외부 저장소를 사용할 수 없습니다. SD 카드가 제거되었거나 손상되었거나 파일 시스템이 읽기 전용일 수 있습니다. 확인 후 support@organicmaps.app로 문의하세요.";
 
 "setting_emulate_bad_storage" = "불량 저장소 에뮬레이션";
-
-"discovery_button_title" = "근처에 대해 알아보기";
-
-"discovery_button_subtitle_things_to_do" = "할 일";
-
-"discovery_button_subtitle_attractions" = "관광명소";
-
-"discovery_button_subtitle_eat_and_drink" = "음식과 음료";
-
-"discovery_button_subtitle_local_guides" = "지역 가이드";
-
-"discovery_button_viator_error_title" = "데이터 로드 중에 오류 발생";
-
-"discovery_button_other_error_message" = "데이터 로드 중에 오류 발생";
-
-"discovery_button_other_loading_message" = "데이터를 로드하는 중입니다.";
-
-"discovery_button_404_error_title" = "찾을 수 없음";
-
-"discovery_button_404_error_message" = "죄송합니다, 주변에서 흥미로운 것을 찾지 못했습니다.";
-
-"booking_filters_check_in" = "체크인";
-
-"booking_filters_check_out" = "체크아웃";
-
-"booking_filters_offline" = "사용할 수 없음.";
 
 "directions_finish" = "목적지";
 
@@ -1875,18 +1651,6 @@
 "crowdedness" = "혼잡";
 
 "error_enter_correct_name" = "올바른 이름을 입력하세요.";
-
-"hotel_available" = "사용 가능";
-
-"whats_new_transit_title" = "지하철 이용 가능";
-
-"whats_new_transit_message" = "지하철을 이용하여 경로를 작성하세요! 지도를 업데이트하여 변경 내용을 보세요.";
-
-"whats_new_discovery_title" = "검색 버튼";
-
-"whats_new_discovery_message" = "클릭 한 번으로 주변에 무엇이 있는지 알아보세요!";
-
-"price_per_hour" = "%s/시간";
 
 "bookmarks_backup" = "백업 사용";
 
@@ -1918,14 +1682,6 @@
 
 "downloader_applying" = "%s 적용 중...";
 
-"whats_new_title_hotel_filter" = "새로운 호텔 필터 사용 가능!";
-
-"whats_new_message_hotel_filter" = "해당 날짜에 이용 가능한 호텔을 예약하세요! 체크인 및 체크아웃 필터를 사용하세요.";
-
-"whats_new_title_ugc_travel" = "다른 여행자와 함께 경험을 나누세요!";
-
-"whats_new_message_ugc_travel" = "방문한 장소를 평가하고 리뷰를 남기세요!";
-
 "dialog_message_transit_not_found_connection" = "대중 교통망 내에서 하나의 경로를 계획하세요";
 
 "bookmarks_error_message_share_general" = "애플리케이션 오류로 인해 공유할 수 없습니다";
@@ -1933,10 +1689,6 @@
 "bookmarks_error_title_share_empty" = "공유 오류";
 
 "bookmarks_error_message_share_empty" = "빈 목록을 공유 할 수 없습니다";
-
-"discovery_button_subtitle_book_hotels" = "호텔 예약";
-
-"maxim_taxi_title" = "maxim";
 
 "bookmarks_error_title_empty_list_name" = "이름을 비워 둘 수는 없습니다.";
 
@@ -1978,10 +1730,6 @@
 
 "wn_reinvented_bookmarks_message" = "당신은 북마크를 백업하고, 목록을 만들 수 있습니다... 그것은 놀랍습니다...";
 
-"wn_way_of_booking_title" = "우리는 예약 방법을 상상했습니다!";
-
-"wn_way_of_booking_message" = "지도에서 호텔을 찾아 예약하거나 유사한 호텔을 선택하십시오.";
-
 "bookmarks_restore" = "북마크 복원";
 
 "bookmarks_restore_process" = "복원 중...";
@@ -2004,20 +1752,6 @@
 
 "restore" = "복원";
 
-"sign_message_gdpr" = "계속하려면 이용 약관 및 개인 정보 보호 정책에 동의해야합니다. 주의 깊게 읽으십시오.";
-
-"sign_agree_pp_gdpr" = "<a href=\"%s\">개인 정보 보호 정책</a>에 동의합니다.";
-
-"sign_agree_tof_gdpr" = "<a href=\"%s\">이용 약관</a>에 동의합니다.";
-
-"sign_agree_news_gdpr" = "OMaps 제품에 대한 최신 뉴스를받는 것에 동의합니다.";
-
-"whats_new_localbiz_title" = "스몰 비즈니스는 관심을 받을 가치가 있습니다.";
-
-"whats_new_localbiz_message" = "이는 우리의 여행을 잊혀지지 않도록 해주는 지역 카페, 아늑한 호스텔 그리고 상점입니다. 당사는 귀사의 페이지를 OMaps에서 최적화하여 두드러지게 할 것입니다.";
-
-"whats_new_order_button" = "요청사항을 남겨주세요.";
-
 "bookmarks_page_downloaded" = "다운로드 되었습니다.";
 
 "bookmarks_page_my" = "나의";
@@ -2028,7 +1762,7 @@
 
 "cached_bookmarks_placeholder_title" = "새로운 장소를 다운로드 하세요.";
 
-"cached_bookmarks_placeholder_subtitle" = "버튼을 눌러 OMaps 사용자들이 작성한 수천 개의 흥미로운 장소와 경로를 다운로드 하세요. 인터넷 연결이 필요합니다.";
+"cached_bookmarks_placeholder_subtitle" = "버튼을 눌러 Organic Maps 사용자들이 작성한 수천 개의 흥미로운 장소와 경로를 다운로드 하세요. 인터넷 연결이 필요합니다.";
 
 "downloader_download_routers" = "북마크를 다운로드 하세요.";
 
@@ -2040,7 +1774,7 @@
 
 "crash_reports" = "오류 보고서";
 
-"crash_reports_description" = "당사는 OMaps 경험을 개선하기 위해 귀하의 데이터를 활용할 수 있습니다. 앱을 다시 시작한 후 변경사항이 적용됩니다.";
+"crash_reports_description" = "당사는 Organic Maps 경험을 개선하기 위해 귀하의 데이터를 활용할 수 있습니다. 앱을 다시 시작한 후 변경사항이 적용됩니다.";
 
 "opt_out_help_ios_1" = "귀하의 모바일 장치는 \"\"광고 추적 제한\"\" 혹은 \"\"관심 기반의 광고의 옵트아웃\"\" 설정을 제공할 수 있습니다.";
 
@@ -2078,18 +1812,6 @@
 
 "subtitle_error_downloading_bookmarks" = "북마크가 다운로드 되지 않았습니다.";
 
-"whats_new_bookmarks_catalog_title" = "OMaps가 현재 경로 카탈로그를 보유하고 있습니다.";
-
-"whats_new_bookmarks_catalog_message" = "전세계 수백 개의 세부 경로: 가볼 장소, 볼거리, 먹거리.";
-
-"whats_new_popularity_label_title" = "근처 인기 있는 장소";
-
-"whats_new_popularity_label_message" = "근처에 대해 알아보기 섹션은 도시에서 가장 인기 있는 장소를 찾을 수 있도록 도와드립니다.";
-
-"whats_new_hot_offers_title" = "호텔에서의 매혹적인 오퍼";
-
-"whats_new_hot_offers_message" = "검색에서 호텔 범주를 사용하여 검색할 수 있습니다. 오퍼는 맵과 검색 결과에서 퍼센트 기호로 표시됩니다.";
-
 "error_already_downloaded" = "해당 목록을 이미 다운로드 하였습니다.";
 
 "popular_place" = "Popular";
@@ -2100,92 +1822,17 @@
 
 "bookmarks_downloaded_subtitle" = "Press ‘View on map’ to explore new places from the list";
 
-"guides" = "안내";
+"why_support" = "왜 Organic Maps를 지원하죠?";
 
-"guide_downloaded_title" = "안내를 성공적으로 다운로드 하였습니다.";
+"why_support_item1" = "We respect your privacy: there are zero trackers in the app, and we are open source";
 
-/* as few symbols as possible */
-"download_guides" = "가이드 찾기";
-
-"guides_groups_cached" = "다운로드한 안내";
-
-"subtitle_error_downloading_guide" = "안내를 다운로드하지 않았습니다.";
-
-"error_already_downloaded_guide" = "안내를 이미 다운로드하였습니다.";
-
-"guide_downloaded_subtitle" = "안내를 이용하려면 '지도 보기'를 누르세요";
-
-"bookmarks_guides" = "북마크 및 안내";
-
-"paybtn_title" = "%s/년 내세요";
-
-"paybtn_subtitle" = "%s/년마다 저축하세요";
-
-"options_dropdown_title" = "더 많은 옵션";
-
-"why_support" = "왜 OMaps를 지원하죠?";
-
-"options_dropdown_item1" = "%s/달 ( %s/년 저축)";
-
-"options_dropdown_item2" = "%s/주 (저축금 없음)";
-
-"why_support_item1" = "당신을 위해 모든 광고를 없애줄께요";
-
-"why_support_item2" = "당신은 OMaps를 개선하는데 우리를 도와주세요";
+"why_support_item2" = "당신은 Organic Maps를 개선하는데 우리를 도와주세요";
 
 "why_support_item3" = "오픈 지도들 OpenStreetMap.org를 개선하는데 도와주세요";
 
-"purchase_processing" = "구매가 처리되고 있습니다…";
-
-"tips_bookmarks_catalog_title" = "모든 종류의 여행을 위한 오프라인 가이드";
-
-"tips_bookmarks_catalog_message" = "다운로드해서 세계 여러 도시의 흥미로운 지역의 여행 경로를 계획하세요.";
-
-"tips_discover_button_title" = "근처의 인기있는 장소들을 찾고싶은가요?";
-
-"tips_discover_button_message" = "근처에 대해 알아보기 섹션은 최고의 레스토랑, 호텔들 및 명소가 포함되있습니다.";
-
-"tips_book_hotel_title" = "당신의 여행을 위해 제일 편한 호텔들을 예약하세요";
-
-"tips_book_hotel_message" = "검색과 필터를 이용해 당신만의 최고의 호텔을 찾으세요. 장소 플레이스 페이지에 있는 \"예약\" 버튼을 이용해 호텔을 바로 예약하세요.";
-
-"tips_map_layers_title" = "어떤 역에서 연결해야되는지 모른다고요?";
-
-"tips_map_layers_message" = "지하철 레이어를 켜서 지하철 지도를 보면, 언제나 새로운 도시에서 길을 찾을 수 있어요.";
-
 "channels_map_update" = "지도 업데이트";
 
-"channels_reviews" = "보내지 않은 리뷰";
-
-"purchase_loading" = "구매정보 로딩중…";
-
-"purchase_error_subtitle" = "구매 처리 중 오류가 발생했습니다";
-
-"awaiting_approval" = "부모의 승인을 기다리는 중입니다";
-
-"whats_new_leave_review" = "리뷰를 남기세요! 휴가를 통해 방문한 장소에 대한 당신의 의견을 공유하십시오.";
-
 "server_unavailable_title" = "서버를 사용할 수 없습니다";
-
-"server_unavailable_message" = "구매가 나중에 완료됩니다. 계속 에러 지속시, support@omaps.app로 연락 바랍니다.";
-
-"offline_fiters_check_in" = "인터넷에 연결해 날짜를 통해서 호텔들을 필터 하세요.";
-
-"rutaxi_title" = "RuTaxi";
-
-"restore_subscription" = "구독 복구";
-
-"restore_success_alert" = "구독이 성공적으로 복구 되었습니다";
-
-"restore_error_alert" = "구독을 복구하는 동안 오류가 발생했습니다";
-
-"restore_no_subscription_alert" = "활성화 된 구독이 없습니다";
-
-"subscriptions_title" = "구독";
-
-"manage_subscription" = "구독 관리";
-
-"taxi" = "Taxi";
 
 "sharing_options" = "옵션 공유";
 
@@ -2197,13 +1844,13 @@
 
 "hide_from_map" = "지도에서 숨기기";
 
-"ugc_route_tags_screen_label" = "태그 선택하기";
-
-"ugc_route_tags_progress_msg" = "태그 불러오는 중…";
-
 "public_access" = "일반 접근";
 
 "limited_access" = "제한 접근";
+
+"bookmark_category_name" = "범주";
+
+"bookmark_category_description_hint" = "묘사를 적으세요 (글자 혹은 html)";
 
 /* FIXME */
 "bookmarks_public_access" = "bookmarks_public_access";
@@ -2214,33 +1861,11 @@
 /* FIXME */
 "bookmarks_private_access" = "bookmarks_private_access";
 
-"upload_and_publish_desc" = "이 가이드는 OMaps 카탈로그에 업로드되며 다른 사용자들에게 제공됩니다";
-
-"upload_and_publish" = "업로드와 발간";
-
-"upload_and_get_direct_link" = "업로드와 다이렉트 링크 얻기";
-
-"get_direct_link_desc" = "당신의 가이드가 링크를 가진 모든 이에게 허락됩니다";
-
-"upload_and_publish_progress_text" = "당신의 가이드를 발간하는 중…";
-
-"upload_and_publish_success" = "가이드가 발간되었습니다";
-
-"ugc_routes_user_agreement" = "<b>알고 계세요:</b> 진행하면, 당신은 <a href=\"%s\">라이센스에 동의</a>하는 것입니다.";
-
-"ugc_route_edit_list_name" = "가이드 이름";
-
-"ugc_route_edit_description_hint" = "묘사를 적으세요 (글자 혹은 html)";
-
 "not_shared" = "개인";
 
 "direct_link_progress_text" = "당신의 파일을 업로드 중…";
 
 "direct_link_success" = "링크가 만들어졌습니다";
-
-"edit_guide_title" = "웹에서 당신의 가이드 수정하기";
-
-"edit_guide_subtitle" = "링크를 타고 웹 앱을 통해 당신의 가이드를 수정하세요: 묘사 추가, 사진 올리기와 선으로 즐겨찾기들 연결하기.";
 
 "send_a_link_btn" = "나에게 링크 보내기";
 
@@ -2254,39 +1879,7 @@
 
 "unable_upload_error_subtitle_broken" = "파일이 망가져서 업로드를 할 수 없습니다. 다른 파일을 업로드하세요.";
 
-"buy_btn" = "%s 에 이 것을 구매하기";
-
-"download_guide_progress" = "당신의 가이드를 다운로드 중…";
-
-"price_error_title" = "가격을 알 수 없습니다";
-
-"price_error_subtitle" = "몇 분 뒤 다시 시도해주세요";
-
-"edit_your_guide_email_body" = "컴퓨터로 당신의 가이드를 쉽게 수정하세요: 묘사 추가, 사진 업로드, 선으로 즐겨찾기들 연결하기.";
-
-"edit_on_web" = "웹에서 수정하기";
-
-"properties_loading_error_subtitle" = "옵션을 불러오는 도중 에러가 발생했습니다. 다시 시도해보세요";
-
-"custom_props_desc" = "이 가이드에서 당신은 장소들을 방문 할 수 있습니다";
-
-"custom_props_title" = "현지인 혹은 여행자";
-
-"custom_props_local" = "현지";
-
-"custom_props_traveler" = "여행자";
-
-"select_properties" = "옵션 선택";
-
-"access_rules_p_to_p" = "특수 접근";
-
-"access_rules_paid" = "구매함";
-
-"failed_purchase_support_message" = "죄송합니다. 구매가 완료되지 않았습니다. 도우미와 연락하시면 문제를 해결해드립니다.";
-
 "contact" = "연락";
-
-"check_price_button" = "가격 확인";
 
 "download_button" = "다운로드";
 
@@ -2304,92 +1897,16 @@
 
 "place_description_title" = "장소 묘사";
 
-"ugc_routes_error_uploading_file_toast" = "안타깝게도, 즐겨찾기를 업로드하는 도중 오류가 발생했습니다. 다시 시도해보세요.";
-
-"notification_channel_ugc" = "소셜 컨텐트";
-
 /* this text will be shown in application notification preferences opposite checkbox which enable/disable downloader notifications. Devices on Android 8+ are affected. */
 "notification_channel_downloader" = "맵 다운로더";
 
-"notification_leave_review_title" = "%s - 어떠셨나요?";
-
-"notification_leave_review_content" = "리뷰를 남겨서 여행자들을 도와주세요!";
-
-"share_bookmarks_email_body_link" = "안녕하세요!\n\n여기 즐겨찾기들을 다운로드 받을 수 있는 링크입니다: %s. OMaps 를 통해 리스트를 열고 당신의 여행을 즐기세요!\n\n어플리케이션을 받으세요: https://omaps.app/get?kmz";
+"share_bookmarks_email_body_link" = "안녕하세요!\n\n여기 즐겨찾기들을 다운로드 받을 수 있는 링크입니다: %s. Organic Maps 를 통해 리스트를 열고 당신의 여행을 즐기세요!\n\n어플리케이션을 받으세요: https://organicmaps.app/get?kmz";
 
 "warning_speedcams_title" = "네비게이터가 %d km/h의 속도 제한을 초과시 카메라에 대해 경고 할 것입니다";
 
 "warning_speedcams_subtitle" = "여행하시는 나라의 운전 법규를 준수하시길 바랍니다.";
 
 "speedcams_notice_message" = "자동 - 속도 제한 초과 위험이 있을때 스피드캠에 대해 경고하기\n항상 - 스피드캠에 대해 항상 경고하기\n절대 아님 - 스피드캠에 대해 경고하지 않기";
-
-"whats_new_ugc_routes_title" = "당신의 감동을 공유하기 좋습니다";
-
-"whats_new_ugc_routes_subtitle" = "잊지 못할 장소들을 저장하고 즐겨찾기를 사용해 길을 만들어 OMaps의 모두와 나눠보세요.";
-
-"whats_new_webeditor_title" = "당신의 지나온 길들을 이야기로 바꿔보세요";
-
-"whats_new_ugc_routes_message2" = "웹 에디터 안에서 사진들과 자세한 이야기들을 추가해보세요.";
-
-"ugc_thanks_message_auth" = "리뷰가 저장되었습니다";
-
-"ugc_thanks_message_not_auth" = "리뷰를 남기시려면 로그인을 하세요";
-
-"notification_leave_review_v2_title" = "방문하신 장소를 평가하셔서 여행객들을 도와주세요!";
-
-"error_public_not_enought_title" = "즐겨찾기가 충분하지 않습니다";
-
-"error_public_not_enought_subtitle" = "공공 카탈로그에 가이드를 업로드를 하시려면 적어도 3개의 즐겨찾기를 갖고 계셔야 합니다";
-
-"bookmark_public_upload_alert_title" = "모든 OMaps 여행객들과 즐겨찾기를 공유하기까지 몇 단계 밖에 남지 않았습니다!";
-
-"bookmark_public_upload_alert_subtitle" = "귀하의 목록을 위한 특정한 이름과 설명이 있는지 확인해주세요. 모든 즐겨찾기는 장소에 대한 정보를 갖고 있습니다. 귀하의 목록이 다른 사용자들에게 발견되고 사용됩니다.";
-
-"bookmark_public_upload_alert_ok_button" = "네, 물론입니다!";
-
-"name_title" = "귀하의 가이드 이름을 입력하세요";
-
-"name_placeholder" = "예) 런던의 술집들";
-
-"name_comment1" = "여행객들이 쉽게 발견할 수 있도록 귀하의 가이드 이름을 지어주세요. 예시, \"런던의 술집들\"";
-
-"name_comment2" = "이름은 특정한 심볼들을 포함할 수 없습니다. \"내 장소\"는 이름이 될 수 없습니다";
-
-"description_guide" = "묘사";
-
-"description_title" = "가이드의 묘사를 입력해주세요";
-
-"description_placeholder" = "가이드를 자세히 묘사해주세요";
-
-"description_comment1" = "가이드 묘사는 적어도 30자 이상이 들어가야합니다.";
-
-"ugc_route_tags_desc" = "다른 여행객들이 귀하의 가이드를 발견할 수 있도록 태그를 선택해 주세요 필수입니다. %s 태그가 최대치입니다.";
-
-"html_format_error_title" = "가이드가 게재되지 않았습니다";
-
-"html_format_error_subtitle" = "올바른 형식의 즐겨찾기묘사와 이름인지 확인해주세요 밑의 \"온라인 수정\" 버튼을 눌러서 데스크탑 브라우져에서 확인 하실 수 있습니다.";
-
-"web_editor_description" = "가이드를 올리시고 데스크탑에서 수정 링크를 받으세요";
-
-"edit_on_web_confirm" = "온라인 수정";
-
-"update_guide" = "업데이트 올리기";
-
-"direct_link_updating_text" = "귀하의 파일을 업데이트 중입니다…";
-
-"direct_link_updating_success" = "업데이트 되었습니다";
-
-"unable_get_direct_link_desc" = "공공 링크를 동해 귀하의 가이드를 공유하실 수 있습니다";
-
-"any_access_update_alert_title" = "약간의 수정 사항이 발생할 수 있습니다";
-
-"any_access_update_alert_message" = "즐겨찻기를 업데이트하시길 원하십니까? 같은 링크를 통해 새로운 버전이 사용 가능하게 됩니다.";
-
-"any_access_update_alert_update" = "업데이트";
-
-"public_or_limited_access_after_edit_online_error_title" = "귀하의 즐겨찾기 온라인을 수정하셨습니다";
-
-"public_or_limited_access_after_edit_online_error_message" = "미래에, 우리의 웹사이트를 동해 친구들과 가이드를 수정, 게재 혹은 공유해보세요";
 
 "power_managment_title" = "전력 절약 모드";
 
@@ -2401,7 +1918,7 @@
 
 "power_managment_setting_manual_max" = "최대 전력 절약";
 
-"enable_logging_warning_message" = "이 옵션은 진단을 목적으로 로그를 엽니다 이를 통해 앱에 대한 문제를 분석하는 우리의 스탭을 도울 수 있습니다 이 옵션은 오직 OMaps 지원 요청에서만 가능합니다.";
+"enable_logging_warning_message" = "이 옵션은 진단을 목적으로 로그를 엽니다 이를 통해 앱에 대한 문제를 분석하는 우리의 스탭을 도울 수 있습니다 이 옵션은 오직 Organic Maps 지원 요청에서만 가능합니다.";
 
 "html_error_upload_message_try_again" = "네트워크 설정을 확인하신 후 다시 시도해주세요";
 
@@ -2417,21 +1934,9 @@
 
 "privacy_settings_menu" = "개인정보 설정";
 
-"gdpr_request_setting" = "GDPR 요청을 위해 ID 만들기";
-
-"gdpr_request_window_title" = "귀하의 ID: %s.";
-
-"gdpr_request_window_message" = "복사하신 뒤 support@omaps.app 에 요청을 보내세요";
-
-"gdpr_request_window_copy" = "ID 복사하기";
-
 "unable_upadate_error_title" = "파일 업데이트 실패";
 
 "unable_upadate_error_message" = "업데이트 중 무언가 실수가 일어났습니다. 변경점들을 확인하시고 다시 시도해주세요";
-
-"whats_new_wiki_title" = "이 장소는 뭐지?";
-
-"whats_new_wiki_message" = "Wikipedia.org 의 관광객들에게 가장 매력적인 장소 페이지들의 내용들을 추가했습니다. 오프라인에서 가능합니다";
 
 "driving_options_title" = "운전 옵션";
 
@@ -2467,31 +1972,7 @@
 
 "avoid_ferry_crossing_placepage" = "여객선 횡단길 피하기";
 
-"cached_guides_placeholder_subtitle" = "OMaps는 선택된 장소의 사진과 묘사가 지도에 표시되는 미리 만들어진 가이드를 제공하고 오프라인에서도 사용이 가능합니다.";
-
-"guides_catalogue_title" = "가이드 카탈로그";
-
-"download_guides_button" = "카탈로그로";
-
 "type.cuisine.uzbek" = "우즈벡 요리";
-
-"onboarding_guide_direct_download_title" = "가이드 다운로드가 준비가 되었습니다";
-
-"onboarding_guide_direct_download_subtitle" = "지도에 표시가 되고 오프라인에서도 작동합니다";
-
-"onboarding_guide_direct_download_button" = "다운로드";
-
-"onboarding_bydeeplink_guide_title" = "OMaps의 가이드가 사용 준비되었습니다";
-
-"onboarding_bydeeplink_guide_subtitle" = "사진과 묘사가 있는 지도에 방문하기에 최고의 장소가 표시됩니다. 오프라인으로 작동하기.";
-
-"whats_new_auto_update_bydeeplink_title" = "가이드를 진행하시기 전에…";
-
-"whats_new_auto_update_bydeeplink_message" = "맵들을 업데이트하셔서 최신 사항에 대한 정보를 유지하세요!";
-
-"whats_new_auto_update_and_proceed_button_size" = "(%s) 업데이트 그리고 진행";
-
-"purchase_please_wait_toast" = "구매가 완료되기 전에 이 화면을 떠나지 마세요";
 
 "trip_start" = "가자";
 
@@ -2531,80 +2012,6 @@
 
 "ok" = "OK";
 
-"vezet_taxi" = "Vezet";
-
-"booking_button_toolbar" = "지도에서 호텔을 고르세요";
-
-"popup_booking_download_guides_title" = "호텔을 예약하셨나요?";
-
-"popup_booking_download_guides_message" = "귀하의 루트를 OMaps의 준비된 가이드들로 계획해보세요";
-
-"popup_mwm_download_guides_title" = "오프라인 도시 가이드";
-
-"popup_mwm_download_guides_cta" = "하나를 고르세요";
-
-"popup_mwm_download_guides_cta_1" = "살펴보세요";
-
-"gallery_pp_download_guides_offline_title" = "휴가를 OMaps와 함께 계획해보세요!";
-
-"gallery_pp_download_guides_offline_subtitle" = "경험 많은 여행자들이 만든 가이드의 모든 것을 놓치지 마세요";
-
-"gallery_pp_download_guides_offline_cta" = "인터넷 키기";
-
-"gallery_pp_download_guides_title" = "가이드들";
-
-"native_screen_subscription_title" = "2000개가 넘는 여행 가이드에 무제한 액세스!";
-
-"native_screen_subscription_message" = "누구와 어딜가든 기억에 남는 여행";
-
-"annual_subscription_title" = "매년";
-
-"montly_subscription_title" = "매월";
-
-"annual_subscription_message" = "12개월의 무제한 액세스";
-
-"montly_subscription_message" = "한달 무제한 액세스";
-
-"annual_save_component" = "- %d%";
-
-"subscription_success_dialog_title" = "구독에 감사드립니다!";
-
-"subscription_success_dialog_message" = "이제 모든 가이드 카탈로그에 무제한으로 액세스하실 수 있습니다";
-
-"renewal_screen_title" = "구독이 만료되었습니다";
-
-"renewal_screen_message" = "구독으로 다운로드된 모든 가이드들이 지워집니다. 구독을 유지하시고 가이드들을 보관하시겠습니까?";
-
-"renewal_screen_button_restore" = "네, 유지합니다";
-
-"renewal_screen_button_cancel" = "아니오, 제거합니다";
-
-"subscription_error_ping_title" = "구매가 실패했습니다";
-
-"subscription_error_message" = "이 서비스는 현재 귀하의 지역에서 사용할 수 없습니다. 후에 다시 시도하세요";
-
-"subscription_error_button" = "알겠습니다";
-
-"timeout_error_title" = "이런, 시간이 지났습니다!";
-
-"timeout_error_message" = "서버가 응답하지 않습니다. 인터넷 연결 확인 후 다시 시도해보세요.";
-
-"per_month" = "/달";
-
-"per_year" = "/년";
-
-"buy_btn_for_subscription" = "%s 로 무제한 액세스";
-
-"buy_btn_for_subscription_1" = "%s 으로 모든 가이드 구매하기";
-
-"buy_btn_for_subscription_ios_only_mo" = "%s/달 으로 무제한 액세스";
-
-"buy_btn_for_subscription_ios_only_year" = "%s/년 으로 무제한 액세스";
-
-"subscription_terms_guides" = "구매 확인 후 비용이 귀하의 iTunes 계정에 청구됩니다. 현재 기한 종료 전 적어도 24시간 전에 자동 갱신 기능이 꺼져있어야 합니다. 그렇지 않으면 구독은 자동 갱신됩니다. 현재 기한 종료 후 24시간 이내에 갱신에 대한 귀하의 계획에 따라 계정에 비용이 청구됩니다. 귀하가 구매 시 아무 때나 귀하의 Apple ID 계정에서 자동 갱신 기능을 끄거나 관리할 수 있습니다. 구독 만료 기간까지만 구독 시 다운로드한 가이드를 사용할 수 있습니다. 구독 만료일에서 30일이 지나면 북마크와 가이드는 자동으로 삭제됩니다.";
-
-"subscription_terms" = "결제 확인시 iTunes 계정에 요금이 부과됩니다. 현재 구독 기간 종료 최소 24 시간 전에 자동 갱신을 해제하지 않을 경우, 구독은 자동으로 갱신됩니다. 현재 구독 기간 종료 최소 24 시간 이전에 갱신하신 플랜의 상세 정보에 따라 계정의 비용이 청구될 것입니다. 구입 시 Apple ID 계정 설정에서 자동 갱신을 관리하거나 해제할 수 있습니다.";
-
 "avoid_unpaved_carplay_1" = "비포장 도로 없음";
 
 "avoid_unpaved_carplay_2" = "비포장 도로 없음";
@@ -2621,7 +2028,7 @@
 
 "speedcams_alert_title_carplay_2" = "속도단속 카메라";
 
-"download_map_carplay" = "OMaps 앱 안의 지도들을 디바이스에 다운로드하세요";
+"download_map_carplay" = "Organic Maps 앱 안의 지도들을 디바이스에 다운로드하세요";
 
 "carplay_roundabout_exit" = "%s번 출구";
 
@@ -2708,138 +2115,9 @@
 /* Android, max 18 symbols */
 "bookmarks_delete_list" = "리스트 삭제";
 
-"popup_subscription_success_map_title" = "우후, 구독을 하셨군요!";
-
-"popup_subscription_success_map_message" = "지금 OMaps 카탈로그와 함께 최고의 여행 명소를 찾아보세요";
-
-"popup_subscription_success_map_start_button" = "보기 시작";
-
-"popup_subscription_success_map_not_now_button" = "지금은 아님";
-
 "religious_places" = "종교적 장소";
 
-"subscription_terms_android" = "구매를 확정하시면 귀하의 구글 플레이 어카운트에 비용이 청구될 것 입니다. 구독은 현재 기한이 끝나기 전 적어도 24시간 전에 자동 갱신 기능을 꺼놓지 않는다면 자동으로 갱신됩니다. 귀하의 계정에 현재 기간이 끝나기 24시간 전에 갱신 계획에 따라 청구됩니다. 구매 후 계정 설정에서 자동 갱신 기능을 관리하거나 끄실 수 있습니다. 구독으로 다운로드한 가이드는 만료일까지만 사용할 수 있습니다. 구독 만료일로부터 30일이 지나면 다운로드한 가이드는 자동으로 삭제됩니다.";
-
 "select_list" = "목록 선택";
-
-"pp_discovery_place_related_header" = "이 장소는 카탈로그 가이드에 있습니다";
-
-"pp_discovery_place_related_header_1" = "이 장소는 가이드에 실려있습니다";
-
-"pp_discovery_place_related_cta_button" = "보기";
-
-"pp_discovery_place_related_tag_header" = "태그 \"%s\"로 찾은 가이드";
-
-"pp_discovery_place_related_tag_header_1" = "추천된 가이드";
-
-"buy_btn_for_subscription_version_2" = "모든 가이드가 단 돈 %s/월";
-
-"buy_btn_for_subscription_version_3" = "모든 카탈로그가 %s/월";
-
-"buy_btn_for_subscription_ios_only_mo_version_2" = "카탈로그 접근권이 %s/월";
-
-"buy_btn_for_subscription_ios_only_year_version_2" = "카탈로그 접근권이 %s/년";
-
-"subscription_screen_native_title_version_2" = "북마크가 있는 가이드에 엑세스하세요!";
-
-"subscription_screen_native_message_version_2" = "600개 이상의 도시와 100 곳 이상의 나라에 언제라도 갈 수 있습니다";
-
-"catalog_no_internet_title" = "인터넷 연결이 되어있지 않습니다";
-
-"catalog_no_internet_button" = "다시 시도";
-
-"new_onboarding_button" = "다음";
-
-"new_onboarding_button_2" = "시작하기";
-
-"new_onboarding_step1_header" = "OMaps";
-
-"new_onboarding_step1_header_2" = "여행 친구는 이 친구 하나면 됩니다";
-
-"new_onboarding_step2_header" = "꿈을 꾸고 계획을 세우세요";
-
-"new_onboarding_step2_message" = "7천만 곳 이상의 장소들, 준비된 가이드들과 맵에서 즉시 호텔 예약이 가능합니다. 이미 여행 준비가 다 되어있습니다!";
-
-"new_onboarding_step3_message" = "어느 나라를 가도 자세한 지도로 길을 절대로 잃어버리지 않습니다. 그리고 내비게이션까지 – 모든 기능이 오프라인에서 작동합니다!";
-
-"new_onboarding_step4_header" = "감동을 나누세요";
-
-"new_onboarding_step4_message" = "좋아하는 장소들을 북마크에 넣고 친구들에게 공유하세요";
-
-"new_onboarding_step5.1_header" = "시작하기 전에 한 가지 더…";
-
-"new_onboarding_step5.1_message" = "우리의 새로운 가이드 카탈로그를 살펴보는 것을 잊지마세요. 다가오는 여행을 위한 오프라인 가이드를 찾아볼 수 있습니다!";
-
-"new_onboarding_step5.1_button" = "카탈로그 열기";
-
-"new_onboarding_step5.2_message" = "OMaps 카탈로그를 구독하신다면 만족하실 겁니다. 전세계의 도시 및 아웃도어 가이드에 완전한 액세스를 하실 수 있습니다!";
-
-"new_onboarding_step5.2_button" = "약관 확인하기";
-
-"new_onboarding_step5.3_message" = "OMaps의 무료 모음집에서 미리 준비된 도시 및 야외 경로의 무료 샘플을 확인하세요!";
-
-"new_onboarding_step5.3_button" = "무료 다운로드";
-
-"new_onboarding_additional_steps_later_button" = "나중에";
-
-"all_pass_subscription_header" = "구독하기";
-
-"all_pass_subscription_subheader" = "가이드 카탈로그";
-
-/* \n - for a break between lines. Max. 15 characters per 1 line. */
-"all_pass_subscription_message_title" = "30000개 이상의\n가이드 및 길들";
-
-/* <b> & </b> tag to make a part of the line bold */
-"all_pass_subscription_message_subtitle" = "<b>오프라인 모드</b>에서 도시 및 아웃도어 경로를 <b>무제한 다운로드</b>";
-
-/* \n - for a break between lines. Max. 17 characters per 1 line. */
-"all_pass_subscription_message_title_2" = "상호작용형\n고도 단면도";
-
-/* <b> & </b> tag to make a part of the line bold */
-"all_pass_subscription_message_subtitle_2" = "각 산길들은 <b>경로의 고도 및 기본 정보를 포함하고 있습니다</b>";
-
-/* \n - for a break between lines. Max. 15 characters per 1 line. */
-"all_pass_subscription_message_title_3" = "즐겨찾기,\n사진 및\n추천글";
-
-/* <b> & </b> tag to make a part of the line bold */
-"all_pass_subscription_message_subtitle_3" = "가려는 곳의 <b>길에 대한 모든 것을 알 수 있습니다</b>";
-
-/* do not translate */
-"sightseeing_subscription_header_sightseeing" = "City Pass";
-
-"sightseeing_subscription_header_subscription" = "가이드 구독";
-
-"sightseeing_subscription_message" = "700개 이상 도시와 100곳 이상의 나라";
-
-"sightseeing_subscription_message_2" = "오프라인에서 사용 가능";
-
-"sightseeing_subscription_message_3" = "사진과 산책로";
-
-"subscription_success_dialog_title_sightseeing_pass" = "구독에 감사드립니다!";
-
-"subscription_success_dialog_message_sightseeing_pass" = "이제 카탈로그에 있는 모든 관광 가이드에 접근하실 수 있습니다";
-
-"downloader_main_gallery_header" = "맵 & 가이드";
-
-"downloader_main_gallery_message" = "이제 이 섹션에서 지도를 다운로드할 수 있을 뿐만 아니라 다가오는 여행에 대한 가이드도 확인할 수 있습니다";
-
-"downloader_main_1_element_gallery_header" = "모든 가이드";
-
-"downloader_main_1_element_gallery_message" = "100곳 이상의 나라들에서";
-
-"downloader_country_1_element_gallery_header" = "%s 가이드";
-
-"downloader_country_no_guides_gallery_header" = "이 나라에는 아직 가이드가 없습니다";
-
-"downloader_country_no_guides_gallery_message" = "도시 및 야외 활동을 위해 100개 이상의 국가의 다른 오프라인 가이드가 확인 가능합니다";
-
-"dialog_pedestrian_route_is_long" = "교통 탑승지까지 보행자 경로는 너무 기네요";
-
-"new_onboarding_step3_header" = "경험하세요";
-
-"all_pass_screen_best_value" = "최고가치";
-
-"buy_btn_for_subscription_3" = "모든 카탈로그가 %s/년";
 
 "transit_not_found" = "이 지역의 지하철 노선 기능이 아직 없습니다";
 
@@ -2852,7 +2130,7 @@
 
 "button_layer_isolines" = "지형";
 
-"tips_map_layers_title_countour" = "OMaps의 새 기능: 오프라인 지형 레이어!";
+"tips_map_layers_title_countour" = "Organic Maps의 새 기능: 오프라인 지형 레이어!";
 
 "tips_map_layers_message_countour" = "이 지역에 대한 모든 것을 알고 있는지 확인하면서 자연 여행을 계획하고 즐기세요";
 
@@ -2890,175 +2168,13 @@
 
 "elevation_profile_minutes" = "분";
 
-"view_on_map_downloaded_error" = "이 가이드는 이 장치에서 제거되었습니다";
-
-"subscription" = "구독";
-
-"freenow_taxi_title" = "FREE NOW";
-
-"tinkoff_allairlines_map_downloader_title" = "Карта Тинькофф All Airlines. 3000 миль в подарок";
-
-"tinkoff_allairlines_map_downloader_cta_button" = "Оформить карту";
-
-"tinkoff_insurance_map_downloader_title" = "Полис Тинькофф со скидкой! Подходит для любых виз.";
-
-"tinkoff_insurance_map_downloader_cta_button" = "Промокод";
-
-"mts_map_downloader_title" = "Забугорище: интернет и звонки за границей как дома";
-
-"mts_map_downloader_cta_button" = "Подключить";
-
-"skyeng_map_downloader_title" = "Дарим 4 бесплатных урока английского от Skyeng.";
-
-"skyeng_map_downloader_cta_button" = "Подробнее";
-
-"button_layer_guides" = "가이드 (new)";
-
-"no_routes_in_the_area_toast" = "여기서 찾은 가이드가 없습니다";
-
 "isolines_toast_zooms_1_10" = "등치선 탐색을 위한 확대";
-
-"routes_layer_in_menu_toast" = "오프라인 가이드 찾기 및 등치선, 지하철 노선 또는 교통 체증 탐색을 위해 레이어를 키세요";
-
-"routes_layer_is_on_toast" = "맵을 드래그하여 가이드를 탐험하세요";
-
-"connection_error_dialog_guides_title" = "연결 오류";
-
-"connection_error_dialog_guides_message" = "인터넷 연결이 되지 않았거나 신호가 약해서 레이어가 작동하지 않습니다. 계속하시려면 연결을 확인하시거나 레이어 기능을 끄십시오.";
-
-"connection_error_dialog_guides_try" = "재시도하기";
-
-"connection_error_dialog_guides_layer_turn_off" = "끄기";
-
-"connection_error_toast_guides" = "재연결 시도하기";
-
-/* as few symbols as possible */
-"routes_card_show" = "지도에서 보이기";
-
-/* as few symbols as possible */
-"routes_card_hide" = "지도에서 숨기기";
 
 "downloader_updating_ios" = "업데이트 중";
 
 "downloader_loading_ios" = "다운로드 중";
 
-"routes_card_plus_track" = "+ 경로";
-
-"routes_card_city" = "City";
-
-"routes_card_outdoor" = "Outdoor";
-
-"routes_card_number_of_points" = "%s 장소";
-
-"routes_card_routes_tag" = "일정표";
-
-"routes_card_set_tag" = "주요 장소";
-
-/* as few symbols as possible */
-"guides_trial_cta_button" = "7일 무료 체험 시작하기";
-
-"guides_trial_message" = "그 후에는 1년에 %s 입니다. 언제든지 취소하실 수 있습니다";
-
-"trial_error_dialog" = "죄송합니다. 이미 체험판을 사용하셨습니다";
-
-/* as few symbols as possible */
-"floating_button_filters" = "필터";
-
-/* as few symbols as possible */
-"date_picker_сhoose_dates_cta" = "날짜 선택";
-
-/* as few symbols as possible */
-"guests_picker_rooms_title" = "방 및 고객 수";
-
-"guests_picker_rooms" = "방";
-
-"guests_picker_adults" = "성인";
-
-"guests_picker_children_title" = "아이";
-
-"guests_picker_children_subtitle" = "1-17세";
-
-"guests_picker_infants_title" = "유아";
-
-"guests_picker_infants_subtitle" = "0-12개월";
-
-/* as less symbols as possible */
-"booking_map_component_availability" = "가능한 방이 없습니다";
-
-/* as few symbols as possible */
-"booking_map_component_filters" = "필터 설정과 일치하지 않습니다";
-
-"choose_dates_online_only_dialog_title" = "인터넷 연결이 없음";
-
-"choose_dates_online_only_dialog_message" = "날짜 및 고객 수는 온라인 상태일 때만 선택이 가능합니다. 설정을 확인하시고 인터넷에 연결되어 있는지 확인하십시오.";
-
-"choose_dates_online_only_dialog_cta" = "설정";
-
-"thirty_days_limit_dialog" = "최대 30일 숙박을 예약하실 수 있습니다";
-
-"whatsnew_trial_cta" = "지금 체험해보세요";
-
-"subscription_terms_guides_outdoor" = "구매 완료 후, 비용이 귀하의 iTunes 계정에 청구됩니다. 현재 가입 기간이 종료되기 최소 24시간 전에 자동 갱신 기능이 비활성화되지 않으면 가입이 자동으로 갱신됩니다. 귀하의 계정에서 현재 가입 기간이 종료되기 24시간 이내에 갱신 플랜에 따라 청구됩니다. 구매 후 언제든지 Apple ID 계정 설정에서 자동 갱신을 관리하시거나 비활성화하실 수 있습니다. 구독이 만료될 때까지 구독 기간 동안 다운로드한 가이드만 사용하십시오. 가이드와 모든 책갈피는 가입이 만료된 후 7일 후에 자동으로 삭제됩니다.\n* 무료 평가판 사용 기간이 있는 가입은 유료 가입으로 자동 갱신됩니다. 구매 후 계정 설정에서 무료 평가판의 자동 갱신을 취소하거나 관리하실 수 있습니다. 취소는 현행 가입기간 마지막 날로부터 24시간 이후부터 효력이 발생합니다. 그 후에 귀하의 서비스는 무료 서비스로 바뀝니다. 참고: 무료 평가판 중 프리미엄 서비스를 구입할 경우 무료 평가판의 사용하지 않은 부분은 사라집니다.";
-
-"subscription_terms_android_outdoor" = "구매를 확인하면 귀하의 Google Play 계정에 대금이 청구됩니다. 현재 가입 기간이 종료되기 최소 24시간 전에 자동 갱신 기능이 비활성화되지 않으면 가입이 자동으로 갱신됩니다. 귀하의 계정에서 현재 가입 기간이 종료되기 24시간 이내에 갱신 플랜에 따라 청구됩니다. 구매 후 언제든지 계정 설정에서 자동 갱신을 관리하거나 비활성화할 수 있습니다. 구독이 만료될 때까지 구독 기간 동안 다운로드한 가이드만 사용하십시오. 가이드는 가입 만료 7일 후 자동으로 삭제됩니다.\n* 무료 평가판 사용 기간이 있는 가입은 유료 가입으로 자동 갱신됩니다. 구매 후 계정 설정에서 무료 평가판의 자동 갱신을 취소하거나 관리하실 수 있습니다. 취소는 현행 가입기간 마지막 날로부터 24시간 이후부터 효력이 발생합니다. 그 후에 귀하의 서비스는 무료 서비스로 바뀝니다. 참고: 무료 평가판 중 프리미엄 서비스를 구입할 경우 무료 평가판의 사용하지 않은 부분은 사라집니다.";
-
-"sberbank_map_downloader_title" = "Откройте Сберкарту Тревел Mastercard и копите мили";
-
-"sberbank_map_downloader_cta_button" = "Узнать больше";
-
-"yango_taxi_title" = "Yango";
-
-"citymobil_taxi_title" = "Citymobil";
-
-"subscription_header" = "<b>가이드 카탈로그</b>\n구독하기";
-
-/* Max. 20 characters per 1 line. */
-"all_pass_subscription_message_title_4" = "여행 가이드\nby Lonely Planet®";
-
-/* <b> & </b> tag to make a part of the line bold */
-"all_pass_subscription_message_subtitle_4" = "<b>전 세계의</b> 흥미로운 수천 곳에 대해 <b>더 많은 경험</b>을 하실 수 있습니다";
-
-"content_by_component" = "제작: %s";
-
-"whatsnew_lp_title" = "더 많은 감동을 느껴보세요";
-
-"whatsnew_lp_message" = "이제 Lonely Planet 가이드를 Maps.me에서 이용하실 수 있습니다! 7천개가 넘는 도시들의 최고로 매력적인 관광명소, 테마별 걷기와 개성이 넘치는 여행 장소들이 기다리고 있습니다.";
-
-"collections_title" = "콜렉션";
-
 "key_information_title" = "핵심 정보";
-
-"mustsee_title" = "꼭 들려봐야 하는 곳";
-
-"see_lp_category" = "명소";
-
-"play_lp_category" = "놀 곳";
-
-"shop_lp_category" = "쇼핑";
-
-"transport_lp_category" = "교통수단";
-
-"sleep_lp_category" = "숙박";
-
-"general_lp_category" = "일반 장소";
-
-"drink_lp_category" = "술집";
-
-"eat_lp_category" = "음식점";
-
-"taxi_category_order" = "Order";
-
-"arsenal_telemed_map_downloader_title" = "Онлайн консультации профессиональных врачей 24/7";
-
-"arsenal_flat_map_downloader_title" = "Уезжаешь? Позаботься о своей квартире и соседях.";
-
-"arsenal_crimea_map_downloader_title" = "Туристическая страховка отдыха в Крыму. От 15₽/день";
-
-"arsenal_russia_map_downloader_title" = "Путешествуй по России. Лечение COVID-19 включено!";
-
-"arsenal_abroad_map_downloader_title" = "Полис «Выезд за рубеж». Лечение COVID-19 включено!";
-
-"arsenal_cta_button" = "Оформить полис";
 
 "download_map_title" = "Download the world map";
 

@@ -62,7 +62,7 @@
 	<string name="country_status_download_failed">Download has failed</string>
 	<!-- Button text for the button under the country_status_download_failed message -->
 	<string name="try_again">Try Again</string>
-	<string name="about_menu_title">About OMaps</string>
+	<string name="about_menu_title">About Organic Maps</string>
 	<string name="downloaded_touch_to_delete">Downloaded (%s), touch to delete</string>
 	<string name="connection_settings">Connection Settings</string>
 	<string name="download_mb_or_kb">Download %s</string>
@@ -70,7 +70,7 @@
 	<string name="unsupported_phone">The app requires hardware accelerated OpenGL. Unfortunately, your device is not supported.</string>
 	<string name="download">Download</string>
 	<string name="external_storage_is_not_available">SD card/USB storage with downloaded maps is not available</string>
-	<string name="disconnect_usb_cable">Please disconnect USB cable or insert memory card to use OMaps</string>
+	<string name="disconnect_usb_cable">Please disconnect USB cable or insert memory card to use Organic Maps</string>
 	<string name="not_enough_free_space_on_sdcard">Please free up some space on the SD card/USB storage first in order to use the app</string>
 	<string name="not_enough_memory">Not enough memory to launch app</string>
 	<string name="download_resources">Before you start using the app, allow us to download the general world map to your device.\nIt will use %s of storage.</string>
@@ -110,7 +110,7 @@
 	<!-- Add bookmark dialog - bookmark set, Bookmarks dialog - Bookmark set cell -->
 	<string name="set">Set</string>
 	<!-- Text hint in Bookmarks dialog when no any bookmarks are added -->
-	<string name="bookmarks_usage_hint">You have no bookmarks yet.\nTap on any place on the map to add a bookmark.\nBookmarks from other sources can also be imported and displayed in OMaps. Open KML/KMZ file with saved bookmarks from email, Dropbox or weblink.</string>
+	<string name="bookmarks_usage_hint">You have no bookmarks yet.\nTap on any place on the map to add a bookmark.\nBookmarks from other sources can also be imported and displayed in Organic Maps. Open KML/KMZ file with saved bookmarks from email, Dropbox or weblink.</string>
 	<!-- Settings button in system menu -->
 	<string name="settings">Settings</string>
 	<!-- Header of settings activity where user defines storage path -->
@@ -178,8 +178,8 @@
 	<!-- Button text -->
 	<string name="share_by_email">Share by email</string>
 	<!-- Email Subject when sharing bookmarks category -->
-	<string name="share_bookmarks_email_subject">OMaps bookmarks were shared with you</string>
-	<string name="share_bookmarks_email_body">Hello!\n\nAttached are my bookmarks from OMaps offline maps. Please open them if you have OMaps installed. Or, if you don\'t, download the app for your iOS or Android device by following this link: https://omaps.app/get?kmz\n\nEnjoy traveling with OMaps!</string>
+	<string name="share_bookmarks_email_subject">Organic Maps bookmarks were shared with you</string>
+	<string name="share_bookmarks_email_body">Hello!\n\nAttached are my bookmarks from Organic Maps offline maps. Please open them if you have Organic Maps installed. Or, if you don\'t, download the app for your iOS or Android device by following this link: https://organicmaps.app/get?kmz\n\nEnjoy traveling with Organic Maps!</string>
 	<!-- message title of loading file -->
 	<string name="load_kmz_title">Loading Bookmarks</string>
 	<!-- Kmz file successful loading -->
@@ -199,17 +199,17 @@
 	<!-- Alert message that downloading is in progress. -->
 	<string name="downloading_is_active">Map download is in progress now.</string>
 	<!-- Message that will be shown in alert view, when we ask user to leave review on App Store -->
-	<string name="appStore_message">Hope you enjoy using OMaps! If so, please rate or review the app at the App Store. It takes less than a minute but can really help us. Thanks for your support!</string>
+	<string name="appStore_message">Hope you enjoy using Organic Maps! If so, please rate or review the app at the App Store. It takes less than a minute but can really help us. Thanks for your support!</string>
 	<!-- No, thanks -->
 	<string name="no_thanks">No, thanks</string>
 	<!-- Share one specific bookmark using SMS, %1$@ contains ge0:// and %2$@ http://ge0.me link. @NOTE non-ascii symbols in the link will make 70 bytes sms instead of 140 -->
-	<string name="bookmark_share_sms">Hey, check out my pin at OMaps! %1$s or %2$s Don\'t have offline maps installed? Download here: https://omaps.app/get</string>
+	<string name="bookmark_share_sms">Hey, check out my pin at Organic Maps! %1$s or %2$s Don\'t have offline maps installed? Download here: https://organicmaps.app/get</string>
 	<!-- Share my position using SMS, %1$@ contains ge0:// and %2$@ http://ge0.me link WITHOUT NAME. @NOTE non-ascii symbols in the link will make 70 bytes sms instead of 140 -->
-	<string name="my_position_share_sms">Hey, check out my current location in OMaps! %1$s or %2$s Don\'t have offline maps? Download here: https://omaps.app/get</string>
+	<string name="my_position_share_sms">Hey, check out my current location in Organic Maps! %1$s or %2$s Don\'t have offline maps? Download here: https://organicmaps.app/get</string>
 	<!-- Subject for emailed bookmark -->
-	<string name="bookmark_share_email_subject">Hey, check out my pin in OMaps!</string>
+	<string name="bookmark_share_email_subject">Hey, check out my pin in Organic Maps!</string>
 	<!-- Subject for emailed position -->
-	<string name="my_position_share_email_subject">Hey, check out my current location on the OMaps map!</string>
+	<string name="my_position_share_email_subject">Hey, check out my current location on the Organic Maps map!</string>
 	<!-- Share my position using EMail, %1$@ is ge0:// and %2$@ is http://ge0.me link WITHOUT NAME -->
 	<string name="my_position_share_email">Hi,\n\nI\'m here now: %1$s. Click this link %2$s or this one %3$s to see the place on the map.\n\nThanks.</string>
 	<!-- Android share by Message/SMS button text (including SMS) -->
@@ -315,19 +315,19 @@
 	<!-- text of notification -->
 	<string name="download_map_notification">Download the map of the place where you are</string>
 	<!-- text of notification -->
-	<string name="pro_version_is_free_today">Full version of OMaps is free today! Download now and tell your friends.</string>
+	<string name="pro_version_is_free_today">Full version of Organic Maps is free today! Download now and tell your friends.</string>
 	<!-- Dialog for transferring maps from lite to pro. -->
-	<string name="move_lite_maps_to_pro">We are transferring your downloaded maps from OMaps Lite to OMaps. It may take a few minutes.</string>
+	<string name="move_lite_maps_to_pro">We are transferring your downloaded maps from Organic Maps Lite to Organic Maps. It may take a few minutes.</string>
 	<!-- Message to display when maps moved. -->
-	<string name="move_lite_maps_to_pro_ok">Your downloaded maps are successfully transferred to OMaps.</string>
+	<string name="move_lite_maps_to_pro_ok">Your downloaded maps are successfully transferred to Organic Maps.</string>
 	<!-- Message to display when maps move failed. -->
-	<string name="move_lite_maps_to_pro_failed">Your maps failed to transfer. Please delete OMaps Lite and download the maps again.</string>
+	<string name="move_lite_maps_to_pro_failed">Your maps failed to transfer. Please delete Organic Maps Lite and download the maps again.</string>
 	<!-- Text in menu -->
 	<string name="settings_and_more">Settings &amp; More</string>
 	<!-- Text in menu -->
 	<string name="website">Website</string>
 	<!-- Text in menu -->
-	<string name="maps_me_community">OMaps Community</string>
+	<string name="maps_me_community">Organic Maps Community</string>
 	<!-- Text in menu -->
 	<string name="like_on_facebook">Like on Facebook</string>
 	<!-- Text in menu -->
@@ -347,11 +347,11 @@
 	<!-- Text in menu -->
 	<string name="report_a_bug">Report a bug</string>
 	<!-- Email subject -->
-	<string name="subscribe_me_subject">Please subscribe me to the OMaps newsletter</string>
+	<string name="subscribe_me_subject">Please subscribe me to the Organic Maps newsletter</string>
 	<!-- Email body -->
 	<string name="subscribe_me_body">I want to be the first to learn about the latest news, app updates, and promotions. I understand that I can cancel my subscription at any time.</string>
 	<!-- About text -->
-	<string name="about_text">OMaps offers the fastest offline maps of all the cities, all countries of the world. Travel with full confidence: wherever you are, OMaps helps to locate yourself on the map, find the nearest restaurant, hotel, bank, gas station etc. It doesn’t require internet connection.\n\nWe are always working on new features and would love to hear from you on how you think we could improve OMaps. If you have any problems with the app, don\'t hesitate to contact us at support\@omaps.app. We respond to every request!\n\nDo you like OMaps and want to support us? There are some simple and absolutely free ways:\n\n- post a review at your App Market\n- like our Facebook page http://www.facebook.com/mapswithme\n- or just tell about OMaps to your mom, friends and colleagues :)\n\nThank you for being with us. We appreciate your support very much!\n\nP.S. We take map data from OpenStreetMap, a mapping project similar to Wikipedia, which allows users to create and edit maps. If you see something is missing or wrong on the map, you can correct the maps directly at https://www.openstreetmap.org, and your changes will appear in OMaps app with the next version release.</string>
+	<string name="about_text">Organic Maps offers the fastest offline maps of all the cities, all countries of the world. Travel with full confidence: wherever you are, Organic Maps helps to locate yourself on the map, find the nearest restaurant, hotel, bank, gas station etc. It doesn’t require internet connection.\n\nWe are always working on new features and would love to hear from you on how you think we could improve Organic Maps. If you have any problems with the app, don\'t hesitate to contact us at support\@organicmaps.app. We respond to every request!\n\nDo you like Organic Maps and want to support us? There are some simple and absolutely free ways:\n\n- post a review at your App Market\n- like our Facebook page http://www.facebook.com/OMapsApp\n- or just tell about Organic Maps to your mom, friends and colleagues :)\n\nThank you for being with us. We appreciate your support very much!\n\nP.S. We take map data from OpenStreetMap, a mapping project similar to Wikipedia, which allows users to create and edit maps. If you see something is missing or wrong on the map, you can correct the maps directly at https://www.openstreetmap.org, and your changes will appear in Organic Maps app with the next version release.</string>
 	<!-- Alert text -->
 	<string name="email_error_body">The email client has not been set up. Please configure it or use any other way to contact us at %s</string>
 	<!-- Alert title -->
@@ -363,7 +363,7 @@
 	<!-- Update map suggestion -->
 	<string name="routing_map_outdated">Please update the map to create a route</string>
 	<!-- Update maps suggestion -->
-	<string name="routing_update_maps">The new version of OMaps allows creating routes from your current position to a destination point. Please update maps to use this feature.</string>
+	<string name="routing_update_maps">The new version of Organic Maps allows creating routes from your current position to a destination point. Please update maps to use this feature.</string>
 	<!-- Update all button text -->
 	<string name="downloader_update_all_button">Update All</string>
 	<!-- Cancel all button text -->
@@ -380,7 +380,7 @@
 	<string name="downloader_downloading">Downloading:</string>
 	<string name="downloader_search_results">Found</string>
 	<!-- Disclaimer message -->
-	<string name="routing_disclaimer">Creating routes in OMaps app, please keep in mind the following:\n\n  - Suggested routes can be considered as recommendations only.\n - Road conditions, traffic rules and signs have higher priority than navigation advice.\n - The map may be incorrect or outdated, and routes may not be created the best possible way.\n\n  Be safe on roads and take care of yourself!</string>
+	<string name="routing_disclaimer">Creating routes in Organic Maps app, please keep in mind the following:\n\n  - Suggested routes can be considered as recommendations only.\n - Road conditions, traffic rules and signs have higher priority than navigation advice.\n - The map may be incorrect or outdated, and routes may not be created the best possible way.\n\n  Be safe on roads and take care of yourself!</string>
 	<!-- Outdated maps category -->
 	<string name="downloader_outdated_maps">Outdated</string>
 	<!-- Up to date maps category -->
@@ -404,7 +404,7 @@
 	<!-- RouteNotFound -->
 	<string name="routing_failed_route_not_found">There is no route found between the selected origin and destination. Please select a different start or end point.</string>
 	<!-- InternalError -->
-	<string name="routing_failed_internal_error">Internal error occurred. Please try to delete and download the map again. If the problem persists, please contact us at support\@omaps.app.</string>
+	<string name="routing_failed_internal_error">Internal error occurred. Please try to delete and download the map again. If the problem persists, please contact us at support\@organicmaps.app.</string>
 	<!-- Context menu item for downloader. -->
 	<string name="downloader_download_map_and_routing">Download Map + Routing</string>
 	<!-- Context menu item for downloader. -->
@@ -435,9 +435,9 @@
 	<!-- Text for rating dialog -->
 	<string name="rating_just_rated">I’ve just rated your app</string>
 	<!-- Text for rating dialog -->
-	<string name="rating_user_since">I’ve been a OMaps user since %s</string>
+	<string name="rating_user_since">I’ve been a Organic Maps user since %s</string>
 	<!-- Text for rating dialog -->
-	<string name="rating_do_like_maps">Do you like OMaps?</string>
+	<string name="rating_do_like_maps">Do you like Organic Maps?</string>
 	<!-- Text for rating dialog -->
 	<string name="rating_tap_star">Tap a star to rate our app.</string>
 	<!-- Text for rating dialog -->
@@ -453,7 +453,7 @@
 	<!-- Text for routing error dialog -->
 	<string name="routing_download_map">Get map</string>
 	<!-- Text for routing error dialog -->
-	<string name="routing_download_map_and_routing">Download updated map and routing data to get all OMaps features.</string>
+	<string name="routing_download_map_and_routing">Download updated map and routing data to get all Organic Maps features.</string>
 	<!-- Text for routing error dialog -->
 	<string name="routing_get_routing_data">Get routing data</string>
 	<!-- Text for routing error dialog -->
@@ -585,7 +585,7 @@
 	<!-- Text for routing::RouterResultCode::FileTooOld dialog. -->
 	<string name="dialog_routing_download_and_update_maps">Download and update all map along the projected path to calculate route.</string>
 	<string name="rate_alert_title">Like the app?</string>
-	<string name="rate_alert_default_message">Thank you for using OMaps. Please rate the app. Your feedback helps us improve our product.</string>
+	<string name="rate_alert_default_message">Thank you for using Organic Maps. Please rate the app. Your feedback helps us improve our product.</string>
 	<string name="rate_alert_five_star_message">Hooray! We love you, too!</string>
 	<string name="rate_alert_four_star_message">Thank you, we will do our best!</string>
 	<string name="rate_alert_less_than_four_star_message">Any idea how we can make it better?</string>
@@ -642,7 +642,7 @@
 	<string name="editor_report_problem_no_place_title">The place does not exist</string>
 	<string name="editor_report_problem_under_construction_title">Сlosed for maintenance</string>
 	<string name="editor_report_problem_duplicate_place_title">Duplicated place</string>
-	<string name="first_launch_congrats_title">OMaps is ready to use</string>
+	<string name="first_launch_congrats_title">Organic Maps is ready to use</string>
 	<string name="first_launch_congrats_text">Search and navigate everywhere in the world offline, free of charge.</string>
 	<string name="migrate_title">Important!</string>
 	<!-- Android uses image instead of text. -->
@@ -740,14 +740,14 @@
 	<string name="placepage_report_problem_button">Report a problem</string>
 	<string name="placepage_add_business_button">Add business</string>
 	<string name="whatsnew_editor_message_1">Add new places to the map, and edit existing ones directly from the app.</string>
-	<string name="whatsnew_editor_message_2">* OMaps uses OpenStreetMap community data.</string>
+	<string name="whatsnew_editor_message_2">* Organic Maps uses OpenStreetMap community data.</string>
 	<string name="dialog_incorrect_feature_position">Change location</string>
 	<string name="message_invalid_feature_position">No object can be located here</string>
 	<string name="login_to_make_edits_visible">Log in so other users can see the changes that you have made</string>
 	<string name="no_migration_during_navigation">Updating is not allowed during navigation.</string>
 	<!-- Error dialog no space -->
 	<string name="migration_no_space_message">To download, you need more space. Please delete any unnecessary data.</string>
-	<string name="editor_sharing_title">I improved the OMaps maps</string>
+	<string name="editor_sharing_title">I improved the Organic Maps maps</string>
 	<string name="editor_comment_will_be_sent">We will make sure to send your comments to the map editors.</string>
 	<string name="editor_unsupported_category_message">You have added an object whose category we do not support yet. It will appear on the map in the future.</string>
 	<!-- Downloaded 10 **of** 20 <- it is that "of" -->
@@ -764,7 +764,7 @@
 	<string name="core_placepage_unknown_place">Unknown Place</string>
 	<string name="editor_other_info">Send a note to OSM editors</string>
 	<string name="editor_detailed_description_hint">Detailed comment</string>
-	<string name="editor_detailed_description">Your suggested map changes will be sent to the OpenStreetMap community. Describe any additional details that cannot be edited in OMaps.</string>
+	<string name="editor_detailed_description">Your suggested map changes will be sent to the OpenStreetMap community. Describe any additional details that cannot be edited in Organic Maps.</string>
 	<string name="editor_more_about_osm">More about OpenStreetMap</string>
 	<string name="editor_operator">Owner</string>
 	<string name="editor_tag_description">Enter company, organization or individual responsible for the facilities.</string>
@@ -804,8 +804,6 @@
 	<string name="placepage_entrance_type">Entrance</string>
 	<string name="placepage_flat">app.</string>
 	<string name="placepage_open_24_7">24 / 7</string>
-	<string name="place_page_booking_rating">Rating: %s</string>
-	<string name="place_page_starting_from">from %s</string>
 	<string name="meter">m</string>
 	<string name="kilometer">km</string>
 	<string name="kilometers_per_hour">km/h</string>
@@ -840,12 +838,8 @@
 	<string name="error_enter_correct">Enter a valid value</string>
 	<string name="editor_profile_changes_for_next_place">Changes to the next place: %d</string>
 	<string name="editor_profile_rating_place">Position in the ranking</string>
-	<string name="booking_dialog_not_connect_header">To book the hotel, please enable your Internet connection</string>
-	<string name="button_try">Try it</string>
 	<string name="refresh">Update</string>
 	<string name="last_update">Last update: %s</string>
-	<string name="booking_checkin">check in: %s</string>
-	<string name="booking_checkout">check out: %s</string>
 	<string name="placepage_add_place_button">Add a place to the map</string>
 	<!-- Displayed when saving some edits to the map to warn against publishing personal data -->
 	<string name="editor_share_to_all_dialog_title">Do you want to send it to all users?</string>
@@ -864,21 +858,19 @@
 	<string name="place_page_button_read_descriprion">Read</string>
 	<!-- iOS dialog for the case when recent track recording is on and the app comes back from background -->
 	<string name="recent_track_background_dialog_title">Disable recording of your recently traveled route?</string>
-	<!-- If a hotel is being shared -->
-	<string name="sharing_booking">or book at booking.com</string>
 	<string name="off_recent_track_background_button">Disable</string>
 	<!-- For sharing via SMS and so on -->
 	<string name="sharing_call_action_look">Check out</string>
 	<string name="continue_recent_track_background_button">Continue</string>
-	<string name="recent_track_background_dialog_message">OMaps uses your geoposition in the background for recording your recently traveled route.</string>
+	<string name="recent_track_background_dialog_message">Organic Maps uses your geoposition in the background for recording your recently traveled route.</string>
 	<!-- Rate on Google Play (Android only) -->
 	<string name="rate_gp">Rate on Google Play</string>
 	<!-- Share with friends: menu item title -->
 	<string name="tell_friends">Tell a Friend</string>
 	<!-- Share with friends: sharing text -->
-	<string name="tell_friends_text">Hi! Install OMaps!</string>
+	<string name="tell_friends_text">Hi! Install Organic Maps!</string>
 	<!-- About short text (below logo) -->
-	<string name="about_description">OMaps is an essential offline application for travelling. OMaps is based on OpenStreetMap data and allows editing it.</string>
+	<string name="about_description">Organic Maps is an essential offline application for travelling. Organic Maps is based on OpenStreetMap data and allows editing it.</string>
 	<!-- Text in menu -->
 	<string name="blog">Blog</string>
 	<string name="general_settings">General settings</string>
@@ -890,52 +882,13 @@
 	<string name="accept_and_continue">Accept and continue</string>
 	<!-- For the first routing -->
 	<string name="decline">Decline</string>
-	<string name="whats_new_route_profile_title">Better go about than fall into the ditch</string>
-	<string name="whats_new_route_profile_message">For pedestrian and bike routes we now display the elevation profile.</string>
-	<string name="whats_new_booking_improve_title">Save when booking hotels</string>
-	<string name="whats_new_booking_improve_message">Search results for hotels now contain the price category.\nWe also added more than 110,000 hotels.</string>
-	<!-- For place page hotel facilities block -->
-	<string name="placepage_hotel_facilities">Facilities</string>
-	<!-- For place page hotel nearby block -->
-	<string name="placepage_hotel_nearby">Nearby</string>
-	<!-- For ordering a taxi (as opposed to hotels or other things) -->
-	<string name="taxi_order">Order a taxi</string>
-	<!-- How long it is until the taxi arrives -->
-	<string name="taxi_wait">Expected in %s</string>
-	<!-- When there are no available taxis nearby -->
-	<string name="taxi_not_found">Couldn\'t find a taxi nearby</string>
-	<!-- When there are no available taxi providers nearby -->
-	<string name="taxi_no_providers">Taxi is not available here</string>
 	<string name="install_app">Install</string>
-	<!-- `Filter` is a noun here -->
-	<string name="booking_filters">Filter</string>
-	<string name="booking_filters_reset">Reset</string>
-	<!-- Beginning from a particular value and -->
-	<string name="booking_filters_rating">Rating from</string>
-	<string name="booking_filters_rating_any">Any</string>
-	<string name="booking_filters_ragting_good">Good</string>
-	<string name="booking_filters_rating_very_good">Very Good</string>
-	<string name="booking_filters_rating_excellent">Excellent</string>
-	<string name="booking_filters_price_category">Price Category</string>
 	<string name="search_no_results_title">No Results Found</string>
 	<string name="search_no_results_message">Try a more general search term, zoom out or reset the filter.</string>
 	<string name="search_no_results_expand_area_button">Zoom out</string>
 	<string name="search_no_results_reset_button">Reset Filter</string>
 	<!-- noun -->
 	<string name="search_in_table">List</string>
-	<string name="booking_show_more">Show more</string>
-	<string name="booking_reviews">Reviews</string>
-	<string name="booking_hotel">Hotel</string>
-	<!-- hotel room -->
-	<string name="booking_hotel_room">Room</string>
-	<!-- A neologism for a chat based on geographical proximity -->
-	<string name="chat">Geochat</string>
-	<!-- Verb. Text on a button that opens the chat. -->
-	<string name="chat_open">Open</string>
-	<string name="dialog_taxi_offline">Taxi ordering is unavailable in offline mode.</string>
-	<string name="dialog_taxi_error">Taxi ordering is temporarily unavailable.</string>
-	<!-- Abbreviated for all languages. -->
-	<string name="advertisement">AD</string>
 	<string name="mobile_data_dialog">Use mobile internet to show detailed information?</string>
 	<string name="mobile_data_option_always">Use Always</string>
 	<string name="mobile_data_option_today">Only Today</string>
@@ -947,47 +900,18 @@
 	<string name="traffic_update_maps_text">To display traffic data, maps must be updated.</string>
 	<string name="traffic_outdated">Traffic data is outdated.</string>
 	<string name="big_font">Increase font size on the map</string>
-	<string name="traffic_update_app">Please update OMaps</string>
+	<string name="traffic_update_app">Please update Organic Maps</string>
 	<!-- "traffic" as in road congestion -->
 	<string name="traffic_update_app_message">To display traffic data, the application must be updated.</string>
 	<!-- "traffic" as in "road congestion" -->
 	<string name="traffic_data_unavailable">Traffic data is not available</string>
 	<!-- "Translation is no needed, because it's a company name" -->
 	<string name="uber">Uber</string>
-	<!-- Seven points and higher -->
-	<string name="booking_filter_rating_num_good">7.0+</string>
-	<!-- Eight points and higher -->
-	<string name="booking_filter_rating_num_very_good">8.0+</string>
-	<!-- Nine points and higher -->
-	<string name="booking_filter_rating_num_excellent">9.0+</string>
-	<string name="booking_filter_price_low">$</string>
-	<string name="booking_filter_price_medium">$$</string>
-	<string name="booking_filter_price_high">$$$</string>
 	<!-- Simplified colour scheme for traffic information, fewer colours are used to display traffic jams on the map. The string should be kept as short as possible -->
 	<string name="pref_traffic_simplified_colors_title">Simplified traffic colors</string>
 	<string name="enable_logging">Enable logging</string>
-	<string name="more_on_bookingcom">More on Booking.com</string>
-	<string name="details_on_bookingcom">Details on Booking.com</string>
-	<string name="reviews_on_bookingcom">More reviews on Booking.com</string>
 	<string name="offline_place_page_more_information">Connect to the internet to get more information about the place.</string>
 	<string name="failed_load_information">Failed to load information.</string>
-	<string name="booking_search">Booking.com</string>
-	<string name="whats_new_auto_update_updating_maps">Updating maps</string>
-	<string name="whats_new_auto_update_title">Update your downloaded maps</string>
-	<string name="whats_new_auto_update_message">Updating maps keeps the information about objects up to date</string>
-	<string name="whats_new_auto_update_button_size">Update (%s)</string>
-	<string name="whats_new_auto_update_button_later">Manually update later</string>
-	<string name="search_hotel_filter_apartment">Apartments</string>
-	<string name="search_hotel_filter_camp_site">Camping</string>
-	<string name="search_hotel_filter_chalet">Chalet</string>
-	<string name="search_hotel_filter_guest_house">Guest House</string>
-	<string name="search_hotel_filter_hostel">Hostel</string>
-	<string name="search_hotel_filter_resort">Resort</string>
-	<string name="search_hotel_filter_hotel">Hotel</string>
-	<string name="search_hotel_filter_motel">Motel</string>
-	<string name="create_campaign_button">Claim this business</string>
-	<string name="view_campaign_button">Business is advertised</string>
-	<string name="search_hotel_filters_type">Type</string>
 	<!-- Settings: "Send general feedback" button -->
 	<string name="feedback_general">General Feedback</string>
 	<string name="on">On</string>
@@ -1027,36 +951,7 @@
 	<string name="choose_start_point">Choose a starting point</string>
 	<string name="choose_destination">Choose a destination</string>
 	<string name="preloader_viator_button">Learn more</string>
-	<string name="whats_new_title_route">Bicycle routes and pedestrian routes were improved</string>
-	<string name="whats_new_message_route">We fixed errors, made route building several times faster, and added intermediate stops</string>
-	<string name="whats_new_message_title_update">We made map updates 10 times smaller</string>
-	<string name="whats_new_message_maps_update">To update a map, now you need to download just the missing data</string>
 	<string name="start_from_my_position">Start from</string>
-	<string name="rating">Rating</string>
-	<string name="placepage_no_reviews">No reviews</string>
-	<string name="placepage_reviewed">You have already reviewed this place</string>
-	<string name="placepage_summary_rating">Summary rating</string>
-	<string name="placepage_rate_comment">Tap to rate and review this place.</string>
-	<string name="placepage_rate_horrible">Horrible</string>
-	<string name="placepage_rate_bad">Bad</string>
-	<string name="placepage_rate_normal">Normal</string>
-	<string name="placepage_rate_good">Good</string>
-	<string name="placepage_rate_excellent">Excellent</string>
-	<string name="placepage_reviews_most_recent">Most recent</string>
-	<string name="placepage_reviews_most_useful">Most useful</string>
-	<string name="placepage_reviews_highest_rated">Highest rated</string>
-	<string name="placepage_reviews_lowest_rated">Lowest rated</string>
-	<string name="placepage_reviews_offline_comment">Only the most useful reviews are showed in the offline mode</string>
-	<string name="placepage_reviews_your_comment">Your review</string>
-	<string name="placepage_reviews_unhelpful">Unhelpful</string>
-	<string name="placepage_reviews_inappropriate">Inappropriate</string>
-	<string name="placepage_reviews_spam">Spam</string>
-	<string name="placepage_reviews_hint">What\'s good or bad here?</string>
-	<string name="placepage_reviews_edit_your_review">Edit your review</string>
-	<string name="placepage_reviews_new_review">New review</string>
-	<string name="placepage_translate_button">Translate</string>
-	<string name="placepage_show_original_button">Show original</string>
-	<string name="placepage_more_reviews_booking_button">More reviews on Booking.com</string>
 	<string name="profile_authorization_title">Sign in with</string>
 	<string name="profile_authorization_message">Easy sign in without login and password in a couple of seconds</string>
 	<string name="profile_authorization_error">Oops, there was an error. Try to sign in again.</string>
@@ -1068,24 +963,9 @@
 	<string name="expertise">Expertise</string>
 	<string name="equipment">Equipment</string>
 	<string name="quality">Quality</string>
-	<string name="whats_new_ugc_title_updated_v840">Ratings and reviews</string>
-	<string name="whats_new_ugc_message">You can now leave ratings and reviews even offline! Don\'t forget to update your maps so you can see the changes.</string>
 	<string name="dialog_error_storage_title">Storage access problem</string>
-	<string name="dialog_error_storage_message">External storage is not accessible. The SD Card may have been removed, damaged, or the file system is read-only. Please, check your SD Card or contact us at support\@omaps.app</string>
+	<string name="dialog_error_storage_message">External storage is not accessible. The SD Card may have been removed, damaged, or the file system is read-only. Please, check your SD Card or contact us at support\@organicmaps.app</string>
 	<string name="setting_emulate_bad_storage">Emulate bad storage</string>
-	<string name="discovery_button_title">Discover nearby</string>
-	<string name="discovery_button_subtitle_things_to_do">Things to do</string>
-	<string name="discovery_button_subtitle_attractions">Attractions</string>
-	<string name="discovery_button_subtitle_eat_and_drink">Eat and drink</string>
-	<string name="discovery_button_subtitle_local_guides">Local Guides</string>
-	<string name="discovery_button_viator_error_title">Error loading data</string>
-	<string name="discovery_button_other_error_message">Error loading data</string>
-	<string name="discovery_button_other_loading_message">Data is loading</string>
-	<string name="discovery_button_404_error_title">Not found</string>
-	<string name="discovery_button_404_error_message">Oops, we did not find anything interesting around.</string>
-	<string name="booking_filters_check_in">Check in</string>
-	<string name="booking_filters_check_out">Check out</string>
-	<string name="booking_filters_offline">Not available offline.</string>
 	<string name="directions_finish">Destination</string>
 	<string name="directions_on_foot">Walk %s</string>
 	<string name="core_entrance">Entrance</string>
@@ -1093,12 +973,6 @@
 	<string name="cleanliness">Cleanliness</string>
 	<string name="crowdedness">Crowdedness</string>
 	<string name="error_enter_correct_name">Please, enter a correct name</string>
-	<string name="hotel_available">Available</string>
-	<string name="whats_new_transit_title">Subways available</string>
-	<string name="whats_new_transit_message">Build your routes using subways! Please update maps to see changes.</string>
-	<string name="whats_new_discovery_title">Discovery button</string>
-	<string name="whats_new_discovery_message">Discover things around in one click!</string>
-	<string name="price_per_hour">%s/hour</string>
 	<string name="bookmarks_backup">Enable backup</string>
 	<string name="authorization_button_sign_in">Sign in</string>
 	<string name="bookmarks_message_authorized_user">Your bookmarks are backed up automatically in a secure cloud storage. Do you want enable backup?</string>
@@ -1118,16 +992,10 @@
 	<string name="downloader_percent">%1$s (%2$s of %3$s)</string>
 	<string name="downloader_process">Downloading %s...</string>
 	<string name="downloader_applying">Applying %s...</string>
-	<string name="whats_new_title_hotel_filter">New hotel filters available!</string>
-	<string name="whats_new_message_hotel_filter">Book hotels available for your dates! Use check in and check out filters</string>
-	<string name="whats_new_title_ugc_travel">Share your experience with other travellers!</string>
-	<string name="whats_new_message_ugc_travel">Rate and review places you visited!</string>
 	<string name="dialog_message_transit_not_found_connection">Plan a route within one transit network</string>
 	<string name="bookmarks_error_message_share_general">Unable to share due to an application error</string>
 	<string name="bookmarks_error_title_share_empty">Sharing error</string>
 	<string name="bookmarks_error_message_share_empty">Cannot share an empty list</string>
-	<string name="discovery_button_subtitle_book_hotels">Book hotels</string>
-	<string name="maxim_taxi_title">maxim</string>
 	<string name="bookmarks_error_title_empty_list_name">The name couldn\'t be empty</string>
 	<string name="bookmarks_error_message_empty_list_name">Please enter the list name</string>
 	<string name="bookmarks_new_list_hint">New list</string>
@@ -1152,8 +1020,6 @@
 	<string name="converting">Converting...</string>
 	<string name="wn_reinvented_bookmarks_title">We reinvented bookmarks!</string>
 	<string name="wn_reinvented_bookmarks_message">You can backup them, create lists...It’s amazing...</string>
-	<string name="wn_way_of_booking_title">We reimagined the way of booking!</string>
-	<string name="wn_way_of_booking_message">Just find a hotel on the map and book it, or select the similar one.</string>
 	<string name="bookmarks_restore"> Restore bookmarks</string>
 	<string name="bookmarks_restore_process"> Restoring...</string>
 	<string name="bookmarks_restore_title"> Restore this version?</string>
@@ -1165,19 +1031,12 @@
 	<string name="error_server_message"> There was an error on the server, please try again later</string>
 	<string name="error_system_message"> An unknown error occurred</string>
 	<string name="restore">Restore</string>
-	<string name="sign_message_gdpr">To continue you must accept our Terms of Use and Privacy Policy. Please read them carefully.</string>
-	<string name="sign_agree_pp_gdpr">I agree to the &lt;a href="%s">Privacy Policy&lt;/a></string>
-	<string name="sign_agree_tof_gdpr">I agree to the &lt;a href="%s">Terms of Use&lt;/a></string>
-	<string name="sign_agree_news_gdpr">I agree to receive the latest news about OMaps products</string>
-	<string name="whats_new_localbiz_title">Small business deserves attention</string>
-	<string name="whats_new_localbiz_message">It is local cafes, cozy hostels and shops that make our journeys unforgettable. We will optimize your page in OMaps to make it stand out.</string>
-	<string name="whats_new_order_button">Leave a request</string>
 	<string name="bookmarks_page_downloaded">Downloaded</string>
 	<string name="bookmarks_page_my">My</string>
 	<string name="routes_and_bookmarks">Routes and bookmarks</string>
 	<string name="bookmarks_webview_success_toast">Bookmarks succesfully downloaded</string>
 	<string name="cached_bookmarks_placeholder_title">Download new places</string>
-	<string name="cached_bookmarks_placeholder_subtitle">Press the button to download thousands of interesting places and routes created by OMaps users. You will need the internet connection.</string>
+	<string name="cached_bookmarks_placeholder_subtitle">Press the button to download thousands of interesting places and routes created by Organic Maps users. You will need the internet connection.</string>
 	<string name="downloader_download_routers">Download bookmarks</string>
 	<string name="bookmarks_groups_cached">Downloaded lists</string>
 	<string name="author_name_by_prefix">by %s</string>
@@ -1199,7 +1058,7 @@
 	</plurals>
 	<string name="subtittle_opt_out">Tracking settings</string>
 	<string name="crash_reports">Crash report</string>
-	<string name="crash_reports_description">We may use your data to improve OMaps experience. Changes will take effect after you restart the app.</string>
+	<string name="crash_reports_description">We may use your data to improve Organic Maps experience. Changes will take effect after you restart the app.</string>
 	<string name="opt_out_help_ios_1">Your mobile device may provide a “Limit Ad Tracking” or “Opt out of interest-based advertising” setting.</string>
 	<string name="opt_out_help_ios_2">iOS 9 or Higher</string>
 	<string name="opt_out_help_ios_3">Go to your Settings → Privacy → Advertising → Enable the “Limit Ad Tracking” setting</string>
@@ -1218,113 +1077,42 @@
 	<string name="category_desc_more">…more</string>
 	<string name="title_error_downloading_bookmarks">An error occurred</string>
 	<string name="subtitle_error_downloading_bookmarks">Bookmarks were not downloaded</string>
-	<string name="whats_new_bookmarks_catalog_title">OMaps now has a route library</string>
-	<string name="whats_new_bookmarks_catalog_message">Hundreds of detailed routes all around the world: where to go, what to see, where to eat.</string>
-	<string name="whats_new_popularity_label_title">Popular locations nearby</string>
-	<string name="whats_new_popularity_label_message">Discover nearby section will help you find the most popular places in the city.</string>
-	<string name="whats_new_hot_offers_title">Attractive offers from hotels</string>
-	<string name="whats_new_hot_offers_message">You can find these from the Hotels category in the search panel. The offers are marked with a percent symbol on the map and in the search results.</string>
 	<string name="error_already_downloaded">This list has already been downloaded</string>
 	<string name="popular_place">Popular</string>
 	<string name="download_routes">Download routes</string>
 	<string name="bookmarks_downloaded_title">Bookmarks have been downloaded successfully</string>
 	<string name="bookmarks_downloaded_subtitle">Press ‘View on map’ to explore new places from the list</string>
-	<string name="guides">Guides</string>
-	<string name="guide_downloaded_title">The guide has been downloaded successfully</string>
-	<!-- as few symbols as possible -->
-	<string name="download_guides">Search guides</string>
-	<string name="guides_groups_cached">Downloaded guides</string>
-	<string name="subtitle_error_downloading_guide">The guide was not downloaded</string>
-	<string name="error_already_downloaded_guide">This guide has already been downloaded</string>
-	<string name="guide_downloaded_subtitle">Press ‘View on map’ to explore the guide</string>
-	<string name="bookmarks_guides">Bookmarks and guides</string>
-	<string name="paybtn_title">Pay %s/year</string>
-	<string name="paybtn_subtitle">Save %s/year</string>
-	<string name="options_dropdown_title">More options</string>
-	<string name="why_support">Why support OMaps?</string>
-	<string name="options_dropdown_item1">%1$s/month (save %2$s/year)</string>
-	<string name="options_dropdown_item2">%s/week (no savings)</string>
-	<string name="why_support_item1">We will remove all ads for you</string>
-	<string name="why_support_item2">You help us to improve OMaps</string>
+	<string name="why_support">Why support Organic Maps?</string>
+	<string name="why_support_item1">We respect your privacy: there are zero trackers in the app, and we are open source</string>
+	<string name="why_support_item2">You help us to improve Organic Maps</string>
 	<string name="why_support_item3">You help us improve open maps OpenStreetMap.org</string>
-	<string name="purchase_processing">Your purchase is being processed…</string>
-	<string name="tips_bookmarks_catalog_title">Offline guides for every kind of journey</string>
-	<string name="tips_bookmarks_catalog_message">Download and plan tourist routes over interesting locations in different cities of the world.</string>
-	<string name="tips_discover_button_title">Want to find popular locations nearby?</string>
-	<string name="tips_discover_button_message">The \"Discover nearby\" section contains the best restaurants, hotels, and sights.</string>
-	<string name="tips_book_hotel_title">Book the cosiest hotels for your journeys</string>
-	<string name="tips_book_hotel_message">Use the search and filters to find the best hotels for you. Use the \"Book\" button in the location placepage to book a hotel instantly.</string>
-	<string name="tips_map_layers_title">Don\'t know at which station to make a connection?</string>
-	<string name="tips_map_layers_message">Turn on the subway layer to display the subway map, and you will always find your way in a new city.</string>
 	<string name="channels_map_update">Map updates</string>
-	<string name="channels_reviews">Unsent reviews</string>
-	<string name="purchase_loading">Purchase information is loading…</string>
-	<string name="purchase_error_subtitle">An error occurred while processing your purchase</string>
-	<string name="awaiting_approval">Awaiting a parent\'s approval</string>
-	<string name="whats_new_leave_review">Leave a review! Share your opinion about the locations you visited on your vacation.</string>
 	<string name="server_unavailable_title">Server is unavailable</string>
-	<string name="server_unavailable_message">The purchase will be completed later. If the error persists, please contact support\@omaps.app.</string>
-	<string name="offline_fiters_check_in">Connect to the internet to filter hotels by dates.</string>
-	<string name="rutaxi_title">RuTaxi</string>
-	<string name="restore_subscription">Restore the subscription</string>
-	<string name="restore_success_alert">The subscription has been successfully restored</string>
-	<string name="restore_error_alert">An error occurred while restoring the subscription</string>
-	<string name="restore_no_subscription_alert">There are no active subscriptions</string>
-	<string name="subscriptions_title">Subscriptions</string>
-	<string name="manage_subscription">Manage subscription</string>
-	<string name="taxi">Taxi</string>
 	<string name="sharing_options">Sharing options</string>
 	<string name="export_file">Export file</string>
 	<string name="list_settings">List Settings</string>
 	<string name="delete_list">Delete list</string>
 	<string name="hide_from_map">Hide from map</string>
-	<string name="ugc_route_tags_screen_label">Select tags</string>
-	<string name="ugc_route_tags_progress_msg">Loading tags…</string>
 	<string name="public_access">Public access</string>
 	<string name="limited_access">Limited access</string>
+	<string name="bookmark_category_name">Category</string>
+	<string name="bookmark_category_description_hint">Type a description (text or html)</string>
 	<!-- FIXME -->
 	<string name="bookmarks_public_access">bookmarks_public_access</string>
 	<!-- FIXME -->
 	<string name="bookmarks_link_access">bookmarks_link_access</string>
 	<!-- FIXME -->
 	<string name="bookmarks_private_access">bookmarks_private_access</string>
-	<string name="upload_and_publish_desc">This guide will be uploaded to the public OMaps catalog and will be available to other users</string>
-	<string name="upload_and_publish">Upload and publish</string>
-	<string name="upload_and_get_direct_link">Upload and get a direct link</string>
-	<string name="get_direct_link_desc">Your guide will be available to anyone who has the link</string>
-	<string name="upload_and_publish_progress_text">Publishing your guide…</string>
-	<string name="upload_and_publish_success">The guide has been published</string>
-	<string name="ugc_routes_user_agreement">&lt;b>PLEASE NOTE:&lt;/b> by proceeding, you accept the &lt;a href="%s">license agreement&lt;/a></string>
-	<string name="ugc_route_edit_list_name">Guide name</string>
-	<string name="ugc_route_edit_description_hint">Type a description (text or html)</string>
 	<string name="not_shared">Private</string>
 	<string name="direct_link_progress_text">Uploading your file…</string>
 	<string name="direct_link_success">The link has been created</string>
-	<string name="edit_guide_title">Edit your guide online</string>
-	<string name="edit_guide_subtitle">Get a link to edit your guide via web service: add descriptions, upload photos, and connect bookmarks with lines.</string>
 	<string name="send_a_link_btn">Send me a link</string>
 	<string name="upload_error_toast">An error occurred while uploading your file</string>
 	<string name="tags_loading_error_subtitle">An error occurred while loading tags, please try again</string>
 	<string name="unable_upload_errorr_title">File upload failed</string>
 	<string name="unable_upload_error_subtitle_edited">This file has been edited via the web app</string>
 	<string name="unable_upload_error_subtitle_broken">This file is damaged and couldn\'t be uploaded. Please upload another file.</string>
-	<string name="buy_btn">Buy this one for %s</string>
-	<string name="download_guide_progress">Downloading your guide…</string>
-	<string name="price_error_title">Could not get a price</string>
-	<string name="price_error_subtitle">Please try again in a few minutes</string>
-	<string name="edit_your_guide_email_body">Edit your guide on the web easily using your computer: add descriptions, upload photos, and connect bookmarks with lines.</string>
-	<string name="edit_on_web">Edit online</string>
-	<string name="properties_loading_error_subtitle">An error occurred while loading options, please try again</string>
-	<string name="custom_props_desc">In this guide you have visited places as</string>
-	<string name="custom_props_title">Local or traveller</string>
-	<string name="custom_props_local">local</string>
-	<string name="custom_props_traveler">traveller</string>
-	<string name="select_properties">Select options</string>
-	<string name="access_rules_p_to_p">Special access</string>
-	<string name="access_rules_paid">Purchased</string>
-	<string name="failed_purchase_support_message">Sorry, but you probably have an uncompleted purchase. Please contact support and we will solve the problem.</string>
 	<string name="contact">Contact</string>
-	<string name="check_price_button">Check price</string>
 	<string name="download_button">Download</string>
 	<string name="speedcams_alert_title">Speed cameras</string>
 	<string name="speedcams_alert_subtitle">Warn about speed limits</string>
@@ -1333,56 +1121,18 @@
 	<string name="speedcam_option_never">Never</string>
 	<string name="bookmark_description_title">Bookmark Description</string>
 	<string name="place_description_title">Place Description</string>
-	<string name="ugc_routes_error_uploading_file_toast">Unfortunately, an error occurred while uploading your bookmarks. Please try again.</string>
-	<string name="notification_channel_ugc">Social content</string>
 	<!-- this text will be shown in application notification preferences opposite checkbox which enable/disable downloader notifications. Devices on Android 8+ are affected. -->
 	<string name="notification_channel_downloader">Map downloader</string>
-	<string name="notification_leave_review_title">%s - how was it?</string>
-	<string name="notification_leave_review_content">Help travellers by leaving a review!</string>
-	<string name="share_bookmarks_email_body_link">Hello!\n\nHere is the link where you can download bookmarks: %s. Open the list in OMaps and enjoy your trip!\n\nGet application: https://omaps.app/get?kmz</string>
+	<string name="share_bookmarks_email_body_link">Hello!\n\nHere is the link where you can download bookmarks: %s. Open the list in Organic Maps and enjoy your trip!\n\nGet application: https://organicmaps.app/get?kmz</string>
 	<string name="warning_speedcams_title">Navigator will warn you about cameras when you exceed the speed limit of %d km/h</string>
 	<string name="warning_speedcams_subtitle">Please mind driving regulations of the country you are travelling to.</string>
 	<string name="speedcams_notice_message">Auto - Warn about speedcams if there is a risk of exceeding the speed limit\nAlways - Always warn about speedcams\nNever - Never warn about speedcams</string>
-	<string name="whats_new_ugc_routes_title">Easy to share your impressions</string>
-	<string name="whats_new_ugc_routes_subtitle">Save memorable places, create routes from bookmarks and share them with everyone using OMaps catalogue.</string>
-	<string name="whats_new_webeditor_title">Turn your routes into stories</string>
-	<string name="whats_new_ugc_routes_message2">Add photos and detailed stories in the web-editor.</string>
-	<string name="ugc_thanks_message_auth">Your review has been saved</string>
-	<string name="ugc_thanks_message_not_auth">Please log in to leave a review</string>
-	<string name="notification_leave_review_v2_title">Rate a visited place and help travellers!</string>
-	<string name="error_public_not_enought_title">Not enough bookmarks</string>
-	<string name="error_public_not_enought_subtitle">You should have at least 3 bookmarks to be able to upload your guide to the public catalogue</string>
-	<string name="bookmark_public_upload_alert_title">You are a few steps away from sharing your bookmarks with all OMaps travellers!</string>
-	<string name="bookmark_public_upload_alert_subtitle">Please make sure you have a specific name and description for your list, and all bookmarks have some info about places. This way your list can be found and used by others.</string>
-	<string name="bookmark_public_upload_alert_ok_button">Yes, I\'m sure!</string>
-	<string name="name_title">Enter your guide\'s name</string>
-	<string name="name_placeholder">e.g. London Pubs</string>
-	<string name="name_comment1">Please name your guide so that travellers can easily find it: for example, \"London Pubs\"</string>
-	<string name="name_comment2">The name shouldn\'t contain special symbols. The name shouldn\'t be \"My places\"</string>
-	<string name="description_guide">Description</string>
-	<string name="description_title">Enter your guide\'s description</string>
-	<string name="description_placeholder">Describe your guide in detail</string>
-	<string name="description_comment1">Your guide description should contain at least 30 symbols.</string>
-	<string name="ugc_route_tags_desc">Please select tags to help other travellers find your guide. This is mandatory. %s tags maximum.</string>
-	<string name="html_format_error_title">Your guide has not been published</string>
-	<string name="html_format_error_subtitle">Please make sure that names and descriptions of your bookmarks all have a valid format. You can check it on a desktop browser by clicking the \"Edit online\" button below.</string>
-	<string name="web_editor_description">Upload your guide and get the edit link from desktop</string>
-	<string name="edit_on_web_confirm">Edit online</string>
-	<string name="update_guide">Upload an update</string>
-	<string name="direct_link_updating_text">Updating your file…</string>
-	<string name="direct_link_updating_success">Your guide has been updated</string>
-	<string name="unable_get_direct_link_desc">You can share your guide via a public link</string>
-	<string name="any_access_update_alert_title">Some changes may have occurred</string>
-	<string name="any_access_update_alert_message">Do you want to update your bookmarks? The new version will be available via the same link.</string>
-	<string name="any_access_update_alert_update">Update</string>
-	<string name="public_or_limited_access_after_edit_online_error_title">You have edited you bookmarks online</string>
-	<string name="public_or_limited_access_after_edit_online_error_message">In the future, please edit, publish or share the guide with you friends via our website</string>
 	<string name="power_managment_title">Power saving mode</string>
 	<string name="power_managment_description">When automatic mode is selected the application starts to disable battery draining features depending on the current battery charge level</string>
 	<string name="power_managment_setting_never">Never</string>
 	<string name="power_managment_setting_auto">Automatic</string>
 	<string name="power_managment_setting_manual_max">Maximum power saving</string>
-	<string name="enable_logging_warning_message">The option turns on logging for diagnostic purposes. It can be helpful for our support staff who are troubleshooting issues with the app. Enable this option only at the request of OMaps support.</string>
+	<string name="enable_logging_warning_message">The option turns on logging for diagnostic purposes. It can be helpful for our support staff who are troubleshooting issues with the app. Enable this option only at the request of Organic Maps support.</string>
 	<string name="html_error_upload_message_try_again">Please check your network settings and try again</string>
 	<string name="html_error_upload_title_try_again">No internet connection</string>
 	<string name="notification_leave_review_v2_android_short_title">Review and help travellers!</string>
@@ -1390,14 +1140,8 @@
 	<string name="notifications_illegal_alert_disable_button">Turn off notifications</string>
 	<string name="access_rules_author_only">Online editing</string>
 	<string name="privacy_settings_menu">Privacy settings</string>
-	<string name="gdpr_request_setting">Get ID for GDPR request</string>
-	<string name="gdpr_request_window_title">Your ID is %s.</string>
-	<string name="gdpr_request_window_message">Please copy it and send the request to support\@omaps.app</string>
-	<string name="gdpr_request_window_copy">Copy the ID</string>
 	<string name="unable_upadate_error_title">File update failed</string>
 	<string name="unable_upadate_error_message">Some errors occurred while updating. Please check the changes and try again</string>
-	<string name="whats_new_wiki_title">What\'s that place?</string>
-	<string name="whats_new_wiki_message">We\'ve added Wikipedia.org articles to the place pages of the most popular tourist attractions. They are available offline</string>
 	<string name="driving_options_title">Routing options</string>
 	<string name="driving_options_subheader">Avoid on every route</string>
 	<string name="avoid_tolls">Toll roads</string>
@@ -1415,23 +1159,7 @@
 	<string name="avoid_toll_roads_placepage">Avoid toll roads</string>
 	<string name="avoid_unpaved_roads_placepage">Avoid unpaved roads</string>
 	<string name="avoid_ferry_crossing_placepage">Avoid ferry crossings</string>
-	<string name="cached_guides_placeholder_subtitle">OMaps ready-made guides are select places with photos and descriptions that are displayed on the map and available offline.</string>
-	<string name="guides_catalogue_title">Guides catalog</string>
-	<string name="download_guides_button">To the catalog</string>
-	<plurals name="placepage_summary_rating_description">
-	  <item quantity="one">Based on %d review</item>
-	  <item quantity="other">Based on %d reviews</item>
-	</plurals>
 	<string name="type.cuisine.uzbek">Uzbek cuisine</string>
-	<string name="onboarding_guide_direct_download_title">Guide is ready for download</string>
-	<string name="onboarding_guide_direct_download_subtitle">It will be displayed on the map and work offline</string>
-	<string name="onboarding_guide_direct_download_button">Download</string>
-	<string name="onboarding_bydeeplink_guide_title">Ready-to-use guides in OMaps</string>
-	<string name="onboarding_bydeeplink_guide_subtitle">Best places to visit are displayed on the map with photos and descriptions. Works offline.</string>
-	<string name="whats_new_auto_update_bydeeplink_title">Before you proceed to guides…</string>
-	<string name="whats_new_auto_update_bydeeplink_message">Update maps to keep the information about objects up to date!</string>
-	<string name="whats_new_auto_update_and_proceed_button_size">Update (%s) and proceed</string>
-	<string name="purchase_please_wait_toast">Please don\'t leave this screen before purchase is completed</string>
 	<string name="trip_start">Let\'s go</string>
 	<string name="pick_destination">Destination</string>
 	<string name="follow_my_position">Re-center</string>
@@ -1451,43 +1179,6 @@
 	<string name="dialog_routing_rebuild_from_current_location_carplay">The route will be rebuilt from your current location</string>
 	<string name="dialog_routing_rebuild_for_vehicle_carplay">The route will be converted into an automobile one</string>
 	<string name="ok">Ok</string>
-	<string name="vezet_taxi">Vezet</string>
-	<string name="booking_button_toolbar">Pick a hotel on the map</string>
-	<string name="popup_booking_download_guides_title">Booked a hotel?</string>
-	<string name="popup_booking_download_guides_message">Plan your route with ready-made guides from OMaps</string>
-	<string name="popup_mwm_download_guides_title">Offline city guides</string>
-	<string name="popup_mwm_download_guides_cta">Choose one</string>
-	<string name="popup_mwm_download_guides_cta_1">Take a look</string>
-	<string name="gallery_pp_download_guides_offline_title">Plan your vacation with OMaps!</string>
-	<string name="gallery_pp_download_guides_offline_subtitle">Don\'t miss anything with guides made by experienced travellers</string>
-	<string name="gallery_pp_download_guides_offline_cta">Turn on the Internet</string>
-	<string name="gallery_pp_download_guides_title">Guides</string>
-	<string name="native_screen_subscription_title">Unlimited access to 2000+ travel guides!</string>
-	<string name="native_screen_subscription_message">A great vacation wherever you travel and whoever goes with you</string>
-	<string name="annual_subscription_title">Annual</string>
-	<string name="montly_subscription_title">Monthly</string>
-	<string name="annual_subscription_message">12 months of unlimited access</string>
-	<string name="montly_subscription_message">1 month of unlimited access</string>
-	<string name="annual_save_component">- %d%%</string>
-	<string name="subscription_success_dialog_title">Thanks for subscribing!</string>
-	<string name="subscription_success_dialog_message">Now you have unlimited access to the whole guides catalog</string>
-	<string name="renewal_screen_title">Your subscription has expired</string>
-	<string name="renewal_screen_message">All the guides downloaded by subscription are going to be deleted. Do you want to resume the subscription and keep them?</string>
-	<string name="renewal_screen_button_restore">Yes, renew</string>
-	<string name="renewal_screen_button_cancel">No, delete guides</string>
-	<string name="subscription_error_ping_title">Purchase has failed</string>
-	<string name="subscription_error_message">The service is currently unavailable in your region. Please try again later</string>
-	<string name="subscription_error_button">Got it</string>
-	<string name="timeout_error_title">Oops, time is up!</string>
-	<string name="timeout_error_message">Our servers don\'t respond. Please check the internet connection and try again.</string>
-	<string name="per_month">/mo</string>
-	<string name="per_year">/year</string>
-	<string name="buy_btn_for_subscription">Unlimited access from %s</string>
-	<string name="buy_btn_for_subscription_1">Buy ALL guides for %s</string>
-	<string name="buy_btn_for_subscription_ios_only_mo">Unlimited access for %s/mo</string>
-	<string name="buy_btn_for_subscription_ios_only_year">Unlimited access for %s/year</string>
-	<string name="subscription_terms_guides">Payment will be charged to your iTunes account after purchase confirmation. The subscription will automatically renew unless the auto-renew feature is turned off at least 24 hours before the end of the current period. Your account will be charged according to your plan for renewal within 24 hours prior to the end of the current period. You can manage or turn off the auto-renew feature in your Apple ID account settings at any time of your purchase. You can only use guides downloaded by subscription until its expiration date. After 30 days from the subscription expiry date guides with bookmarks will be automatically deleted.</string>
-	<string name="subscription_terms">Payment will be charged to your iTunes account at confirmation of purchase. The subscription will automatically renew unless auto-renew is turned off at least 24 hours before the end of the current period. Your account will be charged according to your plan for renewal within 24 hours prior to the end of the current period. You can manage or turn off auto-renew in your Apple ID account settings at any time of your purchase.</string>
 	<string name="avoid_unpaved_carplay_1">No dirt road</string>
 	<string name="avoid_unpaved_carplay_2">Avoid unpaved</string>
 	<string name="avoid_ferry_carplay_1">No ferries</string>
@@ -1496,7 +1187,7 @@
 	<string name="avoid_tolls_carplay_2">Avoid toll road</string>
 	<string name="speedcams_alert_title_carplay_1">Speedсams</string>
 	<string name="speedcams_alert_title_carplay_2">Speed warnings</string>
-	<string name="download_map_carplay">Please download maps in OMaps app on your device</string>
+	<string name="download_map_carplay">Please download maps in Organic Maps app on your device</string>
 	<string name="carplay_roundabout_exit">%s exit</string>
 	<!-- max. 10 symbols, both iOS and Android -->
 	<string name="sort">Sort…</string>
@@ -1544,83 +1235,15 @@
 	<string name="bookmarks_edit_list">Edit list</string>
 	<!-- Android, max 18 symbols -->
 	<string name="bookmarks_delete_list">Delete list</string>
-	<string name="popup_subscription_success_map_title">Woohoo, you\'re subscribed!</string>
-	<string name="popup_subscription_success_map_message">Now discover the best touristic highlights in OMaps catalog</string>
-	<string name="popup_subscription_success_map_start_button">Start browsing</string>
-	<string name="popup_subscription_success_map_not_now_button">Not now</string>
 	<string name="religious_places">Religious places</string>
-	<string name="subscription_terms_android">When you confirm a purchase, the payment will be charged to your Google Play account. The subscription will automatically renew unless the auto-renew feature is turned off at least 24 hours before the end of the current period. Your account will be charged pursuant to your renewal plan within 24 hours before the end of the current period. You can manage or turn off the auto-renew feature in Account Settings after purchase. You can only use guides downloaded by subscription until the end of the billing period. After 30 days from the subscription expiry date, downloaded guides will be automatically deleted.</string>
 	<string name="select_list">Select list</string>
-	<string name="pp_discovery_place_related_header">This place in the guides catalog</string>
-	<string name="pp_discovery_place_related_header_1">This place is featured in a guide</string>
-	<string name="pp_discovery_place_related_cta_button">View</string>
-	<string name="pp_discovery_place_related_tag_header">Guides by tag “%s”</string>
-	<string name="pp_discovery_place_related_tag_header_1">You may also like</string>
-	<string name="buy_btn_for_subscription_version_2">ALL guides just for %s/mo</string>
-	<string name="buy_btn_for_subscription_version_3">Entire catalog for %s/mo</string>
-	<string name="buy_btn_for_subscription_ios_only_mo_version_2">Access to catalog for %s/mo</string>
-	<string name="buy_btn_for_subscription_ios_only_year_version_2">Access to catalog for %s/year</string>
-	<string name="subscription_screen_native_title_version_2">Access to guides with bookmarks!</string>
-	<string name="subscription_screen_native_message_version_2">Be ready for any journey in 600+ cities and 100+ countries</string>
-	<string name="catalog_no_internet_title">No internet connection</string>
-	<string name="catalog_no_internet_button">Try again</string>
-	<string name="new_onboarding_button">Next</string>
-	<string name="new_onboarding_button_2">Get started</string>
-	<string name="new_onboarding_step1_header">OMaps</string>
-	<string name="new_onboarding_step1_header_2">All-in-one travel buddy</string>
-	<string name="new_onboarding_step2_header">Dream and plan</string>
-	<string name="new_onboarding_step2_message">70+ million places, ready-made guides and hotel booking right from the map – you are ready for the trip!</string>
-	<string name="new_onboarding_step3_message">Never get lost with detailed maps of any country and navigation – everything works offline!</string>
-	<string name="new_onboarding_step4_header">Share impressions</string>
-	<string name="new_onboarding_step4_message">Place bookmarks on favorite places and send them to your friends</string>
-	<string name="new_onboarding_step5.1_header">One more thing before you start…</string>
-	<string name="new_onboarding_step5.1_message">Don\'t forget to visit our brand new guides catalog to find an offline guide for your upcoming journey!</string>
-	<string name="new_onboarding_step5.1_button">Open catalog</string>
-	<string name="new_onboarding_step5.2_message">Your subscription to the OMaps guides catalog is a bargain. Get full access to city and outdoor guides around the world!</string>
-	<string name="new_onboarding_step5.2_button">Check out the terms</string>
-	<string name="new_onboarding_step5.3_message">Check out free samples of ready-made city and outdoor routes with a free selection of OMaps!</string>
-	<string name="new_onboarding_step5.3_button">Free download</string>
-	<string name="new_onboarding_additional_steps_later_button">Later</string>
-	<string name="all_pass_subscription_header">Subscribe to</string>
-	<string name="all_pass_subscription_subheader">Guides catalog</string>
-	<!-- \n - for a break between lines. Max. 15 characters per 1 line. -->
-	<string name="all_pass_subscription_message_title">30000+\nguides &amp; trails</string>
-	<!-- <b> & </b> tag to make a part of the line bold -->
-	<string name="all_pass_subscription_message_subtitle"><b>Unlimited downloads</b> of city and outdoor routes <b>to offline mode</b></string>
-	<!-- \n - for a break between lines. Max. 17 characters per 1 line. -->
-	<string name="all_pass_subscription_message_title_2">Interactive\nelevation profile</string>
-	<!-- <b> & </b> tag to make a part of the line bold -->
-	<string name="all_pass_subscription_message_subtitle_2">Each trail contains <b>elevation and basic info about the route</b></string>
-	<!-- \n - for a break between lines. Max. 15 characters per 1 line. -->
-	<string name="all_pass_subscription_message_title_3">Bookmarks,\nphotos, and\nrecommendations</string>
-	<!-- <b> & </b> tag to make a part of the line bold -->
-	<string name="all_pass_subscription_message_subtitle_3"><b>Learn all about the route</b> you are going to take</string>
-	<!-- do not translate -->
-	<string name="sightseeing_subscription_header_sightseeing">City Pass</string>
-	<string name="sightseeing_subscription_header_subscription">Guides Subscription</string>
-	<string name="sightseeing_subscription_message">700+ cities and 100+ countries</string>
-	<string name="sightseeing_subscription_message_2">Available offline</string>
-	<string name="sightseeing_subscription_message_3">Photos and walking tracks</string>
-	<string name="subscription_success_dialog_title_sightseeing_pass">Thanks for subscribing!</string>
-	<string name="subscription_success_dialog_message_sightseeing_pass">Now you have access to all sightseeing guides in the catalog</string>
-	<string name="downloader_main_gallery_header">Maps &amp; guides</string>
-	<string name="downloader_main_gallery_message">From now on in this section you can not only download maps, but also check out guides for your upcoming journey</string>
-	<string name="downloader_main_1_element_gallery_header">All guides</string>
-	<string name="downloader_main_1_element_gallery_message">in 100+ countries</string>
-	<string name="downloader_country_1_element_gallery_header">%s guides</string>
-	<string name="downloader_country_no_guides_gallery_header">There are no guides in this country yet</string>
-	<string name="downloader_country_no_guides_gallery_message">You can check out other offline guides in 100+ countries for city and outdoor activities</string>
-	<string name="dialog_pedestrian_route_is_long">The pedestrian route to the transport boarding point is too long</string>
-	<string name="new_onboarding_step3_header">Experience</string>
-	<string name="all_pass_screen_best_value">Best Value</string>
-	<string name="buy_btn_for_subscription_3">Entire catalog for %s/year</string>
 	<string name="transit_not_found">Subway navigation in this region is not available yet</string>
 	<string name="dialog_pedestrian_route_is_long_header">Subway route is not found</string>
 	<string name="dialog_pedestrian_route_is_long_message">Please choose a start or end point closer to a subway station</string>
 	<!-- Failed planning SUBWAY route message in navigation view -->
 	<string name="routing_planning_error_subway_special">Subway route planning failed</string>
 	<string name="button_layer_isolines">Terrain</string>
-	<string name="tips_map_layers_title_countour">New in OMaps: offline topographic layer!</string>
+	<string name="tips_map_layers_title_countour">New in Organic Maps: offline topographic layer!</string>
 	<string name="tips_map_layers_message_countour">Plan and enjoy your nature trips being sure you know everything about the area</string>
 	<string name="isolines_activation_error_dialog">To activate and use the topographic layer please update or download the map of the area</string>
 	<string name="isolines_location_error_dialog">The topographic layer is not yet available in this area</string>
@@ -1639,101 +1262,10 @@
 	<string name="elevation_profile_time">Time:</string>
 	<string name="elevation_profile_hours">h.</string>
 	<string name="elevation_profile_minutes">min</string>
-	<string name="view_on_map_downloaded_error">This guide has been deleted from this device</string>
-	<string name="subscription">Subscription</string>
-	<string name="freenow_taxi_title">FREE NOW</string>
-	<string name="tinkoff_allairlines_map_downloader_title">Карта Тинькофф All Airlines. 3000 миль в подарок</string>
-	<string name="tinkoff_allairlines_map_downloader_cta_button">Оформить карту</string>
-	<string name="tinkoff_insurance_map_downloader_title">Полис Тинькофф со скидкой! Подходит для любых виз.</string>
-	<string name="tinkoff_insurance_map_downloader_cta_button">Промокод</string>
-	<string name="mts_map_downloader_title">Забугорище: интернет и звонки за границей как дома</string>
-	<string name="mts_map_downloader_cta_button">Подключить</string>
-	<string name="skyeng_map_downloader_title">Дарим 4 бесплатных урока английского от Skyeng.</string>
-	<string name="skyeng_map_downloader_cta_button">Подробнее</string>
-	<string name="button_layer_guides">Guides (new)</string>
-	<string name="no_routes_in_the_area_toast">No guides found here</string>
 	<string name="isolines_toast_zooms_1_10">Zoom in to explore isolines</string>
-	<string name="routes_layer_in_menu_toast">Turn on layers to find offline guides, explore isolines, subway lines, or traffic jams</string>
-	<string name="routes_layer_is_on_toast">Drag the map to explore the guides</string>
-	<string name="connection_error_dialog_guides_title">Connection error</string>
-	<string name="connection_error_dialog_guides_message">The layer doesn\'t work because there\'s no Internet or the signal is weak. To continue working, check the connection or turn off the layer.</string>
-	<string name="connection_error_dialog_guides_try">Try again</string>
-	<string name="connection_error_dialog_guides_layer_turn_off">Turn off</string>
-	<string name="connection_error_toast_guides">Trying to reconnect</string>
-	<!-- as few symbols as possible -->
-	<string name="routes_card_show">Show on map</string>
-	<!-- as few symbols as possible -->
-	<string name="routes_card_hide">Hide from map</string>
 	<string name="downloader_updating_ios">Updating</string>
 	<string name="downloader_loading_ios">Downloading</string>
-	<string name="routes_card_plus_track">+ track</string>
-	<string name="routes_card_city">City</string>
-	<string name="routes_card_outdoor">Outdoor</string>
-	<string name="routes_card_number_of_points">%s places</string>
-	<string name="routes_card_routes_tag">Itinerary</string>
-	<string name="routes_card_set_tag">Featured places</string>
-	<!-- as few symbols as possible -->
-	<string name="guides_trial_cta_button">Start your 7-day free trial</string>
-	<string name="guides_trial_message">After that, %s per year. Cancel anytime</string>
-	<string name="trial_error_dialog">Sorry, you\'ve already used the trial</string>
-	<!-- as few symbols as possible -->
-	<string name="floating_button_filters">Filters</string>
-	<plurals name="date_picker_amout_of_days">
-	  <item quantity="one">%d dag</item>
-	  <item quantity="few">%d dagen</item>
-	  <item quantity="other">%d dagen</item>
-	</plurals>
-	<!-- as few symbols as possible -->
-	<string name="date_picker_сhoose_dates_cta">Select dates</string>
-	<!-- as few symbols as possible -->
-	<string name="guests_picker_rooms_title">Rooms and guests</string>
-	<string name="guests_picker_rooms">Rooms</string>
-	<string name="guests_picker_adults">Adults</string>
-	<string name="guests_picker_children_title">Children</string>
-	<string name="guests_picker_children_subtitle">1-17 y.o.</string>
-	<string name="guests_picker_infants_title">Infants</string>
-	<string name="guests_picker_infants_subtitle">0-12 mon.</string>
-	<!-- as less symbols as possible -->
-	<string name="booking_map_component_availability">No rooms available</string>
-	<!-- as few symbols as possible -->
-	<string name="booking_map_component_filters">Doesn\'t match filters</string>
-	<string name="choose_dates_online_only_dialog_title">No network connection</string>
-	<string name="choose_dates_online_only_dialog_message">Dates and the number of guests can only be selected when online. Please check your settings and make sure you\'re connected to the internet.</string>
-	<string name="choose_dates_online_only_dialog_cta">Settings</string>
-	<string name="thirty_days_limit_dialog">You can book for a maximum of 30 nights</string>
-	<string name="whatsnew_trial_cta">Try it now</string>
-	<string name="subscription_terms_guides_outdoor">When you confirm the purchase, the payment will be charged to your iTunes account. The subscription will automatically renew unless the auto-renew feature is disabled at least 24 hours before the end of the current subscription period. Your account will be charged according to your renewal plan within 24 hours before the current subscription period ends. You can manage or disable auto-renewal in your Apple ID account settings any time after purchase. You can only use guides downloaded during your subscription until the subscription expires. Guides and all bookmarks will be automatically deleted 7 days after the subscription expires.\n* The subscription with a free trial period will automatically renew to a paid subscription. You can cancel or manage your free trial\'s auto-renewal in your account settings after purchase. The cancellation will take effect 24 hours after the last day of the current subscription period. After that, you will be downgraded to the free service. Please note: Any unused portion of the free trial will be forfeited when you purchase a premium subscription during the free trial.</string>
-	<string name="subscription_terms_android_outdoor">When you confirm the purchase, the payment will be charged to your Google Play account. The subscription will automatically renew unless the auto-renew feature is disabled at least 24 hours before the end of the current subscription period. Your account will be charged according to your renewal plan within 24 hours before the current subscription period ends. You can manage or disable auto-renewal in account settings any time after purchase. You can only use guides downloaded during your subscription until the subscription expires. Guides will be automatically deleted 7 days after the subscription expires.\n* The subscription with a free trial period will automatically renew to a paid subscription. You can cancel or manage your free trial\'s auto-renewal in your account settings after purchase. The cancellation will take effect 24 hours after the last day of the current subscription period. After that, you will be downgraded to the free service. Please note: Any unused portion of the free trial will be forfeited when you purchase a premium subscription during the free trial.</string>
-	<string name="sberbank_map_downloader_title">Откройте Сберкарту Тревел Mastercard и копите мили</string>
-	<string name="sberbank_map_downloader_cta_button">Узнать больше</string>
-	<string name="yango_taxi_title">Yango</string>
-	<string name="citymobil_taxi_title">Citymobil</string>
-	<string name="subscription_header">Subscribe to\n<b>Guides catalog</b></string>
-	<!-- Max. 20 characters per 1 line. -->
-	<string name="all_pass_subscription_message_title_4">Travel guides\nby Lonely Planet®</string>
-	<!-- <b> & </b> tag to make a part of the line bold -->
-	<string name="all_pass_subscription_message_subtitle_4">Even <b>more experiences</b> with thousands of interesting places <b>around the world</b></string>
-	<string name="content_by_component">Content by: %s</string>
-	<string name="whatsnew_lp_title">Even more emotions</string>
-	<string name="whatsnew_lp_message">Lonely Planet guides are now in our app! The best attractions, thematic walks and unique travel spots for 7000+ cities.</string>
-	<string name="collections_title">Collections</string>
 	<string name="key_information_title">Key information</string>
-	<string name="mustsee_title">Must see</string>
-	<string name="see_lp_category">See</string>
-	<string name="play_lp_category">Play</string>
-	<string name="shop_lp_category">Shop</string>
-	<string name="transport_lp_category">Transport</string>
-	<string name="sleep_lp_category">Sleep</string>
-	<string name="general_lp_category">General</string>
-	<string name="drink_lp_category">Drink</string>
-	<string name="eat_lp_category">Eat</string>
-	<string name="taxi_category_order">Order</string>
-	<string name="arsenal_telemed_map_downloader_title">Онлайн консультации профессиональных врачей 24/7</string>
-	<string name="arsenal_flat_map_downloader_title">Уезжаешь? Позаботься о своей квартире и соседях.</string>
-	<string name="arsenal_crimea_map_downloader_title">Туристическая страховка отдыха в Крыму. От 15₽/день</string>
-	<string name="arsenal_russia_map_downloader_title">Путешествуй по России. Лечение COVID-19 включено!</string>
-	<string name="arsenal_abroad_map_downloader_title">Полис «Выезд за рубеж». Лечение COVID-19 включено!</string>
-	<string name="arsenal_cta_button">Оформить полис</string>
 	<string name="download_map_title">Download the world map</string>
 	<string name="connection_failure">Connection failure</string>
 	<string name="disconnect_usb_cable_title">Disconnect USB cable</string>

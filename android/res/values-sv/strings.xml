@@ -57,7 +57,7 @@
 	<string name="country_status_download_failed">Downloading har misslyckats</string>
 	<!-- Button text for the button under the country_status_download_failed message -->
 	<string name="try_again">Försök igen</string>
-	<string name="about_menu_title">Om OMaps</string>
+	<string name="about_menu_title">Om Organic Maps</string>
 	<string name="downloaded_touch_to_delete">Nedladdad (%s), tryck för att ta bort</string>
 	<string name="connection_settings">Anslutningsinställningar</string>
 	<string name="download_mb_or_kb">Ladda ner %s</string>
@@ -65,7 +65,7 @@
 	<string name="unsupported_phone">Hårdvaruaccelererad OpenGL krävs. Din enhet stöds tyvärr inte.</string>
 	<string name="download">Ladda ner</string>
 	<string name="external_storage_is_not_available">SD-kort/USB-lagring med nedladdade kartor är inte tillgänglig.</string>
-	<string name="disconnect_usb_cable">Vänligen koppla ifrån USB-kabeln eller sätt in ett minneskort för att använda OMaps</string>
+	<string name="disconnect_usb_cable">Vänligen koppla ifrån USB-kabeln eller sätt in ett minneskort för att använda Organic Maps</string>
 	<string name="not_enough_free_space_on_sdcard">Vänligen frigör utrymme på SD-kortet/USB-lagringen först för att använda denna app.</string>
 	<string name="not_enough_memory">Inte tillräckligt med utrymme för att starta appen</string>
 	<string name="download_resources">Innan du startar, låt oss ladda ner den generella världskartan på din enhet.\nDen behöver %s data.</string>
@@ -105,7 +105,7 @@
 	<!-- Add bookmark dialog - bookmark set, Bookmarks dialog - Bookmark set cell -->
 	<string name="set">Samling</string>
 	<!-- Text hint in Bookmarks dialog when no any bookmarks are added -->
-	<string name="bookmarks_usage_hint">Du har inga bokmärken än.\nTryck var som helst på kartan för att lägga till ett bokmärke.\nBokmärken från andra källor kan också importeras och visas i OMaps. Öppna KML/KMZ filer med sparade bokmärken från mail, Dropbox eller webadress.</string>
+	<string name="bookmarks_usage_hint">Du har inga bokmärken än.\nTryck var som helst på kartan för att lägga till ett bokmärke.\nBokmärken från andra källor kan också importeras och visas i Organic Maps. Öppna KML/KMZ filer med sparade bokmärken från mail, Dropbox eller webadress.</string>
 	<!-- Settings button in system menu -->
 	<string name="settings">Inställningar</string>
 	<!-- Header of settings activity where user defines storage path -->
@@ -173,7 +173,7 @@
 	<!-- Button text -->
 	<string name="share_by_email">Dela via email</string>
 	<!-- Email Subject when sharing bookmarks category -->
-	<string name="share_bookmarks_email_subject">OMaps bokmärken har delats med dig</string>
+	<string name="share_bookmarks_email_subject">Organic Maps bokmärken har delats med dig</string>
 	<!-- message title of loading file -->
 	<string name="load_kmz_title">Läser in bokmärken</string>
 	<!-- Kmz file successful loading -->
@@ -193,17 +193,17 @@
 	<!-- Alert message that downloading is in progress. -->
 	<string name="downloading_is_active">Nedladdning av landet är startat nu.</string>
 	<!-- Message that will be shown in alert view, when we ask user to leave review on App Store -->
-	<string name="appStore_message">Hoppas du gillar att använda OMaps! I så fall, skriv en recension eller ge ett betyg på App Store. Det tar mindre än en minut men kan verkligen hjälpa oss. Tack för din hjälp!</string>
+	<string name="appStore_message">Hoppas du gillar att använda Organic Maps! I så fall, skriv en recension eller ge ett betyg på App Store. Det tar mindre än en minut men kan verkligen hjälpa oss. Tack för din hjälp!</string>
 	<!-- No, thanks -->
 	<string name="no_thanks">Nej, tack</string>
 	<!-- Share one specific bookmark using SMS, %1$@ contains ge0:// and %2$@ http://ge0.me link. @NOTE non-ascii symbols in the link will make 70 bytes sms instead of 140 -->
-	<string name="bookmark_share_sms">Hej, kolla på min pin på OMaps! %1$s eller %2$s Har du inte offline-kartor installerat? Ladda ner här: https://omaps.app/get</string>
+	<string name="bookmark_share_sms">Hej, kolla på min pin på Organic Maps! %1$s eller %2$s Har du inte offline-kartor installerat? Ladda ner här: https://organicmaps.app/get</string>
 	<!-- Share my position using SMS, %1$@ contains ge0:// and %2$@ http://ge0.me link WITHOUT NAME. @NOTE non-ascii symbols in the link will make 70 bytes sms instead of 140 -->
-	<string name="my_position_share_sms">Hej, kolla på min nuvarande position på OMaps! %1$s eller %2$s Har du inte offline-kartor? Ladda ner här: https://omaps.app/get</string>
+	<string name="my_position_share_sms">Hej, kolla på min nuvarande position på Organic Maps! %1$s eller %2$s Har du inte offline-kartor? Ladda ner här: https://organicmaps.app/get</string>
 	<!-- Subject for emailed bookmark -->
-	<string name="bookmark_share_email_subject">Hej, kolla på min pin på OMaps kartan</string>
+	<string name="bookmark_share_email_subject">Hej, kolla på min pin på Organic Maps kartan</string>
 	<!-- Subject for emailed position -->
-	<string name="my_position_share_email_subject">Hej, kolla på min nuvarande position på OMaps kartan!</string>
+	<string name="my_position_share_email_subject">Hej, kolla på min nuvarande position på Organic Maps kartan!</string>
 	<!-- Share my position using EMail, %1$@ is ge0:// and %2$@ is http://ge0.me link WITHOUT NAME -->
 	<string name="my_position_share_email">Hej,\n\nJag är här nu: %1$s. Klicka på denna länk %2$s eller denna %3$s för att se platsen på kartan.\n\nTack.</string>
 	<!-- Android share by Message/SMS button text (including SMS) -->
@@ -303,19 +303,19 @@
 	<!-- text of notification -->
 	<string name="download_map_notification">Ladda ner kartan över din nuvarande plats</string>
 	<!-- text of notification -->
-	<string name="pro_version_is_free_today">Fullständig version av OMaps är gratis idag! Ladda ner den nu och berätta för dina vänner.</string>
+	<string name="pro_version_is_free_today">Fullständig version av Organic Maps är gratis idag! Ladda ner den nu och berätta för dina vänner.</string>
 	<!-- Dialog for transferring maps from lite to pro. -->
-	<string name="move_lite_maps_to_pro">Vi flyttar dina nedladdade kartor från OMaps Lite till OMaps. Det kan ta några minuter.</string>
+	<string name="move_lite_maps_to_pro">Vi flyttar dina nedladdade kartor från Organic Maps Lite till Organic Maps. Det kan ta några minuter.</string>
 	<!-- Message to display when maps moved. -->
-	<string name="move_lite_maps_to_pro_ok">Dina nedladdade kartor flyttades till OMaps.</string>
+	<string name="move_lite_maps_to_pro_ok">Dina nedladdade kartor flyttades till Organic Maps.</string>
 	<!-- Message to display when maps move failed. -->
-	<string name="move_lite_maps_to_pro_failed">Flytten av dina kartor misslyckades. Vänligen ta bort OMaps Lite och ladda ner kartorna igen.</string>
+	<string name="move_lite_maps_to_pro_failed">Flytten av dina kartor misslyckades. Vänligen ta bort Organic Maps Lite och ladda ner kartorna igen.</string>
 	<!-- Text in menu -->
 	<string name="settings_and_more">Inställningar &amp; Mer</string>
 	<!-- Text in menu -->
 	<string name="website">Webbplats</string>
 	<!-- Text in menu -->
-	<string name="maps_me_community">OMaps Gemenskap</string>
+	<string name="maps_me_community">Organic Maps Gemenskap</string>
 	<!-- Text in menu -->
 	<string name="like_on_facebook">Gilla på Facebook</string>
 	<!-- Text in menu -->
@@ -335,11 +335,11 @@
 	<!-- Text in menu -->
 	<string name="report_a_bug">Rapportera en bugg</string>
 	<!-- Email subject -->
-	<string name="subscribe_me_subject">Anmäl mig till OMaps nyhetsbrev</string>
+	<string name="subscribe_me_subject">Anmäl mig till Organic Maps nyhetsbrev</string>
 	<!-- Email body -->
 	<string name="subscribe_me_body">Jag vill bli först att veta om de senaste uppdateringarna och erbjudandena. Jag kan avbryta min prenumeration när som helst.</string>
 	<!-- About text -->
-	<string name="about_text">OMaps erbjuder de snabbaste offline-kartorna över alla städer och länder i hela världen. Res med förtroende: oavsett var du är hjälper OMaps dig att placera dig på kartan, hitta den närmaste restaurangen, hotellet, banken, bensinstationen m.m. Den kräver inte internetanslutning.\n\nVi arbetar ständigt med nya funktioner och vill gärna veta hur du tycker att vi kan förbättra OMaps. Ifall du har problem med appen, tveka inte att kontakta oss på support\@omaps.app. Vi svarar på alla mail!\n\nGillar du OMaps och vill hjälpa oss? Det finns några enkla och kostnadsfria sätt:\n\n- posta en recension på din Appmarknad\n- gilla vår Facebooksida http://www.facebook.com/mapswithme\n- eller berätta bara om OMaps för din mamma, vänner eller kollegor :)\n\nTack för att du är med oss. Vi uppskattar ditt stöd väldigt mycket!\n\nP.S. Vi använder oss av kartdata från OpenStreetMap, ett kartprojket som liknar Wikipedia och som tillåter användare att skapa och redigera kartor. Ifall du ser något som saknas eller är fel på kartan så kan du korrigera kartan direkt på https://www.openstreetmap.org och dina ändringar kommer att finns i OMaps appen när nästa version släpps.</string>
+	<string name="about_text">Organic Maps erbjuder de snabbaste offline-kartorna över alla städer och länder i hela världen. Res med förtroende: oavsett var du är hjälper Organic Maps dig att placera dig på kartan, hitta den närmaste restaurangen, hotellet, banken, bensinstationen m.m. Den kräver inte internetanslutning.\n\nVi arbetar ständigt med nya funktioner och vill gärna veta hur du tycker att vi kan förbättra Organic Maps. Ifall du har problem med appen, tveka inte att kontakta oss på support\@organicmaps.app. Vi svarar på alla mail!\n\nGillar du Organic Maps och vill hjälpa oss? Det finns några enkla och kostnadsfria sätt:\n\n- posta en recension på din Appmarknad\n- gilla vår Facebooksida http://www.facebook.com/OMapsApp\n- eller berätta bara om Organic Maps för din mamma, vänner eller kollegor :)\n\nTack för att du är med oss. Vi uppskattar ditt stöd väldigt mycket!\n\nP.S. Vi använder oss av kartdata från OpenStreetMap, ett kartprojket som liknar Wikipedia och som tillåter användare att skapa och redigera kartor. Ifall du ser något som saknas eller är fel på kartan så kan du korrigera kartan direkt på https://www.openstreetmap.org och dina ändringar kommer att finns i Organic Maps appen när nästa version släpps.</string>
 	<!-- Alert text -->
 	<string name="email_error_body">Emailklienten har inte konfigurerats. Konfigurera den eller använd ett annat sätt att kontakta oss på %s</string>
 	<!-- Alert title -->
@@ -349,7 +349,7 @@
 	<!-- Update map suggestion -->
 	<string name="routing_map_outdated">Uppdatera kartan för att skapa en rutt.</string>
 	<!-- Update maps suggestion -->
-	<string name="routing_update_maps">Den nya versionen av OMaps låter dig skapa rutter från din nuvarande position till en destinationspunkt. Uppdatera kartan för att använda den här funktionen.</string>
+	<string name="routing_update_maps">Den nya versionen av Organic Maps låter dig skapa rutter från din nuvarande position till en destinationspunkt. Uppdatera kartan för att använda den här funktionen.</string>
 	<!-- Update all button text -->
 	<string name="downloader_update_all_button">Uppdatera alla</string>
 	<!-- Cancel all button text -->
@@ -366,7 +366,7 @@
 	<string name="downloader_downloading">Ladda ner:</string>
 	<string name="downloader_search_results">Hittat</string>
 	<!-- Disclaimer message -->
-	<string name="routing_disclaimer">När du skapar rutter i appen OMaps, vänligen tänk på följande:\n\n  - Föreslagna rutter kan endast ses som rekommendationer.\n - Vägskick, trafikregler och skyltar har högre prioritet än navigeringsråd.\n - Kartan kan vara felaktig eller förlegad, och rutter skapas inte alltid på bästa tänkbara sätt.\n\n  Kör säkert på vägarna och ta hand om dig själv!</string>
+	<string name="routing_disclaimer">När du skapar rutter i appen Organic Maps, vänligen tänk på följande:\n\n  - Föreslagna rutter kan endast ses som rekommendationer.\n - Vägskick, trafikregler och skyltar har högre prioritet än navigeringsråd.\n - Kartan kan vara felaktig eller förlegad, och rutter skapas inte alltid på bästa tänkbara sätt.\n\n  Kör säkert på vägarna och ta hand om dig själv!</string>
 	<!-- Outdated maps category -->
 	<string name="downloader_outdated_maps">Gammal</string>
 	<!-- Up to date maps category -->
@@ -390,7 +390,7 @@
 	<!-- RouteNotFound -->
 	<string name="routing_failed_route_not_found">Ingen rutt hittades mellan vald startpunkt och målet. Välj en annan start- eller slutpunkt.</string>
 	<!-- InternalError -->
-	<string name="routing_failed_internal_error">Ett internt fel inträffade. Försök att radera och ladda ner kartan igen. Kontakta oss på support\@omaps.app om problemet kvarstår.</string>
+	<string name="routing_failed_internal_error">Ett internt fel inträffade. Försök att radera och ladda ner kartan igen. Kontakta oss på support\@organicmaps.app om problemet kvarstår.</string>
 	<!-- Context menu item for downloader. -->
 	<string name="downloader_download_map_and_routing">Ladda ner karta + anvisningar</string>
 	<!-- Context menu item for downloader. -->
@@ -421,9 +421,9 @@
 	<!-- Text for rating dialog -->
 	<string name="rating_just_rated">Jag har precis betygsatt er app</string>
 	<!-- Text for rating dialog -->
-	<string name="rating_user_since">Jag har använt OMaps sedan %s</string>
+	<string name="rating_user_since">Jag har använt Organic Maps sedan %s</string>
 	<!-- Text for rating dialog -->
-	<string name="rating_do_like_maps">Gillar du OMaps?</string>
+	<string name="rating_do_like_maps">Gillar du Organic Maps?</string>
 	<!-- Text for rating dialog -->
 	<string name="rating_tap_star">Tryck på en stjärna för att betygsätta vår app.</string>
 	<!-- Text for rating dialog -->
@@ -439,7 +439,7 @@
 	<!-- Text for routing error dialog -->
 	<string name="routing_download_map">Hämta karta</string>
 	<!-- Text for routing error dialog -->
-	<string name="routing_download_map_and_routing">Ladda ner uppdaterad karta och navigeringsdata för att få tillgång till alla OMaps funktioner.</string>
+	<string name="routing_download_map_and_routing">Ladda ner uppdaterad karta och navigeringsdata för att få tillgång till alla Organic Maps funktioner.</string>
 	<!-- Text for routing error dialog -->
 	<string name="routing_get_routing_data">Hämta navigeringsdata</string>
 	<!-- Text for routing error dialog -->
@@ -571,7 +571,7 @@
 	<!-- Text for routing::RouterResultCode::FileTooOld dialog. -->
 	<string name="dialog_routing_download_and_update_maps">För att skapa en rutt, ladda ner och uppdatera alla kartor längs rutten.</string>
 	<string name="rate_alert_title">Gillar du appen?</string>
-	<string name="rate_alert_default_message">Tack för att du använder OMaps. Betygsätt gärna appen. Din feedback hjälper oss att bli bättre.</string>
+	<string name="rate_alert_default_message">Tack för att du använder Organic Maps. Betygsätt gärna appen. Din feedback hjälper oss att bli bättre.</string>
 	<string name="rate_alert_five_star_message">Hurra! Vi älskar dig också!</string>
 	<string name="rate_alert_four_star_message">Tack, vi ska göra vårt bästa!</string>
 	<string name="rate_alert_less_than_four_star_message">Har du någon idé om hur vi ska bli bättre?</string>
@@ -626,7 +626,7 @@
 	<string name="editor_report_problem_no_place_title">Platsen existerar inte</string>
 	<string name="editor_report_problem_under_construction_title">Stängd för underhåll</string>
 	<string name="editor_report_problem_duplicate_place_title">Duplicerad plats</string>
-	<string name="first_launch_congrats_title">Du kan nu använda OMaps</string>
+	<string name="first_launch_congrats_title">Du kan nu använda Organic Maps</string>
 	<string name="first_launch_congrats_text">Sök och navigera offline var som helst i världen, helt gratis.</string>
 	<string name="migrate_title">Viktigt!</string>
 	<!-- Android uses image instead of text. -->
@@ -724,14 +724,14 @@
 	<string name="placepage_report_problem_button">Rapportera ett problem</string>
 	<string name="placepage_add_business_button">Lägg till organisation</string>
 	<string name="whatsnew_editor_message_1">Lägg till nya platser till kartan och redigera de befintliga direkt från appen.</string>
-	<string name="whatsnew_editor_message_2">* OMaps använder data från OpenStreetMaps community.</string>
+	<string name="whatsnew_editor_message_2">* Organic Maps använder data från OpenStreetMaps community.</string>
 	<string name="dialog_incorrect_feature_position">Ändra placering</string>
 	<string name="message_invalid_feature_position">Ett objekt kan inte placeras här</string>
 	<string name="login_to_make_edits_visible">Logga in så att andra användare kan se de ändringar du gjort.</string>
 	<string name="no_migration_during_navigation">Att uppdatera är förbjudet under navigering.</string>
 	<!-- Error dialog no space -->
 	<string name="migration_no_space_message">Du behöver mer utrymme för att ladda ned. Radera onödig data.</string>
-	<string name="editor_sharing_title">Jag förbättrade kartorna hos OMaps</string>
+	<string name="editor_sharing_title">Jag förbättrade kartorna hos Organic Maps</string>
 	<string name="editor_comment_will_be_sent">Vi vidarebefordrar din kommentar till kartritarna.</string>
 	<string name="editor_unsupported_category_message">Du har lagt till en plats i en kategori vi ännu inte stödjer. Den kommer att finnas på kartan vid ett senare tillfälle.</string>
 	<!-- Downloaded 10 **of** 20 <- it is that "of" -->
@@ -748,7 +748,7 @@
 	<string name="core_placepage_unknown_place">Okänd plats</string>
 	<string name="editor_other_info">Skicka en not till OSM-redaktörer</string>
 	<string name="editor_detailed_description_hint">Detaljerad kommentar</string>
-	<string name="editor_detailed_description">Dina föreslagna ändringar kommer att skcikas till OpenStreetMap-communityt. Beskriv detaljerna som inte kan redigeras i OMaps.</string>
+	<string name="editor_detailed_description">Dina föreslagna ändringar kommer att skcikas till OpenStreetMap-communityt. Beskriv detaljerna som inte kan redigeras i Organic Maps.</string>
 	<string name="editor_more_about_osm">Mer om OpenStreetMap</string>
 	<string name="editor_operator">Användare</string>
 	<string name="editor_tag_description">Ange företag, organisation eller person som är ansvarig för lokalerna.</string>
@@ -788,8 +788,6 @@
 	<string name="placepage_entrance_type">Entré</string>
 	<string name="placepage_flat">lgh</string>
 	<string name="placepage_open_24_7">Døgnet rundt</string>
-	<string name="place_page_booking_rating">Betyg: %s</string>
-	<string name="place_page_starting_from">från %s</string>
 	<string name="meter">m</string>
 	<string name="kilometer">km</string>
 	<string name="kilometers_per_hour">km/h</string>
@@ -824,12 +822,8 @@
 	<string name="error_enter_correct">Ange ett giltigt värde</string>
 	<string name="editor_profile_changes_for_next_place">Ändringar av nästa plats: %d</string>
 	<string name="editor_profile_rating_place">Rankning</string>
-	<string name="booking_dialog_not_connect_header">Var vänlig aktivera din internetanslutning för att göra hotellbokningen</string>
-	<string name="button_try">Prova det</string>
 	<string name="refresh">Uppdatera</string>
 	<string name="last_update">Senast uppdaterad: %s</string>
-	<string name="booking_checkin">incheckning: %s</string>
-	<string name="booking_checkout">utcheckning: %s</string>
 	<string name="placepage_add_place_button">Lägg till en plats på kartan</string>
 	<!-- Displayed when saving some edits to the map to warn against publishing personal data -->
 	<string name="editor_share_to_all_dialog_title">Vill du skicka det till alla användare?</string>
@@ -848,21 +842,19 @@
 	<string name="place_page_button_read_descriprion">Läs</string>
 	<!-- iOS dialog for the case when recent track recording is on and the app comes back from background -->
 	<string name="recent_track_background_dialog_title">Avaktivera inspelning av din senaste resta rutt?</string>
-	<!-- If a hotel is being shared -->
-	<string name="sharing_booking">eller boka på booking.com</string>
 	<string name="off_recent_track_background_button">Avaktivera</string>
 	<!-- For sharing via SMS and so on -->
 	<string name="sharing_call_action_look">Kolla in</string>
 	<string name="continue_recent_track_background_button">Fortsätt</string>
-	<string name="recent_track_background_dialog_message">OMaps använder din geografiska position i bakgrunden för att spela in din senaste resta rutt.</string>
+	<string name="recent_track_background_dialog_message">Organic Maps använder din geografiska position i bakgrunden för att spela in din senaste resta rutt.</string>
 	<!-- Rate on Google Play (Android only) -->
 	<string name="rate_gp">Betygsätt på Google Play</string>
 	<!-- Share with friends: menu item title -->
 	<string name="tell_friends">Tipsa en vän</string>
 	<!-- Share with friends: sharing text -->
-	<string name="tell_friends_text">Hej! Installera OMaps!</string>
+	<string name="tell_friends_text">Hej! Installera Organic Maps!</string>
 	<!-- About short text (below logo) -->
-	<string name="about_description">OMaps är en offline-applikation som du behöver när du reser. OMaps baseras på OpenStreetMap-data och tillåter redigering i den.</string>
+	<string name="about_description">Organic Maps är en offline-applikation som du behöver när du reser. Organic Maps baseras på OpenStreetMap-data och tillåter redigering i den.</string>
 	<!-- Text in menu -->
 	<string name="blog">Blogg</string>
 	<string name="general_settings">Allmänna inställningar</string>
@@ -873,50 +865,13 @@
 	<string name="accept">Acceptera</string>
 	<!-- For the first routing -->
 	<string name="decline">Neka</string>
-	<string name="whats_new_route_profile_title">Genvägar är senvägar</string>
-	<string name="whats_new_route_profile_message">För gångvägar och cykelturer visar vi nu höjdprofilen.</string>
-	<string name="whats_new_booking_improve_title">Spara pengar när du bokar hotell</string>
-	<string name="whats_new_booking_improve_message">Sökresultat för hotell innehåller nu priskategorin.\nVi har även lagt till över 110 000 hotell.</string>
-	<!-- For place page hotel facilities block -->
-	<string name="placepage_hotel_facilities">Faciliteter</string>
-	<!-- For place page hotel nearby block -->
-	<string name="placepage_hotel_nearby">I närheten</string>
-	<!-- For ordering a taxi (as opposed to hotels or other things) -->
-	<string name="taxi_order">Beställ en taxi</string>
-	<!-- How long it is until the taxi arrives -->
-	<string name="taxi_wait">Förväntas om %s</string>
-	<!-- When there are no available taxis nearby -->
-	<string name="taxi_not_found">Hittade ingen taxi i närheten</string>
-	<!-- When there are no available taxi providers nearby -->
-	<string name="taxi_no_providers">Taxi är inte tillgängligt här</string>
 	<string name="install_app">Installera</string>
-	<!-- `Filter` is a noun here -->
-	<string name="booking_filters">Filter</string>
-	<string name="booking_filters_reset">Återställ</string>
-	<!-- Beginning from a particular value and -->
-	<string name="booking_filters_rating">Betyg från</string>
-	<string name="booking_filters_rating_any">Vilket som helst</string>
-	<string name="booking_filters_ragting_good">Bra</string>
-	<string name="booking_filters_rating_very_good">Väldigt bra</string>
-	<string name="booking_filters_rating_excellent">Utmärkt</string>
-	<string name="booking_filters_price_category">Priskategori</string>
 	<string name="search_no_results_title">Inga resultat hittades</string>
 	<string name="search_no_results_message">Försök med en mer allmän sökterm, zooma ut eller återställ filtret.</string>
 	<string name="search_no_results_expand_area_button">Zooma ut</string>
 	<string name="search_no_results_reset_button">Återställ filtret</string>
 	<!-- noun -->
 	<string name="search_in_table">Lista</string>
-	<string name="booking_show_more">Visa fler</string>
-	<string name="booking_reviews">Omdömen</string>
-	<string name="booking_hotel">Hotell</string>
-	<!-- hotel room -->
-	<string name="booking_hotel_room">Rum</string>
-	<!-- A neologism for a chat based on geographical proximity -->
-	<string name="chat">Geochat</string>
-	<!-- Verb. Text on a button that opens the chat. -->
-	<string name="chat_open">Öppna</string>
-	<string name="dialog_taxi_offline">Du kan inte beställa en taxi i offlineläge.</string>
-	<string name="dialog_taxi_error">Du kan inte beställa en taxi just nu.</string>
 	<string name="mobile_data_dialog">Använd mobilt nätverk för att visa detaljerad information?</string>
 	<string name="mobile_data_option_always">Använd alltid</string>
 	<string name="mobile_data_option_today">Endast idag</string>
@@ -928,41 +883,16 @@
 	<string name="traffic_update_maps_text">Kartor måste uppdateras för att visa trafikdata.</string>
 	<string name="traffic_outdated">Trafikdata är inaktuellt.</string>
 	<string name="big_font">Öka teckenstorlek på kartan</string>
-	<string name="traffic_update_app">Uppdatera OMaps</string>
+	<string name="traffic_update_app">Uppdatera Organic Maps</string>
 	<!-- "traffic" as in road congestion -->
 	<string name="traffic_update_app_message">Applikationen måste uppdateras för att trafikdata ska kunna visas.</string>
 	<!-- "traffic" as in "road congestion" -->
 	<string name="traffic_data_unavailable">Trafikdata är inte tillgänglig</string>
-	<!-- Seven points and higher -->
-	<string name="booking_filter_rating_num_good">7,0+</string>
-	<!-- Eight points and higher -->
-	<string name="booking_filter_rating_num_very_good">8,0+</string>
-	<!-- Nine points and higher -->
-	<string name="booking_filter_rating_num_excellent">9,0+</string>
 	<!-- Simplified colour scheme for traffic information, fewer colours are used to display traffic jams on the map. The string should be kept as short as possible -->
 	<string name="pref_traffic_simplified_colors_title">Enkla trafikfärger</string>
 	<string name="enable_logging">Aktivera loggning</string>
-	<string name="more_on_bookingcom">Mer på Booking.com</string>
-	<string name="details_on_bookingcom">Information på Booking.com</string>
-	<string name="reviews_on_bookingcom">Fler omdömen på Booking.com\u0020</string>
 	<string name="offline_place_page_more_information">Anslut till internet för att hämta mer information om platsen.</string>
 	<string name="failed_load_information">Det gick inte att ladda informationen.</string>
-	<string name="whats_new_auto_update_updating_maps">Uppdaterar kartor</string>
-	<string name="whats_new_auto_update_title">Uppdatera dina nedladdade kartor</string>
-	<string name="whats_new_auto_update_message">Uppdatering av kartor håller information om objekt uppdaterade</string>
-	<string name="whats_new_auto_update_button_size">Uppdatera (%s)</string>
-	<string name="whats_new_auto_update_button_later">Uppdatera senare manuellt</string>
-	<string name="search_hotel_filter_apartment">Lägenheter</string>
-	<string name="search_hotel_filter_camp_site">Camping</string>
-	<string name="search_hotel_filter_chalet">Stuga</string>
-	<string name="search_hotel_filter_guest_house">Gästhus|vandrarhem</string>
-	<string name="search_hotel_filter_hostel">Vandrarhem</string>
-	<string name="search_hotel_filter_resort">Resorter</string>
-	<string name="search_hotel_filter_hotel">Hotell</string>
-	<string name="search_hotel_filter_motel">Motell</string>
-	<string name="create_campaign_button">Gör anspråk på det här företaget</string>
-	<string name="view_campaign_button">Företaget marknadsförs</string>
-	<string name="search_hotel_filters_type">Typ</string>
 	<!-- Settings: "Send general feedback" button -->
 	<string name="feedback_general">Allmän feedback</string>
 	<string name="on">På</string>
@@ -993,36 +923,7 @@
 	<string name="choose_start_point">Välj en startpunkt</string>
 	<string name="choose_destination">Välj en destination</string>
 	<string name="preloader_viator_button">Läs mer</string>
-	<string name="whats_new_title_route">Cykelturer och gångvägar har förbättrats</string>
-	<string name="whats_new_message_route">Vi har fixat problem, gjort det mycket lättare att skapa rutter och lagt till mellanliggande punkter</string>
-	<string name="whats_new_message_title_update">Vi har gjort kartuppdateringar 10 gånger mindre</string>
-	<string name="whats_new_message_maps_update">För att uppdatera en karta behöver du bara ladda ned data som saknas</string>
 	<string name="start_from_my_position">Starta från</string>
-	<string name="rating">Omdöme</string>
-	<string name="placepage_no_reviews">Inga omdömen</string>
-	<string name="placepage_reviewed">Du har redan lämnat ett omdöme om den här platsen</string>
-	<string name="placepage_summary_rating">Sammanfattning av omdömen</string>
-	<string name="placepage_rate_comment">Tryck för att betygsätta och lämna ett omdöme om den här platsen.</string>
-	<string name="placepage_rate_horrible">Hemskt</string>
-	<string name="placepage_rate_bad">Dåligt</string>
-	<string name="placepage_rate_normal">OK</string>
-	<string name="placepage_rate_good">Bra</string>
-	<string name="placepage_rate_excellent">Utmärkt</string>
-	<string name="placepage_reviews_most_recent">Senaste</string>
-	<string name="placepage_reviews_most_useful">Mest användbara</string>
-	<string name="placepage_reviews_highest_rated">Högst betyg</string>
-	<string name="placepage_reviews_lowest_rated">Lägst betyg</string>
-	<string name="placepage_reviews_offline_comment">Bara de mest användbara omdömena visas i offlineläge</string>
-	<string name="placepage_reviews_your_comment">Ditt omdöme</string>
-	<string name="placepage_reviews_unhelpful">Ohjälpsam</string>
-	<string name="placepage_reviews_inappropriate">Olämplig</string>
-	<string name="placepage_reviews_spam">Skräppost</string>
-	<string name="placepage_reviews_hint">Vad är bra eller dåligt här?</string>
-	<string name="placepage_reviews_edit_your_review">Redigera ditt omdöme</string>
-	<string name="placepage_reviews_new_review">Nytt omdöme</string>
-	<string name="placepage_translate_button">Översätt</string>
-	<string name="placepage_show_original_button">Visa original</string>
-	<string name="placepage_more_reviews_booking_button">Fler omdömen på Booking.com</string>
 	<string name="profile_authorization_title">Logga in med</string>
 	<string name="profile_authorization_message">Enkelt att logga in utan inloggning och lösenord inom ett par sekunder</string>
 	<string name="profile_authorization_error">Hoppsan, ett fel har inträffat. Försök att logga in igen.</string>
@@ -1034,24 +935,9 @@
 	<string name="expertise">Expertis</string>
 	<string name="equipment">Utrustning</string>
 	<string name="quality">Kvalitet</string>
-	<string name="whats_new_ugc_title_updated_v840">Betyg och omdömen</string>
-	<string name="whats_new_ugc_message">Nu kan du betygsätta och lämna omdömen offline! Glöm inte att uppdatera dina kartor så att du kan se ändringarna.</string>
 	<string name="dialog_error_storage_title">Lagringsåtkomstproblem</string>
-	<string name="dialog_error_storage_message">Extern lagring är inte tillgänglig. SD-kortet är borttaget, skadat eller så är filsystemet är skrivskyddat. Kontrollera det och kontakta oss på support\@omaps.app</string>
+	<string name="dialog_error_storage_message">Extern lagring är inte tillgänglig. SD-kortet är borttaget, skadat eller så är filsystemet är skrivskyddat. Kontrollera det och kontakta oss på support\@organicmaps.app</string>
 	<string name="setting_emulate_bad_storage">Emulera dålig lagring</string>
-	<string name="discovery_button_title">Upptäck i närheten</string>
-	<string name="discovery_button_subtitle_things_to_do">Saker att göra</string>
-	<string name="discovery_button_subtitle_attractions">Attraktioner</string>
-	<string name="discovery_button_subtitle_eat_and_drink">Äta och dricka</string>
-	<string name="discovery_button_subtitle_local_guides">Lokala guider</string>
-	<string name="discovery_button_viator_error_title">Det gick inte att ladda data</string>
-	<string name="discovery_button_other_error_message">Det gick inte att ladda data</string>
-	<string name="discovery_button_other_loading_message">Laddar data</string>
-	<string name="discovery_button_404_error_title">Hittades inte</string>
-	<string name="discovery_button_404_error_message">Hoppsan, vi hittade inget intressant i närheten.</string>
-	<string name="booking_filters_check_in">Checka in</string>
-	<string name="booking_filters_check_out">Checka ut</string>
-	<string name="booking_filters_offline">Inte tillgängligt offline.</string>
 	<string name="directions_finish">Destination</string>
 	<string name="directions_on_foot">Gå %s</string>
 	<string name="core_entrance">Ingång</string>
@@ -1059,12 +945,6 @@
 	<string name="cleanliness">Rent</string>
 	<string name="crowdedness">Fullt</string>
 	<string name="error_enter_correct_name">Ange ett korrekt namn</string>
-	<string name="hotel_available">Tillgängligt</string>
-	<string name="whats_new_transit_title">Tunnelbanor tillgängliga</string>
-	<string name="whats_new_transit_message">Skapa rutter med tunnelbanor! Uppdatera kartor för att visa ändringar.</string>
-	<string name="whats_new_discovery_title">Knappen Upptäck</string>
-	<string name="whats_new_discovery_message">Upptäck saker i närheten med ett enda klick!</string>
-	<string name="price_per_hour">%s/timme</string>
 	<string name="bookmarks_backup">Aktivera säkerhetskopiering</string>
 	<string name="authorization_button_sign_in">Logga in</string>
 	<string name="bookmarks_message_authorized_user">Dina bokmärken säkerhetskopieras automatiskt i en säker molnlagring. Vill du aktivera säkerhetskopiering?</string>
@@ -1083,15 +963,10 @@
 	<string name="downloader_percent">%1$s (%2$s av %3$s)</string>
 	<string name="downloader_process">Ladda ned %s...</string>
 	<string name="downloader_applying">Tillämpar %s...</string>
-	<string name="whats_new_title_hotel_filter">Nya hotellfilter finns tillgängliga!</string>
-	<string name="whats_new_message_hotel_filter">Boka hotell som är tillgängliga för dina datum! Använd filter för incheckning och utcheckning</string>
-	<string name="whats_new_title_ugc_travel">Dela din upplevelse med andra resenärer!</string>
-	<string name="whats_new_message_ugc_travel">Betygsätt och recensera platser du besökt!</string>
 	<string name="dialog_message_transit_not_found_connection">Planera en rutt inom ett transportnätverk</string>
 	<string name="bookmarks_error_message_share_general">Kunde inte delas på grund av ett applikationsfel</string>
 	<string name="bookmarks_error_title_share_empty">Delningsfel</string>
 	<string name="bookmarks_error_message_share_empty">Kan inte dela en tom lista</string>
-	<string name="discovery_button_subtitle_book_hotels">Boka hotell</string>
 	<string name="bookmarks_error_title_empty_list_name">Namnet kunde inte vara tomt</string>
 	<string name="bookmarks_error_message_empty_list_name">Vänligen ange listnamnet</string>
 	<string name="bookmarks_new_list_hint">Ny lista</string>
@@ -1116,8 +991,6 @@
 	<string name="converting">Konvertera...</string>
 	<string name="wn_reinvented_bookmarks_title">Vi återuppfinde bokmärken!</string>
 	<string name="wn_reinvented_bookmarks_message">Du kan säkerhetskopiera bokmärken, skapa listor... Det är fantastiskt...</string>
-	<string name="wn_way_of_booking_title">Vi reimagined sättet att boka!</string>
-	<string name="wn_way_of_booking_message">Hitta bara ett hotell på kartan och boka det, eller välj den liknande.</string>
 	<string name="bookmarks_restore">Återställ bokmärken</string>
 	<string name="bookmarks_restore_process">Återställer...</string>
 	<string name="bookmarks_restore_title">Återställ den här versionen?</string>
@@ -1129,19 +1002,12 @@
 	<string name="error_server_message">Det uppstod ett fel på servern, försök igen senare</string>
 	<string name="error_system_message">Ett okänt fel uppstod</string>
 	<string name="restore">Återställa</string>
-	<string name="sign_message_gdpr">För att fortsätta måste du acceptera våra användarvillkor och sekretesspolicy. Läs dem noggrant.</string>
-	<string name="sign_agree_pp_gdpr">Jag godkänner &lt;a href="%s">sekretesspolicy&lt;/a></string>
-	<string name="sign_agree_tof_gdpr">Jag godkänner &lt;a href="%s">användarvillkoren&lt;/a></string>
-	<string name="sign_agree_news_gdpr">Jag håller med om att få de senaste nyheterna om OMaps produkter</string>
-	<string name="whats_new_localbiz_title">Småföretag förtjänar uppmärksamhet</string>
-	<string name="whats_new_localbiz_message">Det är lokala kaféer, mysiga hotell och affärer som gör din resa oförglömlig. Vi vill optimera din sida på MAPS.Me för att den ska sticka ut.</string>
-	<string name="whats_new_order_button">Lämna en förfrågan</string>
 	<string name="bookmarks_page_downloaded">Ladda ner</string>
 	<string name="bookmarks_page_my">Min</string>
 	<string name="routes_and_bookmarks">Rutt och bokmärken</string>
 	<string name="bookmarks_webview_success_toast">Bokmärkena har laddats ner</string>
 	<string name="cached_bookmarks_placeholder_title">Ladda ner nya platser</string>
-	<string name="cached_bookmarks_placeholder_subtitle">Tryck på knappen för att ladda ner tusentals intressanta platser och rutter skapade av OMaps användare. Du behöver internetanslutning.</string>
+	<string name="cached_bookmarks_placeholder_subtitle">Tryck på knappen för att ladda ner tusentals intressanta platser och rutter skapade av Organic Maps användare. Du behöver internetanslutning.</string>
 	<string name="downloader_download_routers">Ladda ner bokmärken</string>
 	<string name="bookmarks_groups_cached">Nedladdade listor</string>
 	<string name="author_name_by_prefix">av %s</string>
@@ -1159,7 +1025,7 @@
 	</plurals>
 	<string name="subtittle_opt_out">Spårningsinställningar</string>
 	<string name="crash_reports">Olycksrapport</string>
-	<string name="crash_reports_description">Vi kan komma att använda din data för att förbättra OMaps upplevelsen. Ändringarna kommer träda i kraft när du startar om appen.</string>
+	<string name="crash_reports_description">Vi kan komma att använda din data för att förbättra Organic Maps upplevelsen. Ändringarna kommer träda i kraft när du startar om appen.</string>
 	<string name="opt_out_help_ios_1">Din mobila enhet kan tillhandahålla en ”Begränsad annonsspårning” eller ”Välj bort intressebaserad annonsering” inställning.</string>
 	<string name="opt_out_help_ios_2">iOS 9 eller nyare</string>
 	<string name="opt_out_help_ios_3">Gå till Inställningar → Integritet → Annonsering → Tillåt inställningen ”Begränsad annonsspårning”</string>
@@ -1178,101 +1044,31 @@
 	<string name="category_desc_more">…mer</string>
 	<string name="title_error_downloading_bookmarks">Ett fel har uppstått</string>
 	<string name="subtitle_error_downloading_bookmarks">Bokmärkena laddades inte ner</string>
-	<string name="whats_new_bookmarks_catalog_title">OMaps har nu en ruttkatalog</string>
-	<string name="whats_new_bookmarks_catalog_message">Hundratals av detaljerade rutter, runt om i världen; Var du än är, vad du än vill se, var du än vill äta.</string>
-	<string name="whats_new_popularity_label_title">Populära lägen i närheten</string>
-	<string name="whats_new_popularity_label_message">”Upptäck i närheten” sektionen kommer att hjälpa dig hitta de populäraste platserna i staden.</string>
-	<string name="whats_new_hot_offers_title">Attraktiva hotellerbjudanden</string>
-	<string name="whats_new_hot_offers_message">Du kan söka efter dem via hotellkategorin i sökrutan. Erbjudandena kommer att vara märkta med en procentsymbol (%) på kartan och i sökresultatet.</string>
 	<string name="error_already_downloaded">Den här listan har redan laddats ned</string>
-	<string name="guides">Guider</string>
-	<string name="guide_downloaded_title">Guiden har laddats ned framgångsrikt</string>
-	<!-- as few symbols as possible -->
-	<string name="download_guides">Hitta guider</string>
-	<string name="guides_groups_cached">Nedladdade guider</string>
-	<string name="subtitle_error_downloading_guide">Guiden laddades inte ned</string>
-	<string name="error_already_downloaded_guide">Denna guide har redan laddats ned</string>
-	<string name="guide_downloaded_subtitle">Tryck på ‘Visa på kartan’ för att utforska guiden</string>
-	<string name="bookmarks_guides">Bokmärken och guider</string>
-	<string name="paybtn_title">Betala %s/år</string>
-	<string name="paybtn_subtitle">Betala %s/år</string>
-	<string name="options_dropdown_title">Fler val</string>
-	<string name="why_support">Varför stödja OMaps?</string>
-	<string name="options_dropdown_item1">%1$s/månad (spara %2$s/år)</string>
-	<string name="options_dropdown_item2">%s/vecka (inga besparingar)</string>
-	<string name="why_support_item1">Vi tar bort all reklam för dig</string>
-	<string name="why_support_item2">Du hjälper oss att förbättra OMaps</string>
+	<string name="why_support">Varför stödja Organic Maps?</string>
+	<string name="why_support_item2">Du hjälper oss att förbättra Organic Maps</string>
 	<string name="why_support_item3">Du hjälper oss att förbättra de offentliga kartorna OpenStreetMap.org</string>
-	<string name="purchase_processing">Ditt köp bearbetas…</string>
-	<string name="tips_bookmarks_catalog_title">Offline guider för alla typer av resor</string>
-	<string name="tips_bookmarks_catalog_message">Ladda ner och planera turistresor till intressanta ställen i olika städer i världen.</string>
-	<string name="tips_discover_button_title">Vill du hitta populära ställen i närheten?</string>
-	<string name="tips_discover_button_message">Avdelningen ”Upptäck i närheten” innehåller de bästa restaurangerna, hotellen och sevärdheterna.</string>
-	<string name="tips_book_hotel_title">Boka de mysigaste hotellen för dina resor</string>
-	<string name="tips_book_hotel_message">Använd sök- och filterfunktionerna för att hitta de bästa hotellen för dig. Använd ”Boka”-knappen på ställets platssida för att boka hotell på en gång.</string>
-	<string name="tips_map_layers_title">Vet du inte vid vilken station du ska byta?</string>
-	<string name="tips_map_layers_message">Använd lagret för tunnelbana för att visa tunnelbanenätverket, och du kommer alltid att hitta rätt i en ny stad.</string>
 	<string name="channels_map_update">Uppdatering av kartor</string>
-	<string name="channels_reviews">Ej skickade recensioner</string>
-	<string name="purchase_loading">Inköpsinformationen läses in…</string>
-	<string name="purchase_error_subtitle">Ett fel inträffade under hanteringen av ditt köp</string>
-	<string name="awaiting_approval">Inväntar förälders godkännande</string>
-	<string name="whats_new_leave_review">Lämna en recension! Dela med dig av dina åsikter om ställen du besökte på din semester.</string>
 	<string name="server_unavailable_title">Servern är inte tillgänglig</string>
-	<string name="server_unavailable_message">Köpet fullbordas senare. Om felet kvarstår, vänligen kontakta support\@omaps.app.</string>
-	<string name="offline_fiters_check_in">Koppla upp dig mot internet för att filtrera hotellen per datum.</string>
-	<string name="restore_subscription">Återställ prenumerationen</string>
-	<string name="restore_success_alert">Prenumerationen har återställts</string>
-	<string name="restore_error_alert">Ett fel uppstod vid återställning av prenumerationen</string>
-	<string name="restore_no_subscription_alert">Det finns inga aktiva prenumerationer</string>
-	<string name="subscriptions_title">Prenumerationer</string>
-	<string name="manage_subscription">Hantera prenumeration</string>
 	<string name="sharing_options">Åtkomstinställningar</string>
 	<string name="export_file">Exportera fil</string>
 	<string name="list_settings">Listinställningar</string>
 	<string name="delete_list">Radera listan</string>
 	<string name="hide_from_map">Dölj från kort</string>
-	<string name="ugc_route_tags_screen_label">Välj taggar</string>
-	<string name="ugc_route_tags_progress_msg">Laddar upp taggar…</string>
 	<string name="public_access">Allmänhetens åtkomst</string>
 	<string name="limited_access">Privat åtkomst</string>
-	<string name="upload_and_publish_desc">Den här reseguiden kommer att laddas upp i den offentliga katalogen OMaps och kommer att vara tillgänglig för andra användare</string>
-	<string name="upload_and_publish">Ladda upp och publicera</string>
-	<string name="upload_and_get_direct_link">Ladda upp och få länk</string>
-	<string name="get_direct_link_desc">Din reseguide kommer att finnas tillgänglig via direktlänk</string>
-	<string name="upload_and_publish_progress_text">Reseguiden publiceras…</string>
-	<string name="upload_and_publish_success">Reseguiden har publicerat</string>
-	<string name="ugc_routes_user_agreement">&lt;b>OBS:&lt;/b> Genom att fortsätta accepterar du &lt;a href="%s">licensavtalet&lt;/a></string>
-	<string name="ugc_route_edit_list_name">Namn av reseguiden</string>
-	<string name="ugc_route_edit_description_hint">Lägg till en beskrivning (text eller html)</string>
+	<string name="bookmark_category_name">Kategori</string>
+	<string name="bookmark_category_description_hint">Lägg till en beskrivning (text eller html)</string>
 	<string name="not_shared">Personlig</string>
 	<string name="direct_link_progress_text">Laddar upp din fil…</string>
 	<string name="direct_link_success">Länk skapad</string>
-	<string name="edit_guide_title">Redigera din reseguide online</string>
-	<string name="edit_guide_subtitle">Hämta en länk för att redigera din guidebok via webben: lägg till beskrivningar av platser, ladda upp foton och anslut etiketter med rader.</string>
 	<string name="send_a_link_btn">Skicka länk</string>
 	<string name="upload_error_toast">Ett fel uppstod när du laddar filen</string>
 	<string name="tags_loading_error_subtitle">Ett fel uppstod när du laddar taggarna, försök igen</string>
 	<string name="unable_upload_errorr_title">Det gick inte att ladda upp filen</string>
 	<string name="unable_upload_error_subtitle_edited">Filen har redigerats via webbapplikation</string>
 	<string name="unable_upload_error_subtitle_broken">Filen är skadad och kan inte laddas upp. Var vänlig ladda upp en annan fil.</string>
-	<string name="buy_btn">Köpa guide för %s</string>
-	<string name="download_guide_progress">Reseguiden laddar…</string>
-	<string name="price_error_title">Det gick inte att ta reda på kostnaden</string>
-	<string name="price_error_subtitle">Var vänlig försök igen om några minuter</string>
-	<string name="edit_your_guide_email_body">Redigera din reseguide på datorn: lägg till beskrivningar av platser, ladda upp foton och anslut etiketter med rader.</string>
-	<string name="edit_on_web">Redigera online</string>
-	<string name="properties_loading_error_subtitle">Ett fel uppstod när du laddar optioner, försök igen</string>
-	<string name="custom_props_desc">Den här reseguiden du har sammanställt som</string>
-	<string name="custom_props_title">Lokal bosatt eller en turist</string>
-	<string name="custom_props_local">lokal bosatt</string>
-	<string name="custom_props_traveler">en turist</string>
-	<string name="select_properties">Välj optioner</string>
-	<string name="access_rules_p_to_p">Särskild åtkomst</string>
-	<string name="access_rules_paid">Köpte</string>
-	<string name="failed_purchase_support_message">Det verkar som om du har ett pågående köp. Var vänlig kontakt support, och vi kommer att lösa problemet.</string>
 	<string name="contact">Kontakta</string>
-	<string name="check_price_button">Ta reda på priset</string>
 	<string name="download_button">Nedladdning</string>
 	<string name="speedcams_alert_title">Hastighetskameror</string>
 	<string name="speedcams_alert_subtitle">Varna om hastighetsbegränsningar</string>
@@ -1281,70 +1077,26 @@
 	<string name="speedcam_option_never">Aldrig</string>
 	<string name="bookmark_description_title">Etikettbeskrivning</string>
 	<string name="place_description_title">Beskrivning av platsen</string>
-	<string name="ugc_routes_error_uploading_file_toast">Tyvärr, ett fel uppstod vid uppladdning av etiketter. Vänligen försök igen.</string>
-	<string name="notification_channel_ugc">Användarinnehåll</string>
 	<!-- this text will be shown in application notification preferences opposite checkbox which enable/disable downloader notifications. Devices on Android 8+ are affected. -->
 	<string name="notification_channel_downloader">Kartladdning</string>
-	<string name="notification_leave_review_title">%s - hur mår du här?</string>
-	<string name="notification_leave_review_content">Lämna en recension och hjälp resenärer!</string>
-	<string name="share_bookmarks_email_body_link">Hej!\n\nDina etiketter kan laddas ner från länken: %s. Öppna listan med hjälp av OMaps och njut av resan!\n\nLadda ner appen: https://omaps.app/get?kmz</string>
+	<string name="share_bookmarks_email_body_link">Hej!\n\nDina etiketter kan laddas ner från länken: %s. Öppna listan med hjälp av Organic Maps och njut av resan!\n\nLadda ner appen: https://organicmaps.app/get?kmz</string>
 	<string name="warning_speedcams_title">Navigatören ska meddela dig om kameror när hastighetsgränsen överskrids med %d km/h</string>
 	<string name="warning_speedcams_subtitle">Glöm inte att bekanta sig med trafikregler i landet av resan.</string>
 	<string name="speedcams_notice_message">Auto - Varna om fartkameror om det finns risk att överskrida hastighetsgränsen\nAlltid - Varna alltid om kameror\nAldrig - Varna aldrig om kameror</string>
-	<string name="whats_new_ugc_routes_title">Det är lätt att dela dina intryck</string>
-	<string name="whats_new_ugc_routes_subtitle">Spara minnesvärda platser, skapa rutter genom att använda bokmärken och dela dem med alla i OMaps katalogen.</string>
-	<string name="whats_new_webeditor_title">Gör dina rutter till berättelser</string>
-	<string name="whats_new_ugc_routes_message2">Lägg till fotografier och detaljerade berättelser i webeditorn.</string>
-	<string name="ugc_thanks_message_auth">Din recension har sparats</string>
-	<string name="ugc_thanks_message_not_auth">Registrera för att lämna en recension</string>
-	<string name="notification_leave_review_v2_title">Lämna en recension och hjälp resenärer!</string>
-	<string name="error_public_not_enought_title">Inte tillräckligt med etiketter</string>
-	<string name="error_public_not_enought_subtitle">Din resrutt måste ha minst 3 etiketter för att laddas upp till den offentliga katalogen</string>
-	<string name="bookmark_public_upload_alert_title">Det är bara ett par steg från att ladda din resrutt till OMaps katalog!</string>
-	<string name="bookmark_public_upload_alert_subtitle">Se till att resrutten har ett namn och en beskrivning och alla etiketter innehåller information om platser. På grund av detta kommer användare att hitta resrutten och kunna använda den på resan.</string>
-	<string name="bookmark_public_upload_alert_ok_button">Ja, det är allt bra!</string>
-	<string name="name_title">Ange ett namn</string>
-	<string name="name_placeholder">till exempel, pubar i London</string>
-	<string name="name_comment1">Benämn resrutten konkret så att användare kan hitta den, till exempel, \"Pubar i London\"</string>
-	<string name="name_comment2">Namnet ska innehålla varken specialtecken. Publicera inte resrutter med namnet \"Mina Platser\"</string>
-	<string name="description_guide">Beskrivning</string>
-	<string name="description_title">Ange beskrivning av resrutten</string>
-	<string name="description_placeholder">Beskriv din resrutt i detalj</string>
-	<string name="description_comment1">Beskrivning av resrutt ska innehålla minst 30 symboler.</string>
-	<string name="ugc_route_tags_desc">Vänligen välj taggar för att hjälpa andra resenärer att hitta din vägvisare. Det är obligatoriskt. Högst %s taggar.</string>
-	<string name="html_format_error_title">Din resrutt har inte publicerats</string>
-	<string name="html_format_error_subtitle">Vänligen se till att namn och beskrivningar av taggar i resrutten har en rätt formatering. Du kan kolla detta i vår redigerare genom att klicka på \"Redigera online\"-knappen nedan.</string>
-	<string name="web_editor_description">Ladda upp resrutten och få en länk för att redigera på datorn</string>
-	<string name="edit_on_web_confirm">Redigera online</string>
-	<string name="update_guide">Ladda upp en ny version</string>
-	<string name="direct_link_updating_text">Uppdaterar resrutten…</string>
-	<string name="direct_link_updating_success">Resrutten har uppdaterats</string>
-	<string name="unable_get_direct_link_desc">Du kan dela resrutten med hjälp av en offentlig länk</string>
-	<string name="any_access_update_alert_title">Möjligen finns det en ny version av resrutten</string>
-	<string name="any_access_update_alert_message">Vill du uppdatera etiketter? Den nya versionen kommer att finnas tillgänglig på samma länk.</string>
-	<string name="any_access_update_alert_update">Uppdatera</string>
-	<string name="public_or_limited_access_after_edit_online_error_title">Du redigerade resrutten online</string>
-	<string name="public_or_limited_access_after_edit_online_error_message">Vidare redigera, publicera eller dela resrutten med vänner via vår hemsida</string>
 	<string name="power_managment_title">Energisparläge</string>
 	<string name="power_managment_description">Om energisparläget är på, ska appen stänga av energikrävande funktioner beroende på telefonens nuvarande laddning</string>
 	<string name="power_managment_setting_never">Aldrig</string>
 	<string name="power_managment_setting_auto">Automatiskt</string>
 	<string name="power_managment_setting_manual_max">Maximal energibesparing</string>
-	<string name="enable_logging_warning_message">Denna funktion aktiveras för loggning av åtgärder för diagnostiska ändamål. Detta hjälper laget att identifiera problem med applikationen. Slå på funktionen endast på begäran av OMaps supporttjänst.</string>
+	<string name="enable_logging_warning_message">Denna funktion aktiveras för loggning av åtgärder för diagnostiska ändamål. Detta hjälper laget att identifiera problem med applikationen. Slå på funktionen endast på begäran av Organic Maps supporttjänst.</string>
 	<string name="html_error_upload_message_try_again">Kontrollera nätverksåtkomst och försök igen</string>
 	<string name="html_error_upload_title_try_again">Ingen internetanslutning</string>
 	<string name="notification_leave_review_v2_android_short_title">Lämna en recension och hjälp resenärer!</string>
 	<string name="notifications_illegal_alert_disable_button">Stäng av meddelanden</string>
 	<string name="access_rules_author_only">Redigeras online</string>
 	<string name="privacy_settings_menu">Sekretessinställningar</string>
-	<string name="gdpr_request_setting">Få ID för GDPR förfrågan</string>
-	<string name="gdpr_request_window_title">Ditt ID: %s.</string>
-	<string name="gdpr_request_window_message">Vänligen kopiera det och skicka förfrågan till support\@omaps.app</string>
-	<string name="gdpr_request_window_copy">Kopiera ID</string>
 	<string name="unable_upadate_error_title">Det gick inte att uppdatera resrutten</string>
 	<string name="unable_upadate_error_message">Det uppstod några fel vid uppdatering. Kontrollera ändringarna och försök igen</string>
-	<string name="whats_new_wiki_title">Vad är det för plats?</string>
-	<string name="whats_new_wiki_message">Vi har lagt till artiklar från Wikipedia.org, som är tillgängliga offline, i korten av populära sevärdheter</string>
 	<string name="driving_options_title">Omvägsinställningar</string>
 	<string name="driving_options_subheader">Undvik på varje rutten</string>
 	<string name="avoid_tolls">Betalväg</string>
@@ -1362,23 +1114,7 @@
 	<string name="avoid_toll_roads_placepage">Undvik betalvägar</string>
 	<string name="avoid_unpaved_roads_placepage">Undvik kärrvägar</string>
 	<string name="avoid_ferry_crossing_placepage">Undvik färjetrafik</string>
-	<string name="cached_guides_placeholder_subtitle">Färdiga guider i OMaps är valda platser med bilder och beskrivningar som visas på kartan och är tillgängliga offline.</string>
-	<string name="guides_catalogue_title">Guidebok katalogen</string>
-	<string name="download_guides_button">Gå till katalogen</string>
-	<plurals name="placepage_summary_rating_description">
-	  <item quantity="one">Baserat på %d feedback</item>
-	  <item quantity="other">Baserat på %d feedbacks</item>
-	</plurals>
 	<string name="type.cuisine.uzbek">Uzbekiska mat</string>
-	<string name="onboarding_guide_direct_download_title">Guiden är klar för nedladdning</string>
-	<string name="onboarding_guide_direct_download_subtitle">Den kommer att visas på kartan och kommer att fungera offline</string>
-	<string name="onboarding_guide_direct_download_button">Ladda ner</string>
-	<string name="onboarding_bydeeplink_guide_title">Färdiga guider i OMaps</string>
-	<string name="onboarding_bydeeplink_guide_subtitle">Valda platser med bilder och beskrivningar visas på kartan och är tillgängliga offline.</string>
-	<string name="whats_new_auto_update_bydeeplink_title">Innan du går till guideböcker…</string>
-	<string name="whats_new_auto_update_bydeeplink_message">Uppdatera kartor för aktuell information om objekt!</string>
-	<string name="whats_new_auto_update_and_proceed_button_size">Uppdatera (%s) och fortsätt</string>
-	<string name="purchase_please_wait_toast">Vänligen lämna inte skärmen tills inköpet är klart</string>
 	<string name="trip_start">Kom igen</string>
 	<string name="pick_destination">Målet</string>
 	<string name="follow_my_position">Placera i mitten</string>
@@ -1398,41 +1134,6 @@
 	<string name="dialog_routing_rebuild_from_current_location_carplay">Ruten kommer att byggas om från din nuvarande plats</string>
 	<string name="dialog_routing_rebuild_for_vehicle_carplay">Ruten kommer att ändras till bil</string>
 	<string name="ok">Ok</string>
-	<string name="booking_button_toolbar">Välja ett hotell på kartan</string>
-	<string name="popup_booking_download_guides_title">Har bokat ett hotell?</string>
-	<string name="popup_booking_download_guides_message">Planera din rutt med färdiga reseguider OMaps</string>
-	<string name="popup_mwm_download_guides_title">Offline guider</string>
-	<string name="popup_mwm_download_guides_cta">Välja</string>
-	<string name="popup_mwm_download_guides_cta_1">Se</string>
-	<string name="gallery_pp_download_guides_offline_title">Planera din semester med OMaps!</string>
-	<string name="gallery_pp_download_guides_offline_subtitle">Missa inte det viktigaste med rutter från erfarna resenärer</string>
-	<string name="gallery_pp_download_guides_offline_cta">Aktivera Internet</string>
-	<string name="gallery_pp_download_guides_title">Reseguider</string>
-	<string name="native_screen_subscription_title">Full tillgång till 2000+ guider!</string>
-	<string name="native_screen_subscription_message">En minnesvärd rekreation på resan vart som helst och med vem som helst</string>
-	<string name="annual_subscription_title">Årlig</string>
-	<string name="montly_subscription_title">Månatlig</string>
-	<string name="annual_subscription_message">12 månaders obegränsad tillgång</string>
-	<string name="montly_subscription_message">1 månads obegränsad tillgång</string>
-	<string name="subscription_success_dialog_title">Tack för prenumerationen!</string>
-	<string name="subscription_success_dialog_message">Nu har du obegränsad tillgång till guidekatalogen</string>
-	<string name="renewal_screen_title">Prenumerationen har gått ut</string>
-	<string name="renewal_screen_message">Alla guider nedladdade genom prenumerationen kommer att raderas. Vill du återställa prenumerationen och spara dem?</string>
-	<string name="renewal_screen_button_restore">Ja, återställa</string>
-	<string name="renewal_screen_button_cancel">Nej, radera guider</string>
-	<string name="subscription_error_ping_title">Misslyckades med att köpa</string>
-	<string name="subscription_error_message">Nu är tjänsten inte tillgänglig i din region. Vänligen försök igen senare</string>
-	<string name="subscription_error_button">Klart</string>
-	<string name="timeout_error_title">Hoppsan, tiden är slut!</string>
-	<string name="timeout_error_message">Våra servrar svarar inte. Vänligen kontrollera din internetanslutning och försök igen.</string>
-	<string name="per_month">/mån.</string>
-	<string name="per_year">/år</string>
-	<string name="buy_btn_for_subscription">Full tillgång från %s</string>
-	<string name="buy_btn_for_subscription_1">Köpa ALLA guider för %s</string>
-	<string name="buy_btn_for_subscription_ios_only_mo">Full tillgång för %s/mån.</string>
-	<string name="buy_btn_for_subscription_ios_only_year">Full tillgång för %s/år</string>
-	<string name="subscription_terms_guides">Betalning kommer att genomföras från ditt iTunes-konto vid inköpsbekräftelse. Prenumerationen kommer att förnyas automatiskt om automatisk förnyelse är inte avstängd minst 24 timmar före slutet av den aktuella perioden. Pengarna kommer att dras från ditt konto enligt din förnyelseprisplan inom 24 timmar från slutet av den aktuella perioden. Du kan hantera automatisk förnyelse eller inaktivera den i dina Apple ID-kontoinställningar när som helst efter inköpet. Du kommer att kunna använda guiderna nedladdade genom prenumerationen endast under dess giltighetsperiod. Efter 30 dagar från prenumerationens slut kommer guider med alla bokmärken att raderas automatiskt.</string>
-	<string name="subscription_terms">Betalning kommer att debiteras ditt iTunes-konto vid bekräftelsen av köpet. Prenumerationen kommer att förnyas automatiskt om inte automat-förnyelse är avstängt minst 24 timmar före utgången av innevarande period. Ditt konto kommer att debiteras enligt din plan för förnyelse inom 24 timmar före utgången av innevarande period. Du kan hantera eller stänga av automatisk förnyelse för ditt inköp när som helst i ditt Apple-ID-konto.</string>
 	<string name="avoid_unpaved_carplay_1">Utan kärrväg</string>
 	<string name="avoid_unpaved_carplay_2">Utan kärrvägar</string>
 	<string name="avoid_ferry_carplay_1">Utan färjor</string>
@@ -1441,7 +1142,7 @@
 	<string name="avoid_tolls_carplay_2">Utan betalda</string>
 	<string name="speedcams_alert_title_carplay_1">Kameror</string>
 	<string name="speedcams_alert_title_carplay_2">Info om kameror</string>
-	<string name="download_map_carplay">Ladda ner kartor i applikation OMaps på din enhet</string>
+	<string name="download_map_carplay">Ladda ner kartor i applikation Organic Maps på din enhet</string>
 	<string name="carplay_roundabout_exit">%s utgången</string>
 	<!-- max. 10 symbols, both iOS and Android -->
 	<string name="sort">Sortera…</string>
@@ -1489,80 +1190,15 @@
 	<string name="bookmarks_edit_list">Redigera</string>
 	<!-- Android, max 18 symbols -->
 	<string name="bookmarks_delete_list">Ta bort listan</string>
-	<string name="popup_subscription_success_map_title">Hurra! Du är prenumererad!</string>
-	<string name="popup_subscription_success_map_message">Nu kan du utforska de bästa turistiska sevärdheterna i OMaps-katalogen</string>
-	<string name="popup_subscription_success_map_start_button">Börja surfa</string>
-	<string name="popup_subscription_success_map_not_now_button">Inte nu</string>
 	<string name="religious_places">Heliga platser</string>
-	<string name="subscription_terms_android">Betalning ska göras från ditt Google Play-konto vid köpbekräftelse. Prenumerationen ska förnyas automatiskt, om automatisk förnyelse inte inaktiverats minst 24 timmar före utgången av den aktuella perioden. Penningmedel ska debiteras från ditt konto i enlighet med din förnyelseplan inom 24 timmar före utgången av den aktuella perioden. Du kan styra automatisk förnyelse eller inaktivera den i dina kontoinställningar efter köpet. Du kan använda guiderna som laddats ner genom prenumerationen bara under dess giltighetsperiod. Efter 30 dagar från prenumerationens utgångsdatum raderas nerladdade guider automatiskt.</string>
 	<string name="select_list">Välja lista</string>
-	<string name="pp_discovery_place_related_header">Denna plats i guidebok katalog</string>
-	<string name="pp_discovery_place_related_header_1">Denna plats finns i guide</string>
-	<string name="pp_discovery_place_related_cta_button">Se</string>
-	<string name="pp_discovery_place_related_tag_header">Guider efter tagg ”%s”</string>
-	<string name="pp_discovery_place_related_tag_header_1">Du kan också gilla</string>
-	<string name="buy_btn_for_subscription_version_2">ALLA guider bara för %s/mån.</string>
-	<string name="buy_btn_for_subscription_version_3">Hela katalogen för %s/mån.</string>
-	<string name="buy_btn_for_subscription_ios_only_mo_version_2">Tillgång till katalogen för %s/mån.</string>
-	<string name="buy_btn_for_subscription_ios_only_year_version_2">Tillgång till katalogen för %s/år</string>
-	<string name="subscription_screen_native_title_version_2">Tillgång till guider med bokmärken på kartan!</string>
-	<string name="subscription_screen_native_message_version_2">Var redo för vilken som helst resa i 600+ städer och 100+ länder</string>
-	<string name="catalog_no_internet_title">Ingen internetanslutning</string>
-	<string name="catalog_no_internet_button">Försöka igen</string>
-	<string name="new_onboarding_button">Nästa</string>
-	<string name="new_onboarding_button_2">Börja</string>
-	<string name="new_onboarding_step1_header_2">Universell reseassistent</string>
-	<string name="new_onboarding_step2_header">Dröm och planera</string>
-	<string name="new_onboarding_step2_message">70+ miljoner platser, färdiga guider och hotellbokning direkt från kartan – du är redo för resan!</string>
-	<string name="new_onboarding_step3_message">Detaljerade offlinekartor och offline-navigering hjälper dig att inte gå vilse på okända platser!</string>
-	<string name="new_onboarding_step4_header">Dela dina intryck</string>
-	<string name="new_onboarding_step4_message">Placera bokmärken på favoritplatser och skicka dem till dina vänner</string>
-	<string name="new_onboarding_step5.1_header">Innan du börjar…</string>
-	<string name="new_onboarding_step5.1_message">Glöm inte att se vår nya guider katalog för att hitta en offline guide för din kommande resa!</string>
-	<string name="new_onboarding_step5.1_button">Öppna katalog</string>
-	<string name="new_onboarding_step5.2_message">Prenumerationen på guidebok katalogen i OMaps är lönsam. Få full tillgång till rutter för stadspromenader och utomhusaktiviteter!</string>
-	<string name="new_onboarding_step5.2_button">Kolla villkoren</string>
-	<string name="new_onboarding_step5.3_message">Ladda ner och betygsätt rutter för stadspromenader och utomhusaktiviteter med ett gratis urval av OMaps!</string>
-	<string name="new_onboarding_step5.3_button">Ladda ner gratis</string>
-	<string name="new_onboarding_additional_steps_later_button">Senare</string>
-	<string name="all_pass_subscription_header">Prenumeration på</string>
-	<string name="all_pass_subscription_subheader">Guidebok katalogen</string>
-	<!-- \n - for a break between lines. Max. 15 characters per 1 line. -->
-	<string name="all_pass_subscription_message_title">30000+\nguider &amp; spår</string>
-	<!-- <b> & </b> tag to make a part of the line bold -->
-	<string name="all_pass_subscription_message_subtitle"><b>Obegränsad offline hämtning</b> av rutter för staden och utomhusaktiviteter</string>
-	<!-- \n - for a break between lines. Max. 17 characters per 1 line. -->
-	<string name="all_pass_subscription_message_title_2">Interaktiv\nterräng profil</string>
-	<!-- <b> & </b> tag to make a part of the line bold -->
-	<string name="all_pass_subscription_message_subtitle_2">Alla spår laddas <b>med terräng och grundläggande ruttinformation</b></string>
-	<!-- \n - for a break between lines. Max. 15 characters per 1 line. -->
-	<string name="all_pass_subscription_message_title_3">Favoritplatser,\nfoton och\nrekommendation</string>
-	<!-- <b> & </b> tag to make a part of the line bold -->
-	<string name="all_pass_subscription_message_subtitle_3"><b>Lär dig allt om rutten</b> du ska följa</string>
-	<string name="sightseeing_subscription_header_subscription">Prenumeration på guider</string>
-	<string name="sightseeing_subscription_message">700+ städer och 100+ länder</string>
-	<string name="sightseeing_subscription_message_2">Tillgänglig offline</string>
-	<string name="sightseeing_subscription_message_3">Foton och vandringsleder</string>
-	<string name="subscription_success_dialog_title_sightseeing_pass">Tack för att du prenumererar!</string>
-	<string name="subscription_success_dialog_message_sightseeing_pass">Nu har du tillgång till alla stadsguider i katalogen</string>
-	<string name="downloader_main_gallery_header">Kartor och guider</string>
-	<string name="downloader_main_gallery_message">I det här avsnittet kan du inte bara ladda ner kartor utan också välja guider för din kommande resa</string>
-	<string name="downloader_main_1_element_gallery_header">Alla guider</string>
-	<string name="downloader_main_1_element_gallery_message">i 100+ länder</string>
-	<string name="downloader_country_1_element_gallery_header">%s rutter</string>
-	<string name="downloader_country_no_guides_gallery_header">Det finns inga guider i detta land än</string>
-	<string name="downloader_country_no_guides_gallery_message">Se andra offline-rutter i 100+ länder för stads- och utomhusaktiviteter</string>
-	<string name="dialog_pedestrian_route_is_long">Gångvägen till transportstigningen är för lång</string>
-	<string name="new_onboarding_step3_header">Resa</string>
-	<string name="all_pass_screen_best_value">Lönsamt pris</string>
-	<string name="buy_btn_for_subscription_3">Hela katalogen för %s/år</string>
 	<string name="transit_not_found">Metro-navigering är ännu inte tillgänglig i denna region</string>
 	<string name="dialog_pedestrian_route_is_long_header">Metro rutt hittades inte</string>
 	<string name="dialog_pedestrian_route_is_long_message">Välj ruttens start- eller slutpunkt närmare till tunnelbanestation</string>
 	<!-- Failed planning SUBWAY route message in navigation view -->
 	<string name="routing_planning_error_subway_special">Fel vid byggande av metro rutt</string>
 	<string name="button_layer_isolines">Terräng</string>
-	<string name="tips_map_layers_title_countour">Höjningslinjer offline i OMaps!</string>
+	<string name="tips_map_layers_title_countour">Höjningslinjer offline i Organic Maps!</string>
 	<string name="tips_map_layers_message_countour">Höjdlinjer hjälper dig att planera din resa till naturen och inte gå vilse på marken</string>
 	<string name="isolines_activation_error_dialog">Om du vill använda höjdlinjer, uppdatera eller ladda ner en karta över önskat område</string>
 	<string name="isolines_location_error_dialog">Höjningslinjer är ännu inte tillgängligt i den här regionen</string>
@@ -1581,79 +1217,10 @@
 	<string name="elevation_profile_time">Tid:</string>
 	<string name="elevation_profile_hours">h.</string>
 	<string name="elevation_profile_minutes">min</string>
-	<string name="view_on_map_downloaded_error">Den här guiden har tagits bort från den här enheten</string>
-	<string name="subscription">Prenumeration</string>
-	<string name="button_layer_guides">Guider (nyhet)</string>
-	<string name="no_routes_in_the_area_toast">Det finns inga guider här</string>
 	<string name="isolines_toast_zooms_1_10">Förstora kartan för att se isolinjer</string>
-	<string name="routes_layer_in_menu_toast">Slå på lager för att hitta offline-guider, utforska isolinjer, tunnelbanelinjer eller trafikstockningar</string>
-	<string name="routes_layer_is_on_toast">Flytta på kartan för att hitta guider</string>
-	<string name="connection_error_dialog_guides_title">Anslutningsfel</string>
-	<string name="connection_error_dialog_guides_message">Lagret fungerar inte eftersom det inte finns något internet eller signal är svag. För att fortsätta kontrollera anslutningen eller stäng av lagret.</string>
-	<string name="connection_error_dialog_guides_try">Försöka igen</string>
-	<string name="connection_error_dialog_guides_layer_turn_off">Stänga av</string>
-	<string name="connection_error_toast_guides">Vi återställer Internet-anslutningen</string>
-	<!-- as few symbols as possible -->
-	<string name="routes_card_show">Visa på kartan</string>
-	<!-- as few symbols as possible -->
-	<string name="routes_card_hide">Dölja på kartan</string>
 	<string name="downloader_updating_ios">Uppdatering</string>
 	<string name="downloader_loading_ios">Nedladdning</string>
-	<string name="routes_card_plus_track">+ bana</string>
-	<string name="routes_card_number_of_points">%s platser</string>
-	<string name="routes_card_routes_tag">Resväg</string>
-	<string name="routes_card_set_tag">Utvalda platser</string>
-	<!-- as few symbols as possible -->
-	<string name="guides_trial_cta_button">Prova 7 dagar gratis</string>
-	<string name="guides_trial_message">Vidare %s om år. Avbrytning när som helst</string>
-	<string name="trial_error_dialog">Du har redan utnyttjat provperioden</string>
-	<!-- as few symbols as possible -->
-	<string name="floating_button_filters">Filter</string>
-	<plurals name="date_picker_amout_of_days">
-	  <item quantity="one">%d dag</item>
-	  <item quantity="few">%d dagar</item>
-	  <item quantity="other">%d dagar</item>
-	</plurals>
-	<!-- as few symbols as possible -->
-	<string name="date_picker_сhoose_dates_cta">Välj data</string>
-	<!-- as few symbols as possible -->
-	<string name="guests_picker_rooms_title">Rum och gäster</string>
-	<string name="guests_picker_rooms">Rum</string>
-	<string name="guests_picker_adults">Vuxna</string>
-	<string name="guests_picker_children_title">Barn</string>
-	<string name="guests_picker_children_subtitle">1-17 år</string>
-	<string name="guests_picker_infants_title">Spädbarn</string>
-	<string name="guests_picker_infants_subtitle">0-12 mån.</string>
-	<!-- as less symbols as possible -->
-	<string name="booking_map_component_availability">Inga platser</string>
-	<!-- as few symbols as possible -->
-	<string name="booking_map_component_filters">Utom filtervärden</string>
-	<string name="choose_dates_online_only_dialog_title">Ingen anslutning</string>
-	<string name="choose_dates_online_only_dialog_message">Valet av datum och antal gäster är endast tillgängligt online. Kontrollera dina inställningar och se till att du är ansluten till Internet.</string>
-	<string name="choose_dates_online_only_dialog_cta">Inställningar</string>
-	<string name="thirty_days_limit_dialog">Kan bokas för högst 30 nätter</string>
-	<string name="whatsnew_trial_cta">Prova</string>
-	<string name="subscription_terms_guides_outdoor">Betalning ska genomföras från ditt iTunes-konto vid bekräftelse av köpet. Prenumerationen ska förnyas automatiskt om automatisk förnyelse inte stängs av minst 24 timmar före utgången av den aktuella perioden. Penningmedel ska debiteras från ditt konto enligt din förnyelsetariff inom 24 timmar före utgången av den aktuella perioden. Du kan styra eller stänga av automatisk förnyelse i dina Apple ID-kontoinställningar när som helst efter köpet. Du kommer att kunna använda de guider som laddats ner genom prenumeration endast under dess giltighetsperiod. 7 dagar efter prenumerationens slut ska guiderna med alla bokmärken raderas automatiskt.\n* Prenumeration med en gratis provperiod blir automatiskt en betald prenumeration. Du kan avbryta eller styra den automatiska förnyelsen av gratis provversionen i dina kontoinställningar efter köpet. Avbrytningen ska träda i kraft 24 timmar efter den sista dagen av den aktuella prenumerationsperioden och du kommer att överföras till en gratis prenumeration. Observera: alla oanvända delar av den gratis prövningsperioden ska annulleras vid köp av en betald prenumeration under denna period.</string>
-	<string name="subscription_terms_android_outdoor">Betalning ska genomföras från ditt Google Play-konto vid bekräftelse av köpet. Prenumerationen ska förnyas automatiskt om automatisk förnyelse inte stängs av minst 24 timmar före utgången av den aktuella perioden. Penningmedel ska debiteras från ditt konto enligt din förnyelsetariff inom 24 timmar före utgången av den aktuella perioden. Du kan styra eller stänga av automatisk förnyelse i dina kontoinställningar efter köpet. Du kommer att kunna använda de guider som laddats ner genom prenumeration endast under dess giltighetsperiod. 7 dagar efter prenumerationens slut ska guiderna raderas automatiskt.\n* Prenumeration med en gratis provperiod blir automatiskt en betald prenumeration. Du kan avbryta eller styra den automatiska förnyelsen av gratis provversionen i dina kontoinställningar efter köpet. Avbrytningen ska träda i kraft 24 timmar efter den sista dagen av den aktuella prenumerationsperioden och du kommer att överföras till en gratis prenumeration. Observera: alla oanvända delar av den gratis prövningsperioden ska annulleras vid köp av en betald prenumeration under denna period.</string>
-	<string name="subscription_header">Prenumeration på\n<b>Guidebok katalogen</b></string>
-	<!-- Max. 20 characters per 1 line. -->
-	<string name="all_pass_subscription_message_title_4">Guider\nfrån Lonely Planet®</string>
-	<!-- <b> & </b> tag to make a part of the line bold -->
-	<string name="all_pass_subscription_message_subtitle_4">Ännu <b>mer intryck</b> med tusentals intressanta platser <b>runt om i världen</b></string>
-	<string name="content_by_component">Innehåll från: %s</string>
-	<string name="whatsnew_lp_title">Ännu mer intryck</string>
-	<string name="whatsnew_lp_message">Träffa Lonely Planet-guider! Sevärdheter, tematiska rutter och unika platser i 7000+ städer.</string>
-	<string name="collections_title">Samlingar</string>
 	<string name="key_information_title">Nyckelinformation</string>
-	<string name="mustsee_title">Måste se</string>
-	<string name="see_lp_category">Sevärdheter</string>
-	<string name="play_lp_category">Förströelser</string>
-	<string name="shop_lp_category">Handla</string>
-	<string name="transport_lp_category">Transport</string>
-	<string name="sleep_lp_category">Övernatta</string>
-	<string name="general_lp_category">Allmäna</string>
-	<string name="drink_lp_category">Barer</string>
-	<string name="eat_lp_category">Restauranger</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Linbanestation</string>

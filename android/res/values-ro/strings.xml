@@ -61,7 +61,7 @@
 	<string name="country_status_download_failed">Se descarcă a eșuat</string>
 	<!-- Button text for the button under the country_status_download_failed message -->
 	<string name="try_again">Încercați din nou</string>
-	<string name="about_menu_title">Despre OMaps</string>
+	<string name="about_menu_title">Despre Organic Maps</string>
 	<string name="downloaded_touch_to_delete">Descărcat (%s). Atingeți pentru a șterge.</string>
 	<string name="connection_settings">Setări conexiune</string>
 	<string name="download_mb_or_kb">Descărcare %s</string>
@@ -69,7 +69,7 @@
 	<string name="unsupported_phone">Este necesar un OpenGL accelerat din hardware. Din păcate, dispozitivul nu este acceptat.</string>
 	<string name="download">Descărcare</string>
 	<string name="external_storage_is_not_available">Cartela SD/dispozitivul de stocare USB cu hărțile descărcate nu este disponibil.</string>
-	<string name="disconnect_usb_cable">Vă rugăm să deconectați cablul USB sau să introduceți cartela de memorie pentru a putea utiliza OMaps.</string>
+	<string name="disconnect_usb_cable">Vă rugăm să deconectați cablul USB sau să introduceți cartela de memorie pentru a putea utiliza Organic Maps.</string>
 	<string name="not_enough_free_space_on_sdcard">Vă rugăm să eliberați spațiu pe cartela SD/dispozitivul de stocare USB pentru a putea utiliza aplicația.</string>
 	<string name="not_enough_memory">Nu este suficientă memorie pentru a lansa aplicația.</string>
 	<string name="download_resources">Înainte de a începe, permiteți-ne să descărcăm harta generală a lumii pe dispozitivul dvs.\nAre nevoie de %s de date.</string>
@@ -109,7 +109,7 @@
 	<!-- Add bookmark dialog - bookmark set, Bookmarks dialog - Bookmark set cell -->
 	<string name="set">Set</string>
 	<!-- Text hint in Bookmarks dialog when no any bookmarks are added -->
-	<string name="bookmarks_usage_hint">Încă nu aveți niciun marcaj.\nAtingeți orice loc de pe hartă pentru a adăuga un marcaj.\nPot fi importate și afișate pe OMaps și marcaje din alte surse. Deschideți fișierul KML/KMZ, cu marcajele salvate din email, Dropbox sau de la un link web.</string>
+	<string name="bookmarks_usage_hint">Încă nu aveți niciun marcaj.\nAtingeți orice loc de pe hartă pentru a adăuga un marcaj.\nPot fi importate și afișate pe Organic Maps și marcaje din alte surse. Deschideți fișierul KML/KMZ, cu marcajele salvate din email, Dropbox sau de la un link web.</string>
 	<!-- Settings button in system menu -->
 	<string name="settings">Setări</string>
 	<!-- Header of settings activity where user defines storage path -->
@@ -171,7 +171,7 @@
 	<!-- Button text -->
 	<string name="share_by_email">Partajare prin email</string>
 	<!-- Email Subject when sharing bookmarks category -->
-	<string name="share_bookmarks_email_subject">Marcaje OMaps partajate</string>
+	<string name="share_bookmarks_email_subject">Marcaje Organic Maps partajate</string>
 	<!-- message title of loading file -->
 	<string name="load_kmz_title">Se încarcă marcajele</string>
 	<!-- Kmz file successful loading -->
@@ -191,17 +191,17 @@
 	<!-- Alert message that downloading is in progress. -->
 	<string name="downloading_is_active">Descărcarea hărților pentru țara dorită este în curs.</string>
 	<!-- Message that will be shown in alert view, when we ask user to leave review on App Store -->
-	<string name="appStore_message">Sperăm că vă place OMaps! Dacă da, vă rugăm să o votați sau să scrieți o recenzie în App Store. Durează mai puțin de un minut, dar pe noi ne ajută foarte mult. Vă mulțumim pentru susținere!</string>
+	<string name="appStore_message">Sperăm că vă place Organic Maps! Dacă da, vă rugăm să o votați sau să scrieți o recenzie în App Store. Durează mai puțin de un minut, dar pe noi ne ajută foarte mult. Vă mulțumim pentru susținere!</string>
 	<!-- No, thanks -->
 	<string name="no_thanks">Nu, mulțumesc</string>
 	<!-- Share one specific bookmark using SMS, %1$@ contains ge0:// and %2$@ http://ge0.me link. @NOTE non-ascii symbols in the link will make 70 bytes sms instead of 140 -->
-	<string name="bookmark_share_sms">Hei, poți vedea care este poziția mea pe OMaps! %1$s sau %2$s Nu ai instalate hărțile offline? Descarcă de aici: https://omaps.app/get</string>
+	<string name="bookmark_share_sms">Hei, poți vedea care este poziția mea pe Organic Maps! %1$s sau %2$s Nu ai instalate hărțile offline? Descarcă de aici: https://organicmaps.app/get</string>
 	<!-- Share my position using SMS, %1$@ contains ge0:// and %2$@ http://ge0.me link WITHOUT NAME. @NOTE non-ascii symbols in the link will make 70 bytes sms instead of 140 -->
-	<string name="my_position_share_sms">Hei, îmi poți vedea poziția actuală pe OMaps! %1$s sau %2$s Nu ai hărțile offline? Descarcă de aici: https://omaps.app/get</string>
+	<string name="my_position_share_sms">Hei, îmi poți vedea poziția actuală pe Organic Maps! %1$s sau %2$s Nu ai hărțile offline? Descarcă de aici: https://organicmaps.app/get</string>
 	<!-- Subject for emailed bookmark -->
-	<string name="bookmark_share_email_subject">Hei, poți vedea care este poziția mea pe harta OMaps!</string>
+	<string name="bookmark_share_email_subject">Hei, poți vedea care este poziția mea pe harta Organic Maps!</string>
 	<!-- Subject for emailed position -->
-	<string name="my_position_share_email_subject">Hei, îmi poți vedea poziția actuală pe harta OMaps!</string>
+	<string name="my_position_share_email_subject">Hei, îmi poți vedea poziția actuală pe harta Organic Maps!</string>
 	<!-- Share my position using EMail, %1$@ is ge0:// and %2$@ is http://ge0.me link WITHOUT NAME -->
 	<string name="my_position_share_email">Chào,\n\nTôi hiện đang ở đây: %1$s. Hãy nhấn vào liên kết này %2$s hoặc liên kết này %3$s để xem địa điểm trên bản đồ.\n\nCám ơn.</string>
 	<!-- Android share by Message/SMS button text (including SMS) -->
@@ -297,15 +297,15 @@
 	<!-- text of notification -->
 	<string name="download_map_notification">Descărcați harta locului în care vă aflați</string>
 	<!-- Dialog for transferring maps from lite to pro. -->
-	<string name="move_lite_maps_to_pro">Transferăm hărțile dvs. descărcate din OMaps Lite în OMaps. Acest lucru poate dura câteva minute.</string>
+	<string name="move_lite_maps_to_pro">Transferăm hărțile dvs. descărcate din Organic Maps Lite în Organic Maps. Acest lucru poate dura câteva minute.</string>
 	<!-- Message to display when maps moved. -->
-	<string name="move_lite_maps_to_pro_ok">Hărțile dvs. descărcate sunt transferate cu succes către OMaps.</string>
+	<string name="move_lite_maps_to_pro_ok">Hărțile dvs. descărcate sunt transferate cu succes către Organic Maps.</string>
 	<!-- Text in menu -->
 	<string name="settings_and_more">Setări și altele</string>
 	<!-- Text in menu -->
 	<string name="website">Site web</string>
 	<!-- Text in menu -->
-	<string name="maps_me_community">Comunitatea OMaps</string>
+	<string name="maps_me_community">Comunitatea Organic Maps</string>
 	<!-- Text in menu -->
 	<string name="like_on_facebook">Apreciați-ne pe Facebook</string>
 	<!-- Text in menu -->
@@ -325,11 +325,11 @@
 	<!-- Text in menu -->
 	<string name="report_a_bug">Raportați o eroare</string>
 	<!-- Email subject -->
-	<string name="subscribe_me_subject">Abonează-mă la buletinul informativ OMaps.</string>
+	<string name="subscribe_me_subject">Abonează-mă la buletinul informativ Organic Maps.</string>
 	<!-- Email body -->
 	<string name="subscribe_me_body">Vreau să fiu primul care află despre cele mai recente actualizări și promoții. Îmi pot anula abonamentul în orice moment.</string>
 	<!-- About text -->
-	<string name="about_text">OMaps oferă cele mai rapide hărți offline ale tuturor orașelor, tuturor țărilor din lume. Călătoriți cu încredere deplină: oriunde v-ați afla, OMaps vă ajută să vă reperați poziția pe hartă, să găsiți cel mai apropiat restaurant sau hotel, cea mai apropiată bancă sau benzinărie etc. Nu necesită conexiune la internet.\n\nLucrăm încontinuu să introducem funcții noi și ne-ar face mare plăcere să ne comunicați cum credeți dvs. că am putea îmbunătăți OMaps. Dacă aveți probleme cu aplicația, nu ezitați să ne contactați la adresa support\@omaps.app. Răspundem la fiecare solicitare!\n\nVă place OMaps și doriți să ne susțineți? Iată câteva moduri simple și complet gratuite:\n- publicați o recenzie în magazinul de aplicații\n- apreciați-ne pagina de Facebook: http://www.facebook.com/mapswithme\n- sau spuneți și mamei, prietenilor și colegilor despre OMaps. :)\n\nVă mulțumim că ne sunteți alături. Vă apreciem foarte mult susținerea!\n\nP.S. Noi preluăm datele din OpenStreetMap, un proiect de cartografiere similar Wikipediei, ce permite utilizatorilor să creeze și să editeze hărți. Dacă vedeți că ceva lipsește sau este greșit pe hartă, puteți corecta hărțile direct la adresa: https://www.openstreetmap.org, iar modificările dvs. vor apărea în aplicația OMaps atunci când va fi lansată versiunea următoare.</string>
+	<string name="about_text">Organic Maps oferă cele mai rapide hărți offline ale tuturor orașelor, tuturor țărilor din lume. Călătoriți cu încredere deplină: oriunde v-ați afla, Organic Maps vă ajută să vă reperați poziția pe hartă, să găsiți cel mai apropiat restaurant sau hotel, cea mai apropiată bancă sau benzinărie etc. Nu necesită conexiune la internet.\n\nLucrăm încontinuu să introducem funcții noi și ne-ar face mare plăcere să ne comunicați cum credeți dvs. că am putea îmbunătăți Organic Maps. Dacă aveți probleme cu aplicația, nu ezitați să ne contactați la adresa support\@organicmaps.app. Răspundem la fiecare solicitare!\n\nVă place Organic Maps și doriți să ne susțineți? Iată câteva moduri simple și complet gratuite:\n- publicați o recenzie în magazinul de aplicații\n- apreciați-ne pagina de Facebook: http://www.facebook.com/OMapsApp\n- sau spuneți și mamei, prietenilor și colegilor despre Organic Maps. :)\n\nVă mulțumim că ne sunteți alături. Vă apreciem foarte mult susținerea!\n\nP.S. Noi preluăm datele din OpenStreetMap, un proiect de cartografiere similar Wikipediei, ce permite utilizatorilor să creeze și să editeze hărți. Dacă vedeți că ceva lipsește sau este greșit pe hartă, puteți corecta hărțile direct la adresa: https://www.openstreetmap.org, iar modificările dvs. vor apărea în aplicația Organic Maps atunci când va fi lansată versiunea următoare.</string>
 	<!-- Alert text -->
 	<string name="email_error_body">Nu a fost setat clientul de email. Vă rugăm să o configurați sau să utilizați un alt mod de a ne contacta la %s.</string>
 	<!-- Alert title -->
@@ -341,7 +341,7 @@
 	<!-- Update map suggestion -->
 	<string name="routing_map_outdated">Vă rugăm să actualizați harta pentru a crea o rută.</string>
 	<!-- Update maps suggestion -->
-	<string name="routing_update_maps">Noua versiune a OMaps vă permite să creați rute din poziția dvs. actuală către un punct de destinație. Vă rugăm să actualizați harta pentru a utiliza această funcție.</string>
+	<string name="routing_update_maps">Noua versiune a Organic Maps vă permite să creați rute din poziția dvs. actuală către un punct de destinație. Vă rugăm să actualizați harta pentru a utiliza această funcție.</string>
 	<!-- Update all button text -->
 	<string name="downloader_update_all_button">Actualizați toate</string>
 	<!-- Cancel all button text -->
@@ -358,7 +358,7 @@
 	<string name="downloader_downloading">Descărcare:</string>
 	<string name="downloader_search_results">S-au găsit</string>
 	<!-- Disclaimer message -->
-	<string name="routing_disclaimer">Atunci când creați rute în aplicația OMaps, vă rugăm să nu uitați următoarele:\n\n- Rutele sugerate pot fi luate în considerare numai ca recomandări.\n- Harta poate fi incorectă sau neactualizată, iar rutele pot să nu fie create în cel mai bun mod posibil.\n- Condițiile de trafic, regulile și semnele de circulație au prioritate mai mare decât sugestiile de navigare.\n\nCirculați cu atenție și aveți grijă de dvs.!</string>
+	<string name="routing_disclaimer">Atunci când creați rute în aplicația Organic Maps, vă rugăm să nu uitați următoarele:\n\n- Rutele sugerate pot fi luate în considerare numai ca recomandări.\n- Harta poate fi incorectă sau neactualizată, iar rutele pot să nu fie create în cel mai bun mod posibil.\n- Condițiile de trafic, regulile și semnele de circulație au prioritate mai mare decât sugestiile de navigare.\n\nCirculați cu atenție și aveți grijă de dvs.!</string>
 	<!-- Outdated maps category -->
 	<string name="downloader_outdated_maps">Neactualizată</string>
 	<!-- Up to date maps category -->
@@ -382,7 +382,7 @@
 	<!-- RouteNotFound -->
 	<string name="routing_failed_route_not_found">Nu am găsit nicio rută între punctul de pornire și destinația selectată. Vă rugăm să alegeți un alt punct de pornire sau de destinație.</string>
 	<!-- InternalError -->
-	<string name="routing_failed_internal_error">A survenit o eroare internă. Vă rugăm să încercați să ștergeți și să descărcați harta din nou. Dacă problema persistă, vă rugăm să ne contactați la adresa support\@omaps.app.</string>
+	<string name="routing_failed_internal_error">A survenit o eroare internă. Vă rugăm să încercați să ștergeți și să descărcați harta din nou. Dacă problema persistă, vă rugăm să ne contactați la adresa support\@organicmaps.app.</string>
 	<!-- Context menu item for downloader. -->
 	<string name="downloader_download_map_and_routing">Descărcare hartă + traseu</string>
 	<!-- Context menu item for downloader. -->
@@ -413,9 +413,9 @@
 	<!-- Text for rating dialog -->
 	<string name="rating_just_rated">Tocmai ți-am votat aplicația</string>
 	<!-- Text for rating dialog -->
-	<string name="rating_user_since">Sunt utilizator OMaps din %s</string>
+	<string name="rating_user_since">Sunt utilizator Organic Maps din %s</string>
 	<!-- Text for rating dialog -->
-	<string name="rating_do_like_maps">Îți place OMaps?</string>
+	<string name="rating_do_like_maps">Îți place Organic Maps?</string>
 	<!-- Text for rating dialog -->
 	<string name="rating_tap_star">Apasă pe una dintre stele pentru a ne vota aplicația</string>
 	<!-- Text for rating dialog -->
@@ -431,7 +431,7 @@
 	<!-- Text for routing error dialog -->
 	<string name="routing_download_map">Descărcați harta</string>
 	<!-- Text for routing error dialog -->
-	<string name="routing_download_map_and_routing">Descărcați harta actualizată și informațiile pentru direcționare, pentru a beneficia de toate funcțiile OMaps.</string>
+	<string name="routing_download_map_and_routing">Descărcați harta actualizată și informațiile pentru direcționare, pentru a beneficia de toate funcțiile Organic Maps.</string>
 	<!-- Text for routing error dialog -->
 	<string name="routing_get_routing_data">Descărcați informațiile pentru direcționare</string>
 	<!-- Text for routing error dialog -->
@@ -562,7 +562,7 @@
 	<!-- Text for routing::RouterResultCode::FileTooOld dialog. -->
 	<string name="dialog_routing_download_and_update_maps">Pentru a crea o rută, vă rugăm să descărcați și să actualizați toate hărțile de pe parcursul rutei.</string>
 	<string name="rate_alert_title">Vă place aplicația?</string>
-	<string name="rate_alert_default_message">Vă mulțumim că folosiți OMaps. Vă rugăm să dați o notă aplicației. Comentariile dvs. ne ajută să devenim mai buni.</string>
+	<string name="rate_alert_default_message">Vă mulțumim că folosiți Organic Maps. Vă rugăm să dați o notă aplicației. Comentariile dvs. ne ajută să devenim mai buni.</string>
 	<string name="rate_alert_five_star_message">Ura! Și noi vă iubim!</string>
 	<string name="rate_alert_four_star_message">Vă mulțumim, vom face tot ce ne stă în putință!</string>
 	<string name="rate_alert_less_than_four_star_message">Aveți vreo idee prin care putem să îmbunătățim aplicația?</string>
@@ -617,7 +617,7 @@
 	<string name="editor_report_problem_no_place_title">Această locație nu există</string>
 	<string name="editor_report_problem_under_construction_title">Închis pentru întreținere</string>
 	<string name="editor_report_problem_duplicate_place_title">Locație dublată</string>
-	<string name="first_launch_congrats_title">OMaps este gata pentru utilizare</string>
+	<string name="first_launch_congrats_title">Organic Maps este gata pentru utilizare</string>
 	<string name="first_launch_congrats_text">Căutați și navigați în regim offline oriunde în lume, în mod gratuit.</string>
 	<string name="migrate_title">Important!</string>
 	<!-- Android uses image instead of text. -->
@@ -715,14 +715,14 @@
 	<string name="placepage_report_problem_button">Raportați o problemă</string>
 	<string name="placepage_add_business_button">Adăugare organizație</string>
 	<string name="whatsnew_editor_message_1">Adăugați locuri noi pe hartă și modificați-le pe cele existente direct din aplicație.</string>
-	<string name="whatsnew_editor_message_2">* OMaps folosește datele comunității OpenStreetMap community.</string>
+	<string name="whatsnew_editor_message_2">* Organic Maps folosește datele comunității OpenStreetMap community.</string>
 	<string name="dialog_incorrect_feature_position">Schimbare locație</string>
 	<string name="message_invalid_feature_position">În acest loc nu poate fi localizat un obiect</string>
 	<string name="login_to_make_edits_visible">Autentificați-vă pentru ca modificările pe care le-ați efectuat să poată fi văzute și de alți utilizatori.</string>
 	<string name="no_migration_during_navigation">În timpul navigării, actualizarea este interzisă.</string>
 	<!-- Error dialog no space -->
 	<string name="migration_no_space_message">Aveți nevoie de mai mult spațiu ca să descărcați. Vă rugăm să ștergeți toate informațiile inutile.</string>
-	<string name="editor_sharing_title">Am îmbunătățit hărțile OMaps</string>
+	<string name="editor_sharing_title">Am îmbunătățit hărțile Organic Maps</string>
 	<string name="editor_comment_will_be_sent">Vom trimite comentariul dumneavoastră cartografilor.</string>
 	<string name="editor_unsupported_category_message">Ați adăugat o locație pentru care nu avem încă o categorie creată. Aceasta va apărea pe hartă în viitorul apropiat.</string>
 	<!-- Downloaded 10 **of** 20 <- it is that "of" -->
@@ -739,7 +739,7 @@
 	<string name="core_placepage_unknown_place">Loc necunoscut</string>
 	<string name="editor_other_info">Trimite o notă editorilor OSM</string>
 	<string name="editor_detailed_description_hint">Comentariu detaliat</string>
-	<string name="editor_detailed_description">Modificările sugerate vor trimise către comunitatea OpenStreetMap. Descrieți detalii ce nu pot fi adăugate în be the details which cannot be edited in OMaps.</string>
+	<string name="editor_detailed_description">Modificările sugerate vor trimise către comunitatea OpenStreetMap. Descrieți detalii ce nu pot fi adăugate în be the details which cannot be edited in Organic Maps.</string>
 	<string name="editor_more_about_osm">Mai multe despre OpenStreetMap</string>
 	<string name="editor_operator">Operator</string>
 	<string name="editor_tag_description">Introduceți compania, organizația sau persoana responsabilă de facilități.</string>
@@ -778,8 +778,6 @@
 	<string name="placepage_entrance_type">Intrare</string>
 	<string name="placepage_flat">ap.</string>
 	<string name="placepage_open_24_7">24 / 7</string>
-	<string name="place_page_booking_rating">Evaluare: %s</string>
-	<string name="place_page_starting_from">din %s</string>
 	<string name="meter">m</string>
 	<string name="kilometer">km</string>
 	<string name="kilometers_per_hour">km/h</string>
@@ -814,12 +812,8 @@
 	<string name="error_enter_correct">Introduceți o valoare validă</string>
 	<string name="editor_profile_changes_for_next_place">Modificări necesare pentru următoarea poziţie: %d</string>
 	<string name="editor_profile_rating_place">Poziţie în clasament</string>
-	<string name="booking_dialog_not_connect_header">Pentru a face o rezervare la un hotel, activaţi conexiunea la Internet</string>
-	<string name="button_try">Încercaţi-o</string>
 	<string name="refresh">Actualizați</string>
 	<string name="last_update">Ultima actualizare: %s</string>
-	<string name="booking_checkin">check in: %s</string>
-	<string name="booking_checkout">check out: %s</string>
 	<string name="placepage_add_place_button">Adăugați un loc pe hartă</string>
 	<!-- Displayed when saving some edits to the map to warn against publishing personal data -->
 	<string name="editor_share_to_all_dialog_title">Doriți să îl trimiteți tuturor utilizatorilor?</string>
@@ -838,21 +832,19 @@
 	<string name="place_page_button_read_descriprion">Citiți</string>
 	<!-- iOS dialog for the case when recent track recording is on and the app comes back from background -->
 	<string name="recent_track_background_dialog_title">Dezactivați înregistrarea celui mai recent traseu urmat?</string>
-	<!-- If a hotel is being shared -->
-	<string name="sharing_booking">sau rezervați pe booking.com</string>
 	<string name="off_recent_track_background_button">Dezactivare</string>
 	<!-- For sharing via SMS and so on -->
 	<string name="sharing_call_action_look">Aruncați o privire</string>
 	<string name="continue_recent_track_background_button">Continuare</string>
-	<string name="recent_track_background_dialog_message">OMaps folosește în fundal geo-locația pentru a înregistra cel mai recent traseu urmat.</string>
+	<string name="recent_track_background_dialog_message">Organic Maps folosește în fundal geo-locația pentru a înregistra cel mai recent traseu urmat.</string>
 	<!-- Rate on Google Play (Android only) -->
 	<string name="rate_gp">Dați un calificativ pe Google Play</string>
 	<!-- Share with friends: menu item title -->
 	<string name="tell_friends">Spuneți unui prieten</string>
 	<!-- Share with friends: sharing text -->
-	<string name="tell_friends_text">Bună! Instalați OMaps!</string>
+	<string name="tell_friends_text">Bună! Instalați Organic Maps!</string>
 	<!-- About short text (below logo) -->
-	<string name="about_description">OMaps este o aplicație offline esențială când călătoriți. OMaps utilizează datele OpenStreeMap și permite editarea acestora.</string>
+	<string name="about_description">Organic Maps este o aplicație offline esențială când călătoriți. Organic Maps utilizează datele OpenStreeMap și permite editarea acestora.</string>
 	<!-- Text in menu -->
 	<string name="blog">Blog</string>
 	<string name="general_settings">Setări generale</string>
@@ -863,50 +855,13 @@
 	<string name="accept">Acceptați</string>
 	<!-- For the first routing -->
 	<string name="decline">Refuzați</string>
-	<string name="whats_new_route_profile_title">Mai bine căutați soluții decât să greșiți</string>
-	<string name="whats_new_route_profile_message">Pentru rutele pentru pietoni și bicicliști, afișam acum profilul de elevație.</string>
-	<string name="whats_new_booking_improve_title">Economisiți bani când rezervați hoteluri</string>
-	<string name="whats_new_booking_improve_message">Rezultatele de căutare pentru hoteluri conțin acum categoria de preț. \nAm mai adăugat și peste 110.000 de hoteluri.</string>
-	<!-- For place page hotel facilities block -->
-	<string name="placepage_hotel_facilities">Facilităţi</string>
-	<!-- For place page hotel nearby block -->
-	<string name="placepage_hotel_nearby">În apropiere</string>
-	<!-- For ordering a taxi (as opposed to hotels or other things) -->
-	<string name="taxi_order">Comandați un taxi</string>
-	<!-- How long it is until the taxi arrives -->
-	<string name="taxi_wait">Așteptat în %s</string>
-	<!-- When there are no available taxis nearby -->
-	<string name="taxi_not_found">Nu am găsit niciun taxi în apropiere\u0020</string>
-	<!-- When there are no available taxi providers nearby -->
-	<string name="taxi_no_providers">Serviciul de taxi nu este disponibil aici</string>
 	<string name="install_app">Instalați</string>
-	<!-- `Filter` is a noun here -->
-	<string name="booking_filters">Filtrare</string>
-	<string name="booking_filters_reset">Resetare</string>
-	<!-- Beginning from a particular value and -->
-	<string name="booking_filters_rating">Evaluări de la</string>
-	<string name="booking_filters_rating_any">Oricare</string>
-	<string name="booking_filters_ragting_good">Bine</string>
-	<string name="booking_filters_rating_very_good">Foarte bine</string>
-	<string name="booking_filters_rating_excellent">Excelent</string>
-	<string name="booking_filters_price_category">Categorie de preț</string>
 	<string name="search_no_results_title">Nu au fost găsite rezultate</string>
 	<string name="search_no_results_message">Încercați un termen mai general, micșorați sau resetați filtrul.</string>
 	<string name="search_no_results_expand_area_button">Micșorare</string>
 	<string name="search_no_results_reset_button">Resetare filtru</string>
 	<!-- noun -->
 	<string name="search_in_table">Listă</string>
-	<string name="booking_show_more">Arată mai multe</string>
-	<string name="booking_reviews">Comentarii</string>
-	<string name="booking_hotel">Hotel</string>
-	<!-- hotel room -->
-	<string name="booking_hotel_room">Cameră</string>
-	<!-- A neologism for a chat based on geographical proximity -->
-	<string name="chat">Geochat</string>
-	<!-- Verb. Text on a button that opens the chat. -->
-	<string name="chat_open">Deschideți</string>
-	<string name="dialog_taxi_offline">Comandarea unui taxi nu se poate face în modul offline.</string>
-	<string name="dialog_taxi_error">Comandarea unui taxi este momentan indisponibilă.</string>
 	<string name="mobile_data_dialog">Folosiți internetul mobil pentru a afişa informaţii detaliate?</string>
 	<string name="mobile_data_option_always">Folosiți întotdeauna</string>
 	<string name="mobile_data_option_today">Doar astăzi</string>
@@ -918,41 +873,16 @@
 	<string name="traffic_update_maps_text">Pentru a afişa datele privind traficul, hărțile trebuie actualizate.</string>
 	<string name="traffic_outdated">Datele privind traficul sunt învechite.</string>
 	<string name="big_font">Măriți dimensiunea fontului pe hartă</string>
-	<string name="traffic_update_app">Vă rugăm să actualizaţi OMaps</string>
+	<string name="traffic_update_app">Vă rugăm să actualizaţi Organic Maps</string>
 	<!-- "traffic" as in road congestion -->
 	<string name="traffic_update_app_message">Pentru a afişa datele privind traficul, aplicația trebuie actualizată.</string>
 	<!-- "traffic" as in "road congestion" -->
 	<string name="traffic_data_unavailable">Datele privind traficul nu sunt disponibile</string>
-	<!-- Seven points and higher -->
-	<string name="booking_filter_rating_num_good">7.0+</string>
-	<!-- Eight points and higher -->
-	<string name="booking_filter_rating_num_very_good">8.0+</string>
-	<!-- Nine points and higher -->
-	<string name="booking_filter_rating_num_excellent">9.0+</string>
 	<!-- Simplified colour scheme for traffic information, fewer colours are used to display traffic jams on the map. The string should be kept as short as possible -->
 	<string name="pref_traffic_simplified_colors_title">Culori trafic simplificate</string>
 	<string name="enable_logging">Activare jurnalizare</string>
-	<string name="more_on_bookingcom">Mai multe pe Booking.com</string>
-	<string name="details_on_bookingcom">Detalii pe Booking.com</string>
-	<string name="reviews_on_bookingcom">Mai multe recenzii pe Booking.com</string>
 	<string name="offline_place_page_more_information">Conectați-vă la internet pentru a primi mai multe informații despre locație.</string>
 	<string name="failed_load_information">Încărcarea informațiilor a eșuat.</string>
-	<string name="whats_new_auto_update_updating_maps">Se actualizează hărțile</string>
-	<string name="whats_new_auto_update_title">Actualizați hărțile descărcate</string>
-	<string name="whats_new_auto_update_message">Actualizarea hărților vă ajută să păstrați actualizate informațiile despre obiecte</string>
-	<string name="whats_new_auto_update_button_size">Actualizare (%s)</string>
-	<string name="whats_new_auto_update_button_later">Actualizare manuală mai târziu</string>
-	<string name="search_hotel_filter_apartment">Apartamente</string>
-	<string name="search_hotel_filter_camp_site">Camping</string>
-	<string name="search_hotel_filter_chalet">Cabană</string>
-	<string name="search_hotel_filter_guest_house">Pensiune</string>
-	<string name="search_hotel_filter_hostel">Hostel</string>
-	<string name="search_hotel_filter_resort">Stațiuni</string>
-	<string name="search_hotel_filter_hotel">Hotel</string>
-	<string name="search_hotel_filter_motel">Motel</string>
-	<string name="create_campaign_button">Revendicați această afacere</string>
-	<string name="view_campaign_button">Afacerea este promovată</string>
-	<string name="search_hotel_filters_type">Tip</string>
 	<!-- Settings: "Send general feedback" button -->
 	<string name="feedback_general">Feedback general</string>
 	<string name="on">Activat</string>
@@ -983,36 +913,7 @@
 	<string name="choose_start_point">Alege un punct de plecare</string>
 	<string name="choose_destination">Alege o destinație</string>
 	<string name="preloader_viator_button">Află mai multe</string>
-	<string name="whats_new_title_route">Au fost îmbunătățite traseele de biciclete și de pietoni</string>
-	<string name="whats_new_message_route">Am remediat erorile, am făcut crearea traseelor mai rapidă și am adăugat opriri intermediare</string>
-	<string name="whats_new_message_title_update">Am micșorat de 10 ori actualizările hărților</string>
-	<string name="whats_new_message_maps_update">Pentru a actualiza o hartă, nu trebuie decât să descarci datele care lipsesc</string>
 	<string name="start_from_my_position">Începând de la</string>
-	<string name="rating">Clasificare</string>
-	<string name="placepage_no_reviews">Nicio recenzie</string>
-	<string name="placepage_reviewed">Ați recenzat deja acest loc</string>
-	<string name="placepage_summary_rating">Calificativ sumar</string>
-	<string name="placepage_rate_comment">Atingeți pentru a evalua și a recenza acest loc.</string>
-	<string name="placepage_rate_horrible">Oribil</string>
-	<string name="placepage_rate_bad">Rău</string>
-	<string name="placepage_rate_normal">Normal</string>
-	<string name="placepage_rate_good">Bine</string>
-	<string name="placepage_rate_excellent">Excelent</string>
-	<string name="placepage_reviews_most_recent">Cele mai recente</string>
-	<string name="placepage_reviews_most_useful">Cele mai utile</string>
-	<string name="placepage_reviews_highest_rated">Cele mai bune calificative</string>
-	<string name="placepage_reviews_lowest_rated">Cele mai slabe calificative</string>
-	<string name="placepage_reviews_offline_comment">În modul offline nu sunt afișate decât cele mai utile recenzii</string>
-	<string name="placepage_reviews_your_comment">Recenzia dvs</string>
-	<string name="placepage_reviews_unhelpful">Inutile</string>
-	<string name="placepage_reviews_inappropriate">Inadecvate</string>
-	<string name="placepage_reviews_spam">Spam</string>
-	<string name="placepage_reviews_hint">Ce a fost bun sau rău aici?</string>
-	<string name="placepage_reviews_edit_your_review">Editați recenzia</string>
-	<string name="placepage_reviews_new_review">Recenzie nouă</string>
-	<string name="placepage_translate_button">Traducere</string>
-	<string name="placepage_show_original_button">Afișare original</string>
-	<string name="placepage_more_reviews_booking_button">Mai multe recenzii pe Booking.com</string>
 	<string name="profile_authorization_title">Conectare cu</string>
 	<string name="profile_authorization_message">Conectare rapidă în câteva secunde, fără autentificare și parolă</string>
 	<string name="profile_authorization_error">Ups, a survenit o eroare. Încercați să vă conectați din nou.</string>
@@ -1024,24 +925,9 @@
 	<string name="expertise">Expertiză</string>
 	<string name="equipment">Echipamente</string>
 	<string name="quality">Calitate</string>
-	<string name="whats_new_ugc_title_updated_v840">Calificative și recenzii</string>
-	<string name="whats_new_ugc_message">Acum puteți lăsa calificative și recenzii chiar și când sunteți offline! Nu uitați să vă actualizați hărțile pentru a vedea modificările.</string>
 	<string name="dialog_error_storage_title">Problemă de accesare spațiu de stocare</string>
-	<string name="dialog_error_storage_message">Spațiul de stocare extern nu este disponibil. Probabil cardul SD nu este introdus, este deteriorat sau sistemul de fișiere este read-only. Verifică și contactează-ne la support\@omaps.app</string>
+	<string name="dialog_error_storage_message">Spațiul de stocare extern nu este disponibil. Probabil cardul SD nu este introdus, este deteriorat sau sistemul de fișiere este read-only. Verifică și contactează-ne la support\@organicmaps.app</string>
 	<string name="setting_emulate_bad_storage">Emulare stocare eronată</string>
-	<string name="discovery_button_title">Descoperire în apropiere</string>
-	<string name="discovery_button_subtitle_things_to_do">Activități</string>
-	<string name="discovery_button_subtitle_attractions">Atracții</string>
-	<string name="discovery_button_subtitle_eat_and_drink">Restaurante și baruri</string>
-	<string name="discovery_button_subtitle_local_guides">Ghizi locali</string>
-	<string name="discovery_button_viator_error_title">Eroare la încărcarea datelor</string>
-	<string name="discovery_button_other_error_message">Eroare la încărcarea datelor</string>
-	<string name="discovery_button_other_loading_message">Datele se încarcă</string>
-	<string name="discovery_button_404_error_title">Nu a fost găsit</string>
-	<string name="discovery_button_404_error_message">Ne pare rău, dar nu am găsit nimic interesant în jur.</string>
-	<string name="booking_filters_check_in">Cazare</string>
-	<string name="booking_filters_check_out">Plecare</string>
-	<string name="booking_filters_offline">Nu este disponibil offline.</string>
 	<string name="directions_finish">Destinație</string>
 	<string name="directions_on_foot">%s de mers</string>
 	<string name="core_entrance">Intrare</string>
@@ -1049,12 +935,6 @@
 	<string name="cleanliness">Curățenie</string>
 	<string name="crowdedness">Aglomerație</string>
 	<string name="error_enter_correct_name">Introdu un nume corect</string>
-	<string name="hotel_available">Disponibil</string>
-	<string name="whats_new_transit_title">Metrou disponibil</string>
-	<string name="whats_new_transit_message">Creează-ți propriile trasee cu metroul! Actualizează hărțile pentru a vedea modificările.</string>
-	<string name="whats_new_discovery_title">Butonul Descoperă</string>
-	<string name="whats_new_discovery_message">Descoperă lucruri din apropiere cu un singur clic!</string>
-	<string name="price_per_hour">%s/oră</string>
 	<string name="bookmarks_backup">Activare backup</string>
 	<string name="authorization_button_sign_in">Conectare</string>
 	<string name="bookmarks_message_authorized_user">Pentru semnele de carte se realizează automat backup la o locație securizată din cloud. Activați funcția de backup?</string>
@@ -1073,15 +953,10 @@
 	<string name="downloader_percent">%1$s (%2$s din %3$s)</string>
 	<string name="downloader_process">Descărcare %s...</string>
 	<string name="downloader_applying">Aplicare %s...</string>
-	<string name="whats_new_title_hotel_filter">Sunt disponibile filtre noi pentru hoteluri!</string>
-	<string name="whats_new_message_hotel_filter">Rezervați camere la hoteluri disponibile la datele dorite de dvs.! Utilizați filtrele de cazare și plecare</string>
-	<string name="whats_new_title_ugc_travel">Comunicați-vă experiențele altor călători!</string>
-	<string name="whats_new_message_ugc_travel">Evaluați și recenzați locurile pe care le-ați vizitat!</string>
 	<string name="dialog_message_transit_not_found_connection">Planifică o rută într-o singură rețea de tranzit</string>
 	<string name="bookmarks_error_message_share_general">Imposibil de distribuit din cauza unei erori a aplicației</string>
 	<string name="bookmarks_error_title_share_empty">Eroare la distribuire</string>
 	<string name="bookmarks_error_message_share_empty">Nu se poate distribui o listă goală</string>
-	<string name="discovery_button_subtitle_book_hotels">Rezervă hoteluri</string>
 	<string name="bookmarks_error_title_empty_list_name">Numele nu poate fi gol</string>
 	<string name="bookmarks_error_message_empty_list_name">Introduceți numele listei</string>
 	<string name="bookmarks_new_list_hint">Lista nouă</string>
@@ -1106,8 +981,6 @@
 	<string name="converting">Conversia...</string>
 	<string name="wn_reinvented_bookmarks_title">Am reinventat marcaje!</string>
 	<string name="wn_reinvented_bookmarks_message">Aveți posibilitatea să copiați marcajele de rezervă, să creați liste... Este uimitor...</string>
-	<string name="wn_way_of_booking_title">Am reimaginat modul de rezervare!</string>
-	<string name="wn_way_of_booking_message">Găsiți un hotel pe hartă și rezervați-l sau selectați unul similar.</string>
 	<string name="bookmarks_restore">Restaurați marcajele</string>
 	<string name="bookmarks_restore_process">Restaurarea...</string>
 	<string name="bookmarks_restore_title">Restabiliți această versiune?</string>
@@ -1119,19 +992,12 @@
 	<string name="error_server_message">A apărut o eroare la server, încercați din nou mai târziu</string>
 	<string name="error_system_message">O eroare necunoscută s-a întamplat</string>
 	<string name="restore">Restabili</string>
-	<string name="sign_message_gdpr">Pentru a continua, trebuie să acceptați Termenii de utilizare și Politica de confidențialitate. Citiți-le cu atenție.</string>
-	<string name="sign_agree_pp_gdpr">Sunt de acord cu &lt;a href="%s">Politica de confidențialitate&lt;/a></string>
-	<string name="sign_agree_tof_gdpr">Sunt de acord cu &lt;a href="%s">Termenii și condițiile&lt;/a></string>
-	<string name="sign_agree_news_gdpr">Sunt de acord să primesc ultimele știri despre produsele OMaps</string>
-	<string name="whats_new_localbiz_title">Întreprinderile mici merită atenție</string>
-	<string name="whats_new_localbiz_message">Anume cafenelele, hostelele și magazinele locale fac călătoriile de neuitat. Optimizăm gratuit pagina dvs. de afaceri în OMaps, astfel încât să o putem observa.</string>
-	<string name="whats_new_order_button">Solicitați</string>
 	<string name="bookmarks_page_downloaded">Fișierele descărcate</string>
 	<string name="bookmarks_page_my">Al mele</string>
 	<string name="routes_and_bookmarks">Rute și tag-uri</string>
 	<string name="bookmarks_webview_success_toast">Locațiile au fost descărcate cu succes</string>
 	<string name="cached_bookmarks_placeholder_title">Încărcați locuri noi</string>
-	<string name="cached_bookmarks_placeholder_subtitle">Faceți clic pe butonul pentru a descărca mii de locuri interesante și rute create de utilizatori OMaps. Veți avea nevoie de o conexiune la Internet.</string>
+	<string name="cached_bookmarks_placeholder_subtitle">Faceți clic pe butonul pentru a descărca mii de locuri interesante și rute create de utilizatori Organic Maps. Veți avea nevoie de o conexiune la Internet.</string>
 	<string name="downloader_download_routers">Descărcați tag-urile</string>
 	<string name="bookmarks_groups_cached">Listele descărcate</string>
 	<string name="author_name_by_prefix">%s</string>
@@ -1149,7 +1015,7 @@
 	</plurals>
 	<string name="subtittle_opt_out">Setări de servire</string>
 	<string name="crash_reports">Rapoarte de eroare</string>
-	<string name="crash_reports_description">Putem folosi datele dvs. pentru a dezvolta și de a îmbunătăți OMaps. Modificările vor intra în vigoare după repornirea aplicației.</string>
+	<string name="crash_reports_description">Putem folosi datele dvs. pentru a dezvolta și de a îmbunătăți Organic Maps. Modificările vor intra în vigoare după repornirea aplicației.</string>
 	<string name="opt_out_help_ios_1">Puteți renunța la primirea de publicitate țintă în setările aparatului.</string>
 	<string name="opt_out_help_ios_2">iOS 9 sau mai sus</string>
 	<string name="opt_out_help_ios_3">Deschideți Setări → Confidențialitate → Publicitate → „Activați Limitarea trackking”</string>
@@ -1168,101 +1034,31 @@
 	<string name="category_desc_more">…mai mult</string>
 	<string name="title_error_downloading_bookmarks">A apărut o eroare</string>
 	<string name="subtitle_error_downloading_bookmarks">Tag-urile nu au fost încărcate</string>
-	<string name="whats_new_bookmarks_catalog_title">În OMaps a apărut un director de rute</string>
-	<string name="whats_new_bookmarks_catalog_message">Zeci de trasee detaliate din întreaga lume: unde să mergi, ce să vezi, în unde să mănânci.</string>
-	<string name="whats_new_popularity_label_title">Popular în apropiere</string>
-	<string name="whats_new_popularity_label_message">Secțiunea „Descoperire în apropiere” va ajuta să găsi cele mai populare locații din oraș.</string>
-	<string name="whats_new_hot_offers_title">Oferte avantajoase de hoteluri</string>
-	<string name="whats_new_hot_offers_message">Căutați-le cu ajutorul categoriei „Hoteluri” în căutare. Ofertele vor fi marcate cu o pictogramă % pe hartă și în lista.</string>
 	<string name="error_already_downloaded">Lista aceasta a fost descărcată deja</string>
-	<string name="guides">Ghiduri</string>
-	<string name="guide_downloaded_title">Ghidul a fost descărcat cu succes</string>
-	<!-- as few symbols as possible -->
-	<string name="download_guides">Găsește ghiduri</string>
-	<string name="guides_groups_cached">Ghiduri descărcate</string>
-	<string name="subtitle_error_downloading_guide">Ghidul nu a fost descărcat</string>
-	<string name="error_already_downloaded_guide">Acest ghid a fost deja descărcat</string>
-	<string name="guide_downloaded_subtitle">Apasă butonul „Vizualizare pe hartă” pentru a explora ghidul</string>
-	<string name="bookmarks_guides">Marcaje și ghiduri</string>
-	<string name="paybtn_title">Achitați %s/an</string>
-	<string name="paybtn_subtitle">Economisiți %s/an</string>
-	<string name="options_dropdown_title">Alte variante</string>
-	<string name="why_support">Pentru ce să susțineți OMaps?</string>
-	<string name="options_dropdown_item1">%1$s/lună (economia %2$s/an)</string>
-	<string name="options_dropdown_item2">%s/săptămână (nu există economie)</string>
-	<string name="why_support_item1">Vom dezactiva toate reclamele pentru dvs</string>
-	<string name="why_support_item2">Voi ne ajutați să îmbunătățim OMaps</string>
+	<string name="why_support">Pentru ce să susțineți Organic Maps?</string>
+	<string name="why_support_item2">Voi ne ajutați să îmbunătățim Organic Maps</string>
 	<string name="why_support_item3">Voi ne ajutați să îmbunătățim hărțile OpenStreetMap.org</string>
-	<string name="purchase_processing">Achiziția dvs. este în curs de procesare…</string>
-	<string name="tips_bookmarks_catalog_title">Ghiduri offline pentru toate tipurile de călătorii</string>
-	<string name="tips_bookmarks_catalog_message">Descărcați și stabiliți rute turistice către locuri interesante din diferite orașe ale lumii.</string>
-	<string name="tips_discover_button_title">Doriți să găsiți localurile populare din zonă?</string>
-	<string name="tips_discover_button_message">În secțiunea „Descoperire în apropiere” sunt colectate cele mai bune și mai apropiate restaurante, hoteluri și locuri care merită văzute.</string>
-	<string name="tips_book_hotel_title">Rezervați cele mai confortabile hoteluri pentru odihna dumneavoastră</string>
-	<string name="tips_book_hotel_message">Cu ajutorul căutării și a filtrelor veți găsi cele mai bune hoteluri. Apăsați butonul „Rezervare” în cartea locului pentru rezervarea imediată a hotelului.</string>
-	<string name="tips_map_layers_title">Nu știți la care stație de metro să coborâți?</string>
-	<string name="tips_map_layers_message">Activați stratul de metrou de pe hartă pentru a afișa schema de metrou și vă veți putea orienta mereu într-un oraș nou.</string>
 	<string name="channels_map_update">Actualizarea hărților</string>
-	<string name="channels_reviews">Recenzii netrimise</string>
-	<string name="purchase_loading">Încărcăm informația despre cumpărături…</string>
-	<string name="purchase_error_subtitle">În timpul procesării achiziției dumneavoastre a apărut o eroare</string>
-	<string name="awaiting_approval">Așteptăm confirmarea părinților</string>
-	<string name="whats_new_leave_review">Lăsați un comentariu! Împărtășiți părerea dumneavoastră despre locurile pe care le-ați vizitat în vacanță.</string>
 	<string name="server_unavailable_title">Serverul nu este disponibil</string>
-	<string name="server_unavailable_message">Achiziția va fi finalizată mai târziu. Dacă eroarea se repetă, contactați support\@omaps.app.</string>
-	<string name="offline_fiters_check_in">Conectați-vă la internet pentru a putea alege data sosirii și plecării.</string>
-	<string name="restore_subscription">Restabiliți abonamentul</string>
-	<string name="restore_success_alert">Abonamentul a fost restabilit</string>
-	<string name="restore_error_alert">A apărut o eroare la restabilirea abonamentului</string>
-	<string name="restore_no_subscription_alert">Nu există abonamente active</string>
-	<string name="subscriptions_title">Abonamente</string>
-	<string name="manage_subscription">Administrare abonament</string>
 	<string name="sharing_options">Setările accesului</string>
 	<string name="export_file">Exportați fișierul</string>
 	<string name="list_settings">Elaborarea listei</string>
 	<string name="delete_list">Ștergerea listei</string>
 	<string name="hide_from_map">Ascundeți de pe hartă</string>
-	<string name="ugc_route_tags_screen_label">Alegeți tag-urile</string>
-	<string name="ugc_route_tags_progress_msg">Încărcăm tag-urile…</string>
 	<string name="public_access">Acces public</string>
 	<string name="limited_access">Acces privat</string>
-	<string name="upload_and_publish_desc">Acest ghid va fi încărcat în catalogul public OMaps și va fi disponibil altor utilizatori</string>
-	<string name="upload_and_publish">Descărcați și publicați</string>
-	<string name="upload_and_get_direct_link">Descărcați și primiți linkul</string>
-	<string name="get_direct_link_desc">Ghidul dumneavoastră va fi disponibil printr-un link direct</string>
-	<string name="upload_and_publish_progress_text">Ghidul se publică…</string>
-	<string name="upload_and_publish_success">Ghidul a fost publicat</string>
-	<string name="ugc_routes_user_agreement">&lt;b>ATRAGEȚI ATENȚIE:&lt;/b> continuând, dvs acceptați &lt;a href="%s">contractul de licență&lt;/a></string>
-	<string name="ugc_route_edit_list_name">Denumirea ghidului</string>
-	<string name="ugc_route_edit_description_hint">Adăugați o descriere (text sau html)</string>
+	<string name="bookmark_category_name">Categorie</string>
+	<string name="bookmark_category_description_hint">Adăugați o descriere (text sau html)</string>
 	<string name="not_shared">Personal</string>
 	<string name="direct_link_progress_text">Încărcăm fișierul dumneavoastră…</string>
 	<string name="direct_link_success">Linkul a fost creat</string>
-	<string name="edit_guide_title">Redactați ghidul dvs online</string>
-	<string name="edit_guide_subtitle">Primiți linkul pentru editarea ghidului dvs prin intermediul aplicației web: adăugați descrierea locurilor, încărcați fotografii și conectați etichetele cu linii.</string>
 	<string name="send_a_link_btn">Trimiteți linkul</string>
 	<string name="upload_error_toast">În timpul încărcării fișierului s-a produs o eroare</string>
 	<string name="tags_loading_error_subtitle">În timpul încărcării tag-urilor s-a produs o eroare, vă rugăm să încercați încă odată</string>
 	<string name="unable_upload_errorr_title">Încărcarea fișierului nu s-a primit</string>
 	<string name="unable_upload_error_subtitle_edited">Fișierul a fost editat prin intermediul aplicației web</string>
 	<string name="unable_upload_error_subtitle_broken">Fișierul a fost deteriorat și nu poate fi încărcat. Vă rugăm, alegeți alt fișier.</string>
-	<string name="buy_btn">Cumpără un ghid la preț de %s</string>
-	<string name="download_guide_progress">Ghidul de călătorie se încarcă…</string>
-	<string name="price_error_title">Imposibil de aflat prețul</string>
-	<string name="price_error_subtitle">Vă rugăm să încercați încă odată peste câteva minute</string>
-	<string name="edit_your_guide_email_body">Redactați ghidul dvs pe calculator: adăugați descrierea locurilor, încărcați fotografii și conectați etichetele cu linii.</string>
-	<string name="edit_on_web">Editați online</string>
-	<string name="properties_loading_error_subtitle">În timpul încărcării opțiunilor s-a produs o eroare, vă rugăm încercați încă o dată</string>
-	<string name="custom_props_desc">Acest ghid l-ați făcut în calitate de</string>
-	<string name="custom_props_title">Localnic sau turist</string>
-	<string name="custom_props_local">localnic</string>
-	<string name="custom_props_traveler">turist</string>
-	<string name="select_properties">Alegeți opțiunile</string>
-	<string name="access_rules_p_to_p">Acces special</string>
-	<string name="access_rules_paid">Cumpărat</string>
-	<string name="failed_purchase_support_message">Se pare că aveți o achiziție nefinalizată. Vă rugăm să vă adresați la support, și noi vom rezolva problema.</string>
 	<string name="contact">Scrie</string>
-	<string name="check_price_button">Aflați prețul</string>
 	<string name="download_button">Descărcați</string>
 	<string name="speedcams_alert_title">Camere de supraveghere video a vitezei</string>
 	<string name="speedcams_alert_subtitle">Avertizați despre limitele de viteză</string>
@@ -1271,70 +1067,26 @@
 	<string name="speedcam_option_never">Niciodată</string>
 	<string name="bookmark_description_title">Descrierea semnului</string>
 	<string name="place_description_title">Descrierea locului</string>
-	<string name="ugc_routes_error_uploading_file_toast">Din păcate, în timpul încărcării etichetelor a intervenit o greșeală. Vă rugăm să încercați încă o dată.</string>
-	<string name="notification_channel_ugc">Conținutul utilizatorului</string>
 	<!-- this text will be shown in application notification preferences opposite checkbox which enable/disable downloader notifications. Devices on Android 8+ are affected. -->
 	<string name="notification_channel_downloader">Încărcarea hărților</string>
-	<string name="notification_leave_review_title">%s - cum vă place aici?</string>
-	<string name="notification_leave_review_content">Lăsați comentariile dvs. și ajutați alți călători!</string>
-	<string name="share_bookmarks_email_body_link">Bună ziua!\n\nEtichetele dvs. le puteți descărca de pe linki-ul: %s. Deschideți lista cu ajutorul OMaps și primiți plăcere de la călătorie!\n\nDescărcați aplicația: https://omaps.app/get?kmz</string>
+	<string name="share_bookmarks_email_body_link">Bună ziua!\n\nEtichetele dvs. le puteți descărca de pe linki-ul: %s. Deschideți lista cu ajutorul Organic Maps și primiți plăcere de la călătorie!\n\nDescărcați aplicația: https://organicmaps.app/get?kmz</string>
 	<string name="warning_speedcams_title">Navigatorul o să avertizeze despre camerele video în cazul depășirii limitei de viteză cu %d km/h</string>
 	<string name="warning_speedcams_subtitle">Nu uitați să faceți cunoștință cu regulele de circulație în țara unde călătoriți.</string>
 	<string name="speedcams_notice_message">Auto - De avertizat despre camerele video de înregistrare a vitezei, dacă există riscul depășirii limitei de viteză\nMereu - De avertizat întotdeauna despre camerele video\nNiciodată - De nu avertizat niciodată despre camerele video</string>
-	<string name="whats_new_ugc_routes_title">Este ușor să vă împărtășiți impresiile</string>
-	<string name="whats_new_ugc_routes_subtitle">Salvați locurile memorabile, creați rute cu ajutorul marcajelor și distribuiți-le tuturor în catalogul OMaps.</string>
-	<string name="whats_new_webeditor_title">Transformați-vă rutele în povești</string>
-	<string name="whats_new_ugc_routes_message2">Adăugați fotografii și povești detaliate în editorul web.</string>
-	<string name="ugc_thanks_message_auth">Comentariul dvs. a fost salvat</string>
-	<string name="ugc_thanks_message_not_auth">Înregistrați-vă pentru a lăsa comentarii</string>
-	<string name="notification_leave_review_v2_title">Lăsați comentarii și ajutați călătorii!</string>
-	<string name="error_public_not_enought_title">Etichete insuficiente</string>
-	<string name="error_public_not_enought_subtitle">Pe traseul dvs. trebuie să fie cel puțin 3 etichete, pentru a le încărca în catalogul public</string>
-	<string name="bookmark_public_upload_alert_title">Sunteți doar la câțiva pași de încărcarea traseului dvs. în catalogul OMaps!</string>
-	<string name="bookmark_public_upload_alert_subtitle">Verificați ca traseul dvs. să aibă un nume și o descriere, iar etichetele să conțină informație despre locurile date. Datorită acestui fapt, utilizatorii vor găsi traseul și vor putea să se folosească de el în timpul călătoriei.</string>
-	<string name="bookmark_public_upload_alert_ok_button">Da, totul e ok!</string>
-	<string name="name_title">Introduceți denumirea</string>
-	<string name="name_placeholder">de exemplu, Pub-urile din Londra</string>
-	<string name="name_comment1">Dați un nume traseului, pentru ca utilizatorii să-l poată găsi cu ușurință, de exemplu \"Pub-urile din Londra\"</string>
-	<string name="name_comment2">Denumirea nu trebuie să conțină simboluri speciale. Nu publicați trasee cu denumirea \"Etichetele mele\"</string>
-	<string name="description_guide">Descriere</string>
-	<string name="description_title">Introduceți descrierea traseului</string>
-	<string name="description_placeholder">Descrieți detaliat traseul</string>
-	<string name="description_comment1">Descrierea traseului trebuie să conțină cel puțin 30 de simboluri.</string>
-	<string name="ugc_route_tags_desc">Vă rugăm să selectați tag-urile, pentru a ajuta alți călători să găsească ghidul dvs. Este obligatoriu. Nu mai mult de %s tag-uri.</string>
-	<string name="html_format_error_title">Traseul dvs. nu a fost publicat</string>
-	<string name="html_format_error_subtitle">Vă rugăm să verificați ca numele și descrierea etichetelor pe traseu să aibă un format corect. Îl puteți verifica în editorul nostru după butonul \"Editare online\" de mai jos.</string>
-	<string name="web_editor_description">Încărcați traseul și primiți link-ul pentru editarea la computer</string>
-	<string name="edit_on_web_confirm">Editare online</string>
-	<string name="update_guide">De încărcat o nouă versiune</string>
-	<string name="direct_link_updating_text">Actualizăm traseul…</string>
-	<string name="direct_link_updating_success">Traseul este actualizat</string>
-	<string name="unable_get_direct_link_desc">Puteți face schimb de traseu cu ajutorul unul link public</string>
-	<string name="any_access_update_alert_title">Posibil că există o nouă versiune a traseului</string>
-	<string name="any_access_update_alert_message">Vreți să actualizați etichetele? Noua versiune va fi accesibilă la același link.</string>
-	<string name="any_access_update_alert_update">Actualizare</string>
-	<string name="public_or_limited_access_after_edit_online_error_title">Ați editat traseul online</string>
-	<string name="public_or_limited_access_after_edit_online_error_message">În continuare editați, publicați și faceți schimb de trasee cu prietenii prin intermediul site-ului nostru</string>
 	<string name="power_managment_title">Modul de economisire a energiei</string>
 	<string name="power_managment_description">Dacă este pornit modul de economisire a energiei, aplicația va deconecta funcțiile care consumă multă energie în dependență de încărcarea bateriei telefonice</string>
 	<string name="power_managment_setting_never">Niciodată</string>
 	<string name="power_managment_setting_auto">Auto</string>
 	<string name="power_managment_setting_manual_max">Economisire maximă a energiei</string>
-	<string name="enable_logging_warning_message">Aceasta opțiune se pornește pentru logarea acțiunii în scopul diagnosticării. Aceasta va ajuta echipei să găsească problemele legate de aplicație. Conectați opțiunea numai la solicitarea serviciului de suport OMaps.</string>
+	<string name="enable_logging_warning_message">Aceasta opțiune se pornește pentru logarea acțiunii în scopul diagnosticării. Aceasta va ajuta echipei să găsească problemele legate de aplicație. Conectați opțiunea numai la solicitarea serviciului de suport Organic Maps.</string>
 	<string name="html_error_upload_message_try_again">Verificați accesul la rețea și încercați încă o dată</string>
 	<string name="html_error_upload_title_try_again">Aveți o problemă cu conexiunea dvs. la internet</string>
 	<string name="notification_leave_review_v2_android_short_title">Lăsați un comentariu și ajutați călătorii!</string>
 	<string name="notifications_illegal_alert_disable_button">Porniți notificarea</string>
 	<string name="access_rules_author_only">Se editează online</string>
 	<string name="privacy_settings_menu">Setarea confidențialității</string>
-	<string name="gdpr_request_setting">Primiți ID pentru GDPR-ul solicitării</string>
-	<string name="gdpr_request_window_title">ID dvs.: %s.</string>
-	<string name="gdpr_request_window_message">Vă rugăm să copiați și să expediați cererea pe support\@omaps.app</string>
-	<string name="gdpr_request_window_copy">Copierea ID</string>
 	<string name="unable_upadate_error_title">Nu s-a actualizat traseul</string>
 	<string name="unable_upadate_error_message">Au intervenit erori de actualizare. Verificați modificările și încercați încă o dată</string>
-	<string name="whats_new_wiki_title">Ce loc este acesta?</string>
-	<string name="whats_new_wiki_message">În fișierele locurilor atractive, am adăugat articole din Wikipedia.org, accesibile offline</string>
 	<string name="driving_options_title">Setarea ocolirii</string>
 	<string name="driving_options_subheader">De evitat pe orice traseu</string>
 	<string name="avoid_tolls">Drumuri cu plată</string>
@@ -1352,23 +1104,7 @@
 	<string name="avoid_toll_roads_placepage">De evitat drumurile cu plată</string>
 	<string name="avoid_unpaved_roads_placepage">De evitat drumurile de țară</string>
 	<string name="avoid_ferry_crossing_placepage">De evitat trecerile cu bac</string>
-	<string name="cached_guides_placeholder_subtitle">Ghiduri pregătire de OMaps sunt locuri selectare cu fotografii și descrieri, care se reflectă pe hartă și sunt accesibile off-line.</string>
-	<string name="guides_catalogue_title">Catalogul ghidurilor</string>
-	<string name="download_guides_button">De trecut în catalog</string>
-	<plurals name="placepage_summary_rating_description">
-	  <item quantity="one">În baza %d comentariului</item>
-	  <item quantity="other">În baza %d comentariilor</item>
-	</plurals>
 	<string name="type.cuisine.uzbek">Bucătărie uzbecă</string>
-	<string name="onboarding_guide_direct_download_title">Ghidul este gata pentru a fi încărcat</string>
-	<string name="onboarding_guide_direct_download_subtitle">Se va reflecta pe hartă și va funcționa on-line</string>
-	<string name="onboarding_guide_direct_download_button">De descărcat</string>
-	<string name="onboarding_bydeeplink_guide_title">Ghiduri elaborate în OMaps</string>
-	<string name="onboarding_bydeeplink_guide_subtitle">Locuri alese cu fotografii și descrieri se reflectă pe hartă și sunt accesibile off-line.</string>
-	<string name="whats_new_auto_update_bydeeplink_title">Înainte de a trece la ghiduri…</string>
-	<string name="whats_new_auto_update_bydeeplink_message">Actualizați hărțile pentru a primi informație actuală despre obiecte!</string>
-	<string name="whats_new_auto_update_and_proceed_button_size">De actualizat (%s) și de continuat</string>
-	<string name="purchase_please_wait_toast">Vă rugăm să nu părăsiți ecranul până la finalizarea cumpărăturii</string>
 	<string name="trip_start">Mergem</string>
 	<string name="pick_destination">Scop</string>
 	<string name="follow_my_position">Centrați</string>
@@ -1388,41 +1124,6 @@
 	<string name="dialog_routing_rebuild_from_current_location_carplay">Traseul se va reface de la locul actual al aflării dvs</string>
 	<string name="dialog_routing_rebuild_for_vehicle_carplay">Traseul va fi modificat cu unul automobilistic</string>
 	<string name="ok">Ok</string>
-	<string name="booking_button_toolbar">Selectează hotel pe hartă</string>
-	<string name="popup_booking_download_guides_title">Rezervare hotel?</string>
-	<string name="popup_booking_download_guides_message">Planificați traseul cu ghidurile OMaps</string>
-	<string name="popup_mwm_download_guides_title">Ghiduri offline</string>
-	<string name="popup_mwm_download_guides_cta">Selectează</string>
-	<string name="popup_mwm_download_guides_cta_1">Privește</string>
-	<string name="gallery_pp_download_guides_offline_title">Planifică odihna ta cu OMaps!</string>
-	<string name="gallery_pp_download_guides_offline_subtitle">Nu ratați cel mai important cu traseele de la călători experimentați</string>
-	<string name="gallery_pp_download_guides_offline_cta">Conectare Internet</string>
-	<string name="gallery_pp_download_guides_title">Ghiduri</string>
-	<string name="native_screen_subscription_title">Acces la 2000+ghiduri!</string>
-	<string name="native_screen_subscription_message">O călătorie de neuitat, oriunde și cu oricine ai călători</string>
-	<string name="annual_subscription_title">Anual</string>
-	<string name="montly_subscription_title">Lunar</string>
-	<string name="annual_subscription_message">12 luni de acces nelimitat</string>
-	<string name="montly_subscription_message">1 lună de acces nelimitat</string>
-	<string name="subscription_success_dialog_title">Vă mulțumim pentru abonare!</string>
-	<string name="subscription_success_dialog_message">Acum aveți un acces nelimitat la catalogul de ghiduri</string>
-	<string name="renewal_screen_title">Termenul de valabilitate a abonării a expirat</string>
-	<string name="renewal_screen_message">Toate ghidurile, descărcate la abonare vor fi eliminate. Doriți să restabiliți abonarea și să le păstrați?</string>
-	<string name="renewal_screen_button_restore">Da, restabilire</string>
-	<string name="renewal_screen_button_cancel">Nu, eliminare ghiduri</string>
-	<string name="subscription_error_ping_title">Nu a fost posibil de făcut cumpărătura</string>
-	<string name="subscription_error_message">Acum serviciul nu este disponibil în regiunea dvs. Vă rugăm să încercați mai târziu</string>
-	<string name="subscription_error_button">Clar</string>
-	<string name="timeout_error_title">Ups, timpul a expirat!</string>
-	<string name="timeout_error_message">Server-ul nostru nu răspunde. Vă rugăm să verificați conectarea la Internet și să încercați din nou.</string>
-	<string name="per_month">/lună</string>
-	<string name="per_year">/an</string>
-	<string name="buy_btn_for_subscription">Acces complet de la %s</string>
-	<string name="buy_btn_for_subscription_1">Cumpără toate ghidurile la preț de %s</string>
-	<string name="buy_btn_for_subscription_ios_only_mo">Acces complet de %s/lună</string>
-	<string name="buy_btn_for_subscription_ios_only_year">Acces complet de %s/an</string>
-	<string name="subscription_terms_guides">Plata se va efectua de pe contul dvs. iTunes la confirmarea cumpărăturii. Abonamentul va fi reînnoit automat, cu excepția cazului în care reînnoirea automată este oprită cu cel puțin 24 de ore înainte de sfârșitul perioadei curente. Banii vor fi debitați din contul dvs. în conformitate cu planul dvs. de tarifare de reînnoire în termen de 24 de ore de la sfârșitul perioadei curente. Aveți posibilitatea să gestionați reînnoirea automată sau s-o dezactivați în setările contului dvs. Apple ID în orice moment după cumpărare. Veți putea utiliza ghidurile descărcate prin abonament numai în perioada de valabilitate a acestuia. La expirarea a 30 de zile de la încheierea abonamentului, ghidurile cu toate marcajele vor fi șterse automat.</string>
-	<string name="subscription_terms">Plata va fi percepută din contul dvs. iTunes la confirmarea achiziției. Abonamentul va fi reînnoit în mod automat, cu excepția cazului în care reînnoirea automată este oprită cu cel puțin 24 de ore înainte de sfârșitul perioadei curente. Plata va fi percepută din contul dvs. în conformitate cu planul dvs. de reînnoire într-un interval de timp de 24 de ore înainte de încheierea perioadei curente. Puteți administra sau dezactiva reînnoirea automată din setările contului dvs. Apple ID în orice moment al achiziției.</string>
 	<string name="avoid_unpaved_carplay_1">Fără neasfal</string>
 	<string name="avoid_unpaved_carplay_2">Fără neasfaltat</string>
 	<string name="avoid_ferry_carplay_1">Fără bacuri</string>
@@ -1431,7 +1132,7 @@
 	<string name="avoid_tolls_carplay_2">Gratis</string>
 	<string name="speedcams_alert_title_carplay_1">Cameră video</string>
 	<string name="speedcams_alert_title_carplay_2">Info camere</string>
-	<string name="download_map_carplay">Vă rugăm să descărcați hărțile în aplicația OMaps de pe dispozitivul dvs.</string>
+	<string name="download_map_carplay">Vă rugăm să descărcați hărțile în aplicația Organic Maps de pe dispozitivul dvs.</string>
 	<string name="carplay_roundabout_exit">%s ieșire</string>
 	<!-- max. 10 symbols, both iOS and Android -->
 	<string name="sort">Sortați…</string>
@@ -1479,80 +1180,15 @@
 	<string name="bookmarks_edit_list">Redactați</string>
 	<!-- Android, max 18 symbols -->
 	<string name="bookmarks_delete_list">Ștergeți lista</string>
-	<string name="popup_subscription_success_map_title">Ura! Sunteți abonat!</string>
-	<string name="popup_subscription_success_map_message">Explorați acum cele mai faimoase obiective turistice în catalogul OMaps</string>
-	<string name="popup_subscription_success_map_start_button">Uitați-vă</string>
-	<string name="popup_subscription_success_map_not_now_button">Nu acum</string>
 	<string name="religious_places">Locuri sfinte</string>
-	<string name="subscription_terms_android">Plata se va face din contul dvs. Google Play la confirmarea achiziției. Abonamentul se va reînnoi automat, dacă reînnoirea automată nu este oprită cu cel puțin 24 de ore înainte de încheierea perioadei curente. Banii vor fi luați din contul dvs. în conformitate cu planul dvs. de reînnoire în termen de 24 de ore până la sfârșitul perioadei curente. Puteți gestiona reînnoirea automată sau o puteți dezactiva în setările contului dvs. după cumpărare. Veți putea utiliza ghidurile descărcate prin abonament doar în perioada de valabilitate. După 30 de zile de la terminarea abonamentului, ghidurile vor fi șterse automat.</string>
 	<string name="select_list">Alegeți lista</string>
-	<string name="pp_discovery_place_related_header">Acest loc în catalogul ghidurilor</string>
-	<string name="pp_discovery_place_related_header_1">Acest loc poate fi întâlnit în ghid</string>
-	<string name="pp_discovery_place_related_cta_button">De văzut</string>
-	<string name="pp_discovery_place_related_tag_header">Ghiduri după tag „%s”</string>
-	<string name="pp_discovery_place_related_tag_header_1">V-ar putea plăcea de asemenea</string>
-	<string name="buy_btn_for_subscription_version_2">TOATE ghidurile pentru doar %s/lună</string>
-	<string name="buy_btn_for_subscription_version_3">Tot catalogul pentru %s/lună</string>
-	<string name="buy_btn_for_subscription_ios_only_mo_version_2">Acces la catalog pentru %s/lună</string>
-	<string name="buy_btn_for_subscription_ios_only_year_version_2">Acces la catalog pentru %s/an</string>
-	<string name="subscription_screen_native_title_version_2">Acces la ghiduri cu înscripții pe hartă!</string>
-	<string name="subscription_screen_native_message_version_2">Fiți pregătiți pentru orice călătorie în peste 600+ orașe și în peste 100+ țări</string>
-	<string name="catalog_no_internet_title">Fără conexiune la internet</string>
-	<string name="catalog_no_internet_button">Încercați din nou</string>
-	<string name="new_onboarding_button">Mai departe</string>
-	<string name="new_onboarding_button_2">Începeți</string>
-	<string name="new_onboarding_step1_header_2">Asistent universal în călătorii</string>
-	<string name="new_onboarding_step2_header">Visează și planifică</string>
-	<string name="new_onboarding_step2_message">70+ milioane de locuri interesante, un catalog de ghiduri gata pregătite și rezervări de hoteluri de pe hartă – sunteți gata de călătorie!</string>
-	<string name="new_onboarding_step3_message">Hărțile offline detaliate și navigarea offline vă vor ajuta să nu vă pierdeți în locuri necunoscute!</string>
-	<string name="new_onboarding_step4_header">Împărtășiți-vă impresiile</string>
-	<string name="new_onboarding_step4_message">Salvați locurile preferate în favorite și trimiteți-le prietenilor</string>
-	<string name="new_onboarding_step5.1_header">Înainte de a începe…</string>
-	<string name="new_onboarding_step5.1_message">Nu uita să vizitezi noul nostru director de rute pentru a găsi un ghid offline pentru următoarea călătorie!</string>
-	<string name="new_onboarding_step5.1_button">Deschide directorul</string>
-	<string name="new_onboarding_step5.2_message">Abonamentul la catalogul ghidurilor de călătorie din OMaps – este profitabil. Obțineți acces complet la rute pentru plimbări prin oraș și activități în aer liber!</string>
-	<string name="new_onboarding_step5.2_button">Vezi termenii</string>
-	<string name="new_onboarding_step5.3_message">Descărcați și evaluați rutele pentru plimbări prin oraș și activități în aer liber, cu o selecție gratuită din OMaps!</string>
-	<string name="new_onboarding_step5.3_button">Descarcă gratuit</string>
-	<string name="new_onboarding_additional_steps_later_button">Nu acum</string>
-	<string name="all_pass_subscription_header">Abonați-vă la</string>
-	<string name="all_pass_subscription_subheader">Catalogul ghidurilor</string>
-	<!-- \n - for a break between lines. Max. 15 characters per 1 line. -->
-	<string name="all_pass_subscription_message_title">30000+\nghiduri\nși rute</string>
-	<!-- <b> & </b> tag to make a part of the line bold -->
-	<string name="all_pass_subscription_message_subtitle"><b>Descărcare nelimitată offline</b> de trasee pentru oraș și odihnă activă</string>
-	<!-- \n - for a break between lines. Max. 17 characters per 1 line. -->
-	<string name="all_pass_subscription_message_title_2">Profil\naltitudine\ninteractiv</string>
-	<!-- <b> & </b> tag to make a part of the line bold -->
-	<string name="all_pass_subscription_message_subtitle_2">Toate rutele se încarcă <b>împreună cu altitudinea și informațiile de bază despre traseu</b></string>
-	<!-- \n - for a break between lines. Max. 15 characters per 1 line. -->
-	<string name="all_pass_subscription_message_title_3">Locații,\nimagini\nși recomandări</string>
-	<!-- <b> & </b> tag to make a part of the line bold -->
-	<string name="all_pass_subscription_message_subtitle_3"><b>Aflați totul despre traseul</b>, pe care intenționați să-l parcurgeți</string>
-	<string name="sightseeing_subscription_header_subscription">Abonează-te la ghiduri</string>
-	<string name="sightseeing_subscription_message">700+ orașe și 100+ de țări</string>
-	<string name="sightseeing_subscription_message_2">Disponibile offline</string>
-	<string name="sightseeing_subscription_message_3">Foto și trasee de mers pe jos</string>
-	<string name="subscription_success_dialog_title_sightseeing_pass">Mulțumim pentru abonament!</string>
-	<string name="subscription_success_dialog_message_sightseeing_pass">Acum aveți acces la toate ghidurile orașului din catalog</string>
-	<string name="downloader_main_gallery_header">Hărți și ghiduri</string>
-	<string name="downloader_main_gallery_message">Acum, în această secțiune, puteți descărca nu doar numai hărți, dar puteți alege și ghiduri pentru următoarele călătorii</string>
-	<string name="downloader_main_1_element_gallery_header">Toate ghidurile</string>
-	<string name="downloader_main_1_element_gallery_message">în 100+ de țări</string>
-	<string name="downloader_country_1_element_gallery_header">%s rute</string>
-	<string name="downloader_country_no_guides_gallery_header">Nu există încă ghiduri în această țară</string>
-	<string name="downloader_country_no_guides_gallery_message">Consultați alte rute din 100+ de țări pentru activități în aer liber și oraș</string>
-	<string name="dialog_pedestrian_route_is_long">E prea mult timp ca sa ajungi la vehicul pe jos</string>
-	<string name="new_onboarding_step3_header">Călătoriți</string>
-	<string name="all_pass_screen_best_value">Preț avantajos</string>
-	<string name="buy_btn_for_subscription_3">Tot catalogul pentru %s/an</string>
 	<string name="transit_not_found">Navigarea pentru metrou nu este încă disponibilă în această regiune</string>
 	<string name="dialog_pedestrian_route_is_long_header">Ruta metroului nu a fost găsită</string>
 	<string name="dialog_pedestrian_route_is_long_message">Selectați punctul de început sau de sfârșit al rutei mai aproape de stația de metrou</string>
 	<!-- Failed planning SUBWAY route message in navigation view -->
 	<string name="routing_planning_error_subway_special">Eroare la construirea rutei metroului</string>
 	<string name="button_layer_isolines">Înălțimi</string>
-	<string name="tips_map_layers_title_countour">Linii de înălțimi offline pe OMaps!</string>
+	<string name="tips_map_layers_title_countour">Linii de înălțimi offline pe Organic Maps!</string>
 	<string name="tips_map_layers_message_countour">Liniile de înălțimi vă vor ajuta să planificați o călătorie în natură și să nu vă pierdeți</string>
 	<string name="isolines_activation_error_dialog">Pentru a utiliza liniile de înălțimi, actualizați sau descărcați harta zonei dorite</string>
 	<string name="isolines_location_error_dialog">Liniile de înălțimi pană ce nu sunt disponibile în această regiune</string>
@@ -1571,79 +1207,10 @@
 	<string name="elevation_profile_time">Timp:</string>
 	<string name="elevation_profile_hours">ore</string>
 	<string name="elevation_profile_minutes">min</string>
-	<string name="view_on_map_downloaded_error">Acest ghid a fost șters de pe dispozitiv</string>
-	<string name="subscription">Abonare</string>
-	<string name="button_layer_guides">Ghiduri (noutate)</string>
-	<string name="no_routes_in_the_area_toast">Nu există ghiduri aici</string>
 	<string name="isolines_toast_zooms_1_10">Măriți harta pentru a vedea contururile</string>
-	<string name="routes_layer_in_menu_toast">Includeți straturi pentru a găsi ghiduri offline, explorați contururile, ramurile de metrou sau blocajele de trafic</string>
-	<string name="routes_layer_is_on_toast">Mutați harta pentru a găsi ghiduri</string>
-	<string name="connection_error_dialog_guides_title">Eroare de conectare</string>
-	<string name="connection_error_dialog_guides_message">Stratul nu funcționează deoarece nu există internet sau semnalul este slab. Pentru a continua, verificați conexiunea sau opriți stratul.</string>
-	<string name="connection_error_dialog_guides_try">Încercați din nou</string>
-	<string name="connection_error_dialog_guides_layer_turn_off">Opriți</string>
-	<string name="connection_error_toast_guides">Restabilim conexiunea la Internet</string>
-	<!-- as few symbols as possible -->
-	<string name="routes_card_show">Arată pe hartă</string>
-	<!-- as few symbols as possible -->
-	<string name="routes_card_hide">Ascunde de pe hartă</string>
 	<string name="downloader_updating_ios">Actualizare</string>
 	<string name="downloader_loading_ios">Încărcare</string>
-	<string name="routes_card_plus_track">+ track</string>
-	<string name="routes_card_number_of_points">%s locuri</string>
-	<string name="routes_card_routes_tag">Traseu</string>
-	<string name="routes_card_set_tag">Locuri atractive</string>
-	<!-- as few symbols as possible -->
-	<string name="guides_trial_cta_button">Încercați 7 zile gratuit</string>
-	<string name="guides_trial_message">Mai departe %s pe an. Anulați oricând</string>
-	<string name="trial_error_dialog">Ați profitat deja de perioada de încercare</string>
-	<!-- as few symbols as possible -->
-	<string name="floating_button_filters">Filtre</string>
-	<plurals name="date_picker_amout_of_days">
-	  <item quantity="one">%d zi</item>
-	  <item quantity="few">%d zile</item>
-	  <item quantity="other">%d zile</item>
-	</plurals>
-	<!-- as few symbols as possible -->
-	<string name="date_picker_сhoose_dates_cta">Selectați datele</string>
-	<!-- as few symbols as possible -->
-	<string name="guests_picker_rooms_title">Camere și oaspeți</string>
-	<string name="guests_picker_rooms">Camere</string>
-	<string name="guests_picker_adults">Adulți</string>
-	<string name="guests_picker_children_title">Copii</string>
-	<string name="guests_picker_children_subtitle">1-17 ani</string>
-	<string name="guests_picker_infants_title">Bebeluşi</string>
-	<string name="guests_picker_infants_subtitle">0-12 luni.</string>
-	<!-- as less symbols as possible -->
-	<string name="booking_map_component_availability">Nu există locuri</string>
-	<!-- as few symbols as possible -->
-	<string name="booking_map_component_filters">Fără filtrare</string>
-	<string name="choose_dates_online_only_dialog_title">Nu există conexiune</string>
-	<string name="choose_dates_online_only_dialog_message">Alegerea datelor și a numărului de oaspeți este disponibilă doar online. Verificați-vă setările și asigurați-vă că sunteți conectat la Internet.</string>
-	<string name="choose_dates_online_only_dialog_cta">Setări</string>
-	<string name="thirty_days_limit_dialog">Rezervabil pentru maxim 30 de nopți</string>
-	<string name="whatsnew_trial_cta">Încercați</string>
-	<string name="subscription_terms_guides_outdoor">Plata va fi percepută pe contul dvs. iTunes la confirmarea achiziției. Abonamentul se va reînnoi automat, cu excepția cazului în care reînnoirea automată este dezactivată cu cel puțin 24 de ore înainte de sfârșitul perioadei curente. Numerarul va fi debitat din contul dvs. în conformitate cu planul dvs. de reînnoire în termen de 24 de ore înainte de sfârșitul perioadei curente. Puteți gestiona sau dezactiva reînnoirea automată accesând setările contului dvs. Apple ID în orice moment după cumpărare. Veți putea utiliza ghidurile descărcate prin abonament doar în perioada de valabilitate. După 7 de zile de la încheierea abonamentului, ghidurile cu toate marcajele vor fi șterse automat.\n* Abonamentul cu o perioadă de încercare gratuită se transformă automat într-un abonament plătit. Puteți anula sau gestiona reînnoirea automată a procesului gratuit accesând Setările contului dvs. după cumpărare. Anularea va intra în vigoare la 24 de ore de la ultima zi a perioadei curente de abonare și veți fi transferat la un abonament gratuit. Vă rugăm să rețineți: orice parte neutilizată a perioadei de încercare gratuită va fi anulată atunci când achiziționați un abonament plătit în această perioadă.</string>
-	<string name="subscription_terms_android_outdoor">Plata va fi percepută în contul dvs. Google Play la confirmarea achiziției. Abonamentul se va reînnoi automat, cu excepția cazului în care reînnoirea automată este dezactivată cu cel puțin 24 de ore înainte de sfârșitul perioadei curente. Numerarul va fi debitat din contul dvs. în conformitate cu planul dvs. de reînnoire în termen de 24 de ore înainte de sfârșitul perioadei curente. Puteți gestiona sau dezactiva reînnoirea automată accesând Setările contului dvs. după cumpărare. Veți putea utiliza ghidurile descărcate prin abonament doar în perioada de valabilitate. După 7 de zile de la încheierea abonamentului, ghidurile vor fi șterse automat.\n* Abonamentul cu o perioadă de încercare gratuită se transformă automat într-un abonament plătit. Puteți anula sau gestiona reînnoirea automată a procesului gratuit accesând Setările contului dvs. după cumpărare. Anularea va intra în vigoare la 24 de ore de la ultima zi a perioadei curente de abonare și veți fi transferat la un abonament gratuit. Vă rugăm să rețineți: orice parte neutilizată a perioadei de încercare gratuită va fi anulată atunci când achiziționați un abonament plătit în această perioadă.</string>
-	<string name="subscription_header">Abonați-vă la\n<b>Catalogul ghidurilor</b></string>
-	<!-- Max. 20 characters per 1 line. -->
-	<string name="all_pass_subscription_message_title_4">Ghiduri de călătorie\nde la Lonely Planet®</string>
-	<!-- <b> & </b> tag to make a part of the line bold -->
-	<string name="all_pass_subscription_message_subtitle_4">Chiar <b>mai multe experiențe</b> cu mii de locuri interesante de vizitat <b>de peste tot din lume</b></string>
-	<string name="content_by_component">Conținut oferit de: %s</string>
-	<string name="whatsnew_lp_title">Chiar și mai multe emoții</string>
-	<string name="whatsnew_lp_message">Ghidurile Lonely Planet sunt acum disponibile în aplicația noastră! Cele mai interesante atracții, plimbări tematice și destinații turistice unice pentru peste 7000 de orașe.</string>
-	<string name="collections_title">Colecții</string>
 	<string name="key_information_title">Informații cheie</string>
-	<string name="mustsee_title">Nu ratați</string>
-	<string name="see_lp_category">De vizitat</string>
-	<string name="play_lp_category">Joacă</string>
-	<string name="shop_lp_category">Cumpărături</string>
-	<string name="transport_lp_category">Transport</string>
-	<string name="sleep_lp_category">Cazare</string>
-	<string name="general_lp_category">General</string>
-	<string name="drink_lp_category">Localuri</string>
-	<string name="eat_lp_category">Restaurante</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Stație de teleferic</string>

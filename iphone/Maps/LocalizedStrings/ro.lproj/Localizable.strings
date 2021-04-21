@@ -94,7 +94,7 @@
 /* Button text for the button under the country_status_download_failed message */
 "try_again" = "Încercați din nou";
 
-"about_menu_title" = "Despre OMaps";
+"about_menu_title" = "Despre Organic Maps";
 
 "downloaded_touch_to_delete" = "Descărcat (%@). Atingeți pentru a șterge.";
 
@@ -110,7 +110,7 @@
 
 "external_storage_is_not_available" = "Cartela SD/dispozitivul de stocare USB cu hărțile descărcate nu este disponibil.";
 
-"disconnect_usb_cable" = "Vă rugăm să deconectați cablul USB sau să introduceți cartela de memorie pentru a putea utiliza OMaps.";
+"disconnect_usb_cable" = "Vă rugăm să deconectați cablul USB sau să introduceți cartela de memorie pentru a putea utiliza Organic Maps.";
 
 "not_enough_free_space_on_sdcard" = "Vă rugăm să eliberați spațiu pe cartela SD/dispozitivul de stocare USB pentru a putea utiliza aplicația.";
 
@@ -174,7 +174,7 @@
 "set" = "Set";
 
 /* Text hint in Bookmarks dialog when no any bookmarks are added */
-"bookmarks_usage_hint" = "Încă nu aveți niciun marcaj.\nAtingeți orice loc de pe hartă pentru a adăuga un marcaj.\nPot fi importate și afișate pe OMaps și marcaje din alte surse. Deschideți fișierul KML/KMZ, cu marcajele salvate din email, Dropbox sau de la un link web.";
+"bookmarks_usage_hint" = "Încă nu aveți niciun marcaj.\nAtingeți orice loc de pe hartă pentru a adăuga un marcaj.\nPot fi importate și afișate pe Organic Maps și marcaje din alte surse. Deschideți fișierul KML/KMZ, cu marcajele salvate din email, Dropbox sau de la un link web.";
 
 /* Settings button in system menu */
 "settings" = "Setări";
@@ -276,9 +276,9 @@
 "share_by_email" = "Partajare prin email";
 
 /* Email Subject when sharing bookmarks category */
-"share_bookmarks_email_subject" = "Marcaje OMaps partajate";
+"share_bookmarks_email_subject" = "Marcaje Organic Maps partajate";
 
-"share_bookmarks_email_body" = "Hello!\n\nAttached are my bookmarks from OMaps offline maps. Please open them if you have OMaps installed. Or, if you don't, download the app for your iOS or Android device by following this link: https://omaps.app/get?kmz\n\nEnjoy traveling with OMaps!";
+"share_bookmarks_email_body" = "Hello!\n\nAttached are my bookmarks from Organic Maps offline maps. Please open them if you have Organic Maps installed. Or, if you don't, download the app for your iOS or Android device by following this link: https://organicmaps.app/get?kmz\n\nEnjoy traveling with Organic Maps!";
 
 /* message title of loading file */
 "load_kmz_title" = "Se încarcă marcajele";
@@ -308,22 +308,22 @@
 "downloading_is_active" = "Descărcarea hărților pentru țara dorită este în curs.";
 
 /* Message that will be shown in alert view, when we ask user to leave review on App Store */
-"appStore_message" = "Sperăm că vă place OMaps! Dacă da, vă rugăm să o votați sau să scrieți o recenzie în App Store. Durează mai puțin de un minut, dar pe noi ne ajută foarte mult. Vă mulțumim pentru susținere!";
+"appStore_message" = "Sperăm că vă place Organic Maps! Dacă da, vă rugăm să o votați sau să scrieți o recenzie în App Store. Durează mai puțin de un minut, dar pe noi ne ajută foarte mult. Vă mulțumim pentru susținere!";
 
 /* No, thanks */
 "no_thanks" = "Nu, mulțumesc";
 
 /* Share one specific bookmark using SMS, %1$@ contains ge0:// and %2$@ http://ge0.me link. @NOTE non-ascii symbols in the link will make 70 bytes sms instead of 140 */
-"bookmark_share_sms" = "Hei, poți vedea care este poziția mea pe OMaps! %1$@ sau %2$@ Nu ai instalate hărțile offline? Descarcă de aici: https://omaps.app/get";
+"bookmark_share_sms" = "Hei, poți vedea care este poziția mea pe Organic Maps! %1$@ sau %2$@ Nu ai instalate hărțile offline? Descarcă de aici: https://organicmaps.app/get";
 
 /* Share my position using SMS, %1$@ contains ge0:// and %2$@ http://ge0.me link WITHOUT NAME. @NOTE non-ascii symbols in the link will make 70 bytes sms instead of 140 */
-"my_position_share_sms" = "Hei, îmi poți vedea poziția actuală pe OMaps! %1$@ sau %2$@ Nu ai hărțile offline? Descarcă de aici: https://omaps.app/get";
+"my_position_share_sms" = "Hei, îmi poți vedea poziția actuală pe Organic Maps! %1$@ sau %2$@ Nu ai hărțile offline? Descarcă de aici: https://organicmaps.app/get";
 
 /* Subject for emailed bookmark */
-"bookmark_share_email_subject" = "Hei, poți vedea care este poziția mea pe harta OMaps!";
+"bookmark_share_email_subject" = "Hei, poți vedea care este poziția mea pe harta Organic Maps!";
 
 /* Subject for emailed position */
-"my_position_share_email_subject" = "Hei, îmi poți vedea poziția actuală pe harta OMaps!";
+"my_position_share_email_subject" = "Hei, îmi poți vedea poziția actuală pe harta Organic Maps!";
 
 /* Share my position using EMail, %1$@ is ge0:// and %2$@ is http://ge0.me link WITHOUT NAME */
 "my_position_share_email" = "Chào,\n\nTôi hiện đang ở đây: %1$@. Hãy nhấn vào liên kết này %2$@ hoặc liên kết này %3$@ để xem địa điểm trên bản đồ.\n\nCám ơn.";
@@ -492,16 +492,16 @@
 "download_map_notification" = "Descărcați harta locului în care vă aflați";
 
 /* text of notification */
-"pro_version_is_free_today" = "Full version of OMaps is free today! Download now and tell your friends.";
+"pro_version_is_free_today" = "Full version of Organic Maps is free today! Download now and tell your friends.";
 
 /* Dialog for transferring maps from lite to pro. */
-"move_lite_maps_to_pro" = "Transferăm hărțile dvs. descărcate din OMaps Lite în OMaps. Acest lucru poate dura câteva minute.";
+"move_lite_maps_to_pro" = "Transferăm hărțile dvs. descărcate din Organic Maps Lite în Organic Maps. Acest lucru poate dura câteva minute.";
 
 /* Message to display when maps moved. */
-"move_lite_maps_to_pro_ok" = "Hărțile dvs. descărcate sunt transferate cu succes către OMaps.";
+"move_lite_maps_to_pro_ok" = "Hărțile dvs. descărcate sunt transferate cu succes către Organic Maps.";
 
 /* Message to display when maps move failed. */
-"move_lite_maps_to_pro_failed" = "Your maps failed to transfer. Please delete OMaps Lite and download the maps again.";
+"move_lite_maps_to_pro_failed" = "Your maps failed to transfer. Please delete Organic Maps Lite and download the maps again.";
 
 /* Text in menu */
 "settings_and_more" = "Setări și altele";
@@ -510,7 +510,7 @@
 "website" = "Site web";
 
 /* Text in menu */
-"maps_me_community" = "Comunitatea OMaps";
+"maps_me_community" = "Comunitatea Organic Maps";
 
 /* Text in menu */
 "like_on_facebook" = "Apreciați-ne pe Facebook";
@@ -540,13 +540,13 @@
 "report_a_bug" = "Raportați o eroare";
 
 /* Email subject */
-"subscribe_me_subject" = "Abonează-mă la buletinul informativ OMaps.";
+"subscribe_me_subject" = "Abonează-mă la buletinul informativ Organic Maps.";
 
 /* Email body */
 "subscribe_me_body" = "Vreau să fiu primul care află despre cele mai recente actualizări și promoții. Îmi pot anula abonamentul în orice moment.";
 
 /* About text */
-"about_text" = "OMaps oferă cele mai rapide hărți offline ale tuturor orașelor, tuturor țărilor din lume. Călătoriți cu încredere deplină: oriunde v-ați afla, OMaps vă ajută să vă reperați poziția pe hartă, să găsiți cel mai apropiat restaurant sau hotel, cea mai apropiată bancă sau benzinărie etc. Nu necesită conexiune la internet.\n\nLucrăm încontinuu să introducem funcții noi și ne-ar face mare plăcere să ne comunicați cum credeți dvs. că am putea îmbunătăți OMaps. Dacă aveți probleme cu aplicația, nu ezitați să ne contactați la adresa support@omaps.app. Răspundem la fiecare solicitare!\n\nVă place OMaps și doriți să ne susțineți? Iată câteva moduri simple și complet gratuite:\n- publicați o recenzie în magazinul de aplicații\n- apreciați-ne pagina de Facebook: http://www.facebook.com/mapswithme\n- sau spuneți și mamei, prietenilor și colegilor despre OMaps. :)\n\nVă mulțumim că ne sunteți alături. Vă apreciem foarte mult susținerea!\n\nP.S. Noi preluăm datele din OpenStreetMap, un proiect de cartografiere similar Wikipediei, ce permite utilizatorilor să creeze și să editeze hărți. Dacă vedeți că ceva lipsește sau este greșit pe hartă, puteți corecta hărțile direct la adresa: https://www.openstreetmap.org, iar modificările dvs. vor apărea în aplicația OMaps atunci când va fi lansată versiunea următoare.";
+"about_text" = "Organic Maps oferă cele mai rapide hărți offline ale tuturor orașelor, tuturor țărilor din lume. Călătoriți cu încredere deplină: oriunde v-ați afla, Organic Maps vă ajută să vă reperați poziția pe hartă, să găsiți cel mai apropiat restaurant sau hotel, cea mai apropiată bancă sau benzinărie etc. Nu necesită conexiune la internet.\n\nLucrăm încontinuu să introducem funcții noi și ne-ar face mare plăcere să ne comunicați cum credeți dvs. că am putea îmbunătăți Organic Maps. Dacă aveți probleme cu aplicația, nu ezitați să ne contactați la adresa support@organicmaps.app. Răspundem la fiecare solicitare!\n\nVă place Organic Maps și doriți să ne susțineți? Iată câteva moduri simple și complet gratuite:\n- publicați o recenzie în magazinul de aplicații\n- apreciați-ne pagina de Facebook: http://www.facebook.com/OMapsApp\n- sau spuneți și mamei, prietenilor și colegilor despre Organic Maps. :)\n\nVă mulțumim că ne sunteți alături. Vă apreciem foarte mult susținerea!\n\nP.S. Noi preluăm datele din OpenStreetMap, un proiect de cartografiere similar Wikipediei, ce permite utilizatorilor să creeze și să editeze hărți. Dacă vedeți că ceva lipsește sau este greșit pe hartă, puteți corecta hărțile direct la adresa: https://www.openstreetmap.org, iar modificările dvs. vor apărea în aplicația Organic Maps atunci când va fi lansată versiunea următoare.";
 
 /* Alert text */
 "email_error_body" = "Nu a fost setat clientul de email. Vă rugăm să o configurați sau să utilizați un alt mod de a ne contacta la %@.";
@@ -564,7 +564,7 @@
 "routing_map_outdated" = "Vă rugăm să actualizați harta pentru a crea o rută.";
 
 /* Update maps suggestion */
-"routing_update_maps" = "Noua versiune a OMaps vă permite să creați rute din poziția dvs. actuală către un punct de destinație. Vă rugăm să actualizați harta pentru a utiliza această funcție.";
+"routing_update_maps" = "Noua versiune a Organic Maps vă permite să creați rute din poziția dvs. actuală către un punct de destinație. Vă rugăm să actualizați harta pentru a utiliza această funcție.";
 
 /* Update all button text */
 "downloader_update_all_button" = "Actualizați toate";
@@ -592,7 +592,7 @@
 "downloader_search_results" = "S-au găsit";
 
 /* Disclaimer message */
-"routing_disclaimer" = "Atunci când creați rute în aplicația OMaps, vă rugăm să nu uitați următoarele:\n\n- Rutele sugerate pot fi luate în considerare numai ca recomandări.\n- Harta poate fi incorectă sau neactualizată, iar rutele pot să nu fie create în cel mai bun mod posibil.\n- Condițiile de trafic, regulile și semnele de circulație au prioritate mai mare decât sugestiile de navigare.\n\nCirculați cu atenție și aveți grijă de dvs.!";
+"routing_disclaimer" = "Atunci când creați rute în aplicația Organic Maps, vă rugăm să nu uitați următoarele:\n\n- Rutele sugerate pot fi luate în considerare numai ca recomandări.\n- Harta poate fi incorectă sau neactualizată, iar rutele pot să nu fie create în cel mai bun mod posibil.\n- Condițiile de trafic, regulile și semnele de circulație au prioritate mai mare decât sugestiile de navigare.\n\nCirculați cu atenție și aveți grijă de dvs.!";
 
 /* Outdated maps category */
 "downloader_outdated_maps" = "Neactualizată";
@@ -628,7 +628,7 @@
 "routing_failed_route_not_found" = "Nu am găsit nicio rută între punctul de pornire și destinația selectată. Vă rugăm să alegeți un alt punct de pornire sau de destinație.";
 
 /* InternalError */
-"routing_failed_internal_error" = "A survenit o eroare internă. Vă rugăm să încercați să ștergeți și să descărcați harta din nou. Dacă problema persistă, vă rugăm să ne contactați la adresa support@omaps.app.";
+"routing_failed_internal_error" = "A survenit o eroare internă. Vă rugăm să încercați să ștergeți și să descărcați harta din nou. Dacă problema persistă, vă rugăm să ne contactați la adresa support@organicmaps.app.";
 
 /* Context menu item for downloader. */
 "downloader_download_map_and_routing" = "Descărcare hartă + traseu";
@@ -675,10 +675,10 @@
 "rating_just_rated" = "Tocmai ți-am votat aplicația";
 
 /* Text for rating dialog */
-"rating_user_since" = "Sunt utilizator OMaps din %@";
+"rating_user_since" = "Sunt utilizator Organic Maps din %@";
 
 /* Text for rating dialog */
-"rating_do_like_maps" = "Îți place OMaps?";
+"rating_do_like_maps" = "Îți place Organic Maps?";
 
 /* Text for rating dialog */
 "rating_tap_star" = "Apasă pe una dintre stele pentru a ne vota aplicația";
@@ -702,7 +702,7 @@
 "routing_download_map" = "Descărcați harta";
 
 /* Text for routing error dialog */
-"routing_download_map_and_routing" = "Descărcați harta actualizată și informațiile pentru direcționare, pentru a beneficia de toate funcțiile OMaps.";
+"routing_download_map_and_routing" = "Descărcați harta actualizată și informațiile pentru direcționare, pentru a beneficia de toate funcțiile Organic Maps.";
 
 /* Text for routing error dialog */
 "routing_get_routing_data" = "Descărcați informațiile pentru direcționare";
@@ -923,7 +923,7 @@
 
 "rate_alert_title" = "Vă place aplicația?";
 
-"rate_alert_default_message" = "Vă mulțumim că folosiți OMaps. Vă rugăm să dați o notă aplicației. Comentariile dvs. ne ajută să devenim mai buni.";
+"rate_alert_default_message" = "Vă mulțumim că folosiți Organic Maps. Vă rugăm să dați o notă aplicației. Comentariile dvs. ne ajută să devenim mai buni.";
 
 "rate_alert_five_star_message" = "Ura! Și noi vă iubim!";
 
@@ -1034,7 +1034,7 @@
 
 "editor_report_problem_duplicate_place_title" = "Locație dublată";
 
-"first_launch_congrats_title" = "OMaps este gata pentru utilizare";
+"first_launch_congrats_title" = "Organic Maps este gata pentru utilizare";
 
 "first_launch_congrats_text" = "Căutați și navigați în regim offline oriunde în lume, în mod gratuit.";
 
@@ -1218,7 +1218,7 @@
 
 "whatsnew_editor_message_1" = "Adăugați locuri noi pe hartă și modificați-le pe cele existente direct din aplicație.";
 
-"whatsnew_editor_message_2" = "* OMaps folosește datele comunității OpenStreetMap community.";
+"whatsnew_editor_message_2" = "* Organic Maps folosește datele comunității OpenStreetMap community.";
 
 "dialog_incorrect_feature_position" = "Schimbare locație";
 
@@ -1231,7 +1231,7 @@
 /* Error dialog no space */
 "migration_no_space_message" = "Aveți nevoie de mai mult spațiu ca să descărcați. Vă rugăm să ștergeți toate informațiile inutile.";
 
-"editor_sharing_title" = "Am îmbunătățit hărțile OMaps";
+"editor_sharing_title" = "Am îmbunătățit hărțile Organic Maps";
 
 "editor_comment_will_be_sent" = "Vom trimite comentariul dumneavoastră cartografilor.";
 
@@ -1262,7 +1262,7 @@
 
 "editor_detailed_description_hint" = "Comentariu detaliat";
 
-"editor_detailed_description" = "Modificările sugerate vor trimise către comunitatea OpenStreetMap. Descrieți detalii ce nu pot fi adăugate în be the details which cannot be edited in OMaps.";
+"editor_detailed_description" = "Modificările sugerate vor trimise către comunitatea OpenStreetMap. Descrieți detalii ce nu pot fi adăugate în be the details which cannot be edited in Organic Maps.";
 
 "editor_more_about_osm" = "Mai multe despre OpenStreetMap";
 
@@ -1339,10 +1339,6 @@
 
 "placepage_open_24_7" = "24 / 7";
 
-"place_page_booking_rating" = "Evaluare: %s";
-
-"place_page_starting_from" = "din %s";
-
 "meter" = "m";
 
 "kilometer" = "km";
@@ -1410,17 +1406,9 @@
 
 "editor_profile_rating_place" = "Poziţie în clasament";
 
-"booking_dialog_not_connect_header" = "Pentru a face o rezervare la un hotel, activaţi conexiunea la Internet";
-
-"button_try" = "Încercaţi-o";
-
 "refresh" = "Actualizați";
 
 "last_update" = "Ultima actualizare: %s";
-
-"booking_checkin" = "check in: %s";
-
-"booking_checkout" = "check out: %s";
 
 "placepage_add_place_button" = "Adăugați un loc pe hartă";
 
@@ -1453,9 +1441,6 @@
 /* iOS dialog for the case when recent track recording is on and the app comes back from background */
 "recent_track_background_dialog_title" = "Dezactivați înregistrarea celui mai recent traseu urmat?";
 
-/* If a hotel is being shared */
-"sharing_booking" = "sau rezervați pe booking.com";
-
 "off_recent_track_background_button" = "Dezactivare";
 
 /* For sharing via SMS and so on */
@@ -1463,7 +1448,7 @@
 
 "continue_recent_track_background_button" = "Continuare";
 
-"recent_track_background_dialog_message" = "OMaps folosește în fundal geo-locația pentru a înregistra cel mai recent traseu urmat.";
+"recent_track_background_dialog_message" = "Organic Maps folosește în fundal geo-locația pentru a înregistra cel mai recent traseu urmat.";
 
 /* Rate on Google Play (Android only) */
 "rate_gp" = "Dați un calificativ pe Google Play";
@@ -1472,10 +1457,10 @@
 "tell_friends" = "Spuneți unui prieten";
 
 /* Share with friends: sharing text */
-"tell_friends_text" = "Bună! Instalați OMaps!";
+"tell_friends_text" = "Bună! Instalați Organic Maps!";
 
 /* About short text (below logo) */
-"about_description" = "OMaps este o aplicație offline esențială când călătoriți. OMaps utilizează datele OpenStreeMap și permite editarea acestora.";
+"about_description" = "Organic Maps este o aplicație offline esențială când călătoriți. Organic Maps utilizează datele OpenStreeMap și permite editarea acestora.";
 
 /* Text in menu */
 "blog" = "Blog";
@@ -1495,51 +1480,7 @@
 /* For the first routing */
 "decline" = "Refuzați";
 
-"whats_new_route_profile_title" = "Mai bine căutați soluții decât să greșiți";
-
-"whats_new_route_profile_message" = "Pentru rutele pentru pietoni și bicicliști, afișam acum profilul de elevație.";
-
-"whats_new_booking_improve_title" = "Economisiți bani când rezervați hoteluri";
-
-"whats_new_booking_improve_message" = "Rezultatele de căutare pentru hoteluri conțin acum categoria de preț. \nAm mai adăugat și peste 110.000 de hoteluri.";
-
-/* For place page hotel facilities block */
-"placepage_hotel_facilities" = "Facilităţi";
-
-/* For place page hotel nearby block */
-"placepage_hotel_nearby" = "În apropiere";
-
-/* For ordering a taxi (as opposed to hotels or other things) */
-"taxi_order" = "Comandați un taxi";
-
-/* How long it is until the taxi arrives */
-"taxi_wait" = "Așteptat în %s";
-
-/* When there are no available taxis nearby */
-"taxi_not_found" = "Nu am găsit niciun taxi în apropiere ";
-
-/* When there are no available taxi providers nearby */
-"taxi_no_providers" = "Serviciul de taxi nu este disponibil aici";
-
 "install_app" = "Instalați";
-
-/* `Filter` is a noun here */
-"booking_filters" = "Filtrare";
-
-"booking_filters_reset" = "Resetare";
-
-/* Beginning from a particular value and */
-"booking_filters_rating" = "Evaluări de la";
-
-"booking_filters_rating_any" = "Oricare";
-
-"booking_filters_ragting_good" = "Bine";
-
-"booking_filters_rating_very_good" = "Foarte bine";
-
-"booking_filters_rating_excellent" = "Excelent";
-
-"booking_filters_price_category" = "Categorie de preț";
 
 "search_no_results_title" = "Nu au fost găsite rezultate";
 
@@ -1551,28 +1492,6 @@
 
 /* noun */
 "search_in_table" = "Listă";
-
-"booking_show_more" = "Arată mai multe";
-
-"booking_reviews" = "Comentarii";
-
-"booking_hotel" = "Hotel";
-
-/* hotel room */
-"booking_hotel_room" = "Cameră";
-
-/* A neologism for a chat based on geographical proximity */
-"chat" = "Geochat";
-
-/* Verb. Text on a button that opens the chat. */
-"chat_open" = "Deschideți";
-
-"dialog_taxi_offline" = "Comandarea unui taxi nu se poate face în modul offline.";
-
-"dialog_taxi_error" = "Comandarea unui taxi este momentan indisponibilă.";
-
-/* Abbreviated for all languages. */
-"advertisement" = "AD";
 
 "mobile_data_dialog" = "Folosiți internetul mobil pentru a afişa informaţii detaliate?";
 
@@ -1596,7 +1515,7 @@
 
 "big_font" = "Măriți dimensiunea fontului pe hartă";
 
-"traffic_update_app" = "Vă rugăm să actualizaţi OMaps";
+"traffic_update_app" = "Vă rugăm să actualizaţi Organic Maps";
 
 /* "traffic" as in road congestion */
 "traffic_update_app_message" = "Pentru a afişa datele privind traficul, aplicația trebuie actualizată.";
@@ -1607,69 +1526,14 @@
 /* "Translation is no needed, because it's a company name" */
 "uber" = "Uber";
 
-/* Seven points and higher */
-"booking_filter_rating_num_good" = "7.0+";
-
-/* Eight points and higher */
-"booking_filter_rating_num_very_good" = "8.0+";
-
-/* Nine points and higher */
-"booking_filter_rating_num_excellent" = "9.0+";
-
-"booking_filter_price_low" = "$";
-
-"booking_filter_price_medium" = "$$";
-
-"booking_filter_price_high" = "$$$";
-
 /* Simplified colour scheme for traffic information, fewer colours are used to display traffic jams on the map. The string should be kept as short as possible */
 "pref_traffic_simplified_colors_title" = "Culori trafic simplificate";
 
 "enable_logging" = "Activare jurnalizare";
 
-"more_on_bookingcom" = "Mai multe pe Booking.com";
-
-"details_on_bookingcom" = "Detalii pe Booking.com";
-
-"reviews_on_bookingcom" = "Mai multe recenzii pe Booking.com";
-
 "offline_place_page_more_information" = "Conectați-vă la internet pentru a primi mai multe informații despre locație.";
 
 "failed_load_information" = "Încărcarea informațiilor a eșuat.";
-
-"booking_search" = "Booking.com";
-
-"whats_new_auto_update_updating_maps" = "Se actualizează hărțile";
-
-"whats_new_auto_update_title" = "Actualizați hărțile descărcate";
-
-"whats_new_auto_update_message" = "Actualizarea hărților vă ajută să păstrați actualizate informațiile despre obiecte";
-
-"whats_new_auto_update_button_size" = "Actualizare (%s)";
-
-"whats_new_auto_update_button_later" = "Actualizare manuală mai târziu";
-
-"search_hotel_filter_apartment" = "Apartamente";
-
-"search_hotel_filter_camp_site" = "Camping";
-
-"search_hotel_filter_chalet" = "Cabană";
-
-"search_hotel_filter_guest_house" = "Pensiune";
-
-"search_hotel_filter_hostel" = "Hostel";
-
-"search_hotel_filter_resort" = "Stațiuni";
-
-"search_hotel_filter_hotel" = "Hotel";
-
-"search_hotel_filter_motel" = "Motel";
-
-"create_campaign_button" = "Revendicați această afacere";
-
-"view_campaign_button" = "Afacerea este promovată";
-
-"search_hotel_filters_type" = "Tip";
 
 /* Settings: "Send general feedback" button */
 "feedback_general" = "Feedback general";
@@ -1744,65 +1608,7 @@
 
 "preloader_viator_button" = "Află mai multe";
 
-"whats_new_title_route" = "Au fost îmbunătățite traseele de biciclete și de pietoni";
-
-"whats_new_message_route" = "Am remediat erorile, am făcut crearea traseelor mai rapidă și am adăugat opriri intermediare";
-
-"whats_new_message_title_update" = "Am micșorat de 10 ori actualizările hărților";
-
-"whats_new_message_maps_update" = "Pentru a actualiza o hartă, nu trebuie decât să descarci datele care lipsesc";
-
 "start_from_my_position" = "Începând de la";
-
-"rating" = "Clasificare";
-
-"placepage_no_reviews" = "Nicio recenzie";
-
-"placepage_reviewed" = "Ați recenzat deja acest loc";
-
-"placepage_summary_rating" = "Calificativ sumar";
-
-"placepage_rate_comment" = "Atingeți pentru a evalua și a recenza acest loc.";
-
-"placepage_rate_horrible" = "Oribil";
-
-"placepage_rate_bad" = "Rău";
-
-"placepage_rate_normal" = "Normal";
-
-"placepage_rate_good" = "Bine";
-
-"placepage_rate_excellent" = "Excelent";
-
-"placepage_reviews_most_recent" = "Cele mai recente";
-
-"placepage_reviews_most_useful" = "Cele mai utile";
-
-"placepage_reviews_highest_rated" = "Cele mai bune calificative";
-
-"placepage_reviews_lowest_rated" = "Cele mai slabe calificative";
-
-"placepage_reviews_offline_comment" = "În modul offline nu sunt afișate decât cele mai utile recenzii";
-
-"placepage_reviews_your_comment" = "Recenzia dvs";
-
-"placepage_reviews_unhelpful" = "Inutile";
-
-"placepage_reviews_inappropriate" = "Inadecvate";
-
-"placepage_reviews_spam" = "Spam";
-
-"placepage_reviews_hint" = "Ce a fost bun sau rău aici?";
-
-"placepage_reviews_edit_your_review" = "Editați recenzia";
-
-"placepage_reviews_new_review" = "Recenzie nouă";
-
-"placepage_translate_button" = "Traducere";
-
-"placepage_show_original_button" = "Afișare original";
-
-"placepage_more_reviews_booking_button" = "Mai multe recenzii pe Booking.com";
 
 "profile_authorization_title" = "Conectare cu";
 
@@ -1826,41 +1632,11 @@
 
 "quality" = "Calitate";
 
-"whats_new_ugc_title_updated_v840" = "Calificative și recenzii";
-
-"whats_new_ugc_message" = "Acum puteți lăsa calificative și recenzii chiar și când sunteți offline! Nu uitați să vă actualizați hărțile pentru a vedea modificările.";
-
 "dialog_error_storage_title" = "Problemă de accesare spațiu de stocare";
 
-"dialog_error_storage_message" = "Spațiul de stocare extern nu este disponibil. Probabil cardul SD nu este introdus, este deteriorat sau sistemul de fișiere este read-only. Verifică și contactează-ne la support@omaps.app";
+"dialog_error_storage_message" = "Spațiul de stocare extern nu este disponibil. Probabil cardul SD nu este introdus, este deteriorat sau sistemul de fișiere este read-only. Verifică și contactează-ne la support@organicmaps.app";
 
 "setting_emulate_bad_storage" = "Emulare stocare eronată";
-
-"discovery_button_title" = "Descoperire în apropiere";
-
-"discovery_button_subtitle_things_to_do" = "Activități";
-
-"discovery_button_subtitle_attractions" = "Atracții";
-
-"discovery_button_subtitle_eat_and_drink" = "Restaurante și baruri";
-
-"discovery_button_subtitle_local_guides" = "Ghizi locali";
-
-"discovery_button_viator_error_title" = "Eroare la încărcarea datelor";
-
-"discovery_button_other_error_message" = "Eroare la încărcarea datelor";
-
-"discovery_button_other_loading_message" = "Datele se încarcă";
-
-"discovery_button_404_error_title" = "Nu a fost găsit";
-
-"discovery_button_404_error_message" = "Ne pare rău, dar nu am găsit nimic interesant în jur.";
-
-"booking_filters_check_in" = "Cazare";
-
-"booking_filters_check_out" = "Plecare";
-
-"booking_filters_offline" = "Nu este disponibil offline.";
 
 "directions_finish" = "Destinație";
 
@@ -1875,18 +1651,6 @@
 "crowdedness" = "Aglomerație";
 
 "error_enter_correct_name" = "Introdu un nume corect";
-
-"hotel_available" = "Disponibil";
-
-"whats_new_transit_title" = "Metrou disponibil";
-
-"whats_new_transit_message" = "Creează-ți propriile trasee cu metroul! Actualizează hărțile pentru a vedea modificările.";
-
-"whats_new_discovery_title" = "Butonul Descoperă";
-
-"whats_new_discovery_message" = "Descoperă lucruri din apropiere cu un singur clic!";
-
-"price_per_hour" = "%s/oră";
 
 "bookmarks_backup" = "Activare backup";
 
@@ -1918,14 +1682,6 @@
 
 "downloader_applying" = "Aplicare %s...";
 
-"whats_new_title_hotel_filter" = "Sunt disponibile filtre noi pentru hoteluri!";
-
-"whats_new_message_hotel_filter" = "Rezervați camere la hoteluri disponibile la datele dorite de dvs.! Utilizați filtrele de cazare și plecare";
-
-"whats_new_title_ugc_travel" = "Comunicați-vă experiențele altor călători!";
-
-"whats_new_message_ugc_travel" = "Evaluați și recenzați locurile pe care le-ați vizitat!";
-
 "dialog_message_transit_not_found_connection" = "Planifică o rută într-o singură rețea de tranzit";
 
 "bookmarks_error_message_share_general" = "Imposibil de distribuit din cauza unei erori a aplicației";
@@ -1933,10 +1689,6 @@
 "bookmarks_error_title_share_empty" = "Eroare la distribuire";
 
 "bookmarks_error_message_share_empty" = "Nu se poate distribui o listă goală";
-
-"discovery_button_subtitle_book_hotels" = "Rezervă hoteluri";
-
-"maxim_taxi_title" = "maxim";
 
 "bookmarks_error_title_empty_list_name" = "Numele nu poate fi gol";
 
@@ -1978,10 +1730,6 @@
 
 "wn_reinvented_bookmarks_message" = "Aveți posibilitatea să copiați marcajele de rezervă, să creați liste... Este uimitor...";
 
-"wn_way_of_booking_title" = "Am reimaginat modul de rezervare!";
-
-"wn_way_of_booking_message" = "Găsiți un hotel pe hartă și rezervați-l sau selectați unul similar.";
-
 "bookmarks_restore" = "Restaurați marcajele";
 
 "bookmarks_restore_process" = "Restaurarea...";
@@ -2004,20 +1752,6 @@
 
 "restore" = "Restabili";
 
-"sign_message_gdpr" = "Pentru a continua, trebuie să acceptați Termenii de utilizare și Politica de confidențialitate. Citiți-le cu atenție.";
-
-"sign_agree_pp_gdpr" = "Sunt de acord cu <a href=\"%s\">Politica de confidențialitate</a>";
-
-"sign_agree_tof_gdpr" = "Sunt de acord cu <a href=\"%s\">Termenii și condițiile</a>";
-
-"sign_agree_news_gdpr" = "Sunt de acord să primesc ultimele știri despre produsele OMaps";
-
-"whats_new_localbiz_title" = "Întreprinderile mici merită atenție";
-
-"whats_new_localbiz_message" = "Anume cafenelele, hostelele și magazinele locale fac călătoriile de neuitat. Optimizăm gratuit pagina dvs. de afaceri în OMaps, astfel încât să o putem observa.";
-
-"whats_new_order_button" = "Solicitați";
-
 "bookmarks_page_downloaded" = "Fișierele descărcate";
 
 "bookmarks_page_my" = "Al mele";
@@ -2028,7 +1762,7 @@
 
 "cached_bookmarks_placeholder_title" = "Încărcați locuri noi";
 
-"cached_bookmarks_placeholder_subtitle" = "Faceți clic pe butonul pentru a descărca mii de locuri interesante și rute create de utilizatori OMaps. Veți avea nevoie de o conexiune la Internet.";
+"cached_bookmarks_placeholder_subtitle" = "Faceți clic pe butonul pentru a descărca mii de locuri interesante și rute create de utilizatori Organic Maps. Veți avea nevoie de o conexiune la Internet.";
 
 "downloader_download_routers" = "Descărcați tag-urile";
 
@@ -2040,7 +1774,7 @@
 
 "crash_reports" = "Rapoarte de eroare";
 
-"crash_reports_description" = "Putem folosi datele dvs. pentru a dezvolta și de a îmbunătăți OMaps. Modificările vor intra în vigoare după repornirea aplicației.";
+"crash_reports_description" = "Putem folosi datele dvs. pentru a dezvolta și de a îmbunătăți Organic Maps. Modificările vor intra în vigoare după repornirea aplicației.";
 
 "opt_out_help_ios_1" = "Puteți renunța la primirea de publicitate țintă în setările aparatului.";
 
@@ -2078,18 +1812,6 @@
 
 "subtitle_error_downloading_bookmarks" = "Tag-urile nu au fost încărcate";
 
-"whats_new_bookmarks_catalog_title" = "În OMaps a apărut un director de rute";
-
-"whats_new_bookmarks_catalog_message" = "Zeci de trasee detaliate din întreaga lume: unde să mergi, ce să vezi, în unde să mănânci.";
-
-"whats_new_popularity_label_title" = "Popular în apropiere";
-
-"whats_new_popularity_label_message" = "Secțiunea „Descoperire în apropiere” va ajuta să găsi cele mai populare locații din oraș.";
-
-"whats_new_hot_offers_title" = "Oferte avantajoase de hoteluri";
-
-"whats_new_hot_offers_message" = "Căutați-le cu ajutorul categoriei „Hoteluri” în căutare. Ofertele vor fi marcate cu o pictogramă % pe hartă și în lista.";
-
 "error_already_downloaded" = "Lista aceasta a fost descărcată deja";
 
 "popular_place" = "Popular";
@@ -2100,92 +1822,17 @@
 
 "bookmarks_downloaded_subtitle" = "Press ‘View on map’ to explore new places from the list";
 
-"guides" = "Ghiduri";
+"why_support" = "Pentru ce să susțineți Organic Maps?";
 
-"guide_downloaded_title" = "Ghidul a fost descărcat cu succes";
+"why_support_item1" = "We respect your privacy: there are zero trackers in the app, and we are open source";
 
-/* as few symbols as possible */
-"download_guides" = "Găsește ghiduri";
-
-"guides_groups_cached" = "Ghiduri descărcate";
-
-"subtitle_error_downloading_guide" = "Ghidul nu a fost descărcat";
-
-"error_already_downloaded_guide" = "Acest ghid a fost deja descărcat";
-
-"guide_downloaded_subtitle" = "Apasă butonul „Vizualizare pe hartă” pentru a explora ghidul";
-
-"bookmarks_guides" = "Marcaje și ghiduri";
-
-"paybtn_title" = "Achitați %s/an";
-
-"paybtn_subtitle" = "Economisiți %s/an";
-
-"options_dropdown_title" = "Alte variante";
-
-"why_support" = "Pentru ce să susțineți OMaps?";
-
-"options_dropdown_item1" = "%s/lună (economia %s/an)";
-
-"options_dropdown_item2" = "%s/săptămână (nu există economie)";
-
-"why_support_item1" = "Vom dezactiva toate reclamele pentru dvs";
-
-"why_support_item2" = "Voi ne ajutați să îmbunătățim OMaps";
+"why_support_item2" = "Voi ne ajutați să îmbunătățim Organic Maps";
 
 "why_support_item3" = "Voi ne ajutați să îmbunătățim hărțile OpenStreetMap.org";
 
-"purchase_processing" = "Achiziția dvs. este în curs de procesare…";
-
-"tips_bookmarks_catalog_title" = "Ghiduri offline pentru toate tipurile de călătorii";
-
-"tips_bookmarks_catalog_message" = "Descărcați și stabiliți rute turistice către locuri interesante din diferite orașe ale lumii.";
-
-"tips_discover_button_title" = "Doriți să găsiți localurile populare din zonă?";
-
-"tips_discover_button_message" = "În secțiunea „Descoperire în apropiere” sunt colectate cele mai bune și mai apropiate restaurante, hoteluri și locuri care merită văzute.";
-
-"tips_book_hotel_title" = "Rezervați cele mai confortabile hoteluri pentru odihna dumneavoastră";
-
-"tips_book_hotel_message" = "Cu ajutorul căutării și a filtrelor veți găsi cele mai bune hoteluri. Apăsați butonul „Rezervare” în cartea locului pentru rezervarea imediată a hotelului.";
-
-"tips_map_layers_title" = "Nu știți la care stație de metro să coborâți?";
-
-"tips_map_layers_message" = "Activați stratul de metrou de pe hartă pentru a afișa schema de metrou și vă veți putea orienta mereu într-un oraș nou.";
-
 "channels_map_update" = "Actualizarea hărților";
 
-"channels_reviews" = "Recenzii netrimise";
-
-"purchase_loading" = "Încărcăm informația despre cumpărături…";
-
-"purchase_error_subtitle" = "În timpul procesării achiziției dumneavoastre a apărut o eroare";
-
-"awaiting_approval" = "Așteptăm confirmarea părinților";
-
-"whats_new_leave_review" = "Lăsați un comentariu! Împărtășiți părerea dumneavoastră despre locurile pe care le-ați vizitat în vacanță.";
-
 "server_unavailable_title" = "Serverul nu este disponibil";
-
-"server_unavailable_message" = "Achiziția va fi finalizată mai târziu. Dacă eroarea se repetă, contactați support@omaps.app.";
-
-"offline_fiters_check_in" = "Conectați-vă la internet pentru a putea alege data sosirii și plecării.";
-
-"rutaxi_title" = "RuTaxi";
-
-"restore_subscription" = "Restabiliți abonamentul";
-
-"restore_success_alert" = "Abonamentul a fost restabilit";
-
-"restore_error_alert" = "A apărut o eroare la restabilirea abonamentului";
-
-"restore_no_subscription_alert" = "Nu există abonamente active";
-
-"subscriptions_title" = "Abonamente";
-
-"manage_subscription" = "Administrare abonament";
-
-"taxi" = "Taxi";
 
 "sharing_options" = "Setările accesului";
 
@@ -2197,13 +1844,13 @@
 
 "hide_from_map" = "Ascundeți de pe hartă";
 
-"ugc_route_tags_screen_label" = "Alegeți tag-urile";
-
-"ugc_route_tags_progress_msg" = "Încărcăm tag-urile…";
-
 "public_access" = "Acces public";
 
 "limited_access" = "Acces privat";
+
+"bookmark_category_name" = "Categorie";
+
+"bookmark_category_description_hint" = "Adăugați o descriere (text sau html)";
 
 /* FIXME */
 "bookmarks_public_access" = "bookmarks_public_access";
@@ -2214,33 +1861,11 @@
 /* FIXME */
 "bookmarks_private_access" = "bookmarks_private_access";
 
-"upload_and_publish_desc" = "Acest ghid va fi încărcat în catalogul public OMaps și va fi disponibil altor utilizatori";
-
-"upload_and_publish" = "Descărcați și publicați";
-
-"upload_and_get_direct_link" = "Descărcați și primiți linkul";
-
-"get_direct_link_desc" = "Ghidul dumneavoastră va fi disponibil printr-un link direct";
-
-"upload_and_publish_progress_text" = "Ghidul se publică…";
-
-"upload_and_publish_success" = "Ghidul a fost publicat";
-
-"ugc_routes_user_agreement" = "<b>ATRAGEȚI ATENȚIE:</b> continuând, dvs acceptați <a href=\"%s\">contractul de licență</a>";
-
-"ugc_route_edit_list_name" = "Denumirea ghidului";
-
-"ugc_route_edit_description_hint" = "Adăugați o descriere (text sau html)";
-
 "not_shared" = "Personal";
 
 "direct_link_progress_text" = "Încărcăm fișierul dumneavoastră…";
 
 "direct_link_success" = "Linkul a fost creat";
-
-"edit_guide_title" = "Redactați ghidul dvs online";
-
-"edit_guide_subtitle" = "Primiți linkul pentru editarea ghidului dvs prin intermediul aplicației web: adăugați descrierea locurilor, încărcați fotografii și conectați etichetele cu linii.";
 
 "send_a_link_btn" = "Trimiteți linkul";
 
@@ -2254,39 +1879,7 @@
 
 "unable_upload_error_subtitle_broken" = "Fișierul a fost deteriorat și nu poate fi încărcat. Vă rugăm, alegeți alt fișier.";
 
-"buy_btn" = "Cumpără un ghid la preț de %s";
-
-"download_guide_progress" = "Ghidul de călătorie se încarcă…";
-
-"price_error_title" = "Imposibil de aflat prețul";
-
-"price_error_subtitle" = "Vă rugăm să încercați încă odată peste câteva minute";
-
-"edit_your_guide_email_body" = "Redactați ghidul dvs pe calculator: adăugați descrierea locurilor, încărcați fotografii și conectați etichetele cu linii.";
-
-"edit_on_web" = "Editați online";
-
-"properties_loading_error_subtitle" = "În timpul încărcării opțiunilor s-a produs o eroare, vă rugăm încercați încă o dată";
-
-"custom_props_desc" = "Acest ghid l-ați făcut în calitate de";
-
-"custom_props_title" = "Localnic sau turist";
-
-"custom_props_local" = "localnic";
-
-"custom_props_traveler" = "turist";
-
-"select_properties" = "Alegeți opțiunile";
-
-"access_rules_p_to_p" = "Acces special";
-
-"access_rules_paid" = "Cumpărat";
-
-"failed_purchase_support_message" = "Se pare că aveți o achiziție nefinalizată. Vă rugăm să vă adresați la support, și noi vom rezolva problema.";
-
 "contact" = "Scrie";
-
-"check_price_button" = "Aflați prețul";
 
 "download_button" = "Descărcați";
 
@@ -2304,92 +1897,16 @@
 
 "place_description_title" = "Descrierea locului";
 
-"ugc_routes_error_uploading_file_toast" = "Din păcate, în timpul încărcării etichetelor a intervenit o greșeală. Vă rugăm să încercați încă o dată.";
-
-"notification_channel_ugc" = "Conținutul utilizatorului";
-
 /* this text will be shown in application notification preferences opposite checkbox which enable/disable downloader notifications. Devices on Android 8+ are affected. */
 "notification_channel_downloader" = "Încărcarea hărților";
 
-"notification_leave_review_title" = "%s - cum vă place aici?";
-
-"notification_leave_review_content" = "Lăsați comentariile dvs. și ajutați alți călători!";
-
-"share_bookmarks_email_body_link" = "Bună ziua!\n\nEtichetele dvs. le puteți descărca de pe linki-ul: %s. Deschideți lista cu ajutorul OMaps și primiți plăcere de la călătorie!\n\nDescărcați aplicația: https://omaps.app/get?kmz";
+"share_bookmarks_email_body_link" = "Bună ziua!\n\nEtichetele dvs. le puteți descărca de pe linki-ul: %s. Deschideți lista cu ajutorul Organic Maps și primiți plăcere de la călătorie!\n\nDescărcați aplicația: https://organicmaps.app/get?kmz";
 
 "warning_speedcams_title" = "Navigatorul o să avertizeze despre camerele video în cazul depășirii limitei de viteză cu %d km/h";
 
 "warning_speedcams_subtitle" = "Nu uitați să faceți cunoștință cu regulele de circulație în țara unde călătoriți.";
 
 "speedcams_notice_message" = "Auto - De avertizat despre camerele video de înregistrare a vitezei, dacă există riscul depășirii limitei de viteză\nMereu - De avertizat întotdeauna despre camerele video\nNiciodată - De nu avertizat niciodată despre camerele video";
-
-"whats_new_ugc_routes_title" = "Este ușor să vă împărtășiți impresiile";
-
-"whats_new_ugc_routes_subtitle" = "Salvați locurile memorabile, creați rute cu ajutorul marcajelor și distribuiți-le tuturor în catalogul OMaps.";
-
-"whats_new_webeditor_title" = "Transformați-vă rutele în povești";
-
-"whats_new_ugc_routes_message2" = "Adăugați fotografii și povești detaliate în editorul web.";
-
-"ugc_thanks_message_auth" = "Comentariul dvs. a fost salvat";
-
-"ugc_thanks_message_not_auth" = "Înregistrați-vă pentru a lăsa comentarii";
-
-"notification_leave_review_v2_title" = "Lăsați comentarii și ajutați călătorii!";
-
-"error_public_not_enought_title" = "Etichete insuficiente";
-
-"error_public_not_enought_subtitle" = "Pe traseul dvs. trebuie să fie cel puțin 3 etichete, pentru a le încărca în catalogul public";
-
-"bookmark_public_upload_alert_title" = "Sunteți doar la câțiva pași de încărcarea traseului dvs. în catalogul OMaps!";
-
-"bookmark_public_upload_alert_subtitle" = "Verificați ca traseul dvs. să aibă un nume și o descriere, iar etichetele să conțină informație despre locurile date. Datorită acestui fapt, utilizatorii vor găsi traseul și vor putea să se folosească de el în timpul călătoriei.";
-
-"bookmark_public_upload_alert_ok_button" = "Da, totul e ok!";
-
-"name_title" = "Introduceți denumirea";
-
-"name_placeholder" = "de exemplu, Pub-urile din Londra";
-
-"name_comment1" = "Dați un nume traseului, pentru ca utilizatorii să-l poată găsi cu ușurință, de exemplu \"Pub-urile din Londra\"";
-
-"name_comment2" = "Denumirea nu trebuie să conțină simboluri speciale. Nu publicați trasee cu denumirea \"Etichetele mele\"";
-
-"description_guide" = "Descriere";
-
-"description_title" = "Introduceți descrierea traseului";
-
-"description_placeholder" = "Descrieți detaliat traseul";
-
-"description_comment1" = "Descrierea traseului trebuie să conțină cel puțin 30 de simboluri.";
-
-"ugc_route_tags_desc" = "Vă rugăm să selectați tag-urile, pentru a ajuta alți călători să găsească ghidul dvs. Este obligatoriu. Nu mai mult de %s tag-uri.";
-
-"html_format_error_title" = "Traseul dvs. nu a fost publicat";
-
-"html_format_error_subtitle" = "Vă rugăm să verificați ca numele și descrierea etichetelor pe traseu să aibă un format corect. Îl puteți verifica în editorul nostru după butonul \"Editare online\" de mai jos.";
-
-"web_editor_description" = "Încărcați traseul și primiți link-ul pentru editarea la computer";
-
-"edit_on_web_confirm" = "Editare online";
-
-"update_guide" = "De încărcat o nouă versiune";
-
-"direct_link_updating_text" = "Actualizăm traseul…";
-
-"direct_link_updating_success" = "Traseul este actualizat";
-
-"unable_get_direct_link_desc" = "Puteți face schimb de traseu cu ajutorul unul link public";
-
-"any_access_update_alert_title" = "Posibil că există o nouă versiune a traseului";
-
-"any_access_update_alert_message" = "Vreți să actualizați etichetele? Noua versiune va fi accesibilă la același link.";
-
-"any_access_update_alert_update" = "Actualizare";
-
-"public_or_limited_access_after_edit_online_error_title" = "Ați editat traseul online";
-
-"public_or_limited_access_after_edit_online_error_message" = "În continuare editați, publicați și faceți schimb de trasee cu prietenii prin intermediul site-ului nostru";
 
 "power_managment_title" = "Modul de economisire a energiei";
 
@@ -2401,7 +1918,7 @@
 
 "power_managment_setting_manual_max" = "Economisire maximă a energiei";
 
-"enable_logging_warning_message" = "Aceasta opțiune se pornește pentru logarea acțiunii în scopul diagnosticării. Aceasta va ajuta echipei să găsească problemele legate de aplicație. Conectați opțiunea numai la solicitarea serviciului de suport OMaps.";
+"enable_logging_warning_message" = "Aceasta opțiune se pornește pentru logarea acțiunii în scopul diagnosticării. Aceasta va ajuta echipei să găsească problemele legate de aplicație. Conectați opțiunea numai la solicitarea serviciului de suport Organic Maps.";
 
 "html_error_upload_message_try_again" = "Verificați accesul la rețea și încercați încă o dată";
 
@@ -2417,21 +1934,9 @@
 
 "privacy_settings_menu" = "Setarea confidențialității";
 
-"gdpr_request_setting" = "Primiți ID pentru GDPR-ul solicitării";
-
-"gdpr_request_window_title" = "ID dvs.: %s.";
-
-"gdpr_request_window_message" = "Vă rugăm să copiați și să expediați cererea pe support@omaps.app";
-
-"gdpr_request_window_copy" = "Copierea ID";
-
 "unable_upadate_error_title" = "Nu s-a actualizat traseul";
 
 "unable_upadate_error_message" = "Au intervenit erori de actualizare. Verificați modificările și încercați încă o dată";
-
-"whats_new_wiki_title" = "Ce loc este acesta?";
-
-"whats_new_wiki_message" = "În fișierele locurilor atractive, am adăugat articole din Wikipedia.org, accesibile offline";
 
 "driving_options_title" = "Setarea ocolirii";
 
@@ -2467,31 +1972,7 @@
 
 "avoid_ferry_crossing_placepage" = "De evitat trecerile cu bac";
 
-"cached_guides_placeholder_subtitle" = "Ghiduri pregătire de OMaps sunt locuri selectare cu fotografii și descrieri, care se reflectă pe hartă și sunt accesibile off-line.";
-
-"guides_catalogue_title" = "Catalogul ghidurilor";
-
-"download_guides_button" = "De trecut în catalog";
-
 "type.cuisine.uzbek" = "Bucătărie uzbecă";
-
-"onboarding_guide_direct_download_title" = "Ghidul este gata pentru a fi încărcat";
-
-"onboarding_guide_direct_download_subtitle" = "Se va reflecta pe hartă și va funcționa on-line";
-
-"onboarding_guide_direct_download_button" = "De descărcat";
-
-"onboarding_bydeeplink_guide_title" = "Ghiduri elaborate în OMaps";
-
-"onboarding_bydeeplink_guide_subtitle" = "Locuri alese cu fotografii și descrieri se reflectă pe hartă și sunt accesibile off-line.";
-
-"whats_new_auto_update_bydeeplink_title" = "Înainte de a trece la ghiduri…";
-
-"whats_new_auto_update_bydeeplink_message" = "Actualizați hărțile pentru a primi informație actuală despre obiecte!";
-
-"whats_new_auto_update_and_proceed_button_size" = "De actualizat (%s) și de continuat";
-
-"purchase_please_wait_toast" = "Vă rugăm să nu părăsiți ecranul până la finalizarea cumpărăturii";
 
 "trip_start" = "Mergem";
 
@@ -2531,80 +2012,6 @@
 
 "ok" = "Ok";
 
-"vezet_taxi" = "Vezet";
-
-"booking_button_toolbar" = "Selectează hotel pe hartă";
-
-"popup_booking_download_guides_title" = "Rezervare hotel?";
-
-"popup_booking_download_guides_message" = "Planificați traseul cu ghidurile OMaps";
-
-"popup_mwm_download_guides_title" = "Ghiduri offline";
-
-"popup_mwm_download_guides_cta" = "Selectează";
-
-"popup_mwm_download_guides_cta_1" = "Privește";
-
-"gallery_pp_download_guides_offline_title" = "Planifică odihna ta cu OMaps!";
-
-"gallery_pp_download_guides_offline_subtitle" = "Nu ratați cel mai important cu traseele de la călători experimentați";
-
-"gallery_pp_download_guides_offline_cta" = "Conectare Internet";
-
-"gallery_pp_download_guides_title" = "Ghiduri";
-
-"native_screen_subscription_title" = "Acces la 2000+ghiduri!";
-
-"native_screen_subscription_message" = "O călătorie de neuitat, oriunde și cu oricine ai călători";
-
-"annual_subscription_title" = "Anual";
-
-"montly_subscription_title" = "Lunar";
-
-"annual_subscription_message" = "12 luni de acces nelimitat";
-
-"montly_subscription_message" = "1 lună de acces nelimitat";
-
-"annual_save_component" = "- %d%";
-
-"subscription_success_dialog_title" = "Vă mulțumim pentru abonare!";
-
-"subscription_success_dialog_message" = "Acum aveți un acces nelimitat la catalogul de ghiduri";
-
-"renewal_screen_title" = "Termenul de valabilitate a abonării a expirat";
-
-"renewal_screen_message" = "Toate ghidurile, descărcate la abonare vor fi eliminate. Doriți să restabiliți abonarea și să le păstrați?";
-
-"renewal_screen_button_restore" = "Da, restabilire";
-
-"renewal_screen_button_cancel" = "Nu, eliminare ghiduri";
-
-"subscription_error_ping_title" = "Nu a fost posibil de făcut cumpărătura";
-
-"subscription_error_message" = "Acum serviciul nu este disponibil în regiunea dvs. Vă rugăm să încercați mai târziu";
-
-"subscription_error_button" = "Clar";
-
-"timeout_error_title" = "Ups, timpul a expirat!";
-
-"timeout_error_message" = "Server-ul nostru nu răspunde. Vă rugăm să verificați conectarea la Internet și să încercați din nou.";
-
-"per_month" = "/lună";
-
-"per_year" = "/an";
-
-"buy_btn_for_subscription" = "Acces complet de la %s";
-
-"buy_btn_for_subscription_1" = "Cumpără toate ghidurile la preț de %s";
-
-"buy_btn_for_subscription_ios_only_mo" = "Acces complet de %s/lună";
-
-"buy_btn_for_subscription_ios_only_year" = "Acces complet de %s/an";
-
-"subscription_terms_guides" = "Plata se va efectua de pe contul dvs. iTunes la confirmarea cumpărăturii. Abonamentul va fi reînnoit automat, cu excepția cazului în care reînnoirea automată este oprită cu cel puțin 24 de ore înainte de sfârșitul perioadei curente. Banii vor fi debitați din contul dvs. în conformitate cu planul dvs. de tarifare de reînnoire în termen de 24 de ore de la sfârșitul perioadei curente. Aveți posibilitatea să gestionați reînnoirea automată sau s-o dezactivați în setările contului dvs. Apple ID în orice moment după cumpărare. Veți putea utiliza ghidurile descărcate prin abonament numai în perioada de valabilitate a acestuia. La expirarea a 30 de zile de la încheierea abonamentului, ghidurile cu toate marcajele vor fi șterse automat.";
-
-"subscription_terms" = "Plata va fi percepută din contul dvs. iTunes la confirmarea achiziției. Abonamentul va fi reînnoit în mod automat, cu excepția cazului în care reînnoirea automată este oprită cu cel puțin 24 de ore înainte de sfârșitul perioadei curente. Plata va fi percepută din contul dvs. în conformitate cu planul dvs. de reînnoire într-un interval de timp de 24 de ore înainte de încheierea perioadei curente. Puteți administra sau dezactiva reînnoirea automată din setările contului dvs. Apple ID în orice moment al achiziției.";
-
 "avoid_unpaved_carplay_1" = "Fără neasfal";
 
 "avoid_unpaved_carplay_2" = "Fără neasfaltat";
@@ -2621,7 +2028,7 @@
 
 "speedcams_alert_title_carplay_2" = "Info camere";
 
-"download_map_carplay" = "Vă rugăm să descărcați hărțile în aplicația OMaps de pe dispozitivul dvs.";
+"download_map_carplay" = "Vă rugăm să descărcați hărțile în aplicația Organic Maps de pe dispozitivul dvs.";
 
 "carplay_roundabout_exit" = "%s ieșire";
 
@@ -2708,138 +2115,9 @@
 /* Android, max 18 symbols */
 "bookmarks_delete_list" = "Ștergeți lista";
 
-"popup_subscription_success_map_title" = "Ura! Sunteți abonat!";
-
-"popup_subscription_success_map_message" = "Explorați acum cele mai faimoase obiective turistice în catalogul OMaps";
-
-"popup_subscription_success_map_start_button" = "Uitați-vă";
-
-"popup_subscription_success_map_not_now_button" = "Nu acum";
-
 "religious_places" = "Locuri sfinte";
 
-"subscription_terms_android" = "Plata se va face din contul dvs. Google Play la confirmarea achiziției. Abonamentul se va reînnoi automat, dacă reînnoirea automată nu este oprită cu cel puțin 24 de ore înainte de încheierea perioadei curente. Banii vor fi luați din contul dvs. în conformitate cu planul dvs. de reînnoire în termen de 24 de ore până la sfârșitul perioadei curente. Puteți gestiona reînnoirea automată sau o puteți dezactiva în setările contului dvs. după cumpărare. Veți putea utiliza ghidurile descărcate prin abonament doar în perioada de valabilitate. După 30 de zile de la terminarea abonamentului, ghidurile vor fi șterse automat.";
-
 "select_list" = "Alegeți lista";
-
-"pp_discovery_place_related_header" = "Acest loc în catalogul ghidurilor";
-
-"pp_discovery_place_related_header_1" = "Acest loc poate fi întâlnit în ghid";
-
-"pp_discovery_place_related_cta_button" = "De văzut";
-
-"pp_discovery_place_related_tag_header" = "Ghiduri după tag „%s”";
-
-"pp_discovery_place_related_tag_header_1" = "V-ar putea plăcea de asemenea";
-
-"buy_btn_for_subscription_version_2" = "TOATE ghidurile pentru doar %s/lună";
-
-"buy_btn_for_subscription_version_3" = "Tot catalogul pentru %s/lună";
-
-"buy_btn_for_subscription_ios_only_mo_version_2" = "Acces la catalog pentru %s/lună";
-
-"buy_btn_for_subscription_ios_only_year_version_2" = "Acces la catalog pentru %s/an";
-
-"subscription_screen_native_title_version_2" = "Acces la ghiduri cu înscripții pe hartă!";
-
-"subscription_screen_native_message_version_2" = "Fiți pregătiți pentru orice călătorie în peste 600+ orașe și în peste 100+ țări";
-
-"catalog_no_internet_title" = "Fără conexiune la internet";
-
-"catalog_no_internet_button" = "Încercați din nou";
-
-"new_onboarding_button" = "Mai departe";
-
-"new_onboarding_button_2" = "Începeți";
-
-"new_onboarding_step1_header" = "OMaps";
-
-"new_onboarding_step1_header_2" = "Asistent universal în călătorii";
-
-"new_onboarding_step2_header" = "Visează și planifică";
-
-"new_onboarding_step2_message" = "70+ milioane de locuri interesante, un catalog de ghiduri gata pregătite și rezervări de hoteluri de pe hartă – sunteți gata de călătorie!";
-
-"new_onboarding_step3_message" = "Hărțile offline detaliate și navigarea offline vă vor ajuta să nu vă pierdeți în locuri necunoscute!";
-
-"new_onboarding_step4_header" = "Împărtășiți-vă impresiile";
-
-"new_onboarding_step4_message" = "Salvați locurile preferate în favorite și trimiteți-le prietenilor";
-
-"new_onboarding_step5.1_header" = "Înainte de a începe…";
-
-"new_onboarding_step5.1_message" = "Nu uita să vizitezi noul nostru director de rute pentru a găsi un ghid offline pentru următoarea călătorie!";
-
-"new_onboarding_step5.1_button" = "Deschide directorul";
-
-"new_onboarding_step5.2_message" = "Abonamentul la catalogul ghidurilor de călătorie din OMaps – este profitabil. Obțineți acces complet la rute pentru plimbări prin oraș și activități în aer liber!";
-
-"new_onboarding_step5.2_button" = "Vezi termenii";
-
-"new_onboarding_step5.3_message" = "Descărcați și evaluați rutele pentru plimbări prin oraș și activități în aer liber, cu o selecție gratuită din OMaps!";
-
-"new_onboarding_step5.3_button" = "Descarcă gratuit";
-
-"new_onboarding_additional_steps_later_button" = "Nu acum";
-
-"all_pass_subscription_header" = "Abonați-vă la";
-
-"all_pass_subscription_subheader" = "Catalogul ghidurilor";
-
-/* \n - for a break between lines. Max. 15 characters per 1 line. */
-"all_pass_subscription_message_title" = "30000+\nghiduri\nși rute";
-
-/* <b> & </b> tag to make a part of the line bold */
-"all_pass_subscription_message_subtitle" = "<b>Descărcare nelimitată offline</b> de trasee pentru oraș și odihnă activă";
-
-/* \n - for a break between lines. Max. 17 characters per 1 line. */
-"all_pass_subscription_message_title_2" = "Profil\naltitudine\ninteractiv";
-
-/* <b> & </b> tag to make a part of the line bold */
-"all_pass_subscription_message_subtitle_2" = "Toate rutele se încarcă <b>împreună cu altitudinea și informațiile de bază despre traseu</b>";
-
-/* \n - for a break between lines. Max. 15 characters per 1 line. */
-"all_pass_subscription_message_title_3" = "Locații,\nimagini\nși recomandări";
-
-/* <b> & </b> tag to make a part of the line bold */
-"all_pass_subscription_message_subtitle_3" = "<b>Aflați totul despre traseul</b>, pe care intenționați să-l parcurgeți";
-
-/* do not translate */
-"sightseeing_subscription_header_sightseeing" = "City Pass";
-
-"sightseeing_subscription_header_subscription" = "Abonează-te la ghiduri";
-
-"sightseeing_subscription_message" = "700+ orașe și 100+ de țări";
-
-"sightseeing_subscription_message_2" = "Disponibile offline";
-
-"sightseeing_subscription_message_3" = "Foto și trasee de mers pe jos";
-
-"subscription_success_dialog_title_sightseeing_pass" = "Mulțumim pentru abonament!";
-
-"subscription_success_dialog_message_sightseeing_pass" = "Acum aveți acces la toate ghidurile orașului din catalog";
-
-"downloader_main_gallery_header" = "Hărți și ghiduri";
-
-"downloader_main_gallery_message" = "Acum, în această secțiune, puteți descărca nu doar numai hărți, dar puteți alege și ghiduri pentru următoarele călătorii";
-
-"downloader_main_1_element_gallery_header" = "Toate ghidurile";
-
-"downloader_main_1_element_gallery_message" = "în 100+ de țări";
-
-"downloader_country_1_element_gallery_header" = "%s rute";
-
-"downloader_country_no_guides_gallery_header" = "Nu există încă ghiduri în această țară";
-
-"downloader_country_no_guides_gallery_message" = "Consultați alte rute din 100+ de țări pentru activități în aer liber și oraș";
-
-"dialog_pedestrian_route_is_long" = "E prea mult timp ca sa ajungi la vehicul pe jos";
-
-"new_onboarding_step3_header" = "Călătoriți";
-
-"all_pass_screen_best_value" = "Preț avantajos";
-
-"buy_btn_for_subscription_3" = "Tot catalogul pentru %s/an";
 
 "transit_not_found" = "Navigarea pentru metrou nu este încă disponibilă în această regiune";
 
@@ -2852,7 +2130,7 @@
 
 "button_layer_isolines" = "Înălțimi";
 
-"tips_map_layers_title_countour" = "Linii de înălțimi offline pe OMaps!";
+"tips_map_layers_title_countour" = "Linii de înălțimi offline pe Organic Maps!";
 
 "tips_map_layers_message_countour" = "Liniile de înălțimi vă vor ajuta să planificați o călătorie în natură și să nu vă pierdeți";
 
@@ -2890,175 +2168,13 @@
 
 "elevation_profile_minutes" = "min";
 
-"view_on_map_downloaded_error" = "Acest ghid a fost șters de pe dispozitiv";
-
-"subscription" = "Abonare";
-
-"freenow_taxi_title" = "FREE NOW";
-
-"tinkoff_allairlines_map_downloader_title" = "Карта Тинькофф All Airlines. 3000 миль в подарок";
-
-"tinkoff_allairlines_map_downloader_cta_button" = "Оформить карту";
-
-"tinkoff_insurance_map_downloader_title" = "Полис Тинькофф со скидкой! Подходит для любых виз.";
-
-"tinkoff_insurance_map_downloader_cta_button" = "Промокод";
-
-"mts_map_downloader_title" = "Забугорище: интернет и звонки за границей как дома";
-
-"mts_map_downloader_cta_button" = "Подключить";
-
-"skyeng_map_downloader_title" = "Дарим 4 бесплатных урока английского от Skyeng.";
-
-"skyeng_map_downloader_cta_button" = "Подробнее";
-
-"button_layer_guides" = "Ghiduri (noutate)";
-
-"no_routes_in_the_area_toast" = "Nu există ghiduri aici";
-
 "isolines_toast_zooms_1_10" = "Măriți harta pentru a vedea contururile";
-
-"routes_layer_in_menu_toast" = "Includeți straturi pentru a găsi ghiduri offline, explorați contururile, ramurile de metrou sau blocajele de trafic";
-
-"routes_layer_is_on_toast" = "Mutați harta pentru a găsi ghiduri";
-
-"connection_error_dialog_guides_title" = "Eroare de conectare";
-
-"connection_error_dialog_guides_message" = "Stratul nu funcționează deoarece nu există internet sau semnalul este slab. Pentru a continua, verificați conexiunea sau opriți stratul.";
-
-"connection_error_dialog_guides_try" = "Încercați din nou";
-
-"connection_error_dialog_guides_layer_turn_off" = "Opriți";
-
-"connection_error_toast_guides" = "Restabilim conexiunea la Internet";
-
-/* as few symbols as possible */
-"routes_card_show" = "Arată pe hartă";
-
-/* as few symbols as possible */
-"routes_card_hide" = "Ascunde de pe hartă";
 
 "downloader_updating_ios" = "Actualizare";
 
 "downloader_loading_ios" = "Încărcare";
 
-"routes_card_plus_track" = "+ track";
-
-"routes_card_city" = "City";
-
-"routes_card_outdoor" = "Outdoor";
-
-"routes_card_number_of_points" = "%s locuri";
-
-"routes_card_routes_tag" = "Traseu";
-
-"routes_card_set_tag" = "Locuri atractive";
-
-/* as few symbols as possible */
-"guides_trial_cta_button" = "Încercați 7 zile gratuit";
-
-"guides_trial_message" = "Mai departe %s pe an. Anulați oricând";
-
-"trial_error_dialog" = "Ați profitat deja de perioada de încercare";
-
-/* as few symbols as possible */
-"floating_button_filters" = "Filtre";
-
-/* as few symbols as possible */
-"date_picker_сhoose_dates_cta" = "Selectați datele";
-
-/* as few symbols as possible */
-"guests_picker_rooms_title" = "Camere și oaspeți";
-
-"guests_picker_rooms" = "Camere";
-
-"guests_picker_adults" = "Adulți";
-
-"guests_picker_children_title" = "Copii";
-
-"guests_picker_children_subtitle" = "1-17 ani";
-
-"guests_picker_infants_title" = "Bebeluşi";
-
-"guests_picker_infants_subtitle" = "0-12 luni.";
-
-/* as less symbols as possible */
-"booking_map_component_availability" = "Nu există locuri";
-
-/* as few symbols as possible */
-"booking_map_component_filters" = "Fără filtrare";
-
-"choose_dates_online_only_dialog_title" = "Nu există conexiune";
-
-"choose_dates_online_only_dialog_message" = "Alegerea datelor și a numărului de oaspeți este disponibilă doar online. Verificați-vă setările și asigurați-vă că sunteți conectat la Internet.";
-
-"choose_dates_online_only_dialog_cta" = "Setări";
-
-"thirty_days_limit_dialog" = "Rezervabil pentru maxim 30 de nopți";
-
-"whatsnew_trial_cta" = "Încercați";
-
-"subscription_terms_guides_outdoor" = "Plata va fi percepută pe contul dvs. iTunes la confirmarea achiziției. Abonamentul se va reînnoi automat, cu excepția cazului în care reînnoirea automată este dezactivată cu cel puțin 24 de ore înainte de sfârșitul perioadei curente. Numerarul va fi debitat din contul dvs. în conformitate cu planul dvs. de reînnoire în termen de 24 de ore înainte de sfârșitul perioadei curente. Puteți gestiona sau dezactiva reînnoirea automată accesând setările contului dvs. Apple ID în orice moment după cumpărare. Veți putea utiliza ghidurile descărcate prin abonament doar în perioada de valabilitate. După 7 de zile de la încheierea abonamentului, ghidurile cu toate marcajele vor fi șterse automat.\n* Abonamentul cu o perioadă de încercare gratuită se transformă automat într-un abonament plătit. Puteți anula sau gestiona reînnoirea automată a procesului gratuit accesând Setările contului dvs. după cumpărare. Anularea va intra în vigoare la 24 de ore de la ultima zi a perioadei curente de abonare și veți fi transferat la un abonament gratuit. Vă rugăm să rețineți: orice parte neutilizată a perioadei de încercare gratuită va fi anulată atunci când achiziționați un abonament plătit în această perioadă.";
-
-"subscription_terms_android_outdoor" = "Plata va fi percepută în contul dvs. Google Play la confirmarea achiziției. Abonamentul se va reînnoi automat, cu excepția cazului în care reînnoirea automată este dezactivată cu cel puțin 24 de ore înainte de sfârșitul perioadei curente. Numerarul va fi debitat din contul dvs. în conformitate cu planul dvs. de reînnoire în termen de 24 de ore înainte de sfârșitul perioadei curente. Puteți gestiona sau dezactiva reînnoirea automată accesând Setările contului dvs. după cumpărare. Veți putea utiliza ghidurile descărcate prin abonament doar în perioada de valabilitate. După 7 de zile de la încheierea abonamentului, ghidurile vor fi șterse automat.\n* Abonamentul cu o perioadă de încercare gratuită se transformă automat într-un abonament plătit. Puteți anula sau gestiona reînnoirea automată a procesului gratuit accesând Setările contului dvs. după cumpărare. Anularea va intra în vigoare la 24 de ore de la ultima zi a perioadei curente de abonare și veți fi transferat la un abonament gratuit. Vă rugăm să rețineți: orice parte neutilizată a perioadei de încercare gratuită va fi anulată atunci când achiziționați un abonament plătit în această perioadă.";
-
-"sberbank_map_downloader_title" = "Откройте Сберкарту Тревел Mastercard и копите мили";
-
-"sberbank_map_downloader_cta_button" = "Узнать больше";
-
-"yango_taxi_title" = "Yango";
-
-"citymobil_taxi_title" = "Citymobil";
-
-"subscription_header" = "Abonați-vă la\n<b>Catalogul ghidurilor</b>";
-
-/* Max. 20 characters per 1 line. */
-"all_pass_subscription_message_title_4" = "Ghiduri de călătorie\nde la Lonely Planet®";
-
-/* <b> & </b> tag to make a part of the line bold */
-"all_pass_subscription_message_subtitle_4" = "Chiar <b>mai multe experiențe</b> cu mii de locuri interesante de vizitat <b>de peste tot din lume</b>";
-
-"content_by_component" = "Conținut oferit de: %s";
-
-"whatsnew_lp_title" = "Chiar și mai multe emoții";
-
-"whatsnew_lp_message" = "Ghidurile Lonely Planet sunt acum disponibile în aplicația noastră! Cele mai interesante atracții, plimbări tematice și destinații turistice unice pentru peste 7000 de orașe.";
-
-"collections_title" = "Colecții";
-
 "key_information_title" = "Informații cheie";
-
-"mustsee_title" = "Nu ratați";
-
-"see_lp_category" = "De vizitat";
-
-"play_lp_category" = "Joacă";
-
-"shop_lp_category" = "Cumpărături";
-
-"transport_lp_category" = "Transport";
-
-"sleep_lp_category" = "Cazare";
-
-"general_lp_category" = "General";
-
-"drink_lp_category" = "Localuri";
-
-"eat_lp_category" = "Restaurante";
-
-"taxi_category_order" = "Order";
-
-"arsenal_telemed_map_downloader_title" = "Онлайн консультации профессиональных врачей 24/7";
-
-"arsenal_flat_map_downloader_title" = "Уезжаешь? Позаботься о своей квартире и соседях.";
-
-"arsenal_crimea_map_downloader_title" = "Туристическая страховка отдыха в Крыму. От 15₽/день";
-
-"arsenal_russia_map_downloader_title" = "Путешествуй по России. Лечение COVID-19 включено!";
-
-"arsenal_abroad_map_downloader_title" = "Полис «Выезд за рубеж». Лечение COVID-19 включено!";
-
-"arsenal_cta_button" = "Оформить полис";
 
 "download_map_title" = "Download the world map";
 

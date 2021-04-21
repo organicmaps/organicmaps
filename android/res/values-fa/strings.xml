@@ -60,7 +60,7 @@
 	<string name="country_status_download_failed">دانلود با شکست مواجه شد</string>
 	<!-- Button text for the button under the country_status_download_failed message -->
 	<string name="try_again">تلاش مجدد</string>
-	<string name="about_menu_title">OMaps درباره‌ی</string>
+	<string name="about_menu_title">Organic Maps درباره‌ی</string>
 	<string name="downloaded_touch_to_delete">دانلود شده (%s),  برای حذف لمس کنید</string>
 	<string name="connection_settings">تنظیمات اتصال</string>
 	<string name="download_mb_or_kb">دانلود %s</string>
@@ -103,7 +103,7 @@
 	<!-- Add bookmark dialog - bookmark set, Bookmarks dialog - Bookmark set cell -->
 	<string name="set">مجموعه</string>
 	<!-- Text hint in Bookmarks dialog when no any bookmarks are added -->
-	<string name="bookmarks_usage_hint">شما تا کنون نشانه ای نداشته اید.\nبر روی مکانی از نقشه لمس کنید تا نشانه ای افزوده شود.\nنشانه ها را می توانید از جایی دیگر وارد کرده و در OMaps نمایش دهید.Open KML/KMZ file with saved bookmarks from email, Dropbox or weblink.</string>
+	<string name="bookmarks_usage_hint">شما تا کنون نشانه ای نداشته اید.\nبر روی مکانی از نقشه لمس کنید تا نشانه ای افزوده شود.\nنشانه ها را می توانید از جایی دیگر وارد کرده و در Organic Maps نمایش دهید.Open KML/KMZ file with saved bookmarks from email, Dropbox or weblink.</string>
 	<!-- Settings button in system menu -->
 	<string name="settings">تنظیمات</string>
 	<!-- Header of settings activity where user defines storage path -->
@@ -290,19 +290,19 @@
 	<!-- text of notification -->
 	<string name="download_map_notification">دانلود نقشه جایی که هستید</string>
 	<!-- text of notification -->
-	<string name="pro_version_is_free_today">نسخه کامل OMaps امروز رایگان است!دانلود کنید و به دوستان خود نیز بگویید</string>
+	<string name="pro_version_is_free_today">نسخه کامل Organic Maps امروز رایگان است!دانلود کنید و به دوستان خود نیز بگویید</string>
 	<!-- Dialog for transferring maps from lite to pro. -->
-	<string name="move_lite_maps_to_pro">ما در حال انتقال نقشه های دانلود شده شما از OMaps Lite به OMaps هستیم. ممکن است چند دقیقه طول بکشد.</string>
+	<string name="move_lite_maps_to_pro">ما در حال انتقال نقشه های دانلود شده شما از Organic Maps Lite به Organic Maps هستیم. ممکن است چند دقیقه طول بکشد.</string>
 	<!-- Message to display when maps moved. -->
-	<string name="move_lite_maps_to_pro_ok">نقشه های دانلود شده شما با موفقیت به OMaps منتقل شد.</string>
+	<string name="move_lite_maps_to_pro_ok">نقشه های دانلود شده شما با موفقیت به Organic Maps منتقل شد.</string>
 	<!-- Message to display when maps move failed. -->
-	<string name="move_lite_maps_to_pro_failed">انتقال نقشه با شکست مواجه شد.لطفا OMaps Lite حذف کرده و نقشه ها را دوباره دانلود نماید</string>
+	<string name="move_lite_maps_to_pro_failed">انتقال نقشه با شکست مواجه شد.لطفا Organic Maps Lite حذف کرده و نقشه ها را دوباره دانلود نماید</string>
 	<!-- Text in menu -->
 	<string name="settings_and_more">تنظیمات و بیشتر</string>
 	<!-- Text in menu -->
 	<string name="website">وب سایت</string>
 	<!-- Text in menu -->
-	<string name="maps_me_community">انجمن OMaps</string>
+	<string name="maps_me_community">انجمن Organic Maps</string>
 	<!-- Text in menu -->
 	<string name="like_on_facebook">ما را در فیسبوک لایک کنید</string>
 	<!-- Text in menu -->
@@ -322,11 +322,11 @@
 	<!-- Text in menu -->
 	<string name="report_a_bug">گزارش خطا</string>
 	<!-- Email subject -->
-	<string name="subscribe_me_subject">لطفا من را در خبرنامه OMaps مشترک کنید</string>
+	<string name="subscribe_me_subject">لطفا من را در خبرنامه Organic Maps مشترک کنید</string>
 	<!-- Email body -->
 	<string name="subscribe_me_body">من می خواهم اولین نفری باشم که در جریان اخرین اخبار واپدیت های نرم افزار قرار می گیرم.می دانم در هر زمان میتوان این اشتراک را لغو کرد.</string>
 	<!-- About text -->
-	<string name="about_text">OMaps  به شما سریع ترین نقشه های تمامی شهر ها و کشور های جهان را پیشنهاد می دهد. در هرجایی که هستید با اطمینان کامل سفر کنید. OMaps کمک می مند تا موقعیت خود و نزدیک ترین هتل ها,بانک ها,جایگاه های سوخت و چیز های دیگر را بر روی نقشه بیابید.وای کارهیچ نیازی به اتصال اینترنتی ندارد. \n\nما همیشه بر روی قابلیت های جدید کار می کنیم و دوست داریم که از طرف شما بشنویم که چطور می توانیم این نرم افزار مسیر یابی را بهتر از قبل نماییم. اگر هر مشکلی با برنامه داشتید تردید نکنید و در support\@omaps.app با ما تماس بگیرید.ما به تمامی درخواست ها پاسخ می دهیم! \n\n از OMaps راضی هستید و می خواهید از ما حمایت کنید؟ چند راه کاملا رایگان وجود دارد\n- برای ما یک نظر در فروشگاه نرم افزاری بنویسید \n- صفحه فیسبوک ما را http://www.facebook.com/mapswithme لایک کنید \n- یا از OMaps به مادرتان دوستانتان وهم دانشگاهیانتان بگویید:))\n\n متشکروسپاس گذاریم که با ما همکاری می کنید\n\nP.S. مانقشه های خود را از OpenStreetMap دریافت می کنیم این سایت همانند ویکیپدیا برای نقشه برداری است و به تمام کاربران خود اجازه می دهد تا در تکمیل نقشه ها کمک کنند اگر در نقشه مشاهده نمودید چیزی اشتباه بود یا وجود نداشت شما می توانید ان را مستقیما در سایت https://www.openstreetmap.org تصحیح یا اضافه کنید  و تغییرات ای را که ایجاد کرده اید را در اپدیت بعدی OMaps ببینید</string>
+	<string name="about_text">Organic Maps  به شما سریع ترین نقشه های تمامی شهر ها و کشور های جهان را پیشنهاد می دهد. در هرجایی که هستید با اطمینان کامل سفر کنید. Organic Maps کمک می مند تا موقعیت خود و نزدیک ترین هتل ها,بانک ها,جایگاه های سوخت و چیز های دیگر را بر روی نقشه بیابید.وای کارهیچ نیازی به اتصال اینترنتی ندارد. \n\nما همیشه بر روی قابلیت های جدید کار می کنیم و دوست داریم که از طرف شما بشنویم که چطور می توانیم این نرم افزار مسیر یابی را بهتر از قبل نماییم. اگر هر مشکلی با برنامه داشتید تردید نکنید و در support\@organicmaps.app با ما تماس بگیرید.ما به تمامی درخواست ها پاسخ می دهیم! \n\n از Organic Maps راضی هستید و می خواهید از ما حمایت کنید؟ چند راه کاملا رایگان وجود دارد\n- برای ما یک نظر در فروشگاه نرم افزاری بنویسید \n- صفحه فیسبوک ما را http://www.facebook.com/OMapsApp لایک کنید \n- یا از Organic Maps به مادرتان دوستانتان وهم دانشگاهیانتان بگویید:))\n\n متشکروسپاس گذاریم که با ما همکاری می کنید\n\nP.S. مانقشه های خود را از OpenStreetMap دریافت می کنیم این سایت همانند ویکیپدیا برای نقشه برداری است و به تمام کاربران خود اجازه می دهد تا در تکمیل نقشه ها کمک کنند اگر در نقشه مشاهده نمودید چیزی اشتباه بود یا وجود نداشت شما می توانید ان را مستقیما در سایت https://www.openstreetmap.org تصحیح یا اضافه کنید  و تغییرات ای را که ایجاد کرده اید را در اپدیت بعدی Organic Maps ببینید</string>
 	<!-- Alert text -->
 	<string name="email_error_body">کلاینت ایمیل شما پیکربندی نشده است.لطفا ان را پیکربندی کنید یا از طریق دیگر با ما تماس بگیرید %s</string>
 	<!-- Alert title -->
@@ -338,7 +338,7 @@
 	<!-- Update map suggestion -->
 	<string name="routing_map_outdated">لطفا نقشه خود را برای ایجاد مسیر اپدیت نمایید</string>
 	<!-- Update maps suggestion -->
-	<string name="routing_update_maps">نسخه جدید OMaps به شما اجازه ایجاد یک مسیر از موقعیت فعلیتان به مقصدتان را می دهد.لطفابرای استفاده از این ویژگی نقشه خود را اپدیت نمایید.</string>
+	<string name="routing_update_maps">نسخه جدید Organic Maps به شما اجازه ایجاد یک مسیر از موقعیت فعلیتان به مقصدتان را می دهد.لطفابرای استفاده از این ویژگی نقشه خود را اپدیت نمایید.</string>
 	<!-- Update all button text -->
 	<string name="downloader_update_all_button">اپدیت همه</string>
 	<!-- Cancel all button text -->
@@ -377,7 +377,7 @@
 	<!-- RouteNotFound -->
 	<string name="routing_failed_route_not_found">مسیری بین مبدا و مقصد انتخابی یافت نشد.لطفا مبدا یا مقصد دیگری را انتخاب کنید</string>
 	<!-- InternalError -->
-	<string name="routing_failed_internal_error">خطای داخلی اتفاق افتاد.لطفا تلاش کنید نقشه را حذف و مجددا دانلود کنید.اگر همچنان مشکل پابرجاست لطفا با ما تماس بگیرید support\@omaps.app.</string>
+	<string name="routing_failed_internal_error">خطای داخلی اتفاق افتاد.لطفا تلاش کنید نقشه را حذف و مجددا دانلود کنید.اگر همچنان مشکل پابرجاست لطفا با ما تماس بگیرید support\@organicmaps.app.</string>
 	<!-- Context menu item for downloader. -->
 	<string name="downloader_download_map_and_routing">دانلود نقشه + مسیریابی</string>
 	<!-- Context menu item for downloader. -->
@@ -406,7 +406,7 @@
 	<!-- Preference text -->
 	<string name="pref_use_google_play">استفاده از Google Play Services برای تعیین موقعیت کنونی شما</string>
 	<!-- Text for rating dialog -->
-	<string name="rating_do_like_maps">OMaps را می پسندید؟</string>
+	<string name="rating_do_like_maps">Organic Maps را می پسندید؟</string>
 	<!-- Text for rating dialog -->
 	<string name="rating_tap_star">بر روی ستاره ها لمس کنید تا به این اپ رای بدهید</string>
 	<!-- Text for rating dialog -->
@@ -422,7 +422,7 @@
 	<!-- Text for routing error dialog -->
 	<string name="routing_download_map">دریافت نقشه</string>
 	<!-- Text for routing error dialog -->
-	<string name="routing_download_map_and_routing">برای داشتن تمامی ویژگی های OMaps نقشه ها و داده های مسیریابی را اپدیت نمایید.</string>
+	<string name="routing_download_map_and_routing">برای داشتن تمامی ویژگی های Organic Maps نقشه ها و داده های مسیریابی را اپدیت نمایید.</string>
 	<!-- Text for routing error dialog -->
 	<string name="routing_get_routing_data">دریافت داده های مسیریابی</string>
 	<!-- Text for routing error dialog -->
@@ -551,7 +551,7 @@
 	<!-- Arrive routing message in navigation view -->
 	<string name="routing_arrive">ورود به: %s</string>
 	<string name="rate_alert_title">این اپ را دوست دارید؟</string>
-	<string name="rate_alert_default_message">باتشکر از شما بابت استفاده ازOMaps.لطفا به این اپلیکیشن رای بدهید. بازخورد شما باعث پیشرفت اپلیکیشن ما می شود.</string>
+	<string name="rate_alert_default_message">باتشکر از شما بابت استفاده ازOrganic Maps.لطفا به این اپلیکیشن رای بدهید. بازخورد شما باعث پیشرفت اپلیکیشن ما می شود.</string>
 	<string name="rate_alert_five_star_message">هورا ! ما هم شما را دوست داریم!</string>
 	<string name="rate_alert_four_star_message">متشکریم تلاش خود را می کنیم</string>
 	<string name="rate_alert_less_than_four_star_message">ایا پیشنهاد یا ایده ای دارید که ما بتوانیم بهتر از این باشیم؟</string>
@@ -608,7 +608,7 @@
 	<string name="editor_report_problem_no_place_title">مکان وجود ندارد</string>
 	<string name="editor_report_problem_under_construction_title">به علت تعمییرات بسته است</string>
 	<string name="editor_report_problem_duplicate_place_title">مکان تکراری</string>
-	<string name="first_launch_congrats_title">OMaps اماده استفاده است</string>
+	<string name="first_launch_congrats_title">Organic Maps اماده استفاده است</string>
 	<string name="first_launch_congrats_text">در سرتاسر دنیا جست وجو و مسیریابی کنید بدون نیاز به اینترنت و کاملا رایگان.</string>
 	<string name="migrate_title">مهم!</string>
 	<!-- Android uses image instead of text. -->
@@ -705,14 +705,14 @@
 	<string name="placepage_report_problem_button">گزارش یک مشکل</string>
 	<string name="placepage_add_business_button">اضافه کردن یک تجارت</string>
 	<string name="whatsnew_editor_message_1">اضافه کردن مکان به نقشه و ویرایش ان مستقیما از طریق این اپلیکیشن.</string>
-	<string name="whatsnew_editor_message_2">* OMaps از دیتای انجمن  OpenStreetMap.</string>
+	<string name="whatsnew_editor_message_2">* Organic Maps از دیتای انجمن  OpenStreetMap.</string>
 	<string name="dialog_incorrect_feature_position">تغییر موقعیت</string>
 	<string name="message_invalid_feature_position">نمی توان شی ای در این مکان باشد</string>
 	<string name="login_to_make_edits_visible">وارد شوید تا دیگر کاربران نیز بتوانند تغییرات ایجاد شده توسط شما را ببینند</string>
 	<string name="no_migration_during_navigation">بروزرسانی در حین مسیریابی مجاز نیست.</string>
 	<!-- Error dialog no space -->
 	<string name="migration_no_space_message">برای دانلود,شما نیازمند فضای ذخیره سازی بیشتری هستید.لطفا داده های غیر ضروری خود را حذف کنید.</string>
-	<string name="editor_sharing_title">من نقشه های OMaps را بهبود بخشیدم</string>
+	<string name="editor_sharing_title">من نقشه های Organic Maps را بهبود بخشیدم</string>
 	<string name="editor_comment_will_be_sent">ما مطمئن خواهیم شد که پیام خود را به ویرایشگران نقشه ارسال خواهید کرد.</string>
 	<string name="editor_unsupported_category_message">شما شی ای را دسته بندی کرده اید که ما تاکنون از ان پشتیبانی نمی کرده ایم.ما ان را در اینده در نقشه نشان خواهیم داد.</string>
 	<!-- Downloaded 10 **of** 20 <- it is that "of" -->
@@ -729,7 +729,7 @@
 	<string name="core_placepage_unknown_place">مکان ناشناس</string>
 	<string name="editor_other_info">ارسال یادداشت به ویرایشکنندگان OSM</string>
 	<string name="editor_detailed_description_hint">اظهارنظر بیشتر</string>
-	<string name="editor_detailed_description">شما یک سری تغییرات در نقشه را برای انجمن OpenStreetMap ارسال کردید.جزئیات اضافی را که نتوانستید در OMaps ویرایش کنید را برایشان بنویسید.</string>
+	<string name="editor_detailed_description">شما یک سری تغییرات در نقشه را برای انجمن OpenStreetMap ارسال کردید.جزئیات اضافی را که نتوانستید در Organic Maps ویرایش کنید را برایشان بنویسید.</string>
 	<string name="editor_more_about_osm">در مورد OpenStreetMap بیشتر بدانید</string>
 	<string name="editor_operator">مالک</string>
 	<string name="editor_tag_description">نام شرکت,سازمان یا اطلاعات قابل قبول برای این ساختمان را وارد کنید.</string>
@@ -763,8 +763,6 @@
 	<string name="placepage_entrance_number">شماره.</string>
 	<string name="placepage_entrance_type">ورودی</string>
 	<string name="placepage_open_24_7">شبانه روزی و هفت روز هفته (24 / 7)</string>
-	<string name="place_page_booking_rating">رتبه بندی: %s</string>
-	<string name="place_page_starting_from">از %s</string>
 	<string name="meter">متر</string>
 	<string name="kilometer">کیلومتر</string>
 	<string name="kilometers_per_hour">کیلومتربرساعت (km/h)</string>
@@ -798,12 +796,8 @@
 	<string name="error_enter_correct_email">ایمیل معتبری وارد نمایید</string>
 	<string name="error_enter_correct">مقادیر معتبری وارد نمایید</string>
 	<string name="editor_profile_rating_place">موقعیت در رتبه بندی</string>
-	<string name="booking_dialog_not_connect_header">برای رزرو هتل, لطفا اینترنت خود را فعال نماییید</string>
-	<string name="button_try">امتحانش کنید</string>
 	<string name="refresh">بروزرسانی</string>
 	<string name="last_update">اخرین بروزرسانی: %s</string>
-	<string name="booking_checkin">چک کنید: %s</string>
-	<string name="booking_checkout">وارسی: %s</string>
 	<string name="placepage_add_place_button">اضافه کردن یک مکان به نقشه</string>
 	<!-- Displayed when saving some edits to the map to warn against publishing personal data -->
 	<string name="editor_share_to_all_dialog_title">ایا می خواهید ان را برای دیگر کاربران ارسال کنید؟</string>
@@ -822,21 +816,19 @@
 	<string name="place_page_button_read_descriprion">خواندن</string>
 	<!-- iOS dialog for the case when recent track recording is on and the app comes back from background -->
 	<string name="recent_track_background_dialog_title">غیرفعال سازی ذخیره مسیر اخیرا طی شده</string>
-	<!-- If a hotel is being shared -->
-	<string name="sharing_booking">یا در booking.com رزرو نمایید.</string>
 	<string name="off_recent_track_background_button">غیرفعال</string>
 	<!-- For sharing via SMS and so on -->
 	<string name="sharing_call_action_look">بررسی کنید</string>
 	<string name="continue_recent_track_background_button">ادامه</string>
-	<string name="recent_track_background_dialog_message">OMaps  از اطلاعات موقعیت مکانی شما در پس ضمینه برای ذخیره مسیر هایی که اخیرا سفر کرده اید استفاده می کند.</string>
+	<string name="recent_track_background_dialog_message">Organic Maps  از اطلاعات موقعیت مکانی شما در پس ضمینه برای ذخیره مسیر هایی که اخیرا سفر کرده اید استفاده می کند.</string>
 	<!-- Rate on Google Play (Android only) -->
 	<string name="rate_gp">امتیاز دادن در گوگل پلی</string>
 	<!-- Share with friends: menu item title -->
 	<string name="tell_friends">به یک دوست بگویید</string>
 	<!-- Share with friends: sharing text -->
-	<string name="tell_friends_text">سلام!  OMaps را نصب کنید.</string>
+	<string name="tell_friends_text">سلام!  Organic Maps را نصب کنید.</string>
 	<!-- About short text (below logo) -->
-	<string name="about_description">OMaps یک نرم افزار افلاین مخصوص سفر است. OMaps بر پایه دیتای OpenStreetMap است و به شما اجازه ویرایش در ان را می دهد.</string>
+	<string name="about_description">Organic Maps یک نرم افزار افلاین مخصوص سفر است. Organic Maps بر پایه دیتای OpenStreetMap است و به شما اجازه ویرایش در ان را می دهد.</string>
 	<!-- Text in menu -->
 	<string name="blog">وبلاگ</string>
 	<string name="general_settings">تنظیمات عمومی</string>
@@ -848,41 +840,13 @@
 	<string name="accept_and_continue">قبول و ادامه</string>
 	<!-- For the first routing -->
 	<string name="decline">کاهش</string>
-	<!-- For ordering a taxi (as opposed to hotels or other things) -->
-	<string name="taxi_order">سفارش تاکسی</string>
-	<!-- How long it is until the taxi arrives -->
-	<string name="taxi_wait">انتظار می رود در %s</string>
-	<!-- When there are no available taxis nearby -->
-	<string name="taxi_not_found">تاکسی در نزدیکی شما یافت نشد</string>
-	<!-- When there are no available taxi providers nearby -->
-	<string name="taxi_no_providers">سرویس دهنده ای در نزدیکی شما موجود نیست</string>
 	<string name="install_app">نصب</string>
-	<!-- `Filter` is a noun here -->
-	<string name="booking_filters">فیلتر</string>
-	<string name="booking_filters_reset">بازنشانی</string>
-	<!-- Beginning from a particular value and -->
-	<string name="booking_filters_rating">رده بندی از</string>
-	<string name="booking_filters_ragting_good">خوب</string>
-	<string name="booking_filters_rating_very_good">بسیار خوب</string>
-	<string name="booking_filters_rating_excellent">عالی</string>
-	<string name="booking_filters_price_category">دسته بندی قیمت</string>
 	<string name="search_no_results_title">چیزی یافت نشد</string>
 	<string name="search_no_results_message">چیز های عمومی تری را جست وجو کنید,کوچک نمایی کنید یا این فیلتر را پاک کنید.</string>
 	<string name="search_no_results_expand_area_button">کوچک نمایی</string>
 	<string name="search_no_results_reset_button">پاک کردن فیلتر</string>
 	<!-- noun -->
 	<string name="search_in_table">لیست</string>
-	<string name="booking_show_more">نمایش بیشتر</string>
-	<string name="booking_reviews">بازخورد</string>
-	<string name="booking_hotel">هتل</string>
-	<!-- hotel room -->
-	<string name="booking_hotel_room">اتاق</string>
-	<!-- A neologism for a chat based on geographical proximity -->
-	<string name="chat">چت مکانی</string>
-	<!-- Verb. Text on a button that opens the chat. -->
-	<string name="chat_open">باز</string>
-	<string name="dialog_taxi_offline">سفارش تاکسی در حالت افلاین موجود نیست!</string>
-	<string name="dialog_taxi_error">سفارش تاکسی موقتا موجود نیست.</string>
 	<string name="mobile_data_dialog">از دیتای موبایل برای نمایش اطلاعات بیشتر استفاده شود؟</string>
 	<string name="mobile_data_option_always">همیشه استفاده کن</string>
 	<string name="mobile_data_option_today">فقط امروز</string>
@@ -894,41 +858,16 @@
 	<string name="traffic_update_maps_text">برای نمایش ترافیک,نقشه می بایستی بروزرسانی شود.</string>
 	<string name="traffic_outdated">دیتای ترافیک منقضی شده است.</string>
 	<string name="big_font">افزایش اندازه متن بر روی نقشه</string>
-	<string name="traffic_update_app">لطفا OMaps را بروزرسانی کنید</string>
+	<string name="traffic_update_app">لطفا Organic Maps را بروزرسانی کنید</string>
 	<!-- "traffic" as in road congestion -->
 	<string name="traffic_update_app_message">برای نمایش ترافیک باید اپلیکیشن را بروزرسانی کنید.</string>
 	<!-- "traffic" as in "road congestion" -->
 	<string name="traffic_data_unavailable">اطلاعات ترافیکی موجود نیست</string>
-	<!-- Seven points and higher -->
-	<string name="booking_filter_rating_num_good">7.0+</string>
-	<!-- Eight points and higher -->
-	<string name="booking_filter_rating_num_very_good">8.0+</string>
-	<!-- Nine points and higher -->
-	<string name="booking_filter_rating_num_excellent">9.0+</string>
 	<!-- Simplified colour scheme for traffic information, fewer colours are used to display traffic jams on the map. The string should be kept as short as possible -->
 	<string name="pref_traffic_simplified_colors_title">رنگ های ترافیکی ساده شده</string>
 	<string name="enable_logging">ورود به سیستم را فعال کنید</string>
-	<string name="more_on_bookingcom">بیشتر در Booking.com</string>
-	<string name="details_on_bookingcom">جزئیات در Booking.com</string>
-	<string name="reviews_on_bookingcom">بررسی بیشتر در Booking.com</string>
 	<string name="offline_place_page_more_information">برای کسب اطلاعات بیشتر در مورد مکان، به اینترنت متصل شوید.</string>
 	<string name="failed_load_information">اطلاعات بارگیری نشد.</string>
-	<string name="whats_new_auto_update_updating_maps">به روز رسانی نقشه ها</string>
-	<string name="whats_new_auto_update_title">نقشه های دانلود شده خود را به روز کنید</string>
-	<string name="whats_new_auto_update_message">به روز رسانی نقشه ها اطلاعات مربوط به اشیا را به روز نگه می دارد</string>
-	<string name="whats_new_auto_update_button_size">بروزرسانی (%s)</string>
-	<string name="whats_new_auto_update_button_later">بعدا به صورت دستی به روزرسانی کنید</string>
-	<string name="search_hotel_filter_apartment">آپارتمان ها</string>
-	<string name="search_hotel_filter_camp_site">چادر زدن</string>
-	<string name="search_hotel_filter_chalet">کلبه</string>
-	<string name="search_hotel_filter_guest_house">مهمان خانه</string>
-	<string name="search_hotel_filter_hostel">خوابگاه</string>
-	<string name="search_hotel_filter_resort">مجتمع گردشگری</string>
-	<string name="search_hotel_filter_hotel">هتل</string>
-	<string name="search_hotel_filter_motel">متل</string>
-	<string name="create_campaign_button">ادعای این کسب و کار</string>
-	<string name="view_campaign_button">کسب و کار تبلیغ می شود</string>
-	<string name="search_hotel_filters_type">نوع</string>
 	<!-- Settings: "Send general feedback" button -->
 	<string name="feedback_general">\"تنظیمات: دکمه \"ارسال بازخورد کلی</string>
 	<string name="on">روشن</string>
@@ -959,36 +898,7 @@
 	<string name="choose_start_point">نقطه شروع را انتخاب کنید</string>
 	<string name="choose_destination">یک مقصد را انتخاب کنید</string>
 	<string name="preloader_viator_button">بیشتر بدانید</string>
-	<string name="whats_new_title_route">مسیرهای دوچرخه و مسیرهای پیاده روی بهبود یافته است</string>
-	<string name="whats_new_message_route">ما خطاهایی را برطرف کردیم، محاسبه مسیر چندین بار سریعتر  شده و ایستگاه‌های بین راهی اضافه شد</string>
-	<string name="whats_new_message_title_update">ما به روز رسانی نقشه 10 بار کوچکتر انجام دادیم</string>
-	<string name="whats_new_message_maps_update">برای به روز رسانی نقشه، در حال حاضر شما باید فقط داده های از دست رفته را دانلود کنید</string>
 	<string name="start_from_my_position">شروع از</string>
-	<string name="rating">رتبه بندی</string>
-	<string name="placepage_no_reviews">بررسی موجود نیست</string>
-	<string name="placepage_reviewed">شما در حال حاضر روی این مکان ارزیابی ثبت کرده اید</string>
-	<string name="placepage_summary_rating">خلاصه ای از ارزیابی</string>
-	<string name="placepage_rate_comment">برای رای دادن و ارزیابی این مکان ضربه بزنید.</string>
-	<string name="placepage_rate_horrible">ناگوار</string>
-	<string name="placepage_rate_bad">ضعیف</string>
-	<string name="placepage_rate_normal">معمولی</string>
-	<string name="placepage_rate_good">خوب</string>
-	<string name="placepage_rate_excellent">عالی</string>
-	<string name="placepage_reviews_most_recent">جدیدترین</string>
-	<string name="placepage_reviews_most_useful">مفید ترین</string>
-	<string name="placepage_reviews_highest_rated">بالاترین امتیاز</string>
-	<string name="placepage_reviews_lowest_rated">پایین‌ترین امتیاز</string>
-	<string name="placepage_reviews_offline_comment">تنها بررسی های مفید در حالت آفلاین نشان داده شده است</string>
-	<string name="placepage_reviews_your_comment">ارزیابی شما</string>
-	<string name="placepage_reviews_unhelpful">بی فایده</string>
-	<string name="placepage_reviews_inappropriate">نامناسب</string>
-	<string name="placepage_reviews_spam">هرزنامه</string>
-	<string name="placepage_reviews_hint">اینجا چه چیزی خوب یا بد است؟</string>
-	<string name="placepage_reviews_edit_your_review">ارزیابی خود را ویرایش کنید</string>
-	<string name="placepage_reviews_new_review">ارزیابی جدید</string>
-	<string name="placepage_translate_button">ترجمه</string>
-	<string name="placepage_show_original_button">نمایش اصل</string>
-	<string name="placepage_more_reviews_booking_button">ارزیابی ‌های بیشتر در Booking.com</string>
 	<string name="profile_authorization_title">پیوستن با</string>
 	<string name="profile_authorization_message">وارد شدن آسان بدون ورود به سیستم و رمز عبور در چند ثانیه</string>
 	<string name="profile_authorization_error">اوه، یک خطا وجود داشت سعی کنید دوباره وارد سیستم شوید</string>
@@ -1000,22 +910,9 @@
 	<string name="expertise">تجربه و تخصص</string>
 	<string name="equipment">تجهیزات</string>
 	<string name="quality">کیفیت</string>
-	<string name="whats_new_ugc_title_updated_v840">رأی ها و نظرات</string>
-	<string name="whats_new_ugc_message">شما هم اکنون می توانید رتبه بندی و بررسی حتی آنلاین را ترک کنید! فراموش نکنید که نقشه های خود را به روز کنید تا بتوانید تغییرات را مشاهده کنید.</string>
 	<string name="dialog_error_storage_title">مشکل دسترسی به ذخیره سازی</string>
-	<string name="dialog_error_storage_message">ذخیره سازی خارجی در دسترس نیست کارت SD ممکن است برداشته شده باشد، آسیب دیده باشد یا سیستم فایل فقط خواندنی باشد. لطفا کارت SD خود را بررسی کنید یا با ما در support\@omaps.app تماس بگیرید</string>
+	<string name="dialog_error_storage_message">ذخیره سازی خارجی در دسترس نیست کارت SD ممکن است برداشته شده باشد، آسیب دیده باشد یا سیستم فایل فقط خواندنی باشد. لطفا کارت SD خود را بررسی کنید یا با ما در support\@organicmaps.app تماس بگیرید</string>
 	<string name="setting_emulate_bad_storage">شبیه سازی ذخیره سازی بد</string>
-	<string name="discovery_button_title">در نزدیکی کشف کنید</string>
-	<string name="discovery_button_subtitle_things_to_do">چیزهایی که باید انجام شود</string>
-	<string name="discovery_button_subtitle_attractions">جاذبه ها</string>
-	<string name="discovery_button_subtitle_eat_and_drink">خوردن و آشامیدن</string>
-	<string name="discovery_button_subtitle_local_guides">راهنماهای محلی</string>
-	<string name="discovery_button_viator_error_title">خطای بارگذاری داده</string>
-	<string name="discovery_button_404_error_title">یافت نشد</string>
-	<string name="discovery_button_404_error_message">متأسفیم، ما چیزی جالب در اطراف پیدا نکردیم.</string>
-	<string name="booking_filters_check_in">ورود</string>
-	<string name="booking_filters_check_out">خروج</string>
-	<string name="booking_filters_offline">در دسترس نیست.</string>
 	<string name="directions_finish">مقصد</string>
 	<string name="directions_on_foot">پیاده روی %s</string>
 	<string name="core_entrance">ورودی</string>
@@ -1023,12 +920,6 @@
 	<string name="cleanliness">پاکیزگی</string>
 	<string name="crowdedness">ازدحام بیش از حد</string>
 	<string name="error_enter_correct_name">لطفا نام صحیح را وارد کنید</string>
-	<string name="hotel_available">در دسترس</string>
-	<string name="whats_new_transit_title">مترو موجود است</string>
-	<string name="whats_new_transit_message">ساختن مسیرهای خود را با استفاده از مترو! لطفا نقشه ها را برای دیدن تغییرات به روز کنید</string>
-	<string name="whats_new_discovery_title">دکمه اکتشاف</string>
-	<string name="whats_new_discovery_message">همه چیز را در یک کلیک کشف کنید!</string>
-	<string name="price_per_hour">%s/ساعت</string>
 	<string name="bookmarks_backup">پشتیبانگیری را فعال کنید</string>
 	<string name="authorization_button_sign_in">ورود</string>
 	<string name="bookmarks_message_authorized_user">بوک مارک های شما به صورت خودکار در یک حافظه ذخیره سازی امن پشتیبان گیری می شوند. آیا می خواهید نسخه پشتیبان تهیه کنید؟</string>
@@ -1048,15 +939,10 @@
 	<string name="downloader_percent">%1$s (%2$s از %3$s)</string>
 	<string name="downloader_process">در حال دانلود %s...</string>
 	<string name="downloader_applying">اعمال %s...</string>
-	<string name="whats_new_title_hotel_filter">فیلترهای جدید هتل در دسترس است!</string>
-	<string name="whats_new_message_hotel_filter">رزرو هتل در دسترس برای تاریخ خود را! از چک کردن استفاده کنید و فیلتر کنید</string>
-	<string name="whats_new_title_ugc_travel">تجربه خود را با مسافران دیگر به اشتراک بگذارید!</string>
-	<string name="whats_new_message_ugc_travel">مکانهایی را که بازدید کرده اید رتبه بندی کنید و بررسی کنید</string>
 	<string name="dialog_message_transit_not_found_connection">یک مسیر را در یک شبکه حمل و نقل برنامه ریزی کنید</string>
 	<string name="bookmarks_error_message_share_general">با توجه به خطای برنامه، امکان اشتراک گذاری وجود ندارد</string>
 	<string name="bookmarks_error_title_share_empty">خطای اشتراک</string>
 	<string name="bookmarks_error_message_share_empty">یک لیست خالی را نمی توان به اشتراک گذاشت</string>
-	<string name="discovery_button_subtitle_book_hotels">رزرو هتل</string>
 	<string name="bookmarks_error_title_empty_list_name">نام نمیتواند خالی باشد</string>
 	<string name="bookmarks_error_message_empty_list_name">لطفا نام لیست را وارد کنید</string>
 	<string name="bookmarks_new_list_hint">لیست جدید</string>
@@ -1081,8 +967,6 @@
 	<string name="converting">در حال تبدیل...</string>
 	<string name="wn_reinvented_bookmarks_title">نشانه‌ها را بازآفرینی کردیم!</string>
 	<string name="wn_reinvented_bookmarks_message">می‌توانید از آن‌ها پشتیبان بگیرید، لیست درست کنید... عالی شده...</string>
-	<string name="wn_way_of_booking_title">در شیوهٔ رزورو بازاندیشی کردیم!</string>
-	<string name="wn_way_of_booking_message">کافی است هتلی را روی نقشه بیابید و رزروش کنید یا هتل مشابه آن را انتخاب کنید.</string>
 	<string name="bookmarks_restore">بازگردانی نشانه‌ها</string>
 	<string name="bookmarks_restore_process">در حال بازگردانی...</string>
 	<string name="bookmarks_restore_title">این نسخه برگردد؟</string>
@@ -1094,19 +978,12 @@
 	<string name="error_server_message">روی سرور خطایی رخ داد. لطفا بعدا امتحان کنید</string>
 	<string name="error_system_message">خطای ناشناخته‌ای رخ داد</string>
 	<string name="restore">بازیابی</string>
-	<string name="sign_message_gdpr">برای ادامه باید شرایط استفاده و سیاست حریم خصوصی را بپذیرید. لطفا آن‌ها را با دقت بخوانید.</string>
-	<string name="sign_agree_pp_gdpr">من &lt;a href="%s">سیاست حریم خصوصی&lt;/a> را می‌پذیرم</string>
-	<string name="sign_agree_tof_gdpr">من &lt;a href="%s">شرایط استفاده&lt;/a> را می‌پذیرم</string>
-	<string name="sign_agree_news_gdpr">می‌پذیرم که جدیدترین خبرها از محصولات OMaps برایم ارسال شود</string>
-	<string name="whats_new_localbiz_title">کسب‌وکار کوچک شایستهٔ حمایت است</string>
-	<string name="whats_new_localbiz_message">حرف از کافه‌های محلی، مسافرخانه‌های گرم‌ودنج و مغازه‌هایی است که سفرمان را به‌یادماندنی می‌کنند. ما صفحه‌های شما را در OMaps بهینه می‌کنیم تا برجسته باشد.</string>
-	<string name="whats_new_order_button">درخواستی ثبت کنید</string>
 	<string name="bookmarks_page_downloaded">دانلود شد</string>
 	<string name="bookmarks_page_my">مال من</string>
 	<string name="routes_and_bookmarks">مسیرها و نشانه‌ها</string>
 	<string name="bookmarks_webview_success_toast">نشانه‌ها با موفقیت دانلود شد</string>
 	<string name="cached_bookmarks_placeholder_title">دانلود مکان‌های جدید</string>
-	<string name="cached_bookmarks_placeholder_subtitle">دکمه را بزنید تا هزاران مکان و مسیر جالبی که دیگران کاربران OMaps ساخته‌اند را ببینید. به اتصال اینترنتی نیاز خواهید داشت.</string>
+	<string name="cached_bookmarks_placeholder_subtitle">دکمه را بزنید تا هزاران مکان و مسیر جالبی که دیگران کاربران Organic Maps ساخته‌اند را ببینید. به اتصال اینترنتی نیاز خواهید داشت.</string>
 	<string name="downloader_download_routers">دانلود نشانه‌ها</string>
 	<string name="bookmarks_groups_cached">لیست‌های دانلودشده</string>
 	<string name="author_name_by_prefix">توسط %s</string>
@@ -1128,7 +1005,7 @@
 	</plurals>
 	<string name="subtittle_opt_out">تنظیمات ردیابی</string>
 	<string name="crash_reports">گزارش خرابی</string>
-	<string name="crash_reports_description">ما از داده‌های شما برای بهبود OMaps استفاده می‌کنیم. تغییرات پس از راه‌اندازی مجدد برنامه به‌کار می‌افتد.</string>
+	<string name="crash_reports_description">ما از داده‌های شما برای بهبود Organic Maps استفاده می‌کنیم. تغییرات پس از راه‌اندازی مجدد برنامه به‌کار می‌افتد.</string>
 	<string name="opt_out_help_ios_1">در دستگاه همراهتان تنظیمی با نام “Limit Ad Tracking” یا “Opt out of interest-based advertising” وجود دارد.</string>
 	<string name="opt_out_help_ios_2">آی‌اواس ۹ یا بالاتر</string>
 	<string name="opt_out_help_ios_3">به تنظیمات خود بروید ← حریم خصوصی ← تبلیغات ← گزینه  «محدود کردن ردیابی آگهی» را فعال کنید</string>
@@ -1147,98 +1024,35 @@
 	<string name="category_desc_more">بیشتر...</string>
 	<string name="title_error_downloading_bookmarks">خطایی رخ داد</string>
 	<string name="subtitle_error_downloading_bookmarks">نشانه ها دانلود نشدند</string>
-	<string name="whats_new_bookmarks_catalog_title">OMaps در حال حاضر یک کتابخانه مسیر دارد</string>
-	<string name="whats_new_bookmarks_catalog_message">صدها مسیر دقیق در سراسر جهان: به کجا بروید، چه چیزی را ببینید، کجا غذا بخورید.</string>
-	<string name="whats_new_popularity_label_title">جاذبه های نزدیک</string>
-	<string name="whats_new_popularity_label_message">بخش کشف نزدیک به شما کمک خواهد کرد که مکان های محبوب شهر را پیدا کنید.</string>
-	<string name="whats_new_hot_offers_title">پیشنهادات جذاب از هتل ها</string>
-	<string name="whats_new_hot_offers_message">شما می توانید آنها را از دسته هتل ها در پانل جستجو پیدا کنید. پیشنهادات با نماد درصد بر روی نقشه و در نتایج جستجو مشخص می شود.</string>
 	<string name="error_already_downloaded">این لیست قبلا دانلود شده است</string>
 	<string name="popular_place">مشهور</string>
 	<string name="download_routes">دانلود مسیر</string>
 	<string name="bookmarks_downloaded_title">نشانکها با موفقیت دانلود شدند</string>
 	<string name="bookmarks_downloaded_subtitle">\'نمایش بر روی نقشه\' را فشار دهید تا مکان های جدید را از لیست کاوش کنید</string>
-	<string name="guides">راهنما</string>
-	<string name="guide_downloaded_title">راهنمای با موفقیت دانلود شده است</string>
-	<!-- as few symbols as possible -->
-	<string name="download_guides">جستجوی راهنما</string>
-	<string name="guides_groups_cached">راهنما‌های دانلود شده</string>
-	<string name="subtitle_error_downloading_guide">راهنما دانلود نشد</string>
-	<string name="error_already_downloaded_guide">این راهنمای قبلا دانلود شده است</string>
-	<string name="guide_downloaded_subtitle">برای کاوش در راهنما \'نمایش بر روی نقشه\' را فشار دهید</string>
-	<string name="bookmarks_guides">نشانکها و راهنماها</string>
-	<string name="paybtn_title">هزینه %s/سال</string>
-	<string name="paybtn_subtitle">صرفه جویی %s/سال</string>
-	<string name="options_dropdown_title">گزینه های بیشتر</string>
-	<string name="why_support">چرا پشتیبانی از OMaps؟</string>
-	<string name="options_dropdown_item1">ماه (صرفه جویی %s/ سال)</string>
-	<string name="options_dropdown_item2">%s/یک هفته (بدون صرفه جویی)</string>
-	<string name="why_support_item1">ما همه تبلیغات را برای شما حذف خواهیم کرد</string>
-	<string name="why_support_item2">شما برای بهبود OMaps به ما کمک میکنید</string>
+	<string name="why_support">چرا پشتیبانی از Organic Maps؟</string>
+	<string name="why_support_item2">شما برای بهبود Organic Maps به ما کمک میکنید</string>
 	<string name="why_support_item3">شما به ما در بهبود نقشه OpenStreetMap.org کمک میکنید.</string>
-	<string name="purchase_processing">خرید شما در حال پردازش است ...</string>
-	<string name="tips_bookmarks_catalog_title">نمیتوانید یک مسیر برای مکان های دیدنی برنامه ریزی کنید؟</string>
-	<string name="tips_bookmarks_catalog_message">دانلود و برنامه ریزی مسیرهای توریستی در مکان های جالب در شهرهای مختلف جهان  .</string>
-	<string name="tips_discover_button_title">آیا می خواهید مکان های محبوب را در نزدیکی پیدا کنید؟</string>
-	<string name="tips_discover_button_message">بخش «کشف مجاور» شامل بهترین رستورانها، هتلها و مناظر است.</string>
-	<string name="tips_book_hotel_title">هتل های راحت را برای سفرهای خود رزرو کنید</string>
-	<string name="tips_book_hotel_message">برای پیدا کردن بهترین هتلها برای شما از جستجو و فیلترها استفاده کنید. از دکمه \"Book\" در محل مکان استفاده کنید تا فورا هتل را رزرو کنید.</string>
-	<string name="tips_map_layers_title">نمی‌دانید کدام ایستگاه باید خط عوض کنید؟</string>
-	<string name="tips_map_layers_message">لایه مترو را برای نمایش نقشه مترو روشن کنید و همیشه راه خود را در یک شهر جدید پیدا خواهید کرد.</string>
 	<string name="channels_map_update">بروزرسانی های نقشه</string>
-	<string name="channels_reviews">بازبینی نشده</string>
-	<string name="purchase_loading">اطلاعات خرید در حال بارگیری است ...</string>
-	<string name="purchase_error_subtitle">هنگام پردازش خرید شما خطایی روی داد</string>
-	<string name="awaiting_approval">در انتظار تأیید پدر و مادر</string>
-	<string name="whats_new_leave_review">یک دیدگاه بگذارید ، نظر خود را درباره مکانهایی که در تعطیلات خود بازدید کرده اید، به اشتراک بگذارید.</string>
 	<string name="server_unavailable_title">سرویس موجود نیست</string>
-	<string name="server_unavailable_message">خرید بعدا تکمیل خواهد شد. اگر خطا همچنان ادامه دارد، لطفا با support\@omaps.app تماس بگیرید.</string>
-	<string name="offline_fiters_check_in">برای فیلتر کردن هتل ها با تاریخ، به اینترنت متصل شوید.</string>
 	<string name="sharing_options">گزینه های اشتراک گذاری</string>
 	<string name="export_file">ارسال فایل</string>
 	<string name="list_settings">تنظیمات لیست</string>
 	<string name="delete_list">حذف لیست</string>
 	<string name="hide_from_map">پنهان کردن از نقشه</string>
-	<string name="ugc_route_tags_screen_label">انتخاب برچسبها</string>
-	<string name="ugc_route_tags_progress_msg">درحال بارگیری برچسبها…</string>
 	<string name="public_access">دسترسی عمومی</string>
 	<string name="limited_access">دسترسی محدود</string>
-	<string name="upload_and_publish_desc">این راهنما به کاتالوگ عمومی OMaps ارسال خواهد شد و برای کاربران دیگر در دسترس خواهد بود</string>
-	<string name="upload_and_publish">بارگذاری و انتشار</string>
-	<string name="upload_and_get_direct_link">بارگذاری و دریافت لینک مستقیم</string>
-	<string name="get_direct_link_desc">راهنمای شما برای هر کسی که این لینک را داشته باشد، دردسترس خواهد بود</string>
-	<string name="upload_and_publish_progress_text">در حال انتشار راهنمای شما…</string>
-	<string name="upload_and_publish_success">راهنما انتشار یافت</string>
-	<string name="ugc_routes_user_agreement">&lt;b>لطفا توجه داشته باشید:&lt;b/> با ادامه، شما موافقت خود با &lt;a href="%s">مجوز توافقنامه، را اعلام نموده اید&lt;a/></string>
-	<string name="ugc_route_edit_list_name">نام راهنما</string>
-	<string name="ugc_route_edit_description_hint">یک توضیح (متن یا html) تایپ نمایید</string>
+	<string name="bookmark_category_name">دسته بندی</string>
+	<string name="bookmark_category_description_hint">یک توضیح (متن یا html) تایپ نمایید</string>
 	<string name="not_shared">خصوصی</string>
 	<string name="direct_link_progress_text">در حال بارگذاری فایل شما…</string>
 	<string name="direct_link_success">لینک ایجاد شده است</string>
-	<string name="edit_guide_title">راهنمای خود را در وب ویرایش کنید</string>
-	<string name="edit_guide_subtitle">یک لینک برای ویرایش راهنمای خود از طریق برنامه وب، دریافت کنید: توضیحاتی اضافه نمایید، تصاویر را بارگذاری کرده و نشانه گذاریها را با خطوط متصل نمایید.</string>
 	<string name="send_a_link_btn">یک لینک برای من ارسال کن</string>
 	<string name="upload_error_toast">هنگام بارگذاری فایل شما خطایی روی داد</string>
 	<string name="tags_loading_error_subtitle">هنگام بارگذاری برچسب خطایی رخ داد، لطفا دوباره امتحان کنید</string>
 	<string name="unable_upload_errorr_title">بارگذاری فایل انجام نشد</string>
 	<string name="unable_upload_error_subtitle_edited">این فایل از طریق برنامه وب ویرایش شده است</string>
 	<string name="unable_upload_error_subtitle_broken">این فایل آسیب دیده است و امکان بارگذاری آن وجود ندارد. لطفا فایل دیگری را بارگذاری نمایید.</string>
-	<string name="buy_btn">این را با %s بخرید</string>
-	<string name="price_error_title">نمی توان قیمت را دریافت کرد</string>
-	<string name="price_error_subtitle">لطفا چند دقیقه دیگر دوباره امتحان کنید</string>
-	<string name="edit_your_guide_email_body">راهنمای خود را به سادگی بر روی وب با استفاده از کامپیوتر خود ویرایش نمایید: توضیحاتی اضافه نمایید، تصاویر را بارگذاری کرده و نشانه گذاریها را با خطوط متصل نمایید.</string>
-	<string name="edit_on_web">ویرایش بر روی وب</string>
-	<string name="properties_loading_error_subtitle">هنگام بارگیری گزینه ها خطایی روی داد، لطفا دوباره امتحان کنید</string>
-	<string name="custom_props_desc">در این راهنما شما از مکان هایی بازدید کرده اید، به عنوان</string>
-	<string name="custom_props_title">ساکن محلی یا مسافر</string>
-	<string name="custom_props_local">محلی</string>
-	<string name="custom_props_traveler">مسافر</string>
-	<string name="select_properties">انتخاب گزینه ها</string>
-	<string name="access_rules_p_to_p">دسترسی ویژه</string>
-	<string name="access_rules_paid">خریداری شده</string>
-	<string name="failed_purchase_support_message">با عرض پوزش، اما احتمالا یک خرید ناتمام دارید. لطفا با بخش پشتیبانی تماس بگیرید و ما مشکل را حل خواهیم کرد.</string>
 	<string name="contact">تماس</string>
-	<string name="check_price_button">بررسی قیمت</string>
 	<string name="download_button">دانلود</string>
 	<string name="speedcams_alert_title">دوربین های سرعت</string>
 	<string name="speedcams_alert_subtitle">هشدار درباره محدودیت سرعت</string>
@@ -1247,66 +1061,26 @@
 	<string name="speedcam_option_never">هرگز</string>
 	<string name="bookmark_description_title">توضیحات نشانه گذاری</string>
 	<string name="place_description_title">توضیحات محل</string>
-	<string name="ugc_routes_error_uploading_file_toast">متأسفانه، هنگام بارگذاری نشان شده های شما، خطایی رخ داد. لطفا دوباره تلاش کنید.</string>
-	<string name="notification_channel_ugc">محتوای اجتماعی</string>
 	<!-- this text will be shown in application notification preferences opposite checkbox which enable/disable downloader notifications. Devices on Android 8+ are affected. -->
 	<string name="notification_channel_downloader">دانلود کننده نقشه</string>
-	<string name="notification_leave_review_title">- چگونه بود؟%s</string>
-	<string name="notification_leave_review_content">با بیان نظر خود به مسافران کمک نمایید!</string>
-	<string name="share_bookmarks_email_body_link">سلام!\n\nاین لینکی است که شما می توانید نشان شده های خود را از آن دانلود نمایید: %s. لیست را از طریق OMaps باز کرده و از سفر خود لذت ببرید!\n\nدریافت برنامه: https://omaps.app/get?kmz</string>
+	<string name="share_bookmarks_email_body_link">سلام!\n\nاین لینکی است که شما می توانید نشان شده های خود را از آن دانلود نمایید: %s. لیست را از طریق Organic Maps باز کرده و از سفر خود لذت ببرید!\n\nدریافت برنامه: https://organicmaps.app/get?kmz</string>
 	<string name="warning_speedcams_title">هدایتگر هنگامی که از محدوده سرعت %d کیلومتر بر ساعت تجاوز نمایید، در مورد دوربین هشدار می دهد</string>
 	<string name="warning_speedcams_subtitle">لطفا قوانین رانندگی کشوری که به آن سفر می کنید، را رعایت کنید.</string>
 	<string name="speedcams_notice_message">خودکار- در صورتی که خطر تجاوز از سرعت مجاز وجود داشت، نسبت به دوربین های کنترل سرعت هشدار دهد\nهمیشه-همیشه درباره دوربین های کنترل سرعت هشدار دهد\nهرگز-هرگز درباره دوربین های کنترل سرعت هشدار ندهد</string>
-	<string name="ugc_thanks_message_auth">نظر شما ذخیره شده‌است</string>
-	<string name="ugc_thanks_message_not_auth">لطفا برای ثبت نظر وارد حساب کاربری شوید</string>
-	<string name="notification_leave_review_v2_title">با ارزیابی یک محل بازدید شده به مسافران کمک کنید!</string>
-	<string name="error_public_not_enought_title">نشان شده‌ها کافی نیست</string>
-	<string name="error_public_not_enought_subtitle">شما باید حداقل 3 نشان‌ شده داشته باشید تا راهنمای خود را به کاتالوگ عمومی ارسال کنید</string>
-	<string name="bookmark_public_upload_alert_title">چند گام تا اشتراک گذاری نشان شده‌های خود با تمام مسافران OMaps فاصله دارید!</string>
-	<string name="bookmark_public_upload_alert_subtitle">لطفا اطمینان حاصل کنید نام و توضیح مشخصی برای فهرست خود داشته باشید و تمام نشان شده‌ها دارای اطلاعاتی راجع به مکان‌ها هستند. به این ترتیب لیست شما می‌تواند توسط دیگران یافت استفاده شود.</string>
-	<string name="bookmark_public_upload_alert_ok_button">بله، اطمینان دارم!</string>
-	<string name="name_title">نام راهنمای خود را وارد کنید</string>
-	<string name="name_placeholder">برای مثال، بارهای لندن</string>
-	<string name="name_comment1">لطفا راهنمای خود را آنگونه نام گذاری کنید که مسافران به آسانی آن را پیدا کنند: برای مثال، \"بارهای لندن\"</string>
-	<string name="name_comment2">نام انتخابی نباید شامل حروف قام خاص باشد. نام انتخابی نباید \"مکان‌های من\" باشد</string>
-	<string name="description_guide">توضیحات</string>
-	<string name="description_title">توضیحات راهنمای خود را وارد کنید</string>
-	<string name="description_placeholder">راهنمای خود را با جزئیات توضیح دهید</string>
-	<string name="description_comment1">توضیحات راهنما باید شامل حداقل 30 حرف باشد.</string>
-	<string name="ugc_route_tags_desc">لطفاً برای کمک به سایر مسافران جهت یافتن راهنمای شما برچسب انتخاب کنید. این الزامی است. %s بیشترین برچسب‌ها.</string>
-	<string name="html_format_error_title">راهنمای شما منتشر نشده‌است</string>
-	<string name="html_format_error_subtitle">لطفاً اطمینان حاصل کنید که نام و توضیحات تمام نشان شده‌های شما دارای فرمت معتبر است. می‌توانید آن را با کلیک روی گزینه \"ویرایش آنلاین\" از طریق مرورگر کامپیوتر بررسی کنید.</string>
-	<string name="web_editor_description">راهنمای خود را ارسال و لینک ویرایش را از کامپیوتر دریافت کنید</string>
-	<string name="edit_on_web_confirm">ویرایش آنلاین</string>
-	<string name="update_guide">به روز رسانی را ارسال کنید</string>
-	<string name="direct_link_updating_text">به روز رسانی فایل شما…</string>
-	<string name="direct_link_updating_success">راهنمای شما به روز شد</string>
-	<string name="unable_get_direct_link_desc">راهنمای خود را طریق لینک عمومی به اشتراک گذارید</string>
-	<string name="any_access_update_alert_title">برخی از تغییرات ممکن است رخ داده باشد</string>
-	<string name="any_access_update_alert_message">آیا می خواهید نشان شده های خود را به روز کنید؟ نسخه جدید از طریق همان لینک دردسترس خواهد بود.</string>
-	<string name="any_access_update_alert_update">به روز رسانی</string>
-	<string name="public_or_limited_access_after_edit_online_error_title">شما نشان شده های خود را آنلاین ویرایش کرده‌اید</string>
-	<string name="public_or_limited_access_after_edit_online_error_message">در آینده، لطفاً راهنما را ویرایش، منتشر یا با دوستان خود از طریق وب سایت ما به اشتراک گذارید</string>
 	<string name="power_managment_title">حالت ذخیره انرژی</string>
 	<string name="power_managment_description">هنگامی که حالت خودکار انتخاب شده‌باشد، برنامه با توجه میزان شارژ باتری شما، ویژگی‌های تخلیه کننده باتری را غیر فعال می‌کند</string>
 	<string name="power_managment_setting_never">هرگز</string>
 	<string name="power_managment_setting_auto">خودکار</string>
 	<string name="power_managment_setting_manual_max">حداکثر ذخیره انرژی</string>
-	<string name="enable_logging_warning_message">این گزینه ثبت گزارش را برای اهداف تشخیصی فعال می‌کند. برای کارکنان بخش پشتیبانی که مشکلات برنامه را عیب یابی می‌کنند، مفید باشد. این گزینه را تنها در صورت درخواست پشتیبانی OMaps فعال کنید.</string>
+	<string name="enable_logging_warning_message">این گزینه ثبت گزارش را برای اهداف تشخیصی فعال می‌کند. برای کارکنان بخش پشتیبانی که مشکلات برنامه را عیب یابی می‌کنند، مفید باشد. این گزینه را تنها در صورت درخواست پشتیبانی Organic Maps فعال کنید.</string>
 	<string name="html_error_upload_message_try_again">لطفاً تنظیمات شبکه را بررسی و مجدد تلاش کنید</string>
 	<string name="html_error_upload_title_try_again">ارتباط اینترنت برقرار نیست</string>
 	<string name="notification_leave_review_v2_android_short_title">نظر خود را بیان و به مسافران کمک کنید!</string>
 	<string name="notifications_illegal_alert_disable_button">خاموش کردن اعلان‌ها</string>
 	<string name="access_rules_author_only">ویرایش آنلاین</string>
 	<string name="privacy_settings_menu">تنظیمات حریم خصوصی</string>
-	<string name="gdpr_request_setting">دریافت شناسه برای درخواست GDPR</string>
-	<string name="gdpr_request_window_title">شناسه شما: %s.</string>
-	<string name="gdpr_request_window_message">لطفاً آن را کپی کرده و درخواست را به support\@omaps.app ارسال کنید</string>
-	<string name="gdpr_request_window_copy">شناسه را کپی کنید</string>
 	<string name="unable_upadate_error_title">به روز رسانی فایل ناموفق بود</string>
 	<string name="unable_upadate_error_message">هنگام به روز رسانی برخی اشتباهات رخ داده است. لطفاً تغییرات را بررسی و مجدد تلاش کنید</string>
-	<string name="whats_new_wiki_title">آن محل چیست؟</string>
-	<string name="whats_new_wiki_message">ما مقالات Wikipedia.org را به صفحات جذاب‌ترین جاذبه‌های توریستی اضافه کرده‌ایم. آن‌ها به طور آفلاین دردسترس می‌باشد</string>
 	<string name="driving_options_title">گزینه های رانندگی</string>
 	<string name="driving_options_subheader">اجتناب از تمامی مسیرها</string>
 	<string name="avoid_tolls">جاده های دارای عوارض</string>
@@ -1324,23 +1098,7 @@
 	<string name="avoid_toll_roads_placepage">اجتناب از جاده های دارای عوارض</string>
 	<string name="avoid_unpaved_roads_placepage">اجتناب از جاده های آسفالت نشده</string>
 	<string name="avoid_ferry_crossing_placepage">اجتناب از گذرگاه های کشتی</string>
-	<string name="cached_guides_placeholder_subtitle">OMaps راهنمایی های آماده برای مکان های انتخاب شده همراه عکس و توضیحات ارائه می دهد که بر روی نقشه نمایش داده می شوند و در حالت آفلاین در دسترس هستند.</string>
-	<string name="guides_catalogue_title">کاتالوگراهنماها</string>
-	<string name="download_guides_button">به کاتالوگ</string>
-	<plurals name="placepage_summary_rating_description">
-	  <item quantity="one">بر اساس نظر %d</item>
-	  <item quantity="other">بر اساس نظرات %d</item>
-	</plurals>
 	<string name="type.cuisine.uzbek">غذای ازبکستانی</string>
-	<string name="onboarding_guide_direct_download_title">راهنما آماده دریافت است</string>
-	<string name="onboarding_guide_direct_download_subtitle">بر روی نقشه نمایش داده می شود و به صورت آفلاین کار می کند</string>
-	<string name="onboarding_guide_direct_download_button">دریافت</string>
-	<string name="onboarding_bydeeplink_guide_title">راهنماهای آماده استفاده در OMaps</string>
-	<string name="onboarding_bydeeplink_guide_subtitle">بهترین مکان ها برای بازدید روی نقشه با عکس و توضیحات نمایش داده شده است. آفلاین اجرا می شود.</string>
-	<string name="whats_new_auto_update_bydeeplink_title">پیش از رفتن به راهنماها…</string>
-	<string name="whats_new_auto_update_bydeeplink_message">برای به روز نگه داشتن مناظر نقشه ها را به روز رسانی کنید!</string>
-	<string name="whats_new_auto_update_and_proceed_button_size">به روز رسانی (%s) و ادامه</string>
-	<string name="purchase_please_wait_toast">لطفاً این صفحه را پیش از اتمام خرید ترک نکنید</string>
 	<string name="trip_start">برویم</string>
 	<string name="pick_destination">مقصد</string>
 	<string name="follow_my_position">نشان دادن مجدد در مرکز</string>
@@ -1360,40 +1118,6 @@
 	<string name="dialog_routing_rebuild_from_current_location_carplay">مسیر از مکان فعلی شما بازسازی خواهد شد</string>
 	<string name="dialog_routing_rebuild_for_vehicle_carplay">مسیر به مسیر خودرویی تغییر خواهد کرد</string>
 	<string name="ok">موافقت کردن</string>
-	<string name="booking_button_toolbar">یک هتل را بر روی نقشه انتخاب کنید</string>
-	<string name="popup_booking_download_guides_title">هتل رزرو کرده‌اید؟</string>
-	<string name="popup_booking_download_guides_message">مسیر خود را با راهنماهای آماده OMaps برنامه ریزی کنید</string>
-	<string name="popup_mwm_download_guides_title">راهنماهای آفلاین شهر</string>
-	<string name="popup_mwm_download_guides_cta">یکی را انتخاب کنید</string>
-	<string name="popup_mwm_download_guides_cta_1">نگاهی کنید</string>
-	<string name="gallery_pp_download_guides_offline_title">تعطیلات خود را با OMaps برنامه ریزی کنید!</string>
-	<string name="gallery_pp_download_guides_offline_subtitle">با استفاده از راهنماهای تهیه شده توسط مسافران با تجربه، هیچ چیز را از دست ندهید</string>
-	<string name="gallery_pp_download_guides_offline_cta">اینترنت را متصل کنید</string>
-	<string name="gallery_pp_download_guides_title">راهنماها</string>
-	<string name="native_screen_subscription_title">دسترسی نامحدود به بیش از 2000 راهنمای سفر!</string>
-	<string name="native_screen_subscription_message">تعطیلات به یاد ماندنی در هر کجا و با هر کسی که سفر می کنید</string>
-	<string name="annual_subscription_title">سالانه</string>
-	<string name="montly_subscription_title">ماهانه</string>
-	<string name="annual_subscription_message">12 ماه دسترسی نامحدود</string>
-	<string name="montly_subscription_message">1 ماه دسترسی نامحدود</string>
-	<string name="subscription_success_dialog_title">با تشکر برای اشتراک!</string>
-	<string name="subscription_success_dialog_message">اکنون شما به تمام کاتالوگ راهنما دسترسی نامحدود دارید</string>
-	<string name="renewal_screen_title">اشتراک شما به پایان رسیده است</string>
-	<string name="renewal_screen_message">تمام راهنماهای دانلود شده با اشتراک حذف خواهند شد. آیا تمایل به ادامه اشتراک و حفظ آنها دارید؟</string>
-	<string name="renewal_screen_button_restore">بله، تمدید کن</string>
-	<string name="renewal_screen_button_cancel">نه، حذف راهنماها</string>
-	<string name="subscription_error_ping_title">خرید ناموفق بود</string>
-	<string name="subscription_error_message">این سرویس در حال حاضر در منطقه شما در دسترس نیست. لطفا بعداً دوباره امتحان کنید</string>
-	<string name="subscription_error_button">متوجه شدم</string>
-	<string name="timeout_error_title">اوه، زمان به پایان رسید!</string>
-	<string name="timeout_error_message">سرورهای ما پاسخ نمی دهند. لطفا اتصال اینترنت را بررسی و دوباره امتحان کنید.</string>
-	<string name="per_month">ماه/</string>
-	<string name="per_year">سال/</string>
-	<string name="buy_btn_for_subscription">دسترسی نامحدود از %s</string>
-	<string name="buy_btn_for_subscription_1">تمامی راهنماها را با %s بخرید</string>
-	<string name="buy_btn_for_subscription_ios_only_mo">دسترسی نامحدود %s\ماه</string>
-	<string name="buy_btn_for_subscription_ios_only_year">دسترسی نامحدود %s\سال</string>
-	<string name="subscription_terms_guides">پس از تأیید خرید پرداخت از طریق حساب iTunes انجام خواهد شد. اشتراک به صورت خودکار تمدید خواهد شد مگر اینکه ویژگی تمدید خودکار حداقل 24 ساعت قبل از پایان دوره فعلی غیر فعال شود. با توجه به طرح تمدیدی شما، 24 ساعت پیش از اتمام دوره اشتراک، هزینه از حساب شما کسر می شود. شما می توانید در هر زمانی ویژگی تمدید خودکار را در تنظیمات حساب Apple ID خود مدیریت یا غیر فعال کنید. شما می توانید راهنماهای دانلود شده توسط اشتراک را تنها تا تاریخ انقضا استفاده کنید. 30 روز پس از تاریخ اتمام اشتراک، راهنما ها با بوک مارک ها به طور خودکار حذف خواهند شد.</string>
 	<string name="avoid_unpaved_carplay_1">بی جاده خاکی</string>
 	<string name="avoid_unpaved_carplay_2">پرهیز از خاکی</string>
 	<string name="avoid_ferry_carplay_1">بدون بزرگراه</string>
@@ -1402,7 +1126,7 @@
 	<string name="avoid_tolls_carplay_2">اجتناب از عوارض</string>
 	<string name="speedcams_alert_title_carplay_1">دوربین سرعت</string>
 	<string name="speedcams_alert_title_carplay_2">هشدارهای سرعت</string>
-	<string name="download_map_carplay">لطفا نقشه ها را در نرم افزار OMaps روی دستگاه خود دانلود کنید</string>
+	<string name="download_map_carplay">لطفا نقشه ها را در نرم افزار Organic Maps روی دستگاه خود دانلود کنید</string>
 	<string name="carplay_roundabout_exit">خروجی %s</string>
 	<!-- max. 10 symbols, both iOS and Android -->
 	<string name="sort">مرتب سازی…</string>
@@ -1450,79 +1174,15 @@
 	<string name="bookmarks_edit_list">ویرایش فهرست</string>
 	<!-- Android, max 18 symbols -->
 	<string name="bookmarks_delete_list">حذف همه</string>
-	<string name="popup_subscription_success_map_title">هورا، شما مشترک شدید!</string>
-	<string name="popup_subscription_success_map_message">اکنون بهترین مکان های برجسته گردشگری را در کاتالوگ OMaps کشف کنید</string>
-	<string name="popup_subscription_success_map_start_button">شروع جستجو</string>
-	<string name="popup_subscription_success_map_not_now_button">حالا نه</string>
 	<string name="religious_places">اماکن مقدس</string>
-	<string name="subscription_terms_android">هنگامی که خرید را تأیید کنید، هزینه آن از حساب Google Play شما پرداخت می شود. اشتراک به طور خودکار تمدید خواهد شد مگر اینکه ویژگی تمدید خودکار حداقل 24 ساعت قبل از پایان دوره فعلی خاموش باشد. حساب شما طبق برنامه تمدید، 24 ساعت پیش از پایان دوره جاری، شارژ می شود. شما می توانید ویژگی تمدید خودکار را در تنظیمات حساب پس از خرید مدیریت یا غیر فعال کنید. شما مجاز به استفاده از راهنماهای دانلود شده با اشتراک تنها تا تاریخ انقضا آن هستید. 30 روز پس از تاریخ انقضای اشتراک، راهنماهای دانلود شده به طور خودکار حذف خواهند</string>
 	<string name="select_list">انتخاب فهرست</string>
-	<string name="pp_discovery_place_related_header">این مکان در کاتالوگ راهنماها موجود است</string>
-	<string name="pp_discovery_place_related_header_1">این مکان در راهنما متمایز است</string>
-	<string name="pp_discovery_place_related_cta_button">مشاهده</string>
-	<string name="pp_discovery_place_related_tag_header">به راهنماهایی با برچسب \"%s\"</string>
-	<string name="pp_discovery_place_related_tag_header_1">همچنین ممکن است شما،</string>
-	<string name="buy_btn_for_subscription_version_2">تمامی راهنماها تنها با %s د</string>
-	<string name="buy_btn_for_subscription_version_3">کلیه کاتالوگ ها با %s در ماه</string>
-	<string name="buy_btn_for_subscription_ios_only_mo_version_2">دسترسی به کاتالوگ با %s در ماه</string>
-	<string name="buy_btn_for_subscription_ios_only_year_version_2">دسترسی به کاتالوگ با %s در سال</string>
-	<string name="subscription_screen_native_message_version_2">برای هر سفر به بیش از 600 شهر و بیش از 100 کشور آماده باش</string>
-	<string name="catalog_no_internet_title">اتصال به اینترنت برقرار نیست</string>
-	<string name="catalog_no_internet_button">تلاش مجدد</string>
-	<string name="new_onboarding_button">بعدی</string>
-	<string name="new_onboarding_button_2">شروع کنید</string>
-	<string name="new_onboarding_step1_header_2">همه چیز دریک سفر دوست من</string>
-	<string name="new_onboarding_step2_header">رویاپردازی و برایش برنامهریزی کنید</string>
-	<string name="new_onboarding_step2_message">70+ میلیون مکان، راهنمای آماده و رزرو هتل درست از روی نقشه – آمادهی سفر هستید!</string>
-	<string name="new_onboarding_step3_message">محال است با نقشهی دقیق و جهتیابی یک کشور گم شوید– کلیه خدمات به صورت آفلاین ارائه می</string>
-	<string name="new_onboarding_step4_header">حال و احساستان را به اشتراک بگذارید</string>
-	<string name="new_onboarding_step4_message">نشانکهایی بر روی مکانهای مورد علاقه خود بگذارید و آنها را برای دوستانتان بفرستید</string>
-	<string name="new_onboarding_step5.1_header">نکتهای دیگر قبل از شروع…</string>
-	<string name="new_onboarding_step5.1_message">فراموش نکنید کاتالوگ راهنمای جدید و برند ما را ملاحظه کنید تا برای سفر آتی خود راهنمای آفلاین پیدا کنید!</string>
-	<string name="new_onboarding_step5.1_button">کاتالوگ را باز کنید</string>
-	<string name="new_onboarding_step5.2_message">عضویت شما در کاتالوگ راهنمای OMaps بسیار ارزشمند است. به راهنماهای درون و برون شهری در سراسر جهان دسترسی کامل بیابید!</string>
-	<string name="new_onboarding_step5.2_button">شرایط را چک کنید</string>
-	<string name="new_onboarding_step5.3_message">با گزینش رایگان OMaps نمونههای رایگان مسیرهای آماده شهرها و فضاهای باز را چک کنید!</string>
-	<string name="new_onboarding_step5.3_button">دانلود رایگان</string>
-	<string name="new_onboarding_additional_steps_later_button">بعداً</string>
-	<string name="all_pass_subscription_header">اشتراک در</string>
-	<string name="all_pass_subscription_subheader">کاتالوگراهنماها</string>
-	<!-- \n - for a break between lines. Max. 15 characters per 1 line. -->
-	<string name="all_pass_subscription_message_title">30000+\nراهنما و مسیرها</string>
-	<!-- <b> & </b> tag to make a part of the line bold -->
-	<string name="all_pass_subscription_message_subtitle"><b>دانلود نامحدود</b>مسیرهای شهری و فضای باز<b>در حالت آفلاین</b></string>
-	<!-- \n - for a break between lines. Max. 17 characters per 1 line. -->
-	<string name="all_pass_subscription_message_title_2">پروفایل ارتفاع\nتعاملی</string>
-	<!-- <b> & </b> tag to make a part of the line bold -->
-	<string name="all_pass_subscription_message_subtitle_2">هر مسیر شامل<b>ارتفاع و اطلاعات اصلی مسیر است</b></string>
-	<!-- \n - for a break between lines. Max. 15 characters per 1 line. -->
-	<string name="all_pass_subscription_message_title_3">نشانه ها،\nتصاویر و\nتوصیهها</string>
-	<!-- <b> & </b> tag to make a part of the line bold -->
-	<string name="all_pass_subscription_message_subtitle_3"><b>دانستن همه چیز درباره مسیری</b>که قرار است طی کنید</string>
-	<string name="sightseeing_subscription_header_subscription">اشتراک راهنماها</string>
-	<string name="sightseeing_subscription_message">700+ شهر و 100+ کشور</string>
-	<string name="sightseeing_subscription_message_2">دسترسی آفلاین</string>
-	<string name="sightseeing_subscription_message_3">تصاویر و مسیرهای پیاده‎روی</string>
-	<string name="subscription_success_dialog_title_sightseeing_pass">با تشکر از اشتراک شما!</string>
-	<string name="subscription_success_dialog_message_sightseeing_pass">حال به تمامی اطلاعات راهنمای گردشگری موجود در کاتالوگ دسترسی دار</string>
-	<string name="downloader_main_gallery_header">نقشه‎ها و راهنماها</string>
-	<string name="downloader_main_gallery_message">حال در این بخش نه تنها قادر به دانلود نقشهها خواهید بود، بلکه همچنین میتوانید راهنماها را برای سفر آتی خود چک کنید</string>
-	<string name="downloader_main_1_element_gallery_header">تمامی راهنماها</string>
-	<string name="downloader_main_1_element_gallery_message">در +100 کشور</string>
-	<string name="downloader_country_1_element_gallery_header">%s راهن</string>
-	<string name="downloader_country_no_guides_gallery_header">هیچ راهنمایی دربارهی این کشور وجود ندارد</string>
-	<string name="downloader_country_no_guides_gallery_message">میتوانید سایر راهنماهای آفلاین را برای فعالیتهای شهری و فضای باز +100 کشور چک کنید</string>
-	<string name="dialog_pedestrian_route_is_long">مسیر عابر پیاده تا نقطه حمل و انتقال بسیار طولانی است</string>
-	<string name="new_onboarding_step3_header">تجربه کنید</string>
-	<string name="all_pass_screen_best_value">بهترین ارزش</string>
-	<string name="buy_btn_for_subscription_3">کلیه کاتالوگ ها با %s در سال</string>
 	<string name="transit_not_found">راهنمای مترو در این منطقه هنوز دردسترس نیست</string>
 	<string name="dialog_pedestrian_route_is_long_header">مسیر مترو یافت نشد</string>
 	<string name="dialog_pedestrian_route_is_long_message">لطفا نقطه آغاز و پایان نزدیک تری به ایستگاه مترو انتخاب کنید</string>
 	<!-- Failed planning SUBWAY route message in navigation view -->
 	<string name="routing_planning_error_subway_special">برنامه ریزی مسیر مترو ناموفق ماند</string>
 	<string name="button_layer_isolines">ایزومپ</string>
-	<string name="tips_map_layers_title_countour">تازه ها در OMaps: لایه توپوگرافی آفلاین!</string>
+	<string name="tips_map_layers_title_countour">تازه ها در Organic Maps: لایه توپوگرافی آفلاین!</string>
 	<string name="tips_map_layers_message_countour">با اطمینان از این که همه چیز را در مورد منطقه می دانید طبیعت گردی خود را برنامه ریزی کنید و لذت ببرید</string>
 	<string name="isolines_activation_error_dialog">برای فعال سازی و استفاده از لایه توپوگرافی نقشه منطقه را به روزرسانی یا دانلود کنید</string>
 	<string name="isolines_location_error_dialog">لایه توپوگرافی هنوز برای این منطقه در دسترس نیست</string>
@@ -1541,79 +1201,10 @@
 	<string name="elevation_profile_time">زمان:</string>
 	<string name="elevation_profile_hours">ساعت</string>
 	<string name="elevation_profile_minutes">دقیقه</string>
-	<string name="view_on_map_downloaded_error">راهنما از این دستگاه پاک شده است</string>
-	<string name="subscription">عضویت</string>
-	<string name="button_layer_guides">راهنماها (جدید)</string>
-	<string name="no_routes_in_the_area_toast">راهنمایی در اینجا یافت نشد</string>
 	<string name="isolines_toast_zooms_1_10">برای بررسی خطوط تراز زوم کنید</string>
-	<string name="routes_layer_in_menu_toast">برای یافتن راهنمای آفلاین، بررسی خطوط تراز، خطوط مترو یا تراکم رفت و آمد لایه ها را روشن کنید</string>
-	<string name="routes_layer_is_on_toast">برای بررسی راهنما نقشه را حرکت دهید</string>
-	<string name="connection_error_dialog_guides_title">خطای ارتباط</string>
-	<string name="connection_error_dialog_guides_message">لایه به دلیل نبود اینترنت یا سیگنال ضعیف کار نمی کند. برای ادامه کار ارتباط را بررسی کنید یا لایه را خاموش نمایید.</string>
-	<string name="connection_error_dialog_guides_try">دوباره تلاش کنید</string>
-	<string name="connection_error_dialog_guides_layer_turn_off">خاموش</string>
-	<string name="connection_error_toast_guides">در حال برقراری مجدد ارتباط</string>
-	<!-- as few symbols as possible -->
-	<string name="routes_card_show">نمایش روی نقشه</string>
-	<!-- as few symbols as possible -->
-	<string name="routes_card_hide">مخفی کردن از نقشه</string>
 	<string name="downloader_updating_ios">در حال بروزرسانی</string>
 	<string name="downloader_loading_ios">در حال دانلود</string>
-	<string name="routes_card_plus_track">+ مسیر</string>
-	<string name="routes_card_number_of_points">%s مکان ها</string>
-	<string name="routes_card_routes_tag">مسیر سفر</string>
-	<string name="routes_card_set_tag">مکان های ویژه</string>
-	<!-- as few symbols as possible -->
-	<string name="guides_trial_cta_button">اکانت آزمایشی 7 روزه خود را شروع کنید</string>
-	<string name="guides_trial_message">بعد از آن، سالانه %s می پردازید و هروقت بخواهید عضویت خود را لغو می کنید</string>
-	<string name="trial_error_dialog">متاسفیم، شما قبلاً از اکانت آزمایشی استفاده کرده اید</string>
-	<!-- as few symbols as possible -->
-	<string name="floating_button_filters">فیلترها</string>
-	<plurals name="date_picker_amout_of_days">
-	  <item quantity="one">%d روز</item>
-	  <item quantity="few">%d روز</item>
-	  <item quantity="other">%d روز</item>
-	</plurals>
-	<!-- as few symbols as possible -->
-	<string name="date_picker_сhoose_dates_cta">انتخاب روزها</string>
-	<!-- as few symbols as possible -->
-	<string name="guests_picker_rooms_title">اتاقها و مهمانان</string>
-	<string name="guests_picker_rooms">اتاقها</string>
-	<string name="guests_picker_adults">بزرگسالان</string>
-	<string name="guests_picker_children_title">کودکان</string>
-	<string name="guests_picker_children_subtitle">1 تا 17 ساله</string>
-	<string name="guests_picker_infants_title">نوزادان</string>
-	<string name="guests_picker_infants_subtitle">0 تا 12 ماهه</string>
-	<!-- as less symbols as possible -->
-	<string name="booking_map_component_availability">فاقد اتاق خالی</string>
-	<!-- as few symbols as possible -->
-	<string name="booking_map_component_filters">فیلتری باقی نمانده</string>
-	<string name="choose_dates_online_only_dialog_title">به اینترنت متصل نیستید</string>
-	<string name="choose_dates_online_only_dialog_message">روزها و تعداد مهمانان را فقط هنگام اتصال به اینترنت میتوانید انتخاب کنید. لطفاً تنظیمات خود را بررسی کرده و از اتصال خود به اینترنت مطمئن شوید.</string>
-	<string name="choose_dates_online_only_dialog_cta">تنظیمات</string>
-	<string name="thirty_days_limit_dialog">شما می توانید حداکثر 30 شب رزرو کنید</string>
-	<string name="whatsnew_trial_cta">همین الان امتحان کنید</string>
-	<string name="subscription_terms_guides_outdoor">بعد از اینکه خرید را تایید کنید، مبلغ از حساب آی تونز شما کسر خواهد شد. عضویت شما بصورت خودکار تمدید خواهد شد مگر اینکه حداقل 24 ساعت قبل از پایان دوره عضویت فعلی، گزینه \"تمدید خودکار\" را غیرفعال کنید. مبلغ عضویت دوره بعدی بطور خودکار و 24 ساعت قبل از پایان دوره عضویت فعلی، از حساب شما کسر خواهد شد. شما می توانید بعد از خرید، هر زمان که مایل باشید گزینه تمدید خودکار را از قسمت تنظیمات حساب اپل آی دی خود تغییر داده یا غیرفعال کنید. از راهنماهای دانلود شده در دوره عضویت تنها تا پایان دوره عضویت می توانید استفاده کنید. راهنماها و علاقه مندی های شما 7 روز پس از پایان دوره عضویت، بصورت خودکار حذف خواهد شد.\n* عضویت در دوره آزمایشی رایگان، پس از پایان بصورت خودکار تبدیل به عضویت پولی خواهد شد. پس از فعالسازی دوره آزمایشی می توانید از قسمت تنظیمات حساب کاربری خود، گزینه تمدید خودکار دوره آزمایشی را غیرفعال کنید. لغو عضویت، 24 ساعت پس از آخرین روز دوره عضویت فعلی انجام خواهد شد. پس از لغو عضویت، شما تنها به خدمات رایگان ما دسترسی خواهید داشت. لطفا توجه داشته باشید که: پس از خرید و فعالسازی اکانت پولی، بخشهای بلااستفادۀ خود در اکانت رایگان را از دست خواهید داد.</string>
-	<string name="subscription_terms_android_outdoor">پس از تایید خرید، مبلغ از حساب گوگل پلی شما کسر خواهد شد. عضویت شما بصورت خودکار تمدید خواهد شد مگر اینکه حداقل 24 ساعت قبل از پایان دوره عضویت فعلی، گزینه \"تمدید خودکار\" را غیرفعال کنید. مبلغ عضویت دوره بعدی بطور خودکار و 24 ساعت قبل از پایان دوره عضویت فعلی، از حساب شما کسر خواهد شد. شما می توانید بعد از خرید، هر زمان که مایل باشید گزینه تمدید خودکار را از قسمت تنظیمات حساب خود تغییر داده یا غیرفعال کنید. از راهنماهای دانلود شده در دوره عضویت تنها تا پایان دوره عضویت می توانید استفاده کنید. راهنماهای شما 7 روز پس از پایان دوره عضویت، بصورت خودکار حذف خواهد شد.\n* عضویت در دوره آزمایشی رایگان، پس از پایان بصورت خودکار تبدیل به عضویت پولی خواهد شد. پس از فعالسازی دوره آزمایشی می توانید از قسمت تنظیمات حساب کاربری خود، گزینه تمدید خودکار دوره آزمایشی را غیرفعال کنید. لغو عضویت، 24 ساعت پس از آخرین روز دوره عضویت فعلی انجام خواهد شد. پس از لغو عضویت، شما تنها به خدمات رایگان ما دسترسی خواهید داشت. لطفا توجه داشته باشید که: پس از خرید و فعالسازی اکانت پولی، بخشهای بلااستفادۀ خود در اکانت رایگان را از دست خواهید داد.</string>
-	<string name="subscription_header">اشتراک در\n<b>کاتالوگ راهنماها</b></string>
-	<!-- Max. 20 characters per 1 line. -->
-	<string name="all_pass_subscription_message_title_4">راهنمای سفر\nبا Lonely Planet®</string>
-	<!-- <b> & </b> tag to make a part of the line bold -->
-	<string name="all_pass_subscription_message_subtitle_4"><b>تجربه هایی بیش از پیش</b> با هزاران مکان جذاب <b>در سراسر جهان</b></string>
-	<string name="content_by_component">منبع مطالب: %s</string>
-	<string name="whatsnew_lp_title">و حتی هیجان بیشتر</string>
-	<string name="whatsnew_lp_message">هم اکنون راهنماهای Lonely Planet در برنامه ما موجود است! بهترین جاذبه ها، مسیرهای موضوعی و نقاط بی نظیر سفر برای بیش از 7000 شهر.</string>
-	<string name="collections_title">مجموعه‌ها</string>
 	<string name="key_information_title">اطلاعات کلیدی</string>
-	<string name="mustsee_title">دیدنی</string>
-	<string name="see_lp_category">دیدنیها</string>
-	<string name="play_lp_category">سرگرمی</string>
-	<string name="shop_lp_category">خرید</string>
-	<string name="transport_lp_category">حملونقل</string>
-	<string name="sleep_lp_category">هتل</string>
-	<string name="general_lp_category">عمومی</string>
-	<string name="drink_lp_category">نوشیدنی</string>
-	<string name="eat_lp_category">غذا</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aeroway.aerodrome">فرودگاه</string>
