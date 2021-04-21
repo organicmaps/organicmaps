@@ -179,10 +179,9 @@ class ActionBarViewController: UIViewController {
 
   private func buttonState(_ buttonType: ActionBarButtonType) -> (Bool /* selected */, Bool /* enabled */) {
     var selected = false
-    var enabled = true
-    if buttonType == .bookmark, let bookmarkData = placePageData.bookmarkData {
+    let enabled = true
+    if buttonType == .bookmark {
       selected = true
-      enabled = bookmarkData.isEditable
     }
     return (selected, enabled)
   }

@@ -8,7 +8,6 @@
   <!-- Font names -->
   <string name="robotoLight" translatable="false">sans-serif-light</string>
   <string name="robotoRegular" translatable="false">sans-serif</string>
-  <!-- roboto thin (android 4.2)-->
   <!--  roboto medium (android 5.0)-->
   <string name="robotoMedium" translatable="false">sans-serif</string>
 
@@ -32,7 +31,6 @@
   <!-- TODO: Move to another domain. -->
   <string name="tts_info_link" translatable="false">https://mapsme.zendesk.com/hc/en-us/articles/208628985-How-can-I-check-TTS-settings-on-my-Android-device-</string>
   <string name="pref_autodownload" translatable="false">AutoDownloadMap</string>
-  <string name="pref_backupbookmarks" translatable="false">BackupBookmarks</string>
   <string name="pref_3d" translatable="false">3D</string>
   <string name="pref_3d_buildings" translatable="false">3DBuildings</string>
   <string name="pref_track_screen" translatable="false">TrackScreen</string>
@@ -63,13 +61,13 @@
   <string name="tag_menu_collapse" translatable="false">collapse</string>
   <string name="tag_height_limited" translatable="false">height limited</string>
 
-  <string name="search_hotel_filter" translatable="false">search_hotel_filter_%s</string>
-
   <string name="pref_subtittle_opt_out" translatable="false">pref_opt_out</string>
   <string name="pref_crash_reports" translatable="false">pref_crash_reports</string>
   <string name="never_enum_value" translatable="false">NEVER</string>
   <string name="always_enum_value" translatable="false">ALWAYS</string>
   <string name="auto_enum_value" translatable="false">AUTO</string>
   <string name="placepage_behavior" translatable="false">com.trafi.anchorbottomsheetbehavior.AnchorBottomSheetBehavior</string>
-  <string name="booking_filter_date_range" translatable="false">%s - %s</string>
+
+  <string name="privacy_policy_url" translatable="false">https://organicmaps.app/privacy</string>
+  <string name="terms_of_use_url" translatable="false">https://organicmaps.app/terms</string>
 </resources>

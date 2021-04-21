@@ -417,11 +417,6 @@ public class Framework
   public static native void nativeSaveRoutePoints();
   public static native void nativeDeleteSavedRoutePoints();
 
-  @NonNull
-  public static native String nativeGetPrivacyPolicyLink();
-  @NonNull
-  public static native String nativeGetTermsOfUseLink();
-
   public static native void nativeShowFeature(@NonNull FeatureId featureId);
 
   public static native void nativeMakeCrash();

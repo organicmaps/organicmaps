@@ -1,5 +1,4 @@
 #include "map/bookmark_helpers.hpp"
-#include "map/user.hpp"
 
 #include "drape_frontend/visual_params.hpp"
 
@@ -491,16 +490,6 @@ std::string GetLocalizedBookmarkBaseType(BookmarkBaseType type)
 std::string GetPreferredBookmarkName(kml::BookmarkData const & bmData)
 {
   return kml::GetPreferredBookmarkName(bmData, languages::GetCurrentOrig());
-}
-
-bool IsMyCategory(std::string const & userId, kml::CategoryData const & categoryData)
-{
-  return userId == categoryData.m_authorId;
-}
-
-bool IsMyCategory(User const & user, kml::CategoryData const & categoryData)
-{
-  return IsMyCategory(user.GetUserId(), categoryData);
 }
 
 void ExpandRectForPreview(m2::RectD & rect)

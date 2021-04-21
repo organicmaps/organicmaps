@@ -16,7 +16,6 @@
     _bookmarkDescription = rawData.IsBookmark() ? @(GetPreferredBookmarkStr(rawData.GetBookmarkData().m_description).c_str()) : nil;
     _bookmarkCategory = rawData.IsBookmark() ? @(rawData.GetBookmarkCategoryName().c_str()) : nil;
     _isHtmlDescription = strings::IsHTML(GetPreferredBookmarkStr(rawData.GetBookmarkData().m_description));
-    _isEditable = GetFramework().GetBookmarkManager().IsEditableBookmark(_bookmarkId);
     _color = convertKmlColor(rawData.GetBookmarkData().m_color.m_predefinedColor);
   }
   return self;

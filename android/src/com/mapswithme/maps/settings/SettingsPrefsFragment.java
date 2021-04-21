@@ -293,7 +293,6 @@ public class SettingsPrefsFragment extends BaseXmlSettingsFragment
     initMapStylePrefsCallbacks();
     initSpeedCamerasPrefs();
     initAutoDownloadPrefsCallbacks();
-    initBackupBookmarksPrefsCallbacks();
     initLargeFontSizePrefsCallbacks();
     initTransliterationPrefsCallbacks();
     init3dModePrefsCallbacks();
@@ -725,26 +724,6 @@ public class SettingsPrefsFragment extends BaseXmlSettingsFragment
         return true;
       }
     });
-  }
-
-  private void initBackupBookmarksPrefsCallbacks()
-  {
-    TwoStatePreference pref = findPreference(getString(R.string.pref_backupbookmarks));
-    if (pref == null)
-      return;
-
-    // Sic: temporary disable bookmark backups.
-    removePreference(getString(R.string.pref_settings_general), pref);
-
-    boolean curValue = BookmarkManager.INSTANCE.isCloudEnabled();
-    pref.setChecked(curValue);
-    pref.setOnPreferenceChangeListener(
-        (preference, newValue) ->
-        {
-          Boolean value = (Boolean) newValue;
-          BookmarkManager.INSTANCE.setCloudEnabled(value);
-          return true;
-        });
   }
 
   private void initMapStylePrefsCallbacks()

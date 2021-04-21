@@ -187,68 +187,10 @@ static BookmarkManager::SortingType convertSortingTypeToCore(MWMBookmarksSorting
 
 - (void)loadBookmarks
 {
-  auto onSynchronizationStarted = [self](Cloud::SynchronizationType type)
-  {
-    [self loopObservers:^(id<MWMBookmarksObserver> observer) {
-      if (type == Cloud::SynchronizationType::Backup) {
-        if ([observer respondsToSelector:@selector(onBackupStarted)]) {
-          [observer onBackupStarted];
-        }
-      } else {
-        if ([observer respondsToSelector:@selector(onRestoringStarted)]) {
-          [observer onRestoringStarted];
-        }
-      }
-    }];
-  };
-  
-  auto onSynchronizationFinished = [self](Cloud::SynchronizationType type,
-                                          Cloud::SynchronizationResult result,
-                                          std::string const & errorStr)
-  {
-    [self loopObservers:^(id<MWMBookmarksObserver> observer) {
-      if ([observer respondsToSelector:@selector(onSynchronizationFinished:)])
-        [observer onSynchronizationFinished:static_cast<MWMSynchronizationResult>(base::Underlying(result))];
-    }];
-  };
-  
-  auto onRestoreRequested = [self](Cloud::RestoringRequestResult result,
-                                   std::string const & deviceName,
-                                   uint64_t backupTimestampInMs)
-  {
-    auto const res = static_cast<MWMRestoringRequestResult>(base::Underlying(result));
-    NSDate * date = nil;
-
-    if (result == Cloud::RestoringRequestResult::BackupExists) {
-        date = [NSDate dateWithTimeIntervalSince1970:backupTimestampInMs / 1000];
-    }
-
-    [self loopObservers:^(id<MWMBookmarksObserver> observer) {
-      if ([observer respondsToSelector:@selector(onRestoringRequest:deviceName:backupDate:)])
-        [observer onRestoringRequest:res deviceName:@(deviceName.c_str()) backupDate:date];
-    }];
-  };
-  
-  auto onRestoredFilesPrepared = [self]
-  {
-    [self loopObservers:^(id<MWMBookmarksObserver> observer) {
-      if ([observer respondsToSelector:@selector(onRestoringFilesPrepared)])
-        [observer onRestoringFilesPrepared];
-    }];
-  };
-  
-  self.bm.SetCloudHandlers(std::move(onSynchronizationStarted),
-                           std::move(onSynchronizationFinished),
-                           std::move(onRestoreRequested),
-                           std::move(onRestoredFilesPrepared));
   self.bm.LoadBookmarks();
 }
 
 #pragma mark - Categories
-
-- (BOOL)isCategoryEditable:(MWMMarkGroupID)groupId {
-  return self.bm.IsEditableCategory(groupId);
-}
 
 - (BOOL)isCategoryNotEmpty:(MWMMarkGroupID)groupId {
   return self.bm.HasBmCategory(groupId) &&
@@ -268,10 +210,8 @@ static BookmarkManager::SortingType convertSortingTypeToCore(MWMBookmarksSorting
   auto const & list = self.bm.GetBmGroupsIdList();
   NSMutableArray<NSNumber *> * collection = @[].mutableCopy;
   for (auto const & groupId : list)
-  {
-    if ([self isCategoryEditable:groupId])
-      [collection addObject:@(groupId)];
-  }
+    [collection addObject:@(groupId)];
+
   return collection.copy;
 }
 
@@ -664,50 +604,6 @@ static BookmarkManager::SortingType convertSortingTypeToCore(MWMBookmarksSorting
   });
 }
 
-#pragma mark - Cloud sync
-
-- (NSDate *)lastSynchronizationDate
-{
-  auto timestampInMs = self.bm.GetLastSynchronizationTimestampInMs();
-  if (timestampInMs == 0)
-    return nil;
-  return [NSDate dateWithTimeIntervalSince1970:timestampInMs / 1000];
-}
-
-- (BOOL)isCloudEnabled
-{
-  return self.bm.IsCloudEnabled();
-}
-
-- (void)setCloudEnabled:(BOOL)enabled
-{
-  self.bm.SetCloudEnabled(enabled);
-}
-
-- (void)requestRestoring
-{
-  if (Platform::ConnectionStatus() == Platform::EConnectionType::CONNECTION_NONE)
-  {
-    [self loopObservers:^(id<MWMBookmarksObserver> observer) {
-      if ([observer respondsToSelector:@selector(onRestoringRequest:deviceName:backupDate:)])
-        [observer onRestoringRequest:MWMRestoringRequestResultNoInternet deviceName:nil backupDate:nil];
-    }];
-    return;
-  }
-
-  self.bm.RequestCloudRestoring();
-}
-
-- (void)applyRestoring
-{
-  self.bm.ApplyCloudRestoring();
-}
-
-- (void)cancelRestoring
-{
-  self.bm.CancelCloudRestoring();
-}
-
 #pragma mark - Notifications
 
 - (void)setNotificationsEnabled:(BOOL)enabled
@@ -727,10 +623,8 @@ static BookmarkManager::SortingType convertSortingTypeToCore(MWMBookmarksSorting
   NSMutableArray<MWMBookmarkGroup *> * result = [NSMutableArray array];
   auto const & list = self.bm.GetBmGroupsIdList();
   for (auto const & groupId : list)
-  {
-    if ([self isCategoryEditable:groupId])
-      [result addObject:[self categoryWithId:groupId]];
-  }
+    [result addObject:[self categoryWithId:groupId]];
+
   return [result copy];
 }
 

@@ -8,7 +8,6 @@
 
 #include "map/bookmark_helpers.hpp"
 #include "map/framework.hpp"
-#include "map/user.hpp"
 
 #include "search/result.hpp"
 
@@ -19,6 +18,7 @@
 #include "coding/string_utf8_multilang.hpp"
 
 #include "base/file_name_utils.hpp"
+#include "base/scope_guard.hpp"
 
 #include <array>
 #include <fstream>
@@ -136,19 +136,19 @@ char const * kmlString =
     "</Document>"
     "</kml>";
 
-BookmarkManager::Callbacks const bmCallbacks(
-  []()
-  {
-    static StringsBundle dummyBundle;
-    return dummyBundle;
-  },
-  static_cast<BookmarkManager::Callbacks::GetSeacrhAPIFn>(nullptr),
-  static_cast<BookmarkManager::Callbacks::CreatedBookmarksCallback>(nullptr),
-  static_cast<BookmarkManager::Callbacks::UpdatedBookmarksCallback>(nullptr),
-  static_cast<BookmarkManager::Callbacks::DeletedBookmarksCallback>(nullptr),
-  static_cast<BookmarkManager::Callbacks::AttachedBookmarksCallback>(nullptr),
-  static_cast<BookmarkManager::Callbacks::DetachedBookmarksCallback>(nullptr)
-);
+#define BM_CALLBACKS {                                                            \
+    []()                                                                         \
+    {                                                                            \
+      static StringsBundle dummyBundle;                                          \
+      return dummyBundle;                                                        \
+    },                                                                           \
+    static_cast<BookmarkManager::Callbacks::GetSeacrhAPIFn>(nullptr),            \
+    static_cast<BookmarkManager::Callbacks::CreatedBookmarksCallback>(nullptr),  \
+    static_cast<BookmarkManager::Callbacks::UpdatedBookmarksCallback>(nullptr),  \
+    static_cast<BookmarkManager::Callbacks::DeletedBookmarksCallback>(nullptr),  \
+    static_cast<BookmarkManager::Callbacks::AttachedBookmarksCallback>(nullptr), \
+    static_cast<BookmarkManager::Callbacks::DetachedBookmarksCallback>(nullptr)  \
+  }
 
 void CheckBookmarks(BookmarkManager const & bmManager, kml::MarkGroupId groupId)
 {
@@ -196,8 +196,7 @@ KmlFileType GetActiveKmlFileType()
 
 UNIT_CLASS_TEST(Runner, Bookmarks_ImportKML)
 {
-  User user;
-  BookmarkManager bmManager(user, (BookmarkManager::Callbacks(bmCallbacks)));
+  BookmarkManager bmManager(BM_CALLBACKS);
   bmManager.EnableTestMode(true);
 
   BookmarkManager::KMLDataCollection kmlDataCollection;
@@ -225,8 +224,7 @@ UNIT_CLASS_TEST(Runner, Bookmarks_ExportKML)
   string const fileName = base::JoinPath(dir, "UnitTestBookmarks" + ext);
   SCOPE_GUARD(fileDeleter, [&](){ (void)base::DeleteFileX(fileName); });
 
-  User user;
-  BookmarkManager bmManager(user, (BookmarkManager::Callbacks(bmCallbacks)));
+  BookmarkManager bmManager(BM_CALLBACKS);
   bmManager.EnableTestMode(true);
 
   BookmarkManager::KMLDataCollection kmlDataCollection1;
@@ -971,8 +969,7 @@ char const * kmlString2 =
 
 UNIT_CLASS_TEST(Runner, Bookmarks_InnerFolder)
 {
-  User user;
-  BookmarkManager bmManager(user, (BookmarkManager::Callbacks(bmCallbacks)));
+  BookmarkManager bmManager(BM_CALLBACKS);
   bmManager.EnableTestMode(true);
 
   BookmarkManager::KMLDataCollection kmlDataCollection;
@@ -987,8 +984,7 @@ UNIT_CLASS_TEST(Runner, Bookmarks_InnerFolder)
 
 UNIT_CLASS_TEST(Runner, BookmarkCategory_EmptyName)
 {
-  User user;
-  BookmarkManager bmManager(user, (BookmarkManager::Callbacks(bmCallbacks)));
+  BookmarkManager bmManager(BM_CALLBACKS);
   bmManager.EnableTestMode(true);
 
   auto const catId = bmManager.CreateBookmarkCategory("", false /* autoSave */);
@@ -1044,8 +1040,7 @@ char const * kmlString3 =
 
 UNIT_CLASS_TEST(Runner, Bookmarks_SpecialXMLNames)
 {
-  User user;
-  BookmarkManager bmManager(user, (BookmarkManager::Callbacks(bmCallbacks)));
+  BookmarkManager bmManager(BM_CALLBACKS);
   bmManager.EnableTestMode(true);
 
   BookmarkManager::KMLDataCollection kmlDataCollection1;
@@ -1104,8 +1099,7 @@ UNIT_CLASS_TEST(Runner, Bookmarks_SpecialXMLNames)
 UNIT_CLASS_TEST(Runner, TrackParsingTest_1)
 {
   string const kmlFile = GetPlatform().TestsDataPathForFile("kml-with-track-kml.test");
-  User user;
-  BookmarkManager bmManager(user, (BookmarkManager::Callbacks(bmCallbacks)));
+  BookmarkManager bmManager(BM_CALLBACKS);
   bmManager.EnableTestMode(true);
 
   BookmarkManager::KMLDataCollection kmlDataCollection;
@@ -1142,8 +1136,7 @@ UNIT_CLASS_TEST(Runner, TrackParsingTest_1)
 UNIT_CLASS_TEST(Runner, TrackParsingTest_2)
 {
   string const kmlFile = GetPlatform().TestsDataPathForFile("kml-with-track-from-google-earth.test");
-  User user;
-  BookmarkManager bmManager(user, (BookmarkManager::Callbacks(bmCallbacks)));
+  BookmarkManager bmManager(BM_CALLBACKS);
   bmManager.EnableTestMode(true);
 
   BookmarkManager::KMLDataCollection kmlDataCollection;
@@ -1226,8 +1219,7 @@ UNIT_CLASS_TEST(Runner, Bookmarks_Listeners)
     static_cast<BookmarkManager::Callbacks::GetSeacrhAPIFn>(nullptr),
     onCreate, onUpdate, onDelete, onAttach, onDetach);
 
-  User user;
-  BookmarkManager bmManager(user, std::move(callbacks));
+  BookmarkManager bmManager(std::move(callbacks));
   bmManager.SetBookmarksChangedCallback([&bookmarksChanged]() { bookmarksChanged = true; });
   bmManager.EnableTestMode(true);
   Changes expectedChanges;
@@ -1314,8 +1306,7 @@ UNIT_CLASS_TEST(Runner, Bookmarks_Listeners)
 
 UNIT_CLASS_TEST(Runner, Bookmarks_AutoSave)
 {
-  User user;
-  BookmarkManager bmManager(user, (BookmarkManager::Callbacks(bmCallbacks)));
+  BookmarkManager bmManager(BM_CALLBACKS);
   bmManager.EnableTestMode(true);
 
   kml::MarkId bmId0;

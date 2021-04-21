@@ -48,13 +48,11 @@ set(
   com/mapswithme/maps/editor/OsmOAuth.cpp
   com/mapswithme/maps/Framework.cpp
   com/mapswithme/maps/isolines/IsolinesManager.cpp
-  com/mapswithme/maps/LightFramework.cpp
   com/mapswithme/maps/LocationHelper.cpp
   com/mapswithme/maps/LocationState.cpp
   com/mapswithme/maps/MapFragment.cpp
   com/mapswithme/maps/MapManager.cpp
   com/mapswithme/maps/MwmApplication.cpp
-  com/mapswithme/maps/PrivateVariables.cpp
   com/mapswithme/maps/routing/RoutingOptions.cpp
   com/mapswithme/maps/SearchEngine.cpp
   com/mapswithme/maps/SearchRecents.cpp

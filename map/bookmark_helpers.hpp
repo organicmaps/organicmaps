@@ -71,8 +71,6 @@ extern std::string const kKmzExtension;
 extern std::string const kKmlExtension;
 extern std::string const kKmbExtension;
 
-class User;
-
 enum class KmlFileType
 {
   Text,
@@ -109,8 +107,5 @@ std::string GetLocalizedBookmarkBaseType(BookmarkBaseType type);
 
 kml::BookmarkIcon GetBookmarkIconByFeatureType(uint32_t type);
 BookmarkBaseType GetBookmarkBaseType(std::vector<uint32_t> const & featureTypes);
-
-bool IsMyCategory(std::string const & userId, kml::CategoryData const & categoryData);
-bool IsMyCategory(User const & user, kml::CategoryData const & categoryData);
 
 void ExpandRectForPreview(m2::RectD & rect);

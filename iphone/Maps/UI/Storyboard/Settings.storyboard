@@ -195,40 +195,6 @@
                                             <outlet property="title" destination="6ZU-5V-v0J" id="o2Z-fX-Ivz"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="SettingsTableViewSwitchCell" id="hbG-yu-ut3" customClass="SettingsTableViewSwitchCell" customModule="OMaps" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="278" width="414" height="44"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="hbG-yu-ut3" id="5D0-ZK-p4X">
-                                            <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Автозагрузка" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="13" translatesAutoresizingMaskIntoConstraints="NO" id="YUL-hz-V1C">
-                                                    <rect key="frame" x="16" y="12" width="321" height="20"/>
-                                                    <inset key="insetFor6xAndEarlier" minX="0.0" minY="0.0" maxX="-25" maxY="0.0"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" horizontalCompressionResistancePriority="751" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="gal-zH-fgo">
-                                                    <rect key="frame" x="345" y="6.5" width="51" height="31"/>
-                                                    <inset key="insetFor6xAndEarlier" minX="3" minY="-2" maxX="-3" maxY="2"/>
-                                                    <color key="onTintColor" red="0.1176470588" green="0.58823529409999997" blue="0.94117647059999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                </switch>
-                                            </subviews>
-                                            <constraints>
-                                                <constraint firstItem="gal-zH-fgo" firstAttribute="leading" secondItem="YUL-hz-V1C" secondAttribute="trailing" constant="8" id="09x-rc-wtM"/>
-                                                <constraint firstAttribute="bottom" secondItem="YUL-hz-V1C" secondAttribute="bottom" constant="12" id="8C6-YG-YJX"/>
-                                                <constraint firstItem="YUL-hz-V1C" firstAttribute="top" secondItem="5D0-ZK-p4X" secondAttribute="top" constant="12" id="NTE-97-w6e"/>
-                                                <constraint firstItem="YUL-hz-V1C" firstAttribute="leading" secondItem="5D0-ZK-p4X" secondAttribute="leading" constant="16" id="lRa-F6-8tE"/>
-                                                <constraint firstAttribute="trailingMargin" secondItem="gal-zH-fgo" secondAttribute="trailing" id="tPt-GG-Q5w"/>
-                                                <constraint firstItem="gal-zH-fgo" firstAttribute="centerY" secondItem="5D0-ZK-p4X" secondAttribute="centerY" id="vmE-h5-07a"/>
-                                            </constraints>
-                                        </tableViewCellContentView>
-                                        <connections>
-                                            <outlet property="switchButton" destination="gal-zH-fgo" id="pYM-uM-To1"/>
-                                            <outlet property="title" destination="YUL-hz-V1C" id="VaO-EE-x5x"/>
-                                        </connections>
-                                    </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="SettingsTableViewLinkCell" id="6NC-QX-WiF" customClass="SettingsTableViewLinkCell" customModule="OMaps" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="322" width="414" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
@@ -708,7 +674,6 @@
                         <outlet property="aboutCell" destination="Kv3-pO-jV5" id="7QD-bU-KQz"/>
                         <outlet property="autoDownloadCell" destination="eE4-OC-9uX" id="c2A-dX-VMy"/>
                         <outlet property="autoZoomCell" destination="veW-Fm-2Hl" id="zbI-m2-mDP"/>
-                        <outlet property="backupBookmarksCell" destination="hbG-yu-ut3" id="Wxn-pQ-gEU"/>
                         <outlet property="compassCalibrationCell" destination="P5e-67-f4k" id="KcB-EC-S2y"/>
                         <outlet property="drivingOptionsCell" destination="KrE-Sc-fI1" id="XOl-eI-xJX"/>
                         <outlet property="fontScaleCell" destination="pri-6G-9Zb" id="rHJ-ZT-lwM"/>

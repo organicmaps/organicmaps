@@ -56,10 +56,6 @@
   return ![self.manager isCategoryNotEmpty:self.categoryId];
 }
 
-- (BOOL)isEditable {
-  return [self.manager isCategoryEditable:self.categoryId];
-}
-
 - (BOOL)hasDescription {
   return [self.manager hasExtraInfo:self.categoryId];
 }

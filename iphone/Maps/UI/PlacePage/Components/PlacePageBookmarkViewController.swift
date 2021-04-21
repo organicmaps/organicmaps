@@ -31,7 +31,7 @@ class PlacePageBookmarkViewController: UIViewController {
 
   func updateViews() {
     guard let bookmarkData = bookmarkData else { return }
-    editButton.isEnabled = bookmarkData.isEditable
+    editButton.isEnabled = true
     if let description = bookmarkData.bookmarkDescription {
       if bookmarkData.isHtmlDescription {
         setHtmlDescription(description)

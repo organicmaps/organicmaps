@@ -365,7 +365,7 @@ Framework::Framework(FrameworkParams const & params)
   InitSearchAPI(params.m_numSearchAPIThreads);
   LOG(LDEBUG, ("Search API initialized"));
 
-  m_bmManager = make_unique<BookmarkManager>(m_user, BookmarkManager::Callbacks(
+  m_bmManager = make_unique<BookmarkManager>(BookmarkManager::Callbacks(
       [this]() -> StringsBundle const & { return m_stringsBundle; },
       [this]() -> SearchAPI & { return GetSearchAPI(); },
       [this](vector<BookmarkInfo> const & marks) { GetSearchAPI().OnBookmarksCreated(marks); },
@@ -379,8 +379,6 @@ Framework::Framework(FrameworkParams const & params)
   m_parsedMapApi.SetBookmarkManager(m_bmManager.get());
   m_routingManager.SetBookmarkManager(m_bmManager.get());
   m_searchMarks.SetBookmarkManager(m_bmManager.get());
-
-  m_user.AddSubscriber(m_bmManager->GetUserSubscriber());
 
   m_routingManager.SetTransitManager(&m_transitManager);
 
@@ -449,10 +447,6 @@ Framework::~Framework()
   m_trafficManager.Teardown();
   DestroyDrapeEngine();
   m_featuresFetcher.SetOnMapDeregisteredCallback(nullptr);
-
-  m_user.ClearSubscribers();
-  // Must be destroyed implicitly, since it stores reference to m_user.
-  m_bmManager.reset();
 }
 
 void Framework::ShowNode(storage::CountryId const & countryId)

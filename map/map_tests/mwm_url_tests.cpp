@@ -12,6 +12,7 @@
 #include "coding/url.hpp"
 
 #include "base/macros.hpp"
+#include "base/scope_guard.hpp"
 #include "base/string_format.hpp"
 
 #include <random>

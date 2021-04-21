@@ -34,7 +34,6 @@ NS_SWIFT_NAME(BookmarksManager)
 - (BOOL)areBookmarksLoaded;
 - (void)loadBookmarks;
 
-- (BOOL)isCategoryEditable:(MWMMarkGroupID)groupId;
 - (BOOL)isCategoryNotEmpty:(MWMMarkGroupID)groupId;
 - (BOOL)isSearchAllowed:(MWMMarkGroupID)groupId;
 - (void)prepareForSearch:(MWMMarkGroupID)groupId;
@@ -83,13 +82,6 @@ NS_SWIFT_NAME(BookmarksManager)
 - (void)shareCategory:(MWMMarkGroupID)groupId;
 - (NSURL *)shareCategoryURL;
 - (void)finishShareCategory;
-
-- (NSDate * _Nullable)lastSynchronizationDate;
-- (BOOL)isCloudEnabled;
-- (void)setCloudEnabled:(BOOL)enabled;
-- (void)requestRestoring;
-- (void)applyRestoring;
-- (void)cancelRestoring;
 
 - (NSUInteger)filesCountForConversion;
 - (void)convertAll;

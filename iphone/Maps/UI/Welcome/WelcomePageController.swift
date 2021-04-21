@@ -49,22 +49,15 @@ final class WelcomePageController: UIPageViewController {
 
     var controllersToShow: [UIViewController] = []
 
-    if WelcomeStorage.shouldShowTerms {
-      controllersToShow.append(TermsOfUseBuilder.build(delegate: vc))
+    if FirstSession.isFirstSession() {
       controllersToShow.append(contentsOf: FirstLaunchBuilder.build(delegate: vc))
     } else {
-      if FirstSession.isFirstSession() {
-        WelcomeStorage.shouldShowTerms = true
-        controllersToShow.append(TermsOfUseBuilder.build(delegate: vc))
-        controllersToShow.append(contentsOf: FirstLaunchBuilder.build(delegate: vc))
-      } else {
-        NSLog("deeplinking: whats new check")
-        if (WelcomeStorage.shouldShowWhatsNew && !DeepLinkHandler.shared.isLaunchedByDeeplink) {
-          controllersToShow.append(contentsOf: WhatsNewBuilder.build(delegate: vc))
-        }
+      NSLog("deeplinking: whats new check")
+      if (WelcomeStorage.shouldShowWhatsNew && !DeepLinkHandler.shared.isLaunchedByDeeplink) {
+        controllersToShow.append(contentsOf: WhatsNewBuilder.build(delegate: vc))
       }
     }
-    
+
     WelcomeStorage.shouldShowWhatsNew = false
     vc.controllers = controllersToShow
     return vc

@@ -623,27 +623,6 @@ Java_com_mapswithme_maps_bookmarks_data_BookmarkManager_nativeGetTrackIdByPositi
   return static_cast<jlong>(*it);
 }
 
-JNIEXPORT void JNICALL
-Java_com_mapswithme_maps_bookmarks_data_BookmarkManager_nativeSetCloudEnabled(
-        JNIEnv * env, jobject thiz, jboolean enabled)
-{
-  frm()->GetBookmarkManager().SetCloudEnabled(enabled);
-}
-
-JNIEXPORT jboolean JNICALL
-Java_com_mapswithme_maps_bookmarks_data_BookmarkManager_nativeIsCloudEnabled(
-        JNIEnv * env, jobject thiz)
-{
-  return static_cast<jboolean>(frm()->GetBookmarkManager().IsCloudEnabled());
-}
-
-JNIEXPORT jlong JNICALL
-Java_com_mapswithme_maps_bookmarks_data_BookmarkManager_nativeGetLastSynchronizationTimestampInMs(
-        JNIEnv * env, jobject thiz)
-{
-  return static_cast<jlong>(frm()->GetBookmarkManager().GetLastSynchronizationTimestampInMs());
-}
-
 JNIEXPORT jboolean JNICALL
 Java_com_mapswithme_maps_bookmarks_data_BookmarkManager_nativeIsUsedCategoryName(
         JNIEnv * env, jobject thiz, jstring name)
@@ -742,27 +721,6 @@ Java_com_mapswithme_maps_bookmarks_data_BookmarkManager_nativeIsCategoryEmpty(
 {
   return static_cast<jboolean>(frm()->GetBookmarkManager().IsCategoryEmpty(
     static_cast<kml::MarkGroupId>(catId)));
-}
-
-JNIEXPORT void JNICALL
-Java_com_mapswithme_maps_bookmarks_data_BookmarkManager_nativeRequestRestoring(
-        JNIEnv * env, jobject thiz)
-{
-  frm()->GetBookmarkManager().RequestCloudRestoring();
-}
-
-JNIEXPORT void JNICALL
-Java_com_mapswithme_maps_bookmarks_data_BookmarkManager_nativeApplyRestoring(
-        JNIEnv * env, jobject thiz)
-{
-  frm()->GetBookmarkManager().ApplyCloudRestoring();
-}
-
-JNIEXPORT void JNICALL
-Java_com_mapswithme_maps_bookmarks_data_BookmarkManager_nativeCancelRestoring(
-        JNIEnv * env, jobject thiz)
-{
-  frm()->GetBookmarkManager().CancelCloudRestoring();
 }
 
 JNIEXPORT void JNICALL

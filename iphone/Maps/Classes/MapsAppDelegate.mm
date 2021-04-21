@@ -23,7 +23,6 @@
 #import <CoreApi/Framework.h>
 #import <CoreApi/MWMFrameworkHelper.h>
 
-#include "map/framework_light.hpp"
 #include "map/gps_tracker.hpp"
 
 #include "platform/background_downloader_ios.h"
@@ -144,9 +143,6 @@ using namespace osm_auth_ios;
   [self enableTTSForTheFirstTime];
 
   [[DeepLinkHandler shared] applicationDidFinishLaunching:launchOptions];
-  if (@available(iOS 13, *)) {
-    [MWMUser verifyAppleId];
-  }
   return YES;
 }
 

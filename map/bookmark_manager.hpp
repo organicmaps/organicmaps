@@ -2,7 +2,6 @@
 
 #include "map/bookmark.hpp"
 #include "map/bookmark_helpers.hpp"
-#include "map/cloud.hpp"
 #include "map/elevation_info.hpp"
 #include "map/track.hpp"
 #include "map/track_mark.hpp"
@@ -42,7 +41,6 @@ class CountryInfoGetter;
 
 class DataSource;
 class SearchAPI;
-class User;
 
 class BookmarkManager final
 {
@@ -172,7 +170,7 @@ public:
     BookmarkManager & m_bmManager;
   };
 
-  BookmarkManager(User & user, Callbacks && callbacks);
+  BookmarkManager(Callbacks && callbacks);
 
   void SetDrapeEngine(ref_ptr<df::DrapeEngine> engine);
 
@@ -310,11 +308,6 @@ public:
   MyPositionMarkPoint & MyPositionMark() { return *m_myPositionMark; }
   MyPositionMarkPoint const & MyPositionMark() const { return *m_myPositionMark; }
 
-  void SetCloudEnabled(bool enabled);
-  bool IsCloudEnabled() const;
-  uint64_t GetLastSynchronizationTimestampInMs() const;
-  std::unique_ptr<User::Subscriber> GetUserSubscriber();
-
   struct SharingResult
   {
     enum class Code
@@ -373,20 +366,8 @@ public:
   using ConversionHandler = platform::SafeCallback<void(bool success)>;
   void ConvertAllKmlFiles(ConversionHandler && handler);
 
-  // These handlers are always called from UI-thread.
-  void SetCloudHandlers(Cloud::SynchronizationStartedHandler && onSynchronizationStarted,
-                        Cloud::SynchronizationFinishedHandler && onSynchronizationFinished,
-                        Cloud::RestoreRequestedHandler && onRestoreRequested,
-                        Cloud::RestoredFilesPreparedHandler && onRestoredFilesPrepared);
-
-  void RequestCloudRestoring();
-  void ApplyCloudRestoring();
-  void CancelCloudRestoring();
-
   void SetNotificationsEnabled(bool enabled);
   bool AreNotificationsEnabled() const;
-
-  bool IsMyCategory(kml::MarkGroupId categoryId) const;
 
   void FilterInvalidBookmarks(kml::MarkIdCollection & bookmarks) const;
   void FilterInvalidTracks(kml::TrackIdCollection & tracks) const;
@@ -646,8 +627,7 @@ private:
   
   using BookmarksChecker = std::function<bool(kml::FileData const &)>;
   KMLDataCollectionPtr LoadBookmarks(std::string const & dir, std::string const & ext,
-                                     KmlFileType fileType, BookmarksChecker const & checker,
-                                     std::vector<std::string> & cloudFilePaths);
+                                     KmlFileType fileType, BookmarksChecker const & checker);
 
   void GetDirtyGroups(kml::GroupIdSet & dirtyGroups) const;
   void UpdateBmGroupIdList();
@@ -666,13 +646,6 @@ private:
   std::unique_ptr<kml::FileData> CollectBmGroupKMLData(BookmarkCategory const * group) const;
   KMLDataCollectionPtr PrepareToSaveBookmarks(kml::GroupIdCollection const & groupIdCollection);
   bool SaveKmlFileByExt(kml::FileData & kmlData, std::string const & file);
-
-  void OnSynchronizationStarted(Cloud::SynchronizationType type);
-  void OnSynchronizationFinished(Cloud::SynchronizationType type, Cloud::SynchronizationResult result,
-                                 std::string const & errorStr);
-  void OnRestoreRequested(Cloud::RestoringRequestResult result, std::string const & deviceName,
-                          uint64_t backupTimestampInMs);
-  void OnRestoredFilesPrepared();
 
   bool CanConvert() const;
   void FinishConversion(ConversionHandler const & handler, bool result);
@@ -753,7 +726,6 @@ private:
 
   ThreadChecker m_threadChecker;
 
-  User & m_user;
   Callbacks m_callbacks;
   MarksChangesTracker m_changesTracker;
   MarksChangesTracker m_bookmarksChangesTracker;
@@ -815,12 +787,6 @@ private:
   };
   std::list<BookmarkLoaderInfo> m_bookmarkLoadingQueue;
 
-  Cloud m_bookmarkCloud;
-  Cloud::SynchronizationStartedHandler m_onSynchronizationStarted;
-  Cloud::SynchronizationFinishedHandler m_onSynchronizationFinished;
-  Cloud::RestoreRequestedHandler m_onRestoreRequested;
-  Cloud::RestoredFilesPreparedHandler m_onRestoredFilesPrepared;
-
   struct RestoringCache
   {
     std::string m_serverId;
@@ -868,11 +834,3 @@ private:
 
   DISALLOW_COPY_AND_MOVE(BookmarkManager);
 };
-
-namespace lightweight
-{
-namespace impl
-{
-bool IsBookmarksCloudEnabled();
-}  // namespace impl
-}  //namespace lightweight
