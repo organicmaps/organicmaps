@@ -28,12 +28,12 @@ void GetRegularEdges(geometry::PointWithAltitude const & junction, IRoadGraph co
   {
     auto & es = cache[junction];
     (graph.*edgeGetter)(junction, es);
-    edges.insert(end(edges), begin(es), end(es));
+    edges.append(begin(es), end(es));
   }
   else
   {
     auto const & es = it->second;
-    edges.insert(end(edges), begin(es), end(es));
+    edges.append(begin(es), end(es));
   }
 }
 }  // namespace

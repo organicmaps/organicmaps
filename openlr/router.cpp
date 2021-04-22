@@ -478,12 +478,12 @@ void Router::GetEdges(
   {
     auto & es = cache[u];
     (m_graph.*getRegular)(u, es);
-    edges.insert(edges.end(), es.begin(), es.end());
+    edges.append(es.begin(), es.end());
   }
   else
   {
     auto const & es = it->second;
-    edges.insert(edges.end(), es.begin(), es.end());
+    edges.append(es.begin(), es.end());
   }
   (m_graph.*getFake)(u, edges);
 }

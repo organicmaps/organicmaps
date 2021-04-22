@@ -582,7 +582,7 @@ void IndexGraphStarter::AddFakeEdges(Segment const & segment, bool isOutgoing, E
       }
     }
   }
-  edges.insert(edges.end(), fakeEdges.begin(), fakeEdges.end());
+  edges.append(fakeEdges.begin(), fakeEdges.end());
 }
 
 bool IndexGraphStarter::EndingPassThroughAllowed(Ending const & ending)

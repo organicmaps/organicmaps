@@ -66,7 +66,7 @@ void TransitWorldGraph::GetEdgeList(astar::VertexData<Segment, RouteWeight> cons
         fakeFromReal.emplace_back(s, edge.GetWeight());
     }
   }
-  edges.insert(edges.end(), fakeFromReal.begin(), fakeFromReal.end());
+  edges.append(fakeFromReal.begin(), fakeFromReal.end());
 }
 
 void TransitWorldGraph::GetEdgeList(
