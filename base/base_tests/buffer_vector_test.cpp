@@ -17,6 +17,19 @@ namespace
   }
 }
 
+UNIT_TEST(BufferVector_PushBack_And_Realloc)
+{
+  using ElementT = std::vector<int>;
+  ElementT element({1, 2, 3});
+
+  buffer_vector<ElementT, 2> v;
+  v.append(2, element);
+
+  v.push_back(v[0]);
+  TEST_EQUAL(v.size(), 3, ());
+  TEST_EQUAL(v[2], element, ());
+}
+
 UNIT_TEST(BufferVectorBounds)
 {
   buffer_vector<size_t, 2> v;
@@ -280,11 +293,14 @@ struct CopyCtorChecker
 
   CopyCtorChecker() = default;
   explicit CopyCtorChecker(char const * s) : m_s(s) {}
+
   CopyCtorChecker(CopyCtorChecker const & rhs)
   {
     TEST(rhs.m_s.empty(), ("Copy ctor is called only in resize with default element"));
   }
   CopyCtorChecker(CopyCtorChecker && rhs) = default;
+
+  CopyCtorChecker & operator=(CopyCtorChecker &&) = default;
   CopyCtorChecker & operator=(CopyCtorChecker const &)
   {
     TEST(false, ("Assigment operator should not be called"));

@@ -494,7 +494,7 @@ bool IndexGraphStarterJoints<Graph>::FillEdgesAndParentsWeights(
       if (edges.size() != prevSize)
       {
         CHECK_LESS(i, parentWeights.size(), ());
-        parentWeights.emplace_back(parentWeights[i]);
+        parentWeights.push_back(parentWeights[i]);
       }
     }
   }

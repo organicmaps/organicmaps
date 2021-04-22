@@ -305,7 +305,7 @@ public:
       Swap(m_static[i], rhs.m_static[i]);
   }
 
-  void push_back(T const & t)
+  void push_back(T t)
   {
     if (IsDynamic())
     {
