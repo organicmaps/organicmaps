@@ -29,33 +29,10 @@ private:
 
   inline bool IsDynamic() const { return m_size == USE_DYNAMIC; }
 
-  /// @todo clang on linux doesn't have is_trivially_copyable.
-#ifndef OMIM_OS_LINUX
-  template <class U = T>
-  std::enable_if_t<std::is_trivially_copyable<U>::value, void> MoveStatic(buffer_vector<T, N> & rhs)
+  void MoveStatic(buffer_vector<T, N> & rhs)
   {
-    memcpy(m_static, rhs.m_static, rhs.m_size*sizeof(T));
+    std::move(rhs.m_static, rhs.m_static + rhs.m_size, m_static);
   }
-  template <class U = T>
-  std::enable_if_t<!std::is_trivially_copyable<U>::value, void> MoveStatic(
-      buffer_vector<T, N> & rhs)
-  {
-    for (size_t i = 0; i < rhs.m_size; ++i)
-      Swap(m_static[i], rhs.m_static[i]);
-  }
-#else
-  template <class U = T>
-  std::enable_if_t<std::is_pod<U>::value, void> MoveStatic(buffer_vector<T, N> & rhs)
-  {
-    memcpy(m_static, rhs.m_static, rhs.m_size*sizeof(T));
-  }
-  template <class U = T>
-  std::enable_if_t<!std::is_pod<U>::value, void> MoveStatic(buffer_vector<T, N> & rhs)
-  {
-    for (size_t i = 0; i < rhs.m_size; ++i)
-      Swap(m_static[i], rhs.m_static[i]);
-  }
-#endif
 
 public:
   typedef T value_type;
@@ -115,24 +92,23 @@ public:
   template <typename TIt>
   void append(TIt beg, TIt end)
   {
-    if (IsDynamic())
+    if (!IsDynamic())
     {
-      m_dynamic.insert(m_dynamic.end(), beg, end);
-      return;
+      size_t const newSize = std::distance(beg, end) + m_size;
+      if (newSize <= N)
+      {
+        while (beg != end)
+          m_static[m_size++] = *beg++;
+        return;
+      }
+      else
+      {
+        m_dynamic.reserve(newSize);
+        SwitchToDynamic();
+      }
     }
 
-    while (beg != end)
-    {
-      if (m_size == N)
-      {
-        m_dynamic.reserve(N * 2);
-        SwitchToDynamic();
-        while (beg != end)
-          m_dynamic.push_back(*beg++);
-        break;
-      }
-      m_static[m_size++] = *beg++;
-    }
+    m_dynamic.insert(m_dynamic.end(), beg, end);
   }
 
   void append(size_t count, T const & c)
@@ -147,7 +123,10 @@ public:
         return;
       }
       else
+      {
+        m_dynamic.reserve(newSize);
         SwitchToDynamic();
+      }
     }
 
     m_dynamic.insert(m_dynamic.end(), count, c);
@@ -315,34 +294,13 @@ public:
 
     if (m_size < N)
     {
-      m_static[m_size++] = t;
-    }
-    else
-    {
-      ASSERT_EQUAL(m_size, N, ());
-      SwitchToDynamic();
-      m_dynamic.push_back(t);
-      ASSERT_EQUAL(m_dynamic.size(), N + 1, ());
-    }
-  }
-
-  void push_back(T && t)
-  {
-    if (IsDynamic())
-    {
-      m_dynamic.push_back(std::move(t));
-      return;
-    }
-
-    if (m_size < N)
-    {
       Swap(m_static[m_size++], t);
     }
     else
     {
-      ASSERT_EQUAL(m_size, N, ());
+      m_dynamic.reserve(N + 1);
       SwitchToDynamic();
-      m_dynamic.push_back(std::move(t));
+      m_dynamic.push_back(t);
       ASSERT_EQUAL(m_dynamic.size(), N + 1, ());
     }
   }
@@ -375,7 +333,7 @@ public:
     }
     else
     {
-      ASSERT_EQUAL(m_size, N, ());
+      m_dynamic.reserve(N + 1);
       SwitchToDynamic();
       m_dynamic.emplace_back(std::forward<Args>(args)...);
       ASSERT_EQUAL(m_dynamic.size(), N + 1, ());
@@ -450,12 +408,10 @@ private:
   {
     ASSERT_NOT_EQUAL(m_size, static_cast<size_t>(USE_DYNAMIC), ());
     ASSERT_EQUAL(m_dynamic.size(), 0, ());
-    m_dynamic.reserve(m_size);
-    for (size_t i = 0; i < m_size; ++i)
-    {
-      m_dynamic.emplace_back();
-      Swap(m_static[i], m_dynamic.back());
-    }
+
+    m_dynamic.resize(m_size);
+    std::move(m_static, m_static + m_size, m_dynamic.begin());
+
     m_size = USE_DYNAMIC;
   }
 };

@@ -456,13 +456,13 @@ bool IndexGraphStarterJoints<Graph>::FillEdgesAndParentsWeights(
   //       from start to start or end to end vertex.
   if (vertex == GetStartJoint())
   {
-    edges.insert(edges.end(), m_startOutEdges.begin(), m_startOutEdges.end());
+    edges.append(m_startOutEdges.begin(), m_startOutEdges.end());
     parentWeights.append(edges.size(), Weight(0.0));
     firstFakeId = edges.size();
   }
   else if (vertex == GetFinishJoint())
   {
-    edges.insert(edges.end(), m_endOutEdges.begin(), m_endOutEdges.end());
+    edges.append(m_endOutEdges.begin(), m_endOutEdges.end());
     // If vertex is FinishJoint, parentWeight is equal to zero, because the first vertex is zero-weight loop.
     parentWeights.append(edges.size(), Weight(0.0));
   }

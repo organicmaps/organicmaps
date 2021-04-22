@@ -226,7 +226,7 @@ void IRoadGraph::GetFakeOutgoingEdges(geometry::PointWithAltitude const & juncti
 {
   auto const it = m_fakeOutgoingEdges.find(junction);
   if (it != m_fakeOutgoingEdges.cend())
-    edges.insert(edges.end(), it->second.cbegin(), it->second.cend());
+    edges.append(it->second.cbegin(), it->second.cend());
 }
 
 void IRoadGraph::GetFakeIngoingEdges(geometry::PointWithAltitude const & junction,
@@ -234,7 +234,7 @@ void IRoadGraph::GetFakeIngoingEdges(geometry::PointWithAltitude const & junctio
 {
   auto const it = m_fakeIngoingEdges.find(junction);
   if (it != m_fakeIngoingEdges.cend())
-    edges.insert(edges.end(), it->second.cbegin(), it->second.cend());
+    edges.append(it->second.cbegin(), it->second.cend());
 }
 
 void IRoadGraph::ResetFakes()
