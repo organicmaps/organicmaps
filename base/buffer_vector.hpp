@@ -97,15 +97,12 @@ public:
       size_t const newSize = std::distance(beg, end) + m_size;
       if (newSize <= N)
       {
-        while (beg != end)
-          m_static[m_size++] = *beg++;
+        std::copy(beg, end, &m_static[m_size]);
+        m_size = newSize;
         return;
       }
       else
-      {
-        m_dynamic.reserve(newSize);
-        SwitchToDynamic();
-      }
+        SwitchToDynamic(newSize);
     }
 
     m_dynamic.insert(m_dynamic.end(), beg, end);
@@ -118,15 +115,12 @@ public:
       size_t const newSize = count + m_size;
       if (newSize <= N)
       {
-        while (m_size < newSize)
-          m_static[m_size++] = c;
+        std::fill_n(&m_static[m_size], count, c);
+        m_size = newSize;
         return;
       }
       else
-      {
-        m_dynamic.reserve(newSize);
-        SwitchToDynamic();
-      }
+        SwitchToDynamic(newSize);
     }
 
     m_dynamic.insert(m_dynamic.end(), count, c);
@@ -165,8 +159,7 @@ public:
     }
     else
     {
-      m_dynamic.reserve(n);
-      SwitchToDynamic();
+      SwitchToDynamic(n);
       m_dynamic.resize(n);
       ASSERT_EQUAL(m_dynamic.size(), n, ());
     }
@@ -188,9 +181,8 @@ public:
     }
     else
     {
-      m_dynamic.reserve(n);
       size_t const oldSize = m_size;
-      SwitchToDynamic();
+      SwitchToDynamic(n);
       m_dynamic.insert(m_dynamic.end(), n - oldSize, c);
       ASSERT_EQUAL(m_dynamic.size(), n, ());
     }
@@ -284,6 +276,7 @@ public:
       Swap(m_static[i], rhs.m_static[i]);
   }
 
+  /// By value to be consistent with m_vec.push_back(m_vec[0]).
   void push_back(T t)
   {
     if (IsDynamic())
@@ -298,9 +291,8 @@ public:
     }
     else
     {
-      m_dynamic.reserve(N + 1);
-      SwitchToDynamic();
-      m_dynamic.push_back(t);
+      SwitchToDynamic(N + 1);
+      m_dynamic.push_back(std::move(t));
       ASSERT_EQUAL(m_dynamic.size(), N + 1, ());
     }
   }
@@ -333,8 +325,7 @@ public:
     }
     else
     {
-      m_dynamic.reserve(N + 1);
-      SwitchToDynamic();
+      SwitchToDynamic(N + 1);
       m_dynamic.emplace_back(std::forward<Args>(args)...);
       ASSERT_EQUAL(m_dynamic.size(), N + 1, ());
     }
@@ -368,8 +359,7 @@ public:
     }
     else
     {
-      m_dynamic.reserve(m_size + n);
-      SwitchToDynamic();
+      SwitchToDynamic(m_size + n);
       m_dynamic.insert(m_dynamic.begin() + pos, beg, end);
     }
   }
@@ -404,11 +394,12 @@ public:
   void erase(iterator it) { erase(it, it + 1); }
 
 private:
-  void SwitchToDynamic()
+  void SwitchToDynamic(size_t toReserve)
   {
     ASSERT_NOT_EQUAL(m_size, static_cast<size_t>(USE_DYNAMIC), ());
     ASSERT_EQUAL(m_dynamic.size(), 0, ());
 
+    m_dynamic.reserve(toReserve);
     m_dynamic.resize(m_size);
     std::move(m_static, m_static + m_size, m_dynamic.begin());
 
