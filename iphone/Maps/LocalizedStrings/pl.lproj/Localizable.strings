@@ -1652,20 +1652,6 @@
 
 "error_enter_correct_name" = "Wprowadź poprawną nazwę";
 
-"bookmarks_backup" = "Włącz kopie zapasowe";
-
-"authorization_button_sign_in" = "Zaloguj się";
-
-"bookmarks_message_authorized_user" = "Kopie zapasowe zakładek są zapisywane automatycznie w magazynie-chmurze. Włączyć kopie zapasowe?";
-
-"bookmarks_message_unauthorized_user" = "Kopie zapasowe zakładek są zapisywane automatycznie w magazynie-chmurze. Zaloguj się, aby włączyć kopie zapasowe.";
-
-"bookmarks_message_unbackuped_user" = "Kopie zapasowe zakładek są zapisywane automatycznie w magazynie-chmurze.";
-
-"bookmarks_message_backuped_user" = "Kopie zapasowe zakładek są zapisywane automatycznie w magazynie-chmurze. Ostatnia kopia zapasowa %s";
-
-"settings_backup_bookmarks" = "Kopie zapasowe zakładek";
-
 "bookmarks_groups" = "Listy";
 
 "bookmarks_groups_hide_all" = "Ukryj wszystkie";

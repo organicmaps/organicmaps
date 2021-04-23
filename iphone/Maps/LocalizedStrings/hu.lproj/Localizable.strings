@@ -1652,20 +1652,6 @@
 
 "error_enter_correct_name" = "Kérjük adja meg a helyes nevet";
 
-"bookmarks_backup" = "Engedélyezi a biztonsági mentést";
-
-"authorization_button_sign_in" = "Bejelentkezés";
-
-"bookmarks_message_authorized_user" = "A könyvjelzőit automatikusan egy biztonságos felhőalapú tárolóba menti a rendszer. Engedélyezi a biztonsági mentést?";
-
-"bookmarks_message_unauthorized_user" = "A könyvjelzőit automatikusan egy biztonságos felhőalapú tárolóba menti a rendszer. Jelentkezzen be a biztonsági mentés engedélyezéséhez.";
-
-"bookmarks_message_unbackuped_user" = "A könyvjelzőit automatikusan egy biztonságos felhőalapú tárolóba menti a rendszer.";
-
-"bookmarks_message_backuped_user" = "A könyvjelzőit automatikusan egy biztonságos felhőalapú tárolóba menti a rendszer. Utolsó biztonsági mentés %s";
-
-"settings_backup_bookmarks" = "Könyvjelzők biztosági mentése";
-
 "bookmarks_groups" = "List";
 
 "bookmarks_groups_hide_all" = "Összes elrejtése";

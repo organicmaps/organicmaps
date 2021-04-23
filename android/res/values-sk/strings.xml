@@ -943,13 +943,6 @@
 	<string name="cleanliness">Čistota</string>
 	<string name="crowdedness">Preplnenosť</string>
 	<string name="error_enter_correct_name">Prosím, zadajte správne meno</string>
-	<string name="bookmarks_backup">Povoliť zálohovanie</string>
-	<string name="authorization_button_sign_in">Prihlásiť sa</string>
-	<string name="bookmarks_message_authorized_user">Vaše záložky sa zálohujú automaticky v zabezpečenom cloudovom úložisku. Chcete povoliť zálohovanie?</string>
-	<string name="bookmarks_message_unauthorized_user">Vaše záložky sa zálohujú automaticky v zabezpečenom cloudovom úložisku. Pre povolenie zálohovania sa prihláste.</string>
-	<string name="bookmarks_message_unbackuped_user">Vaše záložky sa zálohujú automaticky v zabezpečenom cloudovom úložisku.</string>
-	<string name="bookmarks_message_backuped_user">Vaše záložky sa zálohujú automaticky v zabezpečenom cloudovom úložisku. Posledné zálohovanie %s</string>
-	<string name="settings_backup_bookmarks">Zálohovanie záložiek</string>
 	<string name="bookmarks_groups">Zoznamy</string>
 	<string name="bookmarks_groups_hide_all">Skryť všetko</string>
 	<string name="bookmarks_groups_show_all">Zobraziť všetko</string>

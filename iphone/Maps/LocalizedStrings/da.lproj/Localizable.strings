@@ -1652,20 +1652,6 @@
 
 "error_enter_correct_name" = "Angiv et korrekt navn";
 
-"bookmarks_backup" = "Aktiver sikkerhedskopi";
-
-"authorization_button_sign_in" = "Log ind";
-
-"bookmarks_message_authorized_user" = "Dine bogmærker sikkerhedskopieres automatisk til en sikker placering i skyen. Vil du aktivere sikkerhedskopiering?";
-
-"bookmarks_message_unauthorized_user" = "Dine bogmærker sikkerhedskopieres automatisk til en sikker placering i skyen. Log ind for at aktivere sikkerhedskopiering.";
-
-"bookmarks_message_unbackuped_user" = "Dine bogmærker sikkerhedskopieres automatisk til en sikker placering i skyen.";
-
-"bookmarks_message_backuped_user" = "Dine bogmærker sikkerhedskopieres automatisk til en sikker placering i skyen. Seneste sikkerhedskopi %s";
-
-"settings_backup_bookmarks" = "Sikkerhedskopi bogmærker";
-
 "bookmarks_groups" = "Lister";
 
 "bookmarks_groups_hide_all" = "Skjul alle";

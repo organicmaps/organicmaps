@@ -951,13 +951,6 @@
 	<string name="cleanliness">نظافة</string>
 	<string name="crowdedness">اكتظاظ</string>
 	<string name="error_enter_correct_name">الرجاء إدخال اسم صحيح</string>
-	<string name="bookmarks_backup">تمكين النسخ الاحتياطي</string>
-	<string name="authorization_button_sign_in">تسجيل الدخول</string>
-	<string name="bookmarks_message_authorized_user">يتم عمل نسخ احتياطي للإشارات المرجعية الخاصة بك تلقائيًا في تخزين سحابة آمن. هل تريد تمكين النسخ الاحتياطي؟</string>
-	<string name="bookmarks_message_unauthorized_user">يتم عمل نسخ احتياطي للإشارات المرجعية الخاصة بك تلقائيًا في تخزين سحابة آمن. قم بالتسجيل لتمكين النسخ الاحتياطي.</string>
-	<string name="bookmarks_message_unbackuped_user">يتم عمل نسخ احتياطي للإشارات المرجعية الخاصة بك تلقائيًا في تخزين سحابة آمن.</string>
-	<string name="bookmarks_message_backuped_user">يتم عمل نسخ احتياطي للإشارات المرجعية الخاصة بك تلقائيًا في تخزين سحابة آمن. آخر نسخ احتياطي %s</string>
-	<string name="settings_backup_bookmarks">نسخ احتياطي للإشارات المرجعية</string>
 	<string name="bookmarks_groups">قوائم</string>
 	<string name="bookmarks_groups_hide_all">إخفاء الكل</string>
 	<string name="bookmarks_groups_show_all">إظهار الكل</string>

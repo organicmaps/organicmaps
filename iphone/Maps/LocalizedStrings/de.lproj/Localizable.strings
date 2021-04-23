@@ -1652,20 +1652,6 @@
 
 "error_enter_correct_name" = "Bitte geben Sie einen korrekten Namen ein";
 
-"bookmarks_backup" = "Sicherung aktivieren";
-
-"authorization_button_sign_in" = "Anmelden";
-
-"bookmarks_message_authorized_user" = "Ihre Lesezeichen-Sicherung wird automatisch in einem sicheren Cloud-Speicher gespeichert. Möchten Sie die Sicherung aktivieren?";
-
-"bookmarks_message_unauthorized_user" = "Ihre Lesezeichen-Sicherung wird automatisch in einem sicheren Cloud-Speicher gespeichert. Melden Sie sich an, um die Sicherung zu aktivieren.";
-
-"bookmarks_message_unbackuped_user" = "Ihre Lesezeichen-Sicherung wird automatisch in einem sicheren Cloud-Speicher gespeichert.";
-
-"bookmarks_message_backuped_user" = "Ihre Lesezeichen-Sicherung wird automatisch in einem sicheren Cloud-Speicher gespeichert. Letzte Sicherung: %s";
-
-"settings_backup_bookmarks" = "Sicherung Lesezeichen";
-
 "bookmarks_groups" = "Listen";
 
 "bookmarks_groups_hide_all" = "Alle verbergen";

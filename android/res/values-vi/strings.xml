@@ -939,13 +939,6 @@
 	<string name="cleanliness">Sạch sẽ</string>
 	<string name="crowdedness">Đông đúc</string>
 	<string name="error_enter_correct_name">Vui lòng nhập một tên chính xác</string>
-	<string name="bookmarks_backup">Bật sao lưu</string>
-	<string name="authorization_button_sign_in">Đăng nhập</string>
-	<string name="bookmarks_message_authorized_user">Các dấu trang của bạn sẽ tự động được sao lưu trong một ổ lưu trữ đám mây bảo mật. Bạn có muốn bật sao lưu?</string>
-	<string name="bookmarks_message_unauthorized_user">Các dấu trang của bạn sẽ tự động được sao lưu trong một ổ lưu trữ đám mây bảo mật. Hãy đăng nhập để bật sao lưu.</string>
-	<string name="bookmarks_message_unbackuped_user">Các dấu trang của bạn sẽ tự động được sao lưu trong một ổ lưu trữ đám mây bảo mật.</string>
-	<string name="bookmarks_message_backuped_user">Các dấu trang của bạn sẽ tự động được sao lưu trong một ổ lưu trữ đám mây bảo mật. Lần sao lưu gần nhất %s</string>
-	<string name="settings_backup_bookmarks">Sao lưu Dấu trang</string>
 	<string name="bookmarks_groups">Danh sách</string>
 	<string name="bookmarks_groups_hide_all">Ẩn tất cả</string>
 	<string name="bookmarks_groups_show_all">Hiển thị tất cả</string>

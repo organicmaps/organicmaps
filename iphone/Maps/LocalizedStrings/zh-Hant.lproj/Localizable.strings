@@ -1652,20 +1652,6 @@
 
 "error_enter_correct_name" = "請輸入正確的名稱";
 
-"bookmarks_backup" = "入口";
-
-"authorization_button_sign_in" = "登錄";
-
-"bookmarks_message_authorized_user" = "您的書籤自動備份在安全的云儲存中。您想要啟用備份嗎？";
-
-"bookmarks_message_unauthorized_user" = "您的書籤自動備份在安全的云儲存中。登錄以啟用備份。";
-
-"bookmarks_message_unbackuped_user" = "您的書籤自動備份在安全的云儲存中。";
-
-"bookmarks_message_backuped_user" = "每週您的書籤都自動備份在安全的云儲存中。上次備份是%s";
-
-"settings_backup_bookmarks" = "備份書籤";
-
 "bookmarks_groups" = "列表";
 
 "bookmarks_groups_hide_all" = "隱藏全部";

@@ -1652,20 +1652,6 @@
 
 "error_enter_correct_name" = "Lütfen, doğru bir isim girin";
 
-"bookmarks_backup" = "Yedeklemeyi etkinleştir";
-
-"authorization_button_sign_in" = "Oturum Aç";
-
-"bookmarks_message_authorized_user" = "Yer imleriniz otomatik olarak güvenli bir bulut depolama alanında yedeklenir. Yedeklemeyi etkinleştirmek istiyor musunuz?";
-
-"bookmarks_message_unauthorized_user" = "Yer imleriniz otomatik olarak güvenli bir bulut depolama alanında yedeklenir. Yedeklemeyi etkinleştirmek için oturum açın.";
-
-"bookmarks_message_unbackuped_user" = "Yer imleriniz otomatik olarak güvenli bir bulut depolama alanında yedeklenir.";
-
-"bookmarks_message_backuped_user" = "Yer imleriniz otomatik olarak güvenli bir bulut depolama alanında yedeklenir. Son yedekleme: %s";
-
-"settings_backup_bookmarks" = "Yer İmlerini Yedekle";
-
 "bookmarks_groups" = "Listeler";
 
 "bookmarks_groups_hide_all" = "Tümünü gizle";

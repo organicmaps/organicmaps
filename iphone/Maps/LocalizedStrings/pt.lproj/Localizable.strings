@@ -1652,20 +1652,6 @@
 
 "error_enter_correct_name" = "Introduza um nome correto";
 
-"bookmarks_backup" = "Ativar cópia de segurança";
-
-"authorization_button_sign_in" = "Iniciar sessão";
-
-"bookmarks_message_authorized_user" = "Os seus favoritos são guardados automaticamente num armazenamento na nuvem seguro. Deseja ativar a cópia de segurança?";
-
-"bookmarks_message_unauthorized_user" = "Os seus favoritos são guardados automaticamente num armazenamento na nuvem seguro. Inicie a sessão para ativar a cópia de segurança.";
-
-"bookmarks_message_unbackuped_user" = "Os seus favoritos são guardados automaticamente num armazenamento na nuvem seguro.";
-
-"bookmarks_message_backuped_user" = "Os seus favoritos são guardados automaticamente num armazenamento na nuvem seguro. Última cópia de segurança %s";
-
-"settings_backup_bookmarks" = "Cópia de segurança dos favoritos";
-
 "bookmarks_groups" = "Listas";
 
 "bookmarks_groups_hide_all" = "Ocultar tudo";

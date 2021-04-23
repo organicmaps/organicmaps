@@ -958,13 +958,6 @@
 	<string name="cleanliness">Propreté</string>
 	<string name="crowdedness">Affluence</string>
 	<string name="error_enter_correct_name">Veuillez entrer un nom correct</string>
-	<string name="bookmarks_backup">Activer la sauvegarde</string>
-	<string name="authorization_button_sign_in">Se connecter</string>
-	<string name="bookmarks_message_authorized_user">La sauvegarde de vos signets est effectuée automatiquement dans un stockage sécurisé sur le cloud. Voulez-vous activer la sauvegarde ?</string>
-	<string name="bookmarks_message_unauthorized_user">La sauvegarde de vos signets est effectuée automatiquement dans un stockage sécurisé sur le cloud. Connectez-vous pour activer la sauvegarde.</string>
-	<string name="bookmarks_message_unbackuped_user">La sauvegarde de vos signets est effectuée automatiquement dans un stockage sécurisé sur le cloud.</string>
-	<string name="bookmarks_message_backuped_user">La sauvegarde de vos signets est effectuée automatiquement dans un stockage sécurisé sur le cloud. Dernière sauvegarde %s</string>
-	<string name="settings_backup_bookmarks">Sauvegarder les signets</string>
 	<string name="bookmarks_groups">Listes</string>
 	<string name="bookmarks_groups_hide_all">Tout masquer</string>
 	<string name="bookmarks_groups_show_all">Tout afficher</string>

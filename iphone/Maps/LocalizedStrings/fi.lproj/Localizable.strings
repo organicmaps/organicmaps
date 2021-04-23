@@ -1652,20 +1652,6 @@
 
 "error_enter_correct_name" = "Anna oikea nimi";
 
-"bookmarks_backup" = "Ota varmuuskopiointi käyttöön";
-
-"authorization_button_sign_in" = "Kirjaudu sisään";
-
-"bookmarks_message_authorized_user" = "Kirjanmerkkisi varmuuskopioidaan automaattisesti turvalliseen pilvitallennustilaan. Haluatko ottaa varmuuskopioinnin käyttöön?";
-
-"bookmarks_message_unauthorized_user" = "Kirjanmerkkisi varmuuskopioidaan automaattisesti turvalliseen pilvitallennustilaan. Kirjaudu sisään, jotta voit ottaa varmuuskopioinnin käyttöön.";
-
-"bookmarks_message_unbackuped_user" = "Kirjanmerkkisi varmuuskopioidaan automaattisesti turvalliseen pilvitallennustilaan.";
-
-"bookmarks_message_backuped_user" = "Kirjanmerkkisi varmuuskopioidaan automaattisesti turvalliseen pilvitallennustilaan. Viimeisin varmuuskopio %s";
-
-"settings_backup_bookmarks" = "Varmuuskopioi kirjanmerkit";
-
 "bookmarks_groups" = "Listat";
 
 "bookmarks_groups_hide_all" = "Piilota kaikki";

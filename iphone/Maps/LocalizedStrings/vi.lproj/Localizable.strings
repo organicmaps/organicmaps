@@ -1652,20 +1652,6 @@
 
 "error_enter_correct_name" = "Vui lòng nhập một tên chính xác";
 
-"bookmarks_backup" = "Bật sao lưu";
-
-"authorization_button_sign_in" = "Đăng nhập";
-
-"bookmarks_message_authorized_user" = "Các dấu trang của bạn sẽ tự động được sao lưu trong một ổ lưu trữ đám mây bảo mật. Bạn có muốn bật sao lưu?";
-
-"bookmarks_message_unauthorized_user" = "Các dấu trang của bạn sẽ tự động được sao lưu trong một ổ lưu trữ đám mây bảo mật. Hãy đăng nhập để bật sao lưu.";
-
-"bookmarks_message_unbackuped_user" = "Các dấu trang của bạn sẽ tự động được sao lưu trong một ổ lưu trữ đám mây bảo mật.";
-
-"bookmarks_message_backuped_user" = "Các dấu trang của bạn sẽ tự động được sao lưu trong một ổ lưu trữ đám mây bảo mật. Lần sao lưu gần nhất %s";
-
-"settings_backup_bookmarks" = "Sao lưu Dấu trang";
-
 "bookmarks_groups" = "Danh sách";
 
 "bookmarks_groups_hide_all" = "Ẩn tất cả";

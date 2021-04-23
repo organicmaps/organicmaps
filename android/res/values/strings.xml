@@ -973,13 +973,6 @@
 	<string name="cleanliness">Cleanliness</string>
 	<string name="crowdedness">Crowdedness</string>
 	<string name="error_enter_correct_name">Please, enter a correct name</string>
-	<string name="bookmarks_backup">Enable backup</string>
-	<string name="authorization_button_sign_in">Sign in</string>
-	<string name="bookmarks_message_authorized_user">Your bookmarks are backed up automatically in a secure cloud storage. Do you want enable backup?</string>
-	<string name="bookmarks_message_unauthorized_user">Your bookmarks are backed up automatically in a secure cloud storage. Sign in to enable backup.</string>
-	<string name="bookmarks_message_unbackuped_user">Your bookmarks are backed up automatically in a secure cloud storage.</string>
-	<string name="bookmarks_message_backuped_user">Your bookmarks are backed up automatically in a secure cloud storage. Last backup was %s</string>
-	<string name="settings_backup_bookmarks">Backup Bookmarks</string>
 	<string name="bookmarks_groups">Lists</string>
 	<string name="bookmarks_groups_hide_all">Hide all</string>
 	<string name="bookmarks_groups_show_all">Show all</string>

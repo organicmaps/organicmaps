@@ -941,13 +941,6 @@
 	<string name="cleanliness">청결</string>
 	<string name="crowdedness">혼잡</string>
 	<string name="error_enter_correct_name">올바른 이름을 입력하세요.</string>
-	<string name="bookmarks_backup">백업 사용</string>
-	<string name="authorization_button_sign_in">로그인</string>
-	<string name="bookmarks_message_authorized_user">안전한 클라우드 저장소에 북마크가 자동으로 백업됩니다. 백업을 사용하시겠습니까?</string>
-	<string name="bookmarks_message_unauthorized_user">안전한 클라우드 저장소에 북마크가 자동으로 백업됩니다. 로그인하여 백업을 사용하시겠습니까?</string>
-	<string name="bookmarks_message_unbackuped_user">안전한 클라우드 저장소에 북마크가 자동으로 백업됩니다.</string>
-	<string name="bookmarks_message_backuped_user">안전한 클라우드 저장소에 북마크가 자동으로 백업됩니다. 마지막 백업 %s</string>
-	<string name="settings_backup_bookmarks">북마크 백업</string>
 	<string name="bookmarks_groups">기울기</string>
 	<string name="bookmarks_groups_hide_all">모두 숨기기</string>
 	<string name="bookmarks_groups_show_all">모두 표시</string>

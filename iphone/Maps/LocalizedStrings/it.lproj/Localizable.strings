@@ -1652,20 +1652,6 @@
 
 "error_enter_correct_name" = "Inserisci un nome corretto";
 
-"bookmarks_backup" = "Abilita backup";
-
-"authorization_button_sign_in" = "Accedi";
-
-"bookmarks_message_authorized_user" = "Il backup dei tuoi preferiti è eseguito automaticamente su un servizio di archiviazione cloud protetto. Abilitare il backup?";
-
-"bookmarks_message_unauthorized_user" = "Il backup dei tuoi preferiti è eseguito automaticamente su un servizio di archiviazione cloud protetto. Accedi per abilitare il backup.";
-
-"bookmarks_message_unbackuped_user" = "Il backup dei tuoi preferiti è eseguito automaticamente su un servizio di archiviazione cloud protetto.";
-
-"bookmarks_message_backuped_user" = "Il backup dei tuoi preferiti è eseguito automaticamente su un servizio di archiviazione cloud protetto. Ultimo backup %s";
-
-"settings_backup_bookmarks" = "Backup preferiti";
-
 "bookmarks_groups" = "Elenchi";
 
 "bookmarks_groups_hide_all" = "Nascondi tutto";

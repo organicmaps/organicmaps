@@ -1652,20 +1652,6 @@
 
 "error_enter_correct_name" = "Please, enter a correct name";
 
-"bookmarks_backup" = "Enable backup";
-
-"authorization_button_sign_in" = "Sign in";
-
-"bookmarks_message_authorized_user" = "Your bookmarks are backed up automatically in a secure cloud storage. Do you want enable backup?";
-
-"bookmarks_message_unauthorized_user" = "Your bookmarks are backed up automatically in a secure cloud storage. Sign in to enable backup.";
-
-"bookmarks_message_unbackuped_user" = "Your bookmarks are backed up automatically in a secure cloud storage.";
-
-"bookmarks_message_backuped_user" = "Your bookmarks are backed up automatically in a secure cloud storage. Last backup was %s";
-
-"settings_backup_bookmarks" = "Backup Bookmarks";
-
 "bookmarks_groups" = "Lists";
 
 "bookmarks_groups_hide_all" = "Hide all";

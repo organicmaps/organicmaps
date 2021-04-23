@@ -1652,20 +1652,6 @@
 
 "error_enter_correct_name" = "Zadejte prosím správný název";
 
-"bookmarks_backup" = "Povolit zálohování";
-
-"authorization_button_sign_in" = "Přihlásit se";
-
-"bookmarks_message_authorized_user" = "Vaše záložky se zálohují automaticky v zabezpečeném cloudovém úložišti. Chcete povolit zálohování?";
-
-"bookmarks_message_unauthorized_user" = "Vaše záložky se zálohují automaticky v zabezpečeném cloudovém úložišti. Pro povolení zálohování se přihlašte.";
-
-"bookmarks_message_unbackuped_user" = "Vaše záložky se zálohují automaticky v zabezpečeném cloudovém úložišti.";
-
-"bookmarks_message_backuped_user" = "Vaše záložky se zálohují automaticky v zabezpečeném cloudovém úložišti. Poslední zálohování %s";
-
-"settings_backup_bookmarks" = "Zálohování záložek";
-
 "bookmarks_groups" = "Seznamy";
 
 "bookmarks_groups_hide_all" = "Skrýt vše";

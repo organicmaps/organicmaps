@@ -920,13 +920,6 @@
 	<string name="cleanliness">پاکیزگی</string>
 	<string name="crowdedness">ازدحام بیش از حد</string>
 	<string name="error_enter_correct_name">لطفا نام صحیح را وارد کنید</string>
-	<string name="bookmarks_backup">پشتیبانگیری را فعال کنید</string>
-	<string name="authorization_button_sign_in">ورود</string>
-	<string name="bookmarks_message_authorized_user">بوک مارک های شما به صورت خودکار در یک حافظه ذخیره سازی امن پشتیبان گیری می شوند. آیا می خواهید نسخه پشتیبان تهیه کنید؟</string>
-	<string name="bookmarks_message_unauthorized_user">بوک مارک های شما به صورت خودکار در یک حافظه ذخیره سازی امن پشتیبان گیری می شوند. برای فعال کردن پشتیبان وارد سیستم شوید</string>
-	<string name="bookmarks_message_unbackuped_user">بوک مارک های شما به صورت خودکار در یک حافظه ذخیره سازی امن پشتیبان گیری می شوند.</string>
-	<string name="bookmarks_message_backuped_user">بوک مارک های شما به صورت خودکار در یک حافظه ذخیره سازی امن پشتیبان گیری می شوند. آخرین پشتیبان %s بود</string>
-	<string name="settings_backup_bookmarks">نشانکهای پشتیبان</string>
 	<string name="bookmarks_groups">لیست ها</string>
 	<string name="bookmarks_groups_hide_all">پنهان کردن همه</string>
 	<string name="bookmarks_groups_show_all">نمایش همه</string>

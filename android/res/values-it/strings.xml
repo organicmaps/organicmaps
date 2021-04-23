@@ -945,13 +945,6 @@
 	<string name="cleanliness">Pulizia</string>
 	<string name="crowdedness">Clientela</string>
 	<string name="error_enter_correct_name">Inserisci un nome corretto</string>
-	<string name="bookmarks_backup">Abilita backup</string>
-	<string name="authorization_button_sign_in">Accedi</string>
-	<string name="bookmarks_message_authorized_user">Il backup dei tuoi preferiti è eseguito automaticamente su un servizio di archiviazione cloud protetto. Abilitare il backup?</string>
-	<string name="bookmarks_message_unauthorized_user">Il backup dei tuoi preferiti è eseguito automaticamente su un servizio di archiviazione cloud protetto. Accedi per abilitare il backup.</string>
-	<string name="bookmarks_message_unbackuped_user">Il backup dei tuoi preferiti è eseguito automaticamente su un servizio di archiviazione cloud protetto.</string>
-	<string name="bookmarks_message_backuped_user">Il backup dei tuoi preferiti è eseguito automaticamente su un servizio di archiviazione cloud protetto. Ultimo backup %s</string>
-	<string name="settings_backup_bookmarks">Backup preferiti</string>
 	<string name="bookmarks_groups">Elenchi</string>
 	<string name="bookmarks_groups_hide_all">Nascondi tutto</string>
 	<string name="bookmarks_groups_show_all">Mostra tutto</string>

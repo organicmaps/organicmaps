@@ -935,13 +935,6 @@
 	<string name="cleanliness">Curățenie</string>
 	<string name="crowdedness">Aglomerație</string>
 	<string name="error_enter_correct_name">Introdu un nume corect</string>
-	<string name="bookmarks_backup">Activare backup</string>
-	<string name="authorization_button_sign_in">Conectare</string>
-	<string name="bookmarks_message_authorized_user">Pentru semnele de carte se realizează automat backup la o locație securizată din cloud. Activați funcția de backup?</string>
-	<string name="bookmarks_message_unauthorized_user">Pentru semnele de carte se realizează automat backup la o locație securizată din cloud. Conectați-vă pentru a activa funcția de backup.</string>
-	<string name="bookmarks_message_unbackuped_user">Pentru semnele de carte se realizează automat backup la o locație securizată din cloud.</string>
-	<string name="bookmarks_message_backuped_user">Pentru semnele de carte se realizează automat backup la o locație securizată din cloud. Ultimul backup %s</string>
-	<string name="settings_backup_bookmarks">Backup semne de carte</string>
 	<string name="bookmarks_groups">Liste</string>
 	<string name="bookmarks_groups_hide_all">Ascundere toate</string>
 	<string name="bookmarks_groups_show_all">Afișare toate</string>

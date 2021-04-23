@@ -1652,20 +1652,6 @@
 
 "error_enter_correct_name" = "Skriv inn korrekt navn";
 
-"bookmarks_backup" = "Aktiver sikkerhetskopiering";
-
-"authorization_button_sign_in" = "Logg inn";
-
-"bookmarks_message_authorized_user" = "Det blir automatisk tatt sikkerhetskopi av bokmerkene til en sikker lagring i nettskyen. Ønsker du å aktivere sikkerhetskopiering?";
-
-"bookmarks_message_unauthorized_user" = "Det blir automatisk tatt sikkerhetskopi av bokmerkene til en sikker lagring i nettskyen. Logg inn for å aktivere sikkerhetskopiering.";
-
-"bookmarks_message_unbackuped_user" = "Det blir automatisk tatt sikkerhetskopi av bokmerkene til en sikker lagring i nettskyen.";
-
-"bookmarks_message_backuped_user" = "Det blir automatisk tatt sikkerhetskopi av bokmerkene til en sikker lagring i nettskyen. Siste sikkerhetskopiering %s";
-
-"settings_backup_bookmarks" = "Sikkerhetskopiere bokmerker";
-
 "bookmarks_groups" = "Lister";
 
 "bookmarks_groups_hide_all" = "Skjul alle";

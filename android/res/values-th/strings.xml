@@ -951,13 +951,6 @@
 	<string name="cleanliness">ความสะอาด</string>
 	<string name="crowdedness">ความแออัด</string>
 	<string name="error_enter_correct_name">กรุณาใส่ชื่อที่ถูกต้อง</string>
-	<string name="bookmarks_backup">เปิดใช้งานการสำรองข้อมูล</string>
-	<string name="authorization_button_sign_in">ลงชื่อเข้าใช้</string>
-	<string name="bookmarks_message_authorized_user">บุ๊กมาร์กของคุณจะสำรองข้อมูลอัตโนมัติในที่เก็บข้อมูลคลาวด์ที่ปลอดภัย คุณต้องการเปิดใช้งานการสำรองข้อมูลหรือไม่?</string>
-	<string name="bookmarks_message_unauthorized_user">บุ๊กมาร์กของคุณจะสำรองข้อมูลอัตโนมัติในที่เก็บข้อมูลคลาวด์ที่ปลอดภัย ลงชื่อเข้าใช้เพื่อเปิดใช้งานการสำรองข้อมูล</string>
-	<string name="bookmarks_message_unbackuped_user">บุ๊กมาร์กของคุณจะสำรองข้อมูลอัตโนมัติในที่เก็บข้อมูลคลาวด์ที่ปลอดภัย</string>
-	<string name="bookmarks_message_backuped_user">บุ๊กมาร์กของคุณจะสำรองข้อมูลอัตโนมัติในที่เก็บข้อมูลคลาวด์ที่ปลอดภัย สำรองข้อมูลครั้งล่าสุด %s</string>
-	<string name="settings_backup_bookmarks">สำรองข้อมูลบุ๊กมาร์ก</string>
 	<string name="bookmarks_groups">รายการ</string>
 	<string name="bookmarks_groups_hide_all">ซ่อนทั้งหมด</string>
 	<string name="bookmarks_groups_show_all">แสดงทั้งหมด</string>

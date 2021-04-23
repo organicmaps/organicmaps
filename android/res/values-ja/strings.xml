@@ -939,13 +939,6 @@
 	<string name="cleanliness">清潔さ</string>
 	<string name="crowdedness">混雑度</string>
 	<string name="error_enter_correct_name">正しい名前を入力してください</string>
-	<string name="bookmarks_backup">バックアップを有効化</string>
-	<string name="authorization_button_sign_in">サインイン</string>
-	<string name="bookmarks_message_authorized_user">あなたのブックマークは自動的に安全なクラウドストレージにバックアップされます。バックアップを有効化しますか？</string>
-	<string name="bookmarks_message_unauthorized_user">あなたのブックマークは自動的に安全なクラウドストレージにバックアップされます。バックアップを有効化するには、サインインする必要があります。</string>
-	<string name="bookmarks_message_unbackuped_user">あなたのブックマークは自動的に安全なクラウドストレージにバックアップされます。</string>
-	<string name="bookmarks_message_backuped_user">あなたのブックマークは自動的に安全なクラウドストレージにバックアップされます。最終バックアップ日時：%s</string>
-	<string name="settings_backup_bookmarks">ブックマークをバックアップ</string>
 	<string name="bookmarks_groups">リスト</string>
 	<string name="bookmarks_groups_hide_all">すべて非表示</string>
 	<string name="bookmarks_groups_show_all">すべて表示</string>

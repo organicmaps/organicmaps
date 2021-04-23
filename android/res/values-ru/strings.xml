@@ -969,13 +969,6 @@
 	<string name="cleanliness">Чистота</string>
 	<string name="crowdedness">Многолюдность</string>
 	<string name="error_enter_correct_name">Пожалуйста, введите название правильно</string>
-	<string name="bookmarks_backup">Разрешить резервное копирование</string>
-	<string name="authorization_button_sign_in">Войти</string>
-	<string name="bookmarks_message_authorized_user">Резервная копия ваших меток автоматически создается в безопасном облачном хранилище. Включить резервное копирование?</string>
-	<string name="bookmarks_message_unauthorized_user">Резервная копия ваших меток автоматически создается в безопасном облачном хранилище. Авторизуйтесь, чтобы включить резервное копирование.</string>
-	<string name="bookmarks_message_unbackuped_user">Резервная копия ваших меток автоматически создается в безопасном облачном хранилище.</string>
-	<string name="bookmarks_message_backuped_user">Резервная копия ваших меток автоматически создается в безопасном облачном хранилище. Последнее резервное копирование было %s</string>
-	<string name="settings_backup_bookmarks">Резервное копирование меток</string>
 	<string name="bookmarks_groups">Списки</string>
 	<string name="bookmarks_groups_hide_all">Спрятать все</string>
 	<string name="bookmarks_groups_show_all">Показать все</string>
