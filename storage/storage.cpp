@@ -1203,7 +1203,7 @@ void Storage::DownloadNode(CountryId const & countryId, bool isUpdate /* = false
     {
       auto const countryId = descendantNode.Value().Name();
       auto const fileType =
-          isUpdate && (m_areDiffsPending || m_diffsDataSource->HasDiffFor(countryId))
+          isUpdate && m_diffsDataSource->HasDiffFor(countryId)
               ? MapFileType::Diff
               : MapFileType::Map;
 
@@ -1440,7 +1440,6 @@ void Storage::OnFinishDownloading()
 
 void Storage::OnDiffStatusReceived(diffs::NameDiffInfoMap && diffs)
 {
-  m_areDiffsPending = false;
   m_diffsDataSource->SetDiffInfo(move(diffs));
 
   SetMapSchemeForCountriesWithAbsentDiffs([this] (auto const & id)

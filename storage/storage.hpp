@@ -192,7 +192,6 @@ private:
   std::vector<platform::LocalCountryFile> m_notAppliedDiffs;
 
   diffs::DiffsSourcePtr m_diffsDataSource = std::make_shared<diffs::DiffsDataSource>();
-  bool m_areDiffsPending = true;
 
   DownloadingPolicy m_defaultDownloadingPolicy;
   DownloadingPolicy * m_downloadingPolicy = &m_defaultDownloadingPolicy;
