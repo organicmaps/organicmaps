@@ -1652,20 +1652,6 @@
 
 "error_enter_correct_name" = "Voer een juiste naam in";
 
-"bookmarks_backup" = "Back-up inschakelen";
-
-"authorization_button_sign_in" = "Aanmelden";
-
-"bookmarks_message_authorized_user" = "Uw back-up van bladwijzers automatisch in een veilige cloud opslag. Wilt u back-up inschakelen?";
-
-"bookmarks_message_unauthorized_user" = "Uw back-up van bladwijzers automatisch in een veilige cloud opslag. Meld aan om back-up in te schakelen.";
-
-"bookmarks_message_unbackuped_user" = "Uw back-up van bladwijzers automatisch in een veilige cloud opslag.";
-
-"bookmarks_message_backuped_user" = "Uw back-up van bladwijzers automatisch in een veilige cloud opslag. Laatste back-up %s";
-
-"settings_backup_bookmarks" = "Back-up Bladwijzers";
-
 "bookmarks_groups" = "lijsten";
 
 "bookmarks_groups_hide_all" = "Alles verbergen";

@@ -1652,20 +1652,6 @@
 
 "error_enter_correct_name" = "Introdu un nume corect";
 
-"bookmarks_backup" = "Activare backup";
-
-"authorization_button_sign_in" = "Conectare";
-
-"bookmarks_message_authorized_user" = "Pentru semnele de carte se realizează automat backup la o locație securizată din cloud. Activați funcția de backup?";
-
-"bookmarks_message_unauthorized_user" = "Pentru semnele de carte se realizează automat backup la o locație securizată din cloud. Conectați-vă pentru a activa funcția de backup.";
-
-"bookmarks_message_unbackuped_user" = "Pentru semnele de carte se realizează automat backup la o locație securizată din cloud.";
-
-"bookmarks_message_backuped_user" = "Pentru semnele de carte se realizează automat backup la o locație securizată din cloud. Ultimul backup %s";
-
-"settings_backup_bookmarks" = "Backup semne de carte";
-
 "bookmarks_groups" = "Liste";
 
 "bookmarks_groups_hide_all" = "Ascundere toate";

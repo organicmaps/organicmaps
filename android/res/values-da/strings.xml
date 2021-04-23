@@ -949,13 +949,6 @@
 	<string name="cleanliness">Renlighed</string>
 	<string name="crowdedness">Trængsel</string>
 	<string name="error_enter_correct_name">Angiv et korrekt navn</string>
-	<string name="bookmarks_backup">Aktiver sikkerhedskopi</string>
-	<string name="authorization_button_sign_in">Log ind</string>
-	<string name="bookmarks_message_authorized_user">Dine bogmærker sikkerhedskopieres automatisk til en sikker placering i skyen. Vil du aktivere sikkerhedskopiering?</string>
-	<string name="bookmarks_message_unauthorized_user">Dine bogmærker sikkerhedskopieres automatisk til en sikker placering i skyen. Log ind for at aktivere sikkerhedskopiering.</string>
-	<string name="bookmarks_message_unbackuped_user">Dine bogmærker sikkerhedskopieres automatisk til en sikker placering i skyen.</string>
-	<string name="bookmarks_message_backuped_user">Dine bogmærker sikkerhedskopieres automatisk til en sikker placering i skyen. Seneste sikkerhedskopi %s</string>
-	<string name="settings_backup_bookmarks">Sikkerhedskopi bogmærker</string>
 	<string name="bookmarks_groups">Lister</string>
 	<string name="bookmarks_groups_hide_all">Skjul alle</string>
 	<string name="bookmarks_groups_show_all">Vis alle</string>

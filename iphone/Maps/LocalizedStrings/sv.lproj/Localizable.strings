@@ -1652,20 +1652,6 @@
 
 "error_enter_correct_name" = "Ange ett korrekt namn";
 
-"bookmarks_backup" = "Aktivera säkerhetskopiering";
-
-"authorization_button_sign_in" = "Logga in";
-
-"bookmarks_message_authorized_user" = "Dina bokmärken säkerhetskopieras automatiskt i en säker molnlagring. Vill du aktivera säkerhetskopiering?";
-
-"bookmarks_message_unauthorized_user" = "Dina bokmärken säkerhetskopieras automatiskt i en säker molnlagring. Logga in för att aktivera säkerhetskopiering.";
-
-"bookmarks_message_unbackuped_user" = "Dina bokmärken säkerhetskopieras automatiskt i en säker molnlagring.";
-
-"bookmarks_message_backuped_user" = "Dina bokmärken säkerhetskopieras automatiskt i en säker molnlagring. Senaste säkerhetskopiering %s";
-
-"settings_backup_bookmarks" = "Säkerhetskopiera bokmärken";
-
 "bookmarks_groups" = "Listor";
 
 "bookmarks_groups_hide_all" = "Dölj alla";

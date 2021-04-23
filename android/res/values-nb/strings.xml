@@ -937,13 +937,6 @@
 	<string name="cleanliness">Renslighet</string>
 	<string name="crowdedness">Mye folk</string>
 	<string name="error_enter_correct_name">Skriv inn korrekt navn</string>
-	<string name="bookmarks_backup">Aktiver sikkerhetskopiering</string>
-	<string name="authorization_button_sign_in">Logg inn</string>
-	<string name="bookmarks_message_authorized_user">Det blir automatisk tatt sikkerhetskopi av bokmerkene til en sikker lagring i nettskyen. Ønsker du å aktivere sikkerhetskopiering?</string>
-	<string name="bookmarks_message_unauthorized_user">Det blir automatisk tatt sikkerhetskopi av bokmerkene til en sikker lagring i nettskyen. Logg inn for å aktivere sikkerhetskopiering.</string>
-	<string name="bookmarks_message_unbackuped_user">Det blir automatisk tatt sikkerhetskopi av bokmerkene til en sikker lagring i nettskyen.</string>
-	<string name="bookmarks_message_backuped_user">Det blir automatisk tatt sikkerhetskopi av bokmerkene til en sikker lagring i nettskyen. Siste sikkerhetskopiering %s</string>
-	<string name="settings_backup_bookmarks">Sikkerhetskopiere bokmerker</string>
 	<string name="bookmarks_groups">Lister</string>
 	<string name="bookmarks_groups_hide_all">Skjul alle</string>
 	<string name="bookmarks_groups_show_all">Vis alle</string>

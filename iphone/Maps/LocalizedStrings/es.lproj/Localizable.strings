@@ -1652,20 +1652,6 @@
 
 "error_enter_correct_name" = "Por favor, introduzca el nombre correcto";
 
-"bookmarks_backup" = "Permitir copia de seguridad";
-
-"authorization_button_sign_in" = "Iniciar sesión";
-
-"bookmarks_message_authorized_user" = "La copia de seguridad de sus marcadores se guarda automáticamente en un almacenamiento seguro de la nube. ¿Desea habilitar la copia de seguridad?";
-
-"bookmarks_message_unauthorized_user" = "La copia de seguridad de sus marcadores se guarda automáticamente en un almacenamiento seguro de la nube. Inicie sesión para habilitar la copia de seguridad.";
-
-"bookmarks_message_unbackuped_user" = "La copia de seguridad de sus marcadores se guarda automáticamente en un almacenamiento seguro de la nube.";
-
-"bookmarks_message_backuped_user" = "La copia de seguridad de sus marcadores se guarda automáticamente en un almacenamiento seguro de la nube. La última copia de seguridad se hizo %s";
-
-"settings_backup_bookmarks" = "Copia de seguridad de marcadores";
-
 "bookmarks_groups" = "Listas";
 
 "bookmarks_groups_hide_all" = "Ocultar todo";

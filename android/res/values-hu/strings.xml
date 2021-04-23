@@ -946,13 +946,6 @@
 	<string name="cleanliness">Tisztaság</string>
 	<string name="crowdedness">Zsúfoltság</string>
 	<string name="error_enter_correct_name">Kérjük adja meg a helyes nevet</string>
-	<string name="bookmarks_backup">Engedélyezi a biztonsági mentést</string>
-	<string name="authorization_button_sign_in">Bejelentkezés</string>
-	<string name="bookmarks_message_authorized_user">A könyvjelzőit automatikusan egy biztonságos felhőalapú tárolóba menti a rendszer. Engedélyezi a biztonsági mentést?</string>
-	<string name="bookmarks_message_unauthorized_user">A könyvjelzőit automatikusan egy biztonságos felhőalapú tárolóba menti a rendszer. Jelentkezzen be a biztonsági mentés engedélyezéséhez.</string>
-	<string name="bookmarks_message_unbackuped_user">A könyvjelzőit automatikusan egy biztonságos felhőalapú tárolóba menti a rendszer.</string>
-	<string name="bookmarks_message_backuped_user">A könyvjelzőit automatikusan egy biztonságos felhőalapú tárolóba menti a rendszer. Utolsó biztonsági mentés %s</string>
-	<string name="settings_backup_bookmarks">Könyvjelzők biztosági mentése</string>
 	<string name="bookmarks_groups">List</string>
 	<string name="bookmarks_groups_hide_all">Összes elrejtése</string>
 	<string name="bookmarks_groups_show_all">Összes megjelenítése</string>

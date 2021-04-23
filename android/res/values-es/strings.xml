@@ -939,13 +939,6 @@
 	<string name="cleanliness">Limpieza</string>
 	<string name="crowdedness">Lugar concurrido</string>
 	<string name="error_enter_correct_name">Por favor, introduzca el nombre correcto</string>
-	<string name="bookmarks_backup">Permitir copia de seguridad</string>
-	<string name="authorization_button_sign_in">Iniciar sesión</string>
-	<string name="bookmarks_message_authorized_user">La copia de seguridad de sus marcadores se guarda automáticamente en un almacenamiento seguro de la nube. ¿Desea habilitar la copia de seguridad?</string>
-	<string name="bookmarks_message_unauthorized_user">La copia de seguridad de sus marcadores se guarda automáticamente en un almacenamiento seguro de la nube. Inicie sesión para habilitar la copia de seguridad.</string>
-	<string name="bookmarks_message_unbackuped_user">La copia de seguridad de sus marcadores se guarda automáticamente en un almacenamiento seguro de la nube.</string>
-	<string name="bookmarks_message_backuped_user">La copia de seguridad de sus marcadores se guarda automáticamente en un almacenamiento seguro de la nube. La última copia de seguridad se hizo %s</string>
-	<string name="settings_backup_bookmarks">Copia de seguridad de marcadores</string>
 	<string name="bookmarks_groups">Listas</string>
 	<string name="bookmarks_groups_hide_all">Ocultar todo</string>
 	<string name="bookmarks_groups_show_all">Mostrar todo</string>

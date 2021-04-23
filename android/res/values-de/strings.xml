@@ -953,13 +953,6 @@
 	<string name="cleanliness">Sauberkeit</string>
 	<string name="crowdedness">Gedrängtheit</string>
 	<string name="error_enter_correct_name">Bitte geben Sie einen korrekten Namen ein</string>
-	<string name="bookmarks_backup">Sicherung aktivieren</string>
-	<string name="authorization_button_sign_in">Anmelden</string>
-	<string name="bookmarks_message_authorized_user">Ihre Lesezeichen-Sicherung wird automatisch in einem sicheren Cloud-Speicher gespeichert. Möchten Sie die Sicherung aktivieren?</string>
-	<string name="bookmarks_message_unauthorized_user">Ihre Lesezeichen-Sicherung wird automatisch in einem sicheren Cloud-Speicher gespeichert. Melden Sie sich an, um die Sicherung zu aktivieren.</string>
-	<string name="bookmarks_message_unbackuped_user">Ihre Lesezeichen-Sicherung wird automatisch in einem sicheren Cloud-Speicher gespeichert.</string>
-	<string name="bookmarks_message_backuped_user">Ihre Lesezeichen-Sicherung wird automatisch in einem sicheren Cloud-Speicher gespeichert. Letzte Sicherung: %s</string>
-	<string name="settings_backup_bookmarks">Sicherung Lesezeichen</string>
 	<string name="bookmarks_groups">Listen</string>
 	<string name="bookmarks_groups_hide_all">Alle verbergen</string>
 	<string name="bookmarks_groups_show_all">Alle anzeigen</string>

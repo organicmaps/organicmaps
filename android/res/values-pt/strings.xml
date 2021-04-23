@@ -949,13 +949,6 @@
 	<string name="cleanliness">Limpeza</string>
 	<string name="crowdedness">Lotado</string>
 	<string name="error_enter_correct_name">Introduza um nome correto</string>
-	<string name="bookmarks_backup">Ativar cópia de segurança</string>
-	<string name="authorization_button_sign_in">Iniciar sessão</string>
-	<string name="bookmarks_message_authorized_user">Os seus favoritos são guardados automaticamente num armazenamento na nuvem seguro. Deseja ativar a cópia de segurança?</string>
-	<string name="bookmarks_message_unauthorized_user">Os seus favoritos são guardados automaticamente num armazenamento na nuvem seguro. Inicie a sessão para ativar a cópia de segurança.</string>
-	<string name="bookmarks_message_unbackuped_user">Os seus favoritos são guardados automaticamente num armazenamento na nuvem seguro.</string>
-	<string name="bookmarks_message_backuped_user">Os seus favoritos são guardados automaticamente num armazenamento na nuvem seguro. Última cópia de segurança %s</string>
-	<string name="settings_backup_bookmarks">Cópia de segurança dos favoritos</string>
 	<string name="bookmarks_groups">Listas</string>
 	<string name="bookmarks_groups_hide_all">Ocultar tudo</string>
 	<string name="bookmarks_groups_show_all">Mostrar tudo</string>

@@ -747,13 +747,6 @@
 	<string name="cleanliness">Καθαριότητα</string>
 	<string name="crowdedness">Συνωστισμός</string>
 	<string name="error_enter_correct_name">Εισάγετε ένα σωστό όνομα</string>
-	<string name="bookmarks_backup">Ενεργοποίηση δημιουργίας αντιγράφων ασφαλείας</string>
-	<string name="authorization_button_sign_in">Είσοδος</string>
-	<string name="bookmarks_message_authorized_user">Δημιουργείται αυτόματα αντίγραφο ασφαλείας τω αγαπημένων σας σε ασφαλή αποθηκευτικό χώρο στο cloud. Θέλετε να ενεργοποιήσετε τη δημιουργία αντιγράφων ασφαλείας:</string>
-	<string name="bookmarks_message_unauthorized_user">Δημιουργείται αυτόματα αντίγραφο ασφαλείας τω αγαπημένων σας σε ασφαλή αποθηκευτικό χώρο στο cloud. Συνδεθείτε για να ενεργοποιήσετε τη δημιουργία αντιγράφων ασφαλείας.</string>
-	<string name="bookmarks_message_unbackuped_user">Δημιουργείται αυτόματα αντίγραφο ασφαλείας τω αγαπημένων σας σε ασφαλή αποθηκευτικό χώρο στο cloud.</string>
-	<string name="bookmarks_message_backuped_user">Δημιουργείται αυτόματα αντίγραφο ασφαλείας τω αγαπημένων σας σε ασφαλή αποθηκευτικό χώρο στο cloud. Τελευταίο αντίγραφο ασφαλείας %s</string>
-	<string name="settings_backup_bookmarks">Δημιουργία αντιγράφου ασφαλείας αγαπημένων</string>
 	<string name="bookmarks_groups">Τόπος αγώνων</string>
 	<string name="bookmarks_groups_hide_all">Απόκρυψη όλων</string>
 	<string name="bookmarks_groups_show_all">Εμφάνιση όλων</string>

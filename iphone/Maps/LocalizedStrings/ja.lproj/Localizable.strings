@@ -1652,20 +1652,6 @@
 
 "error_enter_correct_name" = "正しい名前を入力してください";
 
-"bookmarks_backup" = "バックアップを有効化";
-
-"authorization_button_sign_in" = "サインイン";
-
-"bookmarks_message_authorized_user" = "あなたのブックマークは自動的に安全なクラウドストレージにバックアップされます。バックアップを有効化しますか？";
-
-"bookmarks_message_unauthorized_user" = "あなたのブックマークは自動的に安全なクラウドストレージにバックアップされます。バックアップを有効化するには、サインインする必要があります。";
-
-"bookmarks_message_unbackuped_user" = "あなたのブックマークは自動的に安全なクラウドストレージにバックアップされます。";
-
-"bookmarks_message_backuped_user" = "あなたのブックマークは自動的に安全なクラウドストレージにバックアップされます。最終バックアップ日時：%s";
-
-"settings_backup_bookmarks" = "ブックマークをバックアップ";
-
 "bookmarks_groups" = "リスト";
 
 "bookmarks_groups_hide_all" = "すべて非表示";

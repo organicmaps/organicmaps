@@ -952,13 +952,6 @@
 	<string name="cleanliness">Чистота</string>
 	<string name="crowdedness">Завантаженість</string>
 	<string name="error_enter_correct_name">Будь ласка, введіть коректне ім\'я</string>
-	<string name="bookmarks_backup">Увімкнути резервне копіювання</string>
-	<string name="authorization_button_sign_in">Увійти</string>
-	<string name="bookmarks_message_authorized_user">Ваші закладки буде автоматично збережено в безпечному хмарному сховищі. Увімкнути резервне копіювання?</string>
-	<string name="bookmarks_message_unauthorized_user">Ваші закладки буде автоматично збережено в безпечному хмарному сховищі. Увійдіть для того, щоб увімкнути резервне копіювання.</string>
-	<string name="bookmarks_message_unbackuped_user">Ваші закладки буде автоматично збережено в безпечному хмарному сховищі.</string>
-	<string name="bookmarks_message_backuped_user">Ваші закладки буде автоматично збережено в безпечному хмарному сховищі. Остання резервна копія зроблена %s</string>
-	<string name="settings_backup_bookmarks">Зробити резервну копію закладок</string>
 	<string name="bookmarks_groups">Списки</string>
 	<string name="bookmarks_groups_hide_all">Приховати всі</string>
 	<string name="bookmarks_groups_show_all">Показати всі</string>

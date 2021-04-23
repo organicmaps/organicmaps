@@ -955,13 +955,6 @@
 	<string name="cleanliness">Czystość</string>
 	<string name="crowdedness">Zatłoczenie</string>
 	<string name="error_enter_correct_name">Wprowadź poprawną nazwę</string>
-	<string name="bookmarks_backup">Włącz kopie zapasowe</string>
-	<string name="authorization_button_sign_in">Zaloguj się</string>
-	<string name="bookmarks_message_authorized_user">Kopie zapasowe zakładek są zapisywane automatycznie w magazynie-chmurze. Włączyć kopie zapasowe?</string>
-	<string name="bookmarks_message_unauthorized_user">Kopie zapasowe zakładek są zapisywane automatycznie w magazynie-chmurze. Zaloguj się, aby włączyć kopie zapasowe.</string>
-	<string name="bookmarks_message_unbackuped_user">Kopie zapasowe zakładek są zapisywane automatycznie w magazynie-chmurze.</string>
-	<string name="bookmarks_message_backuped_user">Kopie zapasowe zakładek są zapisywane automatycznie w magazynie-chmurze. Ostatnia kopia zapasowa %s</string>
-	<string name="settings_backup_bookmarks">Kopie zapasowe zakładek</string>
 	<string name="bookmarks_groups">Listy</string>
 	<string name="bookmarks_groups_hide_all">Ukryj wszystkie</string>
 	<string name="bookmarks_groups_show_all">Pokaż wszystkie</string>

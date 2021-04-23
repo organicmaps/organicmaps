@@ -1652,20 +1652,6 @@
 
 "error_enter_correct_name" = "Harap masukkan nama yang benar";
 
-"bookmarks_backup" = "Aktifkan cadangan";
-
-"authorization_button_sign_in" = "Masuk";
-
-"bookmarks_message_authorized_user" = "Cadangan markah Anda secara otomatis berada di dalam penyimpanan cloud aman. Anda ingin mengaktifkan cadangan?";
-
-"bookmarks_message_unauthorized_user" = "Cadangan markah Anda secara otomatis berada di dalam penyimpanan cloud aman. Masuklah untuk mengaktifkan cadangan.";
-
-"bookmarks_message_unbackuped_user" = "Cadangan markah Anda secara otomatis berada di dalam penyimpanan cloud aman.";
-
-"bookmarks_message_backuped_user" = "Cadangan markah Anda secara otomatis berada di dalam penyimpanan cloud aman. Cadangan terakhir %s";
-
-"settings_backup_bookmarks" = "Cadangkan Markah";
-
 "bookmarks_groups" = "Daftar";
 
 "bookmarks_groups_hide_all" = "Sembunyikan semua";

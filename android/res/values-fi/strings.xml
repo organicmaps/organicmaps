@@ -939,13 +939,6 @@
 	<string name="cleanliness">Puhtaus</string>
 	<string name="crowdedness">Ahtaus</string>
 	<string name="error_enter_correct_name">Anna oikea nimi</string>
-	<string name="bookmarks_backup">Ota varmuuskopiointi käyttöön</string>
-	<string name="authorization_button_sign_in">Kirjaudu sisään</string>
-	<string name="bookmarks_message_authorized_user">Kirjanmerkkisi varmuuskopioidaan automaattisesti turvalliseen pilvitallennustilaan. Haluatko ottaa varmuuskopioinnin käyttöön?</string>
-	<string name="bookmarks_message_unauthorized_user">Kirjanmerkkisi varmuuskopioidaan automaattisesti turvalliseen pilvitallennustilaan. Kirjaudu sisään, jotta voit ottaa varmuuskopioinnin käyttöön.</string>
-	<string name="bookmarks_message_unbackuped_user">Kirjanmerkkisi varmuuskopioidaan automaattisesti turvalliseen pilvitallennustilaan.</string>
-	<string name="bookmarks_message_backuped_user">Kirjanmerkkisi varmuuskopioidaan automaattisesti turvalliseen pilvitallennustilaan. Viimeisin varmuuskopio %s</string>
-	<string name="settings_backup_bookmarks">Varmuuskopioi kirjanmerkit</string>
 	<string name="bookmarks_groups">Listat</string>
 	<string name="bookmarks_groups_hide_all">Piilota kaikki</string>
 	<string name="bookmarks_groups_show_all">Näytä kaikki</string>

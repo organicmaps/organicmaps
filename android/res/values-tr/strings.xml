@@ -951,13 +951,6 @@
 	<string name="cleanliness">Temizlik</string>
 	<string name="crowdedness">Doluluk</string>
 	<string name="error_enter_correct_name">Lütfen, doğru bir isim girin</string>
-	<string name="bookmarks_backup">Yedeklemeyi etkinleştir</string>
-	<string name="authorization_button_sign_in">Oturum Aç</string>
-	<string name="bookmarks_message_authorized_user">Yer imleriniz otomatik olarak güvenli bir bulut depolama alanında yedeklenir. Yedeklemeyi etkinleştirmek istiyor musunuz?</string>
-	<string name="bookmarks_message_unauthorized_user">Yer imleriniz otomatik olarak güvenli bir bulut depolama alanında yedeklenir. Yedeklemeyi etkinleştirmek için oturum açın.</string>
-	<string name="bookmarks_message_unbackuped_user">Yer imleriniz otomatik olarak güvenli bir bulut depolama alanında yedeklenir.</string>
-	<string name="bookmarks_message_backuped_user">Yer imleriniz otomatik olarak güvenli bir bulut depolama alanında yedeklenir. Son yedekleme: %s</string>
-	<string name="settings_backup_bookmarks">Yer İmlerini Yedekle</string>
 	<string name="bookmarks_groups">Listeler</string>
 	<string name="bookmarks_groups_hide_all">Tümünü gizle</string>
 	<string name="bookmarks_groups_show_all">Tümünü göster</string>

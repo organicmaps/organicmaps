@@ -1652,20 +1652,6 @@
 
 "error_enter_correct_name" = "لطفا نام صحیح را وارد کنید";
 
-"bookmarks_backup" = "پشتیبانگیری را فعال کنید";
-
-"authorization_button_sign_in" = "ورود";
-
-"bookmarks_message_authorized_user" = "بوک مارک های شما به صورت خودکار در یک حافظه ذخیره سازی امن پشتیبان گیری می شوند. آیا می خواهید نسخه پشتیبان تهیه کنید؟";
-
-"bookmarks_message_unauthorized_user" = "بوک مارک های شما به صورت خودکار در یک حافظه ذخیره سازی امن پشتیبان گیری می شوند. برای فعال کردن پشتیبان وارد سیستم شوید";
-
-"bookmarks_message_unbackuped_user" = "بوک مارک های شما به صورت خودکار در یک حافظه ذخیره سازی امن پشتیبان گیری می شوند.";
-
-"bookmarks_message_backuped_user" = "بوک مارک های شما به صورت خودکار در یک حافظه ذخیره سازی امن پشتیبان گیری می شوند. آخرین پشتیبان %s بود";
-
-"settings_backup_bookmarks" = "نشانکهای پشتیبان";
-
 "bookmarks_groups" = "لیست ها";
 
 "bookmarks_groups_hide_all" = "پنهان کردن همه";
