@@ -12,23 +12,18 @@ public class StubNotificationChannelProvider implements NotificationChannelProvi
   private final Application mApplication;
 
   @NonNull
-  private final String mAuthChannel;
-
-  @NonNull
   private final String mDownloadingChannel;
 
 
-  StubNotificationChannelProvider(@NonNull Application context, @NonNull String authChannel,
-                                  @NonNull String downloadingChannel)
+  StubNotificationChannelProvider(@NonNull Application context, @NonNull String downloadingChannel)
   {
     mApplication = context;
-    mAuthChannel = authChannel;
     mDownloadingChannel = downloadingChannel;
   }
 
   StubNotificationChannelProvider(@NonNull Application context)
   {
-    this(context, DEFAULT_NOTIFICATION_CHANNEL, DEFAULT_NOTIFICATION_CHANNEL);
+    this(context, DEFAULT_NOTIFICATION_CHANNEL);
   }
 
   @NonNull

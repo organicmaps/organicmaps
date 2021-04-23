@@ -11,7 +11,7 @@ import com.mapswithme.maps.BuildConfig;
 import com.mapswithme.maps.Framework;
 import com.mapswithme.maps.MwmApplication;
 import com.mapswithme.maps.background.AppBackgroundTracker;
-import com.mapswithme.maps.background.WorkerService;
+import com.mapswithme.maps.background.OsmUploadService;
 import com.mapswithme.maps.editor.data.FeatureCategory;
 import com.mapswithme.maps.editor.data.Language;
 import com.mapswithme.maps.editor.data.LocalizedName;
@@ -199,7 +199,7 @@ public final class Editor
       if (foreground)
         return;
 
-      WorkerService.startActionUploadOsmChanges(mContext);
+      OsmUploadService.startActionUploadOsmChanges(mContext);
     }
   }
 }

@@ -1,17 +1,16 @@
 package com.mapswithme.maps;
 
-import android.content.BroadcastReceiver;
-import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
+import androidx.core.app.JobIntentService;
 
 import com.mapswithme.util.CrashlyticsUtils;
 import com.mapswithme.util.log.Logger;
 import com.mapswithme.util.log.LoggerFactory;
 
-public abstract class MwmBroadcastReceiver extends BroadcastReceiver
+public abstract class MwmJobIntentService extends JobIntentService
 {
   private static final Logger LOGGER = LoggerFactory.INSTANCE.getLogger(LoggerFactory.Type.MISC);
 
@@ -21,13 +20,13 @@ public abstract class MwmBroadcastReceiver extends BroadcastReceiver
     return getClass().getSimpleName();
   }
 
-  protected abstract void onReceiveInitialized(@NonNull Context context, @NonNull Intent intent);
+  protected abstract void onHandleWorkInitialized(@NonNull Intent intent);
 
   @Override
-  public final void onReceive(@NonNull Context context, @NonNull Intent intent)
+  protected void onHandleWork(@NonNull Intent intent)
   {
-    MwmApplication app = MwmApplication.from(context);
-    String msg = "onReceive: " + intent;
+    MwmApplication app = MwmApplication.from(this);
+    String msg = "onHandleWork: " + intent;
     LOGGER.i(getTag(), msg);
     CrashlyticsUtils.INSTANCE.log(Log.INFO, getTag(), msg);
     if (!app.arePlatformAndCoreInitialized() && !app.initCore())
@@ -35,8 +34,6 @@ public abstract class MwmBroadcastReceiver extends BroadcastReceiver
       LOGGER.w(getTag(), "Application is not initialized, ignoring " + intent);
       return;
     }
-    onReceiveInitialized(context, intent);
+    onHandleWorkInitialized(intent);
   }
-
-
 }

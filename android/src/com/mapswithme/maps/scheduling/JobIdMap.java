@@ -1,8 +1,6 @@
 package com.mapswithme.maps.scheduling;
 
-import com.mapswithme.maps.background.NotificationService;
-import com.mapswithme.maps.background.WorkerService;
-import com.mapswithme.maps.bookmarks.SystemDownloadCompletedService;
+import com.mapswithme.maps.background.OsmUploadService;
 import com.mapswithme.maps.location.TrackRecorderWakeService;
 
 import java.util.HashMap;
@@ -13,10 +11,8 @@ public class JobIdMap
   private static final Map<Class<?>, Integer> MAP = new HashMap<>();
 
   static {
-    MAP.put(NotificationService.class, calcIdentifier(MAP.size()));
     MAP.put(TrackRecorderWakeService.class, calcIdentifier(MAP.size()));
-    MAP.put(SystemDownloadCompletedService.class, calcIdentifier(MAP.size()));
-    MAP.put(WorkerService.class, calcIdentifier(MAP.size()));
+    MAP.put(OsmUploadService.class, calcIdentifier(MAP.size()));
   }
 
   private static final int ID_BASIC = 1070;

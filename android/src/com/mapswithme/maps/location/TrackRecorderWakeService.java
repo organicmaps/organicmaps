@@ -9,7 +9,7 @@ import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.core.app.JobIntentService;
 
-import com.mapswithme.maps.MwmApplication;
+import com.mapswithme.maps.MwmJobIntentService;
 import com.mapswithme.maps.scheduling.JobIdMap;
 import com.mapswithme.util.CrashlyticsUtils;
 import com.mapswithme.util.log.Logger;
@@ -21,7 +21,7 @@ import java.util.Objects;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 
-public class TrackRecorderWakeService extends JobIntentService
+public class TrackRecorderWakeService extends MwmJobIntentService
 {
   private static final String TAG = TrackRecorderWakeService.class.getSimpleName();
   private static final Logger LOGGER = LoggerFactory.INSTANCE.getLogger(LoggerFactory.Type.TRACK_RECORDER);
@@ -30,13 +30,8 @@ public class TrackRecorderWakeService extends JobIntentService
   private final CountDownLatch mWaitMonitor = new CountDownLatch(1);
 
   @Override
-  protected void onHandleWork(@NonNull Intent intent)
+  protected void onHandleWorkInitialized(@NonNull Intent intent)
   {
-    String msg = "onHandleIntent: " + intent + " app in background = "
-                 + !MwmApplication.backgroundTracker(getApplicationContext()).isForeground();
-    LOGGER.i(TAG, msg);
-    CrashlyticsUtils.INSTANCE.log(Log.INFO, TAG, msg);
-
     synchronized (sLock)
     {
       sService = this;
