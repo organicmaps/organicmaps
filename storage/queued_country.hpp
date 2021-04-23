@@ -11,16 +11,6 @@
 
 namespace storage
 {
-class QueuedCountry;
-
-using CountryInQueueCallback =
-std::function<void(QueuedCountry const & queuedCountry)>;
-using DownloadingStartCallback =
-    std::function<void(QueuedCountry const & queuedCountry)>;
-using DownloadingProgressCallback =
-    std::function<void(QueuedCountry const & queuedCountry, downloader::Progress const & progress)>;
-using DownloadingFinishCallback =
-    std::function<void(QueuedCountry const & queuedCountry, downloader::DownloadStatus status)>;
 
 class QueuedCountry
 {

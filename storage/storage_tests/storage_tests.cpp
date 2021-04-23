@@ -495,6 +495,19 @@ protected:
 };
 }  // namespace
 
+UNIT_TEST(StorageTest_ParseIndexFile)
+{
+  Storage storage;
+
+  TEST_EQUAL(storage.ParseIndexAndGetDataVersion(R"([ { "21010101" : 210317 } ])"), 210317, ());
+  TEST_EQUAL(storage.ParseIndexAndGetDataVersion(R"([ { "21010101" : 210317 }, { "21041001" : 210409 } ])"), 210409, ());
+
+  // Invalid jsons
+  TEST_EQUAL(storage.ParseIndexAndGetDataVersion(R"([ { "21010101" : 210317 })"), 0, ());
+  TEST_EQUAL(storage.ParseIndexAndGetDataVersion(R"([ { "xxx" : 210317 } ])"), 0, ());
+  TEST_EQUAL(storage.ParseIndexAndGetDataVersion(R"([ { "21010101" : xxx } ])"), 0, ());
+}
+
 UNIT_TEST(StorageTest_Smoke)
 {
   Storage storage;

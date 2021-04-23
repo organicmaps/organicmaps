@@ -7,13 +7,16 @@
 #include "storage/map_files_downloader.hpp"
 #include "storage/storage_helpers.hpp"
 
+#include "platform/downloader_utils.hpp"
 #include "platform/local_country_file_utils.hpp"
 #include "platform/mwm_version.hpp"
 #include "platform/platform.hpp"
 #include "platform/preferred_languages.hpp"
 #include "platform/settings.hpp"
 
+#include "coding/file_writer.hpp"
 #include "coding/internal/file_data.hpp"
+#include "coding/url.hpp"
 
 #include "base/exception.hpp"
 #include "base/file_name_utils.hpp"
@@ -24,6 +27,8 @@
 #include "base/string_utils.hpp"
 
 #include "defines.hpp"
+
+#include "3party/jansson/myjansson.hpp"
 
 #include <algorithm>
 #include <chrono>
@@ -61,20 +66,6 @@ CountryTree::Node const & LeafNodeFromCountryId(CountryTree const & root,
   CountryTree::Node const * node = root.FindFirstLeaf(countryId);
   CHECK(node, ("Node with id =", countryId, "not found in country tree as a leaf."));
   return *node;
-}
-
-bool ValidateIntegrity(LocalFilePtr mapLocalFile, string const & countryId, string const & source)
-{
-  int64_t const version = mapLocalFile->GetVersion();
-
-  int64_t constexpr kMinSupportedVersion = 181030;
-  if (version < kMinSupportedVersion)
-    return true;
-
-  if (mapLocalFile->ValidateIntegrity())
-    return true;
-
-  return false;
 }
 
 bool IsFileDownloaded(string const fileDownloadPath, MapFileType type)
@@ -127,6 +118,11 @@ Progress Storage::GetOverallProgress(CountriesVec const & countries) const
     }
   }
   return overallProgress;
+}
+
+Storage::Storage(int)
+{
+  // Do nothing here, used in RunCountriesCheckAsync() only.
 }
 
 Storage::Storage(string const & pathToCountriesFile /* = COUNTRIES_FILE */,
@@ -582,7 +578,7 @@ void Storage::LoadCountriesFile(string const & pathToCountriesFile)
     m_currentVersion =
         LoadCountriesFromFile(pathToCountriesFile, m_countries, m_affiliations,
                               m_countryNameSynonyms, m_mwmTopCityGeoIds, m_mwmTopCountryGeoIds);
-    LOG_SHORT(LINFO, ("Loaded countries list for version:", m_currentVersion));
+    LOG(LINFO, ("Loaded countries list for version:", m_currentVersion));
     if (m_currentVersion < 0)
       LOG(LERROR, ("Can't load countries file", pathToCountriesFile));
   }
@@ -729,7 +725,7 @@ void Storage::RegisterDownloadedFiles(CountryId const & countryId, MapFileType t
   }
 
   static string const kSourceKey = "map";
-  if (m_integrityValidationEnabled && !ValidateIntegrity(localFile, countryId, kSourceKey))
+  if (m_integrityValidationEnabled && !localFile->ValidateIntegrity())
   {
     base::DeleteFileX(localFile->GetPath(MapFileType::Map));
     fn(false /* isSuccess */);
@@ -946,7 +942,122 @@ bool Storage::CheckFailedCountries(CountriesVec const & countries) const
   return false;
 }
 
-CountryId const Storage::GetRootId() const { return m_countries.GetRoot().Value().Name(); }
+void Storage::RunCountriesCheckAsync()
+{
+  m_downloader->DownloadAsString(SERVER_DATAVERSION_FILE, [this](std::string const & buffer)
+  {
+    LOG(LDEBUG, (SERVER_DATAVERSION_FILE, "downloaded"));
+
+    int const dataVersion = ParseIndexAndGetDataVersion(buffer);
+    if (dataVersion <= m_currentVersion)
+      return false;
+
+    LOG(LDEBUG, ("Try download", COUNTRIES_FILE, "for", dataVersion));
+
+    m_downloader->DownloadAsString(downloader::GetFileDownloadUrl(COUNTRIES_FILE, dataVersion),
+      [this, dataVersion](std::string const & buffer)
+      {
+        LOG(LDEBUG, (COUNTRIES_FILE, "downloaded"));
+
+        std::shared_ptr<Storage> storage(new Storage(7 /* dummy */));
+        storage->m_currentVersion = LoadCountriesFromBuffer(buffer, storage->m_countries, storage->m_affiliations, storage->m_countryNameSynonyms,
+                                                                    storage->m_mwmTopCityGeoIds, storage->m_mwmTopCountryGeoIds);
+        if (storage->m_currentVersion > 0)
+        {
+          LOG(LDEBUG, ("Apply new version", storage->m_currentVersion, dataVersion));
+          ASSERT_EQUAL(storage->m_currentVersion, dataVersion, ());
+
+          /// @todo Or use simple but reliable strategy: download new file and ask to restart the app?
+          GetPlatform().RunTask(Platform::Thread::Gui, [this, storage, buffer = std::move(buffer)]()
+          {
+            ApplyCountries(buffer, *storage);
+          });
+        }
+
+        return false;
+      }, true /* force reset */);
+
+    // True when new download was requested.
+    return true;
+  }, false /* force reset */);
+}
+
+int Storage::ParseIndexAndGetDataVersion(std::string const & index) const
+{
+  try
+  {
+    // [ {"start app version" : data version}, ... ]
+    base::Json const json(index.c_str());
+    auto root = json.get();
+
+    if (root == nullptr || !json_is_array(root))
+      return 0;
+
+    /// @todo Get correct value somehow ..
+    int const appVersion = 21042001;
+    int dataVersion = 0;
+
+    size_t const count = json_array_size(root);
+    for (size_t i = 0; i < count; ++i)
+    {
+      // Make safe parsing here to avoid download errors.
+      auto const it = json_object_iter(json_array_get(root, i));
+      if (it)
+      {
+        auto const key = json_object_iter_key(it);
+        auto const val = json_object_iter_value(it);
+
+        int appVer;
+        if (key && val && json_is_number(val) && strings::to_int(key, appVer))
+        {
+          int const dataVer = json_integer_value(val);
+          if (appVersion >= appVer && dataVersion < dataVer)
+            dataVersion = dataVer;
+        }
+      }
+    }
+
+    return dataVersion;
+  }
+  catch (RootException const &)
+  {
+    return 0;
+  }
+}
+
+void Storage::ApplyCountries(std::string const & countriesBuffer, Storage & storage)
+{
+  CHECK_THREAD_CHECKER(m_threadChecker, ());
+
+  /// @todo Or don't skip, but apply new data in OnFinishDownloading().
+  if (storage.m_currentVersion <= m_currentVersion || !m_downloadingCountries.empty() || !m_diffsBeingApplied.empty())
+    return;
+
+  {
+    // Save file to the WritableDir (LoadCountriesFile checks it first).
+    FileWriter writer(base::JoinPath(GetPlatform().WritableDir(), COUNTRIES_FILE));
+    writer.Write(countriesBuffer.data(), countriesBuffer.size());
+  }
+
+  m_currentVersion = storage.m_currentVersion;
+  m_countries = std::move(storage.m_countries);
+  m_affiliations = std::move(storage.m_affiliations);
+  m_countryNameSynonyms = std::move(storage.m_countryNameSynonyms);
+  m_mwmTopCityGeoIds = std::move(storage.m_mwmTopCityGeoIds);
+  m_mwmTopCountryGeoIds = std::move(storage.m_mwmTopCountryGeoIds);
+
+  LOG(LDEBUG, ("Version", m_currentVersion, "is applied"));
+
+  LoadDiffScheme();
+
+  /// @todo Start World and WorldCoasts download ?!
+}
+
+CountryId const Storage::GetRootId() const
+{
+  return m_countries.GetRoot().Value().Name();
+}
+
 void Storage::GetChildren(CountryId const & parent, CountriesVec & childIds) const
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());
@@ -1209,7 +1320,7 @@ void Storage::ApplyDiff(CountryId const & countryId, function<void(bool isSucces
         CHECK_THREAD_CHECKER(m_threadChecker, ());
         static string const kSourceKey = "diff";
         if (result == DiffApplicationResult::Ok && m_integrityValidationEnabled &&
-            !ValidateIntegrity(diffFile, diffFile->GetCountryName(), kSourceKey))
+            !diffFile->ValidateIntegrity())
         {
           GetPlatform().RunTask(Platform::Thread::File,
             [path = diffFile->GetPath(MapFileType::Map)] { base::DeleteFileX(path); });

@@ -150,7 +150,6 @@ class Storage : public MapFilesDownloader::Subscriber,
                 public QueuedCountry::Subscriber
 {
 public:
-  struct StatusCallback;
   using StartDownloadingCallback = std::function<void()>;
   using FinishDownloadingCallback = std::function<void()>;
   using UpdateCallback = std::function<void(storage::CountryId const &, LocalFilePtr const)>;
@@ -279,6 +278,9 @@ private:
   void OnMapDownloadFinished(CountryId const & countryId, downloader::DownloadStatus status,
                              MapFileType type);
 
+  /// Dummy ctor for private use only.
+  explicit Storage(int);
+
 public:
   ThreadChecker const & GetThreadChecker() const {return m_threadChecker;}
 
@@ -303,36 +305,15 @@ public:
 
   void SetDownloadingPolicy(DownloadingPolicy * policy);
 
-  /// @name Interface with clients (Android/iOS).
-  /// \brief It represents the interface which can be used by clients (Android/iOS).
-  /// The term node means an mwm or a group of mwm like a big country.
-  /// The term node id means a string id of mwm or a group of mwm. The sting contains
-  /// a name of file with mwm of a name country(territory).
-  //@{
-  using OnSearchResultCallback = std::function<void(CountryId const &)>;
-  using OnStatusChangedCallback = std::function<void(CountryId const &)>;
-
-  /// \brief Information for "Update all mwms" button.
-  struct UpdateInfo
-  {
-    UpdateInfo() : m_numberOfMwmFilesToUpdate(0), m_totalUpdateSizeInBytes(0), m_sizeDifference(0) {}
-
-    MwmCounter m_numberOfMwmFilesToUpdate;
-    MwmSize m_totalUpdateSizeInBytes;
-    // Difference size in bytes between before update and after update.
-    int64_t m_sizeDifference;
-  };
-
-  struct StatusCallback
-  {
-    /// \brief m_onStatusChanged is called by MapRepository when status of
-    /// a node is changed. If this method is called for an mwm it'll be called for
-    /// every its parent and grandparents.
-    /// \param CountryId is id of mwm or an mwm group which status has been changed.
-    OnStatusChangedCallback m_onStatusChanged;
-  };
-
   bool CheckFailedCountries(CountriesVec const & countries) const;
+
+  /// @name Countries update functions. Public for unit tests.
+  /// @{
+  void RunCountriesCheckAsync();
+  /// @return 0 If error.
+  int ParseIndexAndGetDataVersion(std::string const & index) const;
+  void ApplyCountries(std::string const & countriesBuffer, Storage & storage);
+  /// @}
 
   /// \brief Returns root country id of the country tree.
   CountryId const GetRootId() const;
@@ -439,6 +420,16 @@ public:
   /// which in the subtree with root |countryId|.
   /// It means the call RetryDownloadNode(GetRootId()) retries all the failed mwms.
   void RetryDownloadNode(CountryId const & countryId);
+
+  struct UpdateInfo
+  {
+    UpdateInfo() : m_numberOfMwmFilesToUpdate(0), m_totalUpdateSizeInBytes(0), m_sizeDifference(0) {}
+
+    MwmCounter m_numberOfMwmFilesToUpdate;
+    MwmSize m_totalUpdateSizeInBytes;
+    // Difference size in bytes between before update and after update.
+    int64_t m_sizeDifference;
+  };
 
   /// \brief Get information for mwm update button.
   /// \return true if updateInfo is filled correctly and false otherwise.
