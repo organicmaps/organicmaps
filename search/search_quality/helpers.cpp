@@ -166,15 +166,13 @@ void InitDataSource(FrozenDataSource & dataSource, string const & mwmListPath)
 void InitStorageData(storage::Affiliations & affiliations,
                      storage::CountryNameSynonyms & countryNameSynonyms)
 {
-  auto const countriesFile = base::JoinPath(GetPlatform().ResourcesDir(), COUNTRIES_FILE);
-
   storage::CountryTree countries;
   storage::MwmTopCityGeoIds mwmTopCityGeoIds;
   storage::MwmTopCountryGeoIds mwmTopCountryGeoIds;
   auto const rv =
       storage::LoadCountriesFromFile(COUNTRIES_FILE, countries, affiliations, countryNameSynonyms,
                                      mwmTopCityGeoIds, mwmTopCountryGeoIds);
-  CHECK(rv != -1, ("Can't load countries from:", countriesFile));
+  CHECK(rv != -1, ("Can't load countries"));
 }
 
 unique_ptr<search::tests_support::TestSearchEngine> InitSearchEngine(

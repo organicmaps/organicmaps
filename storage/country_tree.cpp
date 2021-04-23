@@ -438,7 +438,7 @@ int64_t LoadCountriesFromBuffer(string const & jsonBuffer, CountryTree & countri
   }
   catch (base::Json::Exception const & e)
   {
-    LOG(LERROR, (e.Msg()));
+    LOG(LWARNING, (e.Msg()));
   }
   return version;
 }

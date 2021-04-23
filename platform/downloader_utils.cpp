@@ -20,8 +20,8 @@ std::string const kDiffsPath = "diffs";
 
 namespace downloader
 {
-std::string GetFileDownloadUrl(std::string const & fileName, int64_t dataVersion,
-                               uint64_t diffVersion /* = 0 */)
+
+std::string GetFileDownloadUrl(std::string const & fileName, int64_t dataVersion, uint64_t diffVersion /* = 0 */)
 {
   if (diffVersion == 0)
     return url::Join(kMapsPath, strings::to_string(dataVersion), url::UrlEncode(fileName));
@@ -46,4 +46,5 @@ std::string GetFilePathByUrl(std::string const & url)
   return platform::GetFileDownloadPath(dataVersion, platform::CountryFile(countryComponents[0]),
                                        fileType);
 }
+
 }  // namespace downloader

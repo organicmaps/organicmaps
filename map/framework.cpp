@@ -425,11 +425,6 @@ Framework::Framework(FrameworkParams const & params)
 
   GetPowerManager().Subscribe(this);
   GetPowerManager().Load();
-
-  // Clean the no longer used key from old devices.
-  // Remove this line after April 2020 (assuming the majority of devices
-  // will have updated by then).
-  GetPlatform().RunTask(Platform::Thread::Gui, [] { settings::Delete("LastMigration"); });
 }
 
 Framework::~Framework()
@@ -1185,6 +1180,8 @@ void Framework::EnterForeground()
     auto const secondsInBackground = m_startForegroundTime - m_startBackgroundTime;
     m_drapeEngine->OnEnterForeground(secondsInBackground);
   }
+
+  m_storage.RunCountriesCheckAsync();
 
   m_trafficManager.OnEnterForeground();
 }
