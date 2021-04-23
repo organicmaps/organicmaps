@@ -1,28 +1,23 @@
 package com.mapswithme.maps.location;
 
-import static com.mapswithme.maps.MwmApplication.backgroundTracker;
-
-import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.location.LocationManager;
+import android.text.TextUtils;
 
 import com.mapswithme.maps.MwmApplication;
-import com.mapswithme.util.log.Logger;
-import com.mapswithme.util.log.LoggerFactory;
+import com.mapswithme.maps.MwmBroadcastReceiver;
 
-public class GPSCheck extends BroadcastReceiver
+public class GPSCheck extends MwmBroadcastReceiver
 {
-  private static final Logger LOGGER = LoggerFactory.INSTANCE.getLogger(LoggerFactory.Type.LOCATION);
-  private static final String TAG = GPSCheck.class.getSimpleName();
-
   @Override
-  public void onReceive(Context context, Intent intent)
+  public void onReceiveInitialized(Context context, Intent intent)
   {
-    String msg = "onReceive: " + intent + " app in background = "
-                 + !backgroundTracker(context).isForeground();
-    LOGGER.i(TAG, msg);
-    if (MwmApplication.from(context).arePlatformAndCoreInitialized() &&
-        MwmApplication.backgroundTracker(context).isForeground())
+    if (!TextUtils.equals(intent.getAction(), LocationManager.PROVIDERS_CHANGED_ACTION))
+    {
+      throw new AssertionError("An intent with wrong action detected: " + intent.getAction());
+    }
+    if (MwmApplication.backgroundTracker(context).isForeground())
     {
       LocationHelper.INSTANCE.restart();
     }

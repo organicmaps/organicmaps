@@ -57,25 +57,6 @@ public final class Notifier
     placeNotification(title, content, pi, ID_DOWNLOAD_FAILED, channel);
   }
 
-//  void notifyAuthentication()
-//  {
-//    Intent authIntent = MwmActivity.createAuthenticateIntent(mContext);
-//    authIntent.putExtra(EXTRA_CANCEL_NOTIFICATION, Notifier.ID_IS_NOT_AUTHENTICATED);
-//    PendingIntent pi = PendingIntent.getActivity(mContext, 0, authIntent,
-//                                                 PendingIntent.FLAG_UPDATE_CURRENT);
-//
-//    String channel = NotificationChannelFactory.createProvider(mContext).getUGCChannel();
-//    NotificationCompat.Builder builder =
-//        getBuilder(mContext.getString(R.string.notification_unsent_reviews_title),
-//                   mContext.getString(R.string.notification_unsent_reviews_message),
-//                   pi, channel);
-//
-//    builder.addAction(0, mContext.getString(R.string.authorization_button_sign_in), pi);
-//
-//    getNotificationManager().notify(ID_IS_NOT_AUTHENTICATED, builder.build());
-//
-//  }
-
   public void cancelNotification(@NotificationId int id)
   {
     if (id == ID_NONE)
@@ -94,11 +75,6 @@ public final class Notifier
       @Notifier.NotificationId
       int notificationId = intent.getIntExtra(Notifier.EXTRA_CANCEL_NOTIFICATION, Notifier.ID_NONE);
       cancelNotification(notificationId);
-    }
-
-    if (intent.hasExtra(Notifier.EXTRA_NOTIFICATION_CLICKED))
-    {
-      String eventName = intent.getStringExtra(Notifier.EXTRA_NOTIFICATION_CLICKED);
     }
   }
 
