@@ -64,5 +64,5 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: android-web-arm64-v8a-debug
-          path: android/build/outputs/apk/android-web-debug-*.apk
+          path: android/build/outputs/apk/web/debug/OrganicMaps-*-web-debug.apk
           if-no-files-found: error
