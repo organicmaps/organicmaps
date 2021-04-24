@@ -76,8 +76,6 @@ if (googleFirebaseServicesEnabled) {
   apply plugin: 'com.google.firebase.appdistribution'
 }
 
-import java.text.SimpleDateFormat
-
 dependencies {
 
   implementation 'androidx.multidex:multidex:' + propMultiDexVersion
@@ -118,18 +116,47 @@ dependencies {
   implementation 'androidx.fragment:fragment:1.1.0'
 }
 
-def getDate() {
-  def date = new Date()
-  def dateFormat = new SimpleDateFormat("yyMMdd")
-  def formattedDate = dateFormat.format(date)
-  return formattedDate
+def run(cmd) {
+  def stdout = new ByteArrayOutputStream()
+  exec{
+    commandLine = cmd
+    standardOutput = stdout;
+  }
+  return stdout.toString()
+}
+
+def getVersion() {
+  def gitsha = run(['git', 'rev-parse', '--short', 'HEAD']).trim()
+  def time = Integer.parseInt(run(['git', 'log', '-1', '--format=%ct']).trim())
+  def cal = Calendar.getInstance(Locale.ENGLISH);
+  cal.setTimeInMillis((long) time * 1000);
+  def year = cal.get(Calendar.YEAR);
+  def month = cal.get(Calendar.MONTH) + 1;
+  def day = cal.get(Calendar.DAY_OF_MONTH);
+  def hour = cal.get(Calendar.HOUR_OF_DAY);
+
+  // Use the current date to generate the version code:
+  // RR_yy_MM_dd_HH
+  // - RR - reserved to identify special markets, max value is 21.
+  // - yy - year
+  // - MM - month
+  // - dd - day
+  // - hh - hour
+  // 21_00_00_00_00 is the the greatest value Google Play allows for versionCode.
+  // See https://developer.android.com/studio/publish/versioning for details.
+  def versionCode = (year - 2000) * 1_00_00_00 + month * 1_00_00 + day * 1_00 + hour;
+
+  // Use the current date to generate the version name:
+  // 2021.04.11-12-gae0bcb54f9-Google (-Google added by flavor)
+  def versionName = String.format("%04d.%02d.%02d-%d-g%s", year, month, day, hour, gitsha)
+
+  return new Tuple2(versionCode, versionName)
 }
 
 def osName = System.properties['os.name'].toLowerCase()
 
-project.ext.versionCodes = ['armeabi-v7a': 30, 'x86': 40, 'arm64-v8a': 50, 'x86_64' : 60]
 project.ext.appId = 'app.omaps'
-project.ext.appName = 'OMaps'
+project.ext.appName = 'OrganicMaps'
 
 configurations.all {
   if (it.getName().contains("lint"))
@@ -197,8 +224,11 @@ android {
   defaultConfig {
     vectorDrawables.useSupportLibrary = true
     // Default package name is taken from the manifest and should be app.omaps
-    versionCode propVersionCode.toInteger()
-    versionName propVersionName
+    def ver = getVersion();
+    //println("Version:", versionName);
+    //println("VersionCode:", versionCode);
+    versionCode = ver.first
+    versionName = ver.second
     minSdkVersion propMinSdkVersion.toInteger()
     targetSdkVersion propTargetSdkVersion.toInteger()
     applicationId project.ext.appId
@@ -223,6 +253,8 @@ android {
                   "-DOS=$osName", '-DSKIP_TESTS=ON', "-DUSE_PCH=$pchFlag"
       }
     }
+
+    setProperty("archivesBaseName", appName + "-" + defaultConfig.versionCode)
 
     ndk {
       abiFilters = new HashSet<>()
@@ -273,8 +305,9 @@ android {
   flavorDimensions "default"
 
   productFlavors {
-    final int HUAWEI_VERSION_CODE_BASE = 20000
-    final int TENCENT_VERSION_CODE_BASE = 10000
+    // See getVersion()
+    final int HUAWEI_VERSION_CODE_BASE = 01_00_00_00_00
+    final int TENCENT_VERSION_CODE_BASE = 02_00_00_00_00
 
     google {
       dimension "default"
@@ -439,19 +472,6 @@ android {
     }
   }
 
-  android.applicationVariants.all { variant ->
-    variant.outputs.all { output ->
-      if (output.outputFile != null && output.outputFile.name.endsWith('.apk')) {
-        def file = output.outputFile
-        // version at the end of each built apk
-        output.outputFileName = "../../" + file.name.replace(".apk", "-" + android.defaultConfig.versionName + "-" + getDate() + ".apk")
-        // set different versionCodes for different ABIs
-        int abiVersionCode = project.ext.versionCodes.get(output.getFilter(com.android.build.OutputFile.ABI)) ?: 0
-        output.versionCodeOverride = (abiVersionCode * 1000) + variant.versionCode
-      }
-    }
-  }
-
   signingConfigs {
     debug {
       storeFile file('debug.keystore')
@@ -476,7 +496,7 @@ android {
       zipAlignEnabled true
       signingConfig signingConfigs.debug
       resValue 'string', 'app_id', android.defaultConfig.applicationId + applicationIdSuffix
-      resValue 'string', 'app_name', project.ext.appName + applicationIdSuffix
+      resValue 'string', 'app_name', project.ext.appName  + ' ' + '(Debug)'
       ndk.debugSymbolLevel = 'SYMBOL_TABLE'
     }
 
@@ -501,7 +521,7 @@ android {
       signingConfig signingConfigs.release
       matchingFallbacks = ['debug', 'release']
       resValue 'string', 'app_id', android.defaultConfig.applicationId + applicationIdSuffix
-      resValue 'string', 'app_name', project.ext.appName + applicationIdSuffix
+      resValue 'string', 'app_name', project.ext.appName + ' ' + '(Beta)'
       ndk.debugSymbolLevel = 'SYMBOL_TABLE'
       if (googleFirebaseServicesEnabled) {
         firebaseCrashlytics {
@@ -510,7 +530,7 @@ android {
         firebaseAppDistribution {
           releaseNotesFile = "RELEASE"
           groups = "android-qa"
-          apkPath = "./build/outputs/apk/android-web-arm64-v8a-beta.apk"
+          apkPath = "./build/outputs/apk/web/beta/" + appName + "-" + defaultConfig.versionCode + "-web-beta.apk"
           serviceCredentialsFile = "firebase-app-distribution.json"
         }
       }

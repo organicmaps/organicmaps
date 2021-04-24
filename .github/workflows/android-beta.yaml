@@ -1,25 +1,10 @@
 name: Android Beta
 on:
-  push:
-    branches:
-      - master
-    paths-ignore:
-      - .github/workflows/linux*
-      - .github/workflows/ios*
-      - '**/*_tests/**'
-      - CONTRIBUTORS
-      - LICENSE
-      - NOTICE
-      - README.md
-      - docs/**
-      - generator/**
-      - iphone/**
-      - packaging/**
-      - pyhelpers/**
-      - qt*/**
-      - skin_generator/**
-      - track_generator/**
-      - xcode/**
+  workflow_dispatch:
+    inputs:
+      releasenotes:
+        description: 'The release notes'
+        required: true
 
 jobs:
   android-beta:
@@ -47,14 +32,13 @@ jobs:
       - name: Checkout private keys
         uses: actions/checkout@v2
         with:
-          repository: omapsapp/omapsapp-production-keys
-          token: ${{ secrets.PRIVATE_TOKEN }}
+          repository: ${{ secrets.PRIVATE_REPO }}
+          ssh-key: ${{ secrets.PRIVATE_SSH_KEY }}
           ref: master
           path: private.git
 
       - name: Configure repo with private keys
         shell: bash
-        repo-token: ${{ secrets.GITHUB_TOKEN }}
         run: |
           ./configure.sh ./private.git
           rm -rf ./private.git
@@ -67,45 +51,20 @@ jobs:
         shell: bash
         working-directory: android
         run: |
-          #export PATH="$(dirname $ANDROID_SDK_ROOT/cmake/*/bin/.|tail -n1):$PATH" # Use CMake from SDK
-          #echo $PATH
           cmake --version
           ninja --version
-          ./gradlew -PsplitApk=true -x lint -x lintVitalWebBeta assembleWebBeta uploadCrashlyticsSymbolFileWebBeta
+          ./gradlew -x lint -x lintVitalWebBeta assembleWebBeta uploadCrashlyticsSymbolFileWebBeta
 
-      - name: Upload arm64-v8a beta apk
+      - name: Upload beta apk
         uses: actions/upload-artifact@v2
         with:
-          name: android-web-arm64-v8a-beta
-          path: android/build/outputs/apk/android-web-arm64-v8a-beta-*.apk
+          name: android-web-beta
+          path: android/build/outputs/apk/web/beta/OrganicMaps-*-web-beta.apk
           if-no-files-found: error
 
-      - name: Upload armeabi-v7a beta apk
-        uses: actions/upload-artifact@v2
-        with:
-          name: android-web-armeabi-v7a-beta
-          path: android/build/outputs/apk/android-web-armeabi-v7a-beta-*.apk
-          if-no-files-found: error
-
-      - name: Upload x86_64 beta apk
-        uses: actions/upload-artifact@v2
-        with:
-          name: android-web-x86_64-beta
-          path: android/build/outputs/apk/android-web-x86_64-beta-*.apk
-          if-no-files-found: error
-
-      - name: Upload x86 beta apk
-        uses: actions/upload-artifact@v2
-        with:
-          name: android-web-x86-beta
-          path: android/build/outputs/apk/android-web-x86-beta-*.apk
-          if-no-files-found: error
-
-      - name: Upload arm64-v8a to App Distribution
+      - name: Upload beta apk to App Distribution
         shell: bash
         working-directory: android
         run: |
-           git --no-pager show -s --format='%s%n%n%b' HEAD > RELEASE
-           # Sic: Firebase App Distribution doesn't support splits
-           (cd ./build/outputs/apk; ln -s android-web-arm64-v8a-beta-*.apk android-web-arm64-v8a-beta.apk)
+           ${{ github.event.releasenotes.name }} > RELEASE
            ./gradlew appDistributionUploadWebBeta
