@@ -34,7 +34,6 @@ public class BookmarkCategoriesFragment extends BaseMwmRecyclerFragment<Bookmark
     MenuItem.OnMenuItemClickListener,
     BookmarkManager.BookmarksLoadingListener,
     CategoryListCallback,
-    KmlImportController.ImportKmlCallback,
     OnItemClickListener<BookmarkCategory>,
     OnItemLongClickListener<BookmarkCategory>, BookmarkManager.BookmarksSharingListener
 
@@ -218,12 +217,6 @@ public class BookmarkCategoriesFragment extends BaseMwmRecyclerFragment<Bookmark
         getString(R.string.bookmark_set_name),
         getString(R.string.create), getString(R.string.cancel),
         MAX_CATEGORY_NAME_LENGTH, this);
-  }
-
-  @Override
-  public void onFinishKmlImport()
-  {
-    getAdapter().notifyDataSetChanged();
   }
 
   @NonNull

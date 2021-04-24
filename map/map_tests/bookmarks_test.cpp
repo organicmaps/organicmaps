@@ -190,7 +190,7 @@ void CheckBookmarks(BookmarkManager const & bmManager, kml::MarkGroupId groupId)
 
 KmlFileType GetActiveKmlFileType()
 {
-  return KmlFileType::Binary;
+  return KmlFileType::Text;
 }
 }  // namespace
 

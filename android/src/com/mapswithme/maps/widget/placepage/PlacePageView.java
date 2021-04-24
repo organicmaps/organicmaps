@@ -588,21 +588,9 @@ public class PlacePageView extends NestedScrollViewClickFixed
 
   private void initEditMapObjectBtn()
   {
-    boolean isEditSupported = isEditableMapObject();
-    View editBookmarkBtn = mBookmarkFrame.findViewById(R.id.tv__bookmark_edit);
-    UiUtils.showIf(isEditSupported, editBookmarkBtn);
-    editBookmarkBtn.setOnClickListener(isEditSupported ? mEditBookmarkClickListener : null);
-  }
-
-  public boolean isEditableMapObject()
-  {
-    boolean isBookmark = MapObject.isOfType(MapObject.BOOKMARK, mMapObject);
-    if (isBookmark)
-    {
-      long id = Utils.<Bookmark>castTo(mMapObject).getBookmarkId();
-      return BookmarkManager.INSTANCE.isEditableBookmark(id);
-    }
-    return true;
+    final View editBookmarkBtn = mBookmarkFrame.findViewById(R.id.tv__bookmark_edit);
+    editBookmarkBtn.setVisibility(View.VISIBLE);
+    editBookmarkBtn.setOnClickListener(mEditBookmarkClickListener);
   }
 
   private void init(AttributeSet attrs, int defStyleAttr)
@@ -879,14 +867,7 @@ public class PlacePageView extends NestedScrollViewClickFixed
     else
       mBookmarkButtonIcon.setImageDrawable(Graphics.tint(getContext(), R.drawable.ic_bookmarks_off, R.attr.iconTint));
 
-    boolean isEditable = isEditableMapObject();
-    mBookmarkButtonFrame.setEnabled(isEditable);
-
-    if (isEditable)
-      return;
-    final int resId = PlacePageButtons.Item.BOOKMARK.getIcon().getDisabledStateResId();
-    Drawable drawable = Graphics.tint(getContext(), resId, R.attr.iconTintDisabled);
-    mBookmarkButtonIcon.setImageDrawable(drawable);
+    mBookmarkButtonFrame.setEnabled(true);
   }
 
   private void hideBookmarkDetails()

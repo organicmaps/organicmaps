@@ -587,23 +587,6 @@ static BookmarkManager::SortingType convertSortingTypeToCore(MWMBookmarksSorting
   self.shareCategoryURL = nil;
 }
 
-#pragma mark - klm conversion
-
-- (NSUInteger)filesCountForConversion
-{
-  return self.bm.GetKmlFilesCountForConversion();
-}
-
-- (void)convertAll
-{
-  self.bm.ConvertAllKmlFiles([self](bool success) {
-    [self loopObservers:^(id<MWMBookmarksObserver> observer) {
-      if ([observer respondsToSelector:@selector(onConversionFinish:)])
-        [observer onConversionFinish:success];
-    }];
-  });
-}
-
 #pragma mark - Notifications
 
 - (void)setNotificationsEnabled:(BOOL)enabled

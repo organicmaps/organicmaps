@@ -29,7 +29,6 @@ jmethodID g_onBookmarksChangedMethod;
 jmethodID g_onBookmarksLoadingStartedMethod;
 jmethodID g_onBookmarksLoadingFinishedMethod;
 jmethodID g_onBookmarksFileLoadedMethod;
-jmethodID g_onFinishKmlConversionMethod;
 jmethodID g_onPreparedFileForSharingMethod;
 jmethodID g_onElevationActivePointChangedMethod;
 jmethodID g_onElevationCurrentPositionChangedMethod;
@@ -67,8 +66,6 @@ void PrepareClassRefs(JNIEnv * env)
   g_onBookmarksFileLoadedMethod =
     jni::GetMethodID(env, bookmarkManagerInstance, "onBookmarksFileLoaded",
                      "(ZLjava/lang/String;Z)V");
-  g_onFinishKmlConversionMethod =
-    jni::GetMethodID(env, bookmarkManagerInstance, "onFinishKmlConversion", "(Z)V");
   g_onPreparedFileForSharingMethod =
     jni::GetMethodID(env, bookmarkManagerInstance, "onPreparedFileForSharing",
                      "(Lcom/mapswithme/maps/bookmarks/data/BookmarkSharingResult;)V");
@@ -181,15 +178,6 @@ void OnAsyncLoadingFileError(JNIEnv * env, std::string const & fileName, bool is
   jni::TScopedLocalRef jFileName(env, jni::ToJavaString(env, fileName));
   env->CallVoidMethod(bookmarkManagerInstance, g_onBookmarksFileLoadedMethod,
                       false /* success */, jFileName.get(), isTemporaryFile);
-  jni::HandleJavaException(env);
-}
-
-void OnFinishKmlConversion(JNIEnv * env, bool success)
-{
-  ASSERT(g_bookmarkManagerClass, ());
-  jobject bookmarkManagerInstance = env->GetStaticObjectField(g_bookmarkManagerClass,
-                                                              g_bookmarkManagerInstanceField);
-  env->CallVoidMethod(bookmarkManagerInstance, g_onFinishKmlConversionMethod, success);
   jni::HandleJavaException(env);
 }
 
@@ -632,27 +620,6 @@ Java_com_mapswithme_maps_bookmarks_data_BookmarkManager_nativeIsUsedCategoryName
 }
 
 JNIEXPORT jboolean JNICALL
-Java_com_mapswithme_maps_bookmarks_data_BookmarkManager_nativeIsEditableBookmark(
-        JNIEnv * env, jobject thiz, jlong bmkId)
-{
-  return static_cast<jboolean>(frm()->GetBookmarkManager().IsEditableBookmark(static_cast<kml::MarkId>(bmkId)));
-}
-
-JNIEXPORT jboolean JNICALL
-Java_com_mapswithme_maps_bookmarks_data_BookmarkManager_nativeIsEditableTrack(
-        JNIEnv * env, jobject thiz, jlong trackId)
-{
-  return static_cast<jboolean>(frm()->GetBookmarkManager().IsEditableTrack(static_cast<kml::TrackId>(trackId)));
-}
-
-JNIEXPORT jboolean JNICALL
-Java_com_mapswithme_maps_bookmarks_data_BookmarkManager_nativeIsEditableCategory(
-        JNIEnv * env, jobject thiz, jlong catId)
-{
-  return static_cast<jboolean>(frm()->GetBookmarkManager().IsEditableCategory(static_cast<kml::MarkGroupId>(catId)));
-}
-
-JNIEXPORT jboolean JNICALL
 Java_com_mapswithme_maps_bookmarks_data_BookmarkManager_nativeIsSearchAllowed(
         JNIEnv * env, jobject thiz, jlong catId)
 {
@@ -685,23 +652,6 @@ Java_com_mapswithme_maps_bookmarks_data_BookmarkManager_nativeSetAllCategoriesVi
         JNIEnv * env, jobject thiz, jboolean visible)
 {
   frm()->GetBookmarkManager().SetAllCategoriesVisibility(static_cast<bool>(visible));
-}
-
-JNIEXPORT jint JNICALL
-Java_com_mapswithme_maps_bookmarks_data_BookmarkManager_nativeGetKmlFilesCountForConversion(
-        JNIEnv * env, jobject thiz)
-{
-  return static_cast<jint>(frm()->GetBookmarkManager().GetKmlFilesCountForConversion());
-}
-
-JNIEXPORT void JNICALL
-Java_com_mapswithme_maps_bookmarks_data_BookmarkManager_nativeConvertAllKmlFiles(
-        JNIEnv * env, jobject thiz)
-{
-  frm()->GetBookmarkManager().ConvertAllKmlFiles([env](bool success)
-  {
-    OnFinishKmlConversion(env, success);
-  });
 }
 
 JNIEXPORT void JNICALL

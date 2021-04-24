@@ -83,9 +83,6 @@ NS_SWIFT_NAME(BookmarksManager)
 - (NSURL *)shareCategoryURL;
 - (void)finishShareCategory;
 
-- (NSUInteger)filesCountForConversion;
-- (void)convertAll;
-
 - (void)setNotificationsEnabled:(BOOL)enabled;
 - (BOOL)areNotificationsEnabled;
 

@@ -11,8 +11,6 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="BookmarksListInfoViewController" customModule="OMaps" customModuleProvider="target">
             <connections>
                 <outlet property="authorContainerView" destination="bit-FN-ytL" id="CAI-TP-A5D"/>
-                <outlet property="authorImageView" destination="Wss-1i-hZy" id="QEU-QE-qyP"/>
-                <outlet property="authorLabel" destination="Eqa-1j-puo" id="fNR-7I-wht"/>
                 <outlet property="descriptionButton" destination="cxc-pt-qei" id="zce-so-aHF"/>
                 <outlet property="infoStack" destination="226-gO-8GN" id="f2A-eJ-FGG"/>
                 <outlet property="titleImageView" destination="dsB-Xh-jOl" id="rsb-lH-MDN"/>
@@ -95,37 +93,10 @@
                                                         <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="Divider"/>
                                                     </userDefinedRuntimeAttributes>
                                                 </view>
-                                                <stackView opaque="NO" contentMode="scaleToFill" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="MU1-nd-FMk">
-                                                    <rect key="frame" x="0.0" y="1" width="343" height="60"/>
-                                                    <subviews>
-                                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" image="img_lp" translatesAutoresizingMaskIntoConstraints="NO" id="Wss-1i-hZy">
-                                                            <rect key="frame" x="0.0" y="0.0" width="70" height="60"/>
-                                                            <userDefinedRuntimeAttributes>
-                                                                <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="LonelyPlanetLogo"/>
-                                                            </userDefinedRuntimeAttributes>
-                                                        </imageView>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="Content by Lonely Planet" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Eqa-1j-puo">
-                                                            <rect key="frame" x="86" y="0.0" width="257" height="60"/>
-                                                            <constraints>
-                                                                <constraint firstAttribute="height" constant="60" id="CF2-Jb-Dzd"/>
-                                                            </constraints>
-                                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                            <color key="textColor" white="0.0" alpha="0.54457405821917804" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                            <nil key="highlightedColor"/>
-                                                            <userDefinedRuntimeAttributes>
-                                                                <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="regular14:blackSecondaryText"/>
-                                                            </userDefinedRuntimeAttributes>
-                                                        </label>
-                                                    </subviews>
-                                                </stackView>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="MU1-nd-FMk" firstAttribute="leading" secondItem="bit-FN-ytL" secondAttribute="leading" id="5Nw-V9-fI7"/>
-                                                <constraint firstAttribute="bottom" secondItem="MU1-nd-FMk" secondAttribute="bottom" id="Gj5-MA-ERI"/>
-                                                <constraint firstAttribute="trailing" secondItem="MU1-nd-FMk" secondAttribute="trailing" id="UMa-6G-vfG"/>
                                                 <constraint firstItem="aEi-QI-Tol" firstAttribute="leading" secondItem="bit-FN-ytL" secondAttribute="leading" id="bGS-V6-zTn"/>
                                                 <constraint firstItem="aEi-QI-Tol" firstAttribute="top" secondItem="bit-FN-ytL" secondAttribute="top" id="jX7-lf-0c5"/>
-                                                <constraint firstItem="MU1-nd-FMk" firstAttribute="top" secondItem="aEi-QI-Tol" secondAttribute="bottom" id="lkc-U7-pxc"/>
                                                 <constraint firstAttribute="trailing" secondItem="aEi-QI-Tol" secondAttribute="trailing" id="xWz-Ie-kOO"/>
                                             </constraints>
                                         </view>
@@ -167,7 +138,6 @@
         </view>
     </objects>
     <resources>
-        <image name="img_lp" width="70" height="35"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

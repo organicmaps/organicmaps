@@ -1908,10 +1908,10 @@ void BookmarkManager::LoadBookmarks()
   GetPlatform().RunTask(Platform::Thread::File, [this]()
   {
     std::string const dir = GetBookmarksDirectory();
-    std::string const filesExt = kKmbExtension;
+    std::string const filesExt = kKmlExtension;
 
-    auto collection = LoadBookmarks(dir, filesExt, KmlFileType::Binary,
-      [](kml::FileData const & kmlData)
+    auto collection = LoadBookmarks(dir, filesExt, KmlFileType::Text,
+      [](kml::FileData const &)
     {
       return true;  // Allow to load any files from the bookmarks directory.
     });
@@ -1928,8 +1928,7 @@ void BookmarkManager::LoadBookmark(std::string const & filePath, bool isTemporar
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());
   // Defer bookmark loading in case of another asynchronous process.
-  if (!m_loadBookmarksFinished || m_asyncLoadingInProgress || m_conversionInProgress ||
-      m_restoreApplying)
+  if (!m_loadBookmarksFinished || m_asyncLoadingInProgress)
   {
     m_bookmarkLoadingQueue.emplace_back(filePath, isTemporaryFile);
     return;
@@ -1961,9 +1960,9 @@ void BookmarkManager::LoadBookmarkRoutine(std::string const & filePath, bool isT
         std::string fileName = base::GetNameFromFullPathWithoutExt(fileSavePath);
 
         base::DeleteFileX(fileSavePath);
-        fileSavePath = GenerateValidAndUniqueFilePathForKMB(fileName);
+        fileSavePath = GenerateValidAndUniqueFilePathForKML(fileName);
 
-        if (!SaveKmlFileSafe(*kmlData, fileSavePath, KmlFileType::Binary))
+        if (!SaveKmlFileSafe(*kmlData, fileSavePath, KmlFileType::Text))
         {
           base::DeleteFileX(fileSavePath);
           fileSavePath.clear();
@@ -2125,12 +2124,12 @@ kml::MarkGroupId BookmarkManager::LastEditedBMCategory()
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());
 
-  if (HasBmCategory(m_lastEditedGroupId) && IsEditableCategory(m_lastEditedGroupId))
+  if (HasBmCategory(m_lastEditedGroupId))
     return m_lastEditedGroupId;
 
   for (auto & cat : m_categories)
   {
-    if (IsEditableCategory(cat.first) && cat.second->GetFileName() == m_lastCategoryUrl)
+    if (cat.second->GetFileName() == m_lastCategoryUrl)
     {
       m_lastEditedGroupId = cat.first;
       return m_lastEditedGroupId;
@@ -2148,8 +2147,6 @@ kml::PredefinedColor BookmarkManager::LastEditedBMColor() const
 
 void BookmarkManager::SetLastEditedBmCategory(kml::MarkGroupId groupId)
 {
-  if (!IsEditableCategory(groupId))
-    return;
   m_lastEditedGroupId = groupId;
   m_lastCategoryUrl = GetBmCategory(groupId)->GetFileName();
   SaveState();
@@ -2336,17 +2333,9 @@ BookmarkCategory * BookmarkManager::CreateBookmarkCompilation(kml::CategoryData 
 kml::MarkGroupId BookmarkManager::CheckAndCreateDefaultCategory()
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());
-  for (auto const & cat : m_categories)
-  {
-    if (IsEditableCategory(cat.first))
-      return cat.first;
-  }
-  for (auto const & cat : m_categories)
-  {
-    if (IsEditableCategory(cat.first))
-      return cat.first;
-  }
-  return CreateBookmarkCategory(m_callbacks.m_getStringsBundle().GetString("core_my_places"));
+  if (m_categories.empty())
+    return CreateBookmarkCategory(m_callbacks.m_getStringsBundle().GetString("core_my_places"));
+  return m_categories.cbegin()->first;
 }
 
 void BookmarkManager::CheckAndResetLastIds()
@@ -2713,7 +2702,7 @@ BookmarkManager::KMLDataCollectionPtr BookmarkManager::PrepareToSaveBookmarks(
   CHECK_THREAD_CHECKER(m_threadChecker, ());
 
   std::string const fileDir = GetBookmarksDirectory();
-  std::string const fileExt = kKmbExtension;
+  std::string const fileExt = kKmlExtension;
 
   if (!GetPlatform().IsFileExistsByFullPath(fileDir) && !GetPlatform().MkDirChecked(fileDir))
     return nullptr;
@@ -2800,32 +2789,6 @@ bool BookmarkManager::IsCategoryEmpty(kml::MarkGroupId categoryId) const
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());
   return GetBmCategory(categoryId)->IsEmpty();
-}
-
-bool BookmarkManager::IsEditableBookmark(kml::MarkId bmId) const
-{
-  CHECK_THREAD_CHECKER(m_threadChecker, ());
-  auto const * mark = GetBookmark(bmId);
-  CHECK(mark != nullptr, ());
-  if (mark->GetGroupId() != kml::kInvalidMarkGroupId)
-    return IsEditableCategory(mark->GetGroupId());
-  return true;
-}
-
-bool BookmarkManager::IsEditableTrack(kml::TrackId trackId) const
-{
-  CHECK_THREAD_CHECKER(m_threadChecker, ());
-  auto const * track = GetTrack(trackId);
-  CHECK(track != nullptr, ());
-  if (track->GetGroupId() != kml::kInvalidMarkGroupId)
-    return IsEditableCategory(track->GetGroupId());
-  return true;
-}
-
-bool BookmarkManager::IsEditableCategory(kml::MarkGroupId groupId) const
-{
-  CHECK_THREAD_CHECKER(m_threadChecker, ());
-  return true;
 }
 
 bool BookmarkManager::IsUsedCategoryName(std::string const & name) const
@@ -2923,106 +2886,6 @@ void BookmarkManager::SetChildCategoriesVisibility(kml::MarkGroupId categoryId, 
         category.SetIsVisible(true);
     }
   }
-}
-
-bool BookmarkManager::CanConvert() const
-{
-  // The conversion available only after successful migration.
-  // Also we cannot convert during asynchronous loading or another conversion.
-  return m_loadBookmarksFinished && !m_asyncLoadingInProgress && !m_conversionInProgress;
-}
-
-void BookmarkManager::FinishConversion(ConversionHandler const & handler, bool result)
-{
-  handler(result);
-
-  // Run deferred asynchronous loading if possible.
-  GetPlatform().RunTask(Platform::Thread::Gui, [this]()
-  {
-    m_conversionInProgress = false;
-    if (!m_bookmarkLoadingQueue.empty())
-    {
-      NotifyAboutStartAsyncLoading();
-      LoadBookmarkRoutine(m_bookmarkLoadingQueue.front().m_filename,
-                          m_bookmarkLoadingQueue.front().m_isTemporaryFile);
-      m_bookmarkLoadingQueue.pop_front();
-    }
-  });
-}
-
-size_t BookmarkManager::GetKmlFilesCountForConversion() const
-{
-  CHECK_THREAD_CHECKER(m_threadChecker, ());
-  if (!CanConvert())
-    return 0;
-
-  Platform::FilesList files;
-  Platform::GetFilesByExt(GetPlatform().SettingsDir(),
-                          kKmlExtension, files);
-  return files.size();
-}
-
-void BookmarkManager::ConvertAllKmlFiles(ConversionHandler && handler)
-{
-  CHECK_THREAD_CHECKER(m_threadChecker, ());
-  if (!CanConvert())
-    return;
-
-  m_conversionInProgress = true;
-  GetPlatform().RunTask(Platform::Thread::File, [this, handler = std::move(handler)]()
-  {
-    auto const oldDir = GetPlatform().SettingsDir();
-    Platform::FilesList files;
-    Platform::GetFilesByExt(oldDir, kKmlExtension, files);
-    for (auto & f : files)
-      f = base::JoinPath(oldDir, f);
-
-    auto const newDir = GetBookmarksDirectory();
-    if (!GetPlatform().IsFileExistsByFullPath(newDir) && !GetPlatform().MkDirChecked(newDir))
-    {
-      FinishConversion(handler, false /* success */);
-      return;
-    }
-
-    auto fileData = std::make_shared<KMLDataCollection>();
-
-    bool allConverted = true;
-    for (auto const & f : files)
-    {
-      std::unique_ptr<kml::FileData> kmlData = LoadKmlFile(f, KmlFileType::Text);
-      if (kmlData == nullptr)
-      {
-        allConverted = false;
-        continue;
-      }
-
-      std::string fileName = base::GetNameFromFullPathWithoutExt(f);
-      auto kmbPath = base::JoinPath(newDir, fileName + kKmbExtension);
-      size_t counter = 1;
-      while (Platform::IsFileExistsByFullPath(kmbPath))
-        kmbPath = base::JoinPath(newDir, fileName + strings::to_string(counter++) + kKmbExtension);
-
-      if (!SaveKmlFileSafe(*kmlData, kmbPath, KmlFileType::Binary))
-      {
-        FileWriter::DeleteFileX(kmbPath);
-        allConverted = false;
-        continue;
-      }
-
-      fileData->emplace_back(kmbPath, std::move(kmlData));
-      base::DeleteFileX(f);
-    }
-
-    if (!fileData->empty())
-    {
-      GetPlatform().RunTask(Platform::Thread::Gui, [this, fileData = std::move(fileData)]() mutable
-      {
-        CreateCategories(std::move(*fileData), true /* autoSave */);
-      });
-    }
-
-    FinishConversion(handler, allConverted);
-  });
 }
 
 void BookmarkManager::SetNotificationsEnabled(bool enabled)
@@ -3453,14 +3316,7 @@ std::string BookmarkManager::GenerateUniqueFileName(const std::string & path, st
 std::string BookmarkManager::GenerateValidAndUniqueFilePathForKML(std::string const & fileName)
 {
   std::string filePath = RemoveInvalidSymbols(fileName, kDefaultBookmarksFileName);
-  return GenerateUniqueFileName(GetPlatform().SettingsDir(), filePath, kKmlExtension);
-}
-
-// static
-std::string BookmarkManager::GenerateValidAndUniqueFilePathForKMB(std::string const & fileName)
-{
-  std::string filePath = RemoveInvalidSymbols(fileName, kDefaultBookmarksFileName);
-  return GenerateUniqueFileName(GetBookmarksDirectory(), filePath, kKmbExtension);
+  return GenerateUniqueFileName(GetBookmarksDirectory(), filePath, kKmlExtension);
 }
 
 // static
@@ -3487,7 +3343,6 @@ Bookmark * BookmarkManager::EditSession::CreateBookmark(kml::BookmarkData && bmD
 
 Bookmark * BookmarkManager::EditSession::CreateBookmark(kml::BookmarkData && bmData, kml::MarkGroupId groupId)
 {
-  CHECK(m_bmManager.IsEditableCategory(groupId), ());
   return m_bmManager.CreateBookmark(std::move(bmData), groupId);
 }
 
@@ -3498,7 +3353,6 @@ Track * BookmarkManager::EditSession::CreateTrack(kml::TrackData && trackData)
 
 Bookmark * BookmarkManager::EditSession::GetBookmarkForEdit(kml::MarkId bmId)
 {
-  CHECK(m_bmManager.IsEditableBookmark(bmId), ());
   return m_bmManager.GetBookmarkForEdit(bmId);
 }
 
@@ -3509,20 +3363,16 @@ void BookmarkManager::EditSession::DeleteUserMark(kml::MarkId markId)
 
 void BookmarkManager::EditSession::DeleteBookmark(kml::MarkId bmId)
 {
-  CHECK(m_bmManager.IsEditableBookmark(bmId), ());
   m_bmManager.DeleteBookmark(bmId);
 }
 
 void BookmarkManager::EditSession::DeleteTrack(kml::TrackId trackId)
 {
-  CHECK(m_bmManager.IsEditableTrack(trackId), ());
   m_bmManager.DeleteTrack(trackId);
 }
 
 void BookmarkManager::EditSession::ClearGroup(kml::MarkGroupId groupId)
 {
-  if (m_bmManager.IsBookmarkCategory(groupId))
-    CHECK(m_bmManager.IsEditableCategory(groupId), ());
   m_bmManager.ClearGroup(groupId);
 }
 
@@ -3534,71 +3384,58 @@ void BookmarkManager::EditSession::SetIsVisible(kml::MarkGroupId groupId, bool v
 void BookmarkManager::EditSession::MoveBookmark(
   kml::MarkId bmID, kml::MarkGroupId curGroupID, kml::MarkGroupId newGroupID)
 {
-  CHECK(m_bmManager.IsEditableCategory(curGroupID), ());
-  CHECK(m_bmManager.IsEditableCategory(newGroupID), ());
-
   m_bmManager.MoveBookmark(bmID, curGroupID, newGroupID);
 }
 
 void BookmarkManager::EditSession::UpdateBookmark(kml::MarkId bmId, kml::BookmarkData const & bm)
 {
-  CHECK(m_bmManager.IsEditableBookmark(bmId), ());
   return m_bmManager.UpdateBookmark(bmId, bm);
 }
 
 void BookmarkManager::EditSession::AttachBookmark(kml::MarkId bmId, kml::MarkGroupId groupId)
 {
-  CHECK(m_bmManager.IsEditableCategory(groupId), ());
   m_bmManager.AttachBookmark(bmId, groupId);
 }
 
 void BookmarkManager::EditSession::DetachBookmark(kml::MarkId bmId, kml::MarkGroupId groupId)
 {
-  CHECK(m_bmManager.IsEditableCategory(groupId), ());
   m_bmManager.DetachBookmark(bmId, groupId);
 }
 
 void BookmarkManager::EditSession::AttachTrack(kml::TrackId trackId, kml::MarkGroupId groupId)
 {
-  CHECK(m_bmManager.IsEditableCategory(groupId), ());
   m_bmManager.AttachTrack(trackId, groupId);
 }
 
 void BookmarkManager::EditSession::DetachTrack(kml::TrackId trackId, kml::MarkGroupId groupId)
 {
-  CHECK(m_bmManager.IsEditableCategory(groupId), ());
   m_bmManager.DetachTrack(trackId, groupId);
 }
 
 void BookmarkManager::EditSession::SetCategoryName(kml::MarkGroupId categoryId, std::string const & name)
 {
-  CHECK(m_bmManager.IsEditableCategory(categoryId), ());
   m_bmManager.SetCategoryName(categoryId, name);
 }
 
 void BookmarkManager::EditSession::SetCategoryDescription(kml::MarkGroupId categoryId,
                                                           std::string const & desc)
 {
-  CHECK(m_bmManager.IsEditableCategory(categoryId), ());
   m_bmManager.SetCategoryDescription(categoryId, desc);
 }
 
 void BookmarkManager::EditSession::SetCategoryTags(kml::MarkGroupId categoryId, std::vector<std::string> const & tags)
 {
-  CHECK(m_bmManager.IsEditableCategory(categoryId), ());
   m_bmManager.SetCategoryTags(categoryId, tags);
 }
 
 void BookmarkManager::EditSession::SetCategoryAccessRules(kml::MarkGroupId categoryId, kml::AccessRules accessRules)
 {
-  CHECK(m_bmManager.IsEditableCategory(categoryId), ());
   m_bmManager.SetCategoryAccessRules(categoryId, accessRules);
 }
 
 void BookmarkManager::EditSession::SetCategoryCustomProperty(kml::MarkGroupId categoryId, std::string const & key,
                                                              std::string const & value)
 {
-  CHECK(m_bmManager.IsEditableCategory(categoryId), ());
   m_bmManager.SetCategoryCustomProperty(categoryId, key, value);
 }
 
