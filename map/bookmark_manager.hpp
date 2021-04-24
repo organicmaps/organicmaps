@@ -346,10 +346,6 @@ public:
 
   bool IsCategoryEmpty(kml::MarkGroupId categoryId) const;
 
-  bool IsEditableBookmark(kml::MarkId bmId) const;
-  bool IsEditableTrack(kml::TrackId trackId) const;
-  bool IsEditableCategory(kml::MarkGroupId groupId) const;
-
   bool IsUsedCategoryName(std::string const & name) const;
   bool AreAllCategoriesVisible() const;
   bool AreAllCategoriesInvisible() const;
@@ -358,13 +354,6 @@ public:
   bool AreAllCompilationsInvisible(kml::MarkGroupId categoryId, kml::CompilationType compilationType) const;
   void SetChildCategoriesVisibility(kml::MarkGroupId categoryId, kml::CompilationType compilationType,
                                     bool visible);
-
-  // Return number of files for the conversion to the binary format.
-  size_t GetKmlFilesCountForConversion() const;
-
-  // Convert all found kml files to the binary format.
-  using ConversionHandler = platform::SafeCallback<void(bool success)>;
-  void ConvertAllKmlFiles(ConversionHandler && handler);
 
   void SetNotificationsEnabled(bool enabled);
   bool AreNotificationsEnabled() const;
@@ -380,7 +369,6 @@ public:
   static std::string RemoveInvalidSymbols(std::string const & name, std::string const & defaultName);
   static std::string GenerateUniqueFileName(std::string const & path, std::string name, std::string const & fileExt);
   static std::string GenerateValidAndUniqueFilePathForKML(std::string const & fileName);
-  static std::string GenerateValidAndUniqueFilePathForKMB(std::string const & fileName);
   static std::string GetActualBookmarksDirectory();
   static std::string GetTracksSortedBlockName();
   static std::string GetOthersSortedBlockName();
@@ -624,7 +612,7 @@ private:
   std::optional<std::string> GetKMLPath(std::string const & filePath);
   void NotifyAboutFile(bool success, std::string const & filePath, bool isTemporaryFile);
   void LoadBookmarkRoutine(std::string const & filePath, bool isTemporaryFile);
-  
+
   using BookmarksChecker = std::function<bool(kml::FileData const &)>;
   KMLDataCollectionPtr LoadBookmarks(std::string const & dir, std::string const & ext,
                                      KmlFileType fileType, BookmarksChecker const & checker);
@@ -646,9 +634,6 @@ private:
   std::unique_ptr<kml::FileData> CollectBmGroupKMLData(BookmarkCategory const * group) const;
   KMLDataCollectionPtr PrepareToSaveBookmarks(kml::GroupIdCollection const & groupIdCollection);
   bool SaveKmlFileByExt(kml::FileData & kmlData, std::string const & file);
-
-  bool CanConvert() const;
-  void FinishConversion(ConversionHandler const & handler, bool result);
 
   bool HasDuplicatedIds(kml::FileData const & fileData) const;
   template <typename UniquityChecker>
@@ -749,8 +734,6 @@ private:
   size_t m_openedEditSessionsCount = 0;
   bool m_loadBookmarksFinished = false;
   bool m_firstDrapeNotification = false;
-  bool m_restoreApplying = false;
-  bool m_conversionInProgress = false;
   bool m_notificationsEnabled = true;
 
   ScreenBase m_viewport;

@@ -49,7 +49,6 @@ final class BMCViewController: MWMViewController {
     // modification. All notifications will be sent on controller's disappearance.
     viewModel.setNotificationsEnabled(false)
     viewModel.addToObserverList()
-    viewModel.convertAllKMLIfNeeded()
   }
   
   override func viewDidDisappear(_ animated: Bool) {

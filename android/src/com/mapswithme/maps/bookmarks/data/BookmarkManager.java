@@ -79,9 +79,6 @@ public enum BookmarkManager
   private final List<BookmarksSortingListener> mSortingListeners = new ArrayList<>();
 
   @NonNull
-  private final List<KmlConversionListener> mConversionListeners = new ArrayList<>();
-
-  @NonNull
   private final List<BookmarksSharingListener> mSharingListeners = new ArrayList<>();
 
   @NonNull
@@ -150,16 +147,6 @@ public enum BookmarkManager
   public void removeSortingListener(@NonNull BookmarksSortingListener listener)
   {
     mSortingListeners.remove(listener);
-  }
-
-  public void addKmlConversionListener(@NonNull KmlConversionListener listener)
-  {
-    mConversionListeners.add(listener);
-  }
-
-  public void removeKmlConversionListener(@NonNull KmlConversionListener listener)
-  {
-    mConversionListeners.remove(listener);
   }
 
   public void addSharingListener(@NonNull BookmarksSharingListener listener)
@@ -254,15 +241,6 @@ public enum BookmarkManager
 
     for (BookmarksLoadingListener listener : mListeners)
       listener.onBookmarksFileLoaded(success);
-  }
-
-  // Called from JNI.
-  @SuppressWarnings("unused")
-  @MainThread
-  public void onFinishKmlConversion(boolean success)
-  {
-    for (KmlConversionListener listener : mConversionListeners)
-      listener.onFinishKmlConversion(success);
   }
 
   // Called from JNI.
@@ -462,8 +440,6 @@ public enum BookmarkManager
     return nativeIsUsedCategoryName(name);
   }
 
-  public boolean isEditableBookmark(long bmkId) { return nativeIsEditableBookmark(bmkId); }
-
   public boolean isSearchAllowed(long catId) { return nativeIsSearchAllowed(catId); }
 
   public void prepareForSearch(long catId) { nativePrepareForSearch(catId); }
@@ -486,16 +462,6 @@ public enum BookmarkManager
   public void setChildCategoriesVisibility(long catId, boolean visible)
   {
     nativeSetChildCategoriesVisibility(catId, visible);
-  }
-
-  public int getKmlFilesCountForConversion()
-  {
-    return nativeGetKmlFilesCountForConversion();
-  }
-
-  public void convertAllKmlFiles()
-  {
-    nativeConvertAllKmlFiles();
   }
 
   public void prepareCategoryForSharing(long catId)
@@ -746,10 +712,6 @@ public enum BookmarkManager
 
   private static native boolean nativeIsUsedCategoryName(@NonNull String name);
 
-  private static native boolean nativeIsEditableBookmark(long bmkId);
-
-  private static native boolean nativeIsEditableCategory(long catId);
-
   private static native boolean nativeIsSearchAllowed(long catId);
 
   private static native void nativePrepareForSearch(long catId);
@@ -761,10 +723,6 @@ public enum BookmarkManager
   private static native void nativeSetChildCategoriesVisibility(long catId, boolean visible);
 
   private static native void nativeSetAllCategoriesVisibility(boolean visible);
-
-  private static native int nativeGetKmlFilesCountForConversion();
-
-  private static native void nativeConvertAllKmlFiles();
 
   private static native void nativePrepareFileForSharing(long catId);
 
@@ -880,11 +838,6 @@ public enum BookmarkManager
   {
     void onBookmarksSortingCompleted(@NonNull SortedBlock[] sortedBlocks, long timestamp);
     void onBookmarksSortingCancelled(long timestamp);
-  }
-
-  public interface KmlConversionListener
-  {
-    void onFinishKmlConversion(boolean success);
   }
 
   public interface BookmarksSharingListener

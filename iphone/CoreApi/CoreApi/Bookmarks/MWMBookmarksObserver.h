@@ -6,7 +6,6 @@ NS_ASSUME_NONNULL_BEGIN
 NS_SWIFT_NAME(BookmarksObserver)
 @protocol MWMBookmarksObserver<NSObject>
 @optional
-- (void)onConversionFinish:(BOOL)success;
 - (void)onBookmarksLoadFinished;
 - (void)onBookmarksFileLoadSuccess;
 - (void)onBookmarksFileLoadError;

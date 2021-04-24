@@ -148,17 +148,6 @@ extension BMCDefaultViewModel {
     onPreparedToShareCategory = nil
   }
 
-  func convertAllKMLIfNeeded() {
-    let count = manager.filesCountForConversion()
-    if count > 0 {
-      MWMAlertViewController.activeAlert().presentConvertBookmarksAlert(withCount: count) { [weak self] in
-        MWMAlertViewController.activeAlert().presentSpinnerAlert(withTitle: L("converting"),
-                                                                 cancel: nil)
-        self?.manager.convertAll()
-      }
-    }
-  }
-
   func addToObserverList() {
     manager.add(self)
   }
@@ -180,7 +169,6 @@ extension BMCDefaultViewModel: BookmarksObserver {
 
   func onBookmarksLoadFinished() {
     reloadData()
-    convertAllKMLIfNeeded()
   }
 
   func onBookmarkDeleted(_: MWMMarkID) {
@@ -197,11 +185,5 @@ extension BMCDefaultViewModel: BookmarksObserver {
     case .fileError:
       onPreparedToShareCategory?(.error(title: L("dialog_routing_system_error"), text: L("bookmarks_error_message_share_general")))
     }
-  }
-
-  func onConversionFinish(_ success: Bool) {
-    setCategories()
-    view?.update(sections: [.categories])
-    view?.conversionFinished(success: success)
   }
 }
