@@ -1003,7 +1003,7 @@
                                                         <nil key="highlightedColor"/>
                                                         <userDefinedRuntimeAttributes>
                                                             <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="regular14:blackSecondaryText"/>
-                                                            <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="downloader_no_downloaded_OMapsssage"/>
+                                                            <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="downloader_no_downloaded_maps_message"/>
                                                         </userDefinedRuntimeAttributes>
                                                     </label>
                                                 </subviews>
