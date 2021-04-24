@@ -9,6 +9,11 @@ bool Queue::IsEmpty() const
   return m_queue.empty();
 }
 
+size_t Queue::Count() const
+{
+  return m_queue.size();
+}
+
 bool Queue::Contains(CountryId const & country) const
 {
   return std::find(m_queue.cbegin(), m_queue.cend(), country) != m_queue.cend();
@@ -67,10 +72,5 @@ void Queue::Append(QueuedCountry && country)
 void Queue::Clear()
 {
   m_queue.clear();
-}
-
-size_t Queue::Count() const
-{
-  return m_queue.size();
 }
 }  // namespace storage

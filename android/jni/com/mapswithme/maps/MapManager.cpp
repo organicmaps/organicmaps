@@ -11,6 +11,7 @@
 #include "base/thread_checker.hpp"
 
 #include "platform/downloader_defines.hpp"
+#include "platform/downloader_utils.hpp"
 #include "platform/local_country_file_utils.hpp"
 #include "platform/mwm_version.hpp"
 
@@ -576,4 +577,15 @@ Java_com_mapswithme_maps_downloader_MapManager_nativeGetSelectedCountry(JNIEnv *
   return (res == storage::kInvalidCountryId ? nullptr : jni::ToJavaString(env, res));
 }
 
+JNIEXPORT jboolean JNICALL
+Java_com_mapswithme_maps_downloader_MapManager_nativeIsUrlSupported(JNIEnv * env, jclass, jstring url)
+{
+  return static_cast<jboolean>(downloader::IsUrlSupported(jni::ToNativeString(env, url)));
+}
+
+JNIEXPORT jstring JNICALL
+Java_com_mapswithme_maps_downloader_MapManager_nativeGetFilePathByUrl(JNIEnv * env, jclass, jstring url)
+{
+  return jni::ToJavaString(env, downloader::GetFilePathByUrl(jni::ToNativeString(env, url)));
+}
 } // extern "C"

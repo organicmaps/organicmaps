@@ -25,6 +25,7 @@
   <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
   <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
   <uses-permission android:name="android.permission.INTERNET"/>
+  <uses-permission android:name="android.permission.DOWNLOAD_WITHOUT_NOTIFICATION"/>
   <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
   <!--
     https://developer.android.com/reference/androidx/core/app/JobIntentService:
@@ -282,6 +283,20 @@
     <service android:name="com.mapswithme.maps.location.TrackRecorderWakeService"
              android:permission="android.permission.BIND_JOB_SERVICE"
              android:exported="false"/>
+
+    <receiver
+      android:name="com.mapswithme.maps.background.SystemDownloadCompletedReceiver"
+      android:exported="true">
+      <intent-filter>
+        <action android:name="android.intent.action.DOWNLOAD_COMPLETE"/>
+      </intent-filter>
+    </receiver>
+
+    <service
+      android:name="com.mapswithme.maps.background.SystemDownloadCompletedService"
+      android:permission="android.permission.BIND_JOB_SERVICE"
+      android:exported="false">
+    </service>
 
     <!-- Catches app upgraded intent -->
     <receiver android:name=".background.UpgradeReceiver">

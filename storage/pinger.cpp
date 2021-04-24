@@ -8,38 +8,39 @@
 #include "base/stl_helpers.hpp"
 #include "base/thread_pool_delayed.hpp"
 
+#include <chrono>
+#include <map>
 
-#include <sstream>
-#include <utility>
 
 using namespace std;
+using namespace std::chrono;
 
 namespace
 {
 auto constexpr kTimeoutInSeconds = 5.0;
 
-void DoPing(string const & url, size_t index, vector<string> & readyUrls)
+int32_t DoPing(string const & url)
 {
   if (url.empty())
   {
     ASSERT(false, ("Metaserver returned an empty url."));
-    return;
+    return -1;
   }
 
   platform::HttpClient request(url);
   request.SetHttpMethod("HEAD");
   request.SetTimeout(kTimeoutInSeconds);
+  auto const begin = high_resolution_clock::now();
   if (request.RunHttpRequest() && !request.WasRedirected() && request.ErrorCode() == 200)
   {
-    readyUrls[index] = url;
+    return duration_cast<milliseconds>(high_resolution_clock::now() - begin).count();
   }
   else
   {
-    ostringstream ost;
-    ost << "Request to server " << url << " failed. Code = " << request.ErrorCode()
-        << ", redirection = " << request.WasRedirected();
-    LOG(LINFO, (ost.str()));
+    LOG(LWARNING, ("Request to server", url, "failed with code =", request.ErrorCode(), "; redirection =", request.WasRedirected()));
   }
+
+  return -1;
 }
 }  // namespace
 
@@ -48,19 +49,29 @@ namespace storage
 // static
 Pinger::Endpoints Pinger::ExcludeUnavailableEndpoints(Endpoints const & urls)
 {
+  using base::thread_pool::delayed::ThreadPool;
+
   auto const size = urls.size();
   CHECK_GREATER(size, 0, ());
 
-  vector<string> readyUrls(size);
+  map<int32_t, size_t> timeUrls;
   {
-    base::thread_pool::delayed::ThreadPool t(size);
+    ThreadPool t(size, ThreadPool::Exit::ExecPending);
     for (size_t i = 0; i < size; ++i)
-      t.Push([url = urls[i], &readyUrls, i] { DoPing(url, i, readyUrls); });
-
-    t.Shutdown(base::thread_pool::delayed::ThreadPool::Exit::ExecPending);
+    {
+      t.Push([&urls, &timeUrls, i]
+      {
+        auto const pingTime = DoPing(urls[i]);
+        if (pingTime > 0)
+          timeUrls[pingTime] = i;
+      });
+    }
   }
 
-  base::EraseIf(readyUrls, [](auto const & url) { return url.empty(); });
+  Endpoints readyUrls;
+  for (auto const & [_, index] : timeUrls)
+    readyUrls.push_back(urls[index]);
+
   return readyUrls;
 }
 }  // namespace storage

@@ -277,8 +277,10 @@ FrequencyIntervals::FrequencyIntervals(gtfs::Frequencies const & frequencies)
 {
   for (auto const & freq : frequencies)
   {
-    CHECK_GREATER(freq.headway_secs, 0, ());
-    m_intervals.emplace(TimeInterval(freq.start_time, freq.end_time), freq.headway_secs);
+    if (freq.headway_secs > 0)
+      m_intervals.emplace(TimeInterval(freq.start_time, freq.end_time), freq.headway_secs);
+    else
+      LOG(LINFO, ("Bad headway_secs:", freq.headway_secs));
   }
 }
 

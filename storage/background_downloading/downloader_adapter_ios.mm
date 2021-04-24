@@ -36,7 +36,7 @@ void BackgroundDownloaderAdapter::Remove(CountryId const & countryId)
     return;
 
   BackgroundDownloader * downloader = [BackgroundDownloader sharedBackgroundMapDownloader];
-  auto const taskIdentifier = m_queue.GetTaskIdByCountryId(countryId);
+  auto const taskIdentifier = m_queue.GetTaskInfoForCountryId(countryId);
   if (taskIdentifier)
     [downloader cancelTaskWithIdentifier:*taskIdentifier];
   m_queue.Remove(countryId);
@@ -69,16 +69,16 @@ void BackgroundDownloaderAdapter::Download(QueuedCountry && queuedCountry)
 
   auto const countryId = queuedCountry.GetCountryId();
   auto const urls = MakeUrlList(queuedCountry.GetRelativeUrl());
-
   auto const path = queuedCountry.GetFileDownloadPath();
+
   m_queue.Append(std::move(queuedCountry));
 
-  DownloadFromAnyUrl(countryId, path, urls);
+  DownloadFromLastUrl(countryId, path, urls);
 }
 
-void BackgroundDownloaderAdapter::DownloadFromAnyUrl(CountryId const & countryId,
-                                                     std::string const & downloadPath,
-                                                     std::vector<std::string> const & urls)
+void BackgroundDownloaderAdapter::DownloadFromLastUrl(CountryId const & countryId,
+                                                      std::string const & downloadPath,
+                                                      std::vector<std::string> const & urls)
 {
   if (urls.empty())
     return;
@@ -92,7 +92,7 @@ void BackgroundDownloaderAdapter::DownloadFromAnyUrl(CountryId const & countryId
     if (status == downloader::DownloadStatus::Failed && urls.size() > 1)
     {
       urls.pop_back();
-      DownloadFromAnyUrl(countryId, downloadPath, urls);
+      DownloadFromLastUrl(countryId, downloadPath, urls);
     }
     else
     {
@@ -115,7 +115,7 @@ void BackgroundDownloaderAdapter::DownloadFromAnyUrl(CountryId const & countryId
   BackgroundDownloader * downloader = [BackgroundDownloader sharedBackgroundMapDownloader];
   NSUInteger taskId = [downloader downloadWithUrl:url completion:onFinish progress:onProgress];
 
-  m_queue.SetTaskIdForCountryId(countryId, taskId);
+  m_queue.SetTaskInfoForCountryId(countryId, taskId);
 }
 
 std::unique_ptr<MapFilesDownloader> GetDownloader()

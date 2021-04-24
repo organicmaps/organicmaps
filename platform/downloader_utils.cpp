@@ -10,8 +10,6 @@
 
 #include "std/target_os.hpp"
 
-#include <sstream>
-
 namespace
 {
 std::string const kMapsPath = "maps";
@@ -30,16 +28,47 @@ std::string GetFileDownloadUrl(std::string const & fileName, int64_t dataVersion
                    url::UrlEncode(fileName));
 }
 
+bool IsUrlSupported(std::string const & url)
+{
+  auto const urlComponents = strings::Tokenize(url, "/");
+  if (urlComponents.empty())
+    return false;
+
+  if (urlComponents[0] != kMapsPath && urlComponents[0] != kDiffsPath)
+    return false;
+
+  if (urlComponents[0] == kMapsPath && urlComponents.size() != 3)
+    return false;
+
+  if (urlComponents[0] == kDiffsPath && urlComponents.size() != 4)
+    return false;
+
+  int64_t dataVersion = 0;
+  if (!strings::to_int64(urlComponents[1], dataVersion))
+    return false;
+
+  if (urlComponents[0] == kDiffsPath)
+  {
+    int64_t diffVersion = 0;
+    if (!strings::to_int64(urlComponents[2], diffVersion))
+      return false;
+  }
+
+  auto const countryComponents = strings::Tokenize(url::UrlDecode(urlComponents.back()), ".");
+  return countryComponents.size() == 2;
+}
+
 std::string GetFilePathByUrl(std::string const & url)
 {
   auto const urlComponents = strings::Tokenize(url, "/");
-  CHECK_GREATER(urlComponents.size(), 1, ());
+  CHECK_GREATER(urlComponents.size(), 2, (urlComponents));
+  CHECK_LESS(urlComponents.size(), 5, (urlComponents));
 
   int64_t dataVersion = 0;
   CHECK(strings::to_int64(urlComponents[1], dataVersion), ());
 
   auto const countryComponents = strings::Tokenize(url::UrlDecode(urlComponents.back()), ".");
-  CHECK(!countryComponents.empty(), ());
+  CHECK_EQUAL(countryComponents.size(), 2, ());
 
   auto const fileType = urlComponents[0] == kDiffsPath ? MapFileType::Diff : MapFileType::Map;
 

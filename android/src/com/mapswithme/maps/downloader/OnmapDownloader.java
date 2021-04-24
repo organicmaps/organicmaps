@@ -250,7 +250,10 @@ public class OnmapDownloader implements MwmActivity.LeftAnimationTrackListener
     {
       MapManager.nativeUnsubscribe(mStorageSubscriptionSlot);
       mStorageSubscriptionSlot = 0;
+
       MapManager.nativeUnsubscribeOnCountryChanged();
+
+      MapDownloadManager.from(mActivity).stopProgressTracking();
     }
   }
 
@@ -259,7 +262,10 @@ public class OnmapDownloader implements MwmActivity.LeftAnimationTrackListener
     if (mStorageSubscriptionSlot == 0)
     {
       mStorageSubscriptionSlot = MapManager.nativeSubscribe(mStorageCallback);
+
       MapManager.nativeSubscribeOnCountryChanged(mCountryChangedListener);
+
+      MapDownloadManager.from(mActivity).startProgressTracking();
     }
   }
 

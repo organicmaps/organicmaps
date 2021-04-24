@@ -196,11 +196,19 @@ EdgeIdToFeatureId BuildTransit(std::string const & mwmDir, CountryId const & cou
   data.CheckValid();
   data.CheckUnique();
 
+  // Transit graph numerates features according to their orderto their order..
+  EdgeIdToFeatureId edgeToFeature;
+  for (size_t i = 0; i < data.GetEdges().size(); ++i)
+  {
+    auto const & e = data.GetEdges()[i];
+    EdgeId id(e.GetStop1Id(), e.GetStop2Id(), e.GetLineId());
+    edgeToFeature[id] = i;
+  }
+
   FilesContainerW container(mwmPath, FileWriter::OP_WRITE_EXISTING);
   auto writer = container.GetWriter(TRANSIT_FILE_TAG);
   data.Serialize(*writer);
-  CHECK_EQUAL(data.GetEdgeIdToFeatureId().size(), data.GetEdges().size(), ());
-  return data.GetEdgeIdToFeatureId();
+  return edgeToFeature;
 }
 }  // namespace experimental
 }  // namespace transit

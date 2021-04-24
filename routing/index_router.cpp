@@ -801,7 +801,7 @@ RouterResultCode IndexRouter::CalculateSubrouteJointsMode(
 
   RoutingResult<Vertex, Weight> routingResult;
   RouterResultCode const result =
-      FindPath<Vertex, Edge, Weight>(params, {} /* mwmIds */, routingResult, WorldGraphMode::Joints);
+      FindPath<Vertex, Edge, Weight>(params, {} /* mwmIds */, routingResult);
 
   if (result != RouterResultCode::NoError)
     return result;
@@ -827,8 +827,7 @@ RouterResultCode IndexRouter::CalculateSubrouteNoLeapsMode(
 
   RoutingResult<Vertex, Weight> routingResult;
   set<NumMwmId> const mwmIds = starter.GetMwms();
-  RouterResultCode const result =
-      FindPath<Vertex, Edge, Weight>(params, mwmIds, routingResult, WorldGraphMode::NoLeaps);
+  RouterResultCode const result = FindPath<Vertex, Edge, Weight>(params, mwmIds, routingResult);
 
   if (result != RouterResultCode::NoError)
     return result;
@@ -863,7 +862,7 @@ RouterResultCode IndexRouter::CalculateSubrouteLeapsOnlyMode(
 
   RoutingResult<Vertex, Weight> routingResult;
   RouterResultCode const result =
-      FindPath<Vertex, Edge, Weight>(params, {} /* mwmIds */, routingResult, WorldGraphMode::LeapsOnly);
+      FindPath<Vertex, Edge, Weight>(params, {} /* mwmIds */, routingResult);
 
   progress->PushAndDropLastSubProgress();
 
@@ -1351,7 +1350,7 @@ RouterResultCode IndexRouter::ProcessLeapsJoints(vector<Segment> const & input,
         nullptr /* prevRoute */, delegate.GetCancellable(), move(visitor),
         AStarLengthChecker(starter));
 
-    resultCode = FindPath<Vertex, Edge, Weight>(params, mwmIds, routingResult, mode);
+    resultCode = FindPath<Vertex, Edge, Weight>(params, mwmIds, routingResult);
     return resultCode;
   };
 

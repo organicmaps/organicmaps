@@ -47,6 +47,7 @@ import com.mapswithme.maps.bookmarks.data.Metadata;
 import com.mapswithme.maps.bookmarks.data.RoadWarningMarkType;
 import com.mapswithme.maps.downloader.CountryItem;
 import com.mapswithme.maps.downloader.DownloaderStatusIcon;
+import com.mapswithme.maps.downloader.MapDownloadManager;
 import com.mapswithme.maps.downloader.MapManager;
 import com.mapswithme.maps.editor.Editor;
 import com.mapswithme.maps.editor.OpeningHours;
@@ -1267,6 +1268,7 @@ public class PlacePageView extends NestedScrollViewClickFixed
     mCurrentCountry = map;
     if (mStorageCallbackSlot == 0)
       mStorageCallbackSlot = MapManager.nativeSubscribe(mStorageCallback);
+    MapDownloadManager.from(getContext()).startProgressTracking();
 
     mDownloaderIcon.setOnIconClickListener(mDownloadClickListener)
                    .setOnCancelClickListener(mCancelDownloadListener);
@@ -1282,6 +1284,7 @@ public class PlacePageView extends NestedScrollViewClickFixed
 
     MapManager.nativeUnsubscribe(mStorageCallbackSlot);
     mStorageCallbackSlot = 0;
+    MapDownloadManager.from(getContext()).stopProgressTracking();
     mCurrentCountry = null;
     mDownloaderIcon.setOnIconClickListener(null)
                    .setOnCancelClickListener(null);
