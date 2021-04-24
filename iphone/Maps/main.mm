@@ -11,7 +11,7 @@ int main(int argc, char * argv[])
   base::SetLogMessageFn(LogMessageFile);
 #endif
   auto & p = GetPlatform();
-  LOG(LINFO, ("omaps started, detected CPU cores:", p.CpuCores()));
+  LOG(LINFO, ("Organic Maps started, detected CPU cores:", p.CpuCores()));
 
   int retVal;
   @autoreleasepool
