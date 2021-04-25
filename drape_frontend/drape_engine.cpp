@@ -418,9 +418,7 @@ void DrapeEngine::RecacheMapShapes()
 
 dp::DrapeID DrapeEngine::GenerateDrapeID()
 {
-  std::lock_guard<std::mutex> lock(m_drapeIdGeneratorMutex);
-  ++m_drapeIdGenerator;
-  return m_drapeIdGenerator;
+  return ++m_drapeIdGenerator;
 }
 
 void DrapeEngine::RecacheGui(bool needResetOldGui)

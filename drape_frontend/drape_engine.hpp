@@ -29,9 +29,9 @@
 
 #include "base/strings_bundle.hpp"
 
+#include <atomic>
 #include <functional>
 #include <map>
-#include <mutex>
 #include <utility>
 #include <vector>
 
@@ -289,8 +289,7 @@ private:
   bool m_choosePositionMode = false;
   bool m_kineticScrollEnabled = true;
 
-  std::mutex m_drapeIdGeneratorMutex;
-  dp::DrapeID m_drapeIdGenerator = 0;
+  std::atomic<dp::DrapeID> m_drapeIdGenerator = 0;
 
   friend class DrapeApi;
 };
