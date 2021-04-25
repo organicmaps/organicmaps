@@ -8,6 +8,7 @@
 #include "transit/transit_display_info.hpp"
 #include "transit/transit_version.hpp"
 
+#include <array>
 #include <functional>
 #include <map>
 #include <set>
@@ -18,7 +19,7 @@ namespace df
 {
 extern int const kTransitSchemeMinZoomLevel;
 extern float const kTransitLineHalfWidth;
-extern std::vector<float> const kTransitLinesWidthInPixel;
+extern std::array<float, 20> const kTransitLinesWidthInPixel;
 
 struct TransitRenderData
 {

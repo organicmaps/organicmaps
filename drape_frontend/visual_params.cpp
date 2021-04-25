@@ -326,10 +326,11 @@ void ExtractZoomFactors(ScreenBase const & s, double & zoom, int & index, float 
   lerpCoef = static_cast<float>(zoomLevel - zoom);
 }
 
-float InterpolateByZoomLevels(int index, float lerpCoef, std::vector<float> const & values)
+float InterpolateByZoomLevelsImpl(int index, float lerpCoef, float const * values,
+                                  size_t valuesSize)
 {
   ASSERT_GREATER_OR_EQUAL(index, 0, ());
-  ASSERT_GREATER(values.size(), scales::UPPER_STYLE_SCALE, ());
+  ASSERT_GREATER(valuesSize, scales::UPPER_STYLE_SCALE, ());
   if (index < scales::UPPER_STYLE_SCALE)
     return values[index] + lerpCoef * (values[index + 1] - values[index]);
   return values[scales::UPPER_STYLE_SCALE];

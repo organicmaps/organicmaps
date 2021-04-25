@@ -98,7 +98,13 @@ m2::RectD GetRectForDrawScale(double drawScale, m2::PointD const & center);
 uint32_t CalculateTileSize(uint32_t screenWidth, uint32_t screenHeight);
 
 void ExtractZoomFactors(ScreenBase const & s, double & zoom, int & index, float & lerpCoef);
-float InterpolateByZoomLevels(int index, float lerpCoef, std::vector<float> const & values);
+float InterpolateByZoomLevelsImpl(int index, float lerpCoef, float const * values,
+				  size_t valuesSize);
+template <typename Array>
+inline float InterpolateByZoomLevels(int index, float lerpCoef, Array const & values)
+{
+  return InterpolateByZoomLevelsImpl(index, lerpCoef, values.data(), values.size());
+}
 m2::PointF InterpolateByZoomLevels(int index, float lerpCoef, std::vector<m2::PointF> const & values);
 double GetNormalizedZoomLevel(double screenScale, int minZoom = 1);
 double GetScreenScale(double zoomLevel);

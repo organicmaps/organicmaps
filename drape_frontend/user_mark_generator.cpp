@@ -12,7 +12,7 @@
 
 namespace df
 {
-std::vector<int> const kLineIndexingLevels = {1, 7, 11};
+std::array<int, 3> const kLineIndexingLevels = {1, 7, 11};
 
 UserMarkGenerator::UserMarkGenerator(TFlushFn const & flushFn)
   : m_flushFn(flushFn)
