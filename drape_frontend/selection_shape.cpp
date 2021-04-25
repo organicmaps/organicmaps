@@ -11,11 +11,13 @@
 
 #include "indexer/map_style_reader.hpp"
 
+#include <array>
+
 namespace df
 {
 namespace
 {
-std::vector<float> const kHalfLineWidthInPixel =
+std::array<float, 20> const kHalfLineWidthInPixel =
 {
   // 1   2     3     4     5     6     7     8     9     10
   1.0f, 1.2f, 1.5f, 1.5f, 1.7f, 2.0f, 2.0f, 2.3f, 2.5f, 2.7f,

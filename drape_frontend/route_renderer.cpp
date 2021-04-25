@@ -15,6 +15,7 @@
 #include "base/logging.hpp"
 
 #include <algorithm>
+#include <array>
 #include <cmath>
 
 namespace df
@@ -35,7 +36,7 @@ std::string const kRouteFakeOutlineColor = "RouteFakeOutline";
 
 namespace
 {
-std::vector<float> const kPreviewPointRadiusInPixel =
+std::array<float, 20> const kPreviewPointRadiusInPixel =
 {
   // 1   2     3     4     5     6     7     8     9     10
   0.8f, 0.8f, 2.0f, 2.5f, 2.5f, 2.5f, 2.5f, 2.5f, 2.5f, 2.5f,
@@ -57,7 +58,7 @@ void InterpolateByZoom(SubrouteConstPtr const & subroute, ScreenBase const & scr
   float lerpCoef = 0.0f;
   ExtractZoomFactors(screen, zoom, index, lerpCoef);
 
-  std::vector<float> const * halfWidthInPixel = &kRouteHalfWidthInPixelOthers;
+  std::array<float, 20> const * halfWidthInPixel = &kRouteHalfWidthInPixelOthers;
   if (subroute->m_routeType == RouteType::Car || subroute->m_routeType == RouteType::Taxi)
     halfWidthInPixel = &kRouteHalfWidthInPixelCar;
   else if (subroute->m_routeType == RouteType::Transit)

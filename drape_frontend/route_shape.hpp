@@ -13,6 +13,7 @@
 
 #include "geometry/polyline2d.hpp"
 
+#include <array>
 #include <cmath>
 #include <memory>
 #include <vector>
@@ -35,9 +36,9 @@ float const kArrowTailFactor = static_cast<float>(2.0 * kArrowTailTextureWidth /
 double const kArrowHeightFactor = kArrowTextureHeight / kArrowBodyHeight;
 double const kArrowAspect = kArrowTextureWidth / kArrowTextureHeight;
 
-extern std::vector<float> const kRouteHalfWidthInPixelCar;
-extern std::vector<float> const kRouteHalfWidthInPixelTransit;
-extern std::vector<float> const kRouteHalfWidthInPixelOthers;
+extern std::array<float, 20> const kRouteHalfWidthInPixelCar;
+extern std::array<float, 20> const kRouteHalfWidthInPixelTransit;
+extern std::array<float, 20> const kRouteHalfWidthInPixelOthers;
 
 enum class RouteType : uint8_t
 {

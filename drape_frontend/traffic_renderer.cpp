@@ -13,7 +13,9 @@
 
 #include "base/logging.hpp"
 
+#include <array>
 #include <algorithm>
+#include <utility>
 
 namespace df
 {
@@ -29,7 +31,7 @@ int constexpr kOutlineMinZoomLevel = 14;
 
 float const kTrafficArrowAspect = 128.0f / 8.0f;
 
-std::vector<float> const kLeftWidthInPixel =
+std::array<float, 20> const kLeftWidthInPixel =
 {
   // 1   2     3     4     5     6     7     8     9    10
   0.5f, 0.5f, 0.5f, 0.5f, 0.5f, 0.5f, 0.5f, 0.5f, 0.5f, 0.5f,
@@ -37,7 +39,7 @@ std::vector<float> const kLeftWidthInPixel =
   0.5f, 0.5f, 0.5f, 0.6f, 1.6f, 2.7f, 3.5f, 4.0f, 4.0f, 4.0f
 };
 
-std::vector<float> const kRightWidthInPixel =
+std::array<float, 20> const kRightWidthInPixel =
 {
   // 1   2     3     4     5     6     7     8     9    10
   2.0f, 2.0f, 2.0f, 2.0f, 2.0f, 2.0f, 2.0f, 2.5f, 3.0f, 3.0f,
@@ -45,7 +47,7 @@ std::vector<float> const kRightWidthInPixel =
   3.0f, 3.5f, 4.0f, 3.9f, 3.2f, 2.7f, 3.5f, 4.0f, 4.0f, 4.0f
 };
 
-std::vector<float> const kRoadClass1WidthScalar =
+std::array<float, 20> const kRoadClass1WidthScalar =
 {
   // 1   2     3     4     5     6     7     8     9    10
   0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.3,
@@ -53,7 +55,7 @@ std::vector<float> const kRoadClass1WidthScalar =
   0.3, 0.35f, 0.45f, 0.55f, 0.6f, 0.8f, 1.0f, 1.0f, 1.0f, 1.0f
 };
 
-std::vector<float> const kRoadClass2WidthScalar =
+std::array<float, 20> const kRoadClass2WidthScalar =
 {
   // 1   2     3     4     5     6     7     8     9     10
   0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.3f,
@@ -61,7 +63,7 @@ std::vector<float> const kRoadClass2WidthScalar =
   0.3f, 0.3f, 0.3f, 0.4f, 0.5f, 0.5f, 0.65f, 0.85f, 0.95f, 1.0f
 };
 
-std::vector<float> const kTwoWayOffsetInPixel =
+std::array<float, 20> const kTwoWayOffsetInPixel =
 {
   // 1   2     3     4     5     6     7     8     9     10
   0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f,
@@ -69,9 +71,9 @@ std::vector<float> const kTwoWayOffsetInPixel =
   0.0f, 0.5f, 0.5f, 0.75f, 1.7f, 2.5f, 2.5f, 2.5f, 2.5f, 2.5f
 };
 
-std::vector<int> const kLineDrawerRoadClass1 = {12, 13, 14};
+std::array<int, 3> const kLineDrawerRoadClass1 = {12, 13, 14};
 
-std::vector<int> const kLineDrawerRoadClass2 = {15, 16};
+std::array<int, 2> const kLineDrawerRoadClass2 = {15, 16};
 
 float CalculateHalfWidth(ScreenBase const & screen, RoadClass const & roadClass, bool left)
 {
@@ -80,7 +82,7 @@ float CalculateHalfWidth(ScreenBase const & screen, RoadClass const & roadClass,
   float lerpCoef = 0.0f;
   ExtractZoomFactors(screen, zoom, index, lerpCoef);
 
-  std::vector<float> const * halfWidth = left ? &kLeftWidthInPixel : &kRightWidthInPixel;
+  std::array<float, 20> const * halfWidth = left ? &kLeftWidthInPixel : &kRightWidthInPixel;
   float radius = InterpolateByZoomLevels(index, lerpCoef, *halfWidth);
   if (roadClass == RoadClass::Class1)
     radius *= InterpolateByZoomLevels(index, lerpCoef, kRoadClass1WidthScalar);
@@ -289,7 +291,7 @@ float TrafficRenderer::GetPixelWidthInternal(RoadClass const & roadClass, int zo
 {
   ASSERT_GREATER(zoomLevel, 1, ());
   ASSERT_LESS_OR_EQUAL(zoomLevel, scales::GetUpperStyleScale(), ());
-  std::vector<float> const * widthScalar = nullptr;
+  std::array<float, 20> const * widthScalar = nullptr;
   if (roadClass == RoadClass::Class1)
     widthScalar = &kRoadClass1WidthScalar;
   else if (roadClass == RoadClass::Class2)
@@ -307,15 +309,18 @@ bool TrafficRenderer::CanBeRenderedAsLine(RoadClass const & roadClass, int zoomL
   if (roadClass == RoadClass::Class0)
     return false;
 
-  std::vector<int> const * lineDrawer = nullptr;
+  int const *lineDrawer = nullptr;
+  int const *lineDrawerEnd = nullptr;
   if (roadClass == RoadClass::Class1)
-    lineDrawer = &kLineDrawerRoadClass1;
+    std::tie(lineDrawer, lineDrawerEnd) = std::make_pair(
+        kLineDrawerRoadClass1.data(), kLineDrawerRoadClass1.data() + kLineDrawerRoadClass1.size());
   else if (roadClass == RoadClass::Class2)
-    lineDrawer = &kLineDrawerRoadClass2;
+    std::tie(lineDrawer, lineDrawerEnd) = std::make_pair(
+        kLineDrawerRoadClass2.data(), kLineDrawerRoadClass2.data() + kLineDrawerRoadClass2.size());
 
   ASSERT(lineDrawer != nullptr, ());
-  auto it = find(lineDrawer->begin(), lineDrawer->end(), zoomLevel);
-  if (it == lineDrawer->end())
+  auto it = std::find(lineDrawer, lineDrawerEnd, zoomLevel);
+  if (it == lineDrawerEnd)
     return false;
 
   width = std::max(1, base::SignedRound(TrafficRenderer::GetPixelWidthInternal(roadClass, zoomLevel)));

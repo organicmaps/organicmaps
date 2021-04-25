@@ -21,7 +21,7 @@
 
 namespace df
 {
-std::vector<float> const kRouteHalfWidthInPixelCar =
+std::array<float, 20> const kRouteHalfWidthInPixelCar =
 {
   // 1   2     3     4     5     6     7     8     9     10
   1.0f, 1.2f, 1.5f, 1.5f, 1.7f, 2.0f, 2.0f, 2.3f, 2.5f, 2.7f,
@@ -29,7 +29,7 @@ std::vector<float> const kRouteHalfWidthInPixelCar =
   3.0f, 3.5f, 4.5f, 5.5f, 7.0, 9.0f, 10.0f, 14.0f, 22.0f, 27.0f
 };
 
-std::vector<float> const kRouteHalfWidthInPixelTransit =
+std::array<float, 20> const kRouteHalfWidthInPixelTransit =
 {
   // 1   2     3     4     5     6     7     8     9     10
   1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.1f, 1.2f, 1.3f, 1.4f, 1.7f,
@@ -37,7 +37,7 @@ std::vector<float> const kRouteHalfWidthInPixelTransit =
   1.8f, 2.1f, 2.5f, 2.8f, 3.5, 4.5f, 5.0f, 7.0f, 11.0f, 13.0f
 };
 
-std::vector<float> const kRouteHalfWidthInPixelOthers =
+std::array<float, 20> const kRouteHalfWidthInPixelOthers =
 {
   // 1   2     3     4     5     6     7     8     9     10
   1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.1f, 1.2f, 1.3f,

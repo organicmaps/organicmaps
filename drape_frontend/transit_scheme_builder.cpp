@@ -32,7 +32,7 @@ namespace df
 {
 int const kTransitSchemeMinZoomLevel = 10;
 float const kTransitLineHalfWidth = 0.8f;
-std::vector<float> const kTransitLinesWidthInPixel =
+std::array<float, 20> const kTransitLinesWidthInPixel =
 {
   // 1   2     3     4     5     6     7     8     9    10
   1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.25f,
