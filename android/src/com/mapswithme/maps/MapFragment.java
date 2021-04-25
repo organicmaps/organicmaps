@@ -20,6 +20,8 @@ import androidx.appcompat.app.AlertDialog;
 import com.mapswithme.maps.base.BaseMwmFragment;
 import com.mapswithme.maps.location.LocationHelper;
 import com.mapswithme.util.Config;
+import com.mapswithme.util.Counters;
+import com.mapswithme.util.PermissionsUtils;
 import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.concurrency.UiThread;
 import com.mapswithme.util.log.Logger;
@@ -186,7 +188,7 @@ public class MapFragment extends BaseMwmFragment
     requireActivity().getWindowManager().getDefaultDisplay().getMetrics(metrics);
     final float exactDensityDpi = metrics.densityDpi;
 
-    final boolean firstStart = MwmApplication.from(requireActivity()).isFirstLaunch();
+    final boolean firstStart = LocationHelper.INSTANCE.isInFirstRun();
     if (!nativeCreateEngine(surface, (int) exactDensityDpi, firstStart, mLaunchByDeepLink,
                             BuildConfig.VERSION_CODE))
     {

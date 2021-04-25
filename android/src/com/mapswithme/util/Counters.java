@@ -6,6 +6,7 @@ import android.text.format.DateUtils;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.DialogFragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.preference.PreferenceManager;
 
 import com.mapswithme.maps.BuildConfig;
@@ -24,8 +25,6 @@ public final class Counters
   static final String KEY_LIKES_LAST_RATED_SESSION = "LastRatedSession";
 
   private static final String KEY_LIKES_RATED_DIALOG = "RatedDialog";
-  private static final String KEY_SHOW_REVIEW_FOR_OLD_USER = "ShowReviewForOldUser";
-  private static final String KEY_MIGRATION_EXECUTED = "MigrationExecuted";
 
   private Counters() {}
 
@@ -40,26 +39,17 @@ public final class Counters
     return MwmApplication.prefs(context).getInt(KEY_APP_FIRST_INSTALL_VERSION, 0);
   }
 
-  public static boolean isFirstStartDialogSeen(@NonNull Context context)
+  public static boolean isFirstLaunch(@NonNull Context context)
   {
-    return MwmApplication.prefs(context).getBoolean(KEY_MISC_FIRST_START_DIALOG_SEEN, false);
+    return !MwmApplication.prefs(context).getBoolean(KEY_MISC_FIRST_START_DIALOG_SEEN, false);
   }
 
   public static void setFirstStartDialogSeen(@NonNull Context context)
   {
     MwmApplication.prefs(context)
-                  .edit()
-                  .putBoolean(KEY_MISC_FIRST_START_DIALOG_SEEN, true)
-                  .apply();
-  }
-
-
-  public static void setWhatsNewShown(@NonNull Context context)
-  {
-    MwmApplication.prefs(context)
-                  .edit()
-                  .putInt(KEY_MISC_NEWS_LAST_VERSION, BuildConfig.VERSION_CODE)
-                  .apply();
+        .edit()
+        .putBoolean(KEY_MISC_FIRST_START_DIALOG_SEEN, true)
+        .apply();
   }
 
   public static void resetAppSessionCounters(@NonNull Context context)
@@ -169,29 +159,5 @@ public final class Counters
                   .putInt(key, ++value)
                   .apply();
     return value;
-  }
-
-  public static void setShowReviewForOldUser(@NonNull Context context, boolean value)
-  {
-    MwmApplication.prefs(context).edit()
-                  .putBoolean(KEY_SHOW_REVIEW_FOR_OLD_USER, value)
-                  .apply();
-  }
-
-  public static boolean isShowReviewForOldUser(@NonNull Context context)
-  {
-    return MwmApplication.prefs(context).getBoolean(KEY_SHOW_REVIEW_FOR_OLD_USER, false);
-  }
-
-  public static boolean isMigrationNeeded(@NonNull Context context)
-  {
-    return !MwmApplication.prefs(context).getBoolean(KEY_MIGRATION_EXECUTED, false);
-  }
-
-  public static void setMigrationExecuted(@NonNull Context context)
-  {
-    MwmApplication.prefs(context).edit()
-                  .putBoolean(KEY_MIGRATION_EXECUTED, true)
-                  .apply();
   }
 }

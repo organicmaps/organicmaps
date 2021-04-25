@@ -57,8 +57,9 @@ public final class PermissionsUtils
     Map<String, Boolean> result = new HashMap<>();
     for (String permission: PERMISSIONS)
     {
-      result.put(permission, Build.VERSION.SDK_INT < Build.VERSION_CODES.M
-                 || appContext.checkSelfPermission(permission) == PackageManager.PERMISSION_GRANTED);
+      boolean granted = Build.VERSION.SDK_INT < Build.VERSION_CODES.M
+          || appContext.checkSelfPermission(permission) == PackageManager.PERMISSION_GRANTED;
+      result.put(permission, granted);
     }
 
     return getPermissionsResult(result);
@@ -72,11 +73,6 @@ public final class PermissionsUtils
                               || (result.containsKey(ACCESS_FINE_LOCATION)
                                   ? result.get(ACCESS_FINE_LOCATION) : false);
     return new PermissionsResult(locationGranted);
-  }
-
-  public static void requestPermissions(@NonNull Activity activity, int code)
-  {
-    ActivityCompat.requestPermissions(activity, PERMISSIONS, code);
   }
 
   public static void requestLocationPermission(@NonNull Activity activity, int code)

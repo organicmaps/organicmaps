@@ -13,6 +13,7 @@ import com.mapswithme.maps.MwmApplication;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.maplayer.Mode;
 
+import java.io.IOException;
 import java.util.Locale;
 
 public final class SharedPropertiesUtils
@@ -63,12 +64,18 @@ public final class SharedPropertiesUtils
     return prefs.getBoolean(PREFS_SHOW_EMULATE_BAD_STORAGE_SETTING, false);
   }
 
-  public static boolean shouldEmulateBadExternalStorage(@NonNull Context context)
+  /**
+   * @param context context
+   * @throws IOException if "Emulate bad storage" is enabled in preferences
+   */
+  public static void emulateBadExternalStorage(@NonNull Context context) throws IOException
   {
     SharedPreferences prefs = PreferenceManager
         .getDefaultSharedPreferences(MwmApplication.from(context));
     String key = MwmApplication.from(context).getString(R.string.pref_emulate_bad_external_storage);
-    return prefs.getBoolean(key, false);
+    if (prefs.getBoolean(key, false)) {
+      throw new IOException("Bad external storage error injection");
+    }
   }
 
   public static boolean shouldShowNewMarkerForLayerMode(@NonNull Context context,

@@ -28,6 +28,7 @@ import com.mapswithme.maps.intent.MapTask;
 import com.mapswithme.maps.location.LocationHelper;
 import com.mapswithme.maps.location.LocationListener;
 import com.mapswithme.util.ConnectionState;
+import com.mapswithme.util.Counters;
 import com.mapswithme.util.StringUtils;
 import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.Utils;
@@ -446,8 +447,8 @@ public class DownloadResourcesLegacyActivity extends BaseMwmFragmentActivity imp
     if (intent == null)
       return null;
 
-    MwmApplication application = MwmApplication.from(this);
-    intent.putExtra(Factory.EXTRA_IS_FIRST_LAUNCH, application.isFirstLaunch());
+    boolean isFirstLaunch = Counters.isFirstLaunch(this);
+    intent.putExtra(Factory.EXTRA_IS_FIRST_LAUNCH, isFirstLaunch);
     if (intent.getData() == null)
     {
       /* Sic: the deep link library has been removed */
