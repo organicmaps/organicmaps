@@ -1,28 +1,18 @@
 package com.mapswithme.maps.background;
 
-import static com.mapswithme.maps.MwmApplication.backgroundTracker;
-
-import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.util.Log;
+
+import androidx.annotation.NonNull;
 
 import com.mapswithme.maps.MwmApplication;
-import com.mapswithme.util.CrashlyticsUtils;
-import com.mapswithme.util.log.Logger;
-import com.mapswithme.util.log.LoggerFactory;
+import com.mapswithme.maps.MwmBroadcastReceiver;
 
-public class UpgradeReceiver extends BroadcastReceiver
+public class UpgradeReceiver extends MwmBroadcastReceiver
 {
-  private static final Logger LOGGER = LoggerFactory.INSTANCE.getLogger(LoggerFactory.Type.MISC);
-  private static final String TAG = UpgradeReceiver.class.getSimpleName();
   @Override
-  public void onReceive(Context context, Intent intent)
+  protected void onReceiveInitialized(@NonNull Context context, @NonNull Intent intent)
   {
-    String msg = "onReceive: " + intent + " app in background = "
-                 + !backgroundTracker(context).isForeground();
-    LOGGER.i(TAG, msg);
-    CrashlyticsUtils.INSTANCE.log(Log.INFO, TAG, msg);
     MwmApplication.onUpgrade(context);
   }
 }

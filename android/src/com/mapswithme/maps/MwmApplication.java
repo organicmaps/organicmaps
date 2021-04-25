@@ -40,6 +40,7 @@ import com.mapswithme.util.Utils;
 import com.mapswithme.util.log.Logger;
 import com.mapswithme.util.log.LoggerFactory;
 
+import java.io.IOException;
 import java.util.List;
 
 public class MwmApplication extends Application implements AppBackgroundTracker.OnTransitionListener
@@ -123,7 +124,17 @@ public class MwmApplication extends Application implements AppBackgroundTracker.
     getLogger().d(TAG, "Application is created");
     // Set configuration directory as early as possible.
     // Other methods may explicitly use Config, which requires settingsDir to be set.
-    setSettingsDir();
+    final String settingsPath = StorageUtils.getSettingsPath(this);
+    getLogger().d(TAG, "Settings path = " + settingsPath);
+    try
+    {
+      StorageUtils.createDirectory(settingsPath);
+      nativeSetSettingsDir(settingsPath);
+    } catch (IOException e)
+    {
+      // We have nothing to do here.
+      throw new AssertionError("Can't create settingsDir " + settingsPath);
+    }
     mMainLoopHandler = new Handler(getMainLooper());
     ConnectionState.INSTANCE.initialize(this);
     CrashlyticsUtils.INSTANCE.initialize(this);
@@ -145,36 +156,19 @@ public class MwmApplication extends Application implements AppBackgroundTracker.
   }
 
   /**
-   * Initialize configuration directory.
-   */
-  public void setSettingsDir()
-  {
-    final String settingsPath = StorageUtils.getSettingsPath(this);
-    if (!StorageUtils.createDirectory(this, settingsPath))
-    {
-      throw new AssertionError("Can't create settingsDir " + settingsPath);
-    }
-    getLogger().d(TAG, "Settings path = " + settingsPath);
-    nativeSetSettingsDir(settingsPath);
-  }
-
-  /**
-   * Initialize native core of application: platform and framework. Caller must handle returned value
-   * and do nothing with native code if initialization is failed.
+   * Initialize native core of application: platform and framework.
    *
    * @return boolean - indicator whether native initialization is successful or not.
+   * @throws IOException - if failed to create directories. Caller must handle
+   * the exception and do nothing with native code if initialization is failed.
    */
-  public boolean initCore()
+  public void ensureCoreInitialized() throws IOException
   {
     initNativePlatform();
-    if (!mPlatformInitialized)
-      return false;
-
     initNativeFramework();
-    return mFrameworkInitialized;
   }
 
-  private void initNativePlatform()
+  private void initNativePlatform() throws IOException
   {
     if (mPlatformInitialized)
       return;
@@ -193,8 +187,7 @@ public class MwmApplication extends Application implements AppBackgroundTracker.
     // If platform directories are not created it means that native part of app will not be able
     // to work at all. So, we just ignore native part initialization in this case, e.g. when the
     // external storage is damaged or not available (read-only).
-    if (!createPlatformDirectories(writablePath, privatePath, tempPath))
-      return;
+    createPlatformDirectories(writablePath, privatePath, tempPath);
 
     nativeInitPlatform(apkPath,
                        writablePath,
@@ -207,18 +200,18 @@ public class MwmApplication extends Application implements AppBackgroundTracker.
 
     Editor.init(this);
     mPlatformInitialized = true;
+    log.i(TAG, "Platform initialized");
   }
 
-  private boolean createPlatformDirectories(@NonNull String writablePath,
+  private void createPlatformDirectories(@NonNull String writablePath,
                                             @NonNull String privatePath,
-                                            @NonNull String tempPath)
+                                            @NonNull String tempPath) throws IOException
   {
-    if (SharedPropertiesUtils.shouldEmulateBadExternalStorage(this))
-      return false;
+    SharedPropertiesUtils.emulateBadExternalStorage(this);
 
-    return StorageUtils.createDirectory(this, writablePath) &&
-           StorageUtils.createDirectory(this, privatePath) &&
-           StorageUtils.createDirectory(this, tempPath);
+    StorageUtils.createDirectory(writablePath);
+    StorageUtils.createDirectory(privatePath);
+    StorageUtils.createDirectory(tempPath);
   }
 
   private void initNativeFramework()
@@ -243,6 +236,8 @@ public class MwmApplication extends Application implements AppBackgroundTracker.
     IsolinesManager.from(this).initialize(null);
     TrackRecorder.INSTANCE.initialize(this);
     mBackgroundTracker.addListener(this);
+
+    getLogger().i(TAG, "Framework initialized");
     mFrameworkInitialized = true;
   }
 
@@ -312,11 +307,6 @@ public class MwmApplication extends Application implements AppBackgroundTracker.
   public Logger getLogger()
   {
     return mLogger;
-  }
-
-  public void setFirstLaunch(boolean isFirstLaunch)
-  {
-    mFirstLaunch = isFirstLaunch;
   }
 
   public boolean isFirstLaunch()

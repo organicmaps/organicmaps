@@ -99,6 +99,7 @@ import com.mapswithme.maps.widget.placepage.PlacePageController;
 import com.mapswithme.maps.widget.placepage.PlacePageData;
 import com.mapswithme.maps.widget.placepage.PlacePageFactory;
 import com.mapswithme.maps.widget.placepage.RoutingModeListener;
+import com.mapswithme.util.Counters;
 import com.mapswithme.util.InputUtils;
 import com.mapswithme.util.PermissionsUtils;
 import com.mapswithme.util.SharingUtils;
@@ -455,10 +456,11 @@ public class MwmActivity extends BaseMwmFragmentActivity
     initViews(isLaunchByDeepLink);
 
     boolean isConsumed = savedInstanceState == null && processIntent(getIntent());
+    boolean isFirstLaunch = Counters.isFirstLaunch(this);
     // If the map activity is launched by any incoming intent (deeplink, update maps event, etc)
     // or it's the first launch (onboarding) we haven't to try restoring the route,
     // showing the tips, etc.
-    if (isConsumed || MwmApplication.from(this).isFirstLaunch())
+    if (isConsumed || isFirstLaunch)
       return;
 
     if (savedInstanceState == null && RoutingController.get().hasSavedRoute())

@@ -17,6 +17,7 @@ import com.mapswithme.util.log.Logger;
 import com.mapswithme.util.log.LoggerFactory;
 
 import java.io.File;
+import java.io.IOException;
 
 public class StorageUtils
 {
@@ -138,17 +139,16 @@ public class StorageUtils
     return addTrailingSeparator(application.getCacheDir().getAbsolutePath());
   }
 
-  public static boolean createDirectory(@NonNull Context context, @NonNull String path)
+  public static void createDirectory(@NonNull String path) throws IOException
   {
     File directory = new File(path);
     if (!directory.exists() && !directory.mkdirs())
     {
-      Throwable error = new IllegalStateException("Can't create directories for: " + path);
+      IOException error = new IOException("Can't create directories for: " + path);
       LOGGER.e(TAG, "Can't create directories for: " + path);
       CrashlyticsUtils.INSTANCE.logException(error);
-      return false;
+      throw error;
     }
-    return true;
   }
 
   static long getFileSize(@NonNull String path)

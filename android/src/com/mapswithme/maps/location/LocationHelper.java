@@ -586,6 +586,12 @@ public enum LocationHelper implements Initializable<Context>
   }
 
   @UiThread
+  public boolean isInFirstRun()
+  {
+    return mInFirstRun;
+  }
+
+  @UiThread
   public void onEnteredIntoFirstRun()
   {
     mLogger.i(TAG, "onEnteredIntoFirstRun");

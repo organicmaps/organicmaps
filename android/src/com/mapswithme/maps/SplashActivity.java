@@ -5,50 +5,32 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.StringRes;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.FragmentManager;
 
 import com.mapswithme.maps.base.BaseActivity;
 import com.mapswithme.maps.base.BaseActivityDelegate;
 import com.mapswithme.maps.location.LocationHelper;
-import com.mapswithme.util.Config;
 import com.mapswithme.util.Counters;
 import com.mapswithme.util.PermissionsUtils;
 import com.mapswithme.util.ThemeUtils;
 import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.concurrency.UiThread;
-import com.mapswithme.util.log.Logger;
-import com.mapswithme.util.log.LoggerFactory;
+
+import java.io.IOException;
 
 public class SplashActivity extends AppCompatActivity implements BaseActivity
 {
-  private static final Logger LOGGER = LoggerFactory.INSTANCE.getLogger(LoggerFactory.Type.MISC);
-  private static final String TAG = SplashActivity.class.getSimpleName();
   private static final String EXTRA_ACTIVITY_TO_START = "extra_activity_to_start";
   public static final String EXTRA_INITIAL_INTENT = "extra_initial_intent";
   private static final int REQUEST_PERMISSIONS = 1;
   private static final long DELAY = 100;
 
-  private View mIvLogo;
-  private View mAppName;
-
-  private boolean mPermissionsGranted;
-  private boolean mCanceled;
-
-  @NonNull
-  private final Runnable mPermissionsDelayedTask = new Runnable()
-  {
-    @Override
-    public void run()
-    {
-      PermissionsUtils.requestLocationPermission(SplashActivity.this, REQUEST_PERMISSIONS);
-    }
-  };
+  private boolean mCanceled = false;
 
   @NonNull
   private final Runnable mInitCoreDelayedTask = new Runnable()
@@ -56,31 +38,7 @@ public class SplashActivity extends AppCompatActivity implements BaseActivity
     @Override
     public void run()
     {
-      MwmApplication app = (MwmApplication) getApplication();
-      if (app.arePlatformAndCoreInitialized())
-      {
-        UiThread.runLater(mFinalDelayedTask);
-        return;
-      }
-
       init();
-
-      LOGGER.i(TAG, "Core initialized: " + app.arePlatformAndCoreInitialized());
-
-//    Run delayed task because resumeDialogs() must see the actual value of mCanceled flag,
-//    since onPause() callback can be blocked because of UI thread is busy with framework
-//    initialization.
-      UiThread.runLater(mFinalDelayedTask);
-    }
-  };
-
-  @NonNull
-  private final Runnable mFinalDelayedTask = new Runnable()
-  {
-    @Override
-    public void run()
-    {
-      resumeDialogs();
     }
   };
 
@@ -104,11 +62,10 @@ public class SplashActivity extends AppCompatActivity implements BaseActivity
   {
     super.onCreate(savedInstanceState);
     mBaseDelegate.onCreate();
-    UiThread.cancelDelayedTasks(mPermissionsDelayedTask);
     UiThread.cancelDelayedTasks(mInitCoreDelayedTask);
-    UiThread.cancelDelayedTasks(mFinalDelayedTask);
     Counters.initCounters(this);
-    initView();
+    UiUtils.setupStatusBar(this);
+    setContentView(R.layout.activity_splash);
   }
 
   @Override
@@ -130,37 +87,14 @@ public class SplashActivity extends AppCompatActivity implements BaseActivity
   {
     super.onResume();
     mBaseDelegate.onResume();
-    mCanceled = false;
-
-    Context context = getApplicationContext();
-    if (Counters.isMigrationNeeded(context))
+    if (mCanceled)
+      return;
+    if (!PermissionsUtils.isLocationGranted(this))
     {
-      Config.migrateCountersToSharedPrefs(context);
-      Counters.setMigrationExecuted(context);
-    }
-    
-    final boolean isFirstLaunch = isFirstLaunch();
-    if (isFirstLaunch)
-      MwmApplication.from(this).setFirstLaunch(true);
-
-    if (processPermissionGranting())
-      runInitCoreTask();
-  }
-
-  private boolean processPermissionGranting()
-  {
-    mPermissionsGranted = PermissionsUtils.isLocationGranted(this);
-    if (!mPermissionsGranted)
-    {
-      UiThread.runLater(mPermissionsDelayedTask, DELAY);
-      return false;
+      PermissionsUtils.requestLocationPermission(SplashActivity.this, REQUEST_PERMISSIONS);
+      return;
     }
 
-    return true;
-  }
-
-  private void runInitCoreTask()
-  {
     UiThread.runLater(mInitCoreDelayedTask, DELAY);
   }
 
@@ -169,10 +103,7 @@ public class SplashActivity extends AppCompatActivity implements BaseActivity
   {
     super.onPause();
     mBaseDelegate.onPause();
-    mCanceled = true;
-    UiThread.cancelDelayedTasks(mPermissionsDelayedTask);
     UiThread.cancelDelayedTasks(mInitCoreDelayedTask);
-    UiThread.cancelDelayedTasks(mFinalDelayedTask);
   }
 
   @Override
@@ -189,27 +120,13 @@ public class SplashActivity extends AppCompatActivity implements BaseActivity
     mBaseDelegate.onDestroy();
   }
 
-  private void resumeDialogs()
+  private void showFatalErrorDialog(@StringRes int titleId, @StringRes int messageId)
   {
-    if (mCanceled)
-      return;
-
-    MwmApplication app = (MwmApplication) getApplication();
-    if (!app.arePlatformAndCoreInitialized())
-    {
-      showExternalStorageErrorDialog();
-      return;
-    }
-
-    processNavigation();
-  }
-
-  private void showExternalStorageErrorDialog()
-  {
+    mCanceled = true;
     AlertDialog dialog = new AlertDialog.Builder(this)
-        .setTitle(R.string.dialog_error_storage_title)
-        .setMessage(R.string.dialog_error_storage_message)
-        .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener()
+        .setTitle(titleId)
+        .setMessage(messageId)
+        .setNegativeButton(R.string.ok, new DialogInterface.OnClickListener()
         {
           @Override
           public void onClick(DialogInterface dialog, int which)
@@ -226,32 +143,37 @@ public class SplashActivity extends AppCompatActivity implements BaseActivity
   public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
                                          @NonNull int[] grantResults)
   {
+    if (requestCode != REQUEST_PERMISSIONS)
+      throw new AssertionError("Unexpected requestCode");
     super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-    if (grantResults.length == 0)
+    if (!PermissionsUtils.isLocationGranted(this))
+    {
+      showFatalErrorDialog(R.string.enable_location_services, R.string.location_is_disabled_long_text);
       return;
-
-    mPermissionsGranted = PermissionsUtils.computePermissionsResult(permissions, grantResults)
-                                          .isLocationGranted();
-  }
-
-  private void initView()
-  {
-    UiUtils.setupStatusBar(this);
-    setContentView(R.layout.activity_splash);
-    mIvLogo = findViewById(R.id.iv__logo);
-    mAppName = findViewById(R.id.tv__app_name);
+    }
+    // No-op here - onResume() calls init();
   }
 
   private void init()
   {
     MwmApplication app = MwmApplication.from(this);
-    boolean success = app.initCore();
-    if (!success || !app.isFirstLaunch())
+    try
+    {
+      app.ensureCoreInitialized();
+    } catch (IOException e)
+    {
+      showFatalErrorDialog(R.string.dialog_error_storage_title, R.string.dialog_error_storage_message);
       return;
+    }
 
-    LocationHelper.INSTANCE.onEnteredIntoFirstRun();
-    if (!LocationHelper.INSTANCE.isActive())
-      LocationHelper.INSTANCE.start();
+    if (Counters.isFirstLaunch(this))
+    {
+      LocationHelper.INSTANCE.onEnteredIntoFirstRun();
+      if (!LocationHelper.INSTANCE.isActive())
+        LocationHelper.INSTANCE.start();
+    }
+
+    processNavigation();
   }
 
   @SuppressWarnings("unchecked")
@@ -272,6 +194,7 @@ public class SplashActivity extends AppCompatActivity implements BaseActivity
                            input;
       result.putExtra(EXTRA_INITIAL_INTENT, initialIntent);
     }
+    Counters.setFirstStartDialogSeen(this);
     startActivity(result);
     finish();
   }
@@ -296,15 +219,5 @@ public class SplashActivity extends AppCompatActivity implements BaseActivity
     throw new IllegalArgumentException("Attempt to apply unsupported theme: " + theme);
   }
 
-  boolean isFirstLaunch()
-  {
-    if (Counters.getFirstInstallVersion(getApplicationContext()) < BuildConfig.VERSION_CODE)
-      return false;
 
-    FragmentManager fm = getSupportFragmentManager();
-    if (fm.isDestroyed())
-      return false;
-
-    return !Counters.isFirstStartDialogSeen(this);
-  }
 }
