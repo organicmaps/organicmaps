@@ -392,6 +392,7 @@
 					"$(inherited)",
 					"NOCRYPT=1",
 				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				GCC_WARN_INHIBIT_ALL_WARNINGS = YES;
 			};
 			name = Debug;
@@ -405,6 +406,7 @@
 					"$(inherited)",
 					"NOCRYPT=1",
 				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				GCC_WARN_INHIBIT_ALL_WARNINGS = YES;
 			};
 			name = Release;
@@ -418,6 +420,7 @@
 					"$(inherited)",
 					"NOCRYPT=1",
 				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				GCC_WARN_INHIBIT_ALL_WARNINGS = YES;
 			};
 			name = "Production Full";

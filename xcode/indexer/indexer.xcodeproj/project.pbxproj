@@ -1092,7 +1092,6 @@
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "-";
 				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
-				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				INFOPLIST_FILE = "";
 				PRODUCT_BUNDLE_IDENTIFIER = "maps.me.indexer-tests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1104,7 +1103,6 @@
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "-";
 				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
-				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				INFOPLIST_FILE = "";
 				PRODUCT_BUNDLE_IDENTIFIER = "maps.me.indexer-tests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1179,7 +1177,6 @@
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "-";
 				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
-				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				INFOPLIST_FILE = "";
 				PRODUCT_BUNDLE_IDENTIFIER = "maps.me.indexer-tests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
