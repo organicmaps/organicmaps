@@ -279,22 +279,18 @@ public:
   /// By value to be consistent with m_vec.push_back(m_vec[0]).
   void push_back(T t)
   {
-    if (IsDynamic())
+    if (!IsDynamic())
     {
-      m_dynamic.push_back(t);
-      return;
+      if (m_size < N)
+      {
+        Swap(m_static[m_size++], t);
+        return;
+      }
+      else
+        SwitchToDynamic(N + 1);
     }
 
-    if (m_size < N)
-    {
-      Swap(m_static[m_size++], t);
-    }
-    else
-    {
-      SwitchToDynamic(N + 1);
-      m_dynamic.push_back(std::move(t));
-      ASSERT_EQUAL(m_dynamic.size(), N + 1, ());
-    }
+    m_dynamic.push_back(std::move(t));
   }
 
   void pop_back()
@@ -315,19 +311,20 @@ public:
     if (IsDynamic())
     {
       m_dynamic.emplace_back(std::forward<Args>(args)...);
-      return;
-    }
-
-    if (m_size < N)
-    {
-      value_type v(std::forward<Args>(args)...);
-      Swap(v, m_static[m_size++]);
     }
     else
     {
-      SwitchToDynamic(N + 1);
-      m_dynamic.emplace_back(std::forward<Args>(args)...);
-      ASSERT_EQUAL(m_dynamic.size(), N + 1, ());
+      // Construct value first in case of reallocation and m_vec.emplace_back(m_vec[0]).
+      value_type v(std::forward<Args>(args)...);
+      if (m_size < N)
+      {
+        Swap(v, m_static[m_size++]);
+      }
+      else
+      {
+        SwitchToDynamic(N + 1);
+        m_dynamic.push_back(std::move(v));
+      }
     }
   }
 

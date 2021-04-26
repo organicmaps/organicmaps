@@ -22,12 +22,29 @@ UNIT_TEST(BufferVector_PushBack_And_Realloc)
   using ElementT = std::vector<int>;
   ElementT element({1, 2, 3});
 
-  buffer_vector<ElementT, 2> v;
-  v.append(2, element);
+  size_t constexpr kFixedSize = 2;
+  {
+    buffer_vector<ElementT, kFixedSize> v;
+    v.append(kFixedSize, element);
 
-  v.push_back(v[0]);
-  TEST_EQUAL(v.size(), 3, ());
-  TEST_EQUAL(v[2], element, ());
+    v.push_back(v[0]);
+    TEST_EQUAL(v.size(), kFixedSize + 1, ());
+
+    for (auto const & e : v)
+      TEST_EQUAL(e, element, ());
+  }
+
+  {
+    buffer_vector<ElementT, kFixedSize> v;
+    v.append(kFixedSize, element);
+
+    v.emplace_back(3, v[0][1]);
+    TEST_EQUAL(v.size(), kFixedSize + 1, ());
+
+    for (size_t i = 0; i < kFixedSize; ++i)
+      TEST_EQUAL(v[i], element, ());
+    TEST_EQUAL(v[kFixedSize], ElementT({2, 2, 2}), ());
+  }
 }
 
 UNIT_TEST(BufferVectorBounds)
@@ -364,7 +381,7 @@ UNIT_TEST(BufferVector_EraseIf)
   TEST_EQUAL(v[0], 2, ());
   TEST_EQUAL(v[1], 4, ());
 
-  v.erase_if([] (int x) { return true; });
+  v.erase_if([] (int) { return true; });
   TEST_EQUAL(v.size(), 0, ());
 }
 
