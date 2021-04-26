@@ -17,7 +17,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.MergeAdapter;
+import androidx.recyclerview.widget.ConcatAdapter;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.SimpleItemAnimator;
 
@@ -47,7 +47,7 @@ import com.mapswithme.util.UiUtils;
 
 import java.util.List;
 
-public class BookmarksListFragment extends BaseMwmRecyclerFragment<MergeAdapter>
+public class BookmarksListFragment extends BaseMwmRecyclerFragment<ConcatAdapter>
     implements BookmarkManager.BookmarksSharingListener,
                BookmarkManager.BookmarksSortingListener,
                BookmarkManager.BookmarksLoadingListener,
@@ -115,10 +115,10 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<MergeAdapter>
 
   @NonNull
   @Override
-  protected MergeAdapter createAdapter()
+  protected ConcatAdapter createAdapter()
   {
     BookmarkCategory category = mCategoryDataSource.getData();
-    return new MergeAdapter(initAndGetCollectionAdapter(category.getId()),
+    return new ConcatAdapter(initAndGetCollectionAdapter(category.getId()),
                             new BookmarkListAdapter(mCategoryDataSource));
   }
 

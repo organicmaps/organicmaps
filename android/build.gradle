@@ -92,7 +92,7 @@ dependencies {
   }
 
   // 3-party
-  implementation 'com.google.code.gson:gson:2.6.1'
+  implementation 'com.google.code.gson:gson:2.8.6'
   // BottomSheet
   implementation 'com.cocosw:bottomsheet:1.5.0@aar'
   implementation 'com.timehop.stickyheadersrecyclerview:library:0.4.3@aar'
@@ -101,19 +101,17 @@ dependencies {
   // Java concurrency annotations
   implementation 'net.jcip:jcip-annotations:1.0'
 
-  implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
-  implementation 'androidx.work:work-runtime:2.2.0'
-  implementation('uk.co.samuelwall:material-tap-target-prompt:3.1.0', {
-    exclude group: 'androidx.lifecycle', module: 'lifecycle-extensions'
-  })
+  implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
+  implementation 'androidx.work:work-runtime:2.5.0'
   implementation 'com.google.android:flexbox:1.0.0'
   implementation 'com.trafi:anchor-bottom-sheet-behavior:0.13-alpha'
   implementation 'com.github.yoksnod:MPAndroidChart:3.2.0-alpha'
-  implementation 'com.google.android.material:material:1.3.0-alpha03'
+  implementation 'com.google.android.material:material:1.4.0-alpha02'
   implementation 'androidx.appcompat:appcompat:1.2.0'
   implementation 'androidx.legacy:legacy-preference-v14:1.0.0'
-  implementation 'androidx.preference:preference:1.1.0'
-  implementation 'androidx.fragment:fragment:1.1.0'
+  implementation 'androidx.preference:preference:1.1.1'
+  implementation 'androidx.fragment:fragment:1.3.3'
+  implementation 'androidx.recyclerview:recyclerview:1.2.0'
 }
 
 def run(cmd) {
@@ -157,60 +155,6 @@ def osName = System.properties['os.name'].toLowerCase()
 
 project.ext.appId = 'app.omaps'
 project.ext.appName = 'OrganicMaps'
-
-configurations.all {
-  if (it.getName().contains("lint"))
-    return
-
-  resolutionStrategy {
-    force 'com.android.support:multidex:' + propMultiDexVersion
-
-    force 'com.google.android.gms:play-services-location:17.0.0'
-    force 'com.google.android.gms:play-services-analytics:17.0.0'
-    force 'com.google.android.gms:play-services-plus:17.0.0'
-    force 'com.google.android.gms:play-services-gcm:17.0.0'
-    force 'com.google.android.gms:play-services-auth:17.0.0'
-    force 'com.google.android.gms:play-services-basement:17.1.1'
-    force 'com.google.android.gms:play-services-base:17.0.0'
-    force 'com.google.android.gms:play-services-tasks:17.0.0'
-    force 'com.google.android.gms:play-services-stats:17.0.0'
-
-    force 'android.arch.core:runtime:1.1.1'
-    force 'android.arch.core:common:1.1.1'
-    force 'androidx.legacy:legacy-support-core-utils:1.0.0-rc01'
-    force 'androidx.loader:loader:1.0.0-rc01'
-    force 'androidx.lifecycle:lifecycle-viewmodel:2.1.0'
-    force 'androidx.lifecycle:lifecycle-common:2.1.0'
-    force 'androidx.arch.core:core-common:2.0.0-rc01'
-    force 'androidx.arch.core:core-runtime:2.0.0-rc01'
-    force 'androidx.lifecycle:lifecycle-runtime:2.1.0'
-    force 'androidx.lifecycle:lifecycle-livedata-core:2.1.0'
-    force 'androidx.lifecycle:lifecycle-extensions:2.1.0'
-    force 'androidx.work:work-runtime:2.2.0'
-    force "org.jetbrains.kotlin:kotlin-stdlib:1.3.31"
-    force "com.google.code.gson:gson:2.8.5"
-    force "com.google.guava:guava:27.0.1-jre"
-    force "com.android.installreferrer:installreferrer:1.1"
-    force "com.google.firebase:firebase-iid:16.0.0"
-    force "com.google.firebase:firebase-measurement-connector:18.0.0"
-    force "com.google.firebase:firebase-iid-interop:17.0.0"
-    force "com.google.firebase:firebase-common:19.3.0"
-    force "com.google.android.material:material:1.3.0-alpha03"
-    force "androidx.constraintlayout:constraintlayout:1.1.3"
-    force "androidx.vectordrawable:vectordrawable:1.1.0"
-    force "androidx.coordinatorlayout:coordinatorlayout:1.1.0"
-    force "androidx.collection:collection:1.1.0"
-    force "androidx.fragment:fragment:1.1.0"
-    force "androidx.preference:preference:1.1.0"
-    force "androidx.appcompat:appcompat:1.2.0"
-    force "androidx.annotation:annotation:1.1.0"
-    force "androidx.core:core:1.3.1"
-    force "androidx.versionedparcelable:versionedparcelable:1.1.0"
-    force "androidx.recyclerview:recyclerview:1.2.0-alpha02"
-
-    failOnVersionConflict()
-  }
-}
 
 android {
   buildFeatures {

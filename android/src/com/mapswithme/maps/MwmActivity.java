@@ -110,8 +110,6 @@ import com.mapswithme.util.log.Logger;
 import com.mapswithme.util.log.LoggerFactory;
 import com.mapswithme.util.permissions.PermissionsResult;
 
-import uk.co.samuelwall.materialtaptargetprompt.MaterialTapTargetPrompt;
-
 import java.util.Objects;
 import java.util.Stack;
 
@@ -134,7 +132,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
                PlacePageController.SlideListener,
                AlertDialogCallback, RoutingModeListener,
                AppBackgroundTracker.OnTransitionListener,
-               MaterialTapTargetPrompt.PromptStateChangeListener,
                OnIsolinesLayerToggleListener,
                NoConnectionListener,
                MapWidgetOffsetsProvider
@@ -1857,12 +1854,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
         .setPositiveButton(R.string.current_location_unknown_continue_button, continueClickListener)
         .setCancelable(false)
         .show();
-  }
-
-  @Override
-  public void onPromptStateChanged(@NonNull MaterialTapTargetPrompt prompt, int state)
-  {
-    // No op.
   }
 
   @Override
