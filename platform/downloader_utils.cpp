@@ -21,7 +21,7 @@ std::string const kDiffsPath = "diffs";
 namespace downloader
 {
 std::string GetFileDownloadUrl(std::string const & fileName, int64_t dataVersion,
-                               uint64_t diffVersion)
+                               uint64_t diffVersion /* = 0 */)
 {
   if (diffVersion == 0)
     return url::Join(kMapsPath, strings::to_string(dataVersion), url::UrlEncode(fileName));
