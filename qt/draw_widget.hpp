@@ -47,7 +47,6 @@ public Q_SLOTS:
 
   void ChoosePositionModeEnable();
   void ChoosePositionModeDisable();
-  void OnUpdateCountryStatusByTimer();
 
 public:
   DrawWidget(Framework & framework, bool apiOpenGLES3, std::unique_ptr<ScreenshotParams> && screenshotParams,
@@ -71,13 +70,6 @@ public:
   void SetRouter(routing::RouterType routerType);
 
   void SetRuler(bool enabled);
-
-  using TCurrentCountryChanged = std::function<void(storage::CountryId const &, std::string const &,
-                                                    storage::Status, uint64_t, uint8_t)>;
-  void SetCurrentCountryChangedListener(TCurrentCountryChanged const & listener);
-
-  void DownloadCountry(storage::CountryId const & countryId);
-  void RetryToDownloadCountry(storage::CountryId const & countryId);
 
   RouteMarkType GetRoutePointAddMode() const { return m_routePointAddMode; }
   void SetRoutePointAddMode(RouteMarkType mode) { m_routePointAddMode = mode; }
@@ -109,8 +101,6 @@ private:
   void SubmitBookmark(m2::PointD const & pt);
   void ShowPlacePage();
 
-  void UpdateCountryStatus(storage::CountryId const & countryId);
-
   void VisualizeMwmsBordersInRect(m2::RectD const & rect, bool withVertices,
                                   bool fromPackedPolygon, bool boundingBox);
 
@@ -120,9 +110,6 @@ private:
   QPoint m_rubberBandOrigin;
 
   bool m_emulatingLocation;
-
-  TCurrentCountryChanged m_currentCountryChanged;
-  storage::CountryId m_countryId;
 
 public:
   enum class SelectionMode

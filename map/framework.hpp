@@ -359,7 +359,7 @@ public:
   using TCurrentCountryChanged = std::function<void(storage::CountryId const &)>;
   storage::CountryId const & GetLastReportedCountry() { return m_lastReportedCountry; }
   /// Guarantees that listener is called in the main thread context.
-  void SetCurrentCountryChangedListener(TCurrentCountryChanged const & listener);
+  void SetCurrentCountryChangedListener(TCurrentCountryChanged listener);
 
   std::vector<std::string> GetRegionsCountryIdByRect(m2::RectD const & rect, bool rough) const;
   std::vector<MwmSet::MwmId> GetMwmsByRect(m2::RectD const & rect, bool rough) const;

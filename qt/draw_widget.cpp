@@ -108,70 +108,16 @@ DrawWidget::DrawWidget(Framework & framework, bool apiOpenGLES3, std::unique_ptr
   routingManager.SetRouteRecommendationListener(
       [this](RoutingManager::Recommendation r) { OnRouteRecommendation(r); });
 
-  m_framework.SetCurrentCountryChangedListener([this](storage::CountryId const & countryId) {
-    m_countryId = countryId;
-    UpdateCountryStatus(countryId);
-  });
-
   if (screenshotParams != nullptr)
   {
     m_ratio = screenshotParams->m_dpiScale;
     m_screenshoter = std::make_unique<Screenshoter>(*screenshotParams, m_framework, this);
   }
-  QTimer * countryStatusTimer = new QTimer(this);
-  VERIFY(connect(countryStatusTimer, SIGNAL(timeout()), this, SLOT(OnUpdateCountryStatusByTimer())), ());
-  countryStatusTimer->setSingleShot(false);
-  countryStatusTimer->start(1000);
 }
 
 DrawWidget::~DrawWidget()
 {
   delete m_rubberBand;
-}
-
-void DrawWidget::UpdateCountryStatus(storage::CountryId const & countryId)
-{
-  if (m_currentCountryChanged != nullptr)
-  {
-    std::string countryName = countryId;
-    auto status = m_framework.GetStorage().CountryStatusEx(countryId);
-
-    uint8_t percentage = 0;
-    downloader::Progress progress;
-    if (!countryId.empty())
-    {
-      storage::NodeAttrs nodeAttrs;
-      m_framework.GetStorage().GetNodeAttrs(countryId, nodeAttrs);
-      progress = nodeAttrs.m_downloadingProgress;
-      if (!progress.IsUnknown() && progress.m_bytesTotal != 0)
-        percentage = static_cast<int8_t>(100 * progress.m_bytesDownloaded / progress.m_bytesTotal);
-    }
-
-    m_currentCountryChanged(countryId, countryName, status, progress.m_bytesTotal, percentage);
-  }
-}
-
-void DrawWidget::OnUpdateCountryStatusByTimer()
-{
-  if (!m_countryId.empty())
-    UpdateCountryStatus(m_countryId);
-}
-
-void DrawWidget::SetCurrentCountryChangedListener(DrawWidget::TCurrentCountryChanged const & listener)
-{
-  m_currentCountryChanged = listener;
-}
-
-void DrawWidget::DownloadCountry(storage::CountryId const & countryId)
-{
-  m_framework.GetStorage().DownloadNode(countryId);
-  if (!m_countryId.empty())
-    UpdateCountryStatus(m_countryId);
-}
-
-void DrawWidget::RetryToDownloadCountry(storage::CountryId const & countryId)
-{
-  // TODO @bykoianko
 }
 
 void DrawWidget::PrepareShutdown()

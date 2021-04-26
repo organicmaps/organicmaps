@@ -80,7 +80,7 @@ public:
   static void SetDefaultSurfaceFormat(bool apiOpenGLES3);
 
 protected:
-  std::string GetIniFile();
+  Framework & GetFramework() const;
 
   void OnLocationError(location::TLocationError errorCode) override;
   void OnLocationUpdated(location::GpsInfo const & info) override;

@@ -588,19 +588,13 @@ void Storage::LoadCountriesFile(string const & pathToCountriesFile)
   }
 }
 
-int Storage::Subscribe(ChangeCountryFunction const & change, ProgressFunction const & progress)
+int Storage::Subscribe(ChangeCountryFunction change, ProgressFunction progress)
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());
 
-  CountryObservers obs;
-
-  obs.m_changeCountryFn = change;
-  obs.m_progressFn = progress;
-  obs.m_slotId = ++m_currentSlotId;
-
-  m_observers.push_back(obs);
-
-  return obs.m_slotId;
+  int const id = ++m_currentSlotId;
+  m_observers.push_back({ std::move(change), std::move(progress), id });
+  return id;
 }
 
 void Storage::Unsubscribe(int slotId)
