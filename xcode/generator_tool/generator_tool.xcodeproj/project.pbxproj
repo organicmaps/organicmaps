@@ -926,7 +926,6 @@
 					HAVE_PTHREAD,
 					"OMIM_UNIT_TEST_DISABLE_PLATFORM_INIT=1",
 				);
-				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				PRODUCT_NAME = generator_tests;
 				WARNING_CFLAGS = "-Wnull-conversion";
 			};
@@ -937,7 +936,6 @@
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "-";
 				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
-				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				PRODUCT_NAME = generator_tests;
 				WARNING_CFLAGS = "-Wnull-conversion";
 			};
@@ -993,7 +991,6 @@
 				CODE_SIGN_IDENTITY = "-";
 				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
 				GCC_PREFIX_HEADER = "$(OMIM_ROOT)/precompiled_headers.hpp";
-				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -1004,7 +1001,6 @@
 				CODE_SIGN_IDENTITY = "-";
 				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
 				GCC_PREFIX_HEADER = "$(OMIM_ROOT)/precompiled_headers.hpp";
-				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
@@ -1045,7 +1041,6 @@
 				CODE_SIGN_IDENTITY = "-";
 				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
 				GCC_PREFIX_HEADER = "$(OMIM_ROOT)/precompiled_headers.hpp";
-				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = "Production Full";
@@ -1055,7 +1050,6 @@
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "-";
 				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
-				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				PRODUCT_NAME = generator_tests;
 				WARNING_CFLAGS = "-Wnull-conversion";
 			};
