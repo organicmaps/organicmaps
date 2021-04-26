@@ -38,25 +38,23 @@ using namespace storage;
     _observers = [NSHashTable weakObjectsHashTable];
     NSHashTable *observers = _observers;
 
-    auto const &countryFunction = [observers](CountryId const & countryId) {
-      NSHashTable *observersCopy = [observers copy];
-      for (id<MWMStorageObserver> observer in observersCopy) {
-        [observer processCountryEvent:@(countryId.c_str())];
-      }
-    };
-
-    auto const &progressFunction = [observers](CountryId const & countryId, downloader::Progress const & progress) {
-      NSHashTable *observersCopy = [observers copy];
-      for (id<MWMStorageObserver> observer in observersCopy) {
-        if ([observer respondsToSelector:@selector(processCountry:downloadedBytes:totalBytes:)]) {
-          [observer processCountry:@(countryId.c_str())
-                   downloadedBytes:progress.m_bytesDownloaded
-                        totalBytes:progress.m_bytesTotal];
+    GetFramework().GetStorage().Subscribe(
+      [observers](CountryId const & countryId) {
+        for (id<MWMStorageObserver> observer in observers) {
+          [observer processCountryEvent:@(countryId.c_str())];
         }
-      }
-    };
-
-    GetFramework().GetStorage().Subscribe(countryFunction, progressFunction);
+      },
+      [observers](CountryId const & countryId, downloader::Progress const & progress) {
+        for (id<MWMStorageObserver> observer in observers) {
+          // processCountry function in observer's implementation may not exist.
+          /// @todo We can face with an invisible bug, if function's signature will be changed.
+          if ([observer respondsToSelector:@selector(processCountry:downloadedBytes:totalBytes:)]) {
+            [observer processCountry:@(countryId.c_str())
+                     downloadedBytes:progress.m_bytesDownloaded
+                          totalBytes:progress.m_bytesTotal];
+          }
+        }
+      });
   }
   return self;
 }
