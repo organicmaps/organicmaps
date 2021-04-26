@@ -45,25 +45,11 @@ buildscript {
   }
 }
 
-allprojects {
-  repositories {
-    google()
-    mavenCentral()
-    jcenter()
-  }
-}
-
 repositories {
-  maven {
-    url 'https://maven.fabric.io/public'
-  }
-  maven {
-    url 'https://s3.amazonaws.com/moat-sdk-builds'
-  }
-  maven { url 'https://www.jitpack.io' }
-  maven { url 'https://maven.google.com' }
-  maven { url 'https://dl.bintray.com/google/flexbox-layout/' }
-  maven { url 'https://dl.bintray.com/google/exoplayer/' }
+  google()
+  mavenCentral()
+  jcenter()
+  maven { url 'https://www.jitpack.io' } // MPAndroidChart
 }
 
 apply plugin: 'com.android.application'
@@ -103,12 +89,10 @@ dependencies {
 
   implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
   implementation 'androidx.work:work-runtime:2.5.0'
-  implementation 'com.google.android:flexbox:1.0.0'
   implementation 'com.trafi:anchor-bottom-sheet-behavior:0.13-alpha'
   implementation 'com.github.yoksnod:MPAndroidChart:3.2.0-alpha'
   implementation 'com.google.android.material:material:1.4.0-alpha02'
   implementation 'androidx.appcompat:appcompat:1.2.0'
-  implementation 'androidx.legacy:legacy-preference-v14:1.0.0'
   implementation 'androidx.preference:preference:1.1.1'
   implementation 'androidx.fragment:fragment:1.3.3'
   implementation 'androidx.recyclerview:recyclerview:1.2.0'
