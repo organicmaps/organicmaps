@@ -553,6 +553,11 @@ void MainWindow::CreateNavigationBar()
   addToolBar(Qt::RightToolBarArea, pToolBar);
 }
 
+Framework & MainWindow::GetFramework() const
+{
+  return m_pDrawWidget->GetFramework();
+}
+
 void MainWindow::CreateCountryStatusControls()
 {
   QHBoxLayout * mainLayout = new QHBoxLayout();
@@ -572,64 +577,69 @@ void MainWindow::CreateCountryStatusControls()
 
   m_pDrawWidget->setLayout(mainLayout);
 
-  m_pDrawWidget->SetCurrentCountryChangedListener([this](storage::CountryId const & countryId,
-                                                         std::string const & countryName,
-                                                         storage::Status status,
-                                                         uint64_t sizeInBytes, uint8_t progress) {
+  auto const OnCountryChanged = [this](storage::CountryId const & countryId)
+  {
+    m_downloadButton->setVisible(false);
+    m_retryButton->setVisible(false);
+    m_downloadingStatusLabel->setVisible(false);
+
     m_lastCountry = countryId;
-    if (m_lastCountry.empty() || status == storage::Status::OnDisk || status == storage::Status::OnDiskOutOfDate)
+    // Called by Framework in World zoom level.
+    if (countryId.empty())
+      return;
+
+    auto const & storage = GetFramework().GetStorage();
+    auto status = storage.CountryStatusEx(countryId);
+    auto const & countryName = countryId;
+
+    if (status == storage::Status::NotDownloaded)
     {
-      m_downloadButton->setVisible(false);
-      m_retryButton->setVisible(false);
-      m_downloadingStatusLabel->setVisible(false);
+      m_downloadButton->setVisible(true);
+
+      std::string units;
+      size_t sizeToDownload = 0;
+      FormatMapSize(storage.CountrySizeInBytes(countryId).second, units, sizeToDownload);
+      std::stringstream str;
+      str << "Download (" << countryName << ") " << sizeToDownload << units;
+      m_downloadButton->setText(str.str().c_str());
     }
-    else
+    else if (status == storage::Status::Downloading)
     {
-      if (status == storage::Status::NotDownloaded)
-      {
-        m_downloadButton->setVisible(true);
-        m_retryButton->setVisible(false);
-        m_downloadingStatusLabel->setVisible(false);
-
-        std::string units;
-        size_t sizeToDownload = 0;
-        FormatMapSize(sizeInBytes, units, sizeToDownload);
-        std::stringstream str;
-        str << "Download (" << countryName << ") " << sizeToDownload << units;
-        m_downloadButton->setText(str.str().c_str());
-      }
-      else if (status == storage::Status::Downloading)
-      {
-        m_downloadButton->setVisible(false);
-        m_retryButton->setVisible(false);
-        m_downloadingStatusLabel->setVisible(true);
-
-        std::stringstream str;
-        str << "Downloading (" << countryName << ") " << (int)progress << "%";
-        m_downloadingStatusLabel->setText(str.str().c_str());
-      }
-      else if (status == storage::Status::InQueue)
-      {
-        m_downloadButton->setVisible(false);
-        m_retryButton->setVisible(false);
-        m_downloadingStatusLabel->setVisible(true);
-
-        std::stringstream str;
-        str << countryName << " is waiting for downloading";
-        m_downloadingStatusLabel->setText(str.str().c_str());
-      }
-      else
-      {
-        m_downloadButton->setVisible(false);
-        m_retryButton->setVisible(true);
-        m_downloadingStatusLabel->setVisible(false);
-
-        std::stringstream str;
-        str << "Retry to download " << countryName;
-        m_retryButton->setText(str.str().c_str());
-      }
+      m_downloadingStatusLabel->setVisible(true);
     }
-  });
+    else if (status == storage::Status::InQueue)
+    {
+      m_downloadingStatusLabel->setVisible(true);
+
+      std::stringstream str;
+      str << countryName << " is waiting for downloading";
+      m_downloadingStatusLabel->setText(str.str().c_str());
+    }
+    else if (status != storage::Status::OnDisk && status != storage::Status::OnDiskOutOfDate)
+    {
+      m_retryButton->setVisible(true);
+
+      std::stringstream str;
+      str << "Retry to download " << countryName;
+      m_retryButton->setText(str.str().c_str());
+    }
+  };
+
+  GetFramework().SetCurrentCountryChangedListener(OnCountryChanged);
+
+  GetFramework().GetStorage().Subscribe(
+    [this, onChanged = std::move(OnCountryChanged)](storage::CountryId const & countryId)
+    {
+      // Storage also calls notifications for parents, but we are interested in leafs only.
+      if (GetFramework().GetStorage().IsLeaf(countryId))
+        onChanged(countryId);
+    },
+    [this](storage::CountryId const & countryId, downloader::Progress const & progress)
+    {
+      std::stringstream str;
+      str << "Downloading (" << countryId << ") " << progress.m_bytesDownloaded * 100 / progress.m_bytesTotal << "%";
+      m_downloadingStatusLabel->setText(str.str().c_str());
+    });
 }
 
 void MainWindow::OnAbout()
@@ -975,12 +985,12 @@ void MainWindow::closeEvent(QCloseEvent * e)
 
 void MainWindow::OnDownloadClicked()
 {
-  m_pDrawWidget->DownloadCountry(m_lastCountry);
+  GetFramework().GetStorage().DownloadNode(m_lastCountry);
 }
 
 void MainWindow::OnRetryDownloadClicked()
 {
-  m_pDrawWidget->RetryToDownloadCountry(m_lastCountry);
+  GetFramework().GetStorage().RetryDownloadNode(m_lastCountry);
 }
 
 void MainWindow::SetEnabledTraffic(bool enable)

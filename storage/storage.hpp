@@ -498,7 +498,7 @@ public:
 
   /// Guarantees that change and progress are called in the main thread context.
   /// @return unique identifier that should be used with Unsubscribe function
-  int Subscribe(ChangeCountryFunction const & change, ProgressFunction const & progress);
+  int Subscribe(ChangeCountryFunction change, ProgressFunction progress);
   void Unsubscribe(int slotId);
 
   /// Returns information about selected counties downloading progress.

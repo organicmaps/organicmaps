@@ -1144,9 +1144,9 @@ void Framework::OnUpdateCurrentCountry(m2::PointD const & pt, int zoomLevel)
   });
 }
 
-void Framework::SetCurrentCountryChangedListener(TCurrentCountryChanged const & listener)
+void Framework::SetCurrentCountryChangedListener(TCurrentCountryChanged listener)
 {
-  m_currentCountryChanged = listener;
+  m_currentCountryChanged = std::move(listener);
   m_lastReportedCountry = kInvalidCountryId;
 }
 
