@@ -369,7 +369,7 @@ android {
       dimension "default"
       versionName = android.defaultConfig.versionName + '-Web'
       buildConfigField 'String', 'SUPPORT_MAIL', '"apk@omaps.app"'
-      android.sourceSets.web.assets.srcDirs = ['flavors/mwm-ttf-assets']
+      //android.sourceSets.web.assets.srcDirs = ['flavors/mwm-ttf-assets']
     }
 
     fdroid {

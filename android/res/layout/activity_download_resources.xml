@@ -18,11 +18,6 @@
       android:layout_height="wrap_content"
       android:layout_gravity="center_vertical"
       android:orientation="vertical">
-      <androidx.appcompat.widget.AppCompatImageView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:srcCompat="@drawable/ic_download_map"
-        tools:ignore="ContentDescription" />
       <TextView
         android:id="@+id/head_message"
         style="?fontHeadline6"

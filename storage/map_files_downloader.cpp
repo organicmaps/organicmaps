@@ -2,6 +2,7 @@
 
 #include "storage/queued_country.hpp"
 
+#include "platform/downloader_utils.hpp"
 #include "platform/http_client.hpp"
 #include "platform/platform.hpp"
 #include "platform/servers_list.hpp"
@@ -71,8 +72,7 @@ void MapFilesDownloader::UnsubscribeAll()
 std::string MapFilesDownloader::MakeFullUrlLegacy(std::string const & baseUrl,
                                                   std::string const & fileName, int64_t dataVersion)
 {
-  return url::Join(baseUrl, OMIM_OS_NAME, strings::to_string(dataVersion),
-                           url::UrlEncode(fileName));
+  return url::Join(baseUrl, downloader::GetFileDownloadUrl(fileName, dataVersion));
 }
 
 void MapFilesDownloader::SetServersList(ServersList const & serversList)
