@@ -46,7 +46,6 @@ namespace storage
 {
 namespace
 {
-string const kUpdateQueueKey = "UpdateQueue";
 string const kDownloadQueueKey = "DownloadQueue";
 
 void DeleteCountryIndexes(LocalCountryFile const & localFile)
@@ -432,12 +431,9 @@ void Storage::SaveDownloadQueue()
 
 void Storage::RestoreDownloadQueue()
 {
-  string download, update;
-  // TODO(a): remove kUpdateQueueKey after 10.3 because we did switch to use kDownloadQueueKey only.
+  string download;
   settings::TryGet(kDownloadQueueKey, download);
-  settings::TryGet(kUpdateQueueKey, update);
-
-  if (download.empty() && update.empty())
+  if (download.empty())
     return;
 
   auto parse = [this](string const & token) {
@@ -461,7 +457,6 @@ void Storage::RestoreDownloadQueue()
   };
 
   parse(download);
-  parse(update);
 }
 
 void Storage::DownloadCountry(CountryId const & countryId, MapFileType type)
