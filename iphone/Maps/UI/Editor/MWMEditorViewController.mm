@@ -342,15 +342,15 @@ void registerCellsForTableView(std::vector<MWMEditorCellType> const & cells, UIT
   if (!cell)
   {
     cell = [NSBundle.mainBundle loadWithViewClass:cls owner:nil options:nil].firstObject;
-    self.offscreenCells[cls] = cell;
+    self.offscreenCells[(id<NSCopying>)cls] = cell;
   }
   return cell;
 }
 
 - (void)configTable
 {
-  self.offscreenCells = [NSMutableDictionary dictionary];
-  self.invalidCells = [NSMutableArray array];
+  [self.offscreenCells removeAllObjects];
+  [self.invalidCells removeAllObjects];
   m_sections.clear();
   m_cells.clear();
 
@@ -796,7 +796,7 @@ void registerCellsForTableView(std::vector<MWMEditorCellType> const & cells, UIT
 
 - (void)cell:(MWMNoteCell *)cell didChangeSizeAndText:(NSString *)text
 {
-  self.offscreenCells[cellClass(MWMEditorCellTypeNote)] = cell;
+  self.offscreenCells[(id<NSCopying>)cellClass(MWMEditorCellTypeNote)] = cell;
   self.note = text;
   [UIView setAnimationsEnabled:NO];
   [self.tableView refresh];
