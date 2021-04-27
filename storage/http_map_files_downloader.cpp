@@ -38,19 +38,15 @@ HttpMapFilesDownloader::~HttpMapFilesDownloader()
   CHECK_THREAD_CHECKER(m_checker, ());
 }
 
-void HttpMapFilesDownloader::Download(QueuedCountry & queuedCountry)
+void HttpMapFilesDownloader::Download(QueuedCountry && queuedCountry)
 {
   CHECK_THREAD_CHECKER(m_checker, ());
 
   m_queue.Append(std::move(queuedCountry));
 
-  if (m_queue.Count() != 1)
-    return;
-
-  for (auto const subscriber : m_subscribers)
-    subscriber->OnStartDownloading();
-
-  Download();
+  /// @todo Remain old behaviour, but why == 1?
+  if (m_queue.Count() == 1)
+    Download();
 }
 
 void HttpMapFilesDownloader::Download()
@@ -96,15 +92,8 @@ void HttpMapFilesDownloader::Remove(CountryId const & id)
 
   m_queue.Remove(id);
 
-  if (m_queue.IsEmpty())
-  {
-    for (auto const subscriber : m_subscribers)
-      subscriber->OnFinishDownloading();
-  }
-  else if (!m_request)
-  {
+  if (!m_queue.IsEmpty() && !m_request)
     Download();
-  }
 }
 
 void HttpMapFilesDownloader::Clear()
@@ -113,16 +102,8 @@ void HttpMapFilesDownloader::Clear()
 
   MapFilesDownloader::Clear();
 
-  auto needNotify = m_request != nullptr;
-
   m_request.reset();
   m_queue.Clear();
-
-  if (needNotify)
-  {
-    for (auto const subscriber : m_subscribers)
-      subscriber->OnFinishDownloading();
-  }
 }
 
 QueueInterface const & HttpMapFilesDownloader::GetQueue() const
@@ -151,14 +132,7 @@ void HttpMapFilesDownloader::OnMapFileDownloaded(QueuedCountry const & queuedCou
   m_request.reset();
 
   if (!m_queue.IsEmpty())
-  {
     Download();
-  }
-  else
-  {
-    for (auto const subscriber : m_subscribers)
-      subscriber->OnFinishDownloading();
-  }
 }
 
 void HttpMapFilesDownloader::OnMapFileDownloadingProgress(QueuedCountry const & queuedCountry,

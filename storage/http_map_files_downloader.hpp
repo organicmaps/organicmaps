@@ -30,7 +30,7 @@ public:
 
 private:
   // MapFilesDownloaderWithServerList overrides:
-  void Download(QueuedCountry & queuedCountry) override;
+  void Download(QueuedCountry && queuedCountry) override;
 
   void Download();
 

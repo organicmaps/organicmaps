@@ -41,7 +41,7 @@ public:
 
 private:
   // MapFilesDownloader overrides:
-  void Download(QueuedCountry & queuedCountry) override;
+  void Download(QueuedCountry && queuedCountry) override;
 
   void Download();
   void DownloadNextChunk(uint64_t requestId);

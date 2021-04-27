@@ -51,7 +51,6 @@
 @property(nonatomic, strong) NSURLSession *session;
 @property(nonatomic, strong) NSMutableDictionary *tasks;
 @property(nonatomic, strong) NSMutableDictionary *restoredTasks;
-@property(nonatomic, strong) NSHashTable *subscribers;
 @property(nonatomic, strong) MapFileSaveStrategy *saveStrategy;
 
 @end
@@ -78,7 +77,6 @@
     [configuration setSessionSendsLaunchEvents:YES];
     _session = [NSURLSession sessionWithConfiguration:configuration delegate:self delegateQueue:nil];
     _tasks = [NSMutableDictionary dictionary];
-    _subscribers = [NSHashTable weakObjectsHashTable];
     _saveStrategy = saveStrategy;
     _restoredTasks = [NSMutableDictionary dictionary];
 
@@ -118,14 +116,6 @@
   return self;
 }
 
-- (void)subscribe:(id<BackgroundDownloaderSubscriber>)subscriber {
-  [self.subscribers addObject:subscriber];
-}
-
-- (void)unsubscribe:(id<BackgroundDownloaderSubscriber>)subscriber {
-  [self.subscribers removeObject:subscriber];
-}
-
 - (NSUInteger)downloadWithUrl:(NSURL *)url
                    completion:(DownloadCompleteBlock)completion
                      progress:(DownloadProgressBlock)progress {
@@ -142,11 +132,6 @@
     [self.tasks setObject:info forKey:@(task.taskIdentifier)];
     [task resume];
     taskIdentifier = task.taskIdentifier;
-  }
-
-  if ([self.tasks count] == 1) {
-    for (id<BackgroundDownloaderSubscriber> subscriber in self.subscribers)
-      [subscriber didStartDownloading];
   }
 
   return taskIdentifier;
@@ -168,11 +153,6 @@
       }
     }
   }
-
-  if (needNotify && [self.tasks count] == 0) {
-    for (id<BackgroundDownloaderSubscriber> subscriber in self.subscribers)
-      [subscriber didFinishDownloading];
-  }
 }
 
 - (void)clear {
@@ -187,11 +167,6 @@
 
   [self.tasks removeAllObjects];
   [self.restoredTasks removeAllObjects];
-
-  if (needNotify) {
-    for (id<BackgroundDownloaderSubscriber> subscriber in self.subscribers)
-      [subscriber didFinishDownloading];
-  }
 }
 
 #pragma mark - NSURLSessionDownloadDelegate implementation
@@ -206,11 +181,6 @@
   info.completion(error);
 
   [self.tasks removeObjectForKey:@(downloadTask.taskIdentifier)];
-
-  if ([self.tasks count] == 0) {
-    for (id<BackgroundDownloaderSubscriber> subscriber in self.subscribers)
-      [subscriber didFinishDownloading];
-  }
 }
 
 - (void)URLSession:(NSURLSession *)session

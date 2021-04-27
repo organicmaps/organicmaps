@@ -27,12 +27,6 @@
 
 namespace storage
 {
-BackgroundDownloaderAdapter::BackgroundDownloaderAdapter()
-{
-  m_subscriberAdapter = [[SubscriberAdapter alloc] initWithSubscribers:m_subscribers];
-  BackgroundDownloader * downloader = [BackgroundDownloader sharedBackgroundMapDownloader];
-  [downloader subscribe:m_subscriberAdapter];
-}
 
 void BackgroundDownloaderAdapter::Remove(CountryId const & countryId)
 {
@@ -55,7 +49,7 @@ void BackgroundDownloaderAdapter::Clear()
   BackgroundDownloader * downloader = [BackgroundDownloader sharedBackgroundMapDownloader];
   [downloader clear];
   m_queue.Clear();
-};
+}
 
 QueueInterface const & BackgroundDownloaderAdapter::GetQueue() const
 {
@@ -65,25 +59,21 @@ QueueInterface const & BackgroundDownloaderAdapter::GetQueue() const
   return m_queue;
 }
 
-void BackgroundDownloaderAdapter::Download(QueuedCountry & queuedCountry)
+void BackgroundDownloaderAdapter::Download(QueuedCountry && queuedCountry)
 {
   if (!IsDownloadingAllowed())
   {
     queuedCountry.OnDownloadFinished(downloader::DownloadStatus::Failed);
-    if (m_queue.IsEmpty())
-    {
-      for (auto const & subscriber : m_subscribers)
-        subscriber->OnFinishDownloading();
-    }
     return;
   }
 
   auto const countryId = queuedCountry.GetCountryId();
   auto const urls = MakeUrlList(queuedCountry.GetRelativeUrl());
-  
+
+  auto const path = queuedCountry.GetFileDownloadPath();
   m_queue.Append(std::move(queuedCountry));
 
-  DownloadFromAnyUrl(countryId, queuedCountry.GetFileDownloadPath(), urls);
+  DownloadFromAnyUrl(countryId, path, urls);
 }
 
 void BackgroundDownloaderAdapter::DownloadFromAnyUrl(CountryId const & countryId,
@@ -132,4 +122,5 @@ std::unique_ptr<MapFilesDownloader> GetDownloader()
 {
   return std::make_unique<BackgroundDownloaderAdapter>();
 }
+
 }  // namespace storage

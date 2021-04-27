@@ -342,19 +342,6 @@ Java_com_mapswithme_maps_downloader_MapManager_nativeIsDownloading(JNIEnv * env,
   return static_cast<jboolean>(GetStorage().IsDownloadInProgress());
 }
 
-JNIEXPORT jstring JNICALL
-Java_com_mapswithme_maps_downloader_MapManager_nativeGetCurrentDownloadingCountryId(JNIEnv * env, jclass)
-{
-  auto const & downloadingCountries = GetStorage().GetCurrentDownloadingCountries();
-
-  if (downloadingCountries.empty())
-    return nullptr;
-
-  ASSERT_EQUAL(downloadingCountries.size(), 1, ());
-
-  return jni::ToJavaString(env, downloadingCountries.begin()->first);
-}
-
 static void StartBatchingCallbacks()
 {
   CHECK_THREAD_CHECKER(g_batchingThreadChecker, ("StartBatchingCallbacks"));

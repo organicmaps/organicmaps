@@ -385,9 +385,9 @@ Framework::Framework(FrameworkParams const & params)
   InitCityFinder();
 
   // Init storage with needed callback.
-  m_storage.Init(
-                 bind(&Framework::OnCountryFileDownloaded, this, _1, _2),
+  m_storage.Init(bind(&Framework::OnCountryFileDownloaded, this, _1, _2),
                  bind(&Framework::OnCountryFileDelete, this, _1, _2));
+
   m_storage.SetDownloadingPolicy(&m_storageDownloadingPolicy);
   m_storage.SetStartDownloadingCallback([this]() { UpdatePlacePageInfoForCurrentSelection(); });
   LOG(LDEBUG, ("Storage initialized"));
@@ -1943,13 +1943,13 @@ BookmarkManager const & Framework::GetBookmarkManager() const
   return *m_bmManager.get();
 }
 
-void Framework::SetPlacePageListeners(PlacePageEvent::OnOpen const & onOpen,
-                                      PlacePageEvent::OnClose const & onClose,
-                                      PlacePageEvent::OnUpdate const & onUpdate)
+void Framework::SetPlacePageListeners(PlacePageEvent::OnOpen onOpen,
+                                      PlacePageEvent::OnClose onClose,
+                                      PlacePageEvent::OnUpdate onUpdate)
 {
-  m_onPlacePageOpen = onOpen;
-  m_onPlacePageClose = onClose;
-  m_onPlacePageUpdate = onUpdate;
+  m_onPlacePageOpen = std::move(onOpen);
+  m_onPlacePageClose = std::move(onClose);
+  m_onPlacePageUpdate = std::move(onUpdate);
 }
 
 place_page::Info const & Framework::GetCurrentPlacePageInfo() const

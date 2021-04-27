@@ -343,9 +343,9 @@ public:
     using OnUpdate = std::function<void()>;
   };
 
-  void SetPlacePageListeners(PlacePageEvent::OnOpen const & onOpen,
-                             PlacePageEvent::OnClose const & onClose,
-                             PlacePageEvent::OnUpdate const & onUpdate);
+  void SetPlacePageListeners(PlacePageEvent::OnOpen onOpen,
+                             PlacePageEvent::OnClose onClose,
+                             PlacePageEvent::OnUpdate onUpdate);
   bool HasPlacePageInfo() const { return m_currentPlacePageInfo.has_value(); }
   place_page::Info const & GetCurrentPlacePageInfo() const;
   place_page::Info & GetCurrentPlacePageInfo();
