@@ -146,12 +146,10 @@ struct NodeStatuses
 // Downloading of only one mwm at a time is supported, so while the
 // mwm at the top of the queue is being downloaded (or updated by
 // applying a diff file) all other mwms have to wait.
-class Storage : public MapFilesDownloader::Subscriber,
-                public QueuedCountry::Subscriber
+class Storage final : public QueuedCountry::Subscriber
 {
 public:
   using StartDownloadingCallback = std::function<void()>;
-  using FinishDownloadingCallback = std::function<void()>;
   using UpdateCallback = std::function<void(storage::CountryId const &, LocalFilePtr const)>;
   using DeleteCallback = std::function<bool(storage::CountryId const &, LocalFilePtr const)>;
   using ChangeCountryFunction = std::function<void(CountryId const &)>;
@@ -300,7 +298,7 @@ public:
   Storage(std::string const & referenceCountriesTxtJsonForTesting,
           std::unique_ptr<MapFilesDownloader> mapDownloaderForTesting);
 
-  void Init(UpdateCallback const & didDownload, DeleteCallback const & willDelete);
+  void Init(UpdateCallback didDownload, DeleteCallback willDelete);
 
   void SetDownloadingPolicy(DownloadingPolicy * policy);
 
@@ -531,16 +529,14 @@ public:
   /// Notifies observers about country status change.
   void DeleteCustomCountryVersion(platform::LocalCountryFile const & localFile);
 
-  DownloadingCountries const & GetCurrentDownloadingCountries() const;
-
   bool IsDownloadInProgress() const;
 
   /// @param[out] res Populated with oudated countries.
   void GetOutdatedCountries(std::vector<Country const *> & countries) const;
 
   /// Sets and gets locale, which is used to get localized counries names
-  void SetLocale(std::string const & locale);
-  std::string GetLocale() const;
+  void SetLocale(std::string const & locale) { m_countryNameGetter.SetLocale(locale); }
+  std::string GetLocale() const { return m_countryNameGetter.GetLocale(); }
 
   MwmSize GetMaxMwmSizeBytes() const { return m_maxMwmSizeBytes; }
 
@@ -557,9 +553,8 @@ public:
 
   void SetStartDownloadingCallback(StartDownloadingCallback const & cb);
 
-  // MapFilesDownloader::Subscriber overrides:
-  void OnStartDownloading() override;
-  void OnFinishDownloading() override;
+protected:
+  void OnFinishDownloading();
 
 private:
   friend struct UnitClass_StorageTest_DeleteCountry;

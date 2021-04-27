@@ -21,19 +21,14 @@ FakeMapFilesDownloader::FakeMapFilesDownloader(TaskRunner & taskRunner)
 
 FakeMapFilesDownloader::~FakeMapFilesDownloader() { CHECK_THREAD_CHECKER(m_checker, ()); }
 
-void FakeMapFilesDownloader::Download(QueuedCountry & queuedCountry)
+void FakeMapFilesDownloader::Download(QueuedCountry && queuedCountry)
 {
   CHECK_THREAD_CHECKER(m_checker, ());
 
   m_queue.Append(std::move(queuedCountry));
 
-  if (m_queue.Count() != 1)
-    return;
-
-  for (auto const subscriber : m_subscribers)
-    subscriber->OnStartDownloading();
-
-  Download();
+  if (m_queue.Count() == 1)
+    Download();
 }
 
 void FakeMapFilesDownloader::Remove(CountryId const & id)
@@ -130,13 +125,6 @@ void FakeMapFilesDownloader::OnFileDownloaded(QueuedCountry const & queuedCountr
   m_taskRunner.PostTask([country, status]() { country.OnDownloadFinished(status); });
 
   if (!m_queue.IsEmpty())
-  {
     Download();
-  }
-  else
-  {
-    for (auto const subscriber : m_subscribers)
-      subscriber->OnFinishDownloading();
-  }
 }
 }  // namespace storage

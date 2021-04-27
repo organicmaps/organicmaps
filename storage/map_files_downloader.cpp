@@ -14,12 +14,11 @@
 
 namespace storage
 {
-
-void MapFilesDownloader::DownloadMapFile(QueuedCountry & queuedCountry)
+void MapFilesDownloader::DownloadMapFile(QueuedCountry && queuedCountry)
 {
   if (!m_serversList.empty())
   {
-    Download(queuedCountry);
+    Download(std::move(queuedCountry));
     return;
   }
 
@@ -31,7 +30,7 @@ void MapFilesDownloader::DownloadMapFile(QueuedCountry & queuedCountry)
     {
       m_pendingRequests.ForEachCountry([this](QueuedCountry & country)
       {
-        Download(country);
+        Download(std::move(country));
       });
 
       m_pendingRequests.Clear();
@@ -71,16 +70,6 @@ void MapFilesDownloader::Clear()
 QueueInterface const & MapFilesDownloader::GetQueue() const
 {
   return m_pendingRequests;
-}
-
-void MapFilesDownloader::Subscribe(Subscriber * subscriber)
-{
-  m_subscribers.push_back(subscriber);
-}
-
-void MapFilesDownloader::UnsubscribeAll()
-{
-  m_subscribers.clear();
 }
 
 // static

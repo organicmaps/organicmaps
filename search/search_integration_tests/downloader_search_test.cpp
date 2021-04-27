@@ -88,15 +88,14 @@ class TestMapFilesDownloader : public storage::MapFilesDownloader
 {
 public:
   // MapFilesDownloader overrides:
-  void Remove(storage::CountryId const & id) override {}
+  void Remove(storage::CountryId const &) override {}
   void Clear() override {}
 
   storage::QueueInterface const & GetQueue() const override { return m_queue; }
 
 private:
-  void GetServersList(ServersListCallback const & /* callback */) override {}
-
-  void Download(storage::QueuedCountry & queuedCountry) override {}
+  void GetServersList(ServersListCallback const &) override {}
+  void Download(storage::QueuedCountry &&) override {}
 
   storage::Queue m_queue;
 };

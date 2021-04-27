@@ -2,13 +2,6 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@protocol BackgroundDownloaderSubscriber
-
-- (void)didStartDownloading;
-- (void)didFinishDownloading;
-
-@end
-
 typedef void (^DownloadCompleteBlock)(NSError *_Nullable error);
 typedef void (^DownloadProgressBlock)(int64_t bytesWritten, int64_t bytesExpected);
 
@@ -18,9 +11,6 @@ typedef void (^DownloadProgressBlock)(int64_t bytesWritten, int64_t bytesExpecte
 @property(copy, nonatomic, nullable) void (^backgroundCompletionHandler)(void);
 
 + (BackgroundDownloader *)sharedBackgroundMapDownloader;
-
-- (void)subscribe:(id<BackgroundDownloaderSubscriber>)subscriber;
-- (void)unsubscribe:(id<BackgroundDownloaderSubscriber>)subscriber;
 
 - (NSUInteger)downloadWithUrl:(NSURL *)url
                    completion:(DownloadCompleteBlock)completion

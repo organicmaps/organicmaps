@@ -56,8 +56,6 @@ if (${PLATFORM_IPHONE})
     SRC
     background_downloading/downloader_adapter_ios.h
     background_downloading/downloader_adapter_ios.mm
-    background_downloading/downloader_subscriber_adapter_ios.h
-    background_downloading/downloader_subscriber_adapter_ios.mm
     background_downloading/downloader_queue_ios.hpp
     background_downloading/downloader_queue_ios.cpp
   )
