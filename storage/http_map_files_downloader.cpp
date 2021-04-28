@@ -44,7 +44,6 @@ void HttpMapFilesDownloader::Download(QueuedCountry && queuedCountry)
 
   m_queue.Append(std::move(queuedCountry));
 
-  /// @todo Remain old behaviour, but why == 1?
   if (m_queue.Count() == 1)
     Download();
 }

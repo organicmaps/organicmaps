@@ -62,12 +62,9 @@ string LocalCountryFile::GetPath(MapFileType type) const
 
 uint64_t LocalCountryFile::GetSize(MapFileType type) const
 {
-  ASSERT_LESS(base::Underlying(type), m_files.size(), ());
-
-  if (!m_files[base::Underlying(type)].has_value())
-    return 0;
-
-  return *m_files[base::Underlying(type)];
+  auto const ut = base::Underlying(type);
+  ASSERT_LESS(ut, m_files.size(), ());
+  return m_files[ut].value_or(0);
 }
 
 bool LocalCountryFile::HasFiles() const
