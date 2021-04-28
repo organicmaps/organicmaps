@@ -35,7 +35,7 @@
                     <rect key="frame" x="0.0" y="0.0" width="373" height="48"/>
                     <subviews>
                         <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="249" horizontalCompressionResistancePriority="751" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="No0-ld-JX3" userLabel="Search" customClass="MWMButton">
-                            <rect key="frame" x="0.0" y="0.0" width="74.5" height="48"/>
+                            <rect key="frame" x="74.5" y="0.0" width="74.5" height="48"/>
                             <accessibility key="accessibilityConfiguration" identifier="searchButton"/>
                             <state key="normal" image="ic_menu_search"/>
                             <userDefinedRuntimeAttributes>
@@ -46,7 +46,7 @@
                             </connections>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dzf-7Z-N6a" userLabel="P2P" customClass="MWMButton">
-                            <rect key="frame" x="74.5" y="0.0" width="74.5" height="48"/>
+                            <rect key="frame" x="0.0" y="0.0" width="74.5" height="48"/>
                             <accessibility key="accessibilityConfiguration" identifier="p2pButton"/>
                             <state key="normal" image="ic_menu_point_to_point"/>
                             <userDefinedRuntimeAttributes>
@@ -113,8 +113,8 @@
                         <constraint firstItem="dgG-ki-3tB" firstAttribute="centerY" secondItem="vum-s3-PHx" secondAttribute="centerY" id="JjT-sc-hIY"/>
                         <constraint firstItem="dzf-7Z-N6a" firstAttribute="width" secondItem="vum-s3-PHx" secondAttribute="width" multiplier="0.2" id="Kpo-Yp-UaG"/>
                         <constraint firstItem="lHY-LD-odP" firstAttribute="centerY" secondItem="vum-s3-PHx" secondAttribute="centerY" id="NkM-Gg-qtW"/>
-                        <constraint firstItem="No0-ld-JX3" firstAttribute="leading" secondItem="vum-s3-PHx" secondAttribute="leading" id="Q7C-0J-qf8"/>
-                        <constraint firstItem="dzf-7Z-N6a" firstAttribute="leading" secondItem="No0-ld-JX3" secondAttribute="trailing" id="RVj-Dx-wtX"/>
+                        <constraint firstItem="No0-ld-JX3" firstAttribute="leading" secondItem="dzf-7Z-N6a" secondAttribute="trailing" id="Q7C-0J-qf8"/>
+                        <constraint firstItem="dzf-7Z-N6a" firstAttribute="leading" secondItem="vum-s3-PHx" secondAttribute="leading" id="RVj-Dx-wtX"/>
                         <constraint firstItem="dgG-ki-3tB" firstAttribute="height" secondItem="vum-s3-PHx" secondAttribute="height" id="Rs8-Hl-CAc"/>
                         <constraint firstItem="uDI-ZC-4wx" firstAttribute="centerX" secondItem="svD-yi-GrZ" secondAttribute="centerX" constant="8" id="XNb-Ba-Hn7"/>
                         <constraint firstItem="dzf-7Z-N6a" firstAttribute="centerY" secondItem="vum-s3-PHx" secondAttribute="centerY" id="Zug-zY-KIX"/>
