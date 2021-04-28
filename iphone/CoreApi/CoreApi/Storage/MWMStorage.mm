@@ -273,6 +273,10 @@ using namespace storage;
   return [self attributesForCountry:@(GetFramework().GetStorage().GetRootId().c_str())];
 }
 
+- (NSString *)getRootId {
+  return @(GetFramework().GetStorage().GetRootId().c_str());
+}
+
 - (NSString *)nameForCountry:(NSString *)countryId {
   return @(GetFramework().GetStorage().GetNodeLocalName(countryId.UTF8String).c_str());
 }

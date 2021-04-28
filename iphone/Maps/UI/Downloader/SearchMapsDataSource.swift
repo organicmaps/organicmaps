@@ -27,6 +27,10 @@ extension SearchMapsDataSource: IDownloaderDataSource {
     1
   }
 
+  func getParentCountryId() -> String {
+    return Storage.shared().getRootId()
+  }
+
   func parentAttributes() -> MapNodeAttributes {
     return Storage.shared().attributesForRoot()
   }

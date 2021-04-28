@@ -54,6 +54,13 @@ extension DownloadedMapsDataSource: IDownloaderDataSource {
     searching
   }
 
+  func getParentCountryId() -> String {
+    if parentCountryId != nil {
+      return parentCountryId!
+    }
+    return Storage.shared().getRootId()
+  }
+
   func parentAttributes() -> MapNodeAttributes {
     guard let parentId = parentCountryId else {
       return Storage.shared().attributesForRoot()
