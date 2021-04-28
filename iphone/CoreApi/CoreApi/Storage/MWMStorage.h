@@ -58,6 +58,7 @@ ignoreUnsavedEdits:(BOOL)force
 - (NSArray<NSString *> *)downloadedCountriesWithParent:(NSString *)countryId;
 - (MWMMapNodeAttributes *)attributesForCountry:(NSString *)countryId;
 - (MWMMapNodeAttributes *)attributesForRoot;
+- (NSString *)getRootId;
 - (NSString *)nameForCountry:(NSString *)countryId;
 - (nullable NSArray<NSString *> *)nearbyAvailableCountries:(CLLocationCoordinate2D)location;
 - (MWMMapUpdateInfo *)updateInfoWithParent:(nullable NSString *)countryId;

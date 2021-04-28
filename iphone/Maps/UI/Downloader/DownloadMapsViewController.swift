@@ -228,7 +228,7 @@ class DownloadMapsViewController: MWMViewController {
   @objc func onAddMaps() {
     let vc = storyboard!.instantiateViewController(ofType: DownloadMapsViewController.self)
     if !dataSource.isRoot {
-      vc.dataSource = AvailableMapsDataSource(dataSource.parentAttributes().countryId)
+      vc.dataSource = AvailableMapsDataSource(dataSource.getParentCountryId())
     }
     vc.mode = .available
     navigationController?.pushViewController(vc, animated: true)
@@ -395,14 +395,14 @@ extension DownloadMapsViewController: MWMMapDownloaderTableViewCellDelegate {
 
 extension DownloadMapsViewController: StorageObserver {
   func processCountryEvent(_ countryId: String) {
-    if skipCountryEvent && countryId == dataSource.parentAttributes().countryId {
+    if skipCountryEvent && countryId == dataSource.getParentCountryId() {
       return
     }
     dataSource.reload {
       reloadData()
       noMapsContainer.isHidden = !dataSource.isEmpty || Storage.shared().downloadInProgress()
     }
-    if countryId == dataSource.parentAttributes().countryId {
+    if countryId == dataSource.getParentCountryId() {
       configButtons()
     }
 
@@ -421,8 +421,7 @@ extension DownloadMapsViewController: StorageObserver {
       downloaderCell.setDownloadProgress(CGFloat(downloadedBytes) / CGFloat(totalBytes))
     }
 
-    let parentAttributes = dataSource.parentAttributes()
-    if countryId == parentAttributes.countryId {
+    if countryId == dataSource.getParentCountryId() {
       downloadAllView.downloadProgress = CGFloat(downloadedBytes) / CGFloat(totalBytes)
       downloadAllView.downloadSize = totalBytes
     } else if dataSource.isRoot && dataSource is DownloadedMapsDataSource {
@@ -492,27 +491,30 @@ extension DownloadMapsViewController: DownloadAllViewDelegate {
 
   func onDownloadButtonPressed() {
     skipCountryEvent = true
+    let id = dataSource.getParentCountryId()
     if mode == .downloaded {
-      Storage.shared().updateNode(dataSource.parentAttributes().countryId)
+      Storage.shared().updateNode(id)
     } else {
-      Storage.shared().downloadNode(dataSource.parentAttributes().countryId)
+      Storage.shared().downloadNode(id)
     }
     skipCountryEvent = false
-    processCountryEvent(dataSource.parentAttributes().countryId)
+    processCountryEvent(id)
   }
 
   func onRetryButtonPressed() {
     skipCountryEvent = true
-    Storage.shared().retryDownloadNode(dataSource.parentAttributes().countryId)
+    let id = dataSource.getParentCountryId()
+    Storage.shared().retryDownloadNode(id)
     skipCountryEvent = false
-    processCountryEvent(dataSource.parentAttributes().countryId)
+    processCountryEvent(id)
   }
 
   func onCancelButtonPressed() {
     skipCountryEvent = true
-    Storage.shared().cancelDownloadNode(dataSource.parentAttributes().countryId)
+    let id = dataSource.getParentCountryId()
+    Storage.shared().cancelDownloadNode(id)
     skipCountryEvent = false
-    processCountryEvent(dataSource.parentAttributes().countryId)
+    processCountryEvent(id)
     reloadData()
   }
 }

@@ -3,6 +3,7 @@ protocol IDownloaderDataSource {
   var title: String { get }
   var isRoot: Bool { get }
   var isSearching: Bool { get }
+  func getParentCountryId() -> String
   func parentAttributes() -> MapNodeAttributes
   func numberOfSections() -> Int
   func numberOfItems(in section: Int) -> Int
