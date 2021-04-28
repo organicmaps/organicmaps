@@ -327,7 +327,7 @@ LocalAndRemoteSize Storage::CountrySizeInBytes(CountryId const & countryId) cons
 
   auto const it = m_downloadingCountries.find(countryId);
   if (it != m_downloadingCountries.cend())
-    sizes.first = it->second.m_bytesDownloaded + GetRemoteSize(countryFile);
+    sizes.first = it->second.m_bytesDownloaded;
 
   return sizes;
 }
@@ -604,9 +604,6 @@ void Storage::ReportProgressForHierarchy(CountryId const & countryId, Progress c
 {
   // Reporting progress for a leaf in country tree.
   ReportProgress(countryId, leafProgress);
-
-  // Reporting progress for the parents of the leaf with |countryId|.
-  auto const setQueue = GetQueuedCountries(m_downloader->GetQueue());
 
   auto calcProgress = [&](CountryId const & parentId, CountryTree::Node const & parentNode) {
     CountriesVec descendants;
