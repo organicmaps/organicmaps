@@ -523,7 +523,7 @@
 		470015E62342509C00EBF03D /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 1240;
+				LastUpgradeCheck = 1250;
 				ORGANIZATIONNAME = maps.me;
 				TargetAttributes = {
 					470015EE2342509C00EBF03D = {
@@ -537,6 +537,7 @@
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
+				Base,
 			);
 			mainGroup = 470015E52342509C00EBF03D;
 			productRefGroup = 470015F02342509C00EBF03D /* Products */;

@@ -624,11 +624,11 @@
 			};
 			buildConfigurationList = 6729A4EC1A691F6A007D5872 /* Build configuration list for PBXProject "drape" */;
 			compatibilityVersion = "Xcode 12.0";
-			developmentRegion = English;
+			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
-				English,
 				en,
+				Base,
 			);
 			mainGroup = 6729A4E81A691F6A007D5872;
 			productRefGroup = 6729A4F21A691F6A007D5872 /* Products */;
