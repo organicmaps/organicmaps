@@ -153,22 +153,6 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin XCBuildConfiguration section */
-		1D5C088120764D3900EFC411 /* Production Full */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				SKIP_INSTALL = YES;
-			};
-			name = "Production Full";
-		};
-		1D5C088220764D3900EFC411 /* Production Full */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 1D5F8AC42076182E00CAADFC /* common-release.xcconfig */;
-			buildSettings = {
-				GCC_WARN_INHIBIT_ALL_WARNINGS = YES;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-			};
-			name = "Production Full";
-		};
 		1D5F8AB3207616D300CAADFC /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -209,7 +193,6 @@
 			buildConfigurations = (
 				1D5F8AB3207616D300CAADFC /* Debug */,
 				1D5F8AB4207616D300CAADFC /* Release */,
-				1D5C088120764D3900EFC411 /* Production Full */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -219,7 +202,6 @@
 			buildConfigurations = (
 				1D5F8AB6207616D300CAADFC /* Debug */,
 				1D5F8AB7207616D300CAADFC /* Release */,
-				1D5C088220764D3900EFC411 /* Production Full */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

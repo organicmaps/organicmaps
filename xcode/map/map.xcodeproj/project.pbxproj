@@ -1059,15 +1059,6 @@
 			};
 			name = Release;
 		};
-		3DA571ED20C1921E007BDE27 /* Production Full */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CODE_SIGN_IDENTITY = "-";
-				PRODUCT_BUNDLE_IDENTIFIER = "maps.me.map-integration-tests";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-			};
-			name = "Production Full";
-		};
 		674A29E41B26FD1C001A525C /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -1164,54 +1155,6 @@
 			};
 			name = Release;
 		};
-		A8E541591F9FBDAC00A1B8FA /* Production Full */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 34AF87EA1DBE5AD000E5E7DC /* common-release.xcconfig */;
-			buildSettings = {
-				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
-				EXCLUDED_SOURCE_FILE_NAMES = "";
-				"EXCLUDED_SOURCE_FILE_NAMES[sdk=iphoneos*]" = "qgl_render_context.*";
-				"EXCLUDED_SOURCE_FILE_NAMES[sdk=iphonesimulator*]" = "qgl_render_context.*";
-				HEADER_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(QT_PATH)/include",
-					"$(OMIM_ROOT)/3party/freetype/include",
-					"$(OMIM_ROOT)/3party/expat/lib",
-					"$(OMIM_ROOT)/3party/glm",
-					"$(OMIM_ROOT)/3party/jansson/src",
-					"$(OMIM_ROOT)/3party/protobuf/protobuf/src",
-				);
-			};
-			name = "Production Full";
-		};
-		A8E5415A1F9FBDAC00A1B8FA /* Production Full */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				EXECUTABLE_PREFIX = lib;
-				GCC_PREFIX_HEADER = "$(OMIM_ROOT)/precompiled_headers.hpp";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				WARNING_CFLAGS = "-Wno-deprecated-register ";
-			};
-			name = "Production Full";
-		};
-		A8E5415B1F9FBDAC00A1B8FA /* Production Full */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CODE_SIGN_IDENTITY = "-";
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"$(inherited)",
-					"OMIM_UNIT_TEST_WITH_QT_EVENT_LOOP=1",
-				);
-				INFOPLIST_FILE = "";
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/../Frameworks",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = maps.me.map_tests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-			};
-			name = "Production Full";
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -1220,7 +1163,6 @@
 			buildConfigurations = (
 				3DA571EB20C1921E007BDE27 /* Debug */,
 				3DA571EC20C1921E007BDE27 /* Release */,
-				3DA571ED20C1921E007BDE27 /* Production Full */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -1230,7 +1172,6 @@
 			buildConfigurations = (
 				674A29E41B26FD1C001A525C /* Debug */,
 				674A29E51B26FD1C001A525C /* Release */,
-				A8E5415B1F9FBDAC00A1B8FA /* Production Full */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -1240,7 +1181,6 @@
 			buildConfigurations = (
 				675345C41A4054AD00A0A8C3 /* Debug */,
 				675345C51A4054AD00A0A8C3 /* Release */,
-				A8E541591F9FBDAC00A1B8FA /* Production Full */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -1250,7 +1190,6 @@
 			buildConfigurations = (
 				675345C71A4054AD00A0A8C3 /* Debug */,
 				675345C81A4054AD00A0A8C3 /* Release */,
-				A8E5415A1F9FBDAC00A1B8FA /* Production Full */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

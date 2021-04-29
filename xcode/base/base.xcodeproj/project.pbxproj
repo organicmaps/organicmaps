@@ -872,38 +872,6 @@
 			};
 			name = Release;
 		};
-		A8E5413D1F9FBD6300A1B8FA /* Production Full */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 34BA2D6B1DBE169E00FAB345 /* common-release.xcconfig */;
-			buildSettings = {
-				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
-				GCC_PREFIX_HEADER = "$(OMIM_ROOT)/precompiled_headers.hpp";
-			};
-			name = "Production Full";
-		};
-		A8E5413E1F9FBD6300A1B8FA /* Production Full */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				EXECUTABLE_PREFIX = lib;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-			};
-			name = "Production Full";
-		};
-		A8E5413F1F9FBD6300A1B8FA /* Production Full */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CODE_SIGN_IDENTITY = "-";
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"$(inherited)",
-					"OMIM_UNIT_TEST_DISABLE_PLATFORM_INIT=1",
-				);
-				INFOPLIST_FILE = "";
-				PRODUCT_BUNDLE_IDENTIFIER = maps.me.base_tests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				VALIDATE_PRODUCT = YES;
-			};
-			name = "Production Full";
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -912,7 +880,6 @@
 			buildConfigurations = (
 				39FD271C1CC65A7100AFF551 /* Debug */,
 				39FD271D1CC65A7100AFF551 /* Release */,
-				A8E5413F1F9FBD6300A1B8FA /* Production Full */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -922,7 +889,6 @@
 			buildConfigurations = (
 				675341801A3F57BF00A0A8C3 /* Debug */,
 				675341811A3F57BF00A0A8C3 /* Release */,
-				A8E5413D1F9FBD6300A1B8FA /* Production Full */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -932,7 +898,6 @@
 			buildConfigurations = (
 				675341831A3F57BF00A0A8C3 /* Debug */,
 				675341841A3F57BF00A0A8C3 /* Release */,
-				A8E5413E1F9FBD6300A1B8FA /* Production Full */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

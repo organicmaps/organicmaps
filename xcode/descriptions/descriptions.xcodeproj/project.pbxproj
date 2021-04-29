@@ -145,34 +145,6 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin XCBuildConfiguration section */
-		B7A5517A21CAFB4B00789B7E /* Production Full */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = BBD4574621A6D1B900B0A79C /* common-release.xcconfig */;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				CLANG_ANALYZER_NONNULL = YES;
-				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
-				CLANG_CXX_LIBRARY = "libc++";
-				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
-				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
-				MTL_ENABLE_DEBUG_INFO = NO;
-				MTL_FAST_MATH = YES;
-			};
-			name = "Production Full";
-		};
-		B7A5517B21CAFB4B00789B7E /* Production Full */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 3T6FSDE8C7;
-				EXECUTABLE_PREFIX = lib;
-				GCC_ENABLE_CPP_EXCEPTIONS = YES;
-				GCC_ENABLE_CPP_RTTI = YES;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SKIP_INSTALL = YES;
-			};
-			name = "Production Full";
-		};
 		BBD4571B21A6BD0400B0A79C /* Debug */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = BBD4574521A6D1B900B0A79C /* common-debug.xcconfig */;
@@ -242,7 +214,6 @@
 			buildConfigurations = (
 				BBD4571B21A6BD0400B0A79C /* Debug */,
 				BBD4571C21A6BD0400B0A79C /* Release */,
-				B7A5517A21CAFB4B00789B7E /* Production Full */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -252,7 +223,6 @@
 			buildConfigurations = (
 				BBD4571E21A6BD0400B0A79C /* Debug */,
 				BBD4571F21A6BD0400B0A79C /* Release */,
-				B7A5517B21CAFB4B00789B7E /* Production Full */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

@@ -353,33 +353,6 @@
 			};
 			name = Release;
 		};
-		A8E541681F9FBDD200A1B8FA /* Production Full */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 67BECB591DDA440100FC4E99 /* common-release.xcconfig */;
-			buildSettings = {
-				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
-			};
-			name = "Production Full";
-		};
-		A8E541691F9FBDD200A1B8FA /* Production Full */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				EXECUTABLE_PREFIX = lib;
-				GCC_PREFIX_HEADER = "$(OMIM_ROOT)/precompiled_headers.hpp";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-			};
-			name = "Production Full";
-		};
-		A8E5416A1F9FBDD200A1B8FA /* Production Full */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CODE_SIGN_IDENTITY = "-";
-				INFOPLIST_FILE = "";
-				PRODUCT_BUNDLE_IDENTIFIER = "mail.ru.traffic-tests";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-			};
-			name = "Production Full";
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -388,7 +361,6 @@
 			buildConfigurations = (
 				67BECB531DDA43B000FC4E99 /* Debug */,
 				67BECB541DDA43B000FC4E99 /* Release */,
-				A8E541681F9FBDD200A1B8FA /* Production Full */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -398,7 +370,6 @@
 			buildConfigurations = (
 				67BECB561DDA43B000FC4E99 /* Debug */,
 				67BECB571DDA43B000FC4E99 /* Release */,
-				A8E541691F9FBDD200A1B8FA /* Production Full */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -408,7 +379,6 @@
 			buildConfigurations = (
 				67BECB7C1DDA466800FC4E99 /* Debug */,
 				67BECB7D1DDA466800FC4E99 /* Release */,
-				A8E5416A1F9FBDD200A1B8FA /* Production Full */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

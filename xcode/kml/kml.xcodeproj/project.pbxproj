@@ -327,21 +327,6 @@
 			};
 			name = Release;
 		};
-		45E4558B205849F400D9F45E /* Production Full */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 45E45589205849DC00D9F45E /* common-release.xcconfig */;
-			buildSettings = {
-				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
-			};
-			name = "Production Full";
-		};
-		45E4558C205849F400D9F45E /* Production Full */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				GCC_PREFIX_HEADER = "$(OMIM_ROOT)/precompiled_headers.hpp";
-			};
-			name = "Production Full";
-		};
 		45E455FC20584DCC00D9F45E /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -358,14 +343,6 @@
 			};
 			name = Release;
 		};
-		45E455FE20584DCC00D9F45E /* Production Full */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CODE_SIGN_IDENTITY = "-";
-				INFOPLIST_FILE = "";
-			};
-			name = "Production Full";
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -374,7 +351,6 @@
 			buildConfigurations = (
 				45E45584205849A600D9F45E /* Debug */,
 				45E45585205849A600D9F45E /* Release */,
-				45E4558B205849F400D9F45E /* Production Full */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -384,7 +360,6 @@
 			buildConfigurations = (
 				45E45587205849A600D9F45E /* Debug */,
 				45E45588205849A600D9F45E /* Release */,
-				45E4558C205849F400D9F45E /* Production Full */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -394,7 +369,6 @@
 			buildConfigurations = (
 				45E455FC20584DCC00D9F45E /* Debug */,
 				45E455FD20584DCC00D9F45E /* Release */,
-				45E455FE20584DCC00D9F45E /* Production Full */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
