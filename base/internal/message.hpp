@@ -19,8 +19,6 @@
 #include <utility>
 #include <vector>
 
-#include <boost/circular_buffer.hpp>
-
 /// @name Declarations.
 //@{
 template <typename T> inline std::string DebugPrint(T const & t);
@@ -42,8 +40,6 @@ template <class Key, class Hash = std::hash<Key>, class Pred = std::equal_to<Key
 inline std::string DebugPrint(std::unordered_set<Key, Hash, Pred> const & v);
 template <class Key, class T, class Hash = std::hash<Key>, class Pred = std::equal_to<Key>>
 inline std::string DebugPrint(std::unordered_map<Key, T, Hash, Pred> const & v);
-
-template <typename T> inline std::string DebugPrint(boost::circular_buffer<T> const & v);
 //@}
 
 template <typename T> inline std::string DebugPrint(T const & t)
@@ -168,11 +164,6 @@ template <typename T> inline std::string DebugPrint(std::unique_ptr<T> const & v
   else
     out << DebugPrint("null");
   return out.str();
-}
-
-template <typename T> inline std::string DebugPrint(boost::circular_buffer<T> const & v)
-{
-  return DebugPrintSequence(v.begin(), v.end());
 }
 
 namespace base
