@@ -34,7 +34,7 @@
                                      &writeStream);
 
   NSDictionary * settings = @{
-#ifndef OMIM_PRODUCTION
+#ifndef RELEASE
                               (id)kCFStreamSSLValidatesCertificateChain : @NO,
 #endif
                               (id)kCFStreamSSLLevel : (id)kCFStreamSocketSecurityLevelNegotiatedSSL
@@ -101,7 +101,7 @@
     else
     {
       LOG(LERROR, ("An error has occurred on the read stream."));
-#ifdef OMIM_PRODUCTION
+#ifdef RELEASE
       LOG(LERROR, (self.inputStream.streamError));
 #else
       NSLog(@"%@", self.inputStream.streamError);
@@ -138,7 +138,7 @@
     else
     {
       LOG(LERROR, ("An error has occurred on the write stream."));
-#ifdef OMIM_PRODUCTION
+#ifdef RELEASE
       LOG(LERROR, (self.outputStream.streamError));
 #else
       NSLog(@"%@", self.outputStream.streamError);

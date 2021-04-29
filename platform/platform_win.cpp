@@ -57,7 +57,7 @@ Platform::Platform()
     m_resourcesDir = path + "\\data\\";
   else
   {
-#ifndef OMIM_PRODUCTION
+#ifndef RELEASE
     path.erase(path.find_last_of('\\'));
     path.erase(path.find_last_of('\\'));
     if (IsFileExistsByFullPath(path + "\\data\\"))
