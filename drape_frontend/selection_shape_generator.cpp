@@ -265,12 +265,13 @@ drape_ptr<RenderNode> SelectionShapeGenerator::GenerateSelectionGeometry(ref_ptr
 
   // Build geometry.
   std::vector<SelectionLineVertex> geometry;
-  geometry.reserve(segments.size() * 24);
+  size_t const segsCount = segments.size();
+  geometry.reserve(segsCount * 24);
   float length = 0.0f;
-  for (size_t i = 0; i < segments.size(); ++i)
+  for (size_t i = 0; i < segsCount; ++i)
   {
     UpdateNormals(&segments[i], (i > 0) ? &segments[i - 1] : nullptr,
-                  (i < static_cast<int>(segments.size()) - 1) ? &segments[i + 1] : nullptr);
+                  (i < segsCount - 1) ? &segments[i + 1] : nullptr);
 
     // Generate main geometry.
     m2::PointD const startPt = MapShape::ConvertToLocal(glsl::FromVec2(segments[i].m_points[StartPoint]),
@@ -308,7 +309,7 @@ drape_ptr<RenderNode> SelectionShapeGenerator::GenerateSelectionGeometry(ref_ptr
     geometry.emplace_back(endPivot, glsl::vec2(0, 0), colorCoord, glsl::vec3(length, 0, kCenter));
 
     // Generate joins.
-    if (segments[i].m_generateJoin && i < static_cast<int>(segments.size()) - 1)
+    if (segments[i].m_generateJoin && i < segsCount - 1)
     {
       glsl::vec2 const n1 = segments[i].m_hasLeftJoin[EndPoint] ? segments[i].m_leftNormals[EndPoint] :
                                                                   segments[i].m_rightNormals[EndPoint];
@@ -339,7 +340,7 @@ drape_ptr<RenderNode> SelectionShapeGenerator::GenerateSelectionGeometry(ref_ptr
                              true, geometry);
     }
 
-    if (i == static_cast<int>(segments.size()) - 1)
+    if (i == segsCount - 1)
     {
       std::vector<glsl::vec2> normals;
       normals.reserve(24);
