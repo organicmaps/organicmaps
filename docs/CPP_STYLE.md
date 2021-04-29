@@ -206,7 +206,7 @@ v = w * (x + z);
 
 ### Some useful macros:
 
-- `#ifdef DEBUG | RELEASE | OMIM_PRODUCTION`
+- `#ifdef DEBUG | RELEASE`
 - `#ifdef OMIM_OS_ANDROID | OMIM_OS_IPHONE | OMIM_OS_MAC` (and some other useful OS-related macros, see `std/target_os.hpp`)
 - Use `ASSERT(expression, (out message))` and `ASSERT_XXXXXX` macros often to check code validity in DEBUG builds
 - Use `CHECK(expression, (out message))` and `CHECK_XXXXXX` macros to check code validity in all builds
