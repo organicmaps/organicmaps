@@ -11,7 +11,6 @@ NSDictionary<NSString *, NSString *> * const kDeviceModelsBeforeMetalDriver = @{
   @"iPad1,1" : @"iPad WiFi",
   @"iPad1,2" : @"iPad GSM",
   @"iPad2,1" : @"iPad 2 WiFi",
-  @"iPad2,2" : @"iPad 2 CDMA",
   @"iPad2,2" : @"iPad 2 GSM",
   @"iPad2,3" : @"iPad 2 GSM EV-DO",
   @"iPad2,4" : @"iPad 2",

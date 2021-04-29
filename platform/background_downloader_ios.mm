@@ -138,7 +138,6 @@
 }
 
 - (void)cancelTaskWithIdentifier:(NSUInteger)taskIdentifier {
-  BOOL needNotify = [self.tasks count] > 0;
   TaskInfo *info = self.tasks[@(taskIdentifier)];
   if (info) {
     [info.task cancel];
@@ -156,7 +155,6 @@
 }
 
 - (void)clear {
-  BOOL needNotify = [self.tasks count] > 0;
   for (TaskInfo *info in self.tasks) {
     [info.task cancel];
   }
