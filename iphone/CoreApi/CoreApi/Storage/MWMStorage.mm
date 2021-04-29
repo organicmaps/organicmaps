@@ -40,7 +40,10 @@ using namespace storage;
 
     GetFramework().GetStorage().Subscribe(
       [observers](CountryId const & countryId) {
-        for (id<MWMStorageObserver> observer in observers) {
+        // A copy is created, because MWMMapDownloadDialog is unsubscribed inside this notification with
+        // NSGenericException', reason: '*** Collection <NSConcreteHashTable> was mutated while being enumerated.'
+        NSHashTable *observersCopy = [observers copy];
+        for (id<MWMStorageObserver> observer in observersCopy) {
           [observer processCountryEvent:@(countryId.c_str())];
         }
       },
