@@ -8,6 +8,16 @@ set(CMAKE_C_STANDARD 11)
 set(CMAKE_CXX_EXTENSIONS OFF)
 set(CMAKE_C_EXTENSIONS OFF)
 
+# Force colored errors and warnings for Ninja.
+if (CMAKE_GENERATOR MATCHES "Ninja" AND NOT (ENV{COLORS_DISABLE} EQUAL "1") )
+  if ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU")
+    add_compile_options (-fdiagnostics-color=always)
+  elseif ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "Clang" OR
+          "${CMAKE_CXX_COMPILER_ID}" STREQUAL "AppleClang")
+    add_compile_options (-fcolor-diagnostics)
+  endif()
+endif()
+
 get_filename_component(OMIM_ROOT . ABSOLUTE)
 
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${OMIM_ROOT}/cmake")
