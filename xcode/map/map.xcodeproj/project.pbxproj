@@ -25,7 +25,6 @@
 		3D0BBAE723F3EF2700A50354 /* libvulkan_wrapper.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3D0BBAE623F3EF2700A50354 /* libvulkan_wrapper.a */; };
 		3D0BBAE923F3EF4B00A50354 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3D0BBAE823F3EF4B00A50354 /* CoreLocation.framework */; };
 		3D0BBAEB23F3EF9D00A50354 /* libdescriptions.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3D0BBAEA23F3EF9D00A50354 /* libdescriptions.a */; };
-		3D0BBAED23F3EFBC00A50354 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3D0BBAEC23F3EFBC00A50354 /* Security.framework */; };
 		3D47B2C71F20EF06000828D2 /* displayed_categories_modifiers.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D47B2C51F20EF06000828D2 /* displayed_categories_modifiers.cpp */; };
 		3D47B2C81F20EF06000828D2 /* displayed_categories_modifiers.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 3D47B2C61F20EF06000828D2 /* displayed_categories_modifiers.hpp */; };
 		3D4E99821FB462B60025B48C /* everywhere_search_params.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 3D4E99801FB462B60025B48C /* everywhere_search_params.hpp */; };
@@ -85,7 +84,7 @@
 		45F6EE9E1FB1C77600019892 /* mwm_tree.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 45F6EE9B1FB1C77500019892 /* mwm_tree.hpp */; };
 		45F6EE9F1FB1C77600019892 /* search_api.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 45F6EE9C1FB1C77500019892 /* search_api.cpp */; };
 		4740185423F5BE8A00A93C81 /* minizip.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4740185323F5BE8A00A93C81 /* minizip.framework */; };
-		4740185523F5BE8B00A93C81 /* minizip.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 4740185323F5BE8A00A93C81 /* minizip.framework */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		4740185523F5BE8B00A93C81 /* minizip.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 4740185323F5BE8A00A93C81 /* minizip.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		475BD61B211C5FDC00E298C6 /* libshaders.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 475BD61A211C5FDC00E298C6 /* libshaders.a */; };
 		47A9D82220A19E9E00E4671B /* libopen_location_code.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 47A9D82120A19E9E00E4671B /* libopen_location_code.a */; };
 		47A9D82420A19EC300E4671B /* libkml.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 47A9D82320A19EC300E4671B /* libkml.a */; };
@@ -469,7 +468,6 @@
 				56DAC37223992491000BC50D /* libweb_api.a in Frameworks */,
 				56DAC3702399248B000BC50D /* libdescriptions.a in Frameworks */,
 				56DAC36E23992467000BC50D /* libvulkan_wrapper.a in Frameworks */,
-				3D0BBAED23F3EFBC00A50354 /* Security.framework in Frameworks */,
 				3D0BBAEB23F3EF9D00A50354 /* libdescriptions.a in Frameworks */,
 				3D0BBAE923F3EF4B00A50354 /* CoreLocation.framework in Frameworks */,
 				3D0BBAE723F3EF2700A50354 /* libvulkan_wrapper.a in Frameworks */,
@@ -920,7 +918,7 @@
 		675345B31A4054AD00A0A8C3 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0700;
+				LastUpgradeCheck = 1250;
 				TargetAttributes = {
 					3DA571D720C1921D007BDE27 = {
 						CreatedOnToolsVersion = 9.3.1;
@@ -935,10 +933,9 @@
 			};
 			buildConfigurationList = 675345B61A4054AD00A0A8C3 /* Build configuration list for PBXProject "map" */;
 			compatibilityVersion = "Xcode 12.0";
-			developmentRegion = English;
+			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
-				English,
 				en,
 				Base,
 			);
@@ -1047,6 +1044,7 @@
 		3DA571EB20C1921E007BDE27 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "-";
 				PRODUCT_BUNDLE_IDENTIFIER = "maps.me.map-integration-tests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -1055,6 +1053,7 @@
 		3DA571EC20C1921E007BDE27 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "-";
 				PRODUCT_BUNDLE_IDENTIFIER = "maps.me.map-integration-tests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -1063,6 +1062,7 @@
 		3DA571ED20C1921E007BDE27 /* Production Full */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "-";
 				PRODUCT_BUNDLE_IDENTIFIER = "maps.me.map-integration-tests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -1071,6 +1071,7 @@
 		674A29E41B26FD1C001A525C /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "-";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
 					"OMIM_UNIT_TEST_WITH_QT_EVENT_LOOP=1",
@@ -1088,6 +1089,7 @@
 		674A29E51B26FD1C001A525C /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "-";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
 					"OMIM_UNIT_TEST_WITH_QT_EVENT_LOOP=1",
@@ -1106,6 +1108,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 34AF87E91DBE5AD000E5E7DC /* common-debug.xcconfig */;
 			buildSettings = {
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				EXCLUDED_SOURCE_FILE_NAMES = "";
 				"EXCLUDED_SOURCE_FILE_NAMES[sdk=iphoneos*]" = "qgl_render_context.*";
 				"EXCLUDED_SOURCE_FILE_NAMES[sdk=iphonesimulator*]" = "qgl_render_context.*";
@@ -1125,6 +1128,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 34AF87EA1DBE5AD000E5E7DC /* common-release.xcconfig */;
 			buildSettings = {
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				EXCLUDED_SOURCE_FILE_NAMES = "";
 				"EXCLUDED_SOURCE_FILE_NAMES[sdk=iphoneos*]" = "qgl_render_context.*";
 				"EXCLUDED_SOURCE_FILE_NAMES[sdk=iphonesimulator*]" = "qgl_render_context.*";
@@ -1164,6 +1168,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 34AF87EA1DBE5AD000E5E7DC /* common-release.xcconfig */;
 			buildSettings = {
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				EXCLUDED_SOURCE_FILE_NAMES = "";
 				"EXCLUDED_SOURCE_FILE_NAMES[sdk=iphoneos*]" = "qgl_render_context.*";
 				"EXCLUDED_SOURCE_FILE_NAMES[sdk=iphonesimulator*]" = "qgl_render_context.*";
@@ -1192,6 +1197,7 @@
 		A8E5415B1F9FBDAC00A1B8FA /* Production Full */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "-";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
 					"OMIM_UNIT_TEST_WITH_QT_EVENT_LOOP=1",

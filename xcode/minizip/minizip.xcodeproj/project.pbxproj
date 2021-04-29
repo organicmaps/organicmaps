@@ -144,11 +144,11 @@
 			};
 			buildConfigurationList = 671F59071B87568D0032311E /* Build configuration list for PBXProject "minizip" */;
 			compatibilityVersion = "Xcode 3.2";
-			developmentRegion = English;
+			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
-				English,
 				en,
+				Base,
 			);
 			mainGroup = 671F59031B87568D0032311E;
 			productRefGroup = 671F590D1B87568D0032311E /* Products */;
