@@ -272,28 +272,6 @@
 			};
 			name = Release;
 		};
-		A8E5412E1F9FBD2700A1B8FA /* Production Full */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 34F558591DBF3D2E00A4FC11 /* common-release.xcconfig */;
-			buildSettings = {
-				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
-				GCC_WARN_INHIBIT_ALL_WARNINGS = YES;
-				HEADER_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(OMIM_ROOT)/3party/protobuf/protobuf/src",
-					"$(OMIM_ROOT)/3party/protobuf/",
-				);
-			};
-			name = "Production Full";
-		};
-		A8E5412F1F9FBD2700A1B8FA /* Production Full */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				EXECUTABLE_PREFIX = lib;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-			};
-			name = "Production Full";
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -302,7 +280,6 @@
 			buildConfigurations = (
 				670D04D61B0BAC210013A7AC /* Debug */,
 				670D04D71B0BAC210013A7AC /* Release */,
-				A8E5412E1F9FBD2700A1B8FA /* Production Full */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -312,7 +289,6 @@
 			buildConfigurations = (
 				670D04D91B0BAC210013A7AC /* Debug */,
 				670D04DA1B0BAC210013A7AC /* Release */,
-				A8E5412F1F9FBD2700A1B8FA /* Production Full */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

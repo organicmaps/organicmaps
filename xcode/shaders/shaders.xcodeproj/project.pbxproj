@@ -769,39 +769,6 @@
 			};
 			name = Release;
 		};
-		4566607D20E2552D0085E8C1 /* Production Full */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 4566607C20E254A60085E8C1 /* common-release.xcconfig */;
-			buildSettings = {
-				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
-				HEADER_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(OMIM_ROOT)",
-					"$(BOOST_ROOT)",
-					"$(OMIM_ROOT)/3party/glm",
-					"$(OMIM_ROOT)/3party/Vulkan-Headers/include",
-					"$(OMIM_ROOT)/3party/vulkan_wrapper",
-					"$(OMIM_ROOT)/3party/jansson/src",
-				);
-			};
-			name = "Production Full";
-		};
-		4566607E20E2552D0085E8C1 /* Production Full */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				"EXCLUDED_SOURCE_FILE_NAMES[sdk=iphonesimulator*]" = (
-					metal_program_params.mm,
-					metal_program_pool.mm,
-					program_manager_metal.mm,
-				);
-				"EXCLUDED_SOURCE_FILE_NAMES[sdk=macosx*]" = (
-					metal_program_params.mm,
-					metal_program_pool.mm,
-					program_manager_metal.mm,
-				);
-			};
-			name = "Production Full";
-		};
 		456660E920E25A3A0085E8C1 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -834,22 +801,6 @@
 			};
 			name = Release;
 		};
-		456660EB20E25A3A0085E8C1 /* Production Full */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CODE_SIGN_IDENTITY = "-";
-				FRAMEWORK_SEARCH_PATHS = "$(QT_PATH)/lib";
-				HEADER_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(OMIM_ROOT)",
-					"$(BOOST_ROOT)",
-					"$(OMIM_ROOT)/3party/glm",
-					"$(QT_PATH)/include",
-				);
-				INFOPLIST_FILE = "";
-			};
-			name = "Production Full";
-		};
 		4598438021394BE000F8CAB2 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -869,15 +820,6 @@
 			};
 			name = Release;
 		};
-		4598438221394BE000F8CAB2 /* Production Full */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				MTL_FAST_MATH = YES;
-				MTL_OPTIMIZATION_LEVEL = 3;
-				SUPPORTED_PLATFORMS = "macosx iphoneos";
-			};
-			name = "Production Full";
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -886,7 +828,6 @@
 			buildConfigurations = (
 				4566607520E254060085E8C1 /* Debug */,
 				4566607620E254060085E8C1 /* Release */,
-				4566607D20E2552D0085E8C1 /* Production Full */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -896,7 +837,6 @@
 			buildConfigurations = (
 				4566607820E254060085E8C1 /* Debug */,
 				4566607920E254060085E8C1 /* Release */,
-				4566607E20E2552D0085E8C1 /* Production Full */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -906,7 +846,6 @@
 			buildConfigurations = (
 				456660E920E25A3A0085E8C1 /* Debug */,
 				456660EA20E25A3A0085E8C1 /* Release */,
-				456660EB20E25A3A0085E8C1 /* Production Full */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -916,7 +855,6 @@
 			buildConfigurations = (
 				4598438021394BE000F8CAB2 /* Debug */,
 				4598438121394BE000F8CAB2 /* Release */,
-				4598438221394BE000F8CAB2 /* Production Full */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

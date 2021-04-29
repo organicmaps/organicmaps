@@ -979,110 +979,6 @@
 			};
 			name = Release;
 		};
-		A8E5410E1F9FBC4C00A1B8FA /* Production Full */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 34F558341DBF273C00A4FC11 /* common-release.xcconfig */;
-			buildSettings = {
-				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
-				"EXCLUDED_SOURCE_FILE_NAMES[sdk=iphoneos*]" = (
-					platform_mac.mm,
-					secure_storage_qt.cpp,
-					platform_qt.cpp,
-				);
-				"EXCLUDED_SOURCE_FILE_NAMES[sdk=iphonesimulator*]" = (
-					platform_mac.mm,
-					secure_storage_qt.cpp,
-					platform_qt.cpp,
-				);
-				"EXCLUDED_SOURCE_FILE_NAMES[sdk=macosx*]" = (
-					"ios_*",
-					platform_ios.mm,
-					secure_storage_ios.mm,
-				);
-				"FRAMEWORK_SEARCH_PATHS[sdk=iphoneos*]" = (
-					"$(inherited)",
-					"$(OMIM_ROOT)/iphone/Maps/3party/Carthage/Build/iOS",
-				);
-				"FRAMEWORK_SEARCH_PATHS[sdk=iphonesimulator*]" = (
-					"$(inherited)",
-					"$(OMIM_ROOT)/iphone/Maps/3party/Carthage/Build/iOS",
-				);
-				"FRAMEWORK_SEARCH_PATHS[sdk=macosx*]" = (
-					"$(inherited)",
-					"$(QT_PATH)/lib",
-					"$(OMIM_ROOT)/iphone/Maps/3party/Carthage/Build/Mac",
-				);
-				"HEADER_SEARCH_PATHS[sdk=iphoneos*]" = (
-					"$(inherited)",
-					"$(OMIM_ROOT)/iphone/Maps/3party/Carthage/Build/iOS/Alamofire.framework/Headers",
-					"$(OMIM_ROOT)/3party/jansson/src",
-				);
-				"HEADER_SEARCH_PATHS[sdk=iphonesimulator*]" = (
-					"$(inherited)",
-					"$(OMIM_ROOT)/iphone/Maps/3party/Carthage/Build/iOS/Alamofire.framework/Headers",
-					"$(OMIM_ROOT)/3party/jansson/src",
-				);
-				"HEADER_SEARCH_PATHS[sdk=macosx*]" = (
-					"$(inherited)",
-					"$(OMIM_ROOT)/iphone/Maps/3party/Carthage/Build/Mac/Alamofire.framework/Headers",
-					"$(OMIM_ROOT)/3party/jansson/src",
-					"$(QT_PATH)/include",
-				);
-				"LIBRARY_SEARCH_PATHS[sdk=iphoneos*]" = (
-					"$(inherited)",
-					"$(OMIM_ROOT)/iphone/Maps/3party/Carthage/Build/iOS",
-				);
-				"LIBRARY_SEARCH_PATHS[sdk=iphonesimulator*]" = (
-					"$(inherited)",
-					"$(OMIM_ROOT)/iphone/Maps/3party/Carthage/Build/iOS",
-				);
-				"LIBRARY_SEARCH_PATHS[sdk=macosx*]" = (
-					"$(inherited)",
-					"$(QT_PATH)/lib",
-					"$(OMIM_ROOT)/iphone/Maps/3party/Carthage/Build/Mac",
-				);
-			};
-			name = "Production Full";
-		};
-		A8E5410F1F9FBC4C00A1B8FA /* Production Full */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				EXECUTABLE_PREFIX = lib;
-				GCC_PREFIX_HEADER = "$(OMIM_ROOT)/precompiled_headers.hpp";
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_OBJC_BRIDGING_HEADER = "platform-Bridging-Header.h";
-			};
-			name = "Production Full";
-		};
-		A8E541101F9FBC4C00A1B8FA /* Production Full */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				EXECUTABLE_PREFIX = lib;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-			};
-			name = "Production Full";
-		};
-		A8E541111F9FBC4C00A1B8FA /* Production Full */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_IDENTITY = "-";
-				INFOPLIST_FILE = "";
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = "mail.ru.platform-tests";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-			};
-			name = "Production Full";
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -1091,7 +987,6 @@
 			buildConfigurations = (
 				675340F21C58C496002CF0D9 /* Debug */,
 				675340F31C58C496002CF0D9 /* Release */,
-				A8E541101F9FBC4C00A1B8FA /* Production Full */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -1101,7 +996,6 @@
 			buildConfigurations = (
 				675343811A3F5CF500A0A8C3 /* Debug */,
 				675343821A3F5CF500A0A8C3 /* Release */,
-				A8E5410E1F9FBC4C00A1B8FA /* Production Full */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -1111,7 +1005,6 @@
 			buildConfigurations = (
 				675343841A3F5CF500A0A8C3 /* Debug */,
 				675343851A3F5CF500A0A8C3 /* Release */,
-				A8E5410F1F9FBC4C00A1B8FA /* Production Full */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -1121,7 +1014,6 @@
 			buildConfigurations = (
 				678338931C6DE54700FD6263 /* Debug */,
 				678338941C6DE54700FD6263 /* Release */,
-				A8E541111F9FBC4C00A1B8FA /* Production Full */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

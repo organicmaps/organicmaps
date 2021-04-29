@@ -170,25 +170,6 @@
 			};
 			name = Release;
 		};
-		4577B27B21F2057700864FAC /* Production Full */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-			};
-			name = "Production Full";
-		};
-		4577B27C21F2057700864FAC /* Production Full */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 4577B27A21F2053900864FAC /* common-release.xcconfig */;
-			buildSettings = {
-				HEADER_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(OMIM_ROOT)",
-					"$(BOOST_ROOT)",
-					"$(OMIM_ROOT)/3party/Vulkan-Headers/include",
-				);
-			};
-			name = "Production Full";
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -197,7 +178,6 @@
 			buildConfigurations = (
 				4577B27421F2044300864FAC /* Debug */,
 				4577B27521F2044300864FAC /* Release */,
-				4577B27B21F2057700864FAC /* Production Full */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -207,7 +187,6 @@
 			buildConfigurations = (
 				4577B27721F2044300864FAC /* Debug */,
 				4577B27821F2044300864FAC /* Release */,
-				4577B27C21F2057700864FAC /* Production Full */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

@@ -197,29 +197,6 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin XCBuildConfiguration section */
-		344F7DDD201B681100CF5DFA /* Production Full */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 56EE14C81FE7F20A0036F20C /* common-release.xcconfig */;
-			buildSettings = {
-				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
-			};
-			name = "Production Full";
-		};
-		344F7DDE201B681100CF5DFA /* Production Full */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				EXECUTABLE_PREFIX = lib;
-				GCC_PREFIX_HEADER = "$(OMIM_ROOT)/precompiled_headers.hpp";
-				HEADER_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(OMIM_ROOT)",
-					"$(BOOST_ROOT)",
-					"$(OMIM_ROOT)/3party/jansson/src",
-				);
-				PRODUCT_NAME = "$(TARGET_NAME)";
-			};
-			name = "Production Full";
-		};
 		56D7F2FD1FE7F0F200D99E62 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 56EE14C71FE7F1FF0036F20C /* common-debug.xcconfig */;
@@ -274,7 +251,6 @@
 			buildConfigurations = (
 				56D7F2FD1FE7F0F200D99E62 /* Debug */,
 				56D7F2FE1FE7F0F200D99E62 /* Release */,
-				344F7DDD201B681100CF5DFA /* Production Full */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -284,7 +260,6 @@
 			buildConfigurations = (
 				56D7F3001FE7F0F200D99E62 /* Debug */,
 				56D7F3011FE7F0F200D99E62 /* Release */,
-				344F7DDE201B681100CF5DFA /* Production Full */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

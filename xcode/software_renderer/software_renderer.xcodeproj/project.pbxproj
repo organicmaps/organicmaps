@@ -328,7 +328,6 @@
 		};
 		453FEDE11F35E647005C1BB4 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 453FEDE31F35E6E4005C1BB4 /* common-debug.xcconfig */;
 			buildSettings = {
 				EXECUTABLE_PREFIX = lib;
 				GCC_ENABLE_CPP_EXCEPTIONS = YES;
@@ -339,7 +338,6 @@
 		};
 		453FEDE21F35E647005C1BB4 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 453FEDE41F35E6E4005C1BB4 /* common-release.xcconfig */;
 			buildSettings = {
 				EXECUTABLE_PREFIX = lib;
 				GCC_ENABLE_CPP_EXCEPTIONS = YES;
