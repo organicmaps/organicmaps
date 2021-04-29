@@ -1,5 +1,6 @@
-#!/bin/bash
-set -u -e
+#!/usr/bin/env bash
+
+set -eu
 
 OPT_DEBUG=
 OPT_RELEASE=
@@ -117,6 +118,15 @@ fi
 
 build()
 {
+  local MAKE_COMMAND=$(which ninja)
+  local CMAKE_GENERATOR=
+  if [ -z "$MAKE_COMMAND" ]; then
+    echo "Ninja is not found, using make instead"
+    MAKE_COMMAND="make -j $PROCESSES"
+  else
+    CMAKE_GENERATOR=-GNinja
+  fi
+
   CONF=$1
   if [ -n "$OPT_PATH" ]; then
     DIRNAME="$OPT_PATH/omim-build-$(echo "$CONF" | tr '[:upper:]' '[:lower:]')"
@@ -129,28 +139,19 @@ build()
     ln -s "$OMIM_PATH/data" "$DIRNAME/data"
   fi
   cd "$DIRNAME"
-  TMP_FILE="build_error.log"
   if [ -z "$OPT_DESIGNER" ]; then
     if [ -n "$OPT_STANDALONE" ]; then
-      "$CMAKE" "$OMIM_PATH" -DCMAKE_BUILD_TYPE="$CONF" \
+      "$CMAKE" "$CMAKE_GENERATOR" "$OMIM_PATH" -DCMAKE_BUILD_TYPE="$CONF" \
       -DBUILD_STANDALONE:bool=True ${CMAKE_CONFIG:-}
     else
-      "$CMAKE" "$OMIM_PATH" -DCMAKE_BUILD_TYPE="$CONF" ${CMAKE_CONFIG:-}
+      "$CMAKE" "$CMAKE_GENERATOR" "$OMIM_PATH" -DCMAKE_BUILD_TYPE="$CONF" ${CMAKE_CONFIG:-}
     fi
     echo ""
-    if ! make $OPT_TARGET -j $PROCESSES 2> "$TMP_FILE"; then
-      echo '--------------------'
-      cat "$TMP_FILE"
-      exit 1
-    fi
+    $MAKE_COMMAND $OPT_TARGET
   else
-    "$CMAKE" "$OMIM_PATH" -DCMAKE_BUILD_TYPE="$CONF" \
+    "$CMAKE" "$CMAKE_GENERATOR" "$OMIM_PATH" -DCMAKE_BUILD_TYPE="$CONF" \
     -DBUILD_DESIGNER:bool=True ${CMAKE_CONFIG:-}
-    if ! make package -j $PROCESSES 2> "$TMP_FILE"; then
-      echo '--------------------'
-      cat "$TMP_FILE"
-      exit 1
-    fi
+    $MAKE_COMMAND package
   fi
   if [ -n "$OPT_COMPILE_DATABASE" ]; then
     cp "$DIRNAME/compile_commands.json" "$OMIM_PATH"
