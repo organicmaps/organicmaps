@@ -67,7 +67,7 @@ UNIT_TEST(FifoCache)
     TEST_EQUAL(cache.GetMap(), expectedMap, ());
     list<Key> expectedList({2, 3, 1});
     boost::circular_buffer<Key> expectedCB(expectedList.cbegin(), expectedList.cend());
-    TEST_EQUAL(cache.GetFifo(), expectedCB, ());
+    TEST(cache.GetFifo() == expectedCB, ());
   }
 
   TEST_EQUAL(cache.GetValue(7), 7, ());
@@ -77,7 +77,7 @@ UNIT_TEST(FifoCache)
     TEST_EQUAL(cache.GetMap(), expectedMap, ());
     list<Key> expectedList({7, 2, 3});
     boost::circular_buffer<Key> expectedCB(expectedList.cbegin(), expectedList.cend());
-    TEST_EQUAL(cache.GetFifo(), expectedCB, ());
+    TEST(cache.GetFifo() == expectedCB, ());
   }
 }
 
