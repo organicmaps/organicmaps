@@ -40,8 +40,8 @@ private:
 
   using Programs = std::array<drape_ptr<dp::GpuProgram>,
                               static_cast<size_t>(Program::ProgramsCount)>;
-  Programs m_programs;
   drape_ptr<ProgramPool> m_pool;
+  Programs m_programs;
   drape_ptr<ProgramParamsSetter> m_paramsSetter;
 
   DECLARE_THREAD_CHECKER(m_threadChecker);
