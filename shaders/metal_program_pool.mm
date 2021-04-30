@@ -112,8 +112,8 @@ MTLVertexFormat GetFormatByDataType(MTLDataType dataType)
   case MTLDataTypeFloat2: return MTLVertexFormatFloat2;
   case MTLDataTypeFloat3: return MTLVertexFormatFloat3;
   case MTLDataTypeFloat4: return MTLVertexFormatFloat4;
+  default: CHECK(false, ("Unsupported vertex format."));
   }
-  CHECK(false, ("Unsupported vertex format."));
   return MTLVertexFormatInvalid;
 }
   
@@ -125,8 +125,8 @@ uint32_t GetSizeByDataType(MTLDataType dataType)
   case MTLDataTypeFloat2: return 2 * sizeof(float);
   case MTLDataTypeFloat3: return 3 * sizeof(float);
   case MTLDataTypeFloat4: return 4 * sizeof(float);
+  default: CHECK(false, ("Unsupported vertex format."));
   }
-  CHECK(false, ("Unsupported vertex format."));
   return 0;
 }
   
