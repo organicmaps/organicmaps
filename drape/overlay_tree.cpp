@@ -205,7 +205,7 @@ void OverlayTree::Add(ref_ptr<OverlayHandle> handle)
   ASSERT_GREATER_OR_EQUAL(handle->GetOverlayRank(), 0, ());
   size_t const rank = static_cast<size_t>(handle->GetOverlayRank());
   ASSERT_LESS(rank, m_handles.size(), ());
-  m_handles[rank].emplace_back(handle);
+  m_handles[rank].emplace_back(std::move(handle));
 }
 
 void OverlayTree::InsertHandle(ref_ptr<OverlayHandle> handle, int currentRank,
