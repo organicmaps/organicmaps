@@ -32,7 +32,8 @@ public:
   void Update(ScreenBase const & modelView);
   void CollectOverlayHandles(ref_ptr<OverlayTree> tree);
   bool HasOverlayHandles() const;
-  void RemoveOverlayHandles(ref_ptr<OverlayTree> tree);
+  //! \return true if tree completely invalidated and next call has no sense
+  bool RemoveOverlayHandles(ref_ptr<OverlayTree> tree);
   void SetOverlayVisibility(bool isVisible);
   void Render(ref_ptr<GraphicsContext> context, bool drawAsLine);
 

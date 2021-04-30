@@ -153,13 +153,17 @@ void OverlayTree::StartOverlayPlacing(ScreenBase const & screen, int zoomLevel)
   m_zoomLevel = zoomLevel;
 }
 
-void OverlayTree::Remove(ref_ptr<OverlayHandle> handle)
+bool OverlayTree::Remove(ref_ptr<OverlayHandle> handle)
 {
   if (m_frameCounter == kInvalidFrame)
-    return;
+    return true;
 
   if (m_handlesCache.find(handle) != m_handlesCache.end())
-    InvalidateOnNextFrame();
+  {
+    Clear();
+    return true;
+  }
+  return false;
 }
 
 void OverlayTree::Add(ref_ptr<OverlayHandle> handle)

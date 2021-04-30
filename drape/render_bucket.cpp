@@ -79,10 +79,14 @@ bool RenderBucket::HasOverlayHandles() const
   return !m_overlay.empty();
 }
 
-void RenderBucket::RemoveOverlayHandles(ref_ptr<OverlayTree> tree)
+bool RenderBucket::RemoveOverlayHandles(ref_ptr<OverlayTree> tree)
 {
   for (auto const & overlayHandle : m_overlay)
-    tree->Remove(make_ref(overlayHandle));
+  {
+    if (tree->Remove(make_ref(overlayHandle)))
+      return true;
+  }
+  return false;
 }
 
 void RenderBucket::SetOverlayVisibility(bool isVisible)
