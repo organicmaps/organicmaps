@@ -71,7 +71,8 @@ public:
 
   void StartOverlayPlacing(ScreenBase const & screen, int zoomLevel);
   void Add(ref_ptr<OverlayHandle> handle);
-  void Remove(ref_ptr<OverlayHandle> handle);
+  //! \return true if tree completely invalidated and next call has no sense
+  bool Remove(ref_ptr<OverlayHandle> handle);
   void EndOverlayPlacing();
 
   HandlesCache const & GetHandlesCache() const { return m_handlesCache; }

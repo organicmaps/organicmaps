@@ -60,7 +60,8 @@ bool RenderGroup::HasOverlayHandles() const
 void RenderGroup::RemoveOverlay(ref_ptr<dp::OverlayTree> tree)
 {
   for (auto & renderBucket : m_renderBuckets)
-    renderBucket->RemoveOverlayHandles(tree);
+    if (renderBucket->RemoveOverlayHandles(tree))
+      break;
 }
 
 void RenderGroup::SetOverlayVisibility(bool isVisible)
