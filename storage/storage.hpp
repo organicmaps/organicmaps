@@ -308,7 +308,7 @@ public:
   /// @{
   void RunCountriesCheckAsync();
   /// @return 0 If error.
-  int ParseIndexAndGetDataVersion(std::string const & index) const;
+  int64_t ParseIndexAndGetDataVersion(std::string const & index) const;
   void ApplyCountries(std::string const & countriesBuffer, Storage & storage);
   /// @}
 

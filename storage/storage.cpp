@@ -931,7 +931,7 @@ void Storage::RunCountriesCheckAsync()
   {
     LOG(LDEBUG, (SERVER_DATAVERSION_FILE, "downloaded"));
 
-    int const dataVersion = ParseIndexAndGetDataVersion(buffer);
+    int64_t const dataVersion = ParseIndexAndGetDataVersion(buffer);
     if (dataVersion <= m_currentVersion)
       return false;
 
@@ -965,7 +965,7 @@ void Storage::RunCountriesCheckAsync()
   }, false /* force reset */);
 }
 
-int Storage::ParseIndexAndGetDataVersion(std::string const & index) const
+int64_t Storage::ParseIndexAndGetDataVersion(std::string const & index) const
 {
   try
   {
@@ -977,8 +977,8 @@ int Storage::ParseIndexAndGetDataVersion(std::string const & index) const
       return 0;
 
     /// @todo Get correct value somehow ..
-    int const appVersion = 21042001;
-    int dataVersion = 0;
+    int64_t const appVersion = 21042001;
+    int64_t dataVersion = 0;
 
     size_t const count = json_array_size(root);
     for (size_t i = 0; i < count; ++i)
@@ -993,7 +993,7 @@ int Storage::ParseIndexAndGetDataVersion(std::string const & index) const
         int appVer;
         if (key && val && json_is_number(val) && strings::to_int(key, appVer))
         {
-          int const dataVer = json_integer_value(val);
+          int64_t const dataVer = json_integer_value(val);
           if (appVersion >= appVer && dataVersion < dataVer)
             dataVersion = dataVer;
         }

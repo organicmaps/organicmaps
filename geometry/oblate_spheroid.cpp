@@ -52,12 +52,12 @@ double GetDistance(ms::LatLon const & point1, ms::LatLon const & point2)
   double lambda = L;
   double lambdaPrev = std::numeric_limits<double>::max();
   int iterations = kIterations;
-  double sinSigma;
-  double cosSigma;
-  double sigma;
-  double cosAlphaSquare;
-  double cosDoubleSigmaMid;
-  double cosDoubleSigmaMidSquare;
+  double sinSigma = 1.;
+  double cosSigma = 0.;
+  double sigma = 0.;
+  double cosAlphaSquare = 0.;
+  double cosDoubleSigmaMid = 0.;
+  double cosDoubleSigmaMidSquare = 0.;
 
   while (iterations-- > 0 && !AlmostEqualAbs(lambda, lambdaPrev, kEps))
   {
