@@ -40,12 +40,6 @@ private:
   DepthLayer const m_depthLayer;
 };
 
-class RenderStateExtensionFactory
-{
-public:
-  static ref_ptr<RenderStateExtension> Get(DepthLayer depthLayer);
-};
-
 extern DepthLayer GetDepthLayer(dp::RenderState const & state);
 extern dp::RenderState CreateRenderState(gpu::Program program, DepthLayer depthLayer);
 
