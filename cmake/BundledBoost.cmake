@@ -63,7 +63,7 @@ endfunction()
 
 # End of functions.
 
-set(BOOST_VERSION 1.75)
+set(BOOST_VERSION 1.76)
 set(Boost_NO_SYSTEM_PATHS ON)
 set(BOOST_ROOT "${OMIM_ROOT}/3party/boost")
 set(BOOST_LIBRARYDIR "${BOOST_ROOT}/stage/lib")
