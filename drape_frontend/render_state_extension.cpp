@@ -2,22 +2,35 @@
 
 #include <array>
 
+namespace
+{
+using namespace df;
+
+std::array<RenderStateExtension, static_cast<size_t>(DepthLayer::LayersCount)> kStateExtensions = {
+    RenderStateExtension(DepthLayer::GeometryLayer),
+    RenderStateExtension(DepthLayer::Geometry3dLayer),
+    RenderStateExtension(DepthLayer::UserLineLayer),
+    RenderStateExtension(DepthLayer::OverlayLayer),
+    RenderStateExtension(DepthLayer::TransitSchemeLayer),
+    RenderStateExtension(DepthLayer::UserMarkLayer),
+    RenderStateExtension(DepthLayer::NavigationLayer),
+    RenderStateExtension(DepthLayer::RoutingBottomMarkLayer),
+    RenderStateExtension(DepthLayer::RoutingMarkLayer),
+    RenderStateExtension(DepthLayer::SearchMarkLayer),
+    RenderStateExtension(DepthLayer::GuiLayer)};
+
+struct RenderStateExtensionFactory
+{
+  static ref_ptr<RenderStateExtension> Get(DepthLayer depthLayer)
+  {
+    ASSERT_LESS(static_cast<size_t>(depthLayer), kStateExtensions.size(), ());
+    return make_ref(&kStateExtensions[static_cast<size_t>(depthLayer)]);
+  }
+};
+}  // namespace
+
 namespace df
 {
-std::array<drape_ptr<RenderStateExtension>, static_cast<size_t>(DepthLayer::LayersCount)> kStateExtensions = {
-    make_unique_dp<RenderStateExtension>(DepthLayer::GeometryLayer),
-    make_unique_dp<RenderStateExtension>(DepthLayer::Geometry3dLayer),
-    make_unique_dp<RenderStateExtension>(DepthLayer::UserLineLayer),
-    make_unique_dp<RenderStateExtension>(DepthLayer::OverlayLayer),
-    make_unique_dp<RenderStateExtension>(DepthLayer::TransitSchemeLayer),
-    make_unique_dp<RenderStateExtension>(DepthLayer::UserMarkLayer),
-    make_unique_dp<RenderStateExtension>(DepthLayer::NavigationLayer),
-    make_unique_dp<RenderStateExtension>(DepthLayer::RoutingBottomMarkLayer),
-    make_unique_dp<RenderStateExtension>(DepthLayer::RoutingMarkLayer),
-    make_unique_dp<RenderStateExtension>(DepthLayer::SearchMarkLayer),
-    make_unique_dp<RenderStateExtension>(DepthLayer::GuiLayer)
-};
-
 RenderStateExtension::RenderStateExtension(DepthLayer depthLayer)
   : m_depthLayer(depthLayer)
 {}
@@ -34,13 +47,6 @@ bool RenderStateExtension::Equal(ref_ptr<dp::BaseRenderStateExtension> other) co
   ASSERT(dynamic_cast<RenderStateExtension const *>(other.get()) != nullptr, ());
   auto const renderState = static_cast<RenderStateExtension const *>(other.get());
   return m_depthLayer == renderState->m_depthLayer;
-}
-
-// static
-ref_ptr<RenderStateExtension> RenderStateExtensionFactory::Get(DepthLayer depthLayer)
-{
-  ASSERT_LESS(static_cast<size_t>(depthLayer), kStateExtensions.size(), ());
-  return make_ref(kStateExtensions[static_cast<size_t>(depthLayer)]);
 }
 
 DepthLayer GetDepthLayer(dp::RenderState const & state)
