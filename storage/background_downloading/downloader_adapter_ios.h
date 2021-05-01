@@ -21,7 +21,7 @@ private:
 
   // Trying to download mwm from different servers recursively.
   void DownloadFromLastUrl(CountryId const & countryId, std::string const & downloadPath,
-                           std::vector<std::string> const & urls);
+                           std::vector<std::string> && urls);
 
   BackgroundDownloaderQueue<uint64_t> m_queue;
 };
