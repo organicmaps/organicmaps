@@ -62,7 +62,9 @@ class DownloaderAdapter extends RecyclerView.Adapter<DownloaderAdapter.ViewHolde
   private String mSearchQuery;
 
   private final List<CountryItem> mItems = new ArrayList<>();
-  private final Map<String, CountryItem> mCountryIndex = new HashMap<>();  // Country.id -> Country
+  // Core Country.id String -> List<CountryItem> mapping index for updateItem function.
+  // Use List, because we have multiple search results now for a single country.
+  private final Map<String, List<CountryItem>> mCountryIndex = new HashMap<>();
 
   private final SparseArray<String> mHeaders = new SparseArray<>();
   private final Stack<PathEntry> mPath = new Stack<>();  // Holds navigation history. The last element is the current level.
@@ -219,23 +221,24 @@ class DownloaderAdapter extends RecyclerView.Adapter<DownloaderAdapter.ViewHolde
   {
     private void updateItem(String countryId)
     {
-      CountryItem ci = mCountryIndex.get(countryId);
-      if (ci == null)
+      List<CountryItem> lst = mCountryIndex.get(countryId);
+      if (lst == null)
         return;
 
-      ci.update();
+      for (CountryItem ci : lst) {
+        ci.update();
 
-      LinearLayoutManager lm = (LinearLayoutManager) mRecycler.getLayoutManager();
-      int first = lm.findFirstVisibleItemPosition();
-      int last = lm.findLastVisibleItemPosition();
-      if (first == RecyclerView.NO_POSITION || last == RecyclerView.NO_POSITION)
-        return;
+        LinearLayoutManager lm = (LinearLayoutManager) mRecycler.getLayoutManager();
+        int first = lm.findFirstVisibleItemPosition();
+        int last = lm.findLastVisibleItemPosition();
+        if (first == RecyclerView.NO_POSITION || last == RecyclerView.NO_POSITION)
+          return;
 
-      for (int i = first; i <= last; i++)
-      {
-        ViewHolderWrapper vh = (ViewHolderWrapper) mRecycler.findViewHolderForAdapterPosition(i);
-        if (vh != null && vh.mKind == TYPE_COUNTRY && ((CountryItem) vh.mHolder.mItem).id.equals(countryId))
-          vh.mHolder.rebind();
+        for (int i = first; i <= last; i++) {
+          ViewHolderWrapper vh = (ViewHolderWrapper) mRecycler.findViewHolderForAdapterPosition(i);
+          if (vh != null && vh.mKind == TYPE_COUNTRY && ((CountryItem) vh.mHolder.mItem).id.equals(countryId))
+            vh.mHolder.rebind();
+        }
       }
     }
 
@@ -667,8 +670,16 @@ class DownloaderAdapter extends RecyclerView.Adapter<DownloaderAdapter.ViewHolde
     collectHeaders();
 
     mCountryIndex.clear();
-    for (CountryItem ci: mItems)
-      mCountryIndex.put(ci.id, ci);
+    for (CountryItem ci: mItems) {
+      List<CountryItem> lst = mCountryIndex.get(ci.id);
+      if (lst != null)
+        lst.add(ci);
+      else {
+        lst = new ArrayList<>();
+        lst.add(ci);
+        mCountryIndex.put(ci.id, lst);
+      }
+    }
 
     if (mItems.isEmpty())
       mFragment.setupPlaceholder();
