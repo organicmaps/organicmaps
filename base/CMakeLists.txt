@@ -70,8 +70,6 @@ set(
   stats.hpp
   stl_helpers.hpp
   stl_iterator.hpp
-  string_format.cpp
-  string_format.hpp
   string_utils.cpp
   string_utils.hpp
   strings_bundle.cpp

@@ -13,7 +13,6 @@
 
 #include "base/macros.hpp"
 #include "base/scope_guard.hpp"
-#include "base/string_format.hpp"
 
 #include <random>
 #include <sstream>
@@ -376,7 +375,7 @@ namespace
 string generatePartOfUrl(url_scheme::ApiPoint const & point)
 {
   stringstream stream;
-  stream << "&ll=" << strings::ToString(point.m_lat)  << "," << strings::ToString(point.m_lon)
+  stream << "&ll=" << std::to_string(point.m_lat)  << "," << std::to_string(point.m_lon)
          << "&n=" << point.m_name
          << "&id=" << point.m_id;
   return stream.str();
