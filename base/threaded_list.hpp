@@ -16,23 +16,15 @@ private:
 
   bool WaitNonEmpty(std::unique_lock<std::mutex> &lock)
   {
-    bool doFirstWait = true;
-
     while ((m_isEmpty = m_list.empty()))
     {
       if (IsCancelled())
         break;
 
-      if (doFirstWait)
-        doFirstWait = false;
-
       m_Cond.wait(lock);
     }
 
-    if (IsCancelled())
-      return true;
-
-    return false;
+    return IsCancelled();
   }
 public:
 
