@@ -1,6 +1,7 @@
 #include "drape/pointers.hpp"
 #include "base/logging.hpp"
 
+#if defined(TRACK_POINTERS)
 DpPointerTracker & DpPointerTracker::Instance()
 {
   static DpPointerTracker pointersTracker;
@@ -60,3 +61,4 @@ DpPointerTracker::TAlivePointers const & DpPointerTracker::GetAlivePointers() co
 {
   return m_alivePointers;
 }
+#endif

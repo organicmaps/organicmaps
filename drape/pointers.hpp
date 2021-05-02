@@ -3,10 +3,11 @@
 #include "drape/drape_diagnostics.hpp"
 
 #include "base/assert.hpp"
-#include "base/mutex.hpp"
 
-#include <map>
 #include <memory>
+
+#if defined(TRACK_POINTERS)
+#include <map>
 #include <mutex>
 #include <string>
 #include <type_traits>
@@ -55,7 +56,6 @@ public:
   }
 };
 
-#if defined(TRACK_POINTERS)
 template<typename T> using drape_ptr = std::unique_ptr<T, DpPointerDeleter>;
 #else
 template <typename T>
