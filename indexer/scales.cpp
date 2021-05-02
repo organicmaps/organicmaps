@@ -18,8 +18,9 @@ namespace scales
 
   double GetScaleLevelD(double ratio)
   {
-    double const level = min(static_cast<double>(GetUpperScale()), log(ratio) / log(2.0) + INITIAL_LEVEL);
-    return (level < 0.0 ? 0.0 : level);
+    double const level =
+        min(static_cast<double>(GetUpperScale()), std::log2(ratio) + INITIAL_LEVEL);
+    return level < 0.0 ? 0.0 : level;
   }
 
   double GetScaleLevelD(m2::RectD const & r)

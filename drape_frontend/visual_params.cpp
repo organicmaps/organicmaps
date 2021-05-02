@@ -203,7 +203,7 @@ int GetTileScaleBase(ScreenBase const & s)
 int GetTileScaleBase(m2::RectD const & r)
 {
   double const sz = std::max(r.SizeX(), r.SizeY());
-  return std::max(1, base::SignedRound(log(mercator::Bounds::kRangeX / sz) / log(2.0)));
+  return std::max(1, base::SignedRound(std::log2(mercator::Bounds::kRangeX / sz)));
 }
 
 double GetTileScaleBase(double drawScale)
@@ -213,7 +213,7 @@ double GetTileScaleBase(double drawScale)
 
 int GetTileScaleIncrement(uint32_t tileSize, double visualScale)
 {
-  return static_cast<int>(log(tileSize / 256.0 / visualScale) / log(2.0));
+  return static_cast<int>(std::log2(tileSize / 256.0 / visualScale));
 }
 
 int GetTileScaleIncrement()
@@ -256,7 +256,7 @@ uint32_t CalculateTileSize(uint32_t screenWidth, uint32_t screenHeight)
   // we're calculating the tileSize based on (maxSz > 1024 ? rounded : ceiled)
   // to the nearest power of two value of the maxSz
 
-  int const ceiledSz = 1 << static_cast<int>(ceil(log(double(maxSz + 1)) / log(2.0)));
+  int const ceiledSz = 1 << static_cast<int>(ceil(std::log2(double(maxSz + 1))));
   int res = 0;
 
   if (maxSz < 1024)
@@ -366,7 +366,6 @@ double GetZoomLevel(double screenScale)
   auto const pxLen = static_cast<double>(p.GetTileSize());
   auto const len = pxLen * screenScale;
   auto const factor = mercator::Bounds::kRangeX / len;
-  static double const kLog2 = log(2.0);
-  return base::Clamp(GetDrawTileScale(fabs(log(factor) / kLog2)), 1.0, scales::GetUpperStyleScale() + 1.0);
+  return base::Clamp(GetDrawTileScale(fabs(std::log2(factor))), 1.0, scales::GetUpperStyleScale() + 1.0);
 }
 }  // namespace df
