@@ -3,7 +3,7 @@
   url = git://github.com/omapsapp/osmctools.git
 [submodule "tools/kothic"]
   path = tools/kothic
-  url = git://github.com/omapsapp/kothic.git
+	url = git://github.com/organicmaps/kothic
 [submodule "tools/macdeployqtfix"]
   path = tools/macdeployqtfix
   url = git://github.com/aurelien-rainone/macdeployqtfix.git
