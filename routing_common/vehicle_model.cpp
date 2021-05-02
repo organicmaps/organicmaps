@@ -244,17 +244,7 @@ SpeedKMpH VehicleModel::GetSpeedWihtoutMaxspeed(FeatureType & f,
 
 bool VehicleModel::IsOneWay(FeatureType & f) const
 {
-  // It's a hotfix for release and this code shouldn't be merge to master.
-  // According to osm documentation on roundabout it's implied that roundabout is one way
-  // road execpt for rare cases. Only 0.3% (~1200) of roundabout in the world are two-way road.
-  // (https://wiki.openstreetmap.org/wiki/Tag:junction%3Droundabout)
-  // It should be processed on map generation stage together with other implied one way features
-  // rules like: motorway_link (if not set oneway == "no")
-  // motorway (if not set oneway == "no"). Please see
-  // https://github.com/organicmaps/organicmaps/blob/master/3party/osrm/osrm-backend/profiles/car.lua#L392
-  // for further details.
-  // TODO(@Zverik, @bykoianko) Please process the rules on map generation stage.
-  return HasOneWayType(feature::TypesHolder(f)) || ftypes::IsRoundAboutChecker::Instance()(f);
+  return HasOneWayType(feature::TypesHolder(f));
 }
 
 bool VehicleModel::HasOneWayType(feature::TypesHolder const & types) const
