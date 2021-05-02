@@ -6,7 +6,7 @@ export PYTHONDONTWRITEBYTECODE=1
 
 OMIM_PATH="${OMIM_PATH:-$(cd "$(dirname "$0")/../.."; pwd)}"
 OUT_PATH="$OMIM_PATH/out/release"
-SKIN_GENERATOR="$OUT_PATH/skin_generator_tool"
+SKIN_GENERATOR="${SKIN_GENERATOR:-$OUT_PATH/skin_generator_tool}"
 DATA_PATH="$OMIM_PATH/data"
 
 # If skin_generator does not exist then build it
