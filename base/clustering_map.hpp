@@ -3,7 +3,6 @@
 #include "base/assert.hpp"
 
 #include <cstddef>
-#include <functional>
 #include <iterator>
 #include <unordered_map>
 #include <utility>

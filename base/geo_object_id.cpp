@@ -2,7 +2,6 @@
 
 #include "base/assert.hpp"
 
-#include <iostream>
 #include <sstream>
 
 namespace
