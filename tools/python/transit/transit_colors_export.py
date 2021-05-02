@@ -1,4 +1,4 @@
-#!/usr/bin/env python2.7
+#!/usr/bin/env python3
 # It exports all transits colors to colors.txt file.
 import argparse
 import json
@@ -24,7 +24,7 @@ if __name__ == '__main__':
     fields = ['clear', 'night', 'text', 'text_night']
     with open(args.colors, 'r') as colors_file:
         tr_colors = json.load(colors_file)
-        for name, color_info in tr_colors['colors'].iteritems():
+        for name, color_info in tr_colors['colors'].items():
             for field in fields:
                 if field in color_info:
                     colors.add(int(color_info[field], 16))

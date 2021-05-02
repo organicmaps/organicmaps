@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/env python3
 # Compares two drules files and produces a merged result.
 # Also prints differences (missing things in drules1) to stdout.
 import sys, re
@@ -45,13 +45,13 @@ def add_missing_zooms(dest, typ, source, target, high):
     scales = (source.scale, target.scale)
 
   if scales[1] < scales[0]:
-    print "{}: missing {} {}".format(typ, 'high' if high else 'low', zooms_string(scales[1], scales[0] - 1))
+    print("{}: missing {} {}".format(typ, 'high' if high else 'low', zooms_string(scales[1], scales[0] - 1)))
     for z in range(scales[1], scales[0]):
       fix = copy.deepcopy(source)
       fix.scale = z
       dest[typ].append(fix)
   elif scales[1] > scales[0]:
-    print "{}: extra {} {}".format(typ, 'high' if high else 'low', zooms_string(scales[0], scales[1] - 1))
+    print("{}: extra {} {}".format(typ, 'high' if high else 'low', zooms_string(scales[0], scales[1] - 1)))
 
 def create_diff(zooms1, zooms2):
   """Calculates difference between zoom dicts, and returns a tuple:
@@ -67,11 +67,11 @@ def create_diff(zooms1, zooms2):
       add_missing_zooms(add_elements_low,  typ, zooms1[typ][0], zooms2[typ][0], False)
       add_missing_zooms(add_elements_high, typ, zooms1[typ][1], zooms2[typ][1], True)
     else:
-      print "{}: not found in the alternative style; {}".format(typ, zooms_string(zooms1[typ][0].scale, zooms1[typ][1].scale))
+      print("{}: not found in the alternative style; {}".format(typ, zooms_string(zooms1[typ][0].scale, zooms1[typ][1].scale)))
 
   add_types = []
   for typ in sorted(seen):
-    print "{}: missing completely; {}".format(typ, zooms_string(zooms2[typ][0].scale, zooms2[typ][1].scale))
+    print("{}: missing completely; {}".format(typ, zooms_string(zooms2[typ][0].scale, zooms2[typ][1].scale)))
     cont = drules_struct_pb2.ClassifElementProto()
     cont.name = typ
     for z in range(zooms2[typ][0].scale, zooms2[typ][1].scale):
@@ -106,13 +106,13 @@ def apply_diff(drules, diff):
 
 if __name__ == '__main__':
   if len(sys.argv) <= 3:
-    print 'Usage: {} <drules1.bin> <drules2.bin> <drules_out.bin> [drules_out.txt]'.format(sys.argv[0])
+    print('Usage: {} <drules1.bin> <drules2.bin> <drules_out.bin> [drules_out.txt]'.format(sys.argv[0]))
     sys.exit(1)
 
   drules1 = drules_struct_pb2.ContainerProto()
-  drules1.ParseFromString(open(sys.argv[1]).read())
+  drules1.ParseFromString(open(sys.argv[1], mode='rb').read())
   drules2 = drules_struct_pb2.ContainerProto()
-  drules2.ParseFromString(open(sys.argv[2]).read())
+  drules2.ParseFromString(open(sys.argv[2], mode='rb').read())
 
   zooms1 = read_drules(drules1)
   zooms2 = read_drules(drules2)
@@ -123,4 +123,4 @@ if __name__ == '__main__':
     f.write(merged.SerializeToString())
   if len(sys.argv) > 4:
     with open(sys.argv[4], 'wb') as f:
-      f.write(unicode(merged))
+      f.write(str(merged).encode('utf-8'))
