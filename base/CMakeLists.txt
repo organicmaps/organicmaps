@@ -17,8 +17,6 @@ set(
   checked_cast.hpp
   clustering_map.hpp
   collection_cast.hpp
-  condition.cpp
-  condition.hpp
   control_flow.hpp
   deferred_task.cpp
   deferred_task.hpp
@@ -47,7 +45,6 @@ set(
   math.hpp
   matrix.hpp
   mem_trie.hpp
-  mutex.hpp
   newtype.hpp
   normalize_unicode.cpp
   non_intersecting_intervals.hpp

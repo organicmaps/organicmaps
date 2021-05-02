@@ -5,8 +5,6 @@
 #include "drape/drape_diagnostics.hpp"
 #include "drape/pointers.hpp"
 
-#include "base/condition.hpp"
-
 #include <condition_variable>
 #include <deque>
 #include <functional>

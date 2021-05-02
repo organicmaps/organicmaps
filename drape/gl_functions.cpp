@@ -5,7 +5,6 @@
 #include "base/assert.hpp"
 #include "base/logging.hpp"
 #include "base/macros.hpp"
-#include "base/mutex.hpp"
 #include "base/string_utils.hpp"
 
 #include "std/target_os.hpp"

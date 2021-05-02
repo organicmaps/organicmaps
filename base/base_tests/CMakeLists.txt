@@ -14,7 +14,6 @@ set(
   checked_cast_tests.cpp
   clustering_map_tests.cpp
   collection_cast_test.cpp
-  condition_test.cpp
   containers_test.cpp
   control_flow_tests.cpp
   exception_tests.cpp
