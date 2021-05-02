@@ -566,67 +566,9 @@ WARN_UNUSED_RESULT inline bool to_any(std::string const & s, std::string & resul
   return true;
 }
 
-namespace impl
-{
-template <typename T>
-int UpperBoundOnChars()
-{
-  // It's wrong to return just numeric_limits<T>::digits10 + [is
-  // signed] because digits10 for a type T is computed as:
-  //
-  // floor(log10(2 ^ (CHAR_BITS * sizeof(T)))) =
-  // floor(CHAR_BITS * sizeof(T) * log10(2))
-  //
-  // Therefore, due to rounding, we need to compensate possible
-  // error.
-  //
-  // NOTE: following code works only on two-complement systems!
-
-  return std::numeric_limits<T>::digits10 + std::is_signed<T>::value + 1;
-}
-
-template <typename T>
-char * to_string_digits(char * buf, T i)
-{
-  do
-  {
-    --buf;
-    *buf = static_cast<char>(i % 10) + '0';
-    i = i / 10;
-  } while (i != 0);
-  return buf;
-}
-
-template <typename T>
-std::string to_string_signed(T i)
-{
-  bool const negative = i < 0;
-  int const sz = UpperBoundOnChars<T>();
-  char buf[sz];
-  char * end = buf + sz;
-  char * beg = to_string_digits(end, negative ? -i : i);
-  if (negative)
-  {
-    --beg;
-    *beg = '-';
-  }
-  return std::string(beg, end - beg);
-}
-
-template <typename T>
-std::string to_string_unsigned(T i)
-{
-  int const sz = UpperBoundOnChars<T>();
-  char buf[sz];
-  char * end = buf + sz;
-  char * beg = to_string_digits(end, i);
-  return std::string(beg, end - beg);
-}
-}  // namespace impl
-
-inline std::string to_string(int32_t i) { return impl::to_string_signed(i); }
-inline std::string to_string(int64_t i) { return impl::to_string_signed(i); }
-inline std::string to_string(uint64_t i) { return impl::to_string_unsigned(i); }
+inline std::string to_string(int32_t i) { return std::to_string(i); }
+inline std::string to_string(int64_t i) { return std::to_string(i); }
+inline std::string to_string(uint64_t i) { return std::to_string(i); }
 /// Use this function to get string with fixed count of
 /// "Digits after comma".
 std::string to_string_dac(double d, int dac);
