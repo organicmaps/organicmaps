@@ -66,11 +66,16 @@ set(
   tree4d.hpp
   triangle2d.cpp
   triangle2d.hpp
-
-  region2d/binary_operators.cpp
-  region2d/binary_operators.hpp
-  region2d/boost_concept.hpp
 )
+
+if (NOT PLATFORM_IPHONE AND NOT PLATFORM_ANDROID)
+  append(
+    SRC
+    region2d/binary_operators.cpp
+    region2d/binary_operators.hpp
+    region2d/boost_concept.hpp
+  )
+endif()
 
 omim_add_library(${PROJECT_NAME} ${SRC})
 

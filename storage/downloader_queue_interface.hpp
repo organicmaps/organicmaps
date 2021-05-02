@@ -11,6 +11,7 @@ public:
   using ForEachCountryFunction = std::function<void(QueuedCountry const & country)>;
 
   virtual bool IsEmpty() const = 0;
+  virtual size_t Count() const = 0;
   virtual bool Contains(CountryId const & country) const = 0;
   virtual void ForEachCountry(ForEachCountryFunction const & fn) const = 0;
 };

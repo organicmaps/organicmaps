@@ -475,7 +475,11 @@ bool WorldFeed::FillRoutes()
       continue;
 
     auto const itAgencyHash = m_gtfsIdToHash[FieldIdx::AgencyIdx].find(route.agency_id);
-    CHECK(itAgencyHash != m_gtfsIdToHash[FieldIdx::AgencyIdx].end(), (route.agency_id));
+    if (itAgencyHash == m_gtfsIdToHash[FieldIdx::AgencyIdx].end())
+    {
+      LOG(LINFO, ("Unknown agency", route.agency_id));
+      continue;
+    }
 
     auto const & agencyHash = itAgencyHash->second;
     CHECK(!agencyHash.empty(), ("Empty hash for agency id:", route.agency_id));
@@ -927,7 +931,7 @@ std::optional<Direction> WorldFeed::ProjectStopsToShape(
       CHECK(itStop != m_stops.m_data.end(), (stopId));
       auto const & stop = itStop->second;
 
-      size_t const prevIdx = i == 0 ? (direction == Direction::Forward ? 0 : shape.size())
+      size_t const prevIdx = i == 0 ? (direction == Direction::Forward ? 0 : shape.size() - 1)
                                     : stopsToIndexes[stopIds[i - 1]].back();
       auto const [curIdx, pointInserted] =
           PrepareNearestPointOnTrack(stop.m_point, prevPoint, prevIdx, direction, shape);
@@ -1932,12 +1936,13 @@ void WorldFeed::SplitLinesBasedData()
 
       auto const edgeFirst = m_edges.m_data.at(
           EdgeId(lineData.m_stopIds[firstStopIdx], lineData.m_stopIds[firstStopIdx + 1], lineId));
-      CHECK(!(edgeFirst.m_shapeLink.m_startIndex == 0 && edgeFirst.m_shapeLink.m_endIndex == 0),
-            ());
+      if (edgeFirst.m_shapeLink.m_startIndex == 0 && edgeFirst.m_shapeLink.m_endIndex == 0)
+        continue;
 
       auto const edgeLast = m_edges.m_data.at(
           EdgeId(lineData.m_stopIds[lastStopIdx - 1], lineData.m_stopIds[lastStopIdx], lineId));
-      CHECK(!(edgeLast.m_shapeLink.m_startIndex == 0 && edgeLast.m_shapeLink.m_endIndex == 0), ());
+      if (edgeLast.m_shapeLink.m_startIndex == 0 && edgeLast.m_shapeLink.m_endIndex == 0)
+        continue;
 
       lineInRegion.m_shapeLink.m_startIndex =
           std::min(edgeFirst.m_shapeLink.m_startIndex, edgeLast.m_shapeLink.m_endIndex);

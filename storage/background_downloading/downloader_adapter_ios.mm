@@ -36,7 +36,7 @@ void BackgroundDownloaderAdapter::Remove(CountryId const & countryId)
     return;
 
   BackgroundDownloader * downloader = [BackgroundDownloader sharedBackgroundMapDownloader];
-  auto const taskIdentifier = m_queue.GetTaskIdByCountryId(countryId);
+  auto const taskIdentifier = m_queue.GetTaskInfoForCountryId(countryId);
   if (taskIdentifier)
     [downloader cancelTaskWithIdentifier:*taskIdentifier];
   m_queue.Remove(countryId);
@@ -68,31 +68,37 @@ void BackgroundDownloaderAdapter::Download(QueuedCountry && queuedCountry)
   }
 
   auto const countryId = queuedCountry.GetCountryId();
-  auto const urls = MakeUrlList(queuedCountry.GetRelativeUrl());
-
+  auto urls = MakeUrlList(queuedCountry.GetRelativeUrl());
   auto const path = queuedCountry.GetFileDownloadPath();
+
+  queuedCountry.OnStartDownloading();
+
   m_queue.Append(std::move(queuedCountry));
 
-  DownloadFromAnyUrl(countryId, path, urls);
+  DownloadFromLastUrl(countryId, path, std::move(urls));
 }
 
-void BackgroundDownloaderAdapter::DownloadFromAnyUrl(CountryId const & countryId,
-                                                     std::string const & downloadPath,
-                                                     std::vector<std::string> const & urls)
+void BackgroundDownloaderAdapter::DownloadFromLastUrl(CountryId const & countryId,
+                                                      std::string const & downloadPath,
+                                                      std::vector<std::string> && urls)
 {
   if (urls.empty())
     return;
 
-  auto onFinish = [this, countryId, downloadPath, urls = urls](NSError *error) mutable {
+  NSURL * url = [NSURL URLWithString:@(urls.back().c_str())];
+  assert(url != nil);
+  urls.pop_back();
+
+  auto onFinish = [this, countryId, downloadPath, urls = std::move(urls)](NSError *error) mutable
+  {
     downloader::DownloadStatus status = error ? [error toDownloaderError] : downloader::DownloadStatus::Completed;
 
     if (!m_queue.Contains(countryId))
       return;
 
-    if (status == downloader::DownloadStatus::Failed && urls.size() > 1)
+    if (status == downloader::DownloadStatus::Failed && !urls.empty())
     {
-      urls.pop_back();
-      DownloadFromAnyUrl(countryId, downloadPath, urls);
+      DownloadFromLastUrl(countryId, downloadPath, std::move(urls));
     }
     else
     {
@@ -102,20 +108,19 @@ void BackgroundDownloaderAdapter::DownloadFromAnyUrl(CountryId const & countryId
     }
   };
 
-  auto onProgress = [this, countryId](int64_t totalWritten, int64_t totalExpected) {
+  auto onProgress = [this, countryId](int64_t totalWritten, int64_t totalExpected)
+  {
     if (!m_queue.Contains(countryId))
       return;
 
     auto const & country = m_queue.GetCountryById(countryId);
     country.OnDownloadProgress({totalWritten, totalExpected});
   };
-  
-  NSURL * url = [NSURL URLWithString:@(urls.back().c_str())];
-  assert(url != nil);
+
   BackgroundDownloader * downloader = [BackgroundDownloader sharedBackgroundMapDownloader];
   NSUInteger taskId = [downloader downloadWithUrl:url completion:onFinish progress:onProgress];
 
-  m_queue.SetTaskIdForCountryId(countryId, taskId);
+  m_queue.SetTaskInfoForCountryId(countryId, taskId);
 }
 
 std::unique_ptr<MapFilesDownloader> GetDownloader()

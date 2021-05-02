@@ -28,7 +28,7 @@ set(
   diff_scheme/diff_types.hpp
   downloader.hpp
   downloader_search_params.hpp
-  downloader_queue.hpp
+  downloader_queue_interface.hpp
   downloader_queue_universal.cpp
   downloader_queue_universal.hpp
   downloading_policy.cpp
@@ -51,13 +51,17 @@ set(
   storage_helpers.hpp
 )
 
-if (${PLATFORM_IPHONE})
+if(${PLATFORM_ANDROID})
+  append(
+    SRC
+    background_downloading/downloader_queue.hpp
+  )
+elseif(${PLATFORM_IPHONE})
   append(
     SRC
     background_downloading/downloader_adapter_ios.h
     background_downloading/downloader_adapter_ios.mm
-    background_downloading/downloader_queue_ios.hpp
-    background_downloading/downloader_queue_ios.cpp
+    background_downloading/downloader_queue.hpp
   )
 else()
   append(

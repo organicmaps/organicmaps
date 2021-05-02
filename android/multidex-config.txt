@@ -4,6 +4,7 @@ com/mapswithme/maps/bookmarks/data/Bookmark.class
 com/mapswithme/maps/bookmarks/data/ElevationInfo.class
 com/mapswithme/maps/bookmarks/data/FeatureId.class
 com/mapswithme/maps/bookmarks/data/MapObject.class
+com/mapswithme/maps/downloader/MapDownloadManager.class
 com/mapswithme/maps/location/PlatformSocket.class
 com/mapswithme/maps/search/PopularityProvider.class
 com/mapswithme/maps/widget/placepage/PlacePageData.class

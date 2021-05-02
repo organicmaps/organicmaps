@@ -1,6 +1,6 @@
 #pragma once
 
-#include "storage/downloader_queue.hpp"
+#include "storage/downloader_queue_interface.hpp"
 #include "storage/queued_country.hpp"
 #include "storage/storage_defines.hpp"
 
@@ -16,6 +16,7 @@ public:
 
   // QueueInterface overrides:
   bool IsEmpty() const override;
+  size_t Count() const override;
   bool Contains(CountryId const & country) const override;
   void ForEachCountry(ForEachCountryFunction const & fn) const override;
 
@@ -29,8 +30,6 @@ public:
 
   void Remove(CountryId const & country);
   void Clear();
-
-  size_t Count() const;
 
 private:
   std::list<QueuedCountry> m_queue;

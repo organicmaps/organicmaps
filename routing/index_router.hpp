@@ -207,9 +207,8 @@ private:
   }
 
   template <typename Vertex, typename Edge, typename Weight, typename AStarParams>
-  RouterResultCode FindPath(
-      AStarParams & params, std::set<NumMwmId> const & mwmIds,
-      RoutingResult<Vertex, Weight> & routingResult, WorldGraphMode mode) const
+  RouterResultCode FindPath(AStarParams & params, std::set<NumMwmId> const & mwmIds,
+                            RoutingResult<Vertex, Weight> & routingResult) const
   {
     AStarAlgorithm<Vertex, Edge, Weight> algorithm;
     return ConvertTransitResult(
