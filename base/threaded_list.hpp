@@ -1,9 +1,9 @@
 #pragma once
 
 #include "base/threaded_container.hpp"
-#include "base/condition.hpp"
 #include "base/logging.hpp"
 
+#include <atomic>
 #include <list>
 
 template <typename T>
@@ -12,69 +12,9 @@ class ThreadedList : public ThreadedContainer
 private:
 
   std::list<T> m_list;
-  bool m_isEmpty;
-  std::string m_resName;
+  std::atomic<bool> m_isEmpty;
 
-public:
-
-  ThreadedList()
-    : m_isEmpty(true)
-  {}
-
-  template <typename Fn>
-  void ProcessList(Fn const & fn)
-  {
-    threads::ConditionGuard g(m_Cond);
-
-    bool hadElements = !m_list.empty();
-
-    fn(m_list);
-
-    bool hasElements = !m_list.empty();
-
-    m_isEmpty = !hasElements;
-
-    if (!hadElements && hasElements)
-      m_Cond.Signal(true);
-  }
-
-  void PushBack(T const & t)
-  {
-    threads::ConditionGuard g(m_Cond);
-
-    bool doSignal = m_list.empty();
-
-    m_list.push_back(t);
-    m_isEmpty = false;
-
-    if (doSignal)
-      m_Cond.Signal(true);
-  }
-
-  void PushFront(T const & t)
-  {
-    threads::ConditionGuard g(m_Cond);
-
-    bool doSignal = m_list.empty();
-
-    m_list.push_front(t);
-    m_isEmpty = false;
-
-    if (doSignal)
-      m_Cond.Signal(true);
-  }
-
-  void SetName(char const * name)
-  {
-    m_resName = name;
-  }
-
-  std::string const & GetName() const
-  {
-    return m_resName;
-  }
-
-  bool WaitNonEmpty()
+  bool WaitNonEmpty(std::unique_lock<std::mutex> &lock)
   {
     bool doFirstWait = true;
 
@@ -86,7 +26,7 @@ public:
       if (doFirstWait)
         doFirstWait = false;
 
-      m_Cond.Wait();
+      m_Cond.wait(lock);
     }
 
     if (IsCancelled())
@@ -94,12 +34,60 @@ public:
 
     return false;
   }
+public:
+
+  ThreadedList()
+    : m_isEmpty(true)
+  {}
+
+  template <typename Fn>
+  void ProcessList(Fn const & fn)
+  {
+    std::unique_lock<std::mutex> lock(m_condLock);
+
+    bool hadElements = !m_list.empty();
+
+    fn(m_list);
+
+    bool hasElements = !m_list.empty();
+
+    m_isEmpty = !hasElements;
+
+    if (!hadElements && hasElements)
+      m_Cond.notify_all();
+  }
+
+  void PushBack(T const & t)
+  {
+    std::unique_lock<std::mutex> lock(m_condLock);
+
+    bool doSignal = m_list.empty();
+
+    m_list.push_back(t);
+    m_isEmpty = false;
+
+    if (doSignal)
+      m_Cond.notify_all();
+  }
+
+  void PushFront(T const & t)
+  {
+    std::unique_lock<std::mutex> lock(m_condLock);
+
+    bool doSignal = m_list.empty();
+
+    m_list.push_front(t);
+    m_isEmpty = false;
+
+    if (doSignal)
+      m_Cond.notify_all();
+  }
 
   T const Front(bool doPop)
   {
-    threads::ConditionGuard g(m_Cond);
+    std::unique_lock<std::mutex> lock(m_condLock);
 
-    if (WaitNonEmpty())
+    if (WaitNonEmpty(lock))
       return T();
 
     T res = m_list.front();
@@ -114,9 +102,9 @@ public:
 
   T const Back(bool doPop)
   {
-    threads::ConditionGuard g(m_Cond);
+    std::unique_lock<std::mutex> lock(m_condLock);
 
-    if (WaitNonEmpty())
+    if (WaitNonEmpty(lock))
       return T();
 
     T res = m_list.back();
@@ -131,7 +119,7 @@ public:
 
   size_t Size() const
   {
-    threads::ConditionGuard g(m_Cond);
+    std::unique_lock<std::mutex> lock(m_condLock);
     return m_list.size();
   }
 
@@ -142,7 +130,7 @@ public:
 
   void Clear()
   {
-    threads::ConditionGuard g(m_Cond);
+    std::unique_lock<std::mutex> lock(m_condLock);
     m_list.clear();
     m_isEmpty = true;
   }

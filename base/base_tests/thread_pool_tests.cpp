@@ -1,16 +1,16 @@
 #include "testing/testing.hpp"
 
-#include "base/mutex.hpp"
 #include "base/thread.hpp"
 #include "base/thread_pool.hpp"
-#include "base/condition.hpp"
 
+#include <condition_variable>
 #include <functional>
+#include <mutex>
 #include <vector>
 
 namespace
 {
-  threads::Mutex g_mutex;
+  std::mutex g_mutex;
   const int TASK_COUNT = 10;
   class CanceledTask : public threads::IRoutine
   {
@@ -25,24 +25,29 @@ namespace
       TEST_EQUAL(true, false, ());
     }
   };
+  struct Condition
+  {
+    std::mutex m;
+    std::condition_variable cv;
+  };
 
   void JoinFinishFunction(threads::IRoutine * routine,
                           int & finishCounter,
-                          threads::Condition & cond)
+                          Condition & cond)
   {
-    cond.Lock();
+    cond.m.lock();
     finishCounter++;
-    cond.Unlock();
+    cond.m.unlock();
 
     delete routine;
-    cond.Signal();
+    cond.cv.notify_one();
   }
 }
 
 UNIT_TEST(ThreadPool_CanceledTaskTest)
 {
   int finishCounter = 0;
-  threads::Condition cond;
+  Condition cond;
   base::thread_pool::routine::ThreadPool pool(4, std::bind(&JoinFinishFunction, std::placeholders::_1,
                                         std::ref(finishCounter), std::ref(cond)));
 
@@ -74,7 +79,7 @@ namespace
 UNIT_TEST(ThreadPool_StopOperationTest)
 {
   int finishCounter = 0;
-  threads::Condition cond;
+  Condition cond;
   // in this case we have empty pool, and all tasks must be finish only on Stop method call
   base::thread_pool::routine::ThreadPool pool(0, std::bind(&JoinFinishFunction, std::placeholders::_1,
                                         std::ref(finishCounter), std::ref(cond)));
@@ -125,7 +130,7 @@ UNIT_TEST(ThreadPool_ExecutionTaskTest)
   tasks.push_back(new CancelTestTask(false));
 
   int finishCounter = 0;
-  threads::Condition cond;
+  Condition cond;
   base::thread_pool::routine::ThreadPool pool(4, std::bind(&JoinFinishFunction, std::placeholders::_1,
                                         std::ref(finishCounter), std::ref(cond)));
 
@@ -138,17 +143,17 @@ UNIT_TEST(ThreadPool_ExecutionTaskTest)
 
   while(true)
   {
-    threads::ConditionGuard guard(cond);
+    std::unique_lock lock(cond.m);
     if (finishCounter == TASK_COUNT)
       break;
-    guard.Wait();
+    cond.cv.wait(lock);
   }
 }
 
 UNIT_TEST(ThreadPool_EmptyTest)
 {
   int finishCouter = 0;
-  threads::Condition cond;
+  Condition cond;
   base::thread_pool::routine::ThreadPool pool(4, std::bind(&JoinFinishFunction, std::placeholders::_1,
                                         std::ref(finishCouter), std::ref(cond)));
 

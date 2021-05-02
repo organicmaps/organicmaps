@@ -27,14 +27,14 @@ GraphicsContext * ThreadSafeFactory::GetResourcesUploadContext()
 GraphicsContext * ThreadSafeFactory::CreateContext(TCreateCtxFn const & createFn,
                                                    TIsSeparateCreatedFn const & checkFn)
 {
-  threads::ConditionGuard g(m_condition);
+  std::unique_lock<std::mutex> lock(m_condLock);
   GraphicsContext * ctx = createFn();
   if (m_enableSharing)
   {
     if (!checkFn())
-      g.Wait();
+      m_Cond.wait(lock);
     else
-      g.Signal();
+      m_Cond.notify_one();
   }
 
   return ctx;

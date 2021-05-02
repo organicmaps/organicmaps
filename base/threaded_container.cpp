@@ -2,7 +2,7 @@
 
 void ThreadedContainer::Cancel()
 {
-  threads::ConditionGuard g(m_Cond);
+  std::unique_lock lock(m_condLock);
   base::Cancellable::Cancel();
-  m_Cond.Signal(true);
+  m_Cond.notify_all();
 }

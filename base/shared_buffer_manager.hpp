@@ -1,10 +1,9 @@
 #pragma once
 
-#include "base/mutex.hpp"
-
 #include <list>
 #include <map>
 #include <memory>
+#include <mutex>
 #include <vector>
 
 class SharedBufferManager
@@ -16,7 +15,7 @@ public:
   typedef std::map<size_t, shared_buffer_ptr_list_t> shared_buffers_t;
 private:
 
-  threads::Mutex m_mutex;
+  std::mutex m_mutex;
   shared_buffers_t m_sharedBuffers;
 
 public:

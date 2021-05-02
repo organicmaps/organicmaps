@@ -9,13 +9,13 @@ SharedBufferManager & SharedBufferManager::instance()
 
 void SharedBufferManager::clearReserved()
 {
-  threads::MutexGuard g(m_mutex);
+  std::lock_guard<std::mutex> g(m_mutex);
   m_sharedBuffers.clear();
 }
 
 SharedBufferManager::shared_buffer_ptr_t SharedBufferManager::reserveSharedBuffer(size_t s)
 {
-  threads::MutexGuard g(m_mutex);
+  std::lock_guard<std::mutex> g(m_mutex);
 
   shared_buffer_ptr_list_t & l = m_sharedBuffers[s];
 
@@ -30,7 +30,7 @@ SharedBufferManager::shared_buffer_ptr_t SharedBufferManager::reserveSharedBuffe
 
 void SharedBufferManager::freeSharedBuffer(size_t s, shared_buffer_ptr_t buf)
 {
-  threads::MutexGuard g(m_mutex);
+  std::lock_guard<std::mutex> g(m_mutex);
 
   shared_buffer_ptr_list_t & l = m_sharedBuffers[s];
 

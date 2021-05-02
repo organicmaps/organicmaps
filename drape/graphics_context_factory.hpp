@@ -2,10 +2,11 @@
 
 #include "drape/graphics_context.hpp"
 
-#include "base/condition.hpp"
 #include "base/assert.hpp"
 
+#include <condition_variable>
 #include <functional>
+#include <mutex>
 
 namespace dp
 {
@@ -47,7 +48,8 @@ protected:
 
 private:
   GraphicsContextFactory * m_factory;
-  threads::Condition m_condition;
+  std::mutex m_condLock;
+  std::condition_variable m_Cond;
   bool m_enableSharing;
 };
 }  // namespace dp
