@@ -28,7 +28,7 @@ namespace
 {
 bool ParseMaxspeedAndWriteToStream(string const & maxspeed, SpeedInUnits & speed, ostringstream & ss)
 {
-  if (!ParseMaxspeedTag(maxspeed, speed))
+  if (maxspeed.empty() || !ParseMaxspeedTag(maxspeed, speed))
     return false;
 
   ss << UnitsToString(speed.GetUnits()) << "," << strings::to_string(speed.GetSpeed());
@@ -51,7 +51,7 @@ shared_ptr<CollectorInterface> MaxspeedsCollector::Clone(
   return make_shared<MaxspeedsCollector>(GetFilename());
 }
 
-void MaxspeedsCollector::CollectFeature(FeatureBuilder const &, OsmElement const & p)
+void MaxspeedsCollector::CollectFeature(FeatureBuilder const & ft, OsmElement const & p)
 {
   if (!p.IsWay())
     return;
@@ -59,22 +59,20 @@ void MaxspeedsCollector::CollectFeature(FeatureBuilder const &, OsmElement const
   ostringstream ss;
   ss << p.m_id << ",";
 
-  auto const & tags = p.Tags();
-  string maxspeedForwardStr;
-  string maxspeedBackwardStr;
+  string maxspeedForwardStr, maxspeedBackwardStr, maxspeedAdvisoryStr;
   bool isReverse = false;
 
-  for (auto const & t : tags)
+  SpeedInUnits maxspeed;
+  for (auto const & t : p.Tags())
   {
-    if (t.m_key == "maxspeed")
+    if (t.m_key == "maxspeed" && ParseMaxspeedAndWriteToStream(t.m_value, maxspeed, ss))
     {
-      SpeedInUnits dummySpeed;
-      if (!ParseMaxspeedAndWriteToStream(t.m_value, dummySpeed, ss))
-        return;
       m_stream << ss.str() << '\n';
       return;
     }
 
+    if (t.m_key == "maxspeed:advisory")
+      maxspeedAdvisoryStr = t.m_value;
     if (t.m_key == "maxspeed:forward")
       maxspeedForwardStr = t.m_value;
     else if (t.m_key == "maxspeed:backward")
@@ -91,28 +89,31 @@ void MaxspeedsCollector::CollectFeature(FeatureBuilder const &, OsmElement const
   if (isReverse)
     maxspeedForwardStr.swap(maxspeedBackwardStr);
 
-  if (maxspeedForwardStr.empty())
-    return;
-
-  SpeedInUnits maxspeedForward;
-  if (!ParseMaxspeedAndWriteToStream(maxspeedForwardStr, maxspeedForward, ss))
-    return;
-
-  if (!maxspeedBackwardStr.empty())
+  if (ParseMaxspeedAndWriteToStream(maxspeedForwardStr, maxspeed, ss))
   {
-    SpeedInUnits maxspeedBackward;
-    if (!ParseMaxspeedTag(maxspeedBackwardStr, maxspeedBackward))
-      return;
-
     // Note. Keeping only maxspeed:forward and maxspeed:backward if they have the same units.
     // The exception is maxspeed:forward or maxspeed:backward have a special values
     // like "none" or "walk". In that case units mean nothing an the values should
     // be processed in a special way.
-    if (!HaveSameUnits(maxspeedForward, maxspeedBackward))
-      return;
-
-    ss << "," << strings::to_string(maxspeedBackward.GetSpeed());
+    SpeedInUnits maxspeedBackward;
+    if (ParseMaxspeedTag(maxspeedBackwardStr, maxspeedBackward) &&
+        HaveSameUnits(maxspeed, maxspeedBackward))
+    {
+      ss << "," << strings::to_string(maxspeedBackward.GetSpeed());
+    }
   }
+  else if (ftypes::IsLinkChecker::Instance()(ft.GetTypes()) &&
+           ParseMaxspeedAndWriteToStream(maxspeedAdvisoryStr, maxspeed, ss))
+  {
+    // Assign maxspeed:advisory for highway:xxx_link types to avoid situation when
+    // not defined link speed is predicted bigger than defined parent ingoing highway speed.
+    // https://www.openstreetmap.org/way/5511439#map=18/45.55465/-122.67787
+
+    /// @todo Best solution is to correct not defined link speed according to the defined parent highway speed
+    /// in graph building process, but it needs much more efforts.
+  }
+  else
+    return;
 
   m_stream << ss.str() << '\n';
 }
