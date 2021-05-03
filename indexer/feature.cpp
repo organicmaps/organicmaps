@@ -590,28 +590,31 @@ string FeatureType::DebugString(int scale)
     res += (" : " + c.GetReadableObjectName(m_types[i]));
   res += "\n";
 
-  res += m_params.DebugString();
+  auto const paramsStr = m_params.DebugString();
+  if (!paramsStr.empty())
+  {
+    res += paramsStr;
+    res += "\n";
+  }
 
   ParseGeometryAndTriangles(scale);
+  m2::PointD keyPoint;
   switch (GetGeomType())
   {
-  case GeomType::Point: res += (" Center:" + DebugPrint(m_center)); break;
-
-  case GeomType::Line:
-    res += " Points:";
-    Points2String(res, m_points);
-    break;
-
+  case GeomType::Point: keyPoint = m_center; break;
+  case GeomType::Line: keyPoint = m_points.front(); break;
   case GeomType::Area:
-    res += " Triangles:";
-    Points2String(res, m_triangles);
+    ASSERT_GREATER(m_triangles.size(), 2, ());
+    keyPoint = (m_triangles[0] + m_triangles[1] + m_triangles[2]) / 3.0;
     break;
-
   case GeomType::Undefined:
     ASSERT(false, ("Assume that we have valid feature always"));
     break;
   }
 
+  // Print coordinates in (lat,lon) for better investigation capabilities.
+  res += "Key point: ";
+  res += DebugPrint(mercator::ToLatLon(keyPoint));
   return res;
 }
 
