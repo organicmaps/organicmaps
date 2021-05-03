@@ -13,6 +13,7 @@
 
 namespace routing
 {
+class IndexGraph;
 using OsmIdToMaxspeed = std::map<base::GeoObjectId, Maxspeed>;
 
 /// \brief Parses csv file with path |maxspeedsFilename| and stores the result in |osmIdToMaxspeed|.
@@ -20,9 +21,9 @@ using OsmIdToMaxspeed = std::map<base::GeoObjectId, Maxspeed>;
 bool ParseMaxspeeds(std::string const & maxspeedsFilename, OsmIdToMaxspeed & osmIdToMaxspeed);
 
 /// \brief Writes |speeds| to maxspeeds section to mwm with |dataPath|.
-void SerializeMaxspeeds(std::string const & dataPath, std::vector<FeatureMaxspeed> && speeds);
+void SerializeMaxspeeds(std::string const & dataPath, std::vector<FeatureMaxspeed> const & speeds);
 
-void BuildMaxspeedsSection(std::string const & dataPath,
+void BuildMaxspeedsSection(IndexGraph * graph, std::string const & dataPath,
                            std::map<uint32_t, base::GeoObjectId> const & featureIdToOsmId,
                            std::string const & maxspeedsFilename);
 
@@ -34,6 +35,6 @@ void BuildMaxspeedsSection(std::string const & dataPath,
 //     to a csv file.
 /// 2. Calls GenerateFeatures()
 /// 3. Generates geometry.
-void BuildMaxspeedsSection(std::string const & dataPath, std::string const & osmToFeaturePath,
-                           std::string const & maxspeedsFilename);
+void BuildMaxspeedsSection(IndexGraph * graph, std::string const & dataPath,
+                           std::string const & osmToFeaturePath, std::string const & maxspeedsFilename);
 }  // namespace routing

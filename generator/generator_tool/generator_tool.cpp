@@ -504,9 +504,22 @@ MAIN_WITH_ERROR_HANDLING([](int argc, char ** argv)
       string const roadAccessFilename = genInfo.GetIntermediateFileName(ROAD_ACCESS_FILENAME);
 
       routing::BuildRoutingIndex(dataFile, country, *countryParentGetter);
-      routing::BuildRoadRestrictions(path, dataFile, country, restrictionsFilename,
-                                     osmToFeatureFilename, *countryParentGetter);
-      routing::BuildRoadAccessInfo(dataFile, roadAccessFilename, osmToFeatureFilename);
+      auto routingGraph = routing::CreateIndexGraph(path, dataFile, country, *countryParentGetter);
+      CHECK(routingGraph, ());
+
+      /// @todo CHECK return result doesn't work now for some small countries like Somalie.
+      if (!routing::BuildRoadRestrictions(*routingGraph, dataFile, restrictionsFilename, osmToFeatureFilename) ||
+          !routing::BuildRoadAccessInfo(dataFile, roadAccessFilename, osmToFeatureFilename))
+      {
+        LOG(LERROR, ("Routing build failed for", dataFile));
+      }
+
+      if (FLAGS_generate_maxspeed)
+      {
+        string const maxspeedsFilename = genInfo.GetIntermediateFileName(MAXSPEEDS_FILENAME);
+        LOG(LINFO, ("Generating maxspeeds section for", dataFile, "using", maxspeedsFilename));
+        routing::BuildMaxspeedsSection(routingGraph.get(), dataFile, osmToFeatureFilename, maxspeedsFilename);
+      }
     }
 
     if (FLAGS_make_city_roads)
@@ -517,13 +530,6 @@ MAIN_WITH_ERROR_HANDLING([](int argc, char ** argv)
           genInfo.GetIntermediateFileName(ROUTING_CITY_BOUNDARIES_DUMP_FILENAME);
       if (!routing::BuildCityRoads(dataFile, boundariesPath))
         LOG(LCRITICAL, ("Generating city roads error."));
-    }
-
-    if (FLAGS_generate_maxspeed)
-    {
-      LOG(LINFO, ("Generating maxspeeds section for", dataFile));
-      string const maxspeedsFilename = genInfo.GetIntermediateFileName(MAXSPEEDS_FILENAME);
-      routing::BuildMaxspeedsSection(dataFile, osmToFeatureFilename, maxspeedsFilename);
     }
 
     if (FLAGS_make_cross_mwm || FLAGS_make_transit_cross_mwm ||

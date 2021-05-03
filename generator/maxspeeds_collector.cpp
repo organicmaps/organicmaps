@@ -102,15 +102,18 @@ void MaxspeedsCollector::CollectFeature(FeatureBuilder const & ft, OsmElement co
       ss << "," << strings::to_string(maxspeedBackward.GetSpeed());
     }
   }
-  else if (ftypes::IsLinkChecker::Instance()(ft.GetTypes()) &&
-           ParseMaxspeedAndWriteToStream(maxspeedAdvisoryStr, maxspeed, ss))
+  else if (ftypes::IsLinkChecker::Instance()(ft.GetTypes()))
   {
     // Assign maxspeed:advisory for highway:xxx_link types to avoid situation when
     // not defined link speed is predicted bigger than defined parent ingoing highway speed.
     // https://www.openstreetmap.org/way/5511439#map=18/45.55465/-122.67787
-
-    /// @todo Best solution is to correct not defined link speed according to the defined parent highway speed
-    /// in graph building process, but it needs much more efforts.
+    if (!ParseMaxspeedAndWriteToStream(maxspeedAdvisoryStr, maxspeed, ss))
+    {
+      // Write indicator that it's a link and the speed should be recalculated.
+      // Idea is to set the link speed equal to the ingoing highway speed (now it's "default" and can be bigger).
+      // https://www.openstreetmap.org/way/842536050#map=19/45.43449/-122.56678
+      ss << UnitsToString(measurement_utils::Units::Metric) << "," << strings::to_string(routing::kCommonMaxSpeedValue);
+    }
   }
   else
     return;

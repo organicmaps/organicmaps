@@ -49,8 +49,8 @@ namespace routing
 m2::PointD constexpr RestrictionCollector::kNoCoords;
 
 RestrictionCollector::RestrictionCollector(std::string const & osmIdsToFeatureIdPath,
-                                           std::unique_ptr<IndexGraph> && graph)
-  : m_indexGraph(std::move(graph))
+                                           IndexGraph & graph)
+  : m_indexGraph(graph)
 {
   CHECK(ParseWaysOsmIdToFeatureIdMapping(osmIdsToFeatureIdPath, m_osmIdToFeatureIds),
         ("An error happened while parsing feature id to "
@@ -59,8 +59,6 @@ RestrictionCollector::RestrictionCollector(std::string const & osmIdsToFeatureId
 
 bool RestrictionCollector::Process(std::string const & restrictionPath)
 {
-  CHECK(m_indexGraph, ());
-
   SCOPE_GUARD(clean, [this]() {
     m_osmIdToFeatureIds.clear();
     m_restrictions.clear();
@@ -129,11 +127,11 @@ bool RestrictionCollector::ParseRestrictions(std::string const & path)
 Joint::Id RestrictionCollector::GetFirstCommonJoint(uint32_t firstFeatureId,
                                                     uint32_t secondFeatureId) const
 {
-  uint32_t const firstLen = m_indexGraph->GetGeometry().GetRoad(firstFeatureId).GetPointsCount();
-  uint32_t const secondLen = m_indexGraph->GetGeometry().GetRoad(secondFeatureId).GetPointsCount();
+  uint32_t const firstLen = m_indexGraph.GetGeometry().GetRoad(firstFeatureId).GetPointsCount();
+  uint32_t const secondLen = m_indexGraph.GetGeometry().GetRoad(secondFeatureId).GetPointsCount();
 
-  auto const firstRoad = m_indexGraph->GetRoad(firstFeatureId);
-  auto const secondRoad = m_indexGraph->GetRoad(secondFeatureId);
+  auto const firstRoad = m_indexGraph.GetRoad(firstFeatureId);
+  auto const secondRoad = m_indexGraph.GetRoad(secondFeatureId);
 
   std::unordered_set<Joint::Id> used;
   for (uint32_t i = 0; i < firstLen; ++i)
@@ -154,8 +152,7 @@ Joint::Id RestrictionCollector::GetFirstCommonJoint(uint32_t firstFeatureId,
 bool RestrictionCollector::FeatureHasPointWithCoords(uint32_t featureId,
                                                      m2::PointD const & coords) const
 {
-  CHECK(m_indexGraph, ());
-  auto const & roadGeometry = m_indexGraph->GetGeometry().GetRoad(featureId);
+  auto const & roadGeometry = m_indexGraph.GetGeometry().GetRoad(featureId);
   uint32_t const pointsCount = roadGeometry.GetPointsCount();
   for (uint32_t i = 0; i < pointsCount; ++i)
   {
@@ -245,7 +242,7 @@ bool RestrictionCollector::CheckAndProcessUTurn(Restriction::Type & restrictionT
 
     uint32_t & featureId = featureIds.back();
 
-    auto const & road = m_indexGraph->GetGeometry().GetRoad(featureId);
+    auto const & road = m_indexGraph.GetGeometry().GetRoad(featureId);
     // Can not do UTurn from feature to the same feature if it is one way.
     if (road.IsOneWay())
       return false;
@@ -282,14 +279,14 @@ bool RestrictionCollector::IsRestrictionValid(Restriction::Type & restrictionTyp
                                               m2::PointD const & coords,
                                               std::vector<uint32_t> & featureIds) const
 {
-  if (featureIds.empty() || !m_indexGraph->IsRoad(featureIds[0]))
+  if (featureIds.empty() || !m_indexGraph.IsRoad(featureIds[0]))
     return false;
 
   for (size_t i = 1; i < featureIds.size(); ++i)
   {
     auto prev = featureIds[i - 1];
     auto cur = featureIds[i];
-    if (!m_indexGraph->IsRoad(cur))
+    if (!m_indexGraph.IsRoad(cur))
       return false;
 
     if (!FeaturesAreCross(coords, prev, cur))

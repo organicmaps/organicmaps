@@ -3,6 +3,7 @@
 #include "generator/maxspeeds_parser.hpp"
 #include "generator/routing_helpers.hpp"
 
+#include "routing/index_graph.hpp"
 #include "routing/maxspeeds_serialization.hpp"
 #include "routing/routing_helpers.hpp"
 
@@ -37,7 +38,7 @@ namespace
 {
 char const kDelim[] = ", \t\r\n";
 
-bool ParseOneSpeedValue(strings::SimpleTokenizer & iter, uint16_t & value)
+bool ParseOneSpeedValue(strings::SimpleTokenizer & iter, MaxspeedType & value)
 {
   if (!iter)
     return false;
@@ -45,9 +46,9 @@ bool ParseOneSpeedValue(strings::SimpleTokenizer & iter, uint16_t & value)
   uint64_t parsedSpeed = 0;
   if (!strings::to_uint64(*iter, parsedSpeed))
     return false;
-  if (parsedSpeed > numeric_limits<uint16_t>::max())
+  if (parsedSpeed > routing::kInvalidSpeed)
     return false;
-  value = static_cast<uint16_t>(parsedSpeed);
+  value = static_cast<MaxspeedType>(parsedSpeed);
   ++iter;
   return true;
 }
@@ -61,47 +62,138 @@ FeatureMaxspeed ToFeatureMaxspeed(uint32_t featureId, Maxspeed const & maxspeed)
 /// \brief Collects all maxspeed tag values of specified mwm based on maxspeeds.csv file.
 class MaxspeedsMwmCollector
 {
-public:
-  MaxspeedsMwmCollector(string const & dataPath,
-                       map<uint32_t, base::GeoObjectId> const & featureIdToOsmId,
-                       string const & maxspeedCsvPath);
-
-  vector<FeatureMaxspeed> && StealMaxspeeds();
-
-private:
   vector<FeatureMaxspeed> m_maxspeeds;
+
+public:
+  MaxspeedsMwmCollector(IndexGraph * graph, string const & dataPath,
+                       map<uint32_t, base::GeoObjectId> const & featureIdToOsmId,
+                       string const & maxspeedCsvPath)
+  {
+    OsmIdToMaxspeed osmIdToMaxspeed;
+    CHECK(ParseMaxspeeds(maxspeedCsvPath, osmIdToMaxspeed), (maxspeedCsvPath));
+
+    auto const GetOsmID = [&](uint32_t fid) -> base::GeoObjectId
+    {
+      auto const osmIdIt = featureIdToOsmId.find(fid);
+      if (osmIdIt == featureIdToOsmId.cend())
+        return base::GeoObjectId();
+      return osmIdIt->second;
+    };
+    auto const GetSpeed = [&](uint32_t fid) -> Maxspeed *
+    {
+      auto osmid = GetOsmID(fid);
+      if (osmid.GetType() == base::GeoObjectId::Type::Invalid)
+        return nullptr;
+
+      auto const maxspeedIt = osmIdToMaxspeed.find(osmid);
+      if (maxspeedIt == osmIdToMaxspeed.cend())
+        return nullptr;
+
+      return &maxspeedIt->second;
+    };
+    auto const GetRoad = [&](uint32_t fid) -> routing::RoadGeometry const &
+    {
+      return graph->GetGeometry().GetRoad(fid);
+    };
+    auto const GetLastIndex = [&](uint32_t fid)
+    {
+      return GetRoad(fid).GetPointsCount() - 2;
+    };
+    auto const GetOpposite = [&](Segment const & seg)
+    {
+      // Assume that links are connected with main roads in first or last point, always.
+      uint32_t const fid = seg.GetFeatureId();
+      return Segment(0, fid, seg.GetSegmentIdx() > 0 ? 0 : GetLastIndex(fid), seg.IsForward());
+    };
+
+    ForEachFeature(dataPath, [&](FeatureType & ft, uint32_t fid)
+    {
+      if (!routing::IsCarRoad(TypesHolder(ft)))
+        return;
+
+      Maxspeed * maxSpeed = GetSpeed(fid);
+      if (!maxSpeed)
+          return;
+
+      auto const osmid = GetOsmID(fid).GetSerialId();
+
+      // Recalculate link speed accordint to the ingoing highway.
+      // See MaxspeedsCollector::CollectFeature.
+      if (maxSpeed->GetForward() == routing::kCommonMaxSpeedValue)
+      {
+        // Check if we are in unit tests.
+        if (graph == nullptr)
+          return;
+
+        // 0 - not updated, 1 - goto next iteration, 2 - updated
+        int status;
+
+        // Check ingoing first, then - outgoing.
+        for (bool direction : { false, true })
+        {
+          Segment seg(0, fid, 0, true);
+          if (direction)
+            seg = GetOpposite(seg);
+
+          std::unordered_set<uint32_t> reviewed;
+          do
+          {
+            status = 0;
+            reviewed.insert(seg.GetFeatureId());
+
+            IndexGraph::SegmentEdgeListT edges;
+            graph->GetEdgeList(seg, direction, true /* useRoutingOptions */, edges);
+            for (auto const & e : edges)
+            {
+              Segment const target = e.GetTarget();
+              Maxspeed * s = GetSpeed(target.GetFeatureId());
+              if (s)
+              {
+                if (s->GetForward() != routing::kCommonMaxSpeedValue)
+                {
+                  status = 2;
+                  maxSpeed->SetForward(s->GetForward());
+
+                  // In theory, we should iterate on forward and backward segments/speeds separately,
+                  // but I don't see any reason for this complication.
+                  if (!GetRoad(fid).IsOneWay())
+                    maxSpeed->SetBackward(s->GetForward());
+
+                  LOG(LINFO, ("Updated link speed for way", osmid, "with", *maxSpeed));
+                  break;
+                }
+                else if (reviewed.find(target.GetFeatureId()) == reviewed.end())
+                {
+                  // Found another input link. Save it for the next iteration.
+                  status = 1;
+                  seg = GetOpposite(target);
+                }
+              }
+            }
+          } while (status == 1);
+
+          if (status == 2)
+            break;
+        }
+
+        if (status == 0)
+        {
+          LOG(LWARNING, ("Didn't find connected edge with speed for way", osmid));
+          return;
+        }
+      }
+
+      m_maxspeeds.push_back(ToFeatureMaxspeed(fid, *maxSpeed));
+    });
+  }
+
+  vector<FeatureMaxspeed> const & GetMaxspeeds()
+  {
+    CHECK(is_sorted(m_maxspeeds.cbegin(), m_maxspeeds.cend(), IsFeatureIdLess), ());
+    return m_maxspeeds;
+  }
 };
 
-MaxspeedsMwmCollector::MaxspeedsMwmCollector(
-    string const & dataPath, map<uint32_t, base::GeoObjectId> const & featureIdToOsmId,
-    string const & maxspeedCsvPath)
-{
-  OsmIdToMaxspeed osmIdToMaxspeed;
-  CHECK(ParseMaxspeeds(maxspeedCsvPath, osmIdToMaxspeed), (maxspeedCsvPath));
-
-  ForEachFeature(dataPath, [&](FeatureType & ft, uint32_t fid) {
-    if (!routing::IsCarRoad(TypesHolder(ft)))
-      return;
-
-    auto const osmIdIt = featureIdToOsmId.find(fid);
-    if (osmIdIt == featureIdToOsmId.cend())
-      return;
-
-    // @TODO Consider adding check here. |fid| should be in |featureIdToOsmId| anyway.
-    auto const maxspeedIt = osmIdToMaxspeed.find(osmIdIt->second);
-    if (maxspeedIt == osmIdToMaxspeed.cend())
-      return;
-
-    auto const & maxspeed = maxspeedIt->second;
-    m_maxspeeds.push_back(ToFeatureMaxspeed(fid, maxspeed));
-  });
-}
-
-vector<FeatureMaxspeed> && MaxspeedsMwmCollector::StealMaxspeeds()
-{
-  CHECK(is_sorted(m_maxspeeds.cbegin(), m_maxspeeds.cend(), IsFeatureIdLess), ());
-  return move(m_maxspeeds);
-}
 }  // namespace
 
 namespace routing
@@ -134,7 +226,7 @@ bool ParseMaxspeeds(string const & maxspeedsFilename, OsmIdToMaxspeed & osmIdToM
     speed.SetUnits(StringToUnits(*iter));
     ++iter;
 
-    uint16_t forward = 0;
+    MaxspeedType forward = 0;
     if (!ParseOneSpeedValue(iter, forward))
       return false;
 
@@ -143,7 +235,7 @@ bool ParseMaxspeeds(string const & maxspeedsFilename, OsmIdToMaxspeed & osmIdToM
     if (iter)
     {
       // There's backward maxspeed limit.
-      uint16_t backward = 0;
+      MaxspeedType backward = 0;
       if (!ParseOneSpeedValue(iter, backward))
         return false;
 
@@ -160,7 +252,7 @@ bool ParseMaxspeeds(string const & maxspeedsFilename, OsmIdToMaxspeed & osmIdToM
   return true;
 }
 
-void SerializeMaxspeeds(string const & dataPath, vector<FeatureMaxspeed> && speeds)
+void SerializeMaxspeeds(string const & dataPath, vector<FeatureMaxspeed> const & speeds)
 {
   if (speeds.empty())
     return;
@@ -172,21 +264,19 @@ void SerializeMaxspeeds(string const & dataPath, vector<FeatureMaxspeed> && spee
   LOG(LINFO, ("SerializeMaxspeeds(", dataPath, ", ...) serialized:", speeds.size(), "maxspeed tags."));
 }
 
-void BuildMaxspeedsSection(string const & dataPath,
+void BuildMaxspeedsSection(IndexGraph * graph, string const & dataPath,
                            map<uint32_t, base::GeoObjectId> const & featureIdToOsmId,
                            string const & maxspeedsFilename)
 {
-  MaxspeedsMwmCollector collector(dataPath, featureIdToOsmId, maxspeedsFilename);
-  SerializeMaxspeeds(dataPath, collector.StealMaxspeeds());
+  MaxspeedsMwmCollector collector(graph, dataPath, featureIdToOsmId, maxspeedsFilename);
+  SerializeMaxspeeds(dataPath, collector.GetMaxspeeds());
 }
 
-void BuildMaxspeedsSection(string const & dataPath, string const & osmToFeaturePath,
-                           string const & maxspeedsFilename)
+void BuildMaxspeedsSection(IndexGraph * graph, string const & dataPath,
+                           string const & osmToFeaturePath, string const & maxspeedsFilename)
 {
-  LOG(LINFO, ("BuildMaxspeedsSection(", dataPath, ",", osmToFeaturePath, ",", maxspeedsFilename, ")"));
-
   map<uint32_t, base::GeoObjectId> featureIdToOsmId;
   CHECK(ParseWaysFeatureIdToOsmIdMapping(osmToFeaturePath, featureIdToOsmId), ());
-  BuildMaxspeedsSection(dataPath, featureIdToOsmId, maxspeedsFilename);
+  BuildMaxspeedsSection(graph, dataPath, featureIdToOsmId, maxspeedsFilename);
 }
 }  // namespace routing
