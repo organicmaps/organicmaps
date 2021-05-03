@@ -168,8 +168,7 @@ void TestRestrictionBuilding(string const & restrictionPath,
   string const & mwmFullPath = scopedMwm.GetFullPath();
 
   // Prepare data to collector.
-  auto restrictionCollector =
-      make_unique<RestrictionCollector>(osmIdsToFeatureIdFullPath, move(graph));
+  auto restrictionCollector = make_unique<RestrictionCollector>(osmIdsToFeatureIdFullPath, *graph);
 
   TEST(restrictionCollector->Process(restrictionFullPath), ("Bad restrictions were given."));
 

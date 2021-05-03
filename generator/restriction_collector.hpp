@@ -30,8 +30,7 @@ public:
   static m2::PointD constexpr kNoCoords =
       m2::PointD(std::numeric_limits<double>::max(), std::numeric_limits<double>::max());
 
-  RestrictionCollector(std::string const & osmIdsToFeatureIdPath,
-                       std::unique_ptr<IndexGraph> && graph);
+  RestrictionCollector(std::string const & osmIdsToFeatureIdPath, IndexGraph & graph);
 
   bool Process(std::string const & restrictionPath);
 
@@ -94,7 +93,7 @@ private:
   std::vector<Restriction> m_restrictions;
   OsmIdToFeatureIds m_osmIdToFeatureIds;
 
-  std::unique_ptr<IndexGraph> m_indexGraph;
+  IndexGraph & m_indexGraph;
 
   std::string m_restrictionPath;
 };

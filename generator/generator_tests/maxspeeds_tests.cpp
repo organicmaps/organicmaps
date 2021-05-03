@@ -90,7 +90,7 @@ void TestMaxspeedsSection(Features const & roads, string const & maxspeedsCsvCon
 
   // Creating maxspeed section in test.mwm.
   string const testMwmFullPath = base::JoinPath(testDirFullPath, testMwm);
-  BuildMaxspeedsSection(testMwmFullPath, featureIdToOsmId, base::JoinPath(testDirFullPath, kCsv));
+  BuildMaxspeedsSection(nullptr, testMwmFullPath, featureIdToOsmId, base::JoinPath(testDirFullPath, kCsv));
 
   // Loading maxspeed section.
   FrozenDataSource dataSource;

@@ -133,7 +133,8 @@ public:
 
   void ValidCase()
   {
-    RestrictionCollector restrictionCollector(m_osmIdsToFeatureIdFullPath, BuildTwoCubeGraph());
+    auto graph = BuildTwoCubeGraph();
+    RestrictionCollector restrictionCollector(m_osmIdsToFeatureIdFullPath, *graph);
 
     // Adding restrictions.
     TEST(restrictionCollector.AddRestriction(
@@ -166,7 +167,8 @@ public:
 
   void InvalidCase_NoSuchFeature()
   {
-    RestrictionCollector restrictionCollector(m_osmIdsToFeatureIdFullPath, BuildTwoCubeGraph());
+    auto graph = BuildTwoCubeGraph();
+    RestrictionCollector restrictionCollector(m_osmIdsToFeatureIdFullPath, *graph);
 
     // No such feature - 2809
     TEST(!restrictionCollector.AddRestriction({2.0, 1.0}, Restriction::Type::No,
@@ -177,7 +179,8 @@ public:
 
   void InvalidCase_FeaturesNotIntersecting()
   {
-    RestrictionCollector restrictionCollector(m_osmIdsToFeatureIdFullPath, BuildTwoCubeGraph());
+    auto graph = BuildTwoCubeGraph();
+    RestrictionCollector restrictionCollector(m_osmIdsToFeatureIdFullPath, *graph);
 
     // Fetures with id 1 and 2 do not intersect in {2.0, 1.0}
     TEST(!restrictionCollector.AddRestriction({2.0, 1.0}, Restriction::Type::No,

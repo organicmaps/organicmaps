@@ -161,6 +161,6 @@ private:
 
 // The generator tool's interface to writing the section with
 // road accessibility information for one mwm file.
-void BuildRoadAccessInfo(std::string const & dataFilePath, std::string const & roadAccessPath,
+bool BuildRoadAccessInfo(std::string const & dataFilePath, std::string const & roadAccessPath,
                          std::string const & osmIdsToFeatureIdsPath);
 }  // namespace routing
