@@ -510,13 +510,22 @@
 "website" = "Situs Web";
 
 /* Text in menu */
-"maps_me_community" = "Komunitas Organic Maps";
+"github" = "GitHub";
 
 /* Text in menu */
-"like_on_facebook" = "Sukai di Facebook";
+"telegram" = "Telegram";
 
 /* Text in menu */
-"follow_on_twitter" = "Ikuti di Twitter";
+"facebook" = "Facebook";
+
+/* Text in menu */
+"twitter" = "Twitter";
+
+/* Text in menu */
+"instagram" = "Instagram";
+
+/* Text in menu */
+"openstreetmap" = "OpenStreetMap";
 
 /* Text in menu */
 "contact_us" = "Hubungi kami";

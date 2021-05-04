@@ -42,6 +42,16 @@
                 android:textAppearance="@style/MwmTextAppearance.Body2"
                 android:text="@string/about_description"/>
 
+      <TextView android:id="@+id/telegram"
+                style="@style/MwmWidget.TextView.Item"
+                android:text="@string/telegram"
+                android:drawableStart="@drawable/ic_telegram"/>
+
+      <TextView android:id="@+id/github"
+                style="@style/MwmWidget.TextView.Item"
+                android:text="@string/github"
+                android:drawableStart="@drawable/ic_github"/>
+
       <TextView android:id="@+id/web"
                 style="@style/MwmWidget.TextView.Item"
                 android:text="@string/website"
@@ -56,6 +66,11 @@
                 style="@style/MwmWidget.TextView.Item"
                 android:text="@string/twitter"
                 android:drawableStart="@drawable/ic_twitter"/>
+
+      <TextView android:id="@+id/instagram"
+                style="@style/MwmWidget.TextView.Item"
+                android:text="@string/instagram"
+                android:drawableStart="@drawable/ic_instagram"/>
 
       <View android:layout_width="match_parent"
             android:layout_height="1dp"

@@ -510,13 +510,22 @@
 "website" = "ウェブサイト";
 
 /* Text in menu */
-"maps_me_community" = "Organic Mapsコミュニティ";
+"github" = "GitHub";
 
 /* Text in menu */
-"like_on_facebook" = "Facebookでいいねをクリック";
+"telegram" = "Telegram";
 
 /* Text in menu */
-"follow_on_twitter" = "Twitterでフォロー";
+"facebook" = "Facebook";
+
+/* Text in menu */
+"twitter" = "Twitter";
+
+/* Text in menu */
+"instagram" = "Instagram";
+
+/* Text in menu */
+"openstreetmap" = "OpenStreetMap";
 
 /* Text in menu */
 "contact_us" = "お問い合わせ";
@@ -546,7 +555,7 @@
 "subscribe_me_body" = "最新ニュース、アップデートとプロモーションにすいてまず知りたいです。いつでも購読をキャンセル出来ます。";
 
 /* About text */
-"about_text" = "Organic Mapsは世界の全ての国、全ての都市が載っている最速のオフラインマップ。どこにいてもOrganic Mapsの地図上でユーザーの現在地が分かり、付近のレストラン、ホテル、銀行、ガソリンスタンドなどが見つけられるので、自信を持って旅行ができます。インターネット接続は必要ありません。\n\n弊社では常に新機能の開発に取り組んでいるので、Organic Mapsの改善についてユーザーの皆様からのご意見やご感想をお待ちしています。アプリで問題点が見つかった際は、お気軽にsupport@organicmaps.appまでご連絡ください。どのようなリクエストにでも対応いたします!\n\nOrganic Mapsが好きでサポートしていただけますか。シンプルで完全無料の方法がいくつかあります。\n\n- お使いのアプリマーケットでレビューを投稿\n- 弊社のFacebookページで「いいね!」をクリック：http://www.facebook.com/OMapsApp\n- Organic Mapsのことをお母様、お友達、同僚の皆様に話す (^_^)\n\n弊社アプリをご利用いただきありがとうございます。皆様からのサポートに大変感謝しております!\n\n追伸：ウィキペディアのようにユーザーによる作成や編集が可能なマッピングプロジェクトOpenStreetMapの地図データを使用しています。地図上で欠けているものや誤りを見つけた場合、https://www.openstreetmap.orgでユーザーが直接修正ができます。このような変更はOrganic Mapsのその後のバージョンリリースの際に反映されます。";
+"about_text" = "Organic Mapsは世界の全ての国、全ての都市が載っている最速のオフラインマップ。どこにいてもOrganic Mapsの地図上でユーザーの現在地が分かり、付近のレストラン、ホテル、銀行、ガソリンスタンドなどが見つけられるので、自信を持って旅行ができます。インターネット接続は必要ありません。\n\n弊社では常に新機能の開発に取り組んでいるので、Organic Mapsの改善についてユーザーの皆様からのご意見やご感想をお待ちしています。アプリで問題点が見つかった際は、お気軽にsupport@organicmaps.appまでご連絡ください。どのようなリクエストにでも対応いたします!\n\nOrganic Mapsが好きでサポートしていただけますか。シンプルで完全無料の方法がいくつかあります。\n\n- お使いのアプリマーケットでレビューを投稿\n- 弊社のFacebookページで「いいね!」をクリック：http://www.facebook.com/OrganicMaps\n- Organic Mapsのことをお母様、お友達、同僚の皆様に話す (^_^)\n\n弊社アプリをご利用いただきありがとうございます。皆様からのサポートに大変感謝しております!\n\n追伸：ウィキペディアのようにユーザーによる作成や編集が可能なマッピングプロジェクトOpenStreetMapの地図データを使用しています。地図上で欠けているものや誤りを見つけた場合、https://www.openstreetmap.orgでユーザーが直接修正ができます。このような変更はOrganic Mapsのその後のバージョンリリースの際に反映されます。";
 
 /* Alert text */
 "email_error_body" = "このメールクライアントはセットアップされていません。設定するか、他の方法で%@にご連絡ください。";

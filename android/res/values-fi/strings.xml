@@ -307,12 +307,6 @@
 	<!-- Text in menu -->
 	<string name="website">Kotisivut</string>
 	<!-- Text in menu -->
-	<string name="maps_me_community">Organic Maps -yhteisö</string>
-	<!-- Text in menu -->
-	<string name="like_on_facebook">Tykkää meistä Facebookissa</string>
-	<!-- Text in menu -->
-	<string name="follow_on_twitter">Seuraa meitä Twitterissä</string>
-	<!-- Text in menu -->
 	<string name="contact_us">Ota yhteyttä</string>
 	<!-- Settings: Send feedback button and dialog title -->
 	<string name="feedback">Palaute</string>
@@ -331,7 +325,7 @@
 	<!-- Email body -->
 	<string name="subscribe_me_body">Liittäkää minut Organic Maps -uutiskirjeen tilaajaksi saadakseni ensimmäisenä tietoa uusista päivityksistä ja TARJOUKSISTA. Voin peruuttaa tilaukseni koska tahansa.</string>
 	<!-- About text -->
-	<string name="about_text">Organic Maps tarjoaa nopeimmat offline-kartat kaikista kaupungeista, kaikissa maissa ympäri maailman. Matkusta luottavaisin mielin - missä ikinä oletkin, Organic Maps auttaa sinua löytämään itsesi kartalta, ohjaamaan sinut lähimpään ravintolaan, hotelliin, pankkiin, huoltoasemalle jne. Internet-yhteyttä ei tarvita.\n\nTyöskentelemme jatkuvasti uusien ominaisuuksien parissa, ja haluammekin kuulla sinulta kuinka voimme parantaa MAPS.me -sovellusta entisestään. Mikäli sinulla on ongelmia sovelluksen kanssa, älä epäröi ottaa yhteyttä asiakaspalveluumme osoitteessa support\@organicmaps.app. Vastaamme jokaiseen yhteydenottoon!\n\nTykkäätkö Organic Maps -sovelluksesta ja haluat tukea meitä? Siihen on muutamia helppoja ja täysin ilmaisia tapoja:\n\n- lisää sovellusarviosi käyttämääsi sovelluskauppaan\n - tykkää Facebook-sivustamme osoitteessa http://www.facebook.com/OMapsApp\n- kerro MAPS.me:stä äidillesi, ystävillesi ja kollegoillesi :)\n\nKiitos sovelluksen käytöstä. Arvostamme tukeasi todella paljon!\n\nP.S. Kaikki tiedot noudetaan OpenStreetMap-palvelusta, joka on Wikipedian kaltainen karttaprojekti, jossa kuka tahansa voi lisätä ja muokata karttoja. Mikäli havaitset kartoissa virheitä ja puutteita, voit korjata ne osoitteessa https://www.openstreetmap.org, ja muutokset näkyvät sovelluksessa seuraavan Organic Maps -päivityksen jälkeen.</string>
+	<string name="about_text">Organic Maps tarjoaa nopeimmat offline-kartat kaikista kaupungeista, kaikissa maissa ympäri maailman. Matkusta luottavaisin mielin - missä ikinä oletkin, Organic Maps auttaa sinua löytämään itsesi kartalta, ohjaamaan sinut lähimpään ravintolaan, hotelliin, pankkiin, huoltoasemalle jne. Internet-yhteyttä ei tarvita.\n\nTyöskentelemme jatkuvasti uusien ominaisuuksien parissa, ja haluammekin kuulla sinulta kuinka voimme parantaa MAPS.me -sovellusta entisestään. Mikäli sinulla on ongelmia sovelluksen kanssa, älä epäröi ottaa yhteyttä asiakaspalveluumme osoitteessa support\@organicmaps.app. Vastaamme jokaiseen yhteydenottoon!\n\nTykkäätkö Organic Maps -sovelluksesta ja haluat tukea meitä? Siihen on muutamia helppoja ja täysin ilmaisia tapoja:\n\n- lisää sovellusarviosi käyttämääsi sovelluskauppaan\n - tykkää Facebook-sivustamme osoitteessa http://www.facebook.com/OrganicMaps\n- kerro MAPS.me:stä äidillesi, ystävillesi ja kollegoillesi :)\n\nKiitos sovelluksen käytöstä. Arvostamme tukeasi todella paljon!\n\nP.S. Kaikki tiedot noudetaan OpenStreetMap-palvelusta, joka on Wikipedian kaltainen karttaprojekti, jossa kuka tahansa voi lisätä ja muokata karttoja. Mikäli havaitset kartoissa virheitä ja puutteita, voit korjata ne osoitteessa https://www.openstreetmap.org, ja muutokset näkyvät sovelluksessa seuraavan Organic Maps -päivityksen jälkeen.</string>
 	<!-- Alert text -->
 	<string name="email_error_body">Sähköpostisovellusta ei ole asetettu. Ole hyvä ja määritä sähköpostiasetukset tai ota meihin yhteyttä toista kautta osoitteessa %s</string>
 	<!-- Alert title -->

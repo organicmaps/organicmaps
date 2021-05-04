@@ -510,13 +510,22 @@
 "website" = "Honlap";
 
 /* Text in menu */
-"maps_me_community" = "Organic Maps közösség";
+"github" = "GitHub";
 
 /* Text in menu */
-"like_on_facebook" = "Lájkolj minket Facebookon";
+"telegram" = "Telegram";
 
 /* Text in menu */
-"follow_on_twitter" = "Kövess minket Twitteren";
+"facebook" = "Facebook";
+
+/* Text in menu */
+"twitter" = "Twitter";
+
+/* Text in menu */
+"instagram" = "Instagram";
+
+/* Text in menu */
+"openstreetmap" = "OpenStreetMap";
 
 /* Text in menu */
 "contact_us" = "Kapcsolat";
@@ -546,7 +555,7 @@
 "subscribe_me_body" = "Elsőként szeretnék értesülni a legújabb hírekről frissítésekről és promóciókról. A feliratkozásom bármikor törölhetem.";
 
 /* About text */
-"about_text" = "A Organic Maps kínálja a leggyorsabb offline térképeket, a világ összes városáról és országáról. Utazz magabiztosan: bárhol is vagy, a Organic Maps segít, hogy megtaláld magad a térképen, valamint segít a legközelebbi étterem, hotel, bank, benzinkút stb. felkutatásában is. Nem igényel internet kapcsolatot.\n\nMindig dolgozunk új fejlesztéseken és örömmel vennénk a te véleményedet is arról, hogyan tudnánk tovább fejleszteni a Organic Maps-t. Bármely probléma esetén írj nekünk a support@organicmaps.app email címre. Minden levélre válaszolunk!\n\nSzereted a Organic Maps-t és szeretnél támogatni minket? Van erre pár egyszerű és teljesen ingyenes lehetőséged:\n\n- írj rólunk értékelést az App Market-en\n- kedveld a Facebook oldalunkat: http://www.facebook.com/OMapsApp\n- vagy csak mesélj a Organic Maps-ről anyukádnak, barátaidnak és munkatársaidnak :)\n\nKöszönjük, hogy velünk vagy. Nagyra értékeljük támogatásodat!\n\nU.i: Adatainkat az OpenStreetMap-ről vesszük, ami egy, a Wikipedia-hoz hasonló térképes projekt, ami megengedi felhasználóinak a térképek létrehozását és szerkesztését. Ha bármi hiányzik vagy rossz a térképpel, közvetlenül te is kijavíthatod a https://www.openstreetmap.org-on és változtatásaid a Organic Maps következő verziójában már meg fognak jelenni.";
+"about_text" = "A Organic Maps kínálja a leggyorsabb offline térképeket, a világ összes városáról és országáról. Utazz magabiztosan: bárhol is vagy, a Organic Maps segít, hogy megtaláld magad a térképen, valamint segít a legközelebbi étterem, hotel, bank, benzinkút stb. felkutatásában is. Nem igényel internet kapcsolatot.\n\nMindig dolgozunk új fejlesztéseken és örömmel vennénk a te véleményedet is arról, hogyan tudnánk tovább fejleszteni a Organic Maps-t. Bármely probléma esetén írj nekünk a support@organicmaps.app email címre. Minden levélre válaszolunk!\n\nSzereted a Organic Maps-t és szeretnél támogatni minket? Van erre pár egyszerű és teljesen ingyenes lehetőséged:\n\n- írj rólunk értékelést az App Market-en\n- kedveld a Facebook oldalunkat: http://www.facebook.com/OrganicMaps\n- vagy csak mesélj a Organic Maps-ről anyukádnak, barátaidnak és munkatársaidnak :)\n\nKöszönjük, hogy velünk vagy. Nagyra értékeljük támogatásodat!\n\nU.i: Adatainkat az OpenStreetMap-ről vesszük, ami egy, a Wikipedia-hoz hasonló térképes projekt, ami megengedi felhasználóinak a térképek létrehozását és szerkesztését. Ha bármi hiányzik vagy rossz a térképpel, közvetlenül te is kijavíthatod a https://www.openstreetmap.org-on és változtatásaid a Organic Maps következő verziójában már meg fognak jelenni.";
 
 /* Alert text */
 "email_error_body" = "Az email kliens nincs beállítva. Kérjük, konfiguráld vagy próbálj meg valamilyen más módon kapcsolatba lépni velünk a %@ email címen keresztül.";

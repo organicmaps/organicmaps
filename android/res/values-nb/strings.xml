@@ -307,12 +307,6 @@
 	<!-- Text in menu -->
 	<string name="website">Nettside</string>
 	<!-- Text in menu -->
-	<string name="maps_me_community">Organic Maps-samfunnet</string>
-	<!-- Text in menu -->
-	<string name="like_on_facebook">Lik på Facebook</string>
-	<!-- Text in menu -->
-	<string name="follow_on_twitter">Følg på Twitter</string>
-	<!-- Text in menu -->
 	<string name="contact_us">Kontakt oss</string>
 	<!-- Settings: Send feedback button and dialog title -->
 	<string name="feedback">Tilbakemelding</string>
@@ -331,7 +325,7 @@
 	<!-- Email body -->
 	<string name="subscribe_me_body">Jeg ønsker å være den første som får vite om siste nytt og nye kampanjer. Jeg kan avbestille abonnementet når som helst.</string>
 	<!-- About text -->
-	<string name="about_text">Organic Maps tilbyr de raskeste offline-kartene over alle byer i alle land i verden. Reis trygt: Uansett hvor du er, kan Organic Maps hjelpe deg med å finne ut hvor du er på kartet eller finne nærmeste restaurant, hotell, bank, bensinstasjon osv. Det kreves ingen internettforbindelse.\n\nVi jobber alltid med å legge inn nye funksjoner, og vi vil gjerne høre hvordan du synes at vi kan forbedre Organic Maps. Hvis du får problemer med appen, ikke nøl med å kontakte oss på support\@organicmaps.app. Vi svarer på alle forespørsler!\n\nLiker du Organic Maps og ønsker å støtte oss? Det er noen enkle og helt gratis måter å gjøre det på:\n\n- Legg inn en vurdering på app-butikken\n- Lik Facebook-siden vår på http://www.facebook.com/OMapsApp\n- Eller bare fortell mamma, venner og kolleger om Organic Maps :)\n\nTakk for at du er med oss. Vi setter stor pris på støtten!\n\nPS! Vi henter kartdata fra OpenStreetMap, et kartprosjekt som ligner på Wikipedia, der brukerne selv kan opprette og redigere kart. Hvis du finner mangler eller feil på kartet, kan du korrigere kartet direkte på https://www.openstreetmap.org, og endringene vil vises i Organic Maps-appen når neste versjon kommer.</string>
+	<string name="about_text">Organic Maps tilbyr de raskeste offline-kartene over alle byer i alle land i verden. Reis trygt: Uansett hvor du er, kan Organic Maps hjelpe deg med å finne ut hvor du er på kartet eller finne nærmeste restaurant, hotell, bank, bensinstasjon osv. Det kreves ingen internettforbindelse.\n\nVi jobber alltid med å legge inn nye funksjoner, og vi vil gjerne høre hvordan du synes at vi kan forbedre Organic Maps. Hvis du får problemer med appen, ikke nøl med å kontakte oss på support\@organicmaps.app. Vi svarer på alle forespørsler!\n\nLiker du Organic Maps og ønsker å støtte oss? Det er noen enkle og helt gratis måter å gjøre det på:\n\n- Legg inn en vurdering på app-butikken\n- Lik Facebook-siden vår på http://www.facebook.com/OrganicMaps\n- Eller bare fortell mamma, venner og kolleger om Organic Maps :)\n\nTakk for at du er med oss. Vi setter stor pris på støtten!\n\nPS! Vi henter kartdata fra OpenStreetMap, et kartprosjekt som ligner på Wikipedia, der brukerne selv kan opprette og redigere kart. Hvis du finner mangler eller feil på kartet, kan du korrigere kartet direkte på https://www.openstreetmap.org, og endringene vil vises i Organic Maps-appen når neste versjon kommer.</string>
 	<!-- Alert text -->
 	<string name="email_error_body">E-postklienten har ikke blitt konfigurert. Konfigurer den eller bruk en annen måte å kontakte oss på %s</string>
 	<!-- Alert title -->

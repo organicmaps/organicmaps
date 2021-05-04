@@ -510,13 +510,22 @@
 "website" = "Webové stránky";
 
 /* Text in menu */
-"maps_me_community" = "Komunita Organic Maps";
+"github" = "GitHub";
 
 /* Text in menu */
-"like_on_facebook" = "Lajknout na Facebooku";
+"telegram" = "Telegram";
 
 /* Text in menu */
-"follow_on_twitter" = "Následovat na Twitteru";
+"facebook" = "Facebook";
+
+/* Text in menu */
+"twitter" = "Twitter";
+
+/* Text in menu */
+"instagram" = "Instagram";
+
+/* Text in menu */
+"openstreetmap" = "OpenStreetMap";
 
 /* Text in menu */
 "contact_us" = "Kontaktovat nás";
@@ -546,7 +555,7 @@
 "subscribe_me_body" = "Chci se vždy jako první dozvídat o nejnovějších zprávách, aktualizacích a akčních nabídkách. Své přihlášení k odběru mohu kdykoli zrušit.";
 
 /* About text */
-"about_text" = "Organic Maps nabízí nejrychlejší offline mapy všech měst a zemí po celém světě. Cestujte s naprostou důvěrou: kdekoliv jste, Organic Maps vám pomůže se najít na mapě, vyhledat nejbližší restauraci, hotel, banku, benzínovou pumpu atd. Nevyžaduje připojení k Internetu.\n\nNeustále pracujeme na nových funkcích a rádi bychom slyšeli také váš názor, jak můžeme Organic Maps vylepšit. Pokud máte s touto aplikací jakékoliv problémy, pak nás neváhejte kontaktovat na support@organicmaps.app. Odpovídáme na každý požadavek!\n\nLíbí se vám Organic Maps a chcete nás podpořit? Existuje několik snadných způsobů zcela zdarma:\n\n• napište recenzi ve svém obchodu s aplikacemi\n• označte naši facebookovou stránku http://www.facebook.com/OMapsApp pomocí To se mi líbí\n• nebo jen řekněte o Organic Maps své mámě, kamarádům a kolegům :)\n\nDěkujeme, že jste s námi. Velmi si ceníme vaší podpory!\n\nP.S. Mapové podklady získáváme z OpenStreetMap, což je mapový projekt podobný Wikipedii, který umožňuje uživatelům vytvářet a upravovat mapy. Pokud zjistíte, že na mapě něco chybí nebo je špatně, pak můžete mapy opravit přímo na https://www.openstreetmap.org, a vaše změny se objeví v příští verzi Organic Maps. Díky!";
+"about_text" = "Organic Maps nabízí nejrychlejší offline mapy všech měst a zemí po celém světě. Cestujte s naprostou důvěrou: kdekoliv jste, Organic Maps vám pomůže se najít na mapě, vyhledat nejbližší restauraci, hotel, banku, benzínovou pumpu atd. Nevyžaduje připojení k Internetu.\n\nNeustále pracujeme na nových funkcích a rádi bychom slyšeli také váš názor, jak můžeme Organic Maps vylepšit. Pokud máte s touto aplikací jakékoliv problémy, pak nás neváhejte kontaktovat na support@organicmaps.app. Odpovídáme na každý požadavek!\n\nLíbí se vám Organic Maps a chcete nás podpořit? Existuje několik snadných způsobů zcela zdarma:\n\n• napište recenzi ve svém obchodu s aplikacemi\n• označte naši facebookovou stránku http://www.facebook.com/OrganicMaps pomocí To se mi líbí\n• nebo jen řekněte o Organic Maps své mámě, kamarádům a kolegům :)\n\nDěkujeme, že jste s námi. Velmi si ceníme vaší podpory!\n\nP.S. Mapové podklady získáváme z OpenStreetMap, což je mapový projekt podobný Wikipedii, který umožňuje uživatelům vytvářet a upravovat mapy. Pokud zjistíte, že na mapě něco chybí nebo je špatně, pak můžete mapy opravit přímo na https://www.openstreetmap.org, a vaše změny se objeví v příští verzi Organic Maps. Díky!";
 
 /* Alert text */
 "email_error_body" = "Emailový klient nebyl ještě nakonfigurován. Nastavte ho, prosím, nebo použijte jiný způsob k našemu kontaktování na %@";

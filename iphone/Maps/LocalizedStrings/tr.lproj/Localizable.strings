@@ -510,13 +510,22 @@
 "website" = "Web Sitesi";
 
 /* Text in menu */
-"maps_me_community" = "Organic Maps Topluluğu";
+"github" = "GitHub";
 
 /* Text in menu */
-"like_on_facebook" = "Facebook'da beğen";
+"telegram" = "Telegram";
 
 /* Text in menu */
-"follow_on_twitter" = "Twitter'da takip et";
+"facebook" = "Facebook";
+
+/* Text in menu */
+"twitter" = "Twitter";
+
+/* Text in menu */
+"instagram" = "Instagram";
+
+/* Text in menu */
+"openstreetmap" = "OpenStreetMap";
 
 /* Text in menu */
 "contact_us" = "İletişim";
@@ -546,7 +555,7 @@
 "subscribe_me_body" = "En son haberlerden güncellemelerden ve tanıtımlardan ilk önce haberdar olmak istiyorum. Aboneliğimi herhangi bir zaman iptal edebilirim.";
 
 /* About text */
-"about_text" = "Organic Maps dünyadaki tüm ülkelerdeki şehirlerin en hızlı çevrimdışı haritalarını sunuyor. Tam güven ile seyahat edin: nerede olursanız olun, Organic Maps harita üzerinde nerede olduğunuzu belirlemeye, en yakın restoranı, oteli, bankayı, benzin istasyonunu v.b. bulmaya yardımcı olur. İnternet bağlantısı gerektirmez.\n\nHer zaman yeni özellikler üzerinde çalışıyoruz ve sizlerin Organic Maps'yi nasıl geliştirebileceğimize dair görüşlerinizi almaktan mutluluk duyuyoruz. Eğer uygulama ile ilgili herhangi bir probleminiz varsa, bizimle support@organicmaps.app adresinden temasa geçmekten çekinmeyin. Her talebe cevap veriyoruz!\n\nOrganic Maps'yi beğendiniz ve bize destek olmak ister misiniz? Bunun bazı basit ve tamamıyla ücretsiz yolları var:\n\n- Uygulama Marketinizde bir yorum yazın\n- Facebook sayfamızı beğenin http://www.facebook.com/OMapsApp\n- veya sadece annenize, arkadaşlarınıza ve iş arkadaşlarınıza Organic Maps'den bahsedin :)\n\nBizi tercih ettiğiniz için teşekkür ederiz. Desteğinizden dolayı çok memnuniyet duyarız!\n\nNot: Verileri haritaları kullanıcıların yaratmasına ve düzenlemesine olanak veren Wikipedia benzeri bir proje olan OpenStreetMap'dan almaktayız. Eğer haritada eksik ya da hatalı bir şeyler görürseniz doğrudan haritaları\n\nhttps://www.openstreetmap.org, adresinden düzeltebilirsiniz ve yaptığınız değişiklikler Organic Maps'de bir sonraki sürüm yayınlandığında görülebilir olacaktır.";
+"about_text" = "Organic Maps dünyadaki tüm ülkelerdeki şehirlerin en hızlı çevrimdışı haritalarını sunuyor. Tam güven ile seyahat edin: nerede olursanız olun, Organic Maps harita üzerinde nerede olduğunuzu belirlemeye, en yakın restoranı, oteli, bankayı, benzin istasyonunu v.b. bulmaya yardımcı olur. İnternet bağlantısı gerektirmez.\n\nHer zaman yeni özellikler üzerinde çalışıyoruz ve sizlerin Organic Maps'yi nasıl geliştirebileceğimize dair görüşlerinizi almaktan mutluluk duyuyoruz. Eğer uygulama ile ilgili herhangi bir probleminiz varsa, bizimle support@organicmaps.app adresinden temasa geçmekten çekinmeyin. Her talebe cevap veriyoruz!\n\nOrganic Maps'yi beğendiniz ve bize destek olmak ister misiniz? Bunun bazı basit ve tamamıyla ücretsiz yolları var:\n\n- Uygulama Marketinizde bir yorum yazın\n- Facebook sayfamızı beğenin http://www.facebook.com/OrganicMaps\n- veya sadece annenize, arkadaşlarınıza ve iş arkadaşlarınıza Organic Maps'den bahsedin :)\n\nBizi tercih ettiğiniz için teşekkür ederiz. Desteğinizden dolayı çok memnuniyet duyarız!\n\nNot: Verileri haritaları kullanıcıların yaratmasına ve düzenlemesine olanak veren Wikipedia benzeri bir proje olan OpenStreetMap'dan almaktayız. Eğer haritada eksik ya da hatalı bir şeyler görürseniz doğrudan haritaları\n\nhttps://www.openstreetmap.org, adresinden düzeltebilirsiniz ve yaptığınız değişiklikler Organic Maps'de bir sonraki sürüm yayınlandığında görülebilir olacaktır.";
 
 /* Alert text */
 "email_error_body" = "E-posta istemcisi henüz kurulmamış. Lütfen e-posta istemcisini yapılandırın ya da bize %@ adresinden ulaşmak için başka bir yöntem deneyin";

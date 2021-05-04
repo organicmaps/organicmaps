@@ -510,13 +510,22 @@
 "website" = "Webseite";
 
 /* Text in menu */
-"maps_me_community" = "Organic Maps-Gemeinschaft";
+"github" = "GitHub";
 
 /* Text in menu */
-"like_on_facebook" = "„Gefällt mir“ auf Facebook";
+"telegram" = "Telegram";
 
 /* Text in menu */
-"follow_on_twitter" = "Bei Twitter folgen";
+"facebook" = "Facebook";
+
+/* Text in menu */
+"twitter" = "Twitter";
+
+/* Text in menu */
+"instagram" = "Instagram";
+
+/* Text in menu */
+"openstreetmap" = "OpenStreetMap";
 
 /* Text in menu */
 "contact_us" = "Kontaktieren Sie uns";
@@ -546,7 +555,7 @@
 "subscribe_me_body" = "Gerne möchte ich zu den Ersten gehören, die aktuelle Neuigkeiten erfahren und über neueste Aktualisierungen und Werbeangebote informiert werden. Mein Abo kann ich jederzeit kündigen.";
 
 /* About text */
-"about_text" = "Organic Maps bietet die schnellsten Offline-Karten aller Städte weltweit. Reisen Sie mit Vertrauen: wo immer Sie sind hilft Ihnen Organic Maps, sich auf der Karte zurecht zu finden. Finden Sie das nächstgelegene Restaurant, Hotel, Bank, Tankstelle usw. Es ist keine Internet-Verbindung erforderlich.\n\nWir arbeiten ständig an neuen Funktionen und freuen uns, von Ihnen zu hören, wie wir Organic Maps verbessern können. Wenn Sie Probleme mit der App haben, zögern Sie nicht, mit uns über support@organicmaps.app in Verbindung zu treten. Wir reagieren auf jede Anfrage!\n\nMögen Sie Organic Maps und wollen Sie uns unterstützen? Es gibt einige einfache und absolut kostenlose Möglichkeiten:\n\n- Veröffentlichen Sie eine Bewertung auf Ihrem App-Store\n- Liken Sie unsere Facebook-Seite http://www.facebook.com/OMapsApp\n- Oder erzählen einfach nur Ihrer Mutter, Freunden und Kollegen von Organic Maps:)\n\nDanke, dass Sie bei uns sind. Wir freuen uns sehr über Ihre Unterstützung!\n\nPS: Wir nutzen die Kartendaten von OpenStreetMap, einem Kartierungs-Projekt ähnlich Wikipedia, bei welchem Mitglieder Kartendaten erfassen. Wenn Sie sehen, dass auf der Karte etwas fehlt oder falsch ist, können Sie die Karten direkt auf https://www.openstreetmap.org korrigieren und die Änderungen erscheinen in der nächsten Version der Organic Maps-App.";
+"about_text" = "Organic Maps bietet die schnellsten Offline-Karten aller Städte weltweit. Reisen Sie mit Vertrauen: wo immer Sie sind hilft Ihnen Organic Maps, sich auf der Karte zurecht zu finden. Finden Sie das nächstgelegene Restaurant, Hotel, Bank, Tankstelle usw. Es ist keine Internet-Verbindung erforderlich.\n\nWir arbeiten ständig an neuen Funktionen und freuen uns, von Ihnen zu hören, wie wir Organic Maps verbessern können. Wenn Sie Probleme mit der App haben, zögern Sie nicht, mit uns über support@organicmaps.app in Verbindung zu treten. Wir reagieren auf jede Anfrage!\n\nMögen Sie Organic Maps und wollen Sie uns unterstützen? Es gibt einige einfache und absolut kostenlose Möglichkeiten:\n\n- Veröffentlichen Sie eine Bewertung auf Ihrem App-Store\n- Liken Sie unsere Facebook-Seite http://www.facebook.com/OrganicMaps\n- Oder erzählen einfach nur Ihrer Mutter, Freunden und Kollegen von Organic Maps:)\n\nDanke, dass Sie bei uns sind. Wir freuen uns sehr über Ihre Unterstützung!\n\nPS: Wir nutzen die Kartendaten von OpenStreetMap, einem Kartierungs-Projekt ähnlich Wikipedia, bei welchem Mitglieder Kartendaten erfassen. Wenn Sie sehen, dass auf der Karte etwas fehlt oder falsch ist, können Sie die Karten direkt auf https://www.openstreetmap.org korrigieren und die Änderungen erscheinen in der nächsten Version der Organic Maps-App.";
 
 /* Alert text */
 "email_error_body" = "Der Email-Client ist noch nicht eingerichtet worden. Konfigurieren Sie ihn bitte oder nutzen Sie eine andere Möglichkeit, uns unter %@ zu erreichen.";

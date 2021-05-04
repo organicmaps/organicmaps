@@ -51,6 +51,8 @@ public class AboutFragment extends BaseSettingsFragment
         .setText(getString(R.string.data_version, Framework.nativeGetDataVersion()));
 
     setupItem(R.id.web, true, root);
+    setupItem(R.id.github, false, root);
+    setupItem(R.id.telegram, false, root);
     setupItem(R.id.facebook, false, root);
     setupItem(R.id.twitter, false, root);
     setupItem(R.id.rate, true, root);
@@ -88,6 +90,18 @@ public class AboutFragment extends BaseSettingsFragment
       {
       case R.id.web:
         startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(Constants.Url.WEB_SITE)));
+        break;
+
+      case R.id.github:
+        startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(Constants.Url.GITHUB)));
+        break;
+
+      case R.id.telegram:
+        startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(Constants.Url.TELEGRAM)));
+        break;
+
+      case R.id.instagram:
+        startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(Constants.Url.INSTAGRAM)));
         break;
 
       case R.id.facebook:

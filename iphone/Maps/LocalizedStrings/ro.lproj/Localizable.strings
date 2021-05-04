@@ -510,13 +510,22 @@
 "website" = "Site web";
 
 /* Text in menu */
-"maps_me_community" = "Comunitatea Organic Maps";
+"github" = "GitHub";
 
 /* Text in menu */
-"like_on_facebook" = "Apreciați-ne pe Facebook";
+"telegram" = "Telegram";
 
 /* Text in menu */
-"follow_on_twitter" = "Urmăriți-ne pe Twitter";
+"facebook" = "Facebook";
+
+/* Text in menu */
+"twitter" = "Twitter";
+
+/* Text in menu */
+"instagram" = "Instagram";
+
+/* Text in menu */
+"openstreetmap" = "OpenStreetMap";
 
 /* Text in menu */
 "contact_us" = "Contactați-ne";
@@ -546,7 +555,7 @@
 "subscribe_me_body" = "Vreau să fiu primul care află despre cele mai recente actualizări și promoții. Îmi pot anula abonamentul în orice moment.";
 
 /* About text */
-"about_text" = "Organic Maps oferă cele mai rapide hărți offline ale tuturor orașelor, tuturor țărilor din lume. Călătoriți cu încredere deplină: oriunde v-ați afla, Organic Maps vă ajută să vă reperați poziția pe hartă, să găsiți cel mai apropiat restaurant sau hotel, cea mai apropiată bancă sau benzinărie etc. Nu necesită conexiune la internet.\n\nLucrăm încontinuu să introducem funcții noi și ne-ar face mare plăcere să ne comunicați cum credeți dvs. că am putea îmbunătăți Organic Maps. Dacă aveți probleme cu aplicația, nu ezitați să ne contactați la adresa support@organicmaps.app. Răspundem la fiecare solicitare!\n\nVă place Organic Maps și doriți să ne susțineți? Iată câteva moduri simple și complet gratuite:\n- publicați o recenzie în magazinul de aplicații\n- apreciați-ne pagina de Facebook: http://www.facebook.com/OMapsApp\n- sau spuneți și mamei, prietenilor și colegilor despre Organic Maps. :)\n\nVă mulțumim că ne sunteți alături. Vă apreciem foarte mult susținerea!\n\nP.S. Noi preluăm datele din OpenStreetMap, un proiect de cartografiere similar Wikipediei, ce permite utilizatorilor să creeze și să editeze hărți. Dacă vedeți că ceva lipsește sau este greșit pe hartă, puteți corecta hărțile direct la adresa: https://www.openstreetmap.org, iar modificările dvs. vor apărea în aplicația Organic Maps atunci când va fi lansată versiunea următoare.";
+"about_text" = "Organic Maps oferă cele mai rapide hărți offline ale tuturor orașelor, tuturor țărilor din lume. Călătoriți cu încredere deplină: oriunde v-ați afla, Organic Maps vă ajută să vă reperați poziția pe hartă, să găsiți cel mai apropiat restaurant sau hotel, cea mai apropiată bancă sau benzinărie etc. Nu necesită conexiune la internet.\n\nLucrăm încontinuu să introducem funcții noi și ne-ar face mare plăcere să ne comunicați cum credeți dvs. că am putea îmbunătăți Organic Maps. Dacă aveți probleme cu aplicația, nu ezitați să ne contactați la adresa support@organicmaps.app. Răspundem la fiecare solicitare!\n\nVă place Organic Maps și doriți să ne susțineți? Iată câteva moduri simple și complet gratuite:\n- publicați o recenzie în magazinul de aplicații\n- apreciați-ne pagina de Facebook: http://www.facebook.com/OrganicMaps\n- sau spuneți și mamei, prietenilor și colegilor despre Organic Maps. :)\n\nVă mulțumim că ne sunteți alături. Vă apreciem foarte mult susținerea!\n\nP.S. Noi preluăm datele din OpenStreetMap, un proiect de cartografiere similar Wikipediei, ce permite utilizatorilor să creeze și să editeze hărți. Dacă vedeți că ceva lipsește sau este greșit pe hartă, puteți corecta hărțile direct la adresa: https://www.openstreetmap.org, iar modificările dvs. vor apărea în aplicația Organic Maps atunci când va fi lansată versiunea următoare.";
 
 /* Alert text */
 "email_error_body" = "Nu a fost setat clientul de email. Vă rugăm să o configurați sau să utilizați un alt mod de a ne contacta la %@.";
