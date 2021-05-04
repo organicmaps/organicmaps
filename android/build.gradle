@@ -138,7 +138,7 @@ def getVersion() {
 def osName = System.properties['os.name'].toLowerCase()
 
 project.ext.appId = 'app.omaps'
-project.ext.appName = 'OrganicMaps'
+project.ext.appName = 'Organic Maps'
 
 android {
   buildFeatures {
@@ -182,7 +182,7 @@ android {
       }
     }
 
-    setProperty("archivesBaseName", appName + "-" + defaultConfig.versionCode)
+    setProperty("archivesBaseName", appName.replaceAll("\\s","") + "-" + defaultConfig.versionCode)
 
     ndk {
       abiFilters = new HashSet<>()
@@ -458,7 +458,7 @@ android {
         firebaseAppDistribution {
           releaseNotesFile = "RELEASE"
           groups = "android-qa"
-          apkPath = "./build/outputs/apk/web/beta/" + appName + "-" + defaultConfig.versionCode + "-web-beta.apk"
+          apkPath = "./build/outputs/apk/web/beta/" + appName.replaceAll("\\s","") + "-" + defaultConfig.versionCode + "-web-beta.apk"
           serviceCredentialsFile = "firebase-app-distribution.json"
         }
       }
