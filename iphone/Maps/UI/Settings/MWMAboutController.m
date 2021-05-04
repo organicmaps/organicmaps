@@ -10,6 +10,9 @@
 @property(weak, nonatomic) IBOutlet UILabel * dataVersionLabel;
 
 @property(weak, nonatomic) IBOutlet SettingsTableViewLinkCell * websiteCell;
+@property(weak, nonatomic) IBOutlet SettingsTableViewLinkCell * githubCell;
+@property(weak, nonatomic) IBOutlet SettingsTableViewLinkCell * telegramCell;
+@property(weak, nonatomic) IBOutlet SettingsTableViewLinkCell * instagramCell;
 @property(weak, nonatomic) IBOutlet SettingsTableViewLinkCell * facebookCell;
 @property(weak, nonatomic) IBOutlet SettingsTableViewLinkCell * twitterCell;
 @property(weak, nonatomic) IBOutlet SettingsTableViewLinkCell * osmCell;
@@ -47,15 +50,27 @@
   SettingsTableViewLinkCell *cell = [tableView cellForRowAtIndexPath:indexPath];
   if (cell == self.websiteCell)
   {
-    [self openUrl:[NSURL URLWithString:@"https://omaps.app/"]];
+    [self openUrl:[NSURL URLWithString:@"https://organicmaps.app/"]];
+  }
+  else if (cell == self.githubCell)
+  {
+    [self openUrl:[NSURL URLWithString:@"https://github.com/organicmaps/organicmaps/"]];
+  }
+  else if (cell == self.telegramCell)
+  {
+    [self openUrl:[NSURL URLWithString:@"https://t.me/OrganicMapsApp"]];
+  }
+  else if (cell == self.instagramCell)
+  {
+    [self openUrl:[NSURL URLWithString:@"https://www.instagram.com/organicmaps.app"]];
   }
   else if (cell == self.facebookCell)
   {
-    [self openUrl:[NSURL URLWithString:@"https://facebook.com/OMapsApp"]];
+    [self openUrl:[NSURL URLWithString:@"https://facebook.com/OrganicMaps"]];
   }
   else if (cell == self.twitterCell)
   {
-    [self openUrl:[NSURL URLWithString:@"https://twitter.com/OMapsApp"]];
+    [self openUrl:[NSURL URLWithString:@"https://twitter.com/OrganicMapsApp"]];
   }
   else if (cell == self.osmCell)
   {
@@ -67,11 +82,11 @@
   }
   else if (cell == self.privacyPolicyCell)
   {
-    [self openUrl:[NSURL URLWithString:@"https://omaps.app/privacy"]];
+    [self openUrl:[NSURL URLWithString:@"https://organicmaps.app/privacy"]];
   }
   else if (cell == self.termsOfUseCell)
   {
-    [self openUrl:[NSURL URLWithString:@"https://omaps.app/terms"]];
+    [self openUrl:[NSURL URLWithString:@"https://organicmaps.app/terms"]];
   }
   else if (cell == self.copyrightCell)
   {

@@ -307,12 +307,6 @@
 	<!-- Text in menu -->
 	<string name="website">Situs Web</string>
 	<!-- Text in menu -->
-	<string name="maps_me_community">Komunitas Organic Maps</string>
-	<!-- Text in menu -->
-	<string name="like_on_facebook">Sukai di Facebook</string>
-	<!-- Text in menu -->
-	<string name="follow_on_twitter">Ikuti di Twitter</string>
-	<!-- Text in menu -->
 	<string name="contact_us">Hubungi kami</string>
 	<!-- Settings: Send feedback button and dialog title -->
 	<string name="feedback">Umpan balik</string>

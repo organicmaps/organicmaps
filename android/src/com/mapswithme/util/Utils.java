@@ -231,7 +231,7 @@ public class Utils
 
   public static void showTwitterPage(Activity activity)
   {
-    activity.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(Constants.Url.TWITTER_MAPSME_HTTP)));
+    activity.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(Constants.Url.TWITTER)));
   }
 
   public static void openUrl(@NonNull Context context, @Nullable String url)

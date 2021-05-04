@@ -251,12 +251,6 @@
 	<!-- Text in menu -->
 	<string name="website">Ιστότοπος</string>
 	<!-- Text in menu -->
-	<string name="maps_me_community">Κοινότητα Organic Maps\u0020</string>
-	<!-- Text in menu -->
-	<string name="like_on_facebook">Κάντε Like στο Facebook</string>
-	<!-- Text in menu -->
-	<string name="follow_on_twitter">Ακολουθήστε στο Twitter</string>
-	<!-- Text in menu -->
 	<string name="contact_us">Επικοινωνήστε μαζί μας</string>
 	<!-- Settings: Send feedback button and dialog title -->
 	<string name="feedback">Σχόλια</string>
