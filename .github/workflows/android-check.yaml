@@ -54,8 +54,6 @@ jobs:
         shell: bash
         working-directory: android
         run: |
-          #export PATH="$(dirname $ANDROID_SDK_ROOT/cmake/*/bin/.|tail -n1):$PATH" # Use CMake from SDK
-          #echo $PATH
           cmake --version
           ninja --version
           ./gradlew -Parm64 assembleWebDebug
