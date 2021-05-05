@@ -1,15 +1,31 @@
 name: Android Beta
 on:
-  workflow_dispatch:
-    inputs:
-      releasenotes:
-        description: 'The release notes'
-        required: true
+  push:
+    branches:
+      - master # Approved manually via `beta` environment
+    paths-ignore:
+      - .github/workflows/linux*
+      - .github/workflows/ios*
+      - '**/*_tests/**'
+      - CONTRIBUTORS
+      - LICENSE
+      - NOTICE
+      - README.md
+      - docs/**
+      - generator/**
+      - iphone/**
+      - packaging/**
+      - pyhelpers/**
+      - qt*/**
+      - skin_generator/**
+      - track_generator/**
+      - xcode/**
 
 jobs:
-  android-beta:
-    name: Android Beta
+  android-web-beta:
+    name: Android Web Beta
     runs-on: ubuntu-latest
+    environment: beta
     steps:
       - name: Install build tools and dependencies
         shell: bash
@@ -55,16 +71,9 @@ jobs:
           ninja --version
           ./gradlew -x lint -x lintVitalWebBeta assembleWebBeta uploadCrashlyticsSymbolFileWebBeta
 
-      - name: Upload beta apk
-        uses: actions/upload-artifact@v2
-        with:
-          name: android-web-beta
-          path: android/build/outputs/apk/web/beta/OrganicMaps-*-web-beta.apk
-          if-no-files-found: error
-
       - name: Upload beta apk to App Distribution
         shell: bash
         working-directory: android
         run: |
-           ${{ github.event.releasenotes.name }} > RELEASE
+           git --no-pager show -s --format='%s%n%n%b' HEAD > RELEASE
            ./gradlew appDistributionUploadWebBeta
