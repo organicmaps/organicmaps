@@ -23754,40 +23754,6 @@
     zh-Hant = 加載的列表
     fa = لیست‌های دانلودشده
 
-  [author_name_by_prefix]
-    en = by %s
-    ru = %s
-    ar = بواسطة%s
-    cs = %s
-    da = af %s
-    nl = volgens %s
-    fi = %s
-    fr = par %s
-    de = %s
-    hu = %s
-    id = oleh %s
-    it = %s
-    ja = %s
-    ko = %s를 통해
-    no = av %s
-    pl = przez %s
-    pt = por %s
-    pt-BR = por %s
-    ro = %s
-    es = %s
-    es_MX = %s
-    sv = av %s
-    th = โดย %s
-    tr = - %s
-    uk = %s
-    vi = %s
-    el = από %s
-    sk = od %s
-    sw = na %s
-    zh-Hans = %s
-    zh-Hant = %s
-    fa = توسط %s
-
   [bookmarks_objects]
     en:one = %s object
     en:other = %s objects
