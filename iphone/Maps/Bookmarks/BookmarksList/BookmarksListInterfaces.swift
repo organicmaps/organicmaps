@@ -114,7 +114,6 @@ protocol IBookmarksListRouter {
 
 protocol IBookmakrsListInfoViewModel {
   var title: String { get }
-  var author: String { get }
   var hasDescription: Bool { get }
   var imageUrl: URL? { get }
 }

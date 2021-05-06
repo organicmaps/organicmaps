@@ -17,8 +17,6 @@ final class BookmarksListInfoViewController: UIViewController {
   @IBOutlet private var titleLabel: UILabel!
   @IBOutlet private var descriptionButton: UIButton!
   @IBOutlet private var authorContainerView: UIView!
-  @IBOutlet private var authorImageView: UIImageView!
-  @IBOutlet private var authorLabel: UILabel!
   @IBOutlet private var infoStack: UIStackView!
   @IBOutlet private var separatorsConstraints: [NSLayoutConstraint]!
 
@@ -37,9 +35,6 @@ final class BookmarksListInfoViewController: UIViewController {
 
   private func updateInfo(_ info: IBookmakrsListInfoViewModel) {
     titleLabel.text = info.title
-    authorLabel.text = String(coreFormat: L("author_name_by_prefix"), arguments: [info.author])
-    authorImageView.isHidden = true
-    authorContainerView.isHidden = info.author.isEmpty
     descriptionButton.isHidden = !info.hasDescription
 
     titleImageView.isHidden = true
