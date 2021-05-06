@@ -987,7 +987,6 @@
 	<string name="cached_bookmarks_placeholder_subtitle">Nhấn nút để tải xuống hàng ngàn địa điểm và tuyến đường thú vị được tạo bởi người dùng Organic Maps. Bạn sẽ cần kết nối internet.</string>
 	<string name="downloader_download_routers">Tải dấu trang xuống</string>
 	<string name="bookmarks_groups_cached">Danh sách đã tải xuống</string>
-	<string name="author_name_by_prefix">%s</string>
 	<plurals name="bookmarks_objects">
 	  <item quantity="other">%s mục tiêu</item>
 	</plurals>

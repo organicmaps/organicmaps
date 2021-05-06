@@ -996,7 +996,6 @@
 	<string name="cached_bookmarks_placeholder_subtitle">单击按钮下载Organic Maps用户创建的数千个有趣的地点和路线。您需要连接网络。</string>
 	<string name="downloader_download_routers">下载标签</string>
 	<string name="bookmarks_groups_cached">上传的列表</string>
-	<string name="author_name_by_prefix">%s</string>
 	<plurals name="bookmarks_objects">
 	  <item quantity="other">%s 对象</item>
 	</plurals>

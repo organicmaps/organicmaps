@@ -1002,7 +1002,6 @@
 	<string name="cached_bookmarks_placeholder_subtitle">กดปุ่มเพื่อดาวน์โหลดหลายพันสถานที่ และเส้นทางที่น่าสนใจต่าง ๆ ซึ่งสร้างขึ้นโดยผู้ใช้งานของ Organic Maps คุณจำเป็นต้องเชื่อมต่อกับอินเตอร์เน็ต</string>
 	<string name="downloader_download_routers">ดาวน์โหลดบุ๊กมาร์ก</string>
 	<string name="bookmarks_groups_cached">ดาวน์โหลดรายการต่าง ๆ แล้ว</string>
-	<string name="author_name_by_prefix">โดย %s</string>
 	<plurals name="bookmarks_objects">
 	  <item quantity="other">%s วัตถุประสงค์</item>
 	</plurals>

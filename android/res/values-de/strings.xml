@@ -1005,7 +1005,6 @@
 	<string name="cached_bookmarks_placeholder_subtitle">Klicken Sie auf die Schaltfläche, um Tausende von interessanten Orten und Routen, die von den Anwendern von Organic Maps erstellt wurden, zu laden. Sie werden eine Internetverbindung benötigen.</string>
 	<string name="downloader_download_routers">Markierungen laden</string>
 	<string name="bookmarks_groups_cached">Heruntergeladene Listen</string>
-	<string name="author_name_by_prefix">%s</string>
 	<plurals name="bookmarks_objects">
 	  <item quantity="other">%s Objekt</item>
 	</plurals>
