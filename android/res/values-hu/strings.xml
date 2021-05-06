@@ -998,7 +998,6 @@
 	<string name="cached_bookmarks_placeholder_subtitle">Nyomja meg a gombot, hogy Organic Maps felhasználók ezrei által gyűjtött érdekes helyet és útvonalat tölthessen le. Ehhez internetkapcsolatra van szükség.</string>
 	<string name="downloader_download_routers">Könyvjelzők letöltése</string>
 	<string name="bookmarks_groups_cached">Letöltött listák</string>
-	<string name="author_name_by_prefix">%s</string>
 	<plurals name="bookmarks_objects">
 	  <item quantity="other">%s tárgy</item>
 	</plurals>

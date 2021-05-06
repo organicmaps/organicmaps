@@ -1000,7 +1000,6 @@
 	<string name="cached_bookmarks_placeholder_subtitle">單擊按鈕下載Organic Maps用戶創建的數千個有趣的地點和路線。您需要網絡連接。</string>
 	<string name="downloader_download_routers">加載標籤</string>
 	<string name="bookmarks_groups_cached">加載的列表</string>
-	<string name="author_name_by_prefix">%s</string>
 	<plurals name="bookmarks_objects">
 	  <item quantity="other">%s 對象</item>
 	</plurals>

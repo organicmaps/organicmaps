@@ -990,7 +990,6 @@
 	<string name="cached_bookmarks_placeholder_subtitle">Tekan tombol untuk mengunduh ribuan tempat dan rute menarik yang dibuat oleh pengguna Organic Maps. Anda akan memerlukan koneksi internet.</string>
 	<string name="downloader_download_routers">Unduh bookmark</string>
 	<string name="bookmarks_groups_cached">Daftar yang telah diunduh.</string>
-	<string name="author_name_by_prefix">oleh %s</string>
 	<plurals name="bookmarks_objects">
 	  <item quantity="other">obyek %s</item>
 	</plurals>
