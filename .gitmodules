@@ -1,18 +1,18 @@
 [submodule "tools/osmctools"]
   path = tools/osmctools
-  url = git://github.com/omapsapp/osmctools.git
+  url = https://github.com/organicmaps/osmctools.git
 [submodule "tools/kothic"]
   path = tools/kothic
-  url = git://github.com/omapsapp/kothic.git
+  url = https://github.com/organicmaps/kothic.git
 [submodule "tools/macdeployqtfix"]
   path = tools/macdeployqtfix
-  url = git://github.com/aurelien-rainone/macdeployqtfix.git
+  url = https://github.com/aurelien-rainone/macdeployqtfix.git
 [submodule "3party/protobuf/protobuf"]
   path = 3party/protobuf/protobuf
-  url = git://github.com/omapsapp/protobuf.git
+  url = https://github.com/organicmaps/protobuf.git
 [submodule "tools/twine"]
   path = tools/twine
-  url = https://github.com/omapsapp/twine.git
+  url = https://github.com/organicmaps/twine.git
 [submodule "3party/Vulkan-Headers"]
   path = 3party/Vulkan-Headers
   url = https://github.com/KhronosGroup/Vulkan-Headers.git
@@ -23,12 +23,12 @@
   ignore = dirty
 [submodule "3party/just_gtfs"]
   path = 3party/just_gtfs
-  url = https://github.com/omapsapp/just_gtfs.git
+  url = https://github.com/organicmaps/just_gtfs.git
   branch = for-usage-as-submodule
 [submodule "3party/expat"]
   path = 3party/expat
-  url = git://github.com/libexpat/libexpat.git
+  url = https://github.com/libexpat/libexpat.git
   branch = R_2_2_9
 [submodule "3party/glm"]
-	path = 3party/glm
-	url = https://github.com/g-truc/glm.git
+  path = 3party/glm
+  url = https://github.com/g-truc/glm.git

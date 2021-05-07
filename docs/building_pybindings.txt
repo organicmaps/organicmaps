@@ -9,7 +9,7 @@ This document describes how to build these python bindings.
 
 Preparing source tree
 ---------------------
-The OMaps project comes with its own version of Boost (https://www.boost.org/)
+The Organic Maps project comes with its own version of Boost (https://www.boost.org/)
 in a submodule. You have to recursively update submodules before you start
 building anything.
 
@@ -75,7 +75,7 @@ Pip installation
 ----------------
 One can install pybinding straight from source:
 
-  $ pip install git+https://github.com/omapsapp/omapsapp.git@master#egg=pykmlib&subdirectory=kml/pykmlib
+  $ pip install git+https://github.com/organicmaps/organicmaps.git@master#egg=pykmlib&subdirectory=kml/pykmlib
 
 But this can be a long wait, it is better to use already compiled .whl
 distribution.

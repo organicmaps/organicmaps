@@ -1,9 +1,9 @@
 # How to write a commit message
 
-Any commit needs a helpful message. Mind the following guidelines when committing to any of OMaps repositories at GitHub.
+Any commit needs a helpful message. Mind the following guidelines when committing to any of Organic Maps repositories at GitHub.
 
 1. Separate subject from body with a blank line.
-2. Limit the subject line to **50 characters** or less.
+2. Limit the subject line to **72 characters**.
 3. Prefix the subject line with a **subsystem name** in square brackets:
 
    - [android]
@@ -39,7 +39,7 @@ Any commit needs a helpful message. Mind the following guidelines when committin
 A template:
 
 ```
-    [subsystem] Summarize in 50 characters or less
+    [subsystem] Summarize in 72 characters or less
 
     More detailed explanatory text, if necessary.
     Wrap it to 72 characters or so.

@@ -1,62 +1,47 @@
 # Contributing
 
-## Issues
+Thank you for your interest in contributing to Organic Maps!
 
-The simplest way to contribute is to [submit an issue](https://github.com/omapsapp/omapsapp/issues).
-Please give developers as much information as possible: OS and application versions,
+## How Can I Contribute?
+
+There are many ways to contribute.
+
+### Bug Reports
+
+The simplest way to contribute is to [submit an issue](https://github.com/organicmaps/organicmaps/issues).Please give developers as much information as possible: OS and application versions,
 list of actions leading to a bug, a log file produced by the app.
 
-When using the OMaps app on a device, use the built-in "Report a bug" option:
+When using the Organic Maps app on a device, use the built-in "Report a bug" option:
 it creates a new e-mail with a log file attached. Your issue will be processed much
-faster if you send it to bugs@omaps.app.
+faster if you send it to bugs@organicmaps.app.
 
-## Initializing the Repository
+### Feature Requests
 
-To initialize the repository, run `configure.sh`:
+If you have some ideas or want to request a new feature, please [start a discussion thread](https://github.com/organicmaps/organicmaps/discussions/categories/ideas).
 
-    ./configure.sh
+### Translations
 
-## Setting up IDE
+If you want to improve app translations or add more search synonyms, please update [strings.txt](https://github.com/organicmaps/organicmaps/blob/master/data/strings/strings.txt) file, run `./tools/unix/generate_localizations.sh` and create a [Pull Request](#pull-requests).
 
-See [INSTALL.md](INSTALL.md) for command-line compilation instructions.
+### Code Contributions
 
-* Install XCode and Command Line Tools, then run XCode and click "I Agree".
+Please follow instructions in [INSTALL.md](INSTALL.md) to set up your development environment.
+Create and submit a [Pull Request](#pull-requests) with your changes.
 
-### Qt Creator
+## Process
 
-* Download [Qt Creator](http://www.qt.io/download-open-source/) with Qt 5.
-* In `Qt/5.5/clang_64/mkspecs/qdevice.pri` replace `10.10` with `10.11`, and
-    add a line `QMAKE_MAC_SDK = macosx10.11` (see installed versions in
-    `/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/`)
-* Start Qt Creator, open `omim.pro`, choose "qt" target and run the project.
-* To build the project faster, open "Project Settings", find "Build Steps", then
-    "Make Arguments" and put "-j8" there (without quotes).
+### Pull Requests
 
-Debugging may not work in Qt Creator. To enable it, try creating a Build & Run kit in
-preferences with XCode's lldb as a debugger and a clang compiler.
-
-At the moment configuration assumes you've cloned repository into omim (also a default name) directory.
-If you are using shadow-dir for building artifacts (default behavior) and custom directory for repo -
-you'll need to create a "data" symlink in the shadow-dir path to the /repo/data directory.
-
-### XCode
-
-* Install [Homebrew](http://brew.sh/) and run `brew install qt5`.
-* Run XCode, open `xcode/omim.xcworkspace`.
-* Select "xcOMaps" scheme and run the product.
-
-## Guidelines
-
-- [C++ Style Guide](CPP_STYLE.md) - use `clang-format` when in doubt.
-- [Objective-C Style Guide](OBJC_STYLE.md).
-- [How to write a commit message](COMMIT_MESSAGES.md).
-
-## Pull Requests
-
-All contributions to OMaps source code should be submitted via github pull requests.
+All contributions to Organic Maps source code should be submitted via github pull requests.
 Each pull request is reviewed by OMaps maintainers, to ensure consistent code style
 and quality. Sometimes the review process even for smallest commits can be
 very thorough. Please follow [the developer guidelines](#guidelines).
+
+### Legal Requirements
+
+When contributing to this project, you must agree that you have authored 100%
+of the content, that you have the necessary rights to the content and that
+the content you contribute may be provided under the project license.
 
 To contribute you must assure that you have read and are following the rules
 stated in the [Developers Certificate of Origin](DCO.md) (DCO). We have
@@ -74,61 +59,19 @@ Git has a flag that can sign a commit for you. An example using it is:
 Use your real name or on some rare cases a company email address, but we
 disallow pseudonyms or anonymous contributions.
 
-## Directories
+### Code of Conduct
 
-### Core
+The Organic Maps community abides by the [CNCF code of conduct](CODE_OF_CONDUCT).
 
-* `api` - external API of the application.
-* `base` - some base things, like macros, logging, caches etc.
-* `coding` - I/O classes and data processing.
-* `drape` - the new graphics library core.
-* `drape_frontend` - scene and resource manager for the Drape library.
-* `generator` - map building tool.
-* `geocoder` -
-* `geometry` - geometry primitives we use.
-* `indexer` - processor for map files, classificator, styles.
-* `map` - app business logic, including a scene manager.
-* `platform` - platform abstraction classes: file paths, http requests, location services.
-* `routing` - in-app routing engine.
-* `routing_common` -
-* `search` - ranking and searching classes.
-* `std` - standard headers wrappers, for Boost, STL, C-rt.
-* `storage` - map reading function.
-* `tracking` -
-* `traffic` - real-time traffic information.
-* `transit` -
-* `ugc` - user generated content, such as reviews.
+### Guidelines
 
-### Other
-
-Some of these contain their own README files.
-
-* `3party` - external libraries, sometimes modified.
-* `android` - Android UI.
-* `cmake` - CMake helper files.
-* `data` - data files for the application: maps, styles, country borders.
-* `debian` - package sources for Debian.
-* `descriptions` -
-* `editor` -
-* `feature_list` -
-* `installer` - long-abandoned installer for Windows.
-* `iphone` - iOS UI.
-* `kml` - manipulation of KML files.
-* `mapshot` - generate screenshots of maps, specified by coordinates and zoom level.
-* `openlr` -
-* `pyhelpers` -
-* `qt` - desktop application.
-* `qt_tstfrm` - widgets for visual testing.
-* `shaders` - shaders for rendering.
-* `skin_generator` - a console app for building skin files with icons and symbols.
-* `software_renderer` -
-* `testing` - common interfaces for tests.
-* `tools` - tools for building packages and maps, for testing etc.
-* `track_analyzing` -
-* `track_generator` - Generate smooth tracks based on waypoints from KML.
-* `xcode` - XCode workspace.
+- [C++ Style Guide](CPP_STYLE.md).
+- [Objective-C Style Guide](OBJC_STYLE.md).
+- [Pull Request Guide](PR_GUIDE.md).
+- [How to write a commit message](COMMIT_MESSAGES.md).
 
 ## Questions?
 
-For any questions about developing OMaps and relevant services - virtually about anything related,
-please write to us at bugs@omaps.app, we'll be happy to help.
+For any questions about developing Organic Maps and relevant services -
+virtually about anything related, please [contact us](COMMUNICATION.md),
+we'll be happy to help.

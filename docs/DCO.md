@@ -60,4 +60,4 @@ the CLA process first. Now they just need to signoff on the commit.
 
 ## Contributors
 
-Please feel free to add your name to [CONTRIBUTORS](https://github.com/omapsapp/omapsapp/blob/master/CONTRIBUTORS) in your first PR.
+Please feel free to add your name to [CONTRIBUTORS](https://github.com/organicmaps/organicmaps/blob/master/CONTRIBUTORS) in your first PR.

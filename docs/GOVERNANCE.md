@@ -1,12 +1,12 @@
 # Governance
 
-OMaps Project (omaps.app / omaps.org) is an independent open-source project and not controlled by any single company.
+Organic Maps Project (organicmaps.app) is an open-source project.
 
 ## The Governing Board
 
-The focus of the Governing Board is to assist and guide in the progress and development of OMaps, as well as to lead and promote OMaps.
+The focus of the Governing Board is to assist and guide in the progress and development of Organic Maps, as well as to lead and promote Organic Maps.
 
-The Governing Board is the governing body responsible for the overall oversight of the OMaps Project and the election (and re-election) of new board members. The Board also has the responsibility to ensure the goals, brands, and marks of the OMaps and community are protected. The Board serves as the final authority within the OMaps Project.
+The Governing Board is the governing body responsible for the overall oversight of the Organic Maps Project. The Board also has the responsibility to ensure the goals, brands, and marks of Organic Maps and community are protected. The Board serves as the final authority within the Organic Maps Project.
 
 ## Governing Board Responsibilities
 
@@ -31,6 +31,6 @@ The Governing Board is the governing body responsible for the overall oversight 
 
 ## Current Sitting Board
 
-The initial OMaps.app board will be made up of original MAPS.ME contributors and users.
-[Roman Tsisyk](https://github.com/rtsisyk) plays a role of an interim project manager until board is formed.
-Roman Tsisyk commits to create the governing board before the end of 2021.
+- [Alexander Borsuk](https://github.com/biodranik)
+- [Victor Govako](https://github.com/vng)
+- [Roman Tsisyk](https://github.com/rtsisyk)

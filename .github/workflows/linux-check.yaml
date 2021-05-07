@@ -61,9 +61,9 @@ jobs:
 
       - name: Tests
         shell: bash
-        # generator_integration_tests - https://github.com/omapsapp/omapsapp/issues/225
-        # routing_integration_tests - https://github.com/omapsapp/omapsapp/issues/221
-        # routing_quality_tests - https://github.com/omapsapp/omapsapp/issues/215
+        # generator_integration_tests - https://github.com/organicmaps/organicmaps/issues/225
+        # routing_integration_tests - https://github.com/organicmaps/organicmaps/issues/221
+        # routing_quality_tests - https://github.com/organicmaps/organicmaps/issues/215
         # drape_tests - requires X Window
         run: |
           ./tools/python/run_desktop_tests.py \
