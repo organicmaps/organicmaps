@@ -159,7 +159,7 @@ public class SplashActivity extends AppCompatActivity implements BaseActivity
     MwmApplication app = MwmApplication.from(this);
     try
     {
-      app.ensureCoreInitialized();
+      app.init();
     } catch (IOException e)
     {
       showFatalErrorDialog(R.string.dialog_error_storage_title, R.string.dialog_error_storage_message);

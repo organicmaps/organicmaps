@@ -11,8 +11,6 @@ import com.mapswithme.util.CrashlyticsUtils;
 import com.mapswithme.util.log.Logger;
 import com.mapswithme.util.log.LoggerFactory;
 
-import java.io.IOException;
-
 public abstract class MwmBroadcastReceiver extends BroadcastReceiver
 {
   private static final Logger LOGGER = LoggerFactory.INSTANCE.getLogger(LoggerFactory.Type.MISC);
@@ -32,12 +30,9 @@ public abstract class MwmBroadcastReceiver extends BroadcastReceiver
     String msg = "onReceive: " + intent;
     LOGGER.i(getTag(), msg);
     CrashlyticsUtils.INSTANCE.log(Log.INFO, getTag(), msg);
-    try
+    if (!app.arePlatformAndCoreInitialized())
     {
-      app.ensureCoreInitialized();
-    } catch (IOException e)
-    {
-      LOGGER.e(getTag(), "Failed to initialize application, ignoring " + intent);
+      LOGGER.w(getTag(), "Application is not initialized, ignoring " + intent);
       return;
     }
 
