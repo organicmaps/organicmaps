@@ -9,7 +9,7 @@ Summary:	OSRM - OpenStreetmap Routing Machine
 
 Group:		System Environment/Daemons
 License:	Proprietary
-URL:		https://github.com/omapsapp/omapsapp
+URL:		https://github.com/organicmaps/organicmaps
 BuildRoot:	%{_tmppath}/%{name}-%{version}-%(id -u -n)
 Source0:	omim-%{version}.tar.gz
 Source1:	%{name}.init
@@ -22,7 +22,7 @@ Requires:	omim-data-polygons = %{version}-%{release}
 
 %description
 OSM Routing Machine with Maps.me additions
-https://github.com/omapsapp/omapsapp.git
+https://github.com/organicmaps/organicmaps.git
 
 %package -n omim-data-polygons
 Summary:	Data polygons - Maps.me data from OMIM (One Month In Minsk) repository

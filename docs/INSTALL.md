@@ -58,10 +58,10 @@ brew install qt cmake
 Clone the repository:
 
 ```bash
-git clone --recursive https://github.com/omapsapp/omapsapp.git
+git clone --recursive https://github.com/organicmaps/organicmaps.git
 ```
 
-Default clone destination directory is omapsapp.
+Default clone destination directory is organicmaps.
 
 Update git submodules (sometimes doesn't work automatically):
 
@@ -130,11 +130,11 @@ Run `OMaps` binary from `../omim-build-<buildtype>`, for example, for release:
 ../omim-build-release/OMaps -data_path ./data
 ```
 
-or create `data` symlink in build dir to `omapsapp/data` directory and run
+or create `data` symlink in build dir to `organicmaps/data` directory and run
 
 ```bash
 cd ../omim-build-release
-ln -s ../omapsapp/data ./data
+ln -s ../organicmaps/data ./data
 ./OMaps -data_path ./data
 ```
 
@@ -183,7 +183,7 @@ ln -s ../data/ data
 ./coding_tests
 ```
 
-Some tests [are known to be broken](https://github.com/omapsapp/omapsapp/issues?q=is%3Aissue+is%3Aopen+label%3ATests).
+Some tests [are known to be broken](https://github.com/organicmaps/organicmaps/issues?q=is%3Aissue+is%3Aopen+label%3ATests).
 
 ## Android app
 
@@ -218,7 +218,7 @@ installing Android Studio.
 Clone the repository:
 
 ```bash
-git clone --recursive https://github.com/omapsapp/omapsapp.git
+git clone --recursive https://github.com/organicmaps/organicmaps.git
 ```
 
 Update git submodules (sometimes doesn't work automatically):
@@ -308,7 +308,7 @@ Enroll in the [Apple Developer Program](https://developer.apple.com/programs/).
 Clone the repository:
 
 ```bash
-git clone --recursive https://github.com/omapsapp/omapsapp.git
+git clone --recursive https://github.com/organicmaps/organicmaps.git
 ```
 
 Update git submodules (sometimes doesn't work automatically):

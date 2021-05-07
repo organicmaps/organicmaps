@@ -1,5 +1,5 @@
 This file contains a list of people who have contributed to the
-public version of MAPS.ME and OMaps.
+public version of MAPS.ME and Organic Maps.
 
 Original MAPS.ME (MapsWithMe) design and implementation:
   Yury Melnichek <yury@melnichek.com>
@@ -35,6 +35,7 @@ Code contributions:
   Alex Gontmakher <gsasha@gmail.com>
   Dima Korolev <dmitry.korolev@gmail.com>
   Max Grigorev <forwidur@gmail.com>
+  Roman Tsisyk <roman@tsisyk.com>
 
 Porting to Tizen platform:
   Sergey Pisarchik
@@ -77,8 +78,3 @@ Special thanks to:
   Yuri Gurski
   Dmitry Matveev
   Anna Yakovleva
-
-The OMaps Contributors:
-
-  Roman Tsisyk <roman@tsisyk.com>
-  Veniamin Gvozdikov <g.veniamin@googlemail.com>

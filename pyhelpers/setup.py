@@ -505,7 +505,7 @@ def setup_omim_pybinding(
     version=None,
     author='The OMaps Project',
     author_email='dev@omaps.app',
-    url='https://github.com/omapsapp/omapsapp',
+    url='https://github.com/organicmaps/organicmaps',
     license='Apache-2.0',
     supported_pythons=('2', '2.7', '3', '3.5', '3.6', '3.7', '3.8', '3.9'),
 ):

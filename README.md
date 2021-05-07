@@ -1,85 +1,77 @@
-# OMaps
+# Organic Maps
 
-[![Android][android-badge]][android-url]
-[![iOS][ios-badge]][ios-url]
-[![Slack][slack-badge]][slack-url]
-[![Telegram][telegram-badge]][telegram-url]
-[![Telegram RU][telegramru-badge]][telegramru-url]
+[![Google Play][google-play-badge]][google-play-url]
+[![App Store][apple-appstore-badge]][apple-appstore-url]
+[![Telegram Channel][telegram-channel-badge]][telegram-channel-url]
+[![Telegram Group][telegram-group-badge]][telegram-group-url]
 [![Build][build-badge]][build-url]
 
-[OMaps](https://omaps.app) is an open source cross-platform offline maps application,
-built on top of crowd-sourced OpenStreetMap data.
+[Organic Maps](https://organicmaps.app) is an Android & iOS offline maps app
+for travellers, tourists, hikers and cyclists based on top of crowd-sourced
+OpenStreetMap data.
 
 ![](docs/screenshots.jpg)
 
-## Submodules
+## Features
 
-This repository contains submodules. Clone it with `git clone --recursive`. If you forgot,
-run `git submodule update --init --recursive`.
+- Detailed Offline Maps for Travellers, Tourists, Hikers and Cyclists.
+- Contour Lines, Peaks, Passes, Sights, Toilets, ATMs, Parking.
+- Offline Car Navigation, Walking and Cycling Directions.
+- Open Source, Clean Code, No Spyware, No Ads, No Data Collection.
+- No Big Tech’s Prying Eyes on Your Private Trip Anymore.
 
-## Translations
+## Installing
 
-If you want to improve app translations or add more search synonyms, please check our [wiki](https://github.com/organicmaps/organicmaps/wiki).
+### Android
 
-## Compilation
+- [Google Play][google-play-url]
+- [GitHub Releases APK][github-releases-url]
+- [Firebase App Distribution APK (Beta)][firebase-appdistribution-url]
 
-To compile the project, you would need to initialize private key files. Run
-`configure.sh` and press Enter to create empty files, good enough to build desktop
-and Android debug packages.
+### iOS
 
-For detailed installation instructions and Android/iOS building process,
-see [INSTALL.md](https://github.com/organicmaps/organicmaps/tree/master/docs/INSTALL.md).
+- [Apple AppStore][apple-appstore-url]
+- [GitHub Releases IPA][github-releases-url]
 
-## Building maps
+### Desktop
 
-To create one or many map files, first build the project, then use python module [maps_generator](https://github.com/organicmaps/organicmaps/tree/master/tools/python/maps_generator).
+See [INSTALL](docs/INSTALL.md).
 
-## Map styles
+## Contributing
 
-OMaps uses its own binary format for map styles, `drules_proto.bin`, which is compiled from
-[MapCSS](https://wiki.openstreetmap.org/wiki/MapCSS) using modified Kothic library.
-Feature set in MWM files depends on a compiled style, so make sure to rebuild maps after
-releasing a style.
+See [CONTRIBUTING](docs/CONTRIBUTING.md).
 
-For development, use OMaps Designer app along with its generator tool: these allow
-for quick rebuilding of a style and symbols, and for producing a zoom-independent
-feature set in MWM files.
+## Governance
 
-See [STYLES.md](https://github.com/organicmaps/organicmaps/tree/master/docs/STYLES.md) for the
-format description, instructions on building a style and some links.
-
-## Development
-
-You would need Qt 5 for development, most other libraries are included into the
-repository: see `3party` directory. The team uses mostly XCode and Qt Creator,
-though these are not mandatory. We have an established
-[c++ coding style](https://github.com/organicmaps/organicmaps/blob/master/docs/CPP_STYLE.md) and [Objective-C coding style](https://github.com/organicmaps/organicmaps/blob/master/docs/OBJC_STYLE.md).
-
-**You can turn on experimental public transport support.** For details please read [simple instruction.](https://github.com/organicmaps/organicmaps/blob/master/docs/EXPERIMENTAL_PUBLIC_TRANSPORT_SUPPORT.md)
-
-See [CONTRIBUTING.md](https://github.com/organicmaps/organicmaps/blob/master/docs/CONTRIBUTING.md)
-for the repository initialization process, the description of all the directories
-of this repository and other development-related information.
+See [GOVERNANCE](docs/GOVERNANCE.md).
 
 ## Feedback
 
-Please report bugs and suggestions to [the issue tracker](https://github.com/organicmaps/organicmaps/issues),
-or by mail to bugs@omaps.app.
+- **Star us on GitHub**.
+- Report bugs or issues to [the issue tracker](https://github.com/organicmaps/organicmaps/issues).
+- [Discuss](https://github.com/organicmaps/organicmaps/discussions/categories/ideas) ideas or propose feature requests.
+- Subscribe to our [Telegram Channel](https://t.me/OrganicMapsApp) for updates.
+- Join our [Telegram Group](https://t.me/OrganicMaps) to discuss with other users.
+- Contact us by [email](hello@organicmaps.app).
+
+The Organic Maps community abides by the CNCF code of conduct.
 
 ## Authors and License
 
 See [NOTICE](https://github.com/organicmaps/organicmaps/blob/master/NOTICE)
 and [data/copyright.html](http://htmlpreview.github.io/?https://github.com/organicmaps/organicmaps/blob/master/data/copyright.html) files for more information.
 
-[android-badge]: https://img.shields.io/badge/Android-Beta-green.svg?style=flat
-[android-url]: https://play.google.com/store/apps/details?id=app.omaps
-[ios-badge]: https://img.shields.io/badge/iOS-Beta-white.svg?style=flat
-[ios-url]: https://testflight.apple.com/join/62l4Qh2K
+[google-play-badge]: https://img.shields.io/badge/Google-Play-green.svg?style=flat
+[google-play-url]: https://play.google.com/store/apps/details?id=app.omaps
+[firebase-appdistribution-url]: https://appdistribution.firebase.google.com/pub/i/4fa64e2439ca20ff
+[github-releases-url]: https://github.com/organicmaps/organicmaps/releases
+[apple-appstore-badge]: https://img.shields.io/badge/Apple-AppStore-white.svg?style=flat
+[apple-appstore-url]: https://testflight.apple.com/join/62l4Qh2K
 [slack-badge]: https://img.shields.io/badge/Slack-Community-yellow.svg?style=flat
 [slack-url]: https://slack.omaps.app/
-[telegram-badge]: https://img.shields.io/badge/Telegram-Group-blue.svg?style=flat
-[telegram-url]: https://t.me/omaps
-[telegramru-badge]: https://img.shields.io/badge/Telegram-Group_RU-red.svg?style=flat
-[telegramru-url]: https://t.me/omaps_ru
+[telegram-channel-badge]: https://img.shields.io/badge/Telegram-Channel-blue.svg?style=flat
+[telegram-channel-url]: https://t.me/OrganicMapsApp
+[telegram-group-badge]: https://img.shields.io/badge/Telegram-Group-lightgrey.svg?style=flat
+[telegram-group-url]: https://t.me/OrganicMaps
 [build-badge]: https://github.com/organicmaps/organicmaps/workflows/Check/badge.svg?branch=master
 [build-url]: https://github.com/organicmaps/organicmaps/actions

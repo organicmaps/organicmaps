@@ -1,12 +1,12 @@
 # maps_generator
-It's tool for generation maps for maps.me application.
+It's tool for generation maps for the Organic Maps application.
 
 Note: **Use generator_tool and application from the same release. Application does not support
 maps built by generator_tool newer than app.**
 
-##  What are maps for maps.me?
-Maps for maps.me are data with special meta information for drawing, quick searching and routing and for other.
-Files from [omim/data/borders](https://github.com/omapsapp/omapsapp/tree/master/data/borders) define map boundaries.
+##  What are maps?
+Maps are data with special meta information for drawing, quick searching and routing and for other.
+Files from [data/borders](https://github.com/organicmaps/organicmaps/tree/master/data/borders) define map boundaries.
 Further we will call it countries or simply maps.
 But there are two special maps: World and WorldCoasts. They are used when other maps have not been downloaded.
 Further we will call them world and coastlines.
@@ -20,7 +20,7 @@ For example, if you use OMaps 9.2.3 you should do:
 git checkout release-92
 ```
 The app version can be found in the "About" section in the settings menu of OMaps.
-1. [Build and install generator_tool.](https://github.com/omapsapp/omapsapp/blob/master/docs/INSTALL.md#maps-generator)
+1. [Build and install generator_tool.](https://github.com/organicmaps/organicmaps/blob/master/docs/INSTALL.md#maps-generator)
 2. Change directory:
 ```sh
 $ cd omim/tools/python/maps_generator
@@ -127,7 +127,7 @@ STATS_TYPES_CONFIG: ${Developer:OMIM_PATH}/tools/python/maps_generator/var/etc/s
 
 ##### Note 1: In each field where you need to specify a URL, you can specify the path to the file system using file:///path/to/file
 
-##### Note 2: You can manually generate subway layer file for SUBWAY_URL parameter. See [instructions](https://github.com/omapsapp/omapsapp/tree/master/docs/SUBWAY_GENERATION.md).
+##### Note 2: You can manually generate subway layer file for SUBWAY_URL parameter. See [instructions](https://github.com/organicmaps/organicmaps/tree/master/docs/SUBWAY_GENERATION.md).
 
 ## Usage
 ```sh
