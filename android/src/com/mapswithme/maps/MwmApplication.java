@@ -64,8 +64,8 @@ public class MwmApplication extends Application implements AppBackgroundTracker.
   @NonNull
   private MapDownloadManager mMapDownloadManager;
 
-  private boolean mFrameworkInitialized;
-  private boolean mPlatformInitialized;
+  private volatile boolean mFrameworkInitialized;
+  private volatile boolean mPlatformInitialized;
 
   private Handler mMainLoopHandler;
   private final Object mMainQueueToken = new Object();
@@ -164,11 +164,10 @@ public class MwmApplication extends Application implements AppBackgroundTracker.
   /**
    * Initialize native core of application: platform and framework.
    *
-   * @return boolean - indicator whether native initialization is successful or not.
    * @throws IOException - if failed to create directories. Caller must handle
    * the exception and do nothing with native code if initialization is failed.
    */
-  public void ensureCoreInitialized() throws IOException
+  public void init() throws IOException
   {
     initNativePlatform();
     initNativeFramework();
