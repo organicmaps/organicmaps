@@ -22,17 +22,28 @@ abstract class BaseSettingsFragment extends BaseMwmFragment
   private void savePaddings()
   {
     View parent = (View)mFrame.getParent();
-    mSavedPaddings.set(parent.getPaddingLeft(), parent.getPaddingTop(), parent.getPaddingRight(), parent.getPaddingBottom());
+    if (parent != null)
+    {
+      mSavedPaddings.set(parent.getPaddingLeft(), parent.getPaddingTop(), parent.getPaddingRight(), parent.getPaddingBottom());
+    }
   }
 
   protected void clearPaddings()
   {
-    ((View)mFrame.getParent()).setPadding(0, 0, 0, 0);
+    View parent = (View)mFrame.getParent();
+    if (parent != null)
+    {
+      parent.setPadding(0, 0, 0, 0);
+    }
   }
 
   protected void restorePaddings()
   {
-    ((View)mFrame.getParent()).setPadding(mSavedPaddings.left, mSavedPaddings.top, mSavedPaddings.right, mSavedPaddings.bottom);
+    View parent = (View)mFrame.getParent();
+    if (parent != null)
+    {
+      parent.setPadding(mSavedPaddings.left, mSavedPaddings.top, mSavedPaddings.right, mSavedPaddings.bottom);
+    }
   }
 
   @Nullable
