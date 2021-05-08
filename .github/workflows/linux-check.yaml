@@ -61,13 +61,14 @@ jobs:
 
       - name: Tests
         shell: bash
-        # Separate run of OH boost-based test
-        run: ./build/opening_hours_tests
         # generator_integration_tests - https://github.com/organicmaps/organicmaps/issues/225
         # routing_integration_tests - https://github.com/organicmaps/organicmaps/issues/221
         # routing_quality_tests - https://github.com/organicmaps/organicmaps/issues/215
         # drape_tests - requires X Window
+
+        # Separate run of OH boost-based test
         run: |
+          ./build/opening_hours_tests |
           ./tools/python/run_desktop_tests.py \
             -f ./build \
             -u ./data \
