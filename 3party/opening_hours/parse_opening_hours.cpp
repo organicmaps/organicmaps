@@ -78,7 +78,7 @@ namespace parsing
       ;
 
       rule_modifier =
-      (charset::no_case[lit("open")]
+      (charset::no_case[lit("open") | lit("on")]
        [bind(&RuleSequence::SetModifier, _r1, Modifier::Open)] >>
        -(comment [bind(&RuleSequence::SetModifierComment, _r1, _1)]))
 
@@ -117,6 +117,7 @@ namespace parsing
 
 bool Parse(std::string const & str, TRuleSequences & context)
 {
+  context.clear();
   return osmoh::ParseImpl<parsing::time_domain>(str, context);
 }
 } // namespace osmoh
