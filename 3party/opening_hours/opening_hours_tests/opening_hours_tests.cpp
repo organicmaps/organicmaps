@@ -871,11 +871,16 @@ BOOST_AUTO_TEST_CASE(OpeningHoursMonthdayRanges_TestParseUnparse)
 
 BOOST_AUTO_TEST_CASE(OpeningHoursYearRanges_TestParseUnparse)
 {
+  /// @todo Single year was removed here:
+  /// https://github.com/organicmaps/organicmaps/commit/ebe26a41da0744b3bc81d6b213406361f14d39b2
+  /*
   {
     auto const rule = "1995";
     auto const parsedUnparsed = ParseAndUnparse<osmoh::TYearRanges>(rule);
     BOOST_CHECK_EQUAL(parsedUnparsed, rule);
   }
+  */
+
   {
     auto const rule = "1997+";
     auto const parsedUnparsed = ParseAndUnparse<osmoh::TYearRanges>(rule);
@@ -1269,9 +1274,13 @@ BOOST_AUTO_TEST_CASE(OpeningHours_TestIsActive)
     BOOST_CHECK(GetTimeTuple("2015", fmt, time));
     BOOST_CHECK(!IsActive(ranges[0], time));
   }
+
+  /// @todo Single year was removed here:
+  /// https://github.com/organicmaps/organicmaps/commit/ebe26a41da0744b3bc81d6b213406361f14d39b2
+  /*
   {
     TYearRanges ranges;
-    BOOST_CHECK(Parse("2011", ranges));
+    BOOST_REQUIRE(Parse("2011", ranges));
 
     std::tm time;
     auto const fmt = "%Y";
@@ -1281,6 +1290,8 @@ BOOST_AUTO_TEST_CASE(OpeningHours_TestIsActive)
     BOOST_CHECK(GetTimeTuple("2012", fmt, time));
     BOOST_CHECK(!IsActive(ranges[0], time));
   }
+  */
+
   /// See https://en.wikipedia.org/wiki/ISO_week_date#First_week
   {
     TWeekRanges ranges;
@@ -1495,7 +1506,7 @@ BOOST_AUTO_TEST_CASE(OpeningHours_TestIsOpen)
     BOOST_CHECK(IsOpen(rules, "2010-05-05 19:15"));
     BOOST_CHECK(IsClosed(rules, "2010-05-05 12:15"));
 
-    BOOST_CHECK(IsClosed(rules, "2010-04-10 15:15"));
+    BOOST_CHECK(IsClosed(rules, "2010-04-10 15:15"));   // Saturday
     /// If no selectors with `open' modifier match than state is closed.
     BOOST_CHECK(IsClosed(rules, "2010-04-10 11:15"));
 
@@ -1520,9 +1531,50 @@ BOOST_AUTO_TEST_CASE(OpeningHours_TestIsOpen)
   {
     TRuleSequences rules;
     BOOST_CHECK(Parse("PH open", rules));
+    BOOST_CHECK(Parse("PH closed", rules));
+    BOOST_CHECK(Parse("PH on", rules));
+    BOOST_CHECK(Parse("PH off", rules));
 
-    // Holidays are not supported yet.
-    BOOST_CHECK(IsClosed(rules, "2015-11-08 12:30"));
+    /// @todo Single PH entries are not supported yet, always closed?!
+    BOOST_CHECK(IsClosed(rules, "2021-05-07 11:23"));   // Friday
+    BOOST_CHECK(IsClosed(rules, "2015-11-08 12:30"));   // Sunday
+  }
+  {
+    TRuleSequences rules;
+    BOOST_CHECK(Parse("Mo-Sa 08:00-20:00; Dec Mo-Sa 08:00-14:00; Dec 25 off", rules));
+
+    BOOST_CHECK(IsClosed(rules, "2020-12-25 11:11"));
+
+    BOOST_CHECK(IsOpen(rules, "2020-12-24 13:50"));     // Thursday
+    BOOST_CHECK(IsClosed(rules, "2020-12-24 14:10"));   // Thursday
+    BOOST_CHECK(IsClosed(rules, "2020-12-27 12:00"));   // Sunday
+
+    BOOST_CHECK(IsOpen(rules, "2021-05-07 13:50"));     // Friday
+    BOOST_CHECK(IsOpen(rules, "2021-05-08 19:40"));     // Saturdaya
+    BOOST_CHECK(IsClosed(rules, "2021-05-09 12:00"));   // Sunday
+  }
+
+  /// @todo Synthetic example with ill-formed OH, but documented behaviour.
+  /// @see rules_evaluation.cpp/IsR1IncludesR2
+  /*
+  {
+    TRuleSequences rules;
+    BOOST_CHECK(Parse("Mo-Sa 08:00-20:00; Fr 08:00-14:00", rules));
+
+    BOOST_CHECK(IsOpen(rules, "2021-05-07 13:50"));     // Friday
+    BOOST_CHECK(IsClosed(rules, "2021-05-07 14:10"));   // Friday
+  }
+  */
+
+  {
+    TRuleSequences rules;
+    BOOST_CHECK(Parse("Mo-Sa 08:00-20:00; Dec 24 Mo-Sa 08:00-14:00; PH off", rules));
+
+    BOOST_CHECK(IsClosed(rules, "2020-12-24 14:10"));   // Thursday
+
+    BOOST_CHECK(IsOpen(rules, "2021-05-07 11:12"));     // Friday
+    BOOST_CHECK(IsOpen(rules, "2021-05-08 13:14"));     // Saturday
+    BOOST_CHECK(IsClosed(rules, "2021-05-09 15:16"));   // Sunday
   }
   {
     TRuleSequences rules;
@@ -1553,6 +1605,7 @@ BOOST_AUTO_TEST_CASE(OpeningHours_TestIsOpen)
     BOOST_CHECK(Parse("10:00-12:00", rules));
 
     BOOST_CHECK(IsOpen(rules, "2013-12-12 10:01"));
+    BOOST_CHECK(IsClosed(rules, "2013-12-12 12:01"));
   }
   {
     TRuleSequences rules;

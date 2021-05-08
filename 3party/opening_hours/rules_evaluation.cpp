@@ -323,60 +323,109 @@ bool IsActiveAny(std::vector<T> const & selectors, std::tm const & date)
   return selectors.empty();
 }
 
-bool IsActive(RuleSequence const & rule, time_t const timestamp)
+bool IsActiveAny(Timespan const & span, std::tm const & time) { return IsActive(span, time); }
+
+bool IsDayActive(RuleSequence const & rule, std::tm const & dt)
+{
+  return IsActiveAny(rule.GetYears(), dt) && IsActiveAny(rule.GetMonths(), dt) &&
+         IsActiveAny(rule.GetWeeks(), dt) && IsActive(rule.GetWeekdays(), dt);
+}
+
+template <class TTimeSpans>
+std::pair<bool, bool> MakeActiveResult(RuleSequence const & rule, std::tm const & dt, TTimeSpans const & times)
+{
+  if (IsDayActive(rule, dt))
+    return { true, IsActiveAny(times, dt) };
+  else
+    return {false, false};
+}
+
+/// @return [day active, time active].
+std::pair<bool, bool> IsActiveImpl(RuleSequence const & rule, time_t const timestamp)
 {
   if (rule.IsTwentyFourHours())
-    return true;
-
-  auto const checkIsActive = [](RuleSequence const & rule, std::tm const & dt)
-  {
-    return IsActiveAny(rule.GetYears(), dt) && IsActiveAny(rule.GetMonths(), dt) &&
-           IsActiveAny(rule.GetWeeks(), dt) && IsActive(rule.GetWeekdays(), dt);
-  };
+    return {true, true};
 
   auto const dateTimeTM = MakeTimetuple(timestamp);
   if (!HasExtendedHours(rule))
-    return checkIsActive(rule, dateTimeTM) && IsActiveAny(rule.GetTimes(), dateTimeTM);
+    return MakeActiveResult(rule, dateTimeTM, rule.GetTimes());
 
   TTimespans originalNormalizedSpans;
   Timespan additionalSpan;
   SplitExtendedHours(rule.GetTimes(), originalNormalizedSpans, additionalSpan);
 
-  if (checkIsActive(rule, dateTimeTM) && IsActiveAny(originalNormalizedSpans, dateTimeTM))
-    return true;
+  auto const res1 = MakeActiveResult(rule, dateTimeTM, originalNormalizedSpans);
+  if (res1.first && res1.second)
+    return res1;
 
   time_t constexpr twentyFourHoursShift = 24 * 60 * 60;
   auto const dateTimeTMShifted = MakeTimetuple(timestamp - twentyFourHoursShift);
 
-  if (checkIsActive(rule, dateTimeTMShifted) &&
-      IsActive(additionalSpan, dateTimeTMShifted))
+  auto const res2 = MakeActiveResult(rule, dateTimeTMShifted, additionalSpan);
+  return { res1.first || res2.first, res2.second };
+}
+
+/// Check if r1 is more general range and includes r2.
+bool IsR1IncludesR2(RuleSequence const & r1, RuleSequence const & r2)
+{
+  /// @todo Very naive implementation, but ok in most cases.
+  if ((r1.GetYears().empty() && !r2.GetYears().empty()) ||
+      (r1.GetMonths().empty() && !r2.GetMonths().empty()) ||
+      (r1.GetWeeks().empty() && !r2.GetWeeks().empty()) ||
+      (r1.GetWeekdays().IsEmpty() && !r2.GetWeekdays().IsEmpty()))
   {
     return true;
   }
-
   return false;
+}
+
+bool IsActive(RuleSequence const & rule, time_t const timestamp)
+{
+  auto const res = IsActiveImpl(rule, timestamp);
+  return res.first && res.second;
 }
 
 RuleState GetState(TRuleSequences const & rules, time_t const timestamp)
 {
-  auto emptyRuleIt = rules.rend();
+  RuleSequence const * emptyRule = nullptr;
+  RuleSequence const * dayMatchedRule = nullptr;
+
   for (auto it = rules.rbegin(); it != rules.rend(); ++it)
   {
-    if (IsActive(*it, timestamp))
+    auto const & rule = *it;
+    auto const res = IsActiveImpl(rule, timestamp);
+    if (!res.first)
+      continue;
+
+    bool const empty = rule.IsEmpty();
+    if (res.second)
     {
-      if (it->IsEmpty() && emptyRuleIt == rules.rend())
-        emptyRuleIt = it;
+      if (empty && !emptyRule)
+        emptyRule = &rule;
       else
-        return ModifierToRuleState(it->GetModifier());
+      {
+        // Should understand if previous 'rule vs dayMatchedRule' should work
+        // like 'general x BUT specific y' or like 'x OR y'.
+
+        if (dayMatchedRule && IsR1IncludesR2(rule, *dayMatchedRule))
+          return RuleState::Closed;
+
+        return ModifierToRuleState(rule.GetModifier());
+      }
+    }
+    else if (!empty && !dayMatchedRule && ModifierToRuleState(rule.GetModifier()) == RuleState::Open)
+    {
+      // Save recent day-matched rule with Open state, but not time-matched.
+      dayMatchedRule = &rule;
     }
   }
 
-  if (emptyRuleIt != rules.rend())
+  if (emptyRule)
   {
-    if (emptyRuleIt->HasComment())
+    if (emptyRule->HasComment())
       return RuleState::Unknown;
     else
-      return ModifierToRuleState(emptyRuleIt->GetModifier());
+      return ModifierToRuleState(emptyRule->GetModifier());
   }
 
   return (rules.empty()
