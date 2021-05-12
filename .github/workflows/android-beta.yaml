@@ -1,25 +1,6 @@
 name: Android Beta
 on:
-  push:
-    branches:
-      - master # Approved manually via `beta` environment
-    paths-ignore:
-      - .github/workflows/linux*
-      - .github/workflows/ios*
-      - '**/*_tests/**'
-      - CONTRIBUTORS
-      - LICENSE
-      - NOTICE
-      - README.md
-      - docs/**
-      - generator/**
-      - iphone/**
-      - packaging/**
-      - pyhelpers/**
-      - qt*/**
-      - skin_generator/**
-      - track_generator/**
-      - xcode/**
+  workflow_dispatch:
 
 jobs:
   android-web-beta:
