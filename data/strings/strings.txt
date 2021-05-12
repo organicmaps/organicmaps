@@ -3633,7 +3633,7 @@
     fa = نه ,متشکرم
 
   [bookmark_share_sms]
-    comment = Share one specific bookmark using SMS, %1$@ contains ge0:// and %2$@ http://ge0.me link. @NOTE non-ascii symbols in the link will make 70 bytes sms instead of 140
+    comment = Share one specific bookmark using SMS, %1$@ contains om:// and %2$@ http://omaps.app link. @NOTE non-ascii symbols in the link will result in max 70 characters SMS instead of 140.
     tags = ios,android
     en = Hey, check out my pin at Organic Maps! %1$@ or %2$@ Don't have offline maps installed? Download here: https://organicmaps.app/get
     ru = Моя метка на карте. Жми %1$@ или %2$@
@@ -3666,7 +3666,7 @@
     sk = Pozrite na moju značku na mape. Otvoriť odkaz: %1$@ alebo %2$@
 
   [my_position_share_sms]
-    comment = Share my position using SMS, %1$@ contains ge0:// and %2$@ http://ge0.me link WITHOUT NAME. @NOTE non-ascii symbols in the link will make 70 bytes sms instead of 140
+    comment = Share my position using SMS, %1$@ contains om:// and %2$@ http://omaps.app link WITHOUT NAME. @NOTE non-ascii symbols in the link will result in max 70 characters SMS instead of 140.
     tags = ios,android
     en = Hey, check out my current location in Organic Maps! %1$@ or %2$@ Don't have offline maps? Download here: https://organicmaps.app/get
     ru = Смотри где я сейчас. Жми %1$@ или %2$@
@@ -3768,7 +3768,7 @@
     sk = Pozrite si moju aktuálnu polohu na mape Organic Maps
 
   [my_position_share_email]
-    comment = Share my position using EMail, %1$@ is ge0:// and %2$@ is http://ge0.me link WITHOUT NAME
+    comment = Share my position using EMail, %1$@ is om:// and %2$@ is http://omaps.app link WITHOUT NAME
     tags = ios,android
     en = Hi,\n\nI'm here now: %1$@. Click this link %2$@ or this one %3$@ to see the place on the map.\n\nThanks.
     ru = Привет!\n\nЯ сейчас здесь: %1$@. Чтобы увидеть это место на карте Organic Maps, открой эту ссылку %2$@ или эту %3$@\n\nСпасибо.
