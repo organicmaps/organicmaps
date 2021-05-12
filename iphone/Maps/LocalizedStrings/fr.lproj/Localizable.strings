@@ -313,10 +313,10 @@
 /* No, thanks */
 "no_thanks" = "Non, merci";
 
-/* Share one specific bookmark using SMS, %1$@ contains ge0:// and %2$@ http://ge0.me link. @NOTE non-ascii symbols in the link will make 70 bytes sms instead of 140 */
+/* Share one specific bookmark using SMS, %1$@ contains om:// and %2$@ http://omaps.app link. @NOTE non-ascii symbols in the link will result in max 70 characters SMS instead of 140. */
 "bookmark_share_sms" = "Hé, regarde mon épingle sur Organic Maps ! %1$@ ou %2$@. Les cartes hors ligne ne sont pas installées ? Les télécharger ici : https://organicmaps.app/get";
 
-/* Share my position using SMS, %1$@ contains ge0:// and %2$@ http://ge0.me link WITHOUT NAME. @NOTE non-ascii symbols in the link will make 70 bytes sms instead of 140 */
+/* Share my position using SMS, %1$@ contains om:// and %2$@ http://omaps.app link WITHOUT NAME. @NOTE non-ascii symbols in the link will result in max 70 characters SMS instead of 140. */
 "my_position_share_sms" = "Hé, regarde ma position actuelle sur Organic Maps ! %1$@ ou %2$@. Les cartes hors ligne ne sont pas installées ? Les télécharger ici : https://organicmaps.app/get";
 
 /* Subject for emailed bookmark */
@@ -325,7 +325,7 @@
 /* Subject for emailed position */
 "my_position_share_email_subject" = "Hé, regarde ma position actuelle sur la carte Organic Maps !";
 
-/* Share my position using EMail, %1$@ is ge0:// and %2$@ is http://ge0.me link WITHOUT NAME */
+/* Share my position using EMail, %1$@ is om:// and %2$@ is http://omaps.app link WITHOUT NAME */
 "my_position_share_email" = "Bonjour,\n\nJe suis actuellement ici : %1$@. Clique sur ce lien %2$@ ou sur celui-ci %3$@ pour voir l'endroit sur la carte.\n\nMerci.";
 
 /* Android share by Message/SMS button text (including SMS) */

@@ -200,15 +200,15 @@
 	<string name="appStore_message">Wir hoffen, dass Ihnen die Verwendung von Organic Maps Freude bereitet! Wenn ja, geben Sie bitte eine Bewertung oder einen Bericht für die App im App Store ab. Es dauert weniger als eine Minute, kann uns aber wirklich helfen. Danke für Ihre Unterstützung!</string>
 	<!-- No, thanks -->
 	<string name="no_thanks">Nein danke</string>
-	<!-- Share one specific bookmark using SMS, %1$@ contains ge0:// and %2$@ http://ge0.me link. @NOTE non-ascii symbols in the link will make 70 bytes sms instead of 140 -->
+	<!-- Share one specific bookmark using SMS, %1$@ contains om:// and %2$@ http://omaps.app link. @NOTE non-ascii symbols in the link will result in max 70 characters SMS instead of 140. -->
 	<string name="bookmark_share_sms">Siehe meine Markierung auf Organic Maps an. %1$s oder %2$s - Keine Offline-Karten installiert? Hier herunterladen: https://organicmaps.app/get</string>
-	<!-- Share my position using SMS, %1$@ contains ge0:// and %2$@ http://ge0.me link WITHOUT NAME. @NOTE non-ascii symbols in the link will make 70 bytes sms instead of 140 -->
+	<!-- Share my position using SMS, %1$@ contains om:// and %2$@ http://omaps.app link WITHOUT NAME. @NOTE non-ascii symbols in the link will result in max 70 characters SMS instead of 140. -->
 	<string name="my_position_share_sms">Schau wo ich gerade bin. Klicke auf den Link %1$s oder %2$s - Keine Offline-Karten installiert? Hier herunterladen: https://organicmaps.app/get</string>
 	<!-- Subject for emailed bookmark -->
 	<string name="bookmark_share_email_subject">Schau dir meine Stecknadel auf der Organic Maps-Karte an</string>
 	<!-- Subject for emailed position -->
 	<string name="my_position_share_email_subject">Sieh dir meinen aktuellen Standort auf der Organic Maps-Karte an</string>
-	<!-- Share my position using EMail, %1$@ is ge0:// and %2$@ is http://ge0.me link WITHOUT NAME -->
+	<!-- Share my position using EMail, %1$@ is om:// and %2$@ is http://omaps.app link WITHOUT NAME -->
 	<string name="my_position_share_email">Hi,\n\nich bin gerade hier: %1$s. Klicke den Link %2$s oder %3$s, um den Ort auf der Karte anzuzeigen.\n\nVielen Dank.</string>
 	<!-- Android share by Message/SMS button text (including SMS) -->
 	<string name="share_by_message">Als Nachricht teilen</string>

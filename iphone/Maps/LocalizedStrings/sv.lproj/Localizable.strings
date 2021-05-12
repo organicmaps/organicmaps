@@ -313,10 +313,10 @@
 /* No, thanks */
 "no_thanks" = "Nej, tack";
 
-/* Share one specific bookmark using SMS, %1$@ contains ge0:// and %2$@ http://ge0.me link. @NOTE non-ascii symbols in the link will make 70 bytes sms instead of 140 */
+/* Share one specific bookmark using SMS, %1$@ contains om:// and %2$@ http://omaps.app link. @NOTE non-ascii symbols in the link will result in max 70 characters SMS instead of 140. */
 "bookmark_share_sms" = "Hej, kolla på min pin på Organic Maps! %1$@ eller %2$@ Har du inte offline-kartor installerat? Ladda ner här: https://organicmaps.app/get";
 
-/* Share my position using SMS, %1$@ contains ge0:// and %2$@ http://ge0.me link WITHOUT NAME. @NOTE non-ascii symbols in the link will make 70 bytes sms instead of 140 */
+/* Share my position using SMS, %1$@ contains om:// and %2$@ http://omaps.app link WITHOUT NAME. @NOTE non-ascii symbols in the link will result in max 70 characters SMS instead of 140. */
 "my_position_share_sms" = "Hej, kolla på min nuvarande position på Organic Maps! %1$@ eller %2$@ Har du inte offline-kartor? Ladda ner här: https://organicmaps.app/get";
 
 /* Subject for emailed bookmark */
@@ -325,7 +325,7 @@
 /* Subject for emailed position */
 "my_position_share_email_subject" = "Hej, kolla på min nuvarande position på Organic Maps kartan!";
 
-/* Share my position using EMail, %1$@ is ge0:// and %2$@ is http://ge0.me link WITHOUT NAME */
+/* Share my position using EMail, %1$@ is om:// and %2$@ is http://omaps.app link WITHOUT NAME */
 "my_position_share_email" = "Hej,\n\nJag är här nu: %1$@. Klicka på denna länk %2$@ eller denna %3$@ för att se platsen på kartan.\n\nTack.";
 
 /* Android share by Message/SMS button text (including SMS) */

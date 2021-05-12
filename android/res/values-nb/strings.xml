@@ -194,15 +194,15 @@
 	<string name="appStore_message">Håper du liker å bruke Organic Maps! Hvis du gjør det er det flott om du rangerer eller vurderer appen på App Store. Det tar deg mindre enn ett minutt, men kan virkelig hjelpe oss. Takk for støtten!</string>
 	<!-- No, thanks -->
 	<string name="no_thanks">Nei takk</string>
-	<!-- Share one specific bookmark using SMS, %1$@ contains ge0:// and %2$@ http://ge0.me link. @NOTE non-ascii symbols in the link will make 70 bytes sms instead of 140 -->
+	<!-- Share one specific bookmark using SMS, %1$@ contains om:// and %2$@ http://omaps.app link. @NOTE non-ascii symbols in the link will result in max 70 characters SMS instead of 140. -->
 	<string name="bookmark_share_sms">Hei, se merket mitt på Organic Maps! %1$s eller %2$s Har du ikke installert offline-kart? Last dem ned her: https://organicmaps.app/get</string>
-	<!-- Share my position using SMS, %1$@ contains ge0:// and %2$@ http://ge0.me link WITHOUT NAME. @NOTE non-ascii symbols in the link will make 70 bytes sms instead of 140 -->
+	<!-- Share my position using SMS, %1$@ contains om:// and %2$@ http://omaps.app link WITHOUT NAME. @NOTE non-ascii symbols in the link will result in max 70 characters SMS instead of 140. -->
 	<string name="my_position_share_sms">Hei, se posisjonen min på Organic Maps! %1$s eller %2$s Har du ikke offline-kart? Last dem ned her: https://organicmaps.app/get</string>
 	<!-- Subject for emailed bookmark -->
 	<string name="bookmark_share_email_subject">Hei, se merket mitt på Organic Maps-kartet</string>
 	<!-- Subject for emailed position -->
 	<string name="my_position_share_email_subject">Hei, se posisjonen min på Organic Maps-kartet!</string>
-	<!-- Share my position using EMail, %1$@ is ge0:// and %2$@ is http://ge0.me link WITHOUT NAME -->
+	<!-- Share my position using EMail, %1$@ is om:// and %2$@ is http://omaps.app link WITHOUT NAME -->
 	<string name="my_position_share_email">Hei,Jeg er her nå: %1$s. Klikk på denne koblingen %2$s eller denne %3$s for å se stedet på kartet.\n\nTakk.</string>
 	<!-- Android share by Message/SMS button text (including SMS) -->
 	<string name="share_by_message">Del med melding</string>

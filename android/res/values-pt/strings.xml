@@ -196,15 +196,15 @@
 	<string name="appStore_message">Esperamos que esteja a disfrutar da utilização do Organic Maps! Se assim for, por favor classifique ou dê a sua opinião sobre a app na App Store. Vai demorar menos de um minuto mas pode mesmo ajudar-nos. Obrigado pelo seu apoio!</string>
 	<!-- No, thanks -->
 	<string name="no_thanks">Não, obrigado</string>
-	<!-- Share one specific bookmark using SMS, %1$@ contains ge0:// and %2$@ http://ge0.me link. @NOTE non-ascii symbols in the link will make 70 bytes sms instead of 140 -->
+	<!-- Share one specific bookmark using SMS, %1$@ contains om:// and %2$@ http://omaps.app link. @NOTE non-ascii symbols in the link will result in max 70 characters SMS instead of 140. -->
 	<string name="bookmark_share_sms">Veja o meu marcador no mapa do Organic Maps. Abra a hiperligação: %1$s ou %2$s</string>
-	<!-- Share my position using SMS, %1$@ contains ge0:// and %2$@ http://ge0.me link WITHOUT NAME. @NOTE non-ascii symbols in the link will make 70 bytes sms instead of 140 -->
+	<!-- Share my position using SMS, %1$@ contains om:// and %2$@ http://omaps.app link WITHOUT NAME. @NOTE non-ascii symbols in the link will result in max 70 characters SMS instead of 140. -->
 	<string name="my_position_share_sms">Veja onde estou agora. Abra a hiperligação: %1$s ou %2$s</string>
 	<!-- Subject for emailed bookmark -->
 	<string name="bookmark_share_email_subject">Veja o meu marcador no mapa do Organic Maps.</string>
 	<!-- Subject for emailed position -->
 	<string name="my_position_share_email_subject">Veja a minha localização atual no mapa Organic Maps!</string>
-	<!-- Share my position using EMail, %1$@ is ge0:// and %2$@ is http://ge0.me link WITHOUT NAME -->
+	<!-- Share my position using EMail, %1$@ is om:// and %2$@ is http://omaps.app link WITHOUT NAME -->
 	<string name="my_position_share_email">Olá,\n\nEstou aqui agora: %1$s. Clique nesta ligação %2$s ou nesta %3$s para ver o local no mapa.\n\nObrigado.</string>
 	<!-- Android share by Message/SMS button text (including SMS) -->
 	<string name="share_by_message">Partilhar por mensagem</string>

@@ -196,15 +196,15 @@
 	<string name="appStore_message">祝您使用 Organic Maps 愉快！ 方便的話，請到 App Store 幫我們評分或寫寫評論。在這短短的時間當中卻能夠真正的協助我們改善，再次感謝您的支持！</string>
 	<!-- No, thanks -->
 	<string name="no_thanks">不，謝了</string>
-	<!-- Share one specific bookmark using SMS, %1$@ contains ge0:// and %2$@ http://ge0.me link. @NOTE non-ascii symbols in the link will make 70 bytes sms instead of 140 -->
+	<!-- Share one specific bookmark using SMS, %1$@ contains om:// and %2$@ http://omaps.app link. @NOTE non-ascii symbols in the link will result in max 70 characters SMS instead of 140. -->
 	<string name="bookmark_share_sms">嘿，看看我在 Organic Maps 標記的圖釘吧！ %1$s 或%2$s 沒安裝離線地圖？在此下載: https://organicmaps.app/get</string>
-	<!-- Share my position using SMS, %1$@ contains ge0:// and %2$@ http://ge0.me link WITHOUT NAME. @NOTE non-ascii symbols in the link will make 70 bytes sms instead of 140 -->
+	<!-- Share my position using SMS, %1$@ contains om:// and %2$@ http://omaps.app link WITHOUT NAME. @NOTE non-ascii symbols in the link will result in max 70 characters SMS instead of 140. -->
 	<string name="my_position_share_sms">嘿，在 Organic Maps 查看我的目前位置吧！ %1$s 或%2$s 沒安裝離線地圖？在此下載: https://organicmaps.app/get</string>
 	<!-- Subject for emailed bookmark -->
 	<string name="bookmark_share_email_subject">嘿，看看我在 Organic Maps 地圖上的圖釘！</string>
 	<!-- Subject for emailed position -->
 	<string name="my_position_share_email_subject">嗨，到 Organic Maps 地圖查看我的目前位置！</string>
-	<!-- Share my position using EMail, %1$@ is ge0:// and %2$@ is http://ge0.me link WITHOUT NAME -->
+	<!-- Share my position using EMail, %1$@ is om:// and %2$@ is http://omaps.app link WITHOUT NAME -->
 	<string name="my_position_share_email">嗨，\n\n我現在在這：%1$s。點擊此連結 %2$s 或此連結 %3$s 來查看在地圖上的位置。\n\n謝謝。</string>
 	<!-- Android share by Message/SMS button text (including SMS) -->
 	<string name="share_by_message">透過訊息分享</string>

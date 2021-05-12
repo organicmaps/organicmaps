@@ -194,15 +194,15 @@
 	<string name="appStore_message">Toivottavasti nautit Organic Maps -sovelluksen käyttämisestä! Olisimme tyytyväisiä, jos voisit arvioida sovelluksen App Storessa. Se kesää alle minuutin, ja auttaa meitä todella paljon. Kiitos tuestasi!</string>
 	<!-- No, thanks -->
 	<string name="no_thanks">Ei kiitos</string>
-	<!-- Share one specific bookmark using SMS, %1$@ contains ge0:// and %2$@ http://ge0.me link. @NOTE non-ascii symbols in the link will make 70 bytes sms instead of 140 -->
+	<!-- Share one specific bookmark using SMS, %1$@ contains om:// and %2$@ http://omaps.app link. @NOTE non-ascii symbols in the link will result in max 70 characters SMS instead of 140. -->
 	<string name="bookmark_share_sms">Hei, katso merkintäni Organic Maps-sovelluksessa! %1$s tai %2$s Eikö sinulla ole offline-karttoja? Lataa ne täältä: https://organicmaps.app/get</string>
-	<!-- Share my position using SMS, %1$@ contains ge0:// and %2$@ http://ge0.me link WITHOUT NAME. @NOTE non-ascii symbols in the link will make 70 bytes sms instead of 140 -->
+	<!-- Share my position using SMS, %1$@ contains om:// and %2$@ http://omaps.app link WITHOUT NAME. @NOTE non-ascii symbols in the link will result in max 70 characters SMS instead of 140. -->
 	<string name="my_position_share_sms">Hei, katso sijaintini Organic Maps-sovelluksessa! %1$s tai %2$s Eikö sinulla ole vielä offline-karttoja? Lataa ne täältä: https://organicmaps.app/get</string>
 	<!-- Subject for emailed bookmark -->
 	<string name="bookmark_share_email_subject">Hei, katso merkintäni Organic Maps-kartalla</string>
 	<!-- Subject for emailed position -->
 	<string name="my_position_share_email_subject">Hei, kurkkaa tämänhetkinen sijaintini Organic Maps:n kartalla!</string>
-	<!-- Share my position using EMail, %1$@ is ge0:// and %2$@ is http://ge0.me link WITHOUT NAME -->
+	<!-- Share my position using EMail, %1$@ is om:// and %2$@ is http://omaps.app link WITHOUT NAME -->
 	<string name="my_position_share_email">Hei,n\nOlen nyt täällä: %1$s. Klikkaa linkkiä %2$s tai %3$s nähdäksesi paikan kartalla. Kiitos.</string>
 	<!-- Android share by Message/SMS button text (including SMS) -->
 	<string name="share_by_message">Jaa viestillä</string>
