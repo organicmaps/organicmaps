@@ -69,18 +69,6 @@
   UNUSED_VALUE(GetFramework());
 }
 
-+ (BOOL)canUseNetwork {
-  return network_policy::CanUseNetwork();
-}
-
-+ (BOOL)isNetworkConnected {
-  return GetPlatform().ConnectionStatus() != Platform::EConnectionType::CONNECTION_NONE;
-}
-
-+ (BOOL)isWiFiConnected {
-  return GetPlatform().ConnectionStatus() == Platform::EConnectionType::CONNECTION_WIFI;
-}
-
 + (MWMMarkID)invalidBookmarkId {
   return kml::kInvalidMarkId;
 }

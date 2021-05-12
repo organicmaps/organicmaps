@@ -23,16 +23,11 @@ using namespace osm_auth_ios;
 @property (weak, nonatomic) IBOutlet UIView * authView;
 @property (weak, nonatomic) IBOutlet UIView * accountView;
 
-@property (weak, nonatomic) IBOutlet UIButton * loginGoogleButton;
-@property (weak, nonatomic) IBOutlet UIButton * loginFacebookButton;
 @property (weak, nonatomic) IBOutlet UIButton * loginOSMButton;
 @property (weak, nonatomic) IBOutlet UIButton * signupButton;
 
 @property (weak, nonatomic) IBOutlet UILabel * changesCountLabel;
 @property (weak, nonatomic) IBOutlet UILabel * lastUpdateLabel;
-@property (weak, nonatomic) IBOutlet UILabel * rankLabel;
-@property (weak, nonatomic) IBOutlet UILabel * changesToNextPlaceLabel;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint * yourPlaceLabelCenterYAlignment;
 
 @end
 
@@ -57,16 +52,7 @@ using namespace osm_auth_ios;
 
 - (void)checkConnection
 {
-  BOOL const isConnected = Platform::IsConnected();
-  self.loginGoogleButton.enabled = isConnected;
-  self.loginFacebookButton.enabled = isConnected;
-  self.signupButton.enabled = isConnected;
-  
-  if (!isConnected)
-  {
-    self.loginGoogleButton.layer.borderColor = UIColor.clearColor.CGColor;
-    self.loginFacebookButton.layer.borderColor = UIColor.clearColor.CGColor;
-  }
+  self.signupButton.enabled = Platform::IsConnected();
 }
 
 - (void)configHaveAuth
@@ -97,22 +83,6 @@ using namespace osm_auth_ios;
     [self.alertController presentNoConnectionAlert];
 }
 
-- (IBAction)loginGoogle
-{
-  [self performOnlineAction:^
-  {
-    [self performSegueWithIdentifier:kWebViewAuthSegue sender:self.loginGoogleButton];
-  }];
-}
-
-- (IBAction)loginFacebook
-{
-  [self performOnlineAction:^
-  {
-    [self performSegueWithIdentifier:kWebViewAuthSegue sender:self.loginFacebookButton];
-  }];
-}
-
 - (IBAction)loginOSM
 {
   [self performOnlineAction:^
@@ -134,61 +104,26 @@ using namespace osm_auth_ios;
   [self openUrl:[NSURL URLWithString:@"https://wiki.openstreetmap.org/wiki/Main_Page"]];
 }
 
+- (IBAction)historyTap
+{
+  [self openUrl:[NSURL URLWithString:[NSString stringWithFormat:
+#ifdef DEBUG
+                                      @"https://master.apis.dev.openstreetmap.org/user/%@/history"
+#else
+                                      @"https://www.openstreetmap.org/user/%@/history"
+#endif
+                                      , OSMUserName()]]];
+}
+
 - (void)logout
 {
-  NSString * osmUserName = OSMUserName();
-  if (osmUserName.length > 0)
-    GetFramework().DropUserStats(osmUserName.UTF8String);
-  AuthorizationStoreCredentials({});
+  AuthorizationClearCredentials();
   [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (void)refresh:(BOOL)force
 {
-  [self updateUI];
-  __weak auto weakSelf = self;
-  auto const policy = force ? editor::UserStatsLoader::UpdatePolicy::Force
-                            : editor::UserStatsLoader::UpdatePolicy::Lazy;
-  NSString * osmUserName = OSMUserName();
-  if (osmUserName.length > 0)
-    GetFramework().UpdateUserStats(osmUserName.UTF8String, policy, ^{ [weakSelf updateUI]; });
-}
-
-- (void)updateUI
-{
-  NSString * osmUserName = OSMUserName();
-  if (osmUserName.length == 0)
-    return;
-  editor::UserStats stats = GetFramework().GetUserStats(osmUserName.UTF8String);
-  if (!stats)
-    return;
-  int32_t changesCount;
-  if (stats.GetChangesCount(changesCount))
-    self.changesCountLabel.text = @(changesCount).stringValue;
-  int32_t rank;
-  if (stats.GetRank(rank))
-    self.rankLabel.text = @(rank).stringValue;
-  std::string levelUpFeat;
-  if (stats.GetLevelUpRequiredFeat(levelUpFeat))
-  {
-    self.yourPlaceLabelCenterYAlignment.priority = UILayoutPriorityDefaultLow;
-    self.changesToNextPlaceLabel.hidden = NO;
-    self.changesToNextPlaceLabel.text =
-        [NSString stringWithFormat:@"%@ %@", L(@"editor_profile_changes_for_next_place"),
-                                   @(levelUpFeat.c_str())];
-  }
-  else
-  {
-    self.yourPlaceLabelCenterYAlignment.priority = UILayoutPriorityDefaultHigh;
-    self.changesToNextPlaceLabel.hidden = YES;
-  }
-
-  NSString * lastUploadDate = [NSDateFormatter
-      localizedStringFromDate:[NSDate dateWithTimeIntervalSince1970:stats.GetLastUpdate()]
-                    dateStyle:NSDateFormatterShortStyle
-                    timeStyle:NSDateFormatterShortStyle];
-  self.lastUpdateLabel.text =
-      [NSString stringWithFormat:L(@"last_update"), lastUploadDate.UTF8String];
+  self.changesCountLabel.text = @(OSMUserChangesetsCount()).stringValue;
 }
 
 #pragma mark - ActionSheet
@@ -215,17 +150,6 @@ using namespace osm_auth_ios;
       addAction:[UIAlertAction actionWithTitle:kCancel style:UIAlertActionStyleCancel handler:nil]];
 
   [self presentViewController:alertController animated:YES completion:nil];
-}
-
-#pragma mark - Segue
-
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-  MWMAuthorizationWebViewLoginViewController * dvc = segue.destinationViewController;
-  if ([self.loginGoogleButton isEqual:sender])
-    dvc.authType = MWMWebViewAuthorizationTypeGoogle;
-  else if ([self.loginFacebookButton isEqual:sender])
-    dvc.authType = MWMWebViewAuthorizationTypeFacebook;
 }
 
 @end
