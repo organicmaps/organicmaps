@@ -313,10 +313,10 @@
 /* No, thanks */
 "no_thanks" = "不,谢谢";
 
-/* Share one specific bookmark using SMS, %1$@ contains ge0:// and %2$@ http://ge0.me link. @NOTE non-ascii symbols in the link will make 70 bytes sms instead of 140 */
+/* Share one specific bookmark using SMS, %1$@ contains om:// and %2$@ http://omaps.app link. @NOTE non-ascii symbols in the link will result in max 70 characters SMS instead of 140. */
 "bookmark_share_sms" = "嘿,在 Organic Maps 上查看我标注的图钉吧! %1$@ 或%2$@ 未安装离线地图?在此下 载: https://organicmaps.app/get";
 
-/* Share my position using SMS, %1$@ contains ge0:// and %2$@ http://ge0.me link WITHOUT NAME. @NOTE non-ascii symbols in the link will make 70 bytes sms instead of 140 */
+/* Share my position using SMS, %1$@ contains om:// and %2$@ http://omaps.app link WITHOUT NAME. @NOTE non-ascii symbols in the link will result in max 70 characters SMS instead of 140. */
 "my_position_share_sms" = "嘿,在 Organic Maps 上查看我目前的位置 吧!%1$@ 或%2$@ 未安装离线地图?在此 下载: https://organicmaps.app/get";
 
 /* Subject for emailed bookmark */
@@ -325,7 +325,7 @@
 /* Subject for emailed position */
 "my_position_share_email_subject" = "嗨，到 Organic Maps 查看我的当前位置！";
 
-/* Share my position using EMail, %1$@ is ge0:// and %2$@ is http://ge0.me link WITHOUT NAME */
+/* Share my position using EMail, %1$@ is om:// and %2$@ is http://omaps.app link WITHOUT NAME */
 "my_position_share_email" = "嗨,\n\n我现在在这:%1$@。点击此链 接%2$@或此链接 %3$@来查看在地图上的 位置。\n\n谢谢。";
 
 /* Android share by Message/SMS button text (including SMS) */

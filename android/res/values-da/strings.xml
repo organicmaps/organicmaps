@@ -198,15 +198,15 @@
 	<string name="appStore_message">Vi håber du er glad for at bruge Organic Maps! Hvis du er, vil du så overveje at bedømme og måske skrive en anmeldelse på App Store? Det tager under et minut, men det kan virkelig hjælpe os. Tak for din hjælp!</string>
 	<!-- No, thanks -->
 	<string name="no_thanks">Nej, tak</string>
-	<!-- Share one specific bookmark using SMS, %1$@ contains ge0:// and %2$@ http://ge0.me link. @NOTE non-ascii symbols in the link will make 70 bytes sms instead of 140 -->
+	<!-- Share one specific bookmark using SMS, %1$@ contains om:// and %2$@ http://omaps.app link. @NOTE non-ascii symbols in the link will result in max 70 characters SMS instead of 140. -->
 	<string name="bookmark_share_sms">Hey, tjek min knappenål på Organic Maps ud! %1$s or %2$s Har du ikke offline kort? Download her: https://organicmaps.app/get</string>
-	<!-- Share my position using SMS, %1$@ contains ge0:// and %2$@ http://ge0.me link WITHOUT NAME. @NOTE non-ascii symbols in the link will make 70 bytes sms instead of 140 -->
+	<!-- Share my position using SMS, %1$@ contains om:// and %2$@ http://omaps.app link WITHOUT NAME. @NOTE non-ascii symbols in the link will result in max 70 characters SMS instead of 140. -->
 	<string name="my_position_share_sms">Hey, tjek min nuværende lokation ud på Organic Maps! %1$s or %2$s. Har du ikke offline kort? Download her: https://organicmaps.app/get</string>
 	<!-- Subject for emailed bookmark -->
 	<string name="bookmark_share_email_subject">Hey, tjek min knappenål på Organic Maps kortet ud!</string>
 	<!-- Subject for emailed position -->
 	<string name="my_position_share_email_subject">Hey, tjek min nuværende lokation ud på Organic Maps kortet!</string>
-	<!-- Share my position using EMail, %1$@ is ge0:// and %2$@ is http://ge0.me link WITHOUT NAME -->
+	<!-- Share my position using EMail, %1$@ is om:// and %2$@ is http://omaps.app link WITHOUT NAME -->
 	<string name="my_position_share_email">Hey, her er jeg nu: %1$s. Tryk på dette link %2$s eller dette %3$s for at se stedet på kortet. Tak.</string>
 	<!-- Android share by Message/SMS button text (including SMS) -->
 	<string name="share_by_message">Del via besked</string>

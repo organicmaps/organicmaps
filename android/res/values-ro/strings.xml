@@ -194,15 +194,15 @@
 	<string name="appStore_message">Sperăm că vă place Organic Maps! Dacă da, vă rugăm să o votați sau să scrieți o recenzie în App Store. Durează mai puțin de un minut, dar pe noi ne ajută foarte mult. Vă mulțumim pentru susținere!</string>
 	<!-- No, thanks -->
 	<string name="no_thanks">Nu, mulțumesc</string>
-	<!-- Share one specific bookmark using SMS, %1$@ contains ge0:// and %2$@ http://ge0.me link. @NOTE non-ascii symbols in the link will make 70 bytes sms instead of 140 -->
+	<!-- Share one specific bookmark using SMS, %1$@ contains om:// and %2$@ http://omaps.app link. @NOTE non-ascii symbols in the link will result in max 70 characters SMS instead of 140. -->
 	<string name="bookmark_share_sms">Hei, poți vedea care este poziția mea pe Organic Maps! %1$s sau %2$s Nu ai instalate hărțile offline? Descarcă de aici: https://organicmaps.app/get</string>
-	<!-- Share my position using SMS, %1$@ contains ge0:// and %2$@ http://ge0.me link WITHOUT NAME. @NOTE non-ascii symbols in the link will make 70 bytes sms instead of 140 -->
+	<!-- Share my position using SMS, %1$@ contains om:// and %2$@ http://omaps.app link WITHOUT NAME. @NOTE non-ascii symbols in the link will result in max 70 characters SMS instead of 140. -->
 	<string name="my_position_share_sms">Hei, îmi poți vedea poziția actuală pe Organic Maps! %1$s sau %2$s Nu ai hărțile offline? Descarcă de aici: https://organicmaps.app/get</string>
 	<!-- Subject for emailed bookmark -->
 	<string name="bookmark_share_email_subject">Hei, poți vedea care este poziția mea pe harta Organic Maps!</string>
 	<!-- Subject for emailed position -->
 	<string name="my_position_share_email_subject">Hei, îmi poți vedea poziția actuală pe harta Organic Maps!</string>
-	<!-- Share my position using EMail, %1$@ is ge0:// and %2$@ is http://ge0.me link WITHOUT NAME -->
+	<!-- Share my position using EMail, %1$@ is om:// and %2$@ is http://omaps.app link WITHOUT NAME -->
 	<string name="my_position_share_email">Chào,\n\nTôi hiện đang ở đây: %1$s. Hãy nhấn vào liên kết này %2$s hoặc liên kết này %3$s để xem địa điểm trên bản đồ.\n\nCám ơn.</string>
 	<!-- Android share by Message/SMS button text (including SMS) -->
 	<string name="share_by_message">Partajare ca mesaj</string>
