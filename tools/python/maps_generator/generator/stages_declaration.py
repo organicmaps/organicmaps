@@ -45,7 +45,6 @@ from maps_generator.utils.file import download_files
 from maps_generator.utils.file import is_verified
 from post_generation.hierarchy_to_countries import hierarchy_to_countries
 from post_generation.inject_promo_ids import inject_promo_ids
-from post_generation.localads_mwm_to_csv import create_csv
 
 logger = logging.getLogger("maps_generator")
 
