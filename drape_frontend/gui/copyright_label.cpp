@@ -18,7 +18,7 @@ namespace gui
 {
 namespace
 {
-double const kCopyrightVisibleTime = 2.0f;
+double const kCopyrightVisibleTime = 10.0f;
 double const kCopyrightHideTime = 0.25f;
 
 class CopyrightHandle : public StaticLabelHandle
