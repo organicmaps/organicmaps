@@ -6,7 +6,7 @@
 #define RESOURCES_METASERVER_URL ""
 #define METASERVER_URL ""
 #define DIFF_LIST_URL ""
-#define DEFAULT_URLS_JSON ""
+#define DEFAULT_URLS_JSON "[ \"https://cdn.organicmaps.app/\" ]"
 #define TRAFFIC_DATA_BASE_URL ""
 #define USER_BINDING_PKCS12 ""
 #define USER_BINDING_PKCS12_PASSWORD ""
