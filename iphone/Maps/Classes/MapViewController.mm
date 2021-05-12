@@ -179,9 +179,7 @@ NSString *const kPP2BookmarkEditingSegue = @"PP2BookmarkEditing";
 
 - (void)onMapObjectSelected {
   [self hidePlacePage];
-  [[MWMNetworkPolicy sharedPolicy] callOnlineApi:^(BOOL) {
-    [self showPlacePage];
-  }];
+  [self showPlacePage];
 }
 
 - (void)onMapObjectUpdated {

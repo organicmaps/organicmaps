@@ -12,7 +12,6 @@ set(
   osm_editor_test.cpp
   osm_editor_test.hpp
   ui2oh_test.cpp
-  user_stats_test.cpp
   xml_feature_test.cpp
 )
 

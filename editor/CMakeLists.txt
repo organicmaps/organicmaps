@@ -31,8 +31,6 @@ set(
   server_api.hpp
   ui2oh.cpp
   ui2oh.hpp
-  user_stats.cpp
-  user_stats.hpp
   xml_feature.cpp
   xml_feature.hpp
   yes_no_unknown.hpp
