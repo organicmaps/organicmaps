@@ -5,7 +5,7 @@
 #import "WebViewController.h"
 
 
-static NSString * const kiOSEmail = @"ios@omaps.app";
+static NSString * const kiOSEmail = @"ios@organicmaps.app";
 
 @interface MWMHelpController ()<MFMailComposeViewControllerDelegate>
 

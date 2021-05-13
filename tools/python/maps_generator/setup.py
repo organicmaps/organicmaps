@@ -16,10 +16,10 @@ with chdir(os.path.abspath(os.path.dirname(__file__))):
     setuptools.setup(
         name="omim-maps_generator",
         version=str(get_version()),
-        author="The OMaps Project",
-        author_email="dev@omaps.app",
+        author="Organic Maps",
+        author_email="info@organicmaps.app",
         description="This package contains tools for maps generation.",
-        url="https://github.com/mapsme",
+        url="https://github.com/organicmaps",
         package_dir={"maps_generator": ""},
         package_data={"": ["var/**/*"]},
         packages=[

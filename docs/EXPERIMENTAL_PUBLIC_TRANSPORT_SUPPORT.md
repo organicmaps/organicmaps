@@ -4,12 +4,12 @@
 
 At the moment our app does not have full support for public transport. What we have now:
 
-- Scarce transit data collected from OSM which includes subway, light rail, monorail and train routes and stops. Let's call it the [OSM transit](https://github.com/mapsme/omim/blob/master/docs/SUBWAY_GENERATION.md) from now on.
+- Scarce transit data collected from OSM which includes subway, light rail, monorail and train routes and stops. Let's call it the [OSM transit](SUBWAY_GENERATION.md) from now on.
 - The "Subway layer" for visual representation of the OSM transit.
 - "Subway navigation" - OSM transit routing.
 
 
-:bus: But you can turn on the experimental feature of [GTFS](https://developers.google.com/transit/gtfs/reference) public transport and use it inside the MAPS.ME app. It includes all [transit types definded by GTFS specification:](https://developers.google.com/transit/gtfs/reference/extended-route-types) bus, train, ferry, aerial lifts of different kinds, trolleybus and much more. Let's call this version of transit data **GTFS transit** from now on. 
+:bus: But you can turn on the experimental feature of [GTFS](https://developers.google.com/transit/gtfs/reference) public transport and use it inside the Organic Maps app. It includes all [transit types definded by GTFS specification:](https://developers.google.com/transit/gtfs/reference/extended-route-types) bus, train, ferry, aerial lifts of different kinds, trolleybus and much more. Let's call this version of transit data **GTFS transit** from now on. 
 
 To mixin the experimental GTFS transit into the OSM transit data you should follow 2 simple steps:
 - Run the pipeline for downloading and preparing GTFS data about public transport. 
@@ -72,7 +72,7 @@ After completing this step you will have directory with line-by-line jsons in th
 TRANSIT_URL: file:///home/result_json_dir
 ```
 
-Run generator tool [as usual](https://github.com/mapsme/omim/tree/master/tools/python/maps_generator) with this ini config. After it is done you'll have mwms with transit section in experimental GTFS format.
+Run generator tool [as usual](../tools/python/maps_generator) with this ini config. After it is done you'll have mwms with transit section in experimental GTFS format.
 
 :checkered_flag: Use the resulting mwms in your app. Enjoy the experimental public transport in MAPS.ME!
 

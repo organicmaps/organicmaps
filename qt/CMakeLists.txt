@@ -172,7 +172,7 @@ copy_resources(
   resources-xxxhdpi_clear
   resources-6plus_clear
   taxi_places
-  eula.html
+  welcome.html
 
   categories.txt
   categories_cuisines.txt
