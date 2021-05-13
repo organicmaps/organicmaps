@@ -16,7 +16,7 @@
 
 namespace
 {
-// You can clone data from repo https://github.com/mapsme/world_feed_integration_tests_data
+// You can clone data from repo https://github.com/organicmaps/world_feed_integration_tests_data
 std::string const kFeedsSubdir = "world_feed_integration_tests_data";
 }  // namespace
 

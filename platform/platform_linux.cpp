@@ -44,9 +44,9 @@ bool GetBinaryDir(string & outPath)
 }
 
 // Returns true if EULA file exists in directory.
-bool IsEulaExist(string const & directory)
+bool IsWelcomeExist(string const & directory)
 {
-  return Platform::IsFileExistsByFullPath(base::JoinPath(directory, "eula.html"));
+  return Platform::IsFileExistsByFullPath(base::JoinPath(directory, "welcome.html"));
 }
 
 bool GetHomeDir(string & outPath)
@@ -110,7 +110,7 @@ Platform::Platform()
 
     for (auto const & dir : dirs)
     {
-      if (IsEulaExist(dir))
+      if (IsWelcomeExist(dir))
       {
         m_resourcesDir = dir;
         m_writableDir = (writableDir != nullptr) ? writableDir : m_resourcesDir;

@@ -16,10 +16,10 @@ with chdir(os.path.abspath(os.path.dirname(__file__))):
     setuptools.setup(
         name="omim-airmaps",
         version=str(get_version()),
-        author="The OMaps Project",
-        author_email="dev@omaps.app",
+        author="Organic Maps",
+        author_email="info@organicmaps.app",
         description="This package contains tools for generating maps with Apache Airflow.",
-        url="https://github.com/mapsme",
+        url="https://github.com/organicmaps",
         package_dir={"airmaps": ""},
         package_data={"": ["var/**/*"]},
         packages=[

@@ -12,7 +12,7 @@ extern NSString * const kUDAlreadyRatedKey;
 
 static NSString * const kRateAlertEventName = @"rateAlertEvent";
 static NSString * const kRateAlertNibName = @"MWMRateAlert";
-static NSString * const kRateEmail = @"rating@omaps.app";
+static NSString * const kRateEmail = @"rating@organicmaps.app";
 
 @interface MWMRateAlert ()<MFMailComposeViewControllerDelegate>
 

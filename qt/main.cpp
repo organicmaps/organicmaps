@@ -148,10 +148,10 @@ int main(int argc, char * argv[])
 
     string buffer;
     {
-      ReaderPtr<Reader> reader = platform.GetReader("eula.html");
+      ReaderPtr<Reader> reader = platform.GetReader("copyright.html");
       reader.ReadAsString(buffer);
     }
-    qt::InfoDialog eulaDialog(qAppName() + QString(" End User Licensing Agreement"), buffer.c_str(), NULL, buttons);
+    qt::InfoDialog eulaDialog(qAppName(), buffer.c_str(), NULL, buttons);
     eulaAccepted = (eulaDialog.exec() == 1);
     settings::Set(settingsEULA, eulaAccepted);
   }
