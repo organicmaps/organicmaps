@@ -443,6 +443,21 @@ int64_t LoadCountriesFromBuffer(string const & jsonBuffer, CountryTree & countri
   return version;
 }
 
+namespace
+{
+unique_ptr<Reader> GetReaderImpl(Platform & pl, string const & file, string const & scope)
+{
+  try
+  {
+    return pl.GetReader(file, scope);
+  }
+  catch (RootException const &)
+  {
+  }
+  return nullptr;
+}
+} // namespace
+
 int64_t LoadCountriesFromFile(string const & path, CountryTree & countries,
                               Affiliations & affiliations,
                               CountryNameSynonyms & countryNameSynonyms,
@@ -450,9 +465,47 @@ int64_t LoadCountriesFromFile(string const & path, CountryTree & countries,
                               MwmTopCountryGeoIds & mwmTopCountryGeoIds)
 {
   string json;
-  ReaderPtr<Reader>(GetPlatform().GetReader(path)).ReadAsString(json);
-  return LoadCountriesFromBuffer(json, countries, affiliations, countryNameSynonyms,
-                                 mwmTopCityGeoIds, mwmTopCountryGeoIds);
+  int64_t version = -1;
+
+  // Choose the latest version from "resource" or "writable":
+  // w > r in case of autoupdates
+  // r > w in case of a new countries file with an updated app
+
+  auto & pl = GetPlatform();
+  auto reader = GetReaderImpl(pl, path, "fr");
+  if (reader)
+  {
+    reader->ReadAsString(json);
+    version = LoadCountriesFromBuffer(json, countries, affiliations, countryNameSynonyms,
+                                      mwmTopCityGeoIds, mwmTopCountryGeoIds);
+  }
+
+  reader = GetReaderImpl(pl, path, "w");
+  if (reader)
+  {
+    CountryTree newCountries;
+    Affiliations newAffs;
+    CountryNameSynonyms newSyms;
+    MwmTopCityGeoIds newCityIds;
+    MwmTopCountryGeoIds newCountryIds;
+
+    reader->ReadAsString(json);
+    int64_t const newVersion = LoadCountriesFromBuffer(json, newCountries, newAffs, newSyms,
+                                                       newCityIds, newCountryIds);
+
+    if (newVersion > version)
+    {
+      version = newVersion;
+
+      countries = std::move(newCountries);
+      affiliations = std::move(newAffs);
+      countryNameSynonyms = std::move(newSyms);
+      mwmTopCityGeoIds = std::move(newCityIds);
+      mwmTopCountryGeoIds = std::move(newCountryIds);
+    }
+  }
+
+  return version;
 }
 
 void LoadCountryFile2CountryInfo(string const & jsonBuffer, map<string, CountryInfo> & id2info)
