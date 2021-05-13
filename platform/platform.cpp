@@ -149,6 +149,18 @@ string Platform::ReadPathForFile(string const & file, string searchScope) const
       "\nw: ", m_writableDir, "\nr: ", m_resourcesDir, "\ns: ", m_settingsDir));
 }
 
+std::unique_ptr<ModelReader> Platform::GetReaderSafe(std::string const & file, std::string const & searchScope) const
+{
+  try
+  {
+    return GetReader(file, searchScope);
+  }
+  catch (RootException const &)
+  {
+  }
+  return nullptr;
+}
+
 string Platform::MetaServerUrl() const
 {
   return METASERVER_URL;
