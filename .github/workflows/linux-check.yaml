@@ -19,9 +19,13 @@ jobs:
   linux-debug:
     name: Linux Debug Build and Test
     runs-on: ubuntu-latest
-    env:
-      CC: gcc-10
-      CXX: g++-10
+
+    strategy:
+      matrix:
+        compiler: [
+          { CXX: g++-10, CC: gcc-10 },
+          { CXX: clang++, CC: clang },
+        ]
 
     steps:
       - name: Checkout sources
@@ -37,7 +41,8 @@ jobs:
           sudo apt-get install -y \
               ninja-build \
               qtbase5-dev \
-              libqt5svg5-dev
+              libqt5svg5-dev \
+              clang-tools-11
 
       - name: Configure
         shell: bash
@@ -45,6 +50,9 @@ jobs:
 
       - name: CMake
         shell: bash
+        env:
+          CC: ${{ matrix.compiler.CC }}
+          CXX: ${{ matrix.compiler.CXX }}
         # -g1 should slightly reduce build time.
         run: cmake . -B build -G Ninja -DCMAKE_BUILD_TYPE=Debug -DCMAKE_CXX_FLAGS_DEBUG=-g1
 
