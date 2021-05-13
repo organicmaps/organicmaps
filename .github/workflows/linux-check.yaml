@@ -20,8 +20,8 @@ jobs:
     name: Linux Debug Build and Test
     runs-on: ubuntu-latest
     env:
-      CC: gcc-10
-      CXX: g++-10
+      CC: gcc
+      CXX: g++
 
     steps:
       - name: Checkout sources
