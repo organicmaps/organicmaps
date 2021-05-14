@@ -66,7 +66,7 @@ and [data/copyright.html](http://htmlpreview.github.io/?https://github.com/organ
 [firebase-appdistribution-url]: https://appdistribution.firebase.google.com/pub/i/4fa64e2439ca20ff
 [github-releases-url]: https://github.com/organicmaps/organicmaps/releases
 [apple-appstore-badge]: https://img.shields.io/badge/Apple-AppStore-white.svg?style=flat
-[apple-appstore-url]: https://testflight.apple.com/join/62l4Qh2K
+[apple-appstore-url]: https://testflight.apple.com/join/lrKCl08I
 [slack-badge]: https://img.shields.io/badge/Slack-Community-yellow.svg?style=flat
 [slack-url]: https://slack.omaps.app/
 [telegram-channel-badge]: https://img.shields.io/badge/Telegram-Channel-blue.svg?style=flat
