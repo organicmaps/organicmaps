@@ -1190,7 +1190,9 @@ void Framework::InitCountryInfoGetter()
 
   auto const & platform = GetPlatform();
   m_infoGetter = CountryInfoReader::CreateCountryInfoGetter(platform);
-  m_infoGetter->SetAffiliations(&m_storage.GetAffiliations());
+
+  // Storage::GetAffiliations() pointer never changed.
+  m_infoGetter->SetAffiliations(m_storage.GetAffiliations());
 }
 
 void Framework::InitSearchAPI(size_t numThreads)

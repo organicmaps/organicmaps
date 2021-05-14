@@ -1036,10 +1036,13 @@ void Storage::ApplyCountries(std::string const & countriesBuffer, Storage & stor
   m_downloader->SetDataVersion(m_currentVersion);
 
   m_countries = std::move(storage.m_countries);
-  m_affiliations = std::move(storage.m_affiliations);
-  m_countryNameSynonyms = std::move(storage.m_countryNameSynonyms);
-  m_mwmTopCityGeoIds = std::move(storage.m_mwmTopCityGeoIds);
-  m_mwmTopCountryGeoIds = std::move(storage.m_mwmTopCountryGeoIds);
+
+  // Do not to update this information containers to avoid possible races.
+  // Affiliations, synonyms, etc can be updated with the app update.
+  //m_affiliations = std::move(storage.m_affiliations);
+  //m_countryNameSynonyms = std::move(storage.m_countryNameSynonyms);
+  //m_mwmTopCityGeoIds = std::move(storage.m_mwmTopCityGeoIds);
+  //m_mwmTopCountryGeoIds = std::move(storage.m_mwmTopCountryGeoIds);
 
   LOG(LDEBUG, ("Version", m_currentVersion, "is applied"));
 
@@ -1728,20 +1731,38 @@ bool Storage::GetUpdateInfo(CountryId const & countryId, UpdateInfo & updateInfo
   return true;
 }
 
+/// @note No need to call CHECK_THREAD_CHECKER(m_threadChecker, ()) here and below, because
+/// we don't change all this containers during update. Consider checking, otherwise.
+/// @{
+Affiliations const * Storage::GetAffiliations() const
+{
+  return &m_affiliations;
+}
+
+CountryNameSynonyms const & Storage::GetCountryNameSynonyms() const
+{
+  return m_countryNameSynonyms;
+}
+
+MwmTopCityGeoIds const & Storage::GetMwmTopCityGeoIds() const
+{
+  return m_mwmTopCityGeoIds;
+}
+
 std::vector<base::GeoObjectId> Storage::GetTopCountryGeoIds(CountryId const & countryId) const
 {
   std::vector<base::GeoObjectId> result;
 
-  auto const collector = [this, &result](CountryId const & id, CountryTree::Node const &) {
+  ForEachAncestorExceptForTheRoot(countryId, [this, &result](CountryId const & id, CountryTree::Node const &)
+  {
     auto const it = m_mwmTopCountryGeoIds.find(id);
     if (it != m_mwmTopCountryGeoIds.cend())
       result.insert(result.end(), it->second.cbegin(), it->second.cend());
-  };
-
-  ForEachAncestorExceptForTheRoot(countryId, collector);
+  });
 
   return result;
 }
+/// @}
 
 void Storage::GetQueuedChildren(CountryId const & parent, CountriesVec & queuedChildren) const
 {
