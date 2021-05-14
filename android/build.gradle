@@ -137,7 +137,7 @@ def getVersion() {
 
 def osName = System.properties['os.name'].toLowerCase()
 
-project.ext.appId = 'app.omaps'
+project.ext.appId = 'app.organicmaps'
 project.ext.appName = 'Organic Maps'
 
 android {
