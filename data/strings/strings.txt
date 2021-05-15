@@ -18497,67 +18497,6 @@
     sk = Zadajte platnú hodnotu
     fa = مقادیر معتبری وارد نمایید
 
-  [editor_profile_changes_for_next_place]
-    en = Changes to the next place: %d
-    ru = Правок до следующего места: %d
-    ar = التغييرات في المكان التالي: %d
-    cs = Změny v dalším místě: %d
-    da = Ændringer for næste sted: %d
-    nl = Wijzigingen tot de volgende positie: %d
-    fi = Muutokset paikkaan: %d
-    fr = Modifications vers le prochain lieu: %d
-    de = Erforderliche Änderungen für den nächsten Platz: %d
-    hu = Változtatások a jobb helyért: %d
-    id = Perubahan terhadap tempat selanjutnya: %d
-    it = Modifiche per posizione successiva: %d
-    ja = 次の場所への変更：%d
-    ko = 다음 장소 변경: %d
-    nb = Endringer på neste sted: %d
-    pl = Zmiany w następnym miejscu: %d
-    pt = Alterações para o próximo lugar: %d
-    ro = Modificări necesare pentru următoarea poziţie: %d
-    es = Cambios para la próxima posición: %d
-    sv = Ändringar av nästa plats: %d
-    th = เปลี่ยนไปยังสถานที่ถัดไป: %d
-    tr = Sonraki yerdeki değişiklikler: %d
-    uk = Виправлень до наступного місця: %d
-    vi = Các thay đổi tới địa điểm tiếp theo: %d
-    zh-Hans = 升到下一级所需更改: %d
-    zh-Hant = 對下一個地點的變更：%d
-    el = Αλλάζει στην επόμενη τοποθεσία: %d
-    sk = Zmeny pre ďalšie miesto: %d
-
-  [editor_profile_rating_place]
-    en = Position in the ranking
-    ru = Место в рейтинге
-    ar = المركز في التصنيف
-    cs = Pořadí v hodnocení
-    da = Rangorden
-    nl = Positie in klassement
-    fi = Luokitussija
-    fr = Notation position
-    de = Platz im Rating
-    hu = Ranglista helyezés
-    id = Posisi peringkat
-    it = Posizione in classifica
-    ja = ランキングポジション
-    ko = 평가 순위
-    nb = Rangeringsplassering
-    pl = Pozycja w rankingu
-    pt = Posição na classificação
-    ro = Poziţie în clasament
-    es = Posición en la clasificación
-    sv = Rankning
-    th = ลำดับของตำแหน่ง
-    tr = Sıralamadaki yeri
-    uk = Місце у рейтингу
-    vi = Vị trí thứ hạng
-    zh-Hans = 排名位置
-    zh-Hant = 排名位置
-    el = Θέση στην κατάταξη
-    sk = Hodnotiaca pozícia
-    fa = موقعیت در رتبه بندی
-
   [refresh]
     en = Update
     ru = Обновить
