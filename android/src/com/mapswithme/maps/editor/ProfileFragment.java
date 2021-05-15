@@ -3,7 +3,6 @@ package com.mapswithme.maps.editor;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
@@ -101,7 +100,7 @@ public class ProfileFragment extends AuthFragment implements View.OnClickListene
       UiUtils.hide(mAuthBlock);
       // Update the number of uploaded changesets from OSM.
       ThreadPool.getWorker().execute(() -> {
-        final int count = OsmOAuth.getOsmChangesetsCount(requireContext());
+        final int count = OsmOAuth.getOsmChangesetsCount(requireContext(), getParentFragmentManager());
         UiThread.run(() -> mEditsSent.setText(String.valueOf(count)));
       });
     }

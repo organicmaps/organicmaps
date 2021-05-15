@@ -8,8 +8,10 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.Size;
 import androidx.annotation.WorkerThread;
+import androidx.fragment.app.FragmentManager;
 
 import com.mapswithme.maps.MwmApplication;
+import com.mapswithme.util.NetworkPolicy;
 
 import java.lang.ref.WeakReference;
 
@@ -133,15 +135,21 @@ public final class OsmOAuth
   private static native int nativeGetOsmChangesetsCount(String token, String secret);
 
   @WorkerThread
-  public static int getOsmChangesetsCount(@NonNull Context context) {
-    final String token = getAuthToken(context);
-    final String secret = getAuthSecret(context);
-    final int editsCount = OsmOAuth.nativeGetOsmChangesetsCount(token, secret);
+  public static int getOsmChangesetsCount(@NonNull Context context, @NonNull FragmentManager fm) {
+    final int[] editsCount = {-1};
+    NetworkPolicy.checkNetworkPolicy(fm, policy -> {
+      if (!policy.canUseNetwork())
+        return;
+
+      final String token = getAuthToken(context);
+      final String secret = getAuthSecret(context);
+      editsCount[0] = OsmOAuth.nativeGetOsmChangesetsCount(token, secret);
+    });
     final SharedPreferences prefs = MwmApplication.prefs(context);
-    if (editsCount < 0)
+    if (editsCount[0] < 0)
       return prefs.getInt(PREF_OSM_CHANGESETS_COUNT, 0);
 
-    prefs.edit().putInt(PREF_OSM_CHANGESETS_COUNT, editsCount).apply();
-    return editsCount;
+    prefs.edit().putInt(PREF_OSM_CHANGESETS_COUNT, editsCount[0]).apply();
+    return editsCount[0];
   }
 }
