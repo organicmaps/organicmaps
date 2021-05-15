@@ -820,8 +820,6 @@
 	<string name="error_enter_correct_web">أدخل عنوان ويب صالح</string>
 	<string name="error_enter_correct_email">أدخل بريدا إلكترونيا صالحا</string>
 	<string name="error_enter_correct">أدخل قيمة صالحة</string>
-	<string name="editor_profile_changes_for_next_place">التغييرات في المكان التالي: %d</string>
-	<string name="editor_profile_rating_place">المركز في التصنيف</string>
 	<string name="refresh">تحديث</string>
 	<string name="last_update">أخر تحديث: %s</string>
 	<string name="placepage_add_place_button">إضافة مكان ما للخريطة</string>

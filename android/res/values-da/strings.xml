@@ -818,8 +818,6 @@
 	<string name="error_enter_correct_web">Indtast en gyldig webadresse</string>
 	<string name="error_enter_correct_email">Indtast en gyldig emailadresse</string>
 	<string name="error_enter_correct">Indtast en gyldig værdi</string>
-	<string name="editor_profile_changes_for_next_place">Ændringer for næste sted: %d</string>
-	<string name="editor_profile_rating_place">Rangorden</string>
 	<string name="refresh">Opdater</string>
 	<string name="last_update">Sidste opdatering: %s</string>
 	<string name="placepage_add_place_button">Tilføj et sted på kortet</string>

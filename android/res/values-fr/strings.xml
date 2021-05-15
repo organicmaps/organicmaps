@@ -826,8 +826,6 @@
 	<string name="error_enter_correct_web">Saisir une adresse Internet valide</string>
 	<string name="error_enter_correct_email">Saisir un email valide</string>
 	<string name="error_enter_correct">Saisir une valeur correcte</string>
-	<string name="editor_profile_changes_for_next_place">Modifications vers le prochain lieu: %d</string>
-	<string name="editor_profile_rating_place">Notation position</string>
 	<string name="refresh">Mettre à jour</string>
 	<string name="last_update">Dernière mise à jour à %s</string>
 	<string name="placepage_add_place_button">Ajouter un lieu sur la carte</string>

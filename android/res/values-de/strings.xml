@@ -822,8 +822,6 @@
 	<string name="error_enter_correct_web">Geben Sie eine gültige Internetadresse ein</string>
 	<string name="error_enter_correct_email">Geben Sie eine gültige Email-Adresse ein</string>
 	<string name="error_enter_correct">Geben Sie einen gültigen Wert ein</string>
-	<string name="editor_profile_changes_for_next_place">Erforderliche Änderungen für den nächsten Platz: %d</string>
-	<string name="editor_profile_rating_place">Platz im Rating</string>
 	<string name="refresh">Aktualisieren</string>
 	<string name="last_update">Letzte Aktualisierung: %s</string>
 	<string name="placepage_add_place_button">Einen Ort zur Karte hinzufügen</string>

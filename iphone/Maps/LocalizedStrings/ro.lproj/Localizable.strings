@@ -1411,10 +1411,6 @@
 
 "error_enter_correct" = "Introduceți o valoare validă";
 
-"editor_profile_changes_for_next_place" = "Modificări necesare pentru următoarea poziţie: %d";
-
-"editor_profile_rating_place" = "Poziţie în clasament";
-
 "refresh" = "Actualizați";
 
 "last_update" = "Ultima actualizare: %s";

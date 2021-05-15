@@ -1411,10 +1411,6 @@
 
 "error_enter_correct" = "Masukkan nilai valid";
 
-"editor_profile_changes_for_next_place" = "Perubahan terhadap tempat selanjutnya: %d";
-
-"editor_profile_rating_place" = "Posisi peringkat";
-
 "refresh" = "Memperbarui";
 
 "last_update" = "Pembaruan terakhir: %s";

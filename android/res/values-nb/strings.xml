@@ -806,8 +806,6 @@
 	<string name="error_enter_correct_web">Oppgi en gyldig nettadresse</string>
 	<string name="error_enter_correct_email">Oppgi en gyldig epostadresse</string>
 	<string name="error_enter_correct">Oppgi en gyldig verdi</string>
-	<string name="editor_profile_changes_for_next_place">Endringer på neste sted: %d</string>
-	<string name="editor_profile_rating_place">Rangeringsplassering</string>
 	<string name="refresh">Oppdatere</string>
 	<string name="last_update">Sist oppdatert: %s</string>
 	<string name="placepage_add_place_button">Legg til en plass på kartet</string>

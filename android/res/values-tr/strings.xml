@@ -820,8 +820,6 @@
 	<string name="error_enter_correct_web">Geçerli bir web adresi girin</string>
 	<string name="error_enter_correct_email">Geçerli bir e-posta girin</string>
 	<string name="error_enter_correct">Geçerli bir değer girin</string>
-	<string name="editor_profile_changes_for_next_place">Sonraki yerdeki değişiklikler: %d</string>
-	<string name="editor_profile_rating_place">Sıralamadaki yeri</string>
 	<string name="refresh">Güncelleştirme</string>
 	<string name="last_update">Son güncelleme: %s</string>
 	<string name="placepage_add_place_button">Haritaya bir yer ekleyin</string>

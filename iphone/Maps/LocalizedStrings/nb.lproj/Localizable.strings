@@ -1411,10 +1411,6 @@
 
 "error_enter_correct" = "Oppgi en gyldig verdi";
 
-"editor_profile_changes_for_next_place" = "Endringer på neste sted: %d";
-
-"editor_profile_rating_place" = "Rangeringsplassering";
-
 "refresh" = "Oppdatere";
 
 "last_update" = "Sist oppdatert: %s";

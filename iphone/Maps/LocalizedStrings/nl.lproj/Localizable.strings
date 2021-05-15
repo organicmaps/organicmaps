@@ -1411,10 +1411,6 @@
 
 "error_enter_correct" = "Voer een geldige waarde in";
 
-"editor_profile_changes_for_next_place" = "Wijzigingen tot de volgende positie: %d";
-
-"editor_profile_rating_place" = "Positie in klassement";
-
 "refresh" = "Updaten";
 
 "last_update" = "Laatste update: %s";

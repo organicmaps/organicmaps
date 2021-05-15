@@ -804,8 +804,6 @@
 	<string name="error_enter_correct_web">Introduceți o adresă web validă</string>
 	<string name="error_enter_correct_email">Introduceți o adresă de email validă</string>
 	<string name="error_enter_correct">Introduceți o valoare validă</string>
-	<string name="editor_profile_changes_for_next_place">Modificări necesare pentru următoarea poziţie: %d</string>
-	<string name="editor_profile_rating_place">Poziţie în clasament</string>
 	<string name="refresh">Actualizați</string>
 	<string name="last_update">Ultima actualizare: %s</string>
 	<string name="placepage_add_place_button">Adăugați un loc pe hartă</string>

@@ -1411,10 +1411,6 @@
 
 "error_enter_correct" = "Adj meg egy érvényes értéket";
 
-"editor_profile_changes_for_next_place" = "Változtatások a jobb helyért: %d";
-
-"editor_profile_rating_place" = "Ranglista helyezés";
-
 "refresh" = "Frissítés";
 
 "last_update" = "Utolsó frissítés: %s";

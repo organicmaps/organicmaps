@@ -1411,10 +1411,6 @@
 
 "error_enter_correct" = "유효한 값 입력";
 
-"editor_profile_changes_for_next_place" = "다음 장소 변경: %d";
-
-"editor_profile_rating_place" = "평가 순위";
-
 "refresh" = "최신 정보";
 
 "last_update" = "마지막 업데이트: %s";

@@ -1411,10 +1411,6 @@
 
 "error_enter_correct" = "Preencha com um valor válido";
 
-"editor_profile_changes_for_next_place" = "Alterações para o próximo lugar: %d";
-
-"editor_profile_rating_place" = "Posição na classificação";
-
 "refresh" = "Atualizar";
 
 "last_update" = "Última atualização: %s";

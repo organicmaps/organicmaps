@@ -818,8 +818,6 @@
 	<string name="error_enter_correct_web">輸入有效網址</string>
 	<string name="error_enter_correct_email">輸入有效電子郵箱</string>
 	<string name="error_enter_correct">輸入有效值</string>
-	<string name="editor_profile_changes_for_next_place">對下一個地點的變更：%d</string>
-	<string name="editor_profile_rating_place">排名位置</string>
 	<string name="refresh">更新</string>
 	<string name="last_update">上次更新於：%s</string>
 	<string name="placepage_add_place_button">添加地點到地圖上</string>

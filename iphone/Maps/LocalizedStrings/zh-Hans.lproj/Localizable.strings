@@ -1411,10 +1411,6 @@
 
 "error_enter_correct" = "输入有效值";
 
-"editor_profile_changes_for_next_place" = "升到下一级所需更改: %d";
-
-"editor_profile_rating_place" = "排名位置";
-
 "refresh" = "更新";
 
 "last_update" = "上次更新于：%s";
