@@ -1411,10 +1411,6 @@
 
 "error_enter_correct" = "أدخل قيمة صالحة";
 
-"editor_profile_changes_for_next_place" = "التغييرات في المكان التالي: %d";
-
-"editor_profile_rating_place" = "المركز في التصنيف";
-
 "refresh" = "تحديث";
 
 "last_update" = "أخر تحديث: %s";

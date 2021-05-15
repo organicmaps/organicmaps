@@ -814,8 +814,6 @@
 	<string name="error_enter_correct_web">输入有效网址</string>
 	<string name="error_enter_correct_email">输入有效电子邮箱</string>
 	<string name="error_enter_correct">输入有效值</string>
-	<string name="editor_profile_changes_for_next_place">升到下一级所需更改: %d</string>
-	<string name="editor_profile_rating_place">排名位置</string>
 	<string name="refresh">更新</string>
 	<string name="last_update">上次更新于：%s</string>
 	<string name="placepage_add_place_button">添加地点到地图上</string>

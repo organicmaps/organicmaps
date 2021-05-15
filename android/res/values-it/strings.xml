@@ -814,8 +814,6 @@
 	<string name="error_enter_correct_web">Inserisci un indirizzo web valido</string>
 	<string name="error_enter_correct_email">Inserisci un\'email valida</string>
 	<string name="error_enter_correct">Inserisci un valore valido</string>
-	<string name="editor_profile_changes_for_next_place">Modifiche per posizione successiva: %d</string>
-	<string name="editor_profile_rating_place">Posizione in classifica</string>
 	<string name="refresh">Aggiornare</string>
 	<string name="last_update">Ultimo aggiornamento: %s</string>
 	<string name="placepage_add_place_button">Aggiungi un luogo sulla mappa</string>

@@ -828,8 +828,6 @@
 	<string name="error_enter_correct_web">Введите корректный веб-адрес</string>
 	<string name="error_enter_correct_email">Введите корректный email</string>
 	<string name="error_enter_correct">Введите корректное значение</string>
-	<string name="editor_profile_changes_for_next_place">Правок до следующего места: %d</string>
-	<string name="editor_profile_rating_place">Место в рейтинге</string>
 	<string name="refresh">Обновить</string>
 	<string name="last_update">Последнее обновление: %s</string>
 	<string name="placepage_add_place_button">Добавить место на карту</string>

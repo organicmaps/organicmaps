@@ -1411,10 +1411,6 @@
 
 "error_enter_correct" = "輸入有效值";
 
-"editor_profile_changes_for_next_place" = "對下一個地點的變更：%d";
-
-"editor_profile_rating_place" = "排名位置";
-
 "refresh" = "更新";
 
 "last_update" = "上次更新於：%s";

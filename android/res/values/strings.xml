@@ -842,8 +842,6 @@
 	<string name="error_enter_correct_web">Enter a valid web address</string>
 	<string name="error_enter_correct_email">Enter a valid email</string>
 	<string name="error_enter_correct">Enter a valid value</string>
-	<string name="editor_profile_changes_for_next_place">Changes to the next place: %d</string>
-	<string name="editor_profile_rating_place">Position in the ranking</string>
 	<string name="refresh">Update</string>
 	<string name="last_update">Last update: %s</string>
 	<string name="placepage_add_place_button">Add a place to the map</string>

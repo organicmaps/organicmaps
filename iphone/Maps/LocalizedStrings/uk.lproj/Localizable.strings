@@ -1411,10 +1411,6 @@
 
 "error_enter_correct" = "Введіть вірне значення";
 
-"editor_profile_changes_for_next_place" = "Виправлень до наступного місця: %d";
-
-"editor_profile_rating_place" = "Місце у рейтингу";
-
 "refresh" = "Обновити";
 
 "last_update" = "Останнє оновлення: %s";

@@ -627,8 +627,6 @@
 	<string name="error_enter_correct_phone">Εισάγετε έναν έγκυρο αριθμό τηλεφώνου</string>
 	<string name="error_enter_correct_web">Εισάγετε μια έγκυρη διεύθυνση ιστοτόπου</string>
 	<string name="error_enter_correct_email">Εισάγετε ένα έγκυρο email</string>
-	<string name="editor_profile_changes_for_next_place">Αλλάζει στην επόμενη τοποθεσία: %d</string>
-	<string name="editor_profile_rating_place">Θέση στην κατάταξη</string>
 	<string name="refresh">Ενημέρωση</string>
 	<string name="last_update">Τελευταία ενημέρωση: %s</string>
 	<string name="placepage_add_place_button">Να προστεθεί η τοποθεσία στο χάρτη</string>

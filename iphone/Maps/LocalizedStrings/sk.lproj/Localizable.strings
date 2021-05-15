@@ -1411,10 +1411,6 @@
 
 "error_enter_correct" = "Zadajte platnú hodnotu";
 
-"editor_profile_changes_for_next_place" = "Zmeny pre ďalšie miesto: %d";
-
-"editor_profile_rating_place" = "Hodnotiaca pozícia";
-
 "refresh" = "Aktualizovať";
 
 "last_update" = "Naposledy aktualizované: %s";

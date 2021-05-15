@@ -807,8 +807,6 @@
 	<string name="error_enter_correct_web">Masukkan alamat web valid</string>
 	<string name="error_enter_correct_email">Masukkan surel valid</string>
 	<string name="error_enter_correct">Masukkan nilai valid</string>
-	<string name="editor_profile_changes_for_next_place">Perubahan terhadap tempat selanjutnya: %d</string>
-	<string name="editor_profile_rating_place">Posisi peringkat</string>
 	<string name="refresh">Memperbarui</string>
 	<string name="last_update">Pembaruan terakhir: %s</string>
 	<string name="placepage_add_place_button">Tambahkan tempat ke peta</string>

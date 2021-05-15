@@ -1411,10 +1411,6 @@
 
 "error_enter_correct" = "Syötä kelvollinen arvo";
 
-"editor_profile_changes_for_next_place" = "Muutokset paikkaan: %d";
-
-"editor_profile_rating_place" = "Luokitussija";
-
 "refresh" = "Päivitä";
 
 "last_update" = "Viimeisin päivitys: %s";

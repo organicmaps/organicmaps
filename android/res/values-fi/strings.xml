@@ -808,8 +808,6 @@
 	<string name="error_enter_correct_web">Syötä kelvollinen verkko-osoite</string>
 	<string name="error_enter_correct_email">Syötä kelvollinen sähköpostiosoite</string>
 	<string name="error_enter_correct">Syötä kelvollinen arvo</string>
-	<string name="editor_profile_changes_for_next_place">Muutokset paikkaan: %d</string>
-	<string name="editor_profile_rating_place">Luokitussija</string>
 	<string name="refresh">Päivitä</string>
 	<string name="last_update">Viimeisin päivitys: %s</string>
 	<string name="placepage_add_place_button">Lisää paikka kartalle</string>

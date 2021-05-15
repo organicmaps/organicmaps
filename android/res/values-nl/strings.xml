@@ -815,8 +815,6 @@
 	<string name="error_enter_correct_web">Voer een geldig webadres in</string>
 	<string name="error_enter_correct_email">Voer een geldig emailadres in</string>
 	<string name="error_enter_correct">Voer een geldige waarde in</string>
-	<string name="editor_profile_changes_for_next_place">Wijzigingen tot de volgende positie: %d</string>
-	<string name="editor_profile_rating_place">Positie in klassement</string>
 	<string name="refresh">Updaten</string>
 	<string name="last_update">Laatste update: %s</string>
 	<string name="placepage_add_place_button">Een plek toevoegen aan de kaart</string>

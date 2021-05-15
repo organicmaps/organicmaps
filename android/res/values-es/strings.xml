@@ -808,8 +808,6 @@
 	<string name="error_enter_correct_web">Introduce una dirección web válida</string>
 	<string name="error_enter_correct_email">Introduce un email válido</string>
 	<string name="error_enter_correct">Introduce un valor válido</string>
-	<string name="editor_profile_changes_for_next_place">Cambios para la próxima posición: %d</string>
-	<string name="editor_profile_rating_place">Posición en la clasificación</string>
 	<string name="refresh">Actualizar</string>
 	<string name="last_update">Última actualización: %s</string>
 	<string name="placepage_add_place_button">Añadir un lugar al mapa</string>

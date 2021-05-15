@@ -1411,10 +1411,6 @@
 
 "error_enter_correct" = "Nhập giá trị hợp lệ";
 
-"editor_profile_changes_for_next_place" = "Các thay đổi tới địa điểm tiếp theo: %d";
-
-"editor_profile_rating_place" = "Vị trí thứ hạng";
-
 "refresh" = "Cập nhật";
 
 "last_update" = "Cập nhật cuối cùng: %s";

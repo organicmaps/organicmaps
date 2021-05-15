@@ -814,8 +814,6 @@
 	<string name="error_enter_correct_web">Ange en giltig webadress</string>
 	<string name="error_enter_correct_email">Ange en giltig e-postadress</string>
 	<string name="error_enter_correct">Ange ett giltigt värde</string>
-	<string name="editor_profile_changes_for_next_place">Ändringar av nästa plats: %d</string>
-	<string name="editor_profile_rating_place">Rankning</string>
 	<string name="refresh">Uppdatera</string>
 	<string name="last_update">Senast uppdaterad: %s</string>
 	<string name="placepage_add_place_button">Lägg till en plats på kartan</string>

@@ -818,8 +818,6 @@
 	<string name="error_enter_correct_web">Preencha com um endereço válido na internet</string>
 	<string name="error_enter_correct_email">Preencha com um endereço válido de email</string>
 	<string name="error_enter_correct">Preencha com um valor válido</string>
-	<string name="editor_profile_changes_for_next_place">Alterações para o próximo lugar: %d</string>
-	<string name="editor_profile_rating_place">Posição na classificação</string>
 	<string name="refresh">Atualizar</string>
 	<string name="last_update">Última atualização: %s</string>
 	<string name="placepage_add_place_button">Adicionar um local ao mapa</string>

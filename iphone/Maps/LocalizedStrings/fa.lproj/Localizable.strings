@@ -1411,10 +1411,6 @@
 
 "error_enter_correct" = "مقادیر معتبری وارد نمایید";
 
-"editor_profile_changes_for_next_place" = "Changes to the next place: %d";
-
-"editor_profile_rating_place" = "موقعیت در رتبه بندی";
-
 "refresh" = "بروزرسانی";
 
 "last_update" = "اخرین بروزرسانی: %s";
