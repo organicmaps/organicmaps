@@ -15,6 +15,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.mapswithme.maps.base.BaseActivity;
 import com.mapswithme.maps.base.BaseActivityDelegate;
 import com.mapswithme.maps.location.LocationHelper;
+import com.mapswithme.util.Config;
 import com.mapswithme.util.Counters;
 import com.mapswithme.util.PermissionsUtils;
 import com.mapswithme.util.ThemeUtils;
@@ -89,7 +90,7 @@ public class SplashActivity extends AppCompatActivity implements BaseActivity
     mBaseDelegate.onResume();
     if (mCanceled)
       return;
-    if (!PermissionsUtils.isLocationGranted(this))
+    if (!Config.isLocationRequested() && !PermissionsUtils.isLocationGranted(this))
     {
       PermissionsUtils.requestLocationPermission(SplashActivity.this, REQUEST_PERMISSIONS);
       return;
@@ -146,11 +147,7 @@ public class SplashActivity extends AppCompatActivity implements BaseActivity
     if (requestCode != REQUEST_PERMISSIONS)
       throw new AssertionError("Unexpected requestCode");
     super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-    if (!PermissionsUtils.isLocationGranted(this))
-    {
-      showFatalErrorDialog(R.string.enable_location_services, R.string.location_is_disabled_long_text);
-      return;
-    }
+    Config.setLocationRequested();
     // No-op here - onResume() calls init();
   }
 
@@ -166,7 +163,7 @@ public class SplashActivity extends AppCompatActivity implements BaseActivity
       return;
     }
 
-    if (Counters.isFirstLaunch(this))
+    if (Counters.isFirstLaunch(this) && PermissionsUtils.isLocationGranted(this))
     {
       LocationHelper.INSTANCE.onEnteredIntoFirstRun();
       if (!LocationHelper.INSTANCE.isActive())

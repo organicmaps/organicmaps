@@ -31,7 +31,7 @@ public final class Config
   private static final String KEY_PREF_USE_GS = "UseGoogleServices";
 
   private static final String KEY_MISC_DISCLAIMER_ACCEPTED = "IsDisclaimerApproved";
-  private static final String KEY_MISC_KITKAT_MIGRATED = "KitKatMigrationCompleted";
+  private static final String KEY_MISC_LOCATION_REQUESTED = "LocationRequested";
   private static final String KEY_MISC_UI_THEME = "UiTheme";
   private static final String KEY_MISC_UI_THEME_SETTINGS = "UiThemeSettings";
   private static final String KEY_MISC_USE_MOBILE_DATA = "UseMobileData";
@@ -198,14 +198,14 @@ public final class Config
     setBool(KEY_MISC_DISCLAIMER_ACCEPTED);
   }
 
-  public static boolean isKitKatMigrationComplete()
+  public static boolean isLocationRequested()
   {
-    return getBool(KEY_MISC_KITKAT_MIGRATED);
+    return getBool(KEY_MISC_LOCATION_REQUESTED);
   }
 
-  public static void setKitKatMigrationComplete()
+  public static void setLocationRequested()
   {
-    setBool(KEY_MISC_KITKAT_MIGRATED);
+    setBool(KEY_MISC_LOCATION_REQUESTED);
   }
 
   @NonNull

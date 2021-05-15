@@ -146,7 +146,7 @@ public enum LocationHelper implements Initializable<Context>
   private final LocationState.LocationPendingTimeoutListener mLocationPendingTimeoutListener =
       () -> {
         stop();
-        if (LocationUtils.areLocationServicesTurnedOn(mContext))
+        if (PermissionsUtils.isLocationGranted(mContext) && LocationUtils.areLocationServicesTurnedOn(mContext))
           notifyLocationNotFound();
       };
 
