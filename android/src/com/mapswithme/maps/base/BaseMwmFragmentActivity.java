@@ -21,7 +21,6 @@ import com.mapswithme.maps.MwmApplication;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.SplashActivity;
 import com.mapswithme.util.Config;
-import com.mapswithme.util.PermissionsUtils;
 import com.mapswithme.util.ThemeUtils;
 import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.Utils;
@@ -217,12 +216,6 @@ public abstract class BaseMwmFragmentActivity extends AppCompatActivity
   protected void onResume()
   {
     super.onResume();
-    if (!PermissionsUtils.isLocationGranted(getApplicationContext()))
-    {
-      goToSplashScreen(null);
-      return;
-    }
-
     mBaseDelegate.onResume();
   }
 

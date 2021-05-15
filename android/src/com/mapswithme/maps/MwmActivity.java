@@ -833,7 +833,14 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
     PermissionsResult result = PermissionsUtils.computePermissionsResult(permissions, grantResults);
     if (result.isLocationGranted())
+    {
       myPositionClick();
+    }
+    else
+    {
+      Utils.showSnackbar(getActivity(), findViewById(R.id.coordinator), findViewById(R.id.menu_frame),
+          R.string.location_is_disabled_long_text);
+    }
   }
 
   @Override
@@ -2041,12 +2048,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
       if (!PermissionsUtils.isLocationGranted(getApplicationContext()))
       {
         PermissionsUtils.requestLocationPermission(MwmActivity.this, REQ_CODE_LOCATION_PERMISSION);
-        if (!PermissionsUtils.isLocationGranted(getApplicationContext()))
-        {
-          Utils.showSnackbar(getActivity(), findViewById(R.id.coordinator), findViewById(R.id.menu_frame),
-                                                  R.string.enable_location_services);
-          return;
-        }
+        return;
       }
 
       myPositionClick();
