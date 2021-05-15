@@ -47,7 +47,7 @@ setup_opensource() {
   echo '<?xml version="1.0" encoding="utf-8"?>
 <network-security-config/>
 ' > "$PRIVATE_NETWORK_CONFIG"
-  echo '{"client": [{"api_key": [{"current_key": ""}], "client_info": {"mobilesdk_app_id": "omaps", "android_client_info": {"package_name": "app.omaps.debug"}}}], "configuration_version": "1", "project_info": {"storage_bucket": "", "project_id": "", "project_number": ""}}' > "$PRIVATE_GOOGLE_SERVICES"
+  echo '{"client": [{"api_key": [{"current_key": ""}], "client_info": {"mobilesdk_app_id": "omaps", "android_client_info": {"package_name": "app.organicmaps.debug"}}}], "configuration_version": "1", "project_info": {"storage_bucket": "", "project_id": "", "project_number": ""}}' > "$PRIVATE_GOOGLE_SERVICES"
 }
 
 setup_private() {
