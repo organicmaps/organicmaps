@@ -2,7 +2,6 @@ buildscript {
   repositories {
     google()
     mavenCentral()
-    jcenter()
   }
 
   //
@@ -48,7 +47,6 @@ buildscript {
 repositories {
   google()
   mavenCentral()
-  jcenter()
   maven { url 'https://www.jitpack.io' } // MPAndroidChart
 }
 
