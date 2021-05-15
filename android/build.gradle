@@ -170,7 +170,7 @@ android {
       if (project.hasProperty('pch')) pchFlag = 'ON'
 
       cmake {
-        version '3.8.0+'
+        version '3.18.0+'
         cppFlags '-fexceptions', '-frtti'
         // There is no sense to enable sections without gcc's --gc-sections flag.
         cFlags '-fno-function-sections', '-fno-data-sections',
