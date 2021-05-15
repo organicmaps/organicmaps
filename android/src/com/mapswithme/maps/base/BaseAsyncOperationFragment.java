@@ -15,10 +15,10 @@ public abstract class BaseAsyncOperationFragment extends BaseMwmFragment
 
   protected void showProgress()
   {
-    int resId = getProgressMessageId();
-    String title = getString(resId);
-    ProgressDialogFragment dialog = ProgressDialogFragment.newInstance(title);
-    Objects.requireNonNull(getFragmentManager())
+    final int resId = getProgressMessageId();
+    final String title = getString(resId);
+    final ProgressDialogFragment dialog = ProgressDialogFragment.newInstance(title);
+    getParentFragmentManager()
            .beginTransaction()
            .add(dialog, PROGRESS_DIALOG_TAG)
            .commitAllowingStateLoss();
@@ -32,9 +32,8 @@ public abstract class BaseAsyncOperationFragment extends BaseMwmFragment
 
   protected void hideProgress()
   {
-    FragmentManager fm = getFragmentManager();
-    DialogFragment frag = (DialogFragment) Objects.requireNonNull(fm)
-                                                  .findFragmentByTag(PROGRESS_DIALOG_TAG);
+    final FragmentManager fm = getParentFragmentManager();
+    final DialogFragment frag = (DialogFragment) fm.findFragmentByTag(PROGRESS_DIALOG_TAG);
     if (frag != null)
       frag.dismissAllowingStateLoss();
   }
