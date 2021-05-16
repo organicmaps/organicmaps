@@ -4,22 +4,21 @@ import android.app.DownloadManager;
 import android.content.Context;
 import android.database.Cursor;
 import android.net.Uri;
-import android.os.FileUtils;
 import android.text.TextUtils;
 
 import androidx.annotation.MainThread;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.WorkerThread;
+
 import com.mapswithme.maps.MwmApplication;
+import com.mapswithme.util.StorageUtils;
 import com.mapswithme.util.concurrency.UiThread;
 import com.mapswithme.util.log.Logger;
 import com.mapswithme.util.log.LoggerFactory;
 
-import java.io.FileOutputStream;
+import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
 
 public class MapDownloadCompletedProcessor
 {
@@ -67,31 +66,17 @@ public class MapDownloadCompletedProcessor
     }
 
     String dstPath = MapManager.nativeGetFilePathByUrl(targetUriPath);
-    return copyFile(context, downloadedFileUri, dstPath);
-  }
-
-  private static boolean copyFile(@NonNull Context context, @NonNull Uri from, @NonNull String to)
-  {
-    try (InputStream in = context.getContentResolver().openInputStream(from))
+    try
     {
-      if (in == null)
+      if (!StorageUtils.copyFile(context, downloadedFileUri, new File(dstPath)))
         return false;
-
-      try (OutputStream out = new FileOutputStream(to))
-      {
-        byte[] buf = new byte[4 * 1024];
-        int len;
-        while ((len = in.read(buf)) > 0)
-          out.write(buf, 0, len);
-
-        context.getContentResolver().delete(from, null, null);
-        return true;
-      }
+      context.getContentResolver().delete(downloadedFileUri, null, null);
+      return true;
     }
     catch (IOException e)
     {
-      LOGGER.e(TAG, "Failed to copy or delete downloaded map file from " + from.toString() +
-                          " to " + to + ". Exception ", e);
+      LOGGER.e(TAG, "Failed to copy or delete downloaded map file from " + downloadedFileUri.toString() +
+          " to " + dstPath + ". Exception ", e);
       return false;
     }
   }

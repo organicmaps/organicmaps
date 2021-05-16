@@ -11,11 +11,15 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AlertDialog;
 
+import com.mapswithme.maps.BuildConfig;
+import com.mapswithme.maps.Framework;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.base.OnBackPressListener;
 import com.mapswithme.util.Constants;
+import com.mapswithme.util.StorageUtils;
 import com.mapswithme.util.Utils;
 
+import java.io.File;
 import java.util.List;
 import java.util.Locale;
 
@@ -81,9 +85,23 @@ public class StoragePathFragment extends BaseSettingsFragment
     mPathManager.stopExternalStorageWatching();
   }
 
+  static long getWritableDirSize()
+  {
+    final File writableDir = new File(Framework.nativeGetWritableDir());
+    if (BuildConfig.DEBUG)
+    {
+      if (!writableDir.exists())
+        throw new IllegalStateException("Writable directory doesn't exits, can't get size.");
+      if (!writableDir.isDirectory())
+        throw new IllegalStateException("Writable directory isn't a directory, can't get size.");
+    }
+
+    return StorageUtils.getDirSizeRecursively(writableDir, StoragePathManager.MOVABLE_FILES_FILTER);
+  }
+
   private void updateList()
   {
-    long dirSize = StorageUtils.getWritableDirSize();
+    long dirSize = getWritableDirSize();
     mHeader.setText(getString(R.string.maps) + ": " + getSizeString(dirSize));
 
     if (mAdapter != null)
