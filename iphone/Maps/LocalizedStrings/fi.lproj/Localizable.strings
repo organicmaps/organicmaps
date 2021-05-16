@@ -1665,6 +1665,9 @@
 
 "bookmarks_create_new_group" = "Luo uusi luettelo";
 
+/* Bookmark categories screen */
+"bookmarks_import" = "Import bookmarks";
+
 "downloader_hide_screen" = "Piilota näyttö";
 
 "downloader_percent" = "%s (%s / %s)";

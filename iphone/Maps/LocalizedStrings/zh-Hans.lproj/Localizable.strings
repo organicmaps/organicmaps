@@ -1665,6 +1665,9 @@
 
 "bookmarks_create_new_group" = "创建新的列表";
 
+/* Bookmark categories screen */
+"bookmarks_import" = "Import bookmarks";
+
 "downloader_hide_screen" = "隱藏畫面";
 
 "downloader_percent" = "%s (%s / %s)";

@@ -22030,6 +22030,12 @@
     zh-Hant = 創建新列表
     fa = ایجاد لیست جدید
 
+  [bookmarks_import]
+    tags = android
+    comment = Bookmark categories screen
+    en = Import bookmarks
+    ru = Импортировать метки
+
   [downloader_hide_screen]
     en = Hide Screen
     ru = Скрыть

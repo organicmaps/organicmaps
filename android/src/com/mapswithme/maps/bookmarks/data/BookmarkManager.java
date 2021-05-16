@@ -1,17 +1,29 @@
 package com.mapswithme.maps.bookmarks.data;
 
+import android.content.ContentResolver;
+import android.database.Cursor;
+import android.net.Uri;
+import android.provider.OpenableColumns;
+
 import androidx.annotation.IntDef;
 import androidx.annotation.IntRange;
 import androidx.annotation.MainThread;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.WorkerThread;
 
+import com.mapswithme.maps.Framework;
 import com.mapswithme.maps.base.DataChangedListener;
 import com.mapswithme.maps.base.Observable;
 import com.mapswithme.util.KeyValue;
+import com.mapswithme.util.StorageUtils;
 import com.mapswithme.util.UTM;
+import com.mapswithme.util.concurrency.UiThread;
+import com.mapswithme.util.log.Logger;
+import com.mapswithme.util.log.LoggerFactory;
 
 import java.io.File;
+import java.io.IOException;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.util.ArrayList;
@@ -62,6 +74,11 @@ public enum BookmarkManager
   public static final int CATEGORY = 0;
 
   public static final List<Icon> ICONS = new ArrayList<>();
+
+  static String[] BOOKMARKS_EXTENSIONS = Framework.nativeGetBookmarksFilesExts();
+
+  private static final Logger LOGGER = LoggerFactory.INSTANCE.getLogger(LoggerFactory.Type.MISC);
+  private static final String TAG = BookmarkManager.class.getSimpleName();
 
   @NonNull
   private final BookmarkCategoriesDataProvider mCategoriesCoreDataProvider
@@ -392,9 +409,86 @@ public enum BookmarkManager
   @Icon.PredefinedColor
   public int getLastEditedColor() { return nativeGetLastEditedColor(); }
 
-  public void loadKmzFile(@NonNull String path, boolean isTemporaryFile)
+  @MainThread
+  public void loadBookmarksFile(@NonNull String path, boolean isTemporaryFile)
   {
-    nativeLoadKmzFile(path, isTemporaryFile);
+    LOGGER.d(TAG, "Loading bookmarks file from: " + path);
+    nativeLoadBookmarksFile(path, isTemporaryFile);
+  }
+
+  static @Nullable String getBookmarksFilenameFromUri(@NonNull ContentResolver resolver, @NonNull Uri uri)
+  {
+    String filename = null;
+    String scheme = uri.getScheme();
+    if (scheme.equals("content"))
+    {
+      try (Cursor cursor = resolver.query(uri, null, null, null, null))
+      {
+        if (cursor != null && cursor.moveToFirst())
+        {
+          filename = cursor.getString(cursor.getColumnIndex(OpenableColumns.DISPLAY_NAME));
+        }
+      }
+    }
+
+    if (filename == null)
+    {
+      filename = uri.getPath();
+      int cut = filename.lastIndexOf('/');
+      if (cut != -1)
+      {
+        filename = filename.substring(cut + 1);
+      }
+    }
+    // See IsBadCharForPath()
+    filename = filename.replaceAll("[:/\\\\<>\"|?*]", "");
+
+    // Check that filename contains bookmarks extension.
+    for (String ext: BOOKMARKS_EXTENSIONS)
+    {
+      if (filename.endsWith(ext))
+        return filename;
+    }
+
+    // Try get guess extension from the mime type.
+    final String mime = resolver.getType(uri);
+    final int i = mime.lastIndexOf('.');
+    if (i != -1)
+    {
+      final String type = mime.substring(i + 1);
+      if (type.equalsIgnoreCase("kmz"))
+        return filename + ".kmz";
+      else if (type.equalsIgnoreCase("kml+xml"))
+        return filename + ".kml";
+    }
+
+    return null;
+  }
+
+  @WorkerThread
+  public boolean importBookmarksFile(@NonNull ContentResolver resolver, @NonNull Uri uri, @NonNull File tempDir)
+  {
+    String filename = getBookmarksFilenameFromUri(resolver, uri);
+    if (filename == null)
+    {
+      LOGGER.w(TAG, "Missing path in bookmarks URI: " + uri);
+      return false;
+    }
+
+    LOGGER.w(TAG, "Downloading bookmarks file " + uri);
+    File tempFile = new File(tempDir, filename);
+    try
+    {
+      StorageUtils.copyFile(resolver, uri, tempFile);
+    } catch (IOException e)
+    {
+      LOGGER.w(TAG, "Failed to download bookmarks file from " + uri, e);
+      return false;
+    }
+
+    UiThread.run(() -> loadBookmarksFile(tempFile.getAbsolutePath(), true));
+
+    return true;
   }
 
   public boolean isAsyncBookmarksLoadingInProgress()
@@ -706,7 +800,7 @@ public enum BookmarkManager
   @Icon.PredefinedColor
   private native int nativeGetLastEditedColor();
 
-  private static native void nativeLoadKmzFile(@NonNull String path, boolean isTemporaryFile);
+  private static native void nativeLoadBookmarksFile(@NonNull String path, boolean isTemporaryFile);
 
   private static native boolean nativeIsAsyncBookmarksLoadingInProgress();
 

@@ -1665,6 +1665,9 @@
 
 "bookmarks_create_new_group" = "새 목록 만들기";
 
+/* Bookmark categories screen */
+"bookmarks_import" = "Import bookmarks";
+
 "downloader_hide_screen" = "화면 숨기기";
 
 "downloader_percent" = "%s(%s / %s)";

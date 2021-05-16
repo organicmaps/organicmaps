@@ -1,10 +1,13 @@
 package com.mapswithme.util;
 
 import android.app.Application;
+import android.content.ContentResolver;
 import android.content.Context;
 import android.content.pm.PackageManager;
+import android.database.Cursor;
 import android.net.Uri;
 import android.os.Environment;
+import android.provider.DocumentsContract;
 import android.text.TextUtils;
 import android.util.Log;
 
@@ -18,7 +21,6 @@ import com.mapswithme.util.log.LoggerFactory;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.FilenameFilter;
 import java.io.IOException;
@@ -26,6 +28,9 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.nio.channels.FileChannel;
 import java.util.ArrayList;
+import java.util.Queue;
+import java.util.concurrent.LinkedBlockingQueue;
+
 
 public class StorageUtils
 {
@@ -174,15 +179,15 @@ public class StorageUtils
 
   /**
    * Copy data from a URI into a local file.
-   * @param context context
+   * @param resolve content resolver
    * @param from a source URI.
    * @param to a destination file
    * @return true on success and false if the provider recently crashed.
    * @throws IOException - if I/O error occurs.
    */
-  public static boolean copyFile(@NonNull Context context, @NonNull Uri from, @NonNull File to) throws IOException
+  public static boolean copyFile(@NonNull ContentResolver resolver, @NonNull Uri from, @NonNull File to) throws IOException
   {
-    try (InputStream in = context.getContentResolver().openInputStream(from))
+    try (InputStream in = resolver.openInputStream(from))
     {
       if (in == null)
         return false;
@@ -328,6 +333,56 @@ public class StorageUtils
     {
       e.printStackTrace();
       return false;
+    }
+  }
+
+  @FunctionalInterface
+  public interface UriVisitor
+  {
+    void visit(Uri uri);
+  }
+
+  /**
+   * Recursive lists all files in the given URI.
+   * @param contentResolver contentResolver instance
+   * @param rootUri root URI to scan
+   */
+  public static void listContentProviderFilesRecursively(ContentResolver contentResolver, Uri rootUri, UriVisitor filter)
+  {
+    ArrayList<Uri> result = new ArrayList<>();
+
+    Uri rootDir = DocumentsContract.buildChildDocumentsUriUsingTree(rootUri, DocumentsContract.getTreeDocumentId(rootUri));
+    Queue<Uri> directories = new LinkedBlockingQueue<>();
+    directories.add(rootDir);
+    while (!directories.isEmpty())
+    {
+      Uri dir = directories.remove();
+
+      try (Cursor cur = contentResolver.query(dir, new String[]{
+          DocumentsContract.Document.COLUMN_DOCUMENT_ID,
+          DocumentsContract.Document.COLUMN_DISPLAY_NAME,
+          DocumentsContract.Document.COLUMN_MIME_TYPE
+      }, null, null, null))
+      {
+        while (cur.moveToNext())
+        {
+          final String docId = cur.getString(0);
+          final String name = cur.getString(1);
+          final String mime = cur.getString(2);
+          LOGGER.d(TAG, "docId: " + docId + ", name: " + name + ", mime: " + mime);
+
+          if (mime.equals(DocumentsContract.Document.MIME_TYPE_DIR))
+          {
+            final Uri uri = DocumentsContract.buildChildDocumentsUriUsingTree(rootUri, docId);
+            directories.add(uri);
+          }
+          else
+          {
+            final Uri uri = DocumentsContract.buildDocumentUriUsingTree(rootUri, docId);
+            filter.visit(uri);
+          }
+        }
+      }
     }
   }
 }

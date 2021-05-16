@@ -255,7 +255,7 @@ public class Framework
 
   public static native String[] nativeGetMovableFilesExts();
 
-  public static native String nativeGetBookmarksExt();
+  public static native String[] nativeGetBookmarksFilesExts();
 
   public static native String nativeGetBookmarkDir();
 

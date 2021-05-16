@@ -1665,6 +1665,9 @@
 
 "bookmarks_create_new_group" = "Creați o listă nouă";
 
+/* Bookmark categories screen */
+"bookmarks_import" = "Import bookmarks";
+
 "downloader_hide_screen" = "Ascundere ecran";
 
 "downloader_percent" = "%s (%s din %s)";
