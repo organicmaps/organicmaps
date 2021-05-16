@@ -17,7 +17,15 @@ import com.mapswithme.util.log.Logger;
 import com.mapswithme.util.log.LoggerFactory;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.FilenameFilter;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.nio.channels.FileChannel;
+import java.util.ArrayList;
 
 public class StorageUtils
 {
@@ -162,5 +170,164 @@ public class StorageUtils
   {
     return FileProvider.getUriForFile(context.getApplicationContext(),
                                       BuildConfig.FILE_PROVIDER_AUTHORITY, new File(path));
+  }
+
+  /**
+   * Copy data from a URI into a local file.
+   * @param context context
+   * @param from a source URI.
+   * @param to a destination file
+   * @return true on success and false if the provider recently crashed.
+   * @throws IOException - if I/O error occurs.
+   */
+  public static boolean copyFile(@NonNull Context context, @NonNull Uri from, @NonNull File to) throws IOException
+  {
+    try (InputStream in = context.getContentResolver().openInputStream(from))
+    {
+      if (in == null)
+        return false;
+
+      try (OutputStream out = new FileOutputStream(to))
+      {
+        byte[] buf = new byte[4 * 1024];
+        int len;
+        while ((len = in.read(buf)) > 0)
+          out.write(buf, 0, len);
+
+        return true;
+      }
+    }
+  }
+
+  /**
+   * Copy the contents of the source file to the target file.
+   * @param from a source file
+   * @param to a destination file
+   * @throws IOException - if I/O error occurs.
+   */
+  static void copyFile(File from, File to) throws IOException
+  {
+    int maxChunkSize = 10 * Constants.MB; // move file by smaller chunks to avoid OOM.
+    FileChannel inputChannel = null, outputChannel = null;
+    try
+    {
+      inputChannel = new FileInputStream(from).getChannel();
+      outputChannel = new FileOutputStream(to).getChannel();
+      long totalSize = inputChannel.size();
+
+      for (long currentPosition = 0; currentPosition < totalSize; currentPosition += maxChunkSize)
+      {
+        outputChannel.position(currentPosition);
+        outputChannel.transferFrom(inputChannel, currentPosition, maxChunkSize);
+      }
+    } finally
+    {
+      Utils.closeSafely(inputChannel);
+      Utils.closeSafely(outputChannel);
+    }
+  }
+
+  /**
+   * Recursively lists all movable files in the directory.
+   */
+  public static void listFilesRecursively(File dir, String prefix, FilenameFilter filter, ArrayList<String> relPaths)
+  {
+    File[] list = dir.listFiles();
+    if (list == null)
+      return;
+
+    for (File file : list)
+    {
+      if (file.isDirectory())
+      {
+        listFilesRecursively(file, prefix + file.getName() + File.separator, filter, relPaths);
+        continue;
+      }
+      String name = file.getName();
+      if (filter.accept(dir, name))
+        relPaths.add(prefix + name);
+    }
+  }
+
+  /**
+   * Check if directory is writable. On some devices with KitKat (eg, Samsung S4) simple File.canWrite() returns
+   * true for some actually read only directories on sdcard.
+   * see https://code.google.com/p/android/issues/detail?id=66369 for details
+   *
+   * @param path path to ckeck
+   * @return result
+   */
+  @SuppressWarnings("ResultOfMethodCallIgnored")
+  public static boolean isDirWritable(String path)
+  {
+    File f = new File(path, "mapsme_test_dir");
+    f.mkdir();
+    if (!f.exists())
+      return false;
+
+    f.delete();
+    return true;
+  }
+
+  public static long getFreeBytesAtPath(String path)
+  {
+    long size = 0;
+    try
+    {
+      size = new File(path).getFreeSpace();
+    } catch (RuntimeException e)
+    {
+      e.printStackTrace();
+    }
+
+    return size;
+  }
+
+  public static long getDirSizeRecursively(File file, FilenameFilter fileFilter)
+  {
+    if (file.isDirectory())
+    {
+      long dirSize = 0;
+      for (File child : file.listFiles())
+        dirSize += getDirSizeRecursively(child, fileFilter);
+
+      return dirSize;
+    }
+
+    if (fileFilter.accept(file.getParentFile(), file.getName()))
+      return file.length();
+
+    return 0;
+  }
+
+  @SuppressWarnings("ResultOfMethodCallIgnored")
+  public static void removeEmptyDirectories(File dir)
+  {
+    for (File file : dir.listFiles())
+    {
+      if (!file.isDirectory())
+        continue;
+      removeEmptyDirectories(file);
+      file.delete();
+    }
+  }
+
+  @SuppressWarnings("ResultOfMethodCallIgnored")
+  public static boolean removeFilesInDirectory(File dir, File[] files)
+  {
+    try
+    {
+      for (File file : files)
+      {
+        if (file != null)
+          file.delete();
+      }
+      removeEmptyDirectories(dir);
+      return true;
+    } catch (Exception e)
+    {
+      e.printStackTrace();
+      return false;
+    }
   }
 }
