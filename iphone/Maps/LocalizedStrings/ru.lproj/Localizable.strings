@@ -1665,6 +1665,9 @@
 
 "bookmarks_create_new_group" = "Создать новый список";
 
+/* Bookmark categories screen */
+"bookmarks_import" = "Импортировать метки";
+
 "downloader_hide_screen" = "Скрыть";
 
 "downloader_percent" = "%s (%s из %s)";

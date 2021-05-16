@@ -1665,6 +1665,9 @@
 
 "bookmarks_create_new_group" = "Erstelle eine neue Liste";
 
+/* Bookmark categories screen */
+"bookmarks_import" = "Import bookmarks";
+
 "downloader_hide_screen" = "Bildschirm verbergen";
 
 "downloader_percent" = "%s (%s von %s)";

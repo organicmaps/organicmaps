@@ -970,6 +970,8 @@
 	  <item quantity="other">%d меток</item>
 	</plurals>
 	<string name="bookmarks_create_new_group">Создать новый список</string>
+	<!-- Bookmark categories screen -->
+	<string name="bookmarks_import">Импортировать метки</string>
 	<string name="downloader_hide_screen">Скрыть</string>
 	<string name="downloader_percent">%1$s (%2$s из %3$s)</string>
 	<string name="downloader_process">Загрузка %s…</string>

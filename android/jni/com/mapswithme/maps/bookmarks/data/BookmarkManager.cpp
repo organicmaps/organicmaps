@@ -430,8 +430,8 @@ Java_com_mapswithme_maps_bookmarks_data_BookmarkManager_nativeGetLastEditedColor
 }
 
 JNIEXPORT void JNICALL
-Java_com_mapswithme_maps_bookmarks_data_BookmarkManager_nativeLoadKmzFile(JNIEnv * env, jobject thiz,
-                                                                          jstring path, jboolean isTemporaryFile)
+Java_com_mapswithme_maps_bookmarks_data_BookmarkManager_nativeLoadBookmarksFile(JNIEnv * env, jobject thiz,
+                                                                                jstring path, jboolean isTemporaryFile)
 {
   frm()->AddBookmarksFile(ToNativeString(env, path), isTemporaryFile);
 }

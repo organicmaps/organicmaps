@@ -1665,6 +1665,9 @@
 
 "bookmarks_create_new_group" = "Új lista létrehozása";
 
+/* Bookmark categories screen */
+"bookmarks_import" = "Import bookmarks";
+
 "downloader_hide_screen" = "Képernyő elrejtése";
 
 "downloader_percent" = "%s (%s / %s)";

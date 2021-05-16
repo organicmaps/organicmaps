@@ -1665,6 +1665,9 @@
 
 "bookmarks_create_new_group" = "Skapa ny lista";
 
+/* Bookmark categories screen */
+"bookmarks_import" = "Import bookmarks";
+
 "downloader_hide_screen" = "Dölj skärm";
 
 "downloader_percent" = "%s (%s av %s)";

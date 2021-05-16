@@ -2061,6 +2061,16 @@ std::optional<std::string> BookmarkManager::GetKMLPath(std::string const & fileP
     if (!base::CopyFileX(filePath, fileSavePath))
       return {};
   }
+  else if (fileExt == kKmbExtension)
+  {
+    auto kmlData = LoadKmlFile(filePath, KmlFileType::Binary);
+    if (kmlData == nullptr)
+      return {};
+
+    fileSavePath = GenerateValidAndUniqueFilePathForKML(GetFileName(filePath));
+    if (!SaveKmlFileByExt(*kmlData, fileSavePath))
+      return {};
+  }
   else if (fileExt == kKmzExtension)
   {
     try

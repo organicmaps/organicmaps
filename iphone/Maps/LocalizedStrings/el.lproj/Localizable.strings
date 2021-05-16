@@ -1665,6 +1665,9 @@
 
 "bookmarks_create_new_group" = "Δημιουργία νέας λίστας";
 
+/* Bookmark categories screen */
+"bookmarks_import" = "Import bookmarks";
+
 "downloader_hide_screen" = "Απόκρυψη οθόνης";
 
 "downloader_percent" = "%s (%s από %s)";

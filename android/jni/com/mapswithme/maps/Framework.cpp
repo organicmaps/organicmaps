@@ -8,6 +8,7 @@
 #include "com/mapswithme/util/NetworkPolicy.hpp"
 #include "com/mapswithme/vulkan/android_vulkan_context_factory.hpp"
 
+#include "map/bookmark_helpers.hpp"
 #include "map/chart_generator.hpp"
 #include "map/everywhere_search_params.hpp"
 #include "map/user_mark.hpp"
@@ -1056,10 +1057,11 @@ Java_com_mapswithme_maps_Framework_nativeGetMovableFilesExts(JNIEnv * env, jclas
   return jni::ToJavaStringArray(env, exts);
 }
 
-JNIEXPORT jstring JNICALL
-Java_com_mapswithme_maps_Framework_nativeGetBookmarksExt(JNIEnv * env, jclass)
+JNIEXPORT jobjectArray JNICALL
+Java_com_mapswithme_maps_Framework_nativeGetBookmarksFilesExts(JNIEnv * env, jclass)
 {
-  return jni::ToJavaString(env, BOOKMARKS_FILE_EXTENSION);
+  const vector<string> exts = { kKmzExtension, kKmlExtension, kKmbExtension };
+  return jni::ToJavaStringArray(env, exts);
 }
 
 JNIEXPORT void JNICALL

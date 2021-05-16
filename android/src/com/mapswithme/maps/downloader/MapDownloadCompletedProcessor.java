@@ -1,6 +1,7 @@
 package com.mapswithme.maps.downloader;
 
 import android.app.DownloadManager;
+import android.content.ContentResolver;
 import android.content.Context;
 import android.database.Cursor;
 import android.net.Uri;
@@ -66,11 +67,12 @@ public class MapDownloadCompletedProcessor
     }
 
     String dstPath = MapManager.nativeGetFilePathByUrl(targetUriPath);
+    ContentResolver resolver = context.getContentResolver();
     try
     {
-      if (!StorageUtils.copyFile(context, downloadedFileUri, new File(dstPath)))
+      if (!StorageUtils.copyFile(resolver, downloadedFileUri, new File(dstPath)))
         return false;
-      context.getContentResolver().delete(downloadedFileUri, null, null);
+      resolver.delete(downloadedFileUri, null, null);
       return true;
     }
     catch (IOException e)

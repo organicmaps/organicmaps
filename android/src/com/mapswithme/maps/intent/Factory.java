@@ -16,6 +16,7 @@ import com.mapswithme.maps.DownloadResourcesLegacyActivity;
 import com.mapswithme.maps.Framework;
 import com.mapswithme.maps.MapFragment;
 import com.mapswithme.maps.MwmActivity;
+import com.mapswithme.maps.MwmApplication;
 import com.mapswithme.maps.api.Const;
 import com.mapswithme.maps.api.ParsedMwmRequest;
 import com.mapswithme.maps.api.ParsedRoutingData;
@@ -28,7 +29,6 @@ import com.mapswithme.maps.bookmarks.data.MapObject;
 import com.mapswithme.maps.routing.RoutingController;
 import com.mapswithme.maps.search.SearchActivity;
 import com.mapswithme.maps.search.SearchEngine;
-import com.mapswithme.util.Constants;
 import com.mapswithme.util.CrashlyticsUtils;
 import com.mapswithme.util.KeyValue;
 import com.mapswithme.util.StorageUtils;
@@ -39,9 +39,7 @@ import com.mapswithme.util.log.Logger;
 import com.mapswithme.util.log.LoggerFactory;
 
 import java.io.File;
-import java.io.FileOutputStream;
-import java.io.InputStream;
-import java.io.OutputStream;
+import java.io.IOException;
 import java.util.List;
 import java.util.Locale;
 
@@ -415,88 +413,14 @@ public class Factory
     @Override
     public MapTask process(@NonNull Intent intent)
     {
+      MwmApplication app = MwmApplication.from(mActivity);
+      final File tempDir = new File(StorageUtils.getTempPath(app));
+      final ContentResolver resolver = mActivity.getContentResolver();
       ThreadPool.getStorage().execute(() -> {
-        readKmzFromIntent();
+        BookmarkManager.INSTANCE.importBookmarksFile(resolver, mData, tempDir);
         mActivity.runOnUiThread(mActivity::showMap);
       });
       return null;
-    }
-
-    private void readKmzFromIntent()
-    {
-      String path = null;
-      boolean isTemporaryFile = false;
-      final String scheme = mData.getScheme();
-      if (scheme != null && !scheme.equalsIgnoreCase(ContentResolver.SCHEME_FILE))
-      {
-        // scheme is "content" or "http" - need to download or read file first
-        InputStream input = null;
-        OutputStream output = null;
-
-        try
-        {
-          final ContentResolver resolver = mActivity.getContentResolver();
-          final String ext = getExtensionFromMime(resolver.getType(mData));
-          if (ext != null)
-          {
-            final String filePath = StorageUtils.getTempPath(mActivity.getApplication())
-                                    + "Attachment" + ext;
-
-            File tmpFile = new File(filePath);
-            output = new FileOutputStream(tmpFile);
-            input = resolver.openInputStream(mData);
-
-            final byte[] buffer = new byte[Constants.MB / 2];
-            int read;
-            while ((read = input.read(buffer)) != -1)
-              output.write(buffer, 0, read);
-            output.flush();
-
-            path = filePath;
-            isTemporaryFile = true;
-          }
-        } catch (final Exception ex)
-        {
-          LOGGER.w(TAG, "Attachment not found or io error: " + ex, ex);
-        } finally
-        {
-          Utils.closeSafely(input);
-          Utils.closeSafely(output);
-        }
-      }
-      else
-        path = mData.getPath();
-
-      if (!TextUtils.isEmpty(path))
-      {
-        LOGGER.d(TAG, "Loading bookmarks file from: " + path);
-        loadKmzFile(path, isTemporaryFile);
-      }
-      else
-      {
-        LOGGER.w(TAG, "Can't get bookmarks file from URI: " + mData);
-
-      }
-    }
-
-    private void loadKmzFile(final @NonNull String path, final boolean isTemporaryFile)
-    {
-      mActivity.runOnUiThread(() -> BookmarkManager.INSTANCE.loadKmzFile(path, isTemporaryFile));
-    }
-
-    private String getExtensionFromMime(String mime)
-    {
-      final int i = mime.lastIndexOf('.');
-      if (i == -1)
-        return null;
-
-      mime = mime.substring(i + 1);
-      if (mime.equalsIgnoreCase("kmz"))
-        return ".kmz";
-      else if (mime.equalsIgnoreCase("kml+xml"))
-        return ".kml";
-      else
-        return null;
     }
   }
 

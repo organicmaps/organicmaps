@@ -1665,6 +1665,9 @@
 
 "bookmarks_create_new_group" = "สร้างรายการใหม่";
 
+/* Bookmark categories screen */
+"bookmarks_import" = "Import bookmarks";
+
 "downloader_hide_screen" = "ซ่อนหน้าจอ";
 
 "downloader_percent" = "%s (%s จาก %s)";

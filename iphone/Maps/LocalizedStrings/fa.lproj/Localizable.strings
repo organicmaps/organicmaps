@@ -1665,6 +1665,9 @@
 
 "bookmarks_create_new_group" = "ایجاد لیست جدید";
 
+/* Bookmark categories screen */
+"bookmarks_import" = "Import bookmarks";
+
 "downloader_hide_screen" = "پنهان کردن صفحه";
 
 "downloader_percent" = "%s (%s از %s)";
