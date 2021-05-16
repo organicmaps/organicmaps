@@ -12,8 +12,9 @@ buildscript {
   //
 
   // Detect flavors from the task name.
-  def isFdroid = getGradle().getStartParameter().getTaskRequests().toString().toLowerCase().contains("fdroid");
-  def isBeta = getGradle().getStartParameter().getTaskRequests().toString().toLowerCase().contains("beta");
+  def taskName = getGradle().getStartParameter().getTaskRequests().toString().toLowerCase();
+  def isFdroid = taskName.contains("fdroid");
+  def isBeta = taskName.contains("beta");
 
   // Enable Google Mobile Services for all flavors except fdroid.
   def googleMobileServicesDefault = !isFdroid;
@@ -187,26 +188,24 @@ android {
     ndk {
       abiFilters = new HashSet<>()
       if (project.hasProperty('arm32') || project.hasProperty('armeabi-v7a')) {
-        println('Building for armeabi-v7a')
         abiFilters.add('armeabi-v7a')
-      } else if (project.hasProperty('arm64') || project.hasProperty('arm64-v8a')) {
-        println('Building for arm64-v8a')
-        abiFilters.add('arm64-v8a')
-      } else if (project.hasProperty('x86_64')) {
-        println('Building for x86_64')
-        abiFilters.add('x86_64')
-      } else if (project.hasProperty('x86')) {
-        println('Building for x86')
-        abiFilters.add('x86')
-      } else {
-        if (!project.hasProperty('splitApk')) {
-          println('Building for armeabi-v7a, arm64-v8a, x86, x86_64')
-          abiFilters.add('x86')
-          abiFilters.add('x86_64')
-          abiFilters.add('armeabi-v7a')
-          abiFilters.add('arm64-v8a')
-        }
       }
+      if (project.hasProperty('arm64') || project.hasProperty('arm64-v8a')) {
+        abiFilters.add('arm64-v8a')
+      }
+      if (project.hasProperty('x86_64')) {
+        abiFilters.add('x86_64')
+      }
+      if (project.hasProperty('x86')) {
+        abiFilters.add('x86')
+      }
+      if (abiFilters.isEmpty()) {
+        abiFilters.add('armeabi-v7a')
+        abiFilters.add('arm64-v8a')
+        abiFilters.add('x86_64')
+        abiFilters.add('x86')
+      }
+      println('Building for ' + String.join(", ", abiFilters))
     }
   }
 
@@ -235,7 +234,6 @@ android {
   productFlavors {
     // See getVersion()
     final int HUAWEI_VERSION_CODE_BASE = 01_00_00_00_00
-    final int TENCENT_VERSION_CODE_BASE = 02_00_00_00_00
 
     google {
       dimension "default"
@@ -247,7 +245,7 @@ android {
     samsung {
       dimension "default"
       versionName = android.defaultConfig.versionName + '-Samsung'
-      buildConfigField 'String', 'REVIEW_URL', '"samsungapps://ProductDetail/app.omaps"'
+      buildConfigField 'String', 'REVIEW_URL', '"samsungapps://ProductDetail/app.organicmaps"'
       buildConfigField 'String', 'SUPPORT_MAIL', '"samsung@organicmaps.app"'
       android.sourceSets.samsung.assets.srcDirs = ['flavors/world-enabled']
     }
@@ -255,42 +253,10 @@ android {
     amazon {
       dimension "default"
       versionName = android.defaultConfig.versionName + '-Amazon'
-      buildConfigField 'String', 'REVIEW_URL', '"amzn://apps/android?p=app.omaps"'
+      buildConfigField 'String', 'REVIEW_URL', '"amzn://apps/android?p=app.organicmaps"'
       buildConfigField 'String', 'SUPPORT_MAIL', '"amazon@organicmaps.app"'
       buildConfigField 'int', 'RATING_THRESHOLD', '4'
       android.sourceSets.amazon.assets.srcDirs = ['flavors/world-enabled']
-    }
-
-    yandex {
-      dimension "default"
-      versionName = android.defaultConfig.versionName + '-Yandex'
-      buildConfigField 'String', 'REVIEW_URL', '"yastore://details?id=app.omaps"'
-      android.sourceSets.yandex.assets.srcDirs = ['flavors/world-enabled']
-    }
-
-    preinstall {
-      dimension "default"
-      versionName = android.defaultConfig.versionName + '-Preinstall'
-      buildConfigField 'String', 'SUPPORT_MAIL', '"googleplay@organicmaps.app"'
-    }
-
-    cipherlab {
-      dimension "default"
-      versionName = android.defaultConfig.versionName + '-CipherLab'
-      android.sourceSets.cipherlab.assets.srcDirs = ['flavors/world-enabled']
-    }
-
-    xiaomi {
-      dimension "default"
-      versionName = android.defaultConfig.versionName + '-Xiaomi'
-      buildConfigField 'String', 'REVIEW_URL', '"http://app.mi.com/detail/85835?ref=search"'
-      android.sourceSets.xiaomi.assets.srcDirs = ['flavors/world-enabled']
-    }
-
-    lenovo {
-      dimension "default"
-      versionName = android.defaultConfig.versionName + '-Lenovo'
-      android.sourceSets.lenovo.assets.srcDirs = ['flavors/world-enabled']
     }
 
     web {
@@ -307,73 +273,12 @@ android {
       //android.sourceSets.fdroid.assets.srcDirs = ['flavors/world-enabled']
     }
 
-    nineApp {
-      dimension "default"
-      versionName = android.defaultConfig.versionName + '-9app'
-      buildConfigField 'String', 'REVIEW_URL', '"http://www.9apps.com/android-apps/mapswithme-maps-pro/"'
-      android.sourceSets.nineApp.assets.srcDirs = ['flavors/world-enabled']
-    }
-
-    mobogenie {
-      dimension "default"
-      versionName = android.defaultConfig.versionName + '-Mobogenie'
-      android.sourceSets.mobogenie.assets.srcDirs = ['flavors/world-enabled']
-      buildConfigField 'String', 'REVIEW_URL', '"http://www.mobogenie.com/download-maps-me-4240212.html"'
-    }
-
-    tencent {
-      dimension "default"
-      versionName = android.defaultConfig.versionName + '-Tencent'
-      versionCode TENCENT_VERSION_CODE_BASE + android.defaultConfig.versionCode
-      android.sourceSets.tencent.assets.srcDirs = ['flavors/world-enabled']
-      buildConfigField 'String', 'REVIEW_URL', '"http://android.myapp.com/myapp/detail.htm?apkName=app.omaps"'
-    }
-
-    baidu {
-      dimension "default"
-      versionName = android.defaultConfig.versionName + '-Baidu'
-      android.sourceSets.baidu.assets.srcDirs = ['flavors/world-enabled']
-      buildConfigField 'String', 'REVIEW_URL', '"http://shouji.baidu.com/software/item?docid=7999892&f=sug@software"'
-    }
-
-    appChina {
-      dimension "default"
-      versionName = android.defaultConfig.versionName + '-AppChina'
-      android.sourceSets.appChina.assets.srcDirs = ['flavors/world-enabled']
-      buildConfigField 'String', 'REVIEW_URL', '"http://www.appchina.com/app/app.omaps"'
-    }
-
-    moboMarket {
-      dimension "default"
-      versionName = android.defaultConfig.versionName + '-MoboMarket'
-      android.sourceSets.moboMarket.assets.srcDirs = ['flavors/world-enabled']
-      // TODO While store url is unknown, force all rating reviews to be sent to our email.
-      // Change it in the next version after publishing app to the store.
-      buildConfigField 'int', 'RATING_THRESHOLD', '6'
-    }
-
-    blackberry {
-      dimension "default"
-      versionName = android.defaultConfig.versionName + '-Blackberry'
-      android.sourceSets.blackberry.assets.srcDirs = ['flavors/world-enabled']
-      buildConfigField 'String', 'REVIEW_URL', '"https://appworld.blackberry.com/webstore/content/51013892"'
-    }
-
     huawei {
       dimension "default"
       versionName = android.defaultConfig.versionName + '-Huawei'
       versionCode = HUAWEI_VERSION_CODE_BASE + android.defaultConfig.versionCode
       buildConfigField 'String', 'SUPPORT_MAIL', '"huawei@organicmaps.app"'
       android.sourceSets.huawei.assets.srcDirs = ['flavors/world-enabled']
-    }
-  }
-
-  variantFilter { variant ->
-    if (!variant.getFlavors().get(0).name.equals("web")
-            && !variant.getFlavors().get(0).name.equals("google")
-            && !variant.getFlavors().get(0).name.equals("fdroid")
-            && !project.hasProperty("anyVariant")) {
-      variant.setIgnore(true)
     }
   }
 
