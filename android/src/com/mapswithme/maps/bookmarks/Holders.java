@@ -84,12 +84,11 @@ public class Holders
     }
 
     void setAction(@NonNull HeaderAction action,
-                   @NonNull BookmarkCategoriesPageResProvider resProvider,
                    final boolean showAll)
     {
       mButton.setText(showAll
-                      ? resProvider.getHeaderBtn().getSelectModeText()
-                      : resProvider.getHeaderBtn().getUnSelectModeText());
+                      ? R.string.bookmarks_groups_show_all
+                      : R.string.bookmarks_groups_hide_all);
       mButton.setOnClickListener(new ToggleShowAllClickListener(action, showAll));
     }
 

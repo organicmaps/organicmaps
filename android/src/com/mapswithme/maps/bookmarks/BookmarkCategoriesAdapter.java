@@ -21,12 +21,10 @@ import java.util.List;
 
 public class BookmarkCategoriesAdapter extends BaseBookmarkCategoryAdapter<RecyclerView.ViewHolder>
 {
-  private final static int TYPE_CATEGORY_ITEM = 0;
-  private final static int TYPE_ACTION_FOOTER = 1;
-  private final static int TYPE_ACTION_HEADER = 2;
   private final static int HEADER_POSITION = 0;
-  @NonNull
-  private final BookmarkCategoriesPageResProvider mResProvider;
+  private final static int TYPE_ACTION_HEADER = 0;
+  private final static int TYPE_CATEGORY_ITEM = 1;
+  private final static int TYPE_ACTION_ADD = 2;
   @Nullable
   private OnItemLongClickListener<BookmarkCategory> mLongClickListener;
   @Nullable
@@ -39,7 +37,6 @@ public class BookmarkCategoriesAdapter extends BaseBookmarkCategoryAdapter<Recyc
   BookmarkCategoriesAdapter(@NonNull Context context, @NonNull List<BookmarkCategory> categories)
   {
     super(context.getApplicationContext(), categories);
-    mResProvider = new BookmarkCategoriesPageResProvider.Default();
   }
 
   public void setOnClickListener(@Nullable OnItemClickListener<BookmarkCategory> listener)
@@ -67,10 +64,10 @@ public class BookmarkCategoriesAdapter extends BaseBookmarkCategoryAdapter<Recyc
       return new Holders.HeaderViewHolder(header);
     }
 
-    if (viewType == TYPE_ACTION_FOOTER)
+    if (viewType == TYPE_ACTION_ADD)
     {
       View item = inflater.inflate(R.layout.item_bookmark_create_group, parent, false);
-      item.setOnClickListener(new FooterClickListener());
+      item.setOnClickListener(new AddButtonClickListener());
       return new Holders.GeneralViewHolder(item);
     }
 
@@ -86,9 +83,9 @@ public class BookmarkCategoriesAdapter extends BaseBookmarkCategoryAdapter<Recyc
   public void onBindViewHolder(final RecyclerView.ViewHolder holder, final int position)
   {
     int type = getItemViewType(position);
-    if (type == TYPE_ACTION_FOOTER)
+    if (type == TYPE_ACTION_ADD)
     {
-      bindFooterHolder(holder);
+      bindAddButtonHolder(holder);
       return;
     }
 
@@ -101,20 +98,19 @@ public class BookmarkCategoriesAdapter extends BaseBookmarkCategoryAdapter<Recyc
     bindCategoryHolder(holder, position);
   }
 
-  private void bindFooterHolder(@NonNull RecyclerView.ViewHolder holder)
+  private void bindAddButtonHolder(@NonNull RecyclerView.ViewHolder holder)
   {
     Holders.GeneralViewHolder generalViewHolder = (Holders.GeneralViewHolder) holder;
-    generalViewHolder.getImage().setImageResource(mResProvider.getFooterImage());
-    generalViewHolder.getText().setText(mResProvider.getFooterText());
+    generalViewHolder.getImage().setImageResource(R.drawable.ic_checkbox_add);
+    generalViewHolder.getText().setText(R.string.bookmarks_create_new_group);
   }
 
   private void bindHeaderHolder(@NonNull RecyclerView.ViewHolder holder)
   {
     HeaderViewHolder headerViewHolder = (HeaderViewHolder) holder;
     headerViewHolder.setAction(mMassOperationAction,
-                               mResProvider,
                                BookmarkManager.INSTANCE.areAllCategoriesInvisible());
-    headerViewHolder.getText().setText(mResProvider.getHeaderText());
+    headerViewHolder.getText().setText(R.string.bookmarks_groups);
   }
 
   private void bindCategoryHolder(@NonNull RecyclerView.ViewHolder holder, int position)
@@ -142,7 +138,10 @@ public class BookmarkCategoriesAdapter extends BaseBookmarkCategoryAdapter<Recyc
     if (position == 0)
       return TYPE_ACTION_HEADER;
 
-    return (position == getItemCount() - 1) ? TYPE_ACTION_FOOTER : TYPE_CATEGORY_ITEM;
+    if (position == getItemCount() - 1)
+      return TYPE_ACTION_ADD;
+
+    return TYPE_CATEGORY_ITEM;
   }
 
   private int toCategoryPosition(int adapterPosition)
@@ -160,7 +159,9 @@ public class BookmarkCategoriesAdapter extends BaseBookmarkCategoryAdapter<Recyc
   public int getItemCount()
   {
     int count = super.getItemCount();
-    return count > 0 ? (count + 1 /* header */ + 1 /* footer */) : 0;
+    if (count == 0)
+      return 0;
+    return 1 /* header */ + count + 1 /* add button */;
   }
 
   private class LongClickListener implements View.OnLongClickListener
@@ -219,13 +220,13 @@ public class BookmarkCategoriesAdapter extends BaseBookmarkCategoryAdapter<Recyc
     }
   }
 
-  private class FooterClickListener implements View.OnClickListener
+  private class AddButtonClickListener implements View.OnClickListener
   {
     @Override
     public void onClick(View v)
     {
       if (mCategoryListCallback != null)
-        mCategoryListCallback.onFooterClick();
+        mCategoryListCallback.onAddButtonClick();
     }
   }
 

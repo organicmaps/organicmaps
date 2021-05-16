@@ -179,12 +179,6 @@ public class BookmarkCategoriesFragment extends BaseMwmRecyclerFragment<Bookmark
   }
 
   @Override
-  public void onMoreOperationClick(@NonNull BookmarkCategory item)
-  {
-    showBottomMenu(item);
-  }
-
-  @Override
   protected void setupPlaceholder(@Nullable PlaceholderView placeholder)
   {
     // A placeholder is no needed on this screen.
@@ -208,7 +202,7 @@ public class BookmarkCategoriesFragment extends BaseMwmRecyclerFragment<Bookmark
   }
 
   @Override
-  public void onFooterClick()
+  public void onAddButtonClick()
   {
     mCategoryEditor = BookmarkManager.INSTANCE::createCategory;
 
