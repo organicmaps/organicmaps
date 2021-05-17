@@ -1776,7 +1776,7 @@ bool Framework::ShowMapForURL(string const & url)
   enum ResultT { FAILED, NEED_CLICK, NO_NEED_CLICK };
   ResultT result = FAILED;
 
-  if (strings::StartsWith(url, "ge0"))
+  if (strings::StartsWith(url, "om") || strings::StartsWith(url, "ge0"))
   {
     ge0::Ge0Parser parser;
     ge0::Ge0Parser::Result parseResult;

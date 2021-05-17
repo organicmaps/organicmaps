@@ -297,6 +297,10 @@ UNIT_TEST(GlobalBackUrl)
     TEST_EQUAL(api.GetGlobalBackUrl(), "ge0://", ());
   }
   {
+    ApiTest api("om://map?ll=1,2&n=PointName&backurl=om://");
+    TEST_EQUAL(api.GetGlobalBackUrl(), "om://", ());
+  }
+  {
     ApiTest api("mwm://map?ll=1,2&n=PointName&backurl=ge0%3A%2F%2F");
     TEST_EQUAL(api.GetGlobalBackUrl(), "ge0://", ());
   }

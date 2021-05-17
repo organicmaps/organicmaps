@@ -243,9 +243,10 @@ UNIT_TEST(LatLonFullAndClippedCoordinates)
     for (double lon = -180; lon < 180; lon += 0.7)
     {
       string const buf = ge0::GenerateShortShowMapUrl(lat, lon, 4, "");
+      size_t const coordInd = buf.find("://") + 4;
       for (int i = 9; i >= 1; --i)
       {
-        string const str = buf.substr(7, i);
+        string const str = buf.substr(coordInd, i);
         size_t const coordSize = str.size();
         Ge0ParserForTest parser;
         double latTmp, lonTmp;

@@ -13,11 +13,12 @@ public final class Constants
 
   public static class Url
   {
-    public static final String GE0_PREFIX = "ge0://";
+    public static final String SHORT_SHARE_PREFIX = "om://";
+    public static final String HTTP_SHARE_PREFIX = "http://omaps.app/";
+
     public static final String MAILTO_SCHEME = "mailto:";
     public static final String MAIL_SUBJECT = "?subject=";
     public static final String MAIL_BODY = "&body=";
-    public static final String HTTP_GE0_PREFIX = "http://ge0.me/";
 
     public static final String FB_MAPSME_COMMUNITY_HTTP = "https://www.facebook.com/OrganicMaps";
     // Profile id is taken from http://graph.facebook.com/MapsWithMe

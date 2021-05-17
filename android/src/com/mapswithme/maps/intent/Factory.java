@@ -98,15 +98,9 @@ public class Factory
   }
 
   @NonNull
-  public static IntentProcessor createGe0IntentProcessor()
+  public static IntentProcessor createHttpGeoIntentProcessor()
   {
-    return new Ge0IntentProcessor();
-  }
-
-  @NonNull
-  public static IntentProcessor createHttpGe0IntentProcessor()
-  {
-    return new HttpGe0IntentProcessor();
+    return new HttpGeoIntentProcessor();
   }
 
   @NonNull
@@ -174,23 +168,11 @@ public class Factory
     @Override
     public boolean isSupported(@NonNull Intent intent)
     {
-      return (intent.getData() != null && "geo".equals(intent.getScheme()));
-    }
+      final String scheme = intent.getScheme();
+      if (intent.getData() != null && scheme != null)
+        return "geo".equals(scheme) || "ge0".equals(scheme) || "om".equals(scheme);
 
-    @NonNull
-    @Override
-    MapTask createMapTask(@NonNull String uri)
-    {
-      return new OpenUrlTask(uri);
-    }
-  }
-
-  private static class Ge0IntentProcessor extends BaseOpenUrlProcessor
-  {
-    @Override
-    public boolean isSupported(@NonNull Intent intent)
-    {
-      return (intent.getData() != null && "ge0".equals(intent.getScheme()));
+      return false;
     }
 
     @NonNull
@@ -217,16 +199,18 @@ public class Factory
     }
   }
 
-  private static class HttpGe0IntentProcessor implements IntentProcessor
+  private static class HttpGeoIntentProcessor implements IntentProcessor
   {
     @Override
     public boolean isSupported(@NonNull Intent intent)
     {
-      if ("http".equalsIgnoreCase(intent.getScheme()))
+      final String scheme = intent.getScheme();
+      final Uri data = intent.getData();
+      if (data != null && scheme != null &&
+          "http".equalsIgnoreCase(scheme) || "https".equalsIgnoreCase(scheme))
       {
-        final Uri data = intent.getData();
-        if (data != null)
-          return "ge0.me".equals(data.getHost());
+        final String host = data.getHost();
+        return "ge0.me".equals(host) || "omaps.app".equals(host);
       }
 
       return false;
@@ -237,7 +221,7 @@ public class Factory
     public MapTask process(@NonNull Intent intent)
     {
       final Uri data = intent.getData();
-      final String ge0Url = "ge0:/" + data.getPath();
+      final String ge0Url = "om:/" + data.getPath();
       return new OpenUrlTask(ge0Url);
     }
   }
