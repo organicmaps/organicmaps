@@ -1767,7 +1767,7 @@ void Framework::SetWidgetLayout(gui::TWidgetsLayoutInfo && layout)
 bool Framework::ShowMapForURL(string const & url)
 {
   m2::PointD point;
-  m2::RectD rect;
+  double scale;
   string name;
   ApiMarkPoint const * apiMark = nullptr;
 
@@ -1782,15 +1782,18 @@ bool Framework::ShowMapForURL(string const & url)
     if (parser.Parse(url, parseResult))
     {
       point = mercator::FromLatLon(parseResult.m_lat, parseResult.m_lon);
-      rect = df::GetRectForDrawScale(parseResult.m_zoomLevel, point);
+      scale = parseResult.m_zoomLevel;
       name = move(parseResult.m_name);
       result = NEED_CLICK;
     }
   }
   else if (m_parsedMapApi.IsValid())
   {
-    if (!m_parsedMapApi.GetViewportRect(rect))
-      rect = df::GetWorldRect();
+    if (!m_parsedMapApi.GetViewportParams(point, scale))
+    {
+      point = {0, 0};
+      scale = 0;
+    }
 
     apiMark = m_parsedMapApi.GetSinglePoint();
     result = apiMark ? NEED_CLICK : NO_NEED_CLICK;
@@ -1801,7 +1804,7 @@ bool Framework::ShowMapForURL(string const & url)
     if (info.IsValid())
     {
       point = mercator::FromLatLon(info.m_lat, info.m_lon);
-      rect = df::GetRectForDrawScale(info.m_zoom, point);
+      scale = info.m_zoom;
       result = NEED_CLICK;
     }
   }
@@ -1813,7 +1816,11 @@ bool Framework::ShowMapForURL(string const & url)
 
     // Set viewport and stop follow mode.
     StopLocationFollow();
-    ShowRect(rect);
+
+    // ShowRect function interferes with ActivateMapSelection and we have strange behaviour as a result.
+    // Use more obvious SetModelViewCenter here.
+    if (m_drapeEngine)
+      m_drapeEngine->SetModelViewCenter(point, scale, true, true);
 
     if (result != NO_NEED_CLICK)
     {
