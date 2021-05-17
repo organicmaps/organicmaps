@@ -1,11 +1,11 @@
 class DeepLinkStrategyFactory {
   static func create(url deeplinkURL: DeepLinkURL) -> IDeepLinkHandlerStrategy {
     switch deeplinkURL.url.scheme {
-    case "geo", "ge0":
+    case "geo", "ge0", "om":
       return DeepLinkGeoStrategy(url: deeplinkURL)
     case "file":
       return DeepLinkFileStrategy(url: deeplinkURL)
-    case "mapswithme", "mapsme", "mwm", "om":
+    case "mapswithme", "mapsme", "mwm":
       return DeepLinkStrategyFactory.createCommon(url: deeplinkURL)
     default:
       return DeepLinkIncorrectStrategy(url: deeplinkURL)

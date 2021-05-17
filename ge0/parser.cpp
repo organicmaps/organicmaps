@@ -36,12 +36,14 @@ bool Ge0Parser::Parse(string const & url, Result & result)
   //       |+-------+---------  9 bytes: lat,lon
   //       ||       | +--+----  Variable number of bytes: point name
   //       ||       | |  |
-  // ge0://ZCoordba64/Name
+  // om://ZCoordba64/Name
 
   // Alternative format (differs only in the prefix):
-  // http://ge0.me/ZCoordba64/Name
+  // http://omaps.app/ZCoordba64/Name
 
-  for (string const & prefix : {"ge0://", "http://ge0.me/", "https://ge0.me/"})
+  // Support ge0 from MapsMe.
+  for (string const & prefix : {"ge0://", "http://ge0.me/", "https://ge0.me/",
+      "om://", "http://omaps.app/", "https://omaps.app/"})
   {
     if (strings::StartsWith(url, prefix))
       return ParseAfterPrefix(url, prefix.size(), result);

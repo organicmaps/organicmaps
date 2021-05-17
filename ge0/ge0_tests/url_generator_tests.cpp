@@ -252,90 +252,90 @@ UNIT_TEST(LatLonToString_StringDensity)
 UNIT_TEST(GenerateShortShowMapUrl_SmokeTest)
 {
   string res = GenerateShortShowMapUrl(0, 0, 19, "Name");
-  TEST_EQUAL("ge0://8wAAAAAAAA/Name", res, ());
+  TEST_EQUAL("om://8wAAAAAAAA/Name", res, ());
 }
 
 UNIT_TEST(GenerateShortShowMapUrl_NameIsEmpty)
 {
   string res = GenerateShortShowMapUrl(0, 0, 19, "");
-  TEST_EQUAL("ge0://8wAAAAAAAA", res, ());
+  TEST_EQUAL("om://8wAAAAAAAA", res, ());
 }
 
 UNIT_TEST(GenerateShortShowMapUrl_ZoomVerySmall)
 {
   string res = GenerateShortShowMapUrl(0, 0, 2, "Name");
-  TEST_EQUAL("ge0://AwAAAAAAAA/Name", res, ());
+  TEST_EQUAL("om://AwAAAAAAAA/Name", res, ());
 }
 
 UNIT_TEST(GenerateShortShowMapUrl_ZoomNegative)
 {
   string res = GenerateShortShowMapUrl(0, 0, -5, "Name");
-  TEST_EQUAL("ge0://AwAAAAAAAA/Name", res, ());
+  TEST_EQUAL("om://AwAAAAAAAA/Name", res, ());
 }
 
 UNIT_TEST(GenerateShortShowMapUrl_ZoomLarge)
 {
   string res = GenerateShortShowMapUrl(0, 0, 20, "Name");
-  TEST_EQUAL("ge0://_wAAAAAAAA/Name", res, ());
+  TEST_EQUAL("om://_wAAAAAAAA/Name", res, ());
 }
 
 UNIT_TEST(GenerateShortShowMapUrl_ZoomVeryLarge)
 {
   string res = GenerateShortShowMapUrl(0, 0, 2000000000, "Name");
-  TEST_EQUAL("ge0://_wAAAAAAAA/Name", res, ());
+  TEST_EQUAL("om://_wAAAAAAAA/Name", res, ());
 }
 
 UNIT_TEST(GenerateShortShowMapUrl_FractionalZoom)
 {
   string res = GenerateShortShowMapUrl(0, 0, 8.25, "Name");
-  TEST_EQUAL("ge0://RwAAAAAAAA/Name", res, ());
+  TEST_EQUAL("om://RwAAAAAAAA/Name", res, ());
 }
 
 UNIT_TEST(GenerateShortShowMapUrl_FractionalZoomRoundsDown)
 {
   string res = GenerateShortShowMapUrl(0, 0, 8.499, "Name");
-  TEST_EQUAL("ge0://RwAAAAAAAA/Name", res, ());
+  TEST_EQUAL("om://RwAAAAAAAA/Name", res, ());
 }
 
 UNIT_TEST(GenerateShortShowMapUrl_FractionalZoomNextStep)
 {
   string res = GenerateShortShowMapUrl(0, 0, 8.5, "Name");
-  TEST_EQUAL("ge0://SwAAAAAAAA/Name", res, ());
+  TEST_EQUAL("om://SwAAAAAAAA/Name", res, ());
 }
 
 UNIT_TEST(GenerateShortShowMapUrl_SpaceIsReplacedWithUnderscore)
 {
   string res = GenerateShortShowMapUrl(0, 0, 19, "Hello World");
-  TEST_EQUAL("ge0://8wAAAAAAAA/Hello_World", res, ());
+  TEST_EQUAL("om://8wAAAAAAAA/Hello_World", res, ());
 }
 
 UNIT_TEST(GenerateShortShowMapUrl_NamesAreEscaped)
 {
   string res = GenerateShortShowMapUrl(0, 0, 19, "'Hello,World!%$");
-  TEST_EQUAL("ge0://8wAAAAAAAA/%27Hello%2CWorld%21%25%24", res, ());
+  TEST_EQUAL("om://8wAAAAAAAA/%27Hello%2CWorld%21%25%24", res, ());
 }
 
 UNIT_TEST(GenerateShortShowMapUrl_UnderscoreIsReplacedWith_Percent_20)
 {
   string res = GenerateShortShowMapUrl(0, 0, 19, "Hello_World");
-  TEST_EQUAL("ge0://8wAAAAAAAA/Hello%20World", res, ());
+  TEST_EQUAL("om://8wAAAAAAAA/Hello%20World", res, ());
 }
 
 UNIT_TEST(GenerateShortShowMapUrl_ControlCharsAreEscaped)
 {
   string res = GenerateShortShowMapUrl(0, 0, 19, "Hello\tWorld\n");
-  TEST_EQUAL("ge0://8wAAAAAAAA/Hello%09World%0A", res, ());
+  TEST_EQUAL("om://8wAAAAAAAA/Hello%09World%0A", res, ());
 }
 
 UNIT_TEST(GenerateShortShowMapUrl_Unicode)
 {
   string res = GenerateShortShowMapUrl(0, 0, 19, "\xe2\x98\x84");
-  TEST_EQUAL("ge0://8wAAAAAAAA/\xe2\x98\x84", res, ());
+  TEST_EQUAL("om://8wAAAAAAAA/\xe2\x98\x84", res, ());
 }
 
 UNIT_TEST(GenerateShortShowMapUrl_UnicodeMixedWithOtherChars)
 {
   string res = GenerateShortShowMapUrl(0, 0, 19, "Back_in \xe2\x98\x84!\xd1\x8e\xd0\xbc");
-  TEST_EQUAL("ge0://8wAAAAAAAA/Back%20in_\xe2\x98\x84%21\xd1\x8e\xd0\xbc", res, ());
+  TEST_EQUAL("om://8wAAAAAAAA/Back%20in_\xe2\x98\x84%21\xd1\x8e\xd0\xbc", res, ());
 }
 }  // namespace ge0

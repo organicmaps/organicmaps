@@ -16,7 +16,7 @@ inline static int const kMaxCoordBits = kMaxPointBytes * 3;
 //       |+-------+---------  9 bytes: lat,lon
 //       ||       | +--+----  Variable number of bytes: point name
 //       ||       | |  |
-// ge0://ZCoordba64/Name
+// om://ZCoordba64/Name
 std::string GenerateShortShowMapUrl(double lat, double lon, double zoomLevel, std::string const & name);
 
 // Exposed for testing.

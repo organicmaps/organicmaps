@@ -90,8 +90,7 @@ public class DownloadResourcesLegacyActivity extends BaseMwmFragmentActivity imp
   @NonNull
   private final IntentProcessor[] mIntentProcessors = {
       Factory.createGeoIntentProcessor(),
-      Factory.createHttpGe0IntentProcessor(),
-      Factory.createGe0IntentProcessor(),
+      Factory.createHttpGeoIntentProcessor(),
       Factory.createMapsWithMeIntentProcessor(),
       Factory.createGoogleMapsIntentProcessor(),
       Factory.createOldLeadUrlProcessor(),
