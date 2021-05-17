@@ -376,14 +376,13 @@ void ParsedMapApi::Reset()
   m_isValid = false;
 }
 
-bool ParsedMapApi::GetViewportRect(m2::RectD & rect) const
+bool ParsedMapApi::GetViewportParams(m2::PointD & center, double & scale) const
 {
-  ASSERT(m_bmManager != nullptr, ());
   auto const & markIds = m_bmManager->GetUserMarkIds(UserMark::Type::API);
   if (markIds.size() == 1 && m_zoomLevel >= 1)
   {
-    double zoom = min(static_cast<double>(scales::GetUpperComfortScale()), m_zoomLevel);
-    rect = df::GetRectForDrawScale(zoom, m_bmManager->GetUserMark(*markIds.begin())->GetPivot());
+    scale = min(static_cast<double>(scales::GetUpperComfortScale()), m_zoomLevel);
+    center = m_bmManager->GetUserMark(*markIds.begin())->GetPivot();
     return true;
   }
   else
@@ -394,7 +393,8 @@ bool ParsedMapApi::GetViewportRect(m2::RectD & rect) const
 
     if (result.IsValid())
     {
-      rect = result;
+      center = result.Center();
+      scale = df::GetDrawTileScale(result);
       return true;
     }
 
