@@ -88,17 +88,29 @@ public:
     return inst;
   }
 
-  bool operator()(uint32_t t) const
+  /// @return Type score, less is better.
+  uint8_t Score(uint32_t t) const
   {
+    // 2-arity is better than 1-arity
+
     ftype::TruncValue(t, 2);
-    if (find(m_types2.begin(), m_types2.end(), t) != m_types2.end())
-      return true;
+    if (IsIn2(t))
+      return 1;
 
     ftype::TruncValue(t, 1);
-    if (find(m_types1.begin(), m_types1.end(), t) != m_types1.end())
-      return true;
+    if (IsIn1(t))
+      return 2;
 
-    return false;
+    return 0;
+  }
+
+  template <class ContT> void SortUselessToEnd(ContT & cont) const
+  {
+    // Put "very common" types to the end of possible PP-description types.
+    std::stable_sort(cont.begin(), cont.end(), [this](uint32_t t1, uint32_t t2)
+    {
+      return Score(t1) < Score(t2);
+    });
   }
 
 private:
@@ -138,13 +150,20 @@ private:
       else if (type.size() == 2)
         m_types2.push_back(c.GetTypeByPath(type));
       else
-        CHECK(false, ());
+        ASSERT(false, (type));
     }
+
+    std::sort(m_types1.begin(), m_types1.end());
+    std::sort(m_types2.begin(), m_types2.end());
   }
+
+  bool IsIn1(uint32_t t) const { return std::binary_search(m_types1.begin(), m_types1.end(), t); }
+  bool IsIn2(uint32_t t) const { return std::binary_search(m_types2.begin(), m_types2.end(), t); }
 
   vector<uint32_t> m_types1;
   vector<uint32_t> m_types2;
 };
+
 }  // namespace
 
 namespace feature
@@ -186,12 +205,7 @@ uint8_t CalculateHeader(size_t const typesCount, HeaderGeomType const headerGeom
 
 void TypesHolder::SortBySpec()
 {
-  if (m_size < 2)
-    return;
-
-  // Put "very common" types to the end of possible PP-description types.
-  auto const & checker = UselessTypesChecker::Instance();
-  UNUSED_VALUE(base::RemoveIfKeepValid(begin(), end(), checker));
+  UselessTypesChecker::Instance().SortUselessToEnd(*this);
 }
 
 vector<string> TypesHolder::ToObjectNames() const
@@ -417,9 +431,8 @@ bool FeatureParams::FinishAddingTypes()
 
   if (m_types.size() > kMaxTypesCount)
   {
-    // Put common types to the end to leave the most important types.
-    auto const & checker = UselessTypesChecker::Instance();
-    UNUSED_VALUE(base::RemoveIfKeepValid(m_types.begin(), m_types.end(), checker));
+    UselessTypesChecker::Instance().SortUselessToEnd(m_types);
+
     m_types.resize(kMaxTypesCount);
     sort(m_types.begin(), m_types.end());
   }
