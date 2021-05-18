@@ -37,8 +37,8 @@ buildscript {
 
     if (googleFirebaseServicesEnabled) {
       println("Building with Google Firebase Services")
-      classpath 'com.google.firebase:firebase-crashlytics-gradle:2.5.1'
-      classpath 'com.google.firebase:firebase-appdistribution-gradle:2.1.0'
+      classpath 'com.google.firebase:firebase-crashlytics-gradle:2.6.1'
+      classpath 'com.google.firebase:firebase-appdistribution-gradle:2.1.2'
     } else {
       println("Building without Google Firebase Services")
     }
@@ -67,13 +67,13 @@ dependencies {
 
   // Google Mobile Services
   if (googleMobileServicesEnabled) {
-    implementation 'com.google.android.gms:play-services-location:17.0.0'
+    implementation 'com.google.android.gms:play-services-location:18.0.0'
   }
 
   // Google Firebase Services
   if (googleFirebaseServicesEnabled) {
-    implementation 'com.google.firebase:firebase-crashlytics:17.1.1'
-    implementation 'com.google.firebase:firebase-crashlytics-ndk:17.1.1'
+    implementation 'com.google.firebase:firebase-crashlytics:18.0.0'
+    implementation 'com.google.firebase:firebase-crashlytics-ndk:18.0.0'
   }
 
   // 3-party
