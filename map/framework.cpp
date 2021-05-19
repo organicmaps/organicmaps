@@ -1181,8 +1181,6 @@ void Framework::EnterForeground()
     m_drapeEngine->OnEnterForeground(secondsInBackground);
   }
 
-  m_storage.RunCountriesCheckAsync();
-
   m_trafficManager.OnEnterForeground();
 }
 
