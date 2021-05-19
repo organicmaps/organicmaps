@@ -92,6 +92,12 @@
       android:entries="@array/power_management_scheme"
       android:entryValues="@array/power_management_scheme_values"
       android:order="15"/>
+    <SwitchPreferenceCompat
+      android:key="@string/pref_screen_sleep"
+      android:title="@string/enable_screen_sleep"
+      android:summary="@string/enable_screen_sleep_description"
+      android:defaultValue="false"
+      android:order="16"/>
   </androidx.preference.PreferenceCategory>
 
   <androidx.preference.PreferenceCategory

@@ -43,6 +43,7 @@ import com.mapswithme.util.ThemeSwitcher;
 import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.concurrency.UiThread;
 import com.mapswithme.util.log.LoggerFactory;
+import com.mapswithme.util.Utils;
 
 import java.util.HashMap;
 import java.util.List;
@@ -305,6 +306,7 @@ public class SettingsPrefsFragment extends BaseXmlSettingsFragment
     initUseMobileDataPrefsCallbacks();
     initPowerManagementPrefsCallbacks();
     initCrashReports();
+    initScreenSleepEnabledPrefsCallbacks();
     updateTts();
   }
 
@@ -830,6 +832,25 @@ public class SettingsPrefsFragment extends BaseXmlSettingsFragment
 
     ((TwoStatePreference)pref).setChecked(CrashlyticsUtils.INSTANCE.isEnabled());
     pref.setOnPreferenceChangeListener((preference, newValue) -> onToggleCrashReports(newValue));
+  }
+
+  private void initScreenSleepEnabledPrefsCallbacks()
+  {
+    Preference pref = findPreference(getString(R.string.pref_screen_sleep));
+    if (pref == null)
+      return;
+
+    final boolean isScreenSleepEnabled = Config.isScreenSleepEnabled();
+    ((TwoStatePreference) pref).setChecked(isScreenSleepEnabled);
+    pref.setOnPreferenceChangeListener(
+        (preference, newValue) ->
+        {
+          boolean newVal = (Boolean) newValue;
+          if (isScreenSleepEnabled != newVal)
+            Config.setScreenSleepEnabled(newVal);
+            Utils.keepScreenOn(!newVal, getActivity().getWindow());
+          return true;
+        });
   }
 
   private void removePreference(@NonNull String categoryKey, @NonNull Preference preference)
