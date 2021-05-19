@@ -47,16 +47,10 @@ public:
     m_m = &m_framework.GetBookmarkManager();
     m_api.SetBookmarkManager(m_m);
 
-    auto const res = m_api.SetUrlAndParse(urlString);
-    if (res.m_isSuccess)
-    {
-      if (!m_api.GetViewportRect(m_viewportRect))
-        m_viewportRect = df::GetWorldRect();
-    }
+    m_api.SetUrlAndParse(urlString);
   }
 
   bool IsValid() const { return m_api.IsValid(); }
-  m2::RectD GetViewport() const { return m_viewportRect; }
 
   string const & GetAppTitle() const { return m_api.GetAppTitle(); }
   bool GoBackOnBalloonClick() const { return m_api.GoBackOnBalloonClick(); }
@@ -107,7 +101,6 @@ private:
 private:
   Framework m_framework;
   ParsedMapApi m_api;
-  m2::RectD m_viewportRect;
   BookmarkManager * m_m;
 };
 
@@ -295,6 +288,10 @@ UNIT_TEST(GlobalBackUrl)
   {
     ApiTest api("mwm://map?ll=1,2&n=PointName&backurl=ge0://");
     TEST_EQUAL(api.GetGlobalBackUrl(), "ge0://", ());
+  }
+  {
+    ApiTest api("om://map?ll=1,2&n=PointName&backurl=om://");
+    TEST_EQUAL(api.GetGlobalBackUrl(), "om://", ());
   }
   {
     ApiTest api("mwm://map?ll=1,2&n=PointName&backurl=ge0%3A%2F%2F");

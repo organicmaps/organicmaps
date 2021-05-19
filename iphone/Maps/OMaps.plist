@@ -64,24 +64,14 @@
 		<dict>
 			<key>CFBundleTypeRole</key>
 			<string>Viewer</string>
-			<key>CFBundleURLName</key>
-			<string>com.mapswithme.maps</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
 				<string>mapswithme</string>
 				<string>mapsme</string>
 				<string>ge0</string>
 				<string>geo</string>
-				<string>fb185237551520383</string>
+				<string>om</string>
 				<string>mapswithmepro</string>
-			</array>
-		</dict>
-		<dict>
-			<key>CFBundleTypeRole</key>
-			<string>Editor</string>
-			<key>CFBundleURLSchemes</key>
-			<array>
-				<string>com.googleusercontent.apps.1033279251462-k2pp753lp1f39dacjn0pkurcc8pbbvsi</string>
 			</array>
 		</dict>
 	</array>
@@ -93,16 +83,8 @@
 		<string>fb-messenger-api</string>
 		<string>fbauth2</string>
 		<string>fbshareextension</string>
-		<string>uber</string>
-		<string>yandextaxi</string>
-		<string>yandexyango</string>
 		<string>tel</string>
-		<string>booking</string>
-		<string>maximzakaz</string>
 		<string>vzt</string>
-		<string>mytaxi</string>
-		<string>citymobil-taxi</string>
-		<string>wunderlinq</string>
 	</array>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
@@ -114,13 +96,6 @@
 		<true/>
 		<key>NSExceptionDomains</key>
 		<dict>
-			<key>akamaihd.net</key>
-			<dict>
-				<key>NSIncludesSubdomains</key>
-				<true/>
-				<key>NSThirdPartyExceptionRequiresForwardSecrecy</key>
-				<false/>
-			</dict>
 			<key>facebook.com</key>
 			<dict>
 				<key>NSIncludesSubdomains</key>
@@ -128,21 +103,7 @@
 				<key>NSThirdPartyExceptionRequiresForwardSecrecy</key>
 				<false/>
 			</dict>
-			<key>fbcdn.net</key>
-			<dict>
-				<key>NSIncludesSubdomains</key>
-				<true/>
-				<key>NSThirdPartyExceptionRequiresForwardSecrecy</key>
-				<false/>
-			</dict>
-			<key>maps.me</key>
-			<dict>
-				<key>NSExceptionAllowsInsecureHTTPLoads</key>
-				<true/>
-				<key>NSIncludesSubdomains</key>
-				<true/>
-			</dict>
-			<key>mapswithme.com</key>
+			<key>omaps.app</key>
 			<dict>
 				<key>NSExceptionAllowsInsecureHTTPLoads</key>
 				<true/>
@@ -157,10 +118,6 @@
 	<string>Unused by an application</string>
 	<key>PW_USE_GPS</key>
 	<false/>
-	<key>Pushwoosh_APPID</key>
-	<string>84E00-0F767</string>
-	<key>Pushwoosh_LOG_LEVEL</key>
-	<string>WARNING</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>FredokaOne-Regular.ttf</string>

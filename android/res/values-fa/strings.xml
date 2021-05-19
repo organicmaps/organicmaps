@@ -789,7 +789,6 @@
 	<string name="error_enter_correct_web">ادرس وب معتبری وارد نمایید</string>
 	<string name="error_enter_correct_email">ایمیل معتبری وارد نمایید</string>
 	<string name="error_enter_correct">مقادیر معتبری وارد نمایید</string>
-	<string name="editor_profile_rating_place">موقعیت در رتبه بندی</string>
 	<string name="refresh">بروزرسانی</string>
 	<string name="last_update">اخرین بروزرسانی: %s</string>
 	<string name="placepage_add_place_button">اضافه کردن یک مکان به نقشه</string>

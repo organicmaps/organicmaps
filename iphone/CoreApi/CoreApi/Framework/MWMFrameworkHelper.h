@@ -19,9 +19,6 @@ NS_SWIFT_NAME(FrameworkHelper)
 + (void)setTheme:(MWMTheme)theme;
 + (MWMDayTime)daytimeAtLocation:(nullable CLLocation *)location;
 + (void)createFramework;
-+ (BOOL)canUseNetwork;
-+ (BOOL)isNetworkConnected;
-+ (BOOL)isWiFiConnected;
 + (MWMMarkID)invalidBookmarkId;
 + (MWMMarkGroupID)invalidCategoryId;
 + (void)zoomMap:(MWMZoomMode)mode;

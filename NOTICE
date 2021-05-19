@@ -1,5 +1,5 @@
 Copyright 2020 My.com B.V. (Mail.Ru Group)
-Copyright 2021 The Organic Maps Project
+Copyright 2021 Organic Maps Contributors
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -16,11 +16,7 @@ limitations under the License.
 Most libraries in the following directories made by other people and
 organizations and licensed in different ways:
 * `3party`
-* `android/3rd_party`
-* `iphone/Maps/PushNotifications`
-* `iphone/Maps/Statistics`
 * `tools`
 Please refer to their LICENCE, COPYING or NOTICE files for terms of use.
-See also `data/copyright.html` file for a full list.
-
-All images and media content are Copyright (C) 2020 My.com B.V. (Mail.Ru Group)
+Some icons files may be copyrighted by (C) 2020 My.com B.V. (Mail.Ru Group)
+See also `data/copyright.html` file for a full list of copyright notices.

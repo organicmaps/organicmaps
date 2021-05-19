@@ -85,21 +85,21 @@ namespace ge0
 {
 string GenerateShortShowMapUrl(double lat, double lon, double zoom, string const & name)
 {
-  string urlPrefix = "ge0://ZCoordba64";
+  size_t constexpr schemaLength = 5;  // strlen("om://")
+  string urlSample = "om://ZCoordba64";
 
   int const zoomI = (zoom <= 4 ? 0 : (zoom >= 19.75 ? 63 : static_cast<int>((zoom - 4) * 4)));
-  urlPrefix[6] = Base64Char(zoomI);
+  urlSample[schemaLength] = Base64Char(zoomI);
 
-  LatLonToString(lat, lon, urlPrefix.data() + 7, 9);
+  LatLonToString(lat, lon, urlSample.data() + schemaLength + 1, 9);
 
-  string result = urlPrefix;
   if (!name.empty())
   {
-    result += "/";
-    result += UrlEncodeString(TransformName(name));
+    urlSample += '/';
+    urlSample += UrlEncodeString(TransformName(name));
   }
 
-  return result;
+  return urlSample;
 }
 
 char Base64Char(int x)

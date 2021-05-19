@@ -1,15 +1,17 @@
 package com.mapswithme.maps.editor;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 
 import androidx.annotation.IntDef;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.Size;
 import androidx.annotation.WorkerThread;
+import androidx.fragment.app.FragmentManager;
 
 import com.mapswithme.maps.MwmApplication;
-import com.mapswithme.maps.editor.data.UserStats;
+import com.mapswithme.util.NetworkPolicy;
 
 import java.lang.ref.WeakReference;
 
@@ -46,30 +48,7 @@ public final class OsmOAuth
   private static final String PREF_OSM_TOKEN = "OsmToken";
   private static final String PREF_OSM_SECRET = "OsmSecret";
   private static final String PREF_OSM_USERNAME = "OsmUsername";
-
-  public interface OnUserStatsChanged
-  {
-    void onStatsChange(UserStats stats);
-  }
-
-  private static WeakReference<OnUserStatsChanged> sListener;
-
-  public static void setUserStatsListener(OnUserStatsChanged listener)
-  {
-    sListener = new WeakReference<>(listener);
-  }
-
-  // Called from native OsmOAuth.cpp.
-  @SuppressWarnings("unused")
-  public static void onUserStatsUpdated(UserStats stats)
-  {
-    if (sListener == null)
-      return;
-
-    OnUserStatsChanged listener = sListener.get();
-    if (listener != null)
-      listener.onStatsChange(stats);
-  }
+  private static final String PREF_OSM_CHANGESETS_COUNT = "OsmChangesetsCount";
 
   public static final String URL_PARAM_VERIFIER = "oauth_verifier";
 
@@ -149,5 +128,28 @@ public final class OsmOAuth
   @Nullable
   public static native String nativeGetOsmUsername(String token, String secret);
 
-  public static native void nativeUpdateOsmUserStats(String username, boolean forceUpdate);
+  /**
+   * @return < 0 if failed to get changesets count.
+   */
+  @WorkerThread
+  private static native int nativeGetOsmChangesetsCount(String token, String secret);
+
+  @WorkerThread
+  public static int getOsmChangesetsCount(@NonNull Context context, @NonNull FragmentManager fm) {
+    final int[] editsCount = {-1};
+    NetworkPolicy.checkNetworkPolicy(fm, policy -> {
+      if (!policy.canUseNetwork())
+        return;
+
+      final String token = getAuthToken(context);
+      final String secret = getAuthSecret(context);
+      editsCount[0] = OsmOAuth.nativeGetOsmChangesetsCount(token, secret);
+    });
+    final SharedPreferences prefs = MwmApplication.prefs(context);
+    if (editsCount[0] < 0)
+      return prefs.getInt(PREF_OSM_CHANGESETS_COUNT, 0);
+
+    prefs.edit().putInt(PREF_OSM_CHANGESETS_COUNT, editsCount[0]).apply();
+    return editsCount[0];
+  }
 }

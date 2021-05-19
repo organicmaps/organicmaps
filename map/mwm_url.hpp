@@ -75,7 +75,8 @@ public:
   bool GoBackOnBalloonClick() const { return m_goBackOnBalloonClick; }
 
   /// @name Used in settings map viewport after invoking API.
-  bool GetViewportRect(m2::RectD & rect) const;
+  bool GetViewportParams(m2::PointD & center, double & scale) const;
+
   ApiMarkPoint const * GetSinglePoint() const;
   std::vector<RoutePoint> const & GetRoutePoints() const { return m_routePoints; }
   std::string const & GetRoutingType() const { return m_routingType; }

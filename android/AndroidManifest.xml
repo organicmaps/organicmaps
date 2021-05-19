@@ -77,6 +77,7 @@
         <category android:name="android.intent.category.BROWSABLE"/>
 
         <data android:scheme="ge0"/>
+        <data android:scheme="om"/>
       </intent-filter>
 
       <intent-filter>
@@ -91,6 +92,12 @@
         <data
           android:host="ge0.me"
           android:scheme="http"/>
+        <data
+            android:host="omaps.app"
+            android:scheme="https"/>
+        <data
+            android:host="omaps.app"
+            android:scheme="http"/>
       </intent-filter>
 
       <intent-filter>

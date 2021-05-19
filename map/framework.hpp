@@ -30,7 +30,6 @@
 #include "kml/type_utils.hpp"
 
 #include "editor/new_feature_categories.hpp"
-#include "editor/user_stats.hpp"
 
 #include "indexer/caching_rank_table_loader.hpp"
 #include "indexer/data_header.hpp"
@@ -736,25 +735,6 @@ public:
   bool RollBackChanges(FeatureID const & fid);
   void CreateNote(osm::MapObject const & mapObject, osm::Editor::NoteProblemType const type,
                   std::string const & note);
-
-public:
-  // User statistics.
-  editor::UserStats GetUserStats(std::string const & userName) const
-  {
-    return m_userStatsLoader.GetStats(userName);
-  }
-
-  // Reads user stats from server or gets it from cache calls |fn| on success.
-  void UpdateUserStats(std::string const & userName, editor::UserStatsLoader::UpdatePolicy policy,
-                       editor::UserStatsLoader::OnUpdateCallback fn)
-  {
-    m_userStatsLoader.Update(userName, policy, fn);
-  }
-
-  void DropUserStats(std::string const & userName) { m_userStatsLoader.DropStats(userName); }
-
-private:
-  editor::UserStatsLoader m_userStatsLoader;
 
 public:
   storage::CountriesVec GetTopmostCountries(ms::LatLon const & latlon) const;

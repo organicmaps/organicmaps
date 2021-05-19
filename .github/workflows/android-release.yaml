@@ -5,10 +5,20 @@ on:
       - '202*' # Approved manually via `production` environment
 
 jobs:
-  android-google-release:
-    name: Android Google Release
+  android-release:
+    name: Android Release
     runs-on: ubuntu-latest
     environment: production
+    strategy:
+      matrix:
+        include:
+          - flavor: google
+            bundle: true
+          - flavor: huawei
+            bundle: true
+          - flavor: samsung
+          - flavor: amazon
+          - flavor: web
     steps:
       - name: Install build tools and dependencies
         shell: bash
@@ -50,67 +60,20 @@ jobs:
         shell: bash
         working-directory: android
         run: |
-          ./gradlew bundleGoogleRelease
+          ./gradlew bundle${{ matrix.flavor }}release assemble${{ matrix.flavor }}release
 
       - name: Upload AAB to Artifacts
         uses: actions/upload-artifact@v2
+        if: ${{ matrix.bundle }}
         with:
-          name: google-release-aab
-          path: ./android/build/outputs/bundle/googleRelease/OrganicMaps-*-google-release.aab
+          name: ${{ matrix.flavor }}-release-aab
+          path: ./android/build/outputs/bundle/${{ matrix.flavor }}Release/OrganicMaps-*-${{ matrix.flavor }}-release.aab
           if-no-files-found: error
-
-  android-web-release:
-    name: Android Web Release
-    runs-on: ubuntu-latest
-    environment: production
-    steps:
-      - name: Install build tools and dependencies
-        shell: bash
-        run: |
-          sudo apt-get update -y
-          sudo apt-get install -y ninja-build
-
-      - name: Set up JDK 1.8
-        uses: actions/setup-java@v1
-        with:
-          java-version: 1.8
-
-      - name: Checkout sources
-        uses: actions/checkout@v2
-
-      - name: Parallel submodules checkout
-        shell: bash
-        run: git submodule update --init --recursive --jobs=$(($(nproc) * 2))
-
-      - name: Checkout private keys
-        uses: actions/checkout@v2
-        with:
-          repository: ${{ secrets.PRIVATE_REPO }}
-          ssh-key: ${{ secrets.PRIVATE_SSH_KEY }}
-          ref: master
-          path: private.git
-
-      - name: Configure repo with private keys
-        shell: bash
-        run: |
-          ./configure.sh ./private.git
-          rm -rf ./private.git
-
-      - name: Set up SDK
-        shell: bash
-        run: (cd tools/android; ./set_up_android.py --sdk $ANDROID_SDK_ROOT)
-
-      - name: Compile
-        shell: bash
-        working-directory: android
-        run: |
-          ./gradlew -Pfirebase assembleWebRelease \
-            uploadCrashlyticsMappingFileWebRelease \
-            uploadCrashlyticsSymbolFileWebRelease
 
       - name: Upload APK to Artifacts
         uses: actions/upload-artifact@v2
+        if: ${{ !matrix.bundle }}
         with:
-          name: web-release-apk
-          path: ./android/build/outputs/apk/web/release/OrganicMaps-*-web-release.apk
+          name: ${{ matrix.flavor }}-release-apk
+          path: ./android/build/outputs/apk/${{ matrix.flavor }}/release/OrganicMaps-*-${{ matrix.flavor }}-release.apk
           if-no-files-found: error
