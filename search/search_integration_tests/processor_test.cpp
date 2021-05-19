@@ -1031,10 +1031,10 @@ UNIT_CLASS_TEST(ProcessorTest, SearchCoordinates)
       {"https://yandex.com.tr/harita/115707/fatih/?ll=28.967470%2C41.008857&z=10", 41.008857,
        28.967470},
 
-      {"http://ge0.me/kyuh76X_vf/Borgo_Maggiore", 43.941187, 12.447423},
+      {"http://omaps.app/kyuh76X_vf/Borgo_Maggiore", 43.941187, 12.447423},
       {"ge0://kyuh76X_vf/Borgo_Maggiore", 43.941187, 12.447423},
       {"Check out Ospedale di Stato My Places • Hospital "
-       "http://ge0.me/syujRR7Xgi/Ospedale_di_Stato ge0://syujRR7Xgi/Ospedale_di_Stato",
+       "http://omaps.app/syujRR7Xgi/Ospedale_di_Stato ge0://syujRR7Xgi/Ospedale_di_Stato",
        43.950255, 12.455579},
 
       {"https://en.mapy.cz/zakladni?x=37.5516243&y=55.7638088&z=12", 55.7638088, 37.5516243},

@@ -206,12 +206,8 @@ public class Factory
     {
       final String scheme = intent.getScheme();
       final Uri data = intent.getData();
-      if (data != null && scheme != null &&
-          "http".equalsIgnoreCase(scheme) || "https".equalsIgnoreCase(scheme))
-      {
-        final String host = data.getHost();
-        return "ge0.me".equals(host) || "omaps.app".equals(host);
-      }
+      if (data != null && ("http".equalsIgnoreCase(scheme) || "https".equalsIgnoreCase(scheme)))
+        return "omaps.app".equals(data.getHost());
 
       return false;
     }

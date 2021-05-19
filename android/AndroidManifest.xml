@@ -87,12 +87,6 @@
         <category android:name="android.intent.category.BROWSABLE"/>
 
         <data
-          android:host="ge0.me"
-          android:scheme="https"/>
-        <data
-          android:host="ge0.me"
-          android:scheme="http"/>
-        <data
             android:host="omaps.app"
             android:scheme="https"/>
         <data
