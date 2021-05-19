@@ -41,9 +41,7 @@ bool Ge0Parser::Parse(string const & url, Result & result)
   // Alternative format (differs only in the prefix):
   // http://omaps.app/ZCoordba64/Name
 
-  // Support ge0 from MapsMe.
-  for (string const & prefix : {"ge0://", "http://ge0.me/", "https://ge0.me/",
-      "om://", "http://omaps.app/", "https://omaps.app/"})
+  for (string const & prefix : {"ge0://", "om://", "http://omaps.app/", "https://omaps.app/"})
   {
     if (strings::StartsWith(url, prefix))
       return ParseAfterPrefix(url, prefix.size(), result);
