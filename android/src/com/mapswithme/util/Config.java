@@ -38,6 +38,7 @@ public final class Config
   private static final String KEY_MISC_USE_MOBILE_DATA_TIMESTAMP = "UseMobileDataTimestamp";
   private static final String KEY_MISC_USE_MOBILE_DATA_ROAMING = "UseMobileDataRoaming";
   private static final String KEY_MISC_AD_FORBIDDEN = "AdForbidden";
+  private static final String KEY_MISC_ENABLE_SCREEN_SLEEP = "EnableScreenSleep";
 
   private Config() {}
 
@@ -120,6 +121,8 @@ public final class Config
                               getBool(KEY_MISC_FIRST_START_DIALOG_SEEN))
                   .putInt(KEY_MISC_NEWS_LAST_VERSION, getInt(KEY_MISC_NEWS_LAST_VERSION))
                   .putInt(KEY_LIKES_LAST_RATED_SESSION, getInt(KEY_LIKES_LAST_RATED_SESSION))
+                  .putBoolean(KEY_MISC_ENABLE_SCREEN_SLEEP,
+                              getBool(KEY_MISC_ENABLE_SCREEN_SLEEP))
                   .apply();
   }
 
@@ -176,6 +179,16 @@ public final class Config
   public static void setStatisticsEnabled(boolean enabled)
   {
     setBool(KEY_PREF_STATISTICS, enabled);
+  }
+
+  public static boolean isScreenSleepEnabled()
+  {
+    return getBool(KEY_MISC_ENABLE_SCREEN_SLEEP, false);
+  }
+
+  public static void setScreenSleepEnabled(boolean enabled)
+  {
+    setBool(KEY_MISC_ENABLE_SCREEN_SLEEP, enabled);
   }
 
   public static boolean useGoogleServices()

@@ -20,6 +20,7 @@ import com.mapswithme.util.PermissionsUtils;
 import com.mapswithme.util.Utils;
 import com.mapswithme.util.log.Logger;
 import com.mapswithme.util.log.LoggerFactory;
+import com.mapswithme.util.Config;
 
 public enum LocationHelper implements Initializable<Context>
 {
@@ -548,7 +549,9 @@ public enum LocationHelper implements Initializable<Context>
 
     mUiCallback = callback;
 
-    Utils.keepScreenOn(true, mUiCallback.getActivity().getWindow());
+    if (!Config.isScreenSleepEnabled()) {
+      Utils.keepScreenOn(true, mUiCallback.getActivity().getWindow());
+    }
 
     mUiCallback.onMyPositionModeChanged(getMyPositionMode());
     if (mCompassData != null)
