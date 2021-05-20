@@ -77,3 +77,13 @@ jobs:
           name: ${{ matrix.flavor }}-release-apk
           path: ./android/build/outputs/apk/${{ matrix.flavor }}/release/OrganicMaps-*-${{ matrix.flavor }}-release.apk
           if-no-files-found: error
+
+      - name: Upload to Google Play
+        run: ./gradlew publishGoogleReleaseBundle
+        working-directory: android
+        if: ${{ matrix.flavor == 'google' }}
+
+      - name: Upload to Huawei AppGallery
+        run: ./gradlew publishHuaweiAppGalleryHuaweiRelease
+        working-directory: android
+        if: ${{ matrix.flavor == 'huawei' }}

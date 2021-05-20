@@ -1,10 +1,30 @@
 name: Android Beta
 on:
-  workflow_dispatch:
+  push:
+    branches:
+      - master
+    paths-ignore:
+    - .github/workflows/android*
+    - .github/workflows/linux*
+    - '**/*_tests/**'
+    - '**/CMakeLists.txt'
+    - CONTRIBUTORS
+    - LICENSE
+    - NOTICE
+    - README.md
+    - iphone/**
+    - xcode/**
+    - docs/**
+    - generator/**
+    - packaging/**
+    - pyhelpers/**
+    - qt*/**
+    - skin_generator/**
+    - track_generator/**
 
 jobs:
-  android-web-beta:
-    name: Android Web Beta
+  android-google-beta:
+    name: Android Google Beta
     runs-on: ubuntu-latest
     environment: beta
     steps:
@@ -50,11 +70,10 @@ jobs:
         run: |
           cmake --version
           ninja --version
-          ./gradlew -x lint -x lintVitalWebBeta assembleWebBeta uploadCrashlyticsSymbolFileWebBeta
+          ./gradlew -x lint -x lintVitalGoogleBeta assembleGoogleBeta uploadCrashlyticsMappingFileGoogleRelease
 
       - name: Upload beta apk to App Distribution
         shell: bash
         working-directory: android
         run: |
-           git --no-pager show -s --format='%s%n%n%b' HEAD > RELEASE
-           ./gradlew appDistributionUploadWebBeta
+           ./gradlew appDistributionUploadGoogleBeta
