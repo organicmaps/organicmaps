@@ -42,6 +42,9 @@ buildscript {
     } else {
       println("Building without Google Firebase Services")
     }
+
+    classpath("com.github.triplet.gradle:play-publisher:3.4.0")
+    classpath("ru.cian:huawei-publish-gradle-plugin:1.2.4")
   }
 }
 
@@ -60,6 +63,8 @@ if (googleFirebaseServicesEnabled) {
   apply plugin: 'com.google.firebase.crashlytics'
   apply plugin: 'com.google.firebase.appdistribution'
 }
+apply plugin: 'com.github.triplet.play'
+apply plugin: 'ru.cian.huawei-publish'
 
 dependencies {
 
@@ -134,6 +139,14 @@ def getVersion() {
   return new Tuple2(versionCode, versionName)
 }
 
+def getReleaseNotes() {
+  return run(['git', 'tag', '-l', '--format=\'%(contents)\'', '--points-at', 'HEAD']).trim()
+}
+
+def getCommitMessage() {
+  return run(['git', '--no-pager', 'show', '-s', '--format=\'%s%n%n%b\'', 'HEAD']).trim()
+}
+
 def osName = System.properties['os.name'].toLowerCase()
 
 project.ext.appId = 'app.organicmaps'
@@ -200,8 +213,11 @@ android {
       if (abiFilters.isEmpty()) {
         abiFilters.add('armeabi-v7a')
         abiFilters.add('arm64-v8a')
-        abiFilters.add('x86_64')
-        abiFilters.add('x86')
+        // Intel phone is not a thing in 2021.
+        // We don't have enough space in bundles for libraries nobody use.
+        // Please manually specify -Px86 if you need a build of x86 emulator.
+        //abiFilters.add('x86_64')
+        //abiFilters.add('x86')
       }
       println('Building for ' + String.join(", ", abiFilters))
     }
@@ -277,6 +293,12 @@ android {
       versionCode = HUAWEI_VERSION_CODE_BASE + android.defaultConfig.versionCode
       buildConfigField 'String', 'SUPPORT_MAIL', '"huawei@organicmaps.app"'
       android.sourceSets.huawei.assets.srcDirs = ['flavors/world-enabled']
+    }
+  }
+
+  playConfigs {
+    googleRelease {
+      enabled.set(true)
     }
   }
 
@@ -359,9 +381,10 @@ android {
           nativeSymbolUploadEnabled true
         }
         firebaseAppDistribution {
-          releaseNotesFile = "RELEASE"
-          groups = "android-qa"
-          apkPath = "./build/outputs/apk/web/beta/" + appName.replaceAll("\\s","") + "-" + defaultConfig.versionCode + "-web-beta.apk"
+          // A new beta release is created for each commit.
+          // Use the last commit message for the release notes.
+          releaseNotes = getCommitMessage()
+          groups = "qa" // Notify only selected people.
           serviceCredentialsFile = "firebase-app-distribution.json"
         }
       }
@@ -430,4 +453,33 @@ android.buildTypes.all { buildType ->
   def authority = "\"" + authorityValue + "\""
   buildConfigField 'String', 'FILE_PROVIDER_AUTHORITY', authority
   manifestPlaceholders += [FILE_PROVIDER_PLACEHOLDER : authorityValue]
+}
+
+import com.github.triplet.gradle.androidpublisher.ReleaseStatus
+
+// gradle-play-publisher can only read the release notes from a file. 
+task playGenerateReleaseNotes() {
+  def releaseNotesDir = "src/main/play/release-notes/en-US/"
+  mkdir releaseNotesDir
+  new File(projectDir, releaseNotesDir + "default.txt").text = getReleaseNotes()
+}
+
+tasks.named('publishBundle').get().dependsOn playGenerateReleaseNotes
+
+play {
+  enabled.set(false)
+  track.set("alpha") // = Closed Testing
+  defaultToAppBundles.set(true)
+  releaseStatus.set(ReleaseStatus.DRAFT)
+  serviceAccountCredentials.set(file("google-play.json"))
+}
+
+huaweiPublish {
+  instances {
+    huaweiRelease {
+      credentialsPath = "$rootDir/huawei-appgallery.json"
+      buildFormat = "aab"
+      deployType = 'draft'
+    }
+  }
 }
