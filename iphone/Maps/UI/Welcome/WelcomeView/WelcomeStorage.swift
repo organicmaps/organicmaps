@@ -6,15 +6,6 @@ class WelcomeStorage {
     static let acceptTimeKey = "TermsOfUseController_acceptTime"
   }
 
-  static var shouldShowWhatsNew: Bool {
-    get {
-      return !UserDefaults.standard.bool(forKey: WhatsNewController.key)
-    }
-    set {
-      UserDefaults.standard.set(!newValue, forKey: WhatsNewController.key)
-    }
-  }
-
   static var privacyPolicyLink: String {
     get {
       return UserDefaults.standard.string(forKey: UserDefaultsKeys.ppLinkKey) ?? ""

@@ -498,12 +498,7 @@
 		99C9642B2428C0F700E41723 /* PlacePageHeaderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99C964252428C0F700E41723 /* PlacePageHeaderViewController.swift */; };
 		99C9642C2428C0F700E41723 /* PlacePageHeaderBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99C964262428C0F700E41723 /* PlacePageHeaderBuilder.swift */; };
 		99C964302428C27A00E41723 /* PlacePageHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99C9642F2428C27A00E41723 /* PlacePageHeaderView.swift */; };
-		99CB34962369C281001D28AD /* FirstLaunchBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99CB34952369C281001D28AD /* FirstLaunchBuilder.swift */; };
-		99CB34982369C291001D28AD /* FirstLaunchPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99CB34972369C291001D28AD /* FirstLaunchPresenter.swift */; };
-		99CB34B02369DF2E001D28AD /* WhatsNewPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99CB34AB2369DF2E001D28AD /* WhatsNewPresenter.swift */; };
-		99CB34B32369DF2E001D28AD /* WhatsNewBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99CB34AE2369DF2E001D28AD /* WhatsNewBuilder.swift */; };
 		99CB34B72369E188001D28AD /* WelcomeRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99CB34B62369E188001D28AD /* WelcomeRouter.swift */; };
-		99CB34C3236AEAEA001D28AD /* WhatsNewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99CB34C2236AEAEA001D28AD /* WhatsNewController.swift */; };
 		99CB34C5236B00FD001D28AD /* WelcomeStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99CB34C4236B00FD001D28AD /* WelcomeStorage.swift */; };
 		99DEF9D723E420F6006BFD21 /* ElevationProfileDescriptionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99DEF9D623E420F6006BFD21 /* ElevationProfileDescriptionCell.swift */; };
 		99E2B0122368A8C700FFABC5 /* MWMCategory+PlacesCountTitle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99E2B0112368A8C700FFABC5 /* MWMCategory+PlacesCountTitle.swift */; };
@@ -1322,12 +1317,7 @@
 		99C964252428C0F700E41723 /* PlacePageHeaderViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlacePageHeaderViewController.swift; sourceTree = "<group>"; };
 		99C964262428C0F700E41723 /* PlacePageHeaderBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlacePageHeaderBuilder.swift; sourceTree = "<group>"; };
 		99C9642F2428C27A00E41723 /* PlacePageHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlacePageHeaderView.swift; sourceTree = "<group>"; };
-		99CB34952369C281001D28AD /* FirstLaunchBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstLaunchBuilder.swift; sourceTree = "<group>"; };
-		99CB34972369C291001D28AD /* FirstLaunchPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstLaunchPresenter.swift; sourceTree = "<group>"; };
-		99CB34AB2369DF2E001D28AD /* WhatsNewPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WhatsNewPresenter.swift; sourceTree = "<group>"; };
-		99CB34AE2369DF2E001D28AD /* WhatsNewBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WhatsNewBuilder.swift; sourceTree = "<group>"; };
 		99CB34B62369E188001D28AD /* WelcomeRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeRouter.swift; sourceTree = "<group>"; };
-		99CB34C2236AEAEA001D28AD /* WhatsNewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WhatsNewController.swift; sourceTree = "<group>"; };
 		99CB34C4236B00FD001D28AD /* WelcomeStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeStorage.swift; sourceTree = "<group>"; };
 		99DEF9D623E420F6006BFD21 /* ElevationProfileDescriptionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ElevationProfileDescriptionCell.swift; sourceTree = "<group>"; };
 		99E2B0112368A8C700FFABC5 /* MWMCategory+PlacesCountTitle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MWMCategory+PlacesCountTitle.swift"; sourceTree = "<group>"; };
@@ -2283,8 +2273,6 @@
 			children = (
 				34943BB91E2626B200B14F84 /* WelcomePageController.swift */,
 				99CB34D1236B0C2A001D28AD /* WelcomeView */,
-				99CB34AA2369DF23001D28AD /* WhatsNew */,
-				99E2B01F23698C0900FFABC5 /* FirstLaunch */,
 			);
 			path = Welcome;
 			sourceTree = "<group>";
@@ -2900,16 +2888,6 @@
 			path = PlacePageHeader;
 			sourceTree = "<group>";
 		};
-		99CB34AA2369DF23001D28AD /* WhatsNew */ = {
-			isa = PBXGroup;
-			children = (
-				99CB34AB2369DF2E001D28AD /* WhatsNewPresenter.swift */,
-				99CB34AE2369DF2E001D28AD /* WhatsNewBuilder.swift */,
-				99CB34C2236AEAEA001D28AD /* WhatsNewController.swift */,
-			);
-			path = WhatsNew;
-			sourceTree = "<group>";
-		};
 		99CB34D1236B0C2A001D28AD /* WelcomeView */ = {
 			isa = PBXGroup;
 			children = (
@@ -2930,15 +2908,6 @@
 				99DEF9D623E420F6006BFD21 /* ElevationProfileDescriptionCell.swift */,
 			);
 			path = ElevationProfile;
-			sourceTree = "<group>";
-		};
-		99E2B01F23698C0900FFABC5 /* FirstLaunch */ = {
-			isa = PBXGroup;
-			children = (
-				99CB34952369C281001D28AD /* FirstLaunchBuilder.swift */,
-				99CB34972369C291001D28AD /* FirstLaunchPresenter.swift */,
-			);
-			path = FirstLaunch;
 			sourceTree = "<group>";
 		};
 		99F3EB0423F417BE00C713F8 /* PlacePageManager */ = {
@@ -4159,7 +4128,6 @@
 				F6E2FF451E097BA00083EBEC /* SettingsTableViewLinkCell.swift in Sources */,
 				34C9BD0A1C6DBCDA000DC38D /* MWMNavigationController.m in Sources */,
 				F6E2FE311E097BA00083EBEC /* MWMStreetEditorViewController.mm in Sources */,
-				99CB34B32369DF2E001D28AD /* WhatsNewBuilder.swift in Sources */,
 				F6E2FE281E097BA00083EBEC /* MWMOpeningHoursSection.mm in Sources */,
 				3406FA161C6E0C3300E9FAD2 /* MWMMapDownloadDialog.mm in Sources */,
 				340416481E7BF28E00E2B6D6 /* UIView+Snapshot.swift in Sources */,
@@ -4209,7 +4177,6 @@
 				349A13831DEC138C00C7DB60 /* MWMMobileInternetAlert.m in Sources */,
 				6741A9EC1BF340DE002C974C /* MWMCircularProgress.m in Sources */,
 				993DF11923F6BDB100AC231A /* UITextFieldRenderer.swift in Sources */,
-				99CB34C3236AEAEA001D28AD /* WhatsNewController.swift in Sources */,
 				342CC5F21C2D7730005F3FE5 /* MWMAuthorizationLoginViewController.mm in Sources */,
 				340475591E081A4600C92850 /* WebViewController.m in Sources */,
 				3404F4992028A20D0090E401 /* BMCCategoryCell.swift in Sources */,
@@ -4296,7 +4263,6 @@
 				F6E2FE131E097BA00083EBEC /* MWMOpeningHoursTimeSelectorTableViewCell.mm in Sources */,
 				F626D52F1C3E83F800C17D15 /* MWMTableViewCell.m in Sources */,
 				34AB66591FC5AA330078E451 /* TransportTransitFlowLayout.swift in Sources */,
-				99CB34962369C281001D28AD /* FirstLaunchBuilder.swift in Sources */,
 				3486B5191E27AD3B0069C126 /* MWMFrameworkListener.mm in Sources */,
 				3404756B1E081A4600C92850 /* MWMSearch+CoreSpotlight.mm in Sources */,
 				CD9AD96C2281B56900EC174A /* CPViewPortState.swift in Sources */,
@@ -4405,7 +4371,6 @@
 				34B924431DC8A29C0008D971 /* MWMMailViewController.m in Sources */,
 				340475651E081A4600C92850 /* MWMRouter.mm in Sources */,
 				47E3C72F2111F472008B3B27 /* CoverVerticalModalTransitioning.swift in Sources */,
-				99CB34B02369DF2E001D28AD /* WhatsNewPresenter.swift in Sources */,
 				34E776101F14B165003040B3 /* VisibleArea.swift in Sources */,
 				995F1613244F0AA50060631D /* BottomMenuLayersCell.swift in Sources */,
 				993DF10723F6BDB100AC231A /* UIColor+image.swift in Sources */,
@@ -4418,7 +4383,6 @@
 				34AB66261FC5AA330078E451 /* RouteManagerDimView.swift in Sources */,
 				993F5514237C622700545511 /* DeepLinkStrategyFactory.swift in Sources */,
 				6741AA2B1BF340DE002C974C /* CircleView.m in Sources */,
-				99CB34982369C291001D28AD /* FirstLaunchPresenter.swift in Sources */,
 				4788739220EE326500F6826B /* VerticallyAlignedButton.swift in Sources */,
 				3444DFDE1F18A5AF00E73099 /* SideButtonsArea.swift in Sources */,
 				CDCA278622451F5000167D87 /* RouteInfo.swift in Sources */,
