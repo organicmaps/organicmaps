@@ -18,7 +18,6 @@
 #include "base/assert.hpp"
 
 namespace {
-CGSize constexpr kInitialDialogSize = {200, 200};
 
 BOOL canAutoDownload(storage::CountryId const &countryId) {
   if (![MWMSettings autoDownloadEnabled])
@@ -59,21 +58,8 @@ using namespace storage;
 
 + (instancetype)dialogForController:(MapViewController *)controller {
   MWMMapDownloadDialog *dialog = [NSBundle.mainBundle loadNibNamed:[self className] owner:nil options:nil].firstObject;
-  dialog.autoresizingMask = UIViewAutoresizingFlexibleHeight;
   dialog.controller = controller;
-  dialog.size = kInitialDialogSize;
   return dialog;
-}
-
-- (void)layoutSubviews {
-  UIView *superview = self.superview;
-  self.center = {superview.midX, superview.midY};
-  CGSize const newSize = [self systemLayoutSizeFittingSize:UILayoutFittingCompressedSize];
-  if (CGSizeEqualToSize(newSize, self.size))
-    return;
-  self.size = newSize;
-  self.center = {superview.midX, superview.midY};
-  [super layoutSubviews];
 }
 
 - (void)configDialog {
@@ -154,7 +140,12 @@ using namespace storage;
   MapViewController *controller = self.controller;
   [controller.view insertSubview:self aboveSubview:controller.controlsView];
   [[MWMStorage sharedStorage] addObserver:self];
+
+  // Center dialog in the parent view.
+  [self.centerXAnchor constraintEqualToAnchor:controller.view.centerXAnchor].active = YES;
+  [self.centerYAnchor constraintEqualToAnchor:controller.view.centerYAnchor].active = YES;
 }
+
 
 - (void)removeFromSuperview {
   [[MWMCarPlayService shared] hideNoMapAlert];
