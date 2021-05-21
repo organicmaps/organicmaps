@@ -2171,6 +2171,11 @@
 
 "disconnect_usb_cable_title" = "Disconnect USB cable";
 
+"enable_screen_sleep" = "Permiteți ecranului să doarmă";
+
+/*  */
+"enable_screen_sleep_description" = "Când este activat, ecranul va fi lăsat să doarmă după o perioadă de inactivitate.";
+
 
 /**********  Partners  **********/
 

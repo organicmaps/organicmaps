@@ -1210,6 +1210,9 @@
 	<string name="downloader_updating_ios">การอัปเดต</string>
 	<string name="downloader_loading_ios">การดาวน์โหลด</string>
 	<string name="key_information_title">ข้อมูลหลัก</string>
+	<string name="enable_screen_sleep">อนุญาตให้หน้าจอเข้าสู่โหมดสลีป</string>
+	<!--  -->
+	<string name="enable_screen_sleep_description">เมื่อเปิดใช้งานหน้าจอจะได้รับอนุญาตให้เข้าสู่โหมดสลีปหลังจากไม่มีการใช้งานเป็นระยะเวลาหนึ่ง</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">สถานีกระเช้าลอยฟ้า</string>

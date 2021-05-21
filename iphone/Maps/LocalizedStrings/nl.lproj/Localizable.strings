@@ -2171,6 +2171,11 @@
 
 "disconnect_usb_cable_title" = "Disconnect USB cable";
 
+"enable_screen_sleep" = "Laat het scherm slapen";
+
+/*  */
+"enable_screen_sleep_description" = "Indien ingeschakeld, mag het scherm slapen na een periode van inactiviteit.";
+
 
 /**********  Partners  **********/
 

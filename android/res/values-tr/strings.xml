@@ -1210,6 +1210,9 @@
 	<string name="downloader_updating_ios">Güncelleme</string>
 	<string name="downloader_loading_ios">İndir</string>
 	<string name="key_information_title">Anahtar bilgisi</string>
+	<string name="enable_screen_sleep">Ekranın uyumasına izin ver</string>
+	<!--  -->
+	<string name="enable_screen_sleep_description">Etkinleştirildiğinde ekranın bir süre hareketsiz kaldıktan sonra uykuya geçmesine izin verilir.</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Remontées mécaniques</string>

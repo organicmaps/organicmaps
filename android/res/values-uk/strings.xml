@@ -1213,6 +1213,9 @@
 	<string name="downloader_updating_ios">Оновлення</string>
 	<string name="downloader_loading_ios">Завантаження</string>
 	<string name="key_information_title">Ключова інформація</string>
+	<string name="enable_screen_sleep">Allow screen to sleep</string>
+	<!--  -->
+	<string name="enable_screen_sleep_description">When enabled the screen will be allowed to sleep after a period of inactivity.</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Канатна дорога</string>

@@ -2171,6 +2171,11 @@
 
 "disconnect_usb_cable_title" = "Disconnect USB cable";
 
+"enable_screen_sleep" = "Låt skärmen sova";
+
+/*  */
+"enable_screen_sleep_description" = "När den är aktiverad får skärmen sova efter en period av inaktivitet.";
+
 
 /**********  Partners  **********/
 

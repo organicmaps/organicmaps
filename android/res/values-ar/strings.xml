@@ -1210,6 +1210,9 @@
 	<string name="downloader_updating_ios">جار التحديث</string>
 	<string name="downloader_loading_ios">جار التحميل</string>
 	<string name="key_information_title">معلومات رئيسية</string>
+	<string name="enable_screen_sleep">اسمح للشاشة بالنوم</string>
+	<!--  -->
+	<string name="enable_screen_sleep_description">عند التمكين ، سيتم السماح للشاشة بالنوم بعد فترة من عدم النشاط.</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">محطة تلفريك</string>

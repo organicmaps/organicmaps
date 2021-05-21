@@ -1216,6 +1216,9 @@
 	<string name="downloader_updating_ios">Aktualizacja</string>
 	<string name="downloader_loading_ios">Pobieranie</string>
 	<string name="key_information_title">Kluczowe informacje</string>
+	<string name="enable_screen_sleep">Pozwól ekranowi spać</string>
+	<!--  -->
+	<string name="enable_screen_sleep_description">Po włączeniu ekran będzie mógł spać po okresie bezczynności.</string>
 
 	<!-- SECTION:  Partners  -->
 	<string name="sponsored_partner1_action">Wyprzedaże</string>

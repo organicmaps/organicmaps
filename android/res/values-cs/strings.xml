@@ -1208,6 +1208,9 @@
 	<string name="downloader_updating_ios">Probíhá aktualizace</string>
 	<string name="downloader_loading_ios">Probíhá stahování</string>
 	<string name="key_information_title">Klíčové informace</string>
+	<string name="enable_screen_sleep">Nechte obrazovku spát</string>
+	<!--  -->
+	<string name="enable_screen_sleep_description">Je-li tato možnost povolena, bude obrazovka po určité době nečinnosti umožněna usnout.</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Stanice lanové dráhy</string>

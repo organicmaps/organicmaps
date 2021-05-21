@@ -1195,6 +1195,9 @@
 	<string name="downloader_updating_ios">Cập nhật</string>
 	<string name="downloader_loading_ios">Tải xuống</string>
 	<string name="key_information_title">Thông tin chìa khóa</string>
+	<string name="enable_screen_sleep">Cho phép màn hình ở chế độ ngủ</string>
+	<!--  -->
+	<string name="enable_screen_sleep_description">Khi được bật, màn hình sẽ được phép ở chế độ ngủ sau một thời gian không hoạt động.</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Trạm Cáp Treo</string>

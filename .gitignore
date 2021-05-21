@@ -169,3 +169,6 @@ tools/python/data/*/*.egg-info
 # Configs
 tools/python/maps_generator/var/etc/map_generator.ini
 tools/python/routing/etc/*.ini
+
+DEVELOPER_TIPS.MD
+

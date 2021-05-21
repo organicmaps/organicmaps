@@ -2171,6 +2171,11 @@
 
 "disconnect_usb_cable_title" = "Отсоедините USB кабель";
 
+"enable_screen_sleep" = "Разрешить экрану спать";
+
+/*  */
+"enable_screen_sleep_description" = "При включении экран может переходить в спящий режим после периода бездействия.";
+
 
 /**********  Partners  **********/
 

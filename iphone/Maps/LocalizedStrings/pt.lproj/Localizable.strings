@@ -2171,6 +2171,11 @@
 
 "disconnect_usb_cable_title" = "Disconnect USB cable";
 
+"enable_screen_sleep" = "Permitir que a tela hiberne";
+
+/*  */
+"enable_screen_sleep_description" = "Quando ativada, a tela poderá hibernar após um período de inatividade.";
+
 
 /**********  Partners  **********/
 

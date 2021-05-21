@@ -1204,6 +1204,9 @@
 	<string name="downloader_updating_ios">Aktualizovanie</string>
 	<string name="downloader_loading_ios">Sťahovanie</string>
 	<string name="key_information_title">Kľúčová informácia</string>
+	<string name="enable_screen_sleep">Nechajte obrazovku spať</string>
+	<!--  -->
+	<string name="enable_screen_sleep_description">Ak je táto možnosť povolená, obrazovka bude môcť po určitej dobe nečinnosti spať.</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Lanovka</string>

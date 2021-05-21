@@ -1199,6 +1199,9 @@
 	<string name="downloader_updating_ios">Actualización</string>
 	<string name="downloader_loading_ios">Cargando</string>
 	<string name="key_information_title">Información clave</string>
+	<string name="enable_screen_sleep">Permitir que la pantalla duerma</string>
+	<!--  -->
+	<string name="enable_screen_sleep_description">Cuando está habilitado, la pantalla podrá dormir después de un período de inactividad.</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Estación de teleférico</string>

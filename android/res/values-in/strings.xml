@@ -1198,6 +1198,9 @@
 	<string name="downloader_updating_ios">Memperbarui</string>
 	<string name="downloader_loading_ios">Mengunduh</string>
 	<string name="key_information_title">Informasi kunci</string>
+	<string name="enable_screen_sleep">Izinkan layar untuk tidur</string>
+	<!--  -->
+	<string name="enable_screen_sleep_description">Jika diaktifkan, layar akan diizinkan untuk tidur setelah beberapa saat tidak aktif.</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Stasiun kereta gantung</string>

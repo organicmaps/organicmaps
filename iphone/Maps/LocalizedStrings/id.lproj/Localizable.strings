@@ -2171,6 +2171,11 @@
 
 "disconnect_usb_cable_title" = "Disconnect USB cable";
 
+"enable_screen_sleep" = "Izinkan layar untuk tidur";
+
+/*  */
+"enable_screen_sleep_description" = "Jika diaktifkan, layar akan diizinkan untuk tidur setelah beberapa saat tidak aktif.";
+
 
 /**********  Partners  **********/
 

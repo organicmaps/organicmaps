@@ -1206,6 +1206,9 @@
 	<string name="downloader_updating_ios">Updaten</string>
 	<string name="downloader_loading_ios">Downloaden</string>
 	<string name="key_information_title">Belangrijke informatie</string>
+	<string name="enable_screen_sleep">Laat het scherm slapen</string>
+	<!--  -->
+	<string name="enable_screen_sleep_description">Indien ingeschakeld, mag het scherm slapen na een periode van inactiviteit.</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Kabelwagenstation</string>

@@ -1150,6 +1150,9 @@
 	<string name="downloader_updating_ios">Oppdatering</string>
 	<string name="downloader_loading_ios">Nedlasting</string>
 	<string name="key_information_title">Nøkkelinformasjon</string>
+	<string name="enable_screen_sleep">La skjermen sove</string>
+	<!--  -->
+	<string name="enable_screen_sleep_description">Når den er aktivert, får skjermen lov til å sove etter en periode med inaktivitet.</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Kabelbanestasjon</string>

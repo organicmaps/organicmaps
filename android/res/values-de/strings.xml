@@ -1213,6 +1213,9 @@
 	<string name="downloader_updating_ios">Update</string>
 	<string name="downloader_loading_ios">Download</string>
 	<string name="key_information_title">Wichtige Informationen</string>
+	<string name="enable_screen_sleep">Bildschirm schlafen lassen</string>
+	<!--  -->
+	<string name="enable_screen_sleep_description">Wenn diese Option aktiviert ist, kann der Bildschirm nach einer gewissen Zeit der Inaktivität in den Ruhezustand versetzt werden.</string>
 
 	<!-- SECTION:  Partners  -->
 	<string name="sponsored_partner2_action">Rabatt</string>
