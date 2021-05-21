@@ -1195,6 +1195,9 @@
 	<string name="downloader_updating_ios">Actualizare</string>
 	<string name="downloader_loading_ios">Încărcare</string>
 	<string name="key_information_title">Informații cheie</string>
+	<string name="enable_screen_sleep">Permiteți ecranului să doarmă</string>
+	<!--  -->
+	<string name="enable_screen_sleep_description">Când este activat, ecranul va fi lăsat să doarmă după o perioadă de inactivitate.</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Stație de teleferic</string>

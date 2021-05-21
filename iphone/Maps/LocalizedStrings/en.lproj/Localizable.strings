@@ -2174,6 +2174,11 @@
 
 "disconnect_usb_cable_title" = "Disconnect USB cable";
 
+"enable_screen_sleep" = "Allow screen to sleep";
+
+/*  */
+"enable_screen_sleep_description" = "When enabled the screen will be allowed to sleep after a period of inactivity.";
+
 
 /**********  Partners  **********/
 

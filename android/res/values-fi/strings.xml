@@ -1199,6 +1199,9 @@
 	<string name="downloader_updating_ios">Päivitys</string>
 	<string name="downloader_loading_ios">Lataus</string>
 	<string name="key_information_title">Avaintietoa</string>
+	<string name="enable_screen_sleep">Anna näytön nukkua</string>
+	<!--  -->
+	<string name="enable_screen_sleep_description">Kun tämä asetus on käytössä, näytön annetaan nukkua käyttämättömyyden jälkeen.</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Köysirata-asema</string>

@@ -1209,6 +1209,9 @@
 	<string name="downloader_updating_ios">Atualização</string>
 	<string name="downloader_loading_ios">Carregamento</string>
 	<string name="key_information_title">Informações principais</string>
+	<string name="enable_screen_sleep">Permitir que a tela hiberne</string>
+	<!--  -->
+	<string name="enable_screen_sleep_description">Quando ativada, a tela poderá hibernar após um período de inatividade.</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Estação de teleférico</string>

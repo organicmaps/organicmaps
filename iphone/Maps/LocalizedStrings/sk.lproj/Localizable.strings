@@ -2174,6 +2174,11 @@
 
 "disconnect_usb_cable_title" = "Disconnect USB cable";
 
+"enable_screen_sleep" = "Nechajte obrazovku spať";
+
+/*  */
+"enable_screen_sleep_description" = "Ak je táto možnosť povolená, obrazovka bude môcť po určitej dobe nečinnosti spať.";
+
 
 /**********  Partners  **********/
 

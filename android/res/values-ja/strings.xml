@@ -1198,6 +1198,9 @@
 	<string name="downloader_updating_ios">更新中</string>
 	<string name="downloader_loading_ios">ダウンロード中</string>
 	<string name="key_information_title">重要情報</string>
+	<string name="enable_screen_sleep">画面をスリープ状態にする</string>
+	<!--  -->
+	<string name="enable_screen_sleep_description">有効にすると、画面は一定時間非アクティブになった後もスリープ状態になります。</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway">索道</string>

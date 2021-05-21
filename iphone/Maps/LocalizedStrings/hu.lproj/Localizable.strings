@@ -2174,6 +2174,11 @@
 
 "disconnect_usb_cable_title" = "Disconnect USB cable";
 
+"enable_screen_sleep" = "Hagyja aludni a képernyőt";
+
+/*  */
+"enable_screen_sleep_description" = "Ha engedélyezve van, akkor a képernyő inaktivitás után alszik.";
+
 
 /**********  Partners  **********/
 

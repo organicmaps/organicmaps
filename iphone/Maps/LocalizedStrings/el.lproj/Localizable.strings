@@ -2174,6 +2174,11 @@
 
 "disconnect_usb_cable_title" = "Disconnect USB cable";
 
+"enable_screen_sleep" = "Αφήστε την οθόνη να κοιμηθεί";
+
+/*  */
+"enable_screen_sleep_description" = "Όταν είναι ενεργοποιημένη, η οθόνη θα αφεθεί να κοιμηθεί μετά από περίοδο αδράνειας.";
+
 
 /**********  Partners  **********/
 

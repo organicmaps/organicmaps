@@ -2174,6 +2174,11 @@
 
 "disconnect_usb_cable_title" = "Disconnect USB cable";
 
+"enable_screen_sleep" = "อนุญาตให้หน้าจอเข้าสู่โหมดสลีป";
+
+/*  */
+"enable_screen_sleep_description" = "เมื่อเปิดใช้งานหน้าจอจะได้รับอนุญาตให้เข้าสู่โหมดสลีปหลังจากไม่มีการใช้งานเป็นระยะเวลาหนึ่ง";
+
 
 /**********  Partners  **********/
 

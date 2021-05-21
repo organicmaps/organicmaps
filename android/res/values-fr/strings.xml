@@ -1223,6 +1223,9 @@
 	<string name="downloader_updating_ios">Misе à jour</string>
 	<string name="downloader_loading_ios">Téléchargement</string>
 	<string name="key_information_title">Informations clés</string>
+	<string name="enable_screen_sleep">Autoriser l\'écran à dormir</string>
+	<!--  -->
+	<string name="enable_screen_sleep_description">Lorsqu\'il est activé, l\'écran sera autorisé à dormir après une période d\'inactivité.</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Remontées mécaniques</string>

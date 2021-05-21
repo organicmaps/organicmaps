@@ -1208,6 +1208,9 @@
 	<string name="downloader_updating_ios">更新</string>
 	<string name="downloader_loading_ios">加載</string>
 	<string name="key_information_title">關鍵信息</string>
+	<string name="enable_screen_sleep">允许屏幕进入休眠状态</string>
+	<!--  -->
+	<string name="enable_screen_sleep_description">启用后，屏幕将在一段时间不活动后进入休眠状态。</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">纜車站</string>

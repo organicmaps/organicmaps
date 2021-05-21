@@ -1209,6 +1209,9 @@
 	<string name="downloader_updating_ios">Opdaterer</string>
 	<string name="downloader_loading_ios">Downloader</string>
 	<string name="key_information_title">Central information</string>
+	<string name="enable_screen_sleep">Lad skærmen sove</string>
+	<!--  -->
+	<string name="enable_screen_sleep_description">Når den er aktiveret, får skærmen lov til at sove efter en periode med inaktivitet.</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Kabelbanestation</string>

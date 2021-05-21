@@ -1206,6 +1206,9 @@
 	<string name="downloader_updating_ios">Feltöltés</string>
 	<string name="downloader_loading_ios">Letöltés</string>
 	<string name="key_information_title">Kulcs információ</string>
+	<string name="enable_screen_sleep">Hagyja aludni a képernyőt</string>
+	<!--  -->
+	<string name="enable_screen_sleep_description">Ha engedélyezve van, akkor a képernyő inaktivitás után alszik.</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Felvonóállomás</string>

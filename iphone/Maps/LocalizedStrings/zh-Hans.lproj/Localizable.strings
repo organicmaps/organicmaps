@@ -2174,6 +2174,11 @@
 
 "disconnect_usb_cable_title" = "Disconnect USB cable";
 
+"enable_screen_sleep" = "允许屏幕进入休眠状态";
+
+/*  */
+"enable_screen_sleep_description" = "启用后，屏幕将在一段时间不活动后进入休眠状态。";
+
 
 /**********  Partners  **********/
 

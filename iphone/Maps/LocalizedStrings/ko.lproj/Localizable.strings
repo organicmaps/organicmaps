@@ -2174,6 +2174,11 @@
 
 "disconnect_usb_cable_title" = "Disconnect USB cable";
 
+"enable_screen_sleep" = "화면 절전 모드 허용";
+
+/*  */
+"enable_screen_sleep_description" = "활성화되면 일정 시간 동안 활동이 없으면 화면이 절전 모드로 전환됩니다.";
+
 
 /**********  Partners  **********/
 

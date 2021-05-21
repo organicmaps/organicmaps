@@ -2174,6 +2174,11 @@
 
 "disconnect_usb_cable_title" = "Disconnect USB cable";
 
+"enable_screen_sleep" = "Cho phép màn hình ở chế độ ngủ";
+
+/*  */
+"enable_screen_sleep_description" = "Khi được bật, màn hình sẽ được phép ở chế độ ngủ sau một thời gian không hoạt động.";
+
 
 /**********  Partners  **********/
 

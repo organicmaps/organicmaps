@@ -1205,6 +1205,9 @@
 	<string name="downloader_updating_ios">Uppdatering</string>
 	<string name="downloader_loading_ios">Nedladdning</string>
 	<string name="key_information_title">Nyckelinformation</string>
+	<string name="enable_screen_sleep">Låt skärmen sova</string>
+	<!--  -->
+	<string name="enable_screen_sleep_description">När den är aktiverad får skärmen sova efter en period av inaktivitet.</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Linbanestation</string>
