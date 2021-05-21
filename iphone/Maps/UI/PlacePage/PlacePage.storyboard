@@ -2359,16 +2359,6 @@
                                     <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="semibold14:blackSecondaryText"/>
                                 </userDefinedRuntimeAttributes>
                             </label>
-                            <imageView hidden="YES" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" image="img_lp" translatesAutoresizingMaskIntoConstraints="NO" id="9WC-eo-8eo">
-                                <rect key="frame" x="299" y="-6.5" width="60" height="30"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="60" id="23W-fz-a7k"/>
-                                    <constraint firstAttribute="height" constant="30" id="8ox-HR-0G7"/>
-                                </constraints>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="LonelyPlanetLogo"/>
-                                </userDefinedRuntimeAttributes>
-                            </imageView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="qpe-E9-MPN"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -2377,15 +2367,12 @@
                             <constraint firstItem="qAB-6K-R8S" firstAttribute="top" secondItem="qpe-E9-MPN" secondAttribute="top" id="CZC-ad-yrY"/>
                             <constraint firstItem="qAB-6K-R8S" firstAttribute="leading" secondItem="qpe-E9-MPN" secondAttribute="leading" constant="16" id="NZv-FF-oAZ"/>
                             <constraint firstItem="qpe-E9-MPN" firstAttribute="trailing" secondItem="26u-8Z-O72" secondAttribute="trailing" id="S6F-EV-Yka"/>
-                            <constraint firstItem="9WC-eo-8eo" firstAttribute="centerY" secondItem="qAB-6K-R8S" secondAttribute="centerY" id="Vc0-rX-NLh"/>
                             <constraint firstItem="26u-8Z-O72" firstAttribute="leading" secondItem="qpe-E9-MPN" secondAttribute="leading" id="Ydh-8A-9vt"/>
-                            <constraint firstItem="qpe-E9-MPN" firstAttribute="trailing" secondItem="9WC-eo-8eo" secondAttribute="trailing" constant="16" id="a1i-u1-WNT"/>
                             <constraint firstItem="26u-8Z-O72" firstAttribute="top" secondItem="2C0-Bt-PID" secondAttribute="top" id="qH0-hB-sbl"/>
                         </constraints>
                     </view>
                     <size key="freeformSize" width="375" height="12"/>
                     <connections>
-                        <outlet property="authorIcon" destination="9WC-eo-8eo" id="bJ8-7K-4wO"/>
                         <outlet property="titleLabel" destination="qAB-6K-R8S" id="kZx-Ki-Aji"/>
                     </connections>
                 </viewController>
@@ -2402,7 +2389,6 @@
         <image name="ic_placepage_change" width="24" height="24"/>
         <image name="ic_placepage_open_hours" width="28" height="28"/>
         <image name="img_direction_light" width="32" height="32"/>
-        <image name="img_lp" width="70" height="35"/>
         <image name="routes_gallery_attitude" width="16" height="16"/>
         <image name="routes_gallery_camera" width="14" height="11"/>
         <image name="routes_gallery_cell_image" width="40" height="40"/>

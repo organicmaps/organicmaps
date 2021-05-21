@@ -48,10 +48,6 @@ class PlacePageCommonLayout: NSObject, IPlacePageLayout {
   lazy var descriptionDividerViewController: PlacePageDividerViewController = {
     let vc = storyboard.instantiateViewController(ofType: PlacePageDividerViewController.self)
     vc.view.isHidden = true
-    if let bookmarkData = placePageData.bookmarkData {
-      let group = BookmarkGroup(categoryId: bookmarkData.bookmarkGroupId, bookmarksManager: BookmarksManager.shared())
-      vc.isAuthorIconHidden = true
-    }
     vc.titleText = L("placepage_place_description").uppercased()
     return vc
   } ()
