@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="bX8-ZQ-XDA">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="bX8-ZQ-XDA">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="Stack View standard spacing" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -14,8 +14,8 @@
         <!--Place Page View Controller-->
         <scene sceneID="6YW-kA-w2N">
             <objects>
-                <viewController id="bX8-ZQ-XDA" customClass="PlacePageViewController" customModule="OMaps" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="WOB-EV-vjA" customClass="TouchTransparentView" customModule="OMaps" customModuleProvider="target">
+                <viewController id="bX8-ZQ-XDA" customClass="PlacePageViewController" customModule="Organic_Maps" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="WOB-EV-vjA" customClass="TouchTransparentView" customModule="Organic_Maps" customModuleProvider="target">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
@@ -26,7 +26,7 @@
                                     <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="PPBackgroundView"/>
                                 </userDefinedRuntimeAttributes>
                             </view>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" bouncesZoom="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dJ0-97-CDh" customClass="PlacePageScrollView" customModule="OMaps" customModuleProvider="target">
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" bouncesZoom="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dJ0-97-CDh" customClass="PlacePageScrollView" customModule="Organic_Maps" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="617"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="24" translatesAutoresizingMaskIntoConstraints="NO" id="bsv-S8-EiF">
@@ -115,7 +115,7 @@
         <!--Place Page Preview View Controller-->
         <scene sceneID="3hX-xL-LxX">
             <objects>
-                <viewController storyboardIdentifier="PlacePagePreviewViewController" id="76G-o4-sUY" customClass="PlacePagePreviewViewController" customModule="OMaps" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="PlacePagePreviewViewController" id="76G-o4-sUY" customClass="PlacePagePreviewViewController" customModule="Organic_Maps" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="1x8-x0-W3C">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="220"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -174,7 +174,7 @@
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <view hidden="YES" contentMode="scaleToFill" horizontalHuggingPriority="1000" horizontalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="jaa-Yj-XQR" customClass="PlacePageDirectionView" customModule="OMaps" customModuleProvider="target">
+                                            <view hidden="YES" contentMode="scaleToFill" horizontalHuggingPriority="1000" horizontalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="jaa-Yj-XQR" customClass="PlacePageDirectionView" customModule="Organic_Maps" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="0.0" width="69.5" height="50"/>
                                                 <subviews>
                                                     <imageView autoresizesSubviews="NO" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="img_direction_light" translatesAutoresizingMaskIntoConstraints="NO" id="4kK-Rj-36V">
@@ -243,7 +243,7 @@
                                                     <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="regular14:blackPrimaryText"/>
                                                 </userDefinedRuntimeAttributes>
                                             </label>
-                                            <view hidden="YES" contentMode="scaleToFill" horizontalHuggingPriority="1000" horizontalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="y54-Rh-kGm" customClass="PlacePageDirectionView" customModule="OMaps" customModuleProvider="target">
+                                            <view hidden="YES" contentMode="scaleToFill" horizontalHuggingPriority="1000" horizontalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="y54-Rh-kGm" customClass="PlacePageDirectionView" customModule="Organic_Maps" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="0.0" width="69.5" height="50"/>
                                                 <subviews>
                                                     <imageView autoresizesSubviews="NO" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="img_direction_light" translatesAutoresizingMaskIntoConstraints="NO" id="cGR-t8-OJR">
@@ -344,7 +344,7 @@
         <!--Wiki Description View Controller-->
         <scene sceneID="xL3-C9-3Pb">
             <objects>
-                <viewController storyboardIdentifier="WikiDescriptionViewController" id="WSQ-QR-4WY" customClass="WikiDescriptionViewController" customModule="OMaps" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="WikiDescriptionViewController" id="WSQ-QR-4WY" customClass="WikiDescriptionViewController" customModule="Organic_Maps" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="99j-36-7TK">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="180"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -411,7 +411,7 @@
         <!--Place Page Info View Controller-->
         <scene sceneID="qdz-ee-nO9">
             <objects>
-                <viewController storyboardIdentifier="PlacePageInfoViewController" id="Ey0-wy-VrR" customClass="PlacePageInfoViewController" customModule="OMaps" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="PlacePageInfoViewController" id="Ey0-wy-VrR" customClass="PlacePageInfoViewController" customModule="Organic_Maps" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="uyH-Qn-86F">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="100"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -471,7 +471,7 @@
         <!--Action Bar View Controller-->
         <scene sceneID="MOc-50-GOI">
             <objects>
-                <viewController storyboardIdentifier="ActionBarViewController" id="idq-Vs-dIh" customClass="ActionBarViewController" customModule="OMaps" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ActionBarViewController" id="idq-Vs-dIh" customClass="ActionBarViewController" customModule="Organic_Maps" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Odt-s0-pOf" customClass="SolidTouchView">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -504,7 +504,7 @@
         <!--Place Page Buttons View Controller-->
         <scene sceneID="ogi-1N-syw">
             <objects>
-                <viewController storyboardIdentifier="PlacePageButtonsViewController" id="4Am-Sa-65S" customClass="PlacePageButtonsViewController" customModule="OMaps" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="PlacePageButtonsViewController" id="4Am-Sa-65S" customClass="PlacePageButtonsViewController" customModule="Organic_Maps" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="uEh-Ml-VWK">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="256"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -570,7 +570,7 @@
         <!--Info Item View Controller-->
         <scene sceneID="f7X-K7-lgf">
             <objects>
-                <viewController storyboardIdentifier="InfoItemViewController" id="cJQ-4x-NFc" customClass="InfoItemViewController" customModule="OMaps" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="InfoItemViewController" id="cJQ-4x-NFc" customClass="InfoItemViewController" customModule="Organic_Maps" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="oz0-2o-icQ">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -586,7 +586,7 @@
                                     <userDefinedRuntimeAttribute type="string" keyPath="coloring" value="MWMBlack"/>
                                 </userDefinedRuntimeAttributes>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="250" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8eU-Fj-XRv" customClass="CopyLabel" customModule="OMaps" customModuleProvider="target">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="250" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8eU-Fj-XRv" customClass="CopyLabel" customModule="Organic_Maps" customModuleProvider="target">
                                 <rect key="frame" x="56" y="0.0" width="287" height="44"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -669,7 +669,7 @@
         <!--Opening Hours View Controller-->
         <scene sceneID="txO-kw-ZRm">
             <objects>
-                <viewController storyboardIdentifier="OpeningHoursViewController" id="zV1-F6-GqX" customClass="OpeningHoursViewController" customModule="OMaps" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="OpeningHoursViewController" id="zV1-F6-GqX" customClass="OpeningHoursViewController" customModule="Organic_Maps" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="QE6-Lg-X0g">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="100"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -699,7 +699,7 @@
         <!--Opening Hours Today View Controller-->
         <scene sceneID="YRt-yX-ZY6">
             <objects>
-                <viewController storyboardIdentifier="OpeningHoursTodayViewController" id="0Mj-uY-vPG" customClass="OpeningHoursTodayViewController" customModule="OMaps" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="OpeningHoursTodayViewController" id="0Mj-uY-vPG" customClass="OpeningHoursTodayViewController" customModule="Organic_Maps" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="2IW-oU-HLV">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="100"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -841,7 +841,7 @@
         <!--Catalog Single Item View Controller-->
         <scene sceneID="HJX-eR-h7W">
             <objects>
-                <viewController storyboardIdentifier="CatalogSingleItemViewController" id="Uqa-lN-kxa" customClass="CatalogSingleItemViewController" customModule="OMaps" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="CatalogSingleItemViewController" id="Uqa-lN-kxa" customClass="CatalogSingleItemViewController" customModule="Organic_Maps" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" clipsSubviews="YES" contentMode="scaleToFill" id="8M2-fC-tzU">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="454"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1070,7 +1070,7 @@
         <!--Catalog Gallery View Controller-->
         <scene sceneID="2SQ-Cj-ThU">
             <objects>
-                <viewController storyboardIdentifier="CatalogGalleryViewController" id="JgS-R4-vTi" customClass="CatalogGalleryViewController" customModule="OMaps" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="CatalogGalleryViewController" id="JgS-R4-vTi" customClass="CatalogGalleryViewController" customModule="Organic_Maps" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" clipsSubviews="YES" contentMode="scaleToFill" id="VPS-rm-qWf">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="247"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1097,7 +1097,7 @@
                                     <inset key="sectionInset" minX="8" minY="0.0" maxX="16" maxY="0.0"/>
                                 </collectionViewFlowLayout>
                                 <cells>
-                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="DiscoveryGuideCell" id="IN7-Mv-bq7" customClass="CatalogPromoItemCell" customModule="OMaps" customModuleProvider="target">
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="DiscoveryGuideCell" id="IN7-Mv-bq7" customClass="CatalogPromoItemCell" customModule="Organic_Maps" customModuleProvider="target">
                                         <rect key="frame" x="8" y="0.5" width="160" height="194"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
@@ -1286,7 +1286,7 @@
         <!--Place Page Bookmark View Controller-->
         <scene sceneID="clb-tD-Svo">
             <objects>
-                <viewController storyboardIdentifier="PlacePageBookmarkViewController" id="cB4-oj-3Tv" customClass="PlacePageBookmarkViewController" customModule="OMaps" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="PlacePageBookmarkViewController" id="cB4-oj-3Tv" customClass="PlacePageBookmarkViewController" customModule="Organic_Maps" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="bRD-Uv-Uak">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="200"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1304,7 +1304,7 @@
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="iB6-kj-Bi1">
                                 <rect key="frame" x="16" y="17" width="343" height="183"/>
                                 <subviews>
-                                    <view contentMode="scaleToFill" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="5nz-eA-gNS" customClass="ExpandableLabel" customModule="OMaps" customModuleProvider="target">
+                                    <view contentMode="scaleToFill" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="5nz-eA-gNS" customClass="ExpandableLabel" customModule="Organic_Maps" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="0.0" width="343" height="139"/>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                         <userDefinedRuntimeAttributes>
@@ -1395,7 +1395,7 @@
         <!--Elevation Profile View Controller-->
         <scene sceneID="0yF-nr-ALU">
             <objects>
-                <viewController storyboardIdentifier="ElevationProfileViewController" id="d1y-Na-lDm" customClass="ElevationProfileViewController" customModule="OMaps" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ElevationProfileViewController" id="d1y-Na-lDm" customClass="ElevationProfileViewController" customModule="Organic_Maps" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="7Mx-au-yIa">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="319"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1430,7 +1430,7 @@
                                     <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 </collectionViewFlowLayout>
                                 <cells>
-                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="ElevationProfileDescriptionCell" id="ubO-dg-082" customClass="ElevationProfileDescriptionCell" customModule="OMaps" customModuleProvider="target">
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="ElevationProfileDescriptionCell" id="ubO-dg-082" customClass="ElevationProfileDescriptionCell" customModule="Organic_Maps" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="0.0" width="69" height="68"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="CH9-Og-i2q">
@@ -1502,7 +1502,7 @@
                                     <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="regular14:blackSecondaryText"/>
                                 </userDefinedRuntimeAttributes>
                             </label>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bc9-z0-p88" customClass="DifficultyView" customModule="OMaps" customModuleProvider="target">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bc9-z0-p88" customClass="DifficultyView" customModule="Organic_Maps" customModuleProvider="target">
                                 <rect key="frame" x="91" y="287" width="40" height="10"/>
                                 <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
@@ -1535,7 +1535,7 @@
                                     <action selector="onExtendedDifficultyButtonPressed:" destination="d1y-Na-lDm" eventType="touchUpInside" id="4zH-m2-OSE"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="S1" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GPk-XR-oL1" customClass="InsetsLabel" customModule="OMaps" customModuleProvider="target">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="S1" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GPk-XR-oL1" customClass="InsetsLabel" customModule="Organic_Maps" customModuleProvider="target">
                                 <rect key="frame" x="138.5" y="281" width="19" height="20.5"/>
                                 <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
@@ -1595,7 +1595,7 @@
         <!--Opening Hours Day View Controller-->
         <scene sceneID="4L0-Kt-il9">
             <objects>
-                <viewController storyboardIdentifier="OpeningHoursDayViewController" id="3bP-Zj-z8s" customClass="OpeningHoursDayViewController" customModule="OMaps" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="OpeningHoursDayViewController" id="3bP-Zj-z8s" customClass="OpeningHoursDayViewController" customModule="Organic_Maps" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Bn7-Ag-wuu">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="100"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1689,12 +1689,12 @@
         <!--Place Page Header View Controller-->
         <scene sceneID="qX4-pw-H2p">
             <objects>
-                <viewController storyboardIdentifier="PlacePageHeaderViewController" id="aB1-Yk-7p4" customClass="PlacePageHeaderViewController" customModule="OMaps" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="xTs-NP-HcT" customClass="PlacePageHeaderView" customModule="OMaps" customModuleProvider="target">
+                <viewController storyboardIdentifier="PlacePageHeaderViewController" id="aB1-Yk-7p4" customClass="PlacePageHeaderViewController" customModule="Organic_Maps" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="xTs-NP-HcT" customClass="PlacePageHeaderView" customModule="Organic_Maps" customModuleProvider="target">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="59"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="spW-XI-KSY" customClass="PlacePageHeaderView" customModule="OMaps" customModuleProvider="target">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="spW-XI-KSY" customClass="PlacePageHeaderView" customModule="Organic_Maps" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="49" width="375" height="10"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <constraints>
@@ -1704,7 +1704,7 @@
                                     <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="PPNavigationShadowView"/>
                                 </userDefinedRuntimeAttributes>
                             </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fqh-H3-eji" customClass="PlacePageHeaderView" customModule="OMaps" customModuleProvider="target">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fqh-H3-eji" customClass="PlacePageHeaderView" customModule="Organic_Maps" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="59"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Gdy-g5-gbM">
@@ -1788,7 +1788,6 @@
                             <constraint firstItem="fqh-H3-eji" firstAttribute="trailing" secondItem="My8-Gu-lky" secondAttribute="trailing" id="4KM-ef-rAJ"/>
                             <constraint firstItem="spW-XI-KSY" firstAttribute="trailing" secondItem="My8-Gu-lky" secondAttribute="trailing" id="CCn-tS-A3D"/>
                             <constraint firstItem="spW-XI-KSY" firstAttribute="leading" secondItem="My8-Gu-lky" secondAttribute="leading" id="GGu-BS-02R"/>
-                            <constraint firstAttribute="height" secondItem="fqh-H3-eji" secondAttribute="height" id="ViY-4k-xbU"/>
                             <constraint firstItem="spW-XI-KSY" firstAttribute="bottom" secondItem="My8-Gu-lky" secondAttribute="bottom" id="lTq-ZH-9JB"/>
                             <constraint firstItem="fqh-H3-eji" firstAttribute="leading" secondItem="My8-Gu-lky" secondAttribute="leading" id="oeF-o5-e7z"/>
                             <constraint firstItem="fqh-H3-eji" firstAttribute="top" secondItem="My8-Gu-lky" secondAttribute="top" id="oeY-ni-33F"/>
@@ -1810,7 +1809,7 @@
         <!--Guides Gallery View Controller-->
         <scene sceneID="0ZD-nj-cbT">
             <objects>
-                <viewController storyboardIdentifier="GuidesGalleryViewController" id="lVR-09-5LZ" customClass="GuidesGalleryViewController" customModule="OMaps" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="GuidesGalleryViewController" id="lVR-09-5LZ" customClass="GuidesGalleryViewController" customModule="Organic_Maps" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="g81-bI-Lrh">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="152"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1825,7 +1824,7 @@
                                     <inset key="sectionInset" minX="16" minY="16" maxX="16" maxY="16"/>
                                 </collectionViewFlowLayout>
                                 <cells>
-                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="GuidesGalleryCityCell" id="vXV-CJ-9mO" customClass="GuidesGalleryCityCell" customModule="OMaps" customModuleProvider="target">
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="GuidesGalleryCityCell" id="vXV-CJ-9mO" customClass="GuidesGalleryCityCell" customModule="Organic_Maps" customModuleProvider="target">
                                         <rect key="frame" x="16" y="16" width="343" height="120"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="SjY-63-Gvr">
@@ -2022,7 +2021,7 @@
                                             <outlet property="visibilityButton" destination="6nH-8K-eby" id="ZoM-hE-g4Q"/>
                                         </connections>
                                     </collectionViewCell>
-                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="GuidesGalleryOutdoorCell" id="fvq-qZ-nN0" customClass="GuidesGalleryOutdoorCell" customModule="OMaps" customModuleProvider="target">
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="GuidesGalleryOutdoorCell" id="fvq-qZ-nN0" customClass="GuidesGalleryOutdoorCell" customModule="Organic_Maps" customModuleProvider="target">
                                         <rect key="frame" x="367" y="16" width="343" height="120"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="tXf-bc-Dxh">
@@ -2339,7 +2338,7 @@
         <!--Place Page Divider View Controller-->
         <scene sceneID="ssa-Cp-vZM">
             <objects>
-                <viewController storyboardIdentifier="PlacePageDividerViewController" id="Fbp-36-gx4" customClass="PlacePageDividerViewController" customModule="OMaps" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="PlacePageDividerViewController" id="Fbp-36-gx4" customClass="PlacePageDividerViewController" customModule="Organic_Maps" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="2C0-Bt-PID">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="12"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
