@@ -62,7 +62,7 @@ See [NOTICE](https://github.com/organicmaps/organicmaps/blob/master/NOTICE)
 and [data/copyright.html](http://htmlpreview.github.io/?https://github.com/organicmaps/organicmaps/blob/master/data/copyright.html) files for more information.
 
 [google-play-badge]: https://img.shields.io/badge/Google-Play-green.svg?style=flat
-[google-play-url]: https://play.google.com/store/apps/details?id=app.omaps
+[google-play-url]: https://play.google.com/store/apps/details?id=app.organicmaps
 [firebase-appdistribution-url]: https://appdistribution.firebase.google.com/pub/i/4fa64e2439ca20ff
 [github-releases-url]: https://github.com/organicmaps/organicmaps/releases
 [apple-appstore-badge]: https://img.shields.io/badge/Apple-AppStore-white.svg?style=flat
