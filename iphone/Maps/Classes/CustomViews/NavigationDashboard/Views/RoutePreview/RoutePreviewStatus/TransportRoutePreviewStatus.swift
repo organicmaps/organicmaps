@@ -4,7 +4,6 @@ final class TransportRoutePreviewStatus: SolidTouchView {
   @IBOutlet private weak var stepsCollectionView: TransportTransitStepsCollectionView!
   @IBOutlet private weak var stepsCollectionViewHeight: NSLayoutConstraint!
 
-  private var hiddenConstraint: NSLayoutConstraint!
   @objc weak var ownerView: UIView!
 
   weak var navigationInfo: MWMNavigationDashboardEntity?
@@ -14,16 +13,8 @@ final class TransportRoutePreviewStatus: SolidTouchView {
       guard isVisible != oldValue else { return }
       if isVisible {
         addView()
-      }
-      DispatchQueue.main.async {
-        guard let sv = self.superview else { return }
-        sv.animateConstraints(animations: {
-          self.hiddenConstraint.isActive = !self.isVisible
-        }, completion: {
-          if !self.isVisible {
-            self.removeFromSuperview()
-          }
-        })
+      } else {
+        self.removeFromSuperview()
       }
     }
   }
@@ -32,27 +23,10 @@ final class TransportRoutePreviewStatus: SolidTouchView {
     guard superview != ownerView else { return }
     ownerView.addSubview(self)
 
-    addConstraints()
-  }
-
-  private func addConstraints() {
-    var lAnchor = ownerView.leadingAnchor
-    var tAnchor = ownerView.trailingAnchor
-    var bAnchor = ownerView.bottomAnchor
-    let layoutGuide = ownerView.safeAreaLayoutGuide
-    lAnchor = layoutGuide.leadingAnchor
-    tAnchor = layoutGuide.trailingAnchor
-    bAnchor = layoutGuide.bottomAnchor
-
-    leadingAnchor.constraint(equalTo: lAnchor).isActive = true
-    trailingAnchor.constraint(equalTo: tAnchor).isActive = true
-    hiddenConstraint = topAnchor.constraint(equalTo: bAnchor)
-    hiddenConstraint.priority = UILayoutPriority.defaultHigh
-    hiddenConstraint.isActive = true
-
-    let visibleConstraint = bottomAnchor.constraint(equalTo: bAnchor)
-    visibleConstraint.priority = UILayoutPriority.defaultLow
-    visibleConstraint.isActive = true
+    let lg = ownerView.safeAreaLayoutGuide
+    leadingAnchor.constraint(equalTo: lg.leadingAnchor).isActive = true
+    trailingAnchor.constraint(equalTo: lg.trailingAnchor).isActive = true
+    bottomAnchor.constraint(equalTo: lg.bottomAnchor).isActive = true
   }
 
   @objc func hide() {

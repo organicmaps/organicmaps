@@ -47,8 +47,8 @@ final class NavigationControlView: SolidTouchView, MWMTextToSpeechObserver, MapO
 
   private weak var navigationInfo: MWMNavigationDashboardEntity?
 
-  private var hiddenConstraint: NSLayoutConstraint!
   private var extendedConstraint: NSLayoutConstraint!
+  private var notExtendedConstraint: NSLayoutConstraint!
   @objc var isVisible = false {
     didSet {
       guard isVisible != oldValue else { return }
@@ -56,13 +56,6 @@ final class NavigationControlView: SolidTouchView, MWMTextToSpeechObserver, MapO
         addView()
       } else {
         removeView()
-      }
-      alpha = isVisible ? 0 : 1
-      DispatchQueue.main.async {
-        self.superview?.animateConstraints {
-          self.alpha = self.isVisible ? 1 : 0
-          self.hiddenConstraint.isActive = !self.isVisible
-        }
       }
     }
   }
@@ -79,7 +72,13 @@ final class NavigationControlView: SolidTouchView, MWMTextToSpeechObserver, MapO
       dimBackground.setVisible(isExtended, completion: nil)
       extendedView.isHidden = !isExtended
       superview!.animateConstraints(animations: {
-        self.extendedConstraint.isActive = self.isExtended
+        if (self.isExtended) {
+          self.notExtendedConstraint.isActive = false
+          self.extendedConstraint.isActive = true
+        } else {
+          self.extendedConstraint.isActive = false
+          self.notExtendedConstraint.isActive = true
+        }
       })
     }
   }
@@ -88,28 +87,15 @@ final class NavigationControlView: SolidTouchView, MWMTextToSpeechObserver, MapO
     guard superview != ownerView else { return }
     ownerView.addSubview(self)
 
-    var lAnchor = ownerView.leadingAnchor
-    var tAnchor = ownerView.trailingAnchor
-    var bAnchor = ownerView.bottomAnchor
-    let layoutGuide = ownerView.safeAreaLayoutGuide
-    lAnchor = layoutGuide.leadingAnchor
-    tAnchor = layoutGuide.trailingAnchor
-    bAnchor = layoutGuide.bottomAnchor
+    let lg = ownerView.safeAreaLayoutGuide
+    leadingAnchor.constraint(equalTo: lg.leadingAnchor).isActive = true
+    trailingAnchor.constraint(equalTo: lg.trailingAnchor).isActive = true
 
-    leadingAnchor.constraint(equalTo: lAnchor).isActive = true
-    trailingAnchor.constraint(equalTo: tAnchor).isActive = true
+    extendedConstraint = bottomAnchor.constraint(equalTo: lg.bottomAnchor)
+    extendedConstraint.isActive = false
 
-    hiddenConstraint = topAnchor.constraint(equalTo: ownerView.bottomAnchor)
-    hiddenConstraint.isActive = true
-
-    let visibleConstraint = progressView.bottomAnchor.constraint(equalTo: bAnchor)
-    visibleConstraint.priority = UILayoutPriority.defaultLow
-    visibleConstraint.isActive = true
-
-    extendedConstraint = bottomAnchor.constraint(equalTo: bAnchor)
-    extendedConstraint.priority = UILayoutPriority(rawValue: UILayoutPriority.RawValue(Int(UILayoutPriority.defaultHigh.rawValue) - 1))
-
-    ownerView.layoutIfNeeded()
+    notExtendedConstraint = progressView.bottomAnchor.constraint(equalTo: lg.bottomAnchor)
+    notExtendedConstraint.isActive = true
   }
 
   private func removeView() {
@@ -120,7 +106,6 @@ final class NavigationControlView: SolidTouchView, MWMTextToSpeechObserver, MapO
 
   override func awakeFromNib() {
     super.awakeFromNib()
-    translatesAutoresizingMaskIntoConstraints = false
 
     updateLegendSize()
 
