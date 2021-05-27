@@ -12,7 +12,7 @@ final class SearchNoResultsViewController: MWMViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
 
-    container.addSubview(MWMSearchNoResults.view(with: #imageLiteral(resourceName: "img_search_not_found"),
+    container.addSubview(MWMSearchNoResults.view(with: nil,
                                                  title: L("search_not_found"),
                                                  text: L("search_not_found_query")))
     MWMKeyboard.add(self)
