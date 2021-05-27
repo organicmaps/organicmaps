@@ -37,7 +37,7 @@ final class SearchHistoryViewController: MWMViewController {
   }
   
   func showNoResultsView() {
-    guard let noResultsView = MWMSearchNoResults.view(with: UIImage(named: "img_search_history"),
+    guard let noResultsView = MWMSearchNoResults.view(with: nil,
                                                       title: L("search_history_title"),
                                                       text: L("search_history_text")) else {
                                                         assertionFailure()
