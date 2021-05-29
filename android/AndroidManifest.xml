@@ -80,18 +80,14 @@
         <data android:scheme="om"/>
       </intent-filter>
 
-      <intent-filter>
+      <intent-filter android:autoVerify="true">
         <action android:name="android.intent.action.VIEW"/>
 
         <category android:name="android.intent.category.DEFAULT"/>
         <category android:name="android.intent.category.BROWSABLE"/>
 
-        <data
-            android:host="omaps.app"
-            android:scheme="https"/>
-        <data
-            android:host="omaps.app"
-            android:scheme="http"/>
+        <data android:scheme="http" android:host="omaps.app"/>
+        <data android:scheme="https"/>
       </intent-filter>
 
       <intent-filter>
@@ -100,12 +96,8 @@
         <category android:name="android.intent.category.DEFAULT"/>
         <category android:name="android.intent.category.BROWSABLE"/>
 
-        <data
-          android:host="maps.google.com"
-          android:scheme="https"/>
-        <data
-          android:host="maps.google.com"
-          android:scheme="http"/>
+        <data android:scheme="http" android:host="maps.google.com"/>
+        <data android:scheme="https"/>
       </intent-filter>
 
       <intent-filter>
