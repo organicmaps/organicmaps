@@ -802,21 +802,36 @@ public class PlacePageView extends NestedScrollViewClickFixed
 
   private void refreshOpeningHours(@NonNull MapObject mapObject)
   {
-    final Timetable[] timetables = OpeningHours.nativeTimetablesFromString(mapObject.getMetadata(Metadata.MetadataType.FMD_OPEN_HOURS));
-    if (timetables == null || timetables.length == 0)
+    final String ohStr = mapObject.getMetadata(Metadata.MetadataType.FMD_OPEN_HOURS);
+    final Timetable[] timetables = OpeningHours.nativeTimetablesFromString(ohStr);
+    final boolean isEmptyTT = (timetables == null || timetables.length == 0);
+    final int color = ThemeUtils.getColor(getContext(), android.R.attr.textColorPrimary);
+
+    String ohStringToShow = null;
+
+    if (isEmptyTT)
     {
-      UiUtils.hide(mOpeningHours);
-      return;
+      if (!ohStr.isEmpty())
+        ohStringToShow = ohStr;
+      else
+      {
+        UiUtils.hide(mOpeningHours);
+        return;
+      }
     }
 
     UiUtils.show(mOpeningHours);
 
     final Resources resources = getResources();
-    if (timetables[0].isFullWeek())
+    if (!isEmptyTT && timetables[0].isFullWeek())
     {
-      refreshTodayOpeningHours((timetables[0].isFullday ? resources.getString(R.string.twentyfour_seven)
-                                                        : resources.getString(R.string.daily) + " " + timetables[0].workingTimespan),
-                               ThemeUtils.getColor(getContext(), android.R.attr.textColorPrimary));
+      ohStringToShow = timetables[0].isFullday ? resources.getString(R.string.twentyfour_seven)
+                                               : resources.getString(R.string.daily) + " " + timetables[0].workingTimespan;
+    }
+
+    if (ohStringToShow != null)
+    {
+      refreshTodayOpeningHours(ohStringToShow, color);
       UiUtils.clearTextAndHide(mFullOpeningHours);
       return;
     }
@@ -840,9 +855,7 @@ public class PlacePageView extends NestedScrollViewClickFixed
           workingTime = tt.workingTimespan.toString();
         }
 
-        refreshTodayOpeningHours(resources.getString(R.string.today) + " " + workingTime,
-                                 ThemeUtils.getColor(getContext(), android.R.attr.textColorPrimary));
-
+        refreshTodayOpeningHours(resources.getString(R.string.today) + " " + workingTime, color);
         break;
       }
     }
