@@ -1365,7 +1365,15 @@ Java_com_mapswithme_maps_Framework_nativeMarkMapStyle(JNIEnv * env, jclass, jint
 JNIEXPORT void JNICALL
 Java_com_mapswithme_maps_Framework_nativeSetRouter(JNIEnv * env, jclass, jint routerType)
 {
-  g_framework->GetRoutingManager().SetRouter(static_cast<routing::RouterType>(routerType));
+  using Type = routing::RouterType;
+  Type type = Type::Vehicle;
+  switch (routerType)
+  {
+    case 1: type = Type::Pedestrian; break;
+    case 2: type = Type::Bicycle; break;
+    case 3: type = Type::Transit; break;
+  }
+  g_framework->GetRoutingManager().SetRouter(type);
 }
 
 JNIEXPORT jint JNICALL
