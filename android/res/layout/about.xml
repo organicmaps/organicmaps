@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+             xmlns:app="http://schemas.android.com/apk/res-auto"
              xmlns:tools="http://schemas.android.com/tools"
              android:layout_width="match_parent"
              android:layout_height="match_parent">
@@ -45,32 +46,32 @@
       <TextView android:id="@+id/telegram"
                 style="@style/MwmWidget.TextView.Item"
                 android:text="@string/telegram"
-                android:drawableStart="@drawable/ic_telegram"/>
+                app:drawableStartCompat="@drawable/ic_telegram" />
 
       <TextView android:id="@+id/github"
                 style="@style/MwmWidget.TextView.Item"
                 android:text="@string/github"
-                android:drawableStart="@drawable/ic_github"/>
+                app:drawableStartCompat="@drawable/ic_github"/>
 
       <TextView android:id="@+id/web"
                 style="@style/MwmWidget.TextView.Item"
                 android:text="@string/website"
-                android:drawableStart="@drawable/ic_website"/>
+                app:drawableStartCompat="@drawable/ic_website"/>
 
       <TextView android:id="@+id/facebook"
                 style="@style/MwmWidget.TextView.Item"
                 android:text="@string/facebook"
-                android:drawableStart="@drawable/ic_facebook"/>
+                app:drawableStartCompat="@drawable/ic_facebook"/>
 
       <TextView android:id="@+id/twitter"
                 style="@style/MwmWidget.TextView.Item"
                 android:text="@string/twitter"
-                android:drawableStart="@drawable/ic_twitter"/>
+                app:drawableStartCompat="@drawable/ic_twitter"/>
 
       <TextView android:id="@+id/instagram"
                 style="@style/MwmWidget.TextView.Item"
                 android:text="@string/instagram"
-                android:drawableStart="@drawable/ic_instagram"/>
+                app:drawableStartCompat="@drawable/ic_instagram"/>
 
       <View android:layout_width="match_parent"
             android:layout_height="1dp"
@@ -81,12 +82,12 @@
       <TextView android:id="@+id/rate"
                 style="@style/MwmWidget.TextView.Item"
                 android:text="@string/rate_gp"
-                android:drawableStart="@drawable/ic_rate"/>
+                app:drawableStartCompat="@drawable/ic_rate"/>
 
       <TextView android:id="@+id/share"
                 style="@style/MwmWidget.TextView.Item"
                 android:text="@string/tell_friends"
-                android:drawableStart="@drawable/ic_share"/>
+                app:drawableStartCompat="@drawable/ic_share"/>
 
       <View android:layout_width="match_parent"
             android:layout_height="1dp"
