@@ -1,7 +1,7 @@
 #pragma once
 
-#define OSM_CONSUMER_KEY ""
-#define OSM_CONSUMER_SECRET ""
+#define OSM_CONSUMER_KEY "zz16eUusTr4TcVhoKQrgOJaRzZAeI2ktbVx6e3yn"
+#define OSM_CONSUMER_SECRET "7g4XrlhFkiOG1I3Zpqh8ajo94P9cNNXaU2YCMgL7"
 #define MWM_GEOLOCATION_SERVER ""
 #define RESOURCES_METASERVER_URL ""
 #define METASERVER_URL ""
