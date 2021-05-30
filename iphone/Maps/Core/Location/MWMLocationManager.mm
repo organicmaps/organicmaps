@@ -321,7 +321,6 @@ void setShowLocationAlert(BOOL needShow) {
     case MWMRouterTypePublicTransport:
     case MWMRouterTypePedestrian: manager.geoMode = GeoMode::PedestrianRouting; break;
     case MWMRouterTypeBicycle: manager.geoMode = GeoMode::BicycleRouting; break;
-    case MWMRouterTypeTaxi: break;
     }
   }
   else
