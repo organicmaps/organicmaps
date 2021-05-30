@@ -1,0 +1,14 @@
+{
+  "private": true,
+  "name": "Organic Maps",
+  "version": "1.0.0",
+  "description": "Tools and helpers",
+  "scripts": {
+    "format:docs": "prettier --write README.md 'docs/**/*.md' 'tools/python/**/*.md'"
+  },
+  "author": "Alexander Borsuk <me@alex.bio>",
+  "license": "MIT",
+  "devDependencies": {
+    "prettier": "^2.3.0"
+  }
+}

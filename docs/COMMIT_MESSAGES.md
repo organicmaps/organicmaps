@@ -24,7 +24,7 @@ Any commit needs a helpful message. Mind the following guidelines when committin
 7. Use the imperative mood in the subject line.
 
    - A properly formed Git commit subject line should always be able to complete
-    the following sentence: "If applied, this commit will */your subject line here/*".
+     the following sentence: "If applied, this commit will _/your subject line here/_".
 
 8. Wrap the body to **72 characters** or so.
 9. Use the body to explain **what and why** vs. how.
