@@ -154,7 +154,6 @@ void RoutingSettings::AddListWidgetWithRoutingTypes()
   m_routerType->insertItem(static_cast<int>(RouterType::Vehicle), "car");
   m_routerType->insertItem(static_cast<int>(RouterType::Pedestrian), "pedestrian");
   m_routerType->insertItem(static_cast<int>(RouterType::Bicycle), "bicycle");
-  m_routerType->insertItem(static_cast<int>(RouterType::Taxi), "taxi");
   m_routerType->insertItem(static_cast<int>(RouterType::Transit), "transit");
 
   m_form.addRow("Choose router:", m_routerType);

@@ -2500,10 +2500,9 @@ void Framework::AllowAutoZoom(bool allowAutoZoom)
 {
   routing::RouterType const type = m_routingManager.GetRouter();
   bool const isPedestrianRoute = type == RouterType::Pedestrian;
-  bool const isTaxiRoute = type == RouterType::Taxi;
 
   if (m_drapeEngine != nullptr)
-    m_drapeEngine->AllowAutoZoom(allowAutoZoom && !isPedestrianRoute && !isTaxiRoute);
+    m_drapeEngine->AllowAutoZoom(allowAutoZoom && !isPedestrianRoute);
 }
 
 void Framework::SaveAutoZoom(bool allowAutoZoom)

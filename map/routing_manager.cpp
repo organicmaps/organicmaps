@@ -203,8 +203,7 @@ VehicleType GetVehicleType(RouterType routerType)
   {
   case RouterType::Pedestrian: return VehicleType::Pedestrian;
   case RouterType::Bicycle: return VehicleType::Bicycle;
-  case RouterType::Vehicle:
-  case RouterType::Taxi: return VehicleType::Car;
+  case RouterType::Vehicle: return VehicleType::Car;
   case RouterType::Transit: return VehicleType::Transit;
   case RouterType::Count: CHECK(false, ("Invalid type", routerType)); return VehicleType::Count;
   }
@@ -686,7 +685,6 @@ bool RoutingManager::InsertRoute(Route const & route)
     switch (m_currentRouterType)
     {
       case RouterType::Vehicle:
-      case RouterType::Taxi:
         {
           subroute->m_routeType = m_currentRouterType == RouterType::Vehicle ? df::RouteType::Car : df::RouteType::Taxi;
           subroute->AddStyle(df::SubrouteStyle(df::kRouteColor, df::kRouteOutlineColor));
@@ -963,9 +961,6 @@ void RoutingManager::ReorderIntermediatePoints()
 
 void RoutingManager::GenerateNotifications(vector<string> & turnNotifications)
 {
-  if (m_currentRouterType == RouterType::Taxi)
-    return;
-
   m_routingSession.GenerateNotifications(turnNotifications);
 }
 

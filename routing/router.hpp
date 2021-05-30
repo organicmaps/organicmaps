@@ -44,7 +44,6 @@ enum class RouterType
   Vehicle = 0,  /// For Car routing.
   Pedestrian,   /// For A star pedestrian routing.
   Bicycle,      /// For A star bicycle routing.
-  Taxi,         /// For taxi route calculation Vehicle routing is used.
   Transit,      /// For A star pedestrian + transit routing.
   Count         /// Number of router types.
 };
