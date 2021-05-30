@@ -8,7 +8,8 @@ There are many ways to contribute.
 
 ### Bug Reports
 
-The simplest way to contribute is to [submit an issue](https://github.com/organicmaps/organicmaps/issues).Please give developers as much information as possible: OS and application versions,
+The simplest way to contribute is to [submit an issue](https://github.com/organicmaps/organicmaps/issues).
+Please give developers as much information as possible: OS and application versions,
 list of actions leading to a bug, a log file produced by the app.
 
 When using the Organic Maps app on a device, use the built-in "Report a bug" option:

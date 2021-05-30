@@ -31,8 +31,8 @@ Naming and formatting
 - Values of enum classes must be named in CamelCase, e.g. `enum class Color { Red, Green, LightBlue };`.
 - Macros and C-style enums must be named in UPPER_CASE, and enum values must be prefixed with a capitalized enum name.
 
-    Note that macros complicate debugging, and old-style enums have dangerous implicit conversions to integers, and tend to clutter
-    containing namespaces. Avoid them when possible - use `const` or `constexpr` instead of macros, and enum classes instead of enums.
+  Note that macros complicate debugging, and old-style enums have dangerous implicit conversions to integers, and tend to clutter
+  containing namespaces. Avoid them when possible - use `const` or `constexpr` instead of macros, and enum classes instead of enums.
 
 **We write code without warnings!**
 
@@ -211,11 +211,11 @@ v = w * (x + z);
 - Use `ASSERT(expression, (out message))` and `ASSERT_XXXXXX` macros often to check code validity in DEBUG builds
 - Use `CHECK(expression, (out message))` and `CHECK_XXXXXX` macros to check code validity in all builds
 - Use `LOG(level, (message))` for logging, below is more detailed description for level:
-    * `LINFO` - always prints log message
-    * `LDEBUG` - logs only in DEBUG
-    * `LWARNING` - the same as `LINFO` but catches your attention
-    * `LERROR` - the same as `LWARNING`, but crashes in DEBUG and works in RELEASE
-    * `LCRITICAL` - the same as `LERROR` and ALWAYS crashes
+  - `LINFO` - always prints log message
+  - `LDEBUG` - logs only in DEBUG
+  - `LWARNING` - the same as `LINFO` but catches your attention
+  - `LERROR` - the same as `LWARNING`, but crashes in DEBUG and works in RELEASE
+  - `LCRITICAL` - the same as `LERROR` and ALWAYS crashes
 - Need scope guard? Check `SCOPE_GUARD(name, func)`
 - Use `std::array::size()` to calculate plain C-array's size
 - Declare your own exceptions with `DECLARE_EXCEPTION(name, baseException)`, where `baseException` is usually `RootException`

@@ -1,6 +1,6 @@
 /// Performs full case folding for string to make it search-compatible according
 /// to rules in ftp://ftp.unicode.org/Public/UNIDATA/CaseFolding.txt
-/// This beautiful code has been inspired by Zurich area in 2011 (Alex Zolotarev).
+/// This beautiful code has been inspired by Zurich area in 2011 (Alexander Borsuk).
 
 #include "base/string_utils.hpp"
 

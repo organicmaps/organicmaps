@@ -56,7 +56,7 @@ Organic Map is free from trackers and other bad stuff:
 - No annoying registration
 - No mandatory tutorials
 - No noisy email spam
-- No push notifications 
+- No push notifications
 - No crapware
 - <s>No pesticides</s>
 
@@ -85,8 +85,8 @@ Reject surveillance - embrace your freedom.
 
 ## Copyrights
 
-Licensed under the Apache License, Version 2.0. See 
-[LICENSE](https://github.com/organicmaps/organicmaps/blob/master/LICENSE), 
+Licensed under the Apache License, Version 2.0. See
+[LICENSE](https://github.com/organicmaps/organicmaps/blob/master/LICENSE),
 [NOTICE](https://github.com/organicmaps/organicmaps/blob/master/NOTICE)
 and [data/copyright.html](http://htmlpreview.github.io/?https://github.com/organicmaps/organicmaps/blob/master/data/copyright.html)
 files for more information.
@@ -117,4 +117,3 @@ Please join our beta program, suggest your features and report bugs:
 - Contact us by [email](mailto:hello@organicmaps.app).
 
 The Organic Maps community abides by the CNCF code of conduct.
-
