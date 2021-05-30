@@ -1369,9 +1369,11 @@ Java_com_mapswithme_maps_Framework_nativeSetRouter(JNIEnv * env, jclass, jint ro
   Type type = Type::Vehicle;
   switch (routerType)
   {
+    case 0: break;
     case 1: type = Type::Pedestrian; break;
     case 2: type = Type::Bicycle; break;
     case 3: type = Type::Transit; break;
+    default: assert(false); break;
   }
   g_framework->GetRoutingManager().SetRouter(type);
 }
