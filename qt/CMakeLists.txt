@@ -171,7 +171,6 @@ copy_resources(
   resources-xxhdpi_clear
   resources-xxxhdpi_clear
   resources-6plus_clear
-  taxi_places
   welcome.html
 
   categories.txt
