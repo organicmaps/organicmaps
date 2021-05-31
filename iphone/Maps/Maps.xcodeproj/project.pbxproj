@@ -202,7 +202,6 @@
 		3D15ACEE2155117000F725D5 /* MWMObjectsCategorySelectorDataSource.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3D15ACED2155117000F725D5 /* MWMObjectsCategorySelectorDataSource.mm */; };
 		3DBD7BE42425015C00ED9FE8 /* ParntersStyleSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DBD7BE32425015C00ED9FE8 /* ParntersStyleSheet.swift */; };
 		3DEE1AEB21F72CD300054A91 /* MWMPowerManagmentViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3DEE1AEA21F72CD300054A91 /* MWMPowerManagmentViewController.mm */; };
-		3DF9C22B207CC14A00DA0793 /* taxi_places in Resources */ = {isa = PBXBuildFile; fileRef = 3DF9C22A207CC14A00DA0793 /* taxi_places */; };
 		408645FC21495EB1000A4A1D /* categories_cuisines.txt in Resources */ = {isa = PBXBuildFile; fileRef = 408645FB21495EB1000A4A1D /* categories_cuisines.txt */; };
 		4501B1942077C35A001B9173 /* resources-xxxhdpi_clear in Resources */ = {isa = PBXBuildFile; fileRef = 4501B1922077C35A001B9173 /* resources-xxxhdpi_clear */; };
 		4501B1952077C35A001B9173 /* resources-xxxhdpi_dark in Resources */ = {isa = PBXBuildFile; fileRef = 4501B1932077C35A001B9173 /* resources-xxxhdpi_dark */; };
@@ -1050,7 +1049,6 @@
 		3DBD7BE32425015C00ED9FE8 /* ParntersStyleSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParntersStyleSheet.swift; sourceTree = "<group>"; };
 		3DEE1AE921F72CD300054A91 /* MWMPowerManagmentViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MWMPowerManagmentViewController.h; sourceTree = "<group>"; };
 		3DEE1AEA21F72CD300054A91 /* MWMPowerManagmentViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMPowerManagmentViewController.mm; sourceTree = "<group>"; };
-		3DF9C22A207CC14A00DA0793 /* taxi_places */ = {isa = PBXFileReference; lastKnownFileType = folder; name = taxi_places; path = ../../data/taxi_places; sourceTree = "<group>"; };
 		408645FB21495EB1000A4A1D /* categories_cuisines.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = categories_cuisines.txt; path = ../../data/categories_cuisines.txt; sourceTree = "<group>"; };
 		4501B1922077C35A001B9173 /* resources-xxxhdpi_clear */ = {isa = PBXFileReference; lastKnownFileType = folder; name = "resources-xxxhdpi_clear"; path = "../../data/resources-xxxhdpi_clear"; sourceTree = "<group>"; };
 		4501B1932077C35A001B9173 /* resources-xxxhdpi_dark */ = {isa = PBXFileReference; lastKnownFileType = folder; name = "resources-xxxhdpi_dark"; path = "../../data/resources-xxxhdpi_dark"; sourceTree = "<group>"; };
@@ -3644,7 +3642,6 @@
 				F623DA6A1C9C2731006A3436 /* opening_hours_how_to_edit.html */,
 				FA85F632145DDDC20090E1A0 /* packed_polygons.bin */,
 				451950391B7A3E070085DA05 /* patterns.txt */,
-				3DF9C22A207CC14A00DA0793 /* taxi_places */,
 				4A23D1571B8B4DD700D4EB6F /* resources-6plus_clear */,
 				4A7D89C11B2EBF3B00AC843E /* resources-6plus_dark */,
 				A367C93A1B17334800E2B6E7 /* resources-default */,
@@ -3867,7 +3864,6 @@
 				34AB66351FC5AA330078E451 /* RouteManagerCell.xib in Resources */,
 				F6E2FE011E097BA00083EBEC /* MWMOpeningHoursClosedSpanTableViewCell.xib in Resources */,
 				F6E2FE071E097BA00083EBEC /* MWMOpeningHoursDaysSelectorTableViewCell.xib in Resources */,
-				3DF9C22B207CC14A00DA0793 /* taxi_places in Resources */,
 				F6E2FE0D1E097BA00083EBEC /* MWMOpeningHoursDeleteScheduleTableViewCell.xib in Resources */,
 				F6E2FE161E097BA00083EBEC /* MWMOpeningHoursTimeSelectorTableViewCell.xib in Resources */,
 				F6E2FE1C1E097BA00083EBEC /* MWMOpeningHoursTimeSpanTableViewCell.xib in Resources */,
