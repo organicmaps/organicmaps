@@ -187,12 +187,14 @@ include(BundledBoost)
 
 # Scripts
 
-execute_process(
-    COMMAND "${OMIM_ROOT}/tools/unix/check_cert.sh"
-    RESULT_VARIABLE CheckCertResult
-)
-if (CheckCertResult)
-    message(FATAL_ERROR "Certificate check failed")
+if (NOT CMAKE_HOST_WIN32)
+  execute_process(
+      COMMAND "${OMIM_ROOT}/tools/unix/check_cert.sh"
+      RESULT_VARIABLE CheckCertResult
+  )
+  if (CheckCertResult)
+      message(FATAL_ERROR "Certificate check failed")
+  endif()
 endif()
 
 if (NOT PLATFORM_IPHONE AND NOT PLATFORM_ANDROID)
