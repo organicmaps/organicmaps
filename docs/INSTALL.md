@@ -8,9 +8,9 @@
 
 ### Preparing
 
-You need a Linux or a Mac machine to build OMaps.
+You need a Linux or a Mac machine to build a desktop version of Organic Maps.
 
- - We haven't compiled OMaps on Windows in a long time, though it is possible.
+ - We haven't compiled Organic Maps on Windows in a long time, though it is possible.
    It is likely some make files should be updated.
    If you succeed, please submit a tutorial.
 
@@ -189,11 +189,7 @@ Some tests [are known to be broken](https://github.com/organicmaps/organicmaps/i
 
 ### Preparing
 
-You need a Linux or a Mac machine to build OMaps for Android.
-
- - We haven't compiled OMaps on Windows in a long time, though it is possible.
-   It is likely some make files should be updated.
-   If you succeed, please submit a tutorial.
+Linux, Mac, or Windows should work to build Organic Maps for Android.
 
 Ensure that you have at least 20GB of free space.
 
@@ -204,16 +200,28 @@ Install [Android SDK](https://developer.android.com/sdk/index.html) and
 
  - Run the Android Studio.
  - Open "SDK Manager" ("Tools" → "SDK Manager").
- - Choose "Android 10 (Q) API Level 29" SDK.
- - Choose "version "29" and click "OK".
- - Open "SDK Tools", choose "NDK (side by side)" and "CMake" and click "OK"
+ - Choose "Android 11 (R) API Level 30" SDK.
+ - Choose "version "30" and click "OK".
+ - Check "Show Package Details" checkbox.
+ - Choose "NDK (side by side)" version **21.X.Y**.
+ - Choose "CMake" version **3.18.XX**.
+ - Click "OK".
 
 Alternatively, you can install only
 [Android SDK](https://developer.android.com/sdk/index.html) and
 [NDK](https://developer.android.com/tools/sdk/ndk/index.html) without
-installing Android Studio.
+installing Android Studio. Please make sure that SDK for API Level 30,
+NDK version **21.X.Y** and CMake version **3.18.XX** are installed.
 
 ### Getting sources
+
+**Windows 10.** Enable [symlinks][git-symlinks] support in git:
+
+[git-symlinks]: https://git-scm.com/docs/git-config#Documentation/git-config.txt-coresymlinks
+
+```bash
+git config --global core.symlinks true
+```
 
 Clone the repository:
 
@@ -231,7 +239,6 @@ Configure the repository as opensource build:
 
 ```bash
 ./configure.sh
-
 ```
 
 or with private repository
@@ -240,6 +247,19 @@ or with private repository
 ./configure.sh <private-repo-name>
 ```
 
+**Windows 10.** Use WSL to run `./configure.sh`:
+
+```bash
+bash ./configure.sh # execute the script by using Ubuntu WSL VM
+```
+
+**Windows 10.** Alternative way is to initialize Boost manually:
+
+1. Install Visual Studio 2019 Community Edition.
+2. Add cl.exe to your PATH (`C:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Community\\VC\\Auxiliary\\Build\\vcvars32.bat`).
+3. Run `./configure.sh` from *Git (for Window) Bash* and ignore all errors related to Boost.
+4. Go to `./3party/boost`, run `./bootstrap.bat`, and then `b2 headers` to configure Boost.
+
 Set Android SDK and NDK path:
 
 ```bash
@@ -247,6 +267,8 @@ Set Android SDK and NDK path:
 ./tools/android/set_up_android.py --sdk $HOME/Android/Sdk
 # MacOS
 ./tools/android/set_up_android.py --sdk $HOME/Library/Android/Sdk
+# Windows 10
+# no actions needed, should work out of the box
 ```
 
 ### Building
@@ -282,14 +304,14 @@ ls -la ./android/build/outputs/apk/android-web-beta-*.apk
 To enable logging in case of crashes, after installing a debug version, run:
 
 ```bash
-adb shell pm grant app.omaps.debug android.permission.READ_LOGS
+adb shell pm grant app.organicmaps.debug android.permission.READ_LOGS
 ```
 
 ## iOS app
 
 ### Preparing
 
-Building OMaps for iOS requires a Mac.
+Building Organic Maps for iOS requires a Mac.
 
 Ensure that you have at least 20GB of free space.
 
