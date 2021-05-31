@@ -164,112 +164,112 @@ R"(<?xml version="1.0" encoding="UTF-8"?>
   <Style id="placemark-red">
     <IconStyle>
       <Icon>
-        <href>https://organicmaps.app/placemarks/placemark-red.png</href>
+        <href>https://omaps.app/placemarks/placemark-red.png</href>
       </Icon>
     </IconStyle>
   </Style>
   <Style id="placemark-blue">
     <IconStyle>
       <Icon>
-        <href>https://organicmaps.app/placemarks/placemark-blue.png</href>
+        <href>https://omaps.app/placemarks/placemark-blue.png</href>
       </Icon>
     </IconStyle>
   </Style>
   <Style id="placemark-purple">
     <IconStyle>
       <Icon>
-        <href>https://organicmaps.app/placemarks/placemark-purple.png</href>
+        <href>https://omaps.app/placemarks/placemark-purple.png</href>
       </Icon>
     </IconStyle>
   </Style>
   <Style id="placemark-yellow">
     <IconStyle>
       <Icon>
-        <href>https://organicmaps.app/placemarks/placemark-yellow.png</href>
+        <href>https://omaps.app/placemarks/placemark-yellow.png</href>
       </Icon>
     </IconStyle>
   </Style>
   <Style id="placemark-pink">
     <IconStyle>
       <Icon>
-        <href>https://organicmaps.app/placemarks/placemark-pink.png</href>
+        <href>https://omaps.app/placemarks/placemark-pink.png</href>
       </Icon>
     </IconStyle>
   </Style>
   <Style id="placemark-brown">
     <IconStyle>
       <Icon>
-        <href>https://organicmaps.app/placemarks/placemark-brown.png</href>
+        <href>https://omaps.app/placemarks/placemark-brown.png</href>
       </Icon>
     </IconStyle>
   </Style>
   <Style id="placemark-green">
     <IconStyle>
       <Icon>
-        <href>https://organicmaps.app/placemarks/placemark-green.png</href>
+        <href>https://omaps.app/placemarks/placemark-green.png</href>
       </Icon>
     </IconStyle>
   </Style>
   <Style id="placemark-orange">
     <IconStyle>
       <Icon>
-        <href>https://organicmaps.app/placemarks/placemark-orange.png</href>
+        <href>https://omaps.app/placemarks/placemark-orange.png</href>
       </Icon>
     </IconStyle>
   </Style>
   <Style id="placemark-deeppurple">
     <IconStyle>
       <Icon>
-        <href>https://organicmaps.app/placemarks/placemark-deeppurple.png</href>
+        <href>https://omaps.app/placemarks/placemark-deeppurple.png</href>
       </Icon>
     </IconStyle>
   </Style>
   <Style id="placemark-lightblue">
     <IconStyle>
       <Icon>
-        <href>https://organicmaps.app/placemarks/placemark-lightblue.png</href>
+        <href>https://omaps.app/placemarks/placemark-lightblue.png</href>
       </Icon>
     </IconStyle>
   </Style>
   <Style id="placemark-cyan">
     <IconStyle>
       <Icon>
-        <href>https://organicmaps.app/placemarks/placemark-cyan.png</href>
+        <href>https://omaps.app/placemarks/placemark-cyan.png</href>
       </Icon>
     </IconStyle>
   </Style>
   <Style id="placemark-teal">
     <IconStyle>
       <Icon>
-        <href>https://organicmaps.app/placemarks/placemark-teal.png</href>
+        <href>https://omaps.app/placemarks/placemark-teal.png</href>
       </Icon>
     </IconStyle>
   </Style>
   <Style id="placemark-lime">
     <IconStyle>
       <Icon>
-        <href>https://organicmaps.app/placemarks/placemark-lime.png</href>
+        <href>https://omaps.app/placemarks/placemark-lime.png</href>
       </Icon>
     </IconStyle>
   </Style>
   <Style id="placemark-deeporange">
     <IconStyle>
       <Icon>
-        <href>https://organicmaps.app/placemarks/placemark-deeporange.png</href>
+        <href>https://omaps.app/placemarks/placemark-deeporange.png</href>
       </Icon>
     </IconStyle>
   </Style>
   <Style id="placemark-gray">
     <IconStyle>
       <Icon>
-        <href>https://organicmaps.app/placemarks/placemark-gray.png</href>
+        <href>https://omaps.app/placemarks/placemark-gray.png</href>
       </Icon>
     </IconStyle>
   </Style>
   <Style id="placemark-bluegray">
     <IconStyle>
       <Icon>
-        <href>https://organicmaps.app/placemarks/placemark-bluegray.png</href>
+        <href>https://omaps.app/placemarks/placemark-bluegray.png</href>
       </Icon>
     </IconStyle>
   </Style>
