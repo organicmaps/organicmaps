@@ -1,9 +1,11 @@
 World.mwm 35476765
 WorldCoasts.mwm 4781636
-01_dejavusans.ttf 633604
-02_droidsans-fallback.ttf 4033420
+00_NotoKufiArabic-Regular.ttf 62996
+00_NotoSansThai-Regular.ttf 21952
+01_dejavusans.ttf 757076
+02_droidsans-fallback.ttf 3451900
 03_jomolhari-id-a3d.ttf 1817160
 04_padauk.ttf 248076
 05_khmeros.ttf 265552
 06_code2000.ttf 3155104
-07_roboto_medium.ttf 162588
+07_roboto_medium.ttf 168644

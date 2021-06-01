@@ -164,3 +164,7 @@ uint8_t Platform::GetBatteryLevel()
   // This value is always 100 for desktop.
   return 100;
 }
+
+void Platform::GetSystemFontNames(FilesList & res) const
+{
+}
