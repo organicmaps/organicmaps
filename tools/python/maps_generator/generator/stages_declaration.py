@@ -355,7 +355,7 @@ class StageCountriesTxt(Stage):
 @outer_stage
 class StageExternalResources(Stage):
     def apply(self, env: Env):
-        black_list = {"00_roboto_regular.ttf"}
+        black_list = {}
         resources = [
             os.path.join(env.paths.user_resource_path, file)
             for file in os.listdir(env.paths.user_resource_path)

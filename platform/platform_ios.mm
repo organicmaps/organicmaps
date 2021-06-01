@@ -235,6 +235,10 @@ void Platform::SetupMeasurementSystem() const
   settings::Set(settings::kMeasurementUnits, units);
 }
 
+void Platform::GetSystemFontNames(FilesList & res) const
+{
+}
+
 ////////////////////////////////////////////////////////////////////////
 extern Platform & GetPlatform()
 {

@@ -213,3 +213,69 @@ uint8_t Platform::GetBatteryLevel()
   // This value is always 100 for desktop.
   return 100;
 }
+
+void Platform::GetSystemFontNames(FilesList & res) const
+{
+  char const * fontsWhitelist[] = {
+    "Roboto-Medium.ttf",
+    "Roboto-Regular.ttf",
+    "DroidSansFallback.ttf",
+    "DroidSansFallbackFull.ttf",
+    "DroidSans.ttf",
+    "DroidSansArabic.ttf",
+    "DroidSansSemc.ttf",
+    "DroidSansSemcCJK.ttf",
+    "DroidNaskh-Regular.ttf",
+    "Lohit-Bengali.ttf",
+    "Lohit-Devanagari.ttf",
+    "Lohit-Tamil.ttf",
+    "PakType Naqsh.ttf",
+    "wqy-microhei.ttc",
+    "Jomolhari.ttf",
+    "Padauk.ttf",
+    "KhmerOS.ttf",
+    "Umpush.ttf",
+    "DroidSansThai.ttf",
+    "DroidSansArmenian.ttf",
+    "DroidSansEthiopic-Regular.ttf",
+    "DroidSansGeorgian.ttf",
+    "DroidSansHebrew-Regular.ttf",
+    "DroidSansHebrew.ttf",
+    "DroidSansJapanese.ttf",
+    "LTe50872.ttf",
+    "LTe50259.ttf",
+    "DevanagariOTS.ttf",
+    "FreeSans.ttf",
+    "DejaVuSans.ttf",
+    "arial.ttf",
+    "AbyssinicaSIL-R.ttf",
+  };
+
+  string systemFontsPath[] = {
+    "/usr/share/fonts/truetype/roboto/",
+    "/usr/share/fonts/truetype/droid/",
+    "/usr/share/fonts/truetype/dejavu/",
+    "/usr/share/fonts/truetype/ttf-dejavu/",
+    "/usr/share/fonts/truetype/wqy/",
+    "/usr/share/fonts/truetype/freefont/",
+    "/usr/share/fonts/truetype/padauk/",
+    "/usr/share/fonts/truetype/dzongkha/",
+    "/usr/share/fonts/truetype/ttf-khmeros-core/",
+    "/usr/share/fonts/truetype/tlwg/",
+    "/usr/share/fonts/truetype/abyssinica/",
+    "/usr/share/fonts/truetype/paktype/",
+  };
+
+  for (auto font : fontsWhitelist)
+  {
+    for (auto sysPath : systemFontsPath)
+    {
+      string path = sysPath + font;
+      if (IsFileExistsByFullPath(path))
+      {
+        LOG(LINFO, ("Found usable system font", path));
+        res.push_back(std::move(path));
+      }
+    }
+  }
+}

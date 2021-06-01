@@ -35,94 +35,6 @@ struct CloseDir
 };
 }  // namespace
 
-void Platform::GetSystemFontNames(FilesList & res) const
-{
-#if defined(OMIM_OS_MAC) || defined(OMIM_OS_IPHONE)
-#else
-  char const * fontsWhitelist[] = {
-    "Roboto-Medium.ttf",
-    "Roboto-Regular.ttf",
-    "DroidSansFallback.ttf",
-    "DroidSansFallbackFull.ttf",
-    "DroidSans.ttf",
-    "DroidSansArabic.ttf",
-    "DroidSansSemc.ttf",
-    "DroidSansSemcCJK.ttf",
-    "DroidNaskh-Regular.ttf",
-    "Lohit-Bengali.ttf",
-    "Lohit-Devanagari.ttf",
-    "Lohit-Tamil.ttf",
-    "PakType Naqsh.ttf",
-    "wqy-microhei.ttc",
-    "Jomolhari.ttf",
-    "Jomolhari-alpha3c-0605331.ttf",
-    "Padauk.ttf",
-    "KhmerOS.ttf",
-    "Umpush.ttf",
-    "DroidSansThai.ttf",
-    "DroidSansArmenian.ttf",
-    "DroidSansEthiopic-Regular.ttf",
-    "DroidSansGeorgian.ttf",
-    "DroidSansHebrew-Regular.ttf",
-    "DroidSansHebrew.ttf",
-    "DroidSansJapanese.ttf",
-    "LTe50872.ttf",
-    "LTe50259.ttf",
-    "DevanagariOTS.ttf",
-    "FreeSans.ttf",
-    "DejaVuSans.ttf",
-    "arial.ttf",
-    "AbyssinicaSIL-R.ttf",
-  };
-
-  char const * systemFontsPath[] = {
-    "/system/fonts/",
-#ifdef OMIM_OS_LINUX
-    "/usr/share/fonts/truetype/roboto/",
-    "/usr/share/fonts/truetype/droid/",
-    "/usr/share/fonts/truetype/ttf-dejavu/",
-    "/usr/share/fonts/truetype/wqy/",
-    "/usr/share/fonts/truetype/freefont/",
-    "/usr/share/fonts/truetype/padauk/",
-    "/usr/share/fonts/truetype/dzongkha/",
-    "/usr/share/fonts/truetype/ttf-khmeros-core/",
-    "/usr/share/fonts/truetype/tlwg/",
-    "/usr/share/fonts/truetype/abyssinica/",
-    "/usr/share/fonts/truetype/paktype/",
-    "/usr/share/fonts/truetype/mapsme/",
-#endif
-  };
-
-  const uint64_t fontSizeBlacklist[] = {
-    183560,   // Samsung Duos DroidSans
-    7140172,  // Serif font without Emoji
-    14416824  // Serif font with Emoji
-  };
-
-  uint64_t fileSize = 0;
-
-  for (size_t i = 0; i < ARRAY_SIZE(fontsWhitelist); ++i)
-  {
-    for (size_t j = 0; j < ARRAY_SIZE(systemFontsPath); ++j)
-    {
-      string const path = string(systemFontsPath[j]) + fontsWhitelist[i];
-      if (IsFileExistsByFullPath(path))
-      {
-        if (GetFileSizeByName(path, fileSize))
-        {
-          uint64_t const * end = fontSizeBlacklist + ARRAY_SIZE(fontSizeBlacklist);
-          if (find(fontSizeBlacklist, end, fileSize) == end)
-          {
-            res.push_back(path);
-            LOG(LINFO, ("Found usable system font", path, "with file size", fileSize));
-          }
-        }
-      }
-    }
-  }
-#endif
-}
-
 // static
 Platform::EError Platform::RmDir(string const & dirName)
 {
@@ -236,21 +148,27 @@ uint64_t Platform::GetWritableStorageSpace() const
 
 namespace pl
 {
-void EnumerateFilesByRegExp(string const & directory, string const & regexp,
-                            vector<string> & res)
+
+void EnumerateFiles(string const & directory, function<void(char const *)> const & fn)
 {
   unique_ptr<DIR, CloseDir> dir(opendir(directory.c_str()));
   if (!dir)
     return;
 
-  regex exp(regexp);
-
   struct dirent * entry;
   while ((entry = readdir(dir.get())) != 0)
+    fn(entry->d_name);
+}
+
+void EnumerateFilesByRegExp(string const & directory, string const & regexp, vector<string> & res)
+{
+  regex exp(regexp);
+  EnumerateFiles(directory, [&](char const * entry)
   {
-    string const name(entry->d_name);
+    string const name(entry);
     if (regex_search(name.begin(), name.end(), exp))
       res.push_back(name);
-  }
+  });
 }
+
 }  // namespace pl

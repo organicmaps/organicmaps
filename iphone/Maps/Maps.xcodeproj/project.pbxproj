@@ -387,6 +387,8 @@
 		67B78B3F1E422C110018E590 /* SafariServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 67B78B3E1E422C110018E590 /* SafariServices.framework */; };
 		67B78B411E422C360018E590 /* CoreSpotlight.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 67B78B401E422C360018E590 /* CoreSpotlight.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		67B78B431E422C620018E590 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 67B78B421E422C620018E590 /* MessageUI.framework */; };
+		6B15907226623AE500944BBA /* 00_NotoSansThai-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6B15907026623AE500944BBA /* 00_NotoSansThai-Regular.ttf */; };
+		6B15907326623AE500944BBA /* 00_NotoKufiArabic-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6B15907126623AE500944BBA /* 00_NotoKufiArabic-Regular.ttf */; };
 		6B9978361C89A316003B8AA0 /* editor.config in Resources */ = {isa = PBXBuildFile; fileRef = 6B9978341C89A316003B8AA0 /* editor.config */; };
 		99012847243F0D6900C72B10 /* UIViewController+alternative.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99012846243F0D6900C72B10 /* UIViewController+alternative.swift */; };
 		9901284F244732DB00C72B10 /* BottomTabBarPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99012849244732DB00C72B10 /* BottomTabBarPresenter.swift */; };
@@ -1197,6 +1199,8 @@
 		67B78B401E422C360018E590 /* CoreSpotlight.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreSpotlight.framework; path = System/Library/Frameworks/CoreSpotlight.framework; sourceTree = SDKROOT; };
 		67B78B421E422C620018E590 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
 		67B78B441E422C970018E590 /* iAd.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = iAd.framework; path = System/Library/Frameworks/iAd.framework; sourceTree = SDKROOT; };
+		6B15907026623AE500944BBA /* 00_NotoSansThai-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "00_NotoSansThai-Regular.ttf"; path = "../../data/00_NotoSansThai-Regular.ttf"; sourceTree = "<group>"; };
+		6B15907126623AE500944BBA /* 00_NotoKufiArabic-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "00_NotoKufiArabic-Regular.ttf"; path = "../../data/00_NotoKufiArabic-Regular.ttf"; sourceTree = "<group>"; };
 		6B9978341C89A316003B8AA0 /* editor.config */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = editor.config; path = ../../data/editor.config; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* OMaps.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = OMaps.plist; plistStructureDefinitionIdentifier = "com.apple.xcode.plist.structure-definition.iphone.info-plist"; sourceTree = "<group>"; };
 		978D4A30199A11E600D72CA7 /* faq.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; name = faq.html; path = ../../data/faq.html; sourceTree = "<group>"; };
@@ -3617,6 +3621,8 @@
 		FA065FC61286143F00FEA989 /* External Resources */ = {
 			isa = PBXGroup;
 			children = (
+				6B15907126623AE500944BBA /* 00_NotoKufiArabic-Regular.ttf */,
+				6B15907026623AE500944BBA /* 00_NotoSansThai-Regular.ttf */,
 				EEA615E5134C4968003A9827 /* 01_dejavusans.ttf */,
 				9DF04B231B71010E00DACAF1 /* 02_droidsans-fallback.ttf */,
 				EEA615E7134C4968003A9827 /* 03_jomolhari-id-a3d.ttf */,
@@ -3900,6 +3906,7 @@
 				F623DA6C1C9C2731006A3436 /* opening_hours_how_to_edit.html in Resources */,
 				6741A9761BF340DE002C974C /* packed_polygons.bin in Resources */,
 				676507601C10559800830BB3 /* patterns.txt in Resources */,
+				6B15907226623AE500944BBA /* 00_NotoSansThai-Regular.ttf in Resources */,
 				6741A94A1BF340DE002C974C /* resources-6plus_clear in Resources */,
 				9989273D2449E60200260CE2 /* BottomMenuViewController.xib in Resources */,
 				6741A9741BF340DE002C974C /* resources-6plus_dark in Resources */,
@@ -3915,6 +3922,7 @@
 				6741A9551BF340DE002C974C /* resources-xxhdpi_dark in Resources */,
 				340E1EF51E2F614400CE49BF /* SearchFilters.storyboard in Resources */,
 				340E1EF81E2F614400CE49BF /* Settings.storyboard in Resources */,
+				6B15907326623AE500944BBA /* 00_NotoKufiArabic-Regular.ttf in Resources */,
 				6741A9421BF340DE002C974C /* sound-strings in Resources */,
 				F69018BD1E9F7CB600B3C10B /* MWMAutoupdateController.xib in Resources */,
 				6741A97D1BF340DE002C974C /* synonyms.txt in Resources */,
