@@ -1,5 +1,5 @@
-World.mwm 35476765
-WorldCoasts.mwm 4781636
+World.mwm 35553457
+WorldCoasts.mwm 4784904
 00_NotoKufiArabic-Regular.ttf 62996
 00_NotoSansThai-Regular.ttf 21952
 01_dejavusans.ttf 757076
