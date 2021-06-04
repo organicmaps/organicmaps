@@ -2,7 +2,6 @@ package com.mapswithme.maps.scheduling;
 
 import com.mapswithme.maps.background.OsmUploadService;
 import com.mapswithme.maps.background.SystemDownloadCompletedService;
-import com.mapswithme.maps.location.TrackRecorderWakeService;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -12,7 +11,6 @@ public class JobIdMap
   private static final Map<Class<?>, Integer> MAP = new HashMap<>();
 
   static {
-    MAP.put(TrackRecorderWakeService.class, calcIdentifier(MAP.size()));
     MAP.put(SystemDownloadCompletedService.class, calcIdentifier(MAP.size()));
     MAP.put(OsmUploadService.class, calcIdentifier(MAP.size()));
   }

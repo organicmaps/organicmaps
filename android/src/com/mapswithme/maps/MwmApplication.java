@@ -21,7 +21,6 @@ import com.mapswithme.maps.downloader.MapDownloadManager;
 import com.mapswithme.maps.downloader.MapManager;
 import com.mapswithme.maps.editor.Editor;
 import com.mapswithme.maps.location.LocationHelper;
-import com.mapswithme.maps.location.TrackRecorder;
 import com.mapswithme.maps.maplayer.isolines.IsolinesManager;
 import com.mapswithme.maps.maplayer.subway.SubwayManager;
 import com.mapswithme.maps.maplayer.traffic.TrafficManager;
@@ -239,7 +238,6 @@ public class MwmApplication extends Application implements AppBackgroundTracker.
     TrafficManager.INSTANCE.initialize(null);
     SubwayManager.from(this).initialize(null);
     IsolinesManager.from(this).initialize(null);
-    TrackRecorder.INSTANCE.initialize(this);
     mBackgroundTracker.addListener(this);
 
     getLogger().i(TAG, "Framework initialized");
