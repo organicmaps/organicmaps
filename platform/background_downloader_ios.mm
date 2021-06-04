@@ -90,8 +90,10 @@
           NSString *urlString = downloadTask.currentRequest.URL.path;
 
           BOOL isTaskReplaced = NO;
-          /// Replacing task with another one which was added into queue earlier (on previous application session).
-          for (TaskInfo *info in self.tasks) {
+          // Replacing task with another one which was added into queue earlier (on previous application session).
+          for (id key in self.tasks)
+          {
+            TaskInfo * info = [self.tasks objectForKey:key];
             if (![info.task.currentRequest.URL.path isEqualToString:urlString])
               continue;
 
