@@ -5020,7 +5020,7 @@
 
   [pref_track_record_title]
     comment = Settings «Map» category: «Record track» title
-    tags = ios,android
+    tags = ios
     en = Recent track
     ru = Недавний путь
     ar = المسار الأخير
@@ -5282,6 +5282,7 @@
     fa = 1 روز
 
   [recent_track_help_text]
+    tags = ios
     en = This option allows you to record traveled path for a certain period and see it on the map. Please note: activation of this function causes increased battery usage. The track will be removed automatically from the map after the time interval will expire.
     ru = Эта функция позволяет записывать пройденный путь за определенный период времени и видеть его на карте. Внимание: активация этой функции может привести к повышенному расходу батареи. Записанный трек будет удален с карты по истечении этого срока.
     ar = يتيح لك تسجيل مسار السفر لفترة معينة وعرضه على الخريطة. الرجاء ملاحظة: يؤدي تنشيط هذه الوظيفة إلى زيادة استهلاك البطارية. سوف تتم إزالة المسار تلقائيًا من الخريطة بعد انتهاء الفاصل الزمني.
@@ -18930,6 +18931,7 @@
     fa = خواندن
 
   [recent_track_background_dialog_title]
+    tags = ios
     comment = iOS dialog for the case when recent track recording is on and the app comes back from background
     en = Disable recording of your recently traveled route?
     ru = Выключить запись недавно пройденого пути?
@@ -18962,6 +18964,7 @@
     fa = غیرفعال سازی ذخیره مسیر اخیرا طی شده
 
   [off_recent_track_background_button]
+    tags = ios
     en = Disable
     ru = Выключить
     ar = تعطيل
@@ -19025,6 +19028,7 @@
     fa = بررسی کنید
 
   [continue_recent_track_background_button]
+    tags = ios
     en = Continue
     ru = Продолжить
     ar = استمرار
@@ -19055,6 +19059,7 @@
     fa = ادامه
 
   [recent_track_background_dialog_message]
+    tags = ios
     en = Organic Maps uses your geoposition in the background for recording your recently traveled route.
     ru = Organic Maps использует вашу геопозицию в фоновом режиме для записи недавно пройденного пути.
     ar = يستخدم Organic Maps موقعك الجغرافي في الخلفية لتسجيل مسار سفرك الأخير.
