@@ -725,7 +725,7 @@
 				GCC_OPTIMIZATION_LEVEL = 2;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
-					"U_DISABLE_RENAMING=1",
+					UCONFIG_USE_LOCAL,
 					DEBUG_DRAPE_XCODE,
 				);
 				HEADER_SEARCH_PATHS = (
@@ -733,8 +733,9 @@
 					"$(OMIM_ROOT)/3party/glm/",
 					"$(OMIM_ROOT)/3party/freetype/include",
 					"$(OMIM_ROOT)/3party/expat/lib",
-					"$(OMIM_ROOT)/3party/icu/common",
-					"$(OMIM_ROOT)/3party/icu/i18n",
+					"$(OMIM_ROOT)/3party/icu",
+					"$(OMIM_ROOT)/3party/icu/icu/icu4c/source/common",
+					"$(OMIM_ROOT)/3party/icu/icu/icu4c/source/i18n",
 					"$(OMIM_ROOT)/3party/Vulkan-Headers/include",
 					"$(OMIM_ROOT)/3party/vulkan_wrapper",
 				);
@@ -748,15 +749,16 @@
 				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
-					"U_DISABLE_RENAMING=1",
+					UCONFIG_USE_LOCAL,
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(OMIM_ROOT)/3party/glm/",
 					"$(OMIM_ROOT)/3party/freetype/include",
 					"$(OMIM_ROOT)/3party/expat/lib",
-					"$(OMIM_ROOT)/3party/icu/common",
-					"$(OMIM_ROOT)/3party/icu/i18n",
+					"$(OMIM_ROOT)/3party/icu",
+					"$(OMIM_ROOT)/3party/icu/icu/icu4c/source/common",
+					"$(OMIM_ROOT)/3party/icu/icu/icu4c/source/i18n",
 					"$(OMIM_ROOT)/3party/Vulkan-Headers/include",
 					"$(OMIM_ROOT)/3party/vulkan_wrapper",
 				);

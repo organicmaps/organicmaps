@@ -2,9 +2,10 @@
 
 #include "base/logging.hpp"
 
-#include "3party/icu/common/unicode/ubidi.h"
-#include "3party/icu/common/unicode/unistr.h"
-#include "3party/icu/common/unicode/ushape.h"
+// ICU includes.
+#include <unicode/ubidi.h>
+#include <unicode/unistr.h>
+#include <unicode/ushape.h>
 
 namespace bidi
 {
@@ -18,7 +19,7 @@ strings::UniString log2vis(strings::UniString const & str)
   UBiDi * bidi = ubidi_open();
   UErrorCode errorCode = U_ZERO_ERROR;
 
-  UnicodeString ustr(str8.c_str());
+  icu::UnicodeString ustr(str8.c_str());
   ubidi_setPara(bidi, ustr.getTerminatedBuffer(), ustr.length(), UBIDI_DEFAULT_LTR, nullptr, &errorCode);
 
   UBiDiDirection const direction = ubidi_getDirection(bidi);
@@ -38,7 +39,7 @@ strings::UniString log2vis(strings::UniString const & str)
     return str;
   }
 
-  UnicodeString shaped(buff.data());
+  icu::UnicodeString shaped(buff.data());
 
   ubidi_setPara(bidi, shaped.getTerminatedBuffer(), shaped.length(), direction, nullptr, &errorCode);
 
@@ -46,7 +47,7 @@ strings::UniString log2vis(strings::UniString const & str)
   if (errorCode != U_ZERO_ERROR)
     return str;
 
-  UnicodeString reordered(buff.data());
+  icu::UnicodeString reordered(buff.data());
 
   ubidi_close(bidi);
 

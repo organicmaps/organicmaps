@@ -32,3 +32,6 @@
 [submodule "3party/glm"]
   path = 3party/glm
   url = https://github.com/g-truc/glm.git
+[submodule "3party/icu/icu"]
+  path = 3party/icu/icu
+  url = https://github.com/unicode-org/icu.git

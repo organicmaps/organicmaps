@@ -1,12 +1,8 @@
 project(coding)
 
-add_definitions(-DU_DISABLE_RENAMING)
-
 include_directories(
   ${OMIM_ROOT}/coding
   ${OMIM_ROOT}/3party/expat/expat
-  ${OMIM_ROOT}/3party/icu/common
-  ${OMIM_ROOT}/3party/icu/i18n
 )
 
 set(
@@ -103,3 +99,6 @@ set(
 omim_add_library(${PROJECT_NAME} ${SRC})
 
 omim_add_test_subdirectory(coding_tests)
+
+# For transliteration.
+target_link_libraries(${PROJECT_NAME} icu)

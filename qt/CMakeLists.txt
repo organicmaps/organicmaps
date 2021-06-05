@@ -193,7 +193,7 @@ copy_resources(
   unicode_blocks.txt
   World.mwm
   WorldCoasts.mwm
-  icudt57l.dat
+  icudt69l.dat
 
   01_dejavusans.ttf
   02_droidsans-fallback.ttf

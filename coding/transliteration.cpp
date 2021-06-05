@@ -5,11 +5,13 @@
 #include "base/logging.hpp"
 #include "base/string_utils.hpp"
 
-#include "3party/icu/common/unicode/uclean.h"
-#include "3party/icu/common/unicode/unistr.h"
-#include "3party/icu/common/unicode/utypes.h"
-#include "3party/icu/i18n/unicode/translit.h"
-#include "3party/icu/i18n/unicode/utrans.h"
+// ICU includes.
+#include <unicode/putil.h>
+#include <unicode/translit.h>
+#include <unicode/uclean.h>
+#include <unicode/unistr.h>
+#include <unicode/utrans.h>
+#include <unicode/utypes.h>
 
 #include <cstring>
 #include <mutex>
@@ -22,7 +24,7 @@ struct Transliteration::TransliteratorInfo
 
   std::atomic<bool> m_initialized;
   std::mutex m_mutex;
-  std::unique_ptr<Transliterator> m_transliterator;
+  std::unique_ptr<icu::Transliterator> m_transliterator;
 };
 
 Transliteration::Transliteration()
@@ -79,7 +81,7 @@ void Transliteration::SetMode(Transliteration::Mode mode)
   m_mode = mode;
 }
 
-bool Transliteration::Transliterate(std::string transliteratorId, UnicodeString & ustr) const
+bool Transliteration::Transliterate(std::string transliteratorId, icu::UnicodeString & ustr) const
 {
   CHECK(m_inited, ());
   CHECK(!transliteratorId.empty(), (transliteratorId));
@@ -102,10 +104,10 @@ bool Transliteration::Transliterate(std::string transliteratorId, UnicodeString 
           ";NFD;[\u02B9-\u02D3\u0301-\u0358\u00B7\u0027]Remove;NFC";
       transliteratorId.append(removeDiacriticRule);
 
-      UnicodeString translitId(transliteratorId.c_str());
+      icu::UnicodeString translitId(transliteratorId.c_str());
 
       it->second->m_transliterator.reset(
-          Transliterator::createInstance(translitId, UTRANS_FORWARD, status));
+          icu::Transliterator::createInstance(translitId, UTRANS_FORWARD, status));
 
       if (it->second->m_transliterator == nullptr)
       {
@@ -132,7 +134,7 @@ bool Transliteration::TransliterateForce(std::string const & str, std::string co
                                          std::string & out) const
 {
   CHECK(m_inited, ());
-  UnicodeString ustr(str.c_str());
+  icu::UnicodeString ustr(str.c_str());
   auto const res = Transliterate(transliteratorId, ustr);
   if (res)
     ustr.toUTF8String(out);
@@ -153,7 +155,7 @@ bool Transliteration::Transliterate(std::string const & str, int8_t langCode,
   if (transliteratorsIds.empty())
     return false;
 
-  UnicodeString ustr(str.c_str());
+  icu::UnicodeString ustr(str.c_str());
   for (auto transliteratorId : transliteratorsIds)
     Transliterate(transliteratorId, ustr);
 
