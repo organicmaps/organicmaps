@@ -165,32 +165,52 @@
       <intent-filter>
         <action android:name="android.intent.action.VIEW"/>
         <category android:name="android.intent.category.DEFAULT"/>
-        <data
-          android:host="*"
-          android:mimeType="*/*"
-          android:pathPattern=".*\\.kmz"
-          android:scheme="file"/>
+        <data android:scheme="content"/>
+        <data android:scheme="file"/>
+        <data android:scheme="data"/>
+        <data android:host="*"/>
+        <data android:mimeType="*/*"/>
+        <!-- See http://stackoverflow.com/questions/3400072/pathpattern-to-match-file-extension-does-not-work-if-a-period-exists-elsewhere-i -->
+        <data android:pathPattern="*.kmz"/>
+        <data android:pathPattern=".*\\.kmz" />
+        <data android:pathPattern=".*\\..*\\.kmz" />
+        <data android:pathPattern=".*\\..*\\..*\\.kmz" />
+        <data android:pathPattern=".*\\..*\\..*\\..*\\.kmz" />
+        <data android:pathPattern=".*\\..*\\..*\\..*\\..*\\.kmz" />
       </intent-filter>
 
       <intent-filter>
-        <action android:name="android.intent.action.VIEW"/>
-        <category android:name="android.intent.category.DEFAULT"/>
-        <data
-          android:host="*"
-          android:mimeType="*/*"
-          android:pathPattern=".*\\.kml"
-          android:scheme="file"/>
+        <action android:name="android.intent.action.VIEW" />
+        <category android:name="android.intent.category.DEFAULT" />
+        <category android:name="android.intent.category.BROWSABLE" />
+        <data android:scheme="content"/>
+        <data android:scheme="file"/>
+        <data android:scheme="data"/>
+        <data android:host="*"/>
+        <data android:mimeType="*/*"/>
+        <data android:pathPattern="*.kml"/>
+        <data android:pathPattern=".*\\.kml" />
+        <data android:pathPattern=".*\\..*\\.kml" />
+        <data android:pathPattern=".*\\..*\\..*\\.kml" />
+        <data android:pathPattern=".*\\..*\\..*\\..*\\.kml" />
+        <data android:pathPattern=".*\\..*\\..*\\..*\\..*\\.kml" />
       </intent-filter>
 
       <!-- Old MAPS.ME binary format //-->
       <intent-filter>
         <action android:name="android.intent.action.VIEW"/>
         <category android:name="android.intent.category.DEFAULT"/>
-        <data
-            android:host="*"
-            android:mimeType="*/*"
-            android:pathPattern=".*\\.kmb"
-            android:scheme="file"/>
+        <data android:scheme="content"/>
+        <data android:scheme="file"/>
+        <data android:scheme="data"/>
+        <data android:host="*"/>
+        <data android:mimeType="*/*"/>
+        <data android:pathPattern="*.kmb"/>
+        <data android:pathPattern=".*\\.kmb" />
+        <data android:pathPattern=".*\\..*\\.kmb" />
+        <data android:pathPattern=".*\\..*\\..*\\.kmb" />
+        <data android:pathPattern=".*\\..*\\..*\\..*\\.kmb" />
+        <data android:pathPattern=".*\\..*\\..*\\..*\\..*\\.kmb" />
       </intent-filter>
     </activity>
 
