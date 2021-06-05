@@ -140,11 +140,11 @@ def getVersion() {
 }
 
 def getReleaseNotes() {
-  return run(['git', 'tag', '-l', '--format=\'%(contents)\'', '--points-at', 'HEAD']).trim()
+  return run(['git', 'tag', '-l', '--format=%(contents)', '--points-at', 'HEAD']).trim()
 }
 
 def getCommitMessage() {
-  return run(['git', '--no-pager', 'show', '-s', '--format=\'%s%n%n%b\'', 'HEAD']).trim()
+  return run(['git', '--no-pager', 'show', '-s', '--format=%s%n%n%b', 'HEAD']).trim()
 }
 
 def osName = System.properties['os.name'].toLowerCase()
