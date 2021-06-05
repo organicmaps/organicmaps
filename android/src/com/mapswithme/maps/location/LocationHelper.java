@@ -2,7 +2,10 @@ package com.mapswithme.maps.location;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.location.Location;
+import android.location.LocationManager;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -10,6 +13,7 @@ import androidx.annotation.UiThread;
 
 import com.mapswithme.maps.Framework;
 import com.mapswithme.maps.MwmApplication;
+import com.mapswithme.maps.background.AppBackgroundTracker;
 import com.mapswithme.maps.base.Initializable;
 import com.mapswithme.maps.bookmarks.data.FeatureId;
 import com.mapswithme.maps.bookmarks.data.MapObject;
@@ -22,7 +26,7 @@ import com.mapswithme.util.log.Logger;
 import com.mapswithme.util.log.LoggerFactory;
 import com.mapswithme.util.Config;
 
-public enum LocationHelper implements Initializable<Context>
+public enum LocationHelper implements Initializable<Context>, AppBackgroundTracker.OnTransitionListener
 {
   INSTANCE;
 
@@ -45,6 +49,9 @@ public enum LocationHelper implements Initializable<Context>
   @SuppressWarnings("NotNullFieldNotInitialized")
   @NonNull
   private Context mContext;
+
+  private final GPSCheck mReceiver = new GPSCheck();
+  private boolean mReceiverRegistered;
 
   @NonNull
   private final LocationListener mCoreLocationListener = new LocationListener()
@@ -159,8 +166,7 @@ public enum LocationHelper implements Initializable<Context>
     initProvider();
     LocationState.nativeSetListener(mMyPositionModeListener);
     LocationState.nativeSetLocationPendingTimeoutListener(mLocationPendingTimeoutListener);
-    TransitionListener transitionListener = new TransitionListener(mContext);
-    MwmApplication.backgroundTracker(context).addListener(transitionListener);
+    MwmApplication.backgroundTracker(context).addListener(this);
   }
 
   @Override
@@ -243,6 +249,39 @@ public enum LocationHelper implements Initializable<Context>
   private boolean isLocationUpdateStoppedByUser()
   {
     return mLocationUpdateStoppedByUser;
+  }
+
+  @Override
+  public void onTransit(boolean foreground)
+  {
+    if (foreground)
+    {
+      mLogger.d(TAG, "Resumed in foreground");
+
+      if (mReceiverRegistered)
+      {
+        MwmApplication.from(mContext).unregisterReceiver(mReceiver);
+        mReceiverRegistered = false;
+      }
+
+      start();
+    }
+    else
+    {
+      mLogger.d(TAG, "Stopped in background");
+
+      if (!mReceiverRegistered)
+      {
+        final IntentFilter filter = new IntentFilter();
+        filter.addAction(LocationManager.PROVIDERS_CHANGED_ACTION);
+        filter.addCategory(Intent.CATEGORY_DEFAULT);
+
+        MwmApplication.from(mContext).registerReceiver(mReceiver, filter);
+        mReceiverRegistered = true;
+      }
+
+      stop();
+    }
   }
 
   void notifyCompassUpdated(long time, double north)
@@ -452,8 +491,10 @@ public enum LocationHelper implements Initializable<Context>
     checkProviderInitialization();
     //noinspection ConstantConditions
     if (mLocationProvider.isActive())
-      throw new AssertionError("Location provider '" + mLocationProvider
-                               + "' must be stopped first");
+    {
+      mLogger.i(TAG, "Provider '" + mLocationProvider + "' is already started");
+      return;
+    }
 
     addListener(mCoreLocationListener, true);
 
