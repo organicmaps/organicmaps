@@ -13,7 +13,7 @@
 void InitTransliterationInstanceWithDefaultDirs()
 {
 #if defined(OMIM_OS_ANDROID)
-  char const kICUDataFile[] = "icudt57l.dat";
+  char const kICUDataFile[] = "icudt69l.dat";
   if (!GetPlatform().IsFileExistsByFullPath(GetPlatform().WritableDir() + kICUDataFile))
   {
     try

@@ -1,0 +1,7 @@
+{
+  "strategy": "additive",
+  "featureFilters": {
+    "translit": "include",
+    "normalization": "include"
+  }
+}
