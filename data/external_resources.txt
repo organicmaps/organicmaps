@@ -1,6 +1,6 @@
 World.mwm 35553457
 WorldCoasts.mwm 4784904
-00_NotoKufiArabic-Regular.ttf 62996
+00_NotoNaskhArabic-Regular.ttf 149192
 00_NotoSansThai-Regular.ttf 21952
 01_dejavusans.ttf 757076
 02_droidsans-fallback.ttf 3451900

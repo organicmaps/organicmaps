@@ -12,7 +12,7 @@ setup(
     __file__,
     "fonts",
     [
-        "00_NotoKufiArabic-Regular.ttf",
+        "00_NotoNaskhArabic-Regular.ttf",
         "00_NotoSansThai-Regular.ttf",
         "01_dejavusans.ttf",
         "02_droidsans-fallback.ttf",
