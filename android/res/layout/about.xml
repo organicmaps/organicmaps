@@ -16,7 +16,7 @@
                  android:layout_marginTop="@dimen/margin_base_plus"
                  android:layout_marginBottom="@dimen/margin_base"
                  android:layout_gravity="center_horizontal"
-                 android:src="@drawable/img_logo"/>
+                 android:src="@mipmap/ic_launcher"/>
 
       <TextView android:id="@+id/version"
                 android:layout_width="match_parent"

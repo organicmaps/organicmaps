@@ -209,7 +209,7 @@ public class NavigationService extends Service
         .setCustomContentView(mRemoteViews)
         .setCustomHeadsUpContentView(mRemoteViews)
         .setPriority(Notification.PRIORITY_HIGH)
-        .setSmallIcon(R.drawable.img_logo)
+        .setSmallIcon(R.drawable.ic_notification)
         .setShowWhen(true);
 
     if (Utils.isOreoOrLater())

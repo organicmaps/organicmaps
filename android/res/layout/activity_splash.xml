@@ -14,8 +14,8 @@
     android:id="@+id/iv__logo"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:src="@drawable/img_logo"
-    android:layout_above="@id/anchor_center"
+    android:src="@drawable/splash"
+    android:layout_centerVertical="true"
     android:layout_centerHorizontal="true"/>
 
   <TextView
@@ -27,6 +27,5 @@
     android:layout_marginBottom="@dimen/margin_double_plus"
     android:textAppearance="@style/MwmTextAppearance.Title"
     android:textAllCaps="true"
-    android:textColor="?android:textColorSecondary"
     android:text="@string/app_name"/>
 </RelativeLayout>

@@ -208,10 +208,10 @@ public class SplashActivity extends AppCompatActivity implements BaseActivity
   {
     Context context = getApplicationContext();
     if (ThemeUtils.isDefaultTheme(context, theme))
-      return R.style.MwmTheme;
+      return R.style.MwmTheme_Splash;
 
     if (ThemeUtils.isNightTheme(context, theme))
-      return R.style.MwmTheme_Night;
+      return R.style.MwmTheme_Night_Splash;
 
     throw new IllegalArgumentException("Attempt to apply unsupported theme: " + theme);
   }
