@@ -341,7 +341,7 @@ public enum LocationHelper implements Initializable<Context>, AppBackgroundTrack
 
   private void notifyMyPositionModeChanged(int newMode)
   {
-    mLogger.d(TAG, "notifyMyPositionModeChanged(): " + LocationState.nameOf(newMode), new Throwable());
+    mLogger.d(TAG, "notifyMyPositionModeChanged(): " + LocationState.nameOf(newMode));
 
     if (mUiCallback != null)
       mUiCallback.onMyPositionModeChanged(newMode);
