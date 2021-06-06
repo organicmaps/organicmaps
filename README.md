@@ -1,77 +1,120 @@
 # Organic Maps
 
-[![Google Play][google-play-badge]][google-play-url]
-[![App Store][apple-appstore-badge]][apple-appstore-url]
-[![Telegram Channel][telegram-channel-badge]][telegram-channel-url]
-[![Telegram Group][telegram-group-badge]][telegram-group-url]
-[![Build][build-badge]][build-url]
+<a name="install">
 
 [Organic Maps](https://organicmaps.app) is an Android & iOS offline maps app
-for travellers, tourists, hikers and cyclists based on top of crowd-sourced
-OpenStreetMap data.
+for travelers, tourists, hikers and cyclists based on top of crowd-sourced
+**OpenStreetMap** data and curated with love by **MAPS.ME** founders.
 
-![](docs/screenshots.jpg)
+<p float="left">
+  <a href="https://testflight.apple.com/join/lrKCl08I">
+    <img src="docs/badges/apple-appstore.png" width="180">
+  </a>
+  <a href="https://play.google.com/store/apps/details?id=app.organicmaps">
+    <img src="docs/badges/google-play.png" width="180">
+  </a>
+  <a href="https://appgallery.huawei.com/#/app/C104325611">
+    <img src="docs/badges/huawei-appgallery.png" width="180">
+  </a>
+  <a href="https://f-droid.org/en/packages/app.organicmaps/">
+    <img src="docs/badges/fdroid.png" width="180">
+  </a>
+</p>
+
+<p float="left">
+  <img src="docs/screenshots/1.jpg" width="400" />
+  <img src="docs/screenshots/2.jpg" width="400" /> 
+  <img src="docs/screenshots/3.jpg" width="400" />
+  <img src="docs/screenshots/4.jpg" width="400" />
+</p>
 
 ## Features
 
-- Detailed Offline Maps for Travellers, Tourists, Hikers and Cyclists.
-- Contour Lines, Peaks, Passes, Sights, Toilets, ATMs, Parking.
-- Offline Car Navigation, Walking and Cycling Directions.
-- Open Source, Clean Code, No Spyware, No Ads, No Data Collection.
-- No Big Tech’s Prying Eyes on Your Private Trip Anymore.
+Organic Map is the ultimate companion app for travelers, tourists, hikers and cyclists:
 
-## Installing
+- Detailed offline maps with places that don't exist on other maps
+- Cycling routes, hiking trails and walking paths
+- Contour lines, elevation profiles, peaks and slopes
+- Turn-by-turn walking, cycling and car navigation with voice guidance
+- Fast offline search on the map and bookmarks
+- Dark mode to protect your eyes
 
-### Android
+## Why Organic?
 
-- [Google Play][google-play-url]
-- [GitHub Releases APK][github-releases-url]
-- [Firebase App Distribution APK (Beta)][firebase-appdistribution-url]
+Organic Maps is pure and organic, made with love:
 
-### iOS
+- Respects your privacy
+- Saves your battery
+- No unexpected mobile data charges
 
-- [Apple AppStore][apple-appstore-url]
-- [GitHub Releases IPA][github-releases-url]
+Organic Map is free from trackers and other bad stuff:
 
-### Desktop
+- No ads
+- No tracking
+- No data collection
+- No phoning home
+- No annoying registration
+- No mandatory tutorials
+- No noisy email spam
+- No push notifications 
+- No crapware
+- <s>No pesticides</s>
 
-See [INSTALL](docs/INSTALL.md).
+Thie application is verified by <a href="https://reports.exodus-privacy.eu.org/en/reports/app.organicmaps/latest/">Exodus Privacy Project:
 
-## Contributing
+<img src="docs/privacy/exodus.png" width="400">
+</a>
 
-See [CONTRIBUTING](docs/CONTRIBUTING.md).
+<br/>
+
+Organic Maps doesn't requiest excessive permissions to spy on you:
+
+<p float="left">
+  <img src="docs/privacy/om.jpg" width="400">
+  <img src="docs/privacy/mm.jpg" width="400">
+</p>
+
+At Organic Maps, we believe that privacy is a fundamental human right:
+
+- Organic Maps is an indie community-driven open-source project
+- We protect privacy from Big Tech’s prying eyes
+- Stay safe no matter wherever you are
+
+Reject surveillance - embrace your freedom.
+[**Give Organic Maps a try!**](#install)
+
+## Copyrights
+
+Licensed under the Apache License, Version 2.0. See 
+[LICENSE](https://github.com/organicmaps/organicmaps/blob/master/LICENSE), 
+[NOTICE](https://github.com/organicmaps/organicmaps/blob/master/NOTICE)
+and [data/copyright.html](http://htmlpreview.github.io/?https://github.com/organicmaps/organicmaps/blob/master/data/copyright.html)
+files for more information.
 
 ## Governance
 
 See [GOVERNANCE](docs/GOVERNANCE.md).
 
+## Contributing
+
+See [CONTRIBUTING](docs/CONTRIBUTING.md).
+
+## Beta
+
+Please join our beta program, suggest your features and report bugs:
+
+- [iOS Beta (TestFlight)](https://testflight.apple.com/join/lrKCl08I)
+- [Android Beta (Firebase)](https://appdistribution.firebase.google.com/pub/i/4fa64e2439ca20ff)
+
 ## Feedback
 
+- **Rate us on AppStore and Google Play**.
 - **Star us on GitHub**.
 - Report bugs or issues to [the issue tracker](https://github.com/organicmaps/organicmaps/issues).
 - [Discuss](https://github.com/organicmaps/organicmaps/discussions/categories/ideas) ideas or propose feature requests.
 - Subscribe to our [Telegram Channel](https://t.me/OrganicMapsApp) for updates.
 - Join our [Telegram Group](https://t.me/OrganicMaps) to discuss with other users.
-- Contact us by [email](hello@organicmaps.app).
+- Contact us by [email](mailto:hello@organicmaps.app).
 
 The Organic Maps community abides by the CNCF code of conduct.
 
-## Authors and License
-
-See [NOTICE](https://github.com/organicmaps/organicmaps/blob/master/NOTICE)
-and [data/copyright.html](http://htmlpreview.github.io/?https://github.com/organicmaps/organicmaps/blob/master/data/copyright.html) files for more information.
-
-[google-play-badge]: https://img.shields.io/badge/Google-Play-green.svg?style=flat
-[google-play-url]: https://play.google.com/store/apps/details?id=app.organicmaps
-[firebase-appdistribution-url]: https://appdistribution.firebase.google.com/pub/i/4fa64e2439ca20ff
-[github-releases-url]: https://github.com/organicmaps/organicmaps/releases
-[apple-appstore-badge]: https://img.shields.io/badge/Apple-AppStore-white.svg?style=flat
-[apple-appstore-url]: https://testflight.apple.com/join/lrKCl08I
-[slack-badge]: https://img.shields.io/badge/Slack-Community-yellow.svg?style=flat
-[slack-url]: https://slack.omaps.app/
-[telegram-channel-badge]: https://img.shields.io/badge/Telegram-Channel-blue.svg?style=flat
-[telegram-channel-url]: https://t.me/OrganicMapsApp
-[telegram-group-badge]: https://img.shields.io/badge/Telegram-Group-lightgrey.svg?style=flat
-[telegram-group-url]: https://t.me/OrganicMaps
-[build-badge]: https://github.com/organicmaps/organicmaps/workflows/Check/badge.svg?branch=master
-[build-url]: https://github.com/organicmaps/organicmaps/actions
