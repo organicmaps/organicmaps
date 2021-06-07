@@ -1,9 +1,9 @@
 # Organic Maps
 
-<a name="install">
+<a name="install"/>
 
-[Organic Maps](https://organicmaps.app) is an Android & iOS offline maps app
-for travelers, tourists, hikers and cyclists based on top of crowd-sourced
+[Organic Maps](https://organicmaps.app) is a better fork of MAPS.ME, an Android & iOS offline maps app
+for travelers, tourists, hikers, and cyclists based on top of crowd-sourced
 **OpenStreetMap** data and curated with love by **MAPS.ME** founders.
 
 <p float="left">
@@ -30,14 +30,14 @@ for travelers, tourists, hikers and cyclists based on top of crowd-sourced
 
 ## Features
 
-Organic Map is the ultimate companion app for travelers, tourists, hikers and cyclists:
+Organic Maps is the ultimate companion app for travelers, tourists, hikers, and cyclists:
 
 - Detailed offline maps with places that don't exist on other maps
-- Cycling routes, hiking trails and walking paths
-- Contour lines, elevation profiles, peaks and slopes
-- Turn-by-turn walking, cycling and car navigation with voice guidance
+- Cycling routes, hiking trails, and walking paths
+- Contour lines, elevation profiles, peaks, and slopes
+- Turn-by-turn walking, cycling, and car navigation with voice guidance
 - Fast offline search on the map and bookmarks
-- Dark mode to protect your eyes
+- Dark Mode to protect your eyes
 
 ## Why Organic?
 
@@ -47,7 +47,7 @@ Organic Maps is pure and organic, made with love:
 - Saves your battery
 - No unexpected mobile data charges
 
-Organic Map is free from trackers and other bad stuff:
+Organic Maps is free from trackers and other bad stuff:
 
 - No ads
 - No tracking
@@ -60,14 +60,14 @@ Organic Map is free from trackers and other bad stuff:
 - No crapware
 - <s>No pesticides</s>
 
-Thie application is verified by <a href="https://reports.exodus-privacy.eu.org/en/reports/app.organicmaps/latest/">Exodus Privacy Project:
+The application is verified by <a href="https://reports.exodus-privacy.eu.org/en/reports/app.organicmaps/latest/">Exodus Privacy Project:
 
 <img src="docs/privacy/exodus.png" width="400">
 </a>
 
 <br/>
 
-Organic Maps doesn't requiest excessive permissions to spy on you:
+Organic Maps doesn't request excessive permissions to spy on you:
 
 <p float="left">
   <img src="docs/privacy/om.jpg" width="400">
@@ -77,7 +77,7 @@ Organic Maps doesn't requiest excessive permissions to spy on you:
 At Organic Maps, we believe that privacy is a fundamental human right:
 
 - Organic Maps is an indie community-driven open-source project
-- We protect privacy from Big Tech’s prying eyes
+- We protect privacy from Big Tech's prying eyes
 - Stay safe no matter wherever you are
 
 Reject surveillance - embrace your freedom.
@@ -101,7 +101,7 @@ See [CONTRIBUTING](docs/CONTRIBUTING.md).
 
 ## Beta
 
-Please join our beta program, suggest your features and report bugs:
+Please join our beta program, suggest your features, and report bugs:
 
 - [iOS Beta (TestFlight)](https://testflight.apple.com/join/lrKCl08I)
 - [Android Beta (Firebase)](https://appdistribution.firebase.google.com/pub/i/4fa64e2439ca20ff)
