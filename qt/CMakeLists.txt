@@ -195,6 +195,8 @@ copy_resources(
   WorldCoasts.mwm
   icudt69l.dat
 
+  00_NotoNaskhArabic-Regular.ttf
+  00_NotoSansThai-Regular.ttf
   01_dejavusans.ttf
   02_droidsans-fallback.ttf
   03_jomolhari-id-a3d.ttf
