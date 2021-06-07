@@ -431,20 +431,23 @@ GlyphManager::GlyphManager(GlyphManager::Params const & params)
     CoverInfo coverInfo;
     for (auto const charCode : charCodes)
     {
-      while (currentUniBlock < m_impl->m_blocks.size())
+      size_t block = currentUniBlock;
+      while (block < m_impl->m_blocks.size())
       {
-        if (m_impl->m_blocks[currentUniBlock].HasSymbol(static_cast<strings::UniChar>(charCode)))
+        if (m_impl->m_blocks[block].HasSymbol(static_cast<strings::UniChar>(charCode)))
           break;
-        ++currentUniBlock;
+        ++block;
       }
 
-      if (currentUniBlock >= m_impl->m_blocks.size())
-        break;
+      if (block < m_impl->m_blocks.size())
+      {
+        if (coverInfo.empty() || coverInfo.back().first != block)
+          coverInfo.emplace_back(block, 1);
+        else
+          ++coverInfo.back().second;
 
-      if (coverInfo.empty() || coverInfo.back().first != currentUniBlock)
-        coverInfo.emplace_back(currentUniBlock, 1);
-      else
-        ++coverInfo.back().second;
+        currentUniBlock = block;
+      }
     }
 
     using TUpdateCoverInfoFn = std::function<void(UnicodeBlock const & uniBlock, CoverNode & node)>;
@@ -630,12 +633,6 @@ GlyphManager::Glyph GlyphManager::GenerateGlyph(Glyph const & glyph, uint32_t sd
     return resultGlyph;
   }
   return glyph;
-}
-
-void GlyphManager::ForEachUnicodeBlock(GlyphManager::TUniBlockCallback const & fn) const
-{
-  for (UnicodeBlock const & uni : m_impl->m_blocks)
-    fn(uni.m_start, uni.m_end);
 }
 
 void GlyphManager::MarkGlyphReady(Glyph const & glyph)

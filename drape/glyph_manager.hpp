@@ -81,9 +81,6 @@ public:
   void MarkGlyphReady(Glyph const & glyph);
   bool AreGlyphsReady(strings::UniString const & str, int fixedSize) const;
 
-  using TUniBlockCallback = std::function<void(strings::UniChar start, strings::UniChar end)>;
-  void ForEachUnicodeBlock(TUniBlockCallback const & fn) const;
-
   Glyph GetInvalidGlyph(int fixedSize) const;
 
   uint32_t GetBaseGlyphHeight() const;
