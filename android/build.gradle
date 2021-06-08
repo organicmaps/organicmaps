@@ -114,7 +114,7 @@ def run(cmd) {
 def getVersion() {
   def gitsha = run(['git', 'rev-parse', '--short', 'HEAD']).trim()
   def time = Integer.parseInt(run(['git', 'log', '-1', '--format=%ct']).trim())
-  def cal = Calendar.getInstance(Locale.ENGLISH);
+  def cal = Calendar.getInstance(TimeZone.getTimeZone("UTC"), Locale.ENGLISH);
   cal.setTimeInMillis((long) time * 1000);
   def year = cal.get(Calendar.YEAR);
   def month = cal.get(Calendar.MONTH) + 1;
@@ -165,8 +165,8 @@ android {
     vectorDrawables.useSupportLibrary = true
     // Default package name is taken from the manifest and should be app.omaps
     def ver = getVersion();
-    //println("Version:", versionName);
-    //println("VersionCode:", versionCode);
+    println("Version:" + ver.first);
+    println("VersionCode:" + ver.second);
     versionCode = ver.first
     versionName = ver.second
     minSdkVersion propMinSdkVersion.toInteger()
