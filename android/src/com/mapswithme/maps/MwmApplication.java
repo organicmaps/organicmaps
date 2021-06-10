@@ -10,6 +10,7 @@ import android.webkit.WebView;
 import androidx.annotation.NonNull;
 import androidx.multidex.MultiDex;
 
+import com.getkeepsafe.relinker.ReLinker;
 import com.mapswithme.maps.background.AppBackgroundTracker;
 import com.mapswithme.maps.background.NotificationChannelFactory;
 import com.mapswithme.maps.background.NotificationChannelProvider;
@@ -123,6 +124,7 @@ public class MwmApplication extends Application implements AppBackgroundTracker.
   public void onCreate()
   {
     super.onCreate();
+    ReLinker.loadLibrary(this, "mapswithme");
     LoggerFactory.INSTANCE.initialize(this);
     mLogger = LoggerFactory.INSTANCE.getLogger(LoggerFactory.Type.MISC);
     getLogger().d(TAG, "Application is created");
@@ -264,11 +266,6 @@ public class MwmApplication extends Application implements AppBackgroundTracker.
   public AppBackgroundTracker getBackgroundTracker()
   {
     return mBackgroundTracker;
-  }
-
-  static
-  {
-    System.loadLibrary("mapswithme");
   }
 
   public static void onUpgrade(@NonNull Context context)
