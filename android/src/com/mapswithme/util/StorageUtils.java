@@ -145,10 +145,6 @@ public class StorageUtils
   @NonNull
   public static String getTempPath(@NonNull Application application)
   {
-    final File cacheDir = application.getExternalCacheDir();
-    if (cacheDir != null)
-      return addTrailingSeparator(cacheDir.getAbsolutePath());
-
     return addTrailingSeparator(application.getCacheDir().getAbsolutePath());
   }
 
