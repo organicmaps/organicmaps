@@ -12,17 +12,6 @@
 
 #include <algorithm>
 
-namespace
-{
-
-/// @todo Review this logic in future.
-/// Fix bug with floating point calculations (before Android release).
-void ReduceRectHack(m2::RectD & r)
-{
-  r.Inflate(-1.0E-9, -1.0E-9);
-}
-
-} // namespace
 
 namespace df
 {
@@ -93,10 +82,8 @@ bool CanShrinkInto(ScreenBase const & screen, m2::RectD const & boundRect)
       && (boundRect.SizeY() >= clipRect.SizeY());
 }
 
-ScreenBase const ShrinkInto(ScreenBase const & screen, m2::RectD boundRect)
+ScreenBase const ShrinkInto(ScreenBase const & screen, m2::RectD const & boundRect)
 {
-  ReduceRectHack(boundRect);
-
   ScreenBase res = screen;
 
   m2::RectD clipRect = res.ClipRect();
@@ -116,10 +103,8 @@ ScreenBase const ShrinkInto(ScreenBase const & screen, m2::RectD boundRect)
   return res;
 }
 
-ScreenBase const ScaleInto(ScreenBase const & screen, m2::RectD boundRect)
+ScreenBase const ScaleInto(ScreenBase const & screen, m2::RectD const & boundRect)
 {
-  ReduceRectHack(boundRect);
-
   ScreenBase res = screen;
 
   double scale = 1;
@@ -160,10 +145,8 @@ ScreenBase const ScaleInto(ScreenBase const & screen, m2::RectD boundRect)
   return res;
 }
 
-ScreenBase const ShrinkAndScaleInto(ScreenBase const & screen, m2::RectD boundRect)
+ScreenBase const ShrinkAndScaleInto(ScreenBase const & screen, m2::RectD const & boundRect)
 {
-  ReduceRectHack(boundRect);
-
   ScreenBase res = screen;
 
   m2::RectD globalRect = res.ClipRect();
