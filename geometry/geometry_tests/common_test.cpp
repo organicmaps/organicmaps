@@ -10,17 +10,13 @@ using namespace test;
 
 UNIT_TEST(Rect)
 {
-  m2::Rect<double> rect(0, 0, 500, 300);
+  m2::RectD rect(0, 0, 500, 300);
 
   double factor[] = { 0.2, 0.3, 0.5, 0.7, 1.0, 1.3, 1.5, 2.0 };
   for (size_t i = 0; i < ARRAY_SIZE(factor); ++i)
   {
-    m2::Rect<double> r(rect);
+    m2::RectD r(rect);
     r.Scale(factor[i]);
-    TEST(is_equal_center(rect, r), ());
-
-    r = rect;
-    r.Scale(-factor[i]);
     TEST(is_equal_center(rect, r), ());
   }
 

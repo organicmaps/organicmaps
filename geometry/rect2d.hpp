@@ -219,6 +219,7 @@ public:
 
   void Scale(T scale)
   {
+    ASSERT_GREATER(scale, 0, ());
     scale *= 0.5;
 
     m2::Point<T> const center = Center();
