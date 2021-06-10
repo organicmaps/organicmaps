@@ -39,7 +39,6 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
@@ -47,8 +46,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
-import java.util.zip.GZIPInputStream;
-import java.util.zip.InflaterInputStream;
 
 import javax.net.ssl.HttpsURLConnection;
 import javax.net.ssl.SSLSocketFactory;
@@ -187,7 +184,7 @@ public final class HttpClient
       else
         ostream = new ByteArrayOutputStream(STREAM_BUFFER_SIZE);
       // TODO(AlexZ): Add HTTP resume support in the future for partially downloaded files
-      final BufferedInputStream istream = new BufferedInputStream(getInputStream(connection), STREAM_BUFFER_SIZE);
+      final BufferedInputStream istream = new BufferedInputStream(connection.getInputStream(), STREAM_BUFFER_SIZE);
       final byte[] buffer = new byte[STREAM_BUFFER_SIZE];
       // gzip encoding is transparently enabled and we can't use Content-Length for
       // body reading if server has gzipped it.
@@ -223,28 +220,6 @@ public final class HttpClient
       SSLSocketFactory factory = sslConnection.getSSLSocketFactory();
       sslConnection.setSSLSocketFactory(new PreLollipopSSLSocketFactory(factory));
     }
-  }
-
-  @NonNull
-  private static InputStream getInputStream(@NonNull HttpURLConnection connection) throws IOException
-  {
-    InputStream in;
-    try
-    {
-      if ("gzip".equals(connection.getContentEncoding()))
-        in = new GZIPInputStream(connection.getInputStream());
-      else if ("deflate".equals(connection.getContentEncoding()))
-        in = new InflaterInputStream(connection.getInputStream());
-      else
-        in = connection.getInputStream();
-    }
-    catch (IOException e)
-    {
-      in = connection.getErrorStream();
-      if (in == null)
-        throw e;
-    }
-    return in;
   }
 
   private static class Params
