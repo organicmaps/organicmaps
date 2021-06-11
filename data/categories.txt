@@ -1800,7 +1800,7 @@ fi:Kioski
 fr:Kiosque
 de:Kiosk
 hu:Trafik
-it:Edicola|Giornalaio
+it:Chiosco|Edicola|Giornalaio
 ja:1キオスク|売店
 ko:키오스크
 pl:Kiosk|gazety|prasa
