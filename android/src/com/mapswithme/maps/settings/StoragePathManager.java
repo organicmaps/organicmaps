@@ -158,7 +158,18 @@ public class StoragePathManager
       // then there is little benefit to apps storing data here instead of the private directories
       // returned by Context#getFilesDir(), etc.
       //
-      if (!Environment.isExternalStorageEmulated(dir))
+      boolean isStorageEmulated;
+      try
+      {
+        isStorageEmulated = Environment.isExternalStorageEmulated(dir);
+      }
+      catch (IllegalArgumentException e)
+      {
+        // isExternalStorageEmulated may throw IllegalArgumentException
+        // https://github.com/organicmaps/organicmaps/issues/538
+        isStorageEmulated = false;
+      }
+      if (!isStorageEmulated)
         candidates.add(dir);
     }
 
