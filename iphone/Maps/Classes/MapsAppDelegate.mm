@@ -422,6 +422,8 @@ using namespace osm_auth_ios;
 }
 
 - (BOOL)shouldShowRateAlert {
+  /// @todo Uncomment in follow-up release.
+  /*
   NSUInteger const kMaximumSessionCountForShowingAlert = 21;
   NSUserDefaults const *const standartDefaults = NSUserDefaults.standardUserDefaults;
   if ([standartDefaults boolForKey:kUDAlreadyRatedKey])
@@ -446,6 +448,7 @@ using namespace osm_auth_ios;
     if (daysFromLastRateRequest >= 90 || daysFromLastRateRequest == 0)
       return YES;
   }
+  */
   return NO;
 }
 

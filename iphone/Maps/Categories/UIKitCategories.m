@@ -85,6 +85,7 @@
 
 - (void)rateApp
 {
+  /// @todo Set correct app url in follow-up release.
   NSString * urlString = @"https://testflight.apple.com/join/62l4Qh2K";
   NSURL * url = [NSURL URLWithString:urlString];
   [self openURL:url options:@{} completionHandler:nil];
