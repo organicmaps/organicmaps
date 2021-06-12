@@ -7,7 +7,7 @@ for travelers, tourists, hikers, and cyclists based on top of crowd-sourced
 **OpenStreetMap** data and curated with love by **MAPS.ME** founders.
 
 <p float="left">
-  <a href="https://testflight.apple.com/join/lrKCl08I">
+  <a href="https://apps.apple.com/us/app/organic-maps/id1567437057">
     <img src="docs/badges/apple-appstore.png" width="180">
   </a>
   <a href="https://play.google.com/store/apps/details?id=app.organicmaps">
