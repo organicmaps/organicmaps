@@ -78,7 +78,7 @@
   }
   else if (cell == self.rateCell)
   {
-    //[UIApplication.sharedApplication rateApp];
+    [UIApplication.sharedApplication rateApp];
   }
   else if (cell == self.privacyPolicyCell)
   {
