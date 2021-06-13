@@ -1,7 +1,6 @@
 protocol BottomTabBarViewProtocol: class {
   var presenter: BottomTabBarPresenterProtocol! { get set }
   var isHidden: Bool { get }
-  var isLayersBadgeHidden: Bool { get set }
   var isApplicationBadgeHidden: Bool { get set }
 }
 
@@ -19,11 +18,6 @@ class BottomTabBarViewController: UIViewController {
   @objc var isHidden: Bool = false {
     didSet {
       updateFrame(animated: true)
-    }
-  }
-  var isLayersBadgeHidden: Bool = true {
-    didSet {
-      updateBadge()
     }
   }
   @objc var isApplicationBadgeHidden: Bool = true {
@@ -111,7 +105,7 @@ class BottomTabBarViewController: UIViewController {
   }
   
   private func updateBadge() {
-    downloadBadge.isHidden = isApplicationBadgeHidden && isLayersBadgeHidden
+    downloadBadge.isHidden = isApplicationBadgeHidden
   }
 }
 

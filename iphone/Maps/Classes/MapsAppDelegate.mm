@@ -313,8 +313,12 @@ using namespace osm_auth_ios;
 
 - (void)updateApplicationIconBadgeNumber {
   auto const number = [self badgeNumber];
-  UIApplication.sharedApplication.applicationIconBadgeNumber = number;
-  BottomTabBarViewController.controller.isApplicationBadgeHidden = number == 0;
+
+  // Delay init because BottomTabBarViewController.controller is null here.
+  dispatch_async(dispatch_get_main_queue(), ^{
+    [UIApplication.sharedApplication setApplicationIconBadgeNumber:number];
+    BottomTabBarViewController.controller.isApplicationBadgeHidden = (number == 0);
+  });
 }
 
 - (NSUInteger)badgeNumber {
