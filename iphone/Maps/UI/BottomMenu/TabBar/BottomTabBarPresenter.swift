@@ -20,7 +20,6 @@ class BottomTabBarPresenter: NSObject {
 
 extension BottomTabBarPresenter: BottomTabBarPresenterProtocol {
   func configure() {
-    view?.isLayersBadgeHidden = true
   }
 
   func onSearchButtonPressed() {
