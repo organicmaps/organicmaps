@@ -67,7 +67,6 @@ NSString *const kPP2BookmarkEditingSegue = @"PP2BookmarkEditing";
 @end
 
 @interface MapViewController () <MWMFrameworkDrapeObserver,
-                                 MWMWelcomePageControllerProtocol,
                                  MWMKeyboardObserver,
                                  MWMBookmarksObserver>
 
@@ -274,7 +273,6 @@ NSString *const kPP2BookmarkEditingSegue = @"PP2BookmarkEditing";
   [super viewWillTransitionToSize:size withTransitionCoordinator:coordinator];
   [self.alertController viewWillTransitionToSize:size withTransitionCoordinator:coordinator];
   [self.controlsManager viewWillTransitionToSize:size withTransitionCoordinator:coordinator];
-  [self.welcomePageController viewWillTransitionToSize:size withTransitionCoordinator:coordinator];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -316,12 +314,12 @@ NSString *const kPP2BookmarkEditingSegue = @"PP2BookmarkEditing";
   if (self.needDeferFocusNotification)
     [self onGetFocus:self.deferredFocusValue];
 
-  [self.mapView setLaunchByDeepLink:DeepLinkHandler.shared.isLaunchedByDeeplink];
+  BOOL const isLaunchedByDeeplink = DeepLinkHandler.shared.isLaunchedByDeeplink;
+  [self.mapView setLaunchByDeepLink:isLaunchedByDeeplink];
   [MWMRouter restoreRouteIfNeeded];
 
   self.view.clipsToBounds = YES;
   [MWMKeyboard addObserver:self];
-  self.welcomePageController = [MWMWelcomePageController controllerWithParent:self];
 
   if ([FirstSession isFirstSession])
   {
@@ -339,10 +337,20 @@ NSString *const kPP2BookmarkEditingSegue = @"PP2BookmarkEditing";
   if ([MWMNavigationDashboardManager sharedManager].state == MWMNavigationDashboardStateHidden)
     self.controlsManager.menuState = self.controlsManager.menuRestoreState;
 
-  [self.welcomePageController show];
-  if (!self.welcomePageController) {
+  // TODO(vng): Uncomment update dialog when we're ready to handle more traffic.
+//  auto const todo = GetFramework().ToDoAfterUpdate();
+//  switch (todo) {
+//    case Framework::DoAfterUpdate::Migrate:
+//    case Framework::DoAfterUpdate::Nothing:
+//      break;
+//    case Framework::DoAfterUpdate::AutoupdateMaps:
+//    case Framework::DoAfterUpdate::AskForUpdateMaps:
+//      [self presentViewController:[MWMAutoupdateController instanceWithPurpose:todo] animated:YES completion:nil];
+//      break;
+//  }
+
+  if (isLaunchedByDeeplink)
     [DeepLinkHandler.shared handleDeeplink];
-  }
 }
 
 - (void)viewDidLayoutSubviews {
@@ -354,23 +362,6 @@ NSString *const kPP2BookmarkEditingSegue = @"PP2BookmarkEditing";
 - (void)applyTheme {
   [super applyTheme];
   [MapsAppDelegate customizeAppearance];
-}
-
-- (void)closePageController:(MWMWelcomePageController *)pageController {
-  if ([pageController isEqual:self.welcomePageController])
-    self.welcomePageController = nil;
-
-  auto const todo = GetFramework().ToDoAfterUpdate();
-
-  switch (todo) {
-    case Framework::DoAfterUpdate::Migrate:
-    case Framework::DoAfterUpdate::Nothing:
-      break;
-    case Framework::DoAfterUpdate::AutoupdateMaps:
-    case Framework::DoAfterUpdate::AskForUpdateMaps:
-      [self presentViewController:[MWMAutoupdateController instanceWithPurpose:todo] animated:YES completion:nil];
-      break;
-  }
 }
 
 - (void)showViralAlertIfNeeded {
@@ -526,13 +517,9 @@ NSString *const kPP2BookmarkEditingSegue = @"PP2BookmarkEditing";
   }
   BOOL const isMapVisible = (self.navigationController.visibleViewController == self);
   if (isMapVisible && ![MWMLocationManager isLocationProhibited]) {
-    if (self.welcomePageController) {
+    [self.alertController presentLocationNotFoundAlertWithOkBlock:^{
       GetFramework().SwitchMyPositionNextMode();
-    } else {
-      [self.alertController presentLocationNotFoundAlertWithOkBlock:^{
-        GetFramework().SwitchMyPositionNextMode();
-      }];
-    }
+    }];
   }
 }
 

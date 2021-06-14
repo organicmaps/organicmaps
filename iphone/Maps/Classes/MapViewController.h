@@ -2,7 +2,6 @@
 #import "MWMViewController.h"
 #import "MWMMyPositionMode.h"
 
-@class MWMWelcomePageController;
 @class MWMMapViewControlsManager;
 @class EAGLView;
 @class MWMMapDownloadDialog;
@@ -42,7 +41,6 @@
 - (void)dismissPlacePage;
 
 @property(nonatomic, readonly) MWMMapViewControlsManager * _Nonnull controlsManager;
-@property(nonatomic) MWMWelcomePageController * _Nullable welcomePageController;
 @property(nonatomic, readonly) MWMMapDownloadDialog * _Nonnull downloadDialog;
 @property(nonatomic, readonly) BookmarksCoordinator * _Nonnull bookmarksCoordinator;
 
