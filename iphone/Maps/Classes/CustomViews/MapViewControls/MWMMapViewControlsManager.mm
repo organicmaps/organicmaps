@@ -351,23 +351,4 @@ NSString *const kMapToCategorySelectorSegue = @"MapToCategorySelectorSegue";
   return self.placePageManager;
 }
 
-- (void)showAdditionalViewsIfNeeded {
-  auto ownerController = self.ownerController;
-
-  if ([MWMRouter isRoutingActive] || [MWMRouter hasSavedRoute])
-    return;
-
-  if (self.searchManager.state != MWMSearchManagerStateHidden)
-    return;
-
-  if (self.menuState != MWMBottomMenuStateInactive)
-    return;
-
-  if (ownerController.navigationController.viewControllers.count > 1)
-    return;
-
-  if (DeepLinkHandler.shared.isLaunchedByDeeplink)
-    return;
-}
-
 @end

@@ -61,13 +61,6 @@ void InitLocalizedStrings() {
   f.AddString("postal_code", L(@"postal_code").UTF8String);
   f.AddString("wifi", L(@"wifi").UTF8String);
 }
-
-void OverrideUserAgent() {
-  [NSUserDefaults.standardUserDefaults registerDefaults:@{
-    @"UserAgent": @"Mozilla/5.0 (iPhone; CPU iPhone OS 10_3 like Mac OS X) AppleWebKit/603.1.30 "
-                  @"(KHTML, like Gecko) Version/10.0 Mobile/14E269 Safari/602.1"
-  }];
-}
 }  // namespace
 
 using namespace osm_auth_ios;
@@ -126,7 +119,6 @@ using namespace osm_auth_ios;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
   NSLog(@"deeplinking: launchOptions %@", launchOptions);
-  OverrideUserAgent();
 
   [HttpThreadImpl setDownloadIndicatorProtocol:self];
 

@@ -339,19 +339,10 @@ NSString *const kPP2BookmarkEditingSegue = @"PP2BookmarkEditing";
   if ([MWMNavigationDashboardManager sharedManager].state == MWMNavigationDashboardStateHidden)
     self.controlsManager.menuState = self.controlsManager.menuRestoreState;
 
-  [NSNotificationCenter.defaultCenter addObserver:self
-                                         selector:@selector(didBecomeActive)
-                                             name:UIApplicationDidBecomeActiveNotification
-                                           object:nil];
   [self.welcomePageController show];
   if (!self.welcomePageController) {
     [DeepLinkHandler.shared handleDeeplink];
   }
-}
-
-- (void)didBecomeActive {
-  if (!self.welcomePageController)
-    [self.controlsManager showAdditionalViewsIfNeeded];
 }
 
 - (void)viewDidLayoutSubviews {
