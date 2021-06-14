@@ -55,8 +55,7 @@ static NSString *const kAlertControllerNibIdentifier = @"MWMAlertViewController"
 }
 
 - (void)presentLocationAlertWithCancelBlock:(MWMVoidBlock)cancelBlock {
-  if (![MapViewController sharedController].welcomePageController)
-    [self displayAlert:[MWMAlert locationAlertWithCancelBlock:cancelBlock]];
+  [self displayAlert:[MWMAlert locationAlertWithCancelBlock:cancelBlock]];
 }
 - (void)presentPoint2PointAlertWithOkBlock:(nonnull MWMVoidBlock)okBlock needToRebuild:(BOOL)needToRebuild {
   [self displayAlert:[MWMAlert point2PointAlertWithOkBlock:okBlock needToRebuild:needToRebuild]];
