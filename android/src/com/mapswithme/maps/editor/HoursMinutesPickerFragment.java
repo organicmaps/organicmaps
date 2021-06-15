@@ -202,7 +202,7 @@ public class HoursMinutesPickerFragment extends BaseMwmDialogFragment
     if (mSelectedTab == TAB_FROM)
     {
       hoursMinutes = mFrom;
-      okBtnRes = R.string.whats_new_next_button;
+      okBtnRes = R.string.next_button;
     }
     else
     {
