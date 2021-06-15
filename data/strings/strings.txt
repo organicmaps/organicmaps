@@ -12042,8 +12042,9 @@
     sk = Doriți să vă planificăm o rută având ca punct de pornire locația actuală?
     fa = ایا می خواهید یک مسیر را از موقعیت فعلیتان برنامه ریزی کنیم؟
 
-  [whats_new_next_button]
-    tags = ios
+  [next_button]
+    comment = Edit open hours/set time and minutes dialog
+    tags = android
     en = Next
     ru = Далее
     ar = التالي
@@ -30324,7 +30325,7 @@
       fa = اجازه دهید صفحه نمایش بخوابد
 
   [enable_screen_sleep_description]
-      comment = 
+      comment =
       en = When enabled the screen will be allowed to sleep after a period of inactivity.
       ru = При включении экран может переходить в спящий режим после периода бездействия.
       ar = عند التمكين ، سيتم السماح للشاشة بالنوم بعد فترة من عدم النشاط.
