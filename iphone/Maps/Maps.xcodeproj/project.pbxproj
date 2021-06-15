@@ -444,16 +444,8 @@
 		993DF12B23F6BDB100AC231A /* StyleManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 993DF0FF23F6BDB100AC231A /* StyleManager.swift */; };
 		993DF12C23F6BDB100AC231A /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 993DF10023F6BDB100AC231A /* Theme.swift */; };
 		993DF12D23F6BDB100AC231A /* GlobalStyleSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 993DF10123F6BDB100AC231A /* GlobalStyleSheet.swift */; };
-		993F5507237C622700545511 /* DeepLinkSearchStrategy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 993F54F8237C622700545511 /* DeepLinkSearchStrategy.swift */; };
 		993F5508237C622700545511 /* DeepLinkRouteStrategyAdapter.mm in Sources */ = {isa = PBXBuildFile; fileRef = 993F54F9237C622700545511 /* DeepLinkRouteStrategyAdapter.mm */; };
-		993F5509237C622700545511 /* DeepLinkHandlerStrategy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 993F54FA237C622700545511 /* DeepLinkHandlerStrategy.swift */; };
-		993F550A237C622700545511 /* DeepLinkGeoStrategy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 993F54FB237C622700545511 /* DeepLinkGeoStrategy.swift */; };
-		993F550B237C622700545511 /* DeepLinkIncorrectStrategy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 993F54FC237C622700545511 /* DeepLinkIncorrectStrategy.swift */; };
-		993F550F237C622700545511 /* DeepLinkMapStrategy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 993F5500237C622700545511 /* DeepLinkMapStrategy.swift */; };
-		993F5510237C622700545511 /* DeepLinkRouteStrategy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 993F5501237C622700545511 /* DeepLinkRouteStrategy.swift */; };
-		993F5512237C622700545511 /* DeepLinkFileStrategy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 993F5504237C622700545511 /* DeepLinkFileStrategy.swift */; };
 		993F5513237C622700545511 /* DeepLinkHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 993F5505237C622700545511 /* DeepLinkHandler.swift */; };
-		993F5514237C622700545511 /* DeepLinkStrategyFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 993F5506237C622700545511 /* DeepLinkStrategyFactory.swift */; };
 		994F790723E85C5900660E75 /* DifficultyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 994F790623E85C5900660E75 /* DifficultyView.swift */; };
 		99514BB823E82B450085D3A7 /* ElevationProfilePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99514BB223E82B450085D3A7 /* ElevationProfilePresenter.swift */; };
 		99514BBA23E82B450085D3A7 /* ElevationProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99514BB423E82B450085D3A7 /* ElevationProfileViewController.swift */; };
@@ -653,7 +645,6 @@
 		F6FE3C3C1CC5106500A73196 /* MWMPlaceDoesntExistAlert.xib in Resources */ = {isa = PBXBuildFile; fileRef = F6FE3C3A1CC5106500A73196 /* MWMPlaceDoesntExistAlert.xib */; };
 		F6FEA82E1C58F108007223CC /* MWMButton.m in Sources */ = {isa = PBXBuildFile; fileRef = F6FEA82C1C58E89B007223CC /* MWMButton.m */; };
 		FA8E808925F412E2002A1434 /* FirstSession.mm in Sources */ = {isa = PBXBuildFile; fileRef = FA8E808825F412E2002A1434 /* FirstSession.mm */; };
-		FA8E808C25F43692002A1434 /* DeepLinkLeadStrategy.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA8E808B25F43691002A1434 /* DeepLinkLeadStrategy.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -1255,17 +1246,9 @@
 		993DF0FF23F6BDB100AC231A /* StyleManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StyleManager.swift; sourceTree = "<group>"; };
 		993DF10023F6BDB100AC231A /* Theme.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
 		993DF10123F6BDB100AC231A /* GlobalStyleSheet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GlobalStyleSheet.swift; sourceTree = "<group>"; };
-		993F54F8237C622700545511 /* DeepLinkSearchStrategy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeepLinkSearchStrategy.swift; sourceTree = "<group>"; };
 		993F54F9237C622700545511 /* DeepLinkRouteStrategyAdapter.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = DeepLinkRouteStrategyAdapter.mm; sourceTree = "<group>"; };
-		993F54FA237C622700545511 /* DeepLinkHandlerStrategy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeepLinkHandlerStrategy.swift; sourceTree = "<group>"; };
-		993F54FB237C622700545511 /* DeepLinkGeoStrategy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeepLinkGeoStrategy.swift; sourceTree = "<group>"; };
-		993F54FC237C622700545511 /* DeepLinkIncorrectStrategy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeepLinkIncorrectStrategy.swift; sourceTree = "<group>"; };
-		993F5500237C622700545511 /* DeepLinkMapStrategy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeepLinkMapStrategy.swift; sourceTree = "<group>"; };
-		993F5501237C622700545511 /* DeepLinkRouteStrategy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeepLinkRouteStrategy.swift; sourceTree = "<group>"; };
 		993F5503237C622700545511 /* DeepLinkRouteStrategyAdapter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DeepLinkRouteStrategyAdapter.h; sourceTree = "<group>"; };
-		993F5504237C622700545511 /* DeepLinkFileStrategy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeepLinkFileStrategy.swift; sourceTree = "<group>"; };
 		993F5505237C622700545511 /* DeepLinkHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeepLinkHandler.swift; sourceTree = "<group>"; };
-		993F5506237C622700545511 /* DeepLinkStrategyFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeepLinkStrategyFactory.swift; sourceTree = "<group>"; };
 		994F790623E85C5900660E75 /* DifficultyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DifficultyView.swift; sourceTree = "<group>"; };
 		99514BB223E82B450085D3A7 /* ElevationProfilePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ElevationProfilePresenter.swift; sourceTree = "<group>"; };
 		99514BB423E82B450085D3A7 /* ElevationProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ElevationProfileViewController.swift; sourceTree = "<group>"; };
@@ -1625,7 +1608,6 @@
 		FA85F632145DDDC20090E1A0 /* packed_polygons.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; name = packed_polygons.bin; path = ../../data/packed_polygons.bin; sourceTree = SOURCE_ROOT; };
 		FA8E808825F412E2002A1434 /* FirstSession.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = FirstSession.mm; sourceTree = "<group>"; };
 		FA8E808A25F41337002A1434 /* FirstSession.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FirstSession.h; sourceTree = "<group>"; };
-		FA8E808B25F43691002A1434 /* DeepLinkLeadStrategy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeepLinkLeadStrategy.swift; sourceTree = "<group>"; };
 		FAAEA7D0161BD26600CCD661 /* synonyms.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = synonyms.txt; path = ../../data/synonyms.txt; sourceTree = "<group>"; };
 		FAAFD696139D9BE2000AE70C /* categories.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = categories.txt; path = ../../data/categories.txt; sourceTree = SOURCE_ROOT; };
 		FACE202725ED913A00518E88 /* CoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreServices.framework; path = System/Library/Frameworks/CoreServices.framework; sourceTree = SDKROOT; };
@@ -2742,7 +2724,6 @@
 			children = (
 				993F54F7237C622700545511 /* Strategies */,
 				993F5505237C622700545511 /* DeepLinkHandler.swift */,
-				993F5506237C622700545511 /* DeepLinkStrategyFactory.swift */,
 			);
 			path = DeepLink;
 			sourceTree = "<group>";
@@ -2750,16 +2731,8 @@
 		993F54F7237C622700545511 /* Strategies */ = {
 			isa = PBXGroup;
 			children = (
-				FA8E808B25F43691002A1434 /* DeepLinkLeadStrategy.swift */,
-				993F54F8237C622700545511 /* DeepLinkSearchStrategy.swift */,
 				993F54F9237C622700545511 /* DeepLinkRouteStrategyAdapter.mm */,
 				993F5503237C622700545511 /* DeepLinkRouteStrategyAdapter.h */,
-				993F54FA237C622700545511 /* DeepLinkHandlerStrategy.swift */,
-				993F54FB237C622700545511 /* DeepLinkGeoStrategy.swift */,
-				993F54FC237C622700545511 /* DeepLinkIncorrectStrategy.swift */,
-				993F5500237C622700545511 /* DeepLinkMapStrategy.swift */,
-				993F5501237C622700545511 /* DeepLinkRouteStrategy.swift */,
-				993F5504237C622700545511 /* DeepLinkFileStrategy.swift */,
 			);
 			path = Strategies;
 			sourceTree = "<group>";
@@ -4162,7 +4135,6 @@
 				34D3AFEA1E378AF1004100F9 /* UINib+Init.swift in Sources */,
 				F63AF5131EA6250F00A1DB98 /* FilterCollectionHolderCell.swift in Sources */,
 				34AB663E1FC5AA330078E451 /* RouteManagerTransitioning.swift in Sources */,
-				993F550B237C622700545511 /* DeepLinkIncorrectStrategy.swift in Sources */,
 				56C74C391C74A3BC00B71B9F /* MWMInputEmailValidator.m in Sources */,
 				993DF0CB23F6BD0600AC231A /* ElevationDetailsRouter.swift in Sources */,
 				47CA68FC250F99E500671019 /* BookmarksListCellStrategy.swift in Sources */,
@@ -4198,7 +4170,6 @@
 				F6E2FF661E097BA00083EBEC /* MWMTTSSettingsViewController.mm in Sources */,
 				3454D7C21E07F045004AF2AD /* NSString+Categories.m in Sources */,
 				34E7761F1F14DB48003040B3 /* PlacePageArea.swift in Sources */,
-				FA8E808C25F43692002A1434 /* DeepLinkLeadStrategy.swift in Sources */,
 				4728F69322CF89A400E00028 /* GradientView.swift in Sources */,
 				F6381BF61CD12045004CA943 /* LocaleTranslator.mm in Sources */,
 				9917D17F2397B1D600A7E06E /* IPadModalPresentationController.swift in Sources */,
@@ -4220,7 +4191,6 @@
 				F6E2FF691E097BA00083EBEC /* MWMUnitsController.mm in Sources */,
 				6741AA031BF340DE002C974C /* MWMActivityViewController.mm in Sources */,
 				CDCA27382237F1BD00167D87 /* BookmarkInfo.swift in Sources */,
-				993F5509237C622700545511 /* DeepLinkHandlerStrategy.swift in Sources */,
 				993DF11A23F6BDB100AC231A /* UIBarButtonItemRenderer.swift in Sources */,
 				34AB668C1FC5AA330078E451 /* NavigationStreetNameView.swift in Sources */,
 				993DF12923F6BDB100AC231A /* ThemeManager.swift in Sources */,
@@ -4240,7 +4210,6 @@
 				3454D7BC1E07F045004AF2AD /* CLLocation+Mercator.mm in Sources */,
 				47E3C7272111E5A8008B3B27 /* AlertPresentationController.swift in Sources */,
 				F6E2FF4E1E097BA00083EBEC /* MWMAboutController.m in Sources */,
-				993F5512237C622700545511 /* DeepLinkFileStrategy.swift in Sources */,
 				CDCA27812243F59800167D87 /* CarPlayRouter.swift in Sources */,
 				34F5E0D41E3F254800B1C415 /* UIView+Hierarchy.swift in Sources */,
 				6741AA0B1BF340DE002C974C /* MWMMapViewControlsManager.mm in Sources */,
@@ -4277,7 +4246,6 @@
 				47CA68DA2500469400671019 /* BookmarksListBuilder.swift in Sources */,
 				34D3AFE21E376F7E004100F9 /* UITableView+Updates.swift in Sources */,
 				3404164C1E7BF42E00E2B6D6 /* UIView+Coordinates.swift in Sources */,
-				993F5510237C622700545511 /* DeepLinkRouteStrategy.swift in Sources */,
 				99F3EB0323F4178200C713F8 /* PlacePageCommonLayout.swift in Sources */,
 				99C6532223F2F506004322F3 /* IPlacePageLayout.swift in Sources */,
 				99F8B4C623B644A6009FF0B4 /* MapStyleSheet.swift in Sources */,
@@ -4287,9 +4255,7 @@
 				47E3C7332111F4D8008B3B27 /* CoverVerticalDismissalAnimator.swift in Sources */,
 				471AB99423ABA3BD00F56D49 /* SearchMapsDataSource.swift in Sources */,
 				47CA68F1250B54AF00671019 /* BookmarkCell.swift in Sources */,
-				993F550F237C622700545511 /* DeepLinkMapStrategy.swift in Sources */,
 				471A7BC02481C82500A0D4C1 /* BookmarkTitleCell.swift in Sources */,
-				993F5507237C622700545511 /* DeepLinkSearchStrategy.swift in Sources */,
 				47F67D1521CAB21B0069754E /* MWMImageCoder.m in Sources */,
 				34AB66861FC5AA330078E451 /* MWMNavigationInfoView.mm in Sources */,
 				34C9BD051C6DB693000DC38D /* MWMViewController.m in Sources */,
@@ -4333,7 +4299,6 @@
 				34AB66891FC5AA330078E451 /* NavigationControlView.swift in Sources */,
 				479EE94A2292FB03009DEBA6 /* ActivityIndicator.swift in Sources */,
 				47B9065321C7FA400079C85E /* MWMImageCache.m in Sources */,
-				993F550A237C622700545511 /* DeepLinkGeoStrategy.swift in Sources */,
 				F6FEA82E1C58F108007223CC /* MWMButton.m in Sources */,
 				34B924431DC8A29C0008D971 /* MWMMailViewController.m in Sources */,
 				340475651E081A4600C92850 /* MWMRouter.mm in Sources */,
@@ -4348,7 +4313,6 @@
 				F6E2FF571E097BA00083EBEC /* MWMMobileInternetViewController.m in Sources */,
 				993DF11323F6BDB100AC231A /* UITableViewRenderer.swift in Sources */,
 				34AB66261FC5AA330078E451 /* RouteManagerDimView.swift in Sources */,
-				993F5514237C622700545511 /* DeepLinkStrategyFactory.swift in Sources */,
 				6741AA2B1BF340DE002C974C /* CircleView.m in Sources */,
 				4788739220EE326500F6826B /* VerticallyAlignedButton.swift in Sources */,
 				3444DFDE1F18A5AF00E73099 /* SideButtonsArea.swift in Sources */,

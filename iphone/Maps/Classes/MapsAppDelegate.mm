@@ -118,7 +118,7 @@ using namespace osm_auth_ios;
 }
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-  NSLog(@"deeplinking: launchOptions %@", launchOptions);
+  NSLog(@"application:didFinishLaunchingWithOptions: %@", launchOptions);
 
   [HttpThreadImpl setDownloadIndicatorProtocol:self];
 
@@ -249,6 +249,7 @@ using namespace osm_auth_ios;
     }
   } else if ([userActivity.activityType isEqualToString:NSUserActivityTypeBrowsingWeb] &&
              userActivity.webpageURL != nil) {
+    LOG(LINFO, ("application:continueUserActivity:restorationHandler: %@", userActivity.webpageURL));
     return [DeepLinkHandler.shared applicationDidReceiveUniversalLink:userActivity.webpageURL];
   }
 
@@ -295,7 +296,7 @@ using namespace osm_auth_ios;
 - (BOOL)application:(UIApplication *)app
             openURL:(NSURL *)url
             options:(NSDictionary<UIApplicationOpenURLOptionsKey, id> *)options {
-
+  NSLog(@"application:openURL: %@ options: %@", url, options);
   return [DeepLinkHandler.shared applicationDidOpenUrl:url];
 }
 
