@@ -322,8 +322,20 @@ NSString *const kPP2BookmarkEditingSegue = @"PP2BookmarkEditing";
   self.view.clipsToBounds = YES;
   [MWMKeyboard addObserver:self];
   self.welcomePageController = [MWMWelcomePageController controllerWithParent:self];
-  [self processMyPositionStateModeEvent:[MWMLocationManager isLocationProhibited] ? MWMMyPositionModeNotFollowNoPosition
-                                                                                  : MWMMyPositionModePendingPosition];
+
+  if ([FirstSession isFirstSession])
+  {
+    [MWMLocationManager start];
+    dispatch_async(dispatch_get_main_queue(), ^{
+      [MWMFrameworkHelper processFirstLaunch:[MWMLocationManager isStarted]];
+    });
+  }
+  else
+  {
+    [self processMyPositionStateModeEvent:[MWMLocationManager isLocationProhibited] ?
+        MWMMyPositionModeNotFollowNoPosition : MWMMyPositionModePendingPosition];
+  }
+
   if ([MWMNavigationDashboardManager sharedManager].state == MWMNavigationDashboardStateHidden)
     self.controlsManager.menuState = self.controlsManager.menuRestoreState;
 
@@ -502,9 +514,6 @@ NSString *const kPP2BookmarkEditingSegue = @"PP2BookmarkEditing";
     case MWMMyPositionModeNotFollowNoPosition:
       break;
     case MWMMyPositionModePendingPosition:
-      if (self.welcomePageController && [FirstSession isFirstSession]) {
-        break;
-      }
       [MWMLocationManager start];
       if (![MWMLocationManager isStarted])
         [self processMyPositionStateModeEvent:MWMMyPositionModeNotFollowNoPosition];
