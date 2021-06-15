@@ -586,7 +586,8 @@
 	<string name="p2p_to_here">Rute ke</string>
 	<string name="p2p_only_from_current">Navigasi tersedia hanya dari lokasi Anda saat ini.</string>
 	<string name="p2p_reroute_from_current">Apakah Anda ingin kami merencanakan sebuah rute dari lokasi Anda saat ini?</string>
-	<string name="whats_new_next_button">Berikut</string>
+	<!-- Edit open hours/set time and minutes dialog -->
+	<string name="next_button">Berikut</string>
 	<string name="editor_time_add">Tambah Jadwal</string>
 	<string name="editor_time_delete">Hapus Jadwal</string>
 	<!-- Text for allday switch. -->
@@ -1199,8 +1200,16 @@
 	<string name="downloader_loading_ios">Mengunduh</string>
 	<string name="key_information_title">Informasi kunci</string>
 	<string name="enable_screen_sleep">Izinkan layar untuk tidur</string>
-	<!--  -->
+	<!-- Description in preferences -->
 	<string name="enable_screen_sleep_description">Jika diaktifkan, layar akan diizinkan untuk tidur setelah beberapa saat tidak aktif.</string>
+	<!-- Autoupdate dialog on start -->
+	<string name="whats_new_auto_update_title">Perbarui peta yang sudah Anda unduh</string>
+	<!-- Autoupdate dialog on start -->
+	<string name="whats_new_auto_update_message">Memperbarui peta membuat informasi tentang objek tetap terkini</string>
+	<!-- Autoupdate dialog on start -->
+	<string name="whats_new_auto_update_button_size">Pembaruan (%s)</string>
+	<!-- Autoupdate dialog on start -->
+	<string name="whats_new_auto_update_button_later">Perbarui secara manual nanti</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Stasiun kereta gantung</string>

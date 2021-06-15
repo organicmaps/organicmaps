@@ -990,7 +990,8 @@
 
 "p2p_reroute_from_current" = "ایا می خواهید یک مسیر را از موقعیت فعلیتان برنامه ریزی کنیم؟";
 
-"whats_new_next_button" = "بعدی";
+/* Edit open hours/set time and minutes dialog */
+"next_button" = "بعدی";
 
 "editor_time_add" = "اضافه کردن برنامه ریزی";
 
@@ -2176,8 +2177,20 @@
 
 "enable_screen_sleep" = "اجازه دهید صفحه نمایش بخوابد";
 
-/*  */
+/* Description in preferences */
 "enable_screen_sleep_description" = "درصورت فعال بودن ، بعد از یک دوره عدم فعالیت به صفحه اجازه خواب داده می شود.";
+
+/* Autoupdate dialog on start */
+"whats_new_auto_update_title" = "نقشه های دانلود شده خود را به روز کنید";
+
+/* Autoupdate dialog on start */
+"whats_new_auto_update_message" = "به روز رسانی نقشه ها اطلاعات مربوط به اشیا را به روز نگه می دارد";
+
+/* Autoupdate dialog on start */
+"whats_new_auto_update_button_size" = "بروزرسانی (%s)";
+
+/* Autoupdate dialog on start */
+"whats_new_auto_update_button_later" = "بعدا به صورت دستی به روزرسانی کنید";
 
 
 /**********  Partners  **********/

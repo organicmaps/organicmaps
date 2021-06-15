@@ -575,7 +575,8 @@
 	<string name="p2p_to_here">مسیر به</string>
 	<string name="p2p_only_from_current">مسیر یابی فقط از موقعیت کنونی شما قابل انجام است.</string>
 	<string name="p2p_reroute_from_current">ایا می خواهید یک مسیر را از موقعیت فعلیتان برنامه ریزی کنیم؟</string>
-	<string name="whats_new_next_button">بعدی</string>
+	<!-- Edit open hours/set time and minutes dialog -->
+	<string name="next_button">بعدی</string>
 	<string name="editor_time_add">اضافه کردن برنامه ریزی</string>
 	<string name="editor_time_delete">حذف کردن برنامه ریزی</string>
 	<!-- Text for allday switch. -->
@@ -1191,8 +1192,16 @@
 	<string name="downloader_loading_ios">در حال دانلود</string>
 	<string name="key_information_title">اطلاعات کلیدی</string>
 	<string name="enable_screen_sleep">اجازه دهید صفحه نمایش بخوابد</string>
-	<!--  -->
+	<!-- Description in preferences -->
 	<string name="enable_screen_sleep_description">درصورت فعال بودن ، بعد از یک دوره عدم فعالیت به صفحه اجازه خواب داده می شود.</string>
+	<!-- Autoupdate dialog on start -->
+	<string name="whats_new_auto_update_title">نقشه های دانلود شده خود را به روز کنید</string>
+	<!-- Autoupdate dialog on start -->
+	<string name="whats_new_auto_update_message">به روز رسانی نقشه ها اطلاعات مربوط به اشیا را به روز نگه می دارد</string>
+	<!-- Autoupdate dialog on start -->
+	<string name="whats_new_auto_update_button_size">بروزرسانی (%s)</string>
+	<!-- Autoupdate dialog on start -->
+	<string name="whats_new_auto_update_button_later">بعدا به صورت دستی به روزرسانی کنید</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aeroway.aerodrome">فرودگاه</string>

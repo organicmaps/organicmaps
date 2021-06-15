@@ -599,7 +599,8 @@
 	<string name="p2p_to_here">เส้นทางถึง</string>
 	<string name="p2p_only_from_current">สามารถใช้การนำทางได้เฉพาะจากตำแหน่งที่ตั้งปัจจุบันของคุณเท่านั้น</string>
 	<string name="p2p_reroute_from_current">คุณต้องการให้เราาวงแผนเส้นทางจากสถานที่ตั้งปัจจุบันของคุณหรือไม่?</string>
-	<string name="whats_new_next_button">ถัดไป</string>
+	<!-- Edit open hours/set time and minutes dialog -->
+	<string name="next_button">ถัดไป</string>
 	<string name="editor_time_add">เพิ่มวัน</string>
 	<string name="editor_time_delete">ลบวัน</string>
 	<!-- Text for allday switch. -->
@@ -1211,8 +1212,16 @@
 	<string name="downloader_loading_ios">การดาวน์โหลด</string>
 	<string name="key_information_title">ข้อมูลหลัก</string>
 	<string name="enable_screen_sleep">อนุญาตให้หน้าจอเข้าสู่โหมดสลีป</string>
-	<!--  -->
+	<!-- Description in preferences -->
 	<string name="enable_screen_sleep_description">เมื่อเปิดใช้งานหน้าจอจะได้รับอนุญาตให้เข้าสู่โหมดสลีปหลังจากไม่มีการใช้งานเป็นระยะเวลาหนึ่ง</string>
+	<!-- Autoupdate dialog on start -->
+	<string name="whats_new_auto_update_title">อัปเดตแผนที่ที่คุณดาวน์โหลดมา</string>
+	<!-- Autoupdate dialog on start -->
+	<string name="whats_new_auto_update_message">การอัปเดตแผนที่จะคงข้อมูลเกี่ยวกับจุดหมายต่าง ๆ ให้ล่าสุดอยู่เสมอ</string>
+	<!-- Autoupdate dialog on start -->
+	<string name="whats_new_auto_update_button_size">อัปเดต (%s)</string>
+	<!-- Autoupdate dialog on start -->
+	<string name="whats_new_auto_update_button_later">อัปเดตด้วยตนเองภายหลัง</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">สถานีกระเช้าลอยฟ้า</string>

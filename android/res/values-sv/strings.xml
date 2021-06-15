@@ -593,7 +593,8 @@
 	<string name="p2p_to_here">Rutt till</string>
 	<string name="p2p_only_from_current">Navigering är endast tillgänglig från din aktuella plats.</string>
 	<string name="p2p_reroute_from_current">Vill du att vi planerar en färdväg från din nuvarande plats?</string>
-	<string name="whats_new_next_button">Nästa</string>
+	<!-- Edit open hours/set time and minutes dialog -->
+	<string name="next_button">Nästa</string>
 	<string name="editor_time_add">Lägg till schema</string>
 	<string name="editor_time_delete">Ta bort schema</string>
 	<!-- Text for allday switch. -->
@@ -1206,8 +1207,16 @@
 	<string name="downloader_loading_ios">Nedladdning</string>
 	<string name="key_information_title">Nyckelinformation</string>
 	<string name="enable_screen_sleep">Låt skärmen sova</string>
-	<!--  -->
+	<!-- Description in preferences -->
 	<string name="enable_screen_sleep_description">När den är aktiverad får skärmen sova efter en period av inaktivitet.</string>
+	<!-- Autoupdate dialog on start -->
+	<string name="whats_new_auto_update_title">Uppdatera dina nedladdade kartor</string>
+	<!-- Autoupdate dialog on start -->
+	<string name="whats_new_auto_update_message">Uppdatering av kartor håller information om objekt uppdaterade</string>
+	<!-- Autoupdate dialog on start -->
+	<string name="whats_new_auto_update_button_size">Uppdatera (%s)</string>
+	<!-- Autoupdate dialog on start -->
+	<string name="whats_new_auto_update_button_later">Uppdatera senare manuellt</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Linbanestation</string>

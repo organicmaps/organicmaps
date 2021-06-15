@@ -587,7 +587,8 @@
 	<string name="p2p_to_here">Tuyến đến</string>
 	<string name="p2p_only_from_current">Chức năng tìm đường chỉ có sẵn từ vị trí hiện tại của bạn.</string>
 	<string name="p2p_reroute_from_current">Bạn có muốn chúng tôi vạch đường từ vị trí hiện tại của bạn không?</string>
-	<string name="whats_new_next_button">Tiếp theo</string>
+	<!-- Edit open hours/set time and minutes dialog -->
+	<string name="next_button">Tiếp theo</string>
 	<string name="editor_time_add">Thêm lịch biểu</string>
 	<string name="editor_time_delete">Xóa lịch biểu</string>
 	<!-- Text for allday switch. -->
@@ -1196,8 +1197,16 @@
 	<string name="downloader_loading_ios">Tải xuống</string>
 	<string name="key_information_title">Thông tin chìa khóa</string>
 	<string name="enable_screen_sleep">Cho phép màn hình ở chế độ ngủ</string>
-	<!--  -->
+	<!-- Description in preferences -->
 	<string name="enable_screen_sleep_description">Khi được bật, màn hình sẽ được phép ở chế độ ngủ sau một thời gian không hoạt động.</string>
+	<!-- Autoupdate dialog on start -->
+	<string name="whats_new_auto_update_title">Cập nhật các bản đồ đã tải về của bạn</string>
+	<!-- Autoupdate dialog on start -->
+	<string name="whats_new_auto_update_message">Cập nhật bản đồ để cập nhật thông tin về các đối tượng trên đó</string>
+	<!-- Autoupdate dialog on start -->
+	<string name="whats_new_auto_update_button_size">Cập nhật (%s)</string>
+	<!-- Autoupdate dialog on start -->
+	<string name="whats_new_auto_update_button_later">Cập nhật thủ công sau</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Trạm Cáp Treo</string>

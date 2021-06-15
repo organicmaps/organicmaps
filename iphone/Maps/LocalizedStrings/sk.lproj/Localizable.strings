@@ -990,7 +990,8 @@
 
 "p2p_reroute_from_current" = "Doriți să vă planificăm o rută având ca punct de pornire locația actuală?";
 
-"whats_new_next_button" = "Nasledujúca";
+/* Edit open hours/set time and minutes dialog */
+"next_button" = "Nasledujúca";
 
 "editor_time_add" = "Pridať rozvrh";
 
@@ -2176,8 +2177,20 @@
 
 "enable_screen_sleep" = "Nechajte obrazovku spať";
 
-/*  */
+/* Description in preferences */
 "enable_screen_sleep_description" = "Ak je táto možnosť povolená, obrazovka bude môcť po určitej dobe nečinnosti spať.";
+
+/* Autoupdate dialog on start */
+"whats_new_auto_update_title" = "Aktualizujte svoje stiahnuté mapy";
+
+/* Autoupdate dialog on start */
+"whats_new_auto_update_message" = "Vďaka aktualizácii máp budú informácie o objektoch na mape aktualizované";
+
+/* Autoupdate dialog on start */
+"whats_new_auto_update_button_size" = "Aktualizovať (%s)";
+
+/* Autoupdate dialog on start */
+"whats_new_auto_update_button_later" = "Manuálne aktualizovať neskôr";
 
 
 /**********  Partners  **********/

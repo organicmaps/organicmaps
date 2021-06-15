@@ -599,7 +599,8 @@
 	<string name="p2p_to_here">الطريق إلى</string>
 	<string name="p2p_only_from_current">تتوافر إمكانية التنقل فقط من خلال موقعك الحالي. هل تريد أن نخطط لك طريقاً بديلاً؟</string>
 	<string name="p2p_reroute_from_current">هل ترغب في أن نرسم مسار لك من موقعك الحالي؟</string>
-	<string name="whats_new_next_button">التالي</string>
+	<!-- Edit open hours/set time and minutes dialog -->
+	<string name="next_button">التالي</string>
 	<string name="editor_time_add">إضافة جدول</string>
 	<string name="editor_time_delete">حذف جدول</string>
 	<!-- Text for allday switch. -->
@@ -1211,8 +1212,16 @@
 	<string name="downloader_loading_ios">جار التحميل</string>
 	<string name="key_information_title">معلومات رئيسية</string>
 	<string name="enable_screen_sleep">اسمح للشاشة بالنوم</string>
-	<!--  -->
+	<!-- Description in preferences -->
 	<string name="enable_screen_sleep_description">عند التمكين ، سيتم السماح للشاشة بالنوم بعد فترة من عدم النشاط.</string>
+	<!-- Autoupdate dialog on start -->
+	<string name="whats_new_auto_update_title">قم بتحديث الخرائط التي قمت بنتزيلها</string>
+	<!-- Autoupdate dialog on start -->
+	<string name="whats_new_auto_update_message">تحديث الخرائط والاحتفاظ بالمعلومات حول الكائنات محدثة</string>
+	<!-- Autoupdate dialog on start -->
+	<string name="whats_new_auto_update_button_size">تحديث (%s)</string>
+	<!-- Autoupdate dialog on start -->
+	<string name="whats_new_auto_update_button_later">تحديث يدوياً في وقت لاحق</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">محطة تلفريك</string>

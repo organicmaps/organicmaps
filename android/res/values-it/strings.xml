@@ -593,7 +593,8 @@
 	<string name="p2p_to_here">Percorso per</string>
 	<string name="p2p_only_from_current">La navigazione è disponibile solo dalla tua posizione attuale.</string>
 	<string name="p2p_reroute_from_current">Vuoi che impostiamo il percorso dalla tua posizione corrente?</string>
-	<string name="whats_new_next_button">Avanti</string>
+	<!-- Edit open hours/set time and minutes dialog -->
+	<string name="next_button">Avanti</string>
 	<string name="editor_time_add">Aggiungi orari</string>
 	<string name="editor_time_delete">Elimina orari</string>
 	<!-- Text for allday switch. -->
@@ -1206,8 +1207,16 @@
 	<string name="downloader_loading_ios">Caricamento</string>
 	<string name="key_information_title">Informazioni importanti</string>
 	<string name="enable_screen_sleep">Consenti allo schermo di dormire</string>
-	<!--  -->
+	<!-- Description in preferences -->
 	<string name="enable_screen_sleep_description">Quando abilitato, lo schermo potrà dormire dopo un periodo di inattività.</string>
+	<!-- Autoupdate dialog on start -->
+	<string name="whats_new_auto_update_title">Aggiorna le mappe scaricate</string>
+	<!-- Autoupdate dialog on start -->
+	<string name="whats_new_auto_update_message">Aggiornamento mappe mantiene aggiornate le informazioni sugli oggetti</string>
+	<!-- Autoupdate dialog on start -->
+	<string name="whats_new_auto_update_button_size">Aggiorna (%s)</string>
+	<!-- Autoupdate dialog on start -->
+	<string name="whats_new_auto_update_button_later">Aggiorna manualmente più tardi</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Funivia</string>

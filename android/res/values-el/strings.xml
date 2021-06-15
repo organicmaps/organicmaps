@@ -470,7 +470,8 @@
 	<string name="p2p_to_here">Διαδρομή στο</string>
 	<string name="p2p_only_from_current">Η πλοήγηση είναι διαθέσιμη μόνο από την τρέχουσα τοποθεσία σας.</string>
 	<string name="p2p_reroute_from_current">Θέλετε να σχεδιάσουμε μια διαδρομή από την τρέχουσα θέση σας;</string>
-	<string name="whats_new_next_button">Επόμενη</string>
+	<!-- Edit open hours/set time and minutes dialog -->
+	<string name="next_button">Επόμενη</string>
 	<string name="editor_time_add">Προσθέσετε χρονοδιάγραμμα</string>
 	<string name="editor_time_delete">Διαγραφή χρονοδιαγράμματος</string>
 	<!-- Text for allday switch. -->
@@ -1008,8 +1009,16 @@
 	<string name="downloader_loading_ios">Φόρτωση</string>
 	<string name="key_information_title">Βασικές πληροφορίες</string>
 	<string name="enable_screen_sleep">Αφήστε την οθόνη να κοιμηθεί</string>
-	<!--  -->
+	<!-- Description in preferences -->
 	<string name="enable_screen_sleep_description">Όταν είναι ενεργοποιημένη, η οθόνη θα αφεθεί να κοιμηθεί μετά από περίοδο αδράνειας.</string>
+	<!-- Autoupdate dialog on start -->
+	<string name="whats_new_auto_update_title">Θα πρέπει να ενημερώστε τους χάρτες που έχετε κατεβάσει</string>
+	<!-- Autoupdate dialog on start -->
+	<string name="whats_new_auto_update_message">Η ενημέρωση των χαρτών διατηρεί τις πληροφορίες των στοιχείων επικαιροποιημένες</string>
+	<!-- Autoupdate dialog on start -->
+	<string name="whats_new_auto_update_button_size">Ενημέρωση (%s)</string>
+	<!-- Autoupdate dialog on start -->
+	<string name="whats_new_auto_update_button_later">Χειροκίνητη ενημέρωση αργότερα</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Σταθμός αερομεταφοράς</string>

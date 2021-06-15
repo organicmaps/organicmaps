@@ -990,7 +990,8 @@
 
 "p2p_reroute_from_current" = "Bạn có muốn chúng tôi vạch đường từ vị trí hiện tại của bạn không?";
 
-"whats_new_next_button" = "Tiếp theo";
+/* Edit open hours/set time and minutes dialog */
+"next_button" = "Tiếp theo";
 
 "editor_time_add" = "Thêm lịch biểu";
 
@@ -2176,8 +2177,20 @@
 
 "enable_screen_sleep" = "Cho phép màn hình ở chế độ ngủ";
 
-/*  */
+/* Description in preferences */
 "enable_screen_sleep_description" = "Khi được bật, màn hình sẽ được phép ở chế độ ngủ sau một thời gian không hoạt động.";
+
+/* Autoupdate dialog on start */
+"whats_new_auto_update_title" = "Cập nhật các bản đồ đã tải về của bạn";
+
+/* Autoupdate dialog on start */
+"whats_new_auto_update_message" = "Cập nhật bản đồ để cập nhật thông tin về các đối tượng trên đó";
+
+/* Autoupdate dialog on start */
+"whats_new_auto_update_button_size" = "Cập nhật (%s)";
+
+/* Autoupdate dialog on start */
+"whats_new_auto_update_button_later" = "Cập nhật thủ công sau";
 
 
 /**********  Partners  **********/

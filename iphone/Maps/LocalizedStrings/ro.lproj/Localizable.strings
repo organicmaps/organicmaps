@@ -990,7 +990,8 @@
 
 "p2p_reroute_from_current" = "Doriți să vă planificăm o rută având ca punct de pornire locația actuală?";
 
-"whats_new_next_button" = "Următoarea";
+/* Edit open hours/set time and minutes dialog */
+"next_button" = "Următoarea";
 
 "editor_time_add" = "Adăugare planificare";
 
@@ -2176,8 +2177,20 @@
 
 "enable_screen_sleep" = "Permiteți ecranului să doarmă";
 
-/*  */
+/* Description in preferences */
 "enable_screen_sleep_description" = "Când este activat, ecranul va fi lăsat să doarmă după o perioadă de inactivitate.";
+
+/* Autoupdate dialog on start */
+"whats_new_auto_update_title" = "Actualizați hărțile descărcate";
+
+/* Autoupdate dialog on start */
+"whats_new_auto_update_message" = "Actualizarea hărților vă ajută să păstrați actualizate informațiile despre obiecte";
+
+/* Autoupdate dialog on start */
+"whats_new_auto_update_button_size" = "Actualizare (%s)";
+
+/* Autoupdate dialog on start */
+"whats_new_auto_update_button_later" = "Actualizare manuală mai târziu";
 
 
 /**********  Partners  **********/

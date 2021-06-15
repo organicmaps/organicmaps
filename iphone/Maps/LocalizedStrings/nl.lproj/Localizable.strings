@@ -990,7 +990,8 @@
 
 "p2p_reroute_from_current" = "Wilt u dat wij een route plannen vanaf uw huidige locatie?";
 
-"whats_new_next_button" = "Volgende";
+/* Edit open hours/set time and minutes dialog */
+"next_button" = "Volgende";
 
 "editor_time_add" = "Schema toevoegen";
 
@@ -2176,8 +2177,20 @@
 
 "enable_screen_sleep" = "Laat het scherm slapen";
 
-/*  */
+/* Description in preferences */
 "enable_screen_sleep_description" = "Indien ingeschakeld, mag het scherm slapen na een periode van inactiviteit.";
+
+/* Autoupdate dialog on start */
+"whats_new_auto_update_title" = "Werk uw gedownloade kaarten bij";
+
+/* Autoupdate dialog on start */
+"whats_new_auto_update_message" = "Kaarten bijwerken houdt de informatie over objecten actueel";
+
+/* Autoupdate dialog on start */
+"whats_new_auto_update_button_size" = "Bijwerken (%s)";
+
+/* Autoupdate dialog on start */
+"whats_new_auto_update_button_later" = "Later handmatig bijwerken";
 
 
 /**********  Partners  **********/

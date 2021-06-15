@@ -990,7 +990,8 @@
 
 "p2p_reroute_from_current" = "Mevcut konumunuzdan bir rota planlamamızı ister misiniz?";
 
-"whats_new_next_button" = "Sonraki";
+/* Edit open hours/set time and minutes dialog */
+"next_button" = "Sonraki";
 
 "editor_time_add" = "Plan Ekle";
 
@@ -2176,8 +2177,20 @@
 
 "enable_screen_sleep" = "Ekranın uyumasına izin ver";
 
-/*  */
+/* Description in preferences */
 "enable_screen_sleep_description" = "Etkinleştirildiğinde ekranın bir süre hareketsiz kaldıktan sonra uykuya geçmesine izin verilir.";
+
+/* Autoupdate dialog on start */
+"whats_new_auto_update_title" = "İndirdiğiniz haritaları güncelleyin";
+
+/* Autoupdate dialog on start */
+"whats_new_auto_update_message" = "Haritaları güncellemek, nesnelerle ilgili bilgilerin güncel kalmasını sağlar";
+
+/* Autoupdate dialog on start */
+"whats_new_auto_update_button_size" = "Güncelle (%s)";
+
+/* Autoupdate dialog on start */
+"whats_new_auto_update_button_later" = "Daha sonra manüel olarak güncelle";
 
 
 /**********  Partners  **********/

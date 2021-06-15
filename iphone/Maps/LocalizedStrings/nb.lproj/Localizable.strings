@@ -990,7 +990,8 @@
 
 "p2p_reroute_from_current" = "Vil du vi skal planlegge en rute fra din nåværende posisjon?";
 
-"whats_new_next_button" = "Neste";
+/* Edit open hours/set time and minutes dialog */
+"next_button" = "Neste";
 
 "editor_time_add" = "Legg til tidsrom";
 
@@ -2176,8 +2177,20 @@
 
 "enable_screen_sleep" = "La skjermen sove";
 
-/*  */
+/* Description in preferences */
 "enable_screen_sleep_description" = "Når den er aktivert, får skjermen lov til å sove etter en periode med inaktivitet.";
+
+/* Autoupdate dialog on start */
+"whats_new_auto_update_title" = "Oppdater dine nedlastede kart";
+
+/* Autoupdate dialog on start */
+"whats_new_auto_update_message" = "Ved å oppdatere kart holder du også informasjonen om ulike elementer oppdatert";
+
+/* Autoupdate dialog on start */
+"whats_new_auto_update_button_size" = "Oppdater (%s)";
+
+/* Autoupdate dialog on start */
+"whats_new_auto_update_button_later" = "Oppdater manuelt senere";
 
 
 /**********  Partners  **********/
