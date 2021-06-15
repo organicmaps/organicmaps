@@ -990,7 +990,8 @@
 
 "p2p_reroute_from_current" = "Szeretne útvonaltervet készíttetni a jelenlegi pozíciójától?";
 
-"whats_new_next_button" = "Következő";
+/* Edit open hours/set time and minutes dialog */
+"next_button" = "Következő";
 
 "editor_time_add" = "Időrend felvitele";
 
@@ -2176,8 +2177,20 @@
 
 "enable_screen_sleep" = "Hagyja aludni a képernyőt";
 
-/*  */
+/* Description in preferences */
 "enable_screen_sleep_description" = "Ha engedélyezve van, akkor a képernyő inaktivitás után alszik.";
+
+/* Autoupdate dialog on start */
+"whats_new_auto_update_title" = "Frissítse a letöltött térképeit";
+
+/* Autoupdate dialog on start */
+"whats_new_auto_update_message" = "A térképek frissítésével naprakészen tarthatja az objektumokra vonatkozó adatokat";
+
+/* Autoupdate dialog on start */
+"whats_new_auto_update_button_size" = "Frissítés (%s)";
+
+/* Autoupdate dialog on start */
+"whats_new_auto_update_button_later" = "Kézi frissítés később";
 
 
 /**********  Partners  **********/

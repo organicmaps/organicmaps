@@ -605,7 +605,8 @@
 	<string name="p2p_to_here">Itinéraire vers</string>
 	<string name="p2p_only_from_current">La navigation est uniquement disponible à partir de votre emplacement actuel.</string>
 	<string name="p2p_reroute_from_current">Souhaitez-vous que nous planifiions un itinéraire à partir de votre emplacement actuel ?</string>
-	<string name="whats_new_next_button">Suivant</string>
+	<!-- Edit open hours/set time and minutes dialog -->
+	<string name="next_button">Suivant</string>
 	<string name="editor_time_add">Ajouter au planning</string>
 	<string name="editor_time_delete">Supprimer du planning</string>
 	<!-- Text for allday switch. -->
@@ -1224,8 +1225,16 @@
 	<string name="downloader_loading_ios">Téléchargement</string>
 	<string name="key_information_title">Informations clés</string>
 	<string name="enable_screen_sleep">Autoriser l\'écran à dormir</string>
-	<!--  -->
+	<!-- Description in preferences -->
 	<string name="enable_screen_sleep_description">Lorsqu\'il est activé, l\'écran sera autorisé à dormir après une période d\'inactivité.</string>
+	<!-- Autoupdate dialog on start -->
+	<string name="whats_new_auto_update_title">Mettez à jour vos cartes téléchargées</string>
+	<!-- Autoupdate dialog on start -->
+	<string name="whats_new_auto_update_message">Actualiser les cartes permet d\'actualiser également les informations sur les objets</string>
+	<!-- Autoupdate dialog on start -->
+	<string name="whats_new_auto_update_button_size">Mettre à jour (%s)</string>
+	<!-- Autoupdate dialog on start -->
+	<string name="whats_new_auto_update_button_later">Mettre à jour manuellement plus tard</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Remontées mécaniques</string>

@@ -990,7 +990,8 @@
 
 "p2p_reroute_from_current" = "你是否想要規劃目前位置的路線？";
 
-"whats_new_next_button" = "下一頁";
+/* Edit open hours/set time and minutes dialog */
+"next_button" = "下一頁";
 
 "editor_time_add" = "新增排程";
 
@@ -2176,8 +2177,20 @@
 
 "enable_screen_sleep" = "允许屏幕进入休眠状态";
 
-/*  */
+/* Description in preferences */
 "enable_screen_sleep_description" = "启用后，屏幕将在一段时间不活动后进入休眠状态。";
+
+/* Autoupdate dialog on start */
+"whats_new_auto_update_title" = "更新您下載的地圖";
+
+/* Autoupdate dialog on start */
+"whats_new_auto_update_message" = "更新地圖以讓物件資訊保持在最新狀態";
+
+/* Autoupdate dialog on start */
+"whats_new_auto_update_button_size" = "更新 (%s)";
+
+/* Autoupdate dialog on start */
+"whats_new_auto_update_button_later" = "稍後手動更新";
 
 
 /**********  Partners  **********/

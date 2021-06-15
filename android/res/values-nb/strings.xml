@@ -587,7 +587,8 @@
 	<string name="p2p_to_here">Rute til</string>
 	<string name="p2p_only_from_current">Navigering er kun tilgjengelig fra din nåværende beliggenhet.</string>
 	<string name="p2p_reroute_from_current">Vil du vi skal planlegge en rute fra din nåværende posisjon?</string>
-	<string name="whats_new_next_button">Neste</string>
+	<!-- Edit open hours/set time and minutes dialog -->
+	<string name="next_button">Neste</string>
 	<string name="editor_time_add">Legg til tidsrom</string>
 	<string name="editor_time_delete">Slett tidsrom</string>
 	<!-- Text for allday switch. -->
@@ -1151,8 +1152,16 @@
 	<string name="downloader_loading_ios">Nedlasting</string>
 	<string name="key_information_title">Nøkkelinformasjon</string>
 	<string name="enable_screen_sleep">La skjermen sove</string>
-	<!--  -->
+	<!-- Description in preferences -->
 	<string name="enable_screen_sleep_description">Når den er aktivert, får skjermen lov til å sove etter en periode med inaktivitet.</string>
+	<!-- Autoupdate dialog on start -->
+	<string name="whats_new_auto_update_title">Oppdater dine nedlastede kart</string>
+	<!-- Autoupdate dialog on start -->
+	<string name="whats_new_auto_update_message">Ved å oppdatere kart holder du også informasjonen om ulike elementer oppdatert</string>
+	<!-- Autoupdate dialog on start -->
+	<string name="whats_new_auto_update_button_size">Oppdater (%s)</string>
+	<!-- Autoupdate dialog on start -->
+	<string name="whats_new_auto_update_button_later">Oppdater manuelt senere</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Kabelbanestasjon</string>

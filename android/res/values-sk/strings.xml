@@ -591,7 +591,8 @@
 	<string name="p2p_to_here">Cesta do</string>
 	<string name="p2p_only_from_current">Navigácia je dostupná iba z vašej aktuálnej polohy.</string>
 	<string name="p2p_reroute_from_current">Doriți să vă planificăm o rută având ca punct de pornire locația actuală?</string>
-	<string name="whats_new_next_button">Nasledujúca</string>
+	<!-- Edit open hours/set time and minutes dialog -->
+	<string name="next_button">Nasledujúca</string>
 	<string name="editor_time_add">Pridať rozvrh</string>
 	<string name="editor_time_delete">Zmazať rozvrh</string>
 	<!-- Text for allday switch. -->
@@ -1205,8 +1206,16 @@
 	<string name="downloader_loading_ios">Sťahovanie</string>
 	<string name="key_information_title">Kľúčová informácia</string>
 	<string name="enable_screen_sleep">Nechajte obrazovku spať</string>
-	<!--  -->
+	<!-- Description in preferences -->
 	<string name="enable_screen_sleep_description">Ak je táto možnosť povolená, obrazovka bude môcť po určitej dobe nečinnosti spať.</string>
+	<!-- Autoupdate dialog on start -->
+	<string name="whats_new_auto_update_title">Aktualizujte svoje stiahnuté mapy</string>
+	<!-- Autoupdate dialog on start -->
+	<string name="whats_new_auto_update_message">Vďaka aktualizácii máp budú informácie o objektoch na mape aktualizované</string>
+	<!-- Autoupdate dialog on start -->
+	<string name="whats_new_auto_update_button_size">Aktualizovať (%s)</string>
+	<!-- Autoupdate dialog on start -->
+	<string name="whats_new_auto_update_button_later">Manuálne aktualizovať neskôr</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Lanovka</string>

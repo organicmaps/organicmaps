@@ -990,7 +990,8 @@
 
 "p2p_reroute_from_current" = "คุณต้องการให้เราาวงแผนเส้นทางจากสถานที่ตั้งปัจจุบันของคุณหรือไม่?";
 
-"whats_new_next_button" = "ถัดไป";
+/* Edit open hours/set time and minutes dialog */
+"next_button" = "ถัดไป";
 
 "editor_time_add" = "เพิ่มวัน";
 
@@ -2176,8 +2177,20 @@
 
 "enable_screen_sleep" = "อนุญาตให้หน้าจอเข้าสู่โหมดสลีป";
 
-/*  */
+/* Description in preferences */
 "enable_screen_sleep_description" = "เมื่อเปิดใช้งานหน้าจอจะได้รับอนุญาตให้เข้าสู่โหมดสลีปหลังจากไม่มีการใช้งานเป็นระยะเวลาหนึ่ง";
+
+/* Autoupdate dialog on start */
+"whats_new_auto_update_title" = "อัปเดตแผนที่ที่คุณดาวน์โหลดมา";
+
+/* Autoupdate dialog on start */
+"whats_new_auto_update_message" = "การอัปเดตแผนที่จะคงข้อมูลเกี่ยวกับจุดหมายต่าง ๆ ให้ล่าสุดอยู่เสมอ";
+
+/* Autoupdate dialog on start */
+"whats_new_auto_update_button_size" = "อัปเดต (%s)";
+
+/* Autoupdate dialog on start */
+"whats_new_auto_update_button_later" = "อัปเดตด้วยตนเองภายหลัง";
 
 
 /**********  Partners  **********/

@@ -990,7 +990,8 @@
 
 "p2p_reroute_from_current" = "Хотите перестроить маршрут от вашего местоположения?";
 
-"whats_new_next_button" = "Далее";
+/* Edit open hours/set time and minutes dialog */
+"next_button" = "Далее";
 
 "editor_time_add" = "Добавить расписание";
 
@@ -2176,8 +2177,20 @@
 
 "enable_screen_sleep" = "Разрешить экрану спать";
 
-/*  */
+/* Description in preferences */
 "enable_screen_sleep_description" = "При включении экран может переходить в спящий режим после периода бездействия.";
+
+/* Autoupdate dialog on start */
+"whats_new_auto_update_title" = "Обновите ваши загруженные карты";
+
+/* Autoupdate dialog on start */
+"whats_new_auto_update_message" = "Обновление карт поддерживает информацию об объектах в актуальном состоянии";
+
+/* Autoupdate dialog on start */
+"whats_new_auto_update_button_size" = "Обновить (%s)";
+
+/* Autoupdate dialog on start */
+"whats_new_auto_update_button_later" = "Обновить вручную позже";
 
 
 /**********  Partners  **********/

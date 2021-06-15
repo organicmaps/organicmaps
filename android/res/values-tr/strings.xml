@@ -599,7 +599,8 @@
 	<string name="p2p_to_here">Varış yeri:</string>
 	<string name="p2p_only_from_current">Navigasyon sadece şu anki konumunuzdan mevcut.</string>
 	<string name="p2p_reroute_from_current">Mevcut konumunuzdan bir rota planlamamızı ister misiniz?</string>
-	<string name="whats_new_next_button">Sonraki</string>
+	<!-- Edit open hours/set time and minutes dialog -->
+	<string name="next_button">Sonraki</string>
 	<string name="editor_time_add">Plan Ekle</string>
 	<string name="editor_time_delete">Planı Sil</string>
 	<!-- Text for allday switch. -->
@@ -1211,8 +1212,16 @@
 	<string name="downloader_loading_ios">İndir</string>
 	<string name="key_information_title">Anahtar bilgisi</string>
 	<string name="enable_screen_sleep">Ekranın uyumasına izin ver</string>
-	<!--  -->
+	<!-- Description in preferences -->
 	<string name="enable_screen_sleep_description">Etkinleştirildiğinde ekranın bir süre hareketsiz kaldıktan sonra uykuya geçmesine izin verilir.</string>
+	<!-- Autoupdate dialog on start -->
+	<string name="whats_new_auto_update_title">İndirdiğiniz haritaları güncelleyin</string>
+	<!-- Autoupdate dialog on start -->
+	<string name="whats_new_auto_update_message">Haritaları güncellemek, nesnelerle ilgili bilgilerin güncel kalmasını sağlar</string>
+	<!-- Autoupdate dialog on start -->
+	<string name="whats_new_auto_update_button_size">Güncelle (%s)</string>
+	<!-- Autoupdate dialog on start -->
+	<string name="whats_new_auto_update_button_later">Daha sonra manüel olarak güncelle</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Remontées mécaniques</string>

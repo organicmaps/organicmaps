@@ -990,7 +990,8 @@
 
 "p2p_reroute_from_current" = "Ønsker du, at vi planlægger en rute fra din nuværende placering?";
 
-"whats_new_next_button" = "Næste";
+/* Edit open hours/set time and minutes dialog */
+"next_button" = "Næste";
 
 "editor_time_add" = "Tilføj tidsplan";
 
@@ -2176,8 +2177,20 @@
 
 "enable_screen_sleep" = "Lad skærmen sove";
 
-/*  */
+/* Description in preferences */
 "enable_screen_sleep_description" = "Når den er aktiveret, får skærmen lov til at sove efter en periode med inaktivitet.";
+
+/* Autoupdate dialog on start */
+"whats_new_auto_update_title" = "Opdater dine downloadede kort";
+
+/* Autoupdate dialog on start */
+"whats_new_auto_update_message" = "Opdatering af kort sikrer, at oplysningerne om objekter er aktuel";
+
+/* Autoupdate dialog on start */
+"whats_new_auto_update_button_size" = "Opdater (%s)";
+
+/* Autoupdate dialog on start */
+"whats_new_auto_update_button_later" = "Opdater manuelt senere";
 
 
 /**********  Partners  **********/

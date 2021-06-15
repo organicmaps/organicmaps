@@ -600,7 +600,8 @@
 	<string name="p2p_to_here">Сюди</string>
 	<string name="p2p_only_from_current">Маршрут можна прокласти лише з поточного місцезнаходження.</string>
 	<string name="p2p_reroute_from_current">Хочете спланувати маршрут із поточного місцезнаходження?</string>
-	<string name="whats_new_next_button">Далі</string>
+	<!-- Edit open hours/set time and minutes dialog -->
+	<string name="next_button">Далі</string>
 	<string name="editor_time_add">Додати розклад</string>
 	<string name="editor_time_delete">Видалити розклад</string>
 	<!-- Text for allday switch. -->
@@ -1214,8 +1215,16 @@
 	<string name="downloader_loading_ios">Завантаження</string>
 	<string name="key_information_title">Ключова інформація</string>
 	<string name="enable_screen_sleep">Allow screen to sleep</string>
-	<!--  -->
+	<!-- Description in preferences -->
 	<string name="enable_screen_sleep_description">When enabled the screen will be allowed to sleep after a period of inactivity.</string>
+	<!-- Autoupdate dialog on start -->
+	<string name="whats_new_auto_update_title">Оновити завантажені карти</string>
+	<!-- Autoupdate dialog on start -->
+	<string name="whats_new_auto_update_message">Оновлення карт дозволяє підтримувати інформацію про об\'єкти в актуальному стані</string>
+	<!-- Autoupdate dialog on start -->
+	<string name="whats_new_auto_update_button_size">Оновити (%s)</string>
+	<!-- Autoupdate dialog on start -->
+	<string name="whats_new_auto_update_button_later">Оновити вручну пізніше</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Канатна дорога</string>

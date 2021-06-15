@@ -990,7 +990,8 @@
 
 "p2p_reroute_from_current" = "現在位置からのルートを作成しますか？";
 
-"whats_new_next_button" = "次へ";
+/* Edit open hours/set time and minutes dialog */
+"next_button" = "次へ";
 
 "editor_time_add" = "スケジュール追加";
 
@@ -2176,8 +2177,20 @@
 
 "enable_screen_sleep" = "画面をスリープ状態にする";
 
-/*  */
+/* Description in preferences */
 "enable_screen_sleep_description" = "有効にすると、画面は一定時間非アクティブになった後もスリープ状態になります。";
+
+/* Autoupdate dialog on start */
+"whats_new_auto_update_title" = "ダウンロード済みのマップを更新してください";
+
+/* Autoupdate dialog on start */
+"whats_new_auto_update_message" = "地図を更新することで物件情報を最新の状態に保ちます";
+
+/* Autoupdate dialog on start */
+"whats_new_auto_update_button_size" = "更新 (%s)";
+
+/* Autoupdate dialog on start */
+"whats_new_auto_update_button_later" = "あとで手動で更新";
 
 
 /**********  Partners  **********/

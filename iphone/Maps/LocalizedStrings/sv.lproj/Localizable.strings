@@ -990,7 +990,8 @@
 
 "p2p_reroute_from_current" = "Vill du att vi planerar en färdväg från din nuvarande plats?";
 
-"whats_new_next_button" = "Nästa";
+/* Edit open hours/set time and minutes dialog */
+"next_button" = "Nästa";
 
 "editor_time_add" = "Lägg till schema";
 
@@ -2176,8 +2177,20 @@
 
 "enable_screen_sleep" = "Låt skärmen sova";
 
-/*  */
+/* Description in preferences */
 "enable_screen_sleep_description" = "När den är aktiverad får skärmen sova efter en period av inaktivitet.";
+
+/* Autoupdate dialog on start */
+"whats_new_auto_update_title" = "Uppdatera dina nedladdade kartor";
+
+/* Autoupdate dialog on start */
+"whats_new_auto_update_message" = "Uppdatering av kartor håller information om objekt uppdaterade";
+
+/* Autoupdate dialog on start */
+"whats_new_auto_update_button_size" = "Uppdatera (%s)";
+
+/* Autoupdate dialog on start */
+"whats_new_auto_update_button_later" = "Uppdatera senare manuellt";
 
 
 /**********  Partners  **********/

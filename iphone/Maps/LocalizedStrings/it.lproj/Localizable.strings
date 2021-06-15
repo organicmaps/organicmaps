@@ -990,7 +990,8 @@
 
 "p2p_reroute_from_current" = "Vuoi che impostiamo il percorso dalla tua posizione corrente?";
 
-"whats_new_next_button" = "Avanti";
+/* Edit open hours/set time and minutes dialog */
+"next_button" = "Avanti";
 
 "editor_time_add" = "Aggiungi orari";
 
@@ -2176,8 +2177,20 @@
 
 "enable_screen_sleep" = "Consenti allo schermo di dormire";
 
-/*  */
+/* Description in preferences */
 "enable_screen_sleep_description" = "Quando abilitato, lo schermo potrà dormire dopo un periodo di inattività.";
+
+/* Autoupdate dialog on start */
+"whats_new_auto_update_title" = "Aggiorna le mappe scaricate";
+
+/* Autoupdate dialog on start */
+"whats_new_auto_update_message" = "Aggiornamento mappe mantiene aggiornate le informazioni sugli oggetti";
+
+/* Autoupdate dialog on start */
+"whats_new_auto_update_button_size" = "Aggiorna (%s)";
+
+/* Autoupdate dialog on start */
+"whats_new_auto_update_button_later" = "Aggiorna manualmente più tardi";
 
 
 /**********  Partners  **********/

@@ -597,7 +597,8 @@
 	<string name="p2p_to_here">Itinerário para</string>
 	<string name="p2p_only_from_current">Só é possível navegar a partir da sua localização actual.</string>
 	<string name="p2p_reroute_from_current">Deseja planejar uma rota a partir da sua localização actual?</string>
-	<string name="whats_new_next_button">Próxima</string>
+	<!-- Edit open hours/set time and minutes dialog -->
+	<string name="next_button">Próxima</string>
 	<string name="editor_time_add">Adicionar Horário</string>
 	<string name="editor_time_delete">Eliminar Horário</string>
 	<!-- Text for allday switch. -->
@@ -1210,8 +1211,16 @@
 	<string name="downloader_loading_ios">Carregamento</string>
 	<string name="key_information_title">Informações principais</string>
 	<string name="enable_screen_sleep">Permitir que a tela hiberne</string>
-	<!--  -->
+	<!-- Description in preferences -->
 	<string name="enable_screen_sleep_description">Quando ativada, a tela poderá hibernar após um período de inatividade.</string>
+	<!-- Autoupdate dialog on start -->
+	<string name="whats_new_auto_update_title">Atualize seus mapas transferidos</string>
+	<!-- Autoupdate dialog on start -->
+	<string name="whats_new_auto_update_message">Atualizar os mapas mantém atualizada a informação sobre objetos</string>
+	<!-- Autoupdate dialog on start -->
+	<string name="whats_new_auto_update_button_size">Atualização (%s)</string>
+	<!-- Autoupdate dialog on start -->
+	<string name="whats_new_auto_update_button_later">Atualizar manualmente mais tarde</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Estação de teleférico</string>

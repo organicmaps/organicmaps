@@ -584,7 +584,8 @@
 	<string name="p2p_to_here">Ruta la</string>
 	<string name="p2p_only_from_current">Navigația este disponibilă doar având ca punct de pornire locațiacctuală.</string>
 	<string name="p2p_reroute_from_current">Doriți să vă planificăm o rută având ca punct de pornire locația actuală?</string>
-	<string name="whats_new_next_button">Următoarea</string>
+	<!-- Edit open hours/set time and minutes dialog -->
+	<string name="next_button">Următoarea</string>
 	<string name="editor_time_add">Adăugare planificare</string>
 	<string name="editor_time_delete">Eliminare planificare</string>
 	<!-- Text for allday switch. -->
@@ -1196,8 +1197,16 @@
 	<string name="downloader_loading_ios">Încărcare</string>
 	<string name="key_information_title">Informații cheie</string>
 	<string name="enable_screen_sleep">Permiteți ecranului să doarmă</string>
-	<!--  -->
+	<!-- Description in preferences -->
 	<string name="enable_screen_sleep_description">Când este activat, ecranul va fi lăsat să doarmă după o perioadă de inactivitate.</string>
+	<!-- Autoupdate dialog on start -->
+	<string name="whats_new_auto_update_title">Actualizați hărțile descărcate</string>
+	<!-- Autoupdate dialog on start -->
+	<string name="whats_new_auto_update_message">Actualizarea hărților vă ajută să păstrați actualizate informațiile despre obiecte</string>
+	<!-- Autoupdate dialog on start -->
+	<string name="whats_new_auto_update_button_size">Actualizare (%s)</string>
+	<!-- Autoupdate dialog on start -->
+	<string name="whats_new_auto_update_button_later">Actualizare manuală mai târziu</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Stație de teleferic</string>

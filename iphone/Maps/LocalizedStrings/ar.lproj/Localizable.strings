@@ -990,7 +990,8 @@
 
 "p2p_reroute_from_current" = "هل ترغب في أن نرسم مسار لك من موقعك الحالي؟";
 
-"whats_new_next_button" = "التالي";
+/* Edit open hours/set time and minutes dialog */
+"next_button" = "التالي";
 
 "editor_time_add" = "إضافة جدول";
 
@@ -2176,8 +2177,20 @@
 
 "enable_screen_sleep" = "اسمح للشاشة بالنوم";
 
-/*  */
+/* Description in preferences */
 "enable_screen_sleep_description" = "عند التمكين ، سيتم السماح للشاشة بالنوم بعد فترة من عدم النشاط.";
+
+/* Autoupdate dialog on start */
+"whats_new_auto_update_title" = "قم بتحديث الخرائط التي قمت بنتزيلها";
+
+/* Autoupdate dialog on start */
+"whats_new_auto_update_message" = "تحديث الخرائط والاحتفاظ بالمعلومات حول الكائنات محدثة";
+
+/* Autoupdate dialog on start */
+"whats_new_auto_update_button_size" = "تحديث (%s)";
+
+/* Autoupdate dialog on start */
+"whats_new_auto_update_button_later" = "تحديث يدوياً في وقت لاحق";
 
 
 /**********  Partners  **********/

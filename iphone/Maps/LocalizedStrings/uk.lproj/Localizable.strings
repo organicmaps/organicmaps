@@ -990,7 +990,8 @@
 
 "p2p_reroute_from_current" = "Хочете спланувати маршрут із поточного місцезнаходження?";
 
-"whats_new_next_button" = "Далі";
+/* Edit open hours/set time and minutes dialog */
+"next_button" = "Далі";
 
 "editor_time_add" = "Додати розклад";
 
@@ -2176,8 +2177,20 @@
 
 "enable_screen_sleep" = "Allow screen to sleep";
 
-/*  */
+/* Description in preferences */
 "enable_screen_sleep_description" = "When enabled the screen will be allowed to sleep after a period of inactivity.";
+
+/* Autoupdate dialog on start */
+"whats_new_auto_update_title" = "Оновити завантажені карти";
+
+/* Autoupdate dialog on start */
+"whats_new_auto_update_message" = "Оновлення карт дозволяє підтримувати інформацію про об'єкти в актуальному стані";
+
+/* Autoupdate dialog on start */
+"whats_new_auto_update_button_size" = "Оновити (%s)";
+
+/* Autoupdate dialog on start */
+"whats_new_auto_update_button_later" = "Оновити вручну пізніше";
 
 
 /**********  Partners  **********/

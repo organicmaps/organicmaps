@@ -597,7 +597,8 @@
 	<string name="p2p_to_here">路線終點</string>
 	<string name="p2p_only_from_current">導航只能從您目前的位置開始。</string>
 	<string name="p2p_reroute_from_current">你是否想要規劃目前位置的路線？</string>
-	<string name="whats_new_next_button">下一頁</string>
+	<!-- Edit open hours/set time and minutes dialog -->
+	<string name="next_button">下一頁</string>
 	<string name="editor_time_add">新增排程</string>
 	<string name="editor_time_delete">刪除排程</string>
 	<!-- Text for allday switch. -->
@@ -1209,8 +1210,16 @@
 	<string name="downloader_loading_ios">加載</string>
 	<string name="key_information_title">關鍵信息</string>
 	<string name="enable_screen_sleep">允许屏幕进入休眠状态</string>
-	<!--  -->
+	<!-- Description in preferences -->
 	<string name="enable_screen_sleep_description">启用后，屏幕将在一段时间不活动后进入休眠状态。</string>
+	<!-- Autoupdate dialog on start -->
+	<string name="whats_new_auto_update_title">更新您下載的地圖</string>
+	<!-- Autoupdate dialog on start -->
+	<string name="whats_new_auto_update_message">更新地圖以讓物件資訊保持在最新狀態</string>
+	<!-- Autoupdate dialog on start -->
+	<string name="whats_new_auto_update_button_size">更新 (%s)</string>
+	<!-- Autoupdate dialog on start -->
+	<string name="whats_new_auto_update_button_later">稍後手動更新</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">纜車站</string>

@@ -595,7 +595,8 @@
 	<string name="p2p_to_here">Trasa do</string>
 	<string name="p2p_only_from_current">Navigovat lze pouze z současného umístění.</string>
 	<string name="p2p_reroute_from_current">Máme naplánovat trasu z vašeho současného umístění?</string>
-	<string name="whats_new_next_button">Další</string>
+	<!-- Edit open hours/set time and minutes dialog -->
+	<string name="next_button">Další</string>
 	<string name="editor_time_add">Přidat rozvrh</string>
 	<string name="editor_time_delete">Smazat rozvrh</string>
 	<!-- Text for allday switch. -->
@@ -1209,8 +1210,16 @@
 	<string name="downloader_loading_ios">Probíhá stahování</string>
 	<string name="key_information_title">Klíčové informace</string>
 	<string name="enable_screen_sleep">Nechte obrazovku spát</string>
-	<!--  -->
+	<!-- Description in preferences -->
 	<string name="enable_screen_sleep_description">Je-li tato možnost povolena, bude obrazovka po určité době nečinnosti umožněna usnout.</string>
+	<!-- Autoupdate dialog on start -->
+	<string name="whats_new_auto_update_title">Aktualizujte své stažené mapy</string>
+	<!-- Autoupdate dialog on start -->
+	<string name="whats_new_auto_update_message">Aktualizace map zajišťuje aktuální informace o objektech</string>
+	<!-- Autoupdate dialog on start -->
+	<string name="whats_new_auto_update_button_size">Aktualizace (%s)</string>
+	<!-- Autoupdate dialog on start -->
+	<string name="whats_new_auto_update_button_later">Aktualizovat ručně později</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Stanice lanové dráhy</string>

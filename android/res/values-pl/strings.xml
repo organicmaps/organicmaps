@@ -603,7 +603,8 @@
 	<string name="p2p_to_here">Droga do</string>
 	<string name="p2p_only_from_current">Nawigacja jest dostępna tylko od twojej bieżącej lokalizacji.</string>
 	<string name="p2p_reroute_from_current">Czy chcesz, byśmy zaplanowali trasę z Twojej bieżącej lokalizacji?</string>
-	<string name="whats_new_next_button">Dalej</string>
+	<!-- Edit open hours/set time and minutes dialog -->
+	<string name="next_button">Dalej</string>
 	<string name="editor_time_add">Dodaj harmonogram</string>
 	<string name="editor_time_delete">Usuń harmonogram</string>
 	<!-- Text for allday switch. -->
@@ -1217,8 +1218,16 @@
 	<string name="downloader_loading_ios">Pobieranie</string>
 	<string name="key_information_title">Kluczowe informacje</string>
 	<string name="enable_screen_sleep">Pozwól ekranowi spać</string>
-	<!--  -->
+	<!-- Description in preferences -->
 	<string name="enable_screen_sleep_description">Po włączeniu ekran będzie mógł spać po okresie bezczynności.</string>
+	<!-- Autoupdate dialog on start -->
+	<string name="whats_new_auto_update_title">Zaktualizuj pobrane mapy</string>
+	<!-- Autoupdate dialog on start -->
+	<string name="whats_new_auto_update_message">Aktualizacja map umożliwia uzyskanie bieżących informacji o obiektach</string>
+	<!-- Autoupdate dialog on start -->
+	<string name="whats_new_auto_update_button_size">Zaktualizuj (%s)</string>
+	<!-- Autoupdate dialog on start -->
+	<string name="whats_new_auto_update_button_later">Zaktualizuj ręcznie później</string>
 
 	<!-- SECTION:  Partners  -->
 	<string name="sponsored_partner1_action">Wyprzedaże</string>

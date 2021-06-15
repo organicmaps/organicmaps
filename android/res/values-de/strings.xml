@@ -601,7 +601,8 @@
 	<string name="p2p_to_here">Nach</string>
 	<string name="p2p_only_from_current">Die Navigation ist nur von Ihrem aktuellen Standort verfügbar.</string>
 	<string name="p2p_reroute_from_current">Soll eine Route von Ihrem aktuellen Standort aus berechnet werden?</string>
-	<string name="whats_new_next_button">Weiter</string>
+	<!-- Edit open hours/set time and minutes dialog -->
+	<string name="next_button">Weiter</string>
 	<string name="editor_time_add">Zeitplan hinzufügen</string>
 	<string name="editor_time_delete">Zeitplan löschen</string>
 	<!-- Text for allday switch. -->
@@ -1214,8 +1215,16 @@
 	<string name="downloader_loading_ios">Download</string>
 	<string name="key_information_title">Wichtige Informationen</string>
 	<string name="enable_screen_sleep">Bildschirm schlafen lassen</string>
-	<!--  -->
+	<!-- Description in preferences -->
 	<string name="enable_screen_sleep_description">Wenn diese Option aktiviert ist, kann der Bildschirm nach einer gewissen Zeit der Inaktivität in den Ruhezustand versetzt werden.</string>
+	<!-- Autoupdate dialog on start -->
+	<string name="whats_new_auto_update_title">Aktualisieren Sie Ihre heruntergeladenen Karten</string>
+	<!-- Autoupdate dialog on start -->
+	<string name="whats_new_auto_update_message">Das Aktualisieren der Karten sorgt dafür, dass die Objektinformationen stets auf dem neuesten Stand sind</string>
+	<!-- Autoupdate dialog on start -->
+	<string name="whats_new_auto_update_button_size">Aktualisieren (%s)</string>
+	<!-- Autoupdate dialog on start -->
+	<string name="whats_new_auto_update_button_later">Später manuell aktualisieren</string>
 
 	<!-- SECTION:  Partners  -->
 	<string name="sponsored_partner2_action">Rabatt</string>

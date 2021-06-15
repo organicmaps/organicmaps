@@ -990,7 +990,8 @@
 
 "p2p_reroute_from_current" = "Souhaitez-vous que nous planifiions un itinéraire à partir de votre emplacement actuel ?";
 
-"whats_new_next_button" = "Suivant";
+/* Edit open hours/set time and minutes dialog */
+"next_button" = "Suivant";
 
 "editor_time_add" = "Ajouter au planning";
 
@@ -2176,8 +2177,20 @@
 
 "enable_screen_sleep" = "Autoriser l'écran à dormir";
 
-/*  */
+/* Description in preferences */
 "enable_screen_sleep_description" = "Lorsqu'il est activé, l'écran sera autorisé à dormir après une période d'inactivité.";
+
+/* Autoupdate dialog on start */
+"whats_new_auto_update_title" = "Mettez à jour vos cartes téléchargées";
+
+/* Autoupdate dialog on start */
+"whats_new_auto_update_message" = "Actualiser les cartes permet d'actualiser également les informations sur les objets";
+
+/* Autoupdate dialog on start */
+"whats_new_auto_update_button_size" = "Mettre à jour (%s)";
+
+/* Autoupdate dialog on start */
+"whats_new_auto_update_button_later" = "Mettre à jour manuellement plus tard";
 
 
 /**********  Partners  **********/

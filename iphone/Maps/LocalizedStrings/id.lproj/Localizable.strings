@@ -990,7 +990,8 @@
 
 "p2p_reroute_from_current" = "Apakah Anda ingin kami merencanakan sebuah rute dari lokasi Anda saat ini?";
 
-"whats_new_next_button" = "Berikut";
+/* Edit open hours/set time and minutes dialog */
+"next_button" = "Berikut";
 
 "editor_time_add" = "Tambah Jadwal";
 
@@ -2176,8 +2177,20 @@
 
 "enable_screen_sleep" = "Izinkan layar untuk tidur";
 
-/*  */
+/* Description in preferences */
 "enable_screen_sleep_description" = "Jika diaktifkan, layar akan diizinkan untuk tidur setelah beberapa saat tidak aktif.";
+
+/* Autoupdate dialog on start */
+"whats_new_auto_update_title" = "Perbarui peta yang sudah Anda unduh";
+
+/* Autoupdate dialog on start */
+"whats_new_auto_update_message" = "Memperbarui peta membuat informasi tentang objek tetap terkini";
+
+/* Autoupdate dialog on start */
+"whats_new_auto_update_button_size" = "Pembaruan (%s)";
+
+/* Autoupdate dialog on start */
+"whats_new_auto_update_button_later" = "Perbarui secara manual nanti";
 
 
 /**********  Partners  **********/
