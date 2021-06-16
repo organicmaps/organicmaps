@@ -19,6 +19,10 @@ jobs:
   linux-debug:
     name: Linux Debug Build and Test
     runs-on: ubuntu-latest
+    permissions:
+      actions: read
+      contents: read
+      security-events: write
 
     strategy:
       matrix:
@@ -44,6 +48,11 @@ jobs:
               libqt5svg5-dev \
               clang-tools-11
 
+      - name: Initialize CodeQL
+        uses: github/codeql-action/init@v1
+        with:
+          languages: cpp
+
       - name: Configure
         shell: bash
         run: ./configure.sh
@@ -66,6 +75,9 @@ jobs:
         with:
           repository: omapsapp/world_feed_integration_tests_data
           path: data/world_feed_integration_tests_data
+
+      - name: Perform CodeQL Analysis
+        uses: github/codeql-action/analyze@v1
 
       - name: Tests
         shell: bash
