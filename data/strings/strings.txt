@@ -24439,12 +24439,12 @@
     fa = این لیست خالی است
 
   [bookmarks_empty_list_message]
-    en = To add a bookmark, tap a place on the map and then tap the star icon
+    en = To add a bookmark, tap a place on the map and then tap the bookmark icon
     ru = Чтобы добавить новую метку, нажмите на значок звездочки в карточке объекта
     ar = لإضافة إشارة مرجعية ، اضغط على مكان على الخريطة ثم انقر فوق رمز النجمة
     cs = Pro přidání nové značky klikněte na symbol hvězdičky na obrázku objektu
     da = For at tilføje et bogmærke, så tryk et sted på kort og så på stjerneikonet
-    nl = Om een bladwijzer toe te voegen, tikt u op een plaats op de kaart en vervolgens op het sterpictogram
+    nl = Om een bladwijzer toe te voegen, tikt u op een plaats op de kaart en vervolgens op het bladwijzerpictogram
     fi = Lisätäksesi kirjanmerkin, paina kartasta ja sitten paina tähden kuvaa
     fr = Pour ajouter un signet, appuyez sur un lieu sur la carte, puis appuyez sur l'icône étoile
     de = Um eine neue Markierung hinzuzufügen, drücken Sie auf das Sternzeichen in der Karte des Objekts
