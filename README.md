@@ -114,6 +114,7 @@ Please join our beta program, suggest your features, and report bugs:
 - [Discuss](https://github.com/organicmaps/organicmaps/discussions/categories/ideas) ideas or propose feature requests.
 - Subscribe to our [Telegram Channel](https://t.me/OrganicMapsApp) for updates.
 - Join our [Telegram Group](https://t.me/OrganicMaps) to discuss with other users.
+- Присоединяйтесь к нашей [русскоязычной группе в Telegram](https://t.me/OrganicMapsRu) для обратной связи и помощи.
 - Contact us by [email](mailto:hello@organicmaps.app).
 
 The Organic Maps community abides by the CNCF code of conduct.
