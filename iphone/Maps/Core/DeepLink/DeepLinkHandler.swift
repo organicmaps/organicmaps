@@ -28,7 +28,9 @@
 
   func applicationDidReceiveUniversalLink(_ universalLink: URL) -> Bool {
     // Convert http(s)://omaps.app/ENCODEDCOORDS/NAME to om://ENCODEDCOORDS/NAME
-    self.url = URL(string: String(format: "om:/%@", universalLink.path))
+    self.url = URL(string: universalLink.absoluteString
+                    .replacingOccurrences(of: "http://omaps.app", with: "om:/")
+                    .replacingOccurrences(of: "https://omaps.app", with: "om:/"))
     return handleDeepLink(url: self.url!)
   }
 
