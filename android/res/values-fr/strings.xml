@@ -201,9 +201,9 @@
 	<!-- No, thanks -->
 	<string name="no_thanks">Non, merci</string>
 	<!-- Share one specific bookmark using SMS, %1$@ contains om:// and %2$@ http://omaps.app link. @NOTE non-ascii symbols in the link will result in max 70 characters SMS instead of 140. -->
-	<string name="bookmark_share_sms">Hé, regarde mon épingle sur Organic Maps ! %1$s ou %2$s. Les cartes hors ligne ne sont pas installées ? Les télécharger ici : https://organicmaps.app/get</string>
+	<string name="bookmark_share_sms">Hé, regarde mon épingle sur Organic Maps ! %1$s ou %2$s. Les cartes hors ligne ne sont pas installées ? Les télécharger ici : https://omaps.app/get</string>
 	<!-- Share my position using SMS, %1$@ contains om:// and %2$@ http://omaps.app link WITHOUT NAME. @NOTE non-ascii symbols in the link will result in max 70 characters SMS instead of 140. -->
-	<string name="my_position_share_sms">Hé, regarde ma position actuelle sur Organic Maps ! %1$s ou %2$s. Les cartes hors ligne ne sont pas installées ? Les télécharger ici : https://organicmaps.app/get</string>
+	<string name="my_position_share_sms">Hé, regarde ma position actuelle sur Organic Maps ! %1$s ou %2$s. Les cartes hors ligne ne sont pas installées ? Les télécharger ici : https://omaps.app/get</string>
 	<!-- Subject for emailed bookmark -->
 	<string name="bookmark_share_email_subject">Hé, regarde mon épingle sur la carte Organic Maps !</string>
 	<!-- Subject for emailed position -->
@@ -1082,7 +1082,7 @@
 	<string name="place_description_title">Description d\'endroit</string>
 	<!-- this text will be shown in application notification preferences opposite checkbox which enable/disable downloader notifications. Devices on Android 8+ are affected. -->
 	<string name="notification_channel_downloader">Téléchargeur carte</string>
-	<string name="share_bookmarks_email_body_link">Bonjour !\n\nVoici le lien où vous pouvez télécharger vos signets : %s. Ouvrez la liste via Organic Maps et profitez de votre voyage !\n\nInstaller l\'application : https://organicmaps.app/get?kmz</string>
+	<string name="share_bookmarks_email_body_link">Bonjour !\n\nVoici le lien où vous pouvez télécharger vos signets : %s. Ouvrez la liste via Organic Maps et profitez de votre voyage !\n\nInstaller l\'application : https://omaps.app/get?kmz</string>
 	<string name="warning_speedcams_title">Navigator vous avertira des caméras lorsque vous dépassez la limite de vitesse de %d km/h</string>
 	<string name="warning_speedcams_subtitle">Veuillez respecter les réglementations de conduite du pays dans lequel vous vous rendez.</string>
 	<string name="speedcams_notice_message">Auto - Alerte sur les radars en cas de risque de dépassement de la limite de vitesse\nToujours - Toujours avertir des radars\nJamais - Jamais avertir à propos des radars</string>

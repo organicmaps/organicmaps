@@ -1059,7 +1059,7 @@
 	<string name="place_description_title">장소 묘사</string>
 	<!-- this text will be shown in application notification preferences opposite checkbox which enable/disable downloader notifications. Devices on Android 8+ are affected. -->
 	<string name="notification_channel_downloader">맵 다운로더</string>
-	<string name="share_bookmarks_email_body_link">안녕하세요!\n\n여기 즐겨찾기들을 다운로드 받을 수 있는 링크입니다: %s. Organic Maps 를 통해 리스트를 열고 당신의 여행을 즐기세요!\n\n어플리케이션을 받으세요: https://organicmaps.app/get?kmz</string>
+	<string name="share_bookmarks_email_body_link">안녕하세요!\n\n여기 즐겨찾기들을 다운로드 받을 수 있는 링크입니다: %s. Organic Maps 를 통해 리스트를 열고 당신의 여행을 즐기세요!\n\n어플리케이션을 받으세요: https://omaps.app/get?kmz</string>
 	<string name="warning_speedcams_title">네비게이터가 %d km/h의 속도 제한을 초과시 카메라에 대해 경고 할 것입니다</string>
 	<string name="warning_speedcams_subtitle">여행하시는 나라의 운전 법규를 준수하시길 바랍니다.</string>
 	<string name="speedcams_notice_message">자동 - 속도 제한 초과 위험이 있을때 스피드캠에 대해 경고하기\n항상 - 스피드캠에 대해 항상 경고하기\n절대 아님 - 스피드캠에 대해 경고하지 않기</string>

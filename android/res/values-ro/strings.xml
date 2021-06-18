@@ -195,9 +195,9 @@
 	<!-- No, thanks -->
 	<string name="no_thanks">Nu, mulțumesc</string>
 	<!-- Share one specific bookmark using SMS, %1$@ contains om:// and %2$@ http://omaps.app link. @NOTE non-ascii symbols in the link will result in max 70 characters SMS instead of 140. -->
-	<string name="bookmark_share_sms">Hei, poți vedea care este poziția mea pe Organic Maps! %1$s sau %2$s Nu ai instalate hărțile offline? Descarcă de aici: https://organicmaps.app/get</string>
+	<string name="bookmark_share_sms">Hei, poți vedea care este poziția mea pe Organic Maps! %1$s sau %2$s Nu ai instalate hărțile offline? Descarcă de aici: https://omaps.app/get</string>
 	<!-- Share my position using SMS, %1$@ contains om:// and %2$@ http://omaps.app link WITHOUT NAME. @NOTE non-ascii symbols in the link will result in max 70 characters SMS instead of 140. -->
-	<string name="my_position_share_sms">Hei, îmi poți vedea poziția actuală pe Organic Maps! %1$s sau %2$s Nu ai hărțile offline? Descarcă de aici: https://organicmaps.app/get</string>
+	<string name="my_position_share_sms">Hei, îmi poți vedea poziția actuală pe Organic Maps! %1$s sau %2$s Nu ai hărțile offline? Descarcă de aici: https://omaps.app/get</string>
 	<!-- Subject for emailed bookmark -->
 	<string name="bookmark_share_email_subject">Hei, poți vedea care este poziția mea pe harta Organic Maps!</string>
 	<!-- Subject for emailed position -->
@@ -1054,7 +1054,7 @@
 	<string name="place_description_title">Descrierea locului</string>
 	<!-- this text will be shown in application notification preferences opposite checkbox which enable/disable downloader notifications. Devices on Android 8+ are affected. -->
 	<string name="notification_channel_downloader">Încărcarea hărților</string>
-	<string name="share_bookmarks_email_body_link">Bună ziua!\n\nEtichetele dvs. le puteți descărca de pe linki-ul: %s. Deschideți lista cu ajutorul Organic Maps și primiți plăcere de la călătorie!\n\nDescărcați aplicația: https://organicmaps.app/get?kmz</string>
+	<string name="share_bookmarks_email_body_link">Bună ziua!\n\nEtichetele dvs. le puteți descărca de pe linki-ul: %s. Deschideți lista cu ajutorul Organic Maps și primiți plăcere de la călătorie!\n\nDescărcați aplicația: https://omaps.app/get?kmz</string>
 	<string name="warning_speedcams_title">Navigatorul o să avertizeze despre camerele video în cazul depășirii limitei de viteză cu %d km/h</string>
 	<string name="warning_speedcams_subtitle">Nu uitați să faceți cunoștință cu regulele de circulație în țara unde călătoriți.</string>
 	<string name="speedcams_notice_message">Auto - De avertizat despre camerele video de înregistrare a vitezei, dacă există riscul depășirii limitei de viteză\nMereu - De avertizat întotdeauna despre camerele video\nNiciodată - De nu avertizat niciodată despre camerele video</string>

@@ -197,9 +197,9 @@
 	<!-- No, thanks -->
 	<string name="no_thanks">不，謝了</string>
 	<!-- Share one specific bookmark using SMS, %1$@ contains om:// and %2$@ http://omaps.app link. @NOTE non-ascii symbols in the link will result in max 70 characters SMS instead of 140. -->
-	<string name="bookmark_share_sms">嘿，看看我在 Organic Maps 標記的圖釘吧！ %1$s 或%2$s 沒安裝離線地圖？在此下載: https://organicmaps.app/get</string>
+	<string name="bookmark_share_sms">嘿，看看我在 Organic Maps 標記的圖釘吧！ %1$s 或%2$s 沒安裝離線地圖？在此下載: https://omaps.app/get</string>
 	<!-- Share my position using SMS, %1$@ contains om:// and %2$@ http://omaps.app link WITHOUT NAME. @NOTE non-ascii symbols in the link will result in max 70 characters SMS instead of 140. -->
-	<string name="my_position_share_sms">嘿，在 Organic Maps 查看我的目前位置吧！ %1$s 或%2$s 沒安裝離線地圖？在此下載: https://organicmaps.app/get</string>
+	<string name="my_position_share_sms">嘿，在 Organic Maps 查看我的目前位置吧！ %1$s 或%2$s 沒安裝離線地圖？在此下載: https://omaps.app/get</string>
 	<!-- Subject for emailed bookmark -->
 	<string name="bookmark_share_email_subject">嘿，看看我在 Organic Maps 地圖上的圖釘！</string>
 	<!-- Subject for emailed position -->
@@ -1067,7 +1067,7 @@
 	<string name="place_description_title">地點說明</string>
 	<!-- this text will be shown in application notification preferences opposite checkbox which enable/disable downloader notifications. Devices on Android 8+ are affected. -->
 	<string name="notification_channel_downloader">加載地圖</string>
-	<string name="share_bookmarks_email_body_link">您好！\n\n您的標籤可以從鏈接下載：%s.使用Organic Maps打開列表並享受旅行!\n\n下載應用程序：https://organicmaps.app/get?kmz</string>
+	<string name="share_bookmarks_email_body_link">您好！\n\n您的標籤可以從鏈接下載：%s.使用Organic Maps打開列表並享受旅行!\n\n下載應用程序：https://omaps.app/get?kmz</string>
 	<string name="warning_speedcams_title">當速度限制超過%d km / h時，導航會通知您的攝像機</string>
 	<string name="warning_speedcams_subtitle">請不要忘記閱讀旅行國的道路規則。</string>
 	<string name="speedcams_notice_message">自動 - 如果存在超出速度限制的風險，則對速度攝像頭髮出警告\n總是 - 始終提醒攝像頭\n從不 - 永遠不會對攝像頭發出警告</string>
