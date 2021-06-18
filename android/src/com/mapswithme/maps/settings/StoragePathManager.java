@@ -153,6 +153,11 @@ public class StoragePathManager
     // External storages (SD cards and other).
     for (File dir : application.getExternalFilesDirs(null))
     {
+      // There was an evidence that `dir` can be null on some Samsungs.
+      // https://github.com/organicmaps/organicmaps/issues/632
+      if (dir == null)
+        continue;
+
       //
       // If the contents of emulated storage devices are backed by a private user data partition,
       // then there is little benefit to apps storing data here instead of the private directories
@@ -173,8 +178,11 @@ public class StoragePathManager
         candidates.add(dir);
     }
 
-    // Internal storage (always exists).
-    candidates.add(application.getFilesDir());
+    // Internal storage must always exists, but Android is unpredictable.
+    // https://github.com/organicmaps/organicmaps/issues/632
+    File internalDir = application.getFilesDir();
+    if (internalDir != null)
+      candidates.add(internalDir);
 
     // Configured path.
     String configDir = Config.getStoragePath();
@@ -224,7 +232,7 @@ public class StoragePathManager
     }
   }
 
-  private static StorageItem buildStorageItem(File dir)
+  private static StorageItem buildStorageItem(@NonNull File dir)
   {
     String path = dir.getAbsolutePath();
     LOGGER.d(TAG, "Check storage : " + path);
