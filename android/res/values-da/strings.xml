@@ -199,9 +199,9 @@
 	<!-- No, thanks -->
 	<string name="no_thanks">Nej, tak</string>
 	<!-- Share one specific bookmark using SMS, %1$@ contains om:// and %2$@ http://omaps.app link. @NOTE non-ascii symbols in the link will result in max 70 characters SMS instead of 140. -->
-	<string name="bookmark_share_sms">Hey, tjek min knappenål på Organic Maps ud! %1$s or %2$s Har du ikke offline kort? Download her: https://organicmaps.app/get</string>
+	<string name="bookmark_share_sms">Hey, tjek min knappenål på Organic Maps ud! %1$s or %2$s Har du ikke offline kort? Download her: https://omaps.app/get</string>
 	<!-- Share my position using SMS, %1$@ contains om:// and %2$@ http://omaps.app link WITHOUT NAME. @NOTE non-ascii symbols in the link will result in max 70 characters SMS instead of 140. -->
-	<string name="my_position_share_sms">Hey, tjek min nuværende lokation ud på Organic Maps! %1$s or %2$s. Har du ikke offline kort? Download her: https://organicmaps.app/get</string>
+	<string name="my_position_share_sms">Hey, tjek min nuværende lokation ud på Organic Maps! %1$s or %2$s. Har du ikke offline kort? Download her: https://omaps.app/get</string>
 	<!-- Subject for emailed bookmark -->
 	<string name="bookmark_share_email_subject">Hey, tjek min knappenål på Organic Maps kortet ud!</string>
 	<!-- Subject for emailed position -->
@@ -1068,7 +1068,7 @@
 	<string name="place_description_title">Beskrivelse af sted</string>
 	<!-- this text will be shown in application notification preferences opposite checkbox which enable/disable downloader notifications. Devices on Android 8+ are affected. -->
 	<string name="notification_channel_downloader">Korthenter</string>
-	<string name="share_bookmarks_email_body_link">Hej!\n\nHer er et link, hvor du kan hente dine bogmærker: %s. Åben listen via Organic Maps og nyd turen!\n\nHent applikation: https://organicmaps.app/get?kmz</string>
+	<string name="share_bookmarks_email_body_link">Hej!\n\nHer er et link, hvor du kan hente dine bogmærker: %s. Åben listen via Organic Maps og nyd turen!\n\nHent applikation: https://omaps.app/get?kmz</string>
 	<string name="warning_speedcams_title">Navigator advarer dig om kameraer, når du overskrider hastighedsgrænsen på %d km/t</string>
 	<string name="warning_speedcams_subtitle">Vær opmærksom på færdselsreglerne i det land, du rejser til.</string>
 	<string name="speedcams_notice_message">Auto - Advar om fartkameraer, hvis der er en risiko for, at hastighedsgrænsen overskrides\nAltid - Advar altid om fartkameraer\nAldrig - Advar aldrig om fartkameraer</string>
