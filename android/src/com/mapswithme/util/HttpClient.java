@@ -24,7 +24,6 @@
 
 package com.mapswithme.util;
 
-import android.os.Build;
 import android.text.TextUtils;
 
 import androidx.annotation.NonNull;
@@ -39,6 +38,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
@@ -46,9 +46,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
-
-import javax.net.ssl.HttpsURLConnection;
-import javax.net.ssl.SSLSocketFactory;
+import java.util.zip.GZIPInputStream;
 
 public final class HttpClient
 {
@@ -75,7 +73,6 @@ public final class HttpClient
     try
     {
       connection = (HttpURLConnection) new URL(p.url).openConnection();
-      setupTLSForPreLollipop(connection);
 
       // NullPointerException, MalformedUrlException, IOException
       // Redirects from http to https or vice versa are not supported by Android implementation.
@@ -103,9 +100,7 @@ public final class HttpClient
         connection.setRequestProperty("Cookie", p.cookies);
 
       for (KeyValue header : p.headers)
-      {
         connection.setRequestProperty(header.getKey(), header.getValue());
-      }
 
       if (!TextUtils.isEmpty(p.inputFilePath) || p.data != null)
       {
@@ -184,7 +179,7 @@ public final class HttpClient
       else
         ostream = new ByteArrayOutputStream(STREAM_BUFFER_SIZE);
       // TODO(AlexZ): Add HTTP resume support in the future for partially downloaded files
-      final BufferedInputStream istream = new BufferedInputStream(connection.getInputStream(), STREAM_BUFFER_SIZE);
+      final BufferedInputStream istream = new BufferedInputStream(getInputStream(connection), STREAM_BUFFER_SIZE);
       final byte[] buffer = new byte[STREAM_BUFFER_SIZE];
       // gzip encoding is transparently enabled and we can't use Content-Length for
       // body reading if server has gzipped it.
@@ -207,19 +202,26 @@ public final class HttpClient
     return p;
   }
 
-  private static void setupTLSForPreLollipop(@NonNull HttpURLConnection connection)
+  @NonNull
+  private static InputStream getInputStream(@NonNull HttpURLConnection connection) throws IOException
   {
-    // On PreLollipop devices we use the custom ssl factory which enables TLSv1.2 forcibly, because
-    // TLS of the mentioned version is not enabled by default on PreLollipop devices, but some of
-    // used by us APIs (as Viator) requires TLSv1.2. For more info see
-    // https://developer.android.com/reference/javax/net/ssl/SSLEngine.html.
-    if ((connection instanceof HttpsURLConnection)
-        && Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP)
+    InputStream in;
+    try
     {
-      HttpsURLConnection sslConnection = (HttpsURLConnection) connection;
-      SSLSocketFactory factory = sslConnection.getSSLSocketFactory();
-      sslConnection.setSSLSocketFactory(new PreLollipopSSLSocketFactory(factory));
+      // Android's okhttp implementation doesn't work if gzipped Content-Length is 0 or missing.
+      // See https://github.com/square/okhttp/issues/1550
+      if ("gzip".equals(connection.getContentEncoding()) && connection.getContentLength() > 0)
+        in = new GZIPInputStream(connection.getInputStream());
+      else
+        in = connection.getInputStream();
     }
+    catch (IOException e)
+    {
+      in = connection.getErrorStream();
+      if (in == null)
+        throw e;
+    }
+    return in;
   }
 
   private static class Params
