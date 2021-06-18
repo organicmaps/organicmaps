@@ -791,6 +791,14 @@ public class Utils
           {
             Uri uri = StorageUtils.getUriForFilePath(activity, logsZipFile);
             intent.putExtra(Intent.EXTRA_STREAM, uri);
+            // Properly set permissions for intent, see
+            // https://developer.android.com/reference/androidx/core/content/FileProvider#include-the-permission-in-an-intent
+            intent.setData(uri);
+            intent.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+            if (android.os.Build.VERSION.SDK_INT <= android.os.Build.VERSION_CODES.LOLLIPOP_MR1) {
+              intent.setClipData(ClipData.newRawUri("", uri));
+              intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
+            }
           }
         }
         // Do this so some email clients don't complain about empty body.
