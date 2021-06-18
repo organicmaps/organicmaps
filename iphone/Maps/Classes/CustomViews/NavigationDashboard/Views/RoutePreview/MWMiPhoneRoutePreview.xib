@@ -252,7 +252,7 @@
                             <rect key="frame" x="228" y="8" width="80" height="32"/>
                             <accessibility key="accessibilityConfiguration" identifier="goButton"/>
                             <constraints>
-                                <constraint firstAttribute="width" constant="80" id="5fJ-hA-Bme"/>
+                                <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="80" id="5fJ-hA-Bme"/>
                                 <constraint firstAttribute="height" constant="32" id="b2e-N4-xY6"/>
                             </constraints>
                             <inset key="contentEdgeInsets" minX="8" minY="0.0" maxX="8" maxY="0.0"/>
