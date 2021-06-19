@@ -39,6 +39,9 @@ jobs:
         with:
           java-version: 1.8
 
+      - name: Install Google SDK
+        uses: google-github-actions/setup-gcloud@master
+
       - name: Checkout sources
         uses: actions/checkout@v2
 
@@ -71,6 +74,18 @@ jobs:
           cmake --version
           ninja --version
           ./gradlew -x lint -x lintVitalGoogleBeta assembleGoogleBeta uploadCrashlyticsMappingFileGoogleRelease
+
+      - name: Run monkey
+        run: |
+          gcloud auth activate-service-account --key-file android/firebase-test-lab.json
+          # 4 commits/day * 5 devices * 8 min/test = 160 min/day ~= $10/month
+          gcloud firebase test android run --app ./android/build/outputs/apk/google/beta/OrganicMaps-*-google-beta.apk \
+            --device model=redfin,version=30 \
+            --device model=a10,version=29 \
+            --device model=equuleus,version=28 \
+            --device model=OnePlus3T,version=26 \
+            --device model=hwALE-H,version=21,orientation=landscape \
+            --timeout 8m
 
       - name: Upload beta apk to App Distribution
         shell: bash

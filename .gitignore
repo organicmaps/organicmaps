@@ -138,6 +138,7 @@ android/libnotify.properties
 android/google-services.json
 android/google-play.json
 android/firebase-app-distribution.json
+android/firebase-test-lab.json
 android/huawei-appgallery.json
 android/res/xml/network_security_config.xml
 server
