@@ -516,9 +516,12 @@ void ApplyPointFeature::Finish(ref_ptr<dp::TextureManager> texMng)
   }
 
   bool const hasPOI = m_symbolRule != nullptr;
-  double const mainScale = df::VisualParams::Instance().GetVisualScale();
+  auto const & visualParams = df::VisualParams::Instance();
+  double const mainScale = visualParams.GetVisualScale();
   if (hasPOI)
   {
+    double const poiExtendScale = visualParams.GetPoiExtendScale();
+
     PoiSymbolViewParams params;
     params.m_featureId = m_id;
     params.m_tileCenter = m_tileRect.Center();
@@ -529,7 +532,7 @@ void ApplyPointFeature::Finish(ref_ptr<dp::TextureManager> texMng)
     params.m_minVisibleScale = m_minVisibleScale;
     params.m_rank = m_rank;
     params.m_symbolName = m_symbolRule->name();
-    params.m_extendingSize = static_cast<uint32_t>(mainScale * m_symbolRule->min_distance());
+    params.m_extendingSize = static_cast<uint32_t>(mainScale * m_symbolRule->min_distance() * poiExtendScale);
     params.m_posZ = m_posZ;
     params.m_hasArea = m_hasArea;
     params.m_prioritized = m_createdByEditor;
