@@ -78,14 +78,12 @@ std::map<GeoMode, GeoModeSettings> const kGeoSettings{
 
 BOOL keepRunningInBackground()
 {
-  bool const needGPSForTrackRecorder = GpsTracker::Instance().IsEnabled();
-  if (needGPSForTrackRecorder)
+  if (GpsTracker::Instance().IsEnabled())
     return YES;
 
   auto const isOnRoute = [MWMRouter isOnRoute];
   auto const isRouteFinished = [MWMRouter isRouteFinished];
-  auto const needGPSForRouting = (isOnRoute && !isRouteFinished);
-  if (needGPSForRouting)
+  if (isOnRoute && !isRouteFinished)
     return YES;
 
   return NO;
@@ -105,15 +103,16 @@ void setPermissionRequested() {
 }
        
 BOOL needShowLocationAlert() {
- if ([NSUserDefaults.standardUserDefaults objectForKey:kLocationAlertNeedShowKey] == nil)
-   return YES;
- return [NSUserDefaults.standardUserDefaults boolForKey:kLocationAlertNeedShowKey];
+  NSUserDefaults * ud = NSUserDefaults.standardUserDefaults;
+  if ([ud objectForKey:kLocationAlertNeedShowKey] == nil)
+    return YES;
+  return [ud boolForKey:kLocationAlertNeedShowKey];
 }
 
 void setShowLocationAlert(BOOL needShow) {
- NSUserDefaults * ud = NSUserDefaults.standardUserDefaults;
- [ud setBool:needShow forKey:kLocationAlertNeedShowKey];
- [ud synchronize];
+  NSUserDefaults * ud = NSUserDefaults.standardUserDefaults;
+  [ud setBool:needShow forKey:kLocationAlertNeedShowKey];
+  [ud synchronize];
 }
 }  // namespace
 
@@ -291,7 +290,8 @@ void setShowLocationAlert(BOOL needShow) {
   _lastLocationStatus = lastLocationStatus;
   switch (lastLocationStatus)
   {
-  case MWMLocationStatusNoError: break;
+  case MWMLocationStatusNoError:
+    break;
   case MWMLocationStatusNotSupported:
     [[MWMAlertViewController activeAlertController] presentLocationServiceNotSupportedAlert];
     break;
@@ -369,19 +369,25 @@ void setShowLocationAlert(BOOL needShow) {
   if (_geoMode == geoMode)
     return;
   _geoMode = geoMode;
+
   CLLocationManager * locationManager = self.locationManager;
   switch (geoMode)
   {
   case GeoMode::Pending:
   case GeoMode::InPosition:
   case GeoMode::NotInPosition:
-  case GeoMode::FollowAndRotate: locationManager.activityType = CLActivityTypeOther; break;
+  case GeoMode::FollowAndRotate:
+    locationManager.activityType = CLActivityTypeOther;
+    break;
   case GeoMode::VehicleRouting:
     locationManager.activityType = CLActivityTypeAutomotiveNavigation;
     break;
   case GeoMode::PedestrianRouting:
-  case GeoMode::BicycleRouting: locationManager.activityType = CLActivityTypeFitness; break;
+  case GeoMode::BicycleRouting:
+    locationManager.activityType = CLActivityTypeFitness;
+    break;
   }
+
   [self refreshGeoModeSettings];
 }
 
@@ -472,23 +478,32 @@ void setShowLocationAlert(BOOL needShow) {
 {
   MWMVoidBlock doStart = ^{
     LOG(LINFO, ("startUpdatingLocation"));
+
     CLLocationManager * locationManager = self.locationManager;
-    if ([locationManager respondsToSelector:@selector(requestAlwaysAuthorization)])
-      [locationManager requestAlwaysAuthorization];
+    if ([locationManager respondsToSelector:@selector(requestWhenInUseAuthorization)])
+      [locationManager requestWhenInUseAuthorization];
+
     [locationManager startUpdatingLocation];
+
     setPermissionRequested();
+
     if ([CLLocationManager headingAvailable])
       [locationManager startUpdatingHeading];
   };
+
   if ([CLLocationManager locationServicesEnabled])
   {
     switch ([CLLocationManager authorizationStatus])
     {
     case kCLAuthorizationStatusAuthorizedWhenInUse:
     case kCLAuthorizationStatusAuthorizedAlways:
-    case kCLAuthorizationStatusNotDetermined: doStart(); return YES;
+    case kCLAuthorizationStatusNotDetermined:
+        doStart();
+        return YES;
     case kCLAuthorizationStatusRestricted:
-    case kCLAuthorizationStatusDenied: [self processLocationStatus:MWMLocationStatusDenied]; break;
+    case kCLAuthorizationStatusDenied:
+        [self processLocationStatus:MWMLocationStatusDenied];
+        break;
     }
   }
   else
