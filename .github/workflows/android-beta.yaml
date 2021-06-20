@@ -78,6 +78,7 @@ jobs:
       - name: Run monkey
         run: |
           gcloud auth activate-service-account --key-file android/firebase-test-lab.json
+          gcloud config set project omapsapp
           # 4 commits/day * 5 devices * 8 min/test = 160 min/day ~= $10/month
           gcloud firebase test android run --app ./android/build/outputs/apk/google/beta/OrganicMaps-*-google-beta.apk \
             --device model=redfin,version=30 \
