@@ -6865,7 +6865,7 @@
     nl = Aan het downloaden:
     fi = Ladataan:
     fr = Téléchargement en cours :
-    de = Gerade wird heruntergeladen:
+    de = Wird heruntergeladen:
     hu = Letöltés:
     id = Mengunduh:
     it = In scaricamento:
