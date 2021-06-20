@@ -4,7 +4,8 @@ on:
     branches:
       - master
     paths-ignore:
-    - .github/workflows/android*
+    - .github/workflows/android-release*
+    - .github/workflows/android-check*
     - .github/workflows/linux*
     - '**/*_tests/**'
     - '**/CMakeLists.txt'
