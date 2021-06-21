@@ -18,7 +18,7 @@
       [activityType isEqualToString:@"com.facebook.Facebook.ShareExtension"] ||
       [activityType.lowercaseString rangeOfString:@"facebook"].length)
   {
-    NSString * url = [NSString stringWithFormat:@"http://omaps.app/fb-editor-v1?lang=%@",
+    NSString * url = [NSString stringWithFormat:@"https://omaps.app/fb-editor-v1?lang=%@",
                       @(languages::GetCurrentNorm().c_str())];
     return [NSURL URLWithString:url];
   }
