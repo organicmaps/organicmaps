@@ -6,5 +6,7 @@
 	<array>
 		<string>applinks:omaps.app</string>
 	</array>
+	<key>com.apple.developer.carplay-maps</key>
+	<true/>
 </dict>
 </plist>
