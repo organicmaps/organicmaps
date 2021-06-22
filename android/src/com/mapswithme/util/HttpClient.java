@@ -47,15 +47,13 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.zip.GZIPInputStream;
+import java.util.zip.InflaterInputStream;
 
 public final class HttpClient
 {
   public static final String HEADER_USER_AGENT = "User-Agent";
   public static final String HEADER_AUTHORIZATION = "Authorization";
   public static final String HEADER_BEARER_PREFFIX = "Bearer ";
-  public static final String HEADER_BUNDLE_TIERS = "X-Mapsme-Bundle-Tiers";
-  public static final String HEADER_THEME_KEY = "x-mapsme-theme";
-  public static final String HEADER_THEME_DARK = "dark";
   private final static String TAG = HttpClient.class.getSimpleName();
   // TODO(AlexZ): tune for larger files
   private final static int STREAM_BUFFER_SIZE = 1024 * 64;
@@ -173,26 +171,32 @@ public final class HttpClient
           p.headers.add(new KeyValue("Set-Cookie", TextUtils.join(", ", cookies)));
       }
 
-      OutputStream ostream;
-      if (!TextUtils.isEmpty(p.outputFilePath))
-        ostream = new BufferedOutputStream(new FileOutputStream(p.outputFilePath), STREAM_BUFFER_SIZE);
-      else
-        ostream = new ByteArrayOutputStream(STREAM_BUFFER_SIZE);
-      // TODO(AlexZ): Add HTTP resume support in the future for partially downloaded files
-      final BufferedInputStream istream = new BufferedInputStream(getInputStream(connection), STREAM_BUFFER_SIZE);
-      final byte[] buffer = new byte[STREAM_BUFFER_SIZE];
-      // gzip encoding is transparently enabled and we can't use Content-Length for
-      // body reading if server has gzipped it.
-      int bytesRead;
-      while ((bytesRead = istream.read(buffer, 0, STREAM_BUFFER_SIZE)) > 0)
+      try
       {
-        // Read everything if Content-Length is not known in advance.
-        ostream.write(buffer, 0, bytesRead);
+        OutputStream ostream;
+        if (!TextUtils.isEmpty(p.outputFilePath))
+          ostream = new BufferedOutputStream(new FileOutputStream(p.outputFilePath), STREAM_BUFFER_SIZE);
+        else
+          ostream = new ByteArrayOutputStream(STREAM_BUFFER_SIZE);
+        // TODO(AlexZ): Add HTTP resume support in the future for partially downloaded files
+        final BufferedInputStream istream = new BufferedInputStream(getInputStream(connection), STREAM_BUFFER_SIZE);
+        final byte[] buffer = new byte[STREAM_BUFFER_SIZE];
+        // gzip encoding is transparently enabled and we can't use Content-Length for
+        // body reading if server has gzipped it.
+        int bytesRead;
+        while ((bytesRead = istream.read(buffer, 0, STREAM_BUFFER_SIZE)) > 0) {
+          // Read everything if Content-Length is not known in advance.
+          ostream.write(buffer, 0, bytesRead);
+        }
+        istream.close(); // IOException
+        ostream.close(); // IOException
+        if (ostream instanceof ByteArrayOutputStream)
+          p.data = ((ByteArrayOutputStream) ostream).toByteArray();
       }
-      istream.close(); // IOException
-      ostream.close(); // IOException
-      if (ostream instanceof ByteArrayOutputStream)
-        p.data = ((ByteArrayOutputStream) ostream).toByteArray();
+      catch (IOException ex)
+      {
+        // Exception here means that there is no body in the response.
+      }
     }
     finally
     {
@@ -208,10 +212,10 @@ public final class HttpClient
     InputStream in;
     try
     {
-      // Android's okhttp implementation doesn't work if gzipped Content-Length is 0 or missing.
-      // See https://github.com/square/okhttp/issues/1550
-      if ("gzip".equals(connection.getContentEncoding()) && connection.getContentLength() > 0)
+      if ("gzip".equals(connection.getContentEncoding()))
         in = new GZIPInputStream(connection.getInputStream());
+      else if ("deflate".equals(connection.getContentEncoding()))
+        in = new InflaterInputStream(connection.getInputStream());
       else
         in = connection.getInputStream();
     }
