@@ -6,7 +6,7 @@ namespace storage
 {
 class MapFilesDownloaderWithPing : public MapFilesDownloader
 {
-private:
+public:
   // MapFilesDownloader overrides:
   void GetServersList(ServersListCallback const & callback) override;
 };
