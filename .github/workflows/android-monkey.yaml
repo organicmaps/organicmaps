@@ -1,12 +1,12 @@
-name: Android Beta
+name: Android Monkey
 on:
-  push:
+  push: # Please don't change to pull_request because it can expose secrets
     branches:
       - master
     paths-ignore:
     - .github/workflows/android-release*
     - .github/workflows/android-check*
-    - .github/workflows/android-monkey*
+    - .github/workflows/android-beta*
     - .github/workflows/linux*
     - '**/*_tests/**'
     - '**/CMakeLists.txt'
@@ -25,8 +25,8 @@ on:
     - track_generator/**
 
 jobs:
-  android-google-beta:
-    name: Android Google Beta
+  android-google-debug:
+    name: Android Google Debug
     runs-on: ubuntu-latest
     environment: beta
     steps:
@@ -40,6 +40,9 @@ jobs:
         uses: actions/setup-java@v1
         with:
           java-version: 1.8
+
+      - name: Install Google SDK
+        uses: google-github-actions/setup-gcloud@master
 
       - name: Checkout sources
         uses: actions/checkout@v2
@@ -72,10 +75,16 @@ jobs:
         run: |
           cmake --version
           ninja --version
-          ./gradlew -x lint -x lintVitalGoogleBeta assembleGoogleBeta uploadCrashlyticsMappingFileGoogleRelease
+          ./gradlew -Parm64 -Parm32 -Pfirebase assembleGoogleDebug
 
-      - name: Upload beta apk to App Distribution
-        shell: bash
-        working-directory: android
+      - name: Run monkey
         run: |
-           ./gradlew appDistributionUploadGoogleBeta
+          gcloud auth activate-service-account --key-file android/firebase-test-lab.json
+          gcloud config set project omapsapp
+          gcloud firebase test android run --app ./android/build/outputs/apk/google/debug/OrganicMaps-*-google-debug.apk \
+            --device model=redfin,version=30 \
+            --device model=a10,version=29 \
+            --device model=dipper,version=28 \
+            --device model=OnePlus3T,version=26 \
+            --device model=flo,version=21,orientation=landscape \
+            --timeout 15m
