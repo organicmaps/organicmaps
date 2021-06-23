@@ -343,6 +343,12 @@ android {
           abiFilters.add('x86') // for emulator
         }
       }
+
+      if (googleFirebaseServicesEnabled) {
+        firebaseCrashlytics {
+          nativeSymbolUploadEnabled true
+        }
+      }
     }
 
     release {
