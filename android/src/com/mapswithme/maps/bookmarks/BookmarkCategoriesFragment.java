@@ -123,6 +123,7 @@ public class BookmarkCategoriesFragment extends BaseMwmRecyclerFragment<Bookmark
   {
     super.onStart();
     BookmarkManager.INSTANCE.addLoadingListener(this);
+    BookmarkManager.INSTANCE.addSharingListener(this);
   }
   
   @Override
@@ -130,6 +131,7 @@ public class BookmarkCategoriesFragment extends BaseMwmRecyclerFragment<Bookmark
   {
     super.onStop();
     BookmarkManager.INSTANCE.removeLoadingListener(this);
+    BookmarkManager.INSTANCE.removeSharingListener(this);
   }
 
   @Override
