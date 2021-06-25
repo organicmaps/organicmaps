@@ -27,7 +27,7 @@ class ChunkTask extends AsyncTask<Void, byte[], Integer>
   private static final Logger LOGGER = LoggerFactory.INSTANCE.getLogger(LoggerFactory.Type.DOWNLOADER);
   private static final String TAG = "ChunkTask";
 
-  private static final int TIMEOUT_IN_SECONDS = 60;
+  private static final int TIMEOUT_IN_SECONDS = 10;
 
   private final long mHttpCallbackID;
   private final String mUrl;

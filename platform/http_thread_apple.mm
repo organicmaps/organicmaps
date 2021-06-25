@@ -8,7 +8,7 @@
 #include "base/logging.hpp"
 #include "base/macros.hpp"
 
-#define TIMEOUT_IN_SECONDS 60.0
+static const NSTimeInterval kTimeoutInterval = 10.0;
 
 @interface HttpThreadImpl ()<NSURLSessionDataDelegate>
 {
@@ -68,7 +68,7 @@ static id<DownloadIndicatorProtocol> downloadIndicator = nil;
   NSMutableURLRequest * request =
   [NSMutableURLRequest requestWithURL:[NSURL URLWithString:@(url.c_str())]
                           cachePolicy:NSURLRequestReloadIgnoringLocalCacheData
-                      timeoutInterval:TIMEOUT_IN_SECONDS];
+                      timeoutInterval:kTimeoutInterval];
   
   // use Range header only if we don't download whole file from start
   if (!(beg == 0 && end < 0))

@@ -2,6 +2,9 @@
 
 #include "platform/downloader_utils.hpp"
 
+// How many seconds to wait before the request fails.
+static const NSTimeInterval kTimeoutIntervalInSeconds = 10;
+
 @interface TaskInfo : NSObject
 
 @property(nonatomic, strong) NSURLSessionTask *task;
@@ -74,7 +77,8 @@
   if (self) {
     NSURLSessionConfiguration *configuration =
       [NSURLSessionConfiguration backgroundSessionConfigurationWithIdentifier:name];
-    [configuration setSessionSendsLaunchEvents:YES];
+    configuration.sessionSendsLaunchEvents = YES;
+    configuration.timeoutIntervalForRequest = kTimeoutIntervalInSeconds;
     _session = [NSURLSession sessionWithConfiguration:configuration delegate:self delegateQueue:nil];
     _tasks = [NSMutableDictionary dictionary];
     _saveStrategy = saveStrategy;
