@@ -9,7 +9,7 @@ public final class Constants
   public static final int GB = 1024 * 1024 * 1024;
 
   static final int CONNECTION_TIMEOUT_MS = 5000;
-  static final int READ_TIMEOUT_MS = 30000;
+  static final int READ_TIMEOUT_MS = 10000;
 
   public static class Url
   {

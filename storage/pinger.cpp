@@ -17,7 +17,7 @@ using namespace std::chrono;
 
 namespace
 {
-auto constexpr kTimeoutInSeconds = 5.0;
+auto constexpr kTimeoutInSeconds = 4.0;
 
 int32_t DoPing(string const & url)
 {
