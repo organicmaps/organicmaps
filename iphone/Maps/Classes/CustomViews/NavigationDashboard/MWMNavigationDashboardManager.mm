@@ -226,11 +226,6 @@ using Observers = NSHashTable<Observer>;
   [MWMTextToSpeech tts].active = !isEnabled;
 }
 
-- (IBAction)trafficButtonAction {
-  BOOL const switchOn = ([MWMMapOverlayManager trafficState] == MWMMapOverlayTrafficStateDisabled);
-  [MWMMapOverlayManager setTrafficEnabled:switchOn];
-}
-
 - (IBAction)settingsButtonAction {
   [[MapViewController sharedController] performSegueWithIdentifier:@"Map2Settings" sender:nil];
 }
