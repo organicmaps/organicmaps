@@ -92,8 +92,8 @@
     ko = 다운로드 취소하기
     nb = Avbryt nedlasting
     pl = Anuluj pobieranie
-    pt = Cancelar Descarga
-    pt-BR = Cancelar Download
+    pt = Cancelar descarregamento
+    pt-BR = Cancelar baixar
     ro = Anulare descărcare
     es = Cancelar descarga
     sv = Avbryt nedladdning
@@ -199,8 +199,8 @@
     ko = 다운로드에 실패하였습니다. 다시 두드려 시도하여 주십시요.
     nb = Nedlastingen mislyktes – trykk på nytt for å prøve en gang til
     pl = Nie udało się pobrać. Proszę nacisnąć, aby spróbować ponownie.
-    pt = A descarga falhou, toque novamente para tentar uma vez mais.
-    pt-BR = O download falhou, toque para tentar de novo.
+    pt = O descarregamento falhou, toque novamente para tentar de novo.
+    pt-BR = O baixar falhou, toque para tentar de novo.
     ro = Descărcarea a eșuat. Atingeți pentru a încerca din nou.
     es = Error durante la descarga, iniciar otra vez
     sv = Nedladdningen misslyckades, tryck för att försöka igen
@@ -308,7 +308,7 @@
     ko = 평 남기기
     nb = Legg inn en vurdering
     pl = Napisz recenzję
-    pt = Deixe uma revisão
+    pt = Faça uma avaliação
     pt-BR = Deixe uma avaliação
     ro = Scrieți o recenzie
     es = Escribir una opinión
@@ -517,7 +517,7 @@
     ko = 검색하기
     nb = Søk
     pl = Wyszukaj
-    pt = Procura
+    pt = Pesquisar
     pt-BR = Buscar
     ro = Căutare
     es = Buscar
@@ -552,7 +552,7 @@
     ko = 지도 검색하기
     nb = Søk kart
     pl = Wyszukaj mapy
-    pt = Procurar mapa
+    pt = Pesquisar mapa
     pt-BR = Procurar mapa
     ro = Căutare hartă
     es = Buscar en el mapa
@@ -624,7 +624,7 @@
     ko = 현재 이 장치나 애플리케이션을 위한 전 위치 서비스를 불능시키셨습니다. 설정에서 이를 작동시켜 주시기 바랍니다.
     nb = Du har for øyeblikket deaktivert alle posisjonstjenester for denne enheten eller applikasjonen. Slå dem på i «Innstillinger».
     pl = Usługi lokalizacji są aktualnie wyłączone dla tego urządzenia lub aplikacji. Proszę włączyć je w ustawieniach.
-    pt = Atualmente tem todos os Serviços de Localização para este dispositivo ou aplicação desativados. Por favor ative-os nas Definições.
+    pt = Atualmente tem todos os serviços de localização para este dispositivo ou aplicação desativados. Por favor ative-os nas definições do sistema.
     pt-BR = Atualmente todos os Serviços de Localização para este dispositivo ou aplicação estão desativados. Por favor ative-os em Configurações.
     ro = În acest moment aveți dezactivate toate serviciile de localizare pentru acest dispozitiv sau aplicație. Vă rugăm să le activați la setări.
     es = No se puede acceder a los servicios de localización. Por favor, activelo en los ajustes.
@@ -695,8 +695,8 @@
     ko = 지도 다운로드
     nb = Last ned kart
     pl = Pobierz mapę
-    pt = Descarregar Mapa
-    pt-BR = Baixar Mapa
+    pt = Descarregar mapa
+    pt-BR = Baixar mapa
     ro = Descărcare hartă
     es = Descargar mapa
     sv = Ladda ner karta
@@ -731,7 +731,7 @@
     ko = 다운로드에 실패하였습니다
     nb = Laster ned mislyktes
     pl = Nie udało się pobrać
-    pt = A descarga falhou
+    pt = O descarregamento falhou
     pt-BR = O download falhou
     ro = Se descarcă a eșuat
     es = Error durante la descarga
@@ -767,7 +767,7 @@
     ko = 다시 시도
     nb = Prøv på nytt
     pl = Spróbuj ponownie
-    pt = Tente de novo
+    pt = Tentar novamente
     pt-BR = Tentar novamente
     ro = Încercați din nou
     es = Intentarla otra vez
@@ -837,8 +837,8 @@
     ko = 연결 설정
     nb = Tilkoblingsinnstillinger
     pl = Ustawienia połączenia
-    pt = Definições de Ligação
-    pt-BR = Configurações de Conexão
+    pt = Definições de ligação
+    pt-BR = Configurações de conexão
     ro = Setări conexiune
     es = Ajustes de conexión
     sv = Anslutningsinställningar
@@ -907,7 +907,7 @@
     ko = 하드웨어 촉진 OpenGL이 요구됩니다. 애석하게도 귀하의 장치는 지원되지 않습니다.
     nb = En maskinvareakselerert OpenGL kreves. Dessverre støttes ikke enheten din.
     pl = Wymagana jest sprzętowa akceleracja OpenGL. Aktualne urządzenie nie jest obsługiwane.
-    pt = É necessário OpenGL acelerado por hardware. Infelizmente o seu dispositivo não é compatível.
+    pt = É necessário a acelaração OpenGL por hardware. Infelizmente o seu dispositivo não é compatível.
     pt-BR = É necessário OpenGL acelerado por hardware. Infelizmente o seu dispositivo não é compatível.
     ro = Este necesar un OpenGL accelerat din hardware. Din păcate, dispozitivul nu este acceptat.
     es = Un acelerador de hardware OpenGL se requiere. Desafortunadamente, su dispositivo móvil no es compatible.
@@ -941,7 +941,7 @@
     ko = 다운로드
     nb = Last ned
     pl = Pobierz
-    pt = Descarga
+    pt = Descarregar
     pt-BR = Baixar
     ro = Descărcare
     es = Descargar
@@ -976,7 +976,7 @@
     ko = Organic Maps를 사용하려면 USB 케이블이나 삽입 메모리 카드를 분리하십시오
     nb = Koble fra USB-kabelen eller sett inn minnekortet for å bruke Organic Maps
     pl = Proszę odłączyć kabel USB albo włożyć kartę pamięci, aby korzystać z Organic Maps
-    pt = Por favor desligue o cabo USB ou introduza um cartão de memória para utilizar Organic Maps
+    pt = Por favor desligue o cabo USB ou introduza um cartão de memória para utilizar o Organic Maps
     pt-BR = Por favor desligue o cabo USB ou introduza um cartão de memória para utilizar Organic Maps
     ro = Vă rugăm să deconectați cablul USB sau să introduceți cartela de memorie pentru a putea utiliza Organic Maps.
     es = Por favor desconectar el cable USB o insertar la memoria SD para usar Organic Maps
@@ -1010,7 +1010,7 @@
     ko = 응용 프로그램을 사용하기 위해서는 첫째 SD 카드 / USB 저장 장치에 여유 공간을 확보하십시오
     nb = Frigjør plass på SD-kortet/USB-enheten først for å bruke appen
     pl = Proszę zwolnić trochę pamięci na karcie SD/pamięci USB, aby korzystać z aplikacji
-    pt = Por favor liberte primeiro algum espaço no cartão SD/armazenamento USB para utilizar a app
+    pt = Por favor liberte primeiro algum espaço no cartão SD ou armazenamento USB para utilizar a aplicação
     pt-BR = Por favor libere primeiro algum espaço no cartão SD/armazenamento USB para utilizar o app
     ro = Vă rugăm să eliberați spațiu pe cartela SD/dispozitivul de stocare USB pentru a putea utiliza aplicația.
     es = Por favor liberar espacio en la memoria SD/almacenamiento USB para usar la aplicación
@@ -1045,7 +1045,7 @@
     ko = 응용 프로그램을 실행하기위한 메모리가 충분하지 않다
     nb = Ikke nok minne til å starte appen
     pl = Za mało pamięci, aby uruchomić aplikację
-    pt = Não há memória suficiente para executar a app
+    pt = Não há memória suficiente para executar a aplicação
     pt-BR = Não há memória suficiente para executar o app
     ro = Nu este suficientă memorie pentru a lansa aplicația.
     es = No hay suficiente memoria para iniciar la aplicación
@@ -1080,7 +1080,7 @@
     ko = 시작하시기 전에 일반 세계 지도를 귀하의 장치로 다운로드하겠습니다.\n%@ 데이터가 필요합니다.
     nb = Før du begynner, la oss laste ned det generelle verdenskartet til enheten. Det trengs %@ med data.
     pl = Przed rozpoczęciem prosimy o pobranie ogólnej mapy świata na urządzenie.\nWymaga to %@ danych.
-    pt = Antes de começar, permita-nos que descarreguemos um mapa mundial geral para o seu dispositivo.\nÉ necessário %@ de dados.
+    pt = Antes de começar, é recomendável descarregar o mapa mundial geral para o seu dispositivo.\nÉ necessário %@ de espaço disponível.
     pt-BR = Antes de começar, vamos baixar um mapa mundial geral para o seu dispositivo.\n%@ de memória serão utilizados.
     ro = Înainte de a începe, permiteți-ne să descărcăm harta generală a lumii pe dispozitivul dvs.\nAre nevoie de %@ de date.
     es = Antes de comenzar, permite que descarguemos en tu dispositivo un mapamundi general.\nSe requieren %@ de datos.
@@ -1115,7 +1115,7 @@
     ko = 지도로 이동
     nb = Gå til kart
     pl = Przejdź do mapy
-    pt = Ir para o mapa
+    pt = Ir ao mapa
     pt-BR = Ir para o mapa
     ro = Mergeți la hartă.
     es = Ir al mapa
@@ -1150,7 +1150,7 @@
     ko = %@다운로드. 이제지도를 진행할 수 있습니다.
     nb = Laster ned %@. Du kan nå\nfortsette til kartet.
     pl = Pobieranie %@. Można teraz\nprzejść do mapy.
-    pt = A descarregar %@. Pode agora\ncontinuar para o mapa.
+    pt = A descarregar %@. Agora pode\nver o mapa.
     pt-BR = Baixando %@. Você pode\ncontinuar para o mapa agora.
     ro = Se descarcă %@. Puteți\ntrece la hartă.
     es = Descargando %@. Puede ahora\nproceder al mapa
@@ -1256,7 +1256,7 @@
     ko = 중지
     nb = Pause
     pl = Wstrzymaj
-    pt = Pausa
+    pt = Pausar
     pt-BR = Pausas
     ro = Pauză
     es = Pausar
@@ -1328,7 +1328,7 @@
     ko = %@다운로드가 실패했습니다
     nb = Nedlasting av %@ mislyktes
     pl = Nie udało się pobrać %@
-    pt = %@ descarga falhou
+    pt = O descarregamento de %@ falhou
     pt-BR = O download de %@ falhou
     ro = %@ - descărcarea a eșuat
     es = %@ la descarga ha fallado
@@ -1364,7 +1364,7 @@
     ko = 새로운 세트 추가
     nb = Legg til nytt sett
     pl = Dodaj nowy zestaw
-    pt = Adicionar novo conjunto
+    pt = Adicionar conjunto novo
     pt-BR = Adicionar novo conjunto
     ro = Adăugare la „Marcaje”
     es = Agregar un grupo nuevo
@@ -1401,8 +1401,8 @@
     ko = 색상 즐겨찾기에 추가
     nb = Bokmerk farge
     pl = Kolor zakładki
-    pt = Cor de favoritos
-    pt-BR = Cor dos favoritos
+    pt = Cor do favorito
+    pt-BR = Cor do favorito
     ro = Culoare marcaj
     es = Color del marcador
     sv = Bokmärkesfärg
@@ -1437,7 +1437,7 @@
     ko = 집합 이름을 즐겨찾기에 추가
     nb = Bokmerk settnavn
     pl = Nazwa zestawu zakładek
-    pt = Nome do conjunto dos favoritos
+    pt = Nome do conjunto de favoritos
     pt-BR = Nome do conjunto de favoritos
     ro = Nume set marcaje
     es = Nombre del grupo de marcadores
@@ -1722,7 +1722,8 @@
     ko = 지도 저장 위치:
     nb = Lagre kart på
     pl = Zapisz mapy do
-    pt = Guardar mapas para
+    pt = Guardar mapas em
+    pt-BR = Salvar mapas para
     ro = Salvare hărți în
     es = Guardar mapas en
     sv = Spara kartor i
@@ -1757,7 +1758,7 @@
     ko = 지도가 다운로드될 곳을 선택합니다
     nb = Velg hvor du vil at kartene skal lastes ned til
     pl = Określa położenie przechowywania pobranych map
-    pt = Selecione o local para onde os mapas devem ser descarregados
+    pt = Selecione o local onde os mapas devem ser descarregados
     pt-BR = Selecione o local para onde os mapas devem ser baixados
     ro = Selectați locul în care doriți să fie descărcate hărțile.
     es = Seleccione el lugar donde deben descargarse los mapas
@@ -1938,7 +1939,7 @@
     ko = 어디서먹을까
     nb = Spisesteder
     pl = Gdzie zjeść
-    pt = Onde lanchar
+    pt = Onde comer
     pt-BR = Onde comer
     ro = Unde să mănânci
     es = Dónde comer
@@ -1974,7 +1975,7 @@
     ko = 식료품들
     nb = Dagligvarer
     pl = Produkty
-    pt = Alimentos
+    pt = Lojas alimentares
     pt-BR = Mercados
     ro = Produse
     es = Productos
@@ -2191,7 +2192,7 @@
     ko = 관광
     nb = Severdigheter
     pl = Atrakcje turystyczne
-    pt = Vistas
+    pt = Atrações turísticas
     pt-BR = Atrações
     ro = Obiective turistice
     es = Turismo
@@ -2299,7 +2300,7 @@
     ko = 유흥
     nb = Nattliv
     pl = Życie nocne
-    pt = Convívio à noite
+    pt = Vida noturna
     pt-BR = Vida Noturna
     ro = Viața nocturnă
     es = Vida nocturna
@@ -2335,7 +2336,7 @@
     ko = 가족 기념일
     nb = Familieferie
     pl = Wypoczynek z dziećmi
-    pt = Descanso com crianças
+    pt = Passeios com crianças
     pt-BR = Feriados em família
     ro = Odihnă cu copii
     es = Descanso con niños
@@ -2480,7 +2481,7 @@
     ko = 화장실
     nb = Toalett
     pl = Toaleta
-    pt = WC
+    pt = Casas de banho
     pt-BR = Banheiros
     ro = Toaletă
     es = WC
@@ -2643,6 +2644,8 @@
     tags = android, ios
     en = Hello!\n\nAttached are my bookmarks from Organic Maps app. Please open them if you have Organic Maps installed. Or, if you don't, download the app for your iOS or Android device by following this link: https://omaps.app/get?kmz\n\nEnjoy traveling with Organic Maps!
     ru = Здравствуйте!\n\nВ прикрепленном файле мои метки из офлайновых карт Organic Maps. Для того чтобы открыть этот файл, вам потребуется приложение Organic Maps, которое можно установить по ссылке: https://omaps.app/get?kmz\n\nСпасибо!
+    pt = Olá!\n\nSegue em anexo os meus favoritos da aplicação Organic Maps. Por favor abra-os se tiver o Organic Maps instalado. Caso não tenha, descarregue a aplicação para o seu dispositivo iOS ou Android com a hiperligação https://omaps.app/get?kmz\n\nDivirta-se a viajar com o Organic Maps!
+    pt-BR = Olá!\n\nSegue em anexo meus favoritos do app Organic Maps. Por favor os abra se você tiver o Organic Maps instalado. Caso não tenha, baixe o app para o seu dispositivo iOS ou Android com o link https://omaps.app/get?kmz\n\nDisfrute viajar com o Organic Maps!
 
   [load_kmz_title]
     comment = message title of loading file
@@ -2700,7 +2703,7 @@
     ko = 즐겨찾기가 성공적으로 로드되었습니다! 지도 또는 즐겨찾기 관리자 화면에서 찾으실 수 있습니다.
     nb = Bokmerkene ble lastet inn! Du finner dem på kartet eller på skjermen «Bokmerkeadministrasjon».
     pl = Wczytano zakładki! Można odnaleźć je na mapie lub na ekranie menedżera zakładek.
-    pt = Favoritos carregados com sucesso! Pode encontrá-los no mapa ou no ecrã de gestão dos favoritos.
+    pt = Os favoritos foram carregados com sucesso! Pode encontrá-los no mapa ou no ecrã de gestão dos favoritos.
     pt-BR = Favoritos carregados com sucesso! Você pode encontrá-los no mapa ou na tela de gestão dos favoritos.
     ro = Marcaje încărcate cu succes! Le puteți găsi pe hartă sau pe ecranul „Gestionare marcaje”.
     es = ¡Los favoritos se han cargado con éxito! Puedes encontrarlos en el mapa o en la pantalla de Gestión de favoritos.
@@ -2736,7 +2739,7 @@
     ko = 즐겨찾기 업로드가 실패했습니다. 파일이 훼손되었거나 결함이 있을지도 모릅니다.
     nb = Opplasting av bokmerker mislyktes. Filen kan være skadet eller defekt.
     pl = Nieudane wczytywanie zakładek. Plik może być uszkodzony lub posiadać defekty.
-    pt = Falha no envio dos favoritos. O ficheiro pode estar corrompido ou com defeito.
+    pt = Surgiu uma falha ao enviar os favoritos. O ficheiro pode estar corrompido ou com defeito.
     pt-BR = Falha no envio dos favoritos. O arquivo pode estar corrompido ou com defeito.
     ro = Încărcarea marcajelor a eșuat. Fișierul poate fi corupt sau defect.
     es = La carga de favoritos ha fallado. El archivo puede estar corrupto o ser defectuoso.
@@ -2842,7 +2845,7 @@
     ko = 죄송합니다, 지도 스토리지 설정이 비활성화되어 있습니다.
     nb = Beklager, innstillingene for kartlagring er for øyeblikket deaktivert.
     pl = Przepraszamy, ustawienia pamięci mapy są aktualnie wyłączone.
-    pt = Lamentamos, as definições do Map Storage estão atualmente desativadas.
+    pt = Lamentamos, as definições do armazenamento do mapa estão atualmente desativadas.
     pt-BR = Lamentamos, as configurações do Map Storage estão atualmente desativadas.
     ro = Ne pare rău. Setările pentru stocarea hărților sunt dezactivate în acest moment.
     es = Lo sentimos, la configuración de Guardar Mapa está desactivada.
@@ -2878,7 +2881,7 @@
     ko = 국가 다운로드가 지금 진행 중입니다.
     nb = Nedlasting av land pågår nå.
     pl = Trwa pobieranie mapy kraju.
-    pt = A descarga do país está atualmente em progresso.
+    pt = O descarregamento do país está a ser feito neste momento.
     pt-BR = O download do país está atualmente em progresso.
     ro = Descărcarea hărților pentru țara dorită este în curs.
     es = Se está descargando un país.
@@ -2914,7 +2917,7 @@
     ko = 현재 위치를 알아 보십시오. %1$@ 또는 %2$@ 열기
     nb = Hei, se posisjonen min på Organic Maps! %1$@ eller %2$@ Har du ikke offline-kart? Last dem ned her: https://omaps.app/get
     pl = Zobacz gdzie jestem. Link %1$@ lub %2$@
-    pt = Veja onde estou agora. Abra a hiperligação: %1$@ ou %2$@
+    pt = Veja onde estou agora. Abra a hiperligação: %1$@ ou %2$@ Não tem um mapa offline instalado? Descarregue em https://omaps.app/get
     pt-BR = Veja onde estou agora. Abra o link: %1$@ ou %2$@ Não tem um aplicativo de mapa offline? Baixe aqui: https://omaps.app/get
     ro = Hei, îmi poți vedea poziția actuală pe Organic Maps! %1$@ sau %2$@ Nu ai hărțile offline? Descarcă de aici: https://omaps.app/get
     es = Mira dónde estoy. Abre %1$@ o %2$@
@@ -3019,7 +3022,7 @@
     ko = 안녕하세요.\n\n지금 다음 위치에 있습니다: %1$@. %2$@ 또는 %3$@ 링크를 클릭하여 지도상에서 해당 장소를 살펴보시기 바랍니다.\n\n감사합니다.
     nb = Hei,Jeg er her nå: %1$@. Klikk på denne koblingen %2$@ eller denne %3$@ for å se stedet på kartet.\n\nTakk.
     pl = Cześć,\n\nJestem teraz tutaj: %1$@. Naciśnij na ten link %2$@ lub ten %3$@, aby zobaczyć to miejsce na mapie.\n\nDziękuję.
-    pt = Olá,\n\nEstou aqui agora: %1$@. Clique nesta ligação %2$@ ou nesta %3$@ para ver o local no mapa.\n\nObrigado.
+    pt = Olá,\n\nEstou neste momento aqui: %1$@. Clique nesta ligação %2$@ ou nesta %3$@ para ver o local no mapa.\n\nObrigado.
     pt-BR = Olá,\n\nEstou aqui agora: %1$@. Clique neste link %2$@ ou neste %3$@ para ver o local no mapa.\n\nObrigado.
     ro = Chào,\n\nTôi hiện đang ở đây: %1$@. Hãy nhấn vào liên kết này %2$@ hoặc liên kết này %3$@ để xem địa điểm trên bản đồ.\n\nCám ơn.
     es = Hola:\n\nAhora estoy aquí: %1$@. Haz clic en este enlace %2$@ o esta %3$@ para verlo en el mapa.\n\nGracias.
@@ -3125,8 +3128,8 @@
     ko = 클립보드에 복사됨: %1$@
     nb = Kopiert til utklippstavlen: %1$@
     pl = Skopiowano do schowka: %1$@
-    pt = Copiado para a Área de Transferência: %1$@
-    pt-BR = Copiado para a Área de Transferência: %1$@
+    pt = Copiado para a área de transferência: %1$@
+    pt-BR = Copiado para a área de transferência: %1$@
     ro = Copiat în clipboard: %1$@
     es = Copiado al portapapeles: %1$@
     sv = Kopierat till urklippsbordet: %1$@
@@ -3161,7 +3164,7 @@
     ko = 정보
     nb = Informasjon
     pl = Informacje
-    pt = Info
+    pt = Informação
     pt-BR = Info
     ro = Informații
     es = Información
@@ -3258,6 +3261,7 @@
     fr = Version de données: %d
     de = Datenversion: %d
     pl = Wersja danych: %d
+    pt = Versão dos dados: %d
     pt-BR = Versão dos dados: %d
     zh-Hant = 資料版本： %d
     el = Ημερομηνία έκδοσης: %d
@@ -3283,7 +3287,7 @@
     ko = 계속하겠습니까?
     nb = Er du sikker på at du ønsker å fortsette?
     pl = Kontynuować?
-    pt = Tem a certeza de que pretende continuar?
+    pt = Quer mesmo continuar?
     pt-BR = Tem certeza que deseja continuar?
     ro = Sunteți sigur că doriți să continuați?
     es = ¿Seguro que desea continuar?
@@ -3414,6 +3418,8 @@
     bg = Общи настройки
     fr = Paramètres généraux
     pl = Ustawienia ogólne
+    pt = Configurações gerais
+    pt-BR = Configurações gerais
     fa = تنظیمات عمومی
 
   [prefs_group_information]
@@ -3423,6 +3429,8 @@
     ru = Информация
     bg = Информация
     pl = Informacje
+    pt = Informação
+    pt-BR = Informação
     fa = اطلاعات
 
   [prefs_group_route]
@@ -3478,7 +3486,7 @@
     ko = 확대/축소 버튼
     nb = Zoom-knapper
     pl = Przyciski przybliżania
-    pt = Botões de zoom
+    pt = Botões de ampliação
     pt-BR = Botões de zoom
     ro = Butoane zoom
     es = Botones de zoom
@@ -3549,8 +3557,8 @@
     ko = 나이트 모드
     nb = Nattmodus
     pl = Tryb nocny
-    pt = Modo Noturno
-    pt-BR = Modo Noturno
+    pt = Modo noturno
+    pt-BR = Modo noturno
     ro = Mod nocturn
     es = Modo nocturno
     sv = Nattläge
@@ -3689,8 +3697,8 @@
     ko = 원근 보기
     nb = Perspektivvisning
     pl = Widok z perspektywy
-    pt = Visão em Perspectiva
-    pt-BR = Visão em Perspectiva
+    pt = Visão em perspetiva
+    pt-BR = Visão em perspectiva
     ro = Vizualizare în perspectivă
     es = Vista de perspectiva
     sv = Perspektivvy
@@ -3724,7 +3732,7 @@
     ko = 주변 건물 3D
     nb = Bygninger i 3D
     pl = Budynki w 3D
-    pt = Prédios em 3D
+    pt = Edifícios em 3D
     pt-BR = Prédios em 3D
     ro = Clădiri 3D
     es = Edificios en 3D
@@ -3899,8 +3907,8 @@
     ko = 최근 추적
     nb = Siste rute
     pl = Ostatnia trasa
-    pt = Trajeto recente
-    pt-BR = Trajeto recente
+    pt = Percurso recente
+    pt-BR = Percurso recente
     ro = Rute recente
     es = Trayecto reciente
     sv = Senaste resväg
@@ -3933,7 +3941,8 @@
     ko = 자동 줌
     nb = Automatisk zooming
     pl = Automatyczne powiększanie
-    pt = Zoom automático
+    pt = Ampliação automática
+    pt-BR = Zoom automático
     ro = Zoom automat
     es = Zoom automático
     sv = Automatisk zoom
@@ -4170,7 +4179,8 @@
     ko = 특정 기간 동안 이동된 경로를 기록하고 지도에서 그 경로를 볼 수 있습니다. 참고: 이 기능을 활성화하면 배터리 사용량이 증가하게 됩니다. 시간 간격이 만료된 후 지도에서 해당 트랙이 자동으로 제거됩니다.
     nb = Det lar deg lagre ruten du har reist i en spesifikk periode og se den på kartet. Merk: Aktivering av funksjonen øker batteriforbruket. Ruten fjernes automatisk fra kartet når tidsintervallet utløper.
     pl = Umożliwia na pewien okres zapisanie przebytej trasy i obejrzenie jej na mapie. Uwaga: włączenie tej funkcji spowoduje większe zużycie baterii. Trasa zostanie usunięta z mapy automatycznie po upływie określonego czasu.
-    pt = Permite-lhe gravar um caminho percorrido durante um determinado período e vê-lo no papa. Nota: esta funcionalidade provoca uma maior utilização da bateria. A rota será automaticamente removida do mapa após o intervalo de tempo expirar.
+    pt = Permite-lhe gravar um caminho percorrido durante um determinado período e vê-lo no papa. Nota: esta funcionalidade usa mais bateria. A rota será automaticamente removida do mapa após o intervalo de tempo expirar.
+    pt-BR = Permite você salvar um caminho percorrido durante um determinado período e o ver no papa. Nota: esta funcionalidade usa mais bateria. A rota será automaticamente removida do mapa após o intervalo de tempo expirar.
     ro = Vă permite să înregistrați traseul parcurs pentru o anumită perioadă și să îl vedeți pe hartă. Rețineți: activarea acestei funcții crește consumul bateriei. Traseul va fi eliminat automat de pe hartă după expirarea intervalului de timp.
     es = Permite registrar el recorrido realizado durante un determinado periodo de tiempo y verlo en el mapa. Tenga en cuenta que la activación de esta función aumenta el consumo de la batería. El registro del recorrido se eliminará automáticamente del mapa una vez vencido dicho periodo de tiempo.
     sv = Detta gör att du kan spara en resväg för en viss tidsperiod och visa den på kartan. Obs: aktivering av den här funktionen ökar batterianvändningen. Spåret tas bort automatiskt från kartan när tidsintervallet slutar gälla.
@@ -4340,7 +4350,7 @@
     ko = 앱 평가
     nb = Ranger appen
     pl = Oceń aplikację
-    pt = Classificar o aplicativo
+    pt = Avaliar a aplicação
     pt-BR = Avaliar o aplicativo
     ro = Votați-ne aplicația
     es = Valora la aplicación
@@ -4412,8 +4422,8 @@
     ko = 저작권
     nb = Opphavsrett
     pl = Prawa autorskie
-    pt = Direitos de Autor
-    pt-BR = Direitos Autorais
+    pt = Direitos de autor
+    pt-BR = Direitos autorais
     ro = Copyright
     es = Copyright
     sv = Copyright
@@ -4448,7 +4458,7 @@
     ko = 오류 신고
     nb = Rapporter en feil
     pl = Zgłoś błąd
-    pt = Relatar um problema
+    pt = Reportar um problema
     pt-BR = Relatar um problema
     ro = Raportați o eroare
     es = Hay un error
@@ -4484,7 +4494,7 @@
     ko = 이메일 클라이언트가 설정되지 않았습니다. 이를 구성하거나 %@로 연락할 다른 방법을 사용하십시오.
     nb = E-postklienten har ikke blitt konfigurert. Konfigurer den eller bruk en annen måte å kontakte oss på %@
     pl = Email klienta nie został założony. Proszę skonfigurować adres email, bądź skorzystać z innych opcji, aby się z nami skontaktować na %@
-    pt = O cliente de email não está configurado. Por favor, configure-o ou utilize qualquer outro modo para nos contactar através de %@
+    pt = O programa de email não está configurado. Por favor, configure-o ou utilize qualquer outra forma de nos contactar através de %@
     pt-BR = O cliente de email não está configurado. Por favor, configure-o ou utilize qualquer outro modo para nos contatar através de %@
     ro = Nu a fost setat clientul de email. Vă rugăm să o configurați sau să utilizați un alt mod de a ne contacta la %@.
     es = No se ha configurado el cliente de correo electrónico. Por favor, configúralo o utiliza alguna otra forma de ponerte en contacto con nosotros en %@
@@ -4520,7 +4530,7 @@
     ko = 메일 전송 중 오류
     nb = Feil ved sending av e-post
     pl = Błąd wysyłania wiadomości
-    pt = Erro de envio de email
+    pt = Erro ao enviar o email
     pt-BR = Erro no envio de email
     ro = Eroare trimitere email.
     es = Error de envío de correo
@@ -4556,7 +4566,7 @@
     ko = 나침반 보정
     nb = Kompasskalibrering
     pl = Kalibracja kompasu
-    pt = Calibração de bússola
+    pt = Calibração da bússola
     pt-BR = Calibração da bússola
     ro = Calibrare busolă
     es = Calibrado de la brújula
@@ -4661,8 +4671,8 @@
     ko = 모두 취소
     nb = Avbryt alle
     pl = Anuluj wszystko
-    pt = Cancelar Tudo
-    pt-BR = Cancelar Tudo
+    pt = Cancelar tudo
+    pt-BR = Cancelar tudo
     ro = Anulare toate
     es = Cancelar todo
     sv = Avbryt alla
@@ -4903,7 +4913,7 @@
     ko = 다운로드 중:
     nb = Laster ned:
     pl = Pobieranie:
-    pt = Descarregando:
+    pt = A descarregar:
     pt-BR = Baixando:
     ro = Descărcare:
     es = Descargando:
@@ -5043,7 +5053,7 @@
     ko = 지도를 삭제하시려면 길 찾기를 멈추세요.
     nb = Stans navigeringen for å slette kartet.
     pl = Aby usunąć mapę, zatrzymaj nawigację.
-    pt = Favor parar a navegação para apagar o mapa.
+    pt = Para eliminar o mapa, por favor pare a navegação.
     pt-BR = Favor parar a navegação para apagar o mapa.
     ro = Pentru a șterge harta, vă rugăm să opriți navigarea.
     es = Para eliminar el mapa, por favor, detén la navegación.
@@ -5078,8 +5088,8 @@
     ko = 경로는 하나의 지도에 완전히 포함되도록만 생성할 수 있습니다.
     nb = Det kan bare opprettes ruter som passer fullstendig innenfor ett enkelt kart.
     pl = Trasy można tworzyć tylko pod warunkiem, że zawarte będą w ramach pojedynczej mapy.
-    pt = Só podem ser criados trajetos que estejam completamente contidos num único mapa.
-    pt-BR = Só podem ser criados trajetos que estejam completamente contidos num único mapa.
+    pt = Só podem ser criadas rotas que estejam completamente contidas num único mapa.
+    pt-BR = Só podem ser criadas rotas que estejam completamente contidas num único mapa.
     ro = Pot fi create doar rutele ce se află în întregime într-o singură hartă.
     es = Solo se pueden crear rutas que estén totalmente incluidas en un mapa único.
     sv = Rutter kan endast skapas om de finns inom en enda karta.
@@ -5114,7 +5124,7 @@
     ko = 지도 다운로드
     nb = Last ned kartet
     pl = Pobierz mapę
-    pt = Baixar o mapa
+    pt = Descarregar mapa
     pt-BR = Baixar o mapa
     ro = Descărcați harta
     es = Descargar el mapa
@@ -5185,8 +5195,8 @@
     ko = 지도 삭제
     nb = Slett kart
     pl = Usuń mapę
-    pt = Apagar Mapa
-    pt-BR = Apagar Mapa
+    pt = Eliminar mapa
+    pt-BR = Apagar mapa
     ro = Ștergere hartă
     es = Eliminar mapa
     sv = Radera karta
@@ -5221,8 +5231,8 @@
     ko = 지도 업데이트
     nb = Oppdater kart
     pl = Aktualizuj mapę
-    pt = Atualizar Mapa
-    pt-BR = Atualizar Mapa
+    pt = Atualizar mapa
+    pt-BR = Atualizar mapa
     ro = Actualizare hartă
     es = Actualizar mapa
     sv = Uppdatera karta
@@ -5257,7 +5267,7 @@
     ko = Google Play 서비스를 사용하여 현재 위치 정보 얻기
     nb = Bruk Google Play Services for å hente din nåværende posisjon
     pl = Używa usług Google Play do ustalenia aktualnego położenia
-    pt = Use o Google Play Serviços para determinar a sua localização actual
+    pt = Use os Serviços Google Play para determinar a sua localização atual
     pt-BR = Usar Serviços do Google Play para determinar a sua localização atual
     ro = Utilizați serviciile Google Play, pentru a vă obține poziția actuală.
     es = Usar los servicios de Google Play para obtener tu ubicación actual
@@ -5292,7 +5302,7 @@
     ko = 앱 평가 완료
     nb = Jeg har nettopp vurdert appen
     pl = Właśnie oceniłem Waszą aplikację
-    pt = Acabei de avaliar o seu app
+    pt = Acabei de avaliar a sua aplicação
     pt-BR = Acabei de avaliar o seu app
     ro = Tocmai ți-am votat aplicația
     es = Acabo de puntuar tu aplicación
@@ -5361,7 +5371,7 @@
     ko = 모든 아이디어나 문제를 공유하여, 사용자를 위한 앱을 향상시킬 수 있습니다.
     nb = Del ideer med oss eller still spørsmål, slik at vi kan forbedre appen for deg.
     pl = Podziel się z nami pomysłami lub problemami, a pozwoli to nam usprawnić aplikację.
-    pt = Compartilhe quaisquer ideias ou problemas para que possamos melhorar o app para você.
+    pt = Partilhe quaisquer ideias ou problemas para que possamos melhorar a aplicação para todos.
     pt-BR = Compartilhe quaisquer ideias ou problemas para que possamos melhorar o app para você.
     ro = Comunică-ne ideile tale și problemele aplicației, astfel încât să o putem îmbunătăți pentru tine.
     es = Comparte ideas o informa de problemas para que podamos mejorar la aplicación para ti.
@@ -5396,7 +5406,7 @@
     ko = 의견 보내기
     nb = Send tilbakemelding
     pl = Wyślij opinię
-    pt = Envie seu comentário
+    pt = Enviar comentário
     pt-BR = Enviar comentário
     ro = Trimitere feedback
     es = Enviar comentarios
@@ -5466,7 +5476,7 @@
     ko = 경로를 만드는 것은 사용자의 위치에서의 모든 지도를 다운로드되고 업데이트된 대상으로 필요합니다.
     nb = Når du skal opprette en rute må du ha oppdatert alle kartene fra ditt ståsted til din destinasjon.
     pl = Tworzenie tras wymaga pobrania i zaktualizowania wszystkich map od Twojej lokalizacji do celu podróży.
-    pt = É necessário baixar e atualizar todos os mapas entre sua localização e o destino para criar uma rota.
+    pt = É necessário descarregar e atualizar todos os mapas entre a sua localização e o destino para criar uma rota.
     pt-BR = É necessário baixar e atualizar todos os mapas entre a sua localização e o destino para criar uma rota.
     ro = Crearea unui traseu necesită ca toate hărțile de la locația dvs. până la destinație să fie descărcate și actualizate.
     es = Para crear una ruta es necesario descargar y actualizar todos los mapas de la ubicación de destino.
@@ -5572,7 +5582,7 @@
     ko = 위치 서비스를 작동시켜 주십시요.
     nb = Aktiver posisjonstjenester
     pl = Proszę włączyć usługi lokalizacji
-    pt = Por favor active os Serviços de Localização
+    pt = Por favor ative os serviços de localização
     pt-BR = Por favor, ative os Serviços de Localização
     ro = Vă rugăm să activați serviciile de localizare
     es = Por favor, permite los servicios de localización
@@ -5606,7 +5616,7 @@
     ko = 저장
     nb = Lagre
     pl = Zapisz
-    pt = Salvar
+    pt = Guardar
     pt-BR = Salvar
     ro = Salvare
     es = Guardar
@@ -5639,7 +5649,7 @@
     ko = 설명(텍스트 또는 HTML)
     nb = Dine beskrivelser (tekst eller html)
     pl = Twoje opisy (tekst lub html)
-    pt = Suas descrições (texto ou html)
+    pt = As suas descrições (texto ou html)
     pt-BR = Suas descrições (texto ou html)
     es = Tus descripciones (texto o html)
     sv = Dina beskrivningar (text eller html)
@@ -5924,7 +5934,7 @@
     ko = 갈색
     nb = Brun
     pl = Brązowy
-    pt = Marrom
+    pt = Castanho
     pt-BR = Marrom
     ro = Maro
     es = Marrón
@@ -6033,7 +6043,7 @@
     ko = 경로를 따라갈 때는 다음 사항에 주의해 주세요:
     nb = Husk følgende når du følger ruten:
     pl = Jadąc wyznaczoną trasą, pamiętaj, że:
-    pt = Ao seguir a rota, lembre-se de que:
+    pt = Ao seguir a rota, lembre-se que:
     pt-BR = Ao seguir a rota, lembre-se de que:
     ro = Când urmaţi traseul, aveţi în vedere următoarele:
     es = Al seguir la ruta, tenga en cuenta:
@@ -6068,7 +6078,7 @@
     ko = — 도로 상황, 교통법, 도로 표지판을 항상 내비게이션 안내보다 먼저 고려하세요;
     nb = – Veiforhold, trafikkregler og skilt skal alltid prioriteres fremfor navigasjonsråd;
     pl = — Warunki na drodze, przepisy ruchu drogowego i znaki drogowe zawsze są ważniejsze niż wskazówki nawigacji;
-    pt = — As condições da estrada, as leis de trânsito e as sinalizações da pista sempre terão prioridade acima das sugestões de navegação;
+    pt = — As condições da estrada, as leis de trânsito e os sinais de trânsito têm sempre prioridade sobre as indicações de navegação;
     pt-BR = — As condições da estrada, as leis de trânsito e as sinalizações da pista sempre terão prioridade acima das sugestões de navegação;
     ro = — Condiţiile de drum, legile şi semnele rutiere sunt mai prioritare decât sfaturile de navigaţie;
     es = — Las condiciones de la ruta, las reglas de tráfico y las señales de carretera siempre tienen prioridad sobre las sugerencias de navegación;
@@ -6103,7 +6113,7 @@
     ko = — 지도는 부정확할 수 있으며, 제안된 경로보다 나은 경로가 존재할 수도 있습니다;
     nb = – Kartet kan inneholde unøyaktigheter, og den foreslåtte ruten er ikke nødvendigvis alltid den mest optimale veien;
     pl = — Mapa może być niedokładna, a sugerowana trasa może nie być optymalnym sposobem dotarcia do celu;
-    pt = — O mapa pode estar desatualizado, e a rota indicada pode não ser a melhor maneira de chegar-se ao destino;
+    pt = — O mapa pode estar desatualizado e a rota indicada pode não ser a melhor para chegar ao destino;
     pt-BR = — O mapa pode estar desatualizado, e a rota indicada pode não ser a melhor maneira de chegar ao destino;
     ro = — Harta poate să conţină greşeli şi traseul sugerat poate să nu fie cel mai bun pentru a ajunge la destinaţie;
     es = — El mapa puede ser impreciso y sugerir una ruta que no siempre puede ser el mejor camino para llegar al destino;
@@ -6138,7 +6148,7 @@
     ko = — 제안된 경로는 권장 사항으로만 참고하세요;
     nb = – Foreslåtte ruter bør bare anses som anbefalinger;
     pl = — Sugerowane trasy należy traktować jedynie jako rekomendacje;
-    pt = — As rotas indicadas devem ser tratadas apenas como sugestões;
+    pt = — As rotas indicadas devem ser consideradas apenas como sugestões;
     pt-BR = — As rotas indicadas devem ser tratadas apenas como sugestões;
     ro = — Traseele sugerate au numai rol de recomandări;
     es = — Las rutas sugeridas deben entenderse solo como recomendaciones;
@@ -6173,7 +6183,7 @@
     ko = — 국경 지역에서 경로를 주의하십시오: 앱에 의해 생성된 경로는 허가받지 않은 장소에서 국가 경계에 걸쳐 종종 일어날 수 있습니다;
     nb = — Vær forsiktig når det gjelder ruter i grenseområder: rutene som appen vår oppretter kan komme til å krysse landegrenser i uatoriserte områder;
     pl = — Prosimy zachować ostrożność na trasach w strefie nadgranicznej: wyznaczone przez naszą aplikację trasy mogą przecinać granice państw w niedozwolonych do przekroczenia miejscach;
-    pt = — Use de cautela em rotas de zonas fronteiriças: as rotas criadas por nosso aplicativo podem algumas vezes cruzar fronteiras nacionais em locais não autorizados;
+    pt = — Use com cautela em rotas de zonas fronteiriças: as rotas criadas pela nossa aplicação podem algumas vezes cruzar fronteiras nacionais em locais não autorizados;
     pt-BR = — Tenha cautela com rotas em zonas fronteiriças: as rotas criadas por nosso aplicativo podem algumas vezes cruzar fronteiras nacionais em locais não autorizados.
     ro = — Aveți grijă în zonele de graniță: rutele create de aplicația noastră ar putea, ocazional, să treacă granița prin locuri nepermise;
     es = — Actúa con cautela en las rutas con zonas fronterizas: las rutas creadas por nuestra aplicación en ocasiones pueden atravesar las fronteras de países en lugares no autorizados;
@@ -6207,7 +6217,7 @@
     ko = 항상 안전에 주의하세요!
     nb = Kjør trygt!
     pl = Podczas podróży zachowaj czujność i prowadź ostrożnie!
-    pt = Fique sempre alerta nas estradas!
+    pt = Fique sempre atento nas estradas!
     pt-BR = Fique sempre alerta nas estradas!
     ro = Rămâneţi vigilenţi şi conduceţi în siguranţă!
     es = ¡Manténgase alerta y seguro en las rutas!
@@ -6277,7 +6287,7 @@
     ko = 경로를 설정할 수 없습니다. 현재 GPS 좌표를 확인할 수 없습니다.
     nb = Ingen rute ble opprettet. Nåværende GPS-koordinater ble ikke funnet.
     pl = Nie można wyznaczyć trasy. Nie można ustalić współrzędnych GPS.
-    pt = A rota não foi traçada, pois não foi possível identificar as coordenadas do GPS.
+    pt = A rota não foi criada, porque não foi possível identificar as coordenadas do GPS.
     pt-BR = A rota não foi traçada, pois não foi possível identificar as coordenadas do GPS.
     ro = Crearea traseului a eşuat. Coordonatele GPS curente nu au putut fi identificate.
     es = No se puede crear la ruta. No se pudieron identificar las coordenadas actuales del GPS.
@@ -6382,7 +6392,7 @@
     ko = 현재 GPS 좌표를 찾을 수 없습니다. 경로를 계산하려면 위치 서비스를 활성화하세요.
     nb = Nåværende GPS-koordinater ble ikke funnet. Aktiver stedstjenester for å beregne en rute.
     pl = Nie można ustalić współrzędnych GPS. Włącz usługi określania lokalizacji, aby wyznaczyć trasę.
-    pt = Não foi possível localizar as coordenadas do GPS. Ative os serviços de localização para que a rota seja traçada.
+    pt = Não foi possível localizar as coordenadas do GPS. Ative os serviços de localização para que a rota seja criada.
     pt-BR = Não foi possível localizar as coordenadas do GPS. Ative os serviços de localização para que a rota seja traçada.
     ro = Localizarea coordonatelor GPS curente a eşuat. Pentru a calcula traseul, activaţi serviciile de localizare.
     es = No se pueden encontrar las coordenadas del GPS. Active los servicios de ubicación para calcular la ruta.
@@ -6417,7 +6427,7 @@
     ko = 필수 파일 다운로드
     nb = Last ned nødvendige filer
     pl = Pobierz wymagane pliki
-    pt = Descarregar os arquivos necessários
+    pt = Descarregar os ficheiros necessários
     pt-BR = Baixar os arquivos necessários
     ro = Descărcaţi fişierele necesare
     es = Descargar archivos requeridos
@@ -6452,7 +6462,7 @@
     ko = 경로를 계산하려면 모든 지도와 예상 경로 정보를 다운로드하고 업데이트하세요.
     nb = Last ned og oppdater all kart- og ruteinformasjon langs den foreslåtte veien for å beregne ruten.
     pl = Pobierz i zaktualizuj dane mapy i wyznaczania trasy wzdłuż planowanej drogi, aby wyznaczyć trasę.
-    pt = Descarregue e actualize todos os dados de mapa e roteamento ao longo do trajeto desejado para que a rota seja traçada.
+    pt = Descarregue e atualize todos os dados do mapa e roteamento ao longo do trajeto desejado para que a rota seja criada.
     pt-BR = Baixe e atualize todos os dados de mapa e roteamento referentes ao trajeto desejado para que a rota seja traçada.
     ro = Pentru calcularea traseului, descărcaţi şi actualizaţi toate hărţile şi informaţiile de stabilire a traseului pentru calea estimată.
     es = Descargue y actualice toda la información de mapas y rutas junto con el trayecto proyectado para calcular la ruta.
@@ -6521,7 +6531,7 @@
     ko = 경로를 찾을 수 없습니다.
     nb = Kunne ikke finne rute.
     pl = Nie można wyznaczyć trasy.
-    pt = Não foi possível traçar uma rota.
+    pt = Não foi possível criar uma rota.
     pt-BR = Não foi possível gerar uma rota.
     ro = Crearea traseului a eşuat.
     es = No se puede crear la ruta.
@@ -6626,7 +6636,7 @@
     ko = 경로가 설정되지 않았습니다. 출발지를 찾을 수 없습니다.
     nb = Ingen rute ble opprettet. Startpunktet ble ikke funnet.
     pl = Nie wyznaczono trasy. Nie można zlokalizować punktu początkowego.
-    pt = A rota não foi traçada, pois não foi possível localizar o ponto de partida.
+    pt = A rota não foi criada, porque não foi possível localizar o ponto de partida.
     pt-BR = A rota não foi traçada, pois não foi possível localizar o ponto de partida.
     ro = Traseul nu a fost creat. Localizarea punctului iniţial a eşuat.
     es = La ruta no se creó. No se pudo encontrar el punto de inicio.
@@ -6731,7 +6741,7 @@
     ko = 경로가 설정되지 않았습니다. 목적지를 찾을 수 없습니다.
     nb = Ingen rute ble opprettet. Bestemmelsesstedet ble ikke funnet.
     pl = Nie wyznaczono trasy. Nie można zlokalizować punktu docelowego.
-    pt = A rota não foi traçada, pois não foi possível localizar o ponto de chegada.
+    pt = A rota não foi criada, porque não foi possível localizar o ponto de chegada.
     pt-BR = A rota não foi traçada, pois não foi possível localizar o ponto de chegada.
     ro = Traseul nu a fost creat. Localizarea destinaţiei a eşuat.
     es = La ruta no se creó. No se pudo encontrar el destino.
@@ -6835,7 +6845,8 @@
     ko = 중간 지점을 조정하세요.
     nb = Kontroller og juster mellomstopp.
     pl = Dokonaj korekty punktu postoju.
-    pt = Ajuste o seu ponto intermédio.
+    pt = Ajuste o ponto intermédio.
+    pt-BR = Ajuste seu ponto intermédio.
     ro = Ajustați punctul intermediar.
     es = Por favor, ajuste la parada intermedia.
     sv = Justera din mellanliggande punkt.
@@ -6904,7 +6915,7 @@
     ko = 애플리케이션 오류로 인해 경로를 설정하지 못했습니다.
     nb = En applikasjonsfeil førte til at ruten ikke kunne opprettes.
     pl = Nie można wyznaczyć trasy z powodu błędu aplikacji.
-    pt = Não foi possível traçar uma rota devido a um erro no aplicativo.
+    pt = Não foi possível criar uma rota devido a um erro na aplicação.
     pt-BR = Não foi possível traçar uma rota devido a um erro no aplicativo.
     ro = Crearea traseului a eşuat din cauza unei erori a aplicaţiei.
     es = No se pudo crear la ruta debido a un error en la aplicación.
@@ -6974,7 +6985,7 @@
     ko = 나중에
     nb = Ikke nå
     pl = Nie teraz
-    pt = Agora Não
+    pt = Agora não
     pt-BR = Agora não
     ro = Nu acum
     es = No ahora
@@ -7009,7 +7020,7 @@
     ko = 지도를 다운로드하여, 두 개 이상의 지도를 통과하는 더 최적화된 경로를 설정하시겠습니까?
     nb = Vil du laste ned kartet og lage en mer optimal rute som går over flere kart?
     pl = Chcesz pobrać mapę i wyznaczyć lepszą trasę, obejmującą więcej map?
-    pt = Deseja descarregar o mapa e traçar uma rota melhor, mas que se estenda por mais de um mapa?
+    pt = Quer descarregar o mapa e traçar uma rota melhor, mas que se estenda por mais de um mapa?
     pt-BR = Deseja baixar o mapa e traçar uma rota melhor, mas que se estenda por mais de um mapa?
     ro = Doriţi să descărcaţi harta şi să creaţi un traseu mai direct care include mai mult decât o hartă?
     es = ¿Desea descargar el mapa y crear una ruta mejor que abarca más de un mapa?
@@ -7044,7 +7055,7 @@
     ko = 이 지도의 경계를 통과하는 더 최적화된 경로를 설정하려면 지도를 다운로드하세요.
     nb = Last ned kartet for å opprette en mer optimal rute som går utenfor dette kartet.
     pl = Pobierz mapę i wyznacz lepszą trasę, wykraczającą poza granice bieżącej mapy.
-    pt = Descarregue o mapa para traçar uma rota melhor que vai além dos limites desse mapa.
+    pt = Descarregue o mapa para traçar uma rota melhor que vai além dos limites deste mapa.
     pt-BR = Baixe o mapa para traçar uma rota melhor que vai além dos limites desse mapa.
     ro = Pentru a crea un traseu mai adecvat care trece de limita acestei hărţi, descărcaţi harta.
     es = Descargar el mapa para crear una ruta mejor que cruza los límites de este mapa.
@@ -7081,7 +7092,7 @@
     ko = 경로를 검색하고 만들기시작하려면, 지도를 다운로드하십시오. 그러면, 더 이상 인터넷 연결이 필요하지 않습니다.
     nb = Last vennligst ned kartet for å begynne å søke og opprette ruter - så slipper du i fremtiden å være avhengig av å ha internettforbindelse.
     pl = Aby rozpocząć wyszukiwanie i tworzenie tras, pobierz mapę, a nie będzie ci już potrzebne połączenie z Internetem.
-    pt = Para começar a pesquisar e criar rotas, por favor, descarregue o mapa. Assim, não precisará mais de uma conexão com a internet.
+    pt = Para começar a pesquisar e criar rotas, por favor, descarregue o mapa. Desta forma não irá precisra mais de uma ligação à Internet.
     pt-BR = Para começar a pesquisar e criar rotas, por favor, baixe o mapa. Assim, você não precisará mais de uma conexão com a internet.
     ro = Pentru a putea începe căutarea și crearea unor rute, vă rugăm să descărcați harta, iar apoi nu veți mai avea nevoie de conexiune la internet.
     es = Para empezar a buscar y crear rutas, por favor, descarga el mapa y no necesitarás conexión a Internet nunca más para usarlo.
@@ -7116,7 +7127,7 @@
     ko = 지도 선택
     nb = Velg kartet
     pl = Wybierz mapę
-    pt = Selecionar Mapa
+    pt = Selecionar mapa
     pt-BR = Selecionar Mapa
     ro = Selectați harta
     es = Seleccionar el mapa
@@ -7222,7 +7233,7 @@
     ko = 다른 이름으로 변경
     nb = Nytt navn
     pl = Zmień nazwę
-    pt = Renomear
+    pt = Alterar nome
     pt-BR = Renomear
     ro = Redenumire
     es = Renombrar
@@ -7257,7 +7268,7 @@
     ko = 경로 계획 실패
     nb = Mislykket ruteplanlegging
     pl = Planowanie trasy nieudane
-    pt = Falhou o Planeamento da Rota
+    pt = Falha no planeamento da rota
     pt-BR = Falha no planejamento da rota
     ro = Planificarea rutei a eșuat
     es = Error al planificar la ruta
@@ -7326,7 +7337,7 @@
     ko = 앱을 좋아하나요?
     nb = Liker du appen?
     pl = Lubisz tę aplikację?
-    pt = Gosta do aplicativo?
+    pt = Gosta da aplicação?
     pt-BR = Você gosta do aplicativo?
     ro = Vă place aplicația?
     es = ¿Te gusta la aplicación?
@@ -7360,7 +7371,7 @@
     ko = Organic Maps를 사용해 주셔서 감사합니다. 이 앱을 평가해 주십시오. 당신의 피드백은 이 앱을 더 낫게 만드는데 도움을 줍니다.
     nb = Takk for at du bruker Organic Maps. Vi setter stor pris på om du rangerer appen. Tilbakemeldinger hjelper oss med å bli bedre.
     pl = Dziękujemy za korzystanie z Organic Maps. Prosimy wystawić aplikacji ocenę. Twoja opinia pozwoli nam udoskonalać nasze produkty.
-    pt = Obrigado por usar Organic Maps. Por favor, classifique o aplicativo. Seu feedback nos ajuda a melhorar.
+    pt = Obrigado por usar o Organic Maps. Por favor avalie a aplicação. A sua resposta pode ajudar-nos a desenvolver a aplicação.
     pt-BR = Obrigado por usar Organic Maps. Por favor, avalie o aplicativo. Seu feedback nos ajuda a melhorar.
     ro = Vă mulțumim că folosiți Organic Maps. Vă rugăm să dați o notă aplicației. Comentariile dvs. ne ajută să devenim mai buni.
     es = Gracias por usar Organic Maps. Por favor, puntúa la aplicación. Tus comentarios nos ayudan a mejorar.
@@ -7394,7 +7405,7 @@
     ko = 야호! 저희는 당신도 사랑합니다!
     nb = Hurra! Vi elsker deg også!
     pl = Hurra! My też Cię uwielbiamy!
-    pt = Viva! Também amamos você!
+    pt = Viva! Também gostamos de si!
     pt-BR = Viva! Também amamos você!
     ro = Ura! Și noi vă iubim!
     es = ¡Genial! ¡Nosotros también te queremos!
@@ -7462,7 +7473,7 @@
     ko = 더 낫게 만드는 아이디어가 있습니까?
     nb = Noen tanker om hvordan vi kan forbedre den?
     pl = Czy masz pomysł, w jaki sposób możemy dokonać ulepszeń?
-    pt = Alguma ideia sobre como podemos melhorar?
+    pt = Tem alguma ideia de como podemos melhorar?
     pt-BR = Alguma ideia sobre como podemos melhorar?
     ro = Aveți vreo idee prin care putem să îmbunătățim aplicația?
     es = ¿Alguna idea de cómo podemos mejorarla?
@@ -7598,7 +7609,7 @@
     ko = 죄송합니다. 아무것도 찾지 못했습니다.
     nb = Beklager, jeg fant ingenting.
     pl = Przepraszamy, nic nie znaleziono.
-    pt = Lamento, mas não encontrei nada.
+    pt = Lamento, mas não foram encontrados resultados.
     pt-BR = Sinto muito, nenhum resultado foi encontrado.
     ro = Ne pare rău, nu s-au găsit rezultate.
     es = Lo siento, no he encontrado nada.
@@ -7632,7 +7643,7 @@
     ko = 다른 쿼리를 시도하십시오.
     nb = Vennligst prøv et annet søk.
     pl = Wpisz inne zapytanie.
-    pt = Por favor, tente outro termo de busca.
+    pt = Por favor, tente outro termo de pesquisa.
     pt-BR = Por favor, tente outro termo de busca.
     ro = Vă rugăm să încercați altă căutare.
     es = Por favor, prueba con otra consulta.
@@ -7666,7 +7677,7 @@
     ko = 검색 기록
     nb = Søkehistorikk
     pl = Historia wyszukiwania
-    pt = Histórico de Busca
+    pt = Histórico de pesquisas
     pt-BR = Histórico de Busca
     ro = Istoricul căutărilor
     es = Historial de búsquedas
@@ -7700,7 +7711,7 @@
     ko = 최근 검색 쿼리에 신속하게 액세스할 수 있습니다.
     nb = Vis de siste søkene raskt.
     pl = Uzyskaj szybki dostęp do ostatniego hasła wyszukiwania.
-    pt = Visualizar as buscas recentes.
+    pt = Ver as pesquisas recentes.
     pt-BR = Visualizar as buscas recentes.
     ro = Accesare rapidă a căutărilor recente.
     es = Acceder rápidamente a las consultas de búsquedas recientes.
@@ -7734,7 +7745,7 @@
     ko = 이력 검색 지우기
     nb = Tøm søkehistorikk
     pl = Wyczyść historię wyszukiwania
-    pt = Limpar histórico de pesquisa
+    pt = Limpar histórico de pesquisas
     pt-BR = Limpar histórico de pesquisa
     ro = Ștergere istoric de căutare
     es = Eliminar el historial de búsqueda
@@ -7915,7 +7926,7 @@
     ko = 현재 위치에서만 네비게이션을 사용할 수 있습니다.
     nb = Navigering er kun tilgjengelig fra din nåværende beliggenhet.
     pl = Nawigacja jest dostępna tylko od twojej bieżącej lokalizacji.
-    pt = Só é possível navegar a partir da sua localização actual.
+    pt = Só é possível navegar a partir da sua localização atual.
     pt-BR = Só é possível navegar a partir da sua localização atual.
     ro = Navigația este disponibilă doar având ca punct de pornire locațiacctuală.
     es = La navegación solo está disponible desde tu ubicación actual.
@@ -7949,7 +7960,7 @@
     ko = 현재 위치에서 경로를 계획하시겠습니까?
     nb = Vil du vi skal planlegge en rute fra din nåværende posisjon?
     pl = Czy chcesz, byśmy zaplanowali trasę z Twojej bieżącej lokalizacji?
-    pt = Deseja planejar uma rota a partir da sua localização actual?
+    pt = Quer planear uma rota a partir da sua localização atual?
     pt-BR = Deseja planejar uma rota a partir da sua localização atual?
     ro = Doriți să vă planificăm o rută având ca punct de pornire locația actuală?
     es = ¿Quieres que planeemos un ruta desde tu ubicación actual?
@@ -8018,7 +8029,7 @@
     ko = 스케줄 추가
     nb = Legg til tidsrom
     pl = Dodaj harmonogram
-    pt = Adicionar Horário
+    pt = Adicionar horário
     pt-BR = Adicionar horário
     ro = Adăugare planificare
     es = Añadir horario
@@ -8052,7 +8063,7 @@
     ko = 스케줄 삭제
     nb = Slett tidsrom
     pl = Usuń harmonogram
-    pt = Eliminar Horário
+    pt = Eliminar horário
     pt-BR = Apagar Horário
     ro = Eliminare planificare
     es = Eliminar horario
@@ -8087,7 +8098,7 @@
     ko = 종일 영업(24시간)
     nb = Hele dagen (24 timer)
     pl = Całą dobę (24 godziny)
-    pt = Todo o Dia (24 horas)
+    pt = Todo o dia (24 horas)
     pt-BR = O Dia Todo (24 horas)
     ro = Toată ziua (non-stop)
     es = Todo el día (24 horas)
@@ -8189,7 +8200,7 @@
     ko = 폐점 시간 추가
     nb = Legg til stengt tid
     pl = Dodaj godziny zamknięcia
-    pt = Inserir Horas Sem Funcionamento
+    pt = Inserir horas de encerrrado
     pt-BR = Inserir Horas Sem Funcionamento
     ro = Adăugare oră de închidere
     es = Añadir horas de cierre
@@ -8223,7 +8234,7 @@
     ko = 영업 시간
     nb = Åpningstider
     pl = Godziny pracy
-    pt = Horário de Funcionamento
+    pt = Horário de funcionamento
     pt-BR = Horário de Funcionamento
     ro = Program
     es = Horario de apertura
@@ -8257,7 +8268,7 @@
     ko = 고급 모드
     nb = Avansert modus
     pl = Tryb zaawansowany
-    pt = Modo Avançado
+    pt = Modo avançado
     pt-BR = Modo Avançado
     ro = Mod Avansat
     es = Modo avanzado
@@ -8291,7 +8302,7 @@
     ko = 기본 모드
     nb = Enkel modus
     pl = Tryb prosty
-    pt = Modo Simples
+    pt = Modo simples
     pt-BR = Modo Simples
     ro = Mod Simplu
     es = Modo sencillo
@@ -8325,7 +8336,7 @@
     ko = 폐점 시간
     nb = Stengt
     pl = Godziny zamknięcia
-    pt = Horas Sem Funcionamento
+    pt = Horas sem funcionamento
     pt-BR = Horas Sem Funcionamento
     ro = Ora închiderii
     es = Horas de cierre
@@ -8461,7 +8472,7 @@
     ko = 세계 지도를 변경했습니다. 이를 숨기지 마십시오! 친구에게 말하고, 이를 함께 편집합니다.
     nb = Du har endret verdenskartet. Ikke skjul denne! Fortell vennene dine, og rediger det sammen.
     pl = Dokonałeś zmian na mapie świata. Nie kryj się z tym! Powiadom znajomych i edytujcie mapę razem.
-    pt = Modificou o mapa-múndi. Não esconda isto! Diga aos seus amigos e editem-no juntos.
+    pt = Alterou o mapa mundial. Não mantenha as alterações para si mesmo! Diga aos seus amigos e editem-no juntos.
     pt-BR = Você modificou o mapa-múndi. Não esconda isto! Diga aos seus amigos e editem-no juntos.
     ro = Ați modificat harta lumii. Nu ascundeți acest lucru! Spuneți-le prietenilor dvs. și modificați-o împreună.
     es = Has cambiado el mapa del mundo. ¡No ocultarlo! Cuéntaselo a tus amigos y editadlo juntos.
@@ -8495,7 +8506,7 @@
     ko = 친구들과 공유
     nb = Del med venner
     pl = Udostępnij znajomym
-    pt = Compartilhar com amigos
+    pt = Partilhar com amigos
     pt-BR = Compartilhar com amigos
     ro = Partajează cu prietenii
     es = Compartir con amigos
@@ -8563,7 +8574,7 @@
     ko = 아니면, 다음에서 스스로 가능: https://www.openstreetmap.org/
     nb = Eller gjør det selv på https://www.openstreetmap.org/
     pl = Albo zrób to sam na https://www.openstreetmap.org/
-    pt = Ou faça-o sozinho em https://www.openstreetmap.org/
+    pt = Ou faça-o em https://www.openstreetmap.org/
     pt-BR = Ou faça-o você mesmo em https://www.openstreetmap.org/
     ro = Sau faceți-o pe https://www.openstreetmap.org/
     es = O hazlo tú mismo en https://www.openstreetmap.org/
@@ -8767,7 +8778,7 @@
     ko = 자동 다운로드
     nb = Automatisk nedlasting
     pl = Automatyczne pobieranie
-    pt = Download automático
+    pt = Descarregamento automático
     pt-BR = Download automático
     ro = Descărcare automată
     es = Descarga automática
@@ -8871,7 +8882,7 @@
     ko = 24 시간
     nb = Dag og natt
     pl = Dzień i noc
-    pt = Dia e noite
+    pt = 24 horas por dia
     pt-BR = 24 horas por dia
     ro = Zi și noapte
     es = Día y noche
@@ -8906,7 +8917,7 @@
     ko = 오늘 영업 종료됨
     nb = Fridag i dag
     pl = Dziś nieczynne
-    pt = Dia de folga hoje
+    pt = Fechado hoje
     pt-BR = Fechado hoje
     ro = Astăzi închis
     es = Día libre hoy
@@ -8940,7 +8951,7 @@
     ko = 종료됨
     nb = Fridag
     pl = Nieczynne
-    pt = Dia de folga
+    pt = Fechado
     pt-BR = Fechado
     ro = Închis
     es = Día libre
@@ -9076,7 +9087,7 @@
     ko = OpenStreetMap에서 계정이 없습니까?
     nb = Har du ingen konto hos OpenStreetMap?
     pl = Nie masz konta w OpenStreetMap?
-    pt = Sem conta no OpenStreetMap?
+    pt = Não tem uma conta no OpenStreetMap?
     pt-BR = Sem conta no OpenStreetMap?
     ro = Nu aveți un cont în OpenStreetMap?
     es = ¿No tienes cuenta en OpenStreetMap?
@@ -9093,9 +9104,9 @@
 
   [register_at_openstreetmap]
     tags = android, ios
-    en = Register at OpenStreetMap
+    en = Register at OSM
     ru = Зарегистрироваться
-    bg = Регистриране в OpenStreetMap
+    bg = Регистриране в OSM
     ar = التسجيل
     cs = Registrace
     da = Tilmeld dig
@@ -9110,7 +9121,7 @@
     ko = 등록
     nb = Registrer deg
     pl = Zarejestruj się
-    pt = Cadastrar-se
+    pt = Crie uma conta no OSM
     pt-BR = Cadastrar-se
     ro = Înregistrați-vă
     es = Registrarse
@@ -9121,8 +9132,8 @@
     vi = Đăng ký
     zh-Hans = 注册
     zh-Hant = 註冊
-    el = Εγγραφείτε στο OpenStreetMap
-    fa = ثبت نام در OpenStreetMap
+    el = Εγγραφείτε στο OSM
+    fa = ثبت نام در OSM
     sk = Zaregistrovať sa
 
   [password_8_chars_min]
@@ -9144,7 +9155,7 @@
     ko = 암호(최소 8자)
     nb = Passord (minimum 8 tegn)
     pl = Hasło (minimum 8 znaków)
-    pt = Senha (mínimo de 8 caracteres)
+    pt = Palavra-chave (mínimo de 8 caracteres)
     pt-BR = Senha (mínimo de 8 caracteres)
     ro = Parolă (minim 8 caractere)
     es = Contraseña (mínimo 8 caracteres)
@@ -9178,7 +9189,7 @@
     ko = 잘못된 사용자 이름 또는 암호.
     nb = Ugyldig brukernavn eller passord.
     pl = Nieprawidłowa nazwa użytkownika lub hasło.
-    pt = Nome de usuário ou senha inválida.
+    pt = Nome de utilizador ou palavra-chave inválida.
     pt-BR = Nome de usuário ou senha inválida.
     ro = Nume de utilizator sau parolă incorecte.
     es = Usuario o contraseña incorrectos.
@@ -9212,7 +9223,7 @@
     ko = 로그인
     nb = Logg inn
     pl = Zaloguj się
-    pt = Acessar
+    pt = Iniciar sessão
     pt-BR = Login
     ro = Autentificare
     es = Iniciar sesión
@@ -9246,7 +9257,7 @@
     ko = 암호
     nb = Passord
     pl = Hasło
-    pt = Senha
+    pt = Palavra-chave
     pt-BR = Senha
     ro = Parolă
     es = Contraseña
@@ -9280,7 +9291,7 @@
     ko = 암호를 잊으 셨나요?
     nb = Glemt passordet?
     pl = Nie pamiętasz hasła?
-    pt = Esqueceu sua senha?
+    pt = Esqueceu-se da palavra-chave?
     pt-BR = Esqueceu sua senha?
     ro = Ați uitat parola?
     es = ¿Has olvidado tu contraseña?
@@ -9348,7 +9359,7 @@
     ko = 로그 아웃
     nb = Logg ut
     pl = Wyloguj
-    pt = Encerrar sessão
+    pt = Terminar sessão
     pt-BR = Encerrar sessão
     ro = Ieșire
     es = Cerrar sesión
@@ -9383,7 +9394,7 @@
     ko = 마지막 업로드
     nb = Siste opplasting
     pl = Ostatnio przesłane
-    pt = Último upload
+    pt = Último envio
     pt-BR = Último upload
     ro = Ultima încărcare
     es = Última carga
@@ -9588,7 +9599,7 @@
     ko = 집 번호
     nb = Et husnummer
     pl = Numer domu
-    pt = N.º de porta
+    pt = Nº de porta
     pt-BR = N.º do endereço
     ro = Număr casă
     es = Un número de domicilio
@@ -9826,7 +9837,7 @@
     ko = 요리 선택
     nb = Velg matrett
     pl = Wybierz kuchnię
-    pt = Selecione a Culinária
+    pt = Selecione a culinária
     pt-BR = Selecione a Culinária
     ro = Selectați tipul de bucătărie
     es = Seleccionar Cocina
@@ -9861,7 +9872,7 @@
     ko = 이메일 또는 사용자 이름
     nb = E-postadresse eller brukernavn
     pl = Email lub nazwa użytkownika
-    pt = Email ou nome de usuário
+    pt = Email ou nome de utilizador
     pt-BR = Email ou nome de usuário
     ro = Adresa de email sau numele de utilizator
     es = Correo electrónico o usuario
@@ -10031,7 +10042,7 @@
     ko = 경로를 만들려면, 모든 지도를 업데이트한 다음, 다시 경로를 계획해야 합니다.
     nb = For å opprette en reiserute må du oppdatere alle kartene og deretter planlegge reiseruten på nytt.
     pl = Aby utworzyć trasę, należy zaktualizować wszystkie mapy, a następnie ponownie zaplanować trasę.
-    pt = Para criar um itinerário é necessário actualizar todos os mapas e, em seguida, planejá-lo novamente.
+    pt = Para criar um itinerário é necessário atualizar todos os mapas e, em seguida, planeá-lo novamente.
     pt-BR = Para criar um itinerário é necessário atualizar todos os mapas e, em seguida, planejá-lo novamente.
     ro = Pentru a crea un traseu, trebuie să actualizați toate hărțile, iar apoi să planificați traseul încă o dată.
     es = Los mapas empiezan a descargarse automáticamente cuando te aproximas al mapa.
@@ -10099,7 +10110,7 @@
     ko = 다운로드 오류
     nb = Nedlastningsfeil
     pl = Błąd pobierania
-    pt = Erro de download
+    pt = Erro de descarregamento
     pt-BR = Erro no download
     ro = Eroare de descărcare
     es = Error de descarga
@@ -10133,7 +10144,7 @@
     ko = 설정을 확인하고 장치가 인터넷에 연결되어 있는지 확인하십시오.
     nb = Kontroller innstillingene dine og sørg for at enheten din er koblet til internett.
     pl = Sprawdź swoje ustawienia i upewnij się, że urządzenie ma połączenie z Internetem.
-    pt = Por favor, verifique as suas opções e certifique-se de que o dispositivo está ligado à Internet.
+    pt = Por favor, verifique as suas opções e certifique-se que o dispositivo está ligado à Internet.
     pt-BR = Por favor, verifique as suas configurações e certifique-se de que o dispositivo está conectado à Internet.
     ro = Vă rugăm să vă verificați setările și să vă asigurați că dispozitivul dvs. este conectat la Internet.
     es = Por favor, verifica la configuración y asegúrate de que tu dispositivo está conectado a Internet.
@@ -10167,7 +10178,7 @@
     ko = 충분하지 않은 여유 공간
     nb = Ikke nok plass
     pl = Brak wolnego miejsca
-    pt = Não há espaço suficiente
+    pt = Não tem espaço suficiente
     pt-BR = Não há espaço suficiente
     ro = Spațiu insuficient
     es = Sin espacio suficiente
@@ -10677,7 +10688,7 @@
     ko = 지도에 새로운 장소를 추가하고 응용 프로그램에서 직접 기존 편집 할 수 있습니다.
     nb = Legg til nye steder i kartet og rediger eksisterende steder direkte fra appen.
     pl = Dodawaj nowe miejsca do mapy i edytuj już istniejące bezpośrednio z poziomu aplikacji.
-    pt = Adicione novos lugares ao mapa e edite os já existentes diretamente a partir do app.
+    pt = Adicione novos lugares ao mapa e edite os já existentes diretamente a partir da aplicação.
     pt-BR = Adicione novos lugares ao mapa e edite os já existentes diretamente a partir do app.
     ro = Adăugați locuri noi pe hartă și modificați-le pe cele existente direct din aplicație.
     es = Añadir lugares nuevos al mapa y editar los lugares actuales directamente desde la aplicación.
@@ -10745,7 +10756,7 @@
     ko = 목적지를 이곳에서 찾을 수 없습니다
     nb = Et objekt kan ikke plasseres her
     pl = Obiekt nie może znajdować się tutaj
-    pt = Um objeto não pode ser posicionado aqui
+    pt = Nenhum objeto pode ser posicionado aqui
     pt-BR = Nenhum objeto pode ser posicionado aqui
     ro = În acest loc nu poate fi localizat un obiect
     es = No se puede ubicar ningún objeto aquí
@@ -10779,7 +10790,7 @@
     ko = 로그인하여 다른 사용자가 변경한 내용을 볼 수 있도록 하십시오.
     nb = Logg inn slik at andre brukere kan se endringene du har utført.
     pl = Zaloguj się, by inni użytkownicy mogli zobaczyć Twoje zmiany.
-    pt = Inicie sessão para que outros usuários vejam as mudanças que você fez.
+    pt = Inicie a sessão para que outros utilizadores vejam as alterações que fez.
     pt-BR = Fazer login para que outros usuários vejam as mudanças que você fez.
     ro = Autentificați-vă pentru ca modificările pe care le-ați efectuat să poată fi văzute și de alți utilizatori.
     es = Inicia sesión para que otros usuarios puedan ver los cambios que has efectuado.
@@ -10916,7 +10927,7 @@
     ja = 携帯通信ネットワークで接続してダウンロードしますか？
     ko = 셀룰러 네트워크 접속을 사용하여 다운로드하시겠습니까?
     pl = Czy pobrać, używając połączenia z siecią komórkową?
-    pt = Descarregar usando uma conexão de rede celular?
+    pt = Descarregar utilizando uma conexão de rede de telemóveis?
     pt-BR = Baixar usando uma conexão de rede celular?
     ro = Descărcați utilizând o conexiune prin rețeaua de telefonie mobilă?
     es = ¿Descargar con conexión de red móvil?
@@ -10983,7 +10994,7 @@
     ko = 올바른 집 번호 입력
     nb = Skriv riktig husnummer
     pl = Wprowadź poprawny numer domu
-    pt = Introduzir um número de endereço correto
+    pt = Introduza um número de endereço correto
     pt-BR = Informe o número correto do endereço
     ro = Introduceți numărul corect al casei
     es = Introducir el número de domicilio correcto
@@ -11259,7 +11270,7 @@
     ko = 귀하가 제안한 변경 사항은 OpenStreetMap 커뮤니티로 전송됩니다. Organic Maps에서 편집할 수 없는 세부정보를 작성해 주세요.
     nb = De foreslåtte endringene vil sendes til OpenStreetMap-gruppen. Beskriv detaljene som ikke kan redigeres i Organic Maps.
     pl = Twoje sugestie zmian zostaną wysłane do społeczności OpenStreetMap. Opisz szczegóły, których nie można edytować w Organic Maps.
-    pt = As suas alterações sugeridas irão ser enviadas para a comunidade OpenStreetMap. Descreva os dados que não podem ser editados no Organic Maps
+    pt = As suas alterações sugeridas irão ser enviadas para a comunidade OpenStreetMap. Descreva os dados que não podem ser editados no Organic Maps.
     pt-BR = Suas sugestões de mudança serão enviadas para a comunidade OpenStreetMap. Descreva em detalhes o que não pode ser editado com o Organic Maps.
     ro = Modificările sugerate vor trimise către comunitatea OpenStreetMap. Descrieți detalii ce nu pot fi adăugate în be the details which cannot be edited in Organic Maps.
     es = Los cambios que ha sugerido se enviarán a la comunidad de OpenStreetMap. Describa los detalles que no pueden editarse en Organic Maps.
@@ -11667,7 +11678,7 @@
     ko = 위치 식별 사용할 수 없음
     nb = Lokalisering er deaktivert
     pl = Identyfikacja lokalizacji jest wyłączona
-    pt = Serviços de localização estão desativados
+    pt = Os serviços de localização estão desativados
     pt-BR = Serviços de localização estão desativados
     ro = Geolocalizarea este dezactivată
     es = La identificación de la ubicación está desactivada
@@ -11702,7 +11713,7 @@
     ko = 장치 설정에서 위치 정보에 액세스할 수 있음
     nb = Tillat bruk av av geografisk lokalisering i enhetens innstillinger
     pl = Włącz dostęp do geolokalizacji w ustawieniach urządzenia
-    pt = Permita o acesso à geolocalização nas configurações do dispositivo
+    pt = Conceda o acesso à geolocalização nas configurações do dispositivo
     pt-BR = Permita o acesso à geolocalização nas configurações do dispositivo
     ro = Activaţi accesul la geolocalizare din setările dispozitivului
     es = Activa el acceso a la geolocalización en los ajustes del dispositivo
@@ -11807,7 +11818,7 @@
     ko = 3. 앱 사용 중에 선택
     nb = 3.Velg når appen er i bruk
     pl = 3. Zaznacz Podczas korzystania z aplikacji
-    pt = 3. Selecione Durante Uso do Aplicativo
+    pt = 3. Selecione "Durante a utilização da aplicação"
     pt-BR = 3. Selecione Durante Uso do Aplicativo
     ro = 3. Selectați în timp ce folosiți aplicația
     es = 3. Seleccionar Al usar la aplicación
@@ -11906,6 +11917,7 @@
     nb = km/t
     pl = km/h
     pt = km/h
+    pt-BR = km/h
     ro = km/h
     es = km/h
     sv = km/h
@@ -11937,7 +11949,7 @@
     ko = mi
     nb = mi
     pl = mi
-    pt = M
+    pt = mi
     ro = mi
     es = mile
     sv = mile
@@ -11948,6 +11960,7 @@
     zh-Hans = 英里
     zh-Hant = 英里
     fa = مایل
+    pt-br = mi
     sk = mi
 
   [foot]
@@ -11970,6 +11983,7 @@
     nb = fot
     pl = ft
     pt = ft
+    pt-BR = ft
     ro = picior
     es = pie
     sv = fot
@@ -12001,6 +12015,7 @@
     nb = mph
     pl = mph
     pt = mph
+    pt-BR = mph
     ro = mph
     es = mph
     sv = mph
@@ -12033,6 +12048,7 @@
     nb = t
     pl = godz
     pt = h
+    pt-BR = h
     ro = o
     es = h
     sv = h
@@ -12065,6 +12081,7 @@
     nb = min
     pl = min
     pt = min
+    pt-BR = min
     ro = min
     es = min
     sv = min
@@ -12164,7 +12181,7 @@
     nb = Flere anmeldelser
     pl = Więcej opinii
     pt = Mais comentários
-    pt-BR = Mais Avaliações
+    pt-BR = Mais avaliações
     ro = Mai multe recenzii
     es = Más comentarios
     sv = Fler recensioner
@@ -12199,7 +12216,7 @@
     ko = 예약
     nb = Bestill
     pl = Zarezerwuj
-    pt = Reservar
+    pt = Reservas
     pt-BR = Reservar
     ro = Rezervare
     es = Reservar
@@ -12232,7 +12249,7 @@
     ko = 전화
     nb = Ring
     pl = Zadzwoń
-    pt = Chamada
+    pt = Telefonar
     pt-BR = Ligar
     ro = Apel
     es = Llamar
@@ -12266,8 +12283,8 @@
     ko = 즐겨찾기 편집
     nb = Rediger bokmerke
     pl = Edytuj zakładkę
-    pt = Editar marcador
-    pt-BR = Editar marcador
+    pt = Editar favorito
+    pt-BR = Editar favorito
     ro = Editare marcaj
     es = Editar marcador
     sv = Redigera bokmärke
@@ -12300,8 +12317,8 @@
     ko = 즐겨찾기 이름
     nb = Bokmerkenavn
     pl = Nazwa zakładki
-    pt = Nome do marcador
-    pt-BR = Nome do marcador
+    pt = Nome do favorito
+    pt-BR = Nome do favorito
     ro = Nume marcaj
     es = Nombre del marcador
     sv = Namn bokmärke
@@ -12366,8 +12383,8 @@
     ko = 즐겨찾기 삭제
     nb = Slett bokmerke
     pl = Usuń zakładkę
-    pt = Eliminar marcador
-    pt-BR = Apagar marcador
+    pt = Eliminar favorito
+    pt-BR = Apagar favorito
     ro = Ștergere marcaj
     es = Eliminar marcador
     sv = Radera bokmärke
@@ -12468,7 +12485,7 @@
     ko = 지역 변경 사항을 재설정하시겠습니까?
     nb = Nullstille alle lokale endringer?
     pl = Usunąć wszystkie lokalne zmiany?
-    pt = Descartar todas as alterações locais?
+    pt = Eliminar todas as alterações locais?
     pt-BR = Descartar todas as modificações locais?
     ro = Resetați toate modificările locale?
     es = ¿Restablecer todos los cambios locales?
@@ -12502,7 +12519,7 @@
     ko = 재설정
     nb = Nullstill
     pl = Usuń
-    pt = Descartar
+    pt = Eliminar
     pt-BR = Descartar
     ro = Resetare
     es = Restablecer
@@ -12536,7 +12553,7 @@
     ko = 추가한 장소를 삭제하시겠습니까?
     nb = Fjerne et tilføyd sted?
     pl = Usunąć dodane miejsce?
-    pt = Remover local adicionado?
+    pt = Eliminar o local adicionado?
     pt-BR = Remover local adicionado?
     ro = Eliminați locul adăugat?
     es = ¿Eliminar el lugar añadido?
@@ -12570,7 +12587,7 @@
     ko = 삭제
     nb = Fjern
     pl = Usuń
-    pt = Remover
+    pt = Eliminar
     pt-BR = Remover
     ro = Eliminare
     es = Eliminar
@@ -12673,7 +12690,8 @@
     ko = 올바른 전화 번호 입력
     nb = Skriv riktig telefonnummer
     pl = Wprowadź poprawny numer telefonu
-    pt = Insira o número correto do telefone
+    pt = Introduza um número de telefone correto
+    pt-BR = Insira o número correto do telefone
     ro = Introduceți numărul de telefon corect
     es = Introduce un número de teléfono correcto
     sv = Ange korrekt telefonnummer
@@ -12706,7 +12724,8 @@
     ko = 유효한 웹 주소 입력
     nb = Oppgi en gyldig nettadresse
     pl = Wpisz prawidłowy adres strony internetowej
-    pt = Preencha com um endereço válido na internet
+    pt = Preencha com um endereço válido na Internet
+    pt-BR = Preencha com um endereço válido na internet
     ro = Introduceți o adresă web validă
     es = Introduce una dirección web válida
     sv = Ange en giltig webadress
@@ -12740,6 +12759,7 @@
     nb = Oppgi en gyldig epostadresse
     pl = Wpisz prawidłowy email
     pt = Preencha com um endereço válido de email
+    pt-BR = Preencha com um endereço válido de email
     ro = Introduceți o adresă de email validă
     es = Introduce un email válido
     sv = Ange en giltig e-postadress
@@ -12807,6 +12827,7 @@
     nb = Legg til en plass på kartet
     pl = Dodaj miejsce do mapy
     pt = Adicionar um local ao mapa
+    pt-BR = Adicionar um local ao mapa
     ro = Adăugați un loc pe hartă
     es = Añadir un lugar al mapa
     sv = Lägg till en plats på kartan
@@ -12840,7 +12861,8 @@
     ko = 이를 모든 사용자에게 전송하시겠습니까?
     nb = Vil du sende det til alle brukere?
     pl = Czy chcesz wysłać je wszystkim użytkownikom?
-    pt = Deseja enviar para todos os usuários?
+    pt = Quer enviar para todos os utilizadores?
+    pt-BR = Deseja enviar para todos os usuários?
     ro = Doriți să îl trimiteți tuturor utilizatorilor?
     es = ¿Quieres enviarlo a todos los usuarios?
     sv = Vill du skicka det till alla användare?
@@ -12874,7 +12896,8 @@
     ko = 개인 정보를 입력하지 않았는지 확인하십시오.
     nb = Sørg for at du ikke har skrevet noe personlig informasjon.
     pl = Upewnij się, że nie podałeś osobistych danych.
-    pt = Certifique-se de não ter incluído nenhum dado pessoal.
+    pt = Certifique-se que não incluiu nenhuns dados pessoais.
+    pt-BR = Certifique-se de não ter incluído nenhum dado pessoal.
     ro = Asigurați-vă că nu ați introdus niciun fel de date personale.
     es = Asegúrate de que no has introducido ningún dato personal.
     sv = Se till att du inte angett någon personinformation
@@ -12907,7 +12930,8 @@
     ko = 저희가 변경 사항을 확인할 것입니다. 질문이 있으신 경우, 저희에게 이메일을 통해 연락하십시오.
     nb = Vi vil sjekke endringene. Vi kontakter deg via e-post dersom vi har spørsmål.
     pl = Zapoznamy się ze zmianami. W przypadku pytań skontaktujemy się z Tobą przez email.
-    pt = Verificaremos as alterações. Se tivermos perguntas, entraremos em contato com você por email.
+    pt = Vamos verificar as alterações. Se tivermos alguma pergunta, vamos contactá-lo por email.
+    pt-BR = Verificaremos as alterações. Se tivermos perguntas, entraremos em contato com você por email.
     ro = Vom verifica modificările. Dacă vor apărea întrebări, vă vom contacta prin email.
     es = Comprobaremos los cambios. Si tenemos cualquier pregunta, te contactaremos por correo electrónico.
     sv = Vi kommer att kontrollera ändringar. Om vi har några frågor kontaktar vi dig via e-post.
@@ -12940,6 +12964,7 @@
     nb = stopp
     pl = stop
     pt = parar
+    pt-BR = parar
     ro = stop
     es = parada
     sv = stopp
@@ -12972,7 +12997,8 @@
     ko = 최근 여행한 경로 녹음을 비활성화하시겠습니까?
     nb = Deaktivere opptak av nylig reiste rute?
     pl = Wyłączyć rejestrowanie niedawno przebytej trasy?
-    pt = Desabilitar registro de sua rota recente?
+    pt = Desativar gravação da sua rota recente?
+    pt-BR = Desabilitar registro de sua rota recente?
     ro = Dezactivați înregistrarea celui mai recent traseu urmat?
     es = ¿Deshabilitar registro de ruta recorrida recientemente?
     sv = Avaktivera inspelning av din senaste resta rutt?
@@ -13005,7 +13031,8 @@
     ko = 비활성화
     nb = Deaktiver
     pl = Wyłącz
-    pt = Desabilitar
+    pt = Desativar
+    pt-BR = Desabilitar
     ro = Dezactivare
     es = Deshabilitar
     sv = Avaktivera
@@ -13039,7 +13066,8 @@
     ko = 체크아웃
     nb = Sjekk ut
     pl = Sprawdź
-    pt = Procure
+    pt = Verificar
+    pt-BR = Procure
     ro = Aruncați o privire
     es = Comprueba
     sv = Kolla in
@@ -13072,7 +13100,8 @@
     ko = Organic Maps는 최근 여행한 경로를 녹음하기 위해 배경 화면에서 지역 위치 서비스를 사용합니다.
     nb = Organic Maps bruker geografiske funksjoner i bakgrunnen for å registrere din nylig reiste rute.
     pl = Organic Maps używa w tle geolokalizacji w celu rejestrowania niedawno przebytej trasy.
-    pt = O Organic Maps usa sua localização geográfica em segundo plano para registrar sua rota recente.
+    pt = O Organic Maps usa a sua localização geográfica em segundo plano para gravar a sua rota recente.
+    pt-BR = O Organic Maps usa sua localização geográfica em segundo plano para registrar sua rota recente.
     ro = Organic Maps folosește în fundal geo-locația pentru a înregistra cel mai recent traseu urmat.
     es = Organic Maps usa tu geolocalización en segundo plano para registrar tu ruta recorrida recientemente.
     sv = Organic Maps använder din geografiska position i bakgrunden för att spela in din senaste resta rutt.
@@ -13106,7 +13135,8 @@
     ko = Google Play에서 평가
     nb = Gi vurdering på Google Play
     pl = Oceń w Google Play
-    pt = Classificar em Google Play
+    pt = Avaliar no Google Play
+    pt-BR = Avaliar em Google Play
     ro = Dați un calificativ pe Google Play
     es = Valorar en Google Play
     sv = Betygsätt på Google Play
@@ -13141,6 +13171,7 @@
     nb = Fortell en venn
     pl = Powiadom znajomego
     pt = Indique a um amigo
+    pt-BR = Indique a um amigo
     ro = Spuneți unui prieten
     es = Enviar a un amigo
     sv = Tipsa en vän
@@ -13175,6 +13206,7 @@
     nb = Hei! Installer Organic Maps!
     pl = Cześć! Zainstaluj Organic Maps!
     pt = Olá! Instale o Organic Maps!
+    pt-BR = Olá! Instale o Organic Maps!
     ro = Bună! Instalați Organic Maps!
     es = ¡Hola! ¡Instala Organic Maps!
     sv = Hej! Installera Organic Maps!
@@ -13209,6 +13241,7 @@
     nb = Organic Maps er en offline app for reising. Organic Maps bygger på OpenStreetMap-data og tillater redigering av den.
     pl = Organic Maps to niezbędna aplikacja do podróży działająca w trybie offline. Organic Maps opiera się o dane OpenStreetMap oraz umożliwia ich edycję.
     pt = O Organic Maps é uma aplicação offline essencial para viajar. O Organic Maps baseia-se nos dados do OpenStreetMap e permite editá-los.
+    pt-BR = O Organic Maps é um aplicativo offline essencial para viajar. O Organic Maps se baseia nos dados do OpenStreetMap e permite editá-los.
     ro = Organic Maps este o aplicație offline esențială când călătoriți. Organic Maps utilizează datele OpenStreeMap și permite editarea acestora.
     es = Organic Maps es una aplicación esencial offline para viajar. Organic Maps se basa en datos de OpenStreetMap y permite editarla.
     sv = Organic Maps är en offline-applikation som du behöver när du reser. Organic Maps baseras på OpenStreetMap-data och tillåter redigering i den.
@@ -13242,6 +13275,7 @@
     nb = Generelle innstillinger
     pl = Ustawienia ogólne
     pt = Configurações gerais
+    pt-BR = Definições gerais
     ro = Setări generale
     es = Ajustes generales
     sv = Allmänna inställningar
@@ -13276,6 +13310,7 @@
     nb = Godta
     pl = Zaakceptuj
     pt = Aceitar
+    pt-BR = Aceitar
     ro = Acceptați
     es = Aceptar
     sv = Acceptera
@@ -13309,7 +13344,8 @@
     ko = 거부
     nb = Avvis
     pl = Odrzuć
-    pt = Declinar
+    pt = Recusar
+    pt-BR = Declinar
     ro = Refuzați
     es = Declinar
     sv = Neka
@@ -13344,6 +13380,7 @@
     nb = Liste
     pl = Lista
     pt = Lista
+    pt-BR = Lista
     ro = Listă
     es = Lista
     sv = Lista
@@ -13376,7 +13413,8 @@
     ko = 모바일 인터넷을 사용하여 자세한 정보를 표시하시겠습니까?
     nb = Bruke mobilt Internett til å vise detaljert informasjon?
     pl = Wykorzystać internet mobilny, aby wyświetlić dane szczegółowe?
-    pt = Utilizar a internet móvel para mostrar informações detalhadas?
+    pt = Utilizar os dados móveis para mostrar informações detalhadas?
+    pt-BR = Utilizar a internet móvel para mostrar informações detalhadas?
     ro = Folosiți internetul mobil pentru a afişa informaţii detaliate?
     es = ¿Usar Internet móvil para mostrar información detallada?
     sv = Använd mobilt nätverk för att visa detaljerad information?
@@ -13409,7 +13447,8 @@
     ko = 항상 사용
     nb = Bruk alltid
     pl = Stosuj zawsze
-    pt = Utilizar Sempre
+    pt = Utilizar sempre
+    pt-BR = Utilizar sempre
     ro = Folosiți întotdeauna
     es = Usar siempre
     sv = Använd alltid
@@ -13442,7 +13481,8 @@
     ko = 오늘만
     nb = Bare i dag
     pl = Tylko dzisiaj
-    pt = Apenas Hoje
+    pt = Apenas hoje
+    pt-BR = Apenas hoje
     ro = Doar astăzi
     es = Solo hoy
     sv = Endast idag
@@ -13475,7 +13515,8 @@
     ko = 오늘 사용 안 함
     nb = Ikke bruk i dag
     pl = Nie stosuj dzisiaj
-    pt = Não Utilizar Hoje
+    pt = Não utilizar hoje
+    pt-BR = Não utilizar hoje
     ro = Nu folosiți astăzi
     es = No usar hoy
     sv = Använd inte idag
@@ -13508,7 +13549,8 @@
     ko = 모바일 인터넷
     nb = Mobilt Internett
     pl = Internet mobilny
-    pt = Internet Móvel
+    pt = Dados móveis
+    pt-BR = Internet Móvel
     ro = Internet mobil
     es = Internet móvil
     sv = Mobilt internet
@@ -13541,7 +13583,8 @@
     ko = 모바일 인터넷은 사진, 가격, 리뷰 등 장소에 대한 자세한 정보를 표시하는 데 필요합니다.
     nb = Mobilt Internett er nødvendig for å vise detaljert informasjon om steder, for eksempel fotografier, priser og anmeldelser.
     pl = Do wyświetlania danych szczegółowych o miejscach (np. zdjęcia, ceny i recenzje) wymagany jest internet mobilny.
-    pt = Para visualizar informações detalhadas sobre os locais, tais como fotos, preços e análises, é necessário acesso à internet móvel.
+    pt = Para visualizar informações detalhadas sobre os locais, tais como fotografias, preços e avaliações, é necessário acesso à internet móvel.
+    pt-BR = Para visualizar informações detalhadas sobre os locais, tais como fotos, preços e análises, é necessário acesso à internet móvel.
     ro = Internetul mobil este necesar pentru afişarea de informaţii detaliate despre locuri, precum fotografii, preţuri şi recenzii.
     es = Se necesita Internet móvil para mostrar información detallada de los lugares, como fotografías, precios y reseñas.
     sv = Mobil internet krävs för att visa detaljerad information om platser, som t. ex. fotografier, priser och omdömen.
@@ -13574,7 +13617,8 @@
     ko = 전혀 사용 안 함
     nb = Aldri bruk
     pl = Nigdy nie stosuj
-    pt = Nunca Utilizar
+    pt = Nunca utilizar
+    pt-BR = Nunca utilizar
     ro = Nu utilizați niciodată
     es = No usar nunca
     sv = Använd aldrig
@@ -13607,7 +13651,8 @@
     ko = 항상 표시
     nb = Alltid spør
     pl = Zawsze pytaj
-    pt = Perguntar Sempre
+    pt = Perguntar sempre
+    pt-BR = Perguntar sempre
     ro = Întrebați întotdeauna
     es = Preguntar siempre
     sv = Fråga alltid
@@ -13640,7 +13685,8 @@
     ko = 교통 데이터를 표시하려면 지도를 업데이트해야 합니다.
     nb = For å vise trafikkdata må kartene i appen være oppdaterte.
     pl = Aby wyświetlić dane o ruchu, muszą zostać zaktualizowane mapy.
-    pt = Para ver os dados de tráfego, os mapas devem ser atualizados.
+    pt = Para ver os dados de tráfego, os mapas têm de ser atualizados.
+    pt-BR = Para ver os dados de tráfego, os mapas devem ser atualizados.
     ro = Pentru a afişa datele privind traficul, hărțile trebuie actualizate.
     es = Para mostrar los datos de tráfico, deben actualizarse los mapas.
     sv = Kartor måste uppdateras för att visa trafikdata.
@@ -13674,6 +13720,7 @@
     nb = Forstørr skriften på kartet
     pl = Powiększ rozmiar czcionki na mapie
     pt = Aumentar tamanho da fonte no mapa
+    pt-BR = Aumentar tamanho da fonte no mapa
     ro = Măriți dimensiunea fontului pe hartă
     es = Aumentar el tamaño de fuente en el mapa
     sv = Öka teckenstorlek på kartan
@@ -13693,7 +13740,7 @@
     ru = Обновите Organic Maps
     bg = Моля, актуализирайте Organic Maps
     ar = الرجاء تحديث Organic Maps
-    cs = Aktualizujte MAPS. ME
+    cs = Aktualizujte Organic Maps
     da = Opdater Organic Maps
     nl = Gelieve Organic Maps bij te werken
     fi = Päivitä Organic Maps
@@ -13706,7 +13753,8 @@
     ko = Organic Maps를 업데이트하세요.
     nb = Vennligst oppdater Organic Maps
     pl = Zaktualizuj Organic Maps
-    pt = Atualize o MAPS. ME
+    pt = Atualize o Organic Maps
+    pt-BR = Atualize o Organic Maps
     ro = Vă rugăm să actualizaţi Organic Maps
     es = Por favor, actualice Organic Maps
     sv = Uppdatera Organic Maps
@@ -13740,7 +13788,8 @@
     ko = 교통 데이터를 표시하려면 응용 프로그램을 업데이트해야 합니다.
     nb = Du må oppdatere applikasjonen for å kunne se trafikkdata.
     pl = Aby wyświetlić dane o ruchu, należy zaktualizować aplikację.
-    pt = Para mostrar os dados de tráfego, a aplicação deve ser atualizada.
+    pt = Para mostrar os dados de tráfego, a aplicação tem de ser atualizada.
+    pt-BR = Para mostrar os dados de tráfego, a aplicação deve ser atualizada.
     ro = Pentru a afişa datele privind traficul, aplicația trebuie actualizată.
     es = Para mostrar los datos de tráfico, debe actualizar la aplicación.
     sv = Applikationen måste uppdateras för att trafikdata ska kunna visas.
@@ -13774,7 +13823,8 @@
     ko = 교통 데이터를 사용할 수 없습니다
     nb = Trafikkdata er ikke tilgjengelig
     pl = Dane o ruchu są niedostępne
-    pt = Não existem dados de tráfego
+    pt = Os dados de tráfego não estão disponíveis
+    pt-BR = Não existem dados de tráfego
     ro = Datele privind traficul nu sunt disponibile
     es = Los datos de tráfico no están disponibles
     sv = Trafikdata är inte tillgänglig
@@ -13808,6 +13858,7 @@
     nb = Aktiver loggføring
     pl = Włącz logowanie
     pt = Ativar o histórico
+    pt-BR = Ativar o histórico
     ro = Activare jurnalizare
     es = Habilitar historial
     sv = Aktivera loggning
@@ -13842,6 +13893,7 @@
     nb = Generell tilbakemelding
     pl = Ogólne uwagi
     pt = Opinão geral
+    pt-BR = Opinão geral
     ro = Feedback general
     es = Opinión general
     sv = Allmän feedback
@@ -13876,6 +13928,7 @@
     nb = På
     pl = Wł.
     pt = Lig.
+    pt-BR = Lig.
     ro = Activat
     es = Act.
     sv = På
@@ -13910,6 +13963,7 @@
     nb = Av
     pl = Wył.
     pt = Deslig.
+    pt-BR = Deslig.
     ro = Dezactivat
     es = Desact.
     sv = Av
@@ -13943,7 +13997,8 @@
     ko = 당사는 음성 지침을 위해 시스템 TTS를 사용합니다. 많은 Android 장치에서 Google TTS를 사용합니다. Google Play(https://play.google.com/store/apps/details?id=com.google.android.tts)에서 Google TTS를 다운로드하거나 업데이트할 수 있습니다.
     nb = Vi bruker system TTS for stemmeveiledning. Mange Android-enheter bruker Google TTS, Du kan laste ned eller oppdatere via Google Play (https://play.google.com/store/apps/details?id=com.google.android.tts)
     pl = Stosujemy system TTS dla komend głosowych. Stosuje go wiele urządzeń z systemem Android, można go pobrać lub zaktualizować z Google Play (https://play.google.com/store/apps/details?id=com.google.android.tts)
-    pt = Utilizamos o sistema TTS para instruções de voz. Muitos dispositivos Android usam o Google TTS, pode transferir ou atualizá-lo a partir do Google Play (https://play.google.com/store/apps/details?id=com.google.android.tts)
+    pt = Utilizamos o sistema TTS para as instruções de voz. Muitos dispositivos Android usam o Google TTS, pode transferir ou atualizá-lo a partir do Google Play (https://play.google.com/store/apps/details?id=com.google.android.tts)
+    pt-BR = Utilizamos o sistema TTS para instruções de voz. Muitos dispositivos Android usam o Google TTS, pode transferir ou atualizá-lo a partir do Google Play (https://play.google.com/store/apps/details?id=com.google.android.tts)
     ro = Pentru instrucțiuni vocale utilizăm sistemul TTS. Multe dispozitive cu Android folosesc Google TTS. Puteți descărca sau actualiza aplicația din Google Play (https://play.google.com/store/apps/details?id=com.google.android.tts)
     es = Utilizamos el sistema TTS para las instrucciones de voz. Muchos dispositivos de Android usan Google TTS. Puede descargar o actualizarlo desde Google Play (https://play.google.com/store/apps/details?id=com.google.android.tts)
     sv = Vi använder TTS-system för röstinstruktioner. Flera Android-enheter använder Google TTS. Du kan ladda ned eller uppdatera det på Google Play (https://play.google.com/store/apps/details?id=com.google.android.tts)
@@ -13977,7 +14032,7 @@
     ko = 일부 언어의 경우 앱 스토어(Google Play Market, Samsung Apps)에서 다른 음성 합성기 또는 추가 언어 팩을 설치해야 합니다.\n장치의 설정 → 언어 및 입력 → 음성 → 텍스트-음성 변환 출력을 엽니다.\n여기서 음성 합성에 대한 설정을 관리하고(예: 오프라인 사용을 위한 언어 팩 다운로드) 다른 텍스트-음성 변환 엔진을 선택할 수 있습니다.
     nb = For enkelte språk er det nødvendig å installere en annen talesyntese eller en ekstra språkpakke fra appbutikken (Google Play Market, Samsung Apps).\nGå til enhetens innstillinger → Språk og input → Tale → Tekst til tale output.\nHer kan du administrere innstillingene for talesyntese (for eksempel laste ned språkpakke for offline bruk) og velge en annen tekst-til-tale-motor.
     pl = W przypadku niektórych języków wymagana będzie instalacja innego syntezatora lub pakietu językowego ze strony aplikacji (Google Play Market, Samsung Apps). Otwórz ustawienia urządzenia → Język i klawiatura → Mowa → Przetwarzanie tekstu na mowę.\nMożesz w tym miejscu zarządzać ustawieniami syntezy mowy (np. pobrać pakiet językowy do stosowania offline) i wybrać inny silnik przetwarzania tekstu na mowę.
-    pt = Para alguns idiomas, precisará de instalar outro sintetizador de voz ou um pacote de idiomas adicional a partir da loja de aplicações (Google Play Market, Samsung Apps). Abra as Configurações do seus dispositivo → Idioma e entrada → Voz → Saída de texto para voz. Aqui pode gerir as configurações de síntese de voz (por exemplo, transferir um pacote de idioma para poder utilizá-lo sem estar ligado à Internet) ou selecionar outro motor de texto para voz.
+    pt = Para alguns idiomas, precisará de instalar outro sintetizador de voz ou um pacote de idiomas adicional a partir da loja de aplicações (Google Play Market, Samsung Apps). Abra as Configurações do seu dispositivo → Idioma e entrada → Voz → Saída de texto para voz. Aqui pode gerir as configurações de síntese de voz (por exemplo, transferir um pacote de idioma para poder utilizá-lo sem estar ligado à Internet) ou selecionar outro motor de texto para voz.
     ro = Pentru unele limbi trebuie să instalați alt sintetizator de voce sau un pachet lingvistic suplimentar din Magazinul de aplicații (Google Play Market, Samsung Apps).\nDeschideți setările aplicației → Limbă și introducere → Voce → Conversie text în voce.\nAici puteți administra setările pentru sintetizatoarele vocale (de exemplu, descărcați pachetul lingvistic pentru utilizare offline) și selectați alt motor de conversie din text în voce.
     es = Para algunos idiomas, debe instalar otro sintetizador de voz o un paquete de idioma adicional desde la tienda de aplicaciones (Google Play mercado, Samsung Apps). Abra los Ajustes de su dispositivo → Idioma e introducción → Voz → Opciones texto a voz. Aquí puede administrar la configuración de síntesis de voz (por ejemplo, descargar un paquete de idioma para poder usarlo sin conexión) o seleccionar otro motor de texto a voz.
     sv = För vissa språk måste du installera en annan talsyntes eller ett annat språkpaket från appbutiken (Google Play Market, Samsung-appar).\nÖppna inställningarna på enheten → Språk och inmatning → Tal → Text till tal-uppspelning.\nHär kan du hantera inställningarna för talsyntes (till exempel, ladda ned språkpaket för användning offline) och välja en annan text till tal-motor.
@@ -14012,6 +14067,7 @@
     nb = Les denne veiledningen for mer informasjon.
     pl = Aby uzyskać więcej informacji, sprawdź ten poradnik.
     pt = Para obter mais informações, consulte este guia.
+    pt-BR = Para obter mais informações, consulte este guia.
     ro = Consultați acest ghid pentru informații suplimentare.
     es = Para obtener más información, consulte esta guía.
     sv = Kolla in den här guiden för mer information.
@@ -14088,6 +14144,7 @@
     nb = Finn ut mer
     pl = Dowiedz się więcej
     pt = Saber mais
+    pt-BR = Saber mais
     ro = Mai multe
     es = Leer más
     sv = Läs mer
@@ -14122,6 +14179,7 @@
     nb = Avslutt
     pl = Wyjdź
     pt = Sair
+    pt-BR = Sair
     ro = Ieșire
     es = Salir
     sv = Avsluta
@@ -14156,6 +14214,7 @@
     nb = Angi startpunkt for å planlegge rute
     pl = Aby zaplanować trasę, dodaj punkt początkowy
     pt = Adicionar ponto de partida para planear uma rota
+    pt-BR = Adicionar ponto de partida para planejar uma rota
     ro = Adăugați punctul de plecare pentru a planifica un traseu
     es = Buscar un origen para el plan de ruta
     sv = Lägg till startpunkt för att planera en rutt
@@ -14190,6 +14249,7 @@
     nb = Angi sluttpunkt for å planlegge rute
     pl = Aby zaplanować trasę, dodaj punkt końcowy
     pt = Adicionar final da viagem para planear uma rota
+    pt-BR = Adicionar final da viagem para planejar uma rota
     ro = Adăugați punctul de sosire pentru a planifica un traseu
     es = Buscar un destino para el plan de ruta
     sv = Lägg till slutpunkt för att planera en rutt
@@ -14224,6 +14284,7 @@
     nb = Avslutt
     pl = Wyjdź
     pt = Sair
+    pt-BR = Sair
     ro = Ieșire
     es = Salir
     sv = Avsluta
@@ -14258,6 +14319,7 @@
     nb = Administrere rute
     pl = Zarządzaj trasą
     pt = Gerir rota
+    pt-BR = Gerir rota
     ro = Administrare traseu
     es = Administrar ruta
     sv = Hantera rutt
@@ -14292,6 +14354,7 @@
     nb = Planlegge
     pl = Zaplanuj
     pt = Planear
+    pt-BR = Planejar
     ro = Planificare
     es = Planificar
     sv = Planera
@@ -14326,6 +14389,7 @@
     nb = Fjern
     pl = Usuń
     pt = Remover
+    pt-BR = Remover
     ro = Eliminare
     es = Eliminar
     sv = Ta bort
@@ -14360,6 +14424,7 @@
     nb = Dra hit for å fjerne
     pl = Przeciągnij tu, aby usunąć
     pt = Arraste aqui para remover
+    pt-BR = Arraste aqui para remover
     ro = Trageți aici pentru a elimina
     es = Arrastre aquí para eliminar
     sv = Dra här för att ta bort
@@ -14394,6 +14459,7 @@
     nb = Angi stopp
     pl = Dodaj postój
     pt = Adicionar paragem
+    pt-BR = Adicionar parada
     ro = Adăugare oprire
     es = Añadir parada
     sv = Lägg till stopp
@@ -14427,7 +14493,8 @@
     ko = 자세히 알아보기
     nb = Finn ut mer
     pl = Dowiedz się więcej
-    pt = Saiba Mais
+    pt = Saber mais
+    pt-BR = Saiba mais
     ro = Află mai multe
     es = Más información
     sv = Läs mer
@@ -14461,6 +14528,7 @@
     nb = Start fra
     pl = Zacznij od
     pt = Iniciar a partir de
+    pt-BR = Iniciar a partir de
     ro = Începând de la
     es = Empezar desde
     sv = Starta från
@@ -14495,6 +14563,7 @@
     nb = Oops, en feil oppstod. Prøv å logge inn på nytt.
     pl = Ups, nastąpił błąd. Spróbuj zalogować się ponownie.
     pt = Ups, ocorreu um erro. Tente iniciar sessão novamente.
+    pt-BR = Ups, ocorreu um erro. Tente iniciar sessão novamente.
     ro = Ups, a survenit o eroare. Încercați să vă conectați din nou.
     es = Vaya, se ha producido un error. Intente iniciar sesión de nuevo.
     sv = Hoppsan, ett fel har inträffat. Försök att logga in igen.
@@ -14564,8 +14633,8 @@
     ko = 외부 저장소를 사용할 수 없습니다. SD 카드가 제거되었거나 손상되었거나 파일 시스템이 읽기 전용일 수 있습니다. 확인 후 support@organicmaps.app로 문의하세요.
     nb = Ekstern lagring er ikke tilgjengelig. Sannsynligvis er SD-kortet fjernet eller skadet eller så er filsystemet skrivebeskyttet. Undersøk og kontakt oss på support@organicmaps.app
     pl = Zewnętrzny nośnik pamięci masowej jest niedostępny. Prawdopodobnie usunięto lub uszkodzono kartę SD bądź jej system plików służy tylko do odczytu. Zweryfikuj to i skontaktuj się z nami pod adresem support@organicmaps.app
-    pt = Armazenamento externo não disponível. Provavelmente porque o Cartão SD foi removido, danificado ou o sistema de ficheiros é apenas para leitura. Verifique e entre em contacto conosco através do email support@organicmaps.app
-    pt-BR = O armazenamento externo não está disponível, é provável que o Cartão SD tenha sido removido, danificado ou o sistema de arquivo seja apenas para leitura. Verifique e entre em contato conosco em support@organicmaps.app
+    pt = O armazenamento externo não está disponível. Provavelmente porque o cartão SD foi removido, danificado ou o sistema de ficheiros é apenas para leitura. Verifique e contacte-nos através do email support@organicmaps.app
+    pt-BR = O armazenamento externo não está disponível, é provável que o cartão SD tenha sido removido, danificado ou o sistema de arquivo seja apenas para leitura. Verifique e entre em contato conosco em support@organicmaps.app
     ro = Spațiul de stocare extern nu este disponibil. Probabil cardul SD nu este introdus, este deteriorat sau sistemul de fișiere este read-only. Verifică și contactează-ne la support@organicmaps.app
     es = El almacenamiento externo no está disponible; puede que se haya quitado o dañado la tarjeta SD, o el sistema de archivos solo permite lectura. Por favor, compruébelo y escríbanos a support@organicmaps.app
     sv = Extern lagring är inte tillgänglig. SD-kortet är borttaget, skadat eller så är filsystemet är skrivskyddat. Kontrollera det och kontakta oss på support@organicmaps.app
@@ -14600,7 +14669,7 @@
     ko = 불량 저장소 에뮬레이션
     nb = Emulere skadet lagring
     pl = Emuluj wadliwą pamięć masową
-    pt = Emular o mau armazenamento
+    pt = Emular o armazenamento defeituoso
     pt-BR = Emular memória ruim
     ro = Emulare stocare eronată
     es = Emular almacenamiento dañado
@@ -14813,8 +14882,6 @@
     ko = %d 북마크
     nb = %d bokmerker
     pl = Zakładki: %d
-    pt = %d favoritos
-    pt-BR = %d favoritos
     ro = %d semne de carte
     es = %d marcadores
     sv = %d bokmärken
@@ -14830,6 +14897,10 @@
     es_MX = %d marcadores
     fa:one = %d نشانه
     fa:other = %d نشانه‌ها
+    pt-BR:one = %d favorito
+    pt-BR:other = %d favoritos
+    pt:one = %d favorito
+    pt:other = %d favoritos
     ru:few = %d метки
     ru:one = %d метка
     ru:other = %d меток
@@ -14878,6 +14949,8 @@
     en = Import bookmarks
     ru = Импортировать метки
     bg = Импортиране на отметки
+    pt = Importar favoritos
+    pt-BR = Importar favoritos
 
   [downloader_hide_screen]
     tags = ios
@@ -15042,7 +15115,7 @@
     ko = 애플리케이션 오류로 인해 공유할 수 없습니다
     nb = Kan ikke dele på grunn av en programfeil
     pl = Nie można udostępnić z powodu błędu aplikacji
-    pt = A partilha não foi possível devido a um erro da aplicação
+    pt = Não foi possível partilhar devido a um erro da aplicação
     pt-BR = Impossível compartilhar devido a um erro do aplicativo
     ro = Imposibil de distribuit din cauza unei erori a aplicației
     es = No se puede compartir debido a un error de la aplicación
@@ -15078,7 +15151,7 @@
     ko = 공유 오류
     nb = Delingsfeil
     pl = Błąd udostępniania
-    pt = Erro de partilha
+    pt = Erro ao partilhar
     pt-BR = Erro de compartilhamento
     ro = Eroare la distribuire
     es = Error al compartir
@@ -15114,7 +15187,7 @@
     ko = 빈 목록을 공유 할 수 없습니다
     nb = Kan ikke dele en tom liste
     pl = Nie można udostępnić pustej listy
-    pt = Não pode partilhar uma lista vazia
+    pt = Não é possível partilhar uma lista vazia
     pt-BR = Impossível compartilhar uma lista vazia
     ro = Nu se poate distribui o listă goală
     es = No se puede compartir una lista vacía
@@ -15150,7 +15223,7 @@
     ko = 이름을 비워 둘 수는 없습니다.
     nb = Navnet kan ikke være tomt
     pl = Nazwa nie może być pusta
-    pt = O nome não podia estar vazio
+    pt = O nome não pode estar em branco
     pt-BR = O nome não podia estar vazio
     ro = Numele nu poate fi gol
     es = El nombre no puede estar vacío
@@ -15186,7 +15259,7 @@
     ko = 목록 이름을 입력하십시오.
     nb = Vennligst skriv inn listenavnet
     pl = Wprowadź nazwę listy
-    pt = Por favor insira o nome da lista
+    pt = Por favor introduza o nome da lista
     pt-BR = Por favor insira o nome da lista
     ro = Introduceți numele listei
     es = Por favor ingrese el nombre de la lista
@@ -15258,7 +15331,7 @@
     ko = 이 이름은 이미 사용 중입니다.
     nb = Dette navnet er allerede tatt
     pl = Ta nazwa jest już zajęta
-    pt = Esse nome já foi levado
+    pt = Este nome já está a ser utilizado
     pt-BR = Esse nome já está sendo usado
     ro = Acest nume este deja luat
     es = Este nombre ya ha sido tomado
@@ -15294,7 +15367,7 @@
     ko = 다른 이름을 선택하십시오.
     nb = Vennligst velg et annet navn
     pl = Wybierz inną nazwę
-    pt = Por favor, escolha outro nome
+    pt = Por favor escolha outro nome
     pt-BR = Por favor, escolha outro nome
     ro = Alegeți un alt nume
     es = Por favor elige otro nombre
@@ -15348,7 +15421,7 @@
 
   [please_wait]
     tags = android
-    en = Please wait…
+    en = Please wait�
     ru = Пожалуйста, подождите…
     bg = Моля, изчакайте…
     ar = أرجو الإنتظار…
@@ -15365,8 +15438,8 @@
     ko = 잠시만 기다려주십시오…
     nb = Vennligst vent…
     pl = Proszę czekać…
-    pt = Por favor, espere…
-    pt-BR = Espere, por favor…
+    pt = Por favor aguarde�
+    pt-BR = Espere, por favor�
     ro = Te rog asteapta…
     es = Por favor espera…
     sv = Vänligen vänta…
@@ -15401,7 +15474,7 @@
     ko = OpenStreetMap 프로필
     nb = OpenStreetMap profil
     pl = Profil OpenStreetMap
-    pt = Perfil do OpenStreetMap
+    pt = Perfil no OpenStreetMap
     pt-BR = Perfil do OpenStreetMap
     ro = Profil OpenStreetMap
     es = Perfil de OpenStreetMap
@@ -15436,7 +15509,7 @@
     nb = Søk lignende hoteller
     pl = Wyszukaj podobne hotele
     pt = Pesquisar hotéis semelhantes
-    pt-BR = Pesquisar hotéis semelhantes
+    pt-BR = Buscar hotéis semelhantes
     ro = Căutați hoteluri similare
     es = Buscar hoteles similares
     sv = Sök liknande hotell
@@ -15471,7 +15544,7 @@
     ko = 새 파일이 감지되었습니다.
     nb = Nye filer oppdaget
     pl = Wykryto nowe pliki
-    pt = Novos arquivos detectados
+    pt = Foram detetados novos ficheiros
     pt-BR = Novos arquivos detectados
     ro = Au fost detectate fișiere noi
     es = Nuevos archivos detectados
@@ -15536,8 +15609,8 @@
     pl:two = Znaleziono %d pliki. Zobaczysz je po konwersji.
     pt-BR:one = %d arquivo foi encontrado. Você vai ver depois da conversão.
     pt-BR:other = %d arquivos foram encontrados. Você os verá depois da conversão.
-    pt:one = %d arquivo foi encontrado. Você vai ver depois da conversão.
-    pt:other = %d arquivos foram encontrados. Você os verá depois da conversão.
+    pt:one = %d ficheiro encontrado. Pode vê-lo depois da conversão.
+    pt:other = %d ficheiros encontrados. Pode vê-los depois da conversão.
     ro:one = %d fișier a fost găsit. Veți vedea după conversie.
     ro:other = Au fost găsite %d fișiere. Veți vedea după convertire.
     ru:few = %d файла были найдены. Вы увидете их после конвертации.
@@ -15647,7 +15720,7 @@
     ko = 일부 파일은 변환되지 않았습니다.
     nb = Noen filer ble ikke konvertert.
     pl = Sommige bestanden waren niet geconverteerd.
-    pt = Alguns arquivos não foram convertidos.
+    pt = Alguns ficheiros não foram convertidos.
     pt-BR = Alguns arquivos não foram convertidos.
     ro = Unele fișiere nu au fost convertite.
     es = Algunos archivos no fueron convertidos.
@@ -15719,7 +15792,7 @@
     ko = 인터넷에 연결되지 않음
     nb = Ingen internettforbindelse
     pl = Brak połączenia z internetem
-    pt = Sem conexão com a internet
+    pt = Sem ligação à Internet
     pt-BR = Sem conexão com a Internet
     ro = Fără conexiune internet
     es = Sin conexión a Internet
@@ -15755,7 +15828,7 @@
     ko = 알 수없는 오류가 발생했습니다
     nb = En ukjent feil oppstod
     pl = Wystąpił nieznany błąd
-    pt = Ocorreu um erro desconhecido
+    pt = Surgiu um erro desconhecido
     pt-BR = Ocorreu um erro desconhecido
     ro = O eroare necunoscută s-a întamplat
     es = Un error desconocido ocurrió
@@ -15823,8 +15896,6 @@
     ja = %dの場所
     ko = %d 장소
     pl = %d miejsce
-    pt = %d lugar
-    pt-BR = %d lugar
     ro = %d localitate
     es = %d lugar
     sv = %d plats
@@ -15840,9 +15911,13 @@
     en:one = %d object
     en:other = %d objects
     es_MX = %d lugar
-    fa:one = %s شیء
-    fa:other = %s شیء
+    fa:one = %d شیء
+    fa:other = %d شیء
     no = %d sted
+    pt-BR:one = %d objeto
+    pt-BR:other = %d objetos
+    pt:one = %d objeto
+    pt:other = %d objetos
     ru:few = %d объекта
     ru:one = %d объект
     ru:other = %d объектов
@@ -15865,8 +15940,6 @@
     ja = %dの場所
     ko = %d 장소들
     pl = %d miejsc
-    pt = %d lugares
-    pt-BR = %d lugares
     ro = %d localităti
     es = %d lugares
     sv = %d platser
@@ -15885,6 +15958,10 @@
     fa:one = %d مکان
     fa:other = %d مکان
     no = %d steder
+    pt-BR:one = %d lugar
+    pt-BR:other = %d lugares
+    pt:one = %d lugar
+    pt:other = %d lugares
     ru:few = %d места
     ru:one = %d место
     ru:other = %d мест
@@ -15907,8 +15984,6 @@
     ja = %dの追跡
     ko = %d 추적
     pl = %d tras
-    pt = %d rastreamentos
-    pt-BR = %d cursos
     ro = %d bande
     es = %d seguimientos
     sv = %d spår
@@ -15927,12 +16002,16 @@
     fa:one = %d رد
     fa:other = %d رد
     no = %d stier
+    pt-BR:one = %d percurso
+    pt-BR:other = %d percursos
+    pt:one = %d percurso
+    pt:other = %d percursos
     ru:few = %d трека
     ru:one = %d трек
     ru:other = %d треков
     ru:two = %d трека
     sk = %d sledovania
-    sw = Njia %s
+    sw = Njia %d
 
   [subtittle_opt_out]
     tags = android
@@ -16024,7 +16103,7 @@
     ja = Organic Maps体験を向上させるため、お客様のデータを使用する可能性があります。変更は、アプリを再起動した後に、反映されます。
     ko = 당사는 Organic Maps 경험을 개선하기 위해 귀하의 데이터를 활용할 수 있습니다. 앱을 다시 시작한 후 변경사항이 적용됩니다.
     pl = Możemy używać Twoich danych do usprawnienia działania Organic Maps. Zmiany zostaną zastosowane po ponownym uruchomieniu aplikacji.
-    pt = Podemos utilizar seus dados para melhorar a experiência no Organic Maps. As mudanças entrarão em vigor após você reiniciar o aplicativo.
+    pt = Podemos utilizar os seus dados para melhorar a experiência no Organic Maps. As alterações entrarão em vigor quando reiniciar a aplicação.
     pt-BR = Nós podemor utilizar seus dados para melhorar a experiência Organic Maps As mudanças terão efeitos após reiniciar o app.
     ro = Putem folosi datele dvs. pentru a dezvolta și de a îmbunătăți Organic Maps. Modificările vor intra în vigoare după repornirea aplicației.
     es = Puede que utilicemos vuestros datos para mejorar la experiencia de Organic Maps. Los cambios tendrán efecto después que reinicie la aplicación.
@@ -16096,7 +16175,7 @@
     ja = ご利用規約
     ko = 사용 약관
     pl = Warunki użytkowania
-    pt = Termos de uso
+    pt = Termos de utilização
     pt-BR = Termos de uso
     ro = Termeni de utilizare
     es = Condiciones de uso
@@ -16168,8 +16247,8 @@
     ja = 地下鉄
     ko = 지하철
     pl = Metro
-    pt = Metrô
-    pt-BR = Metro
+    pt = Metropolitano
+    pt-BR = Metrô
     ro = Metrou
     es = Metro
     sv = Tunnelbana
@@ -16204,8 +16283,8 @@
     ja = マップレイヤー
     ko = 맵 레이어
     pl = Warstwy map
-    pt = Map Layers
-    pt-BR = Camadas de Mapa
+    pt = Camadas do mapa
+    pt-BR = Camadas de mapa
     ro = Straturile hărții
     es = Capas del mapa
     sv = Kartlager
@@ -16240,8 +16319,8 @@
     ja = 地下鉄路線図はご利用いただけません
     ko = 지하철 지도가 가용하지 않습니다.
     pl = Mapa metra jest niedostępna
-    pt = Mapa de metrô está indisponível
-    pt-BR = Mapa de metro está indisponível
+    pt = O mapa de metropolitano não está disponível
+    pt-BR = Mapa de metrô está indisponível
     ro = Harta de metrou nu este disponibilă
     es = El mapa del metro no está disponible
     sv = Kartor över tunnelbana är otillgänglig
@@ -16312,7 +16391,7 @@
     ja = ブックマークを追加するには、地図上の場所をタップし、星のアイコンをタップします。
     ko = 북마크를 추가하려면 맵에서 장소를 탭하고 별 모양 아이콘을 탭하세요.
     pl = Aby dodać zakładkę, dotknij miejsca na mapie, a następnie dotknij ikony gwiazdy.
-    pt = Para adicionar um favorito, toque em algum lugar do mapa e em seguida no ícone da estrela
+    pt = Para adicionar um favorito, toque num lugar do mapa e em seguida toque no ícone da estrela
     pt-BR = Para adicionar um favorito, toque no mapa e então toque no ícone de estrela
     ro = Pentru a adăuga un nou tag, faceți clic pe pictograma stea în fișa de obiect
     es = Para agregar un marcador, toque un lugar en el mapa y después toque el ícono de estrella
@@ -16384,7 +16463,7 @@
     ja = エラーが発生しました
     ko = 오류가 발생했습니다.
     pl = Wystąpił błąd
-    pt = Ocorreu um erro
+    pt = Surgiu um erro
     pt-BR = Um erro ocorreu
     ro = A apărut o eroare
     es = Se ha producido un error
@@ -16408,6 +16487,8 @@
     ru = Популярно
     bg = Популярно
     fr = Populaire
+    pt = Popular
+    pt-BR = Popular
     fa = مشهور
 
   [export_file]
@@ -16429,7 +16510,7 @@
     ko = 파일 내보내기
     nb = Eksporter fil
     pl = Eksportuj plik
-    pt = Exportar o arquivo
+    pt = Exportar o ficheiro
     pt-BR = Exportar arquivo
     ro = Exportați fișierul
     es = Exportar como archivo
@@ -16465,8 +16546,8 @@
     ko = 목록 세팅
     nb = Liste Innstillinger
     pl = Ustawienia listy
-    pt = Lista de configurações
-    pt-BR = Configurações de Lista
+    pt = Configurações de listas
+    pt-BR = Configurações de lista
     ro = Elaborarea listei
     es = Configurar lista
     sv = Listinställningar
@@ -16501,7 +16582,7 @@
     ko = 리스트 삭제
     nb = Slett liste
     pl = Usuń listę
-    pt = Apagar lista
+    pt = Eliminar lista
     pt-BR = Deletar lista
     ro = Ștergerea listei
     es = Eliminar lista
@@ -16573,7 +16654,7 @@
     ko = 제한 접근
     nb = Begrenset adgang
     pl = Dostęp prywatny
-    pt = Acesso privado
+    pt = Acesso limitado
     pt-BR = Acesso limitado
     ro = Acces privat
     es = Acceso privado
@@ -16643,7 +16724,7 @@
     ko = 묘사를 적으세요 (글자 혹은 html)
     nb = Lag en beskrivelse (text or html)
     pl = Dodaj opis (tekst lub html)
-    pt = Adicionar uma descrição (texto ou html)
+    pt = Introduza uma descrição (texto ou html)
     pt-BR = Digite uma descrição (texto ou html)
     ro = Adăugați o descriere (text sau html)
     es = Agregue una descripción (texto o html)
@@ -16679,7 +16760,7 @@
     ko = 개인
     nb = Privat
     pl = Osobisty
-    pt = Personal
+    pt = Privado
     pt-BR = Privado
     ro = Personal
     es = Personal
@@ -16715,8 +16796,8 @@
     ko = 태그를 불러오는 중 에러가 발생했습니다. 다시 시도해보세요
     nb = Det oppsto en feil under lasting av emneknagger, prøv igjen
     pl = Wystąpił błąd podczas pobierania tagów, spróbuj ponownie
-    pt = Ocorreu um erro ao carregar tags, por favor tente de novo
-    pt-BR = Um erro ocorreu enquanto carregava as tags, por favor, tente novamente
+    pt = Surgiu um erro ao carregar as etiquetas, por favor tente novamente
+    pt-BR = Um erro ocorreu enquanto carregava as etiquetas, por favor, tente novamente
     ro = În timpul încărcării tag-urilor s-a produs o eroare, vă rugăm să încercați încă odată
     es = Durante la carga de las etiquetas, se produjo un error, por favor inténtelo de nuevo
     sv = Ett fel uppstod när du laddar taggarna, försök igen
@@ -16750,8 +16831,8 @@
     ko = 다운로드
     nb = Last ned
     pl = Pobierz
-    pt = Baixar
-    pt-BR = Download
+    pt = Descarregar
+    pt-BR = Baixar
     ro = Descărcați
     es = Descargar
     sv = Nedladdning
@@ -16786,7 +16867,7 @@
     ko = 속도 감시 카메라
     nb = Fartskamera
     pl = Fotoradary
-    pt = Câmeras de velocidade
+    pt = Radares de velocidade
     pt-BR = Câmeras de trânsito
     ro = Camere de supraveghere video a vitezei
     es = Cámaras de la velocidad
@@ -16822,7 +16903,7 @@
     ko = 자동
     nb = Auto
     pl = Auto
-    pt = Auto
+    pt = Automático
     pt-BR = Automático
     ro = Auto
     es = Auto
@@ -16931,7 +17012,7 @@
     nb = Plasser beskrivelse
     pl = Opis miejsca
     pt = Descrição do local
-    pt-BR = Descrição do Lugar
+    pt-BR = Descrição do lugar
     ro = Descrierea locului
     es = Descripción del lugar
     sv = Beskrivning av platsen
@@ -16967,7 +17048,7 @@
     ko = 맵 다운로더
     nb = Nedlast kart
     pl = Pobieranie map
-    pt = A carregar mapas
+    pt = Descarregador de mapas
     pt-BR = Downloader do mapa
     ro = Încărcarea hărților
     es = Cargando mapas
@@ -17003,7 +17084,7 @@
     ko = 자동 - 속도 제한 초과 위험이 있을때 스피드캠에 대해 경고하기\n항상 - 스피드캠에 대해 항상 경고하기\n절대 아님 - 스피드캠에 대해 경고하지 않기
     nb = Auto - Advarsel om fartskamera hvis det er fare for å overskride fartsgrensen\nAlltid - Advar alltid om farskameraer\nAldri - Advar aldri om fartskameraer
     pl = Auto – Ostrzegać o kamerach, jeśli istnieje ryzyko przekroczenia ograniczenia prędkości\nZawsze – Zawsze ostrzegaj o kamerach\nNigdy – Nigdy nie ostrzegaj o kamerach
-    pt = Auto - Avisa sobre radares de velocidade se houver risco de exceder o limite de velocidade\nSempre - Sempre alerta sobre câmeras\nNunca - nunca avisar sobre câmeras
+    pt = Automático - avisa sobre os radares de velocidade se houver risco de exceder o limite de velocidade\nSempre - avisa sempre sobre os radares\nNunca - nunca avisar sobre os radares
     pt-BR = Automático - Avisar sobre radar se houver risco de ultrapassar o limite de velocidade\nSempre - Sempre avisar sobre radares\nNunca - Nunca avisar sobre radares
     ro = Auto - De avertizat despre camerele video de înregistrare a vitezei, dacă există riscul depășirii limitei de viteză\nMereu - De avertizat întotdeauna despre camerele video\nNiciodată - De nu avertizat niciodată despre camerele video
     es = Auto - advierte sobre las cámaras de velocidad si existe el riesgo de exceder el límite de velocidad\nSiempre - siempre alerta sobre las cámaras\nNunca - nunca advierte acerca de las cámaras
@@ -17075,7 +17156,7 @@
     ko = 자동 모드가 선택되면 어플리케이션은 현재 배터리 충전 정도에 따라 배터리를 많이 쓰는 기능이 불가하게 됩니다
     nb = Når automatisk modus er valgt, begynner programmet å deaktivere batteridriftfunksjonene avhengig av det nåværende batterinivået
     pl = Jeśli jest włączony tryb oszczędzania energii, wtedy aplikacja wyłączy funkcje energochłonne, zależnie od bieżącego poziomu załadowania telefonu
-    pt = Se o modo de economia de energia estiver ativado, aplicação vai desligar as funções que consomem energia, dependendo da carga atual do telefone
+    pt = Se o modo automático estiver ativado, a aplicação vai desativar as funções que consomem energia, dependendo da carga atual do telemóvel
     pt-BR = Quando o modo automático é selecionado, o aplicativo começa a desativar as características que drenam a bateria dependendo do nível de energia atual
     ro = Dacă este pornit modul de economisire a energiei, aplicația va deconecta funcțiile care consumă multă energie în dependență de încărcarea bateriei telefonice
     es = Si el modo de ahorro de energía está activado, la aplicación desactivará las funciones que consumen energía, según la carga actual del teléfono
@@ -17147,7 +17228,7 @@
     ko = 자동
     nb = Automatisk
     pl = Auto
-    pt = Auto
+    pt = Automático
     pt-BR = Automático
     ro = Auto
     es = Automático
@@ -17219,7 +17300,7 @@
     ko = 이 옵션은 진단을 목적으로 로그를 엽니다 이를 통해 앱에 대한 문제를 분석하는 우리의 스탭을 도울 수 있습니다 이 옵션은 오직 Organic Maps 지원 요청에서만 가능합니다.
     nb = Alternativet slår på logging for diagnostiske formål. Det kan være nyttig for våre supportpersonale som feilsøker problemer med appen. Aktiver dette alternativet bare på forespørsel fra Organic Maps-brukerstøtte.
     pl = Ta opcja zostaje włączona do logowania działań w celach diagnostycznych. Pomaga to zespołowi zidentyfikować problemy z aplikacją. Włączaj opcję tylko na żądanie wsparcia technicznego Organic Maps.
-    pt = Esta opção é ativada para registro das ações para fins de diagnóstico. Isso permite que a equipe localiza problemas com aplicação. Ative opção apenas a pedido do suporte da Organic Maps.
+    pt = Esta opção ativa o registo das ações para diagnóstico. Pode ser útil para os programadores descobrirem o problema na aplicação. Ative esta opção apenas a pedido dos programadores do Organic Maps.
     pt-BR = A opção ativa para realizar diagnósticos. Pode ser útil para nossa equipe de suporte que estão solucionando problemas com o aplicativo. Ative esta opção apenas ao ser solicitado pelo suporte do Organic Maps.
     ro = Aceasta opțiune se pornește pentru logarea acțiunii în scopul diagnosticării. Aceasta va ajuta echipei să găsească problemele legate de aplicație. Conectați opțiunea numai la solicitarea serviciului de suport Organic Maps.
     es = Esta opción está habilitada para las acciones de registro con fines de diagnóstico. Esto ayuda a nuestro equipo a identificar problemas con la aplicación. Habilite la opción solo a petición del apoyo de Organic Maps.
@@ -17255,7 +17336,7 @@
     ko = 온라인 수정
     nb = Redigering på nett
     pl = Edytowane online
-    pt = Editado Online
+    pt = Edição online
     pt-BR = Edição online
     ro = Se editează online
     es = Se edita en línea
@@ -17291,7 +17372,7 @@
     ko = 운전 옵션
     nb = Kjørealternativer
     pl = Ustawienia objazdu
-    pt = Configurações de desvio
+    pt = Configurações de direção
     pt-BR = Opções de direção
     ro = Setarea ocolirii
     es = Configuración de desvío
@@ -17327,7 +17408,7 @@
     ko = 모든 길에서 피하기
     nb = Unngå ved hver rute
     pl = Unikaj na każdej trasie
-    pt = Evite em todos os percursos
+    pt = Evitar em todos os percursos
     pt-BR = Evitar em todas as rotas
     ro = De evitat pe orice traseu
     es = Evitar en todas las rutas
@@ -17399,7 +17480,7 @@
     ko = 비포장 도로
     nb = Uasfaltert vei
     pl = Drogi gruntowe
-    pt = Estradas rurais
+    pt = Estradas não pavimentadas
     pt-BR = Pistas sem pavimentação
     ro = Drum de țară
     es = Caminos sin pavimento
@@ -17435,7 +17516,7 @@
     ko = 여객선 교차로
     nb = Fergeoverganger
     pl = Przeprawy promowe
-    pt = Ferryboat
+    pt = Ferry
     pt-BR = Balsa
     ro = Trecere cu bac
     es = Cruces de ferri
@@ -17471,7 +17552,7 @@
     ko = 고속도로
     nb = Motorvei
     pl = Autostrady
-    pt = Rodovias
+    pt = Autoestradas
     pt-BR = Autoestradas
     ro = Magistrale
     es = Autopistas
@@ -17507,7 +17588,7 @@
     ko = 루트를 계산할 수 없습니다
     nb = Kan ikke beregne rute
     pl = Brak możliwości zbudowania trasy
-    pt = Impossível construir percurso
+    pt = Não foi possível calcular a rota
     pt-BR = Incapaz de calcular rota
     ro = Imposibil de elaborat un traseu
     es = No se puede construir una ruta
@@ -17543,7 +17624,7 @@
     ko = 아쉽게도 귀하가 정의한 옵션으로는 루트를 찾을 수가 없습니다. 설정을 바꾸신다음 다시 시도해주세요
     nb = Dessverre kunne vi ikke finne en rute sannsynligvis på grunn av dine definerte alternativer. Vennligst endre innstillingene og prøv igjen
     pl = Niestety, nie udało nam się zbudować trasy, która posiada obrane opcje. Zmień ustawienia i spróbuj ponownie
-    pt = Infelizmente, não conseguimos criar o percurso com as opções selecionadas. Altere as opções e tente novamente
+    pt = Infelizmente não não foi possível criar o percurso com as opções selecionadas. Altere as opções e tente novamente
     pt-BR = Infelizmente, não não conseguimos encontrar uma rota provavelmente por causa da opção escolhidas. Por favor, altere as configurações e tente novamente
     ro = Din păcate, nu reușim să elaborăm un traseu cu opțiunile alese. Modificați setările și încercați încă o dată
     es = Desafortunadamente, no pudimos construir una ruta con las opciones seleccionadas. Cambia la configuración y vuelve a intentarlo
@@ -17579,7 +17660,7 @@
     ko = 피할 도로 정의하기
     nb = Definer veier som skal unngås
     pl = Dostosuj ścieżkę objazdu
-    pt = Personalizar o caminho do desvio
+    pt = Definir as estradas a evitar
     pt-BR = Definir as estradas a serem evitadas
     ro = Setați căile de ocolire
     es = Personaliza la ruta de desvío
@@ -17615,7 +17696,7 @@
     ko = 운전 옵션이 가능합니다
     nb = Kjørealternativer aktivert
     pl = Ustawienia objazdu są włączone
-    pt = Configurações de desvio ativadas
+    pt = Configurações de direção ativadas
     pt-BR = Opções de direção ativadas
     ro = Setarea ocolirii este activată
     es = Configuración de desvío activada
@@ -17685,7 +17766,7 @@
     ko = 비포장 도로
     nb = Uasfaltert vei
     pl = Droga gruntowa
-    pt = Estrada rural
+    pt = Estrada não pavimentada
     pt-BR = Pista não pavimentada
     ro = Drum de țară
     es = Camino sin pavimento
@@ -17720,7 +17801,7 @@
     ko = 여객선 횡단길
     nb = Fergeovergang
     pl = Przeprawa promowa
-    pt = Ferryboat
+    pt = Ferry
     pt-BR = Balsa
     ro = Trecere cu bac
     es = Cruce de ferri
@@ -17756,7 +17837,7 @@
     ko = 유료 도로 피하기
     nb = Unngå bompengeveier
     pl = Unikać dróg płatnych
-    pt = Evitar as estradas com portagem
+    pt = Evitar estradas com portagem
     pt-BR = Evitar pedágios
     ro = De evitat drumurile cu plată
     es = Evitar las carreteras con pago de peaje
@@ -17792,7 +17873,7 @@
     ko = 비포장 도로 피하기
     nb = Unngå uasfalterte veier
     pl = Unikać dróg gruntowych
-    pt = Evitar as estradas rurais
+    pt = Evitar estradas não pavimentadas
     pt-BR = Evitar pistas sem pavimentação
     ro = De evitat drumurile de țară
     es = Evitar los caminos sin pavimento
@@ -17828,7 +17909,7 @@
     ko = 여객선 횡단길 피하기
     nb = Unngå fergeoverganger
     pl = Unikać przepraw promowych
-    pt = Evitar ferryboat
+    pt = Evitar ferrys
     pt-BR = Evitar balsas
     ro = De evitat trecerile cu bac
     es = Evitar ferries
@@ -17863,7 +17944,7 @@
     ko = 가자
     nb = La oss begynne
     pl = Jedźmy
-    pt = Vamos
+    pt = Começar
     pt-BR = Vamos
     ro = Mergem
     es = Vamos
@@ -17898,7 +17979,7 @@
     ko = 목적지
     nb = Destinasjon
     pl = Meta
-    pt = Objetivo
+    pt = Destino
     pt-BR = Destino
     ro = Scop
     es = Objetivo
@@ -17933,7 +18014,7 @@
     ko = 내 위치 조정하기
     nb = Sentrer
     pl = Wyśrodkuj
-    pt = Centrar
+    pt = Recentrar
     pt-BR = Re-centralizar
     ro = Centrați
     es = Centrar
@@ -17969,7 +18050,7 @@
     nb = Søkeresultater
     pl = Wyniki wyszukiwania
     pt = Resultados da pesquisa
-    pt-BR = Resultados de pesquisa
+    pt-BR = Resultados da busca
     ro = Rezultatul căutării
     es = Resultados de búsqueda
     sv = Sökresultat
@@ -18038,7 +18119,7 @@
     ko = 루트를 재구축하길 원하시나요?
     nb = Vil du planlegge en rute på nytt?
     pl = Czy chcesz przebudować trasę?
-    pt = Deseja personalizar o percurso?
+    pt = Quer recalcular o percurso?
     pt-BR = Você deseja retraçar a rota?
     ro = Doriți să refaceți traseul?
     es = ¿Quieres reconstruir la ruta?
@@ -18143,7 +18224,7 @@
     ko = 도착했습니다!
     nb = Du har ankommet!
     pl = Jesteś na miejscu!
-    pt = Chegou!
+    pt = Chegou ao destino!
     pt-BR = Você chegou!
     ro = Ați sosit!
     es = ¡Llegaste!
@@ -18178,7 +18259,7 @@
     ko = 운전 중에는 키보드를 사용할 수 없습니다
     nb = Tastatur er ikke tilgjengelig mens en kjører
     pl = Klawiatura nie jest dostępna podczas ruchu
-    pt = Teclado indisponível durante o movimento
+    pt = O teclado não está disponível ao coduzir
     pt-BR = O teclado não está disponível enquanto dirige
     ro = Tastiera nu este accesibilă în timpul deplasării
     es = Teclado no disponible durante el movimiento
@@ -18213,7 +18294,7 @@
     ko = 현재 위치에서 루트를 만들 수 없습니다
     nb = Kan ikke planlegge rute fra din nåværende posisjon
     pl = Brak możliwości zbudowania trasy od bieżącej lokalizacji
-    pt = Impossível criar percurso a partir da localização atual
+    pt = Não foi possível calcular o percurso a partir da localização atual
     pt-BR = Desativar rota demarcada pela sua localização atual
     ro = Este imposibil de elabora traseul de la punctul de aflare
     es = No se puede construir la ruta desde la ubicación actual
@@ -18248,7 +18329,7 @@
     ko = 목적지 경로를 만들 수 없습니다. 다른 지점을 선택해주세요
     nb = Kan ikke planlegge rute til din nåværende posisjon. Vennligst velg en annen posisjon
     pl = Brak możliwości zbudowania trasy do punktu końcowego. Wybierz inny
-    pt = Impossível criar percurso para o ponto final. Escolher outro
+    pt = Não foi possível calcular o percurso para o destino. Escolha outro
     pt-BR = Incapaz de traçar rota para o seu destino. Por favor, escolha outro ponto de destino
     ro = Este imposibil de elaborat traseu până la punctul de sosire. Selectați altul
     es = No se puede construir la ruta al punto final. Elige otra
@@ -18283,7 +18364,7 @@
     ko = GPS 신호가 없습니다. 열린 장소로 이동해주세요
     nb = Ingen GPS-signal. Vennligst gå til et åpent område
     pl = Brak sygnału GPS. Dostań się do terenu otwartego
-    pt = Sem GPS. Siga para uma área aberta
+    pt = Sem sinal de GPS. Desloque-se para uma área sem obstáculos no céu
     pt-BR = Sem sinal de GPS. Por favor, vá para uma região aberta
     ro = Nu este semnal GPS. Mergeți la loc deschis
     es = No hay señal GPS. Ve a una zona abierta
@@ -18318,7 +18399,7 @@
     ko = 루트를 만들 수 없습니다. 또 다른 루트 지점을 지정해주세요
     nb = Kan ikke planlegge rute. Vennligst spesifiser en annen posisjon for rute
     pl = Brak możliwości zbudowania trasy. Wybierz inne punkty trasy
-    pt = Impossível criar percurso. Escolher outros pontos do percurso
+    pt = Não foi possível calcular o percurso. Escolha outros pontos do percurso
     pt-BR = Incapaz de traçar rota. Por favor, especifique outros pontos para a rota
     ro = Este imposibil de elaborat un traseu. Selectați alte puncte ale traseului
     es = No se puede construir una ruta. Elige otros puntos de ruta
@@ -18353,7 +18434,7 @@
     ko = 루트를 만들려면, 빠진 맵을 기기에 다운로드하세요
     nb = For å beregne rute last ned manglende kart på enheten din
     pl = Aby wyznaczyć trasę, pobierz brakujące mapy na Twoim urządzeniu
-    pt = Para construir percurso falta carregar os mapas no seu dispositivo
+    pt = Para calcular o percurso é preciso descarregar primeiro os mapas
     pt-BR = Para criar uma rota, baixe os mapas ausentes no seu dispositivo
     ro = Pentru noi trasee, încărcați hărțile lipsa pe dispozitivul dvs.
     es = Al construir ruta, descarga los mapas ausentes en tu dispositivo
@@ -18388,7 +18469,7 @@
     ko = 오류 발생. 어플리케이션을 재실행해주시길 바랍니다
     nb = Feil oppstod. Vennligst restart appen
     pl = Wystąpił błąd. Uruchom aplikację ponownie
-    pt = Ocorreu um erro. Reiniciar aplicação
+    pt = Surgiu um erro. Por favor reinicie a aplicação
     pt-BR = Ocorreu um erro. Por favor, reinicie o aplicativo
     ro = Eroare. Restartați aplicația
     es = Ocurrió un error. Reinicia la aplicación
@@ -18423,7 +18504,7 @@
     ko = 루트가 귀하의 현재 위치로부터 재생성됩니다
     nb = Rute vil planlegges fra din nåværende posisjon
     pl = Trasa zostanie przebudowana z Twojej bieżącej lokalizacji
-    pt = O percurso será reconstruído a partir da sua localização atual
+    pt = O percurso será recalculado a partir da sua localização atual
     pt-BR = A rota sera retraçada a partir de sua localização atual
     ro = Traseul se va reface de la locul actual al aflării dvs
     es = La ruta se reconstruirá desde tu ubicación actual
@@ -18458,7 +18539,7 @@
     ko = 루트가 차량에 맞춰 수정됩니다
     nb = Rute vil oppdateres til kjørerute
     pl = Trasa zostanie zmieniona na samochodową
-    pt = O percurso será reconstruído para o rodoviário
+    pt = O percurso será convertido num percurso para automóvel
     pt-BR = A rota será alterada para uma de automóvel
     ro = Traseul va fi modificat cu unul automobilistic
     es = La ruta se cambiará a coche
@@ -18529,7 +18610,7 @@
     ko = 비포장 도로 없음
     nb = Ikke grusvei
     pl = Bez gruntow.
-    pt = Sem rurais
+    pt = Só vias pavimentadas
     pt-BR = Não pav.
     ro = Fără neasfal
     es = Sin de grava
@@ -18564,7 +18645,7 @@
     ko = 비포장 도로 없음
     nb = Ikke uasfaltert
     pl = Bez gruntowych
-    pt = Sem rurais
+    pt = Evitar vias não pavimentadas
     pt-BR = Evitar não pav.
     ro = Fără neasfaltat
     es = Sin de grava
@@ -18599,7 +18680,7 @@
     ko = 여객선 없음
     nb = Ingen ferger
     pl = Bez promów
-    pt = Sem ferry
+    pt = Sem ferrys
     pt-BR = Sem balsas
     ro = Fără bacuri
     es = Sin ferri
@@ -18634,7 +18715,7 @@
     ko = 여객선 없음
     nb = Unngå ferger
     pl = Bez promów
-    pt = Sem ferry
+    pt = Evitar ferrys
     pt-BR = Evitar balsas
     ro = Fără bacuri
     es = Sin ferri
@@ -18669,7 +18750,7 @@
     ko = 유료 도로 없음
     nb = Ingen bomvei
     pl = Wył. płatne
-    pt = Sem pedágio
+    pt = Sem portagens
     pt-BR = Sem pedágio
     ro = Gratis
     es = Sin peaje
@@ -18704,7 +18785,7 @@
     ko = 유료 도로 없음
     nb = Unngå bomvei
     pl = Wyłącz płatne
-    pt = Sem pedágio
+    pt = Evitar portagens
     pt-BR = Evitar pedágios
     ro = Gratis
     es = Sin peaje
@@ -18774,7 +18855,7 @@
     ko = 속도단속 카메라
     nb = Kamera-advarsel
     pl = Info o kamerach
-    pt = Avisos de radar
+    pt = Avisos de velocidade
     pt-BR = Alertas de vel.
     ro = Info camere
     es = Alerta velocid.
@@ -18809,7 +18890,7 @@
     ko = Organic Maps 앱 안의 지도들을 디바이스에 다운로드하세요
     nb = Vennligst last ned kart i Organic Maps appen på enheten din
     pl = Pobierz mapy do aplikacji Organic Maps na swoje urządzenie
-    pt = Baixar mapas de aplicação Organic Maps para o seu dispositivo
+    pt = Descarregue mapas da aplicação Organic Maps no seu dispositivo
     pt-BR = Por favor, baixe mapas no app Organic Maps em seu dispositivo
     ro = Vă rugăm să descărcați hărțile în aplicația Organic Maps de pe dispozitivul dvs.
     es = Descarga mapas en la aplicación Organic Maps en tu dispositivo
@@ -18918,7 +18999,7 @@
     ko = 북마크 분류하기
     nb = Sortere merker
     pl = Sortuj znaczniki
-    pt = Ordenar tags
+    pt = Ordenar favoritos
     pt-BR = Ordenar favoritos
     ro = Sortați inscripțiile
     es = Ordenar etiquetas
@@ -18954,7 +19035,7 @@
     ko = 기본 값으로 분류
     nb = Sortere som standard
     pl = Sortuj domyślnie
-    pt = Ordenar por predefinição
+    pt = Ordenação predefinida
     pt-BR = Ordenar por padrão
     ro = Sortați la modul implicit
     es = Ordenar por defecto
@@ -19096,7 +19177,7 @@
     ko = 기본 값
     nb = Som standard
     pl = Domyślnie
-    pt = Por predefinição
+    pt = Predefinido
     pt-BR = Por padrão
     ro = Mod implicit
     es = Por defecto
@@ -19417,7 +19498,7 @@
     ko = 기타
     nb = Andre
     pl = Inne
-    pt = Outro
+    pt = Outros
     pt-BR = Outros
     ro = Altele
     es = Otros
@@ -19452,7 +19533,7 @@
     ko = 음식
     nb = Mat
     pl = Jedzenie
-    pt = Alimento
+    pt = Comida
     pt-BR = Comida
     ro = Mâncare
     es = Comida
@@ -19487,7 +19568,7 @@
     ko = 명소
     nb = Severdigheter
     pl = Zabytki
-    pt = Pontos turísticos
+    pt = Atrações turísticas
     pt-BR = Pontos turíticos
     ro = Locuri faimoase
     es = Sitios de interés
@@ -19557,7 +19638,7 @@
     ko = 공원
     nb = Parker
     pl = Parki
-    pt = Jardins
+    pt = Parques
     pt-BR = Parques
     ro = Parcuri
     es = Parques
@@ -19872,7 +19953,7 @@
     ko = 주유소
     nb = Bensinstasjoner
     pl = Stacje paliw
-    pt = Postos de gasolina
+    pt = Postos de combustível
     pt-BR = Postos de gasolina
     ro = Benzinării
     es = Gasolinera
@@ -19979,7 +20060,7 @@
     nb = Søk på lista
     pl = Wyszukaj na liście
     pt = Pesquisar na lista
-    pt-BR = Procurar na lista
+    pt-BR = Buscar na lista
     ro = Căutați în listă
     es = Buscar en la lista
     sv = Söka i listan
@@ -20013,7 +20094,7 @@
     ko = 종교적 장소
     nb = Hellige steder
     pl = Święte miejsca
-    pt = Lugares sagrados
+    pt = Lugares religiosos
     pt-BR = Lugares religiosos
     ro = Locuri sfinte
     es = Lugares sagrados
@@ -20049,7 +20130,7 @@
     ko = 목록 선택
     nb = Velge liste
     pl = Wybierz listę
-    pt = Escolher a lista
+    pt = Selecionar lista
     pt-BR = Escolher a lista
     ro = Alegeți lista
     es = Seleccionar lista
@@ -20085,7 +20166,7 @@
     ko = 이 지역의 지하철 노선 기능이 아직 없습니다
     nb = T-bane navigasjon er ikke tilgjengelig i denne regionen ennå
     pl = Nawigacja metrem nie jest jeszcze tutaj dostępna
-    pt = Navegação de metro ainda indisponível nesta região
+    pt = A navegação de metropolitano ainda não está disponível nesta região
     pt-BR = A navegação por metrô nesta região ainda não está disponível
     ro = Navigarea pentru metrou nu este încă disponibilă în această regiune
     es = Navegación en Metro aún no disponible en esta región
@@ -20121,7 +20202,7 @@
     ko = 지하철 루트가 발견되지 않았습니다
     nb = T-bane rute ikke funnet
     pl = Nie znaleziono trasy metra
-    pt = Percurso de metro não encontrado
+    pt = Não foi encontrada nenhuma rota de metropolitano
     pt-BR = Rota por metrô não encontrada
     ro = Ruta metroului nu a fost găsită
     es = Ruta de metro no encontrada
@@ -20157,7 +20238,7 @@
     ko = 지하철역에서 가까운 출발점 또는 종점을 선택하세요
     nb = Velg utgangspunkt eller destinasjon som befinner seg nærmere en T-bane stasjon
     pl = Wybierz punkt początkowy lub końcowy trasy najbliżej do stacji metra
-    pt = Escolhe ponto inicial ou final de percurso próximo da estação de metro
+    pt = Escolha um ponto inicial ou final do percurso próximo da estação de metropolitano
     pt-BR = Escolha outro ponto de início ou fim perto da estação de metrô
     ro = Selectați punctul de început sau de sfârșit al rutei mai aproape de stația de metrou
     es = Elige el punto de inicio o fin de ruta más cercano al metro
@@ -20193,7 +20274,7 @@
     ko = 지형
     nb = Høyder
     pl = Wysokości
-    pt = Alturas
+    pt = Terreno
     pt-BR = Topográfica
     ro = Înălțimi
     es = Alturas
@@ -20229,7 +20310,7 @@
     ko = 지형 레이어를 활성화하고 사용하려면 해당 지역의 지도를 업데이트하거나 다운로드하십시오
     nb = For å bruke høydekurver oppdater eller last opp kartet til nødvendig område
     pl = Do skorzystania z linii wysokości, zaktualizuj lub pobierz mapę obszaru, który potrzebujesz
-    pt = Para usar as linhas de alturas, atualize ou carregue o mapa da área desejada
+    pt = Para ativar e usar a camada topográfica, por favor atualize ou descarregue o mapa da área
     pt-BR = Para ativar e usar a camada topográfica, atualize ou baixe o mapa da região
     ro = Pentru a utiliza liniile de înălțimi, actualizați sau descărcați harta zonei dorite
     es = Para usar la altitud de relieve, actualiza o descarga el mapa del área deseada
@@ -20265,7 +20346,7 @@
     ko = 이 지역의 지형 레이어는 아직 사용할 수 없습니다
     nb = Høydekurver er ikke tilgjengelige i dette området ennå
     pl = W tej chwili nie są dostępne linie wysokości w tym regionie
-    pt = A linhas de alturas ainda não está disponível em sua região
+    pt = A camada topográfica ainda não está disponível nesta área
     pt-BR = A camada topográfica ainda não está disponível para esta região
     ro = Liniile de înălțimi pană ce nu sunt disponibile în această regiune
     es = La altitud de relieve aún no está disponible en esta región
@@ -20301,7 +20382,7 @@
     ko = 난이도
     nb = Vanskelighetsgrad
     pl = Poziom trudności
-    pt = Nível de complexidade
+    pt = Nível de dificuldade
     pt-BR = Nível de dificuldade
     ro = Nivel de dificultate
     es = Nivel de dificultad
@@ -20406,7 +20487,7 @@
     ko = 어려움
     nb = Vanskelig
     pl = Skomplikowany
-    pt = Complicado
+    pt = Difícil
     pt-BR = Difícil
     ro = Dificil
     es = Difícil
@@ -20514,8 +20595,8 @@
     ko = 산 최소 높이
     nb = Min. høyde
     pl = Min. wysokość
-    pt = Altura min.
-    pt-BR = Altitude Mín.
+    pt = Altura mínima
+    pt-BR = Altitude mínima
     ro = Înălțime min.
     es = Altura mínima
     sv = Min. höjd
@@ -20550,8 +20631,8 @@
     ko = 산 최대 높이
     nb = Maks. høyde
     pl = Maks. wysokość
-    pt = Altura max.
-    pt-BR = Altiduta Max.
+    pt = Altura máxima
+    pt-BR = Altitude máxima
     ro = Înălțime max.
     es = Altura máxima
     sv = Max. höjd
@@ -20586,7 +20667,7 @@
     ko = 난이도
     nb = Vanskelighet
     pl = Trudność
-    pt = Complexidade
+    pt = Dificuldade
     pt-BR = Dificuldade
     ro = Dificultate
     es = Dificultad
@@ -20658,7 +20739,7 @@
     ko = 소비 시간:
     nb = I rute
     pl = Trasa:
-    pt = Ida:
+    pt = Tempo:
     pt-BR = Tempo:
     ro = Timp:
     es = Lapso:
@@ -20694,7 +20775,7 @@
     ko = 등치선 탐색을 위한 확대
     nb = Forstørr kartet for å se høydekurver
     pl = Powiększ mapę, aby zobaczyć izolinie
-    pt = Ampliar mapa para ver as curvas de nível
+    pt = Amplie o mapa para ver as curvas de nível
     pt-BR = Use o zoom para explorar as isolinhas
     ro = Măriți harta pentru a vedea contururile
     es = Amplía el mapa para ver las isolíneas
@@ -20729,7 +20810,7 @@
     ko = 업데이트 중
     nb = Oppdatering
     pl = Aktualizacja
-    pt = Atualização
+    pt = A atualizar
     pt-BR = Atualizando
     ro = Actualizare
     es = Actualización
@@ -20764,7 +20845,7 @@
     ko = 다운로드 중
     nb = Nedlasting
     pl = Pobieranie
-    pt = Carregamento
+    pt = A descarregar
     pt-BR = Baixando
     ro = Încărcare
     es = Cargando
@@ -20800,7 +20881,7 @@
     ko = 핵심 정보
     nb = Nøkkelinformasjon
     pl = Kluczowe informacje
-    pt = Informações principais
+    pt = Informação importante
     pt-BR = Informação importante
     ro = Informații cheie
     es = Información clave
@@ -20822,12 +20903,16 @@
     en = Download the world map
     ru = Скачать карту мира
     bg = Изтегляне на картата на света
+    pt = Descarregar o mapa mundial
+    pt-BR = Baixar mapa mundial
 
   [connection_failure]
     tags = android
     en = Connection failure
     ru = Ошибка подключения
     bg = Неуспешно свързване
+    pt = Falha na coneção
+    pt-BR = Falha na coneção
 
   [disconnect_usb_cable_title]
     tags = android
@@ -20854,7 +20939,7 @@
     ko = 화면 절전 모드 허용
     nb = La skjermen sove
     pl = Pozwól ekranowi spać
-    pt = Permitir que a tela hiberne
+    pt = Permitir que o ecrã desligue
     pt-BR = Permitir que a tela hiberne
     ro = Permiteți ecranului să doarmă
     es = Permitir que la pantalla duerma
@@ -20890,7 +20975,7 @@
     ko = 활성화되면 일정 시간 동안 활동이 없으면 화면이 절전 모드로 전환됩니다.
     nb = Når den er aktivert, får skjermen lov til å sove etter en periode med inaktivitet.
     pl = Po włączeniu ekran będzie mógł spać po okresie bezczynności.
-    pt = Quando ativada, a tela poderá hibernar após um período de inatividade.
+    pt = Quando ativado, o ecrá poderá desligar-se após um período de inatividade.
     pt-BR = Quando ativada, a tela poderá hibernar após um período de inatividade.
     ro = Când este activat, ecranul va fi lăsat să doarmă după o perioadă de inactivitate.
     es = Cuando está habilitado, la pantalla podrá dormir después de un período de inactividad.
@@ -20926,7 +21011,7 @@
     ko = 다운로드한 지도를 업데이트해야 합니다
     nb = Oppdater dine nedlastede kart
     pl = Zaktualizuj pobrane mapy
-    pt = Atualize seus mapas transferidos
+    pt = Atualize os seus mapas descarregados
     pt-BR = Atualize os mapas no seu dispositivo
     ro = Actualizați hărțile descărcate
     es = Actualice sus mapas descargados
@@ -20968,7 +21053,7 @@
     ko = 지도를 업데이트하면 개체에 대한 정보가 최신 상태로 유지됩니다.
     nb = Ved å oppdatere kart holder du også informasjonen om ulike elementer oppdatert
     pl = Aktualizacja map umożliwia uzyskanie bieżących informacji o obiektach
-    pt = Atualizar os mapas mantém atualizada a informação sobre objetos
+    pt = Atualizar os mapas mantém atualizada a informação sobre os objetos
     pt-BR = A atualização de mapas mantém as informações sobre objetos atualizadas
     ro = Actualizarea hărților vă ajută să păstrați actualizate informațiile despre obiecte
     es = La actualización de mapas mantiene actualizada la información sobre objetos
@@ -21010,7 +21095,7 @@
     ko = 업데이트(%s)
     nb = Oppdater (%s)
     pl = Zaktualizuj (%s)
-    pt = Atualização (%s)
+    pt = Atualizar (%s)
     pt-BR = Atualizar (%s)
     ro = Actualizare (%s)
     es = Actualizar (%s)
