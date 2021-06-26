@@ -296,13 +296,19 @@ public class SettingsPrefsFragment extends BaseXmlSettingsFragment
     initTransliterationPrefsCallbacks();
     init3dModePrefsCallbacks();
     initPerspectivePrefsCallbacks();
-    initPlayServicesPrefsCallbacks();
     initAutoZoomPrefsCallbacks();
     initLoggingEnabledPrefsCallbacks();
     initEmulationBadStorage();
     initUseMobileDataPrefsCallbacks();
     initPowerManagementPrefsCallbacks();
-    initCrashReports();
+    boolean playServices = initPlayServicesPrefsCallbacks();
+    boolean crashReports = initCrashReports();
+    if (!playServices && !crashReports)
+    {
+      // Remove "Tracking" section completely.
+      Preference tracking = findPreference(getString(R.string.pref_subtittle_opt_out));
+      getPreferenceScreen().removePreference(tracking);
+    }
     initScreenSleepEnabledPrefsCallbacks();
     updateTts();
   }
@@ -564,15 +570,16 @@ public class SettingsPrefsFragment extends BaseXmlSettingsFragment
     });
   }
 
-  private void initPlayServicesPrefsCallbacks()
+  private boolean initPlayServicesPrefsCallbacks()
   {
     Preference pref = findPreference(getString(R.string.pref_play_services));
     if (pref == null)
-      return;
+      return false;
 
     if (!LocationProviderFactory.isGoogleLocationAvailable(getActivity().getApplicationContext()))
     {
       removePreference(getString(R.string.pref_subtittle_opt_out), pref);
+      return false;
     }
     else
     {
@@ -592,6 +599,7 @@ public class SettingsPrefsFragment extends BaseXmlSettingsFragment
           return true;
         }
       });
+      return true;
     }
   }
 
@@ -751,21 +759,22 @@ public class SettingsPrefsFragment extends BaseXmlSettingsFragment
     });
   }
 
-  private void initCrashReports()
+  private boolean initCrashReports()
   {
     String key = getString(R.string.pref_crash_reports);
     Preference pref = findPreference(key);
     if (pref == null)
-      return;
+      return false;
 
     if (!CrashlyticsUtils.INSTANCE.isAvailable())
     {
       removePreference(getString(R.string.pref_subtittle_opt_out), pref);
-      return;
+      return false;
     }
 
     ((TwoStatePreference)pref).setChecked(CrashlyticsUtils.INSTANCE.isEnabled());
     pref.setOnPreferenceChangeListener((preference, newValue) -> onToggleCrashReports(newValue));
+    return true;
   }
 
   private void initScreenSleepEnabledPrefsCallbacks()
