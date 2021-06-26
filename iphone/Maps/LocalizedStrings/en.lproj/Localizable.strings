@@ -1911,7 +1911,7 @@
 
 "power_managment_setting_manual_max" = "Maximum power saving";
 
-"enable_logging_warning_message" = "The option turns on logging for diagnostic purposes. It can be helpful for our support staff who are troubleshooting issues with the app. Enable this option only at the request of Organic Maps support.";
+"enable_logging_warning_message" = "The option turns on logging for diagnostic purposes. It can be helpful for our team to troubleshoot issues with the app. Enable this option temporarily to record and send detailed logs about your issue to us.";
 
 "html_error_upload_message_try_again" = "Please check your network settings and try again";
 

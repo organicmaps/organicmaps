@@ -1081,7 +1081,7 @@
 	<string name="power_managment_setting_never">Ніколи</string>
 	<string name="power_managment_setting_auto">Автоматично</string>
 	<string name="power_managment_setting_manual_max">Максимальне енергозбереження</string>
-	<string name="enable_logging_warning_message">Дана опція вмикається для логування дій з метою діагностики. Це допомагає команді виявити проблеми з додатком. Вмикайте цю опцію тільки на прохання служби підтримки Organic Maps.</string>
+	<string name="enable_logging_warning_message">Дана опція вмикається для логування дій з метою діагностики. Це допомагає команді виявити проблеми з додатком. Тимчасово включайте цю настройку тільки для відправки детальної інформації про знайдену вами проблему в додатку.</string>
 	<string name="html_error_upload_message_try_again">Перевірте доступ до мережі та спробуйте ще раз</string>
 	<string name="html_error_upload_title_try_again">Немає з’єднання з Інтернетом</string>
 	<string name="notification_leave_review_v2_android_short_title">Залишайте відгук і допомагайте мандрівникам!</string>
