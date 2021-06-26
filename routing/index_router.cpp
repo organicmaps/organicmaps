@@ -560,17 +560,16 @@ RouterResultCode IndexRouter::DoCalculateRoute(Checkpoints const & checkpoints,
 
   for (auto const & checkpoint : checkpoints.GetPoints())
   {
-    string const countryName = m_countryFileFn(checkpoint);
+    auto const country = platform::CountryFile(m_countryFileFn(checkpoint));
 
-    if (countryName.empty())
+    if (country.IsEmpty())
     {
       LOG(LWARNING, ("For point", mercator::ToLatLon(checkpoint),
-                   "CountryInfoGetter returns an empty CountryFile(). It happens when checkpoint"
+                   "CountryInfoGetter returns an empty CountryFile(). It happens when checkpoint "
                    "is put at gaps between mwm."));
       return RouterResultCode::InternalError;
     }
 
-    auto const country = platform::CountryFile(countryName);
     if (!m_dataSource.IsLoaded(country))
     {
       route.AddAbsentCountry(country.GetName());

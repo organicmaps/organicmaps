@@ -32,7 +32,7 @@ namespace platform
 {
 CountryFile::CountryFile() : m_mapSize(0) {}
 
-CountryFile::CountryFile(string const & name) : m_name(name), m_mapSize(0) {}
+CountryFile::CountryFile(string name) : m_name(std::move(name)), m_mapSize(0) {}
 
 string const & CountryFile::GetName() const { return m_name; }
 

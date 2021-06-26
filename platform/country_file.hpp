@@ -16,7 +16,10 @@ class CountryFile
 {
 public:
   CountryFile();
-  explicit CountryFile(std::string const & name);
+  explicit CountryFile(std::string name);
+
+  /// \returns Empty (invalid) CountryFile.
+  bool IsEmpty() const { return m_name.empty(); }
 
   /// \returns file name without extensions.
   std::string const & GetName() const;
