@@ -271,8 +271,6 @@ class FileHttpRequest : public HttpRequest, public IHttpThreadCallback
       // Rename finished file to it's original name.
       Platform::RemoveFileIfExists(m_filePath);
       base::RenameFileX(m_filePath + DOWNLOADING_FILE_EXTENSION, m_filePath);
-
-      Platform::DisableBackupForFile(m_filePath);
     }
 
     // 4. Finish downloading.

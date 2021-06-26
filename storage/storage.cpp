@@ -679,6 +679,11 @@ void Storage::RegisterDownloadedFiles(CountryId const & countryId, MapFileType t
 
     LocalFilePtr localFile = GetLocalFile(countryId, GetCurrentDataVersion());
     ASSERT(localFile, ());
+
+    // This is the final point of success download or diff or update, so better
+    // to call DisableBackupForFile here and don't depend from different downloaders.
+    Platform::DisableBackupForFile(localFile->GetPath(MapFileType::Map));
+
     DeleteCountryIndexes(*localFile);
     m_didDownload(countryId, localFile);
 
@@ -1322,7 +1327,6 @@ void Storage::ApplyDiff(CountryId const & countryId, function<void(bool isSucces
         case DiffApplicationResult::Ok:
         {
           RegisterCountryFiles(diffFile);
-          Platform::DisableBackupForFile(diffFile->GetPath(MapFileType::Map));
           m_diffsDataSource->MarkAsApplied(countryId);
           fn(true);
           break;
