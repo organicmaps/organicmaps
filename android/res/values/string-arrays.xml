@@ -61,9 +61,9 @@
   </string-array>
 
   <string-array name="mobile_data_options_values">
-    <item>0</item>
-    <item>1</item>
-    <item>2</item>
+    <item>ASK</item>
+    <item>ALWAYS</item>
+    <item>NEVER</item>
   </string-array>
 
   <string-array name="power_management_scheme">

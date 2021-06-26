@@ -70,9 +70,7 @@ public final class NetworkPolicy
             else
               showDialogIfNeeded(fragmentManager, listener, new NetworkPolicy(true));
           }
-        },
-
-    NONE;
+        };
 
     public void check(@NonNull FragmentManager fragmentManager,
                       @NonNull final NetworkPolicyListener listener,

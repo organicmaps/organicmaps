@@ -59,7 +59,7 @@
     <ListPreference
       android:key="@string/pref_use_mobile_data"
       android:title="@string/mobile_data"
-      android:summary="@string/mobile_data_option_ask"
+      android:summary="@string/mobile_data_description"
       android:entries="@array/mobile_data_options"
       android:entryValues="@array/mobile_data_options_values"
       android:order="14"/>
