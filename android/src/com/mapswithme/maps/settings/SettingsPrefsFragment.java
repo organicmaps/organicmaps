@@ -39,9 +39,8 @@ import com.mapswithme.util.PowerManagment;
 import com.mapswithme.util.SharedPropertiesUtils;
 import com.mapswithme.util.ThemeSwitcher;
 import com.mapswithme.util.UiUtils;
-import com.mapswithme.util.concurrency.UiThread;
-import com.mapswithme.util.log.LoggerFactory;
 import com.mapswithme.util.Utils;
+import com.mapswithme.util.log.LoggerFactory;
 
 import java.util.HashMap;
 import java.util.List;
@@ -450,46 +449,17 @@ public class SettingsPrefsFragment extends BaseXmlSettingsFragment
       return;
 
     NetworkPolicy.Type curValue = Config.getUseMobileDataSettings();
-
-    if (curValue != NetworkPolicy.Type.NOT_TODAY && curValue != NetworkPolicy.Type.TODAY
-        && curValue != NetworkPolicy.Type.NONE)
-    {
-      mobilePref.setValue(String.valueOf(curValue));
-      mobilePref.setSummary(mobilePref.getEntry());
-    }
-    else
-    {
-      mobilePref.setSummary(getString(R.string.mobile_data_description));
-    }
+    if (curValue == NetworkPolicy.Type.NOT_TODAY || curValue == NetworkPolicy.Type.TODAY)
+        curValue = NetworkPolicy.Type.ASK;
+    mobilePref.setValue(curValue.name());
     mobilePref.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener()
     {
       @Override
       public boolean onPreferenceChange(Preference preference, Object newValue)
       {
         String valueStr = (String)newValue;
-        int value = Integer.parseInt(valueStr);
-        NetworkPolicy.Type type = NetworkPolicy.Type.values()[value];
-
-        if (type == NetworkPolicy.Type.ALWAYS
-            || type == NetworkPolicy.Type.ASK
-            || type == NetworkPolicy.Type.NEVER)
-        {
-          Config.setUseMobileDataSettings(type);
-        }
-        else
-        {
-          throw new AssertionError("Wrong NetworkPolicy type, value = " + valueStr);
-        }
-
-        UiThread.runLater(new Runnable()
-        {
-          @Override
-          public void run()
-          {
-            mobilePref.setSummary(mobilePref.getEntry());
-          }
-        });
-
+        NetworkPolicy.Type type = NetworkPolicy.Type.valueOf(valueStr);
+        Config.setUseMobileDataSettings(type);
         return true;
       }
     });

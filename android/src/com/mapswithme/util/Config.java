@@ -276,11 +276,8 @@ public final class Config
   {
     int value = getInt(KEY_MISC_USE_MOBILE_DATA, NetworkPolicy.NONE);
 
-    if ((value != NetworkPolicy.NONE && value < 0) || value >= NetworkPolicy.Type.values().length)
-      throw new AssertionError("Wrong NetworkPolicy type : " + value);
-
-    if (value == NetworkPolicy.NONE)
-      return NetworkPolicy.Type.NONE;
+    if (value < 0 || value >= NetworkPolicy.Type.values().length)
+      return NetworkPolicy.Type.ASK;
 
     return NetworkPolicy.Type.values()[value];
   }
