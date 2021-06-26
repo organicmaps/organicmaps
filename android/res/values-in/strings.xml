@@ -194,15 +194,15 @@
 	<string name="appStore_message">Kami harap Anda senang menggunakan Organic Maps! Jika ya, mohon beri nilai atau ulasan untuk aplikasi ini di App Store. Hanya memakan waktu kurang dari satu menit tetapi hal itu dapat benar-benar membantu kami. Terima kasih atas dukungan Anda!</string>
 	<!-- No, thanks -->
 	<string name="no_thanks">Tidak, terima kasih</string>
-	<!-- Share one specific bookmark using SMS, %1$@ contains om:// and %2$@ http://omaps.app link. @NOTE non-ascii symbols in the link will result in max 70 characters SMS instead of 140. -->
-	<string name="bookmark_share_sms">Hei, lihat pinku di Organic Maps! %1$s atau %2$s belum memiliki peta offline? Unduh di sini: https://organicmaps.app/get</string>
-	<!-- Share my position using SMS, %1$@ contains om:// and %2$@ http://omaps.app link WITHOUT NAME. @NOTE non-ascii symbols in the link will result in max 70 characters SMS instead of 140. -->
-	<string name="my_position_share_sms">Hei, lihat lokasiku saat ini di Organic Maps! %1$s atau %2$s belum memiliki peta offline? Unduh di sini: https://organicmaps.app/get</string>
+	<!-- Share one specific bookmark using SMS, %1$@ contains om:// and %2$@ https://omaps.app link. @NOTE non-ascii symbols in the link will result in max 70 characters SMS instead of 140. -->
+	<string name="bookmark_share_sms">Hei, lihat pinku di Organic Maps! %1$s atau %2$s belum memiliki peta offline? Unduh di sini: https://omaps.app/get</string>
+	<!-- Share my position using SMS, %1$@ contains om:// and %2$@ https://omaps.app link WITHOUT NAME. @NOTE non-ascii symbols in the link will result in max 70 characters SMS instead of 140. -->
+	<string name="my_position_share_sms">Hei, lihat lokasiku saat ini di Organic Maps! %1$s atau %2$s belum memiliki peta offline? Unduh di sini: https://omaps.app/get</string>
 	<!-- Subject for emailed bookmark -->
 	<string name="bookmark_share_email_subject">Hei, lihat pinku di peta Organic Maps</string>
 	<!-- Subject for emailed position -->
 	<string name="my_position_share_email_subject">Hei, lihat lokasiku saat ini di peta Organic Maps!</string>
-	<!-- Share my position using EMail, %1$@ is om:// and %2$@ is http://omaps.app link WITHOUT NAME -->
+	<!-- Share my position using EMail, %1$@ is om:// and %2$@ is https://omaps.app link WITHOUT NAME -->
 	<string name="my_position_share_email">Hai,\n\nSekarang saya ada di sini: %1$s. Klik tautan ini %2$s atau yang ini %3$s untuk melihat tempatnya di peta.\n\nTerima kasih.</string>
 	<!-- Android share by Message/SMS button text (including SMS) -->
 	<string name="share_by_message">Bagikan menggunakan pesan</string>
@@ -586,7 +586,8 @@
 	<string name="p2p_to_here">Rute ke</string>
 	<string name="p2p_only_from_current">Navigasi tersedia hanya dari lokasi Anda saat ini.</string>
 	<string name="p2p_reroute_from_current">Apakah Anda ingin kami merencanakan sebuah rute dari lokasi Anda saat ini?</string>
-	<string name="whats_new_next_button">Berikut</string>
+	<!-- Edit open hours/set time and minutes dialog -->
+	<string name="next_button">Berikut</string>
 	<string name="editor_time_add">Tambah Jadwal</string>
 	<string name="editor_time_delete">Hapus Jadwal</string>
 	<!-- Text for allday switch. -->
@@ -1056,7 +1057,7 @@
 	<string name="place_description_title">Deskripsi Tempat</string>
 	<!-- this text will be shown in application notification preferences opposite checkbox which enable/disable downloader notifications. Devices on Android 8+ are affected. -->
 	<string name="notification_channel_downloader">Pengunduh peta</string>
-	<string name="share_bookmarks_email_body_link">Halo!\n\nBerikut tautan untuk mengunduh bookmark Anda: %s. Buka daftar melalui Organic Maps dan nikmati perjalanan Anda!\n\nDapatkan aplikasi: https://organicmaps.app/get?kmz</string>
+	<string name="share_bookmarks_email_body_link">Halo!\n\nBerikut tautan untuk mengunduh bookmark Anda: %s. Buka daftar melalui Organic Maps dan nikmati perjalanan Anda!\n\nDapatkan aplikasi: https://omaps.app/get?kmz</string>
 	<string name="warning_speedcams_title">Navigator akan memberi Anda peringatan tentang adanya kamera saat Anda melebihi batas kecepatan %d km/jam</string>
 	<string name="warning_speedcams_subtitle">Harap perhatikan aturan berkendara di negara tempat Anda bepergian.</string>
 	<string name="speedcams_notice_message">Auto - Peringatkan tentang kamera kecepatan saat terdapat risiko melebihi batas kecepatan\nSelalu - Selalu peringatkan tentang kamera kecepatan\nTidak pernah - Jangan pernah peringatkan tentang kamera kecepatan</string>
@@ -1199,8 +1200,16 @@
 	<string name="downloader_loading_ios">Mengunduh</string>
 	<string name="key_information_title">Informasi kunci</string>
 	<string name="enable_screen_sleep">Izinkan layar untuk tidur</string>
-	<!--  -->
+	<!-- Description in preferences -->
 	<string name="enable_screen_sleep_description">Jika diaktifkan, layar akan diizinkan untuk tidur setelah beberapa saat tidak aktif.</string>
+	<!-- Autoupdate dialog on start -->
+	<string name="whats_new_auto_update_title">Perbarui peta yang sudah Anda unduh</string>
+	<!-- Autoupdate dialog on start -->
+	<string name="whats_new_auto_update_message">Memperbarui peta membuat informasi tentang objek tetap terkini</string>
+	<!-- Autoupdate dialog on start -->
+	<string name="whats_new_auto_update_button_size">Pembaruan (%s)</string>
+	<!-- Autoupdate dialog on start -->
+	<string name="whats_new_auto_update_button_later">Perbarui secara manual nanti</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Stasiun kereta gantung</string>

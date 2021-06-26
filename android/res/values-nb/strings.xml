@@ -194,15 +194,15 @@
 	<string name="appStore_message">Håper du liker å bruke Organic Maps! Hvis du gjør det er det flott om du rangerer eller vurderer appen på App Store. Det tar deg mindre enn ett minutt, men kan virkelig hjelpe oss. Takk for støtten!</string>
 	<!-- No, thanks -->
 	<string name="no_thanks">Nei takk</string>
-	<!-- Share one specific bookmark using SMS, %1$@ contains om:// and %2$@ http://omaps.app link. @NOTE non-ascii symbols in the link will result in max 70 characters SMS instead of 140. -->
-	<string name="bookmark_share_sms">Hei, se merket mitt på Organic Maps! %1$s eller %2$s Har du ikke installert offline-kart? Last dem ned her: https://organicmaps.app/get</string>
-	<!-- Share my position using SMS, %1$@ contains om:// and %2$@ http://omaps.app link WITHOUT NAME. @NOTE non-ascii symbols in the link will result in max 70 characters SMS instead of 140. -->
-	<string name="my_position_share_sms">Hei, se posisjonen min på Organic Maps! %1$s eller %2$s Har du ikke offline-kart? Last dem ned her: https://organicmaps.app/get</string>
+	<!-- Share one specific bookmark using SMS, %1$@ contains om:// and %2$@ https://omaps.app link. @NOTE non-ascii symbols in the link will result in max 70 characters SMS instead of 140. -->
+	<string name="bookmark_share_sms">Hei, se merket mitt på Organic Maps! %1$s eller %2$s Har du ikke installert offline-kart? Last dem ned her: https://omaps.app/get</string>
+	<!-- Share my position using SMS, %1$@ contains om:// and %2$@ https://omaps.app link WITHOUT NAME. @NOTE non-ascii symbols in the link will result in max 70 characters SMS instead of 140. -->
+	<string name="my_position_share_sms">Hei, se posisjonen min på Organic Maps! %1$s eller %2$s Har du ikke offline-kart? Last dem ned her: https://omaps.app/get</string>
 	<!-- Subject for emailed bookmark -->
 	<string name="bookmark_share_email_subject">Hei, se merket mitt på Organic Maps-kartet</string>
 	<!-- Subject for emailed position -->
 	<string name="my_position_share_email_subject">Hei, se posisjonen min på Organic Maps-kartet!</string>
-	<!-- Share my position using EMail, %1$@ is om:// and %2$@ is http://omaps.app link WITHOUT NAME -->
+	<!-- Share my position using EMail, %1$@ is om:// and %2$@ is https://omaps.app link WITHOUT NAME -->
 	<string name="my_position_share_email">Hei,Jeg er her nå: %1$s. Klikk på denne koblingen %2$s eller denne %3$s for å se stedet på kartet.\n\nTakk.</string>
 	<!-- Android share by Message/SMS button text (including SMS) -->
 	<string name="share_by_message">Del med melding</string>
@@ -587,7 +587,8 @@
 	<string name="p2p_to_here">Rute til</string>
 	<string name="p2p_only_from_current">Navigering er kun tilgjengelig fra din nåværende beliggenhet.</string>
 	<string name="p2p_reroute_from_current">Vil du vi skal planlegge en rute fra din nåværende posisjon?</string>
-	<string name="whats_new_next_button">Neste</string>
+	<!-- Edit open hours/set time and minutes dialog -->
+	<string name="next_button">Neste</string>
 	<string name="editor_time_add">Legg til tidsrom</string>
 	<string name="editor_time_delete">Slett tidsrom</string>
 	<!-- Text for allday switch. -->
@@ -1008,7 +1009,7 @@
 	<string name="place_description_title">Plasser beskrivelse</string>
 	<!-- this text will be shown in application notification preferences opposite checkbox which enable/disable downloader notifications. Devices on Android 8+ are affected. -->
 	<string name="notification_channel_downloader">Nedlast kart</string>
-	<string name="share_bookmarks_email_body_link">Hei!\n\nHer er lenken der du kan laste ned bokmerkene dine: %s. Åpne listen via Organic Maps og nyt reisen!\n\nFå tak i app: https://organicmaps.app/get?kmz</string>
+	<string name="share_bookmarks_email_body_link">Hei!\n\nHer er lenken der du kan laste ned bokmerkene dine: %s. Åpne listen via Organic Maps og nyt reisen!\n\nFå tak i app: https://omaps.app/get?kmz</string>
 	<string name="warning_speedcams_title">Navigatøren vil advare deg om kameraer når du overskrider fartsgrensen på %d km/t</string>
 	<string name="warning_speedcams_subtitle">Vær oppmerksom på kjøreregler for landet du reiser til.</string>
 	<string name="speedcams_notice_message">Auto - Advarsel om fartskamera hvis det er fare for å overskride fartsgrensen\nAlltid - Advar alltid om farskameraer\nAldri - Advar aldri om fartskameraer</string>
@@ -1151,8 +1152,16 @@
 	<string name="downloader_loading_ios">Nedlasting</string>
 	<string name="key_information_title">Nøkkelinformasjon</string>
 	<string name="enable_screen_sleep">La skjermen sove</string>
-	<!--  -->
+	<!-- Description in preferences -->
 	<string name="enable_screen_sleep_description">Når den er aktivert, får skjermen lov til å sove etter en periode med inaktivitet.</string>
+	<!-- Autoupdate dialog on start -->
+	<string name="whats_new_auto_update_title">Oppdater dine nedlastede kart</string>
+	<!-- Autoupdate dialog on start -->
+	<string name="whats_new_auto_update_message">Ved å oppdatere kart holder du også informasjonen om ulike elementer oppdatert</string>
+	<!-- Autoupdate dialog on start -->
+	<string name="whats_new_auto_update_button_size">Oppdater (%s)</string>
+	<!-- Autoupdate dialog on start -->
+	<string name="whats_new_auto_update_button_later">Oppdater manuelt senere</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Kabelbanestasjon</string>

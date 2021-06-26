@@ -2,7 +2,5 @@
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android"
             android:opacity="opaque">
   <item android:drawable="?attr/colorPrimary"/>
-  <item>
-    <bitmap android:src="@drawable/ic_splash" android:gravity="center"/>
-  </item>
+  <item android:drawable="@drawable/ic_splash" android:gravity="center"/>
 </layer-list>

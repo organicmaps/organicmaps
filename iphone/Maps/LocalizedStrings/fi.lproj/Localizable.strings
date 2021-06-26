@@ -278,7 +278,7 @@
 /* Email Subject when sharing bookmarks category */
 "share_bookmarks_email_subject" = "Jaetut Organic Maps-kirjanmerkit";
 
-"share_bookmarks_email_body" = "Hello!\n\nAttached are my bookmarks from Organic Maps offline maps. Please open them if you have Organic Maps installed. Or, if you don't, download the app for your iOS or Android device by following this link: https://organicmaps.app/get?kmz\n\nEnjoy traveling with Organic Maps!";
+"share_bookmarks_email_body" = "Hello!\n\nAttached are my bookmarks from Organic Maps app. Please open them if you have Organic Maps installed. Or, if you don't, download the app for your iOS or Android device by following this link: https://omaps.app/get?kmz\n\nEnjoy traveling with Organic Maps!";
 
 /* message title of loading file */
 "load_kmz_title" = "Ladataan kirjanmerkkejä";
@@ -313,11 +313,11 @@
 /* No, thanks */
 "no_thanks" = "Ei kiitos";
 
-/* Share one specific bookmark using SMS, %1$@ contains om:// and %2$@ http://omaps.app link. @NOTE non-ascii symbols in the link will result in max 70 characters SMS instead of 140. */
-"bookmark_share_sms" = "Hei, katso merkintäni Organic Maps-sovelluksessa! %1$@ tai %2$@ Eikö sinulla ole offline-karttoja? Lataa ne täältä: https://organicmaps.app/get";
+/* Share one specific bookmark using SMS, %1$@ contains om:// and %2$@ https://omaps.app link. @NOTE non-ascii symbols in the link will result in max 70 characters SMS instead of 140. */
+"bookmark_share_sms" = "Hei, katso merkintäni Organic Maps-sovelluksessa! %1$@ tai %2$@ Eikö sinulla ole offline-karttoja? Lataa ne täältä: https://omaps.app/get";
 
-/* Share my position using SMS, %1$@ contains om:// and %2$@ http://omaps.app link WITHOUT NAME. @NOTE non-ascii symbols in the link will result in max 70 characters SMS instead of 140. */
-"my_position_share_sms" = "Hei, katso sijaintini Organic Maps-sovelluksessa! %1$@ tai %2$@ Eikö sinulla ole vielä offline-karttoja? Lataa ne täältä: https://organicmaps.app/get";
+/* Share my position using SMS, %1$@ contains om:// and %2$@ https://omaps.app link WITHOUT NAME. @NOTE non-ascii symbols in the link will result in max 70 characters SMS instead of 140. */
+"my_position_share_sms" = "Hei, katso sijaintini Organic Maps-sovelluksessa! %1$@ tai %2$@ Eikö sinulla ole vielä offline-karttoja? Lataa ne täältä: https://omaps.app/get";
 
 /* Subject for emailed bookmark */
 "bookmark_share_email_subject" = "Hei, katso merkintäni Organic Maps-kartalla";
@@ -325,7 +325,7 @@
 /* Subject for emailed position */
 "my_position_share_email_subject" = "Hei, kurkkaa tämänhetkinen sijaintini Organic Maps:n kartalla!";
 
-/* Share my position using EMail, %1$@ is om:// and %2$@ is http://omaps.app link WITHOUT NAME */
+/* Share my position using EMail, %1$@ is om:// and %2$@ is https://omaps.app link WITHOUT NAME */
 "my_position_share_email" = "Hei,n\nOlen nyt täällä: %1$@. Klikkaa linkkiä %2$@ tai %3$@ nähdäksesi paikan kartalla. Kiitos.";
 
 /* Android share by Message/SMS button text (including SMS) */
@@ -990,7 +990,8 @@
 
 "p2p_reroute_from_current" = "Haluatko valita vaihtoehtoisen reitin?";
 
-"whats_new_next_button" = "Seuraava";
+/* Edit open hours/set time and minutes dialog */
+"next_button" = "Seuraava";
 
 "editor_time_add" = "Lisää aikataulu";
 
@@ -1892,7 +1893,7 @@
 /* this text will be shown in application notification preferences opposite checkbox which enable/disable downloader notifications. Devices on Android 8+ are affected. */
 "notification_channel_downloader" = "Karttojen lataaminen";
 
-"share_bookmarks_email_body_link" = "Hei!\n\nMerkkinne voi ladata linkistä: %s. Avaa luettelo Organic Maps: llä ja nauti matkasta!\n\nLataa sovellus: https://organicmaps.app/get?kmz";
+"share_bookmarks_email_body_link" = "Hei!\n\nMerkkinne voi ladata linkistä: %s. Avaa luettelo Organic Maps: llä ja nauti matkasta!\n\nLataa sovellus: https://omaps.app/get?kmz";
 
 "warning_speedcams_title" = "Navigaattori ilmoittaa sinulle kameroista, kun nopeusraja ylittyy %d km/t";
 
@@ -2176,8 +2177,20 @@
 
 "enable_screen_sleep" = "Anna näytön nukkua";
 
-/*  */
+/* Description in preferences */
 "enable_screen_sleep_description" = "Kun tämä asetus on käytössä, näytön annetaan nukkua käyttämättömyyden jälkeen.";
+
+/* Autoupdate dialog on start */
+"whats_new_auto_update_title" = "Päivitä ladatut kartat";
+
+/* Autoupdate dialog on start */
+"whats_new_auto_update_message" = "Karttojen päivittäminen pitää kohteita koskevat tiedot ajan tasalla";
+
+/* Autoupdate dialog on start */
+"whats_new_auto_update_button_size" = "Päivitä (%s)";
+
+/* Autoupdate dialog on start */
+"whats_new_auto_update_button_later" = "Päivitä manuaalisesti myöhemmin";
 
 
 /**********  Partners  **********/

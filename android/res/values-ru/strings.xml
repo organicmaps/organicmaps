@@ -179,7 +179,7 @@
 	<string name="share_by_email">Послать по email</string>
 	<!-- Email Subject when sharing bookmarks category -->
 	<string name="share_bookmarks_email_subject">С вами поделились метками Organic Maps</string>
-	<string name="share_bookmarks_email_body">Здравствуйте!\n\nВ прикрепленном файле мои метки из офлайновых карт Organic Maps. Для того чтобы открыть этот файл, вам потребуется приложение Organic Maps, которое можно установить по ссылке: https://organicmaps.app/get?kmz\n\nСпасибо!</string>
+	<string name="share_bookmarks_email_body">Здравствуйте!\n\nВ прикрепленном файле мои метки из офлайновых карт Organic Maps. Для того чтобы открыть этот файл, вам потребуется приложение Organic Maps, которое можно установить по ссылке: https://omaps.app/get?kmz\n\nСпасибо!</string>
 	<!-- message title of loading file -->
 	<string name="load_kmz_title">Загрузка меток</string>
 	<!-- Kmz file successful loading -->
@@ -202,15 +202,15 @@
 	<string name="appStore_message">Надеемся, вам нравится пользоваться Organic Maps! Если так, то оставьте, пожалуйста, отзыв в магазине приложений. Это занимает меньше минуты, но может нам реально помочь. Спасибо вам за поддержку!</string>
 	<!-- No, thanks -->
 	<string name="no_thanks">Нет, спасибо</string>
-	<!-- Share one specific bookmark using SMS, %1$@ contains om:// and %2$@ http://omaps.app link. @NOTE non-ascii symbols in the link will result in max 70 characters SMS instead of 140. -->
+	<!-- Share one specific bookmark using SMS, %1$@ contains om:// and %2$@ https://omaps.app link. @NOTE non-ascii symbols in the link will result in max 70 characters SMS instead of 140. -->
 	<string name="bookmark_share_sms">Моя метка на карте. Жми %1$s или %2$s</string>
-	<!-- Share my position using SMS, %1$@ contains om:// and %2$@ http://omaps.app link WITHOUT NAME. @NOTE non-ascii symbols in the link will result in max 70 characters SMS instead of 140. -->
+	<!-- Share my position using SMS, %1$@ contains om:// and %2$@ https://omaps.app link WITHOUT NAME. @NOTE non-ascii symbols in the link will result in max 70 characters SMS instead of 140. -->
 	<string name="my_position_share_sms">Смотри где я сейчас. Жми %1$s или %2$s</string>
 	<!-- Subject for emailed bookmark -->
 	<string name="bookmark_share_email_subject">Смотри мою метку на карте Organic Maps</string>
 	<!-- Subject for emailed position -->
 	<string name="my_position_share_email_subject">Посмотри на карте Organic Maps, где я сейчас нахожусь</string>
-	<!-- Share my position using EMail, %1$@ is om:// and %2$@ is http://omaps.app link WITHOUT NAME -->
+	<!-- Share my position using EMail, %1$@ is om:// and %2$@ is https://omaps.app link WITHOUT NAME -->
 	<string name="my_position_share_email">Привет!\n\nЯ сейчас здесь: %1$s. Чтобы увидеть это место на карте Organic Maps, открой эту ссылку %2$s или эту %3$s\n\nСпасибо.</string>
 	<!-- Android share by Message/SMS button text (including SMS) -->
 	<string name="share_by_message">Отправить сообщением</string>
@@ -607,7 +607,8 @@
 	<string name="p2p_to_here">Сюда</string>
 	<string name="p2p_only_from_current">Навигация возможна только из текущего местоположения.</string>
 	<string name="p2p_reroute_from_current">Хотите перестроить маршрут от вашего местоположения?</string>
-	<string name="whats_new_next_button">Далее</string>
+	<!-- Edit open hours/set time and minutes dialog -->
+	<string name="next_button">Далее</string>
 	<string name="editor_time_add">Добавить расписание</string>
 	<string name="editor_time_delete">Удалить расписание</string>
 	<!-- Text for allday switch. -->
@@ -1109,7 +1110,7 @@
 	<string name="place_description_title">Описание места</string>
 	<!-- this text will be shown in application notification preferences opposite checkbox which enable/disable downloader notifications. Devices on Android 8+ are affected. -->
 	<string name="notification_channel_downloader">Загрузка карт</string>
-	<string name="share_bookmarks_email_body_link">Здравствуйте!\n\nМетки можно скачать по ссылке: %s. Открывайте список с помощью Organic Maps и наслаждайтесь поездкой!\n\nСкачать приложение: https://organicmaps.app/get?kmz</string>
+	<string name="share_bookmarks_email_body_link">Здравствуйте!\n\nМетки можно скачать по ссылке: %s. Открывайте список с помощью Organic Maps и наслаждайтесь поездкой!\n\nСкачать приложение: https://omaps.app/get?kmz</string>
 	<string name="warning_speedcams_title">Навигатор оповестит вас о камерах при превышении скоростного лимита на %d км/ч</string>
 	<string name="warning_speedcams_subtitle">Не забудьте ознакомиться с правилами дорожного движения в стране путешествия.</string>
 	<string name="speedcams_notice_message">Авто - Предупреждать о камерах скорости, если есть риск превышения скоростного лимита\nВсегда - Всегда предупреждать о камерах\nНикогда - Никогда не предупреждать о камерах</string>
@@ -1256,8 +1257,16 @@
 	<string name="connection_failure">Ошибка подключения</string>
 	<string name="disconnect_usb_cable_title">Отсоедините USB кабель</string>
 	<string name="enable_screen_sleep">Разрешить экрану спать</string>
-	<!--  -->
+	<!-- Description in preferences -->
 	<string name="enable_screen_sleep_description">При включении экран может переходить в спящий режим после периода бездействия.</string>
+	<!-- Autoupdate dialog on start -->
+	<string name="whats_new_auto_update_title">Обновите ваши загруженные карты</string>
+	<!-- Autoupdate dialog on start -->
+	<string name="whats_new_auto_update_message">Обновление карт поддерживает информацию об объектах в актуальном состоянии</string>
+	<!-- Autoupdate dialog on start -->
+	<string name="whats_new_auto_update_button_size">Обновить (%s)</string>
+	<!-- Autoupdate dialog on start -->
+	<string name="whats_new_auto_update_button_later">Обновить вручную позже</string>
 
 	<!-- SECTION:  Partners  -->
 	<string name="sponsored_partner1_action">Аутлеты</string>

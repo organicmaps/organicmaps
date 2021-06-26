@@ -981,7 +981,8 @@ public class PlacePageView extends NestedScrollViewClickFixed
   {
     if (mMapObject == null)
     {
-      LOGGER.e(TAG, "A location cannot be refreshed, mMapObject is null!");
+      // TODO: This method is constantly called even when nothing is selected on the map.
+      //LOGGER.e(TAG, "A location cannot be refreshed, mMapObject is null!");
       return;
     }
 

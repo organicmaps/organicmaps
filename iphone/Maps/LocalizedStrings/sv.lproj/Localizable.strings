@@ -278,7 +278,7 @@
 /* Email Subject when sharing bookmarks category */
 "share_bookmarks_email_subject" = "Organic Maps bokmärken har delats med dig";
 
-"share_bookmarks_email_body" = "Hello!\n\nAttached are my bookmarks from Organic Maps offline maps. Please open them if you have Organic Maps installed. Or, if you don't, download the app for your iOS or Android device by following this link: https://organicmaps.app/get?kmz\n\nEnjoy traveling with Organic Maps!";
+"share_bookmarks_email_body" = "Hello!\n\nAttached are my bookmarks from Organic Maps app. Please open them if you have Organic Maps installed. Or, if you don't, download the app for your iOS or Android device by following this link: https://omaps.app/get?kmz\n\nEnjoy traveling with Organic Maps!";
 
 /* message title of loading file */
 "load_kmz_title" = "Läser in bokmärken";
@@ -313,11 +313,11 @@
 /* No, thanks */
 "no_thanks" = "Nej, tack";
 
-/* Share one specific bookmark using SMS, %1$@ contains om:// and %2$@ http://omaps.app link. @NOTE non-ascii symbols in the link will result in max 70 characters SMS instead of 140. */
-"bookmark_share_sms" = "Hej, kolla på min pin på Organic Maps! %1$@ eller %2$@ Har du inte offline-kartor installerat? Ladda ner här: https://organicmaps.app/get";
+/* Share one specific bookmark using SMS, %1$@ contains om:// and %2$@ https://omaps.app link. @NOTE non-ascii symbols in the link will result in max 70 characters SMS instead of 140. */
+"bookmark_share_sms" = "Hej, kolla på min pin på Organic Maps! %1$@ eller %2$@ Har du inte offline-kartor installerat? Ladda ner här: https://omaps.app/get";
 
-/* Share my position using SMS, %1$@ contains om:// and %2$@ http://omaps.app link WITHOUT NAME. @NOTE non-ascii symbols in the link will result in max 70 characters SMS instead of 140. */
-"my_position_share_sms" = "Hej, kolla på min nuvarande position på Organic Maps! %1$@ eller %2$@ Har du inte offline-kartor? Ladda ner här: https://organicmaps.app/get";
+/* Share my position using SMS, %1$@ contains om:// and %2$@ https://omaps.app link WITHOUT NAME. @NOTE non-ascii symbols in the link will result in max 70 characters SMS instead of 140. */
+"my_position_share_sms" = "Hej, kolla på min nuvarande position på Organic Maps! %1$@ eller %2$@ Har du inte offline-kartor? Ladda ner här: https://omaps.app/get";
 
 /* Subject for emailed bookmark */
 "bookmark_share_email_subject" = "Hej, kolla på min pin på Organic Maps kartan";
@@ -325,7 +325,7 @@
 /* Subject for emailed position */
 "my_position_share_email_subject" = "Hej, kolla på min nuvarande position på Organic Maps kartan!";
 
-/* Share my position using EMail, %1$@ is om:// and %2$@ is http://omaps.app link WITHOUT NAME */
+/* Share my position using EMail, %1$@ is om:// and %2$@ is https://omaps.app link WITHOUT NAME */
 "my_position_share_email" = "Hej,\n\nJag är här nu: %1$@. Klicka på denna länk %2$@ eller denna %3$@ för att se platsen på kartan.\n\nTack.";
 
 /* Android share by Message/SMS button text (including SMS) */
@@ -990,7 +990,8 @@
 
 "p2p_reroute_from_current" = "Vill du att vi planerar en färdväg från din nuvarande plats?";
 
-"whats_new_next_button" = "Nästa";
+/* Edit open hours/set time and minutes dialog */
+"next_button" = "Nästa";
 
 "editor_time_add" = "Lägg till schema";
 
@@ -1892,7 +1893,7 @@
 /* this text will be shown in application notification preferences opposite checkbox which enable/disable downloader notifications. Devices on Android 8+ are affected. */
 "notification_channel_downloader" = "Kartladdning";
 
-"share_bookmarks_email_body_link" = "Hej!\n\nDina etiketter kan laddas ner från länken: %s. Öppna listan med hjälp av Organic Maps och njut av resan!\n\nLadda ner appen: https://organicmaps.app/get?kmz";
+"share_bookmarks_email_body_link" = "Hej!\n\nDina etiketter kan laddas ner från länken: %s. Öppna listan med hjälp av Organic Maps och njut av resan!\n\nLadda ner appen: https://omaps.app/get?kmz";
 
 "warning_speedcams_title" = "Navigatören ska meddela dig om kameror när hastighetsgränsen överskrids med %d km/h";
 
@@ -2176,8 +2177,20 @@
 
 "enable_screen_sleep" = "Låt skärmen sova";
 
-/*  */
+/* Description in preferences */
 "enable_screen_sleep_description" = "När den är aktiverad får skärmen sova efter en period av inaktivitet.";
+
+/* Autoupdate dialog on start */
+"whats_new_auto_update_title" = "Uppdatera dina nedladdade kartor";
+
+/* Autoupdate dialog on start */
+"whats_new_auto_update_message" = "Uppdatering av kartor håller information om objekt uppdaterade";
+
+/* Autoupdate dialog on start */
+"whats_new_auto_update_button_size" = "Uppdatera (%s)";
+
+/* Autoupdate dialog on start */
+"whats_new_auto_update_button_later" = "Uppdatera senare manuellt";
 
 
 /**********  Partners  **********/

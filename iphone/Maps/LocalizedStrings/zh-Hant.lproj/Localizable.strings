@@ -278,7 +278,7 @@
 /* Email Subject when sharing bookmarks category */
 "share_bookmarks_email_subject" = "已分享 Organic Maps 書籤";
 
-"share_bookmarks_email_body" = "Hello!\n\nAttached are my bookmarks from Organic Maps offline maps. Please open them if you have Organic Maps installed. Or, if you don't, download the app for your iOS or Android device by following this link: https://organicmaps.app/get?kmz\n\nEnjoy traveling with Organic Maps!";
+"share_bookmarks_email_body" = "Hello!\n\nAttached are my bookmarks from Organic Maps app. Please open them if you have Organic Maps installed. Or, if you don't, download the app for your iOS or Android device by following this link: https://omaps.app/get?kmz\n\nEnjoy traveling with Organic Maps!";
 
 /* message title of loading file */
 "load_kmz_title" = "正在載入書籤…";
@@ -313,11 +313,11 @@
 /* No, thanks */
 "no_thanks" = "不，謝了";
 
-/* Share one specific bookmark using SMS, %1$@ contains om:// and %2$@ http://omaps.app link. @NOTE non-ascii symbols in the link will result in max 70 characters SMS instead of 140. */
-"bookmark_share_sms" = "嘿，看看我在 Organic Maps 標記的圖釘吧！ %1$@ 或%2$@ 沒安裝離線地圖？在此下載: https://organicmaps.app/get";
+/* Share one specific bookmark using SMS, %1$@ contains om:// and %2$@ https://omaps.app link. @NOTE non-ascii symbols in the link will result in max 70 characters SMS instead of 140. */
+"bookmark_share_sms" = "嘿，看看我在 Organic Maps 標記的圖釘吧！ %1$@ 或%2$@ 沒安裝離線地圖？在此下載: https://omaps.app/get";
 
-/* Share my position using SMS, %1$@ contains om:// and %2$@ http://omaps.app link WITHOUT NAME. @NOTE non-ascii symbols in the link will result in max 70 characters SMS instead of 140. */
-"my_position_share_sms" = "嘿，在 Organic Maps 查看我的目前位置吧！ %1$@ 或%2$@ 沒安裝離線地圖？在此下載: https://organicmaps.app/get";
+/* Share my position using SMS, %1$@ contains om:// and %2$@ https://omaps.app link WITHOUT NAME. @NOTE non-ascii symbols in the link will result in max 70 characters SMS instead of 140. */
+"my_position_share_sms" = "嘿，在 Organic Maps 查看我的目前位置吧！ %1$@ 或%2$@ 沒安裝離線地圖？在此下載: https://omaps.app/get";
 
 /* Subject for emailed bookmark */
 "bookmark_share_email_subject" = "嘿，看看我在 Organic Maps 地圖上的圖釘！";
@@ -325,7 +325,7 @@
 /* Subject for emailed position */
 "my_position_share_email_subject" = "嗨，到 Organic Maps 地圖查看我的目前位置！";
 
-/* Share my position using EMail, %1$@ is om:// and %2$@ is http://omaps.app link WITHOUT NAME */
+/* Share my position using EMail, %1$@ is om:// and %2$@ is https://omaps.app link WITHOUT NAME */
 "my_position_share_email" = "嗨，\n\n我現在在這：%1$@。點擊此連結 %2$@ 或此連結 %3$@ 來查看在地圖上的位置。\n\n謝謝。";
 
 /* Android share by Message/SMS button text (including SMS) */
@@ -990,7 +990,8 @@
 
 "p2p_reroute_from_current" = "你是否想要規劃目前位置的路線？";
 
-"whats_new_next_button" = "下一頁";
+/* Edit open hours/set time and minutes dialog */
+"next_button" = "下一頁";
 
 "editor_time_add" = "新增排程";
 
@@ -1892,7 +1893,7 @@
 /* this text will be shown in application notification preferences opposite checkbox which enable/disable downloader notifications. Devices on Android 8+ are affected. */
 "notification_channel_downloader" = "加載地圖";
 
-"share_bookmarks_email_body_link" = "您好！\n\n您的標籤可以從鏈接下載：%s.使用Organic Maps打開列表並享受旅行!\n\n下載應用程序：https://organicmaps.app/get?kmz";
+"share_bookmarks_email_body_link" = "您好！\n\n您的標籤可以從鏈接下載：%s.使用Organic Maps打開列表並享受旅行!\n\n下載應用程序：https://omaps.app/get?kmz";
 
 "warning_speedcams_title" = "當速度限制超過%d km / h時，導航會通知您的攝像機";
 
@@ -2176,8 +2177,20 @@
 
 "enable_screen_sleep" = "允许屏幕进入休眠状态";
 
-/*  */
+/* Description in preferences */
 "enable_screen_sleep_description" = "启用后，屏幕将在一段时间不活动后进入休眠状态。";
+
+/* Autoupdate dialog on start */
+"whats_new_auto_update_title" = "更新您下載的地圖";
+
+/* Autoupdate dialog on start */
+"whats_new_auto_update_message" = "更新地圖以讓物件資訊保持在最新狀態";
+
+/* Autoupdate dialog on start */
+"whats_new_auto_update_button_size" = "更新 (%s)";
+
+/* Autoupdate dialog on start */
+"whats_new_auto_update_button_later" = "稍後手動更新";
 
 
 /**********  Partners  **********/

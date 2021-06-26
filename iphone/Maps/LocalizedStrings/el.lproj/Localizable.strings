@@ -278,7 +278,7 @@
 /* Email Subject when sharing bookmarks category */
 "share_bookmarks_email_subject" = "Κοινοποιήθηκαν αγαπημένα Organic Maps με σας";
 
-"share_bookmarks_email_body" = "Hello!\n\nAttached are my bookmarks from Organic Maps offline maps. Please open them if you have Organic Maps installed. Or, if you don't, download the app for your iOS or Android device by following this link: https://organicmaps.app/get?kmz\n\nEnjoy traveling with Organic Maps!";
+"share_bookmarks_email_body" = "Hello!\n\nAttached are my bookmarks from Organic Maps app. Please open them if you have Organic Maps installed. Or, if you don't, download the app for your iOS or Android device by following this link: https://omaps.app/get?kmz\n\nEnjoy traveling with Organic Maps!";
 
 /* message title of loading file */
 "load_kmz_title" = "Φόρτωση αγαπημένων";
@@ -313,11 +313,11 @@
 /* No, thanks */
 "no_thanks" = "No, thanks";
 
-/* Share one specific bookmark using SMS, %1$@ contains om:// and %2$@ http://omaps.app link. @NOTE non-ascii symbols in the link will result in max 70 characters SMS instead of 140. */
-"bookmark_share_sms" = "Έλεγξε τις τοποθεσίες που έχω καρφιτσώσει στο Organic Maps! %1$@ ή %2$@ εάν δεν έχεις εγκαταστήσει χάρτες εκτός σύνδεσης, μπορείς να τους κατεβάσεις εδώ: https://organicmaps.app/get";
+/* Share one specific bookmark using SMS, %1$@ contains om:// and %2$@ https://omaps.app link. @NOTE non-ascii symbols in the link will result in max 70 characters SMS instead of 140. */
+"bookmark_share_sms" = "Έλεγξε τις τοποθεσίες που έχω καρφιτσώσει στο Organic Maps! %1$@ ή %2$@ εάν δεν έχεις εγκαταστήσει χάρτες εκτός σύνδεσης, μπορείς να τους κατεβάσεις εδώ: https://omaps.app/get";
 
-/* Share my position using SMS, %1$@ contains om:// and %2$@ http://omaps.app link WITHOUT NAME. @NOTE non-ascii symbols in the link will result in max 70 characters SMS instead of 140. */
-"my_position_share_sms" = "Έλεγξε την τρέχουσα τοποθεσία μου στο Organic Maps! %1$@ ή %2$@ στην περίπτωση που δεν έχεις εγκαταστήσει χάρτες εκτός σύνδεσης, μπορείς να τους κατεβάσεις εδώ: https://organicmaps.app/get";
+/* Share my position using SMS, %1$@ contains om:// and %2$@ https://omaps.app link WITHOUT NAME. @NOTE non-ascii symbols in the link will result in max 70 characters SMS instead of 140. */
+"my_position_share_sms" = "Έλεγξε την τρέχουσα τοποθεσία μου στο Organic Maps! %1$@ ή %2$@ στην περίπτωση που δεν έχεις εγκαταστήσει χάρτες εκτός σύνδεσης, μπορείς να τους κατεβάσεις εδώ: https://omaps.app/get";
 
 /* Subject for emailed bookmark */
 "bookmark_share_email_subject" = "Έλεγξε τις τοποθεσίες που έχω καρφιτσώσει στο Organic Maps!";
@@ -325,7 +325,7 @@
 /* Subject for emailed position */
 "my_position_share_email_subject" = "Έλεγξε την τρέχουσα τοποθεσία μου στο χάρτη Organic Maps!";
 
-/* Share my position using EMail, %1$@ is om:// and %2$@ is http://omaps.app link WITHOUT NAME */
+/* Share my position using EMail, %1$@ is om:// and %2$@ is https://omaps.app link WITHOUT NAME */
 "my_position_share_email" = "Γεια,\n\nείμαι εδώ τώρα: %1$@. Κάνε κλικ σε αυτό το σύνδεσμο %2$@ ή σε αυτόν %3$@ για να δεις την τοποθεσία στο χάρτη.\n\nΕυχαριστώ.";
 
 /* Android share by Message/SMS button text (including SMS) */
@@ -990,7 +990,8 @@
 
 "p2p_reroute_from_current" = "Θέλετε να σχεδιάσουμε μια διαδρομή από την τρέχουσα θέση σας;";
 
-"whats_new_next_button" = "Επόμενη";
+/* Edit open hours/set time and minutes dialog */
+"next_button" = "Επόμενη";
 
 "editor_time_add" = "Προσθέσετε χρονοδιάγραμμα";
 
@@ -1892,7 +1893,7 @@
 /* this text will be shown in application notification preferences opposite checkbox which enable/disable downloader notifications. Devices on Android 8+ are affected. */
 "notification_channel_downloader" = "Κατέβασμα χαρτών";
 
-"share_bookmarks_email_body_link" = "Γεια!\n\nΕδώ είναι ο σύνδεσμος που μπορείς να κατεβάσεις τους σελιδοδείκτες σου: %s. Ανοίξτε τη λίστα μέσω Organic Maps και απολαύστε το ταξίδι σας!\n\nΚατεβάστε την εφαρμογή: https://organicmaps.app/get?kmz";
+"share_bookmarks_email_body_link" = "Γεια!\n\nΕδώ είναι ο σύνδεσμος που μπορείς να κατεβάσεις τους σελιδοδείκτες σου: %s. Ανοίξτε τη λίστα μέσω Organic Maps και απολαύστε το ταξίδι σας!\n\nΚατεβάστε την εφαρμογή: https://omaps.app/get?kmz";
 
 "warning_speedcams_title" = "Ο πλοηγός θα σας ειδοποιεί για κάμερες όταν υπερβαίνετε το όριο ταχύτητας των %d km/h";
 
@@ -2176,8 +2177,20 @@
 
 "enable_screen_sleep" = "Αφήστε την οθόνη να κοιμηθεί";
 
-/*  */
+/* Description in preferences */
 "enable_screen_sleep_description" = "Όταν είναι ενεργοποιημένη, η οθόνη θα αφεθεί να κοιμηθεί μετά από περίοδο αδράνειας.";
+
+/* Autoupdate dialog on start */
+"whats_new_auto_update_title" = "Θα πρέπει να ενημερώστε τους χάρτες που έχετε κατεβάσει";
+
+/* Autoupdate dialog on start */
+"whats_new_auto_update_message" = "Η ενημέρωση των χαρτών διατηρεί τις πληροφορίες των στοιχείων επικαιροποιημένες";
+
+/* Autoupdate dialog on start */
+"whats_new_auto_update_button_size" = "Ενημέρωση (%s)";
+
+/* Autoupdate dialog on start */
+"whats_new_auto_update_button_later" = "Χειροκίνητη ενημέρωση αργότερα";
 
 
 /**********  Partners  **********/

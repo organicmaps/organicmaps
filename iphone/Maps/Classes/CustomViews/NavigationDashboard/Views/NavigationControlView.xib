@@ -84,7 +84,7 @@
                                     </userDefinedRuntimeAttributes>
                                 </label>
                                 <pageControl opaque="NO" contentMode="scaleToFill" verticalCompressionResistancePriority="100" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="2" translatesAutoresizingMaskIntoConstraints="NO" id="ppd-rW-dYo">
-                                    <rect key="frame" x="12.5" y="4" width="103.5" height="13"/>
+                                    <rect key="frame" x="13" y="4" width="102.5" height="13"/>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="13" id="BmO-Rd-DKp"/>
@@ -230,7 +230,7 @@
                     <rect key="frame" x="0.0" y="52" width="320" height="64"/>
                     <subviews>
                         <stackView opaque="NO" contentMode="right" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="udk-ZC-Gz0">
-                            <rect key="frame" x="9" y="0.0" width="187" height="64"/>
+                            <rect key="frame" x="103" y="0.0" width="93" height="64"/>
                             <subviews>
                                 <button opaque="NO" contentMode="center" horizontalHuggingPriority="249" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Bfb-5v-iWA" customClass="MWMButton">
                                     <rect key="frame" x="0.0" y="0.0" width="57" height="64"/>
@@ -243,19 +243,8 @@
                                         <action selector="ttsButtonAction" destination="-1" eventType="touchUpInside" id="2U8-vo-LOQ"/>
                                     </connections>
                                 </button>
-                                <button opaque="NO" contentMode="center" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eaa-f0-INU" userLabel="Traffic" customClass="MWMButton">
-                                    <rect key="frame" x="65" y="0.0" width="57" height="64"/>
-                                    <state key="normal" image="ic_setting_traffic_on"/>
-                                    <state key="selected" image="ic_setting_traffic_off"/>
-                                    <userDefinedRuntimeAttributes>
-                                        <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="MWMBlack"/>
-                                    </userDefinedRuntimeAttributes>
-                                    <connections>
-                                        <action selector="trafficButtonAction" destination="-1" eventType="touchUpInside" id="ZI3-1D-OeH"/>
-                                    </connections>
-                                </button>
                                 <button opaque="NO" contentMode="center" horizontalHuggingPriority="249" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="skM-Xx-3En" userLabel="Settings" customClass="MWMButton">
-                                    <rect key="frame" x="130" y="0.0" width="57" height="64"/>
+                                    <rect key="frame" x="65" y="0.0" width="28" height="64"/>
                                     <state key="normal" image="ic_menu_settings"/>
                                     <userDefinedRuntimeAttributes>
                                         <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="MWMBlack"/>
@@ -266,9 +255,7 @@
                                 </button>
                             </subviews>
                             <constraints>
-                                <constraint firstItem="eaa-f0-INU" firstAttribute="width" secondItem="Bfb-5v-iWA" secondAttribute="width" id="LRL-2t-ise"/>
                                 <constraint firstItem="Bfb-5v-iWA" firstAttribute="width" secondItem="udk-ZC-Gz0" secondAttribute="height" multiplier="57:64" id="Pvi-bX-9ME"/>
-                                <constraint firstItem="eaa-f0-INU" firstAttribute="width" secondItem="skM-Xx-3En" secondAttribute="width" id="wSy-Ay-Dg5"/>
                             </constraints>
                         </stackView>
                         <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" horizontalHuggingPriority="1000" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mtt-q0-SUx" customClass="MWMStopButton">
@@ -336,7 +323,6 @@
                 <outlet property="speedWithLegendLabel" destination="LY7-dx-CtV" id="tK9-Em-ztB"/>
                 <outlet property="timeLabel" destination="wEc-R2-1Tv" id="cfd-vS-d1G"/>
                 <outlet property="timePageControl" destination="ppd-rW-dYo" id="U1U-6U-JjR"/>
-                <outlet property="trafficButton" destination="eaa-f0-INU" id="nyl-Nf-A4Z"/>
                 <outlet property="ttsButton" destination="Bfb-5v-iWA" id="GMb-ft-G6X"/>
             </connections>
             <point key="canvasLocation" x="33.600000000000001" y="53.073463268365821"/>
@@ -345,8 +331,6 @@
     <resources>
         <image name="ic_menu" width="48" height="48"/>
         <image name="ic_menu_settings" width="28" height="28"/>
-        <image name="ic_setting_traffic_off" width="24" height="24"/>
-        <image name="ic_setting_traffic_on" width="24" height="24"/>
         <image name="ic_voice_off" width="28" height="28"/>
         <image name="ic_voice_on" width="28" height="28"/>
     </resources>

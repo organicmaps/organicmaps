@@ -194,15 +194,15 @@
 	<string name="appStore_message">Organic Mapsの使い心地はいかがでしょうか。もしよろしければ、App Storeでレビューや評価をお知らせください。皆様からいただく一言が開発の励みになります。ご支援をよろしくお願いいたします！</string>
 	<!-- No, thanks -->
 	<string name="no_thanks">いいえ</string>
-	<!-- Share one specific bookmark using SMS, %1$@ contains om:// and %2$@ http://omaps.app link. @NOTE non-ascii symbols in the link will result in max 70 characters SMS instead of 140. -->
+	<!-- Share one specific bookmark using SMS, %1$@ contains om:// and %2$@ https://omaps.app link. @NOTE non-ascii symbols in the link will result in max 70 characters SMS instead of 140. -->
 	<string name="bookmark_share_sms">私のピン情報はこの位置です。リンク: %1$s, %2$s</string>
-	<!-- Share my position using SMS, %1$@ contains om:// and %2$@ http://omaps.app link WITHOUT NAME. @NOTE non-ascii symbols in the link will result in max 70 characters SMS instead of 140. -->
+	<!-- Share my position using SMS, %1$@ contains om:// and %2$@ https://omaps.app link WITHOUT NAME. @NOTE non-ascii symbols in the link will result in max 70 characters SMS instead of 140. -->
 	<string name="my_position_share_sms">私は今ここにいます。リンク: %1$s, %2$s</string>
 	<!-- Subject for emailed bookmark -->
 	<string name="bookmark_share_email_subject">Organic Mapsでピン情報を確認</string>
 	<!-- Subject for emailed position -->
 	<string name="my_position_share_email_subject">Organic Mapsで現在地を確認</string>
-	<!-- Share my position using EMail, %1$@ is om:// and %2$@ is http://omaps.app link WITHOUT NAME -->
+	<!-- Share my position using EMail, %1$@ is om:// and %2$@ is https://omaps.app link WITHOUT NAME -->
 	<string name="my_position_share_email">私は今ここにいます: %1$s\n\nリンクをクリックすると詳細がマップに表示されます。\n\n%2$s\n\n%3$s</string>
 	<!-- Android share by Message/SMS button text (including SMS) -->
 	<string name="share_by_message">メッセージで共有</string>
@@ -587,7 +587,8 @@
 	<string name="p2p_to_here">目的地</string>
 	<string name="p2p_only_from_current">ナビゲーションは現在位置からのみ利用できます。</string>
 	<string name="p2p_reroute_from_current">現在位置からのルートを作成しますか？</string>
-	<string name="whats_new_next_button">次へ</string>
+	<!-- Edit open hours/set time and minutes dialog -->
+	<string name="next_button">次へ</string>
 	<string name="editor_time_add">スケジュール追加</string>
 	<string name="editor_time_delete">スケジュール削除</string>
 	<!-- Text for allday switch. -->
@@ -1056,7 +1057,7 @@
 	<string name="place_description_title">場所の説明</string>
 	<!-- this text will be shown in application notification preferences opposite checkbox which enable/disable downloader notifications. Devices on Android 8+ are affected. -->
 	<string name="notification_channel_downloader">マップダウンローダー</string>
-	<string name="share_bookmarks_email_body_link">こんにちは!\n\nこれはあなたのブックマークをダウンロードできるリンクです:%s。Organic Mapsを通じてリストを開いて旅をお楽しみください!\n\nアプリの入手: https://organicmaps.app/get?kmz</string>
+	<string name="share_bookmarks_email_body_link">こんにちは!\n\nこれはあなたのブックマークをダウンロードできるリンクです:%s。Organic Mapsを通じてリストを開いて旅をお楽しみください!\n\nアプリの入手: https://omaps.app/get?kmz</string>
 	<string name="warning_speedcams_title">%d km/hの速度制限を超えているときナビゲーターが自動速度違反取締装置について警告します</string>
 	<string name="warning_speedcams_subtitle">旅行先の国の道路交通法を考慮してください。</string>
 	<string name="speedcams_notice_message">自動－速度制限超過の危険性がある場合には、自動速度違反取締装置について警告します\n常時－自動速度違反取締装置について常に警告します\n無効－自動速度違反取締装置を警告しません</string>
@@ -1199,8 +1200,16 @@
 	<string name="downloader_loading_ios">ダウンロード中</string>
 	<string name="key_information_title">重要情報</string>
 	<string name="enable_screen_sleep">画面をスリープ状態にする</string>
-	<!--  -->
+	<!-- Description in preferences -->
 	<string name="enable_screen_sleep_description">有効にすると、画面は一定時間非アクティブになった後もスリープ状態になります。</string>
+	<!-- Autoupdate dialog on start -->
+	<string name="whats_new_auto_update_title">ダウンロード済みのマップを更新してください</string>
+	<!-- Autoupdate dialog on start -->
+	<string name="whats_new_auto_update_message">地図を更新することで物件情報を最新の状態に保ちます</string>
+	<!-- Autoupdate dialog on start -->
+	<string name="whats_new_auto_update_button_size">更新 (%s)</string>
+	<!-- Autoupdate dialog on start -->
+	<string name="whats_new_auto_update_button_later">あとで手動で更新</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway">索道</string>

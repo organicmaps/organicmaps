@@ -659,8 +659,15 @@ AStarAlgorithm<Vertex, Edge, Weight>::FindPathBidirectional(P & params,
       auto const pW = cur->ConsistentHeuristic(stateW.vertex);
       auto const reducedWeight = weight + pW - pV;
 
-      CHECK_GREATER_OR_EQUAL(reducedWeight, -epsilon,
-                             ("Invariant violated for:", "v =", stateV.vertex, "w =", stateW.vertex));
+      /// @todo We still get crash reports here, but have no idea how to fix this now.
+      // Do not crash on release and safe continue: std::max(reducedWeight, kZeroDistance).
+      // https://github.com/organicmaps/organicmaps/issues/333
+      if (reducedWeight < -epsilon)
+      {
+        // Will break in Debug, log in Release.
+        LOG(LERROR, ("Invariant violated for:", "v =", stateV.vertex, "w =", stateW.vertex,
+                     "Start =", startVertex, "End =", finalVertex));
+      }
 
       stateW.distance = stateV.distance + std::max(reducedWeight, kZeroDistance);
 

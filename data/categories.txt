@@ -1800,7 +1800,7 @@ fi:Kioski
 fr:Kiosque
 de:Kiosk
 hu:Trafik
-it:Chiosco
+it:Chiosco|Edicola|Giornalaio
 ja:1キオスク|売店
 ko:키오스크
 pl:Kiosk|gazety|prasa
@@ -8917,7 +8917,7 @@ fi:Lehtikioski
 fr:Kiosque à journaux
 hu:Újságárus
 id:Kios Surat Kabar
-it:Edicola
+it:Edicola|Giornalaio
 ja:新聞販売店
 ko:신문 가판대
 nb:Aviskiosk

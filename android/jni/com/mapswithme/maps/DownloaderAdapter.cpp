@@ -95,6 +95,8 @@ void BackgroundDownloaderAdapter::Download(QueuedCountry && queuedCountry)
 
   auto const countryId = queuedCountry.GetCountryId();
   auto urls = MakeUrlList(queuedCountry.GetRelativeUrl());
+  // Get urls order from worst to best.
+  std::reverse(urls.begin(), urls.end());
   auto const path = queuedCountry.GetFileDownloadPath();
 
   // For safety reasons, add to the queue first and notify start downloading then,

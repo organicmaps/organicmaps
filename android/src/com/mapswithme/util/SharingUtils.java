@@ -1,5 +1,6 @@
 package com.mapswithme.util;
 
+import android.content.ClipData;
 import android.content.Context;
 import android.content.Intent;
 import android.location.Location;
@@ -95,7 +96,6 @@ public class SharingUtils
   public static void shareBookmarkFile(Context context, String fileName)
   {
     Intent intent = new Intent(Intent.ACTION_SEND);
-    intent.setType(KMZ_MIME_TYPE);
 
     final String subject = context.getString(R.string.share_bookmarks_email_subject);
     intent.putExtra(Intent.EXTRA_SUBJECT, subject);
@@ -103,8 +103,16 @@ public class SharingUtils
     final String text = context.getString(R.string.share_bookmarks_email_body);
     intent.putExtra(Intent.EXTRA_TEXT, text.toString());
 
-    Uri fileUri = StorageUtils.getUriForFilePath(context, fileName);
+    final Uri fileUri = StorageUtils.getUriForFilePath(context, fileName);
     intent.putExtra(android.content.Intent.EXTRA_STREAM, fileUri);
+    // Properly set permissions for intent, see
+    // https://developer.android.com/reference/androidx/core/content/FileProvider#include-the-permission-in-an-intent
+    intent.setDataAndType(fileUri, KMZ_MIME_TYPE);
+    intent.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+    if (android.os.Build.VERSION.SDK_INT <= android.os.Build.VERSION_CODES.LOLLIPOP_MR1) {
+      intent.setClipData(ClipData.newRawUri("", fileUri));
+      intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
+    }
 
     context.startActivity(Intent.createChooser(intent, context.getString(R.string.share)));
   }

@@ -278,7 +278,7 @@
 /* Email Subject when sharing bookmarks category */
 "share_bookmarks_email_subject" = "Organic Maps bookmarks were shared with you";
 
-"share_bookmarks_email_body" = "Hello!\n\nAttached are my bookmarks from Organic Maps offline maps. Please open them if you have Organic Maps installed. Or, if you don't, download the app for your iOS or Android device by following this link: https://organicmaps.app/get?kmz\n\nEnjoy traveling with Organic Maps!";
+"share_bookmarks_email_body" = "Hello!\n\nAttached are my bookmarks from Organic Maps app. Please open them if you have Organic Maps installed. Or, if you don't, download the app for your iOS or Android device by following this link: https://omaps.app/get?kmz\n\nEnjoy traveling with Organic Maps!";
 
 /* message title of loading file */
 "load_kmz_title" = "در حال بارگیری نشانه ها";
@@ -313,11 +313,11 @@
 /* No, thanks */
 "no_thanks" = "نه ,متشکرم";
 
-/* Share one specific bookmark using SMS, %1$@ contains om:// and %2$@ http://omaps.app link. @NOTE non-ascii symbols in the link will result in max 70 characters SMS instead of 140. */
-"bookmark_share_sms" = "Hey, check out my pin at Organic Maps! %1$@ or %2$@ Don't have offline maps installed? Download here: https://organicmaps.app/get";
+/* Share one specific bookmark using SMS, %1$@ contains om:// and %2$@ https://omaps.app link. @NOTE non-ascii symbols in the link will result in max 70 characters SMS instead of 140. */
+"bookmark_share_sms" = "Hey, check out my pin at Organic Maps! %1$@ or %2$@ Don't have offline maps installed? Download here: https://omaps.app/get";
 
-/* Share my position using SMS, %1$@ contains om:// and %2$@ http://omaps.app link WITHOUT NAME. @NOTE non-ascii symbols in the link will result in max 70 characters SMS instead of 140. */
-"my_position_share_sms" = "Hey, check out my current location in Organic Maps! %1$@ or %2$@ Don't have offline maps? Download here: https://organicmaps.app/get";
+/* Share my position using SMS, %1$@ contains om:// and %2$@ https://omaps.app link WITHOUT NAME. @NOTE non-ascii symbols in the link will result in max 70 characters SMS instead of 140. */
+"my_position_share_sms" = "Hey, check out my current location in Organic Maps! %1$@ or %2$@ Don't have offline maps? Download here: https://omaps.app/get";
 
 /* Subject for emailed bookmark */
 "bookmark_share_email_subject" = "Hey, check out my pin in Organic Maps!";
@@ -325,7 +325,7 @@
 /* Subject for emailed position */
 "my_position_share_email_subject" = "Hey, check out my current location on the Organic Maps map!";
 
-/* Share my position using EMail, %1$@ is om:// and %2$@ is http://omaps.app link WITHOUT NAME */
+/* Share my position using EMail, %1$@ is om:// and %2$@ is https://omaps.app link WITHOUT NAME */
 "my_position_share_email" = "Hi,\n\nI'm here now: %1$@. Click this link %2$@ or this one %3$@ to see the place on the map.\n\nThanks.";
 
 /* Android share by Message/SMS button text (including SMS) */
@@ -990,7 +990,8 @@
 
 "p2p_reroute_from_current" = "ایا می خواهید یک مسیر را از موقعیت فعلیتان برنامه ریزی کنیم؟";
 
-"whats_new_next_button" = "بعدی";
+/* Edit open hours/set time and minutes dialog */
+"next_button" = "بعدی";
 
 "editor_time_add" = "اضافه کردن برنامه ریزی";
 
@@ -1892,7 +1893,7 @@
 /* this text will be shown in application notification preferences opposite checkbox which enable/disable downloader notifications. Devices on Android 8+ are affected. */
 "notification_channel_downloader" = "دانلود کننده نقشه";
 
-"share_bookmarks_email_body_link" = "سلام!\n\nاین لینکی است که شما می توانید نشان شده های خود را از آن دانلود نمایید: %s. لیست را از طریق Organic Maps باز کرده و از سفر خود لذت ببرید!\n\nدریافت برنامه: https://organicmaps.app/get?kmz";
+"share_bookmarks_email_body_link" = "سلام!\n\nاین لینکی است که شما می توانید نشان شده های خود را از آن دانلود نمایید: %s. لیست را از طریق Organic Maps باز کرده و از سفر خود لذت ببرید!\n\nدریافت برنامه: https://omaps.app/get?kmz";
 
 "warning_speedcams_title" = "هدایتگر هنگامی که از محدوده سرعت %d کیلومتر بر ساعت تجاوز نمایید، در مورد دوربین هشدار می دهد";
 
@@ -2176,8 +2177,20 @@
 
 "enable_screen_sleep" = "اجازه دهید صفحه نمایش بخوابد";
 
-/*  */
+/* Description in preferences */
 "enable_screen_sleep_description" = "درصورت فعال بودن ، بعد از یک دوره عدم فعالیت به صفحه اجازه خواب داده می شود.";
+
+/* Autoupdate dialog on start */
+"whats_new_auto_update_title" = "نقشه های دانلود شده خود را به روز کنید";
+
+/* Autoupdate dialog on start */
+"whats_new_auto_update_message" = "به روز رسانی نقشه ها اطلاعات مربوط به اشیا را به روز نگه می دارد";
+
+/* Autoupdate dialog on start */
+"whats_new_auto_update_button_size" = "بروزرسانی (%s)";
+
+/* Autoupdate dialog on start */
+"whats_new_auto_update_button_later" = "بعدا به صورت دستی به روزرسانی کنید";
 
 
 /**********  Partners  **********/

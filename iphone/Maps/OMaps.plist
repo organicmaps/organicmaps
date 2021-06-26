@@ -77,15 +77,6 @@
 	</array>
 	<key>CFBundleVersion</key>
 	<string>0</string>
-	<key>LSApplicationQueriesSchemes</key>
-	<array>
-		<string>fbapi</string>
-		<string>fb-messenger-api</string>
-		<string>fbauth2</string>
-		<string>fbshareextension</string>
-		<string>tel</string>
-		<string>vzt</string>
-	</array>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>LSSupportsOpeningDocumentsInPlace</key>

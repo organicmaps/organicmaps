@@ -18,16 +18,16 @@
       [activityType isEqualToString:@"com.facebook.Facebook.ShareExtension"] ||
       [activityType.lowercaseString rangeOfString:@"facebook"].length)
   {
-    NSString * url = [NSString stringWithFormat:@"http://omaps.app/fb-editor-v1?lang=%@",
+    NSString * url = [NSString stringWithFormat:@"https://omaps.app/fb-editor-v1?lang=%@",
                       @(languages::GetCurrentNorm().c_str())];
     return [NSURL URLWithString:url];
   }
 
-  NSString * mapsmeURL = @"http://omaps.app/im_get";
+  NSString * omapsURL = @"https://omaps.app/get";
   if ([activityType isEqualToString:UIActivityTypePostToTwitter] || [activityType isEqualToString:UIActivityTypeMail])
-    return [NSString stringWithFormat:@"%@ %@", L(@"whatsnew_editor_message_1"), mapsmeURL];
+    return [NSString stringWithFormat:@"%@ %@", L(@"whatsnew_editor_message_1"), omapsURL];
 
-  return [NSString stringWithFormat:@"%@.\n%@\n%@", L(@"editor_sharing_title"), L(@"whatsnew_editor_message_1"), mapsmeURL];
+  return [NSString stringWithFormat:@"%@.\n%@\n%@", L(@"editor_sharing_title"), L(@"whatsnew_editor_message_1"), omapsURL];
 }
 
 - (NSString *)activityViewController:(UIActivityViewController *)activityViewController

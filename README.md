@@ -2,12 +2,10 @@
 
 <a name="install"/>
 
-[Organic Maps](https://organicmaps.app) is a better fork of MAPS.ME, an Android & iOS offline maps app
-for travelers, tourists, hikers, and cyclists based on top of crowd-sourced
-**OpenStreetMap** data and curated with love by **MAPS.ME** founders.
+[Organic Maps](https://organicmaps.app) is an Android & iOS offline maps app for travelers, tourists, hikers, and cyclists based on top of crowd-sourced OpenStreetMap data and curated with love by **MapsWithMe** founders. No ads, no tracking, no data collection, no crapware. 
 
 <p float="left">
-  <a href="https://testflight.apple.com/join/lrKCl08I">
+  <a href="https://apps.apple.com/app/organic-maps/id1567437057">
     <img src="docs/badges/apple-appstore.png" width="180">
   </a>
   <a href="https://play.google.com/store/apps/details?id=app.organicmaps">
@@ -104,7 +102,7 @@ See [CONTRIBUTING](docs/CONTRIBUTING.md).
 Please join our beta program, suggest your features, and report bugs:
 
 - [iOS Beta (TestFlight)](https://testflight.apple.com/join/lrKCl08I)
-- [Android Beta (Firebase)](https://appdistribution.firebase.google.com/pub/i/4fa64e2439ca20ff)
+- [Android Beta (Firebase)](https://appdistribution.firebase.dev/i/3c5fcf9cd72f775f)
 
 ## Feedback
 
@@ -114,6 +112,7 @@ Please join our beta program, suggest your features, and report bugs:
 - [Discuss](https://github.com/organicmaps/organicmaps/discussions/categories/ideas) ideas or propose feature requests.
 - Subscribe to our [Telegram Channel](https://t.me/OrganicMapsApp) for updates.
 - Join our [Telegram Group](https://t.me/OrganicMaps) to discuss with other users.
+- Присоединяйтесь к нашей [русскоязычной группе в Telegram](https://t.me/OrganicMapsRu) для обратной связи и помощи.
 - Contact us by [email](mailto:hello@organicmaps.app).
 
 The Organic Maps community abides by the CNCF code of conduct.

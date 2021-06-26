@@ -166,15 +166,15 @@
 	<string name="cant_change_this_setting">Λυπούμαστε, η αποθήκευση του χάρτη είναι προς το παρόν απενεργοποιημένη.</string>
 	<!-- Alert message that downloading is in progress. -->
 	<string name="downloading_is_active">Λήψη χάρτη σε εξέλιξη.</string>
-	<!-- Share one specific bookmark using SMS, %1$@ contains om:// and %2$@ http://omaps.app link. @NOTE non-ascii symbols in the link will result in max 70 characters SMS instead of 140. -->
-	<string name="bookmark_share_sms">Έλεγξε τις τοποθεσίες που έχω καρφιτσώσει στο Organic Maps! %1$s ή %2$s εάν δεν έχεις εγκαταστήσει χάρτες εκτός σύνδεσης, μπορείς να τους κατεβάσεις εδώ: https://organicmaps.app/get</string>
-	<!-- Share my position using SMS, %1$@ contains om:// and %2$@ http://omaps.app link WITHOUT NAME. @NOTE non-ascii symbols in the link will result in max 70 characters SMS instead of 140. -->
-	<string name="my_position_share_sms">Έλεγξε την τρέχουσα τοποθεσία μου στο Organic Maps! %1$s ή %2$s στην περίπτωση που δεν έχεις εγκαταστήσει χάρτες εκτός σύνδεσης, μπορείς να τους κατεβάσεις εδώ: https://organicmaps.app/get</string>
+	<!-- Share one specific bookmark using SMS, %1$@ contains om:// and %2$@ https://omaps.app link. @NOTE non-ascii symbols in the link will result in max 70 characters SMS instead of 140. -->
+	<string name="bookmark_share_sms">Έλεγξε τις τοποθεσίες που έχω καρφιτσώσει στο Organic Maps! %1$s ή %2$s εάν δεν έχεις εγκαταστήσει χάρτες εκτός σύνδεσης, μπορείς να τους κατεβάσεις εδώ: https://omaps.app/get</string>
+	<!-- Share my position using SMS, %1$@ contains om:// and %2$@ https://omaps.app link WITHOUT NAME. @NOTE non-ascii symbols in the link will result in max 70 characters SMS instead of 140. -->
+	<string name="my_position_share_sms">Έλεγξε την τρέχουσα τοποθεσία μου στο Organic Maps! %1$s ή %2$s στην περίπτωση που δεν έχεις εγκαταστήσει χάρτες εκτός σύνδεσης, μπορείς να τους κατεβάσεις εδώ: https://omaps.app/get</string>
 	<!-- Subject for emailed bookmark -->
 	<string name="bookmark_share_email_subject">Έλεγξε τις τοποθεσίες που έχω καρφιτσώσει στο Organic Maps!</string>
 	<!-- Subject for emailed position -->
 	<string name="my_position_share_email_subject">Έλεγξε την τρέχουσα τοποθεσία μου στο χάρτη Organic Maps!</string>
-	<!-- Share my position using EMail, %1$@ is om:// and %2$@ is http://omaps.app link WITHOUT NAME -->
+	<!-- Share my position using EMail, %1$@ is om:// and %2$@ is https://omaps.app link WITHOUT NAME -->
 	<string name="my_position_share_email">Γεια,\n\nείμαι εδώ τώρα: %1$s. Κάνε κλικ σε αυτό το σύνδεσμο %2$s ή σε αυτόν %3$s για να δεις την τοποθεσία στο χάρτη.\n\nΕυχαριστώ.</string>
 	<!-- Android share by Message/SMS button text (including SMS) -->
 	<string name="share_by_message">Κοινοποίηση μέσω μηνύματος</string>
@@ -470,7 +470,8 @@
 	<string name="p2p_to_here">Διαδρομή στο</string>
 	<string name="p2p_only_from_current">Η πλοήγηση είναι διαθέσιμη μόνο από την τρέχουσα τοποθεσία σας.</string>
 	<string name="p2p_reroute_from_current">Θέλετε να σχεδιάσουμε μια διαδρομή από την τρέχουσα θέση σας;</string>
-	<string name="whats_new_next_button">Επόμενη</string>
+	<!-- Edit open hours/set time and minutes dialog -->
+	<string name="next_button">Επόμενη</string>
 	<string name="editor_time_add">Προσθέσετε χρονοδιάγραμμα</string>
 	<string name="editor_time_delete">Διαγραφή χρονοδιαγράμματος</string>
 	<!-- Text for allday switch. -->
@@ -865,7 +866,7 @@
 	<string name="place_description_title">Περιγραφή μέρους</string>
 	<!-- this text will be shown in application notification preferences opposite checkbox which enable/disable downloader notifications. Devices on Android 8+ are affected. -->
 	<string name="notification_channel_downloader">Κατέβασμα χαρτών</string>
-	<string name="share_bookmarks_email_body_link">Γεια!\n\nΕδώ είναι ο σύνδεσμος που μπορείς να κατεβάσεις τους σελιδοδείκτες σου: %s. Ανοίξτε τη λίστα μέσω Organic Maps και απολαύστε το ταξίδι σας!\n\nΚατεβάστε την εφαρμογή: https://organicmaps.app/get?kmz</string>
+	<string name="share_bookmarks_email_body_link">Γεια!\n\nΕδώ είναι ο σύνδεσμος που μπορείς να κατεβάσεις τους σελιδοδείκτες σου: %s. Ανοίξτε τη λίστα μέσω Organic Maps και απολαύστε το ταξίδι σας!\n\nΚατεβάστε την εφαρμογή: https://omaps.app/get?kmz</string>
 	<string name="warning_speedcams_title">Ο πλοηγός θα σας ειδοποιεί για κάμερες όταν υπερβαίνετε το όριο ταχύτητας των %d km/h</string>
 	<string name="warning_speedcams_subtitle">Παρακαλώ να προσέχετε τους κανόνες οδήγησης της χώρας στην οποία ταξιδεύετε.</string>
 	<string name="speedcams_notice_message">Αυτόματο- Να ειδοποιούμαι για κάμερες αν υπάρχει κίνδυνος να υπερβώ το όριο ταχύτητας\nΠάντα- Πάντα να ειδοποιούμαι για κάμερες\nΠοτέ- Ποτέ να μην ειδοποιούμαι για κάμερες</string>
@@ -1008,8 +1009,16 @@
 	<string name="downloader_loading_ios">Φόρτωση</string>
 	<string name="key_information_title">Βασικές πληροφορίες</string>
 	<string name="enable_screen_sleep">Αφήστε την οθόνη να κοιμηθεί</string>
-	<!--  -->
+	<!-- Description in preferences -->
 	<string name="enable_screen_sleep_description">Όταν είναι ενεργοποιημένη, η οθόνη θα αφεθεί να κοιμηθεί μετά από περίοδο αδράνειας.</string>
+	<!-- Autoupdate dialog on start -->
+	<string name="whats_new_auto_update_title">Θα πρέπει να ενημερώστε τους χάρτες που έχετε κατεβάσει</string>
+	<!-- Autoupdate dialog on start -->
+	<string name="whats_new_auto_update_message">Η ενημέρωση των χαρτών διατηρεί τις πληροφορίες των στοιχείων επικαιροποιημένες</string>
+	<!-- Autoupdate dialog on start -->
+	<string name="whats_new_auto_update_button_size">Ενημέρωση (%s)</string>
+	<!-- Autoupdate dialog on start -->
+	<string name="whats_new_auto_update_button_later">Χειροκίνητη ενημέρωση αργότερα</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Σταθμός αερομεταφοράς</string>

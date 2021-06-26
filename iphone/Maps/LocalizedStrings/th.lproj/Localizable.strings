@@ -278,7 +278,7 @@
 /* Email Subject when sharing bookmarks category */
 "share_bookmarks_email_subject" = "แชร์บุ๊กมาร์กของ Organic Maps แล้ว";
 
-"share_bookmarks_email_body" = "Hello!\n\nAttached are my bookmarks from Organic Maps offline maps. Please open them if you have Organic Maps installed. Or, if you don't, download the app for your iOS or Android device by following this link: https://organicmaps.app/get?kmz\n\nEnjoy traveling with Organic Maps!";
+"share_bookmarks_email_body" = "Hello!\n\nAttached are my bookmarks from Organic Maps app. Please open them if you have Organic Maps installed. Or, if you don't, download the app for your iOS or Android device by following this link: https://omaps.app/get?kmz\n\nEnjoy traveling with Organic Maps!";
 
 /* message title of loading file */
 "load_kmz_title" = "กำลังโหลดบุ๊กมาร์ก";
@@ -313,11 +313,11 @@
 /* No, thanks */
 "no_thanks" = "ไม่ ขอบคุณ";
 
-/* Share one specific bookmark using SMS, %1$@ contains om:// and %2$@ http://omaps.app link. @NOTE non-ascii symbols in the link will result in max 70 characters SMS instead of 140. */
+/* Share one specific bookmark using SMS, %1$@ contains om:// and %2$@ https://omaps.app link. @NOTE non-ascii symbols in the link will result in max 70 characters SMS instead of 140. */
 "bookmark_share_sms" = "เฮ้ ตรวจสอบหมุดของฉันที่ Organic Maps! %1$@ หรือ %2$@";
 
-/* Share my position using SMS, %1$@ contains om:// and %2$@ http://omaps.app link WITHOUT NAME. @NOTE non-ascii symbols in the link will result in max 70 characters SMS instead of 140. */
-"my_position_share_sms" = "เฮ้อ ตรวจสอบตำแหน่งที่ตั้งปัจจุบันของฉันที่ Organic Maps! %1$@ หรือ %2$@ ไม่มีการติดตั้งแผนที่แบบออฟไลน์? ดาวน์โหลดที่นี่: https://organicmaps.app/get";
+/* Share my position using SMS, %1$@ contains om:// and %2$@ https://omaps.app link WITHOUT NAME. @NOTE non-ascii symbols in the link will result in max 70 characters SMS instead of 140. */
+"my_position_share_sms" = "เฮ้อ ตรวจสอบตำแหน่งที่ตั้งปัจจุบันของฉันที่ Organic Maps! %1$@ หรือ %2$@ ไม่มีการติดตั้งแผนที่แบบออฟไลน์? ดาวน์โหลดที่นี่: https://omaps.app/get";
 
 /* Subject for emailed bookmark */
 "bookmark_share_email_subject" = "เฮ้ ตรวจสอบหมุดของฉันที่ แผนที่ Organic Maps!";
@@ -325,7 +325,7 @@
 /* Subject for emailed position */
 "my_position_share_email_subject" = "นี่ มาดูตำแหน่งปัจจุบันของฉันที่แผนที่ Organic Maps สิ!";
 
-/* Share my position using EMail, %1$@ is om:// and %2$@ is http://omaps.app link WITHOUT NAME */
+/* Share my position using EMail, %1$@ is om:// and %2$@ is https://omaps.app link WITHOUT NAME */
 "my_position_share_email" = "หวัดดี\n\nฉันอยู่ที่นี่ตอนนี้: %1$@. คลิกลิงก์นี้ %2$@ หรือลิงก์นี้ %3$@ เพื่อดูสถานที่บนแผนที่\n\nขอบคุณ";
 
 /* Android share by Message/SMS button text (including SMS) */
@@ -990,7 +990,8 @@
 
 "p2p_reroute_from_current" = "คุณต้องการให้เราาวงแผนเส้นทางจากสถานที่ตั้งปัจจุบันของคุณหรือไม่?";
 
-"whats_new_next_button" = "ถัดไป";
+/* Edit open hours/set time and minutes dialog */
+"next_button" = "ถัดไป";
 
 "editor_time_add" = "เพิ่มวัน";
 
@@ -1892,7 +1893,7 @@
 /* this text will be shown in application notification preferences opposite checkbox which enable/disable downloader notifications. Devices on Android 8+ are affected. */
 "notification_channel_downloader" = "ตัวดาวน์โหลดแผนที่";
 
-"share_bookmarks_email_body_link" = "สวัสดี!\n\nนี่คือลิงค์ที่คุณสามารถดาวน์โหลดบุ๊คมาร์คของคุณ: %s เปิดรายการผ่าน Organic Maps และเพลิดเพลินไปกับการเดินทางของคุณ!\n\nรับแอพพลิเคชัน: https://organicmaps.app/get?kmz";
+"share_bookmarks_email_body_link" = "สวัสดี!\n\nนี่คือลิงค์ที่คุณสามารถดาวน์โหลดบุ๊คมาร์คของคุณ: %s เปิดรายการผ่าน Organic Maps และเพลิดเพลินไปกับการเดินทางของคุณ!\n\nรับแอพพลิเคชัน: https://omaps.app/get?kmz";
 
 "warning_speedcams_title" = "เนวิเกเตอร์จะเตือนคุณเกี่ยวกับกล้องถ่ายรูปเมื่อคุณขับเร็วเกินกำหนดโดยอยู่ที่ %d กม./ชม";
 
@@ -2176,8 +2177,20 @@
 
 "enable_screen_sleep" = "อนุญาตให้หน้าจอเข้าสู่โหมดสลีป";
 
-/*  */
+/* Description in preferences */
 "enable_screen_sleep_description" = "เมื่อเปิดใช้งานหน้าจอจะได้รับอนุญาตให้เข้าสู่โหมดสลีปหลังจากไม่มีการใช้งานเป็นระยะเวลาหนึ่ง";
+
+/* Autoupdate dialog on start */
+"whats_new_auto_update_title" = "อัปเดตแผนที่ที่คุณดาวน์โหลดมา";
+
+/* Autoupdate dialog on start */
+"whats_new_auto_update_message" = "การอัปเดตแผนที่จะคงข้อมูลเกี่ยวกับจุดหมายต่าง ๆ ให้ล่าสุดอยู่เสมอ";
+
+/* Autoupdate dialog on start */
+"whats_new_auto_update_button_size" = "อัปเดต (%s)";
+
+/* Autoupdate dialog on start */
+"whats_new_auto_update_button_later" = "อัปเดตด้วยตนเองภายหลัง";
 
 
 /**********  Partners  **********/

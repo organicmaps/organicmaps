@@ -194,15 +194,15 @@
 	<string name="appStore_message">Dúfame, že sa vám používánie Organic Maps páči! Ak to je tak, ohodnoťte prosím našu aplikáciu alebo napíšte na ňu recenziu v Obchode s aplikáciami. Nezaberie vám to ani minútu času, ale nám s tým môžete veľmi pomôoť. Ďakujeme vám za vašu podporu!</string>
 	<!-- No, thanks -->
 	<string name="no_thanks">Nie, ďakujem</string>
-	<!-- Share one specific bookmark using SMS, %1$@ contains om:// and %2$@ http://omaps.app link. @NOTE non-ascii symbols in the link will result in max 70 characters SMS instead of 140. -->
+	<!-- Share one specific bookmark using SMS, %1$@ contains om:// and %2$@ https://omaps.app link. @NOTE non-ascii symbols in the link will result in max 70 characters SMS instead of 140. -->
 	<string name="bookmark_share_sms">Pozrite na moju značku na mape. Otvoriť odkaz: %1$s alebo %2$s</string>
-	<!-- Share my position using SMS, %1$@ contains om:// and %2$@ http://omaps.app link WITHOUT NAME. @NOTE non-ascii symbols in the link will result in max 70 characters SMS instead of 140. -->
+	<!-- Share my position using SMS, %1$@ contains om:// and %2$@ https://omaps.app link WITHOUT NAME. @NOTE non-ascii symbols in the link will result in max 70 characters SMS instead of 140. -->
 	<string name="my_position_share_sms">Pozri kde som. Otvor odkaz: %1$s alebo %2$s</string>
 	<!-- Subject for emailed bookmark -->
 	<string name="bookmark_share_email_subject">Pozri na moju značku na mape Organic Maps</string>
 	<!-- Subject for emailed position -->
 	<string name="my_position_share_email_subject">Pozrite si moju aktuálnu polohu na mape Organic Maps</string>
-	<!-- Share my position using EMail, %1$@ is om:// and %2$@ is http://omaps.app link WITHOUT NAME -->
+	<!-- Share my position using EMail, %1$@ is om:// and %2$@ is https://omaps.app link WITHOUT NAME -->
 	<string name="my_position_share_email">Ahoj,\n\nPráve som tu: %1$s. Stlačte jeden z týchto odkazov %2$s, %3$s a uvidíte toto miesto na mape.\n\nVďaka</string>
 	<!-- Android share by Message/SMS button text (including SMS) -->
 	<string name="share_by_message">Zdielať pomocou správy</string>
@@ -591,7 +591,8 @@
 	<string name="p2p_to_here">Cesta do</string>
 	<string name="p2p_only_from_current">Navigácia je dostupná iba z vašej aktuálnej polohy.</string>
 	<string name="p2p_reroute_from_current">Doriți să vă planificăm o rută având ca punct de pornire locația actuală?</string>
-	<string name="whats_new_next_button">Nasledujúca</string>
+	<!-- Edit open hours/set time and minutes dialog -->
+	<string name="next_button">Nasledujúca</string>
 	<string name="editor_time_add">Pridať rozvrh</string>
 	<string name="editor_time_delete">Zmazať rozvrh</string>
 	<!-- Text for allday switch. -->
@@ -1062,7 +1063,7 @@
 	<string name="place_description_title">Popis miesta</string>
 	<!-- this text will be shown in application notification preferences opposite checkbox which enable/disable downloader notifications. Devices on Android 8+ are affected. -->
 	<string name="notification_channel_downloader">Sťahovač máp</string>
-	<string name="share_bookmarks_email_body_link">Dobrý deň!\n\nTu je odkaz, kde si môžete stiahnuť svoje záložky: %s. Otvorte zoznam prostredníctvom služby Organic Maps a užite si výlet!\n\nZískajte aplikáciu: https://organicmaps.app/get?kmz</string>
+	<string name="share_bookmarks_email_body_link">Dobrý deň!\n\nTu je odkaz, kde si môžete stiahnuť svoje záložky: %s. Otvorte zoznam prostredníctvom služby Organic Maps a užite si výlet!\n\nZískajte aplikáciu: https://omaps.app/get?kmz</string>
 	<string name="warning_speedcams_title">Navigátor vás upozorní na kamery, keď prekročíte rýchlostný limit %d km/h</string>
 	<string name="warning_speedcams_subtitle">Dodržujte pravidlá cestnej premávky v krajine, do ktorej cestujete.</string>
 	<string name="speedcams_notice_message">Automaticky - Upozornenie na rýchlostné kamery, ak existuje riziko prekročenia rýchlostného limitu\nVždy - Vždy upozorniť na rýchlostné kamery\nNikdy - Nikdy neupozorňovať na rýchlostné kamery</string>
@@ -1205,8 +1206,16 @@
 	<string name="downloader_loading_ios">Sťahovanie</string>
 	<string name="key_information_title">Kľúčová informácia</string>
 	<string name="enable_screen_sleep">Nechajte obrazovku spať</string>
-	<!--  -->
+	<!-- Description in preferences -->
 	<string name="enable_screen_sleep_description">Ak je táto možnosť povolená, obrazovka bude môcť po určitej dobe nečinnosti spať.</string>
+	<!-- Autoupdate dialog on start -->
+	<string name="whats_new_auto_update_title">Aktualizujte svoje stiahnuté mapy</string>
+	<!-- Autoupdate dialog on start -->
+	<string name="whats_new_auto_update_message">Vďaka aktualizácii máp budú informácie o objektoch na mape aktualizované</string>
+	<!-- Autoupdate dialog on start -->
+	<string name="whats_new_auto_update_button_size">Aktualizovať (%s)</string>
+	<!-- Autoupdate dialog on start -->
+	<string name="whats_new_auto_update_button_later">Manuálne aktualizovať neskôr</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Lanovka</string>

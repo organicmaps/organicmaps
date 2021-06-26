@@ -51,6 +51,4 @@
 
 - (id<MWMFeatureHolder>)featureHolder;
 
-- (void)showAdditionalViewsIfNeeded;
-
 @end

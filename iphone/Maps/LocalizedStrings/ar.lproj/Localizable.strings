@@ -278,7 +278,7 @@
 /* Email Subject when sharing bookmarks category */
 "share_bookmarks_email_subject" = "تم مشاركة اشارات Organic Maps المرجعية معك";
 
-"share_bookmarks_email_body" = "Hello!\n\nAttached are my bookmarks from Organic Maps offline maps. Please open them if you have Organic Maps installed. Or, if you don't, download the app for your iOS or Android device by following this link: https://organicmaps.app/get?kmz\n\nEnjoy traveling with Organic Maps!";
+"share_bookmarks_email_body" = "Hello!\n\nAttached are my bookmarks from Organic Maps app. Please open them if you have Organic Maps installed. Or, if you don't, download the app for your iOS or Android device by following this link: https://omaps.app/get?kmz\n\nEnjoy traveling with Organic Maps!";
 
 /* message title of loading file */
 "load_kmz_title" = "تحميل الإشارات المرجعية";
@@ -313,11 +313,11 @@
 /* No, thanks */
 "no_thanks" = "لا، شكرا";
 
-/* Share one specific bookmark using SMS, %1$@ contains om:// and %2$@ http://omaps.app link. @NOTE non-ascii symbols in the link will result in max 70 characters SMS instead of 140. */
-"bookmark_share_sms" = "هاي، تفقد الدبوس الخاص بي على Organic Maps! %1$@ أو %2$@. ليس لديك أي خرائط تعمل بدون الاتصال مع الانترنت مثبتة على جهازك؟ قم بتحميلها من هنا: https://organicmaps.app/get";
+/* Share one specific bookmark using SMS, %1$@ contains om:// and %2$@ https://omaps.app link. @NOTE non-ascii symbols in the link will result in max 70 characters SMS instead of 140. */
+"bookmark_share_sms" = "هاي، تفقد الدبوس الخاص بي على Organic Maps! %1$@ أو %2$@. ليس لديك أي خرائط تعمل بدون الاتصال مع الانترنت مثبتة على جهازك؟ قم بتحميلها من هنا: https://omaps.app/get";
 
-/* Share my position using SMS, %1$@ contains om:// and %2$@ http://omaps.app link WITHOUT NAME. @NOTE non-ascii symbols in the link will result in max 70 characters SMS instead of 140. */
-"my_position_share_sms" = "هاي، تفقد الموقع الخاص بي على Organic Maps! %1$@ أو %2$@. ليس لديك أي خرائط تعمل بدون الاتصال مع الانترنت مثبتة على جهازك؟ قم بتحميلها من هنا: https://organicmaps.app/get";
+/* Share my position using SMS, %1$@ contains om:// and %2$@ https://omaps.app link WITHOUT NAME. @NOTE non-ascii symbols in the link will result in max 70 characters SMS instead of 140. */
+"my_position_share_sms" = "هاي، تفقد الموقع الخاص بي على Organic Maps! %1$@ أو %2$@. ليس لديك أي خرائط تعمل بدون الاتصال مع الانترنت مثبتة على جهازك؟ قم بتحميلها من هنا: https://omaps.app/get";
 
 /* Subject for emailed bookmark */
 "bookmark_share_email_subject" = "هاي، تفقد الدبوس الخاص بي على خريطة Organic Maps!";
@@ -325,7 +325,7 @@
 /* Subject for emailed position */
 "my_position_share_email_subject" = "يا هلا، تحقق من موقعي الحالي على خريطة Organic Maps!";
 
-/* Share my position using EMail, %1$@ is om:// and %2$@ is http://omaps.app link WITHOUT NAME */
+/* Share my position using EMail, %1$@ is om:// and %2$@ is https://omaps.app link WITHOUT NAME */
 "my_position_share_email" = "مرحبا،\n\nأنا هنا الآن: %1$@. انقر على هذا الرابط %2$@ أو ذلك الرابط %3$@ لمشاهدة المكان على الخريطة.\n\nشكرا لك.";
 
 /* Android share by Message/SMS button text (including SMS) */
@@ -990,7 +990,8 @@
 
 "p2p_reroute_from_current" = "هل ترغب في أن نرسم مسار لك من موقعك الحالي؟";
 
-"whats_new_next_button" = "التالي";
+/* Edit open hours/set time and minutes dialog */
+"next_button" = "التالي";
 
 "editor_time_add" = "إضافة جدول";
 
@@ -1892,7 +1893,7 @@
 /* this text will be shown in application notification preferences opposite checkbox which enable/disable downloader notifications. Devices on Android 8+ are affected. */
 "notification_channel_downloader" = "محمل الخريطة";
 
-"share_bookmarks_email_body_link" = "مرحبًا!\n\nللوصول إلى التطبيق: https://organicmaps.app/get?kmzهذا هو الرابط الذي يمكنك من خلاله تنزيل إشاراتك المرجعية: %s. افتح القائمة عبر Organic Maps واستمتع برحلتك!\n\n";
+"share_bookmarks_email_body_link" = "مرحبًا!\n\nللوصول إلى التطبيق: https://omaps.app/get?kmzهذا هو الرابط الذي يمكنك من خلاله تنزيل إشاراتك المرجعية: %s. افتح القائمة عبر Organic Maps واستمتع برحلتك!\n\n";
 
 "warning_speedcams_title" = "سوف يحذرك المستكشف من الكاميرات عندما تتجاوز الحد الأقصى للسرعة %d كم / س";
 
@@ -2176,8 +2177,20 @@
 
 "enable_screen_sleep" = "اسمح للشاشة بالنوم";
 
-/*  */
+/* Description in preferences */
 "enable_screen_sleep_description" = "عند التمكين ، سيتم السماح للشاشة بالنوم بعد فترة من عدم النشاط.";
+
+/* Autoupdate dialog on start */
+"whats_new_auto_update_title" = "قم بتحديث الخرائط التي قمت بنتزيلها";
+
+/* Autoupdate dialog on start */
+"whats_new_auto_update_message" = "تحديث الخرائط والاحتفاظ بالمعلومات حول الكائنات محدثة";
+
+/* Autoupdate dialog on start */
+"whats_new_auto_update_button_size" = "تحديث (%s)";
+
+/* Autoupdate dialog on start */
+"whats_new_auto_update_button_later" = "تحديث يدوياً في وقت لاحق";
 
 
 /**********  Partners  **********/

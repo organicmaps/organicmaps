@@ -12,9 +12,9 @@ bool CheckBorders(ScreenBase const & screen);
 
 bool CanShrinkInto(ScreenBase const & screen, m2::RectD const & boundRect);
 
-ScreenBase const ShrinkInto(ScreenBase const & screen, m2::RectD boundRect);
-ScreenBase const ScaleInto(ScreenBase const & screen, m2::RectD boundRect);
-ScreenBase const ShrinkAndScaleInto(ScreenBase const & screen, m2::RectD boundRect);
+ScreenBase const ShrinkInto(ScreenBase const & screen, m2::RectD const & boundRect);
+ScreenBase const ScaleInto(ScreenBase const & screen, m2::RectD const & boundRect);
+ScreenBase const ShrinkAndScaleInto(ScreenBase const & screen, m2::RectD const & boundRect);
 
 bool IsScaleAllowableIn3d(int scale);
 

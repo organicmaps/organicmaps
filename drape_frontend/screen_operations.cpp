@@ -12,17 +12,6 @@
 
 #include <algorithm>
 
-namespace
-{
-
-/// @todo Review this logic in future.
-/// Fix bug with floating point calculations (before Android release).
-void ReduceRectHack(m2::RectD & r)
-{
-  r.Inflate(-1.0E-9, -1.0E-9);
-}
-
-} // namespace
 
 namespace df
 {
@@ -93,10 +82,8 @@ bool CanShrinkInto(ScreenBase const & screen, m2::RectD const & boundRect)
       && (boundRect.SizeY() >= clipRect.SizeY());
 }
 
-ScreenBase const ShrinkInto(ScreenBase const & screen, m2::RectD boundRect)
+ScreenBase const ShrinkInto(ScreenBase const & screen, m2::RectD const & boundRect)
 {
-  ReduceRectHack(boundRect);
-
   ScreenBase res = screen;
 
   m2::RectD clipRect = res.ClipRect();
@@ -116,42 +103,41 @@ ScreenBase const ShrinkInto(ScreenBase const & screen, m2::RectD boundRect)
   return res;
 }
 
-ScreenBase const ScaleInto(ScreenBase const & screen, m2::RectD boundRect)
+ScreenBase const ScaleInto(ScreenBase const & screen, m2::RectD const & boundRect)
 {
-  ReduceRectHack(boundRect);
-
   ScreenBase res = screen;
 
   double scale = 1;
-
   m2::RectD clipRect = res.ClipRect();
+
+  auto const DoScale = [&scale, &clipRect, &boundRect](double k)
+  {
+    // https://github.com/organicmaps/organicmaps/issues/544
+    if (k > 0)
+    {
+      scale /= k;
+      clipRect.Scale(k);
+    }
+    else
+    {
+      // Will break in Debug, log in Release.
+      LOG(LERROR, ("Bad scale factor =", k, "Bound rect =", boundRect, "Clip rect =", clipRect));
+    }
+  };
 
   ASSERT(boundRect.IsPointInside(clipRect.Center()), ("center point should be inside boundRect"));
 
   if (clipRect.minX() < boundRect.minX())
-  {
-    double k = (boundRect.minX() - clipRect.Center().x) / (clipRect.minX() - clipRect.Center().x);
-    scale /= k;
-    clipRect.Scale(k);
-  }
+    DoScale((boundRect.minX() - clipRect.Center().x) / (clipRect.minX() - clipRect.Center().x));
+
   if (clipRect.maxX() > boundRect.maxX())
-  {
-    double k = (boundRect.maxX() - clipRect.Center().x) / (clipRect.maxX() - clipRect.Center().x);
-    scale /= k;
-    clipRect.Scale(k);
-  }
+    DoScale((boundRect.maxX() - clipRect.Center().x) / (clipRect.maxX() - clipRect.Center().x));
+
   if (clipRect.minY() < boundRect.minY())
-  {
-    double k = (boundRect.minY() - clipRect.Center().y) / (clipRect.minY() - clipRect.Center().y);
-    scale /= k;
-    clipRect.Scale(k);
-  }
+    DoScale((boundRect.minY() - clipRect.Center().y) / (clipRect.minY() - clipRect.Center().y));
+
   if (clipRect.maxY() > boundRect.maxY())
-  {
-    double k = (boundRect.maxY() - clipRect.Center().y) / (clipRect.maxY() - clipRect.Center().y);
-    scale /= k;
-    clipRect.Scale(k);
-  }
+    DoScale((boundRect.maxY() - clipRect.Center().y) / (clipRect.maxY() - clipRect.Center().y));
 
   res.Scale(scale);
   res.SetOrg(clipRect.Center());
@@ -159,10 +145,8 @@ ScreenBase const ScaleInto(ScreenBase const & screen, m2::RectD boundRect)
   return res;
 }
 
-ScreenBase const ShrinkAndScaleInto(ScreenBase const & screen, m2::RectD boundRect)
+ScreenBase const ShrinkAndScaleInto(ScreenBase const & screen, m2::RectD const & boundRect)
 {
-  ReduceRectHack(boundRect);
-
   ScreenBase res = screen;
 
   m2::RectD globalRect = res.ClipRect();

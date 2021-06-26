@@ -278,7 +278,7 @@
 /* Email Subject when sharing bookmarks category */
 "share_bookmarks_email_subject" = "Bladwijzers van Organic Maps met u gedeeld";
 
-"share_bookmarks_email_body" = "Hello!\n\nAttached are my bookmarks from Organic Maps offline maps. Please open them if you have Organic Maps installed. Or, if you don't, download the app for your iOS or Android device by following this link: https://organicmaps.app/get?kmz\n\nEnjoy traveling with Organic Maps!";
+"share_bookmarks_email_body" = "Hello!\n\nAttached are my bookmarks from Organic Maps app. Please open them if you have Organic Maps installed. Or, if you don't, download the app for your iOS or Android device by following this link: https://omaps.app/get?kmz\n\nEnjoy traveling with Organic Maps!";
 
 /* message title of loading file */
 "load_kmz_title" = "Bladwijzers aan het uploaden";
@@ -313,10 +313,10 @@
 /* No, thanks */
 "no_thanks" = "Nee, bedankt";
 
-/* Share one specific bookmark using SMS, %1$@ contains om:// and %2$@ http://omaps.app link. @NOTE non-ascii symbols in the link will result in max 70 characters SMS instead of 140. */
+/* Share one specific bookmark using SMS, %1$@ contains om:// and %2$@ https://omaps.app link. @NOTE non-ascii symbols in the link will result in max 70 characters SMS instead of 140. */
 "bookmark_share_sms" = "Bekijk mijn pin op de kaart. Open %1$@ of %2$@";
 
-/* Share my position using SMS, %1$@ contains om:// and %2$@ http://omaps.app link WITHOUT NAME. @NOTE non-ascii symbols in the link will result in max 70 characters SMS instead of 140. */
+/* Share my position using SMS, %1$@ contains om:// and %2$@ https://omaps.app link WITHOUT NAME. @NOTE non-ascii symbols in the link will result in max 70 characters SMS instead of 140. */
 "my_position_share_sms" = "Kijk waar ik nu ben. Open %1$@ of %2$@";
 
 /* Subject for emailed bookmark */
@@ -325,7 +325,7 @@
 /* Subject for emailed position */
 "my_position_share_email_subject" = "Kijk naar mijn huidige locatie op Organic Maps kaart";
 
-/* Share my position using EMail, %1$@ is om:// and %2$@ is http://omaps.app link WITHOUT NAME */
+/* Share my position using EMail, %1$@ is om:// and %2$@ is https://omaps.app link WITHOUT NAME */
 "my_position_share_email" = "Hoi,\n\nMomenteel ben ik hier: %1$@. Klik op deze %2$@ of deze %3$@ om de plaats op de kaart te zien.\n\nBedankt.";
 
 /* Android share by Message/SMS button text (including SMS) */
@@ -990,7 +990,8 @@
 
 "p2p_reroute_from_current" = "Wilt u dat wij een route plannen vanaf uw huidige locatie?";
 
-"whats_new_next_button" = "Volgende";
+/* Edit open hours/set time and minutes dialog */
+"next_button" = "Volgende";
 
 "editor_time_add" = "Schema toevoegen";
 
@@ -1892,7 +1893,7 @@
 /* this text will be shown in application notification preferences opposite checkbox which enable/disable downloader notifications. Devices on Android 8+ are affected. */
 "notification_channel_downloader" = "Kaart downloader";
 
-"share_bookmarks_email_body_link" = "Hello!\n\nHier is de link waar u uw bladwijzers kunt downloaden: %s. Open de lijst via Organic Maps en geniet van uw reis!\n\nHaal de applicatie op: https://organicmaps.app/get?kmz";
+"share_bookmarks_email_body_link" = "Hello!\n\nHier is de link waar u uw bladwijzers kunt downloaden: %s. Open de lijst via Organic Maps en geniet van uw reis!\n\nHaal de applicatie op: https://omaps.app/get?kmz";
 
 "warning_speedcams_title" = "Navigator waarschuwt u over camera's wanneer u de maximumsnelheid van %d km/h overschrijdt";
 
@@ -2176,8 +2177,20 @@
 
 "enable_screen_sleep" = "Laat het scherm slapen";
 
-/*  */
+/* Description in preferences */
 "enable_screen_sleep_description" = "Indien ingeschakeld, mag het scherm slapen na een periode van inactiviteit.";
+
+/* Autoupdate dialog on start */
+"whats_new_auto_update_title" = "Werk uw gedownloade kaarten bij";
+
+/* Autoupdate dialog on start */
+"whats_new_auto_update_message" = "Kaarten bijwerken houdt de informatie over objecten actueel";
+
+/* Autoupdate dialog on start */
+"whats_new_auto_update_button_size" = "Bijwerken (%s)";
+
+/* Autoupdate dialog on start */
+"whats_new_auto_update_button_later" = "Later handmatig bijwerken";
 
 
 /**********  Partners  **********/

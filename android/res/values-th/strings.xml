@@ -200,15 +200,15 @@
 	<string name="appStore_message">หวังว่าคุณจะสนุกกับการใช้ Organic Maps! หากเป็นเช่นนั้น โปรดให้คะแนนหรือวิจารณ์แอปได้ที่แอปสโตร์ (App Store) มันจะใช้เวลาไม่เกินหนึ่งนาทีแต่สามารถช่วยเหลือเราได้ ขอบคุณสำหรับการสนับสนุนของคุณ!</string>
 	<!-- No, thanks -->
 	<string name="no_thanks">ไม่ ขอบคุณ</string>
-	<!-- Share one specific bookmark using SMS, %1$@ contains om:// and %2$@ http://omaps.app link. @NOTE non-ascii symbols in the link will result in max 70 characters SMS instead of 140. -->
+	<!-- Share one specific bookmark using SMS, %1$@ contains om:// and %2$@ https://omaps.app link. @NOTE non-ascii symbols in the link will result in max 70 characters SMS instead of 140. -->
 	<string name="bookmark_share_sms">เฮ้ ตรวจสอบหมุดของฉันที่ Organic Maps! %1$s หรือ %2$s</string>
-	<!-- Share my position using SMS, %1$@ contains om:// and %2$@ http://omaps.app link WITHOUT NAME. @NOTE non-ascii symbols in the link will result in max 70 characters SMS instead of 140. -->
-	<string name="my_position_share_sms">เฮ้อ ตรวจสอบตำแหน่งที่ตั้งปัจจุบันของฉันที่ Organic Maps! %1$s หรือ %2$s ไม่มีการติดตั้งแผนที่แบบออฟไลน์? ดาวน์โหลดที่นี่: https://organicmaps.app/get</string>
+	<!-- Share my position using SMS, %1$@ contains om:// and %2$@ https://omaps.app link WITHOUT NAME. @NOTE non-ascii symbols in the link will result in max 70 characters SMS instead of 140. -->
+	<string name="my_position_share_sms">เฮ้อ ตรวจสอบตำแหน่งที่ตั้งปัจจุบันของฉันที่ Organic Maps! %1$s หรือ %2$s ไม่มีการติดตั้งแผนที่แบบออฟไลน์? ดาวน์โหลดที่นี่: https://omaps.app/get</string>
 	<!-- Subject for emailed bookmark -->
 	<string name="bookmark_share_email_subject">เฮ้ ตรวจสอบหมุดของฉันที่ แผนที่ Organic Maps!</string>
 	<!-- Subject for emailed position -->
 	<string name="my_position_share_email_subject">นี่ มาดูตำแหน่งปัจจุบันของฉันที่แผนที่ Organic Maps สิ!</string>
-	<!-- Share my position using EMail, %1$@ is om:// and %2$@ is http://omaps.app link WITHOUT NAME -->
+	<!-- Share my position using EMail, %1$@ is om:// and %2$@ is https://omaps.app link WITHOUT NAME -->
 	<string name="my_position_share_email">หวัดดี\n\nฉันอยู่ที่นี่ตอนนี้: %1$s. คลิกลิงก์นี้ %2$s หรือลิงก์นี้ %3$s เพื่อดูสถานที่บนแผนที่\n\nขอบคุณ</string>
 	<!-- Android share by Message/SMS button text (including SMS) -->
 	<string name="share_by_message">แชร์จากข้อความ</string>
@@ -599,7 +599,8 @@
 	<string name="p2p_to_here">เส้นทางถึง</string>
 	<string name="p2p_only_from_current">สามารถใช้การนำทางได้เฉพาะจากตำแหน่งที่ตั้งปัจจุบันของคุณเท่านั้น</string>
 	<string name="p2p_reroute_from_current">คุณต้องการให้เราาวงแผนเส้นทางจากสถานที่ตั้งปัจจุบันของคุณหรือไม่?</string>
-	<string name="whats_new_next_button">ถัดไป</string>
+	<!-- Edit open hours/set time and minutes dialog -->
+	<string name="next_button">ถัดไป</string>
 	<string name="editor_time_add">เพิ่มวัน</string>
 	<string name="editor_time_delete">ลบวัน</string>
 	<!-- Text for allday switch. -->
@@ -1068,7 +1069,7 @@
 	<string name="place_description_title">รายละเอียดของสถานที่</string>
 	<!-- this text will be shown in application notification preferences opposite checkbox which enable/disable downloader notifications. Devices on Android 8+ are affected. -->
 	<string name="notification_channel_downloader">ตัวดาวน์โหลดแผนที่</string>
-	<string name="share_bookmarks_email_body_link">สวัสดี!\n\nนี่คือลิงค์ที่คุณสามารถดาวน์โหลดบุ๊คมาร์คของคุณ: %s เปิดรายการผ่าน Organic Maps และเพลิดเพลินไปกับการเดินทางของคุณ!\n\nรับแอพพลิเคชัน: https://organicmaps.app/get?kmz</string>
+	<string name="share_bookmarks_email_body_link">สวัสดี!\n\nนี่คือลิงค์ที่คุณสามารถดาวน์โหลดบุ๊คมาร์คของคุณ: %s เปิดรายการผ่าน Organic Maps และเพลิดเพลินไปกับการเดินทางของคุณ!\n\nรับแอพพลิเคชัน: https://omaps.app/get?kmz</string>
 	<string name="warning_speedcams_title">เนวิเกเตอร์จะเตือนคุณเกี่ยวกับกล้องถ่ายรูปเมื่อคุณขับเร็วเกินกำหนดโดยอยู่ที่ %d กม./ชม</string>
 	<string name="warning_speedcams_subtitle">โปรดปฏิบัติตามกฎหมายการขับขี่รถยนต์ของประเทศที่คุณกำลังเดินทางไป</string>
 	<string name="speedcams_notice_message">อัตโนมัติ - เตือนเกี่ยวกับกล้องตรวจจับความเร็วหากมีความเป็นได้ว่าจะขับเร็วเกิดกำหนด\nทุกครั้ง - เตือนเกี่ยวกับกล้องตรวจจับความเร็วเสมอ\nไม่ต้องเตือน - ไม่เคยเตือนเกี่ยวกับกล้องตรวจจับความเร็ว</string>
@@ -1211,8 +1212,16 @@
 	<string name="downloader_loading_ios">การดาวน์โหลด</string>
 	<string name="key_information_title">ข้อมูลหลัก</string>
 	<string name="enable_screen_sleep">อนุญาตให้หน้าจอเข้าสู่โหมดสลีป</string>
-	<!--  -->
+	<!-- Description in preferences -->
 	<string name="enable_screen_sleep_description">เมื่อเปิดใช้งานหน้าจอจะได้รับอนุญาตให้เข้าสู่โหมดสลีปหลังจากไม่มีการใช้งานเป็นระยะเวลาหนึ่ง</string>
+	<!-- Autoupdate dialog on start -->
+	<string name="whats_new_auto_update_title">อัปเดตแผนที่ที่คุณดาวน์โหลดมา</string>
+	<!-- Autoupdate dialog on start -->
+	<string name="whats_new_auto_update_message">การอัปเดตแผนที่จะคงข้อมูลเกี่ยวกับจุดหมายต่าง ๆ ให้ล่าสุดอยู่เสมอ</string>
+	<!-- Autoupdate dialog on start -->
+	<string name="whats_new_auto_update_button_size">อัปเดต (%s)</string>
+	<!-- Autoupdate dialog on start -->
+	<string name="whats_new_auto_update_button_later">อัปเดตด้วยตนเองภายหลัง</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">สถานีกระเช้าลอยฟ้า</string>

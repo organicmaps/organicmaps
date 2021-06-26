@@ -1,24 +1,8 @@
-@objc enum DeepLinkProvider: Int {
-  case native
-}
-
-class DeepLinkURL {
-  let url: URL
-  let provider: DeepLinkProvider
-
-  init(url: URL, provider: DeepLinkProvider = .native) {
-    self.url = url
-    self.provider = provider
-  }
-}
-
 @objc @objcMembers class DeepLinkHandler: NSObject {
   static let shared = DeepLinkHandler()
 
   private(set) var isLaunchedByDeeplink = false
-  private(set) var deeplinkURL: DeepLinkURL?
-
-  private var canHandleLink = false
+  private(set) var url: URL?
 
   private override init() {
     super.init()
@@ -33,82 +17,103 @@ class DeepLinkURL {
 
     if let launchDeeplink = options?[UIApplication.LaunchOptionsKey.url] as? URL {
       isLaunchedByDeeplink = true
-      deeplinkURL = DeepLinkURL(url: launchDeeplink)
+      url = launchDeeplink
     }
   }
 
   func applicationDidOpenUrl(_ url: URL) -> Bool {
-    deeplinkURL = DeepLinkURL(url: url)
-    if canHandleLink {
-      handleInternal()
-    }
-    return true
+    self.url = url
+    return handleDeepLink(url: url)
   }
 
-  private func setUniversalLink(_ url: URL, provider: DeepLinkProvider) -> Bool {
-    let dlUrl = convertUniversalLink(url)
-    guard deeplinkURL == nil else { return false }
-    deeplinkURL = DeepLinkURL(url: dlUrl)
-    return true
-  }
-
-  func applicationDidReceiveUniversalLink(_ url: URL) -> Bool {
-    return applicationDidReceiveUniversalLink(url, provider: .native)
-  }
-
-  func applicationDidReceiveUniversalLink(_ url: URL, provider: DeepLinkProvider) -> Bool {
-    var result = false
-    if let host = url.host, host == "mapsme.onelink.me" {
-      URLComponents(url: url, resolvingAgainstBaseURL: false)?.queryItems?.forEach {
-        if $0.name == "af_dp" {
-          guard let value = $0.value, let dl = URL(string: value) else { return }
-          result = setUniversalLink(dl, provider: provider)
-        }
-      }
-    } else {
-      result = setUniversalLink(url, provider: provider)
-    }
-    if canHandleLink {
-      handleInternal()
-    }
-    return result
-  }
-
-  func handleDeeplink() {
-    canHandleLink = true
-    if deeplinkURL != nil {
-      handleInternal()
-    }
-  }
-
-  func handleDeeplink(_ url: URL) {
-    deeplinkURL = DeepLinkURL(url: url)
-    handleDeeplink()
+  func applicationDidReceiveUniversalLink(_ universalLink: URL) -> Bool {
+    // Convert http(s)://omaps.app/ENCODEDCOORDS/NAME to om://ENCODEDCOORDS/NAME
+    self.url = URL(string: universalLink.absoluteString
+                    .replacingOccurrences(of: "http://omaps.app", with: "om:/")
+                    .replacingOccurrences(of: "https://omaps.app", with: "om:/"))
+    return handleDeepLink(url: self.url!)
   }
 
   func reset() {
     isLaunchedByDeeplink = false
-    deeplinkURL = nil
+    url = nil
   }
 
   func getBackUrl() -> String {
-    guard let urlString = deeplinkURL?.url.absoluteString else { return "" }
+    guard let urlString = url?.absoluteString else { return "" }
     guard let url = URLComponents(string: urlString) else { return "" }
     return (url.queryItems?.first(where: { $0.name == "backurl" })?.value ?? "")
   }
 
-  private func convertUniversalLink(_ universalLink: URL) -> URL {
-    let convertedLink = String(format: "mapsme:/%@?%@", universalLink.path, universalLink.query ?? "")
-    return URL(string: convertedLink)!
+  func handleDeepLink() -> Bool {
+    if let url = self.url {
+      return handleDeepLink(url: url)
+    }
+    LOG(.error, "handleDeepLink is called with nil URL")
+    return false
   }
 
-  private func handleInternal() {
-    guard let url = deeplinkURL else {
-      assertionFailure()
-      return
+  private func handleDeepLink(url: URL) -> Bool {
+    LOG(.info, "handleDeepLink: \(url)")
+
+    switch url.scheme {
+      // Process url scheme.
+      case "geo", "ge0", "om":
+        if (DeepLinkParser.showMap(for: url)) {
+          MapsAppDelegate.theApp().showMap()
+          return true
+        }
+      // Import bookmarks.
+      case "file":
+        DeepLinkParser.addBookmarksFile(url)
+        return true  // We don't really know if async parsing was successful.
+      // API scheme.
+      case "mapswithme", "mapsme", "mwm":
+        let dlData = DeepLinkParser.parseAndSetApiURL(url)
+        guard dlData.success else { return false }
+
+        switch dlData.urlType {
+
+          case .route:
+            if let adapter = DeepLinkRouteStrategyAdapter(url) {
+              MWMRouter.buildApiRoute(with: adapter.type, start: adapter.p1, finish: adapter.p2)
+              MapsAppDelegate.theApp().showMap()
+              return true
+            }
+
+          case .map:
+            if (DeepLinkParser.showMap(for: url)) {
+              MapsAppDelegate.theApp().showMap()
+              return true
+            }
+
+          case .search:
+            if let sd = dlData as? DeepLinkSearchData {
+              let kSearchInViewportZoom: Int32 = 16;
+              // Set viewport only when cll parameter was provided in url.
+              // Equator and Prime Meridian are perfectly valid separately.
+              if (sd.centerLat != 0.0 || sd.centerLon != 0.0) {
+                MapViewController.setViewport(sd.centerLat, lon: sd.centerLon, zoomLevel: kSearchInViewportZoom)
+                // Need to update viewport for search API manually because Drape engine
+                // will not notify subscribers when search view is shown.
+                if (!sd.isSearchOnMap) {
+                  sd.onViewportChanged(kSearchInViewportZoom)
+                }
+              }
+              if (sd.isSearchOnMap) {
+                MWMMapViewControlsManager.manager()?.searchText(onMap: sd.query, forInputLocale: sd.locale)
+              } else {
+                MWMMapViewControlsManager.manager()?.searchText(sd.query, forInputLocale: sd.locale)
+              }
+              return true
+            }
+
+          // Invalid API parameters.
+          default: break
+        }
+      // Not supported url schemes.
+      default: break
     }
-    LOG(.info, "Handle deeplink: \(url.url)")
-    let deeplinkHandlerStrategy = DeepLinkStrategyFactory.create(url: url)
-    deeplinkHandlerStrategy.execute()
+    return false
   }
 }

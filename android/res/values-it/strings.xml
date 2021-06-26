@@ -194,15 +194,15 @@
 	<string name="appStore_message">Confidiamo nel fatto che sia piacevole utilizzare Organic Maps! In caso positivo, ti preghiamo di valutare o recensire l\'app all\'interno dell\'app store. Ti porterà via meno di un minuto e la cosa ci aiuterebbe tantissimo. Grazie per il tuo sostegno!</string>
 	<!-- No, thanks -->
 	<string name="no_thanks">No, grazie</string>
-	<!-- Share one specific bookmark using SMS, %1$@ contains om:// and %2$@ http://omaps.app link. @NOTE non-ascii symbols in the link will result in max 70 characters SMS instead of 140. -->
+	<!-- Share one specific bookmark using SMS, %1$@ contains om:// and %2$@ https://omaps.app link. @NOTE non-ascii symbols in the link will result in max 70 characters SMS instead of 140. -->
 	<string name="bookmark_share_sms">Vedi pin sulla mappa. Apri %1$s o %2$s</string>
-	<!-- Share my position using SMS, %1$@ contains om:// and %2$@ http://omaps.app link WITHOUT NAME. @NOTE non-ascii symbols in the link will result in max 70 characters SMS instead of 140. -->
+	<!-- Share my position using SMS, %1$@ contains om:// and %2$@ https://omaps.app link WITHOUT NAME. @NOTE non-ascii symbols in the link will result in max 70 characters SMS instead of 140. -->
 	<string name="my_position_share_sms">Vedi dove sono ora. Apri %1$s o %2$s</string>
 	<!-- Subject for emailed bookmark -->
 	<string name="bookmark_share_email_subject">Dai uno sguardo al mio pin sulla mappa di Organic Maps</string>
 	<!-- Subject for emailed position -->
 	<string name="my_position_share_email_subject">Guarda dove mi trovo attualmente sulla mappa Organic Maps</string>
-	<!-- Share my position using EMail, %1$@ is om:// and %2$@ is http://omaps.app link WITHOUT NAME -->
+	<!-- Share my position using EMail, %1$@ is om:// and %2$@ is https://omaps.app link WITHOUT NAME -->
 	<string name="my_position_share_email">Ciao,\n\nSono qui adesso: %1$s. Clicca su questo link %2$s oppure su questo %3$s per vedere il posto sulla mappa.\n\nGrazie.</string>
 	<!-- Android share by Message/SMS button text (including SMS) -->
 	<string name="share_by_message">Condividi con un messaggio</string>
@@ -593,7 +593,8 @@
 	<string name="p2p_to_here">Percorso per</string>
 	<string name="p2p_only_from_current">La navigazione è disponibile solo dalla tua posizione attuale.</string>
 	<string name="p2p_reroute_from_current">Vuoi che impostiamo il percorso dalla tua posizione corrente?</string>
-	<string name="whats_new_next_button">Avanti</string>
+	<!-- Edit open hours/set time and minutes dialog -->
+	<string name="next_button">Avanti</string>
 	<string name="editor_time_add">Aggiungi orari</string>
 	<string name="editor_time_delete">Elimina orari</string>
 	<!-- Text for allday switch. -->
@@ -1063,7 +1064,7 @@
 	<string name="place_description_title">Descrizione luogo</string>
 	<!-- this text will be shown in application notification preferences opposite checkbox which enable/disable downloader notifications. Devices on Android 8+ are affected. -->
 	<string name="notification_channel_downloader">Caricamento mappe</string>
-	<string name="share_bookmarks_email_body_link">Ciao,\n\npuoi scaricare i tag dal seguente link: %s. Aprire elenco tramite Organic Maps e godersi viaggio!\n\nScaricare l\'App: https://organicmaps.app/get?kmz</string>
+	<string name="share_bookmarks_email_body_link">Ciao,\n\npuoi scaricare i tag dal seguente link: %s. Aprire elenco tramite Organic Maps e godersi viaggio!\n\nScaricare l\'App: https://omaps.app/get?kmz</string>
 	<string name="warning_speedcams_title">Il navigatore avvisa della presenza della telecamere in caso di eccesso velocità di %d km/o</string>
 	<string name="warning_speedcams_subtitle">Ricorda di informarti sul Codice della Strada del paese che visiti.</string>
 	<string name="speedcams_notice_message">Auto - Avvisare di autovelox in caso di rischio eccesso velocità\nSempre - avvisare sempre di autovelox\nMai - Non avvisare mai di autovelox</string>
@@ -1206,8 +1207,16 @@
 	<string name="downloader_loading_ios">Caricamento</string>
 	<string name="key_information_title">Informazioni importanti</string>
 	<string name="enable_screen_sleep">Consenti allo schermo di dormire</string>
-	<!--  -->
+	<!-- Description in preferences -->
 	<string name="enable_screen_sleep_description">Quando abilitato, lo schermo potrà dormire dopo un periodo di inattività.</string>
+	<!-- Autoupdate dialog on start -->
+	<string name="whats_new_auto_update_title">Aggiorna le mappe scaricate</string>
+	<!-- Autoupdate dialog on start -->
+	<string name="whats_new_auto_update_message">Aggiornamento mappe mantiene aggiornate le informazioni sugli oggetti</string>
+	<!-- Autoupdate dialog on start -->
+	<string name="whats_new_auto_update_button_size">Aggiorna (%s)</string>
+	<!-- Autoupdate dialog on start -->
+	<string name="whats_new_auto_update_button_later">Aggiorna manualmente più tardi</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Funivia</string>

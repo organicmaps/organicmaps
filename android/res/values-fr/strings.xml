@@ -200,15 +200,15 @@
 	<string name="appStore_message">Nous espérons que vous appréciez l\'utilisation de Organic Maps ! Si oui, veuillez évaluer l\'appli ou laisser une critique sur l\'App Store. Cela prend moins d\'une minute, mais peut vraiment nous aider. Merci pour votre soutien !</string>
 	<!-- No, thanks -->
 	<string name="no_thanks">Non, merci</string>
-	<!-- Share one specific bookmark using SMS, %1$@ contains om:// and %2$@ http://omaps.app link. @NOTE non-ascii symbols in the link will result in max 70 characters SMS instead of 140. -->
-	<string name="bookmark_share_sms">Hé, regarde mon épingle sur Organic Maps ! %1$s ou %2$s. Les cartes hors ligne ne sont pas installées ? Les télécharger ici : https://organicmaps.app/get</string>
-	<!-- Share my position using SMS, %1$@ contains om:// and %2$@ http://omaps.app link WITHOUT NAME. @NOTE non-ascii symbols in the link will result in max 70 characters SMS instead of 140. -->
-	<string name="my_position_share_sms">Hé, regarde ma position actuelle sur Organic Maps ! %1$s ou %2$s. Les cartes hors ligne ne sont pas installées ? Les télécharger ici : https://organicmaps.app/get</string>
+	<!-- Share one specific bookmark using SMS, %1$@ contains om:// and %2$@ https://omaps.app link. @NOTE non-ascii symbols in the link will result in max 70 characters SMS instead of 140. -->
+	<string name="bookmark_share_sms">Hé, regarde mon épingle sur Organic Maps ! %1$s ou %2$s. Les cartes hors ligne ne sont pas installées ? Les télécharger ici : https://omaps.app/get</string>
+	<!-- Share my position using SMS, %1$@ contains om:// and %2$@ https://omaps.app link WITHOUT NAME. @NOTE non-ascii symbols in the link will result in max 70 characters SMS instead of 140. -->
+	<string name="my_position_share_sms">Hé, regarde ma position actuelle sur Organic Maps ! %1$s ou %2$s. Les cartes hors ligne ne sont pas installées ? Les télécharger ici : https://omaps.app/get</string>
 	<!-- Subject for emailed bookmark -->
 	<string name="bookmark_share_email_subject">Hé, regarde mon épingle sur la carte Organic Maps !</string>
 	<!-- Subject for emailed position -->
 	<string name="my_position_share_email_subject">Hé, regarde ma position actuelle sur la carte Organic Maps !</string>
-	<!-- Share my position using EMail, %1$@ is om:// and %2$@ is http://omaps.app link WITHOUT NAME -->
+	<!-- Share my position using EMail, %1$@ is om:// and %2$@ is https://omaps.app link WITHOUT NAME -->
 	<string name="my_position_share_email">Bonjour,\n\nJe suis actuellement ici : %1$s. Clique sur ce lien %2$s ou sur celui-ci %3$s pour voir l\'endroit sur la carte.\n\nMerci.</string>
 	<!-- Android share by Message/SMS button text (including SMS) -->
 	<string name="share_by_message">Partager par message</string>
@@ -605,7 +605,8 @@
 	<string name="p2p_to_here">Itinéraire vers</string>
 	<string name="p2p_only_from_current">La navigation est uniquement disponible à partir de votre emplacement actuel.</string>
 	<string name="p2p_reroute_from_current">Souhaitez-vous que nous planifiions un itinéraire à partir de votre emplacement actuel ?</string>
-	<string name="whats_new_next_button">Suivant</string>
+	<!-- Edit open hours/set time and minutes dialog -->
+	<string name="next_button">Suivant</string>
 	<string name="editor_time_add">Ajouter au planning</string>
 	<string name="editor_time_delete">Supprimer du planning</string>
 	<!-- Text for allday switch. -->
@@ -1081,7 +1082,7 @@
 	<string name="place_description_title">Description d\'endroit</string>
 	<!-- this text will be shown in application notification preferences opposite checkbox which enable/disable downloader notifications. Devices on Android 8+ are affected. -->
 	<string name="notification_channel_downloader">Téléchargeur carte</string>
-	<string name="share_bookmarks_email_body_link">Bonjour !\n\nVoici le lien où vous pouvez télécharger vos signets : %s. Ouvrez la liste via Organic Maps et profitez de votre voyage !\n\nInstaller l\'application : https://organicmaps.app/get?kmz</string>
+	<string name="share_bookmarks_email_body_link">Bonjour !\n\nVoici le lien où vous pouvez télécharger vos signets : %s. Ouvrez la liste via Organic Maps et profitez de votre voyage !\n\nInstaller l\'application : https://omaps.app/get?kmz</string>
 	<string name="warning_speedcams_title">Navigator vous avertira des caméras lorsque vous dépassez la limite de vitesse de %d km/h</string>
 	<string name="warning_speedcams_subtitle">Veuillez respecter les réglementations de conduite du pays dans lequel vous vous rendez.</string>
 	<string name="speedcams_notice_message">Auto - Alerte sur les radars en cas de risque de dépassement de la limite de vitesse\nToujours - Toujours avertir des radars\nJamais - Jamais avertir à propos des radars</string>
@@ -1224,8 +1225,16 @@
 	<string name="downloader_loading_ios">Téléchargement</string>
 	<string name="key_information_title">Informations clés</string>
 	<string name="enable_screen_sleep">Autoriser l\'écran à dormir</string>
-	<!--  -->
+	<!-- Description in preferences -->
 	<string name="enable_screen_sleep_description">Lorsqu\'il est activé, l\'écran sera autorisé à dormir après une période d\'inactivité.</string>
+	<!-- Autoupdate dialog on start -->
+	<string name="whats_new_auto_update_title">Mettez à jour vos cartes téléchargées</string>
+	<!-- Autoupdate dialog on start -->
+	<string name="whats_new_auto_update_message">Actualiser les cartes permet d\'actualiser également les informations sur les objets</string>
+	<!-- Autoupdate dialog on start -->
+	<string name="whats_new_auto_update_button_size">Mettre à jour (%s)</string>
+	<!-- Autoupdate dialog on start -->
+	<string name="whats_new_auto_update_button_later">Mettre à jour manuellement plus tard</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Remontées mécaniques</string>

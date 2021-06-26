@@ -196,15 +196,15 @@
 	<string name="appStore_message">Reméljük élvezi a Organic Maps használatát. Ha igen, kérjük írjon ajánlást az App Store-ban! Kevesebb mint egy perc, és valóban segít nekünk. Köszönjük!</string>
 	<!-- No, thanks -->
 	<string name="no_thanks">Köszönöm, nem</string>
-	<!-- Share one specific bookmark using SMS, %1$@ contains om:// and %2$@ http://omaps.app link. @NOTE non-ascii symbols in the link will result in max 70 characters SMS instead of 140. -->
-	<string name="bookmark_share_sms">Nézd meg a Organic Maps jelzőt! %1$s vagy %2$s A program letöltése: https://organicmaps.app/get</string>
-	<!-- Share my position using SMS, %1$@ contains om:// and %2$@ http://omaps.app link WITHOUT NAME. @NOTE non-ascii symbols in the link will result in max 70 characters SMS instead of 140. -->
-	<string name="my_position_share_sms">Nézd meg a Organic Maps helyzetemet! %1$s vagy %2$s A program letöltése: https://organicmaps.app/get</string>
+	<!-- Share one specific bookmark using SMS, %1$@ contains om:// and %2$@ https://omaps.app link. @NOTE non-ascii symbols in the link will result in max 70 characters SMS instead of 140. -->
+	<string name="bookmark_share_sms">Nézd meg a Organic Maps jelzőt! %1$s vagy %2$s A program letöltése: https://omaps.app/get</string>
+	<!-- Share my position using SMS, %1$@ contains om:// and %2$@ https://omaps.app link WITHOUT NAME. @NOTE non-ascii symbols in the link will result in max 70 characters SMS instead of 140. -->
+	<string name="my_position_share_sms">Nézd meg a Organic Maps helyzetemet! %1$s vagy %2$s A program letöltése: https://omaps.app/get</string>
 	<!-- Subject for emailed bookmark -->
 	<string name="bookmark_share_email_subject">Nézze meg a Organic Maps jelzőmet</string>
 	<!-- Subject for emailed position -->
 	<string name="my_position_share_email_subject">Nézze meg a helyzetemet a Organic Maps térképen!</string>
-	<!-- Share my position using EMail, %1$@ is om:// and %2$@ is http://omaps.app link WITHOUT NAME -->
+	<!-- Share my position using EMail, %1$@ is om:// and %2$@ is https://omaps.app link WITHOUT NAME -->
 	<string name="my_position_share_email">Üdvözlöm!\n\nJelenleg itt vagyok: %1$s Kattintson erre a hivatkozásra %2$s vagy erre %3$s, hogy lássa a helyet a térképen.\n\nKöszönöm.</string>
 	<!-- Android share by Message/SMS button text (including SMS) -->
 	<string name="share_by_message">Megosztás üzenetben</string>
@@ -595,7 +595,8 @@
 	<string name="p2p_to_here">Ide</string>
 	<string name="p2p_only_from_current">A navigáció csak a jelenlegi helyzetéből érhető el.</string>
 	<string name="p2p_reroute_from_current">Szeretne útvonaltervet készíttetni a jelenlegi pozíciójától?</string>
-	<string name="whats_new_next_button">Következő</string>
+	<!-- Edit open hours/set time and minutes dialog -->
+	<string name="next_button">Következő</string>
 	<string name="editor_time_add">Időrend felvitele</string>
 	<string name="editor_time_delete">Időrend törlése</string>
 	<!-- Text for allday switch. -->
@@ -1064,7 +1065,7 @@
 	<string name="place_description_title">A hely ismertetése</string>
 	<!-- this text will be shown in application notification preferences opposite checkbox which enable/disable downloader notifications. Devices on Android 8+ are affected. -->
 	<string name="notification_channel_downloader">Kártyák letöltése</string>
-	<string name="share_bookmarks_email_body_link">Üdvözlöm!\n\nA jeleit le lehet tölteni ezzel a linkkel: %s. Nyíssa meg a listát Organic Maps segítségével és élvezze az utazását!\n\nAlkalmazás letöltése: https://organicmaps.app/get?kmz</string>
+	<string name="share_bookmarks_email_body_link">Üdvözlöm!\n\nA jeleit le lehet tölteni ezzel a linkkel: %s. Nyíssa meg a listát Organic Maps segítségével és élvezze az utazását!\n\nAlkalmazás letöltése: https://omaps.app/get?kmz</string>
 	<string name="warning_speedcams_title">Navigátor értesít a kamerákról sebességkorlátozás megsértésénél %d km/óra-ra</string>
 	<string name="warning_speedcams_subtitle">Ne felejtse el megismerkedni a cél ország közlekedési szabályaival.</string>
 	<string name="speedcams_notice_message">Autó - Figyelmeztetés a sebesség kamerákról, ha van kockázat a sebesség korlátozás megsértéséről\nMindig - Mindig figyelmeztet a kamerákról\nSoha - Soha ne figyelmezet a kamerákról</string>
@@ -1207,8 +1208,16 @@
 	<string name="downloader_loading_ios">Letöltés</string>
 	<string name="key_information_title">Kulcs információ</string>
 	<string name="enable_screen_sleep">Hagyja aludni a képernyőt</string>
-	<!--  -->
+	<!-- Description in preferences -->
 	<string name="enable_screen_sleep_description">Ha engedélyezve van, akkor a képernyő inaktivitás után alszik.</string>
+	<!-- Autoupdate dialog on start -->
+	<string name="whats_new_auto_update_title">Frissítse a letöltött térképeit</string>
+	<!-- Autoupdate dialog on start -->
+	<string name="whats_new_auto_update_message">A térképek frissítésével naprakészen tarthatja az objektumokra vonatkozó adatokat</string>
+	<!-- Autoupdate dialog on start -->
+	<string name="whats_new_auto_update_button_size">Frissítés (%s)</string>
+	<!-- Autoupdate dialog on start -->
+	<string name="whats_new_auto_update_button_later">Kézi frissítés később</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Felvonóállomás</string>

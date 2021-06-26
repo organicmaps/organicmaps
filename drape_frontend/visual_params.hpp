@@ -31,6 +31,8 @@ public:
   std::string const & GetResourcePostfix() const;
 
   double GetVisualScale() const;
+  /// This is a scale factor to decrease extending of bbox for POI icons. It could be removed with new style
+  double GetPoiExtendScale() const;
   uint32_t GetTileSize() const;
 
   /// How many pixels around touch point are used to get bookmark or POI in consideration of visual scale.
@@ -64,6 +66,7 @@ private:
 
   uint32_t m_tileSize;
   double m_visualScale;
+  double m_poiExtendScale;
   GlyphVisualParams m_glyphVisualParams;
   std::atomic<double> m_fontScale;
 
@@ -99,7 +102,7 @@ uint32_t CalculateTileSize(uint32_t screenWidth, uint32_t screenHeight);
 
 void ExtractZoomFactors(ScreenBase const & s, double & zoom, int & index, float & lerpCoef);
 float InterpolateByZoomLevelsImpl(int index, float lerpCoef, float const * values,
-				  size_t valuesSize);
+                                  size_t valuesSize);
 template <typename Array>
 inline float InterpolateByZoomLevels(int index, float lerpCoef, Array const & values)
 {

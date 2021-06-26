@@ -278,7 +278,7 @@
 /* Email Subject when sharing bookmarks category */
 "share_bookmarks_email_subject" = "Điểm đánh dấu Organic Maps được chia sẻ";
 
-"share_bookmarks_email_body" = "Hello!\n\nAttached are my bookmarks from Organic Maps offline maps. Please open them if you have Organic Maps installed. Or, if you don't, download the app for your iOS or Android device by following this link: https://organicmaps.app/get?kmz\n\nEnjoy traveling with Organic Maps!";
+"share_bookmarks_email_body" = "Hello!\n\nAttached are my bookmarks from Organic Maps app. Please open them if you have Organic Maps installed. Or, if you don't, download the app for your iOS or Android device by following this link: https://omaps.app/get?kmz\n\nEnjoy traveling with Organic Maps!";
 
 /* message title of loading file */
 "load_kmz_title" = "Tải Điểm đánh dấu";
@@ -313,11 +313,11 @@
 /* No, thanks */
 "no_thanks" = "Không, cảm ơn";
 
-/* Share one specific bookmark using SMS, %1$@ contains om:// and %2$@ http://omaps.app link. @NOTE non-ascii symbols in the link will result in max 70 characters SMS instead of 140. */
-"bookmark_share_sms" = "Này, hãy xem ghim của tôi tại Organic Maps! %1$@ hoặc %2$@ Bạn chưa cài đặt bản đồ ngoại tuyến? Tải xuống tại đây: https://organicmaps.app/get";
+/* Share one specific bookmark using SMS, %1$@ contains om:// and %2$@ https://omaps.app link. @NOTE non-ascii symbols in the link will result in max 70 characters SMS instead of 140. */
+"bookmark_share_sms" = "Này, hãy xem ghim của tôi tại Organic Maps! %1$@ hoặc %2$@ Bạn chưa cài đặt bản đồ ngoại tuyến? Tải xuống tại đây: https://omaps.app/get";
 
-/* Share my position using SMS, %1$@ contains om:// and %2$@ http://omaps.app link WITHOUT NAME. @NOTE non-ascii symbols in the link will result in max 70 characters SMS instead of 140. */
-"my_position_share_sms" = "Này, hãy xem vị trí hiện tại của tôi tại Organic Maps! %1$@ hoặc %2$@ Bạn không có bản đồ ngoại tuyến? Tải xuống tại đây: https://organicmaps.app/get";
+/* Share my position using SMS, %1$@ contains om:// and %2$@ https://omaps.app link WITHOUT NAME. @NOTE non-ascii symbols in the link will result in max 70 characters SMS instead of 140. */
+"my_position_share_sms" = "Này, hãy xem vị trí hiện tại của tôi tại Organic Maps! %1$@ hoặc %2$@ Bạn không có bản đồ ngoại tuyến? Tải xuống tại đây: https://omaps.app/get";
 
 /* Subject for emailed bookmark */
 "bookmark_share_email_subject" = "Này, hãy xem ghim của tôi tại Organic Maps map";
@@ -325,7 +325,7 @@
 /* Subject for emailed position */
 "my_position_share_email_subject" = "Này, hãy xem vị trí hiện tại của tôi tại Organic Maps map!";
 
-/* Share my position using EMail, %1$@ is om:// and %2$@ is http://omaps.app link WITHOUT NAME */
+/* Share my position using EMail, %1$@ is om:// and %2$@ is https://omaps.app link WITHOUT NAME */
 "my_position_share_email" = "Chào,\n\nTôi hiện đang ở đây: %1$@. Hãy nhấn vào liên kết này %2$@ hoặc liên kết này %3$@ để xem địa điểm trên bản đồ.\n\nCám ơn.";
 
 /* Android share by Message/SMS button text (including SMS) */
@@ -990,7 +990,8 @@
 
 "p2p_reroute_from_current" = "Bạn có muốn chúng tôi vạch đường từ vị trí hiện tại của bạn không?";
 
-"whats_new_next_button" = "Tiếp theo";
+/* Edit open hours/set time and minutes dialog */
+"next_button" = "Tiếp theo";
 
 "editor_time_add" = "Thêm lịch biểu";
 
@@ -1892,7 +1893,7 @@
 /* this text will be shown in application notification preferences opposite checkbox which enable/disable downloader notifications. Devices on Android 8+ are affected. */
 "notification_channel_downloader" = "Trình tải xuống bản đồ";
 
-"share_bookmarks_email_body_link" = "Xin chào!\n\nĐây là liên kết nơi bạn có thể tải xuống dấu trang của mình: %s. Mở danh sách qua Organic Maps và tận hưởng chuyến đi của bạn!\n\nNhận đơn đăng ký: https://organicmaps.app/get?kmz";
+"share_bookmarks_email_body_link" = "Xin chào!\n\nĐây là liên kết nơi bạn có thể tải xuống dấu trang của mình: %s. Mở danh sách qua Organic Maps và tận hưởng chuyến đi của bạn!\n\nNhận đơn đăng ký: https://omaps.app/get?kmz";
 
 "warning_speedcams_title" = "Thanh điều hướng sẽ cảnh báo bạn về máy ảnh khi bạn vượt quá giới hạn tốc độ %d km/h";
 
@@ -2176,8 +2177,20 @@
 
 "enable_screen_sleep" = "Cho phép màn hình ở chế độ ngủ";
 
-/*  */
+/* Description in preferences */
 "enable_screen_sleep_description" = "Khi được bật, màn hình sẽ được phép ở chế độ ngủ sau một thời gian không hoạt động.";
+
+/* Autoupdate dialog on start */
+"whats_new_auto_update_title" = "Cập nhật các bản đồ đã tải về của bạn";
+
+/* Autoupdate dialog on start */
+"whats_new_auto_update_message" = "Cập nhật bản đồ để cập nhật thông tin về các đối tượng trên đó";
+
+/* Autoupdate dialog on start */
+"whats_new_auto_update_button_size" = "Cập nhật (%s)";
+
+/* Autoupdate dialog on start */
+"whats_new_auto_update_button_later" = "Cập nhật thủ công sau";
 
 
 /**********  Partners  **********/

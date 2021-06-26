@@ -24,7 +24,6 @@
 
 package com.mapswithme.util;
 
-import android.os.Build;
 import android.text.TextUtils;
 
 import androidx.annotation.NonNull;
@@ -50,17 +49,11 @@ import java.util.Map;
 import java.util.zip.GZIPInputStream;
 import java.util.zip.InflaterInputStream;
 
-import javax.net.ssl.HttpsURLConnection;
-import javax.net.ssl.SSLSocketFactory;
-
 public final class HttpClient
 {
   public static final String HEADER_USER_AGENT = "User-Agent";
   public static final String HEADER_AUTHORIZATION = "Authorization";
   public static final String HEADER_BEARER_PREFFIX = "Bearer ";
-  public static final String HEADER_BUNDLE_TIERS = "X-Mapsme-Bundle-Tiers";
-  public static final String HEADER_THEME_KEY = "x-mapsme-theme";
-  public static final String HEADER_THEME_DARK = "dark";
   private final static String TAG = HttpClient.class.getSimpleName();
   // TODO(AlexZ): tune for larger files
   private final static int STREAM_BUFFER_SIZE = 1024 * 64;
@@ -78,7 +71,6 @@ public final class HttpClient
     try
     {
       connection = (HttpURLConnection) new URL(p.url).openConnection();
-      setupTLSForPreLollipop(connection);
 
       // NullPointerException, MalformedUrlException, IOException
       // Redirects from http to https or vice versa are not supported by Android implementation.
@@ -106,9 +98,7 @@ public final class HttpClient
         connection.setRequestProperty("Cookie", p.cookies);
 
       for (KeyValue header : p.headers)
-      {
         connection.setRequestProperty(header.getKey(), header.getValue());
-      }
 
       if (!TextUtils.isEmpty(p.inputFilePath) || p.data != null)
       {
@@ -181,26 +171,32 @@ public final class HttpClient
           p.headers.add(new KeyValue("Set-Cookie", TextUtils.join(", ", cookies)));
       }
 
-      OutputStream ostream;
-      if (!TextUtils.isEmpty(p.outputFilePath))
-        ostream = new BufferedOutputStream(new FileOutputStream(p.outputFilePath), STREAM_BUFFER_SIZE);
-      else
-        ostream = new ByteArrayOutputStream(STREAM_BUFFER_SIZE);
-      // TODO(AlexZ): Add HTTP resume support in the future for partially downloaded files
-      final BufferedInputStream istream = new BufferedInputStream(getInputStream(connection), STREAM_BUFFER_SIZE);
-      final byte[] buffer = new byte[STREAM_BUFFER_SIZE];
-      // gzip encoding is transparently enabled and we can't use Content-Length for
-      // body reading if server has gzipped it.
-      int bytesRead;
-      while ((bytesRead = istream.read(buffer, 0, STREAM_BUFFER_SIZE)) > 0)
+      try
       {
-        // Read everything if Content-Length is not known in advance.
-        ostream.write(buffer, 0, bytesRead);
+        OutputStream ostream;
+        if (!TextUtils.isEmpty(p.outputFilePath))
+          ostream = new BufferedOutputStream(new FileOutputStream(p.outputFilePath), STREAM_BUFFER_SIZE);
+        else
+          ostream = new ByteArrayOutputStream(STREAM_BUFFER_SIZE);
+        // TODO(AlexZ): Add HTTP resume support in the future for partially downloaded files
+        final BufferedInputStream istream = new BufferedInputStream(getInputStream(connection), STREAM_BUFFER_SIZE);
+        final byte[] buffer = new byte[STREAM_BUFFER_SIZE];
+        // gzip encoding is transparently enabled and we can't use Content-Length for
+        // body reading if server has gzipped it.
+        int bytesRead;
+        while ((bytesRead = istream.read(buffer, 0, STREAM_BUFFER_SIZE)) > 0) {
+          // Read everything if Content-Length is not known in advance.
+          ostream.write(buffer, 0, bytesRead);
+        }
+        istream.close(); // IOException
+        ostream.close(); // IOException
+        if (ostream instanceof ByteArrayOutputStream)
+          p.data = ((ByteArrayOutputStream) ostream).toByteArray();
       }
-      istream.close(); // IOException
-      ostream.close(); // IOException
-      if (ostream instanceof ByteArrayOutputStream)
-        p.data = ((ByteArrayOutputStream) ostream).toByteArray();
+      catch (IOException ex)
+      {
+        // Exception here means that there is no body in the response.
+      }
     }
     finally
     {
@@ -208,21 +204,6 @@ public final class HttpClient
         connection.disconnect();
     }
     return p;
-  }
-
-  private static void setupTLSForPreLollipop(@NonNull HttpURLConnection connection)
-  {
-    // On PreLollipop devices we use the custom ssl factory which enables TLSv1.2 forcibly, because
-    // TLS of the mentioned version is not enabled by default on PreLollipop devices, but some of
-    // used by us APIs (as Viator) requires TLSv1.2. For more info see
-    // https://developer.android.com/reference/javax/net/ssl/SSLEngine.html.
-    if ((connection instanceof HttpsURLConnection)
-        && Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP)
-    {
-      HttpsURLConnection sslConnection = (HttpsURLConnection) connection;
-      SSLSocketFactory factory = sslConnection.getSSLSocketFactory();
-      sslConnection.setSSLSocketFactory(new PreLollipopSSLSocketFactory(factory));
-    }
   }
 
   @NonNull

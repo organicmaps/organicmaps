@@ -85,7 +85,7 @@
 
 - (void)rateApp
 {
-  NSString * urlString = @"https://testflight.apple.com/join/62l4Qh2K";
+  NSString * urlString = @"https://apps.apple.com/app/id1567437057?action=write-review";
   NSURL * url = [NSURL URLWithString:urlString];
   [self openURL:url options:@{} completionHandler:nil];
 }

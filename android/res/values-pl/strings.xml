@@ -198,15 +198,15 @@
 	<string name="appStore_message">Mamy nadzieję, że podoba ci się aplikacja Organic Maps! Jeśli tak to proszę oceń ją lub napisz recenzję w AppStore. To zajmie mniej niż minutę, a bardzo nam pomoże. Dziękujemy za wsparcie!</string>
 	<!-- No, thanks -->
 	<string name="no_thanks">Nie, dziękuję</string>
-	<!-- Share one specific bookmark using SMS, %1$@ contains om:// and %2$@ http://omaps.app link. @NOTE non-ascii symbols in the link will result in max 70 characters SMS instead of 140. -->
+	<!-- Share one specific bookmark using SMS, %1$@ contains om:// and %2$@ https://omaps.app link. @NOTE non-ascii symbols in the link will result in max 70 characters SMS instead of 140. -->
 	<string name="bookmark_share_sms">Mój znacznik w Organic Maps %1$s i %2$s</string>
-	<!-- Share my position using SMS, %1$@ contains om:// and %2$@ http://omaps.app link WITHOUT NAME. @NOTE non-ascii symbols in the link will result in max 70 characters SMS instead of 140. -->
+	<!-- Share my position using SMS, %1$@ contains om:// and %2$@ https://omaps.app link WITHOUT NAME. @NOTE non-ascii symbols in the link will result in max 70 characters SMS instead of 140. -->
 	<string name="my_position_share_sms">Zobacz gdzie jestem. Link %1$s lub %2$s</string>
 	<!-- Subject for emailed bookmark -->
 	<string name="bookmark_share_email_subject">Obejrzyj mój znacznik na mapie w Organic Maps</string>
 	<!-- Subject for emailed position -->
 	<string name="my_position_share_email_subject">Zobacz moją aktualną lokalizację na mapie przy użyciu Organic Maps</string>
-	<!-- Share my position using EMail, %1$@ is om:// and %2$@ is http://omaps.app link WITHOUT NAME -->
+	<!-- Share my position using EMail, %1$@ is om:// and %2$@ is https://omaps.app link WITHOUT NAME -->
 	<string name="my_position_share_email">Cześć,\n\nJestem teraz tutaj: %1$s. Naciśnij na ten link %2$s lub ten %3$s, aby zobaczyć to miejsce na mapie.\n\nDziękuję.</string>
 	<!-- Android share by Message/SMS button text (including SMS) -->
 	<string name="share_by_message">Udostępnij przez wiadomość</string>
@@ -603,7 +603,8 @@
 	<string name="p2p_to_here">Droga do</string>
 	<string name="p2p_only_from_current">Nawigacja jest dostępna tylko od twojej bieżącej lokalizacji.</string>
 	<string name="p2p_reroute_from_current">Czy chcesz, byśmy zaplanowali trasę z Twojej bieżącej lokalizacji?</string>
-	<string name="whats_new_next_button">Dalej</string>
+	<!-- Edit open hours/set time and minutes dialog -->
+	<string name="next_button">Dalej</string>
 	<string name="editor_time_add">Dodaj harmonogram</string>
 	<string name="editor_time_delete">Usuń harmonogram</string>
 	<!-- Text for allday switch. -->
@@ -1074,7 +1075,7 @@
 	<string name="place_description_title">Opis miejsca</string>
 	<!-- this text will be shown in application notification preferences opposite checkbox which enable/disable downloader notifications. Devices on Android 8+ are affected. -->
 	<string name="notification_channel_downloader">Pobieranie map</string>
-	<string name="share_bookmarks_email_body_link">Witaj!\n\nTwoje znaczniki można pobrać, używając link: %s. Otwórz listę, używając Organic Maps i ciesz się podrożą!\n\nPobierz aplikację: https://organicmaps.app/get?kmz</string>
+	<string name="share_bookmarks_email_body_link">Witaj!\n\nTwoje znaczniki można pobrać, używając link: %s. Otwórz listę, używając Organic Maps i ciesz się podrożą!\n\nPobierz aplikację: https://omaps.app/get?kmz</string>
 	<string name="warning_speedcams_title">Nawigator powiadomi Cibie o kamerach, gdy przekrocz prędkość na %d km/h</string>
 	<string name="warning_speedcams_subtitle">Nie zapomnij zapoznać się z zasadami ruchu drogowego w kraju podróży.</string>
 	<string name="speedcams_notice_message">Auto – Ostrzegać o kamerach, jeśli istnieje ryzyko przekroczenia ograniczenia prędkości\nZawsze – Zawsze ostrzegaj o kamerach\nNigdy – Nigdy nie ostrzegaj o kamerach</string>
@@ -1217,8 +1218,16 @@
 	<string name="downloader_loading_ios">Pobieranie</string>
 	<string name="key_information_title">Kluczowe informacje</string>
 	<string name="enable_screen_sleep">Pozwól ekranowi spać</string>
-	<!--  -->
+	<!-- Description in preferences -->
 	<string name="enable_screen_sleep_description">Po włączeniu ekran będzie mógł spać po okresie bezczynności.</string>
+	<!-- Autoupdate dialog on start -->
+	<string name="whats_new_auto_update_title">Zaktualizuj pobrane mapy</string>
+	<!-- Autoupdate dialog on start -->
+	<string name="whats_new_auto_update_message">Aktualizacja map umożliwia uzyskanie bieżących informacji o obiektach</string>
+	<!-- Autoupdate dialog on start -->
+	<string name="whats_new_auto_update_button_size">Zaktualizuj (%s)</string>
+	<!-- Autoupdate dialog on start -->
+	<string name="whats_new_auto_update_button_later">Zaktualizuj ręcznie później</string>
 
 	<!-- SECTION:  Partners  -->
 	<string name="sponsored_partner1_action">Wyprzedaże</string>

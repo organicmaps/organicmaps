@@ -38,6 +38,7 @@ double const VisualParams::kXxxhdpiScale = 3.5;
 VisualParams::VisualParams()
   : m_tileSize(0)
   , m_visualScale(0.0)
+  , m_poiExtendScale(0.1) // found empirically
   , m_fontScale(1.0)
 {}
 
@@ -138,6 +139,12 @@ double VisualParams::GetVisualScale() const
 {
   ASSERT_INITED;
   return m_visualScale;
+}
+
+double VisualParams::GetPoiExtendScale() const
+{
+  ASSERT_INITED;
+  return m_poiExtendScale;
 }
 
 uint32_t VisualParams::GetTileSize() const

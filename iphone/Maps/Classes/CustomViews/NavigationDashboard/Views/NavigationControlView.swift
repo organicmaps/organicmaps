@@ -27,15 +27,6 @@ final class NavigationControlView: SolidTouchView, MWMTextToSpeechObserver, MapO
     }
   }
 
-  @IBOutlet private weak var trafficButton: UIButton! {
-    didSet {
-      trafficButton.setImage(#imageLiteral(resourceName: "ic_setting_traffic_off"), for: .normal)
-      trafficButton.setImage(#imageLiteral(resourceName: "ic_setting_traffic_on"), for: .selected)
-      trafficButton.setImage(#imageLiteral(resourceName: "ic_setting_traffic_on"), for: [.selected, .highlighted])
-      onTrafficStateUpdated()
-    }
-  }
-
   private lazy var dimBackground: DimBackground = {
     DimBackground(mainView: self, tapAction: { [weak self] in
       self?.diminish()
@@ -246,17 +237,8 @@ final class NavigationControlView: SolidTouchView, MWMTextToSpeechObserver, MapO
     refreshDiminishTimer()
   }
 
-  func onTrafficStateUpdated() {
-    guard MWMRouter.isRoutingActive() else { return }
-    let isPedestrianRouting = MWMRouter.type() == .pedestrian
-    trafficButton.isHidden = isPedestrianRouting
-    trafficButton.isSelected = MapOverlayManager.trafficState() != .disabled
-    refreshDiminishTimer()
-  }
-
   override func applyTheme() {
     super.applyTheme()
-    onTrafficStateUpdated()
     onTTSStatusUpdated()
   }
 

@@ -278,7 +278,7 @@
 /* Email Subject when sharing bookmarks category */
 "share_bookmarks_email_subject" = "Organic Mapsの位置情報シェア";
 
-"share_bookmarks_email_body" = "Hello!\n\nAttached are my bookmarks from Organic Maps offline maps. Please open them if you have Organic Maps installed. Or, if you don't, download the app for your iOS or Android device by following this link: https://organicmaps.app/get?kmz\n\nEnjoy traveling with Organic Maps!";
+"share_bookmarks_email_body" = "Hello!\n\nAttached are my bookmarks from Organic Maps app. Please open them if you have Organic Maps installed. Or, if you don't, download the app for your iOS or Android device by following this link: https://omaps.app/get?kmz\n\nEnjoy traveling with Organic Maps!";
 
 /* message title of loading file */
 "load_kmz_title" = "ブックマークの読み込み中";
@@ -313,10 +313,10 @@
 /* No, thanks */
 "no_thanks" = "いいえ";
 
-/* Share one specific bookmark using SMS, %1$@ contains om:// and %2$@ http://omaps.app link. @NOTE non-ascii symbols in the link will result in max 70 characters SMS instead of 140. */
+/* Share one specific bookmark using SMS, %1$@ contains om:// and %2$@ https://omaps.app link. @NOTE non-ascii symbols in the link will result in max 70 characters SMS instead of 140. */
 "bookmark_share_sms" = "私のピン情報はこの位置です。リンク: %1$@, %2$@";
 
-/* Share my position using SMS, %1$@ contains om:// and %2$@ http://omaps.app link WITHOUT NAME. @NOTE non-ascii symbols in the link will result in max 70 characters SMS instead of 140. */
+/* Share my position using SMS, %1$@ contains om:// and %2$@ https://omaps.app link WITHOUT NAME. @NOTE non-ascii symbols in the link will result in max 70 characters SMS instead of 140. */
 "my_position_share_sms" = "私は今ここにいます。リンク: %1$@, %2$@";
 
 /* Subject for emailed bookmark */
@@ -325,7 +325,7 @@
 /* Subject for emailed position */
 "my_position_share_email_subject" = "Organic Mapsで現在地を確認";
 
-/* Share my position using EMail, %1$@ is om:// and %2$@ is http://omaps.app link WITHOUT NAME */
+/* Share my position using EMail, %1$@ is om:// and %2$@ is https://omaps.app link WITHOUT NAME */
 "my_position_share_email" = "私は今ここにいます: %1$@\n\nリンクをクリックすると詳細がマップに表示されます。\n\n%2$@\n\n%3$@";
 
 /* Android share by Message/SMS button text (including SMS) */
@@ -990,7 +990,8 @@
 
 "p2p_reroute_from_current" = "現在位置からのルートを作成しますか？";
 
-"whats_new_next_button" = "次へ";
+/* Edit open hours/set time and minutes dialog */
+"next_button" = "次へ";
 
 "editor_time_add" = "スケジュール追加";
 
@@ -1892,7 +1893,7 @@
 /* this text will be shown in application notification preferences opposite checkbox which enable/disable downloader notifications. Devices on Android 8+ are affected. */
 "notification_channel_downloader" = "マップダウンローダー";
 
-"share_bookmarks_email_body_link" = "こんにちは!\n\nこれはあなたのブックマークをダウンロードできるリンクです:%s。Organic Mapsを通じてリストを開いて旅をお楽しみください!\n\nアプリの入手: https://organicmaps.app/get?kmz";
+"share_bookmarks_email_body_link" = "こんにちは!\n\nこれはあなたのブックマークをダウンロードできるリンクです:%s。Organic Mapsを通じてリストを開いて旅をお楽しみください!\n\nアプリの入手: https://omaps.app/get?kmz";
 
 "warning_speedcams_title" = "%d km/hの速度制限を超えているときナビゲーターが自動速度違反取締装置について警告します";
 
@@ -2176,8 +2177,20 @@
 
 "enable_screen_sleep" = "画面をスリープ状態にする";
 
-/*  */
+/* Description in preferences */
 "enable_screen_sleep_description" = "有効にすると、画面は一定時間非アクティブになった後もスリープ状態になります。";
+
+/* Autoupdate dialog on start */
+"whats_new_auto_update_title" = "ダウンロード済みのマップを更新してください";
+
+/* Autoupdate dialog on start */
+"whats_new_auto_update_message" = "地図を更新することで物件情報を最新の状態に保ちます";
+
+/* Autoupdate dialog on start */
+"whats_new_auto_update_button_size" = "更新 (%s)";
+
+/* Autoupdate dialog on start */
+"whats_new_auto_update_button_later" = "あとで手動で更新";
 
 
 /**********  Partners  **********/

@@ -61,13 +61,6 @@ void InitLocalizedStrings() {
   f.AddString("postal_code", L(@"postal_code").UTF8String);
   f.AddString("wifi", L(@"wifi").UTF8String);
 }
-
-void OverrideUserAgent() {
-  [NSUserDefaults.standardUserDefaults registerDefaults:@{
-    @"UserAgent": @"Mozilla/5.0 (iPhone; CPU iPhone OS 10_3 like Mac OS X) AppleWebKit/603.1.30 "
-                  @"(KHTML, like Gecko) Version/10.0 Mobile/14E269 Safari/602.1"
-  }];
-}
 }  // namespace
 
 using namespace osm_auth_ios;
@@ -125,8 +118,7 @@ using namespace osm_auth_ios;
 }
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-  NSLog(@"deeplinking: launchOptions %@", launchOptions);
-  OverrideUserAgent();
+  NSLog(@"application:didFinishLaunchingWithOptions: %@", launchOptions);
 
   [HttpThreadImpl setDownloadIndicatorProtocol:self];
 
@@ -257,6 +249,7 @@ using namespace osm_auth_ios;
     }
   } else if ([userActivity.activityType isEqualToString:NSUserActivityTypeBrowsingWeb] &&
              userActivity.webpageURL != nil) {
+    LOG(LINFO, ("application:continueUserActivity:restorationHandler: %@", userActivity.webpageURL));
     return [DeepLinkHandler.shared applicationDidReceiveUniversalLink:userActivity.webpageURL];
   }
 
@@ -303,7 +296,7 @@ using namespace osm_auth_ios;
 - (BOOL)application:(UIApplication *)app
             openURL:(NSURL *)url
             options:(NSDictionary<UIApplicationOpenURLOptionsKey, id> *)options {
-
+  NSLog(@"application:openURL: %@ options: %@", url, options);
   return [DeepLinkHandler.shared applicationDidOpenUrl:url];
 }
 
@@ -313,8 +306,12 @@ using namespace osm_auth_ios;
 
 - (void)updateApplicationIconBadgeNumber {
   auto const number = [self badgeNumber];
-  UIApplication.sharedApplication.applicationIconBadgeNumber = number;
-  BottomTabBarViewController.controller.isApplicationBadgeHidden = number == 0;
+
+  // Delay init because BottomTabBarViewController.controller is null here.
+  dispatch_async(dispatch_get_main_queue(), ^{
+    [UIApplication.sharedApplication setApplicationIconBadgeNumber:number];
+    BottomTabBarViewController.controller.isApplicationBadgeHidden = (number == 0);
+  });
 }
 
 - (NSUInteger)badgeNumber {
@@ -422,6 +419,8 @@ using namespace osm_auth_ios;
 }
 
 - (BOOL)shouldShowRateAlert {
+  /// @todo Uncomment in follow-up release.
+  /*
   NSUInteger const kMaximumSessionCountForShowingAlert = 21;
   NSUserDefaults const *const standartDefaults = NSUserDefaults.standardUserDefaults;
   if ([standartDefaults boolForKey:kUDAlreadyRatedKey])
@@ -446,6 +445,7 @@ using namespace osm_auth_ios;
     if (daysFromLastRateRequest >= 90 || daysFromLastRateRequest == 0)
       return YES;
   }
+  */
   return NO;
 }
 
