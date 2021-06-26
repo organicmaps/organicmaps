@@ -168,7 +168,7 @@ string XMLFeature::ToOSMString() const
 void XMLFeature::ApplyPatch(XMLFeature const & featureWithChanges)
 {
   // TODO(mgsergio): Get these alt tags from the config.
-  vector<vector<string>> const alternativeTags = {{"phone", "contact:phone"},
+  vector<vector<string>> const alternativeTags = {{"phone", "contact:phone", "contact:mobile"},
                                                   {"website", "contact:website", "url"},
                                                   {"fax", "contact:fax"},
                                                   {"email", "contact:email"}};
