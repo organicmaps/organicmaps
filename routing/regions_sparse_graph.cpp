@@ -44,10 +44,13 @@ void RegionsSparseGraph::LoadRegionsSparseGraph()
 
 std::optional<FakeEnding> RegionsSparseGraph::GetFakeEnding(m2::PointD const & point) const
 {
-  NumMwmId const mwmId = m_numMwmIds->GetId(platform::CountryFile(m_countryFileGetterFn(point)));
+  auto const country = platform::CountryFile(m_countryFileGetterFn(point));
+  if (country.IsEmpty())
+    return {};
+  NumMwmId const mwmId = m_numMwmIds->GetId(country);
   auto const it = m_graph.m_mwms.find(mwmId);
   if (it == m_graph.m_mwms.end())
-    return std::nullopt;
+    return {};
 
   FakeEnding ending;
 

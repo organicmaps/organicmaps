@@ -94,8 +94,6 @@ void RegionsRouter::Do()
     if (mwmFrom == mwmTo)
       continue;
 
-    uint32_t const fakeNumerationStart = 0;
-
     std::optional<FakeEnding> const startFakeEnding =
         sparseGraph.GetFakeEnding(m_checkpoints.GetPoint(i));
     if (!startFakeEnding)
@@ -107,7 +105,7 @@ void RegionsRouter::Do()
       return;
 
     IndexGraphStarter subrouteStarter(*startFakeEnding, *finishFakeEnding,
-                                      fakeNumerationStart, false /* isStartSegmentStrictForward */,
+                                      0 /* fakeNumerationStart */, false /* isStartSegmentStrictForward */,
                                       *graph);
 
     subrouteStarter.GetGraph().SetMode(WorldGraphMode::NoLeaps);
