@@ -564,6 +564,9 @@ RouterResultCode IndexRouter::DoCalculateRoute(Checkpoints const & checkpoints,
 
     if (country.IsEmpty())
     {
+      /// @todo Can we pass an error into \a route instance with final message like:
+      /// "Please, try to move start/end point a bit .."
+
       LOG(LWARNING, ("For point", mercator::ToLatLon(checkpoint),
                    "CountryInfoGetter returns an empty CountryFile(). It happens when checkpoint "
                    "is put at gaps between mwm."));
