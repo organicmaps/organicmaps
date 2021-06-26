@@ -1,5 +1,6 @@
 name: Android Monkey
 on:
+  workflow_dispatch: # Manual trigger
   push: # Please don't change to pull_request because it can expose secrets
     branches:
       - master
