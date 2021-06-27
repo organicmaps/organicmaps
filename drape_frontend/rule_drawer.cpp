@@ -226,7 +226,10 @@ bool RuleDrawer::CheckCoastlines(FeatureType & f, Stylist const & s)
     std::string name;
     if (f.GetName(StringUtf8Multilang::kDefaultCode, name))
     {
-      ASSERT(!name.empty(), ());
+      /// @todo Should fix generator to avoid empty names.
+      /// Can't realize now because generator has check for empty names ..
+      //ASSERT(!name.empty(), ());
+
       strings::SimpleTokenizer iter(name, ";");
       while (iter)
       {
