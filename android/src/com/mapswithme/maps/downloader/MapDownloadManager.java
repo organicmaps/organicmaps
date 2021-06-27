@@ -9,7 +9,9 @@ import android.text.TextUtils;
 import androidx.annotation.MainThread;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+
 import com.mapswithme.maps.MwmApplication;
+import com.mapswithme.maps.R;
 import com.mapswithme.util.Utils;
 import com.mapswithme.util.log.Logger;
 import com.mapswithme.util.log.LoggerFactory;
@@ -30,6 +32,8 @@ public class MapDownloadManager
   private Map<String, Long> mRestoredRequests;
   @NonNull
   private MapDownloadProgressTracker mProgressTracker;
+  @NonNull
+  private String mAppName;
 
   public MapDownloadManager(@NonNull Context context)
   {
@@ -41,6 +45,7 @@ public class MapDownloadManager
 
     mDownloadManager = downloadManager;
     mProgressTracker = new MapDownloadProgressTracker(context);
+    mAppName = context.getString(R.string.app_name);
   }
 
   @NonNull
@@ -120,7 +125,8 @@ public class MapDownloadManager
     {
       DownloadManager.Request request = new DownloadManager
           .Request(uri)
-          .setNotificationVisibility(DownloadManager.Request.VISIBILITY_HIDDEN);
+          .setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE)
+          .setDescription(mAppName);
 
       requestId = mDownloadManager.enqueue(request);
     }
