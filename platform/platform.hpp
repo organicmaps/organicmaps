@@ -3,7 +3,6 @@
 #include "platform/battery_tracker.hpp"
 #include "platform/country_defines.hpp"
 #include "platform/gui_thread.hpp"
-#include "platform/http_user_agent.hpp"
 #include "platform/secure_storage.hpp"
 
 #include "coding/reader.hpp"
@@ -116,8 +115,6 @@ protected:
 
   /// Platform-dependent secure storage.
   platform::SecureStorage m_secureStorage;
-
-  platform::HttpUserAgent m_appUserAgent;
 
   std::unique_ptr<base::TaskLoop> m_guiThread;
 
@@ -297,8 +294,6 @@ public:
   void SetupMeasurementSystem() const;
 
   platform::SecureStorage & GetSecureStorage() { return m_secureStorage; }
-  platform::HttpUserAgent & GetAppUserAgent() { return m_appUserAgent; }
-  platform::HttpUserAgent const & GetAppUserAgent() const { return m_appUserAgent; }
 
   /// \brief Placing an executable object |task| on a queue of |thread|. Then the object will be
   /// executed on |thread|.

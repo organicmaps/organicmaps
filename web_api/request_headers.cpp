@@ -24,14 +24,12 @@ char const * const kGuidesHeader = "X-Mapsme-Downloaded-Guides";
 
 platform::HttpClient::Headers GetDefaultCatalogHeaders()
 {
-  return {{kUserAgentHeader, GetPlatform().GetAppUserAgent()},
-          {kDeviceIdHeader, DeviceId()}};
+  return {};
 }
 
 platform::HttpClient::Headers GetDefaultAuthHeaders()
 {
-  return {{kUserAgentHeader, GetPlatform().GetAppUserAgent()},
-          {kDeviceIdHeader, DeviceId()}};
+  return {};
 }
 
 platform::HttpClient::Header GetPositionHeader(m2::PointD const & pos)

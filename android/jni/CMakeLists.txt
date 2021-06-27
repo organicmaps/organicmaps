@@ -70,7 +70,6 @@ set(
   com/mapswithme/opengl/gl3stub.c
   com/mapswithme/platform/GuiThread.cpp
   com/mapswithme/platform/HttpThread.cpp
-  com/mapswithme/platform/HttpUserAgent.cpp
   com/mapswithme/platform/Language.cpp
   com/mapswithme/platform/Localization.cpp
   com/mapswithme/platform/Platform.cpp

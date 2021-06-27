@@ -124,7 +124,7 @@
 }
 
 + (NSString *)userAgent {
-  return @(GetPlatform().GetAppUserAgent().Get().c_str());
+  return "OrganicMaps TODO";
 }
 
 + (int64_t)dataVersion {

@@ -12,6 +12,7 @@ import androidx.annotation.Nullable;
 
 import com.mapswithme.maps.MwmApplication;
 import com.mapswithme.maps.R;
+import com.mapswithme.util.HttpClient;
 import com.mapswithme.util.Utils;
 import com.mapswithme.util.log.Logger;
 import com.mapswithme.util.log.LoggerFactory;
@@ -123,10 +124,12 @@ public class MapDownloadManager
 
     if (id == null)
     {
+      final String userAgent = HttpClient.getUserAgent("AndroidDownloadManager");
       DownloadManager.Request request = new DownloadManager
           .Request(uri)
           .setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE)
-          .setDescription(mContext.getString(R.string.app_name));
+          .setDescription(mContext.getString(R.string.app_name))
+          .addRequestHeader(HttpClient.HEADER_USER_AGENT, userAgent);
 
       requestId = mDownloadManager.enqueue(request);
     }

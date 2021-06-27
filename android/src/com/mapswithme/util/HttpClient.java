@@ -24,10 +24,13 @@
 
 package com.mapswithme.util;
 
+import android.os.Build;
 import android.text.TextUtils;
 
 import androidx.annotation.NonNull;
 
+import com.mapswithme.maps.BuildConfig;
+import com.mapswithme.maps.Framework;
 import com.mapswithme.util.log.Logger;
 import com.mapswithme.util.log.LoggerFactory;
 
@@ -53,7 +56,6 @@ public final class HttpClient
 {
   public static final String HEADER_USER_AGENT = "User-Agent";
   public static final String HEADER_AUTHORIZATION = "Authorization";
-  public static final String HEADER_BEARER_PREFFIX = "Bearer ";
   private final static String TAG = HttpClient.class.getSimpleName();
   // TODO(AlexZ): tune for larger files
   private final static int STREAM_BUFFER_SIZE = 1024 * 64;
@@ -99,6 +101,10 @@ public final class HttpClient
 
       for (KeyValue header : p.headers)
         connection.setRequestProperty(header.getKey(), header.getValue());
+      if (connection.getRequestProperty(HEADER_USER_AGENT) == null)
+      {
+        connection.setRequestProperty(HEADER_USER_AGENT, getUserAgent());
+      }
 
       if (!TextUtils.isEmpty(p.inputFilePath) || p.data != null)
       {
@@ -266,5 +272,52 @@ public final class HttpClient
       this.url = url;
       httpMethod = "GET";
     }
+  }
+
+  @SuppressWarnings("ConstantConditions")
+  public static String getUserAgent(String kind)
+  {
+    // Android user-agents:
+    // - AndroidDownloadManager/11 (Linux; U; Android 11; Pixel 3 Build/RQ3A.210605.005)
+    // - Dalvik/2.1.0 (Linux; U; Android 10; SM-G9600 Build/QP1A.190711.020)
+    // Our user-agent:
+    // - OrganicMaps/21062714 (Linux; U; Android 11; SM-G973F; OSM 210529; Web; Debug)
+
+    StringBuilder result = new StringBuilder();
+    result.append("OrganicMaps/");
+    result.append(BuildConfig.VERSION_CODE);
+
+    if (!TextUtils.isEmpty(kind))
+    {
+      result.append(" ");
+      result.append(kind);
+    }
+
+    result.append(" (");
+    result.append("Linux; U; Android ");
+    result.append(Build.VERSION.RELEASE);
+
+    result.append("; ");
+    result.append(Build.MODEL);
+
+    result.append("; ");
+    result.append("OSM ");
+    result.append(Framework.nativeGetDataVersion());
+
+    result.append("; ");
+    result.append(StringUtils.capitalize(BuildConfig.FLAVOR));
+    if (!BuildConfig.BUILD_TYPE.equalsIgnoreCase("release"))
+    {
+      result.append("; ");
+      result.append(StringUtils.capitalize(BuildConfig.BUILD_TYPE));
+    }
+
+    result.append(')');
+    return result.toString();
+  }
+
+  public static String getUserAgent()
+  {
+    return getUserAgent(null);
   }
 }
