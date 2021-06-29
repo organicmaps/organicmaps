@@ -103,7 +103,20 @@ public class ChooseBookmarkCategoryFragment extends BaseMwmDialogFragment
     if (bookmarkCategories.size() == 0)
       throw new AssertionError("BookmarkCategories are empty");
 
-    final int categoryPosition = bookmarkCategories.size() - 1;
+    int categoryPosition = -1;
+
+    for (int i = 0; i < bookmarkCategories.size(); i++)
+    {
+      if (bookmarkCategories.get(i).getName().equals(name))
+      {
+        categoryPosition = i;
+        break;
+      }
+    }
+
+    if (categoryPosition == -1)
+      throw new AssertionError("No selected category in the list");
+
     mAdapter.chooseItem(categoryPosition);
 
     if (mListener != null)
