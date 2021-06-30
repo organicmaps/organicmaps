@@ -123,10 +123,6 @@
   GetFramework().UpdateMyPositionRoutingOffset(useDefault, offsetY);
 }
 
-+ (NSString *)userAgent {
-  return @(GetPlatform().GetAppUserAgent().Get().c_str());
-}
-
 + (int64_t)dataVersion {
   return GetFramework().GetCurrentDataVersion();
 }

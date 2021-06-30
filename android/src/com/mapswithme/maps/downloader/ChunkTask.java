@@ -35,7 +35,6 @@ class ChunkTask extends AsyncTask<Void, byte[], Integer>
   private final long mEnd;
   private final long mExpectedFileSize;
   private byte[] mPostBody;
-  private final String mUserAgent;
 
   private static final int IO_EXCEPTION = -1;
   private static final int WRITE_EXCEPTION = -2;
@@ -49,7 +48,7 @@ class ChunkTask extends AsyncTask<Void, byte[], Integer>
   private static final Executor sExecutors = Executors.newFixedThreadPool(4);
 
   public ChunkTask(long httpCallbackID, String url, long beg, long end,
-                   long expectedFileSize, byte[] postBody, String userAgent)
+                   long expectedFileSize, byte[] postBody)
   {
     mHttpCallbackID = httpCallbackID;
     mUrl = url;
@@ -57,7 +56,6 @@ class ChunkTask extends AsyncTask<Void, byte[], Integer>
     mEnd = end;
     mExpectedFileSize = expectedFileSize;
     mPostBody = postBody;
-    mUserAgent = userAgent;
   }
 
   @Override
@@ -145,9 +143,6 @@ class ChunkTask extends AsyncTask<Void, byte[], Integer>
       urlConnection.setUseCaches(false);
       urlConnection.setConnectTimeout(TIMEOUT_IN_SECONDS * 1000);
       urlConnection.setReadTimeout(TIMEOUT_IN_SECONDS * 1000);
-
-      // Set user agent with unique client id
-      urlConnection.setRequestProperty(HttpClient.HEADER_USER_AGENT, mUserAgent);
 
       // Provide authorization credentials
       String creds = url.getUserInfo();

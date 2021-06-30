@@ -250,7 +250,7 @@ struct FileDataV3
 
   bool operator!=(FileDataV3 const & data) const { return !operator==(data); }
 
-  // Device id (it will not be serialized in text files).
+  // Device id (unused, it will not be serialized in text files).
   std::string m_deviceId;
   // Server id.
   std::string m_serverId;

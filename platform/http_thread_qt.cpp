@@ -42,13 +42,6 @@ HttpThread::HttpThread(string const & url,
     }
   }
 
-  // set user-agent with unique client id only for mapswithme requests
-  if (url.find("mapswithme.com") != string::npos)
-  {
-    static string const uid = GetPlatform().UniqueClientId();
-    request.setRawHeader("User-Agent", uid.c_str());
-  }
-
   /// Use single instance for whole app
   static QNetworkAccessManager netManager;
 

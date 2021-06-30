@@ -126,15 +126,6 @@ std::unique_ptr<ModelReader> Platform::GetReader(std::string const & file, std::
 int Platform::VideoMemoryLimit() const { return 8 * 1024 * 1024; }
 int Platform::PreCachingDepth() const { return 2; }
 
-std::string Platform::UniqueClientId() const { return "TODO"; }
-
-std::string Platform::MacAddress(bool md5Decoded) const
-{
-  // Not implemented.
-  UNUSED_VALUE(md5Decoded);
-  return {};
-}
-
 std::string Platform::GetMemoryInfo() const
 {
   struct task_basic_info info;

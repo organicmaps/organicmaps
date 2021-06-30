@@ -84,11 +84,6 @@ Platform::EError Platform::ErrnoToError()
   }
 }
 
-std::string Platform::UniqueIdHash() const
-{
-  return coding::SHA1::CalculateBase64ForString(UniqueClientId());
-}
-
 // static
 bool Platform::RmDirRecursively(string const & dirName)
 {

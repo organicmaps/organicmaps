@@ -81,7 +81,6 @@
   [self.webView.trailingAnchor constraintEqualToAnchor:trailingAnchor].active = YES;
 
   self.webView.allowsLinkPreview = NO;
-  [self.webView setCustomUserAgent:[MWMFrameworkHelper userAgent]];
 
   [self performURLRequest];
 }

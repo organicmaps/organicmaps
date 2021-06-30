@@ -167,9 +167,6 @@
       location = "container:qtMapsMe/qtMapsMe.xcodeproj">
    </FileRef>
    <FileRef
-      location = "container:web_api/web_api.xcodeproj">
-   </FileRef>
-   <FileRef
       location = "container:software_renderer/software_renderer.xcodeproj">
    </FileRef>
    <FileRef

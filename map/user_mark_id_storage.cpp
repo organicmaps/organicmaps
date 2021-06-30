@@ -72,10 +72,6 @@ bool UserMarkIdStorage::CheckIds(kml::FileData const & fileData) const
   if (m_isJustCreated)
     return false;
 
-  // File was created on another device. Check failed.
-  if (fileData.m_deviceId != GetPlatform().UniqueClientId())
-    return false;
-
   // There are ids of categories, bookmarks or tracks with values
   // more than last stored maximums. Check failed.
   if (fileData.m_categoryData.m_id != kml::kInvalidMarkGroupId &&

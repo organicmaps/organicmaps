@@ -2660,7 +2660,6 @@ void BookmarkManager::SetUniqueName(kml::CategoryData & data, UniquityChecker ch
 std::unique_ptr<kml::FileData> BookmarkManager::CollectBmGroupKMLData(BookmarkCategory const * group) const
 {
   auto kmlData = std::make_unique<kml::FileData>();
-  kmlData->m_deviceId = GetPlatform().UniqueClientId();
   kmlData->m_serverId = group->GetServerId();
   kmlData->m_categoryData = group->GetCategoryData();
   auto const & markIds = group->GetUserMarks();

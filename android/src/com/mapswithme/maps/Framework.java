@@ -22,14 +22,11 @@ import com.mapswithme.maps.routing.TransitRouteInfo;
 import com.mapswithme.maps.settings.SettingsPrefsFragment;
 import com.mapswithme.maps.widget.placepage.PlacePageData;
 import com.mapswithme.util.Constants;
-import com.mapswithme.util.KeyValue;
 import com.mapswithme.util.log.Logger;
 import com.mapswithme.util.log.LoggerFactory;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * This class wraps android::Framework.cpp class
@@ -281,8 +278,6 @@ public class Framework
   public static native void nativeFollowRoute();
 
   public static native void nativeDisableFollowing();
-
-  public static native String nativeGetUserAgent();
 
   @Nullable
   public static native RoutingInfo nativeGetRouteFollowingInfo();

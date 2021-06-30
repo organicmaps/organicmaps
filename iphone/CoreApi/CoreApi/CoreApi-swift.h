@@ -26,7 +26,6 @@ FOUNDATION_EXPORT const unsigned char CoreApiVersionString[];
 #import <CoreApi/MWMStorage.h>
 #import <CoreApi/MWMTrack.h>
 #import <CoreApi/MWMTypes.h>
-#import <CoreApi/WebApi.h>
 
 #pragma mark - Place Page
 

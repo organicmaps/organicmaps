@@ -29,7 +29,6 @@ omim_link_libraries(
   transit
   descriptions
   drape
-  web_api
   kml
   indexer
   platform
