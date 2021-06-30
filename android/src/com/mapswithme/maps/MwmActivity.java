@@ -224,8 +224,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
   @SuppressWarnings("NullableProblems")
   @NonNull
   private MenuController mMainMenuController;
-  @NonNull
-  private Toolbar mPlacePageToolbar;
   @SuppressWarnings("NotNullFieldNotInitialized")
   @NonNull
   private Toolbar mBookmarkCategoryToolbar;
@@ -443,7 +441,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
                      .addOnGlobalLayoutListener(new ToolbarLayoutChangeListener());
     mSearchController.setVisibilityListener(this);
 
-    mPlacePageToolbar = findViewById(R.id.pp_toolbar);
     mBookmarkCategoryToolbar = findViewById(R.id.bookmark_category_toolbar);
     mBookmarkCategoryToolbar.inflateMenu(R.menu.menu_bookmark_catalog);
     mBookmarkCategoryToolbar.setOnMenuItemClickListener(this::onBookmarkToolbarMenuClicked);
