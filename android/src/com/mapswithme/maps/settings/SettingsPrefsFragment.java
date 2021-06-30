@@ -305,8 +305,9 @@ public class SettingsPrefsFragment extends BaseXmlSettingsFragment
     if (!playServices && !crashReports)
     {
       // Remove "Tracking" section completely.
-      Preference tracking = findPreference(getString(R.string.pref_subtittle_opt_out));
-      getPreferenceScreen().removePreference(tracking);
+      PreferenceCategory tracking = findPreference(getString(R.string.pref_subtittle_opt_out));
+      if (tracking != null)
+        mPreferenceScreen.removePreference(tracking);
     }
     initScreenSleepEnabledPrefsCallbacks();
     updateTts();
