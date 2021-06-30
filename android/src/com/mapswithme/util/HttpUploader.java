@@ -7,8 +7,6 @@ import android.util.Base64;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import com.mapswithme.maps.BuildConfig;
-import com.mapswithme.maps.Framework;
 import com.mapswithme.util.log.Logger;
 import com.mapswithme.util.log.LoggerFactory;
 
@@ -183,8 +181,6 @@ public final class HttpUploader extends AbstractHttpUploader
   private void setHeaders(@NonNull URLConnection connection, long bodyLength)
   {
     List<KeyValue> headers = getPayload().getHeaders();
-    headers.add(new KeyValue(HttpClient.HEADER_USER_AGENT, Framework.nativeGetUserAgent()));
-    headers.add(new KeyValue("App-Version", BuildConfig.VERSION_NAME));
     headers.add(new KeyValue("Content-Type", "multipart/form-data; boundary=" + mBoundary));
     headers.add(new KeyValue("Content-Length", String.valueOf(bodyLength)));
     for (KeyValue header : headers)

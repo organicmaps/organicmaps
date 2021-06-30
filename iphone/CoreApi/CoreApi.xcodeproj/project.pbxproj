@@ -7,8 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		3D40DED523ED9C7F00A0153A /* WebApi.h in Headers */ = {isa = PBXBuildFile; fileRef = 3D40DED423ED9C7F00A0153A /* WebApi.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		3D40DED723ED9C9500A0153A /* WebApi.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3D40DED623ED9C9500A0153A /* WebApi.mm */; };
 		470015F42342509C00EBF03D /* CoreApi.h in Headers */ = {isa = PBXBuildFile; fileRef = 470015F22342509C00EBF03D /* CoreApi.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		471527392491EDAA00E91BBA /* MWMBookmarkColor.h in Headers */ = {isa = PBXBuildFile; fileRef = 471527382491EDA400E91BBA /* MWMBookmarkColor.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4718C4322355FC3C00640DF1 /* MWMNetworkPolicy.h in Headers */ = {isa = PBXBuildFile; fileRef = 4718C4302355FC3C00640DF1 /* MWMNetworkPolicy.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -93,8 +91,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		3D40DED423ED9C7F00A0153A /* WebApi.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WebApi.h; sourceTree = "<group>"; };
-		3D40DED623ED9C9500A0153A /* WebApi.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = WebApi.mm; sourceTree = "<group>"; };
 		470015EF2342509C00EBF03D /* CoreApi.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = CoreApi.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		470015F22342509C00EBF03D /* CoreApi.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CoreApi.h; sourceTree = "<group>"; };
 		470015F32342509C00EBF03D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -196,15 +192,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		3D40DED323ED9C5C00A0153A /* WebApi */ = {
-			isa = PBXGroup;
-			children = (
-				3D40DED423ED9C7F00A0153A /* WebApi.h */,
-				3D40DED623ED9C9500A0153A /* WebApi.mm */,
-			);
-			path = WebApi;
-			sourceTree = "<group>";
-		};
 		470015E52342509C00EBF03D = {
 			isa = PBXGroup;
 			children = (
@@ -229,7 +216,6 @@
 			isa = PBXGroup;
 			children = (
 				47F4F1F623A333280022FD56 /* Storage */,
-				3D40DED323ED9C5C00A0153A /* WebApi */,
 				9957FAE5237AE59C00855F48 /* Logger */,
 				9957FAC1237AABD800855F48 /* DeepLink */,
 				47942D6A237CC3B500DEFAE3 /* PlacePageData */,
@@ -450,7 +436,6 @@
 				47942D6D237CC3E300DEFAE3 /* PlacePagePreviewData.h in Headers */,
 				47CA68DD2502022400671019 /* MWMBookmark.h in Headers */,
 				9940622023EAC57900493D1A /* ElevationHeightPoint.h in Headers */,
-				3D40DED523ED9C7F00A0153A /* WebApi.h in Headers */,
 				47A65CAF235008E100DCD85F /* CoreApi-swift.h in Headers */,
 				9957FACE237AB01400855F48 /* DeepLinkParser.h in Headers */,
 				9974CA2D23DF197B003FE824 /* ElevationProfileData+Core.h in Headers */,
@@ -567,7 +552,6 @@
 				9957FADC237ACB1100855F48 /* DeepLinkSearchData.mm in Sources */,
 				9957FACF237AB01400855F48 /* DeepLinkParser.mm in Sources */,
 				47F4F1FA23A3336C0022FD56 /* MWMMapNodeAttributes.mm in Sources */,
-				3D40DED723ED9C9500A0153A /* WebApi.mm in Sources */,
 				99103844237EDFA200893C9F /* DeepLinkData.m in Sources */,
 				47942D88237CCA8800DEFAE3 /* PlacePagePreviewData.mm in Sources */,
 				47942D9D237D927800DEFAE3 /* PlacePageBookmarkData.mm in Sources */,

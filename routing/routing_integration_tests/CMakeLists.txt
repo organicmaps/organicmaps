@@ -57,7 +57,6 @@ omim_link_libraries(
   transit
   descriptions
   drape
-  web_api
   platform_tests_support
   kml
   editor

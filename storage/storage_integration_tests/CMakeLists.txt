@@ -34,7 +34,6 @@ omim_link_libraries(
   traffic
   descriptions
   drape
-  web_api
   kml
   editor
   indexer

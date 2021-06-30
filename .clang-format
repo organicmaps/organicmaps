@@ -289,9 +289,6 @@ IncludeCategories:
   - Regex:           '^"indexer/'
     Priority:        49200
 
-  - Regex:           '^"web_api/'
-    Priority:        49300
-
   - Regex:           '^"platform/platform_tests_support/'
     Priority:        49409
   - Regex:           '^"platform/'

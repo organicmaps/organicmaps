@@ -31,7 +31,6 @@ omim_link_libraries(
     storage
     search
     drape
-    web_api
     kml
     editor
     indexer

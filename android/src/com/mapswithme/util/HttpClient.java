@@ -51,9 +51,7 @@ import java.util.zip.InflaterInputStream;
 
 public final class HttpClient
 {
-  public static final String HEADER_USER_AGENT = "User-Agent";
   public static final String HEADER_AUTHORIZATION = "Authorization";
-  public static final String HEADER_BEARER_PREFFIX = "Bearer ";
   private final static String TAG = HttpClient.class.getSimpleName();
   // TODO(AlexZ): tune for larger files
   private final static int STREAM_BUFFER_SIZE = 1024 * 64;

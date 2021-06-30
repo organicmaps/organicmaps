@@ -55,7 +55,6 @@ omim_link_libraries(
   transit
   descriptions
   drape
-  web_api
   kml
   editor
   indexer

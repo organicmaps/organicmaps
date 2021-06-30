@@ -114,15 +114,6 @@ Platform::Platform()
   LOG(LDEBUG, ("Settings Directory:", m_settingsDir));
 }
 
-std::string Platform::UniqueClientId() const { return "TODO"; }
-
-std::string Platform::MacAddress(bool md5Decoded) const
-{
-  // Not implemented.
-  UNUSED_VALUE(md5Decoded);
-  return {};
-}
-
 std::string Platform::DeviceName() const
 {
   return OMIM_OS_NAME;

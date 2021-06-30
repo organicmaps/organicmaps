@@ -16,7 +16,6 @@ omim_link_libraries(
   ${PROJECT_NAME}
   map
   ge0
-  web_api
   routing
   platform
   geometry

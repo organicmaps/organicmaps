@@ -10,8 +10,6 @@
 
 #include "map/bookmarks_search_params.hpp"
 
-#include "web_api/utils.hpp"
-
 #include "coding/internal/file_data.hpp"
 
 #include "base/stl_helpers.hpp"
@@ -663,10 +661,6 @@ static BookmarkManager::SortingType convertSortingTypeToCore(MWMBookmarksSorting
     if (observer)
       block(observer);
   }
-}
-
-- (NSString *)deviceId {
-  return @(web_api::DeviceId().c_str());
 }
 
 - (void)setElevationActivePoint:(double)distance trackId:(uint64_t)trackId {

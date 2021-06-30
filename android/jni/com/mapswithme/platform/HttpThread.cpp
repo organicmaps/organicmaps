@@ -22,11 +22,8 @@ public:
     static jclass const klass = jni::GetGlobalClassRef(env, "com/mapswithme/maps/downloader/ChunkTask");
     // public ChunkTask(long httpCallbackID, String url, long beg, long end,
     //                  long expectedFileSize, byte[] postBody, String userAgent)
-    static jmethodID const initMethodId = jni::GetConstructorID(env, klass, "(JLjava/lang/String;JJJ[BLjava/lang/String;)V");
+    static jmethodID const initMethodId = jni::GetConstructorID(env, klass, "(JLjava/lang/String;JJJ[B)V");
     static jmethodID const startMethodId = env->GetMethodID(klass, "start", "()V");
-
-    // User id is always the same, so do not waste time on every chunk call
-    static std::string const uniqueUserId = GetPlatform().UniqueClientId();
 
     jni::TScopedLocalByteArrayRef postBody(env, nullptr);
     jsize const postBodySize = static_cast<jsize>(pb.size());
@@ -37,7 +34,6 @@ public:
     }
 
     jni::TScopedLocalRef jUrl(env, jni::ToJavaString(env, url.c_str()));
-    jni::TScopedLocalRef jUserId(env, jni::ToJavaString(env, uniqueUserId.c_str()));
     jni::TScopedLocalRef localSelf(env, env->NewObject(klass,
                                                        initMethodId,
                                                        reinterpret_cast<jlong>(&cb),
@@ -45,8 +41,7 @@ public:
                                                        static_cast<jlong>(beg),
                                                        static_cast<jlong>(end),
                                                        static_cast<jlong>(expectedFileSize),
-                                                       postBody.get(),
-                                                       jUserId.get()));
+                                                       postBody.get()));
     m_self = env->NewGlobalRef(localSelf.get());
     ASSERT(m_self, ());
 

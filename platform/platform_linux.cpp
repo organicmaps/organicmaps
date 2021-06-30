@@ -148,30 +148,6 @@ Platform::Platform()
   LOG(LDEBUG, ("Writable directory:", m_writableDir));
   LOG(LDEBUG, ("Tmp directory:", m_tmpDir));
   LOG(LDEBUG, ("Settings directory:", m_settingsDir));
-  LOG(LDEBUG, ("Client ID:", UniqueClientId()));
-}
-
-string Platform::UniqueClientId() const
-{
-  string machineFile = "/var/lib/dbus/machine-id";
-  if (IsFileExistsByFullPath("/etc/machine-id"))
-    machineFile = "/etc/machine-id";
-
-  if (IsFileExistsByFullPath(machineFile))
-  {
-    string content;
-    FileReader(machineFile).ReadAsString(content);
-    return content.substr(0, 32);
-  }
-
-  return "n0dbus0n0lsb00000000000000000000";
-}
-
-string Platform::MacAddress(bool md5Decoded) const
-{
-  // Not implemented.
-  UNUSED_VALUE(md5Decoded);
-  return {};
 }
 
 string Platform::DeviceName() const

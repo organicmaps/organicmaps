@@ -33,7 +33,9 @@ bool Connection::Reconnect()
   if (!m_socket->Open(m_host, m_port))
     return false;
 
-  auto packet = Protocol::CreateAuthPacket(GetPlatform().UniqueClientId());
+  // TODO: generate unique client id here.
+  std::string clientId = "TODO";
+  auto packet = Protocol::CreateAuthPacket(clientId);
   if (!m_socket->Write(packet.data(), static_cast<uint32_t>(packet.size())))
     return false;
 

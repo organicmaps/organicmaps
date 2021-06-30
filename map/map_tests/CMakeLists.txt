@@ -46,7 +46,6 @@ omim_link_libraries(
   mwm_diff
   bsdiff
   descriptions
-  web_api
   kml
   editor
   indexer

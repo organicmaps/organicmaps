@@ -18,25 +18,6 @@
 
 #include <sys/system_properties.h>
 
-std::string Platform::UniqueClientId() const
-{
-  return "TODO";
-}
-
-std::string Platform::MacAddress(bool md5Decoded) const
-{
-  JNIEnv * env = jni::GetEnv();
-  static jmethodID const getMacAddressMethod = jni::GetStaticMethodID(env, g_utilsClazz, "getMacAddress",
-                                                                      "(Landroid/content/Context;)"
-                                                                      "(Z)Ljava/lang/String;");
-  jobject context = android::Platform::Instance().GetContext();
-  auto const macAddr = static_cast<jstring>(env->CallStaticObjectMethod(g_utilsClazz,
-                                                                        getMacAddressMethod,
-                                                                        context,
-                                                                        static_cast<jboolean>(md5Decoded)));
-  return jni::ToNativeString(env, macAddr);
-}
-
 std::string Platform::GetMemoryInfo() const
 {
   JNIEnv * env = jni::GetEnv();

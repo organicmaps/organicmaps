@@ -29,7 +29,6 @@ NS_SWIFT_NAME(FrameworkHelper)
 + (NSArray<NSString *> *)obtainLastSearchQueries;
 + (void)rotateMap:(double)azimuth animated:(BOOL)isAnimated;
 + (void)updatePositionArrowOffset:(BOOL)useDefault offset:(int)offsetY;
-+ (NSString *)userAgent;
 + (int64_t)dataVersion;
 + (void)searchInDownloader:(NSString *)query
                inputLocale:(NSString *)locale
