@@ -258,17 +258,12 @@ bool FeatureParamsBase::IsEmptyNames() const
 namespace
 {
 
-// Most used dummy values are taken from
-// https://taginfo.openstreetmap.org/keys/addr%3Ahousename#values
 bool IsDummyName(string const & s)
 {
-  return (s.empty() ||
-          s == "Bloc" || s == "bloc" ||
-          s == "жилой дом" ||
-          s == "Edificio" || s == "edificio");
+  return s.empty();
 }
 
-}
+} // namespace
 
 /////////////////////////////////////////////////////////////////////////////////////////
 // FeatureParams implementation
