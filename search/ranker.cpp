@@ -362,11 +362,21 @@ public:
   }
 
 private:
+  bool IsSameLoader(FeatureID const & id) const
+  {
+    return (m_loader && m_loader->GetId() == id.m_mwmId);
+  }
+
   unique_ptr<FeatureType> LoadFeature(FeatureID const & id)
   {
-    if (!m_loader || m_loader->GetId() != id.m_mwmId)
+    if (!IsSameLoader(id))
       m_loader = make_unique<FeaturesLoaderGuard>(m_dataSource, id.m_mwmId);
-    auto ft = m_loader->GetFeatureByIndex(id.m_index);
+    return LoadFeatureImpl(id, *m_loader);
+  }
+
+  static unique_ptr<FeatureType> LoadFeatureImpl(FeatureID const & id, FeaturesLoaderGuard & loader)
+  {
+    auto ft = loader.GetFeatureByIndex(id.m_index);
     if (ft)
       ft->SetID(id);
     return ft;
@@ -380,6 +390,13 @@ private:
     if (!ft)
       return ft;
 
+    // Country (region) name is a file name if feature isn't from World.mwm.
+    ASSERT(m_loader && m_loader->GetId() == id.m_mwmId, ());
+    if (m_loader->IsWorld())
+      country.clear();
+    else
+      country = m_loader->GetCountryFileName();
+
     center = feature::GetCenter(*ft);
     m_ranker.GetBestMatchName(*ft, name);
 
@@ -390,7 +407,20 @@ private:
       LazyAddressGetter addressGetter(m_reverseGeocoder, center);
       if (addressGetter.GetExactAddress(addr))
       {
-        if (auto streetFeature = LoadFeature(addr.m_street.m_id))
+        unique_ptr<FeatureType> streetFeature;
+
+        // We can't change m_loader here, because of the following RankerResult. So do this trick:
+        if (IsSameLoader(addr.m_street.m_id))
+        {
+          streetFeature = LoadFeatureImpl(addr.m_street.m_id, *m_loader);
+        }
+        else
+        {
+          auto loader = make_unique<FeaturesLoaderGuard>(m_dataSource, addr.m_street.m_id.m_mwmId);
+          streetFeature = LoadFeatureImpl(addr.m_street.m_id, *loader);
+        }
+
+        if (streetFeature)
         {
           string streetName;
           m_ranker.GetBestMatchName(*streetFeature, streetName);
@@ -398,14 +428,6 @@ private:
         }
       }
     }
-
-    // Country (region) name is a file name if feature isn't from
-    // World.mwm.
-    ASSERT(m_loader && m_loader->GetId() == id.m_mwmId, ());
-    if (m_loader->IsWorld())
-      country.clear();
-    else
-      country = m_loader->GetCountryFileName();
 
     return ft;
   }
