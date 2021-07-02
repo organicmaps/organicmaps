@@ -216,10 +216,10 @@ string OsmOAuth::SendAuthRequest(string const & requestTokenKey, SessionID const
     {"oauth_token", requestTokenKey},
     {"oauth_callback", ""},
     {"authenticity_token", sid.m_token},
-    {"allow_read_prefs", "yes"},
-    {"allow_write_api", "yes"},
-    {"allow_write_gpx", "yes"},
-    {"allow_write_notes", "yes"},
+    {"allow_read_prefs", "1"},
+    {"allow_write_api", "1"},
+    {"allow_write_gpx", "1"},
+    {"allow_write_notes", "1"},
     {"commit", "Save changes"}
   };
   HttpClient request(m_baseUrl + "/oauth/authorize");
