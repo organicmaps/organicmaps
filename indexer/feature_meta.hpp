@@ -149,7 +149,7 @@ public:
     FMD_COUNT
   };
 
-  /// Used to normalize tags like "contact:phone" and "phone" to a common metadata enum value.
+  /// Used to normalize tags like "contact:phone", "phone" and "contact:mobile" to a common metadata enum value.
   static bool TypeFromString(std::string const & osmTagKey, EType & outType);
   static bool IsSponsoredType(EType const & type);
 
