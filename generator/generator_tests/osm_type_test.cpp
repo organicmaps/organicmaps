@@ -532,17 +532,26 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_Surface)
   TestSurfaceTypes("asphalt", "", "", "paved_good");
   TestSurfaceTypes("asphalt", "bad", "", "paved_bad");
   TestSurfaceTypes("asphalt", "", "0", "paved_bad");
+  TestSurfaceTypes("fine_gravel", "intermediate", "", "paved_bad");
+  TestSurfaceTypes("gravel", "intermediate", "", "unpaved_bad");
+  TestSurfaceTypes("paved", "intermediate", "", "paved_good");
+  TestSurfaceTypes("", "intermediate", "", "paved_good");
   TestSurfaceTypes("paved", "", "2", "paved_good");
   TestSurfaceTypes("", "excellent", "", "paved_good");
   TestSurfaceTypes("wood", "", "", "paved_bad");
   TestSurfaceTypes("wood", "good", "", "paved_good");
   TestSurfaceTypes("wood", "", "3", "paved_good");
+  TestSurfaceTypes("pebblestone", "", "4", "paved_good");
   TestSurfaceTypes("unpaved", "", "", "unpaved_good");
   TestSurfaceTypes("mud", "", "", "unpaved_bad");
+
+  /// @todo Is it ok here that default no-tags equals to smoothness=bad?
   TestSurfaceTypes("", "bad", "", "unpaved_good");
+
   TestSurfaceTypes("", "horrible", "", "unpaved_bad");
   TestSurfaceTypes("ground", "", "1", "unpaved_bad");
   TestSurfaceTypes("mud", "", "3", "unpaved_good");
+  TestSurfaceTypes("ground", "", "5", "unpaved_good");
   TestSurfaceTypes("unknown", "", "", "unpaved_good");
   TestSurfaceTypes("", "unknown", "", "unpaved_good");
 }
