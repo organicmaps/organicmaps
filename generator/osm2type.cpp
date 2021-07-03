@@ -442,57 +442,46 @@ string DetermineSurface(OsmElement * p)
     return {};
 
   static base::StringIL pavedSurfaces = {
-      "paved",         "asphalt",  "cobblestone",    "cobblestone:flattened",
-      "sett",          "concrete", "concrete:lanes", "concrete:plates",
-      "paving_stones", "metal",    "wood",           "chipseal"};
+      "paved",         "asphalt",  "cobblestone",    "cobblestone:flattened", "unhewn_cobblestone",
+      "sett",          "concrete", "concrete:lanes", "concrete:plates",       "pebblestone",
+      "paving_stones", "metal",    "wood",           "chipseal",              "fine_gravel" };
 
-  static base::StringIL badSurfaces = {"cobblestone", "sett", "metal", "wood", "grass",
-                                       "gravel",      "mud",  "sand",  "snow", "woodchips"};
+  static base::StringIL badSurfaces = {"cobblestone", "sett",   "pebblestone"         "metal", "wood", "grass", "dirt",      "earth",
+                                       "fine_gravel", "gravel", "unhewn_cobblestone", "mud",   "sand",  "snow", "woodchips", "ground" };
   static base::StringIL badSmoothness = {
       "bad",           "very_bad",       "horrible",        "very_horrible", "impassable",
       "robust_wheels", "high_clearance", "off_road_wheels", "rough"};
+
+  static base::StringIL goodSmoothness = { "excellent", "good", "intermediate" };
+
+  auto const Has = [](base::StringIL const & il, std::string const & v)
+  {
+    return std::find(il.begin(), il.end(), v) != il.end();
+  };
 
   bool isPaved = false;
   bool isGood = true;
 
   if (!surface.empty())
-  {
-    for (auto const & value : pavedSurfaces)
-    {
-      if (surface == value)
-        isPaved = true;
-    }
-  }
+    isPaved = Has(pavedSurfaces, surface);
   else
-  {
-    isPaved = smoothness == "excellent" || smoothness == "good";
-  }
+    isPaved = !smoothness.empty() && Has(goodSmoothness, smoothness);
 
   if (!smoothness.empty())
   {
-    for (auto const & value : badSmoothness)
-    {
-      if (smoothness == value)
-        isGood = false;
-    }
+    if (smoothness == "intermediate" && !surface.empty())
+      isGood = !Has(badSurfaces, surface);
+    else
+      isGood = !Has(badSmoothness, smoothness);
+
+    /// @todo Hm, looks like some hack, but will not change it now ..
     if (smoothness == "bad" && !isPaved)
       isGood = true;
   }
   else if (surface_grade == "0" || surface_grade == "1")
-  {
     isGood = false;
-  }
-  else
-  {
-    if (surface_grade != "3")
-    {
-      for (auto const & value : badSurfaces)
-      {
-        if (surface == value)
-          isGood = false;
-      }
-    }
-  }
+  else if (surface_grade.empty() || surface_grade == "2")
+    isGood = surface.empty() || !Has(badSurfaces, surface);
 
   string psurface = isPaved ? "paved_" : "unpaved_";
   psurface += isGood ? "good" : "bad";
