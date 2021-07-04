@@ -1,4 +1,4 @@
-protocol PlacePagePresenterProtocol: class {
+protocol PlacePagePresenterProtocol: AnyObject {
   func updatePreviewOffset()
   func layoutIfNeeded()
   func showNextStop()

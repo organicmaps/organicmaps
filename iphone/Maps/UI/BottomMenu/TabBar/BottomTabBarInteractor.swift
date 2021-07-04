@@ -1,4 +1,4 @@
-protocol BottomTabBarInteractorProtocol: class {
+protocol BottomTabBarInteractorProtocol: AnyObject {
   func openSearch()
   func openPoint2Point()
   func openDiscovery()

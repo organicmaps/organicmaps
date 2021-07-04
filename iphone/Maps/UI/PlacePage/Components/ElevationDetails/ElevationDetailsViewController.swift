@@ -1,4 +1,4 @@
-protocol ElevationDetailsViewProtocol: class {
+protocol ElevationDetailsViewProtocol: AnyObject {
   var presenter: ElevationDetailsPresenterProtocol?  { get set }
   
   func setExtendedDifficultyGrade (_ value: String)

@@ -1,4 +1,4 @@
-protocol PlacePageHeaderViewProtocol: class {
+protocol PlacePageHeaderViewProtocol: AnyObject {
   var presenter: PlacePageHeaderPresenterProtocol?  { get set }
   var isExpandViewHidden: Bool { get set }
   var isShadowViewHidden: Bool { get set }

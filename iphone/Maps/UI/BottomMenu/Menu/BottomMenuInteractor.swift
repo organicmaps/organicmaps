@@ -1,4 +1,4 @@
-protocol BottomMenuInteractorProtocol: class {
+protocol BottomMenuInteractorProtocol: AnyObject {
   func close()
   func addPlace()
   func downloadRoutes()

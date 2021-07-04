@@ -1,6 +1,6 @@
 import Chart
 
-protocol ElevationProfileViewProtocol: class {
+protocol ElevationProfileViewProtocol: AnyObject {
   var presenter: ElevationProfilePresenterProtocol?  { get set }
   
   var isExtendedDifficultyLabelHidden: Bool { get set }

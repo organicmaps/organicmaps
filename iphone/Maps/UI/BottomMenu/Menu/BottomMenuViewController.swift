@@ -1,4 +1,4 @@
-protocol BottomMenuViewProtocol: class {
+protocol BottomMenuViewProtocol: AnyObject {
   var presenter: BottomMenuPresenterProtocol?  { get set }
 }
 

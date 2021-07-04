@@ -1,4 +1,4 @@
-protocol BottomTabBarViewProtocol: class {
+protocol BottomTabBarViewProtocol: AnyObject {
   var presenter: BottomTabBarPresenterProtocol! { get set }
   var isHidden: Bool { get }
   var isApplicationBadgeHidden: Bool { get set }
