@@ -1,4 +1,4 @@
-protocol ElevationDetailsPresenterProtocol: class {
+protocol ElevationDetailsPresenterProtocol: AnyObject {
   func configure()
   func onOkButtonPressed()
 }

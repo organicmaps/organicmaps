@@ -1,4 +1,4 @@
-protocol PlacePageHeaderPresenterProtocol: class {
+protocol PlacePageHeaderPresenterProtocol: AnyObject {
   func configure()
   func onClosePress()
   func onExpandPress()

@@ -1,4 +1,4 @@
-protocol ElevationDetailsRouterProtocol: class {
+protocol ElevationDetailsRouterProtocol: AnyObject {
   func close()
 }
 

@@ -1,5 +1,5 @@
 @objc(MWMSearchTabViewControllerDelegate)
-protocol SearchTabViewControllerDelegate: class {
+protocol SearchTabViewControllerDelegate: AnyObject {
   func searchTabController(_ viewContoller: SearchTabViewController, didSearch: String)
 }
 

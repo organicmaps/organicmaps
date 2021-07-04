@@ -1,4 +1,4 @@
-protocol PlacePageInteractorProtocol: class {
+protocol PlacePageInteractorProtocol: AnyObject {
   func updateTopBound(_ bound: CGFloat, duration: TimeInterval)
 }
 

@@ -1,7 +1,7 @@
 import CarPlay
 import Contacts
 
-protocol CarPlayRouterListener: class {
+protocol CarPlayRouterListener: AnyObject {
   func didCreateRoute(routeInfo: RouteInfo,
                       trip: CPTrip)
   func didUpdateRouteInfo(_ routeInfo: RouteInfo, forTrip trip: CPTrip)
