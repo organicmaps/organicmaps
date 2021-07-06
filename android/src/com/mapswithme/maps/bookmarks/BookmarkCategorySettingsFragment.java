@@ -92,6 +92,13 @@ public class BookmarkCategorySettingsFragment extends BaseMwmToolbarFragment
   private void onEditDoneClicked()
   {
     final String newCategoryName = getEditableCategoryName();
+
+    if (newCategoryName.equals(mCategory.getName()))
+    {
+      requireActivity().finish();
+      return;
+    }
+
     if (!validateCategoryName(newCategoryName))
       return;
 
