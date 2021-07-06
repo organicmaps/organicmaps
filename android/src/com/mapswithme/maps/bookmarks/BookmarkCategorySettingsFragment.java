@@ -119,7 +119,7 @@ public class BookmarkCategorySettingsFragment extends BaseMwmToolbarFragment
       return false;
     }
 
-    if (BookmarkManager.INSTANCE.isUsedCategoryName(name))
+    if (BookmarkManager.INSTANCE.isUsedCategoryName(name) && !TextUtils.equals(name, mCategory.getName()))
     {
       DialogUtils.showAlertDialog(requireContext(), R.string.bookmarks_error_title_list_name_already_taken,
                                   R.string.bookmarks_error_message_list_name_already_taken);
