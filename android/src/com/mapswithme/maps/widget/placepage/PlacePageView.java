@@ -961,27 +961,16 @@ public class PlacePageView extends NestedScrollViewClickFixed
 
     buttons.add(PlacePageButtons.Item.BOOKMARK);
 
-    boolean hasNumber = mapObject.hasPhoneNumber();
-
-    if (hasNumber)
-      buttons.add(PlacePageButtons.Item.CALL);
-
-    boolean needToShowRoutingButtons = RoutingController.get().isPlanning() || showRoutingButton;
-
-    if (needToShowRoutingButtons && !hasNumber)
+    if (RoutingController.get().isPlanning() || showRoutingButton)
     {
       buttons.add(PlacePageButtons.Item.ROUTE_FROM);
-    }
-
-    if (needToShowRoutingButtons)
-    {
       buttons.add(PlacePageButtons.Item.ROUTE_TO);
-      if (hasNumber) {
-        buttons.add(PlacePageButtons.Item.ROUTE_FROM);
-      }
       if (RoutingController.get().isStopPointAllowed())
         buttons.add(PlacePageButtons.Item.ROUTE_ADD);
     }
+
+    if (mapObject.hasPhoneNumber())
+      buttons.add(PlacePageButtons.Item.CALL);
 
     buttons.add(PlacePageButtons.Item.SHARE);
 
