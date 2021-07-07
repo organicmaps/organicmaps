@@ -959,6 +959,8 @@ public class PlacePageView extends NestedScrollViewClickFixed
     if (showBackButton || ParsedMwmRequest.isPickPointMode())
       buttons.add(PlacePageButtons.Item.BACK);
 
+    buttons.add(PlacePageButtons.Item.BOOKMARK);
+
     boolean hasNumber = mapObject.hasPhoneNumber();
 
     if (hasNumber)
@@ -970,8 +972,6 @@ public class PlacePageView extends NestedScrollViewClickFixed
     {
       buttons.add(PlacePageButtons.Item.ROUTE_FROM);
     }
-
-    buttons.add(PlacePageButtons.Item.BOOKMARK);
 
     if (needToShowRoutingButtons)
     {
