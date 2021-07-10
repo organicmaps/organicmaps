@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.graphics.Color;
-import android.graphics.drawable.Drawable;
 import android.location.Location;
 import android.os.Build;
 import android.text.Html;
@@ -959,18 +958,29 @@ public class PlacePageView extends NestedScrollViewClickFixed
     if (showBackButton || ParsedMwmRequest.isPickPointMode())
       buttons.add(PlacePageButtons.Item.BACK);
 
-    buttons.add(PlacePageButtons.Item.BOOKMARK);
+    boolean hasNumber = mapObject.hasPhoneNumber();
 
-    if (RoutingController.get().isPlanning() || showRoutingButton)
+    if (hasNumber)
+      buttons.add(PlacePageButtons.Item.CALL);
+
+    boolean needToShowRoutingButtons = RoutingController.get().isPlanning() || showRoutingButton;
+
+    if (needToShowRoutingButtons && !hasNumber)
     {
       buttons.add(PlacePageButtons.Item.ROUTE_FROM);
+    }
+
+    buttons.add(PlacePageButtons.Item.BOOKMARK);
+
+    if (needToShowRoutingButtons)
+    {
       buttons.add(PlacePageButtons.Item.ROUTE_TO);
+      if (hasNumber) {
+        buttons.add(PlacePageButtons.Item.ROUTE_FROM);
+      }
       if (RoutingController.get().isStopPointAllowed())
         buttons.add(PlacePageButtons.Item.ROUTE_ADD);
     }
-
-    if (mapObject.hasPhoneNumber())
-      buttons.add(PlacePageButtons.Item.CALL);
 
     buttons.add(PlacePageButtons.Item.SHARE);
 
