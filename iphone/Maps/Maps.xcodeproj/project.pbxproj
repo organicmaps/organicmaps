@@ -1031,7 +1031,6 @@
 		39CDE69023E1B6C8007CDA58 /* libge0.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libge0.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		3D15ACED2155117000F725D5 /* MWMObjectsCategorySelectorDataSource.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMObjectsCategorySelectorDataSource.mm; sourceTree = "<group>"; };
 		3D15ACEF2155118800F725D5 /* MWMObjectsCategorySelectorDataSource.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MWMObjectsCategorySelectorDataSource.h; sourceTree = "<group>"; };
-		3D1958EA213804B6009A83EC /* libmetrics.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libmetrics.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		3DBD7BE32425015C00ED9FE8 /* ParntersStyleSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParntersStyleSheet.swift; sourceTree = "<group>"; };
 		3DEE1AE921F72CD300054A91 /* MWMPowerManagmentViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MWMPowerManagmentViewController.h; sourceTree = "<group>"; };
 		3DEE1AEA21F72CD300054A91 /* MWMPowerManagmentViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMPowerManagmentViewController.mm; sourceTree = "<group>"; };
@@ -1781,7 +1780,6 @@
 				4577B28021F2066A00864FAC /* libvulkan_wrapper.a */,
 				CDB4D4D4222D118E00104869 /* CarPlay.framework */,
 				BB2C99AF21B6AB4500F7371C /* libdescriptions.a */,
-				3D1958EA213804B6009A83EC /* libmetrics.a */,
 				4598438521394CFD00F8CAB2 /* MetalPerformanceShaders.framework */,
 				BB8123CD212C264700ADE512 /* Metal.framework */,
 				BB8123CE212C264700ADE512 /* MetalKit.framework */,
