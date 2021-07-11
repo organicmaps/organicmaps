@@ -511,7 +511,7 @@
 	<string name="dialog_routing_disclaimer_title">按照路线行进时，请谨记：</string>
 	<string name="dialog_routing_disclaimer_priority">— 路况、交通法规和路标始终优先于导航建议；</string>
 	<string name="dialog_routing_disclaimer_precision">— 地图可能不准确，建议的路线可能并非总是去往目的地的最佳路径；</string>
-	<string name="dialog_routing_disclaimer_recommendations">— 建议的路线仅作为推荐路线供您采纳。；</string>
+	<string name="dialog_routing_disclaimer_recommendations">— 建议的路线仅作为推荐路线供您采纳；</string>
 	<string name="dialog_routing_disclaimer_borders">— 小心对待国界区的路线：我们应用创造的路线有时会在未经授权的地方跨越国界;</string>
 	<string name="dialog_routing_disclaimer_beware">上路时请当心，祝您一路平安！</string>
 	<string name="dialog_routing_check_gps">检查 GPS 信号</string>
@@ -589,8 +589,8 @@
 	<string name="p2p_to">目的地点</string>
 	<string name="p2p_start">开始</string>
 	<string name="p2p_planning">计划中…</string>
-	<string name="p2p_from_here">从</string>
-	<string name="p2p_to_here">发送至</string>
+	<string name="p2p_from_here">从这出发</string>
+	<string name="p2p_to_here">到这去</string>
 	<string name="p2p_only_from_current">导航只能从您目前的位置开始。</string>
 	<string name="p2p_reroute_from_current">你是否想要规划当前位置的路线？</string>
 	<!-- Edit open hours/set time and minutes dialog -->
