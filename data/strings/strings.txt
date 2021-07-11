@@ -1971,6 +1971,7 @@
     zh-Hant = 請選擇公里或英哩
 
 [[Search categories]]
+
   [eat]
     comment = Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @eat!
     tags = android,ios
@@ -21876,43 +21877,6 @@
     vi = Tải xuống
     zh-Hans = 加载
     zh-Hant = 載入
-
-  [key_information_title]
-    tags = ios
-    en = Key information
-    ar = معلومات رئيسية
-    be = Галоўная інфармацыя
-    bg = Ключова информация
-    cs = Klíčové informace
-    da = Central information
-    de = Wichtige Informationen
-    el = Βασικές πληροφορίες
-    es = Información clave
-    es-MX = Información clave
-    fa = اطلاعات کلیدی
-    fi = Avaintietoa
-    fr = Informations clés
-    hu = Kulcs információ
-    id = Informasi kunci
-    it = Informazioni importanti
-    ja = 重要情報
-    ko = 핵심 정보
-    nb = Nøkkelinformasjon
-    nl = Belangrijke informatie
-    pl = Kluczowe informacje
-    pt = Informação importante
-    pt-BR = Informação importante
-    ro = Informații importante
-    ru = Ключевая информация
-    sk = Kľúčová informácia
-    sv = Nyckelinformation
-    sw = Habari muhimu
-    th = ข้อมูลหลัก
-    tr = Anahtar bilgisi
-    uk = Ключова інформація
-    vi = Thông tin chìa khóa
-    zh-Hans = 关键信息
-    zh-Hant = 關鍵資訊
 
   [download_map_title]
     tags = android
