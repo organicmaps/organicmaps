@@ -1345,7 +1345,7 @@ sw:Uzuri saluni
 fa:سالن زیبایی
 
 shop-greengrocer|@food
-en:4Greengrocer|Grocer|greengrocers|3grocery|U+1F345|U+1F346|U+1F33D|U+1F360|U+1F348|U+1F347|U+1F349|U+1F34A|U+1F34C|U+1F34D|U+1F34E|U+1F34F|U+1F350|U+1F351|U+1F353
+en:4Greengrocer|greengrocers|3grocery|U+1F345|U+1F346|U+1F33D|U+1F360|U+1F348|U+1F347|U+1F349|U+1F34A|U+1F34C|U+1F34D|U+1F34E|U+1F34F|U+1F350|U+1F351|U+1F353
 ru:Овощи и фрукты|овощи|фрукты
 ar:متجر خضروات وفواكه|خضار|فاكهة|متجر
 cs:Ovoce a zelenina
@@ -1735,9 +1735,9 @@ sw:Duka la nguo|nguo
 fa:لباس فروشی|بوتیک
 
 shop-car
-en:Auto dealer|U+1F697|U+1F698|U+1F699
-en-GB:Car dealer|Car showroom|U+1F697|U+1F698|U+1F699
-en-AU:Car dealer|Car showroom|U+1F697|U+1F698|U+1F699
+en:Auto Dealer|U+1F697|U+1F698|U+1F699
+en-GB:Car Dealer|Car showroom|U+1F697|U+1F698|U+1F699
+en-AU:Car Dealer|Car showroom|U+1F697|U+1F698|U+1F699
 ru:Автосалон
 ar:متجر سيارات|متجر
 cs:Obchod s auty
@@ -3573,7 +3573,7 @@ sw:Duka la dawa
 fa:داروخانه
 
 amenity-pharmacy|@pharmacy
-en:3drugstore|apothecary|dispensary|U+1F489|U+1F48A
+en:3Drugstore|apothecary|dispensary|U+1F489|U+1F48A
 en-GB:Chemist|pharmacist|dispensary|U+1F489|U+1F48A
 en-AU:Chemist|pharmacist|dispensary|U+1F489|U+1F48A
 ar:متجر أدوية|صيدلية
@@ -3684,8 +3684,8 @@ fa:اداره پست
 
 amenity-waste_disposal
 en:Dumpster|Trash|bin|garbage|waste disposal|U+1F6AE
-en-GB:Waste disposal|Trash|bin|garbage|U+1F6AE
-en-AU:Waste disposal|Trash|bin|garbage|U+1F6AE
+en-GB:4Waste disposal|Trash|bin|garbage|U+1F6AE
+en-AU:4Waste disposal|Trash|bin|garbage|U+1F6AE
 ru:Мусорный контейнер|мусорка
 ar:قمامة|مهملات|سلة مهملات|صندوق قمامة
 cs:Odpadky|koš|popelnice|uložiště odpadu
@@ -3817,7 +3817,7 @@ zh-Hant:有毒垃圾|廢棄電池處理|有害垃圾
 fa:پسماند خطرناک|بازیافت باتری|پسماند سمی
 
 recycling-clothes|@recycling
-en:Clothes
+en:Clothes Recycling
 ru:Старая одежда|Сдать ненужные вещи|сдать вещи|сдать одежду
 ar:إعادة تدوير الملابس القديم|ملابس قديمة
 cs:Staré oblečení|Recyklujte staré oblečení
@@ -3850,7 +3850,7 @@ zh-Hant:舊衣物|回收舊衣物
 fa:بازیافت لباسهای قدیمی|لباسهای قدیمی
 
 recycling-glass_bottles|@recycling
-en:Glass
+en:Glass Waste
 ru:Стеклотара
 ar:زجاجات زجاجية
 cs:Skleněné lahve
@@ -3883,7 +3883,7 @@ zh-Hant:玻璃瓶
 fa:بطریهای شیشهای
 
 recycling-paper|@recycling
-en:Paper waste
+en:Paper Waste
 ru:Макулатура
 ar:نفايات ورقية
 cs:Papírový odpad
@@ -3916,7 +3916,7 @@ zh-Hant:廢紙
 fa:پسماند کاغذ
 
 recycling-plastic|@recycling
-en:Plastic waste
+en:Plastic Waste
 ru:Пластиковый мусор
 ar:نفايات بلاستيكية
 cs:Plastový odpad
@@ -3949,7 +3949,7 @@ zh-Hant:廢塑料
 fa:پسماند پلاستیک
 
 recycling-plastic_bottles|@recycling
-en:Plastic bottles
+en:Plastic Bottles
 ru:Сбор пластиковых бутылок
 ar:زجاجات بلاستيكية
 cs:Plastové lahve
@@ -3982,7 +3982,7 @@ zh-Hant:塑料瓶
 fa:بطریهای پلاستیک
 
 recycling-scrap_metal|@recycling
-en:Scrap metal
+en:Scrap Metal
 ru:Металлолом
 ar:نفايات معدنية
 cs:Kovový šrot
@@ -4015,7 +4015,7 @@ zh-Hant:廢金屬
 fa:ضایعات فلزی
 
 recycling-small_appliances|@recycling
-en:Electronic waste
+en:Electronic Waste
 ru:Электроотходы
 ar:نفايات الكترونية
 cs:Elektronický odpad
@@ -4703,9 +4703,7 @@ fa:مزرعه
 
 # Skipped if empty name
 waterway-river|waterway-stream|waterway-riverbank
-en:River
-en-GB:River|stream
-en-AU:River|creek
+en:River|stream|creek
 ru:Река
 ar:نهر
 cs:Řeka
@@ -6858,9 +6856,9 @@ sk:Stojan na bicykle
 fa:پارکینگ دوچرخه
 
 amenity-waste_basket
-en:Trash Bin|Litter Bin|Waste Basket
-en-GB:Waste Bin|Litter Bin
-en-AU:Waste Bin|Litter Bin
+en:Trash Bin|litter bin|waste basket
+en-GB:Waste Bin|litter bin|trash
+en-AU:Waste Bin|litter bin|trash
 ru:Урна|Мусорная корзина
 ar:صندوق قمامة
 cs:Odpadkový koš
@@ -6926,8 +6924,8 @@ sw:Simu ya dharura
 fa:تلفن اضطراری
 
 leisure-fitness_centre
-en:Fitness Centre|Gym|U+1F4AA|fitness|workout|fitness gym|fitness club|health club|fitness studio|workout studio
-en-US:Fitness Center|Gym|U+1F4AA|fitness|workout|fitness gym|fitness club|health club|fitness studio|workout studio
+en:Fitness Centre|gym|U+1F4AA|fitness|workout|fitness gym|fitness club|health club|fitness studio|workout studio
+en-US:Fitness Center|gym|U+1F4AA|fitness|workout|fitness gym|fitness club|health club|fitness studio|workout studio
 ru:Фитнес-клуб|качалка|тренажерный зал|фитнес-центр|фитнес|cпортзал|тренажёрка
 ar:مركز للياقة البدنية، نادي رياضي
 cs:Fitness|tělocvična
@@ -7350,8 +7348,8 @@ fa:گاراژ
 
 highway-rest_area
 en:Highway Rest Area
-en-GB:Service Station|Motorway Services
-en-AU:Servo
+en-GB:Lay By|rest area
+en-AU:Rest Area|lay by
 ru:Зона отдыха на трассе
 ar:استراحة
 cs:Odpočívadlo
@@ -8348,7 +8346,7 @@ sk:Rezort
 fa:تفریحگاه
 
 amenity-biergarten|@eat|@nightlife
-en:Beergarden
+en:Biergarten
 ru:Пивная под открытым небом
 ar:متجر بيرة
 cs:Hospoda se zahrádkou
