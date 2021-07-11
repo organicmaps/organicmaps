@@ -739,16 +739,6 @@
 		4566607820E254060085E8C1 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				"EXCLUDED_SOURCE_FILE_NAMES[sdk=iphonesimulator*]" = (
-					metal_program_params.mm,
-					metal_program_pool.mm,
-					program_manager_metal.mm,
-				);
-				"EXCLUDED_SOURCE_FILE_NAMES[sdk=macosx*]" = (
-					metal_program_params.mm,
-					metal_program_pool.mm,
-					program_manager_metal.mm,
-				);
 			};
 			name = Debug;
 		};
@@ -756,16 +746,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				EXCLUDED_SOURCE_FILE_NAMES = "";
-				"EXCLUDED_SOURCE_FILE_NAMES[sdk=iphonesimulator*]" = (
-					metal_program_params.mm,
-					metal_program_pool.mm,
-					program_manager_metal.mm,
-				);
-				"EXCLUDED_SOURCE_FILE_NAMES[sdk=macosx*]" = (
-					metal_program_params.mm,
-					metal_program_pool.mm,
-					program_manager_metal.mm,
-				);
 			};
 			name = Release;
 		};
@@ -807,7 +787,6 @@
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				MTL_OPTIMIZATION_LEVEL = 0;
-				SUPPORTED_PLATFORMS = "macosx iphoneos";
 			};
 			name = Debug;
 		};
@@ -816,7 +795,6 @@
 			buildSettings = {
 				MTL_FAST_MATH = YES;
 				MTL_OPTIMIZATION_LEVEL = 3;
-				SUPPORTED_PLATFORMS = "macosx iphoneos";
 			};
 			name = Release;
 		};

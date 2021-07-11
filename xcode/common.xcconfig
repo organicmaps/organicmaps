@@ -80,5 +80,5 @@ PRODUCT_NAME = $(TARGET_NAME)
 SKIP_INSTALL = YES
 SWIFT_VERSION = 5.0
 VALID_ARCHS = arm64
-VALID_ARCHS[sdk=iphonesimulator*] = x86_64
-VALID_ARCHS[sdk=macosx*] = x86_64
+VALID_ARCHS[sdk=iphonesimulator*] = x86_64 arm64
+VALID_ARCHS[sdk=macosx*] = x86_64 arm64
