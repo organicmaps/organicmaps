@@ -1806,51 +1806,6 @@
             </objects>
             <point key="canvasLocation" x="928.79999999999995" y="-1147.3763118440781"/>
         </scene>
-        <!--Place Page Divider View Controller-->
-        <scene sceneID="ssa-Cp-vZM">
-            <objects>
-                <viewController storyboardIdentifier="PlacePageDividerViewController" id="Fbp-36-gx4" customClass="PlacePageDividerViewController" customModule="Organic_Maps" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="2C0-Bt-PID">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="12"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="26u-8Z-O72">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="12"/>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="12" id="KL4-Xx-964"/>
-                                </constraints>
-                            </view>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qAB-6K-R8S">
-                                <rect key="frame" x="16" y="0.0" width="35.5" height="17"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="semibold14:blackSecondaryText"/>
-                                </userDefinedRuntimeAttributes>
-                            </label>
-                        </subviews>
-                        <viewLayoutGuide key="safeArea" id="qpe-E9-MPN"/>
-                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <constraints>
-                            <constraint firstAttribute="bottom" secondItem="26u-8Z-O72" secondAttribute="bottom" id="4hN-V9-IVJ"/>
-                            <constraint firstItem="qAB-6K-R8S" firstAttribute="top" secondItem="qpe-E9-MPN" secondAttribute="top" id="CZC-ad-yrY"/>
-                            <constraint firstItem="qAB-6K-R8S" firstAttribute="leading" secondItem="qpe-E9-MPN" secondAttribute="leading" constant="16" id="NZv-FF-oAZ"/>
-                            <constraint firstItem="qpe-E9-MPN" firstAttribute="trailing" secondItem="26u-8Z-O72" secondAttribute="trailing" id="S6F-EV-Yka"/>
-                            <constraint firstItem="26u-8Z-O72" firstAttribute="leading" secondItem="qpe-E9-MPN" secondAttribute="leading" id="Ydh-8A-9vt"/>
-                            <constraint firstItem="26u-8Z-O72" firstAttribute="top" secondItem="2C0-Bt-PID" secondAttribute="top" id="qH0-hB-sbl"/>
-                        </constraints>
-                    </view>
-                    <size key="freeformSize" width="375" height="12"/>
-                    <connections>
-                        <outlet property="titleLabel" destination="qAB-6K-R8S" id="kZx-Ki-Aji"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="8z9-RX-mes" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="926" y="2897"/>
-        </scene>
     </scenes>
     <resources>
         <image name="dialog_btn_press" width="280" height="44"/>
