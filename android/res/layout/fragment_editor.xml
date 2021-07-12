@@ -144,9 +144,39 @@
         <include
           android:id="@+id/block_opening_hours"
           layout="@layout/item_opening_hours"/>
-        <include
-          android:id="@+id/block_phone"
-          layout="@layout/item_editor_input"/>
+        <RelativeLayout
+            android:id="@+id/block_phone"
+            style="@style/MwmWidget.Editor.MetadataBlock.Clickable">
+          <ImageView
+              style="@style/MwmWidget.Editor.MetadataIcon"
+              android:src="@drawable/ic_phone"
+              tools:ignore="ContentDescription"/>
+          <TextView
+              android:id="@+id/phone"
+              style="@style/MwmWidget.Editor.FieldLayout.EditText"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:layout_centerVertical="true"
+              android:layout_marginStart="@dimen/editor_margin_left"
+              android:layout_toLeftOf="@+id/edit_phone"
+              android:layout_toStartOf="@+id/edit_phone"/>
+          <TextView
+              android:id="@+id/edit_phone"
+              style="@style/MwmWidget.Editor.FieldLayout"
+              android:layout_marginLeft="12dp"
+              android:layout_marginStart="12dp"
+              android:layout_marginTop="@dimen/margin_base_plus"
+              android:background="?clickableBackground"
+              android:gravity="center_vertical"
+              android:minHeight="@dimen/height_block_base"
+              android:text="@string/edit"
+              android:textAllCaps="true"
+              android:layout_width="wrap_content"
+              android:layout_alignParentEnd="true"
+              android:layout_centerVertical="true"
+              android:textAppearance="@style/MwmTextAppearance.Body1"
+              android:textColor="?colorAccent"/>
+        </RelativeLayout>
         <include
           android:id="@+id/block_website"
           layout="@layout/item_editor_input"/>

@@ -42,7 +42,7 @@
 
     <include layout="@layout/place_page_entrance"/>
 
-    <include layout="@layout/place_page_phone"/>
+    <include layout="@layout/place_page_phone_list"/>
 
     <include layout="@layout/place_page_website"/>
 

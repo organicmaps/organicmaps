@@ -4,9 +4,12 @@
   xmlns:tools="http://schemas.android.com/tools"
   android:id="@+id/ll__place_phone"
   style="@style/PlacePageItemFrame"
-  android:tag="phone"
   tools:background="#2000FF00"
-  tools:visibility="visible">
+  android:orientation="horizontal"
+  android:visibility="visible"
+  android:tag="phone">
+  <tag android:id="@+id/place_phone_tag"
+    android:value=""/>
 
   <ImageView
     android:id="@+id/iv__place_phone"

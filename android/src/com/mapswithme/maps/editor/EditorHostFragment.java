@@ -27,6 +27,7 @@ import com.mapswithme.maps.editor.data.Language;
 import com.mapswithme.maps.editor.data.LocalizedName;
 import com.mapswithme.maps.editor.data.LocalizedStreet;
 import com.mapswithme.maps.editor.data.NamesDataSource;
+import com.mapswithme.maps.editor.data.PhoneFragment;
 import com.mapswithme.maps.intent.Factory;
 import com.mapswithme.maps.widget.SearchToolbarController;
 import com.mapswithme.maps.widget.ToolbarController;
@@ -48,7 +49,8 @@ public class EditorHostFragment extends BaseMwmToolbarFragment
     OPENING_HOURS,
     STREET,
     CUISINE,
-    LANGUAGE
+    LANGUAGE,
+    PHONE
   }
 
   private Mode mMode;
@@ -171,6 +173,7 @@ public class EditorHostFragment extends BaseMwmToolbarFragment
     case STREET:
     case CUISINE:
     case LANGUAGE:
+    case PHONE:
       editMapObject();
       break;
     default:
@@ -204,6 +207,13 @@ public class EditorHostFragment extends BaseMwmToolbarFragment
     final Bundle args = new Bundle();
     args.putString(TimetableContainerFragment.EXTRA_TIME, Editor.nativeGetOpeningHours());
     editWithFragment(Mode.OPENING_HOURS, R.string.editor_time_title, args, TimetableContainerFragment.class, false);
+  }
+
+  protected void editPhone()
+  {
+    final Bundle args = new Bundle();
+    args.putString(PhoneFragment.EXTRA_PHONE_LIST, Editor.nativeGetPhone());
+    editWithFragment(Mode.PHONE, R.string.phone_number, args, PhoneFragment.class, false);
   }
 
   protected void editStreet()
@@ -299,6 +309,13 @@ public class EditorHostFragment extends BaseMwmToolbarFragment
         {
           saveNote();
           saveMapObjectEdits();
+        }
+        break;
+      case PHONE:
+        final String phone = ((PhoneFragment) getChildFragmentManager().findFragmentByTag(PhoneFragment.class.getName())).getPhone();
+        if (Editor.nativeIsPhoneValid(phone)) {
+          Editor.nativeSetPhone(phone);
+          editMapObject();
         }
         break;
       }
