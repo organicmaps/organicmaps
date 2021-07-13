@@ -22,7 +22,6 @@ public class LocationProviderFactory
 
   public static BaseLocationProvider getProvider(@NonNull Context context)
   {
-    mLogger.d(TAG, "getProvider", new Throwable());
     if (isGoogleLocationAvailable(context) && Config.useGoogleServices())
     {
       mLogger.d(TAG, "Use fused provider.");
