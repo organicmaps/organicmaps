@@ -313,7 +313,8 @@ public class EditorHostFragment extends BaseMwmToolbarFragment
         break;
       case PHONE:
         final String phone = ((PhoneFragment) getChildFragmentManager().findFragmentByTag(PhoneFragment.class.getName())).getPhone();
-        if (Editor.nativeIsPhoneValid(phone)) {
+        if (Editor.nativeIsPhoneValid(phone))
+        {
           Editor.nativeSetPhone(phone);
           editMapObject();
         }

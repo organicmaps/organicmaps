@@ -535,9 +535,11 @@ public class PlacePageView extends NestedScrollViewClickFixed
       RoutingController.get().removeStop(mMapObject);
   }
 
-  private List<String> getAllPhones() {
+  private List<String> getAllPhones()
+  {
     List<String> phones = new ArrayList<>(mPhoneList.getChildCount());
-    for(int i=0; i< mPhoneList.getChildCount(); i++) {
+    for (int i = 0; i < mPhoneList.getChildCount(); i++)
+    {
       TextView tvPhoneNumber = mPhoneList.getChildAt(i).findViewById(R.id.tv__place_phone);
       phones.add(tvPhoneNumber.getText().toString());
     }
@@ -547,10 +549,12 @@ public class PlacePageView extends NestedScrollViewClickFixed
   private void onCallBtnClicked(View parentView)
   {
     final List<String> phones = getAllPhones();
-    if(phones.size() == 1) {
+    if (phones.size() == 1)
+    {
       Utils.callPhone(getContext(), phones.get(0));
     }
-    else {
+    else
+    {
       //Show popup menu with all phones
       final PopupMenu popup = new PopupMenu(getContext(), parentView);
       final Menu menu = popup.getMenu();
@@ -798,7 +802,6 @@ public class PlacePageView extends NestedScrollViewClickFixed
     String website = mapObject.getMetadata(Metadata.MetadataType.FMD_WEBSITE);
     String url = mapObject.getMetadata(Metadata.MetadataType.FMD_URL);
     refreshMetadataOrHide(TextUtils.isEmpty(website) ? url : website, mWebsite, mTvWebsite);
-    //refreshMetadataOrHide(mapObject.getMetadata(Metadata.MetadataType.FMD_PHONE_NUMBER), mPhone, mTvPhone);
     refreshPhoneNumberList(mapObject.getMetadata(Metadata.MetadataType.FMD_PHONE_NUMBER));
     refreshMetadataOrHide(mapObject.getMetadata(Metadata.MetadataType.FMD_EMAIL), mEmail, mTvEmail);
     refreshMetadataOrHide(mapObject.getMetadata(Metadata.MetadataType.FMD_OPERATOR), mOperator, mTvOperator);
@@ -898,16 +901,20 @@ public class PlacePageView extends NestedScrollViewClickFixed
     mTodayOpeningHours.setTextColor(color);
   }
 
-  private void refreshPhoneNumberList(String phones) {
+  private void refreshPhoneNumberList(String phones)
+  {
     mPhoneList.removeAllViews();
 
-    if (!TextUtils.isEmpty(phones)) {
-      for(String phoneNumber: phones.split(";")) {
+    if (!TextUtils.isEmpty(phones))
+    {
+      for (String phoneNumber : phones.split(";"))
+      {
         phoneNumber = phoneNumber.trim();
         if (phoneNumber.trim().length() == 0) continue;
-        Log.i(TAG, "refreshPhoneNumberList: adding phone "+phoneNumber);
+        Log.i(TAG, "refreshPhoneNumberList: adding phone " + phoneNumber);
 
-        final View phoneView = LayoutInflater.from(getContext()).inflate(R.layout.place_page_phone, null);
+        final View phoneView = LayoutInflater.from(getContext())
+                                             .inflate(R.layout.place_page_phone, null);
         final TextView tvPhoneNumber = phoneView.findViewById(R.id.tv__place_phone);
         tvPhoneNumber.setText(phoneNumber);
         phoneView.setTag(R.id.place_phone_tag, phoneNumber);
@@ -1182,9 +1189,8 @@ public class PlacePageView extends NestedScrollViewClickFixed
         break;
     }
 
-    if (v.getTag(R.id.place_phone_tag) != null) {
+    if (v.getTag(R.id.place_phone_tag) != null)
       Utils.callPhone(getContext(), v.getTag(R.id.place_phone_tag).toString());
-    }
   }
 
   private void toggleIsBookmark(@NonNull MapObject mapObject)
@@ -1231,9 +1237,6 @@ public class PlacePageView extends NestedScrollViewClickFixed
       case R.id.ll__place_email:
         items.add(mTvEmail.getText().toString());
         break;
-      //case R.id.ll__place_phone:
-      //  items.add(mTvPhone.getText().toString());
-      //  break;
       case R.id.ll__place_schedule:
         String text = UiUtils.isVisible(mFullOpeningHours)
                       ? mFullOpeningHours.getText().toString()
@@ -1252,9 +1255,8 @@ public class PlacePageView extends NestedScrollViewClickFixed
         items.add(mMapObject.getMetadata(Metadata.MetadataType.FMD_WIKIPEDIA));
         break;
     }
-    if (v.getTag(R.id.place_phone_tag) != null) {
+    if (v.getTag(R.id.place_phone_tag) != null)
       items.add(v.getTag(R.id.place_phone_tag).toString());
-    }
 
     final String copyText = getResources().getString(android.R.string.copy);
     for (int i = 0; i < items.size(); i++)
