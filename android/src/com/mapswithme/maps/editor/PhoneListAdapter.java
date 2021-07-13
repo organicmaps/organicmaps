@@ -131,18 +131,14 @@ public class PhoneListAdapter extends RecyclerView.Adapter<PhoneListAdapter.View
     public void setPhone(String phone)
     {
       if (!mInput.getText().toString().equals(phone))
-      {
         mInput.setText(phone);
-      }
     }
 
     @Override
     public void onClick(View view)
     {
       if (view.getId() == R.id.delete_icon)
-      {
         PhoneListAdapter.this.deleteItem(mPosition);
-      }
     }
   }
 
