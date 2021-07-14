@@ -452,14 +452,17 @@ public enum BookmarkManager
 
     // Try get guess extension from the mime type.
     final String mime = resolver.getType(uri);
-    final int i = mime.lastIndexOf('.');
-    if (i != -1)
+    if (mime != null)
     {
-      final String type = mime.substring(i + 1);
-      if (type.equalsIgnoreCase("kmz"))
-        return filename + ".kmz";
-      else if (type.equalsIgnoreCase("kml+xml"))
-        return filename + ".kml";
+      final int i = mime.lastIndexOf('.');
+      if (i != -1)
+      {
+        final String type = mime.substring(i + 1);
+        if (type.equalsIgnoreCase("kmz"))
+          return filename + ".kmz";
+        else if (type.equalsIgnoreCase("kml+xml"))
+          return filename + ".kml";
+      }
     }
 
     return null;
