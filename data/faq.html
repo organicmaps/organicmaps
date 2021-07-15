@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0'>
-  <style type="text/css">
+  <style>
 
     /* All langs are invisible by default */
     [lang] {
@@ -53,10 +53,20 @@
 
   </style>
 
-  <script type="text/javascript">
+  <script>
+  	function getLanguage() {
+  		let lang = navigator.language || navigator.userLanguage;
+  		const found = location.href.indexOf('?');
+  		if (found != -1) {
+	 			const urlParams = new URLSearchParams(location.href.substr(found));
+				const queryLang = urlParams.get('lang');
+				if (queryLang) lang = queryLang;
+  		}
+			return lang;
+  	}
 
     function showLanguage() {
-      var lang = navigator.language || navigator.userLanguage;
+      let lang = getLanguage();
       lang = lang.substring(0, 2);
       if (lang == "be" || lang == "uk")
         lang = "ru";
@@ -85,7 +95,7 @@
 
 <ul>
 	<li>
-		<a href="#osm" class="link"lang="en">Some places are missing on the map or have wrong names</a>
+		<a href="#osm" class="link" lang="en">Some places are missing on the map or have wrong names</a>
     	<a lang="ru" href="#osm">На карте отсутствуют или неправильно называются объекты</a>
     	<a lang="de" href="#osm">Auf der Karte fehlen Orte oder sie haben falsche Namen</a>
     	<a lang="es" href="#osm">Algunos lugares no aparecen en el mapa o tienen un nombre incorrecto</a>
@@ -93,39 +103,35 @@
     	<a lang="pt" href="#osm">Alguns lugares estão faltando no mapa ou possuem nomes errados</a>
     	<a lang="pl" href="#osm">Brakuje niektórych miejsc na mapie lub mają nieprawidłowe nazwy</a>
     </li>
-    <p></p>
     <li>
-    	<a href="#no location" class="link"lang="en">The app can't find my position on the map</a>
-    	<a lang="ru" href="#no location">Приложение не может определить мое местоположение</a>
-    	<a lang="de" href="#no location">Mein Standort kann von der App nicht bestimmt werden</a>
-    	<a lang="es" href="#no location">La aplicación no puede establecer mi posición</a>
-    	<a lang="fr" href="#no location">L'application n'arrive pas à déterminer ma position</a>
-    	<a lang="pt" href="#no location">O aplicativo não pode determinar minha localização</a>
-    	<a lang="pl" href="#no location">Aplikacja nie może określić mojej lokalizacji</a>
+    	<a href="#no_location" class="link" lang="en">The app can't find my position on the map</a>
+    	<a lang="ru" href="#no_location">Приложение не может определить мое местоположение</a>
+    	<a lang="de" href="#no_location">Mein Standort kann von der App nicht bestimmt werden</a>
+    	<a lang="es" href="#no_location">La aplicación no puede establecer mi posición</a>
+    	<a lang="fr" href="#no_location">L'application n'arrive pas à déterminer ma position</a>
+    	<a lang="pt" href="#no_location">O aplicativo não pode determinar minha localização</a>
+    	<a lang="pl" href="#no_location">Aplikacja nie może określić mojej lokalizacji</a>
     </li>
-    <p></p>
     <li>
-    	<a href="#can't download maps" class="link"lang="en">I can't download (update) maps</a>
-    	<a lang="ru" href="#can't download maps">Не получается загрузить (обновить) карты</a>
-    	<a lang="de" href="#can't download maps">Ich kann keine Karten herunterladen (aktualisieren)</a>
-    	<a lang="es" href="#can't download maps">No puedo descargar (actualizar) mapas</a>
-    	<a lang="fr" href="#can't download maps">Je ne peux pas télécharger (mettre à jour) les cartes</a>
-    	<a lang="pt" href="#can't download maps">Não consigo baixar (atualizar) mapas</a>
-    	<a lang="pl" href="#can't download maps">Nie mogę pobrać (zaktualizować) map</a>
+    	<a href="#cant_download_maps" class="link" lang="en">I can't download (update) maps</a>
+    	<a lang="ru" href="#cant_download_maps">Не получается загрузить (обновить) карты</a>
+    	<a lang="de" href="#cant_download_maps">Ich kann keine Karten herunterladen (aktualisieren)</a>
+    	<a lang="es" href="#cant_download_maps">No puedo descargar (actualizar) mapas</a>
+    	<a lang="fr" href="#cant_download_maps">Je ne peux pas télécharger (mettre à jour) les cartes</a>
+    	<a lang="pt" href="#cant_download_maps">Não consigo baixar (atualizar) mapas</a>
+    	<a lang="pl" href="#cant_download_maps">Nie mogę pobrać (zaktualizować) map</a>
     </li>
-    <p></p>
     <li>
-    	<a href="#can't find a place" class="link"lang="en">Search cannot find a place on the map</a>
-    	<a lang="ru" href="#can't find a place">Поиск не находит то, что я ищу</a>
-    	<a lang="de" href="#can't find a place">Die Suche findet einen Ort nicht auf der Karte</a>
-    	<a lang="es" href="#can't find a place">La función de búsqueda no encuentra un lugar en el mapa</a>
-    	<a lang="fr" href="#can't find a place">La recherche ne trouve pas le lieu sur la carte</a>
-    	<a lang="pt" href="#can't find a place">A pesquisa não pode encontrar um lugar no mapa</a>
-    	<a lang="pl" href="#can't find a place">Wyszukiwanie nie może znaleźć miejsca na mapie</a>
+    	<a href="#cant_find_a_place" class="link" lang="en">Search cannot find a place on the map</a>
+    	<a lang="ru" href="#cant_find_a_place">Поиск не находит то, что я ищу</a>
+    	<a lang="de" href="#cant_find_a_place">Die Suche findet einen Ort nicht auf der Karte</a>
+    	<a lang="es" href="#cant_find_a_place">La función de búsqueda no encuentra un lugar en el mapa</a>
+    	<a lang="fr" href="#cant_find_a_place">La recherche ne trouve pas le lieu sur la carte</a>
+    	<a lang="pt" href="#cant_find_a_place">A pesquisa não pode encontrar um lugar no mapa</a>
+    	<a lang="pl" href="#cant_find_a_place">Wyszukiwanie nie może znaleźć miejsca na mapie</a>
     </li>
-    <p></p>
     <li>
-    	<a href="#crash" class="link"lang="en">What to do if the app has stopped working (crashed)</a>
+    	<a href="#crash" class="link" lang="en">What to do if the app has stopped working (crashed)</a>
     	<a lang="ru" href="#crash">Что делать, если приложение перестало работать (остановлено)</a>
     	<a lang="de" href="#crash">Was tun, wenn die App nicht mehr funktioniert (abgestürzt)?</a>
     	<a lang="es" href="#crash">Qué hacer si la aplicación dejó de funcionar (se bloqueó)</a>
@@ -133,35 +139,41 @@
     	<a lang="pt" href="#crash">O que fazer se o aplicativo parar de funcionar (travar)</a>
     	<a lang="pl" href="#crash">Co zrobić, jeśli aplikacja przestała działać (uległa awarii)</a>
     </li>
-	<p></p>
     <li>
-    	<a href="#create route" class="link"lang="en">How to create a route</a>
-    	<a lang="ru" href="#create route">Как проложить маршрут</a>
-    	<a lang="de" href="#create route">Wie erstelle ich eine Route</a>
-    	<a lang="es" href="#create route">¿Cómo crear una ruta</a>
-    	<a lang="fr" href="#create route">Comment créer un itinéraire</a>
-    	<a lang="pt" href="#create route">Como criar uma rota</a>
-    	<a lang="pl" href="#create route">Jak utworzyć trasę</a>
+    	<a href="#create_route" class="link" lang="en">How to create a route</a>
+    	<a lang="ru" href="#create_route">Как проложить маршрут</a>
+    	<a lang="de" href="#create_route">Wie erstelle ich eine Route</a>
+    	<a lang="es" href="#create_route">¿Cómo crear una ruta</a>
+    	<a lang="fr" href="#create_route">Comment créer un itinéraire</a>
+    	<a lang="pt" href="#create_route">Como criar uma rota</a>
+    	<a lang="pl" href="#create_route">Jak utworzyć trasę</a>
     </li>
-    <p></p>
     <li>
-    	<a href="#no voice" class="link"lang="en">I can't hear voice instructions</a>
-    	<a lang="ru" href="#no voice">Я не слышу голосовые подсказки</a>
-    	<a lang="de" href="#no voice">Ich höre keine Sprachanweisungen</a>
-    	<a lang="es" href="#no voice">No oigo las instrucciones de voz</a>
-    	<a lang="fr" href="#no voice">Je n'arrive pas à entendre les instructions vocales</a>
-    	<a lang="pt" href="#no voice">Não consigo ouvir instruções de voz</a>
-    	<a lang="pl" href="#no voice">Nie słyszę instrukcji głosowych</a>
+    	<a href="#no_voice" class="link" lang="en">I can't hear voice instructions</a>
+    	<a lang="ru" href="#no_voice">Я не слышу голосовые подсказки</a>
+    	<a lang="de" href="#no_voice">Ich höre keine Sprachanweisungen</a>
+    	<a lang="es" href="#no_voice">No oigo las instrucciones de voz</a>
+    	<a lang="fr" href="#no_voice">Je n'arrive pas à entendre les instructions vocales</a>
+    	<a lang="pt" href="#no_voice">Não consigo ouvir instruções de voz</a>
+    	<a lang="pl" href="#no_voice">Nie słyszę instrukcji głosowych</a>
     </li>
-    <p></p>
     <li>
-    	<a lang="en" href="#bookmarks" class="link">How to export/import bookmarks</a>
-    	<a lang="ru" href="#import pins">Как экспортировать/импортировать метки</a>
-    	<a lang="de" href="#import pins">So exportieren / importieren Sie Lesezeichen</a>
-    	<a lang="es" href="#import pins">Cómo exportar / importar marcadores</a>
-    	<a lang="fr" href="#import pins">Comment exporter / importer des signets</a>
-    	<a lang="pt" href="#import pins">Como exportar / importar favoritos</a>
-    	<a lang="pl" href="#import pins">Jak eksportować / importować zakładki</a>
+    	<a lang="en" href="#bookmarks_export" class="link">How to export bookmarks</a>
+    	<a lang="ru" href="#bookmarks_export">Как экспортировать метки</a>
+    	<a lang="de" href="#bookmarks_export">So exportieren Sie Lesezeichen</a>
+    	<a lang="es" href="#bookmarks_export">Cómo exportar marcadores</a>
+    	<a lang="fr" href="#bookmarks_export">Comment exporter des signets</a>
+    	<a lang="pt" href="#bookmarks_export">Como exportar favoritos</a>
+    	<a lang="pl" href="#bookmarks_export">Jak eksportować zakładki</a>
+    </li>
+    <li>
+    	<a lang="en" href="#bookmarks_import" class="link">How to import bookmarks</a>
+    	<a lang="ru" href="#bookmarks_import">Как импортировать метки</a>
+    	<a lang="de" href="#bookmarks_import">So importieren Sie Lesezeichen</a>
+    	<a lang="es" href="#bookmarks_import">Cómo importar marcadores</a>
+    	<a lang="fr" href="#bookmarks_import">Comment importer des signets</a>
+    	<a lang="pt" href="#bookmarks_import">Como importar favoritos</a>
+    	<a lang="pl" href="#bookmarks_import">Jak importować zakładki</a>
     </li>
  </ul>
 
@@ -177,13 +189,15 @@
 
 <dl id="osm">
 
-<h3 lang="en">Some places are missing on the map or have wrong names</h3>
-<h3 lang="ru">На карте отсутствуют или неправильно называются объекты</h3>
-<h3 lang="de">Auf der Karte fehlen Orte oder sie haben falsche Namen</h3>
-<h3 lang="es">Algunos lugares no aparecen en el mapa o tienen un nombre incorrecto</h3>
-<h3 lang="fr">Quelques lieux sont absents de la carte ou mal orthographiés</h3>
-<h3 lang="pt">Alguns lugares estão faltando no mapa ou possuem nomes errados</h3>
-<h3 lang="pl">Brakuje niektórych miejsc na mapie lub mają nieprawidłowe nazwy</h3>
+<dt>
+	<h3 lang="en">Some places are missing on the map or have wrong names</h3>
+	<h3 lang="ru">На карте отсутствуют или неправильно называются объекты</h3>
+	<h3 lang="de">Auf der Karte fehlen Orte oder sie haben falsche Namen</h3>
+	<h3 lang="es">Algunos lugares no aparecen en el mapa o tienen un nombre incorrecto</h3>
+	<h3 lang="fr">Quelques lieux sont absents de la carte ou mal orthographiés</h3>
+	<h3 lang="pt">Alguns lugares estão faltando no mapa ou possuem nomes errados</h3>
+	<h3 lang="pl">Brakuje niektórych miejsc na mapie lub mają nieprawidłowe nazwy</h3>
+</dt>
 
 <dd 
 	lang="en">
@@ -377,16 +391,20 @@
 	</ul>
 </dd>
 
+</dl>
 
-<dl id="no location">
 
-<h3 lang="en">The app can't find my position on the map</h3>
-<h3 lang="ru">Приложение не может определить мое местоположение</h3>
-<h3 lang="de">Mein Standort kann von der App nicht bestimmt werden</h3>
-<h3 lang="es">La aplicación no puede establecer mi posición</h3>
-<h3 lang="fr">L'application n'arrive pas à déterminer ma position</h3>
-<h3 lang="pt">O aplicativo não pode determinar minha localização</h3>
-<h3 lang="pl">Aplikacja nie może określić mojej lokalizacji</h3>
+<dl id="no_location">
+
+<dt>
+	<h3 lang="en">The app can't find my position on the map</h3>
+	<h3 lang="ru">Приложение не может определить мое местоположение</h3>
+	<h3 lang="de">Mein Standort kann von der App nicht bestimmt werden</h3>
+	<h3 lang="es">La aplicación no puede establecer mi posición</h3>
+	<h3 lang="fr">L'application n'arrive pas à déterminer ma position</h3>
+	<h3 lang="pt">O aplicativo não pode determinar minha localização</h3>
+	<h3 lang="pl">Aplikacja nie może określić mojej lokalizacji</h3>
+<dt>
 
 <dd 
 	lang="en">
@@ -443,7 +461,7 @@
 	<p><b>Примечания:</b></p>
 
 	<ul>
-		<li>Определение местоположения по GPS (с выключенным Wi-FI и передачей 
+		<li><p>Определение местоположения по GPS (с выключенным Wi-FI и передачей
 		мобильных данных) может занять продолжительное время (чем дольше не используется GPS, тем больше 
 		времени уходит на определение позиции), скорость определения местоположения будет зависеть от 
 		устройства, а не от приложения.</p></li>
@@ -674,16 +692,20 @@
 	</ul>
 </dd>
 
+</dl>
 
-<dl id="can't download maps">
 
-<h3 lang="en">I can't download (update) maps</h3>
-<h3 lang="ru">Не получается загрузить (обновить) карты</h3>
-<h3 lang="de">Ich kann keine Karten herunterladen (aktualisieren)</h3>
-<h3 lang="es">No puedo descargar (actualizar) mapas</h3>
-<h3 lang="fr">Je ne peux pas télécharger (mettre à jour) les cartes</h3>
-<h3 lang="pt">Não consigo baixar (atualizar) mapas</h3>
-<h3 lang="pl">Nie mogę pobrać (zaktualizować) map</h3>
+<dl id="cant_download_maps">
+
+<dt>
+	<h3 lang="en">I can't download (update) maps</h3>
+	<h3 lang="ru">Не получается загрузить (обновить) карты</h3>
+	<h3 lang="de">Ich kann keine Karten herunterladen (aktualisieren)</h3>
+	<h3 lang="es">No puedo descargar (actualizar) mapas</h3>
+	<h3 lang="fr">Je ne peux pas télécharger (mettre à jour) les cartes</h3>
+	<h3 lang="pt">Não consigo baixar (atualizar) mapas</h3>
+	<h3 lang="pl">Nie mogę pobrać (zaktualizować) map</h3>
+</dt>
 
 <dd 
 	lang="en">
@@ -775,8 +797,10 @@
 	nieaktualnych map i ponowne ich pobranie.</p>
 </dd>
 
+</dl>
 
-<dl id="can't find a place">
+
+<dl id="cant_find_a_place">
 
 <h3 lang="en">Search cannot find a place on the map</h3>
 <h3 lang="ru">Поиск не находит то, что я ищу</h3>
@@ -886,16 +910,20 @@
 	<a href="mailto:support@organicmaps.app">zgłoś nam</a> współrzędne miejsca i przykład zapytania.</p>
 </dd>
 
+</dl>
+
 
 <dl id="crash">
 
-<h3 lang="en">What can I do if the app has stopped/crashed</h3>
-<h3 lang="ru">Что делать, если приложение перестало работать (остановлено)</h3>
-<h3 lang="de">Was kann ich tun, wenn die App sich aufhängt oder wenn sie abstürzt</h3>
-<h3 lang="es">Qué hago si la aplicación se detiene o se bloquea</h3>
-<h3 lang="fr">Pourquoi l'application s'arrête ou crash</h3>
-<h3 lang="pt">O que posso fazer se o aplicativo parar (travar)</h3>
-<h3 lang="pl">Co mogę zrobić, jeśli aplikacja przestała/uległa awarii</h3>
+<dt>
+	<h3 lang="en">What can I do if the app has stopped/crashed</h3>
+	<h3 lang="ru">Что делать, если приложение перестало работать (остановлено)</h3>
+	<h3 lang="de">Was kann ich tun, wenn die App sich aufhängt oder wenn sie abstürzt</h3>
+	<h3 lang="es">Qué hago si la aplicación se detiene o se bloquea</h3>
+	<h3 lang="fr">Pourquoi l'application s'arrête ou crash</h3>
+	<h3 lang="pt">O que posso fazer se o aplicativo parar (travar)</h3>
+	<h3 lang="pl">Co mogę zrobić, jeśli aplikacja przestała/uległa awarii</h3>
+</dt>
 
 <dd 
 	lang="en">
@@ -928,7 +956,7 @@
 	<ul>
 		<li>краткое описание проблемы</li>
 		<li>версия Organic Maps</li>
-		<li>модель устройства и версия ОС (Android или iOS).</p></li>
+		<li>модель устройства и версия ОС (Android или iOS).</li>
 	</ul>
 </dd>
 
@@ -1023,16 +1051,20 @@
 	</ul>
 </dd>
 
+</dl>
 
-<dl id="create route">
 
-<h3 lang="en">How to create a route</h3>
-<h3 lang="ru">Как проложить маршрут</h3>
-<h3 lang="de">Wie erstelle ich eine Route</h3>
-<h3 lang="es">¿Cómo crear una ruta</h3>
-<h3 lang="fr">Comment créer un itinéraire</h3>
-<h3 lang="pt">Como criar uma rota</h3>
-<h3 lang="pl">Jak utworzyć trasę</h3>
+<dl id="create_route">
+
+<dt>
+	<h3 lang="en">How to create a route</h3>
+	<h3 lang="ru">Как проложить маршрут</h3>
+	<h3 lang="de">Wie erstelle ich eine Route</h3>
+	<h3 lang="es">¿Cómo crear una ruta</h3>
+	<h3 lang="fr">Comment créer un itinéraire</h3>
+	<h3 lang="pt">Como criar uma rota</h3>
+	<h3 lang="pl">Jak utworzyć trasę</h3>
+</dt>
 
 <dd lang="en">
 	<p>Once your location is determined on the map, choose your destination. You can use 
@@ -1233,17 +1265,20 @@
 	przeprawy promowe, autostrady). Otwórz ustawienia aplikacji → Ustawienia objazdu → Przełącz wymagane opcje.</p>
 </dd>
 
+</dl>
 
-<dl id="no voice">
 
-<h3 lang="en">I can't hear voice instructions</h3>
-<h3 lang="ru">Я не слышу голосовые подсказки</h3>
-<h3 lang="de">Ich höre keine Sprachanweisungen</h3>
-<h3 lang="es">No oigo las instrucciones de voz</h3>
-<h3 lang="fr">Je n'arrive pas à entendre les instructions vocales</h3>
-<h3 lang="pt">Não consigo ouvir instruções de voz</h3>
-<h3 lang="pl">Nie słyszę instrukcji głosowych</h3>
+<dl id="no_voice">
 
+<dt>
+	<h3 lang="en">I can't hear voice instructions</h3>
+	<h3 lang="ru">Я не слышу голосовые подсказки</h3>
+	<h3 lang="de">Ich höre keine Sprachanweisungen</h3>
+	<h3 lang="es">No oigo las instrucciones de voz</h3>
+	<h3 lang="fr">Je n'arrive pas à entendre les instructions vocales</h3>
+	<h3 lang="pt">Não consigo ouvir instruções de voz</h3>
+	<h3 lang="pl">Nie słyszę instrukcji głosowych</h3>
+</dt>
 
 <dd 
 	lang="en">
@@ -1260,8 +1295,8 @@
 		<li><p>When you turn on Bluetooth, it shouldn't reflect voice instructions. However, we didn't test voice 
 		guidance with car audio, it may cause the issues. In this case, you can turn Bluetooth off.</p></li>
 
-		<li><p>If you are an Android user and the option is disabled (or some of the supported languages</a> are unavailable), please 
-        check system TTS settings</a>.</p></li>
+		<li><p>If you are an Android user and the option is disabled (or some of the supported languages are unavailable), please
+        check system TTS settings.</p></li>
 	</ul>
 
     <p>On Android voice instructions are available in 27 languages: English, Arabic, Chinese (Traditional and
@@ -1309,15 +1344,14 @@
 	<ul>
 		<li><p>Bitte stellen Sie sicher, dass die Lautstärke Ihres Geräts nicht stummgeschaltet ist. Sie können die 
 		Lautstärke mit den Lautstärketasten Ihres Geräts ändern. Dazu müssen Sie möglicherweise die Option 
-		"Mit Tasten ändern" (falls aktiviert) in den Geräteeinstellungen → Töne & Haptik deaktivieren.</li></p>
+		"Mit Tasten ändern" (falls aktiviert) in den Geräteeinstellungen → Töne & Haptik deaktivieren.</p></li>
 
 		<li><p>Wenn Sie Bluetooth einschalten, sollte es keine Sprachanweisungen enthalten. Wir haben jedoch die 
 		Sprachführung mit Car-Audio nicht getestet, da dies zu Problemen führen kann. In diesem Fall können 
-		Sie Bluetooth deaktivieren.</li></p>
+		Sie Bluetooth deaktivieren.</p></li>
 
 		<li><p>Wenn Sie ein Android-Nutzer sind und die Option deaktiviert ist (oder einige der unterstützten Sprachen
-        nicht verfügbar sind), überprüfen Sie die System-TTS-Einstellungen.
-		</li></p>
+        nicht verfügbar sind), überprüfen Sie die System-TTS-Einstellungen.</p></li>
 	</ul>
 </dd>
 
@@ -1337,7 +1371,7 @@
 		<li><p>Bluetooth no debe reflejar las instrucciones de voz si lo enciendes. Pero no hemos probado las
 		instrucciones de voz con el audio de coche. Si hay problemas, apaga Bluetooth.</p></li>
 
-		<li><p>Si eres usuario de Android y la opción está desactivada (o uno de idiomas soportados</a> no están
+		<li><p>Si eres usuario de Android y la opción está desactivada (o uno de idiomas soportados no están
 		disponibles), revisa los ajustes de síntesis de voz.</p></li>
 	</ul>
 </dd>
@@ -1410,16 +1444,20 @@
 	</ul>
 </dd>
 
+</dl>
 
-<dl id="bookmarks">
 
-<h3 lang="en">How to share (export) bookmarks</h3>
-<h3 lang="ru">Как экспортировать метки</h3>
-<h3 lang="de">Wie kann ich Lesezeichen exportieren</h3>
-<h3 lang="es">¿Cómo puedo exportar los marcadores</h3>
-<h3 lang="fr">Comment partager (exporter) des signets</h3>
-<h3 lang="pt">Como partilhar (exportar) marcadores</h3>
-<h3 lang="pl">Jak udostępniać (eksportować) zakładki</h3>
+<dl id="bookmarks_export">
+
+<dt>
+	<h3 lang="en">How to share (export) bookmarks</h3>
+	<h3 lang="ru">Как экспортировать метки</h3>
+	<h3 lang="de">Wie kann ich Lesezeichen exportieren</h3>
+	<h3 lang="es">¿Cómo puedo exportar los marcadores</h3>
+	<h3 lang="fr">Comment partager (exporter) des signets</h3>
+	<h3 lang="pt">Como partilhar (exportar) marcadores</h3>
+	<h3 lang="pl">Jak udostępniać (eksportować) zakładki</h3>
+</dt>
 
 <dd 
 	lang="en">
@@ -1483,14 +1521,20 @@
 	Eksportuj plik w wyskakującym okienku okno.
 </dd>        
 
+</dl>
 
-<h3 lang="en">How to import bookmarks</h3>
-<h3 lang="ru">Как импортировать метки</h3>
-<h3 lang="de">Wie kann ich Lesezeichen importieren</h3>
-<h3 lang="es">Cómo puedo importar los marcadores</h3>
-<h3 lang="fr">Comment importer des signets</h3>
-<h3 lang="pt">Como importar marcadores</h3>
-<h3 lang="pl">Jak importować zakładki</h3>
+
+<dl id="bookmarks_import">
+
+<dt>
+	<h3 lang="en">How to import bookmarks</h3>
+	<h3 lang="ru">Как импортировать метки</h3>
+	<h3 lang="de">Wie kann ich Lesezeichen importieren</h3>
+	<h3 lang="es">Cómo puedo importar los marcadores</h3>
+	<h3 lang="fr">Comment importer des signets</h3>
+	<h3 lang="pt">Como importar marcadores</h3>
+	<h3 lang="pl">Jak importować zakładki</h3>
+</dt>
 
 <dd 
 	lang="en">
@@ -1667,13 +1711,14 @@
 	</ol>
 </dd>
 
+</dl>
 
-<a href="#" id="toTop" lang="en">Go to Top</a>
-<a href="#" id="toTop" lang="ru">Наверх</a>
-<a href="#" id="toTop" lang="de">Nach oben</a>
-<a href="#" id="toTop" lang="es">Arriba</a>
-<a href="#" id="toTop" lang="fr">En haut</a>
-<a href="#" id="toTop" lang="pl">Idź na górę</a>
+<a href="#" lang="en">Go to Top</a>
+<a href="#" lang="ru">Наверх</a>
+<a href="#" lang="de">Nach oben</a>
+<a href="#" lang="es">Arriba</a>
+<a href="#" lang="fr">En haut</a>
+<a href="#" lang="pl">Idź na górę</a>
 
 </body>
 </html>
