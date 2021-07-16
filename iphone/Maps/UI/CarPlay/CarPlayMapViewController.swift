@@ -35,7 +35,7 @@ final class CarPlayMapViewController: MWMViewController {
     view.insertSubview(mapView, at: 0)
     mapView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
     mapView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
-    mapView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
+    mapView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor).isActive = true
     mapView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
     speedInfoView.trailingAnchor.constraint(equalTo: mapButtonSafeAreaLayoutGuide.trailingAnchor).isActive = true
   }
