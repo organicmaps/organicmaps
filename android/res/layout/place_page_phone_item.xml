@@ -8,8 +8,6 @@
   android:orientation="horizontal"
   android:visibility="visible"
   android:tag="phone">
-  <tag android:id="@+id/place_phone_tag"
-    android:value=""/>
 
   <ImageView
     android:id="@+id/iv__place_phone"

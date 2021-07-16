@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.graphics.Color;
-import android.graphics.drawable.Drawable;
 import android.location.Location;
 import android.os.Build;
 import android.text.Html;
@@ -15,7 +14,6 @@ import android.text.style.ForegroundColorSpan;
 import android.text.util.Linkify;
 import android.util.AttributeSet;
 import android.util.Base64;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MotionEvent;
@@ -35,6 +33,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.widget.NestedScrollViewClickFixed;
 import androidx.fragment.app.Fragment;
 
+import androidx.recyclerview.widget.RecyclerView;
 import com.mapswithme.maps.Framework;
 import com.mapswithme.maps.MwmActivity;
 import com.mapswithme.maps.MwmApplication;
@@ -97,7 +96,8 @@ public class PlacePageView extends NestedScrollViewClickFixed
   private ArrowView mAvDirection;
   private TextView mTvDistance;
   private TextView mTvAddress;
-  private ViewGroup mPhoneList;
+  private RecyclerView mPhoneRecycler;
+  private PlacePhoneAdapter mPhoneAdapter;
   private View mWebsite;
   private TextView mTvWebsite;
   private TextView mTvLatlon;
@@ -292,7 +292,9 @@ public class PlacePageView extends NestedScrollViewClickFixed
     mTvAddress = mPreview.findViewById(R.id.tv__address);
 
     RelativeLayout address = findViewById(R.id.ll__place_name);
-    mPhoneList = findViewById(R.id.ll__place_phone_list);
+    mPhoneRecycler = findViewById(R.id.rw__phone);
+    mPhoneAdapter = new PlacePhoneAdapter();
+    mPhoneRecycler.setAdapter(mPhoneAdapter);
     mWebsite = findViewById(R.id.ll__place_website);
     mWebsite.setOnClickListener(this);
     mTvWebsite = findViewById(R.id.tv__place_website);
@@ -537,13 +539,7 @@ public class PlacePageView extends NestedScrollViewClickFixed
 
   private List<String> getAllPhones()
   {
-    List<String> phones = new ArrayList<>(mPhoneList.getChildCount());
-    for (int i = 0; i < mPhoneList.getChildCount(); i++)
-    {
-      TextView tvPhoneNumber = mPhoneList.getChildAt(i).findViewById(R.id.tv__place_phone);
-      phones.add(tvPhoneNumber.getText().toString());
-    }
-    return phones;
+    return mPhoneAdapter.getPhonesList();
   }
 
   private void onCallBtnClicked(View parentView)
@@ -903,27 +899,7 @@ public class PlacePageView extends NestedScrollViewClickFixed
 
   private void refreshPhoneNumberList(String phones)
   {
-    mPhoneList.removeAllViews();
-
-    if (!TextUtils.isEmpty(phones))
-    {
-      for (String phoneNumber : phones.split(";"))
-      {
-        phoneNumber = phoneNumber.trim();
-        if (phoneNumber.trim().length() == 0) continue;
-        Log.i(TAG, "refreshPhoneNumberList: adding phone " + phoneNumber);
-
-        final View phoneView = LayoutInflater.from(getContext())
-                                             .inflate(R.layout.place_page_phone, null);
-        final TextView tvPhoneNumber = phoneView.findViewById(R.id.tv__place_phone);
-        tvPhoneNumber.setText(phoneNumber);
-        phoneView.setTag(R.id.place_phone_tag, phoneNumber);
-        phoneView.setVisibility(VISIBLE);
-        phoneView.setOnClickListener(this);
-        phoneView.setOnLongClickListener(this);
-        mPhoneList.addView(phoneView);
-      }
-    }
+    mPhoneAdapter.refreshPhones(phones);
   }
 
   private void updateBookmarkButton()
@@ -1015,7 +991,12 @@ public class PlacePageView extends NestedScrollViewClickFixed
       buttons.add(PlacePageButtons.Item.BACK);
 
     if (mapObject.hasPhoneNumber())
+    {
       buttons.add(PlacePageButtons.Item.CALL);
+      mPhoneRecycler.setVisibility(VISIBLE);
+    }
+    else
+      mPhoneRecycler.setVisibility(GONE);
 
     buttons.add(PlacePageButtons.Item.BOOKMARK);
 
@@ -1166,9 +1147,6 @@ public class PlacePageView extends NestedScrollViewClickFixed
         }
         refreshLatLon(mMapObject);
         break;
-      //case R.id.ll__place_phone:
-      //  Utils.callPhone(getContext(), mTvPhone.getText().toString());
-      //  break;
       case R.id.ll__place_website:
         Utils.openUrl(getContext(), mTvWebsite.getText().toString());
         break;
@@ -1188,9 +1166,6 @@ public class PlacePageView extends NestedScrollViewClickFixed
         Utils.sendTo(getContext(), mTvEmail.getText().toString());
         break;
     }
-
-    if (v.getTag(R.id.place_phone_tag) != null)
-      Utils.callPhone(getContext(), v.getTag(R.id.place_phone_tag).toString());
   }
 
   private void toggleIsBookmark(@NonNull MapObject mapObject)
@@ -1255,8 +1230,6 @@ public class PlacePageView extends NestedScrollViewClickFixed
         items.add(mMapObject.getMetadata(Metadata.MetadataType.FMD_WIKIPEDIA));
         break;
     }
-    if (v.getTag(R.id.place_phone_tag) != null)
-      items.add(v.getTag(R.id.place_phone_tag).toString());
 
     final String copyText = getResources().getString(android.R.string.copy);
     for (int i = 0; i < items.size(); i++)
