@@ -3,9 +3,8 @@
   xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:tools="http://schemas.android.com/tools"
   android:layout_width="match_parent"
-  android:layout_height="@dimen/nav_menu_height"
+  android:layout_height="wrap_content"
   android:orientation="vertical"
-  android:layout_marginRight="@dimen/nav_toggle"
   android:layout_marginEnd="@dimen/nav_toggle"
   android:background="?clickableBackground"
   tools:background="#3000FF00"
@@ -25,8 +24,8 @@
       android:minWidth="@dimen/nav_numbers_side_min_width"
       android:paddingBottom="@dimen/margin_eighth"
       android:paddingTop="@dimen/margin_eighth"
-      android:paddingLeft="@dimen/nav_numbers_margin"
-      android:paddingRight="@dimen/nav_numbers_margin">
+      android:paddingStart="@dimen/nav_numbers_margin"
+      android:paddingEnd="@dimen/nav_numbers_margin">
       <TextView
         android:id="@+id/speed_value"
         android:layout_centerHorizontal="true"
@@ -59,8 +58,8 @@
       android:minWidth="@dimen/nav_numbers_side_min_width"
       android:paddingBottom="@dimen/margin_eighth"
       android:paddingTop="@dimen/margin_eighth"
-      android:paddingLeft="@dimen/nav_numbers_margin"
-      android:paddingRight="@dimen/nav_numbers_margin">
+      android:paddingStart="@dimen/nav_numbers_margin"
+      android:paddingEnd="@dimen/nav_numbers_margin">
       <LinearLayout
         android:id="@+id/time_values_container"
         android:layout_width="wrap_content"
@@ -80,7 +79,6 @@
           android:id="@+id/time_hour_dimen"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
-          android:layout_marginRight="@dimen/margin_quarter"
           android:layout_marginEnd="@dimen/margin_quarter"
           android:lines="1"
           android:includeFontPadding="false"
@@ -119,14 +117,15 @@
           android:id="@+id/dot_left"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
-          android:layout_marginRight="@dimen/margin_half"
           android:layout_marginEnd="@dimen/margin_half"
-          android:src="?newsMarker"/>
+          android:src="?newsMarker"
+          tools:ignore="ContentDescription" />
         <ImageView
           android:id="@+id/dot_estimate"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
-          android:src="?newsMarker"/>
+          android:src="?newsMarker"
+          tools:ignore="ContentDescription" />
       </LinearLayout>
     </RelativeLayout>
 
@@ -139,8 +138,8 @@
       android:minWidth="@dimen/nav_numbers_side_min_width"
       android:paddingBottom="@dimen/margin_eighth"
       android:paddingTop="@dimen/margin_eighth"
-      android:paddingLeft="@dimen/nav_numbers_margin"
-      android:paddingRight="@dimen/nav_numbers_margin">
+      android:paddingStart="@dimen/nav_numbers_margin"
+      android:paddingEnd="@dimen/nav_numbers_margin">
       <TextView
         android:id="@+id/distance_value"
         android:layout_width="wrap_content"

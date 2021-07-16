@@ -273,7 +273,7 @@ drape_ptr<HWTextureAllocator> CreateAllocator(ref_ptr<dp::GraphicsContext> conte
   if (apiVersion == dp::ApiVersion::OpenGLES3)
     return make_unique_dp<OpenGLHWTextureAllocator>();
 
-#if defined(OMIM_METAL_AVAILABLE)
+#if defined(OMIM_OS_IPHONE)
   return make_unique_dp<HWTextureAllocatorApple>();
 #else
   return make_unique_dp<OpenGLHWTextureAllocator>();

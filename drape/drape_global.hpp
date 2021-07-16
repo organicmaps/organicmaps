@@ -10,7 +10,7 @@
 
 #include <cstdint>
 
-#if defined(OMIM_OS_IPHONE) && !defined(OMIM_OS_IPHONE_SIMULATOR) && !defined(OMIM_OS_MAC)
+#if defined(__APPLE__) && !defined(OMIM_OS_MAC)
 #define OMIM_METAL_AVAILABLE
 #endif
 

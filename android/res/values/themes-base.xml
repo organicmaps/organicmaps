@@ -35,6 +35,7 @@
     <item name="iconTintDisabled">@color/black_12</item>
     <item name="iconTintActive">@color/yellow</item>
     <item name="iconTintLight">@color/icon_tint_light</item>
+    <item name="chevronTintColor">@color/black_12</item>
 
     <item name="secondary">@color/text_dark_hint</item>
     <item name="dividerHorizontal">@color/divider</item>
@@ -212,6 +213,7 @@
     <item name="iconTintDisabled">@color/white_12</item>
     <item name="iconTintActive">@color/yellow</item>
     <item name="iconTintLight">@color/icon_tint_light_night</item>
+    <item name="chevronTintColor">@color/white_12</item>
 
     <item name="secondary">@color/text_light_hint</item>
     <item name="dividerHorizontal">@color/divider_night</item>

@@ -19,7 +19,7 @@ namespace
 {
 auto constexpr kTimeoutInSeconds = 4.0;
 
-int32_t DoPing(string const & url)
+int64_t DoPing(string const & url)
 {
   if (url.empty())
   {
@@ -54,7 +54,7 @@ Pinger::Endpoints Pinger::ExcludeUnavailableEndpoints(Endpoints const & urls)
   auto const size = urls.size();
   CHECK_GREATER(size, 0, ());
 
-  map<int32_t, size_t> timeUrls;
+  map<int64_t, size_t> timeUrls;
   {
     ThreadPool t(size, ThreadPool::Exit::ExecPending);
     for (size_t i = 0; i < size; ++i)
