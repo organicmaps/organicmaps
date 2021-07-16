@@ -641,6 +641,7 @@
 	<string name="editor_done_dialog_1">You’ve changed the world map. Do not keep it to yourself! Tell your friends, and edit it together.</string>
 	<string name="editor_done_dialog_2">This is the second time you edited the map. Now you are number %d in the map editors ranking. Tell your friends about it.</string>
 	<string name="editor_done_dialog_3">You’ve improved the map, tell your friends about it, and edit the map together.</string>
+	<string name="editor_add_phone">Add phone</string>
 	<string name="share_with_friends">Share with friends</string>
 	<string name="editor_report_problem_desription_1">Please describe the problem in detail so that the OpenStreeMap community can fix the error.</string>
 	<string name="editor_report_problem_desription_2">Or do it yourself at https://www.openstreetmap.org/</string>

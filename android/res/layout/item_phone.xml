@@ -6,10 +6,8 @@
     android:background="?clickableBackground"
     android:gravity="center_vertical"
     android:orientation="horizontal"
-    android:paddingEnd="@dimen/margin_base"
-    android:paddingLeft="@dimen/margin_half_plus"
-    android:paddingRight="@dimen/margin_base"
-    android:paddingStart="@dimen/margin_half_plus">
+    android:paddingStart="@dimen/margin_half_plus"
+    android:paddingEnd="@dimen/margin_half">
 
     <ImageView
         android:id="@+id/phone_icon"
@@ -23,9 +21,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
-        android:layout_marginLeft="@dimen/margin_half"
-        android:layout_toRightOf="@id/phone_icon"
-        android:layout_toLeftOf="@id/delete_icon"
+        android:layout_marginStart="@dimen/margin_half"
+        android:layout_toEndOf="@id/phone_icon"
+        android:layout_toStartOf="@id/delete_icon"
         android:textColorHint="?android:textColorSecondary">
         <EditText
             android:id="@+id/input"
@@ -41,7 +39,6 @@
         tools:ignore="ContentDescription"
         tools:src="@drawable/ic_delete"
         android:layout_centerVertical="true"
-        android:layout_alignParentRight="true"
-        android:layout_marginRight="0dp" />
+        android:layout_alignParentEnd="true"/>
 
 </RelativeLayout>
