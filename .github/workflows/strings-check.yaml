@@ -1,0 +1,22 @@
+name: strings.txt check
+on:
+  pull_request:
+    paths:
+      - 'data/strings/strings.txt'
+
+jobs:
+  check-strings-txt:
+    name: Check strings.txt format
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-python@v2
+        with:
+          python-version: '3'
+
+      - name: Check strings.txt
+        shell: bash
+        run: |
+          ./tools/python/clean_strings_txt.py -s
+          git diff --quiet HEAD
