@@ -149,10 +149,16 @@ MapFilesDownloader::ServersList MapFilesDownloader::LoadServersList()
 {
   auto constexpr kTimeoutInSeconds = 10.0;
 
-  platform::HttpClient request(GetPlatform().MetaServerUrl());
+  std::string const metaServerUrl = GetPlatform().MetaServerUrl();
   std::string httpResult;
-  request.SetTimeout(kTimeoutInSeconds);
-  request.RunHttpRequest(httpResult);
+
+  if (!metaServerUrl.empty())
+  {
+    platform::HttpClient request(metaServerUrl);
+    request.SetTimeout(kTimeoutInSeconds);
+    request.RunHttpRequest(httpResult);
+  }
+
   std::vector<std::string> urls;
   downloader::GetServersList(httpResult, urls);
   CHECK(!urls.empty(), ());
