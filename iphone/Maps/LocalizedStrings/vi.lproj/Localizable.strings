@@ -18,9 +18,6 @@
 /* Button which deletes downloaded country */
 "delete" = "Xóa";
 
-/* Button "do not interrupt download" if user touched actively downloading country */
-"do_nothing" = "Tiếp tục";
-
 "download_maps" = "Tải xuống Bản đồ";
 
 /* Settings/Downloader - info for country when download fails */
@@ -28,9 +25,6 @@
 
 /* Settings/Downloader - info for country which started downloading */
 "downloading" = "Đang tải xuống…";
-
-/* Settings/Downloader - size string, only strings different from English should be translated */
-"kb" = "kB";
 
 /* Choose measurement on first launch alert - choose metric system button */
 "kilometres" = "Kilômét";
@@ -55,17 +49,11 @@
 /* Update maps later/Buy pro version later button text */
 "later" = "Để sau";
 
-/* Don't show some dialog any more */
-"never" = "Không bao giờ";
-
 /* View and button titles for accessibility */
 "search" = "Tìm kiếm";
 
 /* Search box placeholder text */
 "search_map" = "Tìm kiếm Bản đồ";
-
-/* Settings/Downloader - info for not downloaded country */
-"touch_to_download" = "Chạm để tải xuống";
 
 /* Settings/Downloader - 3G download warning dialog confirm button */
 "use_cellular_data" = "Có";
@@ -73,20 +61,11 @@
 /* Location services are disabled by user alert - message */
 "location_is_disabled_long_text" = "Bạn hiện đang tắt tất cả Dịch vụ Định vị cho thiết bị hoặc ứng dụng này. Bạn vui lòng bật lại chúng trong Thiết lập.";
 
-/* Location Services are not available on the device alert - message */
-"device_doesnot_support_location_services" = "Thiết bị của bạn không hỗ trợ Dịch vụ Định vị";
-
 /* View and button titles for accessibility */
 "zoom_to_country" = "Hiển thị trên bản đồ";
 
-/* Button text for the button at the center of the screen when the country is not downloaded */
-"country_status_download" = "Tải xuống Bản đồ\n(^ ^)";
-
 /* Button text for the button at the center of the screen when the country is not downloaded and the size should not be shown */
 "country_status_download_without_size" = "Tải xuống Bản đồ";
-
-/* Button text for the button at the center of the screen when the country is not downloaded */
-"country_status_download_without_routing" = "Tải về bản đồ không\ncó chỉ đường (^ ^)";
 
 /* Message to display at the center of the screen when the country download has failed */
 "country_status_download_failed" = "Tải xuống đã thất bại";
@@ -96,19 +75,13 @@
 
 "about_menu_title" = "Giới thiệu về Organic Maps";
 
-"downloaded_touch_to_delete" = "Đã tải xuống (%@), chạm để xóa";
-
 "connection_settings" = "Thiết lập Kết nối";
-
-"download_mb_or_kb" = "Tải xuống %@";
 
 "close" = "Đóng";
 
 "unsupported_phone" = "Cần có OpenGL được tăng tốc phần cứng. Thật không may, thiết bị của bạn không được hỗ trợ.";
 
 "download" = "Tải xuống";
-
-"external_storage_is_not_available" = "Không hỗ trợ lưu trữ trên thẻ SD/USB với các bản đồ được tải xuống";
 
 "disconnect_usb_cable" = "Bạn vui lòng tháo cáp USB hoặc lắp thẻ nhớ vào để sử dụng Organic Maps";
 
@@ -117,8 +90,6 @@
 "not_enough_memory" = "Không đủ bộ nhớ để chạy ứng dụng";
 
 "download_resources" = "Trước khi bạn bắt đầu, hãy để chúng tôi tải bản đồ thế giới vào thiết bị của bạn.\nBản đồ này cần %@ dữ liệu.";
-
-"getting_position" = "Đang tìm vị trí hiện tại";
 
 "download_resources_continue" = "Đến Bản đồ";
 
@@ -140,23 +111,14 @@
 /* Add New Bookmark Set dialog title */
 "add_new_set" = "Thêm Bộ Mới";
 
-/* Place Page - Add To Bookmarks button */
-"add_to_bookmarks" = "Thêm vào Điểm đánh dấu";
-
 /* Bookmark Color dialog title */
 "bookmark_color" = "Đánh dấu Màu sắc";
 
 /* Add Bookmark Set dialog - hint when set name is empty */
 "bookmark_set_name" = "Đánh dấu Tên Bộ";
 
-/* Bookmark Sets dialog title */
-"bookmark_sets" = "Đánh dấu Bộ";
-
 /* Bookmarks - dialog title */
 "bookmarks" = "Đánh dấu";
-
-/* Add bookmark dialog - bookmark color */
-"color" = "Màu sắc";
 
 /* Default bookmarks set name */
 "core_my_places" = "Các Địa chỉ của Tôi";
@@ -167,14 +129,8 @@
 /* Editor title above street and house number */
 "address" = "Địa chỉ";
 
-/* Place Page - Remove Pin button */
-"remove_pin" = "Xóa Con Dấu";
-
 /* Add bookmark dialog - bookmark set, Bookmarks dialog - Bookmark set cell */
 "set" = "Đặt";
-
-/* Text hint in Bookmarks dialog when no any bookmarks are added */
-"bookmarks_usage_hint" = "Bạn chưa có điểm đánh dấu.\nChạm vào bất kỳ địa điểm nào trên bản đồ để thêm một điểm đánh dấu.\nĐiểm đánh dấu từ các nguồn khác cũng có thể được nhập và hiển thị trong Organic Maps. Mở tập tin KML/KMZ với các điểm đánh dấu được lưu từ email, Dropbox hoặc liên kết web.";
 
 /* Settings button in system menu */
 "settings" = "Thiết lập";
@@ -191,26 +147,11 @@
 /* Ask to wait user several minutes (some long process in modal dialog). */
 "wait_several_minutes" = "Việc này có thể mất vài phút.\nVui lòng đợi…";
 
-/* Show bookmarks from this category on a map or not */
-"visible" = "Hiện";
-
-/* Toast which is displayed when GPS has been deactivated */
-"gps_is_disabled_long_text" = "GPS đã bị tắt. Vui lòng bật nó trong Cài đặt.";
-
 /* Measurement units title in settings activity */
 "measurement_units" = "Đơn vị đo";
 
 /* Detailed description of Measurement Units settings button */
 "measurement_units_summary" = "Chọn giữa dặm và kilômét";
-
-/* Do search in all sources */
-"search_mode_all" = "Everywhere";
-
-/* Do search near my position only */
-"search_mode_nearme" = "Near Me";
-
-/* Do search in current viewport only */
-"search_mode_viewport" = "On the Screen";
 
 /* Search category for cafes, bars, restaurants */
 "eat" = "Ăn ở đâu";
@@ -266,14 +207,8 @@
 /* Search category */
 "police" = "Cảnh sát";
 
-/* String in search result list, when nothing found */
-"no_search_results_found" = "Không tìm thấy kết quả nào";
-
 /* Notes field in Bookmarks view */
 "description" = "Ghi chú";
-
-/* Button text */
-"share_by_email" = "Chia sẻ bằng email";
 
 /* Email Subject when sharing bookmarks category */
 "share_bookmarks_email_subject" = "Điểm đánh dấu Organic Maps được chia sẻ";
@@ -295,26 +230,11 @@
 /* Warning message when doing search around current position */
 "unknown_current_position" = "Chưa xác định được vị trí của bạn";
 
-/* Warning message when location country isn't downloaded during search (see also download_location_map_proposal). */
-"download_location_country" = "Tải xuống quốc gia của vị trí hiện tại của bạn (%@)";
-
-/* Warning message when viewport country isn't downloaded during search */
-"download_viewport_country_to_search" = "Tải xuống quốc gia bạn đang tìm kiếm trên (%@)";
-
 /* Alert message that we can't run Map Storage settings due to some reasons. */
 "cant_change_this_setting" = "Rất tiếc, cài đặt Lưu trữ Bản đồ hiện đã bị tắt.";
 
 /* Alert message that downloading is in progress. */
 "downloading_is_active" = "Hiện đang tải xuống quốc gia.";
-
-/* Message that will be shown in alert view, when we ask user to leave review on App Store */
-"appStore_message" = "Hi vọng bạn thích sử dụng Organic Maps! Nếu vậy, bạn vui lòng cho điểm hoặc đánh giá ứng dụng trên App Store. Việc này chỉ tốn dưới một phút và sẽ giúp chúng tôi rất nhiều. Cảm ơn bạn đã ủng hộ!";
-
-/* No, thanks */
-"no_thanks" = "Không, cảm ơn";
-
-/* Share one specific bookmark using SMS, %1$@ contains om:// and %2$@ https://omaps.app link. @NOTE non-ascii symbols in the link will result in max 70 characters SMS instead of 140. */
-"bookmark_share_sms" = "Này, hãy xem ghim của tôi tại Organic Maps! %1$@ hoặc %2$@ Bạn chưa cài đặt bản đồ ngoại tuyến? Tải xuống tại đây: https://omaps.app/get";
 
 /* Share my position using SMS, %1$@ contains om:// and %2$@ https://omaps.app link WITHOUT NAME. @NOTE non-ascii symbols in the link will result in max 70 characters SMS instead of 140. */
 "my_position_share_sms" = "Này, hãy xem vị trí hiện tại của tôi tại Organic Maps! %1$@ hoặc %2$@ Bạn không có bản đồ ngoại tuyến? Tải xuống tại đây: https://omaps.app/get";
@@ -328,23 +248,11 @@
 /* Share my position using EMail, %1$@ is om:// and %2$@ is https://omaps.app link WITHOUT NAME */
 "my_position_share_email" = "Chào,\n\nTôi hiện đang ở đây: %1$@. Hãy nhấn vào liên kết này %2$@ hoặc liên kết này %3$@ để xem địa điểm trên bản đồ.\n\nCám ơn.";
 
-/* Android share by Message/SMS button text (including SMS) */
-"share_by_message" = "Chia sẻ bằng tin nhắn";
-
 /* Share button text which opens menu with more buttons, like Message, EMail, Facebook etc. */
 "share" = "Chia sẻ";
 
-/* iOS share by Message button text (including SMS) */
-"message" = "Tin nhắn";
-
 /* Share by email button text, also used in editor. */
 "email" = "Email";
-
-/* Copy Link */
-"copy_link" = "Sao chép Liên kết";
-
-/* Text for the button that returns to caller application */
-"more_info" = "Hiển thị thêm thông tin";
 
 /* Text for message when used successfully copied something */
 "copied_to_clipboard" = "Đã sao chép vào Bảng tạm: %1$@";
@@ -354,15 +262,6 @@
 
 /* Used for bookmark editing */
 "done" = "Xong";
-
-/* Summary for preferences in MWM */
-"yopme_pref_summary" = "Chọn cài đặt Màn hình Sau";
-
-/* Title for yopme preferences in MWM */
-"yopme_pref_title" = "Cài đặt Màn hình Sau";
-
-/* Hint for upper-right icon p2b */
-"show_on_backscreen" = "Hiển thị trên màn hình Sau";
 
 /* Prints version number in About dialog */
 "version" = "Phiên bản: %@";
@@ -381,19 +280,11 @@
 
 "share_my_location" = "Chia sẻ Vị trí của tôi";
 
-"menu_search" = "Tìm kiếm";
-
 /* Settings general group in settings screen */
 "prefs_group_general" = "General settings";
 
 /* Settings information group in settings screen */
 "prefs_group_information" = "Information";
-
-/* Settings screen: "Map" category title */
-"prefs_group_map" = "Bản đồ";
-
-/* Settings screen: "Miscellaneous" category title */
-"prefs_group_misc" = "Khác";
 
 "prefs_group_route" = "Điều hướng";
 
@@ -419,9 +310,6 @@
 /* Settings «Map» category: «3D buildings» title */
 "pref_map_3d_buildings_title" = "Nhà cửa 3D";
 
-/* Settings «Map» category: «3D buildings» summary */
-"pref_map_3d_buildings_subtitle" = "Ảnh hưởng tới tuổi thọ của pin";
-
 /* Settings «Route» category: «Tts enabled» title */
 "pref_tts_enable_title" = "Hướng dẫn bằng Giọng nói";
 
@@ -433,8 +321,6 @@
 
 /* Title for "Other" section in TTS settings. */
 "pref_tts_other_section_title" = "Khác";
-
-"pref_tts_how_to_set_up_voice" = "Làm thế nào để thiết lập tiếng nói";
 
 /* Settings «Map» category: «Record track» title */
 "pref_track_record_title" = "Tìm kiếm gần đây";
@@ -455,56 +341,7 @@
 
 "recent_track_help_text" = "Chức năng này cho phép bạn ghi lại đường đi trong một khoảng thời gian nhất định và xem nó trên bản đồ. Xin lưu ý: việc kích hoạt chức năng này sẽ tăng mức sử dụng pin. Đường đi sẽ tự động bị xóa khỏi bản đồ sau khi kết thúc khoảng thời gian nói trên.";
 
-"pref_track_ios_caption" = "Chức năng theo dấu gần đây hiển thị các đường bạn đã đi.";
-
-"pref_track_ios_subcaption" = "Vui lòng chọn khoảng thời gian lưu dấu.";
-
-"placepage_distance" = "Khoảng cách";
-
-"placepage_coordinates" = "Tọa độ";
-
-"placepage_unsorted" = "Chưa phân loại";
-
 "search_show_on_map" = "Xem trên bản đồ";
-
-/* Used to warn user when fixing KitKat issue */
-"bookmark_move_fail" = "Chúng tôi cần di chuyển các điểm đánh dấu của bạn vào bộ nhớ trong nhưng không còn dung lượng cho chúng. Vui lòng giải phóng bộ nhớ, nếu không các điểm đánh dấu sẽ không khả dụng.";
-
-/* Used in More Apps menu */
-"free" = "Free";
-
-/* Used in More Apps menu */
-"buy" = "Buy";
-
-/* 1st search button-like result */
-"search_on_map" = "Tìm trên bản đồ";
-
-/* toast with an error */
-"no_route_found" = "Không tìm thấy tuyến đường";
-
-/* route title */
-"route" = "Tuyến đường";
-
-/* category title */
-"routes" = "Tuyến đường";
-
-/* text of notification */
-"download_map_notification" = "Tải xuống bản đồ của vị trí của bạn";
-
-/* text of notification */
-"pro_version_is_free_today" = "Full version of Organic Maps is free today! Download now and tell your friends.";
-
-/* Dialog for transferring maps from lite to pro. */
-"move_lite_maps_to_pro" = "Chúng tôi đang chuyển bản đồ đã tải xuống của bạn từ Organic Maps Lite sang Organic Maps. Việc này có thể mất vài phút.";
-
-/* Message to display when maps moved. */
-"move_lite_maps_to_pro_ok" = "Bản đồ đã tải xuống của bạn đã được chuyển thành công sang Organic Maps.";
-
-/* Message to display when maps move failed. */
-"move_lite_maps_to_pro_failed" = "Bản đồ của bạn không chuyển được. Vui lòng xóa Organic Maps Lite và tải xuống lại bản đồ.";
-
-/* Text in menu */
-"settings_and_more" = "Thiết lập &amp; Khác";
 
 /* Text in menu */
 "website" = "Trang web";
@@ -527,14 +364,8 @@
 /* Text in menu */
 "openstreetmap" = "OpenStreetMap";
 
-/* Text in menu */
-"contact_us" = "Liên hệ với chúng tôi";
-
 /* Settings: Send feedback button and dialog title */
 "feedback" = "Phản hồi";
-
-/* Text in menu */
-"subscribe_to_news" = "Đăng ký nhận tin tức của chúng tôi";
 
 /* Text in menu */
 "rate_the_app" = "Cho điểm ứng dụng";
@@ -548,15 +379,6 @@
 /* Text in menu */
 "report_a_bug" = "Báo cáo lỗi";
 
-/* Email subject */
-"subscribe_me_subject" = "Vui lòng đăng ký tôi vào danh sách nhận thư định kỳ Organic Maps";
-
-/* Email body */
-"subscribe_me_body" = "Tôi muốn là người đầu tiên được biết về các thông tin cập nhật và quảng bá mới nhất. Tôi có thể hủy bỏ đăng ký nhận tin của mình bất cứ lúc nào.";
-
-/* About text */
-"about_text" = "Organic Maps cung cấp bản đồ ngoại tuyến của tất cả các thành phố và quốc gia trên thế giới một cách nhanh nhất. Hoàn toàn tự tin đi du lịch: dù bạn ở đâu, Organic Maps vẫn sẽ giúp bạn định vị bản thân trên bản đồ, tìm các nhà hàng, khách sạn, ngân hàng, trạm xăng, v.v… gần nhất. Ứng dụng này không yêu cầu kết nối Internet.\n\nChúng tôi luôn phát triển các tính năng mới và rất chào đón ý kiến của bạn về cách mà chúng tôi có thể cải thiện Organic Maps. Nếu bạn có bất cứ vấn đề nào với ứng dụng, hãy liên hệ với chúng tôi qua địa chỉ support@organicmaps.app. Chúng tôi sẽ trả lời mọi yêu cầu!\n\nBạn có thích Organic Maps và muốn hỗ trợ chúng tôi hay không? Sau đây là một số cách đơn giản và hoàn toàn miễn phí:\n\n- viết đánh giá trên Chợ Ứng dụng mà bạn sử dụng\n- thích trang Facebook của chúng tôi http://www.facebook.com/OrganicMaps\n- hoặc chỉ đơn giản là kể về Organic Maps với mẹ, bạn bè và đồng nghiệp của bạn :)\n\nCảm ơn bạn đã ủng hộ chúng tôi. Chúng tôi rất cảm ơn sự giúp đỡ của bạn!\n\nT.B. Chúng tôi lấy dữ liệu bản đồ từ OpenStreetMap, một dự án bản đồ tương đương với Wikipedia, cho phép người dùng có thể tạo và sửa bản đồ. Nếu bạn thấy có thông tin bị thiếu hoặc sai trên bản đồ, bạn có thể sửa trực tiếp tại https://www.openstreetmap.org, và các thay đổi của bạn sẽ xuất hiện trong ứng dụng Organic Maps ở phiên bản kế tiếp.";
-
 /* Alert text */
 "email_error_body" = "Trình khách email này chưa được thiết lập. Bạn vui lòng cấu hình nó hoặc sử dụng một cách khác để liên hệ với chúng tôi tại %@";
 
@@ -569,12 +391,6 @@
 /* Search category */
 "wifi" = "WiFi";
 
-/* Update map suggestion */
-"routing_map_outdated" = "Vui lòng cập nhật bản đồ để tạo tuyến đường";
-
-/* Update maps suggestion */
-"routing_update_maps" = "Phiên bản Organic Maps mới cho phép tạo các tuyến đường từ vị trí hiện tại của bạn đến điểm đến. Vui lòng cập nhật bản đồ để sử dụng tính năng này.";
-
 /* Update all button text */
 "downloader_update_all_button" = "Cập nhật tất cả";
 
@@ -583,9 +399,6 @@
 
 /* Downloaded maps category */
 "downloader_downloaded_subtitle" = "Đã tải xuống";
-
-/* Downloaded maps category */
-"downloader_available_maps" = "Đã có";
 
 /* Country queued for download */
 "downloader_queued" = "Đã xếp hàng chờ";
@@ -598,17 +411,6 @@
 
 "downloader_downloading" = "Đang tải về:";
 
-"downloader_search_results" = "Đã tìm thấy";
-
-/* Disclaimer message */
-"routing_disclaimer" = "Tạo các tuyến đường trong ứng dụng Organic Maps, xin lưu ý điều sau:\n\n – Các tuyến đường được gợi ý chỉ có thể được xem là đề xuất.\n – Điều kiện con đường, luật giao thông và biển báo có mức ưu tiên cao hơn lời khuyên dẫn hướng.\n – Bản đồ có thể không chính xác hoặc lỗi thời, tuyến đường có thể không được tạo theo cách tốt nhất có thể.\n\n Hãy lái xe an toàn trên đường và bảo trọng!";
-
-/* Outdated maps category */
-"downloader_outdated_maps" = "Lỗi thời";
-
-/* Up to date maps category */
-"downloader_uptodate_maps" = "Cập nhật";
-
 /* Status of outdated country in the list */
 "downloader_status_outdated" = "Cập nhật";
 
@@ -618,49 +420,14 @@
 /* Displayed in a dialog that appears when a user tries to delete a map while the app is in the follow route mode */
 "downloader_delete_map_while_routing_dialog" = "Để xóa bản đồ, vui lòng dừng điều hướng.";
 
-/* Show when user try build route, but we don't know where he */
-"routing_failed_unknown_my_position" = "Không xác định được vị trí hiện tại. Vui lòng xác định vị trí để tạo tuyến đường.";
-
-/* Show if use has not routing file, or InconsistentMWMandRoute */
-"routing_failed_has_no_routing_file" = "số liệu bổ sung cần thiết để tạo ra các tuyến đường đi từ vị trí của bạn.";
-
-/* StartPointNotFound */
-"routing_failed_start_point_not_found" = "Không thể tính toán tuyến đường. Không có con đường nào gần điểm bắt đầu của bạn.";
-
-/* EndPointNotFound */
-"routing_failed_dst_point_not_found" = "Không thể tính toán tuyến đường. Không có con đường nào gần điểm đến của bạn.";
-
 /* PointsInDifferentMWM */
 "routing_failed_cross_mwm_building" = "Tuyến đường chỉ có thể được tạo hoàn toàn được chứa trong một bản đồ.";
-
-/* RouteNotFound */
-"routing_failed_route_not_found" = "Không tìm thấy tuyến đường nào giữa điểm gốc và điểm đến được chọn. Vui lòng chọn điểm bắt đầu hoặc điểm cuối khác.";
-
-/* InternalError */
-"routing_failed_internal_error" = "Đã xảy ra lỗi nội bộ. Vui lòng thử xóa và tải lại xuống bản đồ. Nếu vấn đề vẫn còn tồn tại, vui lòng liên hệ với chúng tôi tại support@organicmaps.app.";
-
-/* Context menu item for downloader. */
-"downloader_download_map_and_routing" = "Tải xuống Bản đồ + Định tuyến";
-
-/* Context menu item for downloader. */
-"downloader_download_routing" = "Tải xuống Định tuyến";
-
-/* Context menu item for downloader. */
-"downloader_delete_routing" = "Xóa Định tuyến";
 
 /* Context menu item for downloader. */
 "downloader_download_map" = "Tải về bản đồ";
 
-"downloader_download_map_no_routing" = "Tải về bản đồ không có chỉ đường";
-
-/* Button for routing. */
-"routing_go" = "Tiến hành!";
-
 /* Item status in downloader. */
 "downloader_retry" = "Lặp lại";
-
-/* Item in context menu. */
-"downloader_map_and_routing" = "Bản đồ + Định tuyến";
 
 /* Item in context menu. */
 "downloader_delete_map" = "Xóa Bản đồ";
@@ -668,29 +435,11 @@
 /* Item in context menu. */
 "downloader_update_map" = "Cập nhật Bản đồ";
 
-/* Item in context menu. */
-"downloader_update_map_and_routing" = "Cập nhật bản đồ + Định tuyến";
-
-/* Item in context menu. */
-"downloader_map_only" = "Chỉ bản đồ";
-
-/* Toolbar title */
-"toolbar_application_menu" = "Menu ứng dụng";
-
 /* Preference text */
 "pref_use_google_play" = "Sử dụng Dịch vụ Google Play để có được vị trí hiện tại của bạn";
 
 /* Text for rating dialog */
 "rating_just_rated" = "Tôi vừa đánh giá ứng dụng của bạn";
-
-/* Text for rating dialog */
-"rating_user_since" = "Tôi là người dùng Organic Maps từ năm %@";
-
-/* Text for rating dialog */
-"rating_do_like_maps" = "Bạn có thích Organic Maps?";
-
-/* Text for rating dialog */
-"rating_tap_star" = "Chạm vào một ngôi sao để đánh giá ứng dụng của chúng tôi.";
 
 /* Text for rating dialog */
 "rating_thanks" = "Xin cám ơn!";
@@ -701,23 +450,8 @@
 /* Text for rating dialog */
 "rating_send_feedback" = "Gửi phản hồi";
 
-/* Text for g+ dialog */
-"rating_google_plus" = "Nhấp vào g+ để nói với bạn bè của bạn về ứng dụng.";
-
 /* Text for routing error dialog */
 "routing_download_maps_along" = "Tải xuống bản đồ theo tuyến đường";
-
-/* Text for routing error dialog */
-"routing_download_map" = "Nhận bản đồ";
-
-/* Text for routing error dialog */
-"routing_download_map_and_routing" = "Tải bản đồ và dữ liệu đường đi cập nhật để nhận được tất cả các tính năng của Organic Maps.";
-
-/* Text for routing error dialog */
-"routing_get_routing_data" = "Nhận dữ liệu đường đi";
-
-/* Text for routing error dialog */
-"routing_get_additional_data" = "số liệu bổ sung cần thiết để tạo ra các tuyến đường đi từ vị trí của bạn.";
 
 /* Text for routing error dialog */
 "routing_requires_all_map" = "Tạo một tuyến đường đòi hỏi tất cả các bản đồ từ vị trí của bạn đến điểm đến phải được tải xuống và cập nhật.";
@@ -725,50 +459,15 @@
 /* Text for routing error dialog */
 "routing_not_enough_space" = "Không đủ không gian";
 
-/* Text for routing error dialog */
-"routing_download_more_than_avail" = "Bạn cần phải tải về %@ MB, nhưng chỉ có %@ MB sẵn có.";
-
-/* Text for routing error dialog */
-"routing_download_roaming" = "Bạn sắp tải xuống %@ MB sử dụng Dữ liệu Di động (trong dịch vụ Chuyển vùng). Điều này có thể dẫn đến cước phí bổ sung, tùy thuộc vào gói dữ liệu di động của nhà mạng của bạn.";
-
 /* bookmark button text */
 "bookmark" = "yer i̇mi";
-
-/* map is not downloaded */
-"not_found_map" = "Bản đồ cho vị trí của bạn chưa được tải xuống";
 
 /* location service disabled */
 "enable_location_services" = "Bạn vui lòng bật Dịch vụ Định vị";
 
-/* download map */
-"download_map" = "Tải xuống bản đồ cho vị trí của bạn";
-
-/* download map on iPhone */
-"download_map_iphone" = "Tải bản đồ vị trí hiện tại xuống iPhone của bạn";
-
-/* clear pin */
-"nearby" = "Gần kề";
-
-/* clear pin */
-"clear_pin" = "Xóa Pin";
-
-/* location is undefined */
-"undefined_location" = "Không xác định được vị trí hiện tại.";
-
-/* download country of your location */
-"download_country" = "Tải xuống quốc gia bạn đang tìm kiếm trên";
-
-/* download failed */
-"download_failed" = "tải xuống thất bại";
-
-/* get the map */
-"get_the_map" = "Tải bản đồ";
-
 "save" = "Lưu";
 
 "edit_description_hint" = "Mô tả của bạn (chữ hoặc html)";
-
-"new_group" = "nhóm mới";
 
 "create" = "tạo";
 
@@ -795,30 +494,6 @@
 
 /* pink color */
 "pink" = "Hồng";
-
-/* deep purple color */
-"deep_purple" = "Tía thẫm";
-
-/* light blue color */
-"light_blue" = "Xanh da trời";
-
-/* cyan color */
-"cyan" = "Xanh lơ";
-
-/* teal color */
-"teal" = "Lục bảo";
-
-/* lime color */
-"lime" = "Màu xanh chanh";
-
-/* deep orange color */
-"deep_orange" = "Cam đậm";
-
-/* gray color */
-"gray" = "Xám";
-
-/* blue gray color */
-"blue_gray" = "Xám xanh da trời";
 
 /* Wi-Fi available */
 "WiFi_available" = "Có";
@@ -848,13 +523,9 @@
 
 "dialog_routing_location_unknown_turn_on" = "Không thể xác định vị trí tọa độ GPS hiện tại. Bật các dịch vụ định vị để tính toán tuyến đường.";
 
-"dialog_routing_location_unknown" = "Không thể xác định vị trí tọa độ GPS hiện tại.";
-
 "dialog_routing_download_files" = "Tải xuống các tệp yêu cầu";
 
 "dialog_routing_download_and_update_all" = "Tải về và cập nhật tất cả các bản đồ và các thông tin tuyến đường dọc theo lộ trình dự kiến để tính toán tuyến đường.";
-
-"dialog_routing_routes_size" = "Tệp thông tin tuyến đường";
 
 "dialog_routing_unable_locate_route" = "Không thể xác định tuyến đường";
 
@@ -884,21 +555,11 @@
 
 "dialog_routing_try_again" = "Vui lòng thử lại";
 
-"dialog_routing_send_error" = "Báo cáo vấn đề";
-
-"dialog_routing_if_get_cross_route" = "Bạn có muốn tạo một tuyến đường thẳng hơn mà kéo dài trên nhiều bản đồ không?";
-
-"dialog_routing_cross_route_is_optimal" = "Có một tuyến đường tối ưu hơn đi qua cạnh của bản đồ này.";
-
 "not_now" = "Lúc khác";
-
-"dialog_routing_build_route" = "Tạo";
 
 "dialog_routing_download_and_build_cross_route" = "Bạn có muốn tải về bản đồ và tạo một tuyến đường tối ưu hơn kéo dài trên nhiều hơn một bản đồ?";
 
 "dialog_routing_download_cross_route" = "Tải về bản đồ để tạo tuyến đường tối ưu hơn mà đi qua cạnh của bản đồ này.";
-
-"dialog_routing_cross_route_always" = "Luôn đi qua ranh giới này";
 
 
 /********** Strings for downloading map from search **********/
@@ -906,8 +567,6 @@
 "search_without_internet_advertisement" = "Để bắt đầu tìm kiếm và tạo đường đi, vui lòng tải về bản đồ, và bạn sẽ không cần đến kết nối Internet nữa.";
 
 "search_select_map" = "Chọn bản đồ";
-
-"search_select_other_map" = "Chọn bản đồ khác";
 
 /* «Show» context menu */
 "show" = "Hiện";
@@ -918,17 +577,11 @@
 /* «Rename» context menu */
 "rename" = "Đổi tên";
 
-/* Bottom sheet: expand button (should be short) */
-"bottom_sheet_more" = "Thêm…";
-
 /* Failed planning route message in navigation view */
 "routing_planning_error" = "Không thể Lập Lộ trình";
 
 /* Arrive routing message in navigation view */
 "routing_arrive" = "Đến: %s";
-
-/* Text for routing::RouterResultCode::FileTooOld dialog. */
-"dialog_routing_download_and_update_maps" = "Để tạo đường đi, vui lòng tải về và cập nhật tất cả bản đồ dọc theo tuyến đường.";
 
 "rate_alert_title" = "Bạn thích ứng dụng chứ?";
 
@@ -944,19 +597,11 @@
 
 "history" = "Lịch sử";
 
-"next_turn_then" = "Sau đó";
-
 "closed" = "Đã đóng";
-
-"back_to" = "Quay lại %@";
 
 "search_not_found" = "Xin lỗi, tôi không tìm thấy kết quả nào.";
 
 "search_not_found_query" = "Vui lòng thử câu hỏi khác.";
-
-"search_not_found_map" = "Vui lòng tải về bản đồ mà bạn đang tìm kiếm trong đó.";
-
-"search_not_found_location" = "Tải về bản đồ vị trí hiện tại của bạn.";
 
 "search_history_title" = "Lịch sử tìm kiếm";
 
@@ -964,23 +609,12 @@
 
 "clear_search" = "Xóa Lịch sử Tìm kiếm";
 
-/* Title for settings to enable/disable showcase menu button */
-"showcase_settings_title" = "Hiển thị lời mời";
-
 /* Place Page link to Wikipedia article (if map object has it). */
 "read_in_wikipedia" = "Wikipedia";
 
-"p2p_route_planning" = "Hoạch định đường đi";
-
 "p2p_your_location" = "Vị trí của bạn";
 
-"p2p_from" = "Điểm khởi hành";
-
-"p2p_to" = "Điểm đích";
-
 "p2p_start" = "Bắt đầu";
-
-"p2p_planning" = "Đang hoạch định…";
 
 "p2p_from_here" = "Từ";
 
@@ -1018,15 +652,9 @@
 
 "editor_correct_mistake" = "Sửa lỗi";
 
-"editor_correct_mistake_message" = "Bạn đã mắc lỗi chỉnh sửa. Vui lòng sửa lỗi hoặc chuyển qua chế độ đơn giản.";
-
 "editor_add_select_location" = "Vị trí";
 
 "editor_done_dialog_1" = "Bạn đã thay đổi bản đồ thế giới. Đừng giấu điều đó! Hãy cho các bạn khác biết và cùng nhau chỉnh sửa.";
-
-"editor_done_dialog_2" = "Đây là lần nâng cấp bản đồ thứ hai của bạn. Giờ bạn xếp hạng %d trong các nhà hiệu chỉnh bản đồ. Hãy nói với các bạn khác về điều đó.";
-
-"editor_done_dialog_3" = "Bạn đã nâng cấp bản đồ này, hãy cho các bạn khác biết và cùng nhau chỉnh sửa bản đồ.";
 
 "share_with_friends" = "Chia sẻ với bạn bè";
 
@@ -1044,20 +672,7 @@
 
 "editor_report_problem_duplicate_place_title" = "Địa điểm trùng lặp";
 
-"first_launch_congrats_title" = "Organic Maps đã sẵn sàng để sử dụng";
-
-"first_launch_congrats_text" = "Tìm kiếm và điều hướng ngoại tuyến, miễn phí khắp mọi nơi trên thế giới.";
-
-"migrate_title" = "Quan trọng!";
-
-/* Android uses image instead of text. */
-"download_all" = "Tải về tất cả";
-
-"delete_all" = "Xóa tất cả";
-
 "autodownload" = "Tự động tải về";
-
-"disable_autodownload" = "Tắt chế độ tự động tải xuống";
 
 /* Place Page opening hours text */
 "closed_now" = "Hiện đã đóng";
@@ -1072,10 +687,6 @@
 "day_off" = "Ngày nghỉ";
 
 "today" = "Hôm nay";
-
-"sunrise_to_sunset" = "Từ bình minh đến hoàng hôn";
-
-"sunset_to_sunrise" = "Từ hoàng hôn đến bình minh";
 
 "add_opening_hours" = "Thêm giờ làm việc";
 
@@ -1095,45 +706,18 @@
 
 "forgot_password" = "Quên mật khẩu?";
 
-/* Forgot Password dialog title */
-"restore_password" = "Khôi phục mật khẩu";
-
-"enter_email_address_to_reset_password" = "Nhập địa chỉ email bạn đã sử dụng trong quá trình đăng ký và chúng tôi sẽ gửi cho bạn liên kết để tạo mới mật khẩu của bạn.";
-
-"reset_password" = "đặt lại mật khẩu";
-
-"username" = "Tên đăng nhập";
-
 "osm_account" = "Tài khoản OSM";
 
 "logout" = "Đăng xuất";
 
-"login_and_edit_map_motivation_message" = "Đăng nhập và chỉnh sửa thông tin của các đối tượng trên bản đồ và chúng tôi sẽ hiển thị chúng cho hàng triệu người dùng khác. Hãy cùng nhau làm cho thế giới tốt đẹp hơn.";
-
 /* Information text: "Last upload 11.01.2016" */
 "last_upload" = "Tải lên mới nhất";
 
-/* Motivates user to login/register, title above login buttons. */
-"you_have_edited_your_first_object" = "Bạn đã chỉnh sửa đối tượng đầu tiên của mình!";
-
 "thank_you" = "Cảm ơn bạn";
-
-"login_with_google" = "Đăng nhập với Google";
-
-"login_with_openstreetmap" = "Đăng nhập với www.openstreetmap.org";
 
 "edit_place" = "Chỉnh sửa địa điểm";
 
 "place_name" = "Tên địa điểm";
-
-/* title above languages list cells in the editor, below editable name text field. */
-"other_languages" = "Ngôn ngữ khác";
-
-/* small button to open list with names in different languages */
-"show_more" = "Hiển thị nhiều hơn";
-
-/* small button to close list with names in different languages */
-"show_less" = "Hiển thị ít hơn";
 
 "add_language" = "Thêm ngôn ngữ";
 
@@ -1164,8 +748,6 @@
 
 "please_note" = "Xin lưu ý";
 
-"common_no_wifi_dialog" = "Không có Wifi. Bạn có muốn tiếp tục dùng dữ liệu di động?";
-
 "downloader_delete_map_dialog" = "Tất cả những thay đổi của bản đồ sẽ bị xóa cùng với bản đồ đó.";
 
 "downloader_update_maps" = "Cập nhật các bản đồ";
@@ -1173,10 +755,6 @@
 "downloader_mwm_migration_dialog" = "Để tạo một tuyến đường, bạn cần cập nhật tất cả các bản đồ và sau đó lập lại tuyến đường.";
 
 "downloader_search_field_hint" = "Tìm bản đồ";
-
-"migration_update_all_button" = "Cập nhật tất cả các bản đồ";
-
-"migration_delete_all_download_current_button" = "Tải xuống bản đồ hiện tại và xóa những bản đồ cũ";
 
 "migration_download_error_dialog" = "Lỗi tải xuống";
 
@@ -1186,21 +764,9 @@
 
 "downloader_no_space_message" = "Xin xóa dữ liệu không cần thiết";
 
-"editor_general_auth_error_dialog" = "Lỗi đăng nhập chung.";
-
 "editor_login_error_dialog" = "Lỗi đăng nhập.";
 
-"editor_login_failed_dialog" = "Đăng nhập thất bại";
-
-"editor_username_error_dialog" = "Tên đăng nhập không hợp lệ";
-
-"editor_place_edited_dialog" = "Bạn đã chỉnh sửa một đối tượng!";
-
-"editor_login_with_osm" = "Đăng nhập với OpenStreetMap";
-
 "editor_profile_changes" = "Các thay đổi đã được xác thực";
-
-"editor_profile_unsent_changes" = "Không gửi được:";
 
 "editor_focus_map_on_location" = "Kéo bản đồ để chọn vị trí chính xác của đối tượng";
 
@@ -1222,13 +788,9 @@
 
 "editor_report_problem_other_title" = "Một vấn đề khác";
 
-"placepage_report_problem_button" = "Báo cáo vấn đề";
-
 "placepage_add_business_button" = "Thêm tổ chức";
 
 "whatsnew_editor_message_1" = "Nhập các địa điểm mới vào bản đồ, và trực tiếp chỉnh sửa những địa điểm hiện có trên ứng dụng.";
-
-"whatsnew_editor_message_2" = "* Organic Maps sử dụng dữ liệu của cộng đồng OpenStreetMap.";
 
 "dialog_incorrect_feature_position" = "Thay đổi địa điểm";
 
@@ -1236,16 +798,10 @@
 
 "login_to_make_edits_visible" = "Đăng nhập để người dùng khác có thể nhìn thấy những thay đổi bạn đã thực hiện.";
 
-"no_migration_during_navigation" = "Không cho phép cập nhật trong khi điều hướng.";
-
 /* Error dialog no space */
 "migration_no_space_message" = "Để tải xuống, bạn cần thêm dung lượng. Xin xóa mọi dữ liệu không cần thiết.";
 
 "editor_sharing_title" = "Tôi đã cải thiện các bản đồ Organic Maps";
-
-"editor_comment_will_be_sent" = "Chúng tôi sẽ gửi bình luận của bạn đến những người lập bản đồ.";
-
-"editor_unsupported_category_message" = "Bạn đã thêm một địa điểm của một hạng mục mà chúng tôi chưa hỗ trợ. Nó sẽ xuất hiện trên bản đồ một thời gian sau đó.";
 
 /* Downloaded 10 **of** 20 <- it is that "of" */
 "downloader_of" = "%1$d trên %2$d";
@@ -1278,23 +834,9 @@
 
 "editor_operator" = "Đơn vị điều hành";
 
-"editor_tag_description" = "Nhập công ty, tổ chức hoặc cá nhân phụ trách cơ sở.";
-
-"editor_no_local_edits_title" = "Bạn không có những chỗ sửa cục bộ";
-
-"editor_no_local_edits_description" = "Thông tin này cho biết số thay đổi đề nghị của bạn trên bản đồ hiện chỉ có thể truy cập trên thiết bị của bạn.";
-
-"editor_send_to_osm" = "Gửi đến OSM";
-
-"editor_remove" = "Xóa";
-
-"downloader_my_maps_title" = "Bản đồ của tôi";
-
 "downloader_no_downloaded_maps_title" = "Bạn chưa tải về bất kỳ bản đồ nào";
 
 "downloader_no_downloaded_maps_message" = "Tải về bản đồ để tìm địa điểm và định hướng ngoại tuyến.";
-
-"downloader_find_place_hint" = "Tìm kiếm thành phố hoặc quốc gia";
 
 /* Error title that appears after certain time without location. */
 "current_location_unknown_title" = "Tiếp tục phát hiện địa điểm hiện tại của bạn?";
@@ -1321,47 +863,13 @@
 /* iOS Dialog for the case when the location permission is not granted */
 "location_services_disabled_3" = "3. Chọn Khi Đang Dùng Ứng dụng";
 
-"placepage_parking_surface" = "Trên mặt đất";
-
-"placepage_parking_multistorey" = "Nhiều tầng";
-
-"placepage_parking_underground" = "Dưới mặt đất";
-
-"placepage_parking_rooftop" = "Trên mái";
-
-"placepage_parking_sheds" = "Chỗ để xe";
-
-"placepage_parking_carports" = "Nhà để xe";
-
-"placepage_parking_boxes" = "Thùng gara";
-
-"placepage_parking_pay" = "Trả phí";
-
-"placepage_parking_free" = "Miễn phí";
-
-"placepage_parking_interval" = "Trả Phí Cách Quãng";
-
-"placepage_entrance_number" = "Số";
-
-"placepage_entrance_type" = "Lối vào";
-
-"placepage_flat" = "áp dụng";
-
-"placepage_open_24_7" = "24 / 7";
-
 "meter" = "m";
 
 "kilometer" = "km";
 
-"kilometers_per_hour" = "km/giờ";
-
 "mile" = "dặm";
 
 "foot" = "ft";
-
-"miles_per_hour" = "mph";
-
-"day" = "ngày";
 
 "hour" = "giờ";
 
@@ -1381,10 +889,6 @@
 
 "placepage_bookmark_name_hint" = "Tên Dấu Trang";
 
-"placepage_personal_notes_hint" = "Ghi chú cá nhân";
-
-"placepage_delete_bookmark_button" = "Xóa Dấu Trang";
-
 "editor_edits_sent_message" = "Những thay đổi đề nghị của bạn đã được gửi";
 
 "editor_comment_hint" = "Nhận xét…";
@@ -1397,8 +901,6 @@
 
 "editor_remove_place_button" = "Xóa";
 
-"editor_status_sending" = "Đang gửi …";
-
 "editor_place_doesnt_exist" = "Địa điểm không tồn tại";
 
 "text_more_button" = "…thêm";
@@ -1410,11 +912,7 @@
 
 "error_enter_correct_email" = "Nhập email hợp lệ";
 
-"error_enter_correct" = "Nhập giá trị hợp lệ";
-
 "refresh" = "Cập nhật";
-
-"last_update" = "Cập nhật cuối cùng: %s";
 
 "placepage_add_place_button" = "Thêm địa điểm vào bản đồ";
 
@@ -1426,24 +924,6 @@
 
 "editor_share_to_all_dialog_message_2" = "Chúng tôi sẽ kiểm tra những thay đổi. Nếu chúng tôi có câu hỏi nào, chúng tôi sẽ liên lạc với bạn qua email.";
 
-"navigation_overview_button" = "tổng quan";
-
-"navigation_stop_button" = "dừng";
-
-/* Text on an empty bookmark page */
-"bookmarks_empty_title" = "Lưu Đánh dấu trang";
-
-"bookmarks_empty_message_1" = "Chạm vào ★ để lưu địa điểm yêu thích giúp truy cập nhanh.";
-
-"bookmarks_empty_message_2" = "Nhập đánh dấu trang từ Hộp thư và trang web.";
-
-"bookmarks_empty_message_3" = "đăng ký ra: %s";
-
-/* Name of the group for booked hotels */
-"bookmarks_group_name" = "Đã đặt trước khách sạn";
-
-"place_page_button_read_descriprion" = "Đọc";
-
 /* iOS dialog for the case when recent track recording is on and the app comes back from background */
 "recent_track_background_dialog_title" = "Tắt ghi lại tuyến đường đã đi gần đây của bạn?";
 
@@ -1451,8 +931,6 @@
 
 /* For sharing via SMS and so on */
 "sharing_call_action_look" = "Xem";
-
-"continue_recent_track_background_button" = "Tiếp tục";
 
 "recent_track_background_dialog_message" = "Organic Maps sử dụng định vị của bạn trong ứng dụng chạy nền để ghi lại tuyến đường đã đi gần đây của bạn.";
 
@@ -1468,33 +946,13 @@
 /* About short text (below logo) */
 "about_description" = "Organic Maps là một ứng dụng ngoại tuyến thiết yếu khi đi du lịch. Organic Maps được dựa trên dữ liệu của OpenStreetMap và cho phép bạn hiệu chỉnh nó.";
 
-/* Text in menu */
-"blog" = "Blog";
-
 "general_settings" = "Thiết lập chung";
-
-"date" = "Ngày %d";
-
-/* "Report a bug" -> "Generaal Feedback" -> "Something is not working" */
-"something_is_not_working" = "Có một vấn đề nào đó";
 
 /* For the first routing */
 "accept" = "Chấp nhận";
 
-"accept_and_continue" = "Accept and continue";
-
 /* For the first routing */
 "decline" = "Từ chối";
-
-"install_app" = "Cài đặt";
-
-"search_no_results_title" = "Không tìm thấy kết quả nào";
-
-"search_no_results_message" = "Hãy thử một từ khóa tìm kiếm chung hơn, thu nhỏ hoặc đặt lại bộ lọc.";
-
-"search_no_results_expand_area_button" = "Thu nhỏ";
-
-"search_no_results_reset_button" = "Đặt lại Bộ lọc";
 
 /* noun */
 "search_in_table" = "Danh sách";
@@ -1517,8 +975,6 @@
 
 "traffic_update_maps_text" = "Để hiển thị dữ liệu giao thông, cần cập nhật bản đồ.";
 
-"traffic_outdated" = "Dữ liệu giao thông đã lỗi thời.";
-
 "big_font" = "Tăng kích cỡ phông chữ trên bản đồ";
 
 "traffic_update_app" = "Vui lòng cập nhật Organic Maps";
@@ -1529,17 +985,7 @@
 /* "traffic" as in "road congestion" */
 "traffic_data_unavailable" = "Dữ liệu giao thông không khả dụng";
 
-/* "Translation is no needed, because it's a company name" */
-"uber" = "Uber";
-
-/* Simplified colour scheme for traffic information, fewer colours are used to display traffic jams on the map. The string should be kept as short as possible */
-"pref_traffic_simplified_colors_title" = "Màu sắc giao thông đơn giản";
-
 "enable_logging" = "Bật nhật ký";
-
-"offline_place_page_more_information" = "Kết nối đến Internet để xem thêm thông tin về địa điểm này.";
-
-"failed_load_information" = "Không thể tải thông tin.";
 
 /* Settings: "Send general feedback" button */
 "feedback_general" = "Phản hồi chung";
@@ -1556,8 +1002,6 @@
 
 "whatsnew_transliteration_title" = "Chuyển ngữ sang chữ Latinh";
 
-"yandex_taxi_title" = "Yandex.Taxi";
-
 "learn_more" = "Tìm hiểu thêm";
 
 "core_exit" = "Lối ra";
@@ -1568,75 +1012,19 @@
 
 "button_exit" = "Thoát";
 
-"settings_device_memory" = "Bộ nhớ thiết bị";
-
-"settings_card_memory" = "Bộ nhớ thẻ";
-
-"settings_storage_available" = "%s trống";
-
-"toast_location_permission_denied" = "Quyền định vị của ứng dụng bị từ chối";
-
-"button_use" = "Sử dụng";
-
 "planning_route_manage_route" = "Quản lý lộ trình";
 
 "button_plan" = "Kế hoạch";
-
-"button_add" = "Thêm";
 
 "placepage_remove_stop" = "Xóa";
 
 "planning_route_remove_title" = "Kéo vào đây để xóa";
 
-"dialog_change_start_point_message" = "Thay điểm bắt đầu cho vị trí hiện tại?";
-
-"button_replace" = "Thay thế";
-
 "placepage_add_stop" = "Thêm điểm dừng";
-
-/* Only ru/en are needed */
-"subtitle_rent" = "Rent";
-
-/* Only ru/en are needed */
-"rub_month" = "RUB/month";
-
-/* Only ru/en are needed */
-"room" = "%s-room apt.";
-
-/* Only ru/en are needed */
-"real_estate" = "Real estate";
-
-"add_my_position" = "Thêm vị trí của tôi";
-
-"choose_start_point" = "Chọn một điểm bắt đầu";
-
-"choose_destination" = "Chọn một điểm đến";
 
 "preloader_viator_button" = "Tìm hiểu thêm";
 
-"start_from_my_position" = "Bắt đầu từ";
-
-"profile_authorization_title" = "Đăng nhập với";
-
-"profile_authorization_message" = "Dễ dàng đăng nhập chỉ trong một vài giây mà không cần tên người dùng và mật khẩu";
-
 "profile_authorization_error" = "Rất tiếc, đã có lỗi xảy ra. Hãy thử đăng nhập lại.";
-
-"service" = "Dịch vụ";
-
-"atmosphere" = "Không khí";
-
-"value_for_money" = "Đáng đồng tiền";
-
-"experience" = "Trải nghiệm";
-
-"assortment" = "Phân loại";
-
-"expertise" = "Chuyên môn";
-
-"equipment" = "Thiết bị";
-
-"quality" = "Chất lượng";
 
 "dialog_error_storage_title" = "Vấn đề truy cập ổ lưu trữ";
 
@@ -1644,17 +1032,7 @@
 
 "setting_emulate_bad_storage" = "Giả lập ổ lưu trữ hỏng";
 
-"directions_finish" = "Điểm đến";
-
-"directions_on_foot" = "Đi bộ %s";
-
 "core_entrance" = "Lối vào";
-
-"coffee" = "Cà phê";
-
-"cleanliness" = "Sạch sẽ";
-
-"crowdedness" = "Đông đúc";
 
 "error_enter_correct_name" = "Vui lòng nhập một tên chính xác";
 
@@ -1673,11 +1051,9 @@
 
 "downloader_percent" = "%s (%s / %s)";
 
-"downloader_process" = "Tải về %s...";
+"downloader_process" = "Tải về %s…";
 
-"downloader_applying" = "Áp dụng %s...";
-
-"dialog_message_transit_not_found_connection" = "Xây dựng lộ trình trong một mạng chuyển tiếp";
+"downloader_applying" = "Áp dụng %s…";
 
 "bookmarks_error_message_share_general" = "Không thể chia sẻ do lỗi ứng dụng";
 
@@ -1695,17 +1071,7 @@
 
 "bookmarks_error_message_list_name_already_taken" = "Vui lòng chọn một tên khác";
 
-"bookmarks_error_title_list_name_too_long" = "Tên này quá dài";
-
-"bookmarks_error_message_list_name_too_long" = "Vui lòng chọn một tên khác";
-
-"please_wait" = "Vui lòng chờ...";
-
-"phone_number" = "Số điện thoại";
-
-"notification_unsent_reviews_title" = "Bạn có một số bài đánh giá chưa được đánh giá";
-
-"notification_unsent_reviews_message" = "Vui lòng đăng nhập để chia sẻ bài đánh giá với các khách du lịch khác";
+"please_wait" = "Vui lòng chờ…";
 
 "profile" = "Hồ sơ OpenStreetMap";
 
@@ -1719,49 +1085,13 @@
 
 "bookmarks_convert_error_message" = "Một số tệp không được chuyển đổi.";
 
-"converting" = "Đang chuyển đổi...";
-
-"wn_reinvented_bookmarks_title" = "Chúng tôi đã tạo lại dấu trang!";
-
-"wn_reinvented_bookmarks_message" = "Bạn có thể sao lưu dấu trang, tạo danh sách... Thật tuyệt vời...";
-
-"bookmarks_restore" = "Khôi phục dấu trang";
-
-"bookmarks_restore_process" = "Đang khôi phục...";
-
 "bookmarks_restore_title" = "Khôi phục phiên bản này?";
 
-"bookmarks_restore_message" = "Dấu trang của bạn sẽ khôi phục từ %s (%s)";
-
-"bookmarks_restore_empty_title" = "Bạn không có bản sao lưu";
-
-"bookmarks_restore_empty_message" = "Máy chủ không tìm thấy các bản sao lưu được tạo trước đó";
-
 "common_check_internet_connection_dialog_title" = "Không có kết nối internet";
-
-"error_server_title" = "Lỗi máy chủ";
-
-"error_server_message" = "Đã xảy ra lỗi trên máy chủ, vui lòng thử lại sau";
 
 "error_system_message" = "Đã xảy ra lỗi không xác định";
 
 "restore" = "Khôi phục";
-
-"bookmarks_page_downloaded" = "Đã tải về";
-
-"bookmarks_page_my" = "của tôi";
-
-"routes_and_bookmarks" = "Tuyến đường và dấu trang";
-
-"bookmarks_webview_success_toast" = "Đã tải xuống thành công dấu trang";
-
-"cached_bookmarks_placeholder_title" = "Tải xuống các địa điểm mới";
-
-"cached_bookmarks_placeholder_subtitle" = "Nhấn nút để tải xuống hàng ngàn địa điểm và tuyến đường thú vị được tạo bởi người dùng Organic Maps. Bạn sẽ cần kết nối internet.";
-
-"downloader_download_routers" = "Tải dấu trang xuống";
-
-"bookmarks_groups_cached" = "Danh sách đã tải xuống";
 
 "subtittle_opt_out" = "Thiết lập theo dõi";
 
@@ -1769,29 +1099,15 @@
 
 "crash_reports_description" = "Chúng tôi có thể sử dụng dữ liệu của bạn để cải thiện trải nghiệm trên Organic Maps. Thay đổi sẽ có hiệu lực sau khi bạn khởi động lại ứng dụng.";
 
-"opt_out_help_ios_1" = "Thiết bị di động của bạn có thể cung cấp cài đặt \"\"Giới hạn theo dõi quảng cáo\"\" hoặc \"\"Chọn không tham gia quảng cáo dựa trên sở thích\"\".";
-
-"opt_out_help_ios_2" = "iOS 9 hoặc lớn hơn";
-
-"opt_out_help_ios_3" = "Đến Cài đặt → Bảo mật → Quảng cáo → Bật cài đặt \"\"Giới hạn theo dõi quảng cáo\"\"";
-
-"opt_out_help_android" = "Thiết bị di động của bạn có thể cung cấp cài đặt \"\"Giới hạn theo dõi quảng cáo\"\" hoặc \"\"Chọn không tham gia quảng cáo dựa trên sở thích\"\".\n\nĐối với Android và Google Play Services phiên bản 4.0 trở lên:\nCài đặt → Google → Quảng cáo → Chọn không tham gia Quảng cáo dựa trên sở thích\ n\nCài đặt → Google → Tài khoản Google → Thông tin cá nhân và bảo mật → Cài đặt quảng cáo → Cá nhân hóa quảng cáo";
-
 "privacy_policy" = "Chính sách bảo mật";
 
 "terms_of_use" = "Điều khoảng sử dụng";
-
-"backup_notification_failed" = "Sao lưu dấu trang của bạn đã bị tạm ngưng. Đăng nhập để bật lại.";
 
 "button_layer_traffic" = "Giao thông";
 
 "button_layer_subway" = "Xe điện ngầm";
 
 "layers_title" = "Các lớp bản đồ";
-
-"layers_message" = "Sử dụng các lớp bản đồ để hiển thị tình trạng giao thông, bản đồ tàu điện ngầm và các thông tin hữu ích khác";
-
-"button_layer_got_it" = "Đã hiểu";
 
 "subway_data_unavailable" = "Bản đồ tàu điện ngầm không khả dụng";
 
@@ -1803,39 +1119,13 @@
 
 "title_error_downloading_bookmarks" = "Đã xảy ra lỗi";
 
-"subtitle_error_downloading_bookmarks" = "Dấu trang chưa được tải xuống";
-
-"error_already_downloaded" = "Danh sách này đã được tải về";
-
 "popular_place" = "Popular";
-
-"download_routes" = "Download routes";
-
-"bookmarks_downloaded_title" = "Bookmarks have been downloaded successfully";
-
-"bookmarks_downloaded_subtitle" = "Press ‘View on map’ to explore new places from the list";
-
-"why_support" = "Tại sao hỗ trợ Organic Maps?";
-
-"why_support_item1" = "We respect your privacy: there are zero trackers in the app, and we are open source";
-
-"why_support_item2" = "You help us to improve Organic Maps";
-
-"why_support_item3" = "Bạn giúp chúng tôi cải thiện bản đồ mở OpenStreetMap.org";
-
-"channels_map_update" = "Cập nhật bản đồ";
-
-"server_unavailable_title" = "Máy chủ không khả dụng";
-
-"sharing_options" = "Chia sẻ lựa chọn";
 
 "export_file" = "Xuất tập tin";
 
 "list_settings" = "Cài đặt danh sách";
 
 "delete_list" = "Xóa danh sách";
-
-"hide_from_map" = "Ẩn từ bản đồ";
 
 "public_access" = "Truy cập công khai";
 
@@ -1845,40 +1135,11 @@
 
 "bookmark_category_description_hint" = "Đánh vào một mô tả (văn bản hoặc html)";
 
-/* FIXME */
-"bookmarks_public_access" = "bookmarks_public_access";
-
-/* FIXME */
-"bookmarks_link_access" = "bookmarks_link_access";
-
-/* FIXME */
-"bookmarks_private_access" = "bookmarks_private_access";
-
 "not_shared" = "Riêng tư";
-
-"direct_link_progress_text" = "Đang tải tập tin của bạn…";
-
-"direct_link_success" = "Liên kết đã được tạo";
-
-"send_a_link_btn" = "Gửi cho tôi liên kết";
-
-"upload_error_toast" = "Đã xảy ra lỗi trong khi tải lên tập tin của bạn";
 
 "tags_loading_error_subtitle" = "Đã xảy ra lỗi khi tải thẻ, vui lòng thử lại";
 
-"unable_upload_errorr_title" = "Tải tập tin lên không thành công";
-
-"unable_upload_error_subtitle_edited" = "Tập tin này đã được chỉnh sửa qua ứng dụng web";
-
-"unable_upload_error_subtitle_broken" = "Tập tin này bị hỏng và không thể tải lên được. Vui lòng tải lên một tập tin khác.";
-
-"contact" = "Liên hệ";
-
-"download_button" = "Tải";
-
 "speedcams_alert_title" = "Tăn tốc độ máy ảnh";
-
-"speedcams_alert_subtitle" = "Cảnh báo về giới hạn tốc độ";
 
 "speedcam_option_auto" = "Tự động";
 
@@ -1886,18 +1147,10 @@
 
 "speedcam_option_never" = "Không bao giờ";
 
-"bookmark_description_title" = "Mô tả dấu trang";
-
 "place_description_title" = "Mô tả Địa điểm";
 
 /* this text will be shown in application notification preferences opposite checkbox which enable/disable downloader notifications. Devices on Android 8+ are affected. */
 "notification_channel_downloader" = "Trình tải xuống bản đồ";
-
-"share_bookmarks_email_body_link" = "Xin chào!\n\nĐây là liên kết nơi bạn có thể tải xuống dấu trang của mình: %s. Mở danh sách qua Organic Maps và tận hưởng chuyến đi của bạn!\n\nNhận đơn đăng ký: https://omaps.app/get?kmz";
-
-"warning_speedcams_title" = "Thanh điều hướng sẽ cảnh báo bạn về máy ảnh khi bạn vượt quá giới hạn tốc độ %d km/h";
-
-"warning_speedcams_subtitle" = "Hãy nhớ lái xe quy định của đất nước bạn đang đi du lịch đến.";
 
 "speedcams_notice_message" = "Tự động - Cảnh báo về speedcam nếu có nguy cơ vượt quá giới hạn tốc độ\nLuôn luôn - Luôn cảnh báo về speedcams\nKhông bao giờ - Không bao giờ cảnh báo về speedcams";
 
@@ -1913,23 +1166,7 @@
 
 "enable_logging_warning_message" = "Tùy chọn này được kích hoạt để ghi nhật ký đăng nhập cho mục đích chẩn đoán. Điều này sẽ giúp nhóm chúng tôi làm rõ các vấn đề liên quan đến ứng dụng. Hãy bật tùy chọn này chỉ khi nào có yêu cầu hỗ trợ từ Organic Maps.";
 
-"html_error_upload_message_try_again" = "Vui lòng kiểm tra kết nối internet và thử lại";
-
-"html_error_upload_title_try_again" = "Không có kết nối internet";
-
-"notification_leave_review_v2_android_short_title" = "Hãy để lại nhận xét và giúp khách du lịch!";
-
-"megafon" = "Say goodbye to roaming!";
-
-"notifications_illegal_alert_disable_button" = "Tắt thông báo";
-
 "access_rules_author_only" = "Chỉnh sửa trực tuyến";
-
-"privacy_settings_menu" = "Cài đặt bảo mật";
-
-"unable_upadate_error_title" = "Cập nhận hướng dẫn không thành công";
-
-"unable_upadate_error_message" = "Xuất hiện lỗi khi cập nhật. Hãy kiểm tra lại những thay đổi và thử lại lần nữa";
 
 "driving_options_title" = "Thiết lập đi vòng";
 
@@ -1951,94 +1188,19 @@
 
 "change_driving_options_btn" = "Thiết lập đường đi tránh đã được bật";
 
-"toll_road" = "Đường trả phí";
-
-"unpaved_road" = "Đường đất";
-
-"ferry_crossing" = "Bến phà";
-
-"operated_by" = "Tạo được \"%s\"";
-
 "avoid_toll_roads_placepage" = "Tránh đường trả phí";
 
 "avoid_unpaved_roads_placepage" = "Tránh đường đất";
 
 "avoid_ferry_crossing_placepage" = "Tránh bến phà";
 
-"type.cuisine.uzbek" = "Ẩm thực của Uzbekistan";
-
-"trip_start" = "Đi nào";
-
-"pick_destination" = "Mục đích";
-
-"follow_my_position" = "Định tâm";
-
-"search_results" = "Kết quả tìm kiếm";
-
-"then_turn" = "Sau đó";
-
-"redirect_route_alert" = "Bạn có muốn tạo lại tuyến không?";
-
-"redirect_route_yes" = "Có";
-
-"redirect_route_no" = "Không";
-
-"trip_finished" = "Bạn đã tới nơi!";
-
-"keyboard_availability_alert" = "Bàn phím không khả dụng trong thời gian di chuyển";
-
-"dialog_routing_change_start_carplay" = "Không thể tạo tuyến đường từ địa điểm hiển tại";
-
-"dialog_routing_change_end_carplay" = "Không thể tạo tuyến đường tới điểm kết cuối. Hãy chọn điểm khác";
-
-"dialog_routing_check_gps_carplay" = "Không có tín hiệu GPS. Hãy đến vị trí có không gian mở";
-
-"dialog_routing_unable_locate_route_carplay" = "Không thể tạo tuyến đường. Hãy chọn những điểm khác cho tuyến đường";
-
-"dialog_routing_download_files_carplay" = "Để tạo tuyến đường, hãy tải xuống các bản đồ còn thiếu về thiết bị";
-
-"dialog_routing_system_error_carplay" = "Đã xảy ra lỗi. Khởi động lại ứng dụng";
-
-"dialog_routing_rebuild_from_current_location_carplay" = "Tuyến đường sẽ được tạo lại từ vị trí hiện tại của bạn";
-
-"dialog_routing_rebuild_for_vehicle_carplay" = "Tuyến đường sẽ được thay đổi thành tuyến dành cho xe ô tô";
-
 "ok" = "Ok";
-
-"avoid_unpaved_carplay_1" = "Trừ đườg đất";
-
-"avoid_unpaved_carplay_2" = "Trừ khôg trnhựa";
-
-"avoid_ferry_carplay_1" = "Không có phà";
-
-"avoid_ferry_carplay_2" = "Trừ phà";
-
-"avoid_tolls_carplay_1" = "Khôg đgcóphí";
-
-"avoid_tolls_carplay_2" = "Trừ đg có phí";
-
-"speedcams_alert_title_carplay_1" = "Сam tốc độ";
-
-"speedcams_alert_title_carplay_2" = "Cảnh báo tốc độ";
-
-"download_map_carplay" = "Vui lòng tải xuống bản đồ trong ứng dụng Organic Maps trên thiết bị của bạn";
-
-"carplay_roundabout_exit" = "Lối ra %s của vòng xuyến";
 
 /* max. 10 symbols, both iOS and Android */
 "sort" = "Sắp xếp…";
 
 /* Android, title, max 20-22 symbols */
 "sort_bookmarks" = "Sắp xếp dấu trang";
-
-/* iOS */
-"sort_default" = "Sắp xếp theo mặc định";
-
-"sort_type" = "Sắp xếp theo kiểu";
-
-"sort_distance" = "Sắp xếp theo khoảng cách";
-
-"sort_date" = "Sắp xếp theo ngày";
 
 /* Android */
 "by_default" = "Theo mặc định";
@@ -2052,63 +1214,7 @@
 /* Android */
 "by_date" = "Theo ngày";
 
-"week_ago_sorttype" = "Tuần trước";
-
-"month_ago_sorttype" = "Tháng trước";
-
-"moremonth_ago_sorttype" = "Hơn một tháng trước";
-
-"moreyear_ago_sorttype" = "Hơn một năm trước";
-
-"near_me_sorttype" = "Ở gần tôi";
-
-"others_sorttype" = "Khác";
-
-"food_places" = "Đồ ăn";
-
-"tourist_places" = "Danh lam thắng cảnh";
-
-"museums" = "Bảo tàng";
-
-"parks" = "Công viên";
-
-"swim_places" = "Bơi lội";
-
-"mountains" = "Núi non";
-
-"animals" = "Động vật";
-
-"hotels" = "Khách sạn";
-
-"buildings" = "Tòa nhà";
-
-"money" = "Tiền";
-
-"shops" = "Cửa hàng";
-
-"parkings" = "Bãi đậu xe";
-
-"fuel_places" = "Trạm xăng dầu";
-
-"water" = "Nước";
-
-"medicine" = "Y tế";
-
 "search_in_the_list" = "Tìm trong danh sách";
-
-"view_on_map_bookmarks" = "Trên bản đồ";
-
-"more_bookmarks" = "Thêm…";
-
-"no_items_found" = "Không tìm thấy gì cả";
-
-/* Android, max 18 symbols */
-"bookmarks_edit_list" = "Chỉnh sửa";
-
-/* Android, max 18 symbols */
-"bookmarks_delete_list" = "Xóa dánh sách";
-
-"religious_places" = "Những nơi tôn nghiêm";
 
 "select_list" = "Chọn danh sách";
 
@@ -2118,26 +1224,13 @@
 
 "dialog_pedestrian_route_is_long_message" = "Hãy chọn điểm đầu hoặc điểm cuối của tuyến gần với bến Metro";
 
-/* Failed planning SUBWAY route message in navigation view */
-"routing_planning_error_subway_special" = "Lỗi xây dựng tuyến Metro";
-
 "button_layer_isolines" = "Độ cao";
-
-"tips_map_layers_title_countour" = "Đường độ cao ngoại tuyến trong Organic Maps!";
-
-"tips_map_layers_message_countour" = "Đường độ cao giúp lên kế hoạch du lịch hòa mình với thiên nhiên và không bị lạc khi di chuyển";
 
 "isolines_activation_error_dialog" = "Để sử dụng các đường chỉ độ cao, hãy cập nhật hoặc tải xuống bản đồ của khu vực bạn mong muốn";
 
 "isolines_location_error_dialog" = "Đường hiển thị độ cao hiện chưa khả dụng tại khu vực này";
 
 "elevation_profile_diff_level" = "Mức độ phức tạp";
-
-"elevation_profile_diff_level_easy" = "Dễ";
-
-"elevation_profile_diff_level_moderate" = "Trung bình";
-
-"elevation_profile_diff_level_hard" = "Khó";
 
 "elevation_profile_ascent" = "Đi lên";
 
@@ -2147,25 +1240,13 @@
 
 "elevation_profile_maxaltitude" = "Độ cao tối đa";
 
-"elevation_profile_m" = "m";
-
 "elevation_profile_difficulty" = "Độ khó";
 
 "elevation_profile_distance" = "Khoảng cách";
 
-"elevation_profile_km" = "km";
-
 "elevation_profile_time" = "Giờ:";
 
-"elevation_profile_hours" = "h.";
-
-"elevation_profile_minutes" = "ph";
-
 "isolines_toast_zooms_1_10" = "Phóng bản đồ để nhìn rõ đường đồng mức";
-
-"downloader_updating_ios" = "Cập nhật";
-
-"downloader_loading_ios" = "Tải xuống";
 
 "key_information_title" = "Thông tin chìa khóa";
 
