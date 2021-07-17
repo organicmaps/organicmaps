@@ -9,21 +9,6 @@
 
 <!-- ********** Strings for downloading map from search **********/ -->
 
-  <key>bookmarks_places</key>
-  <dict>
-    <key>NSStringLocalizedFormatKey</key>
-    <string>%#@value@</string>
-    <key>value</key>
-    <dict>
-      <key>NSStringFormatSpecTypeKey</key>
-      <string>NSStringPluralRuleType</string>
-      <key>NSStringFormatValueTypeKey</key>
-      <string>d</string>
-      <key>other</key>
-      <string>%d 個書籤</string>
-    </dict>
-  </dict>
-
   <key>bookmarks_detect_message</key>
   <dict>
     <key>NSStringLocalizedFormatKey</key>
@@ -36,21 +21,6 @@
       <string>d</string>
       <key>other</key>
       <string>找到%d个文件。 转换后你会看到它。</string>
-    </dict>
-  </dict>
-
-  <key>bookmarks_objects</key>
-  <dict>
-    <key>NSStringLocalizedFormatKey</key>
-    <string>%#@value@</string>
-    <key>value</key>
-    <dict>
-      <key>NSStringFormatSpecTypeKey</key>
-      <string>NSStringPluralRuleType</string>
-      <key>NSStringFormatValueTypeKey</key>
-      <string>d</string>
-      <key>other</key>
-      <string>%s 对象</string>
     </dict>
   </dict>
 

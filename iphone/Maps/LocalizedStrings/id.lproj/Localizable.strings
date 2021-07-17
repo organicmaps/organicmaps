@@ -18,9 +18,6 @@
 /* Button which deletes downloaded country */
 "delete" = "Hapus";
 
-/* Button "do not interrupt download" if user touched actively downloading country */
-"do_nothing" = "Lanjutkan";
-
 "download_maps" = "Unduh Peta";
 
 /* Settings/Downloader - info for country when download fails */
@@ -28,9 +25,6 @@
 
 /* Settings/Downloader - info for country which started downloading */
 "downloading" = "Sedang mengunduh…";
-
-/* Settings/Downloader - size string, only strings different from English should be translated */
-"kb" = "kB";
 
 /* Choose measurement on first launch alert - choose metric system button */
 "kilometres" = "Kilometer";
@@ -55,17 +49,11 @@
 /* Update maps later/Buy pro version later button text */
 "later" = "Nanti";
 
-/* Don't show some dialog any more */
-"never" = "Tidak akan pernah";
-
 /* View and button titles for accessibility */
 "search" = "Cari";
 
 /* Search box placeholder text */
 "search_map" = "Cari Peta";
-
-/* Settings/Downloader - info for not downloaded country */
-"touch_to_download" = "Sentuh untuk mengunduh";
 
 /* Settings/Downloader - 3G download warning dialog confirm button */
 "use_cellular_data" = "Ya";
@@ -73,20 +61,11 @@
 /* Location services are disabled by user alert - message */
 "location_is_disabled_long_text" = "Saat ini semua Layanan Lokasi untuk perangkat atau aplikasi ini non-aktif. Mohon aktifkan lewat Setelan.";
 
-/* Location Services are not available on the device alert - message */
-"device_doesnot_support_location_services" = "Perangkat Anda tidak mendukung Layanan Lokasi";
-
 /* View and button titles for accessibility */
 "zoom_to_country" = "Tampilkan di peta";
 
-/* Button text for the button at the center of the screen when the country is not downloaded */
-"country_status_download" = "Unduh Peta\n(^ ^)";
-
 /* Button text for the button at the center of the screen when the country is not downloaded and the size should not be shown */
 "country_status_download_without_size" = "Unduh Peta";
-
-/* Button text for the button at the center of the screen when the country is not downloaded */
-"country_status_download_without_routing" = "Unduh peta tanpa\nperutean (^ ^)";
 
 /* Message to display at the center of the screen when the country download has failed */
 "country_status_download_failed" = "Sedang Mengunduh telah gagal";
@@ -96,19 +75,13 @@
 
 "about_menu_title" = "Tentang Organic Maps";
 
-"downloaded_touch_to_delete" = "(%@) telah diunduh, sentuh untuk menghapus";
-
 "connection_settings" = "Pengaturan Koneksi";
-
-"download_mb_or_kb" = "Unduh %@";
 
 "close" = "Tutup";
 
 "unsupported_phone" = "OpenGL yang dipercepat oleh OpenGL diperlukan. Sayangnya, perangkat Anda tidak mendukung.";
 
 "download" = "Unduh";
-
-"external_storage_is_not_available" = "Penyimpanan kartu SD/USB dengan peta terunduh tidak tersedia";
 
 "disconnect_usb_cable" = "Mohon lepas kabel USB atau masukkan kartu memori untuk menggunakan Organic Maps";
 
@@ -117,8 +90,6 @@
 "not_enough_memory" = "Memori tidak cukup untuk meluncurkan aplikasi";
 
 "download_resources" = "Sebelum Anda mulai izinkan kami mengunduh peta dunia secara umum ke perangkat Anda.\nHal ini memerlukan data %@.";
-
-"getting_position" = "Sedang mencari lokasi saat ini";
 
 "download_resources_continue" = "Pergi ke Peta";
 
@@ -140,23 +111,14 @@
 /* Add New Bookmark Set dialog title */
 "add_new_set" = "Tambahkan Set baru";
 
-/* Place Page - Add To Bookmarks button */
-"add_to_bookmarks" = "Tambahkan ke Penanda";
-
 /* Bookmark Color dialog title */
 "bookmark_color" = "Warna Penanda";
 
 /* Add Bookmark Set dialog - hint when set name is empty */
 "bookmark_set_name" = "Nama Set Penanda";
 
-/* Bookmark Sets dialog title */
-"bookmark_sets" = "Set Penanda";
-
 /* Bookmarks - dialog title */
 "bookmarks" = "Penanda";
-
-/* Add bookmark dialog - bookmark color */
-"color" = "Warna";
 
 /* Default bookmarks set name */
 "core_my_places" = "Tempat-tempat Saya";
@@ -167,14 +129,8 @@
 /* Editor title above street and house number */
 "address" = "Alamat";
 
-/* Place Page - Remove Pin button */
-"remove_pin" = "Hapus Pin";
-
 /* Add bookmark dialog - bookmark set, Bookmarks dialog - Bookmark set cell */
 "set" = "Set";
-
-/* Text hint in Bookmarks dialog when no any bookmarks are added */
-"bookmarks_usage_hint" = "Belum ada yang ditandai.\nSentuh lokasi apa pun pada peta untuk menandai.\nPenanda dari sumber lainnya juga dapat di impor dan ditampilkan pada Organic Maps. Buka berkas KML/KMZ tersebut dengan penanda yang disimpan dari surel, Dropbox atau tautan jaringan.";
 
 /* Settings button in system menu */
 "settings" = "Pengaturan";
@@ -191,26 +147,11 @@
 /* Ask to wait user several minutes (some long process in modal dialog). */
 "wait_several_minutes" = "Ini akan memakan waktu beberapa menit.\nMohon tunggu…";
 
-/* Show bookmarks from this category on a map or not */
-"visible" = "Tampak";
-
-/* Toast which is displayed when GPS has been deactivated */
-"gps_is_disabled_long_text" = "GPS dinon-aktifkan. Mohon aktifkan lewat Pengaturan.";
-
 /* Measurement units title in settings activity */
 "measurement_units" = "Unit Pengukuran";
 
 /* Detailed description of Measurement Units settings button */
 "measurement_units_summary" = "Pilihlah antara mil dan kilometer";
-
-/* Do search in all sources */
-"search_mode_all" = "Everywhere";
-
-/* Do search near my position only */
-"search_mode_nearme" = "Near Me";
-
-/* Do search in current viewport only */
-"search_mode_viewport" = "On the Screen";
 
 /* Search category for cafes, bars, restaurants */
 "eat" = "Tempat makan";
@@ -266,14 +207,8 @@
 /* Search category */
 "police" = "Polisi";
 
-/* String in search result list, when nothing found */
-"no_search_results_found" = "Tidak ada hasil yang ditemukan";
-
 /* Notes field in Bookmarks view */
 "description" = "Catatan";
-
-/* Button text */
-"share_by_email" = "Bagikan menggunakan surel";
 
 /* Email Subject when sharing bookmarks category */
 "share_bookmarks_email_subject" = "Bagikan penanda Organic Maps";
@@ -295,26 +230,11 @@
 /* Warning message when doing search around current position */
 "unknown_current_position" = "Lokasi Anda belum ditentukan";
 
-/* Warning message when location country isn't downloaded during search (see also download_location_map_proposal). */
-"download_location_country" = "Unduh negara di mana Anda berada saat ini (%@)";
-
-/* Warning message when viewport country isn't downloaded during search */
-"download_viewport_country_to_search" = "Unduh negara yang lokasinya sedang Anda cari (%@)";
-
 /* Alert message that we can't run Map Storage settings due to some reasons. */
 "cant_change_this_setting" = "Maaf, pengaturan Penyimpanan Peta saat ini sedang non-aktif.";
 
 /* Alert message that downloading is in progress. */
 "downloading_is_active" = "Pengunduhan negara sedang berjalan.";
-
-/* Message that will be shown in alert view, when we ask user to leave review on App Store */
-"appStore_message" = "Kami harap Anda senang menggunakan Organic Maps! Jika ya, mohon beri nilai atau ulasan untuk aplikasi ini di App Store. Hanya memakan waktu kurang dari satu menit tetapi hal itu dapat benar-benar membantu kami. Terima kasih atas dukungan Anda!";
-
-/* No, thanks */
-"no_thanks" = "Tidak, terima kasih";
-
-/* Share one specific bookmark using SMS, %1$@ contains om:// and %2$@ https://omaps.app link. @NOTE non-ascii symbols in the link will result in max 70 characters SMS instead of 140. */
-"bookmark_share_sms" = "Hei, lihat pinku di Organic Maps! %1$@ atau %2$@ belum memiliki peta offline? Unduh di sini: https://omaps.app/get";
 
 /* Share my position using SMS, %1$@ contains om:// and %2$@ https://omaps.app link WITHOUT NAME. @NOTE non-ascii symbols in the link will result in max 70 characters SMS instead of 140. */
 "my_position_share_sms" = "Hei, lihat lokasiku saat ini di Organic Maps! %1$@ atau %2$@ belum memiliki peta offline? Unduh di sini: https://omaps.app/get";
@@ -328,23 +248,11 @@
 /* Share my position using EMail, %1$@ is om:// and %2$@ is https://omaps.app link WITHOUT NAME */
 "my_position_share_email" = "Hai,\n\nSekarang saya ada di sini: %1$@. Klik tautan ini %2$@ atau yang ini %3$@ untuk melihat tempatnya di peta.\n\nTerima kasih.";
 
-/* Android share by Message/SMS button text (including SMS) */
-"share_by_message" = "Bagikan menggunakan pesan";
-
 /* Share button text which opens menu with more buttons, like Message, EMail, Facebook etc. */
 "share" = "Bagikan";
 
-/* iOS share by Message button text (including SMS) */
-"message" = "Pesan";
-
 /* Share by email button text, also used in editor. */
 "email" = "Surel";
-
-/* Copy Link */
-"copy_link" = "Salin Tautan";
-
-/* Text for the button that returns to caller application */
-"more_info" = "Tampilkan Lebih Banyak Info";
 
 /* Text for message when used successfully copied something */
 "copied_to_clipboard" = "Telah Disalin ke Papan Klip: %1$@";
@@ -354,15 +262,6 @@
 
 /* Used for bookmark editing */
 "done" = "Selesai";
-
-/* Summary for preferences in MWM */
-"yopme_pref_summary" = "Pilih pengaturan Layar Belakang";
-
-/* Title for yopme preferences in MWM */
-"yopme_pref_title" = "Pengaturan Layar Belakang";
-
-/* Hint for upper-right icon p2b */
-"show_on_backscreen" = "Tampilkan pada layar Belakang";
 
 /* Prints version number in About dialog */
 "version" = "Versi: %@";
@@ -381,19 +280,11 @@
 
 "share_my_location" = "Bagikan Lokasi Saya";
 
-"menu_search" = "Cari";
-
 /* Settings general group in settings screen */
 "prefs_group_general" = "General settings";
 
 /* Settings information group in settings screen */
 "prefs_group_information" = "Information";
-
-/* Settings screen: "Map" category title */
-"prefs_group_map" = "Peta";
-
-/* Settings screen: "Miscellaneous" category title */
-"prefs_group_misc" = "Lain-Lain";
 
 "prefs_group_route" = "Navigasi";
 
@@ -419,9 +310,6 @@
 /* Settings «Map» category: «3D buildings» title */
 "pref_map_3d_buildings_title" = "Bangunan 3D";
 
-/* Settings «Map» category: «3D buildings» summary */
-"pref_map_3d_buildings_subtitle" = "Memengaruhi daya baterai";
-
 /* Settings «Route» category: «Tts enabled» title */
 "pref_tts_enable_title" = "Petunjuk Suara";
 
@@ -433,8 +321,6 @@
 
 /* Title for "Other" section in TTS settings. */
 "pref_tts_other_section_title" = "Lainnya";
-
-"pref_tts_how_to_set_up_voice" = "Cara mengatur suara";
 
 /* Settings «Map» category: «Record track» title */
 "pref_track_record_title" = "Jalur terkini";
@@ -455,56 +341,7 @@
 
 "recent_track_help_text" = "Ini memungkinkan Anda untuk merekam jalur yang telah dilalui selama jangka waktu tertentu dan melihatnya pada peta. Harap ketahui: aktivasi fungsi ini menyebabkan peningkatan penggunaan baterai. Trek akan dihapus secara otomatis dari peta setelah selang waktu berakhir.";
 
-"pref_track_ios_caption" = "Jalur terakhir menunjukkan jalur yang sudah Anda lalui.";
-
-"pref_track_ios_subcaption" = "Silakan pilih jangka waktu penyimpanan jalur.";
-
-"placepage_distance" = "Jarak";
-
-"placepage_coordinates" = "Koordinat";
-
-"placepage_unsorted" = "Tidak diurutkan";
-
 "search_show_on_map" = "Tampilkan pada peta";
-
-/* Used to warn user when fixing KitKat issue */
-"bookmark_move_fail" = "Kami perlu memindahkan penanda lokasi Anda ke memori internal, tetapi tidak ada ruang yang tersedia. Mohon bebaskan memori, atau penanda lokasi tidak akan tersedia.";
-
-/* Used in More Apps menu */
-"free" = "Free";
-
-/* Used in More Apps menu */
-"buy" = "Buy";
-
-/* 1st search button-like result */
-"search_on_map" = "Cari ada peta";
-
-/* toast with an error */
-"no_route_found" = "Tidak ada rute yang ditemukan";
-
-/* route title */
-"route" = "Rute";
-
-/* category title */
-"routes" = "Rute";
-
-/* text of notification */
-"download_map_notification" = "Unduh peta tempat di mana Anda berada sekarang";
-
-/* text of notification */
-"pro_version_is_free_today" = "Full version of Organic Maps is free today! Download now and tell your friends.";
-
-/* Dialog for transferring maps from lite to pro. */
-"move_lite_maps_to_pro" = "Kami sedang mentransfer peta unduhan Anda dari Organic Maps Lite ke Organic Maps. Proses ini mungkin membutuhkan waktu beberapa menit.";
-
-/* Message to display when maps moved. */
-"move_lite_maps_to_pro_ok" = "Peta unduhan Anda berhasil ditransfer ke Organic Maps.";
-
-/* Message to display when maps move failed. */
-"move_lite_maps_to_pro_failed" = "Peta Anda gagal ditransfer. Silakan hapus Organic Maps Lite dan unduh peta lagi.";
-
-/* Text in menu */
-"settings_and_more" = "Setelan &amp; Lebih Banyak";
 
 /* Text in menu */
 "website" = "Situs Web";
@@ -527,14 +364,8 @@
 /* Text in menu */
 "openstreetmap" = "OpenStreetMap";
 
-/* Text in menu */
-"contact_us" = "Hubungi kami";
-
 /* Settings: Send feedback button and dialog title */
 "feedback" = "Umpan balik";
-
-/* Text in menu */
-"subscribe_to_news" = "Berlangganan berita kami";
 
 /* Text in menu */
 "rate_the_app" = "Beri nilai aplikasi";
@@ -548,15 +379,6 @@
 /* Text in menu */
 "report_a_bug" = "Laporkan gangguan";
 
-/* Email subject */
-"subscribe_me_subject" = "Mohon daftarkan saya untuk berlangganan berita Organic Maps";
-
-/* Email body */
-"subscribe_me_body" = "Saya ingin menjadi yang pertama untuk mengetahui kabar dan promosi terbaru. Saya dapat membatalkan langganan saya kapan saja.";
-
-/* About text */
-"about_text" = "Organic Maps menawarkan peta offline tercepat dari semua kota, semua negara di dunia. Berpergianlah dengan kepercayaan diri yang penuh: di nana pun Anda berada, Organic Maps akan membantu Anda mengetahui posisi Anda pada peta, menemukan restoran, hotel, bank, stasiun bahan bakar terdekat, dll. Tidak perlu koneksi internet.Kami selalu membuat fitur-fitur baru dan ingin mendengar pendapat Anda mengenai bagaimana kami dapat membuat Organic Maps menjadi lebih baik. Jika Anda memiliki masalah apa pun dengan aplikasinya, jangan segan untuk menghubungi kami di support@organicmaps.app. Kami akan merespons setiap permintaan!Apakah Anda menyukai Organic Maps an ingin membantu kami? Terdapat beberapa cara yang mudah dan sepenuhnya gratis:- tulis ulasan di App Market Anda";
-
 /* Alert text */
 "email_error_body" = "Surel pelanggan belum diatur. Mohon konfigurasikan atau gunakan cara lain untuk menghubungi kami di %@";
 
@@ -569,12 +391,6 @@
 /* Search category */
 "wifi" = "WiFi";
 
-/* Update map suggestion */
-"routing_map_outdated" = "Mohon perbarui peta untuk membuat rute";
-
-/* Update maps suggestion */
-"routing_update_maps" = "Versi Organic Maps yang terbaru memungkinkan pembuatan rute dari posisi Anda saat itu ke titik tujuan. Mohon perbarui peta untuk menggunakan fitur ini.";
-
 /* Update all button text */
 "downloader_update_all_button" = "Perbarui semua";
 
@@ -583,9 +399,6 @@
 
 /* Downloaded maps category */
 "downloader_downloaded_subtitle" = "Diunduh";
-
-/* Downloaded maps category */
-"downloader_available_maps" = "Tersedia";
 
 /* Country queued for download */
 "downloader_queued" = "Telah diantrekan";
@@ -598,17 +411,6 @@
 
 "downloader_downloading" = "Mengunduh:";
 
-"downloader_search_results" = "Ditemukan";
-
-/* Disclaimer message */
-"routing_disclaimer" = "Dalam membuat rute di aplikasi Organic Maps, mohon ingat:\n\n- Rute yang disarankan hanya dapat dianggap sebagai rekomendasi.\n- Kondisi jalan, peraturan dan tanda-tanda lalu lintas memiliki prioritas yang lebih tinggi daripada saran navigasi.\n- Kondisi jalan, peraturan dan tanda-tanda lalu lintas memiliki prioritas yang lebih tinggi daripada saran navigasi.\n- Peta bisa saja salah atau sudah usang, dan rute yang dibuat mungkin bukan yang terbaik.\n\nBerhati-hatilah di jalan dan jagalah diri Anda sendiri!";
-
-/* Outdated maps category */
-"downloader_outdated_maps" = "Usang";
-
-/* Up to date maps category */
-"downloader_uptodate_maps" = "Terkini";
-
 /* Status of outdated country in the list */
 "downloader_status_outdated" = "Perbarui";
 
@@ -618,49 +420,14 @@
 /* Displayed in a dialog that appears when a user tries to delete a map while the app is in the follow route mode */
 "downloader_delete_map_while_routing_dialog" = "Untuk menghapus peta, silakan hentikan navigasi.";
 
-/* Show when user try build route, but we don't know where he */
-"routing_failed_unknown_my_position" = "Lokasi saat ini tidak diketahui. Mohon masukkan lokasi untuk membuat rute.";
-
-/* Show if use has not routing file, or InconsistentMWMandRoute */
-"routing_failed_has_no_routing_file" = "Data tambahan yang diperlukan untuk membuat rute dari lokasi Anda.";
-
-/* StartPointNotFound */
-"routing_failed_start_point_not_found" = "Tidak dapat memperhitungkan rute. Tidak ada jalan di dekat titik Anda mulai.";
-
-/* EndPointNotFound */
-"routing_failed_dst_point_not_found" = "Tidak dapat memperhitungkan rute. Tidak ada jalan di dekat tujuan Anda.";
-
 /* PointsInDifferentMWM */
 "routing_failed_cross_mwm_building" = "Rute hanya dapat dibuat dengan yang seluruhnya ada di dalam peta tunggal.";
-
-/* RouteNotFound */
-"routing_failed_route_not_found" = "Tidak ada rute yang ditemukan antara tempat asal dan tujuan yang dipilih. Mohon pilih titik mulai atau tujuan yang berbeda.";
-
-/* InternalError */
-"routing_failed_internal_error" = "Terjadi gangguan internal. Mohon coba menghapus dan mengunduh petanya lagi. Jika masih terjadi masalah mohon hubungi kami di support@organicmaps.app.";
-
-/* Context menu item for downloader. */
-"downloader_download_map_and_routing" = "Untuh Peta + Rute";
-
-/* Context menu item for downloader. */
-"downloader_download_routing" = "Unduh Rute";
-
-/* Context menu item for downloader. */
-"downloader_delete_routing" = "Hapus Rute";
 
 /* Context menu item for downloader. */
 "downloader_download_map" = "Unduh peta";
 
-"downloader_download_map_no_routing" = "Unduh peta tanpa perutean";
-
-/* Button for routing. */
-"routing_go" = "Mulai!";
-
 /* Item status in downloader. */
 "downloader_retry" = "Ulangi";
-
-/* Item in context menu. */
-"downloader_map_and_routing" = "Peta + Rute";
 
 /* Item in context menu. */
 "downloader_delete_map" = "Hapus Peta";
@@ -668,29 +435,11 @@
 /* Item in context menu. */
 "downloader_update_map" = "Perbarui Peta";
 
-/* Item in context menu. */
-"downloader_update_map_and_routing" = "Perbarui Peta + Rute";
-
-/* Item in context menu. */
-"downloader_map_only" = "Hanya Peta";
-
-/* Toolbar title */
-"toolbar_application_menu" = "Menu aplikasi";
-
 /* Preference text */
 "pref_use_google_play" = "Gunakan Layanan Google Play untuk mendapatkan lokasi Anda saat ini";
 
 /* Text for rating dialog */
 "rating_just_rated" = "Saya baru saja menilai app Anda";
-
-/* Text for rating dialog */
-"rating_user_since" = "Saya pengguna Organic Maps sejak %@";
-
-/* Text for rating dialog */
-"rating_do_like_maps" = "Anda suka Organic Maps?";
-
-/* Text for rating dialog */
-"rating_tap_star" = "Ketuk bintang untuk menilai app kami.";
 
 /* Text for rating dialog */
 "rating_thanks" = "Terima kasih!";
@@ -701,23 +450,8 @@
 /* Text for rating dialog */
 "rating_send_feedback" = "Kirim umpan balik";
 
-/* Text for g+ dialog */
-"rating_google_plus" = "Klik g+ untuk memberi tahu teman-teman tentang aplikasi tersebut.";
-
 /* Text for routing error dialog */
 "routing_download_maps_along" = "Unduh peta bersama rute";
-
-/* Text for routing error dialog */
-"routing_download_map" = "Dapatkan peta";
-
-/* Text for routing error dialog */
-"routing_download_map_and_routing" = "Unduh peta yang diperbarui dan data perutean untuk mendapatkan semua fitur Organic Maps.";
-
-/* Text for routing error dialog */
-"routing_get_routing_data" = "Dapatkan data perutean";
-
-/* Text for routing error dialog */
-"routing_get_additional_data" = "Data tambahan yang diperlukan untuk membuat rute dari lokasi Anda.";
 
 /* Text for routing error dialog */
 "routing_requires_all_map" = "Membuat rute memerlukan semua peta dari lokasi Anda ke tujuan yang diunduh dan diperbarui.";
@@ -725,50 +459,15 @@
 /* Text for routing error dialog */
 "routing_not_enough_space" = "Ruang simpan tidak cukup";
 
-/* Text for routing error dialog */
-"routing_download_more_than_avail" = "Anda harus mengunduh %@ MB, tetapi hanya %@ MB yang tersedia.";
-
-/* Text for routing error dialog */
-"routing_download_roaming" = "Anda akan mengunduh %@ MB menggunakan Data Seluler (dalam Roaming). Hal ini dapat mengakibatkan biaya tambahan, tergantung pada paket data seluler operator.";
-
 /* bookmark button text */
 "bookmark" = "bookmark";
-
-/* map is not downloaded */
-"not_found_map" = "Peta untuk lokasi Anda tidak diunduh";
 
 /* location service disabled */
 "enable_location_services" = "Mohon aktifkan Layanan Lokasi";
 
-/* download map */
-"download_map" = "Unduh peta untuk lokasi Anda";
-
-/* download map on iPhone */
-"download_map_iphone" = "Unduh peta lokasi saat ini pada iPhone Anda";
-
-/* clear pin */
-"nearby" = "Terdekat";
-
-/* clear pin */
-"clear_pin" = "Kosongkan Pin";
-
-/* location is undefined */
-"undefined_location" = "Lokasi saat ini tidak diketahui.";
-
-/* download country of your location */
-"download_country" = "Unduh negara di mana Anda berada saat ini";
-
-/* download failed */
-"download_failed" = "gagal diunduh";
-
-/* get the map */
-"get_the_map" = "Dapatkan peta";
-
 "save" = "Simpan";
 
 "edit_description_hint" = "Your descriptions (text or html)";
-
-"new_group" = "grup baru";
 
 "create" = "buat";
 
@@ -795,30 +494,6 @@
 
 /* pink color */
 "pink" = "Hồng";
-
-/* deep purple color */
-"deep_purple" = "Ungu Gelap";
-
-/* light blue color */
-"light_blue" = "Biru Muda";
-
-/* cyan color */
-"cyan" = "Biru Kehijauan";
-
-/* teal color */
-"teal" = "Biru Gelap";
-
-/* lime color */
-"lime" = "Kuning Gelap";
-
-/* deep orange color */
-"deep_orange" = "Oranye Gelap";
-
-/* gray color */
-"gray" = "Abu-abu";
-
-/* blue gray color */
-"blue_gray" = "Biru Keabu-abuan";
 
 /* Wi-Fi available */
 "WiFi_available" = "Ya";
@@ -848,13 +523,9 @@
 
 "dialog_routing_location_unknown_turn_on" = "TIdak dapat menemukan koordinat GPS saat ini. Aktifkan layanan lokasi untuk mengalkulasi rute.";
 
-"dialog_routing_location_unknown" = "TIdak dapat menemukan koordinat GPS saat ini.";
-
 "dialog_routing_download_files" = "Unduh file yang diperlukan";
 
 "dialog_routing_download_and_update_all" = "Unduh dan perbarui semua informasi peta dan perutean di sepanjang proyeksi jalan untuk mengalkulasi rute.";
-
-"dialog_routing_routes_size" = "File informasi rute";
 
 "dialog_routing_unable_locate_route" = "Tidak dapat menemukan rute";
 
@@ -884,21 +555,11 @@
 
 "dialog_routing_try_again" = "Mohon coba lagi";
 
-"dialog_routing_send_error" = "Laporkan Masalah";
-
-"dialog_routing_if_get_cross_route" = "Apakah Anda ingin membuat rute yang lebih langsung yang meliputi lebih dari satu peta?";
-
-"dialog_routing_cross_route_is_optimal" = "Ada rute yang lebih optimal yang melewati ujung peta ini.";
-
 "not_now" = "Jangan Sekarang";
-
-"dialog_routing_build_route" = "Buat";
 
 "dialog_routing_download_and_build_cross_route" = "Apakah Anda ingin mengunduh peta dan membuat rute yang lebih optimal yang meliputi lebih dari satu peta?";
 
 "dialog_routing_download_cross_route" = "Unduh peta untuk membuat rute yang lebih optimal yang melewati ujung peta ini.";
-
-"dialog_routing_cross_route_always" = "Selalu lewati batas ini";
 
 
 /********** Strings for downloading map from search **********/
@@ -906,8 +567,6 @@
 "search_without_internet_advertisement" = "Untuk mulai mencari dan membuat rute, silakan unduh peta, dan Anda tidak akan membutuhkan koneksi internet lagi.";
 
 "search_select_map" = "Pilih Peta";
-
-"search_select_other_map" = "Pilih Peta Lain";
 
 /* «Show» context menu */
 "show" = "Tampilkan";
@@ -918,17 +577,11 @@
 /* «Rename» context menu */
 "rename" = "Ubah nama";
 
-/* Bottom sheet: expand button (should be short) */
-"bottom_sheet_more" = "Lainnya…";
-
 /* Failed planning route message in navigation view */
 "routing_planning_error" = "Sudah sampai di tujuan";
 
 /* Arrive routing message in navigation view */
 "routing_arrive" = "Kedatangan: %s";
-
-/* Text for routing::RouterResultCode::FileTooOld dialog. */
-"dialog_routing_download_and_update_maps" = "Untuk membuat rute, silakan unduh dan perbarui semua peta sepanjang rute.";
 
 "rate_alert_title" = "Suka aplikasi ini?";
 
@@ -944,19 +597,11 @@
 
 "history" = "Riwayat";
 
-"next_turn_then" = "Lalu";
-
 "closed" = "Tutup";
-
-"back_to" = "Kembali ke %@";
 
 "search_not_found" = "Maaf, saya tidak menemukan apa pun.";
 
 "search_not_found_query" = "Silakan coba kueri lainnya.";
-
-"search_not_found_map" = "Silakan unduh peta yang Anda gunakan dalam pencarian Anda.";
-
-"search_not_found_location" = "Unduh peta dari lokasi Anda saat ini.";
 
 "search_history_title" = "Riwayat Pencarian";
 
@@ -964,23 +609,12 @@
 
 "clear_search" = "Bersihkan riwayat pencarian";
 
-/* Title for settings to enable/disable showcase menu button */
-"showcase_settings_title" = "Tampilkan penawaran";
-
 /* Place Page link to Wikipedia article (if map object has it). */
 "read_in_wikipedia" = "Wikipedia";
 
-"p2p_route_planning" = "Perencana Rute";
-
 "p2p_your_location" = "Lokasi Anda";
 
-"p2p_from" = "Titik keberangkatan";
-
-"p2p_to" = "Titik tujuan";
-
 "p2p_start" = "Mulai";
-
-"p2p_planning" = "Merencanakan…";
 
 "p2p_from_here" = "Dari";
 
@@ -1018,15 +652,9 @@
 
 "editor_correct_mistake" = "Koreksi kesalahan";
 
-"editor_correct_mistake_message" = "Pengeditan salah. Koreksi atau ubah ke mode sederhana.";
-
 "editor_add_select_location" = "Lokasi";
 
 "editor_done_dialog_1" = "Anda telah mengubah peta dunia. Jangan menyembunyikan ini! Katakan kepada teman-teman Anda, dan edit bersama.";
-
-"editor_done_dialog_2" = "ini peningkatan peta kedua Anda. Sekarang Anda di tempat yang ke-%d di daftar editor peta. Katakan kepada teman-teman Anda tentang hal ini.";
-
-"editor_done_dialog_3" = "Anda telah meningkatkan peta, katakan kepada teman-teman Anda tentang hal ini, dan edit peta bersama.";
 
 "share_with_friends" = "Bagikan dengan teman-teman";
 
@@ -1044,20 +672,7 @@
 
 "editor_report_problem_duplicate_place_title" = "Tempat ganda";
 
-"first_launch_congrats_title" = "Organic Maps siap digunakan";
-
-"first_launch_congrats_text" = "Cari dan bernavigasilah ke mana saja di dunia secara offline, bebas biaya.";
-
-"migrate_title" = "Penting!";
-
-/* Android uses image instead of text. */
-"download_all" = "Unduh semua";
-
-"delete_all" = "Hapus semua";
-
 "autodownload" = "Unduhan otomatis";
-
-"disable_autodownload" = "Nonaktifkan unduh otomatis";
 
 /* Place Page opening hours text */
 "closed_now" = "Sekarang Tutup";
@@ -1072,10 +687,6 @@
 "day_off" = "Tutup";
 
 "today" = "Hari ini";
-
-"sunrise_to_sunset" = "Dari matahari terbit sampai matahari terbenam";
-
-"sunset_to_sunrise" = "Dari matahari terbenam sampai matahari terbit";
 
 "add_opening_hours" = "Tambah jam kerja";
 
@@ -1095,45 +706,18 @@
 
 "forgot_password" = "Lupa kata sandi?";
 
-/* Forgot Password dialog title */
-"restore_password" = "Pulihkan kata sandi";
-
-"enter_email_address_to_reset_password" = "Masukkan alamat surek yang Anda gunakan pada saat pendaftaran dan kami akan mengirim tautan untuk memperbarui kata sandi Anda.";
-
-"reset_password" = "Atur ulang kata sandi";
-
-"username" = "Nama pengguna";
-
 "osm_account" = "Akun OSM";
 
 "logout" = "Keluar";
 
-"login_and_edit_map_motivation_message" = "Masuk dan sunting informasi objek pada peta dan kami akan membuatnya tersedia bagi jutaan pengguna lain. Mari kita menjadikan dunia lebih baik bersama-sama.";
-
 /* Information text: "Last upload 11.01.2016" */
 "last_upload" = "Pengunggahan terakhir";
 
-/* Motivates user to login/register, title above login buttons. */
-"you_have_edited_your_first_object" = "Anda menyunting objek pertama Anda!";
-
 "thank_you" = "Terima kasih";
-
-"login_with_google" = "Masuk menggunakan Google";
-
-"login_with_openstreetmap" = "Masuk menggunakan www.openstreetmap.org";
 
 "edit_place" = "Sunting tempat";
 
 "place_name" = "Nama tempat";
-
-/* title above languages list cells in the editor, below editable name text field. */
-"other_languages" = "Bahasa lainnya";
-
-/* small button to open list with names in different languages */
-"show_more" = "Tampilkan lebih banyak";
-
-/* small button to close list with names in different languages */
-"show_less" = "Tampilkan lebih sedikit";
 
 "add_language" = "Tambahkan bahasa";
 
@@ -1164,8 +748,6 @@
 
 "please_note" = "Harap diperhatikan";
 
-"common_no_wifi_dialog" = "Tidak ada koneksi WiFi. Apakah Anda ingin melanjutkan dengan data seluler?";
-
 "downloader_delete_map_dialog" = "Semua perubahan peta akan dihapus bersama dengan peta.";
 
 "downloader_update_maps" = "Perbarui peta";
@@ -1173,10 +755,6 @@
 "downloader_mwm_migration_dialog" = "Untuk membuat rute, Anda perlu memperbarui semua peta dan kemudian merencanakan rute tersebut lagi.";
 
 "downloader_search_field_hint" = "Temukan peta";
-
-"migration_update_all_button" = "Perbarui semua peta";
-
-"migration_delete_all_download_current_button" = "Unduh peta sekarang dan hapus peta lama";
 
 "migration_download_error_dialog" = "Unduh kesalahan";
 
@@ -1186,21 +764,9 @@
 
 "downloader_no_space_message" = "Harap menghapus data yang tidak diperlukan";
 
-"editor_general_auth_error_dialog" = "Kesalahan masuk umum.";
-
 "editor_login_error_dialog" = "Kesalahan masuk.";
 
-"editor_login_failed_dialog" = "Masuk gagal";
-
-"editor_username_error_dialog" = "Nama pengguna tidak benar";
-
-"editor_place_edited_dialog" = "Anda telah mengedit sebuah obyek!";
-
-"editor_login_with_osm" = "Masuk dengan OpenStreetMap";
-
 "editor_profile_changes" = "Perubahan Terverifikasi";
-
-"editor_profile_unsent_changes" = "Tidak terkirim:";
 
 "editor_focus_map_on_location" = "Tarik peta untuk memilih lokasi yang benar dari obyek.";
 
@@ -1222,13 +788,9 @@
 
 "editor_report_problem_other_title" = "Masalah yang berbeda";
 
-"placepage_report_problem_button" = "Laporkan masalah";
-
 "placepage_add_business_button" = "Tambahkan organisasi";
 
 "whatsnew_editor_message_1" = "Tambahkan tempat-tempat baru di peta, dan edit peta-peta yang ada langsung dari aplikasi.";
-
-"whatsnew_editor_message_2" = "* Organic Maps menggunakan data komunitas OpenStreetMap.";
 
 "dialog_incorrect_feature_position" = "Ubah lokasi";
 
@@ -1236,16 +798,10 @@
 
 "login_to_make_edits_visible" = "Masuk agar pengguna lain dapat melihat perubahan yang Anda buat.";
 
-"no_migration_during_navigation" = "Memperbarui tidak diperbolehkan selama navigasi.";
-
 /* Error dialog no space */
 "migration_no_space_message" = "Untuk mengunduh, Anda perlu ruang lebih banyak. Harap menghapus data yang tidak diperlukan.";
 
 "editor_sharing_title" = "Saya meningkatkan peta Organic Maps";
-
-"editor_comment_will_be_sent" = "Kami akan mengirim komen Anda ke pembuat peta.";
-
-"editor_unsupported_category_message" = "Anda telah menambahkan sebuah tempat kategori yang belum kami dukung. Tempat itu akan muncul di peta beberapa saat kemudian.";
 
 /* Downloaded 10 **of** 20 <- it is that "of" */
 "downloader_of" = "%1$d dari %2$d";
@@ -1278,23 +834,9 @@
 
 "editor_operator" = "Pemilik";
 
-"editor_tag_description" = "Masukkan perusahaan, organisasi, atau individu yang bertanggung jawab atas fasilitas tersebut.";
-
-"editor_no_local_edits_title" = "Anda tidak memiliki pengeditan lokal";
-
-"editor_no_local_edits_description" = "Ini menunjukkan jumlah saran perubahan dalam peta yang saat ini hanya dapat diakses di perangkat Anda.";
-
-"editor_send_to_osm" = "Kirim ke OSM";
-
-"editor_remove" = "Hapus";
-
-"downloader_my_maps_title" = "Peta saya";
-
 "downloader_no_downloaded_maps_title" = "Tidak ada peta apa pun yang diunduh";
 
 "downloader_no_downloaded_maps_message" = "Unduh peta untuk menemukan lokasi dan bernavigasi secara offline.";
-
-"downloader_find_place_hint" = "Cari kota atau negara";
 
 /* Error title that appears after certain time without location. */
 "current_location_unknown_title" = "Terus mendeteksi lokasi Anda saat ini?";
@@ -1321,47 +863,13 @@
 /* iOS Dialog for the case when the location permission is not granted */
 "location_services_disabled_3" = "3. Pilih While Using the App";
 
-"placepage_parking_surface" = "Parkir Luar";
-
-"placepage_parking_multistorey" = "Bertingkat";
-
-"placepage_parking_underground" = "Bawah Tanah";
-
-"placepage_parking_rooftop" = "Atap";
-
-"placepage_parking_sheds" = "Gudang";
-
-"placepage_parking_carports" = "Parkir Beratap";
-
-"placepage_parking_boxes" = "Sasana tinju";
-
-"placepage_parking_pay" = "Berbayar";
-
-"placepage_parking_free" = "Gratis";
-
-"placepage_parking_interval" = "Biaya Rutin";
-
-"placepage_entrance_number" = "Nomor";
-
-"placepage_entrance_type" = "Gerbang Masuk";
-
-"placepage_flat" = "persegi";
-
-"placepage_open_24_7" = "24 jam sehari, 7 hari seminggu";
-
 "meter" = "m";
 
 "kilometer" = "km";
 
-"kilometers_per_hour" = "km/j";
-
 "mile" = "mil";
 
 "foot" = "kaki";
-
-"miles_per_hour" = "mpj";
-
-"day" = "h";
 
 "hour" = "j";
 
@@ -1381,10 +889,6 @@
 
 "placepage_bookmark_name_hint" = "Nama Bookmark";
 
-"placepage_personal_notes_hint" = "Catatan pribadi";
-
-"placepage_delete_bookmark_button" = "Hapus Bookmark";
-
 "editor_edits_sent_message" = "Saran perubahan Anda telah dikirim";
 
 "editor_comment_hint" = "Komentar…";
@@ -1397,8 +901,6 @@
 
 "editor_remove_place_button" = "Hapus";
 
-"editor_status_sending" = "Mengirim…";
-
 "editor_place_doesnt_exist" = "Tempat tidak ada";
 
 "text_more_button" = "…selebihnya";
@@ -1410,11 +912,7 @@
 
 "error_enter_correct_email" = "Masukkan surel valid";
 
-"error_enter_correct" = "Masukkan nilai valid";
-
 "refresh" = "Memperbarui";
-
-"last_update" = "Pembaruan terakhir: %s";
 
 "placepage_add_place_button" = "Tambahkan tempat ke peta";
 
@@ -1426,24 +924,6 @@
 
 "editor_share_to_all_dialog_message_2" = "Kami akan memeriksa perubahan tersebut. Jika kami memiliki pertanyaan maka kami akan menghubungi Anda melalui surel.";
 
-"navigation_overview_button" = "ikhtisar";
-
-"navigation_stop_button" = "berhenti";
-
-/* Text on an empty bookmark page */
-"bookmarks_empty_title" = "Simpan Penanda";
-
-"bookmarks_empty_message_1" = "Ketuk pada ★ untuk menyimpan tempat-tempat favorit untuk akses cepat.";
-
-"bookmarks_empty_message_2" = "Impor penanda dari email dan web.";
-
-"bookmarks_empty_message_3" = "check-out: %s";
-
-/* Name of the group for booked hotels */
-"bookmarks_group_name" = "Hotel yang dipesan";
-
-"place_page_button_read_descriprion" = "Baca";
-
 /* iOS dialog for the case when recent track recording is on and the app comes back from background */
 "recent_track_background_dialog_title" = "Nonaktifkan rekaman dari rute yang baru Anda lalui?";
 
@@ -1451,8 +931,6 @@
 
 /* For sharing via SMS and so on */
 "sharing_call_action_look" = "Lihat";
-
-"continue_recent_track_background_button" = "Teruskan";
 
 "recent_track_background_dialog_message" = "Organic Maps menggunakan geoposisi di latar belakang untuk merekam rute yang baru Anda lalui.";
 
@@ -1468,33 +946,13 @@
 /* About short text (below logo) */
 "about_description" = "Organic Maps adalah aplikasi offline yang sangat berguna untuk bepergian. Organic Maps didasarkan pada data OpenStreetMap dan memungkinkan kita untuk mengeditnya.";
 
-/* Text in menu */
-"blog" = "Blog";
-
 "general_settings" = "Setelan umum";
-
-"date" = "Tanggal %d";
-
-/* "Report a bug" -> "Generaal Feedback" -> "Something is not working" */
-"something_is_not_working" = "Ada yang tidak berfungsi";
 
 /* For the first routing */
 "accept" = "Terima";
 
-"accept_and_continue" = "Accept and continue";
-
 /* For the first routing */
 "decline" = "Tolak";
-
-"install_app" = "Pasang";
-
-"search_no_results_title" = "Tidak Ada Hasil";
-
-"search_no_results_message" = "Cobalah dengan istilah pencarian yang lebih umum, perkecil atau atur ulang filter.";
-
-"search_no_results_expand_area_button" = "Perkecil";
-
-"search_no_results_reset_button" = "Atur Ulang Filter";
 
 /* noun */
 "search_in_table" = "Daftar";
@@ -1517,8 +975,6 @@
 
 "traffic_update_maps_text" = "Untuk memperlihatkan data lalu lintas, peta harus diperbarui.";
 
-"traffic_outdated" = "Data lalu lintas belum diperbarui.";
-
 "big_font" = "Perbesar ukuran huruf pada peta";
 
 "traffic_update_app" = "Perbarui Organic Maps";
@@ -1529,17 +985,7 @@
 /* "traffic" as in "road congestion" */
 "traffic_data_unavailable" = "Data lalu lintas tidak tersedia";
 
-/* "Translation is no needed, because it's a company name" */
-"uber" = "Uber";
-
-/* Simplified colour scheme for traffic information, fewer colours are used to display traffic jams on the map. The string should be kept as short as possible */
-"pref_traffic_simplified_colors_title" = "Warna lalu lintas sederhana";
-
 "enable_logging" = "Aktifkan pencatatan";
-
-"offline_place_page_more_information" = "Sambungkan ke internet untuk mendapatkan informasi selengkapnya tentang tempat ini.";
-
-"failed_load_information" = "Gagal memuat informasi.";
 
 /* Settings: "Send general feedback" button */
 "feedback_general" = "Umpan Balik Umum";
@@ -1556,8 +1002,6 @@
 
 "whatsnew_transliteration_title" = "Transliterasi ke dalam bahasa Latin";
 
-"yandex_taxi_title" = "Yandex.Taxi";
-
 "learn_more" = "Pelajari selengkapnya";
 
 "core_exit" = "Keluar";
@@ -1568,75 +1012,19 @@
 
 "button_exit" = "Keluar";
 
-"settings_device_memory" = "Memori perangkat";
-
-"settings_card_memory" = "Memori kartu";
-
-"settings_storage_available" = "%s tersedia";
-
-"toast_location_permission_denied" = "Izin lokasi aplikasi ditolak";
-
-"button_use" = "Gunakan";
-
 "planning_route_manage_route" = "Kelola rute";
 
 "button_plan" = "Rencana";
-
-"button_add" = "Tambah";
 
 "placepage_remove_stop" = "Hapus";
 
 "planning_route_remove_title" = "Seret ke sini untuk menghapus";
 
-"dialog_change_start_point_message" = "Ganti titik awal ke lokasi saat ini?";
-
-"button_replace" = "Ganti";
-
 "placepage_add_stop" = "Tambah perhentian";
-
-/* Only ru/en are needed */
-"subtitle_rent" = "Rent";
-
-/* Only ru/en are needed */
-"rub_month" = "RUB/month";
-
-/* Only ru/en are needed */
-"room" = "%s-room apt.";
-
-/* Only ru/en are needed */
-"real_estate" = "Real estate";
-
-"add_my_position" = "Tambahkan posisi saya";
-
-"choose_start_point" = "Pilih titik awal";
-
-"choose_destination" = "Pilih destinasi";
 
 "preloader_viator_button" = "Pelajari selengkapnya";
 
-"start_from_my_position" = "Mulai dari";
-
-"profile_authorization_title" = "Masuk dengan";
-
-"profile_authorization_message" = "Masuk dengan mudah tanpa kredensial dan kata sandi dalam beberapa detik";
-
 "profile_authorization_error" = "Ah, tadi ada kesalahan. Coba masuk kembali.";
-
-"service" = "Layanan";
-
-"atmosphere" = "Suasana";
-
-"value_for_money" = "Kepantasan harga";
-
-"experience" = "Pengalaman";
-
-"assortment" = "Lain-Lain";
-
-"expertise" = "Keahlian";
-
-"equipment" = "Perlengkapan";
-
-"quality" = "Mutu";
 
 "dialog_error_storage_title" = "Masalah akses penyimpanan";
 
@@ -1644,17 +1032,7 @@
 
 "setting_emulate_bad_storage" = "Emulasi penyimpanan yang buruk";
 
-"directions_finish" = "Destinasi";
-
-"directions_on_foot" = "Berjalan %s";
-
 "core_entrance" = "Tempat masuk";
-
-"coffee" = "Kopi";
-
-"cleanliness" = "Kebersihan";
-
-"crowdedness" = "Keramaian";
 
 "error_enter_correct_name" = "Harap masukkan nama yang benar";
 
@@ -1673,11 +1051,9 @@
 
 "downloader_percent" = "%s (%s dari %s)";
 
-"downloader_process" = "Mengunduh %s...";
+"downloader_process" = "Mengunduh %s…";
 
-"downloader_applying" = "Menerapkan %s...";
-
-"dialog_message_transit_not_found_connection" = "Rencanakan rute dalam satu jaringan transit";
+"downloader_applying" = "Menerapkan %s…";
 
 "bookmarks_error_message_share_general" = "Tidak dapat berbagi karena kesalahan aplikasi";
 
@@ -1695,17 +1071,7 @@
 
 "bookmarks_error_message_list_name_already_taken" = "Silakan pilih nama lain";
 
-"bookmarks_error_title_list_name_too_long" = "Nama ini terlalu panjang";
-
-"bookmarks_error_message_list_name_too_long" = "Silakan pilih nama lain";
-
-"please_wait" = "Mohon tunggu...";
-
-"phone_number" = "Nomor telepon";
-
-"notification_unsent_reviews_title" = "Anda memiliki beberapa ulasan yang tidak terkirim";
-
-"notification_unsent_reviews_message" = "Harap masuk untuk berbagi ulasan dengan wisatawan lain";
+"please_wait" = "Mohon tunggu…";
 
 "profile" = "Profil OpenStreetMap";
 
@@ -1719,49 +1085,13 @@
 
 "bookmarks_convert_error_message" = "Beberapa file tidak dikonversi.";
 
-"converting" = "Mengkonversi...";
-
-"wn_reinvented_bookmarks_title" = "Kami menemukan kembali bookmark!";
-
-"wn_reinvented_bookmarks_message" = "Anda dapat mencadangkan bookmark, membuat daftar... Sungguh menakjubkan...";
-
-"bookmarks_restore" = "Kembalikan bookmark";
-
-"bookmarks_restore_process" = "Memulihkan...";
-
 "bookmarks_restore_title" = "Kembalikan versi ini?";
 
-"bookmarks_restore_message" = "Bookmark Anda akan memulihkan dari %s (%s)";
-
-"bookmarks_restore_empty_title" = "Anda tidak memiliki cadangan";
-
-"bookmarks_restore_empty_message" = "Server tidak menemukan cadangan yang dibuat sebelumnya";
-
 "common_check_internet_connection_dialog_title" = "Tidak ada koneksi internet";
-
-"error_server_title" = "Server error";
-
-"error_server_message" = "Terjadi kesalahan pada server, coba lagi nanti";
 
 "error_system_message" = "Terjadi kesalahan yang tidak diketahui";
 
 "restore" = "Mengembalikan";
-
-"bookmarks_page_downloaded" = "Diunduh";
-
-"bookmarks_page_my" = "Milik saya";
-
-"routes_and_bookmarks" = "Rute dan bookmark";
-
-"bookmarks_webview_success_toast" = "Bookmark berhasil diunduh";
-
-"cached_bookmarks_placeholder_title" = "Unduh tempat baru";
-
-"cached_bookmarks_placeholder_subtitle" = "Tekan tombol untuk mengunduh ribuan tempat dan rute menarik yang dibuat oleh pengguna Organic Maps. Anda akan memerlukan koneksi internet.";
-
-"downloader_download_routers" = "Unduh bookmark";
-
-"bookmarks_groups_cached" = "Daftar yang telah diunduh.";
 
 "subtittle_opt_out" = "Pengaturan treking";
 
@@ -1769,29 +1099,15 @@
 
 "crash_reports_description" = "Kami dapat menggunakan data Anda untuk meningkatkan pengalaman Organic Maps. Perubahan akan berlaku setelah Anda memulai ulang aplikasi.";
 
-"opt_out_help_ios_1" = "Perangkat seluler Anda mungkin menyediakan pengaturan \"\"Batasi Treking Iklan\"\" atau \"\"Keluar dari iklan berbasis ketertarikan\"\".";
-
-"opt_out_help_ios_2" = "iOS 9 atau Lebih Tinggi";
-
-"opt_out_help_ios_3" = "Ke Pengaturan → Privasi → Iklan → Aktifkan pengaturan \"\"Batasi Treking Iklan\"\"";
-
-"opt_out_help_android" = "Perangkat seluler Anda mungkin menyediakan pengaturan \"\"Batasi treking iklan\"\" atau \"\"Keluar dari iklan berbasis ketertarikan\"\".\n\nUntuk Android dan Google Play Services versi 4.0 dan ke atas:\nPengaturan → Google → Iklan → Keluar dari Personalisasi Iklan\nor\nPengaturan → Google → Akun Google → Informasi personal & privasi → Pengaturan Iklan → Personalisasi Iklan";
-
 "privacy_policy" = "Kebijakan privasi";
 
 "terms_of_use" = "Ketentuan penggunaan";
-
-"backup_notification_failed" = "Mencadangkan bookmark Anda telah dihentikan. Masuk untuk kembali mengaktifkannya.";
 
 "button_layer_traffic" = "Lalu lintas";
 
 "button_layer_subway" = "Kereta bawah tanah";
 
 "layers_title" = "Lapisan peta";
-
-"layers_message" = "Gunakan lapisan peta untuk menampilkan lalu lintas, peta kereta bawah tanah, dan informasi berguna lainnya";
-
-"button_layer_got_it" = "Mengerti";
 
 "subway_data_unavailable" = "Peta bawah tanah tidak tersedia";
 
@@ -1803,39 +1119,13 @@
 
 "title_error_downloading_bookmarks" = "Terjadi kesalahan";
 
-"subtitle_error_downloading_bookmarks" = "Bookmark tidak terunduh";
-
-"error_already_downloaded" = "Daftar ini sudah diunduh";
-
 "popular_place" = "Popular";
-
-"download_routes" = "Download routes";
-
-"bookmarks_downloaded_title" = "Bookmarks have been downloaded successfully";
-
-"bookmarks_downloaded_subtitle" = "Press ‘View on map’ to explore new places from the list";
-
-"why_support" = "Kenapa dukungan Organic Maps?";
-
-"why_support_item1" = "We respect your privacy: there are zero trackers in the app, and we are open source";
-
-"why_support_item2" = "Anda membantu kami meningkatkan Organic Maps";
-
-"why_support_item3" = "Anda membantu kami meningkatkan peta terbuka OpenStreetMap.org";
-
-"channels_map_update" = "Pembaruan peta";
-
-"server_unavailable_title" = "Server tidak tersedia";
-
-"sharing_options" = "Opsi berbagi";
 
 "export_file" = "File ekspor";
 
 "list_settings" = "Pengaturan Daftar";
 
 "delete_list" = "Hapus Daftar";
-
-"hide_from_map" = "Sembunyikan dari peta";
 
 "public_access" = "Akses umum";
 
@@ -1845,40 +1135,11 @@
 
 "bookmark_category_description_hint" = "Ketikkan deskripsi (teks atau html)";
 
-/* FIXME */
-"bookmarks_public_access" = "bookmarks_public_access";
-
-/* FIXME */
-"bookmarks_link_access" = "bookmarks_link_access";
-
-/* FIXME */
-"bookmarks_private_access" = "bookmarks_private_access";
-
 "not_shared" = "Pribadi";
-
-"direct_link_progress_text" = "Mengunggah file Anda…";
-
-"direct_link_success" = "Tautan telah dibuat";
-
-"send_a_link_btn" = "Kirim tautan ke saya";
-
-"upload_error_toast" = "Kesalahan terjadi saat mengunggah file Anda";
 
 "tags_loading_error_subtitle" = "Kesalahan terjadi saat memuat tag, silakan coba lagi";
 
-"unable_upload_errorr_title" = "Gagal mengunggah file";
-
-"unable_upload_error_subtitle_edited" = "File telah diedit melalui aplikasi web";
-
-"unable_upload_error_subtitle_broken" = "File rusak dan tidak dapat diunggah. Silakan unggah file lain.";
-
-"contact" = "Kontak";
-
-"download_button" = "Unduh";
-
 "speedcams_alert_title" = "Kamera cepat";
-
-"speedcams_alert_subtitle" = "Peringatan tentang batas kecepatan";
 
 "speedcam_option_auto" = "Auto";
 
@@ -1886,18 +1147,10 @@
 
 "speedcam_option_never" = "Tidak pernah";
 
-"bookmark_description_title" = "Deskripsi Bookmark";
-
 "place_description_title" = "Deskripsi Tempat";
 
 /* this text will be shown in application notification preferences opposite checkbox which enable/disable downloader notifications. Devices on Android 8+ are affected. */
 "notification_channel_downloader" = "Pengunduh peta";
-
-"share_bookmarks_email_body_link" = "Halo!\n\nBerikut tautan untuk mengunduh bookmark Anda: %s. Buka daftar melalui Organic Maps dan nikmati perjalanan Anda!\n\nDapatkan aplikasi: https://omaps.app/get?kmz";
-
-"warning_speedcams_title" = "Navigator akan memberi Anda peringatan tentang adanya kamera saat Anda melebihi batas kecepatan %d km/jam";
-
-"warning_speedcams_subtitle" = "Harap perhatikan aturan berkendara di negara tempat Anda bepergian.";
 
 "speedcams_notice_message" = "Auto - Peringatkan tentang kamera kecepatan saat terdapat risiko melebihi batas kecepatan\nSelalu - Selalu peringatkan tentang kamera kecepatan\nTidak pernah - Jangan pernah peringatkan tentang kamera kecepatan";
 
@@ -1913,23 +1166,7 @@
 
 "enable_logging_warning_message" = "Opsi ini mengaktifkan pencatatan untuk tujuan diagnostik. Bisa amat membantu bagi staf dukungan kami yang memecahkan masalah dalam aplikasi. Aktifkan opsi ini hanya saat diminta oleh dukungan Organic Maps.";
 
-"html_error_upload_message_try_again" = "Periksa pengaturan jaringan Anda dan coba lagi";
-
-"html_error_upload_title_try_again" = "Tidak ada koneksi internet";
-
-"notification_leave_review_v2_android_short_title" = "Ulas dan bantu traveler!";
-
-"megafon" = "Say goodbye to roaming!";
-
-"notifications_illegal_alert_disable_button" = "Nonaktifkan pemberitahuan";
-
 "access_rules_author_only" = "Pengeditan online";
-
-"privacy_settings_menu" = "Pengaturan privasi";
-
-"unable_upadate_error_title" = "Pembaruan file gagal";
-
-"unable_upadate_error_message" = "Beberapa kesalahan terjadi saat memperbarui. Periksa perubahan dan coba lagi";
 
 "driving_options_title" = "Pilihan berkendara";
 
@@ -1951,94 +1188,19 @@
 
 "change_driving_options_btn" = "Opsi perutean diaktifkan";
 
-"toll_road" = "Jalan tol";
-
-"unpaved_road" = "Jalan tanah";
-
-"ferry_crossing" = "Penyeberangan kapal feri";
-
-"operated_by" = "Dioperasikan oleh \"%s\"";
-
 "avoid_toll_roads_placepage" = "Hindari jalan tol";
 
 "avoid_unpaved_roads_placepage" = "Hindari jalan tanah";
 
 "avoid_ferry_crossing_placepage" = "Hindari penyeberangan kapal feri";
 
-"type.cuisine.uzbek" = "Masakan Uzbek";
-
-"trip_start" = "Ayo";
-
-"pick_destination" = "Tujuan";
-
-"follow_my_position" = "Pusatkan ulang";
-
-"search_results" = "Hasil pencarian";
-
-"then_turn" = "Lalu";
-
-"redirect_route_alert" = "Anda ingin membuat ulang rute?";
-
-"redirect_route_yes" = "Ya";
-
-"redirect_route_no" = "Tidak";
-
-"trip_finished" = "Anda telah tiba!";
-
-"keyboard_availability_alert" = "Papan ketik tidak tersedia saat berkendara";
-
-"dialog_routing_change_start_carplay" = "Tidak dapat membuat rute dari lokasi saat ini";
-
-"dialog_routing_change_end_carplay" = "Tidak dapat membuat rute ke tujuan Anda. Pilih titik lainnya";
-
-"dialog_routing_check_gps_carplay" = "Tidak ada sinyal GPS. Harap pindah ke area terbuka";
-
-"dialog_routing_unable_locate_route_carplay" = "Tidak dapat membuat rute. Harap tentukan titik rute lainnya";
-
-"dialog_routing_download_files_carplay" = "Untuk membuat rute, unduh peta baru di perangkat anda";
-
-"dialog_routing_system_error_carplay" = "Terjadi kesalahan. Harap mulai ulang aplikasi";
-
-"dialog_routing_rebuild_from_current_location_carplay" = "Rute akan dibuat ulang dari lokasi saat ini";
-
-"dialog_routing_rebuild_for_vehicle_carplay" = "Rute akan diubah untuk mobil";
-
 "ok" = "Oke";
-
-"avoid_unpaved_carplay_1" = "Jalan aspal";
-
-"avoid_unpaved_carplay_2" = "Hindari tanah";
-
-"avoid_ferry_carplay_1" = "Tanpa feri";
-
-"avoid_ferry_carplay_2" = "Hindari feri";
-
-"avoid_tolls_carplay_1" = "Tanpa tol";
-
-"avoid_tolls_carplay_2" = "Hindari tol";
-
-"speedcams_alert_title_carplay_1" = "Speedcam";
-
-"speedcams_alert_title_carplay_2" = "Info kecepatan";
-
-"download_map_carplay" = "Silakan unduh peta di apl Organic Maps pada perangkat Anda";
-
-"carplay_roundabout_exit" = "Jalan keluar ke %s";
 
 /* max. 10 symbols, both iOS and Android */
 "sort" = "Urutkan…";
 
 /* Android, title, max 20-22 symbols */
 "sort_bookmarks" = "Urutkan bookmark";
-
-/* iOS */
-"sort_default" = "Urutkan standar";
-
-"sort_type" = "Urutkan per tipe";
-
-"sort_distance" = "Urutkan per jarak";
-
-"sort_date" = "Urutkan per tanggal";
 
 /* Android */
 "by_default" = "Standar";
@@ -2052,63 +1214,7 @@
 /* Android */
 "by_date" = "Per tanggal";
 
-"week_ago_sorttype" = "Seminggu yang lalu";
-
-"month_ago_sorttype" = "Sebulan yang lalu";
-
-"moremonth_ago_sorttype" = "Lebih dari sebulan yang lalu";
-
-"moreyear_ago_sorttype" = "Lebih dari setahun yang lalu";
-
-"near_me_sorttype" = "Dekat dengan saya";
-
-"others_sorttype" = "Lainnya";
-
-"food_places" = "Makanan";
-
-"tourist_places" = "Tempat Rekreasi";
-
-"museums" = "Museum";
-
-"parks" = "Taman";
-
-"swim_places" = "Kolam renang";
-
-"mountains" = "Pegunungan";
-
-"animals" = "Kebun binatang";
-
-"hotels" = "Hotel";
-
-"buildings" = "Gedung";
-
-"money" = "Uang";
-
-"shops" = "Pusat perbelanjaan";
-
-"parkings" = "Parkir";
-
-"fuel_places" = "SPBU";
-
-"water" = "Air";
-
-"medicine" = "Obat";
-
 "search_in_the_list" = "Cari dalam daftar";
-
-"view_on_map_bookmarks" = "Di peta";
-
-"more_bookmarks" = "Lainnya…";
-
-"no_items_found" = "Item tidak ditemukan";
-
-/* Android, max 18 symbols */
-"bookmarks_edit_list" = "Ubah daftar";
-
-/* Android, max 18 symbols */
-"bookmarks_delete_list" = "Hapus daftar";
-
-"religious_places" = "Tempat ibadah";
 
 "select_list" = "Pilih daftar";
 
@@ -2118,26 +1224,13 @@
 
 "dialog_pedestrian_route_is_long_message" = "Silakan pilih titik awal atau akhir yang lebih dekat ke stasiun kereta bawah tanah";
 
-/* Failed planning SUBWAY route message in navigation view */
-"routing_planning_error_subway_special" = "Perencanaan jalur kereta bawah tanah gagal";
-
 "button_layer_isolines" = "Isometrik";
-
-"tips_map_layers_title_countour" = "Yang baru di Organic Maps: lapisan topografi offline!";
-
-"tips_map_layers_message_countour" = "Rencanakan dan nikmati perjalanan alam Anda dan pastikan Anda tahu segalanya tentang daerah tersebut";
 
 "isolines_activation_error_dialog" = "Untuk mengaktifkan dan menggunakan lapisan topografi, silakan perbarui atau unduh peta area";
 
 "isolines_location_error_dialog" = "Lapisan topografi belum tersedia untuk wilayah ini";
 
 "elevation_profile_diff_level" = "Tingkat kesulitan";
-
-"elevation_profile_diff_level_easy" = "Mudah";
-
-"elevation_profile_diff_level_moderate" = "Sedang";
-
-"elevation_profile_diff_level_hard" = "Sulit";
 
 "elevation_profile_ascent" = "Menanjak";
 
@@ -2147,25 +1240,13 @@
 
 "elevation_profile_maxaltitude" = "Ketinggian Maks.";
 
-"elevation_profile_m" = "m";
-
 "elevation_profile_difficulty" = "Kesulitan";
 
 "elevation_profile_distance" = "Jarak:";
 
-"elevation_profile_km" = "km";
-
 "elevation_profile_time" = "Waktu:";
 
-"elevation_profile_hours" = "j.";
-
-"elevation_profile_minutes" = "mnt";
-
 "isolines_toast_zooms_1_10" = "Perbesar untuk menjelajahi garis kontur";
-
-"downloader_updating_ios" = "Memperbarui";
-
-"downloader_loading_ios" = "Mengunduh";
 
 "key_information_title" = "Informasi kunci";
 

@@ -9,21 +9,6 @@
 
 <!-- ********** Strings for downloading map from search **********/ -->
 
-  <key>bookmarks_places</key>
-  <dict>
-    <key>NSStringLocalizedFormatKey</key>
-    <string>%#@value@</string>
-    <key>value</key>
-    <dict>
-      <key>NSStringFormatSpecTypeKey</key>
-      <string>NSStringPluralRuleType</string>
-      <key>NSStringFormatValueTypeKey</key>
-      <string>d</string>
-      <key>other</key>
-      <string>%d semne de carte</string>
-    </dict>
-  </dict>
-
   <key>bookmarks_detect_message</key>
   <dict>
     <key>NSStringLocalizedFormatKey</key>
@@ -38,21 +23,6 @@
       <string>%d fișier a fost găsit. Veți vedea după conversie.</string>
       <key>other</key>
       <string>Au fost găsite %d fișiere. Veți vedea după convertire.</string>
-    </dict>
-  </dict>
-
-  <key>bookmarks_objects</key>
-  <dict>
-    <key>NSStringLocalizedFormatKey</key>
-    <string>%#@value@</string>
-    <key>value</key>
-    <dict>
-      <key>NSStringFormatSpecTypeKey</key>
-      <string>NSStringPluralRuleType</string>
-      <key>NSStringFormatValueTypeKey</key>
-      <string>d</string>
-      <key>other</key>
-      <string>%s obiect</string>
     </dict>
   </dict>
 

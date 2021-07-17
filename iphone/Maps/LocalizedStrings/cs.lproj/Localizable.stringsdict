@@ -9,21 +9,6 @@
 
 <!-- ********** Strings for downloading map from search **********/ -->
 
-  <key>bookmarks_places</key>
-  <dict>
-    <key>NSStringLocalizedFormatKey</key>
-    <string>%#@value@</string>
-    <key>value</key>
-    <dict>
-      <key>NSStringFormatSpecTypeKey</key>
-      <string>NSStringPluralRuleType</string>
-      <key>NSStringFormatValueTypeKey</key>
-      <string>d</string>
-      <key>other</key>
-      <string>%d záložek</string>
-    </dict>
-  </dict>
-
   <key>bookmarks_detect_message</key>
   <dict>
     <key>NSStringLocalizedFormatKey</key>
@@ -34,27 +19,12 @@
       <string>NSStringPluralRuleType</string>
       <key>NSStringFormatValueTypeKey</key>
       <string>d</string>
-      <key>one</key>
-      <string>%d soubor byl nalezen. Uvidíte ji po konverzi.</string>
       <key>few</key>
       <string>%d byly nalezeny soubory. Uvidíte je po konverzi.</string>
+      <key>one</key>
+      <string>%d soubor byl nalezen. Uvidíte ji po konverzi.</string>
       <key>other</key>
       <string>Bylo nalezeno %d souborů. Uvidíte je po konverzi.</string>
-    </dict>
-  </dict>
-
-  <key>bookmarks_objects</key>
-  <dict>
-    <key>NSStringLocalizedFormatKey</key>
-    <string>%#@value@</string>
-    <key>value</key>
-    <dict>
-      <key>NSStringFormatSpecTypeKey</key>
-      <string>NSStringPluralRuleType</string>
-      <key>NSStringFormatValueTypeKey</key>
-      <string>d</string>
-      <key>other</key>
-      <string>%s objekt</string>
     </dict>
   </dict>
 

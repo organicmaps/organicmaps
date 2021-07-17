@@ -12,15 +12,11 @@
 	<string name="cancel_download">Download annuleer</string>
 	<!-- Button which deletes downloaded country -->
 	<string name="delete">Verwijder</string>
-	<!-- Button "do not interrupt download" if user touched actively downloading country -->
-	<string name="do_nothing">Doorgaan</string>
 	<string name="download_maps">Gedownloade Kaarten</string>
 	<!-- Settings/Downloader - info for country when download fails -->
 	<string name="download_has_failed">Download is afgebroken, klik om nog een keer te proberen</string>
 	<!-- Settings/Downloader - info for country which started downloading -->
 	<string name="downloading">Downloaden…</string>
-	<!-- Settings/Downloader - size string, only strings different from English should be translated -->
-	<string name="kb">KB</string>
 	<!-- Choose measurement on first launch alert - choose metric system button -->
 	<string name="kilometres">Kilometers</string>
 	<!-- Leave Review dialog - Review button -->
@@ -31,44 +27,30 @@
 	<string name="miles">Mijlen</string>
 	<!-- View and button titles for accessibility -->
 	<string name="core_my_position">Mijn Locatie</string>
-	<!-- Don't show some dialog any more -->
-	<string name="never">Nooit</string>
 	<!-- View and button titles for accessibility -->
 	<string name="search">Zoeken</string>
 	<!-- Search box placeholder text -->
 	<string name="search_map">Zoek Kaart</string>
-	<!-- Settings/Downloader - info for not downloaded country -->
-	<string name="touch_to_download">Klik om te downloaden</string>
 	<!-- Settings/Downloader - 3G download warning dialog confirm button -->
 	<string name="use_cellular_data">Ja</string>
 	<!-- Location services are disabled by user alert - message -->
 	<string name="location_is_disabled_long_text">U heeft momenteel alle Locatie Services voor dit apparaat of deze app uitgeschakeld. Schakel ze in bij Instellingen</string>
-	<!-- Location Services are not available on the device alert - message -->
-	<string name="device_doesnot_support_location_services">Uw apparaat ondersteunt geen Locatie Services</string>
 	<!-- View and button titles for accessibility -->
 	<string name="zoom_to_country">Op de kaart tonen</string>
-	<!-- Button text for the button at the center of the screen when the country is not downloaded -->
-	<string name="country_status_download">Kaart downloaden\n(^ ^)</string>
 	<!-- Button text for the button at the center of the screen when the country is not downloaded and the size should not be shown -->
 	<string name="country_status_download_without_size">Kaart downloaden</string>
-	<!-- Button text for the button at the center of the screen when the country is not downloaded -->
-	<string name="country_status_download_without_routing">Download kaart\nzonder routeplanning (^ ^)</string>
 	<!-- Message to display at the center of the screen when the country download has failed -->
 	<string name="country_status_download_failed">Downloaden is niet gelukt</string>
 	<!-- Button text for the button under the country_status_download_failed message -->
 	<string name="try_again">Probeer opnieuw</string>
 	<string name="about_menu_title">Over Organic Maps</string>
-	<string name="downloaded_touch_to_delete">Downloaded (%s), klik om te verwijderen</string>
 	<string name="connection_settings">Verbindingsinstellingen</string>
-	<string name="download_mb_or_kb">Download %s</string>
 	<string name="close">Sluiten</string>
 	<string name="unsupported_phone">Een hardware geaccellereerde OpenGL is nodig. Jammer genoeg wordt uw apparaat niet ondersteund.</string>
-	<string name="external_storage_is_not_available">SD kaart/USB opslag met gedownloade kaarten is niet beschikbaar</string>
 	<string name="disconnect_usb_cable">Verwijder de USB kabel of plaats een geheugen kaart om Organic Maps te gebruiken</string>
 	<string name="not_enough_free_space_on_sdcard">Maak eerst ruimte vrij op de SD kaart/USB opslag om de app te gebruiken</string>
 	<string name="not_enough_memory">Not genoeg geheugen om app te starten</string>
 	<string name="download_resources">Voor u van start gaat downloaden we een wereldkaart naar uw apparaat.\nDe kaart neemt %s in beslag.</string>
-	<string name="getting_position">Huidige locatie opvragen</string>
 	<string name="download_resources_continue">Ga naar de Kaart</string>
 	<string name="downloading_country_can_proceed">%s aan het downloaden. U kunt doorgaan\nnaar de kaart</string>
 	<string name="download_country_ask">%s downloaden?</string>
@@ -81,30 +63,20 @@
 	<string name="download_country_failed">%s download is afgebroken</string>
 	<!-- Add New Bookmark Set dialog title -->
 	<string name="add_new_set">Voeg nieuwe Groep toe</string>
-	<!-- Place Page - Add To Bookmarks button -->
-	<string name="add_to_bookmarks">Toevoegen aan Bladwijzers</string>
 	<!-- Bookmark Color dialog title -->
 	<string name="bookmark_color">Bladwijzer Kleur</string>
 	<!-- Add Bookmark Set dialog - hint when set name is empty -->
 	<string name="bookmark_set_name">Bladwijzer Groep Naam</string>
-	<!-- Bookmark Sets dialog title -->
-	<string name="bookmark_sets">Bladwijzer groepen</string>
 	<!-- Bookmarks - dialog title -->
 	<string name="bookmarks">Bladwijzers</string>
-	<!-- Add bookmark dialog - bookmark color -->
-	<string name="color">Kleur</string>
 	<!-- Default bookmarks set name -->
 	<string name="core_my_places">Mijn Plaatsen</string>
 	<!-- Add bookmark dialog - bookmark name -->
 	<string name="name">Naam</string>
 	<!-- Editor title above street and house number -->
 	<string name="address">Adres</string>
-	<!-- Place Page - Remove Pin button -->
-	<string name="remove_pin">Verwijder speld</string>
 	<!-- Add bookmark dialog - bookmark set, Bookmarks dialog - Bookmark set cell -->
 	<string name="set">Groep</string>
-	<!-- Text hint in Bookmarks dialog when no any bookmarks are added -->
-	<string name="bookmarks_usage_hint">Je hebt nog geen bladwijzers.\nTik op een plek op de kaart om een bladwijzer toe te voegen.\nBladwijzers uit andere bronnen kunnen ook worden geïmporteerd en weergegeven in de Organic Maps app. Open KML/KMZ bestand met opgeslagen speldjes uit mail, Dropbox of weblink.</string>
 	<!-- Settings button in system menu -->
 	<string name="settings">Instellingen</string>
 	<!-- Header of settings activity where user defines storage path -->
@@ -115,20 +87,10 @@
 	<string name="move_maps">Kaarten verplaatsen?</string>
 	<!-- Ask to wait user several minutes (some long process in modal dialog). -->
 	<string name="wait_several_minutes">Dit kan enkele minuten duren.\nEven geduld…</string>
-	<!-- Show bookmarks from this category on a map or not -->
-	<string name="visible">Zichtbaar</string>
-	<!-- Toast which is displayed when GPS has been deactivated -->
-	<string name="gps_is_disabled_long_text">GPS is uitgeschakeld. Schakel ze in bij Instellingen.</string>
 	<!-- Measurement units title in settings activity -->
 	<string name="measurement_units">Afstandseenheid</string>
 	<!-- Detailed description of Measurement Units settings button -->
 	<string name="measurement_units_summary">Kies tussen mijlen en kilometers</string>
-	<!-- Do search in all sources -->
-	<string name="search_mode_all">Overal</string>
-	<!-- Do search near my position only -->
-	<string name="search_mode_nearme">Dichtbij mij</string>
-	<!-- Do search in current viewport only -->
-	<string name="search_mode_viewport">Op het scherm</string>
 	<!-- Search category for cafes, bars, restaurants -->
 	<string name="eat">Waar iets gaan eten</string>
 	<!-- Search category for grocery stores -->
@@ -165,12 +127,8 @@
 	<string name="post">Post</string>
 	<!-- Search category -->
 	<string name="police">Politie</string>
-	<!-- String in search result list, when nothing found -->
-	<string name="no_search_results_found">Geen resultaten gevonden</string>
 	<!-- Notes field in Bookmarks view -->
 	<string name="description">Notities</string>
-	<!-- Button text -->
-	<string name="share_by_email">Delen via email</string>
 	<!-- Email Subject when sharing bookmarks category -->
 	<string name="share_bookmarks_email_subject">Bladwijzers van Organic Maps met u gedeeld</string>
 	<!-- message title of loading file -->
@@ -183,20 +141,10 @@
 	<string name="edit">Wijzigen</string>
 	<!-- Warning message when doing search around current position -->
 	<string name="unknown_current_position">Je plaats werd nog niet vastgesteld</string>
-	<!-- Warning message when location country isn't downloaded during search (see also download_location_map_proposal). -->
-	<string name="download_location_country">Download land waar je nu bent (%s)</string>
-	<!-- Warning message when viewport country isn't downloaded during search -->
-	<string name="download_viewport_country_to_search">Download land waar je op wilt zoeken (%s)</string>
 	<!-- Alert message that we can't run Map Storage settings due to some reasons. -->
 	<string name="cant_change_this_setting">Sorry, instellingen voor kaartopslag uitgeschakeld.</string>
 	<!-- Alert message that downloading is in progress. -->
 	<string name="downloading_is_active">Het downloaden van het land is nu aan de gang.</string>
-	<!-- Message that will be shown in alert view, when we ask user to leave review on App Store -->
-	<string name="appStore_message">Ik hoop dat u veel plezier hebt met Organic Maps! Zo ja, geef de app dan een cijfer in de App Store of schrijf een recensie. Dit duurt minder dan een minuut, maar kan ons echt helpen. Bedankt voor uw steun!</string>
-	<!-- No, thanks -->
-	<string name="no_thanks">Nee, bedankt</string>
-	<!-- Share one specific bookmark using SMS, %1$@ contains om:// and %2$@ https://omaps.app link. @NOTE non-ascii symbols in the link will result in max 70 characters SMS instead of 140. -->
-	<string name="bookmark_share_sms">Bekijk mijn pin op de kaart. Open %1$s of %2$s</string>
 	<!-- Share my position using SMS, %1$@ contains om:// and %2$@ https://omaps.app link WITHOUT NAME. @NOTE non-ascii symbols in the link will result in max 70 characters SMS instead of 140. -->
 	<string name="my_position_share_sms">Kijk waar ik nu ben. Open %1$s of %2$s</string>
 	<!-- Subject for emailed bookmark -->
@@ -205,30 +153,16 @@
 	<string name="my_position_share_email_subject">Kijk naar mijn huidige locatie op Organic Maps kaart</string>
 	<!-- Share my position using EMail, %1$@ is om:// and %2$@ is https://omaps.app link WITHOUT NAME -->
 	<string name="my_position_share_email">Hoi,\n\nMomenteel ben ik hier: %1$s. Klik op deze %2$s of deze %3$s om de plaats op de kaart te zien.\n\nBedankt.</string>
-	<!-- Android share by Message/SMS button text (including SMS) -->
-	<string name="share_by_message">Delen via bericht</string>
 	<!-- Share button text which opens menu with more buttons, like Message, EMail, Facebook etc. -->
 	<string name="share">Delen</string>
-	<!-- iOS share by Message button text (including SMS) -->
-	<string name="message">Bericht</string>
 	<!-- Share by email button text, also used in editor. -->
 	<string name="email">Email</string>
-	<!-- Copy Link -->
-	<string name="copy_link">Kopieer koppeling</string>
-	<!-- Text for the button that returns to caller application -->
-	<string name="more_info">Toon meer info</string>
 	<!-- Text for message when used successfully copied something -->
 	<string name="copied_to_clipboard">Op het klembord gekopieerd: %1$s</string>
 	<!-- place preview title -->
 	<string name="info">Info</string>
 	<!-- Used for bookmark editing -->
 	<string name="done">Gedaan</string>
-	<!-- Summary for preferences in MWM -->
-	<string name="yopme_pref_summary">Kies instellingen voor achtergrondscherm</string>
-	<!-- Title for yopme preferences in MWM -->
-	<string name="yopme_pref_title">Instellingen voor achtergrondscherm</string>
-	<!-- Hint for upper-right icon p2b -->
-	<string name="show_on_backscreen">Toon op achtergrondscherm</string>
 	<!-- Prints version number in About dialog -->
 	<string name="version">Versie: %s</string>
 	<!-- Confirmation in downloading countries dialog -->
@@ -238,11 +172,6 @@
 	<!-- Length of track in cell that describes route -->
 	<string name="length">Lengte</string>
 	<string name="share_my_location">Deel mijn locatie</string>
-	<string name="menu_search">Zoek</string>
-	<!-- Settings screen: "Map" category title -->
-	<string name="prefs_group_map">Kaart</string>
-	<!-- Settings screen: "Miscellaneous" category title -->
-	<string name="prefs_group_misc">Diversen</string>
 	<string name="prefs_group_route">Navigatie</string>
 	<string name="pref_zoom_title">Zoomknoppen</string>
 	<string name="pref_zoom_summary">Weergave op het scherm</string>
@@ -258,8 +187,6 @@
 	<string name="pref_map_3d_title">Perspectiefbeeld</string>
 	<!-- Settings «Map» category: «3D buildings» title -->
 	<string name="pref_map_3d_buildings_title">3D-gebouwen</string>
-	<!-- Settings «Map» category: «3D buildings» summary -->
-	<string name="pref_map_3d_buildings_subtitle">Beïnvloedt batterijduur</string>
 	<!-- Settings «Route» category: «Tts enabled» title -->
 	<string name="pref_tts_enable_title">Gesproken instructies</string>
 	<!-- Settings «Route» category: «Tts language» title -->
@@ -268,7 +195,6 @@
 	<string name="pref_tts_unavailable">Niet beschikbaar</string>
 	<!-- Title for "Other" section in TTS settings. -->
 	<string name="pref_tts_other_section_title">Andere</string>
-	<string name="pref_tts_how_to_set_up_voice">Hoe stel je de stem in</string>
 	<!-- Settings «Map» category: «Record track» title -->
 	<string name="pref_track_record_title">Recente route</string>
 	<string name="pref_map_auto_zoom">Automatisch zoomen</string>
@@ -279,46 +205,11 @@
 	<string name="duration_12_hours">12 uur</string>
 	<string name="duration_1_day">1 dag</string>
 	<string name="recent_track_help_text">Dit laat u toe het afgelegde traject voor een bepaalde periode te registreren en te bekijken op de kaart. Merk op: activatie van deze functie veroorzaakt een hoger batterijverbruik. Het traject wordt automatisch van de kaart verwijderd nadat het tijdsinterval verloopt.</string>
-	<string name="pref_track_ios_caption">Recente route geeft uw gebruikte route weer.</string>
-	<string name="pref_track_ios_subcaption">Selecteer de tijdperiode voor het opslaan van route.</string>
-	<string name="placepage_distance">Afstand</string>
-	<string name="placepage_coordinates">Coördinaten</string>
-	<string name="placepage_unsorted">Ongeclassificeerd</string>
 	<string name="search_show_on_map">Op kaart bekijken</string>
-	<!-- Used to warn user when fixing KitKat issue -->
-	<string name="bookmark_move_fail">We moeten uw bladwijzers naar het interne geheugen verplaatsen, maar er is geen ruimte beschikbaar voor ze. Maak alstublieft geheugen vrij, anders zullen de bladwijzers niet beschikbaar zijn.</string>
-	<!-- Used in More Apps menu -->
-	<string name="free">Gratis</string>
-	<!-- Used in More Apps menu -->
-	<string name="buy">Koop</string>
-	<!-- 1st search button-like result -->
-	<string name="search_on_map">Op kaart zoeken</string>
-	<!-- toast with an error -->
-	<string name="no_route_found">Geen route gevonden</string>
-	<!-- route title -->
-	<string name="route">Route</string>
-	<!-- category title -->
-	<string name="routes">Routes</string>
-	<!-- text of notification -->
-	<string name="download_map_notification">Download de kaart van de plaats waar u bent</string>
-	<!-- text of notification -->
-	<string name="pro_version_is_free_today">Volledige versie van Organic Maps is nu gratis! Download nu en vertel het je vrienden.</string>
-	<!-- Dialog for transferring maps from lite to pro. -->
-	<string name="move_lite_maps_to_pro">We verplaatsen uw gedownloade kaarten van Organic Maps Lite naar Organic Maps. Dit kan enkele minuten duren.</string>
-	<!-- Message to display when maps moved. -->
-	<string name="move_lite_maps_to_pro_ok">Uw gedownloade kaarten werden met succes verplaatst naar Organic Maps.</string>
-	<!-- Message to display when maps move failed. -->
-	<string name="move_lite_maps_to_pro_failed">Verplaatsing van uw kaarten mislukt. Gelieve Organic Maps Lite te verwijderen en de kaarten opnieuw te downloaden.</string>
-	<!-- Text in menu -->
-	<string name="settings_and_more">Instellingen &amp; meer</string>
 	<!-- Text in menu -->
 	<string name="website">Website</string>
-	<!-- Text in menu -->
-	<string name="contact_us">Contact met ons opnemen</string>
 	<!-- Settings: Send feedback button and dialog title -->
 	<string name="feedback">Feedback</string>
-	<!-- Text in menu -->
-	<string name="subscribe_to_news">Aanmelden voor onze nieuwtjes</string>
 	<!-- Text in menu -->
 	<string name="rate_the_app">App beoordelen</string>
 	<!-- Text in menu -->
@@ -327,12 +218,6 @@
 	<string name="copyright">Auteursrechten</string>
 	<!-- Text in menu -->
 	<string name="report_a_bug">Meld een fout</string>
-	<!-- Email subject -->
-	<string name="subscribe_me_subject">Ik meld mij aan voor de nieuwsbrief Organic Maps</string>
-	<!-- Email body -->
-	<string name="subscribe_me_body">Ik wil graag als eerste horen over het laatste nieuws updates en acties. Ik kan mijn abonnement te allen tijde annuleren.</string>
-	<!-- About text -->
-	<string name="about_text">Organic Maps biedt de snelste offline kaarten van alle steden en alle landen ter wereld. Reis vol vertrouwen: waar je ook bent,\n\nOrganic Maps zal je helpen om jezelf op de kaart terug te vinden en het dichstbijzijnde restaurant, hotel, bank, benzinestation etc. te vinden. Er is geen internetverbinding voor nodig.\n\nWe werken voortdurend aan nieuwe functies en we zouden graag van je willen horen hoe we Organic Maps volgens jou zouden kunnen verbeteren. Als je eventueel problemen hebt met de app, aarzel dan niet om contact met ons op te nemen op support\@organicmaps.app. We reageren op elke aanvraag!\n\nVindt je Organic Maps leuk en wil je ons steunen? Dat kan op een aantal simpele en absoluut gratis manieren:\n- plaats een beoordeling op je App Market\n- like onze Facebook-pagina http://www.facebook.com/OrganicMaps\n- of vertel gewoon je ma, vrienden en collega’s over Organic Maps :) Dank je dat je ons steunt. Wij waarderen dit heel erg!\n\nP.S. We halen onze kaartgegevens van OpenStreetMap, een kaartproject dat lijkt op Wikipedia, waarbij gebruikers kaarten kunnen maken en aanpassen. Als je ziet dat er iets ontbreekt of een fout ontdekt in een kaart, dan kun je de kaart direct verbeteren op https://www.openstreetmap.org, en dan zullen je verbeteringen bij het uitbrengen van de volgende versie in Organic Maps verschijnen.</string>
 	<!-- Alert text -->
 	<string name="email_error_body">De emailcliënt is niet ingesteld. Gelieve de cliënt te configureren of op een andere manier contact met ons op te nemen op %s</string>
 	<!-- Alert title -->
@@ -341,137 +226,56 @@
 	<string name="pref_calibration_title">Kompascalibratie</string>
 	<!-- Search category -->
 	<string name="wifi">WiFi</string>
-	<!-- Update map suggestion -->
-	<string name="routing_map_outdated">Werk de kaart bij om een route te maken.</string>
-	<!-- Update maps suggestion -->
-	<string name="routing_update_maps">Met de nieuwe versie van Organic Maps kunt u routes maken vanaf uw huidige positie naar een punt van bestemming. Werk kaarten bij om deze functie te gebruiken.</string>
 	<!-- Update all button text -->
 	<string name="downloader_update_all_button">Update alles</string>
 	<!-- Cancel all button text -->
 	<string name="downloader_cancel_all">Alles annuleren</string>
 	<!-- Downloaded maps category -->
 	<string name="downloader_downloaded_subtitle">Gedownload</string>
-	<!-- Downloaded maps category -->
-	<string name="downloader_available_maps">Beschikbaar</string>
 	<!-- Country queued for download -->
 	<string name="downloader_queued">In de wachtrij</string>
 	<string name="downloader_near_me_subtitle">Bij mij in de buurt</string>
 	<string name="downloader_status_maps">Kaarten</string>
 	<string name="downloader_download_all_button">Alles downloaden</string>
 	<string name="downloader_downloading">Aan het downloaden:</string>
-	<string name="downloader_search_results">Gevonden</string>
-	<!-- Disclaimer message -->
-	<string name="routing_disclaimer">Bij het creëren van routes in Organic Maps-app, dient u rekening te houden met het volgende:\n\n  - Voorgestelde routes kunnen uitsluitend als aanbevelingen beschouwd worden.\n - Wegconditie, verkeersregels en borden hebben een hogere prioriteit dan het navigatie-advies.\n - De kaart kan onjuist of verouderd zijn en de routes kunnen niet op de beste mogelijke manier gecreëerd zijn.\n\n  Wees veilig op wegen en zorg goed voor uzelf!</string>
-	<!-- Outdated maps category -->
-	<string name="downloader_outdated_maps">Verouderd</string>
-	<!-- Up to date maps category -->
-	<string name="downloader_uptodate_maps">Up-to-date</string>
 	<!-- Status of outdated country in the list -->
 	<string name="downloader_status_outdated">Bijwerken</string>
 	<!-- Status of failed country in the list -->
 	<string name="downloader_status_failed">Mislukt</string>
 	<!-- Displayed in a dialog that appears when a user tries to delete a map while the app is in the follow route mode -->
 	<string name="downloader_delete_map_while_routing_dialog">Stop de navigatie om de kaart te verwijderen.</string>
-	<!-- Show when user try build route, but we don't know where he -->
-	<string name="routing_failed_unknown_my_position">Huidige locatie is niet gedefinieerd. Gelieve de locatie te specificeren om de route te creëren.</string>
-	<!-- Show if use has not routing file, or InconsistentMWMandRoute -->
-	<string name="routing_failed_has_no_routing_file">Er zijn extra gegevens nodig om een ​​route te creëren. Beginnen met downloaden?</string>
-	<!-- StartPointNotFound -->
-	<string name="routing_failed_start_point_not_found">Kan de route niet berekenen. Geen wegen in de buurt van uw beginpunt.</string>
-	<!-- EndPointNotFound -->
-	<string name="routing_failed_dst_point_not_found">Kan de route niet berekenen. Geen wegen in de buurt van uw bestemming.</string>
 	<!-- PointsInDifferentMWM -->
 	<string name="routing_failed_cross_mwm_building">Slechts de routes die volledig opgenomen zijn in één kaart kunnen gecreëerd worden.</string>
-	<!-- RouteNotFound -->
-	<string name="routing_failed_route_not_found">Er is geen route gevonden tussen het geselecteerde beginpunt en de bestemming. Gelieve een andere beginpunt of een eindbestemming te kiezen.</string>
-	<!-- InternalError -->
-	<string name="routing_failed_internal_error">Er is een interne fout opgetreden. Probeer het kaart te verwijderen en opnieuw te downloaden. Indien het probleem blijft optreden, neem dan contact met ons op support\@organicmaps.app.</string>
-	<!-- Context menu item for downloader. -->
-	<string name="downloader_download_map_and_routing">Download kaart + routering</string>
-	<!-- Context menu item for downloader. -->
-	<string name="downloader_download_routing">Download routering</string>
-	<!-- Context menu item for downloader. -->
-	<string name="downloader_delete_routing">Verwijder routering</string>
 	<!-- Context menu item for downloader. -->
 	<string name="downloader_download_map">Download de kaart</string>
-	<string name="downloader_download_map_no_routing">Download kaart zonder routeplanning</string>
-	<!-- Button for routing. -->
-	<string name="routing_go">Starten!</string>
 	<!-- Item status in downloader. -->
 	<string name="downloader_retry">Herhalen</string>
-	<!-- Item in context menu. -->
-	<string name="downloader_map_and_routing">Kaart + route</string>
 	<!-- Item in context menu. -->
 	<string name="downloader_delete_map">Kaart verwijderen</string>
 	<!-- Item in context menu. -->
 	<string name="downloader_update_map">Kaart bijwerken</string>
-	<!-- Item in context menu. -->
-	<string name="downloader_update_map_and_routing">Kaart bijwerken + route</string>
-	<!-- Item in context menu. -->
-	<string name="downloader_map_only">Alleen de kaart</string>
-	<!-- Toolbar title -->
-	<string name="toolbar_application_menu">Applicatiemenu</string>
 	<!-- Preference text -->
 	<string name="pref_use_google_play">Gebruik de diensten van Google Play om uw huidige locatie te bepalen</string>
 	<!-- Text for rating dialog -->
 	<string name="rating_just_rated">Ik heb je app zojuist gewaardeerd</string>
-	<!-- Text for rating dialog -->
-	<string name="rating_user_since">Ik ben een Organic Maps-gebruiker vanaf %s</string>
-	<!-- Text for rating dialog -->
-	<string name="rating_do_like_maps">Vind je Organic Maps leuk?</string>
-	<!-- Text for rating dialog -->
-	<string name="rating_tap_star">Druk op een ster om onze app te waarderen.</string>
 	<!-- Text for rating dialog -->
 	<string name="rating_thanks">Dank je!</string>
 	<!-- Text for rating dialog -->
 	<string name="rating_share_ideas">Deel alle ideeën of problemen zodat we de app voor je kunnen verbeteren.</string>
 	<!-- Text for rating dialog -->
 	<string name="rating_send_feedback">Feedback verzenden</string>
-	<!-- Text for g+ dialog -->
-	<string name="rating_google_plus">Klik op g+ om je vrienden te informeren over de app.</string>
 	<!-- Text for routing error dialog -->
 	<string name="routing_download_maps_along">Download kaarten op de route</string>
-	<!-- Text for routing error dialog -->
-	<string name="routing_download_map">Krijg kaart</string>
-	<!-- Text for routing error dialog -->
-	<string name="routing_download_map_and_routing">Download bijgewerkte kaart en routegegevens om alle functies van Organic Maps te krijgen.</string>
-	<!-- Text for routing error dialog -->
-	<string name="routing_get_routing_data">Krijg routegegevens</string>
-	<!-- Text for routing error dialog -->
-	<string name="routing_get_additional_data">Aanvullende gegevens die nodig zijn om routes te maken vanaf uw locatie.</string>
 	<!-- Text for routing error dialog -->
 	<string name="routing_requires_all_map">Voor het creëren van een route is het nodig dat alle kaarten van uw locatie naar uw bestemming gedownload en bijgewerkt zijn.</string>
 	<!-- Text for routing error dialog -->
 	<string name="routing_not_enough_space">Niet genoeg ruimte</string>
-	<!-- Text for routing error dialog -->
-	<string name="routing_download_more_than_avail">U dient %1$s MB te downloaden, maar er is slechts %2$s MB beschikbaar.</string>
-	<!-- Text for routing error dialog -->
-	<string name="routing_download_roaming">U gaat %s MB downloaden met behulp van mobiele data (roaming). Dit kan leiden tot extra kosten, afhankelijk van het mobiele data-abonnement van uw aanbieder.</string>
 	<!-- bookmark button text -->
 	<string name="bookmark">markeren</string>
-	<!-- map is not downloaded -->
-	<string name="not_found_map">De kaart voor uw locatie is niet gedownload</string>
 	<!-- location service disabled -->
 	<string name="enable_location_services">Schakel Locatie Services in</string>
-	<!-- download map -->
-	<string name="download_map">Download de kaart voor uw locatie</string>
-	<!-- download map on iPhone -->
-	<string name="download_map_iphone">Download de kaart van uw huidige lokatie op uw iPhone</string>
-	<!-- clear pin -->
-	<string name="nearby">In de buurt</string>
-	<!-- clear pin -->
-	<string name="clear_pin">Speld wissen</string>
-	<!-- location is undefined -->
-	<string name="undefined_location">Huidige locatie is niet gedefinieerd.</string>
-	<!-- download country of your location -->
-	<string name="download_country">Download land waar je nu bent</string>
-	<!-- download failed -->
-	<string name="download_failed">download is afgebroken</string>
-	<!-- get the map -->
-	<string name="get_the_map">Krijg kaart</string>
 	<string name="save">Opslaan</string>
 	<string name="edit_description_hint">Uw omschrijvingen (tekst of html)</string>
-	<string name="new_group">nieuwe groep</string>
 	<string name="create">aanmaken</string>
 	<!-- red color -->
 	<string name="red">Rood</string>
@@ -489,22 +293,6 @@
 	<string name="brown">Bruin</string>
 	<!-- pink color -->
 	<string name="pink">Roze</string>
-	<!-- deep purple color -->
-	<string name="deep_purple">Donker paars</string>
-	<!-- light blue color -->
-	<string name="light_blue">Lichtblauw</string>
-	<!-- cyan color -->
-	<string name="cyan">Blauwgroen</string>
-	<!-- teal color -->
-	<string name="teal">Smaragdgroen</string>
-	<!-- lime color -->
-	<string name="lime">Lime</string>
-	<!-- deep orange color -->
-	<string name="deep_orange">Donkeroranje</string>
-	<!-- gray color -->
-	<string name="gray">Grijs</string>
-	<!-- blue gray color -->
-	<string name="blue_gray">Grijsblauw</string>
 	<!-- Wi-Fi available -->
 	<string name="WiFi_available">Ja</string>
 
@@ -520,10 +308,8 @@
 	<string name="dialog_routing_location_turn_wifi">Controleer uw gps-signaal. Schakel wifi in voor een betere locatiebepaling.</string>
 	<string name="dialog_routing_location_turn_on">Schakel locatiediensten in</string>
 	<string name="dialog_routing_location_unknown_turn_on">De huidige gps-coördinaten kunnen niet worden gevonden. Schakel locatiediensten in om de route te berekenen.</string>
-	<string name="dialog_routing_location_unknown">De huidige gps-coördinaten kunnen niet worden gevonden.</string>
 	<string name="dialog_routing_download_files">Download vereiste bestanden</string>
 	<string name="dialog_routing_download_and_update_all">Download de kaart en route-informatie voor het ingestelde traject en werk deze bij om de route te berekenen.</string>
-	<string name="dialog_routing_routes_size">Route-informatiebestanden</string>
 	<string name="dialog_routing_unable_locate_route">Route vinden mislukt</string>
 	<string name="dialog_routing_cant_build_route">Route samenstellen mislukt.</string>
 	<string name="dialog_routing_change_start_or_end">Kies een ander startpunt of andere bestemming.</string>
@@ -538,33 +324,23 @@
 	<string name="dialog_routing_system_error">Systeemfout</string>
 	<string name="dialog_routing_application_error">Route samenstellen mislukt door een applicatiefout.</string>
 	<string name="dialog_routing_try_again">Probeer het opnieuw</string>
-	<string name="dialog_routing_send_error">Meld het probleem</string>
-	<string name="dialog_routing_if_get_cross_route">Wilt u een rechtstreeksere route samenstellen die meer dan één kaart beslaat?</string>
-	<string name="dialog_routing_cross_route_is_optimal">Er is een betere route beschikbaar die de grenzen van deze kaart overschrijdt.</string>
 	<string name="not_now">Niet nu</string>
-	<string name="dialog_routing_build_route">Samenstellen</string>
 	<string name="dialog_routing_download_and_build_cross_route">Wilt u de kaart downloaden en een betere route samenstellen die meer dan één kaart beslaat?</string>
 	<string name="dialog_routing_download_cross_route">Download de kaart om een betere route samen te stellen die de grenzen van deze kaart overschrijdt.</string>
-	<string name="dialog_routing_cross_route_always">Deze grens altijd overschrijden</string>
 
 	<!-- SECTION: Strings for downloading map from search -->
 	<string name="search_without_internet_advertisement">Om te beginnen met zoeken en om routebeschrijvingen te kunnen maken, moet u de kaart downloaden. U heeft vervolgens geen internetverbinding meer nodig.</string>
 	<string name="search_select_map">Selecteer de kaart</string>
-	<string name="search_select_other_map">Selecteer een andere kaart</string>
 	<!-- «Show» context menu -->
 	<string name="show">Tonen</string>
 	<!-- «Hide» context menu -->
 	<string name="hide">Verbergen</string>
 	<!-- «Rename» context menu -->
 	<string name="rename">Naam wijzigen</string>
-	<!-- Bottom sheet: expand button (should be short) -->
-	<string name="bottom_sheet_more">Meer…</string>
 	<!-- Failed planning route message in navigation view -->
 	<string name="routing_planning_error">Routeberekening mislukt</string>
 	<!-- Arrive routing message in navigation view -->
 	<string name="routing_arrive">Aankomst: %s</string>
-	<!-- Text for routing::RouterResultCode::FileTooOld dialog. -->
-	<string name="dialog_routing_download_and_update_maps">Om een route te maken, download en update alle kaarten rondom de route.</string>
 	<string name="rate_alert_title">Vindt u de app leuk?</string>
 	<string name="rate_alert_default_message">Bedankt om Organic Maps te gebruiken. Gelieve de app te beoordelen. Uw feedback helpt ons beter te worden.</string>
 	<string name="rate_alert_five_star_message">Hoera! Wij houden ook van u!</string>
@@ -572,24 +348,14 @@
 	<string name="rate_alert_less_than_four_star_message">Heeft u suggesties voor verbeteringen?</string>
 	<string name="categories">Categorieën</string>
 	<string name="history">Geschiedenis</string>
-	<string name="next_turn_then">Dan</string>
 	<string name="closed">Gesloten</string>
-	<string name="back_to">Terug naar %s</string>
 	<string name="search_not_found">Sorry, ik heb niets gevonden.</string>
 	<string name="search_not_found_query">Probeer een andere zoekopdracht.</string>
-	<string name="search_not_found_map">Download de kaart waarin u zoekt, alstublieft.</string>
-	<string name="search_not_found_location">Download de kaart van uw huidige locatie.</string>
 	<string name="search_history_title">Zoekgeschiedenis</string>
 	<string name="search_history_text">Snel toegang tot recente zoekopdrachten.</string>
 	<string name="clear_search">Zoekgeschiedenis wissen</string>
-	<!-- Title for settings to enable/disable showcase menu button -->
-	<string name="showcase_settings_title">Aanbiedingen weergeven</string>
-	<string name="p2p_route_planning">Routeberekening</string>
 	<string name="p2p_your_location">Uw locatie</string>
-	<string name="p2p_from">Vertrekpunt</string>
-	<string name="p2p_to">Bestemmingspunt</string>
 	<string name="p2p_start">Beginnen</string>
-	<string name="p2p_planning">Aan het plannen…</string>
 	<string name="p2p_from_here">Van</string>
 	<string name="p2p_to_here">Route naar</string>
 	<string name="p2p_only_from_current">Navigatie is uitsluitend beschikbaar vanuit uw huidige locatie.</string>
@@ -609,11 +375,8 @@
 	<string name="editor_hours_closed">Sluitingstijden</string>
 	<string name="editor_example_values">Voorbeeldwaarden</string>
 	<string name="editor_correct_mistake">Fout corrigeren</string>
-	<string name="editor_correct_mistake_message">U hebt een bewerkingsfout gemaakt. Corrigeer deze of schakel over naar de eenvoudige modus.</string>
 	<string name="editor_add_select_location">Locatie</string>
 	<string name="editor_done_dialog_1">Je hebt de wereldkaart gewijzigd. Verberg dit niet! Vertel het je vrienden en bewerk het samen.</string>
-	<string name="editor_done_dialog_2">Dit is je tweede kaartverbetering. Nu sta je op de %de plaats in de lijst van de kaartbewerkers. Vertel je vrienden erover.</string>
-	<string name="editor_done_dialog_3">Je hebt de kaart verbeterd, vertel je vrienden erover en bewerk samen de kaart.</string>
 	<string name="share_with_friends">Deel met je vrienden</string>
 	<string name="editor_report_problem_desription_1">Beschrijf het probleem gedetailleerd, zodat de OpenStreetMap-community de fout kan oplossen.</string>
 	<string name="editor_report_problem_desription_2">Of doe het zelf op https://www.openstreetmap.org/</string>
@@ -622,14 +385,7 @@
 	<string name="editor_report_problem_no_place_title">De plaats bestaat niet</string>
 	<string name="editor_report_problem_under_construction_title">Gesloten voor onderhoud</string>
 	<string name="editor_report_problem_duplicate_place_title">Dubbele plaats</string>
-	<string name="first_launch_congrats_title">Organic Maps is klaar voor gebruik</string>
-	<string name="first_launch_congrats_text">Zoek en navigeer overal ter wereld offline, gratis.</string>
-	<string name="migrate_title">Belangrijk!</string>
-	<!-- Android uses image instead of text. -->
-	<string name="download_all">Alles downloaden</string>
-	<string name="delete_all">Alles verwijderen</string>
 	<string name="autodownload">Automatische download</string>
-	<string name="disable_autodownload">Automatisch downloaden uitschakelen</string>
 	<!-- Place Page opening hours text -->
 	<string name="closed_now">Nu gesloten</string>
 	<!-- Place Page opening hours text -->
@@ -638,8 +394,6 @@
 	<string name="day_off_today">Vrije dag vandaag</string>
 	<string name="day_off">Vrije dag</string>
 	<string name="today">Vandaag</string>
-	<string name="sunrise_to_sunset">Van zonsopgang tot zonsondergang</string>
-	<string name="sunset_to_sunrise">Van zonsondergang tot zonsopgang</string>
 	<string name="add_opening_hours">Openingsuren toevoegen</string>
 	<string name="edit_opening_hours">Openingsuren bewerken</string>
 	<string name="no_osm_account">Geen account bij OpenStreetMap?</string>
@@ -649,29 +403,13 @@
 	<string name="login">Log in</string>
 	<string name="password">Wachtwoord</string>
 	<string name="forgot_password">Wachtwoord vergeten?</string>
-	<!-- Forgot Password dialog title -->
-	<string name="restore_password">Wachtwoord herstellen</string>
-	<string name="enter_email_address_to_reset_password">Voer het emailadres in dat u heeft gebruikt tijdens de registratie, dan sturen wij u de link om uw wachtwoord te vernieuwen.</string>
-	<string name="reset_password">Wachtwoord resetten</string>
-	<string name="username">Gebruikersnaam</string>
 	<string name="osm_account">OSM-account</string>
 	<string name="logout">Uitloggen</string>
-	<string name="login_and_edit_map_motivation_message">Log in en bewerk gegevens van de objecten op de kaart, dan zullen wij ze beschikbaar maken voor miljoenen andere gebruikers. Laten we samen de wereld beter maken.</string>
 	<!-- Information text: "Last upload 11.01.2016" -->
 	<string name="last_upload">Laatste upload</string>
-	<!-- Motivates user to login/register, title above login buttons. -->
-	<string name="you_have_edited_your_first_object">Je hebt je eerste object aangepast!</string>
 	<string name="thank_you">Dank je wel</string>
-	<string name="login_with_google">Aanmelden met Google</string>
-	<string name="login_with_openstreetmap">Aanmelden met www.openstreetmap.org</string>
 	<string name="edit_place">De locatie bewerken</string>
 	<string name="place_name">Locatienaam</string>
-	<!-- title above languages list cells in the editor, below editable name text field. -->
-	<string name="other_languages">Overige talen</string>
-	<!-- small button to open list with names in different languages -->
-	<string name="show_more">Laat meer zien</string>
-	<!-- small button to close list with names in different languages -->
-	<string name="show_less">Laat minder zien</string>
 	<string name="add_language">Een taal toevoegen</string>
 	<string name="street">Straat</string>
 	<!-- Editable House Number text field (in address block). -->
@@ -688,25 +426,16 @@
 	<string name="email_or_username">Emailadres of gebruikersnaam</string>
 	<string name="phone">Telefoonnummer</string>
 	<string name="please_note">Opgelet</string>
-	<string name="common_no_wifi_dialog">Geen WiFi-verbinding. Wil je doorgaan via mobiele data?</string>
 	<string name="downloader_delete_map_dialog">Alle wijzigingen aan de kaart zullen samen met de kaart worden verwijderd.</string>
 	<string name="downloader_update_maps">Kaarten updaten</string>
 	<string name="downloader_mwm_migration_dialog">Om een route te creëren, moet je alle kaarten updaten en dan de route opnieuw plannen.</string>
 	<string name="downloader_search_field_hint">Vind de kaart</string>
-	<string name="migration_update_all_button">Update alle kaarten</string>
-	<string name="migration_delete_all_download_current_button">Download de huidige kaart en verwijder de oude</string>
 	<string name="migration_download_error_dialog">Downloadfout</string>
 	<string name="common_check_internet_connection_dialog">Controleer je instellingen en zorg ervoor dat het apparaat is verbonden met het internet.</string>
 	<string name="downloader_no_space_title">Niet genoeg ruimte</string>
 	<string name="downloader_no_space_message">Verwijder overbodige gegevens</string>
-	<string name="editor_general_auth_error_dialog">Algemene inlogfout.</string>
 	<string name="editor_login_error_dialog">Inlogfout.</string>
-	<string name="editor_login_failed_dialog">Inloggen mislukt</string>
-	<string name="editor_username_error_dialog">Gebruikersnaam is ongeldig</string>
-	<string name="editor_place_edited_dialog">Je hebt een object bewerkt!</string>
-	<string name="editor_login_with_osm">Log in met OpenStreetMap</string>
 	<string name="editor_profile_changes">Gecontroleerde wijzigingen</string>
-	<string name="editor_profile_unsent_changes">Niet verzonden:</string>
 	<string name="editor_focus_map_on_location">Trek aan de kaart om de juiste locatie van het object te selecteren.</string>
 	<string name="editor_add_select_category">Selecteer categorie</string>
 	<string name="editor_add_select_category_popular_subtitle">Populair</string>
@@ -717,19 +446,14 @@
 	<string name="editor_edit_place_category_title">Categorie</string>
 	<string name="detailed_problem_description">Gedetailleerde probleemomschrijving</string>
 	<string name="editor_report_problem_other_title">Een ander probleem</string>
-	<string name="placepage_report_problem_button">Meld een probleem</string>
 	<string name="placepage_add_business_button">Een organisatie toevoegen</string>
 	<string name="whatsnew_editor_message_1">Voeg nieuwe plaatsen toe aan de kaart en bewerk de bestaande rechtstreeks vanuit de app.</string>
-	<string name="whatsnew_editor_message_2">* Organic Maps gebruikt OpenStreetMap-communitiedata.</string>
 	<string name="dialog_incorrect_feature_position">Locatie wijzigen</string>
 	<string name="message_invalid_feature_position">Hier kan geen object worden geplaatst</string>
 	<string name="login_to_make_edits_visible">Log in zodat andere gebruikers kunnen zien wat u hebt gewijzigd.</string>
-	<string name="no_migration_during_navigation">Updaten tijdens navigatie is niet toegestaan.</string>
 	<!-- Error dialog no space -->
 	<string name="migration_no_space_message">Om te kunnen downloaden, heb je meer ruimte nodig. Verwijder overbodige gegevens.</string>
 	<string name="editor_sharing_title">Ik heb de Organic Maps-kaarten verbeterd</string>
-	<string name="editor_comment_will_be_sent">We zullen uw opmerking doorsturen naar de kaartmakers.</string>
-	<string name="editor_unsupported_category_message">U hebt een plaats of categorie toegevoegd die we nog niet ondersteunen. Het zal enige tijd duren voordat deze op de kaart verschijnt.</string>
 	<!-- Downloaded 10 **of** 20 <- it is that "of" -->
 	<string name="downloader_of">%1$d van %2$d</string>
 	<string name="download_over_mobile_header">Downloaden via een mobiele gegevensverbinding?</string>
@@ -747,15 +471,8 @@
 	<string name="editor_detailed_description">Uw voorgestelde wijzigingen worden verzonden naar de OpenStreetMap-community. Beschrijf de details die niet kunnen worden bewerkt in Organic Maps.</string>
 	<string name="editor_more_about_osm">Meer over OpenStreetMap</string>
 	<string name="editor_operator">Uitvoerder</string>
-	<string name="editor_tag_description">Voer het bedrijf, de organisatie of het individu in dat verantwoordelijk is voor de faciliteiten.</string>
-	<string name="editor_no_local_edits_title">U hebt geen lokale bewerkingen</string>
-	<string name="editor_no_local_edits_description">Dit toont het aantal voorgestelde wijzigingen voor de kaart die momenteel alleen toegankelijk zijn op uw apparaat.</string>
-	<string name="editor_send_to_osm">Naar OSM sturen</string>
-	<string name="editor_remove">Verwijderen</string>
-	<string name="downloader_my_maps_title">Mijn kaarten</string>
 	<string name="downloader_no_downloaded_maps_title">U hebt geen kaarten gedownload</string>
 	<string name="downloader_no_downloaded_maps_message">Download kaarten om de locatie te zoeken en offline te navigeren.</string>
-	<string name="downloader_find_place_hint">Stad of land zoeken</string>
 	<!-- Error title that appears after certain time without location. -->
 	<string name="current_location_unknown_title">Doorgaan met het detecteren van uw huidige locatie?</string>
 	<!-- Error that appears after certain time without location. -->
@@ -770,27 +487,10 @@
 	<string name="location_services_disabled_2">2. Tik op locatie</string>
 	<!-- iOS Dialog for the case when the location permission is not granted -->
 	<string name="location_services_disabled_3">3. Selecteer Terwijl Je de App Gebruikt</string>
-	<string name="placepage_parking_surface">Boven de grond</string>
-	<string name="placepage_parking_multistorey">Meerlaags</string>
-	<string name="placepage_parking_underground">Onder de grond</string>
-	<string name="placepage_parking_rooftop">Dak</string>
-	<string name="placepage_parking_sheds">Afdak</string>
-	<string name="placepage_parking_carports">Carports</string>
-	<string name="placepage_parking_boxes">Garageboxen</string>
-	<string name="placepage_parking_pay">Betalen</string>
-	<string name="placepage_parking_free">Gratis</string>
-	<string name="placepage_parking_interval">Intervalbetaling</string>
-	<string name="placepage_entrance_number">Nr.</string>
-	<string name="placepage_entrance_type">Ingang</string>
-	<string name="placepage_flat">app.</string>
-	<string name="placepage_open_24_7">Dag en nacht</string>
 	<string name="meter">m</string>
 	<string name="kilometer">km</string>
-	<string name="kilometers_per_hour">km/h</string>
 	<string name="mile">mijl</string>
 	<string name="foot">voet</string>
-	<string name="miles_per_hour">mph</string>
-	<string name="day">d</string>
 	<string name="hour">u</string>
 	<string name="minute">min</string>
 	<string name="placepage_place_description">Beschrijving</string>
@@ -800,46 +500,30 @@
 	<string name="placepage_call_button">Bellen</string>
 	<string name="placepage_edit_bookmark_button">Bladwijzer bewerken</string>
 	<string name="placepage_bookmark_name_hint">Bladwijzernaam</string>
-	<string name="placepage_personal_notes_hint">Persoonlijke aantekeningen</string>
-	<string name="placepage_delete_bookmark_button">Bladwijzer verwijderen</string>
 	<string name="editor_edits_sent_message">Uw voorgestelde wijzigingen zijn verzonden</string>
 	<string name="editor_comment_hint">Reactie…</string>
 	<string name="editor_reset_edits_message">Alle lokale wijzigingen herstellen?</string>
 	<string name="editor_reset_edits_button">Herstellen</string>
 	<string name="editor_remove_place_message">Een toegevoegde locatie verwijderen?</string>
 	<string name="editor_remove_place_button">Verwijderen</string>
-	<string name="editor_status_sending">Verzenden…</string>
 	<string name="editor_place_doesnt_exist">Locatie bestaat niet</string>
 	<string name="text_more_button">…meer</string>
 	<!-- Phone number error message -->
 	<string name="error_enter_correct_phone">Voer het juiste telefoonnummer in</string>
 	<string name="error_enter_correct_web">Voer een geldig webadres in</string>
 	<string name="error_enter_correct_email">Voer een geldig emailadres in</string>
-	<string name="error_enter_correct">Voer een geldige waarde in</string>
 	<string name="refresh">Updaten</string>
-	<string name="last_update">Laatste update: %s</string>
 	<string name="placepage_add_place_button">Een plek toevoegen aan de kaart</string>
 	<!-- Displayed when saving some edits to the map to warn against publishing personal data -->
 	<string name="editor_share_to_all_dialog_title">Wil je het naar alle gebruikers sturen?</string>
 	<!-- iOS Dialog before publishing the modifications to the public map. -->
 	<string name="editor_share_to_all_dialog_message_1">Controleer dat je geen persoonlijke gegevens hebt ingevoerd.</string>
 	<string name="editor_share_to_all_dialog_message_2">We zullen de wijzigingen controleren. Als we nog vragen hebben, zullen we contact met je opnemen via email.</string>
-	<string name="navigation_overview_button">overzicht</string>
-	<string name="navigation_stop_button">stoppen</string>
-	<!-- Text on an empty bookmark page -->
-	<string name="bookmarks_empty_title">Bladwijzers opslaan</string>
-	<string name="bookmarks_empty_message_1">Tik op ★ om favoriete plaatsen op te slaan voor snelle toegang.</string>
-	<string name="bookmarks_empty_message_2">Importeer bladwijzers vanuit email en het internet.</string>
-	<string name="bookmarks_empty_message_3">uitchecken: %s</string>
-	<!-- Name of the group for booked hotels -->
-	<string name="bookmarks_group_name">Geboekte hotels</string>
-	<string name="place_page_button_read_descriprion">Lezen</string>
 	<!-- iOS dialog for the case when recent track recording is on and the app comes back from background -->
 	<string name="recent_track_background_dialog_title">Vastleggen van uw onlangs afgelegde route uitschakelen?</string>
 	<string name="off_recent_track_background_button">Uitschakelen</string>
 	<!-- For sharing via SMS and so on -->
 	<string name="sharing_call_action_look">Bekijk</string>
-	<string name="continue_recent_track_background_button">Verdergaan</string>
 	<string name="recent_track_background_dialog_message">Organic Maps gebruikt uw geografische positie op de achtergrond om uw onlangs afgelegde route vast te leggen.</string>
 	<!-- Rate on Google Play (Android only) -->
 	<string name="rate_gp">Beoordeel op Google Play</string>
@@ -849,21 +533,11 @@
 	<string name="tell_friends_text">Hallo! Installeer Organic Maps!</string>
 	<!-- About short text (below logo) -->
 	<string name="about_description">Organic Maps is een essentiële offline applicatie om te reizen. Organic Maps is gebaseerd op OpenStreetMap gegevens en laat bewerking toe.</string>
-	<!-- Text in menu -->
-	<string name="blog">Blog</string>
 	<string name="general_settings">Algemene instellingen</string>
-	<string name="date">Datum %d</string>
-	<!-- "Report a bug" -> "Generaal Feedback" -> "Something is not working" -->
-	<string name="something_is_not_working">Er werkt iets niet</string>
 	<!-- For the first routing -->
 	<string name="accept">Aanvaarden</string>
 	<!-- For the first routing -->
 	<string name="decline">Weigeren</string>
-	<string name="install_app">Installeer</string>
-	<string name="search_no_results_title">Geen Resultaten Gevonden</string>
-	<string name="search_no_results_message">Probeer een meer algemene zoekterm, zoom uit of reset de filter.</string>
-	<string name="search_no_results_expand_area_button">Uitzoomen</string>
-	<string name="search_no_results_reset_button">Filter Resetten</string>
 	<!-- noun -->
 	<string name="search_in_table">Lijst</string>
 	<string name="mobile_data_dialog">Mobiel internet gebruiken om gedetailleerde informatie weer te geven?</string>
@@ -875,18 +549,13 @@
 	<string name="mobile_data_option_never">Nooit Gebruiken</string>
 	<string name="mobile_data_option_ask">Altijd Vragen</string>
 	<string name="traffic_update_maps_text">Om verkeersgegevens weer te geven, moeten de kaarten bijgewerkt worden.</string>
-	<string name="traffic_outdated">Verkeersgegevens zijn verouderd.</string>
 	<string name="big_font">Lettergrootte op de kaart vergroten</string>
 	<string name="traffic_update_app">Gelieve Organic Maps bij te werken</string>
 	<!-- "traffic" as in road congestion -->
 	<string name="traffic_update_app_message">Om de verkeersgegevens weer te geven, moet de applicatie bijgewerkt worden.</string>
 	<!-- "traffic" as in "road congestion" -->
 	<string name="traffic_data_unavailable">Verkeersgegevens zijn niet beschikbaar</string>
-	<!-- Simplified colour scheme for traffic information, fewer colours are used to display traffic jams on the map. The string should be kept as short as possible -->
-	<string name="pref_traffic_simplified_colors_title">Eenvoudige verkeerskleuren</string>
 	<string name="enable_logging">Logboekregistratie inschakelen</string>
-	<string name="offline_place_page_more_information">Maak verbinding met het internet om meer informatie over de plaats te krijgen.</string>
-	<string name="failed_load_information">Informatie laden mislukt.</string>
 	<!-- Settings: "Send general feedback" button -->
 	<string name="feedback_general">Algemene Feedback</string>
 	<string name="on">Aan</string>
@@ -900,57 +569,26 @@
 	<string name="routing_add_start_point">Voeg beginpunt toe om een route te plannen</string>
 	<string name="routing_add_finish_point">Voeg eindpunt toe om een route te plannen</string>
 	<string name="button_exit">Verlaten</string>
-	<string name="settings_device_memory">Apparaatgeheugen</string>
-	<string name="settings_card_memory">Kaartgeheugen</string>
-	<string name="settings_storage_available">%s beschikbaar</string>
-	<string name="toast_location_permission_denied">App toelating locatie geweigerd</string>
-	<string name="button_use">Gebruiken</string>
 	<string name="planning_route_manage_route">Route beheren</string>
 	<string name="button_plan">Plannen</string>
-	<string name="button_add">Toevoegen</string>
 	<string name="placepage_remove_stop">Verwijderen</string>
 	<string name="planning_route_remove_title">Sleep hier om te verwijderen</string>
-	<string name="dialog_change_start_point_message">Het beginpunt vervangen met de huidige locatie?</string>
-	<string name="button_replace">Vervangen</string>
 	<string name="placepage_add_stop">Tussenstop toevoegen</string>
-	<string name="add_my_position">Voeg mijn positie toe</string>
-	<string name="choose_start_point">Kies een vertrekpunt</string>
-	<string name="choose_destination">Kies een bestemming</string>
 	<string name="preloader_viator_button">Meer leren</string>
-	<string name="start_from_my_position">Start vanaf</string>
-	<string name="profile_authorization_title">Aanmelden met</string>
-	<string name="profile_authorization_message">Eenvoudig aanmelden zonder gebruikersnaam en wachtwoord in enkele seconden</string>
 	<string name="profile_authorization_error">Oeps, er is een fout opgetreden. Probeer opnieuw aan te melden.</string>
-	<string name="service">Dienst</string>
-	<string name="atmosphere">Sfeer</string>
-	<string name="value_for_money">Waarde voor geld</string>
-	<string name="experience">Ervaring</string>
-	<string name="assortment">Assortiment</string>
-	<string name="expertise">Expertise</string>
-	<string name="equipment">Uitrusting</string>
-	<string name="quality">Kwaliteit</string>
 	<string name="dialog_error_storage_title">Probleem met opslagtoegang</string>
 	<string name="dialog_error_storage_message">Externe opslag is niet beschikbaar, wellicht is de SD-kaart verwijderd, beschadigd of is het bestandssysteem alleen-lezen. Gelieve het te controleren en ons te contacteren via support\@organicmaps.app</string>
 	<string name="setting_emulate_bad_storage">Slechte opslag emuleren</string>
-	<string name="directions_finish">Bestemming</string>
-	<string name="directions_on_foot">Wandel %s</string>
 	<string name="core_entrance">Ingang</string>
-	<string name="coffee">Koffie</string>
-	<string name="cleanliness">Netheid</string>
-	<string name="crowdedness">Drukte</string>
 	<string name="error_enter_correct_name">Voer een juiste naam in</string>
 	<string name="bookmarks_groups">lijsten</string>
 	<string name="bookmarks_groups_hide_all">Alles verbergen</string>
 	<string name="bookmarks_groups_show_all">Alles weergeven</string>
-	<plurals name="bookmarks_places">
-	  <item quantity="other">%d bladwijzers</item>
-	</plurals>
 	<string name="bookmarks_create_new_group">Nieuwe lijst maken</string>
 	<string name="downloader_hide_screen">Scherm Verbergen</string>
 	<string name="downloader_percent">%1$s (%2$s van %3$s)</string>
-	<string name="downloader_process">%s downloaden...</string>
-	<string name="downloader_applying">%s toepassen...</string>
-	<string name="dialog_message_transit_not_found_connection">Plan een route binnen één vervoersnetwerk</string>
+	<string name="downloader_process">%s downloaden…</string>
+	<string name="downloader_applying">%s toepassen…</string>
 	<string name="bookmarks_error_message_share_general">Delen is onmogelijk wegens een toepassingsfout</string>
 	<string name="bookmarks_error_title_share_empty">Deelfout</string>
 	<string name="bookmarks_error_message_share_empty">Een lege lijst kan niet gedeeld worden</string>
@@ -959,12 +597,7 @@
 	<string name="bookmarks_new_list_hint">Nieuwe lijst</string>
 	<string name="bookmarks_error_title_list_name_already_taken">Deze naam is al in gebruik</string>
 	<string name="bookmarks_error_message_list_name_already_taken">Kies alstublieft een andere naam</string>
-	<string name="bookmarks_error_title_list_name_too_long">Deze naam is te lang</string>
-	<string name="bookmarks_error_message_list_name_too_long">Kies alstublieft een andere naam</string>
-	<string name="please_wait">Even geduld aub...</string>
-	<string name="phone_number">Telefoonnummer</string>
-	<string name="notification_unsent_reviews_title">U heeft verschillende niet-verzonden recensies</string>
-	<string name="notification_unsent_reviews_message">Meld u aan om recensies te delen met andere reizigers</string>
+	<string name="please_wait">Even geduld aub…</string>
 	<string name="profile">OpenStreetMap-profiel</string>
 	<string name="place_page_search_similar_hotel">Zoek vergelijkbare hotels</string>
 	<string name="bookmarks_detect_title">Nieuwe bestanden gedetecteerd</string>
@@ -975,31 +608,10 @@
 	<string name="button_convert">Omzetten</string>
 	<string name="bookmarks_convert_error_title">Fout</string>
 	<string name="bookmarks_convert_error_message">Sommige bestanden waren niet geconverteerd.</string>
-	<string name="converting">Het omzetten van...</string>
-	<string name="wn_reinvented_bookmarks_title">We hebben bladwijzers opnieuw uitgevonden!</string>
-	<string name="wn_reinvented_bookmarks_message">U kunt een back-up maken van bladwijzers, lijsten maken... Het is verbazingwekkend...</string>
-	<string name="bookmarks_restore">Bladwijzers herstellen</string>
-	<string name="bookmarks_restore_process">Herstel van...</string>
 	<string name="bookmarks_restore_title">Deze versie herstellen?</string>
-	<string name="bookmarks_restore_message">Je bladwijzers worden hersteld vanaf %1$s (%2$s)</string>
-	<string name="bookmarks_restore_empty_title">U hebt geen back-up</string>
-	<string name="bookmarks_restore_empty_message">De server heeft eerder gemaakte back-ups niet gevonden</string>
 	<string name="common_check_internet_connection_dialog_title">Geen internet verbinding</string>
-	<string name="error_server_title">Serverfout</string>
-	<string name="error_server_message">Der var en fejl på serveren, prøv igen senere</string>
 	<string name="error_system_message">Er is een onbekende fout opgetreden</string>
 	<string name="restore">Herstellen</string>
-	<string name="bookmarks_page_downloaded">Gedownload</string>
-	<string name="bookmarks_page_my">Mijn</string>
-	<string name="routes_and_bookmarks">Routes en Bladwijzers</string>
-	<string name="bookmarks_webview_success_toast">Bladwijzers succesvol gedownload</string>
-	<string name="cached_bookmarks_placeholder_title">Download nieuwe plaatsen</string>
-	<string name="cached_bookmarks_placeholder_subtitle">Druk op de knop om duizenden interessante plaatsen en routes te downloaden, gecreëerd door Organic Maps-gebruikers. U hebt een internet-verbinding nodig.</string>
-	<string name="downloader_download_routers">Download bladwijzers</string>
-	<string name="bookmarks_groups_cached">Download lijsten</string>
-	<plurals name="bookmarks_objects">
-	  <item quantity="other">%s object</item>
-	</plurals>
 	<plurals name="objects">
 	  <item quantity="other">%d plaats</item>
 	</plurals>
@@ -1012,62 +624,32 @@
 	<string name="subtittle_opt_out">Tracking-instellingen</string>
 	<string name="crash_reports">Crash rapport</string>
 	<string name="crash_reports_description">Wij kunnen uw gegevens gebruiken om Organic Maps te verbeteren. Wijzigingen treden in werking na het opnieuw opstarten van de app.</string>
-	<string name="opt_out_help_ios_1">Uw mobiele apparaat kan voorzien zijn van een instelling voor „Gelimiteerde advertentie-tracking” of „afmelden voor op interesses gebaseerd adverteren”.</string>
-	<string name="opt_out_help_ios_2">iOS 9 of hoger</string>
-	<string name="opt_out_help_ios_3">Ga naar uw Instellingen → Privacy → Advertenties → Inschakelen van de „Gelimiteerde advertentie-tracking” - instelling</string>
-	<string name="opt_out_help_android">Uw mobiele apparaat kan voorzien zijn van een instelling voor „Gelimiteerde advertentie-tracking” of „Afmelden voor op interesses gebaseerd adverteren”. \n\nVoor Android en Google Play Services versie 4. 0 en hoger:\nInstellingen → Google → Advertenties → Afmelden voor personalisatie van advertenties \n of \nInstellingen → Google → Google-Account → Gegevens &amp; personalisatie → Advertentiepersonalisatie</string>
 	<string name="privacy_policy">Privacy beleid</string>
 	<string name="terms_of_use">Gebruiksvoorwaarden</string>
-	<string name="backup_notification_failed">Een back-up van uw bladwijzers werd opgeschort. Log in om weer op te starten.</string>
 	<string name="button_layer_traffic">Verkeer</string>
 	<string name="button_layer_subway">Metro</string>
 	<string name="layers_title">Map layers</string>
-	<string name="layers_message">Gebruik „Map layers” voor het weergeven van verkeer, metro, en andere nuttige informatie</string>
-	<string name="button_layer_got_it">Ik begrijp het</string>
 	<string name="subway_data_unavailable">Metrokaart is niet beschikbaar</string>
 	<string name="bookmarks_empty_list_title">Deze lijst is leeg</string>
 	<string name="bookmarks_empty_list_message">Om een bladwijzer toe te voegen, tikt u op een plaats op de kaart en vervolgens op het sterpictogram</string>
 	<string name="category_desc_more">…meer</string>
 	<string name="title_error_downloading_bookmarks">Er is een fout opgetreden</string>
-	<string name="subtitle_error_downloading_bookmarks">Bladwijzers werden niet gedownload</string>
-	<string name="error_already_downloaded">Deze lijst is al gedownload</string>
-	<string name="why_support">Waarom Organic Maps ondersteunen?</string>
-	<string name="why_support_item2">U helpt ons Organic Maps te verbeteren</string>
-	<string name="why_support_item3">U helpt ons de kaarten van OpenStreetMap.org te verbeteren</string>
-	<string name="channels_map_update">Kaartupdates</string>
-	<string name="server_unavailable_title">Server niet beschikbaar</string>
-	<string name="sharing_options">Opties voor delen</string>
 	<string name="export_file">Bestand exporteren</string>
 	<string name="list_settings">Lijst Instellingen</string>
 	<string name="delete_list">Lijst verwijderen</string>
-	<string name="hide_from_map">Van de kaart verbergen</string>
 	<string name="public_access">Publiek toegang</string>
 	<string name="limited_access">Beperkte toegang</string>
 	<string name="bookmark_category_name">Categorie</string>
 	<string name="bookmark_category_description_hint">Maak een beschrijving aan (tekst of html)</string>
 	<string name="not_shared">Privé</string>
-	<string name="direct_link_progress_text">Uw bestand aan het uploaden…</string>
-	<string name="direct_link_success">De link is aangemaakt</string>
-	<string name="send_a_link_btn">Stuur mij een link</string>
-	<string name="upload_error_toast">Er is een fout opgetreden tijdens het uploaden van uw bestand</string>
 	<string name="tags_loading_error_subtitle">Er is een fout opgetreden tijdens het laden van tags, probeer het opnieuw</string>
-	<string name="unable_upload_errorr_title">Bestand uploaden mislukt</string>
-	<string name="unable_upload_error_subtitle_edited">Dit bestand is bewerkt via de web app</string>
-	<string name="unable_upload_error_subtitle_broken">Dit bestand is beschadigd en kon niet worden geüpload. Gelieve een ander bestand te uploaden.</string>
-	<string name="contact">Contact</string>
-	<string name="download_button">Downloaden</string>
 	<string name="speedcams_alert_title">Snelheidscamera\'s</string>
-	<string name="speedcams_alert_subtitle">Waarschuw voor snelheidsbeperkingen</string>
 	<string name="speedcam_option_auto">Auto</string>
 	<string name="speedcam_option_always">Altijd</string>
 	<string name="speedcam_option_never">Nooit</string>
-	<string name="bookmark_description_title">Bladwijzer Beschrijving</string>
 	<string name="place_description_title">Plaats Beschrijving</string>
 	<!-- this text will be shown in application notification preferences opposite checkbox which enable/disable downloader notifications. Devices on Android 8+ are affected. -->
 	<string name="notification_channel_downloader">Kaart downloader</string>
-	<string name="share_bookmarks_email_body_link">Hello!\n\nHier is de link waar u uw bladwijzers kunt downloaden: %s. Open de lijst via Organic Maps en geniet van uw reis!\n\nHaal de applicatie op: https://omaps.app/get?kmz</string>
-	<string name="warning_speedcams_title">Navigator waarschuwt u over camera\'s wanneer u de maximumsnelheid van %d km/h overschrijdt</string>
-	<string name="warning_speedcams_subtitle">Let op de rijvoorschriften van het land waar u naartoe reist.</string>
 	<string name="speedcams_notice_message">Auto - Waarschuw voor speedcams als er een risico bestaat dat de snelheidslimiet wordt overschreden\nAltijd - Waarschuw altijd voor flitspalen\nNooit - Waarschuw nooit over flitspalen</string>
 	<string name="power_managment_title">Energiebesparende modus</string>
 	<string name="power_managment_description">Als de energiebesparende modus is ingeschakeld, schakelt de app de energieverbruikende functies uit afhankelijk van de huidige lading van de mobiele telefoon</string>
@@ -1075,14 +657,7 @@
 	<string name="power_managment_setting_auto">Auto</string>
 	<string name="power_managment_setting_manual_max">Maximale energiebesparing</string>
 	<string name="enable_logging_warning_message">Deze optie is ingeschakeld voor logboekregistraties voor diagnostische doeleinden. Het helpt bij het identificeren van problemen met de applicatie. Schakel de optie alleen in op verzoek van Organic Maps-ondersteuning.</string>
-	<string name="html_error_upload_message_try_again">Controleer de netwerktoegang en probeer het opnieuw</string>
-	<string name="html_error_upload_title_try_again">Geen internetverbinding</string>
-	<string name="notification_leave_review_v2_android_short_title">Laat een feedback achter en help reizigers!</string>
-	<string name="notifications_illegal_alert_disable_button">Meldingen uitschakelen</string>
 	<string name="access_rules_author_only">Wordt online bewerkt</string>
-	<string name="privacy_settings_menu">Privacy instellingen</string>
-	<string name="unable_upadate_error_title">Kan de route niet bijwerken</string>
-	<string name="unable_upadate_error_message">Er zijn fouten opgetreden tijdens het updaten. Controleer de wijzigingen en probeer het opnieuw</string>
 	<string name="driving_options_title">Omweginstellingen</string>
 	<string name="driving_options_subheader">Vermijden op elke route</string>
 	<string name="avoid_tolls">Tolwegen</string>
@@ -1093,52 +668,14 @@
 	<string name="unable_to_calc_alert_subtitle">Helaas konden we geen route opbouwen met de gekozen opties. Wijzig de instellingen en probeer het opnieuw</string>
 	<string name="define_to_avoid_btn">Omwegen configureren</string>
 	<string name="change_driving_options_btn">Omweginstellingen ingeschakeld</string>
-	<string name="toll_road">Tolweg</string>
-	<string name="unpaved_road">Aardeweg</string>
-	<string name="ferry_crossing">Ferry</string>
-	<string name="operated_by">Gecontroleerd door \"%s\"</string>
 	<string name="avoid_toll_roads_placepage">Tolwegen vermijden</string>
 	<string name="avoid_unpaved_roads_placepage">Aardewegen vermijden</string>
 	<string name="avoid_ferry_crossing_placepage">Ferries vermijden</string>
-	<string name="type.cuisine.uzbek">Oezbeekse keuken</string>
-	<string name="trip_start">Kom op</string>
-	<string name="pick_destination">Doel</string>
-	<string name="follow_my_position">Centreren</string>
-	<string name="search_results">Zoekresultaten</string>
-	<string name="then_turn">Dan</string>
-	<string name="redirect_route_alert">Wilt u de route wijzigen?</string>
-	<string name="redirect_route_yes">Ja</string>
-	<string name="redirect_route_no">Nee</string>
-	<string name="trip_finished">U bent aangekomen!</string>
-	<string name="keyboard_availability_alert">Toetsenbord is niet beschikbaar tijdens het rijden</string>
-	<string name="dialog_routing_change_start_carplay">Kan route vanaf huidige positie niet opbouwen</string>
-	<string name="dialog_routing_change_end_carplay">Kan route naar het eindpunt niet opbouwen. Kies een andere punt</string>
-	<string name="dialog_routing_check_gps_carplay">Geen GPS-signaal. Ga naar het open veld</string>
-	<string name="dialog_routing_unable_locate_route_carplay">Kan route niet bouwen. Selecteer andere tussenpunten</string>
-	<string name="dialog_routing_download_files_carplay">Om een route te bouwen, download u ontbrekende kaarten</string>
-	<string name="dialog_routing_system_error_carplay">Lets fout gegaan. Start de app opnieuw</string>
-	<string name="dialog_routing_rebuild_from_current_location_carplay">De route wordt opnieuw opgebouwd vanaf uw huidige positie</string>
-	<string name="dialog_routing_rebuild_for_vehicle_carplay">De route wordt gewijzigd in de autoroute</string>
 	<string name="ok">Goed</string>
-	<string name="avoid_unpaved_carplay_1">Geen aardew.</string>
-	<string name="avoid_unpaved_carplay_2">Geen aardewegen</string>
-	<string name="avoid_ferry_carplay_1">Geen ferry\'s</string>
-	<string name="avoid_ferry_carplay_2">Geen ferry\'s</string>
-	<string name="avoid_tolls_carplay_1">Zonder tol</string>
-	<string name="avoid_tolls_carplay_2">Zonder tol</string>
-	<string name="speedcams_alert_title_carplay_1">Cameras</string>
-	<string name="speedcams_alert_title_carplay_2">Over cameras</string>
-	<string name="download_map_carplay">Download kaarten in de Organic Maps app op uw apparaat</string>
-	<string name="carplay_roundabout_exit">Afrit nr. %s</string>
 	<!-- max. 10 symbols, both iOS and Android -->
 	<string name="sort">Sorteer…</string>
 	<!-- Android, title, max 20-22 symbols -->
 	<string name="sort_bookmarks">Bladwijzers sorteren</string>
-	<!-- iOS -->
-	<string name="sort_default">Standaard sorteren</string>
-	<string name="sort_type">Sorteren op type</string>
-	<string name="sort_distance">Sorteer op afstand</string>
-	<string name="sort_date">Sorteer op datum</string>
 	<!-- Android -->
 	<string name="by_default">Standaard</string>
 	<!-- Android -->
@@ -1147,65 +684,23 @@
 	<string name="by_distance">Op afstand</string>
 	<!-- Android -->
 	<string name="by_date">Op datum</string>
-	<string name="week_ago_sorttype">Een week geleden</string>
-	<string name="month_ago_sorttype">Een maand geleden</string>
-	<string name="moremonth_ago_sorttype">Meer dan een maand geleden</string>
-	<string name="moreyear_ago_sorttype">Meer dan een jaar geleden</string>
-	<string name="near_me_sorttype">Naast mij</string>
-	<string name="others_sorttype">Andere</string>
-	<string name="food_places">Eten</string>
-	<string name="tourist_places">Bezienswaardigheden</string>
-	<string name="museums">Musea</string>
-	<string name="parks">Parken</string>
-	<string name="swim_places">Zwemmen</string>
-	<string name="mountains">Bergen</string>
-	<string name="animals">Dieren</string>
-	<string name="hotels">Hotels</string>
-	<string name="buildings">Gebouwen</string>
-	<string name="money">Geld</string>
-	<string name="shops">Winkels</string>
-	<string name="parkings">Parkeerplaatsen</string>
-	<string name="fuel_places">Benzinestations</string>
-	<string name="water">Water</string>
-	<string name="medicine">Geneeskunde</string>
 	<string name="search_in_the_list">In de lijst zoeken</string>
-	<string name="view_on_map_bookmarks">Op de kaart</string>
-	<string name="more_bookmarks">Meer…</string>
-	<string name="no_items_found">Niets gevonden</string>
-	<!-- Android, max 18 symbols -->
-	<string name="bookmarks_edit_list">Bewerken</string>
-	<!-- Android, max 18 symbols -->
-	<string name="bookmarks_delete_list">Lijst verwijderen</string>
-	<string name="religious_places">Religieuze plaatsen</string>
 	<string name="select_list">Lijst kiezen</string>
 	<string name="transit_not_found">Metro-navigatie is nog niet beschikbaar in deze regio</string>
 	<string name="dialog_pedestrian_route_is_long_header">Metroroute niet gevonden</string>
 	<string name="dialog_pedestrian_route_is_long_message">Kies een begin- of eindpunt dichter bij het metrostation</string>
-	<!-- Failed planning SUBWAY route message in navigation view -->
-	<string name="routing_planning_error_subway_special">Routeplanner per metro is mislukt</string>
 	<string name="button_layer_isolines">Hoogtes</string>
-	<string name="tips_map_layers_title_countour">Hoogtelijnen offline in Organic Maps!</string>
-	<string name="tips_map_layers_message_countour">Dankzij de hoogtelijnen kunt u probleemloos natuurreizen plannen en er zeker van zijn dat u niet verdwalen zult</string>
 	<string name="isolines_activation_error_dialog">Als u gebruik wilt maken van hoogtelijnen, moet u een kaart van het gewenste gebied bijwerken of downloaden</string>
 	<string name="isolines_location_error_dialog">De hoogtelijnen zijn nog niet beschikbaar in deze regio</string>
 	<string name="elevation_profile_diff_level">Moeilijkheidsgraad</string>
-	<string name="elevation_profile_diff_level_easy">Gemakkelijk</string>
-	<string name="elevation_profile_diff_level_moderate">Middelmatig</string>
-	<string name="elevation_profile_diff_level_hard">Moeilijk</string>
 	<string name="elevation_profile_ascent">Opstijging</string>
 	<string name="elevation_profile_descent">Afdaling</string>
 	<string name="elevation_profile_minaltitude">Min. hoogte</string>
 	<string name="elevation_profile_maxaltitude">Max. hoogte</string>
-	<string name="elevation_profile_m">m</string>
 	<string name="elevation_profile_difficulty">Moeilijkheid</string>
 	<string name="elevation_profile_distance">Afst.:</string>
-	<string name="elevation_profile_km">km</string>
 	<string name="elevation_profile_time">Op weg</string>
-	<string name="elevation_profile_hours">uur</string>
-	<string name="elevation_profile_minutes">min</string>
 	<string name="isolines_toast_zooms_1_10">Zoom in om isolijnen te bekijken</string>
-	<string name="downloader_updating_ios">Updaten</string>
-	<string name="downloader_loading_ios">Downloaden</string>
 	<string name="key_information_title">Belangrijke informatie</string>
 	<string name="enable_screen_sleep">Laat het scherm slapen</string>
 	<!-- Description in preferences -->
