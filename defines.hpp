@@ -65,8 +65,6 @@
 #define RESUME_FILE_EXTENSION ".resume"
 #define DOWNLOADING_FILE_EXTENSION ".downloading"
 #define BOOKMARKS_FILE_EXTENSION ".kml"
-#define ROUTING_FILE_EXTENSION ".routing"
-#define NOROUTING_FILE_EXTENSION ".norouting"
 #define TRANSIT_FILE_EXTENSION ".transit.json"
 
 #define GEOM_INDEX_TMP_EXT ".geomidx.tmp"
