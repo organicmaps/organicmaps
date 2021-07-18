@@ -598,7 +598,6 @@ MAIN_WITH_ERROR_HANDLING([](int argc, char ** argv)
 
     auto file = OfstreamWithExceptions(genInfo.GetIntermediateFileName(FLAGS_output, STATS_EXTENSION));
     stats::FileContainerStatistic(file, dataFile);
-    stats::FileContainerStatistic(file, dataFile + ROUTING_FILE_EXTENSION);
 
     stats::MapInfo info;
     stats::CalcStatistic(dataFile, info);

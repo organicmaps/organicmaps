@@ -44,7 +44,6 @@ bool IsResource(string const & file, string const & ext)
             strings::StartsWith(file, WORLD_FILE_NAME));
   }
   else if (ext == BOOKMARKS_FILE_EXTENSION ||
-           ext == ROUTING_FILE_EXTENSION ||
            file == SETTINGS_FILE_NAME)
   {
     return false;
