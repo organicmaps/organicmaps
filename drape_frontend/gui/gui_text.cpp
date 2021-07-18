@@ -123,7 +123,7 @@ void StaticLabel::CacheStaticText(std::string const & text, char const * delim,
   dp::TextureManager::TMultilineText textParts;
   strings::Tokenize(text, delim, [&textParts](std::string const & part)
   {
-    textParts.push_back(bidi::log2vis(strings::MakeUniString(part)));
+    textParts.push_back(bidi::log2vis(part));
   });
 
   ASSERT(!textParts.empty(), ());
@@ -383,7 +383,7 @@ void MutableLabel::SetText(LabelResult & result, std::string text) const
   if (text.size() > m_maxLength)
     text = text.erase(static_cast<size_t>(m_maxLength - 3)) + "...";
 
-  strings::UniString uniText = bidi::log2vis(strings::MakeUniString(text));
+  strings::UniString uniText = bidi::log2vis(text);
 
   float maxHeight = 0.0f;
   float length = 0.0f;

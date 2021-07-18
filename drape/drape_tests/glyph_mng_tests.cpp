@@ -99,28 +99,8 @@ UNIT_TEST(GlyphLoadingTest)
 
   renderer.SetString("گُلها");
   RunTestLoop("Test3", std::bind(&GlyphRenderer::RenderGlyphs, &renderer, _1));
+
+  renderer.SetString("മനക്കലപ്പടി");
+  RunTestLoop("Test4", std::bind(&GlyphRenderer::RenderGlyphs, &renderer, _1));
 #endif
-}
-
-UNIT_TEST(Log2Vis)
-{
-  {
-    auto const s = strings::MakeUniString("گُلهاالحلّة");
-    for (auto const ucp : s)
-      std::cout << std::hex << ucp << ", ";
-
-    std::cout << std::endl;
-    for (auto const ucp : bidi::log2vis(s))
-      std::cout << std::hex << ucp << ", ";
-
-    std::cout << std::endl;
-  }
-
-  {
-    // https://www.w3.org/TR/alreq/#h_ligatures
-    strings::UniChar arr[] = { 0x644, 0x627 };
-    strings::UniString s(arr, arr + ARRAY_SIZE(arr));
-
-    TEST_EQUAL(bidi::log2vis(s).size(), 1, ());
-  }
 }
