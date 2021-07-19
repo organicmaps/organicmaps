@@ -601,6 +601,7 @@
 	<string name="bookmarks_error_title_list_name_already_taken">이 이름은 이미 사용 중입니다.</string>
 	<string name="bookmarks_error_message_list_name_already_taken">다른 이름을 선택하십시오.</string>
 	<string name="please_wait">잠시만 기다려주십시오…</string>
+	<string name="phone_number">전화 번호</string>
 	<string name="profile">OpenStreetMap 프로필</string>
 	<string name="place_page_search_similar_hotel">비슷한 호텔 검색</string>
 	<string name="bookmarks_detect_title">새 파일이 감지되었습니다.</string>

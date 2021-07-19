@@ -603,6 +603,7 @@
 	<string name="bookmarks_error_title_list_name_already_taken">هذا الاسم أخذ سابقا</string>
 	<string name="bookmarks_error_message_list_name_already_taken">يرجى اختيار اسم آخر</string>
 	<string name="please_wait">أرجو الإنتظار…</string>
+	<string name="phone_number">رقم الهاتف</string>
 	<string name="profile">الملف الشخصي OpenStreetMap</string>
 	<string name="place_page_search_similar_hotel">ابحث عن فنادق مماثلة</string>
 	<string name="bookmarks_detect_title">تم اكتشاف ملفات جديدة</string>

@@ -601,6 +601,7 @@
 	<string name="bookmarks_error_title_list_name_already_taken">Toto jméno již bylo provedeno</string>
 	<string name="bookmarks_error_message_list_name_already_taken">Zvolte jiný název</string>
 	<string name="please_wait">Prosím, čekejte…</string>
+	<string name="phone_number">Telefonní číslo</string>
 	<string name="profile">Profil OpenStreetMap</string>
 	<string name="place_page_search_similar_hotel">Hledat podobné hotely</string>
 	<string name="bookmarks_detect_title">Byly zjištěny nové soubory</string>
