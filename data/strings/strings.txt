@@ -165,7 +165,7 @@
     sv = Ladda ner kartor
     th = ดาวน์โหลดแผนที่
     tr = Haritaları İndir
-    uk = Завантажити карти
+    uk = Завантажити мапи
     vi = Tải xuống Bản đồ
     zh-Hans = 下载地图
     zh-Hant = 下載地圖
@@ -341,7 +341,7 @@
     sv = Kartor
     th = แผนที่
     tr = Haritalar
-    uk = Карти
+    uk = Мапи
     vi = Bản đồ
     zh-Hans = 地图
     zh-Hant = 地圖
@@ -439,7 +439,7 @@
     sv = Min position
     th = ตำแหน่งของฉัน
     tr = Konumum
-    uk = Моє місце розташування
+    uk = Моє місцезнаходження
     vi = Vị trí của Tôi
     zh-Hans = 我的位置
     zh-Hant = 我的位置
@@ -542,7 +542,7 @@
     sv = Sök karta
     th = ค้นหาแผนที่
     tr = Haritada Ara
-    uk = Пошук на картi
+    uk = Пошук на мапі
     vi = Tìm kiếm Bản đồ
     zh-Hans = 搜索地图
     zh-Hant = 搜尋地圖
@@ -1055,7 +1055,7 @@
     sv = Innan du startar, låt oss ladda ner den generella världskartan på din enhet.\nDen behöver %@ data.
     th = ก่อนที่คุณจะเริ่มต้น โปรดให้เราดาวน์โหลดแผนที่โลกลงในอุปกรณ์ของคุณ\nจำเป็นต้องใช้ %@ ของข้อมูล
     tr = Başlamadan önce cihazınıza genel dünya haritasını indirelim.\nVerilerin %@’si gerekli.
-    uk = Перш ніж розпочати дозвольте нам завантажити карту світу на ваш пристрій.\nВона потребує %@ даних.
+    uk = Перш ніж розпочати дозвольте нам завантажити мапу світу на ваш пристрій.\nВона потребує %@ даних.
     vi = Trước khi bạn bắt đầu, hãy để chúng tôi tải bản đồ thế giới vào thiết bị của bạn.\nBản đồ này cần %@ dữ liệu.
     zh-Hans = 在您开始前请让我们下载通用世界地 图至您的设备中。\n它需要%@的 数据。
     zh-Hant = 在您開始之前，先讓我們下載世界地圖到您的裝置中以便瀏覽。\n這需要資料的 %@。
@@ -1089,7 +1089,7 @@
     sv = Gå till karta
     th = ไปยังแผนที่
     tr = Haritaya Git
-    uk = Перейти на карту
+    uk = Перейти на мапу
     vi = Đến Bản đồ
     zh-Hans = 前往地图
     zh-Hant = 跳到地圖
@@ -1645,7 +1645,7 @@
     sv = Spara kartor i
     th = บันทึกแผนที่ไปยัง
     tr = Haritaları depolama
-    uk = Зберігати карти до
+    uk = Зберігати мапи до
     vi = Lưu bản đồ vào
     zh-Hans = 将地图保存到
     zh-Hant = 將地圖儲存至
@@ -1680,7 +1680,7 @@
     sv = Välj en plats dit kartor ska laddas ner
     th = เลือกสถานที่ที่ต้องการดาวน์โหลดใช้แผนที่
     tr = Haritaların indirileceği yeri seçin
-    uk = Виберіть місце, куди повинні бути завантажені карти
+    uk = Виберіть місце, куди повинні бути завантажені мапи
     vi = Chọn vị trí nơi bản đồ sẽ được tải về
     zh-Hans = 选取地图应该下载的位置
     zh-Hant = 請選擇下載地圖後要放的位置
@@ -1715,7 +1715,7 @@
     sv = Flytta kartor?
     th = ลบแผนที่?
     tr = Haritaları taşı?
-    uk = Перемістити карти?
+    uk = Перемістити мапи?
     vi = Di chuyển bản đồ?
     zh-Hans = 移动地图?
     zh-Hant = 移動地圖？
@@ -2453,7 +2453,7 @@
     sv = Polis
     th = ตำรวจ
     tr = Polis
-    uk = Міліція
+    uk = Поліція
     vi = Cảnh sát
     zh-Hans = 警察
     zh-Hant = 警察局
@@ -2597,7 +2597,7 @@
     sv = Bokmärkena lästes in! Du kan hitta dem på kartan eller i Bokmärkeshanteraren.
     th = โหลดบุ๊กมาร์กสำเร็จแล้ว! คุณสามารถหาพวกมันได้บนแผนที่หรือบนหน้าจอโปรแกรมจัดการบุ๊กมาร์ก
     tr = Yer İmleri başarılı bir şekilde yüklendi! Bunları Haritada veya Yer İmleri Yöneticisi ekranında bulabilirsiniz.
-    uk = Мiтки успішно завантаженi! Ви можете знайти їх на карті або у ваших збережених мітках.
+    uk = Мiтки успішно завантаженi! Ви можете знайти їх на мапі або у ваших збережених мітках.
     vi = Đã tải điểm đánh dấu thành công! Bạn có thể tìm chúng trên bản đồ hoặc màn hình Trình quản lý Điểm đánh dấu.
     zh-Hans = 书签加载成功!您可以在地图或书签管理窗 口中找到它们。
     zh-Hant = 書籤上傳成功！ 您可以在地圖上或是書籤管理畫面中找到書籤。
@@ -2735,7 +2735,7 @@
     sv = Ledsen, Kartlagring är inaktiverat i inställningar
     th = ขออภัย ไม่มีการเปิดใช้งานการตั้งค่าพื้นที่จัดเก็บแผนที่ในปัจจุบัน
     tr = Üzgünüz, Harita Depolama ayarları şu anda devre dışı.
-    uk = Вибачте, налаштування папки з картами зараз недоступні.
+    uk = Вибачте, налаштування папки з мапами зараз недоступні.
     vi = Rất tiếc, cài đặt Lưu trữ Bản đồ hiện đã bị tắt.
     zh-Hans = 抱歉,地图存储设置目前被禁用
     zh-Hant = 很抱歉，地圖儲存設定目前已停用。
@@ -2839,7 +2839,7 @@
     sv = Hej, kolla på min pin på Organic Maps kartan
     th = เฮ้ ตรวจสอบหมุดของฉันที่ แผนที่ Organic Maps!
     tr = Hey, Organic Maps haritasında pinimi incele!
-    uk = Поглянь на мою мiтку на карті Organic Maps
+    uk = Поглянь на мою мiтку на мапі Organic Maps
     vi = Này, hãy xem ghim của tôi tại Organic Maps map
     zh-Hans = 嘿,在 Organic Maps 上查看我标注的图钉吧!
     zh-Hant = 嘿，看看我在 Organic Maps 地圖上的圖釘！
@@ -2873,7 +2873,7 @@
     sv = Hej, kolla på min nuvarande position på Organic Maps kartan!
     th = นี่ มาดูตำแหน่งปัจจุบันของฉันที่แผนที่ Organic Maps สิ!
     tr = Hey, Organic Maps’de geçerli konumumu incele!
-    uk = Поглянь на моє поточне місцезнаходження на карті Organic Maps
+    uk = Поглянь на моє поточне місцезнаходження на мапі Organic Maps
     vi = Này, hãy xem vị trí hiện tại của tôi tại Organic Maps map!
     zh-Hans = 嗨，到 Organic Maps 查看我的当前位置！
     zh-Hant = 嗨，到 Organic Maps 地圖查看我的目前位置！
@@ -2907,7 +2907,7 @@
     sv = Hej,\n\nJag är här nu: %1$@. Klicka på denna länk %2$@ eller denna %3$@ för att se platsen på kartan.\n\nTack.
     th = หวัดดี\n\nฉันอยู่ที่นี่ตอนนี้: %1$@. คลิกลิงก์นี้ %2$@ หรือลิงก์นี้ %3$@ เพื่อดูสถานที่บนแผนที่\n\nขอบคุณ
     tr = Merhaba,\n\nŞu anda bulunduğum yer: %1$@. Yeri haritada görmek için bu bağlantıya %2$@ veya şuna %3$@ tıkla.\n\nTeşekkürler.
-    uk = Привіт,\n\nЯ зараз тут: %1$@. Натисни на це посилання %2$@ або на це посилання %3$@ щоб побачити місце на карті.\n\nДякую.
+    uk = Привіт,\n\nЯ зараз тут: %1$@. Натисни на це посилання %2$@ або на це посилання %3$@ щоб побачити місце на мапі.\n\nДякую.
     vi = Chào,\n\nTôi hiện đang ở đây: %1$@. Hãy nhấn vào liên kết này %2$@ hoặc liên kết này %3$@ để xem địa điểm trên bản đồ.\n\nCám ơn.
     zh-Hans = 嗨,\n\n我现在在这:%1$@。点击此链 接%2$@或此链接 %3$@来查看在地图上的 位置。\n\n谢谢。
     zh-Hant = 嗨，\n\n我現在在這：%1$@。點擊此連結 %2$@ 或此連結 %3$@ 來查看在地圖上的位置。\n\n謝謝。
@@ -3045,7 +3045,7 @@
     sv = Info
     th = ข้อมูล
     tr = Bilgi
-    uk = Досьє
+    uk = Інфо
     vi = Thông tin
     zh-Hans = 信息
     zh-Hant = 簡介
@@ -4022,7 +4022,7 @@
     sv = Detta gör att du kan spara en resväg för en viss tidsperiod och visa den på kartan. Obs: aktivering av den här funktionen ökar batterianvändningen. Spåret tas bort automatiskt från kartan när tidsintervallet slutar gälla.
     th = ช่วยให้คุณบันทึกเส้นทางที่คุณเดินทางในช่วงระยะเวลาหนึ่งแล้วดูบนแผนที่ได้ โปรดทราบว่า: การเปิดใช้งานฟังก์ชั่นนี้จะทำให้การใช้งานแบตเตอรี่เพิ่มมากขึ้น การติดตามจะถูกเอาออกไปโดยอัตโนมัติจากแผนที่หลังจากผ่านช่วงเวลาที่กำหนด
     tr = Bu özellik, belirli bir süre içinde katedilen yolu kaydetmenizi ve harita üzerinde izlemenizi sağlar. Lütfen unutmayın: bu işlevin etkinleştirilmesi pil tüketiminin artmasına neden olur. Takip, zaman aralığının sona ermesinin ardından otomatik olarak haritadan kaldırılacaktır.
-    uk = Ця функція дозволяє прокласти подоланий маршрут протягом певного проміжку часу та переглянути його на карті. Звертаємо вашу увагу, що вмикання цієї функції пришвидшить розрядження акумулятора. Щойно сплине заданий проміжок часу, прокладений маршрут буде видалено з карти.
+    uk = Ця функція дозволяє прокласти подоланий маршрут протягом певного проміжку часу та переглянути його на мапі. Звертаємо вашу увагу, що вмикання цієї функції пришвидшить розрядження акумулятора. Щойно сплине заданий проміжок часу, прокладений маршрут буде видалено з мапи.
     vi = Chức năng này cho phép bạn ghi lại đường đi trong một khoảng thời gian nhất định và xem nó trên bản đồ. Xin lưu ý: việc kích hoạt chức năng này sẽ tăng mức sử dụng pin. Đường đi sẽ tự động bị xóa khỏi bản đồ sau khi kết thúc khoảng thời gian nói trên.
     zh-Hans = 它允许您记录一定时间段内的旅行路径，并在地图上查看。请注意：激活此功能会导致电量消耗加快。过期后，轨迹将从地图中自动移除。
     zh-Hant = 它可讓您記錄特定期間所行經的路徑，並在地圖上看到該路徑。請注意：啟用此項功能會增加電池使用量。在時間間隔過期後，會從地圖中自動移除行進路線。
@@ -4056,7 +4056,7 @@
     sv = Visa på kartan
     th = ดูบนแผนที่
     tr = Haritada görüntüle
-    uk = Подивитись на карті
+    uk = Подивитись на мапі
     vi = Xem trên bản đồ
     zh-Hans = 在地图上查看
     zh-Hant = 在地圖上查看
@@ -4637,7 +4637,7 @@
     sv = Kartor
     th = แผนที่
     tr = Haritalar
-    uk = Карти
+    uk = Мапи
     vi = Bản đồ
     zh-Hans = 地图
     zh-Hant = 地圖
@@ -4807,7 +4807,7 @@
     sv = Avsluta navigering för att radera kartan.
     th = เพื่อลบแผนที่ โปรดหยุดใช้การนำทาง
     tr = Haritayı silmek için lütfen navigasyonu durdurun.
-    uk = Щоб видалити карту, будь ласка, зупините навiгацiю.
+    uk = Щоб видалити мапу, будь ласка, зупините навiгацiю.
     vi = Để xóa bản đồ, vui lòng dừng điều hướng.
     zh-Hans = 要删除地图，请停止导航。
     zh-Hant = 如欲刪除地圖，請停止導航。
@@ -4876,7 +4876,7 @@
     sv = Ladda ner kartan
     th = ดาวน์โหลดแผนที่
     tr = Haritayı indir
-    uk = Завантажити карту
+    uk = Завантажити мапу
     vi = Tải về bản đồ
     zh-Hans = 下载地图
     zh-Hant = 下載地圖
@@ -5184,7 +5184,7 @@
     sv = Ladda ned kartor längs vägen
     th = ดาวน์โหลดแผนที่ตามเส้นทาง
     tr = Rota üzerindeki haritaları indir
-    uk = Завантажити карти з дороги
+    uk = Завантажити мапи з дороги
     vi = Tải xuống bản đồ theo tuyến đường
     zh-Hans = 下载沿线地图
     zh-Hant = 下載沿線地圖
@@ -5218,7 +5218,7 @@
     sv = Att kunna skapa en navigeringsväg kräver att alla kartorna från din plats till din destination är nerladdade och uppdaterade.
     th = การสร้างเส้นทางจำเป็นต้องใช้แผนที่จากสถานที่ตั้งของคุณไปยังปลายทางที่มีการดาวน์โหลดและอัปเดต
     tr = Konumunuzdan bir rota oluşturmak bölgenizdeki tüm haritaların indirilmesini ve güncellenmesini gerektirir.
-    uk = Для створення маршруту необхідно щоб всі карти, починаючи від вашого місцезнаходження і до пункту призначення, були завантажені та оновлені.
+    uk = Для створення маршруту необхідно щоб всі мапи, починаючи від вашого місцезнаходження і до пункту призначення, були завантажені та оновлені.
     vi = Tạo một tuyến đường đòi hỏi tất cả các bản đồ từ vị trí của bạn đến điểm đến phải được tải xuống và cập nhật.
     zh-Hans = 创建路线需要下载并更新好所有从您的位置到目的地的地图。
     zh-Hant = 建立路線需要下載並更新好所有從您的位置到目的地的地圖。
@@ -5837,7 +5837,7 @@
     sv = — Kartan kan vara felaktig och den föreslagna vägen inte alltid är det optimala sättet att ta sig till destinationen;
     th = — แผนที่อาจมีความคลาดเคลื่อนและเส้นทางที่แนะนำอาจไม่ใช่เส้นทางที่เหมาะสมที่สุดเสมอไปสำหรับการไปยังที่หมาย;
     tr = — Harita doğru olmayabilir, önerilen güzergah da hedefinize ulaşmak için en uygun yol olmayabilir;
-    uk = — Карта може бути неточною, а запропонований маршрут не завжди оптимальний;
+    uk = — Мапа може бути неточною, а запропонований маршрут не завжди оптимальний;
     vi = — Bản đồ có thể không chính xác và tuyến đường được đề xuất có thể không luôn là cách tối ưu nhất để đi đến đích;
     zh-Hans = — 地图可能不准确，建议的路线可能并非总是去往目的地的最佳路径；
     zh-Hant = — 地圖可能不準確，建議的路線不盡然是最佳選擇；
@@ -6176,7 +6176,7 @@
     sv = Ladda ned och uppdatera all kart- och väginformation längs den beräknade vägbanan för att beräkna vägen.
     th = ดาวน์โหลดและอัปเดตแผนที่กับข้อมูลเส้นทางทั้งหมดตามเส้นทางที่คาดหมายเพื่อคำนวณเส้นทาง
     tr = Planlanan yoldaki tüm harita ve güzergah bilgilerini indirip güncelleyerek güzergahı hesaplayın.
-    uk = Для побудови маршруту завантажте і обновіть всі карти і файли маршрутів на шляху руху.
+    uk = Для побудови маршруту завантажте і обновіть всі мапи і файли маршрутів на шляху руху.
     vi = Tải về và cập nhật tất cả các bản đồ và các thông tin tuyến đường dọc theo lộ trình dự kiến để tính toán tuyến đường.
     zh-Hans = 下载和更新所有地图和预定路径沿途的路线信息，以计算路线。
     zh-Hant = 若要產生路線，請下載並更新所有地圖及沿路線的路線檔案。
@@ -6717,7 +6717,7 @@
     sv = Vill du ladda ned kartan och skapa en optimalare väg som sträcker sig över fler än en karta?
     th = คุณต้องการดาวน์โหลดแผนที่และสร้างเส้นทางที่เหมาะสมกว่าซึ่งข้ามเกินหนึ่งแผนที่หรือไม่?
     tr = Haritayı indirerek birden fazla haritaya uzanan daha uygun bir güzergah oluşturmak ister misiniz?
-    uk = Завантажити карту і побудувати більш оптимальний маршрут з перетином межі карти?
+    uk = Завантажити мапу і побудувати більш оптимальний маршрут з перетином межі мапи?
     vi = Bạn có muốn tải về bản đồ và tạo một tuyến đường tối ưu hơn kéo dài trên nhiều hơn một bản đồ?
     zh-Hans = 您是否要下载地图并创建一条跨越多张地图的更佳路线？
     zh-Hant = 您是否要下載地圖，產生跨越邊界的更好路線？
@@ -6751,7 +6751,7 @@
     sv = Ladda ned kartan för att skapa en optimalare väg som sträcker sig utanför den här kartan.
     th = ดาวน์โหลดแผนที่เพื่อสร้างเส้นทางที่เหมาะสมกว่าซึ่งข้ามเลยขอบของแผนที่นี้
     tr = Bu haritanın bir kısmından geçen daha uygun bir güzergah oluşturmak için haritayı indirin.
-    uk = Для побудови більш оптимального маршруту з перетином межі потрібно завантажити карту.
+    uk = Для побудови більш оптимального маршруту з перетином межі потрібно завантажити мапу.
     vi = Tải về bản đồ để tạo tuyến đường tối ưu hơn mà đi qua cạnh của bản đồ này.
     zh-Hans = 下载地图，创建一条跨越此地图边缘的更佳路线。
     zh-Hant = 若要產生跨越邊界的更理想路線，您需要下載地圖。
@@ -6787,7 +6787,7 @@
     sv = För att börja söka och skapa rutter, ladda ner kartan, och du behöver inte Internet-anslutning längre.
     th = เพื่อเริ่มต้นการค้นหาและสร้างเส้นทาง โปรดดาวน์โหลดแผนที่ และคุณจะไม่จำเป็นต้องทำการเชื่อมต่ออินเทอร์เน็ตอีกต่อไป
     tr = Rotaları aramak ve oluşturmaya başlamak için lütfen haritayı indirin ve artık internet bağlantısına ihtiyacınız yok.
-    uk = Щоб розпочати пошук та створення маршрутів, будь ласка, завантажте карту і вам більше ніколи не знадобиться інтернет-з’єднання.
+    uk = Щоб розпочати пошук та створення маршрутів, будь ласка, завантажте мапу і вам більше ніколи не знадобиться інтернет-з’єднання.
     vi = Để bắt đầu tìm kiếm và tạo đường đi, vui lòng tải về bản đồ, và bạn sẽ không cần đến kết nối Internet nữa.
     zh-Hans = 要开始搜索和创建路线，请下载地图，那您就不再需要网络连接了。
     zh-Hant = 要開始搜索和建立路線，請下載地圖，那您就不再需要網絡連接了。
@@ -6821,7 +6821,7 @@
     sv = Välj kartan
     th = เลือกแผนที่
     tr = Haritayi Seçin
-    uk = Вибрати карту
+    uk = Вибрати мапу
     vi = Chọn bản đồ
     zh-Hans = 选择地图
     zh-Hant = 選擇地圖
@@ -9684,7 +9684,7 @@
     sv = Hitta kartan
     th = ค้นหาแผนที่
     tr = Harita bul
-    uk = Знайти карту
+    uk = Знайти мапу
     vi = Tìm bản đồ
     zh-Hans = 找到地图
     zh-Hant = 找到地圖
@@ -10278,7 +10278,7 @@
     sv = Lägg till nya platser till kartan och redigera de befintliga direkt från appen.
     th = เพิ่มสถานที่ใหม่ ๆ ไปยังแผนที่ และแก้ไขสถานที่ที่มีอยู่เดิมจากแอปโดยตรง
     tr = Doğrudan uygulamadan haritaya yeni yerler ekle ve mevcut yerleri düzenleyin.
-    uk = Додати нові місця до карти і редагувати існуючі місця прямо з програми.
+    uk = Додати нові місця до мапи і редагувати існуючі місця прямо з програми.
     vi = Nhập các địa điểm mới vào bản đồ, và trực tiếp chỉnh sửa những địa điểm hiện có trên ứng dụng.
     zh-Hans = 添加新地点到该地图，并直接通过此应用编辑已存在的地点。
     zh-Hant = 新增新地點到該地圖，並直接通過此應用程式編輯已存在的地點。
@@ -10909,7 +10909,7 @@
     sv = Användare
     th = เจ้าของ
     tr = İşletmeci
-    uk = Володар
+    uk = Власник
     vi = Đơn vị điều hành
     zh-Hans = 运营者
     zh-Hant = 營運者
@@ -11860,7 +11860,7 @@
     sv = Återställ alla lokala ändringar?
     th = ตั้งค่าการเปลี่ยนแปลงท้องถิ่นทั้งหมด
     tr = Tüm yerel değişiklikler sıfırlansın mı?
-    uk = Скинути усі локальні виправлення?
+    uk = Скинути всі локальні виправлення?
     vi = Cài đặt lại tất cả thay đổi cục bộ?
     zh-Hans = 重置所有本地更改？
     zh-Hant = 重設所有本機變更？
@@ -12122,7 +12122,7 @@
     sv = Ange en giltig e-postadress
     th = กรอกอีเมลที่ถูกต้อง
     tr = Geçerli bir e-posta girin
-    uk = Введіть вірниу адресу електронної пошти
+    uk = Введіть вірну адресу електронної пошти
     vi = Nhập email hợp lệ
     zh-Hans = 输入有效电子邮箱
     zh-Hant = 輸入有效電子郵箱
@@ -12155,7 +12155,7 @@
     sv = Uppdatera
     th = อัปเดต
     tr = Güncelleştirme
-    uk = Обновити
+    uk = Оновити
     vi = Cập nhật
     zh-Hans = 更新
     zh-Hant = 更新
@@ -12187,7 +12187,7 @@
     sv = Lägg till en plats på kartan
     th = เพิ่มสถานที่ไปยังแผนที่
     tr = Haritaya bir yer ekleyin
-    uk = Додати на карту
+    uk = Додати на мапу
     vi = Thêm địa điểm vào bản đồ
     zh-Hans = 添加地点到地图上
     zh-Hant = 添加地點到地圖上
@@ -12870,7 +12870,7 @@
     sv = Mobil internet krävs för att visa detaljerad information om platser, som t. ex. fotografier, priser och omdömen.
     th = จำเป็นต้องใช้อินเทอร์เน็ตมือถือในการแสดงข้อมูลโดยรายละเอียดเกี่ยวกับสถานที่ เช่น รูปถ่าย ราคา และรีวิว
     tr = Mobil internet, fotoğraflar, fiyatlar ve yorumlar gibi mekanlarla ilgili ayrıntılı bilgileri görüntülemek için gereklidir.
-    uk = Використання мобільних даних необхідно для відображення докладної інформації про місця (наприклад, фотографій, цін і відгуків).
+    uk = Використання мобільних даних необхідно для відображення докладної інформації про місця (наприклад, фотографій, цін та відгуків).
     vi = Internet di động là cần thiết để hiển thị thông tin chi tiết về các nơi, ví dụ như ảnh chụp, giá cả và đánh giá.
     zh-Hans = 要显示地点的详细信息（例如照片、价格和评价），需要使用移动网络。
     zh-Hant = 需有手機網路才能顯示相片、價格與評論等詳細資訊和地點。
@@ -12966,7 +12966,7 @@
     sv = Kartor måste uppdateras för att visa trafikdata.
     th = ต้องอัปเดตแผนที่เพื่อแสดงข้อมูลการจราจร
     tr = Trafik verilerini görüntülemek için haritaların güncellenmesi gerekiyor.
-    uk = Для відображення інформації про трафік необхідно оновити карти.
+    uk = Для відображення інформації про трафік необхідно оновити мапи.
     vi = Để hiển thị dữ liệu giao thông, cần cập nhật bản đồ.
     zh-Hans = 要显示交通数据，必须更新地图。
     zh-Hant = 若要顯示交通資料，必須更新地圖。
@@ -12998,7 +12998,7 @@
     sv = Öka teckenstorlek på kartan
     th = เพิ่มขนาดฟอนต์บนแผนที่
     tr = Harita üzerindeki yazı tipi boyutunu artır
-    uk = Збільшити розмір шрифту на карті
+    uk = Збільшити розмір шрифту на мапі
     vi = Tăng kích cỡ phông chữ trên bản đồ
     zh-Hans = 增大地图上的字体大小
     zh-Hant = 增加地圖上的字體大小
@@ -13128,7 +13128,7 @@
     sv = Aktivera loggning
     th = เปิดใช้งานการเก็บล็อก
     tr = Günlüğü etkinleştir
-    uk = Підтримка журналювання
+    uk = Включити логіювання
     vi = Bật nhật ký
     zh-Hans = 启用记录
     zh-Hant = 啟用記錄
@@ -13763,7 +13763,7 @@
     sv = Hoppsan, ett fel har inträffat. Försök att logga in igen.
     th = โอ๊ะ มีข้อผิดพลาดเกิดขึ้น ลองลงชื่อเข้าใช้อีกครั้ง
     tr = Üzgünüz, bir hata oluştu. Tekrar oturum açmayı deneyin.
-    uk = Ой, трапилася помилка. Спробуйте ввійти знову.
+    uk = Ой, трапилася помилка. Спробуйте увійти знову.
     vi = Rất tiếc, đã có lỗi xảy ra. Hãy thử đăng nhập lại.
     zh-Hans = 糟糕，出错了。请尝试重新登录。
     zh-Hant = 噢，發生錯誤。請嘗試再次登入。
@@ -15351,7 +15351,7 @@
     sv = Kartlager
     th = ชั้นแผนที่
     tr = Harita katmanları
-    uk = Зображення карти
+    uk = Зображення мапи
     vi = Các lớp bản đồ
     zh-Hans = 地图图层
     zh-Hant = 地圖圖層
@@ -15386,7 +15386,7 @@
     sv = Kartor över tunnelbana är otillgänglig
     th = แผนที่รถไฟใต้ดินไม่พร้อมใช้งาน
     tr = Metro haritası mevcut değil
-    uk = Карта метрополітену недоступна
+    uk = Мапа метрополітену недоступна
     vi = Bản đồ tàu điện ngầm không khả dụng
     zh-Hans = 地铁地图不可用
     zh-Hant = 地鐵圖不可用
@@ -16936,7 +16936,7 @@
     sv = Som standard
     th = ตามค่าเริ่มต้น
     tr = Varsayılana göre
-    uk = За промовчанням
+    uk = Усталено
     vi = Theo mặc định
     zh-Hans = 默认情况下
     zh-Hant = 默認情況下
@@ -17639,7 +17639,7 @@
     sv = Förstora kartan för att se isolinjer
     th = ขยายเข้าเพื่อสำรวจเส้นชั้นความสูง
     tr = Konturları görmek için haritayı büyütün
-    uk = Збільште карту, щоб побачити ізолінії
+    uk = Збільште мапу, щоб побачити ізолінії
     vi = Phóng bản đồ để nhìn rõ đường đồng mức
     zh-Hans = 放大地图以查看等高线
     zh-Hant = 放大地圖以查看等高線
@@ -17724,7 +17724,7 @@
     sv = Låt skärmen sova
     th = อนุญาตให้หน้าจอเข้าสู่โหมดสลีป
     tr = Ekranın uyumasına izin ver
-    uk = Allow screen to sleep
+    uk = Дозволити екрану вимкнутись
     vi = Cho phép màn hình ở chế độ ngủ
     zh-Hans = 允许屏幕进入休眠状态
     zh-Hant = 允许屏幕进入休眠状态
@@ -17759,7 +17759,7 @@
     sv = När den är aktiverad får skärmen sova efter en period av inaktivitet.
     th = เมื่อเปิดใช้งานหน้าจอจะได้รับอนุญาตให้เข้าสู่โหมดสลีปหลังจากไม่มีการใช้งานเป็นระยะเวลาหนึ่ง
     tr = Etkinleştirildiğinde ekranın bir süre hareketsiz kaldıktan sonra uykuya geçmesine izin verilir.
-    uk = When enabled the screen will be allowed to sleep after a period of inactivity.
+    uk = При включенні екран може переходити в сплячий режим після певного періоду бездіяльності
     vi = Khi được bật, màn hình sẽ được phép ở chế độ ngủ sau một thời gian không hoạt động.
     zh-Hans = 启用后，屏幕将在一段时间不活动后进入休眠状态。
     zh-Hant = 启用后，屏幕将在一段时间不活动后进入休眠状态。
@@ -17794,7 +17794,7 @@
     sv = Uppdatera dina nedladdade kartor
     th = อัปเดตแผนที่ที่คุณดาวน์โหลดมา
     tr = İndirdiğiniz haritaları güncelleyin
-    uk = Оновити завантажені карти
+    uk = Оновити завантажені мапи
     vi = Cập nhật các bản đồ đã tải về của bạn
     zh-Hans = 更新已下载的地图
     zh-Hant = 更新您下載的地圖
@@ -17835,7 +17835,7 @@
     sv = Uppdatering av kartor håller information om objekt uppdaterade
     th = การอัปเดตแผนที่จะคงข้อมูลเกี่ยวกับจุดหมายต่าง ๆ ให้ล่าสุดอยู่เสมอ
     tr = Haritaları güncellemek, nesnelerle ilgili bilgilerin güncel kalmasını sağlar
-    uk = Оновлення карт дозволяє підтримувати інформацію про об'єкти в актуальному стані
+    uk = Оновлення мап дозволяє підтримувати інформацію про об'єкти в актуальному стані
     vi = Cập nhật bản đồ để cập nhật thông tin về các đối tượng trên đó
     zh-Hans = 更新地图可以让对象的信息保持最新状态
     zh-Hant = 更新地圖以讓物件資訊保持在最新狀態
