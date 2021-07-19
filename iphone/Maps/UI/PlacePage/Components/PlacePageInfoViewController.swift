@@ -136,6 +136,7 @@ class PlacePageInfoViewController: UIViewController {
 
     if let address = placePageInfoData.address {
       addressView = createInfoItem(address, icon: UIImage(named: "ic_placepage_adress"))
+      addressView?.canShowMenu = true
     }
 
     if let formattedCoordinates = placePageInfoData.formattedCoordinates,
