@@ -1,6 +1,4 @@
-#!/usr/bin/env python2.7
-
-from __future__ import print_function
+#!/usr/bin/env python3
 
 import logging
 import re
@@ -21,11 +19,12 @@ run this script with the -h option.
 
 OMIM_ROOT = ""
 
-MACRO_RE =  re.compile('L\(.*?@\"(.*?)\"\)')
-XML_RE = re.compile("value=\"(.*?)\"")
-ANDROID_JAVA_RE = re.compile("R\.string\.([\w_]*)")
-ANDROID_XML_RE = re.compile("@string/(.*?)\W")
-IOS_CANDIDATES_RE = re.compile("(.*?):[^L\(]@\"([a-z0-9_]*?)\"")
+MACRO_RE =  re.compile(r'L\(.*?@\"(.*?)\"\)')
+XML_RE = re.compile(r"value=\"(.*?)\"")
+ANDROID_JAVA_RE = re.compile(r"R\.string\.([\w_]*)")
+ANDROID_JAVA_PLURAL_RE = re.compile(r"R\.plurals\.([\w_]*)")
+ANDROID_XML_RE = re.compile(r"@string/(.*?)\W")
+IOS_CANDIDATES_RE = re.compile(r"(.*?):[^L\(]@\"([a-z0-9_]*?)\"")
 
 HARDCODED_CATEGORIES = None
 
@@ -45,7 +44,7 @@ def exec_shell(test, *flags):
 
     logging.info(" ".join(spell))
     out, _ = process.communicate()
-    return filter(None, out.splitlines())
+    return [line for line in out.decode().splitlines() if line]
 
 
 def grep_ios():
@@ -59,6 +58,8 @@ def grep_android():
     logging.info("Grepping android")
     grep = "grep -r -I 'R.string.' {0}/android/src".format(OMIM_ROOT)
     ret = android_grep_wrapper(grep, ANDROID_JAVA_RE)
+    grep = "grep -r -I 'R.plurals.' {0}/android/src".format(OMIM_ROOT)
+    ret.update(android_grep_wrapper(grep, ANDROID_JAVA_PLURAL_RE))
     grep = "grep -r -I '@string/' {0}/android/res".format(OMIM_ROOT)
     ret.update(android_grep_wrapper(grep, ANDROID_XML_RE))
     grep = "grep -r -I '@string/' {0}/android/AndroidManifest.xml".format(OMIM_ROOT)
@@ -91,21 +92,15 @@ def filter_ios_grep(strings):
 
 
 def process_ternary_operators(filtered):
-    return chain(*map(lambda s: s.split('" : @"'), filtered))
+    return chain(*(s.split('" : @"') for s in filtered))
 
 
 def strings_from_grepped(grepped, regexp):
-    return set(
-        chain(
-            *filter(
-                None, map(lambda s: regexp.findall(s), grepped)
-            )
-        )
-    )
+    return set(chain(*(regexp.findall(s) for s in grepped if s)))
 
 
 def parenthesize(strings):
-    return set(map(lambda s: "[{0}]".format(s), strings))
+    return set("[{}]".format(s) for s in strings)
 
 
 def write_filtered_strings_txt(filtered, filepath, languages=None):
@@ -269,7 +264,7 @@ def do_candidates(args):
     for source, candidate in grep_ios_candidates():
         all_candidates[candidate].append(source)
 
-    for candidate, sources in all_candidates.iteritems():
+    for candidate, sources in all_candidates.items():
         print(candidate, sources)
 
 
@@ -291,12 +286,10 @@ def find_omim():
 
 def read_hardcoded_categories(a_path):
     with open(a_path) as infile:
-        return filter(None, [s.strip() for s in infile])
+        return [s.strip() for s in infile if s]
 
 
 if __name__ == "__main__":
-    global OMIM_ROOT, HARDCODED_CATEGORIES
-
     logging.basicConfig(level=logging.DEBUG)
     args = get_args()
 

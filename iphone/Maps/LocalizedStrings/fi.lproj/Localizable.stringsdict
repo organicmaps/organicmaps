@@ -9,21 +9,6 @@
 
 <!-- ********** Strings for downloading map from search **********/ -->
 
-  <key>bookmarks_places</key>
-  <dict>
-    <key>NSStringLocalizedFormatKey</key>
-    <string>%#@value@</string>
-    <key>value</key>
-    <dict>
-      <key>NSStringFormatSpecTypeKey</key>
-      <string>NSStringPluralRuleType</string>
-      <key>NSStringFormatValueTypeKey</key>
-      <string>d</string>
-      <key>other</key>
-      <string>%d kirjanmerkkiä</string>
-    </dict>
-  </dict>
-
   <key>bookmarks_detect_message</key>
   <dict>
     <key>NSStringLocalizedFormatKey</key>
@@ -38,21 +23,6 @@
       <string>%d tiedosto löydettiin. Näet sen muunnoksen jälkeen.</string>
       <key>other</key>
       <string>%d tiedostoa on löytynyt. Näet heidät muuntamisen jälkeen.</string>
-    </dict>
-  </dict>
-
-  <key>bookmarks_objects</key>
-  <dict>
-    <key>NSStringLocalizedFormatKey</key>
-    <string>%#@value@</string>
-    <key>value</key>
-    <dict>
-      <key>NSStringFormatSpecTypeKey</key>
-      <string>NSStringPluralRuleType</string>
-      <key>NSStringFormatValueTypeKey</key>
-      <string>d</string>
-      <key>other</key>
-      <string>%s kohde</string>
     </dict>
   </dict>
 

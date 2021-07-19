@@ -18,9 +18,6 @@
 /* Button which deletes downloaded country */
 "delete" = "Verwijder";
 
-/* Button "do not interrupt download" if user touched actively downloading country */
-"do_nothing" = "Doorgaan";
-
 "download_maps" = "Gedownloade Kaarten";
 
 /* Settings/Downloader - info for country when download fails */
@@ -28,9 +25,6 @@
 
 /* Settings/Downloader - info for country which started downloading */
 "downloading" = "Downloaden…";
-
-/* Settings/Downloader - size string, only strings different from English should be translated */
-"kb" = "KB";
 
 /* Choose measurement on first launch alert - choose metric system button */
 "kilometres" = "Kilometers";
@@ -55,17 +49,11 @@
 /* Update maps later/Buy pro version later button text */
 "later" = "Later";
 
-/* Don't show some dialog any more */
-"never" = "Nooit";
-
 /* View and button titles for accessibility */
 "search" = "Zoeken";
 
 /* Search box placeholder text */
 "search_map" = "Zoek Kaart";
-
-/* Settings/Downloader - info for not downloaded country */
-"touch_to_download" = "Klik om te downloaden";
 
 /* Settings/Downloader - 3G download warning dialog confirm button */
 "use_cellular_data" = "Ja";
@@ -73,20 +61,11 @@
 /* Location services are disabled by user alert - message */
 "location_is_disabled_long_text" = "U heeft momenteel alle Locatie Services voor dit apparaat of deze app uitgeschakeld. Schakel ze in bij Instellingen";
 
-/* Location Services are not available on the device alert - message */
-"device_doesnot_support_location_services" = "Uw apparaat ondersteunt geen Locatie Services";
-
 /* View and button titles for accessibility */
 "zoom_to_country" = "Op de kaart tonen";
 
-/* Button text for the button at the center of the screen when the country is not downloaded */
-"country_status_download" = "Kaart downloaden\n(^ ^)";
-
 /* Button text for the button at the center of the screen when the country is not downloaded and the size should not be shown */
 "country_status_download_without_size" = "Kaart downloaden";
-
-/* Button text for the button at the center of the screen when the country is not downloaded */
-"country_status_download_without_routing" = "Download kaart\nzonder routeplanning (^ ^)";
 
 /* Message to display at the center of the screen when the country download has failed */
 "country_status_download_failed" = "Downloaden is niet gelukt";
@@ -96,19 +75,13 @@
 
 "about_menu_title" = "Over Organic Maps";
 
-"downloaded_touch_to_delete" = "Downloaded (%@), klik om te verwijderen";
-
 "connection_settings" = "Verbindingsinstellingen";
-
-"download_mb_or_kb" = "Download %@";
 
 "close" = "Sluiten";
 
 "unsupported_phone" = "Een hardware geaccellereerde OpenGL is nodig. Jammer genoeg wordt uw apparaat niet ondersteund.";
 
 "download" = "Download";
-
-"external_storage_is_not_available" = "SD kaart/USB opslag met gedownloade kaarten is niet beschikbaar";
 
 "disconnect_usb_cable" = "Verwijder de USB kabel of plaats een geheugen kaart om Organic Maps te gebruiken";
 
@@ -117,8 +90,6 @@
 "not_enough_memory" = "Not genoeg geheugen om app te starten";
 
 "download_resources" = "Voor u van start gaat downloaden we een wereldkaart naar uw apparaat.\nDe kaart neemt %@ in beslag.";
-
-"getting_position" = "Huidige locatie opvragen";
 
 "download_resources_continue" = "Ga naar de Kaart";
 
@@ -140,23 +111,14 @@
 /* Add New Bookmark Set dialog title */
 "add_new_set" = "Voeg nieuwe Groep toe";
 
-/* Place Page - Add To Bookmarks button */
-"add_to_bookmarks" = "Toevoegen aan Bladwijzers";
-
 /* Bookmark Color dialog title */
 "bookmark_color" = "Bladwijzer Kleur";
 
 /* Add Bookmark Set dialog - hint when set name is empty */
 "bookmark_set_name" = "Bladwijzer Groep Naam";
 
-/* Bookmark Sets dialog title */
-"bookmark_sets" = "Bladwijzer groepen";
-
 /* Bookmarks - dialog title */
 "bookmarks" = "Bladwijzers";
-
-/* Add bookmark dialog - bookmark color */
-"color" = "Kleur";
 
 /* Default bookmarks set name */
 "core_my_places" = "Mijn Plaatsen";
@@ -167,14 +129,8 @@
 /* Editor title above street and house number */
 "address" = "Adres";
 
-/* Place Page - Remove Pin button */
-"remove_pin" = "Verwijder speld";
-
 /* Add bookmark dialog - bookmark set, Bookmarks dialog - Bookmark set cell */
 "set" = "Groep";
-
-/* Text hint in Bookmarks dialog when no any bookmarks are added */
-"bookmarks_usage_hint" = "Je hebt nog geen bladwijzers.\nTik op een plek op de kaart om een bladwijzer toe te voegen.\nBladwijzers uit andere bronnen kunnen ook worden geïmporteerd en weergegeven in de Organic Maps app. Open KML/KMZ bestand met opgeslagen speldjes uit mail, Dropbox of weblink.";
 
 /* Settings button in system menu */
 "settings" = "Instellingen";
@@ -191,26 +147,11 @@
 /* Ask to wait user several minutes (some long process in modal dialog). */
 "wait_several_minutes" = "Dit kan enkele minuten duren.\nEven geduld…";
 
-/* Show bookmarks from this category on a map or not */
-"visible" = "Zichtbaar";
-
-/* Toast which is displayed when GPS has been deactivated */
-"gps_is_disabled_long_text" = "GPS is uitgeschakeld. Schakel ze in bij Instellingen.";
-
 /* Measurement units title in settings activity */
 "measurement_units" = "Afstandseenheid";
 
 /* Detailed description of Measurement Units settings button */
 "measurement_units_summary" = "Kies tussen mijlen en kilometers";
-
-/* Do search in all sources */
-"search_mode_all" = "Overal";
-
-/* Do search near my position only */
-"search_mode_nearme" = "Dichtbij mij";
-
-/* Do search in current viewport only */
-"search_mode_viewport" = "Op het scherm";
 
 /* Search category for cafes, bars, restaurants */
 "eat" = "Waar iets gaan eten";
@@ -266,14 +207,8 @@
 /* Search category */
 "police" = "Politie";
 
-/* String in search result list, when nothing found */
-"no_search_results_found" = "Geen resultaten gevonden";
-
 /* Notes field in Bookmarks view */
 "description" = "Notities";
-
-/* Button text */
-"share_by_email" = "Delen via email";
 
 /* Email Subject when sharing bookmarks category */
 "share_bookmarks_email_subject" = "Bladwijzers van Organic Maps met u gedeeld";
@@ -295,26 +230,11 @@
 /* Warning message when doing search around current position */
 "unknown_current_position" = "Je plaats werd nog niet vastgesteld";
 
-/* Warning message when location country isn't downloaded during search (see also download_location_map_proposal). */
-"download_location_country" = "Download land waar je nu bent (%@)";
-
-/* Warning message when viewport country isn't downloaded during search */
-"download_viewport_country_to_search" = "Download land waar je op wilt zoeken (%@)";
-
 /* Alert message that we can't run Map Storage settings due to some reasons. */
 "cant_change_this_setting" = "Sorry, instellingen voor kaartopslag uitgeschakeld.";
 
 /* Alert message that downloading is in progress. */
 "downloading_is_active" = "Het downloaden van het land is nu aan de gang.";
-
-/* Message that will be shown in alert view, when we ask user to leave review on App Store */
-"appStore_message" = "Ik hoop dat u veel plezier hebt met Organic Maps! Zo ja, geef de app dan een cijfer in de App Store of schrijf een recensie. Dit duurt minder dan een minuut, maar kan ons echt helpen. Bedankt voor uw steun!";
-
-/* No, thanks */
-"no_thanks" = "Nee, bedankt";
-
-/* Share one specific bookmark using SMS, %1$@ contains om:// and %2$@ https://omaps.app link. @NOTE non-ascii symbols in the link will result in max 70 characters SMS instead of 140. */
-"bookmark_share_sms" = "Bekijk mijn pin op de kaart. Open %1$@ of %2$@";
 
 /* Share my position using SMS, %1$@ contains om:// and %2$@ https://omaps.app link WITHOUT NAME. @NOTE non-ascii symbols in the link will result in max 70 characters SMS instead of 140. */
 "my_position_share_sms" = "Kijk waar ik nu ben. Open %1$@ of %2$@";
@@ -328,23 +248,11 @@
 /* Share my position using EMail, %1$@ is om:// and %2$@ is https://omaps.app link WITHOUT NAME */
 "my_position_share_email" = "Hoi,\n\nMomenteel ben ik hier: %1$@. Klik op deze %2$@ of deze %3$@ om de plaats op de kaart te zien.\n\nBedankt.";
 
-/* Android share by Message/SMS button text (including SMS) */
-"share_by_message" = "Delen via bericht";
-
 /* Share button text which opens menu with more buttons, like Message, EMail, Facebook etc. */
 "share" = "Delen";
 
-/* iOS share by Message button text (including SMS) */
-"message" = "Bericht";
-
 /* Share by email button text, also used in editor. */
 "email" = "Email";
-
-/* Copy Link */
-"copy_link" = "Kopieer koppeling";
-
-/* Text for the button that returns to caller application */
-"more_info" = "Toon meer info";
 
 /* Text for message when used successfully copied something */
 "copied_to_clipboard" = "Op het klembord gekopieerd: %1$@";
@@ -354,15 +262,6 @@
 
 /* Used for bookmark editing */
 "done" = "Gedaan";
-
-/* Summary for preferences in MWM */
-"yopme_pref_summary" = "Kies instellingen voor achtergrondscherm";
-
-/* Title for yopme preferences in MWM */
-"yopme_pref_title" = "Instellingen voor achtergrondscherm";
-
-/* Hint for upper-right icon p2b */
-"show_on_backscreen" = "Toon op achtergrondscherm";
 
 /* Prints version number in About dialog */
 "version" = "Versie: %@";
@@ -381,19 +280,11 @@
 
 "share_my_location" = "Deel mijn locatie";
 
-"menu_search" = "Zoek";
-
 /* Settings general group in settings screen */
 "prefs_group_general" = "General settings";
 
 /* Settings information group in settings screen */
 "prefs_group_information" = "Information";
-
-/* Settings screen: "Map" category title */
-"prefs_group_map" = "Kaart";
-
-/* Settings screen: "Miscellaneous" category title */
-"prefs_group_misc" = "Diversen";
 
 "prefs_group_route" = "Navigatie";
 
@@ -419,9 +310,6 @@
 /* Settings «Map» category: «3D buildings» title */
 "pref_map_3d_buildings_title" = "3D-gebouwen";
 
-/* Settings «Map» category: «3D buildings» summary */
-"pref_map_3d_buildings_subtitle" = "Beïnvloedt batterijduur";
-
 /* Settings «Route» category: «Tts enabled» title */
 "pref_tts_enable_title" = "Gesproken instructies";
 
@@ -433,8 +321,6 @@
 
 /* Title for "Other" section in TTS settings. */
 "pref_tts_other_section_title" = "Andere";
-
-"pref_tts_how_to_set_up_voice" = "Hoe stel je de stem in";
 
 /* Settings «Map» category: «Record track» title */
 "pref_track_record_title" = "Recente route";
@@ -455,56 +341,7 @@
 
 "recent_track_help_text" = "Dit laat u toe het afgelegde traject voor een bepaalde periode te registreren en te bekijken op de kaart. Merk op: activatie van deze functie veroorzaakt een hoger batterijverbruik. Het traject wordt automatisch van de kaart verwijderd nadat het tijdsinterval verloopt.";
 
-"pref_track_ios_caption" = "Recente route geeft uw gebruikte route weer.";
-
-"pref_track_ios_subcaption" = "Selecteer de tijdperiode voor het opslaan van route.";
-
-"placepage_distance" = "Afstand";
-
-"placepage_coordinates" = "Coördinaten";
-
-"placepage_unsorted" = "Ongeclassificeerd";
-
 "search_show_on_map" = "Op kaart bekijken";
-
-/* Used to warn user when fixing KitKat issue */
-"bookmark_move_fail" = "We moeten uw bladwijzers naar het interne geheugen verplaatsen, maar er is geen ruimte beschikbaar voor ze. Maak alstublieft geheugen vrij, anders zullen de bladwijzers niet beschikbaar zijn.";
-
-/* Used in More Apps menu */
-"free" = "Gratis";
-
-/* Used in More Apps menu */
-"buy" = "Koop";
-
-/* 1st search button-like result */
-"search_on_map" = "Op kaart zoeken";
-
-/* toast with an error */
-"no_route_found" = "Geen route gevonden";
-
-/* route title */
-"route" = "Route";
-
-/* category title */
-"routes" = "Routes";
-
-/* text of notification */
-"download_map_notification" = "Download de kaart van de plaats waar u bent";
-
-/* text of notification */
-"pro_version_is_free_today" = "Volledige versie van Organic Maps is nu gratis! Download nu en vertel het je vrienden.";
-
-/* Dialog for transferring maps from lite to pro. */
-"move_lite_maps_to_pro" = "We verplaatsen uw gedownloade kaarten van Organic Maps Lite naar Organic Maps. Dit kan enkele minuten duren.";
-
-/* Message to display when maps moved. */
-"move_lite_maps_to_pro_ok" = "Uw gedownloade kaarten werden met succes verplaatst naar Organic Maps.";
-
-/* Message to display when maps move failed. */
-"move_lite_maps_to_pro_failed" = "Verplaatsing van uw kaarten mislukt. Gelieve Organic Maps Lite te verwijderen en de kaarten opnieuw te downloaden.";
-
-/* Text in menu */
-"settings_and_more" = "Instellingen & meer";
 
 /* Text in menu */
 "website" = "Website";
@@ -527,14 +364,8 @@
 /* Text in menu */
 "openstreetmap" = "OpenStreetMap";
 
-/* Text in menu */
-"contact_us" = "Contact met ons opnemen";
-
 /* Settings: Send feedback button and dialog title */
 "feedback" = "Feedback";
-
-/* Text in menu */
-"subscribe_to_news" = "Aanmelden voor onze nieuwtjes";
 
 /* Text in menu */
 "rate_the_app" = "App beoordelen";
@@ -548,15 +379,6 @@
 /* Text in menu */
 "report_a_bug" = "Meld een fout";
 
-/* Email subject */
-"subscribe_me_subject" = "Ik meld mij aan voor de nieuwsbrief Organic Maps";
-
-/* Email body */
-"subscribe_me_body" = "Ik wil graag als eerste horen over het laatste nieuws updates en acties. Ik kan mijn abonnement te allen tijde annuleren.";
-
-/* About text */
-"about_text" = "Organic Maps biedt de snelste offline kaarten van alle steden en alle landen ter wereld. Reis vol vertrouwen: waar je ook bent,\n\nOrganic Maps zal je helpen om jezelf op de kaart terug te vinden en het dichstbijzijnde restaurant, hotel, bank, benzinestation etc. te vinden. Er is geen internetverbinding voor nodig.\n\nWe werken voortdurend aan nieuwe functies en we zouden graag van je willen horen hoe we Organic Maps volgens jou zouden kunnen verbeteren. Als je eventueel problemen hebt met de app, aarzel dan niet om contact met ons op te nemen op support@organicmaps.app. We reageren op elke aanvraag!\n\nVindt je Organic Maps leuk en wil je ons steunen? Dat kan op een aantal simpele en absoluut gratis manieren:\n- plaats een beoordeling op je App Market\n- like onze Facebook-pagina http://www.facebook.com/OrganicMaps\n- of vertel gewoon je ma, vrienden en collega’s over Organic Maps :) Dank je dat je ons steunt. Wij waarderen dit heel erg!\n\nP.S. We halen onze kaartgegevens van OpenStreetMap, een kaartproject dat lijkt op Wikipedia, waarbij gebruikers kaarten kunnen maken en aanpassen. Als je ziet dat er iets ontbreekt of een fout ontdekt in een kaart, dan kun je de kaart direct verbeteren op https://www.openstreetmap.org, en dan zullen je verbeteringen bij het uitbrengen van de volgende versie in Organic Maps verschijnen.";
-
 /* Alert text */
 "email_error_body" = "De emailcliënt is niet ingesteld. Gelieve de cliënt te configureren of op een andere manier contact met ons op te nemen op %@";
 
@@ -569,12 +391,6 @@
 /* Search category */
 "wifi" = "WiFi";
 
-/* Update map suggestion */
-"routing_map_outdated" = "Werk de kaart bij om een route te maken.";
-
-/* Update maps suggestion */
-"routing_update_maps" = "Met de nieuwe versie van Organic Maps kunt u routes maken vanaf uw huidige positie naar een punt van bestemming. Werk kaarten bij om deze functie te gebruiken.";
-
 /* Update all button text */
 "downloader_update_all_button" = "Update alles";
 
@@ -583,9 +399,6 @@
 
 /* Downloaded maps category */
 "downloader_downloaded_subtitle" = "Gedownload";
-
-/* Downloaded maps category */
-"downloader_available_maps" = "Beschikbaar";
 
 /* Country queued for download */
 "downloader_queued" = "In de wachtrij";
@@ -598,17 +411,6 @@
 
 "downloader_downloading" = "Aan het downloaden:";
 
-"downloader_search_results" = "Gevonden";
-
-/* Disclaimer message */
-"routing_disclaimer" = "Bij het creëren van routes in Organic Maps-app, dient u rekening te houden met het volgende:\n\n  - Voorgestelde routes kunnen uitsluitend als aanbevelingen beschouwd worden.\n - Wegconditie, verkeersregels en borden hebben een hogere prioriteit dan het navigatie-advies.\n - De kaart kan onjuist of verouderd zijn en de routes kunnen niet op de beste mogelijke manier gecreëerd zijn.\n\n  Wees veilig op wegen en zorg goed voor uzelf!";
-
-/* Outdated maps category */
-"downloader_outdated_maps" = "Verouderd";
-
-/* Up to date maps category */
-"downloader_uptodate_maps" = "Up-to-date";
-
 /* Status of outdated country in the list */
 "downloader_status_outdated" = "Bijwerken";
 
@@ -618,49 +420,14 @@
 /* Displayed in a dialog that appears when a user tries to delete a map while the app is in the follow route mode */
 "downloader_delete_map_while_routing_dialog" = "Stop de navigatie om de kaart te verwijderen.";
 
-/* Show when user try build route, but we don't know where he */
-"routing_failed_unknown_my_position" = "Huidige locatie is niet gedefinieerd. Gelieve de locatie te specificeren om de route te creëren.";
-
-/* Show if use has not routing file, or InconsistentMWMandRoute */
-"routing_failed_has_no_routing_file" = "Er zijn extra gegevens nodig om een ​​route te creëren. Beginnen met downloaden?";
-
-/* StartPointNotFound */
-"routing_failed_start_point_not_found" = "Kan de route niet berekenen. Geen wegen in de buurt van uw beginpunt.";
-
-/* EndPointNotFound */
-"routing_failed_dst_point_not_found" = "Kan de route niet berekenen. Geen wegen in de buurt van uw bestemming.";
-
 /* PointsInDifferentMWM */
 "routing_failed_cross_mwm_building" = "Slechts de routes die volledig opgenomen zijn in één kaart kunnen gecreëerd worden.";
-
-/* RouteNotFound */
-"routing_failed_route_not_found" = "Er is geen route gevonden tussen het geselecteerde beginpunt en de bestemming. Gelieve een andere beginpunt of een eindbestemming te kiezen.";
-
-/* InternalError */
-"routing_failed_internal_error" = "Er is een interne fout opgetreden. Probeer het kaart te verwijderen en opnieuw te downloaden. Indien het probleem blijft optreden, neem dan contact met ons op support@organicmaps.app.";
-
-/* Context menu item for downloader. */
-"downloader_download_map_and_routing" = "Download kaart + routering";
-
-/* Context menu item for downloader. */
-"downloader_download_routing" = "Download routering";
-
-/* Context menu item for downloader. */
-"downloader_delete_routing" = "Verwijder routering";
 
 /* Context menu item for downloader. */
 "downloader_download_map" = "Download de kaart";
 
-"downloader_download_map_no_routing" = "Download kaart zonder routeplanning";
-
-/* Button for routing. */
-"routing_go" = "Starten!";
-
 /* Item status in downloader. */
 "downloader_retry" = "Herhalen";
-
-/* Item in context menu. */
-"downloader_map_and_routing" = "Kaart + route";
 
 /* Item in context menu. */
 "downloader_delete_map" = "Kaart verwijderen";
@@ -668,29 +435,11 @@
 /* Item in context menu. */
 "downloader_update_map" = "Kaart bijwerken";
 
-/* Item in context menu. */
-"downloader_update_map_and_routing" = "Kaart bijwerken + route";
-
-/* Item in context menu. */
-"downloader_map_only" = "Alleen de kaart";
-
-/* Toolbar title */
-"toolbar_application_menu" = "Applicatiemenu";
-
 /* Preference text */
 "pref_use_google_play" = "Gebruik de diensten van Google Play om uw huidige locatie te bepalen";
 
 /* Text for rating dialog */
 "rating_just_rated" = "Ik heb je app zojuist gewaardeerd";
-
-/* Text for rating dialog */
-"rating_user_since" = "Ik ben een Organic Maps-gebruiker vanaf %@";
-
-/* Text for rating dialog */
-"rating_do_like_maps" = "Vind je Organic Maps leuk?";
-
-/* Text for rating dialog */
-"rating_tap_star" = "Druk op een ster om onze app te waarderen.";
 
 /* Text for rating dialog */
 "rating_thanks" = "Dank je!";
@@ -701,23 +450,8 @@
 /* Text for rating dialog */
 "rating_send_feedback" = "Feedback verzenden";
 
-/* Text for g+ dialog */
-"rating_google_plus" = "Klik op g+ om je vrienden te informeren over de app.";
-
 /* Text for routing error dialog */
 "routing_download_maps_along" = "Download kaarten op de route";
-
-/* Text for routing error dialog */
-"routing_download_map" = "Krijg kaart";
-
-/* Text for routing error dialog */
-"routing_download_map_and_routing" = "Download bijgewerkte kaart en routegegevens om alle functies van Organic Maps te krijgen.";
-
-/* Text for routing error dialog */
-"routing_get_routing_data" = "Krijg routegegevens";
-
-/* Text for routing error dialog */
-"routing_get_additional_data" = "Aanvullende gegevens die nodig zijn om routes te maken vanaf uw locatie.";
 
 /* Text for routing error dialog */
 "routing_requires_all_map" = "Voor het creëren van een route is het nodig dat alle kaarten van uw locatie naar uw bestemming gedownload en bijgewerkt zijn.";
@@ -725,50 +459,15 @@
 /* Text for routing error dialog */
 "routing_not_enough_space" = "Niet genoeg ruimte";
 
-/* Text for routing error dialog */
-"routing_download_more_than_avail" = "U dient %@ MB te downloaden, maar er is slechts %@ MB beschikbaar.";
-
-/* Text for routing error dialog */
-"routing_download_roaming" = "U gaat %@ MB downloaden met behulp van mobiele data (roaming). Dit kan leiden tot extra kosten, afhankelijk van het mobiele data-abonnement van uw aanbieder.";
-
 /* bookmark button text */
 "bookmark" = "markeren";
-
-/* map is not downloaded */
-"not_found_map" = "De kaart voor uw locatie is niet gedownload";
 
 /* location service disabled */
 "enable_location_services" = "Schakel Locatie Services in";
 
-/* download map */
-"download_map" = "Download de kaart voor uw locatie";
-
-/* download map on iPhone */
-"download_map_iphone" = "Download de kaart van uw huidige lokatie op uw iPhone";
-
-/* clear pin */
-"nearby" = "In de buurt";
-
-/* clear pin */
-"clear_pin" = "Speld wissen";
-
-/* location is undefined */
-"undefined_location" = "Huidige locatie is niet gedefinieerd.";
-
-/* download country of your location */
-"download_country" = "Download land waar je nu bent";
-
-/* download failed */
-"download_failed" = "download is afgebroken";
-
-/* get the map */
-"get_the_map" = "Krijg kaart";
-
 "save" = "Opslaan";
 
 "edit_description_hint" = "Uw omschrijvingen (tekst of html)";
-
-"new_group" = "nieuwe groep";
 
 "create" = "aanmaken";
 
@@ -795,30 +494,6 @@
 
 /* pink color */
 "pink" = "Roze";
-
-/* deep purple color */
-"deep_purple" = "Donker paars";
-
-/* light blue color */
-"light_blue" = "Lichtblauw";
-
-/* cyan color */
-"cyan" = "Blauwgroen";
-
-/* teal color */
-"teal" = "Smaragdgroen";
-
-/* lime color */
-"lime" = "Lime";
-
-/* deep orange color */
-"deep_orange" = "Donkeroranje";
-
-/* gray color */
-"gray" = "Grijs";
-
-/* blue gray color */
-"blue_gray" = "Grijsblauw";
 
 /* Wi-Fi available */
 "WiFi_available" = "Ja";
@@ -848,13 +523,9 @@
 
 "dialog_routing_location_unknown_turn_on" = "De huidige gps-coördinaten kunnen niet worden gevonden. Schakel locatiediensten in om de route te berekenen.";
 
-"dialog_routing_location_unknown" = "De huidige gps-coördinaten kunnen niet worden gevonden.";
-
 "dialog_routing_download_files" = "Download vereiste bestanden";
 
 "dialog_routing_download_and_update_all" = "Download de kaart en route-informatie voor het ingestelde traject en werk deze bij om de route te berekenen.";
-
-"dialog_routing_routes_size" = "Route-informatiebestanden";
 
 "dialog_routing_unable_locate_route" = "Route vinden mislukt";
 
@@ -884,21 +555,11 @@
 
 "dialog_routing_try_again" = "Probeer het opnieuw";
 
-"dialog_routing_send_error" = "Meld het probleem";
-
-"dialog_routing_if_get_cross_route" = "Wilt u een rechtstreeksere route samenstellen die meer dan één kaart beslaat?";
-
-"dialog_routing_cross_route_is_optimal" = "Er is een betere route beschikbaar die de grenzen van deze kaart overschrijdt.";
-
 "not_now" = "Niet nu";
-
-"dialog_routing_build_route" = "Samenstellen";
 
 "dialog_routing_download_and_build_cross_route" = "Wilt u de kaart downloaden en een betere route samenstellen die meer dan één kaart beslaat?";
 
 "dialog_routing_download_cross_route" = "Download de kaart om een betere route samen te stellen die de grenzen van deze kaart overschrijdt.";
-
-"dialog_routing_cross_route_always" = "Deze grens altijd overschrijden";
 
 
 /********** Strings for downloading map from search **********/
@@ -906,8 +567,6 @@
 "search_without_internet_advertisement" = "Om te beginnen met zoeken en om routebeschrijvingen te kunnen maken, moet u de kaart downloaden. U heeft vervolgens geen internetverbinding meer nodig.";
 
 "search_select_map" = "Selecteer de kaart";
-
-"search_select_other_map" = "Selecteer een andere kaart";
 
 /* «Show» context menu */
 "show" = "Tonen";
@@ -918,17 +577,11 @@
 /* «Rename» context menu */
 "rename" = "Naam wijzigen";
 
-/* Bottom sheet: expand button (should be short) */
-"bottom_sheet_more" = "Meer…";
-
 /* Failed planning route message in navigation view */
 "routing_planning_error" = "Routeberekening mislukt";
 
 /* Arrive routing message in navigation view */
 "routing_arrive" = "Aankomst: %s";
-
-/* Text for routing::RouterResultCode::FileTooOld dialog. */
-"dialog_routing_download_and_update_maps" = "Om een route te maken, download en update alle kaarten rondom de route.";
 
 "rate_alert_title" = "Vindt u de app leuk?";
 
@@ -944,19 +597,11 @@
 
 "history" = "Geschiedenis";
 
-"next_turn_then" = "Dan";
-
 "closed" = "Gesloten";
-
-"back_to" = "Terug naar %@";
 
 "search_not_found" = "Sorry, ik heb niets gevonden.";
 
 "search_not_found_query" = "Probeer een andere zoekopdracht.";
-
-"search_not_found_map" = "Download de kaart waarin u zoekt, alstublieft.";
-
-"search_not_found_location" = "Download de kaart van uw huidige locatie.";
 
 "search_history_title" = "Zoekgeschiedenis";
 
@@ -964,23 +609,12 @@
 
 "clear_search" = "Zoekgeschiedenis wissen";
 
-/* Title for settings to enable/disable showcase menu button */
-"showcase_settings_title" = "Aanbiedingen weergeven";
-
 /* Place Page link to Wikipedia article (if map object has it). */
 "read_in_wikipedia" = "Wikipedia";
 
-"p2p_route_planning" = "Routeberekening";
-
 "p2p_your_location" = "Uw locatie";
 
-"p2p_from" = "Vertrekpunt";
-
-"p2p_to" = "Bestemmingspunt";
-
 "p2p_start" = "Beginnen";
-
-"p2p_planning" = "Aan het plannen…";
 
 "p2p_from_here" = "Van";
 
@@ -1018,15 +652,9 @@
 
 "editor_correct_mistake" = "Fout corrigeren";
 
-"editor_correct_mistake_message" = "U hebt een bewerkingsfout gemaakt. Corrigeer deze of schakel over naar de eenvoudige modus.";
-
 "editor_add_select_location" = "Locatie";
 
 "editor_done_dialog_1" = "Je hebt de wereldkaart gewijzigd. Verberg dit niet! Vertel het je vrienden en bewerk het samen.";
-
-"editor_done_dialog_2" = "Dit is je tweede kaartverbetering. Nu sta je op de %de plaats in de lijst van de kaartbewerkers. Vertel je vrienden erover.";
-
-"editor_done_dialog_3" = "Je hebt de kaart verbeterd, vertel je vrienden erover en bewerk samen de kaart.";
 
 "share_with_friends" = "Deel met je vrienden";
 
@@ -1044,20 +672,7 @@
 
 "editor_report_problem_duplicate_place_title" = "Dubbele plaats";
 
-"first_launch_congrats_title" = "Organic Maps is klaar voor gebruik";
-
-"first_launch_congrats_text" = "Zoek en navigeer overal ter wereld offline, gratis.";
-
-"migrate_title" = "Belangrijk!";
-
-/* Android uses image instead of text. */
-"download_all" = "Alles downloaden";
-
-"delete_all" = "Alles verwijderen";
-
 "autodownload" = "Automatische download";
-
-"disable_autodownload" = "Automatisch downloaden uitschakelen";
 
 /* Place Page opening hours text */
 "closed_now" = "Nu gesloten";
@@ -1072,10 +687,6 @@
 "day_off" = "Vrije dag";
 
 "today" = "Vandaag";
-
-"sunrise_to_sunset" = "Van zonsopgang tot zonsondergang";
-
-"sunset_to_sunrise" = "Van zonsondergang tot zonsopgang";
 
 "add_opening_hours" = "Openingsuren toevoegen";
 
@@ -1095,45 +706,18 @@
 
 "forgot_password" = "Wachtwoord vergeten?";
 
-/* Forgot Password dialog title */
-"restore_password" = "Wachtwoord herstellen";
-
-"enter_email_address_to_reset_password" = "Voer het emailadres in dat u heeft gebruikt tijdens de registratie, dan sturen wij u de link om uw wachtwoord te vernieuwen.";
-
-"reset_password" = "Wachtwoord resetten";
-
-"username" = "Gebruikersnaam";
-
 "osm_account" = "OSM-account";
 
 "logout" = "Uitloggen";
 
-"login_and_edit_map_motivation_message" = "Log in en bewerk gegevens van de objecten op de kaart, dan zullen wij ze beschikbaar maken voor miljoenen andere gebruikers. Laten we samen de wereld beter maken.";
-
 /* Information text: "Last upload 11.01.2016" */
 "last_upload" = "Laatste upload";
 
-/* Motivates user to login/register, title above login buttons. */
-"you_have_edited_your_first_object" = "Je hebt je eerste object aangepast!";
-
 "thank_you" = "Dank je wel";
-
-"login_with_google" = "Aanmelden met Google";
-
-"login_with_openstreetmap" = "Aanmelden met www.openstreetmap.org";
 
 "edit_place" = "De locatie bewerken";
 
 "place_name" = "Locatienaam";
-
-/* title above languages list cells in the editor, below editable name text field. */
-"other_languages" = "Overige talen";
-
-/* small button to open list with names in different languages */
-"show_more" = "Laat meer zien";
-
-/* small button to close list with names in different languages */
-"show_less" = "Laat minder zien";
 
 "add_language" = "Een taal toevoegen";
 
@@ -1164,8 +748,6 @@
 
 "please_note" = "Opgelet";
 
-"common_no_wifi_dialog" = "Geen WiFi-verbinding. Wil je doorgaan via mobiele data?";
-
 "downloader_delete_map_dialog" = "Alle wijzigingen aan de kaart zullen samen met de kaart worden verwijderd.";
 
 "downloader_update_maps" = "Kaarten updaten";
@@ -1173,10 +755,6 @@
 "downloader_mwm_migration_dialog" = "Om een route te creëren, moet je alle kaarten updaten en dan de route opnieuw plannen.";
 
 "downloader_search_field_hint" = "Vind de kaart";
-
-"migration_update_all_button" = "Update alle kaarten";
-
-"migration_delete_all_download_current_button" = "Download de huidige kaart en verwijder de oude";
 
 "migration_download_error_dialog" = "Downloadfout";
 
@@ -1186,21 +764,9 @@
 
 "downloader_no_space_message" = "Verwijder overbodige gegevens";
 
-"editor_general_auth_error_dialog" = "Algemene inlogfout.";
-
 "editor_login_error_dialog" = "Inlogfout.";
 
-"editor_login_failed_dialog" = "Inloggen mislukt";
-
-"editor_username_error_dialog" = "Gebruikersnaam is ongeldig";
-
-"editor_place_edited_dialog" = "Je hebt een object bewerkt!";
-
-"editor_login_with_osm" = "Log in met OpenStreetMap";
-
 "editor_profile_changes" = "Gecontroleerde wijzigingen";
-
-"editor_profile_unsent_changes" = "Niet verzonden:";
 
 "editor_focus_map_on_location" = "Trek aan de kaart om de juiste locatie van het object te selecteren.";
 
@@ -1222,13 +788,9 @@
 
 "editor_report_problem_other_title" = "Een ander probleem";
 
-"placepage_report_problem_button" = "Meld een probleem";
-
 "placepage_add_business_button" = "Een organisatie toevoegen";
 
 "whatsnew_editor_message_1" = "Voeg nieuwe plaatsen toe aan de kaart en bewerk de bestaande rechtstreeks vanuit de app.";
-
-"whatsnew_editor_message_2" = "* Organic Maps gebruikt OpenStreetMap-communitiedata.";
 
 "dialog_incorrect_feature_position" = "Locatie wijzigen";
 
@@ -1236,16 +798,10 @@
 
 "login_to_make_edits_visible" = "Log in zodat andere gebruikers kunnen zien wat u hebt gewijzigd.";
 
-"no_migration_during_navigation" = "Updaten tijdens navigatie is niet toegestaan.";
-
 /* Error dialog no space */
 "migration_no_space_message" = "Om te kunnen downloaden, heb je meer ruimte nodig. Verwijder overbodige gegevens.";
 
 "editor_sharing_title" = "Ik heb de Organic Maps-kaarten verbeterd";
-
-"editor_comment_will_be_sent" = "We zullen uw opmerking doorsturen naar de kaartmakers.";
-
-"editor_unsupported_category_message" = "U hebt een plaats of categorie toegevoegd die we nog niet ondersteunen. Het zal enige tijd duren voordat deze op de kaart verschijnt.";
 
 /* Downloaded 10 **of** 20 <- it is that "of" */
 "downloader_of" = "%1$d van %2$d";
@@ -1278,23 +834,9 @@
 
 "editor_operator" = "Uitvoerder";
 
-"editor_tag_description" = "Voer het bedrijf, de organisatie of het individu in dat verantwoordelijk is voor de faciliteiten.";
-
-"editor_no_local_edits_title" = "U hebt geen lokale bewerkingen";
-
-"editor_no_local_edits_description" = "Dit toont het aantal voorgestelde wijzigingen voor de kaart die momenteel alleen toegankelijk zijn op uw apparaat.";
-
-"editor_send_to_osm" = "Naar OSM sturen";
-
-"editor_remove" = "Verwijderen";
-
-"downloader_my_maps_title" = "Mijn kaarten";
-
 "downloader_no_downloaded_maps_title" = "U hebt geen kaarten gedownload";
 
 "downloader_no_downloaded_maps_message" = "Download kaarten om de locatie te zoeken en offline te navigeren.";
-
-"downloader_find_place_hint" = "Stad of land zoeken";
 
 /* Error title that appears after certain time without location. */
 "current_location_unknown_title" = "Doorgaan met het detecteren van uw huidige locatie?";
@@ -1321,47 +863,13 @@
 /* iOS Dialog for the case when the location permission is not granted */
 "location_services_disabled_3" = "3. Selecteer Terwijl Je de App Gebruikt";
 
-"placepage_parking_surface" = "Boven de grond";
-
-"placepage_parking_multistorey" = "Meerlaags";
-
-"placepage_parking_underground" = "Onder de grond";
-
-"placepage_parking_rooftop" = "Dak";
-
-"placepage_parking_sheds" = "Afdak";
-
-"placepage_parking_carports" = "Carports";
-
-"placepage_parking_boxes" = "Garageboxen";
-
-"placepage_parking_pay" = "Betalen";
-
-"placepage_parking_free" = "Gratis";
-
-"placepage_parking_interval" = "Intervalbetaling";
-
-"placepage_entrance_number" = "Nr.";
-
-"placepage_entrance_type" = "Ingang";
-
-"placepage_flat" = "app.";
-
-"placepage_open_24_7" = "Dag en nacht";
-
 "meter" = "m";
 
 "kilometer" = "km";
 
-"kilometers_per_hour" = "km/h";
-
 "mile" = "mijl";
 
 "foot" = "voet";
-
-"miles_per_hour" = "mph";
-
-"day" = "d";
 
 "hour" = "u";
 
@@ -1381,10 +889,6 @@
 
 "placepage_bookmark_name_hint" = "Bladwijzernaam";
 
-"placepage_personal_notes_hint" = "Persoonlijke aantekeningen";
-
-"placepage_delete_bookmark_button" = "Bladwijzer verwijderen";
-
 "editor_edits_sent_message" = "Uw voorgestelde wijzigingen zijn verzonden";
 
 "editor_comment_hint" = "Reactie…";
@@ -1397,8 +901,6 @@
 
 "editor_remove_place_button" = "Verwijderen";
 
-"editor_status_sending" = "Verzenden…";
-
 "editor_place_doesnt_exist" = "Locatie bestaat niet";
 
 "text_more_button" = "…meer";
@@ -1410,11 +912,7 @@
 
 "error_enter_correct_email" = "Voer een geldig emailadres in";
 
-"error_enter_correct" = "Voer een geldige waarde in";
-
 "refresh" = "Updaten";
-
-"last_update" = "Laatste update: %s";
 
 "placepage_add_place_button" = "Een plek toevoegen aan de kaart";
 
@@ -1426,24 +924,6 @@
 
 "editor_share_to_all_dialog_message_2" = "We zullen de wijzigingen controleren. Als we nog vragen hebben, zullen we contact met je opnemen via email.";
 
-"navigation_overview_button" = "overzicht";
-
-"navigation_stop_button" = "stoppen";
-
-/* Text on an empty bookmark page */
-"bookmarks_empty_title" = "Bladwijzers opslaan";
-
-"bookmarks_empty_message_1" = "Tik op ★ om favoriete plaatsen op te slaan voor snelle toegang.";
-
-"bookmarks_empty_message_2" = "Importeer bladwijzers vanuit email en het internet.";
-
-"bookmarks_empty_message_3" = "uitchecken: %s";
-
-/* Name of the group for booked hotels */
-"bookmarks_group_name" = "Geboekte hotels";
-
-"place_page_button_read_descriprion" = "Lezen";
-
 /* iOS dialog for the case when recent track recording is on and the app comes back from background */
 "recent_track_background_dialog_title" = "Vastleggen van uw onlangs afgelegde route uitschakelen?";
 
@@ -1451,8 +931,6 @@
 
 /* For sharing via SMS and so on */
 "sharing_call_action_look" = "Bekijk";
-
-"continue_recent_track_background_button" = "Verdergaan";
 
 "recent_track_background_dialog_message" = "Organic Maps gebruikt uw geografische positie op de achtergrond om uw onlangs afgelegde route vast te leggen.";
 
@@ -1468,33 +946,13 @@
 /* About short text (below logo) */
 "about_description" = "Organic Maps is een essentiële offline applicatie om te reizen. Organic Maps is gebaseerd op OpenStreetMap gegevens en laat bewerking toe.";
 
-/* Text in menu */
-"blog" = "Blog";
-
 "general_settings" = "Algemene instellingen";
-
-"date" = "Datum %d";
-
-/* "Report a bug" -> "Generaal Feedback" -> "Something is not working" */
-"something_is_not_working" = "Er werkt iets niet";
 
 /* For the first routing */
 "accept" = "Aanvaarden";
 
-"accept_and_continue" = "Accept and continue";
-
 /* For the first routing */
 "decline" = "Weigeren";
-
-"install_app" = "Installeer";
-
-"search_no_results_title" = "Geen Resultaten Gevonden";
-
-"search_no_results_message" = "Probeer een meer algemene zoekterm, zoom uit of reset de filter.";
-
-"search_no_results_expand_area_button" = "Uitzoomen";
-
-"search_no_results_reset_button" = "Filter Resetten";
 
 /* noun */
 "search_in_table" = "Lijst";
@@ -1517,8 +975,6 @@
 
 "traffic_update_maps_text" = "Om verkeersgegevens weer te geven, moeten de kaarten bijgewerkt worden.";
 
-"traffic_outdated" = "Verkeersgegevens zijn verouderd.";
-
 "big_font" = "Lettergrootte op de kaart vergroten";
 
 "traffic_update_app" = "Gelieve Organic Maps bij te werken";
@@ -1529,17 +985,7 @@
 /* "traffic" as in "road congestion" */
 "traffic_data_unavailable" = "Verkeersgegevens zijn niet beschikbaar";
 
-/* "Translation is no needed, because it's a company name" */
-"uber" = "Uber";
-
-/* Simplified colour scheme for traffic information, fewer colours are used to display traffic jams on the map. The string should be kept as short as possible */
-"pref_traffic_simplified_colors_title" = "Eenvoudige verkeerskleuren";
-
 "enable_logging" = "Logboekregistratie inschakelen";
-
-"offline_place_page_more_information" = "Maak verbinding met het internet om meer informatie over de plaats te krijgen.";
-
-"failed_load_information" = "Informatie laden mislukt.";
 
 /* Settings: "Send general feedback" button */
 "feedback_general" = "Algemene Feedback";
@@ -1556,8 +1002,6 @@
 
 "whatsnew_transliteration_title" = "Transliteratie in het Latijn";
 
-"yandex_taxi_title" = "Yandex.Taxi";
-
 "learn_more" = "Meer informatie";
 
 "core_exit" = "Verlaten";
@@ -1568,75 +1012,19 @@
 
 "button_exit" = "Verlaten";
 
-"settings_device_memory" = "Apparaatgeheugen";
-
-"settings_card_memory" = "Kaartgeheugen";
-
-"settings_storage_available" = "%s beschikbaar";
-
-"toast_location_permission_denied" = "App toelating locatie geweigerd";
-
-"button_use" = "Gebruiken";
-
 "planning_route_manage_route" = "Route beheren";
 
 "button_plan" = "Plannen";
-
-"button_add" = "Toevoegen";
 
 "placepage_remove_stop" = "Verwijderen";
 
 "planning_route_remove_title" = "Sleep hier om te verwijderen";
 
-"dialog_change_start_point_message" = "Het beginpunt vervangen met de huidige locatie?";
-
-"button_replace" = "Vervangen";
-
 "placepage_add_stop" = "Tussenstop toevoegen";
-
-/* Only ru/en are needed */
-"subtitle_rent" = "Rent";
-
-/* Only ru/en are needed */
-"rub_month" = "RUB/month";
-
-/* Only ru/en are needed */
-"room" = "%s-room apt.";
-
-/* Only ru/en are needed */
-"real_estate" = "Real estate";
-
-"add_my_position" = "Voeg mijn positie toe";
-
-"choose_start_point" = "Kies een vertrekpunt";
-
-"choose_destination" = "Kies een bestemming";
 
 "preloader_viator_button" = "Meer leren";
 
-"start_from_my_position" = "Start vanaf";
-
-"profile_authorization_title" = "Aanmelden met";
-
-"profile_authorization_message" = "Eenvoudig aanmelden zonder gebruikersnaam en wachtwoord in enkele seconden";
-
 "profile_authorization_error" = "Oeps, er is een fout opgetreden. Probeer opnieuw aan te melden.";
-
-"service" = "Dienst";
-
-"atmosphere" = "Sfeer";
-
-"value_for_money" = "Waarde voor geld";
-
-"experience" = "Ervaring";
-
-"assortment" = "Assortiment";
-
-"expertise" = "Expertise";
-
-"equipment" = "Uitrusting";
-
-"quality" = "Kwaliteit";
 
 "dialog_error_storage_title" = "Probleem met opslagtoegang";
 
@@ -1644,17 +1032,7 @@
 
 "setting_emulate_bad_storage" = "Slechte opslag emuleren";
 
-"directions_finish" = "Bestemming";
-
-"directions_on_foot" = "Wandel %s";
-
 "core_entrance" = "Ingang";
-
-"coffee" = "Koffie";
-
-"cleanliness" = "Netheid";
-
-"crowdedness" = "Drukte";
 
 "error_enter_correct_name" = "Voer een juiste naam in";
 
@@ -1673,11 +1051,9 @@
 
 "downloader_percent" = "%s (%s van %s)";
 
-"downloader_process" = "%s downloaden...";
+"downloader_process" = "%s downloaden…";
 
-"downloader_applying" = "%s toepassen...";
-
-"dialog_message_transit_not_found_connection" = "Plan een route binnen één vervoersnetwerk";
+"downloader_applying" = "%s toepassen…";
 
 "bookmarks_error_message_share_general" = "Delen is onmogelijk wegens een toepassingsfout";
 
@@ -1695,17 +1071,7 @@
 
 "bookmarks_error_message_list_name_already_taken" = "Kies alstublieft een andere naam";
 
-"bookmarks_error_title_list_name_too_long" = "Deze naam is te lang";
-
-"bookmarks_error_message_list_name_too_long" = "Kies alstublieft een andere naam";
-
-"please_wait" = "Even geduld aub...";
-
-"phone_number" = "Telefoonnummer";
-
-"notification_unsent_reviews_title" = "U heeft verschillende niet-verzonden recensies";
-
-"notification_unsent_reviews_message" = "Meld u aan om recensies te delen met andere reizigers";
+"please_wait" = "Even geduld aub…";
 
 "profile" = "OpenStreetMap-profiel";
 
@@ -1719,49 +1085,13 @@
 
 "bookmarks_convert_error_message" = "Sommige bestanden waren niet geconverteerd.";
 
-"converting" = "Het omzetten van...";
-
-"wn_reinvented_bookmarks_title" = "We hebben bladwijzers opnieuw uitgevonden!";
-
-"wn_reinvented_bookmarks_message" = "U kunt een back-up maken van bladwijzers, lijsten maken... Het is verbazingwekkend...";
-
-"bookmarks_restore" = "Bladwijzers herstellen";
-
-"bookmarks_restore_process" = "Herstel van...";
-
 "bookmarks_restore_title" = "Deze versie herstellen?";
 
-"bookmarks_restore_message" = "Je bladwijzers worden hersteld vanaf %s (%s)";
-
-"bookmarks_restore_empty_title" = "U hebt geen back-up";
-
-"bookmarks_restore_empty_message" = "De server heeft eerder gemaakte back-ups niet gevonden";
-
 "common_check_internet_connection_dialog_title" = "Geen internet verbinding";
-
-"error_server_title" = "Serverfout";
-
-"error_server_message" = "Der var en fejl på serveren, prøv igen senere";
 
 "error_system_message" = "Er is een onbekende fout opgetreden";
 
 "restore" = "Herstellen";
-
-"bookmarks_page_downloaded" = "Gedownload";
-
-"bookmarks_page_my" = "Mijn";
-
-"routes_and_bookmarks" = "Routes en Bladwijzers";
-
-"bookmarks_webview_success_toast" = "Bladwijzers succesvol gedownload";
-
-"cached_bookmarks_placeholder_title" = "Download nieuwe plaatsen";
-
-"cached_bookmarks_placeholder_subtitle" = "Druk op de knop om duizenden interessante plaatsen en routes te downloaden, gecreëerd door Organic Maps-gebruikers. U hebt een internet-verbinding nodig.";
-
-"downloader_download_routers" = "Download bladwijzers";
-
-"bookmarks_groups_cached" = "Download lijsten";
 
 "subtittle_opt_out" = "Tracking-instellingen";
 
@@ -1769,29 +1099,15 @@
 
 "crash_reports_description" = "Wij kunnen uw gegevens gebruiken om Organic Maps te verbeteren. Wijzigingen treden in werking na het opnieuw opstarten van de app.";
 
-"opt_out_help_ios_1" = "Uw mobiele apparaat kan voorzien zijn van een instelling voor „Gelimiteerde advertentie-tracking” of „afmelden voor op interesses gebaseerd adverteren”.";
-
-"opt_out_help_ios_2" = "iOS 9 of hoger";
-
-"opt_out_help_ios_3" = "Ga naar uw Instellingen → Privacy → Advertenties → Inschakelen van de „Gelimiteerde advertentie-tracking” - instelling";
-
-"opt_out_help_android" = "Uw mobiele apparaat kan voorzien zijn van een instelling voor „Gelimiteerde advertentie-tracking” of „Afmelden voor op interesses gebaseerd adverteren”. \n\nVoor Android en Google Play Services versie 4. 0 en hoger:\nInstellingen → Google → Advertenties → Afmelden voor personalisatie van advertenties \n of \nInstellingen → Google → Google-Account → Gegevens & personalisatie → Advertentiepersonalisatie";
-
 "privacy_policy" = "Privacy beleid";
 
 "terms_of_use" = "Gebruiksvoorwaarden";
-
-"backup_notification_failed" = "Een back-up van uw bladwijzers werd opgeschort. Log in om weer op te starten.";
 
 "button_layer_traffic" = "Verkeer";
 
 "button_layer_subway" = "Metro";
 
 "layers_title" = "Map layers";
-
-"layers_message" = "Gebruik „Map layers” voor het weergeven van verkeer, metro, en andere nuttige informatie";
-
-"button_layer_got_it" = "Ik begrijp het";
 
 "subway_data_unavailable" = "Metrokaart is niet beschikbaar";
 
@@ -1803,39 +1119,13 @@
 
 "title_error_downloading_bookmarks" = "Er is een fout opgetreden";
 
-"subtitle_error_downloading_bookmarks" = "Bladwijzers werden niet gedownload";
-
-"error_already_downloaded" = "Deze lijst is al gedownload";
-
 "popular_place" = "Popular";
-
-"download_routes" = "Download routes";
-
-"bookmarks_downloaded_title" = "Bookmarks have been downloaded successfully";
-
-"bookmarks_downloaded_subtitle" = "Press ‘View on map’ to explore new places from the list";
-
-"why_support" = "Waarom Organic Maps ondersteunen?";
-
-"why_support_item1" = "We respect your privacy: there are zero trackers in the app, and we are open source";
-
-"why_support_item2" = "U helpt ons Organic Maps te verbeteren";
-
-"why_support_item3" = "U helpt ons de kaarten van OpenStreetMap.org te verbeteren";
-
-"channels_map_update" = "Kaartupdates";
-
-"server_unavailable_title" = "Server niet beschikbaar";
-
-"sharing_options" = "Opties voor delen";
 
 "export_file" = "Bestand exporteren";
 
 "list_settings" = "Lijst Instellingen";
 
 "delete_list" = "Lijst verwijderen";
-
-"hide_from_map" = "Van de kaart verbergen";
 
 "public_access" = "Publiek toegang";
 
@@ -1845,40 +1135,11 @@
 
 "bookmark_category_description_hint" = "Maak een beschrijving aan (tekst of html)";
 
-/* FIXME */
-"bookmarks_public_access" = "bookmarks_public_access";
-
-/* FIXME */
-"bookmarks_link_access" = "bookmarks_link_access";
-
-/* FIXME */
-"bookmarks_private_access" = "bookmarks_private_access";
-
 "not_shared" = "Privé";
-
-"direct_link_progress_text" = "Uw bestand aan het uploaden…";
-
-"direct_link_success" = "De link is aangemaakt";
-
-"send_a_link_btn" = "Stuur mij een link";
-
-"upload_error_toast" = "Er is een fout opgetreden tijdens het uploaden van uw bestand";
 
 "tags_loading_error_subtitle" = "Er is een fout opgetreden tijdens het laden van tags, probeer het opnieuw";
 
-"unable_upload_errorr_title" = "Bestand uploaden mislukt";
-
-"unable_upload_error_subtitle_edited" = "Dit bestand is bewerkt via de web app";
-
-"unable_upload_error_subtitle_broken" = "Dit bestand is beschadigd en kon niet worden geüpload. Gelieve een ander bestand te uploaden.";
-
-"contact" = "Contact";
-
-"download_button" = "Downloaden";
-
 "speedcams_alert_title" = "Snelheidscamera's";
-
-"speedcams_alert_subtitle" = "Waarschuw voor snelheidsbeperkingen";
 
 "speedcam_option_auto" = "Auto";
 
@@ -1886,18 +1147,10 @@
 
 "speedcam_option_never" = "Nooit";
 
-"bookmark_description_title" = "Bladwijzer Beschrijving";
-
 "place_description_title" = "Plaats Beschrijving";
 
 /* this text will be shown in application notification preferences opposite checkbox which enable/disable downloader notifications. Devices on Android 8+ are affected. */
 "notification_channel_downloader" = "Kaart downloader";
-
-"share_bookmarks_email_body_link" = "Hello!\n\nHier is de link waar u uw bladwijzers kunt downloaden: %s. Open de lijst via Organic Maps en geniet van uw reis!\n\nHaal de applicatie op: https://omaps.app/get?kmz";
-
-"warning_speedcams_title" = "Navigator waarschuwt u over camera's wanneer u de maximumsnelheid van %d km/h overschrijdt";
-
-"warning_speedcams_subtitle" = "Let op de rijvoorschriften van het land waar u naartoe reist.";
 
 "speedcams_notice_message" = "Auto - Waarschuw voor speedcams als er een risico bestaat dat de snelheidslimiet wordt overschreden\nAltijd - Waarschuw altijd voor flitspalen\nNooit - Waarschuw nooit over flitspalen";
 
@@ -1913,23 +1166,7 @@
 
 "enable_logging_warning_message" = "Deze optie is ingeschakeld voor logboekregistraties voor diagnostische doeleinden. Het helpt bij het identificeren van problemen met de applicatie. Schakel de optie alleen in op verzoek van Organic Maps-ondersteuning.";
 
-"html_error_upload_message_try_again" = "Controleer de netwerktoegang en probeer het opnieuw";
-
-"html_error_upload_title_try_again" = "Geen internetverbinding";
-
-"notification_leave_review_v2_android_short_title" = "Laat een feedback achter en help reizigers!";
-
-"megafon" = "Say goodbye to roaming!";
-
-"notifications_illegal_alert_disable_button" = "Meldingen uitschakelen";
-
 "access_rules_author_only" = "Wordt online bewerkt";
-
-"privacy_settings_menu" = "Privacy instellingen";
-
-"unable_upadate_error_title" = "Kan de route niet bijwerken";
-
-"unable_upadate_error_message" = "Er zijn fouten opgetreden tijdens het updaten. Controleer de wijzigingen en probeer het opnieuw";
 
 "driving_options_title" = "Omweginstellingen";
 
@@ -1951,94 +1188,19 @@
 
 "change_driving_options_btn" = "Omweginstellingen ingeschakeld";
 
-"toll_road" = "Tolweg";
-
-"unpaved_road" = "Aardeweg";
-
-"ferry_crossing" = "Ferry";
-
-"operated_by" = "Gecontroleerd door \"%s\"";
-
 "avoid_toll_roads_placepage" = "Tolwegen vermijden";
 
 "avoid_unpaved_roads_placepage" = "Aardewegen vermijden";
 
 "avoid_ferry_crossing_placepage" = "Ferries vermijden";
 
-"type.cuisine.uzbek" = "Oezbeekse keuken";
-
-"trip_start" = "Kom op";
-
-"pick_destination" = "Doel";
-
-"follow_my_position" = "Centreren";
-
-"search_results" = "Zoekresultaten";
-
-"then_turn" = "Dan";
-
-"redirect_route_alert" = "Wilt u de route wijzigen?";
-
-"redirect_route_yes" = "Ja";
-
-"redirect_route_no" = "Nee";
-
-"trip_finished" = "U bent aangekomen!";
-
-"keyboard_availability_alert" = "Toetsenbord is niet beschikbaar tijdens het rijden";
-
-"dialog_routing_change_start_carplay" = "Kan route vanaf huidige positie niet opbouwen";
-
-"dialog_routing_change_end_carplay" = "Kan route naar het eindpunt niet opbouwen. Kies een andere punt";
-
-"dialog_routing_check_gps_carplay" = "Geen GPS-signaal. Ga naar het open veld";
-
-"dialog_routing_unable_locate_route_carplay" = "Kan route niet bouwen. Selecteer andere tussenpunten";
-
-"dialog_routing_download_files_carplay" = "Om een route te bouwen, download u ontbrekende kaarten";
-
-"dialog_routing_system_error_carplay" = "Lets fout gegaan. Start de app opnieuw";
-
-"dialog_routing_rebuild_from_current_location_carplay" = "De route wordt opnieuw opgebouwd vanaf uw huidige positie";
-
-"dialog_routing_rebuild_for_vehicle_carplay" = "De route wordt gewijzigd in de autoroute";
-
 "ok" = "Goed";
-
-"avoid_unpaved_carplay_1" = "Geen aardew.";
-
-"avoid_unpaved_carplay_2" = "Geen aardewegen";
-
-"avoid_ferry_carplay_1" = "Geen ferry's";
-
-"avoid_ferry_carplay_2" = "Geen ferry's";
-
-"avoid_tolls_carplay_1" = "Zonder tol";
-
-"avoid_tolls_carplay_2" = "Zonder tol";
-
-"speedcams_alert_title_carplay_1" = "Cameras";
-
-"speedcams_alert_title_carplay_2" = "Over cameras";
-
-"download_map_carplay" = "Download kaarten in de Organic Maps app op uw apparaat";
-
-"carplay_roundabout_exit" = "Afrit nr. %s";
 
 /* max. 10 symbols, both iOS and Android */
 "sort" = "Sorteer…";
 
 /* Android, title, max 20-22 symbols */
 "sort_bookmarks" = "Bladwijzers sorteren";
-
-/* iOS */
-"sort_default" = "Standaard sorteren";
-
-"sort_type" = "Sorteren op type";
-
-"sort_distance" = "Sorteer op afstand";
-
-"sort_date" = "Sorteer op datum";
 
 /* Android */
 "by_default" = "Standaard";
@@ -2052,63 +1214,7 @@
 /* Android */
 "by_date" = "Op datum";
 
-"week_ago_sorttype" = "Een week geleden";
-
-"month_ago_sorttype" = "Een maand geleden";
-
-"moremonth_ago_sorttype" = "Meer dan een maand geleden";
-
-"moreyear_ago_sorttype" = "Meer dan een jaar geleden";
-
-"near_me_sorttype" = "Naast mij";
-
-"others_sorttype" = "Andere";
-
-"food_places" = "Eten";
-
-"tourist_places" = "Bezienswaardigheden";
-
-"museums" = "Musea";
-
-"parks" = "Parken";
-
-"swim_places" = "Zwemmen";
-
-"mountains" = "Bergen";
-
-"animals" = "Dieren";
-
-"hotels" = "Hotels";
-
-"buildings" = "Gebouwen";
-
-"money" = "Geld";
-
-"shops" = "Winkels";
-
-"parkings" = "Parkeerplaatsen";
-
-"fuel_places" = "Benzinestations";
-
-"water" = "Water";
-
-"medicine" = "Geneeskunde";
-
 "search_in_the_list" = "In de lijst zoeken";
-
-"view_on_map_bookmarks" = "Op de kaart";
-
-"more_bookmarks" = "Meer…";
-
-"no_items_found" = "Niets gevonden";
-
-/* Android, max 18 symbols */
-"bookmarks_edit_list" = "Bewerken";
-
-/* Android, max 18 symbols */
-"bookmarks_delete_list" = "Lijst verwijderen";
-
-"religious_places" = "Religieuze plaatsen";
 
 "select_list" = "Lijst kiezen";
 
@@ -2118,26 +1224,13 @@
 
 "dialog_pedestrian_route_is_long_message" = "Kies een begin- of eindpunt dichter bij het metrostation";
 
-/* Failed planning SUBWAY route message in navigation view */
-"routing_planning_error_subway_special" = "Routeplanner per metro is mislukt";
-
 "button_layer_isolines" = "Hoogtes";
-
-"tips_map_layers_title_countour" = "Hoogtelijnen offline in Organic Maps!";
-
-"tips_map_layers_message_countour" = "Dankzij de hoogtelijnen kunt u probleemloos natuurreizen plannen en er zeker van zijn dat u niet verdwalen zult";
 
 "isolines_activation_error_dialog" = "Als u gebruik wilt maken van hoogtelijnen, moet u een kaart van het gewenste gebied bijwerken of downloaden";
 
 "isolines_location_error_dialog" = "De hoogtelijnen zijn nog niet beschikbaar in deze regio";
 
 "elevation_profile_diff_level" = "Moeilijkheidsgraad";
-
-"elevation_profile_diff_level_easy" = "Gemakkelijk";
-
-"elevation_profile_diff_level_moderate" = "Middelmatig";
-
-"elevation_profile_diff_level_hard" = "Moeilijk";
 
 "elevation_profile_ascent" = "Opstijging";
 
@@ -2147,25 +1240,13 @@
 
 "elevation_profile_maxaltitude" = "Max. hoogte";
 
-"elevation_profile_m" = "m";
-
 "elevation_profile_difficulty" = "Moeilijkheid";
 
 "elevation_profile_distance" = "Afst.:";
 
-"elevation_profile_km" = "km";
-
 "elevation_profile_time" = "Op weg";
 
-"elevation_profile_hours" = "uur";
-
-"elevation_profile_minutes" = "min";
-
 "isolines_toast_zooms_1_10" = "Zoom in om isolijnen te bekijken";
-
-"downloader_updating_ios" = "Updaten";
-
-"downloader_loading_ios" = "Downloaden";
 
 "key_information_title" = "Belangrijke informatie";
 

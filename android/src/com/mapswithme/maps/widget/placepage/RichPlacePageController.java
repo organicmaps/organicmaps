@@ -6,6 +6,7 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.res.Resources;
 import android.location.Location;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -379,7 +380,10 @@ public class RichPlacePageController implements PlacePageController, LocationLis
   @Override
   public void onActivityResumed(Activity activity)
   {
-    // No op.
+    // workaround for https://github.com/organicmaps/organicmaps/issues/722
+    if (Build.VERSION.SDK_INT >= 30) {
+      mPlacePage.requestLayout();
+    }
   }
 
   @Override

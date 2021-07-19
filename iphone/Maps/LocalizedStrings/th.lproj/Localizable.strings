@@ -18,9 +18,6 @@
 /* Button which deletes downloaded country */
 "delete" = "ลบ";
 
-/* Button "do not interrupt download" if user touched actively downloading country */
-"do_nothing" = "ดำเนินการต่อ";
-
 "download_maps" = "ดาวน์โหลดแผนที่";
 
 /* Settings/Downloader - info for country when download fails */
@@ -28,9 +25,6 @@
 
 /* Settings/Downloader - info for country which started downloading */
 "downloading" = "กำลังดาวน์โหลด…";
-
-/* Settings/Downloader - size string, only strings different from English should be translated */
-"kb" = "กิโลไบต์";
 
 /* Choose measurement on first launch alert - choose metric system button */
 "kilometres" = "กิโลเมตร";
@@ -55,17 +49,11 @@
 /* Update maps later/Buy pro version later button text */
 "later" = "ภายหลัง";
 
-/* Don't show some dialog any more */
-"never" = "ไม่ต้องเตือนอีก";
-
 /* View and button titles for accessibility */
 "search" = "ค้นหา";
 
 /* Search box placeholder text */
 "search_map" = "ค้นหาแผนที่";
-
-/* Settings/Downloader - info for not downloaded country */
-"touch_to_download" = "แตะเพื่อดาวน์โหลด";
 
 /* Settings/Downloader - 3G download warning dialog confirm button */
 "use_cellular_data" = "ใช่";
@@ -73,20 +61,11 @@
 /* Location services are disabled by user alert - message */
 "location_is_disabled_long_text" = "ในปัจจุบันนี้มีการปิดการใช้งานการบริการตำแหน่งที่ตั้งสำหรับอุปกรณ์หรือแอปพลิเคชันนี้ โปรดเปิดใช้งานในการตั้งค่า";
 
-/* Location Services are not available on the device alert - message */
-"device_doesnot_support_location_services" = "อุปกรณ์ของคุณไม่รองรับการบริการตำแหน่งที่ตั้ง";
-
 /* View and button titles for accessibility */
 "zoom_to_country" = "แสดงบนแผนที่";
 
-/* Button text for the button at the center of the screen when the country is not downloaded */
-"country_status_download" = "ดาวน์โหลดแผนที่\n(^ ^)";
-
 /* Button text for the button at the center of the screen when the country is not downloaded and the size should not be shown */
 "country_status_download_without_size" = "ดาวน์โหลดแผนที่";
-
-/* Button text for the button at the center of the screen when the country is not downloaded */
-"country_status_download_without_routing" = "ดาวน์โหลดแผนที่โดยไม่กำหนดเส้นทาง\n(^ ^)";
 
 /* Message to display at the center of the screen when the country download has failed */
 "country_status_download_failed" = "การดาวน์โหลดล้มเหลว";
@@ -96,19 +75,13 @@
 
 "about_menu_title" = "เกี่ยวกับ Organic Maps";
 
-"downloaded_touch_to_delete" = "ดาวน์โหลดแล้ว (%@), แตะเพื่อลบ";
-
 "connection_settings" = "การตั้งค่าการเชื่อมต่อ";
-
-"download_mb_or_kb" = "ดาวน์โหลด %@";
 
 "close" = "ปิด";
 
 "unsupported_phone" = "จำเป็นต้องใช้ฮาร์ดแวร์ที่เพิ่มความเร็ว OpenGL โชคไม่ดีที่อุปกรณ์ของคุณไม่รองรับ";
 
 "download" = "ดาวน์โหลด";
-
-"external_storage_is_not_available" = "ไม่สามารถใช้การ์ด SD /พื้นที่จัดเก็บ USB ที่มีดาวน์โหลดแผนที่ได้";
 
 "disconnect_usb_cable" = "โปรดยกเลิกการเชื่อมต่อสาย USB หรือใส่การ์ดหน่วยความจำเพื่อใช้ Organic Maps";
 
@@ -117,8 +90,6 @@
 "not_enough_memory" = "มีหน่วยความจำไม่เพียงพอสำหรับการเปิดแอป";
 
 "download_resources" = "ก่อนที่คุณจะเริ่มต้น โปรดให้เราดาวน์โหลดแผนที่โลกลงในอุปกรณ์ของคุณ\nจำเป็นต้องใช้ %@ ของข้อมูล";
-
-"getting_position" = "กำลังรับตำแหน่งปัจจุบัน";
 
 "download_resources_continue" = "ไปยังแผนที่";
 
@@ -140,23 +111,14 @@
 /* Add New Bookmark Set dialog title */
 "add_new_set" = "เพิ่มชุดใหม่";
 
-/* Place Page - Add To Bookmarks button */
-"add_to_bookmarks" = "เพิ่มไปยังบุ๊กมาร์ก";
-
 /* Bookmark Color dialog title */
 "bookmark_color" = "สีของบุ๊กมาร์ก";
 
 /* Add Bookmark Set dialog - hint when set name is empty */
 "bookmark_set_name" = "ชื่อของชุดบุ๊กมาร์ก";
 
-/* Bookmark Sets dialog title */
-"bookmark_sets" = "ชุดของบุ๊กมาร์ก";
-
 /* Bookmarks - dialog title */
 "bookmarks" = "บุ๊กมาร์ก";
-
-/* Add bookmark dialog - bookmark color */
-"color" = "สี";
 
 /* Default bookmarks set name */
 "core_my_places" = "สถานที่ของฉัน";
@@ -167,14 +129,8 @@
 /* Editor title above street and house number */
 "address" = "ที่อยู่";
 
-/* Place Page - Remove Pin button */
-"remove_pin" = "ลบหมุด";
-
 /* Add bookmark dialog - bookmark set, Bookmarks dialog - Bookmark set cell */
 "set" = "ชุด";
-
-/* Text hint in Bookmarks dialog when no any bookmarks are added */
-"bookmarks_usage_hint" = "คุณยังไม่มีบุ๊กมาร์ก\nแตะที่ใด ๆ บนแผนที่เพื่อเพิ่มบุ๊กมาร์ก\nสามารถนำเข้าบุ๊กมาร์กจากแหล่งอื่น ๆ และแสดงบน Organic Maps เปิดไฟล์ KML/KMZ ด้วยหมุดที่บันทึกไว้จากอีเมล ดรอปบ็อกซ์ หรือเว็บลิงก์";
 
 /* Settings button in system menu */
 "settings" = "การตั้งค่า";
@@ -191,26 +147,11 @@
 /* Ask to wait user several minutes (some long process in modal dialog). */
 "wait_several_minutes" = "นี่อาจจะใช้เวลาสองสามนาที\nโปรดรอ…";
 
-/* Show bookmarks from this category on a map or not */
-"visible" = "มองเห็นได้";
-
-/* Toast which is displayed when GPS has been deactivated */
-"gps_is_disabled_long_text" = "มีการปิดใช้งาน GPS โปรดเปิดใช้งานในการตั้งค่า";
-
 /* Measurement units title in settings activity */
 "measurement_units" = "หน่วยการวัด";
 
 /* Detailed description of Measurement Units settings button */
 "measurement_units_summary" = "เลือกระหว่างไมล์และกิโลเมตร";
-
-/* Do search in all sources */
-"search_mode_all" = "ทุกที่";
-
-/* Do search near my position only */
-"search_mode_nearme" = "ใกล้ฉัน";
-
-/* Do search in current viewport only */
-"search_mode_viewport" = "บนหน้าจอ";
 
 /* Search category for cafes, bars, restaurants */
 "eat" = "กินร้านไหนดี";
@@ -266,14 +207,8 @@
 /* Search category */
 "police" = "ตำรวจ";
 
-/* String in search result list, when nothing found */
-"no_search_results_found" = "ไม่พบผลลัพธ์";
-
 /* Notes field in Bookmarks view */
 "description" = "บันทึก";
-
-/* Button text */
-"share_by_email" = "แชร์จากอีเมล";
 
 /* Email Subject when sharing bookmarks category */
 "share_bookmarks_email_subject" = "แชร์บุ๊กมาร์กของ Organic Maps แล้ว";
@@ -295,26 +230,11 @@
 /* Warning message when doing search around current position */
 "unknown_current_position" = "ตำแหน่งที่ตั้งของคุณยังไม่ได้รับการกำหนด";
 
-/* Warning message when location country isn't downloaded during search (see also download_location_map_proposal). */
-"download_location_country" = "ดาวน์โหลด (%@) ประเทศของตำแหน่งที่ตั้งปัจจุบันของคุณ";
-
-/* Warning message when viewport country isn't downloaded during search */
-"download_viewport_country_to_search" = "ดาวน์โหลดประเทศ (%@) ที่คุณกำลังค้นหา";
-
 /* Alert message that we can't run Map Storage settings due to some reasons. */
 "cant_change_this_setting" = "ขออภัย ไม่มีการเปิดใช้งานการตั้งค่าพื้นที่จัดเก็บแผนที่ในปัจจุบัน";
 
 /* Alert message that downloading is in progress. */
 "downloading_is_active" = "กำลังดำเนินการดาวน์โหลดประเทศในตอนนี้";
-
-/* Message that will be shown in alert view, when we ask user to leave review on App Store */
-"appStore_message" = "หวังว่าคุณจะสนุกกับการใช้ Organic Maps! หากเป็นเช่นนั้น โปรดให้คะแนนหรือวิจารณ์แอปได้ที่แอปสโตร์ (App Store) มันจะใช้เวลาไม่เกินหนึ่งนาทีแต่สามารถช่วยเหลือเราได้ ขอบคุณสำหรับการสนับสนุนของคุณ!";
-
-/* No, thanks */
-"no_thanks" = "ไม่ ขอบคุณ";
-
-/* Share one specific bookmark using SMS, %1$@ contains om:// and %2$@ https://omaps.app link. @NOTE non-ascii symbols in the link will result in max 70 characters SMS instead of 140. */
-"bookmark_share_sms" = "เฮ้ ตรวจสอบหมุดของฉันที่ Organic Maps! %1$@ หรือ %2$@";
 
 /* Share my position using SMS, %1$@ contains om:// and %2$@ https://omaps.app link WITHOUT NAME. @NOTE non-ascii symbols in the link will result in max 70 characters SMS instead of 140. */
 "my_position_share_sms" = "เฮ้อ ตรวจสอบตำแหน่งที่ตั้งปัจจุบันของฉันที่ Organic Maps! %1$@ หรือ %2$@ ไม่มีการติดตั้งแผนที่แบบออฟไลน์? ดาวน์โหลดที่นี่: https://omaps.app/get";
@@ -328,23 +248,11 @@
 /* Share my position using EMail, %1$@ is om:// and %2$@ is https://omaps.app link WITHOUT NAME */
 "my_position_share_email" = "หวัดดี\n\nฉันอยู่ที่นี่ตอนนี้: %1$@. คลิกลิงก์นี้ %2$@ หรือลิงก์นี้ %3$@ เพื่อดูสถานที่บนแผนที่\n\nขอบคุณ";
 
-/* Android share by Message/SMS button text (including SMS) */
-"share_by_message" = "แชร์จากข้อความ";
-
 /* Share button text which opens menu with more buttons, like Message, EMail, Facebook etc. */
 "share" = "แชร์";
 
-/* iOS share by Message button text (including SMS) */
-"message" = "ข้อความ";
-
 /* Share by email button text, also used in editor. */
 "email" = "อีเมล";
-
-/* Copy Link */
-"copy_link" = "คัดลอกลิงก์";
-
-/* Text for the button that returns to caller application */
-"more_info" = "แสดงข้อมูลเพิ่มเติม";
 
 /* Text for message when used successfully copied something */
 "copied_to_clipboard" = "คัดลอกไปยังคลิปบอร์ด: %1$@";
@@ -354,15 +262,6 @@
 
 /* Used for bookmark editing */
 "done" = "เสร็จแล้ว";
-
-/* Summary for preferences in MWM */
-"yopme_pref_summary" = "เลือกการตั้งค่าหน้าจอส่วนหลัง";
-
-/* Title for yopme preferences in MWM */
-"yopme_pref_title" = "การตั้งค่าหน้าจอส่วนหลัง";
-
-/* Hint for upper-right icon p2b */
-"show_on_backscreen" = "แสดงหน้าจอส่วนหลัง";
 
 /* Prints version number in About dialog */
 "version" = "เวอร์ชัน: %@";
@@ -381,19 +280,11 @@
 
 "share_my_location" = "แชร์ตำแหน่งที่ตั้งของฉัน";
 
-"menu_search" = "ค้นหา";
-
 /* Settings general group in settings screen */
 "prefs_group_general" = "General settings";
 
 /* Settings information group in settings screen */
 "prefs_group_information" = "Information";
-
-/* Settings screen: "Map" category title */
-"prefs_group_map" = "แผนที่";
-
-/* Settings screen: "Miscellaneous" category title */
-"prefs_group_misc" = "เบ็ดเตล็ด";
 
 "prefs_group_route" = "การนำทาง";
 
@@ -419,9 +310,6 @@
 /* Settings «Map» category: «3D buildings» title */
 "pref_map_3d_buildings_title" = "ตึก 3D";
 
-/* Settings «Map» category: «3D buildings» summary */
-"pref_map_3d_buildings_subtitle" = "มีผลกระทบต่ออายุการใช้งานแบตเตอรี่";
-
 /* Settings «Route» category: «Tts enabled» title */
 "pref_tts_enable_title" = "คำแนะนำด้วยเสียง";
 
@@ -433,8 +321,6 @@
 
 /* Title for "Other" section in TTS settings. */
 "pref_tts_other_section_title" = "อื่น ๆ";
-
-"pref_tts_how_to_set_up_voice" = "วิธีตั้งค่าเสียง";
 
 /* Settings «Map» category: «Record track» title */
 "pref_track_record_title" = "เส้นทางล่าสุด";
@@ -455,56 +341,7 @@
 
 "recent_track_help_text" = "ช่วยให้คุณบันทึกเส้นทางที่คุณเดินทางในช่วงระยะเวลาหนึ่งแล้วดูบนแผนที่ได้ โปรดทราบว่า: การเปิดใช้งานฟังก์ชั่นนี้จะทำให้การใช้งานแบตเตอรี่เพิ่มมากขึ้น การติดตามจะถูกเอาออกไปโดยอัตโนมัติจากแผนที่หลังจากผ่านช่วงเวลาที่กำหนด";
 
-"pref_track_ios_caption" = "เส้นทางล่าสุดแสดงให้เห็นถึงเส้นทางที่เดินทางแล้วของคุณ";
-
-"pref_track_ios_subcaption" = "โปรดเลือกช่วงเวลาในการบันทึกการติดตาม";
-
-"placepage_distance" = "ระยะห่าง";
-
-"placepage_coordinates" = "พิกัด";
-
-"placepage_unsorted" = "ไม่เรียงลำดับ";
-
 "search_show_on_map" = "ดูบนแผนที่";
-
-/* Used to warn user when fixing KitKat issue */
-"bookmark_move_fail" = "เราจำเป็นต้องลบบุ๊กมาร์กของคุณไปยังหน่วยความจำภายใน แต่ไม่มีพื้นที่ที่สามารถใช้ได้ โปรดเพิ่มหน่วยความจำ มิฉะนั้นจะไม่สามารถใช้บุ๊กมาร์กได้";
-
-/* Used in More Apps menu */
-"free" = "ฟรี";
-
-/* Used in More Apps menu */
-"buy" = "ซื้อ";
-
-/* 1st search button-like result */
-"search_on_map" = "ค้นหาแผนที่";
-
-/* toast with an error */
-"no_route_found" = "ไม่พบเส้นทาง";
-
-/* route title */
-"route" = "เส้นทาง";
-
-/* category title */
-"routes" = "เส้นทาง";
-
-/* text of notification */
-"download_map_notification" = "ดาวน์โหลดแผนที่เกี่ยวกับสถานที่ที่คุณอยู่";
-
-/* text of notification */
-"pro_version_is_free_today" = "เวอร์ชันเต็มของ Organic Maps วันนี้ฟรี! ดาวน์โหลดตอนนี้แล้วบอกเพื่อน ๆ ของคุณ";
-
-/* Dialog for transferring maps from lite to pro. */
-"move_lite_maps_to_pro" = "เรากำลังโอนแผนที่ที่ดาวน์โหลดของคุณจาก Organic Maps Lite ไปยัง Organic Maps อาจใช้เวลาสองสามวินาที";
-
-/* Message to display when maps moved. */
-"move_lite_maps_to_pro_ok" = "แผนที่ที่ดาวน์โหลดของคุณโอนไปยัง Organic Maps สำเร็จ";
-
-/* Message to display when maps move failed. */
-"move_lite_maps_to_pro_failed" = "ล้มเหลวในการโอนแผนที่ของคุณ โปรดลบ Organic Maps Lite และดาวน์โหลดแผนที่อีกครั้ง";
-
-/* Text in menu */
-"settings_and_more" = "การตั้งค่า & อื่น ๆ";
 
 /* Text in menu */
 "website" = "เว็บไซต์";
@@ -527,14 +364,8 @@
 /* Text in menu */
 "openstreetmap" = "OpenStreetMap";
 
-/* Text in menu */
-"contact_us" = "ติดต่อเรา";
-
 /* Settings: Send feedback button and dialog title */
 "feedback" = "ข้อเสนอแนะ";
-
-/* Text in menu */
-"subscribe_to_news" = "สมัครรับข่าวของเรา";
 
 /* Text in menu */
 "rate_the_app" = "ให้คะแนนแอป";
@@ -548,15 +379,6 @@
 /* Text in menu */
 "report_a_bug" = "แจ้งข้อผิดพลาด";
 
-/* Email subject */
-"subscribe_me_subject" = "โปรดลงชื่อฉันเพื่อรับจดหมายข่าว Organic Maps";
-
-/* Email body */
-"subscribe_me_body" = "ฉันอยากเป็นคนแรกที่รู้เกี่ยวกับข่าว อัปเดตและโปรโมชั่นล่าสุด ฉันสามารถยกเลิกการเป็นสมาชิกของฉันได้ตลอดเวลา";
-
-/* About text */
-"about_text" = "Organic Maps ขอเสนอแผนที่ออฟไลน์ของทุกเมือง ทุกประเทศในโลกที่รวดเร็วที่สุด เดินทางด้วยความมั่นใจ: ไม่ว่าคุณจะอยู่ที่ไหน Organic Maps จะช่วยระบุตำแหน่งที่ตั้งของตัวคุณบนแผนที่ ค้นหาร้านอาหาร โรงแรม ธนาคาร ปั๊มน้ำมัน และอื่น ๆ ที่ใกล้ที่สุด โดยไม่จำเป็นต้องใช้การเชื่อมต่ออินเทอร์เน็ต\n\nเราทำงานเพื่อพัฒนาฟีเจอร์ใหม่ ๆ อยู่เสมอและยินดีรับฟังว่าคุณมีความคิดเห็นว่าเราจะพัฒนา Organic Maps ได้อย่างไร หากคุณมีปัญหาใด ๆ กับแอป อย่าลังเลที่จะติดต่อเราที่ support@organicmaps.app โดยเราจะตอบรับทุกคำขอ!\n\nคุณชอบ Organic Maps และต้องการสนับสนุนเราหรือไม่? มีวิธีง่าย ๆ และฟรีอยู่บ้าง:\n\n- โพสต์คำวิจารณ์ของคุณที่ ตลาดแอป (App Market)\n- ถูกใจเพจ Facebook ของเรา http://www.facebook.com/OrganicMaps\n- หรือเพียงแค่บอกแม่ เพื่อน ๆ และเพื่อนร่วมงานของคุณเกี่ยวกับ Organic Maps :)\n\nขอบคุณที่ใช้บริการของเรา เราซาบซึ้งในการสนับสนุนของคุณมาก!\n\nป.ล. เรานำข้อมูลแผนที่มาจาก OpenStreetMap ซึ่งเป็นโครงการจัดทำแผนที่ที่เหมือนกับ Wikipedia ที่ช่วยให้ผู้ใช้สามารถสร้างและแก้ไขแผนที่ได้ หากคุณเห็นว่ามีสิ่งใดที่ขาดหายหรือไม่ถูกต้องบนแผนที่ คุณสามารถแก้ไขแผนที่ได้โดยตรงที่ https://www.openstreetmap.org และการเปลี่ยนแปลงของคุณจะปรากฏในแอป Organic Maps ในการปล่อยเวอร์ชันถัดไป";
-
 /* Alert text */
 "email_error_body" = "อีเมลลูกค้ายังไม่ได้รับการจัดตั้งขึ้น กรุณาตั้งค่าหรือใช้วิธีอื่นที่จะติดต่อเราที่ %@";
 
@@ -569,12 +391,6 @@
 /* Search category */
 "wifi" = "WiFi";
 
-/* Update map suggestion */
-"routing_map_outdated" = "โปรดอัปเดตแผนที่เพื่อสร้างเส้นทาง";
-
-/* Update maps suggestion */
-"routing_update_maps" = "เวอร์ชันใหม่ของ Organic Maps อนุญาติให้สร้างเส้นทางจากตำแหน่งปัจจุบันของคุณไปยังจุดปลายทาง โปรดอัปเดตแผนเพื่อใช้ฟีเจอร์นี้";
-
 /* Update all button text */
 "downloader_update_all_button" = "อัปเดตทั้งหมด";
 
@@ -583,9 +399,6 @@
 
 /* Downloaded maps category */
 "downloader_downloaded_subtitle" = "ดาวน์โหลดแล้ว";
-
-/* Downloaded maps category */
-"downloader_available_maps" = "มีให้ใช้";
 
 /* Country queued for download */
 "downloader_queued" = "ต่อแถว";
@@ -598,17 +411,6 @@
 
 "downloader_downloading" = "กำลังดาวน์โหลด:";
 
-"downloader_search_results" = "พบ";
-
-/* Disclaimer message */
-"routing_disclaimer" = "การสร้างเส้นทางในแอป Organic Maps มีสิ่งที่ควรทราบดังต่อไปนี้:\n\n  - พึงพิจารณาเส้นทางที่แนะนำไว้ในฐานะที่เป็นการแนะนำเท่านั้น\n - สภาพถนน กฎจราจรและป้ายมีความสำคัญมากกว่าคำแนะนำในการนำทาง\n - แผนที่อาจไม่ถูกต้องหรือล้าสมัย และอาจไม่ได้มีการสร้างเส้นทางในรูปแบบพอจะเป็นไปได้ที่ดีที่สุด\n\n  ขอให้ปลอดภัยบนท้องถนนและดูแลตัวคุณเองด้วย!";
-
-/* Outdated maps category */
-"downloader_outdated_maps" = "ล้าสมัย";
-
-/* Up to date maps category */
-"downloader_uptodate_maps" = "ทันสมัย";
-
 /* Status of outdated country in the list */
 "downloader_status_outdated" = "ปรับปรุง";
 
@@ -618,49 +420,14 @@
 /* Displayed in a dialog that appears when a user tries to delete a map while the app is in the follow route mode */
 "downloader_delete_map_while_routing_dialog" = "เพื่อลบแผนที่ โปรดหยุดใช้การนำทาง";
 
-/* Show when user try build route, but we don't know where he */
-"routing_failed_unknown_my_position" = "ไม่มีการกำหนดสถานที่ปัจจุบัน โปรดระบุสถานที่ตั้งเพื่อสร้างเส้นทาง";
-
-/* Show if use has not routing file, or InconsistentMWMandRoute */
-"routing_failed_has_no_routing_file" = "ข้อมูลเพิ่มเติมเป็นต้องมีเพื่อสร้างเส้นทาง เริ่มต้นการดาวน์โหลด?";
-
-/* StartPointNotFound */
-"routing_failed_start_point_not_found" = "ไม่สามารถคำนวณเส้นทางได้ ไม่มีถนนที่อยู่ใกล้เคียงกับจุดเริ่มต้นของคุณ";
-
-/* EndPointNotFound */
-"routing_failed_dst_point_not_found" = "ไม่สามารถคำนวณเส้นทางได้ ไม่มีถนนที่อยู่ใกล้กับปลายทางของคุณ";
-
 /* PointsInDifferentMWM */
 "routing_failed_cross_mwm_building" = "สามารถสร้างเส้นทางแบบสมบูรณ์ได้เฉพาะที่มีอยู่ในแผนที่เดียวเท่านั้น";
-
-/* RouteNotFound */
-"routing_failed_route_not_found" = "ไม่พบเส้นทางที่อยู่ระหว่างต้นทางและปลายทางที่เลือก โปรดเลือกจุดเริ่มต้นและจุดสิ้นสุดอื่น";
-
-/* InternalError */
-"routing_failed_internal_error" = "เกิดข้อผิดพลาดขึ้นภายใน โปรดลองลบและดาวน์โหลดแผนที่อีกครั้ง โปรดติดต่อเราได้ที่ support@organicmaps.app.";
-
-/* Context menu item for downloader. */
-"downloader_download_map_and_routing" = "ดาวน์โหลดแผนที่ + การเลือกเส้นทาง";
-
-/* Context menu item for downloader. */
-"downloader_download_routing" = "ดาวน์โหลดการเลือกเส้นทาง";
-
-/* Context menu item for downloader. */
-"downloader_delete_routing" = "ลบการเลือกเส้นทาง";
 
 /* Context menu item for downloader. */
 "downloader_download_map" = "ดาวน์โหลดแผนที่";
 
-"downloader_download_map_no_routing" = "ดาวน์โหลดแผนที่โดยไม่กำหนดเส้นทาง";
-
-/* Button for routing. */
-"routing_go" = "ไป!";
-
 /* Item status in downloader. */
 "downloader_retry" = "ทำซ้ำ";
-
-/* Item in context menu. */
-"downloader_map_and_routing" = "แผนที่ + เส้นทาง";
 
 /* Item in context menu. */
 "downloader_delete_map" = "ลบแผนที่";
@@ -668,29 +435,11 @@
 /* Item in context menu. */
 "downloader_update_map" = "อัปเดตแผนที่";
 
-/* Item in context menu. */
-"downloader_update_map_and_routing" = "อัปเดตแผนที่ + เส้นทาง";
-
-/* Item in context menu. */
-"downloader_map_only" = "แผนที่เท่านั้น";
-
-/* Toolbar title */
-"toolbar_application_menu" = "เมนูของแอปพลิเคชัน";
-
 /* Preference text */
 "pref_use_google_play" = "ใช้บริการ Google Play เพื่อรับตำแหน่งปัจจุบันของคุณ";
 
 /* Text for rating dialog */
 "rating_just_rated" = "ฉันเพิ่งให้คะแนนแอปของคุณ";
-
-/* Text for rating dialog */
-"rating_user_since" = "ฉันคือผู้ใช้ MAPS. ME ตั้งแต่ปี %@";
-
-/* Text for rating dialog */
-"rating_do_like_maps" = "คุณชอบ MAPS. ME หรือไม่?";
-
-/* Text for rating dialog */
-"rating_tap_star" = "แตะดาวเพื่อให้คะแนนแอปของเรา";
 
 /* Text for rating dialog */
 "rating_thanks" = "ขอบคุณ!";
@@ -701,23 +450,8 @@
 /* Text for rating dialog */
 "rating_send_feedback" = "ส่งข้อเสนอแนะ";
 
-/* Text for g+ dialog */
-"rating_google_plus" = "คลิก g+ เพื่อบอกเพื่อน ๆ ของคุณเกี่ยวกับแอป";
-
 /* Text for routing error dialog */
 "routing_download_maps_along" = "ดาวน์โหลดแผนที่ตามเส้นทาง";
-
-/* Text for routing error dialog */
-"routing_download_map" = "รับแผนที่";
-
-/* Text for routing error dialog */
-"routing_download_map_and_routing" = "ดาวน์โหลดแผนที่มีการอัปเดตและการกำหนดเส้นทางข้อมูลเพื่อรับฟีเจอร์ Organic Maps ทั้งหมด";
-
-/* Text for routing error dialog */
-"routing_get_routing_data" = "รับข้อมูลการกำหนดเส้นทาง";
-
-/* Text for routing error dialog */
-"routing_get_additional_data" = "ข้อมูลเพิ่มเติมที่จำเป็นสำหรับการสร้างเส้นทางจากสถานที่ตั้งของคุณ";
 
 /* Text for routing error dialog */
 "routing_requires_all_map" = "การสร้างเส้นทางจำเป็นต้องใช้แผนที่จากสถานที่ตั้งของคุณไปยังปลายทางที่มีการดาวน์โหลดและอัปเดต";
@@ -725,50 +459,15 @@
 /* Text for routing error dialog */
 "routing_not_enough_space" = "มีพื้นที่ไม่เพียงพอ";
 
-/* Text for routing error dialog */
-"routing_download_more_than_avail" = "คุณจำเป็นต้องดาวน์โหลด %@ MB แต่สามารถใช้ได้เพียง %@ MB เท่านั้น";
-
-/* Text for routing error dialog */
-"routing_download_roaming" = "คุณกำลังจะดาวน์โหลด %@ MB โดยการใช้ข้อมูลโทรศัพท์มือถือ (ในการใช้งานข้ามเขต) นี่อาจส่งผลในการคิดค่าบริการเพิ่มเติมโดยขึ้นอยู่กับแผนการใช้ข้อมูลโทรศัพท์มือถือของผู้ให้บริการของคุณ";
-
 /* bookmark button text */
 "bookmark" = "บุ๊กมาร์ก";
-
-/* map is not downloaded */
-"not_found_map" = "ไม่พบแผนที่ของตำแหน่งของคุณ";
 
 /* location service disabled */
 "enable_location_services" = "โปรดเปิดการใช้งานการบริการตำแหน่งที่ตั้ง";
 
-/* download map */
-"download_map" = "ดาวน์โหลดแผนที่เกี่ยวกับสถานที่ที่คุณอยู่";
-
-/* download map on iPhone */
-"download_map_iphone" = "ดาวน์โหลดแผนที่สำหรับตำแหน่งปัจจุบันบน iPhone ของคุณ";
-
-/* clear pin */
-"nearby" = "ใกล้เคียง";
-
-/* clear pin */
-"clear_pin" = "ล้างปักหมุด";
-
-/* location is undefined */
-"undefined_location" = "ไม่มีการกำหนดสถานที่ปัจจุบัน";
-
-/* download country of your location */
-"download_country" = "ดาวน์โหลด ประเทศของตำแหน่งที่ตั้งปัจจุบันของคุณ";
-
-/* download failed */
-"download_failed" = "การดาวน์โหลด  ล้มเหลว";
-
-/* get the map */
-"get_the_map" = "รับแผนที่";
-
 "save" = "บันทึก";
 
 "edit_description_hint" = "คำอธิบายของคุณ (ข้อความหรือ html)";
-
-"new_group" = "กลุ่มใหม่";
 
 "create" = "สร้าง";
 
@@ -795,30 +494,6 @@
 
 /* pink color */
 "pink" = "สีชมพู";
-
-/* deep purple color */
-"deep_purple" = "สีม่วงเข้ม";
-
-/* light blue color */
-"light_blue" = "สีฟ้าอ่อน";
-
-/* cyan color */
-"cyan" = "สีฟ้าอมเขียว";
-
-/* teal color */
-"teal" = "สีเขียวนกเป็ดน้ำ";
-
-/* lime color */
-"lime" = "สีเขียวอมเหลือง";
-
-/* deep orange color */
-"deep_orange" = "สีส้มเข้ม";
-
-/* gray color */
-"gray" = "สีเทา";
-
-/* blue gray color */
-"blue_gray" = "สีฟ้าอมเทา";
 
 /* Wi-Fi available */
 "WiFi_available" = "ใช่";
@@ -848,13 +523,9 @@
 
 "dialog_routing_location_unknown_turn_on" = "ไม่สามารถหาตำแหน่งพิกัด GPS ปัจจุบันได้ เปิดใช้บริการหาตำแหน่งเพื่อคำนวณเส้นทาง";
 
-"dialog_routing_location_unknown" = "ไม่สามารถหาตำแหน่งพิกัด GPS ปัจจุบันได้";
-
 "dialog_routing_download_files" = "ดาวน์โหลดไฟล์ที่จำเป็น";
 
 "dialog_routing_download_and_update_all" = "ดาวน์โหลดและอัปเดตแผนที่กับข้อมูลเส้นทางทั้งหมดตามเส้นทางที่คาดหมายเพื่อคำนวณเส้นทาง";
-
-"dialog_routing_routes_size" = "ไฟล์ข้อมูลเส้นทาง";
 
 "dialog_routing_unable_locate_route" = "ไม่สามารถหาเส้นทางได้";
 
@@ -884,21 +555,11 @@
 
 "dialog_routing_try_again" = "กรุณาลองอีกครั้ง";
 
-"dialog_routing_send_error" = "รายงานปัญหา";
-
-"dialog_routing_if_get_cross_route" = "คุณต้องการสร้างเส้นทางที่อ้อมน้อยลงซึ่งข้ามเกินหนึ่งแผนที่หรือไม่?";
-
-"dialog_routing_cross_route_is_optimal" = "มีเส้นทางที่เหมาะสมกว่าซึ่งข้ามเลยขอบของแผนที่นี้";
-
 "not_now" = "ไว้คราวหลัง";
-
-"dialog_routing_build_route" = "สร้าง";
 
 "dialog_routing_download_and_build_cross_route" = "คุณต้องการดาวน์โหลดแผนที่และสร้างเส้นทางที่เหมาะสมกว่าซึ่งข้ามเกินหนึ่งแผนที่หรือไม่?";
 
 "dialog_routing_download_cross_route" = "ดาวน์โหลดแผนที่เพื่อสร้างเส้นทางที่เหมาะสมกว่าซึ่งข้ามเลยขอบของแผนที่นี้";
-
-"dialog_routing_cross_route_always" = "ข้ามขอบเขตนี้เสมอ";
 
 
 /********** Strings for downloading map from search **********/
@@ -906,8 +567,6 @@
 "search_without_internet_advertisement" = "เพื่อเริ่มต้นการค้นหาและสร้างเส้นทาง โปรดดาวน์โหลดแผนที่ และคุณจะไม่จำเป็นต้องทำการเชื่อมต่ออินเทอร์เน็ตอีกต่อไป";
 
 "search_select_map" = "เลือกแผนที่";
-
-"search_select_other_map" = "เลือกแผนที่อื่น";
 
 /* «Show» context menu */
 "show" = "แสดง";
@@ -918,17 +577,11 @@
 /* «Rename» context menu */
 "rename" = "เปลี่ยนชื่อ";
 
-/* Bottom sheet: expand button (should be short) */
-"bottom_sheet_more" = "เพิ่มเติม…";
-
 /* Failed planning route message in navigation view */
 "routing_planning_error" = "การวางแผนเส้นทางล้มเหลว";
 
 /* Arrive routing message in navigation view */
 "routing_arrive" = "มาถึง: %s";
-
-/* Text for routing::RouterResultCode::FileTooOld dialog. */
-"dialog_routing_download_and_update_maps" = "เพื่อสร้างเส้นทาง โปรดดาวน์โหลดและอัปเดตแผนที่ทั้งหมดตลอดเส้นทาง";
 
 "rate_alert_title" = "ชอบแอปหรือไม่?";
 
@@ -944,19 +597,11 @@
 
 "history" = "ประวัติ";
 
-"next_turn_then" = "จากนั้น";
-
 "closed" = "ปิด";
-
-"back_to" = "กลับไป %@";
 
 "search_not_found" = "ขออภัย ฉันไม่พบสิ่งใด";
 
 "search_not_found_query" = "โปรดลองใช้คำถามอื่น";
-
-"search_not_found_map" = "กรุณาดาวน์โหลดแผนที่ที่คุณกำลังค้นหา";
-
-"search_not_found_location" = "ดาวน์โหลดแผนที่ของตำแหน่งปัจจุบันของคุณ";
 
 "search_history_title" = "ประวัติการค้นหา";
 
@@ -964,23 +609,12 @@
 
 "clear_search" = "ล้างการค้นหาประวัติ";
 
-/* Title for settings to enable/disable showcase menu button */
-"showcase_settings_title" = "แสดงข้อเสนอ";
-
 /* Place Page link to Wikipedia article (if map object has it). */
 "read_in_wikipedia" = "Wikipedia";
 
-"p2p_route_planning" = "การวางแผนเส้นทาง";
-
 "p2p_your_location" = "ตำแหน่งที่ตั้งของคุณ";
 
-"p2p_from" = "จุดที่ออกเดินทาง";
-
-"p2p_to" = "จุดที่เป็นปลายทาง";
-
 "p2p_start" = "เริ่มต้น";
-
-"p2p_planning" = "กำลังวางแผน…";
 
 "p2p_from_here" = "จาก";
 
@@ -1018,15 +652,9 @@
 
 "editor_correct_mistake" = "แก้ไขข้อผิดพลาด";
 
-"editor_correct_mistake_message" = "มีข้อผิดพลาดเกิดขึ้นจากการแก้ไขของคุณ โปรดแก้ไขให้ถูกต้อง หรือ สลับไปใช้ในโหมดแบบง่าย";
-
 "editor_add_select_location" = "ตำแหน่ง";
 
 "editor_done_dialog_1" = "คุณได้เปลี่ยนแผนที่โลก อย่าซ่อนมันไว้! บอกเพื่อนคุณ แล้วมาแก้ไขมันไปด้วยกัน";
-
-"editor_done_dialog_2" = "มันเป็นการปรับปรุงแผนที่ครั้งที่สองของคุณ ตอนนี้คุณอยู่ในอันดับที่ %d ของรายการผู้แก้ไขแผนที่ บอกให้เพื่อนคุณรู้";
-
-"editor_done_dialog_3" = "คุณได้ปรับปรุงแผนที่ บอกให้เพื่อนคุณรู้ แล้วมาแก้ไขแผนที่ไปด้วยกัน";
 
 "share_with_friends" = "แชร์กับเพื่อน";
 
@@ -1044,20 +672,7 @@
 
 "editor_report_problem_duplicate_place_title" = "สถานที่ซ้ำ";
 
-"first_launch_congrats_title" = "Organic Maps พร้อมใช้งานแล้ว";
-
-"first_launch_congrats_text" = "ค้นหาและนำทางไปทุกที่ในโลกแบบออฟไลน์ ไม่มีค่าใช้จ่าย";
-
-"migrate_title" = "สำคัญ!";
-
-/* Android uses image instead of text. */
-"download_all" = "ดาวน์โหลดทั้งหมด";
-
-"delete_all" = "ลบทั้งหมด";
-
 "autodownload" = "ดาวน์โหลดอัตโนมัติ";
-
-"disable_autodownload" = "หยุดการดาวน์โหลดแบบอัตโนมัติ";
 
 /* Place Page opening hours text */
 "closed_now" = "ปิดตอนนี้";
@@ -1072,10 +687,6 @@
 "day_off" = "ปิด";
 
 "today" = "วันนี้";
-
-"sunrise_to_sunset" = "ตั้งแต่พระอาทิตย์ขึ้นจนพระอาทิตย์ตก";
-
-"sunset_to_sunrise" = "ตั้งแต่พระอาทิตย์ตกจนพระอาทิตย์ขึ้น";
 
 "add_opening_hours" = "เพิ่มชั่วโมงทำการ";
 
@@ -1095,45 +706,18 @@
 
 "forgot_password" = "ลืมรหัสผ่าน?";
 
-/* Forgot Password dialog title */
-"restore_password" = "เรียกคืนรหัสผ่าน";
-
-"enter_email_address_to_reset_password" = "ใส่ที่อยู่อีเมลที่คุณใช้ระหว่างการลงทะเบียนแล้วเราจะส่งลิงก์ไปยังคุณเพื่อต่ออายุรหัสผ่านของคุณ";
-
-"reset_password" = "ตั้งรหัสผ่านใหม่";
-
-"username" = "ชื่อผู้ใช้";
-
 "osm_account" = "บัญชี OSM";
 
 "logout" = "ออกจากระบบ";
 
-"login_and_edit_map_motivation_message" = "ล็อกอินและแก้ไขข้อมูลวัตถุบนแผนที่ และเราจะทำให้มันสามารถใช้งานได้สำหรับผู้ใช้ท่านอื่น ๆ อีกนับล้าน มาช่วยกันทำให้โลกดียิ่งขึ้นร่วมกัน";
-
 /* Information text: "Last upload 11.01.2016" */
 "last_upload" = "อัปโหลดครั้งสุดท้าย";
 
-/* Motivates user to login/register, title above login buttons. */
-"you_have_edited_your_first_object" = "คุณได้แก้ไขวัตถุแรกของคุณ!";
-
 "thank_you" = "ขอบพระคุณ";
-
-"login_with_google" = "ล็อกอินด้วย Google";
-
-"login_with_openstreetmap" = "ล็อกอินที่ www.openstreetmap.org";
 
 "edit_place" = "แก้ไขสถานที่";
 
 "place_name" = "ชื่อสถานที่";
-
-/* title above languages list cells in the editor, below editable name text field. */
-"other_languages" = "ภาษาอื่น ๆ";
-
-/* small button to open list with names in different languages */
-"show_more" = "แสดงมากขึ้น";
-
-/* small button to close list with names in different languages */
-"show_less" = "แสดงน้อยลง";
 
 "add_language" = "เพิ่มภาษา";
 
@@ -1164,8 +748,6 @@
 
 "please_note" = "โปรดทราบ";
 
-"common_no_wifi_dialog" = "ไม่มีการเชื่อมต่อ WiFi คุณต้องการดำเนินการต่อโดยใช้ข้อมูลมือถือหรือไม่?";
-
 "downloader_delete_map_dialog" = "การเปลี่ยนแปลงแผนที่ทั้งหมดจะถูกลบไปพร้อมกับแผนที่";
 
 "downloader_update_maps" = "อัปเดตแผนที่";
@@ -1173,10 +755,6 @@
 "downloader_mwm_migration_dialog" = "ในการสร้างเส้นทาง คุณต้องอัปเดตแผนที่ทั้งหมดแล้ววางแผนเส้นทางอีกครั้ง";
 
 "downloader_search_field_hint" = "ค้นหาแผนที่";
-
-"migration_update_all_button" = "อัปเดตแผนที่ทั้งหมด";
-
-"migration_delete_all_download_current_button" = "ดาวน์โหลดแผนที่ปัจจุบันและลบแผนที่เก่า";
 
 "migration_download_error_dialog" = "ข้อผิดพลาดในการดาวน์โหลด";
 
@@ -1186,21 +764,9 @@
 
 "downloader_no_space_message" = "กรุณาลบข้อมูลที่ไม่จำเป็น";
 
-"editor_general_auth_error_dialog" = "ข้อผิดพลาดในการล็อกอินทั่วไป";
-
 "editor_login_error_dialog" = "ข้อผิดพลาดในการล็อกอิน";
 
-"editor_login_failed_dialog" = "การล็อกอินล้มเหลว";
-
-"editor_username_error_dialog" = "ชื่อผู้ใช้ไม่ถูกต้อง";
-
-"editor_place_edited_dialog" = "คุณได้แก้ไขวัตถุ!";
-
-"editor_login_with_osm" = "ล็อกอินด้วย OpenStreetMap";
-
 "editor_profile_changes" = "การเปลี่ยนแปลงที่อนุมัติแล้ว";
-
-"editor_profile_unsent_changes" = "ไม่ได้ส่ง:";
 
 "editor_focus_map_on_location" = "ดึงแผนที่เพื่อเลือกตำแหน่งวัตถุที่ถูกต้อง";
 
@@ -1222,13 +788,9 @@
 
 "editor_report_problem_other_title" = "ปัญหาอีกอย่างหนึ่ง";
 
-"placepage_report_problem_button" = "แจ้งปัญหา";
-
 "placepage_add_business_button" = "เพิ่มองค์กร";
 
 "whatsnew_editor_message_1" = "เพิ่มสถานที่ใหม่ ๆ ไปยังแผนที่ และแก้ไขสถานที่ที่มีอยู่เดิมจากแอปโดยตรง";
-
-"whatsnew_editor_message_2" = "* Organic Maps ใช้ข้อมูลจากชุมชน OpenStreetMap";
 
 "dialog_incorrect_feature_position" = "เปลี่ยนสถานที่ตั้ง";
 
@@ -1236,16 +798,10 @@
 
 "login_to_make_edits_visible" = "ล็อกอินเพื่อให้ผู้ใช้คนอื่นสามารถเห็นการเปลี่ยนแปลงของคุณได้";
 
-"no_migration_during_navigation" = "ห้ามอัปเดตระหว่างการนำทาง";
-
 /* Error dialog no space */
 "migration_no_space_message" = "ในการดาวน์โหลด คุณต้องมีพื้นที่มากขึ้น กรุณาลบเนื้อหาที่ไม่จำเป็นออกไป";
 
 "editor_sharing_title" = "ฉันได้ปรับปรุงแผนที่ Organic Maps";
-
-"editor_comment_will_be_sent" = "เราจะส่งความคิดเห็นของคุณไปให้กับนักเขียนแผนที่";
-
-"editor_unsupported_category_message" = "คุณได้เพิ่มสถานที่ในหมวดหมู่ที่เรายังไม่รองรับ มันจะปรากฏบนแผนที่หลังจากนี้สักพักหนึ่ง";
 
 /* Downloaded 10 **of** 20 <- it is that "of" */
 "downloader_of" = "%1$d จาก %2$d";
@@ -1278,23 +834,9 @@
 
 "editor_operator" = "เจ้าของ";
 
-"editor_tag_description" = "ใส่ชื่อบริษัท, องค์กร หรือ บุคคลที่เป็นผู้รับผิดชอบสถานที่นี้";
-
-"editor_no_local_edits_title" = "คุณไม่มีการแก้ไขท้องถิ่น";
-
-"editor_no_local_edits_description" = "หมายเลขที่แสดงอยู่ คือ หมายเลขที่คุณได้ทำการแนะนำการเปลี่ยนแปลงบนแผนที่ที่สามารถเข้าถึงได้โดยอุปกรณ์ของคุณท่านั้น";
-
-"editor_send_to_osm" = "ส่งไปที่ OSM";
-
-"editor_remove" = "ลบออก";
-
-"downloader_my_maps_title" = "แผนที่ของฉัน";
-
 "downloader_no_downloaded_maps_title" = "คุณยังไม่ได้ดาวน์โหลดแผนที่";
 
 "downloader_no_downloaded_maps_message" = "ดาวน์โหลดแผนที่เพื่อค้นหาสถานที่ และนำทางแบบออฟไลน์";
-
-"downloader_find_place_hint" = "ค้นหาชื่อเมือง หรือ ประเทศ";
 
 /* Error title that appears after certain time without location. */
 "current_location_unknown_title" = "ค้นหาที่ตั้งปัจจุบันต่อไปหรือไม่?";
@@ -1321,47 +863,13 @@
 /* iOS Dialog for the case when the location permission is not granted */
 "location_services_disabled_3" = "3. เลือกในขณะใช้แอป";
 
-"placepage_parking_surface" = "กลางแจ้ง";
-
-"placepage_parking_multistorey" = "หลายชั้น";
-
-"placepage_parking_underground" = "ชั้นใต้ดิน";
-
-"placepage_parking_rooftop" = "ดาดฟ้า";
-
-"placepage_parking_sheds" = "ในร่ม";
-
-"placepage_parking_carports" = "โรงรถ";
-
-"placepage_parking_boxes" = "โรงรถแบบกล่อง";
-
-"placepage_parking_pay" = "เสียเงิน";
-
-"placepage_parking_free" = "ฟรี";
-
-"placepage_parking_interval" = "จ่ายตามช่วงเวลา";
-
-"placepage_entrance_number" = "หมายเลข";
-
-"placepage_entrance_type" = "ทางเข้า";
-
-"placepage_flat" = "ห้อง";
-
-"placepage_open_24_7" = "24 ชั่วโมง";
-
 "meter" = "ม.";
 
 "kilometer" = "กม.";
 
-"kilometers_per_hour" = "กม./ชม.";
-
 "mile" = "ไมล์";
 
 "foot" = "ฟุต";
-
-"miles_per_hour" = "ไมล์/ชม.";
-
-"day" = "ว.";
 
 "hour" = "ชม.";
 
@@ -1381,10 +889,6 @@
 
 "placepage_bookmark_name_hint" = "ชื่อของ Bookmark";
 
-"placepage_personal_notes_hint" = "ข้อความส่วนตัว";
-
-"placepage_delete_bookmark_button" = "ลบ Bookmark";
-
 "editor_edits_sent_message" = "คำแนะนำการเปลี่ยนแปลงของคุณถูกส่งไปแล้ว";
 
 "editor_comment_hint" = "ข้อคิดเห็น";
@@ -1397,8 +901,6 @@
 
 "editor_remove_place_button" = "ลบออก";
 
-"editor_status_sending" = "กำลังส่ง…";
-
 "editor_place_doesnt_exist" = "ไม่พบสถานที่นี้";
 
 "text_more_button" = "…เพิ่มเติม";
@@ -1410,11 +912,7 @@
 
 "error_enter_correct_email" = "กรอกอีเมลที่ถูกต้อง";
 
-"error_enter_correct" = "กรอกค่าที่ถูกต้อง";
-
 "refresh" = "อัปเดต";
-
-"last_update" = "การอัปเดตล่าสุด: %s";
 
 "placepage_add_place_button" = "เพิ่มสถานที่ไปยังแผนที่";
 
@@ -1426,24 +924,6 @@
 
 "editor_share_to_all_dialog_message_2" = "เราจะตรวจสอบการเปลี่ยนแปลง หากเรามีคำถามใด ๆ เราจะติดต่อคุณผ่านทางอีเมล";
 
-"navigation_overview_button" = "ภาพรวม";
-
-"navigation_stop_button" = "หยุด";
-
-/* Text on an empty bookmark page */
-"bookmarks_empty_title" = "บันทึกบุ๊กมาร์ก";
-
-"bookmarks_empty_message_1" = "แตะ ★ เพื่อบันทึกสถานที่โปรดเพื่อให้เข้าถึงได้อย่างรวดเร็ว";
-
-"bookmarks_empty_message_2" = "นำเข้าบุ๊กมาร์กจาก Mail และเว็บ";
-
-"bookmarks_empty_message_3" = "เช็คเอาท์: %s";
-
-/* Name of the group for booked hotels */
-"bookmarks_group_name" = "โรงแรมที่จอง";
-
-"place_page_button_read_descriprion" = "อ่าน";
-
 /* iOS dialog for the case when recent track recording is on and the app comes back from background */
 "recent_track_background_dialog_title" = "ปิดการใช้งานการบันทึกเส้นทางที่คุณเดินทางเมื่อเร็ว ๆ นี้?";
 
@@ -1451,8 +931,6 @@
 
 /* For sharing via SMS and so on */
 "sharing_call_action_look" = "ตรวจชม";
-
-"continue_recent_track_background_button" = "ดำเนินการต่อ";
 
 "recent_track_background_dialog_message" = "Organic Maps ใช้ตำแหน่งทางภูมิศาสตร์ของคุณในพื้นหลังเพื่อบันทึกเส้นทางที่คุณเดินทางเมื่อเร็ว ๆ นี้";
 
@@ -1468,33 +946,13 @@
 /* About short text (below logo) */
 "about_description" = "Organic Maps เป็นแอปพลิเคชั่นออฟไลน์ที่จำเป็นสำหรับการท่องเที่ยว Organic Maps นั้นใช้งานบนพื้นฐานของข้อมูล OpenStreetMap และใช้แก้ไขได้ด้วย";
 
-/* Text in menu */
-"blog" = "บล็อก";
-
 "general_settings" = "การตั้งค่าทั่วไป";
-
-"date" = "วันที่ %d";
-
-/* "Report a bug" -> "Generaal Feedback" -> "Something is not working" */
-"something_is_not_working" = "มีบางอย่างไม่ทำงาน";
 
 /* For the first routing */
 "accept" = "ยอมรับ";
 
-"accept_and_continue" = "Accept and continue";
-
 /* For the first routing */
 "decline" = "ปฏิเสธ";
-
-"install_app" = "ติดตั้ง";
-
-"search_no_results_title" = "ไม่พบผลลัพธ์";
-
-"search_no_results_message" = "ลองค้นหาด้วยคำทั่ว ๆ ไปดู ซูมออกหรือรีเซ็ตตัวกรอง";
-
-"search_no_results_expand_area_button" = "ซูมออก";
-
-"search_no_results_reset_button" = "รีเซ็ตตัวกรอง";
 
 /* noun */
 "search_in_table" = "รายการ";
@@ -1517,8 +975,6 @@
 
 "traffic_update_maps_text" = "ต้องอัปเดตแผนที่เพื่อแสดงข้อมูลการจราจร";
 
-"traffic_outdated" = "ข้อมูลการจราจรเก่าเกินไปแล้ว";
-
 "big_font" = "เพิ่มขนาดฟอนต์บนแผนที่";
 
 "traffic_update_app" = "กรุณาอัปเดต Organic Maps";
@@ -1529,17 +985,7 @@
 /* "traffic" as in "road congestion" */
 "traffic_data_unavailable" = "ไม่มีข้อมูลการจราจร";
 
-/* "Translation is no needed, because it's a company name" */
-"uber" = "Uber";
-
-/* Simplified colour scheme for traffic information, fewer colours are used to display traffic jams on the map. The string should be kept as short as possible */
-"pref_traffic_simplified_colors_title" = "ไฟจราจรแบบง่าย";
-
 "enable_logging" = "เปิดใช้งานการเก็บล็อก";
-
-"offline_place_page_more_information" = "เชื่อมต่ออินเทอร์เน็ตเพื่อรับข้อมูลเพิ่มเติมเกี่ยวกับสถานที่";
-
-"failed_load_information" = "ไม่สามารถโหลดข้อมูลได้";
 
 /* Settings: "Send general feedback" button */
 "feedback_general" = "ข้อเสนอแนะทั่วไป";
@@ -1556,8 +1002,6 @@
 
 "whatsnew_transliteration_title" = "การทับศัพท์เป็นภาษาละติน";
 
-"yandex_taxi_title" = "Yandex.Taxi";
-
 "learn_more" = "ศึกษาเพิ่มเติม";
 
 "core_exit" = "ออก";
@@ -1568,75 +1012,19 @@
 
 "button_exit" = "ออก";
 
-"settings_device_memory" = "หน่วยความจำเครื่อง";
-
-"settings_card_memory" = "หน่วยความจำการ์ด";
-
-"settings_storage_available" = "เหลือให้ใช้ได้ %s";
-
-"toast_location_permission_denied" = "สิทธิ์ตำแหน่งที่ตั้งของแอปถูกปฏิเสธ";
-
-"button_use" = "ใช้";
-
 "planning_route_manage_route" = "จัดการเส้นทาง";
 
 "button_plan" = "วางแผน";
-
-"button_add" = "เพิ่ม";
 
 "placepage_remove_stop" = "เอาออก";
 
 "planning_route_remove_title" = "ลากมาที่นี่เพื่อเอาออก";
 
-"dialog_change_start_point_message" = "แทนที่จุดเริ่มต้นไปยังตำแหน่งปัจจุบันหรือไม่?";
-
-"button_replace" = "แทนที่";
-
 "placepage_add_stop" = "เพิ่มจุดแวะพัก";
-
-/* Only ru/en are needed */
-"subtitle_rent" = "Rent";
-
-/* Only ru/en are needed */
-"rub_month" = "RUB/month";
-
-/* Only ru/en are needed */
-"room" = "%s-room apt.";
-
-/* Only ru/en are needed */
-"real_estate" = "Real estate";
-
-"add_my_position" = "เพิ่มตำแหน่งของฉัน";
-
-"choose_start_point" = "เลือกจุดเริ่มต้น";
-
-"choose_destination" = "เลือกปลายทาง";
 
 "preloader_viator_button" = "เรียนรู้เพิ่มเติม";
 
-"start_from_my_position" = "เริ่มจาก";
-
-"profile_authorization_title" = "ลงชื่อเข้าใช้ด้วย";
-
-"profile_authorization_message" = "ลงชื่อเข้าใช้อย่างง่ายโดยไม่ต้องใช้ชื่อเข้าสู่ระบบและรหัสผ่านเพียงไม่กี่วินาที";
-
 "profile_authorization_error" = "โอ๊ะ มีข้อผิดพลาดเกิดขึ้น ลองลงชื่อเข้าใช้อีกครั้ง";
-
-"service" = "บริการ";
-
-"atmosphere" = "บรรยากาศ";
-
-"value_for_money" = "คุ้มค่าเงิน";
-
-"experience" = "ประสบการณ์";
-
-"assortment" = "การแบ่งประเภท";
-
-"expertise" = "ความเชี่ยวชาญ";
-
-"equipment" = "อุปกรณ์";
-
-"quality" = "คุณภาพ";
 
 "dialog_error_storage_title" = "ปัญหาการเข้าถึงที่เก็บข้อมูล";
 
@@ -1644,17 +1032,7 @@
 
 "setting_emulate_bad_storage" = "จำลองแบบที่เก็บข้อมูลที่ไม่ดี";
 
-"directions_finish" = "จุดหมายปลายทาง";
-
-"directions_on_foot" = "เดินเท้า %s";
-
 "core_entrance" = "ทางเข้า";
-
-"coffee" = "กาแฟ";
-
-"cleanliness" = "ความสะอาด";
-
-"crowdedness" = "ความแออัด";
 
 "error_enter_correct_name" = "กรุณาใส่ชื่อที่ถูกต้อง";
 
@@ -1673,11 +1051,9 @@
 
 "downloader_percent" = "%s (%s จาก %s)";
 
-"downloader_process" = "กำลังดาวน์โหลด %s...";
+"downloader_process" = "กำลังดาวน์โหลด %s…";
 
-"downloader_applying" = "กำลังนำ %s ไปใช้งาน...";
-
-"dialog_message_transit_not_found_connection" = "วางแผนเส้นทางภายในเครือข่ายการเดินทางเดียว";
+"downloader_applying" = "กำลังนำ %s ไปใช้งาน…";
 
 "bookmarks_error_message_share_general" = "ไม่สามารถแชร์ได้เนื่องจากเกิดข้อผิดพลาดในแอปพลิเคชัน";
 
@@ -1695,17 +1071,7 @@
 
 "bookmarks_error_message_list_name_already_taken" = "โปรดเลือกชื่ออื่น";
 
-"bookmarks_error_title_list_name_too_long" = "ชื่อนี้ยาวเกินไป";
-
-"bookmarks_error_message_list_name_too_long" = "โปรดเลือกชื่ออื่น";
-
-"please_wait" = "โปรดรอสักครู่ ...";
-
-"phone_number" = "หมายเลขโทรศัพท์";
-
-"notification_unsent_reviews_title" = "คุณมีรีวิวที่ยังไม่ได้อ่านหลายฉบับ";
-
-"notification_unsent_reviews_message" = "โปรดลงชื่อเข้าใช้เพื่อแบ่งปันความเห็นกับผู้อื่น";
+"please_wait" = "โปรดรอสักครู่ …";
 
 "profile" = "โปรไฟล์ OpenStreetMap";
 
@@ -1719,49 +1085,13 @@
 
 "bookmarks_convert_error_message" = "ไฟล์บางไฟล์ไม่ได้รับการแปลง";
 
-"converting" = "กำลังแปลง...";
-
-"wn_reinvented_bookmarks_title" = "เราสร้างสรรค์บุ๊กมาร์กใหม่!";
-
-"wn_reinvented_bookmarks_message" = "คุณสามารถสำรองบุ๊คมาร์คสร้างรายการ... มันน่าทึ่ง...";
-
-"bookmarks_restore" = "เรียกคืนบุ๊กมาร์ก";
-
-"bookmarks_restore_process" = "กำลังกู้คืน...";
-
 "bookmarks_restore_title" = "เรียกคืนเวอร์ชันนี้หรือไม่?";
 
-"bookmarks_restore_message" = "บุ๊กมาร์กของคุณจะคืนค่าจาก %s (%s)";
-
-"bookmarks_restore_empty_title" = "คุณไม่มีข้อมูลสำรอง";
-
-"bookmarks_restore_empty_message" = "เซิร์ฟเวอร์ไม่พบการสำรองข้อมูลก่อนหน้านี้";
-
 "common_check_internet_connection_dialog_title" = "ไม่มีการเชื่อมต่ออินเทอร์เน็ต";
-
-"error_server_title" = "ข้อผิดพลาดของเซิร์ฟเวอร์";
-
-"error_server_message" = "เกิดข้อผิดพลาดบนเซิร์ฟเวอร์โปรดลองอีกครั้งในภายหลัง";
 
 "error_system_message" = "เกิดข้อผิดพลาดที่ไม่ทราบสาเหตุ";
 
 "restore" = "ฟื้นฟู";
-
-"bookmarks_page_downloaded" = "ดาวน์โหลด";
-
-"bookmarks_page_my" = "ของฉัน";
-
-"routes_and_bookmarks" = "เส้นทาง และบุ๊กมาร์ก";
-
-"bookmarks_webview_success_toast" = "ดาวน์โหลดบุ๊กมาร์กสำเร็จแล้ว";
-
-"cached_bookmarks_placeholder_title" = "ดาวน์โหลดสถานที่ใหม่";
-
-"cached_bookmarks_placeholder_subtitle" = "กดปุ่มเพื่อดาวน์โหลดหลายพันสถานที่ และเส้นทางที่น่าสนใจต่าง ๆ ซึ่งสร้างขึ้นโดยผู้ใช้งานของ Organic Maps คุณจำเป็นต้องเชื่อมต่อกับอินเตอร์เน็ต";
-
-"downloader_download_routers" = "ดาวน์โหลดบุ๊กมาร์ก";
-
-"bookmarks_groups_cached" = "ดาวน์โหลดรายการต่าง ๆ แล้ว";
 
 "subtittle_opt_out" = "การตั้งค่าการติดตาม";
 
@@ -1769,29 +1099,15 @@
 
 "crash_reports_description" = "เราอาจใช้ข้อมูลของคุณเพื่อพัฒนาประสบการณ์ของ Organic Maps การเปลี่ยนแปลงจะมีผลหลังจากที่คุณเปิดแอพฯ ขึ้นใหม่";
 
-"opt_out_help_ios_1" = "อุปกรณ์มือถือของคุณอาจมีการตั้งค่า \"\"จำกัดการติดตามโฆษณา\"\" หรือ \"\"เลือกไม่ใช้การโฆษณาตามความสนใจ\"\"";
-
-"opt_out_help_ios_2" = "iOS 9 หรือสูงกว่า";
-
-"opt_out_help_ios_3" = "ไปที่การตั้งค่าของคุณ → ความเป็นส่วนตัว → การโฆษณา → เปิดใช้งานการตั้งค่า “จำกัดการติดตามโฆษณา”";
-
-"opt_out_help_android" = "อุปกรณ์มือถือของคุณอาจมีการตั้งค่า \"\"จำกัดการติดตามโฆษณา\"\" หรือ \"\"เลือกไม่ใช้การโฆษณาตามความสนใจ\"\"\n\nสำหรับ Android และบริการ Google Play เวอร์ชั่น 4.0 และสูงกว่า:\nการตั้งค่า → Google → โฆษณา → เลือกไม่ใช้การโฆษณา ในแบบของคุณ\หรือ\nการตั้งค่า → Google → Google Account → ข้อมูลส่วนตัว และส่วนบุคคล → การตั้งค่าโฆษณา → โฆษณาในแบบของคุณ";
-
 "privacy_policy" = "นโยบายความเป็นส่วนตัว";
 
 "terms_of_use" = "ข้อกำหนดในการใช้งาน";
-
-"backup_notification_failed" = "การเก็บสำรองบุ๊กมาร์กของคุณได้ถูกระงับ เข้าสู่ระบบเพื่อเปิดใช้งานอีกครั้ง";
 
 "button_layer_traffic" = "การจราจร";
 
 "button_layer_subway" = "รถไฟใต้ดิน";
 
 "layers_title" = "ชั้นแผนที่";
-
-"layers_message" = "ใช้ชั้นแผนที่เพื่อแสดงแผนที่ข้อมูลด้านการจราจร รถไฟใต้ดิน และข้อมูลอื่น ๆ ที่เป็นประโยชน์";
-
-"button_layer_got_it" = "เข้าใจแล้ว";
 
 "subway_data_unavailable" = "แผนที่รถไฟใต้ดินไม่พร้อมใช้งาน";
 
@@ -1803,39 +1119,13 @@
 
 "title_error_downloading_bookmarks" = "มีข้อผิดพลาดเกิดขึ้น";
 
-"subtitle_error_downloading_bookmarks" = "ไม่ได้ดาวน์โหลดบุ๊กมาร์ก";
-
-"error_already_downloaded" = "มีการดาวน์โหลดรายการนี้แล้ว";
-
 "popular_place" = "Popular";
-
-"download_routes" = "Download routes";
-
-"bookmarks_downloaded_title" = "Bookmarks have been downloaded successfully";
-
-"bookmarks_downloaded_subtitle" = "Press ‘View on map’ to explore new places from the list";
-
-"why_support" = "ทำไมถึงควรใช้บริการ Organic Maps?";
-
-"why_support_item1" = "We respect your privacy: there are zero trackers in the app, and we are open source";
-
-"why_support_item2" = "คุณช่วยเราพัฒนา Organic Maps";
-
-"why_support_item3" = "คุณช่วยเราพัฒนาแผนที่ที่เปิดให้คนทั่วไปเข้าใช้งานของ OpenStreetMap.org";
-
-"channels_map_update" = "อัพเดตโรงแรม";
-
-"server_unavailable_title" = "ไม่สามารถเข้าถึงเซิร์ฟเวอร์";
-
-"sharing_options" = "ตัวเลือกการแชร์";
 
 "export_file" = "ส่งออกไฟล์";
 
 "list_settings" = "การตั้งค่ารายการ";
 
 "delete_list" = "ลบรายการ";
-
-"hide_from_map" = "ซ่อนจากแผนที่";
 
 "public_access" = "เข้าถึงได้โดยสาธารณะ";
 
@@ -1845,40 +1135,11 @@
 
 "bookmark_category_description_hint" = "พิมพ์รายละเอียด (ข้อความหรือ html)";
 
-/* FIXME */
-"bookmarks_public_access" = "bookmarks_public_access";
-
-/* FIXME */
-"bookmarks_link_access" = "bookmarks_link_access";
-
-/* FIXME */
-"bookmarks_private_access" = "bookmarks_private_access";
-
 "not_shared" = "ส่วนตัว";
-
-"direct_link_progress_text" = "กำลังอัพโหลดไฟล์ของคุณ…";
-
-"direct_link_success" = "ลิงค์ถูกสร้างแล้ว";
-
-"send_a_link_btn" = "ส่งลิงค์ให้ฉัน";
-
-"upload_error_toast" = "เกิดข้อผิดพลาดขณะอัพโหลดไฟล์ของคุณ";
 
 "tags_loading_error_subtitle" = "เกิดข้อผิดพลาดขณะโหลดแท็ก โปรดลองใหม่อีกครั้ง";
 
-"unable_upload_errorr_title" = "การอัพโหลดไฟล์ล้มเหลว";
-
-"unable_upload_error_subtitle_edited" = "ไฟล์นั้นถูกแก้ไขผ่านทางเว็บแอพ";
-
-"unable_upload_error_subtitle_broken" = "ไฟล์นั้นเสียหายและไม่สามารถอัพโหลดได้ โปรอัพโหลดไฟล์อื่นแทน";
-
-"contact" = "ติดต่อ";
-
-"download_button" = "ดาวน์โหลด";
-
 "speedcams_alert_title" = "กล้องตรวจจับความเร็ว";
-
-"speedcams_alert_subtitle" = "เตือนเรื่องการจำกัดความเร็ว";
 
 "speedcam_option_auto" = "อัตโนมัติ";
 
@@ -1886,18 +1147,10 @@
 
 "speedcam_option_never" = "ไม่ต้องเตือน";
 
-"bookmark_description_title" = "รายละเอียดของบุ๊คมาร์ค";
-
 "place_description_title" = "รายละเอียดของสถานที่";
 
 /* this text will be shown in application notification preferences opposite checkbox which enable/disable downloader notifications. Devices on Android 8+ are affected. */
 "notification_channel_downloader" = "ตัวดาวน์โหลดแผนที่";
-
-"share_bookmarks_email_body_link" = "สวัสดี!\n\nนี่คือลิงค์ที่คุณสามารถดาวน์โหลดบุ๊คมาร์คของคุณ: %s เปิดรายการผ่าน Organic Maps และเพลิดเพลินไปกับการเดินทางของคุณ!\n\nรับแอพพลิเคชัน: https://omaps.app/get?kmz";
-
-"warning_speedcams_title" = "เนวิเกเตอร์จะเตือนคุณเกี่ยวกับกล้องถ่ายรูปเมื่อคุณขับเร็วเกินกำหนดโดยอยู่ที่ %d กม./ชม";
-
-"warning_speedcams_subtitle" = "โปรดปฏิบัติตามกฎหมายการขับขี่รถยนต์ของประเทศที่คุณกำลังเดินทางไป";
 
 "speedcams_notice_message" = "อัตโนมัติ - เตือนเกี่ยวกับกล้องตรวจจับความเร็วหากมีความเป็นได้ว่าจะขับเร็วเกิดกำหนด\nทุกครั้ง - เตือนเกี่ยวกับกล้องตรวจจับความเร็วเสมอ\nไม่ต้องเตือน - ไม่เคยเตือนเกี่ยวกับกล้องตรวจจับความเร็ว";
 
@@ -1913,23 +1166,7 @@
 
 "enable_logging_warning_message" = "ออปชันเพื่อเปิดการบันทึกประวัติการทำงานเพื่อการวินิจฉัย ประวัติดังกล่าวอาจเป็นประโยชน์กับทีมงานช่วยเหลือของเราที่คอยจัดการกับปัญหาที่เจอระหว่างแอปทำงาน โปรดเปิดออปชันดังกล่าวจากการร้องข้อการสนับสนุนจาก Organic Maps เท่านั้น";
 
-"html_error_upload_message_try_again" = "โปรดเช็คการตั้งค่าเครือข่ายและลองใหม่อีกครั้ง";
-
-"html_error_upload_title_try_again" = "ไม่มีการเชื่อมต่ออินเทอร์เน็ต";
-
-"notification_leave_review_v2_android_short_title" = "รีวิวและช่วยนักท่องเที่ยวคนอื่น!";
-
-"megafon" = "Say goodbye to roaming!";
-
-"notifications_illegal_alert_disable_button" = "ปิดการแจ้งเตือน";
-
 "access_rules_author_only" = "การแก้ไขทางออนไลน์";
-
-"privacy_settings_menu" = "การตั้งค่าความเป็นส่วนตัว";
-
-"unable_upadate_error_title" = "อัพเดตไฟล์ล้มเหลว";
-
-"unable_upadate_error_message" = "มีข้อผิดพลาดบางอย่างเกิดขึ้นขณะอัพเดต โปรดตรวจทานการแก้ไขและลองใหม่อีกครั้ง";
 
 "driving_options_title" = "ทางเลือกเส้นทางขับขี่";
 
@@ -1951,94 +1188,19 @@
 
 "change_driving_options_btn" = "เปิดใช้การค้นหาเส้นทางขับขี่แล้ว";
 
-"toll_road" = "ถนนแบบเสียค่าผ่านทาง";
-
-"unpaved_road" = "ถนนดิน";
-
-"ferry_crossing" = "เรือข้ามฟาก";
-
-"operated_by" = "กำลังทำงานอยู่ที่ \"%s\"";
-
 "avoid_toll_roads_placepage" = "เลี่ยงทางที่ต้องเสียเงินทั้งหมด";
 
 "avoid_unpaved_roads_placepage" = "เลี่ยงถนนดินทั้งหมด";
 
 "avoid_ferry_crossing_placepage" = "เลี่ยงการข้ามฟากด้วยเรือ";
 
-"type.cuisine.uzbek" = "อาหารแนวอุซเบค";
-
-"trip_start" = "ไปกันเลย";
-
-"pick_destination" = "จุดหมาย";
-
-"follow_my_position" = "รีเซ็นเตอร์";
-
-"search_results" = "ผลการค้นหา";
-
-"then_turn" = "จากนั้น";
-
-"redirect_route_alert" = "ต้องการสร้างเส้นทางใหม่หรือไม่";
-
-"redirect_route_yes" = "ใช่";
-
-"redirect_route_no" = "ไม่ใช่";
-
-"trip_finished" = "คุณมาถึงแล้ว!";
-
-"keyboard_availability_alert" = "คีย์บอร์ดไม่สามารถใช้งานได้ขณะขับขี่";
-
-"dialog_routing_change_start_carplay" = "ไม่สามารถสร้างเส้นทางจากตำแหน่งปัจจุบันของคุณ";
-
-"dialog_routing_change_end_carplay" = "ไม่สามารถสร้างเส้นทางไปยังจุดหมายของคุณ โปรดเลือกจุดหมายใหม่";
-
-"dialog_routing_check_gps_carplay" = "ไม่มีสัญญาณจีพีเอส โปรดไปในที่โล่งเพื่อหาสัญญาณ";
-
-"dialog_routing_unable_locate_route_carplay" = "ไม่สามารถคำนวณเส้นทาง โปรดระบุตำแหน่งของเส้นทางอื่น";
-
-"dialog_routing_download_files_carplay" = "เพื่อสร้างเส้นทาง โปรดดาวน์โหลดแผนที่บนอุปกรณ์ของคุณ";
-
-"dialog_routing_system_error_carplay" = "พบข้อผิดพลาด โปรดปิดและเปิดแอปพลิเคชันใหม่อีกครั้ง";
-
-"dialog_routing_rebuild_from_current_location_carplay" = "เส้นทางจะถูกสร้างอีกครั้งจากตำแหน่งปัจจุบันของคุณ";
-
-"dialog_routing_rebuild_for_vehicle_carplay" = "เส้นทางของรถยนต์อาจถูกปรับเปลี่ยน";
-
 "ok" = "โอเค";
-
-"avoid_unpaved_carplay_1" = "ไม่มีลูกรัง";
-
-"avoid_unpaved_carplay_2" = "หลีกเลี่ยงทาง";
-
-"avoid_ferry_carplay_1" = "ไม่มีเรือ";
-
-"avoid_ferry_carplay_2" = "หลีกเลี่ยงเรือ";
-
-"avoid_tolls_carplay_1" = "ไม่มีค่าผ่าน";
-
-"avoid_tolls_carplay_2" = "เลี่ยงทางด่วน";
-
-"speedcams_alert_title_carplay_1" = "จับความเร็ว";
-
-"speedcams_alert_title_carplay_2" = "เตือนความเร็ว";
-
-"download_map_carplay" = "โปรดดาวน์โหลดแผนที่ในแอพฯ Organic Maps บนอุปกรณ์ของคุณ";
-
-"carplay_roundabout_exit" = "ทางออกที่ %s";
 
 /* max. 10 symbols, both iOS and Android */
 "sort" = "เรียง…";
 
 /* Android, title, max 20-22 symbols */
 "sort_bookmarks" = "เรียงบุ๊กมาร์ก";
-
-/* iOS */
-"sort_default" = "เรียงตามค่าเริ่มต้น";
-
-"sort_type" = "เรียงตามประเภท";
-
-"sort_distance" = "เรียงตามระยะทาง";
-
-"sort_date" = "เรียงตามวันที่";
 
 /* Android */
 "by_default" = "ตามค่าเริ่มต้น";
@@ -2052,63 +1214,7 @@
 /* Android */
 "by_date" = "ตามวันที่";
 
-"week_ago_sorttype" = "สัปดาห์ที่ผ่านมา";
-
-"month_ago_sorttype" = "เดือนที่ผ่านมา";
-
-"moremonth_ago_sorttype" = "มากกว่าหนึ่งเดือนที่ผ่านมา";
-
-"moreyear_ago_sorttype" = "มากกว่าหนึ่งปีที่ผ่านมา";
-
-"near_me_sorttype" = "ใกล้ฉัน";
-
-"others_sorttype" = "อื่นๆ";
-
-"food_places" = "อาหาร";
-
-"tourist_places" = "ที่ท่องเที่ยว";
-
-"museums" = "พิพิธภัณฑ์";
-
-"parks" = "ที่จอดรถ";
-
-"swim_places" = "ว่ายน้ำ";
-
-"mountains" = "ภูเขา";
-
-"animals" = "สวนสัตว์";
-
-"hotels" = "โรงแรม";
-
-"buildings" = "สิ่งปลูกสร้าง";
-
-"money" = "เงิน";
-
-"shops" = "ร้านค้า";
-
-"parkings" = "ที่จอดรถ";
-
-"fuel_places" = "ปั๊มน้ำมัน/แก๊ส";
-
-"water" = "น้ำ";
-
-"medicine" = "ยา";
-
 "search_in_the_list" = "ค้นหาในรายการ";
-
-"view_on_map_bookmarks" = "บนแผนที่";
-
-"more_bookmarks" = "เพิ่มเติม…";
-
-"no_items_found" = "ไม่พบรายการ";
-
-/* Android, max 18 symbols */
-"bookmarks_edit_list" = "แก้ไขรายการ";
-
-/* Android, max 18 symbols */
-"bookmarks_delete_list" = "ลบรายการ";
-
-"religious_places" = "สถานที่ทางศาสนา";
 
 "select_list" = "เลือกรายการ";
 
@@ -2118,26 +1224,13 @@
 
 "dialog_pedestrian_route_is_long_message" = "โปรดเลือกจุดเริ่มต้นและสิ้นสุดที่อยู่ใกล้สถานีรถไฟใต้ดิน";
 
-/* Failed planning SUBWAY route message in navigation view */
-"routing_planning_error_subway_special" = "การวางแผนเส้นทางของทางรถไฟใต้ดินล้มเหลว";
-
 "button_layer_isolines" = "ความสูง";
-
-"tips_map_layers_title_countour" = "เลเยอร์แผนที่ภูมิประเทศแบบออฟไลน์ ใหม่ในแอป Organic Maps!";
-
-"tips_map_layers_message_countour" = "วางแผนและสนุกไปกับทริปท่องธรรมชาติโดยมั่นใจว่าคุณรู้ทุกอย่างเกี่ยวกับพื้นที่นั้น";
 
 "isolines_activation_error_dialog" = "ในการเปิดใช้งานเลเยอร์แผนที่ภูมิประเทศโปรดอัปเดตหรือดาวน์โหลดแผนที่ของบริเวณนั้น";
 
 "isolines_location_error_dialog" = "เลเยอร์แผนที่ภูมิประเทศยังใช้งานไม่ได้ในพื้นที่นี้";
 
 "elevation_profile_diff_level" = "ระดับความยาก";
-
-"elevation_profile_diff_level_easy" = "ง่าย";
-
-"elevation_profile_diff_level_moderate" = "ปานกลาง";
-
-"elevation_profile_diff_level_hard" = "ยาก";
 
 "elevation_profile_ascent" = "การขึ้น";
 
@@ -2147,25 +1240,13 @@
 
 "elevation_profile_maxaltitude" = "ระดับความสูงสูงสุด";
 
-"elevation_profile_m" = "ม";
-
 "elevation_profile_difficulty" = "ลำบาก";
 
 "elevation_profile_distance" = "ระยะทาง";
 
-"elevation_profile_km" = "กม";
-
 "elevation_profile_time" = "เวลา:";
 
-"elevation_profile_hours" = "ชม";
-
-"elevation_profile_minutes" = "นาที";
-
 "isolines_toast_zooms_1_10" = "ขยายเข้าเพื่อสำรวจเส้นชั้นความสูง";
-
-"downloader_updating_ios" = "การอัปเดต";
-
-"downloader_loading_ios" = "การดาวน์โหลด";
 
 "key_information_title" = "ข้อมูลหลัก";
 
