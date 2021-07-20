@@ -1,17 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
-        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="BottomTabBarViewController" customModule="OMaps" customModuleProvider="target">
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="BottomTabBarViewController" customModule="Organic_Maps" customModuleProvider="target">
             <connections>
                 <outlet property="bookmarksButton" destination="dgG-ki-3tB" id="md5-3T-9tb"/>
-                <outlet property="discoveryButton" destination="lHY-LD-odP" id="6LF-po-mDd"/>
                 <outlet property="downloadBadge" destination="uDI-ZC-4wx" id="fAf-cy-Ozn"/>
                 <outlet property="moreButton" destination="svD-yi-GrZ" id="kjk-ZW-nZN"/>
                 <outlet property="routeButton" destination="dzf-7Z-N6a" id="M5Q-pe-o4B"/>
@@ -20,7 +19,7 @@
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="zuH-WU-hiP" customClass="BottomTabBarView" customModule="OMaps" customModuleProvider="target" propertyAccessControl="none">
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="zuH-WU-hiP" customClass="BottomTabBarView" customModule="Organic_Maps" customModuleProvider="target" propertyAccessControl="none">
             <rect key="frame" x="0.0" y="0.0" width="373" height="84"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
@@ -35,7 +34,7 @@
                     <rect key="frame" x="0.0" y="0.0" width="373" height="48"/>
                     <subviews>
                         <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="249" horizontalCompressionResistancePriority="751" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="No0-ld-JX3" userLabel="Search" customClass="MWMButton">
-                            <rect key="frame" x="74.5" y="0.0" width="74.5" height="48"/>
+                            <rect key="frame" x="93.5" y="0.0" width="93" height="48"/>
                             <accessibility key="accessibilityConfiguration" identifier="searchButton"/>
                             <state key="normal" image="ic_menu_search"/>
                             <userDefinedRuntimeAttributes>
@@ -46,7 +45,7 @@
                             </connections>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dzf-7Z-N6a" userLabel="P2P" customClass="MWMButton">
-                            <rect key="frame" x="0.0" y="0.0" width="74.5" height="48"/>
+                            <rect key="frame" x="0.0" y="0.0" width="93.5" height="48"/>
                             <accessibility key="accessibilityConfiguration" identifier="p2pButton"/>
                             <state key="normal" image="ic_menu_point_to_point"/>
                             <userDefinedRuntimeAttributes>
@@ -56,19 +55,8 @@
                                 <action selector="onPoint2PointButtonPressed:" destination="-1" eventType="touchUpInside" id="PPa-zZ-odU"/>
                             </connections>
                         </button>
-                        <button hidden="YES" opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lHY-LD-odP" userLabel="Discover" customClass="MWMButton">
-                            <rect key="frame" x="149" y="0.0" width="75" height="48"/>
-                            <accessibility key="accessibilityConfiguration" identifier="discoveryButton"/>
-                            <state key="normal" image="ic_menu_discovery"/>
-                            <userDefinedRuntimeAttributes>
-                                <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="MWMBlack"/>
-                            </userDefinedRuntimeAttributes>
-                            <connections>
-                                <action selector="onDiscoveryButtonPressed:" destination="-1" eventType="touchUpInside" id="OII-P6-WT4"/>
-                            </connections>
-                        </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dgG-ki-3tB" userLabel="Bookmarks" customClass="MWMButton">
-                            <rect key="frame" x="224" y="0.0" width="74.5" height="48"/>
+                            <rect key="frame" x="186.5" y="0.0" width="93.5" height="48"/>
                             <accessibility key="accessibilityConfiguration" identifier="bookmarksButton"/>
                             <state key="normal" image="ic_menu_bookmark_list"/>
                             <userDefinedRuntimeAttributes>
@@ -79,7 +67,7 @@
                             </connections>
                         </button>
                         <button opaque="NO" contentMode="center" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="svD-yi-GrZ" userLabel="Menu" customClass="MWMButton">
-                            <rect key="frame" x="298.5" y="0.0" width="74.5" height="48"/>
+                            <rect key="frame" x="280" y="0.0" width="93" height="48"/>
                             <accessibility key="accessibilityConfiguration" identifier="menuButton"/>
                             <state key="normal" image="ic_menu"/>
                             <userDefinedRuntimeAttributes>
@@ -90,7 +78,7 @@
                             </connections>
                         </button>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uDI-ZC-4wx" userLabel="DownloadBadge">
-                            <rect key="frame" x="338.5" y="11" width="10" height="10"/>
+                            <rect key="frame" x="329.5" y="11" width="10" height="10"/>
                             <color key="backgroundColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <constraints>
                                 <constraint firstAttribute="width" constant="10" id="tEP-Xi-qnU"/>
@@ -109,21 +97,17 @@
                         <constraint firstItem="No0-ld-JX3" firstAttribute="height" secondItem="vum-s3-PHx" secondAttribute="height" id="9eR-I7-7at"/>
                         <constraint firstItem="svD-yi-GrZ" firstAttribute="leading" secondItem="dgG-ki-3tB" secondAttribute="trailing" id="Bsa-EZ-etN"/>
                         <constraint firstItem="svD-yi-GrZ" firstAttribute="height" secondItem="vum-s3-PHx" secondAttribute="height" id="Fde-um-JL6"/>
-                        <constraint firstItem="dgG-ki-3tB" firstAttribute="width" secondItem="vum-s3-PHx" secondAttribute="width" multiplier="0.2" id="FvH-gW-qvX"/>
+                        <constraint firstItem="dgG-ki-3tB" firstAttribute="width" secondItem="vum-s3-PHx" secondAttribute="width" multiplier="0.25" id="FvH-gW-qvX"/>
                         <constraint firstItem="dgG-ki-3tB" firstAttribute="centerY" secondItem="vum-s3-PHx" secondAttribute="centerY" id="JjT-sc-hIY"/>
-                        <constraint firstItem="dzf-7Z-N6a" firstAttribute="width" secondItem="vum-s3-PHx" secondAttribute="width" multiplier="0.2" id="Kpo-Yp-UaG"/>
-                        <constraint firstItem="lHY-LD-odP" firstAttribute="centerY" secondItem="vum-s3-PHx" secondAttribute="centerY" id="NkM-Gg-qtW"/>
+                        <constraint firstItem="dzf-7Z-N6a" firstAttribute="width" secondItem="vum-s3-PHx" secondAttribute="width" multiplier="0.25" id="Kpo-Yp-UaG"/>
                         <constraint firstItem="No0-ld-JX3" firstAttribute="leading" secondItem="dzf-7Z-N6a" secondAttribute="trailing" id="Q7C-0J-qf8"/>
                         <constraint firstItem="dzf-7Z-N6a" firstAttribute="leading" secondItem="vum-s3-PHx" secondAttribute="leading" id="RVj-Dx-wtX"/>
                         <constraint firstItem="dgG-ki-3tB" firstAttribute="height" secondItem="vum-s3-PHx" secondAttribute="height" id="Rs8-Hl-CAc"/>
                         <constraint firstItem="uDI-ZC-4wx" firstAttribute="centerX" secondItem="svD-yi-GrZ" secondAttribute="centerX" constant="8" id="XNb-Ba-Hn7"/>
                         <constraint firstItem="dzf-7Z-N6a" firstAttribute="centerY" secondItem="vum-s3-PHx" secondAttribute="centerY" id="Zug-zY-KIX"/>
-                        <constraint firstItem="lHY-LD-odP" firstAttribute="width" secondItem="vum-s3-PHx" secondAttribute="width" multiplier="0.2" id="enM-5c-KwM"/>
-                        <constraint firstItem="lHY-LD-odP" firstAttribute="centerX" secondItem="vum-s3-PHx" secondAttribute="centerX" id="gx1-YB-Mnb"/>
-                        <constraint firstItem="lHY-LD-odP" firstAttribute="height" secondItem="vum-s3-PHx" secondAttribute="height" id="hwM-L5-UAn"/>
-                        <constraint firstItem="No0-ld-JX3" firstAttribute="width" secondItem="vum-s3-PHx" secondAttribute="width" multiplier="0.2" id="qZh-XR-VeU"/>
+                        <constraint firstItem="No0-ld-JX3" firstAttribute="width" secondItem="vum-s3-PHx" secondAttribute="width" multiplier="0.25" id="qZh-XR-VeU"/>
                         <constraint firstItem="svD-yi-GrZ" firstAttribute="centerY" secondItem="vum-s3-PHx" secondAttribute="centerY" id="sja-hO-YY3"/>
-                        <constraint firstItem="svD-yi-GrZ" firstAttribute="width" secondItem="vum-s3-PHx" secondAttribute="width" multiplier="0.2" id="u75-4c-Jlg"/>
+                        <constraint firstItem="svD-yi-GrZ" firstAttribute="width" secondItem="vum-s3-PHx" secondAttribute="width" multiplier="0.25" id="u75-4c-Jlg"/>
                         <constraint firstAttribute="trailing" secondItem="svD-yi-GrZ" secondAttribute="trailing" identifier="menuTrailing" id="w4O-sY-Sb2"/>
                         <constraint firstItem="dzf-7Z-N6a" firstAttribute="height" secondItem="vum-s3-PHx" secondAttribute="height" id="yTg-8g-H1p"/>
                         <constraint firstItem="uDI-ZC-4wx" firstAttribute="centerY" secondItem="svD-yi-GrZ" secondAttribute="centerY" constant="-8" id="yq3-ui-IaL"/>
@@ -151,7 +135,6 @@
     <resources>
         <image name="ic_menu" width="48" height="48"/>
         <image name="ic_menu_bookmark_list" width="48" height="48"/>
-        <image name="ic_menu_discovery" width="24" height="24"/>
         <image name="ic_menu_point_to_point" width="48" height="48"/>
         <image name="ic_menu_search" width="48" height="48"/>
     </resources>
