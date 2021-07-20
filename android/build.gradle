@@ -230,23 +230,6 @@ android {
       android.sourceSets.google.assets.srcDirs = ['flavors/world-enabled']
     }
 
-    samsung {
-      dimension "default"
-      versionName = android.defaultConfig.versionName + '-Samsung'
-      buildConfigField 'String', 'REVIEW_URL', '"samsungapps://ProductDetail/app.organicmaps"'
-      buildConfigField 'String', 'SUPPORT_MAIL', '"samsung@organicmaps.app"'
-      android.sourceSets.samsung.assets.srcDirs = ['flavors/world-enabled']
-    }
-
-    amazon {
-      dimension "default"
-      versionName = android.defaultConfig.versionName + '-Amazon'
-      buildConfigField 'String', 'REVIEW_URL', '"amzn://apps/android?p=app.organicmaps"'
-      buildConfigField 'String', 'SUPPORT_MAIL', '"amazon@organicmaps.app"'
-      buildConfigField 'int', 'RATING_THRESHOLD', '4'
-      android.sourceSets.amazon.assets.srcDirs = ['flavors/world-enabled']
-    }
-
     web {
       dimension "default"
       versionName = android.defaultConfig.versionName + '-Web'
