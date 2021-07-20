@@ -87,7 +87,8 @@ public class PhoneListAdapter extends RecyclerView.Adapter<PhoneListAdapter.View
       final String p = phonesData.get(i).trim();
       if (!TextUtils.isEmpty(p))
       {
-        if (sb.length() > 0) sb.append(';');
+        if (sb.length() > 0)
+          sb.append(';');
         sb.append(p);
       }
     }
@@ -118,7 +119,7 @@ public class PhoneListAdapter extends RecyclerView.Adapter<PhoneListAdapter.View
 
       deleteButton = itemView.findViewById(R.id.delete_icon);
       deleteButton.setOnClickListener(this);
-      //TODO: setting icons from code because icons defined in layout XML are white.
+      // TODO: setting icons from code because icons defined in layout XML are white.
       deleteButton.setImageResource(R.drawable.ic_delete);
       ((ImageView) itemView.findViewById(R.id.phone_icon)).setImageResource(R.drawable.ic_phone);
     }

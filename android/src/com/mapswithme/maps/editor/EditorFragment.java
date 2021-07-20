@@ -170,14 +170,6 @@ public class EditorFragment extends BaseMwmFragment implements View.OnClickListe
     });
 
     mPhone.setText(Editor.nativeGetPhone());
-    /*mPhone.addTextChangedListener(new StringUtils.SimpleTextWatcher()
-    {
-      @Override
-      public void onTextChanged(CharSequence s, int start, int before, int count)
-      {
-        UiUtils.setInputError(mInputPhone, Editor.nativeIsPhoneValid(s.toString()) ? 0 : R.string.error_enter_correct_phone);
-      }
-    });*/
 
     mWebsite.setText(Editor.nativeGetWebsite());
     mWebsite.addTextChangedListener(new StringUtils.SimpleTextWatcher()

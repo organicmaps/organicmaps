@@ -2,7 +2,6 @@ package com.mapswithme.maps.widget.placepage;
 
 import android.content.Context;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
@@ -21,7 +20,6 @@ import java.util.List;
 
 public class PlacePhoneAdapter extends RecyclerView.Adapter<PlacePhoneAdapter.ViewHolder>
 {
-  public static String TAG = "PlacePhoneAdapter";
 
   private List<String> mPhoneData = Collections.emptyList();
 
@@ -32,7 +30,6 @@ public class PlacePhoneAdapter extends RecyclerView.Adapter<PlacePhoneAdapter.Vi
   }
 
   public void refreshPhones(String phones) {
-    Log.w(TAG, "refreshPhones: " + phones);
     if (TextUtils.isEmpty(phones))
       return;
 
@@ -41,7 +38,6 @@ public class PlacePhoneAdapter extends RecyclerView.Adapter<PlacePhoneAdapter.Vi
     {
       p = p.trim();
       if (TextUtils.isEmpty(p)) continue;
-      Log.w(TAG, "adding phone: "+p);
       mPhoneData.add(p);
     }
 
@@ -88,7 +84,6 @@ public class PlacePhoneAdapter extends RecyclerView.Adapter<PlacePhoneAdapter.Vi
 
     public void setPhone(String phoneNumber)
     {
-      Log.w(PlacePhoneAdapter.TAG + ".ViewHolder", "setPhone: "+phoneNumber);
       mPhone.setText(phoneNumber);
     }
 

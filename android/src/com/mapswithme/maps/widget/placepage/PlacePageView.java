@@ -551,7 +551,7 @@ public class PlacePageView extends NestedScrollViewClickFixed
     }
     else
     {
-      //Show popup menu with all phones
+      // Show popup menu with all phones
       final PopupMenu popup = new PopupMenu(getContext(), parentView);
       final Menu menu = popup.getMenu();
 
