@@ -4,8 +4,8 @@
     comment = Button text (should be short)
     tags = android
     en = Back
-    bg = Назад
     ru = Назад
+    bg = Назад
     ar = رجوع
     cs = Zpět
     da = Tilbage
@@ -5245,6 +5245,7 @@
     tags = ios
     en = Share any ideas or issues so we can improve the app for you.
     ru = Что-то не так?  Расскажите, что бы мы могли исправить или улучшить в приложении.
+    bg = Споделете идеи или проблеми, за да можем да подобрим приложението за вас.
     ar = شارك أي أفكار أو مشاكل، حتى نتمكن من تحسين التطبيق من أجلك.
     cs = Podělte se s námi o své nápady nebo problémy, abychom mohli aplikaci vylepšit.
     da = Del dine ideer eller problemer med os, så vi kan forbedre appen for dig.
@@ -5279,6 +5280,7 @@
     tags = ios
     en = Send feedback
     ru = Напишите нам
+    bg = Изпращане на обратна връзка
     ar = إرسال التعليق
     cs = Odeslat názor
     da = Send feedback
@@ -5313,6 +5315,7 @@
     tags = ios, android
     en = Download all of the maps along your route
     ru = Загрузите все карты по пути следования
+    bg = Изтегляне на всички карти по вашия маршрут
     ar = تنزيل الخرائط على طول الطريق
     cs = Stahovat mapy podél cesty
     da = Download kort på vejen
@@ -5347,6 +5350,7 @@
     tags = ios, android
     en = In order to create a route, we need to download and update all the maps from your location to your destination.
     ru = Для создания маршрута необходимо загрузить и обновить все карты на пути следования.
+    bg = За да създадем маршрут, трябва да изтеглим и актуализираме всички карти от местоположението ви до вашата дестинация.
     ar = Creare un percorso necessita la presenza di tutte le mappe scaricate e aggiornate dalla tua posizione alla destinazione.
     cs = Naplánování trasy vyžaduje stažení a aktualizaci všech map z vašeho umístění do cílového umístění.
     da = Ved at oprette en rute kræver det, at alle kort fra din placering til destination er downloadede og opdaterede.
@@ -5380,6 +5384,7 @@
     tags = android
     en = Not enough space
     ru = Недостаточно места
+    bg = Недостатъчно място
     ar = Spazio non sufficiente
     cs = Nedostatek místa
     da = Ikke nok plads
@@ -5414,6 +5419,7 @@
     tags = android
     en = bookmark
     ru = метка
+    bg = отметка
     ar = إشارة مرجعية
     cs = uložit
     da = bogmærke
@@ -5450,6 +5456,7 @@
     tags = android
     en = Please enable Location Services
     ru = Пожалуйста, включите геолокацию
+    bg = Моля, разрешете услугите за местоположение
     ar = الرجاء تفعيل خدمة تحديد المواقع
     cs = Prosím, povolte Služby určování polohy
     da = Aktiver venligst lokationstjenester
@@ -5483,6 +5490,7 @@
     tags = ios, android
     en = Save
     ru = Сохранить
+    bg = Запазване
     ar = حفظ
     cs = Uložit
     da = Gem
@@ -5516,6 +5524,7 @@
     tags = android
     en = Your descriptions (text or html)
     ru = Ваше описание (текст или html)
+    bg = Ваши описания (текст или html)
     ar = أوصافك (نصّ أو html)
     cs = Popis (HTML nebo text)
     da = Dine beskrivelser (tekst eller html)
@@ -5548,6 +5557,7 @@
     tags = ios, android
     en = create
     ru = создать
+    bg = създаване
     ar = إنشاء
     cs = vytvořit
     da = skabe
@@ -5582,6 +5592,7 @@
     tags = ios
     en = Red
     ru = Красный
+    bg = Червено
     ar = أحمر
     cs = Červená
     da = Rød
@@ -5617,6 +5628,7 @@
     tags = ios
     en = Yellow
     ru = Жёлтый
+    bg = Жълто
     ar = أصفر
     cs = Žlutá
     da = Gul
@@ -5652,6 +5664,7 @@
     tags = ios
     en = Blue
     ru = Синий
+    bg = Синьо
     ar = أزرق
     cs = Modrá
     da = Blå
@@ -5687,6 +5700,7 @@
     tags = ios
     en = Green
     ru = Зелёный
+    bg = Зелено
     ar = أخضر
     cs = Zelená
     da = Grøn
@@ -5722,6 +5736,7 @@
     tags = ios
     en = Purple
     ru = Пурпурный
+    bg = Лилаво
     ar = أرجواني
     cs = Purpurová
     da = Violet
@@ -5757,6 +5772,7 @@
     tags = ios
     en = Orange
     ru = Оранжевый
+    bg = Оранжево
     ar = برتقالي
     cs = Oranžová
     da = Orange
@@ -5792,6 +5808,7 @@
     tags = ios
     en = Brown
     ru = Коричневый
+    bg = Кафяво
     ar = بني
     cs = Hnědá
     da = Brun
@@ -5827,6 +5844,7 @@
     tags = ios
     en = Pink
     ru = Розовый
+    bg = Розово
     ar = وردي
     cs = Růžová
     da = Pink
@@ -5862,6 +5880,7 @@
     tags = android
     en = Yes
     ru = Есть
+    bg = Да
     ar = نعم
     cs = Ano
     da = Ja
@@ -5898,6 +5917,7 @@
     tags = ios, android
     en = When following the route, please keep in mind:
     ru = При движении по маршруту помните:
+    bg = Когато следвате маршрута, моля, имайте предвид:
     ar = عند اتباع المسار، يُرجى وضع ما يلي في الاعتبار:
     cs = Při navigaci podle trasy mějte na paměti následující:
     da = Når du følger en rute, skal du være opmærksom på følgende:
@@ -5932,6 +5952,7 @@
     tags = ios, android
     en = — Road conditions, traffic laws, and road signs always take priority over the navigation hints;
     ru = — Дорожная обстановка, ПДД и знаки приоритетнее советов приложения;
+    bg = - Пътната обстановка, законите за движение по пътищата и че пътните знаци винаги имат приоритет пред навигационните подсказки;
     ar = — دائمًا ما يكون لظروف الطريق وقوانين وإشارات المرور الأولوية على المشورة الملاحية;
     cs = • Situace na silnici, dopravní předpisy a dopravní značení mají vždy prioritu před pokyny navigace.
     da = — Vejforhold, færdselsregler og skiltning skal prioriteres højere end anvisningerne fra navigationsappen;
@@ -5966,6 +5987,7 @@
     tags = ios, android
     en = — The map might be inaccurate, and the suggested route might not always be the most optimal way to reach the destination;
     ru = — Карта может быть неточной, а предложенный маршрут не всегда оптимален;
+    bg = - Картата може да е неточна, а предложеният маршрут невинаги е най-оптималният начин за достигане до дестинацията;
     ar = — قد تكون الخريطة غير دقيقة وقد لا يكون المسار المقترح هو المسار الأمثل دائمًا للوصول إلى الوجهة.;
     cs = — Mapa může být nepřesná a navrhovaná trasa nemusí být vždy optimální cestou, jak dojet do cíle;
     da = — Kortet kan være unøjagtigt, og den foreslåede rute er ikke nødvendigvis altid den bedste måde at nå destinationen på;
@@ -6000,6 +6022,7 @@
     tags = ios, android
     en = — Suggested routes should only be understood as recommendations;
     ru = — Предлагаемые маршруты — лишь рекомендации;
+    bg = - Предложените маршрути са само препоръки;
     ar = — يتم التعامل مع المسارات المقترحة كتوصيات فقط;
     cs = — Navrhované trasy je třeba brát pouze jako doporučení;
     da = — De foreslåede ruter skal kun betragtes som anbefalinger;
@@ -6034,6 +6057,7 @@
     tags = ios, android
     en = — Exercise caution with routes in border zones: the routes created by our app may sometimes cross country borders in unauthorized places.
     ru = — Будьте внимательны с маршрутами в приграничных зонах: в построенных программой маршрутах иногда возможны пересечения границ в неположенных местах;
+    bg = - Бъдете внимателни с маршрутите в гранични зони: маршрутите, създадени от нашето приложение, понякога могат да пресичат границите на страната на неразрешени места.
     ar = — تحذير بشأن مسارات في منطقة حدودية: المسارات التي تم إنشاؤها بواسطة تطبيقنا قد تعبر حدود الدولة في أماكن غير مصرح بها في بعض الأحيان;
     cs = — U tratí v hraničních zónách buďte opatrní: trasy vytvořené naší aplikací občas překračují hranice zemí na nepovolených místech;
     da = — Vær forsigtig med ruter i grænseområder: de ruter, vores app har skabt, kan nogle gange krydse landegrænser på uautoriserede steder;
@@ -6067,6 +6091,7 @@
     tags = ios, android
     en = Please stay alert and safe on the roads!
     ru = Будьте внимательны на дорогах и берегите себя!
+    bg = Моля, бъдете бдителни и безопасни по пътищата!
     ar = يجب أن تظل يقظًا وآمنًا على الطريق!
     cs = Na silnici buďte pozorní a chovejte se bezpečně!
     da = Vær altid særligt opmærksom og årvågen, når du sidder bag rattet!
@@ -6101,6 +6126,7 @@
     tags = ios, android
     en = Check GPS signal
     ru = Проверьте сигнал GPS
+    bg = Приверете GPS сигнала
     ar = تحقق من إشارة نظام تحديد المواقع العالمي "GPS"
     cs = Zkontrolovat signál GPS
     da = Tjek GPS-signalet
@@ -6135,6 +6161,7 @@
     tags = ios, android
     en = Unable to create route. Current GPS coordinates could not be identified.
     ru = Маршрут не построен. Текущая геопозиция не определена.
+    bg = Не е възможно да се създаде маршрут. Текущите GPS координати не могат да бъдат идентифицирани. 
     ar = تعذر إنشاء مسار. لا يمكن تحديد إحداثيات GPS الحالية.
     cs = Trasu se nepodařilo vytvořit. Nelze zjistit aktuální souřadnice GPS.
     da = Det lykkedes ikke at planlægge en rute. GPS-koordinaterne kunne ikke identificeres korrekt.
@@ -6169,6 +6196,7 @@
     tags = ios, android
     en = Please check your GPS signal. Enabling Wi-Fi will improve your location accuracy.
     ru = Пожалуйста, проверьте сигнал GPS. Для улучшения точности геопозиции включите Wi-Fi.
+    bg = Моля, проверете GPS сигнала. Включването на Wi-Fi ще подобри точността на местоположението ви.
     ar = يُرجى التحقق من إشارة GPS لديك. ويساعد تمكين خدمة Wi-Fi في تحسين دقة تحديد موقعك.
     cs = Zkontrolujte signál GPS. Povolením připojení WiFi zpřesníte určení vaší polohy.
     da = Tjek venligst dit GPS-signal. Din placering registreres mere præcist, hvis wi-fi er slået til.
@@ -6203,6 +6231,7 @@
     tags = ios, android
     en = Enable location services
     ru = Включите режим определения геопозиции
+    bg = Активиране на услугите за местоположение
     ar = تمكين خدمات المواقع
     cs = Povolit služby určování polohy
     da = Slå lokaliseringstjenester til
@@ -6237,6 +6266,7 @@
     tags = ios, android
     en = Unable to locate current GPS coordinates. Enable location services to calculate route.
     ru = Текущая геопозиция не определена. Для построения маршрута включите режим определения геопозиции.
+    bg = Не е възможно да се определят GPS координатите. Активирайте услугите за местоположение, за да изчислите маршрута.
     ar = تعذر تحديد إحداثيات نظام تحديد المواقع العالمي GPS الحالية. قم بتمكين خدمات المواقع لحساب المسار.
     cs = Aktuální souřadnice GPS se nepodařilo zjistit. Pro výpočet trasy povolte služby určování polohy.
     da = Det lykkedes ikke at finde de aktuelle GPS-koordinater. Slå lokaliseringstjenester til for at beregne en rute.
@@ -6271,6 +6301,7 @@
     tags = ios
     en = Download required files
     ru = Загрузите необходимые файлы
+    bg = Изтегляне на необходимите файлове
     ar = تنزيل الملفات المطلوبة
     cs = Stáhnout požadované soubory
     da = Download de nødvendige filer
@@ -6305,6 +6336,7 @@
     tags = ios
     en = Download and update all map and routing information along the projected path to calculate route.
     ru = Для построения маршрута загрузите и обновите все карты и файлы маршрутов по пути следования.
+    bg = За да изчислите маршрут, изтеглете и актуализирайте всички карти и пътища по маршрута.
     ar = قم بتنزيل وتحديث كافة الخرائط ومعلومات التوجيه على طول الطريق المتوقع لحساب المسار.
     cs = Stáhnout a aktualizovat všechny mapy a data tras pro výpočet trasy podél navrhované cesty.
     da = Download og opdatér alle kort og ruteoplysninger for at beregne en rute.
@@ -6338,6 +6370,7 @@
     tags = ios, android
     en = Unable to locate route
     ru = Маршрут не найден
+    bg = Не е намерен маршрут
     ar = تعذر تحديد موقع المسار
     cs = Trasu se nepodařilo zjistit
     da = Der blev ikke fundet en rute
@@ -6372,6 +6405,7 @@
     tags = android
     en = Unable to create route.
     ru = Не получилось построить маршрут.
+    bg = Не е възможно да се създаде маршрут.
     ar = تعذر إنشاء مسار.
     cs = Trasu se nepodařilo vytvořit.
     da = Der blev ikke planlagt en rute.
@@ -6406,6 +6440,7 @@
     tags = ios, android
     en = Please adjust your starting point or your destination.
     ru = Пожалуйста, измените начальную или конечную точку маршрута.
+    bg = Моля, коригирайте началната точка или дестинацията си.
     ar = برجاء تعديل نقطة بدء وجهتك.
     cs = Upravte výchozí nebo cílový bod.
     da = Prøv at angive et andet startpunkt eller en anden destination.
@@ -6440,6 +6475,7 @@
     tags = ios, android
     en = Adjust starting point
     ru = Измените начальную точку маршрута
+    bg = Регулиране на началната точка
     ar = تعديل نقطة البدء
     cs = Upravte výchozí bod
     da = Vælg et andet startpunkt
@@ -6474,6 +6510,7 @@
     tags = ios, android
     en = Route was not created. Unable to locate starting point.
     ru = Маршрут не построен. Не определена начальная точка маршрута.
+    bg = Маршрутът не е създаден. Не може да се намери начална точка.
     ar = لم يتم إنشاء المسار. تعذر تحديد موقع نقطة البدء.
     cs = Trasa nebyla vytvořena. Výchozí bod se nepodařilo najít.
     da = Det lykkedes ikke at planlægge en rute. Startpunktet blev ikke fundet.
@@ -6508,6 +6545,7 @@
     tags = ios, android
     en = Please select a starting point closer to a road.
     ru = Пожалуйста, выберите начальную точку маршрута ближе к дороге.
+    bg = Моля, изберете начална точка, която е по-близо до път.
     ar = يُرجى تحديد نقطة بدء أكثر قربًا للطريق.
     cs = Zvolte výchozí bod blíže k silnici.
     da = Angiv et startpunkt, der ligger tættere på en vej.
@@ -6542,6 +6580,7 @@
     tags = ios, android
     en = Adjust destination
     ru = Измените конечную точку маршрута
+    bg = Регулиране на дестинацията
     ar = تعديل الوجهة
     cs = Upravit cíl
     da = Vælg en anden destination
@@ -6576,6 +6615,7 @@
     tags = ios, android
     en = Route was not created. Unable to locate the destination.
     ru = Маршрут не построен. Не определена конечная точка маршрута.
+    bg = Маршрутът не е създаден. Не е възможно да се открие дестинацията.
     ar = لم يتم إنشاء المسار. تعذر تحديد موقع الوجهة.
     cs = Trasa nebyla vytvořena. Cíl se nepodařilo najít.
     da = Det lykkedes ikke at planlægge en rute. Destinationen blev ikke fundet.
@@ -6610,6 +6650,7 @@
     tags = ios, android
     en = Please select a destination point located closer to a road.
     ru = Пожалуйста, выберите конечную точку маршрута ближе к дороге.
+    bg = Моля, изберете крайна точка, разположена по-близо до път.
     ar = يُرجى تحديد نقطة وجهة تقع أكثر قربًا من الطريق.
     cs = Vyberte cílový bod blíže k silnici.
     da = Angiv en destination, der ligger tættere på en vej.
@@ -6644,6 +6685,7 @@
     tags = ios, android
     en = Unable to locate the intermediate point.
     ru = Не определена промежуточная точка маршрута.
+    bg = Не може да се открие междинната точка на маршрута.
     ar = تعذر تحديد مكان النقطة الوسيطة.
     cs = Nelze najít mezilehlý bod.
     da = Kunne ikke lokalisere mellemliggende punkt.
@@ -6677,6 +6719,7 @@
     tags = ios, android
     en = Please adjust your intermediate point.
     ru = Пожалуйста, измените промежуточную точку маршрута.
+    bg = Моля, коригирайте междинната си точка на маршрута.
     ar = الرجاء ضبط النقطة الوسيطة الخاصة بك.
     cs = Upravte mezilehlý bod.
     da = Rediger det mellemliggende punkt.
@@ -6710,6 +6753,7 @@
     tags = ios, android
     en = System error
     ru = Системная ошибка
+    bg = Грешка в системата
     ar = خطأ في النظام
     cs = Systémová chyba
     da = Systemfejl
@@ -6744,6 +6788,7 @@
     tags = ios, android
     en = Unable to create route due to an application error.
     ru = Не удалось проложить маршрут из-за ошибки приложения.
+    bg = Не е възможно да се създаде маршрут поради грешка в приложението.
     ar = تعذر إنشاء مسار نتيجة وجود خطأ في التطبيق.
     cs = Trasu se nepodařilo vytvořit z důvodu chyby aplikace.
     da = Det lykkedes ikke at planlægge en rute. Der opstod en fejl i systemet.
@@ -6778,6 +6823,7 @@
     tags = ios, android
     en = Please try again
     ru = Попробуйте снова
+    bg = Моля, опитайте отново
     ar = برجاء إعادة المحاولة
     cs = Prosím, zkuste to znovu
     da = Prøv igen
@@ -6812,6 +6858,7 @@
     tags = ios
     en = Not Now
     ru = Не сейчас
+    bg = Не сега
     ar = ليس الآن
     cs = Nyní ne
     da = Ikke nu
@@ -6846,6 +6893,7 @@
     tags = android
     en = Would you like to download the map and create a more optimal route spanning more than one map?
     ru = Загрузить карту и построить более оптимальный маршрут с пересечением границы карты?
+    bg = Бихте ли искали да изтеглите картата и да създадете по-оптимален маршрут, обхващащ повече от една карта?
     ar = هل ترغب في تنزيل الخريطة وإنشاء مسار أفضل يمتد عبر أكثر من خريطة؟
     cs = Chcete mapu stáhnout a vytvořit optimálnější trasu, která vede přes více než jednu mapu?
     da = Ønsker du at downloade kortet og planlægge en mere optimal rute, der strækker sig over mere end ét kort?
@@ -6880,6 +6928,7 @@
     tags = android
     en = Download additional maps to create a better route that crosses the boundaries of this map.
     ru = Для построения более оптимального маршрута с пересечением границы требуется загрузить карту.
+    bg = За да създадете по-добър маршрут с граничен преход, трябва да изтеглите картата.
     ar = تنزيل الخريطة لإنشاء مسار أفضل يعبر حافة هذه الخريطة.
     cs = Stáhnout mapu a vytvořit optimálnější trasu, která překračuje hranice této mapy.
     da = Download kortet for at planlægge en mere optimal rute, der strækker sig ud over dette korts grænser.
@@ -6916,6 +6965,7 @@
     tags = android
     en = To start searching and creating routes, please download the map. After that you will no longer need an Internet connection.
     ru = Для поиска мест и построения маршрутов скачайте карту, и интернет вам больше не понадобится.
+    bg = За да започнете да търсите и създавате маршрути, изтеглете картата. Това ще ви позволи да пътувате без интернет връзка.
     ar = لبدء البحث وإنشاء الطرق، يرجى تنزيل الخريطة، وسوف لن تحتاج إلى اتصال بالإنترنت بعد الآن.
     cs = Chcete-li začít hledat a vytvářet trasy, pak si prosím stáhněte mapu a nebudete již potřebovat připojení.
     da = For at begynde at søge efter og oprette ruter bedes du downloade kortet, så du ikke længere har behov for en internetforbindelse.
@@ -6950,6 +7000,7 @@
     tags = android
     en = Select Map
     ru = Выбрать карту
+    bg = Избор на карта
     ar = اختيار الخريطة
     cs = Vybrat mapu
     da = Vælk kortet
@@ -6985,6 +7036,7 @@
     tags = ios, android
     en = Show
     ru = Показать
+    bg = Показване
     ar = عرض
     cs = Ukázat
     da = Vis
@@ -7019,6 +7071,7 @@
     tags = ios, android
     en = Hide
     ru = Скрыть
+    bg = Скриване
     ar = إخفاء
     cs = Skrýt
     da = Skjul
@@ -7053,6 +7106,7 @@
     tags = android
     en = Rename
     ru = Переименовать
+    bg = Преименуване
     ar = إعادة تسمية
     cs = Přejmenovat
     da = Omdøb
@@ -7087,6 +7141,7 @@
     tags = ios
     en = Route Planning Failed
     ru = Ошибка построения маршрута
+    bg = Неуспешно планиране на маршрут
     ar = فشل في تخطيط المسار
     cs = Naplánování trasy se nezdařilo
     da = Ruteplanlægning mislykkedes
@@ -7121,6 +7176,7 @@
     tags = android
     en = Arrival at %s
     ru = Прибытие в %s
+    bg = Пристигане в %s
     ar = الوصول: %s
     cs = Příjezd: %s
     da = Ankomst: %s
@@ -7154,6 +7210,7 @@
     tags = ios
     en = Like the app?
     ru = Нравится приложение?
+    bg = Харесвате ли приложението?
     ar = يعجبك التطبيق؟
     cs = Líbí se vám aplikace?
     da = Kan du lide appen?
@@ -7187,6 +7244,7 @@
     tags = ios
     en = Thank you for using Organic Maps. Please rate the app. Your feedback helps us improve our product.
     ru = Спасибо что пользуетесь картами Organic Maps. Пожалуйста, оцените приложение. Ваши оценки и отзывы помогают нам становиться лучше.
+    bg = Благодарим ви, че използвате Organic Maps. Моля, дайте оценка на приложението. Вашите отзиви ни помагат да подобрим нашия продукт.
     ar = شكرا لاستخدامك Organic Maps. من فضلك، أَعْطِ تقييمك للتطبيق. ملاحظاتك تساعدنا على أن نصبح أفضل.
     cs = Děkujeme, že používáte Organic Maps. Ohodnoťte, prosím, tuto aplikaci. Váš komentář nám pomůže ji ještě zlepšit.
     da = Tak for at du bruger Organic Maps. Venligst bedøm appen. Din feedback hjælper os med at blive bedre.
@@ -7220,6 +7278,7 @@
     tags = ios
     en = Hooray! We love you, too!
     ru = Ура! Мы вас тоже любим!
+    bg = Ура! Ние също ви обичаме!
     ar = مرحا! نحن أيضا نحبك!
     cs = Hurá! Také vás zbožňujeme!
     da = Hurra! Vi elsker også dig!
@@ -7253,6 +7312,7 @@
     tags = ios
     en = Thank you, we will do our best!
     ru = Спасибо, мы будем стараться!
+    bg = Благодарим ви, ще се постараем!
     ar = شكرا لك، سوف نبذل قصارى جهدنا!
     cs = Děkujeme, budeme se snažit!
     da = Mange tak, vi vil gøre vores bedste!
@@ -7286,6 +7346,7 @@
     tags = ios
     en = Any idea how we can make it better?
     ru = Расскажите, что мы могли бы улучшить?
+    bg = Някакви идеи как да го подобрим?
     ar = لديك أي فكرة حول كيف يمكننا أن نجعله أفضل؟
     cs = Nějaké nápady, co můžeme udělat lépe?
     da = Har du en idé om, hvordan vi kan gøre den bedre?
@@ -7319,6 +7380,7 @@
     tags = android
     en = Categories
     ru = Категории
+    bg = Категории
     ar = التصنيفات
     cs = Kategorie
     da = Kategorier
@@ -7352,6 +7414,7 @@
     tags = ios, android
     en = History
     ru = История
+    bg = История
     ar = السجل
     cs = Historie
     da = Historik
@@ -7385,6 +7448,7 @@
     tags = ios, android
     en = Closed
     ru = Закрыто
+    bg = Затворено
     ar = مغلق
     cs = Zavřeno
     da = Lukket
@@ -7418,6 +7482,7 @@
     tags = ios, android
     en = Oops, no results found.
     ru = К сожалению, мы ничего не нашли.
+    bg = За съжаление не са намерени резултати.
     ar = المعذرة، لم أعثر على أي شيء.
     cs = Omlouvám se, nic nenalezeno.
     da = Desværre, jeg fandt ikke noget.
@@ -7451,6 +7516,7 @@
     tags = ios, android
     en = Try changing your search criteria.
     ru = Попробуйте изменить условия поиска.
+    bg = Опитайте да промените критериите за търсене.
     ar = يرجى تجربة استعلام آخر.
     cs = Zkuste zadat jiný hledaný výraz.
     da = Prøv en anden forespørgsel.
@@ -7484,6 +7550,7 @@
     tags = android
     en = Search History
     ru = История поиска
+    bg = История на търсенията
     ar = سجل البحث
     cs = Prohledat historii
     da = Søgehistorik
@@ -7517,6 +7584,7 @@
     tags = android
     en = View recent searches.
     ru = Быстрый доступ к последним поисковым запросам.
+    bg = Преглед на последните търсения.
     ar = الوصول إلى استعلامات البحث الحديثة بسرعة.
     cs = Získejte rychlý přístup k hledaným výrazům.
     da = Gå hurtigt ind på seneste forespørgsel.
@@ -7550,6 +7618,7 @@
     tags = ios, android
     en = Clear Search History
     ru = Очистить историю поиска
+    bg = Изчистване на историята на търсенията
     ar = مسح تاريخ البحث
     cs = Vymazat historii vyhledávání
     da = Ryd historiksøgning
@@ -7594,6 +7663,7 @@
     tags = ios, android
     en = Your Location
     ru = Ваше местоположение
+    bg = Вашето местоположение
     ar = موقعك
     cs = Vaše umístění
     da = Din lokalitet
@@ -7627,6 +7697,7 @@
     tags = ios, android
     en = Start
     ru = Начать
+    bg = Начало
     ar = البداية
     cs = Start
     da = Start
@@ -7660,6 +7731,7 @@
     tags = ios, android
     en = Route from
     ru = Отсюда
+    bg = Маршрут от
     ar = من
     cs = Trasa z
     da = Fra
@@ -7693,6 +7765,7 @@
     tags = ios, android
     en = Route to
     ru = Сюда
+    bg = Маршрут към
     ar = الطريق إلى
     cs = Trasa do
     da = Rute til
@@ -7726,6 +7799,7 @@
     tags = ios, android
     en = Navigation is available only from your current location.
     ru = Навигация возможна только из текущего местоположения.
+    bg = Навигацията е възможна само от текущото ви местоположение.
     ar = تتوافر إمكانية التنقل فقط من خلال موقعك الحالي. هل تريد أن نخطط لك طريقاً بديلاً؟
     cs = Navigovat lze pouze z současného umístění.
     da = Navigation er kun tilgængelig fra din nuværende lokalitet.
@@ -7759,6 +7833,7 @@
     tags = ios, android
     en = Do you want us to plan a route from your current location?
     ru = Хотите перестроить маршрут от вашего местоположения?
+    bg = Искате ли да планираме маршрут от текущото ви местоположение?
     ar = هل ترغب في أن نرسم مسار لك من موقعك الحالي؟
     cs = Máme naplánovat trasu z vašeho současného umístění?
     da = Ønsker du, at vi planlægger en rute fra din nuværende placering?
@@ -7793,6 +7868,7 @@
     tags = android
     en = Next
     ru = Далее
+    bg = Напред
     ar = التالي
     cs = Další
     da = Næste
@@ -7826,6 +7902,7 @@
     tags = ios, android
     en = Add Schedule
     ru = Добавить расписание
+    bg = Добавяне на график
     ar = إضافة جدول
     cs = Přidat rozvrh
     da = Tilføj tidsplan
@@ -7859,6 +7936,7 @@
     tags = ios, android
     en = Delete Schedule
     ru = Удалить расписание
+    bg = Изтриване на график
     ar = حذف جدول
     cs = Smazat rozvrh
     da = Slet tidsplan
@@ -7893,6 +7971,7 @@
     tags = ios, android
     en = All Day (24 hours)
     ru = Весь день (24 часа)
+    bg = Цял ден (24 часа)
     ar = طوال اليوم (24 ساعة)
     cs = Celý den (24 hodin)
     da = Alle dage (24 timer)
@@ -7926,6 +8005,7 @@
     tags = ios, android
     en = Open
     ru = Открыто
+    bg = Отворено
     ar = مفتوح
     cs = Otevřeno
     da = Åbent
@@ -7959,6 +8039,7 @@
     tags = ios, android
     en = Closed
     ru = Закрыто
+    bg = Затворено
     ar = مغلق
     cs = Zavřeno
     da = Lukket
@@ -7992,6 +8073,7 @@
     tags = ios, android
     en = Add Non-Business Hours
     ru = Добавить перерыв
+    bg = Добавяне на почивка
     ar = إضافة ساعات راحة
     cs = Přidat dobu, kdy je zavřeno
     da = Tilføj Lukket-timer
@@ -8025,6 +8107,7 @@
     tags = ios, android
     en = Business Hours
     ru = Время работы
+    bg = Работно време
     ar = ساعات العمل
     cs = Otevírací doba
     da = Åbningstider
@@ -8058,6 +8141,7 @@
     tags = ios, android
     en = Advanced Mode
     ru = Расширенный режим
+    bg = Подробен режим
     ar = الوضع المتقدم
     cs = Pokročilý režim
     da = Avanceret tilstand
@@ -8091,6 +8175,7 @@
     tags = ios, android
     en = Simple Mode
     ru = Простой режим
+    bg = Сбит режим
     ar = الوضع البسيط
     cs = Jednoduchý režim
     da = Enkel tilstand
@@ -8124,6 +8209,7 @@
     tags = ios, android
     en = Non-Business Hours
     ru = Перерыв
+    bg = Почивка
     ar = ساعات الراحة
     cs = Doba, kdy je zavřeno
     da = Lukket-timer
@@ -8157,6 +8243,7 @@
     tags = ios, android
     en = Example Values
     ru = Примеры значений
+    bg = Примерни стойности
     ar = أمثلة على القيم
     cs = Vzorové hodnoty
     da = Eksempelværdier
@@ -8190,6 +8277,7 @@
     tags = android
     en = Correct mistake
     ru = Исправьте ошибку
+    bg = Поправяне на грешка
     ar = تصحيح الخطأ
     cs = Opravit chybu
     da = Ret fejl
@@ -8223,6 +8311,7 @@
     tags = ios, android
     en = Location
     ru = Местоположение
+    bg = Местоположение
     ar = الموقع
     cs = Umístění
     da = Sted
@@ -8256,6 +8345,7 @@
     tags = ios
     en = You’ve changed the world map. Do not keep it to yourself! Tell your friends, and edit it together.
     ru = Вы изменили карту мира. Не скрывайте это, расскажите друзьям и редактируйте вместе.
+    bg = Променили сте картата на света. Не го крийте, кажете на приятелите си и редактирайте заедно.
     ar = لقد غيرت خريطة العالم. لا تخفي ذلك! اخبر أصدقاءك، وغيروها معا.
     cs = Změnili jste světovou mapu. Neskrývejte to! Řekněte o tom svým kamarádům a upravujte ji společně.
     da = Du har ændret verdenskortet. Lad andre det vide! Fortæl dine venner og redigér det sammen.
@@ -8289,6 +8379,7 @@
     tags = ios, android
     en = Share with friends
     ru = Поделиться с друзьями
+    bg = Споделяне с приятели
     ar = شارك مع الأصدقاء
     cs = Sdílejte s kamarády
     da = Del med venner
@@ -8322,6 +8413,7 @@
     tags = android
     en = Please describe the problem in detail so that the OpenStreeMap community can fix the error.
     ru = Пожалуйста, напишите подробно о проблеме, чтобы сообщество OpenStreetMap исправило ошибку.
+    bg = Моля, опишете подробно проблема, за да може общността на OpenStreeMap да отстрани грешката.
     ar = يرجى وصف المشكلة بالتفاصيل حتى يتسنى لفريق OpenStreeMap إصلاح الخطأ.
     cs = Popište prosím detailně problém, aby vám komunita OpenStreeMap mohla pomoct opravit chybu.
     da = Beskriv problemet i detaljer, så OpenStreetMap-fællesskabet kan løse fejlen.
@@ -8355,6 +8447,7 @@
     tags = android
     en = Or do it yourself at https://www.openstreetmap.org/
     ru = Или сделайте это самостоятельно на сайте https://www.openstreetmap.org/
+    bg = Или го направете сами на https://www.openstreetmap.org/
     ar = أو افعل ذلك بنفسك من خلال الموقع https://www.openstreetmap.org/
     cs = Nebo to udělejte sami na https://www.openstreetmap.org/
     da = Eller gør det selv på https://www.openstreetmap.org/
@@ -8388,6 +8481,7 @@
     tags = ios, android
     en = Send
     ru = Отправить
+    bg = Изпращане
     ar = إرسال
     cs = Odeslat
     da = Send
@@ -8421,6 +8515,7 @@
     tags = android
     en = Issue
     ru = Проблема
+    bg = Проблем
     ar = مشكلة
     cs = Problém
     da = Problem
@@ -8454,6 +8549,7 @@
     tags = android
     en = The place does not exist
     ru = Места не существует
+    bg = Мястото не съществува
     ar = المكان غير موجودٍ
     cs = Místo neexistuje
     da = Stedet findes ikke
@@ -8487,6 +8583,7 @@
     tags = android
     en = Сlosed for maintenance
     ru = Закрыто на ремонт
+    bg = Затворено за ремонт
     ar = مغلق للصيانة
     cs = Zavřeno kvůli údržbě
     da = Lukket for vedligeholdelse
@@ -8520,6 +8617,7 @@
     tags = android
     en = Duplicated place
     ru = Повторяющееся место
+    bg = Дубликат
     ar = مكان متكرر
     cs = Duplicitní místo
     da = Duplikeret sted
@@ -8553,6 +8651,7 @@
     tags = ios, android
     en = Auto-download
     ru = Автоматическая загрузка
+    bg = Автоматично изтегляне
     ar = التنزيل التلقائي
     cs = Automaticky stahovat
     da = Automatisk download
@@ -8587,6 +8686,7 @@
     tags = ios
     en = Closed now
     ru = Сейчас закрыто
+    bg = Затворено сега
     ar = مغلق الآن
     cs = Nyní je zavřeno
     da = Lukket nu
@@ -8621,6 +8721,7 @@
     tags = ios, android
     en = Daily
     ru = Ежедневно
+    bg = Ежедневно
     ar = يوميا
     cs = Denně
     da = Daglig
@@ -8654,6 +8755,7 @@
     tags = ios, android
     en = 24/7
     ru = Круглосуточно
+    bg = 24 часа
     ar = ليلا ونهارا
     cs = Den a noc
     da = Dag og nat
@@ -8688,6 +8790,7 @@
     tags = ios, android
     en = Closed today
     ru = Сегодня закрыто
+    bg = Затворено днес
     ar = مغلق اليوم
     cs = Dnes zavřeno
     da = Fridag i dag
@@ -8721,6 +8824,7 @@
     tags = ios
     en = Closed
     ru = Закрыто
+    bg = Затворено
     ar = مغلق
     cs = Zavřeno
     da = Fridag
@@ -8754,6 +8858,7 @@
     tags = ios, android
     en = Today
     ru = Сегодня
+    bg = Днес
     ar = اليوم
     cs = Dnes
     da = I dag
@@ -8787,6 +8892,7 @@
     tags = ios
     en = Add opening hours
     ru = Добавить время работы
+    bg = Добавяне на работно време
     ar = اضف ساعات عمل
     cs = Přidat otevírací dobu
     da = Tilføj arbejdstid
@@ -8820,6 +8926,7 @@
     tags = android
     en = Edit business hours
     ru = Редактировать время работы
+    bg = Редакция на работното време
     ar = حرر ساعات عمل
     cs = Upravit otevírací dobu
     da = Rediger arbejdstid
@@ -8853,6 +8960,7 @@
     tags = ios, android
     en = Don't have an OpenStreetMap account?
     ru = Не зарегистрированы в OpenStreetMap?
+    bg = Нямате акаунт в OpenStreetMap?
     ar = ليس لديك حساب في OpenStreetMap؟
     cs = Nemáte účet u OpenStreetMap?
     da = Ingen konto på OpenStreetMap?
@@ -8886,6 +8994,7 @@
     tags = ios, android
     en = Register at OpenStreetMap
     ru = Зарегистрироваться
+    bg = Регистриране в OpenStreetMap
     ar = التسجيل
     cs = Registrace
     da = Tilmeld dig
@@ -8919,6 +9028,7 @@
     tags = ios
     en = Password (8 characters minimum)
     ru = Пароль (минимум 8 символов)
+    bg = Парола (поне 8 символа)
     ar = كلمة المرور (8 أحرف بحد أدنى)
     cs = Heslo (minimálně 8 znaků)
     da = Adgangskode (mindst 8 tegn)
@@ -8952,6 +9062,7 @@
     tags = ios
     en = Invalid username or password.
     ru = Неверное имя пользователя или пароль.
+    bg = Невалидно потребителско име или парола.
     ar = اسم المستخدم أو كلمة المرور غير صالحة.
     cs = Neplatné uživatelské jméno nebo heslo.
     da = Ugyldigt brugernavn eller adgangskode.
@@ -8985,6 +9096,7 @@
     tags = ios, android
     en = Log In
     ru = Войти
+    bg = Вход
     ar = تسجيل الدخول
     cs = Přihlásit se
     da = Log ind
@@ -9018,6 +9130,7 @@
     tags = android
     en = Password
     ru = Пароль
+    bg = Парола
     ar = كلمة المرور
     cs = Heslo
     da = Adgangskode
@@ -9051,6 +9164,7 @@
     tags = ios, android
     en = Forgot your password?
     ru = Забыли пароль?
+    bg = Забравили сте паролата си?
     ar = هل نسيت كلمة المرور؟
     cs = Zapomenuté heslo?
     da = Glemt adgangskode?
@@ -9084,6 +9198,7 @@
     tags = ios
     en = OSM Account
     ru = OSM Аккаунт
+    bg = OSM Акаунт
     ar = حساب OSM
     cs = Účet OSM
     da = OSM-konto
@@ -9117,6 +9232,7 @@
     tags = ios, android
     en = Log Out
     ru = Выйти
+    bg = Изход
     ar = تسجيل الخروج
     cs = Odhlášení
     da = Log ud
@@ -9151,6 +9267,7 @@
     tags = ios
     en = Last upload
     ru = Последняя отправка
+    bg = Последно качване
     ar = آخر تحميل
     cs = Poslední nahrání
     da = Sidste overførsel
@@ -9184,6 +9301,7 @@
     tags = ios, android
     en = Thank You
     ru = Спасибо
+    bg = Благодаря
     ar = شكرا لك
     cs = Děkujeme Vám
     da = Mange tak
@@ -9217,6 +9335,7 @@
     tags = ios, android
     en = Edit Place
     ru = Редактировать место
+    bg = Редакция на място
     ar = تعديل المكان
     cs = Upravit místo
     da = Redigér stedet
@@ -9250,6 +9369,7 @@
     tags = ios
     en = Place Name
     ru = Название
+    bg = Име на място
     ar = اسم المكان
     cs = Název místa
     da = Navn på sted
@@ -9283,6 +9403,7 @@
     tags = ios, android
     en = Add a language
     ru = Добавить язык
+    bg = Добавяне на език
     ar = إضافة لغة
     cs = Přidat jazyk
     da = Tilføj et sprog
@@ -9316,6 +9437,7 @@
     tags = android
     en = Street
     ru = Улица
+    bg = Улица
     ar = الشارع
     cs = Ulice
     da = Gade
@@ -9350,6 +9472,7 @@
     tags = ios, android
     en = Building number
     ru = Номер дома
+    bg = Номер на сграда
     ar = رقم المنزل
     cs = Číslo domu
     da = Et husnummer
@@ -9383,6 +9506,7 @@
     tags = ios, android
     en = Details
     ru = Подробнее
+    bg = Подробности
     ar = التفاصيل
     cs = Podrobnosti
     da = Oplysninger
@@ -9417,6 +9541,7 @@
     tags = ios, android
     en = Add a street
     ru = Добавить улицу
+    bg = Добавяне на улица
     ar = إضافة شارع
     cs = Přidat ulici
     da = Tilføj en gade
@@ -9450,6 +9575,7 @@
     tags = ios, android
     en = Choose a language
     ru = Выбрать язык
+    bg = Избор на език
     ar = اختر اللغة
     cs = Zvolit jazyk
     da = Vælg et sprog
@@ -9483,6 +9609,7 @@
     tags = ios, android
     en = Choose a street
     ru = Выбрать улицу
+    bg = Избор на улица
     ar = اختر الشارع
     cs = Zvolit ulici
     da = Vælg en gade
@@ -9516,6 +9643,7 @@
     tags = ios, android
     en = Postal Code
     ru = Почтовый индекс
+    bg = Пощенски код
     ar = الرمز البريدي
     cs = PSČ
     da = Postnummer
@@ -9548,6 +9676,7 @@
     tags = ios, android
     en = Cuisine
     ru = Кухня
+    bg = Кухня
     ar = المطبخ
     cs = Kuchyně
     da = Køkken
@@ -9581,6 +9710,7 @@
     tags = ios, android
     en = Select cuisine
     ru = Выбрать кухню
+    bg = Избор на кухня
     ar = اختر المطبخ
     cs = Vybrat kuchyni
     da = Vælg køkken
@@ -9615,6 +9745,7 @@
     tags = ios, android
     en = Email or username
     ru = Эл. почта или имя пользователя
+    bg = Имейл или потребителско име
     ar = البريد الإلكتروني أو اسم المستخدم
     cs = Email nebo uživatelské jméno
     da = Email eller brugernavn
@@ -9648,6 +9779,7 @@
     tags = ios, android
     en = Phone
     ru = Телефон
+    bg = Телефон
     ar = الهاتف
     cs = Telefon
     da = Telefon
@@ -9681,6 +9813,7 @@
     tags = ios
     en = Please note
     ru = Обратите внимание
+    bg = Моля, имайте предвид
     ar = يرجى العلم أنه،
     cs = Vezměte prosím na vědomí
     da = Bemærk venligst
@@ -9714,6 +9847,7 @@
     tags = ios, android
     en = All of your map edits will be deleted together with the map.
     ru = Вместе с картой удалятся и внесенные вами правки на этой карте.
+    bg = Всички ваши редакции на картата ще бъдат изтрити заедно с нея.
     ar = سيتم حذف جميع التغييرات بالخريطة بالإضافة إلى حذف الخريطة نفسها.
     cs = Zároveň s touto mapou budou odstraněny také všechny změny na této mapě.
     da = Alle kortændringer vil blive slettet sammen med kortet.
@@ -9747,6 +9881,7 @@
     tags = android
     en = Update Maps
     ru = Обновите карты
+    bg = Обновяване на карти
     ar = تحديث الخرائط
     cs = Aktualizujte mapy
     da = Opdatér kort
@@ -9780,6 +9915,7 @@
     tags = android
     en = To create a route, you need to update all maps and then plan the route again.
     ru = Для построения маршрутов необходимо обновить все карты и построить маршрут заново.
+    bg = За да създадете маршрут, трябва да актуализирате всички карти и след това да планирате маршрута отново.
     ar = لإنشاء مسار، فأنت تحتاج إلى تحديث كافة الخرائط ثم إعادة تخطيط المسار مرة أخرى.
     cs = Chcete-li vytvořit trasu, pak musíte aktualizovat všechny mapy a poté trasu naplánovat znovu.
     da = For at oprette en rute skal du opdatere alle kort og så planlægge ruten igen.
@@ -9813,6 +9949,7 @@
     tags = android
     en = Find map
     ru = Найти карту
+    bg = Намиране на карта
     ar = اعثر على الخريطة
     cs = Najít mapu
     da = Find kortet
@@ -9846,6 +9983,7 @@
     tags = ios
     en = Download error
     ru = Ошибка загрузки
+    bg = Грешка при изтегляне
     ar = خطأ بالتنزيل
     cs = Chyba při stahování
     da = Fejl ved download
@@ -9879,6 +10017,7 @@
     tags = ios, android
     en = Please check your settings and make sure your device is connected to the Internet.
     ru = Проверьте настройки и убедитесь, что устройство подключено к интернету.
+    bg = Моля, проверете настройките си и се уверете, че устройството ви е свързано с интернет.
     ar = يرجى التحقق من الإعدادات والتأكد من اتصال جهازك بالإنترنت.
     cs = Zkontrolujte prosím své nastavení a ujistěte se, že je vaše zařízení připojeno k internetu.
     da = Tjek dine indstillinger og sørg for, din enhed er forbundet til internettet.
@@ -9912,6 +10051,7 @@
     tags = ios, android
     en = Not enough space
     ru = Недостаточно места
+    bg = Няма достатъчно място
     ar = مساحة غير كافية
     cs = Nedostatek místa
     da = Ikke nok plads
@@ -9945,6 +10085,7 @@
     tags = ios, android
     en = Please delete any unnecessary data
     ru = Удалите ненужные данные
+    bg = Моля, изтрийте всички ненужни данни.
     ar = من فضلك، قم بإزالة البيانات غير الضرورية
     cs = Odstraňte prosím nepotřebná data
     da = Fjern unødvendig data
@@ -9978,6 +10119,7 @@
     tags = android
     en = Login error.
     ru = Произошла ошибка при авторизации.
+    bg = Грешка при вход.
     ar = خطأ في تسجيل الدخول.
     cs = Chyba při přihlašování.
     da = Login-fejl.
@@ -10011,6 +10153,7 @@
     tags = ios, android
     en = Verified Changes
     ru = Учтённые правки
+    bg = Потвърдени промени
     ar = التغييرات التي تم التحقق منها
     cs = Oveřené změny
     da = Bekræftede ændringer
@@ -10044,6 +10187,7 @@
     tags = ios, android
     en = Drag the map to select the correct location of the object.
     ru = Потяните карту, чтобы выбрать правильное местоположение объекта.
+    bg = Плъзнете картата, за да изберете правилното местоположение на обекта.
     ar = اسحب الخريطة لتحدد الموقع الصحيح للهدف.
     cs = Táhněte mapu, abyste vybrali správné umístění objektu.
     da = Træk kortet for at vælge objektets korrekte placering.
@@ -10077,6 +10221,7 @@
     tags = ios
     en = Select category
     ru = Выбрать категорию
+    bg = Избор на категория
     ar = اختر الفئة
     cs = Vyberte kategorii
     da = Vælg kategori
@@ -10110,6 +10255,7 @@
     tags = ios
     en = Popular
     ru = Популярные
+    bg = Популярно
     ar = شائع
     cs = Populární
     da = Populær
@@ -10143,6 +10289,7 @@
     tags = ios
     en = All Categories
     ru = Все категории
+    bg = Всички категории
     ar = جميع الفئات
     cs = Všechny kategorie
     da = Alle kategorier
@@ -10176,6 +10323,7 @@
     tags = ios, android
     en = Editing
     ru = Редактирование
+    bg = Редактиране
     ar = تعديل
     cs = Probíhají úpravy
     da = Redigerer
@@ -10209,6 +10357,7 @@
     tags = ios, android
     en = Adding
     ru = Добавление
+    bg = Добавяне
     ar = إٍضافة
     cs = Probíhá přidávání
     da = Tilføjer
@@ -10242,6 +10391,7 @@
     tags = ios, android
     en = Name of the place
     ru = Название места
+    bg = Име на мястото
     ar = اسم المكان
     cs = Název místa
     da = Stedets navn
@@ -10275,6 +10425,7 @@
     tags = ios, android
     en = Category
     ru = Категория
+    bg = Категория
     ar = الفئة
     cs = Kategorie
     da = Kategori
@@ -10308,6 +10459,7 @@
     tags = android
     en = Detailed description of the issue
     ru = Подробное описание проблемы
+    bg = Подробно описание на проблема
     ar = وصف مفصل للمشكلة
     cs = Detailní popis problému
     da = Detaljeret beskrivelse af problemet
@@ -10341,6 +10493,7 @@
     tags = android
     en = Different problem
     ru = Другая проблема
+    bg = Друг проблем
     ar = مشكلة مختلفة
     cs = Jiný problém
     da = Et anderledes problem
@@ -10374,6 +10527,7 @@
     tags = android
     en = Add business
     ru = Добавить организацию
+    bg = Добавяне на бизнес
     ar = إضافة مؤسسة
     cs = Přidat organizaci
     da = Tilføj organisationen
@@ -10407,6 +10561,7 @@
     tags = ios
     en = Add new places to the map, and edit existing ones directly from the app.
     ru = Добавляйте новые объекты и редактируйте старые прямо из приложения.
+    bg = Добавяне на нови места в картата и редакция на съществуващите директно от приложението.
     ar = قم بإضافة أماكن جديدة للخريطة، وعدل أماكن حالية مباشرة من التطبيق.
     cs = Přidejte na mapu nová místa a upravte existující místa přímo z aplikace.
     da = Tilføj nye steder til kortet og redigér eksisterende direkte fra app'en.
@@ -10440,6 +10595,7 @@
     tags = ios
     en = Change location
     ru = Измените местоположение
+    bg = Смяна на местоположение
     ar = تغيير الموقع
     cs = Změnit umístění
     da = Skift lokation
@@ -10473,6 +10629,7 @@
     tags = ios, android
     en = No object can be located here
     ru = Объект не может находиться в этом месте
+    bg = Тук не може да бъде намерен обект
     ar = لا يمكن تحديد موقع الكائن هنا
     cs = Objekt zde nemůže být umístěn
     da = Et objekt kan ikke placeres her
@@ -10506,6 +10663,7 @@
     tags = ios, android
     en = Log in so other users can see the changes that you have made
     ru = Войдите, чтобы ваши изменения увидели другие пользователи.
+    bg = Влезте в системата, за да могат другите потребители да видят направените от вас промени
     ar = قم بتسجيل الدخول حتى يتمكن باقي المستخدمين من رؤية التغييرات التي قمت بها.
     cs = Přihlaste se, aby ostatní uživatelé mohli vidět změny, které jste provedli.
     da = Log på så andre brugere kan se ændringerne som du har foretaget.
@@ -10540,6 +10698,7 @@
     tags = ios
     en = To download, you need more space. Please delete any unnecessary data.
     ru = Для загрузки требуется больше свободного места. Пожалуйста, удалите ненужные данные.
+    bg = За изтегляне ви е необходимо повече място. Моля, изтрийте всички ненужни данни.
     ar = للتنزيل، فأنت تحتاج إلى توفير مساحة أكبر. من فضلك، احذف البيانات غير الضرورية.
     cs = Ke stažení potřebujete více volného místa. Odstraňte prosím nepotřebná data.
     da = For at opdatere app'en skal du bruge mere plads. Slet unødvendig data.
@@ -10573,6 +10732,7 @@
     tags = ios
     en = I improved the Organic Maps maps
     ru = Я улучшил карты Organic Maps
+    bg = Подобрих картите на Organic Maps
     ar = لقد قمت بتحديث خرائط تطبيق Organic Maps
     cs = Vylepšil jsem mapy Organic Maps
     da = Jeg forbedrede Organic Maps kortene
@@ -10607,6 +10767,7 @@
     tags = ios, android
     en = %1$d of %2$d
     ru = %1$d из %2$d
+    bg = %1$d от %2$d
     ar = %1$d من%2$d
     cs = %1$d z %2$d
     da = %1$d af %2$d
@@ -10640,6 +10801,7 @@
     tags = ios, android
     en = Download over a cellular network connection?
     ru = Загрузить через сотовую связь?
+    bg = Изтегляне чрез мобилни данни?
     ar = تنزيل باستخدام اتصال الشبكة الخلوية؟
     cs = Stáhnout pomocí připojení přes mobilní síť?
     da = Download ved brug af mobilnetværksforbindelse?
@@ -10672,6 +10834,7 @@
     tags = ios, android
     en = This could be considerably expensive with some plans or if roaming.
     ru = На некоторых тарифных планах или в роуминге это может привести к значительным расходам.
+    bg = Това може да бъде значително скъпо при някои планове или при роуминг.
     ar = قد يكون هذا مكلفا جدا لبعض الخطط أو عند التجوال.
     cs = Toto by mohli být s některými tarify nebo roamingem výrazně dražší.
     da = Dette kan blive dyrt med nogle abonnementer eller hvis du er i roamingtilstand.
@@ -10704,6 +10867,7 @@
     tags = ios, android
     en = Enter a valid building number
     ru = Введите корректный номер дома
+    bg = Въведете валиден номер на сграда
     ar = أدخل رقم منزل صحيح
     cs = Zadejte správné číslo domu
     da = Skriv det rigtige husnummer
@@ -10737,6 +10901,7 @@
     tags = ios, android
     en = Number of floors (maximum of %d)
     ru = Количество этажей (максимум %d)
+    bg = Брой етажи (максимум %d)
     ar = عدد الطوابق (بحد أقصى %d)
     cs = Počet poschodí (max. %d)
     da = Antal etager (maks %d)
@@ -10771,6 +10936,7 @@
     tags = ios, android
     en = The number of floors must non exceed 25
     ru = Количество этажей не должно превышать 25
+    bg = Броят на етажите не трябва да надвишава 25
     ar = تحرير المبنى بحد أقصى 25 طابقًا
     cs = Opravte počet poschodí, max. 25
     da = Rediger bygningen med maksimum 25 etager
@@ -10804,6 +10970,7 @@
     tags = ios, android
     en = ZIP Code
     ru = Почтовый индекс
+    bg = Пощенски код
     ar = الرمز البريدي
     cs = PSČ
     da = Postnummer
@@ -10837,6 +11004,7 @@
     tags = ios, android
     en = Enter a valid ZIP code
     ru = Введите корректный почтовый индекс
+    bg = Въведете валиден пощенски код
     ar = أدخل الرمز البريدي الصحيح
     cs = Zadejte správné PSČ
     da = Indtast det korrekte postnummer
@@ -10871,6 +11039,7 @@
     tags = ios, android
     en = Unknown Place
     ru = Неизвестное место
+    bg = Неизвестно място
     ar = مكان غير معروف
     cs = Neznámé místo
     da = Ukendt sted
@@ -10904,6 +11073,7 @@
     tags = ios, android
     en = Send a note to OSM editors
     ru = Отправить заметку редакторам OSM
+    bg = Изпращане на бележка до редакторите на OSM
     ar = ارسل ملاحظة إلى محرري OSM
     cs = Odeslat poznámku editorům OSM
     da = Send en besked til OSM-redaktører
@@ -10939,6 +11109,7 @@
     tags = ios, android
     en = Detailed comment
     ru = Подробный комментарий
+    bg = Подробен коментар
     ar = تعليق مفصل
     cs = Podrobný komentář
     da = Detaljerede bemærkninger
@@ -10972,6 +11143,7 @@
     tags = ios, android
     en = Your suggested map changes will be sent to the OpenStreetMap community. Describe any additional details that cannot be edited in Organic Maps.
     ru = Предложенные вами изменения на карте будут отправлены в OpenStreetMap. Опишите дополнительные сведения об объекте, которые Organic Maps не позволяет отредактировать.
+    bg = Предложените от вас промени по картата ще бъдат изпратени до общността на OpenStreetMap. Опишете всички допълнителни подробности, които не могат да бъдат въведени в Organic Maps.
     ar = سيتم إرسال التغييرات التي اقترحتها إلى مجتمع OpenStreetMap. اذكر التفاصيل التي لا يمكن تحريرها في Organic Maps
     cs = Vámi navržené změny odešleme do komunity OpenStreetMap. Popište podrobnosti, které nelze upravit v Organic Maps.
     da = Dine foreslåede ændringer vil blive sendt til OpenStreetMap fællesskabet. Beskrive detaljer, som ikke kan redigeres i Organic Maps.
@@ -11005,6 +11177,7 @@
     tags = ios, android
     en = More about OpenStreetMap
     ru = Подробнее об OpenStreetMap
+    bg = Повече за OpenStreetMap
     ar = المزيد عن OpenStreetMap
     cs = Více o projektu OpenStreetMap
     da = Mere om OpenStreetMap
@@ -11038,6 +11211,7 @@
     tags = ios, android
     en = Owner
     ru = Владелец
+    bg = Собственик
     ar = معامل
     cs = Operátor
     da = Bruger
@@ -11071,6 +11245,7 @@
     tags = ios, android
     en = You haven't downloaded any maps
     ru = У вас нет загруженных карт
+    bg = Не сте изтеглили никакви карти
     ar = لم تقم بتنزيل أية خرائط
     cs = Nemáte stažené žádné mapy
     da = Du har ikke hentet alle kort
@@ -11104,6 +11279,7 @@
     tags = ios, android
     en = Download maps to search for a location and use navigation offline.
     ru = Загрузите необходимые карты, чтобы находить места и пользоваться навигацией без интернета.
+    bg = Изтеглете картите, от които се нуждаете, за да намирате места и да навигирате без интернет.
     ar = قم بتنزيل خرائط للبحث عن مكان والتنقل بدون اتصال بالإنترنت.
     cs = Stáhněte si mapy a hledejte cestu a její cíl, i když jste offline.
     da = Download kort for at finde position og navigere offline.
@@ -11138,6 +11314,7 @@
     tags = ios, android
     en = Continue detecting your current location?
     ru = Продолжить поиск местоположения?
+    bg = Да продължаваме ли да ви засичаме местоположението?
     ar = هل تريد متابعة اكتشاف موقعك الحالي؟
     cs = Pokračovat se zjišťováním současné polohy?
     da = Fortsæt med at registrere din aktuelle position?
@@ -11172,6 +11349,7 @@
     tags = ios, android
     en = Current location is unknown. Maybe you are in a building or in a tunnel.
     ru = Местоположение не найдено. Возможно, вы находитесь в помещении или в туннеле.
+    bg = Настоящото местоположение е неизвестно. Може би се намирате в сграда или тунел.
     ar = الموقع الحالي غير معروف. ربما تتواجد داخل مبنى أو نفق.
     cs = Nezjistili jsme vaši současnou polohu. Možná jste v budově nebo tunelu.
     da = Aktuel placering er ukendt. Måske er du i en bygning eller i en tunnel.
@@ -11205,6 +11383,7 @@
     tags = ios, android
     en = Continue
     ru = Продолжить
+    bg = Продължаване
     ar = استمرار
     cs = Pokračovat
     da = Fortsæt
@@ -11238,6 +11417,7 @@
     tags = ios, android
     en = Stop
     ru = Стоп
+    bg = Стоп
     ar = إيقاف
     cs = Zastavit
     da = Stop
@@ -11271,6 +11451,7 @@
     tags = ios
     en = Current location is unknown.
     ru = Местоположение не найдено.
+    bg = Настоящото местоположение е неизвестно.
     ar = الموقع الحالي غير معروف.
     cs = Současná poloha nezjištěna.
     da = Aktuel position er ukendt.
@@ -11303,6 +11484,7 @@
     tags = ios
     en = An error occurred while searching for your location. Check that your device is working properly and try again later.
     ru = При поиске местоположения произошла неизвестная ошибка. Проверьте работоспособность устройства и попробуйте найти местоположение позднее.
+    bg = Възникна грешка при търсенето на вашето местоположение. Проверете дали устройството ви работи правилно и опитайте отново по-късно.
     ar = حدث خطأ أثناء البحث عن موقعك. تأكد من أن جهازك يعمل بشكل صحيح وأعد المحاولة لاحقًا.
     cs = Při zjišťování současné polohy došlo k chybě. Zkontrolujte, že nedošlo k chybě zařízení a pokus prosím opakujte později.
     da = Der opstod en fejl under søgning efter din position. Kontrollér at din enhed fungerer korrekt, og prøv igen senere.
@@ -11336,6 +11518,7 @@
     tags = ios
     en = Location services are disabled
     ru = Определение местоположения отключено
+    bg = Услугите за местоположение са деактивирани
     ar = تم تعطيل تحديد الموقع
     cs = Určení polohy je zakázáno
     da = Placeringsservices er slået fra
@@ -11370,6 +11553,7 @@
     tags = ios
     en = Enable access to geolocation in the device settings
     ru = Разрешите доступ к геопозиции в настройках устройства.
+    bg = Разрешаване на достъпа до геолокация в настройките на устройството
     ar = قم بتفعيل الوصول إلى الموقع الجغرافي في إعدادات الجهاز
     cs = Povolte přístup ke geolokaci v nastavení přístroje
     da = Slå adgang til geoposition til i enhedens indstillinger
@@ -11404,6 +11588,7 @@
     tags = ios
     en = 1. Open Settings
     ru = 1. Откройте Настройки
+    bg = 1. Отваряне на Настройки
     ar = 1. افتح الإعدادات
     cs = 1. Otevřete Nastavení
     da = 1. Åbn Indstillinger
@@ -11438,6 +11623,7 @@
     tags = ios
     en = 2. Tap Location
     ru = 2. Нажмите Геопозиция
+    bg = 2. Натискане на Местоположение
     ar = 2. انقر على الموقع
     cs = 2. Klepněte na položku Poloha
     da = 2. Tryk på Placering
@@ -11472,6 +11658,7 @@
     tags = ios
     en = 3. Select While Using the App
     ru = 3. Выберите «При использовании программы»
+    bg = 3. Избиране на Докато приложението се използва
     ar = 3. اختيار أثناء استخدام التطبيق
     cs = 3. Vyberte při používání aplikace
     da = 3. Vælg Mens app'en bruges
@@ -11504,6 +11691,7 @@
     tags = ios, android
     en = m
     ru = м
+    bg = м
     ar = م
     cs = m
     da = m
@@ -11536,6 +11724,7 @@
     tags = ios
     en = km
     ru = км
+    bg = км
     ar = كم
     cs = km
     da = km
@@ -11568,6 +11757,7 @@
     tags = ios
     en = mi
     ru = ми
+    bg = ми
     ar = ميل
     cs = mil
     da = mil
@@ -11599,6 +11789,7 @@
     tags = ios, android
     en = ft
     ru = фут
+    bg = фут
     ar = قدم
     cs = stopa
     da = fod
@@ -11630,6 +11821,7 @@
     tags = android
     en = h
     ru = ч
+    bg = ч
     ar = س
     cs = hod
     da = time
@@ -11661,6 +11853,7 @@
     tags = android
     en = min
     ru = мин
+    bg = мин
     ar = د
     cs = min
     da = min
@@ -11692,6 +11885,7 @@
     tags = android
     en = Description
     ru = Описание
+    bg = Описание
     ar = الوصف
     cs = Popis
     da = Beskrivelse
@@ -11724,6 +11918,7 @@
     tags = ios, android
     en = More
     ru = Ещё
+    bg = Още
     ar = المزيد
     cs = Více
     da = Mere
@@ -11757,6 +11952,7 @@
     tags = android
     en = More Reviews
     ru = Ещё отзывы
+    bg = Още отзиви
     ar = المزيد من المراجعات
     cs = Více recenzí
     da = Flere anmeldelser
@@ -11792,6 +11988,7 @@
     tags = ios, android
     en = Book
     ru = Забронировать
+    bg = Резервиране
     ar = حجز
     cs = Rezervace
     da = Book
@@ -11824,6 +12021,7 @@
     tags = ios, android
     en = Call
     ru = Позвонить
+    bg = Обаждане
     ar = اتصال
     cs = Volat
     da = Ring
@@ -11857,6 +12055,7 @@
     tags = ios, android
     en = Edit Bookmark
     ru = Редактировать метку
+    bg = Редакция на отметка
     ar = تحرير العلامة المرجعية
     cs = Upravit záložku
     da = Rediger bogmærke
@@ -11890,6 +12089,7 @@
     tags = ios
     en = Bookmark Name
     ru = Название метки
+    bg = Име на отметка
     ar = اسم العلامة المرجعية
     cs = Název záložky
     da = Bogmærke
@@ -11923,6 +12123,7 @@
     tags = ios
     en = Your suggested changes have been sent
     ru = Предложенные вами изменения отправлены
+    bg = Предложените от вас промени са изпратени
     ar = لقد تم إرسال التغييرات التي اقترحتها
     cs = Odeslali jsme Vámi navržené změny
     da = Dine foreslåede ændringer er blevet sendt
@@ -11956,6 +12157,7 @@
     tags = ios, android
     en = Comment…
     ru = Коментарий…
+    bg = Коментиране…
     ar = تعليق…
     cs = Poznámka…
     da = Kommentar…
@@ -11989,6 +12191,7 @@
     tags = ios, android
     en = Discard all local changes?
     ru = Сбросить все локальные правки?
+    bg = Отхвърляне на всички локални промени?
     ar = هل تريد مسح كافة التغييرات المحلية؟
     cs = Vymazat všechny místní změny?
     da = Nulstil alle lokale ændringer?
@@ -12022,6 +12225,7 @@
     tags = ios, android
     en = Discard
     ru = Сбросить
+    bg = Отхвърляне
     ar = مسح
     cs = Vymazat
     da = Nulstil
@@ -12055,6 +12259,7 @@
     tags = ios, android
     en = Delete added place?
     ru = Удалить добавленный вами объект?
+    bg = Изтриване на добавеното място?
     ar = إزالة مكان تمت إضافته؟
     cs = Odstranit přidané místo?
     da = Fjern en ekstra plads?
@@ -12088,6 +12293,7 @@
     tags = ios, android
     en = Delete
     ru = Удалить
+    bg = Изтриване
     ar = إزالة
     cs = Odstranit
     da = Fjern
@@ -12121,6 +12327,7 @@
     tags = ios, android
     en = Place does not exist
     ru = Места не существует
+    bg = Мястото не съществува
     ar = المكان غير موجود
     cs = Místo neexistuje
     da = Stedet eksisterer ikke
@@ -12154,6 +12361,7 @@
     tags = ios
     en = …more
     ru = …ещё
+    bg = …още
     ar = …المزيد
     cs = …dále
     da = …mere
@@ -12188,6 +12396,7 @@
     tags = ios, android
     en = Enter a valid phone number
     ru = Введите корректный номер телефона
+    bg = Въведете валиден телефонен номер
     ar = أدخل رقم هاتف صحيح
     cs = Zadejte správné telefonní číslo
     da = Indtast korrekt telefonnummer
@@ -12220,6 +12429,7 @@
     tags = ios, android
     en = Enter a valid web address
     ru = Введите корректный веб-адрес
+    bg = Въведете валиден уеб адрес
     ar = أدخل عنوان ويب صالح
     cs = Zadat platnou webovou adresu
     da = Indtast en gyldig webadresse
@@ -12252,6 +12462,7 @@
     tags = ios, android
     en = Enter a valid email
     ru = Введите корректный email
+    bg = Въведете валиден имейл
     ar = أدخل بريدا إلكترونيا صالحا
     cs = Zadat platný email
     da = Indtast en gyldig emailadresse
@@ -12284,6 +12495,7 @@
     tags = ios
     en = Update
     ru = Обновить
+    bg = Обновление
     ar = تحديث
     cs = Aktualizovat
     da = Opdater
@@ -12317,6 +12529,7 @@
     tags = ios, android
     en = Add a place to the map
     ru = Добавить место на карту
+    bg = Добавяне на място в картата
     ar = إضافة مكان ما للخريطة
     cs = Přidat místo na mapu
     da = Tilføj et sted på kortet
@@ -12350,6 +12563,7 @@
     tags = ios, android
     en = Do you want to send it to all users?
     ru = Отправить всем пользователям?
+    bg = Искате ли да го изпратите на всички потребители?
     ar = هل ترغب في إرساله لجميع المستخدمين؟
     cs = Chcete jej poslat všem uživatelům?
     da = Ønsker du at sende det til alle brugere?
@@ -12383,6 +12597,7 @@
     tags = ios, android
     en = Make sure you did not enter any personal data.
     ru = Убедитесь, что вы не ввели личные данные.
+    bg = Уверете се, че не сте въвели никакви лични данни.
     ar = تأكد من أنك لم تقم بإدخال أي بيانات شخصية.
     cs = Ujistěte se, že jste nezadali žádná osobní data.
     da = Sørg for at du ikke indtastede personlige oplysninger.
@@ -12415,6 +12630,7 @@
     tags = ios, android
     en = We will check the changes. If we have any questions we will contact you via email.
     ru = Если при проверке изменений возникнут вопросы, мы напишем вам на email.
+    bg = Ще проверим промените. Ако имаме някакви въпроси, ще се свържем с вас по имейл.
     ar = سنقوم بمراجعة هذه التغييرات. إذا كانت لدينا أي أسئلة فسوف نتصل بك عبر البريد الإلكتروني.
     cs = Změny ověříme. Budeme-li k vám mít jakékoli dotazy, budeme vás kontaktovat prostřednictvím emailu.
     da = Vi vil kigge på ændringerne. Hvis vi har spørgsmål, vil vi kontakte dig via email.
@@ -12448,6 +12664,7 @@
     comment = iOS dialog for the case when recent track recording is on and the app comes back from background
     en = Disable recording of your recently traveled route?
     ru = Выключить запись недавно пройденого пути?
+    bg = Деактивиране на записването на последния ви маршрут?
     ar = تريد تعطيل التسجيل الخاص بمسار سفرك الأخير؟
     cs = Zakázat zaznamenávání vaší nedávno ujeté trasy?
     da = Vil du deaktivere gemningen af din seneste rejserute?
@@ -12480,6 +12697,7 @@
     tags = ios
     en = Disable
     ru = Выключить
+    bg = Деактивиране
     ar = تعطيل
     cs = Zakázat
     da = Deaktiver
@@ -12513,6 +12731,7 @@
     tags = ios
     en = Check out
     ru = Посмотри
+    bg = Виж
     ar = انظر
     cs = Odjezd
     da = Tjek
@@ -12545,6 +12764,7 @@
     tags = ios
     en = Organic Maps uses your geoposition in the background for recording your recently traveled route.
     ru = Organic Maps использует вашу геопозицию в фоновом режиме для записи недавно пройденного пути.
+    bg = Organic Maps използва геопозицията ви във фонов режим за записване на последния ви маршрут.
     ar = يستخدم Organic Maps موقعك الجغرافي في الخلفية لتسجيل مسار سفرك الأخير.
     cs = Organic Maps používají geopozici na pozadí, aby se zaznamenala vaše nedávno ujetá trasa.
     da = Organic Maps anvender din geoposition i baggrunden til at gemme din seneste rejserute.
@@ -12578,6 +12798,7 @@
     tags = android
     en = Rate on Google Play
     ru = Оценить в Google Play
+    bg = Оценка в Google Play
     ar = تصنيف على Google Play
     cs = Ohodnotit na Google Play
     da = Bedøm på Google Play
@@ -12611,6 +12832,7 @@
     tags = android
     en = Tell a Friend
     ru = Рассказать друзьям
+    bg = Кажи на приятел
     ar = أخبر صديق
     cs = Sdílet s přáteli
     da = Sig det videre til en ven
@@ -12644,6 +12866,7 @@
     tags = android
     en = Hi! Install Organic Maps!
     ru = Привет! Установи Organic Maps!
+    bg = Здравей! Инсталирай Organic Maps!
     ar = مرحبًا! تثبيت Organic Maps!
     cs = Ahoj! Naisntalujte si Organic Maps!
     da = Hej! Installer Organic Maps!
@@ -12677,6 +12900,7 @@
     tags = ios, android
     en = Organic Maps is an essential offline application for travelling. Organic Maps is based on OpenStreetMap data and allows editing it.
     ru = Organic Maps — незаменимое приложение для путешествий, работающее без подключения к интернету. Organic Maps использует данные OpenStreetMap и позволяет их улучшать.
+    bg = Organic Maps е офлайн приложение за пътуване. Organic Maps се основава на данни от OpenStreetMap и позволява тяхното редактиране.
     ar = Organic Maps هو تطبيق أساسي للسفر بدون اتصال بالإنترنت. يعتمد برنامج Organic Maps على بيانات OpenStreetMap ويتيح تحريرها.
     cs = Organic Maps je základní aplikace pro každého cestovatele. Organic Maps je založena na datech z OpenStreetMap a umožňuje je upravovat.
     da = Organic Maps er en essentiel offline-app for rejsende. Organic Maps er baseret på data fra OpenStreetMap, og gør det muligt at redigere disse data.
@@ -12709,6 +12933,7 @@
     tags = ios
     en = General settings
     ru = Общие настройки
+    bg = Общи настройки
     ar = إعدادات عامة
     cs = Obecná nastavení
     da = Generelle indstillinger
@@ -12742,6 +12967,7 @@
     tags = ios, android
     en = Accept
     ru = Принять
+    bg = Приемане
     ar = قبول
     cs = Přijmout
     da = Accepter
@@ -12775,6 +13001,7 @@
     tags = ios, android
     en = Decline
     ru = Отклонить
+    bg = Отказване
     ar = رفض
     cs = Odmítnout
     da = Afvis
@@ -12808,6 +13035,7 @@
     tags = ios, android
     en = List
     ru = Список
+    bg = Списък
     ar = قائمة
     cs = Seznam
     da = Liste
@@ -12840,6 +13068,7 @@
     tags = ios, android
     en = Use mobile internet to show detailed information?
     ru = Загружать дополнительную информацию через мобильный интернет?
+    bg = Използване на мобилни данни за подробна информация?
     ar = استخدام إنترنت المحمول لإظهار المعلومات التفصيلية؟
     cs = Použít mobilní data k zobrazení podrobnějších informací?
     da = Skal mobilt internet bruges til at vise detaljerede oplysninger?
@@ -12872,6 +13101,7 @@
     tags = ios, android
     en = Use Always
     ru = Всегда
+    bg = Винаги
     ar = استخدام دائمًا
     cs = Vždy použít
     da = Brug altid
@@ -12904,6 +13134,7 @@
     tags = ios, android
     en = Only Today
     ru = Только сегодня
+    bg = Само днес
     ar = اليوم فقط
     cs = Jen dnes
     da = Kun i dag
@@ -12936,6 +13167,7 @@
     tags = ios, android
     en = Do not Use Today
     ru = Не сегодня
+    bg = Без днес
     ar = عدم الاستخدام اليوم
     cs = Nepoužívat dnes
     da = Brug ikke i dag
@@ -12968,6 +13200,7 @@
     tags = ios, android
     en = Mobile Internet
     ru = Мобильный интернет
+    bg = Мобилни данни
     ar = انترنت المحمول
     cs = Mobilní data
     da = Mobilt internet
@@ -13000,6 +13233,7 @@
     tags = ios, android
     en = Mobile internet is required for displaying detailed information about places, such as photographs, prices and reviews.
     ru = Мобильный интернет требуется для отображения более детальной информации о местах: фотографий, цен, отзывов.
+    bg = Мобилните данни са необходими за показване на подробна информация за местата, като например снимки, цени и отзиви.
     ar = الإنترنت المحمول مطلوب لعرض معلومات تفصيلية عن الأماكن مثل الصور الفوتوغرافية والأسعار والمراجعات.
     cs = Ke zobrazení podrobných informací o místech, jako jsou fotografie, ceny a recenze, je třeba mobilní internet.
     da = Mobile internet er nødvendigt til visning af detaljerede oplysninger om steder, såsom fotos, priser og anmeldelser.
@@ -13032,6 +13266,7 @@
     tags = ios, android
     en = Never Use
     ru = Никогда не использовать
+    bg = Никога
     ar = عدم الاستخدام مطلقًا
     cs = Nikdy nepoužívat
     da = Brug aldrig
@@ -13064,6 +13299,7 @@
     tags = ios, android
     en = Always Ask
     ru = Всегда спрашивать
+    bg = Винаги питай
     ar = السؤال دوماً
     cs = Vždy se zeptat
     da = Spørg altid
@@ -13096,6 +13332,7 @@
     tags = ios, android
     en = To display traffic data, maps must be updated.
     ru = Для отображения пробок необходимо обновить карты.
+    bg = За да се показват данни за трафика, картите трябва да са актуализирани.
     ar = لعرض البيانات المرورية، يجب تحديث الخرائط.
     cs = Ke zobrazení údajů o provozu musí být aktualizovány mapy.
     da = Kortet opdateres for kunne vise trafikdata.
@@ -13128,6 +13365,7 @@
     tags = ios, android
     en = Increase font size on the map
     ru = Увеличить шрифт на карте
+    bg = Увеличаване на размера на шрифта в картата
     ar = زيادة حجم الخط على الخريطة
     cs = Zvětšit velikost písma na mapě
     da = Forøg skriftstørrelsen på kortet
@@ -13160,6 +13398,7 @@
     tags = android
     en = Please update Organic Maps
     ru = Обновите Organic Maps
+    bg = Моля, актуализирайте Organic Maps
     ar = الرجاء تحديث Organic Maps
     cs = Aktualizujte MAPS. ME
     da = Opdater Organic Maps
@@ -13193,6 +13432,7 @@
     tags = ios
     en = To display traffic data, the application must be updated.
     ru = Для отображения пробок необходимо обновить приложение.
+    bg = За да се показват данни за трафика, приложението трябва да се актуализира.
     ar = لعرض البيانات المرورية، يجب تحديث التطبيق.
     cs = Ke zobrazení dat o provozu je nutné aplikaci aktualizovat.
     da = Appen skal opdateres for at kunne vise trafikdata.
@@ -13226,6 +13466,7 @@
     tags = ios, android
     en = Traffic data is not available
     ru = Данные о пробках недоступны
+    bg = Няма налични данни за трафика
     ar = البيانات المرورية غير متاحة
     cs = Data o provozu nejsou k dispozici
     da = Trafikdata er ikke tilgængelige
@@ -13258,6 +13499,7 @@
     tags = android
     en = Enable logging
     ru = Включить запись логов
+    bg = Активиране на запис на дневник
     ar = تمكين التسجيل
     cs = Povolit protokolování
     da = Aktiver logføring
@@ -13291,6 +13533,7 @@
     tags = ios, android
     en = General Feedback
     ru = Отправить отзыв
+    bg = Обща обратна връзка
     ar = تعقيب عام
     cs = Všeobecné připomínky
     da = Generel feedback
@@ -13324,6 +13567,7 @@
     tags = ios, android
     en = On
     ru = Вкл.
+    bg = Вкл.
     ar = تشغيل
     cs = Zapnout
     da = Til
@@ -13357,6 +13601,7 @@
     tags = ios, android
     en = Off
     ru = Выкл.
+    bg = Изкл.
     ar = إيقاف
     cs = Vypnout
     da = Fra
@@ -13390,6 +13635,7 @@
     tags = android
     en = We use system TTS for voice instructions. Many Android devices use Google TTS, you can download or update it from Google Play (https://play.google.com/store/apps/details?id=com.google.android.tts)
     ru = Подсказки озвучиваются системным синтезатором речи (TTS). На многих устройствах используется Google TTS, его можно загрузить или обновить в Google Play (https://play.google.com/store/apps/details?id=com.google.android.tts)
+    bg = Навигирането се озвучава от системен синтезатор на реч (TTS). Много устройства използват Google TTS, който може да бъде изтеглен или актуализиран от Google Play (https://play.google.com/store/apps/details?id=com.google.android.tts).
     ar = نحن نستخدم نظام النص إلى كلام (TTS) للتعليمات الصوتية. تستخدم العديد من أجهزة Android نظام Google TTS، يمكنك تنزيله من أو تحديثه من Google Play (https://play.google.com/store/apps/details?id=com.google.android.tts)
     cs = Pro hlasové pokyny používáme systém TTS. Mnoho zařízení se systémem Android používá Google TTS, můžete si ho stáhnout nebo aktualizovat na Google Play (https://play.google.com/store/apps/details?id=com.google.android.tts)
     da = Vi bruger systemets TTS til stemmevejledning. Mange Android-enheder bruger Google TTS, du kan hente eller opdatere det via Google Play (https://play.google.com/store/apps/details?id=com.google.android.tts)
@@ -13423,6 +13669,7 @@
     tags = android
     en = For some languages, you will need to install a speech synthesizer or an additional language pack from the app store (Google Play Market, Samsung Apps).\nOpen your device's settings → Language and input → Speech → Text to speech output.\nHere you can manage settings for speech synthesis (for example, download language pack for offline use) and select another text-to-speech engine.
     ru = Для некоторых языков, возможно, необходимо установить дополнительный синтезатор речи (TTS) из магазина приложений (Google Play Market, Samsung Apps).\nЧтобы настроить синтезатор речи, перейдите в Настройки → Язык и ввод → Синтез речи.\nЗдесь можно установить дополнительные языковые пакеты или выбрать синтезатор речи.
+    bg = За някои езици може да се наложи да инсталирате допълнителен синтезатор на реч (TTS) от магазина за приложения (Google Play Магазин, Samsung Apps).\nЗа да настроите синтезатора на реч, отидете в Настройки → Езици и въвеждане → Синтезиран говор.\nТук можете да инсталирате допълнителни езикови пакети или да изберете синтезатор на реч.
     ar = (TTS) إضافي (حيث إن نظام Google TTS لا يدعم اللغات بعد (من Google Play مثل Vocalizer TTS أو SVOX Classics.\nلإدارة الإعدادات لتخليق الكلام، في الجهاز الخاص بك افتح الإعدادات –> اللغة والإدخال –> الكلام –> إخراج نص إلى كلام. هنا يمكنك تنزيل حزمة لغة إضافية أو تحديد محرك النص إلى كلام المفضل.
     cs = U některých jazyků je třeba nainstalovat jiný hlasový syntetizátor nebo další jazykové sady z obchodu s aplikacemi (Google Play, Samsung Apps).\nOtevřete zařízení → Nastavení jazyka a zadávání → Hlasitost → Převod textu na řeč. \nZde můžete spravovat nastavení pro syntézu řeči (například stáhnout jazykový balíček pro použití offline) a vybrat jiný modul převodu textu na řeč.
     da = For nogle sprog skal du installere en anden talesyntese eller en yderligere sprogpakke fra appbutiken (Google Play Market, Samsung Apps).\nÅbn enhedens indstillinger → Sprog og input → Tale → Tekst til tale. Her kan du administrere indstillingerne for talesyntese (f. eks downloade en sprogpakke til brug offline) og vælge et andet tekst-til-tale program.
@@ -13456,6 +13703,7 @@
     tags = android
     en = For more information please check this guide.
     ru = Более подробная информация — в этом руководстве.
+    bg = За повече информация вижте това ръководство.
     ar = لمزيد من المعلومات الرجاء مراجعة هذا الدليل.
     cs = Více informací najdete v tomto návodu.
     da = Se denne vejledning for flere oplysninger.
@@ -13489,6 +13737,7 @@
     tags = ios, android
     en = Transliteration into Latin
     ru = Латинская транслитерация
+    bg = Латинска транслитерация
     ar = كتابة بالحروف اللاتينية
     cs = Přepis do latinky
     da = Translitteration til latinsk
@@ -13530,6 +13779,7 @@
     tags = android
     en = Learn more
     ru = Узнать больше
+    bg = Научете повече
     ar = تعلم المزيد
     cs = Zjistit více
     da = Flere oplysninger
@@ -13563,6 +13813,7 @@
     tags = ios, android
     en = Exit
     ru = Выход
+    bg = Изход
     ar = خروج
     cs = Ukončit
     da = Afslut
@@ -13596,6 +13847,7 @@
     tags = android
     en = Add a starting point to plan a route
     ru = Добавьте стартовую точку, чтобы построить маршрут
+    bg = Добавяне на начална точка за планиране на маршрут
     ar = أضف نقطة البداية لتخطيط المسار
     cs = Zadejte výchozí bod pro plánování trasy
     da = Tilføj startpunkt for at planlægge en rute
@@ -13629,6 +13881,7 @@
     tags = android
     en = Add a destination to plan a route
     ru = Добавьте конечную точку, чтобы построить маршрут
+    bg = Добавяне на крайна точка за планиране на маршрут
     ar = أضف النهاية لتخطيط المسار
     cs = Zadejte cílový bod pro plánování trasy
     da = Tilføj slutpunkt for at planlægge en rute
@@ -13662,6 +13915,7 @@
     tags = android
     en = Exit
     ru = Выход
+    bg = Изход
     ar = خروج
     cs = Ukončit
     da = Afslut
@@ -13695,6 +13949,7 @@
     tags = ios
     en = Manage Route
     ru = Изменить маршрут
+    bg = Управление на маршрут
     ar = إدارة المسار
     cs = Spravovat trasu
     da = Administrer rute
@@ -13728,6 +13983,7 @@
     tags = ios
     en = Plan
     ru = Построить
+    bg = Планиране
     ar = خطة
     cs = Naplánovat
     da = Planlæg
@@ -13761,6 +14017,7 @@
     tags = ios, android
     en = Remove
     ru = Удалить
+    bg = Премахване
     ar = إزالة
     cs = Odstranit
     da = Fjern
@@ -13794,6 +14051,7 @@
     tags = ios
     en = Drag here to remove
     ru = Перетяните сюда, чтобы удалить
+    bg = Плъзнете тук, за да премахнете
     ar = اسحب هنا للإزالة
     cs = Pro odebrání přetáhněte sem
     da = Træk herhen for at fjerne
@@ -13827,6 +14085,7 @@
     tags = ios, android
     en = Add Stop
     ru = Заехать
+    bg = Добавяне на спирка
     ar = إضافة نقطة توقف
     cs = Přidat zastávku
     da = Tilføj stop
@@ -13860,6 +14119,7 @@
     tags = android
     en = Learn more
     ru = Посмотреть
+    bg = Научете повече
     ar = تعلم المزيد
     cs = Zjistit více
     da = Flere oplysninger
@@ -13893,6 +14153,7 @@
     tags = ios
     en = Oops, there was an error. Try to sign in again.
     ru = Упс, произошла ошибка. Попробуйте авторизоваться повторно.
+    bg = За съжаление има грешка. Опитайте да влезете отново.
     ar = عفوًا، كان هناك خطأ. حاول تسجيل الدخول مرة اخرى.
     cs = Jejda, došlo k chybě. Zkuste se přihlásit znovu.
     da = Ups, der skete en fejl. Prøv at logge på igen.
@@ -13926,6 +14187,7 @@
     tags = android
     en = Storage access problem
     ru = Проблема с доступом к хранилищу
+    bg = Проблем с достъпа до хранилището
     ar = مشكلة الوصول للتخزين
     cs = Problém s přístupem k úložišti
     da = Problem med lageradgang
@@ -13961,6 +14223,7 @@
     tags = android
     en = External storage is not accessible. The SD Card may have been removed, damaged, or the file system is read-only. Please, check your SD Card or contact us at support@organicmaps.app
     ru = Внешняя память устройства недоступна, возможно SD карта была удалена, повреждена или файловая система доступна только для чтения. Проверьте это и свяжитесь, пожалуйста, с нами support@organicmaps.app
+    bg = Външната памет на устройството не е налична, SD картата може да е била извадена, повредена или файловата система е само за четене. Проверете това и се свържете с нас support@organicmaps.app
     ar = التخزين الخارجي غير متوفر، ربما تمت إزالة بطاقة SD، أو أنها تالفة أو ملف النظام للقراءة فقط. افحصه واتصل بنا على support@organicmaps.app
     cs = Externí úložiště není k dispozici, pravděpodobně byla vyjmuta nebo poškozena SD karta, nebo je systém souborů pouze pro čtení. Zkontrolujte to prosím a kontaktujte nás na support@organicmaps.app
     da = Eksternt lager er ikke tilgængeligt, formentlig er SD-kortet blevet fjernet eller beskadiget, eller filsystemet er skrivebeskyttet. Kontroller det og kontakt os på support@organicmaps.app
@@ -13996,6 +14259,7 @@
     tags = android
     en = Emulate bad storage
     ru = Эмуляция ошибки с внешней памятью
+    bg = Емулация на грешки с външна памет
     ar = محاكاة التخزين السيء
     cs = Emulovat špatné úložiště
     da = Emulere beskadiget lager
@@ -14031,6 +14295,7 @@
     tags = ios, android
     en = Entrance
     ru = Вход
+    bg = Вход
     ar = المدخل
     cs = Vstup
     da = Indgang
@@ -14066,6 +14331,7 @@
     tags = ios, android
     en = Please, enter a correct name
     ru = Пожалуйста, введите название правильно
+    bg = Моля, въведете правилно име
     ar = الرجاء إدخال اسم صحيح
     cs = Zadejte prosím správný název
     da = Angiv et korrekt navn
@@ -14101,6 +14367,7 @@
     tags = android
     en = Lists
     ru = Списки
+    bg = Списъци
     ar = قوائم
     cs = Seznamy
     da = Lister
@@ -14136,6 +14403,7 @@
     tags = android
     en = Hide all
     ru = Спрятать все
+    bg = Скриване на всичко
     ar = إخفاء الكل
     cs = Skrýt vše
     da = Skjul alle
@@ -14171,6 +14439,7 @@
     tags = android
     en = Show all
     ru = Показать все
+    bg = Показване на всичко
     ar = إظهار الكل
     cs = Zobrazit vše
     da = Vis alle
@@ -14206,6 +14475,7 @@
     tags = ios, android
     en = Create new list
     ru = Создать новый список
+    bg = Създаване на нов списък
     ar = إنشاء قائمة جديدة
     cs = Vytvořte nový seznam
     da = Opret ny liste
@@ -14242,11 +14512,13 @@
     comment = Bookmark categories screen
     en = Import bookmarks
     ru = Импортировать метки
+    bg = Импортиране на отметки
 
   [downloader_hide_screen]
     tags = ios
     en = Hide Screen
     ru = Скрыть
+    bg = Скриване на екрана
     ar = إخفاء الشاشة
     cs = Skrýt obrazovku
     da = Skjul skærm
@@ -14282,6 +14554,7 @@
     tags = ios
     en = %s (%s of %s)
     ru = %s (%s из %s)
+    bg = %s (%s от %s)
     ar = %s (%s من %s)
     cs = %s (%s z %s)
     da = %s (%s af %s)
@@ -14317,6 +14590,7 @@
     tags = ios
     en = Downloading %s…
     ru = Загрузка %s…
+    bg = Теглене %s…
     ar = جار تنزيل %s…
     cs = Stahování %s…
     da = Downloader %s…
@@ -14352,6 +14626,7 @@
     tags = ios
     en = Applying %s…
     ru = Применение %s…
+    bg = Прилагане %s…
     ar = جار تطبيق %s…
     cs = Aplikuji %s…
     da = Anvender %s…
@@ -14387,6 +14662,7 @@
     tags = android
     en = Unable to share due to an application error
     ru = Не удалось поделиться из-за ошибки приложения
+    bg = Не е възможно споделяне поради грешка в приложението
     ar = تعذرت المشاركة بسبب خطأ في التطبيق
     cs = Nelze sdílet kvůli chybě aplikace
     da = Ikke i stand til at dele på grund af en programfejl
@@ -14422,6 +14698,7 @@
     tags = android
     en = Sharing error
     ru = Ошибка при попытке поделиться
+    bg = Грешка при споделяне
     ar = خطأ في المشاركة
     cs = Chyba sdílení
     da = Delingsfejl
@@ -14457,6 +14734,7 @@
     tags = android
     en = Cannot share an empty list
     ru = Нельзя делиться пустыми списками
+    bg = Не може да се споделя празен списък
     ar = لا يمكن مشاركة قائمة فارغة
     cs = Nelze sdílet s prázdným seznamem
     da = Kan ikke dele en tom liste
@@ -14492,6 +14770,7 @@
     tags = android
     en = The name couldn't be empty
     ru = Имя списка не может быть пустым
+    bg = Името не може да бъде празно
     ar = الاسم لا يمكن أن يكون فارغًا
     cs = Jméno nemůže být prázdné
     da = Navnet kunne ikke være tomt
@@ -14527,6 +14806,7 @@
     tags = android
     en = Please enter the list name
     ru = Введите имя списка, пожалуйста
+    bg = Моля, въведете името на списъка
     ar = يرجى إدخال اسم القائمة
     cs = Zadejte název seznamu
     da = Indtast venligst listen navn
@@ -14562,6 +14842,7 @@
     tags = android
     en = New list
     ru = Новый список
+    bg = Нов списък
     ar = قائمة جديدة
     cs = Nový seznam
     da = Ny liste
@@ -14597,6 +14878,7 @@
     tags = android
     en = This name is already taken
     ru = Такое имя уже занято
+    bg = Това име вече е заето
     ar = هذا الاسم أخذ سابقا
     cs = Toto jméno již bylo provedeno
     da = Dette navn er allerede taget
@@ -14632,6 +14914,7 @@
     tags = android
     en = Please choose another name
     ru = Выберите, пожалуйста, другое имя
+    bg = Моля, изберете друго име
     ar = يرجى اختيار اسم آخر
     cs = Zvolte jiný název
     da = Vælg venligst et andet navn
@@ -14667,6 +14950,7 @@
     tags = android
     en = Please wait…
     ru = Пожалуйста, подождите…
+    bg = Моля, изчакайте…
     ar = أرجو الإنتظار…
     cs = Prosím, čekejte…
     da = Vent venligst…
@@ -14702,6 +14986,7 @@
     tags = ios, android
     en = OpenStreetMap profile
     ru = Профиль OpenStreetMap
+    bg = Профил в OpenStreetMap
     ar = الملف الشخصي OpenStreetMap
     cs = Profil OpenStreetMap
     da = OpenStreetMap profil
@@ -14735,6 +15020,7 @@
     tags = android
     en = Search similar hotels
     ru = Найти похожие отели
+    bg = Търсене на сходни хотели
     ar = ابحث عن فنادق مماثلة
     cs = Hledat podobné hotely
     da = Søg lignende hoteller
@@ -14770,6 +15056,7 @@
     tags = ios
     en = New files detected
     ru = Обнаружены новые файлы
+    bg = Открити са нови файлове
     ar = تم اكتشاف ملفات جديدة
     cs = Byly zjištěny nové soubory
     da = Nye filer registreret
@@ -14821,6 +15108,8 @@
     el:other = έχουν βρεθεί %d αρχεία. Θα τα δείτε μετά τη μετατροπή.
     en:one = %d file was found. You can see it after conversion.
     en:other = %d files were found. You can see them after conversion.
+    bg:one = Открит е %d файл. Можете да го видите след конвертирането.
+    bg:other = Открити са %d файла. Можете да ги видите след конвертирането.
     es:one = Se encontró %d archivo. Lo verás después de la conversión.
     es:other = Se han encontrado %d archivos. Los verás después de la conversión.
     es_MX:one = Se encontró %d archivo. Lo verás después de la conversión.
@@ -14871,6 +15160,7 @@
     tags = ios
     en = Convert
     ru = Конвертировать
+    bg = Конвертиране
     ar = تحول
     cs = Konvertovat
     da = Konvertere
@@ -14906,6 +15196,7 @@
     tags = ios
     en = Error
     ru = Ошибка
+    bg = Грешка
     ar = خطأ
     cs = Chyba
     da = Fejl
@@ -14941,6 +15232,7 @@
     tags = ios
     en = Some files were not converted.
     ru = Некоторые файлы не конвертировались.
+    bg = Някои файлове не са конвертирани.
     ar = لم يتم تحويل بعض الملفات.
     cs = Některé soubory nebyly převedeny.
     da = Nogle filer blev ikke konverteret.
@@ -14976,6 +15268,7 @@
     tags = ios
     en = Restore this version?
     ru = Восстановить эту версию?
+    bg = Възстановяване на тази версия?
     ar = استعادة هذا الإصدار؟
     cs = Obnovit tuto verzi?
     da = Gendan denne version?
@@ -15011,6 +15304,7 @@
     tags = android
     en = No internet connection
     ru = Нет интернет соединения
+    bg = Няма интернет връзка
     ar = لا يوجد اتصال بالإنترنت
     cs = Žádné internetové připojení
     da = Ingen internetforbindelse
@@ -15046,6 +15340,7 @@
     tags = ios
     en = An unknown error occurred
     ru = Произошла неизвестная ошибка
+    bg = Възникна неизвестна грешка
     ar = حدث خطأ غير معروف
     cs = Nastala neznámá chyba
     da = Der opstod en ukendt fejl
@@ -15081,6 +15376,7 @@
     tags = ios
     en = Restore
     ru = Восстановить
+    bg = Възстановяване
     ar = استعادة
     cs = Obnovit
     da = Gendan
@@ -15141,6 +15437,8 @@
     el = %d μέρος
     en:one = %d object
     en:other = %d objects
+    bg:one = %d обект
+    bg:other = %d обекта
     es_MX = %d lugar
     fa:one = %s شیء
     fa:other = %s شیء
@@ -15181,6 +15479,8 @@
     el = %d μέρη
     en:one = %d place
     en:other = %d places
+    bg:one = %d място
+    bg:other = %d места
     es_MX = %d lugares
     fa:one = %d مکان
     fa:other = %d مکان
@@ -15221,6 +15521,8 @@
     el = %d διαδρομές
     en:one = %d track
     en:other = %d tracks
+    bg:one = %d пътека
+    bg:other = %d пътеки
     es_MX = %d rastreos
     fa:one = %d رد
     fa:other = %d رد
@@ -15236,6 +15538,7 @@
     tags = android
     en = Tracking settings
     ru = Настройки сопровождения
+    bg = Настройки за проследяване
     ar = إعدادات التتبع
     cs = Natavení doprovodu
     da = Tracking-indstillinger
@@ -15271,6 +15574,7 @@
     tags = android
     en = Crash report
     ru = Отчеты об ошибках
+    bg = Доклад за срив
     ar = تقرير الحادث
     cs = Zprávy o chybách
     da = Nedbrudsrapport
@@ -15306,6 +15610,7 @@
     tags = android
     en = We may use your data to improve Organic Maps experience. Changes will take effect after you restart the app.
     ru = Мы можем использовать ваши данные, чтобы развивать и улучшать Organic Maps. Изменения вступят в силу после перезапуска приложения.
+    bg = Можем да използваме данни ви, за да подобрим изживяването с Organic Maps. Промените ще влязат в сила, след рестартиране на приложението.
     ar = قد نستخدم بياناتك لتحسين تجربة Organic Maps. سوف تكون التغييرات نافذة المفعول بعد إعادة تشغيل التطبيق.
     cs = Můžeme používat vaše údaje pro vývoj a zlepšení Organic Maps. Změny se projeví po restartování aplikace.
     da = Vi kan anvende dine data til at forbedre brugeroplevelsen på Organic Maps. Ændringerne træder i kraft, når du har genstartet appen.
@@ -15341,6 +15646,7 @@
     tags = ios, android
     en = Privacy policy
     ru = Политика конфиденциальности
+    bg = Политика за поверителност
     ar = سياسة الخصوصية
     cs = Politika důvěrnosti
     da = Privatlivspolitik
@@ -15376,6 +15682,7 @@
     tags = ios, android
     en = Terms of use
     ru = Условия использования
+    bg = Условия за ползване
     ar = شروط الاستخدام
     cs = Podmínky užívání
     da = Vilkår for bruger
@@ -15411,6 +15718,7 @@
     tags = android
     en = Traffic
     ru = Пробки
+    bg = Трафик
     ar = حركة مرور
     cs = Zácpy
     da = Trafik
@@ -15446,6 +15754,7 @@
     tags = ios, android
     en = Subway
     ru = Метро
+    bg = Метро
     ar = مترو الانفاق
     cs = Metro
     da = Undergrundsbane
@@ -15481,6 +15790,7 @@
     tags = ios, android
     en = Map layers
     ru = Слои карты
+    bg = Слоеве на картата
     ar = طبقات الخريطة
     cs = Úrovně mapy
     da = Kortlag
@@ -15516,6 +15826,7 @@
     tags = ios, android
     en = Subway map is unavailable
     ru = Карта метро недоступна
+    bg = Картата на метрото не е налична
     ar = خريطة مترو الانفاق غير متوفرة
     cs = Mapa metra není dostupná
     da = Kort over undergrundsbaner er ikke tilgængeligt
@@ -15551,6 +15862,7 @@
     tags = android
     en = This list is empty
     ru = Список пустой
+    bg = Този списък е празен
     ar = هذه اللائحة شاغرة
     cs = Seznam je prázdný
     da = Listen er tom
@@ -15586,6 +15898,7 @@
     tags = android
     en = To add a bookmark, tap a place on the map and then tap the star icon
     ru = Чтобы добавить новую метку, нажмите на значок звездочки в карточке объекта
+    bg = За да добавите отметка, докоснете място на картата, след което докоснете звездообразната икона.
     ar = لإضافة إشارة مرجعية ، اضغط على مكان على الخريطة ثم انقر فوق رمز النجمة
     cs = Pro přidání nové značky klikněte na symbol hvězdičky na obrázku objektu
     da = For at tilføje et bogmærke, så tryk et sted på kort og så på stjerneikonet
@@ -15621,6 +15934,7 @@
     tags = android
     en = …more
     ru = …еще
+    bg = …още
     ar = …المزيد
     cs = …ještě
     da = …mere
@@ -15656,6 +15970,7 @@
     tags = ios
     en = An error occurred
     ru = Произошла ошибка
+    bg = Възникна грешка
     ar = حدث خطأ
     cs = Někde se stala chyba
     da = Der er opstået en fejl
@@ -15691,6 +16006,7 @@
     tags = ios
     en = Popular
     ru = Популярно
+    bg = Популярно
     fr = Populaire
     fa = مشهور
 
@@ -15698,6 +16014,7 @@
     tags = android
     en = Export file
     ru = Экспортировать файл
+    bg = Експортиране на файл
     ar = ملف التصدير
     cs = Exportovat soubor
     da = Eksporter fil
@@ -15733,6 +16050,7 @@
     tags = android
     en = List Settings
     ru = Настройки списка
+    bg = Настройки на списък
     ar = قائمة الإعدادات
     cs = Nástroje seznamu
     da = Listeindstillinger
@@ -15768,6 +16086,7 @@
     tags = android
     en = Delete list
     ru = Удалить список
+    bg = Изтриване на списък
     ar = حذف القائمة
     cs = Smazat seznam
     da = Slet liste
@@ -15803,6 +16122,7 @@
     tags = android
     en = Public access
     ru = Публичный доступ
+    bg = Публичен достъп
     ar = إطلاع الجمهور
     cs = Veřejně přístupné
     da = Offentlig adgang
@@ -15838,6 +16158,7 @@
     tags = android
     en = Limited access
     ru = Ограниченный доступ
+    bg = Ограничен достъп
     ar = محدودية فرص حصول
     cs = Soukromé
     da = Begrænset adgang
@@ -15873,6 +16194,7 @@
     tags = android
     en = Category
     ru = Категория
+    bg = Категория
     ar = الفئة
     cs = Kategorie
     da = Kategori
@@ -15906,6 +16228,7 @@
     tags = android
     en = Type a description (text or html)
     ru = Добавьте описание (текст или html)
+    bg = Добавяне на описание (текст или html)
     ar = اكتب وصفًا (نص أو html)
     cs = Přidejte popis (text nebo html)
     da = Lav en beskrivelse (tekst eller html)
@@ -15941,6 +16264,7 @@
     tags = android
     en = Private
     ru = Личный
+    bg = Лично
     ar = خاص
     cs = Osobní účet
     da = Privat
@@ -15976,6 +16300,7 @@
     tags = ios
     en = An error occurred while loading tags, please try again
     ru = Во время загрузки тегов произошла ошибка, пожалуйста, попробуйте еще раз
+    bg = Възникна грешка при зареждането на таговете, моля, опитайте отново
     ar = حدث خطأ أثناء تحميل العلامات ، يرجى المحاولة مرة أخرى
     cs = Během nahrávání tagů se stala chyba, zkuste to prosím ještě jednou
     da = Der skete en fejl under hentning af tags, prøv igen
@@ -16011,6 +16336,7 @@
     tags = ios, android
     en = Speed cameras
     ru = Камеры скорости
+    bg = Камери за скорост
     ar = كاميرات السرعة
     cs = Detektory rychlosti
     da = Fartkameraer
@@ -16046,6 +16372,7 @@
     tags = ios, android
     en = Auto
     ru = Авто
+    bg = Автоматично
     ar = السيارات
     cs = Automaticky
     da = Auto
@@ -16081,6 +16408,7 @@
     tags = ios, android
     en = Always
     ru = Всегда
+    bg = Винаги
     ar = دائما
     cs = Vždy
     da = Altid
@@ -16116,6 +16444,7 @@
     tags = ios, android
     en = Never
     ru = Никогда
+    bg = Никога
     ar = مطلقا
     cs = Nikdy
     da = Aldrig
@@ -16151,6 +16480,7 @@
     tags = ios, android
     en = Place Description
     ru = Описание места
+    bg = Описание на мястото
     ar = وصف المكان
     cs = Popis místa
     da = Beskrivelse af sted
@@ -16187,6 +16517,7 @@
     tags = android
     en = Map downloader
     ru = Загрузка карт
+    bg = Изтегляне на карти
     ar = محمل الخريطة
     cs = Nahrávání map
     da = Korthenter
@@ -16222,6 +16553,7 @@
     tags = ios
     en = Auto - Warn about speedcams if there is a risk of exceeding the speed limit\nAlways - Always warn about speedcams\nNever - Never warn about speedcams
     ru = Авто - Предупреждать о камерах скорости, если есть риск превышения скоростного лимита\nВсегда - Всегда предупреждать о камерах\nНикогда - Никогда не предупреждать о камерах
+    bg = Автоматично - Предупреждава се при камери за скорост, ако има риск от превишаване на ограничението на скоростта\nВинаги - Винаги се продупреждава при камери за скорост\nНикога - Никога не се предупреждава при камери за скорост
     ar = السيارات- تحذير على الرادارات إذا كان هناك خطر تجاوز الحد الأقصى للسرعة\nدائما - احذر دائما من كاميرات السرعة\nمطلقا - أبدا تحذير من كاميرات السرعة
     cs = Automaticky - Upozorňovat na rychlostní radary, pokud hrozí riziko překročení rychlosti\nVždy - Vždy upozorňovat na rychlostní radary\nNikdy - Nikdy neupozorňovat na rychlostní radary
     da = Auto - Advar om fartkameraer, hvis der er en risiko for, at hastighedsgrænsen overskrides\nAltid - Advar altid om fartkameraer\nAldrig - Advar aldrig om fartkameraer
@@ -16257,6 +16589,7 @@
     tags = ios, android
     en = Power saving mode
     ru = Режим энергосбережения
+    bg = Режим пестене на енергия
     ar = وضع توفير الطاقة
     cs = Nízkoenergetický režim
     da = Strømsparetilstand
@@ -16292,6 +16625,7 @@
     tags = ios, android
     en = When automatic mode is selected the application starts to disable battery draining features depending on the current battery charge level
     ru = Если режим энергосбережения включен, приложение будет отключать энергозатратные функции в зависимости от текущего заряда телефона
+    bg = Ако е активиран режима пестене на енергия, приложението ще деактивира функциите, консумиращи енергия, в зависимост от текущия заряд на телефона.
     ar = عندما يتم اختيار الوضع التلقائي، يبدأ التطبيق بتعطيل الخصائص التي تستهلك البطارية بناءً على مستوى شحن البطارية
     cs = Pokud je nízkoenergetický režim zapojen, příloha bude vypínat funkce, které mrhají energii v závislosti na nynější nabíjení telefonu
     da = Når automatisk tilstand er valgt, begynder applikationen at deaktivere funktioner, med højt batteri-strømforbrug, afhængigt af det aktuelle batteriniveau
@@ -16327,6 +16661,7 @@
     tags = ios, android
     en = Never
     ru = Никогда
+    bg = Никога
     ar = أبدًا
     cs = Nikdy
     da = Aldrig
@@ -16362,6 +16697,7 @@
     tags = ios, android
     en = Automatic
     ru = Авто
+    bg = Автоматично
     ar = تلقائي
     cs = Auto
     da = Automatisk
@@ -16397,6 +16733,7 @@
     tags = ios, android
     en = Maximum power saving
     ru = Максимальное энергосбережение
+    bg = Максимално пестене на енергия
     ar = توفير الطاقة القصوى
     cs = Maximální šetření energií
     da = Maksimum strømbesparelse
@@ -16432,6 +16769,7 @@
     tags = android
     en = The option turns on logging for diagnostic purposes. It can be helpful for our team to troubleshoot issues with the app. Enable this option temporarily to record and send detailed logs about your issue to us.
     ru = Данная настройка включается для записи действий в целях диагностики, чтобы помочь нашей команде выявить проблемы с приложением. Временно включайте эту настройку только для отправки детальной информации о найденной вами проблеме в приложении.
+    bg = Тази настройка е разрешена, за да се записват действия за диагностични цели, които помагат на нашия екип да идентифицира проблеми с приложението. Временно активирайте тази настройка само за изпращане на подробна информация за проблема, който сте открили с приложението.
     ar = يتحول الخيار إلى التسجيل لإغراض التشخيص. يمكن أن يكون مفيدًا لفريق الدعم الخاص بنا الذين يعملون على استكشاف أخطاء التطبيق وإصلاحها. قم بتفعيل هذا الخيار فقط في حالة طلب الدعم من Organic Maps.
     cs = Daná možnost se zapojuje pro protokolování činností za účelem diagnostiky. To pomáhá týmu odhalit problémy s přílohou. Zapojujte možnost jenom na požádání podržení Organic Maps.
     da = Indstillingen aktiverer logning til diagnostiske formål. Det kan være nyttigt for vores supportere, der fejlfinder problemer med appen. Aktiver kun denne mulighed på anmodning fra Organic Maps support.
@@ -16467,6 +16805,7 @@
     tags = android
     en = Online editing
     ru = Редактируется онлайн
+    bg = Онлайн редактиране
     ar = التحرير على الإنترنت
     cs = Upravujte on-line
     da = Online redigering
@@ -16502,6 +16841,7 @@
     tags = ios, android
     en = Routing options
     ru = Настройки объезда
+    bg = Опции за маршрутизация
     ar = خيارات قيادة
     cs = Možnosti řízení
     da = Køre muligheder
@@ -16537,6 +16877,7 @@
     tags = android
     en = Avoid on every route
     ru = Избегать в каждом маршруте
+    bg = Избягване при всеки маршрут
     ar = تجنب على كل الطرق
     cs = Vyhněte se na každé trase
     da = Undgå på enhver rute
@@ -16572,6 +16913,7 @@
     tags = ios, android
     en = Toll roads
     ru = Платные дороги
+    bg = Платени пътища
     ar = نقطة تحصيل رسوم
     cs = Silnice s mýtným
     da = Betalingsveje
@@ -16607,6 +16949,7 @@
     tags = ios, android
     en = Unpaved roads
     ru = Грунтовые дороги
+    bg = Неасфалтирани пътища
     ar = طرق غير ممهدة
     cs = Nezpevněná silnice
     da = Grusveje
@@ -16642,6 +16985,7 @@
     tags = ios, android
     en = Ferry crossings
     ru = Паромные переправы
+    bg = Преходи с ферибот
     ar = تقاطع عبارات
     cs = Přejezdy trajektů
     da = Færgeoverfarter
@@ -16677,6 +17021,7 @@
     tags = ios, android
     en = Motorways
     ru = Магистрали
+    bg = Магистрали
     ar = طرق سريعة
     cs = Dálnice
     da = Motorveje
@@ -16712,6 +17057,7 @@
     tags = ios, android
     en = Unable to calculate route
     ru = Невозможно построить маршрут
+    bg = Не е възможнос изчисляване на маршрут
     ar = لا يمكن حساب الطريق
     cs = Nelze vypočítat trasu
     da = Det er ikke muligt at beregne rute
@@ -16747,6 +17093,7 @@
     tags = ios, android
     en = Unfortunately, we couldn't find a route, probably due to the options you have chosen. Please change the settings and try again.
     ru = К сожалению, мы не смогли построить маршрут с выбранными опциями. Измените настройки и повторите попытку
+    bg = За съжаление не успяхме да намерим маршрут, вероятно поради избраните от вас параметри. Моля, променете настройките и опитайте отново.
     ar = نأسف، لم نعثر على الطريق ربما بسبب الخيارات التي قمت بتحديدها. يرجى تغيير الاعدادات والمحاولة مجددًا
     cs = Bohužel jsme nemohli nalézt trasu pravděpodobně kvůli vámi definovaným možnostem. Změňte prosím nastavení a zkuste to znovu
     da = Desværre kunne vi ikke finde en rute med den aktuelle opsætning. Ændre opsætningen, og prøv igen
@@ -16782,6 +17129,7 @@
     tags = ios, android
     en = Define roads to avoid
     ru = Настроить пути объезда
+    bg = Определяне пътищата, които да се избягват
     ar = حدد الطرق التي يجب تجنبها
     cs = Definovat silnice, kterým se vyhnout
     da = Definer veje du vil undgå
@@ -16817,6 +17165,7 @@
     tags = ios, android
     en = Routing options enabled
     ru = Настройки объезда включены
+    bg = Разрешени опции за маршрутизиране
     ar = تم تفعيل خيارات الطريق
     cs = Možnosti směrování byly povoleny
     da = Køre muligheder aktiveret
@@ -16852,6 +17201,7 @@
     tags = ios, android
     en = Avoid toll roads
     ru = Избегать платных дорог
+    bg = Избягване на платени пътища
     ar = تجنب نقاط تحصيل الرسوم
     cs = Vyhnout se silnicím s mýtným
     da = Undgå betalingsveje
@@ -16887,6 +17237,7 @@
     tags = ios, android
     en = Avoid unpaved roads
     ru = Избегать грунтовых дорог
+    bg = Избягвайте неасфалтирани пътища
     ar = تجنب الطرق الغير ممهدة
     cs = Vyhnout se nezpevněným silnicím
     da = Undgå grusveje
@@ -16922,6 +17273,7 @@
     tags = ios, android
     en = Avoid ferry crossings
     ru = Избегать паромных переправ
+    bg = Избягване на преходи с ферибот
     ar = تجنب تقاطع العبارات
     cs = Vyhnout se přejezdům trajektů
     da = Undgå færgeoverfarter
@@ -16957,6 +17309,7 @@
     tags = ios, android
     en = Ok
     ru = Ок
+    bg = Ок
     ar = موافق
     cs = Ok
     da = Ok
@@ -16993,6 +17346,7 @@
     tags = android
     en = Sort…
     ru = Сортировать…
+    bg = Сортиране…
     ar = تريتب…
     cs = Třídit…
     da = Sort…
@@ -17029,6 +17383,7 @@
     tags = android
     en = Sort bookmarks
     ru = Сортировать метки
+    bg = Сортиране на отметки
     ar = رتب العلامات المرجعية
     cs = Třídit záložky
     da = Sort (bookmaarks)
@@ -17065,6 +17420,7 @@
     tags = android
     en = By default
     ru = По умолчанию
+    bg = По подразбиране
     ar = افتراضي
     cs = Podle výchozího stavu
     da = Som standard
@@ -17101,6 +17457,7 @@
     tags = android
     en = By type
     ru = По типу
+    bg = По тип
     ar = حسب النوع
     cs = Podle typu
     da = Efter type
@@ -17137,6 +17494,7 @@
     tags = android
     en = By distance
     ru = По расстоянию
+    bg = По разстояние
     ar = حسب المسافة
     cs = Podle vzdálenosti
     da = Efter afstand
@@ -17173,6 +17531,7 @@
     tags = android
     en = By date
     ru = По дате
+    bg = По дата
     ar = حسب التاريخ
     cs = Podle data
     da = Efter dato
@@ -17208,6 +17567,7 @@
     tags = android
     en = Search in the list
     ru = Искать в списке
+    bg = Търсене в списъка
     ar = بحث في القائمة
     cs = Vyhledat v seznamu
     da = Søg i listen
@@ -17243,6 +17603,7 @@
     tags = android
     en = Select list
     ru = Выбрать список
+    bg = Избор на списък
     ar = اختر القائمة
     cs = Vybrat seznam
     da = Væg liste
@@ -17278,6 +17639,7 @@
     tags = ios, android
     en = Subway navigation in this region is not available yet
     ru = Навигация на метро ещё недоступна в данном регионе
+    bg = Навигацията за метро все още не е налична в региона
     ar = التنقل باستخدام مترو الأنفاق في هذه المنطقة غير متاح حتى الآن
     cs = Navigace metra v této oblasti zatím není k dispozici
     da = Metro-navigation er endnu ikke tilgængelig i denne region
@@ -17313,6 +17675,7 @@
     tags = ios, android
     en = Subway route is not found
     ru = Маршрут метро не найден
+    bg = Не е открит маршрут за метро
     ar = لم يتم العثور على مترو الانفاق
     cs = Trasa metra nebyla nalezena
     da = Metro-rute blev ikke fundet
@@ -17348,6 +17711,7 @@
     tags = ios, android
     en = Please choose a start or end point closer to a subway station
     ru = Выберите начальную или конечную точку маршрута ближе к станции метро
+    bg = Моля, изберете начална или крайна точка по-близо до метростанция
     ar = يرجى اختيار نقطة بداية أو نهاية أقرب لمحطة المترو
     cs = Zvolte prosím počáteční nebo koncový bod blíže k stanici metra
     da = Vælg venligst et start- eller stoppunkt, tættere på metrostationen
@@ -17383,6 +17747,7 @@
     tags = ios, android
     en = Terrain
     ru = Высоты
+    bg = Терен
     ar = تضاريس
     cs = Terén
     da = Terræn
@@ -17418,6 +17783,7 @@
     tags = ios, android
     en = To activate and use the topographic layer please update or download the map of the area
     ru = Чтобы воспользоваться линиями высот, обновите или загрузите карту нужной местности
+    bg = За да активирате и използвате топографския слой, моля, актуализирайте или изтеглете картата на района
     ar = لتفعيل الطبقة الطبوغرافية واستخدامها ، يرجى تحديث أوتنزيل خريطة المنطقة
     cs = Chcete-li aktivovat a používat topografickou vrstvu, prosím aktualizujte nebo si stáhněte mapu oblasti
     da = For at aktivere og bruge de topografiske lag, opdater venligst eller download kortet for området
@@ -17453,6 +17819,7 @@
     tags = ios, android
     en = The topographic layer is not yet available in this area
     ru = Линии высот пока не доступны в этом регионе
+    bg = Топографският слой все още не е наличен в тази област
     ar = الطبقة الطبوغرافية ليست متاحة بعد في هذه المنطقة
     cs = Topografická vrstva není v této oblasti ještě dostupná
     da = Det topografiske lag er endnu ikke tilgængeligt i dette område
@@ -17488,6 +17855,7 @@
     tags = ios
     en = Difficulty level
     ru = Уровень сложности
+    bg = Степен на трудност
     ar = مستوى الصعوبة
     cs = Stupeň obtížnosti
     da = Sværhedsgrad
@@ -17523,6 +17891,7 @@
     tags = android
     en = Ascent
     ru = Подъём
+    bg = Изкачване
     ar = تصاعدي
     cs = Stoupání
     da = Stige op
@@ -17558,6 +17927,7 @@
     tags = android
     en = Descent
     ru = Спуск
+    bg = Спускане
     ar = تنازلي
     cs = Klesání
     da = Stige ned
@@ -17593,6 +17963,7 @@
     tags = android
     en = Min. altitude
     ru = Мин. высота
+    bg = Мин. надморска височина
     ar = الحد الأدنى للارتفاع
     cs = Min. nadmořská výška
     da = Min. højde
@@ -17628,6 +17999,7 @@
     tags = android
     en = Max. altitude
     ru = Макс. высота
+    bg = Макс. надморска височина
     ar = الحد الأقصى للارتفاع
     cs = Max. nadmořská výška
     da = Maks. højde
@@ -17663,6 +18035,7 @@
     tags = ios, android
     en = Difficulty
     ru = Сложность
+    bg = Трудност
     ar = درجة الصعوبة
     cs = Obtížnost
     da = Vanskelighed
@@ -17698,6 +18071,7 @@
     tags = android
     en = Dist.:
     ru = Расст.:
+    bg = Разст.:
     ar = المسافة:
     cs = Vzdál.:
     da = Afs.:
@@ -17733,6 +18107,7 @@
     tags = ios, android
     en = Time:
     ru = В пути:
+    bg = Време:
     ar = مدة:
     cs = Čas:
     da = Tid:
@@ -17768,6 +18143,7 @@
     tags = ios, android
     en = Zoom in to explore isolines
     ru = Увеличьте карту, чтобы увидеть изолинии
+    bg = Увеличете мащаба, за да разгледате изолиниите
     ar = قرب لتكتشف خطوط الكنتور
     cs = Přiblížit pro prozkoumání izolinií
     da = Zoom ind for at udforske isolinjekort
@@ -17803,6 +18179,7 @@
     tags = android
     en = Key information
     ru = Ключевая информация
+    bg = Ключова информация
     ar = معلومات رئيسية
     cs = Klíčové informace
     da = Central information
@@ -17838,21 +18215,25 @@
     tags = android
     en = Download the world map
     ru = Скачать карту мира
+    bg = Изтегляне на картата на света
 
   [connection_failure]
     tags = android
     en = Connection failure
     ru = Ошибка подключения
+    bg = Неуспешно свързване
 
   [disconnect_usb_cable_title]
     tags = android
     en = Disconnect USB cable
     ru = Отсоедините USB кабель
+    bg = Изключване на USB кабел
 
   [enable_screen_sleep]
     tags = android
     en = Allow screen to sleep
     ru = Разрешить экрану спать
+    bg = Позволяване на екрана да заспи
     ar = اسمح للشاشة بالنوم
     cs = Nechte obrazovku spát
     da = Lad skærmen sove
@@ -17888,6 +18269,7 @@
     tags = android
     en = When enabled the screen will be allowed to sleep after a period of inactivity.
     ru = При включении экран может переходить в спящий режим после периода бездействия.
+    bg = Когато е разрешено, екранът ще бъде оставен да заспи след определен период на неактивност.
     ar = عند التمكين ، سيتم السماح للشاشة بالنوم بعد فترة من عدم النشاط.
     cs = Je-li tato možnost povolena, bude obrazovka po určité době nečinnosti umožněna usnout.
     da = Når den er aktiveret, får skærmen lov til at sove efter en periode med inaktivitet.
@@ -17923,6 +18305,7 @@
     tags = ios
     en = Update your downloaded maps
     ru = Обновите ваши загруженные карты
+    bg = Актуализиране на изтеглените карти
     ar = قم بتحديث الخرائط التي قمت بنتزيلها
     cs = Aktualizujte své stažené mapy
     da = Opdater dine downloadede kort
@@ -17964,6 +18347,7 @@
     tags = ios
     en = Updating maps keeps the information about objects up to date
     ru = Обновление карт поддерживает информацию об объектах в актуальном состоянии
+    bg = Актуализирането на картите поддържа актуална информацията за обектите
     ar = تحديث الخرائط والاحتفاظ بالمعلومات حول الكائنات محدثة
     cs = Aktualizace map zajišťuje aktuální informace o objektech
     da = Opdatering af kort sikrer, at oplysningerne om objekter er aktuel
@@ -18005,6 +18389,7 @@
     tags = ios
     en = Update (%s)
     ru = Обновить (%s)
+    bg = Актуализация (%s)
     ar = تحديث (%s)
     cs = Aktualizace (%s)
     da = Opdater (%s)
@@ -18046,6 +18431,7 @@
     tags = ios
     en = Manually update later
     ru = Обновить вручную позже
+    bg = Ръчно актуализиране по-късно
     ar = تحديث يدوياً في وقت لاحق
     cs = Aktualizovat ručně později
     da = Opdater manuelt senere
