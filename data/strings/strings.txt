@@ -9495,7 +9495,7 @@
     sk = Email alebo používateľské meno
 
   [phone]
-    tags = ios, android
+    tags = ios
     en = Phone
     ru = Телефон
     ar = الهاتف
@@ -14549,6 +14549,7 @@
     sw = Tafadhali subiri…
 
   [phone_number]
+    tags = android
     en = Phone number
     ru = Номер телефона
     ar = رقم الهاتف
@@ -14569,18 +14570,18 @@
     pt-BR = Número de telefone
     ro = Numar de telefon
     es = Número de teléfono
-    es_MX = Número de teléfono
     sv = Telefonnummer
     th = หมายเลขโทรศัพท์
     tr = Telefon numarası
     uk = Номер телефону
     vi = Số điện thoại
-    el = Τηλεφωνικό νούμερο
-    sk = Telefónne číslo
-    sw = Nambari ya simu
     zh-Hans = 电话号码
     zh-Hant = 電話號碼
+    el = Τηλεφωνικό νούμερο
+    es_MX = Número de teléfono
     fa = شماره تلفن
+    sk = Telefónne číslo
+    sw = Nambari ya simu
 
   [profile]
     tags = ios, android
