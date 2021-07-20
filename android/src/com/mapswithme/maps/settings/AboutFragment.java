@@ -53,9 +53,9 @@ public class AboutFragment extends BaseSettingsFragment
     setupItem(R.id.web, true, root);
     setupItem(R.id.github, false, root);
     setupItem(R.id.telegram, false, root);
-    setupItem(R.id.instagram, false, root);
     setupItem(R.id.facebook, false, root);
     setupItem(R.id.twitter, false, root);
+    setupItem(R.id.instagram, false, root);
     setupItem(R.id.instagram, false, root);
     setupItem(R.id.rate, true, root);
     setupItem(R.id.share, true, root);
