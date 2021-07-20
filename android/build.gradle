@@ -400,8 +400,6 @@ android {
 
   packagingOptions {
     exclude 'lib/armeabi/libcrashlytics.so'
-    exclude 'lib/mips64/libcrashlytics.so'
-    exclude 'lib/mips/libcrashlytics.so'
     exclude 'lib/armeabi/libVkLayer_core_validation.so'
     exclude 'lib/armeabi/libVkLayer_threading.so'
     exclude 'lib/armeabi/libVkLayer_image.so'
@@ -409,20 +407,6 @@ android {
     exclude 'lib/armeabi/libVkLayer_object_tracker.so'
     exclude 'lib/armeabi/libVkLayer_swapchain.so'
     exclude 'lib/armeabi/libVkLayer_unique_objects.so'
-    exclude 'lib/mips64/libVkLayer_core_validation.so'
-    exclude 'lib/mips64/libVkLayer_threading.so'
-    exclude 'lib/mips64/libVkLayer_image.so'
-    exclude 'lib/mips64/libVkLayer_parameter_validation.so'
-    exclude 'lib/mips64/libVkLayer_object_tracker.so'
-    exclude 'lib/mips64/libVkLayer_swapchain.so'
-    exclude 'lib/mips64/libVkLayer_unique_objects.so'
-    exclude 'lib/mips/libVkLayer_core_validation.so'
-    exclude 'lib/mips/libVkLayer_threading.so'
-    exclude 'lib/mips/libVkLayer_image.so'
-    exclude 'lib/mips/libVkLayer_parameter_validation.so'
-    exclude 'lib/mips/libVkLayer_object_tracker.so'
-    exclude 'lib/mips/libVkLayer_swapchain.so'
-    exclude 'lib/mips/libVkLayer_unique_objects.so'
   }
 }
 
