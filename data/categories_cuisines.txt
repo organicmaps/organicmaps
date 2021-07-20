@@ -1,6 +1,7 @@
 @fastfood
 en:Fast Food
 ru:Фастфуд
+bg:Бързо хранене
 ar:وجبا
 cs:Rychlé občerstvení
 da:Fastfood
@@ -33,6 +34,7 @@ fa:غذای حاضری
 cuisine-bagel
 en:Bagel|bagels
 ru:Бубличная|бублики
+bg:Бейгъл|бейгъли
 ar:كعك بولندي
 cs:Bagel
 da:Bagels
@@ -64,6 +66,7 @@ sk:Bagely
 cuisine-breakfast
 en:Breakfast
 ru:Завтраки|завтрак|позавтракать
+bg:Закуска
 ar:فطور
 cs:Snídaně
 da:Morgenmad
@@ -95,6 +98,7 @@ sk:Raňajky
 cuisine-burger|@fastfood
 en:Burger
 ru:Бургеры
+bg:Бургер
 ar:برغر
 cs:Burger
 da:Burger
@@ -126,6 +130,7 @@ sk:Hamburger
 cuisine-cake
 en:Cake|bakery
 ru:Кондитерская|выпечка|пекарня
+bg:Торта|пекарна
 ar:كيك
 cs:Dort
 da:Kager
@@ -157,6 +162,7 @@ sk:Koláče
 cuisine-coffee_shop
 en:Coffee|coffee shop
 ru:Кофе|кофейня
+bg:Кафе|кафене
 ar:ﺓﻮﻬﻗ
 cs:Káva
 da:Kaffe
@@ -189,6 +195,7 @@ sw:Kahawa
 cuisine-curry
 en:Curry
 ru:Блюда карри
+bg:Къри
 ar:كاري
 cs:Kari
 da:Karryretter
@@ -220,6 +227,7 @@ sk:Kari
 cuisine-diner
 en:Diner
 ru:Дайнер
+bg:Крайпътен ресторант
 ar:العشاء
 cs:Večeře
 da:Diner
@@ -251,6 +259,7 @@ sk:Diner
 cuisine-donut
 en:Donuts
 ru:Пончики
+bg:Понички
 ar:الكعك المحلاة
 cs:Kobliha
 da:Donuts
@@ -282,6 +291,7 @@ sk:Šišky
 cuisine-fish_and_chips
 en:Fish and Chips
 ru:Рыба и картофель фри|фиш энд чипс
+bg:Фиш енд чипс
 ar:سمك و رقائق البطاطس
 cs:Ryba a hranolky
 da:Fish and chips
@@ -313,6 +323,7 @@ sk:Ryba s hranolkami
 cuisine-friture|@fastfood
 en:Friture
 ru:Блюда во фритюре
+bg:Пържено
 ar:وجبات سريعة
 cs:Smažené pokrmy
 da:Friture
@@ -344,6 +355,7 @@ sk:Vyprážané jedlá
 cuisine-grill
 en:Grill
 ru:Гриль
+bg:Грил
 ar:شواء
 cs:Gril
 da:Grill
@@ -375,6 +387,7 @@ sk:Gril
 cuisine-hotdog|@fastfood
 en:Hotdog
 ru:Хот-доги
+bg:Хотдог
 ar:هوت دوغ
 cs:Hot dog
 da:Hotdogs
@@ -406,6 +419,7 @@ sk:Párok v rožku
 cuisine-ice_cream
 en:Ice Cream|gelato
 ru:Кафе-мороженое|мороженое
+bg:Сладолед
 ar:مُثَلّجات
 cs:Zmrzlina
 da:Is
@@ -437,6 +451,7 @@ sk:Zmrzlina
 cuisine-kebab|@fastfood
 en:Kebab
 ru:Кебабы|кебаб|шаурма|шаурмичная
+bg:Кебап
 ar:كباب
 cs:Kebab
 da:Kebab
@@ -468,6 +483,7 @@ sk:Kebab
 cuisine-noodles
 en:Noodles
 ru:Лапшичная|Лапша
+bg:Нудъли|Юфка
 ar:الشعرية
 cs:Nudle
 da:Nudler
@@ -499,6 +515,7 @@ sk:Rezance
 cuisine-pancake|cuisine-crepe
 en:Pancake|pancakes|crepes|crepe
 ru:Блинная|блины|блинчики|панкейки
+bg:Палачинка
 ar:بان كيك|كريب
 cs:Palačinka|Crêpe
 da:Pandekager|Crepes
@@ -530,6 +547,7 @@ sk:Lievance|Palacinky
 cuisine-pasta
 en:Pasta
 ru:Паста
+bg:Паста
 ar:مَعْكَرُونَة
 cs:Těstoviny
 da:Pasta
@@ -561,6 +579,7 @@ sk:Cestoviny
 cuisine-pizza|@fastfood
 en:Pizza|pizzeria
 ru:Пиццерия|пицца
+bg:Пица|пицария
 ar:بيتزا
 cs:Pizza
 da:Pizza
@@ -592,6 +611,7 @@ sk:Pizza
 cuisine-ramen
 en:Ramen
 ru:Рамен
+bg:Рамен
 ar:حساء رامن
 cs:Ramen
 da:Ramen
@@ -623,6 +643,7 @@ sk:Rámen
 cuisine-sandwich|@fastfood
 en:Sandwich
 ru:Сэндвичи
+bg:Сандвич
 ar:ساندوتش
 cs:Sendvič
 da:Sandwich
@@ -654,6 +675,7 @@ sk:Sendvič
 cuisine-sausage|@fastfood
 en:Sausage
 ru:Сосисочная
+bg:Наденица
 ar:سجق
 cs:Klobása
 da:Pølser
@@ -685,6 +707,7 @@ sk:Klobása
 cuisine-seafood|cuisine-fish
 en:Seafood|fish restaurant|fish
 ru:Морепродукты|Рыбный ресторан|рыба
+bg:Морска храна|морски дарове|риба
 ar:مأكولات بحرية|سمك
 cs:Mořské plody|Ryba
 da:Fisk og skaldyr|Fisk
@@ -716,6 +739,7 @@ sk:Morské plody|Ryby
 cuisine-soba
 en:Soba
 ru:Соба|лапша|лапшичная
+bg:Соба
 ar:سوبا
 cs:Soba
 da:Soba
@@ -747,6 +771,7 @@ sk:Soba
 cuisine-steak_house
 en:Steak House
 ru:Стейк-хаус|стейки
+bg:Пържоли
 ar:شرائح اللحم
 cs:Steaková restaurace
 da:Steakhouse
@@ -778,6 +803,7 @@ sk:Steak house
 cuisine-sushi
 en:Sushi
 ru:Суши|роллы
+bg:Суши
 ar:سوشي
 cs:Suši
 da:Sushi
@@ -809,6 +835,7 @@ sk:Suši
 cuisine-tapas
 en:Tapas
 ru:Тапас-бар
+bg:Тапас
 ar:تاباس
 cs:Tapas
 da:Tapas
@@ -840,6 +867,7 @@ sk:Tapas
 cuisine-tea
 en:Tea
 ru:Чайная
+bg:Чай
 ar:شاي
 cs:Čaj
 da:Te
@@ -871,6 +899,7 @@ sk:Čaj
 cuisine-vegan|cuisine-vegetarian
 en:Vegan|Vegetarian|veg cafe
 ru:Веганская кухня|Веганская еда|Вегетарианская кухня|Вегетарианская еда
+bg:Веганско|Вегетарианско
 ar:مطبخ نباتي
 cs:Veganská kuchyně|Vegetariánská kuchyně
 da:Vegansk|Vegetarretter
@@ -902,6 +931,7 @@ sk:Vegánske jedlá|Vegetariánske jedlá
 # cuisine-african
 # en:African cuisine
 # ru:Африканская кухня
+# bg:Африканска кухня
 # ar:مطبخ أفريقي
 # cs:Africká kuchyně
 # da:Afrikansk
@@ -933,6 +963,7 @@ sk:Vegánske jedlá|Vegetariánske jedlá
 # cuisine-american
 # en:American cuisine
 # ru:Американская кухня
+# bg:Американска кухня
 # ar:مطبخ أمريكي
 # cs:Americká kuchyně
 # da:Amerikansk
@@ -964,6 +995,7 @@ sk:Vegánske jedlá|Vegetariánske jedlá
 # cuisine-arab
 # en:Arab cuisine
 # ru:Арабская кухня
+# bg:Арабска кухня
 # ar:مطبخ عربي
 # cs:Arabská kuchyně
 # da:Arabisk
@@ -995,6 +1027,7 @@ sk:Vegánske jedlá|Vegetariánske jedlá
 # cuisine-argentinian
 # en:Argentinian cuisine
 # ru:Аргентинская кухня
+# bg:Аржентинска кухня
 # ar:مطبخ أرجنتيني
 # cs:Argentinská kuchyně
 # da:Argentinsk
@@ -1026,6 +1059,7 @@ sk:Vegánske jedlá|Vegetariánske jedlá
 # cuisine-asian
 # en:Asian cuisine
 # ru:Азиатская кухня
+# bg:Азиатска кухня
 # ar:مطبخ آسيوي
 # cs:Asijská kuchyně
 # da:Asiatisk
@@ -1057,6 +1091,7 @@ sk:Vegánske jedlá|Vegetariánske jedlá
 # cuisine-austrian
 # en:Austrian cuisine
 # ru:Австрийская кухня
+# bg:Австрийска кухня
 # ar:مطبخ نمساوي
 # cs:Rakouská kuchyně
 # da:Østrigsk
@@ -1088,6 +1123,7 @@ sk:Vegánske jedlá|Vegetariánske jedlá
 # cuisine-balkan
 # en:Balkan cuisine
 # ru:Балканская кухня
+# bg:Балканска кухня
 # ar:مطبخ بلقاني
 # cs:Balkánská kuchyně
 # da:Balkansk
@@ -1119,6 +1155,7 @@ sk:Vegánske jedlá|Vegetariánske jedlá
 # cuisine-barbecue
 # en:Barbecue
 # ru:Барбекю
+# bg:Барбекю
 # ar:مشويات
 # cs:Grilované pokrmy
 # da:Barbecue
@@ -1150,6 +1187,7 @@ sk:Vegánske jedlá|Vegetariánske jedlá
 # cuisine-bavarian
 # en:Bavarian cuisine
 # ru:Баварская кухня
+# bg:Баварска кухня
 # ar:مطبخ بافاري
 # cs:Bavorská kuchyně
 # da:Bavarisk
@@ -1181,6 +1219,7 @@ sk:Vegánske jedlá|Vegetariánske jedlá
 # cuisine-beef_bowl
 # en:Beef Bowl
 # ru:Рис и говядина
+# bg:Орис и говеждо
 # ar:طبق لحم البقر
 # cs:Miska hovězího
 # da:Gyudon
@@ -1212,6 +1251,7 @@ sk:Vegánske jedlá|Vegetariánske jedlá
 # cuisine-brazilian
 # en:Brazilian cuisine
 # ru:Бразильская кухня
+# bg:Бразилска кухня
 # ar:مطبخ برازيلي
 # cs:Brazilská kuchyně
 # da:Brasiliansk
@@ -1243,6 +1283,7 @@ sk:Vegánske jedlá|Vegetariánske jedlá
 # cuisine-buschenschank
 # en:Buschenschank
 # ru:Домашняя таверна|бушеншанк
+# bg:Механа|бушеншанк
 # ar:البيرة
 # cs:Buschenschank
 # da:Buschenschank
@@ -1274,6 +1315,7 @@ sk:Vegánske jedlá|Vegetariánske jedlá
 # cuisine-caribbean
 # en:Caribbean cuisine
 # ru:Карибская кухня
+# bg:Карибска кухня
 # ar:مطبخ كاريبي
 # cs:Karibská kuchyně
 # da:Caribisk
@@ -1305,6 +1347,7 @@ sk:Vegánske jedlá|Vegetariánske jedlá
 # cuisine-chicken
 # en:Chicken
 # ru:Блюда из курицы
+# bg:Пилешко
 # ar:دجاج
 # cs:Kuře
 # da:Kylling
@@ -1336,6 +1379,7 @@ sk:Vegánske jedlá|Vegetariánske jedlá
 # cuisine-chinese
 # en:Chinese cuisine
 # ru:Китайская кухня
+# bg:Китайска кухня
 # ar:مطبخ صيني
 # cs:Čínská kuchyně
 # da:Kinesisk
@@ -1367,6 +1411,7 @@ sk:Vegánske jedlá|Vegetariánske jedlá
 # cuisine-croatian
 # en:Croatian cuisine
 # ru:Хорватская кухня
+# bg:Хърватска кухня
 # ar:مطبخ كرواتي
 # cs:Chorvatská kuchyně
 # da:Kroatisk
@@ -1398,6 +1443,7 @@ sk:Vegánske jedlá|Vegetariánske jedlá
 # cuisine-deli
 # en:Delicacies
 # ru:Деликатесы
+# bg:Деликатеси
 # ar:أطعمة مبردة
 # cs:Lahůdky
 # da:Delicacies
@@ -1429,6 +1475,7 @@ sk:Vegánske jedlá|Vegetariánske jedlá
 # cuisine-ethiopian
 # en:Ethiopian cuisine
 # ru:Эфиопская кухня
+# bg:Етиопска кухня
 # ar:مطبخ إثيوبي
 # cs:Etiopská kuchyně
 # da:Etiopisk
@@ -1460,6 +1507,7 @@ sk:Vegánske jedlá|Vegetariánske jedlá
 # cuisine-filipino
 # en:Filipino cuisine
 # ru:Филиппинская кухня
+# g:Филипинска кухня
 # ar:مطبخ فلبيني
 # cs:Filipínská kuchyně
 # da:Filippinsk
@@ -1491,6 +1539,7 @@ sk:Vegánske jedlá|Vegetariánske jedlá
 # cuisine-fine_dining
 # en:Fine Dining
 # ru:Ресторан высокой кухни
+# bg:Изискано хранене
 # ar:مطعم متكامل
 # cs:Zážitková gastronomie
 # da:Eksklusiv
@@ -1522,6 +1571,7 @@ sk:Vegánske jedlá|Vegetariánske jedlá
 # cuisine-french
 # en:French cuisine
 # ru:Французская кухня
+# bg:Френска кухня
 # ar:مطبخ فرنسي
 # cs:Francouzská kuchyně
 # da:Fransk
@@ -1553,6 +1603,7 @@ sk:Vegánske jedlá|Vegetariánske jedlá
 # cuisine-georgian
 # en:Georgian cuisine
 # ru:Грузинская кухня
+# bg:Грузинска кухня
 # ar:مطبخ جورجي
 # cs:Gruzínská kuchyně
 # da:Georgisk
@@ -1584,6 +1635,7 @@ sk:Vegánske jedlá|Vegetariánske jedlá
 # cuisine-german
 # en:German cuisine
 # ru:Немецкая кухня
+# bg:Немска кухня
 # ar:مطبخ ألماني
 # cs:Německá kuchyně
 # da:Tysk
@@ -1615,6 +1667,7 @@ sk:Vegánske jedlá|Vegetariánske jedlá
 # cuisine-greek
 # en:Greek cuisine
 # ru:Греческая кухня
+# bg:Гръцка кухня
 # ar:مطبخ يوناني
 # cs:Řecká kuchyně
 # da:Græsk
@@ -1646,6 +1699,7 @@ sk:Vegánske jedlá|Vegetariánske jedlá
 # cuisine-heuriger
 # en:Heuriger
 # ru:Винная таверна|хойригер
+# bg:Винена механа|херигер
 # ar:البيرة
 # cs:Heuriger
 # da:Heuriger
@@ -1677,6 +1731,7 @@ sk:Vegánske jedlá|Vegetariánske jedlá
 # cuisine-hungarian
 # en:Hungarian cuisine
 # ru:Венгерская кухня
+# bg:Унгарска кухня
 # ar:مطبخ مجري
 # cs:Maďarská kuchyně
 # da:Ungarsk
@@ -1708,6 +1763,7 @@ sk:Vegánske jedlá|Vegetariánske jedlá
 # cuisine-indian
 # en:Indian cuisine
 # ru:Индийская кухня
+# bg:Индийска кухня
 # ar:مطبخ هندي
 # cs:Indická kuchyně
 # da:Indisk
@@ -1739,6 +1795,7 @@ sk:Vegánske jedlá|Vegetariánske jedlá
 # cuisine-indonesian
 # en:Indonesian cuisine
 # ru:Индонезийская кухня
+# bg:Индонезийска кухня
 # ar:مطبخ إندونيسي
 # cs:Indonéská kuchyně
 # da:Indonesisk
@@ -1770,6 +1827,7 @@ sk:Vegánske jedlá|Vegetariánske jedlá
 # cuisine-international
 # en:International cuisine
 # ru:Международная кухня
+# bg:Международна кухня
 # ar:مطبخ عالمي
 # cs:Mezinárodní kuchyně
 # da:International
@@ -1801,6 +1859,7 @@ sk:Vegánske jedlá|Vegetariánske jedlá
 # cuisine-irish
 # en:Irish cuisine
 # ru:Ирландская кухня
+# bg:Ирландска кухня
 # ar:مطبخ إيرلندي
 # cs:Irská kuchyně
 # da:Irsk
@@ -1832,6 +1891,7 @@ sk:Vegánske jedlá|Vegetariánske jedlá
 # cuisine-italian
 # en:Italian cuisine
 # ru:Итальянская кухня
+# bg:Италянска кухня
 # ar:مطبخ إيطالي
 # cs:Italská kuchyně
 # da:Italiensk
@@ -1863,6 +1923,7 @@ sk:Vegánske jedlá|Vegetariánske jedlá
 # cuisine-italian_pizza
 # en:Italian Pizza
 # ru:Итальянская пиццерия
+# bg:Италянска пицария
 # ar:مطبخ إيطالي؛بيتزا
 # cs:Italská, pizza
 # da:Italiensk, pizza
@@ -1894,6 +1955,7 @@ sk:Vegánske jedlá|Vegetariánske jedlá
 # cuisine-japanese
 # en:Japanese cuisine
 # ru:Японская кухня
+# bg:Японска кухня
 # ar:مطبخ ياباني
 # cs:Japonská kuchyně
 # da:Japansk
@@ -1925,6 +1987,7 @@ sk:Vegánske jedlá|Vegetariánske jedlá
 # cuisine-korean
 # en:Korean cuisine
 # ru:Корейская
+# bg:Корейска кухня
 # ar:مطبخ كوري
 # cs:Korejská kuchyně
 # da:Koreansk
@@ -1956,6 +2019,7 @@ sk:Vegánske jedlá|Vegetariánske jedlá
 # cuisine-lao
 # en:Lao cuisine
 # ru:Лаосская кухня
+# bg:Лаоска кухня
 # ar:مطبخ لاوي
 # cs:Laoská kuchyně
 # da:Laotisk
@@ -1987,6 +2051,7 @@ sk:Vegánske jedlá|Vegetariánske jedlá
 # cuisine-lebanese
 # en:Lebanese cuisine
 # ru:Ливанская кухня
+# bg:Ливанска кухня
 # ar:مطبخ لبناني
 # cs:Libanonská kuchyně
 # da:Libanesisk
@@ -2018,6 +2083,7 @@ sk:Vegánske jedlá|Vegetariánske jedlá
 # cuisine-local
 # en:Local cuisine
 # ru:Местная кухня
+# bg:Местна кухня
 # ar:مطبخ محلي
 # cs:Místní kuchyně
 # da:Lokalt køkken
@@ -2049,6 +2115,7 @@ sk:Vegánske jedlá|Vegetariánske jedlá
 # cuisine-malagasy
 # en:Malagasy cuisine
 # ru:Мадагаскарская кухня
+# bg:Мадагаскарска кухня
 # ar:مدغشقر
 # cs:Madagaskarská kuchyně
 # da:Madagaskisk
@@ -2080,6 +2147,7 @@ sk:Vegánske jedlá|Vegetariánske jedlá
 # cuisine-malaysian
 # en:Malaysian cuisine
 # ru:Малазийская кухня
+# bg:Малазийска кухня
 # ar:مطبخ ماليزي
 # cs:Malajsijská kuchyně
 # da:Malaysisk
@@ -2111,6 +2179,7 @@ sk:Vegánske jedlá|Vegetariánske jedlá
 # cuisine-mediterranean
 # en:Mediterranean cuisine
 # ru:Средиземноморская кухня
+# bg:Средиземноморска кухня
 # ar:مطبخ شرق أوسطي
 # cs:Středomořská kuchyně
 # da:Middelhavskost
@@ -2142,6 +2211,7 @@ sk:Vegánske jedlá|Vegetariánske jedlá
 # cuisine-mexican
 # en:Mexican cuisine
 # ru:Мексиканская кухня
+# bg:Мексиканска кухня
 # ar:مطبخ مكسيكي
 # cs:Mexická kuchyně
 # da:Mexicansk
@@ -2173,6 +2243,7 @@ sk:Vegánske jedlá|Vegetariánske jedlá
 # cuisine-moroccan
 # en:Moroccan cuisine
 # ru:Марокканская кухня
+# bg:Мароканска кухня
 # ar:مطبخ مغربي
 # cs:Marocká kuchyně
 # da:Marokkansk
@@ -2204,6 +2275,7 @@ sk:Vegánske jedlá|Vegetariánske jedlá
 # cuisine-oriental
 # en:Far Eastern cuisine
 # ru:Восточная кухня
+# bg:Ориенталска кухня
 # ar:مطبخ شرقي
 # cs:Orientální kuchyně
 # da:Orientalsk
@@ -2235,6 +2307,7 @@ sk:Vegánske jedlá|Vegetariánske jedlá
 # cuisine-persian
 # en:Persian cuisine
 # ru:Иранская кухня
+# bg:Иранска кухня
 # ar:مطبخ إيراني
 # cs:Perská kuchyně
 # da:Persisk
@@ -2266,6 +2339,7 @@ sk:Vegánske jedlá|Vegetariánske jedlá
 # cuisine-peruvian
 # en:Peruvian cuisine
 # ru:Перуанская кухня
+# bg:Перуанска кухня
 # ar:بيرو
 # cs:Peruánská kuchyně
 # da:Peruviansk
@@ -2297,6 +2371,7 @@ sk:Vegánske jedlá|Vegetariánske jedlá
 # cuisine-polish
 # en:Polish cuisine
 # ru:Польская кухня
+# bg:Полска кухня
 # ar:مطبخ بولندي
 # cs:Polská kuchyně
 # da:Polsk
@@ -2328,6 +2403,7 @@ sk:Vegánske jedlá|Vegetariánske jedlá
 # cuisine-portuguese
 # en:Portuguese cuisine
 # ru:Португальская кухня
+# bg:Португалска кухня
 # ar:مطبخ برتغالي
 # cs:Portugalská kuchyně
 # da:Portugisisk
@@ -2359,6 +2435,7 @@ sk:Vegánske jedlá|Vegetariánske jedlá
 # cuisine-regional
 # en:Regional
 # ru:Региональная кухня
+# bg:Регионална кухня
 # ar:مطبخ إقليمي
 # cs:Regionální kuchyně
 # da:Regionalt køkken
@@ -2390,6 +2467,7 @@ sk:Vegánske jedlá|Vegetariánske jedlá
 # cuisine-russian
 # en:Russian cuisine
 # ru:Русская кухня
+# bg:Руска кухня
 # ar:مطبخ روسي
 # cs:Ruská kuchyně
 # da:Russisk
@@ -2421,6 +2499,7 @@ sk:Vegánske jedlá|Vegetariánske jedlá
 # cuisine-savory_pancakes
 # en:Savory Pancakes
 # ru:Несладкие блинчики
+# bg:Солени палачинки
 # ar:بان كيك السافوري
 # cs:Pikantní palačinky
 # da:Madpandekager
@@ -2452,6 +2531,7 @@ sk:Vegánske jedlá|Vegetariánske jedlá
 # cuisine-spanish
 # en:Spanish cuisine
 # ru:Испанская кухня
+# bg:Испанска кухня
 # ar:مطبخ إسباني
 # cs:Španělská kuchyně
 # da:Spansk
@@ -2483,6 +2563,7 @@ sk:Vegánske jedlá|Vegetariánske jedlá
 # cuisine-thai
 # en:Thai cuisine
 # ru:Тайская кухня
+# bg:Тайска кухня
 # ar:مطبخ تايلندي
 # cs:Thajská kuchyně
 # da:Thailandsk
@@ -2514,6 +2595,7 @@ sk:Vegánske jedlá|Vegetariánske jedlá
 # cuisine-turkish
 # en:Turkish cuisine
 # ru:Турецкая кухня
+# bg:Турска кухня
 # ar:مطبخ تركي
 # cs:Turecká kuchyně
 # da:Tyrkisk
@@ -2545,6 +2627,7 @@ sk:Vegánske jedlá|Vegetariánske jedlá
 # cuisine-vietnamese
 # en:Vietnamese cuisine
 # ru:Вьетнамская кухня
+# bg:Виетнамска кухня
 # ar:مطبخ فيتنامي
 # cs:Vietnamská kuchyně
 # da:Vietnamesisk
