@@ -6046,7 +6046,7 @@
     tr = — Önerilen güzergahlar yalnızca tavsiye olarak kabul edilmelidir;
     uk = — Запропоновані маршрути — лише рекомендації;
     vi = — Các tuyến đường được đề nghị chỉ nên được coi là các khuyến nghị;
-    zh-Hans = — 建议的路线仅作为推荐路线供您采纳。；
+    zh-Hans = — 建议的路线仅作为推荐路线供您采纳；
     zh-Hant = — 建議的路線僅供推薦參考；
     el = — Οι προτεινόμενες διαδρομές πρέπει να ερμηνεύονται μόνο ως συστάσεις·
     fa = —مسیر پیشنهادی باید فقط به عنوان یک توصیه دانست
@@ -7755,7 +7755,7 @@
     tr = Başlangıç
     uk = Звідси
     vi = Từ
-    zh-Hans = 从
+    zh-Hans = 从这出发
     zh-Hant = 從
     el = Διαδρομή από
     fa = مسیر از
@@ -7789,7 +7789,7 @@
     tr = Varış yeri:
     uk = Сюди
     vi = Tuyến đến
-    zh-Hans = 发送至
+    zh-Hans = 到这去
     zh-Hant = 路線終點
     el = Διαδρομή στο
     fa = مسیر به
