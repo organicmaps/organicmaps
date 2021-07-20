@@ -4120,7 +4120,7 @@
   [recent_track_help_text]
     tags = ios
     en = This option allows you to record traveled path for a certain period and see it on the map. Please note: activation of this function causes increased battery usage. The track will be removed automatically from the map after the time interval will expire.
-    ru = Эта функция позволяет записывать пройденный путь за определенный период времени и видеть его на карте. Внимание: активация этой функции может привести к повышенному расходу батареи. Записанный трек будет удален с карты по истечении этого срока. Пътеката ще бъде премахната автоматично от картата след изтичане на интервала от време.
+    ru = Эта функция позволяет записывать пройденный путь за определенный период времени и видеть его на карте. Внимание: активация этой функции может привести к повышенному расходу батареи. Записанный трек будет удален с карты по истечении этого срока.
     bg = Тази опция ви позволява да запишете изминатия път за определен период и да го видите на картата. Моля, обърнете внимание: активирането на тази функция води до повишено използване на батерията.
     ar = يتيح لك تسجيل مسار السفر لفترة معينة وعرضه على الخريطة. الرجاء ملاحظة: يؤدي تنشيط هذه الوظيفة إلى زيادة استهلاك البطارية. سوف تتم إزالة المسار تلقائيًا من الخريطة بعد انتهاء الفاصل الزمني.
     cs = To vám umožňuje zaznamenávat ujetou cestu po určitou dobu a vidět ji na mapě. Poznámka: aktivace této funkce způsobuje zvýšenou spotřebu baterie. Trať bude automaticky odebrána z mapy poté, co vyprší časový interval.
