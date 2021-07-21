@@ -6453,6 +6453,7 @@ fa:خیاطی
 area:highway-footway|area:highway-pedestrian|area:highway-steps|place-square
 en:Square
 ru:Площадь
+bg:Площад
 ar:ساحة
 cs:Náměstí
 da:Plads|torv|torveplads
@@ -6485,6 +6486,7 @@ fa:میدان
 place-sea
 en:Sea|U+1F30A
 ru:Море
+bg:Море
 ar:يكون
 cs:Moře
 da:Er
@@ -6518,6 +6520,7 @@ fa:دریا
 place-ocean
 en:Ocean|U+1F30A
 ru:Океан
+bg:Океан
 ar:المحيط
 cs:Oceán
 da:Ocean
@@ -6551,6 +6554,7 @@ fa:اقیانوس
 @wifi
 en:WiFi|Wi-Fi
 ru:WiFi|Wi-Fi
+bg:WiFi|Wi-Fi
 ar:وايفاي|واي-فاي
 cs:WiFi|Wi-Fi
 da:WiFi|Wi-Fi
@@ -6584,6 +6588,7 @@ fa:وای فای
 internet_access|internet_access-wlan|@wifi
 en:3Internet|U+1F4F6
 ru:3Интернет|вайфай|Internet
+bg:Интернет|уайфай|мрежа
 ar:واي فاي|الإنترنت|WiFi|3Internet
 cs:3Internet
 da:3Internet
@@ -6616,6 +6621,7 @@ fa:اینترنت
 natural-beach
 en:Beach|U+1F459
 ru:Пляж
+bg:Плаж
 ar:شاطئ
 cs:Pláž
 da:Strand
@@ -6648,6 +6654,7 @@ fa:ساحل
 man_made-lighthouse
 en:Lighthouse
 ru:Маяк
+bg:Фар
 ar:منارة
 cs:Maják
 da:Fyrtårn
@@ -6680,6 +6687,7 @@ fa:فانوس دریایی
 shop-copyshop
 en:Copy Shop|Printer
 ru:Копировальный центр|печать|полиграфия
+bg:Копирен център|печат|полиграфия|принтер
 ar:محل نسخ|طباعة
 cs:Kopírovací obchod|Tiskárny
 da:Kopieringsbutik|Trykkeri
@@ -6712,6 +6720,7 @@ fa:فروشگاه چاپ و تکثیر
 shop-photo
 en:Photo Shop|frames
 ru:Фототовары
+bg:Фотограф|рамки
 ar:محل صور|إطارات|محل
 cs:Fotografický obchod|rámy
 da:Fotobutik|rammer
@@ -6743,6 +6752,7 @@ sk:Fotografické služby|Rámovanie
 shop-travel_agency
 en:Travel Agency|tours|tour agency|trips|journeys|travel bureau|holidays|travel agent|tourist office|last minute tour
 ru:Турагентство|путешествия|туристическое агентство|турфирма|путевки|пакетные туры|горящие туры|горящие путевки|туроператор|купить тур|купить путевку|бронирование туров|туристическая компания|туристическая фирма
+bg:Турист|агенция|пътешествие|пътуване|билети|
 ar:وكيل سفريات|جولات
 cs:Cestovní kancelář|cesty
 da:Rejsebureau|rundrejser
@@ -6775,6 +6785,7 @@ fa:اژانس مسافرتی
 shop-outdoor
 en:Outdoor Equipment|trekking|climbing|camping
 ru:Магазин снаряжения|туристический магазин
+bg:туристически магазин|катерене|къмпингуване
 ar:معدات خارجية|ترحال|تسلق|تخييم|محل
 cs:Venkovní vybavení|trekking|lezení|kempování
 da:Fritidsudstyr|vandring|klatring|camping
@@ -6806,6 +6817,7 @@ sk:Outdoorové vybavenie|Treking|Lezenie|Kempy
 shop-dry_cleaning
 en:Dry Cleaning|cleaning
 ru:Химчистка
+bg:Химическо|чистене
 ar:غسيل جاف|غسيل
 cs:Chemické čištění|čistírna
 da:Renseri|vaskeri
@@ -6838,6 +6850,7 @@ fa:خشک شویی
 shop-tyres
 en:Tyre Shop
 ru:Магазин шин
+bg:Магазин за гуми|гума
 ar:محل إطارات|محل
 cs:Obchod s pneumatikami
 da:Dækforretning
@@ -6870,6 +6883,7 @@ fa:فروشگاه لاستیک
 amenity-car_wash
 en:Car Wash
 ru:Автомойка
+bg:Автомивка
 ar:مغسلة سيارات
 cs:Myčka aut
 da:Bilvask
@@ -6902,6 +6916,7 @@ fa:کارواش
 amenity-veterinary
 en:Veterinary Doctor|veterinary
 ru:Ветеринарная клиника|ветеринар
+bg:Ветеринарна клиника|ветеринар
 ar:طبيب بيطري
 cs:Veterinář
 da:Dyrlæge
@@ -6934,6 +6949,7 @@ fa:دامپزشکی
 amenity-charging_station
 en:Charging Station|charging
 ru:Зарядная станция|станция зарядки
+bg:Зарядна станция|зареждане|електричество|електромобил
 ar:محطة شحن|شحن
 cs:Nabíjecí stanice|nabíjení
 da:Ladestation|opladning
@@ -6966,6 +6982,7 @@ fa:ایستگاه شارژ
 amenity-childcare
 en:Nursery|Child Care
 ru:Детская комната|ясли
+bg:Ясла|деца
 ar:حضانة|رعاية أطفال
 cs:Jesle|Péče o děti
 da:Vuggestue|Børnehave
@@ -6998,6 +7015,7 @@ fa:شیرخوارگاه
 amenity-bicycle_parking
 en:Bicycle Parking
 ru:Велостоянка
+bg:Велостоянка|паркинг|колело|велосипед
 ar:أماكن وقوف للدراجات
 cs:Parkování kol
 da:Cykelparkering
@@ -7030,6 +7048,7 @@ fa:پارکینگ دوچرخه
 amenity-waste_basket
 en:Trash Bin|Litter Bin|Waste Basket
 ru:Урна|Мусорная корзина
+bg:Кошче|боклук|контейнер|
 ar:صندوق قمامة
 cs:Odpadkový koš
 da:Skraldespand
@@ -7062,6 +7081,7 @@ fa:سطل زباله
 emergency-phone
 en:Emergency Phone
 ru:Телефон для экстренных вызовов
+bg:Спешна помощ|телефон
 ar:هاتف الطوارئ
 cs:Tísňového volání
 da:Nødtelefon
@@ -7096,6 +7116,7 @@ fa:تلفن اضطراری
 leisure-fitness_centre
 en:Fitness Centre|Gym|U+1F4AA|fitness|workout|fitness gym|fitness club|health club|fitness studio|workout studio
 ru:Фитнес-клуб|качалка|тренажерный зал|фитнес-центр|фитнес|cпортзал|тренажёрка
+bg:Фитнес|клуб|център|тренировка|спорт|зала
 ar:مركز للياقة البدنية، نادي رياضي
 cs:Fitness|tělocvična
 da:Trænings- og motionscenter|fitnesscenter
@@ -7128,6 +7149,7 @@ fa:باشگاه بدنسازی
 leisure-sauna
 en:Sauna|sweatbath|sweat lodge|steam room|steam sauna|sauna room
 ru:Баня|Сауна|парная|банька|банный комплекс
+bg:Сауна|баня|комплекс|спа
 ar:ساونا
 cs:Sauna
 da:Sauna
@@ -7160,6 +7182,7 @@ fa:سونا
 man_made-water_well
 en:Water Well
 ru:Колодец
+bg:Кладенец
 ar:بئر ماء
 cs:Studna
 da:Brønd
@@ -7192,6 +7215,7 @@ fa:چاه اب
 shop-car_repair-tyres|shop-car_repair
 en:Tyre Repair|tire repair|tyre|tire|puncture repair|tyre puncture repair|flat tyre repair|tire fix|tyre replacement
 ru:Шиномонтаж|шиномонтажная мастерская|балансировка
+bg:Гуми|автомонтьор|поправка|спукана гума|
 ar:إصلاح إطارات
 cs:Pneuservis
 da:Dækreparation
@@ -7224,6 +7248,7 @@ fa:اپاراتی|پنچرگیری
 shop-chemist
 en:Chemist Shop
 ru:Бытовая химия
+bg:Битова химия
 ar:متجر كيماويات
 cs:Drogerie
 da:Materialist
@@ -7257,6 +7282,7 @@ fa:فروشگاه مواد شیمیایی
 shop-pet
 en:Petshop
 ru:Зоотовары
+bg:Магазин|домашни любимци
 ar:متجر للحيوانات الأليفة
 cs:Zverimex
 da:Dyrehandel
@@ -7289,6 +7315,7 @@ fa:فروشگاه حیوانات خانگی
 tourism-zoo|@tourism|@children
 en:2Zoo|zoo park
 ru:2Зоопарк
+bg:Зоопарк|Зоологическа градина
 ar:حديقة حيوان
 cs:zoologická zahrada
 da:Zoo
@@ -7323,6 +7350,7 @@ fa:باغ وحش
 tourism-information-office|@tourism
 en:Tourist Office
 ru:Туристический офис
+bg:Туристически офис|туризъм|информация
 ar:مكتب سياحة
 cs:Informační centrum
 da:Turistkontor
@@ -7355,6 +7383,7 @@ fa:دفتر گردشگری
 amenity-community_centre
 en:Community Centre
 ru:Культурно-досуговый центр|Дом культуры
+bg:Културен център|Дом на културата
 ar:مركز اجتماعي
 cs:Kulturní centrum
 da:Medborgerhus|forsamlingshus
@@ -7387,6 +7416,7 @@ fa:مرکزاجتماعی
 amenity-courthouse
 en:Courthouse
 ru:Суд
+bg:Съд
 ar:محكمة
 cs:Soud
 da:Domhus|retsbygning
@@ -7419,6 +7449,7 @@ fa:دادگاه
 amenity-vending_machine-cigarettes
 en:Cigarette Dispenser
 ru:Сигаретный автомат
+bg:Цигари|диспенсер|машина
 ar:ماكينة بيع سجائر
 cs:Automat na cigarety
 da:Cigaretautomat
@@ -7451,6 +7482,7 @@ fa:ماشین سیگار فروشی
 amenity-vending_machine-drinks
 en:Drink Dispenser
 ru:Автомат с напитками
+bg:Диспенсър|напитки|машина
 ar:ماكينة بيع مشروبات
 cs:Automat na nápoje
 da:Automat for drikkevarer|drikkevarer
@@ -7484,6 +7516,7 @@ fa:ماشین فروش نوشیدنی
 building-garage
 en:Garage
 ru:Гараж
+bg:Гараж
 ar:جراج
 cs:Garáž
 da:Garage
@@ -7516,6 +7549,7 @@ fa:گاراژ
 highway-rest_area
 en:Highway Rest Area
 ru:Зона отдыха на трассе
+bg:Почивка|магистрала|Почивна зона
 ar:استراحة
 cs:Odpočívadlo
 da:Rasteplads
@@ -7548,6 +7582,7 @@ sk:Odpočívadlo
 man_made-chimney
 en:Factory Chimney
 ru:Заводская труба
+bg:Фабрика|комин
 ar:مدخنة مصنع
 cs:Tovární komín
 da:Fabriksskorsten|skorsten
@@ -7579,6 +7614,7 @@ sk:Komín
 man_made-tower
 en:Tower
 ru:Башня
+bg:Кула
 ar:برج
 cs:Věž
 da:Tårn
@@ -7611,6 +7647,7 @@ fa:برج
 shop-bookmaker
 en:Bookmaker
 ru:Букмекерская контора
+bg:Букмейкър|офис|кантора|пункт
 ar:ناشر
 cs:Knihař
 da:Bookmaker
@@ -7643,6 +7680,7 @@ fa:صحافی
 shop-seafood|@food
 en:Seafood Shop|fish market|seafood|fish|shellfish|marine food
 ru:Рыбный магазин|рыба|морепродукты|рыбная лавка
+bg:Магазин|риба|морски дарове|
 ar:سماك
 cs:Prodej ryb
 da:Fiskehandler
@@ -7675,6 +7713,7 @@ fa:فروشگاه غذای دریایی
 shop-ticket
 en:Ticket Shop|tickets|ticket hub|ticket office|ticket center|booking office|box office|ticket agency|ticket booth|pay box
 ru:Билетная касса|билет|театральная касса|билетный центр|городской билетный центр|городская касса|продажа билетов|бронирование билетов
+bg:билети|каса
 ar:مكتب تذاكر
 cs:Prodej vstupenek
 da:Billetkontor
@@ -7707,6 +7746,7 @@ fa:بلیط فروشی
 shop-wine|@food
 en:Wine Shop
 ru:Винный магазин
+bg:Вино|магазин
 ar:متجر مشروبات روحية
 cs:Vinařství
 da:Vinhandel
@@ -7739,6 +7779,7 @@ fa:مشروب فروشی
 shop-car_parts
 en:Car Parts
 ru:Автомобильные запчасти|Автозапчасти
+bg:Автомобил|части|авточасти
 ar:ﺓﺭﺎﻴﺴﻟﺍ ءﺍﺰﺟﺃ
 cs:Autodíly
 da:Bildele
@@ -7773,6 +7814,7 @@ fa:لوازم یدکی
 tourism-chalet|@hotel
 en:Chalet
 ru:Шале
+bg:Хижа|Шале|туризъм
 ar:شاليه
 cs:Chalet|Horská chata
 da:Hytte
@@ -7804,6 +7846,7 @@ fa:کلبه
 tourism-information-board|@tourism
 en:Information Board
 ru:Информационный щит
+bg:Информация|туризъм|бюро|табло
 ar:لوحة معلومات
 cs:Nástěnka
 da:Informationstavle
@@ -7836,6 +7879,7 @@ fa:تابلو اعلانات
 tourism-information-map|@tourism
 en:Tourist Map
 ru:Карта
+bg:Карта|информация|туризъм
 ar:خريطة سياحية
 cs:Turistická mapa
 da:Turistkort
@@ -7868,6 +7912,7 @@ fa:نقشه گردشگری
 aerialway-station
 en:Aerialway Station|Cable Car Station
 ru:Канатная дорога
+bg:Лифт
 ar:محطة تلفريك
 cs:Stanice lanové dráhy
 da:Kabelbanestation
@@ -7899,6 +7944,7 @@ sk:Lanovka
 aeroway-helipad
 en:Helipad
 ru:Вертолётная площадка
+bg:Хеликоптерна площадка|хеликоптер
 ar:مهبط مروحيات
 cs:Helipad
 da:Helikopterlandingsplads
@@ -7931,6 +7977,7 @@ fa:پد فرود بالگرد
 amenity-vending_machine-parking_tickets
 en:Parking Tickets
 ru:Паркомат
+bg:паркинг|машина|билет|Билети за паркиране
 ar:ماكينة دفع تذاكر الموقف
 cs:Parkovací automat
 da:Parkeringsbilletmaskine
@@ -7963,6 +8010,7 @@ fa:پارکو متر
 barrier-border_control
 en:Border Control
 ru:Погранконтроль
+bg:Граничен контрол|граница|пункт|КПП
 ar:أمن الحدود
 cs:Pohraniční kontrola
 da:Grænsekontrol
@@ -7995,6 +8043,7 @@ fa:کنترل مرزی
 leisure-water_park|@tourism|@children
 en:Water Park
 ru:Аквапарк
+bg:Аквапарк
 ar:ملاهي مائية
 cs:Aquacentrum
 da:Vandpark
@@ -8027,6 +8076,7 @@ fa:پارک ابی
 man_made-water_tower
 en:Water Tower
 ru:Водонапорная башня
+bg:Водна кула
 ar:برج مياه
 cs:Vodárna
 da:Vandtårn
@@ -8059,6 +8109,7 @@ fa:منبع اب
 man_made-windmill
 en:Windmill
 ru:Ветряная мельница
+bg:Вятърна мелница
 ar:طاحونة هواء
 cs:Větrný mlýn
 da:Vindmølle
@@ -8093,6 +8144,7 @@ fa:توربین بادی
 # military-bunker
 # en:Bunker
 # ru:Бункер
+# bg:Бункер
 # ar:مأوى
 # cs:Bunkr
 # da:Bunker
@@ -8126,6 +8178,7 @@ fa:توربین بادی
 natural-cave_entrance
 en:Cave
 ru:Пещера
+bg:Пещера
 ar:كهف
 cs:Jeskyně
 da:Hule
@@ -8159,6 +8212,7 @@ fa:غار
 natural-tree
 en:Tree
 ru:Дерево
+bg:Дърво
 ar:شجرة
 cs:Strom
 da:Træ
@@ -8191,6 +8245,7 @@ fa:درخت
 natural-volcano
 en:Volcano
 ru:Вулкан
+bg:Вулкан
 ar:بركان
 cs:Sopka
 da:Vulkan
@@ -8223,6 +8278,7 @@ fa:اتشفشان
 office-estate_agent
 en:Estate Agent|Realtor
 ru:Агентство недвижимости|риэлтор
+bg:Агент|недвижими имоти|офис
 ar:وكيل عقاري
 cs:Realitní makléř
 da:Ejendomsmægler
@@ -8256,6 +8312,7 @@ fa:بنگاه معاملات ملکی
 waterway-lock_gate
 en:Lock Gate
 ru:Шлюз
+bg:Порта|Врата
 ar:بوابة هويس
 cs:Stavidlo
 da:Låseport
@@ -8287,6 +8344,7 @@ sk:Stavidlo
 amenity-public_bookcase
 en:Book Exchange|Bookcase|Book swapping
 ru:Книжный шкаф|Обмен книг
+bg:Книжен шкаф|книги|обмяна|рафт
 ar:مكتبة، تبادل كتب
 cs:Knihovna|Směnárna knih
 da:Bog udveksling
@@ -8318,6 +8376,7 @@ sk:Knižnica|možnosť výmeny kníh
 leisure-sports_centre-climbing
 en:Climbing Centre
 ru:Скалодром
+bg:Стена|катерене|спорт|център
 ar:مركز تسلق
 cs:Horolezecké centrum
 da:Klatrecenter
@@ -8350,6 +8409,7 @@ fa:مرکز صعود
 leisure-sports_centre-shooting
 en:Shooting Range|rifle range
 ru:Тир|стрельбище
+bg:Стрелбище
 ar:ملعب رماية
 cs:Střelnice
 da:Skydebane
@@ -8382,6 +8442,7 @@ fa:محل تیراندازی
 leisure-sports_centre-swimming
 en:Swimming Centre|swimming pool
 ru:Плавательный бассейн
+bg:Басейн|плуване|Плувен басейн
 ar:مركز سباحة
 cs:Plavecký bazén
 da:Svømmecenter
@@ -8414,6 +8475,7 @@ fa:استخرشنا
 leisure-sports_centre-yoga
 en:Yoga Studio
 ru:Йога-центр|Студия йоги
+bg:Йога|център|студио|спорт
 ar:نادي يوغا
 cs:Studio jógy
 da:Yoga center
@@ -8446,6 +8508,7 @@ fa:سالن یوگا
 tourism-apartment|@hotel
 en:Apartments
 ru:Апартаменты
+bg:Апартаменти|хотел|туризъм
 ar:شُقَق
 cs:Byty
 da:Lejligheder
@@ -8478,6 +8541,7 @@ fa:اپارتمان|سوئیت
 tourism-resort|@hotel
 en:Resort
 ru:Дом отдыха
+bg:Курорт
 ar:منتج
 cs:Letovisko
 da:Resort
@@ -8510,6 +8574,7 @@ fa:تفریحگاه
 amenity-biergarten|@eat|@nightlife
 en:Biergarten
 ru:Пивная под открытым небом
+bg:Бирария
 ar:متجر بيرة
 cs:Hospoda se zahrádkou
 da:Biergarten
@@ -8541,6 +8606,7 @@ zh-Hant:啤酒花園
 amenity-driving_school
 en:Driving School
 ru:Автошкола
+bg:Автошкола|шофьорски курсове
 ar:مدرسة قيادة
 cs:Autoškola
 da:Køreskole
@@ -8574,6 +8640,7 @@ fa:اموزشگاه رانندگی
 amenity-ice_cream
 en:Ice Cream Stand
 ru:Мороженое
+bg:Сладолед
 ar:كشك أيس كريم
 cs:Stánek se zmrzlinou
 da:Isbod
@@ -8607,6 +8674,7 @@ fa:بستنی فروشی
 amenity-internet_cafe
 en:Internet Cafe
 ru:Интернет-кафе
+bg:Интернет кафе
 ar:مقهى إنترنت
 cs:Internetová kavárna
 da:Internetcafe
@@ -8640,6 +8708,7 @@ fa:کافی نت
 amenity-motorcycle_parking
 en:Motorcycle Parking
 ru:Мотопарковка
+bg:Паркинг|мотоциклети|мотори
 ar:موقف دراجات نارية
 cs:Parkování pro motocykly
 da:Motorcykelparkering
@@ -8673,6 +8742,7 @@ fa:پارکینگ موتورسیکلت
 amenity-nursing_home
 en:Nursing Home
 ru:Дом престарелых
+bg:Старчески дом|възрастни
 ar:دار تمريض
 cs:Dům s pečovatelskou službou
 da:Plejehjem
@@ -8706,6 +8776,7 @@ fa:خانه سالمندان
 amenity-payment_terminal
 en:Payment Terminal
 ru:Терминал оплаты
+bg:Терминал|плащане|разплащане
 ar:محطة دفع
 cs:Platební terminál
 da:Betalingsautomat
@@ -8739,6 +8810,7 @@ fa:دستگاه کارتخوان
 amenity-shower
 en:Shower
 ru:Душ
+bg:Душ|Баня
 ar:حمام
 cs:Sprcha
 da:Bruser
@@ -8772,6 +8844,7 @@ fa:حمام
 amenity-water_point
 en:Water Point
 ru:Выдача питьевой воды
+bg:Питейна вода|доставка
 ar:نقطة مائية
 cs:Vodní zdroj
 da:Vandstation
@@ -8805,6 +8878,7 @@ fa:شیر آب قابل شرب
 emergency-defibrillator
 en:Defibrillator|AED
 ru:Дефибриллятор
+bg:Дефибрилатор
 ar:مزيل الرجفان
 cs:Defibrilátor
 da:Hjertestarter
@@ -8838,6 +8912,7 @@ fa:دستگاه شوک
 emergency-fire_hydrant
 en:Fire Hydrant
 ru:Гидрант|Пожарный гидрант
+bg:Хидрант|Пожар|Кран
 ar:صنبور الإطفاء
 cs:Požární hydrant
 da:Brandhane
@@ -8871,6 +8946,7 @@ fa:شیر آتش‌نشانی
 leisure-fitness_station
 en:Fitness Station
 ru:Спортивные снаряды
+bg:Спортно оборудване|фитнес
 ar:مركز لياقة
 cs:Posilovna
 da:Fitness-station
@@ -8904,6 +8980,7 @@ fa:پارک سلامت
 man_made-water_tap
 en:Water Tap
 ru:Колонка с водой
+bg:Чешма|вода
 ar:حنفية مياه
 cs:Vodovodní kohoutek
 da:Vandhane
@@ -8937,6 +9014,7 @@ fa:شیراب
 office-insurance
 en:Insurance Office
 ru:Продажа страховок
+bg:Застрахователна служба|Застрахователен офис|застраховки
 ar:مكتب تأمين
 cs:Pojišťovací kancelář
 da:Forsikringskontor
@@ -8971,6 +9049,7 @@ fa:دفتر بیمه
 office-ngo
 en:NGO Office
 ru:Офис НКО
+bg:НПО|офис|неправителствена организация
 ar:مكتب مؤسسة خيرية
 cs:Kancelář nevládní organizace
 da:NGO-kontor
@@ -9004,6 +9083,7 @@ fa:دفتر سازمان خیریه
 shop-erotic
 en:Erotic Shop
 ru:Секс-шоп
+bg:Секс-шоп|Еротика|Еротичен магазин
 ar:متجر منتجات جنسية
 cs:Obchod s erotickými pomůckami
 da:Erotisk butik
@@ -9037,6 +9117,7 @@ fa:فروشگاه لوازم جنسی
 shop-massage
 en:Massage salon|Massage Parlour|massage|spa|massage center|massage therapy|massage services|spa treatment|spa services
 ru:Массажный салон|массаж|спа|спа-салон|салон красоты|массажный кабинет
+bg:Масаж|спа|Масажен салон|красота|терапия
 ar:قاعة تدليك
 cs:Masážní salon
 da:Massageklinik
@@ -9070,6 +9151,7 @@ fa:سالن ماساژ
 shop-motorcycle
 en:Motorcycle Shop
 ru:Магазин мотоциклов
+bg:Мотоциклети|магазин|мотори
 ar:متجر دراجات نارية
 cs:Prodejna motocyklů
 da:Motorcykelforhandler
@@ -9103,6 +9185,7 @@ fa:فروشگاه موتورسیکلت
 shop-newsagent
 en:Newspaper Stand
 ru:Газетный киоск
+bg:Стойка за вестници|вестници|киоск|бутка
 ar:كشك الجرائد
 cs:Novinový stánek
 da:Avis-kiosk
@@ -9136,6 +9219,7 @@ fa:دَکه روزنامه فروشی
 shop-pawnbroker
 en:Pawnbroker
 ru:Ломбард
+bg:Заложна къща
 ar:سمسار تسليف
 cs:Zastavárna
 da:Pantelåner
@@ -9169,6 +9253,7 @@ fa:عتیقه فروشی
 shop-stationery
 en:Stationery Shop
 ru:Канцелярский магазин
+bg:Магазин за канцеларски материали
 ar:متجر قرطاسية
 cs:Papírnictví
 da:Kontorartikler
@@ -9202,6 +9287,7 @@ fa:لوازم التحریر|نوشت افزار
 shop-tattoo
 en:Tattoo Parlour|tattoo
 ru:Тату-салон
+bg:татуировка|татус|Салон за татуировки
 ar:قاعة رسم الوشم
 cs:Tetovací salon
 da:Tatovør
@@ -9235,6 +9321,7 @@ fa:سالن خالکوبی
 shop-variety_store|@shopping
 en:Variety Store
 ru:Магазин полезных мелочей
+bg:Магазин за разнообразни стоки
 ar:متجر متنوع\n
 cs:Smíšené zboží
 da:Småtingsbutik
@@ -9268,6 +9355,7 @@ fa:خرازی
 shop-video
 en:Video shop
 ru:Магазин видео
+bg:Видео магазин|Видео
 ar:متجر فيديو
 cs:Videopůjčovna
 da:Videobutik
@@ -9302,6 +9390,7 @@ fa:فروشگاه رسانه‌های تصویری
 shop-video_games
 en:Video games shop|videogames shop|video games|videogames
 ru:Магазин видеоигр|видеоигры
+bg:Видеоигри|игри|магазин за видеоигри
 ar:متجر ألعاب فيديو
 cs:Obchod s videohrami
 da:Computerspilbutik
@@ -9336,6 +9425,7 @@ fa:فروشگاه بازی‌های رایانه‌ای
 tourism-wilderness_hut|@hotel
 en:Wilderness Hut
 ru:Хижина в лесу
+bg:Хижа в дивата природа|Хижа|Хижа в гората|Кабина|къща
 ar:كوخ برية
 cs:Chata v divočině
 da:Vildmarkshytte
@@ -9369,6 +9459,7 @@ fa:کلبه‌ی صحرایی
 tourism-gallery|@tourism
 en:Gallery|museum
 ru:Галерея|музей|картины|картинная галерея
+bg:Галерия|музей|изложба|туризъм|картини
 de:Galerie|Museum
 ko:갤러리|박물관
 nl:Galerij|museum
@@ -9378,6 +9469,7 @@ fa:گالری|موزه
 tourism-theme_park|@tourism|@children
 en:Theme park|Amusement park
 ru:Парк развлечений|Парк аттракционов|Тематический парк
+bg:Увеселителен парк
 de:Freizeitpark|Vergnügungspark
 fr:Parc d'attractions|Parc de loisirs
 es:Parque de atracciones
@@ -9390,6 +9482,7 @@ pt:Parque de diversão
 boundary-national_park|@tourism
 en:National Park
 ru:Национальный парк
+bg:Национален парк
 ar:منتزه وطني
 cs:Národní park
 da:National park
@@ -9423,6 +9516,7 @@ fa:پارک ملی
 leisure-nature_reserve|@tourism
 en:Nature reserve
 ru:Заповедник
+bg:Природен парк|Резерват|Туризъм
 ar:محمية
 cs:Rezervace
 da:Reservat
@@ -9456,6 +9550,7 @@ zh-Hant:自然保護區
 natural-cape
 en:Cape
 ru:Мыс
+bg:Нос
 ar:رأس
 cs:Mys
 da:Tange
@@ -9489,6 +9584,7 @@ fa:دماغه
 natural-geyser
 en:Geyser
 ru:Гейзер
+bg:Гейзер
 ar:نبع ماء حار
 cs:Gejzír
 da:Gejser
@@ -9523,6 +9619,7 @@ fa:چشمه آب گرم
 natural-glacier|@tourism
 en:Glacier
 ru:Ледник
+bg:Ледник
 ar:كتلة جليدية
 cs:Ledovec
 da:Gletsjer
@@ -9556,6 +9653,7 @@ fa:یخچال طبیعی
 highway-ford
 en:Ford
 ru:Брод
+bg:Брод
 ar:مخاضة
 cs:Brod
 da:Vadested
