@@ -9,37 +9,36 @@ import androidx.annotation.Nullable;
 
 import static android.media.AudioManager.AUDIOFOCUS_GAIN_TRANSIENT_EXCLUSIVE;
 
-public class AudioFocusManager {
+public class AudioFocusManager
+{
+  @Nullable
+  private AudioManager audioManager = null;
 
-    @Nullable
-    private AudioManager audioManager = null;
+  public AudioFocusManager(@Nullable Context context)
+  {
+    if (context != null)
+      audioManager = (AudioManager) context.getSystemService(Context.AUDIO_SERVICE);
+  }
 
-    public AudioFocusManager(@Nullable Context context)
+  public void requestAudioFocus()
+  {
+    if (audioManager != null)
     {
-      if (context != null) {
-        audioManager = (AudioManager) context.getSystemService(Context.AUDIO_SERVICE);
-      }
+      if (Build.VERSION.SDK_INT >= 26)
+        audioManager.requestAudioFocus(new AudioFocusRequest.Builder(AUDIOFOCUS_GAIN_TRANSIENT_EXCLUSIVE).build());
+      else
+        audioManager.requestAudioFocus(focusChange -> {}, AudioManager.STREAM_VOICE_CALL, AUDIOFOCUS_GAIN_TRANSIENT_EXCLUSIVE);
     }
+  }
 
-    public void requestAudioFocus()
+  public void releaseAudioFocus()
+  {
+    if (audioManager != null)
     {
-      if (audioManager != null)
-      {
-        if (Build.VERSION.SDK_INT >= 26)
-          audioManager.requestAudioFocus(new AudioFocusRequest.Builder(AUDIOFOCUS_GAIN_TRANSIENT_EXCLUSIVE).build());
-        else
-          audioManager.requestAudioFocus(focusChange -> {}, AudioManager.STREAM_VOICE_CALL, AUDIOFOCUS_GAIN_TRANSIENT_EXCLUSIVE);
-      }
+      if (Build.VERSION.SDK_INT >= 26 )
+        audioManager.abandonAudioFocusRequest(new AudioFocusRequest.Builder(AUDIOFOCUS_GAIN_TRANSIENT_EXCLUSIVE).build());
+      else
+        audioManager.abandonAudioFocus(focusChange -> {});
     }
-
-    public void releaseAudioFocus()
-    {
-      if (audioManager != null)
-      {
-        if (Build.VERSION.SDK_INT >= 26 )
-          audioManager.abandonAudioFocusRequest(new AudioFocusRequest.Builder(AUDIOFOCUS_GAIN_TRANSIENT_EXCLUSIVE).build());
-        else
-          audioManager.abandonAudioFocus(focusChange -> {});
-      }
-    }
+  }
 }
