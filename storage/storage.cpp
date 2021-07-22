@@ -987,7 +987,7 @@ int64_t Storage::ParseIndexAndGetDataVersion(std::string const & index) const
       return 0;
 
     /// @todo Get correct value somehow ..
-    int64_t const appVersion = 21042001;
+    int64_t const appVersion = 21072001;
     int64_t dataVersion = 0;
 
     size_t const count = json_array_size(root);
