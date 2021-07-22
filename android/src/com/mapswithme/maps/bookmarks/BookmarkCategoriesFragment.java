@@ -50,6 +50,7 @@ public class BookmarkCategoriesFragment extends BaseMwmRecyclerFragment<Bookmark
     BookmarkManager.BookmarksLoadingListener,
     CategoryListCallback,
     OnItemClickListener<BookmarkCategory>,
+    OnItemMoreClickListener<BookmarkCategory>,
     OnItemLongClickListener<BookmarkCategory>, BookmarkManager.BookmarksSharingListener
 
 {
@@ -94,6 +95,7 @@ public class BookmarkCategoriesFragment extends BaseMwmRecyclerFragment<Bookmark
     onPrepareControllers(view);
     getAdapter().setOnClickListener(this);
     getAdapter().setOnLongClickListener(this);
+    getAdapter().setOnMoreClickListener(this);
     getAdapter().setCategoryListCallback(this);
 
     RecyclerView rw = getRecyclerView();
@@ -343,6 +345,12 @@ public class BookmarkCategoriesFragment extends BaseMwmRecyclerFragment<Bookmark
   {
     showBottomMenu(category);
   }
+
+  public void onItemMoreClick(@NonNull View v, @NonNull BookmarkCategory category)
+  {
+    showBottomMenu(category);
+  }
+
 
   static void setEnableForMenuItem(@IdRes int id, @NonNull BottomSheet bottomSheet,
                                    boolean enable)
