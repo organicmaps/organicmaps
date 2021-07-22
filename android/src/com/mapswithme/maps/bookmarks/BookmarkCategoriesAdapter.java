@@ -31,6 +31,8 @@ public class BookmarkCategoriesAdapter extends BaseBookmarkCategoryAdapter<Recyc
   @Nullable
   private OnItemClickListener<BookmarkCategory> mClickListener;
   @Nullable
+  private OnItemMoreClickListener<BookmarkCategory> mMoreClickListener;
+  @Nullable
   private CategoryListCallback mCategoryListCallback;
   @NonNull
   private final MassOperationAction mMassOperationAction = new MassOperationAction();
@@ -43,6 +45,11 @@ public class BookmarkCategoriesAdapter extends BaseBookmarkCategoryAdapter<Recyc
   public void setOnClickListener(@Nullable OnItemClickListener<BookmarkCategory> listener)
   {
     mClickListener = listener;
+  }
+
+  public void setOnMoreClickListener(@Nullable OnItemMoreClickListener<BookmarkCategory> listener)
+  {
+    mMoreClickListener = listener;
   }
 
   void setOnLongClickListener(@Nullable OnItemLongClickListener<BookmarkCategory> listener)
@@ -119,8 +126,10 @@ public class BookmarkCategoriesAdapter extends BaseBookmarkCategoryAdapter<Recyc
       categoryHolder.setName(category.getName());
       bindSize(categoryHolder, category);
       categoryHolder.setVisibilityState(category.isVisible());
-      ToggleVisibilityClickListener listener = new ToggleVisibilityClickListener(categoryHolder);
-      categoryHolder.setVisibilityListener(listener);
+      ToggleVisibilityClickListener visibilityListener = new ToggleVisibilityClickListener(categoryHolder);
+      categoryHolder.setVisibilityListener(visibilityListener);
+      CategoryItemMoreClickListener moreClickListener = new CategoryItemMoreClickListener(categoryHolder);
+      categoryHolder.setMoreButtonClickListener(moreClickListener);
       break;
     }
     case TYPE_ACTION_ADD:
@@ -228,6 +237,23 @@ public class BookmarkCategoriesAdapter extends BaseBookmarkCategoryAdapter<Recyc
     {
       BookmarkManager.INSTANCE.setAllCategoriesVisibility(true);
       notifyDataSetChanged();
+    }
+  }
+  private class CategoryItemMoreClickListener implements View.OnClickListener
+  {
+    @NonNull
+    private final CategoryViewHolder mHolder;
+
+    CategoryItemMoreClickListener(@NonNull CategoryViewHolder holder)
+    {
+      mHolder = holder;
+    }
+
+    @Override
+    public void onClick(View v)
+    {
+      if (mMoreClickListener != null)
+        mMoreClickListener.onItemMoreClick(v, mHolder.getEntity());
     }
   }
 

@@ -231,6 +231,8 @@ public class Holders
     @NonNull
     CheckBox mVisibilityMarker;
     @NonNull
+    ImageView mMoreButton;
+    @NonNull
     TextView mSize;
     @Nullable
     private BookmarkCategory mEntity;
@@ -240,6 +242,7 @@ public class Holders
       super(root);
       mName = root.findViewById(R.id.name);
       mVisibilityMarker = root.findViewById(R.id.checkbox);
+      mMoreButton = root.findViewById(R.id.more);
       int left = root.getResources().getDimensionPixelOffset(R.dimen.margin_half_plus);
       int right = root.getResources().getDimensionPixelOffset(R.dimen.margin_base_plus);
       UiUtils.expandTouchAreaForView(mVisibilityMarker, 0, left, 0, right);
@@ -254,6 +257,11 @@ public class Holders
     void setVisibilityListener(@Nullable View.OnClickListener listener)
     {
       mVisibilityMarker.setOnClickListener(listener);
+    }
+
+    void setMoreButtonClickListener(@Nullable View.OnClickListener listener)
+    {
+      mMoreButton.setOnClickListener(listener);
     }
 
     void setName(@NonNull String name)
