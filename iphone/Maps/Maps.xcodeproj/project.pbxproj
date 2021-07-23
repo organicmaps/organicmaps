@@ -1598,6 +1598,9 @@
 		F6FE3C3A1CC5106500A73196 /* MWMPlaceDoesntExistAlert.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MWMPlaceDoesntExistAlert.xib; sourceTree = "<group>"; };
 		F6FEA82B1C58E89B007223CC /* MWMButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMButton.h; sourceTree = "<group>"; };
 		F6FEA82C1C58E89B007223CC /* MWMButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MWMButton.m; sourceTree = "<group>"; };
+		FA1A4CF226AABBEC00026C44 /* bg */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = bg; path = bg.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
+		FA1A4CF326AABBED00026C44 /* bg */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = bg; path = bg.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		FA1A4CF426AABBEE00026C44 /* bg */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = bg; path = bg.lproj/Localizable.strings; sourceTree = "<group>"; };
 		FA459EB314327AF700B5BB3C /* WorldCoasts.mwm */ = {isa = PBXFileReference; lastKnownFileType = file; name = WorldCoasts.mwm; path = ../../data/WorldCoasts.mwm; sourceTree = "<group>"; };
 		FA46DA2B12D4166E00968C36 /* countries.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = countries.txt; path = ../../data/countries.txt; sourceTree = SOURCE_ROOT; };
 		FA64D9A813F975AD00350ECF /* types.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = types.txt; path = ../../data/types.txt; sourceTree = SOURCE_ROOT; };
@@ -3696,6 +3699,7 @@
 				id,
 				"en-GB",
 				el,
+				bg,
 			);
 			mainGroup = 29B97314FDCFA39411CA2CEA /* Maps */;
 			productRefGroup = 19C28FACFE9D520D11CA2CBB /* Products */;
@@ -4360,6 +4364,7 @@
 				34F73F951E082FF800AC1FD6 /* vi */,
 				34F73F971E082FF800AC1FD6 /* zh-Hans */,
 				34F73F991E082FF800AC1FD6 /* zh-Hant */,
+				FA1A4CF326AABBED00026C44 /* bg */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
@@ -4396,6 +4401,7 @@
 				34F73F961E082FF800AC1FD6 /* vi */,
 				34F73F981E082FF800AC1FD6 /* zh-Hans */,
 				34F73F9A1E082FF800AC1FD6 /* zh-Hant */,
+				FA1A4CF426AABBEE00026C44 /* bg */,
 			);
 			name = Localizable.strings;
 			sourceTree = "<group>";
@@ -4432,6 +4438,7 @@
 				A630D204207CAA3400976DEA /* vi */,
 				A630D205207CAA3A00976DEA /* zh-Hant */,
 				A630D206207CAA5800976DEA /* zh-Hans */,
+				FA1A4CF226AABBEC00026C44 /* bg */,
 			);
 			name = Localizable.stringsdict;
 			sourceTree = "<group>";
