@@ -19,7 +19,8 @@ run this script with the -h option.
 
 OMIM_ROOT = ""
 
-MACRO_RE =  re.compile(r'L\(.*?@\"(.*?)\"\)')
+CORE_RE = re.compile(r'GetLocalizedString\(\"(.*?)\"\)')
+MACRO_RE = re.compile(r'L\(.*?@?\"(.*?)\"\)')
 XML_RE = re.compile(r"value=\"(.*?)\"")
 ANDROID_JAVA_RE = re.compile(r"R\.string\.([\w_]*)")
 ANDROID_JAVA_PLURAL_RE = re.compile(r"R\.plurals\.([\w_]*)")
@@ -67,6 +68,11 @@ def grep_android():
 
     return parenthesize(ret)
 
+def grep_core():
+    logging.info("Grepping core")
+    grep = "grep -r -I 'GetLocalizedString' {0}/*".format(OMIM_ROOT)
+    ret = android_grep_wrapper(grep, CORE_RE)
+    return parenthesize(ret)
 
 def grep_ios_candidates():
     logging.info("Grepping ios candidates")
@@ -202,16 +208,20 @@ def do_multiple(args):
         )
 
 
-def generate_auto_tags(ios, android):
-    new_tags = defaultdict(list)
+def generate_auto_tags(ios, android, core):
+    new_tags = defaultdict(set)
     for i in ios:
-        new_tags[i].append("ios")
+        new_tags[i].add("ios")
 
     for a in android:
-        new_tags[a].append("android")
+        new_tags[a].add("android")
+
+    for c in core:
+        new_tags[c].add("ios")
+        new_tags[c].add("android")
 
     for key in new_tags:
-        new_tags[key] = ", ".join(new_tags[key])
+        new_tags[key] = ", ".join(sorted(new_tags[key]))
 
     return new_tags
 
@@ -224,13 +234,15 @@ def new_comments_and_tags(strings_txt, filtered, new_tags):
 
 
 def do_single(args):
+    core = grep_core()
     ios = grep_ios()
     android = grep_android()
 
-    new_tags = generate_auto_tags(ios, android)
+    new_tags = generate_auto_tags(ios, android, core)
 
     filtered = ios
     filtered.update(android)
+    filtered.update(core)
 
     strings_txt = StringsTxt()
     strings_txt.translations = {key: dict(strings_txt.translations[key]) for key in filtered}
