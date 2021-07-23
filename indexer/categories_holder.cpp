@@ -161,7 +161,8 @@ vector<CategoriesHolder::Mapping> const CategoriesHolder::kLocaleMapping = {{"en
                                                                             {"el", 28},
                                                                             {"he", 29},
                                                                             {"sw", 30},
-                                                                            {"fa", 31}};
+                                                                            {"fa", 31},
+                                                                            {"bg", 32}};
 vector<string> CategoriesHolder::kDisabledLanguages = {"el", "he", "sw"};
 
 CategoriesHolder::CategoriesHolder(unique_ptr<Reader> && reader)
