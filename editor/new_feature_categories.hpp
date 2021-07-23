@@ -50,7 +50,7 @@ public:
 
 private:
   using Langs =
-      base::SmallSet<static_cast<uint64_t>(CategoriesHolder::kMaxSupportedLocaleIndex) + 1>;
+      base::SmallSet<static_cast<uint64_t>(CategoriesHolder::kLocaleMapping.size()) + 1>;
 
   indexer::CategoriesIndex m_index;
   Langs m_addedLangs;
