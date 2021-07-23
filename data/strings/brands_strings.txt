@@ -38,6 +38,7 @@
     en = Blue Bottle Coffee
     ja = ブルーボトルコーヒー
     ko = 블루버틀 커피
+    zh-Hans = 蓝瓶咖啡
     zh-Hant = 藍瓶咖啡
 
   [brand.burger_king]
