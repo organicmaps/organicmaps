@@ -145,7 +145,7 @@ using namespace power_management;
   [self.fontScaleCell configWithDelegate:self title:L(@"big_font") isOn:[MWMSettings largeFontSize]];
 
   [self.transliterationCell configWithDelegate:self
-                                         title:L(@"whatsnew_transliteration_title")
+                                         title:L(@"transliteration_title")
                                           isOn:[MWMSettings transliteration]];
 
   [self.compassCalibrationCell configWithDelegate:self

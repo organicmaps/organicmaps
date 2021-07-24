@@ -37,7 +37,7 @@
       android:order="6"/>
     <SwitchPreferenceCompat
       android:key="@string/pref_transliteration"
-      android:title="@string/whatsnew_transliteration_title"
+      android:title="@string/transliteration_title"
       android:defaultValue="false"
       android:order="7"/>
     <Preference
