@@ -507,7 +507,7 @@
 
 "dialog_routing_disclaimer_precision" = "— 地图可能不准确，建议的路线可能并非总是去往目的地的最佳路径；";
 
-"dialog_routing_disclaimer_recommendations" = "— 建议的路线仅作为推荐路线供您采纳。；";
+"dialog_routing_disclaimer_recommendations" = "— 建议的路线仅作为推荐路线供您采纳；";
 
 "dialog_routing_disclaimer_borders" = "— 小心对待国界区的路线：我们应用创造的路线有时会在未经授权的地方跨越国界;";
 
@@ -616,9 +616,9 @@
 
 "p2p_start" = "开始";
 
-"p2p_from_here" = "从";
+"p2p_from_here" = "从这出发";
 
-"p2p_to_here" = "发送至";
+"p2p_to_here" = "到这去";
 
 "p2p_only_from_current" = "导航只能从您目前的位置开始。";
 

@@ -2,7 +2,10 @@ package com.mapswithme.maps.sound;
 
 import android.content.Context;
 import android.content.res.Resources;
+import android.os.Handler;
+import android.os.Looper;
 import android.speech.tts.TextToSpeech;
+import android.speech.tts.UtteranceProgressListener;
 import android.text.TextUtils;
 
 import androidx.annotation.NonNull;
@@ -44,9 +47,13 @@ public enum TtsPlayer implements Initializable<Context>
   private static final String TAG = TtsPlayer.class.getSimpleName();
   private static final Locale DEFAULT_LOCALE = Locale.US;
   private static final float SPEECH_RATE = 1.2f;
+  private static final int TTS_SPEAK_DELAY_MILLIS = 50;
 
   private TextToSpeech mTts;
   private boolean mInitializing;
+  private AudioFocusManager mAudioFocusManager;
+
+  private final Handler delayHandler = new Handler(Looper.getMainLooper());
 
   @SuppressWarnings("NotNullFieldNotInitialized")
   @NonNull
@@ -150,9 +157,25 @@ public enum TtsPlayer implements Initializable<Context>
         mInitializing = false;
         return;
       }
-
       refreshLanguages();
       mTts.setSpeechRate(SPEECH_RATE);
+      mTts.setOnUtteranceProgressListener(new UtteranceProgressListener() {
+        @Override
+        public void onStart(String utteranceId) {
+          mAudioFocusManager.requestAudioFocus();
+        }
+
+        @Override
+        public void onDone(String utteranceId) {
+          mAudioFocusManager.releaseAudioFocus();
+        }
+
+        @Override
+        public void onError(String utteranceId) {
+          mAudioFocusManager.releaseAudioFocus();
+        }
+      });
+      mAudioFocusManager = new AudioFocusManager(context);
       mInitializing = false;
     });
   }
@@ -178,8 +201,11 @@ public enum TtsPlayer implements Initializable<Context>
     if (Config.isTtsEnabled())
       try
       {
-        //noinspection deprecation
-        mTts.speak(textToSpeak, TextToSpeech.QUEUE_ADD, null);
+        boolean isMusicActive = mAudioFocusManager.requestAudioFocus();
+        if (isMusicActive)
+          delayHandler.postDelayed(() -> mTts.speak(textToSpeak, TextToSpeech.QUEUE_ADD, null, textToSpeak), TTS_SPEAK_DELAY_MILLIS);
+        else
+          mTts.speak(textToSpeak, TextToSpeech.QUEUE_ADD, null, textToSpeak);
       }
       catch (IllegalArgumentException e)
       {
@@ -214,6 +240,7 @@ public enum TtsPlayer implements Initializable<Context>
     if (isReady())
       try
       {
+        mAudioFocusManager.releaseAudioFocus();
         mTts.stop();
       }
       catch (IllegalArgumentException e)

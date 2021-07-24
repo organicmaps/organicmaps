@@ -602,6 +602,7 @@
 	<string name="bookmarks_error_title_list_name_already_taken">Acest nume este deja luat</string>
 	<string name="bookmarks_error_message_list_name_already_taken">Alegeți un alt nume</string>
 	<string name="please_wait">Te rog asteapta…</string>
+	<string name="phone_number">Numar de telefon</string>
 	<string name="profile">Profil OpenStreetMap</string>
 	<string name="place_page_search_similar_hotel">Căutați hoteluri similare</string>
 	<string name="bookmarks_detect_title">Au fost detectate fișiere noi</string>

@@ -230,23 +230,6 @@ android {
       android.sourceSets.google.assets.srcDirs = ['flavors/world-enabled']
     }
 
-    samsung {
-      dimension "default"
-      versionName = android.defaultConfig.versionName + '-Samsung'
-      buildConfigField 'String', 'REVIEW_URL', '"samsungapps://ProductDetail/app.organicmaps"'
-      buildConfigField 'String', 'SUPPORT_MAIL', '"samsung@organicmaps.app"'
-      android.sourceSets.samsung.assets.srcDirs = ['flavors/world-enabled']
-    }
-
-    amazon {
-      dimension "default"
-      versionName = android.defaultConfig.versionName + '-Amazon'
-      buildConfigField 'String', 'REVIEW_URL', '"amzn://apps/android?p=app.organicmaps"'
-      buildConfigField 'String', 'SUPPORT_MAIL', '"amazon@organicmaps.app"'
-      buildConfigField 'int', 'RATING_THRESHOLD', '4'
-      android.sourceSets.amazon.assets.srcDirs = ['flavors/world-enabled']
-    }
-
     web {
       dimension "default"
       versionName = android.defaultConfig.versionName + '-Web'
@@ -416,30 +399,23 @@ android {
   }
 
   packagingOptions {
-    exclude 'lib/armeabi/libcrashlytics.so'
-    exclude 'lib/mips64/libcrashlytics.so'
-    exclude 'lib/mips/libcrashlytics.so'
-    exclude 'lib/armeabi/libVkLayer_core_validation.so'
-    exclude 'lib/armeabi/libVkLayer_threading.so'
-    exclude 'lib/armeabi/libVkLayer_image.so'
-    exclude 'lib/armeabi/libVkLayer_parameter_validation.so'
-    exclude 'lib/armeabi/libVkLayer_object_tracker.so'
-    exclude 'lib/armeabi/libVkLayer_swapchain.so'
-    exclude 'lib/armeabi/libVkLayer_unique_objects.so'
-    exclude 'lib/mips64/libVkLayer_core_validation.so'
-    exclude 'lib/mips64/libVkLayer_threading.so'
-    exclude 'lib/mips64/libVkLayer_image.so'
-    exclude 'lib/mips64/libVkLayer_parameter_validation.so'
-    exclude 'lib/mips64/libVkLayer_object_tracker.so'
-    exclude 'lib/mips64/libVkLayer_swapchain.so'
-    exclude 'lib/mips64/libVkLayer_unique_objects.so'
-    exclude 'lib/mips/libVkLayer_core_validation.so'
-    exclude 'lib/mips/libVkLayer_threading.so'
-    exclude 'lib/mips/libVkLayer_image.so'
-    exclude 'lib/mips/libVkLayer_parameter_validation.so'
-    exclude 'lib/mips/libVkLayer_object_tracker.so'
-    exclude 'lib/mips/libVkLayer_swapchain.so'
-    exclude 'lib/mips/libVkLayer_unique_objects.so'
+    exclude 'lib/armeabi-v7a/libVkLayer_khronos_validation.so'
+    exclude 'lib/armeabi-v7a/libVkLayer_core_validation.so'
+    exclude 'lib/armeabi-v7a/libVkLayer_threading.so'
+    exclude 'lib/armeabi-v7a/libVkLayer_image.so'
+    exclude 'lib/armeabi-v7a/libVkLayer_parameter_validation.so'
+    exclude 'lib/armeabi-v7a/libVkLayer_object_tracker.so'
+    exclude 'lib/armeabi-v7a/libVkLayer_swapchain.so'
+    exclude 'lib/armeabi-v7a/libVkLayer_unique_objects.so'
+
+    exclude 'lib/arm64-v8a/libVkLayer_khronos_validation.so'
+    exclude 'lib/arm64-v8a/libVkLayer_core_validation.so'
+    exclude 'lib/arm64-v8a/libVkLayer_threading.so'
+    exclude 'lib/arm64-v8a/libVkLayer_image.so'
+    exclude 'lib/arm64-v8a/libVkLayer_parameter_validation.so'
+    exclude 'lib/arm64-v8a/libVkLayer_object_tracker.so'
+    exclude 'lib/arm64-v8a/libVkLayer_swapchain.so'
+    exclude 'lib/arm64-v8a/libVkLayer_unique_objects.so'
   }
 }
 

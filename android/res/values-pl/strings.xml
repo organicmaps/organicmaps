@@ -607,6 +607,7 @@
 	<string name="bookmarks_error_title_list_name_already_taken">Ta nazwa jest już zajęta</string>
 	<string name="bookmarks_error_message_list_name_already_taken">Wybierz inną nazwę</string>
 	<string name="please_wait">Proszę czekać…</string>
+	<string name="phone_number">Numer telefonu</string>
 	<string name="profile">Profil OpenStreetMap</string>
 	<string name="place_page_search_similar_hotel">Wyszukaj podobne hotele</string>
 	<string name="bookmarks_detect_title">Wykryto nowe pliki</string>

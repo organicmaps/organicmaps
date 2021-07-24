@@ -600,6 +600,7 @@
 	<string name="bookmarks_error_title_list_name_already_taken">Ez a név már foglalt</string>
 	<string name="bookmarks_error_message_list_name_already_taken">Kérjük, válasszon másik nevet</string>
 	<string name="please_wait">Kérlek várj…</string>
+	<string name="phone_number">Telefonszám</string>
 	<string name="profile">OpenStreetMap profil</string>
 	<string name="place_page_search_similar_hotel">Hasonló szálláshelyek keresése</string>
 	<string name="bookmarks_detect_title">Új fájlokat észleltek</string>

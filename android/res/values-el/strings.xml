@@ -599,6 +599,7 @@
 	<string name="bookmarks_error_title_list_name_already_taken">Αυτό το όνομα έχει ήδη ληφθεί</string>
 	<string name="bookmarks_error_message_list_name_already_taken">Επιλέξτε άλλο όνομα</string>
 	<string name="please_wait">Παρακαλώ περιμένετε…</string>
+	<string name="phone_number">Τηλεφωνικό νούμερο</string>
 	<string name="profile">Προφίλ OpenStreetMap</string>
 	<string name="place_page_search_similar_hotel">Αναζήτηση παρόμοιων ξενοδοχείων</string>
 	<string name="bookmarks_detect_title">Εντοπίστηκαν νέα αρχεία</string>

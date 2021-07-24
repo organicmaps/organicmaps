@@ -603,6 +603,7 @@
 	<string name="bookmarks_error_title_list_name_already_taken">Bu isim zaten alınmış</string>
 	<string name="bookmarks_error_message_list_name_already_taken">Lütfen başka bir isim seçiniz</string>
 	<string name="please_wait">Lütfen bekle…</string>
+	<string name="phone_number">Telefon numarası</string>
 	<string name="profile">OpenStreetMap profil</string>
 	<string name="place_page_search_similar_hotel">Benzer otellerde ara</string>
 	<string name="bookmarks_detect_title">Yeni dosyalar algılandı</string>

@@ -3,6 +3,7 @@
     tags = ios
     comment = Used in home screen quick actions.
     en = Search
+    bg = Търсене
     cs = Hledat
     sk = Hľadať
     de = Suche
@@ -35,6 +36,7 @@
     comment = Used in home screen quick actions.
     en = Share My Location
     ru = Поделиться местоположением
+    bg = Споделяне на местоположението ми
     uk = Поділитися моїм місцезнаходженням
     es = Compartir mi ubicación
     pt = Partilhar a minha localização
@@ -66,6 +68,7 @@
     tags = ios
     comment = Used in home screen quick actions.
     en = Bookmarks
+    bg = Отметки
     cs = Záložky
     sk = Záložky
     de = Lesezeichengruppen
@@ -142,6 +145,7 @@
     comment = Needed to explain why we always require access to GPS coordinates, and not only when the app is active.
     en = Defining your current location in the background is necessary for the effective use of application and personal recommendations
     ru = Использование геолокации в фоне нужно для эффективной работы приложения и персонализации рекомендаций
+    bg = Използването на геолокация във фонов режим е необходимо за ефективното функциониране на приложението и персонализирането на препоръките.
     ar = من الضروري تحديد الموقع الحالي في الخلفية للاستخدام الفعال للتطبيق والتوصيات الشخصية
     cs = Zapnutí určení polohy na pozadí je nutné pro efektivní fungování aplikace a personalizace doporučení
     da = At definere nuværende lokation i baggrunden er nødvendig for effektiv anvendelse af applikationen og personlige anbefalinger
@@ -177,6 +181,7 @@
     comment = Needed to explain why we always require access to GPS coordinates, and not only when the app is active.
     en = Defining current location in the background is necessary to fully enjoy the functionality of the app. It is mainly used in the options of following the route and saving your recent travelled path. 
     ru = Определение местоположения в фоне необходимо для полноценного пользования приложением. Оно используется в движении по маршруту и сохранении недавно пройденного пути.
+    bg = Дефинирането на текущото местоположение във фонов режим е необходимо, за да се възползвате напълно от функционалността на приложението. То се използва главно при опциите за проследяване на маршрута и запазване на последния изминат такъв. 
     fr = La localisation actuelle en arrière-plan est nécessaire pour profiter pleinement de toutes les fonctionnalités de l'application. Elle est principalement utilisée dans les options de navigation et d'enregistrement de votre chemin récemment parcouru.
     da = Det er nødvendigt at fastslå den gældende placering i baggrunden for at udnytte appens funktionalitet fuldt ud. Dette anvendes først og fremmest, når en rute skal følges, og når din sidste rejserute skal gemmes.
     id = Menentukan lokasi saat ini di latar belakang diperlukan untuk menikmati fungsi aplikasi. Digunakan terutama dalam opsi mengikuti rute dan menyimpan jalur yang telah Anda tempuh baru-baru ini.
@@ -207,6 +212,7 @@
     comment = Needed to explain why we require access to GPS coordinates when the app is active.
     en = Determining your location is necessary for navigation and for saving your recently travelled track.
     ru = Определение местоположения используется в движении по маршруту и сохранении недавно пройденного пути.
+    bg = Определянето на местоположението ви е необходимо за навигацията и за запазване на последния изминат маршрут.
     fr = La définition de l'emplacement actuel est utilisée dans certaines fonctions comme le suivi d'un trajet et la sauvegarde des trajets récemment effectués.
     da = Definition af aktuel placering bruges i indstillingerne for at følge ruten og lagring af din seneste rejserute.
     id = Mendefinisikan lokasi saat ini digunakan dalam opsi-opsi mengikuti rute dan menghemat jalur yang Anda tempuh saat ini.

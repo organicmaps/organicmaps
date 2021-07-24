@@ -599,6 +599,7 @@
 	<string name="bookmarks_error_title_list_name_already_taken">Det här namnet är redan taget</string>
 	<string name="bookmarks_error_message_list_name_already_taken">Vänligen välj ett annat namn</string>
 	<string name="please_wait">Vänligen vänta…</string>
+	<string name="phone_number">Telefonnummer</string>
 	<string name="profile">OpenStreetMap profil</string>
 	<string name="place_page_search_similar_hotel">Sök liknande hotell</string>
 	<string name="bookmarks_detect_title">Nya filer upptäcktes</string>

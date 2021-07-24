@@ -605,6 +605,7 @@
 	<string name="bookmarks_error_title_list_name_already_taken">Dieser Name ist bereits vergeben</string>
 	<string name="bookmarks_error_message_list_name_already_taken">Bitte wähle einen anderen Namen</string>
 	<string name="please_wait">Warten Sie mal…</string>
+	<string name="phone_number">Telefonnummer</string>
 	<string name="profile">OpenStreetMap-Profil</string>
 	<string name="place_page_search_similar_hotel">Nach ähnlichen Hotels suchen</string>
 	<string name="bookmarks_detect_title">Neue Dateien erkannt</string>
