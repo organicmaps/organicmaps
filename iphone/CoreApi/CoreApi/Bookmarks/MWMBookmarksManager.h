@@ -69,6 +69,9 @@ NS_SWIFT_NAME(BookmarksManager)
 - (NSArray<MWMCarPlayBookmarkObject *> *)bookmarksForCategory:(MWMMarkGroupID)categoryId;
 - (MWMMarkIDCollection)bookmarkIdsForCategory:(MWMMarkGroupID)categoryId;
 - (void)deleteBookmark:(MWMMarkID)bookmarkId;
+- (void)deleteTrack:(MWMTrackID)trackId;
+- (MWMBookmark *)bookmarkWithId:(MWMMarkID)bookmarkId;
+- (MWMTrack *)trackWithId:(MWMTrackID)trackId;
 - (NSArray<MWMBookmark *> *)bookmarksForGroup:(MWMMarkGroupID)groupId;
 - (NSArray<MWMTrack *> *)tracksForGroup:(MWMMarkGroupID)groupId;
 - (NSArray<MWMBookmarkGroup *> *)collectionsForGroup:(MWMMarkGroupID)groupId;
@@ -88,11 +91,24 @@ NS_SWIFT_NAME(BookmarksManager)
 
 - (NSArray<MWMBookmarkGroup *> *)userCategories;
 - (MWMBookmarkGroup *)categoryWithId:(MWMMarkGroupID)groupId;
+- (MWMBookmarkGroup *)categoryForBookmarkId:(MWMMarkID)bookmarkId;
+- (MWMBookmarkGroup *)categoryForTrackId:(MWMTrackID)trackId;
+- (NSString *)descriptionForBookmarkId:(MWMMarkID)bookmarkId;
 - (void)updateBookmark:(MWMMarkID)bookmarkId
             setGroupId:(MWMMarkGroupID)groupId
                  title:(NSString *)title
                  color:(MWMBookmarkColor)color
            description:(NSString *)description;
+
+- (void)moveBookmark:(MWMMarkID)bookmarkId
+           toGroupId:(MWMMarkGroupID)groupId;
+
+- (void)updateTrack:(MWMTrackID)trackId
+         setGroupId:(MWMMarkGroupID)groupId
+              title:(NSString *)title;
+
+- (void)moveTrack:(MWMTrackID)trackId
+        toGroupId:(MWMMarkGroupID)groupId;
 
 - (instancetype)init __attribute__((unavailable("call +manager instead")));
 - (instancetype)copy __attribute__((unavailable("call +manager instead")));

@@ -9,7 +9,7 @@ protocol PlacePageHeaderViewProtocol: AnyObject {
 class PlacePageHeaderViewController: UIViewController {
   var presenter: PlacePageHeaderPresenterProtocol?
 
-  @IBOutlet private var titleLabel: UILabel!
+  @IBOutlet private var titleLabel: UILabel?
   @IBOutlet private var expandView: UIView!
   @IBOutlet private var shadowView: UIView!
 
@@ -49,6 +49,6 @@ extension PlacePageHeaderViewController: PlacePageHeaderViewProtocol {
   }
 
   func setTitle(_ title: String) {
-    titleLabel.text = title
+    titleLabel?.text = title
   }
 }

@@ -64,13 +64,16 @@ protocol IBookmarksListView: AnyObject {
 
 protocol IBookmarksListPresenter {
   func viewDidLoad()
+  func viewDidAppear()
   func activateSearch()
   func deactivateSearch()
   func cancelSearch()
   func search(_ text: String)
   func sort()
   func more()
-  func deleteBookmark(in section: IBookmarksListSectionViewModel, at index: Int)
+  func deleteItem(in section: IBookmarksListSectionViewModel, at index: Int)
+  func moveItem(in section: IBookmarksListSectionViewModel, at index: Int)
+  func editItem(in section: IBookmarksListSectionViewModel, at index: Int)
   func selectItem(in section: IBookmarksListSectionViewModel, at index: Int)
   func checkItem(in section: IBookmarksListSectionViewModel, at index: Int, checked: Bool)
   func toggleVisibility(in section: IBookmarksListSectionViewModel)
@@ -99,6 +102,11 @@ protocol IBookmarksListInteractor {
   func resetSort()
   func lastSortingType() -> BookmarksListSortingType?
   func deleteBookmark(_ bookmarkId: MWMMarkID)
+  func deleteTrack(_ trackId: MWMTrackID)
+  func moveBookmark(_ bookmarkId: MWMMarkID, toGroupId: MWMMarkGroupID)
+  func moveTrack(_ trackId: MWMTrackID, toGroupId: MWMMarkGroupID)
+  func updateBookmark(_ bookmarkId: MWMMarkID, setGroupId groupId: MWMMarkGroupID, title: String, color: BookmarkColor, description: String)
+  func updateTrack(_ trackId: MWMTrackID, setGroupId groupId: MWMMarkGroupID)
   func deleteBookmarksGroup()
   func canDeleteGroup() -> Bool
   func exportFile(_ completion: @escaping (URL?, ExportFileStatus) -> Void)
@@ -110,6 +118,11 @@ protocol IBookmarksListRouter {
   func viewOnMap(_ bookmarkGroup: BookmarkGroup)
   func showDescription(_ bookmarkGroup: BookmarkGroup)
   func showSubgroup(_ subgroupId: MWMMarkGroupID)
+  func selectGroup(currentGroupName groupName: String,
+                   currentGroupId groupId: MWMMarkGroupID,
+                   delegate: SelectBookmarkGroupViewControllerDelegate?)
+  func editBookmark(bookmarkId: MWMMarkID, completion: @escaping (Bool) -> Void)
+  func editTrack(trackId: MWMTrackID, completion: @escaping (Bool) -> Void)
 }
 
 protocol IBookmakrsListInfoViewModel {

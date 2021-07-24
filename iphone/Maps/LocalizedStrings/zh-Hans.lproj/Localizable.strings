@@ -1427,6 +1427,9 @@
 /* Autoupdate dialog on start */
 "whats_new_auto_update_button_later" = "稍后手动更新";
 
+/* edit track screen title */
+"track_title" = "追踪";
+
 
 /********** Types **********/
 

@@ -1459,6 +1459,18 @@
 /* Autoupdate dialog on start */
 "whats_new_auto_update_button_later" = "Manually update later";
 
+/* Delete track button on track edit screen */
+"placepage_delete_track_button" = "Delete Track";
+
+/* Placeholder for track name input on track edit screen */
+"placepage_track_name_hint" = "Track Name";
+
+/* move track or bookmark from the list button text */
+"move" = "Move";
+
+/* edit track screen title */
+"track_title" = "Track";
+
 
 /********** Types **********/
 

@@ -816,6 +816,8 @@
 	<string name="whats_new_auto_update_button_size">Frissítés (%s)</string>
 	<!-- Autoupdate dialog on start -->
 	<string name="whats_new_auto_update_button_later">Kézi frissítés később</string>
+	<!-- edit track screen title -->
+	<string name="track_title">Útvonal</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Felvonóállomás</string>

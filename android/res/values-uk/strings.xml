@@ -821,6 +821,8 @@
 	<string name="whats_new_auto_update_button_size">Оновити (%s)</string>
 	<!-- Autoupdate dialog on start -->
 	<string name="whats_new_auto_update_button_later">Оновити вручну пізніше</string>
+	<!-- edit track screen title -->
+	<string name="track_title">Маршрут</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Канатна дорога</string>

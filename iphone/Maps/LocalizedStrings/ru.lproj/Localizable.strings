@@ -1438,6 +1438,18 @@
 /* Autoupdate dialog on start */
 "whats_new_auto_update_button_later" = "Обновить вручную позже";
 
+/* Delete track button on track edit screen */
+"placepage_delete_track_button" = "Удалить трек";
+
+/* Placeholder for track name input on track edit screen */
+"placepage_track_name_hint" = "Название трека";
+
+/* move track or bookmark from the list button text */
+"move" = "Переместить";
+
+/* edit track screen title */
+"track_title" = "Трек";
+
 
 /********** Types **********/
 

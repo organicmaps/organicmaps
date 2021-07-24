@@ -12,6 +12,12 @@ final class BookmarksListPresenter {
   private let imperialUnits: Bool
   private let bookmarkGroup: BookmarkGroup
 
+  private enum EditableItem {
+    case bookmark(MWMMarkID)
+    case track(MWMTrackID)
+  }
+  private var editingItem: EditableItem?
+
   init(view: IBookmarksListView,
        router: IBookmarksListRouter,
        delegate: BookmarksListDelegate?,
@@ -182,6 +188,10 @@ extension BookmarksListPresenter: IBookmarksListPresenter {
     view.setInfo(info)
   }
 
+  func viewDidAppear() {
+    reload()
+  }
+
   func activateSearch() {
     interactor.prepareForSearch()
   }
@@ -211,13 +221,52 @@ extension BookmarksListPresenter: IBookmarksListPresenter {
     showSortMenu()
   }
 
-  func deleteBookmark(in section: IBookmarksListSectionViewModel, at index: Int) {
-    guard let bookmarksSection = section as? BookmarksSectionViewModel else {
-      fatalError("It's only possible to delete a bookmark")
+  func deleteItem(in section: IBookmarksListSectionViewModel, at index: Int) {
+    switch section {
+    case let bookmarksSection as IBookmarksSectionViewModel:
+      guard let bookmark = bookmarksSection.bookmarks[index] as? BookmarkViewModel else { fatalError() }
+      interactor.deleteBookmark(bookmark.bookmarkId)
+      reload()
+    case let tracksSection as ITracksSectionViewModel:
+      guard let track = tracksSection.tracks[index] as? TrackViewModel else { fatalError() }
+      interactor.deleteTrack(track.trackId)
+      reload()
+    default:
+      fatalError("Cannot delete item: unsupported section type: \(section.self)")
     }
-    guard let bookmark = bookmarksSection.bookmarks[index] as? BookmarkViewModel else { fatalError() }
-    interactor.deleteBookmark(bookmark.bookmarkId)
-    reload()
+  }
+
+  func moveItem(in section: IBookmarksListSectionViewModel, at index: Int) {
+    let group = interactor.getBookmarkGroup()
+    switch section {
+    case let bookmarksSection as IBookmarksSectionViewModel:
+      guard let bookmark = bookmarksSection.bookmarks[index] as? BookmarkViewModel else { fatalError() }
+      editingItem = .bookmark(bookmark.bookmarkId)
+      router.selectGroup(currentGroupName: group.title, currentGroupId: group.categoryId, delegate: self)
+    case let tracksSection as ITracksSectionViewModel:
+      guard let track = tracksSection.tracks[index] as? TrackViewModel else { fatalError() }
+      editingItem = .track(track.trackId)
+      router.selectGroup(currentGroupName: group.title, currentGroupId: group.categoryId, delegate: self)
+    default:
+      fatalError("Cannot move item: unsupported section type: \(section.self)")
+    }
+  }
+
+  func editItem(in section: IBookmarksListSectionViewModel, at index: Int) {
+    switch section {
+    case let bookmarksSection as IBookmarksSectionViewModel:
+      guard let bookmarkId = (bookmarksSection.bookmarks[index] as? BookmarkViewModel)?.bookmarkId else { fatalError() }
+      router.editBookmark(bookmarkId: bookmarkId) { [weak self] wasChanged in
+        if wasChanged { self?.reload() }
+      }
+    case let tracksSection as ITracksSectionViewModel:
+      guard let trackId = (tracksSection.tracks[index] as? TrackViewModel)?.trackId else { fatalError() }
+      router.editTrack(trackId: trackId) { [weak self] wasChanged in
+        if wasChanged { self?.reload() }
+      }
+    default:
+      fatalError("Cannot edit item: unsupported section type: \(section.self)")
+    }
   }
 
   func selectItem(in section: IBookmarksListSectionViewModel, at index: Int) {
@@ -294,6 +343,37 @@ extension BookmarksListPresenter: CategorySettingsViewControllerDelegate {
   func categorySettingsController(_ viewController: CategorySettingsViewController, didDelete categoryId: MWMMarkGroupID) {
     delegate?.bookmarksListDidDeleteGroup()
   }
+}
+
+extension BookmarksListPresenter: SelectBookmarkGroupViewControllerDelegate {
+    func bookmarkGroupViewController(_ viewController: SelectBookmarkGroupViewController,
+                                     didSelect groupTitle: String,
+                                     groupId: MWMMarkGroupID) {
+
+      let nc = viewController.navigationController
+      defer { nc?.popViewController(animated: true) }
+
+      guard groupId != bookmarkGroup.categoryId else { return }
+      
+      switch editingItem {
+      case .bookmark(let bookmarkId):
+        interactor.moveBookmark(bookmarkId, toGroupId: groupId)
+      case .track(let trackId):
+        interactor.moveTrack(trackId, toGroupId: groupId)
+      case .none:
+        break
+      }
+      
+      editingItem = nil
+      
+      if bookmarkGroup.bookmarksCount > 0 || bookmarkGroup.trackCount > 0 {
+        reload()
+      } else {
+        // if there are no bookmarks or tracks in current group no need to show this group
+        // e.g. popping view controller 2 times
+        nc?.popViewController(animated: false)
+      }
+    }
 }
 
 extension IBookmarksSectionViewModel {

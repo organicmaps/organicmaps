@@ -118,6 +118,11 @@ std::string Track::GetName() const
   return GetPreferredBookmarkStr(m_data.m_name);
 }
 
+void Track::SetName(std::string const & name)
+{
+    kml::SetDefaultStr(m_data.m_name, name);
+}
+
 m2::RectD Track::GetLimitRect() const
 {
   if (m_interactionData)

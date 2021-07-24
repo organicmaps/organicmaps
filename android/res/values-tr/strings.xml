@@ -818,6 +818,8 @@
 	<string name="whats_new_auto_update_button_size">Güncelle (%s)</string>
 	<!-- Autoupdate dialog on start -->
 	<string name="whats_new_auto_update_button_later">Daha sonra manüel olarak güncelle</string>
+	<!-- edit track screen title -->
+	<string name="track_title">Rota</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Remontées mécaniques</string>

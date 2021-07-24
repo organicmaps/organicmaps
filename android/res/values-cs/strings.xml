@@ -818,6 +818,8 @@
 	<string name="whats_new_auto_update_button_size">Aktualizace (%s)</string>
 	<!-- Autoupdate dialog on start -->
 	<string name="whats_new_auto_update_button_later">Aktualizovat ručně později</string>
+	<!-- edit track screen title -->
+	<string name="track_title">Dráha</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Stanice lanové dráhy</string>

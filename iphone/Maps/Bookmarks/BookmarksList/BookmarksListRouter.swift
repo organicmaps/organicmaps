@@ -29,4 +29,23 @@ extension BookmarksListRouter: IBookmarksListRouter {
                                                                  bookmarksCoordinator: coordinator)
     mapViewController.navigationController?.pushViewController(bookmarksListViewController, animated: true)
   }
+  
+  func selectGroup(currentGroupName groupName: String,
+                   currentGroupId groupId: MWMMarkGroupID,
+                   delegate: SelectBookmarkGroupViewControllerDelegate?) {
+    let groupViewController = SelectBookmarkGroupViewController(groupName: groupName, groupId: groupId)
+    groupViewController.delegate = delegate
+    mapViewController.navigationController?.pushViewController(groupViewController, animated: true)
+  }
+  
+  func editBookmark(bookmarkId: MWMMarkID, completion: @escaping (Bool) -> Void) {
+    let editBookmarkController = UIStoryboard.instance(.main).instantiateViewController(withIdentifier: "MWMEditBookmarkController") as! EditBookmarkViewController
+    editBookmarkController.configure(with: bookmarkId, editCompletion: completion)
+    mapViewController.navigationController?.pushViewController(editBookmarkController, animated: true)
+  }
+  
+  func editTrack(trackId: MWMTrackID, completion: @escaping (Bool) -> Void) {
+    let editTrackController = EditTrackViewController(trackId: trackId, editCompletion: completion)
+    mapViewController.navigationController?.pushViewController(editTrackController, animated: true)
+  }
 }

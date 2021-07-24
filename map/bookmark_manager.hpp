@@ -152,7 +152,10 @@ public:
 
     void AttachBookmark(kml::MarkId bmId, kml::MarkGroupId groupId);
     void DetachBookmark(kml::MarkId bmId, kml::MarkGroupId groupId);
+      
+    Track * GetTrackForEdit(kml::TrackId trackId);
 
+    void MoveTrack(kml::TrackId trackID, kml::MarkGroupId curGroupID, kml::MarkGroupId newGroupID);
     void AttachTrack(kml::TrackId trackId, kml::MarkGroupId groupId);
     void DetachTrack(kml::TrackId trackId, kml::MarkGroupId groupId);
 
@@ -566,9 +569,11 @@ private:
 
   Track * CreateTrack(kml::TrackData && trackData);
 
+  Track * GetTrackForEdit(kml::TrackId trackId);
   void AttachTrack(kml::TrackId trackId, kml::MarkGroupId groupId);
   void DetachTrack(kml::TrackId trackId, kml::MarkGroupId groupId);
   void DeleteTrack(kml::TrackId trackId);
+  void MoveTrack(kml::TrackId trackID, kml::MarkGroupId curGroupID, kml::MarkGroupId newGroupID);
 
   void ClearGroup(kml::MarkGroupId groupId);
   void SetIsVisible(kml::MarkGroupId groupId, bool visible);

@@ -816,6 +816,8 @@
 	<string name="whats_new_auto_update_button_size">업데이트(%s)</string>
 	<!-- Autoupdate dialog on start -->
 	<string name="whats_new_auto_update_button_later">나중에 수동으로 업데이트</string>
+	<!-- edit track screen title -->
+	<string name="track_title">길</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">케이블카 역</string>

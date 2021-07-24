@@ -1410,6 +1410,9 @@
 /* Autoupdate dialog on start */
 "whats_new_auto_update_button_later" = "Actualizare manuală mai târziu";
 
+/* edit track screen title */
+"track_title" = "Rută";
+
 
 /********** Types **********/
 

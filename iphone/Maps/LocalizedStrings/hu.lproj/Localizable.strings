@@ -1407,6 +1407,9 @@
 /* Autoupdate dialog on start */
 "whats_new_auto_update_button_later" = "Kézi frissítés később";
 
+/* edit track screen title */
+"track_title" = "Útvonal";
+
 
 /********** Types **********/
 

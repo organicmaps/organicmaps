@@ -819,6 +819,8 @@
 	<string name="whats_new_auto_update_button_size">Pembaruan (%s)</string>
 	<!-- Autoupdate dialog on start -->
 	<string name="whats_new_auto_update_button_later">Perbarui secara manual nanti</string>
+	<!-- edit track screen title -->
+	<string name="track_title">Trek</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Stasiun kereta gantung</string>

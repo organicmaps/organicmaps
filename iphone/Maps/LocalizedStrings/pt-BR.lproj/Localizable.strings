@@ -1428,6 +1428,9 @@
 /* Autoupdate dialog on start */
 "whats_new_auto_update_button_later" = "Atualizar manualmente mais tarde";
 
+/* edit track screen title */
+"track_title" = "Percurso";
+
 
 /********** Types **********/
 

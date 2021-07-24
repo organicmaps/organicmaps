@@ -41,6 +41,11 @@ final class BookmarksListViewController: MWMViewController {
     presenter.viewDidLoad()
     MWMKeyboard.add(self);
   }
+  
+  override func viewDidAppear(_ animated: Bool) {
+    super.viewDidAppear(animated)
+    presenter.viewDidAppear()
+  }
 
   deinit {
     MWMKeyboard.remove(self);
@@ -122,12 +127,30 @@ extension BookmarksListViewController: UITableViewDelegate {
   func tableView(_ tableView: UITableView, didEndEditingRowAt indexPath: IndexPath?) {
     isEditing = false
   }
+  
+  func tableView(_ tableView: UITableView,
+                 leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+    let moveAction = UIContextualAction(style: .normal, title: L("move")) { [weak self] (_, _, completion) in
+      guard let section = self?.sections?[indexPath.section] else { fatalError() }
+      self?.presenter.moveItem(in: section, at: indexPath.row)
+      completion(true)
+    }
+    return UISwipeActionsConfiguration(actions: [moveAction])
+  }
 
   func tableView(_ tableView: UITableView,
-                 commit editingStyle: UITableViewCell.EditingStyle,
-                 forRowAt indexPath: IndexPath) {
-    guard let section = sections?[indexPath.section] else { fatalError() }
-    presenter.deleteBookmark(in: section, at: indexPath.row)
+                 trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+    let deleteAction = UIContextualAction(style: .destructive, title: L("delete")) { [weak self] (_, _, completion) in
+      guard let section = self?.sections?[indexPath.section] else { fatalError() }
+      self?.presenter.deleteItem(in: section, at: indexPath.row)
+      completion(true)
+    }
+    let editAction = UIContextualAction(style: .normal, title: L("edit")) { [weak self] (_, _, completion) in
+      guard let section = self?.sections?[indexPath.section] else { fatalError() }
+      self?.presenter.editItem(in: section, at: indexPath.row)
+      completion(true)
+    }
+    return UISwipeActionsConfiguration(actions: [deleteAction, editAction])
   }
 }
 

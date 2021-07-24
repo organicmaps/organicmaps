@@ -1249,3 +1249,6 @@
 
 /* Autoupdate dialog on start */
 "whats_new_auto_update_button_later" = "Ръчно актуализиране по-късно";
+
+/* edit track screen title */
+"track_title" = "Пътека";

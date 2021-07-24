@@ -1409,6 +1409,9 @@
 /* Autoupdate dialog on start */
 "whats_new_auto_update_button_later" = "나중에 수동으로 업데이트";
 
+/* edit track screen title */
+"track_title" = "길";
+
 
 /********** Types **********/
 
