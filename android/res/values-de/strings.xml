@@ -72,6 +72,8 @@
 	<string name="bookmark_color">Lesezeichen-Farbe</string>
 	<!-- Add Bookmark Set dialog - hint when set name is empty -->
 	<string name="bookmark_set_name">Name des Lesezeichens</string>
+	<!-- Bookmark Sets dialog title -->
+	<string name="bookmark_sets">Lesezeichenmappe</string>
 	<!-- Bookmarks - dialog title -->
 	<string name="bookmarks">Lesezeichengruppen</string>
 	<!-- Default bookmarks set name -->
@@ -239,12 +241,15 @@
 	<string name="downloader_cancel_all">Alle abbrechen</string>
 	<!-- Downloaded maps category -->
 	<string name="downloader_downloaded_subtitle">Heruntergeladen</string>
+	<!-- Downloaded maps category -->
+	<string name="downloader_available_maps">Verfügbar</string>
 	<!-- Country queued for download -->
 	<string name="downloader_queued">In der Warteschlange</string>
 	<string name="downloader_near_me_subtitle">In meiner Nähe</string>
 	<string name="downloader_status_maps">Karten</string>
 	<string name="downloader_download_all_button">Alle herunterladen</string>
 	<string name="downloader_downloading">Wird heruntergeladen:</string>
+	<string name="downloader_search_results">Gefunden</string>
 	<!-- Status of outdated country in the list -->
 	<string name="downloader_status_outdated">Aktualisieren</string>
 	<!-- Status of failed country in the list -->
@@ -478,6 +483,7 @@
 	<string name="editor_detailed_description">Ihre Änderungsvorschläge für die Karte werden an OpenStreetMap gesendet: Beschreiben Sie die Details der Objekte, die Sie in Organic Maps nicht bearbeiten können.</string>
 	<string name="editor_more_about_osm">Mehr Informationen über OpenStreetMap</string>
 	<string name="editor_operator">Betreiber oder Eigentümer</string>
+	<string name="downloader_my_maps_title">Meine Karten</string>
 	<string name="downloader_no_downloaded_maps_title">Keine Karten geladen</string>
 	<string name="downloader_no_downloaded_maps_message">Laden Sie die für die Suche nach Orten erforderlichen Karten und verwenden Sie die Navigation offline.</string>
 	<!-- Error title that appears after certain time without location. -->
@@ -496,8 +502,10 @@
 	<string name="location_services_disabled_3">3. Wählen Sie „Beim Verwenden der App“</string>
 	<string name="meter">m</string>
 	<string name="kilometer">km</string>
+	<string name="kilometers_per_hour">km / h</string>
 	<string name="mile">mi</string>
 	<string name="foot">ft</string>
+	<string name="miles_per_hour">mph</string>
 	<string name="hour">h</string>
 	<string name="minute">min</string>
 	<string name="placepage_place_description">Beschreibung</string>
@@ -507,6 +515,8 @@
 	<string name="placepage_call_button">Anruf</string>
 	<string name="placepage_edit_bookmark_button">Lesezeichen bearbeiten</string>
 	<string name="placepage_bookmark_name_hint">Name des Lesezeichens</string>
+	<string name="placepage_personal_notes_hint">Anmerkung</string>
+	<string name="placepage_delete_bookmark_button">Lesezeichen löschen</string>
 	<string name="editor_edits_sent_message">Ihre Änderungsvorschläge wurden gesendet</string>
 	<string name="editor_comment_hint">Kommentar…</string>
 	<string name="editor_reset_edits_message">Alle lokalen Korrekturen verwerfen</string>
@@ -526,6 +536,7 @@
 	<!-- iOS Dialog before publishing the modifications to the public map. -->
 	<string name="editor_share_to_all_dialog_message_1">Stellen Sie sicher, dass Sie keine persönlichen Daten eingegeben haben.</string>
 	<string name="editor_share_to_all_dialog_message_2">Wir werden die Änderungen prüfen. Wenn wir Fragen haben, werden wir Sie per Email kontaktieren.</string>
+	<string name="navigation_stop_button">Stop</string>
 	<!-- iOS dialog for the case when recent track recording is on and the app comes back from background -->
 	<string name="recent_track_background_dialog_title">Aufzeichnung Ihrer kürzlich gefahrenen Route deaktivieren?</string>
 	<string name="off_recent_track_background_button">Deaktivieren</string>
@@ -570,7 +581,7 @@
 	<string name="prefs_languages_information">Wir verwenden Text-to-Speech-Systeme für Sprachanweisungen. Viele Android-Geräte nutzen Google-TTS, das können Sie bei Google Play (https://play.google.com/store/apps/details?id=com.google.android.tts) herunterladen oder aktualisieren.</string>
 	<string name="prefs_languages_information_off">Für einige Sprachen müssen Sie einen anderen Sprachsynthesizer oder ein zusätzliches Sprachpaket aus dem App Store installieren (Google Play Market, Samsung Apps). \nÖffnen Sie die Einstellungen Ihres Gerätes → Sprache und Eingabe → Sprache → Text-to-Speech-Ausgabe. Hier können Sie die Einstellungen für Sprachsynthese verwalten (beispielsweise ein Sprachpaket für die Offline-Verwendung herunterladen) und ein anderes Versprachlichungsprogramm auswählen.</string>
 	<string name="prefs_languages_information_off_link">Weitere Informationen finden Sie in dieser Anleitung.</string>
-	<string name="whatsnew_transliteration_title">Transliteration ins Lateinische</string>
+	<string name="transliteration_title">Transliteration ins Lateinische</string>
 	<string name="learn_more">Weitere Informationen</string>
 	<string name="core_exit">Beenden</string>
 	<string name="routing_add_start_point">Fügen Sie einen Startpunkt hinzu, um eine Route zu planen</string>
@@ -582,6 +593,7 @@
 	<string name="planning_route_remove_title">Hierher ziehen zum Entfernen</string>
 	<string name="placepage_add_stop">Zwischenstopp hinzufügen</string>
 	<string name="preloader_viator_button">Weitere Informationen</string>
+	<string name="start_from_my_position">Starten von</string>
 	<string name="profile_authorization_error">Hoppla, es ist ein Fehler aufgetreten. Versuchen Sie erneut, sich anzumelden.</string>
 	<string name="dialog_error_storage_title">Problem mit dem Zugreifen auf den Speicher</string>
 	<string name="dialog_error_storage_message">Der externe Speicher ist nicht verfügbar, möglicherweise wurde die SD-Karte entfernt oder sie ist beschädigt oder das Dateisystem ist schreibgeschützt. Überprüfen Sie das bitte und kontaktieren Sie uns unter support\@organicmaps.app</string>
@@ -591,6 +603,9 @@
 	<string name="bookmarks_groups">Listen</string>
 	<string name="bookmarks_groups_hide_all">Alle verbergen</string>
 	<string name="bookmarks_groups_show_all">Alle anzeigen</string>
+	<plurals name="bookmarks_places">
+	  <item quantity="other">%d Lesezeichen</item>
+	</plurals>
 	<string name="bookmarks_create_new_group">Erstelle eine neue Liste</string>
 	<string name="downloader_hide_screen">Bildschirm verbergen</string>
 	<string name="downloader_percent">%1$s (%2$s von %3$s)</string>
@@ -604,6 +619,7 @@
 	<string name="bookmarks_new_list_hint">Neue Liste</string>
 	<string name="bookmarks_error_title_list_name_already_taken">Dieser Name ist bereits vergeben</string>
 	<string name="bookmarks_error_message_list_name_already_taken">Bitte wähle einen anderen Namen</string>
+	<string name="bookmarks_error_title_list_name_too_long">Dieser Name ist zu lang</string>
 	<string name="please_wait">Warten Sie mal…</string>
 	<string name="phone_number">Telefonnummer</string>
 	<string name="profile">OpenStreetMap-Profil</string>
@@ -651,6 +667,7 @@
 	<string name="bookmark_category_description_hint">Fügen Sie die Beschreibung hinzu (Text oder html)</string>
 	<string name="not_shared">Persönlich</string>
 	<string name="tags_loading_error_subtitle">Während dem Laden der Tags ist ein Fehler aufgetreten, bitte, versuchen Sie es erneut</string>
+	<string name="download_button">Downloaden</string>
 	<string name="speedcams_alert_title">Geschwindigkeitskameras</string>
 	<string name="speedcam_option_auto">Auto</string>
 	<string name="speedcam_option_always">Immer</string>
@@ -676,14 +693,50 @@
 	<string name="unable_to_calc_alert_subtitle">Leider konnten wir keine Route mit ausgewählten Optionen planen. Ändern Sie die Einstellungen und versuchen Sie den Versuch erneut</string>
 	<string name="define_to_avoid_btn">Umwege einstellen</string>
 	<string name="change_driving_options_btn">Einstellung des Umweges aktiv</string>
+	<string name="toll_road">Mautstraße</string>
+	<string name="unpaved_road">Erdweg</string>
+	<string name="ferry_crossing">Fährstelle</string>
 	<string name="avoid_toll_roads_placepage">Mautstraßen vermeiden</string>
 	<string name="avoid_unpaved_roads_placepage">Erdwege vermeiden</string>
 	<string name="avoid_ferry_crossing_placepage">Fährstellen vermeiden</string>
+	<string name="trip_start">Fahren wir</string>
+	<string name="pick_destination">Ziel</string>
+	<string name="follow_my_position">Zentrieren</string>
+	<string name="search_results">Suchergebnisse</string>
+	<string name="then_turn">Danach</string>
+	<string name="redirect_route_alert">Möchten Sie die Route neu erstellen?</string>
+	<string name="redirect_route_yes">Ja</string>
+	<string name="redirect_route_no">Nein</string>
+	<string name="trip_finished">Sie sind angekommen!</string>
+	<string name="keyboard_availability_alert">Die Tastatur ist während der Bewegung nicht zugänglich</string>
+	<string name="dialog_routing_change_start_carplay">Es ist unmöglich eine Reiseroute vom aktuellen Standort planen</string>
+	<string name="dialog_routing_change_end_carplay">Es ist unmöglich eine Reiseroute bis zum Endpunkt planen. Wählen Sie einen anderen</string>
+	<string name="dialog_routing_check_gps_carplay">Kein GPS-Signal. Gehen Sie in das offene Gelände</string>
+	<string name="dialog_routing_unable_locate_route_carplay">Es ist unmöglich, eine Route zu planen. Wählen Sie andere Routenpunkte</string>
+	<string name="dialog_routing_download_files_carplay">Laden Sie die fehlenden Karten hoch, um die Route zu erstellen</string>
+	<string name="dialog_routing_system_error_carplay">Fehler aufgetreten. Starten Sie Applikation neu</string>
+	<string name="dialog_routing_rebuild_from_current_location_carplay">Die Route wird von Ihrem derzeitigen Standpunkt geplant werden</string>
+	<string name="dialog_routing_rebuild_for_vehicle_carplay">Reiseroute wird zur Route für Fahrzeug geändert sein</string>
 	<string name="ok">Ok</string>
+	<string name="avoid_unpaved_carplay_1">Ohne Landstr</string>
+	<string name="avoid_unpaved_carplay_2">Ohne Landstr.</string>
+	<string name="avoid_ferry_carplay_1">Ohne Fähren</string>
+	<string name="avoid_ferry_carplay_2">Ohne Fähren</string>
+	<string name="avoid_tolls_carplay_1">Ohne kpf Str</string>
+	<string name="avoid_tolls_carplay_2">Ohne kpfl. Str.</string>
+	<string name="speedcams_alert_title_carplay_1">Blitzer</string>
+	<string name="speedcams_alert_title_carplay_2">Blitzerwarnung</string>
+	<string name="download_map_carplay">Laden Sie Karten in der App Organic Maps auf Ihrem Gerät herunter</string>
+	<string name="carplay_roundabout_exit">%s Ausfahrt</string>
 	<!-- max. 10 symbols, both iOS and Android -->
 	<string name="sort">Sortieren…</string>
 	<!-- Android, title, max 20-22 symbols -->
 	<string name="sort_bookmarks">Lesezeichen sortieren</string>
+	<!-- iOS -->
+	<string name="sort_default">Default Sortierung</string>
+	<string name="sort_type">Sortierung nach Kategorien</string>
+	<string name="sort_distance">Sortieren nach Entfernung</string>
+	<string name="sort_date">Sortieren nach Datum</string>
 	<!-- Android -->
 	<string name="by_default">Default</string>
 	<!-- Android -->
@@ -692,7 +745,29 @@
 	<string name="by_distance">Nach Entfernung</string>
 	<!-- Android -->
 	<string name="by_date">Nach Datum</string>
+	<string name="week_ago_sorttype">Vor einer Woche</string>
+	<string name="month_ago_sorttype">Vor einem Monat</string>
+	<string name="moremonth_ago_sorttype">Vor über einem Monat</string>
+	<string name="moreyear_ago_sorttype">Vor über einem Jahr</string>
+	<string name="near_me_sorttype">In der Nähe</string>
+	<string name="others_sorttype">Sonstiges</string>
+	<string name="food_places">Essen</string>
+	<string name="tourist_places">Sehenswürdigkeiten</string>
+	<string name="museums">Museen</string>
+	<string name="parks">Parks</string>
+	<string name="swim_places">Schwimmmöglichkeiten</string>
+	<string name="mountains">Berge</string>
+	<string name="animals">Tiere</string>
+	<string name="hotels">Hotels</string>
+	<string name="buildings">Gebäude</string>
+	<string name="money">Geld</string>
+	<string name="shops">Ladengeschäfte</string>
+	<string name="parkings">Parkplätze</string>
+	<string name="fuel_places">Tankstellen</string>
+	<string name="water">Wasser</string>
+	<string name="medicine">Medizin</string>
 	<string name="search_in_the_list">In der Liste suchen</string>
+	<string name="religious_places">Heilige Orte</string>
 	<string name="select_list">Wählen Sie die Liste</string>
 	<string name="transit_not_found">Die U-Bahn-Navigation ist in dieser Region noch nicht verfügbar</string>
 	<string name="dialog_pedestrian_route_is_long_header">Keine U-Bahn-Route gefunden</string>
@@ -701,6 +776,9 @@
 	<string name="isolines_activation_error_dialog">Um den Topographie-Layer benutzen zu können, aktualisieren oder laden Sie die Karte der benötigten Gegend herunter</string>
 	<string name="isolines_location_error_dialog">Topographie-Layer sind in dieser Region noch nicht verfügbar</string>
 	<string name="elevation_profile_diff_level">Komplexitätsniveau</string>
+	<string name="elevation_profile_diff_level_easy">Leicht</string>
+	<string name="elevation_profile_diff_level_moderate">Mittel</string>
+	<string name="elevation_profile_diff_level_hard">Schwer</string>
 	<string name="elevation_profile_ascent">Bergauf</string>
 	<string name="elevation_profile_descent">Bergab</string>
 	<string name="elevation_profile_minaltitude">Min. Höhe</string>
@@ -709,6 +787,8 @@
 	<string name="elevation_profile_distance">Entf.:</string>
 	<string name="elevation_profile_time">Dauer:</string>
 	<string name="isolines_toast_zooms_1_10">Karte vergrößern, um Isolinien zu sehen</string>
+	<string name="downloader_updating_ios">Update</string>
+	<string name="downloader_loading_ios">Download</string>
 	<string name="key_information_title">Wichtige Informationen</string>
 	<string name="enable_screen_sleep">Bildschirm schlafen lassen</string>
 	<!-- Description in preferences -->
@@ -721,9 +801,6 @@
 	<string name="whats_new_auto_update_button_size">Aktualisieren (%s)</string>
 	<!-- Autoupdate dialog on start -->
 	<string name="whats_new_auto_update_button_later">Später manuell aktualisieren</string>
-
-	<!-- SECTION:  Partners  -->
-	<string name="sponsored_partner2_action">Rabatt</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Seilbahn</string>

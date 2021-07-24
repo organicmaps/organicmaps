@@ -70,6 +70,8 @@
 	<string name="bookmark_color">Könyvjelző színe</string>
 	<!-- Add Bookmark Set dialog - hint when set name is empty -->
 	<string name="bookmark_set_name">Könyvjelzőcsoport neve</string>
+	<!-- Bookmark Sets dialog title -->
+	<string name="bookmark_sets">Könyvjelzőcsoportok</string>
 	<!-- Bookmarks - dialog title -->
 	<string name="bookmarks">Könyvjelzők</string>
 	<!-- Default bookmarks set name -->
@@ -235,12 +237,15 @@
 	<string name="downloader_cancel_all">Mindent visszavon</string>
 	<!-- Downloaded maps category -->
 	<string name="downloader_downloaded_subtitle">Letöltve</string>
+	<!-- Downloaded maps category -->
+	<string name="downloader_available_maps">Elérhető</string>
 	<!-- Country queued for download -->
 	<string name="downloader_queued">Várólistás</string>
 	<string name="downloader_near_me_subtitle">A közelemben</string>
 	<string name="downloader_status_maps">Térképek</string>
 	<string name="downloader_download_all_button">Mindegyik letöltése</string>
 	<string name="downloader_downloading">Letöltés:</string>
+	<string name="downloader_search_results">Megtalálva</string>
 	<!-- Status of outdated country in the list -->
 	<string name="downloader_status_outdated">Frissítés</string>
 	<!-- Status of failed country in the list -->
@@ -474,6 +479,7 @@
 	<string name="editor_detailed_description">Javasolt változtatásait elküldjük az OpenStreetMap közösségnek. Írja le a további információkat, amelyek nem szerkeszthetők a Organic Maps-ben.</string>
 	<string name="editor_more_about_osm">További részletek az OpenStreetMap-ról</string>
 	<string name="editor_operator">Üzemeltető</string>
+	<string name="downloader_my_maps_title">Térképeim</string>
 	<string name="downloader_no_downloaded_maps_title">Még nem töltött le térképet</string>
 	<string name="downloader_no_downloaded_maps_message">Töltse le a szükséges térképeket, hogy megtalálja a helyet és internet nélkül is navigálhasson.</string>
 	<!-- Error title that appears after certain time without location. -->
@@ -491,8 +497,10 @@
 	<string name="location_services_disabled_3">3. Kiválaszt az alkalmazás használata alatt</string>
 	<string name="meter">m</string>
 	<string name="kilometer">km</string>
+	<string name="kilometers_per_hour">km/h</string>
 	<string name="mile">mf</string>
 	<string name="foot">ft</string>
+	<string name="miles_per_hour">mph</string>
 	<string name="hour">ó</string>
 	<string name="minute">p</string>
 	<string name="placepage_place_description">Leírás</string>
@@ -502,6 +510,8 @@
 	<string name="placepage_call_button">Hívás</string>
 	<string name="placepage_edit_bookmark_button">Könyvjelző szerkesztése</string>
 	<string name="placepage_bookmark_name_hint">Könyvjelző neve</string>
+	<string name="placepage_personal_notes_hint">Jegyzet</string>
+	<string name="placepage_delete_bookmark_button">Könyvjelző törlése</string>
 	<string name="editor_edits_sent_message">Javasolt változtatásainak elküldése sikerült</string>
 	<string name="editor_comment_hint">Megjegyzés…</string>
 	<string name="editor_reset_edits_message">Elveti az összes helyi módosítást?</string>
@@ -521,6 +531,7 @@
 	<!-- iOS Dialog before publishing the modifications to the public map. -->
 	<string name="editor_share_to_all_dialog_message_1">Győződj meg arról, hogy nem adsz meg semmilyen személyes információt.</string>
 	<string name="editor_share_to_all_dialog_message_2">Ellenőrizni fogjuk a változásokat. Ha bármilyen kérdésünk van, emailben keresünk.</string>
+	<string name="navigation_stop_button">megállítás</string>
 	<!-- iOS dialog for the case when recent track recording is on and the app comes back from background -->
 	<string name="recent_track_background_dialog_title">Megszakítod a legutóbb megtett utad rögzítését?</string>
 	<string name="off_recent_track_background_button">Megszakítás</string>
@@ -565,7 +576,7 @@
 	<string name="prefs_languages_information">TTS rendszert használunk a hangnavigációhoz. Sok Android-os készülék használja a Google TTS-t; töltse le vagy frissítse a Google Play áruházból (https://play.google.com/store/apps/details?id=com.google.android.tts)</string>
 	<string name="prefs_languages_information_off">Egyes nyelveknél másik beszédszintetizátort vagy további nyelvi csomagot kell telepítenie az alkalmazás-áruházból (Google Play Market, Samsung Apps). Nyissa meg a készülék beállításait → Nyelv és bevitel → Beszéd → Szöveg-beszéd átalakító kimenet. Itt kezelheti a beszédszintézis beállításokat (például nyelvi csomag letöltése kapcsolat nélküli használatra) és másik szövegfelolvasót jelölhe tki.</string>
 	<string name="prefs_languages_information_off_link">További tájékoztatást találhat még ebben az útmutatóban.</string>
-	<string name="whatsnew_transliteration_title">Átírás latin nyelvre</string>
+	<string name="transliteration_title">Átírás latin nyelvre</string>
 	<string name="learn_more">Tudjon meg többet</string>
 	<string name="core_exit">Kilépés</string>
 	<string name="routing_add_start_point">Adjon hozzá kiindulási pontot az útvonal megtervezéséhez</string>
@@ -577,6 +588,7 @@
 	<string name="planning_route_remove_title">Húzza ide az eltávolításhoz</string>
 	<string name="placepage_add_stop">Hozzáad megállót</string>
 	<string name="preloader_viator_button">Tudjon meg többet</string>
+	<string name="start_from_my_position">Elkezdi innen:</string>
 	<string name="profile_authorization_error">Hoppá, volt egy hiba. Próbáljon meg újra bejelentkezni.</string>
 	<string name="dialog_error_storage_title">Tároló hozzáférési hiba</string>
 	<string name="dialog_error_storage_message">Külső tároló nem áll rendelkezésre, valószínűleg az SD-kártyát eltávolították vagy sérült, vagy rendszerfájl csak olvasható. Ellenőrizze, és lépjen kapcsolatba velünk a support\@organicmaps.app címen</string>
@@ -586,6 +598,9 @@
 	<string name="bookmarks_groups">List</string>
 	<string name="bookmarks_groups_hide_all">Összes elrejtése</string>
 	<string name="bookmarks_groups_show_all">Összes megjelenítése</string>
+	<plurals name="bookmarks_places">
+	  <item quantity="other">könyvjelzők %d</item>
+	</plurals>
 	<string name="bookmarks_create_new_group">Új lista létrehozása</string>
 	<string name="downloader_hide_screen">Képernyő elrejtése</string>
 	<string name="downloader_percent">%1$s (%2$s / %3$s)</string>
@@ -599,6 +614,7 @@
 	<string name="bookmarks_new_list_hint">Új lista</string>
 	<string name="bookmarks_error_title_list_name_already_taken">Ez a név már foglalt</string>
 	<string name="bookmarks_error_message_list_name_already_taken">Kérjük, válasszon másik nevet</string>
+	<string name="bookmarks_error_title_list_name_too_long">Ez a név túl hosszú</string>
 	<string name="please_wait">Kérlek várj…</string>
 	<string name="phone_number">Telefonszám</string>
 	<string name="profile">OpenStreetMap profil</string>
@@ -646,6 +662,7 @@
 	<string name="bookmark_category_description_hint">Leírás hozzáadása (szöveg vagy html)</string>
 	<string name="not_shared">Privát</string>
 	<string name="tags_loading_error_subtitle">A tag-ek feltöltésekor hiba történt, kérjük próbálja meg még egyszer</string>
+	<string name="download_button">Letöltés</string>
 	<string name="speedcams_alert_title">Sebességmérő kamerák</string>
 	<string name="speedcam_option_auto">Autó</string>
 	<string name="speedcam_option_always">Mindig</string>
@@ -671,14 +688,50 @@
 	<string name="unable_to_calc_alert_subtitle">Sajnos nem találunk útvonalat, valószínűleg az általad meghatározott lehetőségek miatt. Kérjük változtass a beállításokon és próbáld újra</string>
 	<string name="define_to_avoid_btn">Elkerülendő utak meghatározása</string>
 	<string name="change_driving_options_btn">Vezetési lehetőségek bekapcsolva</string>
+	<string name="toll_road">Fizetős utak</string>
+	<string name="unpaved_road">Kövezetlen utak</string>
+	<string name="ferry_crossing">Kompátkelők</string>
 	<string name="avoid_toll_roads_placepage">Fizetős utak elkerülése</string>
 	<string name="avoid_unpaved_roads_placepage">Kövezetlen utak elkerülése</string>
 	<string name="avoid_ferry_crossing_placepage">Kompátkelők elkerülése</string>
+	<string name="trip_start">Gyerünk</string>
+	<string name="pick_destination">Cél</string>
+	<string name="follow_my_position">Középre</string>
+	<string name="search_results">Keresési eredmények</string>
+	<string name="then_turn">Utána</string>
+	<string name="redirect_route_alert">Szeretnél újratervezni egy útvonalat?</string>
+	<string name="redirect_route_yes">Igen</string>
+	<string name="redirect_route_no">Nem</string>
+	<string name="trip_finished">Megérkeztél!</string>
+	<string name="keyboard_availability_alert">A billentyűzet nem elérhető vezetés közben</string>
+	<string name="dialog_routing_change_start_carplay">Nem lehet útvonalat tervezni a jelenlegi helyedről</string>
+	<string name="dialog_routing_change_end_carplay">Nem lehet útvonalat tervezni a célodhoz. Kérjük válassz egy másik pontot</string>
+	<string name="dialog_routing_check_gps_carplay">Nincs GPS-jel. Kérjük menj egy nyílt területre</string>
+	<string name="dialog_routing_unable_locate_route_carplay">Nem lehet útvonalat tervezni. Kérjük határozz meg más útvonal lehetőségeket</string>
+	<string name="dialog_routing_download_files_carplay">Útvonal létrehozásához töltsd le a hiányzó térképeket az eszközre</string>
+	<string name="dialog_routing_system_error_carplay">Hiba történt. Kérjük indítsd újra az alkalmazást</string>
+	<string name="dialog_routing_rebuild_from_current_location_carplay">Az útvonal újra lesz tervezve a jelenlegi helyzetedről</string>
+	<string name="dialog_routing_rebuild_for_vehicle_carplay">Az útvonal módosítva lesz egy autó számára</string>
 	<string name="ok">Oké</string>
+	<string name="avoid_unpaved_carplay_1">Nem földút</string>
+	<string name="avoid_unpaved_carplay_2">Földút kerülése</string>
+	<string name="avoid_ferry_carplay_1">Komp nélkül</string>
+	<string name="avoid_ferry_carplay_2">Kompok kerülése</string>
+	<string name="avoid_tolls_carplay_1">Nincs útdíj</string>
+	<string name="avoid_tolls_carplay_2">Útdíj kerülése</string>
+	<string name="speedcams_alert_title_carplay_1">Traffipaxok</string>
+	<string name="speedcams_alert_title_carplay_2">Sebességjelzés</string>
+	<string name="download_map_carplay">Kérjük, töltsd le a térképeket a Organic Maps alkalmazásban az eszközödre</string>
+	<string name="carplay_roundabout_exit">%s kijárat</string>
 	<!-- max. 10 symbols, both iOS and Android -->
 	<string name="sort">Rendezd…</string>
 	<!-- Android, title, max 20-22 symbols -->
 	<string name="sort_bookmarks">Könyvelzők rendezése</string>
+	<!-- iOS -->
+	<string name="sort_default">Alapértelmezés szerint</string>
+	<string name="sort_type">Típus szerint</string>
+	<string name="sort_distance">Távolság szerint</string>
+	<string name="sort_date">Dátum szerint</string>
 	<!-- Android -->
 	<string name="by_default">Alapértelmezés szerint</string>
 	<!-- Android -->
@@ -687,7 +740,29 @@
 	<string name="by_distance">Távolság szerint</string>
 	<!-- Android -->
 	<string name="by_date">Dátum szerint</string>
+	<string name="week_ago_sorttype">Egy hete</string>
+	<string name="month_ago_sorttype">Egy hónapja</string>
+	<string name="moremonth_ago_sorttype">Több mint egy hónapja</string>
+	<string name="moreyear_ago_sorttype">Több mint egy éve</string>
+	<string name="near_me_sorttype">Hozzám közel</string>
+	<string name="others_sorttype">Más</string>
+	<string name="food_places">Étel</string>
+	<string name="tourist_places">Látnivalók</string>
+	<string name="museums">Múzeumok</string>
+	<string name="parks">Parkok</string>
+	<string name="swim_places">Úszás</string>
+	<string name="mountains">Hegyek</string>
+	<string name="animals">Állatok</string>
+	<string name="hotels">Hotelek</string>
+	<string name="buildings">Épületek</string>
+	<string name="money">Pénz</string>
+	<string name="shops">Üzletek</string>
+	<string name="parkings">Parkolók</string>
+	<string name="fuel_places">Benzinkutak</string>
+	<string name="water">Víz</string>
+	<string name="medicine">Gyógyszer</string>
 	<string name="search_in_the_list">Keresés a listában</string>
+	<string name="religious_places">Vallási helyek</string>
 	<string name="select_list">Lista kiválasztása</string>
 	<string name="transit_not_found">Metró navigáció ebben a régióban még nem érhető el</string>
 	<string name="dialog_pedestrian_route_is_long_header">Metró útvonal nem található</string>
@@ -696,6 +771,9 @@
 	<string name="isolines_activation_error_dialog">A topográfiai réteg aktiválásához és használatához kérjük frissítse vagy töltse le az adott terület térképét</string>
 	<string name="isolines_location_error_dialog">Ezen a területen a topográfiai réteg még nem elérhető</string>
 	<string name="elevation_profile_diff_level">Nehézségi szint</string>
+	<string name="elevation_profile_diff_level_easy">Könnyű</string>
+	<string name="elevation_profile_diff_level_moderate">Mérsékelt</string>
+	<string name="elevation_profile_diff_level_hard">Nehéz</string>
 	<string name="elevation_profile_ascent">Felemelkedés</string>
 	<string name="elevation_profile_descent">Leereszkedés</string>
 	<string name="elevation_profile_minaltitude">Min. magasság</string>
@@ -704,6 +782,8 @@
 	<string name="elevation_profile_distance">Táv.:</string>
 	<string name="elevation_profile_time">Idő</string>
 	<string name="isolines_toast_zooms_1_10">Nagyítás az isovonalak felfedezéséhez</string>
+	<string name="downloader_updating_ios">Feltöltés</string>
+	<string name="downloader_loading_ios">Letöltés</string>
 	<string name="key_information_title">Kulcs információ</string>
 	<string name="enable_screen_sleep">Hagyja aludni a képernyőt</string>
 	<!-- Description in preferences -->

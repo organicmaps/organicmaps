@@ -73,6 +73,8 @@
 	<string name="bookmark_color">Цвет метки</string>
 	<!-- Add Bookmark Set dialog - hint when set name is empty -->
 	<string name="bookmark_set_name">Название группы</string>
+	<!-- Bookmark Sets dialog title -->
+	<string name="bookmark_sets">Группы меток</string>
 	<!-- Bookmarks - dialog title -->
 	<string name="bookmarks">Метки</string>
 	<!-- Default bookmarks set name -->
@@ -245,12 +247,15 @@
 	<string name="downloader_cancel_all">Отменить все</string>
 	<!-- Downloaded maps category -->
 	<string name="downloader_downloaded_subtitle">Загруженные</string>
+	<!-- Downloaded maps category -->
+	<string name="downloader_available_maps">Доступные</string>
 	<!-- Country queued for download -->
 	<string name="downloader_queued">В очереди</string>
 	<string name="downloader_near_me_subtitle">Возле меня</string>
 	<string name="downloader_status_maps">Карт</string>
 	<string name="downloader_download_all_button">Загрузить все</string>
 	<string name="downloader_downloading">Загружается:</string>
+	<string name="downloader_search_results">Найдено</string>
 	<!-- Status of outdated country in the list -->
 	<string name="downloader_status_outdated">Обновить</string>
 	<!-- Status of failed country in the list -->
@@ -438,6 +443,7 @@
 	<!-- login text field -->
 	<string name="email_or_username">Эл. почта или имя пользователя</string>
 	<string name="phone">Телефон</string>
+	<string name="editor_add_phone">Добавить телефон</string>
 	<string name="please_note">Обратите внимание</string>
 	<string name="downloader_delete_map_dialog">Вместе с картой удалятся и внесенные вами правки на этой карте.</string>
 	<string name="downloader_update_maps">Обновите карты</string>
@@ -484,6 +490,7 @@
 	<string name="editor_detailed_description">Предложенные вами изменения на карте будут отправлены в OpenStreetMap. Опишите дополнительные сведения об объекте, которые Organic Maps не позволяет отредактировать.</string>
 	<string name="editor_more_about_osm">Подробнее об OpenStreetMap</string>
 	<string name="editor_operator">Владелец</string>
+	<string name="downloader_my_maps_title">Мои карты</string>
 	<string name="downloader_no_downloaded_maps_title">У вас нет загруженных карт</string>
 	<string name="downloader_no_downloaded_maps_message">Загрузите необходимые карты, чтобы находить места и пользоваться навигацией без интернета.</string>
 	<!-- Error title that appears after certain time without location. -->
@@ -502,8 +509,10 @@
 	<string name="location_services_disabled_3">3. Выберите «При использовании программы»</string>
 	<string name="meter">м</string>
 	<string name="kilometer">км</string>
+	<string name="kilometers_per_hour">км/ч</string>
 	<string name="mile">ми</string>
 	<string name="foot">фут</string>
+	<string name="miles_per_hour">ми/ч</string>
 	<string name="hour">ч</string>
 	<string name="minute">мин</string>
 	<string name="placepage_place_description">Описание</string>
@@ -513,6 +522,8 @@
 	<string name="placepage_call_button">Позвонить</string>
 	<string name="placepage_edit_bookmark_button">Редактировать метку</string>
 	<string name="placepage_bookmark_name_hint">Название метки</string>
+	<string name="placepage_personal_notes_hint">Примечание</string>
+	<string name="placepage_delete_bookmark_button">Удалить метку</string>
 	<string name="editor_edits_sent_message">Предложенные вами изменения отправлены</string>
 	<string name="editor_comment_hint">Коментарий…</string>
 	<string name="editor_reset_edits_message">Сбросить все локальные правки?</string>
@@ -532,6 +543,7 @@
 	<!-- iOS Dialog before publishing the modifications to the public map. -->
 	<string name="editor_share_to_all_dialog_message_1">Убедитесь, что вы не ввели личные данные.</string>
 	<string name="editor_share_to_all_dialog_message_2">Если при проверке изменений возникнут вопросы, мы напишем вам на email.</string>
+	<string name="navigation_stop_button">стоп</string>
 	<!-- iOS dialog for the case when recent track recording is on and the app comes back from background -->
 	<string name="recent_track_background_dialog_title">Выключить запись недавно пройденого пути?</string>
 	<string name="off_recent_track_background_button">Выключить</string>
@@ -576,7 +588,7 @@
 	<string name="prefs_languages_information">Подсказки озвучиваются системным синтезатором речи (TTS). На многих устройствах используется Google TTS, его можно загрузить или обновить в Google Play (https://play.google.com/store/apps/details?id=com.google.android.tts)</string>
 	<string name="prefs_languages_information_off">Для некоторых языков, возможно, необходимо установить дополнительный синтезатор речи (TTS) из магазина приложений (Google Play Market, Samsung Apps).\nЧтобы настроить синтезатор речи, перейдите в Настройки → Язык и ввод → Синтез речи.\nЗдесь можно установить дополнительные языковые пакеты или выбрать синтезатор речи.</string>
 	<string name="prefs_languages_information_off_link">Более подробная информация — в этом руководстве.</string>
-	<string name="whatsnew_transliteration_title">Латинская транслитерация</string>
+	<string name="transliteration_title">Латинская транслитерация</string>
 	<string name="learn_more">Узнать больше</string>
 	<string name="core_exit">Выход</string>
 	<string name="routing_add_start_point">Добавьте стартовую точку, чтобы построить маршрут</string>
@@ -588,6 +600,7 @@
 	<string name="planning_route_remove_title">Перетяните сюда, чтобы удалить</string>
 	<string name="placepage_add_stop">Заехать</string>
 	<string name="preloader_viator_button">Посмотреть</string>
+	<string name="start_from_my_position">Начать от</string>
 	<string name="profile_authorization_error">Упс, произошла ошибка. Попробуйте авторизоваться повторно.</string>
 	<string name="dialog_error_storage_title">Проблема с доступом к хранилищу</string>
 	<string name="dialog_error_storage_message">Внешняя память устройства недоступна, возможно SD карта была удалена, повреждена или файловая система доступна только для чтения. Проверьте это и свяжитесь, пожалуйста, с нами support\@organicmaps.app</string>
@@ -597,6 +610,11 @@
 	<string name="bookmarks_groups">Списки</string>
 	<string name="bookmarks_groups_hide_all">Спрятать все</string>
 	<string name="bookmarks_groups_show_all">Показать все</string>
+	<plurals name="bookmarks_places">
+	  <item quantity="few">%d метки</item>
+	  <item quantity="one">%d метка</item>
+	  <item quantity="other">%d меток</item>
+	</plurals>
 	<string name="bookmarks_create_new_group">Создать новый список</string>
 	<!-- Bookmark categories screen -->
 	<string name="bookmarks_import">Импортировать метки</string>
@@ -612,6 +630,7 @@
 	<string name="bookmarks_new_list_hint">Новый список</string>
 	<string name="bookmarks_error_title_list_name_already_taken">Такое имя уже занято</string>
 	<string name="bookmarks_error_message_list_name_already_taken">Выберите, пожалуйста, другое имя</string>
+	<string name="bookmarks_error_title_list_name_too_long">Слишком длинное название</string>
 	<string name="please_wait">Пожалуйста, подождите…</string>
 	<string name="phone_number">Номер телефона</string>
 	<string name="profile">Профиль OpenStreetMap</string>
@@ -670,6 +689,7 @@
 	<string name="bookmark_category_description_hint">Добавьте описание (текст или html)</string>
 	<string name="not_shared">Личный</string>
 	<string name="tags_loading_error_subtitle">Во время загрузки тегов произошла ошибка, пожалуйста, попробуйте еще раз</string>
+	<string name="download_button">Скачать</string>
 	<string name="speedcams_alert_title">Камеры скорости</string>
 	<string name="speedcam_option_auto">Авто</string>
 	<string name="speedcam_option_always">Всегда</string>
@@ -695,14 +715,50 @@
 	<string name="unable_to_calc_alert_subtitle">К сожалению, мы не смогли построить маршрут с выбранными опциями. Измените настройки и повторите попытку</string>
 	<string name="define_to_avoid_btn">Настроить пути объезда</string>
 	<string name="change_driving_options_btn">Настройки объезда включены</string>
+	<string name="toll_road">Платная дорога</string>
+	<string name="unpaved_road">Грунтовая дорога</string>
+	<string name="ferry_crossing">Паромная переправа</string>
 	<string name="avoid_toll_roads_placepage">Избегать платных дорог</string>
 	<string name="avoid_unpaved_roads_placepage">Избегать грунтовых дорог</string>
 	<string name="avoid_ferry_crossing_placepage">Избегать паромных переправ</string>
+	<string name="trip_start">Поехали</string>
+	<string name="pick_destination">Цель</string>
+	<string name="follow_my_position">Отцентровать</string>
+	<string name="search_results">Результаты поиска</string>
+	<string name="then_turn">Затем</string>
+	<string name="redirect_route_alert">Хотите перестроить маршрут?</string>
+	<string name="redirect_route_yes">Да</string>
+	<string name="redirect_route_no">Нет</string>
+	<string name="trip_finished">Вы прибыли!</string>
+	<string name="keyboard_availability_alert">Клавиатура недоступна во время движения</string>
+	<string name="dialog_routing_change_start_carplay">Невозможно построить маршрут от текущего местоположения</string>
+	<string name="dialog_routing_change_end_carplay">Невозможно построить маршрут до конечной точки. Выберите другую</string>
+	<string name="dialog_routing_check_gps_carplay">Нет сигнала GPS. Проследуйте на открытую местность</string>
+	<string name="dialog_routing_unable_locate_route_carplay">Невозможно построить маршрут. Выберите другие точки маршрута</string>
+	<string name="dialog_routing_download_files_carplay">Чтобы построить маршрут, загрузите недостающие карты на своем устройстве</string>
+	<string name="dialog_routing_system_error_carplay">Произошла ошибка. Перезапустите приложение</string>
+	<string name="dialog_routing_rebuild_from_current_location_carplay">Маршрут будет перестроен от вашего текущего местоположения</string>
+	<string name="dialog_routing_rebuild_for_vehicle_carplay">Маршрут будет изменен на автомобильный</string>
 	<string name="ok">Ок</string>
+	<string name="avoid_unpaved_carplay_1">Без грунт.</string>
+	<string name="avoid_unpaved_carplay_2">Без грунтовых</string>
+	<string name="avoid_ferry_carplay_1">Без паромов</string>
+	<string name="avoid_ferry_carplay_2">Без паромов</string>
+	<string name="avoid_tolls_carplay_1">Без платных</string>
+	<string name="avoid_tolls_carplay_2">Без платных</string>
+	<string name="speedcams_alert_title_carplay_1">Камеры</string>
+	<string name="speedcams_alert_title_carplay_2">Инфо о камерах</string>
+	<string name="download_map_carplay">Скачайте карты в приложении Organic Maps на своем устройстве</string>
+	<string name="carplay_roundabout_exit">%s съезд</string>
 	<!-- max. 10 symbols, both iOS and Android -->
 	<string name="sort">Сортировать…</string>
 	<!-- Android, title, max 20-22 symbols -->
 	<string name="sort_bookmarks">Сортировать метки</string>
+	<!-- iOS -->
+	<string name="sort_default">Сортировать по умолчанию</string>
+	<string name="sort_type">Сортировать по типу</string>
+	<string name="sort_distance">Сортировать по расстоянию</string>
+	<string name="sort_date">Сортировать по дате</string>
 	<!-- Android -->
 	<string name="by_default">По умолчанию</string>
 	<!-- Android -->
@@ -711,7 +767,29 @@
 	<string name="by_distance">По расстоянию</string>
 	<!-- Android -->
 	<string name="by_date">По дате</string>
+	<string name="week_ago_sorttype">Неделю назад</string>
+	<string name="month_ago_sorttype">Месяц назад</string>
+	<string name="moremonth_ago_sorttype">Больше месяца назад</string>
+	<string name="moreyear_ago_sorttype">Больше года назад</string>
+	<string name="near_me_sorttype">Рядом со мной</string>
+	<string name="others_sorttype">Другие</string>
+	<string name="food_places">Еда</string>
+	<string name="tourist_places">Достопримечательности</string>
+	<string name="museums">Музеи</string>
+	<string name="parks">Парки</string>
+	<string name="swim_places">Плавание</string>
+	<string name="mountains">Горы</string>
+	<string name="animals">Животные</string>
+	<string name="hotels">Отели</string>
+	<string name="buildings">Здания</string>
+	<string name="money">Деньги</string>
+	<string name="shops">Магазины</string>
+	<string name="parkings">Парковки</string>
+	<string name="fuel_places">Заправки</string>
+	<string name="water">Вода</string>
+	<string name="medicine">Медицина</string>
 	<string name="search_in_the_list">Искать в списке</string>
+	<string name="religious_places">Святые места</string>
 	<string name="select_list">Выбрать список</string>
 	<string name="transit_not_found">Навигация на метро ещё недоступна в данном регионе</string>
 	<string name="dialog_pedestrian_route_is_long_header">Маршрут метро не найден</string>
@@ -720,6 +798,9 @@
 	<string name="isolines_activation_error_dialog">Чтобы воспользоваться линиями высот, обновите или загрузите карту нужной местности</string>
 	<string name="isolines_location_error_dialog">Линии высот пока не доступны в этом регионе</string>
 	<string name="elevation_profile_diff_level">Уровень сложности</string>
+	<string name="elevation_profile_diff_level_easy">Лёгкий</string>
+	<string name="elevation_profile_diff_level_moderate">Умеренный</string>
+	<string name="elevation_profile_diff_level_hard">Сложный</string>
 	<string name="elevation_profile_ascent">Подъём</string>
 	<string name="elevation_profile_descent">Спуск</string>
 	<string name="elevation_profile_minaltitude">Мин. высота</string>
@@ -728,6 +809,8 @@
 	<string name="elevation_profile_distance">Расст.:</string>
 	<string name="elevation_profile_time">В пути:</string>
 	<string name="isolines_toast_zooms_1_10">Увеличьте карту, чтобы увидеть изолинии</string>
+	<string name="downloader_updating_ios">Обновление</string>
+	<string name="downloader_loading_ios">Загрузка</string>
 	<string name="key_information_title">Ключевая информация</string>
 	<string name="download_map_title">Скачать карту мира</string>
 	<string name="connection_failure">Ошибка подключения</string>
@@ -743,13 +826,6 @@
 	<string name="whats_new_auto_update_button_size">Обновить (%s)</string>
 	<!-- Autoupdate dialog on start -->
 	<string name="whats_new_auto_update_button_later">Обновить вручную позже</string>
-
-	<!-- SECTION:  Partners  -->
-	<string name="sponsored_partner1_action">Аутлеты</string>
-	<string name="sponsored_partner3_action">Купон</string>
-	<string name="sponsored_partner18_action">Лайфхак</string>
-	<string name="sponsored_partner19_action">Лайфхак</string>
-	<string name="sponsored_partner20_action">Лайфхак</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Канатная дорога</string>
@@ -1373,30 +1449,4 @@
 	<string name="type.wheelchair.no">Не оборудовано для инвалидов</string>
 	<string name="type.wheelchair.yes">Оборудовано для инвалидов</string>
 	<string name="type.building_part">Здание</string>
-
-	<!-- SECTION: Brands -->
-	<string name="brand.baskin_robbins">Баскин Роббинс</string>
-	<string name="brand.burger_king">Бургер Кинг</string>
-	<string name="brand.celentano">Челентано</string>
-	<string name="brand.coffee_house">Кофе Хауз</string>
-	<string name="brand.coffeeport">Кофепорт</string>
-	<string name="brand.dominos_pizza">Домино\'с Пицца</string>
-	<string name="brand.double_b">Даблби</string>
-	<string name="brand.dunkin_donuts">Данкин Донатс</string>
-	<string name="brand.il_patio">IL Патио</string>
-	<string name="brand.kroshka_kartoshka">Крошка Картошка</string>
-	<string name="brand.marugame_seimen">Марукамэ</string>
-	<string name="brand.mcdonalds">Макдоналдс</string>
-	<string name="brand.mu_mu">Му-Му</string>
-	<string name="brand.papa_johns">Папа Джонс</string>
-	<string name="brand.pizza_hut">Пицца Хат</string>
-	<string name="brand.robin_sdobin">Робин Сдобин</string>
-	<string name="brand.shokoladnitsa">Шоколадница</string>
-	<string name="brand.starbucks">Старбакс</string>
-	<string name="brand.stardogs">Стардог!s</string>
-	<string name="brand.subway">Сабвэй</string>
-	<string name="brand.sushi_wok">Суши Wok</string>
-	<string name="brand.teremok">Теремок</string>
-	<string name="brand.wokker">Воккер</string>
-	<string name="brand.yakitoria">Якитория</string>
 </resources>

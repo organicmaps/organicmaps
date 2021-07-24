@@ -35,11 +35,6 @@
 /* View and button titles for accessibility */
 "maps" = "地圖";
 
-/* Settings/Downloader - size string, only strings different from English should be translated */
-"mb" = "MB";
-
-"gb" = "GB";
-
 /* Choose measurement on first launch alert - choose imperial system button */
 "miles" = "英哩";
 
@@ -116,6 +111,9 @@
 
 /* Add Bookmark Set dialog - hint when set name is empty */
 "bookmark_set_name" = "收藏夾名稱";
+
+/* Bookmark Sets dialog title */
+"bookmark_sets" = "收藏夾";
 
 /* Bookmarks - dialog title */
 "bookmarks" = "書籤";
@@ -213,8 +211,6 @@
 /* Email Subject when sharing bookmarks category */
 "share_bookmarks_email_subject" = "已分享 Organic Maps 書籤";
 
-"share_bookmarks_email_body" = "Hello!\n\nAttached are my bookmarks from Organic Maps app. Please open them if you have Organic Maps installed. Or, if you don't, download the app for your iOS or Android device by following this link: https://omaps.app/get?kmz\n\nEnjoy traveling with Organic Maps!";
-
 /* message title of loading file */
 "load_kmz_title" = "正在載入書籤…";
 
@@ -281,10 +277,10 @@
 "share_my_location" = "分享我的位置";
 
 /* Settings general group in settings screen */
-"prefs_group_general" = "General settings";
+"prefs_group_general" = "一般設定";
 
 /* Settings information group in settings screen */
-"prefs_group_information" = "Information";
+"prefs_group_information" = "信息";
 
 "prefs_group_route" = "導航";
 
@@ -347,22 +343,10 @@
 "website" = "網站";
 
 /* Text in menu */
-"github" = "GitHub";
+"facebook" = "臉書";
 
 /* Text in menu */
-"telegram" = "Telegram";
-
-/* Text in menu */
-"facebook" = "Facebook";
-
-/* Text in menu */
-"twitter" = "Twitter";
-
-/* Text in menu */
-"instagram" = "Instagram";
-
-/* Text in menu */
-"openstreetmap" = "OpenStreetMap";
+"twitter" = "推特";
 
 /* Settings: Send feedback button and dialog title */
 "feedback" = "意見反應";
@@ -400,6 +384,9 @@
 /* Downloaded maps category */
 "downloader_downloaded_subtitle" = "已下載";
 
+/* Downloaded maps category */
+"downloader_available_maps" = "可用";
+
 /* Country queued for download */
 "downloader_queued" = "已佇列";
 
@@ -410,6 +397,8 @@
 "downloader_download_all_button" = "下載全部";
 
 "downloader_downloading" = "正在下載：";
+
+"downloader_search_results" = "已找到";
 
 /* Status of outdated country in the list */
 "downloader_status_outdated" = "更新";
@@ -517,7 +506,7 @@
 
 "dialog_routing_error_location_not_found" = "無法產生路線。 無法定位目前 GPS 座標。";
 
-"dialog_routing_location_turn_wifi" = "請確認您的 GPS 訊號。啟用 Wi-Fi 將提升地理位置定位準確度。";
+"dialog_routing_location_turn_wifi" = "請確認您的 GPS 訊號。啟用無線網路將提升地理位置定位準確度。";
 
 "dialog_routing_location_turn_on" = "啟用定位服務";
 
@@ -834,6 +823,8 @@
 
 "editor_operator" = "營運者";
 
+"downloader_my_maps_title" = "我的地圖";
+
 "downloader_no_downloaded_maps_title" = "您尚未下載任何地圖";
 
 "downloader_no_downloaded_maps_message" = "下載地圖來尋找位置和離線瀏覽。";
@@ -867,9 +858,13 @@
 
 "kilometer" = "公里";
 
+"kilometers_per_hour" = "公里每小時";
+
 "mile" = "英里";
 
 "foot" = "英尺";
+
+"miles_per_hour" = "英里每小時";
 
 "hour" = "小時";
 
@@ -888,6 +883,10 @@
 "placepage_edit_bookmark_button" = "編輯書籤";
 
 "placepage_bookmark_name_hint" = "書籤名稱";
+
+"placepage_personal_notes_hint" = "個人備註";
+
+"placepage_delete_bookmark_button" = "刪除書籤";
 
 "editor_edits_sent_message" = "您的建議已傳送";
 
@@ -923,6 +922,8 @@
 "editor_share_to_all_dialog_message_1" = "確保您沒有輸入任何個人數據。";
 
 "editor_share_to_all_dialog_message_2" = "我們會檢查更改。如果我們有任何問題，我們會郵件與您聯系。";
+
+"navigation_stop_button" = "停止";
 
 /* iOS dialog for the case when recent track recording is on and the app comes back from background */
 "recent_track_background_dialog_title" = "禁止記錄您最近去過的路徑？";
@@ -1000,7 +1001,7 @@
 
 "prefs_languages_information_off_link" = "如需更多資訊，請參閱本指南。";
 
-"whatsnew_transliteration_title" = "音譯為拉丁文";
+"transliteration_title" = "音譯為拉丁文";
 
 "learn_more" = "瞭解更多資訊";
 
@@ -1020,9 +1021,11 @@
 
 "planning_route_remove_title" = "在此拖曳以移除";
 
-"placepage_add_stop" = "新增應用程式";
+"placepage_add_stop" = "新增停靠站";
 
 "preloader_viator_button" = "進一步了解";
+
+"start_from_my_position" = "起點";
 
 "profile_authorization_error" = "噢，發生錯誤。請嘗試再次登入。";
 
@@ -1036,7 +1039,7 @@
 
 "error_enter_correct_name" = "請輸入正確的名稱";
 
-"bookmarks_groups" = "列表";
+"bookmarks_groups" = "清單";
 
 "bookmarks_groups_hide_all" = "隱藏全部";
 
@@ -1044,10 +1047,7 @@
 
 "bookmarks_create_new_group" = "創建新列表";
 
-/* Bookmark categories screen */
-"bookmarks_import" = "Import bookmarks";
-
-"downloader_hide_screen" = "隱藏屏幕";
+"downloader_hide_screen" = "隱藏畫面";
 
 "downloader_percent" = "%s (%s，共%s)";
 
@@ -1071,7 +1071,11 @@
 
 "bookmarks_error_message_list_name_already_taken" = "請選擇其他名稱";
 
+"bookmarks_error_title_list_name_too_long" = "這個名字太長了";
+
 "please_wait" = "請稍候…";
+
+"phone_number" = "電話號碼";
 
 "profile" = "OpenStreetMap 資料";
 
@@ -1103,7 +1107,7 @@
 
 "terms_of_use" = "使用條款";
 
-"button_layer_traffic" = "堵塞";
+"button_layer_traffic" = "路況";
 
 "button_layer_subway" = "地鐵";
 
@@ -1119,8 +1123,6 @@
 
 "title_error_downloading_bookmarks" = "發生錯誤";
 
-"popular_place" = "Popular";
-
 "export_file" = "導出文件";
 
 "list_settings" = "列表設置";
@@ -1135,9 +1137,11 @@
 
 "bookmark_category_description_hint" = "添加說明(文字或html)";
 
-"not_shared" = "個人";
+"not_shared" = "私人";
 
 "tags_loading_error_subtitle" = "加載代碼時出錯，請重試";
+
+"download_button" = "下載";
 
 "speedcams_alert_title" = "高速相機";
 
@@ -1178,7 +1182,7 @@
 
 "avoid_ferry" = "渡輪渡口";
 
-"avoid_motorways" = "幹線";
+"avoid_motorways" = "高速公路";
 
 "unable_to_calc_alert_title" = "無法規劃路線";
 
@@ -1188,19 +1192,90 @@
 
 "change_driving_options_btn" = "绕行设置已开启";
 
+"toll_road" = "收費公路";
+
+"unpaved_road" = "土路";
+
+"ferry_crossing" = "輪渡";
+
 "avoid_toll_roads_placepage" = "規避收費公路";
 
 "avoid_unpaved_roads_placepage" = "規避土路";
 
-"avoid_ferry_crossing_placepage" = "規避輪渡";
+"avoid_ferry_crossing_placepage" = "規避渡輪渡口";
+
+"trip_start" = "前往";
+
+"pick_destination" = "目標";
+
+"follow_my_position" = "定好中心";
+
+"search_results" = "搜索結果";
+
+"then_turn" = "接下來";
+
+"redirect_route_alert" = "想重建路線?";
+
+"redirect_route_yes" = "是";
+
+"redirect_route_no" = "否";
+
+"trip_finished" = "您已到達!";
+
+"keyboard_availability_alert" = "移動時鍵盤不可用";
+
+"dialog_routing_change_start_carplay" = "無法從當前位置構建路線";
+
+"dialog_routing_change_end_carplay" = "無法建立到終點的路線。請選擇其他（路線）";
+
+"dialog_routing_check_gps_carplay" = "無GPS信號。請沿著空曠區域行駛";
+
+"dialog_routing_unable_locate_route_carplay" = "無法建立路線。請選擇其他路線點";
+
+"dialog_routing_download_files_carplay" = "爲了創建線路，請在您的設備中下載所缺少的地圖";
+
+"dialog_routing_system_error_carplay" = "發生了錯誤。請重新啟動程序";
+
+"dialog_routing_rebuild_from_current_location_carplay" = "該路線將從您的當前位置重建";
+
+"dialog_routing_rebuild_for_vehicle_carplay" = "該路線將改為汽車（路線）";
 
 "ok" = "好的";
+
+"avoid_unpaved_carplay_1" = "無土路路段";
+
+"avoid_unpaved_carplay_2" = "無土路路段";
+
+"avoid_ferry_carplay_1" = "無渡船";
+
+"avoid_ferry_carplay_2" = "無渡船";
+
+"avoid_tolls_carplay_1" = "無付費路段";
+
+"avoid_tolls_carplay_2" = "無付費路段";
+
+"speedcams_alert_title_carplay_1" = "攝像頭";
+
+"speedcams_alert_title_carplay_2" = "攝像頭信息";
+
+"download_map_carplay" = "將Organic Maps軟件中的地圖下載至個人設備中";
+
+"carplay_roundabout_exit" = "%s號坡道";
 
 /* max. 10 symbols, both iOS and Android */
 "sort" = "分類……";
 
 /* Android, title, max 20-22 symbols */
 "sort_bookmarks" = "分類標籤";
+
+/* iOS */
+"sort_default" = "默認排序";
+
+"sort_type" = "按類型排序";
+
+"sort_distance" = "按距離排序";
+
+"sort_date" = "按日期排序";
 
 /* Android */
 "by_default" = "默認情況下";
@@ -1214,7 +1289,51 @@
 /* Android */
 "by_date" = "按時間";
 
+"week_ago_sorttype" = "一周前";
+
+"month_ago_sorttype" = "一月前";
+
+"moremonth_ago_sorttype" = "一個多月前";
+
+"moreyear_ago_sorttype" = "一年多以前";
+
+"near_me_sorttype" = "在我旁邊";
+
+"others_sorttype" = "其他";
+
+"food_places" = "美食";
+
+"tourist_places" = "名勝";
+
+"museums" = "博物館";
+
+"parks" = "公園";
+
+"swim_places" = "游泳";
+
+"mountains" = "山";
+
+"animals" = "動物";
+
+"hotels" = "酒店";
+
+"buildings" = "建築物";
+
+"money" = "貨幣";
+
+"shops" = "商店";
+
+"parkings" = "停車場";
+
+"fuel_places" = "加油站";
+
+"water" = "水";
+
+"medicine" = "醫療";
+
 "search_in_the_list" = "在列表中搜索";
+
+"religious_places" = "聖地";
 
 "select_list" = "選擇列表";
 
@@ -1232,6 +1351,12 @@
 
 "elevation_profile_diff_level" = "難度等級";
 
+"elevation_profile_diff_level_easy" = "容易";
+
+"elevation_profile_diff_level_moderate" = "中等";
+
+"elevation_profile_diff_level_hard" = "困難";
+
 "elevation_profile_ascent" = "上坡";
 
 "elevation_profile_descent" = "下坡";
@@ -1248,13 +1373,11 @@
 
 "isolines_toast_zooms_1_10" = "放大地圖以查看等高線";
 
+"downloader_updating_ios" = "更新";
+
+"downloader_loading_ios" = "加載";
+
 "key_information_title" = "關鍵信息";
-
-"download_map_title" = "Download the world map";
-
-"connection_failure" = "Connection failure";
-
-"disconnect_usb_cable_title" = "Disconnect USB cable";
 
 "enable_screen_sleep" = "允许屏幕进入休眠状态";
 
@@ -1274,56 +1397,21 @@
 "whats_new_auto_update_button_later" = "稍後手動更新";
 
 
-/**********  Partners  **********/
-
-"sponsored_partner1_action" = "Outlets";
-
-"sponsored_partner2_action" = "Discount";
-
-"sponsored_partner3_action" = "Coupon";
-
-"sponsored_partner18_action" = "Lifehack";
-
-"sponsored_partner19_action" = "Lifehack";
-
-"sponsored_partner20_action" = "Lifehack";
-
-
 /********** Types **********/
 
-"type.aerialway" = "aerialway";
-
-"type.aerialway.cable_car" = "aerialway-cable_car";
-
-"type.aerialway.chair_lift" = "aerialway-chair_lift";
-
-"type.aerialway.drag_lift" = "aerialway-drag_lift";
-
-"type.aerialway.gondola" = "aerialway-gondola";
-
-"type.aerialway.mixed_lift" = "aerialway-mixed_lift";
+"type.aerialway.cable_car" = "纜車";
 
 "type.aerialway.station" = "纜車站";
-
-"type.aeroway" = "aeroway";
 
 "type.aeroway.aerodrome" = "機場";
 
 "type.aeroway.aerodrome.international" = "機場";
 
-"type.aeroway.apron" = "aeroway-apron";
+"type.aeroway.helipad" = "直升機場";
 
-"type.aeroway.gate" = "aeroway-gate";
+"type.aeroway.runway" = "機場跑道";
 
-"type.aeroway.helipad" = "直升機停機坪";
-
-"type.aeroway.runway" = "aeroway-runway";
-
-"type.aeroway.taxiway" = "aeroway-taxiway";
-
-"type.aeroway.terminal" = "aeroway-terminal";
-
-"type.amenity" = "基礎設施項目";
+"type.amenity" = "設施";
 
 "type.amenity.arts_centre" = "藝術中心";
 
@@ -1347,7 +1435,7 @@
 
 "type.amenity.bureau_de_change" = "匯率";
 
-"type.amenity.bus_station" = "巴士";
+"type.amenity.bus_station" = "公車站";
 
 "type.amenity.cafe" = "咖啡廳";
 
@@ -1367,7 +1455,7 @@
 
 "type.amenity.clinic" = "診所";
 
-"type.amenity.college" = "大學";
+"type.amenity.college" = "學院";
 
 "type.amenity.community_centre" = "社區活動中心";
 
@@ -1388,8 +1476,6 @@
 "type.amenity.ferry_terminal" = "渡船";
 
 "type.amenity.fire_station" = "消防局";
-
-"type.amenity.food_court" = "Food court";
 
 "type.amenity.fountain" = "噴泉";
 
@@ -1469,8 +1555,6 @@
 
 "type.amenity.post_office" = "郵局";
 
-"type.amenity.prison" = "Prison";
-
 "type.amenity.pub" = "酒館";
 
 "type.amenity.public_bookcase" = "書架";
@@ -1503,8 +1587,6 @@
 
 "type.amenity.shower" = "淋浴間";
 
-"type.amenity.speed_trap" = "amenity-speed_trap";
-
 "type.amenity.taxi" = "計程車";
 
 "type.amenity.telephone" = "電話";
@@ -1516,8 +1598,6 @@
 "type.amenity.townhall" = "市政廳";
 
 "type.amenity.university" = "大學";
-
-"type.amenity.vending_machine" = "Vending machine";
 
 "type.amenity.vending_machine.cigarettes" = "香菸自動販賣機";
 
@@ -1535,77 +1615,21 @@
 
 "type.amenity.water_point" = "飲水站";
 
-"type.barrier" = "Barrier";
-
 "type.barrier.block" = "街區";
 
 "type.barrier.bollard" = "柱";
 
 "type.barrier.border_control" = "邊境管制";
 
-"type.barrier.city_wall" = "City wall";
-
-"type.barrier.cycle_barrier" = "Cycle barrier";
-
 "type.barrier.entrance" = "入口";
-
-"type.barrier.fence" = "Fence";
 
 "type.barrier.gate" = "大門";
 
-"type.barrier.hedge" = "Hedge";
-
 "type.barrier.lift_gate" = "遮斷機";
-
-"type.barrier.retaining_wall" = "Retaining wall";
 
 "type.barrier.stile" = "梯磴";
 
 "type.barrier.toll_booth" = "收費站";
-
-"type.barrier.wall" = "Wall";
-
-"type.boundary" = "Boundary";
-
-"type.boundary.administrative" = "boundary-administrative";
-
-"type.boundary.administrative.10" = "boundary-administrative-10";
-
-"type.boundary.administrative.11" = "boundary-administrative-11";
-
-"type.boundary.administrative.2" = "boundary-administrative-2";
-
-"type.boundary.administrative.3" = "boundary-administrative-3";
-
-"type.boundary.administrative.4" = "boundary-administrative-4";
-
-"type.boundary.administrative.4.state" = "boundary-administrative-4-state";
-
-"type.boundary.administrative.5" = "boundary-administrative-5";
-
-"type.boundary.administrative.6" = "boundary-administrative-6";
-
-"type.boundary.administrative.7" = "boundary-administrative-7";
-
-"type.boundary.administrative.8" = "boundary-administrative-8";
-
-"type.boundary.administrative.9" = "boundary-administrative-9";
-
-"type.boundary.administrative.city" = "boundary-administrative-city";
-
-"type.boundary.administrative.country" = "boundary-administrative-country";
-
-"type.boundary.administrative.county" = "boundary-administrative-county";
-
-"type.boundary.administrative.municipality" = "boundary-administrative-municipality";
-
-"type.boundary.administrative.nation" = "boundary-administrative-nation";
-
-"type.boundary.administrative.region" = "boundary-administrative-region";
-
-"type.boundary.administrative.state" = "boundary-administrative-state";
-
-"type.boundary.administrative.suburb" = "boundary-administrative-suburb";
 
 "type.boundary.national_park" = "國家公園";
 
@@ -1618,8 +1642,6 @@
 "type.building.has_parts" = "建築物";
 
 "type.building.train_station" = "鐵道";
-
-"type.craft" = "craft";
 
 "type.craft.brewery" = "釀酒廠";
 
@@ -1787,7 +1809,7 @@
 
 "type.cuisine.sausage" = "火腿";
 
-"type.cuisine.savory_pancakes" = "大阪燒";
+"type.cuisine.savory_pancakes" = "鹹味煎餅";
 
 "type.cuisine.seafood" = "海鮮";
 
@@ -1813,8 +1835,6 @@
 
 "type.cuisine.vietnamese" = "越南料理";
 
-"type.emergency" = "emergency";
-
 "type.emergency.defibrillator" = "心臟電擊器";
 
 "type.emergency.fire_hydrant" = "消防栓";
@@ -1823,27 +1843,9 @@
 
 "type.entrance" = "入口";
 
-"type.highway" = "highway";
-
-"type.highway.bridleway" = "highway-bridleway";
-
-"type.highway.bridleway.bridge" = "highway-bridleway-bridge";
-
-"type.highway.bridleway.permissive" = "highway-bridleway-permissive";
-
-"type.highway.bridleway.tunnel" = "highway-bridleway-tunnel";
-
 "type.highway.bus_stop" = "巴士站";
 
 "type.highway.construction" = "在建道路";
-
-"type.highway.cycleway" = "highway-cycleway";
-
-"type.highway.cycleway.bridge" = "highway-cycleway-bridge";
-
-"type.highway.cycleway.permissive" = "highway-cycleway-permissive";
-
-"type.highway.cycleway.tunnel" = "highway-cycleway-tunnel";
 
 "type.highway.footway" = "人行步道";
 
@@ -1875,19 +1877,19 @@
 
 "type.highway.living_street.tunnel" = "路";
 
-"type.highway.motorway" = "路";
+"type.highway.motorway" = "高速公路";
 
-"type.highway.motorway.bridge" = "路";
+"type.highway.motorway.bridge" = "高速公路";
 
-"type.highway.motorway.tunnel" = "路";
+"type.highway.motorway.tunnel" = "高速公路";
 
 "type.highway.motorway_junction" = "交流道";
 
-"type.highway.motorway_link" = "路";
+"type.highway.motorway_link" = "高速公路連接路";
 
-"type.highway.motorway_link.bridge" = "路";
+"type.highway.motorway_link.bridge" = "高速公路連接路";
 
-"type.highway.motorway_link.tunnel" = "路";
+"type.highway.motorway_link.tunnel" = "高速公路連接路";
 
 "type.highway.path" = "人行步道";
 
@@ -1921,61 +1923,61 @@
 
 "type.highway.pedestrian.tunnel" = "路";
 
-"type.highway.primary" = "路";
+"type.highway.primary" = "主要道路";
 
-"type.highway.primary.bridge" = "路";
+"type.highway.primary.bridge" = "主要道路";
 
-"type.highway.primary.tunnel" = "路";
+"type.highway.primary.tunnel" = "主要道路";
 
-"type.highway.primary_link" = "路";
+"type.highway.primary_link" = "主要道路連接路";
 
-"type.highway.primary_link.bridge" = "路";
+"type.highway.primary_link.bridge" = "主要道路連接路";
 
-"type.highway.primary_link.tunnel" = "路";
+"type.highway.primary_link.tunnel" = "主要道路連接路";
 
 "type.highway.raceway" = "跑道";
 
-"type.highway.residential" = "路";
+"type.highway.residential" = "住宅區道路";
 
-"type.highway.residential.area" = "路";
+"type.highway.residential.area" = "住宅區道路";
 
-"type.highway.residential.bridge" = "路";
+"type.highway.residential.bridge" = "住宅區道路";
 
-"type.highway.residential.tunnel" = "路";
+"type.highway.residential.tunnel" = "住宅區道路";
 
 "type.highway.rest_area" = "休息區";
 
-"type.highway.road" = "路";
+"type.highway.road" = "道路";
 
-"type.highway.road.bridge" = "路";
+"type.highway.road.bridge" = "道路";
 
-"type.highway.road.tunnel" = "路";
+"type.highway.road.tunnel" = "道路";
 
-"type.highway.secondary" = "路";
+"type.highway.secondary" = "次要道路";
 
-"type.highway.secondary.bridge" = "路";
+"type.highway.secondary.bridge" = "次要道路";
 
-"type.highway.secondary.tunnel" = "路";
+"type.highway.secondary.tunnel" = "次要道路";
 
-"type.highway.secondary_link" = "路";
+"type.highway.secondary_link" = "次要道路連接路";
 
-"type.highway.secondary_link.bridge" = "路";
+"type.highway.secondary_link.bridge" = "次要道路連接路";
 
-"type.highway.secondary_link.tunnel" = "路";
+"type.highway.secondary_link.tunnel" = "次要道路連接路";
 
-"type.highway.service" = "路";
+"type.highway.service" = "輔助道路";
 
-"type.highway.service.area" = "路";
+"type.highway.service.area" = "輔助道路";
 
-"type.highway.service.bridge" = "路";
+"type.highway.service.bridge" = "輔助道路";
 
-"type.highway.service.driveway" = "路";
+"type.highway.service.driveway" = "車道";
 
-"type.highway.service.parking_aisle" = "路";
+"type.highway.service.parking_aisle" = "停車場通道";
 
-"type.highway.service.tunnel" = "路";
+"type.highway.service.tunnel" = "輔助道路";
 
-"type.highway.services" = "highway-services";
+"type.highway.services" = "服務區";
 
 "type.highway.speed_camera" = "測速照相機";
 
@@ -1985,83 +1987,69 @@
 
 "type.highway.steps.tunnel" = "人行步道";
 
-"type.highway.tertiary" = "路";
+"type.highway.tertiary" = "三级道路";
 
-"type.highway.tertiary.bridge" = "路";
+"type.highway.tertiary.bridge" = "三级道路";
 
-"type.highway.tertiary.tunnel" = "路";
+"type.highway.tertiary.tunnel" = "三级道路";
 
-"type.highway.tertiary_link" = "路";
+"type.highway.tertiary_link" = "三级道路連接路";
 
-"type.highway.tertiary_link.bridge" = "路";
+"type.highway.tertiary_link.bridge" = "三级道路連接路";
 
-"type.highway.tertiary_link.tunnel" = "路";
+"type.highway.tertiary_link.tunnel" = "三级道路連接路";
 
-"type.highway.track" = "路";
+"type.highway.track" = "土路";
 
-"type.highway.track.area" = "路";
+"type.highway.track.area" = "土路";
 
-"type.highway.track.bridge" = "路";
+"type.highway.track.bridge" = "土路";
 
-"type.highway.track.grade1" = "路";
+"type.highway.track.grade1" = "土路";
 
-"type.highway.track.grade2" = "路";
+"type.highway.track.grade2" = "土路";
 
-"type.highway.track.grade3" = "路";
+"type.highway.track.grade3" = "土路";
 
-"type.highway.track.grade4" = "路";
+"type.highway.track.grade4" = "土路";
 
-"type.highway.track.grade5" = "路";
+"type.highway.track.grade5" = "土路";
 
-"type.highway.track.no.access" = "路";
+"type.highway.track.no.access" = "土路";
 
-"type.highway.track.permissive" = "路";
+"type.highway.track.permissive" = "土路";
 
-"type.highway.track.tunnel" = "路";
+"type.highway.track.tunnel" = "土路";
 
 "type.highway.traffic_signals" = "紅綠燈";
 
-"type.highway.trunk" = "路";
+"type.highway.trunk" = "主幹道";
 
-"type.highway.trunk.bridge" = "路";
+"type.highway.trunk.bridge" = "主幹道";
 
-"type.highway.trunk.tunnel" = "路";
+"type.highway.trunk.tunnel" = "主幹道";
 
-"type.highway.trunk_link" = "路";
+"type.highway.trunk_link" = "主幹道連接路";
 
-"type.highway.trunk_link.bridge" = "路";
+"type.highway.trunk_link.bridge" = "主幹道連接路";
 
-"type.highway.trunk_link.tunnel" = "路";
+"type.highway.trunk_link.tunnel" = "主幹道連接路";
 
-"type.highway.unclassified" = "路";
+"type.highway.unclassified" = "道路";
 
-"type.highway.unclassified.area" = "路";
+"type.highway.unclassified.area" = "道路";
 
-"type.highway.unclassified.bridge" = "路";
+"type.highway.unclassified.bridge" = "道路";
 
-"type.highway.unclassified.tunnel" = "路";
-
-"type.highway.world_level" = "highway-world_level";
-
-"type.highway.world_towns_level" = "highway-world_towns_level";
-
-"type.historic" = "historic";
+"type.highway.unclassified.tunnel" = "道路";
 
 "type.historic.archaeological_site" = "考古遺址";
-
-"type.historic.battlefield" = "Battlefield";
-
-"type.historic.boundary_stone" = "historic-boundary_stone";
 
 "type.historic.castle" = "城堡";
 
 "type.historic.castle.defensive" = "城堡";
 
 "type.historic.castle.stately" = "城堡";
-
-"type.historic.citywalls" = "historic-citywalls";
-
-"type.historic.fort" = "historic-fort";
 
 "type.historic.memorial" = "紀念館";
 
@@ -2073,77 +2061,25 @@
 
 "type.historic.monument" = "紀念碑";
 
-"type.historic.museum" = "historic-museum";
-
 "type.historic.ruins" = "廢墟";
 
 "type.historic.ship" = "旅遊景點";
 
 "type.historic.tomb" = "旅遊景點";
 
-"type.historic.wayside_cross" = "historic-wayside_cross";
-
-"type.historic.wayside_shrine" = "historic-wayside_shrine";
-
-"type.hwtag" = "hwtag";
-
-"type.hwtag.bidir_bicycle" = "hwtag-bidir_bicycle";
-
-"type.hwtag.onedir_bicycle" = "hwtag-onedir_bicycle";
-
-"type.hwtag.lit" = "hwtag-lit";
-
-"type.hwtag.nobicycle" = "hwtag-nobicycle";
-
-"type.hwtag.nocar" = "hwtag-nocar";
-
-"type.hwtag.nofoot" = "hwtag-nofoot";
-
-"type.hwtag.oneway" = "hwtag-oneway";
-
-"type.hwtag.private" = "hwtag-private";
-
-"type.hwtag.toll" = "hwtag-toll";
-
-"type.hwtag.yesbicycle" = "hwtag-yesbicycle";
-
-"type.hwtag.yescar" = "hwtag-yescar";
-
-"type.hwtag.yesfoot" = "hwtag-yesfoot";
-
 "type.internet_access" = "互聯網";
 
 "type.internet_access.wlan" = "互聯網";
 
-"type.junction" = "junction";
-
-"type.junction.roundabout" = "junction-roundabout";
-
-"type.landuse" = "landuse";
-
-"type.landuse.allotments" = "Allotments";
-
 "type.landuse.basin" = "水庫";
-
-"type.landuse.brownfield" = "Brownfield";
 
 "type.landuse.cemetery" = "墓地";
 
-"type.landuse.cemetery.christian" = "墓地";
+"type.landuse.cemetery.christian" = "基督教墓地";
 
 "type.landuse.churchyard" = "教堂庭院";
 
-"type.landuse.commercial" = "landuse-commercial";
-
-"type.landuse.construction" = "Construction";
-
-"type.landuse.farm" = "Farm";
-
 "type.landuse.farmland" = "農業用地";
-
-"type.landuse.farmyard" = "Farmyard";
-
-"type.landuse.field" = "Field";
 
 "type.landuse.forest" = "樹林";
 
@@ -2153,45 +2089,13 @@
 
 "type.landuse.forest.mixed" = "樹林";
 
-"type.landuse.garages" = "Garages";
-
 "type.landuse.grass" = "草坪";
-
-"type.landuse.greenfield" = "landuse-greenfield";
-
-"type.landuse.greenhouse_horticulture" = "landuse-greenhouse_horticulture";
-
-"type.landuse.industrial" = "Industrial land";
 
 "type.landuse.landfill" = "堆積場";
 
-"type.landuse.meadow" = "Meadow";
-
-"type.landuse.military" = "Military area";
-
-"type.landuse.orchard" = "Orchard";
-
-"type.landuse.quarry" = "Quarry";
-
 "type.landuse.railway" = "鐵路設施";
 
-"type.landuse.recreation_ground" = "landuse-recreation_ground";
-
 "type.landuse.reservoir" = "水庫";
-
-"type.landuse.residential" = "landuse-residential";
-
-"type.landuse.retail" = "landuse-retail";
-
-"type.landuse.salt_pond" = "landuse-salt_pond";
-
-"type.landuse.village_green" = "landuse-village_green";
-
-"type.landuse.vineyard" = "Vineyard";
-
-"type.leisure" = "leisure";
-
-"type.leisure.common" = "leisure-common";
 
 "type.leisure.dog_park" = "遛狗區";
 
@@ -2202,12 +2106,6 @@
 "type.leisure.garden" = "花園";
 
 "type.leisure.golf_course" = "高爾夫球場";
-
-"type.leisure.ice_rink" = "Ice rink";
-
-"type.leisure.landscape_reserve" = "Landscape reserve";
-
-"type.leisure.marina" = "Marina";
 
 "type.leisure.nature_reserve" = "自然保護區";
 
@@ -2223,53 +2121,31 @@
 
 "type.leisure.playground" = "遊樂場";
 
-"type.leisure.recreation_ground" = "Recreation ground";
-
 "type.leisure.sauna" = "桑拿";
-
-"type.leisure.slipway" = "leisure-slipway";
 
 "type.leisure.sports_centre" = "體育中心";
 
 "type.leisure.sports_centre.climbing" = "攀登中心";
 
-"type.leisure.sports_centre.shooting" = "射擊域";
+"type.leisure.sports_centre.shooting" = "射擊場";
 
 "type.leisure.sports_centre.swimming" = "遊泳中心";
 
 "type.leisure.sports_centre.yoga" = "瑜伽工作室";
 
-"type.leisure.stadium" = "體育中心";
+"type.leisure.stadium" = "體育場";
 
 "type.leisure.swimming_pool" = "游泳池";
 
-"type.leisure.track" = "leisure-track";
-
 "type.leisure.water_park" = "水上樂園";
-
-"type.man_made" = "man_made";
-
-"type.man_made.breakwater" = "man_made-breakwater";
-
-"type.man_made.cairn" = "man_made-cairn";
 
 "type.man_made.chimney" = "工廠煙囪";
 
-"type.man_made.cutline" = "man_made-cutline";
-
 "type.man_made.lighthouse" = "燈塔";
-
-"type.man_made.pier" = "man_made-pier";
-
-"type.man_made.pipeline" = "man_made-pipeline";
-
-"type.man_made.pipeline.overground" = "man_made-pipeline-overground";
 
 "type.man_made.surveillance" = "監控攝影機";
 
 "type.man_made.tower" = "塔";
-
-"type.man_made.wastewater_plant" = "man_made-wastewater_plant";
 
 "type.man_made.water_tap" = "水龍頭";
 
@@ -2279,19 +2155,7 @@
 
 "type.man_made.windmill" = "風車";
 
-"type.man_made.works" = "man_made-works";
-
-"type.mapswithme" = "mapswithme";
-
-"type.mapswithme.grid" = "mapswithme-grid";
-
-"type.military" = "military";
-
 "type.military.bunker" = "地堡";
-
-"type.natural" = "natural";
-
-"type.natural.bare_rock" = "Bare rock";
 
 "type.natural.bay" = "海灣";
 
@@ -2301,35 +2165,17 @@
 
 "type.natural.cave_entrance" = "洞穴";
 
-"type.natural.cliff" = "Cliff";
-
-"type.natural.coastline" = "Coastline";
-
 "type.natural.geyser" = "間歇泉";
 
 "type.natural.glacier" = "冰川";
 
 "type.natural.grassland" = "田野";
 
-"type.natural.heath" = "Heath";
-
-"type.natural.hot_spring" = "Hot spring";
-
 "type.natural.lake" = "湖泊";
-
-"type.natural.land" = "natural-land";
-
-"type.natural.meadow" = "Meadow";
-
-"type.natural.orchard" = "Orchard";
 
 "type.natural.peak" = "山峰";
 
 "type.natural.pond" = "潭";
-
-"type.natural.rock" = "Rock";
-
-"type.natural.salt_pond" = "Salt pond";
 
 "type.natural.scrub" = "叢林";
 
@@ -2339,23 +2185,11 @@
 
 "type.natural.tree" = "樹";
 
-"type.natural.tree_row" = "Tree row";
-
-"type.natural.vineyard" = "Vineyard";
-
 "type.natural.volcano" = "火山";
 
 "type.natural.water" = "水庫";
 
 "type.natural.wetland" = "沼澤";
-
-"type.natural.wetland.bog" = "Wetland";
-
-"type.natural.wetland.marsh" = "Wetland";
-
-"type.noexit" = "noexit";
-
-"type.noexit.motor_vehicle" = "noexit-motor_vehicle";
 
 "type.office" = "辦公室";
 
@@ -2373,65 +2207,33 @@
 
 "type.office.telecommunication" = "行動電話業者";
 
-"type.olympics" = "olympics";
+"type.place.city" = "城市";
 
-"type.olympics.attraction" = "olympics-attraction";
+"type.place.city.capital" = "首府";
 
-"type.olympics.bike_sport" = "olympics-bike_sport";
+"type.place.city.capital.10" = "首府";
 
-"type.olympics.live_site" = "olympics-live_site";
-
-"type.olympics.official_building" = "olympics-official_building";
-
-"type.olympics.stadium" = "olympics-stadium";
-
-"type.olympics.stadium_main" = "olympics-stadium_main";
-
-"type.olympics.transport_airport" = "olympics-transport_airport";
-
-"type.olympics.transport_boat" = "olympics-transport_boat";
-
-"type.olympics.transport_bus" = "olympics-transport_bus";
-
-"type.olympics.transport_cable" = "olympics-transport_cable";
-
-"type.olympics.transport_railway" = "olympics-transport_railway";
-
-"type.olympics.transport_subway" = "olympics-transport_subway";
-
-"type.olympics.transport_tram" = "olympics-transport_tram";
-
-"type.olympics.water_sport" = "olympics-water_sport";
-
-"type.place" = "place";
-
-"type.place.city" = "城鎮";
-
-"type.place.city.capital" = "首都";
-
-"type.place.city.capital.10" = "首都";
-
-"type.place.city.capital.11" = "首都";
+"type.place.city.capital.11" = "首府";
 
 "type.place.city.capital.2" = "首都";
 
 "type.place.city.capital.3" = "首都";
 
-"type.place.city.capital.4" = "首都";
+"type.place.city.capital.4" = "首府";
 
-"type.place.city.capital.5" = "首都";
+"type.place.city.capital.5" = "首府";
 
-"type.place.city.capital.6" = "首都";
+"type.place.city.capital.6" = "首府";
 
-"type.place.city.capital.7" = "首都";
+"type.place.city.capital.7" = "首府";
 
-"type.place.city.capital.8" = "首都";
+"type.place.city.capital.8" = "首府";
 
-"type.place.city.capital.9" = "首都";
+"type.place.city.capital.9" = "首府";
 
 "type.place.continent" = "大陸";
 
-"type.place.country" = "國";
+"type.place.country" = "國家/地區";
 
 "type.place.county" = "縣";
 
@@ -2443,11 +2245,7 @@
 
 "type.place.islet" = "島";
 
-"type.place.isolated_dwelling" = "place-isolated_dwelling";
-
 "type.place.locality" = "當地";
-
-"type.place.neighbourhood" = "Neighbourhood";
 
 "type.place.ocean" = "海洋";
 
@@ -2455,11 +2253,9 @@
 
 "type.place.sea" = "海";
 
-"type.place.square" = "place-square";
+"type.place.state" = "州/省";
 
-"type.place.state" = "省";
-
-"type.place.state.USA" = "省";
+"type.place.state.USA" = "州";
 
 "type.place.suburb" = "郊區";
 
@@ -2467,251 +2263,117 @@
 
 "type.place.village" = "村莊";
 
-"type.power" = "power";
-
-"type.power.generator" = "power-generator";
-
-"type.power.line" = "power-line";
-
-"type.power.line.underground" = "power-line-underground";
-
-"type.power.minor_line" = "power-minor_line";
-
 "type.power.pole" = "電塔";
-
-"type.power.station" = "power-station";
 
 "type.power.substation" = "變電所";
 
 "type.power.tower" = "電塔";
 
-"type.psurface" = "psurface";
-
-"type.psurface.paved_bad" = "psurface-paved_bad";
-
-"type.psurface.paved_good" = "psurface-paved_good";
-
-"type.psurface.unpaved_bad" = "psurface-unpaved_bad";
-
-"type.psurface.unpaved_good" = "psurface-unpaved_good";
-
-"type.public_transport" = "public_transport";
-
-"type.public_transport.platform" = "public_transport-platform";
-
-"type.railway" = "railway";
-
-"type.railway.abandoned" = "railway-abandoned";
-
-"type.railway.abandoned.bridge" = "railway-abandoned-bridge";
-
-"type.railway.abandoned.tunnel" = "railway-abandoned-tunnel";
-
-"type.railway.construction" = "railway-construction";
-
-"type.railway.crossing" = "railway-crossing";
-
-"type.railway.disused" = "railway-disused";
-
-"type.railway.funicular" = "railway-funicular";
-
-"type.railway.funicular.bridge" = "railway-funicular-bridge";
-
-"type.railway.funicular.tunnel" = "railway-funicular-tunnel";
-
-"type.railway.halt" = "鐵道";
-
-"type.railway.incline" = "railway-incline";
-
-"type.railway.incline.bridge" = "railway-incline-bridge";
-
-"type.railway.incline.tunnel" = "railway-incline-tunnel";
+"type.railway.halt" = "小站";
 
 "type.railway.level_crossing" = "鐵路道口";
 
-"type.railway.light_rail" = "railway-light_rail";
+"type.railway.monorail" = "單軌軌道";
 
-"type.railway.light_rail.bridge" = "railway-light_rail-bridge";
+"type.railway.monorail.bridge" = "單軌軌道";
 
-"type.railway.light_rail.tunnel" = "railway-light_rail-tunnel";
+"type.railway.monorail.tunnel" = "單軌軌道";
 
-"type.railway.monorail" = "單軌鐵路";
+"type.railway.rail" = "鐵路軌道";
 
-"type.railway.monorail.bridge" = "railway-monorail-bridge";
+"type.railway.rail.bridge" = "鐵路軌道";
 
-"type.railway.monorail.tunnel" = "railway-monorail-tunnel";
+"type.railway.rail.motor_vehicle" = "鐵路軌道";
 
-"type.railway.narrow_gauge" = "railway-narrow_gauge";
+"type.railway.rail.tunnel" = "鐵路軌道";
 
-"type.railway.narrow_gauge.bridge" = "railway-narrow_gauge-bridge";
+"type.railway.station" = "火車站";
 
-"type.railway.narrow_gauge.tunnel" = "railway-narrow_gauge-tunnel";
+"type.railway.station.light_rail" = "輕軌車站";
 
-"type.railway.platform" = "railway-platform";
+"type.railway.station.monorail" = "單軌車站";
 
-"type.railway.preserved" = "railway-preserved";
+"type.railway.station.subway" = "地鐵車站";
 
-"type.railway.preserved.bridge" = "railway-preserved-bridge";
+"type.railway.station.subway.barcelona" = "地鐵車站";
 
-"type.railway.preserved.tunnel" = "railway-preserved-tunnel";
+"type.railway.station.subway.berlin" = "地鐵車站";
 
-"type.railway.rail" = "鐵路";
+"type.railway.station.subway.blue" = "地鐵車站";
 
-"type.railway.rail.bridge" = "railway-rail-bridge";
+"type.railway.station.subway.brown" = "地鐵車站";
 
-"type.railway.rail.motor_vehicle" = "railway-rail-motor_vehicle";
+"type.railway.station.subway.darkgreen" = "地鐵車站";
 
-"type.railway.rail.tunnel" = "railway-rail-tunnel";
+"type.railway.station.subway.gray" = "地鐵車站";
 
-"type.railway.razed" = "railway-razed";
+"type.railway.station.subway.green" = "地鐵車站";
 
-"type.railway.siding" = "railway-siding";
+"type.railway.station.subway.grey" = "地鐵車站";
 
-"type.railway.siding.bridge" = "railway-siding-bridge";
+"type.railway.station.subway.kiev" = "地鐵車站";
 
-"type.railway.siding.tunnel" = "railway-siding-tunnel";
+"type.railway.station.subway.lightblue" = "地鐵車站";
 
-"type.railway.spur" = "railway-spur";
+"type.railway.station.subway.lightgreen" = "地鐵車站";
 
-"type.railway.spur.bridge" = "railway-spur-bridge";
+"type.railway.station.subway.london" = "地鐵車站";
 
-"type.railway.spur.tunnel" = "railway-spur-tunnel";
+"type.railway.station.subway.madrid" = "地鐵車站";
 
-"type.railway.station" = "鐵道";
+"type.railway.station.subway.minsk" = "地鐵車站";
 
-"type.railway.station.light_rail" = "鐵道";
+"type.railway.station.subway.moscow" = "地鐵車站";
 
-"type.railway.station.monorail" = "鐵道";
+"type.railway.station.subway.newyork" = "地鐵車站";
 
-"type.railway.station.subway" = "地鐵";
+"type.railway.station.subway.orange" = "地鐵車站";
 
-"type.railway.station.subway.barcelona" = "地鐵";
+"type.railway.station.subway.paris" = "地鐵車站";
 
-"type.railway.station.subway.berlin" = "地鐵";
+"type.railway.station.subway.purple" = "地鐵車站";
 
-"type.railway.station.subway.blue" = "地鐵";
+"type.railway.station.subway.red" = "地鐵車站";
 
-"type.railway.station.subway.brown" = "地鐵";
+"type.railway.station.subway.roma" = "地鐵車站";
 
-"type.railway.station.subway.darkgreen" = "地鐵";
+"type.railway.station.subway.spb" = "地鐵車站";
 
-"type.railway.station.subway.gray" = "地鐵";
+"type.railway.station.subway.violet" = "地鐵車站";
 
-"type.railway.station.subway.green" = "地鐵";
-
-"type.railway.station.subway.grey" = "地鐵";
-
-"type.railway.station.subway.kiev" = "地鐵";
-
-"type.railway.station.subway.lightblue" = "地鐵";
-
-"type.railway.station.subway.lightgreen" = "地鐵";
-
-"type.railway.station.subway.london" = "地鐵";
-
-"type.railway.station.subway.madrid" = "地鐵";
-
-"type.railway.station.subway.minsk" = "地鐵";
-
-"type.railway.station.subway.moscow" = "地鐵";
-
-"type.railway.station.subway.newyork" = "地鐵";
-
-"type.railway.station.subway.orange" = "地鐵";
-
-"type.railway.station.subway.paris" = "地鐵";
-
-"type.railway.station.subway.purple" = "地鐵";
-
-"type.railway.station.subway.red" = "地鐵";
-
-"type.railway.station.subway.roma" = "地鐵";
-
-"type.railway.station.subway.spb" = "地鐵";
-
-"type.railway.station.subway.violet" = "地鐵";
-
-"type.railway.station.subway.yellow" = "地鐵";
-
-"type.railway.subway" = "railway-subway";
-
-"type.railway.subway.blue" = "railway-subway-blue";
-
-"type.railway.subway.bridge" = "railway-subway-bridge";
-
-"type.railway.subway.brown" = "railway-subway-brown";
-
-"type.railway.subway.darkgreen" = "railway-subway-darkgreen";
-
-"type.railway.subway.gray" = "railway-subway-gray";
-
-"type.railway.subway.green" = "railway-subway-green";
-
-"type.railway.subway.grey" = "railway-subway-grey";
-
-"type.railway.subway.lightblue" = "railway-subway-lightblue";
-
-"type.railway.subway.lightgreen" = "railway-subway-lightgreen";
-
-"type.railway.subway.orange" = "railway-subway-orange";
-
-"type.railway.subway.purple" = "railway-subway-purple";
-
-"type.railway.subway.red" = "railway-subway-red";
-
-"type.railway.subway.tunnel" = "railway-subway-tunnel";
-
-"type.railway.subway.violet" = "railway-subway-violet";
-
-"type.railway.subway.yellow" = "railway-subway-yellow";
+"type.railway.station.subway.yellow" = "地鐵車站";
 
 "type.railway.subway_entrance" = "地鐵入口";
 
-"type.railway.subway_entrance.barcelona" = "地鐵";
+"type.railway.subway_entrance.barcelona" = "地鐵入口";
 
-"type.railway.subway_entrance.berlin" = "地鐵";
+"type.railway.subway_entrance.berlin" = "地鐵入口";
 
-"type.railway.subway_entrance.kiev" = "地鐵";
+"type.railway.subway_entrance.kiev" = "地鐵入口";
 
-"type.railway.subway_entrance.london" = "地鐵";
+"type.railway.subway_entrance.london" = "地鐵入口";
 
-"type.railway.subway_entrance.madrid" = "地鐵";
+"type.railway.subway_entrance.madrid" = "地鐵入口";
 
-"type.railway.subway_entrance.minsk" = "地鐵";
+"type.railway.subway_entrance.minsk" = "地鐵入口";
 
-"type.railway.subway_entrance.moscow" = "地鐵";
+"type.railway.subway_entrance.moscow" = "地鐵入口";
 
-"type.railway.subway_entrance.newyork" = "地鐵";
+"type.railway.subway_entrance.newyork" = "地鐵入口";
 
-"type.railway.subway_entrance.paris" = "地鐵";
+"type.railway.subway_entrance.paris" = "地鐵入口";
 
-"type.railway.subway_entrance.roma" = "地鐵";
+"type.railway.subway_entrance.roma" = "地鐵入口";
 
-"type.railway.subway_entrance.spb" = "地鐵";
+"type.railway.subway_entrance.spb" = "地鐵入口";
 
-"type.railway.tram" = "railway-tram";
+"type.railway.tram" = "電車軌道";
 
-"type.railway.tram.bridge" = "railway-tram-bridge";
+"type.railway.tram.bridge" = "電車軌道";
 
-"type.railway.tram.tunnel" = "railway-tram-tunnel";
+"type.railway.tram.tunnel" = "電車軌道";
 
 "type.railway.tram_stop" = "電車站";
-
-"type.railway.yard" = "railway-yard";
-
-"type.railway.yard.bridge" = "railway-yard-bridge";
-
-"type.railway.yard.tunnel" = "railway-yard-tunnel";
-
-"type.route" = "route";
-
-"type.route.ferry" = "route-ferry";
-
-"type.route.ferry.motor_vehicle" = "route-ferry-motor_vehicle";
-
-"type.route.ferry.motorcar" = "route-ferry-motorcar";
-
-"type.route.shuttle_train" = "route-shuttle_train";
 
 "type.shop" = "購物";
 
@@ -2725,7 +2387,7 @@
 
 "type.shop.bicycle" = "自行車店";
 
-"type.shop.bookmaker" = "賭博業者";
+"type.shop.bookmaker" = "博彩公司";
 
 "type.shop.books" = "書店";
 
@@ -2847,101 +2509,13 @@
 
 "type.shop.wine" = "販酒處";
 
-"type.sponsored" = "sponsored";
-
-"type.sponsored.booking" = "sponsored-booking";
-
-"type.sponsored.holiday" = "Christmas or New Year Celebrations";
-
-"type.sponsored.opentable" = "sponsored-opentable";
-
-"type.sponsored.partner1" = "sponsored-partner1";
-
-"type.sponsored.partner10" = "sponsored-partner10";
-
-"type.sponsored.partner11" = "sponsored-partner11";
-
-"type.sponsored.partner12" = "sponsored-partner12";
-
-"type.sponsored.partner13" = "sponsored-partner13";
-
-"type.sponsored.partner14" = "sponsored-partner14";
-
-"type.sponsored.partner15" = "sponsored-partner15";
-
-"type.sponsored.partner16" = "sponsored-partner16";
-
-"type.sponsored.partner17" = "sponsored-partner17";
-
-"type.sponsored.partner18" = "MegaFon";
-
-"type.sponsored.partner19" = "MegaFon";
-
-"type.sponsored.partner2" = "sponsored-partner2";
-
-"type.sponsored.partner20" = "MegaFon";
-
-"type.sponsored.partner3" = "sponsored-partner3";
-
-"type.sponsored.partner4" = "sponsored-partner4";
-
-"type.sponsored.partner5" = "sponsored-partner5";
-
-"type.sponsored.partner6" = "sponsored-partner6";
-
-"type.sponsored.partner7" = "sponsored-partner7";
-
-"type.sponsored.partner8" = "sponsored-partner8";
-
-"type.sponsored.partner9" = "sponsored-partner9";
-
-"type.sport" = "sport";
-
-"type.sport.american_football" = "sport-american_football";
-
-"type.sport.archery" = "sport-archery";
-
 "type.sport.athletics" = "田徑";
-
-"type.sport.australian_football" = "sport-australian_football";
-
-"type.sport.baseball" = "sport-baseball";
 
 "type.sport.basketball" = "籃球";
 
-"type.sport.bowls" = "sport-bowls";
-
-"type.sport.cricket" = "sport-cricket";
-
-"type.sport.curling" = "sport-curling";
-
-"type.sport.diving" = "sport-diving";
-
 "type.sport.equestrian" = "馬術運動";
 
-"type.sport.football" = "sport-football";
-
-"type.sport.golf" = "sport-golf";
-
-"type.sport.gymnastics" = "sport-gymnastics";
-
-"type.sport.handball" = "sport-handball";
-
-"type.sport.multi" = "sport-multi";
-
-"type.sport.scuba_diving" = "sport-scuba_diving";
-
-"type.sport.shooting" = "sport-shooting";
-
-"type.sport.skiing" = "sport-skiing";
-
-"type.sport.soccer" = "sport-soccer";
-
-"type.sport.swimming" = "sport-swimming";
-
 "type.sport.tennis" = "網球場";
-
-"type.tourism" = "tourism";
 
 "type.tourism.alpine_hut" = "山上住宿";
 
@@ -3003,31 +2577,9 @@
 
 "type.tourism.zoo" = "動物園";
 
-"type.traffic_calming" = "traffic_calming";
-
-"type.traffic_calming.bump" = "traffic_calming-bump";
-
-"type.traffic_calming.hump" = "traffic_calming-hump";
-
-"type.waterway" = "waterway";
-
 "type.waterway.canal" = "運河";
 
 "type.waterway.canal.tunnel" = "運河";
-
-"type.waterway.dam" = "waterway-dam";
-
-"type.waterway.ditch" = "waterway-ditch";
-
-"type.waterway.ditch.tunnel" = "waterway-ditch-tunnel";
-
-"type.waterway.dock" = "waterway-dock";
-
-"type.waterway.drain" = "waterway-drain";
-
-"type.waterway.drain.tunnel" = "waterway-drain-tunnel";
-
-"type.waterway.lock" = "waterway-lock";
 
 "type.waterway.lock_gate" = "閘門";
 
@@ -3037,19 +2589,15 @@
 
 "type.waterway.riverbank" = "河流";
 
-"type.waterway.stream" = "河流";
+"type.waterway.stream" = "溪";
 
-"type.waterway.stream.ephemeral" = "河流";
+"type.waterway.stream.ephemeral" = "溪";
 
-"type.waterway.stream.intermittent" = "河流";
+"type.waterway.stream.intermittent" = "溪";
 
-"type.waterway.stream.tunnel" = "河流";
+"type.waterway.stream.tunnel" = "溪";
 
 "type.waterway.waterfall" = "瀑布";
-
-"type.waterway.weir" = "waterway-weir";
-
-"type.wheelchair" = "wheelchair";
 
 "type.wheelchair.limited" = "部分配備為殘疾人專用";
 
@@ -3057,375 +2605,4 @@
 
 "type.wheelchair.yes" = "配備殘疾人專用";
 
-"type.piste_lift" = "piste:lift";
-
-"type.piste_lift.j.bar" = "piste:lift-j-bar";
-
-"type.piste_lift.magic_carpet" = "piste:lift-magic_carpet";
-
-"type.piste_lift.platter" = "piste:lift-platter";
-
-"type.piste_lift.rope_tow" = "piste:lift-rope_tow";
-
-"type.piste_lift.t.bar" = "piste:lift-t-bar";
-
-"type.piste_type" = "piste:type";
-
-"type.piste_type.downhill" = "piste:type-downhill";
-
-"type.piste_type.downhill.advanced" = "piste:type-downhill-advanced";
-
-"type.piste_type.downhill.easy" = "piste:type-downhill-easy";
-
-"type.piste_type.downhill.expert" = "piste:type-downhill-expert";
-
-"type.piste_type.downhill.freeride" = "piste:type-downhill-freeride";
-
-"type.piste_type.downhill.intermediate" = "piste:type-downhill-intermediate";
-
-"type.piste_type.downhill.novice" = "piste:type-downhill-novice";
-
-"type.piste_type.nordic" = "piste:type-nordic";
-
-"type.piste_type.sled" = "piste:type-sled";
-
 "type.building_part" = "建築物";
-
-"type.area_highway.cycleway" = "area:highway-cycleway";
-
-"type.area_highway.footway" = "area:highway-footway";
-
-"type.area_highway.living_street" = "area:highway-living_street";
-
-"type.area_highway.motorway" = "area:highway-motorway";
-
-"type.area_highway.path" = "area:highway-path";
-
-"type.area_highway.pedestrian" = "area:highway-pedestrian";
-
-"type.area_highway.primary" = "area:highway-primary";
-
-"type.area_highway.residential" = "area:highway-residential";
-
-"type.area_highway.secondary" = "area:highway-secondary";
-
-"type.area_highway.service" = "area:highway-service";
-
-"type.area_highway.tertiary" = "area:highway-tertiary";
-
-"type.area_highway.steps" = "area:highway-steps";
-
-"type.area_highway.track" = "area:highway-track";
-
-"type.area_highway.trunk" = "area:highway-trunk";
-
-"type.area_highway.unclassified" = "area:highway-unclassified";
-
-
-/********** Brands **********/
-
-"brand.aiya" = "Aiya";
-
-"brand.anrakutei" = "Anrakutei";
-
-"brand.applebee_s" = "Applebee's";
-
-"brand.aroma" = "Aroma";
-
-"brand.bamiyan" = "Bamiyan";
-
-"brand.banana_leaf" = "Banana Leaf";
-
-"brand.baskin_robbins" = "Baskin-Robbins";
-
-"brand.big_boy" = "Big Boy";
-
-"brand.bikkuridonkey" = "Bikkuri-Donkey";
-
-"brand.blue_bottle_coffee" = "Blue Bottle Coffee";
-
-"brand.burger_king" = "Burger King";
-
-"brand.cafe_amazon" = "Café Amazon";
-
-"brand.cafe_coffee_day" = "Cafe Coffee Day";
-
-"brand.cafe_de_crie" = "Cafe de Crie";
-
-"brand.capricchosa" = "Capricchosa";
-
-"brand.carl_s_jr" = "Carl's Jr.";
-
-"brand.celentano" = "Celentano";
-
-"brand.chibo" = "Chibo";
-
-"brand.chick_fil_a" = "Chick-fil-A";
-
-"brand.chilis" = "Chili's";
-
-"brand.chipotle" = "Chipotle";
-
-"brand.chowking" = "Chowking";
-
-"brand.cinnabon" = "Cinnabon";
-
-"brand.coco" = "CoCo";
-
-"brand.coco_ichibanya" = "Coco Ichibanya";
-
-"brand.cocos" = "COCO'S";
-
-"brand.coffee_house" = "Coffee House";
-
-"brand.coffee_world" = "Coffee World";
-
-"brand.coffeeport" = "Coffeeport";
-
-"brand.coffeeshop_company" = "Coffeeshop Company";
-
-"brand.cofix" = "Cofix";
-
-"brand.comic_buster" = "Comic Buster";
-
-"brand.costa_coffee" = "Costa Coffee";
-
-"brand.dairy_queen" = "Dairy Queen";
-
-"brand.dennys" = "Denny's";
-
-"brand.doi_chaang" = "Doi Chaang";
-
-"brand.dominos_pizza" = "Domino's Pizza";
-
-"brand.double_b" = "Double B";
-
-"brand.doutor" = "Doutor";
-
-"brand.dunkin_donuts" = "Dunkin Donuts";
-
-"brand.espresso_house" = "Espresso House";
-
-"brand.excelsior_caffe" = "Excelsior Caffe";
-
-"brand.first_kitchen" = "First Kitchen";
-
-"brand.freshness_burger" = "Freshness Burger";
-
-"brand.fujisoba" = "Fujisoba";
-
-"brand.glowsubs" = "GlowSubs";
-
-"brand.grazie_gardens" = "Grazie Gardens";
-
-"brand.gusto" = "Gusto";
-
-"brand.gyukaku" = "Gyu-Kaku";
-
-"brand.haagen_dazs" = "Häagen-Dazs";
-
-"brand.hamazushi" = "Hamazushi";
-
-"brand.hanamaru" = "Hanamaru";
-
-"brand.hanaya_yohei" = "Hanaya Yohei";
-
-"brand.handaya" = "Handaya";
-
-"brand.hard_rock_cafe" = "Hard Rock Cafe";
-
-"brand.havanna" = "Havanna";
-
-"brand.hesburger" = "Hesburger";
-
-"brand.hokkahokka_tei" = "Hokka-Hokka Tei";
-
-"brand.honkekamadoya" = "Honkekamadoya";
-
-"brand.hottomotto" = "HottoMotto";
-
-"brand.ihop" = "IHOP";
-
-"brand.ikinari_steak" = "Ikinari Steak";
-
-"brand.il_patio" = "IL Patio";
-
-"brand.jack_in_the_box" = "Jack in the Box";
-
-"brand.jiyu_kukan" = "Jiyu Kukan";
-
-"brand.jollibee" = "Jollibee";
-
-"brand.jolly_pasta" = "Jolly Pasta";
-
-"brand.jonathans" = "Jonathan's";
-
-"brand.joyfull" = "Joyfull";
-
-"brand.kappazushi" = "Kappazushi";
-
-"brand.katsuya" = "Katsuya";
-
-"brand.kfc" = "KFC";
-
-"brand.kisoji" = "Kisoji";
-
-"brand.kobeya_restaurant" = "Kobeya Restaurant";
-
-"brand.kohikan" = "KO:HI:KAN";
-
-"brand.komeda" = "Komeda";
-
-"brand.komoro_soba" = "Komoro Soba";
-
-"brand.kourakuen" = "Kourakuen";
-
-"brand.kroshka_kartoshka" = "Kroshka Kartoshka";
-
-"brand.kurazushi" = "Kurazushi";
-
-"brand.little_caesars" = "Little Caesars";
-
-"brand.lotteria" = "Lotteria";
-
-"brand.maido_ohkini" = "Maido-Ohkini";
-
-"brand.marrybrown" = "Marrybrown";
-
-"brand.marugame_seimen" = "Marugame Seimen";
-
-"brand.matsunoya" = "Matsunoya";
-
-"brand.matsuya" = "Matsuya";
-
-"brand.mcdonalds" = "McDonald's";
-
-"brand.mister_donut" = "Mister Donut";
-
-"brand.miyakosoba" = "Miyakosoba";
-
-"brand.miyoshino" = "Miyoshino";
-
-"brand.mk_restaurants" = "MK Restaurants";
-
-"brand.mos_burger" = "MOS BURGER";
-
-"brand.mr_sub" = "Mr. Sub";
-
-"brand.mu_mu" = "Mu-Mu";
-
-"brand.nakau" = "Nakau";
-
-"brand.ohsho" = "Gyoza no Ohsho";
-
-"brand.onebuckscoffee" = "OneBucksCoffee";
-
-"brand.origin_bento" = "Origin Bento";
-
-"brand.osaka_ohsho" = "Osaka Ohsho";
-
-"brand.panda_express" = "Panda Express";
-
-"brand.panera_bread" = "Panera Bread";
-
-"brand.papa_johns" = "Papa John's";
-
-"brand.perkins" = "Perkins";
-
-"brand.pizza_hut" = "Pizza Hut";
-
-"brand.pizza_pizza" = "Pizza Pizza";
-
-"brand.popeyes" = "Popeyes";
-
-"brand.pronto" = "Pronto";
-
-"brand.quiznos" = "Quiznos";
-
-"brand.red_lobster" = "Red Lobster";
-
-"brand.ringer_hut" = "Ringer Hut";
-
-"brand.robin_sdobin" = "Robin Sdobin";
-
-"brand.royal_host" = "Royal Host";
-
-"brand.ruby_tuesday" = "Ruby Tuesday";
-
-"brand.saizeriya" = "Saizeriya";
-
-"brand.sato" = "Sato";
-
-"brand.segafredo" = "Segafredo";
-
-"brand.shake_shack" = "Shake Shack";
-
-"brand.shokoladnitsa" = "Shokoladnitsa";
-
-"brand.sizzler" = "Sizzler";
-
-"brand.skuratov" = "Skuratov";
-
-"brand.spur" = "Spur";
-
-"brand.starbucks" = "Starbucks";
-
-"brand.stardogs" = "Stardog!s";
-
-"brand.steak_n_shake" = "Steak'n Shake";
-
-"brand.stmarc_cafe" = "St. Marc Cafe";
-
-"brand.subway" = "Subway";
-
-"brand.sukiya" = "Sukiya";
-
-"brand.sushi_wok" = "Sushi Wok";
-
-"brand.sushiro" = "Sushiro";
-
-"brand.swensens" = "Swensen's";
-
-"brand.syabu_yo" = "Syabu-yo";
-
-"brand.taco_bell" = "Taco Bell";
-
-"brand.telepizza" = "Telepizza";
-
-"brand.tenkaippin" = "TenkaIppin";
-
-"brand.teremok" = "Teremok";
-
-"brand.tgi_fridays" = "TGI Friday's";
-
-"brand.the_pizza_company" = "The Pizza Company";
-
-"brand.tim_hortons" = "Tim Hortons";
-
-"brand.tonden" = "Tonden";
-
-"brand.tullys_coffee" = "Tully's Coffee";
-
-"brand.ueshima_coffee_ten" = "Ueshima Coffee Ten";
-
-"brand.uobei" = "Uobei";
-
-"brand.vapiano" = "Vapiano";
-
-"brand.victoria_station" = "Victoria Station";
-
-"brand.waffle_house" = "Waffle House";
-
-"brand.wendys" = "Wendy's";
-
-"brand.wokker" = "Wokker";
-
-"brand.yakitoria" = "Yakitoria";
-
-"brand.yomen_ya_goemon" = "Yomenya Goemon";
-
-"brand.yoshinoya" = "Yoshinoya";
-
-"brand.yudetaro" = "Yudetaro";
-
-"brand.yumean" = "Yumean";

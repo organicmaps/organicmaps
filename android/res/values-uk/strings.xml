@@ -12,7 +12,7 @@
 	<string name="cancel_download">Вiдмiнити завантаження</string>
 	<!-- Button which deletes downloaded country -->
 	<string name="delete">Видалити</string>
-	<string name="download_maps">Завантажити карти</string>
+	<string name="download_maps">Завантажити мапи</string>
 	<!-- Settings/Downloader - info for country when download fails -->
 	<string name="download_has_failed">Помилка завантаження. Натисніть, щоб повторити спробу</string>
 	<!-- Settings/Downloader - info for country which started downloading -->
@@ -22,20 +22,20 @@
 	<!-- Leave Review dialog - Review button -->
 	<string name="leave_a_review">Написати відгук</string>
 	<!-- View and button titles for accessibility -->
-	<string name="maps">Карти</string>
+	<string name="maps">Мапи</string>
 	<!-- Settings/Downloader - size string, only strings different from English should be translated -->
 	<string name="mb">МБ</string>
 	<string name="gb">ГБ</string>
 	<!-- Choose measurement on first launch alert - choose imperial system button -->
 	<string name="miles">Милі</string>
 	<!-- View and button titles for accessibility -->
-	<string name="core_my_position">Моє місце розташування</string>
+	<string name="core_my_position">Моє місцезнаходження</string>
 	<!-- Update maps later/Buy pro version later button text -->
 	<string name="later">Не зараз</string>
 	<!-- View and button titles for accessibility -->
 	<string name="search">Пошук</string>
 	<!-- Search box placeholder text -->
-	<string name="search_map">Пошук на картi</string>
+	<string name="search_map">Пошук на мапі</string>
 	<!-- Settings/Downloader - 3G download warning dialog confirm button -->
 	<string name="use_cellular_data">Так</string>
 	<!-- Location services are disabled by user alert - message -->
@@ -56,8 +56,8 @@
 	<string name="disconnect_usb_cable">Вимкніть USB кабель або вставте SD-карту</string>
 	<string name="not_enough_free_space_on_sdcard">Недостатньо вільного місця на SD карті / в пам\'яті пристрою для використання програми</string>
 	<string name="not_enough_memory">Недостатньо пам\'яті для запуску програми</string>
-	<string name="download_resources">Перш ніж розпочати дозвольте нам завантажити карту світу на ваш пристрій.\nВона потребує %s даних.</string>
-	<string name="download_resources_continue">Перейти на карту</string>
+	<string name="download_resources">Перш ніж розпочати дозвольте нам завантажити мапу світу на ваш пристрій.\nВона потребує %s даних.</string>
+	<string name="download_resources_continue">Перейти на мапу</string>
 	<string name="downloading_country_can_proceed">Поки завантажується %s\nви можете користуватися програмою.</string>
 	<string name="download_country_ask">Завантажити %s?</string>
 	<string name="update_country_ask">Oновити %s?</string>
@@ -73,6 +73,8 @@
 	<string name="bookmark_color">Колір мiтки</string>
 	<!-- Add Bookmark Set dialog - hint when set name is empty -->
 	<string name="bookmark_set_name">Назва групи</string>
+	<!-- Bookmark Sets dialog title -->
+	<string name="bookmark_sets">Групи мiток</string>
 	<!-- Bookmarks - dialog title -->
 	<string name="bookmarks">Мітки</string>
 	<!-- Default bookmarks set name -->
@@ -86,11 +88,11 @@
 	<!-- Settings button in system menu -->
 	<string name="settings">Налаштування</string>
 	<!-- Header of settings activity where user defines storage path -->
-	<string name="maps_storage">Зберігати карти до</string>
+	<string name="maps_storage">Зберігати мапи до</string>
 	<!-- Detailed description of Maps Storage settings button -->
-	<string name="maps_storage_summary">Виберіть місце, куди повинні бути завантажені карти</string>
+	<string name="maps_storage_summary">Виберіть місце, куди повинні бути завантажені мапи</string>
 	<!-- Question dialog for transferring maps from one storage to another -->
-	<string name="move_maps">Перемістити карти?</string>
+	<string name="move_maps">Перемістити мапи?</string>
 	<!-- Ask to wait user several minutes (some long process in modal dialog). -->
 	<string name="wait_several_minutes">Це може зайняти кілька хвилин.\nБудь ласка, зачекайте…</string>
 	<!-- Measurement units title in settings activity -->
@@ -132,7 +134,7 @@
 	<!-- Search category -->
 	<string name="post">Пошта</string>
 	<!-- Search category -->
-	<string name="police">Міліція</string>
+	<string name="police">Поліція</string>
 	<!-- Notes field in Bookmarks view -->
 	<string name="description">Примітка</string>
 	<!-- Email Subject when sharing bookmarks category -->
@@ -140,7 +142,7 @@
 	<!-- message title of loading file -->
 	<string name="load_kmz_title">Завантаження мiток</string>
 	<!-- Kmz file successful loading -->
-	<string name="load_kmz_successful">Мiтки успішно завантаженi! Ви можете знайти їх на карті або у ваших збережених мітках.</string>
+	<string name="load_kmz_successful">Мiтки успішно завантаженi! Ви можете знайти їх на мапі або у ваших збережених мітках.</string>
 	<!-- Kml file loading failed -->
 	<string name="load_kmz_failed">Не вдалося завантажити мітки. Файл може бути пошкодженим або несправним.</string>
 	<!-- resource for context menu -->
@@ -148,17 +150,17 @@
 	<!-- Warning message when doing search around current position -->
 	<string name="unknown_current_position">Ваше місце розташування не визначено</string>
 	<!-- Alert message that we can't run Map Storage settings due to some reasons. -->
-	<string name="cant_change_this_setting">Вибачте, налаштування папки з картами зараз недоступні.</string>
+	<string name="cant_change_this_setting">Вибачте, налаштування папки з мапами зараз недоступні.</string>
 	<!-- Alert message that downloading is in progress. -->
 	<string name="downloading_is_active">Зараз відбувається завантаження країни.</string>
 	<!-- Share my position using SMS, %1$@ contains om:// and %2$@ https://omaps.app link WITHOUT NAME. @NOTE non-ascii symbols in the link will result in max 70 characters SMS instead of 140. -->
 	<string name="my_position_share_sms">Глянь де я зараз. Іди %1$s або %2$s</string>
 	<!-- Subject for emailed bookmark -->
-	<string name="bookmark_share_email_subject">Поглянь на мою мiтку на карті Organic Maps</string>
+	<string name="bookmark_share_email_subject">Поглянь на мою мiтку на мапі Organic Maps</string>
 	<!-- Subject for emailed position -->
-	<string name="my_position_share_email_subject">Поглянь на моє поточне місцезнаходження на карті Organic Maps</string>
+	<string name="my_position_share_email_subject">Поглянь на моє поточне місцезнаходження на мапі Organic Maps</string>
 	<!-- Share my position using EMail, %1$@ is om:// and %2$@ is https://omaps.app link WITHOUT NAME -->
-	<string name="my_position_share_email">Привіт,\n\nЯ зараз тут: %1$s. Натисни на це посилання %2$s або на це посилання %3$s щоб побачити місце на карті.\n\nДякую.</string>
+	<string name="my_position_share_email">Привіт,\n\nЯ зараз тут: %1$s. Натисни на це посилання %2$s або на це посилання %3$s щоб побачити місце на мапі.\n\nДякую.</string>
 	<!-- Share button text which opens menu with more buttons, like Message, EMail, Facebook etc. -->
 	<string name="share">Подiлитись</string>
 	<!-- Share by email button text, also used in editor. -->
@@ -166,7 +168,7 @@
 	<!-- Text for message when used successfully copied something -->
 	<string name="copied_to_clipboard">Скопіювати в буфер обміну: %1$s</string>
 	<!-- place preview title -->
-	<string name="info">Досьє</string>
+	<string name="info">Інфо</string>
 	<!-- Used for bookmark editing -->
 	<string name="done">Готово</string>
 	<!-- Prints version number in About dialog -->
@@ -210,8 +212,8 @@
 	<string name="duration_6_hours">6 годин</string>
 	<string name="duration_12_hours">12 годин</string>
 	<string name="duration_1_day">1 день</string>
-	<string name="recent_track_help_text">Ця функція дозволяє прокласти подоланий маршрут протягом певного проміжку часу та переглянути його на карті. Звертаємо вашу увагу, що вмикання цієї функції пришвидшить розрядження акумулятора. Щойно сплине заданий проміжок часу, прокладений маршрут буде видалено з карти.</string>
-	<string name="search_show_on_map">Подивитись на карті</string>
+	<string name="recent_track_help_text">Ця функція дозволяє прокласти подоланий маршрут протягом певного проміжку часу та переглянути його на мапі. Звертаємо вашу увагу, що вмикання цієї функції пришвидшить розрядження акумулятора. Щойно сплине заданий проміжок часу, прокладений маршрут буде видалено з мапи.</string>
+	<string name="search_show_on_map">Подивитись на мапі</string>
 	<!-- Text in menu -->
 	<string name="website">Вебсайт</string>
 	<!-- Settings: Send feedback button and dialog title -->
@@ -238,22 +240,25 @@
 	<string name="downloader_cancel_all">Скасувати всі</string>
 	<!-- Downloaded maps category -->
 	<string name="downloader_downloaded_subtitle">Завантажено</string>
+	<!-- Downloaded maps category -->
+	<string name="downloader_available_maps">Доступні</string>
 	<!-- Country queued for download -->
 	<string name="downloader_queued">В черзі</string>
 	<string name="downloader_near_me_subtitle">Поблизу</string>
-	<string name="downloader_status_maps">Карти</string>
+	<string name="downloader_status_maps">Мапи</string>
 	<string name="downloader_download_all_button">Завантажити всі</string>
 	<string name="downloader_downloading">Завантажується:</string>
+	<string name="downloader_search_results">Знайдено</string>
 	<!-- Status of outdated country in the list -->
 	<string name="downloader_status_outdated">Oновити</string>
 	<!-- Status of failed country in the list -->
 	<string name="downloader_status_failed">Помилка</string>
 	<!-- Displayed in a dialog that appears when a user tries to delete a map while the app is in the follow route mode -->
-	<string name="downloader_delete_map_while_routing_dialog">Щоб видалити карту, будь ласка, зупините навiгацiю.</string>
+	<string name="downloader_delete_map_while_routing_dialog">Щоб видалити мапу, будь ласка, зупините навiгацiю.</string>
 	<!-- PointsInDifferentMWM -->
 	<string name="routing_failed_cross_mwm_building">Маршрут бути прокладений всередині мапи тільки одного регіону.</string>
 	<!-- Context menu item for downloader. -->
-	<string name="downloader_download_map">Завантажити карту</string>
+	<string name="downloader_download_map">Завантажити мапу</string>
 	<!-- Item status in downloader. -->
 	<string name="downloader_retry">Повторити</string>
 	<!-- Item in context menu. -->
@@ -271,9 +276,9 @@
 	<!-- Text for rating dialog -->
 	<string name="rating_send_feedback">Надіслати відгук</string>
 	<!-- Text for routing error dialog -->
-	<string name="routing_download_maps_along">Завантажити карти з дороги</string>
+	<string name="routing_download_maps_along">Завантажити мапи з дороги</string>
 	<!-- Text for routing error dialog -->
-	<string name="routing_requires_all_map">Для створення маршруту необхідно щоб всі карти, починаючи від вашого місцезнаходження і до пункту призначення, були завантажені та оновлені.</string>
+	<string name="routing_requires_all_map">Для створення маршруту необхідно щоб всі мапи, починаючи від вашого місцезнаходження і до пункту призначення, були завантажені та оновлені.</string>
 	<!-- Text for routing error dialog -->
 	<string name="routing_not_enough_space">Недостатньо місця</string>
 	<!-- bookmark button text -->
@@ -305,7 +310,7 @@
 	<!-- SECTION: Routing dialogs strings -->
 	<string name="dialog_routing_disclaimer_title">Під час руху за маршрутом пам\'ятайте:</string>
 	<string name="dialog_routing_disclaimer_priority">— Дорожня обстановка, правила дорожнього руху і знаки пріоритетніші, ніж поради програми;</string>
-	<string name="dialog_routing_disclaimer_precision">— Карта може бути неточною, а запропонований маршрут не завжди оптимальний;</string>
+	<string name="dialog_routing_disclaimer_precision">— Мапа може бути неточною, а запропонований маршрут не завжди оптимальний;</string>
 	<string name="dialog_routing_disclaimer_recommendations">— Запропоновані маршрути — лише рекомендації;</string>
 	<string name="dialog_routing_disclaimer_borders">— Дотримуйтеся обережності з маршрутами у прикордонних зонах: маршрути, створені нашою програмою, іноді можуть перетинати кордони країн у несанкціонованих місцях;</string>
 	<string name="dialog_routing_disclaimer_beware">Будьте уважні на дорогах і бережіть себе!</string>
@@ -315,7 +320,7 @@
 	<string name="dialog_routing_location_turn_on">Увімкніть режим визначення геопозиції</string>
 	<string name="dialog_routing_location_unknown_turn_on">Поточну геопозицію не визначено. Для побудови маршруту увімкніть режим визначення геопозиції.</string>
 	<string name="dialog_routing_download_files">Завантажте необхідні файли</string>
-	<string name="dialog_routing_download_and_update_all">Для побудови маршруту завантажте і обновіть всі карти і файли маршрутів на шляху руху.</string>
+	<string name="dialog_routing_download_and_update_all">Для побудови маршруту завантажте і обновіть всі мапи і файли маршрутів на шляху руху.</string>
 	<string name="dialog_routing_unable_locate_route">Маршрут не знайдено</string>
 	<string name="dialog_routing_cant_build_route">Не вдалося побудувати маршрут.</string>
 	<string name="dialog_routing_change_start_or_end">Будь ласка, змініть початкову або кінцеву точку маршруту.</string>
@@ -331,12 +336,12 @@
 	<string name="dialog_routing_application_error">Не вдалося прокласти маршрут через помилки програми.</string>
 	<string name="dialog_routing_try_again">Спробуйте знову</string>
 	<string name="not_now">Не зараз</string>
-	<string name="dialog_routing_download_and_build_cross_route">Завантажити карту і побудувати більш оптимальний маршрут з перетином межі карти?</string>
-	<string name="dialog_routing_download_cross_route">Для побудови більш оптимального маршруту з перетином межі потрібно завантажити карту.</string>
+	<string name="dialog_routing_download_and_build_cross_route">Завантажити мапу і побудувати більш оптимальний маршрут з перетином межі мапи?</string>
+	<string name="dialog_routing_download_cross_route">Для побудови більш оптимального маршруту з перетином межі потрібно завантажити мапу.</string>
 
 	<!-- SECTION: Strings for downloading map from search -->
-	<string name="search_without_internet_advertisement">Щоб розпочати пошук та створення маршрутів, будь ласка, завантажте карту і вам більше ніколи не знадобиться інтернет-з’єднання.</string>
-	<string name="search_select_map">Вибрати карту</string>
+	<string name="search_without_internet_advertisement">Щоб розпочати пошук та створення маршрутів, будь ласка, завантажте мапу і вам більше ніколи не знадобиться інтернет-з’єднання.</string>
+	<string name="search_select_map">Вибрати мапу</string>
 	<!-- «Show» context menu -->
 	<string name="show">Показати</string>
 	<!-- «Hide» context menu -->
@@ -435,7 +440,7 @@
 	<string name="downloader_delete_map_dialog">Разом з мапою будуть видалені й внесені Вами правки на цій мапі.</string>
 	<string name="downloader_update_maps">Оновити мапи</string>
 	<string name="downloader_mwm_migration_dialog">Для побудови маршруту необхідно оновити усі мапи та побудувати маршрут заново.</string>
-	<string name="downloader_search_field_hint">Знайти карту</string>
+	<string name="downloader_search_field_hint">Знайти мапу</string>
 	<string name="migration_download_error_dialog">Помилка завантаження</string>
 	<string name="common_check_internet_connection_dialog">Будь ласка, перевірте свої налаштування і переконайтеся, що ваш пристрій підлючено до Інтернету.</string>
 	<string name="downloader_no_space_title">Недостатньо місця</string>
@@ -453,7 +458,7 @@
 	<string name="detailed_problem_description">Детальний опис проблеми</string>
 	<string name="editor_report_problem_other_title">Інші проблема</string>
 	<string name="placepage_add_business_button">Додати організацію</string>
-	<string name="whatsnew_editor_message_1">Додати нові місця до карти і редагувати існуючі місця прямо з програми.</string>
+	<string name="whatsnew_editor_message_1">Додати нові місця до мапи і редагувати існуючі місця прямо з програми.</string>
 	<string name="dialog_incorrect_feature_position">Змініть розташування</string>
 	<string name="message_invalid_feature_position">Об\'єкт не може перебувати в цьому місцезнаходженні</string>
 	<string name="login_to_make_edits_visible">Увійдіть, щоб ваші зміни побачили інші користувачі.</string>
@@ -476,7 +481,8 @@
 	<string name="editor_detailed_description_hint">Докладний коментар</string>
 	<string name="editor_detailed_description">Зміни, що ви запропонували, буде відправлено до OpenStreetMap. Опишіть подробиці про об\'єкт, які не можна редагувати у Organic Maps.</string>
 	<string name="editor_more_about_osm">Більше про OpenStreetMap</string>
-	<string name="editor_operator">Володар</string>
+	<string name="editor_operator">Власник</string>
+	<string name="downloader_my_maps_title">Мої мапи</string>
 	<string name="downloader_no_downloaded_maps_title">Ви не маєте завантажених мап</string>
 	<string name="downloader_no_downloaded_maps_message">Завантажте необхідні мапи, щоб знаходити місця та користуватися навігацією без iнтернету.</string>
 	<!-- Error title that appears after certain time without location. -->
@@ -495,8 +501,10 @@
 	<string name="location_services_disabled_3">3. Оберіть \"Під час роботи програми\"</string>
 	<string name="meter">м</string>
 	<string name="kilometer">км</string>
+	<string name="kilometers_per_hour">км/год</string>
 	<string name="mile">ми</string>
 	<string name="foot">фут</string>
+	<string name="miles_per_hour">ми/год</string>
 	<string name="hour">год</string>
 	<string name="minute">хв</string>
 	<string name="placepage_place_description">Опис</string>
@@ -506,9 +514,11 @@
 	<string name="placepage_call_button">Подзвонити</string>
 	<string name="placepage_edit_bookmark_button">Редагувати мiтку</string>
 	<string name="placepage_bookmark_name_hint">Назва мiтки</string>
+	<string name="placepage_personal_notes_hint">Примітка</string>
+	<string name="placepage_delete_bookmark_button">Видалити мiтку</string>
 	<string name="editor_edits_sent_message">Зміни, що ви запропонували, відправлено</string>
 	<string name="editor_comment_hint">Коментар…</string>
-	<string name="editor_reset_edits_message">Скинути усі локальні виправлення?</string>
+	<string name="editor_reset_edits_message">Скинути всі локальні виправлення?</string>
 	<string name="editor_reset_edits_button">Скинути</string>
 	<string name="editor_remove_place_message">Видалити об\'єкт, що ви додали?</string>
 	<string name="editor_remove_place_button">Видалити</string>
@@ -517,14 +527,15 @@
 	<!-- Phone number error message -->
 	<string name="error_enter_correct_phone">Введіть правильний номер телефону</string>
 	<string name="error_enter_correct_web">Введіть вірну адресу веб-сайту</string>
-	<string name="error_enter_correct_email">Введіть вірниу адресу електронної пошти</string>
-	<string name="refresh">Обновити</string>
-	<string name="placepage_add_place_button">Додати на карту</string>
+	<string name="error_enter_correct_email">Введіть вірну адресу електронної пошти</string>
+	<string name="refresh">Оновити</string>
+	<string name="placepage_add_place_button">Додати на мапу</string>
 	<!-- Displayed when saving some edits to the map to warn against publishing personal data -->
 	<string name="editor_share_to_all_dialog_title">Надіслати усім користувачам?</string>
 	<!-- iOS Dialog before publishing the modifications to the public map. -->
 	<string name="editor_share_to_all_dialog_message_1">Переконайтеся, що ви не ввели особисті дані.</string>
 	<string name="editor_share_to_all_dialog_message_2">Якщо при перевірці змін виникнуть питання, ми напишемо вам на email.</string>
+	<string name="navigation_stop_button">стоп</string>
 	<!-- iOS dialog for the case when recent track recording is on and the app comes back from background -->
 	<string name="recent_track_background_dialog_title">Вимкнути запис нещодавно пройденого шляху?</string>
 	<string name="off_recent_track_background_button">Вимкнути</string>
@@ -551,17 +562,17 @@
 	<string name="mobile_data_option_today">Тільки сьогодні</string>
 	<string name="mobile_data_option_not_today">За винятком сьогодні</string>
 	<string name="mobile_data">Мобільні дані</string>
-	<string name="mobile_data_description">Використання мобільних даних необхідно для відображення докладної інформації про місця (наприклад, фотографій, цін і відгуків).</string>
+	<string name="mobile_data_description">Використання мобільних даних необхідно для відображення докладної інформації про місця (наприклад, фотографій, цін та відгуків).</string>
 	<string name="mobile_data_option_never">Ніколи</string>
 	<string name="mobile_data_option_ask">Завжди питати</string>
-	<string name="traffic_update_maps_text">Для відображення інформації про трафік необхідно оновити карти.</string>
-	<string name="big_font">Збільшити розмір шрифту на карті</string>
+	<string name="traffic_update_maps_text">Для відображення інформації про трафік необхідно оновити мапи.</string>
+	<string name="big_font">Збільшити розмір шрифту на мапі</string>
 	<string name="traffic_update_app">Будь ласка, встановіть оновлення Organic Maps</string>
 	<!-- "traffic" as in road congestion -->
 	<string name="traffic_update_app_message">Для відображення даних про трафік оновіть додаток.</string>
 	<!-- "traffic" as in "road congestion" -->
 	<string name="traffic_data_unavailable">Дані про трафік недоступні</string>
-	<string name="enable_logging">Підтримка журналювання</string>
+	<string name="enable_logging">Включити логіювання</string>
 	<!-- Settings: "Send general feedback" button -->
 	<string name="feedback_general">Загальний відгук</string>
 	<string name="on">Увімкн.</string>
@@ -569,7 +580,7 @@
 	<string name="prefs_languages_information">Для озвучування голосових інструкцій ми використовуємо систему TTS. Більшість Android-пристроїв підтримують систему Google TTS. Для завантаження або оновлення перейдіть до магазину Google Play (https://play.google.com/store/apps/details?id=com.google.android.tts)</string>
 	<string name="prefs_languages_information_off">Для деяких мов вам знадобиться встановити інший додаток для синтезу мовлення або додатковий мовний пакет з магазину додатків (Google Play Market, Samsung Apps).\nВідкрийте налаштування пристрою → Мови та введення → Мовлення → Синтез мовлення.\nТут ви можете здійснювати управління налаштуваннями синтезу мовлення (наприклад, завантажити мовний пакет для використання офлайн) або вибрати інший програмний рушій для синтезу мовлення.</string>
 	<string name="prefs_languages_information_off_link">Додаткову інформацію див. у цьому керівництві.</string>
-	<string name="whatsnew_transliteration_title">Транслітерація латинськими літерами</string>
+	<string name="transliteration_title">Транслітерація латинськими літерами</string>
 	<string name="learn_more">Докладніше</string>
 	<string name="core_exit">Вихід</string>
 	<string name="routing_add_start_point">Вкажіть початкову точку для побудови маршруту</string>
@@ -581,7 +592,8 @@
 	<string name="planning_route_remove_title">Перетягніть сюди, щоб видалити</string>
 	<string name="placepage_add_stop">Додати зупинку</string>
 	<string name="preloader_viator_button">Докладніше</string>
-	<string name="profile_authorization_error">Ой, трапилася помилка. Спробуйте ввійти знову.</string>
+	<string name="start_from_my_position">Почати з</string>
+	<string name="profile_authorization_error">Ой, трапилася помилка. Спробуйте увійти знову.</string>
 	<string name="dialog_error_storage_title">Не вдалося отримати доступ до сховища</string>
 	<string name="dialog_error_storage_message">Зовнішнє сховище не доступно. Ймовірно, SD-картку пам\'яті було вилучено, пошкоджено, або система файлів доступна тільки для читання. Будь ласка, перевірте та зв\'яжіться з нами, написавши на адресу електронну пошту support\@organicmaps.app</string>
 	<string name="setting_emulate_bad_storage">Емулювати проблемне сховище</string>
@@ -590,6 +602,9 @@
 	<string name="bookmarks_groups">Списки</string>
 	<string name="bookmarks_groups_hide_all">Приховати всі</string>
 	<string name="bookmarks_groups_show_all">Показати всі</string>
+	<plurals name="bookmarks_places">
+	  <item quantity="other">%d закладок</item>
+	</plurals>
 	<string name="bookmarks_create_new_group">Створити новий список</string>
 	<string name="downloader_hide_screen">Приховати екран</string>
 	<string name="downloader_percent">%1$s (%2$s з %3$s)</string>
@@ -603,6 +618,7 @@
 	<string name="bookmarks_new_list_hint">Новий список</string>
 	<string name="bookmarks_error_title_list_name_already_taken">Це ім\'я вже зайнято</string>
 	<string name="bookmarks_error_message_list_name_already_taken">Виберіть інше ім\'я</string>
+	<string name="bookmarks_error_title_list_name_too_long">Це ім\'я задовге</string>
 	<string name="please_wait">Будь ласка, зачекайте…</string>
 	<string name="phone_number">Номер телефону</string>
 	<string name="profile">Профіль OpenStreetMap</string>
@@ -636,8 +652,8 @@
 	<string name="terms_of_use">Умови використання</string>
 	<string name="button_layer_traffic">Затор</string>
 	<string name="button_layer_subway">Метрополітен</string>
-	<string name="layers_title">Зображення карти</string>
-	<string name="subway_data_unavailable">Карта метрополітену недоступна</string>
+	<string name="layers_title">Зображення мапи</string>
+	<string name="subway_data_unavailable">Мапа метрополітену недоступна</string>
 	<string name="bookmarks_empty_list_title">Список порожній</string>
 	<string name="bookmarks_empty_list_message">Щоб додати нову позначку, натисніть на значок зірочки в картці об’єкта</string>
 	<string name="category_desc_more">…ще</string>
@@ -651,6 +667,7 @@
 	<string name="bookmark_category_description_hint">Додайте опис (текст чи html)</string>
 	<string name="not_shared">Особистий</string>
 	<string name="tags_loading_error_subtitle">Під час завантаження тегів сталася помилка, будь ласка, спробуйте ще раз</string>
+	<string name="download_button">Завантажити</string>
 	<string name="speedcams_alert_title">Камери швидкості</string>
 	<string name="speedcam_option_auto">Авто</string>
 	<string name="speedcam_option_always">Завжди</string>
@@ -676,23 +693,81 @@
 	<string name="unable_to_calc_alert_subtitle">На жаль, ми не змогли побудувати маршрут з вибраними опціями. Змініть налаштування та спробуйте ще раз</string>
 	<string name="define_to_avoid_btn">Налаштувати шляхи об’їзду</string>
 	<string name="change_driving_options_btn">Увімкнено налаштування об’їзду</string>
+	<string name="toll_road">Платна дорога</string>
+	<string name="unpaved_road">Ґрунтова дорога</string>
+	<string name="ferry_crossing">Поромна переправа</string>
 	<string name="avoid_toll_roads_placepage">Уникати платних доріг</string>
 	<string name="avoid_unpaved_roads_placepage">Уникати ґрунтових доріг</string>
 	<string name="avoid_ferry_crossing_placepage">Уникати поромних переправ</string>
+	<string name="trip_start">Поїхали</string>
+	<string name="pick_destination">Ціль</string>
+	<string name="follow_my_position">Відцентрувати</string>
+	<string name="search_results">Результати пошуку</string>
+	<string name="then_turn">Далі</string>
+	<string name="redirect_route_alert">Бажаєте перебудувати маршрут?</string>
+	<string name="redirect_route_yes">Так</string>
+	<string name="redirect_route_no">Ні</string>
+	<string name="trip_finished">Ви прибули!</string>
+	<string name="keyboard_availability_alert">Клавіатура недоступна під час руху</string>
+	<string name="dialog_routing_change_start_carplay">Неможливо побудувати маршрут від поточного місця розташування</string>
+	<string name="dialog_routing_change_end_carplay">Неможливо побудувати маршрут до кінцевої точки. Оберіть іншу</string>
+	<string name="dialog_routing_check_gps_carplay">Немає сигналу GPS. Перейдіть на відкриту місцевість</string>
+	<string name="dialog_routing_unable_locate_route_carplay">Неможливо побудувати маршрут. Оберіть інші точки маршруту</string>
+	<string name="dialog_routing_download_files_carplay">Щоб побудувати маршрут, завантажте відсутні карти на своєму пристрої</string>
+	<string name="dialog_routing_system_error_carplay">Виникла помилка. Перезапустіть додаток</string>
+	<string name="dialog_routing_rebuild_from_current_location_carplay">Маршрут буде перебудовано від вашого поточного місця розташування</string>
+	<string name="dialog_routing_rebuild_for_vehicle_carplay">Маршрут буде змінено на автомобільний</string>
 	<string name="ok">Ок</string>
+	<string name="avoid_unpaved_carplay_1">Без ґрунт.</string>
+	<string name="avoid_unpaved_carplay_2">Без ґрунтових</string>
+	<string name="avoid_ferry_carplay_1">Без поромів</string>
+	<string name="avoid_ferry_carplay_2">Без поромів</string>
+	<string name="avoid_tolls_carplay_1">Без платних</string>
+	<string name="avoid_tolls_carplay_2">Без платних</string>
+	<string name="speedcams_alert_title_carplay_1">Камери</string>
+	<string name="speedcams_alert_title_carplay_2">Інфо о камерах</string>
+	<string name="download_map_carplay">Завантажте карти в додатку Organic Maps на своєму пристрої</string>
+	<string name="carplay_roundabout_exit">%s з’їзд</string>
 	<!-- max. 10 symbols, both iOS and Android -->
 	<string name="sort">Сортувати</string>
 	<!-- Android, title, max 20-22 symbols -->
 	<string name="sort_bookmarks">Сортувати мітки</string>
+	<!-- iOS -->
+	<string name="sort_default">Сортувати за промовчанням</string>
+	<string name="sort_type">Сортувати за типом</string>
+	<string name="sort_distance">Сортувати за відстанню</string>
+	<string name="sort_date">Сортувати за датою</string>
 	<!-- Android -->
-	<string name="by_default">За промовчанням</string>
+	<string name="by_default">Усталено</string>
 	<!-- Android -->
 	<string name="by_type">За типом</string>
 	<!-- Android -->
 	<string name="by_distance">За відстанню</string>
 	<!-- Android -->
 	<string name="by_date">За датою</string>
+	<string name="week_ago_sorttype">Тиждень тому</string>
+	<string name="month_ago_sorttype">Місяць тому</string>
+	<string name="moremonth_ago_sorttype">Понад місяць тому</string>
+	<string name="moreyear_ago_sorttype">Понад рік тому</string>
+	<string name="near_me_sorttype">Поруч зі мною</string>
+	<string name="others_sorttype">Інші</string>
+	<string name="food_places">Їжа</string>
+	<string name="tourist_places">Пам’ятки</string>
+	<string name="museums">Музеї</string>
+	<string name="parks">Парки</string>
+	<string name="swim_places">Плавання</string>
+	<string name="mountains">Гори</string>
+	<string name="animals">Тварини</string>
+	<string name="hotels">Готелі</string>
+	<string name="buildings">Будівлі</string>
+	<string name="money">Гроші</string>
+	<string name="shops">Магазини</string>
+	<string name="parkings">Парковки</string>
+	<string name="fuel_places">Заправки</string>
+	<string name="water">Вода</string>
+	<string name="medicine">Медицина</string>
 	<string name="search_in_the_list">Шукати в списку</string>
+	<string name="religious_places">Святі місця</string>
 	<string name="select_list">Обрати список</string>
 	<string name="transit_not_found">Навігація на метро ще недоступна в цьому регіоні</string>
 	<string name="dialog_pedestrian_route_is_long_header">Маршрут метро не знайдено</string>
@@ -701,6 +776,9 @@
 	<string name="isolines_activation_error_dialog">Щоб скористатися лініями висот, оновіть чи завантажте карту потрібної місцевості</string>
 	<string name="isolines_location_error_dialog">Лінії висот ще недоступні в цьому регіоні</string>
 	<string name="elevation_profile_diff_level">Рівень складності</string>
+	<string name="elevation_profile_diff_level_easy">Простий</string>
+	<string name="elevation_profile_diff_level_moderate">Помірний</string>
+	<string name="elevation_profile_diff_level_hard">Складний</string>
 	<string name="elevation_profile_ascent">Підйом</string>
 	<string name="elevation_profile_descent">Спуск</string>
 	<string name="elevation_profile_minaltitude">Мін. висота</string>
@@ -708,15 +786,17 @@
 	<string name="elevation_profile_difficulty">Складність</string>
 	<string name="elevation_profile_distance">Відст.:</string>
 	<string name="elevation_profile_time">Шлях:</string>
-	<string name="isolines_toast_zooms_1_10">Збільште карту, щоб побачити ізолінії</string>
+	<string name="isolines_toast_zooms_1_10">Збільште мапу, щоб побачити ізолінії</string>
+	<string name="downloader_updating_ios">Оновлення</string>
+	<string name="downloader_loading_ios">Завантаження</string>
 	<string name="key_information_title">Ключова інформація</string>
-	<string name="enable_screen_sleep">Allow screen to sleep</string>
+	<string name="enable_screen_sleep">Дозволити екрану вимкнутись</string>
 	<!-- Description in preferences -->
-	<string name="enable_screen_sleep_description">When enabled the screen will be allowed to sleep after a period of inactivity.</string>
+	<string name="enable_screen_sleep_description">При включенні екран може переходити в сплячий режим після певного періоду бездіяльності</string>
 	<!-- Autoupdate dialog on start -->
-	<string name="whats_new_auto_update_title">Оновити завантажені карти</string>
+	<string name="whats_new_auto_update_title">Оновити завантажені мапи</string>
 	<!-- Autoupdate dialog on start -->
-	<string name="whats_new_auto_update_message">Оновлення карт дозволяє підтримувати інформацію про об\'єкти в актуальному стані</string>
+	<string name="whats_new_auto_update_message">Оновлення мап дозволяє підтримувати інформацію про об\'єкти в актуальному стані</string>
 	<!-- Autoupdate dialog on start -->
 	<string name="whats_new_auto_update_button_size">Оновити (%s)</string>
 	<!-- Autoupdate dialog on start -->
@@ -1316,9 +1396,4 @@
 	<string name="type.wheelchair.no">Не обладнано для інвалідів</string>
 	<string name="type.wheelchair.yes">Обладнано для інвалідів</string>
 	<string name="type.building_part">Будівля</string>
-
-	<!-- SECTION: Brands -->
-	<string name="brand.celentano">Челентано</string>
-	<string name="brand.mcdonalds">МакДональдз</string>
-	<string name="brand.sushi_wok">Суши Wok</string>
 </resources>

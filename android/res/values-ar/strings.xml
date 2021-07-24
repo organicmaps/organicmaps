@@ -72,6 +72,8 @@
 	<string name="bookmark_color">لون الإشارة المرجعية</string>
 	<!-- Add Bookmark Set dialog - hint when set name is empty -->
 	<string name="bookmark_set_name">اسم مجموعة الإشارات المرجعية</string>
+	<!-- Bookmark Sets dialog title -->
+	<string name="bookmark_sets">مجموعات الإشارات المرجعية</string>
 	<!-- Bookmarks - dialog title -->
 	<string name="bookmarks">الإشارات المرجعية</string>
 	<!-- Default bookmarks set name -->
@@ -237,12 +239,15 @@
 	<string name="downloader_cancel_all">إلغاء الكل</string>
 	<!-- Downloaded maps category -->
 	<string name="downloader_downloaded_subtitle">تم تنزيلها</string>
+	<!-- Downloaded maps category -->
+	<string name="downloader_available_maps">متاح</string>
 	<!-- Country queued for download -->
 	<string name="downloader_queued">مَصْفوف</string>
 	<string name="downloader_near_me_subtitle">بالقرب مني</string>
 	<string name="downloader_status_maps">الخرائط</string>
 	<string name="downloader_download_all_button">تنزيل الكل</string>
 	<string name="downloader_downloading">يتم تنزيل:</string>
+	<string name="downloader_search_results">تم العثور على</string>
 	<!-- Status of outdated country in the list -->
 	<string name="downloader_status_outdated">تحديث</string>
 	<!-- Status of failed country in the list -->
@@ -476,6 +481,7 @@
 	<string name="editor_detailed_description">سيتم إرسال التغييرات التي اقترحتها إلى مجتمع OpenStreetMap. اذكر التفاصيل التي لا يمكن تحريرها في Organic Maps</string>
 	<string name="editor_more_about_osm">المزيد عن OpenStreetMap</string>
 	<string name="editor_operator">معامل</string>
+	<string name="downloader_my_maps_title">خرائطي</string>
 	<string name="downloader_no_downloaded_maps_title">لم تقم بتنزيل أية خرائط</string>
 	<string name="downloader_no_downloaded_maps_message">قم بتنزيل خرائط للبحث عن مكان والتنقل بدون اتصال بالإنترنت.</string>
 	<!-- Error title that appears after certain time without location. -->
@@ -494,8 +500,10 @@
 	<string name="location_services_disabled_3">3. اختيار أثناء استخدام التطبيق</string>
 	<string name="meter">م</string>
 	<string name="kilometer">كم</string>
+	<string name="kilometers_per_hour">كم/ساعة</string>
 	<string name="mile">ميل</string>
 	<string name="foot">قدم</string>
+	<string name="miles_per_hour">ميل/ساعة</string>
 	<string name="hour">س</string>
 	<string name="minute">د</string>
 	<string name="placepage_place_description">الوصف</string>
@@ -505,6 +513,8 @@
 	<string name="placepage_call_button">اتصال</string>
 	<string name="placepage_edit_bookmark_button">تحرير العلامة المرجعية</string>
 	<string name="placepage_bookmark_name_hint">اسم العلامة المرجعية</string>
+	<string name="placepage_personal_notes_hint">ملاحظات شخصية</string>
+	<string name="placepage_delete_bookmark_button">حذف العلامة المرجعية</string>
 	<string name="editor_edits_sent_message">لقد تم إرسال التغييرات التي اقترحتها</string>
 	<string name="editor_comment_hint">تعليق…</string>
 	<string name="editor_reset_edits_message">هل تريد مسح كافة التغييرات المحلية؟</string>
@@ -524,6 +534,7 @@
 	<!-- iOS Dialog before publishing the modifications to the public map. -->
 	<string name="editor_share_to_all_dialog_message_1">تأكد من أنك لم تقم بإدخال أي بيانات شخصية.</string>
 	<string name="editor_share_to_all_dialog_message_2">سنقوم بمراجعة هذه التغييرات. إذا كانت لدينا أي أسئلة فسوف نتصل بك عبر البريد الإلكتروني.</string>
+	<string name="navigation_stop_button">توقف</string>
 	<!-- iOS dialog for the case when recent track recording is on and the app comes back from background -->
 	<string name="recent_track_background_dialog_title">تريد تعطيل التسجيل الخاص بمسار سفرك الأخير؟</string>
 	<string name="off_recent_track_background_button">تعطيل</string>
@@ -568,7 +579,7 @@
 	<string name="prefs_languages_information">نحن نستخدم نظام النص إلى كلام (TTS) للتعليمات الصوتية. تستخدم العديد من أجهزة Android نظام Google TTS، يمكنك تنزيله من أو تحديثه من Google Play (https://play.google.com/store/apps/details?id=com.google.android.tts)</string>
 	<string name="prefs_languages_information_off">(TTS) إضافي (حيث إن نظام Google TTS لا يدعم اللغات بعد (من Google Play مثل Vocalizer TTS أو SVOX Classics.\nلإدارة الإعدادات لتخليق الكلام، في الجهاز الخاص بك افتح الإعدادات –> اللغة والإدخال –> الكلام –> إخراج نص إلى كلام. هنا يمكنك تنزيل حزمة لغة إضافية أو تحديد محرك النص إلى كلام المفضل.</string>
 	<string name="prefs_languages_information_off_link">لمزيد من المعلومات الرجاء مراجعة هذا الدليل.</string>
-	<string name="whatsnew_transliteration_title">كتابة بالحروف اللاتينية</string>
+	<string name="transliteration_title">كتابة بالحروف اللاتينية</string>
 	<string name="learn_more">تعلم المزيد</string>
 	<string name="core_exit">خروج</string>
 	<string name="routing_add_start_point">أضف نقطة البداية لتخطيط المسار</string>
@@ -580,6 +591,7 @@
 	<string name="planning_route_remove_title">اسحب هنا للإزالة</string>
 	<string name="placepage_add_stop">إضافة نقطة توقف</string>
 	<string name="preloader_viator_button">تعلم المزيد</string>
+	<string name="start_from_my_position">بدء من</string>
 	<string name="profile_authorization_error">عفوًا، كان هناك خطأ. حاول تسجيل الدخول مرة اخرى.</string>
 	<string name="dialog_error_storage_title">مشكلة الوصول للتخزين</string>
 	<string name="dialog_error_storage_message">التخزين الخارجي غير متوفر، ربما تمت إزالة بطاقة SD، أو أنها تالفة أو ملف النظام للقراءة فقط. افحصه واتصل بنا على support\@organicmaps.app</string>
@@ -589,6 +601,9 @@
 	<string name="bookmarks_groups">قوائم</string>
 	<string name="bookmarks_groups_hide_all">إخفاء الكل</string>
 	<string name="bookmarks_groups_show_all">إظهار الكل</string>
+	<plurals name="bookmarks_places">
+	  <item quantity="other">%d من الإشارات المرجعية</item>
+	</plurals>
 	<string name="bookmarks_create_new_group">إنشاء قائمة جديدة</string>
 	<string name="downloader_hide_screen">إخفاء الشاشة</string>
 	<string name="downloader_percent">%1$s (%2$s من %3$s)</string>
@@ -602,6 +617,7 @@
 	<string name="bookmarks_new_list_hint">قائمة جديدة</string>
 	<string name="bookmarks_error_title_list_name_already_taken">هذا الاسم أخذ سابقا</string>
 	<string name="bookmarks_error_message_list_name_already_taken">يرجى اختيار اسم آخر</string>
+	<string name="bookmarks_error_title_list_name_too_long">هذا الاسم طويل للغاية</string>
 	<string name="please_wait">أرجو الإنتظار…</string>
 	<string name="phone_number">رقم الهاتف</string>
 	<string name="profile">الملف الشخصي OpenStreetMap</string>
@@ -648,6 +664,7 @@
 	<string name="bookmark_category_description_hint">اكتب وصفًا (نص أو html)</string>
 	<string name="not_shared">خاص</string>
 	<string name="tags_loading_error_subtitle">حدث خطأ أثناء تحميل العلامات ، يرجى المحاولة مرة أخرى</string>
+	<string name="download_button">تحميل</string>
 	<string name="speedcams_alert_title">كاميرات السرعة</string>
 	<string name="speedcam_option_auto">السيارات</string>
 	<string name="speedcam_option_always">دائما</string>
@@ -673,14 +690,50 @@
 	<string name="unable_to_calc_alert_subtitle">نأسف، لم نعثر على الطريق ربما بسبب الخيارات التي قمت بتحديدها. يرجى تغيير الاعدادات والمحاولة مجددًا</string>
 	<string name="define_to_avoid_btn">حدد الطرق التي يجب تجنبها</string>
 	<string name="change_driving_options_btn">تم تفعيل خيارات الطريق</string>
+	<string name="toll_road">نقطة تحصيل رسوم</string>
+	<string name="unpaved_road">طريق غير ممهدة</string>
+	<string name="ferry_crossing">تقاطع عبارة</string>
 	<string name="avoid_toll_roads_placepage">تجنب نقاط تحصيل الرسوم</string>
 	<string name="avoid_unpaved_roads_placepage">تجنب الطرق الغير ممهدة</string>
 	<string name="avoid_ferry_crossing_placepage">تجنب تقاطع العبارات</string>
+	<string name="trip_start">هيا بنا</string>
+	<string name="pick_destination">جهة الوصول</string>
+	<string name="follow_my_position">العودة إلى الوسط</string>
+	<string name="search_results">نتائج البحث</string>
+	<string name="then_turn">ثم</string>
+	<string name="redirect_route_alert">هل تريد إعادة تحديد الطريق?</string>
+	<string name="redirect_route_yes">نعم</string>
+	<string name="redirect_route_no">لا</string>
+	<string name="trip_finished">لقد وصلت!</string>
+	<string name="keyboard_availability_alert">لوحة الكتابة غير متاحة أثناء القيادة</string>
+	<string name="dialog_routing_change_start_carplay">لا يمكن تحديد طريق من موقعك الحالي</string>
+	<string name="dialog_routing_change_end_carplay">لا يمكن تحديد طريق لجهة الوصول. يرجي اختيار مكان آخر</string>
+	<string name="dialog_routing_check_gps_carplay">لا وجد إشارة GPS. يرجى التحرك لمكان مفتوح</string>
+	<string name="dialog_routing_unable_locate_route_carplay">لا يمكن تحديد طريق. يرجى تحديد أماكن أخرى على الطريق</string>
+	<string name="dialog_routing_download_files_carplay">كي تُنشئ مساراً، يجب أن تحمل الخرائط المفقودة على جهازك</string>
+	<string name="dialog_routing_system_error_carplay">حدث خطأ. يرجى إعادة تشغيل التطبيق</string>
+	<string name="dialog_routing_rebuild_from_current_location_carplay">سيتم اعادة تحديد الطريق من موقعك الحالي</string>
+	<string name="dialog_routing_rebuild_for_vehicle_carplay">سيتم تعديل الطريق لتكون خاصة بالسيارة</string>
 	<string name="ok">موافق</string>
+	<string name="avoid_unpaved_carplay_1">غير ترابي</string>
+	<string name="avoid_unpaved_carplay_2">تجنب غير الممهد</string>
+	<string name="avoid_ferry_carplay_1">بدون عبََارة</string>
+	<string name="avoid_ferry_carplay_2">تجنب العبََارة</string>
+	<string name="avoid_tolls_carplay_1">بدون رسوم</string>
+	<string name="avoid_tolls_carplay_2">تجنب الرسوم</string>
+	<string name="speedcams_alert_title_carplay_1">كاميرا سريعة</string>
+	<string name="speedcams_alert_title_carplay_2">تحذير سريع</string>
+	<string name="download_map_carplay">يُرجى تحميل الخرائط في تطبيق Organic Maps على جهازك</string>
+	<string name="carplay_roundabout_exit">المخرج رقم %s</string>
 	<!-- max. 10 symbols, both iOS and Android -->
 	<string name="sort">تريتب…</string>
 	<!-- Android, title, max 20-22 symbols -->
 	<string name="sort_bookmarks">رتب العلامات المرجعية</string>
+	<!-- iOS -->
+	<string name="sort_default">رتب افتراضي</string>
+	<string name="sort_type">رتب حسب النوع</string>
+	<string name="sort_distance">رتب حسب المسافة</string>
+	<string name="sort_date">رتب حسب التاريخ</string>
 	<!-- Android -->
 	<string name="by_default">افتراضي</string>
 	<!-- Android -->
@@ -689,7 +742,29 @@
 	<string name="by_distance">حسب المسافة</string>
 	<!-- Android -->
 	<string name="by_date">حسب التاريخ</string>
+	<string name="week_ago_sorttype">منذ أسبوع</string>
+	<string name="month_ago_sorttype">منذ شهر</string>
+	<string name="moremonth_ago_sorttype">منذ أكثر من شهر</string>
+	<string name="moreyear_ago_sorttype">منذ أكثر من سنة</string>
+	<string name="near_me_sorttype">قريب مني</string>
+	<string name="others_sorttype">أخرى</string>
+	<string name="food_places">طعام</string>
+	<string name="tourist_places">مشاهد</string>
+	<string name="museums">متاحف</string>
+	<string name="parks">حدائق</string>
+	<string name="swim_places">سباحة</string>
+	<string name="mountains">جبال</string>
+	<string name="animals">حيوانات</string>
+	<string name="hotels">فنادق</string>
+	<string name="buildings">بنايات</string>
+	<string name="money">نقود</string>
+	<string name="shops">متاجر</string>
+	<string name="parkings">مواقف سيارات</string>
+	<string name="fuel_places">محطات وقود</string>
+	<string name="water">ماء</string>
+	<string name="medicine">دواء</string>
 	<string name="search_in_the_list">بحث في القائمة</string>
+	<string name="religious_places">أماكن دينية</string>
 	<string name="select_list">اختر القائمة</string>
 	<string name="transit_not_found">التنقل باستخدام مترو الأنفاق في هذه المنطقة غير متاح حتى الآن</string>
 	<string name="dialog_pedestrian_route_is_long_header">لم يتم العثور على مترو الانفاق</string>
@@ -698,6 +773,9 @@
 	<string name="isolines_activation_error_dialog">لتفعيل الطبقة الطبوغرافية واستخدامها ، يرجى تحديث أوتنزيل خريطة المنطقة</string>
 	<string name="isolines_location_error_dialog">الطبقة الطبوغرافية ليست متاحة بعد في هذه المنطقة</string>
 	<string name="elevation_profile_diff_level">مستوى الصعوبة</string>
+	<string name="elevation_profile_diff_level_easy">سهل</string>
+	<string name="elevation_profile_diff_level_moderate">معتدل</string>
+	<string name="elevation_profile_diff_level_hard">صعب</string>
 	<string name="elevation_profile_ascent">تصاعدي</string>
 	<string name="elevation_profile_descent">تنازلي</string>
 	<string name="elevation_profile_minaltitude">الحد الأدنى للارتفاع</string>
@@ -706,6 +784,8 @@
 	<string name="elevation_profile_distance">المسافة:</string>
 	<string name="elevation_profile_time">مدة:</string>
 	<string name="isolines_toast_zooms_1_10">قرب لتكتشف خطوط الكنتور</string>
+	<string name="downloader_updating_ios">جار التحديث</string>
+	<string name="downloader_loading_ios">جار التحميل</string>
 	<string name="key_information_title">معلومات رئيسية</string>
 	<string name="enable_screen_sleep">اسمح للشاشة بالنوم</string>
 	<!-- Description in preferences -->
@@ -1313,15 +1393,4 @@
 	<string name="type.wheelchair.no">لا يدعم لكراسي المعاقين</string>
 	<string name="type.wheelchair.yes">دعم كامل لكراسي المعاقين</string>
 	<string name="type.building_part">مبنى</string>
-
-	<!-- SECTION: Brands -->
-	<string name="brand.aroma">أروما</string>
-	<string name="brand.burger_king">برغر كينغ</string>
-	<string name="brand.costa_coffee">كوستا</string>
-	<string name="brand.dominos_pizza">دومينوز بيتزا</string>
-	<string name="brand.dunkin_donuts">دنكن دونتس</string>
-	<string name="brand.kfc">دجاج كنتاكي</string>
-	<string name="brand.mcdonalds">ماكدونالدز</string>
-	<string name="brand.pizza_hut">بيتزا هت</string>
-	<string name="brand.starbucks">ستاربكس</string>
 </resources>

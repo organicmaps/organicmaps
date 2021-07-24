@@ -9,6 +9,21 @@
 
 <!-- ********** Strings for downloading map from search **********/ -->
 
+  <key>bookmarks_places</key>
+  <dict>
+    <key>NSStringLocalizedFormatKey</key>
+    <string>%#@value@</string>
+    <key>value</key>
+    <dict>
+      <key>NSStringFormatSpecTypeKey</key>
+      <string>NSStringPluralRuleType</string>
+      <key>NSStringFormatValueTypeKey</key>
+      <string>d</string>
+      <key>other</key>
+      <string>%d dấu trang</string>
+    </dict>
+  </dict>
+
   <key>bookmarks_detect_message</key>
   <dict>
     <key>NSStringLocalizedFormatKey</key>
@@ -22,7 +37,7 @@
       <key>one</key>
       <string>%d dã tìm thấy một tệp. Bạn sẽ thấy nó sau khi chuyển đổi.</string>
       <key>other</key>
-      <string>%d files were found. You can see them after conversion.</string>
+      <string>%d tập tin đã được tìm thấy. Bạn sẽ thấy chúng sau khi chuyển đổi.</string>
     </dict>
   </dict>
 

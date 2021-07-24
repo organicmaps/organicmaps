@@ -70,6 +70,8 @@
 	<string name="bookmark_color">Colore del Segnalibro</string>
 	<!-- Add Bookmark Set dialog - hint when set name is empty -->
 	<string name="bookmark_set_name">Seleziona un nome del segnalibro</string>
+	<!-- Bookmark Sets dialog title -->
+	<string name="bookmark_sets">Seleziona un segnalibro</string>
 	<!-- Bookmarks - dialog title -->
 	<string name="bookmarks">Segnalibri</string>
 	<!-- Default bookmarks set name -->
@@ -233,12 +235,15 @@
 	<string name="downloader_cancel_all">Annulla tutto</string>
 	<!-- Downloaded maps category -->
 	<string name="downloader_downloaded_subtitle">Scaricate</string>
+	<!-- Downloaded maps category -->
+	<string name="downloader_available_maps">Disponibile</string>
 	<!-- Country queued for download -->
 	<string name="downloader_queued">In coda</string>
 	<string name="downloader_near_me_subtitle">Vicino a me</string>
 	<string name="downloader_status_maps">Mappe</string>
 	<string name="downloader_download_all_button">Scarica tutte</string>
 	<string name="downloader_downloading">In scaricamento:</string>
+	<string name="downloader_search_results">Trovate</string>
 	<!-- Status of outdated country in the list -->
 	<string name="downloader_status_outdated">Aggiorna</string>
 	<!-- Status of failed country in the list -->
@@ -472,6 +477,7 @@
 	<string name="editor_detailed_description">Le modifiche suggerite saranno inviate alla community OpenStreetMap. Descrivere i dettagli che non è possibile modificare in Organic Maps.</string>
 	<string name="editor_more_about_osm">Ulteriori informazioni su OpenStreetMap</string>
 	<string name="editor_operator">Titolare</string>
+	<string name="downloader_my_maps_title">Le mie mappe</string>
 	<string name="downloader_no_downloaded_maps_title">Non hai scaricato mappe</string>
 	<string name="downloader_no_downloaded_maps_message">Scarica mappe per trovare il luogo e navigare offline.</string>
 	<!-- Error title that appears after certain time without location. -->
@@ -490,8 +496,10 @@
 	<string name="location_services_disabled_3">3. Seleziona mentre usi l\'app</string>
 	<string name="meter">m</string>
 	<string name="kilometer">km</string>
+	<string name="kilometers_per_hour">chilometri orari (km/h)</string>
 	<string name="mile">mi</string>
 	<string name="foot">ft</string>
+	<string name="miles_per_hour">mph</string>
 	<string name="hour">h</string>
 	<string name="minute">min</string>
 	<string name="placepage_place_description">Descrizione</string>
@@ -501,6 +509,8 @@
 	<string name="placepage_call_button">Chiama</string>
 	<string name="placepage_edit_bookmark_button">Modifica segnalibro</string>
 	<string name="placepage_bookmark_name_hint">Nome segnalibro</string>
+	<string name="placepage_personal_notes_hint">Note personali</string>
+	<string name="placepage_delete_bookmark_button">Elimina segnalibro</string>
 	<string name="editor_edits_sent_message">Le modifiche suggerite sono state inviate</string>
 	<string name="editor_comment_hint">Commenta…</string>
 	<string name="editor_reset_edits_message">Reimpostare tutte le modifiche locali?</string>
@@ -520,6 +530,7 @@
 	<!-- iOS Dialog before publishing the modifications to the public map. -->
 	<string name="editor_share_to_all_dialog_message_1">Assicurati di non aver inserito alcun dato personale.</string>
 	<string name="editor_share_to_all_dialog_message_2">Controlleremo le modifiche. Se avremo delle domande, ti contatteremo via email.</string>
+	<string name="navigation_stop_button">ferma</string>
 	<!-- iOS dialog for the case when recent track recording is on and the app comes back from background -->
 	<string name="recent_track_background_dialog_title">Disattivare la registrazione del tuo percorso effettuato di recente?</string>
 	<string name="off_recent_track_background_button">Disattiva</string>
@@ -564,7 +575,7 @@
 	<string name="prefs_languages_information">Usiamo il TTS di sistema per le istruzioni vocali. Molti dispositivi Android utilizzano Google TTS, che puoi scaricare o aggiornare da Google Play (https://play.google.com/store/apps/details?id=com.google.android.tts)</string>
 	<string name="prefs_languages_information_off">Per alcune lingue, sarà necessario installare un altro sintetizzatore vocale o un language pack aggiuntivo dall\'app store (Google Play Market, Samsung Apps).\nApri le impostazioni del tuo dispositivo → Lingua e input → Riconoscimento vocale → Output sintesi vocale.\nQui puoi gestire le impostazioni di sintesi vocale (ad esempio, scaricare un language pack per l\'utilizzo offline) e selezionare un altro motore di sintesi vocale.</string>
 	<string name="prefs_languages_information_off_link">Per maggiori informazioni, consulta questa guida.</string>
-	<string name="whatsnew_transliteration_title">Traslitterazione in latino</string>
+	<string name="transliteration_title">Traslitterazione in latino</string>
 	<string name="learn_more">Ulteriori informazioni</string>
 	<string name="core_exit">Esci</string>
 	<string name="routing_add_start_point">Aggiungi un punto di partenza per pianificare un percorso</string>
@@ -576,6 +587,7 @@
 	<string name="planning_route_remove_title">Trascina qui per rimuovere</string>
 	<string name="placepage_add_stop">Aggiungi sosta</string>
 	<string name="preloader_viator_button">Ulteriori informazioni</string>
+	<string name="start_from_my_position">Parti da</string>
 	<string name="profile_authorization_error">Ops, si è verificato un errore. Prova a ripetere l\'accesso più tardi.</string>
 	<string name="dialog_error_storage_title">Problema di accesso all\'archivio</string>
 	<string name="dialog_error_storage_message">Archivio esterno non disponibile, probabilmente la scheda SD è stata rimossa, è danneggiata o il file system è di sola lettura. Controllala e contattaci su support\@organicmaps.app</string>
@@ -585,6 +597,9 @@
 	<string name="bookmarks_groups">Elenchi</string>
 	<string name="bookmarks_groups_hide_all">Nascondi tutto</string>
 	<string name="bookmarks_groups_show_all">Mostra tutto</string>
+	<plurals name="bookmarks_places">
+	  <item quantity="other">%d preferiti</item>
+	</plurals>
 	<string name="bookmarks_create_new_group">Crea una nuova lista</string>
 	<string name="downloader_hide_screen">Nascondi schermata</string>
 	<string name="downloader_percent">%1$s (%2$s di %3$s)</string>
@@ -598,6 +613,7 @@
 	<string name="bookmarks_new_list_hint">Nuova lista</string>
 	<string name="bookmarks_error_title_list_name_already_taken">Questo nome è già stato scelto</string>
 	<string name="bookmarks_error_message_list_name_already_taken">Si prega di scegliere un altro nome</string>
+	<string name="bookmarks_error_title_list_name_too_long">Questo nome è troppo lungo</string>
 	<string name="please_wait">Attendere prego…</string>
 	<string name="phone_number">Numero di telefono</string>
 	<string name="profile">Profilo OpenStreetMap</string>
@@ -645,6 +661,7 @@
 	<string name="bookmark_category_description_hint">Aggiungere la descrizione (testo o html)</string>
 	<string name="not_shared">Personale</string>
 	<string name="tags_loading_error_subtitle">Si è verificato un errore durante il caricamento dei tag. Si prega di riprovare</string>
+	<string name="download_button">Scaricare</string>
 	<string name="speedcams_alert_title">Autovelox o Tutor</string>
 	<string name="speedcam_option_auto">Auto</string>
 	<string name="speedcam_option_always">Sempre</string>
@@ -670,14 +687,50 @@
 	<string name="unable_to_calc_alert_subtitle">Impossibile creare percorso con modalità prescelte. Modifica impostazioni e riprova</string>
 	<string name="define_to_avoid_btn">Impostare modalità di deviazione</string>
 	<string name="change_driving_options_btn">Impostazioni di deviazione abilitate</string>
+	<string name="toll_road">Strada a pedaggio</string>
+	<string name="unpaved_road">Strada sterrata</string>
+	<string name="ferry_crossing">Traghetto</string>
 	<string name="avoid_toll_roads_placepage">Evitare strade a pedaggio</string>
 	<string name="avoid_unpaved_roads_placepage">Evitare strade sterrate</string>
 	<string name="avoid_ferry_crossing_placepage">Evitare i traghetti</string>
+	<string name="trip_start">Si parte</string>
+	<string name="pick_destination">Meta</string>
+	<string name="follow_my_position">Centrare</string>
+	<string name="search_results">Risultati di ricerca</string>
+	<string name="then_turn">Avanti</string>
+	<string name="redirect_route_alert">Vuoi modificare il percorso?</string>
+	<string name="redirect_route_yes">Sì</string>
+	<string name="redirect_route_no">No</string>
+	<string name="trip_finished">Sei giunto a destinazione!</string>
+	<string name="keyboard_availability_alert">Tastiera non disponibile in movimento</string>
+	<string name="dialog_routing_change_start_carplay">Impossibile creare percorso dal punto di partenza selezionato</string>
+	<string name="dialog_routing_change_end_carplay">Impossibile creare percorso per raggiungere la destinazione Scegli un\'altra destinazione</string>
+	<string name="dialog_routing_check_gps_carplay">Segnale GPS assente. Procedi su terreno aperto</string>
+	<string name="dialog_routing_unable_locate_route_carplay">Impossibile trovare percorso. Scegli altre tappe</string>
+	<string name="dialog_routing_download_files_carplay">Per creare percorso scarica mappe mancanti sul proprio dispositivo</string>
+	<string name="dialog_routing_system_error_carplay">Si è verificato un errore. Riavviare l\'applicazione</string>
+	<string name="dialog_routing_rebuild_from_current_location_carplay">Il percorso verrà impostato dalla tua posizione corrente</string>
+	<string name="dialog_routing_rebuild_for_vehicle_carplay">Il percorso verrà modificato in modalità Auto</string>
 	<string name="ok">Ok</string>
+	<string name="avoid_unpaved_carplay_1">No sterrati</string>
+	<string name="avoid_unpaved_carplay_2">No sterrati</string>
+	<string name="avoid_ferry_carplay_1">No traghetti</string>
+	<string name="avoid_ferry_carplay_2">No traghetti</string>
+	<string name="avoid_tolls_carplay_1">No pedaggi</string>
+	<string name="avoid_tolls_carplay_2">Senza pedaggi</string>
+	<string name="speedcams_alert_title_carplay_1">Autovelox</string>
+	<string name="speedcams_alert_title_carplay_2">Info autovelox</string>
+	<string name="download_map_carplay">Scarica l\'applicazione Organic Maps sul tuo smartphone</string>
+	<string name="carplay_roundabout_exit">%s uscita</string>
 	<!-- max. 10 symbols, both iOS and Android -->
 	<string name="sort">Ordina…</string>
 	<!-- Android, title, max 20-22 symbols -->
 	<string name="sort_bookmarks">Ordina i segnalibri</string>
+	<!-- iOS -->
+	<string name="sort_default">Ordina per default</string>
+	<string name="sort_type">Ordina per tipo</string>
+	<string name="sort_distance">Ordina per distanza</string>
+	<string name="sort_date">Ordina per data</string>
 	<!-- Android -->
 	<string name="by_default">Per default</string>
 	<!-- Android -->
@@ -686,7 +739,29 @@
 	<string name="by_distance">Per distanza</string>
 	<!-- Android -->
 	<string name="by_date">Per data</string>
+	<string name="week_ago_sorttype">Una settimana fa</string>
+	<string name="month_ago_sorttype">Un mese fa</string>
+	<string name="moremonth_ago_sorttype">Più di un mese fa</string>
+	<string name="moreyear_ago_sorttype">Più di un anno fa</string>
+	<string name="near_me_sorttype">Vicino a me</string>
+	<string name="others_sorttype">Altri</string>
+	<string name="food_places">Cibo</string>
+	<string name="tourist_places">Luoghi d\'interesse</string>
+	<string name="museums">Musei</string>
+	<string name="parks">Parchi</string>
+	<string name="swim_places">Nuoto</string>
+	<string name="mountains">Montagne</string>
+	<string name="animals">Animali</string>
+	<string name="hotels">Alberghi</string>
+	<string name="buildings">Edifici</string>
+	<string name="money">Denaro</string>
+	<string name="shops">Negozi</string>
+	<string name="parkings">Parcheggi</string>
+	<string name="fuel_places">Stazione di servizio</string>
+	<string name="water">Acqua</string>
+	<string name="medicine">Farmacia</string>
 	<string name="search_in_the_list">Cerca nella lista</string>
+	<string name="religious_places">Luoghi di culto</string>
 	<string name="select_list">Scegli la lista</string>
 	<string name="transit_not_found">L\'utilizzo della metro non è ancora disponibile in questa regione</string>
 	<string name="dialog_pedestrian_route_is_long_header">Percorso della metro non trovato</string>
@@ -695,6 +770,9 @@
 	<string name="isolines_activation_error_dialog">Per utilizzare la modalità topografica, aggiornate o scaricate la mappa dell\'area interessata</string>
 	<string name="isolines_location_error_dialog">La modalità topografica per questa regione non è ancora disponibile</string>
 	<string name="elevation_profile_diff_level">Livello di difficoltà</string>
+	<string name="elevation_profile_diff_level_easy">Facile</string>
+	<string name="elevation_profile_diff_level_moderate">Moderato</string>
+	<string name="elevation_profile_diff_level_hard">Difficile</string>
 	<string name="elevation_profile_ascent">Ascesa</string>
 	<string name="elevation_profile_descent">Discesa</string>
 	<string name="elevation_profile_minaltitude">Altitudine minima</string>
@@ -703,6 +781,8 @@
 	<string name="elevation_profile_distance">Dist.</string>
 	<string name="elevation_profile_time">Tempo:</string>
 	<string name="isolines_toast_zooms_1_10">Ingrandisci mappa per vedere l\'isolinea</string>
+	<string name="downloader_updating_ios">Aggiornamento in corso</string>
+	<string name="downloader_loading_ios">Caricamento</string>
 	<string name="key_information_title">Informazioni importanti</string>
 	<string name="enable_screen_sleep">Consenti allo schermo di dormire</string>
 	<!-- Description in preferences -->

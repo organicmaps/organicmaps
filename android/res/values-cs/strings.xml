@@ -70,6 +70,8 @@
 	<string name="bookmark_color">Barva záložky</string>
 	<!-- Add Bookmark Set dialog - hint when set name is empty -->
 	<string name="bookmark_set_name">Název záložky</string>
+	<!-- Bookmark Sets dialog title -->
+	<string name="bookmark_sets">Skupiny záložek</string>
 	<!-- Bookmarks - dialog title -->
 	<string name="bookmarks">Záložky</string>
 	<!-- Default bookmarks set name -->
@@ -235,12 +237,15 @@
 	<string name="downloader_cancel_all">Zrušit vše</string>
 	<!-- Downloaded maps category -->
 	<string name="downloader_downloaded_subtitle">Staženo</string>
+	<!-- Downloaded maps category -->
+	<string name="downloader_available_maps">Dostupné</string>
 	<!-- Country queued for download -->
 	<string name="downloader_queued">Ve frontě</string>
 	<string name="downloader_near_me_subtitle">Poblíž mě</string>
 	<string name="downloader_status_maps">Mapy</string>
 	<string name="downloader_download_all_button">Stáhnout vše</string>
 	<string name="downloader_downloading">Probíhá stahování:</string>
+	<string name="downloader_search_results">Nalezeno</string>
 	<!-- Status of outdated country in the list -->
 	<string name="downloader_status_outdated">Aktualizace</string>
 	<!-- Status of failed country in the list -->
@@ -474,6 +479,7 @@
 	<string name="editor_detailed_description">Vámi navržené změny odešleme do komunity OpenStreetMap. Popište podrobnosti, které nelze upravit v Organic Maps.</string>
 	<string name="editor_more_about_osm">Více o projektu OpenStreetMap</string>
 	<string name="editor_operator">Operátor</string>
+	<string name="downloader_my_maps_title">Mé mapy</string>
 	<string name="downloader_no_downloaded_maps_title">Nemáte stažené žádné mapy</string>
 	<string name="downloader_no_downloaded_maps_message">Stáhněte si mapy a hledejte cestu a její cíl, i když jste offline.</string>
 	<!-- Error title that appears after certain time without location. -->
@@ -492,8 +498,10 @@
 	<string name="location_services_disabled_3">3. Vyberte při používání aplikace</string>
 	<string name="meter">m</string>
 	<string name="kilometer">km</string>
+	<string name="kilometers_per_hour">km/h</string>
 	<string name="mile">mil</string>
 	<string name="foot">stopa</string>
+	<string name="miles_per_hour">mil/h</string>
 	<string name="hour">hod</string>
 	<string name="minute">min</string>
 	<string name="placepage_place_description">Popis</string>
@@ -503,6 +511,8 @@
 	<string name="placepage_call_button">Volat</string>
 	<string name="placepage_edit_bookmark_button">Upravit záložku</string>
 	<string name="placepage_bookmark_name_hint">Název záložky</string>
+	<string name="placepage_personal_notes_hint">Vlastní poznámka</string>
+	<string name="placepage_delete_bookmark_button">Smazat záložku</string>
 	<string name="editor_edits_sent_message">Odeslali jsme Vámi navržené změny</string>
 	<string name="editor_comment_hint">Poznámka…</string>
 	<string name="editor_reset_edits_message">Vymazat všechny místní změny?</string>
@@ -522,6 +532,7 @@
 	<!-- iOS Dialog before publishing the modifications to the public map. -->
 	<string name="editor_share_to_all_dialog_message_1">Ujistěte se, že jste nezadali žádná osobní data.</string>
 	<string name="editor_share_to_all_dialog_message_2">Změny ověříme. Budeme-li k vám mít jakékoli dotazy, budeme vás kontaktovat prostřednictvím emailu.</string>
+	<string name="navigation_stop_button">stop</string>
 	<!-- iOS dialog for the case when recent track recording is on and the app comes back from background -->
 	<string name="recent_track_background_dialog_title">Zakázat zaznamenávání vaší nedávno ujeté trasy?</string>
 	<string name="off_recent_track_background_button">Zakázat</string>
@@ -553,7 +564,7 @@
 	<string name="mobile_data_option_ask">Vždy se zeptat</string>
 	<string name="traffic_update_maps_text">Ke zobrazení údajů o provozu musí být aktualizovány mapy.</string>
 	<string name="big_font">Zvětšit velikost písma na mapě</string>
-	<string name="traffic_update_app">Aktualizujte MAPS. ME</string>
+	<string name="traffic_update_app">Aktualizujte Organic Maps</string>
 	<!-- "traffic" as in road congestion -->
 	<string name="traffic_update_app_message">Ke zobrazení dat o provozu je nutné aplikaci aktualizovat.</string>
 	<!-- "traffic" as in "road congestion" -->
@@ -566,7 +577,7 @@
 	<string name="prefs_languages_information">Pro hlasové pokyny používáme systém TTS. Mnoho zařízení se systémem Android používá Google TTS, můžete si ho stáhnout nebo aktualizovat na Google Play (https://play.google.com/store/apps/details?id=com.google.android.tts)</string>
 	<string name="prefs_languages_information_off">U některých jazyků je třeba nainstalovat jiný hlasový syntetizátor nebo další jazykové sady z obchodu s aplikacemi (Google Play, Samsung Apps).\nOtevřete zařízení → Nastavení jazyka a zadávání → Hlasitost → Převod textu na řeč. \nZde můžete spravovat nastavení pro syntézu řeči (například stáhnout jazykový balíček pro použití offline) a vybrat jiný modul převodu textu na řeč.</string>
 	<string name="prefs_languages_information_off_link">Více informací najdete v tomto návodu.</string>
-	<string name="whatsnew_transliteration_title">Přepis do latinky</string>
+	<string name="transliteration_title">Přepis do latinky</string>
 	<string name="learn_more">Zjistit více</string>
 	<string name="core_exit">Ukončit</string>
 	<string name="routing_add_start_point">Zadejte výchozí bod pro plánování trasy</string>
@@ -578,6 +589,7 @@
 	<string name="planning_route_remove_title">Pro odebrání přetáhněte sem</string>
 	<string name="placepage_add_stop">Přidat zastávku</string>
 	<string name="preloader_viator_button">Zjistit více</string>
+	<string name="start_from_my_position">Začít z</string>
 	<string name="profile_authorization_error">Jejda, došlo k chybě. Zkuste se přihlásit znovu.</string>
 	<string name="dialog_error_storage_title">Problém s přístupem k úložišti</string>
 	<string name="dialog_error_storage_message">Externí úložiště není k dispozici, pravděpodobně byla vyjmuta nebo poškozena SD karta, nebo je systém souborů pouze pro čtení. Zkontrolujte to prosím a kontaktujte nás na support\@organicmaps.app</string>
@@ -587,6 +599,9 @@
 	<string name="bookmarks_groups">Seznamy</string>
 	<string name="bookmarks_groups_hide_all">Skrýt vše</string>
 	<string name="bookmarks_groups_show_all">Zobrazit vše</string>
+	<plurals name="bookmarks_places">
+	  <item quantity="other">%d záložek</item>
+	</plurals>
 	<string name="bookmarks_create_new_group">Vytvořte nový seznam</string>
 	<string name="downloader_hide_screen">Skrýt obrazovku</string>
 	<string name="downloader_percent">%1$s (%2$s z %3$s)</string>
@@ -600,6 +615,7 @@
 	<string name="bookmarks_new_list_hint">Nový seznam</string>
 	<string name="bookmarks_error_title_list_name_already_taken">Toto jméno již bylo provedeno</string>
 	<string name="bookmarks_error_message_list_name_already_taken">Zvolte jiný název</string>
+	<string name="bookmarks_error_title_list_name_too_long">Tento název je příliš dlouhý</string>
 	<string name="please_wait">Prosím, čekejte…</string>
 	<string name="phone_number">Telefonní číslo</string>
 	<string name="profile">Profil OpenStreetMap</string>
@@ -648,6 +664,7 @@
 	<string name="bookmark_category_description_hint">Přidejte popis (text nebo html)</string>
 	<string name="not_shared">Osobní účet</string>
 	<string name="tags_loading_error_subtitle">Během nahrávání tagů se stala chyba, zkuste to prosím ještě jednou</string>
+	<string name="download_button">Stáhnout</string>
 	<string name="speedcams_alert_title">Detektory rychlosti</string>
 	<string name="speedcam_option_auto">Automaticky</string>
 	<string name="speedcam_option_always">Vždy</string>
@@ -673,14 +690,50 @@
 	<string name="unable_to_calc_alert_subtitle">Bohužel jsme nemohli nalézt trasu pravděpodobně kvůli vámi definovaným možnostem. Změňte prosím nastavení a zkuste to znovu</string>
 	<string name="define_to_avoid_btn">Definovat silnice, kterým se vyhnout</string>
 	<string name="change_driving_options_btn">Možnosti směrování byly povoleny</string>
+	<string name="toll_road">Silnice s mýtným</string>
+	<string name="unpaved_road">Nezpevněná silnice</string>
+	<string name="ferry_crossing">Přejezd trajektů</string>
 	<string name="avoid_toll_roads_placepage">Vyhnout se silnicím s mýtným</string>
 	<string name="avoid_unpaved_roads_placepage">Vyhnout se nezpevněným silnicím</string>
 	<string name="avoid_ferry_crossing_placepage">Vyhnout se přejezdům trajektů</string>
+	<string name="trip_start">Pojďme</string>
+	<string name="pick_destination">Destinace</string>
+	<string name="follow_my_position">Znovu vystředit</string>
+	<string name="search_results">Prohledat výsledky</string>
+	<string name="then_turn">Poté</string>
+	<string name="redirect_route_alert">Chcete přestavět trasu?</string>
+	<string name="redirect_route_yes">Ano</string>
+	<string name="redirect_route_no">Ne</string>
+	<string name="trip_finished">Přijeli jste!</string>
+	<string name="keyboard_availability_alert">Při řízení není klávesnice dostupná</string>
+	<string name="dialog_routing_change_start_carplay">Od vaší aktuální polohy nelze vystavět trasu</string>
+	<string name="dialog_routing_change_end_carplay">Nelze vystavět trasu k vaší destinaci. Zvolte prosím další bod</string>
+	<string name="dialog_routing_check_gps_carplay">Signál GPS neexistuje. Přesuňte se prosím do otevřeného prostoru</string>
+	<string name="dialog_routing_unable_locate_route_carplay">Nelze sestavit trasu. Specifikujte prosím další body trasy</string>
+	<string name="dialog_routing_download_files_carplay">K vytvoření trasy si stáhněte chybějící mapy do vašeho zařízení</string>
+	<string name="dialog_routing_system_error_carplay">Vyskytla se chyba. Restartujte prosím aplikaci</string>
+	<string name="dialog_routing_rebuild_from_current_location_carplay">Trasa bude přestavěna od vaší aktuální polohy</string>
+	<string name="dialog_routing_rebuild_for_vehicle_carplay">Trasa bude upravena k autu jedna</string>
 	<string name="ok">Ok</string>
+	<string name="avoid_unpaved_carplay_1">Bez pr. cest</string>
+	<string name="avoid_unpaved_carplay_2">Vyhnout se nezp</string>
+	<string name="avoid_ferry_carplay_1">Bez trajektů</string>
+	<string name="avoid_ferry_carplay_2">Vyh. se traj.</string>
+	<string name="avoid_tolls_carplay_1">Bez pl.sil.</string>
+	<string name="avoid_tolls_carplay_2">Vyh. se pl. sil</string>
+	<string name="speedcams_alert_title_carplay_1">Rych. kam.</string>
+	<string name="speedcams_alert_title_carplay_2">Rych. varování</string>
+	<string name="download_map_carplay">Stáhněte si prosím mapy do aplikace Organic Maps ve vašem zařízení</string>
+	<string name="carplay_roundabout_exit">%s výjezd</string>
 	<!-- max. 10 symbols, both iOS and Android -->
 	<string name="sort">Třídit…</string>
 	<!-- Android, title, max 20-22 symbols -->
 	<string name="sort_bookmarks">Třídit záložky</string>
+	<!-- iOS -->
+	<string name="sort_default">Třídit ve výchozím nastavení</string>
+	<string name="sort_type">Třídit dle typu</string>
+	<string name="sort_distance">Třídit dle vzdálenosti</string>
+	<string name="sort_date">Třídit dle data</string>
 	<!-- Android -->
 	<string name="by_default">Podle výchozího stavu</string>
 	<!-- Android -->
@@ -689,7 +742,29 @@
 	<string name="by_distance">Podle vzdálenosti</string>
 	<!-- Android -->
 	<string name="by_date">Podle data</string>
+	<string name="week_ago_sorttype">Před týdnem</string>
+	<string name="month_ago_sorttype">Před měsícem</string>
+	<string name="moremonth_ago_sorttype">Více než před měsícem</string>
+	<string name="moreyear_ago_sorttype">Více než před rokem</string>
+	<string name="near_me_sorttype">Blízko mě</string>
+	<string name="others_sorttype">Ostatní</string>
+	<string name="food_places">Jídlo</string>
+	<string name="tourist_places">Památky</string>
+	<string name="museums">Muzea</string>
+	<string name="parks">Parky</string>
+	<string name="swim_places">Plavat</string>
+	<string name="mountains">Hory</string>
+	<string name="animals">Zvířata</string>
+	<string name="hotels">Hotely</string>
+	<string name="buildings">Budovy</string>
+	<string name="money">Peníze</string>
+	<string name="shops">Obchody</string>
+	<string name="parkings">Parkoviště</string>
+	<string name="fuel_places">Čerpací stanice</string>
+	<string name="water">Voda</string>
+	<string name="medicine">Medicína</string>
 	<string name="search_in_the_list">Vyhledat v seznamu</string>
+	<string name="religious_places">Posvátná místa</string>
 	<string name="select_list">Vybrat seznam</string>
 	<string name="transit_not_found">Navigace metra v této oblasti zatím není k dispozici</string>
 	<string name="dialog_pedestrian_route_is_long_header">Trasa metra nebyla nalezena</string>
@@ -698,6 +773,9 @@
 	<string name="isolines_activation_error_dialog">Chcete-li aktivovat a používat topografickou vrstvu, prosím aktualizujte nebo si stáhněte mapu oblasti</string>
 	<string name="isolines_location_error_dialog">Topografická vrstva není v této oblasti ještě dostupná</string>
 	<string name="elevation_profile_diff_level">Stupeň obtížnosti</string>
+	<string name="elevation_profile_diff_level_easy">Snadný</string>
+	<string name="elevation_profile_diff_level_moderate">Mírný</string>
+	<string name="elevation_profile_diff_level_hard">Těžký</string>
 	<string name="elevation_profile_ascent">Stoupání</string>
 	<string name="elevation_profile_descent">Klesání</string>
 	<string name="elevation_profile_minaltitude">Min. nadmořská výška</string>
@@ -706,6 +784,8 @@
 	<string name="elevation_profile_distance">Vzdál.:</string>
 	<string name="elevation_profile_time">Čas:</string>
 	<string name="isolines_toast_zooms_1_10">Přiblížit pro prozkoumání izolinií</string>
+	<string name="downloader_updating_ios">Probíhá aktualizace</string>
+	<string name="downloader_loading_ios">Probíhá stahování</string>
 	<string name="key_information_title">Klíčové informace</string>
 	<string name="enable_screen_sleep">Nechte obrazovku spát</string>
 	<!-- Description in preferences -->

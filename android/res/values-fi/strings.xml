@@ -72,6 +72,8 @@
 	<string name="bookmark_color">Kirjanmerkin väri</string>
 	<!-- Add Bookmark Set dialog - hint when set name is empty -->
 	<string name="bookmark_set_name">Kirjanmerkkivalikoiman nimi</string>
+	<!-- Bookmark Sets dialog title -->
+	<string name="bookmark_sets">Kirjanmerkkivalikoimat</string>
 	<!-- Bookmarks - dialog title -->
 	<string name="bookmarks">Kirjanmerkit</string>
 	<!-- Default bookmarks set name -->
@@ -237,12 +239,15 @@
 	<string name="downloader_cancel_all">Peruuta kaikki</string>
 	<!-- Downloaded maps category -->
 	<string name="downloader_downloaded_subtitle">Ladatut</string>
+	<!-- Downloaded maps category -->
+	<string name="downloader_available_maps">Saatavilla</string>
 	<!-- Country queued for download -->
 	<string name="downloader_queued">Jonossa</string>
 	<string name="downloader_near_me_subtitle">Lähelläni</string>
 	<string name="downloader_status_maps">Kartat</string>
 	<string name="downloader_download_all_button">Lataa kaikki</string>
 	<string name="downloader_downloading">Ladataan:</string>
+	<string name="downloader_search_results">Löytyi</string>
 	<!-- Status of outdated country in the list -->
 	<string name="downloader_status_outdated">Päivitä</string>
 	<!-- Status of failed country in the list -->
@@ -476,6 +481,7 @@
 	<string name="editor_detailed_description">Ehdottamasi muutokset lähetetään OpenStreetMap-yhteisöön. Kuvaa tiedot, joita ei voi muokata Organic Maps:ssä.</string>
 	<string name="editor_more_about_osm">Lisätietoja OpenStreetMap:ista</string>
 	<string name="editor_operator">Operaattori</string>
+	<string name="downloader_my_maps_title">Omat kartat</string>
 	<string name="downloader_no_downloaded_maps_title">Et ole ladannut yhtään karttaa</string>
 	<string name="downloader_no_downloaded_maps_message">Lataa kartattoja löytääksesi paikkoja ja navigoidaksesi offline-tilassa.</string>
 	<!-- Error title that appears after certain time without location. -->
@@ -494,8 +500,10 @@
 	<string name="location_services_disabled_3">3. Valitse sovellusta käytettäessä</string>
 	<string name="meter">m</string>
 	<string name="kilometer">km</string>
+	<string name="kilometers_per_hour">km/h</string>
 	<string name="mile">mi</string>
 	<string name="foot">ft</string>
+	<string name="miles_per_hour">mph</string>
 	<string name="hour">t</string>
 	<string name="minute">min</string>
 	<string name="placepage_place_description">Kuvaus</string>
@@ -505,6 +513,8 @@
 	<string name="placepage_call_button">Soita</string>
 	<string name="placepage_edit_bookmark_button">Muokkaa kirjanmerkkiä</string>
 	<string name="placepage_bookmark_name_hint">Kirjanmerkin nimi</string>
+	<string name="placepage_personal_notes_hint">Henkilökohtaiset merkinnät</string>
+	<string name="placepage_delete_bookmark_button">Poista kirjanmerkki</string>
 	<string name="editor_edits_sent_message">Ehdottamasi muutokset on lähetetty</string>
 	<string name="editor_comment_hint">Kommentti…</string>
 	<string name="editor_reset_edits_message">Nollataanko kaikki paikalliset muutokset?</string>
@@ -524,6 +534,7 @@
 	<!-- iOS Dialog before publishing the modifications to the public map. -->
 	<string name="editor_share_to_all_dialog_message_1">Varmistat, ettet syöttänyt henkilökohtaisia tietojasi.</string>
 	<string name="editor_share_to_all_dialog_message_2">Tarkistamme muutokset. Otamme sinuun yhteyttä sähköpostitse, jos meillä on kysyttävää.</string>
+	<string name="navigation_stop_button">lopeta</string>
 	<!-- iOS dialog for the case when recent track recording is on and the app comes back from background -->
 	<string name="recent_track_background_dialog_title">Poistetaanko viimeisen matkareitin tallennus?</string>
 	<string name="off_recent_track_background_button">Poista</string>
@@ -568,7 +579,7 @@
 	<string name="prefs_languages_information">Käytämme ääniohjeisiin tekstistä puheeksi -järjestelmää. Monet Android-laitteet käyttävät Googlen tekstistä puheeksi -sovellusta, jonka voit ladata tai päivittää Google Playssä (https://play.google.com/store/apps/details?id=com.google.android.tts)</string>
 	<string name="prefs_languages_information_off">Joidenkin kielien osalta sinun täytyy asentaa toinen puhesyntetisaattori tai lisäkielipaketti sovelluskaupasta (Google Play Market, Samsung Apps). Avaa laitteen asetukset → Kieli ja syöttötapa → Puhe → Teksistä puheeksi -toisto. Täällä voit hallita puhesynteesin asetuksia (esimerkiksi ladata offline-tilassa käytettävän kielipaketin) ja valita toisen tekstistä puheeksi -moottorin.</string>
 	<string name="prefs_languages_information_off_link">Lisätietoja saat tästä oppaasta.</string>
-	<string name="whatsnew_transliteration_title">Translitterointi latinaksi</string>
+	<string name="transliteration_title">Translitterointi latinaksi</string>
 	<string name="learn_more">Lisätietoja</string>
 	<string name="core_exit">Poistu</string>
 	<string name="routing_add_start_point">Lisää alkupiste reitin suunnittelua varten</string>
@@ -580,6 +591,7 @@
 	<string name="planning_route_remove_title">Vedä tähän poistaaksesi</string>
 	<string name="placepage_add_stop">Lisää pysähdys</string>
 	<string name="preloader_viator_button">Lisätietoja</string>
+	<string name="start_from_my_position">Aloita kohdasta</string>
 	<string name="profile_authorization_error">Tapahtui virhe. Yritä kirjautua sisään uudelleen.</string>
 	<string name="dialog_error_storage_title">Ongelma tallennustilan käyttämisessä</string>
 	<string name="dialog_error_storage_message">Ulkoinen tallennustila ei ole käytettävissä, SD-kortti on luultavasti poistettu tai vahingoittunut tai tiedostojärjestelmä on vain luku -tilassa. Tarkista ja ota yhteyttä osoitteeseen support\@organicmaps.app</string>
@@ -589,6 +601,9 @@
 	<string name="bookmarks_groups">Listat</string>
 	<string name="bookmarks_groups_hide_all">Piilota kaikki</string>
 	<string name="bookmarks_groups_show_all">Näytä kaikki</string>
+	<plurals name="bookmarks_places">
+	  <item quantity="other">%d kirjanmerkkiä</item>
+	</plurals>
 	<string name="bookmarks_create_new_group">Luo uusi luettelo</string>
 	<string name="downloader_hide_screen">Piilota näyttö</string>
 	<string name="downloader_percent">%1$s (%2$s / %3$s)</string>
@@ -602,6 +617,7 @@
 	<string name="bookmarks_new_list_hint">Uusi lista</string>
 	<string name="bookmarks_error_title_list_name_already_taken">Tämä nimi on jo otettu</string>
 	<string name="bookmarks_error_message_list_name_already_taken">Valitse toinen nimi</string>
+	<string name="bookmarks_error_title_list_name_too_long">Tämä nimi on liian pitkä</string>
 	<string name="please_wait">Odota…</string>
 	<string name="phone_number">Puhelinnumero</string>
 	<string name="profile">OpenStreetMap-profiili</string>
@@ -649,6 +665,7 @@
 	<string name="bookmark_category_description_hint">Lisää kuvaus (teksti tai html)</string>
 	<string name="not_shared">Henkilökohtainen</string>
 	<string name="tags_loading_error_subtitle">Tunnisteiden lataamisen aikana tapahtui virhe, yritä uudelleen</string>
+	<string name="download_button">Ladata</string>
 	<string name="speedcams_alert_title">Nopeuskamerat</string>
 	<string name="speedcam_option_auto">Auto</string>
 	<string name="speedcam_option_always">Aina</string>
@@ -674,14 +691,50 @@
 	<string name="unable_to_calc_alert_subtitle">Valitettavasti emme voineet luoda reittiä valituilla vaihtoehdoilla. Vaihda asetuksia ja yritä uudelleen</string>
 	<string name="define_to_avoid_btn">Muodosta kiertotietä</string>
 	<string name="change_driving_options_btn">Kiertotien asetukset on päällä</string>
+	<string name="toll_road">Maksullinen tie</string>
+	<string name="unpaved_road">Päällystämätön tie</string>
+	<string name="ferry_crossing">Lauttaliikenne</string>
 	<string name="avoid_toll_roads_placepage">Vältä maksullisia teitä</string>
 	<string name="avoid_unpaved_roads_placepage">Vältä maanteitä</string>
 	<string name="avoid_ferry_crossing_placepage">Vältä lautan käyttöä</string>
+	<string name="trip_start">Mennään</string>
+	<string name="pick_destination">Kohde</string>
+	<string name="follow_my_position">Kohdista</string>
+	<string name="search_results">Hakutulokset</string>
+	<string name="then_turn">Sitten</string>
+	<string name="redirect_route_alert">Haluatko luoda reitin uudelleen?</string>
+	<string name="redirect_route_yes">Kyllä</string>
+	<string name="redirect_route_no">Ei</string>
+	<string name="trip_finished">Olet saapunut!</string>
+	<string name="keyboard_availability_alert">Näppäimistö ei ole käytettävissä ajon aikana</string>
+	<string name="dialog_routing_change_start_carplay">Reittiä ei ole mahdollista luoda nykyisestä sijainnista</string>
+	<string name="dialog_routing_change_end_carplay">Reittiä ei ole mahdollista luoda loppupisteeseen. Valitse toinen</string>
+	<string name="dialog_routing_check_gps_carplay">Ei ole GPS-signaalia. Siirry avaralle alueelle</string>
+	<string name="dialog_routing_unable_locate_route_carplay">Reittiä ei ole mahdollista luoda. Valitse muut reittipisteet</string>
+	<string name="dialog_routing_download_files_carplay">Luodaksesi reitin lataa puutt. kartat</string>
+	<string name="dialog_routing_system_error_carplay">On tapahtunut virhe. Käynnistä sovellus uudelleen</string>
+	<string name="dialog_routing_rebuild_from_current_location_carplay">Reitti luodaan nykyisestä sijainnista</string>
+	<string name="dialog_routing_rebuild_for_vehicle_carplay">Reitti muutetaan autoilijan reitiksi</string>
 	<string name="ok">Ok</string>
+	<string name="avoid_unpaved_carplay_1">Päällyste</string>
+	<string name="avoid_unpaved_carplay_2">Vain päällyste</string>
+	<string name="avoid_ferry_carplay_1">Ei lauttoja</string>
+	<string name="avoid_ferry_carplay_2">Ei lauttoja</string>
+	<string name="avoid_tolls_carplay_1">Ei maksua</string>
+	<string name="avoid_tolls_carplay_2">Ei maksua</string>
+	<string name="speedcams_alert_title_carplay_1">Nopeuskamera</string>
+	<string name="speedcams_alert_title_carplay_2">Nopeuskamerat</string>
+	<string name="download_map_carplay">Lataa kartat laitteesi Organic Maps-sovelluksessa</string>
+	<string name="carplay_roundabout_exit">Poistumisramppi %s</string>
 	<!-- max. 10 symbols, both iOS and Android -->
 	<string name="sort">Järjestä…</string>
 	<!-- Android, title, max 20-22 symbols -->
 	<string name="sort_bookmarks">Järjestä kirjanmerkit</string>
+	<!-- iOS -->
+	<string name="sort_default">Järjestä: oletus</string>
+	<string name="sort_type">Järjestä: tyyppi</string>
+	<string name="sort_distance">Järjestä: etäisyys</string>
+	<string name="sort_date">Järjestä: päivämäärä</string>
 	<!-- Android -->
 	<string name="by_default">Oletus</string>
 	<!-- Android -->
@@ -690,7 +743,29 @@
 	<string name="by_distance">Etäisyys</string>
 	<!-- Android -->
 	<string name="by_date">Päivämäärä</string>
+	<string name="week_ago_sorttype">Viikko sitten</string>
+	<string name="month_ago_sorttype">Kuukausi sitten</string>
+	<string name="moremonth_ago_sorttype">Yli kuukausi sitten</string>
+	<string name="moreyear_ago_sorttype">Yli vuosi sitten</string>
+	<string name="near_me_sorttype">Lähelläni</string>
+	<string name="others_sorttype">Muut</string>
+	<string name="food_places">Ruoka</string>
+	<string name="tourist_places">Nähtävyydet</string>
+	<string name="museums">Museot</string>
+	<string name="parks">Puistot</string>
+	<string name="swim_places">Uiminen</string>
+	<string name="mountains">Vuoret</string>
+	<string name="animals">Eläimet</string>
+	<string name="hotels">Hotellit</string>
+	<string name="buildings">Rakennukset</string>
+	<string name="money">Raha</string>
+	<string name="shops">Kaupat</string>
+	<string name="parkings">Pysäköinti</string>
+	<string name="fuel_places">Huoltoasemat</string>
+	<string name="water">Vesi</string>
+	<string name="medicine">Apteekki</string>
 	<string name="search_in_the_list">Etsi listalta</string>
+	<string name="religious_places">Pyhät paikat</string>
 	<string name="select_list">Valitse luettelo</string>
 	<string name="transit_not_found">Metron reittiohjeet eivät ole vielä saatavilla tällä alueella</string>
 	<string name="dialog_pedestrian_route_is_long_header">Metroreittiä ei ole löytynyt</string>
@@ -699,6 +774,9 @@
 	<string name="isolines_activation_error_dialog">Päivitä tai lataa haluamasi alueen kartta, voidaksesi käyttää korkeuslinjoja</string>
 	<string name="isolines_location_error_dialog">Korkeus linjat eivät ole vielä saatavilla tällä alueella</string>
 	<string name="elevation_profile_diff_level">Vaikeustaso</string>
+	<string name="elevation_profile_diff_level_easy">Helppo</string>
+	<string name="elevation_profile_diff_level_moderate">Kohtuullinen</string>
+	<string name="elevation_profile_diff_level_hard">Vaikea</string>
 	<string name="elevation_profile_ascent">Nosto</string>
 	<string name="elevation_profile_descent">Lasku</string>
 	<string name="elevation_profile_minaltitude">Min. korkeus</string>
@@ -707,6 +785,8 @@
 	<string name="elevation_profile_distance">Etäisyys:</string>
 	<string name="elevation_profile_time">Aika:</string>
 	<string name="isolines_toast_zooms_1_10">Suurenna kartta nähdäksesi korkeuslinjat</string>
+	<string name="downloader_updating_ios">Päivitys</string>
+	<string name="downloader_loading_ios">Lataus</string>
 	<string name="key_information_title">Avaintietoa</string>
 	<string name="enable_screen_sleep">Anna näytön nukkua</string>
 	<!-- Description in preferences -->
