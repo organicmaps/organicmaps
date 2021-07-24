@@ -1418,6 +1418,9 @@
 /* Autoupdate dialog on start */
 "whats_new_auto_update_button_later" = "Zaktualizuj ręcznie później";
 
+/* edit track screen title */
+"track_title" = "Trasa";
+
 
 /********** Types **********/
 

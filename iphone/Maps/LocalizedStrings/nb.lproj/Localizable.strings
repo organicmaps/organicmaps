@@ -1382,6 +1382,9 @@
 /* Autoupdate dialog on start */
 "whats_new_auto_update_button_later" = "Oppdater manuelt senere";
 
+/* edit track screen title */
+"track_title" = "Rute";
+
 
 /********** Types **********/
 

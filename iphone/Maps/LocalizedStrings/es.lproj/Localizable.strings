@@ -1406,6 +1406,9 @@
 /* Autoupdate dialog on start */
 "whats_new_auto_update_button_later" = "Actualizar más tarde de forma manual";
 
+/* edit track screen title */
+"track_title" = "Ruta";
+
 
 /********** Types **********/
 

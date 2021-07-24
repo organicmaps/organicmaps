@@ -1404,6 +1404,9 @@
 /* Autoupdate dialog on start */
 "whats_new_auto_update_button_later" = "Later handmatig bijwerken";
 
+/* edit track screen title */
+"track_title" = "Track";
+
 
 /********** Types **********/
 

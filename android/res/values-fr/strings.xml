@@ -827,6 +827,8 @@
 	<string name="whats_new_auto_update_button_size">Mettre à jour (%s)</string>
 	<!-- Autoupdate dialog on start -->
 	<string name="whats_new_auto_update_button_later">Mettre à jour manuellement plus tard</string>
+	<!-- edit track screen title -->
+	<string name="track_title">Route</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Remontées mécaniques</string>

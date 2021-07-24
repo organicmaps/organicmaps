@@ -20,6 +20,8 @@ public:
   kml::TrackData const & GetData() const { return m_data; }
 
   std::string GetName() const;
+  void SetName(std::string const & name);
+
   m2::RectD GetLimitRect() const;
   double GetLengthMeters() const;
   double GetLengthMeters(size_t pointIndex) const;

@@ -824,6 +824,8 @@
 	<string name="whats_new_auto_update_button_size">Zaktualizuj (%s)</string>
 	<!-- Autoupdate dialog on start -->
 	<string name="whats_new_auto_update_button_later">Zaktualizuj ręcznie później</string>
+	<!-- edit track screen title -->
+	<string name="track_title">Trasa</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway">Transport linowy</string>

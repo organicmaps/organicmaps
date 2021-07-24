@@ -2756,7 +2756,7 @@
 
   [edit]
     comment = resource for context menu
-    tags = android
+    tags = android, ios
     en = Edit
     ru = Редактировать
     bg = Редакция
@@ -21593,3 +21593,57 @@
     hi = बाद में मैनुअल रूप से अपडेट करें
     sk = Manuálne aktualizovať neskôr
     sw = Sasisha mwenyewe baadaye
+
+  [placepage_delete_track_button]
+    comment = Delete track button on track edit screen
+    tags = ios
+    en = Delete Track
+    ru = Удалить трек
+
+  [placepage_track_name_hint]
+    comment = Placeholder for track name input on track edit screen
+    tags = ios
+    en = Track Name
+    ru = Название трека
+
+  [move]
+    comment = move track or bookmark from the list button text
+    tags = ios
+    en = Move
+    ru = Переместить
+
+  [track_title]
+    comment = edit track screen title
+    tags = ios
+    en = Track
+    ru = Трек
+    bg = Пътека
+    ar = مسار
+    cs = Dráha
+    da = Rute
+    nl = Track
+    fi = Reitti
+    fr = Route
+    de = Strecken
+    hu = Útvonal
+    id = Trek
+    it = Traccia
+    ja = トラック
+    ko = 길
+    nb = Rute
+    pl = Trasa
+    pt = Percurso
+    pt-BR = Percurso
+    ro = Rută
+    es = Ruta
+    sv = Rutt
+    th = ติดตาม
+    tr = Rota
+    uk = Маршрут
+    vi = Dấu chân
+    zh-Hans = 追踪
+    zh-Hant = 追踪
+    el = Τροχιά
+    fa = مسیر
+    he = מַסלוּל
+    sk = Šľapaj Stopy

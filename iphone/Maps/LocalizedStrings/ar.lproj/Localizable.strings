@@ -1412,6 +1412,9 @@
 /* Autoupdate dialog on start */
 "whats_new_auto_update_button_later" = "تحديث يدوياً في وقت لاحق";
 
+/* edit track screen title */
+"track_title" = "مسار";
+
 
 /********** Types **********/
 

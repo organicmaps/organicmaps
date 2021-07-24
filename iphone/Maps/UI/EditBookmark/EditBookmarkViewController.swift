@@ -15,8 +15,10 @@ final class EditBookmarkViewController: MWMTableViewController {
     case bookmarkGroup
     case count
   }
+  
+  private var editingCompleted: ((Bool) -> Void)?
 
-  @objc var placePageData: PlacePageData!
+  private var placePageData: PlacePageData?
 
   private var noteCell: MWMNoteCell?
   private var bookmarkTitle: String?
@@ -30,16 +32,9 @@ final class EditBookmarkViewController: MWMTableViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
 
-    guard placePageData != nil, let bookmarkData = placePageData.bookmarkData else {
-      fatalError("placePageData and bookmarkData can't be nil")
+    guard bookmarkId != FrameworkHelper.invalidBookmarkId() || placePageData != nil else {
+      fatalError("controller should be configured with placePageData or bookmarkId first")
     }
-
-    bookmarkTitle = placePageData.previewData.title
-    bookmarkDescription = bookmarkData.bookmarkDescription
-    bookmarkGroupTitle = bookmarkData.bookmarkCategory
-    bookmarkId = bookmarkData.bookmarkId
-    bookmarkGroupId = bookmarkData.bookmarkGroupId
-    bookmarkColor = bookmarkData.color
 
     title = L("bookmark").capitalized
     navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .save,
@@ -49,6 +44,39 @@ final class EditBookmarkViewController: MWMTableViewController {
     tableView.registerNib(cell: BookmarkTitleCell.self)
     tableView.registerNib(cell: MWMButtonCell.self)
     tableView.registerNib(cell: MWMNoteCell.self)
+  }
+  
+  func configure(with bookmarkId: MWMMarkID, editCompletion completion: @escaping (Bool) -> Void) {
+    self.bookmarkId = bookmarkId
+
+    let bm = BookmarksManager.shared()
+    let bookmark = bm.bookmark(withId: bookmarkId)
+
+    bookmarkTitle = bookmark.bookmarkName
+    bookmarkColor = bookmark.bookmarkColor
+
+    bookmarkDescription = bm.description(forBookmarkId: bookmarkId)
+
+    let bookmarkGroup = bm.category(forBookmarkId: bookmarkId)
+    bookmarkGroupId = bookmarkGroup.categoryId
+    bookmarkGroupTitle = bookmarkGroup.title
+    
+    editingCompleted = completion
+  }
+  
+  @objc(configureWithPlacePageData:)
+  func configure(with placePageData: PlacePageData) {
+    guard let bookmarkData = placePageData.bookmarkData else { fatalError("placePageData and bookmarkData can't be nil") }
+    self.placePageData = placePageData
+    
+    bookmarkTitle = placePageData.previewData.title
+    bookmarkDescription = bookmarkData.bookmarkDescription
+    bookmarkGroupTitle = bookmarkData.bookmarkCategory
+    bookmarkId = bookmarkData.bookmarkId
+    bookmarkGroupId = bookmarkData.bookmarkGroupId
+    bookmarkColor = bookmarkData.color
+    
+    editingCompleted = nil
   }
 
   // MARK: - Table view data source
@@ -135,8 +163,11 @@ final class EditBookmarkViewController: MWMTableViewController {
                                              title: bookmarkTitle ?? "",
                                              color: bookmarkColor,
                                              description: bookmarkDescription ?? "")
-    FrameworkHelper.updatePlacePageData()
-    placePageData.updateBookmarkStatus()
+    if let placePageData = placePageData {
+      FrameworkHelper.updatePlacePageData()
+      placePageData.updateBookmarkStatus()
+    }
+    editingCompleted?(true)
     goBack()
   }
 }
@@ -165,8 +196,10 @@ extension EditBookmarkViewController: MWMNoteCellDelegate {
 extension EditBookmarkViewController: MWMButtonCellDelegate {
   func cellDidPressButton(_ cell: UITableViewCell) {
     BookmarksManager.shared().deleteBookmark(bookmarkId)
-    FrameworkHelper.updatePlacePageData()
-    placePageData.updateBookmarkStatus()
+    if let placePageData = placePageData {
+      FrameworkHelper.updatePlacePageData()
+      placePageData.updateBookmarkStatus()
+    }
     goBack()
   }
 }

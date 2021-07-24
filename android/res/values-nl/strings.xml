@@ -814,6 +814,8 @@
 	<string name="whats_new_auto_update_button_size">Bijwerken (%s)</string>
 	<!-- Autoupdate dialog on start -->
 	<string name="whats_new_auto_update_button_later">Later handmatig bijwerken</string>
+	<!-- edit track screen title -->
+	<string name="track_title">Track</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Kabelwagenstation</string>

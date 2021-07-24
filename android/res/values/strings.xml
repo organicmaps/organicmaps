@@ -852,6 +852,14 @@
 	<string name="whats_new_auto_update_button_size">Update (%s)</string>
 	<!-- Autoupdate dialog on start -->
 	<string name="whats_new_auto_update_button_later">Manually update later</string>
+	<!-- Delete track button on track edit screen -->
+	<string name="placepage_delete_track_button">Delete Track</string>
+	<!-- Placeholder for track name input on track edit screen -->
+	<string name="placepage_track_name_hint">Track Name</string>
+	<!-- move track or bookmark from the list button text -->
+	<string name="move">Move</string>
+	<!-- edit track screen title -->
+	<string name="track_title">Track</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway">aerialway</string>

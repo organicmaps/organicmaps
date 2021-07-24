@@ -459,6 +459,33 @@ static BookmarkManager::SortingType convertSortingTypeToCore(MWMBookmarksSorting
   }];
 }
 
+- (void)deleteTrack:(MWMTrackID)trackId {
+    self.bm.GetEditSession().DeleteTrack(trackId);
+}
+
+- (MWMBookmark *)bookmarkWithId:(MWMMarkID)bookmarkId {
+    return [[MWMBookmark alloc] initWithMarkId:bookmarkId bookmarkData:self.bm.GetBookmark(bookmarkId)];
+}
+
+- (MWMTrack *)trackWithId:(MWMTrackID)trackId {
+    return [[MWMTrack alloc] initWithTrackId:trackId trackData:self.bm.GetTrack(trackId)];
+}
+
+- (MWMBookmarkGroup *)categoryForBookmarkId:(MWMMarkID)bookmarkId {
+    auto const groupId = self.bm.GetBookmark(bookmarkId)->GetGroupId();
+    return [self categoryWithId:groupId];
+}
+
+- (MWMBookmarkGroup *)categoryForTrackId:(MWMTrackID)trackId {
+    auto const groupId = self.bm.GetTrack(trackId)->GetGroupId();
+    return [self categoryWithId:groupId];
+}
+
+- (NSString *)descriptionForBookmarkId:(MWMMarkID)bookmarkId {
+    auto const description = self.bm.GetBookmark(bookmarkId)->GetDescription();
+    return [NSString stringWithUTF8String:description.c_str()];
+}
+
 - (NSArray<MWMBookmark *> *)bookmarksForGroup:(MWMMarkGroupID)groupId {
   auto const &bookmarkIds = self.bm.GetUserMarkIds(groupId);
   NSMutableArray *result = [NSMutableArray array];
@@ -638,6 +665,41 @@ static BookmarkManager::SortingType convertSortingTypeToCore(MWMBookmarksSorting
   if (title.UTF8String != bookmark->GetPreferredName()) {
     bookmark->SetCustomName(title.UTF8String);
   }
+}
+
+- (void)moveBookmark:(MWMMarkID)bookmarkId
+           toGroupId:(MWMMarkGroupID)groupId {
+    auto const currentGroupId = self.bm.GetBookmark(bookmarkId)->GetGroupId();
+    auto editSession = self.bm.GetEditSession();
+    if (groupId != kml::kInvalidMarkGroupId) {
+        editSession.MoveBookmark(bookmarkId, currentGroupId, groupId);
+    }
+}
+
+- (void)updateTrack:(MWMTrackID)trackId
+         setGroupId:(MWMMarkGroupID)groupId
+              title:(NSString *)title {
+    auto const currentGroupId = self.bm.GetTrack(trackId)->GetGroupId();
+    auto editSession = self.bm.GetEditSession();
+    if (groupId != kml::kInvalidMarkGroupId) {
+        editSession.MoveTrack(trackId, currentGroupId, groupId);
+    }
+
+    auto track = editSession.GetTrackForEdit(trackId);
+    if (!track) {
+        return;
+    }
+    
+    track->SetName(title.UTF8String);
+}
+
+- (void)moveTrack:(MWMTrackID)trackId
+        toGroupId:(MWMMarkGroupID)groupId {
+    auto const currentGroupId = self.bm.GetTrack(trackId)->GetGroupId();
+    auto editSession = self.bm.GetEditSession();
+    if (groupId != kml::kInvalidMarkGroupId) {
+        editSession.MoveTrack(trackId, currentGroupId, groupId);
+    }
 }
 
 - (void)setCategory:(MWMMarkGroupID)groupId authorType:(MWMBookmarkGroupAuthorType)author

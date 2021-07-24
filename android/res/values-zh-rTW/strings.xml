@@ -828,6 +828,8 @@
 	<string name="whats_new_auto_update_button_size">更新 (%s)</string>
 	<!-- Autoupdate dialog on start -->
 	<string name="whats_new_auto_update_button_later">稍後手動更新</string>
+	<!-- edit track screen title -->
+	<string name="track_title">追踪</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.cable_car">纜車</string>

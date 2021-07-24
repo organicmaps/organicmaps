@@ -498,6 +498,7 @@
 		99F9A0E52462CA0E00AE21E0 /* DownloadAllView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99F9A0E42462CA0E00AE21E0 /* DownloadAllView.swift */; };
 		99F9A0E72462CA1700AE21E0 /* DownloadAllView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 99F9A0E62462CA1700AE21E0 /* DownloadAllView.xib */; };
 		A630D1EA207CA95900976DEA /* Localizable.stringsdict in Resources */ = {isa = PBXBuildFile; fileRef = A630D1E8207CA95900976DEA /* Localizable.stringsdict */; };
+		AA1C7E3E269A2DD600BAADF2 /* EditTrackViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1C7E3D269A2DD600BAADF2 /* EditTrackViewController.swift */; };
 		B33D21AF20DAF9F000BAD749 /* Toast.swift in Sources */ = {isa = PBXBuildFile; fileRef = B33D21AE20DAF9F000BAD749 /* Toast.swift */; };
 		B33D21B820E130D000BAD749 /* BookmarksTabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B33D21B720E130D000BAD749 /* BookmarksTabViewController.swift */; };
 		B3E3B4FD20D463B700DA8C13 /* BMCCategoriesHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = B3E3B4FC20D463B700DA8C13 /* BMCCategoriesHeader.xib */; };
@@ -1332,6 +1333,7 @@
 		A630D204207CAA3400976DEA /* vi */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = vi; path = vi.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
 		A630D205207CAA3A00976DEA /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = "zh-Hant"; path = "zh-Hant.lproj/Localizable.stringsdict"; sourceTree = "<group>"; };
 		A630D206207CAA5800976DEA /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.stringsdict"; sourceTree = "<group>"; };
+		AA1C7E3D269A2DD600BAADF2 /* EditTrackViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditTrackViewController.swift; sourceTree = "<group>"; };
 		AC79F11E1E534D0B00B7D954 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		AC79F1201E534D4000B7D954 /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
 		AC79F1221E534DFA00B7D954 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
@@ -3230,6 +3232,7 @@
 				471A7BBF2481C82500A0D4C1 /* BookmarkTitleCell.swift */,
 				471A7BC12481C9B700A0D4C1 /* BookmarkTitleCell.xib */,
 				471A7BBD2481A3D000A0D4C1 /* EditBookmarkViewController.swift */,
+				AA1C7E3D269A2DD600BAADF2 /* EditTrackViewController.swift */,
 				471A7BC3248471BE00A0D4C1 /* BookmarkUIUtils.swift */,
 				4715273424907F8200E91BBA /* BookmarkColorViewController.swift */,
 				471527362491C20500E91BBA /* SelectBookmarkGroupViewController.swift */,
@@ -3951,6 +3954,7 @@
 				34F742321E0834F400AC1FD6 /* UIViewController+Navigation.m in Sources */,
 				340475811E081B3300C92850 /* iosOGLContextFactory.mm in Sources */,
 				99F3EB0623F418A200C713F8 /* PlacePagePresenter.swift in Sources */,
+				AA1C7E3E269A2DD600BAADF2 /* EditTrackViewController.swift in Sources */,
 				34AB66561FC5AA330078E451 /* TransportTransitPedestrian.swift in Sources */,
 				993DF0C823F6BD0600AC231A /* ElevationDetailsViewController.swift in Sources */,
 				BB8123D62130427E00ADE512 /* MetalContextFactory.mm in Sources */,

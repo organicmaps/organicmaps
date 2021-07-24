@@ -810,6 +810,8 @@
 	<string name="whats_new_auto_update_button_size">بروزرسانی (%s)</string>
 	<!-- Autoupdate dialog on start -->
 	<string name="whats_new_auto_update_button_later">بعدا به صورت دستی به روزرسانی کنید</string>
+	<!-- edit track screen title -->
+	<string name="track_title">مسیر</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aeroway.aerodrome">فرودگاه</string>

@@ -205,6 +205,10 @@ extension PlacePageCommonLayout {
       bookmarkViewController.bookmarkData = bookmarkData
       isBookmark = true
     }
+    if let title = placePageData.previewData.title {
+      header?.setTitle(title)
+      placePageNavigationViewController.setTitle(title)
+    }
     self.presenter?.layoutIfNeeded()
     UIView.animate(withDuration: kDefaultAnimationDuration) { [unowned self] in
       self.bookmarkViewController.view.isHidden = !isBookmark
