@@ -1591,7 +1591,6 @@
     el = Όνομα
     fa = نام
     he = שם
-    if = Nome
     sk = Názov
 
   [address]
@@ -5568,7 +5567,6 @@
     el = αγαπημένο
     fa = نشانه ها
     he = סימניה
-    in = bookmark
     sk = záložka
 
   [enable_location_services]
@@ -5648,6 +5646,7 @@
     ar = أوصافك (نصّ أو html)
     cs = Popis (HTML nebo text)
     da = Dine beskrivelser (tekst eller html)
+    id = Deskripsi Anda (teks atau html)
     nl = Uw omschrijvingen (tekst of html)
     fi = Kuvauksesi (teksti tai html)
     fr = Vos descriptions (version texte ou html)
@@ -5670,7 +5669,6 @@
     zh-Hant = 您的描述（文字或 html）
     el = Οι περιγραφές σας (κείμενο ή html)
     fa = توضیحات شما (متن یا  (html
-    in = Deskripsi Anda (teks atau html)
     sk = Váš popis (text alebo html)
 
   [create]
@@ -11960,6 +11958,7 @@
     nb = mi
     pl = mi
     pt = mi
+    pt-BR = mi
     ro = mi
     es = mile
     sv = mile
@@ -11970,7 +11969,6 @@
     zh-Hans = 英里
     zh-Hant = 英里
     fa = مایل
-    pt-br = mi
     sk = mi
 
   [foot]
@@ -14092,7 +14090,7 @@
     sk = Viac informácií nájdete v tomto návode.
     sw = Kwa maelezo zaidi tafadhali tazama mwongozo huu.
 
-  [whatsnew_transliteration_title]
+  [transliteration_title]
     tags = android, ios
     en = Transliteration into Latin
     ru = Латинская транслитерация
@@ -14125,12 +14123,11 @@
     af = Transliterasie na Latynse alfabet
     be = Транслітарацыя лацінкай
     el = Μεταγραφή στα Λατινικά
-    es_MX = Transliteración al alfabeto latino
+    es-MX = Transliteración al alfabeto latino
     fa = ترجمه به لاتین
     fr_CA = Translittération vers l'alphabet latin
     he = תעתיק ללטינית
     hi = लैटिन में लिप्यंतरण
-    ms = Transliterasi kepada Latin
     sk = Prepis do latinčiny
     sw = Tafsiri kwa lugha ya Kilatini
 
@@ -14619,7 +14616,7 @@
     zh-Hans = 存储空间访问问题
     zh-Hant = 儲存空間存取問題
     el = Πρόβλημα πρόσβασης στον αποθηκευτικό χώρο
-    es_MX = Problema de acceso al almacenamiento
+    es-MX = Problema de acceso al almacenamiento
     fa = مشکل دسترسی به ذخیره سازی
     sk = Problém s prístupom k úložisku
     sw = Tatizo la kufikia hifadhi
@@ -14655,7 +14652,7 @@
     zh-Hans = 外部存储空间不可用，可能是存储卡已移除、损坏，或者文件系统为只读。请检查，然后通过以下方式联系我们：support@organicmaps.app
     zh-Hant = 外部儲存空間不可用，很可能是因為 SD 卡已移除、毀損，或檔案系統處於唯讀狀態。請進行檢查，然後以 support@organicmaps.app 方式聯繫我們
     el = Ο εξωτερικός απθηκευτικός χώρος δεν είναι διαθέσιμος, πιθανότατα έχει αφαιρεθεί η κάρτα SD, είναι κατεστραμμένη ή το σύστημα αρχείων είναι μόνο για ανάγνωση. Ελέγξτε το και επικοινωνήστε μαζί μας στη διεύθυνση support@organicmaps.app
-    es_MX = El almacenamiento externo no está disponible. Es posible que se haya quitado o dañado la tarjeta SD, o que el sistema de archivos solo permita la lectura. Revíselo y escríbanos a support@organicmaps.app
+    es-MX = El almacenamiento externo no está disponible. Es posible que se haya quitado o dañado la tarjeta SD, o que el sistema de archivos solo permita la lectura. Revíselo y escríbanos a support@organicmaps.app
     fa = ذخیره سازی خارجی در دسترس نیست کارت SD ممکن است برداشته شده باشد، آسیب دیده باشد یا سیستم فایل فقط خواندنی باشد. لطفا کارت SD خود را بررسی کنید یا با ما در support@organicmaps.app تماس بگیرید
     sk = Externý úložný priestor nie je dostupný, pravdepodobne je vytiahnutá alebo poškodená SD karta alebo je systém súborov určený iba na čítanie. Skontrolujte to, prosím, a kontaktujte nás na support@organicmaps.app
     sw = Hifadhi ya nje haipatikani, pengine Kadi ya SD imeondolewa, imeharibika au mfumo wa faili ni wa kusoma pekee. Tafadhali ikague na uwasiliane nasi kwa kutumia support@organicmaps.app
@@ -14691,7 +14688,7 @@
     zh-Hans = 模拟不良存储空间
     zh-Hant = 模擬不良儲存空間
     el = Εξομείωση κακού αποθηκευτικού χώρου
-    es_MX = Emular el almacenamiento dañado
+    es-MX = Emular el almacenamiento dañado
     fa = شبیه سازی ذخیره سازی بد
     sk = Imitovať poškodené úložisko
     sw = Onyeshana hifadhi mbaya
@@ -14727,7 +14724,7 @@
     zh-Hans = 入口
     zh-Hant = 入口
     el = Είσοδος
-    es_MX = Entrada
+    es-MX = Entrada
     fa = ورودی
     sk = Vchod  | vjazd
     sw = Kiingilio
@@ -14763,7 +14760,7 @@
     zh-Hans = 请输入正确的名称
     zh-Hant = 請輸入正確的名稱
     el = Εισάγετε ένα σωστό όνομα
-    es_MX = Introduzca el nombre correcto
+    es-MX = Introduzca el nombre correcto
     fa = لطفا نام صحیح را وارد کنید
     sk = Prosím, zadajte správne meno
     sw = Tafadhali, weka jina sahihi
@@ -14799,7 +14796,7 @@
     zh-Hans = 列表
     zh-Hant = 清單
     el = Τόπος αγώνων
-    es_MX = Listas
+    es-MX = Listas
     fa = لیست ها
     sk = Zoznamy
     sw = Orodha
@@ -14835,7 +14832,7 @@
     zh-Hans = 全部隱藏
     zh-Hant = 隱藏全部
     el = Απόκρυψη όλων
-    es_MX = Ocultar todo
+    es-MX = Ocultar todo
     fa = پنهان کردن همه
     sk = Skryť všetko
     sw = Ficha zote
@@ -14871,7 +14868,7 @@
     zh-Hans = 全部顯示
     zh-Hant = 顯示全部
     el = Εμφάνιση όλων
-    es_MX = Mostrar todo
+    es-MX = Mostrar todo
     fa = نمایش همه
     sk = Zobraziť všetko
     sw = Onyesha zote
@@ -14904,7 +14901,7 @@
     el = %d αγαπημένα
     en:one = %d bookmark
     en:other = %d bookmarks
-    es_MX = %d marcadores
+    es-MX = %d marcadores
     fa:one = %d نشانه
     fa:other = %d نشانه‌ها
     pt-BR:one = %d favorito
@@ -14948,7 +14945,7 @@
     zh-Hans = 创建新的列表
     zh-Hant = 創建新列表
     el = Δημιουργία νέας λίστας
-    es_MX = Crear lista nueva
+    es-MX = Crear lista nueva
     fa = ایجاد لیست جدید
     sk = Vytvoriť nový zoznam
     sw = Unda orodha mpya
@@ -14993,7 +14990,7 @@
     zh-Hans = 隱藏屏幕
     zh-Hant = 隱藏畫面
     el = Απόκρυψη οθόνης
-    es_MX = Ocultar pantalla
+    es-MX = Ocultar pantalla
     fa = پنهان کردن صفحه
     sk = Skryť obrazovku
     sw = Ficha skrini
@@ -15029,7 +15026,7 @@
     zh-Hans = %s (%s / %s)
     zh-Hant = %s (%s，共%s)
     el = %s (%s από %s)
-    es_MX = %s (%s de %s)
+    es-MX = %s (%s de %s)
     fa = %s (%s از %s)
     sk = %s (%s z %s)
     sw = %s (%s kati ya %s)
@@ -15065,7 +15062,7 @@
     zh-Hans = 正在下載 %s…
     zh-Hant = 下載 %s 中……
     el = Λήψη %s…
-    es_MX = Descargando %s…
+    es-MX = Descargando %s…
     fa = در حال دانلود %s…
     sk = Sťahovanie %s…
     sw = Inapakua %s…
@@ -15101,7 +15098,7 @@
     zh-Hans = 正在套用 %s…
     zh-Hant = 應用 %s 中……
     el = Εφαρμογή %s…
-    es_MX = Aplicando %s…
+    es-MX = Aplicando %s…
     fa = اعمال %s…
     sk = Použitie %s…
     sw = Inatekeleza %s…
@@ -15137,7 +15134,7 @@
     zh-Hans = 由于应用程序出错而无法分享
     zh-Hant = 由於應用程序出錯而無法分享
     el = Αδυναμία κοινής χρήσης λόγω σφάλματος εφαρμογής
-    es_MX = No se puede compartir debido a un error de la aplicación
+    es-MX = No se puede compartir debido a un error de la aplicación
     fa = با توجه به خطای برنامه، امکان اشتراک گذاری وجود ندارد
     sk = Pre chybu aplikácie nie je zdieľanie možné
     sw = Haiwezekani kushiriki kutokana na hitilafu ya programu
@@ -15173,7 +15170,7 @@
     zh-Hans = 分享错误
     zh-Hant = 分享錯誤
     el = Σφάλμα κοινής χρήσης
-    es_MX = Error al compartir
+    es-MX = Error al compartir
     fa = خطای اشتراک
     sk = Chyba zdieľania
     sw = Hitilafu ya kushiriki
@@ -15209,7 +15206,7 @@
     zh-Hans = 无法分享空列表
     zh-Hant = 無法分享空列表
     el = Αδύνατη η κοινή χρήση κενής λίστας
-    es_MX = No se puede compartir una lista vacía
+    es-MX = No se puede compartir una lista vacía
     fa = یک لیست خالی را نمی توان به اشتراک گذاشت
     sk = Prázdny zoznam nie je možné zdieľať
     sw = Haiwezekani kushiriki orodha tupu
@@ -15245,7 +15242,7 @@
     zh-Hans = 名字不能为空
     zh-Hant = 名字不能為空
     el = Το όνομα δεν θα μπορούσε να είναι άδειο
-    es_MX = El nombre no puede quedar vacío
+    es-MX = El nombre no puede quedar vacío
     fa = نام نمیتواند خالی باشد
     sk = Názov nemôže byť prázdny
     sw = Jina halikuweza kuwa tupu
@@ -15281,7 +15278,7 @@
     zh-Hans = 请输入列表名称
     zh-Hant = 請輸入列表名稱
     el = Εισαγάγετε το όνομα της λίστας
-    es_MX = Escriba el nombre
+    es-MX = Escriba el nombre
     fa = لطفا نام لیست را وارد کنید
     sk = Zadajte názov zoznamu
     sw = Tafadhali ingiza jina la orodha
@@ -15317,7 +15314,7 @@
     zh-Hans = 新的列表
     zh-Hant = 新的列表
     el = Νέα λίστα
-    es_MX = Lista nueva
+    es-MX = Lista nueva
     fa = لیست جدید
     sk = Nový zoznam
     sw = Orodha mpya
@@ -15353,7 +15350,7 @@
     zh-Hans = 这个名字已经被使用了
     zh-Hant = 這個名字已經被使用了
     el = Αυτό το όνομα έχει ήδη ληφθεί
-    es_MX = Este nombre ya está en uso
+    es-MX = Este nombre ya está en uso
     fa = این اسم قبلا انتخاب شده است
     sk = Tento názov už bol prijatý
     sw = Jina hili tayari limechukuliwa
@@ -15389,7 +15386,7 @@
     zh-Hans = 请选择其他名称
     zh-Hant = 請選擇其他名稱
     el = Επιλέξτε άλλο όνομα
-    es_MX = Por favor elige otro nombre
+    es-MX = Por favor elige otro nombre
     fa = لطفا نام دیگری را انتخاب کنید
     sk = Vyberte iné meno
     sw = Tafadhali chagua jina lingine
@@ -15424,7 +15421,7 @@
     zh-Hans = 这个名字太长了
     zh-Hant = 這個名字太長了
     el = Αυτό το όνομα είναι πολύ μεγάλο
-    es_MX = Este nombre es demasiado largo
+    es-MX = Este nombre es demasiado largo
     fa = این نام خیلی طولانی است
     sk = Tento názov je príliš dlhý
     sw = Jina hili ni muda mrefu sana
@@ -15460,7 +15457,7 @@
     zh-Hans = 请稍候…
     zh-Hant = 請稍候…
     el = Παρακαλώ περιμένετε…
-    es_MX = Por favor, espere…
+    es-MX = Por favor, espere…
     fa = لطفا صبر کنید…
     sk = Prosím čakajte…
     sw = Tafadhali subiri…
@@ -15565,7 +15562,7 @@
     zh-Hans = 搜索类似的酒店
     zh-Hant = 搜索類似的酒店
     el = Αναζήτηση παρόμοιων ξενοδοχείων
-    es_MX = Buscar hoteles similares
+    es-MX = Buscar hoteles similares
     fa = جست‌وجوی هتل‌های مشابه
     sk = Vyhľadať podobné hotely
     sw = Tafuta hoteli sawa
@@ -15601,7 +15598,7 @@
     zh-Hans = 检测到新文件
     zh-Hant = 檢測到新文件
     el = Εντοπίστηκαν νέα αρχεία
-    es_MX = Se detectaron archivos nuevos
+    es-MX = Se detectaron archivos nuevos
     fa = فایل‌های جدید پیدا شد
     sk = Zistené nové súbory
     sw = Faili mpya zimegunduliwa
@@ -15630,8 +15627,8 @@
     en:other = %d files were found. You can see them after conversion.
     es:one = Se encontró %d archivo. Lo verás después de la conversión.
     es:other = Se han encontrado %d archivos. Los verás después de la conversión.
-    es_MX:one = Se encontró %d archivo. Lo verás después de la conversión.
-    es_MX:other = Se han encontrado %d archivos. Los verás después de la conversión.
+    es-MX:one = Se encontró %d archivo. Lo verás después de la conversión.
+    es-MX:other = Se han encontrado %d archivos. Los verás después de la conversión.
     fa:one = %d فایل پیدا شد. بعد از تبدیل آن را می‌بینید.
     fa:other = %d فایل پیدا شد. بعد از تبدیل آن‌ها را می‌بینید.
     fi:one = %d tiedosto löydettiin. Näet sen muunnoksen jälkeen.
@@ -15671,7 +15668,7 @@
     uk:one = %d файл був знайдений. Ви побачите його після перетворення.
     uk:other = %d файлів було знайдено. Ви побачите їх після конвертації.
     uk:two = %d файлу були знайдені. Ви побачите їх після конвертації.
-    ve:other = %d tập tin đã được tìm thấy. Bạn sẽ thấy chúng sau khi chuyển đổi.
+    vi:other = %d tập tin đã được tìm thấy. Bạn sẽ thấy chúng sau khi chuyển đổi.
     vi:one = %d dã tìm thấy một tệp. Bạn sẽ thấy nó sau khi chuyển đổi.
 
   [button_convert]
@@ -15705,7 +15702,7 @@
     zh-Hans = 兑换
     zh-Hant = 兌換
     el = Μετατρέπω
-    es_MX = Convertir
+    es-MX = Convertir
     fa = تبدیل
     sk = Premeniť
     sw = Badilisha
@@ -15741,7 +15738,7 @@
     zh-Hans = 错误
     zh-Hant = 錯誤
     el = Λάθος
-    es_MX = Error
+    es-MX = Error
     fa = خطا
     sk = Chyba
     sw = Hitilafu
@@ -15777,7 +15774,7 @@
     zh-Hans = 有些文件未被转换。
     zh-Hant = 有些文件未被轉換。
     el = Ορισμένα αρχεία δεν μετατράπηκαν.
-    es_MX = Algunos archivos no se convirtieron.
+    es-MX = Algunos archivos no se convirtieron.
     fa = بعضی از فایل‌ها تبدیل نشد.
     sk = Niektoré súbory neboli konvertované.
     sw = Baadhi ya faili hazibadilishwa.
@@ -15813,7 +15810,7 @@
     zh-Hans = 还原这个版本？
     zh-Hant = 還原這個版本？
     el = Επαναφορά αυτής της έκδοσης;
-    es_MX = ¿Está seguro que desea restaurar esta versión?
+    es-MX = ¿Está seguro que desea restaurar esta versión?
     fa = این نسخه برگردد؟
     sk = Obnoviť túto verziu?
     sw = Rejesha toleo hili?
@@ -15849,7 +15846,7 @@
     zh-Hans = 没有互联网连接
     zh-Hant = 沒有互聯網連接
     el = Δεν υπάρχει σύνδεση στο διαδίκτυο
-    es_MX = Sin conexión a Internet
+    es-MX = Sin conexión a Internet
     fa = اتصال اینترنتی برقرار نیست
     sk = Žiadne internetové pripojenie
     sw = Hakuna uhusiano wa internet
@@ -15885,7 +15882,7 @@
     zh-Hans = 出现未知错误
     zh-Hant = 出現未知錯誤
     el = Συνέβη ένα άγνωστο σφάλμα
-    es_MX = Ocurrió un error desconocido
+    es-MX = Ocurrió un error desconocido
     fa = خطای ناشناخته‌ای رخ داد
     sk = Vyskytla sa neznáma chyba
     sw = Hitilafu isiyojulikana ilitokea
@@ -15921,7 +15918,7 @@
     zh-Hans = 恢复
     zh-Hant = 恢復
     el = Επαναφορά
-    es_MX = Restaurar
+    es-MX = Restaurar
     fa = بازیابی
     sk = Obnoviť
     sw = Rejesha
@@ -15955,7 +15952,7 @@
     el = %d μέρος
     en:one = %d object
     en:other = %d objects
-    es_MX = %d lugar
+    es-MX = %d lugar
     fa:one = %d شیء
     fa:other = %d شیء
     no = %d sted
@@ -15999,7 +15996,7 @@
     el = %d μέρη
     en:one = %d place
     en:other = %d places
-    es_MX = %d lugares
+    es-MX = %d lugares
     fa:one = %d مکان
     fa:other = %d مکان
     no = %d steder
@@ -16043,7 +16040,7 @@
     el = %d διαδρομές
     en:one = %d track
     en:other = %d tracks
-    es_MX = %d rastreos
+    es-MX = %d rastreos
     fa:one = %d رد
     fa:other = %d رد
     no = %d stier
@@ -16088,7 +16085,7 @@
     zh-Hans = 支持设置
     zh-Hant = 跟蹤設置
     el = Ρυθμίσεις διαδρομών
-    es_MX = Configuraciones de rastreo
+    es-MX = Configuraciones de rastreo
     fa = تنظیمات ردیابی
     no = Turinnstillinger
     sk = Nastavenie sledovania
@@ -16124,7 +16121,7 @@
     zh-Hans = 错误报告
     zh-Hant = 錯誤報告
     el = Αναφορά σφάλματος
-    es_MX = Reporte de fallas
+    es-MX = Reporte de fallas
     fa = گزارش خرابی
     no = Krasjrapport
     sk = Hlásenie chýb
@@ -16160,7 +16157,7 @@
     zh-Hans = 我们可以使用您的数据来开发和改进Organic Maps。更改将在重新启动应用程序后生效。
     zh-Hant = 我們可以使用您的數據來開發和改進Organic Maps。更改將再重新啟動應用程序后生效。
     el = Μπορεί να χρησιμοποιήσουμε τα δεδομένα σας για να βελτιώσουμε την εμπειρία του Organic Maps. Οι αλλαγές θα ενεργοποιηθούν μετά την επανεκκίνηση της εφαρμογής.
-    es_MX = Puede que utilicemos sus datos para mejorar la experiencia de Organic Maps. Los cambios surtirán efecto después de que reinicie la aplicación.
+    es-MX = Puede que utilicemos sus datos para mejorar la experiencia de Organic Maps. Los cambios surtirán efecto después de que reinicie la aplicación.
     fa = ما از داده‌های شما برای بهبود Organic Maps استفاده می‌کنیم. تغییرات پس از راه‌اندازی مجدد برنامه به‌کار می‌افتد.
     no = Vi kan bruke dine data for å forbedre Organic Maps-opplevelsen. Endringer vil bli aktive når du restarter appen.
     sk = Vaše údaje môžeme použiť na zlepšenie skúseností s programom Organic Maps. Zmeny sa prejavia po reštartovaní aplikácie.
@@ -16196,7 +16193,7 @@
     zh-Hans = 隐私政策
     zh-Hant = 隱私政策
     el = Πολιτική απορρήτου
-    es_MX = Política de Privacidad
+    es-MX = Política de Privacidad
     fa = سیاست حریم خصوصی
     no = Personvernpolitikk
     sk = Zásady ochrany osobných údajov
@@ -16232,7 +16229,7 @@
     zh-Hans = 使用条款
     zh-Hant = 使用條款
     el = Όροι χρήσης
-    es_MX = Términos de uso
+    es-MX = Términos de uso
     fa = شرایط استفاده
     no = Bruksbetingelser
     sk = Podmienky používania
@@ -16268,7 +16265,7 @@
     zh-Hans = 路况
     zh-Hant = 路況
     el = Κίνηση
-    es_MX = Tráfico
+    es-MX = Tráfico
     fa = ترافیک
     no = Trafikk
     sk = Vyťaženie
@@ -16304,7 +16301,7 @@
     zh-Hans = 地铁
     zh-Hant = 地鐵
     el = Μετρό
-    es_MX = Metro
+    es-MX = Metro
     fa = مترو
     no = T-bane
     sk = Metro
@@ -16340,7 +16337,7 @@
     zh-Hans = 地图图层
     zh-Hant = 地圖圖層
     el = Επίπεδα του χάρτη
-    es_MX = Capas del mapa
+    es-MX = Capas del mapa
     fa = لایه های نقشه
     no = Kartlag
     sk = Vrstvy mapy
@@ -16376,7 +16373,7 @@
     zh-Hans = 地铁地图不可用
     zh-Hant = 地鐵圖不可用
     el = Ο χάρτης μετρό δεν είναι διαθέσιμος
-    es_MX = El mapa del metro no está disponible
+    es-MX = El mapa del metro no está disponible
     fa = نقشه مترو موجود نیست
     no = T-banekart er utilgjengelig
     sk = Mapa metra nie je dostupná
@@ -16412,7 +16409,7 @@
     zh-Hans = 该列表为空
     zh-Hant = 列表為空
     el = Η λίστα είναι άδεια
-    es_MX = Esta lista está vacía
+    es-MX = Esta lista está vacía
     fa = این لیست خالی است
     no = Denne listen er tom
     sk = Tento zoznam je prázdny
@@ -16448,7 +16445,7 @@
     zh-Hans = 要添加新标签，请单击对象卡中的星形图标
     zh-Hant = 要添加新標籤，請單擊對象卡片中的星型圖標
     el = Για να προσθέσετε σελιδοδείκτη, πατήστε ένα μέρος στο χάρτη και μετά πατήστε το αστεράκι
-    es_MX = Para añadir un marcador, toque un lugar en el mapa y después toque el ícono de estrella
+    es-MX = Para añadir un marcador, toque un lugar en el mapa y después toque el ícono de estrella
     fa = برای افزودن یک نشانه، روی یک مکان روی نقشه ضربه بزنید و سپس روی نماد ستاره ضربه بزنید
     no = For å legge til et bokmerke, trykk et sted på kartet og trykk så stjerneikonet
     sk = Pre pridanie záložky kliknite na miesto na mape a potom na ikonu hviezdy
@@ -16484,7 +16481,7 @@
     zh-Hans = …更多
     zh-Hant = …更多
     el = …περισσότερα
-    es_MX = …más
+    es-MX = …más
     fa = بیشتر…
     no = …mer
     sk = …viac
@@ -16520,7 +16517,7 @@
     zh-Hans = 发生错误
     zh-Hant = 發生錯誤
     el = Συνέβη σφάλμα
-    es_MX = Ocurrió un error
+    es-MX = Ocurrió un error
     fa = خطایی رخ داد
     no = Det oppsto en feil
     sk = Vyskytla sa chyba
@@ -21070,7 +21067,7 @@
     af = Werk jou afgelaaide kaarte by
     be = Абнавіце спампаваныя карты
     el = Θα πρέπει να ενημερώστε τους χάρτες που έχετε κατεβάσει
-    es_MX = Debe actualizar sus mapas descargados
+    es-MX = Debe actualizar sus mapas descargados
     fa = نقشه های دانلود شده خود را به روز کنید
     fr_CA = Mettez à jour vos cartes téléchargées
     he = עדכן את המפות שהורדת
@@ -21112,7 +21109,7 @@
     af = As jy kaarte bywerk, bly inligting oor voorwerpe op datum
     be = Абнаўленне карт падтрымлівае актуальнасць звестак пра аб’екты
     el = Η ενημέρωση των χαρτών διατηρεί τις πληροφορίες των στοιχείων επικαιροποιημένες
-    es_MX = Actualizar los mapas mantiene actualizada también la información acerca de los objetos
+    es-MX = Actualizar los mapas mantiene actualizada también la información acerca de los objetos
     fa = به روز رسانی نقشه ها اطلاعات مربوط به اشیا را به روز نگه می دارد
     fr_CA = La mise à jour des cartes permet d'avoir des informations à jour sur les objets
     he = עדכון המפות שומר על המידע שבהן עדכני
@@ -21154,7 +21151,7 @@
     af = Werk by (%s)
     be = Абнавіць (%s)
     el = Ενημέρωση (%s)
-    es_MX = Actualizar (%s)
+    es-MX = Actualizar (%s)
     fa = بروزرسانی (%s)
     fr_CA = Mettre à jour (%s)
     he = עדכן (%s)
@@ -21196,7 +21193,7 @@
     af = Werk later handmatig by
     be = Абнавіць пазней уручную
     el = Χειροκίνητη ενημέρωση αργότερα
-    es_MX = Actualizar después manualmente
+    es-MX = Actualizar después manualmente
     fa = بعدا به صورت دستی به روزرسانی کنید
     fr_CA = Plus tard (manuel)
     he = עדכן ידנית מאוחר יותר
