@@ -239,6 +239,7 @@ public class BookmarkCategoriesAdapter extends BaseBookmarkCategoryAdapter<Recyc
       notifyDataSetChanged();
     }
   }
+
   private class CategoryItemMoreClickListener implements View.OnClickListener
   {
     @NonNull
