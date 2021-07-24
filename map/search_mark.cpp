@@ -462,6 +462,7 @@ void SearchMarks::OnDeactivate(FeatureID const & featureId)
   });
 }
 
+/*
 void SearchMarks::SetUnavailable(SearchMarkPoint & mark, std::string const & reasonKey)
 {
   {
@@ -492,6 +493,7 @@ bool SearchMarks::IsUnavailable(FeatureID const & id) const
   std::scoped_lock<std::mutex> lock(m_lock);
   return m_unavailable.find(id) != m_unavailable.cend();
 }
+*/
 
 void SearchMarks::SetVisited(FeatureID const & id)
 {

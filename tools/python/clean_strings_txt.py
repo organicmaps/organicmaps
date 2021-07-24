@@ -1,6 +1,4 @@
-#!/usr/bin/env python2.7
-
-from __future__ import print_function
+#!/usr/bin/env python3
 
 import logging
 import re
@@ -21,11 +19,13 @@ run this script with the -h option.
 
 OMIM_ROOT = ""
 
-MACRO_RE =  re.compile('L\(.*?@\"(.*?)\"\)')
-XML_RE = re.compile("value=\"(.*?)\"")
-ANDROID_JAVA_RE = re.compile("R\.string\.([\w_]*)")
-ANDROID_XML_RE = re.compile("@string/(.*?)\W")
-IOS_CANDIDATES_RE = re.compile("(.*?):[^L\(]@\"([a-z0-9_]*?)\"")
+CORE_RE = re.compile(r'GetLocalizedString\(\"(.*?)\"\)')
+MACRO_RE = re.compile(r'L\(.*?@?\"(.*?)\"\)')
+XML_RE = re.compile(r"value=\"(.*?)\"")
+ANDROID_JAVA_RE = re.compile(r"R\.string\.([\w_]*)")
+ANDROID_JAVA_PLURAL_RE = re.compile(r"R\.plurals\.([\w_]*)")
+ANDROID_XML_RE = re.compile(r"@string/(.*?)\W")
+IOS_CANDIDATES_RE = re.compile(r"(.*?):[^L\(]@\"([a-z0-9_]*?)\"")
 
 HARDCODED_CATEGORIES = None
 
@@ -45,7 +45,7 @@ def exec_shell(test, *flags):
 
     logging.info(" ".join(spell))
     out, _ = process.communicate()
-    return filter(None, out.splitlines())
+    return [line for line in out.decode().splitlines() if line]
 
 
 def grep_ios():
@@ -59,6 +59,8 @@ def grep_android():
     logging.info("Grepping android")
     grep = "grep -r -I 'R.string.' {0}/android/src".format(OMIM_ROOT)
     ret = android_grep_wrapper(grep, ANDROID_JAVA_RE)
+    grep = "grep -r -I 'R.plurals.' {0}/android/src".format(OMIM_ROOT)
+    ret.update(android_grep_wrapper(grep, ANDROID_JAVA_PLURAL_RE))
     grep = "grep -r -I '@string/' {0}/android/res".format(OMIM_ROOT)
     ret.update(android_grep_wrapper(grep, ANDROID_XML_RE))
     grep = "grep -r -I '@string/' {0}/android/AndroidManifest.xml".format(OMIM_ROOT)
@@ -66,6 +68,11 @@ def grep_android():
 
     return parenthesize(ret)
 
+def grep_core():
+    logging.info("Grepping core")
+    grep = "grep -r -I --exclude-dir {0}/3party 'GetLocalizedString' {0}/*".format(OMIM_ROOT)
+    ret = android_grep_wrapper(grep, CORE_RE)
+    return parenthesize(ret)
 
 def grep_ios_candidates():
     logging.info("Grepping ios candidates")
@@ -91,21 +98,15 @@ def filter_ios_grep(strings):
 
 
 def process_ternary_operators(filtered):
-    return chain(*map(lambda s: s.split('" : @"'), filtered))
+    return chain(*(s.split('" : @"') for s in filtered))
 
 
 def strings_from_grepped(grepped, regexp):
-    return set(
-        chain(
-            *filter(
-                None, map(lambda s: regexp.findall(s), grepped)
-            )
-        )
-    )
+    return set(chain(*(regexp.findall(s) for s in grepped if s)))
 
 
 def parenthesize(strings):
-    return set(map(lambda s: "[{0}]".format(s), strings))
+    return set("[{}]".format(s) for s in strings)
 
 
 def write_filtered_strings_txt(filtered, filepath, languages=None):
@@ -207,16 +208,20 @@ def do_multiple(args):
         )
 
 
-def generate_auto_tags(ios, android):
-    new_tags = defaultdict(list)
+def generate_auto_tags(ios, android, core):
+    new_tags = defaultdict(set)
     for i in ios:
-        new_tags[i].append("ios")
+        new_tags[i].add("ios")
 
     for a in android:
-        new_tags[a].append("android")
+        new_tags[a].add("android")
+
+    for c in core:
+        new_tags[c].add("ios")
+        new_tags[c].add("android")
 
     for key in new_tags:
-        new_tags[key] = ", ".join(new_tags[key])
+        new_tags[key] = ", ".join(sorted(new_tags[key]))
 
     return new_tags
 
@@ -229,13 +234,15 @@ def new_comments_and_tags(strings_txt, filtered, new_tags):
 
 
 def do_single(args):
+    core = grep_core()
     ios = grep_ios()
     android = grep_android()
 
-    new_tags = generate_auto_tags(ios, android)
+    new_tags = generate_auto_tags(ios, android, core)
 
     filtered = ios
     filtered.update(android)
+    filtered.update(core)
 
     strings_txt = StringsTxt()
     strings_txt.translations = {key: dict(strings_txt.translations[key]) for key in filtered}
@@ -269,7 +276,7 @@ def do_candidates(args):
     for source, candidate in grep_ios_candidates():
         all_candidates[candidate].append(source)
 
-    for candidate, sources in all_candidates.iteritems():
+    for candidate, sources in all_candidates.items():
         print(candidate, sources)
 
 
@@ -291,12 +298,10 @@ def find_omim():
 
 def read_hardcoded_categories(a_path):
     with open(a_path) as infile:
-        return filter(None, [s.strip() for s in infile])
+        return [s.strip() for s in infile if s]
 
 
 if __name__ == "__main__":
-    global OMIM_ROOT, HARDCODED_CATEGORIES
-
     logging.basicConfig(level=logging.DEBUG)
     args = get_args()
 

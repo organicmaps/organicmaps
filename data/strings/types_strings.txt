@@ -4,16 +4,20 @@
     en = aerialway
     ja = 索道
     pl = Transport linowy
+    zh-Hans = 缆车要素
 
   [type.aerialway.cable_car]
     en = aerialway-cable_car
     ja = ロープウェイ
     pl = Kolej linowa
+    zh-Hans = 缆车
+    zh-Hant = 纜車
 
   [type.aerialway.chair_lift]
     en = aerialway-chair_lift
     ja = チェアリフト
     pl = Wyciąg krzesełkowy
+    zh-Hans = 登山吊椅
 
   [type.aerialway.drag_lift]
     en = aerialway-drag_lift
@@ -24,6 +28,7 @@
     en = aerialway-gondola
     ja = ゴンドラ
     pl = Gondola kolejki linowej
+    zh-Hans = 循环式索道
 
   [type.aerialway.mixed_lift]
     en = aerialway-mixed_lift
@@ -64,6 +69,7 @@
   [type.aeroway]
     en = aeroway
     ja = 空路
+    zh-Hans = 机场要素
 
   [type.aeroway.aerodrome]
     en = Airport
@@ -133,11 +139,13 @@
     en = aeroway-apron
     ja = エプロン
     pl = Płyta postojowa samolotów
+    zh-Hans = 机场停机坪
 
   [type.aeroway.gate]
     en = aeroway-gate
     ja = 搭乗口
     pl = Wyjście lotniskowe
+    zh-Hans = 登机口
 
   [type.aeroway.helipad]
     en = Helipad
@@ -163,8 +171,8 @@
     tr = Hélisurface
     uk = Майданчик для гелікоптерів
     vi = Bãi đỗ trực thăng
-    zh-Hans = 直升机停机坪
-    zh-Hant = 直升機停機坪
+    zh-Hans = 直升机场
+    zh-Hant = 直升機場
     el = Ελικοδρόμιο
     sk = Pristávacia plocha pre vrtuľníky
     fa = پد فرود بالگرد
@@ -173,16 +181,20 @@
     en = aeroway-runway
     ja = 滑走路
     pl = Droga startowa
+    zh-Hans = 机场跑道
+    zh-Hant = 機場跑道
 
   [type.aeroway.taxiway]
     en = aeroway-taxiway
     ja = 誘導路
     pl = Droga kołowania
+    zh-Hans = 滑行道
 
   [type.aeroway.terminal]
     en = aeroway-terminal
     ja = 空港ターミナルビル
     pl = Terminal lotniskowy
+    zh-Hans = 航站楼
 
   [type.amenity]
     en = Amenity
@@ -214,8 +226,8 @@
     el = Εγκαταστάσεις υποδομής
     sk = Vybavenie
     sw = Kistawishi
-    zh-Hans = 基础设施项目
-    zh-Hant = 基礎設施項目
+    zh-Hans = 设施
+    zh-Hant = 設施
     fa = زیر ساخت
 
   [type.amenity.arts_centre]
@@ -411,7 +423,7 @@
     tr = Parking à vélo
     uk = Велостоянка
     vi = Chỗ Đậu Xe Đạp
-    zh-Hans = 自行车存放处
+    zh-Hans = 自行车停车处
     zh-Hant = 腳踏車停放區
     el = Χώρος στάθμευσης ποδηλάτων
     sk = Stojan na bicykle
@@ -443,7 +455,7 @@
     tr = Bisiklet kiralama
     uk = Велопрокат
     vi = Cho thuê xe đạp
-    zh-Hans = 自行车租赁
+    zh-Hans = 自行车出租点
     zh-Hant = 自行車出租
     el = Ενοικιάσεις ποδηλάτων
     sk = Požičovňa bicyklov
@@ -560,8 +572,8 @@
     tr = Otobüs terminali
     uk = Автовокзал
     vi = Trạm xe buýt
-    zh-Hans = 公车站
-    zh-Hant = 巴士
+    zh-Hans = 公交车站
+    zh-Hant = 公車站
     el = Σταθμός λεωφορείων
     sk = Autobusové nástupište
     fa = حمل و نقل
@@ -866,7 +878,7 @@
     uk = Коледж
     vi = Trường đại học
     zh-Hans = 学院
-    zh-Hant = 大學
+    zh-Hant = 學院
     el = Κολέγιο
     sk = Vysoká škola
     fa = دانشگاه
@@ -897,7 +909,7 @@
     tr = Centre communautaire
     uk = Центр культури та дозвілля, Дім культури
     vi = Trung Tâm Cộng Đồng
-    zh-Hans = 社区中心
+    zh-Hans = 社区活动中心
     zh-Hant = 社區活動中心
     el = Κέντρο κοινότητας
     sk = Dom kultúry
@@ -1087,7 +1099,7 @@
     tr = Büyükelçilik
     uk = Посольство
     vi = Đại sứ quán
-    zh-Hans = 使馆
+    zh-Hans = 大使馆
     zh-Hant = 大使館
     el = Πρεσβεία
     sk = Veľvyslanectvo
@@ -1119,7 +1131,7 @@
     tr = Fast food
     uk = Фастфуд
     vi = Thức ăn nhanh
-    zh-Hans = 快餐
+    zh-Hans = 快餐店
     zh-Hant = 速食店
     el = Ταχυφαγίο
     sk = Rýchle občerstvenie
@@ -1151,7 +1163,7 @@
     tr = Feribot
     uk = Пором
     vi = Phà
-    zh-Hans = 渡轮
+    zh-Hans = 轮渡码头
     zh-Hant = 渡船
     el = Πορθμείο
     sk = Trajekt
@@ -1194,6 +1206,7 @@
     ru = Ресторанный дворик
     ja = フードコート
     pl = Sekcja gastronomiczna
+    zh-Hans = 美食广场
 
   [type.amenity.fountain]
     en = Fountain
@@ -1377,7 +1390,7 @@
     tr = Avlanma alanı
     uk = Мисливська башта
     vi = Điểm săn bắn
-    zh-Hans = 狩猎屋
+    zh-Hans = 狩猎站
     zh-Hant = 狩獵場
     el = Βάση σκόπευσης
     sk = Lovecké stanovisko
@@ -1409,7 +1422,7 @@
     tr = Dondurma Standı
     uk = Кіоск з морозивом
     vi = Quầy kem
-    zh-Hans = 冰淇淋摊
+    zh-Hans = 冰淇淋店
     zh-Hant = 冰淇淋攤
     el = Παγωτατζίδικο
     sk = Zmrzlinový stánok
@@ -1534,7 +1547,7 @@
     tr = Pazaryeri
     uk = Ринок
     vi = Cửa hàng
-    zh-Hans = 市集
+    zh-Hans = 市场
     zh-Hant = 市場
     el = Αγορά
     sk = Trhovisko
@@ -1661,7 +1674,7 @@
     tr = Otopark
     uk = Парковка
     vi = đỗ xe
-    zh-Hans = 停车
+    zh-Hans = 停车场
     zh-Hant = 停車場
     el = Χώρος στάθμευσης
     sk = Parkovisko
@@ -1693,7 +1706,7 @@
     tr = Otopark
     uk = Парковка
     vi = đỗ xe
-    zh-Hans = 停车
+    zh-Hans = 停车场
     zh-Hant = 停車場
     el = Χώρος στάθμευσης
     sk = Parkovisko
@@ -1725,7 +1738,7 @@
     tr = Otopark
     uk = Парковка
     vi = đỗ xe
-    zh-Hans = 停车
+    zh-Hans = 停车场
     zh-Hant = 停車場
     el = Χώρος στάθμευσης
     sk = Parkovisko
@@ -1756,7 +1769,7 @@
     tr = Otopark
     uk = Парковка
     vi = đỗ xe
-    zh-Hans = 停车
+    zh-Hans = 停车场
     zh-Hant = 停車場
     el = Χώρος στάθμευσης
     sk = Parkovisko
@@ -1788,7 +1801,7 @@
     tr = Otopark
     uk = Парковка
     vi = đỗ xe
-    zh-Hans = 停车
+    zh-Hans = 停车场
     zh-Hant = 停車場
     el = Χώρος στάθμευσης
     sk = Parkovisko
@@ -1820,7 +1833,7 @@
     tr = Otopark
     uk = Парковка
     vi = đỗ xe
-    zh-Hans = 停车
+    zh-Hans = 停车场
     zh-Hant = 停車場
     el = Χώρος στάθμευσης
     sk = Parkovisko
@@ -1852,7 +1865,7 @@
     tr = Otopark
     uk = Парковка
     vi = đỗ xe
-    zh-Hans = 停车
+    zh-Hans = 停车场
     zh-Hant = 停車場
     el = Χώρος στάθμευσης
     sk = Parkovisko
@@ -1884,7 +1897,7 @@
     tr = Otopark
     uk = Парковка
     vi = đỗ xe
-    zh-Hans = 停车
+    zh-Hans = 停车场
     zh-Hant = 停車場
     el = Χώρος στάθμευσης
     sk = Parkovisko
@@ -1918,7 +1931,7 @@
     uk = Паркувальне місце
     vi = Chỗ để xe
     sw = Sehemu ya maegesho
-    zh-Hans = 停车地点
+    zh-Hans = 停车位
     zh-Hant = 停車地點
     el = Χώρος στάθμευσης
     sk = Parkovacie miesto
@@ -1952,7 +1965,7 @@
     uk = Паркувальне місце
     vi = Chỗ để xe
     sw = Sehemu ya maegesho
-    zh-Hans = 停车地点
+    zh-Hans = 停车位
     zh-Hant = 停車地點
     el = Χώρος στάθμευσης
     sk = Parkovacie miesto
@@ -1986,7 +1999,7 @@
     uk = Паркувальне місце
     vi = Chỗ để xe
     sw = Sehemu ya maegesho
-    zh-Hans = 停车地点
+    zh-Hans = 停车位
     zh-Hant = 停車地點
     el = Χώρος στάθμευσης
     sk = Parkovacie miesto
@@ -2020,7 +2033,7 @@
     uk = Паркувальне місце
     vi = Chỗ để xe
     sw = Sehemu ya maegesho
-    zh-Hans = 停车地点
+    zh-Hans = 停车位
     zh-Hant = 停車地點
     el = Χώρος στάθμευσης
     sk = Parkovacie miesto
@@ -2147,7 +2160,7 @@
     tr = Tapınak
     uk = Храм
     vi = Đền
-    zh-Hans = 寺庙
+    zh-Hans = 佛教寺庙
     zh-Hant = 寺廟
     el = Ναός
     sk = Chrám
@@ -2179,7 +2192,7 @@
     tr = Kilise
     uk = Церква
     vi = Chùa
-    zh-Hans = 教堂
+    zh-Hans = 基督教堂
     zh-Hant = 教堂
     el = Εκκλησία
     sk = Chrám
@@ -2210,7 +2223,7 @@
     tr = Tapınak
     uk = Храм
     vi = Đền
-    zh-Hans = 寺庙
+    zh-Hans = 印度教寺庙
     zh-Hant = 寺廟
     el = Ναός
     sk = Chrám
@@ -2305,7 +2318,7 @@
     tr = Mabet
     uk = Святиня
     vi = Miếu thờ
-    zh-Hans = 圣殿
+    zh-Hans = 神道教神社
     zh-Hant = 聖殿
     el = Ιερό
     sk = Svätyňa
@@ -2336,7 +2349,7 @@
     tr = Tapınak
     uk = Храм
     vi = Đền
-    zh-Hans = 寺庙
+    zh-Hans = 道教宫观
     zh-Hant = 寺廟
     el = Ναός
     sk = Chrám
@@ -2367,7 +2380,7 @@
     tr = Polis
     uk = Міліція
     vi = Cảnh sát
-    zh-Hans = 警察
+    zh-Hans = 警察局
     zh-Hant = 警察局
     el = Αστυνομία
     sk = Polícia
@@ -2444,6 +2457,7 @@
     ru = Тюрьма
     ja = 刑務所
     pl = Więzienie
+    zh-Hans = 监狱
 
   [type.amenity.pub]
     en = Pub
@@ -2494,7 +2508,7 @@
     tr = Kütüphane
     uk = Книги
     vi = Kệ sách
-    zh-Hans = 书架
+    zh-Hans = 公共书架
     zh-Hant = 書架
     el = Ανταλλαγή βιβλίων
     sk = Knižnica
@@ -2525,7 +2539,7 @@
     tr = Geri dönüşüm merkezi
     uk = Прийом вторсировини
     vi = Trung tâm tái sinh
-    zh-Hans = 回收中心
+    zh-Hans = 资源回收设施
     zh-Hant = 回收中心
     el = Κέντρο ανακύκλωσης
     sk = Zberné suroviny
@@ -2560,7 +2574,7 @@
     vi = Thùng rác
     el = Κάδος ανακύκλωσης
     sk = Recyklačný odpad
-    zh-Hans = 回收箱
+    zh-Hans = 回收容器
     zh-Hant = 回收箱
     fa = ظرف بازیافت
 
@@ -2848,7 +2862,7 @@
     tr = Restoran
     uk = Ресторан
     vi = Quán ăn
-    zh-Hans = 餐厅
+    zh-Hans = 餐馆
     zh-Hant = 餐廳
     el = Εστιατόριο
     sk = Reštaurácia
@@ -2942,7 +2956,7 @@
     tr = Duş
     uk = Душ
     vi = Nhà tắm
-    zh-Hans = 淋浴
+    zh-Hans = 淋浴间
     zh-Hant = 淋浴間
     el = Ντους
     sk = Sprcha
@@ -2998,7 +3012,7 @@
     tr = Telefon
     uk = Телефон
     vi = Điện thoại
-    zh-Hans = 手机
+    zh-Hans = 电话
     zh-Hant = 電話
     el = Τηλέφωνο
     sk = Telefón
@@ -3091,7 +3105,7 @@
     tr = Belediye binası
     uk = Ратуша
     vi = Trung tâm thành phố
-    zh-Hans = 市政厅
+    zh-Hans = 市政府
     zh-Hant = 市政廳
     el = Δημαρχείο
     sk = Radnica
@@ -3134,6 +3148,7 @@
     ru = Торговый автомат
     ja = 自動販売機
     pl = Automat sprzedający
+    zh-Hans = 自动售货机
 
   [type.amenity.vending_machine.cigarettes]
     en = Cigarette dispenser
@@ -3161,7 +3176,7 @@
     tr = Distributeur de cigarettes
     uk = Автомат з продажу сигарет
     vi = Máy bán thuốc lá
-    zh-Hans = 自动售烟机
+    zh-Hans = 香烟售货机
     zh-Hant = 香菸自動販賣機
     el = Αυτόματος πωλητής τσιγάρων
     sk = Automat na cigarety
@@ -3193,7 +3208,7 @@
     tr = Distributeur de boissons
     uk = Автомат з напоями
     vi = Máy bán thức uống
-    zh-Hans = 饮料售卖机
+    zh-Hans = 饮料售货机
     zh-Hant = 飲料自動販賣機
     el = Αυτόματος πωλητής ποτών
     sk = Nápojový automat
@@ -3225,7 +3240,7 @@
     tr = Horodateur
     uk = Паркомат
     vi = Máy trả tiền vé đậu xe
-    zh-Hans = 停车场付费机
+    zh-Hans = 停车缴费机
     zh-Hant = 違規停車罰單繳費機
     el = Εισιτήρια στάθμευσης
     sk = Automat na výdaj parkovacích lístkov
@@ -3355,7 +3370,7 @@
     tr = Çöplüğü
     uk = Сміттєвий контейнер
     vi = Xử lý chất thải
-    zh-Hans = 垃圾
+    zh-Hans = 大型垃圾箱
     zh-Hant = 垃圾
     el = Διαχείριση απορριμμάτων
     sk = Odpadky
@@ -3398,6 +3413,7 @@
     ru = Преграда
     ja = 障害物
     pl = Bariera
+    zh-Hans = 屏障
 
   [type.barrier.block]
     en = Block
@@ -3424,7 +3440,7 @@
     tr = Bloc
     uk = Блок
     vi = Khối
-    zh-Hans = 障碍
+    zh-Hans = 路障
     zh-Hant = 街區
     el = Εμπόδιο
     sk = Blok
@@ -3456,7 +3472,7 @@
     tr = Pilier
     uk = Стовпчик
     vi = Trụ
-    zh-Hans = 柱子
+    zh-Hans = 护柱
     zh-Hant = 柱
     el = Πυλώνας
     sk = Pilier
@@ -3488,7 +3504,7 @@
     tr = Contrôle aux frontières
     uk = Прикордонний контроль
     vi = Biên Phòng
-    zh-Hans = 边检
+    zh-Hans = 边境检查站
     zh-Hant = 邊境管制
     el = Έλεγχος συνόρων
     sk = Hraničná kontrola
@@ -3499,6 +3515,7 @@
     ru = Городская стена
     ja = 城壁
     pl = Mur miejski
+    zh-Hans = 城墙
 
   [type.barrier.cycle_barrier]
     en = Cycle barrier
@@ -3543,6 +3560,7 @@
     ru = Забор
     ja = フェンス
     pl = Płot
+    zh-Hans = 篱笆
 
   [type.barrier.gate]
     en = Gate
@@ -3581,6 +3599,7 @@
     ru = Живая изгородь
     ja = 生垣
     pl = Żywopłot
+    zh-Hans = 树篱
 
   [type.barrier.lift_gate]
     en = Lift gate
@@ -3608,7 +3627,7 @@
     tr = Barrière levante
     uk = Шлагбаум
     vi = Thanh Chắn
-    zh-Hans = 水栅门
+    zh-Hans = 道闸
     zh-Hant = 遮斷機
     el = Ανυψούμενη μπάρα
     sk = Závora
@@ -3619,6 +3638,7 @@
     ru = Стена, удерживающая от осыпания
     ja = 擁壁
     pl = Mur oporowy
+    zh-Hans = 挡土墙
 
   [type.barrier.stile]
     en = Stile
@@ -3678,7 +3698,7 @@
     tr = Poste de péage
     uk = Пункт оплати
     vi = Quầy Soát Vé
-    zh-Hans = 收费亭
+    zh-Hans = 收费站
     zh-Hant = 收費站
     el = Σταθμός διοδίων
     sk = Mýtne
@@ -3689,81 +3709,103 @@
     ru = Стена
     ja = 壁
     pl = Mur
+    zh-Hans = 墙
 
   [type.boundary]
     en = Boundary
     ru = Граница
     ja = 境界線
     pl = Granica
+    zh-Hans = 边界
 
   [type.boundary.administrative]
     en = boundary-administrative
     ja = 行政境界
     pl = Granica administracyjna
+    zh-Hans = 行政区域界线
 
   [type.boundary.administrative.10]
     en = boundary-administrative-10
+    zh-Hans = 10级行政区域界线
 
   [type.boundary.administrative.11]
     en = boundary-administrative-11
+    zh-Hans = 11级行政区域界线
 
   [type.boundary.administrative.2]
     en = boundary-administrative-2
+    zh-Hans = 2级行政区域界线
 
   [type.boundary.administrative.3]
     en = boundary-administrative-3
+    zh-Hans = 3级行政区域界线
 
   [type.boundary.administrative.4]
     en = boundary-administrative-4
+    zh-Hans = 4级行政区域界线
 
   [type.boundary.administrative.4.state]
     en = boundary-administrative-4-state
+    zh-Hans = 4级州省界线
 
   [type.boundary.administrative.5]
     en = boundary-administrative-5
+    zh-Hans = 5级行政区域界线
 
   [type.boundary.administrative.6]
     en = boundary-administrative-6
+    zh-Hans = 6级行政区域界线
 
   [type.boundary.administrative.7]
     en = boundary-administrative-7
+    zh-Hans = 7级行政区域界线
 
   [type.boundary.administrative.8]
     en = boundary-administrative-8
+    zh-Hans = 8级行政区域界线
 
   [type.boundary.administrative.9]
     en = boundary-administrative-9
+    zh-Hans = 9级行政区域界线
 
   [type.boundary.administrative.city]
     en = boundary-administrative-city
     pl = Granica miasta
+    zh-Hans = 城市行政区域界线
 
   [type.boundary.administrative.country]
     en = boundary-administrative-country
     pl = Granica państwa
+    zh-Hans = 国家行政区域界线
 
   [type.boundary.administrative.county]
     en = boundary-administrative-county
     pl = Granica hrabstwa
+    zh-Hans = 县行政区域界线
 
   [type.boundary.administrative.municipality]
     en = boundary-administrative-municipality
     pl = Granica gminy
+    zh-Hans = 自治市行政区域界线
 
   [type.boundary.administrative.nation]
     en = boundary-administrative-nation
+    zh-Hans = 国家行政区域界线
 
   [type.boundary.administrative.region]
     en = boundary-administrative-region
     pl = Granica regionu
+    zh-Hans = 1区域行政区域界线
 
   [type.boundary.administrative.state]
     en = boundary-administrative-state
     pl = Granica województwa
+    zh-Hans = 州省行政区域界线
 
   [type.boundary.administrative.suburb]
     en = boundary-administrative-suburb
     pl = Granica przedmieść
+    zh-Hans = 市郊行政区域界线
 
   [type.boundary.national_park]
     en = National park
@@ -3825,7 +3867,7 @@
     tr = Bina
     uk = Будівля
     vi = Tòa nhà
-    zh-Hans = 建筑
+    zh-Hans = 建筑物
     zh-Hant = 建築物
     el = Κτίριο
     sk = Budova
@@ -3857,7 +3899,7 @@
     tr = Bina
     uk = Будівля
     vi = Tòa nhà
-    zh-Hans = 建筑
+    zh-Hans = 建筑物
     zh-Hant = 建築物
     el = Κτίριο
     sk = Budova
@@ -3882,7 +3924,7 @@
     th = อาคารจอดรถ
     uk = Гараж
     vi = Gara
-    zh-Hans = 车库
+    zh-Hans = 独立1车库
     zh-Hant = 車庫
     el = Γκαράζ
     sk = Garáž
@@ -3914,7 +3956,7 @@
     tr = Bina
     uk = Будівля
     vi = Tòa nhà
-    zh-Hans = 建筑
+    zh-Hans = 建筑物
     zh-Hant = 建築物
     el = Κτίριο
     sk = Budova
@@ -3946,16 +3988,21 @@
     tr = Gar
     uk = Залізничний вокзал
     vi = Đường tàu hỏa
-    zh-Hans = 火车站ี
+    zh-Hans = 火车站建筑
     zh-Hant = 鐵道
     el = Σιδηροδρομικός σταθμός
     sk = Železničná stanica
     fa = ایستگاه قطار
 
+  [type.building.warehouse]
+    en = Warehouse
+    zh-Hans = 仓库
+
   [type.craft]
     en = craft
     ja = 工房
     pl = Rzemiosło
+    zh-Hans = 工艺作坊
 
   [type.craft.brewery]
     en = Craft brewery
@@ -4015,7 +4062,7 @@
     tr = Marangoz
     uk = Столяр
     vi = Thợ mộc
-    zh-Hans = 木工
+    zh-Hans = 木匠
     zh-Hant = 木工
     el = Ξυλουργός
     sk = Tesár
@@ -4078,7 +4125,7 @@
     tr = Bahçe düzenleyici
     uk = Садівник
     vi = Người thiết kế và xây dựng cảnh quan
-    zh-Hans = 园林设计师
+    zh-Hans = 园艺工
     zh-Hant = 園藝師
     el = Κηπουρός
     sk = Záhradníctvo
@@ -4203,7 +4250,7 @@
     tr = Fotoğraf stüdyosu
     uk = Фотограф
     vi = Thợ chụp ảnh
-    zh-Hans = 摄影师
+    zh-Hans = 摄影棚
     zh-Hant = 攝影師
     el = Φωτογράφος
     sk = Fotograf
@@ -4267,7 +4314,7 @@
     tr = Ayakkabı tamircisi
     uk = Ремонт взуття
     vi = Sửa giày
-    zh-Hans = 修鞋匠
+    zh-Hans = 鞋匠
     zh-Hant = 修鞋工
     el = Υποδηματοποιός
     sk = Oprava obuvy
@@ -4951,7 +4998,7 @@
     tr = Krep
     uk = Креп
     vi = Bánh crepe
-    zh-Hans = 千层饼
+    zh-Hans = 可丽饼
     zh-Hant = 可麗餅
     el = Κρέπα
     he = קרפ
@@ -4982,7 +5029,7 @@
     tr = Hırvat mutfağı
     uk = Сербська кухня
     vi = Ẩm thực croatia
-    zh-Hans = 克罗地亚的
+    zh-Hans = 克罗地亚菜
     zh-Hant = 克羅埃西亞料理
     el = Κροατική
     he = מטבח קרואטי
@@ -5261,7 +5308,7 @@
     tr = Balık ve patates cipsi
     uk = Риба зі смаженою картоплею
     vi = Cá và khoai tây chiên
-    zh-Hans = 炸鱼 和 薯条
+    zh-Hans = 炸鱼和薯条
     zh-Hant = 炸魚薯條
     el = Ψάρια και πατάτες
     he = פיש אנד צ'יפס
@@ -5974,7 +6021,7 @@
     tr = Malgaş mutfağı
     uk = Малагасійська кухня
     vi = Malagasy
-    zh-Hans = 马达加斯加的
+    zh-Hans = 马达加斯加菜
     zh-Hant = 馬達加斯加料理
     el = Μαδαγασκάρης
     he = מלגאסי
@@ -6284,7 +6331,7 @@
     tr = Peru mutfağı
     uk = Перуанська кухня
     vi = Ẩm thực Pê-ru
-    zh-Hans = 秘鲁的
+    zh-Hans = 秘鲁菜
     zh-Hant = 秘魯料理
     el = Περουβιανή
     he = מטבח פרואני
@@ -6315,7 +6362,7 @@
     tr = Pizza
     uk = Піцерія
     vi = Bánh pizza
-    zh-Hans = 匹萨
+    zh-Hans = 比萨
     zh-Hant = 披薩
     el = Πίτσα
     he = פיצה
@@ -6563,8 +6610,8 @@
     tr = Açma
     uk = Пікантні оладки
     vi = Bánh kếp rau thơm
-    zh-Hans = 咸的_煎饼
-    zh-Hant = 大阪燒
+    zh-Hans = 咸味煎饼
+    zh-Hant = 鹹味煎餅
     el = Αλμυρές τηγανίτες
     he = חביתיות טעימות
     sk = Pikantné palacinky
@@ -6944,6 +6991,7 @@
   [type.emergency]
     en = emergency
     pl = Ratunkowe
+    zh-Hans = 应急要素
 
   [type.emergency.defibrillator]
     en = Defibrillator
@@ -7074,26 +7122,31 @@
     en = highway
     ja = 道路
     pl = Droga
+    zh-Hans = 公路要素
 
   [type.highway.bridleway]
     en = highway-bridleway
     ja = 馬道
     pl = Droga dla koni
-
+    zh-Hans = 马道
+    
   [type.highway.bridleway.bridge]
     en = highway-bridleway-bridge
     ja = 馬道(橋)
     pl = Most drogowy dla koni 
+    zh-Hans = 马道
 
   [type.highway.bridleway.permissive]
     en = highway-bridleway-permissive
     ja = 馬道
     pl = Droga dla koni ograniczona
+    zh-Hans = 马道
 
   [type.highway.bridleway.tunnel]
     en = highway-bridleway-tunnel
     ja = 馬道(トンネル)
     pl = Tunel drogowy dla koni
+    zh-Hans = 马道
 
   [type.highway.bus_stop]
     en = Bus Stop
@@ -7121,7 +7174,7 @@
     tr = Otobüs durağı
     uk = Зупинка
     vi = Bến xe buýt
-    zh-Hans = 公交车站
+    zh-Hans = 公交站
     zh-Hant = 巴士站
     el = Στάση λεωφορείου
     sk = Autobusová zastávka
@@ -7165,21 +7218,25 @@
     en = highway-cycleway
     ja = 自転車道
     pl = Droga rowerowa
+    zh-Hans = 自行车道
 
   [type.highway.cycleway.bridge]
     en = highway-cycleway-bridge
     ja = 自転車道(橋)
     pl = Most drogowy dla rowerów
+    zh-Hans = 自行车道
 
   [type.highway.cycleway.permissive]
     en = highway-cycleway-permissive
     ja = 自転車道
     pl = Droga rowerowa ograniczona
+    zh-Hans = 自行车道
 
   [type.highway.cycleway.tunnel]
     en = highway-cycleway-tunnel
     ja = 自転車道(トンネル)
     pl = Tunel drogowy dla rowerów
+    zh-Hans = 自行车道
 
   [type.highway.footway]
     en = Path
@@ -7207,7 +7264,7 @@
     tr = Yol
     uk = Пішохідна доріжка
     vi = Đường
-    zh-Hans = 路径
+    zh-Hans = 步行道路
     zh-Hant = 人行步道
     el = Διαδρομή
     sk = Cesta
@@ -7239,7 +7296,7 @@
     tr = Yol
     uk = Пішохідна доріжка
     vi = Đường
-    zh-Hans = 路径
+    zh-Hans = 步行道路
     zh-Hant = 人行步道
     el = Διαδρομή
     sk = Cesta
@@ -7271,7 +7328,7 @@
     tr = Yol
     uk = Пішохідна доріжка
     vi = Đường
-    zh-Hans = 路径
+    zh-Hans = 步行道路
     zh-Hant = 人行步道
     el = Διαδρομή
     sk = Cesta
@@ -7303,7 +7360,7 @@
     tr = Yol
     uk = Пішохідна доріжка
     vi = Đường
-    zh-Hans = 路径
+    zh-Hans = 步行道路
     zh-Hant = 人行步道
     el = Διαδρομή
     sk = Cesta
@@ -7335,7 +7392,7 @@
     tr = Yol
     uk = Пішохідна доріжка
     vi = Đường
-    zh-Hans = 路径
+    zh-Hans = 步行道路
     zh-Hant = 人行步道
     el = Διαδρομή
     sk = Cesta
@@ -7367,7 +7424,7 @@
     tr = Yol
     uk = Пішохідна доріжка
     vi = Đường
-    zh-Hans = 路径
+    zh-Hans = 步行道路
     zh-Hant = 人行步道
     el = Διαδρομή
     sk = Cesta
@@ -7399,7 +7456,7 @@
     tr = Yol
     uk = Пішохідна доріжка
     vi = Đường
-    zh-Hans = 路径
+    zh-Hans = 步行道路
     zh-Hant = 人行步道
     el = Διαδρομή
     sk = Cesta
@@ -7431,7 +7488,7 @@
     tr = Yol
     uk = Пішохідна доріжка
     vi = Đường
-    zh-Hans = 路径
+    zh-Hans = 步行道路
     zh-Hant = 人行步道
     el = Διαδρομή
     sk = Cesta
@@ -7463,7 +7520,7 @@
     tr = Yol
     uk = Пішохідна доріжка
     vi = Đường
-    zh-Hans = 路径
+    zh-Hans = 步行道路
     zh-Hant = 人行步道
     el = Διαδρομή
     sk = Cesta
@@ -7495,7 +7552,7 @@
     tr = Yol
     uk = Пішохідна доріжка
     vi = Đường
-    zh-Hans = 路径
+    zh-Hans = 步行道路
     zh-Hant = 人行步道
     el = Διαδρομή
     sk = Cesta
@@ -7527,7 +7584,7 @@
     tr = Yol
     uk = Пішохідна доріжка
     vi = Đường
-    zh-Hans = 路径
+    zh-Hans = 步行道路
     zh-Hant = 人行步道
     el = Διαδρομή
     sk = Cesta
@@ -7592,7 +7649,7 @@
     tr = Cadde
     uk = Вулиця
     vi = Phố
-    zh-Hans = 街头
+    zh-Hans = 生活性街道
     zh-Hant = 路
     el = Οδός
     sk = Ulica
@@ -7624,7 +7681,7 @@
     tr = Cadde
     uk = Вулиця
     vi = Phố
-    zh-Hans = 街头
+    zh-Hans = 生活性街道
     zh-Hant = 路
     el = Οδός
     sk = Ulica
@@ -7656,7 +7713,7 @@
     tr = Cadde
     uk = Вулиця
     vi = Phố
-    zh-Hans = 街头
+    zh-Hans = 生活性街道
     zh-Hant = 路
     el = Οδός
     sk = Ulica
@@ -7688,8 +7745,8 @@
     tr = Cadde
     uk = Вулиця
     vi = Phố
-    zh-Hans = 街头
-    zh-Hant = 路
+    zh-Hans = 高速公路
+    zh-Hant = 高速公路
     el = Οδός
     sk = Ulica
     fa = جاده
@@ -7720,8 +7777,8 @@
     tr = Cadde
     uk = Вулиця
     vi = Phố
-    zh-Hans = 街头
-    zh-Hant = 路
+    zh-Hans = 高速公路
+    zh-Hant = 高速公路
     el = Οδός
     sk = Ulica
     fa = جاده
@@ -7752,8 +7809,8 @@
     tr = Cadde
     uk = Вулиця
     vi = Phố
-    zh-Hans = 街头
-    zh-Hant = 路
+    zh-Hans = 高速公路
+    zh-Hant = 高速公路
     el = Οδός
     sk = Ulica
     fa = جاده
@@ -7814,8 +7871,8 @@
     tr = Cadde
     uk = Вулиця
     vi = Phố
-    zh-Hans = 街头
-    zh-Hant = 路
+    zh-Hans = 高速公路连接路
+    zh-Hant = 高速公路連接路
     el = Οδός
     sk = Ulica
     fa = جاده
@@ -7846,8 +7903,8 @@
     tr = Cadde
     uk = Вулиця
     vi = Phố
-    zh-Hans = 街头
-    zh-Hant = 路
+    zh-Hans = 高速公路连接路
+    zh-Hant = 高速公路連接路
     el = Οδός
     sk = Ulica
     fa = جاده
@@ -7878,8 +7935,8 @@
     tr = Cadde
     uk = Вулиця
     vi = Phố
-    zh-Hans = 街头
-    zh-Hant = 路
+    zh-Hans = 高速公路连接路
+    zh-Hant = 高速公路連接路
     el = Οδός
     sk = Ulica
     fa = جاده
@@ -7910,7 +7967,7 @@
     tr = Yol
     uk = Пішохідна доріжка
     vi = Đường
-    zh-Hans = 路径
+    zh-Hans = 小道
     zh-Hant = 人行步道
     el = Διαδρομή
     sk = Cesta
@@ -7942,7 +7999,7 @@
     tr = Yol
     uk = Пішохідна доріжка
     vi = Đường
-    zh-Hans = 路径
+    zh-Hans = 小道
     zh-Hant = 人行步道
     el = Διαδρομή
     sk = Cesta
@@ -7974,7 +8031,7 @@
     tr = Yol
     uk = Пішохідна доріжка
     vi = Đường
-    zh-Hans = 路径
+    zh-Hans = 小道
     zh-Hant = 人行步道
     el = Διαδρομή
     sk = Cesta
@@ -8006,7 +8063,7 @@
     tr = Yol
     uk = Пішохідна доріжка
     vi = Đường
-    zh-Hans = 路径
+    zh-Hans = 小道
     zh-Hant = 人行步道
     el = Διαδρομή
     sk = Cesta
@@ -8038,7 +8095,7 @@
     tr = Yol
     uk = Пішохідна доріжка
     vi = Đường
-    zh-Hans = 路径
+    zh-Hans = 小道
     zh-Hant = 人行步道
     el = Διαδρομή
     sk = Cesta
@@ -8070,7 +8127,7 @@
     tr = Yol
     uk = Пішохідна доріжка
     vi = Đường
-    zh-Hans = 路径
+    zh-Hans = 小道
     zh-Hant = 人行步道
     el = Διαδρομή
     sk = Cesta
@@ -8102,7 +8159,7 @@
     tr = Yol
     uk = Пішохідна доріжка
     vi = Đường
-    zh-Hans = 路径
+    zh-Hans = 小道
     zh-Hant = 人行步道
     el = Διαδρομή
     sk = Cesta
@@ -8134,7 +8191,7 @@
     tr = Yol
     uk = Пішохідна доріжка
     vi = Đường
-    zh-Hans = 路径
+    zh-Hans = 小道
     zh-Hant = 人行步道
     el = Διαδρομή
     sk = Cesta
@@ -8166,7 +8223,7 @@
     tr = Yol
     uk = Пішохідна доріжка
     vi = Đường
-    zh-Hans = 路径
+    zh-Hans = 小道
     zh-Hant = 人行步道
     el = Διαδρομή
     sk = Cesta
@@ -8198,7 +8255,7 @@
     tr = Yol
     uk = Пішохідна доріжка
     vi = Đường
-    zh-Hans = 路径
+    zh-Hans = 小道
     zh-Hant = 人行步道
     el = Διαδρομή
     sk = Cesta
@@ -8230,7 +8287,7 @@
     tr = Yol
     uk = Пішохідна доріжка
     vi = Đường
-    zh-Hans = 路径
+    zh-Hans = 小道
     zh-Hant = 人行步道
     el = Διαδρομή
     sk = Cesta
@@ -8262,7 +8319,7 @@
     tr = Yol
     uk = Пішохідна доріжка
     vi = Đường
-    zh-Hans = 路径
+    zh-Hans = 小道
     zh-Hant = 人行步道
     el = Διαδρομή
     sk = Cesta
@@ -8294,7 +8351,7 @@
     tr = Cadde
     uk = Вулиця
     vi = Phố
-    zh-Hans = 街头
+    zh-Hans = 步行街
     zh-Hant = 路
     el = Οδός
     sk = Ulica
@@ -8326,7 +8383,7 @@
     tr = Cadde
     uk = Вулиця
     vi = Phố
-    zh-Hans = 街头
+    zh-Hans = 步行区域
     zh-Hant = 路
     el = Οδός
     sk = Ulica
@@ -8358,7 +8415,7 @@
     tr = Cadde
     uk = Вулиця
     vi = Phố
-    zh-Hans = 街头
+    zh-Hans = 步行街
     zh-Hant = 路
     el = Οδός
     sk = Ulica
@@ -8390,7 +8447,7 @@
     tr = Cadde
     uk = Вулиця
     vi = Phố
-    zh-Hans = 街头
+    zh-Hans = 步行街
     zh-Hant = 路
     el = Οδός
     sk = Ulica
@@ -8422,8 +8479,8 @@
     tr = Cadde
     uk = Вулиця
     vi = Phố
-    zh-Hans = 街头
-    zh-Hant = 路
+    zh-Hans = 主要道路
+    zh-Hant = 主要道路
     el = Οδός
     sk = Ulica
     fa = جاده
@@ -8454,8 +8511,8 @@
     tr = Cadde
     uk = Вулиця
     vi = Phố
-    zh-Hans = 街头
-    zh-Hant = 路
+    zh-Hans = 主要道路
+    zh-Hant = 主要道路
     el = Οδός
     sk = Ulica
     fa = جاده
@@ -8486,8 +8543,8 @@
     tr = Cadde
     uk = Вулиця
     vi = Phố
-    zh-Hans = 街头
-    zh-Hant = 路
+    zh-Hans = 主要道路
+    zh-Hant = 主要道路
     el = Οδός
     sk = Ulica
     fa = جاده
@@ -8518,8 +8575,8 @@
     tr = Cadde
     uk = Вулиця
     vi = Phố
-    zh-Hans = 街头
-    zh-Hant = 路
+    zh-Hans = 主要道路连接路
+    zh-Hant = 主要道路連接路
     el = Οδός
     sk = Ulica
     fa = جاده
@@ -8550,8 +8607,8 @@
     tr = Cadde
     uk = Вулиця
     vi = Phố
-    zh-Hans = 街头
-    zh-Hant = 路
+    zh-Hans = 主要道路连接路
+    zh-Hant = 主要道路連接路
     el = Οδός
     sk = Ulica
     fa = جاده
@@ -8582,8 +8639,8 @@
     tr = Cadde
     uk = Вулиця
     vi = Phố
-    zh-Hans = 街头
-    zh-Hant = 路
+    zh-Hans = 主要道路连接路
+    zh-Hant = 主要道路連接路
     el = Οδός
     sk = Ulica
     fa = جاده
@@ -8614,7 +8671,7 @@
     tr = Koşu yolu
     uk = Автодром
     vi = Đường đua
-    zh-Hans = 跑马场
+    zh-Hans = 赛车场
     zh-Hant = 跑道
     el = Πίστα αγώνων
     sk = Pretekárska dráha
@@ -8646,8 +8703,8 @@
     tr = Cadde
     uk = Вулиця
     vi = Phố
-    zh-Hans = 街头
-    zh-Hant = 路
+    zh-Hans = 住宅区道路
+    zh-Hant = 住宅區道路
     el = Οδός
     sk = Ulica
     fa = جاده
@@ -8678,8 +8735,8 @@
     tr = Cadde
     uk = Вулиця
     vi = Phố
-    zh-Hans = 街头
-    zh-Hant = 路
+    zh-Hans = 住宅区道路
+    zh-Hant = 住宅區道路
     el = Οδός
     sk = Ulica
     fa = جاده
@@ -8710,8 +8767,8 @@
     tr = Cadde
     uk = Вулиця
     vi = Phố
-    zh-Hans = 街头
-    zh-Hant = 路
+    zh-Hans = 住宅区道路
+    zh-Hant = 住宅區道路
     el = Οδός
     sk = Ulica
     fa = جاده
@@ -8742,8 +8799,8 @@
     tr = Cadde
     uk = Вулиця
     vi = Phố
-    zh-Hans = 街头
-    zh-Hant = 路
+    zh-Hans = 住宅区道路
+    zh-Hant = 住宅區道路
     el = Οδός
     sk = Ulica
     fa = جاده
@@ -8805,8 +8862,8 @@
     tr = Cadde
     uk = Вулиця
     vi = Phố
-    zh-Hans = 街头
-    zh-Hant = 路
+    zh-Hans = 道路
+    zh-Hant = 道路
     el = Οδός
     sk = Ulica
     fa = جاده
@@ -8837,8 +8894,8 @@
     tr = Cadde
     uk = Вулиця
     vi = Phố
-    zh-Hans = 街头
-    zh-Hant = 路
+    zh-Hans = 道路
+    zh-Hant = 道路
     el = Οδός
     sk = Ulica
     fa = جاده
@@ -8869,8 +8926,8 @@
     tr = Cadde
     uk = Вулиця
     vi = Phố
-    zh-Hans = 街头
-    zh-Hant = 路
+    zh-Hans = 道路
+    zh-Hant = 道路
     el = Οδός
     sk = Ulica
     fa = جاده
@@ -8901,8 +8958,8 @@
     tr = Cadde
     uk = Вулиця
     vi = Phố
-    zh-Hans = 街头
-    zh-Hant = 路
+    zh-Hans = 次要道路
+    zh-Hant = 次要道路
     el = Οδός
     sk = Ulica
     fa = جاده
@@ -8933,8 +8990,8 @@
     tr = Cadde
     uk = Вулиця
     vi = Phố
-    zh-Hans = 街头
-    zh-Hant = 路
+    zh-Hans = 次要道路
+    zh-Hant = 次要道路
     el = Οδός
     sk = Ulica
     fa = جاده
@@ -8965,8 +9022,8 @@
     tr = Cadde
     uk = Вулиця
     vi = Phố
-    zh-Hans = 街头
-    zh-Hant = 路
+    zh-Hans = 次要道路
+    zh-Hant = 次要道路
     el = Οδός
     sk = Ulica
     fa = جاده
@@ -8997,8 +9054,8 @@
     tr = Cadde
     uk = Вулиця
     vi = Phố
-    zh-Hans = 街头
-    zh-Hant = 路
+    zh-Hans = 次要道路连接路
+    zh-Hant = 次要道路連接路
     el = Οδός
     sk = Ulica
     fa = جاده
@@ -9029,8 +9086,8 @@
     tr = Cadde
     uk = Вулиця
     vi = Phố
-    zh-Hans = 街头
-    zh-Hant = 路
+    zh-Hans = 次要道路连接路
+    zh-Hant = 次要道路連接路
     el = Οδός
     sk = Ulica
     fa = جاده
@@ -9061,8 +9118,8 @@
     tr = Cadde
     uk = Вулиця
     vi = Phố
-    zh-Hans = 街头
-    zh-Hant = 路
+    zh-Hans = 次要道路连接路
+    zh-Hant = 次要道路連接路
     el = Οδός
     sk = Ulica
     fa = جاده
@@ -9093,8 +9150,8 @@
     tr = Cadde
     uk = Вулиця
     vi = Phố
-    zh-Hans = 街头
-    zh-Hant = 路
+    zh-Hans = 辅助道路
+    zh-Hant = 輔助道路
     el = Οδός
     sk = Ulica
     fa = جاده
@@ -9125,8 +9182,8 @@
     tr = Cadde
     uk = Вулиця
     vi = Phố
-    zh-Hans = 街头
-    zh-Hant = 路
+    zh-Hans = 辅助道路
+    zh-Hant = 輔助道路
     el = Οδός
     sk = Ulica
     fa = جاده
@@ -9157,8 +9214,8 @@
     tr = Cadde
     uk = Вулиця
     vi = Phố
-    zh-Hans = 街头
-    zh-Hant = 路
+    zh-Hans = 辅助道路
+    zh-Hant = 輔助道路
     el = Οδός
     sk = Ulica
     fa = جاده
@@ -9189,8 +9246,8 @@
     tr = Cadde
     uk = Вулиця
     vi = Phố
-    zh-Hans = 街头
-    zh-Hant = 路
+    zh-Hans = 车道
+    zh-Hant = 車道
     el = Οδός
     sk = Ulica
     fa = جاده
@@ -9221,8 +9278,8 @@
     tr = Cadde
     uk = Вулиця
     vi = Phố
-    zh-Hans = 街头
-    zh-Hant = 路
+    zh-Hans = 停车场通道
+    zh-Hant = 停車場通道
     el = Οδός
     sk = Ulica
     fa = جاده
@@ -9253,8 +9310,8 @@
     tr = Cadde
     uk = Вулиця
     vi = Phố
-    zh-Hans = 街头
-    zh-Hant = 路
+    zh-Hans = 辅助道路
+    zh-Hant = 輔助道路
     el = Οδός
     sk = Ulica
     fa = جاده
@@ -9263,6 +9320,8 @@
     en = highway-services
     ja = サービスエリア
     pl = Miejsce obsługi podróżnych
+    zh-Hans = 服务区
+    zh-Hant = 服務區
 
   [type.highway.speed_camera]
     en = Speed Camera
@@ -9290,7 +9349,7 @@
     tr = Hız Kamerası
     uk = Камера безпеки дорожнього руху
     vi = Camera bắn tốc độ
-    zh-Hans = 测速照相机
+    zh-Hans = 超速摄像头
     zh-Hant = 測速照相機
     el = Κάμερα ταχύτητας
     sk = Rýchlostná kamera
@@ -9322,7 +9381,7 @@
     tr = Yol
     uk = Пішохідна доріжка
     vi = Đường
-    zh-Hans = 路径
+    zh-Hans = 阶梯
     zh-Hant = 人行步道
     el = Διαδρομή
     sk = Cesta
@@ -9354,7 +9413,7 @@
     tr = Yol
     uk = Пішохідна доріжка
     vi = Đường
-    zh-Hans = 路径
+    zh-Hans = 阶梯
     zh-Hant = 人行步道
     el = Διαδρομή
     sk = Cesta
@@ -9386,7 +9445,7 @@
     tr = Yol
     uk = Пішохідна доріжка
     vi = Đường
-    zh-Hans = 路径
+    zh-Hans = 阶梯
     zh-Hant = 人行步道
     el = Διαδρομή
     sk = Cesta
@@ -9418,8 +9477,8 @@
     tr = Cadde
     uk = Вулиця
     vi = Phố
-    zh-Hans = 街头
-    zh-Hant = 路
+    zh-Hans = 三级道路
+    zh-Hant = 三级道路
     el = Οδός
     sk = Ulica
     fa = جاده
@@ -9450,8 +9509,8 @@
     tr = Cadde
     uk = Вулиця
     vi = Phố
-    zh-Hans = 街头
-    zh-Hant = 路
+    zh-Hans = 三级道路
+    zh-Hant = 三级道路
     el = Οδός
     sk = Ulica
     fa = جاده
@@ -9482,8 +9541,8 @@
     tr = Cadde
     uk = Вулиця
     vi = Phố
-    zh-Hans = 街头
-    zh-Hant = 路
+    zh-Hans = 三级道路
+    zh-Hant = 三级道路
     el = Οδός
     sk = Ulica
     fa = جاده
@@ -9514,8 +9573,8 @@
     tr = Cadde
     uk = Вулиця
     vi = Phố
-    zh-Hans = 街头
-    zh-Hant = 路
+    zh-Hans = 三级道路连接路
+    zh-Hant = 三级道路連接路
     el = Οδός
     sk = Ulica
     fa = جاده
@@ -9546,8 +9605,8 @@
     tr = Cadde
     uk = Вулиця
     vi = Phố
-    zh-Hans = 街头
-    zh-Hant = 路
+    zh-Hans = 三级道路连接路
+    zh-Hant = 三级道路連接路
     el = Οδός
     sk = Ulica
     fa = جاده
@@ -9578,8 +9637,8 @@
     tr = Cadde
     uk = Вулиця
     vi = Phố
-    zh-Hans = 街头
-    zh-Hant = 路
+    zh-Hans = 三级道路连接路
+    zh-Hant = 三级道路連接路
     el = Οδός
     sk = Ulica
     fa = جاده
@@ -9610,8 +9669,8 @@
     tr = Cadde
     uk = Вулиця
     vi = Phố
-    zh-Hans = 街头
-    zh-Hant = 路
+    zh-Hans = 土路
+    zh-Hant = 土路
     el = Οδός
     sk = Ulica
     fa = جاده
@@ -9642,8 +9701,8 @@
     tr = Cadde
     uk = Вулиця
     vi = Phố
-    zh-Hans = 街头
-    zh-Hant = 路
+    zh-Hans = 土路
+    zh-Hant = 土路
     el = Οδός
     sk = Ulica
     fa = جاده
@@ -9674,8 +9733,8 @@
     tr = Cadde
     uk = Вулиця
     vi = Phố
-    zh-Hans = 街头
-    zh-Hant = 路
+    zh-Hans = 土路
+    zh-Hant = 土路
     el = Οδός
     sk = Ulica
     fa = جاده
@@ -9706,8 +9765,8 @@
     tr = Cadde
     uk = Вулиця
     vi = Phố
-    zh-Hans = 街头
-    zh-Hant = 路
+    zh-Hans = 土路
+    zh-Hant = 土路
     el = Οδός
     sk = Ulica
     fa = جاده
@@ -9738,8 +9797,8 @@
     tr = Cadde
     uk = Вулиця
     vi = Phố
-    zh-Hans = 街头
-    zh-Hant = 路
+    zh-Hans = 土路
+    zh-Hant = 土路
     el = Οδός
     sk = Ulica
     fa = جاده
@@ -9770,8 +9829,8 @@
     tr = Cadde
     uk = Вулиця
     vi = Phố
-    zh-Hans = 街头
-    zh-Hant = 路
+    zh-Hans = 土路
+    zh-Hant = 土路
     el = Οδός
     sk = Ulica
     fa = جاده
@@ -9802,8 +9861,8 @@
     tr = Cadde
     uk = Вулиця
     vi = Phố
-    zh-Hans = 街头
-    zh-Hant = 路
+    zh-Hans = 土路
+    zh-Hant = 土路
     el = Οδός
     sk = Ulica
     fa = جاده
@@ -9834,8 +9893,8 @@
     tr = Cadde
     uk = Вулиця
     vi = Phố
-    zh-Hans = 街头
-    zh-Hant = 路
+    zh-Hans = 土路
+    zh-Hant = 土路
     el = Οδός
     sk = Ulica
     fa = جاده
@@ -9866,8 +9925,8 @@
     tr = Cadde
     uk = Вулиця
     vi = Phố
-    zh-Hans = 街头
-    zh-Hant = 路
+    zh-Hans = 土路
+    zh-Hant = 土路
     el = Οδός
     sk = Ulica
     fa = جاده
@@ -9898,8 +9957,8 @@
     tr = Cadde
     uk = Вулиця
     vi = Phố
-    zh-Hans = 街头
-    zh-Hant = 路
+    zh-Hans = 土路
+    zh-Hant = 土路
     el = Οδός
     sk = Ulica
     fa = جاده
@@ -9930,8 +9989,8 @@
     tr = Cadde
     uk = Вулиця
     vi = Phố
-    zh-Hans = 街头
-    zh-Hant = 路
+    zh-Hans = 土路
+    zh-Hant = 土路
     el = Οδός
     sk = Ulica
     fa = جاده
@@ -9994,8 +10053,8 @@
     tr = Cadde
     uk = Вулиця
     vi = Phố
-    zh-Hans = 街头
-    zh-Hant = 路
+    zh-Hans = 干线道路
+    zh-Hant = 主幹道
     el = Οδός
     sk = Ulica
     fa = جاده
@@ -10026,8 +10085,8 @@
     tr = Cadde
     uk = Вулиця
     vi = Phố
-    zh-Hans = 街头
-    zh-Hant = 路
+    zh-Hans = 干线道路
+    zh-Hant = 主幹道
     el = Οδός
     sk = Ulica
     fa = جاده
@@ -10058,8 +10117,8 @@
     tr = Cadde
     uk = Вулиця
     vi = Phố
-    zh-Hans = 街头
-    zh-Hant = 路
+    zh-Hans = 干线道路
+    zh-Hant = 主幹道
     el = Οδός
     sk = Ulica
     fa = جاده
@@ -10090,8 +10149,8 @@
     tr = Cadde
     uk = Вулиця
     vi = Phố
-    zh-Hans = 街头
-    zh-Hant = 路
+    zh-Hans = 干线道路连接路
+    zh-Hant = 主幹道連接路
     el = Οδός
     sk = Ulica
     fa = جاده
@@ -10122,8 +10181,8 @@
     tr = Cadde
     uk = Вулиця
     vi = Phố
-    zh-Hans = 街头
-    zh-Hant = 路
+    zh-Hans = 干线道路连接路
+    zh-Hant = 主幹道連接路
     el = Οδός
     sk = Ulica
     fa = جاده
@@ -10154,8 +10213,8 @@
     tr = Cadde
     uk = Вулиця
     vi = Phố
-    zh-Hans = 街头
-    zh-Hant = 路
+    zh-Hans = 干线道路连接路
+    zh-Hant = 主幹道連接路
     el = Οδός
     sk = Ulica
     fa = جاده
@@ -10186,8 +10245,8 @@
     tr = Cadde
     uk = Вулиця
     vi = Phố
-    zh-Hans = 街头
-    zh-Hant = 路
+    zh-Hans = 道路
+    zh-Hant = 道路
     el = Οδός
     sk = Ulica
     fa = جاده
@@ -10218,8 +10277,8 @@
     tr = Cadde
     uk = Вулиця
     vi = Phố
-    zh-Hans = 街头
-    zh-Hant = 路
+    zh-Hans = 道路
+    zh-Hant = 道路
     el = Οδός
     sk = Ulica
     fa = جاده
@@ -10250,8 +10309,8 @@
     tr = Cadde
     uk = Вулиця
     vi = Phố
-    zh-Hans = 街头
-    zh-Hant = 路
+    zh-Hans = 道路
+    zh-Hant = 道路
     el = Οδός
     sk = Ulica
     fa = جاده
@@ -10282,8 +10341,8 @@
     tr = Cadde
     uk = Вулиця
     vi = Phố
-    zh-Hans = 街头
-    zh-Hant = 路
+    zh-Hans = 道路
+    zh-Hant = 道路
     el = Οδός
     sk = Ulica
     fa = جاده
@@ -10298,6 +10357,7 @@
     en = historic
     ja = 史跡
     pl = Historyczne
+    zh-Hans = 历史地点
 
   [type.historic.archaeological_site]
     en = Archaeological Site
@@ -10325,7 +10385,7 @@
     tr = Arkeolojik alan
     uk = Розкопки
     vi = Điểm khảo cổ
-    zh-Hans = 考古遗址
+    zh-Hans = 考古地点
     zh-Hant = 考古遺址
     el = Αρχαιολογικός χώρος
     sk = Vykopávky
@@ -10336,11 +10396,13 @@
     ru = Место исторического сражения
     ja = 古戦場
     pl = Miejsce historycznej bitwy
+    zh-Hans = 古战场
 
   [type.historic.boundary_stone]
     en = historic-boundary_stone
     ja = 境界標
     pl = Historyczny kamień graniczny
+    zh-Hans = 界碑
 
   [type.historic.castle]
     en = Castle
@@ -10442,11 +10504,13 @@
     en = historic-citywalls
     ja = 歴史的な城壁
     pl = Historyczne mury miasta
+    zh-Hans = 历史城墙
 
   [type.historic.fort]
     en = historic-fort
     ja = 歴史的な要塞
     pl = Historyczny fort
+    zh-Hans = 历史要塞
 
   [type.historic.memorial]
     en = Memorial
@@ -10471,7 +10535,7 @@
     tr = Anıt
     uk = Меморіал
     vi = Đài tưởng niệm
-    zh-Hans = 纪念馆
+    zh-Hans = 纪念物
     zh-Hant = 紀念館
     el = Μνημείο
     sk = Pomník
@@ -10500,7 +10564,7 @@
     tr = Anıt
     uk = Меморіал
     vi = Đài tưởng niệm
-    zh-Hans = 纪念馆
+    zh-Hans = 纪念物
     zh-Hant = 紀念館
     el = Μνημείο
     sk = Pomník
@@ -10529,7 +10593,7 @@
     tr = Anıt
     uk = Меморіал
     vi = Đài tưởng niệm
-    zh-Hans = 纪念馆
+    zh-Hans = 雕塑
     zh-Hant = 紀念館
     el = Μνημείο
     sk = Pomník
@@ -10558,7 +10622,7 @@
     tr = Anıt
     uk = Меморіал
     vi = Đài tưởng niệm
-    zh-Hans = 纪念馆
+    zh-Hans = 塑像
     zh-Hant = 紀念館
     el = Μνημείο
     sk = Pomník
@@ -10582,7 +10646,7 @@
     tr = Abide
     uk = Пам'ятник
     vi = Tượng đài
-    zh-Hans = 纪念碑
+    zh-Hans = 纪念堂
     zh-Hant = 紀念碑
     el = Μνημείο
     sk = Zaujímavosť
@@ -10592,6 +10656,7 @@
     en = historic-museum
     ja = 歴史的なミュージアム
     pl = Muzeum historyczne
+    zh-Hans = 历史博物馆
 
   [type.historic.ruins]
     en = Ruins
@@ -10651,7 +10716,7 @@
     tr = Görülecek yerler
     uk = Пам’ятні місця
     vi = Diểm tham quan
-    zh-Hans = 景点
+    zh-Hans = 历史船
     zh-Hant = 旅遊景點
     el = Αξιοθέατο
     sk = Pamätihodnosť
@@ -10683,7 +10748,7 @@
     tr = Görülecek yerler
     uk = Пам’ятні місця
     vi = Diểm tham quan
-    zh-Hans = 景点
+    zh-Hans = 陵墓
     zh-Hant = 旅遊景點
     el = Αξιοθέατο
     sk = Pamätihodnosť
@@ -10693,11 +10758,13 @@
     en = historic-wayside_cross
     ja = 歴史的な十字架
     pl = Krzyż przydrożny
+    zh-Hans = 路旁十字架
 
   [type.historic.wayside_shrine]
     en = historic-wayside_shrine
     ja = 歴史的な祠
     pl = Kapliczka przydrożna
+    zh-Hans = 路旁神龛
 
   [type.hwtag]
     en = hwtag
@@ -10759,7 +10826,7 @@
     ko = 인터넷
     th = อินเทอร์เน็ต
     uk = Інтернет
-    zh-Hans = 互联网
+    zh-Hans = 无线热点
     zh-Hant = 互聯網
     el = Ίντερνετ
     fa = وای فای
@@ -10768,22 +10835,26 @@
     en = junction
     ja = 交差点
     pl = Skrzyżowanie
+    zh-Hans = 交叉口
 
   [type.junction.roundabout]
     en = junction-roundabout
     ja = ラウンドアバウト
     pl = Rondo
+    zh-Hans = 环岛
 
   [type.landuse]
     en = landuse
     ja = 土地利用
     pl = Zagospodarowanie ziemi
+    zh-Hans = 土地利用要素
 
   [type.landuse.allotments]
     en = Allotments
     ru = Земельные участки
     ja = 市民農園
     pl = Działki
+    zh-Hans = 市民农园
 
   [type.landuse.basin]
     en = Water
@@ -10821,6 +10892,7 @@
     ru = Земли для застройки
     ja = 再開発用地
     pl = Teren do zabudowy
+    zh-Hans = 棕土
 
   [type.landuse.cemetery]
     en = Graveyard
@@ -10880,8 +10952,8 @@
     tr = Mezarlık
     uk = Цвинтар
     vi = Bãi tha ma
-    zh-Hans = 墓地
-    zh-Hant = 墓地
+    zh-Hans = 基督教墓地
+    zh-Hant = 基督教墓地
     el = Νεκροταφείο
     sk = Cintorín
     fa = قبرستان
@@ -10924,18 +10996,21 @@
     en = landuse-commercial
     ja = 商業用地
     pl = Teren handlu i usług
+    zh-Hans = 商务办公用地
 
   [type.landuse.construction]
     en = Construction
     ru = Стройка
     ja = 建設工事中
     pl = Teren budowy
+    zh-Hans = 建设区域
 
   [type.landuse.farm]
     en = Farm
     ru = Ферма
     ja = 農地
     pl = Gospodarstwo rolne
+    zh-Hans = 农田
 
   [type.landuse.farmland]
     en = Farmland
@@ -10976,6 +11051,7 @@
     ru = Сельскохозяйственная земля
     ja = 農地
     pl = Obejście gospodarskie
+    zh-Hans = 农庄
 
   [type.landuse.field]
     en = Field
@@ -11115,6 +11191,7 @@
     ru = Гаражи
     ja = ガレージ
     pl = Garaże
+    zh-Hans = 车库用地
 
   [type.landuse.grass]
     en = Lawn
@@ -11154,16 +11231,19 @@
     en = landuse-greenfield
     ja = 建設予定地
     pl = Obszar pod zabudowę
+    zh-Hans = 待开发荒地
 
   [type.landuse.greenhouse_horticulture]
     en = landuse-greenhouse_horticulture
     ja = 温室栽培
+    zh-Hans = 温室园艺
 
   [type.landuse.industrial]
     en = Industrial land
     ru = Промзона
     ja = 工業用地
     pl = Obszar przemysłowy
+    zh-Hans = 工业用地
 
   [type.landuse.landfill]
     en = Landfill
@@ -11195,7 +11275,7 @@
     el = Σκουπιδότοπος
     sk = Skládka
     sw = Shamba la Taka
-    zh-Hans = 堆积场
+    zh-Hans = 垃圾填埋区
     zh-Hant = 堆積場
     fa = دفن گاه زباله
 
@@ -11204,22 +11284,26 @@
     ru = Луг
     ja = 牧草地
     pl = Łąka
+    zh-Hans = 草甸
 
   [type.landuse.military]
     en = Military area
     ja = 軍用地
     pl = Teren wojskowy
+    zh-Hans = 军事用地
 
   [type.landuse.orchard]
     en = Orchard
     ru = Сад
     ja = 果樹園
     pl = Sad
+    zh-Hans = 种植用地
 
   [type.landuse.quarry]
     en = Quarry
     ja = 採石場
     pl = Kamieniołom
+    zh-Hans = 矿场
 
   [type.landuse.railway]
     en = Railway premises
@@ -11251,7 +11335,7 @@
     el = Σιδηροδρομικές εγκαταστάσεις
     sk = Priestory železnice
     sw = Eneo la njia ya reli
-    zh-Hans = 铁路设施
+    zh-Hans = 铁路用地
     zh-Hant = 鐵路設施
     fa = محدوده راه آهن
 
@@ -11259,6 +11343,7 @@
     en = landuse-recreation_ground
     ja = レクリエーション
     pl = Tereny wypoczynkowe
+    zh-Hans = 康体场地
 
   [type.landuse.reservoir]
     en = Water
@@ -11295,11 +11380,13 @@
     en = landuse-residential
     ja = 住宅地
     pl = Tereny zamieszkania
+    zh-Hans = 住宅用地
 
   [type.landuse.retail]
     en = landuse-retail
     ja = 小売店エリア
     pl = Obszar handlu
+    zh-Hans = 零售用地
 
   [type.landuse.salt_pond]
     en = landuse-salt_pond
@@ -11315,15 +11402,18 @@
     en = Vineyard
     ja = ブドウ園
     pl = Winnica
+    zh-Hans = 葡萄园
 
   [type.leisure]
     en = leisure
     ja = レジャー
     pl = Wypoczynek
+    zh-Hans = 休闲要素
 
   [type.leisure.common]
     en = leisure-common
     ja = レジャー(共有地)
+    zh-Hans = 公共用地
 
   [type.leisure.dog_park]
     en = Dog area
@@ -11491,6 +11581,7 @@
     en = Ice rink
     ja = アイスリンク
     pl = Lodowisko
+    zh-Hans = 滑冰场
 
   [type.leisure.landscape_reserve]
     en = Landscape reserve
@@ -11500,6 +11591,7 @@
   [type.leisure.marina]
     en = Marina
     ja = マリーナ
+    zh-Hans = 游艇码头
 
   [type.leisure.nature_reserve]
     en = Nature reserve
@@ -11531,7 +11623,7 @@
     el = Φυσικό απόθεμα
     sk = Rezervácia
     sw = Hifadhi
-    zh-Hans = 野生动物园
+    zh-Hans = 自然保护区
     zh-Hant = 自然保護區
 
   [type.leisure.park]
@@ -11696,7 +11788,7 @@
     tr = Spor sahası
     uk = Спортмайданчик
     vi = Sân vận động
-    zh-Hans = 球场
+    zh-Hans = 运动场地
     zh-Hant = 運動場
     el = Γήπεδο αθλοπαιδιών
     sk = Športovisko
@@ -11728,7 +11820,7 @@
     tr = Oyun alanı
     uk = Дитячий майданчик
     vi = Sân chơi
-    zh-Hans = 操场
+    zh-Hans = 儿童游乐场
     zh-Hant = 遊樂場
     el = Παιδική χαρά
     sk = Ihrisko
@@ -11776,6 +11868,7 @@
     en = leisure-slipway
     ja = スリップウェイ
     pl = Pochylnia
+    zh-Hans = 船台
 
   [type.leisure.sports_centre]
     en = Sports Center
@@ -11803,7 +11896,7 @@
     tr = Spor
     uk = Спорткомплекс
     vi = Thể thao
-    zh-Hans = 运动
+    zh-Hans = 体育中心
     zh-Hant = 體育中心
     el = Αθλητικό κέντρο
     sk = Športové centrum
@@ -11867,8 +11960,8 @@
     tr = Poligon
     uk = Тир
     vi = Nơi bắn súng
-    zh-Hans = 射击域
-    zh-Hant = 射擊域
+    zh-Hans = 射击场
+    zh-Hant = 射擊場
     el = Σκοπευτήριο
     sk = Strelnica
     fa = محل تیراندازی
@@ -11961,7 +12054,7 @@
     uk = Стадіон
     vi = Sân vận động
     zh-Hans = 体育场
-    zh-Hant = 體育中心
+    zh-Hant = 體育場
     el = Γήπεδο
     sk = Štadión
     fa = استادیوم
@@ -12001,6 +12094,7 @@
   [type.leisure.track]
     en = leisure-track
     ja = トラック
+    zh-Hans = 賽道
 
   [type.leisure.water_park]
     en = Water Park
@@ -12037,11 +12131,13 @@
   [type.man_made]
     en = man_made
     ja = 構造物
+    zh-Hans = 人造要素
 
   [type.man_made.breakwater]
     en = man_made-breakwater
     ja = 防波堤
     pl = Falochron
+    zh-Hans = 防波堤
 
   [type.man_made.cairn]
     en = man_made-cairn
@@ -12083,6 +12179,7 @@
     en = man_made-cutline
     ja = 森林の切れ目
     pl = Przecinka leśna
+    zh-Hans = 树林分界线
 
   [type.man_made.lighthouse]
     en = Lighthouse
@@ -12120,16 +12217,19 @@
     en = man_made-pier
     ja = 桟橋
     pl = Molo
+    zh-Hans = 码头
 
   [type.man_made.pipeline]
     en = man_made-pipeline
     ja = パイプライン
     pl = Rurociąg
+    zh-Hans = 管道
 
   [type.man_made.pipeline.overground]
     en = man_made-pipeline-overground
     ja = 地表のパイプライン
     pl = Rurociąg nad ziemią
+    zh-Hans = 地面管道
 
   [type.man_made.surveillance]
     en = Surveillance Camera
@@ -12157,7 +12257,7 @@
     tr = Güvenlik Kamerası
     uk = Камера спостереження
     vi = Camera giám sát
-    zh-Hans = 监控摄像头
+    zh-Hans = 监视器
     zh-Hant = 監控攝影機
     el = Κάμερα παρακολούθησης
     sk = Bezpečnostná kamera
@@ -12199,6 +12299,7 @@
     en = man_made-wastewater_plant
     ja = 下水処理場
     pl = Oczyszczalnia ścieków
+    zh-Hans = 污水处理厂
 
   [type.man_made.water_tap]
     en = Water Tap
@@ -12331,6 +12432,7 @@
   [type.man_made.works]
     en = man_made-works
     ja = 工場
+    zh-Hans = 工厂
 
   [type.mapswithme]
     en = mapswithme
@@ -12342,6 +12444,7 @@
     en = military
     ja = 軍事
     pl = Wojskowe
+    zh-Hans = 军事
 
   [type.military.bunker]
     en = Bunker
@@ -12366,11 +12469,13 @@
     en = natural
     ja = 自然
     pl = Natura
+    zh-Hans = 自然
 
   [type.natural.bare_rock]
     en = Bare rock
     ja = 岩肌
     pl = Skała macierzysta
+    zh-Hans = 岩石
 
   [type.natural.bay]
     en = Bay
@@ -12398,6 +12503,7 @@
     tr = Koy
     uk = Затока
     vi = Vịnh
+    zh-Hans = 海湾
     zh-Hant = 海灣
     el = Κόλπος
     sk = Záliv
@@ -12494,7 +12600,7 @@
     tr = Mağara
     uk = Печера
     vi = Hang động
-    zh-Hans = 山洞
+    zh-Hans = 洞口
     zh-Hant = 洞穴
     el = Σπήλαιο
     sk = Jaskyňa
@@ -12504,12 +12610,14 @@
     en = Cliff
     ja = 崖
     pl = Klif
+    zh-Hans = 峭壁
 
   [type.natural.coastline]
     en = Coastline
     ru = Береговая линия
     ja = 海岸線
     pl = Linia brzegowa
+    zh-Hans = 海岸线
 
   [type.natural.geyser]
     en = Geyser
@@ -12609,7 +12717,7 @@
     el = Λιβάδι
     sk = Lúka
     sw = Shamba
-    zh-Hans = 田野
+    zh-Hans = 草原
     zh-Hant = 田野
     fa = کشتزار
 
@@ -12617,12 +12725,14 @@
     en = Heath
     ja = ヒース
     pl = Wrzosowisko
+    zh-Hans = 荒野
 
   [type.natural.hot_spring]
     en = Hot spring
     ru = Горячий источник
     ja = 温泉
     pl = Gorące źródło
+    zh-Hans = 温泉
 
   [type.natural.lake]
     en = Lake
@@ -12738,6 +12848,7 @@
     en = Rock
     ja = 岩
     pl = Skała
+    zh-Hans = 岩石
 
   [type.natural.salt_pond]
     en = Salt pond
@@ -12774,7 +12885,7 @@
     el = Θαμνώδες περιοχή
     sk = Krovie
     sw = Eneo la Vichaka
-    zh-Hans = 丛林
+    zh-Hans = 灌木丛
     zh-Hant = 叢林
     fa = بوته زار
 
@@ -12804,7 +12915,7 @@
     tr = Pınar
     uk = Джерело
     vi = Suối
-    zh-Hans = 海湾
+    zh-Hans = 泉水
     zh-Hant = 泉水
     el = Πηγή νερού
     sk = Prameň
@@ -12880,6 +12991,7 @@
     en = Tree row
     ja = 並木
     pl = Rząd drzew
+    zh-Hans = 树列
 
   [type.natural.vineyard]
     en = Vineyard
@@ -12979,7 +13091,7 @@
     el = Υγρότοπος
     sk = Oblasť mokradí
     sw = Maeneo yenye majimaji
-    zh-Hans = 沼泽
+    zh-Hans = 湿地
     zh-Hant = 沼澤
     fa = ناحیه تالابی
 
@@ -12987,11 +13099,13 @@
     en = Wetland
     ja = 泥炭地
     pl = Torfowisko
+    zh-Hans = 泥炭地
 
   [type.natural.wetland.marsh]
     en = Wetland
     ja = 沼地
     pl = Moczary
+    zh-Hans = 沼泽地
 
   [type.noexit]
     en = noexit
@@ -13029,7 +13143,7 @@
     tr = Ofis
     uk = Офіс
     vi = Văn phòng
-    zh-Hans = 办公室
+    zh-Hans = 办公地点
     zh-Hant = 辦公室
     el = Γραφείο
     sk = Kancelária
@@ -13061,7 +13175,7 @@
     tr = Şirket bürosu
     uk = Організація
     vi = Văn phòng công ty
-    zh-Hans = 公司办公室
+    zh-Hans = 企业公司
     zh-Hant = 公司辦公室
     el = Γραφείο επιχείρησης
     sk = Sídlo spoločnosti
@@ -13093,7 +13207,7 @@
     tr = Agent immobilier
     uk = Агенція нерухомості/ріелтор
     vi = Đại Lý Bất Động Sản
-    zh-Hans = 房屋中介
+    zh-Hans = 地产中介
     zh-Hant = 地產代理
     el = Κτηματομεσίτης
     sk = Realitný agent
@@ -13125,7 +13239,7 @@
     tr = Devlet dairesi
     uk = Держустанова
     vi = Văn phòng chính phủ
-    zh-Hans = 政府机构
+    zh-Hans = 政府办公点
     zh-Hant = 政府辦公室
     el = Κυβερνητικό γραφείο
     sk = Štátny úrad
@@ -13157,7 +13271,7 @@
     tr = Sigorta Acentası
     uk = Офіс страхової компанії
     vi = Văn phòng bảo hiểm
-    zh-Hans = 保险机构
+    zh-Hans = 保险公司
     zh-Hant = 保險公司
     el = Ασφαλιστικό γραφείο
     sk = Poisťovňa
@@ -13253,7 +13367,7 @@
     tr = Cep telefonu operatörü
     uk = Мобільний оператор
     vi = Điều hành di động
-    zh-Hans = 移动运营商
+    zh-Hans = 电信办公室
     zh-Hant = 行動電話業者
     el = Εταιρεία κινητής τηλεφωνίας
     sk = Mobilný operátor
@@ -13321,6 +13435,7 @@
     en = place
     ja = 地名
     pl = Miejsce
+    zh-Hans = 地点
 
   [type.place.city]
     en = City
@@ -13349,7 +13464,7 @@
     uk = Місто
     vi = Đất nước
     zh-Hans = 城市
-    zh-Hant = 城鎮
+    zh-Hant = 城市
     el = Πόλη
     sk = Mesto
     fa = شهر
@@ -13377,8 +13492,8 @@
     tr = Başkent
     uk = Столиця
     vi = Thủ đô
-    zh-Hans = 资本
-    zh-Hant = 首都
+    zh-Hans = 首府
+    zh-Hant = 首府
     el = Πρωτεύουσα
     sk = Hlavné mesto
     fa = پایتخت
@@ -13406,8 +13521,8 @@
     tr = Başkent
     uk = Столиця
     vi = Thủ đô
-    zh-Hans = 资本
-    zh-Hant = 首都
+    zh-Hans = 首府
+    zh-Hant = 首府
     el = Πρωτεύουσα
     sk = Hlavné mesto
     fa = پایتخت
@@ -13435,8 +13550,8 @@
     tr = Başkent
     uk = Столиця
     vi = Thủ đô
-    zh-Hans = 资本
-    zh-Hant = 首都
+    zh-Hans = 首府
+    zh-Hant = 首府
     el = Πρωτεύουσα
     sk = Hlavné mesto
     fa = پایتخت
@@ -13464,7 +13579,7 @@
     tr = Başkent
     uk = Столиця
     vi = Thủ đô
-    zh-Hans = 资本
+    zh-Hans = 首都
     zh-Hant = 首都
     el = Πρωτεύουσα
     sk = Hlavné mesto
@@ -13493,7 +13608,7 @@
     tr = Başkent
     uk = Столиця
     vi = Thủ đô
-    zh-Hans = 资本
+    zh-Hans = 首都
     zh-Hant = 首都
     el = Πρωτεύουσα
     sk = Hlavné mesto
@@ -13522,8 +13637,8 @@
     tr = Başkent
     uk = Столиця
     vi = Thủ đô
-    zh-Hans = 资本
-    zh-Hant = 首都
+    zh-Hans = 首府
+    zh-Hant = 首府
     el = Πρωτεύουσα
     sk = Hlavné mesto
     fa = پایتخت
@@ -13551,8 +13666,8 @@
     tr = Başkent
     uk = Столиця
     vi = Thủ đô
-    zh-Hans = 资本
-    zh-Hant = 首都
+    zh-Hans = 首府
+    zh-Hant = 首府
     el = Πρωτεύουσα
     sk = Hlavné mesto
     fa = پایتخت
@@ -13580,8 +13695,8 @@
     tr = Başkent
     uk = Столиця
     vi = Thủ đô
-    zh-Hans = 资本
-    zh-Hant = 首都
+    zh-Hans = 首府
+    zh-Hant = 首府
     el = Πρωτεύουσα
     sk = Hlavné mesto
     fa = پایتخت
@@ -13609,8 +13724,8 @@
     tr = Başkent
     uk = Столиця
     vi = Thủ đô
-    zh-Hans = 资本
-    zh-Hant = 首都
+    zh-Hans = 首府
+    zh-Hant = 首府
     el = Πρωτεύουσα
     sk = Hlavné mesto
     fa = پایتخت
@@ -13638,8 +13753,8 @@
     tr = Başkent
     uk = Столиця
     vi = Thủ đô
-    zh-Hans = 资本
-    zh-Hant = 首都
+    zh-Hans = 首府
+    zh-Hant = 首府
     el = Πρωτεύουσα
     sk = Hlavné mesto
     fa = پایتخت
@@ -13667,8 +13782,8 @@
     tr = Başkent
     uk = Столиця
     vi = Thủ đô
-    zh-Hans = 资本
-    zh-Hant = 首都
+    zh-Hans = 首府
+    zh-Hant = 首府
     el = Πρωτεύουσα
     sk = Hlavné mesto
     fa = پایتخت
@@ -13728,8 +13843,8 @@
     tr = Ülke
     uk = Країна
     vi = Trường đại học
-    zh-Hans = 国家
-    zh-Hant = 國
+    zh-Hans = 国家/地区
+    zh-Hant = 國家/地區
     el = Χώρα
     sk = Krajina
     fa = کشور
@@ -13760,7 +13875,7 @@
     tr = Kırsal kesim
     uk = Округ
     vi = Thị trấn
-    zh-Hans = 国家
+    zh-Hans = 县
     zh-Hant = 縣
     el = Δήμος
     sk = Krajina
@@ -13898,6 +14013,7 @@
     en = place-isolated_dwelling
     ja = 小規模な村
     pl = Mała osada
+    zh-Hans = 孤立居所
 
   [type.place.locality]
     en = Locality
@@ -13935,6 +14051,7 @@
     en = Neighbourhood
     ja = 地域
     pl = Sąsiedztwo
+    zh-Hans = 街坊社区/小区
 
   [type.place.ocean]
     en = Ocean
@@ -14016,7 +14133,7 @@
     tr = Deniz
     uk = Море
     vi = Biển
-    zh-Hans = 是
+    zh-Hans = 海
     zh-Hant = 海
     el = Θάλασσα
     sk = More
@@ -14026,6 +14143,7 @@
     en = place-square
     ja = 広場
     pl = Plac
+    zh-Hans = 广场
 
   [type.place.state]
     en = State
@@ -14053,8 +14171,8 @@
     tr = Eyalet
     uk = Штат
     vi = Hạt
-    zh-Hans = 州
-    zh-Hant = 省
+    zh-Hans = 州/省
+    zh-Hant = 州/省
     el = Πολιτεία
     sk = Štát
     fa = ایالت
@@ -14086,7 +14204,7 @@
     uk = Штат
     vi = Hạt
     zh-Hans = 州
-    zh-Hant = 省
+    zh-Hant = 州
     el = Πολιτεία
     sk = Štát
     fa = ایالت
@@ -14189,25 +14307,30 @@
   [type.power]
     en = power
     ja = 電力
+    zh-Hans = 电力要素
 
   [type.power.generator]
     en = power-generator
     ja = 発電機
+    zh-Hans = 发电机
 
   [type.power.line]
     en = power-line
     ja = 電力線
     pl = Linia wysokiego napięcia
+    zh-Hans = 超高压输电线
 
   [type.power.line.underground]
     en = power-line-underground
     ja = 地下電力線
     pl = Podziemna linia wysokiego napięcia
+    zh-Hans = 超高压输电线
 
   [type.power.minor_line]
     en = power-minor_line
     ja = 低圧電力線
     pl = Linia niskiego napięcia
+    zh-Hans = 超高压输电线
 
   [type.power.pole]
     en = Power Tower
@@ -14302,7 +14425,7 @@
     tr = Poteau électrique
     uk = Стовп ЛЕП
     vi = Trụ Điện
-    zh-Hans = 电线杆
+    zh-Hans = 高压电塔
     zh-Hant = 電塔
     el = Πυλώνες μεταφοράς ρεύματος
     sk = Stĺp elektrického vedenia
@@ -14327,32 +14450,39 @@
     en = public_transport
     ja = 公共交通機関
     pl = Transport publiczny
+    zh-Hans = 公共交通要素
 
   [type.public_transport.platform]
     en = public_transport-platform
     ja = 公共交通機関のプラットホーム
     pl = Przystanek transportu publicznego
+    zh-Hans = 公共交通站台
 
   [type.railway]
     en = railway
     ja = 鉄道
     pl = Kolej
+    zh-Hans = 铁路要素
 
   [type.railway.abandoned]
     en = railway-abandoned
     ja = 廃線
+    zh-Hans = 铁路遗迹
 
   [type.railway.abandoned.bridge]
     en = railway-abandoned-bridge
     ja = 廃線(橋)
+    zh-Hans = 铁路遗迹
 
   [type.railway.abandoned.tunnel]
     en = railway-abandoned-tunnel
     ja = 廃線(トンネル)
+    zh-Hans = 铁路遗迹
 
   [type.railway.construction]
     en = railway-construction
     ja = 建設中の鉄道
+    zh-Hans = 在建铁路
 
   [type.railway.crossing]
     en = railway-crossing
@@ -14361,18 +14491,22 @@
   [type.railway.disused]
     en = railway-disused
     ja = 休止線
+    zh-Hans = 废弃铁路
 
   [type.railway.funicular]
     en = railway-funicular
     ja = ケーブルカー
+    zh-Hans = 缆索铁路轨道
 
   [type.railway.funicular.bridge]
     en = railway-funicular-bridge
     ja = ケーブルカー(橋)
+    zh-Hans = 缆索铁路轨道
 
   [type.railway.funicular.tunnel]
     en = railway-funicular-tunnel
     ja = ケーブルカー(トンネル)
+    zh-Hans = 缆索铁路轨道
 
   [type.railway.halt]
     en = Train Station
@@ -14400,8 +14534,8 @@
     tr = Gar
     uk = Залізничний вокзал
     vi = Đường tàu hỏa
-    zh-Hans = 火车站ี
-    zh-Hant = 鐵道
+    zh-Hans = 小站
+    zh-Hant = 小站
     el = Σιδηροδρομικός σταθμός
     sk = Železničná stanica
     fa = ایستگاه قطار
@@ -14452,14 +14586,17 @@
   [type.railway.light_rail]
     en = railway-light_rail
     ja = ライトレール
+    zh-Hans = 轻轨轨道
 
   [type.railway.light_rail.bridge]
     en = railway-light_rail-bridge
     ja = ライトレール(橋)
+    zh-Hans = 轻轨轨道
 
   [type.railway.light_rail.tunnel]
     en = railway-light_rail-tunnel
     ja = ライトレール(トンネル)
+    zh-Hans = 轻轨轨道
 
   [type.railway.monorail]
     en = Monorail
@@ -14491,33 +14628,41 @@
     el = Μονοαξονικός σιδηρόδρομος
     sk = Jednokoľajnicová dráha
     sw = Mfumo wa reli moja
-    zh-Hans = 单轨铁路
-    zh-Hant = 單軌鐵路
+    zh-Hans = 单轨轨道
+    zh-Hant = 單軌軌道
     fa = مونوریل
 
   [type.railway.monorail.bridge]
     en = railway-monorail-bridge
     ja = モノレール(橋)
+    zh-Hans = 单轨轨道
+    zh-Hant = 單軌軌道
 
   [type.railway.monorail.tunnel]
     en = railway-monorail-tunnel
     ja = モノレール(トンネル)
+    zh-Hans = 单轨轨道
+    zh-Hant = 單軌軌道
 
   [type.railway.narrow_gauge]
     en = railway-narrow_gauge
     ja = 狭軌鉄道
+    zh-Hans = 窄轨铁路轨道
 
   [type.railway.narrow_gauge.bridge]
     en = railway-narrow_gauge-bridge
     ja = 狭軌鉄道(橋)
+    zh-Hans = 窄轨铁路轨道
 
   [type.railway.narrow_gauge.tunnel]
     en = railway-narrow_gauge-tunnel
     ja = ja = 狭軌鉄道(トンネル)
+    zh-Hans = 窄轨铁路轨道
 
   [type.railway.platform]
     en = railway-platform
     ja = プラットホーム
+    zh-Hans = 火车站台
 
   [type.railway.preserved]
     en = railway-preserved
@@ -14561,21 +14706,27 @@
     el = Σιδηρόδρομος
     sk = Železnica
     sw = Njia ya Reli
-    zh-Hans = 铁路
-    zh-Hant = 鐵路
+    zh-Hans = 铁路轨道
+    zh-Hant = 鐵路軌道
     fa = راه آهن
 
   [type.railway.rail.bridge]
     en = railway-rail-bridge
     ja = 鉄道(橋)
+    zh-Hans = 铁路轨道
+    zh-Hant = 鐵路軌道
 
   [type.railway.rail.motor_vehicle]
     en = railway-rail-motor_vehicle
     ja = 鉄道
+    zh-Hans = 铁路轨道
+    zh-Hant = 鐵路軌道
 
   [type.railway.rail.tunnel]
     en = railway-rail-tunnel
     ja = 鉄道(鉄道)
+    zh-Hans = 铁路轨道
+    zh-Hant = 鐵路軌道
 
   [type.railway.razed]
     en = railway-razed
@@ -14631,8 +14782,8 @@
     tr = Gar
     uk = Залізничний вокзал
     vi = Đường tàu hỏa
-    zh-Hans = 火车站ี
-    zh-Hant = 鐵道
+    zh-Hans = 火车站
+    zh-Hant = 火車站
     el = Σιδηροδρομικός σταθμός
     sk = Železničná stanica
     fa = ایستگاه قطار
@@ -14663,8 +14814,8 @@
     tr = Gar
     uk = Залізничний вокзал
     vi = Đường tàu hỏa
-    zh-Hans = 火车站ี
-    zh-Hant = 鐵道
+    zh-Hans = 轻轨车站
+    zh-Hant = 輕軌車站
     el = Σιδηροδρομικός σταθμός
     sk = Železničná stanica
     fa = ایستگاه قطار
@@ -14695,8 +14846,8 @@
     tr = Gar
     uk = Залізничний вокзал
     vi = Đường tàu hỏa
-    zh-Hans = 火车站ี
-    zh-Hant = 鐵道
+    zh-Hans = 单轨车站
+    zh-Hant = 單軌車站
     el = Σιδηροδρομικός σταθμός
     sk = Železničná stanica
     fa = ایستگاه قطار
@@ -14727,8 +14878,8 @@
     tr = Metro
     uk = Метро
     vi = Ngầm
-    zh-Hans = 地铁
-    zh-Hant = 地鐵
+    zh-Hans = 地铁车站
+    zh-Hant = 地鐵車站
     el = Μετρό
     sk = Metro
     fa = حمل و نقل
@@ -14759,8 +14910,8 @@
     tr = Metro
     uk = Метро
     vi = Ngầm
-    zh-Hans = 地铁
-    zh-Hant = 地鐵
+    zh-Hans = 地铁车站
+    zh-Hant = 地鐵車站
     el = Μετρό
     sk = Metro
     fa = حمل و نقل
@@ -14791,8 +14942,8 @@
     tr = Metro
     uk = Метро
     vi = Ngầm
-    zh-Hans = 地铁
-    zh-Hant = 地鐵
+    zh-Hans = 地铁车站
+    zh-Hant = 地鐵車站
     el = Μετρό
     sk = Metro
     fa = حمل و نقل
@@ -14823,8 +14974,8 @@
     tr = Metro
     uk = Метро
     vi = Ngầm
-    zh-Hans = 地铁
-    zh-Hant = 地鐵
+    zh-Hans = 地铁车站
+    zh-Hant = 地鐵車站
     el = Μετρό
     sk = Metro
     fa = حمل و نقل
@@ -14855,8 +15006,8 @@
     tr = Metro
     uk = Метро
     vi = Ngầm
-    zh-Hans = 地铁
-    zh-Hant = 地鐵
+    zh-Hans = 地铁车站
+    zh-Hant = 地鐵車站
     el = Μετρό
     sk = Metro
     fa = حمل و نقل
@@ -14887,8 +15038,8 @@
     tr = Metro
     uk = Метро
     vi = Ngầm
-    zh-Hans = 地铁
-    zh-Hant = 地鐵
+    zh-Hans = 地铁车站
+    zh-Hant = 地鐵車站
     el = Μετρό
     sk = Metro
     fa = حمل و نقل
@@ -14919,8 +15070,8 @@
     tr = Metro
     uk = Метро
     vi = Ngầm
-    zh-Hans = 地铁
-    zh-Hant = 地鐵
+    zh-Hans = 地铁车站
+    zh-Hant = 地鐵車站
     el = Μετρό
     sk = Metro
     fa = حمل و نقل
@@ -14951,8 +15102,8 @@
     tr = Metro
     uk = Метро
     vi = Ngầm
-    zh-Hans = 地铁
-    zh-Hant = 地鐵
+    zh-Hans = 地铁车站
+    zh-Hant = 地鐵車站
     el = Μετρό
     sk = Metro
     fa = حمل و نقل
@@ -14983,8 +15134,8 @@
     tr = Metro
     uk = Метро
     vi = Ngầm
-    zh-Hans = 地铁
-    zh-Hant = 地鐵
+    zh-Hans = 地铁车站
+    zh-Hant = 地鐵車站
     el = Μετρό
     sk = Metro
     fa = حمل و نقل
@@ -15015,8 +15166,8 @@
     tr = Metro
     uk = Метро
     vi = Ngầm
-    zh-Hans = 地铁
-    zh-Hant = 地鐵
+    zh-Hans = 地铁车站
+    zh-Hant = 地鐵車站
     el = Μετρό
     sk = Metro
     fa = حمل و نقل
@@ -15047,8 +15198,8 @@
     tr = Metro
     uk = Метро
     vi = Ngầm
-    zh-Hans = 地铁
-    zh-Hant = 地鐵
+    zh-Hans = 地铁车站
+    zh-Hant = 地鐵車站
     el = Μετρό
     sk = Metro
     fa = حمل و نقل
@@ -15079,8 +15230,8 @@
     tr = Metro
     uk = Метро
     vi = Ngầm
-    zh-Hans = 地铁
-    zh-Hant = 地鐵
+    zh-Hans = 地铁车站
+    zh-Hant = 地鐵車站
     el = Μετρό
     sk = Metro
     fa = حمل و نقل
@@ -15111,8 +15262,8 @@
     tr = Metro
     uk = Метро
     vi = Ngầm
-    zh-Hans = 地铁
-    zh-Hant = 地鐵
+    zh-Hans = 地铁车站
+    zh-Hant = 地鐵車站
     el = Μετρό
     sk = Metro
     fa = حمل و نقل
@@ -15143,8 +15294,8 @@
     tr = Metro
     uk = Метро
     vi = Ngầm
-    zh-Hans = 地铁
-    zh-Hant = 地鐵
+    zh-Hans = 地铁车站
+    zh-Hant = 地鐵車站
     el = Μετρό
     sk = Metro
     fa = حمل و نقل
@@ -15175,8 +15326,8 @@
     tr = Metro
     uk = Метро
     vi = Ngầm
-    zh-Hans = 地铁
-    zh-Hant = 地鐵
+    zh-Hans = 地铁车站
+    zh-Hant = 地鐵車站
     el = Μετρό
     sk = Metro
     fa = حمل و نقل
@@ -15207,8 +15358,8 @@
     tr = Metro
     uk = Метро
     vi = Ngầm
-    zh-Hans = 地铁
-    zh-Hant = 地鐵
+    zh-Hans = 地铁车站
+    zh-Hant = 地鐵車站
     el = Μετρό
     sk = Metro
     fa = حمل و نقل
@@ -15239,8 +15390,8 @@
     tr = Metro
     uk = Метро
     vi = Ngầm
-    zh-Hans = 地铁
-    zh-Hant = 地鐵
+    zh-Hans = 地铁车站
+    zh-Hant = 地鐵車站
     el = Μετρό
     sk = Metro
     fa = حمل و نقل
@@ -15271,8 +15422,8 @@
     tr = Metro
     uk = Метро
     vi = Ngầm
-    zh-Hans = 地铁
-    zh-Hant = 地鐵
+    zh-Hans = 地铁车站
+    zh-Hant = 地鐵車站
     el = Μετρό
     sk = Metro
     fa = حمل و نقل
@@ -15303,8 +15454,8 @@
     tr = Metro
     uk = Метро
     vi = Ngầm
-    zh-Hans = 地铁
-    zh-Hant = 地鐵
+    zh-Hans = 地铁车站
+    zh-Hant = 地鐵車站
     el = Μετρό
     sk = Metro
     fa = حمل و نقل
@@ -15335,8 +15486,8 @@
     tr = Metro
     uk = Метро
     vi = Ngầm
-    zh-Hans = 地铁
-    zh-Hant = 地鐵
+    zh-Hans = 地铁车站
+    zh-Hant = 地鐵車站
     el = Μετρό
     sk = Metro
     fa = حمل و نقل
@@ -15367,8 +15518,8 @@
     tr = Metro
     uk = Метро
     vi = Ngầm
-    zh-Hans = 地铁
-    zh-Hant = 地鐵
+    zh-Hans = 地铁车站
+    zh-Hant = 地鐵車站
     el = Μετρό
     sk = Metro
     fa = حمل و نقل
@@ -15399,8 +15550,8 @@
     tr = Metro
     uk = Метро
     vi = Ngầm
-    zh-Hans = 地铁
-    zh-Hant = 地鐵
+    zh-Hans = 地铁车站
+    zh-Hant = 地鐵車站
     el = Μετρό
     sk = Metro
     fa = حمل و نقل
@@ -15431,8 +15582,8 @@
     tr = Metro
     uk = Метро
     vi = Ngầm
-    zh-Hans = 地铁
-    zh-Hant = 地鐵
+    zh-Hans = 地铁车站
+    zh-Hant = 地鐵車站
     el = Μετρό
     sk = Metro
     fa = حمل و نقل
@@ -15463,8 +15614,8 @@
     tr = Metro
     uk = Метро
     vi = Ngầm
-    zh-Hans = 地铁
-    zh-Hant = 地鐵
+    zh-Hans = 地铁车站
+    zh-Hant = 地鐵車站
     el = Μετρό
     sk = Metro
     fa = حمل و نقل
@@ -15495,8 +15646,8 @@
     tr = Metro
     uk = Метро
     vi = Ngầm
-    zh-Hans = 地铁
-    zh-Hant = 地鐵
+    zh-Hans = 地铁车站
+    zh-Hant = 地鐵車站
     el = Μετρό
     sk = Metro
     fa = حمل و نقل
@@ -15609,8 +15760,8 @@
     tr = Metro
     uk = Метро
     vi = Ngầm
-    zh-Hans = 地铁
-    zh-Hant = 地鐵
+    zh-Hans = 地铁入口
+    zh-Hant = 地鐵入口
     el = Μετρό
     sk = Metro
     fa = حمل و نقل
@@ -15641,8 +15792,8 @@
     tr = Metro
     uk = Метро
     vi = Ngầm
-    zh-Hans = 地铁
-    zh-Hant = 地鐵
+    zh-Hans = 地铁入口
+    zh-Hant = 地鐵入口
     el = Μετρό
     sk = Metro
     fa = حمل و نقل
@@ -15673,8 +15824,8 @@
     tr = Metro
     uk = Метро
     vi = Ngầm
-    zh-Hans = 地铁
-    zh-Hant = 地鐵
+    zh-Hans = 地铁入口
+    zh-Hant = 地鐵入口
     el = Μετρό
     sk = Metro
     fa = حمل و نقل
@@ -15705,8 +15856,8 @@
     tr = Metro
     uk = Метро
     vi = Ngầm
-    zh-Hans = 地铁
-    zh-Hant = 地鐵
+    zh-Hans = 地铁入口
+    zh-Hant = 地鐵入口
     el = Μετρό
     sk = Metro
     fa = حمل و نقل
@@ -15737,8 +15888,8 @@
     tr = Metro
     uk = Метро
     vi = Ngầm
-    zh-Hans = 地铁
-    zh-Hant = 地鐵
+    zh-Hans = 地铁入口
+    zh-Hant = 地鐵入口
     el = Μετρό
     sk = Metro
     fa = حمل و نقل
@@ -15769,8 +15920,8 @@
     tr = Metro
     uk = Метро
     vi = Ngầm
-    zh-Hans = 地铁
-    zh-Hant = 地鐵
+    zh-Hans = 地铁入口
+    zh-Hant = 地鐵入口
     el = Μετρό
     sk = Metro
     fa = حمل و نقل
@@ -15801,8 +15952,8 @@
     tr = Metro
     uk = Метро
     vi = Ngầm
-    zh-Hans = 地铁
-    zh-Hant = 地鐵
+    zh-Hans = 地铁入口
+    zh-Hant = 地鐵入口
     el = Μετρό
     sk = Metro
     fa = حمل و نقل
@@ -15833,8 +15984,8 @@
     tr = Metro
     uk = Метро
     vi = Ngầm
-    zh-Hans = 地铁
-    zh-Hant = 地鐵
+    zh-Hans = 地铁入口
+    zh-Hant = 地鐵入口
     el = Μετρό
     sk = Metro
     fa = حمل و نقل
@@ -15865,8 +16016,8 @@
     tr = Metro
     uk = Метро
     vi = Ngầm
-    zh-Hans = 地铁
-    zh-Hant = 地鐵
+    zh-Hans = 地铁入口
+    zh-Hant = 地鐵入口
     el = Μετρό
     sk = Metro
     fa = حمل و نقل
@@ -15897,8 +16048,8 @@
     tr = Metro
     uk = Метро
     vi = Ngầm
-    zh-Hans = 地铁
-    zh-Hant = 地鐵
+    zh-Hans = 地铁入口
+    zh-Hant = 地鐵入口
     el = Μετρό
     sk = Metro
     fa = حمل و نقل
@@ -15929,8 +16080,8 @@
     tr = Metro
     uk = Метро
     vi = Ngầm
-    zh-Hans = 地铁
-    zh-Hant = 地鐵
+    zh-Hans = 地铁入口
+    zh-Hant = 地鐵入口
     el = Μετρό
     sk = Metro
     fa = حمل و نقل
@@ -15938,14 +16089,20 @@
   [type.railway.tram]
     en = railway-tram
     ja = トラム
+    zh-Hans = 电车轨道
+    zh-Hant = 電車軌道
 
   [type.railway.tram.bridge]
     en = railway-tram-bridge
     ja = トラム(橋)
+    zh-Hans = 电车轨道
+    zh-Hant = 電車軌道
 
   [type.railway.tram.tunnel]
     en = railway-tram-tunnel
     ja = トラム(トンネル)
+    zh-Hans = 电车轨道
+    zh-Hant = 電車軌道
 
   [type.railway.tram_stop]
     en = Tram Stop
@@ -15982,30 +16139,37 @@
   [type.railway.yard]
     en = railway-yard
     ja = ヤード
+    zh-Hans = 铁路货场
 
   [type.railway.yard.bridge]
     en = railway-yard-bridge
     ja = ヤード(橋)
+    zh-Hans = 铁路货场
 
   [type.railway.yard.tunnel]
     en = railway-yard-tunnel
     ja = ヤード(トンネル)
+    zh-Hans = 铁路货场
 
   [type.route]
     en = route
     ja = ルート
+    zh-Hans = 线路
 
   [type.route.ferry]
     en = route-ferry
     ja = フェリー航路
+    zh-Hans = 航线
 
   [type.route.ferry.motor_vehicle]
     en = route-ferry-motor_vehicle
     ja = フェリー航路(動力車)
+    zh-Hans = 航线
 
   [type.route.ferry.motorcar]
     en = route-ferry-motorcar
     ja = フェリー航路(自動車)
+    zh-Hans = 航线
 
   [type.route.shuttle_train]
     en = route-shuttle_train
@@ -16100,7 +16264,7 @@
     tr = Fırın
     uk = Пекарня
     vi = Hiệu bánh
-    zh-Hans = 面包店
+    zh-Hans = 烘培店
     zh-Hant = 麵包店
     el = Αρτοποιείο
     sk = Pekáreň
@@ -16132,7 +16296,7 @@
     tr = Güzellik salonu
     uk = Салон краси
     vi = Thẩm mỹ viện
-    zh-Hans = 美容院
+    zh-Hans = 美容店
     zh-Hant = 美容院
     el = Σαλόνι αισθητικής
     sk = Kozmetický salón
@@ -16164,7 +16328,7 @@
     tr = Içecek
     uk = Напої
     vi = Đồ uống
-    zh-Hans = 饮料
+    zh-Hans = 饮料店
     zh-Hant = 飲料
     el = Οινοπνευματώδη
     sk = Nápoje
@@ -16222,8 +16386,8 @@
     th = ร้านรับแทงพนัน
     uk = Букмекерська контора
     vi = Người nhận cá cược
-    zh-Hans = 做书店
-    zh-Hant = 賭博業者
+    zh-Hans = 博彩公司
+    zh-Hant = 博彩公司
     el = Πράκτορας στοιχημάτων
     sk = Stávková kancelária
     fa = صحافی
@@ -16701,7 +16865,7 @@
     tr = Bakım ürünleri
     uk = Косметика
     vi = Mỹ phẩm
-    zh-Hans = 化妝品
+    zh-Hans = 化妝品店
     zh-Hant = 化妆品
     el = Καλλυντικά
     sk = Kozmetika
@@ -16733,7 +16897,7 @@
     tr = Alışveriş merkezi
     uk = Універмаг
     vi = Cửa hàng bách hóa
-    zh-Hans = 百货商店
+    zh-Hans = 百货商场
     zh-Hant = 百貨公司
     el = Πολυκατάστημα
     sk = Obchodný dom
@@ -16765,7 +16929,7 @@
     tr = Hırdavatçı
     uk = Будматеріали
     vi = Cửa hàng phần cứng
-    zh-Hans = 硬件店
+    zh-Hans = 家居用品店
     zh-Hant = 五金行
     el = Είδη κιγκαλερίας
     sk = Železiarstvo
@@ -16797,7 +16961,7 @@
     tr = Kuru Temizleme
     uk = Хімчистка
     vi = Giặt Sấy
-    zh-Hans = 干洗
+    zh-Hans = 干洗店
     zh-Hant = 乾洗
     el = Στεγνό καθάρισμα
     sk = Čistiareň
@@ -16829,7 +16993,7 @@
     tr = Elektronik mağazası
     uk = Електротехнічний магазин
     vi = Cửa hàng điện
-    zh-Hans = 电子产品
+    zh-Hans = 电子产品商店
     zh-Hant = 電子產品
     el = Ηλεκτρονικά
     sk = Elektronika
@@ -17589,7 +17753,7 @@
     tr = Tefeci
     uk = Ломбард
     vi = Cầm đồ
-    zh-Hans = 典当行
+    zh-Hans = 典当商铺
     zh-Hant = 當舖
     el = Ενεχυροδανειστήριο
     sk = Záložňa
@@ -17749,7 +17913,7 @@
     tr = Spor ürünleri
     uk = Спортивні товари
     vi = Đồ dùng thể thao
-    zh-Hans = 运动商品店
+    zh-Hans = 体育用品店
     zh-Hant = 運動商品店
     el = Αθλητικά είδη
     sk = Športové potreby
@@ -17872,7 +18036,7 @@
     tr = Mağaza
     uk = Крамниця
     vi = Cửa hàng
-    zh-Hans = 商店
+    zh-Hans = 茶叶商店
     zh-Hant = 購物
     el = Κατάστημα
     sk = Obchod
@@ -18068,7 +18232,7 @@
     el = Βίντεο Κλαμπ
     sk = Predajňa s videami
     sw = Duka la Video
-    zh-Hans = 视频商城
+    zh-Hans = 影像店
     zh-Hant = 視頻商城
     fa = فروشگاه رسانه‌های تصویری
 
@@ -18102,7 +18266,7 @@
     el = Κατάστημα βιντεοπαιχνιδιών
     sk = Predajňa s videohrami
     sw = Duka la Video za Michezo
-    zh-Hans = 电子游戏商城
+    zh-Hans = 电子游戏店
     zh-Hant = 電子遊戲商城
     fa = فروشگاه بازی‌های رایانه‌ای
 
@@ -18132,7 +18296,7 @@
     tr = Caviste
     uk = Винна крамниця
     vi = Rượu
-    zh-Hans = 贩酒处
+    zh-Hans = 酒品商店
     zh-Hant = 販酒處
     el = Οινοπωλείο
     sk = Vinotéka
@@ -18272,6 +18436,7 @@
     en = sport-baseball
     ja = 野球
     pl = Baseball
+    zh-Hans = 棒球
 
   [type.sport.basketball]
     en = Basketball
@@ -18311,11 +18476,13 @@
     en = sport-bowls
     ja = ローンボウルズ
     pl = Kręgle
+    zh-Hans = 保龄球
 
   [type.sport.cricket]
     en = sport-cricket
     ja = クリケット
     pl = Krykiet
+    zh-Hans = 板球
 
   [type.sport.curling]
     en = sport-curling
@@ -18324,6 +18491,7 @@
   [type.sport.diving]
     en = sport-diving
     ja = ダイビング
+    zh-Hans = 跳水
 
   [type.sport.equestrian]
     en = Equestrian Sports
@@ -18363,25 +18531,30 @@
     en = sport-football
     ja = フットボール
     pl = Piłka nożna
+    zh-Hans = 足球
 
   [type.sport.golf]
     en = sport-golf
     ja = ゴルフ
     pl = Golf
+    zh-Hans = 高尔夫球
 
   [type.sport.gymnastics]
     en = sport-gymnastics
     ja = 体操競技
     pl = Gimnastyka
+    zh-Hans = 体操
 
   [type.sport.handball]
     en = sport-handball
     ja = ハンドボール
     pl = Piłka ręczna
+    zh-Hans = 手球
 
   [type.sport.multi]
     en = sport-multi
     ja = 複数
+    zh-Hans = 多元
 
   [type.sport.scuba_diving]
     en = sport-scuba_diving
@@ -18392,6 +18565,7 @@
     en = sport-shooting
     ja = 射撃競技
     pl = Strzelectwo sportowe
+    zh-Hans = 射击
 
   [type.sport.skiing]
     en = sport-skiing
@@ -18400,11 +18574,13 @@
   [type.sport.soccer]
     en = sport-soccer
     ja = サッカー
+    zh-Hans = 足球
 
   [type.sport.swimming]
     en = sport-swimming
     ja = 水泳
     pl = Pływanie
+    zh-Hans = 游泳
 
   [type.sport.tennis]
     en = Tennis court
@@ -18444,6 +18620,7 @@
     en = tourism
     ja = 観光
     pl = Turystyka
+    zh-Hans = 旅游要素
 
   [type.tourism.alpine_hut]
     en = Mountains Lodging
@@ -18534,7 +18711,7 @@
     tr = Turizm
     uk = Твір мистецтва
     vi = Du lịch
-    zh-Hans = 旅游
+    zh-Hans = 艺术品
     zh-Hant = 藝術品
     el = Έργα τέχνης
     sk = Umelecké diela
@@ -18566,7 +18743,7 @@
     tr = Turizm
     uk = Твір мистецтва
     vi = Du lịch
-    zh-Hans = 旅游
+    zh-Hans = 艺术品
     zh-Hant = 藝術品
     el = Έργα τέχνης
     sk = Umelecké diela
@@ -18598,7 +18775,7 @@
     tr = Turizm
     uk = Твір мистецтва
     vi = Du lịch
-    zh-Hans = 旅游
+    zh-Hans = 油画
     zh-Hant = 藝術品
     el = Έργα τέχνης
     sk = Umelecké diela
@@ -18630,7 +18807,7 @@
     tr = Turizm
     uk = Твір мистецтва
     vi = Du lịch
-    zh-Hans = 旅游
+    zh-Hans = 雕塑
     zh-Hant = 藝術品
     el = Έργα τέχνης
     sk = Umelecké diela
@@ -18662,7 +18839,7 @@
     tr = Turizm
     uk = Твір мистецтва
     vi = Du lịch
-    zh-Hans = 旅游
+    zh-Hans = 雕像
     zh-Hant = 藝術品
     el = Έργα τέχνης
     sk = Umelecké diela
@@ -18782,7 +18959,7 @@
     tr = Kamp alanı
     uk = Кемпінг
     vi = Cắm trại
-    zh-Hans = 露营
+    zh-Hans = 宿营场地
     zh-Hant = 露營
     el = Κάμπινγκ
     fa = محل چادر زنی
@@ -18837,7 +19014,7 @@
     th = ชาเลต์
     uk = Шале
     vi = Khách sạn
-    zh-Hans = 木屋
+    zh-Hans = 度假屋
     zh-Hant = 木屋
     el = Σαλέ
     sk = Chata
@@ -18869,7 +19046,7 @@
     tr = Görülecek yerler
     uk = Пам’ятні місця
     vi = Diểm tham quan
-    zh-Hans = 景点
+    zh-Hans = 美术馆
     zh-Hant = 旅遊景點
     el = Αξιοθέατο
     sk = Pamätihodnosť
@@ -18901,7 +19078,7 @@
     tr = Misafir evi
     uk = Гостинний дім
     vi = Nhà khách
-    zh-Hans = 招待所์
+    zh-Hans = 客栈
     zh-Hant = 賓館
     el = Ξενώνας
     sk = Penzión
@@ -18924,7 +19101,7 @@
     tr = Pansiyon
     uk = Хостел
     vi = Nhà trọ
-    zh-Hans = 旅馆
+    zh-Hans = 旅舍
     zh-Hant = 旅舍
     el = Πανδοχείο
     fa = هتل
@@ -18976,7 +19153,7 @@
     tr = Turist bilgileri
     uk = Турінформація
     vi = Thông tin du lịch
-    zh-Hans = 旅游信息
+    zh-Hans = 旅游问询处
     zh-Hant = 觀光諮詢
     el = Τουριστικές πληροφορίες
     sk = Infocentrum
@@ -19104,7 +19281,7 @@
     tr = Office de tourisme
     uk = Туристичний офіс
     vi = Văn Phòng Du Lịch
-    zh-Hans = 旅游服务处
+    zh-Hans = 旅游咨询中心
     zh-Hant = 旅遊辦事處
     el = Ενημέρωση τουριστών
     sk = Turistické informačné centrum
@@ -19237,7 +19414,7 @@
     tr = Görülecek yerler
     uk = Пам’ятні місця
     vi = Diểm tham quan
-    zh-Hans = 景点
+    zh-Hans = 主题公园
     zh-Hant = 旅遊景點
     el = Αξιοθέατο
     sk = Pamätihodnosť
@@ -19301,7 +19478,7 @@
     tr = Vahşi Doğa Kulübesi
     uk = Хибара
     vi = Nhà tạm trú
-    zh-Hans = 荒野小屋
+    zh-Hans = 野外住宿小屋
     zh-Hant = 山屋
     el = Καλύβα
     sk = Chata
@@ -19351,6 +19528,7 @@
   [type.waterway]
     en = waterway
     ja = 水域
+    zh-Hans = 航道要素
 
   [type.waterway.canal]
     en = Canal
@@ -19409,25 +19587,32 @@
   [type.waterway.dam]
     en = waterway-dam
     ja = ダム
+    zh-Hans = 水坝
 
   [type.waterway.ditch]
     en = waterway-ditch
     ja = 排水路
+    zh-Hans = 水沟
 
   [type.waterway.ditch.tunnel]
     en = waterway-ditch-tunnel
     ja = 排水路(トンネル)
+    zh-Hans = 水沟
 
   [type.waterway.dock]
     en = waterway-dock
     ja = ドック
+    zh-Hans = 船坞
 
   [type.waterway.drain]
     en = waterway-drain
+    ja = 用水路
+    zh-Hans = 渠
 
   [type.waterway.drain.tunnel]
     en = waterway-drain-tunnel
     ja = 用水路
+    zh-Hans = 渠
 
   [type.waterway.lock]
     en = waterway-lock
@@ -19458,7 +19643,7 @@
     tr = Écluse
     uk = Шлюз
     vi = Cổng Khóa
-    zh-Hans = 锁门
+    zh-Hans = 闸门
     zh-Hant = 閘門
     el = Φράγμα
     sk = Stavidlo
@@ -19489,7 +19674,7 @@
     tr = Nehir
     uk = Річка
     vi = Sông
-    zh-Hans = 河
+    zh-Hans = 河流
     zh-Hant = 河流
     el = Ποταμός
     sk = Rieka
@@ -19521,7 +19706,7 @@
     tr = Nehir
     uk = Річка
     vi = Sông
-    zh-Hans = 河
+    zh-Hans = 河流
     zh-Hant = 河流
     el = Ποταμός
     sk = Rieka
@@ -19553,7 +19738,7 @@
     tr = Nehir
     uk = Річка
     vi = Sông
-    zh-Hans = 河
+    zh-Hans = 河流
     zh-Hant = 河流
     el = Ποταμός
     sk = Rieka
@@ -19585,8 +19770,8 @@
     tr = Nehir
     uk = Річка
     vi = Sông
-    zh-Hans = 河
-    zh-Hant = 河流
+    zh-Hans = 溪
+    zh-Hant = 溪
     el = Ποταμός
     sk = Rieka
     fa = رودخانه
@@ -19617,8 +19802,8 @@
     tr = Nehir
     uk = Річка
     vi = Sông
-    zh-Hans = 河
-    zh-Hant = 河流
+    zh-Hans = 溪
+    zh-Hant = 溪
     el = Ποταμός
     sk = Rieka
     fa = رودخانه
@@ -19649,8 +19834,8 @@
     tr = Nehir
     uk = Річка
     vi = Sông
-    zh-Hans = 河
-    zh-Hant = 河流
+    zh-Hans = 溪
+    zh-Hant = 溪
     el = Ποταμός
     sk = Rieka
     fa = رودخانه
@@ -19681,8 +19866,8 @@
     tr = Nehir
     uk = Річка
     vi = Sông
-    zh-Hans = 河
-    zh-Hant = 河流
+    zh-Hans = 溪
+    zh-Hant = 溪
     el = Ποταμός
     sk = Rieka
     fa = رودخانه
@@ -19722,10 +19907,12 @@
   [type.waterway.weir]
     en = waterway-weir
     ja = 堰
+    zh-Hans = 堰
 
   [type.wheelchair]
     en = wheelchair
     ja = 車椅子
+    zh-Hans = 轮椅
 
   [type.wheelchair.limited]
     en = Limited wheelchair access
@@ -19903,7 +20090,7 @@
     tr = Bina
     uk = Будівля
     vi = Tòa nhà
-    zh-Hans = 建筑
+    zh-Hans = 建筑部分
     zh-Hant = 建築物
     el = Κτίριο
     sk = Budova

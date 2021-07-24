@@ -86,7 +86,7 @@ class PlacePageUtils
       return;
 
     Drawable drawable = Graphics.tint(bottomSheet.getContext(), drawableId,
-                                      R.attr.colorOnPrimary); /// TODO OMG
+            R.attr.chevronTintColor);
     img.setImageDrawable(drawable);
   }
 

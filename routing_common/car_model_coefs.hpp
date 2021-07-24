@@ -7,6 +7,11 @@
 
 namespace routing
 {
+/** @note By VNG: Changed 0.3 -> 0.95 for Road and 0.3 -> 1.0 for Track.
+ *  They are already have very small speeds (10, 5 respectively).
+ *  There are no (99%) traffic lights or pedestrian crossings on this kind of roads.
+ */
+
 HighwayBasedFactors const kHighwayBasedFactors = {
     // {highway class : InOutCityFactor(in city, out city)}
     {HighwayType::HighwayLivingStreet, InOutCityFactor(0.75)},
@@ -15,14 +20,13 @@ HighwayBasedFactors const kHighwayBasedFactors = {
     {HighwayType::HighwayPrimary, InOutCityFactor(0.86, 0.89)},
     {HighwayType::HighwayPrimaryLink, InOutCityFactor(0.86, 0.89)},
     {HighwayType::HighwayResidential, InOutCityFactor(0.75)},
-    {HighwayType::HighwayRoad, InOutCityFactor(0.30)},
+    {HighwayType::HighwayRoad, InOutCityFactor(0.95)},
     {HighwayType::HighwaySecondary, InOutCityFactor(0.84, 0.82)},
     {HighwayType::HighwaySecondaryLink, InOutCityFactor(0.84, 0.82)},
     {HighwayType::HighwayService, InOutCityFactor(0.80)},
     {HighwayType::HighwayTertiary, InOutCityFactor(0.82, 0.76)},
     {HighwayType::HighwayTertiaryLink, InOutCityFactor(0.82, 0.76)},
-    {HighwayType::HighwayTrack, InOutCityFactor(0.30)},
-    {HighwayType::HighwayTrack, InOutCityFactor(0.30)},
+    {HighwayType::HighwayTrack, InOutCityFactor(1.0)},
     {HighwayType::HighwayTrunk, InOutCityFactor(0.90, 0.91)},
     {HighwayType::HighwayTrunkLink, InOutCityFactor(0.77, 0.81)},
     {HighwayType::HighwayUnclassified, InOutCityFactor(0.80)},

@@ -18,9 +18,6 @@
 /* Button which deletes downloaded country */
 "delete" = "Удалить";
 
-/* Button "do not interrupt download" if user touched actively downloading country */
-"do_nothing" = "Продолжить загрузку";
-
 "download_maps" = "Загрузить карты";
 
 /* Settings/Downloader - info for country when download fails */
@@ -28,9 +25,6 @@
 
 /* Settings/Downloader - info for country which started downloading */
 "downloading" = "Загружается…";
-
-/* Settings/Downloader - size string, only strings different from English should be translated */
-"kb" = "кБ";
 
 /* Choose measurement on first launch alert - choose metric system button */
 "kilometres" = "Километры";
@@ -55,17 +49,11 @@
 /* Update maps later/Buy pro version later button text */
 "later" = "Не сейчас";
 
-/* Don't show some dialog any more */
-"never" = "Не показывать";
-
 /* View and button titles for accessibility */
 "search" = "Поиск";
 
 /* Search box placeholder text */
 "search_map" = "Поиск на карте";
-
-/* Settings/Downloader - info for not downloaded country */
-"touch_to_download" = "Нажмите для загрузки";
 
 /* Settings/Downloader - 3G download warning dialog confirm button */
 "use_cellular_data" = "Да";
@@ -73,20 +61,11 @@
 /* Location services are disabled by user alert - message */
 "location_is_disabled_long_text" = "Геолокация выключена в настройках устройства. Пожалуйста, включите её для удобного использования программы.";
 
-/* Location Services are not available on the device alert - message */
-"device_doesnot_support_location_services" = "Ваше устройство не поддерживает геолокацию";
-
 /* View and button titles for accessibility */
 "zoom_to_country" = "Показать на карте";
 
-/* Button text for the button at the center of the screen when the country is not downloaded */
-"country_status_download" = "Загрузить карту\n(^ ^)";
-
 /* Button text for the button at the center of the screen when the country is not downloaded and the size should not be shown */
 "country_status_download_without_size" = "Загрузить карту";
-
-/* Button text for the button at the center of the screen when the country is not downloaded */
-"country_status_download_without_routing" = "Загрузить карту\nбез маршрутов (^ ^)";
 
 /* Message to display at the center of the screen when the country download has failed */
 "country_status_download_failed" = "Ошибка загрузки";
@@ -96,19 +75,13 @@
 
 "about_menu_title" = "О программе";
 
-"downloaded_touch_to_delete" = "Загружено (%@), нажмите для удаления";
-
 "connection_settings" = "Настройки подключения";
-
-"download_mb_or_kb" = "Загрузить %@";
 
 "close" = "Закрыть";
 
 "unsupported_phone" = "Для работы приложения необходим аппаратно ускоренный OpenGL. К сожалению, ваше устройство не поддерживается.";
 
 "download" = "Загрузить";
-
-"external_storage_is_not_available" = "Загруженные карты недоступны";
 
 "disconnect_usb_cable" = "Отключите USB кабель или вставьте SD-карту";
 
@@ -117,8 +90,6 @@
 "not_enough_memory" = "Недостаточно памяти для запуска программы";
 
 "download_resources" = "Перед началом работы разрешите нам загрузить общую карту мира на ваше устройство.\nЭто потребует %@ данных.";
-
-"getting_position" = "Получаем местоположение";
 
 "download_resources_continue" = "Перейти на карту";
 
@@ -140,23 +111,14 @@
 /* Add New Bookmark Set dialog title */
 "add_new_set" = "Добавить группу";
 
-/* Place Page - Add To Bookmarks button */
-"add_to_bookmarks" = "Сохранить метку";
-
 /* Bookmark Color dialog title */
 "bookmark_color" = "Цвет метки";
 
 /* Add Bookmark Set dialog - hint when set name is empty */
 "bookmark_set_name" = "Название группы";
 
-/* Bookmark Sets dialog title */
-"bookmark_sets" = "Группы меток";
-
 /* Bookmarks - dialog title */
 "bookmarks" = "Метки";
-
-/* Add bookmark dialog - bookmark color */
-"color" = "Цвет";
 
 /* Default bookmarks set name */
 "core_my_places" = "Мои Метки";
@@ -167,14 +129,8 @@
 /* Editor title above street and house number */
 "address" = "Адрес";
 
-/* Place Page - Remove Pin button */
-"remove_pin" = "Удалить метку";
-
 /* Add bookmark dialog - bookmark set, Bookmarks dialog - Bookmark set cell */
 "set" = "Группа";
-
-/* Text hint in Bookmarks dialog when no any bookmarks are added */
-"bookmarks_usage_hint" = "У вас пока нет меток.\nВыберите любое место на карте, чтобы добавить его.\nТакже метки можно импортировать из Organic Maps либо других приложений и сайтов. Для этого откройте KML/KMZ файл из Dropbox, почты или по веб-ссылке.";
 
 /* Settings button in system menu */
 "settings" = "Настройки";
@@ -191,26 +147,11 @@
 /* Ask to wait user several minutes (some long process in modal dialog). */
 "wait_several_minutes" = "Это может занять несколько минут.\nПожалуйста, подождите…";
 
-/* Show bookmarks from this category on a map or not */
-"visible" = "Показывать на карте";
-
-/* Toast which is displayed when GPS has been deactivated */
-"gps_is_disabled_long_text" = "GPS-позиционирование выключено. Пожалуйста, включите его в настройках для удобного использования программы.";
-
 /* Measurement units title in settings activity */
 "measurement_units" = "Единицы измерения";
 
 /* Detailed description of Measurement Units settings button */
 "measurement_units_summary" = "Использовать километры или мили";
-
-/* Do search in all sources */
-"search_mode_all" = "Везде";
-
-/* Do search near my position only */
-"search_mode_nearme" = "Возле меня";
-
-/* Do search in current viewport only */
-"search_mode_viewport" = "На экране";
 
 /* Search category for cafes, bars, restaurants */
 "eat" = "Где поесть";
@@ -266,14 +207,8 @@
 /* Search category */
 "police" = "Полиция";
 
-/* String in search result list, when nothing found */
-"no_search_results_found" = "Нет результатов поиска";
-
 /* Notes field in Bookmarks view */
 "description" = "Примечание";
-
-/* Button text */
-"share_by_email" = "Послать по email";
 
 /* Email Subject when sharing bookmarks category */
 "share_bookmarks_email_subject" = "С вами поделились метками Organic Maps";
@@ -295,26 +230,11 @@
 /* Warning message when doing search around current position */
 "unknown_current_position" = "Ваше местоположение еще не определено";
 
-/* Warning message when location country isn't downloaded during search (see also download_location_map_proposal). */
-"download_location_country" = "Скачайте страну вашего текущего местоположения (%@)";
-
-/* Warning message when viewport country isn't downloaded during search */
-"download_viewport_country_to_search" = "Скачайте страну, на которой вы ищете (%@)";
-
 /* Alert message that we can't run Map Storage settings due to some reasons. */
 "cant_change_this_setting" = "Извините, настройки места хранения карт сейчас недоступны.";
 
 /* Alert message that downloading is in progress. */
 "downloading_is_active" = "Идет процесс загрузки карт.";
-
-/* Message that will be shown in alert view, when we ask user to leave review on App Store */
-"appStore_message" = "Надеемся, вам нравится пользоваться Organic Maps! Если так, то оставьте, пожалуйста, отзыв в магазине приложений. Это занимает меньше минуты, но может нам реально помочь. Спасибо вам за поддержку!";
-
-/* No, thanks */
-"no_thanks" = "Нет, спасибо";
-
-/* Share one specific bookmark using SMS, %1$@ contains om:// and %2$@ https://omaps.app link. @NOTE non-ascii symbols in the link will result in max 70 characters SMS instead of 140. */
-"bookmark_share_sms" = "Моя метка на карте. Жми %1$@ или %2$@";
 
 /* Share my position using SMS, %1$@ contains om:// and %2$@ https://omaps.app link WITHOUT NAME. @NOTE non-ascii symbols in the link will result in max 70 characters SMS instead of 140. */
 "my_position_share_sms" = "Смотри где я сейчас. Жми %1$@ или %2$@";
@@ -328,23 +248,11 @@
 /* Share my position using EMail, %1$@ is om:// and %2$@ is https://omaps.app link WITHOUT NAME */
 "my_position_share_email" = "Привет!\n\nЯ сейчас здесь: %1$@. Чтобы увидеть это место на карте Organic Maps, открой эту ссылку %2$@ или эту %3$@\n\nСпасибо.";
 
-/* Android share by Message/SMS button text (including SMS) */
-"share_by_message" = "Отправить сообщением";
-
 /* Share button text which opens menu with more buttons, like Message, EMail, Facebook etc. */
 "share" = "Поделиться";
 
-/* iOS share by Message button text (including SMS) */
-"message" = "Сообщение";
-
 /* Share by email button text, also used in editor. */
 "email" = "Email";
-
-/* Copy Link */
-"copy_link" = "Скопировать ссылку";
-
-/* Text for the button that returns to caller application */
-"more_info" = "Подробнее";
 
 /* Text for message when used successfully copied something */
 "copied_to_clipboard" = "Скопировано в буфер обмена: %1$@";
@@ -354,15 +262,6 @@
 
 /* Used for bookmark editing */
 "done" = "Готово";
-
-/* Summary for preferences in MWM */
-"yopme_pref_summary" = "Выберите настройки второго экрана";
-
-/* Title for yopme preferences in MWM */
-"yopme_pref_title" = "Настройки второго экрана";
-
-/* Hint for upper-right icon p2b */
-"show_on_backscreen" = "Показать на втором экране";
 
 /* Prints version number in About dialog */
 "version" = "Версия: %@";
@@ -381,19 +280,11 @@
 
 "share_my_location" = "Поделиться местоположением";
 
-"menu_search" = "Поиск";
-
 /* Settings general group in settings screen */
 "prefs_group_general" = "Общие настройки";
 
 /* Settings information group in settings screen */
 "prefs_group_information" = "Информация";
-
-/* Settings screen: "Map" category title */
-"prefs_group_map" = "Карта";
-
-/* Settings screen: "Miscellaneous" category title */
-"prefs_group_misc" = "Прочее";
 
 "prefs_group_route" = "Навигация";
 
@@ -419,9 +310,6 @@
 /* Settings «Map» category: «3D buildings» title */
 "pref_map_3d_buildings_title" = "3D здания";
 
-/* Settings «Map» category: «3D buildings» summary */
-"pref_map_3d_buildings_subtitle" = "Увеличивает расход батареи";
-
 /* Settings «Route» category: «Tts enabled» title */
 "pref_tts_enable_title" = "Голосовые инструкции";
 
@@ -433,8 +321,6 @@
 
 /* Title for "Other" section in TTS settings. */
 "pref_tts_other_section_title" = "Другой";
-
-"pref_tts_how_to_set_up_voice" = "Как настроить голос";
 
 /* Settings «Map» category: «Record track» title */
 "pref_track_record_title" = "Недавний путь";
@@ -455,56 +341,7 @@
 
 "recent_track_help_text" = "Эта функция позволяет записывать пройденный путь за определенный период времени и видеть его на карте. Внимание: активация этой функции может привести к повышенному расходу батареи. Записанный трек будет удален с карты по истечении этого срока.";
 
-"pref_track_ios_caption" = "История пути покажет недавно пройденный маршрут.";
-
-"pref_track_ios_subcaption" = "Выберите длительность записи истории.";
-
-"placepage_distance" = "Расстояние";
-
-"placepage_coordinates" = "Координаты";
-
-"placepage_unsorted" = "Без категории";
-
 "search_show_on_map" = "Посмотреть на карте";
-
-/* Used to warn user when fixing KitKat issue */
-"bookmark_move_fail" = "Для оптимизации хранения данных нам нужно переместить метки во внутреннюю память, но там сейчас нет свободного места. Пожалуйста, освободите место, иначе метки вам будут недоступны.";
-
-/* Used in More Apps menu */
-"free" = "Бесплатно";
-
-/* Used in More Apps menu */
-"buy" = "Купить";
-
-/* 1st search button-like result */
-"search_on_map" = "Искать на карте";
-
-/* toast with an error */
-"no_route_found" = "Маршрут не найден";
-
-/* route title */
-"route" = "Маршрут";
-
-/* category title */
-"routes" = "Маршруты";
-
-/* text of notification */
-"download_map_notification" = "Скачайте карту места, где вы находитесь";
-
-/* text of notification */
-"pro_version_is_free_today" = "Полная версия Organic Maps сегодня бесплатна! Скачай сейчас и расскажи друзьям.";
-
-/* Dialog for transferring maps from lite to pro. */
-"move_lite_maps_to_pro" = "Мы переносим загруженные карты из Organic Maps Lite в Organic Maps. Это может занять несколько минут.";
-
-/* Message to display when maps moved. */
-"move_lite_maps_to_pro_ok" = "Ваши карты успешно перенесены в Organic Maps.";
-
-/* Message to display when maps move failed. */
-"move_lite_maps_to_pro_failed" = "При переносе карт возникла ошибка. Пожалуйста, удалите Organic Maps Lite и загрузите карты заново.";
-
-/* Text in menu */
-"settings_and_more" = "Настройки и другое";
 
 /* Text in menu */
 "website" = "Вебсайт";
@@ -527,14 +364,8 @@
 /* Text in menu */
 "openstreetmap" = "OpenStreetMap";
 
-/* Text in menu */
-"contact_us" = "Свяжитесь с нами";
-
 /* Settings: Send feedback button and dialog title */
 "feedback" = "Связаться с нами";
-
-/* Text in menu */
-"subscribe_to_news" = "Подписаться на новости";
 
 /* Text in menu */
 "rate_the_app" = "Оценить приложение";
@@ -548,15 +379,6 @@
 /* Text in menu */
 "report_a_bug" = "Сообщить о проблеме";
 
-/* Email subject */
-"subscribe_me_subject" = "Подпишите меня на email-рассылку Organic Maps";
-
-/* Email body */
-"subscribe_me_body" = "Я хочу первым узнавать обо всех новостях, обновлениях приложения и акциях. Я могу отписаться от рассылки в любой момент.";
-
-/* About text */
-"about_text" = "Organic Maps предлагает карты всех городов, всех стран мира, которые работают без подключения к интернету. Путешествуйте с уверенностью: где бы вы ни находились, Organic Maps помогут решить любую вашу проблему - помогут определить ваше местоположение, найти ресторан, отель, заправку, банк, туалет и т.д.\n\nМы постоянно работаем над добавлением новых функций, поэтому если у вас есть идеи или предложения по улучшению Organic Maps, пишите нам. Если у вас возникла проблема с приложением, сообщите нам, пожалуйста, о ней. Наш емэйл support@organicmaps.app. Мы отвечаем на все письма! Если вам нравится приложение и вы хотите поддержать нас, есть несколько простых и абсолютно бесплатных способов:\n\n- оставьте отзыв в вашем магазине приложений\n- подпишитесь на наши новости на Facebook странице http://www.facebook.com/OrganicMaps\n- или просто расскажите о Organic Maps своей маме, друзьям и коллегам :)\n\nСпасибо за вашу поддержку!\n\nP.S. В приложении мы используем картографические данные проекта OpenStreetMap, который работает по принципу Википедии, давая возможность пользователям со всего мира создавать и редактировать карты. Если вы заметили, что на карте что-то не соответствует действительности либо отсутствует, вы можете откорректировать это прямо на сайте https://www.openstreetmap.org, и эти исправления появятся во время следующего обновления Organic Maps.";
-
 /* Alert text */
 "email_error_body" = "Почтовый клиент не настроен. Настройте его или используйте другие способы для связи. Наш адрес - %@.";
 
@@ -569,12 +391,6 @@
 /* Search category */
 "wifi" = "WiFi";
 
-/* Update map suggestion */
-"routing_map_outdated" = "Пожалуйста, обновите карту для того, чтобы проложить маршрут.";
-
-/* Update maps suggestion */
-"routing_update_maps" = "В новой версии Organic Maps вы сможете строить маршруты от текущего местоположения до точки назначения. Чтобы воспользоваться этой функцией, обновите, пожалуйста, карты.";
-
 /* Update all button text */
 "downloader_update_all_button" = "Обновить все";
 
@@ -583,9 +399,6 @@
 
 /* Downloaded maps category */
 "downloader_downloaded_subtitle" = "Загруженные";
-
-/* Downloaded maps category */
-"downloader_available_maps" = "Доступные";
 
 /* Country queued for download */
 "downloader_queued" = "В очереди";
@@ -598,17 +411,6 @@
 
 "downloader_downloading" = "Загружается:";
 
-"downloader_search_results" = "Найдено";
-
-/* Disclaimer message */
-"routing_disclaimer" = "Используя маршруты в приложении Organic Maps, пожалуйста, учитывайте следующее:\n\n  - Предлагаемые маршруты могут рассматриваться только в качестве рекомендации.\n - Дорожная обстановка, правила дорожного движения, знаки являются более приоритетными по сравнению с советами навигационной программы.\n - Карта может быть неточной или неактуальной, а предложенный маршрут не самым оптимальным.\n\n  Будьте внимательны на дорогах и берегите себя!";
-
-/* Outdated maps category */
-"downloader_outdated_maps" = "Неактуальные";
-
-/* Up to date maps category */
-"downloader_uptodate_maps" = "Обновленные";
-
 /* Status of outdated country in the list */
 "downloader_status_outdated" = "Обновить";
 
@@ -618,49 +420,14 @@
 /* Displayed in a dialog that appears when a user tries to delete a map while the app is in the follow route mode */
 "downloader_delete_map_while_routing_dialog" = "Чтобы удалить карту, пожалуйста, остановите навигацию.";
 
-/* Show when user try build route, but we don't know where he */
-"routing_failed_unknown_my_position" = "Невозможно проложить маршрут. Не определено текущее местоположение.";
-
-/* Show if use has not routing file, or InconsistentMWMandRoute */
-"routing_failed_has_no_routing_file" = "Для построения маршрута необходимы дополнительные данные. Перейти к загрузке?";
-
-/* StartPointNotFound */
-"routing_failed_start_point_not_found" = "Невозможно проложить маршрут. Нет дорог рядом с пунктом отправления.";
-
-/* EndPointNotFound */
-"routing_failed_dst_point_not_found" = "Невозможно проложить маршрут. Нет дорог рядом с пунктом назначения.";
-
 /* PointsInDifferentMWM */
 "routing_failed_cross_mwm_building" = "Маршрут может быть проложен только внутри карты одного региона.";
-
-/* RouteNotFound */
-"routing_failed_route_not_found" = "Невозможно проложить маршрут между выбранными точками. Пожалуйста, измените начало или конец маршрута.";
-
-/* InternalError */
-"routing_failed_internal_error" = "Внутренняя ошибка. Пожалуйста, удалите карту и скачайте её еще раз. Если это не помогло, напишите нам на support@organicmaps.app";
-
-/* Context menu item for downloader. */
-"downloader_download_map_and_routing" = "Загрузить карту + маршруты";
-
-/* Context menu item for downloader. */
-"downloader_download_routing" = "Загрузить маршруты";
-
-/* Context menu item for downloader. */
-"downloader_delete_routing" = "Удалить маршруты";
 
 /* Context menu item for downloader. */
 "downloader_download_map" = "Загрузить карту";
 
-"downloader_download_map_no_routing" = "Загрузить карту без маршрутов";
-
-/* Button for routing. */
-"routing_go" = "Поехали!";
-
 /* Item status in downloader. */
 "downloader_retry" = "Повторить";
-
-/* Item in context menu. */
-"downloader_map_and_routing" = "Карта + Маршруты";
 
 /* Item in context menu. */
 "downloader_delete_map" = "Удалить карту";
@@ -668,29 +435,11 @@
 /* Item in context menu. */
 "downloader_update_map" = "Обновить карту";
 
-/* Item in context menu. */
-"downloader_update_map_and_routing" = "Обновить карту + Маршруты";
-
-/* Item in context menu. */
-"downloader_map_only" = "Только карта";
-
-/* Toolbar title */
-"toolbar_application_menu" = "Меню приложения";
-
 /* Preference text */
 "pref_use_google_play" = "Использовать Google Play Services для определения позиции";
 
 /* Text for rating dialog */
 "rating_just_rated" = "Я только что оценил Organic Maps";
-
-/* Text for rating dialog */
-"rating_user_since" = "Я пользуюсь Organic Maps c %@";
-
-/* Text for rating dialog */
-"rating_do_like_maps" = "Нравится приложение?";
-
-/* Text for rating dialog */
-"rating_tap_star" = "Оцените Organic Maps.";
 
 /* Text for rating dialog */
 "rating_thanks" = "Спасибо!";
@@ -701,23 +450,8 @@
 /* Text for rating dialog */
 "rating_send_feedback" = "Напишите нам";
 
-/* Text for g+ dialog */
-"rating_google_plus" = "Нажмите g+, чтобы рассказать друзьям о приложении";
-
 /* Text for routing error dialog */
 "routing_download_maps_along" = "Загрузите все карты по пути следования";
-
-/* Text for routing error dialog */
-"routing_download_map" = "Загрузите карту";
-
-/* Text for routing error dialog */
-"routing_download_map_and_routing" = "Загрузите карту и маршруты, чтобы получить доступ ко всем возможностям приложения.";
-
-/* Text for routing error dialog */
-"routing_get_routing_data" = "Загрузите маршруты";
-
-/* Text for routing error dialog */
-"routing_get_additional_data" = "Загрузите данные для построения маршрутов";
 
 /* Text for routing error dialog */
 "routing_requires_all_map" = "Для создания маршрута необходимо загрузить и обновить все карты на пути следования.";
@@ -725,50 +459,15 @@
 /* Text for routing error dialog */
 "routing_not_enough_space" = "Недостаточно места";
 
-/* Text for routing error dialog */
-"routing_download_more_than_avail" = "Необходимо загрузить %@ МБ, но есть место только для %@ МБ";
-
-/* Text for routing error dialog */
-"routing_download_roaming" = "Будет загружено %@ MB с использованием сотовой связи (мобильный интернет). В зависимости от тарифного плана оператора это может повлечь списание значительной суммы с телефонного счета";
-
 /* bookmark button text */
 "bookmark" = "метка";
-
-/* map is not downloaded */
-"not_found_map" = "Карта вашего местоположения не загружена";
 
 /* location service disabled */
 "enable_location_services" = "Пожалуйста, включите геолокацию";
 
-/* download map */
-"download_map" = "Скачайте карту места, где вы находитесь";
-
-/* download map on iPhone */
-"download_map_iphone" = "Скачайте на вашем iPhone карту места, где вы находитесь";
-
-/* clear pin */
-"nearby" = "поблизости";
-
-/* clear pin */
-"clear_pin" = "убрать метку";
-
-/* location is undefined */
-"undefined_location" = "Не определено текущее местоположение.";
-
-/* download country of your location */
-"download_country" = "Скачайте страну вашего местоположения";
-
-/* download failed */
-"download_failed" = "Не удалось загрузить";
-
-/* get the map */
-"get_the_map" = "Загрузить карту";
-
 "save" = "Сохранить";
 
 "edit_description_hint" = "Ваше описание (текст или html)";
-
-"new_group" = "новая группа";
 
 "create" = "создать";
 
@@ -795,30 +494,6 @@
 
 /* pink color */
 "pink" = "Розовый";
-
-/* deep purple color */
-"deep_purple" = "Тёмно-пурпурный";
-
-/* light blue color */
-"light_blue" = "Голубой";
-
-/* cyan color */
-"cyan" = "Сине-зелёный";
-
-/* teal color */
-"teal" = "Изумрудный";
-
-/* lime color */
-"lime" = "Лайм";
-
-/* deep orange color */
-"deep_orange" = "Тёмно-оранжевый";
-
-/* gray color */
-"gray" = "Серый";
-
-/* blue gray color */
-"blue_gray" = "Серо-голубой";
 
 /* Wi-Fi available */
 "WiFi_available" = "Есть";
@@ -848,13 +523,9 @@
 
 "dialog_routing_location_unknown_turn_on" = "Текущая геопозиция не определена. Для построения маршрута включите режим определения геопозиции.";
 
-"dialog_routing_location_unknown" = "Текущая геопозиция не определена.";
-
 "dialog_routing_download_files" = "Загрузите необходимые файлы";
 
 "dialog_routing_download_and_update_all" = "Для построения маршрута загрузите и обновите все карты и файлы маршрутов по пути следования.";
-
-"dialog_routing_routes_size" = "Файлы маршрутов";
 
 "dialog_routing_unable_locate_route" = "Маршрут не найден";
 
@@ -884,21 +555,11 @@
 
 "dialog_routing_try_again" = "Попробуйте снова";
 
-"dialog_routing_send_error" = "Сообщить об ошибке";
-
-"dialog_routing_if_get_cross_route" = "Построить более оптимальный маршрут с пересечением границы карты?";
-
-"dialog_routing_cross_route_is_optimal" = "Маршрут с пересечением границы карты более оптимальный.";
-
 "not_now" = "Не сейчас";
-
-"dialog_routing_build_route" = "Построить";
 
 "dialog_routing_download_and_build_cross_route" = "Загрузить карту и построить более оптимальный маршрут с пересечением границы карты?";
 
 "dialog_routing_download_cross_route" = "Для построения более оптимального маршрута с пересечением границы требуется загрузить карту.";
-
-"dialog_routing_cross_route_always" = "Всегда пересекать эту границу";
 
 
 /********** Strings for downloading map from search **********/
@@ -906,8 +567,6 @@
 "search_without_internet_advertisement" = "Для поиска мест и построения маршрутов скачайте карту, и интернет вам больше не понадобится.";
 
 "search_select_map" = "Выбрать карту";
-
-"search_select_other_map" = "Выбрать другую карту";
 
 /* «Show» context menu */
 "show" = "Показать";
@@ -918,17 +577,11 @@
 /* «Rename» context menu */
 "rename" = "Переименовать";
 
-/* Bottom sheet: expand button (should be short) */
-"bottom_sheet_more" = "Ещё…";
-
 /* Failed planning route message in navigation view */
 "routing_planning_error" = "Ошибка построения маршрута";
 
 /* Arrive routing message in navigation view */
 "routing_arrive" = "Прибытие в %s";
-
-/* Text for routing::RouterResultCode::FileTooOld dialog. */
-"dialog_routing_download_and_update_maps" = "Для построения маршрута загрузите и обновите все карты по пути следования.";
 
 "rate_alert_title" = "Нравится приложение?";
 
@@ -944,19 +597,11 @@
 
 "history" = "История";
 
-"next_turn_then" = "Далее";
-
 "closed" = "Закрыто";
-
-"back_to" = "Назад к %@";
 
 "search_not_found" = "К сожалению, мы ничего не нашли.";
 
 "search_not_found_query" = "Попробуйте изменить условия поиска.";
-
-"search_not_found_map" = "Убедитесь, что карта области поиска загружена.";
-
-"search_not_found_location" = "Скачайте карту текущего местоположения.";
 
 "search_history_title" = "История поиска";
 
@@ -964,23 +609,12 @@
 
 "clear_search" = "Очистить историю поиска";
 
-/* Title for settings to enable/disable showcase menu button */
-"showcase_settings_title" = "Показывать предложения";
-
 /* Place Page link to Wikipedia article (if map object has it). */
 "read_in_wikipedia" = "Wikipedia";
 
-"p2p_route_planning" = "Планирование маршрута";
-
 "p2p_your_location" = "Ваше местоположение";
 
-"p2p_from" = "Пункт отправления";
-
-"p2p_to" = "Пункт назначения";
-
 "p2p_start" = "Начать";
-
-"p2p_planning" = "Планируем…";
 
 "p2p_from_here" = "Отсюда";
 
@@ -1018,15 +652,9 @@
 
 "editor_correct_mistake" = "Исправьте ошибку";
 
-"editor_correct_mistake_message" = "При редактировании времени работы вы допустили ошибку. Исправьте её или переключитесь в простой режим.";
-
 "editor_add_select_location" = "Местоположение";
 
 "editor_done_dialog_1" = "Вы изменили карту мира. Не скрывайте это, расскажите друзьям и редактируйте вместе.";
-
-"editor_done_dialog_2" = "Вы улучшили карту уже два раза. Вы теперь %d в рейтинге редакторов карты. Расскажите друзьям.";
-
-"editor_done_dialog_3" = "Вы улучшили карту, расскажите об этом друзьям и редактируйте карту вместе.";
 
 "share_with_friends" = "Поделиться с друзьями";
 
@@ -1044,20 +672,7 @@
 
 "editor_report_problem_duplicate_place_title" = "Повторяющееся место";
 
-"first_launch_congrats_title" = "Organic Maps готов к работе";
-
-"first_launch_congrats_text" = "Пользуйтесь поиском и навигацией по всему миру без интернета и бесплатно.";
-
-"migrate_title" = "Важно!";
-
-/* Android uses image instead of text. */
-"download_all" = "Загрузить все";
-
-"delete_all" = "Удалить все";
-
 "autodownload" = "Автоматическая загрузка";
-
-"disable_autodownload" = "Запретить автозагрузку";
 
 /* Place Page opening hours text */
 "closed_now" = "Сейчас закрыто";
@@ -1072,10 +687,6 @@
 "day_off" = "Закрыто";
 
 "today" = "Сегодня";
-
-"sunrise_to_sunset" = "От рассвета до заката";
-
-"sunset_to_sunrise" = "От заката до рассвета";
 
 "add_opening_hours" = "Добавить время работы";
 
@@ -1095,45 +706,18 @@
 
 "forgot_password" = "Забыли пароль?";
 
-/* Forgot Password dialog title */
-"restore_password" = "Восстановление пароля";
-
-"enter_email_address_to_reset_password" = "Введите почтовый ящик, который вы использовали для регистрации, и мы вышлем на него ссылку для сброса пароля.";
-
-"reset_password" = "Cбросить пароль";
-
-"username" = "Имя пользователя";
-
 "osm_account" = "OSM Аккаунт";
 
 "logout" = "Выйти";
 
-"login_and_edit_map_motivation_message" = "Авторизуйтесь и редактируйте информацию об объектах на карте. А мы сделаем её доступной для миллионов пользователей. Улучшим мир вместе!";
-
 /* Information text: "Last upload 11.01.2016" */
 "last_upload" = "Последняя отправка";
 
-/* Motivates user to login/register, title above login buttons. */
-"you_have_edited_your_first_object" = "Вы отредактировали свой первый объект!";
-
 "thank_you" = "Спасибо";
-
-"login_with_google" = "Войти через Google";
-
-"login_with_openstreetmap" = "Войти через www.openstreetmap.org";
 
 "edit_place" = "Редактировать место";
 
 "place_name" = "Название";
-
-/* title above languages list cells in the editor, below editable name text field. */
-"other_languages" = "Другие языки";
-
-/* small button to open list with names in different languages */
-"show_more" = "Показать больше";
-
-/* small button to close list with names in different languages */
-"show_less" = "Показать меньше";
 
 "add_language" = "Добавить язык";
 
@@ -1164,8 +748,6 @@
 
 "please_note" = "Обратите внимание";
 
-"common_no_wifi_dialog" = "Нет WiFi соединения. Вы хотите продолжить работу через мобильный интернет?";
-
 "downloader_delete_map_dialog" = "Вместе с картой удалятся и внесенные вами правки на этой карте.";
 
 "downloader_update_maps" = "Обновите карты";
@@ -1173,10 +755,6 @@
 "downloader_mwm_migration_dialog" = "Для построения маршрутов необходимо обновить все карты и построить маршрут заново.";
 
 "downloader_search_field_hint" = "Найти карту";
-
-"migration_update_all_button" = "Обновить все карты";
-
-"migration_delete_all_download_current_button" = "Скачать текущую и удалить все старые карты";
 
 "migration_download_error_dialog" = "Ошибка загрузки";
 
@@ -1186,21 +764,9 @@
 
 "downloader_no_space_message" = "Удалите ненужные данные";
 
-"editor_general_auth_error_dialog" = "Общая ошибка авторизации.";
-
 "editor_login_error_dialog" = "Произошла ошибка при авторизации.";
 
-"editor_login_failed_dialog" = "Войти не удалось";
-
-"editor_username_error_dialog" = "Неверное имя пользователя";
-
-"editor_place_edited_dialog" = "Вы отредактировали объект!";
-
-"editor_login_with_osm" = "Войти через OpenStreetMap";
-
 "editor_profile_changes" = "Учтённые правки";
-
-"editor_profile_unsent_changes" = "Не отправлено:";
 
 "editor_focus_map_on_location" = "Потяните карту, чтобы выбрать правильное местоположение объекта.";
 
@@ -1222,13 +788,9 @@
 
 "editor_report_problem_other_title" = "Другая проблема";
 
-"placepage_report_problem_button" = "Сообщить о проблеме";
-
 "placepage_add_business_button" = "Добавить организацию";
 
 "whatsnew_editor_message_1" = "Добавляйте новые объекты и редактируйте старые прямо из приложения.";
-
-"whatsnew_editor_message_2" = "* Organic Maps использует данные открытых карт сообщества OpenStreetMap.";
 
 "dialog_incorrect_feature_position" = "Измените местоположение";
 
@@ -1236,16 +798,10 @@
 
 "login_to_make_edits_visible" = "Войдите, чтобы ваши изменения увидели другие пользователи.";
 
-"no_migration_during_navigation" = "Во время навигации обновление запрещено.";
-
 /* Error dialog no space */
 "migration_no_space_message" = "Для загрузки требуется больше свободного места. Пожалуйста, удалите ненужные данные.";
 
 "editor_sharing_title" = "Я улучшил карты Organic Maps";
-
-"editor_comment_will_be_sent" = "Мы обязательно отправим ваш комментарий картографам.";
-
-"editor_unsupported_category_message" = "Вы добавили объект, категорию которого мы пока не поддерживаем. В будущем он появится на карте.";
 
 /* Downloaded 10 **of** 20 <- it is that "of" */
 "downloader_of" = "%1$d из %2$d";
@@ -1278,23 +834,9 @@
 
 "editor_operator" = "Владелец";
 
-"editor_tag_description" = "Укажите компанию, организацию или лицо, которое отвечает за работоспособность объекта.";
-
-"editor_no_local_edits_title" = "У вас пока нет локальных правок";
-
-"editor_no_local_edits_description" = "Здесь отображается количество предложенных вами изменений на карте, которые доступны пока только на вашем устройстве.";
-
-"editor_send_to_osm" = "Отправить в OSM";
-
-"editor_remove" = "Удалить";
-
-"downloader_my_maps_title" = "Мои карты";
-
 "downloader_no_downloaded_maps_title" = "У вас нет загруженных карт";
 
 "downloader_no_downloaded_maps_message" = "Загрузите необходимые карты, чтобы находить места и пользоваться навигацией без интернета.";
-
-"downloader_find_place_hint" = "Найти город или страну";
 
 /* Error title that appears after certain time without location. */
 "current_location_unknown_title" = "Продолжить поиск местоположения?";
@@ -1321,47 +863,13 @@
 /* iOS Dialog for the case when the location permission is not granted */
 "location_services_disabled_3" = "3. Выберите «При использовании программы»";
 
-"placepage_parking_surface" = "Открытая парковка";
-
-"placepage_parking_multistorey" = "Многоэтажная наземная парковка";
-
-"placepage_parking_underground" = "Подземная парковка";
-
-"placepage_parking_rooftop" = "Парковка на крыше здания";
-
-"placepage_parking_sheds" = "Частное легкое укрытие для автомобилей";
-
-"placepage_parking_carports" = "Капитальный навес";
-
-"placepage_parking_boxes" = "Гаражный бокс";
-
-"placepage_parking_pay" = "Платная";
-
-"placepage_parking_free" = "Бесплатная";
-
-"placepage_parking_interval" = "Переменно платная";
-
-"placepage_entrance_number" = "№";
-
-"placepage_entrance_type" = "Подъезд";
-
-"placepage_flat" = "кв.";
-
-"placepage_open_24_7" = "Круглосуточно";
-
 "meter" = "м";
 
 "kilometer" = "км";
 
-"kilometers_per_hour" = "км/ч";
-
 "mile" = "ми";
 
 "foot" = "фут";
-
-"miles_per_hour" = "ми/ч";
-
-"day" = "д";
 
 "hour" = "ч";
 
@@ -1381,10 +889,6 @@
 
 "placepage_bookmark_name_hint" = "Название метки";
 
-"placepage_personal_notes_hint" = "Примечание";
-
-"placepage_delete_bookmark_button" = "Удалить метку";
-
 "editor_edits_sent_message" = "Предложенные вами изменения отправлены";
 
 "editor_comment_hint" = "Коментарий…";
@@ -1397,8 +901,6 @@
 
 "editor_remove_place_button" = "Удалить";
 
-"editor_status_sending" = "Отправка…";
-
 "editor_place_doesnt_exist" = "Места не существует";
 
 "text_more_button" = "…ещё";
@@ -1410,11 +912,7 @@
 
 "error_enter_correct_email" = "Введите корректный email";
 
-"error_enter_correct" = "Введите корректное значение";
-
 "refresh" = "Обновить";
-
-"last_update" = "Последнее обновление: %s";
 
 "placepage_add_place_button" = "Добавить место на карту";
 
@@ -1426,24 +924,6 @@
 
 "editor_share_to_all_dialog_message_2" = "Если при проверке изменений возникнут вопросы, мы напишем вам на email.";
 
-"navigation_overview_button" = "обзор";
-
-"navigation_stop_button" = "стоп";
-
-/* Text on an empty bookmark page */
-"bookmarks_empty_title" = "Сохраняйте метки";
-
-"bookmarks_empty_message_1" = "Нажмите ★, чтобы сохранить любимые места для быстрого доступа к ним.";
-
-"bookmarks_empty_message_2" = "Импортируйте метки из почты и интернета.";
-
-"bookmarks_empty_message_3" = "выезд: %s";
-
-/* Name of the group for booked hotels */
-"bookmarks_group_name" = "Забронированные отели";
-
-"place_page_button_read_descriprion" = "Прочитать";
-
 /* iOS dialog for the case when recent track recording is on and the app comes back from background */
 "recent_track_background_dialog_title" = "Выключить запись недавно пройденого пути?";
 
@@ -1451,8 +931,6 @@
 
 /* For sharing via SMS and so on */
 "sharing_call_action_look" = "Посмотри";
-
-"continue_recent_track_background_button" = "Продолжить";
 
 "recent_track_background_dialog_message" = "Organic Maps использует вашу геопозицию в фоновом режиме для записи недавно пройденного пути.";
 
@@ -1468,33 +946,13 @@
 /* About short text (below logo) */
 "about_description" = "Organic Maps — незаменимое приложение для путешествий, работающее без подключения к интернету. Organic Maps использует данные OpenStreetMap и позволяет их улучшать.";
 
-/* Text in menu */
-"blog" = "Блог";
-
 "general_settings" = "Общие настройки";
-
-"date" = "Дата %d";
-
-/* "Report a bug" -> "Generaal Feedback" -> "Something is not working" */
-"something_is_not_working" = "Что-то не работает";
 
 /* For the first routing */
 "accept" = "Принять";
 
-"accept_and_continue" = "Принять и продолжить";
-
 /* For the first routing */
 "decline" = "Отклонить";
-
-"install_app" = "Установить";
-
-"search_no_results_title" = "Поиск не дал результатов";
-
-"search_no_results_message" = "Попробуйте задать более общий запрос, уменьшить масштаб карты или сбросить фильтр.";
-
-"search_no_results_expand_area_button" = "Уменьшить масштаб карты";
-
-"search_no_results_reset_button" = "Сбросить фильтр";
 
 /* noun */
 "search_in_table" = "Список";
@@ -1517,8 +975,6 @@
 
 "traffic_update_maps_text" = "Для отображения пробок необходимо обновить карты.";
 
-"traffic_outdated" = "Данные о пробках устарели.";
-
 "big_font" = "Увеличить шрифт на карте";
 
 "traffic_update_app" = "Обновите Organic Maps";
@@ -1529,17 +985,7 @@
 /* "traffic" as in "road congestion" */
 "traffic_data_unavailable" = "Данные о пробках недоступны";
 
-/* "Translation is no needed, because it's a company name" */
-"uber" = "Uber";
-
-/* Simplified colour scheme for traffic information, fewer colours are used to display traffic jams on the map. The string should be kept as short as possible */
-"pref_traffic_simplified_colors_title" = "Простые цвета пробок";
-
 "enable_logging" = "Включить запись логов";
-
-"offline_place_page_more_information" = "Подключитесь к интернету, чтобы получить больше информации о месте.";
-
-"failed_load_information" = "Не удалось загрузить информацию.";
 
 /* Settings: "Send general feedback" button */
 "feedback_general" = "Отправить отзыв";
@@ -1556,8 +1002,6 @@
 
 "whatsnew_transliteration_title" = "Латинская транслитерация";
 
-"yandex_taxi_title" = "Яндекс.Такси";
-
 "learn_more" = "Узнать больше";
 
 "core_exit" = "Выход";
@@ -1568,75 +1012,19 @@
 
 "button_exit" = "Выход";
 
-"settings_device_memory" = "Память устроства";
-
-"settings_card_memory" = "Карта памяти";
-
-"settings_storage_available" = "%s доступно";
-
-"toast_location_permission_denied" = "Определение местоположения запрещено";
-
-"button_use" = "Использовать";
-
 "planning_route_manage_route" = "Изменить маршрут";
 
 "button_plan" = "Построить";
-
-"button_add" = "Добавить";
 
 "placepage_remove_stop" = "Удалить";
 
 "planning_route_remove_title" = "Перетяните сюда, чтобы удалить";
 
-"dialog_change_start_point_message" = "Заменить стартовую точку на текущее местоположение?";
-
-"button_replace" = "Заменить";
-
 "placepage_add_stop" = "Заехать";
-
-/* Only ru/en are needed */
-"subtitle_rent" = "Аренда";
-
-/* Only ru/en are needed */
-"rub_month" = "руб./мес.";
-
-/* Only ru/en are needed */
-"room" = "%s-комн. кв.";
-
-/* Only ru/en are needed */
-"real_estate" = "Недвижимость";
-
-"add_my_position" = "Добавить мое местоположение";
-
-"choose_start_point" = "Выберите начало маршрута";
-
-"choose_destination" = "Выберите конец маршрута";
 
 "preloader_viator_button" = "Посмотреть";
 
-"start_from_my_position" = "Начать от";
-
-"profile_authorization_title" = "Авторизуйтесь с помощью";
-
-"profile_authorization_message" = "Простая авторизация за пару секунд без логина и пароля";
-
 "profile_authorization_error" = "Упс, произошла ошибка. Попробуйте авторизоваться повторно.";
-
-"service" = "Обслуживание";
-
-"atmosphere" = "Атмосфера";
-
-"value_for_money" = "Цена / качество";
-
-"experience" = "Впечатления";
-
-"assortment" = "Ассортимент";
-
-"expertise" = "Профессионализм";
-
-"equipment" = "Оборудование";
-
-"quality" = "Качество";
 
 "dialog_error_storage_title" = "Проблема с доступом к хранилищу";
 
@@ -1644,17 +1032,7 @@
 
 "setting_emulate_bad_storage" = "Эмуляция ошибки с внешней памятью";
 
-"directions_finish" = "Место назначения";
-
-"directions_on_foot" = "Пешком %s";
-
 "core_entrance" = "Вход";
-
-"coffee" = "Кофе";
-
-"cleanliness" = "Чистота";
-
-"crowdedness" = "Многолюдность";
 
 "error_enter_correct_name" = "Пожалуйста, введите название правильно";
 
@@ -1677,8 +1055,6 @@
 
 "downloader_applying" = "Применение %s…";
 
-"dialog_message_transit_not_found_connection" = "Постройте маршрут в пределах одной транспортной сети";
-
 "bookmarks_error_message_share_general" = "Не удалось поделиться из-за ошибки приложения";
 
 "bookmarks_error_title_share_empty" = "Ошибка при попытке поделиться";
@@ -1695,17 +1071,7 @@
 
 "bookmarks_error_message_list_name_already_taken" = "Выберите, пожалуйста, другое имя";
 
-"bookmarks_error_title_list_name_too_long" = "Слишком длинное название";
-
-"bookmarks_error_message_list_name_too_long" = "Выберите, пожалуйста, другое имя";
-
-"please_wait" = "Пожалуйста, подождите...";
-
-"phone_number" = "Номер телефона";
-
-"notification_unsent_reviews_title" = "У вас есть неотправленные отзывы";
-
-"notification_unsent_reviews_message" = "Пожалуйста, авторизуйтесь, чтобы поделиться своими отзывами с другими путешественниками";
+"please_wait" = "Пожалуйста, подождите…";
 
 "profile" = "Профиль OpenStreetMap";
 
@@ -1719,49 +1085,13 @@
 
 "bookmarks_convert_error_message" = "Некоторые файлы не конвертировались.";
 
-"converting" = "Конвертация...";
-
-"wn_reinvented_bookmarks_title" = "Мы улучшили функционал меток!";
-
-"wn_reinvented_bookmarks_message" = "Теперь вы можете сделать резервное копирование меток, создать списки. А как круто они смотрятся на карте!";
-
-"bookmarks_restore" = "Восстановить метки";
-
-"bookmarks_restore_process" = "Восстановление...";
-
 "bookmarks_restore_title" = "Восстановить эту версию?";
 
-"bookmarks_restore_message" = "Ваши закладки будут восстановлены от %s (%s)";
-
-"bookmarks_restore_empty_title" = "У вас нет резервных копий";
-
-"bookmarks_restore_empty_message" = "Сервер не нашел ранее сделанные резервные копии";
-
 "common_check_internet_connection_dialog_title" = "Нет интернет соединения";
-
-"error_server_title" = "Ошибка сервера";
-
-"error_server_message" = "На сервере произошла ошибка, повторите попытку позже";
 
 "error_system_message" = "Произошла неизвестная ошибка";
 
 "restore" = "Восстановить";
-
-"bookmarks_page_downloaded" = "Загруженные";
-
-"bookmarks_page_my" = "Мои";
-
-"routes_and_bookmarks" = "Маршруты и метки";
-
-"bookmarks_webview_success_toast" = "Метки успешно загружены";
-
-"cached_bookmarks_placeholder_title" = "Загрузите новые места";
-
-"cached_bookmarks_placeholder_subtitle" = "Нажмите кнопку, чтобы загрузить тысячи интересных мест и маршрутов, созданных пользователями Organic Maps. Вам понадобится подключение к интернету.";
-
-"downloader_download_routers" = "Загрузить метки";
-
-"bookmarks_groups_cached" = "Загруженные списки";
 
 "subtittle_opt_out" = "Настройки сопровождения";
 
@@ -1769,29 +1099,15 @@
 
 "crash_reports_description" = "Мы можем использовать ваши данные, чтобы развивать и улучшать Organic Maps. Изменения вступят в силу после перезапуска приложения.";
 
-"opt_out_help_ios_1" = "Вы можете отказаться от получения целевой рекламы в настройках устройства.";
-
-"opt_out_help_ios_2" = "iOS 9 или выше";
-
-"opt_out_help_ios_3" = "Откройте Настройки → Конфиденциальность → Реклама → Включите «Ограничение трекинга»";
-
-"opt_out_help_android" = "Вы можете отказаться от получения целевой рекламы в настройках устройства.\nAndroid и Google Play Сервисы 4.0 и выше\n\nНастройки телефона → Google → Реклама → Отключить персонализацию рекламы\nили\nНастройки телефона → Google → Аккаунт Google → Конфиденциальность → Настройки рекламных предпочтений → Персонализация рекламы";
-
 "privacy_policy" = "Политика конфиденциальности";
 
 "terms_of_use" = "Условия использования";
-
-"backup_notification_failed" = "Резервное копирование меток было приостановлено. Войдите, чтобы включить резервное копирование.";
 
 "button_layer_traffic" = "Пробки";
 
 "button_layer_subway" = "Метро";
 
 "layers_title" = "Слои карты";
-
-"layers_message" = "Включайте слои на карте для отображения дорожной обстановки, схемы метро или другой полезной информации";
-
-"button_layer_got_it" = "Понятно";
 
 "subway_data_unavailable" = "Карта метро недоступна";
 
@@ -1803,39 +1119,13 @@
 
 "title_error_downloading_bookmarks" = "Произошла ошибка";
 
-"subtitle_error_downloading_bookmarks" = "Метки не были загружены";
-
-"error_already_downloaded" = "Этот список уже был загружен";
-
 "popular_place" = "Популярно";
-
-"download_routes" = "Загрузить маршруты";
-
-"bookmarks_downloaded_title" = "Метки были успешно загружены";
-
-"bookmarks_downloaded_subtitle" = "Нажмите «Посмотреть на карте» чтобы посмотреть новые места из списка";
-
-"why_support" = "Зачем поддерживать Organic Maps?";
-
-"why_support_item1" = "Мы никому не отсылаем ваши личные данные, а исходный код нашего приложения открыт";
-
-"why_support_item2" = "Вы помогаете нам улучшать Organic Maps";
-
-"why_support_item3" = "Вы помогаете нам улучшать карты OpenStreetMap.org";
-
-"channels_map_update" = "Обновления карт";
-
-"server_unavailable_title" = "Сервер недоступен";
-
-"sharing_options" = "Настройки доступа";
 
 "export_file" = "Экспортировать файл";
 
 "list_settings" = "Настройки списка";
 
 "delete_list" = "Удалить список";
-
-"hide_from_map" = "Скрыть с карты";
 
 "public_access" = "Публичный доступ";
 
@@ -1845,40 +1135,11 @@
 
 "bookmark_category_description_hint" = "Добавьте описание (текст или html)";
 
-/* FIXME */
-"bookmarks_public_access" = "bookmarks_public_access";
-
-/* FIXME */
-"bookmarks_link_access" = "bookmarks_link_access";
-
-/* FIXME */
-"bookmarks_private_access" = "bookmarks_private_access";
-
 "not_shared" = "Личный";
-
-"direct_link_progress_text" = "Загружаем ваш файл…";
-
-"direct_link_success" = "Ссылка создана";
-
-"send_a_link_btn" = "Отправить ссылку";
-
-"upload_error_toast" = "Во время загрузки файла произошла ошибка";
 
 "tags_loading_error_subtitle" = "Во время загрузки тегов произошла ошибка, пожалуйста, попробуйте еще раз";
 
-"unable_upload_errorr_title" = "Не удалось загрузить файл";
-
-"unable_upload_error_subtitle_edited" = "Файл был отредактирован через веб-приложение";
-
-"unable_upload_error_subtitle_broken" = "Файл поврежден и не может быть загружен. Пожалуйста, загрузите другой файл.";
-
-"contact" = "Написать";
-
-"download_button" = "Скачать";
-
 "speedcams_alert_title" = "Камеры скорости";
-
-"speedcams_alert_subtitle" = "Предупреждать об ограничениях скорости";
 
 "speedcam_option_auto" = "Авто";
 
@@ -1886,18 +1147,10 @@
 
 "speedcam_option_never" = "Никогда";
 
-"bookmark_description_title" = "Описание метки";
-
 "place_description_title" = "Описание места";
 
 /* this text will be shown in application notification preferences opposite checkbox which enable/disable downloader notifications. Devices on Android 8+ are affected. */
 "notification_channel_downloader" = "Загрузка карт";
-
-"share_bookmarks_email_body_link" = "Здравствуйте!\n\nМетки можно скачать по ссылке: %s. Открывайте список с помощью Organic Maps и наслаждайтесь поездкой!\n\nСкачать приложение: https://omaps.app/get?kmz";
-
-"warning_speedcams_title" = "Навигатор оповестит вас о камерах при превышении скоростного лимита на %d км/ч";
-
-"warning_speedcams_subtitle" = "Не забудьте ознакомиться с правилами дорожного движения в стране путешествия.";
 
 "speedcams_notice_message" = "Авто - Предупреждать о камерах скорости, если есть риск превышения скоростного лимита\nВсегда - Всегда предупреждать о камерах\nНикогда - Никогда не предупреждать о камерах";
 
@@ -1913,23 +1166,7 @@
 
 "enable_logging_warning_message" = "Данная настройка включается для записи действий в целях диагностики, чтобы помочь нашей команде выявить проблемы с приложением. Временно включайте эту настройку только для отправки детальной информации о найденной вами проблеме в приложении.";
 
-"html_error_upload_message_try_again" = "Проверьте доступ к сети и повторите попытку";
-
-"html_error_upload_title_try_again" = "Нет соединения с Интернетом";
-
-"notification_leave_review_v2_android_short_title" = "Оставляйте отзыв и помогайте путешественникам!";
-
-"megafon" = "Роуминг, гудбай!";
-
-"notifications_illegal_alert_disable_button" = "Выключить уведомления";
-
 "access_rules_author_only" = "Редактируется онлайн";
-
-"privacy_settings_menu" = "Настройки конфиденциальности";
-
-"unable_upadate_error_title" = "Не удалось обновить маршрут";
-
-"unable_upadate_error_message" = "Возникли ошибки при обновлении. Проверьте изменения и повторите попытку";
 
 "driving_options_title" = "Настройки объезда";
 
@@ -1951,94 +1188,19 @@
 
 "change_driving_options_btn" = "Настройки объезда включены";
 
-"toll_road" = "Платная дорога";
-
-"unpaved_road" = "Грунтовая дорога";
-
-"ferry_crossing" = "Паромная переправа";
-
-"operated_by" = "Управляется оператором \"%s\"";
-
 "avoid_toll_roads_placepage" = "Избегать платных дорог";
 
 "avoid_unpaved_roads_placepage" = "Избегать грунтовых дорог";
 
 "avoid_ferry_crossing_placepage" = "Избегать паромных переправ";
 
-"type.cuisine.uzbek" = "Узбекская кухня";
-
-"trip_start" = "Поехали";
-
-"pick_destination" = "Цель";
-
-"follow_my_position" = "Отцентровать";
-
-"search_results" = "Результаты поиска";
-
-"then_turn" = "Затем";
-
-"redirect_route_alert" = "Хотите перестроить маршрут?";
-
-"redirect_route_yes" = "Да";
-
-"redirect_route_no" = "Нет";
-
-"trip_finished" = "Вы прибыли!";
-
-"keyboard_availability_alert" = "Клавиатура недоступна во время движения";
-
-"dialog_routing_change_start_carplay" = "Невозможно построить маршрут от текущего местоположения";
-
-"dialog_routing_change_end_carplay" = "Невозможно построить маршрут до конечной точки. Выберите другую";
-
-"dialog_routing_check_gps_carplay" = "Нет сигнала GPS. Проследуйте на открытую местность";
-
-"dialog_routing_unable_locate_route_carplay" = "Невозможно построить маршрут. Выберите другие точки маршрута";
-
-"dialog_routing_download_files_carplay" = "Чтобы построить маршрут, загрузите недостающие карты на своем устройстве";
-
-"dialog_routing_system_error_carplay" = "Произошла ошибка. Перезапустите приложение";
-
-"dialog_routing_rebuild_from_current_location_carplay" = "Маршрут будет перестроен от вашего текущего местоположения";
-
-"dialog_routing_rebuild_for_vehicle_carplay" = "Маршрут будет изменен на автомобильный";
-
 "ok" = "Ок";
-
-"avoid_unpaved_carplay_1" = "Без грунт.";
-
-"avoid_unpaved_carplay_2" = "Без грунтовых";
-
-"avoid_ferry_carplay_1" = "Без паромов";
-
-"avoid_ferry_carplay_2" = "Без паромов";
-
-"avoid_tolls_carplay_1" = "Без платных";
-
-"avoid_tolls_carplay_2" = "Без платных";
-
-"speedcams_alert_title_carplay_1" = "Камеры";
-
-"speedcams_alert_title_carplay_2" = "Инфо о камерах";
-
-"download_map_carplay" = "Скачайте карты в приложении Organic Maps на своем устройстве";
-
-"carplay_roundabout_exit" = "%s съезд";
 
 /* max. 10 symbols, both iOS and Android */
 "sort" = "Сортировать…";
 
 /* Android, title, max 20-22 symbols */
 "sort_bookmarks" = "Сортировать метки";
-
-/* iOS */
-"sort_default" = "Сортировать по умолчанию";
-
-"sort_type" = "Сортировать по типу";
-
-"sort_distance" = "Сортировать по расстоянию";
-
-"sort_date" = "Сортировать по дате";
 
 /* Android */
 "by_default" = "По умолчанию";
@@ -2052,63 +1214,7 @@
 /* Android */
 "by_date" = "По дате";
 
-"week_ago_sorttype" = "Неделю назад";
-
-"month_ago_sorttype" = "Месяц назад";
-
-"moremonth_ago_sorttype" = "Больше месяца назад";
-
-"moreyear_ago_sorttype" = "Больше года назад";
-
-"near_me_sorttype" = "Рядом со мной";
-
-"others_sorttype" = "Другие";
-
-"food_places" = "Еда";
-
-"tourist_places" = "Достопримечательности";
-
-"museums" = "Музеи";
-
-"parks" = "Парки";
-
-"swim_places" = "Плавание";
-
-"mountains" = "Горы";
-
-"animals" = "Животные";
-
-"hotels" = "Отели";
-
-"buildings" = "Здания";
-
-"money" = "Деньги";
-
-"shops" = "Магазины";
-
-"parkings" = "Парковки";
-
-"fuel_places" = "Заправки";
-
-"water" = "Вода";
-
-"medicine" = "Медицина";
-
 "search_in_the_list" = "Искать в списке";
-
-"view_on_map_bookmarks" = "На карте";
-
-"more_bookmarks" = "Еще…";
-
-"no_items_found" = "Ничего не найдено";
-
-/* Android, max 18 symbols */
-"bookmarks_edit_list" = "Редактировать";
-
-/* Android, max 18 symbols */
-"bookmarks_delete_list" = "Удалить список";
-
-"religious_places" = "Святые места";
 
 "select_list" = "Выбрать список";
 
@@ -2118,26 +1224,13 @@
 
 "dialog_pedestrian_route_is_long_message" = "Выберите начальную или конечную точку маршрута ближе к станции метро";
 
-/* Failed planning SUBWAY route message in navigation view */
-"routing_planning_error_subway_special" = "Ошибка построения маршрута метро";
-
 "button_layer_isolines" = "Высоты";
-
-"tips_map_layers_title_countour" = "Линии высот офлайн в Organic Maps!";
-
-"tips_map_layers_message_countour" = "Линии высот помогут спланировать путешествие на природу и не потеряться на местности";
 
 "isolines_activation_error_dialog" = "Чтобы воспользоваться линиями высот, обновите или загрузите карту нужной местности";
 
 "isolines_location_error_dialog" = "Линии высот пока не доступны в этом регионе";
 
 "elevation_profile_diff_level" = "Уровень сложности";
-
-"elevation_profile_diff_level_easy" = "Лёгкий";
-
-"elevation_profile_diff_level_moderate" = "Умеренный";
-
-"elevation_profile_diff_level_hard" = "Сложный";
 
 "elevation_profile_ascent" = "Подъём";
 
@@ -2147,25 +1240,13 @@
 
 "elevation_profile_maxaltitude" = "Макс. высота";
 
-"elevation_profile_m" = "м";
-
 "elevation_profile_difficulty" = "Сложность";
 
 "elevation_profile_distance" = "Расст.:";
 
-"elevation_profile_km" = "км";
-
 "elevation_profile_time" = "В пути:";
 
-"elevation_profile_hours" = "ч.";
-
-"elevation_profile_minutes" = "мин";
-
 "isolines_toast_zooms_1_10" = "Увеличьте карту, чтобы увидеть изолинии";
-
-"downloader_updating_ios" = "Обновление";
-
-"downloader_loading_ios" = "Загрузка";
 
 "key_information_title" = "Ключевая информация";
 

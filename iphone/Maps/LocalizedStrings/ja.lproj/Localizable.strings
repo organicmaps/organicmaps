@@ -18,9 +18,6 @@
 /* Button which deletes downloaded country */
 "delete" = "削除";
 
-/* Button "do not interrupt download" if user touched actively downloading country */
-"do_nothing" = "何もしない";
-
 "download_maps" = "マップをダウンロード";
 
 /* Settings/Downloader - info for country when download fails */
@@ -28,9 +25,6 @@
 
 /* Settings/Downloader - info for country which started downloading */
 "downloading" = "ダウンロード中…";
-
-/* Settings/Downloader - size string, only strings different from English should be translated */
-"kb" = "kB";
 
 /* Choose measurement on first launch alert - choose metric system button */
 "kilometres" = "キロメートル";
@@ -55,17 +49,11 @@
 /* Update maps later/Buy pro version later button text */
 "later" = "次の機会に";
 
-/* Don't show some dialog any more */
-"never" = "今後表示しない";
-
 /* View and button titles for accessibility */
 "search" = "検索";
 
 /* Search box placeholder text */
 "search_map" = "マップを検索";
-
-/* Settings/Downloader - info for not downloaded country */
-"touch_to_download" = "タッチしてダウンロード";
 
 /* Settings/Downloader - 3G download warning dialog confirm button */
 "use_cellular_data" = "はい";
@@ -73,20 +61,11 @@
 /* Location services are disabled by user alert - message */
 "location_is_disabled_long_text" = "端末の位置情報サービスが無効になっているか、このアプリケーションからの位置情報利用が制限されています。端末の設定を有効化してください。";
 
-/* Location Services are not available on the device alert - message */
-"device_doesnot_support_location_services" = "ご使用中の端末は位置情報サービスをサポートしていません。";
-
 /* View and button titles for accessibility */
 "zoom_to_country" = "地図に表示";
 
-/* Button text for the button at the center of the screen when the country is not downloaded */
-"country_status_download" = "地図をダウンロード\n(^ ^)";
-
 /* Button text for the button at the center of the screen when the country is not downloaded and the size should not be shown */
 "country_status_download_without_size" = "地図をダウンロード";
-
-/* Button text for the button at the center of the screen when the country is not downloaded */
-"country_status_download_without_routing" = "ルートなしで地図をダウンロード\n(^ ^)";
 
 /* Message to display at the center of the screen when the country download has failed */
 "country_status_download_failed" = "のダウンロードに失敗しました";
@@ -96,19 +75,13 @@
 
 "about_menu_title" = "Organic Mapsについて";
 
-"downloaded_touch_to_delete" = "(%@)をダウンロードしました。削除するには画面をタッチしてください。";
-
 "connection_settings" = "接続設定";
-
-"download_mb_or_kb" = "%@をダウンロード";
 
 "close" = "閉じる";
 
 "unsupported_phone" = "ハードウェアアクセラレーションされたOpenGLが必要です。残念ながらご利用中のデバイスではサポートされていません。";
 
 "download" = "ダウンロード";
-
-"external_storage_is_not_available" = "マップをダウンロードしたSDカード/USBストレージへ接続できません";
 
 "disconnect_usb_cable" = "Organic Mapsを利用するにはUSBケーブルを抜くかメモリーカードを挿入してください";
 
@@ -117,8 +90,6 @@
 "not_enough_memory" = "メモリ不足のためアプリを起動できません";
 
 "download_resources" = "利用を開始する前におおまかな世界地図をダウンロードします。これには%@の空き容量が必要です。";
-
-"getting_position" = "現在地を取得中";
 
 "download_resources_continue" = "マップを表示";
 
@@ -140,23 +111,14 @@
 /* Add New Bookmark Set dialog title */
 "add_new_set" = "新しいセットを作成";
 
-/* Place Page - Add To Bookmarks button */
-"add_to_bookmarks" = "ブックマークに追加";
-
 /* Bookmark Color dialog title */
 "bookmark_color" = "ブックマーク表示色";
 
 /* Add Bookmark Set dialog - hint when set name is empty */
 "bookmark_set_name" = "ブックマークセット名称";
 
-/* Bookmark Sets dialog title */
-"bookmark_sets" = "ブックマークセット";
-
 /* Bookmarks - dialog title */
 "bookmarks" = "ブックマーク";
-
-/* Add bookmark dialog - bookmark color */
-"color" = "表示色";
 
 /* Default bookmarks set name */
 "core_my_places" = "マイロケーション";
@@ -167,14 +129,8 @@
 /* Editor title above street and house number */
 "address" = "住所";
 
-/* Place Page - Remove Pin button */
-"remove_pin" = "ピンを削除";
-
 /* Add bookmark dialog - bookmark set, Bookmarks dialog - Bookmark set cell */
 "set" = "セット";
-
-/* Text hint in Bookmarks dialog when no any bookmarks are added */
-"bookmarks_usage_hint" = "未だブックマークがありません。\nマップ上をタップすればブックマークを追加できます。\nOrganic Maps以外のアプリで作成したブックマークの表示も可能です。KML/KMZ形式のピン情報をメールやDropbox、URLから取得してください。";
 
 /* Settings button in system menu */
 "settings" = "設定";
@@ -191,26 +147,11 @@
 /* Ask to wait user several minutes (some long process in modal dialog). */
 "wait_several_minutes" = "数分かかる場合があります。\nしばらくお待ち下さい…";
 
-/* Show bookmarks from this category on a map or not */
-"visible" = "マップに表示";
-
-/* Toast which is displayed when GPS has been deactivated */
-"gps_is_disabled_long_text" = "GPS機能が無効です。端末の設定画面から有効にしてください。";
-
 /* Measurement units title in settings activity */
 "measurement_units" = "距離計測単位";
 
 /* Detailed description of Measurement Units settings button */
 "measurement_units_summary" = "マイルまたはキロメートルを選択";
-
-/* Do search in all sources */
-"search_mode_all" = "全マップから検索";
-
-/* Do search near my position only */
-"search_mode_nearme" = "現在地周辺";
-
-/* Do search in current viewport only */
-"search_mode_viewport" = "マップ表示範囲";
 
 /* Search category for cafes, bars, restaurants */
 "eat" = "食事場所";
@@ -266,14 +207,8 @@
 /* Search category */
 "police" = "警察";
 
-/* String in search result list, when nothing found */
-"no_search_results_found" = "検索結果が見つかりませんでした";
-
 /* Notes field in Bookmarks view */
 "description" = "メモ";
-
-/* Button text */
-"share_by_email" = "Eメールで共有";
 
 /* Email Subject when sharing bookmarks category */
 "share_bookmarks_email_subject" = "Organic Mapsの位置情報シェア";
@@ -295,26 +230,11 @@
 /* Warning message when doing search around current position */
 "unknown_current_position" = "現在の座標が未確定です";
 
-/* Warning message when location country isn't downloaded during search (see also download_location_map_proposal). */
-"download_location_country" = "現在の地域をダウンロード(%@)";
-
-/* Warning message when viewport country isn't downloaded during search */
-"download_viewport_country_to_search" = "現在マップで検索している国をダウンロード(%@)";
-
 /* Alert message that we can't run Map Storage settings due to some reasons. */
 "cant_change_this_setting" = "恐れ入ります、マップストレージ設定が無効になっています。";
 
 /* Alert message that downloading is in progress. */
 "downloading_is_active" = "ダウンロードを実行中です";
-
-/* Message that will be shown in alert view, when we ask user to leave review on App Store */
-"appStore_message" = "Organic Mapsの使い心地はいかがでしょうか。もしよろしければ、App Storeでレビューや評価をお知らせください。皆様からいただく一言が開発の励みになります。ご支援をよろしくお願いいたします！";
-
-/* No, thanks */
-"no_thanks" = "いいえ";
-
-/* Share one specific bookmark using SMS, %1$@ contains om:// and %2$@ https://omaps.app link. @NOTE non-ascii symbols in the link will result in max 70 characters SMS instead of 140. */
-"bookmark_share_sms" = "私のピン情報はこの位置です。リンク: %1$@, %2$@";
 
 /* Share my position using SMS, %1$@ contains om:// and %2$@ https://omaps.app link WITHOUT NAME. @NOTE non-ascii symbols in the link will result in max 70 characters SMS instead of 140. */
 "my_position_share_sms" = "私は今ここにいます。リンク: %1$@, %2$@";
@@ -328,23 +248,11 @@
 /* Share my position using EMail, %1$@ is om:// and %2$@ is https://omaps.app link WITHOUT NAME */
 "my_position_share_email" = "私は今ここにいます: %1$@\n\nリンクをクリックすると詳細がマップに表示されます。\n\n%2$@\n\n%3$@";
 
-/* Android share by Message/SMS button text (including SMS) */
-"share_by_message" = "メッセージで共有";
-
 /* Share button text which opens menu with more buttons, like Message, EMail, Facebook etc. */
 "share" = "共有";
 
-/* iOS share by Message button text (including SMS) */
-"message" = "メッセージ";
-
 /* Share by email button text, also used in editor. */
 "email" = "Eメール";
-
-/* Copy Link */
-"copy_link" = "リンクをコピー";
-
-/* Text for the button that returns to caller application */
-"more_info" = "詳細情報を表示";
 
 /* Text for message when used successfully copied something */
 "copied_to_clipboard" = "クリップボードにコピーしました: %1$@";
@@ -354,15 +262,6 @@
 
 /* Used for bookmark editing */
 "done" = "完了";
-
-/* Summary for preferences in MWM */
-"yopme_pref_summary" = "Choose Back Screen settings";
-
-/* Title for yopme preferences in MWM */
-"yopme_pref_title" = "Back Screen Settings";
-
-/* Hint for upper-right icon p2b */
-"show_on_backscreen" = "Show on Back screen";
 
 /* Prints version number in About dialog */
 "version" = "バージョン： %@";
@@ -381,19 +280,11 @@
 
 "share_my_location" = "位置情報を共有する";
 
-"menu_search" = "検索";
-
 /* Settings general group in settings screen */
 "prefs_group_general" = "General settings";
 
 /* Settings information group in settings screen */
 "prefs_group_information" = "Information";
-
-/* Settings screen: "Map" category title */
-"prefs_group_map" = "地図";
-
-/* Settings screen: "Miscellaneous" category title */
-"prefs_group_misc" = "その他";
 
 "prefs_group_route" = "ナビゲーション";
 
@@ -419,9 +310,6 @@
 /* Settings «Map» category: «3D buildings» title */
 "pref_map_3d_buildings_title" = "3Dビルディング";
 
-/* Settings «Map» category: «3D buildings» summary */
-"pref_map_3d_buildings_subtitle" = "電池の持ち時間に影響します";
-
 /* Settings «Route» category: «Tts enabled» title */
 "pref_tts_enable_title" = "音声指示";
 
@@ -433,8 +321,6 @@
 
 /* Title for "Other" section in TTS settings. */
 "pref_tts_other_section_title" = "その他";
-
-"pref_tts_how_to_set_up_voice" = "音声設定の仕方";
 
 /* Settings «Map» category: «Record track» title */
 "pref_track_record_title" = "最近の移動経路";
@@ -455,56 +341,7 @@
 
 "recent_track_help_text" = "移動経路を一定期間記録し、地図上で確認できるようにします。注意：この機能を有効にすると、バッテリーの消費量が増えます。表示期間が終了すると、走行軌跡は地図から自動的に削除されます。";
 
-"pref_track_ios_caption" = "最近ルートは、使用した道のりを表示する機能です。";
-
-"pref_track_ios_subcaption" = "ルートを保存する期間を選択してください。";
-
-"placepage_distance" = "距離";
-
-"placepage_coordinates" = "コーディネート";
-
-"placepage_unsorted" = "未分類";
-
 "search_show_on_map" = "地図に表示";
-
-/* Used to warn user when fixing KitKat issue */
-"bookmark_move_fail" = "ブックマークを内部メモリに移動させなければなりませんが、メモリの空き容量がありません。空き容量を増やさなければ、ブックマークをご利用いただくことができません。";
-
-/* Used in More Apps menu */
-"free" = "無料";
-
-/* Used in More Apps menu */
-"buy" = "購入";
-
-/* 1st search button-like result */
-"search_on_map" = "地図を検索";
-
-/* toast with an error */
-"no_route_found" = "一致する経路がありません";
-
-/* route title */
-"route" = "経路";
-
-/* category title */
-"routes" = "ルート";
-
-/* text of notification */
-"download_map_notification" = "あなたがいる場所のマップをダウンロードしよう";
-
-/* text of notification */
-"pro_version_is_free_today" = "Organic Mapsのフルバージョンが本日無料！今すぐダウンロードして友達に教えてあげましょう。";
-
-/* Dialog for transferring maps from lite to pro. */
-"move_lite_maps_to_pro" = "ダウンロード済みの地図をOrganic Maps LiteからOrganic Mapsに転送します。完了までに数分かかるかもしれません。";
-
-/* Message to display when maps moved. */
-"move_lite_maps_to_pro_ok" = "ダウンロード済みの地図は無事Organic Mapsに転送されました";
-
-/* Message to display when maps move failed. */
-"move_lite_maps_to_pro_failed" = "地図の転送に失敗しました。Organic Maps Liteを削除してから地図を再度ダウンロードしてください。";
-
-/* Text in menu */
-"settings_and_more" = "設定&その他";
 
 /* Text in menu */
 "website" = "ウェブサイト";
@@ -527,14 +364,8 @@
 /* Text in menu */
 "openstreetmap" = "OpenStreetMap";
 
-/* Text in menu */
-"contact_us" = "お問い合わせ";
-
 /* Settings: Send feedback button and dialog title */
 "feedback" = "フィードバック";
-
-/* Text in menu */
-"subscribe_to_news" = "当社のニュースに登録";
 
 /* Text in menu */
 "rate_the_app" = "アプリを評価";
@@ -548,15 +379,6 @@
 /* Text in menu */
 "report_a_bug" = "バグを報告";
 
-/* Email subject */
-"subscribe_me_subject" = "Organic Mapsニュースレターを購読します";
-
-/* Email body */
-"subscribe_me_body" = "最新ニュース、アップデートとプロモーションにすいてまず知りたいです。いつでも購読をキャンセル出来ます。";
-
-/* About text */
-"about_text" = "Organic Mapsは世界の全ての国、全ての都市が載っている最速のオフラインマップ。どこにいてもOrganic Mapsの地図上でユーザーの現在地が分かり、付近のレストラン、ホテル、銀行、ガソリンスタンドなどが見つけられるので、自信を持って旅行ができます。インターネット接続は必要ありません。\n\n弊社では常に新機能の開発に取り組んでいるので、Organic Mapsの改善についてユーザーの皆様からのご意見やご感想をお待ちしています。アプリで問題点が見つかった際は、お気軽にsupport@organicmaps.appまでご連絡ください。どのようなリクエストにでも対応いたします!\n\nOrganic Mapsが好きでサポートしていただけますか。シンプルで完全無料の方法がいくつかあります。\n\n- お使いのアプリマーケットでレビューを投稿\n- 弊社のFacebookページで「いいね!」をクリック：http://www.facebook.com/OrganicMaps\n- Organic Mapsのことをお母様、お友達、同僚の皆様に話す (^_^)\n\n弊社アプリをご利用いただきありがとうございます。皆様からのサポートに大変感謝しております!\n\n追伸：ウィキペディアのようにユーザーによる作成や編集が可能なマッピングプロジェクトOpenStreetMapの地図データを使用しています。地図上で欠けているものや誤りを見つけた場合、https://www.openstreetmap.orgでユーザーが直接修正ができます。このような変更はOrganic Mapsのその後のバージョンリリースの際に反映されます。";
-
 /* Alert text */
 "email_error_body" = "このメールクライアントはセットアップされていません。設定するか、他の方法で%@にご連絡ください。";
 
@@ -569,12 +391,6 @@
 /* Search category */
 "wifi" = "無線LAN";
 
-/* Update map suggestion */
-"routing_map_outdated" = "ルートを作成するためにマップを更新してください。";
-
-/* Update maps suggestion */
-"routing_update_maps" = "新バージョンのOrganic Mapsは現在地から目的地までのルートを作成可能です。 この機能を使うためにマップを更新してください。";
-
 /* Update all button text */
 "downloader_update_all_button" = "全てをアップデート";
 
@@ -583,9 +399,6 @@
 
 /* Downloaded maps category */
 "downloader_downloaded_subtitle" = "ダウンロード済み";
-
-/* Downloaded maps category */
-"downloader_available_maps" = "利用可能";
 
 /* Country queued for download */
 "downloader_queued" = "待ち行列型の";
@@ -598,17 +411,6 @@
 
 "downloader_downloading" = "ダウンロード中：";
 
-"downloader_search_results" = "見つかりました";
-
-/* Disclaimer message */
-"routing_disclaimer" = "Organic Mapsアプリでルートを作成する時は、以下のことに留意してください：\n\n  - 提案されたルートは推奨するだけです。\n - 道路状況、交通規則と標識はナビゲーションのアドバイスより優先度が高くなっています。\n - マップが不正確または古くなっている場合や、ルートが最適な方法で作成されていないことがあります。\n\n  安全運転でご自愛ください！";
-
-/* Outdated maps category */
-"downloader_outdated_maps" = "旧式";
-
-/* Up to date maps category */
-"downloader_uptodate_maps" = "最新";
-
 /* Status of outdated country in the list */
 "downloader_status_outdated" = "を更新";
 
@@ -618,49 +420,14 @@
 /* Displayed in a dialog that appears when a user tries to delete a map while the app is in the follow route mode */
 "downloader_delete_map_while_routing_dialog" = "地図を削除するにはナビゲーションを停止してください。";
 
-/* Show when user try build route, but we don't know where he */
-"routing_failed_unknown_my_position" = "現在地が設定されていません。ルートを作成するには現在地を設定してください。";
-
-/* Show if use has not routing file, or InconsistentMWMandRoute */
-"routing_failed_has_no_routing_file" = "ルートを作成するには追加のデータが必要です。ダウンロードを開始しますか？";
-
-/* StartPointNotFound */
-"routing_failed_start_point_not_found" = "ルートを計算できません。出発地点の近くに道路がありません。";
-
-/* EndPointNotFound */
-"routing_failed_dst_point_not_found" = "ルートを計算できません。目的地の近くに道路がありません。";
-
 /* PointsInDifferentMWM */
 "routing_failed_cross_mwm_building" = "一つの地図に完全に収まるルートのみ作成可能です。";
-
-/* RouteNotFound */
-"routing_failed_route_not_found" = "選択した出発地と目的地との間にルートが見つかりません。別の出発地点と到着地点を選択してください。";
-
-/* InternalError */
-"routing_failed_internal_error" = "内部エラーが発生しました。もう一度地図をダウンロードしてください。問題が解決しない場合は、support@organicmaps.appまでご連絡ください。";
-
-/* Context menu item for downloader. */
-"downloader_download_map_and_routing" = "地図とルートをダウンロード";
-
-/* Context menu item for downloader. */
-"downloader_download_routing" = "ルートをダウンロード";
-
-/* Context menu item for downloader. */
-"downloader_delete_routing" = "ルートを削除";
 
 /* Context menu item for downloader. */
 "downloader_download_map" = "地図をダウンロード";
 
-"downloader_download_map_no_routing" = "ルートなしで地図をダウンロード";
-
-/* Button for routing. */
-"routing_go" = "開始！";
-
 /* Item status in downloader. */
 "downloader_retry" = "リピート";
-
-/* Item in context menu. */
-"downloader_map_and_routing" = "地図とルート";
 
 /* Item in context menu. */
 "downloader_delete_map" = "地図を削除";
@@ -668,29 +435,11 @@
 /* Item in context menu. */
 "downloader_update_map" = "地図を更新";
 
-/* Item in context menu. */
-"downloader_update_map_and_routing" = "地図とルートを更新";
-
-/* Item in context menu. */
-"downloader_map_only" = "地図のみ";
-
-/* Toolbar title */
-"toolbar_application_menu" = "アプリケーションメニュー";
-
 /* Preference text */
 "pref_use_google_play" = "現在のロケーションを取得するためにGoogle Playのサービスを使う";
 
 /* Text for rating dialog */
 "rating_just_rated" = "たった今アプリを評価したところです";
-
-/* Text for rating dialog */
-"rating_user_since" = "私は%@年からOrganic Mapsのユーザーです";
-
-/* Text for rating dialog */
-"rating_do_like_maps" = "Organic Mapsをお気に入りいただいていますか？";
-
-/* Text for rating dialog */
-"rating_tap_star" = "星印をタップしてアプリを評価してください。";
 
 /* Text for rating dialog */
 "rating_thanks" = "よろしくお願いします！";
@@ -701,23 +450,8 @@
 /* Text for rating dialog */
 "rating_send_feedback" = "フィードバックを送信";
 
-/* Text for g+ dialog */
-"rating_google_plus" = "g+をクリックして友達にこのアプリを教えてあげましょう。";
-
 /* Text for routing error dialog */
 "routing_download_maps_along" = "ルート上の地図をダウンロード";
-
-/* Text for routing error dialog */
-"routing_download_map" = "地図を入手";
-
-/* Text for routing error dialog */
-"routing_download_map_and_routing" = "最新の地図とルートデータを入手して、Organic Mapsの全機能をご利用ください。";
-
-/* Text for routing error dialog */
-"routing_get_routing_data" = "ルートデータを入手";
-
-/* Text for routing error dialog */
-"routing_get_additional_data" = "現在位置からのルート作成に必要な追加データです。";
 
 /* Text for routing error dialog */
 "routing_requires_all_map" = "ルートの作成には現在位置から目的地までのすべての地図をダウンロードし、最新のものにする必要があります。";
@@ -725,50 +459,15 @@
 /* Text for routing error dialog */
 "routing_not_enough_space" = "空き容量が足りません";
 
-/* Text for routing error dialog */
-"routing_download_more_than_avail" = "%@ MBダウンロードする必要がありますが、%@ MBしか空いていません。";
-
-/* Text for routing error dialog */
-"routing_download_roaming" = "携帯のデータ通信（ローミング）を使用して%@ MBダウンロードしようとしています。これにより、ご利用の通信会社の携帯データプランによっては追加料金が発生する可能性があります。";
-
 /* bookmark button text */
 "bookmark" = "お気に入り";
-
-/* map is not downloaded */
-"not_found_map" = "現在地の地図が見つかりません";
 
 /* location service disabled */
 "enable_location_services" = "位置情報サービスを有効化してください";
 
-/* download map */
-"download_map" = "あなたがいる場所のマップをダウンロードしよう";
-
-/* download map on iPhone */
-"download_map_iphone" = "iPhoneに現在位置の地図をダウンロード";
-
-/* clear pin */
-"nearby" = "近くに";
-
-/* clear pin */
-"clear_pin" = "ピンをクリア";
-
-/* location is undefined */
-"undefined_location" = "現在地が設定されていません。";
-
-/* download country of your location */
-"download_country" = "現在の地域をダウンロード";
-
-/* download failed */
-"download_failed" = "のダウンロードが失敗しました";
-
-/* get the map */
-"get_the_map" = "地図を入手";
-
 "save" = "保存";
 
 "edit_description_hint" = "説明（テキストまたはHTML）";
-
-"new_group" = "新規グループ";
 
 "create" = "作成";
 
@@ -795,30 +494,6 @@
 
 /* pink color */
 "pink" = "ピンク";
-
-/* deep purple color */
-"deep_purple" = "ディープパープル";
-
-/* light blue color */
-"light_blue" = "ライトブルー";
-
-/* cyan color */
-"cyan" = "シアン";
-
-/* teal color */
-"teal" = "ティール";
-
-/* lime color */
-"lime" = "ライム";
-
-/* deep orange color */
-"deep_orange" = "ディープオレンジ";
-
-/* gray color */
-"gray" = "グレイ";
-
-/* blue gray color */
-"blue_gray" = "ブルーグレイ";
 
 /* Wi-Fi available */
 "WiFi_available" = "はい";
@@ -848,13 +523,9 @@
 
 "dialog_routing_location_unknown_turn_on" = "現在地のGPSコードを確認できません。案内ルートを作成するには、位置情報サービスを有効にしてください。";
 
-"dialog_routing_location_unknown" = "現在地のGPSコードを確認できません。";
-
 "dialog_routing_download_files" = "必要なファイルをダウンロードしてください";
 
 "dialog_routing_download_and_update_all" = "案内ルートを作成するには、表示されたパスに従ってすべてのマップ、ルート情報をダウンロード、アップデートしてください。";
-
-"dialog_routing_routes_size" = "ルート情報ファイル";
 
 "dialog_routing_unable_locate_route" = "ルートの位置を確認できません";
 
@@ -884,21 +555,11 @@
 
 "dialog_routing_try_again" = "もう一度お試しください";
 
-"dialog_routing_send_error" = "問題を報告する";
-
-"dialog_routing_if_get_cross_route" = "複数マップを利用してより最適なルートを作成しますか？";
-
-"dialog_routing_cross_route_is_optimal" = "このマップの境界を越えて複数マップを利用すると、より最適なルートを作成できます。";
-
 "not_now" = "あとで";
-
-"dialog_routing_build_route" = "作成する";
 
 "dialog_routing_download_and_build_cross_route" = "マップをダウンロードし、複数マップを利用してより最適なルートを作成しますか？";
 
 "dialog_routing_download_cross_route" = "このマップの境界を越えて複数マップを利用し、より最適なルートを作成するには、マップをダウンロードしてください。";
-
-"dialog_routing_cross_route_always" = "常にこの境界を越える";
 
 
 /********** Strings for downloading map from search **********/
@@ -906,8 +567,6 @@
 "search_without_internet_advertisement" = "検索とルート作成を開始するには、地図をダウンロードしてください。地図をダウンロードすると、インターネット接続は必要なくなります。";
 
 "search_select_map" = "地図を選択";
-
-"search_select_other_map" = "別の地図を選択";
 
 /* «Show» context menu */
 "show" = "表示する";
@@ -918,17 +577,11 @@
 /* «Rename» context menu */
 "rename" = "名前を変更する";
 
-/* Bottom sheet: expand button (should be short) */
-"bottom_sheet_more" = "さらに…";
-
 /* Failed planning route message in navigation view */
 "routing_planning_error" = "ルート検索に失敗";
 
 /* Arrive routing message in navigation view */
 "routing_arrive" = "到着予定: %s";
-
-/* Text for routing::RouterResultCode::FileTooOld dialog. */
-"dialog_routing_download_and_update_maps" = "ルートを作成するには、ルートの通過する地図を全てダウンロード・アップデートしてください。";
 
 "rate_alert_title" = "このアプリが好きですか?";
 
@@ -944,19 +597,11 @@
 
 "history" = "履歴";
 
-"next_turn_then" = "その後";
-
 "closed" = "閉鎖";
-
-"back_to" = "%@に戻る";
 
 "search_not_found" = "申し訳ありませんが該当するものは見つかりませんでした。";
 
 "search_not_found_query" = "別のクエリをお試しください。";
-
-"search_not_found_map" = "検索する地図をダウンロードしてください。";
-
-"search_not_found_location" = "現在地の地図をダウンロードしてください。";
 
 "search_history_title" = "検索履歴";
 
@@ -964,23 +609,12 @@
 
 "clear_search" = "検索履歴を消去";
 
-/* Title for settings to enable/disable showcase menu button */
-"showcase_settings_title" = "オファーを表示";
-
 /* Place Page link to Wikipedia article (if map object has it). */
 "read_in_wikipedia" = "Wikipedia";
 
-"p2p_route_planning" = "ルート作成";
-
 "p2p_your_location" = "現在位置";
 
-"p2p_from" = "出発地";
-
-"p2p_to" = "目的地";
-
 "p2p_start" = "開始";
-
-"p2p_planning" = "作成中…";
 
 "p2p_from_here" = "出発地";
 
@@ -1018,15 +652,9 @@
 
 "editor_correct_mistake" = "間違いの訂正";
 
-"editor_correct_mistake_message" = "編集の間違いがあります。訂正するか、シンプルモードに切り替えてください。";
-
 "editor_add_select_location" = "現在位置";
 
 "editor_done_dialog_1" = "世界地図を変更しました。この変更を秘密にしないでください! 友達に教えて一緒に編集しましょう。";
-
-"editor_done_dialog_2" = "これは2回目の地図改善。現在地図編集者リストで%d位です。";
-
-"editor_done_dialog_3" = "地図を改善したので、友達に教えて一緒に編集しましょう。";
 
 "share_with_friends" = "友達にシェア";
 
@@ -1044,20 +672,7 @@
 
 "editor_report_problem_duplicate_place_title" = "重複している場所";
 
-"first_launch_congrats_title" = "Organic Mapsを使用する準備が整いました";
-
-"first_launch_congrats_text" = "世界中どこでも無料で検索・ナビゲーションできます。";
-
-"migrate_title" = "重要！";
-
-/* Android uses image instead of text. */
-"download_all" = "全てをダウンロード";
-
-"delete_all" = "すべて削除";
-
 "autodownload" = "自動ダウンロード";
-
-"disable_autodownload" = "自動ダウンロードを無効にする";
 
 /* Place Page opening hours text */
 "closed_now" = "現在閉店";
@@ -1072,10 +687,6 @@
 "day_off" = "終業";
 
 "today" = "今日は";
-
-"sunrise_to_sunset" = "日の出から日没まで";
-
-"sunset_to_sunrise" = "日の出から日没まで";
 
 "add_opening_hours" = "営業時間を追加";
 
@@ -1095,45 +706,18 @@
 
 "forgot_password" = "パスワードをお忘れですか？";
 
-/* Forgot Password dialog title */
-"restore_password" = "パスワードを復元";
-
-"enter_email_address_to_reset_password" = "登録の際に使用したメールアドレスを入力してください。パスワードを更新するリンクをお送りします。";
-
-"reset_password" = "パスワードをリセット";
-
-"username" = "ユーザー名";
-
 "osm_account" = "OSMアカウント";
 
 "logout" = "ログアウト";
 
-"login_and_edit_map_motivation_message" = "ログインしてマップ上のオブジェクトの詳細を編集すると、何百万人もの他のユーザーがその情報を利用できるようになります。一緒により良い世界を作りましょう。";
-
 /* Information text: "Last upload 11.01.2016" */
 "last_upload" = "最終更新";
 
-/* Motivates user to login/register, title above login buttons. */
-"you_have_edited_your_first_object" = "初めてオブジェクトを編集しました！";
-
 "thank_you" = "ありがとうございます";
-
-"login_with_google" = "Googleでログイン";
-
-"login_with_openstreetmap" = "www.openstreetmap.orgでログインしてください";
 
 "edit_place" = "場所を編集";
 
 "place_name" = "場所の名前";
-
-/* title above languages list cells in the editor, below editable name text field. */
-"other_languages" = "その他の言語";
-
-/* small button to open list with names in different languages */
-"show_more" = "もっと表示";
-
-/* small button to close list with names in different languages */
-"show_less" = "少なく表示";
 
 "add_language" = "言語を追加";
 
@@ -1164,8 +748,6 @@
 
 "please_note" = "ご注意ください";
 
-"common_no_wifi_dialog" = "WiFi接続がありません。モバイルデータ通信を続行しますか?";
-
 "downloader_delete_map_dialog" = "この地図を削除すると、今まで行った変更の全ても一緒に削除されます。";
 
 "downloader_update_maps" = "地図をアップデート";
@@ -1173,10 +755,6 @@
 "downloader_mwm_migration_dialog" = "ルートを作成するには、全ての地図をアップデートした後で再びルート計画を行う必要があります。";
 
 "downloader_search_field_hint" = "地図を検索";
-
-"migration_update_all_button" = "全ての地図をアップデート";
-
-"migration_delete_all_download_current_button" = "現在の地図をダウンロードして古い地図を削除";
 
 "migration_download_error_dialog" = "ダウンロードエラー";
 
@@ -1186,21 +764,9 @@
 
 "downloader_no_space_message" = "不必要なデータを削除してください";
 
-"editor_general_auth_error_dialog" = "一般的なログインエラー。";
-
 "editor_login_error_dialog" = "ログインエラー。";
 
-"editor_login_failed_dialog" = "ログインに失敗しました";
-
-"editor_username_error_dialog" = "ユーザー名が無効です";
-
-"editor_place_edited_dialog" = "オブジェクトを編集しました!";
-
-"editor_login_with_osm" = "OpenStreetMapを使ってログイン";
-
 "editor_profile_changes" = "確認された変更";
-
-"editor_profile_unsent_changes" = "未送信：";
 
 "editor_focus_map_on_location" = "地図を操作してオブジェクトの正しい場所を選択します。";
 
@@ -1222,13 +788,9 @@
 
 "editor_report_problem_other_title" = "異なる問題";
 
-"placepage_report_problem_button" = "問題を報告";
-
 "placepage_add_business_button" = "団体を追加";
 
 "whatsnew_editor_message_1" = "アプリから直接地図に新しい場所を追加したり、既存の場所を編集できます。";
-
-"whatsnew_editor_message_2" = "* Organic MapsはOpenStreetMapコミュニティのデータを使用しています。";
 
 "dialog_incorrect_feature_position" = "位置を変更してください";
 
@@ -1236,16 +798,10 @@
 
 "login_to_make_edits_visible" = "他のユーザーにも変更が表示されるようログインしてください。";
 
-"no_migration_during_navigation" = "ナビゲーション中は更新できません。";
-
 /* Error dialog no space */
 "migration_no_space_message" = "ダウンロードするには空き容量がさらに必要です。不必要なデータを削除してください。";
 
 "editor_sharing_title" = "Organic Mapsの地図を改善しました";
-
-"editor_comment_will_be_sent" = "いただいたコメントを地図製作者に送ります。";
-
-"editor_unsupported_category_message" = "現在未対応のカテゴリーの場所を追加しました。地図には後程表示されるようになります。";
 
 /* Downloaded 10 **of** 20 <- it is that "of" */
 "downloader_of" = "%2$d中%1$d";
@@ -1278,23 +834,9 @@
 
 "editor_operator" = "オペレーター";
 
-"editor_tag_description" = "施設を管理する企業、組織または個人を入力してください。";
-
-"editor_no_local_edits_title" = "ローカル編集はできません";
-
-"editor_no_local_edits_description" = "これは、現在お使いのデバイスでのみアクセス可能な、マップ上に提案された変更の数を示しています。";
-
-"editor_send_to_osm" = "OSMに送信";
-
-"editor_remove" = "削除";
-
-"downloader_my_maps_title" = "マイマップ";
-
 "downloader_no_downloaded_maps_title" = "マップをダウンロードしていません";
 
 "downloader_no_downloaded_maps_message" = "ロケーションの検索とオフラインナビゲートのためにマップをダウンロードしてください。";
-
-"downloader_find_place_hint" = "都市や国を検索";
 
 /* Error title that appears after certain time without location. */
 "current_location_unknown_title" = "あなたの現在地を検出し続けますか？";
@@ -1321,47 +863,13 @@
 /* iOS Dialog for the case when the location permission is not granted */
 "location_services_disabled_3" = "3. アプリの使用中を選択してください";
 
-"placepage_parking_surface" = "表面";
-
-"placepage_parking_multistorey" = "複数階";
-
-"placepage_parking_underground" = "地下";
-
-"placepage_parking_rooftop" = "屋上";
-
-"placepage_parking_sheds" = "小屋";
-
-"placepage_parking_carports" = "カーポート";
-
-"placepage_parking_boxes" = "ガレージボックス";
-
-"placepage_parking_pay" = "支払い";
-
-"placepage_parking_free" = "無料";
-
-"placepage_parking_interval" = "支払間隔";
-
-"placepage_entrance_number" = "番号";
-
-"placepage_entrance_type" = "エントランス";
-
-"placepage_flat" = "アプリ";
-
-"placepage_open_24_7" = "24時間体制";
-
 "meter" = "m";
 
 "kilometer" = "km";
 
-"kilometers_per_hour" = "キロメートル毎時";
-
 "mile" = "マイル";
 
 "foot" = "フィート";
-
-"miles_per_hour" = "マイル毎時";
-
-"day" = "日";
 
 "hour" = "時間";
 
@@ -1381,10 +889,6 @@
 
 "placepage_bookmark_name_hint" = "ブックマーク名";
 
-"placepage_personal_notes_hint" = "パーソナルメモ";
-
-"placepage_delete_bookmark_button" = "ブックマークを削除";
-
 "editor_edits_sent_message" = "あなたの提案の変更が送信されました";
 
 "editor_comment_hint" = "コメント…";
@@ -1397,8 +901,6 @@
 
 "editor_remove_place_button" = "削除";
 
-"editor_status_sending" = "送信中…";
-
 "editor_place_doesnt_exist" = "存在しない場所";
 
 "text_more_button" = "…続き";
@@ -1410,11 +912,7 @@
 
 "error_enter_correct_email" = "有効なメールアドレスを入力してください";
 
-"error_enter_correct" = "有効な値を入力してください";
-
 "refresh" = "更新";
-
-"last_update" = "最終更新日: %s";
 
 "placepage_add_place_button" = "地図上に場所を追加";
 
@@ -1426,24 +924,6 @@
 
 "editor_share_to_all_dialog_message_2" = "弊社で変更を確認します。質問がある場合はメールでご連絡します。";
 
-"navigation_overview_button" = "概要";
-
-"navigation_stop_button" = "停止";
-
-/* Text on an empty bookmark page */
-"bookmarks_empty_title" = "ブックマークを保存";
-
-"bookmarks_empty_message_1" = "★をタップしてお気に入りの場所にクイックアクセス。";
-
-"bookmarks_empty_message_2" = "メールやウェブからブックマークをインポートする。";
-
-"bookmarks_empty_message_3" = "チェックアウト：%s";
-
-/* Name of the group for booked hotels */
-"bookmarks_group_name" = "予約したホテル";
-
-"place_page_button_read_descriprion" = "詳細";
-
 /* iOS dialog for the case when recent track recording is on and the app comes back from background */
 "recent_track_background_dialog_title" = "最近の走行ルートの記録を無効にしますか？";
 
@@ -1451,8 +931,6 @@
 
 /* For sharing via SMS and so on */
 "sharing_call_action_look" = "ご覧ください";
-
-"continue_recent_track_background_button" = "続行";
 
 "recent_track_background_dialog_message" = "Organic Mapsは、あなたの位置情報をバックグラウンドで使用して最近の走行ルートを記録します。";
 
@@ -1468,33 +946,13 @@
 /* About short text (below logo) */
 "about_description" = "Organic Maps は旅に必要不可欠なオフラインアプリケーションです。Organic Maps は OpenStreetMap データに基づいており、データを編集することができます。";
 
-/* Text in menu */
-"blog" = "ブログ";
-
 "general_settings" = "一般設定";
-
-"date" = "日付 %d";
-
-/* "Report a bug" -> "Generaal Feedback" -> "Something is not working" */
-"something_is_not_working" = "動作が変です";
 
 /* For the first routing */
 "accept" = "了解";
 
-"accept_and_continue" = "Accept and continue";
-
 /* For the first routing */
 "decline" = "拒否";
-
-"install_app" = "インストール";
-
-"search_no_results_title" = "結果が見つかりません";
-
-"search_no_results_message" = "一般的な検索語句や、フィルター範囲を広げたりリセットしたりしてください。";
-
-"search_no_results_expand_area_button" = "広げる";
-
-"search_no_results_reset_button" = "フィルターをリセット";
 
 /* noun */
 "search_in_table" = "一覧";
@@ -1517,8 +975,6 @@
 
 "traffic_update_maps_text" = "交通データを表示するには、地図を更新する必要があります。";
 
-"traffic_outdated" = "交通データが古くなっています。";
-
 "big_font" = "地図上のフォントサイズを大きく";
 
 "traffic_update_app" = "Organic Maps をアップデートしてください";
@@ -1529,17 +985,7 @@
 /* "traffic" as in "road congestion" */
 "traffic_data_unavailable" = "交通データは利用できません";
 
-/* "Translation is no needed, because it's a company name" */
-"uber" = "Uber";
-
-/* Simplified colour scheme for traffic information, fewer colours are used to display traffic jams on the map. The string should be kept as short as possible */
-"pref_traffic_simplified_colors_title" = "簡易的な交通状況色";
-
 "enable_logging" = "ログを有効化";
-
-"offline_place_page_more_information" = "この場所に関する詳細情報を取得するには、インターネットに接続してください。";
-
-"failed_load_information" = "情報の読み込みに失敗しました。";
 
 /* Settings: "Send general feedback" button */
 "feedback_general" = "一般的なフィードバック";
@@ -1556,8 +1002,6 @@
 
 "whatsnew_transliteration_title" = "ラテン文字への字訳";
 
-"yandex_taxi_title" = "Yandex.Taxi";
-
 "learn_more" = "詳細情報";
 
 "core_exit" = "終了";
@@ -1568,75 +1012,19 @@
 
 "button_exit" = "終了";
 
-"settings_device_memory" = "デバイスのメモリ";
-
-"settings_card_memory" = "カードのメモリ";
-
-"settings_storage_available" = "%s 使用可能";
-
-"toast_location_permission_denied" = "アプリの位置情報へのアクセスが拒否されました";
-
-"button_use" = "使う";
-
 "planning_route_manage_route" = "ルートを編集";
 
 "button_plan" = "適用する";
-
-"button_add" = "追加";
 
 "placepage_remove_stop" = "削除";
 
 "planning_route_remove_title" = "ここにドラッグして削除";
 
-"dialog_change_start_point_message" = "出発地点を現在の場所に変更しますか？";
-
-"button_replace" = "変更する";
-
 "placepage_add_stop" = "経由地点を追加";
-
-/* Only ru/en are needed */
-"subtitle_rent" = "Rent";
-
-/* Only ru/en are needed */
-"rub_month" = "RUB/month";
-
-/* Only ru/en are needed */
-"room" = "%s-room apt.";
-
-/* Only ru/en are needed */
-"real_estate" = "Real estate";
-
-"add_my_position" = "自分の場所を追加";
-
-"choose_start_point" = "出発地点を選択";
-
-"choose_destination" = "目的地を選択";
 
 "preloader_viator_button" = "詳細情報";
 
-"start_from_my_position" = "開始位置";
-
-"profile_authorization_title" = "サインイン方法";
-
-"profile_authorization_message" = "ログイン名とパスワードなしですぐに簡単にサインインできます";
-
 "profile_authorization_error" = "エラーが発生しました。もう一度サインインしてみてください。";
-
-"service" = "サービス";
-
-"atmosphere" = "雰囲気";
-
-"value_for_money" = "金額に見合う価値";
-
-"experience" = "経験";
-
-"assortment" = "品揃え";
-
-"expertise" = "専門知識";
-
-"equipment" = "設備";
-
-"quality" = "品質";
 
 "dialog_error_storage_title" = "ストレージアクセスの問題";
 
@@ -1644,17 +1032,7 @@
 
 "setting_emulate_bad_storage" = "壊れたストレージをエミュレート";
 
-"directions_finish" = "目的地";
-
-"directions_on_foot" = "徒歩 %s";
-
 "core_entrance" = "入口";
-
-"coffee" = "コーヒー";
-
-"cleanliness" = "清潔さ";
-
-"crowdedness" = "混雑度";
 
 "error_enter_correct_name" = "正しい名前を入力してください";
 
@@ -1673,11 +1051,9 @@
 
 "downloader_percent" = "%s (%s / %s)";
 
-"downloader_process" = "%s をダウンロードしています...";
+"downloader_process" = "%s をダウンロードしています…";
 
-"downloader_applying" = "%s を適用中です...";
-
-"dialog_message_transit_not_found_connection" = "1つの交通ネットワーク内でルートを作成";
+"downloader_applying" = "%s を適用中です…";
 
 "bookmarks_error_message_share_general" = "アプリケーションエラーのため共有できません";
 
@@ -1695,17 +1071,7 @@
 
 "bookmarks_error_message_list_name_already_taken" = "別の名前を選んでください";
 
-"bookmarks_error_title_list_name_too_long" = "この名前は長すぎます";
-
-"bookmarks_error_message_list_name_too_long" = "別の名前を選んでください";
-
-"please_wait" = "お待ちください...";
-
-"phone_number" = "電話番号";
-
-"notification_unsent_reviews_title" = "あなたはいくつかの未送信のレビューを持っています";
-
-"notification_unsent_reviews_message" = "他の旅行者とレビューを共有するにはログインしてください";
+"please_wait" = "お待ちください…";
 
 "profile" = "OpenStreetMap プロフィール";
 
@@ -1719,49 +1085,13 @@
 
 "bookmarks_convert_error_message" = "一部のファイルは変換されませんでした。";
 
-"converting" = "変換中...";
-
-"wn_reinvented_bookmarks_title" = "ブックマークを作り直しました！";
-
-"wn_reinvented_bookmarks_message" = "あなたはブックマークをバックアップし、リストを作成することができます...それは素晴らしいです...";
-
-"bookmarks_restore" = "ブックマークを復元する";
-
-"bookmarks_restore_process" = "復元中...";
-
 "bookmarks_restore_title" = "このバージョンを復元しますか？";
 
-"bookmarks_restore_message" = "ブックマークは%s (%s)から復元されます";
-
-"bookmarks_restore_empty_title" = "あなたはバックアップを持っていません";
-
-"bookmarks_restore_empty_message" = "サーバーは以前に作成したバックアップを見つけられませんでした";
-
 "common_check_internet_connection_dialog_title" = "インターネット接続なし";
-
-"error_server_title" = "サーバーエラー";
-
-"error_server_message" = "サーバーにエラーがありました。後でもう一度お試しください";
 
 "error_system_message" = "不明なエラーが発生しました";
 
 "restore" = "リストア";
-
-"bookmarks_page_downloaded" = "ダウンロード済み";
-
-"bookmarks_page_my" = "私の";
-
-"routes_and_bookmarks" = "ルートとブックマーク";
-
-"bookmarks_webview_success_toast" = "ブックマークが正常にダウンロードされました";
-
-"cached_bookmarks_placeholder_title" = "新しい場所をダウンロード";
-
-"cached_bookmarks_placeholder_subtitle" = "Organic Mapsユーザーが作成した数千ものおもしろい場所やルートをダウンロードするには、このボタンを押します。インターネット接続が必要です。";
-
-"downloader_download_routers" = "ブックマークをダウンロード";
-
-"bookmarks_groups_cached" = "ダウンロード済みリスト";
 
 "subtittle_opt_out" = "追跡の設定";
 
@@ -1769,29 +1099,15 @@
 
 "crash_reports_description" = "Organic Maps体験を向上させるため、お客様のデータを使用する可能性があります。変更は、アプリを再起動した後に、反映されます。";
 
-"opt_out_help_ios_1" = "お使いの携帯端末には、「追跡型広告を制限」または「関心に基づく広告を非表示」の設定があるかもしれません。";
-
-"opt_out_help_ios_2" = "iOS 9以降";
-
-"opt_out_help_ios_3" = "設定→プライバシー→広告に進み、「追跡型広告を制限」を有効にします";
-
-"opt_out_help_android" = "お使いの携帯端末には、「追跡型広告を制限」または「関心に基づく広告を非表示」の設定があるかもしれません。\n\nAndroid、Google Play Servicesバージョン4.0以降：\n設定→Google→広告→広告パーソナライゼーションの提供停止\nor\n設定→Google→Googleアカウント→個人情報とプライバシー→広告設定→広告パーソナライゼーション";
-
 "privacy_policy" = "個人情報保護方針";
 
 "terms_of_use" = "ご利用規約";
-
-"backup_notification_failed" = "ブックマークのバックアップが中断されました。ログインして、元に戻します。";
 
 "button_layer_traffic" = "交通状況";
 
 "button_layer_subway" = "地下鉄";
 
 "layers_title" = "マップレイヤー";
-
-"layers_message" = "マップレイヤーを使用して、交通状況、地下鉄路線図、その他の有益な情報を表示";
-
-"button_layer_got_it" = "了解";
 
 "subway_data_unavailable" = "地下鉄路線図はご利用いただけません";
 
@@ -1803,39 +1119,13 @@
 
 "title_error_downloading_bookmarks" = "エラーが発生しました";
 
-"subtitle_error_downloading_bookmarks" = "ブックマークはダウンロードされませんでした";
-
-"error_already_downloaded" = "このリストは既にダウンロード済みです";
-
 "popular_place" = "Popular";
-
-"download_routes" = "Download routes";
-
-"bookmarks_downloaded_title" = "Bookmarks have been downloaded successfully";
-
-"bookmarks_downloaded_subtitle" = "Press ‘View on map’ to explore new places from the list";
-
-"why_support" = "Organic Mapsをサポートする理由？";
-
-"why_support_item1" = "We respect your privacy: there are zero trackers in the app, and we are open source";
-
-"why_support_item2" = "Organic Mapsの改善にご協力いただいております";
-
-"why_support_item3" = "オープンマップOpenStreetMap.orgの改善にご協力いただいております";
-
-"channels_map_update" = "地図の更新";
-
-"server_unavailable_title" = "サーバーは利用できません";
-
-"sharing_options" = "オプションの共有";
 
 "export_file" = "ファイルのエクスポート";
 
 "list_settings" = "リスト設定";
 
 "delete_list" = "リスト削除";
-
-"hide_from_map" = "マップから隠す";
 
 "public_access" = "パブリック・アクセス";
 
@@ -1845,40 +1135,11 @@
 
 "bookmark_category_description_hint" = "説明(テキストまたはhtml)を記入してください";
 
-/* FIXME */
-"bookmarks_public_access" = "bookmarks_public_access";
-
-/* FIXME */
-"bookmarks_link_access" = "bookmarks_link_access";
-
-/* FIXME */
-"bookmarks_private_access" = "bookmarks_private_access";
-
 "not_shared" = "非公開";
-
-"direct_link_progress_text" = "あなたのファイルをアップロードしています…";
-
-"direct_link_success" = "リンクが作成されました";
-
-"send_a_link_btn" = "リンクを自分に送る";
-
-"upload_error_toast" = "ファイルのアップロード中にエラーが起きました";
 
 "tags_loading_error_subtitle" = "タグのロード中にエラーが起きました。もう一度やり直してください";
 
-"unable_upload_errorr_title" = "ファイルのアップロードができませんでした";
-
-"unable_upload_error_subtitle_edited" = "このファイルはウェブアプリで編集されました";
-
-"unable_upload_error_subtitle_broken" = "このファイルは損傷しており、アップロードできませんでした。別のファイルをアップロードしてください。";
-
-"contact" = "連絡";
-
-"download_button" = "ダウンロード";
-
 "speedcams_alert_title" = "自動速度違反取締装置";
-
-"speedcams_alert_subtitle" = "速度制限警告";
 
 "speedcam_option_auto" = "自動";
 
@@ -1886,18 +1147,10 @@
 
 "speedcam_option_never" = "無効";
 
-"bookmark_description_title" = "ブックマークの説明";
-
 "place_description_title" = "場所の説明";
 
 /* this text will be shown in application notification preferences opposite checkbox which enable/disable downloader notifications. Devices on Android 8+ are affected. */
 "notification_channel_downloader" = "マップダウンローダー";
-
-"share_bookmarks_email_body_link" = "こんにちは!\n\nこれはあなたのブックマークをダウンロードできるリンクです:%s。Organic Mapsを通じてリストを開いて旅をお楽しみください!\n\nアプリの入手: https://omaps.app/get?kmz";
-
-"warning_speedcams_title" = "%d km/hの速度制限を超えているときナビゲーターが自動速度違反取締装置について警告します";
-
-"warning_speedcams_subtitle" = "旅行先の国の道路交通法を考慮してください。";
 
 "speedcams_notice_message" = "自動－速度制限超過の危険性がある場合には、自動速度違反取締装置について警告します\n常時－自動速度違反取締装置について常に警告します\n無効－自動速度違反取締装置を警告しません";
 
@@ -1913,23 +1166,7 @@
 
 "enable_logging_warning_message" = "このオプションは診断目的でのデータ記録を有効にします。これはこのアプリケーションのトラブルシューティングを担当する当社のサポートスタッフの助けになります。このオプションはOrganic Mapsにリクエストされた場合にのみ有効にしてください。";
 
-"html_error_upload_message_try_again" = "ネットワーク設定をチェックして、もう一度お試しください";
-
-"html_error_upload_title_try_again" = "インターネットに接続していません";
-
-"notification_leave_review_v2_android_short_title" = "レビューして旅行者を助けましょう！";
-
-"megafon" = "Say goodbye to roaming!";
-
-"notifications_illegal_alert_disable_button" = "通知を無効化";
-
 "access_rules_author_only" = "オンライン編集";
-
-"privacy_settings_menu" = "プライバシー設定";
-
-"unable_upadate_error_title" = "ファイルが更新できませんでした";
-
-"unable_upadate_error_message" = "更新中に何かミスが発生しました。変更を確認して、もう一度お試しください";
 
 "driving_options_title" = "運転オプション";
 
@@ -1951,94 +1188,19 @@
 
 "change_driving_options_btn" = "運転オプションはアクティブです";
 
-"toll_road" = "有料道路";
-
-"unpaved_road" = "未舗装道路";
-
-"ferry_crossing" = "フェリー航路";
-
-"operated_by" = "\"%s\"で稼働";
-
 "avoid_toll_roads_placepage" = "有料道路を回避";
 
 "avoid_unpaved_roads_placepage" = "未舗装道路を回避";
 
 "avoid_ferry_crossing_placepage" = "フェリー航路を回避";
 
-"type.cuisine.uzbek" = "ウズベキスタン料理";
-
-"trip_start" = "レッツゴー";
-
-"pick_destination" = "目的地";
-
-"follow_my_position" = "リセンター";
-
-"search_results" = "検索結果";
-
-"then_turn" = "その後";
-
-"redirect_route_alert" = "ルートを再構築しますか?";
-
-"redirect_route_yes" = "はい";
-
-"redirect_route_no" = "いいえ";
-
-"trip_finished" = "到着しました!";
-
-"keyboard_availability_alert" = "運転中はキーボードを使用する事はできません";
-
-"dialog_routing_change_start_carplay" = "現在位置からはルートを構築できません";
-
-"dialog_routing_change_end_carplay" = "目的地へのルートは構築できません。別の地点を選択してください";
-
-"dialog_routing_check_gps_carplay" = "GPS信号がありません。開けた場所へ移動してください";
-
-"dialog_routing_unable_locate_route_carplay" = "ルートが構築できません。別のルート地点を設定して下さい";
-
-"dialog_routing_download_files_carplay" = "ルートを作成するには、地図に表示されていない部分を端末でダウンロードします";
-
-"dialog_routing_system_error_carplay" = "エラーが発生しました。アプリを再起動してください";
-
-"dialog_routing_rebuild_from_current_location_carplay" = "ルートは現在位置から再構築されます";
-
-"dialog_routing_rebuild_for_vehicle_carplay" = "ルートは自動車用として修正されます";
-
 "ok" = "OK";
-
-"avoid_unpaved_carplay_1" = "未舗装道路無し";
-
-"avoid_unpaved_carplay_2" = "未舗装道路無し";
-
-"avoid_ferry_carplay_1" = "フェリー無し";
-
-"avoid_ferry_carplay_2" = "フェリーを回避";
-
-"avoid_tolls_carplay_1" = "有料道路無し";
-
-"avoid_tolls_carplay_2" = "有料道路を回避";
-
-"speedcams_alert_title_carplay_1" = "速度警告";
-
-"speedcams_alert_title_carplay_2" = "速度警告";
-
-"download_map_carplay" = "あなたの機器のOrganic Mapsのアプリにマップをダウンロードしてください";
-
-"carplay_roundabout_exit" = "第%s出口";
 
 /* max. 10 symbols, both iOS and Android */
 "sort" = "並び替え中…";
 
 /* Android, title, max 20-22 symbols */
 "sort_bookmarks" = "ブックマークの並び替え";
-
-/* iOS */
-"sort_default" = "デフォルトで並び替え";
-
-"sort_type" = "タイプで並び替え";
-
-"sort_distance" = "距離で並び替え";
-
-"sort_date" = "日付で並び替え";
 
 /* Android */
 "by_default" = "デフォルトで";
@@ -2052,63 +1214,7 @@
 /* Android */
 "by_date" = "日付で";
 
-"week_ago_sorttype" = "1週間前";
-
-"month_ago_sorttype" = "1ケ月前";
-
-"moremonth_ago_sorttype" = "1ケ月以上前";
-
-"moreyear_ago_sorttype" = "1年以上前";
-
-"near_me_sorttype" = "近隣";
-
-"others_sorttype" = "その他";
-
-"food_places" = "食べ物";
-
-"tourist_places" = "観光地";
-
-"museums" = "博物館";
-
-"parks" = "公園";
-
-"swim_places" = "水泳";
-
-"mountains" = "山";
-
-"animals" = "動物園";
-
-"hotels" = "ホテル";
-
-"buildings" = "ビル";
-
-"money" = "金銭";
-
-"shops" = "ショップ";
-
-"parkings" = "駐車場";
-
-"fuel_places" = "ガソリンスタンド";
-
-"water" = "水";
-
-"medicine" = "医薬品";
-
 "search_in_the_list" = "リスト内で検索";
-
-"view_on_map_bookmarks" = "マップ上";
-
-"more_bookmarks" = "更に…";
-
-"no_items_found" = "何も見つかりませんでした";
-
-/* Android, max 18 symbols */
-"bookmarks_edit_list" = "リストの編集";
-
-/* Android, max 18 symbols */
-"bookmarks_delete_list" = "リストの削除";
-
-"religious_places" = "宗教に関連した場所";
 
 "select_list" = "リストを選択";
 
@@ -2118,26 +1224,13 @@
 
 "dialog_pedestrian_route_is_long_message" = "もっと地下鉄駅に近い出発地または目的地を選択してください";
 
-/* Failed planning SUBWAY route message in navigation view */
-"routing_planning_error_subway_special" = "地下鉄ルートの計画ができませんでした";
-
 "button_layer_isolines" = "地形";
-
-"tips_map_layers_title_countour" = "Organic Mapsの新要素：オフラインのトポグラフィーレイヤー！";
-
-"tips_map_layers_message_countour" = "自然の旅で訪れる地域を全てを把握しながら計画を立て楽しみましょう";
 
 "isolines_activation_error_dialog" = "トポグラフィーレイヤーを有効化して使用するには、このエリアのマップを更新もしくはダウンロードしてください";
 
 "isolines_location_error_dialog" = "トポグラフィーレイヤーはこの地域ではまだ利用できません";
 
 "elevation_profile_diff_level" = "難易度";
-
-"elevation_profile_diff_level_easy" = "イージー";
-
-"elevation_profile_diff_level_moderate" = "ノーマル";
-
-"elevation_profile_diff_level_hard" = "ハード";
 
 "elevation_profile_ascent" = "上昇";
 
@@ -2147,25 +1240,13 @@
 
 "elevation_profile_maxaltitude" = "最大高度";
 
-"elevation_profile_m" = "m";
-
 "elevation_profile_difficulty" = "難易度";
 
 "elevation_profile_distance" = "距離：";
 
-"elevation_profile_km" = "㎞";
-
 "elevation_profile_time" = "時間：";
 
-"elevation_profile_hours" = "時間";
-
-"elevation_profile_minutes" = "分";
-
 "isolines_toast_zooms_1_10" = "等高線を調べるためにズームインしましょう";
-
-"downloader_updating_ios" = "更新中";
-
-"downloader_loading_ios" = "ダウンロード中";
 
 "key_information_title" = "重要情報";
 

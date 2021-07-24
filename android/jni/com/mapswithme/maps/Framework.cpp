@@ -1052,7 +1052,7 @@ Java_com_mapswithme_maps_Framework_nativeGetSettingsDir(JNIEnv * env, jclass)
 JNIEXPORT jobjectArray JNICALL
 Java_com_mapswithme_maps_Framework_nativeGetMovableFilesExts(JNIEnv * env, jclass)
 {
-  vector<string> exts = { DATA_FILE_EXTENSION, FONT_FILE_EXTENSION, ROUTING_FILE_EXTENSION };
+  vector<string> exts = { DATA_FILE_EXTENSION, FONT_FILE_EXTENSION };
   platform::CountryIndexes::GetIndexesExts(exts);
   return jni::ToJavaStringArray(env, exts);
 }

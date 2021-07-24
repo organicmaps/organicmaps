@@ -54,6 +54,8 @@ static const NSTimeInterval kTimeoutIntervalInSeconds = 10;
 @property(nonatomic, strong) NSURLSession *session;
 @property(nonatomic, strong) NSMutableDictionary *tasks;
 @property(nonatomic, strong) NSMutableDictionary *restoredTasks;
+/// Stores a map of URL.path => NSData to resume failed downloads.
+@property(nonatomic, strong) NSMutableDictionary *resumeData;
 @property(nonatomic, strong) MapFileSaveStrategy *saveStrategy;
 
 @end
@@ -83,6 +85,7 @@ static const NSTimeInterval kTimeoutIntervalInSeconds = 10;
     _tasks = [NSMutableDictionary dictionary];
     _saveStrategy = saveStrategy;
     _restoredTasks = [NSMutableDictionary dictionary];
+    _resumeData = [NSMutableDictionary dictionary];
 
     [_session getAllTasksWithCompletionHandler:^(NSArray<__kindof NSURLSessionTask *> *_Nonnull downloadTasks) {
       dispatch_async(dispatch_get_main_queue(), ^{
@@ -133,7 +136,9 @@ static const NSTimeInterval kTimeoutIntervalInSeconds = 10;
     [self.restoredTasks removeObjectForKey:url.path];
     taskIdentifier = restoredTask.taskIdentifier;
   } else {
-    NSURLSessionTask *task = [self.session downloadTaskWithURL:url];
+    NSData *resumeData = self.resumeData[url.path];
+    NSURLSessionTask *task = resumeData ? [self.session downloadTaskWithResumeData:resumeData]
+                                        : [self.session downloadTaskWithURL:url];
     TaskInfo *info = [[TaskInfo alloc] initWithTask:task completion:completion progress:progress];
     [self.tasks setObject:info forKey:@(task.taskIdentifier)];
     [task resume];
@@ -147,12 +152,14 @@ static const NSTimeInterval kTimeoutIntervalInSeconds = 10;
   TaskInfo *info = self.tasks[@(taskIdentifier)];
   if (info) {
     [info.task cancel];
+    [self.resumeData removeObjectForKey:info.task.currentRequest.URL.path];
     [self.tasks removeObjectForKey:@(taskIdentifier)];
   } else {
     for (NSString *key in self.restoredTasks) {
       NSURLSessionTask *restoredTask = self.restoredTasks[key];
       if (restoredTask.taskIdentifier == taskIdentifier) {
         [restoredTask cancel];
+        [self.resumeData removeObjectForKey:restoredTask.currentRequest.URL.path];
         [self.restoredTasks removeObjectForKey:key];
         break;
       }
@@ -171,12 +178,18 @@ static const NSTimeInterval kTimeoutIntervalInSeconds = 10;
 
   [self.tasks removeAllObjects];
   [self.restoredTasks removeAllObjects];
+  [self.resumeData removeAllObjects];
 }
 
 #pragma mark - NSURLSessionDownloadDelegate implementation
 
 - (void)finishDownloading:(NSURLSessionTask *)downloadTask error:(nullable NSError *)error {
-  [self.restoredTasks removeObjectForKey:downloadTask.currentRequest.URL.path];
+  NSString *urlPath = downloadTask.currentRequest.URL.path;
+  [self.restoredTasks removeObjectForKey:urlPath];
+  if (error && error.userInfo && error.userInfo[NSURLSessionDownloadTaskResumeData])
+    self.resumeData[urlPath] = error.userInfo[NSURLSessionDownloadTaskResumeData];
+  else
+    [self.resumeData removeObjectForKey:urlPath];
 
   TaskInfo *info = [self.tasks objectForKey:@(downloadTask.taskIdentifier)];
   if (!info)
@@ -194,7 +207,8 @@ static const NSTimeInterval kTimeoutIntervalInSeconds = 10;
   // Check for HTTP errors.
   // TODO: Check and prevent redirects.
   NSInteger statusCode = ((NSHTTPURLResponse *)downloadTask.response).statusCode;
-  if (statusCode != 200) {
+  // 206 for resumed downloads.
+  if (statusCode != 200 && statusCode != 206) {
     LOG(LWARNING, ("Failed to download", downloadTask.originalRequest.URL.absoluteString, "HTTP statusCode:", statusCode));
     error = [[NSError alloc] initWithDomain:@"app.omaps.http" code:statusCode userInfo:nil];
     [[NSFileManager defaultManager] removeItemAtURL:location.filePathURL error:nil];

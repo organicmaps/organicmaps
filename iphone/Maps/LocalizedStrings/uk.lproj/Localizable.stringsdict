@@ -9,21 +9,6 @@
 
 <!-- ********** Strings for downloading map from search **********/ -->
 
-  <key>bookmarks_places</key>
-  <dict>
-    <key>NSStringLocalizedFormatKey</key>
-    <string>%#@value@</string>
-    <key>value</key>
-    <dict>
-      <key>NSStringFormatSpecTypeKey</key>
-      <string>NSStringPluralRuleType</string>
-      <key>NSStringFormatValueTypeKey</key>
-      <string>d</string>
-      <key>other</key>
-      <string>%d закладок</string>
-    </dict>
-  </dict>
-
   <key>bookmarks_detect_message</key>
   <dict>
     <key>NSStringLocalizedFormatKey</key>
@@ -36,25 +21,10 @@
       <string>d</string>
       <key>one</key>
       <string>%d файл був знайдений. Ви побачите його після перетворення.</string>
-      <key>two</key>
-      <string>%d файлу були знайдені. Ви побачите їх після конвертації.</string>
       <key>other</key>
       <string>%d файлів було знайдено. Ви побачите їх після конвертації.</string>
-    </dict>
-  </dict>
-
-  <key>bookmarks_objects</key>
-  <dict>
-    <key>NSStringLocalizedFormatKey</key>
-    <string>%#@value@</string>
-    <key>value</key>
-    <dict>
-      <key>NSStringFormatSpecTypeKey</key>
-      <string>NSStringPluralRuleType</string>
-      <key>NSStringFormatValueTypeKey</key>
-      <string>d</string>
-      <key>other</key>
-      <string>%s об’єкт</string>
+      <key>two</key>
+      <string>%d файлу були знайдені. Ви побачите їх після конвертації.</string>
     </dict>
   </dict>
 
