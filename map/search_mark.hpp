@@ -113,9 +113,9 @@ public:
   void OnActivate(FeatureID const & featureId);
   void OnDeactivate(FeatureID const & featureId);
 
-  void SetUnavailable(SearchMarkPoint & mark, std::string const & reasonKey);
-  void SetUnavailable(std::vector<FeatureID> const & features, std::string const & reasonKey);
-  bool IsUnavailable(FeatureID const & id) const;
+//  void SetUnavailable(SearchMarkPoint & mark, std::string const & reasonKey);
+//  void SetUnavailable(std::vector<FeatureID> const & features, std::string const & reasonKey);
+//  bool IsUnavailable(FeatureID const & id) const;
 
   void SetVisited(FeatureID const & id);
   bool IsVisited(FeatureID const & id) const;
