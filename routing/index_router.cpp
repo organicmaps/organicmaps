@@ -128,13 +128,10 @@ unique_ptr<DirectionsEngine> CreateDirectionsEngine(VehicleType vehicleType,
   UNREACHABLE();
 }
 
-shared_ptr<TrafficStash> CreateTrafficStash(VehicleType vehicleType, shared_ptr<NumMwmIds> numMwmIds,
-                                            traffic::TrafficCache const & trafficCache)
+shared_ptr<TrafficStash> CreateTrafficStash(VehicleType, shared_ptr<NumMwmIds>, traffic::TrafficCache const &)
 {
-  if (vehicleType != VehicleType::Car)
-    return nullptr;
-
-  return make_shared<TrafficStash>(trafficCache, numMwmIds);
+  return nullptr;
+  //return (vehicleType == VehicleType::Car ? make_shared<TrafficStash>(trafficCache, numMwmIds) : nullptr);
 }
 
 /// \returns true if the mwm is ready for index graph routing and cross mwm index graph routing.
