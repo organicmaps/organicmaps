@@ -603,6 +603,7 @@
 	<string name="bookmarks_error_title_list_name_already_taken">Tämä nimi on jo otettu</string>
 	<string name="bookmarks_error_message_list_name_already_taken">Valitse toinen nimi</string>
 	<string name="please_wait">Odota…</string>
+	<string name="phone_number">Puhelinnumero</string>
 	<string name="profile">OpenStreetMap-profiili</string>
 	<string name="place_page_search_similar_hotel">Etsi samanlaisia ​​hotelleja</string>
 	<string name="bookmarks_detect_title">Uusia tiedostoja havaittiin</string>

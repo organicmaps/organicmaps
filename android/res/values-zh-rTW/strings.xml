@@ -605,6 +605,7 @@
 	<string name="bookmarks_error_title_list_name_already_taken">這個名字已經被使用了</string>
 	<string name="bookmarks_error_message_list_name_already_taken">請選擇其他名稱</string>
 	<string name="please_wait">請稍候…</string>
+	<string name="phone_number">電話號碼</string>
 	<string name="profile">OpenStreetMap 資料</string>
 	<string name="place_page_search_similar_hotel">搜索類似的酒店</string>
 	<string name="bookmarks_detect_title">檢測到新文件</string>

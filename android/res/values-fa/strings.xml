@@ -593,6 +593,7 @@
 	<string name="bookmarks_error_title_list_name_already_taken">این اسم قبلا انتخاب شده است</string>
 	<string name="bookmarks_error_message_list_name_already_taken">لطفا نام دیگری را انتخاب کنید</string>
 	<string name="please_wait">لطفا صبر کنید…</string>
+	<string name="phone_number">شماره تلفن</string>
 	<string name="profile">OpenStreetMap نمایه</string>
 	<string name="place_page_search_similar_hotel">جست‌وجوی هتل‌های مشابه</string>
 	<string name="bookmarks_detect_title">فایل‌های جدید پیدا شد</string>

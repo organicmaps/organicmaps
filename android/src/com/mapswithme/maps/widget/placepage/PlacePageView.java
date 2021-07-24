@@ -33,6 +33,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.widget.NestedScrollViewClickFixed;
 import androidx.fragment.app.Fragment;
 
+import androidx.recyclerview.widget.RecyclerView;
 import com.mapswithme.maps.Framework;
 import com.mapswithme.maps.MwmActivity;
 import com.mapswithme.maps.MwmApplication;
@@ -95,8 +96,8 @@ public class PlacePageView extends NestedScrollViewClickFixed
   private ArrowView mAvDirection;
   private TextView mTvDistance;
   private TextView mTvAddress;
-  private View mPhone;
-  private TextView mTvPhone;
+  private RecyclerView mPhoneRecycler;
+  private PlacePhoneAdapter mPhoneAdapter;
   private View mWebsite;
   private TextView mTvWebsite;
   private TextView mTvLatlon;
@@ -291,9 +292,9 @@ public class PlacePageView extends NestedScrollViewClickFixed
     mTvAddress = mPreview.findViewById(R.id.tv__address);
 
     RelativeLayout address = findViewById(R.id.ll__place_name);
-    mPhone = findViewById(R.id.ll__place_phone);
-    mPhone.setOnClickListener(this);
-    mTvPhone = findViewById(R.id.tv__place_phone);
+    mPhoneRecycler = findViewById(R.id.rw__phone);
+    mPhoneAdapter = new PlacePhoneAdapter();
+    mPhoneRecycler.setAdapter(mPhoneAdapter);
     mWebsite = findViewById(R.id.ll__place_website);
     mWebsite.setOnClickListener(this);
     mTvWebsite = findViewById(R.id.tv__place_website);
@@ -326,7 +327,6 @@ public class PlacePageView extends NestedScrollViewClickFixed
     mEditTopSpace = findViewById(R.id.edit_top_space);
     latlon.setOnLongClickListener(this);
     address.setOnLongClickListener(this);
-    mPhone.setOnLongClickListener(this);
     mWebsite.setOnLongClickListener(this);
     mOpeningHours.setOnLongClickListener(this);
     mEmail.setOnLongClickListener(this);
@@ -450,7 +450,7 @@ public class PlacePageView extends NestedScrollViewClickFixed
             break;
 
           case CALL:
-            onCallBtnClicked();
+            onCallBtnClicked(buttons);
             break;
         }
       }
@@ -537,9 +537,36 @@ public class PlacePageView extends NestedScrollViewClickFixed
       RoutingController.get().removeStop(mMapObject);
   }
 
-  private void onCallBtnClicked()
+  private List<String> getAllPhones()
   {
-    Utils.callPhone(getContext(), mTvPhone.getText().toString());
+    return mPhoneAdapter.getPhonesList();
+  }
+
+  private void onCallBtnClicked(View parentView)
+  {
+    final List<String> phones = getAllPhones();
+    if (phones.size() == 1)
+    {
+      Utils.callPhone(getContext(), phones.get(0));
+    }
+    else
+    {
+      // Show popup menu with all phones
+      final PopupMenu popup = new PopupMenu(getContext(), parentView);
+      final Menu menu = popup.getMenu();
+
+      for (int i = 0; i < phones.size(); i++)
+        menu.add(Menu.NONE, i, i, phones.get(i));
+
+      popup.setOnMenuItemClickListener(item -> {
+        final int id = item.getItemId();
+        final Context ctx = getContext();
+        Utils.callPhone(ctx, phones.get(id));
+        return true;
+      });
+
+      popup.show();
+    }
   }
 
   public void setRoutingModeListener(@Nullable RoutingModeListener routingModeListener)
@@ -771,7 +798,7 @@ public class PlacePageView extends NestedScrollViewClickFixed
     String website = mapObject.getMetadata(Metadata.MetadataType.FMD_WEBSITE);
     String url = mapObject.getMetadata(Metadata.MetadataType.FMD_URL);
     refreshMetadataOrHide(TextUtils.isEmpty(website) ? url : website, mWebsite, mTvWebsite);
-    refreshMetadataOrHide(mapObject.getMetadata(Metadata.MetadataType.FMD_PHONE_NUMBER), mPhone, mTvPhone);
+    refreshPhoneNumberList(mapObject.getMetadata(Metadata.MetadataType.FMD_PHONE_NUMBER));
     refreshMetadataOrHide(mapObject.getMetadata(Metadata.MetadataType.FMD_EMAIL), mEmail, mTvEmail);
     refreshMetadataOrHide(mapObject.getMetadata(Metadata.MetadataType.FMD_OPERATOR), mOperator, mTvOperator);
     refreshMetadataOrHide(Framework.nativeGetActiveObjectFormattedCuisine(), mCuisine, mTvCuisine);
@@ -870,6 +897,11 @@ public class PlacePageView extends NestedScrollViewClickFixed
     mTodayOpeningHours.setTextColor(color);
   }
 
+  private void refreshPhoneNumberList(String phones)
+  {
+    mPhoneAdapter.refreshPhones(phones);
+  }
+
   private void updateBookmarkButton()
   {
     if (mBookmarkButtonIcon == null || mBookmarkButtonFrame == null)
@@ -961,7 +993,12 @@ public class PlacePageView extends NestedScrollViewClickFixed
     final boolean hasNumber = mapObject.hasPhoneNumber();
 
     if (hasNumber)
+    {
       buttons.add(PlacePageButtons.Item.CALL);
+      mPhoneRecycler.setVisibility(VISIBLE);
+    }
+    else
+      mPhoneRecycler.setVisibility(GONE);
 
     boolean needToShowRoutingButtons = RoutingController.get().isPlanning() || showRoutingButton;
 
@@ -1118,9 +1155,6 @@ public class PlacePageView extends NestedScrollViewClickFixed
         }
         refreshLatLon(mMapObject);
         break;
-      case R.id.ll__place_phone:
-        Utils.callPhone(getContext(), mTvPhone.getText().toString());
-        break;
       case R.id.ll__place_website:
         Utils.openUrl(getContext(), mTvWebsite.getText().toString());
         break;
@@ -1185,9 +1219,6 @@ public class PlacePageView extends NestedScrollViewClickFixed
         break;
       case R.id.ll__place_email:
         items.add(mTvEmail.getText().toString());
-        break;
-      case R.id.ll__place_phone:
-        items.add(mTvPhone.getText().toString());
         break;
       case R.id.ll__place_schedule:
         String text = UiUtils.isVisible(mFullOpeningHours)

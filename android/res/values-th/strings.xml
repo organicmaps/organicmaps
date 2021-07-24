@@ -603,6 +603,7 @@
 	<string name="bookmarks_error_title_list_name_already_taken">ชื่อนี้ถูกนำมาใช้แล้ว</string>
 	<string name="bookmarks_error_message_list_name_already_taken">โปรดเลือกชื่ออื่น</string>
 	<string name="please_wait">โปรดรอสักครู่ …</string>
+	<string name="phone_number">หมายเลขโทรศัพท์</string>
 	<string name="profile">โปรไฟล์ OpenStreetMap</string>
 	<string name="place_page_search_similar_hotel">ค้นหาโรงแรมที่คล้ายกัน</string>
 	<string name="bookmarks_detect_title">พบไฟล์ใหม่แล้ว</string>

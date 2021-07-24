@@ -15455,6 +15455,41 @@
     sk = Prosím čakajte…
     sw = Tafadhali subiri…
 
+  [phone_number]
+    tags = android
+    en = Phone number
+    ru = Номер телефона
+    ar = رقم الهاتف
+    cs = Telefonní číslo
+    da = Telefonnummer
+    nl = Telefoonnummer
+    fi = Puhelinnumero
+    fr = Numéro de téléphone
+    de = Telefonnummer
+    hu = Telefonszám
+    id = Nomor telepon
+    it = Numero di telefono
+    ja = 電話番号
+    ko = 전화 번호
+    nb = Telefonnummer
+    pl = Numer telefonu
+    pt = Número de telefone
+    pt-BR = Número de telefone
+    ro = Numar de telefon
+    es = Número de teléfono
+    sv = Telefonnummer
+    th = หมายเลขโทรศัพท์
+    tr = Telefon numarası
+    uk = Номер телефону
+    vi = Số điện thoại
+    zh-Hans = 电话号码
+    zh-Hant = 電話號碼
+    el = Τηλεφωνικό νούμερο
+    es_MX = Número de teléfono
+    fa = شماره تلفن
+    sk = Telefónne číslo
+    sw = Nambari ya simu
+
   [profile]
     tags = android, ios
     en = OpenStreetMap profile

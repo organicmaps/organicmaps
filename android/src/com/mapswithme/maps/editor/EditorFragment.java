@@ -97,7 +97,8 @@ public class EditorFragment extends BaseMwmFragment implements View.OnClickListe
   private EditText mZipcode;
   private View mBlockLevels;
   private EditText mBuildingLevels;
-  private EditText mPhone;
+  private TextView mPhone;
+  private TextView mEditPhoneLink;
   private EditText mWebsite;
   private EditText mEmail;
   private TextView mCuisine;
@@ -107,7 +108,6 @@ public class EditorFragment extends BaseMwmFragment implements View.OnClickListe
   private TextInputLayout mInputHouseNumber;
   private TextInputLayout mInputBuildingLevels;
   private TextInputLayout mInputZipcode;
-  private TextInputLayout mInputPhone;
   private TextInputLayout mInputWebsite;
   private TextInputLayout mInputEmail;
 
@@ -170,14 +170,6 @@ public class EditorFragment extends BaseMwmFragment implements View.OnClickListe
     });
 
     mPhone.setText(Editor.nativeGetPhone());
-    mPhone.addTextChangedListener(new StringUtils.SimpleTextWatcher()
-    {
-      @Override
-      public void onTextChanged(CharSequence s, int start, int before, int count)
-      {
-        UiUtils.setInputError(mInputPhone, Editor.nativeIsPhoneValid(s.toString()) ? 0 : R.string.error_enter_correct_phone);
-      }
-    });
 
     mWebsite.setText(Editor.nativeGetWebsite());
     mWebsite.addTextChangedListener(new StringUtils.SimpleTextWatcher()
@@ -222,7 +214,6 @@ public class EditorFragment extends BaseMwmFragment implements View.OnClickListe
     Editor.nativeSetHouseNumber(mHouseNumber.getText().toString());
     Editor.nativeSetZipCode(mZipcode.getText().toString());
     Editor.nativeSetBuildingLevels(mBuildingLevels.getText().toString());
-    Editor.nativeSetPhone(mPhone.getText().toString());
     Editor.nativeSetWebsite(mWebsite.getText().toString());
     Editor.nativeSetEmail(mEmail.getText().toString());
     Editor.nativeSetHasWifi(mWifi.isChecked());
@@ -433,9 +424,10 @@ public class EditorFragment extends BaseMwmFragment implements View.OnClickListe
     mBuildingLevels.setInputType(InputType.TYPE_CLASS_NUMBER);
     mInputBuildingLevels = mBlockLevels.findViewById(R.id.custom_input);
     View blockPhone = view.findViewById(R.id.block_phone);
-    mPhone = findInputAndInitBlock(blockPhone, R.drawable.ic_phone, R.string.phone);
-    mPhone.setInputType(InputType.TYPE_CLASS_PHONE);
-    mInputPhone = blockPhone.findViewById(R.id.custom_input);
+    mPhone = blockPhone.findViewById(R.id.phone);
+    mEditPhoneLink = blockPhone.findViewById(R.id.edit_phone);
+    mEditPhoneLink.setOnClickListener(this);
+    mPhone.setOnClickListener(this);
     View blockWeb = view.findViewById(R.id.block_website);
     mWebsite = findInputAndInitBlock(blockWeb, R.drawable.ic_website, R.string.website);
     mWebsite.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_URI);
@@ -502,6 +494,9 @@ public class EditorFragment extends BaseMwmFragment implements View.OnClickListe
     case R.id.opening_hours:
       mParent.editTimetable();
       break;
+    case R.id.phone:
+    case R.id.edit_phone:
+      mParent.editPhone();
     case R.id.block_wifi:
       mWifi.toggle();
       break;
