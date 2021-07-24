@@ -72,6 +72,8 @@
 	<string name="bookmark_color">Warna Penanda</string>
 	<!-- Add Bookmark Set dialog - hint when set name is empty -->
 	<string name="bookmark_set_name">Nama Set Penanda</string>
+	<!-- Bookmark Sets dialog title -->
+	<string name="bookmark_sets">Set Penanda</string>
 	<!-- Bookmarks - dialog title -->
 	<string name="bookmarks">Penanda</string>
 	<!-- Default bookmarks set name -->
@@ -237,12 +239,15 @@
 	<string name="downloader_cancel_all">Batalkan Semuanya</string>
 	<!-- Downloaded maps category -->
 	<string name="downloader_downloaded_subtitle">Diunduh</string>
+	<!-- Downloaded maps category -->
+	<string name="downloader_available_maps">Tersedia</string>
 	<!-- Country queued for download -->
 	<string name="downloader_queued">Telah diantrekan</string>
 	<string name="downloader_near_me_subtitle">Dekat saya</string>
 	<string name="downloader_status_maps">Peta</string>
 	<string name="downloader_download_all_button">Unduh semua</string>
 	<string name="downloader_downloading">Mengunduh:</string>
+	<string name="downloader_search_results">Ditemukan</string>
 	<!-- Status of outdated country in the list -->
 	<string name="downloader_status_outdated">Perbarui</string>
 	<!-- Status of failed country in the list -->
@@ -280,6 +285,7 @@
 	<!-- location service disabled -->
 	<string name="enable_location_services">Mohon aktifkan Layanan Lokasi</string>
 	<string name="save">Simpan</string>
+	<string name="edit_description_hint">Deskripsi Anda (teks atau html)</string>
 	<string name="create">buat</string>
 	<!-- red color -->
 	<string name="red">Đỏ</string>
@@ -475,6 +481,7 @@
 	<string name="editor_detailed_description">Saran perubahan Anda akan dikirimkan ke komunitas OpenStreetMap. Jelaskan detail yang tidak dapat diedit di Organic Maps.</string>
 	<string name="editor_more_about_osm">Selengkapnya tentang OpenStreetMap</string>
 	<string name="editor_operator">Pemilik</string>
+	<string name="downloader_my_maps_title">Peta saya</string>
 	<string name="downloader_no_downloaded_maps_title">Tidak ada peta apa pun yang diunduh</string>
 	<string name="downloader_no_downloaded_maps_message">Unduh peta untuk menemukan lokasi dan bernavigasi secara offline.</string>
 	<!-- Error title that appears after certain time without location. -->
@@ -493,8 +500,10 @@
 	<string name="location_services_disabled_3">3. Pilih While Using the App</string>
 	<string name="meter">m</string>
 	<string name="kilometer">km</string>
+	<string name="kilometers_per_hour">km/j</string>
 	<string name="mile">mil</string>
 	<string name="foot">kaki</string>
+	<string name="miles_per_hour">mpj</string>
 	<string name="hour">j</string>
 	<string name="minute">mnt</string>
 	<string name="placepage_place_description">Deskripsi</string>
@@ -504,6 +513,8 @@
 	<string name="placepage_call_button">Hubungi</string>
 	<string name="placepage_edit_bookmark_button">Edit Bookmark</string>
 	<string name="placepage_bookmark_name_hint">Nama Bookmark</string>
+	<string name="placepage_personal_notes_hint">Catatan pribadi</string>
+	<string name="placepage_delete_bookmark_button">Hapus Bookmark</string>
 	<string name="editor_edits_sent_message">Saran perubahan Anda telah dikirim</string>
 	<string name="editor_comment_hint">Komentar…</string>
 	<string name="editor_reset_edits_message">Atur ulang perubahan lokal?</string>
@@ -523,6 +534,7 @@
 	<!-- iOS Dialog before publishing the modifications to the public map. -->
 	<string name="editor_share_to_all_dialog_message_1">Pastikan Anda tidak memasukkan data pribadi apa pun.</string>
 	<string name="editor_share_to_all_dialog_message_2">Kami akan memeriksa perubahan tersebut. Jika kami memiliki pertanyaan maka kami akan menghubungi Anda melalui surel.</string>
+	<string name="navigation_stop_button">berhenti</string>
 	<!-- iOS dialog for the case when recent track recording is on and the app comes back from background -->
 	<string name="recent_track_background_dialog_title">Nonaktifkan rekaman dari rute yang baru Anda lalui?</string>
 	<string name="off_recent_track_background_button">Nonaktifkan</string>
@@ -567,7 +579,7 @@
 	<string name="prefs_languages_information">Kami menggunakan TTS sistem untuk petunjuk suara. Banyak perangkat Android menggunakan Google TTS, Anda dapat mengunduhnya dari Google Play (https://play.google.com/store/apps/details?id=com.google.android.tts)</string>
 	<string name="prefs_languages_information_off">Untuk beberapa bahasa, Anda perlu menginstal synthesizer suara atau paket bahasa tambahan dari toko aplikasi (Google Play Market, Samsung Apps).\nBuka pengaturan perangkat Anda → Language and input (Bahasa dan input) → Speech (Suara) → Text to speech (Teks ke suara).\nDi sini, Anda dapat mengelola pengaturan untuk sintesis suara (contohnya, mengunduh paket bahasa untuk penggunaan tanpa internet) dan memilih mesin tekske suara lain.</string>
 	<string name="prefs_languages_information_off_link">Untuk informasi selengkapnya, bacalah panduan ini.</string>
-	<string name="whatsnew_transliteration_title">Transliterasi ke dalam bahasa Latin</string>
+	<string name="transliteration_title">Transliterasi ke dalam bahasa Latin</string>
 	<string name="learn_more">Pelajari selengkapnya</string>
 	<string name="core_exit">Keluar</string>
 	<string name="routing_add_start_point">Tambahkan titik awal untuk merencanakan rute</string>
@@ -579,6 +591,7 @@
 	<string name="planning_route_remove_title">Seret ke sini untuk menghapus</string>
 	<string name="placepage_add_stop">Tambah perhentian</string>
 	<string name="preloader_viator_button">Pelajari selengkapnya</string>
+	<string name="start_from_my_position">Mulai dari</string>
 	<string name="profile_authorization_error">Ah, tadi ada kesalahan. Coba masuk kembali.</string>
 	<string name="dialog_error_storage_title">Masalah akses penyimpanan</string>
 	<string name="dialog_error_storage_message">Penyimpanan eksternal tidak tersedia, mungkin Kartu SD sudah dilepaskan, rusak, atau sistem berkasnya hanya dapat dibaca. Silakan periksa dan beri tahu kami di alamat support\@ maps.me</string>
@@ -588,6 +601,9 @@
 	<string name="bookmarks_groups">Daftar</string>
 	<string name="bookmarks_groups_hide_all">Sembunyikan semua</string>
 	<string name="bookmarks_groups_show_all">Perlihatkan semua</string>
+	<plurals name="bookmarks_places">
+	  <item quantity="other">%d markah</item>
+	</plurals>
 	<string name="bookmarks_create_new_group">Buat daftar baru</string>
 	<string name="downloader_hide_screen">Sembunyikan Layar</string>
 	<string name="downloader_percent">%1$s (%2$s dari %3$s)</string>
@@ -601,6 +617,7 @@
 	<string name="bookmarks_new_list_hint">Daftar baru</string>
 	<string name="bookmarks_error_title_list_name_already_taken">Nama ini sudah dipakai</string>
 	<string name="bookmarks_error_message_list_name_already_taken">Silakan pilih nama lain</string>
+	<string name="bookmarks_error_title_list_name_too_long">Nama ini terlalu panjang</string>
 	<string name="please_wait">Mohon tunggu…</string>
 	<string name="phone_number">Nomor telepon</string>
 	<string name="profile">Profil OpenStreetMap</string>
@@ -648,6 +665,7 @@
 	<string name="bookmark_category_description_hint">Ketikkan deskripsi (teks atau html)</string>
 	<string name="not_shared">Pribadi</string>
 	<string name="tags_loading_error_subtitle">Kesalahan terjadi saat memuat tag, silakan coba lagi</string>
+	<string name="download_button">Unduh</string>
 	<string name="speedcams_alert_title">Kamera cepat</string>
 	<string name="speedcam_option_auto">Auto</string>
 	<string name="speedcam_option_always">Selalu</string>
@@ -673,14 +691,50 @@
 	<string name="unable_to_calc_alert_subtitle">Sayangnya kami tidak dapat menemukan rute karena opsi pilihan Anda. Harap ubah pengaturan lalu coba lagi</string>
 	<string name="define_to_avoid_btn">Tentukan jalan yang dihindari</string>
 	<string name="change_driving_options_btn">Opsi perutean diaktifkan</string>
+	<string name="toll_road">Jalan tol</string>
+	<string name="unpaved_road">Jalan tanah</string>
+	<string name="ferry_crossing">Penyeberangan kapal feri</string>
 	<string name="avoid_toll_roads_placepage">Hindari jalan tol</string>
 	<string name="avoid_unpaved_roads_placepage">Hindari jalan tanah</string>
 	<string name="avoid_ferry_crossing_placepage">Hindari penyeberangan kapal feri</string>
+	<string name="trip_start">Ayo</string>
+	<string name="pick_destination">Tujuan</string>
+	<string name="follow_my_position">Pusatkan ulang</string>
+	<string name="search_results">Hasil pencarian</string>
+	<string name="then_turn">Lalu</string>
+	<string name="redirect_route_alert">Anda ingin membuat ulang rute?</string>
+	<string name="redirect_route_yes">Ya</string>
+	<string name="redirect_route_no">Tidak</string>
+	<string name="trip_finished">Anda telah tiba!</string>
+	<string name="keyboard_availability_alert">Papan ketik tidak tersedia saat berkendara</string>
+	<string name="dialog_routing_change_start_carplay">Tidak dapat membuat rute dari lokasi saat ini</string>
+	<string name="dialog_routing_change_end_carplay">Tidak dapat membuat rute ke tujuan Anda. Pilih titik lainnya</string>
+	<string name="dialog_routing_check_gps_carplay">Tidak ada sinyal GPS. Harap pindah ke area terbuka</string>
+	<string name="dialog_routing_unable_locate_route_carplay">Tidak dapat membuat rute. Harap tentukan titik rute lainnya</string>
+	<string name="dialog_routing_download_files_carplay">Untuk membuat rute, unduh peta baru di perangkat anda</string>
+	<string name="dialog_routing_system_error_carplay">Terjadi kesalahan. Harap mulai ulang aplikasi</string>
+	<string name="dialog_routing_rebuild_from_current_location_carplay">Rute akan dibuat ulang dari lokasi saat ini</string>
+	<string name="dialog_routing_rebuild_for_vehicle_carplay">Rute akan diubah untuk mobil</string>
 	<string name="ok">Oke</string>
+	<string name="avoid_unpaved_carplay_1">Jalan aspal</string>
+	<string name="avoid_unpaved_carplay_2">Hindari tanah</string>
+	<string name="avoid_ferry_carplay_1">Tanpa feri</string>
+	<string name="avoid_ferry_carplay_2">Hindari feri</string>
+	<string name="avoid_tolls_carplay_1">Tanpa tol</string>
+	<string name="avoid_tolls_carplay_2">Hindari tol</string>
+	<string name="speedcams_alert_title_carplay_1">Speedcam</string>
+	<string name="speedcams_alert_title_carplay_2">Info kecepatan</string>
+	<string name="download_map_carplay">Silakan unduh peta di apl Organic Maps pada perangkat Anda</string>
+	<string name="carplay_roundabout_exit">Jalan keluar ke %s</string>
 	<!-- max. 10 symbols, both iOS and Android -->
 	<string name="sort">Urutkan…</string>
 	<!-- Android, title, max 20-22 symbols -->
 	<string name="sort_bookmarks">Urutkan bookmark</string>
+	<!-- iOS -->
+	<string name="sort_default">Urutkan standar</string>
+	<string name="sort_type">Urutkan per tipe</string>
+	<string name="sort_distance">Urutkan per jarak</string>
+	<string name="sort_date">Urutkan per tanggal</string>
 	<!-- Android -->
 	<string name="by_default">Standar</string>
 	<!-- Android -->
@@ -689,7 +743,29 @@
 	<string name="by_distance">Per jarak</string>
 	<!-- Android -->
 	<string name="by_date">Per tanggal</string>
+	<string name="week_ago_sorttype">Seminggu yang lalu</string>
+	<string name="month_ago_sorttype">Sebulan yang lalu</string>
+	<string name="moremonth_ago_sorttype">Lebih dari sebulan yang lalu</string>
+	<string name="moreyear_ago_sorttype">Lebih dari setahun yang lalu</string>
+	<string name="near_me_sorttype">Dekat dengan saya</string>
+	<string name="others_sorttype">Lainnya</string>
+	<string name="food_places">Makanan</string>
+	<string name="tourist_places">Tempat Rekreasi</string>
+	<string name="museums">Museum</string>
+	<string name="parks">Taman</string>
+	<string name="swim_places">Kolam renang</string>
+	<string name="mountains">Pegunungan</string>
+	<string name="animals">Kebun binatang</string>
+	<string name="hotels">Hotel</string>
+	<string name="buildings">Gedung</string>
+	<string name="money">Uang</string>
+	<string name="shops">Pusat perbelanjaan</string>
+	<string name="parkings">Parkir</string>
+	<string name="fuel_places">SPBU</string>
+	<string name="water">Air</string>
+	<string name="medicine">Obat</string>
 	<string name="search_in_the_list">Cari dalam daftar</string>
+	<string name="religious_places">Tempat ibadah</string>
 	<string name="select_list">Pilih daftar</string>
 	<string name="transit_not_found">Navigasi kereta bawah tanah di wilayah ini belum tersedia</string>
 	<string name="dialog_pedestrian_route_is_long_header">Jalur kereta bawah tanah tidak ditemukan</string>
@@ -698,6 +774,9 @@
 	<string name="isolines_activation_error_dialog">Untuk mengaktifkan dan menggunakan lapisan topografi, silakan perbarui atau unduh peta area</string>
 	<string name="isolines_location_error_dialog">Lapisan topografi belum tersedia untuk wilayah ini</string>
 	<string name="elevation_profile_diff_level">Tingkat kesulitan</string>
+	<string name="elevation_profile_diff_level_easy">Mudah</string>
+	<string name="elevation_profile_diff_level_moderate">Sedang</string>
+	<string name="elevation_profile_diff_level_hard">Sulit</string>
 	<string name="elevation_profile_ascent">Menanjak</string>
 	<string name="elevation_profile_descent">Menurun</string>
 	<string name="elevation_profile_minaltitude">Ketinggian Min.</string>
@@ -706,6 +785,8 @@
 	<string name="elevation_profile_distance">Jarak:</string>
 	<string name="elevation_profile_time">Waktu:</string>
 	<string name="isolines_toast_zooms_1_10">Perbesar untuk menjelajahi garis kontur</string>
+	<string name="downloader_updating_ios">Memperbarui</string>
+	<string name="downloader_loading_ios">Mengunduh</string>
 	<string name="key_information_title">Informasi kunci</string>
 	<string name="enable_screen_sleep">Izinkan layar untuk tidur</string>
 	<!-- Description in preferences -->

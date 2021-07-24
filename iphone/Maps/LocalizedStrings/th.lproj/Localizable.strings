@@ -38,8 +38,6 @@
 /* Settings/Downloader - size string, only strings different from English should be translated */
 "mb" = "MB";
 
-"gb" = "GB";
-
 /* Choose measurement on first launch alert - choose imperial system button */
 "miles" = "ไมล์";
 
@@ -116,6 +114,9 @@
 
 /* Add Bookmark Set dialog - hint when set name is empty */
 "bookmark_set_name" = "ชื่อของชุดบุ๊กมาร์ก";
+
+/* Bookmark Sets dialog title */
+"bookmark_sets" = "ชุดของบุ๊กมาร์ก";
 
 /* Bookmarks - dialog title */
 "bookmarks" = "บุ๊กมาร์ก";
@@ -213,8 +214,6 @@
 /* Email Subject when sharing bookmarks category */
 "share_bookmarks_email_subject" = "แชร์บุ๊กมาร์กของ Organic Maps แล้ว";
 
-"share_bookmarks_email_body" = "Hello!\n\nAttached are my bookmarks from Organic Maps app. Please open them if you have Organic Maps installed. Or, if you don't, download the app for your iOS or Android device by following this link: https://omaps.app/get?kmz\n\nEnjoy traveling with Organic Maps!";
-
 /* message title of loading file */
 "load_kmz_title" = "กำลังโหลดบุ๊กมาร์ก";
 
@@ -266,9 +265,6 @@
 /* Prints version number in About dialog */
 "version" = "เวอร์ชัน: %@";
 
-/* Data version in «About» screen */
-"data_version" = "Data version: %d";
-
 /* Confirmation in downloading countries dialog */
 "are_you_sure" = "คุณแน่ใจหรือไม่ว่าคุณต้องการดำเนินการต่อ?";
 
@@ -279,12 +275,6 @@
 "length" = "ระยะเวลา";
 
 "share_my_location" = "แชร์ตำแหน่งที่ตั้งของฉัน";
-
-/* Settings general group in settings screen */
-"prefs_group_general" = "General settings";
-
-/* Settings information group in settings screen */
-"prefs_group_information" = "Information";
 
 "prefs_group_route" = "การนำทาง";
 
@@ -346,24 +336,6 @@
 /* Text in menu */
 "website" = "เว็บไซต์";
 
-/* Text in menu */
-"github" = "GitHub";
-
-/* Text in menu */
-"telegram" = "Telegram";
-
-/* Text in menu */
-"facebook" = "Facebook";
-
-/* Text in menu */
-"twitter" = "Twitter";
-
-/* Text in menu */
-"instagram" = "Instagram";
-
-/* Text in menu */
-"openstreetmap" = "OpenStreetMap";
-
 /* Settings: Send feedback button and dialog title */
 "feedback" = "ข้อเสนอแนะ";
 
@@ -400,6 +372,9 @@
 /* Downloaded maps category */
 "downloader_downloaded_subtitle" = "ดาวน์โหลดแล้ว";
 
+/* Downloaded maps category */
+"downloader_available_maps" = "มีให้ใช้";
+
 /* Country queued for download */
 "downloader_queued" = "ต่อแถว";
 
@@ -410,6 +385,8 @@
 "downloader_download_all_button" = "ดาวน์โหลดทั้งหมด";
 
 "downloader_downloading" = "กำลังดาวน์โหลด:";
+
+"downloader_search_results" = "พบ";
 
 /* Status of outdated country in the list */
 "downloader_status_outdated" = "ปรับปรุง";
@@ -608,9 +585,6 @@
 "search_history_text" = "เข้าถึงคำถามที่ใช้ในการค้นหาเมื่อเร็ว ๆ นี้ได้อย่างรวดเร็ว";
 
 "clear_search" = "ล้างการค้นหาประวัติ";
-
-/* Place Page link to Wikipedia article (if map object has it). */
-"read_in_wikipedia" = "Wikipedia";
 
 "p2p_your_location" = "ตำแหน่งที่ตั้งของคุณ";
 
@@ -834,6 +808,8 @@
 
 "editor_operator" = "เจ้าของ";
 
+"downloader_my_maps_title" = "แผนที่ของฉัน";
+
 "downloader_no_downloaded_maps_title" = "คุณยังไม่ได้ดาวน์โหลดแผนที่";
 
 "downloader_no_downloaded_maps_message" = "ดาวน์โหลดแผนที่เพื่อค้นหาสถานที่ และนำทางแบบออฟไลน์";
@@ -867,9 +843,13 @@
 
 "kilometer" = "กม.";
 
+"kilometers_per_hour" = "กม./ชม.";
+
 "mile" = "ไมล์";
 
 "foot" = "ฟุต";
+
+"miles_per_hour" = "ไมล์/ชม.";
 
 "hour" = "ชม.";
 
@@ -888,6 +868,10 @@
 "placepage_edit_bookmark_button" = "แก้ไข Bookmark";
 
 "placepage_bookmark_name_hint" = "ชื่อของ Bookmark";
+
+"placepage_personal_notes_hint" = "ข้อความส่วนตัว";
+
+"placepage_delete_bookmark_button" = "ลบ Bookmark";
 
 "editor_edits_sent_message" = "คำแนะนำการเปลี่ยนแปลงของคุณถูกส่งไปแล้ว";
 
@@ -923,6 +907,8 @@
 "editor_share_to_all_dialog_message_1" = "ตรวจสอบว่าคุณไม่ได้กรอกข้อมูลส่วนตัวใด ๆ";
 
 "editor_share_to_all_dialog_message_2" = "เราจะตรวจสอบการเปลี่ยนแปลง หากเรามีคำถามใด ๆ เราจะติดต่อคุณผ่านทางอีเมล";
+
+"navigation_stop_button" = "หยุด";
 
 /* iOS dialog for the case when recent track recording is on and the app comes back from background */
 "recent_track_background_dialog_title" = "ปิดการใช้งานการบันทึกเส้นทางที่คุณเดินทางเมื่อเร็ว ๆ นี้?";
@@ -1000,7 +986,7 @@
 
 "prefs_languages_information_off_link" = "สำหรับข้อมูลเพิ่มเติม กรุณาเข้าชมคำแนะนำนี้";
 
-"whatsnew_transliteration_title" = "การทับศัพท์เป็นภาษาละติน";
+"transliteration_title" = "การทับศัพท์เป็นภาษาละติน";
 
 "learn_more" = "ศึกษาเพิ่มเติม";
 
@@ -1024,6 +1010,8 @@
 
 "preloader_viator_button" = "เรียนรู้เพิ่มเติม";
 
+"start_from_my_position" = "เริ่มจาก";
+
 "profile_authorization_error" = "โอ๊ะ มีข้อผิดพลาดเกิดขึ้น ลองลงชื่อเข้าใช้อีกครั้ง";
 
 "dialog_error_storage_title" = "ปัญหาการเข้าถึงที่เก็บข้อมูล";
@@ -1043,9 +1031,6 @@
 "bookmarks_groups_show_all" = "แสดงทั้งหมด";
 
 "bookmarks_create_new_group" = "สร้างรายการใหม่";
-
-/* Bookmark categories screen */
-"bookmarks_import" = "Import bookmarks";
 
 "downloader_hide_screen" = "ซ่อนหน้าจอ";
 
@@ -1071,7 +1056,11 @@
 
 "bookmarks_error_message_list_name_already_taken" = "โปรดเลือกชื่ออื่น";
 
+"bookmarks_error_title_list_name_too_long" = "ชื่อนี้ยาวเกินไป";
+
 "please_wait" = "โปรดรอสักครู่ …";
+
+"phone_number" = "หมายเลขโทรศัพท์";
 
 "profile" = "โปรไฟล์ OpenStreetMap";
 
@@ -1119,8 +1108,6 @@
 
 "title_error_downloading_bookmarks" = "มีข้อผิดพลาดเกิดขึ้น";
 
-"popular_place" = "Popular";
-
 "export_file" = "ส่งออกไฟล์";
 
 "list_settings" = "การตั้งค่ารายการ";
@@ -1138,6 +1125,8 @@
 "not_shared" = "ส่วนตัว";
 
 "tags_loading_error_subtitle" = "เกิดข้อผิดพลาดขณะโหลดแท็ก โปรดลองใหม่อีกครั้ง";
+
+"download_button" = "ดาวน์โหลด";
 
 "speedcams_alert_title" = "กล้องตรวจจับความเร็ว";
 
@@ -1188,19 +1177,90 @@
 
 "change_driving_options_btn" = "เปิดใช้การค้นหาเส้นทางขับขี่แล้ว";
 
+"toll_road" = "ถนนแบบเสียค่าผ่านทาง";
+
+"unpaved_road" = "ถนนดิน";
+
+"ferry_crossing" = "เรือข้ามฟาก";
+
 "avoid_toll_roads_placepage" = "เลี่ยงทางที่ต้องเสียเงินทั้งหมด";
 
 "avoid_unpaved_roads_placepage" = "เลี่ยงถนนดินทั้งหมด";
 
 "avoid_ferry_crossing_placepage" = "เลี่ยงการข้ามฟากด้วยเรือ";
 
+"trip_start" = "ไปกันเลย";
+
+"pick_destination" = "จุดหมาย";
+
+"follow_my_position" = "รีเซ็นเตอร์";
+
+"search_results" = "ผลการค้นหา";
+
+"then_turn" = "จากนั้น";
+
+"redirect_route_alert" = "ต้องการสร้างเส้นทางใหม่หรือไม่";
+
+"redirect_route_yes" = "ใช่";
+
+"redirect_route_no" = "ไม่ใช่";
+
+"trip_finished" = "คุณมาถึงแล้ว!";
+
+"keyboard_availability_alert" = "คีย์บอร์ดไม่สามารถใช้งานได้ขณะขับขี่";
+
+"dialog_routing_change_start_carplay" = "ไม่สามารถสร้างเส้นทางจากตำแหน่งปัจจุบันของคุณ";
+
+"dialog_routing_change_end_carplay" = "ไม่สามารถสร้างเส้นทางไปยังจุดหมายของคุณ โปรดเลือกจุดหมายใหม่";
+
+"dialog_routing_check_gps_carplay" = "ไม่มีสัญญาณจีพีเอส โปรดไปในที่โล่งเพื่อหาสัญญาณ";
+
+"dialog_routing_unable_locate_route_carplay" = "ไม่สามารถคำนวณเส้นทาง โปรดระบุตำแหน่งของเส้นทางอื่น";
+
+"dialog_routing_download_files_carplay" = "เพื่อสร้างเส้นทาง โปรดดาวน์โหลดแผนที่บนอุปกรณ์ของคุณ";
+
+"dialog_routing_system_error_carplay" = "พบข้อผิดพลาด โปรดปิดและเปิดแอปพลิเคชันใหม่อีกครั้ง";
+
+"dialog_routing_rebuild_from_current_location_carplay" = "เส้นทางจะถูกสร้างอีกครั้งจากตำแหน่งปัจจุบันของคุณ";
+
+"dialog_routing_rebuild_for_vehicle_carplay" = "เส้นทางของรถยนต์อาจถูกปรับเปลี่ยน";
+
 "ok" = "โอเค";
+
+"avoid_unpaved_carplay_1" = "ไม่มีลูกรัง";
+
+"avoid_unpaved_carplay_2" = "หลีกเลี่ยงทาง";
+
+"avoid_ferry_carplay_1" = "ไม่มีเรือ";
+
+"avoid_ferry_carplay_2" = "หลีกเลี่ยงเรือ";
+
+"avoid_tolls_carplay_1" = "ไม่มีค่าผ่าน";
+
+"avoid_tolls_carplay_2" = "เลี่ยงทางด่วน";
+
+"speedcams_alert_title_carplay_1" = "จับความเร็ว";
+
+"speedcams_alert_title_carplay_2" = "เตือนความเร็ว";
+
+"download_map_carplay" = "โปรดดาวน์โหลดแผนที่ในแอพฯ Organic Maps บนอุปกรณ์ของคุณ";
+
+"carplay_roundabout_exit" = "ทางออกที่ %s";
 
 /* max. 10 symbols, both iOS and Android */
 "sort" = "เรียง…";
 
 /* Android, title, max 20-22 symbols */
 "sort_bookmarks" = "เรียงบุ๊กมาร์ก";
+
+/* iOS */
+"sort_default" = "เรียงตามค่าเริ่มต้น";
+
+"sort_type" = "เรียงตามประเภท";
+
+"sort_distance" = "เรียงตามระยะทาง";
+
+"sort_date" = "เรียงตามวันที่";
 
 /* Android */
 "by_default" = "ตามค่าเริ่มต้น";
@@ -1214,7 +1274,51 @@
 /* Android */
 "by_date" = "ตามวันที่";
 
+"week_ago_sorttype" = "สัปดาห์ที่ผ่านมา";
+
+"month_ago_sorttype" = "เดือนที่ผ่านมา";
+
+"moremonth_ago_sorttype" = "มากกว่าหนึ่งเดือนที่ผ่านมา";
+
+"moreyear_ago_sorttype" = "มากกว่าหนึ่งปีที่ผ่านมา";
+
+"near_me_sorttype" = "ใกล้ฉัน";
+
+"others_sorttype" = "อื่นๆ";
+
+"food_places" = "อาหาร";
+
+"tourist_places" = "ที่ท่องเที่ยว";
+
+"museums" = "พิพิธภัณฑ์";
+
+"parks" = "ที่จอดรถ";
+
+"swim_places" = "ว่ายน้ำ";
+
+"mountains" = "ภูเขา";
+
+"animals" = "สวนสัตว์";
+
+"hotels" = "โรงแรม";
+
+"buildings" = "สิ่งปลูกสร้าง";
+
+"money" = "เงิน";
+
+"shops" = "ร้านค้า";
+
+"parkings" = "ที่จอดรถ";
+
+"fuel_places" = "ปั๊มน้ำมัน/แก๊ส";
+
+"water" = "น้ำ";
+
+"medicine" = "ยา";
+
 "search_in_the_list" = "ค้นหาในรายการ";
+
+"religious_places" = "สถานที่ทางศาสนา";
 
 "select_list" = "เลือกรายการ";
 
@@ -1232,6 +1336,12 @@
 
 "elevation_profile_diff_level" = "ระดับความยาก";
 
+"elevation_profile_diff_level_easy" = "ง่าย";
+
+"elevation_profile_diff_level_moderate" = "ปานกลาง";
+
+"elevation_profile_diff_level_hard" = "ยาก";
+
 "elevation_profile_ascent" = "การขึ้น";
 
 "elevation_profile_descent" = "การลง";
@@ -1248,13 +1358,11 @@
 
 "isolines_toast_zooms_1_10" = "ขยายเข้าเพื่อสำรวจเส้นชั้นความสูง";
 
+"downloader_updating_ios" = "การอัปเดต";
+
+"downloader_loading_ios" = "การดาวน์โหลด";
+
 "key_information_title" = "ข้อมูลหลัก";
-
-"download_map_title" = "Download the world map";
-
-"connection_failure" = "Connection failure";
-
-"disconnect_usb_cable_title" = "Disconnect USB cable";
 
 "enable_screen_sleep" = "อนุญาตให้หน้าจอเข้าสู่โหมดสลีป";
 
@@ -1274,54 +1382,15 @@
 "whats_new_auto_update_button_later" = "อัปเดตด้วยตนเองภายหลัง";
 
 
-/**********  Partners  **********/
-
-"sponsored_partner1_action" = "Outlets";
-
-"sponsored_partner2_action" = "Discount";
-
-"sponsored_partner3_action" = "Coupon";
-
-"sponsored_partner18_action" = "Lifehack";
-
-"sponsored_partner19_action" = "Lifehack";
-
-"sponsored_partner20_action" = "Lifehack";
-
-
 /********** Types **********/
 
-"type.aerialway" = "aerialway";
-
-"type.aerialway.cable_car" = "aerialway-cable_car";
-
-"type.aerialway.chair_lift" = "aerialway-chair_lift";
-
-"type.aerialway.drag_lift" = "aerialway-drag_lift";
-
-"type.aerialway.gondola" = "aerialway-gondola";
-
-"type.aerialway.mixed_lift" = "aerialway-mixed_lift";
-
 "type.aerialway.station" = "สถานีกระเช้าลอยฟ้า";
-
-"type.aeroway" = "aeroway";
 
 "type.aeroway.aerodrome" = "สนามบิน";
 
 "type.aeroway.aerodrome.international" = "สนามบิน";
 
-"type.aeroway.apron" = "aeroway-apron";
-
-"type.aeroway.gate" = "aeroway-gate";
-
 "type.aeroway.helipad" = "ที่จอดเฮลิคอปเตอร์";
-
-"type.aeroway.runway" = "aeroway-runway";
-
-"type.aeroway.taxiway" = "aeroway-taxiway";
-
-"type.aeroway.terminal" = "aeroway-terminal";
 
 "type.amenity" = "สถานที่หรือสิ่งก่อสร้างที่เป็นประโยชน์";
 
@@ -1388,8 +1457,6 @@
 "type.amenity.ferry_terminal" = "เฟอร์รี่";
 
 "type.amenity.fire_station" = "สถานีดับเพลิง";
-
-"type.amenity.food_court" = "Food court";
 
 "type.amenity.fountain" = "น้ำพุ";
 
@@ -1469,8 +1536,6 @@
 
 "type.amenity.post_office" = "ที่ทำการไปรษณีย์";
 
-"type.amenity.prison" = "Prison";
-
 "type.amenity.pub" = "ผับ";
 
 "type.amenity.public_bookcase" = "ตู้หนังสือ สถานที่แลกเปลี่ยนหนังสือ";
@@ -1503,8 +1568,6 @@
 
 "type.amenity.shower" = "ฝักบัวอาบน้ำ";
 
-"type.amenity.speed_trap" = "amenity-speed_trap";
-
 "type.amenity.taxi" = "แท็กซี่";
 
 "type.amenity.telephone" = "โทรศัพท์";
@@ -1516,8 +1579,6 @@
 "type.amenity.townhall" = "ศาลากลางจังหวัด";
 
 "type.amenity.university" = "มหาวิทยาลัย";
-
-"type.amenity.vending_machine" = "Vending machine";
 
 "type.amenity.vending_machine.cigarettes" = "เครื่องขายบุหรี่";
 
@@ -1535,77 +1596,21 @@
 
 "type.amenity.water_point" = "จุดเติมน้ำ";
 
-"type.barrier" = "Barrier";
-
 "type.barrier.block" = "บล็อก";
 
 "type.barrier.bollard" = "เสา";
 
 "type.barrier.border_control" = "ด่านตรวจคนเข้าเมือง";
 
-"type.barrier.city_wall" = "City wall";
-
-"type.barrier.cycle_barrier" = "Cycle barrier";
-
 "type.barrier.entrance" = "ทางเข้า";
-
-"type.barrier.fence" = "Fence";
 
 "type.barrier.gate" = "ประตู";
 
-"type.barrier.hedge" = "Hedge";
-
 "type.barrier.lift_gate" = "ไม้กั้น";
-
-"type.barrier.retaining_wall" = "Retaining wall";
 
 "type.barrier.stile" = "บันไดข้าม";
 
 "type.barrier.toll_booth" = "ด่านเก็บเงิน";
-
-"type.barrier.wall" = "Wall";
-
-"type.boundary" = "Boundary";
-
-"type.boundary.administrative" = "boundary-administrative";
-
-"type.boundary.administrative.10" = "boundary-administrative-10";
-
-"type.boundary.administrative.11" = "boundary-administrative-11";
-
-"type.boundary.administrative.2" = "boundary-administrative-2";
-
-"type.boundary.administrative.3" = "boundary-administrative-3";
-
-"type.boundary.administrative.4" = "boundary-administrative-4";
-
-"type.boundary.administrative.4.state" = "boundary-administrative-4-state";
-
-"type.boundary.administrative.5" = "boundary-administrative-5";
-
-"type.boundary.administrative.6" = "boundary-administrative-6";
-
-"type.boundary.administrative.7" = "boundary-administrative-7";
-
-"type.boundary.administrative.8" = "boundary-administrative-8";
-
-"type.boundary.administrative.9" = "boundary-administrative-9";
-
-"type.boundary.administrative.city" = "boundary-administrative-city";
-
-"type.boundary.administrative.country" = "boundary-administrative-country";
-
-"type.boundary.administrative.county" = "boundary-administrative-county";
-
-"type.boundary.administrative.municipality" = "boundary-administrative-municipality";
-
-"type.boundary.administrative.nation" = "boundary-administrative-nation";
-
-"type.boundary.administrative.region" = "boundary-administrative-region";
-
-"type.boundary.administrative.state" = "boundary-administrative-state";
-
-"type.boundary.administrative.suburb" = "boundary-administrative-suburb";
 
 "type.boundary.national_park" = "อุทยานแห่งชาติ";
 
@@ -1618,8 +1623,6 @@
 "type.building.has_parts" = "อาคาร";
 
 "type.building.train_station" = "สถานีรถไฟ";
-
-"type.craft" = "craft";
 
 "type.craft.brewery" = "โรงเบียร์";
 
@@ -1813,8 +1816,6 @@
 
 "type.cuisine.vietnamese" = "อาหารเวียดนาม";
 
-"type.emergency" = "emergency";
-
 "type.emergency.defibrillator" = "เครื่องกระตุ้นหัวใจ";
 
 "type.emergency.fire_hydrant" = "หัวจ่ายน้ำดับเพลิง";
@@ -1823,27 +1824,9 @@
 
 "type.entrance" = "ทางเข้า";
 
-"type.highway" = "highway";
-
-"type.highway.bridleway" = "highway-bridleway";
-
-"type.highway.bridleway.bridge" = "highway-bridleway-bridge";
-
-"type.highway.bridleway.permissive" = "highway-bridleway-permissive";
-
-"type.highway.bridleway.tunnel" = "highway-bridleway-tunnel";
-
 "type.highway.bus_stop" = "ป้ายรถเมล์";
 
 "type.highway.construction" = "ทางกำลังอยู่ในการก่อสร้าง";
-
-"type.highway.cycleway" = "highway-cycleway";
-
-"type.highway.cycleway.bridge" = "highway-cycleway-bridge";
-
-"type.highway.cycleway.permissive" = "highway-cycleway-permissive";
-
-"type.highway.cycleway.tunnel" = "highway-cycleway-tunnel";
 
 "type.highway.footway" = "เส้นทาง";
 
@@ -1975,8 +1958,6 @@
 
 "type.highway.service.tunnel" = "ถนน";
 
-"type.highway.services" = "highway-services";
-
 "type.highway.speed_camera" = "กล้องตรวจจับความเร็ว";
 
 "type.highway.steps" = "เส้นทาง";
@@ -2041,27 +2022,13 @@
 
 "type.highway.unclassified.tunnel" = "ถนน";
 
-"type.highway.world_level" = "highway-world_level";
-
-"type.highway.world_towns_level" = "highway-world_towns_level";
-
-"type.historic" = "historic";
-
 "type.historic.archaeological_site" = "โบราณสถาน";
-
-"type.historic.battlefield" = "Battlefield";
-
-"type.historic.boundary_stone" = "historic-boundary_stone";
 
 "type.historic.castle" = "ปราสาท";
 
 "type.historic.castle.defensive" = "ปราสาท";
 
 "type.historic.castle.stately" = "ปราสาท";
-
-"type.historic.citywalls" = "historic-citywalls";
-
-"type.historic.fort" = "historic-fort";
 
 "type.historic.memorial" = "ที่ระลึก";
 
@@ -2073,59 +2040,17 @@
 
 "type.historic.monument" = "อนุสาวรีย์";
 
-"type.historic.museum" = "historic-museum";
-
 "type.historic.ruins" = "ซากปรักหักพัง";
 
 "type.historic.ship" = "สถานที่ท่องเที่ยว";
 
 "type.historic.tomb" = "สถานที่ท่องเที่ยว";
 
-"type.historic.wayside_cross" = "historic-wayside_cross";
-
-"type.historic.wayside_shrine" = "historic-wayside_shrine";
-
-"type.hwtag" = "hwtag";
-
-"type.hwtag.bidir_bicycle" = "hwtag-bidir_bicycle";
-
-"type.hwtag.onedir_bicycle" = "hwtag-onedir_bicycle";
-
-"type.hwtag.lit" = "hwtag-lit";
-
-"type.hwtag.nobicycle" = "hwtag-nobicycle";
-
-"type.hwtag.nocar" = "hwtag-nocar";
-
-"type.hwtag.nofoot" = "hwtag-nofoot";
-
-"type.hwtag.oneway" = "hwtag-oneway";
-
-"type.hwtag.private" = "hwtag-private";
-
-"type.hwtag.toll" = "hwtag-toll";
-
-"type.hwtag.yesbicycle" = "hwtag-yesbicycle";
-
-"type.hwtag.yescar" = "hwtag-yescar";
-
-"type.hwtag.yesfoot" = "hwtag-yesfoot";
-
 "type.internet_access" = "อินเทอร์เน็ต";
 
 "type.internet_access.wlan" = "อินเทอร์เน็ต";
 
-"type.junction" = "junction";
-
-"type.junction.roundabout" = "junction-roundabout";
-
-"type.landuse" = "landuse";
-
-"type.landuse.allotments" = "Allotments";
-
 "type.landuse.basin" = "น้ำ";
-
-"type.landuse.brownfield" = "Brownfield";
 
 "type.landuse.cemetery" = "สุสาน";
 
@@ -2133,17 +2058,7 @@
 
 "type.landuse.churchyard" = "บริเวณโบสถ์";
 
-"type.landuse.commercial" = "landuse-commercial";
-
-"type.landuse.construction" = "Construction";
-
-"type.landuse.farm" = "Farm";
-
 "type.landuse.farmland" = "พื้นที่ทำการเกษตร";
-
-"type.landuse.farmyard" = "Farmyard";
-
-"type.landuse.field" = "Field";
 
 "type.landuse.forest" = "ป่า";
 
@@ -2153,45 +2068,13 @@
 
 "type.landuse.forest.mixed" = "ป่า";
 
-"type.landuse.garages" = "Garages";
-
 "type.landuse.grass" = "สนามหญ้า";
-
-"type.landuse.greenfield" = "landuse-greenfield";
-
-"type.landuse.greenhouse_horticulture" = "landuse-greenhouse_horticulture";
-
-"type.landuse.industrial" = "Industrial land";
 
 "type.landuse.landfill" = "พื้นที่ฝังกลบ";
 
-"type.landuse.meadow" = "Meadow";
-
-"type.landuse.military" = "Military area";
-
-"type.landuse.orchard" = "Orchard";
-
-"type.landuse.quarry" = "Quarry";
-
 "type.landuse.railway" = "ที่ก่อสร้างทางรถไฟ";
 
-"type.landuse.recreation_ground" = "landuse-recreation_ground";
-
 "type.landuse.reservoir" = "น้ำ";
-
-"type.landuse.residential" = "landuse-residential";
-
-"type.landuse.retail" = "landuse-retail";
-
-"type.landuse.salt_pond" = "landuse-salt_pond";
-
-"type.landuse.village_green" = "landuse-village_green";
-
-"type.landuse.vineyard" = "Vineyard";
-
-"type.leisure" = "leisure";
-
-"type.leisure.common" = "leisure-common";
 
 "type.leisure.dog_park" = "สถานที่พาสุนัขเดินเล่น";
 
@@ -2202,12 +2085,6 @@
 "type.leisure.garden" = "สวน";
 
 "type.leisure.golf_course" = "สนามกอล์ฟ";
-
-"type.leisure.ice_rink" = "Ice rink";
-
-"type.leisure.landscape_reserve" = "Landscape reserve";
-
-"type.leisure.marina" = "Marina";
 
 "type.leisure.nature_reserve" = "เขตอนุรักษ์ธรรมชาติ";
 
@@ -2223,11 +2100,7 @@
 
 "type.leisure.playground" = "สนามเด็กเล่น";
 
-"type.leisure.recreation_ground" = "Recreation ground";
-
 "type.leisure.sauna" = "เซาน่า";
-
-"type.leisure.slipway" = "leisure-slipway";
 
 "type.leisure.sports_centre" = "กีฬา";
 
@@ -2243,33 +2116,15 @@
 
 "type.leisure.swimming_pool" = "สระว่ายน้ำ";
 
-"type.leisure.track" = "leisure-track";
-
 "type.leisure.water_park" = "สวนน้ำ";
-
-"type.man_made" = "man_made";
-
-"type.man_made.breakwater" = "man_made-breakwater";
-
-"type.man_made.cairn" = "man_made-cairn";
 
 "type.man_made.chimney" = "ปล่องควันโรงงาน";
 
-"type.man_made.cutline" = "man_made-cutline";
-
 "type.man_made.lighthouse" = "ประภาคาร";
-
-"type.man_made.pier" = "man_made-pier";
-
-"type.man_made.pipeline" = "man_made-pipeline";
-
-"type.man_made.pipeline.overground" = "man_made-pipeline-overground";
 
 "type.man_made.surveillance" = "กล้องวงจรปิด";
 
 "type.man_made.tower" = "หอคอย";
-
-"type.man_made.wastewater_plant" = "man_made-wastewater_plant";
 
 "type.man_made.water_tap" = "ก๊อกน้ำ";
 
@@ -2279,19 +2134,7 @@
 
 "type.man_made.windmill" = "กังหันลม";
 
-"type.man_made.works" = "man_made-works";
-
-"type.mapswithme" = "mapswithme";
-
-"type.mapswithme.grid" = "mapswithme-grid";
-
-"type.military" = "military";
-
 "type.military.bunker" = "บังเกอร์";
-
-"type.natural" = "natural";
-
-"type.natural.bare_rock" = "Bare rock";
 
 "type.natural.bay" = "อ่าว";
 
@@ -2301,35 +2144,17 @@
 
 "type.natural.cave_entrance" = "ถ้ำ";
 
-"type.natural.cliff" = "Cliff";
-
-"type.natural.coastline" = "Coastline";
-
 "type.natural.geyser" = "นำ้พุร้อน";
 
 "type.natural.glacier" = "ธารน้ำแข็ง";
 
 "type.natural.grassland" = "ทุ่งหญ้า";
 
-"type.natural.heath" = "Heath";
-
-"type.natural.hot_spring" = "Hot spring";
-
 "type.natural.lake" = "ทะเลสาบ";
-
-"type.natural.land" = "natural-land";
-
-"type.natural.meadow" = "Meadow";
-
-"type.natural.orchard" = "Orchard";
 
 "type.natural.peak" = "จุดสูงสุด";
 
 "type.natural.pond" = "บ่อ";
-
-"type.natural.rock" = "Rock";
-
-"type.natural.salt_pond" = "Salt pond";
 
 "type.natural.scrub" = "ป่าละเมาะ";
 
@@ -2339,23 +2164,11 @@
 
 "type.natural.tree" = "ต้นไม้";
 
-"type.natural.tree_row" = "Tree row";
-
-"type.natural.vineyard" = "Vineyard";
-
 "type.natural.volcano" = "ภูเขาไฟ";
 
 "type.natural.water" = "น้ำ";
 
 "type.natural.wetland" = "พื้นที่น้ำท่วมขัง";
-
-"type.natural.wetland.bog" = "Wetland";
-
-"type.natural.wetland.marsh" = "Wetland";
-
-"type.noexit" = "noexit";
-
-"type.noexit.motor_vehicle" = "noexit-motor_vehicle";
 
 "type.office" = "สำนักงาน";
 
@@ -2372,38 +2185,6 @@
 "type.office.ngo" = "สำนักงานองค์กรพัฒนาเอกชน";
 
 "type.office.telecommunication" = "ผู้ให้บริการโทรศัพท์มือถือ";
-
-"type.olympics" = "olympics";
-
-"type.olympics.attraction" = "olympics-attraction";
-
-"type.olympics.bike_sport" = "olympics-bike_sport";
-
-"type.olympics.live_site" = "olympics-live_site";
-
-"type.olympics.official_building" = "olympics-official_building";
-
-"type.olympics.stadium" = "olympics-stadium";
-
-"type.olympics.stadium_main" = "olympics-stadium_main";
-
-"type.olympics.transport_airport" = "olympics-transport_airport";
-
-"type.olympics.transport_boat" = "olympics-transport_boat";
-
-"type.olympics.transport_bus" = "olympics-transport_bus";
-
-"type.olympics.transport_cable" = "olympics-transport_cable";
-
-"type.olympics.transport_railway" = "olympics-transport_railway";
-
-"type.olympics.transport_subway" = "olympics-transport_subway";
-
-"type.olympics.transport_tram" = "olympics-transport_tram";
-
-"type.olympics.water_sport" = "olympics-water_sport";
-
-"type.place" = "place";
 
 "type.place.city" = "เมือง";
 
@@ -2443,19 +2224,13 @@
 
 "type.place.islet" = "เกาะ";
 
-"type.place.isolated_dwelling" = "place-isolated_dwelling";
-
 "type.place.locality" = "ท้องถิ่น";
-
-"type.place.neighbourhood" = "Neighbourhood";
 
 "type.place.ocean" = "มหาสมุทร";
 
 "type.place.region" = "ภูมิภาค";
 
 "type.place.sea" = "เห็น";
-
-"type.place.square" = "place-square";
 
 "type.place.state" = "รัฐ";
 
@@ -2467,115 +2242,19 @@
 
 "type.place.village" = "หมู่บ้าน";
 
-"type.power" = "power";
-
-"type.power.generator" = "power-generator";
-
-"type.power.line" = "power-line";
-
-"type.power.line.underground" = "power-line-underground";
-
-"type.power.minor_line" = "power-minor_line";
-
 "type.power.pole" = "เสาไฟฟ้า";
-
-"type.power.station" = "power-station";
 
 "type.power.substation" = "สถานีไฟฟ้า";
 
 "type.power.tower" = "เสาไฟฟ้า";
 
-"type.psurface" = "psurface";
-
-"type.psurface.paved_bad" = "psurface-paved_bad";
-
-"type.psurface.paved_good" = "psurface-paved_good";
-
-"type.psurface.unpaved_bad" = "psurface-unpaved_bad";
-
-"type.psurface.unpaved_good" = "psurface-unpaved_good";
-
-"type.public_transport" = "public_transport";
-
-"type.public_transport.platform" = "public_transport-platform";
-
-"type.railway" = "railway";
-
-"type.railway.abandoned" = "railway-abandoned";
-
-"type.railway.abandoned.bridge" = "railway-abandoned-bridge";
-
-"type.railway.abandoned.tunnel" = "railway-abandoned-tunnel";
-
-"type.railway.construction" = "railway-construction";
-
-"type.railway.crossing" = "railway-crossing";
-
-"type.railway.disused" = "railway-disused";
-
-"type.railway.funicular" = "railway-funicular";
-
-"type.railway.funicular.bridge" = "railway-funicular-bridge";
-
-"type.railway.funicular.tunnel" = "railway-funicular-tunnel";
-
 "type.railway.halt" = "สถานีรถไฟ";
-
-"type.railway.incline" = "railway-incline";
-
-"type.railway.incline.bridge" = "railway-incline-bridge";
-
-"type.railway.incline.tunnel" = "railway-incline-tunnel";
 
 "type.railway.level_crossing" = "ทางรถไฟตัดผ่านถนน";
 
-"type.railway.light_rail" = "railway-light_rail";
-
-"type.railway.light_rail.bridge" = "railway-light_rail-bridge";
-
-"type.railway.light_rail.tunnel" = "railway-light_rail-tunnel";
-
 "type.railway.monorail" = "รางรถไฟรางเดี่ยว";
 
-"type.railway.monorail.bridge" = "railway-monorail-bridge";
-
-"type.railway.monorail.tunnel" = "railway-monorail-tunnel";
-
-"type.railway.narrow_gauge" = "railway-narrow_gauge";
-
-"type.railway.narrow_gauge.bridge" = "railway-narrow_gauge-bridge";
-
-"type.railway.narrow_gauge.tunnel" = "railway-narrow_gauge-tunnel";
-
-"type.railway.platform" = "railway-platform";
-
-"type.railway.preserved" = "railway-preserved";
-
-"type.railway.preserved.bridge" = "railway-preserved-bridge";
-
-"type.railway.preserved.tunnel" = "railway-preserved-tunnel";
-
 "type.railway.rail" = "รถไฟ";
-
-"type.railway.rail.bridge" = "railway-rail-bridge";
-
-"type.railway.rail.motor_vehicle" = "railway-rail-motor_vehicle";
-
-"type.railway.rail.tunnel" = "railway-rail-tunnel";
-
-"type.railway.razed" = "railway-razed";
-
-"type.railway.siding" = "railway-siding";
-
-"type.railway.siding.bridge" = "railway-siding-bridge";
-
-"type.railway.siding.tunnel" = "railway-siding-tunnel";
-
-"type.railway.spur" = "railway-spur";
-
-"type.railway.spur.bridge" = "railway-spur-bridge";
-
-"type.railway.spur.tunnel" = "railway-spur-tunnel";
 
 "type.railway.station" = "สถานีรถไฟ";
 
@@ -2633,38 +2312,6 @@
 
 "type.railway.station.subway.yellow" = "รถไฟ";
 
-"type.railway.subway" = "railway-subway";
-
-"type.railway.subway.blue" = "railway-subway-blue";
-
-"type.railway.subway.bridge" = "railway-subway-bridge";
-
-"type.railway.subway.brown" = "railway-subway-brown";
-
-"type.railway.subway.darkgreen" = "railway-subway-darkgreen";
-
-"type.railway.subway.gray" = "railway-subway-gray";
-
-"type.railway.subway.green" = "railway-subway-green";
-
-"type.railway.subway.grey" = "railway-subway-grey";
-
-"type.railway.subway.lightblue" = "railway-subway-lightblue";
-
-"type.railway.subway.lightgreen" = "railway-subway-lightgreen";
-
-"type.railway.subway.orange" = "railway-subway-orange";
-
-"type.railway.subway.purple" = "railway-subway-purple";
-
-"type.railway.subway.red" = "railway-subway-red";
-
-"type.railway.subway.tunnel" = "railway-subway-tunnel";
-
-"type.railway.subway.violet" = "railway-subway-violet";
-
-"type.railway.subway.yellow" = "railway-subway-yellow";
-
 "type.railway.subway_entrance" = "ทางเข้ารถไฟใต้ดิน";
 
 "type.railway.subway_entrance.barcelona" = "รถไฟ";
@@ -2689,29 +2336,7 @@
 
 "type.railway.subway_entrance.spb" = "รถไฟ";
 
-"type.railway.tram" = "railway-tram";
-
-"type.railway.tram.bridge" = "railway-tram-bridge";
-
-"type.railway.tram.tunnel" = "railway-tram-tunnel";
-
 "type.railway.tram_stop" = "ป้ายรถราง";
-
-"type.railway.yard" = "railway-yard";
-
-"type.railway.yard.bridge" = "railway-yard-bridge";
-
-"type.railway.yard.tunnel" = "railway-yard-tunnel";
-
-"type.route" = "route";
-
-"type.route.ferry" = "route-ferry";
-
-"type.route.ferry.motor_vehicle" = "route-ferry-motor_vehicle";
-
-"type.route.ferry.motorcar" = "route-ferry-motorcar";
-
-"type.route.shuttle_train" = "route-shuttle_train";
 
 "type.shop" = "ร้านค้า";
 
@@ -2847,101 +2472,13 @@
 
 "type.shop.wine" = "ร้านขายไวน์";
 
-"type.sponsored" = "sponsored";
-
-"type.sponsored.booking" = "sponsored-booking";
-
-"type.sponsored.holiday" = "Christmas or New Year Celebrations";
-
-"type.sponsored.opentable" = "sponsored-opentable";
-
-"type.sponsored.partner1" = "sponsored-partner1";
-
-"type.sponsored.partner10" = "sponsored-partner10";
-
-"type.sponsored.partner11" = "sponsored-partner11";
-
-"type.sponsored.partner12" = "sponsored-partner12";
-
-"type.sponsored.partner13" = "sponsored-partner13";
-
-"type.sponsored.partner14" = "sponsored-partner14";
-
-"type.sponsored.partner15" = "sponsored-partner15";
-
-"type.sponsored.partner16" = "sponsored-partner16";
-
-"type.sponsored.partner17" = "sponsored-partner17";
-
-"type.sponsored.partner18" = "MegaFon";
-
-"type.sponsored.partner19" = "MegaFon";
-
-"type.sponsored.partner2" = "sponsored-partner2";
-
-"type.sponsored.partner20" = "MegaFon";
-
-"type.sponsored.partner3" = "sponsored-partner3";
-
-"type.sponsored.partner4" = "sponsored-partner4";
-
-"type.sponsored.partner5" = "sponsored-partner5";
-
-"type.sponsored.partner6" = "sponsored-partner6";
-
-"type.sponsored.partner7" = "sponsored-partner7";
-
-"type.sponsored.partner8" = "sponsored-partner8";
-
-"type.sponsored.partner9" = "sponsored-partner9";
-
-"type.sport" = "sport";
-
-"type.sport.american_football" = "sport-american_football";
-
-"type.sport.archery" = "sport-archery";
-
 "type.sport.athletics" = "กรีฑา";
-
-"type.sport.australian_football" = "sport-australian_football";
-
-"type.sport.baseball" = "sport-baseball";
 
 "type.sport.basketball" = "บาสเก็ตบอล";
 
-"type.sport.bowls" = "sport-bowls";
-
-"type.sport.cricket" = "sport-cricket";
-
-"type.sport.curling" = "sport-curling";
-
-"type.sport.diving" = "sport-diving";
-
 "type.sport.equestrian" = "กีฬาแข่งม้า";
 
-"type.sport.football" = "sport-football";
-
-"type.sport.golf" = "sport-golf";
-
-"type.sport.gymnastics" = "sport-gymnastics";
-
-"type.sport.handball" = "sport-handball";
-
-"type.sport.multi" = "sport-multi";
-
-"type.sport.scuba_diving" = "sport-scuba_diving";
-
-"type.sport.shooting" = "sport-shooting";
-
-"type.sport.skiing" = "sport-skiing";
-
-"type.sport.soccer" = "sport-soccer";
-
-"type.sport.swimming" = "sport-swimming";
-
 "type.sport.tennis" = "คอร์ทเทนนิส";
-
-"type.tourism" = "tourism";
 
 "type.tourism.alpine_hut" = "ที่พักบนภูเขาโรงแรม";
 
@@ -3003,31 +2540,9 @@
 
 "type.tourism.zoo" = "สวนสัตว์";
 
-"type.traffic_calming" = "traffic_calming";
-
-"type.traffic_calming.bump" = "traffic_calming-bump";
-
-"type.traffic_calming.hump" = "traffic_calming-hump";
-
-"type.waterway" = "waterway";
-
 "type.waterway.canal" = "คลอง";
 
 "type.waterway.canal.tunnel" = "คลอง";
-
-"type.waterway.dam" = "waterway-dam";
-
-"type.waterway.ditch" = "waterway-ditch";
-
-"type.waterway.ditch.tunnel" = "waterway-ditch-tunnel";
-
-"type.waterway.dock" = "waterway-dock";
-
-"type.waterway.drain" = "waterway-drain";
-
-"type.waterway.drain.tunnel" = "waterway-drain-tunnel";
-
-"type.waterway.lock" = "waterway-lock";
 
 "type.waterway.lock_gate" = "ประตูระบายน้ำ";
 
@@ -3047,385 +2562,10 @@
 
 "type.waterway.waterfall" = "น้ำตก";
 
-"type.waterway.weir" = "waterway-weir";
-
-"type.wheelchair" = "wheelchair";
-
 "type.wheelchair.limited" = "พื้นที่จำกัดการใช้รถเข็นสำหรับผู้ป่วย/ผู้สูงอายุ";
 
 "type.wheelchair.no" = "พื้นที่ไม่สามารถใช้รถเข็นสำหรับผู้ป่วย/ผู้สูงอายุ";
 
 "type.wheelchair.yes" = "พื้นใช้รถเข็นสำหรับผู้ป่วย/ผู้สูงอายุได้";
 
-"type.piste_lift" = "piste:lift";
-
-"type.piste_lift.j.bar" = "piste:lift-j-bar";
-
-"type.piste_lift.magic_carpet" = "piste:lift-magic_carpet";
-
-"type.piste_lift.platter" = "piste:lift-platter";
-
-"type.piste_lift.rope_tow" = "piste:lift-rope_tow";
-
-"type.piste_lift.t.bar" = "piste:lift-t-bar";
-
-"type.piste_type" = "piste:type";
-
-"type.piste_type.downhill" = "piste:type-downhill";
-
-"type.piste_type.downhill.advanced" = "piste:type-downhill-advanced";
-
-"type.piste_type.downhill.easy" = "piste:type-downhill-easy";
-
-"type.piste_type.downhill.expert" = "piste:type-downhill-expert";
-
-"type.piste_type.downhill.freeride" = "piste:type-downhill-freeride";
-
-"type.piste_type.downhill.intermediate" = "piste:type-downhill-intermediate";
-
-"type.piste_type.downhill.novice" = "piste:type-downhill-novice";
-
-"type.piste_type.nordic" = "piste:type-nordic";
-
-"type.piste_type.sled" = "piste:type-sled";
-
 "type.building_part" = "อาคาร";
-
-"type.area_highway.cycleway" = "area:highway-cycleway";
-
-"type.area_highway.footway" = "area:highway-footway";
-
-"type.area_highway.living_street" = "area:highway-living_street";
-
-"type.area_highway.motorway" = "area:highway-motorway";
-
-"type.area_highway.path" = "area:highway-path";
-
-"type.area_highway.pedestrian" = "area:highway-pedestrian";
-
-"type.area_highway.primary" = "area:highway-primary";
-
-"type.area_highway.residential" = "area:highway-residential";
-
-"type.area_highway.secondary" = "area:highway-secondary";
-
-"type.area_highway.service" = "area:highway-service";
-
-"type.area_highway.tertiary" = "area:highway-tertiary";
-
-"type.area_highway.steps" = "area:highway-steps";
-
-"type.area_highway.track" = "area:highway-track";
-
-"type.area_highway.trunk" = "area:highway-trunk";
-
-"type.area_highway.unclassified" = "area:highway-unclassified";
-
-
-/********** Brands **********/
-
-"brand.aiya" = "Aiya";
-
-"brand.anrakutei" = "Anrakutei";
-
-"brand.applebee_s" = "Applebee's";
-
-"brand.aroma" = "Aroma";
-
-"brand.bamiyan" = "Bamiyan";
-
-"brand.banana_leaf" = "Banana Leaf";
-
-"brand.baskin_robbins" = "Baskin-Robbins";
-
-"brand.big_boy" = "Big Boy";
-
-"brand.bikkuridonkey" = "Bikkuri-Donkey";
-
-"brand.blue_bottle_coffee" = "Blue Bottle Coffee";
-
-"brand.burger_king" = "Burger King";
-
-"brand.cafe_amazon" = "คาเฟ อเมซอน";
-
-"brand.cafe_coffee_day" = "Cafe Coffee Day";
-
-"brand.cafe_de_crie" = "Cafe de Crie";
-
-"brand.capricchosa" = "Capricchosa";
-
-"brand.carl_s_jr" = "Carl's Jr.";
-
-"brand.celentano" = "Celentano";
-
-"brand.chibo" = "Chibo";
-
-"brand.chick_fil_a" = "Chick-fil-A";
-
-"brand.chilis" = "Chili's";
-
-"brand.chipotle" = "Chipotle";
-
-"brand.chowking" = "Chowking";
-
-"brand.cinnabon" = "Cinnabon";
-
-"brand.coco" = "CoCo";
-
-"brand.coco_ichibanya" = "Coco Ichibanya";
-
-"brand.cocos" = "COCO'S";
-
-"brand.coffee_house" = "Coffee House";
-
-"brand.coffee_world" = "Coffee World";
-
-"brand.coffeeport" = "Coffeeport";
-
-"brand.coffeeshop_company" = "Coffeeshop Company";
-
-"brand.cofix" = "Cofix";
-
-"brand.comic_buster" = "Comic Buster";
-
-"brand.costa_coffee" = "Costa Coffee";
-
-"brand.dairy_queen" = "Dairy Queen";
-
-"brand.dennys" = "Denny's";
-
-"brand.doi_chaang" = "Doi Chaang";
-
-"brand.dominos_pizza" = "Domino's Pizza";
-
-"brand.double_b" = "Double B";
-
-"brand.doutor" = "Doutor";
-
-"brand.dunkin_donuts" = "Dunkin Donuts";
-
-"brand.espresso_house" = "Espresso House";
-
-"brand.excelsior_caffe" = "Excelsior Caffe";
-
-"brand.first_kitchen" = "First Kitchen";
-
-"brand.freshness_burger" = "Freshness Burger";
-
-"brand.fujisoba" = "Fujisoba";
-
-"brand.glowsubs" = "GlowSubs";
-
-"brand.grazie_gardens" = "Grazie Gardens";
-
-"brand.gusto" = "Gusto";
-
-"brand.gyukaku" = "Gyu-Kaku";
-
-"brand.haagen_dazs" = "Häagen-Dazs";
-
-"brand.hamazushi" = "Hamazushi";
-
-"brand.hanamaru" = "Hanamaru";
-
-"brand.hanaya_yohei" = "Hanaya Yohei";
-
-"brand.handaya" = "Handaya";
-
-"brand.hard_rock_cafe" = "Hard Rock Cafe";
-
-"brand.havanna" = "Havanna";
-
-"brand.hesburger" = "Hesburger";
-
-"brand.hokkahokka_tei" = "Hokka-Hokka Tei";
-
-"brand.honkekamadoya" = "Honkekamadoya";
-
-"brand.hottomotto" = "HottoMotto";
-
-"brand.ihop" = "IHOP";
-
-"brand.ikinari_steak" = "Ikinari Steak";
-
-"brand.il_patio" = "IL Patio";
-
-"brand.jack_in_the_box" = "Jack in the Box";
-
-"brand.jiyu_kukan" = "Jiyu Kukan";
-
-"brand.jollibee" = "Jollibee";
-
-"brand.jolly_pasta" = "Jolly Pasta";
-
-"brand.jonathans" = "Jonathan's";
-
-"brand.joyfull" = "Joyfull";
-
-"brand.kappazushi" = "Kappazushi";
-
-"brand.katsuya" = "Katsuya";
-
-"brand.kfc" = "เค เอฟ ซ";
-
-"brand.kisoji" = "Kisoji";
-
-"brand.kobeya_restaurant" = "Kobeya Restaurant";
-
-"brand.kohikan" = "KO:HI:KAN";
-
-"brand.komeda" = "Komeda";
-
-"brand.komoro_soba" = "Komoro Soba";
-
-"brand.kourakuen" = "Kourakuen";
-
-"brand.kroshka_kartoshka" = "Kroshka Kartoshka";
-
-"brand.kurazushi" = "Kurazushi";
-
-"brand.little_caesars" = "Little Caesars";
-
-"brand.lotteria" = "Lotteria";
-
-"brand.maido_ohkini" = "Maido-Ohkini";
-
-"brand.marrybrown" = "Marrybrown";
-
-"brand.marugame_seimen" = "Marugame Seimen";
-
-"brand.matsunoya" = "Matsunoya";
-
-"brand.matsuya" = "Matsuya";
-
-"brand.mcdonalds" = "แมคโดนลด";
-
-"brand.mister_donut" = "Mister Donut";
-
-"brand.miyakosoba" = "Miyakosoba";
-
-"brand.miyoshino" = "Miyoshino";
-
-"brand.mk_restaurants" = "MK Restaurants";
-
-"brand.mos_burger" = "MOS BURGER";
-
-"brand.mr_sub" = "Mr. Sub";
-
-"brand.mu_mu" = "Mu-Mu";
-
-"brand.nakau" = "Nakau";
-
-"brand.ohsho" = "Gyoza no Ohsho";
-
-"brand.onebuckscoffee" = "OneBucksCoffee";
-
-"brand.origin_bento" = "Origin Bento";
-
-"brand.osaka_ohsho" = "Osaka Ohsho";
-
-"brand.panda_express" = "Panda Express";
-
-"brand.panera_bread" = "Panera Bread";
-
-"brand.papa_johns" = "Papa John's";
-
-"brand.perkins" = "Perkins";
-
-"brand.pizza_hut" = "Pizza Hut";
-
-"brand.pizza_pizza" = "Pizza Pizza";
-
-"brand.popeyes" = "Popeyes";
-
-"brand.pronto" = "Pronto";
-
-"brand.quiznos" = "Quiznos";
-
-"brand.red_lobster" = "Red Lobster";
-
-"brand.ringer_hut" = "Ringer Hut";
-
-"brand.robin_sdobin" = "Robin Sdobin";
-
-"brand.royal_host" = "Royal Host";
-
-"brand.ruby_tuesday" = "Ruby Tuesday";
-
-"brand.saizeriya" = "Saizeriya";
-
-"brand.sato" = "Sato";
-
-"brand.segafredo" = "Segafredo";
-
-"brand.shake_shack" = "Shake Shack";
-
-"brand.shokoladnitsa" = "Shokoladnitsa";
-
-"brand.sizzler" = "Sizzler";
-
-"brand.skuratov" = "Skuratov";
-
-"brand.spur" = "Spur";
-
-"brand.starbucks" = "Starbucks";
-
-"brand.stardogs" = "Stardog!s";
-
-"brand.steak_n_shake" = "Steak'n Shake";
-
-"brand.stmarc_cafe" = "St. Marc Cafe";
-
-"brand.subway" = "Subway";
-
-"brand.sukiya" = "Sukiya";
-
-"brand.sushi_wok" = "Sushi Wok";
-
-"brand.sushiro" = "Sushiro";
-
-"brand.swensens" = "Swensen's";
-
-"brand.syabu_yo" = "Syabu-yo";
-
-"brand.taco_bell" = "Taco Bell";
-
-"brand.telepizza" = "Telepizza";
-
-"brand.tenkaippin" = "TenkaIppin";
-
-"brand.teremok" = "Teremok";
-
-"brand.tgi_fridays" = "TGI Friday's";
-
-"brand.the_pizza_company" = "เดอะ พซซา คอมปะน";
-
-"brand.tim_hortons" = "Tim Hortons";
-
-"brand.tonden" = "Tonden";
-
-"brand.tullys_coffee" = "Tully's Coffee";
-
-"brand.ueshima_coffee_ten" = "Ueshima Coffee Ten";
-
-"brand.uobei" = "Uobei";
-
-"brand.vapiano" = "Vapiano";
-
-"brand.victoria_station" = "Victoria Station";
-
-"brand.waffle_house" = "Waffle House";
-
-"brand.wendys" = "Wendy's";
-
-"brand.wokker" = "Wokker";
-
-"brand.yakitoria" = "Yakitoria";
-
-"brand.yomen_ya_goemon" = "Yomenya Goemon";
-
-"brand.yoshinoya" = "Yoshinoya";
-
-"brand.yudetaro" = "Yudetaro";
-
-"brand.yumean" = "Yumean";

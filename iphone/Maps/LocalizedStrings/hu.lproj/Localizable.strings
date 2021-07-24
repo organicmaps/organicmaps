@@ -35,11 +35,6 @@
 /* View and button titles for accessibility */
 "maps" = "Térképek";
 
-/* Settings/Downloader - size string, only strings different from English should be translated */
-"mb" = "MB";
-
-"gb" = "GB";
-
 /* Choose measurement on first launch alert - choose imperial system button */
 "miles" = "Mérföld";
 
@@ -116,6 +111,9 @@
 
 /* Add Bookmark Set dialog - hint when set name is empty */
 "bookmark_set_name" = "Könyvjelzőcsoport neve";
+
+/* Bookmark Sets dialog title */
+"bookmark_sets" = "Könyvjelzőcsoportok";
 
 /* Bookmarks - dialog title */
 "bookmarks" = "Könyvjelzők";
@@ -213,8 +211,6 @@
 /* Email Subject when sharing bookmarks category */
 "share_bookmarks_email_subject" = "Egy Organic Maps könyvjelzőt osztottak meg Önnel";
 
-"share_bookmarks_email_body" = "Hello!\n\nAttached are my bookmarks from Organic Maps app. Please open them if you have Organic Maps installed. Or, if you don't, download the app for your iOS or Android device by following this link: https://omaps.app/get?kmz\n\nEnjoy traveling with Organic Maps!";
-
 /* message title of loading file */
 "load_kmz_title" = "Könyvjelzők letöltése";
 
@@ -266,9 +262,6 @@
 /* Prints version number in About dialog */
 "version" = "Verzió: %@";
 
-/* Data version in «About» screen */
-"data_version" = "Data version: %d";
-
 /* Confirmation in downloading countries dialog */
 "are_you_sure" = "Valóban folytatni akarja?";
 
@@ -279,12 +272,6 @@
 "length" = "Hossz";
 
 "share_my_location" = "Helyzetem megosztása";
-
-/* Settings general group in settings screen */
-"prefs_group_general" = "General settings";
-
-/* Settings information group in settings screen */
-"prefs_group_information" = "Information";
 
 "prefs_group_route" = "Navigáció";
 
@@ -346,24 +333,6 @@
 /* Text in menu */
 "website" = "Honlap";
 
-/* Text in menu */
-"github" = "GitHub";
-
-/* Text in menu */
-"telegram" = "Telegram";
-
-/* Text in menu */
-"facebook" = "Facebook";
-
-/* Text in menu */
-"twitter" = "Twitter";
-
-/* Text in menu */
-"instagram" = "Instagram";
-
-/* Text in menu */
-"openstreetmap" = "OpenStreetMap";
-
 /* Settings: Send feedback button and dialog title */
 "feedback" = "Visszajelzés";
 
@@ -400,6 +369,9 @@
 /* Downloaded maps category */
 "downloader_downloaded_subtitle" = "Letöltve";
 
+/* Downloaded maps category */
+"downloader_available_maps" = "Elérhető";
+
 /* Country queued for download */
 "downloader_queued" = "Várólistás";
 
@@ -410,6 +382,8 @@
 "downloader_download_all_button" = "Mindegyik letöltése";
 
 "downloader_downloading" = "Letöltés:";
+
+"downloader_search_results" = "Megtalálva";
 
 /* Status of outdated country in the list */
 "downloader_status_outdated" = "Frissítés";
@@ -608,9 +582,6 @@
 "search_history_text" = "Aktuális keresés gyors elérése.";
 
 "clear_search" = "A keresési előzmények törlése";
-
-/* Place Page link to Wikipedia article (if map object has it). */
-"read_in_wikipedia" = "Wikipedia";
 
 "p2p_your_location" = "Az Ön helyzete";
 
@@ -834,6 +805,8 @@
 
 "editor_operator" = "Üzemeltető";
 
+"downloader_my_maps_title" = "Térképeim";
+
 "downloader_no_downloaded_maps_title" = "Még nem töltött le térképet";
 
 "downloader_no_downloaded_maps_message" = "Töltse le a szükséges térképeket, hogy megtalálja a helyet és internet nélkül is navigálhasson.";
@@ -847,8 +820,6 @@
 "current_location_unknown_continue_button" = "Folytatás";
 
 "current_location_unknown_stop_button" = "Leállítás";
-
-"current_location_unknown_error_title" = "Current location is unknown.";
 
 "current_location_unknown_error_message" = "Hiba történt tartózkodási helye keresésekor. Ellenőrizze készüléke működését és próbálkozzon újra.";
 
@@ -867,9 +838,13 @@
 
 "kilometer" = "km";
 
+"kilometers_per_hour" = "km/h";
+
 "mile" = "mf";
 
 "foot" = "ft";
+
+"miles_per_hour" = "mph";
 
 "hour" = "ó";
 
@@ -888,6 +863,10 @@
 "placepage_edit_bookmark_button" = "Könyvjelző szerkesztése";
 
 "placepage_bookmark_name_hint" = "Könyvjelző neve";
+
+"placepage_personal_notes_hint" = "Jegyzet";
+
+"placepage_delete_bookmark_button" = "Könyvjelző törlése";
 
 "editor_edits_sent_message" = "Javasolt változtatásainak elküldése sikerült";
 
@@ -923,6 +902,8 @@
 "editor_share_to_all_dialog_message_1" = "Győződj meg arról, hogy nem adsz meg semmilyen személyes információt.";
 
 "editor_share_to_all_dialog_message_2" = "Ellenőrizni fogjuk a változásokat. Ha bármilyen kérdésünk van, emailben keresünk.";
+
+"navigation_stop_button" = "megállítás";
 
 /* iOS dialog for the case when recent track recording is on and the app comes back from background */
 "recent_track_background_dialog_title" = "Megszakítod a legutóbb megtett utad rögzítését?";
@@ -1000,7 +981,7 @@
 
 "prefs_languages_information_off_link" = "További tájékoztatást találhat még ebben az útmutatóban.";
 
-"whatsnew_transliteration_title" = "Átírás latin nyelvre";
+"transliteration_title" = "Átírás latin nyelvre";
 
 "learn_more" = "Tudjon meg többet";
 
@@ -1024,6 +1005,8 @@
 
 "preloader_viator_button" = "Tudjon meg többet";
 
+"start_from_my_position" = "Elkezdi innen:";
+
 "profile_authorization_error" = "Hoppá, volt egy hiba. Próbáljon meg újra bejelentkezni.";
 
 "dialog_error_storage_title" = "Tároló hozzáférési hiba";
@@ -1043,9 +1026,6 @@
 "bookmarks_groups_show_all" = "Összes megjelenítése";
 
 "bookmarks_create_new_group" = "Új lista létrehozása";
-
-/* Bookmark categories screen */
-"bookmarks_import" = "Import bookmarks";
 
 "downloader_hide_screen" = "Képernyő elrejtése";
 
@@ -1071,7 +1051,11 @@
 
 "bookmarks_error_message_list_name_already_taken" = "Kérjük, válasszon másik nevet";
 
+"bookmarks_error_title_list_name_too_long" = "Ez a név túl hosszú";
+
 "please_wait" = "Kérlek várj…";
+
+"phone_number" = "Telefonszám";
 
 "profile" = "OpenStreetMap profil";
 
@@ -1119,8 +1103,6 @@
 
 "title_error_downloading_bookmarks" = "Hiba történt";
 
-"popular_place" = "Popular";
-
 "export_file" = "Fájl exportálása";
 
 "list_settings" = "Lista beállításai";
@@ -1138,6 +1120,8 @@
 "not_shared" = "Privát";
 
 "tags_loading_error_subtitle" = "A tag-ek feltöltésekor hiba történt, kérjük próbálja meg még egyszer";
+
+"download_button" = "Letöltés";
 
 "speedcams_alert_title" = "Sebességmérő kamerák";
 
@@ -1188,19 +1172,90 @@
 
 "change_driving_options_btn" = "Vezetési lehetőségek bekapcsolva";
 
+"toll_road" = "Fizetős utak";
+
+"unpaved_road" = "Kövezetlen utak";
+
+"ferry_crossing" = "Kompátkelők";
+
 "avoid_toll_roads_placepage" = "Fizetős utak elkerülése";
 
 "avoid_unpaved_roads_placepage" = "Kövezetlen utak elkerülése";
 
 "avoid_ferry_crossing_placepage" = "Kompátkelők elkerülése";
 
+"trip_start" = "Gyerünk";
+
+"pick_destination" = "Cél";
+
+"follow_my_position" = "Középre";
+
+"search_results" = "Keresési eredmények";
+
+"then_turn" = "Utána";
+
+"redirect_route_alert" = "Szeretnél újratervezni egy útvonalat?";
+
+"redirect_route_yes" = "Igen";
+
+"redirect_route_no" = "Nem";
+
+"trip_finished" = "Megérkeztél!";
+
+"keyboard_availability_alert" = "A billentyűzet nem elérhető vezetés közben";
+
+"dialog_routing_change_start_carplay" = "Nem lehet útvonalat tervezni a jelenlegi helyedről";
+
+"dialog_routing_change_end_carplay" = "Nem lehet útvonalat tervezni a célodhoz. Kérjük válassz egy másik pontot";
+
+"dialog_routing_check_gps_carplay" = "Nincs GPS-jel. Kérjük menj egy nyílt területre";
+
+"dialog_routing_unable_locate_route_carplay" = "Nem lehet útvonalat tervezni. Kérjük határozz meg más útvonal lehetőségeket";
+
+"dialog_routing_download_files_carplay" = "Útvonal létrehozásához töltsd le a hiányzó térképeket az eszközre";
+
+"dialog_routing_system_error_carplay" = "Hiba történt. Kérjük indítsd újra az alkalmazást";
+
+"dialog_routing_rebuild_from_current_location_carplay" = "Az útvonal újra lesz tervezve a jelenlegi helyzetedről";
+
+"dialog_routing_rebuild_for_vehicle_carplay" = "Az útvonal módosítva lesz egy autó számára";
+
 "ok" = "Oké";
+
+"avoid_unpaved_carplay_1" = "Nem földút";
+
+"avoid_unpaved_carplay_2" = "Földút kerülése";
+
+"avoid_ferry_carplay_1" = "Komp nélkül";
+
+"avoid_ferry_carplay_2" = "Kompok kerülése";
+
+"avoid_tolls_carplay_1" = "Nincs útdíj";
+
+"avoid_tolls_carplay_2" = "Útdíj kerülése";
+
+"speedcams_alert_title_carplay_1" = "Traffipaxok";
+
+"speedcams_alert_title_carplay_2" = "Sebességjelzés";
+
+"download_map_carplay" = "Kérjük, töltsd le a térképeket a Organic Maps alkalmazásban az eszközödre";
+
+"carplay_roundabout_exit" = "%s kijárat";
 
 /* max. 10 symbols, both iOS and Android */
 "sort" = "Rendezd…";
 
 /* Android, title, max 20-22 symbols */
 "sort_bookmarks" = "Könyvelzők rendezése";
+
+/* iOS */
+"sort_default" = "Alapértelmezés szerint";
+
+"sort_type" = "Típus szerint";
+
+"sort_distance" = "Távolság szerint";
+
+"sort_date" = "Dátum szerint";
 
 /* Android */
 "by_default" = "Alapértelmezés szerint";
@@ -1214,7 +1269,51 @@
 /* Android */
 "by_date" = "Dátum szerint";
 
+"week_ago_sorttype" = "Egy hete";
+
+"month_ago_sorttype" = "Egy hónapja";
+
+"moremonth_ago_sorttype" = "Több mint egy hónapja";
+
+"moreyear_ago_sorttype" = "Több mint egy éve";
+
+"near_me_sorttype" = "Hozzám közel";
+
+"others_sorttype" = "Más";
+
+"food_places" = "Étel";
+
+"tourist_places" = "Látnivalók";
+
+"museums" = "Múzeumok";
+
+"parks" = "Parkok";
+
+"swim_places" = "Úszás";
+
+"mountains" = "Hegyek";
+
+"animals" = "Állatok";
+
+"hotels" = "Hotelek";
+
+"buildings" = "Épületek";
+
+"money" = "Pénz";
+
+"shops" = "Üzletek";
+
+"parkings" = "Parkolók";
+
+"fuel_places" = "Benzinkutak";
+
+"water" = "Víz";
+
+"medicine" = "Gyógyszer";
+
 "search_in_the_list" = "Keresés a listában";
+
+"religious_places" = "Vallási helyek";
 
 "select_list" = "Lista kiválasztása";
 
@@ -1232,6 +1331,12 @@
 
 "elevation_profile_diff_level" = "Nehézségi szint";
 
+"elevation_profile_diff_level_easy" = "Könnyű";
+
+"elevation_profile_diff_level_moderate" = "Mérsékelt";
+
+"elevation_profile_diff_level_hard" = "Nehéz";
+
 "elevation_profile_ascent" = "Felemelkedés";
 
 "elevation_profile_descent" = "Leereszkedés";
@@ -1248,13 +1353,11 @@
 
 "isolines_toast_zooms_1_10" = "Nagyítás az isovonalak felfedezéséhez";
 
+"downloader_updating_ios" = "Feltöltés";
+
+"downloader_loading_ios" = "Letöltés";
+
 "key_information_title" = "Kulcs információ";
-
-"download_map_title" = "Download the world map";
-
-"connection_failure" = "Connection failure";
-
-"disconnect_usb_cable_title" = "Disconnect USB cable";
 
 "enable_screen_sleep" = "Hagyja aludni a képernyőt";
 
@@ -1274,62 +1377,21 @@
 "whats_new_auto_update_button_later" = "Kézi frissítés később";
 
 
-/**********  Partners  **********/
-
-"sponsored_partner1_action" = "Outlets";
-
-"sponsored_partner2_action" = "Discount";
-
-"sponsored_partner3_action" = "Coupon";
-
-"sponsored_partner18_action" = "Lifehack";
-
-"sponsored_partner19_action" = "Lifehack";
-
-"sponsored_partner20_action" = "Lifehack";
-
-
 /********** Types **********/
 
-"type.aerialway" = "aerialway";
-
-"type.aerialway.cable_car" = "aerialway-cable_car";
-
-"type.aerialway.chair_lift" = "aerialway-chair_lift";
-
-"type.aerialway.drag_lift" = "aerialway-drag_lift";
-
-"type.aerialway.gondola" = "aerialway-gondola";
-
-"type.aerialway.mixed_lift" = "aerialway-mixed_lift";
-
 "type.aerialway.station" = "Felvonóállomás";
-
-"type.aeroway" = "aeroway";
 
 "type.aeroway.aerodrome" = "Repülőtér";
 
 "type.aeroway.aerodrome.international" = "Repülőtér";
 
-"type.aeroway.apron" = "aeroway-apron";
-
-"type.aeroway.gate" = "aeroway-gate";
-
 "type.aeroway.helipad" = "Helikopterleszálló";
-
-"type.aeroway.runway" = "aeroway-runway";
-
-"type.aeroway.taxiway" = "aeroway-taxiway";
-
-"type.aeroway.terminal" = "aeroway-terminal";
 
 "type.amenity" = "Infrastruktúra";
 
 "type.amenity.arts_centre" = "Művészeti központ";
 
 "type.amenity.atm" = "Pénzautomata";
-
-"type.amenity.bank" = "Bank";
 
 "type.amenity.bar" = "Bár";
 
@@ -1388,8 +1450,6 @@
 "type.amenity.ferry_terminal" = "Komp";
 
 "type.amenity.fire_station" = "Tűzoltóság";
-
-"type.amenity.food_court" = "Food court";
 
 "type.amenity.fountain" = "Szökőkút";
 
@@ -1469,8 +1529,6 @@
 
 "type.amenity.post_office" = "Posta";
 
-"type.amenity.prison" = "Prison";
-
 "type.amenity.pub" = "Kocsma";
 
 "type.amenity.public_bookcase" = "Nyilvános könyvespolc";
@@ -1503,10 +1561,6 @@
 
 "type.amenity.shower" = "Tusoló";
 
-"type.amenity.speed_trap" = "amenity-speed_trap";
-
-"type.amenity.taxi" = "Taxi";
-
 "type.amenity.telephone" = "Telefon";
 
 "type.amenity.theatre" = "Színház";
@@ -1516,8 +1570,6 @@
 "type.amenity.townhall" = "Városháza";
 
 "type.amenity.university" = "Egyetem";
-
-"type.amenity.vending_machine" = "Vending machine";
 
 "type.amenity.vending_machine.cigarettes" = "Cigarettaautomata";
 
@@ -1535,77 +1587,21 @@
 
 "type.amenity.water_point" = "Vízvételi pont";
 
-"type.barrier" = "Barrier";
-
 "type.barrier.block" = "Blokk";
 
 "type.barrier.bollard" = "Oszlop";
 
 "type.barrier.border_control" = "Határállomás";
 
-"type.barrier.city_wall" = "City wall";
-
-"type.barrier.cycle_barrier" = "Cycle barrier";
-
 "type.barrier.entrance" = "Bejárat";
-
-"type.barrier.fence" = "Fence";
 
 "type.barrier.gate" = "Kapu";
 
-"type.barrier.hedge" = "Hedge";
-
 "type.barrier.lift_gate" = "Sorompó";
-
-"type.barrier.retaining_wall" = "Retaining wall";
 
 "type.barrier.stile" = "Átjáró";
 
 "type.barrier.toll_booth" = "Díjfizető kapu";
-
-"type.barrier.wall" = "Wall";
-
-"type.boundary" = "Boundary";
-
-"type.boundary.administrative" = "boundary-administrative";
-
-"type.boundary.administrative.10" = "boundary-administrative-10";
-
-"type.boundary.administrative.11" = "boundary-administrative-11";
-
-"type.boundary.administrative.2" = "boundary-administrative-2";
-
-"type.boundary.administrative.3" = "boundary-administrative-3";
-
-"type.boundary.administrative.4" = "boundary-administrative-4";
-
-"type.boundary.administrative.4.state" = "boundary-administrative-4-state";
-
-"type.boundary.administrative.5" = "boundary-administrative-5";
-
-"type.boundary.administrative.6" = "boundary-administrative-6";
-
-"type.boundary.administrative.7" = "boundary-administrative-7";
-
-"type.boundary.administrative.8" = "boundary-administrative-8";
-
-"type.boundary.administrative.9" = "boundary-administrative-9";
-
-"type.boundary.administrative.city" = "boundary-administrative-city";
-
-"type.boundary.administrative.country" = "boundary-administrative-country";
-
-"type.boundary.administrative.county" = "boundary-administrative-county";
-
-"type.boundary.administrative.municipality" = "boundary-administrative-municipality";
-
-"type.boundary.administrative.nation" = "boundary-administrative-nation";
-
-"type.boundary.administrative.region" = "boundary-administrative-region";
-
-"type.boundary.administrative.state" = "boundary-administrative-state";
-
-"type.boundary.administrative.suburb" = "boundary-administrative-suburb";
 
 "type.boundary.national_park" = "Nemzeti park";
 
@@ -1618,8 +1614,6 @@
 "type.building.has_parts" = "Épület";
 
 "type.building.train_station" = "Vonatmegálló";
-
-"type.craft" = "craft";
 
 "type.craft.brewery" = "Sörfőzde";
 
@@ -1813,8 +1807,6 @@
 
 "type.cuisine.vietnamese" = "Vietnami konyha";
 
-"type.emergency" = "emergency";
-
 "type.emergency.defibrillator" = "Defibrillátor";
 
 "type.emergency.fire_hydrant" = "Tűzcsap";
@@ -1823,27 +1815,9 @@
 
 "type.entrance" = "Bejárat";
 
-"type.highway" = "highway";
-
-"type.highway.bridleway" = "highway-bridleway";
-
-"type.highway.bridleway.bridge" = "highway-bridleway-bridge";
-
-"type.highway.bridleway.permissive" = "highway-bridleway-permissive";
-
-"type.highway.bridleway.tunnel" = "highway-bridleway-tunnel";
-
 "type.highway.bus_stop" = "Buszmegálló";
 
 "type.highway.construction" = "Útépítés";
-
-"type.highway.cycleway" = "highway-cycleway";
-
-"type.highway.cycleway.bridge" = "highway-cycleway-bridge";
-
-"type.highway.cycleway.permissive" = "highway-cycleway-permissive";
-
-"type.highway.cycleway.tunnel" = "highway-cycleway-tunnel";
 
 "type.highway.footway" = "Ösvény";
 
@@ -1975,8 +1949,6 @@
 
 "type.highway.service.tunnel" = "Utca";
 
-"type.highway.services" = "highway-services";
-
 "type.highway.speed_camera" = "Traffipax";
 
 "type.highway.steps" = "Ösvény";
@@ -2041,27 +2013,13 @@
 
 "type.highway.unclassified.tunnel" = "Utca";
 
-"type.highway.world_level" = "highway-world_level";
-
-"type.highway.world_towns_level" = "highway-world_towns_level";
-
-"type.historic" = "historic";
-
 "type.historic.archaeological_site" = "Ásatás";
-
-"type.historic.battlefield" = "Battlefield";
-
-"type.historic.boundary_stone" = "historic-boundary_stone";
 
 "type.historic.castle" = "Kastély";
 
 "type.historic.castle.defensive" = "Kastély";
 
 "type.historic.castle.stately" = "Kastély";
-
-"type.historic.citywalls" = "historic-citywalls";
-
-"type.historic.fort" = "historic-fort";
 
 "type.historic.memorial" = "Emlékmű";
 
@@ -2073,59 +2031,13 @@
 
 "type.historic.monument" = "Műemlék";
 
-"type.historic.museum" = "historic-museum";
-
 "type.historic.ruins" = "Romok";
 
 "type.historic.ship" = "Túrizmus";
 
 "type.historic.tomb" = "Túrizmus";
 
-"type.historic.wayside_cross" = "historic-wayside_cross";
-
-"type.historic.wayside_shrine" = "historic-wayside_shrine";
-
-"type.hwtag" = "hwtag";
-
-"type.hwtag.bidir_bicycle" = "hwtag-bidir_bicycle";
-
-"type.hwtag.onedir_bicycle" = "hwtag-onedir_bicycle";
-
-"type.hwtag.lit" = "hwtag-lit";
-
-"type.hwtag.nobicycle" = "hwtag-nobicycle";
-
-"type.hwtag.nocar" = "hwtag-nocar";
-
-"type.hwtag.nofoot" = "hwtag-nofoot";
-
-"type.hwtag.oneway" = "hwtag-oneway";
-
-"type.hwtag.private" = "hwtag-private";
-
-"type.hwtag.toll" = "hwtag-toll";
-
-"type.hwtag.yesbicycle" = "hwtag-yesbicycle";
-
-"type.hwtag.yescar" = "hwtag-yescar";
-
-"type.hwtag.yesfoot" = "hwtag-yesfoot";
-
-"type.internet_access" = "Internet";
-
-"type.internet_access.wlan" = "Internet";
-
-"type.junction" = "junction";
-
-"type.junction.roundabout" = "junction-roundabout";
-
-"type.landuse" = "landuse";
-
-"type.landuse.allotments" = "Allotments";
-
 "type.landuse.basin" = "Víz";
-
-"type.landuse.brownfield" = "Brownfield";
 
 "type.landuse.cemetery" = "Temető";
 
@@ -2133,17 +2045,7 @@
 
 "type.landuse.churchyard" = "Templomtér";
 
-"type.landuse.commercial" = "landuse-commercial";
-
-"type.landuse.construction" = "Construction";
-
-"type.landuse.farm" = "Farm";
-
 "type.landuse.farmland" = "Termőföld";
-
-"type.landuse.farmyard" = "Farmyard";
-
-"type.landuse.field" = "Field";
 
 "type.landuse.forest" = "Erdő";
 
@@ -2153,45 +2055,13 @@
 
 "type.landuse.forest.mixed" = "Erdő";
 
-"type.landuse.garages" = "Garages";
-
 "type.landuse.grass" = "Gyep";
-
-"type.landuse.greenfield" = "landuse-greenfield";
-
-"type.landuse.greenhouse_horticulture" = "landuse-greenhouse_horticulture";
-
-"type.landuse.industrial" = "Industrial land";
 
 "type.landuse.landfill" = "Hulladéklerakó";
 
-"type.landuse.meadow" = "Meadow";
-
-"type.landuse.military" = "Military area";
-
-"type.landuse.orchard" = "Orchard";
-
-"type.landuse.quarry" = "Quarry";
-
 "type.landuse.railway" = "Vasúti helyiségek";
 
-"type.landuse.recreation_ground" = "landuse-recreation_ground";
-
 "type.landuse.reservoir" = "Víz";
-
-"type.landuse.residential" = "landuse-residential";
-
-"type.landuse.retail" = "landuse-retail";
-
-"type.landuse.salt_pond" = "landuse-salt_pond";
-
-"type.landuse.village_green" = "landuse-village_green";
-
-"type.landuse.vineyard" = "Vineyard";
-
-"type.leisure" = "leisure";
-
-"type.leisure.common" = "leisure-common";
 
 "type.leisure.dog_park" = "Kutyás terület";
 
@@ -2202,12 +2072,6 @@
 "type.leisure.garden" = "Kert";
 
 "type.leisure.golf_course" = "Golfpálya";
-
-"type.leisure.ice_rink" = "Ice rink";
-
-"type.leisure.landscape_reserve" = "Landscape reserve";
-
-"type.leisure.marina" = "Marina";
 
 "type.leisure.nature_reserve" = "Védett terület";
 
@@ -2223,11 +2087,7 @@
 
 "type.leisure.playground" = "Játszótér";
 
-"type.leisure.recreation_ground" = "Recreation ground";
-
 "type.leisure.sauna" = "Szauna";
-
-"type.leisure.slipway" = "leisure-slipway";
 
 "type.leisure.sports_centre" = "Sportközpont";
 
@@ -2243,33 +2103,15 @@
 
 "type.leisure.swimming_pool" = "Úszómedence";
 
-"type.leisure.track" = "leisure-track";
-
 "type.leisure.water_park" = "Aquapark";
-
-"type.man_made" = "man_made";
-
-"type.man_made.breakwater" = "man_made-breakwater";
-
-"type.man_made.cairn" = "man_made-cairn";
 
 "type.man_made.chimney" = "Gyárkémény";
 
-"type.man_made.cutline" = "man_made-cutline";
-
 "type.man_made.lighthouse" = "Világítótorony";
-
-"type.man_made.pier" = "man_made-pier";
-
-"type.man_made.pipeline" = "man_made-pipeline";
-
-"type.man_made.pipeline.overground" = "man_made-pipeline-overground";
 
 "type.man_made.surveillance" = "Térfigyelő kamera";
 
 "type.man_made.tower" = "Torony";
-
-"type.man_made.wastewater_plant" = "man_made-wastewater_plant";
 
 "type.man_made.water_tap" = "Vízcsap";
 
@@ -2279,20 +2121,6 @@
 
 "type.man_made.windmill" = "Szélmalom";
 
-"type.man_made.works" = "man_made-works";
-
-"type.mapswithme" = "mapswithme";
-
-"type.mapswithme.grid" = "mapswithme-grid";
-
-"type.military" = "military";
-
-"type.military.bunker" = "Bunker";
-
-"type.natural" = "natural";
-
-"type.natural.bare_rock" = "Bare rock";
-
 "type.natural.bay" = "Öböl";
 
 "type.natural.beach" = "Strand";
@@ -2301,35 +2129,17 @@
 
 "type.natural.cave_entrance" = "Barlang";
 
-"type.natural.cliff" = "Cliff";
-
-"type.natural.coastline" = "Coastline";
-
 "type.natural.geyser" = "Gejzír";
 
 "type.natural.glacier" = "Gleccser";
 
 "type.natural.grassland" = "Mező";
 
-"type.natural.heath" = "Heath";
-
-"type.natural.hot_spring" = "Hot spring";
-
 "type.natural.lake" = "Tó";
-
-"type.natural.land" = "natural-land";
-
-"type.natural.meadow" = "Meadow";
-
-"type.natural.orchard" = "Orchard";
 
 "type.natural.peak" = "Csúcs";
 
 "type.natural.pond" = "Tavacska";
-
-"type.natural.rock" = "Rock";
-
-"type.natural.salt_pond" = "Salt pond";
 
 "type.natural.scrub" = "Cserjés";
 
@@ -2339,23 +2149,11 @@
 
 "type.natural.tree" = "Fa";
 
-"type.natural.tree_row" = "Tree row";
-
-"type.natural.vineyard" = "Vineyard";
-
 "type.natural.volcano" = "Tűzhányó";
 
 "type.natural.water" = "Víz";
 
 "type.natural.wetland" = "Vizes terület";
-
-"type.natural.wetland.bog" = "Wetland";
-
-"type.natural.wetland.marsh" = "Wetland";
-
-"type.noexit" = "noexit";
-
-"type.noexit.motor_vehicle" = "noexit-motor_vehicle";
 
 "type.office" = "Hivatal";
 
@@ -2372,38 +2170,6 @@
 "type.office.ngo" = "Civil szervezet irodája";
 
 "type.office.telecommunication" = "Mobilüzemeltető";
-
-"type.olympics" = "olympics";
-
-"type.olympics.attraction" = "olympics-attraction";
-
-"type.olympics.bike_sport" = "olympics-bike_sport";
-
-"type.olympics.live_site" = "olympics-live_site";
-
-"type.olympics.official_building" = "olympics-official_building";
-
-"type.olympics.stadium" = "olympics-stadium";
-
-"type.olympics.stadium_main" = "olympics-stadium_main";
-
-"type.olympics.transport_airport" = "olympics-transport_airport";
-
-"type.olympics.transport_boat" = "olympics-transport_boat";
-
-"type.olympics.transport_bus" = "olympics-transport_bus";
-
-"type.olympics.transport_cable" = "olympics-transport_cable";
-
-"type.olympics.transport_railway" = "olympics-transport_railway";
-
-"type.olympics.transport_subway" = "olympics-transport_subway";
-
-"type.olympics.transport_tram" = "olympics-transport_tram";
-
-"type.olympics.water_sport" = "olympics-water_sport";
-
-"type.place" = "place";
 
 "type.place.city" = "Város";
 
@@ -2443,19 +2209,13 @@
 
 "type.place.islet" = "Sziget";
 
-"type.place.isolated_dwelling" = "place-isolated_dwelling";
-
 "type.place.locality" = "Falu";
-
-"type.place.neighbourhood" = "Neighbourhood";
 
 "type.place.ocean" = "Óceán";
 
 "type.place.region" = "Régió";
 
 "type.place.sea" = "Tenger";
-
-"type.place.square" = "place-square";
 
 "type.place.state" = "Állam";
 
@@ -2467,115 +2227,19 @@
 
 "type.place.village" = "Falu";
 
-"type.power" = "power";
-
-"type.power.generator" = "power-generator";
-
-"type.power.line" = "power-line";
-
-"type.power.line.underground" = "power-line-underground";
-
-"type.power.minor_line" = "power-minor_line";
-
 "type.power.pole" = "Villanyoszlop";
-
-"type.power.station" = "power-station";
 
 "type.power.substation" = "Kapcsolószekrény";
 
 "type.power.tower" = "Villanyoszlop";
 
-"type.psurface" = "psurface";
-
-"type.psurface.paved_bad" = "psurface-paved_bad";
-
-"type.psurface.paved_good" = "psurface-paved_good";
-
-"type.psurface.unpaved_bad" = "psurface-unpaved_bad";
-
-"type.psurface.unpaved_good" = "psurface-unpaved_good";
-
-"type.public_transport" = "public_transport";
-
-"type.public_transport.platform" = "public_transport-platform";
-
-"type.railway" = "railway";
-
-"type.railway.abandoned" = "railway-abandoned";
-
-"type.railway.abandoned.bridge" = "railway-abandoned-bridge";
-
-"type.railway.abandoned.tunnel" = "railway-abandoned-tunnel";
-
-"type.railway.construction" = "railway-construction";
-
-"type.railway.crossing" = "railway-crossing";
-
-"type.railway.disused" = "railway-disused";
-
-"type.railway.funicular" = "railway-funicular";
-
-"type.railway.funicular.bridge" = "railway-funicular-bridge";
-
-"type.railway.funicular.tunnel" = "railway-funicular-tunnel";
-
 "type.railway.halt" = "Vonatmegálló";
-
-"type.railway.incline" = "railway-incline";
-
-"type.railway.incline.bridge" = "railway-incline-bridge";
-
-"type.railway.incline.tunnel" = "railway-incline-tunnel";
 
 "type.railway.level_crossing" = "Vasúti átjáró";
 
-"type.railway.light_rail" = "railway-light_rail";
-
-"type.railway.light_rail.bridge" = "railway-light_rail-bridge";
-
-"type.railway.light_rail.tunnel" = "railway-light_rail-tunnel";
-
 "type.railway.monorail" = "Egysínű vasút";
 
-"type.railway.monorail.bridge" = "railway-monorail-bridge";
-
-"type.railway.monorail.tunnel" = "railway-monorail-tunnel";
-
-"type.railway.narrow_gauge" = "railway-narrow_gauge";
-
-"type.railway.narrow_gauge.bridge" = "railway-narrow_gauge-bridge";
-
-"type.railway.narrow_gauge.tunnel" = "railway-narrow_gauge-tunnel";
-
-"type.railway.platform" = "railway-platform";
-
-"type.railway.preserved" = "railway-preserved";
-
-"type.railway.preserved.bridge" = "railway-preserved-bridge";
-
-"type.railway.preserved.tunnel" = "railway-preserved-tunnel";
-
 "type.railway.rail" = "Vasút";
-
-"type.railway.rail.bridge" = "railway-rail-bridge";
-
-"type.railway.rail.motor_vehicle" = "railway-rail-motor_vehicle";
-
-"type.railway.rail.tunnel" = "railway-rail-tunnel";
-
-"type.railway.razed" = "railway-razed";
-
-"type.railway.siding" = "railway-siding";
-
-"type.railway.siding.bridge" = "railway-siding-bridge";
-
-"type.railway.siding.tunnel" = "railway-siding-tunnel";
-
-"type.railway.spur" = "railway-spur";
-
-"type.railway.spur.bridge" = "railway-spur-bridge";
-
-"type.railway.spur.tunnel" = "railway-spur-tunnel";
 
 "type.railway.station" = "Vonatmegálló";
 
@@ -2633,38 +2297,6 @@
 
 "type.railway.station.subway.yellow" = "Földalatti";
 
-"type.railway.subway" = "railway-subway";
-
-"type.railway.subway.blue" = "railway-subway-blue";
-
-"type.railway.subway.bridge" = "railway-subway-bridge";
-
-"type.railway.subway.brown" = "railway-subway-brown";
-
-"type.railway.subway.darkgreen" = "railway-subway-darkgreen";
-
-"type.railway.subway.gray" = "railway-subway-gray";
-
-"type.railway.subway.green" = "railway-subway-green";
-
-"type.railway.subway.grey" = "railway-subway-grey";
-
-"type.railway.subway.lightblue" = "railway-subway-lightblue";
-
-"type.railway.subway.lightgreen" = "railway-subway-lightgreen";
-
-"type.railway.subway.orange" = "railway-subway-orange";
-
-"type.railway.subway.purple" = "railway-subway-purple";
-
-"type.railway.subway.red" = "railway-subway-red";
-
-"type.railway.subway.tunnel" = "railway-subway-tunnel";
-
-"type.railway.subway.violet" = "railway-subway-violet";
-
-"type.railway.subway.yellow" = "railway-subway-yellow";
-
 "type.railway.subway_entrance" = "Földalatti bejárat";
 
 "type.railway.subway_entrance.barcelona" = "Földalatti";
@@ -2689,29 +2321,7 @@
 
 "type.railway.subway_entrance.spb" = "Földalatti";
 
-"type.railway.tram" = "railway-tram";
-
-"type.railway.tram.bridge" = "railway-tram-bridge";
-
-"type.railway.tram.tunnel" = "railway-tram-tunnel";
-
 "type.railway.tram_stop" = "Villamosmegálló";
-
-"type.railway.yard" = "railway-yard";
-
-"type.railway.yard.bridge" = "railway-yard-bridge";
-
-"type.railway.yard.tunnel" = "railway-yard-tunnel";
-
-"type.route" = "route";
-
-"type.route.ferry" = "route-ferry";
-
-"type.route.ferry.motor_vehicle" = "route-ferry-motor_vehicle";
-
-"type.route.ferry.motorcar" = "route-ferry-motorcar";
-
-"type.route.shuttle_train" = "route-shuttle_train";
 
 "type.shop" = "Bolt";
 
@@ -2847,101 +2457,13 @@
 
 "type.shop.wine" = "Szeszesital-üzlet";
 
-"type.sponsored" = "sponsored";
-
-"type.sponsored.booking" = "sponsored-booking";
-
-"type.sponsored.holiday" = "Christmas or New Year Celebrations";
-
-"type.sponsored.opentable" = "sponsored-opentable";
-
-"type.sponsored.partner1" = "sponsored-partner1";
-
-"type.sponsored.partner10" = "sponsored-partner10";
-
-"type.sponsored.partner11" = "sponsored-partner11";
-
-"type.sponsored.partner12" = "sponsored-partner12";
-
-"type.sponsored.partner13" = "sponsored-partner13";
-
-"type.sponsored.partner14" = "sponsored-partner14";
-
-"type.sponsored.partner15" = "sponsored-partner15";
-
-"type.sponsored.partner16" = "sponsored-partner16";
-
-"type.sponsored.partner17" = "sponsored-partner17";
-
-"type.sponsored.partner18" = "MegaFon";
-
-"type.sponsored.partner19" = "MegaFon";
-
-"type.sponsored.partner2" = "sponsored-partner2";
-
-"type.sponsored.partner20" = "MegaFon";
-
-"type.sponsored.partner3" = "sponsored-partner3";
-
-"type.sponsored.partner4" = "sponsored-partner4";
-
-"type.sponsored.partner5" = "sponsored-partner5";
-
-"type.sponsored.partner6" = "sponsored-partner6";
-
-"type.sponsored.partner7" = "sponsored-partner7";
-
-"type.sponsored.partner8" = "sponsored-partner8";
-
-"type.sponsored.partner9" = "sponsored-partner9";
-
-"type.sport" = "sport";
-
-"type.sport.american_football" = "sport-american_football";
-
-"type.sport.archery" = "sport-archery";
-
 "type.sport.athletics" = "Atlétika";
-
-"type.sport.australian_football" = "sport-australian_football";
-
-"type.sport.baseball" = "sport-baseball";
 
 "type.sport.basketball" = "Kosárlabda";
 
-"type.sport.bowls" = "sport-bowls";
-
-"type.sport.cricket" = "sport-cricket";
-
-"type.sport.curling" = "sport-curling";
-
-"type.sport.diving" = "sport-diving";
-
 "type.sport.equestrian" = "Lovas sportok";
 
-"type.sport.football" = "sport-football";
-
-"type.sport.golf" = "sport-golf";
-
-"type.sport.gymnastics" = "sport-gymnastics";
-
-"type.sport.handball" = "sport-handball";
-
-"type.sport.multi" = "sport-multi";
-
-"type.sport.scuba_diving" = "sport-scuba_diving";
-
-"type.sport.shooting" = "sport-shooting";
-
-"type.sport.skiing" = "sport-skiing";
-
-"type.sport.soccer" = "sport-soccer";
-
-"type.sport.swimming" = "sport-swimming";
-
 "type.sport.tennis" = "Teniszpálya";
-
-"type.tourism" = "tourism";
 
 "type.tourism.alpine_hut" = "Hegyi menedék";
 
@@ -2973,8 +2495,6 @@
 
 "type.tourism.guest_house" = "Vendégház";
 
-"type.tourism.hostel" = "Hostel";
-
 "type.tourism.hotel" = "Szálloda";
 
 "type.tourism.information" = "Túrista információ";
@@ -2986,8 +2506,6 @@
 "type.tourism.information.map" = "Turistatérkép";
 
 "type.tourism.information.office" = "Idegenforgalmi iroda";
-
-"type.tourism.motel" = "Motel";
 
 "type.tourism.museum" = "Múzeum";
 
@@ -3003,31 +2521,9 @@
 
 "type.tourism.zoo" = "Állatkert";
 
-"type.traffic_calming" = "traffic_calming";
-
-"type.traffic_calming.bump" = "traffic_calming-bump";
-
-"type.traffic_calming.hump" = "traffic_calming-hump";
-
-"type.waterway" = "waterway";
-
 "type.waterway.canal" = "Csatorna";
 
 "type.waterway.canal.tunnel" = "Csatorna";
-
-"type.waterway.dam" = "waterway-dam";
-
-"type.waterway.ditch" = "waterway-ditch";
-
-"type.waterway.ditch.tunnel" = "waterway-ditch-tunnel";
-
-"type.waterway.dock" = "waterway-dock";
-
-"type.waterway.drain" = "waterway-drain";
-
-"type.waterway.drain.tunnel" = "waterway-drain-tunnel";
-
-"type.waterway.lock" = "waterway-lock";
 
 "type.waterway.lock_gate" = "Zsilip";
 
@@ -3047,385 +2543,10 @@
 
 "type.waterway.waterfall" = "Vízesés";
 
-"type.waterway.weir" = "waterway-weir";
-
-"type.wheelchair" = "wheelchair";
-
 "type.wheelchair.limited" = "Korlátozottan akadálymentesített";
 
 "type.wheelchair.no" = "Nem akadálymentesített";
 
 "type.wheelchair.yes" = "Teljesen akadálymentesített";
 
-"type.piste_lift" = "piste:lift";
-
-"type.piste_lift.j.bar" = "piste:lift-j-bar";
-
-"type.piste_lift.magic_carpet" = "piste:lift-magic_carpet";
-
-"type.piste_lift.platter" = "piste:lift-platter";
-
-"type.piste_lift.rope_tow" = "piste:lift-rope_tow";
-
-"type.piste_lift.t.bar" = "piste:lift-t-bar";
-
-"type.piste_type" = "piste:type";
-
-"type.piste_type.downhill" = "piste:type-downhill";
-
-"type.piste_type.downhill.advanced" = "piste:type-downhill-advanced";
-
-"type.piste_type.downhill.easy" = "piste:type-downhill-easy";
-
-"type.piste_type.downhill.expert" = "piste:type-downhill-expert";
-
-"type.piste_type.downhill.freeride" = "piste:type-downhill-freeride";
-
-"type.piste_type.downhill.intermediate" = "piste:type-downhill-intermediate";
-
-"type.piste_type.downhill.novice" = "piste:type-downhill-novice";
-
-"type.piste_type.nordic" = "piste:type-nordic";
-
-"type.piste_type.sled" = "piste:type-sled";
-
 "type.building_part" = "Épület";
-
-"type.area_highway.cycleway" = "area:highway-cycleway";
-
-"type.area_highway.footway" = "area:highway-footway";
-
-"type.area_highway.living_street" = "area:highway-living_street";
-
-"type.area_highway.motorway" = "area:highway-motorway";
-
-"type.area_highway.path" = "area:highway-path";
-
-"type.area_highway.pedestrian" = "area:highway-pedestrian";
-
-"type.area_highway.primary" = "area:highway-primary";
-
-"type.area_highway.residential" = "area:highway-residential";
-
-"type.area_highway.secondary" = "area:highway-secondary";
-
-"type.area_highway.service" = "area:highway-service";
-
-"type.area_highway.tertiary" = "area:highway-tertiary";
-
-"type.area_highway.steps" = "area:highway-steps";
-
-"type.area_highway.track" = "area:highway-track";
-
-"type.area_highway.trunk" = "area:highway-trunk";
-
-"type.area_highway.unclassified" = "area:highway-unclassified";
-
-
-/********** Brands **********/
-
-"brand.aiya" = "Aiya";
-
-"brand.anrakutei" = "Anrakutei";
-
-"brand.applebee_s" = "Applebee's";
-
-"brand.aroma" = "Aroma";
-
-"brand.bamiyan" = "Bamiyan";
-
-"brand.banana_leaf" = "Banana Leaf";
-
-"brand.baskin_robbins" = "Baskin-Robbins";
-
-"brand.big_boy" = "Big Boy";
-
-"brand.bikkuridonkey" = "Bikkuri-Donkey";
-
-"brand.blue_bottle_coffee" = "Blue Bottle Coffee";
-
-"brand.burger_king" = "Burger King";
-
-"brand.cafe_amazon" = "Café Amazon";
-
-"brand.cafe_coffee_day" = "Cafe Coffee Day";
-
-"brand.cafe_de_crie" = "Cafe de Crie";
-
-"brand.capricchosa" = "Capricchosa";
-
-"brand.carl_s_jr" = "Carl's Jr.";
-
-"brand.celentano" = "Celentano";
-
-"brand.chibo" = "Chibo";
-
-"brand.chick_fil_a" = "Chick-fil-A";
-
-"brand.chilis" = "Chili's";
-
-"brand.chipotle" = "Chipotle";
-
-"brand.chowking" = "Chowking";
-
-"brand.cinnabon" = "Cinnabon";
-
-"brand.coco" = "CoCo";
-
-"brand.coco_ichibanya" = "Coco Ichibanya";
-
-"brand.cocos" = "COCO'S";
-
-"brand.coffee_house" = "Coffee House";
-
-"brand.coffee_world" = "Coffee World";
-
-"brand.coffeeport" = "Coffeeport";
-
-"brand.coffeeshop_company" = "Coffeeshop Company";
-
-"brand.cofix" = "Cofix";
-
-"brand.comic_buster" = "Comic Buster";
-
-"brand.costa_coffee" = "Costa Coffee";
-
-"brand.dairy_queen" = "Dairy Queen";
-
-"brand.dennys" = "Denny's";
-
-"brand.doi_chaang" = "Doi Chaang";
-
-"brand.dominos_pizza" = "Domino's Pizza";
-
-"brand.double_b" = "Double B";
-
-"brand.doutor" = "Doutor";
-
-"brand.dunkin_donuts" = "Dunkin Donuts";
-
-"brand.espresso_house" = "Espresso House";
-
-"brand.excelsior_caffe" = "Excelsior Caffe";
-
-"brand.first_kitchen" = "First Kitchen";
-
-"brand.freshness_burger" = "Freshness Burger";
-
-"brand.fujisoba" = "Fujisoba";
-
-"brand.glowsubs" = "GlowSubs";
-
-"brand.grazie_gardens" = "Grazie Gardens";
-
-"brand.gusto" = "Gusto";
-
-"brand.gyukaku" = "Gyu-Kaku";
-
-"brand.haagen_dazs" = "Häagen-Dazs";
-
-"brand.hamazushi" = "Hamazushi";
-
-"brand.hanamaru" = "Hanamaru";
-
-"brand.hanaya_yohei" = "Hanaya Yohei";
-
-"brand.handaya" = "Handaya";
-
-"brand.hard_rock_cafe" = "Hard Rock Cafe";
-
-"brand.havanna" = "Havanna";
-
-"brand.hesburger" = "Hesburger";
-
-"brand.hokkahokka_tei" = "Hokka-Hokka Tei";
-
-"brand.honkekamadoya" = "Honkekamadoya";
-
-"brand.hottomotto" = "HottoMotto";
-
-"brand.ihop" = "IHOP";
-
-"brand.ikinari_steak" = "Ikinari Steak";
-
-"brand.il_patio" = "IL Patio";
-
-"brand.jack_in_the_box" = "Jack in the Box";
-
-"brand.jiyu_kukan" = "Jiyu Kukan";
-
-"brand.jollibee" = "Jollibee";
-
-"brand.jolly_pasta" = "Jolly Pasta";
-
-"brand.jonathans" = "Jonathan's";
-
-"brand.joyfull" = "Joyfull";
-
-"brand.kappazushi" = "Kappazushi";
-
-"brand.katsuya" = "Katsuya";
-
-"brand.kfc" = "KFC";
-
-"brand.kisoji" = "Kisoji";
-
-"brand.kobeya_restaurant" = "Kobeya Restaurant";
-
-"brand.kohikan" = "KO:HI:KAN";
-
-"brand.komeda" = "Komeda";
-
-"brand.komoro_soba" = "Komoro Soba";
-
-"brand.kourakuen" = "Kourakuen";
-
-"brand.kroshka_kartoshka" = "Kroshka Kartoshka";
-
-"brand.kurazushi" = "Kurazushi";
-
-"brand.little_caesars" = "Little Caesars";
-
-"brand.lotteria" = "Lotteria";
-
-"brand.maido_ohkini" = "Maido-Ohkini";
-
-"brand.marrybrown" = "Marrybrown";
-
-"brand.marugame_seimen" = "Marugame Seimen";
-
-"brand.matsunoya" = "Matsunoya";
-
-"brand.matsuya" = "Matsuya";
-
-"brand.mcdonalds" = "McDonald's";
-
-"brand.mister_donut" = "Mister Donut";
-
-"brand.miyakosoba" = "Miyakosoba";
-
-"brand.miyoshino" = "Miyoshino";
-
-"brand.mk_restaurants" = "MK Restaurants";
-
-"brand.mos_burger" = "MOS BURGER";
-
-"brand.mr_sub" = "Mr. Sub";
-
-"brand.mu_mu" = "Mu-Mu";
-
-"brand.nakau" = "Nakau";
-
-"brand.ohsho" = "Gyoza no Ohsho";
-
-"brand.onebuckscoffee" = "OneBucksCoffee";
-
-"brand.origin_bento" = "Origin Bento";
-
-"brand.osaka_ohsho" = "Osaka Ohsho";
-
-"brand.panda_express" = "Panda Express";
-
-"brand.panera_bread" = "Panera Bread";
-
-"brand.papa_johns" = "Papa John's";
-
-"brand.perkins" = "Perkins";
-
-"brand.pizza_hut" = "Pizza Hut";
-
-"brand.pizza_pizza" = "Pizza Pizza";
-
-"brand.popeyes" = "Popeyes";
-
-"brand.pronto" = "Pronto";
-
-"brand.quiznos" = "Quiznos";
-
-"brand.red_lobster" = "Red Lobster";
-
-"brand.ringer_hut" = "Ringer Hut";
-
-"brand.robin_sdobin" = "Robin Sdobin";
-
-"brand.royal_host" = "Royal Host";
-
-"brand.ruby_tuesday" = "Ruby Tuesday";
-
-"brand.saizeriya" = "Saizeriya";
-
-"brand.sato" = "Sato";
-
-"brand.segafredo" = "Segafredo";
-
-"brand.shake_shack" = "Shake Shack";
-
-"brand.shokoladnitsa" = "Shokoladnitsa";
-
-"brand.sizzler" = "Sizzler";
-
-"brand.skuratov" = "Skuratov";
-
-"brand.spur" = "Spur";
-
-"brand.starbucks" = "Starbucks";
-
-"brand.stardogs" = "Stardog!s";
-
-"brand.steak_n_shake" = "Steak'n Shake";
-
-"brand.stmarc_cafe" = "St. Marc Cafe";
-
-"brand.subway" = "Subway";
-
-"brand.sukiya" = "Sukiya";
-
-"brand.sushi_wok" = "Sushi Wok";
-
-"brand.sushiro" = "Sushiro";
-
-"brand.swensens" = "Swensen's";
-
-"brand.syabu_yo" = "Syabu-yo";
-
-"brand.taco_bell" = "Taco Bell";
-
-"brand.telepizza" = "Telepizza";
-
-"brand.tenkaippin" = "TenkaIppin";
-
-"brand.teremok" = "Teremok";
-
-"brand.tgi_fridays" = "TGI Friday's";
-
-"brand.the_pizza_company" = "The Pizza Company";
-
-"brand.tim_hortons" = "Tim Hortons";
-
-"brand.tonden" = "Tonden";
-
-"brand.tullys_coffee" = "Tully's Coffee";
-
-"brand.ueshima_coffee_ten" = "Ueshima Coffee Ten";
-
-"brand.uobei" = "Uobei";
-
-"brand.vapiano" = "Vapiano";
-
-"brand.victoria_station" = "Victoria Station";
-
-"brand.waffle_house" = "Waffle House";
-
-"brand.wendys" = "Wendy's";
-
-"brand.wokker" = "Wokker";
-
-"brand.yakitoria" = "Yakitoria";
-
-"brand.yomen_ya_goemon" = "Yomenya Goemon";
-
-"brand.yoshinoya" = "Yoshinoya";
-
-"brand.yudetaro" = "Yudetaro";
-
-"brand.yumean" = "Yumean";

@@ -72,6 +72,8 @@
 	<string name="bookmark_color">Yer İmi Rengi</string>
 	<!-- Add Bookmark Set dialog - hint when set name is empty -->
 	<string name="bookmark_set_name">Yer İmi Adını Ayarla</string>
+	<!-- Bookmark Sets dialog title -->
+	<string name="bookmark_sets">Yer İmi Ayarları</string>
 	<!-- Bookmarks - dialog title -->
 	<string name="bookmarks">Yer İmleri</string>
 	<!-- Default bookmarks set name -->
@@ -237,12 +239,15 @@
 	<string name="downloader_cancel_all">Tümünü İptal Et</string>
 	<!-- Downloaded maps category -->
 	<string name="downloader_downloaded_subtitle">İndirildi</string>
+	<!-- Downloaded maps category -->
+	<string name="downloader_available_maps">Mevcut</string>
 	<!-- Country queued for download -->
 	<string name="downloader_queued">Sıraya alındı</string>
 	<string name="downloader_near_me_subtitle">Yakınlarımda</string>
 	<string name="downloader_status_maps">Haritalar</string>
 	<string name="downloader_download_all_button">Hepsini indir</string>
 	<string name="downloader_downloading">İndiriliyor:</string>
+	<string name="downloader_search_results">Bulundu</string>
 	<!-- Status of outdated country in the list -->
 	<string name="downloader_status_outdated">Güncelle</string>
 	<!-- Status of failed country in the list -->
@@ -476,6 +481,7 @@
 	<string name="editor_detailed_description">Önerdiğiniz değişiklikler OpenStreetMap topluluğuna gönderilecek. Organic Maps’de düzenlenemeyen ayrıntıları açıklayın.</string>
 	<string name="editor_more_about_osm">OpenStreetMap hakkında ek bilgi</string>
 	<string name="editor_operator">İşletmeci</string>
+	<string name="downloader_my_maps_title">Haritalarım</string>
 	<string name="downloader_no_downloaded_maps_title">Hiç harita indirmediniz</string>
 	<string name="downloader_no_downloaded_maps_message">Çevrimdışı olarak adres bulmak ve gezinmek için haritaları indirin.</string>
 	<!-- Error title that appears after certain time without location. -->
@@ -494,8 +500,10 @@
 	<string name="location_services_disabled_3">3. Uygulamayı Kullanırken Seç</string>
 	<string name="meter">m</string>
 	<string name="kilometer">km</string>
+	<string name="kilometers_per_hour">km/s</string>
 	<string name="mile">mil</string>
 	<string name="foot">fit</string>
+	<string name="miles_per_hour">mph</string>
 	<string name="hour">sa</string>
 	<string name="minute">dk</string>
 	<string name="placepage_place_description">Açıklama</string>
@@ -505,6 +513,8 @@
 	<string name="placepage_call_button">Çağrı</string>
 	<string name="placepage_edit_bookmark_button">Yer İmini Düzenle</string>
 	<string name="placepage_bookmark_name_hint">Yer İmi Adı</string>
+	<string name="placepage_personal_notes_hint">Kişisel notlar</string>
+	<string name="placepage_delete_bookmark_button">Yer İmini Sil</string>
 	<string name="editor_edits_sent_message">Önerdiğiniz değişiklikler gönderildi</string>
 	<string name="editor_comment_hint">Yorum…</string>
 	<string name="editor_reset_edits_message">Tüm yerel değişiklikler sıfırlansın mı?</string>
@@ -524,6 +534,7 @@
 	<!-- iOS Dialog before publishing the modifications to the public map. -->
 	<string name="editor_share_to_all_dialog_message_1">Herhangi bir kişisel bilgi girmediğinizden emin olun.</string>
 	<string name="editor_share_to_all_dialog_message_2">Değişikliği kontrol edeceğiz. Eğer herhangi bir sorumuz olursa sizinle e-posta aracılığıyla temasa geçeceğiz.</string>
+	<string name="navigation_stop_button">dur</string>
 	<!-- iOS dialog for the case when recent track recording is on and the app comes back from background -->
 	<string name="recent_track_background_dialog_title">En son seyahat edilen rotanızı kaydetmeyi devre dışı bırakmak istiyor musunuz?</string>
 	<string name="off_recent_track_background_button">Devre Dışı Bırak</string>
@@ -568,7 +579,7 @@
 	<string name="prefs_languages_information">Sesli talimatlar için TTS sistemini kullanıyoruz. Çoğu Android cihaz, Google TTS\'yi kullanıyor, Uygulamayı, Google Play\'den indirebilir veya güncelleyebilirsiniz (https://play.google.com/store/apps/details?id=com.google.android.tts)</string>
 	<string name="prefs_languages_information_off">Bazı diller için uygulama mağazasından (Google Play Market, Samsung Apps) farklı bir konuşma sentezleyicisi veya ek bir dil paketi yüklemeniz gerekebilir. Cihaz ayarları → Dil ve Giriş → Konuşma → Metin Okuma sekmelerini açın. Buradan konuşma sentezi ayarlarını yönetebilir (örneğin, çevrimdışı kullanım için bir dil paketini karşıdan yükleyebilir) ve başka bir metin okuma motorunu seçebilirsiniz.</string>
 	<string name="prefs_languages_information_off_link">Daha fazla bilgi için lütfen bu kılavuzu inceleyin.</string>
-	<string name="whatsnew_transliteration_title">Latince alfabesine çevirme</string>
+	<string name="transliteration_title">Latince alfabesine çevirme</string>
 	<string name="learn_more">Daha fazla bilgi edinin</string>
 	<string name="core_exit">Çık</string>
 	<string name="routing_add_start_point">Güzergâhı planlamak için bir başlangıç noktası ekleyin</string>
@@ -580,6 +591,7 @@
 	<string name="planning_route_remove_title">Kaldırmak için buraya sürükleyin</string>
 	<string name="placepage_add_stop">Ara nokta ekle</string>
 	<string name="preloader_viator_button">Daha fazla bilgi edinin</string>
+	<string name="start_from_my_position">Buradan başla</string>
 	<string name="profile_authorization_error">Üzgünüz, bir hata oluştu. Tekrar oturum açmayı deneyin.</string>
 	<string name="dialog_error_storage_title">Depolama alanı erişim sorunu</string>
 	<string name="dialog_error_storage_message">Harici bellek kullanılamıyor, muhtemelen SD Kart çıkarılmış, hasarlı veya dosya sistemi salt okunur. Lütfen kontrol edin ve support\@organicmaps.app adresinden bizimle iletişime geçin</string>
@@ -589,6 +601,9 @@
 	<string name="bookmarks_groups">Listeler</string>
 	<string name="bookmarks_groups_hide_all">Tümünü gizle</string>
 	<string name="bookmarks_groups_show_all">Tümünü göster</string>
+	<plurals name="bookmarks_places">
+	  <item quantity="other">%d yer imi</item>
+	</plurals>
 	<string name="bookmarks_create_new_group">Yeni liste oluştur</string>
 	<string name="downloader_hide_screen">Ekranı Gizle</string>
 	<string name="downloader_percent">%1$s (%2$s / %3$s)</string>
@@ -602,6 +617,7 @@
 	<string name="bookmarks_new_list_hint">Yeni liste</string>
 	<string name="bookmarks_error_title_list_name_already_taken">Bu isim zaten alınmış</string>
 	<string name="bookmarks_error_message_list_name_already_taken">Lütfen başka bir isim seçiniz</string>
+	<string name="bookmarks_error_title_list_name_too_long">Bu isim çok uzun</string>
 	<string name="please_wait">Lütfen bekle…</string>
 	<string name="phone_number">Telefon numarası</string>
 	<string name="profile">OpenStreetMap profil</string>
@@ -648,6 +664,7 @@
 	<string name="bookmark_category_description_hint">Bir açıklama yazın (metin veya html)</string>
 	<string name="not_shared">Şahsi</string>
 	<string name="tags_loading_error_subtitle">Etiketler yüklenirken bir hata oluştu, lütfen tekrar deneyin</string>
+	<string name="download_button">İndir</string>
 	<string name="speedcams_alert_title">Hız kameraları</string>
 	<string name="speedcam_option_auto">Otomatik</string>
 	<string name="speedcam_option_always">Her zaman</string>
@@ -673,14 +690,50 @@
 	<string name="unable_to_calc_alert_subtitle">Maalesef, muhtemelen belirlediğiniz seçeneklerden dolayı bir rota bulamadık. Lütfen seçenekleri değiştirin ve tekrar deneyin</string>
 	<string name="define_to_avoid_btn">Kaçınılması gereken yolları tanımlayın</string>
 	<string name="change_driving_options_btn">Sürüş seçenekleri etkinleştirildi</string>
+	<string name="toll_road">Paralı yol</string>
+	<string name="unpaved_road">Asfaltsız yol</string>
+	<string name="ferry_crossing">Feribot geçişi</string>
 	<string name="avoid_toll_roads_placepage">Paralı yollardan kaçın</string>
 	<string name="avoid_unpaved_roads_placepage">Asfaltsız yollardan kaçın</string>
 	<string name="avoid_ferry_crossing_placepage">Feribot geçişlerinden kaçın</string>
+	<string name="trip_start">Hadi gidelim</string>
+	<string name="pick_destination">Hedef</string>
+	<string name="follow_my_position">Tekrar ortala</string>
+	<string name="search_results">Arama sonuçları</string>
+	<string name="then_turn">Sonra</string>
+	<string name="redirect_route_alert">Yeniden bir rota oluşturmak ister misiniz?</string>
+	<string name="redirect_route_yes">Evet</string>
+	<string name="redirect_route_no">Hayır</string>
+	<string name="trip_finished">Vardınız!</string>
+	<string name="keyboard_availability_alert">Klavye, sürüş sırasında kullanılamaz</string>
+	<string name="dialog_routing_change_start_carplay">Mevcut konumunuzdan rota oluşturulamıyor</string>
+	<string name="dialog_routing_change_end_carplay">Hedefinize rota oluşturulamıyor. Lütfen başka bir nokta seçin</string>
+	<string name="dialog_routing_check_gps_carplay">GPS sinyali yok. Lütfen açık bir alana geçin</string>
+	<string name="dialog_routing_unable_locate_route_carplay">Rota oluşturulamıyor. Lütfen başka bir rota noktası belirtin</string>
+	<string name="dialog_routing_download_files_carplay">Rota oluşturmak için cihazınızdaki eksik haritaları indirin</string>
+	<string name="dialog_routing_system_error_carplay">Hata oluştu. Lütfen uygulamayı yeniden başlatın</string>
+	<string name="dialog_routing_rebuild_from_current_location_carplay">Rota, mevcut konumunuzdan yeniden oluşturulacak</string>
+	<string name="dialog_routing_rebuild_for_vehicle_carplay">Rota, bir arabalı seyahat rotasına dönüştürülecek</string>
 	<string name="ok">Tamam</string>
+	<string name="avoid_unpaved_carplay_1">Stabilizesiz</string>
+	<string name="avoid_unpaved_carplay_2">Asfaltsız hariç</string>
+	<string name="avoid_ferry_carplay_1">Feribotsuz</string>
+	<string name="avoid_ferry_carplay_2">Feribot hariç</string>
+	<string name="avoid_tolls_carplay_1">Paralı yok</string>
+	<string name="avoid_tolls_carplay_2">Paralı hariç</string>
+	<string name="speedcams_alert_title_carplay_1">Hız kamerası</string>
+	<string name="speedcams_alert_title_carplay_2">Hız uyarıları</string>
+	<string name="download_map_carplay">Lütfen haritaları cihazınıza Organic Maps uygulamasından indirin</string>
+	<string name="carplay_roundabout_exit">%s çıkış</string>
 	<!-- max. 10 symbols, both iOS and Android -->
 	<string name="sort">Sırala…</string>
 	<!-- Android, title, max 20-22 symbols -->
 	<string name="sort_bookmarks">Yer imlerini sırala</string>
+	<!-- iOS -->
+	<string name="sort_default">Varsayılana göre sırala</string>
+	<string name="sort_type">Türe göre sırala</string>
+	<string name="sort_distance">Mesafeye göre sırala</string>
+	<string name="sort_date">Tarihe göre sırala</string>
 	<!-- Android -->
 	<string name="by_default">Varsayılana göre</string>
 	<!-- Android -->
@@ -689,7 +742,29 @@
 	<string name="by_distance">Mesafeye göre</string>
 	<!-- Android -->
 	<string name="by_date">Tarihe göre</string>
+	<string name="week_ago_sorttype">Bir hafta önce</string>
+	<string name="month_ago_sorttype">Bir ay önce</string>
+	<string name="moremonth_ago_sorttype">Bir aydan daha önce</string>
+	<string name="moreyear_ago_sorttype">Bir yıldan daha önce</string>
+	<string name="near_me_sorttype">Bana yakın</string>
+	<string name="others_sorttype">Diğerleri</string>
+	<string name="food_places">Yiyecek</string>
+	<string name="tourist_places">Görülecek yerler</string>
+	<string name="museums">Müzeler</string>
+	<string name="parks">Parklar</string>
+	<string name="swim_places">Yüzme</string>
+	<string name="mountains">Dağlar</string>
+	<string name="animals">Hayvanlar</string>
+	<string name="hotels">Oteller</string>
+	<string name="buildings">Binalar</string>
+	<string name="money">Para</string>
+	<string name="shops">Mağazalar</string>
+	<string name="parkings">Otoparklar</string>
+	<string name="fuel_places">Benzin istasyonları</string>
+	<string name="water">Su</string>
+	<string name="medicine">İlaç</string>
 	<string name="search_in_the_list">Listede ara</string>
+	<string name="religious_places">Dini yerler</string>
 	<string name="select_list">Liste seç</string>
 	<string name="transit_not_found">Metro navigasyonu bu bölgede henüz mevcut değil</string>
 	<string name="dialog_pedestrian_route_is_long_header">Metro güzergahı bulunamadı</string>
@@ -698,6 +773,9 @@
 	<string name="isolines_activation_error_dialog">Yükseklik çizgilerini kullanmak için, istediğiniz arazinin haritasını güncelleyin veya indirin</string>
 	<string name="isolines_location_error_dialog">Bu bölgede henüz yükseklik çizgileri mevcut değil</string>
 	<string name="elevation_profile_diff_level">Zorluk seviyesi</string>
+	<string name="elevation_profile_diff_level_easy">Kolay</string>
+	<string name="elevation_profile_diff_level_moderate">Orta</string>
+	<string name="elevation_profile_diff_level_hard">Karmaşık</string>
 	<string name="elevation_profile_ascent">Tırmanış</string>
 	<string name="elevation_profile_descent">İniş</string>
 	<string name="elevation_profile_minaltitude">Min. rakım</string>
@@ -706,6 +784,8 @@
 	<string name="elevation_profile_distance">Mesafe:</string>
 	<string name="elevation_profile_time">Süre:</string>
 	<string name="isolines_toast_zooms_1_10">Konturları görmek için haritayı büyütün</string>
+	<string name="downloader_updating_ios">Güncelleme</string>
+	<string name="downloader_loading_ios">İndir</string>
 	<string name="key_information_title">Anahtar bilgisi</string>
 	<string name="enable_screen_sleep">Ekranın uyumasına izin ver</string>
 	<!-- Description in preferences -->

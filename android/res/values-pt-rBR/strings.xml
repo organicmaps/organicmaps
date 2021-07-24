@@ -627,6 +627,7 @@
 	<string name="bookmarks_error_message_list_name_already_taken">Por favor, escolha outro nome</string>
 	<string name="bookmarks_error_title_list_name_too_long">Este nome é muito longo</string>
 	<string name="please_wait">Espere, por favor�</string>
+	<string name="phone_number">Número de telefone</string>
 	<string name="profile">Perfil do OpenStreetMap</string>
 	<string name="place_page_search_similar_hotel">Buscar hotéis semelhantes</string>
 	<string name="bookmarks_detect_title">Novos arquivos detectados</string>

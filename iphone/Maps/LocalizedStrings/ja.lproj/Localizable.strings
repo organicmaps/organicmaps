@@ -35,11 +35,6 @@
 /* View and button titles for accessibility */
 "maps" = "マップ";
 
-/* Settings/Downloader - size string, only strings different from English should be translated */
-"mb" = "MB";
-
-"gb" = "GB";
-
 /* Choose measurement on first launch alert - choose imperial system button */
 "miles" = "マイル";
 
@@ -116,6 +111,9 @@
 
 /* Add Bookmark Set dialog - hint when set name is empty */
 "bookmark_set_name" = "ブックマークセット名称";
+
+/* Bookmark Sets dialog title */
+"bookmark_sets" = "ブックマークセット";
 
 /* Bookmarks - dialog title */
 "bookmarks" = "ブックマーク";
@@ -213,8 +211,6 @@
 /* Email Subject when sharing bookmarks category */
 "share_bookmarks_email_subject" = "Organic Mapsの位置情報シェア";
 
-"share_bookmarks_email_body" = "Hello!\n\nAttached are my bookmarks from Organic Maps app. Please open them if you have Organic Maps installed. Or, if you don't, download the app for your iOS or Android device by following this link: https://omaps.app/get?kmz\n\nEnjoy traveling with Organic Maps!";
-
 /* message title of loading file */
 "load_kmz_title" = "ブックマークの読み込み中";
 
@@ -223,9 +219,6 @@
 
 /* Kml file loading failed */
 "load_kmz_failed" = "ブックマークのアップロードに失敗しました。ファイルが破損していた、または問題があった可能性があります。";
-
-/* resource for context menu */
-"edit" = "Edit";
 
 /* Warning message when doing search around current position */
 "unknown_current_position" = "現在の座標が未確定です";
@@ -266,9 +259,6 @@
 /* Prints version number in About dialog */
 "version" = "バージョン： %@";
 
-/* Data version in «About» screen */
-"data_version" = "Data version: %d";
-
 /* Confirmation in downloading countries dialog */
 "are_you_sure" = "本当に続けますか?";
 
@@ -279,12 +269,6 @@
 "length" = "距離";
 
 "share_my_location" = "位置情報を共有する";
-
-/* Settings general group in settings screen */
-"prefs_group_general" = "General settings";
-
-/* Settings information group in settings screen */
-"prefs_group_information" = "Information";
 
 "prefs_group_route" = "ナビゲーション";
 
@@ -346,24 +330,6 @@
 /* Text in menu */
 "website" = "ウェブサイト";
 
-/* Text in menu */
-"github" = "GitHub";
-
-/* Text in menu */
-"telegram" = "Telegram";
-
-/* Text in menu */
-"facebook" = "Facebook";
-
-/* Text in menu */
-"twitter" = "Twitter";
-
-/* Text in menu */
-"instagram" = "Instagram";
-
-/* Text in menu */
-"openstreetmap" = "OpenStreetMap";
-
 /* Settings: Send feedback button and dialog title */
 "feedback" = "フィードバック";
 
@@ -400,6 +366,9 @@
 /* Downloaded maps category */
 "downloader_downloaded_subtitle" = "ダウンロード済み";
 
+/* Downloaded maps category */
+"downloader_available_maps" = "利用可能";
+
 /* Country queued for download */
 "downloader_queued" = "待ち行列型の";
 
@@ -410,6 +379,8 @@
 "downloader_download_all_button" = "全てをダウンロード";
 
 "downloader_downloading" = "ダウンロード中：";
+
+"downloader_search_results" = "見つかりました";
 
 /* Status of outdated country in the list */
 "downloader_status_outdated" = "を更新";
@@ -608,9 +579,6 @@
 "search_history_text" = "最近の検索クエリに素早くアクセス。";
 
 "clear_search" = "検索履歴を消去";
-
-/* Place Page link to Wikipedia article (if map object has it). */
-"read_in_wikipedia" = "Wikipedia";
 
 "p2p_your_location" = "現在位置";
 
@@ -834,6 +802,8 @@
 
 "editor_operator" = "オペレーター";
 
+"downloader_my_maps_title" = "マイマップ";
+
 "downloader_no_downloaded_maps_title" = "マップをダウンロードしていません";
 
 "downloader_no_downloaded_maps_message" = "ロケーションの検索とオフラインナビゲートのためにマップをダウンロードしてください。";
@@ -867,9 +837,13 @@
 
 "kilometer" = "km";
 
+"kilometers_per_hour" = "キロメートル毎時";
+
 "mile" = "マイル";
 
 "foot" = "フィート";
+
+"miles_per_hour" = "マイル毎時";
 
 "hour" = "時間";
 
@@ -888,6 +862,10 @@
 "placepage_edit_bookmark_button" = "ブックマークを編集";
 
 "placepage_bookmark_name_hint" = "ブックマーク名";
+
+"placepage_personal_notes_hint" = "パーソナルメモ";
+
+"placepage_delete_bookmark_button" = "ブックマークを削除";
 
 "editor_edits_sent_message" = "あなたの提案の変更が送信されました";
 
@@ -923,6 +901,8 @@
 "editor_share_to_all_dialog_message_1" = "個人情報を入力していないことを確認してください。";
 
 "editor_share_to_all_dialog_message_2" = "弊社で変更を確認します。質問がある場合はメールでご連絡します。";
+
+"navigation_stop_button" = "停止";
 
 /* iOS dialog for the case when recent track recording is on and the app comes back from background */
 "recent_track_background_dialog_title" = "最近の走行ルートの記録を無効にしますか？";
@@ -1000,7 +980,7 @@
 
 "prefs_languages_information_off_link" = "詳細については、このガイドをご確認ください。";
 
-"whatsnew_transliteration_title" = "ラテン文字への字訳";
+"transliteration_title" = "ラテン文字への字訳";
 
 "learn_more" = "詳細情報";
 
@@ -1024,6 +1004,8 @@
 
 "preloader_viator_button" = "詳細情報";
 
+"start_from_my_position" = "開始位置";
+
 "profile_authorization_error" = "エラーが発生しました。もう一度サインインしてみてください。";
 
 "dialog_error_storage_title" = "ストレージアクセスの問題";
@@ -1043,9 +1025,6 @@
 "bookmarks_groups_show_all" = "すべて表示";
 
 "bookmarks_create_new_group" = "新しいリストを作成する";
-
-/* Bookmark categories screen */
-"bookmarks_import" = "Import bookmarks";
 
 "downloader_hide_screen" = "画面を非表示";
 
@@ -1071,7 +1050,11 @@
 
 "bookmarks_error_message_list_name_already_taken" = "別の名前を選んでください";
 
+"bookmarks_error_title_list_name_too_long" = "この名前は長すぎます";
+
 "please_wait" = "お待ちください…";
+
+"phone_number" = "電話番号";
 
 "profile" = "OpenStreetMap プロフィール";
 
@@ -1119,8 +1102,6 @@
 
 "title_error_downloading_bookmarks" = "エラーが発生しました";
 
-"popular_place" = "Popular";
-
 "export_file" = "ファイルのエクスポート";
 
 "list_settings" = "リスト設定";
@@ -1138,6 +1119,8 @@
 "not_shared" = "非公開";
 
 "tags_loading_error_subtitle" = "タグのロード中にエラーが起きました。もう一度やり直してください";
+
+"download_button" = "ダウンロード";
 
 "speedcams_alert_title" = "自動速度違反取締装置";
 
@@ -1188,19 +1171,90 @@
 
 "change_driving_options_btn" = "運転オプションはアクティブです";
 
+"toll_road" = "有料道路";
+
+"unpaved_road" = "未舗装道路";
+
+"ferry_crossing" = "フェリー航路";
+
 "avoid_toll_roads_placepage" = "有料道路を回避";
 
 "avoid_unpaved_roads_placepage" = "未舗装道路を回避";
 
 "avoid_ferry_crossing_placepage" = "フェリー航路を回避";
 
+"trip_start" = "レッツゴー";
+
+"pick_destination" = "目的地";
+
+"follow_my_position" = "リセンター";
+
+"search_results" = "検索結果";
+
+"then_turn" = "その後";
+
+"redirect_route_alert" = "ルートを再構築しますか?";
+
+"redirect_route_yes" = "はい";
+
+"redirect_route_no" = "いいえ";
+
+"trip_finished" = "到着しました!";
+
+"keyboard_availability_alert" = "運転中はキーボードを使用する事はできません";
+
+"dialog_routing_change_start_carplay" = "現在位置からはルートを構築できません";
+
+"dialog_routing_change_end_carplay" = "目的地へのルートは構築できません。別の地点を選択してください";
+
+"dialog_routing_check_gps_carplay" = "GPS信号がありません。開けた場所へ移動してください";
+
+"dialog_routing_unable_locate_route_carplay" = "ルートが構築できません。別のルート地点を設定して下さい";
+
+"dialog_routing_download_files_carplay" = "ルートを作成するには、地図に表示されていない部分を端末でダウンロードします";
+
+"dialog_routing_system_error_carplay" = "エラーが発生しました。アプリを再起動してください";
+
+"dialog_routing_rebuild_from_current_location_carplay" = "ルートは現在位置から再構築されます";
+
+"dialog_routing_rebuild_for_vehicle_carplay" = "ルートは自動車用として修正されます";
+
 "ok" = "OK";
+
+"avoid_unpaved_carplay_1" = "未舗装道路無し";
+
+"avoid_unpaved_carplay_2" = "未舗装道路無し";
+
+"avoid_ferry_carplay_1" = "フェリー無し";
+
+"avoid_ferry_carplay_2" = "フェリーを回避";
+
+"avoid_tolls_carplay_1" = "有料道路無し";
+
+"avoid_tolls_carplay_2" = "有料道路を回避";
+
+"speedcams_alert_title_carplay_1" = "速度警告";
+
+"speedcams_alert_title_carplay_2" = "速度警告";
+
+"download_map_carplay" = "あなたの機器のOrganic Mapsのアプリにマップをダウンロードしてください";
+
+"carplay_roundabout_exit" = "第%s出口";
 
 /* max. 10 symbols, both iOS and Android */
 "sort" = "並び替え中…";
 
 /* Android, title, max 20-22 symbols */
 "sort_bookmarks" = "ブックマークの並び替え";
+
+/* iOS */
+"sort_default" = "デフォルトで並び替え";
+
+"sort_type" = "タイプで並び替え";
+
+"sort_distance" = "距離で並び替え";
+
+"sort_date" = "日付で並び替え";
 
 /* Android */
 "by_default" = "デフォルトで";
@@ -1214,7 +1268,51 @@
 /* Android */
 "by_date" = "日付で";
 
+"week_ago_sorttype" = "1週間前";
+
+"month_ago_sorttype" = "1ケ月前";
+
+"moremonth_ago_sorttype" = "1ケ月以上前";
+
+"moreyear_ago_sorttype" = "1年以上前";
+
+"near_me_sorttype" = "近隣";
+
+"others_sorttype" = "その他";
+
+"food_places" = "食べ物";
+
+"tourist_places" = "観光地";
+
+"museums" = "博物館";
+
+"parks" = "公園";
+
+"swim_places" = "水泳";
+
+"mountains" = "山";
+
+"animals" = "動物園";
+
+"hotels" = "ホテル";
+
+"buildings" = "ビル";
+
+"money" = "金銭";
+
+"shops" = "ショップ";
+
+"parkings" = "駐車場";
+
+"fuel_places" = "ガソリンスタンド";
+
+"water" = "水";
+
+"medicine" = "医薬品";
+
 "search_in_the_list" = "リスト内で検索";
+
+"religious_places" = "宗教に関連した場所";
 
 "select_list" = "リストを選択";
 
@@ -1232,6 +1330,12 @@
 
 "elevation_profile_diff_level" = "難易度";
 
+"elevation_profile_diff_level_easy" = "イージー";
+
+"elevation_profile_diff_level_moderate" = "ノーマル";
+
+"elevation_profile_diff_level_hard" = "ハード";
+
 "elevation_profile_ascent" = "上昇";
 
 "elevation_profile_descent" = "下降";
@@ -1248,13 +1352,11 @@
 
 "isolines_toast_zooms_1_10" = "等高線を調べるためにズームインしましょう";
 
+"downloader_updating_ios" = "更新中";
+
+"downloader_loading_ios" = "ダウンロード中";
+
 "key_information_title" = "重要情報";
-
-"download_map_title" = "Download the world map";
-
-"connection_failure" = "Connection failure";
-
-"disconnect_usb_cable_title" = "Disconnect USB cable";
 
 "enable_screen_sleep" = "画面をスリープ状態にする";
 
@@ -1272,21 +1374,6 @@
 
 /* Autoupdate dialog on start */
 "whats_new_auto_update_button_later" = "あとで手動で更新";
-
-
-/**********  Partners  **********/
-
-"sponsored_partner1_action" = "Outlets";
-
-"sponsored_partner2_action" = "Discount";
-
-"sponsored_partner3_action" = "Coupon";
-
-"sponsored_partner18_action" = "Lifehack";
-
-"sponsored_partner19_action" = "Lifehack";
-
-"sponsored_partner20_action" = "Lifehack";
 
 
 /********** Types **********/
@@ -1326,8 +1413,6 @@
 "type.amenity" = "アメニティー";
 
 "type.amenity.arts_centre" = "芸術センター";
-
-"type.amenity.atm" = "ATM";
 
 "type.amenity.bank" = "銀行";
 
@@ -1503,8 +1588,6 @@
 
 "type.amenity.shower" = "シャワー";
 
-"type.amenity.speed_trap" = "amenity-speed_trap";
-
 "type.amenity.taxi" = "タクシー";
 
 "type.amenity.telephone" = "公衆電話";
@@ -1568,44 +1651,6 @@
 "type.boundary" = "境界線";
 
 "type.boundary.administrative" = "行政境界";
-
-"type.boundary.administrative.10" = "boundary-administrative-10";
-
-"type.boundary.administrative.11" = "boundary-administrative-11";
-
-"type.boundary.administrative.2" = "boundary-administrative-2";
-
-"type.boundary.administrative.3" = "boundary-administrative-3";
-
-"type.boundary.administrative.4" = "boundary-administrative-4";
-
-"type.boundary.administrative.4.state" = "boundary-administrative-4-state";
-
-"type.boundary.administrative.5" = "boundary-administrative-5";
-
-"type.boundary.administrative.6" = "boundary-administrative-6";
-
-"type.boundary.administrative.7" = "boundary-administrative-7";
-
-"type.boundary.administrative.8" = "boundary-administrative-8";
-
-"type.boundary.administrative.9" = "boundary-administrative-9";
-
-"type.boundary.administrative.city" = "boundary-administrative-city";
-
-"type.boundary.administrative.country" = "boundary-administrative-country";
-
-"type.boundary.administrative.county" = "boundary-administrative-county";
-
-"type.boundary.administrative.municipality" = "boundary-administrative-municipality";
-
-"type.boundary.administrative.nation" = "boundary-administrative-nation";
-
-"type.boundary.administrative.region" = "boundary-administrative-region";
-
-"type.boundary.administrative.state" = "boundary-administrative-state";
-
-"type.boundary.administrative.suburb" = "boundary-administrative-suburb";
 
 "type.boundary.national_park" = "国立公園";
 
@@ -1812,8 +1857,6 @@
 "type.cuisine.vegetarian" = "ベジタリアン料理";
 
 "type.cuisine.vietnamese" = "ベトナム料理";
-
-"type.emergency" = "emergency";
 
 "type.emergency.defibrillator" = "除細動器";
 
@@ -2041,10 +2084,6 @@
 
 "type.highway.unclassified.tunnel" = "ストリート";
 
-"type.highway.world_level" = "highway-world_level";
-
-"type.highway.world_towns_level" = "highway-world_towns_level";
-
 "type.historic" = "史跡";
 
 "type.historic.archaeological_site" = "考古遺跡";
@@ -2085,32 +2124,6 @@
 
 "type.historic.wayside_shrine" = "歴史的な祠";
 
-"type.hwtag" = "hwtag";
-
-"type.hwtag.bidir_bicycle" = "hwtag-bidir_bicycle";
-
-"type.hwtag.onedir_bicycle" = "hwtag-onedir_bicycle";
-
-"type.hwtag.lit" = "hwtag-lit";
-
-"type.hwtag.nobicycle" = "hwtag-nobicycle";
-
-"type.hwtag.nocar" = "hwtag-nocar";
-
-"type.hwtag.nofoot" = "hwtag-nofoot";
-
-"type.hwtag.oneway" = "hwtag-oneway";
-
-"type.hwtag.private" = "hwtag-private";
-
-"type.hwtag.toll" = "hwtag-toll";
-
-"type.hwtag.yesbicycle" = "hwtag-yesbicycle";
-
-"type.hwtag.yescar" = "hwtag-yescar";
-
-"type.hwtag.yesfoot" = "hwtag-yesfoot";
-
 "type.internet_access" = "インターネット";
 
 "type.internet_access.wlan" = "インターネット";
@@ -2142,8 +2155,6 @@
 "type.landuse.farmland" = "農地";
 
 "type.landuse.farmyard" = "農地";
-
-"type.landuse.field" = "Field";
 
 "type.landuse.forest" = "森林";
 
@@ -2223,8 +2234,6 @@
 
 "type.leisure.playground" = "児童公園";
 
-"type.leisure.recreation_ground" = "Recreation ground";
-
 "type.leisure.sauna" = "サウナ";
 
 "type.leisure.slipway" = "スリップウェイ";
@@ -2280,10 +2289,6 @@
 "type.man_made.windmill" = "風車";
 
 "type.man_made.works" = "工場";
-
-"type.mapswithme" = "mapswithme";
-
-"type.mapswithme.grid" = "mapswithme-grid";
 
 "type.military" = "軍事";
 
@@ -2379,27 +2384,9 @@
 
 "type.olympics.bike_sport" = "オリンピック自転車競技";
 
-"type.olympics.live_site" = "olympics-live_site";
-
-"type.olympics.official_building" = "olympics-official_building";
-
 "type.olympics.stadium" = "オリンピックスタジアム";
 
 "type.olympics.stadium_main" = "オリンピックメインスタジアム";
-
-"type.olympics.transport_airport" = "olympics-transport_airport";
-
-"type.olympics.transport_boat" = "olympics-transport_boat";
-
-"type.olympics.transport_bus" = "olympics-transport_bus";
-
-"type.olympics.transport_cable" = "olympics-transport_cable";
-
-"type.olympics.transport_railway" = "olympics-transport_railway";
-
-"type.olympics.transport_subway" = "olympics-transport_subway";
-
-"type.olympics.transport_tram" = "olympics-transport_tram";
 
 "type.olympics.water_sport" = "オリンピック水上競技";
 
@@ -2485,16 +2472,6 @@
 
 "type.power.tower" = "電柱";
 
-"type.psurface" = "psurface";
-
-"type.psurface.paved_bad" = "psurface-paved_bad";
-
-"type.psurface.paved_good" = "psurface-paved_good";
-
-"type.psurface.unpaved_bad" = "psurface-unpaved_bad";
-
-"type.psurface.unpaved_good" = "psurface-unpaved_good";
-
 "type.public_transport" = "公共交通機関";
 
 "type.public_transport.platform" = "公共交通機関のプラットホーム";
@@ -2520,12 +2497,6 @@
 "type.railway.funicular.tunnel" = "ケーブルカー(トンネル)";
 
 "type.railway.halt" = "鉄道駅";
-
-"type.railway.incline" = "railway-incline";
-
-"type.railway.incline.bridge" = "railway-incline-bridge";
-
-"type.railway.incline.tunnel" = "railway-incline-tunnel";
 
 "type.railway.level_crossing" = "踏切";
 
@@ -2633,38 +2604,6 @@
 
 "type.railway.station.subway.yellow" = "地下鉄";
 
-"type.railway.subway" = "railway-subway";
-
-"type.railway.subway.blue" = "railway-subway-blue";
-
-"type.railway.subway.bridge" = "railway-subway-bridge";
-
-"type.railway.subway.brown" = "railway-subway-brown";
-
-"type.railway.subway.darkgreen" = "railway-subway-darkgreen";
-
-"type.railway.subway.gray" = "railway-subway-gray";
-
-"type.railway.subway.green" = "railway-subway-green";
-
-"type.railway.subway.grey" = "railway-subway-grey";
-
-"type.railway.subway.lightblue" = "railway-subway-lightblue";
-
-"type.railway.subway.lightgreen" = "railway-subway-lightgreen";
-
-"type.railway.subway.orange" = "railway-subway-orange";
-
-"type.railway.subway.purple" = "railway-subway-purple";
-
-"type.railway.subway.red" = "railway-subway-red";
-
-"type.railway.subway.tunnel" = "railway-subway-tunnel";
-
-"type.railway.subway.violet" = "railway-subway-violet";
-
-"type.railway.subway.yellow" = "railway-subway-yellow";
-
 "type.railway.subway_entrance" = "地下鉄入り口";
 
 "type.railway.subway_entrance.barcelona" = "地下鉄";
@@ -2710,8 +2649,6 @@
 "type.route.ferry.motor_vehicle" = "フェリー航路(動力車)";
 
 "type.route.ferry.motorcar" = "フェリー航路(自動車)";
-
-"type.route.shuttle_train" = "route-shuttle_train";
 
 "type.shop" = "買い物";
 
@@ -2847,54 +2784,6 @@
 
 "type.shop.wine" = "ワイン店";
 
-"type.sponsored" = "sponsored";
-
-"type.sponsored.booking" = "sponsored-booking";
-
-"type.sponsored.holiday" = "Christmas or New Year Celebrations";
-
-"type.sponsored.opentable" = "sponsored-opentable";
-
-"type.sponsored.partner1" = "sponsored-partner1";
-
-"type.sponsored.partner10" = "sponsored-partner10";
-
-"type.sponsored.partner11" = "sponsored-partner11";
-
-"type.sponsored.partner12" = "sponsored-partner12";
-
-"type.sponsored.partner13" = "sponsored-partner13";
-
-"type.sponsored.partner14" = "sponsored-partner14";
-
-"type.sponsored.partner15" = "sponsored-partner15";
-
-"type.sponsored.partner16" = "sponsored-partner16";
-
-"type.sponsored.partner17" = "sponsored-partner17";
-
-"type.sponsored.partner18" = "MegaFon";
-
-"type.sponsored.partner19" = "MegaFon";
-
-"type.sponsored.partner2" = "sponsored-partner2";
-
-"type.sponsored.partner20" = "MegaFon";
-
-"type.sponsored.partner3" = "sponsored-partner3";
-
-"type.sponsored.partner4" = "sponsored-partner4";
-
-"type.sponsored.partner5" = "sponsored-partner5";
-
-"type.sponsored.partner6" = "sponsored-partner6";
-
-"type.sponsored.partner7" = "sponsored-partner7";
-
-"type.sponsored.partner8" = "sponsored-partner8";
-
-"type.sponsored.partner9" = "sponsored-partner9";
-
 "type.sport" = "スポーツ";
 
 "type.sport.american_football" = "アメリカンフットボール";
@@ -3023,11 +2912,9 @@
 
 "type.waterway.dock" = "ドック";
 
-"type.waterway.drain" = "waterway-drain";
+"type.waterway.drain" = "用水路";
 
 "type.waterway.drain.tunnel" = "用水路";
-
-"type.waterway.lock" = "waterway-lock";
 
 "type.waterway.lock_gate" = "水門";
 
@@ -3057,375 +2944,4 @@
 
 "type.wheelchair.yes" = "車椅子でのアクセスあり";
 
-"type.piste_lift" = "piste:lift";
-
-"type.piste_lift.j.bar" = "piste:lift-j-bar";
-
-"type.piste_lift.magic_carpet" = "piste:lift-magic_carpet";
-
-"type.piste_lift.platter" = "piste:lift-platter";
-
-"type.piste_lift.rope_tow" = "piste:lift-rope_tow";
-
-"type.piste_lift.t.bar" = "piste:lift-t-bar";
-
-"type.piste_type" = "piste:type";
-
-"type.piste_type.downhill" = "piste:type-downhill";
-
-"type.piste_type.downhill.advanced" = "piste:type-downhill-advanced";
-
-"type.piste_type.downhill.easy" = "piste:type-downhill-easy";
-
-"type.piste_type.downhill.expert" = "piste:type-downhill-expert";
-
-"type.piste_type.downhill.freeride" = "piste:type-downhill-freeride";
-
-"type.piste_type.downhill.intermediate" = "piste:type-downhill-intermediate";
-
-"type.piste_type.downhill.novice" = "piste:type-downhill-novice";
-
-"type.piste_type.nordic" = "piste:type-nordic";
-
-"type.piste_type.sled" = "piste:type-sled";
-
 "type.building_part" = "建物";
-
-"type.area_highway.cycleway" = "area:highway-cycleway";
-
-"type.area_highway.footway" = "area:highway-footway";
-
-"type.area_highway.living_street" = "area:highway-living_street";
-
-"type.area_highway.motorway" = "area:highway-motorway";
-
-"type.area_highway.path" = "area:highway-path";
-
-"type.area_highway.pedestrian" = "area:highway-pedestrian";
-
-"type.area_highway.primary" = "area:highway-primary";
-
-"type.area_highway.residential" = "area:highway-residential";
-
-"type.area_highway.secondary" = "area:highway-secondary";
-
-"type.area_highway.service" = "area:highway-service";
-
-"type.area_highway.tertiary" = "area:highway-tertiary";
-
-"type.area_highway.steps" = "area:highway-steps";
-
-"type.area_highway.track" = "area:highway-track";
-
-"type.area_highway.trunk" = "area:highway-trunk";
-
-"type.area_highway.unclassified" = "area:highway-unclassified";
-
-
-/********** Brands **********/
-
-"brand.aiya" = "藍屋";
-
-"brand.anrakutei" = "安楽亭";
-
-"brand.applebee_s" = "Applebee's";
-
-"brand.aroma" = "Aroma";
-
-"brand.bamiyan" = "バーミヤン";
-
-"brand.banana_leaf" = "Banana Leaf";
-
-"brand.baskin_robbins" = "Baskin-Robbins";
-
-"brand.big_boy" = "ビッグボーイ";
-
-"brand.bikkuridonkey" = "びっくりドンキー";
-
-"brand.blue_bottle_coffee" = "ブルーボトルコーヒー";
-
-"brand.burger_king" = "バーガーキング";
-
-"brand.cafe_amazon" = "Café Amazon";
-
-"brand.cafe_coffee_day" = "Cafe Coffee Day";
-
-"brand.cafe_de_crie" = "カフェドクリエ";
-
-"brand.capricchosa" = "カプリチョーザ";
-
-"brand.carl_s_jr" = "Carl's Jr.";
-
-"brand.celentano" = "Celentano";
-
-"brand.chibo" = "千房";
-
-"brand.chick_fil_a" = "Chick-fil-A";
-
-"brand.chilis" = "Chili's";
-
-"brand.chipotle" = "Chipotle";
-
-"brand.chowking" = "Chowking";
-
-"brand.cinnabon" = "Cinnabon";
-
-"brand.coco" = "CoCo";
-
-"brand.coco_ichibanya" = "CoCo壱番屋";
-
-"brand.cocos" = "ココス";
-
-"brand.coffee_house" = "Coffee House";
-
-"brand.coffee_world" = "Coffee World";
-
-"brand.coffeeport" = "Coffeeport";
-
-"brand.coffeeshop_company" = "Coffeeshop Company";
-
-"brand.cofix" = "Cofix";
-
-"brand.comic_buster" = "Comic Buster";
-
-"brand.costa_coffee" = "Costa Coffee";
-
-"brand.dairy_queen" = "Dairy Queen";
-
-"brand.dennys" = "デニーズ";
-
-"brand.doi_chaang" = "Doi Chaang";
-
-"brand.dominos_pizza" = "ドミノ・ピザ";
-
-"brand.double_b" = "Double B";
-
-"brand.doutor" = "ドトールコーヒーショップ";
-
-"brand.dunkin_donuts" = "Dunkin Donuts";
-
-"brand.espresso_house" = "Espresso House";
-
-"brand.excelsior_caffe" = "エクセルシオール カフェ";
-
-"brand.first_kitchen" = "ファーストキッチン";
-
-"brand.freshness_burger" = "フレッシュネスバーガー";
-
-"brand.fujisoba" = "富士そば";
-
-"brand.glowsubs" = "GlowSubs";
-
-"brand.grazie_gardens" = "グラッチェガーデンズ";
-
-"brand.gusto" = "ガスト";
-
-"brand.gyukaku" = "牛角";
-
-"brand.haagen_dazs" = "Häagen-Dazs";
-
-"brand.hamazushi" = "はま寿司";
-
-"brand.hanamaru" = "はなまるうどん";
-
-"brand.hanaya_yohei" = "華屋与兵衛";
-
-"brand.handaya" = "半田屋";
-
-"brand.hard_rock_cafe" = "Hard Rock Cafe";
-
-"brand.havanna" = "Havanna";
-
-"brand.hesburger" = "Hesburger";
-
-"brand.hokkahokka_tei" = "ほっかほっか亭";
-
-"brand.honkekamadoya" = "本家かまどや";
-
-"brand.hottomotto" = "ほっともっと";
-
-"brand.ihop" = "IHOP";
-
-"brand.ikinari_steak" = "いきなりステーキ";
-
-"brand.il_patio" = "IL Patio";
-
-"brand.jack_in_the_box" = "Jack in the Box";
-
-"brand.jiyu_kukan" = "自遊空間";
-
-"brand.jollibee" = "Jollibee";
-
-"brand.jolly_pasta" = "ジョリーパスタ";
-
-"brand.jonathans" = "ジョナサン";
-
-"brand.joyfull" = "ジョイフル";
-
-"brand.kappazushi" = "かっぱ寿司";
-
-"brand.katsuya" = "かつや";
-
-"brand.kfc" = "ケンタッキーフライドチキン";
-
-"brand.kisoji" = "木曽路";
-
-"brand.kobeya_restaurant" = "神戸屋レストラン";
-
-"brand.kohikan" = "珈琲館";
-
-"brand.komeda" = "コメダ珈琲店";
-
-"brand.komoro_soba" = "小諸そば";
-
-"brand.kourakuen" = "幸楽苑";
-
-"brand.kroshka_kartoshka" = "Kroshka Kartoshka";
-
-"brand.kurazushi" = "くら寿司";
-
-"brand.little_caesars" = "Little Caesars";
-
-"brand.lotteria" = "ロッテリア";
-
-"brand.maido_ohkini" = "まいどおおきに";
-
-"brand.marrybrown" = "Marrybrown";
-
-"brand.marugame_seimen" = "丸亀製麺";
-
-"brand.matsunoya" = "松のや";
-
-"brand.matsuya" = "松屋";
-
-"brand.mcdonalds" = "マクドナルド";
-
-"brand.mister_donut" = "ミスタードーナツ";
-
-"brand.miyakosoba" = "都そば";
-
-"brand.miyoshino" = "みよしの";
-
-"brand.mk_restaurants" = "MK Restaurants";
-
-"brand.mos_burger" = "モスバーガー";
-
-"brand.mr_sub" = "Mr. Sub";
-
-"brand.mu_mu" = "Mu-Mu";
-
-"brand.nakau" = "なか卯";
-
-"brand.ohsho" = "餃子の王将";
-
-"brand.onebuckscoffee" = "OneBucksCoffee";
-
-"brand.origin_bento" = "オリジン弁当";
-
-"brand.osaka_ohsho" = "大阪王将";
-
-"brand.panda_express" = "Panda Express";
-
-"brand.panera_bread" = "Panera Bread";
-
-"brand.papa_johns" = "Papa John's";
-
-"brand.perkins" = "Perkins";
-
-"brand.pizza_hut" = "ピザハット";
-
-"brand.pizza_pizza" = "Pizza Pizza";
-
-"brand.popeyes" = "Popeyes";
-
-"brand.pronto" = "Puronto";
-
-"brand.quiznos" = "Quiznos";
-
-"brand.red_lobster" = "Red Lobster";
-
-"brand.ringer_hut" = "リンガーハット";
-
-"brand.robin_sdobin" = "Robin Sdobin";
-
-"brand.royal_host" = "ロイヤルホスト";
-
-"brand.ruby_tuesday" = "Ruby Tuesday";
-
-"brand.saizeriya" = "サイゼリヤ";
-
-"brand.sato" = "和食さと";
-
-"brand.segafredo" = "Segafredo";
-
-"brand.shake_shack" = "Shake Shack";
-
-"brand.shokoladnitsa" = "Shokoladnitsa";
-
-"brand.sizzler" = "Sizzler";
-
-"brand.skuratov" = "Skuratov";
-
-"brand.spur" = "Spur";
-
-"brand.starbucks" = "スターバックス";
-
-"brand.stardogs" = "Stardog!s";
-
-"brand.steak_n_shake" = "Steak'n Shake";
-
-"brand.stmarc_cafe" = "サンマルクカフェ";
-
-"brand.subway" = "サブウェイ";
-
-"brand.sukiya" = "すき家";
-
-"brand.sushi_wok" = "Sushi Wok";
-
-"brand.sushiro" = "スシロー";
-
-"brand.swensens" = "Swensen's";
-
-"brand.syabu_yo" = "しゃぶ葉";
-
-"brand.taco_bell" = "Taco Bell";
-
-"brand.telepizza" = "Telepizza";
-
-"brand.tenkaippin" = "天下一品";
-
-"brand.teremok" = "Teremok";
-
-"brand.tgi_fridays" = "TGI Friday's";
-
-"brand.the_pizza_company" = "The Pizza Company";
-
-"brand.tim_hortons" = "Tim Hortons";
-
-"brand.tonden" = "とんでん";
-
-"brand.tullys_coffee" = "タリーズコーヒー";
-
-"brand.ueshima_coffee_ten" = "上島珈琲店";
-
-"brand.uobei" = "魚べい";
-
-"brand.vapiano" = "Vapiano";
-
-"brand.victoria_station" = "ヴィクトリアステーション";
-
-"brand.waffle_house" = "Waffle House";
-
-"brand.wendys" = "Wendy's";
-
-"brand.wokker" = "Wokker";
-
-"brand.yakitoria" = "Yakitoria";
-
-"brand.yomen_ya_goemon" = "洋麺屋五右衛門";
-
-"brand.yoshinoya" = "吉野家";
-
-"brand.yudetaro" = "ゆで太郎";
-
-"brand.yumean" = "夢庵";

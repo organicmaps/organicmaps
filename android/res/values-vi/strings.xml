@@ -72,6 +72,8 @@
 	<string name="bookmark_color">Đánh dấu Màu sắc</string>
 	<!-- Add Bookmark Set dialog - hint when set name is empty -->
 	<string name="bookmark_set_name">Đánh dấu Tên Bộ</string>
+	<!-- Bookmark Sets dialog title -->
+	<string name="bookmark_sets">Đánh dấu Bộ</string>
 	<!-- Bookmarks - dialog title -->
 	<string name="bookmarks">Đánh dấu</string>
 	<!-- Default bookmarks set name -->
@@ -237,12 +239,15 @@
 	<string name="downloader_cancel_all">Hủy tất cả</string>
 	<!-- Downloaded maps category -->
 	<string name="downloader_downloaded_subtitle">Đã tải xuống</string>
+	<!-- Downloaded maps category -->
+	<string name="downloader_available_maps">Đã có</string>
 	<!-- Country queued for download -->
 	<string name="downloader_queued">Đã xếp hàng chờ</string>
 	<string name="downloader_near_me_subtitle">Gần tôi</string>
 	<string name="downloader_status_maps">Bản đồ</string>
 	<string name="downloader_download_all_button">Tải xuống tất cả</string>
 	<string name="downloader_downloading">Đang tải về:</string>
+	<string name="downloader_search_results">Đã tìm thấy</string>
 	<!-- Status of outdated country in the list -->
 	<string name="downloader_status_outdated">Cập nhật</string>
 	<!-- Status of failed country in the list -->
@@ -476,6 +481,7 @@
 	<string name="editor_detailed_description">Những thay đổi đề nghị của bạn sẽ được gửi đến cộng đồng OpenStreetMap. Mô tả các chi tiết không thể sửa trong Organic Maps.</string>
 	<string name="editor_more_about_osm">Thông tin bổ sung về OpenStreetMap</string>
 	<string name="editor_operator">Đơn vị điều hành</string>
+	<string name="downloader_my_maps_title">Bản đồ của tôi</string>
 	<string name="downloader_no_downloaded_maps_title">Bạn chưa tải về bất kỳ bản đồ nào</string>
 	<string name="downloader_no_downloaded_maps_message">Tải về bản đồ để tìm địa điểm và định hướng ngoại tuyến.</string>
 	<!-- Error title that appears after certain time without location. -->
@@ -494,8 +500,10 @@
 	<string name="location_services_disabled_3">3. Chọn Khi Đang Dùng Ứng dụng</string>
 	<string name="meter">m</string>
 	<string name="kilometer">km</string>
+	<string name="kilometers_per_hour">km/giờ</string>
 	<string name="mile">dặm</string>
 	<string name="foot">ft</string>
+	<string name="miles_per_hour">mph</string>
 	<string name="hour">giờ</string>
 	<string name="minute">phút</string>
 	<string name="placepage_place_description">Mô tả</string>
@@ -505,6 +513,8 @@
 	<string name="placepage_call_button">Gọi</string>
 	<string name="placepage_edit_bookmark_button">Sửa Dấu Trang</string>
 	<string name="placepage_bookmark_name_hint">Tên Dấu Trang</string>
+	<string name="placepage_personal_notes_hint">Ghi chú cá nhân</string>
+	<string name="placepage_delete_bookmark_button">Xóa Dấu Trang</string>
 	<string name="editor_edits_sent_message">Những thay đổi đề nghị của bạn đã được gửi</string>
 	<string name="editor_comment_hint">Nhận xét…</string>
 	<string name="editor_reset_edits_message">Cài đặt lại tất cả thay đổi cục bộ?</string>
@@ -524,6 +534,7 @@
 	<!-- iOS Dialog before publishing the modifications to the public map. -->
 	<string name="editor_share_to_all_dialog_message_1">Chắc chắn rằng bạn không nhập bất kỳ thông tin cá nhân nào.</string>
 	<string name="editor_share_to_all_dialog_message_2">Chúng tôi sẽ kiểm tra những thay đổi. Nếu chúng tôi có câu hỏi nào, chúng tôi sẽ liên lạc với bạn qua email.</string>
+	<string name="navigation_stop_button">dừng</string>
 	<!-- iOS dialog for the case when recent track recording is on and the app comes back from background -->
 	<string name="recent_track_background_dialog_title">Tắt ghi lại tuyến đường đã đi gần đây của bạn?</string>
 	<string name="off_recent_track_background_button">Tắt</string>
@@ -568,7 +579,7 @@
 	<string name="prefs_languages_information">Chúng tôi sử dụng TTS hệ thống để hướng dẫn bằng giọng nói. Rất nhiều thiết bị Android sử dụng Google TTS, bạn có thể tải về hoặc cập nhật nó từ Google Play (https://play.google.com/store/apps/details?id=com.google.android.tts)</string>
 	<string name="prefs_languages_information_off">Đối với một số ngôn ngữ, bạn sẽ cần cài đặt một trình tổng hợp lời nói khác hoặc một gói ngôn ngữ bổ sung từ cửa hàng ứng dụng (Google Play Market, Samsung Apps).\nMở cài đặt của thiết bị → Ngôn ngữ và nhập liệu → Lời nói → Đầu ra văn bản sang lời nói.\nTại đây bạn có thể quản lý các cài đặt tổng hợp lời nói (ví dụ, tải về các gói ngôn ngữ để sử dụng ngoại tuyến) và chọn một công cụ chuyển đổi văn bản sang lời nói khác.</string>
 	<string name="prefs_languages_information_off_link">Để biết thêm thông tin, vui lòng kiểm tra bài hướng dẫn này.</string>
-	<string name="whatsnew_transliteration_title">Chuyển ngữ sang chữ Latinh</string>
+	<string name="transliteration_title">Chuyển ngữ sang chữ Latinh</string>
 	<string name="learn_more">Tìm hiểu thêm</string>
 	<string name="core_exit">Lối ra</string>
 	<string name="routing_add_start_point">Bổ sung điểm bắt đầu để lập kế hoạch lộ trình</string>
@@ -580,6 +591,7 @@
 	<string name="planning_route_remove_title">Kéo vào đây để xóa</string>
 	<string name="placepage_add_stop">Thêm điểm dừng</string>
 	<string name="preloader_viator_button">Tìm hiểu thêm</string>
+	<string name="start_from_my_position">Bắt đầu từ</string>
 	<string name="profile_authorization_error">Rất tiếc, đã có lỗi xảy ra. Hãy thử đăng nhập lại.</string>
 	<string name="dialog_error_storage_title">Vấn đề truy cập ổ lưu trữ</string>
 	<string name="dialog_error_storage_message">Ổ lưu trữ bên ngoài không khả dụng, có thể Thẻ SD đã bị tháo, bị hỏng hoặc hệ thống tập tin được thiết lập chỉ đọc. Hãy kiểm tra và liên hệ với chúng tôi qua support\@organicmaps.app</string>
@@ -589,6 +601,9 @@
 	<string name="bookmarks_groups">Danh sách</string>
 	<string name="bookmarks_groups_hide_all">Ẩn tất cả</string>
 	<string name="bookmarks_groups_show_all">Hiển thị tất cả</string>
+	<plurals name="bookmarks_places">
+	  <item quantity="other">%d dấu trang</item>
+	</plurals>
 	<string name="bookmarks_create_new_group">Tạo danh sách mới</string>
 	<string name="downloader_hide_screen">Ẩn Màn hình</string>
 	<string name="downloader_percent">%1$s (%2$s / %3$s)</string>
@@ -602,11 +617,16 @@
 	<string name="bookmarks_new_list_hint">Danh sách mới</string>
 	<string name="bookmarks_error_title_list_name_already_taken">Tên này đã được sử dụng</string>
 	<string name="bookmarks_error_message_list_name_already_taken">Vui lòng chọn một tên khác</string>
+	<string name="bookmarks_error_title_list_name_too_long">Tên này quá dài</string>
 	<string name="please_wait">Vui lòng chờ…</string>
 	<string name="phone_number">Số điện thoại</string>
 	<string name="profile">Hồ sơ OpenStreetMap</string>
 	<string name="place_page_search_similar_hotel">Tìm kiếm khách sạn</string>
 	<string name="bookmarks_detect_title">Đã phát hiện tệp mới</string>
+	<plurals name="bookmarks_detect_message">
+	  <item quantity="one">%d dã tìm thấy một tệp. Bạn sẽ thấy nó sau khi chuyển đổi.</item>
+	  <item quantity="other">%d tập tin đã được tìm thấy. Bạn sẽ thấy chúng sau khi chuyển đổi.</item>
+	</plurals>
 	<string name="button_convert">Chuyển đổi</string>
 	<string name="bookmarks_convert_error_title">Lỗi</string>
 	<string name="bookmarks_convert_error_message">Một số tệp không được chuyển đổi.</string>
@@ -645,6 +665,7 @@
 	<string name="bookmark_category_description_hint">Đánh vào một mô tả (văn bản hoặc html)</string>
 	<string name="not_shared">Riêng tư</string>
 	<string name="tags_loading_error_subtitle">Đã xảy ra lỗi khi tải thẻ, vui lòng thử lại</string>
+	<string name="download_button">Tải</string>
 	<string name="speedcams_alert_title">Tăn tốc độ máy ảnh</string>
 	<string name="speedcam_option_auto">Tự động</string>
 	<string name="speedcam_option_always">Luôn luôn</string>
@@ -670,14 +691,50 @@
 	<string name="unable_to_calc_alert_subtitle">Rất tiếc, chúng không thể tạo tuyến đường với những tùy chọn đã chọn. Hãy thay đổi thiết lập và thử lại</string>
 	<string name="define_to_avoid_btn">Thiết lập đường đi vòng</string>
 	<string name="change_driving_options_btn">Thiết lập đường đi tránh đã được bật</string>
+	<string name="toll_road">Đường trả phí</string>
+	<string name="unpaved_road">Đường đất</string>
+	<string name="ferry_crossing">Bến phà</string>
 	<string name="avoid_toll_roads_placepage">Tránh đường trả phí</string>
 	<string name="avoid_unpaved_roads_placepage">Tránh đường đất</string>
 	<string name="avoid_ferry_crossing_placepage">Tránh bến phà</string>
+	<string name="trip_start">Đi nào</string>
+	<string name="pick_destination">Mục đích</string>
+	<string name="follow_my_position">Định tâm</string>
+	<string name="search_results">Kết quả tìm kiếm</string>
+	<string name="then_turn">Sau đó</string>
+	<string name="redirect_route_alert">Bạn có muốn tạo lại tuyến không?</string>
+	<string name="redirect_route_yes">Có</string>
+	<string name="redirect_route_no">Không</string>
+	<string name="trip_finished">Bạn đã tới nơi!</string>
+	<string name="keyboard_availability_alert">Bàn phím không khả dụng trong thời gian di chuyển</string>
+	<string name="dialog_routing_change_start_carplay">Không thể tạo tuyến đường từ địa điểm hiển tại</string>
+	<string name="dialog_routing_change_end_carplay">Không thể tạo tuyến đường tới điểm kết cuối. Hãy chọn điểm khác</string>
+	<string name="dialog_routing_check_gps_carplay">Không có tín hiệu GPS. Hãy đến vị trí có không gian mở</string>
+	<string name="dialog_routing_unable_locate_route_carplay">Không thể tạo tuyến đường. Hãy chọn những điểm khác cho tuyến đường</string>
+	<string name="dialog_routing_download_files_carplay">Để tạo tuyến đường, hãy tải xuống các bản đồ còn thiếu về thiết bị</string>
+	<string name="dialog_routing_system_error_carplay">Đã xảy ra lỗi. Khởi động lại ứng dụng</string>
+	<string name="dialog_routing_rebuild_from_current_location_carplay">Tuyến đường sẽ được tạo lại từ vị trí hiện tại của bạn</string>
+	<string name="dialog_routing_rebuild_for_vehicle_carplay">Tuyến đường sẽ được thay đổi thành tuyến dành cho xe ô tô</string>
 	<string name="ok">Ok</string>
+	<string name="avoid_unpaved_carplay_1">Trừ đườg đất</string>
+	<string name="avoid_unpaved_carplay_2">Trừ khôg trnhựa</string>
+	<string name="avoid_ferry_carplay_1">Không có phà</string>
+	<string name="avoid_ferry_carplay_2">Trừ phà</string>
+	<string name="avoid_tolls_carplay_1">Khôg đgcóphí</string>
+	<string name="avoid_tolls_carplay_2">Trừ đg có phí</string>
+	<string name="speedcams_alert_title_carplay_1">Сam tốc độ</string>
+	<string name="speedcams_alert_title_carplay_2">Cảnh báo tốc độ</string>
+	<string name="download_map_carplay">Vui lòng tải xuống bản đồ trong ứng dụng Organic Maps trên thiết bị của bạn</string>
+	<string name="carplay_roundabout_exit">Lối ra %s của vòng xuyến</string>
 	<!-- max. 10 symbols, both iOS and Android -->
 	<string name="sort">Sắp xếp…</string>
 	<!-- Android, title, max 20-22 symbols -->
 	<string name="sort_bookmarks">Sắp xếp dấu trang</string>
+	<!-- iOS -->
+	<string name="sort_default">Sắp xếp theo mặc định</string>
+	<string name="sort_type">Sắp xếp theo kiểu</string>
+	<string name="sort_distance">Sắp xếp theo khoảng cách</string>
+	<string name="sort_date">Sắp xếp theo ngày</string>
 	<!-- Android -->
 	<string name="by_default">Theo mặc định</string>
 	<!-- Android -->
@@ -686,7 +743,29 @@
 	<string name="by_distance">Theo khoảng cách</string>
 	<!-- Android -->
 	<string name="by_date">Theo ngày</string>
+	<string name="week_ago_sorttype">Tuần trước</string>
+	<string name="month_ago_sorttype">Tháng trước</string>
+	<string name="moremonth_ago_sorttype">Hơn một tháng trước</string>
+	<string name="moreyear_ago_sorttype">Hơn một năm trước</string>
+	<string name="near_me_sorttype">Ở gần tôi</string>
+	<string name="others_sorttype">Khác</string>
+	<string name="food_places">Đồ ăn</string>
+	<string name="tourist_places">Danh lam thắng cảnh</string>
+	<string name="museums">Bảo tàng</string>
+	<string name="parks">Công viên</string>
+	<string name="swim_places">Bơi lội</string>
+	<string name="mountains">Núi non</string>
+	<string name="animals">Động vật</string>
+	<string name="hotels">Khách sạn</string>
+	<string name="buildings">Tòa nhà</string>
+	<string name="money">Tiền</string>
+	<string name="shops">Cửa hàng</string>
+	<string name="parkings">Bãi đậu xe</string>
+	<string name="fuel_places">Trạm xăng dầu</string>
+	<string name="water">Nước</string>
+	<string name="medicine">Y tế</string>
 	<string name="search_in_the_list">Tìm trong danh sách</string>
+	<string name="religious_places">Những nơi tôn nghiêm</string>
 	<string name="select_list">Chọn danh sách</string>
 	<string name="transit_not_found">Điều hướng đến Metro hiện chưa khả dụng cho khu vực này</string>
 	<string name="dialog_pedestrian_route_is_long_header">Không tìm thấy tuyến Metro</string>
@@ -695,6 +774,9 @@
 	<string name="isolines_activation_error_dialog">Để sử dụng các đường chỉ độ cao, hãy cập nhật hoặc tải xuống bản đồ của khu vực bạn mong muốn</string>
 	<string name="isolines_location_error_dialog">Đường hiển thị độ cao hiện chưa khả dụng tại khu vực này</string>
 	<string name="elevation_profile_diff_level">Mức độ phức tạp</string>
+	<string name="elevation_profile_diff_level_easy">Dễ</string>
+	<string name="elevation_profile_diff_level_moderate">Trung bình</string>
+	<string name="elevation_profile_diff_level_hard">Khó</string>
 	<string name="elevation_profile_ascent">Đi lên</string>
 	<string name="elevation_profile_descent">Đi xuống</string>
 	<string name="elevation_profile_minaltitude">Độ cao tối thiểu</string>
@@ -703,6 +785,8 @@
 	<string name="elevation_profile_distance">Khoảng cách</string>
 	<string name="elevation_profile_time">Giờ:</string>
 	<string name="isolines_toast_zooms_1_10">Phóng bản đồ để nhìn rõ đường đồng mức</string>
+	<string name="downloader_updating_ios">Cập nhật</string>
+	<string name="downloader_loading_ios">Tải xuống</string>
 	<string name="key_information_title">Thông tin chìa khóa</string>
 	<string name="enable_screen_sleep">Cho phép màn hình ở chế độ ngủ</string>
 	<!-- Description in preferences -->

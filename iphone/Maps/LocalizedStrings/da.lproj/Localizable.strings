@@ -38,8 +38,6 @@
 /* Settings/Downloader - size string, only strings different from English should be translated */
 "mb" = "MB";
 
-"gb" = "GB";
-
 /* Choose measurement on first launch alert - choose imperial system button */
 "miles" = "Mil";
 
@@ -116,6 +114,9 @@
 
 /* Add Bookmark Set dialog - hint when set name is empty */
 "bookmark_set_name" = "Indstil bogmærkenavn";
+
+/* Bookmark Sets dialog title */
+"bookmark_sets" = "Bogmærk sæt";
 
 /* Bookmarks - dialog title */
 "bookmarks" = "Bogmærker";
@@ -213,8 +214,6 @@
 /* Email Subject when sharing bookmarks category */
 "share_bookmarks_email_subject" = "Organic Maps bogmærker er blevet delt med dig";
 
-"share_bookmarks_email_body" = "Hello!\n\nAttached are my bookmarks from Organic Maps app. Please open them if you have Organic Maps installed. Or, if you don't, download the app for your iOS or Android device by following this link: https://omaps.app/get?kmz\n\nEnjoy traveling with Organic Maps!";
-
 /* message title of loading file */
 "load_kmz_title" = "Indlæser Bogmærker";
 
@@ -266,9 +265,6 @@
 /* Prints version number in About dialog */
 "version" = "Version: %@";
 
-/* Data version in «About» screen */
-"data_version" = "Data version: %d";
-
 /* Confirmation in downloading countries dialog */
 "are_you_sure" = "Er du sikker på, at du vil fortsætte?";
 
@@ -279,12 +275,6 @@
 "length" = "Længde";
 
 "share_my_location" = "Del min lokation";
-
-/* Settings general group in settings screen */
-"prefs_group_general" = "General settings";
-
-/* Settings information group in settings screen */
-"prefs_group_information" = "Information";
 
 "prefs_group_route" = "Navigation";
 
@@ -346,24 +336,6 @@
 /* Text in menu */
 "website" = "Hjemmeside";
 
-/* Text in menu */
-"github" = "GitHub";
-
-/* Text in menu */
-"telegram" = "Telegram";
-
-/* Text in menu */
-"facebook" = "Facebook";
-
-/* Text in menu */
-"twitter" = "Twitter";
-
-/* Text in menu */
-"instagram" = "Instagram";
-
-/* Text in menu */
-"openstreetmap" = "OpenStreetMap";
-
 /* Settings: Send feedback button and dialog title */
 "feedback" = "Feedback";
 
@@ -400,6 +372,9 @@
 /* Downloaded maps category */
 "downloader_downloaded_subtitle" = "Downloadet";
 
+/* Downloaded maps category */
+"downloader_available_maps" = "Tilgængelige";
+
 /* Country queued for download */
 "downloader_queued" = "I kø";
 
@@ -410,6 +385,8 @@
 "downloader_download_all_button" = "Download alle";
 
 "downloader_downloading" = "Downloader:";
+
+"downloader_search_results" = "Fundet";
 
 /* Status of outdated country in the list */
 "downloader_status_outdated" = "Opdater";
@@ -608,9 +585,6 @@
 "search_history_text" = "Gå hurtigt ind på seneste forespørgsel.";
 
 "clear_search" = "Ryd historiksøgning";
-
-/* Place Page link to Wikipedia article (if map object has it). */
-"read_in_wikipedia" = "Wikipedia";
 
 "p2p_your_location" = "Din lokalitet";
 
@@ -834,6 +808,8 @@
 
 "editor_operator" = "Bruger";
 
+"downloader_my_maps_title" = "Mine kort";
+
 "downloader_no_downloaded_maps_title" = "Du har ikke hentet alle kort";
 
 "downloader_no_downloaded_maps_message" = "Download kort for at finde position og navigere offline.";
@@ -867,9 +843,13 @@
 
 "kilometer" = "km";
 
+"kilometers_per_hour" = "km/t";
+
 "mile" = "mil";
 
 "foot" = "fod";
+
+"miles_per_hour" = "mph";
 
 "hour" = "time";
 
@@ -888,6 +868,10 @@
 "placepage_edit_bookmark_button" = "Rediger bogmærke";
 
 "placepage_bookmark_name_hint" = "Bogmærke";
+
+"placepage_personal_notes_hint" = "Personlige notater";
+
+"placepage_delete_bookmark_button" = "Slet bogmærke";
 
 "editor_edits_sent_message" = "Dine foreslåede ændringer er blevet sendt";
 
@@ -923,6 +907,8 @@
 "editor_share_to_all_dialog_message_1" = "Sørg for at du ikke indtastede personlige oplysninger.";
 
 "editor_share_to_all_dialog_message_2" = "Vi vil kigge på ændringerne. Hvis vi har spørgsmål, vil vi kontakte dig via email.";
+
+"navigation_stop_button" = "stop";
 
 /* iOS dialog for the case when recent track recording is on and the app comes back from background */
 "recent_track_background_dialog_title" = "Vil du deaktivere gemningen af din seneste rejserute?";
@@ -1000,7 +986,7 @@
 
 "prefs_languages_information_off_link" = "Se denne vejledning for flere oplysninger.";
 
-"whatsnew_transliteration_title" = "Translitteration til latinsk";
+"transliteration_title" = "Translitteration til latinsk";
 
 "learn_more" = "Flere oplysninger";
 
@@ -1024,6 +1010,8 @@
 
 "preloader_viator_button" = "Flere oplysninger";
 
+"start_from_my_position" = "Start fra";
+
 "profile_authorization_error" = "Ups, der skete en fejl. Prøv at logge på igen.";
 
 "dialog_error_storage_title" = "Problem med lageradgang";
@@ -1043,9 +1031,6 @@
 "bookmarks_groups_show_all" = "Vis alle";
 
 "bookmarks_create_new_group" = "Opret ny liste";
-
-/* Bookmark categories screen */
-"bookmarks_import" = "Import bookmarks";
 
 "downloader_hide_screen" = "Skjul skærm";
 
@@ -1071,7 +1056,11 @@
 
 "bookmarks_error_message_list_name_already_taken" = "Vælg venligst et andet navn";
 
+"bookmarks_error_title_list_name_too_long" = "Dette navn er for langt";
+
 "please_wait" = "Vent venligst…";
+
+"phone_number" = "Telefonnummer";
 
 "profile" = "OpenStreetMap profil";
 
@@ -1119,8 +1108,6 @@
 
 "title_error_downloading_bookmarks" = "Der er opstået en fejl";
 
-"popular_place" = "Popular";
-
 "export_file" = "Eksporter fil";
 
 "list_settings" = "Listeindstillinger";
@@ -1138,6 +1125,8 @@
 "not_shared" = "Privat";
 
 "tags_loading_error_subtitle" = "Der skete en fejl under hentning af tags, prøv igen";
+
+"download_button" = "Download";
 
 "speedcams_alert_title" = "Fartkameraer";
 
@@ -1188,19 +1177,90 @@
 
 "change_driving_options_btn" = "Køre muligheder aktiveret";
 
+"toll_road" = "Betalingsvej";
+
+"unpaved_road" = "Grusvej";
+
+"ferry_crossing" = "Færgeoverfart";
+
 "avoid_toll_roads_placepage" = "Undgå betalingsveje";
 
 "avoid_unpaved_roads_placepage" = "Undgå grusveje";
 
 "avoid_ferry_crossing_placepage" = "Undgå færgeoverfarter";
 
+"trip_start" = "Lad os komme i gang";
+
+"pick_destination" = "Destination";
+
+"follow_my_position" = "Centrer igen";
+
+"search_results" = "Søgeresultater";
+
+"then_turn" = "Derefter";
+
+"redirect_route_alert" = "Vil du genopbygge en rute igen?";
+
+"redirect_route_yes" = "Ja";
+
+"redirect_route_no" = "Nej";
+
+"trip_finished" = "Du er ankommet!";
+
+"keyboard_availability_alert" = "Keyboard er ikke tilgængelig under kørsel";
+
+"dialog_routing_change_start_carplay" = "Det er ikke muligt at beregne rute fra din nuværende position";
+
+"dialog_routing_change_end_carplay" = "Det er ikke muligt at beregne rute til din destination. Vælg en anden destination";
+
+"dialog_routing_check_gps_carplay" = "Intet GPS signal. Flyt til et område med dækning";
+
+"dialog_routing_unable_locate_route_carplay" = "Det er ikke muligt at beregne rute. Vælg andre forbindelses-punkter for ruten";
+
+"dialog_routing_download_files_carplay" = "Download manglende kort til din enhed, for at lave ruten";
+
+"dialog_routing_system_error_carplay" = "Der opstod en fejl. Genstart programmet";
+
+"dialog_routing_rebuild_from_current_location_carplay" = "Rute vil blive beregnet igen, ud fra din nuværende position";
+
+"dialog_routing_rebuild_for_vehicle_carplay" = "Rute vil blive ændret til en kørselsrute";
+
 "ok" = "Ok";
+
+"avoid_unpaved_carplay_1" = "Ingen grus";
+
+"avoid_unpaved_carplay_2" = "Undgå grus";
+
+"avoid_ferry_carplay_1" = "Ingen færger";
+
+"avoid_ferry_carplay_2" = "Undgå færger";
+
+"avoid_tolls_carplay_1" = "Ingen betal.";
+
+"avoid_tolls_carplay_2" = "Undgå betaling";
+
+"speedcams_alert_title_carplay_1" = "Radarkontrol";
+
+"speedcams_alert_title_carplay_2" = "Radar advarsel";
+
+"download_map_carplay" = "Download kort i Organic Maps appen, på din enhed";
+
+"carplay_roundabout_exit" = "%s exit";
 
 /* max. 10 symbols, both iOS and Android */
 "sort" = "Sort…";
 
 /* Android, title, max 20-22 symbols */
 "sort_bookmarks" = "Sort (bookmaarks)";
+
+/* iOS */
+"sort_default" = "Sortér (std)";
+
+"sort_type" = "Sort (type)";
+
+"sort_distance" = "Sort (Afs)";
+
+"sort_date" = "Sort (dato)";
 
 /* Android */
 "by_default" = "Som standard";
@@ -1214,7 +1274,51 @@
 /* Android */
 "by_date" = "Efter dato";
 
+"week_ago_sorttype" = "En uge siden";
+
+"month_ago_sorttype" = "En måned siden";
+
+"moremonth_ago_sorttype" = "Mere end en måned siden";
+
+"moreyear_ago_sorttype" = "Mere end et år siden";
+
+"near_me_sorttype" = "I nærheden";
+
+"others_sorttype" = "Andre";
+
+"food_places" = "Mad";
+
+"tourist_places" = "Seværdigheder";
+
+"museums" = "Museer";
+
+"parks" = "Parker";
+
+"swim_places" = "Svøm";
+
+"mountains" = "Bjerge";
+
+"animals" = "Dyr";
+
+"hotels" = "Hoteller";
+
+"buildings" = "Bygninger";
+
+"money" = "Penge";
+
+"shops" = "Butikker";
+
+"parkings" = "Parkering";
+
+"fuel_places" = "Benzintankstationer";
+
+"water" = "Vand";
+
+"medicine" = "Medicin";
+
 "search_in_the_list" = "Søg i listen";
+
+"religious_places" = "Religiøse steder";
 
 "select_list" = "Væg liste";
 
@@ -1232,6 +1336,12 @@
 
 "elevation_profile_diff_level" = "Sværhedsgrad";
 
+"elevation_profile_diff_level_easy" = "Let";
+
+"elevation_profile_diff_level_moderate" = "Middel";
+
+"elevation_profile_diff_level_hard" = "Svær";
+
 "elevation_profile_ascent" = "Stige op";
 
 "elevation_profile_descent" = "Stige ned";
@@ -1248,13 +1358,11 @@
 
 "isolines_toast_zooms_1_10" = "Zoom ind for at udforske isolinjekort";
 
+"downloader_updating_ios" = "Opdaterer";
+
+"downloader_loading_ios" = "Downloader";
+
 "key_information_title" = "Central information";
-
-"download_map_title" = "Download the world map";
-
-"connection_failure" = "Connection failure";
-
-"disconnect_usb_cable_title" = "Disconnect USB cable";
 
 "enable_screen_sleep" = "Lad skærmen sove";
 
@@ -1274,64 +1382,21 @@
 "whats_new_auto_update_button_later" = "Opdater manuelt senere";
 
 
-/**********  Partners  **********/
-
-"sponsored_partner1_action" = "Outlets";
-
-"sponsored_partner2_action" = "Discount";
-
-"sponsored_partner3_action" = "Coupon";
-
-"sponsored_partner18_action" = "Lifehack";
-
-"sponsored_partner19_action" = "Lifehack";
-
-"sponsored_partner20_action" = "Lifehack";
-
-
 /********** Types **********/
 
-"type.aerialway" = "aerialway";
-
-"type.aerialway.cable_car" = "aerialway-cable_car";
-
-"type.aerialway.chair_lift" = "aerialway-chair_lift";
-
-"type.aerialway.drag_lift" = "aerialway-drag_lift";
-
-"type.aerialway.gondola" = "aerialway-gondola";
-
-"type.aerialway.mixed_lift" = "aerialway-mixed_lift";
-
 "type.aerialway.station" = "Kabelbanestation";
-
-"type.aeroway" = "aeroway";
 
 "type.aeroway.aerodrome" = "Lufthavn";
 
 "type.aeroway.aerodrome.international" = "Lufthavn";
 
-"type.aeroway.apron" = "aeroway-apron";
-
-"type.aeroway.gate" = "aeroway-gate";
-
 "type.aeroway.helipad" = "Helikopterlandingsplads";
-
-"type.aeroway.runway" = "aeroway-runway";
-
-"type.aeroway.taxiway" = "aeroway-taxiway";
-
-"type.aeroway.terminal" = "aeroway-terminal";
 
 "type.amenity" = "Rekreative område";
 
 "type.amenity.arts_centre" = "Kunsthus";
 
 "type.amenity.atm" = "Hæveautomat";
-
-"type.amenity.bank" = "Bank";
-
-"type.amenity.bar" = "Bar";
 
 "type.amenity.bbq" = "Picnic";
 
@@ -1340,8 +1405,6 @@
 "type.amenity.bicycle_parking" = "Cykelparkering";
 
 "type.amenity.bicycle_rental" = "Cykeludlejning";
-
-"type.amenity.biergarten" = "Biergarten";
 
 "type.amenity.brothel" = "Bordel";
 
@@ -1389,8 +1452,6 @@
 
 "type.amenity.fire_station" = "Brandstation";
 
-"type.amenity.food_court" = "Food court";
-
 "type.amenity.fountain" = "Springvand";
 
 "type.amenity.fuel" = "Tankstation";
@@ -1398,8 +1459,6 @@
 "type.amenity.grave_yard" = "Kirkegård";
 
 "type.amenity.grave_yard.christian" = "Kirkegård";
-
-"type.amenity.hospital" = "Hospital";
 
 "type.amenity.hunting_stand" = "Jagtsted";
 
@@ -1469,8 +1528,6 @@
 
 "type.amenity.post_office" = "Postkontor";
 
-"type.amenity.prison" = "Prison";
-
 "type.amenity.pub" = "Værtshus";
 
 "type.amenity.public_bookcase" = "Bog udveksling";
@@ -1495,29 +1552,17 @@
 
 "type.recycling.small_appliances" = "Elektronik affald";
 
-"type.amenity.restaurant" = "Restaurant";
-
 "type.amenity.school" = "Skole";
 
-"type.amenity.shelter" = "Shelter";
-
 "type.amenity.shower" = "Bruser";
-
-"type.amenity.speed_trap" = "amenity-speed_trap";
-
-"type.amenity.taxi" = "Taxi";
 
 "type.amenity.telephone" = "Telefon";
 
 "type.amenity.theatre" = "Teater";
 
-"type.amenity.toilets" = "Toilet";
-
 "type.amenity.townhall" = "Rådhus";
 
 "type.amenity.university" = "Universitet";
-
-"type.amenity.vending_machine" = "Vending machine";
 
 "type.amenity.vending_machine.cigarettes" = "Cigaretautomat";
 
@@ -1535,77 +1580,21 @@
 
 "type.amenity.water_point" = "Vandstation";
 
-"type.barrier" = "Barrier";
-
 "type.barrier.block" = "Blokering";
 
 "type.barrier.bollard" = "Søjle";
 
 "type.barrier.border_control" = "Grænsekontrol";
 
-"type.barrier.city_wall" = "City wall";
-
-"type.barrier.cycle_barrier" = "Cycle barrier";
-
 "type.barrier.entrance" = "Gennemgang";
-
-"type.barrier.fence" = "Fence";
 
 "type.barrier.gate" = "Port";
 
-"type.barrier.hedge" = "Hedge";
-
 "type.barrier.lift_gate" = "Bom";
-
-"type.barrier.retaining_wall" = "Retaining wall";
 
 "type.barrier.stile" = "Gærdebro";
 
 "type.barrier.toll_booth" = "Betalingsstation";
-
-"type.barrier.wall" = "Wall";
-
-"type.boundary" = "Boundary";
-
-"type.boundary.administrative" = "boundary-administrative";
-
-"type.boundary.administrative.10" = "boundary-administrative-10";
-
-"type.boundary.administrative.11" = "boundary-administrative-11";
-
-"type.boundary.administrative.2" = "boundary-administrative-2";
-
-"type.boundary.administrative.3" = "boundary-administrative-3";
-
-"type.boundary.administrative.4" = "boundary-administrative-4";
-
-"type.boundary.administrative.4.state" = "boundary-administrative-4-state";
-
-"type.boundary.administrative.5" = "boundary-administrative-5";
-
-"type.boundary.administrative.6" = "boundary-administrative-6";
-
-"type.boundary.administrative.7" = "boundary-administrative-7";
-
-"type.boundary.administrative.8" = "boundary-administrative-8";
-
-"type.boundary.administrative.9" = "boundary-administrative-9";
-
-"type.boundary.administrative.city" = "boundary-administrative-city";
-
-"type.boundary.administrative.country" = "boundary-administrative-country";
-
-"type.boundary.administrative.county" = "boundary-administrative-county";
-
-"type.boundary.administrative.municipality" = "boundary-administrative-municipality";
-
-"type.boundary.administrative.nation" = "boundary-administrative-nation";
-
-"type.boundary.administrative.region" = "boundary-administrative-region";
-
-"type.boundary.administrative.state" = "boundary-administrative-state";
-
-"type.boundary.administrative.suburb" = "boundary-administrative-suburb";
 
 "type.boundary.national_park" = "National park";
 
@@ -1613,13 +1602,9 @@
 
 "type.building.address" = "Bygning";
 
-"type.building.garage" = "Garage";
-
 "type.building.has_parts" = "Bygning";
 
 "type.building.train_station" = "Togstation";
-
-"type.craft" = "craft";
 
 "type.craft.brewery" = "Bryggeri";
 
@@ -1813,8 +1798,6 @@
 
 "type.cuisine.vietnamese" = "Vietnamesisk";
 
-"type.emergency" = "emergency";
-
 "type.emergency.defibrillator" = "Hjertestarter";
 
 "type.emergency.fire_hydrant" = "Brandhane";
@@ -1823,27 +1806,9 @@
 
 "type.entrance" = "Indgang";
 
-"type.highway" = "highway";
-
-"type.highway.bridleway" = "highway-bridleway";
-
-"type.highway.bridleway.bridge" = "highway-bridleway-bridge";
-
-"type.highway.bridleway.permissive" = "highway-bridleway-permissive";
-
-"type.highway.bridleway.tunnel" = "highway-bridleway-tunnel";
-
 "type.highway.bus_stop" = "Busstoppested";
 
 "type.highway.construction" = "Vej under opbygning";
-
-"type.highway.cycleway" = "highway-cycleway";
-
-"type.highway.cycleway.bridge" = "highway-cycleway-bridge";
-
-"type.highway.cycleway.permissive" = "highway-cycleway-permissive";
-
-"type.highway.cycleway.tunnel" = "highway-cycleway-tunnel";
 
 "type.highway.footway" = "Sti";
 
@@ -1975,8 +1940,6 @@
 
 "type.highway.service.tunnel" = "Gade";
 
-"type.highway.services" = "highway-services";
-
 "type.highway.speed_camera" = "Automatisk Trafikkontrol";
 
 "type.highway.steps" = "Sti";
@@ -2041,27 +2004,13 @@
 
 "type.highway.unclassified.tunnel" = "Gade";
 
-"type.highway.world_level" = "highway-world_level";
-
-"type.highway.world_towns_level" = "highway-world_towns_level";
-
-"type.historic" = "historic";
-
 "type.historic.archaeological_site" = "Arkæologisk sted";
-
-"type.historic.battlefield" = "Battlefield";
-
-"type.historic.boundary_stone" = "historic-boundary_stone";
 
 "type.historic.castle" = "Slot";
 
 "type.historic.castle.defensive" = "Slot";
 
 "type.historic.castle.stately" = "Slot";
-
-"type.historic.citywalls" = "historic-citywalls";
-
-"type.historic.fort" = "historic-fort";
 
 "type.historic.memorial" = "Mindesmærke";
 
@@ -2071,61 +2020,13 @@
 
 "type.historic.memorial.statue" = "Mindesmærke";
 
-"type.historic.monument" = "Monument";
-
-"type.historic.museum" = "historic-museum";
-
 "type.historic.ruins" = "Ruiner";
 
 "type.historic.ship" = "Turisme";
 
 "type.historic.tomb" = "Turisme";
 
-"type.historic.wayside_cross" = "historic-wayside_cross";
-
-"type.historic.wayside_shrine" = "historic-wayside_shrine";
-
-"type.hwtag" = "hwtag";
-
-"type.hwtag.bidir_bicycle" = "hwtag-bidir_bicycle";
-
-"type.hwtag.onedir_bicycle" = "hwtag-onedir_bicycle";
-
-"type.hwtag.lit" = "hwtag-lit";
-
-"type.hwtag.nobicycle" = "hwtag-nobicycle";
-
-"type.hwtag.nocar" = "hwtag-nocar";
-
-"type.hwtag.nofoot" = "hwtag-nofoot";
-
-"type.hwtag.oneway" = "hwtag-oneway";
-
-"type.hwtag.private" = "hwtag-private";
-
-"type.hwtag.toll" = "hwtag-toll";
-
-"type.hwtag.yesbicycle" = "hwtag-yesbicycle";
-
-"type.hwtag.yescar" = "hwtag-yescar";
-
-"type.hwtag.yesfoot" = "hwtag-yesfoot";
-
-"type.internet_access" = "Internet";
-
-"type.internet_access.wlan" = "Internet";
-
-"type.junction" = "junction";
-
-"type.junction.roundabout" = "junction-roundabout";
-
-"type.landuse" = "landuse";
-
-"type.landuse.allotments" = "Allotments";
-
 "type.landuse.basin" = "Vand";
-
-"type.landuse.brownfield" = "Brownfield";
 
 "type.landuse.cemetery" = "Kirkegård";
 
@@ -2133,17 +2034,7 @@
 
 "type.landuse.churchyard" = "Kirkegård";
 
-"type.landuse.commercial" = "landuse-commercial";
-
-"type.landuse.construction" = "Construction";
-
-"type.landuse.farm" = "Farm";
-
 "type.landuse.farmland" = "Landbrugsjord";
-
-"type.landuse.farmyard" = "Farmyard";
-
-"type.landuse.field" = "Field";
 
 "type.landuse.forest" = "Skov";
 
@@ -2153,45 +2044,13 @@
 
 "type.landuse.forest.mixed" = "Skov";
 
-"type.landuse.garages" = "Garages";
-
 "type.landuse.grass" = "Græsplæne";
-
-"type.landuse.greenfield" = "landuse-greenfield";
-
-"type.landuse.greenhouse_horticulture" = "landuse-greenhouse_horticulture";
-
-"type.landuse.industrial" = "Industrial land";
 
 "type.landuse.landfill" = "Affaldsplads";
 
-"type.landuse.meadow" = "Meadow";
-
-"type.landuse.military" = "Military area";
-
-"type.landuse.orchard" = "Orchard";
-
-"type.landuse.quarry" = "Quarry";
-
 "type.landuse.railway" = "Jernbaneanlæg";
 
-"type.landuse.recreation_ground" = "landuse-recreation_ground";
-
 "type.landuse.reservoir" = "Vand";
-
-"type.landuse.residential" = "landuse-residential";
-
-"type.landuse.retail" = "landuse-retail";
-
-"type.landuse.salt_pond" = "landuse-salt_pond";
-
-"type.landuse.village_green" = "landuse-village_green";
-
-"type.landuse.vineyard" = "Vineyard";
-
-"type.leisure" = "leisure";
-
-"type.leisure.common" = "leisure-common";
 
 "type.leisure.dog_park" = "Hundepark";
 
@@ -2202,12 +2061,6 @@
 "type.leisure.garden" = "Have";
 
 "type.leisure.golf_course" = "Golf";
-
-"type.leisure.ice_rink" = "Ice rink";
-
-"type.leisure.landscape_reserve" = "Landscape reserve";
-
-"type.leisure.marina" = "Marina";
 
 "type.leisure.nature_reserve" = "Reservat";
 
@@ -2223,11 +2076,7 @@
 
 "type.leisure.playground" = "Legeplads";
 
-"type.leisure.recreation_ground" = "Recreation ground";
-
 "type.leisure.sauna" = "Sauna";
-
-"type.leisure.slipway" = "leisure-slipway";
 
 "type.leisure.sports_centre" = "Idrætscenter";
 
@@ -2239,37 +2088,17 @@
 
 "type.leisure.sports_centre.yoga" = "Yoga center";
 
-"type.leisure.stadium" = "Stadium";
-
 "type.leisure.swimming_pool" = "Svømmebassin";
-
-"type.leisure.track" = "leisure-track";
 
 "type.leisure.water_park" = "Vandpark";
 
-"type.man_made" = "man_made";
-
-"type.man_made.breakwater" = "man_made-breakwater";
-
-"type.man_made.cairn" = "man_made-cairn";
-
 "type.man_made.chimney" = "Fabriksskorsten";
 
-"type.man_made.cutline" = "man_made-cutline";
-
 "type.man_made.lighthouse" = "Fyrtårn";
-
-"type.man_made.pier" = "man_made-pier";
-
-"type.man_made.pipeline" = "man_made-pipeline";
-
-"type.man_made.pipeline.overground" = "man_made-pipeline-overground";
 
 "type.man_made.surveillance" = "Overvågningskamera";
 
 "type.man_made.tower" = "Tårn";
-
-"type.man_made.wastewater_plant" = "man_made-wastewater_plant";
 
 "type.man_made.water_tap" = "Vandhane";
 
@@ -2279,20 +2108,6 @@
 
 "type.man_made.windmill" = "Vindmølle";
 
-"type.man_made.works" = "man_made-works";
-
-"type.mapswithme" = "mapswithme";
-
-"type.mapswithme.grid" = "mapswithme-grid";
-
-"type.military" = "military";
-
-"type.military.bunker" = "Bunker";
-
-"type.natural" = "natural";
-
-"type.natural.bare_rock" = "Bare rock";
-
 "type.natural.bay" = "Bugt";
 
 "type.natural.beach" = "Strand";
@@ -2301,35 +2116,17 @@
 
 "type.natural.cave_entrance" = "Hule";
 
-"type.natural.cliff" = "Cliff";
-
-"type.natural.coastline" = "Coastline";
-
 "type.natural.geyser" = "Gejser";
 
 "type.natural.glacier" = "Gletsjer";
 
 "type.natural.grassland" = "Mark";
 
-"type.natural.heath" = "Heath";
-
-"type.natural.hot_spring" = "Hot spring";
-
 "type.natural.lake" = "Sø";
-
-"type.natural.land" = "natural-land";
-
-"type.natural.meadow" = "Meadow";
-
-"type.natural.orchard" = "Orchard";
 
 "type.natural.peak" = "Bjerg";
 
 "type.natural.pond" = "Dam";
-
-"type.natural.rock" = "Rock";
-
-"type.natural.salt_pond" = "Salt pond";
 
 "type.natural.scrub" = "Kratbevokset område";
 
@@ -2339,23 +2136,11 @@
 
 "type.natural.tree" = "Træ";
 
-"type.natural.tree_row" = "Tree row";
-
-"type.natural.vineyard" = "Vineyard";
-
 "type.natural.volcano" = "Vulkan";
 
 "type.natural.water" = "Vand";
 
 "type.natural.wetland" = "Vådområde";
-
-"type.natural.wetland.bog" = "Wetland";
-
-"type.natural.wetland.marsh" = "Wetland";
-
-"type.noexit" = "noexit";
-
-"type.noexit.motor_vehicle" = "noexit-motor_vehicle";
 
 "type.office" = "Kontor";
 
@@ -2372,38 +2157,6 @@
 "type.office.ngo" = "NGO-kontor";
 
 "type.office.telecommunication" = "Mobiloperatør";
-
-"type.olympics" = "olympics";
-
-"type.olympics.attraction" = "olympics-attraction";
-
-"type.olympics.bike_sport" = "olympics-bike_sport";
-
-"type.olympics.live_site" = "olympics-live_site";
-
-"type.olympics.official_building" = "olympics-official_building";
-
-"type.olympics.stadium" = "olympics-stadium";
-
-"type.olympics.stadium_main" = "olympics-stadium_main";
-
-"type.olympics.transport_airport" = "olympics-transport_airport";
-
-"type.olympics.transport_boat" = "olympics-transport_boat";
-
-"type.olympics.transport_bus" = "olympics-transport_bus";
-
-"type.olympics.transport_cable" = "olympics-transport_cable";
-
-"type.olympics.transport_railway" = "olympics-transport_railway";
-
-"type.olympics.transport_subway" = "olympics-transport_subway";
-
-"type.olympics.transport_tram" = "olympics-transport_tram";
-
-"type.olympics.water_sport" = "olympics-water_sport";
-
-"type.place" = "place";
 
 "type.place.city" = "By";
 
@@ -2443,19 +2196,9 @@
 
 "type.place.islet" = "Ø";
 
-"type.place.isolated_dwelling" = "place-isolated_dwelling";
-
 "type.place.locality" = "Lokalitet";
 
-"type.place.neighbourhood" = "Neighbourhood";
-
-"type.place.ocean" = "Ocean";
-
-"type.place.region" = "Region";
-
 "type.place.sea" = "Er";
-
-"type.place.square" = "place-square";
 
 "type.place.state" = "Stat";
 
@@ -2467,115 +2210,19 @@
 
 "type.place.village" = "Landsby";
 
-"type.power" = "power";
-
-"type.power.generator" = "power-generator";
-
-"type.power.line" = "power-line";
-
-"type.power.line.underground" = "power-line-underground";
-
-"type.power.minor_line" = "power-minor_line";
-
 "type.power.pole" = "El-pol";
-
-"type.power.station" = "power-station";
 
 "type.power.substation" = "Transformerstation";
 
 "type.power.tower" = "El-pol";
 
-"type.psurface" = "psurface";
-
-"type.psurface.paved_bad" = "psurface-paved_bad";
-
-"type.psurface.paved_good" = "psurface-paved_good";
-
-"type.psurface.unpaved_bad" = "psurface-unpaved_bad";
-
-"type.psurface.unpaved_good" = "psurface-unpaved_good";
-
-"type.public_transport" = "public_transport";
-
-"type.public_transport.platform" = "public_transport-platform";
-
-"type.railway" = "railway";
-
-"type.railway.abandoned" = "railway-abandoned";
-
-"type.railway.abandoned.bridge" = "railway-abandoned-bridge";
-
-"type.railway.abandoned.tunnel" = "railway-abandoned-tunnel";
-
-"type.railway.construction" = "railway-construction";
-
-"type.railway.crossing" = "railway-crossing";
-
-"type.railway.disused" = "railway-disused";
-
-"type.railway.funicular" = "railway-funicular";
-
-"type.railway.funicular.bridge" = "railway-funicular-bridge";
-
-"type.railway.funicular.tunnel" = "railway-funicular-tunnel";
-
 "type.railway.halt" = "Togstation";
-
-"type.railway.incline" = "railway-incline";
-
-"type.railway.incline.bridge" = "railway-incline-bridge";
-
-"type.railway.incline.tunnel" = "railway-incline-tunnel";
 
 "type.railway.level_crossing" = "Niveauskæring";
 
-"type.railway.light_rail" = "railway-light_rail";
-
-"type.railway.light_rail.bridge" = "railway-light_rail-bridge";
-
-"type.railway.light_rail.tunnel" = "railway-light_rail-tunnel";
-
 "type.railway.monorail" = "Monorail";
 
-"type.railway.monorail.bridge" = "railway-monorail-bridge";
-
-"type.railway.monorail.tunnel" = "railway-monorail-tunnel";
-
-"type.railway.narrow_gauge" = "railway-narrow_gauge";
-
-"type.railway.narrow_gauge.bridge" = "railway-narrow_gauge-bridge";
-
-"type.railway.narrow_gauge.tunnel" = "railway-narrow_gauge-tunnel";
-
-"type.railway.platform" = "railway-platform";
-
-"type.railway.preserved" = "railway-preserved";
-
-"type.railway.preserved.bridge" = "railway-preserved-bridge";
-
-"type.railway.preserved.tunnel" = "railway-preserved-tunnel";
-
 "type.railway.rail" = "Jernbane";
-
-"type.railway.rail.bridge" = "railway-rail-bridge";
-
-"type.railway.rail.motor_vehicle" = "railway-rail-motor_vehicle";
-
-"type.railway.rail.tunnel" = "railway-rail-tunnel";
-
-"type.railway.razed" = "railway-razed";
-
-"type.railway.siding" = "railway-siding";
-
-"type.railway.siding.bridge" = "railway-siding-bridge";
-
-"type.railway.siding.tunnel" = "railway-siding-tunnel";
-
-"type.railway.spur" = "railway-spur";
-
-"type.railway.spur.bridge" = "railway-spur-bridge";
-
-"type.railway.spur.tunnel" = "railway-spur-tunnel";
 
 "type.railway.station" = "Togstation";
 
@@ -2633,38 +2280,6 @@
 
 "type.railway.station.subway.yellow" = "Metro";
 
-"type.railway.subway" = "railway-subway";
-
-"type.railway.subway.blue" = "railway-subway-blue";
-
-"type.railway.subway.bridge" = "railway-subway-bridge";
-
-"type.railway.subway.brown" = "railway-subway-brown";
-
-"type.railway.subway.darkgreen" = "railway-subway-darkgreen";
-
-"type.railway.subway.gray" = "railway-subway-gray";
-
-"type.railway.subway.green" = "railway-subway-green";
-
-"type.railway.subway.grey" = "railway-subway-grey";
-
-"type.railway.subway.lightblue" = "railway-subway-lightblue";
-
-"type.railway.subway.lightgreen" = "railway-subway-lightgreen";
-
-"type.railway.subway.orange" = "railway-subway-orange";
-
-"type.railway.subway.purple" = "railway-subway-purple";
-
-"type.railway.subway.red" = "railway-subway-red";
-
-"type.railway.subway.tunnel" = "railway-subway-tunnel";
-
-"type.railway.subway.violet" = "railway-subway-violet";
-
-"type.railway.subway.yellow" = "railway-subway-yellow";
-
 "type.railway.subway_entrance" = "Indgang til undergrundsbane";
 
 "type.railway.subway_entrance.barcelona" = "Metro";
@@ -2689,29 +2304,7 @@
 
 "type.railway.subway_entrance.spb" = "Metro";
 
-"type.railway.tram" = "railway-tram";
-
-"type.railway.tram.bridge" = "railway-tram-bridge";
-
-"type.railway.tram.tunnel" = "railway-tram-tunnel";
-
 "type.railway.tram_stop" = "Sporvogn";
-
-"type.railway.yard" = "railway-yard";
-
-"type.railway.yard.bridge" = "railway-yard-bridge";
-
-"type.railway.yard.tunnel" = "railway-yard-tunnel";
-
-"type.route" = "route";
-
-"type.route.ferry" = "route-ferry";
-
-"type.route.ferry.motor_vehicle" = "route-ferry-motor_vehicle";
-
-"type.route.ferry.motorcar" = "route-ferry-motorcar";
-
-"type.route.shuttle_train" = "route-shuttle_train";
 
 "type.shop" = "Butik";
 
@@ -2724,8 +2317,6 @@
 "type.shop.beverages" = "Drikkevarer";
 
 "type.shop.bicycle" = "Cykelforretning";
-
-"type.shop.bookmaker" = "Bookmaker";
 
 "type.shop.books" = "Boghandel";
 
@@ -2787,8 +2378,6 @@
 
 "type.shop.jewelry" = "Smykkebutik";
 
-"type.shop.kiosk" = "Kiosk";
-
 "type.shop.laundry" = "Vaskeri";
 
 "type.shop.mall" = "Indkøbscenter";
@@ -2847,101 +2436,13 @@
 
 "type.shop.wine" = "Vinhandel";
 
-"type.sponsored" = "sponsored";
-
-"type.sponsored.booking" = "sponsored-booking";
-
-"type.sponsored.holiday" = "Christmas or New Year Celebrations";
-
-"type.sponsored.opentable" = "sponsored-opentable";
-
-"type.sponsored.partner1" = "sponsored-partner1";
-
-"type.sponsored.partner10" = "sponsored-partner10";
-
-"type.sponsored.partner11" = "sponsored-partner11";
-
-"type.sponsored.partner12" = "sponsored-partner12";
-
-"type.sponsored.partner13" = "sponsored-partner13";
-
-"type.sponsored.partner14" = "sponsored-partner14";
-
-"type.sponsored.partner15" = "sponsored-partner15";
-
-"type.sponsored.partner16" = "sponsored-partner16";
-
-"type.sponsored.partner17" = "sponsored-partner17";
-
-"type.sponsored.partner18" = "MegaFon";
-
-"type.sponsored.partner19" = "MegaFon";
-
-"type.sponsored.partner2" = "sponsored-partner2";
-
-"type.sponsored.partner20" = "MegaFon";
-
-"type.sponsored.partner3" = "sponsored-partner3";
-
-"type.sponsored.partner4" = "sponsored-partner4";
-
-"type.sponsored.partner5" = "sponsored-partner5";
-
-"type.sponsored.partner6" = "sponsored-partner6";
-
-"type.sponsored.partner7" = "sponsored-partner7";
-
-"type.sponsored.partner8" = "sponsored-partner8";
-
-"type.sponsored.partner9" = "sponsored-partner9";
-
-"type.sport" = "sport";
-
-"type.sport.american_football" = "sport-american_football";
-
-"type.sport.archery" = "sport-archery";
-
 "type.sport.athletics" = "Atletik";
-
-"type.sport.australian_football" = "sport-australian_football";
-
-"type.sport.baseball" = "sport-baseball";
 
 "type.sport.basketball" = "Basketball";
 
-"type.sport.bowls" = "sport-bowls";
-
-"type.sport.cricket" = "sport-cricket";
-
-"type.sport.curling" = "sport-curling";
-
-"type.sport.diving" = "sport-diving";
-
 "type.sport.equestrian" = "Ridesport";
 
-"type.sport.football" = "sport-football";
-
-"type.sport.golf" = "sport-golf";
-
-"type.sport.gymnastics" = "sport-gymnastics";
-
-"type.sport.handball" = "sport-handball";
-
-"type.sport.multi" = "sport-multi";
-
-"type.sport.scuba_diving" = "sport-scuba_diving";
-
-"type.sport.shooting" = "sport-shooting";
-
-"type.sport.skiing" = "sport-skiing";
-
-"type.sport.soccer" = "sport-soccer";
-
-"type.sport.swimming" = "sport-swimming";
-
 "type.sport.tennis" = "Tennisbane";
-
-"type.tourism" = "tourism";
 
 "type.tourism.alpine_hut" = "Bjerg logi";
 
@@ -2963,8 +2464,6 @@
 
 "type.tourism.attraction.specified" = "Attraktioner";
 
-"type.tourism.camp_site" = "Camping";
-
 "type.tourism.caravan_site" = "Autocamperplads";
 
 "type.tourism.chalet" = "Hytte";
@@ -2972,10 +2471,6 @@
 "type.tourism.gallery" = "Turisme";
 
 "type.tourism.guest_house" = "Gæstehus";
-
-"type.tourism.hostel" = "Hostel";
-
-"type.tourism.hotel" = "Hotel";
 
 "type.tourism.information" = "Turistinformation";
 
@@ -2987,13 +2482,7 @@
 
 "type.tourism.information.office" = "Turistkontor";
 
-"type.tourism.motel" = "Motel";
-
-"type.tourism.museum" = "Museum";
-
 "type.tourism.picnic_site" = "Picnic";
-
-"type.tourism.resort" = "Resort";
 
 "type.tourism.theme_park" = "Turisme";
 
@@ -3001,33 +2490,9 @@
 
 "type.tourism.wilderness_hut" = "Vildmarkshytte";
 
-"type.tourism.zoo" = "Zoo";
-
-"type.traffic_calming" = "traffic_calming";
-
-"type.traffic_calming.bump" = "traffic_calming-bump";
-
-"type.traffic_calming.hump" = "traffic_calming-hump";
-
-"type.waterway" = "waterway";
-
 "type.waterway.canal" = "Kanal";
 
 "type.waterway.canal.tunnel" = "Kanal";
-
-"type.waterway.dam" = "waterway-dam";
-
-"type.waterway.ditch" = "waterway-ditch";
-
-"type.waterway.ditch.tunnel" = "waterway-ditch-tunnel";
-
-"type.waterway.dock" = "waterway-dock";
-
-"type.waterway.drain" = "waterway-drain";
-
-"type.waterway.drain.tunnel" = "waterway-drain-tunnel";
-
-"type.waterway.lock" = "waterway-lock";
 
 "type.waterway.lock_gate" = "Låseport";
 
@@ -3047,385 +2512,10 @@
 
 "type.waterway.waterfall" = "Vandfald";
 
-"type.waterway.weir" = "waterway-weir";
-
-"type.wheelchair" = "wheelchair";
-
 "type.wheelchair.limited" = "Begrænset tilgængelighed for kørestol";
 
 "type.wheelchair.no" = "Ingen tilgængelighed for kørestol";
 
 "type.wheelchair.yes" = "Fuld tilgængelighed for kørestol";
 
-"type.piste_lift" = "piste:lift";
-
-"type.piste_lift.j.bar" = "piste:lift-j-bar";
-
-"type.piste_lift.magic_carpet" = "piste:lift-magic_carpet";
-
-"type.piste_lift.platter" = "piste:lift-platter";
-
-"type.piste_lift.rope_tow" = "piste:lift-rope_tow";
-
-"type.piste_lift.t.bar" = "piste:lift-t-bar";
-
-"type.piste_type" = "piste:type";
-
-"type.piste_type.downhill" = "piste:type-downhill";
-
-"type.piste_type.downhill.advanced" = "piste:type-downhill-advanced";
-
-"type.piste_type.downhill.easy" = "piste:type-downhill-easy";
-
-"type.piste_type.downhill.expert" = "piste:type-downhill-expert";
-
-"type.piste_type.downhill.freeride" = "piste:type-downhill-freeride";
-
-"type.piste_type.downhill.intermediate" = "piste:type-downhill-intermediate";
-
-"type.piste_type.downhill.novice" = "piste:type-downhill-novice";
-
-"type.piste_type.nordic" = "piste:type-nordic";
-
-"type.piste_type.sled" = "piste:type-sled";
-
 "type.building_part" = "Bygning";
-
-"type.area_highway.cycleway" = "area:highway-cycleway";
-
-"type.area_highway.footway" = "area:highway-footway";
-
-"type.area_highway.living_street" = "area:highway-living_street";
-
-"type.area_highway.motorway" = "area:highway-motorway";
-
-"type.area_highway.path" = "area:highway-path";
-
-"type.area_highway.pedestrian" = "area:highway-pedestrian";
-
-"type.area_highway.primary" = "area:highway-primary";
-
-"type.area_highway.residential" = "area:highway-residential";
-
-"type.area_highway.secondary" = "area:highway-secondary";
-
-"type.area_highway.service" = "area:highway-service";
-
-"type.area_highway.tertiary" = "area:highway-tertiary";
-
-"type.area_highway.steps" = "area:highway-steps";
-
-"type.area_highway.track" = "area:highway-track";
-
-"type.area_highway.trunk" = "area:highway-trunk";
-
-"type.area_highway.unclassified" = "area:highway-unclassified";
-
-
-/********** Brands **********/
-
-"brand.aiya" = "Aiya";
-
-"brand.anrakutei" = "Anrakutei";
-
-"brand.applebee_s" = "Applebee's";
-
-"brand.aroma" = "Aroma";
-
-"brand.bamiyan" = "Bamiyan";
-
-"brand.banana_leaf" = "Banana Leaf";
-
-"brand.baskin_robbins" = "Baskin-Robbins";
-
-"brand.big_boy" = "Big Boy";
-
-"brand.bikkuridonkey" = "Bikkuri-Donkey";
-
-"brand.blue_bottle_coffee" = "Blue Bottle Coffee";
-
-"brand.burger_king" = "Burger King";
-
-"brand.cafe_amazon" = "Café Amazon";
-
-"brand.cafe_coffee_day" = "Cafe Coffee Day";
-
-"brand.cafe_de_crie" = "Cafe de Crie";
-
-"brand.capricchosa" = "Capricchosa";
-
-"brand.carl_s_jr" = "Carl's Jr.";
-
-"brand.celentano" = "Celentano";
-
-"brand.chibo" = "Chibo";
-
-"brand.chick_fil_a" = "Chick-fil-A";
-
-"brand.chilis" = "Chili's";
-
-"brand.chipotle" = "Chipotle";
-
-"brand.chowking" = "Chowking";
-
-"brand.cinnabon" = "Cinnabon";
-
-"brand.coco" = "CoCo";
-
-"brand.coco_ichibanya" = "Coco Ichibanya";
-
-"brand.cocos" = "COCO'S";
-
-"brand.coffee_house" = "Coffee House";
-
-"brand.coffee_world" = "Coffee World";
-
-"brand.coffeeport" = "Coffeeport";
-
-"brand.coffeeshop_company" = "Coffeeshop Company";
-
-"brand.cofix" = "Cofix";
-
-"brand.comic_buster" = "Comic Buster";
-
-"brand.costa_coffee" = "Costa Coffee";
-
-"brand.dairy_queen" = "Dairy Queen";
-
-"brand.dennys" = "Denny's";
-
-"brand.doi_chaang" = "Doi Chaang";
-
-"brand.dominos_pizza" = "Domino's Pizza";
-
-"brand.double_b" = "Double B";
-
-"brand.doutor" = "Doutor";
-
-"brand.dunkin_donuts" = "Dunkin Donuts";
-
-"brand.espresso_house" = "Espresso House";
-
-"brand.excelsior_caffe" = "Excelsior Caffe";
-
-"brand.first_kitchen" = "First Kitchen";
-
-"brand.freshness_burger" = "Freshness Burger";
-
-"brand.fujisoba" = "Fujisoba";
-
-"brand.glowsubs" = "GlowSubs";
-
-"brand.grazie_gardens" = "Grazie Gardens";
-
-"brand.gusto" = "Gusto";
-
-"brand.gyukaku" = "Gyu-Kaku";
-
-"brand.haagen_dazs" = "Häagen-Dazs";
-
-"brand.hamazushi" = "Hamazushi";
-
-"brand.hanamaru" = "Hanamaru";
-
-"brand.hanaya_yohei" = "Hanaya Yohei";
-
-"brand.handaya" = "Handaya";
-
-"brand.hard_rock_cafe" = "Hard Rock Cafe";
-
-"brand.havanna" = "Havanna";
-
-"brand.hesburger" = "Hesburger";
-
-"brand.hokkahokka_tei" = "Hokka-Hokka Tei";
-
-"brand.honkekamadoya" = "Honkekamadoya";
-
-"brand.hottomotto" = "HottoMotto";
-
-"brand.ihop" = "IHOP";
-
-"brand.ikinari_steak" = "Ikinari Steak";
-
-"brand.il_patio" = "IL Patio";
-
-"brand.jack_in_the_box" = "Jack in the Box";
-
-"brand.jiyu_kukan" = "Jiyu Kukan";
-
-"brand.jollibee" = "Jollibee";
-
-"brand.jolly_pasta" = "Jolly Pasta";
-
-"brand.jonathans" = "Jonathan's";
-
-"brand.joyfull" = "Joyfull";
-
-"brand.kappazushi" = "Kappazushi";
-
-"brand.katsuya" = "Katsuya";
-
-"brand.kfc" = "KFC";
-
-"brand.kisoji" = "Kisoji";
-
-"brand.kobeya_restaurant" = "Kobeya Restaurant";
-
-"brand.kohikan" = "KO:HI:KAN";
-
-"brand.komeda" = "Komeda";
-
-"brand.komoro_soba" = "Komoro Soba";
-
-"brand.kourakuen" = "Kourakuen";
-
-"brand.kroshka_kartoshka" = "Kroshka Kartoshka";
-
-"brand.kurazushi" = "Kurazushi";
-
-"brand.little_caesars" = "Little Caesars";
-
-"brand.lotteria" = "Lotteria";
-
-"brand.maido_ohkini" = "Maido-Ohkini";
-
-"brand.marrybrown" = "Marrybrown";
-
-"brand.marugame_seimen" = "Marugame Seimen";
-
-"brand.matsunoya" = "Matsunoya";
-
-"brand.matsuya" = "Matsuya";
-
-"brand.mcdonalds" = "McDonald's";
-
-"brand.mister_donut" = "Mister Donut";
-
-"brand.miyakosoba" = "Miyakosoba";
-
-"brand.miyoshino" = "Miyoshino";
-
-"brand.mk_restaurants" = "MK Restaurants";
-
-"brand.mos_burger" = "MOS BURGER";
-
-"brand.mr_sub" = "Mr. Sub";
-
-"brand.mu_mu" = "Mu-Mu";
-
-"brand.nakau" = "Nakau";
-
-"brand.ohsho" = "Gyoza no Ohsho";
-
-"brand.onebuckscoffee" = "OneBucksCoffee";
-
-"brand.origin_bento" = "Origin Bento";
-
-"brand.osaka_ohsho" = "Osaka Ohsho";
-
-"brand.panda_express" = "Panda Express";
-
-"brand.panera_bread" = "Panera Bread";
-
-"brand.papa_johns" = "Papa John's";
-
-"brand.perkins" = "Perkins";
-
-"brand.pizza_hut" = "Pizza Hut";
-
-"brand.pizza_pizza" = "Pizza Pizza";
-
-"brand.popeyes" = "Popeyes";
-
-"brand.pronto" = "Pronto";
-
-"brand.quiznos" = "Quiznos";
-
-"brand.red_lobster" = "Red Lobster";
-
-"brand.ringer_hut" = "Ringer Hut";
-
-"brand.robin_sdobin" = "Robin Sdobin";
-
-"brand.royal_host" = "Royal Host";
-
-"brand.ruby_tuesday" = "Ruby Tuesday";
-
-"brand.saizeriya" = "Saizeriya";
-
-"brand.sato" = "Sato";
-
-"brand.segafredo" = "Segafredo";
-
-"brand.shake_shack" = "Shake Shack";
-
-"brand.shokoladnitsa" = "Shokoladnitsa";
-
-"brand.sizzler" = "Sizzler";
-
-"brand.skuratov" = "Skuratov";
-
-"brand.spur" = "Spur";
-
-"brand.starbucks" = "Starbucks";
-
-"brand.stardogs" = "Stardog!s";
-
-"brand.steak_n_shake" = "Steak'n Shake";
-
-"brand.stmarc_cafe" = "St. Marc Cafe";
-
-"brand.subway" = "Subway";
-
-"brand.sukiya" = "Sukiya";
-
-"brand.sushi_wok" = "Sushi Wok";
-
-"brand.sushiro" = "Sushiro";
-
-"brand.swensens" = "Swensen's";
-
-"brand.syabu_yo" = "Syabu-yo";
-
-"brand.taco_bell" = "Taco Bell";
-
-"brand.telepizza" = "Telepizza";
-
-"brand.tenkaippin" = "TenkaIppin";
-
-"brand.teremok" = "Teremok";
-
-"brand.tgi_fridays" = "TGI Friday's";
-
-"brand.the_pizza_company" = "The Pizza Company";
-
-"brand.tim_hortons" = "Tim Hortons";
-
-"brand.tonden" = "Tonden";
-
-"brand.tullys_coffee" = "Tully's Coffee";
-
-"brand.ueshima_coffee_ten" = "Ueshima Coffee Ten";
-
-"brand.uobei" = "Uobei";
-
-"brand.vapiano" = "Vapiano";
-
-"brand.victoria_station" = "Victoria Station";
-
-"brand.waffle_house" = "Waffle House";
-
-"brand.wendys" = "Wendy's";
-
-"brand.wokker" = "Wokker";
-
-"brand.yakitoria" = "Yakitoria";
-
-"brand.yomen_ya_goemon" = "Yomenya Goemon";
-
-"brand.yoshinoya" = "Yoshinoya";
-
-"brand.yudetaro" = "Yudetaro";
-
-"brand.yumean" = "Yumean";
