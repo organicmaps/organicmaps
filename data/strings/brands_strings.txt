@@ -38,7 +38,8 @@
     en = Blue Bottle Coffee
     ja = ブルーボトルコーヒー
     ko = 블루버틀 커피
-    zh = 藍瓶咖啡
+    zh-Hans = 蓝瓶咖啡
+    zh-Hant = 藍瓶咖啡
 
   [brand.burger_king]
     en = Burger King
@@ -46,7 +47,8 @@
     ar = برغر كينغ
     ja = バーガーキング
     ko = 버거킹
-    zh = 汉堡王
+    zh-Hans = 汉堡王
+    zh-Hant = 漢堡王
     zh_pinyin = Hànbǎo Wáng
 
   [brand.cafe_amazon]
@@ -126,6 +128,8 @@
   [brand.costa_coffee]
     en = Costa Coffee
     ar = كوستا
+    zh-Hans = 咖世家
+    zh-Hant = 咖世家
 
   [brand.dairy_queen]
     en = Dairy Queen
@@ -144,6 +148,8 @@
     he = דומינוס פיצה
     ja = ドミノ・ピザ
     ko = 도미노피자
+    zh-Hans = 达美乐比萨
+    zh-Hant = 達美樂披薩
 
   [brand.double_b]
     en = Double B
@@ -279,7 +285,8 @@
     fr = PFC
     ja = ケンタッキーフライドチキン
     th = เค เอฟ ซ
-    zh = 肯德基
+    zh-Hans = 肯德基
+    zh-Hant = 肯德基
     zh_pinyin = Kěn Dé Jī
 
   [brand.kisoji]
@@ -327,6 +334,8 @@
 
   [brand.marrybrown]
     en = Marrybrown
+    zh-Hans = 玛利朗
+    zh-Hant = 瑪利朗
 
   [brand.marugame_seimen]
     en = Marugame Seimen
@@ -354,7 +363,8 @@
     sr = Мекдоналдс
     th = แมคโดนลด
     uk = МакДональдз
-    zh = 麥當勞
+    zh-Hans = 麦当劳
+    zh-Hant = 麥當勞
     zh_pinyin = Màidāngláo
 
   [brand.mister_donut]
@@ -422,7 +432,8 @@
     ar = بيتزا هت
     he = פיצה האט
     ja = ピザハット
-    zh = 必胜客
+    zh-Hans = 必胜客
+    zh-Hant = 必勝客
     zh_pinyin = Bì Shèng Kè
 
   [brand.pizza_pizza]
@@ -489,7 +500,8 @@
     ar = ستاربكس
     ja = スターバックス
     ko = 스타벅스
-    zh = 星巴克
+    zh-Hans = 星巴克
+    zh-Hant = 星巴克
     zh_pinyin = Xīngbākè
 
   [brand.stardogs]
@@ -507,7 +519,8 @@
     en = Subway
     ru = Сабвэй
     ja = サブウェイ
-    zh = 赛百味
+    zh-Hans = 賽百味
+    zh-Hant = 赛百味
 
   [brand.sukiya]
     en = Sukiya
@@ -597,7 +610,8 @@
   [brand.yoshinoya]
     en = Yoshinoya
     ja = 吉野家
-    zh = 吉野家
+    zh-Hans = 吉野家
+    zh-Hant = 吉野家
 
   [brand.yudetaro]
     en = Yudetaro
