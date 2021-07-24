@@ -117,6 +117,9 @@
 /* Add Bookmark Set dialog - hint when set name is empty */
 "bookmark_set_name" = "Назва групи";
 
+/* Bookmark Sets dialog title */
+"bookmark_sets" = "Групи мiток";
+
 /* Bookmarks - dialog title */
 "bookmarks" = "Мітки";
 
@@ -400,6 +403,9 @@
 /* Downloaded maps category */
 "downloader_downloaded_subtitle" = "Завантажено";
 
+/* Downloaded maps category */
+"downloader_available_maps" = "Доступні";
+
 /* Country queued for download */
 "downloader_queued" = "В черзі";
 
@@ -410,6 +416,8 @@
 "downloader_download_all_button" = "Завантажити всі";
 
 "downloader_downloading" = "Завантажується:";
+
+"downloader_search_results" = "Знайдено";
 
 /* Status of outdated country in the list */
 "downloader_status_outdated" = "Oновити";
@@ -834,6 +842,8 @@
 
 "editor_operator" = "Володар";
 
+"downloader_my_maps_title" = "Мої мапи";
+
 "downloader_no_downloaded_maps_title" = "Ви не маєте завантажених мап";
 
 "downloader_no_downloaded_maps_message" = "Завантажте необхідні мапи, щоб знаходити місця та користуватися навігацією без iнтернету.";
@@ -867,9 +877,13 @@
 
 "kilometer" = "км";
 
+"kilometers_per_hour" = "км/год";
+
 "mile" = "ми";
 
 "foot" = "фут";
+
+"miles_per_hour" = "ми/год";
 
 "hour" = "год";
 
@@ -888,6 +902,10 @@
 "placepage_edit_bookmark_button" = "Редагувати мiтку";
 
 "placepage_bookmark_name_hint" = "Назва мiтки";
+
+"placepage_personal_notes_hint" = "Примітка";
+
+"placepage_delete_bookmark_button" = "Видалити мiтку";
 
 "editor_edits_sent_message" = "Зміни, що ви запропонували, відправлено";
 
@@ -923,6 +941,8 @@
 "editor_share_to_all_dialog_message_1" = "Переконайтеся, що ви не ввели особисті дані.";
 
 "editor_share_to_all_dialog_message_2" = "Якщо при перевірці змін виникнуть питання, ми напишемо вам на email.";
+
+"navigation_stop_button" = "стоп";
 
 /* iOS dialog for the case when recent track recording is on and the app comes back from background */
 "recent_track_background_dialog_title" = "Вимкнути запис нещодавно пройденого шляху?";
@@ -1024,6 +1044,8 @@
 
 "preloader_viator_button" = "Докладніше";
 
+"start_from_my_position" = "Почати з";
+
 "profile_authorization_error" = "Ой, трапилася помилка. Спробуйте ввійти знову.";
 
 "dialog_error_storage_title" = "Не вдалося отримати доступ до сховища";
@@ -1070,6 +1092,8 @@
 "bookmarks_error_title_list_name_already_taken" = "Це ім'я вже зайнято";
 
 "bookmarks_error_message_list_name_already_taken" = "Виберіть інше ім'я";
+
+"bookmarks_error_title_list_name_too_long" = "Це ім'я задовге";
 
 "please_wait" = "Будь ласка, зачекайте…";
 
@@ -1139,6 +1163,8 @@
 
 "tags_loading_error_subtitle" = "Під час завантаження тегів сталася помилка, будь ласка, спробуйте ще раз";
 
+"download_button" = "Завантажити";
+
 "speedcams_alert_title" = "Камери швидкості";
 
 "speedcam_option_auto" = "Авто";
@@ -1188,19 +1214,90 @@
 
 "change_driving_options_btn" = "Увімкнено налаштування об’їзду";
 
+"toll_road" = "Платна дорога";
+
+"unpaved_road" = "Ґрунтова дорога";
+
+"ferry_crossing" = "Поромна переправа";
+
 "avoid_toll_roads_placepage" = "Уникати платних доріг";
 
 "avoid_unpaved_roads_placepage" = "Уникати ґрунтових доріг";
 
 "avoid_ferry_crossing_placepage" = "Уникати поромних переправ";
 
+"trip_start" = "Поїхали";
+
+"pick_destination" = "Ціль";
+
+"follow_my_position" = "Відцентрувати";
+
+"search_results" = "Результати пошуку";
+
+"then_turn" = "Далі";
+
+"redirect_route_alert" = "Бажаєте перебудувати маршрут?";
+
+"redirect_route_yes" = "Так";
+
+"redirect_route_no" = "Ні";
+
+"trip_finished" = "Ви прибули!";
+
+"keyboard_availability_alert" = "Клавіатура недоступна під час руху";
+
+"dialog_routing_change_start_carplay" = "Неможливо побудувати маршрут від поточного місця розташування";
+
+"dialog_routing_change_end_carplay" = "Неможливо побудувати маршрут до кінцевої точки. Оберіть іншу";
+
+"dialog_routing_check_gps_carplay" = "Немає сигналу GPS. Перейдіть на відкриту місцевість";
+
+"dialog_routing_unable_locate_route_carplay" = "Неможливо побудувати маршрут. Оберіть інші точки маршруту";
+
+"dialog_routing_download_files_carplay" = "Щоб побудувати маршрут, завантажте відсутні карти на своєму пристрої";
+
+"dialog_routing_system_error_carplay" = "Виникла помилка. Перезапустіть додаток";
+
+"dialog_routing_rebuild_from_current_location_carplay" = "Маршрут буде перебудовано від вашого поточного місця розташування";
+
+"dialog_routing_rebuild_for_vehicle_carplay" = "Маршрут буде змінено на автомобільний";
+
 "ok" = "Ок";
+
+"avoid_unpaved_carplay_1" = "Без ґрунт.";
+
+"avoid_unpaved_carplay_2" = "Без ґрунтових";
+
+"avoid_ferry_carplay_1" = "Без поромів";
+
+"avoid_ferry_carplay_2" = "Без поромів";
+
+"avoid_tolls_carplay_1" = "Без платних";
+
+"avoid_tolls_carplay_2" = "Без платних";
+
+"speedcams_alert_title_carplay_1" = "Камери";
+
+"speedcams_alert_title_carplay_2" = "Інфо о камерах";
+
+"download_map_carplay" = "Завантажте карти в додатку Organic Maps на своєму пристрої";
+
+"carplay_roundabout_exit" = "%s з’їзд";
 
 /* max. 10 symbols, both iOS and Android */
 "sort" = "Сортувати";
 
 /* Android, title, max 20-22 symbols */
 "sort_bookmarks" = "Сортувати мітки";
+
+/* iOS */
+"sort_default" = "Сортувати за промовчанням";
+
+"sort_type" = "Сортувати за типом";
+
+"sort_distance" = "Сортувати за відстанню";
+
+"sort_date" = "Сортувати за датою";
 
 /* Android */
 "by_default" = "За промовчанням";
@@ -1214,7 +1311,51 @@
 /* Android */
 "by_date" = "За датою";
 
+"week_ago_sorttype" = "Тиждень тому";
+
+"month_ago_sorttype" = "Місяць тому";
+
+"moremonth_ago_sorttype" = "Понад місяць тому";
+
+"moreyear_ago_sorttype" = "Понад рік тому";
+
+"near_me_sorttype" = "Поруч зі мною";
+
+"others_sorttype" = "Інші";
+
+"food_places" = "Їжа";
+
+"tourist_places" = "Пам’ятки";
+
+"museums" = "Музеї";
+
+"parks" = "Парки";
+
+"swim_places" = "Плавання";
+
+"mountains" = "Гори";
+
+"animals" = "Тварини";
+
+"hotels" = "Готелі";
+
+"buildings" = "Будівлі";
+
+"money" = "Гроші";
+
+"shops" = "Магазини";
+
+"parkings" = "Парковки";
+
+"fuel_places" = "Заправки";
+
+"water" = "Вода";
+
+"medicine" = "Медицина";
+
 "search_in_the_list" = "Шукати в списку";
+
+"religious_places" = "Святі місця";
 
 "select_list" = "Обрати список";
 
@@ -1232,6 +1373,12 @@
 
 "elevation_profile_diff_level" = "Рівень складності";
 
+"elevation_profile_diff_level_easy" = "Простий";
+
+"elevation_profile_diff_level_moderate" = "Помірний";
+
+"elevation_profile_diff_level_hard" = "Складний";
+
 "elevation_profile_ascent" = "Підйом";
 
 "elevation_profile_descent" = "Спуск";
@@ -1247,6 +1394,10 @@
 "elevation_profile_time" = "Шлях:";
 
 "isolines_toast_zooms_1_10" = "Збільште карту, щоб побачити ізолінії";
+
+"downloader_updating_ios" = "Оновлення";
+
+"downloader_loading_ios" = "Завантаження";
 
 "key_information_title" = "Ключова інформація";
 

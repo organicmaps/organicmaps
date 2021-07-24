@@ -117,6 +117,9 @@
 /* Add Bookmark Set dialog - hint when set name is empty */
 "bookmark_set_name" = "Название группы";
 
+/* Bookmark Sets dialog title */
+"bookmark_sets" = "Группы меток";
+
 /* Bookmarks - dialog title */
 "bookmarks" = "Метки";
 
@@ -400,6 +403,9 @@
 /* Downloaded maps category */
 "downloader_downloaded_subtitle" = "Загруженные";
 
+/* Downloaded maps category */
+"downloader_available_maps" = "Доступные";
+
 /* Country queued for download */
 "downloader_queued" = "В очереди";
 
@@ -410,6 +416,8 @@
 "downloader_download_all_button" = "Загрузить все";
 
 "downloader_downloading" = "Загружается:";
+
+"downloader_search_results" = "Найдено";
 
 /* Status of outdated country in the list */
 "downloader_status_outdated" = "Обновить";
@@ -834,6 +842,8 @@
 
 "editor_operator" = "Владелец";
 
+"downloader_my_maps_title" = "Мои карты";
+
 "downloader_no_downloaded_maps_title" = "У вас нет загруженных карт";
 
 "downloader_no_downloaded_maps_message" = "Загрузите необходимые карты, чтобы находить места и пользоваться навигацией без интернета.";
@@ -867,9 +877,13 @@
 
 "kilometer" = "км";
 
+"kilometers_per_hour" = "км/ч";
+
 "mile" = "ми";
 
 "foot" = "фут";
+
+"miles_per_hour" = "ми/ч";
 
 "hour" = "ч";
 
@@ -888,6 +902,10 @@
 "placepage_edit_bookmark_button" = "Редактировать метку";
 
 "placepage_bookmark_name_hint" = "Название метки";
+
+"placepage_personal_notes_hint" = "Примечание";
+
+"placepage_delete_bookmark_button" = "Удалить метку";
 
 "editor_edits_sent_message" = "Предложенные вами изменения отправлены";
 
@@ -923,6 +941,8 @@
 "editor_share_to_all_dialog_message_1" = "Убедитесь, что вы не ввели личные данные.";
 
 "editor_share_to_all_dialog_message_2" = "Если при проверке изменений возникнут вопросы, мы напишем вам на email.";
+
+"navigation_stop_button" = "стоп";
 
 /* iOS dialog for the case when recent track recording is on and the app comes back from background */
 "recent_track_background_dialog_title" = "Выключить запись недавно пройденого пути?";
@@ -1024,6 +1044,8 @@
 
 "preloader_viator_button" = "Посмотреть";
 
+"start_from_my_position" = "Начать от";
+
 "profile_authorization_error" = "Упс, произошла ошибка. Попробуйте авторизоваться повторно.";
 
 "dialog_error_storage_title" = "Проблема с доступом к хранилищу";
@@ -1070,6 +1092,8 @@
 "bookmarks_error_title_list_name_already_taken" = "Такое имя уже занято";
 
 "bookmarks_error_message_list_name_already_taken" = "Выберите, пожалуйста, другое имя";
+
+"bookmarks_error_title_list_name_too_long" = "Слишком длинное название";
 
 "please_wait" = "Пожалуйста, подождите…";
 
@@ -1139,6 +1163,8 @@
 
 "tags_loading_error_subtitle" = "Во время загрузки тегов произошла ошибка, пожалуйста, попробуйте еще раз";
 
+"download_button" = "Скачать";
+
 "speedcams_alert_title" = "Камеры скорости";
 
 "speedcam_option_auto" = "Авто";
@@ -1188,19 +1214,90 @@
 
 "change_driving_options_btn" = "Настройки объезда включены";
 
+"toll_road" = "Платная дорога";
+
+"unpaved_road" = "Грунтовая дорога";
+
+"ferry_crossing" = "Паромная переправа";
+
 "avoid_toll_roads_placepage" = "Избегать платных дорог";
 
 "avoid_unpaved_roads_placepage" = "Избегать грунтовых дорог";
 
 "avoid_ferry_crossing_placepage" = "Избегать паромных переправ";
 
+"trip_start" = "Поехали";
+
+"pick_destination" = "Цель";
+
+"follow_my_position" = "Отцентровать";
+
+"search_results" = "Результаты поиска";
+
+"then_turn" = "Затем";
+
+"redirect_route_alert" = "Хотите перестроить маршрут?";
+
+"redirect_route_yes" = "Да";
+
+"redirect_route_no" = "Нет";
+
+"trip_finished" = "Вы прибыли!";
+
+"keyboard_availability_alert" = "Клавиатура недоступна во время движения";
+
+"dialog_routing_change_start_carplay" = "Невозможно построить маршрут от текущего местоположения";
+
+"dialog_routing_change_end_carplay" = "Невозможно построить маршрут до конечной точки. Выберите другую";
+
+"dialog_routing_check_gps_carplay" = "Нет сигнала GPS. Проследуйте на открытую местность";
+
+"dialog_routing_unable_locate_route_carplay" = "Невозможно построить маршрут. Выберите другие точки маршрута";
+
+"dialog_routing_download_files_carplay" = "Чтобы построить маршрут, загрузите недостающие карты на своем устройстве";
+
+"dialog_routing_system_error_carplay" = "Произошла ошибка. Перезапустите приложение";
+
+"dialog_routing_rebuild_from_current_location_carplay" = "Маршрут будет перестроен от вашего текущего местоположения";
+
+"dialog_routing_rebuild_for_vehicle_carplay" = "Маршрут будет изменен на автомобильный";
+
 "ok" = "Ок";
+
+"avoid_unpaved_carplay_1" = "Без грунт.";
+
+"avoid_unpaved_carplay_2" = "Без грунтовых";
+
+"avoid_ferry_carplay_1" = "Без паромов";
+
+"avoid_ferry_carplay_2" = "Без паромов";
+
+"avoid_tolls_carplay_1" = "Без платных";
+
+"avoid_tolls_carplay_2" = "Без платных";
+
+"speedcams_alert_title_carplay_1" = "Камеры";
+
+"speedcams_alert_title_carplay_2" = "Инфо о камерах";
+
+"download_map_carplay" = "Скачайте карты в приложении Organic Maps на своем устройстве";
+
+"carplay_roundabout_exit" = "%s съезд";
 
 /* max. 10 symbols, both iOS and Android */
 "sort" = "Сортировать…";
 
 /* Android, title, max 20-22 symbols */
 "sort_bookmarks" = "Сортировать метки";
+
+/* iOS */
+"sort_default" = "Сортировать по умолчанию";
+
+"sort_type" = "Сортировать по типу";
+
+"sort_distance" = "Сортировать по расстоянию";
+
+"sort_date" = "Сортировать по дате";
 
 /* Android */
 "by_default" = "По умолчанию";
@@ -1214,7 +1311,51 @@
 /* Android */
 "by_date" = "По дате";
 
+"week_ago_sorttype" = "Неделю назад";
+
+"month_ago_sorttype" = "Месяц назад";
+
+"moremonth_ago_sorttype" = "Больше месяца назад";
+
+"moreyear_ago_sorttype" = "Больше года назад";
+
+"near_me_sorttype" = "Рядом со мной";
+
+"others_sorttype" = "Другие";
+
+"food_places" = "Еда";
+
+"tourist_places" = "Достопримечательности";
+
+"museums" = "Музеи";
+
+"parks" = "Парки";
+
+"swim_places" = "Плавание";
+
+"mountains" = "Горы";
+
+"animals" = "Животные";
+
+"hotels" = "Отели";
+
+"buildings" = "Здания";
+
+"money" = "Деньги";
+
+"shops" = "Магазины";
+
+"parkings" = "Парковки";
+
+"fuel_places" = "Заправки";
+
+"water" = "Вода";
+
+"medicine" = "Медицина";
+
 "search_in_the_list" = "Искать в списке";
+
+"religious_places" = "Святые места";
 
 "select_list" = "Выбрать список";
 
@@ -1232,6 +1373,12 @@
 
 "elevation_profile_diff_level" = "Уровень сложности";
 
+"elevation_profile_diff_level_easy" = "Лёгкий";
+
+"elevation_profile_diff_level_moderate" = "Умеренный";
+
+"elevation_profile_diff_level_hard" = "Сложный";
+
 "elevation_profile_ascent" = "Подъём";
 
 "elevation_profile_descent" = "Спуск";
@@ -1247,6 +1394,10 @@
 "elevation_profile_time" = "В пути:";
 
 "isolines_toast_zooms_1_10" = "Увеличьте карту, чтобы увидеть изолинии";
+
+"downloader_updating_ios" = "Обновление";
+
+"downloader_loading_ios" = "Загрузка";
 
 "key_information_title" = "Ключевая информация";
 

@@ -117,6 +117,9 @@
 /* Add Bookmark Set dialog - hint when set name is empty */
 "bookmark_set_name" = "Nume set marcaje";
 
+/* Bookmark Sets dialog title */
+"bookmark_sets" = "Seturi marcaje";
+
 /* Bookmarks - dialog title */
 "bookmarks" = "Marcaje";
 
@@ -400,6 +403,9 @@
 /* Downloaded maps category */
 "downloader_downloaded_subtitle" = "Descărcat";
 
+/* Downloaded maps category */
+"downloader_available_maps" = "Disponibil";
+
 /* Country queued for download */
 "downloader_queued" = "În lista de așteptare";
 
@@ -410,6 +416,8 @@
 "downloader_download_all_button" = "Descărcați toate";
 
 "downloader_downloading" = "Descărcare:";
+
+"downloader_search_results" = "S-au găsit";
 
 /* Status of outdated country in the list */
 "downloader_status_outdated" = "Actualizare";
@@ -834,6 +842,8 @@
 
 "editor_operator" = "Operator";
 
+"downloader_my_maps_title" = "Hărțile mele";
+
 "downloader_no_downloaded_maps_title" = "Nu ați descărcat nicio hartă";
 
 "downloader_no_downloaded_maps_message" = "Descărcați hărți pt. a găsi locația și navigați offline.";
@@ -867,9 +877,13 @@
 
 "kilometer" = "km";
 
+"kilometers_per_hour" = "km/h";
+
 "mile" = "mi";
 
 "foot" = "picior";
+
+"miles_per_hour" = "mph";
 
 "hour" = "o";
 
@@ -888,6 +902,10 @@
 "placepage_edit_bookmark_button" = "Editare marcaj";
 
 "placepage_bookmark_name_hint" = "Nume marcaj";
+
+"placepage_personal_notes_hint" = "Note personale";
+
+"placepage_delete_bookmark_button" = "Ștergere marcaj";
 
 "editor_edits_sent_message" = "Modificările sugerate au fost trimise";
 
@@ -923,6 +941,8 @@
 "editor_share_to_all_dialog_message_1" = "Asigurați-vă că nu ați introdus niciun fel de date personale.";
 
 "editor_share_to_all_dialog_message_2" = "Vom verifica modificările. Dacă vor apărea întrebări, vă vom contacta prin email.";
+
+"navigation_stop_button" = "stop";
 
 /* iOS dialog for the case when recent track recording is on and the app comes back from background */
 "recent_track_background_dialog_title" = "Dezactivați înregistrarea celui mai recent traseu urmat?";
@@ -1024,6 +1044,8 @@
 
 "preloader_viator_button" = "Află mai multe";
 
+"start_from_my_position" = "Începând de la";
+
 "profile_authorization_error" = "Ups, a survenit o eroare. Încercați să vă conectați din nou.";
 
 "dialog_error_storage_title" = "Problemă de accesare spațiu de stocare";
@@ -1070,6 +1092,8 @@
 "bookmarks_error_title_list_name_already_taken" = "Acest nume este deja luat";
 
 "bookmarks_error_message_list_name_already_taken" = "Alegeți un alt nume";
+
+"bookmarks_error_title_list_name_too_long" = "Acest nume este prea lung";
 
 "please_wait" = "Te rog asteapta…";
 
@@ -1139,6 +1163,8 @@
 
 "tags_loading_error_subtitle" = "În timpul încărcării tag-urilor s-a produs o eroare, vă rugăm să încercați încă odată";
 
+"download_button" = "Descărcați";
+
 "speedcams_alert_title" = "Camere de supraveghere video a vitezei";
 
 "speedcam_option_auto" = "Auto";
@@ -1188,19 +1214,90 @@
 
 "change_driving_options_btn" = "Setarea ocolirii este activată";
 
+"toll_road" = "Drum cu plată";
+
+"unpaved_road" = "Drum de țară";
+
+"ferry_crossing" = "Trecere cu bac";
+
 "avoid_toll_roads_placepage" = "De evitat drumurile cu plată";
 
 "avoid_unpaved_roads_placepage" = "De evitat drumurile de țară";
 
 "avoid_ferry_crossing_placepage" = "De evitat trecerile cu bac";
 
+"trip_start" = "Mergem";
+
+"pick_destination" = "Scop";
+
+"follow_my_position" = "Centrați";
+
+"search_results" = "Rezultatul căutării";
+
+"then_turn" = "După";
+
+"redirect_route_alert" = "Doriți să refaceți traseul?";
+
+"redirect_route_yes" = "Da";
+
+"redirect_route_no" = "Nu";
+
+"trip_finished" = "Ați sosit!";
+
+"keyboard_availability_alert" = "Tastiera nu este accesibilă în timpul deplasării";
+
+"dialog_routing_change_start_carplay" = "Este imposibil de elabora traseul de la punctul de aflare";
+
+"dialog_routing_change_end_carplay" = "Este imposibil de elaborat traseu până la punctul de sosire. Selectați altul";
+
+"dialog_routing_check_gps_carplay" = "Nu este semnal GPS. Mergeți la loc deschis";
+
+"dialog_routing_unable_locate_route_carplay" = "Este imposibil de elaborat un traseu. Selectați alte puncte ale traseului";
+
+"dialog_routing_download_files_carplay" = "Pentru noi trasee, încărcați hărțile lipsa pe dispozitivul dvs.";
+
+"dialog_routing_system_error_carplay" = "Eroare. Restartați aplicația";
+
+"dialog_routing_rebuild_from_current_location_carplay" = "Traseul se va reface de la locul actual al aflării dvs";
+
+"dialog_routing_rebuild_for_vehicle_carplay" = "Traseul va fi modificat cu unul automobilistic";
+
 "ok" = "Ok";
+
+"avoid_unpaved_carplay_1" = "Fără neasfal";
+
+"avoid_unpaved_carplay_2" = "Fără neasfaltat";
+
+"avoid_ferry_carplay_1" = "Fără bacuri";
+
+"avoid_ferry_carplay_2" = "Fără bacuri";
+
+"avoid_tolls_carplay_1" = "Gratis";
+
+"avoid_tolls_carplay_2" = "Gratis";
+
+"speedcams_alert_title_carplay_1" = "Cameră video";
+
+"speedcams_alert_title_carplay_2" = "Info camere";
+
+"download_map_carplay" = "Vă rugăm să descărcați hărțile în aplicația Organic Maps de pe dispozitivul dvs.";
+
+"carplay_roundabout_exit" = "%s ieșire";
 
 /* max. 10 symbols, both iOS and Android */
 "sort" = "Sortați…";
 
 /* Android, title, max 20-22 symbols */
 "sort_bookmarks" = "Sortați inscripțiile";
+
+/* iOS */
+"sort_default" = "Sortați la modul implicit";
+
+"sort_type" = "Sortați după dip";
+
+"sort_distance" = "Sortați după distanță";
+
+"sort_date" = "Sortați după dată";
 
 /* Android */
 "by_default" = "Mod implicit";
@@ -1214,7 +1311,51 @@
 /* Android */
 "by_date" = "După dată";
 
+"week_ago_sorttype" = "O săptămână în urmă";
+
+"month_ago_sorttype" = "O lună în urmă";
+
+"moremonth_ago_sorttype" = "Mai mult de o lună în urmă";
+
+"moreyear_ago_sorttype" = "Mai mult de un an în urmă";
+
+"near_me_sorttype" = "Alături de mine";
+
+"others_sorttype" = "Altele";
+
+"food_places" = "Mâncare";
+
+"tourist_places" = "Locuri faimoase";
+
+"museums" = "Muzeu";
+
+"parks" = "Parcuri";
+
+"swim_places" = "Înot";
+
+"mountains" = "Munți";
+
+"animals" = "Animale";
+
+"hotels" = "Hoteluri";
+
+"buildings" = "Clădiri";
+
+"money" = "Bani";
+
+"shops" = "Magazine";
+
+"parkings" = "Parcări";
+
+"fuel_places" = "Benzinării";
+
+"water" = "Apă";
+
+"medicine" = "Medicină";
+
 "search_in_the_list" = "Căutați în listă";
+
+"religious_places" = "Locuri sfinte";
 
 "select_list" = "Alegeți lista";
 
@@ -1232,6 +1373,12 @@
 
 "elevation_profile_diff_level" = "Nivel de dificultate";
 
+"elevation_profile_diff_level_easy" = "Ușor";
+
+"elevation_profile_diff_level_moderate" = "Mediu";
+
+"elevation_profile_diff_level_hard" = "Dificil";
+
 "elevation_profile_ascent" = "Urcare";
 
 "elevation_profile_descent" = "Coborâre";
@@ -1247,6 +1394,10 @@
 "elevation_profile_time" = "Timp:";
 
 "isolines_toast_zooms_1_10" = "Măriți harta pentru a vedea contururile";
+
+"downloader_updating_ios" = "Actualizare";
+
+"downloader_loading_ios" = "Încărcare";
 
 "key_information_title" = "Informații cheie";
 

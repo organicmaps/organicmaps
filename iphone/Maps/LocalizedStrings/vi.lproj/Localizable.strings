@@ -117,6 +117,9 @@
 /* Add Bookmark Set dialog - hint when set name is empty */
 "bookmark_set_name" = "Đánh dấu Tên Bộ";
 
+/* Bookmark Sets dialog title */
+"bookmark_sets" = "Đánh dấu Bộ";
+
 /* Bookmarks - dialog title */
 "bookmarks" = "Đánh dấu";
 
@@ -400,6 +403,9 @@
 /* Downloaded maps category */
 "downloader_downloaded_subtitle" = "Đã tải xuống";
 
+/* Downloaded maps category */
+"downloader_available_maps" = "Đã có";
+
 /* Country queued for download */
 "downloader_queued" = "Đã xếp hàng chờ";
 
@@ -410,6 +416,8 @@
 "downloader_download_all_button" = "Tải xuống tất cả";
 
 "downloader_downloading" = "Đang tải về:";
+
+"downloader_search_results" = "Đã tìm thấy";
 
 /* Status of outdated country in the list */
 "downloader_status_outdated" = "Cập nhật";
@@ -834,6 +842,8 @@
 
 "editor_operator" = "Đơn vị điều hành";
 
+"downloader_my_maps_title" = "Bản đồ của tôi";
+
 "downloader_no_downloaded_maps_title" = "Bạn chưa tải về bất kỳ bản đồ nào";
 
 "downloader_no_downloaded_maps_message" = "Tải về bản đồ để tìm địa điểm và định hướng ngoại tuyến.";
@@ -867,9 +877,13 @@
 
 "kilometer" = "km";
 
+"kilometers_per_hour" = "km/giờ";
+
 "mile" = "dặm";
 
 "foot" = "ft";
+
+"miles_per_hour" = "mph";
 
 "hour" = "giờ";
 
@@ -888,6 +902,10 @@
 "placepage_edit_bookmark_button" = "Sửa Dấu Trang";
 
 "placepage_bookmark_name_hint" = "Tên Dấu Trang";
+
+"placepage_personal_notes_hint" = "Ghi chú cá nhân";
+
+"placepage_delete_bookmark_button" = "Xóa Dấu Trang";
 
 "editor_edits_sent_message" = "Những thay đổi đề nghị của bạn đã được gửi";
 
@@ -923,6 +941,8 @@
 "editor_share_to_all_dialog_message_1" = "Chắc chắn rằng bạn không nhập bất kỳ thông tin cá nhân nào.";
 
 "editor_share_to_all_dialog_message_2" = "Chúng tôi sẽ kiểm tra những thay đổi. Nếu chúng tôi có câu hỏi nào, chúng tôi sẽ liên lạc với bạn qua email.";
+
+"navigation_stop_button" = "dừng";
 
 /* iOS dialog for the case when recent track recording is on and the app comes back from background */
 "recent_track_background_dialog_title" = "Tắt ghi lại tuyến đường đã đi gần đây của bạn?";
@@ -1024,6 +1044,8 @@
 
 "preloader_viator_button" = "Tìm hiểu thêm";
 
+"start_from_my_position" = "Bắt đầu từ";
+
 "profile_authorization_error" = "Rất tiếc, đã có lỗi xảy ra. Hãy thử đăng nhập lại.";
 
 "dialog_error_storage_title" = "Vấn đề truy cập ổ lưu trữ";
@@ -1070,6 +1092,8 @@
 "bookmarks_error_title_list_name_already_taken" = "Tên này đã được sử dụng";
 
 "bookmarks_error_message_list_name_already_taken" = "Vui lòng chọn một tên khác";
+
+"bookmarks_error_title_list_name_too_long" = "Tên này quá dài";
 
 "please_wait" = "Vui lòng chờ…";
 
@@ -1139,6 +1163,8 @@
 
 "tags_loading_error_subtitle" = "Đã xảy ra lỗi khi tải thẻ, vui lòng thử lại";
 
+"download_button" = "Tải";
+
 "speedcams_alert_title" = "Tăn tốc độ máy ảnh";
 
 "speedcam_option_auto" = "Tự động";
@@ -1188,19 +1214,90 @@
 
 "change_driving_options_btn" = "Thiết lập đường đi tránh đã được bật";
 
+"toll_road" = "Đường trả phí";
+
+"unpaved_road" = "Đường đất";
+
+"ferry_crossing" = "Bến phà";
+
 "avoid_toll_roads_placepage" = "Tránh đường trả phí";
 
 "avoid_unpaved_roads_placepage" = "Tránh đường đất";
 
 "avoid_ferry_crossing_placepage" = "Tránh bến phà";
 
+"trip_start" = "Đi nào";
+
+"pick_destination" = "Mục đích";
+
+"follow_my_position" = "Định tâm";
+
+"search_results" = "Kết quả tìm kiếm";
+
+"then_turn" = "Sau đó";
+
+"redirect_route_alert" = "Bạn có muốn tạo lại tuyến không?";
+
+"redirect_route_yes" = "Có";
+
+"redirect_route_no" = "Không";
+
+"trip_finished" = "Bạn đã tới nơi!";
+
+"keyboard_availability_alert" = "Bàn phím không khả dụng trong thời gian di chuyển";
+
+"dialog_routing_change_start_carplay" = "Không thể tạo tuyến đường từ địa điểm hiển tại";
+
+"dialog_routing_change_end_carplay" = "Không thể tạo tuyến đường tới điểm kết cuối. Hãy chọn điểm khác";
+
+"dialog_routing_check_gps_carplay" = "Không có tín hiệu GPS. Hãy đến vị trí có không gian mở";
+
+"dialog_routing_unable_locate_route_carplay" = "Không thể tạo tuyến đường. Hãy chọn những điểm khác cho tuyến đường";
+
+"dialog_routing_download_files_carplay" = "Để tạo tuyến đường, hãy tải xuống các bản đồ còn thiếu về thiết bị";
+
+"dialog_routing_system_error_carplay" = "Đã xảy ra lỗi. Khởi động lại ứng dụng";
+
+"dialog_routing_rebuild_from_current_location_carplay" = "Tuyến đường sẽ được tạo lại từ vị trí hiện tại của bạn";
+
+"dialog_routing_rebuild_for_vehicle_carplay" = "Tuyến đường sẽ được thay đổi thành tuyến dành cho xe ô tô";
+
 "ok" = "Ok";
+
+"avoid_unpaved_carplay_1" = "Trừ đườg đất";
+
+"avoid_unpaved_carplay_2" = "Trừ khôg trnhựa";
+
+"avoid_ferry_carplay_1" = "Không có phà";
+
+"avoid_ferry_carplay_2" = "Trừ phà";
+
+"avoid_tolls_carplay_1" = "Khôg đgcóphí";
+
+"avoid_tolls_carplay_2" = "Trừ đg có phí";
+
+"speedcams_alert_title_carplay_1" = "Сam tốc độ";
+
+"speedcams_alert_title_carplay_2" = "Cảnh báo tốc độ";
+
+"download_map_carplay" = "Vui lòng tải xuống bản đồ trong ứng dụng Organic Maps trên thiết bị của bạn";
+
+"carplay_roundabout_exit" = "Lối ra %s của vòng xuyến";
 
 /* max. 10 symbols, both iOS and Android */
 "sort" = "Sắp xếp…";
 
 /* Android, title, max 20-22 symbols */
 "sort_bookmarks" = "Sắp xếp dấu trang";
+
+/* iOS */
+"sort_default" = "Sắp xếp theo mặc định";
+
+"sort_type" = "Sắp xếp theo kiểu";
+
+"sort_distance" = "Sắp xếp theo khoảng cách";
+
+"sort_date" = "Sắp xếp theo ngày";
 
 /* Android */
 "by_default" = "Theo mặc định";
@@ -1214,7 +1311,51 @@
 /* Android */
 "by_date" = "Theo ngày";
 
+"week_ago_sorttype" = "Tuần trước";
+
+"month_ago_sorttype" = "Tháng trước";
+
+"moremonth_ago_sorttype" = "Hơn một tháng trước";
+
+"moreyear_ago_sorttype" = "Hơn một năm trước";
+
+"near_me_sorttype" = "Ở gần tôi";
+
+"others_sorttype" = "Khác";
+
+"food_places" = "Đồ ăn";
+
+"tourist_places" = "Danh lam thắng cảnh";
+
+"museums" = "Bảo tàng";
+
+"parks" = "Công viên";
+
+"swim_places" = "Bơi lội";
+
+"mountains" = "Núi non";
+
+"animals" = "Động vật";
+
+"hotels" = "Khách sạn";
+
+"buildings" = "Tòa nhà";
+
+"money" = "Tiền";
+
+"shops" = "Cửa hàng";
+
+"parkings" = "Bãi đậu xe";
+
+"fuel_places" = "Trạm xăng dầu";
+
+"water" = "Nước";
+
+"medicine" = "Y tế";
+
 "search_in_the_list" = "Tìm trong danh sách";
+
+"religious_places" = "Những nơi tôn nghiêm";
 
 "select_list" = "Chọn danh sách";
 
@@ -1232,6 +1373,12 @@
 
 "elevation_profile_diff_level" = "Mức độ phức tạp";
 
+"elevation_profile_diff_level_easy" = "Dễ";
+
+"elevation_profile_diff_level_moderate" = "Trung bình";
+
+"elevation_profile_diff_level_hard" = "Khó";
+
 "elevation_profile_ascent" = "Đi lên";
 
 "elevation_profile_descent" = "Đi xuống";
@@ -1247,6 +1394,10 @@
 "elevation_profile_time" = "Giờ:";
 
 "isolines_toast_zooms_1_10" = "Phóng bản đồ để nhìn rõ đường đồng mức";
+
+"downloader_updating_ios" = "Cập nhật";
+
+"downloader_loading_ios" = "Tải xuống";
 
 "key_information_title" = "Thông tin chìa khóa";
 

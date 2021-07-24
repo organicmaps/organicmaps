@@ -70,6 +70,8 @@
 	<string name="bookmark_color">색상 즐겨찾기에 추가</string>
 	<!-- Add Bookmark Set dialog - hint when set name is empty -->
 	<string name="bookmark_set_name">집합 이름을 즐겨찾기에 추가</string>
+	<!-- Bookmark Sets dialog title -->
+	<string name="bookmark_sets">세트를 즐겨찾기에 추가</string>
 	<!-- Bookmarks - dialog title -->
 	<string name="bookmarks">북마크</string>
 	<!-- Default bookmarks set name -->
@@ -235,12 +237,15 @@
 	<string name="downloader_cancel_all">모두 취소</string>
 	<!-- Downloaded maps category -->
 	<string name="downloader_downloaded_subtitle">다운로드</string>
+	<!-- Downloaded maps category -->
+	<string name="downloader_available_maps">사용 가능</string>
 	<!-- Country queued for download -->
 	<string name="downloader_queued">대기</string>
 	<string name="downloader_near_me_subtitle">내 근처</string>
 	<string name="downloader_status_maps">지도</string>
 	<string name="downloader_download_all_button">모두 다운로드</string>
 	<string name="downloader_downloading">다운로드 중:</string>
+	<string name="downloader_search_results">검색 결과</string>
 	<!-- Status of outdated country in the list -->
 	<string name="downloader_status_outdated">업데이트</string>
 	<!-- Status of failed country in the list -->
@@ -474,6 +479,7 @@
 	<string name="editor_detailed_description">귀하가 제안한 변경 사항은 OpenStreetMap 커뮤니티로 전송됩니다. Organic Maps에서 편집할 수 없는 세부정보를 작성해 주세요.</string>
 	<string name="editor_more_about_osm">OpenStreetMap 정보</string>
 	<string name="editor_operator">소유자</string>
+	<string name="downloader_my_maps_title">내 지도</string>
 	<string name="downloader_no_downloaded_maps_title">지도를 다운로드하지 않았습니다</string>
 	<string name="downloader_no_downloaded_maps_message">오프라인으로 위치를 검색하려면 지도를 다운로드하세요.</string>
 	<!-- Error title that appears after certain time without location. -->
@@ -492,8 +498,10 @@
 	<string name="location_services_disabled_3">3. 앱 사용 중에 선택</string>
 	<string name="meter">m</string>
 	<string name="kilometer">km</string>
+	<string name="kilometers_per_hour">km/시</string>
 	<string name="mile">mi</string>
 	<string name="foot">풋</string>
+	<string name="miles_per_hour">mph</string>
 	<string name="hour">t</string>
 	<string name="minute">min</string>
 	<string name="placepage_place_description">설명</string>
@@ -503,6 +511,8 @@
 	<string name="placepage_call_button">전화</string>
 	<string name="placepage_edit_bookmark_button">즐겨찾기 편집</string>
 	<string name="placepage_bookmark_name_hint">즐겨찾기 이름</string>
+	<string name="placepage_personal_notes_hint">개인 메모</string>
+	<string name="placepage_delete_bookmark_button">즐겨찾기 삭제</string>
 	<string name="editor_edits_sent_message">귀하의 제안 변경사항이 전송되었습니다</string>
 	<string name="editor_comment_hint">설명…</string>
 	<string name="editor_reset_edits_message">지역 변경 사항을 재설정하시겠습니까?</string>
@@ -522,6 +532,7 @@
 	<!-- iOS Dialog before publishing the modifications to the public map. -->
 	<string name="editor_share_to_all_dialog_message_1">개인 정보를 입력하지 않았는지 확인하십시오.</string>
 	<string name="editor_share_to_all_dialog_message_2">저희가 변경 사항을 확인할 것입니다. 질문이 있으신 경우, 저희에게 이메일을 통해 연락하십시오.</string>
+	<string name="navigation_stop_button">중지</string>
 	<!-- iOS dialog for the case when recent track recording is on and the app comes back from background -->
 	<string name="recent_track_background_dialog_title">최근 여행한 경로 녹음을 비활성화하시겠습니까?</string>
 	<string name="off_recent_track_background_button">비활성화</string>
@@ -578,6 +589,7 @@
 	<string name="planning_route_remove_title">여기로 끌어와서 제거</string>
 	<string name="placepage_add_stop">스톱 추가</string>
 	<string name="preloader_viator_button">자세히 알아보기</string>
+	<string name="start_from_my_position">시작 위치:</string>
 	<string name="profile_authorization_error">죄송합니다. 오류가 발생했습니다. 다시 로그인해 보세요.</string>
 	<string name="dialog_error_storage_title">저장소 액세스 문제</string>
 	<string name="dialog_error_storage_message">외부 저장소를 사용할 수 없습니다. SD 카드가 제거되었거나 손상되었거나 파일 시스템이 읽기 전용일 수 있습니다. 확인 후 support\@organicmaps.app로 문의하세요.</string>
@@ -587,6 +599,9 @@
 	<string name="bookmarks_groups">기울기</string>
 	<string name="bookmarks_groups_hide_all">모두 숨기기</string>
 	<string name="bookmarks_groups_show_all">모두 표시</string>
+	<plurals name="bookmarks_places">
+	  <item quantity="other">%d 북마크</item>
+	</plurals>
 	<string name="bookmarks_create_new_group">새 목록 만들기</string>
 	<string name="downloader_hide_screen">화면 숨기기</string>
 	<string name="downloader_percent">%1$s(%2$s / %3$s)</string>
@@ -600,6 +615,7 @@
 	<string name="bookmarks_new_list_hint">새 목록</string>
 	<string name="bookmarks_error_title_list_name_already_taken">이 이름은 이미 사용 중입니다.</string>
 	<string name="bookmarks_error_message_list_name_already_taken">다른 이름을 선택하십시오.</string>
+	<string name="bookmarks_error_title_list_name_too_long">이 이름이 너무 깁니다.</string>
 	<string name="please_wait">잠시만 기다려주십시오…</string>
 	<string name="profile">OpenStreetMap 프로필</string>
 	<string name="place_page_search_similar_hotel">비슷한 호텔 검색</string>
@@ -645,6 +661,7 @@
 	<string name="bookmark_category_description_hint">묘사를 적으세요 (글자 혹은 html)</string>
 	<string name="not_shared">개인</string>
 	<string name="tags_loading_error_subtitle">태그를 불러오는 중 에러가 발생했습니다. 다시 시도해보세요</string>
+	<string name="download_button">다운로드</string>
 	<string name="speedcams_alert_title">속도 감시 카메라</string>
 	<string name="speedcam_option_auto">자동</string>
 	<string name="speedcam_option_always">항상</string>
@@ -670,14 +687,50 @@
 	<string name="unable_to_calc_alert_subtitle">아쉽게도 귀하가 정의한 옵션으로는 루트를 찾을 수가 없습니다. 설정을 바꾸신다음 다시 시도해주세요</string>
 	<string name="define_to_avoid_btn">피할 도로 정의하기</string>
 	<string name="change_driving_options_btn">운전 옵션이 가능합니다</string>
+	<string name="toll_road">유료 도로</string>
+	<string name="unpaved_road">비포장 도로</string>
+	<string name="ferry_crossing">여객선 횡단길</string>
 	<string name="avoid_toll_roads_placepage">유료 도로 피하기</string>
 	<string name="avoid_unpaved_roads_placepage">비포장 도로 피하기</string>
 	<string name="avoid_ferry_crossing_placepage">여객선 횡단길 피하기</string>
+	<string name="trip_start">가자</string>
+	<string name="pick_destination">목적지</string>
+	<string name="follow_my_position">내 위치 조정하기</string>
+	<string name="search_results">검색 결과</string>
+	<string name="then_turn">그 다음</string>
+	<string name="redirect_route_alert">루트를 재구축하길 원하시나요?</string>
+	<string name="redirect_route_yes">네</string>
+	<string name="redirect_route_no">아니오</string>
+	<string name="trip_finished">도착했습니다!</string>
+	<string name="keyboard_availability_alert">운전 중에는 키보드를 사용할 수 없습니다</string>
+	<string name="dialog_routing_change_start_carplay">현재 위치에서 루트를 만들 수 없습니다</string>
+	<string name="dialog_routing_change_end_carplay">목적지 경로를 만들 수 없습니다. 다른 지점을 선택해주세요</string>
+	<string name="dialog_routing_check_gps_carplay">GPS 신호가 없습니다. 열린 장소로 이동해주세요</string>
+	<string name="dialog_routing_unable_locate_route_carplay">루트를 만들 수 없습니다. 또 다른 루트 지점을 지정해주세요</string>
+	<string name="dialog_routing_download_files_carplay">루트를 만들려면, 빠진 맵을 기기에 다운로드하세요</string>
+	<string name="dialog_routing_system_error_carplay">오류 발생. 어플리케이션을 재실행해주시길 바랍니다</string>
+	<string name="dialog_routing_rebuild_from_current_location_carplay">루트가 귀하의 현재 위치로부터 재생성됩니다</string>
+	<string name="dialog_routing_rebuild_for_vehicle_carplay">루트가 차량에 맞춰 수정됩니다</string>
 	<string name="ok">OK</string>
+	<string name="avoid_unpaved_carplay_1">비포장 도로 없음</string>
+	<string name="avoid_unpaved_carplay_2">비포장 도로 없음</string>
+	<string name="avoid_ferry_carplay_1">여객선 없음</string>
+	<string name="avoid_ferry_carplay_2">여객선 없음</string>
+	<string name="avoid_tolls_carplay_1">유료 도로 없음</string>
+	<string name="avoid_tolls_carplay_2">유료 도로 없음</string>
+	<string name="speedcams_alert_title_carplay_1">속도단속 카메라</string>
+	<string name="speedcams_alert_title_carplay_2">속도단속 카메라</string>
+	<string name="download_map_carplay">Organic Maps 앱 안의 지도들을 디바이스에 다운로드하세요</string>
+	<string name="carplay_roundabout_exit">%s번 출구</string>
 	<!-- max. 10 symbols, both iOS and Android -->
 	<string name="sort">분류…</string>
 	<!-- Android, title, max 20-22 symbols -->
 	<string name="sort_bookmarks">북마크 분류하기</string>
+	<!-- iOS -->
+	<string name="sort_default">기본 값으로 분류</string>
+	<string name="sort_type">유형으로 분류</string>
+	<string name="sort_distance">거리로 분류</string>
+	<string name="sort_date">날짜로 분류</string>
 	<!-- Android -->
 	<string name="by_default">기본 값</string>
 	<!-- Android -->
@@ -686,7 +739,29 @@
 	<string name="by_distance">거리 별</string>
 	<!-- Android -->
 	<string name="by_date">날짜 별</string>
+	<string name="week_ago_sorttype">일주일 전</string>
+	<string name="month_ago_sorttype">한달 전</string>
+	<string name="moremonth_ago_sorttype">한달 그 이상 전</string>
+	<string name="moreyear_ago_sorttype">1년 그 이상 전</string>
+	<string name="near_me_sorttype">나와 가까운 곳</string>
+	<string name="others_sorttype">기타</string>
+	<string name="food_places">음식</string>
+	<string name="tourist_places">명소</string>
+	<string name="museums">박물관</string>
+	<string name="parks">공원</string>
+	<string name="swim_places">수영</string>
+	<string name="mountains">산</string>
+	<string name="animals">동물원</string>
+	<string name="hotels">호텔</string>
+	<string name="buildings">빌딩</string>
+	<string name="money">돈</string>
+	<string name="shops">상점</string>
+	<string name="parkings">주차장</string>
+	<string name="fuel_places">주유소</string>
+	<string name="water">물</string>
+	<string name="medicine">의료</string>
 	<string name="search_in_the_list">리스트에서 검색</string>
+	<string name="religious_places">종교적 장소</string>
 	<string name="select_list">목록 선택</string>
 	<string name="transit_not_found">이 지역의 지하철 노선 기능이 아직 없습니다</string>
 	<string name="dialog_pedestrian_route_is_long_header">지하철 루트가 발견되지 않았습니다</string>
@@ -695,6 +770,9 @@
 	<string name="isolines_activation_error_dialog">지형 레이어를 활성화하고 사용하려면 해당 지역의 지도를 업데이트하거나 다운로드하십시오</string>
 	<string name="isolines_location_error_dialog">이 지역의 지형 레이어는 아직 사용할 수 없습니다</string>
 	<string name="elevation_profile_diff_level">난이도</string>
+	<string name="elevation_profile_diff_level_easy">쉬움</string>
+	<string name="elevation_profile_diff_level_moderate">보통</string>
+	<string name="elevation_profile_diff_level_hard">어려움</string>
 	<string name="elevation_profile_ascent">올라가기</string>
 	<string name="elevation_profile_descent">내려가기</string>
 	<string name="elevation_profile_minaltitude">산 최소 높이</string>
@@ -703,6 +781,8 @@
 	<string name="elevation_profile_distance">거리:</string>
 	<string name="elevation_profile_time">소비 시간:</string>
 	<string name="isolines_toast_zooms_1_10">등치선 탐색을 위한 확대</string>
+	<string name="downloader_updating_ios">업데이트 중</string>
+	<string name="downloader_loading_ios">다운로드 중</string>
 	<string name="key_information_title">핵심 정보</string>
 	<string name="enable_screen_sleep">화면 절전 모드 허용</string>
 	<!-- Description in preferences -->

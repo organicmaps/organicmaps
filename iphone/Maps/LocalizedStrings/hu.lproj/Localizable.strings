@@ -117,6 +117,9 @@
 /* Add Bookmark Set dialog - hint when set name is empty */
 "bookmark_set_name" = "Könyvjelzőcsoport neve";
 
+/* Bookmark Sets dialog title */
+"bookmark_sets" = "Könyvjelzőcsoportok";
+
 /* Bookmarks - dialog title */
 "bookmarks" = "Könyvjelzők";
 
@@ -400,6 +403,9 @@
 /* Downloaded maps category */
 "downloader_downloaded_subtitle" = "Letöltve";
 
+/* Downloaded maps category */
+"downloader_available_maps" = "Elérhető";
+
 /* Country queued for download */
 "downloader_queued" = "Várólistás";
 
@@ -410,6 +416,8 @@
 "downloader_download_all_button" = "Mindegyik letöltése";
 
 "downloader_downloading" = "Letöltés:";
+
+"downloader_search_results" = "Megtalálva";
 
 /* Status of outdated country in the list */
 "downloader_status_outdated" = "Frissítés";
@@ -834,6 +842,8 @@
 
 "editor_operator" = "Üzemeltető";
 
+"downloader_my_maps_title" = "Térképeim";
+
 "downloader_no_downloaded_maps_title" = "Még nem töltött le térképet";
 
 "downloader_no_downloaded_maps_message" = "Töltse le a szükséges térképeket, hogy megtalálja a helyet és internet nélkül is navigálhasson.";
@@ -867,9 +877,13 @@
 
 "kilometer" = "km";
 
+"kilometers_per_hour" = "km/h";
+
 "mile" = "mf";
 
 "foot" = "ft";
+
+"miles_per_hour" = "mph";
 
 "hour" = "ó";
 
@@ -888,6 +902,10 @@
 "placepage_edit_bookmark_button" = "Könyvjelző szerkesztése";
 
 "placepage_bookmark_name_hint" = "Könyvjelző neve";
+
+"placepage_personal_notes_hint" = "Jegyzet";
+
+"placepage_delete_bookmark_button" = "Könyvjelző törlése";
 
 "editor_edits_sent_message" = "Javasolt változtatásainak elküldése sikerült";
 
@@ -923,6 +941,8 @@
 "editor_share_to_all_dialog_message_1" = "Győződj meg arról, hogy nem adsz meg semmilyen személyes információt.";
 
 "editor_share_to_all_dialog_message_2" = "Ellenőrizni fogjuk a változásokat. Ha bármilyen kérdésünk van, emailben keresünk.";
+
+"navigation_stop_button" = "megállítás";
 
 /* iOS dialog for the case when recent track recording is on and the app comes back from background */
 "recent_track_background_dialog_title" = "Megszakítod a legutóbb megtett utad rögzítését?";
@@ -1024,6 +1044,8 @@
 
 "preloader_viator_button" = "Tudjon meg többet";
 
+"start_from_my_position" = "Elkezdi innen:";
+
 "profile_authorization_error" = "Hoppá, volt egy hiba. Próbáljon meg újra bejelentkezni.";
 
 "dialog_error_storage_title" = "Tároló hozzáférési hiba";
@@ -1070,6 +1092,8 @@
 "bookmarks_error_title_list_name_already_taken" = "Ez a név már foglalt";
 
 "bookmarks_error_message_list_name_already_taken" = "Kérjük, válasszon másik nevet";
+
+"bookmarks_error_title_list_name_too_long" = "Ez a név túl hosszú";
 
 "please_wait" = "Kérlek várj…";
 
@@ -1139,6 +1163,8 @@
 
 "tags_loading_error_subtitle" = "A tag-ek feltöltésekor hiba történt, kérjük próbálja meg még egyszer";
 
+"download_button" = "Letöltés";
+
 "speedcams_alert_title" = "Sebességmérő kamerák";
 
 "speedcam_option_auto" = "Autó";
@@ -1188,19 +1214,90 @@
 
 "change_driving_options_btn" = "Vezetési lehetőségek bekapcsolva";
 
+"toll_road" = "Fizetős utak";
+
+"unpaved_road" = "Kövezetlen utak";
+
+"ferry_crossing" = "Kompátkelők";
+
 "avoid_toll_roads_placepage" = "Fizetős utak elkerülése";
 
 "avoid_unpaved_roads_placepage" = "Kövezetlen utak elkerülése";
 
 "avoid_ferry_crossing_placepage" = "Kompátkelők elkerülése";
 
+"trip_start" = "Gyerünk";
+
+"pick_destination" = "Cél";
+
+"follow_my_position" = "Középre";
+
+"search_results" = "Keresési eredmények";
+
+"then_turn" = "Utána";
+
+"redirect_route_alert" = "Szeretnél újratervezni egy útvonalat?";
+
+"redirect_route_yes" = "Igen";
+
+"redirect_route_no" = "Nem";
+
+"trip_finished" = "Megérkeztél!";
+
+"keyboard_availability_alert" = "A billentyűzet nem elérhető vezetés közben";
+
+"dialog_routing_change_start_carplay" = "Nem lehet útvonalat tervezni a jelenlegi helyedről";
+
+"dialog_routing_change_end_carplay" = "Nem lehet útvonalat tervezni a célodhoz. Kérjük válassz egy másik pontot";
+
+"dialog_routing_check_gps_carplay" = "Nincs GPS-jel. Kérjük menj egy nyílt területre";
+
+"dialog_routing_unable_locate_route_carplay" = "Nem lehet útvonalat tervezni. Kérjük határozz meg más útvonal lehetőségeket";
+
+"dialog_routing_download_files_carplay" = "Útvonal létrehozásához töltsd le a hiányzó térképeket az eszközre";
+
+"dialog_routing_system_error_carplay" = "Hiba történt. Kérjük indítsd újra az alkalmazást";
+
+"dialog_routing_rebuild_from_current_location_carplay" = "Az útvonal újra lesz tervezve a jelenlegi helyzetedről";
+
+"dialog_routing_rebuild_for_vehicle_carplay" = "Az útvonal módosítva lesz egy autó számára";
+
 "ok" = "Oké";
+
+"avoid_unpaved_carplay_1" = "Nem földút";
+
+"avoid_unpaved_carplay_2" = "Földút kerülése";
+
+"avoid_ferry_carplay_1" = "Komp nélkül";
+
+"avoid_ferry_carplay_2" = "Kompok kerülése";
+
+"avoid_tolls_carplay_1" = "Nincs útdíj";
+
+"avoid_tolls_carplay_2" = "Útdíj kerülése";
+
+"speedcams_alert_title_carplay_1" = "Traffipaxok";
+
+"speedcams_alert_title_carplay_2" = "Sebességjelzés";
+
+"download_map_carplay" = "Kérjük, töltsd le a térképeket a Organic Maps alkalmazásban az eszközödre";
+
+"carplay_roundabout_exit" = "%s kijárat";
 
 /* max. 10 symbols, both iOS and Android */
 "sort" = "Rendezd…";
 
 /* Android, title, max 20-22 symbols */
 "sort_bookmarks" = "Könyvelzők rendezése";
+
+/* iOS */
+"sort_default" = "Alapértelmezés szerint";
+
+"sort_type" = "Típus szerint";
+
+"sort_distance" = "Távolság szerint";
+
+"sort_date" = "Dátum szerint";
 
 /* Android */
 "by_default" = "Alapértelmezés szerint";
@@ -1214,7 +1311,51 @@
 /* Android */
 "by_date" = "Dátum szerint";
 
+"week_ago_sorttype" = "Egy hete";
+
+"month_ago_sorttype" = "Egy hónapja";
+
+"moremonth_ago_sorttype" = "Több mint egy hónapja";
+
+"moreyear_ago_sorttype" = "Több mint egy éve";
+
+"near_me_sorttype" = "Hozzám közel";
+
+"others_sorttype" = "Más";
+
+"food_places" = "Étel";
+
+"tourist_places" = "Látnivalók";
+
+"museums" = "Múzeumok";
+
+"parks" = "Parkok";
+
+"swim_places" = "Úszás";
+
+"mountains" = "Hegyek";
+
+"animals" = "Állatok";
+
+"hotels" = "Hotelek";
+
+"buildings" = "Épületek";
+
+"money" = "Pénz";
+
+"shops" = "Üzletek";
+
+"parkings" = "Parkolók";
+
+"fuel_places" = "Benzinkutak";
+
+"water" = "Víz";
+
+"medicine" = "Gyógyszer";
+
 "search_in_the_list" = "Keresés a listában";
+
+"religious_places" = "Vallási helyek";
 
 "select_list" = "Lista kiválasztása";
 
@@ -1232,6 +1373,12 @@
 
 "elevation_profile_diff_level" = "Nehézségi szint";
 
+"elevation_profile_diff_level_easy" = "Könnyű";
+
+"elevation_profile_diff_level_moderate" = "Mérsékelt";
+
+"elevation_profile_diff_level_hard" = "Nehéz";
+
 "elevation_profile_ascent" = "Felemelkedés";
 
 "elevation_profile_descent" = "Leereszkedés";
@@ -1247,6 +1394,10 @@
 "elevation_profile_time" = "Idő";
 
 "isolines_toast_zooms_1_10" = "Nagyítás az isovonalak felfedezéséhez";
+
+"downloader_updating_ios" = "Feltöltés";
+
+"downloader_loading_ios" = "Letöltés";
 
 "key_information_title" = "Kulcs információ";
 

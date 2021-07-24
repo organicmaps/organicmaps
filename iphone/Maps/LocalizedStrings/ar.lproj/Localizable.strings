@@ -117,6 +117,9 @@
 /* Add Bookmark Set dialog - hint when set name is empty */
 "bookmark_set_name" = "اسم مجموعة الإشارات المرجعية";
 
+/* Bookmark Sets dialog title */
+"bookmark_sets" = "مجموعات الإشارات المرجعية";
+
 /* Bookmarks - dialog title */
 "bookmarks" = "الإشارات المرجعية";
 
@@ -400,6 +403,9 @@
 /* Downloaded maps category */
 "downloader_downloaded_subtitle" = "تم تنزيلها";
 
+/* Downloaded maps category */
+"downloader_available_maps" = "متاح";
+
 /* Country queued for download */
 "downloader_queued" = "مَصْفوف";
 
@@ -410,6 +416,8 @@
 "downloader_download_all_button" = "تنزيل الكل";
 
 "downloader_downloading" = "يتم تنزيل:";
+
+"downloader_search_results" = "تم العثور على";
 
 /* Status of outdated country in the list */
 "downloader_status_outdated" = "تحديث";
@@ -834,6 +842,8 @@
 
 "editor_operator" = "معامل";
 
+"downloader_my_maps_title" = "خرائطي";
+
 "downloader_no_downloaded_maps_title" = "لم تقم بتنزيل أية خرائط";
 
 "downloader_no_downloaded_maps_message" = "قم بتنزيل خرائط للبحث عن مكان والتنقل بدون اتصال بالإنترنت.";
@@ -867,9 +877,13 @@
 
 "kilometer" = "كم";
 
+"kilometers_per_hour" = "كم/ساعة";
+
 "mile" = "ميل";
 
 "foot" = "قدم";
+
+"miles_per_hour" = "ميل/ساعة";
 
 "hour" = "س";
 
@@ -888,6 +902,10 @@
 "placepage_edit_bookmark_button" = "تحرير العلامة المرجعية";
 
 "placepage_bookmark_name_hint" = "اسم العلامة المرجعية";
+
+"placepage_personal_notes_hint" = "ملاحظات شخصية";
+
+"placepage_delete_bookmark_button" = "حذف العلامة المرجعية";
 
 "editor_edits_sent_message" = "لقد تم إرسال التغييرات التي اقترحتها";
 
@@ -923,6 +941,8 @@
 "editor_share_to_all_dialog_message_1" = "تأكد من أنك لم تقم بإدخال أي بيانات شخصية.";
 
 "editor_share_to_all_dialog_message_2" = "سنقوم بمراجعة هذه التغييرات. إذا كانت لدينا أي أسئلة فسوف نتصل بك عبر البريد الإلكتروني.";
+
+"navigation_stop_button" = "توقف";
 
 /* iOS dialog for the case when recent track recording is on and the app comes back from background */
 "recent_track_background_dialog_title" = "تريد تعطيل التسجيل الخاص بمسار سفرك الأخير؟";
@@ -1024,6 +1044,8 @@
 
 "preloader_viator_button" = "تعلم المزيد";
 
+"start_from_my_position" = "بدء من";
+
 "profile_authorization_error" = "عفوًا، كان هناك خطأ. حاول تسجيل الدخول مرة اخرى.";
 
 "dialog_error_storage_title" = "مشكلة الوصول للتخزين";
@@ -1070,6 +1092,8 @@
 "bookmarks_error_title_list_name_already_taken" = "هذا الاسم أخذ سابقا";
 
 "bookmarks_error_message_list_name_already_taken" = "يرجى اختيار اسم آخر";
+
+"bookmarks_error_title_list_name_too_long" = "هذا الاسم طويل للغاية";
 
 "please_wait" = "أرجو الإنتظار…";
 
@@ -1139,6 +1163,8 @@
 
 "tags_loading_error_subtitle" = "حدث خطأ أثناء تحميل العلامات ، يرجى المحاولة مرة أخرى";
 
+"download_button" = "تحميل";
+
 "speedcams_alert_title" = "كاميرات السرعة";
 
 "speedcam_option_auto" = "السيارات";
@@ -1188,19 +1214,90 @@
 
 "change_driving_options_btn" = "تم تفعيل خيارات الطريق";
 
+"toll_road" = "نقطة تحصيل رسوم";
+
+"unpaved_road" = "طريق غير ممهدة";
+
+"ferry_crossing" = "تقاطع عبارة";
+
 "avoid_toll_roads_placepage" = "تجنب نقاط تحصيل الرسوم";
 
 "avoid_unpaved_roads_placepage" = "تجنب الطرق الغير ممهدة";
 
 "avoid_ferry_crossing_placepage" = "تجنب تقاطع العبارات";
 
+"trip_start" = "هيا بنا";
+
+"pick_destination" = "جهة الوصول";
+
+"follow_my_position" = "العودة إلى الوسط";
+
+"search_results" = "نتائج البحث";
+
+"then_turn" = "ثم";
+
+"redirect_route_alert" = "هل تريد إعادة تحديد الطريق?";
+
+"redirect_route_yes" = "نعم";
+
+"redirect_route_no" = "لا";
+
+"trip_finished" = "لقد وصلت!";
+
+"keyboard_availability_alert" = "لوحة الكتابة غير متاحة أثناء القيادة";
+
+"dialog_routing_change_start_carplay" = "لا يمكن تحديد طريق من موقعك الحالي";
+
+"dialog_routing_change_end_carplay" = "لا يمكن تحديد طريق لجهة الوصول. يرجي اختيار مكان آخر";
+
+"dialog_routing_check_gps_carplay" = "لا وجد إشارة GPS. يرجى التحرك لمكان مفتوح";
+
+"dialog_routing_unable_locate_route_carplay" = "لا يمكن تحديد طريق. يرجى تحديد أماكن أخرى على الطريق";
+
+"dialog_routing_download_files_carplay" = "كي تُنشئ مساراً، يجب أن تحمل الخرائط المفقودة على جهازك";
+
+"dialog_routing_system_error_carplay" = "حدث خطأ. يرجى إعادة تشغيل التطبيق";
+
+"dialog_routing_rebuild_from_current_location_carplay" = "سيتم اعادة تحديد الطريق من موقعك الحالي";
+
+"dialog_routing_rebuild_for_vehicle_carplay" = "سيتم تعديل الطريق لتكون خاصة بالسيارة";
+
 "ok" = "موافق";
+
+"avoid_unpaved_carplay_1" = "غير ترابي";
+
+"avoid_unpaved_carplay_2" = "تجنب غير الممهد";
+
+"avoid_ferry_carplay_1" = "بدون عبََارة";
+
+"avoid_ferry_carplay_2" = "تجنب العبََارة";
+
+"avoid_tolls_carplay_1" = "بدون رسوم";
+
+"avoid_tolls_carplay_2" = "تجنب الرسوم";
+
+"speedcams_alert_title_carplay_1" = "كاميرا سريعة";
+
+"speedcams_alert_title_carplay_2" = "تحذير سريع";
+
+"download_map_carplay" = "يُرجى تحميل الخرائط في تطبيق Organic Maps على جهازك";
+
+"carplay_roundabout_exit" = "المخرج رقم %s";
 
 /* max. 10 symbols, both iOS and Android */
 "sort" = "تريتب…";
 
 /* Android, title, max 20-22 symbols */
 "sort_bookmarks" = "رتب العلامات المرجعية";
+
+/* iOS */
+"sort_default" = "رتب افتراضي";
+
+"sort_type" = "رتب حسب النوع";
+
+"sort_distance" = "رتب حسب المسافة";
+
+"sort_date" = "رتب حسب التاريخ";
 
 /* Android */
 "by_default" = "افتراضي";
@@ -1214,7 +1311,51 @@
 /* Android */
 "by_date" = "حسب التاريخ";
 
+"week_ago_sorttype" = "منذ أسبوع";
+
+"month_ago_sorttype" = "منذ شهر";
+
+"moremonth_ago_sorttype" = "منذ أكثر من شهر";
+
+"moreyear_ago_sorttype" = "منذ أكثر من سنة";
+
+"near_me_sorttype" = "قريب مني";
+
+"others_sorttype" = "أخرى";
+
+"food_places" = "طعام";
+
+"tourist_places" = "مشاهد";
+
+"museums" = "متاحف";
+
+"parks" = "حدائق";
+
+"swim_places" = "سباحة";
+
+"mountains" = "جبال";
+
+"animals" = "حيوانات";
+
+"hotels" = "فنادق";
+
+"buildings" = "بنايات";
+
+"money" = "نقود";
+
+"shops" = "متاجر";
+
+"parkings" = "مواقف سيارات";
+
+"fuel_places" = "محطات وقود";
+
+"water" = "ماء";
+
+"medicine" = "دواء";
+
 "search_in_the_list" = "بحث في القائمة";
+
+"religious_places" = "أماكن دينية";
 
 "select_list" = "اختر القائمة";
 
@@ -1232,6 +1373,12 @@
 
 "elevation_profile_diff_level" = "مستوى الصعوبة";
 
+"elevation_profile_diff_level_easy" = "سهل";
+
+"elevation_profile_diff_level_moderate" = "معتدل";
+
+"elevation_profile_diff_level_hard" = "صعب";
+
 "elevation_profile_ascent" = "تصاعدي";
 
 "elevation_profile_descent" = "تنازلي";
@@ -1247,6 +1394,10 @@
 "elevation_profile_time" = "مدة:";
 
 "isolines_toast_zooms_1_10" = "قرب لتكتشف خطوط الكنتور";
+
+"downloader_updating_ios" = "جار التحديث";
+
+"downloader_loading_ios" = "جار التحميل";
 
 "key_information_title" = "معلومات رئيسية";
 

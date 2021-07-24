@@ -117,6 +117,9 @@
 /* Add Bookmark Set dialog - hint when set name is empty */
 "bookmark_set_name" = "Indstil bogmærkenavn";
 
+/* Bookmark Sets dialog title */
+"bookmark_sets" = "Bogmærk sæt";
+
 /* Bookmarks - dialog title */
 "bookmarks" = "Bogmærker";
 
@@ -400,6 +403,9 @@
 /* Downloaded maps category */
 "downloader_downloaded_subtitle" = "Downloadet";
 
+/* Downloaded maps category */
+"downloader_available_maps" = "Tilgængelige";
+
 /* Country queued for download */
 "downloader_queued" = "I kø";
 
@@ -410,6 +416,8 @@
 "downloader_download_all_button" = "Download alle";
 
 "downloader_downloading" = "Downloader:";
+
+"downloader_search_results" = "Fundet";
 
 /* Status of outdated country in the list */
 "downloader_status_outdated" = "Opdater";
@@ -834,6 +842,8 @@
 
 "editor_operator" = "Bruger";
 
+"downloader_my_maps_title" = "Mine kort";
+
 "downloader_no_downloaded_maps_title" = "Du har ikke hentet alle kort";
 
 "downloader_no_downloaded_maps_message" = "Download kort for at finde position og navigere offline.";
@@ -867,9 +877,13 @@
 
 "kilometer" = "km";
 
+"kilometers_per_hour" = "km/t";
+
 "mile" = "mil";
 
 "foot" = "fod";
+
+"miles_per_hour" = "mph";
 
 "hour" = "time";
 
@@ -888,6 +902,10 @@
 "placepage_edit_bookmark_button" = "Rediger bogmærke";
 
 "placepage_bookmark_name_hint" = "Bogmærke";
+
+"placepage_personal_notes_hint" = "Personlige notater";
+
+"placepage_delete_bookmark_button" = "Slet bogmærke";
 
 "editor_edits_sent_message" = "Dine foreslåede ændringer er blevet sendt";
 
@@ -923,6 +941,8 @@
 "editor_share_to_all_dialog_message_1" = "Sørg for at du ikke indtastede personlige oplysninger.";
 
 "editor_share_to_all_dialog_message_2" = "Vi vil kigge på ændringerne. Hvis vi har spørgsmål, vil vi kontakte dig via email.";
+
+"navigation_stop_button" = "stop";
 
 /* iOS dialog for the case when recent track recording is on and the app comes back from background */
 "recent_track_background_dialog_title" = "Vil du deaktivere gemningen af din seneste rejserute?";
@@ -1024,6 +1044,8 @@
 
 "preloader_viator_button" = "Flere oplysninger";
 
+"start_from_my_position" = "Start fra";
+
 "profile_authorization_error" = "Ups, der skete en fejl. Prøv at logge på igen.";
 
 "dialog_error_storage_title" = "Problem med lageradgang";
@@ -1070,6 +1092,8 @@
 "bookmarks_error_title_list_name_already_taken" = "Dette navn er allerede taget";
 
 "bookmarks_error_message_list_name_already_taken" = "Vælg venligst et andet navn";
+
+"bookmarks_error_title_list_name_too_long" = "Dette navn er for langt";
 
 "please_wait" = "Vent venligst…";
 
@@ -1139,6 +1163,8 @@
 
 "tags_loading_error_subtitle" = "Der skete en fejl under hentning af tags, prøv igen";
 
+"download_button" = "Download";
+
 "speedcams_alert_title" = "Fartkameraer";
 
 "speedcam_option_auto" = "Auto";
@@ -1188,19 +1214,90 @@
 
 "change_driving_options_btn" = "Køre muligheder aktiveret";
 
+"toll_road" = "Betalingsvej";
+
+"unpaved_road" = "Grusvej";
+
+"ferry_crossing" = "Færgeoverfart";
+
 "avoid_toll_roads_placepage" = "Undgå betalingsveje";
 
 "avoid_unpaved_roads_placepage" = "Undgå grusveje";
 
 "avoid_ferry_crossing_placepage" = "Undgå færgeoverfarter";
 
+"trip_start" = "Lad os komme i gang";
+
+"pick_destination" = "Destination";
+
+"follow_my_position" = "Centrer igen";
+
+"search_results" = "Søgeresultater";
+
+"then_turn" = "Derefter";
+
+"redirect_route_alert" = "Vil du genopbygge en rute igen?";
+
+"redirect_route_yes" = "Ja";
+
+"redirect_route_no" = "Nej";
+
+"trip_finished" = "Du er ankommet!";
+
+"keyboard_availability_alert" = "Keyboard er ikke tilgængelig under kørsel";
+
+"dialog_routing_change_start_carplay" = "Det er ikke muligt at beregne rute fra din nuværende position";
+
+"dialog_routing_change_end_carplay" = "Det er ikke muligt at beregne rute til din destination. Vælg en anden destination";
+
+"dialog_routing_check_gps_carplay" = "Intet GPS signal. Flyt til et område med dækning";
+
+"dialog_routing_unable_locate_route_carplay" = "Det er ikke muligt at beregne rute. Vælg andre forbindelses-punkter for ruten";
+
+"dialog_routing_download_files_carplay" = "Download manglende kort til din enhed, for at lave ruten";
+
+"dialog_routing_system_error_carplay" = "Der opstod en fejl. Genstart programmet";
+
+"dialog_routing_rebuild_from_current_location_carplay" = "Rute vil blive beregnet igen, ud fra din nuværende position";
+
+"dialog_routing_rebuild_for_vehicle_carplay" = "Rute vil blive ændret til en kørselsrute";
+
 "ok" = "Ok";
+
+"avoid_unpaved_carplay_1" = "Ingen grus";
+
+"avoid_unpaved_carplay_2" = "Undgå grus";
+
+"avoid_ferry_carplay_1" = "Ingen færger";
+
+"avoid_ferry_carplay_2" = "Undgå færger";
+
+"avoid_tolls_carplay_1" = "Ingen betal.";
+
+"avoid_tolls_carplay_2" = "Undgå betaling";
+
+"speedcams_alert_title_carplay_1" = "Radarkontrol";
+
+"speedcams_alert_title_carplay_2" = "Radar advarsel";
+
+"download_map_carplay" = "Download kort i Organic Maps appen, på din enhed";
+
+"carplay_roundabout_exit" = "%s exit";
 
 /* max. 10 symbols, both iOS and Android */
 "sort" = "Sort…";
 
 /* Android, title, max 20-22 symbols */
 "sort_bookmarks" = "Sort (bookmaarks)";
+
+/* iOS */
+"sort_default" = "Sortér (std)";
+
+"sort_type" = "Sort (type)";
+
+"sort_distance" = "Sort (Afs)";
+
+"sort_date" = "Sort (dato)";
 
 /* Android */
 "by_default" = "Som standard";
@@ -1214,7 +1311,51 @@
 /* Android */
 "by_date" = "Efter dato";
 
+"week_ago_sorttype" = "En uge siden";
+
+"month_ago_sorttype" = "En måned siden";
+
+"moremonth_ago_sorttype" = "Mere end en måned siden";
+
+"moreyear_ago_sorttype" = "Mere end et år siden";
+
+"near_me_sorttype" = "I nærheden";
+
+"others_sorttype" = "Andre";
+
+"food_places" = "Mad";
+
+"tourist_places" = "Seværdigheder";
+
+"museums" = "Museer";
+
+"parks" = "Parker";
+
+"swim_places" = "Svøm";
+
+"mountains" = "Bjerge";
+
+"animals" = "Dyr";
+
+"hotels" = "Hoteller";
+
+"buildings" = "Bygninger";
+
+"money" = "Penge";
+
+"shops" = "Butikker";
+
+"parkings" = "Parkering";
+
+"fuel_places" = "Benzintankstationer";
+
+"water" = "Vand";
+
+"medicine" = "Medicin";
+
 "search_in_the_list" = "Søg i listen";
+
+"religious_places" = "Religiøse steder";
 
 "select_list" = "Væg liste";
 
@@ -1232,6 +1373,12 @@
 
 "elevation_profile_diff_level" = "Sværhedsgrad";
 
+"elevation_profile_diff_level_easy" = "Let";
+
+"elevation_profile_diff_level_moderate" = "Middel";
+
+"elevation_profile_diff_level_hard" = "Svær";
+
 "elevation_profile_ascent" = "Stige op";
 
 "elevation_profile_descent" = "Stige ned";
@@ -1247,6 +1394,10 @@
 "elevation_profile_time" = "Tid:";
 
 "isolines_toast_zooms_1_10" = "Zoom ind for at udforske isolinjekort";
+
+"downloader_updating_ios" = "Opdaterer";
+
+"downloader_loading_ios" = "Downloader";
 
 "key_information_title" = "Central information";
 

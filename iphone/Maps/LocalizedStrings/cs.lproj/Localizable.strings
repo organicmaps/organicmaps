@@ -117,6 +117,9 @@
 /* Add Bookmark Set dialog - hint when set name is empty */
 "bookmark_set_name" = "Název záložky";
 
+/* Bookmark Sets dialog title */
+"bookmark_sets" = "Skupiny záložek";
+
 /* Bookmarks - dialog title */
 "bookmarks" = "Záložky";
 
@@ -400,6 +403,9 @@
 /* Downloaded maps category */
 "downloader_downloaded_subtitle" = "Staženo";
 
+/* Downloaded maps category */
+"downloader_available_maps" = "Dostupné";
+
 /* Country queued for download */
 "downloader_queued" = "Ve frontě";
 
@@ -410,6 +416,8 @@
 "downloader_download_all_button" = "Stáhnout vše";
 
 "downloader_downloading" = "Probíhá stahování:";
+
+"downloader_search_results" = "Nalezeno";
 
 /* Status of outdated country in the list */
 "downloader_status_outdated" = "Aktualizace";
@@ -834,6 +842,8 @@
 
 "editor_operator" = "Operátor";
 
+"downloader_my_maps_title" = "Mé mapy";
+
 "downloader_no_downloaded_maps_title" = "Nemáte stažené žádné mapy";
 
 "downloader_no_downloaded_maps_message" = "Stáhněte si mapy a hledejte cestu a její cíl, i když jste offline.";
@@ -867,9 +877,13 @@
 
 "kilometer" = "km";
 
+"kilometers_per_hour" = "km/h";
+
 "mile" = "mil";
 
 "foot" = "stopa";
+
+"miles_per_hour" = "mil/h";
 
 "hour" = "hod";
 
@@ -888,6 +902,10 @@
 "placepage_edit_bookmark_button" = "Upravit záložku";
 
 "placepage_bookmark_name_hint" = "Název záložky";
+
+"placepage_personal_notes_hint" = "Vlastní poznámka";
+
+"placepage_delete_bookmark_button" = "Smazat záložku";
 
 "editor_edits_sent_message" = "Odeslali jsme Vámi navržené změny";
 
@@ -923,6 +941,8 @@
 "editor_share_to_all_dialog_message_1" = "Ujistěte se, že jste nezadali žádná osobní data.";
 
 "editor_share_to_all_dialog_message_2" = "Změny ověříme. Budeme-li k vám mít jakékoli dotazy, budeme vás kontaktovat prostřednictvím emailu.";
+
+"navigation_stop_button" = "stop";
 
 /* iOS dialog for the case when recent track recording is on and the app comes back from background */
 "recent_track_background_dialog_title" = "Zakázat zaznamenávání vaší nedávno ujeté trasy?";
@@ -1024,6 +1044,8 @@
 
 "preloader_viator_button" = "Zjistit více";
 
+"start_from_my_position" = "Začít z";
+
 "profile_authorization_error" = "Jejda, došlo k chybě. Zkuste se přihlásit znovu.";
 
 "dialog_error_storage_title" = "Problém s přístupem k úložišti";
@@ -1070,6 +1092,8 @@
 "bookmarks_error_title_list_name_already_taken" = "Toto jméno již bylo provedeno";
 
 "bookmarks_error_message_list_name_already_taken" = "Zvolte jiný název";
+
+"bookmarks_error_title_list_name_too_long" = "Tento název je příliš dlouhý";
 
 "please_wait" = "Prosím, čekejte…";
 
@@ -1139,6 +1163,8 @@
 
 "tags_loading_error_subtitle" = "Během nahrávání tagů se stala chyba, zkuste to prosím ještě jednou";
 
+"download_button" = "Stáhnout";
+
 "speedcams_alert_title" = "Detektory rychlosti";
 
 "speedcam_option_auto" = "Automaticky";
@@ -1188,19 +1214,90 @@
 
 "change_driving_options_btn" = "Možnosti směrování byly povoleny";
 
+"toll_road" = "Silnice s mýtným";
+
+"unpaved_road" = "Nezpevněná silnice";
+
+"ferry_crossing" = "Přejezd trajektů";
+
 "avoid_toll_roads_placepage" = "Vyhnout se silnicím s mýtným";
 
 "avoid_unpaved_roads_placepage" = "Vyhnout se nezpevněným silnicím";
 
 "avoid_ferry_crossing_placepage" = "Vyhnout se přejezdům trajektů";
 
+"trip_start" = "Pojďme";
+
+"pick_destination" = "Destinace";
+
+"follow_my_position" = "Znovu vystředit";
+
+"search_results" = "Prohledat výsledky";
+
+"then_turn" = "Poté";
+
+"redirect_route_alert" = "Chcete přestavět trasu?";
+
+"redirect_route_yes" = "Ano";
+
+"redirect_route_no" = "Ne";
+
+"trip_finished" = "Přijeli jste!";
+
+"keyboard_availability_alert" = "Při řízení není klávesnice dostupná";
+
+"dialog_routing_change_start_carplay" = "Od vaší aktuální polohy nelze vystavět trasu";
+
+"dialog_routing_change_end_carplay" = "Nelze vystavět trasu k vaší destinaci. Zvolte prosím další bod";
+
+"dialog_routing_check_gps_carplay" = "Signál GPS neexistuje. Přesuňte se prosím do otevřeného prostoru";
+
+"dialog_routing_unable_locate_route_carplay" = "Nelze sestavit trasu. Specifikujte prosím další body trasy";
+
+"dialog_routing_download_files_carplay" = "K vytvoření trasy si stáhněte chybějící mapy do vašeho zařízení";
+
+"dialog_routing_system_error_carplay" = "Vyskytla se chyba. Restartujte prosím aplikaci";
+
+"dialog_routing_rebuild_from_current_location_carplay" = "Trasa bude přestavěna od vaší aktuální polohy";
+
+"dialog_routing_rebuild_for_vehicle_carplay" = "Trasa bude upravena k autu jedna";
+
 "ok" = "Ok";
+
+"avoid_unpaved_carplay_1" = "Bez pr. cest";
+
+"avoid_unpaved_carplay_2" = "Vyhnout se nezp";
+
+"avoid_ferry_carplay_1" = "Bez trajektů";
+
+"avoid_ferry_carplay_2" = "Vyh. se traj.";
+
+"avoid_tolls_carplay_1" = "Bez pl.sil.";
+
+"avoid_tolls_carplay_2" = "Vyh. se pl. sil";
+
+"speedcams_alert_title_carplay_1" = "Rych. kam.";
+
+"speedcams_alert_title_carplay_2" = "Rych. varování";
+
+"download_map_carplay" = "Stáhněte si prosím mapy do aplikace Organic Maps ve vašem zařízení";
+
+"carplay_roundabout_exit" = "%s výjezd";
 
 /* max. 10 symbols, both iOS and Android */
 "sort" = "Třídit…";
 
 /* Android, title, max 20-22 symbols */
 "sort_bookmarks" = "Třídit záložky";
+
+/* iOS */
+"sort_default" = "Třídit ve výchozím nastavení";
+
+"sort_type" = "Třídit dle typu";
+
+"sort_distance" = "Třídit dle vzdálenosti";
+
+"sort_date" = "Třídit dle data";
 
 /* Android */
 "by_default" = "Podle výchozího stavu";
@@ -1214,7 +1311,51 @@
 /* Android */
 "by_date" = "Podle data";
 
+"week_ago_sorttype" = "Před týdnem";
+
+"month_ago_sorttype" = "Před měsícem";
+
+"moremonth_ago_sorttype" = "Více než před měsícem";
+
+"moreyear_ago_sorttype" = "Více než před rokem";
+
+"near_me_sorttype" = "Blízko mě";
+
+"others_sorttype" = "Ostatní";
+
+"food_places" = "Jídlo";
+
+"tourist_places" = "Památky";
+
+"museums" = "Muzea";
+
+"parks" = "Parky";
+
+"swim_places" = "Plavat";
+
+"mountains" = "Hory";
+
+"animals" = "Zvířata";
+
+"hotels" = "Hotely";
+
+"buildings" = "Budovy";
+
+"money" = "Peníze";
+
+"shops" = "Obchody";
+
+"parkings" = "Parkoviště";
+
+"fuel_places" = "Čerpací stanice";
+
+"water" = "Voda";
+
+"medicine" = "Medicína";
+
 "search_in_the_list" = "Vyhledat v seznamu";
+
+"religious_places" = "Posvátná místa";
 
 "select_list" = "Vybrat seznam";
 
@@ -1232,6 +1373,12 @@
 
 "elevation_profile_diff_level" = "Stupeň obtížnosti";
 
+"elevation_profile_diff_level_easy" = "Snadný";
+
+"elevation_profile_diff_level_moderate" = "Mírný";
+
+"elevation_profile_diff_level_hard" = "Těžký";
+
 "elevation_profile_ascent" = "Stoupání";
 
 "elevation_profile_descent" = "Klesání";
@@ -1247,6 +1394,10 @@
 "elevation_profile_time" = "Čas:";
 
 "isolines_toast_zooms_1_10" = "Přiblížit pro prozkoumání izolinií";
+
+"downloader_updating_ios" = "Probíhá aktualizace";
+
+"downloader_loading_ios" = "Probíhá stahování";
 
 "key_information_title" = "Klíčové informace";
 

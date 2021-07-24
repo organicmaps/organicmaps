@@ -117,6 +117,9 @@
 /* Add Bookmark Set dialog - hint when set name is empty */
 "bookmark_set_name" = "Kirjanmerkkivalikoiman nimi";
 
+/* Bookmark Sets dialog title */
+"bookmark_sets" = "Kirjanmerkkivalikoimat";
+
 /* Bookmarks - dialog title */
 "bookmarks" = "Kirjanmerkit";
 
@@ -400,6 +403,9 @@
 /* Downloaded maps category */
 "downloader_downloaded_subtitle" = "Ladatut";
 
+/* Downloaded maps category */
+"downloader_available_maps" = "Saatavilla";
+
 /* Country queued for download */
 "downloader_queued" = "Jonossa";
 
@@ -410,6 +416,8 @@
 "downloader_download_all_button" = "Lataa kaikki";
 
 "downloader_downloading" = "Ladataan:";
+
+"downloader_search_results" = "Löytyi";
 
 /* Status of outdated country in the list */
 "downloader_status_outdated" = "Päivitä";
@@ -834,6 +842,8 @@
 
 "editor_operator" = "Operaattori";
 
+"downloader_my_maps_title" = "Omat kartat";
+
 "downloader_no_downloaded_maps_title" = "Et ole ladannut yhtään karttaa";
 
 "downloader_no_downloaded_maps_message" = "Lataa kartattoja löytääksesi paikkoja ja navigoidaksesi offline-tilassa.";
@@ -867,9 +877,13 @@
 
 "kilometer" = "km";
 
+"kilometers_per_hour" = "km/h";
+
 "mile" = "mi";
 
 "foot" = "ft";
+
+"miles_per_hour" = "mph";
 
 "hour" = "t";
 
@@ -888,6 +902,10 @@
 "placepage_edit_bookmark_button" = "Muokkaa kirjanmerkkiä";
 
 "placepage_bookmark_name_hint" = "Kirjanmerkin nimi";
+
+"placepage_personal_notes_hint" = "Henkilökohtaiset merkinnät";
+
+"placepage_delete_bookmark_button" = "Poista kirjanmerkki";
 
 "editor_edits_sent_message" = "Ehdottamasi muutokset on lähetetty";
 
@@ -923,6 +941,8 @@
 "editor_share_to_all_dialog_message_1" = "Varmistat, ettet syöttänyt henkilökohtaisia tietojasi.";
 
 "editor_share_to_all_dialog_message_2" = "Tarkistamme muutokset. Otamme sinuun yhteyttä sähköpostitse, jos meillä on kysyttävää.";
+
+"navigation_stop_button" = "lopeta";
 
 /* iOS dialog for the case when recent track recording is on and the app comes back from background */
 "recent_track_background_dialog_title" = "Poistetaanko viimeisen matkareitin tallennus?";
@@ -1024,6 +1044,8 @@
 
 "preloader_viator_button" = "Lisätietoja";
 
+"start_from_my_position" = "Aloita kohdasta";
+
 "profile_authorization_error" = "Tapahtui virhe. Yritä kirjautua sisään uudelleen.";
 
 "dialog_error_storage_title" = "Ongelma tallennustilan käyttämisessä";
@@ -1070,6 +1092,8 @@
 "bookmarks_error_title_list_name_already_taken" = "Tämä nimi on jo otettu";
 
 "bookmarks_error_message_list_name_already_taken" = "Valitse toinen nimi";
+
+"bookmarks_error_title_list_name_too_long" = "Tämä nimi on liian pitkä";
 
 "please_wait" = "Odota…";
 
@@ -1139,6 +1163,8 @@
 
 "tags_loading_error_subtitle" = "Tunnisteiden lataamisen aikana tapahtui virhe, yritä uudelleen";
 
+"download_button" = "Ladata";
+
 "speedcams_alert_title" = "Nopeuskamerat";
 
 "speedcam_option_auto" = "Auto";
@@ -1188,19 +1214,90 @@
 
 "change_driving_options_btn" = "Kiertotien asetukset on päällä";
 
+"toll_road" = "Maksullinen tie";
+
+"unpaved_road" = "Päällystämätön tie";
+
+"ferry_crossing" = "Lauttaliikenne";
+
 "avoid_toll_roads_placepage" = "Vältä maksullisia teitä";
 
 "avoid_unpaved_roads_placepage" = "Vältä maanteitä";
 
 "avoid_ferry_crossing_placepage" = "Vältä lautan käyttöä";
 
+"trip_start" = "Mennään";
+
+"pick_destination" = "Kohde";
+
+"follow_my_position" = "Kohdista";
+
+"search_results" = "Hakutulokset";
+
+"then_turn" = "Sitten";
+
+"redirect_route_alert" = "Haluatko luoda reitin uudelleen?";
+
+"redirect_route_yes" = "Kyllä";
+
+"redirect_route_no" = "Ei";
+
+"trip_finished" = "Olet saapunut!";
+
+"keyboard_availability_alert" = "Näppäimistö ei ole käytettävissä ajon aikana";
+
+"dialog_routing_change_start_carplay" = "Reittiä ei ole mahdollista luoda nykyisestä sijainnista";
+
+"dialog_routing_change_end_carplay" = "Reittiä ei ole mahdollista luoda loppupisteeseen. Valitse toinen";
+
+"dialog_routing_check_gps_carplay" = "Ei ole GPS-signaalia. Siirry avaralle alueelle";
+
+"dialog_routing_unable_locate_route_carplay" = "Reittiä ei ole mahdollista luoda. Valitse muut reittipisteet";
+
+"dialog_routing_download_files_carplay" = "Luodaksesi reitin lataa puutt. kartat";
+
+"dialog_routing_system_error_carplay" = "On tapahtunut virhe. Käynnistä sovellus uudelleen";
+
+"dialog_routing_rebuild_from_current_location_carplay" = "Reitti luodaan nykyisestä sijainnista";
+
+"dialog_routing_rebuild_for_vehicle_carplay" = "Reitti muutetaan autoilijan reitiksi";
+
 "ok" = "Ok";
+
+"avoid_unpaved_carplay_1" = "Päällyste";
+
+"avoid_unpaved_carplay_2" = "Vain päällyste";
+
+"avoid_ferry_carplay_1" = "Ei lauttoja";
+
+"avoid_ferry_carplay_2" = "Ei lauttoja";
+
+"avoid_tolls_carplay_1" = "Ei maksua";
+
+"avoid_tolls_carplay_2" = "Ei maksua";
+
+"speedcams_alert_title_carplay_1" = "Nopeuskamera";
+
+"speedcams_alert_title_carplay_2" = "Nopeuskamerat";
+
+"download_map_carplay" = "Lataa kartat laitteesi Organic Maps-sovelluksessa";
+
+"carplay_roundabout_exit" = "Poistumisramppi %s";
 
 /* max. 10 symbols, both iOS and Android */
 "sort" = "Järjestä…";
 
 /* Android, title, max 20-22 symbols */
 "sort_bookmarks" = "Järjestä kirjanmerkit";
+
+/* iOS */
+"sort_default" = "Järjestä: oletus";
+
+"sort_type" = "Järjestä: tyyppi";
+
+"sort_distance" = "Järjestä: etäisyys";
+
+"sort_date" = "Järjestä: päivämäärä";
 
 /* Android */
 "by_default" = "Oletus";
@@ -1214,7 +1311,51 @@
 /* Android */
 "by_date" = "Päivämäärä";
 
+"week_ago_sorttype" = "Viikko sitten";
+
+"month_ago_sorttype" = "Kuukausi sitten";
+
+"moremonth_ago_sorttype" = "Yli kuukausi sitten";
+
+"moreyear_ago_sorttype" = "Yli vuosi sitten";
+
+"near_me_sorttype" = "Lähelläni";
+
+"others_sorttype" = "Muut";
+
+"food_places" = "Ruoka";
+
+"tourist_places" = "Nähtävyydet";
+
+"museums" = "Museot";
+
+"parks" = "Puistot";
+
+"swim_places" = "Uiminen";
+
+"mountains" = "Vuoret";
+
+"animals" = "Eläimet";
+
+"hotels" = "Hotellit";
+
+"buildings" = "Rakennukset";
+
+"money" = "Raha";
+
+"shops" = "Kaupat";
+
+"parkings" = "Pysäköinti";
+
+"fuel_places" = "Huoltoasemat";
+
+"water" = "Vesi";
+
+"medicine" = "Apteekki";
+
 "search_in_the_list" = "Etsi listalta";
+
+"religious_places" = "Pyhät paikat";
 
 "select_list" = "Valitse luettelo";
 
@@ -1232,6 +1373,12 @@
 
 "elevation_profile_diff_level" = "Vaikeustaso";
 
+"elevation_profile_diff_level_easy" = "Helppo";
+
+"elevation_profile_diff_level_moderate" = "Kohtuullinen";
+
+"elevation_profile_diff_level_hard" = "Vaikea";
+
 "elevation_profile_ascent" = "Nosto";
 
 "elevation_profile_descent" = "Lasku";
@@ -1247,6 +1394,10 @@
 "elevation_profile_time" = "Aika:";
 
 "isolines_toast_zooms_1_10" = "Suurenna kartta nähdäksesi korkeuslinjat";
+
+"downloader_updating_ios" = "Päivitys";
+
+"downloader_loading_ios" = "Lataus";
 
 "key_information_title" = "Avaintietoa";
 

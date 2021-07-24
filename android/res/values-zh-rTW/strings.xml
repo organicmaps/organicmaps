@@ -70,6 +70,8 @@
 	<string name="bookmark_color">書籤顏色</string>
 	<!-- Add Bookmark Set dialog - hint when set name is empty -->
 	<string name="bookmark_set_name">收藏夾名稱</string>
+	<!-- Bookmark Sets dialog title -->
+	<string name="bookmark_sets">收藏夾</string>
 	<!-- Bookmarks - dialog title -->
 	<string name="bookmarks">書籤</string>
 	<!-- Default bookmarks set name -->
@@ -237,12 +239,15 @@
 	<string name="downloader_cancel_all">全部取消</string>
 	<!-- Downloaded maps category -->
 	<string name="downloader_downloaded_subtitle">已下載</string>
+	<!-- Downloaded maps category -->
+	<string name="downloader_available_maps">可用</string>
 	<!-- Country queued for download -->
 	<string name="downloader_queued">已佇列</string>
 	<string name="downloader_near_me_subtitle">在我附近</string>
 	<string name="downloader_status_maps">地圖</string>
 	<string name="downloader_download_all_button">下載全部</string>
 	<string name="downloader_downloading">正在下載：</string>
+	<string name="downloader_search_results">已找到</string>
 	<!-- Status of outdated country in the list -->
 	<string name="downloader_status_outdated">更新</string>
 	<!-- Status of failed country in the list -->
@@ -478,6 +483,7 @@
 	<string name="editor_detailed_description">您建議的變更將傳送至 OpenStreetMap 社群。說明無法在 Organic Maps 中編輯的詳細資料。</string>
 	<string name="editor_more_about_osm">關於 OpenStreetMap 的更多資訊</string>
 	<string name="editor_operator">營運者</string>
+	<string name="downloader_my_maps_title">我的地圖</string>
 	<string name="downloader_no_downloaded_maps_title">您尚未下載任何地圖</string>
 	<string name="downloader_no_downloaded_maps_message">下載地圖來尋找位置和離線瀏覽。</string>
 	<!-- Error title that appears after certain time without location. -->
@@ -496,8 +502,10 @@
 	<string name="location_services_disabled_3">3. 使用應用時選擇</string>
 	<string name="meter">米</string>
 	<string name="kilometer">公里</string>
+	<string name="kilometers_per_hour">公里每小時</string>
 	<string name="mile">英里</string>
 	<string name="foot">英尺</string>
+	<string name="miles_per_hour">英里每小時</string>
 	<string name="hour">小時</string>
 	<string name="minute">分鐘</string>
 	<string name="placepage_place_description">說明</string>
@@ -507,6 +515,8 @@
 	<string name="placepage_call_button">呼叫</string>
 	<string name="placepage_edit_bookmark_button">編輯書籤</string>
 	<string name="placepage_bookmark_name_hint">書籤名稱</string>
+	<string name="placepage_personal_notes_hint">個人備註</string>
+	<string name="placepage_delete_bookmark_button">刪除書籤</string>
 	<string name="editor_edits_sent_message">您的建議已傳送</string>
 	<string name="editor_comment_hint">註解…</string>
 	<string name="editor_reset_edits_message">重設所有本機變更？</string>
@@ -526,6 +536,7 @@
 	<!-- iOS Dialog before publishing the modifications to the public map. -->
 	<string name="editor_share_to_all_dialog_message_1">確保您沒有輸入任何個人數據。</string>
 	<string name="editor_share_to_all_dialog_message_2">我們會檢查更改。如果我們有任何問題，我們會郵件與您聯系。</string>
+	<string name="navigation_stop_button">停止</string>
 	<!-- iOS dialog for the case when recent track recording is on and the app comes back from background -->
 	<string name="recent_track_background_dialog_title">禁止記錄您最近去過的路徑？</string>
 	<string name="off_recent_track_background_button">禁用</string>
@@ -582,6 +593,7 @@
 	<string name="planning_route_remove_title">在此拖曳以移除</string>
 	<string name="placepage_add_stop">新增應用程式</string>
 	<string name="preloader_viator_button">進一步了解</string>
+	<string name="start_from_my_position">起點</string>
 	<string name="profile_authorization_error">噢，發生錯誤。請嘗試再次登入。</string>
 	<string name="dialog_error_storage_title">儲存空間存取問題</string>
 	<string name="dialog_error_storage_message">外部儲存空間不可用，很可能是因為 SD 卡已移除、毀損，或檔案系統處於唯讀狀態。請進行檢查，然後以 support\@organicmaps.app 方式聯繫我們</string>
@@ -591,6 +603,9 @@
 	<string name="bookmarks_groups">列表</string>
 	<string name="bookmarks_groups_hide_all">隱藏全部</string>
 	<string name="bookmarks_groups_show_all">顯示全部</string>
+	<plurals name="bookmarks_places">
+	  <item quantity="other">%d個書籤</item>
+	</plurals>
 	<string name="bookmarks_create_new_group">創建新列表</string>
 	<string name="downloader_hide_screen">隱藏屏幕</string>
 	<string name="downloader_percent">%1$s (%2$s，共%3$s)</string>
@@ -604,6 +619,7 @@
 	<string name="bookmarks_new_list_hint">新的列表</string>
 	<string name="bookmarks_error_title_list_name_already_taken">這個名字已經被使用了</string>
 	<string name="bookmarks_error_message_list_name_already_taken">請選擇其他名稱</string>
+	<string name="bookmarks_error_title_list_name_too_long">這個名字太長了</string>
 	<string name="please_wait">請稍候…</string>
 	<string name="profile">OpenStreetMap 資料</string>
 	<string name="place_page_search_similar_hotel">搜索類似的酒店</string>
@@ -649,6 +665,7 @@
 	<string name="bookmark_category_description_hint">添加說明(文字或html)</string>
 	<string name="not_shared">個人</string>
 	<string name="tags_loading_error_subtitle">加載代碼時出錯，請重試</string>
+	<string name="download_button">下載</string>
 	<string name="speedcams_alert_title">高速相機</string>
 	<string name="speedcam_option_auto">自動</string>
 	<string name="speedcam_option_always">總是</string>
@@ -674,14 +691,50 @@
 	<string name="unable_to_calc_alert_subtitle">很遺憾，我們無法使用所選選項規劃路線。請更改設置，然後重試</string>
 	<string name="define_to_avoid_btn">設置繞行路徑</string>
 	<string name="change_driving_options_btn">绕行设置已开启</string>
+	<string name="toll_road">收費公路</string>
+	<string name="unpaved_road">土路</string>
+	<string name="ferry_crossing">輪渡</string>
 	<string name="avoid_toll_roads_placepage">規避收費公路</string>
 	<string name="avoid_unpaved_roads_placepage">規避土路</string>
 	<string name="avoid_ferry_crossing_placepage">規避輪渡</string>
+	<string name="trip_start">前往</string>
+	<string name="pick_destination">目標</string>
+	<string name="follow_my_position">定好中心</string>
+	<string name="search_results">搜索結果</string>
+	<string name="then_turn">接下來</string>
+	<string name="redirect_route_alert">想重建路線?</string>
+	<string name="redirect_route_yes">是</string>
+	<string name="redirect_route_no">否</string>
+	<string name="trip_finished">您已到達!</string>
+	<string name="keyboard_availability_alert">移動時鍵盤不可用</string>
+	<string name="dialog_routing_change_start_carplay">無法從當前位置構建路線</string>
+	<string name="dialog_routing_change_end_carplay">無法建立到終點的路線。請選擇其他（路線）</string>
+	<string name="dialog_routing_check_gps_carplay">無GPS信號。請沿著空曠區域行駛</string>
+	<string name="dialog_routing_unable_locate_route_carplay">無法建立路線。請選擇其他路線點</string>
+	<string name="dialog_routing_download_files_carplay">爲了創建線路，請在您的設備中下載所缺少的地圖</string>
+	<string name="dialog_routing_system_error_carplay">發生了錯誤。請重新啟動程序</string>
+	<string name="dialog_routing_rebuild_from_current_location_carplay">該路線將從您的當前位置重建</string>
+	<string name="dialog_routing_rebuild_for_vehicle_carplay">該路線將改為汽車（路線）</string>
 	<string name="ok">好的</string>
+	<string name="avoid_unpaved_carplay_1">無土路路段</string>
+	<string name="avoid_unpaved_carplay_2">無土路路段</string>
+	<string name="avoid_ferry_carplay_1">無渡船</string>
+	<string name="avoid_ferry_carplay_2">無渡船</string>
+	<string name="avoid_tolls_carplay_1">無付費路段</string>
+	<string name="avoid_tolls_carplay_2">無付費路段</string>
+	<string name="speedcams_alert_title_carplay_1">攝像頭</string>
+	<string name="speedcams_alert_title_carplay_2">攝像頭信息</string>
+	<string name="download_map_carplay">將Organic Maps軟件中的地圖下載至個人設備中</string>
+	<string name="carplay_roundabout_exit">%s號坡道</string>
 	<!-- max. 10 symbols, both iOS and Android -->
 	<string name="sort">分類……</string>
 	<!-- Android, title, max 20-22 symbols -->
 	<string name="sort_bookmarks">分類標籤</string>
+	<!-- iOS -->
+	<string name="sort_default">默認排序</string>
+	<string name="sort_type">按類型排序</string>
+	<string name="sort_distance">按距離排序</string>
+	<string name="sort_date">按日期排序</string>
 	<!-- Android -->
 	<string name="by_default">默認情況下</string>
 	<!-- Android -->
@@ -690,7 +743,29 @@
 	<string name="by_distance">按距離</string>
 	<!-- Android -->
 	<string name="by_date">按時間</string>
+	<string name="week_ago_sorttype">一周前</string>
+	<string name="month_ago_sorttype">一月前</string>
+	<string name="moremonth_ago_sorttype">一個多月前</string>
+	<string name="moreyear_ago_sorttype">一年多以前</string>
+	<string name="near_me_sorttype">在我旁邊</string>
+	<string name="others_sorttype">其他</string>
+	<string name="food_places">美食</string>
+	<string name="tourist_places">名勝</string>
+	<string name="museums">博物館</string>
+	<string name="parks">公園</string>
+	<string name="swim_places">游泳</string>
+	<string name="mountains">山</string>
+	<string name="animals">動物</string>
+	<string name="hotels">酒店</string>
+	<string name="buildings">建築物</string>
+	<string name="money">貨幣</string>
+	<string name="shops">商店</string>
+	<string name="parkings">停車場</string>
+	<string name="fuel_places">加油站</string>
+	<string name="water">水</string>
+	<string name="medicine">醫療</string>
 	<string name="search_in_the_list">在列表中搜索</string>
+	<string name="religious_places">聖地</string>
 	<string name="select_list">選擇列表</string>
 	<string name="transit_not_found">本區域的地鐵導航目前不可用</string>
 	<string name="dialog_pedestrian_route_is_long_header">地鐵路線圖未找到</string>
@@ -699,6 +774,9 @@
 	<string name="isolines_activation_error_dialog">如需使用高度线，请更新或下载所需区域的地图</string>
 	<string name="isolines_location_error_dialog">暫時無法獲取該地區的高低線</string>
 	<string name="elevation_profile_diff_level">難度等級</string>
+	<string name="elevation_profile_diff_level_easy">容易</string>
+	<string name="elevation_profile_diff_level_moderate">中等</string>
+	<string name="elevation_profile_diff_level_hard">困難</string>
 	<string name="elevation_profile_ascent">上坡</string>
 	<string name="elevation_profile_descent">下坡</string>
 	<string name="elevation_profile_minaltitude">最小高度</string>
@@ -707,6 +785,8 @@
 	<string name="elevation_profile_distance">距離：</string>
 	<string name="elevation_profile_time">在路上：</string>
 	<string name="isolines_toast_zooms_1_10">放大地圖以查看等高線</string>
+	<string name="downloader_updating_ios">更新</string>
+	<string name="downloader_loading_ios">加載</string>
 	<string name="key_information_title">關鍵信息</string>
 	<string name="enable_screen_sleep">允许屏幕进入休眠状态</string>
 	<!-- Description in preferences -->

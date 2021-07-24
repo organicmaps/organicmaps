@@ -70,6 +70,8 @@
 	<string name="bookmark_color">Farba záložky</string>
 	<!-- Add Bookmark Set dialog - hint when set name is empty -->
 	<string name="bookmark_set_name">Meno záložky</string>
+	<!-- Bookmark Sets dialog title -->
+	<string name="bookmark_sets">Skupiny záložiek</string>
 	<!-- Bookmarks - dialog title -->
 	<string name="bookmarks">Záložky</string>
 	<!-- Default bookmarks set name -->
@@ -235,12 +237,15 @@
 	<string name="downloader_cancel_all">Zrušiť všetko</string>
 	<!-- Downloaded maps category -->
 	<string name="downloader_downloaded_subtitle">Stiahnuté</string>
+	<!-- Downloaded maps category -->
+	<string name="downloader_available_maps">Dostupné</string>
 	<!-- Country queued for download -->
 	<string name="downloader_queued">V rade</string>
 	<string name="downloader_near_me_subtitle">Neďaleko mňa</string>
 	<string name="downloader_status_maps">Mapy</string>
 	<string name="downloader_download_all_button">Stiahnuť všetko</string>
 	<string name="downloader_downloading">Sťahovanie:</string>
+	<string name="downloader_search_results">Nájdených</string>
 	<!-- Status of outdated country in the list -->
 	<string name="downloader_status_outdated">Aktualizácia</string>
 	<!-- Status of failed country in the list -->
@@ -472,6 +477,7 @@
 	<string name="editor_detailed_description">Vami navrhované zmeny sa odošlú do komunity OpenStreetMap. Popíšte detaily, ktoré sa nedajú upraviť v Organic Maps.</string>
 	<string name="editor_more_about_osm">Viac o OpenStreetMap</string>
 	<string name="editor_operator">Prevádzkovateľ</string>
+	<string name="downloader_my_maps_title">Moje mapy</string>
 	<string name="downloader_no_downloaded_maps_title">Neprevzali ste žiadne mapy</string>
 	<string name="downloader_no_downloaded_maps_message">Prevziať mapy na nájdenie pozície a navigovanie off-line.</string>
 	<!-- Error title that appears after certain time without location. -->
@@ -490,8 +496,10 @@
 	<string name="location_services_disabled_3">3. Vyberte si počas používania aplikácie</string>
 	<string name="meter">m</string>
 	<string name="kilometer">km</string>
+	<string name="kilometers_per_hour">km/h</string>
 	<string name="mile">mi</string>
 	<string name="foot">stopa</string>
+	<string name="miles_per_hour">mph</string>
 	<string name="hour">hod</string>
 	<string name="minute">min</string>
 	<string name="placepage_place_description">Popis</string>
@@ -501,6 +509,8 @@
 	<string name="placepage_call_button">Zavolať</string>
 	<string name="placepage_edit_bookmark_button">Upraviť záložku</string>
 	<string name="placepage_bookmark_name_hint">Názov záložky</string>
+	<string name="placepage_personal_notes_hint">Osobné poznámky</string>
+	<string name="placepage_delete_bookmark_button">Zmazať záložku</string>
 	<string name="editor_edits_sent_message">Vykonali sa vami odporúčané zmeny</string>
 	<string name="editor_comment_hint">Poznámka…</string>
 	<string name="editor_reset_edits_message">Resetovať všetky miestne časy?</string>
@@ -520,6 +530,7 @@
 	<!-- iOS Dialog before publishing the modifications to the public map. -->
 	<string name="editor_share_to_all_dialog_message_1">Nezadávajte žiadne osobné udaje.</string>
 	<string name="editor_share_to_all_dialog_message_2">Skontrolujeme zmeny. V prípade otázok vás budeme kontaktovať emailom.</string>
+	<string name="navigation_stop_button">stop</string>
 	<!-- iOS dialog for the case when recent track recording is on and the app comes back from background -->
 	<string name="recent_track_background_dialog_title">Znemožniť nahrávanie vami nedávno precestovanej trasy?</string>
 	<string name="off_recent_track_background_button">Znemožniť</string>
@@ -576,6 +587,7 @@
 	<string name="planning_route_remove_title">Presunutím sem odstránite</string>
 	<string name="placepage_add_stop">Pridať zastávku</string>
 	<string name="preloader_viator_button">Zistiť viac</string>
+	<string name="start_from_my_position">Začať od</string>
 	<string name="profile_authorization_error">Ups, vyskytla sa chyba. Skúste sa prihlásiť znova.</string>
 	<string name="dialog_error_storage_title">Problém s prístupom k úložisku</string>
 	<string name="dialog_error_storage_message">Externý úložný priestor nie je dostupný, pravdepodobne je vytiahnutá alebo poškodená SD karta alebo je systém súborov určený iba na čítanie. Skontrolujte to, prosím, a kontaktujte nás na support\@organicmaps.app</string>
@@ -585,6 +597,9 @@
 	<string name="bookmarks_groups">Zoznamy</string>
 	<string name="bookmarks_groups_hide_all">Skryť všetko</string>
 	<string name="bookmarks_groups_show_all">Zobraziť všetko</string>
+	<plurals name="bookmarks_places">
+	  <item quantity="other">%d záložiek</item>
+	</plurals>
 	<string name="bookmarks_create_new_group">Vytvoriť nový zoznam</string>
 	<string name="downloader_hide_screen">Skryť obrazovku</string>
 	<string name="downloader_percent">%1$s (%2$s z %3$s)</string>
@@ -598,6 +613,7 @@
 	<string name="bookmarks_new_list_hint">Nový zoznam</string>
 	<string name="bookmarks_error_title_list_name_already_taken">Tento názov už bol prijatý</string>
 	<string name="bookmarks_error_message_list_name_already_taken">Vyberte iné meno</string>
+	<string name="bookmarks_error_title_list_name_too_long">Tento názov je príliš dlhý</string>
 	<string name="please_wait">Prosím čakajte…</string>
 	<string name="profile">Profil OpenStreetMap</string>
 	<string name="place_page_search_similar_hotel">Vyhľadať podobné hotely</string>
@@ -645,6 +661,7 @@
 	<string name="bookmark_category_description_hint">Zadajte popis (text alebo html)</string>
 	<string name="not_shared">Súkromné</string>
 	<string name="tags_loading_error_subtitle">Počas načítavania značiek sa vyskytla chyba, skúste to znova</string>
+	<string name="download_button">Stiahnuť</string>
 	<string name="speedcams_alert_title">Rýchlostné kamery</string>
 	<string name="speedcam_option_auto">Automaticky</string>
 	<string name="speedcam_option_always">Vždy</string>
@@ -670,14 +687,50 @@
 	<string name="unable_to_calc_alert_subtitle">Bohužiaľ sme nemohli nájsť trasu pravdepodobne z dôvodu definovaných možností. Zmeňte nastavenia a skúste to prosím znova</string>
 	<string name="define_to_avoid_btn">Definovať cesty, ktorým sa treba vyhnúť</string>
 	<string name="change_driving_options_btn">Možnosti trasy povolené</string>
+	<string name="toll_road">Spoplatnená cesta</string>
+	<string name="unpaved_road">Nespevnená cesta</string>
+	<string name="ferry_crossing">Prechod trajektom</string>
 	<string name="avoid_toll_roads_placepage">Vyhnúť sa spoplatneným cestám</string>
 	<string name="avoid_unpaved_roads_placepage">Vyhnúť sa nespevneným cestám</string>
 	<string name="avoid_ferry_crossing_placepage">Vyhnúť sa prechodom na trajekte</string>
+	<string name="trip_start">Poďme</string>
+	<string name="pick_destination">Cieľ</string>
+	<string name="follow_my_position">Vycentrovať</string>
+	<string name="search_results">Výsledky vyhľadávania</string>
+	<string name="then_turn">Potom</string>
+	<string name="redirect_route_alert">Chcete znova vytvoriť trasu?</string>
+	<string name="redirect_route_yes">Áno</string>
+	<string name="redirect_route_no">Nie</string>
+	<string name="trip_finished">Prišli ste do cieľa!</string>
+	<string name="keyboard_availability_alert">Počas jazdy nie je klávesnica k dispozícii</string>
+	<string name="dialog_routing_change_start_carplay">Z vašej aktuálnej polohy nie je možné vytvoriť trasu</string>
+	<string name="dialog_routing_change_end_carplay">Nie je možné vytvoriť trasu do cieľa. Prosím vyberte iný bod</string>
+	<string name="dialog_routing_check_gps_carplay">Žiaden GPS signál. Presuňte sa na otvorené priestranstvo</string>
+	<string name="dialog_routing_unable_locate_route_carplay">Nie je možné vytvoriť trasu. Prosím zadajte iné body trasy</string>
+	<string name="dialog_routing_download_files_carplay">Pre vytvorenie trasy si stiahnite do zariadenia chýbajúce mapy</string>
+	<string name="dialog_routing_system_error_carplay">Vyskytla sa chyba. Prosím reštartujte aplikáciu</string>
+	<string name="dialog_routing_rebuild_from_current_location_carplay">Trasa bude obnovená z vašej aktuálnej polohy</string>
+	<string name="dialog_routing_rebuild_for_vehicle_carplay">Trasa bude upravená na jazdu autom</string>
 	<string name="ok">Ok</string>
+	<string name="avoid_unpaved_carplay_1">Nespevn. NIE</string>
+	<string name="avoid_unpaved_carplay_2">Nespevnené ÁNO</string>
+	<string name="avoid_ferry_carplay_1">Trajekty NIE</string>
+	<string name="avoid_ferry_carplay_2">Trajekty ÁNO</string>
+	<string name="avoid_tolls_carplay_1">Spoplat. NIE</string>
+	<string name="avoid_tolls_carplay_2">Spoplatnené ÁNO</string>
+	<string name="speedcams_alert_title_carplay_1">Radary</string>
+	<string name="speedcams_alert_title_carplay_2">Rýchl. upozorn.</string>
+	<string name="download_map_carplay">Prosím stiahnite si mapy v aplikácii Organic Maps vo vašom zariadení</string>
+	<string name="carplay_roundabout_exit">%s výjazd</string>
 	<!-- max. 10 symbols, both iOS and Android -->
 	<string name="sort">Zoradiť…</string>
 	<!-- Android, title, max 20-22 symbols -->
 	<string name="sort_bookmarks">Zoradiť záložky</string>
+	<!-- iOS -->
+	<string name="sort_default">Zoradiť Predvolené</string>
+	<string name="sort_type">Zoradiť podľa typu</string>
+	<string name="sort_distance">Zoradiť podľa vzdialenosti</string>
+	<string name="sort_date">Zoradiť podľa dátumu</string>
 	<!-- Android -->
 	<string name="by_default">Podľa predvoleného</string>
 	<!-- Android -->
@@ -686,7 +739,29 @@
 	<string name="by_distance">Podľa vzdialenosti</string>
 	<!-- Android -->
 	<string name="by_date">Podľa dátumu</string>
+	<string name="week_ago_sorttype">Pred týždňom</string>
+	<string name="month_ago_sorttype">Pred mesiacom</string>
+	<string name="moremonth_ago_sorttype">Pred viac ako mesiacom</string>
+	<string name="moreyear_ago_sorttype">Pred viac ako rokom</string>
+	<string name="near_me_sorttype">Blízko mňa</string>
+	<string name="others_sorttype">Iné</string>
+	<string name="food_places">Jedlo</string>
+	<string name="tourist_places">Pamiatky</string>
+	<string name="museums">Múzeá</string>
+	<string name="parks">Parky</string>
+	<string name="swim_places">Plávanie</string>
+	<string name="mountains">Hory</string>
+	<string name="animals">Zvieratá</string>
+	<string name="hotels">Hotely</string>
+	<string name="buildings">Budovy</string>
+	<string name="money">Peniaze</string>
+	<string name="shops">Obchody</string>
+	<string name="parkings">Parkovanie</string>
+	<string name="fuel_places">Čerpacie stanice</string>
+	<string name="water">Voda</string>
+	<string name="medicine">Medicína</string>
 	<string name="search_in_the_list">Vyhľadať v zozname</string>
+	<string name="religious_places">Náboženské miesta</string>
 	<string name="select_list">Vybrať zoznam</string>
 	<string name="transit_not_found">Navigácia metra v tejto oblasti ešte nie je k dispozícii</string>
 	<string name="dialog_pedestrian_route_is_long_header">Trasa metra sa nenašla</string>
@@ -695,6 +770,9 @@
 	<string name="isolines_activation_error_dialog">Ak chcete aktivovať a používať topografickú vrstvu, aktualizujte alebo stiahnite mapu oblasti</string>
 	<string name="isolines_location_error_dialog">Topografická vrstva ešte nie je v tejto oblasti k dispozícii</string>
 	<string name="elevation_profile_diff_level">Level obtiažnosti</string>
+	<string name="elevation_profile_diff_level_easy">Jednoduchá</string>
+	<string name="elevation_profile_diff_level_moderate">Mierna</string>
+	<string name="elevation_profile_diff_level_hard">Náročná</string>
 	<string name="elevation_profile_ascent">Výstup</string>
 	<string name="elevation_profile_descent">Zostup</string>
 	<string name="elevation_profile_minaltitude">Min. nadmorská výška</string>
@@ -703,6 +781,8 @@
 	<string name="elevation_profile_distance">Vzdial.:</string>
 	<string name="elevation_profile_time">Čas:</string>
 	<string name="isolines_toast_zooms_1_10">Priblížením preskúmajte izočiary</string>
+	<string name="downloader_updating_ios">Aktualizovanie</string>
+	<string name="downloader_loading_ios">Sťahovanie</string>
 	<string name="key_information_title">Kľúčová informácia</string>
 	<string name="enable_screen_sleep">Nechajte obrazovku spať</string>
 	<!-- Description in preferences -->

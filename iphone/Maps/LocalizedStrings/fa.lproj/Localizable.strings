@@ -117,6 +117,9 @@
 /* Add Bookmark Set dialog - hint when set name is empty */
 "bookmark_set_name" = "Bookmark Set Name";
 
+/* Bookmark Sets dialog title */
+"bookmark_sets" = "Bookmark Sets";
+
 /* Bookmarks - dialog title */
 "bookmarks" = "نشانه ها";
 
@@ -400,6 +403,9 @@
 /* Downloaded maps category */
 "downloader_downloaded_subtitle" = "دانلود شده";
 
+/* Downloaded maps category */
+"downloader_available_maps" = "موجود";
+
 /* Country queued for download */
 "downloader_queued" = "صف";
 
@@ -410,6 +416,8 @@
 "downloader_download_all_button" = "دانلود همه";
 
 "downloader_downloading" = "درحال دانلود:";
+
+"downloader_search_results" = "یافت شد";
 
 /* Status of outdated country in the list */
 "downloader_status_outdated" = "به روز رسانی";
@@ -834,6 +842,8 @@
 
 "editor_operator" = "مالک";
 
+"downloader_my_maps_title" = "نقشه های من";
+
 "downloader_no_downloaded_maps_title" = "شما هیچ نقشه دانلود شده ای ندارید";
 
 "downloader_no_downloaded_maps_message" = "برای جست وجو یک مکان و استفاده از قابلیت ناوبری, نقشه ها را دانلود کنید.";
@@ -867,9 +877,13 @@
 
 "kilometer" = "کیلومتر";
 
+"kilometers_per_hour" = "کیلومتربرساعت (km/h)";
+
 "mile" = "مایل";
 
 "foot" = "فوت";
+
+"miles_per_hour" = "مایل بر ساعت (mph)";
 
 "hour" = "ساعت";
 
@@ -888,6 +902,10 @@
 "placepage_edit_bookmark_button" = "ویرایش نشانه ها";
 
 "placepage_bookmark_name_hint" = "نام نشانه ها";
+
+"placepage_personal_notes_hint" = "یاداشت های شخصی";
+
+"placepage_delete_bookmark_button" = "حذف نشانه";
 
 "editor_edits_sent_message" = "تغییر پیشنهادی شما ارسال شد";
 
@@ -923,6 +941,8 @@
 "editor_share_to_all_dialog_message_1" = "مطمئن شوید که هیچ اطلاعات شخصی وارد نکرده باشد.";
 
 "editor_share_to_all_dialog_message_2" = "ما تغییرات را بررسی می کنیم.اگر سوالی بود با ایمیل با شما تماس می گیریم.";
+
+"navigation_stop_button" = "توقف";
 
 /* iOS dialog for the case when recent track recording is on and the app comes back from background */
 "recent_track_background_dialog_title" = "غیرفعال سازی ذخیره مسیر اخیرا طی شده";
@@ -1024,6 +1044,8 @@
 
 "preloader_viator_button" = "بیشتر بدانید";
 
+"start_from_my_position" = "شروع از";
+
 "profile_authorization_error" = "اوه، یک خطا وجود داشت سعی کنید دوباره وارد سیستم شوید";
 
 "dialog_error_storage_title" = "مشکل دسترسی به ذخیره سازی";
@@ -1070,6 +1092,8 @@
 "bookmarks_error_title_list_name_already_taken" = "این اسم قبلا انتخاب شده است";
 
 "bookmarks_error_message_list_name_already_taken" = "لطفا نام دیگری را انتخاب کنید";
+
+"bookmarks_error_title_list_name_too_long" = "این نام خیلی طولانی است";
 
 "please_wait" = "لطفا صبر کنید…";
 
@@ -1139,6 +1163,8 @@
 
 "tags_loading_error_subtitle" = "هنگام بارگذاری برچسب خطایی رخ داد، لطفا دوباره امتحان کنید";
 
+"download_button" = "دانلود";
+
 "speedcams_alert_title" = "دوربین های سرعت";
 
 "speedcam_option_auto" = "خودکار";
@@ -1188,19 +1214,90 @@
 
 "change_driving_options_btn" = "گزینه های مسیریابی فعال شد";
 
+"toll_road" = "جاده دارای عوارض";
+
+"unpaved_road" = "جاده آسفالت نشده";
+
+"ferry_crossing" = "گذرگاه جاده ای";
+
 "avoid_toll_roads_placepage" = "اجتناب از جاده های دارای عوارض";
 
 "avoid_unpaved_roads_placepage" = "اجتناب از جاده های آسفالت نشده";
 
 "avoid_ferry_crossing_placepage" = "اجتناب از گذرگاه های کشتی";
 
+"trip_start" = "برویم";
+
+"pick_destination" = "مقصد";
+
+"follow_my_position" = "نشان دادن مجدد در مرکز";
+
+"search_results" = "نتایج جستجو";
+
+"then_turn" = "سپس";
+
+"redirect_route_alert" = "آیا می خواهید مسیر را دوباره ایجاد کنید?";
+
+"redirect_route_yes" = "بله";
+
+"redirect_route_no" = "خیر";
+
+"trip_finished" = "شما به مقصد رسیدید!";
+
+"keyboard_availability_alert" = "صفحه کلید در هنگام رانندگی در دسترس نیست";
+
+"dialog_routing_change_start_carplay" = "امکان ایجاد مسیر از مکان فعلی شما نیست";
+
+"dialog_routing_change_end_carplay" = "امکان ایجاد مسیر به مقصد شما نیست. لطفاً نقطه دیگری را انتخاب کنید";
+
+"dialog_routing_check_gps_carplay" = "سیگنال GPS وجود ندارد. لطفاً به فضای باز بروید";
+
+"dialog_routing_unable_locate_route_carplay" = "امکان ایجاد مسیر نیست. لطفاً نقاط مسیر دیگری را مشخص کنید";
+
+"dialog_routing_download_files_carplay" = "برای ایجاد مسیر، نقشه های ناقص را روی دستگاه خود را دانلود کنید";
+
+"dialog_routing_system_error_carplay" = "خطایی رخ داد. لطفاً برنامه را دوباره اجرا کنید";
+
+"dialog_routing_rebuild_from_current_location_carplay" = "مسیر از مکان فعلی شما بازسازی خواهد شد";
+
+"dialog_routing_rebuild_for_vehicle_carplay" = "مسیر به مسیر خودرویی تغییر خواهد کرد";
+
 "ok" = "موافقت کردن";
+
+"avoid_unpaved_carplay_1" = "بی جاده خاکی";
+
+"avoid_unpaved_carplay_2" = "پرهیز از خاکی";
+
+"avoid_ferry_carplay_1" = "بدون بزرگراه";
+
+"avoid_ferry_carplay_2" = "پرهیز از اتوبان";
+
+"avoid_tolls_carplay_1" = "بدون عوارضی";
+
+"avoid_tolls_carplay_2" = "اجتناب از عوارض";
+
+"speedcams_alert_title_carplay_1" = "دوربین سرعت";
+
+"speedcams_alert_title_carplay_2" = "هشدارهای سرعت";
+
+"download_map_carplay" = "لطفا نقشه ها را در نرم افزار Organic Maps روی دستگاه خود دانلود کنید";
+
+"carplay_roundabout_exit" = "خروجی %s";
 
 /* max. 10 symbols, both iOS and Android */
 "sort" = "مرتب سازی…";
 
 /* Android, title, max 20-22 symbols */
 "sort_bookmarks" = "مرتب سازی نشانهها";
+
+/* iOS */
+"sort_default" = "مرتب سازی بر اساس پیش فرض";
+
+"sort_type" = "مرتب سازی بر اساس نوع";
+
+"sort_distance" = "مرتب سازی بر اساس فاصله";
+
+"sort_date" = "مرتب سازی بر اساس تاریخ";
 
 /* Android */
 "by_default" = "به صورت پیش فرض";
@@ -1214,7 +1311,51 @@
 /* Android */
 "by_date" = "بر اساس تاریخ";
 
+"week_ago_sorttype" = "یک هفته قبل";
+
+"month_ago_sorttype" = "یک ماه قبل";
+
+"moremonth_ago_sorttype" = "بیش از یک ماه قبل";
+
+"moreyear_ago_sorttype" = "بیش از یک سال قبل";
+
+"near_me_sorttype" = "نزدیک من";
+
+"others_sorttype" = "دیگران";
+
+"food_places" = "غذا";
+
+"tourist_places" = "مناظر";
+
+"museums" = "موزهها";
+
+"parks" = "پارکها";
+
+"swim_places" = "شنا";
+
+"mountains" = "کوهها";
+
+"animals" = "حیوانات";
+
+"hotels" = "هتلها";
+
+"buildings" = "ساختمانها";
+
+"money" = "پول";
+
+"shops" = "مراکز خرید";
+
+"parkings" = "پارکینگها";
+
+"fuel_places" = "پمپ بنزین";
+
+"water" = "آب";
+
+"medicine" = "پزشکی";
+
 "search_in_the_list" = "جستجو در لیست";
+
+"religious_places" = "اماکن مقدس";
 
 "select_list" = "انتخاب فهرست";
 
@@ -1232,6 +1373,12 @@
 
 "elevation_profile_diff_level" = "سطح دشواری";
 
+"elevation_profile_diff_level_easy" = "آسان";
+
+"elevation_profile_diff_level_moderate" = "متوسط";
+
+"elevation_profile_diff_level_hard" = "دشوار";
+
 "elevation_profile_ascent" = "بالا رفتن";
 
 "elevation_profile_descent" = "پایین آمدن";
@@ -1247,6 +1394,10 @@
 "elevation_profile_time" = "زمان:";
 
 "isolines_toast_zooms_1_10" = "برای بررسی خطوط تراز زوم کنید";
+
+"downloader_updating_ios" = "در حال بروزرسانی";
+
+"downloader_loading_ios" = "در حال دانلود";
 
 "key_information_title" = "اطلاعات کلیدی";
 

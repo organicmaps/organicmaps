@@ -70,6 +70,8 @@
 	<string name="bookmark_color">ブックマーク表示色</string>
 	<!-- Add Bookmark Set dialog - hint when set name is empty -->
 	<string name="bookmark_set_name">ブックマークセット名称</string>
+	<!-- Bookmark Sets dialog title -->
+	<string name="bookmark_sets">ブックマークセット</string>
 	<!-- Bookmarks - dialog title -->
 	<string name="bookmarks">ブックマーク</string>
 	<!-- Default bookmarks set name -->
@@ -233,12 +235,15 @@
 	<string name="downloader_cancel_all">すべてキャンセル</string>
 	<!-- Downloaded maps category -->
 	<string name="downloader_downloaded_subtitle">ダウンロード済み</string>
+	<!-- Downloaded maps category -->
+	<string name="downloader_available_maps">利用可能</string>
 	<!-- Country queued for download -->
 	<string name="downloader_queued">待ち行列型の</string>
 	<string name="downloader_near_me_subtitle">付近</string>
 	<string name="downloader_status_maps">地図</string>
 	<string name="downloader_download_all_button">全てをダウンロード</string>
 	<string name="downloader_downloading">ダウンロード中：</string>
+	<string name="downloader_search_results">見つかりました</string>
 	<!-- Status of outdated country in the list -->
 	<string name="downloader_status_outdated">を更新</string>
 	<!-- Status of failed country in the list -->
@@ -472,6 +477,7 @@
 	<string name="editor_detailed_description">あなたが提案した変更は、OpenStreetMapのコミュニティに送信されます。Organic Mapsで編集できない詳細を説明してください。</string>
 	<string name="editor_more_about_osm">OpenStreetMapについての詳細</string>
 	<string name="editor_operator">オペレーター</string>
+	<string name="downloader_my_maps_title">マイマップ</string>
 	<string name="downloader_no_downloaded_maps_title">マップをダウンロードしていません</string>
 	<string name="downloader_no_downloaded_maps_message">ロケーションの検索とオフラインナビゲートのためにマップをダウンロードしてください。</string>
 	<!-- Error title that appears after certain time without location. -->
@@ -490,8 +496,10 @@
 	<string name="location_services_disabled_3">3. アプリの使用中を選択してください</string>
 	<string name="meter">m</string>
 	<string name="kilometer">km</string>
+	<string name="kilometers_per_hour">キロメートル毎時</string>
 	<string name="mile">マイル</string>
 	<string name="foot">フィート</string>
+	<string name="miles_per_hour">マイル毎時</string>
 	<string name="hour">時間</string>
 	<string name="minute">分</string>
 	<string name="placepage_place_description">説明</string>
@@ -501,6 +509,8 @@
 	<string name="placepage_call_button">コール</string>
 	<string name="placepage_edit_bookmark_button">ブックマークを編集</string>
 	<string name="placepage_bookmark_name_hint">ブックマーク名</string>
+	<string name="placepage_personal_notes_hint">パーソナルメモ</string>
+	<string name="placepage_delete_bookmark_button">ブックマークを削除</string>
 	<string name="editor_edits_sent_message">あなたの提案の変更が送信されました</string>
 	<string name="editor_comment_hint">コメント…</string>
 	<string name="editor_reset_edits_message">すべてのローカルの変更をリセットしますか？</string>
@@ -520,6 +530,7 @@
 	<!-- iOS Dialog before publishing the modifications to the public map. -->
 	<string name="editor_share_to_all_dialog_message_1">個人情報を入力していないことを確認してください。</string>
 	<string name="editor_share_to_all_dialog_message_2">弊社で変更を確認します。質問がある場合はメールでご連絡します。</string>
+	<string name="navigation_stop_button">停止</string>
 	<!-- iOS dialog for the case when recent track recording is on and the app comes back from background -->
 	<string name="recent_track_background_dialog_title">最近の走行ルートの記録を無効にしますか？</string>
 	<string name="off_recent_track_background_button">無効にする</string>
@@ -576,6 +587,7 @@
 	<string name="planning_route_remove_title">ここにドラッグして削除</string>
 	<string name="placepage_add_stop">経由地点を追加</string>
 	<string name="preloader_viator_button">詳細情報</string>
+	<string name="start_from_my_position">開始位置</string>
 	<string name="profile_authorization_error">エラーが発生しました。もう一度サインインしてみてください。</string>
 	<string name="dialog_error_storage_title">ストレージアクセスの問題</string>
 	<string name="dialog_error_storage_message">外部ストレージは使用できません。おそらく SD カードが取り外されたか、破損している、あるいはファイルシステムが読み取り専用になっています。確認後、support\@organicmaps.app までご連絡ください。</string>
@@ -585,6 +597,9 @@
 	<string name="bookmarks_groups">リスト</string>
 	<string name="bookmarks_groups_hide_all">すべて非表示</string>
 	<string name="bookmarks_groups_show_all">すべて表示</string>
+	<plurals name="bookmarks_places">
+	  <item quantity="other">%d個のブックマーク</item>
+	</plurals>
 	<string name="bookmarks_create_new_group">新しいリストを作成する</string>
 	<string name="downloader_hide_screen">画面を非表示</string>
 	<string name="downloader_percent">%1$s (%2$s / %3$s)</string>
@@ -598,6 +613,7 @@
 	<string name="bookmarks_new_list_hint">新しいリスト</string>
 	<string name="bookmarks_error_title_list_name_already_taken">この名前はすでに使用されています</string>
 	<string name="bookmarks_error_message_list_name_already_taken">別の名前を選んでください</string>
+	<string name="bookmarks_error_title_list_name_too_long">この名前は長すぎます</string>
 	<string name="please_wait">お待ちください…</string>
 	<string name="profile">OpenStreetMap プロフィール</string>
 	<string name="place_page_search_similar_hotel">類似のホテルを検索</string>
@@ -643,6 +659,7 @@
 	<string name="bookmark_category_description_hint">説明(テキストまたはhtml)を記入してください</string>
 	<string name="not_shared">非公開</string>
 	<string name="tags_loading_error_subtitle">タグのロード中にエラーが起きました。もう一度やり直してください</string>
+	<string name="download_button">ダウンロード</string>
 	<string name="speedcams_alert_title">自動速度違反取締装置</string>
 	<string name="speedcam_option_auto">自動</string>
 	<string name="speedcam_option_always">常時</string>
@@ -668,14 +685,50 @@
 	<string name="unable_to_calc_alert_subtitle">残念ながら恐らく設定されたオプションのためにルートが見つけられませんでした。設定を変更し、もう一度お試しください</string>
 	<string name="define_to_avoid_btn">回避するために道を設定</string>
 	<string name="change_driving_options_btn">運転オプションはアクティブです</string>
+	<string name="toll_road">有料道路</string>
+	<string name="unpaved_road">未舗装道路</string>
+	<string name="ferry_crossing">フェリー航路</string>
 	<string name="avoid_toll_roads_placepage">有料道路を回避</string>
 	<string name="avoid_unpaved_roads_placepage">未舗装道路を回避</string>
 	<string name="avoid_ferry_crossing_placepage">フェリー航路を回避</string>
+	<string name="trip_start">レッツゴー</string>
+	<string name="pick_destination">目的地</string>
+	<string name="follow_my_position">リセンター</string>
+	<string name="search_results">検索結果</string>
+	<string name="then_turn">その後</string>
+	<string name="redirect_route_alert">ルートを再構築しますか?</string>
+	<string name="redirect_route_yes">はい</string>
+	<string name="redirect_route_no">いいえ</string>
+	<string name="trip_finished">到着しました!</string>
+	<string name="keyboard_availability_alert">運転中はキーボードを使用する事はできません</string>
+	<string name="dialog_routing_change_start_carplay">現在位置からはルートを構築できません</string>
+	<string name="dialog_routing_change_end_carplay">目的地へのルートは構築できません。別の地点を選択してください</string>
+	<string name="dialog_routing_check_gps_carplay">GPS信号がありません。開けた場所へ移動してください</string>
+	<string name="dialog_routing_unable_locate_route_carplay">ルートが構築できません。別のルート地点を設定して下さい</string>
+	<string name="dialog_routing_download_files_carplay">ルートを作成するには、地図に表示されていない部分を端末でダウンロードします</string>
+	<string name="dialog_routing_system_error_carplay">エラーが発生しました。アプリを再起動してください</string>
+	<string name="dialog_routing_rebuild_from_current_location_carplay">ルートは現在位置から再構築されます</string>
+	<string name="dialog_routing_rebuild_for_vehicle_carplay">ルートは自動車用として修正されます</string>
 	<string name="ok">OK</string>
+	<string name="avoid_unpaved_carplay_1">未舗装道路無し</string>
+	<string name="avoid_unpaved_carplay_2">未舗装道路無し</string>
+	<string name="avoid_ferry_carplay_1">フェリー無し</string>
+	<string name="avoid_ferry_carplay_2">フェリーを回避</string>
+	<string name="avoid_tolls_carplay_1">有料道路無し</string>
+	<string name="avoid_tolls_carplay_2">有料道路を回避</string>
+	<string name="speedcams_alert_title_carplay_1">速度警告</string>
+	<string name="speedcams_alert_title_carplay_2">速度警告</string>
+	<string name="download_map_carplay">あなたの機器のOrganic Mapsのアプリにマップをダウンロードしてください</string>
+	<string name="carplay_roundabout_exit">第%s出口</string>
 	<!-- max. 10 symbols, both iOS and Android -->
 	<string name="sort">並び替え中…</string>
 	<!-- Android, title, max 20-22 symbols -->
 	<string name="sort_bookmarks">ブックマークの並び替え</string>
+	<!-- iOS -->
+	<string name="sort_default">デフォルトで並び替え</string>
+	<string name="sort_type">タイプで並び替え</string>
+	<string name="sort_distance">距離で並び替え</string>
+	<string name="sort_date">日付で並び替え</string>
 	<!-- Android -->
 	<string name="by_default">デフォルトで</string>
 	<!-- Android -->
@@ -684,7 +737,29 @@
 	<string name="by_distance">距離で</string>
 	<!-- Android -->
 	<string name="by_date">日付で</string>
+	<string name="week_ago_sorttype">1週間前</string>
+	<string name="month_ago_sorttype">1ケ月前</string>
+	<string name="moremonth_ago_sorttype">1ケ月以上前</string>
+	<string name="moreyear_ago_sorttype">1年以上前</string>
+	<string name="near_me_sorttype">近隣</string>
+	<string name="others_sorttype">その他</string>
+	<string name="food_places">食べ物</string>
+	<string name="tourist_places">観光地</string>
+	<string name="museums">博物館</string>
+	<string name="parks">公園</string>
+	<string name="swim_places">水泳</string>
+	<string name="mountains">山</string>
+	<string name="animals">動物園</string>
+	<string name="hotels">ホテル</string>
+	<string name="buildings">ビル</string>
+	<string name="money">金銭</string>
+	<string name="shops">ショップ</string>
+	<string name="parkings">駐車場</string>
+	<string name="fuel_places">ガソリンスタンド</string>
+	<string name="water">水</string>
+	<string name="medicine">医薬品</string>
 	<string name="search_in_the_list">リスト内で検索</string>
+	<string name="religious_places">宗教に関連した場所</string>
 	<string name="select_list">リストを選択</string>
 	<string name="transit_not_found">この地域の地下鉄ナビはまだ利用できません</string>
 	<string name="dialog_pedestrian_route_is_long_header">地下鉄ルートが見つかりませんでした</string>
@@ -693,6 +768,9 @@
 	<string name="isolines_activation_error_dialog">トポグラフィーレイヤーを有効化して使用するには、このエリアのマップを更新もしくはダウンロードしてください</string>
 	<string name="isolines_location_error_dialog">トポグラフィーレイヤーはこの地域ではまだ利用できません</string>
 	<string name="elevation_profile_diff_level">難易度</string>
+	<string name="elevation_profile_diff_level_easy">イージー</string>
+	<string name="elevation_profile_diff_level_moderate">ノーマル</string>
+	<string name="elevation_profile_diff_level_hard">ハード</string>
 	<string name="elevation_profile_ascent">上昇</string>
 	<string name="elevation_profile_descent">下降</string>
 	<string name="elevation_profile_minaltitude">最小高度</string>
@@ -701,6 +779,8 @@
 	<string name="elevation_profile_distance">距離：</string>
 	<string name="elevation_profile_time">時間：</string>
 	<string name="isolines_toast_zooms_1_10">等高線を調べるためにズームインしましょう</string>
+	<string name="downloader_updating_ios">更新中</string>
+	<string name="downloader_loading_ios">ダウンロード中</string>
 	<string name="key_information_title">重要情報</string>
 	<string name="enable_screen_sleep">画面をスリープ状態にする</string>
 	<!-- Description in preferences -->

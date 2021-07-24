@@ -117,6 +117,9 @@
 /* Add Bookmark Set dialog - hint when set name is empty */
 "bookmark_set_name" = "收藏夾名稱";
 
+/* Bookmark Sets dialog title */
+"bookmark_sets" = "收藏夾";
+
 /* Bookmarks - dialog title */
 "bookmarks" = "書籤";
 
@@ -400,6 +403,9 @@
 /* Downloaded maps category */
 "downloader_downloaded_subtitle" = "已下載";
 
+/* Downloaded maps category */
+"downloader_available_maps" = "可用";
+
 /* Country queued for download */
 "downloader_queued" = "已佇列";
 
@@ -410,6 +416,8 @@
 "downloader_download_all_button" = "下載全部";
 
 "downloader_downloading" = "正在下載：";
+
+"downloader_search_results" = "已找到";
 
 /* Status of outdated country in the list */
 "downloader_status_outdated" = "更新";
@@ -834,6 +842,8 @@
 
 "editor_operator" = "營運者";
 
+"downloader_my_maps_title" = "我的地圖";
+
 "downloader_no_downloaded_maps_title" = "您尚未下載任何地圖";
 
 "downloader_no_downloaded_maps_message" = "下載地圖來尋找位置和離線瀏覽。";
@@ -867,9 +877,13 @@
 
 "kilometer" = "公里";
 
+"kilometers_per_hour" = "公里每小時";
+
 "mile" = "英里";
 
 "foot" = "英尺";
+
+"miles_per_hour" = "英里每小時";
 
 "hour" = "小時";
 
@@ -888,6 +902,10 @@
 "placepage_edit_bookmark_button" = "編輯書籤";
 
 "placepage_bookmark_name_hint" = "書籤名稱";
+
+"placepage_personal_notes_hint" = "個人備註";
+
+"placepage_delete_bookmark_button" = "刪除書籤";
 
 "editor_edits_sent_message" = "您的建議已傳送";
 
@@ -923,6 +941,8 @@
 "editor_share_to_all_dialog_message_1" = "確保您沒有輸入任何個人數據。";
 
 "editor_share_to_all_dialog_message_2" = "我們會檢查更改。如果我們有任何問題，我們會郵件與您聯系。";
+
+"navigation_stop_button" = "停止";
 
 /* iOS dialog for the case when recent track recording is on and the app comes back from background */
 "recent_track_background_dialog_title" = "禁止記錄您最近去過的路徑？";
@@ -1024,6 +1044,8 @@
 
 "preloader_viator_button" = "進一步了解";
 
+"start_from_my_position" = "起點";
+
 "profile_authorization_error" = "噢，發生錯誤。請嘗試再次登入。";
 
 "dialog_error_storage_title" = "儲存空間存取問題";
@@ -1070,6 +1092,8 @@
 "bookmarks_error_title_list_name_already_taken" = "這個名字已經被使用了";
 
 "bookmarks_error_message_list_name_already_taken" = "請選擇其他名稱";
+
+"bookmarks_error_title_list_name_too_long" = "這個名字太長了";
 
 "please_wait" = "請稍候…";
 
@@ -1139,6 +1163,8 @@
 
 "tags_loading_error_subtitle" = "加載代碼時出錯，請重試";
 
+"download_button" = "下載";
+
 "speedcams_alert_title" = "高速相機";
 
 "speedcam_option_auto" = "自動";
@@ -1188,19 +1214,90 @@
 
 "change_driving_options_btn" = "绕行设置已开启";
 
+"toll_road" = "收費公路";
+
+"unpaved_road" = "土路";
+
+"ferry_crossing" = "輪渡";
+
 "avoid_toll_roads_placepage" = "規避收費公路";
 
 "avoid_unpaved_roads_placepage" = "規避土路";
 
 "avoid_ferry_crossing_placepage" = "規避輪渡";
 
+"trip_start" = "前往";
+
+"pick_destination" = "目標";
+
+"follow_my_position" = "定好中心";
+
+"search_results" = "搜索結果";
+
+"then_turn" = "接下來";
+
+"redirect_route_alert" = "想重建路線?";
+
+"redirect_route_yes" = "是";
+
+"redirect_route_no" = "否";
+
+"trip_finished" = "您已到達!";
+
+"keyboard_availability_alert" = "移動時鍵盤不可用";
+
+"dialog_routing_change_start_carplay" = "無法從當前位置構建路線";
+
+"dialog_routing_change_end_carplay" = "無法建立到終點的路線。請選擇其他（路線）";
+
+"dialog_routing_check_gps_carplay" = "無GPS信號。請沿著空曠區域行駛";
+
+"dialog_routing_unable_locate_route_carplay" = "無法建立路線。請選擇其他路線點";
+
+"dialog_routing_download_files_carplay" = "爲了創建線路，請在您的設備中下載所缺少的地圖";
+
+"dialog_routing_system_error_carplay" = "發生了錯誤。請重新啟動程序";
+
+"dialog_routing_rebuild_from_current_location_carplay" = "該路線將從您的當前位置重建";
+
+"dialog_routing_rebuild_for_vehicle_carplay" = "該路線將改為汽車（路線）";
+
 "ok" = "好的";
+
+"avoid_unpaved_carplay_1" = "無土路路段";
+
+"avoid_unpaved_carplay_2" = "無土路路段";
+
+"avoid_ferry_carplay_1" = "無渡船";
+
+"avoid_ferry_carplay_2" = "無渡船";
+
+"avoid_tolls_carplay_1" = "無付費路段";
+
+"avoid_tolls_carplay_2" = "無付費路段";
+
+"speedcams_alert_title_carplay_1" = "攝像頭";
+
+"speedcams_alert_title_carplay_2" = "攝像頭信息";
+
+"download_map_carplay" = "將Organic Maps軟件中的地圖下載至個人設備中";
+
+"carplay_roundabout_exit" = "%s號坡道";
 
 /* max. 10 symbols, both iOS and Android */
 "sort" = "分類……";
 
 /* Android, title, max 20-22 symbols */
 "sort_bookmarks" = "分類標籤";
+
+/* iOS */
+"sort_default" = "默認排序";
+
+"sort_type" = "按類型排序";
+
+"sort_distance" = "按距離排序";
+
+"sort_date" = "按日期排序";
 
 /* Android */
 "by_default" = "默認情況下";
@@ -1214,7 +1311,51 @@
 /* Android */
 "by_date" = "按時間";
 
+"week_ago_sorttype" = "一周前";
+
+"month_ago_sorttype" = "一月前";
+
+"moremonth_ago_sorttype" = "一個多月前";
+
+"moreyear_ago_sorttype" = "一年多以前";
+
+"near_me_sorttype" = "在我旁邊";
+
+"others_sorttype" = "其他";
+
+"food_places" = "美食";
+
+"tourist_places" = "名勝";
+
+"museums" = "博物館";
+
+"parks" = "公園";
+
+"swim_places" = "游泳";
+
+"mountains" = "山";
+
+"animals" = "動物";
+
+"hotels" = "酒店";
+
+"buildings" = "建築物";
+
+"money" = "貨幣";
+
+"shops" = "商店";
+
+"parkings" = "停車場";
+
+"fuel_places" = "加油站";
+
+"water" = "水";
+
+"medicine" = "醫療";
+
 "search_in_the_list" = "在列表中搜索";
+
+"religious_places" = "聖地";
 
 "select_list" = "選擇列表";
 
@@ -1232,6 +1373,12 @@
 
 "elevation_profile_diff_level" = "難度等級";
 
+"elevation_profile_diff_level_easy" = "容易";
+
+"elevation_profile_diff_level_moderate" = "中等";
+
+"elevation_profile_diff_level_hard" = "困難";
+
 "elevation_profile_ascent" = "上坡";
 
 "elevation_profile_descent" = "下坡";
@@ -1247,6 +1394,10 @@
 "elevation_profile_time" = "在路上：";
 
 "isolines_toast_zooms_1_10" = "放大地圖以查看等高線";
+
+"downloader_updating_ios" = "更新";
+
+"downloader_loading_ios" = "加載";
 
 "key_information_title" = "關鍵信息";
 

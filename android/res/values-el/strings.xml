@@ -73,6 +73,8 @@
 	<string name="bookmark_color">Χρώμα αγαπημένου</string>
 	<!-- Add Bookmark Set dialog - hint when set name is empty -->
 	<string name="bookmark_set_name">Όνομα συνόλου αγαπημένων</string>
+	<!-- Bookmark Sets dialog title -->
+	<string name="bookmark_sets">Σύνολα αγαπημένων</string>
 	<!-- Bookmarks - dialog title -->
 	<string name="bookmarks">Αγαπημένα</string>
 	<!-- Default bookmarks set name -->
@@ -240,12 +242,15 @@
 	<string name="downloader_cancel_all">Ακύρωση όλων</string>
 	<!-- Downloaded maps category -->
 	<string name="downloader_downloaded_subtitle">Έγινε λήψη</string>
+	<!-- Downloaded maps category -->
+	<string name="downloader_available_maps">Διαθέσιμη</string>
 	<!-- Country queued for download -->
 	<string name="downloader_queued">στην ουρά</string>
 	<string name="downloader_near_me_subtitle">Κοντά μου</string>
 	<string name="downloader_status_maps">Χάρτες</string>
 	<string name="downloader_download_all_button">Λήψη όλων</string>
 	<string name="downloader_downloading">Λήψη:</string>
+	<string name="downloader_search_results">Βρέθηκαν</string>
 	<!-- Status of outdated country in the list -->
 	<string name="downloader_status_outdated">Ενημέρωση</string>
 	<!-- Status of failed country in the list -->
@@ -480,6 +485,7 @@
 	<string name="editor_detailed_description">Οι προτεινόμενες αλλαγές χάρτη θα σταλούν στην Κοινότητα του OpenStreetMap. Περιγράψτε τυχόν πρόσθετα στοιχεία που δεν μπορείτε να επεξεργαστείτε στο Organic Maps.</string>
 	<string name="editor_more_about_osm">Περισσότερα σχετικά με το OpenStreetMap</string>
 	<string name="editor_operator">Ιδιοκτήτης</string>
+	<string name="downloader_my_maps_title">Οι χάρτες μου</string>
 	<string name="downloader_no_downloaded_maps_title">Δεν έχετε κατεβάσει χάρτες</string>
 	<string name="downloader_no_downloaded_maps_message">Κατεβάστε χάρτες για να αναζητήσετε μια τοποθεσία και να χρησιμοποιήσετε την πλοήγησης χωρίς σύνδεση.</string>
 	<!-- Error title that appears after certain time without location. -->
@@ -501,6 +507,8 @@
 	<string name="placepage_call_button">Κλήση</string>
 	<string name="placepage_edit_bookmark_button">Επεξεργασία αγαπημένου</string>
 	<string name="placepage_bookmark_name_hint">Όνομα αγαπημένου</string>
+	<string name="placepage_personal_notes_hint">Προσωπικές σημειώσεις</string>
+	<string name="placepage_delete_bookmark_button">Διαγραφή αγαπημένου</string>
 	<string name="editor_edits_sent_message">Οι προτεινόμενες αλλαγές σας έχουν σταλεί</string>
 	<string name="editor_comment_hint">Σχόλιο…</string>
 	<string name="editor_reset_edits_message">Απόρριψη όλων των τοπικών αλλαγών;</string>
@@ -576,6 +584,7 @@
 	<string name="planning_route_remove_title">Σύρετε εδώ για κατάργηση</string>
 	<string name="placepage_add_stop">Προσθήκη στάσης</string>
 	<string name="preloader_viator_button">Μάθετε περισσότερα</string>
+	<string name="start_from_my_position">Έναρξη από</string>
 	<string name="profile_authorization_error">Ωχ, παρουσιάστηκε σφάλμα. Προσπαθήστε να συνδεθείτε ξανά.</string>
 	<string name="dialog_error_storage_title">Πρόβλημα πρόσβασης στον αποθηκευτικό χώρο</string>
 	<string name="dialog_error_storage_message">Ο εξωτερικός απθηκευτικός χώρος δεν είναι διαθέσιμος, πιθανότατα έχει αφαιρεθεί η κάρτα SD, είναι κατεστραμμένη ή το σύστημα αρχείων είναι μόνο για ανάγνωση. Ελέγξτε το και επικοινωνήστε μαζί μας στη διεύθυνση support\@organicmaps.app</string>
@@ -585,6 +594,9 @@
 	<string name="bookmarks_groups">Τόπος αγώνων</string>
 	<string name="bookmarks_groups_hide_all">Απόκρυψη όλων</string>
 	<string name="bookmarks_groups_show_all">Εμφάνιση όλων</string>
+	<plurals name="bookmarks_places">
+	  <item quantity="other">%d αγαπημένα</item>
+	</plurals>
 	<string name="bookmarks_create_new_group">Δημιουργία νέας λίστας</string>
 	<string name="downloader_hide_screen">Απόκρυψη οθόνης</string>
 	<string name="downloader_percent">%1$s (%2$s από %3$s)</string>
@@ -598,6 +610,7 @@
 	<string name="bookmarks_new_list_hint">Νέα λίστα</string>
 	<string name="bookmarks_error_title_list_name_already_taken">Αυτό το όνομα έχει ήδη ληφθεί</string>
 	<string name="bookmarks_error_message_list_name_already_taken">Επιλέξτε άλλο όνομα</string>
+	<string name="bookmarks_error_title_list_name_too_long">Αυτό το όνομα είναι πολύ μεγάλο</string>
 	<string name="please_wait">Παρακαλώ περιμένετε…</string>
 	<string name="profile">Προφίλ OpenStreetMap</string>
 	<string name="place_page_search_similar_hotel">Αναζήτηση παρόμοιων ξενοδοχείων</string>
@@ -644,6 +657,7 @@
 	<string name="bookmark_category_description_hint">Πληκτρολογήστε μια περιγραφή (κείμενο ή html)</string>
 	<string name="not_shared">Προσωπικός</string>
 	<string name="tags_loading_error_subtitle">Ένα σφάλμα συνέβη στο φόρτωμα των ετικετών, παρακαλώ ξαναπροσπαθήστε</string>
+	<string name="download_button">Κατέβασμα</string>
 	<string name="speedcams_alert_title">Κάμερες Ταχύτητας</string>
 	<string name="speedcam_option_auto">Αυτόματο</string>
 	<string name="speedcam_option_always">Πάντα</string>
@@ -669,14 +683,50 @@
 	<string name="unable_to_calc_alert_subtitle">Δυστυχώς, δεν μπορούσαμε να δημιουργήσουμε μια διαδρομή με τις καθορισμένες επιλογές. Αλλάξτε τις ρυθμίσεις και δοκιμάστε πάλι</string>
 	<string name="define_to_avoid_btn">Ρύθμιση της διαδρομής παράκαμψης</string>
 	<string name="change_driving_options_btn">Ρυθμίσεις δραστηριοποιούνται</string>
+	<string name="toll_road">Δρόμος με διόδια</string>
+	<string name="unpaved_road">Χωματόδρομος</string>
+	<string name="ferry_crossing">Πορθμείο</string>
 	<string name="avoid_toll_roads_placepage">Αποφυγή των δρόμων με διόδια</string>
 	<string name="avoid_unpaved_roads_placepage">Αποφυγή των χωματόδρομων</string>
 	<string name="avoid_ferry_crossing_placepage">Αποφυγή των πορθμείων</string>
+	<string name="trip_start">Πάμε</string>
+	<string name="pick_destination">Προορισμός</string>
+	<string name="follow_my_position">Επανατοποθέτηση</string>
+	<string name="search_results">Αποτελέσματα αναζήτησης</string>
+	<string name="then_turn">Μετά</string>
+	<string name="redirect_route_alert">Θα θέλατε να τροποποιήσετε τη διαδρομή;</string>
+	<string name="redirect_route_yes">Ναι</string>
+	<string name="redirect_route_no">Όχι</string>
+	<string name="trip_finished">Έχετε φτάσει!</string>
+	<string name="keyboard_availability_alert">Το πληκτρολόγιο δεν είναι διαθέσιμο κατά τη διάρκεια οδήγησης</string>
+	<string name="dialog_routing_change_start_carplay">Δεν είναι δυνατή η δημιουργία διαδρομής από την τρέχουσα τοποθεσία σας</string>
+	<string name="dialog_routing_change_end_carplay">Δεν είναι δυνατή η δημιουργία διαδρομής μέχρι τον προορισμό σας. Επιλέξτε ένα άλλο σημείο</string>
+	<string name="dialog_routing_check_gps_carplay">Δεν υπάρχει σήμα GPS. Μετακινήστε σε μια ανοικτή τοποθεσία</string>
+	<string name="dialog_routing_unable_locate_route_carplay">Δεν είναι δυνατή η δημιουργία διαδρομής. Επιλέξτε άλλα σημεία διαδρομής</string>
+	<string name="dialog_routing_download_files_carplay">Για να χτίσετε διαδρομή, κατεβάστε χάρτες που λείπουν στη συσκευή</string>
+	<string name="dialog_routing_system_error_carplay">Παρουσιάστηκε σφάλμα. Κάντε επανεκκίνηση της εφαρμογής</string>
+	<string name="dialog_routing_rebuild_from_current_location_carplay">Η διαδρομή θα ξαναδημιουργηθεί από την τρέχουσα τοποθεσία σας</string>
+	<string name="dialog_routing_rebuild_for_vehicle_carplay">Η διαδρομή θα αντικατασταθεί με τη διαδρομή με αυτοκίνητο</string>
 	<string name="ok">Καλώς</string>
+	<string name="avoid_unpaved_carplay_1">Χ/χωματόδρ.</string>
+	<string name="avoid_unpaved_carplay_2">Χ/χωματόδρομους</string>
+	<string name="avoid_ferry_carplay_1">Χ/πορθμεία</string>
+	<string name="avoid_ferry_carplay_2">Χωρίς πορθμεία</string>
+	<string name="avoid_tolls_carplay_1">Χωρίς διόδια</string>
+	<string name="avoid_tolls_carplay_2">Χωρίς διόδια</string>
+	<string name="speedcams_alert_title_carplay_1">Κάμερες</string>
+	<string name="speedcams_alert_title_carplay_2">Πληροφ. γιαόρια</string>
+	<string name="download_map_carplay">Κάντε λήψη χαρτών στην εφαρμογή Organic Maps στη συσκευή σας</string>
+	<string name="carplay_roundabout_exit">%s έξοδος</string>
 	<!-- max. 10 symbols, both iOS and Android -->
 	<string name="sort">Ταξινόμηση</string>
 	<!-- Android, title, max 20-22 symbols -->
 	<string name="sort_bookmarks">Ταξινόμηση σελιδοδ/τών</string>
+	<!-- iOS -->
+	<string name="sort_default">Ταξινόμηση κατά προεπιλογή</string>
+	<string name="sort_type">Ταξινόμηση ανά τύπο</string>
+	<string name="sort_distance">Ταξινόμηση κατά απόσταση</string>
+	<string name="sort_date">Ταξινόμηση κατά ημερομηνία</string>
 	<!-- Android -->
 	<string name="by_default">Προεπιλογή</string>
 	<!-- Android -->
@@ -685,7 +735,29 @@
 	<string name="by_distance">Κατά απόσταση</string>
 	<!-- Android -->
 	<string name="by_date">Κατά ημερομηνία</string>
+	<string name="week_ago_sorttype">Μια βδομάδα πριν</string>
+	<string name="month_ago_sorttype">Ένας μήνας πριν</string>
+	<string name="moremonth_ago_sorttype">Περισσότερο από έναν μήνα πριν</string>
+	<string name="moreyear_ago_sorttype">Περισσότερο από ένα έτος πριν</string>
+	<string name="near_me_sorttype">Δίπλα μου</string>
+	<string name="others_sorttype">Άλλα</string>
+	<string name="food_places">Εστίαση</string>
+	<string name="tourist_places">Αξιοθέατα</string>
+	<string name="museums">Μουσεία</string>
+	<string name="parks">Πάρκα</string>
+	<string name="swim_places">Κολύμβηση</string>
+	<string name="mountains">Βουνά</string>
+	<string name="animals">Ζώα</string>
+	<string name="hotels">Διαμονή</string>
+	<string name="buildings">Κτήρια</string>
+	<string name="money">Χρήματα</string>
+	<string name="shops">Καταστήματα</string>
+	<string name="parkings">Χώροι στάθμευσης</string>
+	<string name="fuel_places">Πρατήρια βενζίνης</string>
+	<string name="water">Νερό</string>
+	<string name="medicine">Γιατρική βοήθεια</string>
 	<string name="search_in_the_list">Αναζήτηση στη λίστα</string>
+	<string name="religious_places">Άγιοι τόποι</string>
 	<string name="select_list">Επιλογή λίστας</string>
 	<string name="transit_not_found">Η πλοήγηση στο μετρό γι\' αυτή την περιοχή δεν είναι ακόμα διαθέσιμη</string>
 	<string name="dialog_pedestrian_route_is_long_header">Η διαδρομή του μετρό δεν βρέθηκε</string>
@@ -694,6 +766,9 @@
 	<string name="isolines_activation_error_dialog">Για να χρησιμοποιήσετε τοπογραφικά στρώματα, ενημερώστε ή κατεβάστε τον χάρτη της επιθυμητής περιοχής</string>
 	<string name="isolines_location_error_dialog">Τα τοπογραφικά στρώματα δεν είναι ακόμα διαθέσιμα σε αυτή την περιοχή</string>
 	<string name="elevation_profile_diff_level">Επίπεδο δυσκολίας</string>
+	<string name="elevation_profile_diff_level_easy">Εύκολο</string>
+	<string name="elevation_profile_diff_level_moderate">Μέτριο</string>
+	<string name="elevation_profile_diff_level_hard">Δύσκολο</string>
 	<string name="elevation_profile_ascent">Άνοδος</string>
 	<string name="elevation_profile_descent">Κάθοδος</string>
 	<string name="elevation_profile_minaltitude">Ελ. υψόμετρο</string>
@@ -702,6 +777,8 @@
 	<string name="elevation_profile_distance">Απόστ.:</string>
 	<string name="elevation_profile_time">Διαρκ:</string>
 	<string name="isolines_toast_zooms_1_10">Μεγεθύνετε για να δείτε περιγράμματα</string>
+	<string name="downloader_updating_ios">Ενημέρωση</string>
+	<string name="downloader_loading_ios">Φόρτωση</string>
 	<string name="key_information_title">Βασικές πληροφορίες</string>
 	<string name="enable_screen_sleep">Αφήστε την οθόνη να κοιμηθεί</string>
 	<!-- Description in preferences -->

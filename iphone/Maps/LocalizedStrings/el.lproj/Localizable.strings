@@ -117,6 +117,9 @@
 /* Add Bookmark Set dialog - hint when set name is empty */
 "bookmark_set_name" = "Όνομα συνόλου αγαπημένων";
 
+/* Bookmark Sets dialog title */
+"bookmark_sets" = "Σύνολα αγαπημένων";
+
 /* Bookmarks - dialog title */
 "bookmarks" = "Αγαπημένα";
 
@@ -400,6 +403,9 @@
 /* Downloaded maps category */
 "downloader_downloaded_subtitle" = "Έγινε λήψη";
 
+/* Downloaded maps category */
+"downloader_available_maps" = "Διαθέσιμη";
+
 /* Country queued for download */
 "downloader_queued" = "στην ουρά";
 
@@ -410,6 +416,8 @@
 "downloader_download_all_button" = "Λήψη όλων";
 
 "downloader_downloading" = "Λήψη:";
+
+"downloader_search_results" = "Βρέθηκαν";
 
 /* Status of outdated country in the list */
 "downloader_status_outdated" = "Ενημέρωση";
@@ -834,6 +842,8 @@
 
 "editor_operator" = "Ιδιοκτήτης";
 
+"downloader_my_maps_title" = "Οι χάρτες μου";
+
 "downloader_no_downloaded_maps_title" = "Δεν έχετε κατεβάσει χάρτες";
 
 "downloader_no_downloaded_maps_message" = "Κατεβάστε χάρτες για να αναζητήσετε μια τοποθεσία και να χρησιμοποιήσετε την πλοήγησης χωρίς σύνδεση.";
@@ -867,9 +877,13 @@
 
 "kilometer" = "km";
 
+"kilometers_per_hour" = "km/h";
+
 "mile" = "mi";
 
 "foot" = "ft";
+
+"miles_per_hour" = "mph";
 
 "hour" = "h";
 
@@ -888,6 +902,10 @@
 "placepage_edit_bookmark_button" = "Επεξεργασία αγαπημένου";
 
 "placepage_bookmark_name_hint" = "Όνομα αγαπημένου";
+
+"placepage_personal_notes_hint" = "Προσωπικές σημειώσεις";
+
+"placepage_delete_bookmark_button" = "Διαγραφή αγαπημένου";
 
 "editor_edits_sent_message" = "Οι προτεινόμενες αλλαγές σας έχουν σταλεί";
 
@@ -923,6 +941,8 @@
 "editor_share_to_all_dialog_message_1" = "Βεβαιωθείτε ότι δεν έχετε εισάγει προσωπικά δεδομένα.";
 
 "editor_share_to_all_dialog_message_2" = "Θα ελέγξουμε τις αλλαγές. Εάν έχουμε οποιαδήποτε απορία θα επικοινωνήσουμε μαζί σας μέσω email.";
+
+"navigation_stop_button" = "stop";
 
 /* iOS dialog for the case when recent track recording is on and the app comes back from background */
 "recent_track_background_dialog_title" = "Θέλετε να απενεργοποιήσετε την καταγραφή της πρόσφατης διαδρομής σας;";
@@ -1024,6 +1044,8 @@
 
 "preloader_viator_button" = "Μάθετε περισσότερα";
 
+"start_from_my_position" = "Έναρξη από";
+
 "profile_authorization_error" = "Ωχ, παρουσιάστηκε σφάλμα. Προσπαθήστε να συνδεθείτε ξανά.";
 
 "dialog_error_storage_title" = "Πρόβλημα πρόσβασης στον αποθηκευτικό χώρο";
@@ -1070,6 +1092,8 @@
 "bookmarks_error_title_list_name_already_taken" = "Αυτό το όνομα έχει ήδη ληφθεί";
 
 "bookmarks_error_message_list_name_already_taken" = "Επιλέξτε άλλο όνομα";
+
+"bookmarks_error_title_list_name_too_long" = "Αυτό το όνομα είναι πολύ μεγάλο";
 
 "please_wait" = "Παρακαλώ περιμένετε…";
 
@@ -1139,6 +1163,8 @@
 
 "tags_loading_error_subtitle" = "Ένα σφάλμα συνέβη στο φόρτωμα των ετικετών, παρακαλώ ξαναπροσπαθήστε";
 
+"download_button" = "Κατέβασμα";
+
 "speedcams_alert_title" = "Κάμερες Ταχύτητας";
 
 "speedcam_option_auto" = "Αυτόματο";
@@ -1188,19 +1214,90 @@
 
 "change_driving_options_btn" = "Ρυθμίσεις δραστηριοποιούνται";
 
+"toll_road" = "Δρόμος με διόδια";
+
+"unpaved_road" = "Χωματόδρομος";
+
+"ferry_crossing" = "Πορθμείο";
+
 "avoid_toll_roads_placepage" = "Αποφυγή των δρόμων με διόδια";
 
 "avoid_unpaved_roads_placepage" = "Αποφυγή των χωματόδρομων";
 
 "avoid_ferry_crossing_placepage" = "Αποφυγή των πορθμείων";
 
+"trip_start" = "Πάμε";
+
+"pick_destination" = "Προορισμός";
+
+"follow_my_position" = "Επανατοποθέτηση";
+
+"search_results" = "Αποτελέσματα αναζήτησης";
+
+"then_turn" = "Μετά";
+
+"redirect_route_alert" = "Θα θέλατε να τροποποιήσετε τη διαδρομή;";
+
+"redirect_route_yes" = "Ναι";
+
+"redirect_route_no" = "Όχι";
+
+"trip_finished" = "Έχετε φτάσει!";
+
+"keyboard_availability_alert" = "Το πληκτρολόγιο δεν είναι διαθέσιμο κατά τη διάρκεια οδήγησης";
+
+"dialog_routing_change_start_carplay" = "Δεν είναι δυνατή η δημιουργία διαδρομής από την τρέχουσα τοποθεσία σας";
+
+"dialog_routing_change_end_carplay" = "Δεν είναι δυνατή η δημιουργία διαδρομής μέχρι τον προορισμό σας. Επιλέξτε ένα άλλο σημείο";
+
+"dialog_routing_check_gps_carplay" = "Δεν υπάρχει σήμα GPS. Μετακινήστε σε μια ανοικτή τοποθεσία";
+
+"dialog_routing_unable_locate_route_carplay" = "Δεν είναι δυνατή η δημιουργία διαδρομής. Επιλέξτε άλλα σημεία διαδρομής";
+
+"dialog_routing_download_files_carplay" = "Για να χτίσετε διαδρομή, κατεβάστε χάρτες που λείπουν στη συσκευή";
+
+"dialog_routing_system_error_carplay" = "Παρουσιάστηκε σφάλμα. Κάντε επανεκκίνηση της εφαρμογής";
+
+"dialog_routing_rebuild_from_current_location_carplay" = "Η διαδρομή θα ξαναδημιουργηθεί από την τρέχουσα τοποθεσία σας";
+
+"dialog_routing_rebuild_for_vehicle_carplay" = "Η διαδρομή θα αντικατασταθεί με τη διαδρομή με αυτοκίνητο";
+
 "ok" = "Καλώς";
+
+"avoid_unpaved_carplay_1" = "Χ/χωματόδρ.";
+
+"avoid_unpaved_carplay_2" = "Χ/χωματόδρομους";
+
+"avoid_ferry_carplay_1" = "Χ/πορθμεία";
+
+"avoid_ferry_carplay_2" = "Χωρίς πορθμεία";
+
+"avoid_tolls_carplay_1" = "Χωρίς διόδια";
+
+"avoid_tolls_carplay_2" = "Χωρίς διόδια";
+
+"speedcams_alert_title_carplay_1" = "Κάμερες";
+
+"speedcams_alert_title_carplay_2" = "Πληροφ. γιαόρια";
+
+"download_map_carplay" = "Κάντε λήψη χαρτών στην εφαρμογή Organic Maps στη συσκευή σας";
+
+"carplay_roundabout_exit" = "%s έξοδος";
 
 /* max. 10 symbols, both iOS and Android */
 "sort" = "Ταξινόμηση";
 
 /* Android, title, max 20-22 symbols */
 "sort_bookmarks" = "Ταξινόμηση σελιδοδ/τών";
+
+/* iOS */
+"sort_default" = "Ταξινόμηση κατά προεπιλογή";
+
+"sort_type" = "Ταξινόμηση ανά τύπο";
+
+"sort_distance" = "Ταξινόμηση κατά απόσταση";
+
+"sort_date" = "Ταξινόμηση κατά ημερομηνία";
 
 /* Android */
 "by_default" = "Προεπιλογή";
@@ -1214,7 +1311,51 @@
 /* Android */
 "by_date" = "Κατά ημερομηνία";
 
+"week_ago_sorttype" = "Μια βδομάδα πριν";
+
+"month_ago_sorttype" = "Ένας μήνας πριν";
+
+"moremonth_ago_sorttype" = "Περισσότερο από έναν μήνα πριν";
+
+"moreyear_ago_sorttype" = "Περισσότερο από ένα έτος πριν";
+
+"near_me_sorttype" = "Δίπλα μου";
+
+"others_sorttype" = "Άλλα";
+
+"food_places" = "Εστίαση";
+
+"tourist_places" = "Αξιοθέατα";
+
+"museums" = "Μουσεία";
+
+"parks" = "Πάρκα";
+
+"swim_places" = "Κολύμβηση";
+
+"mountains" = "Βουνά";
+
+"animals" = "Ζώα";
+
+"hotels" = "Διαμονή";
+
+"buildings" = "Κτήρια";
+
+"money" = "Χρήματα";
+
+"shops" = "Καταστήματα";
+
+"parkings" = "Χώροι στάθμευσης";
+
+"fuel_places" = "Πρατήρια βενζίνης";
+
+"water" = "Νερό";
+
+"medicine" = "Γιατρική βοήθεια";
+
 "search_in_the_list" = "Αναζήτηση στη λίστα";
+
+"religious_places" = "Άγιοι τόποι";
 
 "select_list" = "Επιλογή λίστας";
 
@@ -1232,6 +1373,12 @@
 
 "elevation_profile_diff_level" = "Επίπεδο δυσκολίας";
 
+"elevation_profile_diff_level_easy" = "Εύκολο";
+
+"elevation_profile_diff_level_moderate" = "Μέτριο";
+
+"elevation_profile_diff_level_hard" = "Δύσκολο";
+
 "elevation_profile_ascent" = "Άνοδος";
 
 "elevation_profile_descent" = "Κάθοδος";
@@ -1247,6 +1394,10 @@
 "elevation_profile_time" = "Διαρκ:";
 
 "isolines_toast_zooms_1_10" = "Μεγεθύνετε για να δείτε περιγράμματα";
+
+"downloader_updating_ios" = "Ενημέρωση";
+
+"downloader_loading_ios" = "Φόρτωση";
 
 "key_information_title" = "Βασικές πληροφορίες";
 

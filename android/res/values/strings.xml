@@ -73,6 +73,8 @@
 	<string name="bookmark_color">Bookmark Color</string>
 	<!-- Add Bookmark Set dialog - hint when set name is empty -->
 	<string name="bookmark_set_name">Bookmark Set Name</string>
+	<!-- Bookmark Sets dialog title -->
+	<string name="bookmark_sets">Bookmark Sets</string>
 	<!-- Bookmarks - dialog title -->
 	<string name="bookmarks">Bookmarks</string>
 	<!-- Default bookmarks set name -->
@@ -257,12 +259,15 @@
 	<string name="downloader_cancel_all">Cancel All</string>
 	<!-- Downloaded maps category -->
 	<string name="downloader_downloaded_subtitle">Downloaded</string>
+	<!-- Downloaded maps category -->
+	<string name="downloader_available_maps">Available</string>
 	<!-- Country queued for download -->
 	<string name="downloader_queued">Queued</string>
 	<string name="downloader_near_me_subtitle">Near me</string>
 	<string name="downloader_status_maps">Maps</string>
 	<string name="downloader_download_all_button">Download All</string>
 	<string name="downloader_downloading">Downloading:</string>
+	<string name="downloader_search_results">Found</string>
 	<!-- Status of outdated country in the list -->
 	<string name="downloader_status_outdated">Update</string>
 	<!-- Status of failed country in the list -->
@@ -498,6 +503,7 @@
 	<string name="editor_detailed_description">Your suggested map changes will be sent to the OpenStreetMap community. Describe any additional details that cannot be edited in Organic Maps.</string>
 	<string name="editor_more_about_osm">More about OpenStreetMap</string>
 	<string name="editor_operator">Owner</string>
+	<string name="downloader_my_maps_title">My maps</string>
 	<string name="downloader_no_downloaded_maps_title">You haven\'t downloaded any maps</string>
 	<string name="downloader_no_downloaded_maps_message">Download maps to search for a location and use navigation offline.</string>
 	<!-- Error title that appears after certain time without location. -->
@@ -516,8 +522,10 @@
 	<string name="location_services_disabled_3">3. Select While Using the App</string>
 	<string name="meter">m</string>
 	<string name="kilometer">km</string>
+	<string name="kilometers_per_hour">km/h</string>
 	<string name="mile">mi</string>
 	<string name="foot">ft</string>
+	<string name="miles_per_hour">mph</string>
 	<string name="hour">h</string>
 	<string name="minute">min</string>
 	<string name="placepage_place_description">Description</string>
@@ -527,6 +535,8 @@
 	<string name="placepage_call_button">Call</string>
 	<string name="placepage_edit_bookmark_button">Edit Bookmark</string>
 	<string name="placepage_bookmark_name_hint">Bookmark Name</string>
+	<string name="placepage_personal_notes_hint">Personal notes</string>
+	<string name="placepage_delete_bookmark_button">Delete Bookmark</string>
 	<string name="editor_edits_sent_message">Your suggested changes have been sent</string>
 	<string name="editor_comment_hint">Comment…</string>
 	<string name="editor_reset_edits_message">Discard all local changes?</string>
@@ -546,6 +556,7 @@
 	<!-- iOS Dialog before publishing the modifications to the public map. -->
 	<string name="editor_share_to_all_dialog_message_1">Make sure you did not enter any personal data.</string>
 	<string name="editor_share_to_all_dialog_message_2">We will check the changes. If we have any questions we will contact you via email.</string>
+	<string name="navigation_stop_button">stop</string>
 	<!-- iOS dialog for the case when recent track recording is on and the app comes back from background -->
 	<string name="recent_track_background_dialog_title">Disable recording of your recently traveled route?</string>
 	<string name="off_recent_track_background_button">Disable</string>
@@ -602,6 +613,7 @@
 	<string name="planning_route_remove_title">Drag here to remove</string>
 	<string name="placepage_add_stop">Add Stop</string>
 	<string name="preloader_viator_button">Learn more</string>
+	<string name="start_from_my_position">Start from</string>
 	<string name="profile_authorization_error">Oops, there was an error. Try to sign in again.</string>
 	<string name="dialog_error_storage_title">Storage access problem</string>
 	<string name="dialog_error_storage_message">External storage is not accessible. The SD Card may have been removed, damaged, or the file system is read-only. Please, check your SD Card or contact us at support\@organicmaps.app</string>
@@ -611,6 +623,10 @@
 	<string name="bookmarks_groups">Lists</string>
 	<string name="bookmarks_groups_hide_all">Hide all</string>
 	<string name="bookmarks_groups_show_all">Show all</string>
+	<plurals name="bookmarks_places">
+	  <item quantity="one">%d bookmark</item>
+	  <item quantity="other">%d bookmarks</item>
+	</plurals>
 	<string name="bookmarks_create_new_group">Create new list</string>
 	<!-- Bookmark categories screen -->
 	<string name="bookmarks_import">Import bookmarks</string>
@@ -626,6 +642,7 @@
 	<string name="bookmarks_new_list_hint">New list</string>
 	<string name="bookmarks_error_title_list_name_already_taken">This name is already taken</string>
 	<string name="bookmarks_error_message_list_name_already_taken">Please choose another name</string>
+	<string name="bookmarks_error_title_list_name_too_long">This name is too long</string>
 	<string name="please_wait">Please wait…</string>
 	<string name="profile">OpenStreetMap profile</string>
 	<string name="place_page_search_similar_hotel">Search similar hotels</string>
@@ -676,6 +693,7 @@
 	<string name="bookmark_category_description_hint">Type a description (text or html)</string>
 	<string name="not_shared">Private</string>
 	<string name="tags_loading_error_subtitle">An error occurred while loading tags, please try again</string>
+	<string name="download_button">Download</string>
 	<string name="speedcams_alert_title">Speed cameras</string>
 	<string name="speedcam_option_auto">Auto</string>
 	<string name="speedcam_option_always">Always</string>
@@ -701,14 +719,50 @@
 	<string name="unable_to_calc_alert_subtitle">Unfortunately, we couldn\'t find a route, probably due to the options you have chosen. Please change the settings and try again.</string>
 	<string name="define_to_avoid_btn">Define roads to avoid</string>
 	<string name="change_driving_options_btn">Routing options enabled</string>
+	<string name="toll_road">Toll road</string>
+	<string name="unpaved_road">Unpaved road</string>
+	<string name="ferry_crossing">Ferry crossing</string>
 	<string name="avoid_toll_roads_placepage">Avoid toll roads</string>
 	<string name="avoid_unpaved_roads_placepage">Avoid unpaved roads</string>
 	<string name="avoid_ferry_crossing_placepage">Avoid ferry crossings</string>
+	<string name="trip_start">Let\'s go</string>
+	<string name="pick_destination">Destination</string>
+	<string name="follow_my_position">Re-center</string>
+	<string name="search_results">Search results</string>
+	<string name="then_turn">Then</string>
+	<string name="redirect_route_alert">Do you want to rebuild the route?</string>
+	<string name="redirect_route_yes">Yes</string>
+	<string name="redirect_route_no">No</string>
+	<string name="trip_finished">You have arrived!</string>
+	<string name="keyboard_availability_alert">Keyboard is not available while driving</string>
+	<string name="dialog_routing_change_start_carplay">Unable to build a route from your current location</string>
+	<string name="dialog_routing_change_end_carplay">Unable to build a route to your destination. Please choose another point</string>
+	<string name="dialog_routing_check_gps_carplay">No GPS signal. Please move to an open area</string>
+	<string name="dialog_routing_unable_locate_route_carplay">Unable to build a route. Please specify other route points</string>
+	<string name="dialog_routing_download_files_carplay">To create a route, download missing maps on your device</string>
+	<string name="dialog_routing_system_error_carplay">An error occurred. Please restart the application</string>
+	<string name="dialog_routing_rebuild_from_current_location_carplay">The route will be rebuilt from your current location</string>
+	<string name="dialog_routing_rebuild_for_vehicle_carplay">The route will be converted into an automobile one</string>
 	<string name="ok">Ok</string>
+	<string name="avoid_unpaved_carplay_1">No dirt road</string>
+	<string name="avoid_unpaved_carplay_2">Avoid unpaved</string>
+	<string name="avoid_ferry_carplay_1">No ferries</string>
+	<string name="avoid_ferry_carplay_2">Avoid ferries</string>
+	<string name="avoid_tolls_carplay_1">No toll road</string>
+	<string name="avoid_tolls_carplay_2">Avoid toll road</string>
+	<string name="speedcams_alert_title_carplay_1">Speedсams</string>
+	<string name="speedcams_alert_title_carplay_2">Speed warnings</string>
+	<string name="download_map_carplay">Please download maps in Organic Maps app on your device</string>
+	<string name="carplay_roundabout_exit">%s exit</string>
 	<!-- max. 10 symbols, both iOS and Android -->
 	<string name="sort">Sort…</string>
 	<!-- Android, title, max 20-22 symbols -->
 	<string name="sort_bookmarks">Sort bookmarks</string>
+	<!-- iOS -->
+	<string name="sort_default">Sort by default</string>
+	<string name="sort_type">Sort by type</string>
+	<string name="sort_distance">Sort by distance</string>
+	<string name="sort_date">Sort by date</string>
 	<!-- Android -->
 	<string name="by_default">By default</string>
 	<!-- Android -->
@@ -717,7 +771,29 @@
 	<string name="by_distance">By distance</string>
 	<!-- Android -->
 	<string name="by_date">By date</string>
+	<string name="week_ago_sorttype">A week ago</string>
+	<string name="month_ago_sorttype">A month ago</string>
+	<string name="moremonth_ago_sorttype">More than a month ago</string>
+	<string name="moreyear_ago_sorttype">More than a year ago</string>
+	<string name="near_me_sorttype">Near me</string>
+	<string name="others_sorttype">Others</string>
+	<string name="food_places">Food</string>
+	<string name="tourist_places">Sights</string>
+	<string name="museums">Museums</string>
+	<string name="parks">Parks</string>
+	<string name="swim_places">Swim</string>
+	<string name="mountains">Mountains</string>
+	<string name="animals">Animals</string>
+	<string name="hotels">Hotels</string>
+	<string name="buildings">Buildings</string>
+	<string name="money">Money</string>
+	<string name="shops">Shops</string>
+	<string name="parkings">Parkings</string>
+	<string name="fuel_places">Gas stations</string>
+	<string name="water">Water</string>
+	<string name="medicine">Medicine</string>
 	<string name="search_in_the_list">Search in the list</string>
+	<string name="religious_places">Religious places</string>
 	<string name="select_list">Select list</string>
 	<string name="transit_not_found">Subway navigation in this region is not available yet</string>
 	<string name="dialog_pedestrian_route_is_long_header">Subway route is not found</string>
@@ -726,6 +802,9 @@
 	<string name="isolines_activation_error_dialog">To activate and use the topographic layer please update or download the map of the area</string>
 	<string name="isolines_location_error_dialog">The topographic layer is not yet available in this area</string>
 	<string name="elevation_profile_diff_level">Difficulty level</string>
+	<string name="elevation_profile_diff_level_easy">Easy</string>
+	<string name="elevation_profile_diff_level_moderate">Moderate</string>
+	<string name="elevation_profile_diff_level_hard">Hard</string>
 	<string name="elevation_profile_ascent">Ascent</string>
 	<string name="elevation_profile_descent">Descent</string>
 	<string name="elevation_profile_minaltitude">Min. altitude</string>
@@ -734,6 +813,8 @@
 	<string name="elevation_profile_distance">Dist.:</string>
 	<string name="elevation_profile_time">Time:</string>
 	<string name="isolines_toast_zooms_1_10">Zoom in to explore isolines</string>
+	<string name="downloader_updating_ios">Updating</string>
+	<string name="downloader_loading_ios">Downloading</string>
 	<string name="key_information_title">Key information</string>
 	<string name="download_map_title">Download the world map</string>
 	<string name="connection_failure">Connection failure</string>

@@ -117,6 +117,9 @@
 /* Add Bookmark Set dialog - hint when set name is empty */
 "bookmark_set_name" = "Meno záložky";
 
+/* Bookmark Sets dialog title */
+"bookmark_sets" = "Skupiny záložiek";
+
 /* Bookmarks - dialog title */
 "bookmarks" = "Záložky";
 
@@ -400,6 +403,9 @@
 /* Downloaded maps category */
 "downloader_downloaded_subtitle" = "Stiahnuté";
 
+/* Downloaded maps category */
+"downloader_available_maps" = "Dostupné";
+
 /* Country queued for download */
 "downloader_queued" = "V rade";
 
@@ -410,6 +416,8 @@
 "downloader_download_all_button" = "Stiahnuť všetko";
 
 "downloader_downloading" = "Sťahovanie:";
+
+"downloader_search_results" = "Nájdených";
 
 /* Status of outdated country in the list */
 "downloader_status_outdated" = "Aktualizácia";
@@ -834,6 +842,8 @@
 
 "editor_operator" = "Prevádzkovateľ";
 
+"downloader_my_maps_title" = "Moje mapy";
+
 "downloader_no_downloaded_maps_title" = "Neprevzali ste žiadne mapy";
 
 "downloader_no_downloaded_maps_message" = "Prevziať mapy na nájdenie pozície a navigovanie off-line.";
@@ -867,9 +877,13 @@
 
 "kilometer" = "km";
 
+"kilometers_per_hour" = "km/h";
+
 "mile" = "mi";
 
 "foot" = "stopa";
+
+"miles_per_hour" = "mph";
 
 "hour" = "hod";
 
@@ -888,6 +902,10 @@
 "placepage_edit_bookmark_button" = "Upraviť záložku";
 
 "placepage_bookmark_name_hint" = "Názov záložky";
+
+"placepage_personal_notes_hint" = "Osobné poznámky";
+
+"placepage_delete_bookmark_button" = "Zmazať záložku";
 
 "editor_edits_sent_message" = "Vykonali sa vami odporúčané zmeny";
 
@@ -923,6 +941,8 @@
 "editor_share_to_all_dialog_message_1" = "Nezadávajte žiadne osobné udaje.";
 
 "editor_share_to_all_dialog_message_2" = "Skontrolujeme zmeny. V prípade otázok vás budeme kontaktovať emailom.";
+
+"navigation_stop_button" = "stop";
 
 /* iOS dialog for the case when recent track recording is on and the app comes back from background */
 "recent_track_background_dialog_title" = "Znemožniť nahrávanie vami nedávno precestovanej trasy?";
@@ -1024,6 +1044,8 @@
 
 "preloader_viator_button" = "Zistiť viac";
 
+"start_from_my_position" = "Začať od";
+
 "profile_authorization_error" = "Ups, vyskytla sa chyba. Skúste sa prihlásiť znova.";
 
 "dialog_error_storage_title" = "Problém s prístupom k úložisku";
@@ -1070,6 +1092,8 @@
 "bookmarks_error_title_list_name_already_taken" = "Tento názov už bol prijatý";
 
 "bookmarks_error_message_list_name_already_taken" = "Vyberte iné meno";
+
+"bookmarks_error_title_list_name_too_long" = "Tento názov je príliš dlhý";
 
 "please_wait" = "Prosím čakajte…";
 
@@ -1139,6 +1163,8 @@
 
 "tags_loading_error_subtitle" = "Počas načítavania značiek sa vyskytla chyba, skúste to znova";
 
+"download_button" = "Stiahnuť";
+
 "speedcams_alert_title" = "Rýchlostné kamery";
 
 "speedcam_option_auto" = "Automaticky";
@@ -1188,19 +1214,90 @@
 
 "change_driving_options_btn" = "Možnosti trasy povolené";
 
+"toll_road" = "Spoplatnená cesta";
+
+"unpaved_road" = "Nespevnená cesta";
+
+"ferry_crossing" = "Prechod trajektom";
+
 "avoid_toll_roads_placepage" = "Vyhnúť sa spoplatneným cestám";
 
 "avoid_unpaved_roads_placepage" = "Vyhnúť sa nespevneným cestám";
 
 "avoid_ferry_crossing_placepage" = "Vyhnúť sa prechodom na trajekte";
 
+"trip_start" = "Poďme";
+
+"pick_destination" = "Cieľ";
+
+"follow_my_position" = "Vycentrovať";
+
+"search_results" = "Výsledky vyhľadávania";
+
+"then_turn" = "Potom";
+
+"redirect_route_alert" = "Chcete znova vytvoriť trasu?";
+
+"redirect_route_yes" = "Áno";
+
+"redirect_route_no" = "Nie";
+
+"trip_finished" = "Prišli ste do cieľa!";
+
+"keyboard_availability_alert" = "Počas jazdy nie je klávesnica k dispozícii";
+
+"dialog_routing_change_start_carplay" = "Z vašej aktuálnej polohy nie je možné vytvoriť trasu";
+
+"dialog_routing_change_end_carplay" = "Nie je možné vytvoriť trasu do cieľa. Prosím vyberte iný bod";
+
+"dialog_routing_check_gps_carplay" = "Žiaden GPS signál. Presuňte sa na otvorené priestranstvo";
+
+"dialog_routing_unable_locate_route_carplay" = "Nie je možné vytvoriť trasu. Prosím zadajte iné body trasy";
+
+"dialog_routing_download_files_carplay" = "Pre vytvorenie trasy si stiahnite do zariadenia chýbajúce mapy";
+
+"dialog_routing_system_error_carplay" = "Vyskytla sa chyba. Prosím reštartujte aplikáciu";
+
+"dialog_routing_rebuild_from_current_location_carplay" = "Trasa bude obnovená z vašej aktuálnej polohy";
+
+"dialog_routing_rebuild_for_vehicle_carplay" = "Trasa bude upravená na jazdu autom";
+
 "ok" = "Ok";
+
+"avoid_unpaved_carplay_1" = "Nespevn. NIE";
+
+"avoid_unpaved_carplay_2" = "Nespevnené ÁNO";
+
+"avoid_ferry_carplay_1" = "Trajekty NIE";
+
+"avoid_ferry_carplay_2" = "Trajekty ÁNO";
+
+"avoid_tolls_carplay_1" = "Spoplat. NIE";
+
+"avoid_tolls_carplay_2" = "Spoplatnené ÁNO";
+
+"speedcams_alert_title_carplay_1" = "Radary";
+
+"speedcams_alert_title_carplay_2" = "Rýchl. upozorn.";
+
+"download_map_carplay" = "Prosím stiahnite si mapy v aplikácii Organic Maps vo vašom zariadení";
+
+"carplay_roundabout_exit" = "%s výjazd";
 
 /* max. 10 symbols, both iOS and Android */
 "sort" = "Zoradiť…";
 
 /* Android, title, max 20-22 symbols */
 "sort_bookmarks" = "Zoradiť záložky";
+
+/* iOS */
+"sort_default" = "Zoradiť Predvolené";
+
+"sort_type" = "Zoradiť podľa typu";
+
+"sort_distance" = "Zoradiť podľa vzdialenosti";
+
+"sort_date" = "Zoradiť podľa dátumu";
 
 /* Android */
 "by_default" = "Podľa predvoleného";
@@ -1214,7 +1311,51 @@
 /* Android */
 "by_date" = "Podľa dátumu";
 
+"week_ago_sorttype" = "Pred týždňom";
+
+"month_ago_sorttype" = "Pred mesiacom";
+
+"moremonth_ago_sorttype" = "Pred viac ako mesiacom";
+
+"moreyear_ago_sorttype" = "Pred viac ako rokom";
+
+"near_me_sorttype" = "Blízko mňa";
+
+"others_sorttype" = "Iné";
+
+"food_places" = "Jedlo";
+
+"tourist_places" = "Pamiatky";
+
+"museums" = "Múzeá";
+
+"parks" = "Parky";
+
+"swim_places" = "Plávanie";
+
+"mountains" = "Hory";
+
+"animals" = "Zvieratá";
+
+"hotels" = "Hotely";
+
+"buildings" = "Budovy";
+
+"money" = "Peniaze";
+
+"shops" = "Obchody";
+
+"parkings" = "Parkovanie";
+
+"fuel_places" = "Čerpacie stanice";
+
+"water" = "Voda";
+
+"medicine" = "Medicína";
+
 "search_in_the_list" = "Vyhľadať v zozname";
+
+"religious_places" = "Náboženské miesta";
 
 "select_list" = "Vybrať zoznam";
 
@@ -1232,6 +1373,12 @@
 
 "elevation_profile_diff_level" = "Level obtiažnosti";
 
+"elevation_profile_diff_level_easy" = "Jednoduchá";
+
+"elevation_profile_diff_level_moderate" = "Mierna";
+
+"elevation_profile_diff_level_hard" = "Náročná";
+
 "elevation_profile_ascent" = "Výstup";
 
 "elevation_profile_descent" = "Zostup";
@@ -1247,6 +1394,10 @@
 "elevation_profile_time" = "Čas:";
 
 "isolines_toast_zooms_1_10" = "Priblížením preskúmajte izočiary";
+
+"downloader_updating_ios" = "Aktualizovanie";
+
+"downloader_loading_ios" = "Sťahovanie";
 
 "key_information_title" = "Kľúčová informácia";
 

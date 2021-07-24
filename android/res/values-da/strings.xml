@@ -72,6 +72,8 @@
 	<string name="bookmark_color">Bogmærke Farve</string>
 	<!-- Add Bookmark Set dialog - hint when set name is empty -->
 	<string name="bookmark_set_name">Indstil bogmærkenavn</string>
+	<!-- Bookmark Sets dialog title -->
+	<string name="bookmark_sets">Bogmærk sæt</string>
 	<!-- Bookmarks - dialog title -->
 	<string name="bookmarks">Bogmærker</string>
 	<!-- Default bookmarks set name -->
@@ -237,12 +239,15 @@
 	<string name="downloader_cancel_all">Aflys Alt</string>
 	<!-- Downloaded maps category -->
 	<string name="downloader_downloaded_subtitle">Downloadet</string>
+	<!-- Downloaded maps category -->
+	<string name="downloader_available_maps">Tilgængelige</string>
 	<!-- Country queued for download -->
 	<string name="downloader_queued">I kø</string>
 	<string name="downloader_near_me_subtitle">I nærheden</string>
 	<string name="downloader_status_maps">Kort</string>
 	<string name="downloader_download_all_button">Download alle</string>
 	<string name="downloader_downloading">Downloader:</string>
+	<string name="downloader_search_results">Fundet</string>
 	<!-- Status of outdated country in the list -->
 	<string name="downloader_status_outdated">Opdater</string>
 	<!-- Status of failed country in the list -->
@@ -476,6 +481,7 @@
 	<string name="editor_detailed_description">Dine foreslåede ændringer vil blive sendt til OpenStreetMap fællesskabet. Beskrive detaljer, som ikke kan redigeres i Organic Maps.</string>
 	<string name="editor_more_about_osm">Mere om OpenStreetMap</string>
 	<string name="editor_operator">Bruger</string>
+	<string name="downloader_my_maps_title">Mine kort</string>
 	<string name="downloader_no_downloaded_maps_title">Du har ikke hentet alle kort</string>
 	<string name="downloader_no_downloaded_maps_message">Download kort for at finde position og navigere offline.</string>
 	<!-- Error title that appears after certain time without location. -->
@@ -494,8 +500,10 @@
 	<string name="location_services_disabled_3">3. Vælg Mens app\'en bruges</string>
 	<string name="meter">m</string>
 	<string name="kilometer">km</string>
+	<string name="kilometers_per_hour">km/t</string>
 	<string name="mile">mil</string>
 	<string name="foot">fod</string>
+	<string name="miles_per_hour">mph</string>
 	<string name="hour">time</string>
 	<string name="minute">min</string>
 	<string name="placepage_place_description">Beskrivelse</string>
@@ -505,6 +513,8 @@
 	<string name="placepage_call_button">Ring</string>
 	<string name="placepage_edit_bookmark_button">Rediger bogmærke</string>
 	<string name="placepage_bookmark_name_hint">Bogmærke</string>
+	<string name="placepage_personal_notes_hint">Personlige notater</string>
+	<string name="placepage_delete_bookmark_button">Slet bogmærke</string>
 	<string name="editor_edits_sent_message">Dine foreslåede ændringer er blevet sendt</string>
 	<string name="editor_comment_hint">Kommentar…</string>
 	<string name="editor_reset_edits_message">Nulstil alle lokale ændringer?</string>
@@ -524,6 +534,7 @@
 	<!-- iOS Dialog before publishing the modifications to the public map. -->
 	<string name="editor_share_to_all_dialog_message_1">Sørg for at du ikke indtastede personlige oplysninger.</string>
 	<string name="editor_share_to_all_dialog_message_2">Vi vil kigge på ændringerne. Hvis vi har spørgsmål, vil vi kontakte dig via email.</string>
+	<string name="navigation_stop_button">stop</string>
 	<!-- iOS dialog for the case when recent track recording is on and the app comes back from background -->
 	<string name="recent_track_background_dialog_title">Vil du deaktivere gemningen af din seneste rejserute?</string>
 	<string name="off_recent_track_background_button">Deaktiver</string>
@@ -580,6 +591,7 @@
 	<string name="planning_route_remove_title">Træk herhen for at fjerne</string>
 	<string name="placepage_add_stop">Tilføj stop</string>
 	<string name="preloader_viator_button">Flere oplysninger</string>
+	<string name="start_from_my_position">Start fra</string>
 	<string name="profile_authorization_error">Ups, der skete en fejl. Prøv at logge på igen.</string>
 	<string name="dialog_error_storage_title">Problem med lageradgang</string>
 	<string name="dialog_error_storage_message">Eksternt lager er ikke tilgængeligt, formentlig er SD-kortet blevet fjernet eller beskadiget, eller filsystemet er skrivebeskyttet. Kontroller det og kontakt os på support\@organicmaps.app</string>
@@ -589,6 +601,9 @@
 	<string name="bookmarks_groups">Lister</string>
 	<string name="bookmarks_groups_hide_all">Skjul alle</string>
 	<string name="bookmarks_groups_show_all">Vis alle</string>
+	<plurals name="bookmarks_places">
+	  <item quantity="other">%d bogmærker</item>
+	</plurals>
 	<string name="bookmarks_create_new_group">Opret ny liste</string>
 	<string name="downloader_hide_screen">Skjul skærm</string>
 	<string name="downloader_percent">%1$s (%2$s af %3$s)</string>
@@ -602,6 +617,7 @@
 	<string name="bookmarks_new_list_hint">Ny liste</string>
 	<string name="bookmarks_error_title_list_name_already_taken">Dette navn er allerede taget</string>
 	<string name="bookmarks_error_message_list_name_already_taken">Vælg venligst et andet navn</string>
+	<string name="bookmarks_error_title_list_name_too_long">Dette navn er for langt</string>
 	<string name="please_wait">Vent venligst…</string>
 	<string name="profile">OpenStreetMap profil</string>
 	<string name="place_page_search_similar_hotel">Søg lignende hoteller</string>
@@ -648,6 +664,7 @@
 	<string name="bookmark_category_description_hint">Lav en beskrivelse (tekst eller html)</string>
 	<string name="not_shared">Privat</string>
 	<string name="tags_loading_error_subtitle">Der skete en fejl under hentning af tags, prøv igen</string>
+	<string name="download_button">Download</string>
 	<string name="speedcams_alert_title">Fartkameraer</string>
 	<string name="speedcam_option_auto">Auto</string>
 	<string name="speedcam_option_always">Altid</string>
@@ -673,14 +690,50 @@
 	<string name="unable_to_calc_alert_subtitle">Desværre kunne vi ikke finde en rute med den aktuelle opsætning. Ændre opsætningen, og prøv igen</string>
 	<string name="define_to_avoid_btn">Definer veje du vil undgå</string>
 	<string name="change_driving_options_btn">Køre muligheder aktiveret</string>
+	<string name="toll_road">Betalingsvej</string>
+	<string name="unpaved_road">Grusvej</string>
+	<string name="ferry_crossing">Færgeoverfart</string>
 	<string name="avoid_toll_roads_placepage">Undgå betalingsveje</string>
 	<string name="avoid_unpaved_roads_placepage">Undgå grusveje</string>
 	<string name="avoid_ferry_crossing_placepage">Undgå færgeoverfarter</string>
+	<string name="trip_start">Lad os komme i gang</string>
+	<string name="pick_destination">Destination</string>
+	<string name="follow_my_position">Centrer igen</string>
+	<string name="search_results">Søgeresultater</string>
+	<string name="then_turn">Derefter</string>
+	<string name="redirect_route_alert">Vil du genopbygge en rute igen?</string>
+	<string name="redirect_route_yes">Ja</string>
+	<string name="redirect_route_no">Nej</string>
+	<string name="trip_finished">Du er ankommet!</string>
+	<string name="keyboard_availability_alert">Keyboard er ikke tilgængelig under kørsel</string>
+	<string name="dialog_routing_change_start_carplay">Det er ikke muligt at beregne rute fra din nuværende position</string>
+	<string name="dialog_routing_change_end_carplay">Det er ikke muligt at beregne rute til din destination. Vælg en anden destination</string>
+	<string name="dialog_routing_check_gps_carplay">Intet GPS signal. Flyt til et område med dækning</string>
+	<string name="dialog_routing_unable_locate_route_carplay">Det er ikke muligt at beregne rute. Vælg andre forbindelses-punkter for ruten</string>
+	<string name="dialog_routing_download_files_carplay">Download manglende kort til din enhed, for at lave ruten</string>
+	<string name="dialog_routing_system_error_carplay">Der opstod en fejl. Genstart programmet</string>
+	<string name="dialog_routing_rebuild_from_current_location_carplay">Rute vil blive beregnet igen, ud fra din nuværende position</string>
+	<string name="dialog_routing_rebuild_for_vehicle_carplay">Rute vil blive ændret til en kørselsrute</string>
 	<string name="ok">Ok</string>
+	<string name="avoid_unpaved_carplay_1">Ingen grus</string>
+	<string name="avoid_unpaved_carplay_2">Undgå grus</string>
+	<string name="avoid_ferry_carplay_1">Ingen færger</string>
+	<string name="avoid_ferry_carplay_2">Undgå færger</string>
+	<string name="avoid_tolls_carplay_1">Ingen betal.</string>
+	<string name="avoid_tolls_carplay_2">Undgå betaling</string>
+	<string name="speedcams_alert_title_carplay_1">Radarkontrol</string>
+	<string name="speedcams_alert_title_carplay_2">Radar advarsel</string>
+	<string name="download_map_carplay">Download kort i Organic Maps appen, på din enhed</string>
+	<string name="carplay_roundabout_exit">%s exit</string>
 	<!-- max. 10 symbols, both iOS and Android -->
 	<string name="sort">Sort…</string>
 	<!-- Android, title, max 20-22 symbols -->
 	<string name="sort_bookmarks">Sort (bookmaarks)</string>
+	<!-- iOS -->
+	<string name="sort_default">Sortér (std)</string>
+	<string name="sort_type">Sort (type)</string>
+	<string name="sort_distance">Sort (Afs)</string>
+	<string name="sort_date">Sort (dato)</string>
 	<!-- Android -->
 	<string name="by_default">Som standard</string>
 	<!-- Android -->
@@ -689,7 +742,29 @@
 	<string name="by_distance">Efter afstand</string>
 	<!-- Android -->
 	<string name="by_date">Efter dato</string>
+	<string name="week_ago_sorttype">En uge siden</string>
+	<string name="month_ago_sorttype">En måned siden</string>
+	<string name="moremonth_ago_sorttype">Mere end en måned siden</string>
+	<string name="moreyear_ago_sorttype">Mere end et år siden</string>
+	<string name="near_me_sorttype">I nærheden</string>
+	<string name="others_sorttype">Andre</string>
+	<string name="food_places">Mad</string>
+	<string name="tourist_places">Seværdigheder</string>
+	<string name="museums">Museer</string>
+	<string name="parks">Parker</string>
+	<string name="swim_places">Svøm</string>
+	<string name="mountains">Bjerge</string>
+	<string name="animals">Dyr</string>
+	<string name="hotels">Hoteller</string>
+	<string name="buildings">Bygninger</string>
+	<string name="money">Penge</string>
+	<string name="shops">Butikker</string>
+	<string name="parkings">Parkering</string>
+	<string name="fuel_places">Benzintankstationer</string>
+	<string name="water">Vand</string>
+	<string name="medicine">Medicin</string>
 	<string name="search_in_the_list">Søg i listen</string>
+	<string name="religious_places">Religiøse steder</string>
 	<string name="select_list">Væg liste</string>
 	<string name="transit_not_found">Metro-navigation er endnu ikke tilgængelig i denne region</string>
 	<string name="dialog_pedestrian_route_is_long_header">Metro-rute blev ikke fundet</string>
@@ -698,6 +773,9 @@
 	<string name="isolines_activation_error_dialog">For at aktivere og bruge de topografiske lag, opdater venligst eller download kortet for området</string>
 	<string name="isolines_location_error_dialog">Det topografiske lag er endnu ikke tilgængeligt i dette område</string>
 	<string name="elevation_profile_diff_level">Sværhedsgrad</string>
+	<string name="elevation_profile_diff_level_easy">Let</string>
+	<string name="elevation_profile_diff_level_moderate">Middel</string>
+	<string name="elevation_profile_diff_level_hard">Svær</string>
 	<string name="elevation_profile_ascent">Stige op</string>
 	<string name="elevation_profile_descent">Stige ned</string>
 	<string name="elevation_profile_minaltitude">Min. højde</string>
@@ -706,6 +784,8 @@
 	<string name="elevation_profile_distance">Afs.:</string>
 	<string name="elevation_profile_time">Tid:</string>
 	<string name="isolines_toast_zooms_1_10">Zoom ind for at udforske isolinjekort</string>
+	<string name="downloader_updating_ios">Opdaterer</string>
+	<string name="downloader_loading_ios">Downloader</string>
 	<string name="key_information_title">Central information</string>
 	<string name="enable_screen_sleep">Lad skærmen sove</string>
 	<!-- Description in preferences -->

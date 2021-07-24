@@ -117,6 +117,9 @@
 /* Add Bookmark Set dialog - hint when set name is empty */
 "bookmark_set_name" = "Yer İmi Adını Ayarla";
 
+/* Bookmark Sets dialog title */
+"bookmark_sets" = "Yer İmi Ayarları";
+
 /* Bookmarks - dialog title */
 "bookmarks" = "Yer İmleri";
 
@@ -400,6 +403,9 @@
 /* Downloaded maps category */
 "downloader_downloaded_subtitle" = "İndirildi";
 
+/* Downloaded maps category */
+"downloader_available_maps" = "Mevcut";
+
 /* Country queued for download */
 "downloader_queued" = "Sıraya alındı";
 
@@ -410,6 +416,8 @@
 "downloader_download_all_button" = "Hepsini indir";
 
 "downloader_downloading" = "İndiriliyor:";
+
+"downloader_search_results" = "Bulundu";
 
 /* Status of outdated country in the list */
 "downloader_status_outdated" = "Güncelle";
@@ -834,6 +842,8 @@
 
 "editor_operator" = "İşletmeci";
 
+"downloader_my_maps_title" = "Haritalarım";
+
 "downloader_no_downloaded_maps_title" = "Hiç harita indirmediniz";
 
 "downloader_no_downloaded_maps_message" = "Çevrimdışı olarak adres bulmak ve gezinmek için haritaları indirin.";
@@ -867,9 +877,13 @@
 
 "kilometer" = "km";
 
+"kilometers_per_hour" = "km/s";
+
 "mile" = "mil";
 
 "foot" = "fit";
+
+"miles_per_hour" = "mph";
 
 "hour" = "sa";
 
@@ -888,6 +902,10 @@
 "placepage_edit_bookmark_button" = "Yer İmini Düzenle";
 
 "placepage_bookmark_name_hint" = "Yer İmi Adı";
+
+"placepage_personal_notes_hint" = "Kişisel notlar";
+
+"placepage_delete_bookmark_button" = "Yer İmini Sil";
 
 "editor_edits_sent_message" = "Önerdiğiniz değişiklikler gönderildi";
 
@@ -923,6 +941,8 @@
 "editor_share_to_all_dialog_message_1" = "Herhangi bir kişisel bilgi girmediğinizden emin olun.";
 
 "editor_share_to_all_dialog_message_2" = "Değişikliği kontrol edeceğiz. Eğer herhangi bir sorumuz olursa sizinle e-posta aracılığıyla temasa geçeceğiz.";
+
+"navigation_stop_button" = "dur";
 
 /* iOS dialog for the case when recent track recording is on and the app comes back from background */
 "recent_track_background_dialog_title" = "En son seyahat edilen rotanızı kaydetmeyi devre dışı bırakmak istiyor musunuz?";
@@ -1024,6 +1044,8 @@
 
 "preloader_viator_button" = "Daha fazla bilgi edinin";
 
+"start_from_my_position" = "Buradan başla";
+
 "profile_authorization_error" = "Üzgünüz, bir hata oluştu. Tekrar oturum açmayı deneyin.";
 
 "dialog_error_storage_title" = "Depolama alanı erişim sorunu";
@@ -1070,6 +1092,8 @@
 "bookmarks_error_title_list_name_already_taken" = "Bu isim zaten alınmış";
 
 "bookmarks_error_message_list_name_already_taken" = "Lütfen başka bir isim seçiniz";
+
+"bookmarks_error_title_list_name_too_long" = "Bu isim çok uzun";
 
 "please_wait" = "Lütfen bekle…";
 
@@ -1139,6 +1163,8 @@
 
 "tags_loading_error_subtitle" = "Etiketler yüklenirken bir hata oluştu, lütfen tekrar deneyin";
 
+"download_button" = "İndir";
+
 "speedcams_alert_title" = "Hız kameraları";
 
 "speedcam_option_auto" = "Otomatik";
@@ -1188,19 +1214,90 @@
 
 "change_driving_options_btn" = "Sürüş seçenekleri etkinleştirildi";
 
+"toll_road" = "Paralı yol";
+
+"unpaved_road" = "Asfaltsız yol";
+
+"ferry_crossing" = "Feribot geçişi";
+
 "avoid_toll_roads_placepage" = "Paralı yollardan kaçın";
 
 "avoid_unpaved_roads_placepage" = "Asfaltsız yollardan kaçın";
 
 "avoid_ferry_crossing_placepage" = "Feribot geçişlerinden kaçın";
 
+"trip_start" = "Hadi gidelim";
+
+"pick_destination" = "Hedef";
+
+"follow_my_position" = "Tekrar ortala";
+
+"search_results" = "Arama sonuçları";
+
+"then_turn" = "Sonra";
+
+"redirect_route_alert" = "Yeniden bir rota oluşturmak ister misiniz?";
+
+"redirect_route_yes" = "Evet";
+
+"redirect_route_no" = "Hayır";
+
+"trip_finished" = "Vardınız!";
+
+"keyboard_availability_alert" = "Klavye, sürüş sırasında kullanılamaz";
+
+"dialog_routing_change_start_carplay" = "Mevcut konumunuzdan rota oluşturulamıyor";
+
+"dialog_routing_change_end_carplay" = "Hedefinize rota oluşturulamıyor. Lütfen başka bir nokta seçin";
+
+"dialog_routing_check_gps_carplay" = "GPS sinyali yok. Lütfen açık bir alana geçin";
+
+"dialog_routing_unable_locate_route_carplay" = "Rota oluşturulamıyor. Lütfen başka bir rota noktası belirtin";
+
+"dialog_routing_download_files_carplay" = "Rota oluşturmak için cihazınızdaki eksik haritaları indirin";
+
+"dialog_routing_system_error_carplay" = "Hata oluştu. Lütfen uygulamayı yeniden başlatın";
+
+"dialog_routing_rebuild_from_current_location_carplay" = "Rota, mevcut konumunuzdan yeniden oluşturulacak";
+
+"dialog_routing_rebuild_for_vehicle_carplay" = "Rota, bir arabalı seyahat rotasına dönüştürülecek";
+
 "ok" = "Tamam";
+
+"avoid_unpaved_carplay_1" = "Stabilizesiz";
+
+"avoid_unpaved_carplay_2" = "Asfaltsız hariç";
+
+"avoid_ferry_carplay_1" = "Feribotsuz";
+
+"avoid_ferry_carplay_2" = "Feribot hariç";
+
+"avoid_tolls_carplay_1" = "Paralı yok";
+
+"avoid_tolls_carplay_2" = "Paralı hariç";
+
+"speedcams_alert_title_carplay_1" = "Hız kamerası";
+
+"speedcams_alert_title_carplay_2" = "Hız uyarıları";
+
+"download_map_carplay" = "Lütfen haritaları cihazınıza Organic Maps uygulamasından indirin";
+
+"carplay_roundabout_exit" = "%s çıkış";
 
 /* max. 10 symbols, both iOS and Android */
 "sort" = "Sırala…";
 
 /* Android, title, max 20-22 symbols */
 "sort_bookmarks" = "Yer imlerini sırala";
+
+/* iOS */
+"sort_default" = "Varsayılana göre sırala";
+
+"sort_type" = "Türe göre sırala";
+
+"sort_distance" = "Mesafeye göre sırala";
+
+"sort_date" = "Tarihe göre sırala";
 
 /* Android */
 "by_default" = "Varsayılana göre";
@@ -1214,7 +1311,51 @@
 /* Android */
 "by_date" = "Tarihe göre";
 
+"week_ago_sorttype" = "Bir hafta önce";
+
+"month_ago_sorttype" = "Bir ay önce";
+
+"moremonth_ago_sorttype" = "Bir aydan daha önce";
+
+"moreyear_ago_sorttype" = "Bir yıldan daha önce";
+
+"near_me_sorttype" = "Bana yakın";
+
+"others_sorttype" = "Diğerleri";
+
+"food_places" = "Yiyecek";
+
+"tourist_places" = "Görülecek yerler";
+
+"museums" = "Müzeler";
+
+"parks" = "Parklar";
+
+"swim_places" = "Yüzme";
+
+"mountains" = "Dağlar";
+
+"animals" = "Hayvanlar";
+
+"hotels" = "Oteller";
+
+"buildings" = "Binalar";
+
+"money" = "Para";
+
+"shops" = "Mağazalar";
+
+"parkings" = "Otoparklar";
+
+"fuel_places" = "Benzin istasyonları";
+
+"water" = "Su";
+
+"medicine" = "İlaç";
+
 "search_in_the_list" = "Listede ara";
+
+"religious_places" = "Dini yerler";
 
 "select_list" = "Liste seç";
 
@@ -1232,6 +1373,12 @@
 
 "elevation_profile_diff_level" = "Zorluk seviyesi";
 
+"elevation_profile_diff_level_easy" = "Kolay";
+
+"elevation_profile_diff_level_moderate" = "Orta";
+
+"elevation_profile_diff_level_hard" = "Karmaşık";
+
 "elevation_profile_ascent" = "Tırmanış";
 
 "elevation_profile_descent" = "İniş";
@@ -1247,6 +1394,10 @@
 "elevation_profile_time" = "Süre:";
 
 "isolines_toast_zooms_1_10" = "Konturları görmek için haritayı büyütün";
+
+"downloader_updating_ios" = "Güncelleme";
+
+"downloader_loading_ios" = "İndir";
 
 "key_information_title" = "Anahtar bilgisi";
 

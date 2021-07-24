@@ -117,6 +117,9 @@
 /* Add Bookmark Set dialog - hint when set name is empty */
 "bookmark_set_name" = "Seleziona un nome del segnalibro";
 
+/* Bookmark Sets dialog title */
+"bookmark_sets" = "Seleziona un segnalibro";
+
 /* Bookmarks - dialog title */
 "bookmarks" = "Segnalibri";
 
@@ -400,6 +403,9 @@
 /* Downloaded maps category */
 "downloader_downloaded_subtitle" = "Scaricate";
 
+/* Downloaded maps category */
+"downloader_available_maps" = "Disponibile";
+
 /* Country queued for download */
 "downloader_queued" = "In coda";
 
@@ -410,6 +416,8 @@
 "downloader_download_all_button" = "Scarica tutte";
 
 "downloader_downloading" = "In scaricamento:";
+
+"downloader_search_results" = "Trovate";
 
 /* Status of outdated country in the list */
 "downloader_status_outdated" = "Aggiorna";
@@ -834,6 +842,8 @@
 
 "editor_operator" = "Titolare";
 
+"downloader_my_maps_title" = "Le mie mappe";
+
 "downloader_no_downloaded_maps_title" = "Non hai scaricato mappe";
 
 "downloader_no_downloaded_maps_message" = "Scarica mappe per trovare il luogo e navigare offline.";
@@ -867,9 +877,13 @@
 
 "kilometer" = "km";
 
+"kilometers_per_hour" = "chilometri orari (km/h)";
+
 "mile" = "mi";
 
 "foot" = "ft";
+
+"miles_per_hour" = "mph";
 
 "hour" = "h";
 
@@ -888,6 +902,10 @@
 "placepage_edit_bookmark_button" = "Modifica segnalibro";
 
 "placepage_bookmark_name_hint" = "Nome segnalibro";
+
+"placepage_personal_notes_hint" = "Note personali";
+
+"placepage_delete_bookmark_button" = "Elimina segnalibro";
 
 "editor_edits_sent_message" = "Le modifiche suggerite sono state inviate";
 
@@ -923,6 +941,8 @@
 "editor_share_to_all_dialog_message_1" = "Assicurati di non aver inserito alcun dato personale.";
 
 "editor_share_to_all_dialog_message_2" = "Controlleremo le modifiche. Se avremo delle domande, ti contatteremo via email.";
+
+"navigation_stop_button" = "ferma";
 
 /* iOS dialog for the case when recent track recording is on and the app comes back from background */
 "recent_track_background_dialog_title" = "Disattivare la registrazione del tuo percorso effettuato di recente?";
@@ -1024,6 +1044,8 @@
 
 "preloader_viator_button" = "Ulteriori informazioni";
 
+"start_from_my_position" = "Parti da";
+
 "profile_authorization_error" = "Ops, si è verificato un errore. Prova a ripetere l'accesso più tardi.";
 
 "dialog_error_storage_title" = "Problema di accesso all'archivio";
@@ -1070,6 +1092,8 @@
 "bookmarks_error_title_list_name_already_taken" = "Questo nome è già stato scelto";
 
 "bookmarks_error_message_list_name_already_taken" = "Si prega di scegliere un altro nome";
+
+"bookmarks_error_title_list_name_too_long" = "Questo nome è troppo lungo";
 
 "please_wait" = "Attendere prego…";
 
@@ -1139,6 +1163,8 @@
 
 "tags_loading_error_subtitle" = "Si è verificato un errore durante il caricamento dei tag. Si prega di riprovare";
 
+"download_button" = "Scaricare";
+
 "speedcams_alert_title" = "Autovelox o Tutor";
 
 "speedcam_option_auto" = "Auto";
@@ -1188,19 +1214,90 @@
 
 "change_driving_options_btn" = "Impostazioni di deviazione abilitate";
 
+"toll_road" = "Strada a pedaggio";
+
+"unpaved_road" = "Strada sterrata";
+
+"ferry_crossing" = "Traghetto";
+
 "avoid_toll_roads_placepage" = "Evitare strade a pedaggio";
 
 "avoid_unpaved_roads_placepage" = "Evitare strade sterrate";
 
 "avoid_ferry_crossing_placepage" = "Evitare i traghetti";
 
+"trip_start" = "Si parte";
+
+"pick_destination" = "Meta";
+
+"follow_my_position" = "Centrare";
+
+"search_results" = "Risultati di ricerca";
+
+"then_turn" = "Avanti";
+
+"redirect_route_alert" = "Vuoi modificare il percorso?";
+
+"redirect_route_yes" = "Sì";
+
+"redirect_route_no" = "No";
+
+"trip_finished" = "Sei giunto a destinazione!";
+
+"keyboard_availability_alert" = "Tastiera non disponibile in movimento";
+
+"dialog_routing_change_start_carplay" = "Impossibile creare percorso dal punto di partenza selezionato";
+
+"dialog_routing_change_end_carplay" = "Impossibile creare percorso per raggiungere la destinazione Scegli un'altra destinazione";
+
+"dialog_routing_check_gps_carplay" = "Segnale GPS assente. Procedi su terreno aperto";
+
+"dialog_routing_unable_locate_route_carplay" = "Impossibile trovare percorso. Scegli altre tappe";
+
+"dialog_routing_download_files_carplay" = "Per creare percorso scarica mappe mancanti sul proprio dispositivo";
+
+"dialog_routing_system_error_carplay" = "Si è verificato un errore. Riavviare l'applicazione";
+
+"dialog_routing_rebuild_from_current_location_carplay" = "Il percorso verrà impostato dalla tua posizione corrente";
+
+"dialog_routing_rebuild_for_vehicle_carplay" = "Il percorso verrà modificato in modalità Auto";
+
 "ok" = "Ok";
+
+"avoid_unpaved_carplay_1" = "No sterrati";
+
+"avoid_unpaved_carplay_2" = "No sterrati";
+
+"avoid_ferry_carplay_1" = "No traghetti";
+
+"avoid_ferry_carplay_2" = "No traghetti";
+
+"avoid_tolls_carplay_1" = "No pedaggi";
+
+"avoid_tolls_carplay_2" = "Senza pedaggi";
+
+"speedcams_alert_title_carplay_1" = "Autovelox";
+
+"speedcams_alert_title_carplay_2" = "Info autovelox";
+
+"download_map_carplay" = "Scarica l'applicazione Organic Maps sul tuo smartphone";
+
+"carplay_roundabout_exit" = "%s uscita";
 
 /* max. 10 symbols, both iOS and Android */
 "sort" = "Ordina…";
 
 /* Android, title, max 20-22 symbols */
 "sort_bookmarks" = "Ordina i segnalibri";
+
+/* iOS */
+"sort_default" = "Ordina per default";
+
+"sort_type" = "Ordina per tipo";
+
+"sort_distance" = "Ordina per distanza";
+
+"sort_date" = "Ordina per data";
 
 /* Android */
 "by_default" = "Per default";
@@ -1214,7 +1311,51 @@
 /* Android */
 "by_date" = "Per data";
 
+"week_ago_sorttype" = "Una settimana fa";
+
+"month_ago_sorttype" = "Un mese fa";
+
+"moremonth_ago_sorttype" = "Più di un mese fa";
+
+"moreyear_ago_sorttype" = "Più di un anno fa";
+
+"near_me_sorttype" = "Vicino a me";
+
+"others_sorttype" = "Altri";
+
+"food_places" = "Cibo";
+
+"tourist_places" = "Luoghi d'interesse";
+
+"museums" = "Musei";
+
+"parks" = "Parchi";
+
+"swim_places" = "Nuoto";
+
+"mountains" = "Montagne";
+
+"animals" = "Animali";
+
+"hotels" = "Alberghi";
+
+"buildings" = "Edifici";
+
+"money" = "Denaro";
+
+"shops" = "Negozi";
+
+"parkings" = "Parcheggi";
+
+"fuel_places" = "Stazione di servizio";
+
+"water" = "Acqua";
+
+"medicine" = "Farmacia";
+
 "search_in_the_list" = "Cerca nella lista";
+
+"religious_places" = "Luoghi di culto";
 
 "select_list" = "Scegli la lista";
 
@@ -1232,6 +1373,12 @@
 
 "elevation_profile_diff_level" = "Livello di difficoltà";
 
+"elevation_profile_diff_level_easy" = "Facile";
+
+"elevation_profile_diff_level_moderate" = "Moderato";
+
+"elevation_profile_diff_level_hard" = "Difficile";
+
 "elevation_profile_ascent" = "Ascesa";
 
 "elevation_profile_descent" = "Discesa";
@@ -1247,6 +1394,10 @@
 "elevation_profile_time" = "Tempo:";
 
 "isolines_toast_zooms_1_10" = "Ingrandisci mappa per vedere l'isolinea";
+
+"downloader_updating_ios" = "Aggiornamento in corso";
+
+"downloader_loading_ios" = "Caricamento";
 
 "key_information_title" = "Informazioni importanti";
 

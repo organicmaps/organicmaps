@@ -117,6 +117,9 @@
 /* Add Bookmark Set dialog - hint when set name is empty */
 "bookmark_set_name" = "Nama Set Penanda";
 
+/* Bookmark Sets dialog title */
+"bookmark_sets" = "Set Penanda";
+
 /* Bookmarks - dialog title */
 "bookmarks" = "Penanda";
 
@@ -400,6 +403,9 @@
 /* Downloaded maps category */
 "downloader_downloaded_subtitle" = "Diunduh";
 
+/* Downloaded maps category */
+"downloader_available_maps" = "Tersedia";
+
 /* Country queued for download */
 "downloader_queued" = "Telah diantrekan";
 
@@ -410,6 +416,8 @@
 "downloader_download_all_button" = "Unduh semua";
 
 "downloader_downloading" = "Mengunduh:";
+
+"downloader_search_results" = "Ditemukan";
 
 /* Status of outdated country in the list */
 "downloader_status_outdated" = "Perbarui";
@@ -834,6 +842,8 @@
 
 "editor_operator" = "Pemilik";
 
+"downloader_my_maps_title" = "Peta saya";
+
 "downloader_no_downloaded_maps_title" = "Tidak ada peta apa pun yang diunduh";
 
 "downloader_no_downloaded_maps_message" = "Unduh peta untuk menemukan lokasi dan bernavigasi secara offline.";
@@ -867,9 +877,13 @@
 
 "kilometer" = "km";
 
+"kilometers_per_hour" = "km/j";
+
 "mile" = "mil";
 
 "foot" = "kaki";
+
+"miles_per_hour" = "mpj";
 
 "hour" = "j";
 
@@ -888,6 +902,10 @@
 "placepage_edit_bookmark_button" = "Edit Bookmark";
 
 "placepage_bookmark_name_hint" = "Nama Bookmark";
+
+"placepage_personal_notes_hint" = "Catatan pribadi";
+
+"placepage_delete_bookmark_button" = "Hapus Bookmark";
 
 "editor_edits_sent_message" = "Saran perubahan Anda telah dikirim";
 
@@ -923,6 +941,8 @@
 "editor_share_to_all_dialog_message_1" = "Pastikan Anda tidak memasukkan data pribadi apa pun.";
 
 "editor_share_to_all_dialog_message_2" = "Kami akan memeriksa perubahan tersebut. Jika kami memiliki pertanyaan maka kami akan menghubungi Anda melalui surel.";
+
+"navigation_stop_button" = "berhenti";
 
 /* iOS dialog for the case when recent track recording is on and the app comes back from background */
 "recent_track_background_dialog_title" = "Nonaktifkan rekaman dari rute yang baru Anda lalui?";
@@ -1024,6 +1044,8 @@
 
 "preloader_viator_button" = "Pelajari selengkapnya";
 
+"start_from_my_position" = "Mulai dari";
+
 "profile_authorization_error" = "Ah, tadi ada kesalahan. Coba masuk kembali.";
 
 "dialog_error_storage_title" = "Masalah akses penyimpanan";
@@ -1070,6 +1092,8 @@
 "bookmarks_error_title_list_name_already_taken" = "Nama ini sudah dipakai";
 
 "bookmarks_error_message_list_name_already_taken" = "Silakan pilih nama lain";
+
+"bookmarks_error_title_list_name_too_long" = "Nama ini terlalu panjang";
 
 "please_wait" = "Mohon tunggu…";
 
@@ -1139,6 +1163,8 @@
 
 "tags_loading_error_subtitle" = "Kesalahan terjadi saat memuat tag, silakan coba lagi";
 
+"download_button" = "Unduh";
+
 "speedcams_alert_title" = "Kamera cepat";
 
 "speedcam_option_auto" = "Auto";
@@ -1188,19 +1214,90 @@
 
 "change_driving_options_btn" = "Opsi perutean diaktifkan";
 
+"toll_road" = "Jalan tol";
+
+"unpaved_road" = "Jalan tanah";
+
+"ferry_crossing" = "Penyeberangan kapal feri";
+
 "avoid_toll_roads_placepage" = "Hindari jalan tol";
 
 "avoid_unpaved_roads_placepage" = "Hindari jalan tanah";
 
 "avoid_ferry_crossing_placepage" = "Hindari penyeberangan kapal feri";
 
+"trip_start" = "Ayo";
+
+"pick_destination" = "Tujuan";
+
+"follow_my_position" = "Pusatkan ulang";
+
+"search_results" = "Hasil pencarian";
+
+"then_turn" = "Lalu";
+
+"redirect_route_alert" = "Anda ingin membuat ulang rute?";
+
+"redirect_route_yes" = "Ya";
+
+"redirect_route_no" = "Tidak";
+
+"trip_finished" = "Anda telah tiba!";
+
+"keyboard_availability_alert" = "Papan ketik tidak tersedia saat berkendara";
+
+"dialog_routing_change_start_carplay" = "Tidak dapat membuat rute dari lokasi saat ini";
+
+"dialog_routing_change_end_carplay" = "Tidak dapat membuat rute ke tujuan Anda. Pilih titik lainnya";
+
+"dialog_routing_check_gps_carplay" = "Tidak ada sinyal GPS. Harap pindah ke area terbuka";
+
+"dialog_routing_unable_locate_route_carplay" = "Tidak dapat membuat rute. Harap tentukan titik rute lainnya";
+
+"dialog_routing_download_files_carplay" = "Untuk membuat rute, unduh peta baru di perangkat anda";
+
+"dialog_routing_system_error_carplay" = "Terjadi kesalahan. Harap mulai ulang aplikasi";
+
+"dialog_routing_rebuild_from_current_location_carplay" = "Rute akan dibuat ulang dari lokasi saat ini";
+
+"dialog_routing_rebuild_for_vehicle_carplay" = "Rute akan diubah untuk mobil";
+
 "ok" = "Oke";
+
+"avoid_unpaved_carplay_1" = "Jalan aspal";
+
+"avoid_unpaved_carplay_2" = "Hindari tanah";
+
+"avoid_ferry_carplay_1" = "Tanpa feri";
+
+"avoid_ferry_carplay_2" = "Hindari feri";
+
+"avoid_tolls_carplay_1" = "Tanpa tol";
+
+"avoid_tolls_carplay_2" = "Hindari tol";
+
+"speedcams_alert_title_carplay_1" = "Speedcam";
+
+"speedcams_alert_title_carplay_2" = "Info kecepatan";
+
+"download_map_carplay" = "Silakan unduh peta di apl Organic Maps pada perangkat Anda";
+
+"carplay_roundabout_exit" = "Jalan keluar ke %s";
 
 /* max. 10 symbols, both iOS and Android */
 "sort" = "Urutkan…";
 
 /* Android, title, max 20-22 symbols */
 "sort_bookmarks" = "Urutkan bookmark";
+
+/* iOS */
+"sort_default" = "Urutkan standar";
+
+"sort_type" = "Urutkan per tipe";
+
+"sort_distance" = "Urutkan per jarak";
+
+"sort_date" = "Urutkan per tanggal";
 
 /* Android */
 "by_default" = "Standar";
@@ -1214,7 +1311,51 @@
 /* Android */
 "by_date" = "Per tanggal";
 
+"week_ago_sorttype" = "Seminggu yang lalu";
+
+"month_ago_sorttype" = "Sebulan yang lalu";
+
+"moremonth_ago_sorttype" = "Lebih dari sebulan yang lalu";
+
+"moreyear_ago_sorttype" = "Lebih dari setahun yang lalu";
+
+"near_me_sorttype" = "Dekat dengan saya";
+
+"others_sorttype" = "Lainnya";
+
+"food_places" = "Makanan";
+
+"tourist_places" = "Tempat Rekreasi";
+
+"museums" = "Museum";
+
+"parks" = "Taman";
+
+"swim_places" = "Kolam renang";
+
+"mountains" = "Pegunungan";
+
+"animals" = "Kebun binatang";
+
+"hotels" = "Hotel";
+
+"buildings" = "Gedung";
+
+"money" = "Uang";
+
+"shops" = "Pusat perbelanjaan";
+
+"parkings" = "Parkir";
+
+"fuel_places" = "SPBU";
+
+"water" = "Air";
+
+"medicine" = "Obat";
+
 "search_in_the_list" = "Cari dalam daftar";
+
+"religious_places" = "Tempat ibadah";
 
 "select_list" = "Pilih daftar";
 
@@ -1232,6 +1373,12 @@
 
 "elevation_profile_diff_level" = "Tingkat kesulitan";
 
+"elevation_profile_diff_level_easy" = "Mudah";
+
+"elevation_profile_diff_level_moderate" = "Sedang";
+
+"elevation_profile_diff_level_hard" = "Sulit";
+
 "elevation_profile_ascent" = "Menanjak";
 
 "elevation_profile_descent" = "Menurun";
@@ -1247,6 +1394,10 @@
 "elevation_profile_time" = "Waktu:";
 
 "isolines_toast_zooms_1_10" = "Perbesar untuk menjelajahi garis kontur";
+
+"downloader_updating_ios" = "Memperbarui";
+
+"downloader_loading_ios" = "Mengunduh";
 
 "key_information_title" = "Informasi kunci";
 

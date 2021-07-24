@@ -117,6 +117,9 @@
 /* Add Bookmark Set dialog - hint when set name is empty */
 "bookmark_set_name" = "Bladwijzer Groep Naam";
 
+/* Bookmark Sets dialog title */
+"bookmark_sets" = "Bladwijzer groepen";
+
 /* Bookmarks - dialog title */
 "bookmarks" = "Bladwijzers";
 
@@ -400,6 +403,9 @@
 /* Downloaded maps category */
 "downloader_downloaded_subtitle" = "Gedownload";
 
+/* Downloaded maps category */
+"downloader_available_maps" = "Beschikbaar";
+
 /* Country queued for download */
 "downloader_queued" = "In de wachtrij";
 
@@ -410,6 +416,8 @@
 "downloader_download_all_button" = "Alles downloaden";
 
 "downloader_downloading" = "Aan het downloaden:";
+
+"downloader_search_results" = "Gevonden";
 
 /* Status of outdated country in the list */
 "downloader_status_outdated" = "Bijwerken";
@@ -834,6 +842,8 @@
 
 "editor_operator" = "Uitvoerder";
 
+"downloader_my_maps_title" = "Mijn kaarten";
+
 "downloader_no_downloaded_maps_title" = "U hebt geen kaarten gedownload";
 
 "downloader_no_downloaded_maps_message" = "Download kaarten om de locatie te zoeken en offline te navigeren.";
@@ -867,9 +877,13 @@
 
 "kilometer" = "km";
 
+"kilometers_per_hour" = "km/h";
+
 "mile" = "mijl";
 
 "foot" = "voet";
+
+"miles_per_hour" = "mph";
 
 "hour" = "u";
 
@@ -888,6 +902,10 @@
 "placepage_edit_bookmark_button" = "Bladwijzer bewerken";
 
 "placepage_bookmark_name_hint" = "Bladwijzernaam";
+
+"placepage_personal_notes_hint" = "Persoonlijke aantekeningen";
+
+"placepage_delete_bookmark_button" = "Bladwijzer verwijderen";
 
 "editor_edits_sent_message" = "Uw voorgestelde wijzigingen zijn verzonden";
 
@@ -923,6 +941,8 @@
 "editor_share_to_all_dialog_message_1" = "Controleer dat je geen persoonlijke gegevens hebt ingevoerd.";
 
 "editor_share_to_all_dialog_message_2" = "We zullen de wijzigingen controleren. Als we nog vragen hebben, zullen we contact met je opnemen via email.";
+
+"navigation_stop_button" = "stoppen";
 
 /* iOS dialog for the case when recent track recording is on and the app comes back from background */
 "recent_track_background_dialog_title" = "Vastleggen van uw onlangs afgelegde route uitschakelen?";
@@ -1024,6 +1044,8 @@
 
 "preloader_viator_button" = "Meer leren";
 
+"start_from_my_position" = "Start vanaf";
+
 "profile_authorization_error" = "Oeps, er is een fout opgetreden. Probeer opnieuw aan te melden.";
 
 "dialog_error_storage_title" = "Probleem met opslagtoegang";
@@ -1070,6 +1092,8 @@
 "bookmarks_error_title_list_name_already_taken" = "Deze naam is al in gebruik";
 
 "bookmarks_error_message_list_name_already_taken" = "Kies alstublieft een andere naam";
+
+"bookmarks_error_title_list_name_too_long" = "Deze naam is te lang";
 
 "please_wait" = "Even geduld aub…";
 
@@ -1139,6 +1163,8 @@
 
 "tags_loading_error_subtitle" = "Er is een fout opgetreden tijdens het laden van tags, probeer het opnieuw";
 
+"download_button" = "Downloaden";
+
 "speedcams_alert_title" = "Snelheidscamera's";
 
 "speedcam_option_auto" = "Auto";
@@ -1188,19 +1214,90 @@
 
 "change_driving_options_btn" = "Omweginstellingen ingeschakeld";
 
+"toll_road" = "Tolweg";
+
+"unpaved_road" = "Aardeweg";
+
+"ferry_crossing" = "Ferry";
+
 "avoid_toll_roads_placepage" = "Tolwegen vermijden";
 
 "avoid_unpaved_roads_placepage" = "Aardewegen vermijden";
 
 "avoid_ferry_crossing_placepage" = "Ferries vermijden";
 
+"trip_start" = "Kom op";
+
+"pick_destination" = "Doel";
+
+"follow_my_position" = "Centreren";
+
+"search_results" = "Zoekresultaten";
+
+"then_turn" = "Dan";
+
+"redirect_route_alert" = "Wilt u de route wijzigen?";
+
+"redirect_route_yes" = "Ja";
+
+"redirect_route_no" = "Nee";
+
+"trip_finished" = "U bent aangekomen!";
+
+"keyboard_availability_alert" = "Toetsenbord is niet beschikbaar tijdens het rijden";
+
+"dialog_routing_change_start_carplay" = "Kan route vanaf huidige positie niet opbouwen";
+
+"dialog_routing_change_end_carplay" = "Kan route naar het eindpunt niet opbouwen. Kies een andere punt";
+
+"dialog_routing_check_gps_carplay" = "Geen GPS-signaal. Ga naar het open veld";
+
+"dialog_routing_unable_locate_route_carplay" = "Kan route niet bouwen. Selecteer andere tussenpunten";
+
+"dialog_routing_download_files_carplay" = "Om een route te bouwen, download u ontbrekende kaarten";
+
+"dialog_routing_system_error_carplay" = "Lets fout gegaan. Start de app opnieuw";
+
+"dialog_routing_rebuild_from_current_location_carplay" = "De route wordt opnieuw opgebouwd vanaf uw huidige positie";
+
+"dialog_routing_rebuild_for_vehicle_carplay" = "De route wordt gewijzigd in de autoroute";
+
 "ok" = "Goed";
+
+"avoid_unpaved_carplay_1" = "Geen aardew.";
+
+"avoid_unpaved_carplay_2" = "Geen aardewegen";
+
+"avoid_ferry_carplay_1" = "Geen ferry's";
+
+"avoid_ferry_carplay_2" = "Geen ferry's";
+
+"avoid_tolls_carplay_1" = "Zonder tol";
+
+"avoid_tolls_carplay_2" = "Zonder tol";
+
+"speedcams_alert_title_carplay_1" = "Cameras";
+
+"speedcams_alert_title_carplay_2" = "Over cameras";
+
+"download_map_carplay" = "Download kaarten in de Organic Maps app op uw apparaat";
+
+"carplay_roundabout_exit" = "Afrit nr. %s";
 
 /* max. 10 symbols, both iOS and Android */
 "sort" = "Sorteer…";
 
 /* Android, title, max 20-22 symbols */
 "sort_bookmarks" = "Bladwijzers sorteren";
+
+/* iOS */
+"sort_default" = "Standaard sorteren";
+
+"sort_type" = "Sorteren op type";
+
+"sort_distance" = "Sorteer op afstand";
+
+"sort_date" = "Sorteer op datum";
 
 /* Android */
 "by_default" = "Standaard";
@@ -1214,7 +1311,51 @@
 /* Android */
 "by_date" = "Op datum";
 
+"week_ago_sorttype" = "Een week geleden";
+
+"month_ago_sorttype" = "Een maand geleden";
+
+"moremonth_ago_sorttype" = "Meer dan een maand geleden";
+
+"moreyear_ago_sorttype" = "Meer dan een jaar geleden";
+
+"near_me_sorttype" = "Naast mij";
+
+"others_sorttype" = "Andere";
+
+"food_places" = "Eten";
+
+"tourist_places" = "Bezienswaardigheden";
+
+"museums" = "Musea";
+
+"parks" = "Parken";
+
+"swim_places" = "Zwemmen";
+
+"mountains" = "Bergen";
+
+"animals" = "Dieren";
+
+"hotels" = "Hotels";
+
+"buildings" = "Gebouwen";
+
+"money" = "Geld";
+
+"shops" = "Winkels";
+
+"parkings" = "Parkeerplaatsen";
+
+"fuel_places" = "Benzinestations";
+
+"water" = "Water";
+
+"medicine" = "Geneeskunde";
+
 "search_in_the_list" = "In de lijst zoeken";
+
+"religious_places" = "Religieuze plaatsen";
 
 "select_list" = "Lijst kiezen";
 
@@ -1232,6 +1373,12 @@
 
 "elevation_profile_diff_level" = "Moeilijkheidsgraad";
 
+"elevation_profile_diff_level_easy" = "Gemakkelijk";
+
+"elevation_profile_diff_level_moderate" = "Middelmatig";
+
+"elevation_profile_diff_level_hard" = "Moeilijk";
+
 "elevation_profile_ascent" = "Opstijging";
 
 "elevation_profile_descent" = "Afdaling";
@@ -1247,6 +1394,10 @@
 "elevation_profile_time" = "Op weg";
 
 "isolines_toast_zooms_1_10" = "Zoom in om isolijnen te bekijken";
+
+"downloader_updating_ios" = "Updaten";
+
+"downloader_loading_ios" = "Downloaden";
 
 "key_information_title" = "Belangrijke informatie";
 

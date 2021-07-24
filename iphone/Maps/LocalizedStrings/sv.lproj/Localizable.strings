@@ -117,6 +117,9 @@
 /* Add Bookmark Set dialog - hint when set name is empty */
 "bookmark_set_name" = "Bokmärkessamlingens namn";
 
+/* Bookmark Sets dialog title */
+"bookmark_sets" = "Bokmärkessamlingar";
+
 /* Bookmarks - dialog title */
 "bookmarks" = "Bokmärken";
 
@@ -400,6 +403,9 @@
 /* Downloaded maps category */
 "downloader_downloaded_subtitle" = "Nedladdade";
 
+/* Downloaded maps category */
+"downloader_available_maps" = "Tillgänglig";
+
 /* Country queued for download */
 "downloader_queued" = "Köade";
 
@@ -410,6 +416,8 @@
 "downloader_download_all_button" = "Ladda ned alla";
 
 "downloader_downloading" = "Ladda ner:";
+
+"downloader_search_results" = "Hittat";
 
 /* Status of outdated country in the list */
 "downloader_status_outdated" = "Uppdatera";
@@ -834,6 +842,8 @@
 
 "editor_operator" = "Användare";
 
+"downloader_my_maps_title" = "Mina kartor";
+
 "downloader_no_downloaded_maps_title" = "Du har inte laddat ner några kartor";
 
 "downloader_no_downloaded_maps_message" = "Ladda ner kartor för att hitta platsen och navigera offline.";
@@ -867,9 +877,13 @@
 
 "kilometer" = "km";
 
+"kilometers_per_hour" = "km/h";
+
 "mile" = "mile";
 
 "foot" = "fot";
+
+"miles_per_hour" = "mph";
 
 "hour" = "h";
 
@@ -888,6 +902,10 @@
 "placepage_edit_bookmark_button" = "Redigera bokmärke";
 
 "placepage_bookmark_name_hint" = "Namn bokmärke";
+
+"placepage_personal_notes_hint" = "Personlig anteckning";
+
+"placepage_delete_bookmark_button" = "Radera bokmärke";
 
 "editor_edits_sent_message" = "Dina föreslagna ändringar har skickats";
 
@@ -923,6 +941,8 @@
 "editor_share_to_all_dialog_message_1" = "Se till att du inte angett någon personinformation";
 
 "editor_share_to_all_dialog_message_2" = "Vi kommer att kontrollera ändringar. Om vi har några frågor kontaktar vi dig via e-post.";
+
+"navigation_stop_button" = "stopp";
 
 /* iOS dialog for the case when recent track recording is on and the app comes back from background */
 "recent_track_background_dialog_title" = "Avaktivera inspelning av din senaste resta rutt?";
@@ -1024,6 +1044,8 @@
 
 "preloader_viator_button" = "Läs mer";
 
+"start_from_my_position" = "Starta från";
+
 "profile_authorization_error" = "Hoppsan, ett fel har inträffat. Försök att logga in igen.";
 
 "dialog_error_storage_title" = "Lagringsåtkomstproblem";
@@ -1070,6 +1092,8 @@
 "bookmarks_error_title_list_name_already_taken" = "Det här namnet är redan taget";
 
 "bookmarks_error_message_list_name_already_taken" = "Vänligen välj ett annat namn";
+
+"bookmarks_error_title_list_name_too_long" = "Det här namnet är för långt";
 
 "please_wait" = "Vänligen vänta…";
 
@@ -1139,6 +1163,8 @@
 
 "tags_loading_error_subtitle" = "Ett fel uppstod när du laddar taggarna, försök igen";
 
+"download_button" = "Nedladdning";
+
 "speedcams_alert_title" = "Hastighetskameror";
 
 "speedcam_option_auto" = "Auto";
@@ -1188,19 +1214,90 @@
 
 "change_driving_options_btn" = "Omvägsinställningar aktiverade";
 
+"toll_road" = "Betalvägen";
+
+"unpaved_road" = "Kärrvägen";
+
+"ferry_crossing" = "Färjetrafik";
+
 "avoid_toll_roads_placepage" = "Undvik betalvägar";
 
 "avoid_unpaved_roads_placepage" = "Undvik kärrvägar";
 
 "avoid_ferry_crossing_placepage" = "Undvik färjetrafik";
 
+"trip_start" = "Kom igen";
+
+"pick_destination" = "Målet";
+
+"follow_my_position" = "Placera i mitten";
+
+"search_results" = "Sökresultat";
+
+"then_turn" = "Vidare";
+
+"redirect_route_alert" = "Räknar om rutten?";
+
+"redirect_route_yes" = "Ja";
+
+"redirect_route_no" = "Nej";
+
+"trip_finished" = "Du är framme!";
+
+"keyboard_availability_alert" = "Tangentbordet är inte tillgängligt vid rörelsen";
+
+"dialog_routing_change_start_carplay" = "Det gick inte att bygga rutten från nuvarande plats";
+
+"dialog_routing_change_end_carplay" = "Det går inte att bygga rutten till slutpunkten. Välj en annan";
+
+"dialog_routing_check_gps_carplay" = "Ingen GPS-signal. Följ till öppna området";
+
+"dialog_routing_unable_locate_route_carplay" = "Det går inte att bygga ruten. Välj andra rutenspunkter";
+
+"dialog_routing_download_files_carplay" = "För att skapa en rutt, ladda ner saknade kartor på din enhet";
+
+"dialog_routing_system_error_carplay" = "Ett fel uppstod. Starta om appen";
+
+"dialog_routing_rebuild_from_current_location_carplay" = "Ruten kommer att byggas om från din nuvarande plats";
+
+"dialog_routing_rebuild_for_vehicle_carplay" = "Ruten kommer att ändras till bil";
+
 "ok" = "Ok";
+
+"avoid_unpaved_carplay_1" = "Utan kärrväg";
+
+"avoid_unpaved_carplay_2" = "Utan kärrvägar";
+
+"avoid_ferry_carplay_1" = "Utan färjor";
+
+"avoid_ferry_carplay_2" = "Utan färjor";
+
+"avoid_tolls_carplay_1" = "Utan betalda";
+
+"avoid_tolls_carplay_2" = "Utan betalda";
+
+"speedcams_alert_title_carplay_1" = "Kameror";
+
+"speedcams_alert_title_carplay_2" = "Info om kameror";
+
+"download_map_carplay" = "Ladda ner kartor i applikation Organic Maps på din enhet";
+
+"carplay_roundabout_exit" = "%s utgången";
 
 /* max. 10 symbols, both iOS and Android */
 "sort" = "Sortera…";
 
 /* Android, title, max 20-22 symbols */
 "sort_bookmarks" = "Sortera bokmärken";
+
+/* iOS */
+"sort_default" = "Sortera som standard";
+
+"sort_type" = "Sortera efter typ";
+
+"sort_distance" = "Sortera efter avstånd";
+
+"sort_date" = "Sortera efter datum";
 
 /* Android */
 "by_default" = "Som standard";
@@ -1214,7 +1311,51 @@
 /* Android */
 "by_date" = "Efter datum";
 
+"week_ago_sorttype" = "För en vecka sedan";
+
+"month_ago_sorttype" = "För en månad sedan";
+
+"moremonth_ago_sorttype" = "För över en månad sedan";
+
+"moreyear_ago_sorttype" = "För över ett år sedan";
+
+"near_me_sorttype" = "Bredvid mig";
+
+"others_sorttype" = "Andra";
+
+"food_places" = "Mat";
+
+"tourist_places" = "Sevärdheter";
+
+"museums" = "Museer";
+
+"parks" = "Parker";
+
+"swim_places" = "Simning";
+
+"mountains" = "Berg";
+
+"animals" = "Djur";
+
+"hotels" = "Hotell";
+
+"buildings" = "Byggnader";
+
+"money" = "Pengar";
+
+"shops" = "Butiker";
+
+"parkings" = "Parkeringsplatser";
+
+"fuel_places" = "Bensinstationer";
+
+"water" = "Vatten";
+
+"medicine" = "Medicin";
+
 "search_in_the_list" = "Söka i listan";
+
+"religious_places" = "Heliga platser";
 
 "select_list" = "Välja lista";
 
@@ -1232,6 +1373,12 @@
 
 "elevation_profile_diff_level" = "Svårighetsgrad";
 
+"elevation_profile_diff_level_easy" = "Lätt";
+
+"elevation_profile_diff_level_moderate" = "Måttlig";
+
+"elevation_profile_diff_level_hard" = "Svår";
+
 "elevation_profile_ascent" = "Stigning";
 
 "elevation_profile_descent" = "Backe";
@@ -1247,6 +1394,10 @@
 "elevation_profile_time" = "Tid:";
 
 "isolines_toast_zooms_1_10" = "Förstora kartan för att se isolinjer";
+
+"downloader_updating_ios" = "Uppdatering";
+
+"downloader_loading_ios" = "Nedladdning";
 
 "key_information_title" = "Nyckelinformation";
 
