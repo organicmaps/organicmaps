@@ -20,8 +20,13 @@ public class AudioFocusManager
       audioManager = (AudioManager) context.getSystemService(Context.AUDIO_SERVICE);
   }
 
-  public void requestAudioFocus()
+  public boolean requestAudioFocus()
   {
+    boolean isMusicActive = false;
+
+    if (audioManager != null)
+      isMusicActive = audioManager.isMusicActive();
+
     if (audioManager != null)
     {
       if (Build.VERSION.SDK_INT >= 26)
@@ -29,6 +34,8 @@ public class AudioFocusManager
       else
         audioManager.requestAudioFocus(focusChange -> {}, AudioManager.STREAM_VOICE_CALL, AUDIOFOCUS_GAIN_TRANSIENT_EXCLUSIVE);
     }
+
+    return isMusicActive;
   }
 
   public void releaseAudioFocus()

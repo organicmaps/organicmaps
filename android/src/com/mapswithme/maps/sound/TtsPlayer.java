@@ -201,8 +201,11 @@ public enum TtsPlayer implements Initializable<Context>
     if (Config.isTtsEnabled())
       try
       {
-        mAudioFocusManager.requestAudioFocus();
-        delayHandler.postDelayed(() -> mTts.speak(textToSpeak, TextToSpeech.QUEUE_ADD, null, textToSpeak), TTS_SPEAK_DELAY_MILLIS);
+        boolean isMusicActive = mAudioFocusManager.requestAudioFocus();
+        if (isMusicActive)
+          delayHandler.postDelayed(() -> mTts.speak(textToSpeak, TextToSpeech.QUEUE_ADD, null, textToSpeak), TTS_SPEAK_DELAY_MILLIS);
+        else
+          mTts.speak(textToSpeak, TextToSpeech.QUEUE_ADD, null, textToSpeak);
       }
       catch (IllegalArgumentException e)
       {
