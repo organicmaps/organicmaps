@@ -2,7 +2,7 @@
 set -e -u -x
 
 # Use ruby from brew on Mac OS X, because system ruby is outdated/broken/will be removed in future releases.
-case $OSTYPE in 
+case $OSTYPE in
   darwin*)
     if [ -x /usr/local/opt/ruby/bin/ruby ]; then
       PATH="/usr/local/opt/ruby/bin:$PATH"
@@ -10,7 +10,7 @@ case $OSTYPE in
       PATH="/opt/homebrew/opt/ruby/bin:$PATH"
     else
       echo 'Please install Homebrew ruby by running "brew install ruby"'
-      exit -1 
+      exit -1
     fi ;;
   *)
     if [ ! -x "$(which ruby)" ]; then
@@ -46,7 +46,7 @@ TWINE="$(gem contents twine | grep -m 1 bin/twine)"
 STRINGS_PATH="$OMIM_PATH/data/strings"
 
 MERGED_FILE="$(mktemp)"
-cat "$STRINGS_PATH"/{strings,partners_strings,types_strings,brands_strings}.txt> "$MERGED_FILE"
+cat "$STRINGS_PATH"/{strings,types_strings}.txt> "$MERGED_FILE"
 
 # TODO: Add "--untagged --tags android" when tags are properly set.
 # TODO: Add validate-strings-file call to check for duplicates (and avoid Android build errors) when tags are properly set.
