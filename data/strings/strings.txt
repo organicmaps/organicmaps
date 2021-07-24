@@ -740,7 +740,7 @@
     tr = Indirme işlemi başarısız oldu
     uk = Помилка завантаження
     vi = Tải xuống đã thất bại
-    zh-Hans = 下载失败了
+    zh-Hans = 下载失败
     zh-Hant = 下載失敗
     el = Η λήψη απέτυχε
     fa = دانلود با شکست مواجه شد
@@ -916,7 +916,7 @@
     tr = Hızlı donanıma sahip bir OpenGL gerekli. Ne yazık ki cihazınız desteklenmiyor.
     uk = Для роботи програми необхідний апаратно прискорений OpenGL. На жаль, ваш пристрій не підтримується.
     vi = Cần có OpenGL được tăng tốc phần cứng. Thật không may, thiết bị của bạn không được hỗ trợ.
-    zh-Hans = 硬件加速的 OpenGL 是必需的。遗憾的是您 的设备不支持。
+    zh-Hans = 硬件加速的 OpenGL 是必需的。遗憾的是您的设备不支持此功能。
     zh-Hant = 需要 OpenGL 硬體加速功能的支援。但很不幸的，您的裝置並不支援此功能！
     el = Η εφαρμογή απαιτεί OpenGL με επιτάχυνση υλικού. Δυστυχώς, η συσκευή σας δεν το υποστηρίζει.
     fa = نیازمند است. متاسفانه دستگاه شما از ان پشتیبانی نمی کندOpenGLبرنامه برای اجرا به
@@ -1019,7 +1019,7 @@
     tr = Uygulamayı kullanabilmeniz için lütfen SD kart/USB depolama aygıtında biraz alan boşaltın
     uk = Недостатньо вільного місця на SD карті / в пам'яті пристрою для використання програми
     vi = Bạn vui lòng giải phóng dung lượng trên ổ lưu trữ thẻ SD/USB để có thể sử dụng ứng dụng
-    zh-Hans = 请在 SD 卡/ USB 储存设备上释放一些空间以 使用此应用
+    zh-Hans = 请在存储卡/ USB 储存设备上释放一些空间以 使用此应用
     zh-Hant = 如要繼續使用，請先釋放一些 SD 卡/ USB 儲存空間
     el = Ελευθερώσετε  χώρο αποθήκευσης στην SD κάρτα/USB πρώτα προκειμένου να χρησιμοποιήσετε την εφαρμογή
     fa = لطفا مقداری از فضای ذخیره سازی را آزاد نمایید
@@ -1089,7 +1089,7 @@
     tr = Başlamadan önce cihazınıza genel dünya haritasını indirelim.\nVerilerin %@’si gerekli.
     uk = Перш ніж розпочати дозвольте нам завантажити мапу світу на ваш пристрій.\nВона потребує %@ даних.
     vi = Trước khi bạn bắt đầu, hãy để chúng tôi tải bản đồ thế giới vào thiết bị của bạn.\nBản đồ này cần %@ dữ liệu.
-    zh-Hans = 在您开始前请让我们下载通用世界地 图至您的设备中。\n它需要%@的 数据。
+    zh-Hans = 在您开始前请让我们下载通用世界地图至您的设备中。\n它需要%@的 数据。
     zh-Hant = 在您開始之前，先讓我們下載世界地圖到您的裝置中以便瀏覽。\n這需要資料的 %@。
     el = Πριν ξεκινήσετε τη χρήση της εφαρμογής, επιτρέψτε μας να κατεβάσουμε το γενικό παγκόσμιο χάρτη στη συσκευή σας. \nIt θα χρησιμοποιήσει %@ αποθηκευτικού χώρου.
     fa = قبل از استفاده از اپلیکیشن, اجازه دهید تا ما نقشه جهانی را بر روی موبایل شما دانلود کنیم.\nمقدار %@ از حافظه شما اشغال می شود.
@@ -1803,7 +1803,7 @@
     tr = Haritaları taşı?
     uk = Перемістити мапи?
     vi = Di chuyển bản đồ?
-    zh-Hans = 移动地图?
+    zh-Hans = 移动地图？
     zh-Hant = 移動地圖？
     el = Να γίνει μετακίνηση χαρτών;
     fa = ایا نقشه ها جابه جا شود؟
@@ -2712,7 +2712,7 @@
     tr = Yer İmleri başarılı bir şekilde yüklendi! Bunları Haritada veya Yer İmleri Yöneticisi ekranında bulabilirsiniz.
     uk = Мiтки успішно завантаженi! Ви можете знайти їх на мапі або у ваших збережених мітках.
     vi = Đã tải điểm đánh dấu thành công! Bạn có thể tìm chúng trên bản đồ hoặc màn hình Trình quản lý Điểm đánh dấu.
-    zh-Hans = 书签加载成功!您可以在地图或书签管理窗 口中找到它们。
+    zh-Hans = 书签加载成功！您可以在地图或书签管理窗口中找到它们。
     zh-Hant = 書籤上傳成功！ 您可以在地圖上或是書籤管理畫面中找到書籤。
     el = Τα αγαπημένα φορτώθηκαν με επιτυχία! Μπορείτε να τα βρείτε στο χάρτη ή στην οθόνη Διαχείριση αγαπημένων.
     fa = نشانه ها با موفقیت بارگذاری شد!شما می توانید ان ها را در نقشه یا بخش مدیریت نشانه ها بیابید
@@ -2854,7 +2854,7 @@
     tr = Üzgünüz, Harita Depolama ayarları şu anda devre dışı.
     uk = Вибачте, налаштування папки з мапами зараз недоступні.
     vi = Rất tiếc, cài đặt Lưu trữ Bản đồ hiện đã bị tắt.
-    zh-Hans = 抱歉,地图存储设置目前被禁用
+    zh-Hans = 抱歉，地图存储设置目前被禁用
     zh-Hant = 很抱歉，地圖儲存設定目前已停用。
     el = Λυπούμαστε, η αποθήκευση του χάρτη είναι προς το παρόν απενεργοποιημένη.
     fa = متاسفانه,تنظیمات ذخیره سازی نقشه در حال حاظر غیر فعال است
@@ -2890,7 +2890,7 @@
     tr = Ülke indirme işlemi şu anda sürüyor.
     uk = Зараз відбувається завантаження країни.
     vi = Hiện đang tải xuống quốc gia.
-    zh-Hans = 国家下载进行中。
+    zh-Hans = 地图下载进行中。
     zh-Hant = 國家地圖正在進行下載
     el = Λήψη χάρτη σε εξέλιξη.
     fa = دانلود نقشه اکنون در حال انجام است
@@ -2926,7 +2926,7 @@
     tr = Hey, Organic Maps’de geçerli konumumu incele! %1$@ veya %2$@ Çevrimiçi haritalar sende yok mu? Buradan indir: https://omaps.app/get
     uk = Глянь де я зараз. Іди %1$@ або %2$@
     vi = Này, hãy xem vị trí hiện tại của tôi tại Organic Maps! %1$@ hoặc %2$@ Bạn không có bản đồ ngoại tuyến? Tải xuống tại đây: https://omaps.app/get
-    zh-Hans = 嘿,在 Organic Maps 上查看我目前的位置 吧!%1$@ 或%2$@ 未安装离线地图?在此 下载: https://omaps.app/get
+    zh-Hans = 嘿，在 Organic Maps 上查看我目前的位置吧!%1$@ 或%2$@ 未安装离线地图？在此下载: https://omaps.app/get
     zh-Hant = 嘿，在 Organic Maps 查看我的目前位置吧！ %1$@ 或%2$@ 沒安裝離線地圖？在此下載: https://omaps.app/get
     el = Έλεγξε την τρέχουσα τοποθεσία μου στο Organic Maps! %1$@ ή %2$@ στην περίπτωση που δεν έχεις εγκαταστήσει χάρτες εκτός σύνδεσης, μπορείς να τους κατεβάσεις εδώ: https://omaps.app/get
     he = . אין ברשותך מפות לא מקוונות? הורד Organic Maps! %1$@ or %2$@ הי, בדוק את מיקומי הנוכחי ב. https://omaps.app/get הורד אותן מ:
@@ -2961,7 +2961,7 @@
     tr = Hey, Organic Maps haritasında pinimi incele!
     uk = Поглянь на мою мiтку на мапі Organic Maps
     vi = Này, hãy xem ghim của tôi tại Organic Maps map
-    zh-Hans = 嘿,在 Organic Maps 上查看我标注的图钉吧!
+    zh-Hans = 嘿，在 Organic Maps 上查看我标注的图钉吧！
     zh-Hant = 嘿，看看我在 Organic Maps 地圖上的圖釘！
     el = Έλεγξε τις τοποθεσίες που έχω καρφιτσώσει στο Organic Maps!
     he = הי, בדוק את הסיכה שלי במפה של Organic Maps!
@@ -3031,7 +3031,7 @@
     tr = Merhaba,\n\nŞu anda bulunduğum yer: %1$@. Yeri haritada görmek için bu bağlantıya %2$@ veya şuna %3$@ tıkla.\n\nTeşekkürler.
     uk = Привіт,\n\nЯ зараз тут: %1$@. Натисни на це посилання %2$@ або на це посилання %3$@ щоб побачити місце на мапі.\n\nДякую.
     vi = Chào,\n\nTôi hiện đang ở đây: %1$@. Hãy nhấn vào liên kết này %2$@ hoặc liên kết này %3$@ để xem địa điểm trên bản đồ.\n\nCám ơn.
-    zh-Hans = 嗨,\n\n我现在在这:%1$@。点击此链 接%2$@或此链接 %3$@来查看在地图上的 位置。\n\n谢谢。
+    zh-Hans = 嗨，\n\n我现在在这:%1$@。点击此链 接%2$@或此链接 %3$@来查看在地图上的位置。\n\n谢谢。
     zh-Hant = 嗨，\n\n我現在在這：%1$@。點擊此連結 %2$@ 或此連結 %3$@ 來查看在地圖上的位置。\n\n謝謝。
     el = Γεια,\n\nείμαι εδώ τώρα: %1$@. Κάνε κλικ σε αυτό το σύνδεσμο %2$@ ή σε αυτόν %3$@ για να δεις την τοποθεσία στο χάρτη.\n\nΕυχαριστώ.
     he = הי, n\nI\ אני כאן: %1$@. הקש על הלינק %2$@ או על %3$@ כדי לראות את המקום על המפה. \n\n תודה.
@@ -3263,6 +3263,7 @@
     pl = Wersja danych: %d
     pt = Versão dos dados: %d
     pt-BR = Versão dos dados: %d
+    zh-Hans = 资料版本： %d
     zh-Hant = 資料版本： %d
     el = Ημερομηνία έκδοσης: %d
     fa = ورژن داده: %d
@@ -3296,7 +3297,7 @@
     tr = Devam etmek istediğinizden emin misiniz?
     uk = Продовжити?
     vi = Bạn có chắc muốn tiếp tục không?
-    zh-Hans = 您确定要继续吗?
+    zh-Hans = 您确定要继续吗？
     zh-Hant = 確定要繼續嗎？
     el = Θέλετε σίγουρα να συνεχίσετε?
     fa = برای ادامه کار مطمئن اید؟
@@ -3420,6 +3421,8 @@
     pl = Ustawienia ogólne
     pt = Configurações gerais
     pt-BR = Configurações gerais
+    zh-Hans = 常规设置
+    zh-Hant = 一般設定
     fa = تنظیمات عمومی
 
   [prefs_group_information]
@@ -3431,6 +3434,8 @@
     pl = Informacje
     pt = Informação
     pt-BR = Informação
+    zh-Hans = 信息
+    zh-Hant = 信息
     fa = اطلاعات
 
   [prefs_group_route]
@@ -4279,11 +4284,15 @@
     comment = Text in menu
     tags = android, ios
     en = Facebook
+    zh-Hans = 脸书
+    zh-Hant = 臉書
 
   [twitter]
     comment = Text in menu
     tags = android, ios
     en = Twitter
+    zh-Hans = 推特
+    zh-Hant = 推特
 
   [instagram]
     comment = Text in menu
@@ -4990,7 +4999,7 @@
     tr = Güncelle
     uk = Oновити
     vi = Cập nhật
-    zh-Hans = 下载
+    zh-Hans = 更新
     zh-Hant = 更新
     el = Ενημέρωση
     fa = به روز رسانی
@@ -5026,7 +5035,7 @@
     tr = Başarısız
     uk = Помилка
     vi = Thất bại
-    zh-Hans = 下载失败
+    zh-Hans = 失败
     zh-Hant = 失敗
     el = Απέτυχε
     fa = ناموفق
@@ -5519,7 +5528,7 @@
     tr = Yeterli alan yok
     uk = Недостатньо місця
     vi = Không đủ không gian
-    zh-Hans = 空间不够
+    zh-Hans = 空间不足
     zh-Hant = 空間不足
     el = Δεν υπάρχει αρκετός χώρος
     fa = فضای کافی موجود نیست
@@ -6331,8 +6340,8 @@
     tr = Lütfen GPS sinyalinizi kontrol edin. Wi-Fi'ı etkinleştirmek konum isabetini arttırır.
     uk = Будь ласка, перевірте сигнал GPS. Для покращання точності геопозиції увімкніть Wi-Fi.
     vi = Hãy kiểm tra tín hiệu GPS của bạn. Việc kích hoạt Wi-Fi sẽ cải thiện độ chính xác vị trí của bạn.
-    zh-Hans = 请检查您的 GPS 信号。启用 Wi-Fi 将改善您的定位精度。
-    zh-Hant = 請確認您的 GPS 訊號。啟用 Wi-Fi 將提升地理位置定位準確度。
+    zh-Hans = 请检查您的 GPS 信号。启用无线网络将改善您的定位精度。
+    zh-Hant = 請確認您的 GPS 訊號。啟用無線網路將提升地理位置定位準確度。
     el = Ελέγξτε το σήμα GPS. Η ενεργοποίηση του Wi-Fi θα βελτιώσει την ακρίβεια της τοποθεσίας σας.
     fa = لطفا سیگنال GPS موبایتان راچک کنید.و WiFi موبایلتان را جهت دقت بیشتر در موقعیت یابی فعال کنید.
     he = בדוק את אות ה-GPS שלך. הפעלת ה-Wi-Fi תשפר את הדיוק בזיהוי המיקום שלך.
@@ -7380,7 +7389,7 @@
     tr = Organic Maps’yi kullandığınız için teşekkür ederiz. Lütfen uygulamaya puan verin. Geri bildiriminiz daha iyi hale gelebilmemize yardımcı olur.
     uk = Дякуємо за використання Organic Maps. Будь ласка, дайте їй оцінку. Ваш відгук допоможе нам стати краще.
     vi = Cám ơn bạn đã sử dụng Organic Maps. Vui lòng đánh giá ứng dụng. Phản hồi của bạn giúp chúng tôi trở nên tốt hơn.
-    zh-Hans = 感谢您使用 Organic Maps。请，评价该应用。您的反馈帮助我们变得更好。
+    zh-Hans = 感谢您使用 Organic Maps。请评价此应用。您的反馈帮助我们改善我们的产品。
     zh-Hant = 感謝您使用 Organic Maps。請評價此應用程式。您的回饋幫助我們改善我們的產品。
     el = Σας ευχαριστούμε που χρησιμοποιείτε το Organic Maps. Βαθμολογήστε την εφαρμογή. Τα σχόλιά σας μας βοηθάνε να βελτιώσουμε το προϊόν μας.
     fa = باتشکر از شما بابت استفاده ازOrganic Maps.لطفا به این اپلیکیشن رای بدهید. بازخورد شما باعث پیشرفت اپلیکیشن ما می شود.
@@ -7767,6 +7776,7 @@
     fr = Wikipédia
     pt = Wikipédia
     pt-BR = Wikipédia
+    zh-Hans = 维基百科
     zh-Hant = 維基百科
     el = Wikipedia
     fa = ویکی پدیا
@@ -8209,7 +8219,7 @@
     tr = Kapalı olduğu saatleri ekle
     uk = Додати перерву
     vi = Thêm giờ đóng cửa
-    zh-Hans = 添加不营业时间
+    zh-Hans = 添加非营业时间
     zh-Hant = 新增休息時間
     el = Προσθήκη μη-εργάσιμων ωρών
     fa = اضافه کردن ساعات غیر کاری
@@ -8345,7 +8355,7 @@
     tr = Kapalı olduğu saatler
     uk = Перерва
     vi = Giờ đóng cửa
-    zh-Hans = 不营业时间
+    zh-Hans = 非营业时间
     zh-Hant = 休息時間
     el = Μη-εργάσιμες ώρες
     fa = ساعات غیر کاری
@@ -8891,7 +8901,7 @@
     tr = Gündüz ve gece
     uk = Цілодобово
     vi = ngày và đêm
-    zh-Hans = 白天和黑夜
+    zh-Hans = 全天候
     zh-Hant = 全天候
     el = 24/7
     fa = شبانه روزی
@@ -9096,7 +9106,7 @@
     tr = OpenStreetMap' hesabın yok mu?
     uk = Не зареєстровані в OpenStreetMap?
     vi = Bạn chưa có tài khoản tại OpenStreetMap ư?
-    zh-Hans = OpenStreetMap上没有账户吗？
+    zh-Hans = 在OpenStreetMap上没有账户吗？
     zh-Hant = 沒有 OpenStreeMap 帳號嗎？
     el = Δεν έχετε λογαριασμό OpenStreetMap;
     fa = ایا حساب OpenStreetMap ندارید؟
@@ -10799,7 +10809,7 @@
     tr = Giriş yapın böylelikle diğer kullanıcılar yaptığınız değişiklikleri görebilirler.
     uk = Увійдіть, щоб ваші зміни побачили інші користувачі.
     vi = Đăng nhập để người dùng khác có thể nhìn thấy những thay đổi bạn đã thực hiện.
-    zh-Hans = 登陆，让其他用户能看到您所作出的修改。
+    zh-Hans = 登录，让其他用户能看到您所作出的修改。
     zh-Hant = 登入來讓其他使用者能看到您所作出的修改。
     el = Συνδεθείτε ώστε άλλοι χρήστες να μπορούν να δουν τις αλλαγές που έχετε κάνει
     fa = وارد شوید تا دیگر کاربران نیز بتوانند تغییرات ایجاد شده توسط شما را ببینند
@@ -11106,7 +11116,7 @@
     tr = Posta Kodu
     uk = Поштовий індекс
     vi = Mã ZIP
-    zh-Hans = 邮编
+    zh-Hans = 邮政编码
     zh-Hant = 郵遞區號
     el = Ταχυδρομικός κώδικας
     fa = کدپستی
@@ -11140,7 +11150,7 @@
     tr = Doğru Posta Kodunu girin
     uk = Введіть коректний поштовий індекс
     vi = Nhập Mã ZIP chính xác
-    zh-Hans = 输入正确的邮编
+    zh-Hans = 输入正确的邮政编码
     zh-Hant = 輸入正確的郵遞區號
     el = Πληκτρολογήστε έναν έγκυρο ταχυδρομικό κώδικα
     fa = یک کد پستی معتبر وارد کنید
@@ -14468,7 +14478,7 @@
     uk = Додати зупинку
     vi = Thêm điểm dừng
     zh-Hans = 添加经停点
-    zh-Hant = 新增應用程式
+    zh-Hant = 新增停靠站
     el = Προσθήκη στάσης
     fa = اضافه کردن توقف
     sk = Pridať zastávku
@@ -14642,7 +14652,7 @@
     tr = Harici bellek kullanılamıyor, muhtemelen SD Kart çıkarılmış, hasarlı veya dosya sistemi salt okunur. Lütfen kontrol edin ve support@organicmaps.app adresinden bizimle iletişime geçin
     uk = Зовнішнє сховище не доступно. Ймовірно, SD-картку пам'яті було вилучено, пошкоджено, або система файлів доступна тільки для читання. Будь ласка, перевірте та зв'яжіться з нами, написавши на адресу електронну пошту support@organicmaps.app
     vi = Ổ lưu trữ bên ngoài không khả dụng, có thể Thẻ SD đã bị tháo, bị hỏng hoặc hệ thống tập tin được thiết lập chỉ đọc. Hãy kiểm tra và liên hệ với chúng tôi qua support@organicmaps.app
-    zh-Hans = 外部存储空间不可用，可能是 SD 卡已移除、损坏，或者文件系统为只读。请检查，然后通过以下方式联系我们：support@organicmaps.app
+    zh-Hans = 外部存储空间不可用，可能是存储卡已移除、损坏，或者文件系统为只读。请检查，然后通过以下方式联系我们：support@organicmaps.app
     zh-Hant = 外部儲存空間不可用，很可能是因為 SD 卡已移除、毀損，或檔案系統處於唯讀狀態。請進行檢查，然後以 support@organicmaps.app 方式聯繫我們
     el = Ο εξωτερικός απθηκευτικός χώρος δεν είναι διαθέσιμος, πιθανότατα έχει αφαιρεθεί η κάρτα SD, είναι κατεστραμμένη ή το σύστημα αρχείων είναι μόνο για ανάγνωση. Ελέγξτε το και επικοινωνήστε μαζί μας στη διεύθυνση support@organicmaps.app
     es_MX = El almacenamiento externo no está disponible. Es posible que se haya quitado o dañado la tarjeta SD, o que el sistema de archivos solo permita la lectura. Revíselo y escríbanos a support@organicmaps.app
@@ -14786,8 +14796,8 @@
     tr = Listeler
     uk = Списки
     vi = Danh sách
-    zh-Hans = 清單
-    zh-Hant = 列表
+    zh-Hans = 列表
+    zh-Hant = 清單
     el = Τόπος αγώνων
     es_MX = Listas
     fa = لیست ها
@@ -14980,8 +14990,8 @@
     tr = Ekranı Gizle
     uk = Приховати екран
     vi = Ẩn Màn hình
-    zh-Hans = 隱藏畫面
-    zh-Hant = 隱藏屏幕
+    zh-Hans = 隱藏屏幕
+    zh-Hant = 隱藏畫面
     el = Απόκρυψη οθόνης
     es_MX = Ocultar pantalla
     fa = پنهان کردن صفحه
@@ -16147,7 +16157,7 @@
     tr = Organic Maps deneyimini geliştirmek için verilerinizi kullanabiliriz. Değişiklikler, uygulama yeniden başlatıldıktan sonra geçerli olur.
     uk = Ми можемо використовувати ваші дані, щоб розвивати та покращувати Organic Maps. Зміни вступлять у силу після перезапуску програми
     vi = Chúng tôi có thể sử dụng dữ liệu của bạn để cải thiện trải nghiệm trên Organic Maps. Thay đổi sẽ có hiệu lực sau khi bạn khởi động lại ứng dụng.
-    zh-Hans = 我们可以使用您的数据来开发和改进Organic Maps.更改将在重新启动应用程序后生效。
+    zh-Hans = 我们可以使用您的数据来开发和改进Organic Maps。更改将在重新启动应用程序后生效。
     zh-Hant = 我們可以使用您的數據來開發和改進Organic Maps。更改將再重新啟動應用程序后生效。
     el = Μπορεί να χρησιμοποιήσουμε τα δεδομένα σας για να βελτιώσουμε την εμπειρία του Organic Maps. Οι αλλαγές θα ενεργοποιηθούν μετά την επανεκκίνηση της εφαρμογής.
     es_MX = Puede que utilicemos sus datos para mejorar la experiencia de Organic Maps. Los cambios surtirán efecto después de que reinicie la aplicación.
@@ -16255,8 +16265,8 @@
     tr = Trafik
     uk = Затор
     vi = Giao thông
-    zh-Hans = 堵塞
-    zh-Hant = 堵塞
+    zh-Hans = 路况
+    zh-Hant = 路況
     el = Κίνηση
     es_MX = Tráfico
     fa = ترافیک
@@ -16768,7 +16778,7 @@
     tr = Bir açıklama yazın (metin veya html)
     uk = Додайте опис (текст чи html)
     vi = Đánh vào một mô tả (văn bản hoặc html)
-    zh-Hans = 请添加说明(文字或html)
+    zh-Hans = 请添加说明（文字或html）
     zh-Hant = 添加說明(文字或html)
     el = Πληκτρολογήστε μια περιγραφή (κείμενο ή html)
     es-MX = Introduzca una descripción (texto o html)
@@ -16804,8 +16814,8 @@
     tr = Şahsi
     uk = Особистий
     vi = Riêng tư
-    zh-Hans = 个人
-    zh-Hant = 個人
+    zh-Hans = 私人
+    zh-Hant = 私人
     el = Προσωπικός
     es-MX = Privado
     fa = خصوصی
@@ -17596,8 +17606,8 @@
     tr = Otoyollar
     uk = Магістралі
     vi = Đường cao tốc
-    zh-Hans = 干线
-    zh-Hant = 幹線
+    zh-Hans = 高速公路
+    zh-Hant = 高速公路
     el = Αυτοκινητόδρομοι
     es-MX = Autopistas
     fa = بزرگراه ها
@@ -17953,8 +17963,8 @@
     tr = Feribot geçişlerinden kaçın
     uk = Уникати поромних переправ
     vi = Tránh bến phà
-    zh-Hans = 规避轮渡
-    zh-Hant = 規避輪渡
+    zh-Hans = 规避渡輪渡口
+    zh-Hant = 規避渡輪渡口
     el = Αποφυγή των πορθμείων
     es-MX = Evitar los trasbordadores de ferri
     fa = اجتناب از گذرگاه های کشتی
