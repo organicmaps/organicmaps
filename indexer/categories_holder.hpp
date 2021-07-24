@@ -70,7 +70,7 @@ public:
   // CategoriesHolder::MapLocaleToInteger() and
   // CategoriesHolder::MapIntegerToLocale() as their implementations
   // strongly depend on the contents of the variable.
-  static std::array<CategoriesHolder::Mapping, 32> constexpr kLocaleMapping = {{
+  static std::array<CategoriesHolder::Mapping, 33> constexpr kLocaleMapping = {{
       {"en", 1},
       {"ru", 2},
       {"uk", 3},
@@ -102,7 +102,9 @@ public:
       {"he", 29},
       {"sw", 30},
       {"fa", 31},
-      {"bg", 32}}};
+      {"bg", 32},
+      {"pt-BR", 33},
+  }};
 
   // List of languages that are currently disabled in the application
   // because their translations are not yet complete.
