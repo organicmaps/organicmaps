@@ -70,7 +70,7 @@ def grep_android():
 
 def grep_core():
     logging.info("Grepping core")
-    grep = "grep -r -I 'GetLocalizedString' {0}/*".format(OMIM_ROOT)
+    grep = "grep -r -I --exclude-dir {0}/3party 'GetLocalizedString' {0}/*".format(OMIM_ROOT)
     ret = android_grep_wrapper(grep, CORE_RE)
     return parenthesize(ret)
 
