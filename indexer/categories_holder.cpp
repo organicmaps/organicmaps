@@ -324,10 +324,10 @@ int8_t CategoriesHolder::MapLocaleToInteger(string const & locale)
       find(kDisabledLanguages.begin(), kDisabledLanguages.end(), "en") == kDisabledLanguages.end(),
       ());
 
-  for (auto const & entry : kLocaleMapping)
+  for (auto it = kLocaleMapping.crbegin(); it != kLocaleMapping.crend(); ++it)
   {
-    if (locale.find(entry.m_name) == 0)
-      return entry.m_code;
+    if (locale.find(it->m_name) == 0)
+      return it->m_code;
   }
 
   // Special cases for different Chinese variations
@@ -339,10 +339,10 @@ int8_t CategoriesHolder::MapLocaleToInteger(string const & locale)
     for (char const * s : {"hant", "tw", "hk", "mo"})
     {
       if (lower.find(s) != string::npos)
-        return 12;  // Traditional Chinese
+        return 36;  // Traditional Chinese
     }
 
-    return 17;  // Simplified Chinese by default for all other cases
+    return 35;  // Simplified Chinese by default for all other cases
   }
 
   return kUnsupportedLocaleCode;
