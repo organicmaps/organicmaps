@@ -9929,6 +9929,11 @@
     fa = تلفن
     sk = Telefón
 
+  [editor_add_phone]
+    tags = android
+    en = Add Phone
+    ru = Добавить телефон
+
   [please_note]
     tags = ios
     en = Please note
