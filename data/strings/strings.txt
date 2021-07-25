@@ -5646,12 +5646,12 @@
     ar = أوصافك (نصّ أو html)
     cs = Popis (HTML nebo text)
     da = Dine beskrivelser (tekst eller html)
-    id = Deskripsi Anda (teks atau html)
     nl = Uw omschrijvingen (tekst of html)
     fi = Kuvauksesi (teksti tai html)
     fr = Vos descriptions (version texte ou html)
     de = Ihre Beschreibungen (Text oder HTML)
     hu = Az ön leírásai (sima szöveg vagy html)
+    id = Deskripsi Anda (teks atau html)
     it = Le tue descrizioni (formato testo o html)
     ja = 説明（テキストまたはHTML）
     ko = 설명(텍스트 또는 HTML)
@@ -9896,7 +9896,7 @@
     sk = Email alebo používateľské meno
 
   [phone]
-    tags = android, ios
+    tags = ios
     en = Phone
     ru = Телефон
     bg = Телефон
@@ -15625,10 +15625,10 @@
     el:other = έχουν βρεθεί %d αρχεία. Θα τα δείτε μετά τη μετατροπή.
     en:one = %d file was found. You can see it after conversion.
     en:other = %d files were found. You can see them after conversion.
-    es:one = Se encontró %d archivo. Lo verás después de la conversión.
-    es:other = Se han encontrado %d archivos. Los verás después de la conversión.
     es-MX:one = Se encontró %d archivo. Lo verás después de la conversión.
     es-MX:other = Se han encontrado %d archivos. Los verás después de la conversión.
+    es:one = Se encontró %d archivo. Lo verás después de la conversión.
+    es:other = Se han encontrado %d archivos. Los verás después de la conversión.
     fa:one = %d فایل پیدا شد. بعد از تبدیل آن را می‌بینید.
     fa:other = %d فایل پیدا شد. بعد از تبدیل آن‌ها را می‌بینید.
     fi:one = %d tiedosto löydettiin. Näet sen muunnoksen jälkeen.
@@ -15668,8 +15668,8 @@
     uk:one = %d файл був знайдений. Ви побачите його після перетворення.
     uk:other = %d файлів було знайдено. Ви побачите їх після конвертації.
     uk:two = %d файлу були знайдені. Ви побачите їх після конвертації.
-    vi:other = %d tập tin đã được tìm thấy. Bạn sẽ thấy chúng sau khi chuyển đổi.
     vi:one = %d dã tìm thấy một tệp. Bạn sẽ thấy nó sau khi chuyển đổi.
+    vi:other = %d tập tin đã được tìm thấy. Bạn sẽ thấy chúng sau khi chuyển đổi.
 
   [button_convert]
     tags = ios
