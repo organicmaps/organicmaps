@@ -1556,7 +1556,7 @@ fa:مرکز خرید|پاساژ
 shop-beverages|@food
 en:Beverages|drinks|U+1F379
 en-GB:Drinks|U+1F379
-eb-AU:Drinks|U+1F379
+en-AU:Drinks|U+1F379
 ru:Напитки|соки
 bg:напитки|питиета
 ar:مشروبات|عصائر
@@ -5070,7 +5070,7 @@ hu:Csúcs|hegy
 id:Puncak
 it:Monte|montagna|cima|picco
 ja:1山頂|山|頂|頂上|峰
-ko:산|산악 
+ko:산|산악
 nb:Høydepunkt|fjell
 pl:3Góra|szczyt|wierzchołek
 pt:Pico|montanha
