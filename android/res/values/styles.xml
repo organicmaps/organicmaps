@@ -139,9 +139,7 @@
     <item name="contentInsetStart">72dp</item>
     <item name="android:titleTextAppearance" tools:ignore="NewApi">@style/MwmTextAppearance.Toolbar.Title</item>
     <item name="titleTextAppearance">@style/MwmTextAppearance.Toolbar.Title</item>
-    <item name="contentInsetLeft">72dp</item>
-    <item name="android:contentInsetStart" tools:ignore="NewApi">72dp</item>
-    <item name="android:contentInsetLeft" tools:ignore="NewApi">72dp</item>
+    <item name="android:contentInsetStart">72dp</item>
   </style>
 
   <style name="MwmWidget.ToolbarStyle.Light">
