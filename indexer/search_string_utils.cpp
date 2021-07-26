@@ -324,6 +324,9 @@ private:
       // English - English
       "street", "st", "avenue", "av", "ave", "square", "sq", "road", "rd", "boulevard", "blvd", "drive", "dr", "highway", "hwy", "lane", "ln", "way", "circle", "place", "pl",
 
+      // Belarusian - Беларуская мова
+      "вуліца", "вул", "завулак", "набярэжная", "плошча", "пл", "праезд", "праспект", "пр", "тракт", "тр", "тупік",
+
       // Bulgarian - Български
       "булевард", "бул", "площад", "пл", "улица", "ул", "квартал", "кв",
 
