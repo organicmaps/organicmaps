@@ -273,7 +273,7 @@ final class RoutingBottomMenuController implements View.OnClickListener
                                                 R.drawable.ic_altitude_difference);
       int colorAccent = ContextCompat.getColor(mContext,
           UiUtils.getStyledResourceId(mContext, R.attr.colorAccent));
-      mAltitudeDifference.setCompoundDrawablesWithIntrinsicBounds(Graphics.tint(icon, colorAccent),
+      mAltitudeDifference.setCompoundDrawablesRelativeWithIntrinsicBounds(Graphics.tint(icon, colorAccent),
                                                                   null, null, null);
       UiUtils.show(mAltitudeDifference);
     }

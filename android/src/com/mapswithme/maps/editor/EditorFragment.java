@@ -555,11 +555,11 @@ public class EditorFragment extends BaseMwmFragment implements View.OnClickListe
   {
     if (arrowResourceId == 0)
     {
-      mNamesCaption.setCompoundDrawablesWithIntrinsicBounds(null, null, null, null);
+      mNamesCaption.setCompoundDrawablesRelativeWithIntrinsicBounds(null, null, null, null);
       return;
     }
 
-    mNamesCaption.setCompoundDrawablesWithIntrinsicBounds(
+    mNamesCaption.setCompoundDrawablesRelativeWithIntrinsicBounds(
       null,
       null,
       Graphics.tint(getActivity(), arrowResourceId, R.attr.iconTint),
