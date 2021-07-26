@@ -325,6 +325,8 @@
 
 "recent_track_help_text" = "移動経路を一定期間記録し、地図上で確認できるようにします。注意：この機能を有効にすると、バッテリーの消費量が増えます。表示期間が終了すると、走行軌跡は地図から自動的に削除されます。";
 
+"placepage_distance" = "距離";
+
 "search_show_on_map" = "地図に表示";
 
 /* Text in menu */
@@ -466,6 +468,30 @@
 /* pink color */
 "pink" = "ピンク";
 
+/* deep purple color */
+"deep_purple" = "ディープパープル";
+
+/* light blue color */
+"light_blue" = "ライトブルー";
+
+/* cyan color */
+"cyan" = "シアン";
+
+/* teal color */
+"teal" = "ティール";
+
+/* lime color */
+"lime" = "ライム";
+
+/* deep orange color */
+"deep_orange" = "ディープオレンジ";
+
+/* gray color */
+"gray" = "グレイ";
+
+/* blue gray color */
+"blue_gray" = "ブルーグレイ";
+
 /* Wi-Fi available */
 "WiFi_available" = "はい";
 
@@ -553,6 +579,9 @@
 
 /* Arrive routing message in navigation view */
 "routing_arrive" = "到着予定: %s";
+
+/* Text for routing::RouterResultCode::FileTooOld dialog. */
+"dialog_routing_download_and_update_maps" = "ルートを作成するには、ルートの通過する地図を全てダウンロード・アップデートしてください。";
 
 "rate_alert_title" = "このアプリが好きですか?";
 
@@ -1107,6 +1136,8 @@
 "list_settings" = "リスト設定";
 
 "delete_list" = "リスト削除";
+
+"hide_from_map" = "マップから隠す";
 
 "public_access" = "パブリック・アクセス";
 

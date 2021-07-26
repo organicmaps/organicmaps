@@ -325,6 +325,8 @@
 
 "recent_track_help_text" = "Consente di registrare il tratto percorso in un determinato periodo di tempo e vedere lo stesso sulla mappa. Nota: l'attivazione di questa funzione incrementa l'uso della batteria. Il tratto viene rimosso automaticamente dalla mappa allo scadere dell'intervallo di tempo.";
 
+"placepage_distance" = "Distanza";
+
 "search_show_on_map" = "Visualizza sulla mappa";
 
 /* Text in menu */
@@ -466,6 +468,30 @@
 /* pink color */
 "pink" = "Rosa";
 
+/* deep purple color */
+"deep_purple" = "Viola scuro";
+
+/* light blue color */
+"light_blue" = "Azzurro";
+
+/* cyan color */
+"cyan" = "Cyan";
+
+/* teal color */
+"teal" = "Verde smeraldo";
+
+/* lime color */
+"lime" = "Verde fluo";
+
+/* deep orange color */
+"deep_orange" = "Arancione scuro";
+
+/* gray color */
+"gray" = "Grigio";
+
+/* blue gray color */
+"blue_gray" = "Grigiazzurro";
+
 /* Wi-Fi available */
 "WiFi_available" = "Sì";
 
@@ -553,6 +579,9 @@
 
 /* Arrive routing message in navigation view */
 "routing_arrive" = "Arrivo: %s";
+
+/* Text for routing::RouterResultCode::FileTooOld dialog. */
+"dialog_routing_download_and_update_maps" = "Per creare un percorso, scaricare e aggiornare tutte le mappe interessate dal percorso.";
 
 "rate_alert_title" = "Ti piace l’app?";
 
@@ -1107,6 +1136,8 @@
 "list_settings" = "Impostazioni elenco";
 
 "delete_list" = "Cancella elenco";
+
+"hide_from_map" = "Nascondere sulla mappa";
 
 "public_access" = "Accesso pubblico";
 

@@ -333,6 +333,8 @@
 
 "recent_track_help_text" = "Ця функція дозволяє прокласти подоланий маршрут протягом певного проміжку часу та переглянути його на мапі. Звертаємо вашу увагу, що вмикання цієї функції пришвидшить розрядження акумулятора. Щойно сплине заданий проміжок часу, прокладений маршрут буде видалено з мапи.";
 
+"placepage_distance" = "Відстань";
+
 "search_show_on_map" = "Подивитись на мапі";
 
 /* Text in menu */
@@ -474,6 +476,30 @@
 /* pink color */
 "pink" = "Рожевий";
 
+/* deep purple color */
+"deep_purple" = "Темно-пурпуровий";
+
+/* light blue color */
+"light_blue" = "Блакитний";
+
+/* cyan color */
+"cyan" = "Синьо-зелений";
+
+/* teal color */
+"teal" = "Смарагдовий";
+
+/* lime color */
+"lime" = "Лайм";
+
+/* deep orange color */
+"deep_orange" = "Темно-помаранчевий";
+
+/* gray color */
+"gray" = "Сірий";
+
+/* blue gray color */
+"blue_gray" = "Сіро-блакитний";
+
 /* Wi-Fi available */
 "WiFi_available" = "Так";
 
@@ -561,6 +587,9 @@
 
 /* Arrive routing message in navigation view */
 "routing_arrive" = "Прибуття в %s";
+
+/* Text for routing::RouterResultCode::FileTooOld dialog. */
+"dialog_routing_download_and_update_maps" = "Для створення маршруту, будь ласка, скачайте та обновіть всі карти за ним.";
 
 "rate_alert_title" = "Подобається програма?";
 
@@ -1115,6 +1144,8 @@
 "list_settings" = "Налаштування списку";
 
 "delete_list" = "Видалити список";
+
+"hide_from_map" = "Приховати з карти";
 
 "public_access" = "Публічний доступ";
 

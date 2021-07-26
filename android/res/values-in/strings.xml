@@ -212,6 +212,7 @@
 	<string name="duration_12_hours">12 jam</string>
 	<string name="duration_1_day">1 hari</string>
 	<string name="recent_track_help_text">Ini memungkinkan Anda untuk merekam jalur yang telah dilalui selama jangka waktu tertentu dan melihatnya pada peta. Harap ketahui: aktivasi fungsi ini menyebabkan peningkatan penggunaan baterai. Trek akan dihapus secara otomatis dari peta setelah selang waktu berakhir.</string>
+	<string name="placepage_distance">Jarak</string>
 	<string name="search_show_on_map">Tampilkan pada peta</string>
 	<!-- Text in menu -->
 	<string name="website">Situs Web</string>
@@ -303,6 +304,22 @@
 	<string name="brown">Nâu</string>
 	<!-- pink color -->
 	<string name="pink">Hồng</string>
+	<!-- deep purple color -->
+	<string name="deep_purple">Ungu Gelap</string>
+	<!-- light blue color -->
+	<string name="light_blue">Biru Muda</string>
+	<!-- cyan color -->
+	<string name="cyan">Biru Kehijauan</string>
+	<!-- teal color -->
+	<string name="teal">Biru Gelap</string>
+	<!-- lime color -->
+	<string name="lime">Kuning Gelap</string>
+	<!-- deep orange color -->
+	<string name="deep_orange">Oranye Gelap</string>
+	<!-- gray color -->
+	<string name="gray">Abu-abu</string>
+	<!-- blue gray color -->
+	<string name="blue_gray">Biru Keabu-abuan</string>
 	<!-- Wi-Fi available -->
 	<string name="WiFi_available">Ya</string>
 
@@ -351,6 +368,8 @@
 	<string name="routing_planning_error">Sudah sampai di tujuan</string>
 	<!-- Arrive routing message in navigation view -->
 	<string name="routing_arrive">Kedatangan: %s</string>
+	<!-- Text for routing::RouterResultCode::FileTooOld dialog. -->
+	<string name="dialog_routing_download_and_update_maps">Untuk membuat rute, silakan unduh dan perbarui semua peta sepanjang rute.</string>
 	<string name="rate_alert_title">Suka aplikasi ini?</string>
 	<string name="rate_alert_default_message">Terima kasih karena menggunakan Organic Maps. Mohon beri peringkat untuk aplikasi ini. Masukan dari Anda membantu kami untuk menjadi lebih baik.</string>
 	<string name="rate_alert_five_star_message">Hore! Kami juga sangat menyukai Anda!</string>
@@ -659,6 +678,7 @@
 	<string name="export_file">File ekspor</string>
 	<string name="list_settings">Pengaturan Daftar</string>
 	<string name="delete_list">Hapus Daftar</string>
+	<string name="hide_from_map">Sembunyikan dari peta</string>
 	<string name="public_access">Akses umum</string>
 	<string name="limited_access">Akses terbatas</string>
 	<string name="bookmark_category_name">Kategori</string>

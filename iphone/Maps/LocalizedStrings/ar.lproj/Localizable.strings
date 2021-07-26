@@ -331,6 +331,8 @@
 
 "recent_track_help_text" = "يتيح لك تسجيل مسار السفر لفترة معينة وعرضه على الخريطة. الرجاء ملاحظة: يؤدي تنشيط هذه الوظيفة إلى زيادة استهلاك البطارية. سوف تتم إزالة المسار تلقائيًا من الخريطة بعد انتهاء الفاصل الزمني.";
 
+"placepage_distance" = "المسافة";
+
 "search_show_on_map" = "مشاهدة على الخريطة";
 
 /* Text in menu */
@@ -472,6 +474,30 @@
 /* pink color */
 "pink" = "وردي";
 
+/* deep purple color */
+"deep_purple" = "أرجواني داكن";
+
+/* light blue color */
+"light_blue" = "أزرق فاتح";
+
+/* cyan color */
+"cyan" = "أزرق سماوي";
+
+/* teal color */
+"teal" = "أخضر فاتح";
+
+/* lime color */
+"lime" = "ليموني";
+
+/* deep orange color */
+"deep_orange" = "برتقالي داكن";
+
+/* gray color */
+"gray" = "رمادي";
+
+/* blue gray color */
+"blue_gray" = "رمادي أزرق";
+
 /* Wi-Fi available */
 "WiFi_available" = "نعم";
 
@@ -559,6 +585,9 @@
 
 /* Arrive routing message in navigation view */
 "routing_arrive" = "الوصول: %s";
+
+/* Text for routing::RouterResultCode::FileTooOld dialog. */
+"dialog_routing_download_and_update_maps" = "لإنشاء مسار، يرجى تنزيل وتحديث جميع الخرائط على امتداد الطريق.";
 
 "rate_alert_title" = "يعجبك التطبيق؟";
 
@@ -1113,6 +1142,8 @@
 "list_settings" = "قائمة الإعدادات";
 
 "delete_list" = "حذف القائمة";
+
+"hide_from_map" = "إخفاء من الخريطة";
 
 "public_access" = "إطلاع الجمهور";
 

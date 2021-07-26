@@ -220,6 +220,7 @@
 	<string name="duration_12_hours">12 часов</string>
 	<string name="duration_1_day">1 сутки</string>
 	<string name="recent_track_help_text">Эта функция позволяет записывать пройденный путь за определенный период времени и видеть его на карте. Внимание: активация этой функции может привести к повышенному расходу батареи. Записанный трек будет удален с карты по истечении этого срока.</string>
+	<string name="placepage_distance">Расстояние</string>
 	<string name="search_show_on_map">Посмотреть на карте</string>
 	<!-- Text in menu -->
 	<string name="website">Вебсайт</string>
@@ -311,6 +312,22 @@
 	<string name="brown">Коричневый</string>
 	<!-- pink color -->
 	<string name="pink">Розовый</string>
+	<!-- deep purple color -->
+	<string name="deep_purple">Тёмно-пурпурный</string>
+	<!-- light blue color -->
+	<string name="light_blue">Голубой</string>
+	<!-- cyan color -->
+	<string name="cyan">Сине-зелёный</string>
+	<!-- teal color -->
+	<string name="teal">Изумрудный</string>
+	<!-- lime color -->
+	<string name="lime">Лайм</string>
+	<!-- deep orange color -->
+	<string name="deep_orange">Тёмно-оранжевый</string>
+	<!-- gray color -->
+	<string name="gray">Серый</string>
+	<!-- blue gray color -->
+	<string name="blue_gray">Серо-голубой</string>
 	<!-- Wi-Fi available -->
 	<string name="WiFi_available">Есть</string>
 
@@ -359,6 +376,8 @@
 	<string name="routing_planning_error">Ошибка построения маршрута</string>
 	<!-- Arrive routing message in navigation view -->
 	<string name="routing_arrive">Прибытие в %s</string>
+	<!-- Text for routing::RouterResultCode::FileTooOld dialog. -->
+	<string name="dialog_routing_download_and_update_maps">Для построения маршрута загрузите и обновите все карты по пути следования.</string>
 	<string name="rate_alert_title">Нравится приложение?</string>
 	<string name="rate_alert_default_message">Спасибо что пользуетесь картами Organic Maps. Пожалуйста, оцените приложение. Ваши оценки и отзывы помогают нам становиться лучше.</string>
 	<string name="rate_alert_five_star_message">Ура! Мы вас тоже любим!</string>
@@ -683,6 +702,7 @@
 	<string name="export_file">Экспортировать файл</string>
 	<string name="list_settings">Настройки списка</string>
 	<string name="delete_list">Удалить список</string>
+	<string name="hide_from_map">Скрыть с карты</string>
 	<string name="public_access">Публичный доступ</string>
 	<string name="limited_access">Ограниченный доступ</string>
 	<string name="bookmark_category_name">Категория</string>

@@ -210,6 +210,7 @@
 	<string name="duration_12_hours">12 hodin</string>
 	<string name="duration_1_day">1 den</string>
 	<string name="recent_track_help_text">To vám umožňuje zaznamenávat ujetou cestu po určitou dobu a vidět ji na mapě. Poznámka: aktivace této funkce způsobuje zvýšenou spotřebu baterie. Trať bude automaticky odebrána z mapy poté, co vyprší časový interval.</string>
+	<string name="placepage_distance">Vzdálenost</string>
 	<string name="search_show_on_map">Zobrazit na mapě</string>
 	<!-- Text in menu -->
 	<string name="website">Webové stránky</string>
@@ -301,6 +302,22 @@
 	<string name="brown">Hnědá</string>
 	<!-- pink color -->
 	<string name="pink">Růžová</string>
+	<!-- deep purple color -->
+	<string name="deep_purple">Tmavě fialová</string>
+	<!-- light blue color -->
+	<string name="light_blue">Světle modrá</string>
+	<!-- cyan color -->
+	<string name="cyan">Cyan</string>
+	<!-- teal color -->
+	<string name="teal">Teal</string>
+	<!-- lime color -->
+	<string name="lime">Limeta</string>
+	<!-- deep orange color -->
+	<string name="deep_orange">Tmavě oranžová</string>
+	<!-- gray color -->
+	<string name="gray">Šedá</string>
+	<!-- blue gray color -->
+	<string name="blue_gray">Modrošedá</string>
 	<!-- Wi-Fi available -->
 	<string name="WiFi_available">Ano</string>
 
@@ -349,6 +366,8 @@
 	<string name="routing_planning_error">Naplánování trasy se nezdařilo</string>
 	<!-- Arrive routing message in navigation view -->
 	<string name="routing_arrive">Příjezd: %s</string>
+	<!-- Text for routing::RouterResultCode::FileTooOld dialog. -->
+	<string name="dialog_routing_download_and_update_maps">Pro vytvoření trasy si prosím stáhněte a aktualizujte všechny mapy podél očekávané cesty.</string>
 	<string name="rate_alert_title">Líbí se vám aplikace?</string>
 	<string name="rate_alert_default_message">Děkujeme, že používáte Organic Maps. Ohodnoťte, prosím, tuto aplikaci. Váš komentář nám pomůže ji ještě zlepšit.</string>
 	<string name="rate_alert_five_star_message">Hurá! Také vás zbožňujeme!</string>
@@ -658,6 +677,7 @@
 	<string name="export_file">Exportovat soubor</string>
 	<string name="list_settings">Nástroje seznamu</string>
 	<string name="delete_list">Smazat seznam</string>
+	<string name="hide_from_map">Neukazovat na mapě</string>
 	<string name="public_access">Veřejně přístupné</string>
 	<string name="limited_access">Soukromé</string>
 	<string name="bookmark_category_name">Kategorie</string>

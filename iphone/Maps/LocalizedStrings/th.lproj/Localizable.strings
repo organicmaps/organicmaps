@@ -331,6 +331,8 @@
 
 "recent_track_help_text" = "ช่วยให้คุณบันทึกเส้นทางที่คุณเดินทางในช่วงระยะเวลาหนึ่งแล้วดูบนแผนที่ได้ โปรดทราบว่า: การเปิดใช้งานฟังก์ชั่นนี้จะทำให้การใช้งานแบตเตอรี่เพิ่มมากขึ้น การติดตามจะถูกเอาออกไปโดยอัตโนมัติจากแผนที่หลังจากผ่านช่วงเวลาที่กำหนด";
 
+"placepage_distance" = "ระยะห่าง";
+
 "search_show_on_map" = "ดูบนแผนที่";
 
 /* Text in menu */
@@ -472,6 +474,30 @@
 /* pink color */
 "pink" = "สีชมพู";
 
+/* deep purple color */
+"deep_purple" = "สีม่วงเข้ม";
+
+/* light blue color */
+"light_blue" = "สีฟ้าอ่อน";
+
+/* cyan color */
+"cyan" = "สีฟ้าอมเขียว";
+
+/* teal color */
+"teal" = "สีเขียวนกเป็ดน้ำ";
+
+/* lime color */
+"lime" = "สีเขียวอมเหลือง";
+
+/* deep orange color */
+"deep_orange" = "สีส้มเข้ม";
+
+/* gray color */
+"gray" = "สีเทา";
+
+/* blue gray color */
+"blue_gray" = "สีฟ้าอมเทา";
+
 /* Wi-Fi available */
 "WiFi_available" = "ใช่";
 
@@ -559,6 +585,9 @@
 
 /* Arrive routing message in navigation view */
 "routing_arrive" = "มาถึง: %s";
+
+/* Text for routing::RouterResultCode::FileTooOld dialog. */
+"dialog_routing_download_and_update_maps" = "เพื่อสร้างเส้นทาง โปรดดาวน์โหลดและอัปเดตแผนที่ทั้งหมดตลอดเส้นทาง";
 
 "rate_alert_title" = "ชอบแอปหรือไม่?";
 
@@ -1113,6 +1142,8 @@
 "list_settings" = "การตั้งค่ารายการ";
 
 "delete_list" = "ลบรายการ";
+
+"hide_from_map" = "ซ่อนจากแผนที่";
 
 "public_access" = "เข้าถึงได้โดยสาธารณะ";
 

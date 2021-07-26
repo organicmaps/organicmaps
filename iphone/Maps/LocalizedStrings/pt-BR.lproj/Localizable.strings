@@ -339,6 +339,8 @@
 
 "recent_track_help_text" = "Permite você salvar um caminho percorrido durante um determinado período e o ver no papa. Nota: esta funcionalidade usa mais bateria. A rota será automaticamente removida do mapa após o intervalo de tempo expirar.";
 
+"placepage_distance" = "Distância";
+
 "search_show_on_map" = "Ver no mapa";
 
 /* Text in menu */
@@ -480,6 +482,30 @@
 /* pink color */
 "pink" = "Rosa";
 
+/* deep purple color */
+"deep_purple" = "Lilás escuro";
+
+/* light blue color */
+"light_blue" = "Azul Claro";
+
+/* cyan color */
+"cyan" = "Ciano";
+
+/* teal color */
+"teal" = "Cerceta";
+
+/* lime color */
+"lime" = "Lima";
+
+/* deep orange color */
+"deep_orange" = "Laranja escuro";
+
+/* gray color */
+"gray" = "Cinza";
+
+/* blue gray color */
+"blue_gray" = "Azul escuro";
+
 /* Wi-Fi available */
 "WiFi_available" = "Sim";
 
@@ -565,6 +591,9 @@
 
 /* Arrive routing message in navigation view */
 "routing_arrive" = "Chegada: %s";
+
+/* Text for routing::RouterResultCode::FileTooOld dialog. */
+"dialog_routing_download_and_update_maps" = "Para criar uma rota, por favor, baixe e atualize todos os mapas ao longo do trajeto.";
 
 "rate_alert_title" = "Você gosta do aplicativo?";
 
@@ -1125,6 +1154,8 @@
 "list_settings" = "Configurações de lista";
 
 "delete_list" = "Deletar lista";
+
+"hide_from_map" = "Esconder do mapa";
 
 "public_access" = "Acesso público";
 

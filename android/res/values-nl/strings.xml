@@ -207,6 +207,7 @@
 	<string name="duration_12_hours">12 uur</string>
 	<string name="duration_1_day">1 dag</string>
 	<string name="recent_track_help_text">Dit laat u toe het afgelegde traject voor een bepaalde periode te registreren en te bekijken op de kaart. Merk op: activatie van deze functie veroorzaakt een hoger batterijverbruik. Het traject wordt automatisch van de kaart verwijderd nadat het tijdsinterval verloopt.</string>
+	<string name="placepage_distance">Afstand</string>
 	<string name="search_show_on_map">Op kaart bekijken</string>
 	<!-- Text in menu -->
 	<string name="website">Website</string>
@@ -298,6 +299,22 @@
 	<string name="brown">Bruin</string>
 	<!-- pink color -->
 	<string name="pink">Roze</string>
+	<!-- deep purple color -->
+	<string name="deep_purple">Donker paars</string>
+	<!-- light blue color -->
+	<string name="light_blue">Lichtblauw</string>
+	<!-- cyan color -->
+	<string name="cyan">Blauwgroen</string>
+	<!-- teal color -->
+	<string name="teal">Smaragdgroen</string>
+	<!-- lime color -->
+	<string name="lime">Lime</string>
+	<!-- deep orange color -->
+	<string name="deep_orange">Donkeroranje</string>
+	<!-- gray color -->
+	<string name="gray">Grijs</string>
+	<!-- blue gray color -->
+	<string name="blue_gray">Grijsblauw</string>
 	<!-- Wi-Fi available -->
 	<string name="WiFi_available">Ja</string>
 
@@ -346,6 +363,8 @@
 	<string name="routing_planning_error">Routeberekening mislukt</string>
 	<!-- Arrive routing message in navigation view -->
 	<string name="routing_arrive">Aankomst: %s</string>
+	<!-- Text for routing::RouterResultCode::FileTooOld dialog. -->
+	<string name="dialog_routing_download_and_update_maps">Om een route te maken, download en update alle kaarten rondom de route.</string>
 	<string name="rate_alert_title">Vindt u de app leuk?</string>
 	<string name="rate_alert_default_message">Bedankt om Organic Maps te gebruiken. Gelieve de app te beoordelen. Uw feedback helpt ons beter te worden.</string>
 	<string name="rate_alert_five_star_message">Hoera! Wij houden ook van u!</string>
@@ -654,6 +673,7 @@
 	<string name="export_file">Bestand exporteren</string>
 	<string name="list_settings">Lijst Instellingen</string>
 	<string name="delete_list">Lijst verwijderen</string>
+	<string name="hide_from_map">Van de kaart verbergen</string>
 	<string name="public_access">Publiek toegang</string>
 	<string name="limited_access">Beperkte toegang</string>
 	<string name="bookmark_category_name">Categorie</string>

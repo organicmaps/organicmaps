@@ -337,6 +337,8 @@
 
 "recent_track_help_text" = "它可讓您記錄特定期間所行經的路徑，並在地圖上看到該路徑。請注意：啟用此項功能會增加電池使用量。在時間間隔過期後，會從地圖中自動移除行進路線。";
 
+"placepage_distance" = "距离";
+
 "search_show_on_map" = "在地圖上查看";
 
 /* Text in menu */
@@ -484,6 +486,30 @@
 /* pink color */
 "pink" = "粉色";
 
+/* deep purple color */
+"deep_purple" = "暗紫色";
+
+/* light blue color */
+"light_blue" = "天藍色";
+
+/* cyan color */
+"cyan" = "藍綠色";
+
+/* teal color */
+"teal" = "碧綠色";
+
+/* lime color */
+"lime" = "青檸";
+
+/* deep orange color */
+"deep_orange" = "深橘色";
+
+/* gray color */
+"gray" = "灰色";
+
+/* blue gray color */
+"blue_gray" = "藍灰色";
+
 /* Wi-Fi available */
 "WiFi_available" = "是";
 
@@ -571,6 +597,9 @@
 
 /* Arrive routing message in navigation view */
 "routing_arrive" = "抵達:%s";
+
+/* Text for routing::RouterResultCode::FileTooOld dialog. */
+"dialog_routing_download_and_update_maps" = "要建立路線，請下載並更新所有沿線的地圖。";
 
 "rate_alert_title" = "喜歡這個應用程式嗎？";
 
@@ -1128,6 +1157,8 @@
 "list_settings" = "列表設置";
 
 "delete_list" = "刪除列表";
+
+"hide_from_map" = "從卡中隱藏";
 
 "public_access" = "公共訪問";
 

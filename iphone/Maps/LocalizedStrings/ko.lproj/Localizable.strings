@@ -328,6 +328,8 @@
 
 "recent_track_help_text" = "특정 기간 동안 이동된 경로를 기록하고 지도에서 그 경로를 볼 수 있습니다. 참고: 이 기능을 활성화하면 배터리 사용량이 증가하게 됩니다. 시간 간격이 만료된 후 지도에서 해당 트랙이 자동으로 제거됩니다.";
 
+"placepage_distance" = "거리";
+
 "search_show_on_map" = "지도 보기";
 
 /* Text in menu */
@@ -469,6 +471,30 @@
 /* pink color */
 "pink" = "분홍색";
 
+/* deep purple color */
+"deep_purple" = "진보라색";
+
+/* light blue color */
+"light_blue" = "하늘색";
+
+/* cyan color */
+"cyan" = "시안";
+
+/* teal color */
+"teal" = "틸";
+
+/* lime color */
+"lime" = "라임";
+
+/* deep orange color */
+"deep_orange" = "진주황색";
+
+/* gray color */
+"gray" = "회색";
+
+/* blue gray color */
+"blue_gray" = "청회색";
+
 /* Wi-Fi available */
 "WiFi_available" = "네";
 
@@ -556,6 +582,9 @@
 
 /* Arrive routing message in navigation view */
 "routing_arrive" = "도착: %s";
+
+/* Text for routing::RouterResultCode::FileTooOld dialog. */
+"dialog_routing_download_and_update_maps" = "경로를 만들려면, 경로를 따라 모든 지도를 다운로드하고 업데이트하십시오.";
 
 "rate_alert_title" = "앱을 좋아하나요?";
 
@@ -1110,6 +1139,8 @@
 "list_settings" = "목록 세팅";
 
 "delete_list" = "리스트 삭제";
+
+"hide_from_map" = "지도에서 숨기기";
 
 "public_access" = "일반 접근";
 

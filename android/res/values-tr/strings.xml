@@ -212,6 +212,7 @@
 	<string name="duration_12_hours">12 saat</string>
 	<string name="duration_1_day">1 gün</string>
 	<string name="recent_track_help_text">Bu özellik, belirli bir süre içinde katedilen yolu kaydetmenizi ve harita üzerinde izlemenizi sağlar. Lütfen unutmayın: bu işlevin etkinleştirilmesi pil tüketiminin artmasına neden olur. Takip, zaman aralığının sona ermesinin ardından otomatik olarak haritadan kaldırılacaktır.</string>
+	<string name="placepage_distance">Mesafe</string>
 	<string name="search_show_on_map">Haritada görüntüle</string>
 	<!-- Text in menu -->
 	<string name="website">Web Sitesi</string>
@@ -303,6 +304,22 @@
 	<string name="brown">Kahverengi</string>
 	<!-- pink color -->
 	<string name="pink">Pembe</string>
+	<!-- deep purple color -->
+	<string name="deep_purple">Koyu Mor</string>
+	<!-- light blue color -->
+	<string name="light_blue">Açık Mavi</string>
+	<!-- cyan color -->
+	<string name="cyan">Cam Göbeği</string>
+	<!-- teal color -->
+	<string name="teal">Deniz Mavisi</string>
+	<!-- lime color -->
+	<string name="lime">Çim Rengi</string>
+	<!-- deep orange color -->
+	<string name="deep_orange">Koyu Turuncu</string>
+	<!-- gray color -->
+	<string name="gray">Gri</string>
+	<!-- blue gray color -->
+	<string name="blue_gray">Mavi Gri</string>
 	<!-- Wi-Fi available -->
 	<string name="WiFi_available">Evet</string>
 
@@ -351,6 +368,8 @@
 	<string name="routing_planning_error">Rota Planlaması Başarısız</string>
 	<!-- Arrive routing message in navigation view -->
 	<string name="routing_arrive">Varış: %s</string>
+	<!-- Text for routing::RouterResultCode::FileTooOld dialog. -->
+	<string name="dialog_routing_download_and_update_maps">Bir rota oluşturmak için lütfen rota üzerindeki tüm haritaları indirin ve güncelleyin.</string>
 	<string name="rate_alert_title">Uygulamayı beğendiniz mi?</string>
 	<string name="rate_alert_default_message">Organic Maps’yi kullandığınız için teşekkür ederiz. Lütfen uygulamaya puan verin. Geri bildiriminiz daha iyi hale gelebilmemize yardımcı olur.</string>
 	<string name="rate_alert_five_star_message">Yaşasın! Biz de sizi seviyoruz!</string>
@@ -658,6 +677,7 @@
 	<string name="export_file">Dosyayı dışa aktar</string>
 	<string name="list_settings">Liste Ayarları</string>
 	<string name="delete_list">Listeyi sil</string>
+	<string name="hide_from_map">Haritadan gizle</string>
 	<string name="public_access">Genel erişim</string>
 	<string name="limited_access">Sınırlı erişim</string>
 	<string name="bookmark_category_name">Kategori</string>

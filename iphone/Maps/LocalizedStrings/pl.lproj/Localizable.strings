@@ -337,6 +337,8 @@
 
 "recent_track_help_text" = "Umożliwia na pewien okres zapisanie przebytej trasy i obejrzenie jej na mapie. Uwaga: włączenie tej funkcji spowoduje większe zużycie baterii. Trasa zostanie usunięta z mapy automatycznie po upływie określonego czasu.";
 
+"placepage_distance" = "Dystans";
+
 "search_show_on_map" = "Wyświetl na mapie";
 
 /* Text in menu */
@@ -478,6 +480,30 @@
 /* pink color */
 "pink" = "Różowy";
 
+/* deep purple color */
+"deep_purple" = "Ciemnopurpurowy";
+
+/* light blue color */
+"light_blue" = "Jasnoniebieski";
+
+/* cyan color */
+"cyan" = "Niebieskozielony";
+
+/* teal color */
+"teal" = "Szmaragdowy";
+
+/* lime color */
+"lime" = "Lima";
+
+/* deep orange color */
+"deep_orange" = "Ciemnopomarańczowy";
+
+/* gray color */
+"gray" = "Szary";
+
+/* blue gray color */
+"blue_gray" = "Szaroniebieski";
+
 /* Wi-Fi available */
 "WiFi_available" = "Tak";
 
@@ -565,6 +591,9 @@
 
 /* Arrive routing message in navigation view */
 "routing_arrive" = "Przybycie: %s";
+
+/* Text for routing::RouterResultCode::FileTooOld dialog. */
+"dialog_routing_download_and_update_maps" = "Aby utworzyć trasę, pobierz i zaktualizuj wszystkie właściwe dla niej mapy.";
 
 "rate_alert_title" = "Lubisz tę aplikację?";
 
@@ -1119,6 +1148,8 @@
 "list_settings" = "Ustawienia listy";
 
 "delete_list" = "Usuń listę";
+
+"hide_from_map" = "Ukryj mapy";
 
 "public_access" = "Dostęp publiczny";
 

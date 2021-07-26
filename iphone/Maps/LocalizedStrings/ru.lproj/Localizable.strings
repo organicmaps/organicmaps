@@ -344,6 +344,8 @@
 
 "recent_track_help_text" = "Эта функция позволяет записывать пройденный путь за определенный период времени и видеть его на карте. Внимание: активация этой функции может привести к повышенному расходу батареи. Записанный трек будет удален с карты по истечении этого срока.";
 
+"placepage_distance" = "Расстояние";
+
 "search_show_on_map" = "Посмотреть на карте";
 
 /* Text in menu */
@@ -485,6 +487,30 @@
 /* pink color */
 "pink" = "Розовый";
 
+/* deep purple color */
+"deep_purple" = "Тёмно-пурпурный";
+
+/* light blue color */
+"light_blue" = "Голубой";
+
+/* cyan color */
+"cyan" = "Сине-зелёный";
+
+/* teal color */
+"teal" = "Изумрудный";
+
+/* lime color */
+"lime" = "Лайм";
+
+/* deep orange color */
+"deep_orange" = "Тёмно-оранжевый";
+
+/* gray color */
+"gray" = "Серый";
+
+/* blue gray color */
+"blue_gray" = "Серо-голубой";
+
 /* Wi-Fi available */
 "WiFi_available" = "Есть";
 
@@ -572,6 +598,9 @@
 
 /* Arrive routing message in navigation view */
 "routing_arrive" = "Прибытие в %s";
+
+/* Text for routing::RouterResultCode::FileTooOld dialog. */
+"dialog_routing_download_and_update_maps" = "Для построения маршрута загрузите и обновите все карты по пути следования.";
 
 "rate_alert_title" = "Нравится приложение?";
 
@@ -1133,6 +1162,8 @@
 "list_settings" = "Настройки списка";
 
 "delete_list" = "Удалить список";
+
+"hide_from_map" = "Скрыть с карты";
 
 "public_access" = "Публичный доступ";
 

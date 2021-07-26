@@ -331,6 +331,8 @@
 
 "recent_track_help_text" = "Det lar deg lagre ruten du har reist i en spesifikk periode og se den på kartet. Merk: Aktivering av funksjonen øker batteriforbruket. Ruten fjernes automatisk fra kartet når tidsintervallet utløper.";
 
+"placepage_distance" = "Avstand";
+
 "search_show_on_map" = "Vis på kartet";
 
 /* Text in menu */
@@ -472,6 +474,30 @@
 /* pink color */
 "pink" = "Rosa";
 
+/* deep purple color */
+"deep_purple" = "Mørkepurpur";
+
+/* light blue color */
+"light_blue" = "Lyseblå";
+
+/* cyan color */
+"cyan" = "Blågrønn";
+
+/* teal color */
+"teal" = "Smaragdgrønn";
+
+/* lime color */
+"lime" = "Limegrønn";
+
+/* deep orange color */
+"deep_orange" = "Mørkeoransje";
+
+/* gray color */
+"gray" = "Grå";
+
+/* blue gray color */
+"blue_gray" = "Gråblå";
+
 /* Wi-Fi available */
 "WiFi_available" = "Ja";
 
@@ -559,6 +585,9 @@
 
 /* Arrive routing message in navigation view */
 "routing_arrive" = "Ankomme: %s";
+
+/* Text for routing::RouterResultCode::FileTooOld dialog. */
+"dialog_routing_download_and_update_maps" = "Hvis du vil oppprette en rute, last ned og oppdater alle kartene langs ruten.";
 
 "rate_alert_title" = "Liker du appen?";
 
@@ -1083,6 +1112,8 @@
 "list_settings" = "Liste Innstillinger";
 
 "delete_list" = "Slett liste";
+
+"hide_from_map" = "Skjul fra kart";
 
 "public_access" = "Offentlig tilgang";
 

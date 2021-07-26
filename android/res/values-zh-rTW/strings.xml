@@ -216,6 +216,7 @@
 	<string name="duration_12_hours">12小時</string>
 	<string name="duration_1_day">1天</string>
 	<string name="recent_track_help_text">它可讓您記錄特定期間所行經的路徑，並在地圖上看到該路徑。請注意：啟用此項功能會增加電池使用量。在時間間隔過期後，會從地圖中自動移除行進路線。</string>
+	<string name="placepage_distance">距离</string>
 	<string name="search_show_on_map">在地圖上查看</string>
 	<!-- Text in menu -->
 	<string name="website">網站</string>
@@ -311,6 +312,22 @@
 	<string name="brown">棕色</string>
 	<!-- pink color -->
 	<string name="pink">粉色</string>
+	<!-- deep purple color -->
+	<string name="deep_purple">暗紫色</string>
+	<!-- light blue color -->
+	<string name="light_blue">天藍色</string>
+	<!-- cyan color -->
+	<string name="cyan">藍綠色</string>
+	<!-- teal color -->
+	<string name="teal">碧綠色</string>
+	<!-- lime color -->
+	<string name="lime">青檸</string>
+	<!-- deep orange color -->
+	<string name="deep_orange">深橘色</string>
+	<!-- gray color -->
+	<string name="gray">灰色</string>
+	<!-- blue gray color -->
+	<string name="blue_gray">藍灰色</string>
 	<!-- Wi-Fi available -->
 	<string name="WiFi_available">是</string>
 
@@ -359,6 +376,8 @@
 	<string name="routing_planning_error">路線計劃失敗</string>
 	<!-- Arrive routing message in navigation view -->
 	<string name="routing_arrive">抵達:%s</string>
+	<!-- Text for routing::RouterResultCode::FileTooOld dialog. -->
+	<string name="dialog_routing_download_and_update_maps">要建立路線，請下載並更新所有沿線的地圖。</string>
 	<string name="rate_alert_title">喜歡這個應用程式嗎？</string>
 	<string name="rate_alert_default_message">感謝您使用 Organic Maps。請評價此應用程式。您的回饋幫助我們改善我們的產品。</string>
 	<string name="rate_alert_five_star_message">太棒了！我們也愛您！</string>
@@ -668,6 +687,7 @@
 	<string name="export_file">導出文件</string>
 	<string name="list_settings">列表設置</string>
 	<string name="delete_list">刪除列表</string>
+	<string name="hide_from_map">從卡中隱藏</string>
 	<string name="public_access">公共訪問</string>
 	<string name="limited_access">私人訪問</string>
 	<string name="bookmark_category_name">類別</string>

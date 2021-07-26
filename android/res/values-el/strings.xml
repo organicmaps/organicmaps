@@ -306,6 +306,22 @@
 	<string name="brown">Καφέ</string>
 	<!-- pink color -->
 	<string name="pink">Ροζ</string>
+	<!-- deep purple color -->
+	<string name="deep_purple">Βαθύ πορφυρό</string>
+	<!-- light blue color -->
+	<string name="light_blue">Γαλάζιο</string>
+	<!-- cyan color -->
+	<string name="cyan">Κυανό</string>
+	<!-- teal color -->
+	<string name="teal">Σμαραγδένιο</string>
+	<!-- lime color -->
+	<string name="lime">Κιτρινοπράσινο</string>
+	<!-- deep orange color -->
+	<string name="deep_orange">Βαθύ πορτοκαλί</string>
+	<!-- gray color -->
+	<string name="gray">Γκρι</string>
+	<!-- blue gray color -->
+	<string name="blue_gray">Γκρίζο μπλε</string>
 	<!-- Wi-Fi available -->
 	<string name="WiFi_available">Ναι</string>
 
@@ -652,6 +668,7 @@
 	<string name="export_file">Αρχείο Εξαγωγής</string>
 	<string name="list_settings">Ρυθμίσεις Λίστας</string>
 	<string name="delete_list">Διαγραφή λίστας</string>
+	<string name="hide_from_map">Κρύψε από τον χάρτη</string>
 	<string name="public_access">Δημόσια πρόσβαση</string>
 	<string name="limited_access">Περιορισμένη πρόσβαση</string>
 	<string name="bookmark_category_name">Κατηγορία</string>

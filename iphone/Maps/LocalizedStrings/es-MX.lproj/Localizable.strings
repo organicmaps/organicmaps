@@ -30,6 +30,30 @@
 /* pink color */
 "pink" = "Rosa";
 
+/* deep purple color */
+"deep_purple" = "Morado oscuro";
+
+/* light blue color */
+"light_blue" = "Celeste";
+
+/* cyan color */
+"cyan" = "Cian";
+
+/* teal color */
+"teal" = "Verde azulado";
+
+/* lime color */
+"lime" = "Lima";
+
+/* deep orange color */
+"deep_orange" = "Naranja oscuro";
+
+/* gray color */
+"gray" = "Gris";
+
+/* blue gray color */
+"blue_gray" = "Gris azulado";
+
 
 /********** Strings for downloading map from search **********/
 
@@ -134,6 +158,8 @@
 "list_settings" = "Ajustes de lista";
 
 "delete_list" = "Eliminar lista";
+
+"hide_from_map" = "Ocultar del mapa";
 
 "public_access" = "Acceso público";
 

@@ -331,6 +331,8 @@
 
 "recent_track_help_text" = "Chức năng này cho phép bạn ghi lại đường đi trong một khoảng thời gian nhất định và xem nó trên bản đồ. Xin lưu ý: việc kích hoạt chức năng này sẽ tăng mức sử dụng pin. Đường đi sẽ tự động bị xóa khỏi bản đồ sau khi kết thúc khoảng thời gian nói trên.";
 
+"placepage_distance" = "Khoảng cách";
+
 "search_show_on_map" = "Xem trên bản đồ";
 
 /* Text in menu */
@@ -472,6 +474,30 @@
 /* pink color */
 "pink" = "Hồng";
 
+/* deep purple color */
+"deep_purple" = "Tía thẫm";
+
+/* light blue color */
+"light_blue" = "Xanh da trời";
+
+/* cyan color */
+"cyan" = "Xanh lơ";
+
+/* teal color */
+"teal" = "Lục bảo";
+
+/* lime color */
+"lime" = "Màu xanh chanh";
+
+/* deep orange color */
+"deep_orange" = "Cam đậm";
+
+/* gray color */
+"gray" = "Xám";
+
+/* blue gray color */
+"blue_gray" = "Xám xanh da trời";
+
 /* Wi-Fi available */
 "WiFi_available" = "Có";
 
@@ -559,6 +585,9 @@
 
 /* Arrive routing message in navigation view */
 "routing_arrive" = "Đến: %s";
+
+/* Text for routing::RouterResultCode::FileTooOld dialog. */
+"dialog_routing_download_and_update_maps" = "Để tạo đường đi, vui lòng tải về và cập nhật tất cả bản đồ dọc theo tuyến đường.";
 
 "rate_alert_title" = "Bạn thích ứng dụng chứ?";
 
@@ -1113,6 +1142,8 @@
 "list_settings" = "Cài đặt danh sách";
 
 "delete_list" = "Xóa danh sách";
+
+"hide_from_map" = "Ẩn từ bản đồ";
 
 "public_access" = "Truy cập công khai";
 

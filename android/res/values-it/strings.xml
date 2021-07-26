@@ -208,6 +208,7 @@
 	<string name="duration_12_hours">12 ore</string>
 	<string name="duration_1_day">1 giorno</string>
 	<string name="recent_track_help_text">Consente di registrare il tratto percorso in un determinato periodo di tempo e vedere lo stesso sulla mappa. Nota: l\'attivazione di questa funzione incrementa l\'uso della batteria. Il tratto viene rimosso automaticamente dalla mappa allo scadere dell\'intervallo di tempo.</string>
+	<string name="placepage_distance">Distanza</string>
 	<string name="search_show_on_map">Visualizza sulla mappa</string>
 	<!-- Text in menu -->
 	<string name="website">Sito web</string>
@@ -299,6 +300,22 @@
 	<string name="brown">Marrone</string>
 	<!-- pink color -->
 	<string name="pink">Rosa</string>
+	<!-- deep purple color -->
+	<string name="deep_purple">Viola scuro</string>
+	<!-- light blue color -->
+	<string name="light_blue">Azzurro</string>
+	<!-- cyan color -->
+	<string name="cyan">Cyan</string>
+	<!-- teal color -->
+	<string name="teal">Verde smeraldo</string>
+	<!-- lime color -->
+	<string name="lime">Verde fluo</string>
+	<!-- deep orange color -->
+	<string name="deep_orange">Arancione scuro</string>
+	<!-- gray color -->
+	<string name="gray">Grigio</string>
+	<!-- blue gray color -->
+	<string name="blue_gray">Grigiazzurro</string>
 	<!-- Wi-Fi available -->
 	<string name="WiFi_available">Sì</string>
 
@@ -347,6 +364,8 @@
 	<string name="routing_planning_error">Pianificazione del percorso fallito</string>
 	<!-- Arrive routing message in navigation view -->
 	<string name="routing_arrive">Arrivo: %s</string>
+	<!-- Text for routing::RouterResultCode::FileTooOld dialog. -->
+	<string name="dialog_routing_download_and_update_maps">Per creare un percorso, scaricare e aggiornare tutte le mappe interessate dal percorso.</string>
 	<string name="rate_alert_title">Ti piace l’app?</string>
 	<string name="rate_alert_default_message">Grazie per aver utilizzato Organic Maps. Valuta l’app. Il tuo feedback ci permette di migliorare.</string>
 	<string name="rate_alert_five_star_message">Hooray! Anche noi amiamo i nostri utenti!</string>
@@ -655,6 +674,7 @@
 	<string name="export_file">Esportare il file</string>
 	<string name="list_settings">Impostazioni elenco</string>
 	<string name="delete_list">Cancella elenco</string>
+	<string name="hide_from_map">Nascondere sulla mappa</string>
 	<string name="public_access">Accesso pubblico</string>
 	<string name="limited_access">Accesso privato</string>
 	<string name="bookmark_category_name">Categoria</string>

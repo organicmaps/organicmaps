@@ -337,6 +337,8 @@
 
 "recent_track_help_text" = "Ceci vous permet d’enregistrer le chemin emprunté pendant un certain temps et de le voir sur la carte. Veuillez noter : l’activation de cette fonction entraîne une grande utilisation de la batterie. La route sera supprimée automatiquement de la carte lorsque l’intervalle de temps sera arrivé à expiration.";
 
+"placepage_distance" = "Distance";
+
 "search_show_on_map" = "Voir sur la carte";
 
 /* Text in menu */
@@ -478,6 +480,30 @@
 /* pink color */
 "pink" = "Rose";
 
+/* deep purple color */
+"deep_purple" = "Pourpre foncé";
+
+/* light blue color */
+"light_blue" = "Bleu ciel";
+
+/* cyan color */
+"cyan" = "Cyan";
+
+/* teal color */
+"teal" = "Émeraude";
+
+/* lime color */
+"lime" = "Vert citron";
+
+/* deep orange color */
+"deep_orange" = "Orange foncé";
+
+/* gray color */
+"gray" = "Gris";
+
+/* blue gray color */
+"blue_gray" = "Gris-bleu";
+
 /* Wi-Fi available */
 "WiFi_available" = "Oui";
 
@@ -565,6 +591,9 @@
 
 /* Arrive routing message in navigation view */
 "routing_arrive" = "Arrivée: %s";
+
+/* Text for routing::RouterResultCode::FileTooOld dialog. */
+"dialog_routing_download_and_update_maps" = "Pour créer un trajet, veuillez télécharger et mettre à jour toutes les cartes concernant ce trajet.";
 
 "rate_alert_title" = "Vous aimez l’application ?";
 
@@ -1124,6 +1153,8 @@
 "list_settings" = "Paramètres liste";
 
 "delete_list" = "Supprimer liste";
+
+"hide_from_map" = "Masquer de la carte";
 
 "public_access" = "Accès publique";
 

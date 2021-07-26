@@ -331,6 +331,8 @@
 
 "recent_track_help_text" = "Vă permite să înregistrați traseul parcurs pentru o anumită perioadă și să îl vedeți pe hartă. Rețineți: activarea acestei funcții crește consumul bateriei. Traseul va fi eliminat automat de pe hartă după expirarea intervalului de timp.";
 
+"placepage_distance" = "Distanță";
+
 "search_show_on_map" = "Vizualizare pe hartă";
 
 /* Text in menu */
@@ -470,6 +472,30 @@
 /* pink color */
 "pink" = "Roz";
 
+/* deep purple color */
+"deep_purple" = "Purpuriu închis";
+
+/* light blue color */
+"light_blue" = "Albastru deschis";
+
+/* cyan color */
+"cyan" = "Albastru-verziu";
+
+/* teal color */
+"teal" = "Smarald";
+
+/* lime color */
+"lime" = "Var";
+
+/* deep orange color */
+"deep_orange" = "Portocaliu închis";
+
+/* gray color */
+"gray" = "Gri";
+
+/* blue gray color */
+"blue_gray" = "Gri albăstriu";
+
 /* Wi-Fi available */
 "WiFi_available" = "Da";
 
@@ -557,6 +583,9 @@
 
 /* Arrive routing message in navigation view */
 "routing_arrive" = "Sosire: %s";
+
+/* Text for routing::RouterResultCode::FileTooOld dialog. */
+"dialog_routing_download_and_update_maps" = "Pentru a crea o rută, vă rugăm să descărcați și să actualizați toate hărțile de pe parcursul rutei.";
 
 "rate_alert_title" = "Vă place aplicația?";
 
@@ -1111,6 +1140,8 @@
 "list_settings" = "Elaborarea listei";
 
 "delete_list" = "Ștergerea listei";
+
+"hide_from_map" = "Ascundeți de pe hartă";
 
 "public_access" = "Acces public";
 

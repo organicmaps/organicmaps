@@ -208,6 +208,7 @@
 	<string name="duration_12_hours">12時間</string>
 	<string name="duration_1_day">1日</string>
 	<string name="recent_track_help_text">移動経路を一定期間記録し、地図上で確認できるようにします。注意：この機能を有効にすると、バッテリーの消費量が増えます。表示期間が終了すると、走行軌跡は地図から自動的に削除されます。</string>
+	<string name="placepage_distance">距離</string>
 	<string name="search_show_on_map">地図に表示</string>
 	<!-- Text in menu -->
 	<string name="website">ウェブサイト</string>
@@ -299,6 +300,22 @@
 	<string name="brown">茶色</string>
 	<!-- pink color -->
 	<string name="pink">ピンク</string>
+	<!-- deep purple color -->
+	<string name="deep_purple">ディープパープル</string>
+	<!-- light blue color -->
+	<string name="light_blue">ライトブルー</string>
+	<!-- cyan color -->
+	<string name="cyan">シアン</string>
+	<!-- teal color -->
+	<string name="teal">ティール</string>
+	<!-- lime color -->
+	<string name="lime">ライム</string>
+	<!-- deep orange color -->
+	<string name="deep_orange">ディープオレンジ</string>
+	<!-- gray color -->
+	<string name="gray">グレイ</string>
+	<!-- blue gray color -->
+	<string name="blue_gray">ブルーグレイ</string>
 	<!-- Wi-Fi available -->
 	<string name="WiFi_available">はい</string>
 
@@ -347,6 +364,8 @@
 	<string name="routing_planning_error">ルート検索に失敗</string>
 	<!-- Arrive routing message in navigation view -->
 	<string name="routing_arrive">到着予定: %s</string>
+	<!-- Text for routing::RouterResultCode::FileTooOld dialog. -->
+	<string name="dialog_routing_download_and_update_maps">ルートを作成するには、ルートの通過する地図を全てダウンロード・アップデートしてください。</string>
 	<string name="rate_alert_title">このアプリが好きですか?</string>
 	<string name="rate_alert_default_message">Organic Mapsをご使用いただきありがとうございます。アプリの評価をお願いいたします。皆様からのフィードバックはアプリの改善に役立つものです。</string>
 	<string name="rate_alert_five_star_message">やったー! 相思相愛!</string>
@@ -654,6 +673,7 @@
 	<string name="export_file">ファイルのエクスポート</string>
 	<string name="list_settings">リスト設定</string>
 	<string name="delete_list">リスト削除</string>
+	<string name="hide_from_map">マップから隠す</string>
 	<string name="public_access">パブリック・アクセス</string>
 	<string name="limited_access">制限されたアクセス</string>
 	<string name="bookmark_category_name">カテゴリ</string>

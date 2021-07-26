@@ -216,6 +216,7 @@
 	<string name="duration_12_hours">12小时</string>
 	<string name="duration_1_day">1天</string>
 	<string name="recent_track_help_text">它允许您记录一定时间段内的旅行路径，并在地图上查看。请注意：激活此功能会导致电量消耗加快。过期后，轨迹将从地图中自动移除。</string>
+	<string name="placepage_distance">距离</string>
 	<string name="search_show_on_map">在地图上查看</string>
 	<!-- Text in menu -->
 	<string name="website">网站</string>
@@ -311,6 +312,22 @@
 	<string name="brown">棕色</string>
 	<!-- pink color -->
 	<string name="pink">粉色</string>
+	<!-- deep purple color -->
+	<string name="deep_purple">暗紫色</string>
+	<!-- light blue color -->
+	<string name="light_blue">天蓝色</string>
+	<!-- cyan color -->
+	<string name="cyan">蓝绿色</string>
+	<!-- teal color -->
+	<string name="teal">碧绿色</string>
+	<!-- lime color -->
+	<string name="lime">青柠</string>
+	<!-- deep orange color -->
+	<string name="deep_orange">深橘色</string>
+	<!-- gray color -->
+	<string name="gray">灰色</string>
+	<!-- blue gray color -->
+	<string name="blue_gray">蓝灰色</string>
 	<!-- Wi-Fi available -->
 	<string name="WiFi_available">是</string>
 
@@ -359,6 +376,8 @@
 	<string name="routing_planning_error">路线计划失败</string>
 	<!-- Arrive routing message in navigation view -->
 	<string name="routing_arrive">抵達:%s</string>
+	<!-- Text for routing::RouterResultCode::FileTooOld dialog. -->
+	<string name="dialog_routing_download_and_update_maps">要创建路线，请下载并更新所有沿路线的地图。</string>
 	<string name="rate_alert_title">喜欢这个应用吗？</string>
 	<string name="rate_alert_default_message">感谢您使用 Organic Maps。请评价此应用。您的反馈帮助我们改善我们的产品。</string>
 	<string name="rate_alert_five_star_message">太棒了！我们也爱您！</string>
@@ -668,6 +687,7 @@
 	<string name="export_file">导出文件</string>
 	<string name="list_settings">列表设置</string>
 	<string name="delete_list">删除列表</string>
+	<string name="hide_from_map">从卡中隐藏</string>
 	<string name="public_access">公共访问</string>
 	<string name="limited_access">私人访问</string>
 	<string name="bookmark_category_name">类别</string>
