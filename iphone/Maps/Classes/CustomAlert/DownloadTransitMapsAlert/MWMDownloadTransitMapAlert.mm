@@ -4,7 +4,6 @@
 #import "MWMDownloaderDialogHeader.h"
 #import "MWMStorage+UI.h"
 #import "SwiftBridge.h"
-#import "UILabel+RuntimeAttributes.h"
 
 #include <CoreApi/Framework.h>
 
@@ -66,16 +65,16 @@ CGFloat const kAnimationDuration = .05;
     case routing::RouterResultCode::InconsistentMWMandRoute:
     case routing::RouterResultCode::RouteNotFound:
     case routing::RouterResultCode::RouteFileNotExist:
-      alert.titleLabel.localizedText = @"dialog_routing_download_files";
-      alert.messageLabel.localizedText = @"dialog_routing_download_and_update_all";
+      alert.titleLabel.text = L(@"dialog_routing_download_files");
+      alert.messageLabel.text = L(@"dialog_routing_download_and_update_all");
       break;
     case routing::RouterResultCode::FileTooOld:
-      alert.titleLabel.localizedText = @"dialog_routing_download_files";
-      alert.messageLabel.localizedText = @"dialog_routing_download_and_update_maps";
+      alert.titleLabel.text = L(@"dialog_routing_download_files");
+      alert.messageLabel.text = L(@"dialog_routing_download_and_update_maps");
       break;
     case routing::RouterResultCode::NeedMoreMaps:
-      alert.titleLabel.localizedText = @"dialog_routing_download_and_build_cross_route";
-      alert.messageLabel.localizedText = @"dialog_routing_download_cross_route";
+      alert.titleLabel.text = L(@"dialog_routing_download_and_build_cross_route");
+      alert.messageLabel.text = L(@"dialog_routing_download_cross_route");
       break;
     default:
       NSAssert(false, @"Incorrect code!");

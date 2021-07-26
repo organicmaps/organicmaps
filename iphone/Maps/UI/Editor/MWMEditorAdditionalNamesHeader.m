@@ -1,6 +1,5 @@
 #import "MWMButton.h"
 #import "MWMEditorAdditionalNamesHeader.h"
-#import "UILabel+RuntimeAttributes.h"
 
 @interface MWMEditorAdditionalNamesHeader ()
 
@@ -16,7 +15,7 @@
 {
   MWMEditorAdditionalNamesHeader * h =
       [NSBundle.mainBundle loadNibNamed:[self className] owner:nil options:nil].firstObject;
-  h.label.localizedText = L(@"place_name").uppercaseString;
+  h.label.text = L(@"place_name").uppercaseString;
   h.toggleBlock = toggleBlock;
   return h;
 }
