@@ -7,7 +7,6 @@
   android:layout_width="match_parent"
   android:layout_height="wrap_content"
   android:theme="@style/MwmWidget.ToolbarTheme"
-  app:contentInsetLeft="@dimen/dp_0"
   app:contentInsetStart="@dimen/dp_0">
   <LinearLayout
     android:layout_width="match_parent"

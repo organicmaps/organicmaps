@@ -3,8 +3,6 @@
   xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:tools="http://schemas.android.com/tools"
   android:layout_width="match_parent"
-  android:paddingLeft="@dimen/margin_double"
-  android:paddingRight="@dimen/margin_double"
   android:paddingStart="@dimen/margin_double"
   android:paddingEnd="@dimen/margin_double"
   android:layout_height="@dimen/height_block_base">

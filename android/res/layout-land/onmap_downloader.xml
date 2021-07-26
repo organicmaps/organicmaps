@@ -88,8 +88,6 @@
       android:visibility="gone"
       android:layout_marginStart="@dimen/margin_half_plus_eight"
       android:layout_marginEnd="@dimen/margin_half_plus_eight"
-      android:layout_marginRight="@dimen/margin_half_plus_eight"
-      android:layout_marginLeft="@dimen/margin_half_plus_eight"
       android:layout_height="match_parent"
       android:layout_width="@dimen/divider_height"/>
     <LinearLayout

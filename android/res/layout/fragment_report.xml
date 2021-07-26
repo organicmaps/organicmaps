@@ -79,16 +79,16 @@
         <TextView
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
-          android:layout_marginLeft="@dimen/margin_base"
-          android:layout_marginRight="@dimen/margin_base"
+          android:layout_marginStart="@dimen/margin_base"
+          android:layout_marginEnd="@dimen/margin_base"
           android:layout_marginTop="@dimen/margin_quarter_plus"
           android:text="@string/editor_report_problem_desription_1"/>
 
         <TextView
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
-          android:layout_marginLeft="@dimen/margin_base"
-          android:layout_marginRight="@dimen/margin_base"
+          android:layout_marginStart="@dimen/margin_base"
+          android:layout_marginEnd="@dimen/margin_base"
           android:layout_marginTop="@dimen/margin_quarter_plus"
           android:text="@string/editor_report_problem_desription_2"/>
 

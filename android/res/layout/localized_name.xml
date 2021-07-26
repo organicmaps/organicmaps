@@ -9,8 +9,6 @@
   android:layout_height="wrap_content"
   android:orientation="vertical"
   android:paddingEnd="@dimen/margin_base"
-  android:paddingLeft="@dimen/margin_base"
-  android:paddingRight="@dimen/margin_base"
   android:paddingStart="@dimen/margin_base">
 
   <TextView
@@ -22,7 +20,7 @@
     android:gravity="center_vertical"
     android:text="@string/editor_edit_place_name_hint"
     android:textAppearance="@style/MwmTextAppearance.Body3"
-    tools:drawableRight="@drawable/ic_expand_more"
+    tools:drawableEnd="@drawable/ic_expand_more"
     tools:ignore="UnusedAttribute" />
 
   <include layout="@layout/recycler_default" />

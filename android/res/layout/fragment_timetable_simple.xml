@@ -5,6 +5,6 @@
   android:layout_width="match_parent"
   android:layout_height="match_parent"
   android:background="?windowBackgroundForced"
-  android:paddingLeft="@dimen/margin_half"
-  android:paddingRight="@dimen/margin_half"
+  android:paddingStart="@dimen/margin_half"
+  android:paddingEnd="@dimen/margin_half"
   android:scrollbars="vertical"/>

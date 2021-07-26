@@ -13,7 +13,7 @@
   <style name="BottomSheet.Icon">
     <item name="android:layout_width">0dp</item>
     <item name="android:layout_height">0dp</item>
-    <item name="android:layout_marginLeft">0dp</item>
+    <item name="android:layout_marginStart">0dp</item>
   </style>
 
   <style name="MwmWidget.MapButton" parent="android:Widget.ImageButton">
@@ -45,8 +45,8 @@
   <style name="MwmWidget.Button.StackedButtonsDialog">
     <item name="android:layout_width">match_parent</item>
     <item name="android:layout_height">@dimen/margin_double_plus</item>
-    <item name="android:paddingLeft">@dimen/margin_base</item>
-    <item name="android:paddingRight">@dimen/margin_base</item>
+    <item name="android:paddingEnd">@dimen/margin_base</item>
+    <item name="android:paddingStart">@dimen/margin_base</item>
     <item name="android:background">?clickableBackground</item>
     <item name="android:textSize">@dimen/text_size_button</item>
     <item name="android:textColor">?buttonDialogTextColor</item>
@@ -77,10 +77,8 @@
     <item name="android:minHeight">@dimen/primary_button_min_height</item>
     <item name="android:textColor">?accentButtonTextColor</item>
     <item name="android:textSize">@dimen/text_size_body_3</item>
-    <item name="android:paddingLeft">@dimen/margin_base</item>
-    <item name="android:paddingStart" tools:targetApi="jelly_bean_mr1">@dimen/margin_base</item>
-    <item name="android:paddingRight">@dimen/margin_base</item>
-    <item name="android:paddingEnd" tools:targetApi="jelly_bean_mr1">@dimen/margin_base</item>
+    <item name="android:paddingStart">@dimen/margin_base</item>
+    <item name="android:paddingEnd">@dimen/margin_base</item>
     <item name="textAllCaps">true</item>
     <item name="android:gravity">center</item>
   </style>
@@ -199,8 +197,8 @@
     <item name="android:layout_width">match_parent</item>
     <item name="android:layout_height">@dimen/height_item_oneline</item>
     <item name="android:gravity">center_vertical</item>
-    <item name="android:paddingLeft">@dimen/margin_base_plus</item>
-    <item name="android:paddingRight">@dimen/margin_base_plus</item>
+    <item name="android:paddingStart">@dimen/margin_base_plus</item>
+    <item name="android:paddingEnd">@dimen/margin_base_plus</item>
     <item name="android:background">?clickableBackground</item>
     <item name="android:drawablePadding">@dimen/margin_base_plus</item>
     <item name="android:textAppearance">@style/MwmTextAppearance.Body1</item>
@@ -209,8 +207,8 @@
   <style name="MwmWidget.TextView.Search">
     <item name="android:layout_width">match_parent</item>
     <item name="android:layout_height">@dimen/search_item_height</item>
-    <item name="android:paddingLeft">@dimen/margin_base_plus</item>
-    <item name="android:paddingRight">@dimen/margin_base_plus</item>
+    <item name="android:paddingStart">@dimen/margin_base_plus</item>
+    <item name="android:paddingEnd">@dimen/margin_base_plus</item>
     <item name="android:gravity">center_vertical</item>
     <item name="android:textAppearance">@style/MwmTextAppearance.Body2</item>
     <item name="android:singleLine">true</item>
@@ -286,8 +284,8 @@
     <item name="android:layout_height">wrap_content</item>
     <item name="android:minWidth">20dp</item>
     <item name="android:minHeight">20dp</item>
-    <item name="android:paddingLeft">2dp</item>
-    <item name="android:paddingRight">2dp</item>
+    <item name="android:paddingStart">2dp</item>
+    <item name="android:paddingEnd">2dp</item>
     <item name="android:gravity">center</item>
     <item name="android:background">@drawable/counter</item>
     <item name="android:textAppearance">@style/MwmTextAppearance.Body3.Light</item>
@@ -316,7 +314,7 @@
     <item name="android:layout_width">wrap_content</item>
     <item name="android:layout_height">match_parent</item>
     <item name="android:gravity">center</item>
-    <item name="android:layout_gravity">right</item>
+    <item name="android:layout_gravity">end</item>
     <item name="android:background">?selectableItemBackgroundBorderless</item>
     <item name="android:padding">@dimen/margin_half</item>
     <item name="android:textAppearance">@style/MwmTextAppearance.Toolbar.Title.Button</item>
@@ -333,14 +331,12 @@
   <style name="MwmWidget.Discovery.Item.Button" parent="android:Widget.TextView">
     <item name="android:minHeight">@dimen/discovery_button_min_height</item>
     <item name="android:gravity">center</item>
-    <item name="android:paddingLeft">@dimen/margin_base</item>
-    <item name="android:paddingStart" tools:ignore="NewApi">@dimen/margin_base</item>
-    <item name="android:paddingEnd" tools:targetApi="jelly_bean_mr1">@dimen/margin_base</item>
-    <item name="android:paddingRight">@dimen/margin_base</item>
+    <item name="android:paddingStart">@dimen/margin_base</item>
+    <item name="android:paddingEnd">@dimen/margin_base</item>
     <item name="android:paddingTop">@dimen/margin_half_plus</item>
     <item name="android:paddingBottom">@dimen/margin_half_plus</item>
     <item name="android:background">?windowBackgroundForced</item>
-    <item name="android:letterSpacing" tools:targetApi="lollipop">0.04</item>
+    <item name="android:letterSpacing">0.04</item>
     <item name="android:minLines">1</item>
     <item name="android:ellipsize">end</item>
   </style>

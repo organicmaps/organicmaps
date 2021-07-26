@@ -24,8 +24,6 @@
     android:layout_height="wrap_content"
     android:layout_gravity="center_vertical"
     android:layout_marginTop="@dimen/margin_half_double_plus"
-    android:paddingLeft="@dimen/margin_base"
-    android:paddingRight="@dimen/margin_base"
     android:paddingEnd="@dimen/margin_base"
     android:paddingStart="@dimen/margin_base"
     tools:targetApi="jelly_bean"/>
@@ -35,8 +33,6 @@
     android:minHeight="@dimen/height_block_base"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:paddingLeft="@dimen/margin_base"
-    android:paddingRight="@dimen/margin_base"
     android:paddingEnd="@dimen/margin_base"
     android:paddingStart="@dimen/margin_base">
     <TextView
@@ -59,8 +55,6 @@
     android:minHeight="@dimen/height_block_base"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:paddingLeft="@dimen/margin_base"
-    android:paddingRight="@dimen/margin_base"
     android:paddingEnd="@dimen/margin_base"
     android:paddingStart="@dimen/margin_base">
     <TextView
@@ -83,8 +77,6 @@
     android:minHeight="@dimen/height_block_base"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:paddingLeft="@dimen/margin_base"
-    android:paddingRight="@dimen/margin_base"
     android:paddingEnd="@dimen/margin_base"
     android:paddingStart="@dimen/margin_base">
     <TextView
@@ -107,8 +99,6 @@
     android:minHeight="@dimen/height_block_base"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:paddingLeft="@dimen/margin_base"
-    android:paddingRight="@dimen/margin_base"
     android:paddingEnd="@dimen/margin_base"
     android:paddingStart="@dimen/margin_base">
     <TextView

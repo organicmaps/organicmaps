@@ -220,8 +220,8 @@
   <style name="MwmTextAppearance.BookingFilter.DateTextView" parent="MwmTextAppearance.Body3">
     <item name="android:singleLine">true</item>
     <item name="android:ellipsize">end</item>
-    <item name="android:paddingLeft">@dimen/margin_half</item>
-    <item name="android:paddingRight">@dimen/margin_half</item>
+    <item name="android:paddingStart">@dimen/margin_half</item>
+    <item name="android:paddingEnd">@dimen/margin_half</item>
     <item name="android:paddingTop">@dimen/margin_half_plus_eight</item>
     <item name="android:paddingBottom">@dimen/margin_half_plus_eight</item>
     <item name="android:gravity">start|center_vertical</item>

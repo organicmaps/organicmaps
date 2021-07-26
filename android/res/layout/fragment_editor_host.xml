@@ -21,7 +21,6 @@
         layout="@layout/toolbar_search_controls"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_toLeftOf="@+id/save"
         android:layout_toStartOf="@+id/save"
         tools:visibility="gone"/>
 
@@ -30,7 +29,6 @@
         android:layout_width="?actionBarSize"
         android:layout_height="?actionBarSize"
         android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
         android:layout_gravity="end|center_vertical"
         android:background="?selectableItemBackgroundBorderless"
         android:scaleType="centerInside"

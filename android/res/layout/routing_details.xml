@@ -16,7 +16,6 @@
     android:layout_gravity="end"
     android:gravity="center"
     android:layout_alignParentEnd="true"
-    android:layout_alignParentRight="true"
     android:visibility="gone"
     tools:text="43 m"
     tools:targetApi="jelly_bean"
@@ -27,9 +26,7 @@
     android:singleLine="true"
     android:ellipsize="middle"
     android:layout_alignParentStart="true"
-    android:layout_alignParentLeft="true"
     android:orientation="horizontal"
-    android:layout_toLeftOf="@id/altitude_difference"
     android:layout_toStartOf="@id/altitude_difference"
     android:layout_height="wrap_content"/>
 </RelativeLayout>

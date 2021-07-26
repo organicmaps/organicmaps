@@ -24,8 +24,6 @@
       android:orientation="vertical"
       android:paddingStart="@dimen/margin_base"
       android:paddingEnd="@dimen/margin_base"
-      android:paddingRight="@dimen/margin_base"
-      android:paddingLeft="@dimen/margin_base"
       android:paddingBottom="@dimen/bookmark_hide_btn_padding_top"
       android:paddingTop="@dimen/margin_half_plus"
       android:layout_width="match_parent"
@@ -46,7 +44,6 @@
           android:layout_width="0dp"
           android:background="@null"
           android:layout_height="wrap_content"
-          android:layout_marginRight="@dimen/margin_base"
           android:layout_marginEnd="@dimen/margin_base"/>
         <ImageView
           android:id="@+id/edit_text_clear_btn"
@@ -65,8 +62,6 @@
       android:minHeight="@dimen/height_item_multiline"
       android:paddingStart="@dimen/margin_base"
       android:paddingEnd="@dimen/margin_base"
-      android:paddingRight="@dimen/margin_base"
-      android:paddingLeft="@dimen/margin_base"
       android:textAppearance="?android:attr/textAppearance"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"/>

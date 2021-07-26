@@ -19,16 +19,13 @@
       android:src="@drawable/ic_search"
       android:tint="?colorAccent"
       android:layout_marginStart="@dimen/margin_base"
-      android:layout_marginLeft="@dimen/margin_base"
-      android:layout_marginEnd="@dimen/margin_base"
-      android:layout_marginRight="@dimen/margin_base"/>
+      android:layout_marginEnd="@dimen/margin_base"/>
     <TextView
       android:id="@+id/tv__message"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:gravity="center_vertical"
       android:textAppearance="@style/MwmTextAppearance.Body3"
-      android:layout_marginRight="@dimen/margin_base"
       android:layout_marginEnd="@dimen/margin_base"
       android:layout_marginTop="@dimen/routing_action_panel_margin_vert"
       android:layout_marginBottom="@dimen/routing_action_panel_margin_vert"

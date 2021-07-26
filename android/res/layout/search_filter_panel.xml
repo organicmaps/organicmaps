@@ -16,8 +16,8 @@
     style="@style/MwmTextAppearance.Button"
     android:layout_width="wrap_content"
     android:layout_height="match_parent"
-    android:paddingLeft="@dimen/margin_half"
-    android:paddingRight="@dimen/margin_half"
+    android:paddingStart="@dimen/margin_half"
+    android:paddingEnd="@dimen/margin_half"
     android:layout_centerVertical="true"
     android:gravity="center"
     android:background="?clickableBackground"
@@ -31,7 +31,7 @@
     android:layout_width="match_parent"
     android:layout_height="1dp"
     android:layout_alignParentBottom="true"
-    android:layout_marginLeft="@dimen/neg_margin_half"
-    android:layout_marginRight="@dimen/neg_margin_half"
+    android:layout_marginStart="@dimen/neg_margin_half"
+    android:layout_marginEnd="@dimen/neg_margin_half"
     android:layout_marginBottom="@dimen/neg_margin_half"/>
 </RelativeLayout>

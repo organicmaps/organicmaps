@@ -11,8 +11,8 @@
     android:layout_height="wrap_content"
     android:layout_alignParentStart="true"
     android:layout_centerVertical="true"
-    android:layout_marginLeft="@dimen/margin_base"
-    android:layout_marginRight="@dimen/margin_base" />
+    android:layout_marginStart="@dimen/margin_base"
+    android:layout_marginEnd="@dimen/margin_base" />
   <LinearLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"

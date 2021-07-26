@@ -3,7 +3,7 @@
           xmlns:tools="http://schemas.android.com/tools"
           style="@style/MwmWidget.TextView.Search"
           android:drawablePadding="@dimen/margin_base"
-          android:paddingLeft="@dimen/margin_base"
-          android:paddingRight="@dimen/margin_base"
-          tools:drawableLeft="@drawable/ic_food_light"
+          android:paddingStart="@dimen/margin_base"
+          android:paddingEnd="@dimen/margin_base"
+          tools:drawableStart="@drawable/ic_category_eat"
           tools:text="Sample category"/>

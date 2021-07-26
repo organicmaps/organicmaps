@@ -11,8 +11,8 @@
     android:layout_height="wrap_content"
     android:layout_marginTop="@dimen/margin_base"
     android:layout_marginBottom="@dimen/margin_base"
-    android:paddingLeft="@dimen/margin_base_plus"
-    android:paddingRight="@dimen/margin_base_plus"
+    android:paddingStart="@dimen/margin_base_plus"
+    android:paddingEnd="@dimen/margin_base_plus"
     android:textAppearance="@style/MwmTextAppearance.Body2"
     android:visibility="gone"
     tools:visibility="visible"/>

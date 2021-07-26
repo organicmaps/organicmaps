@@ -13,7 +13,7 @@
   <TextView
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:paddingLeft="@dimen/margin_quarter"
+    android:paddingStart="@dimen/margin_quarter"
     android:textAppearance="?android:textAppearanceLarge"
     android:fontFamily="@string/robotoMedium"
     android:text="@string/sort_bookmarks"/>

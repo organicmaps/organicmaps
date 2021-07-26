@@ -26,14 +26,12 @@
     style="@style/PlacePageMetadataText"
     android:layout_above="@id/anchor_center"
     android:layout_toEndOf="@id/iv__place_name"
-    android:layout_toRightOf="@id/iv__place_name"
     tools:text="Sample place"/>
 
   <TextView
     android:id="@+id/tv__place_post_address"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_alignLeft="@id/tv__place_address"
     android:layout_alignStart="@id/tv__place_address"
     android:layout_below="@id/anchor_center"
     android:textAppearance="@style/MwmTextAppearance.Body3"

@@ -14,7 +14,7 @@
         style="@style/MwmWidget.Editor.MetadataIcon"
         tools:ignore="ContentDescription"
         tools:src="@drawable/ic_phone"
-        android:layout_alignParentLeft="true"/>
+        android:layout_alignParentStart="true"/>
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/phone_input"

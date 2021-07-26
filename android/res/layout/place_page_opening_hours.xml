@@ -11,7 +11,6 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_marginEnd="@dimen/margin_base"
-    android:layout_marginRight="@dimen/margin_base"
     android:layout_marginTop="@dimen/margin_quarter"
     android:src="@drawable/ic_operating_hours"
     android:tint="?iconTint"/>
@@ -22,7 +21,6 @@
     android:layout_height="wrap_content"
     android:layout_marginTop="6dp"
     android:layout_toEndOf="@id/icon"
-    android:layout_toRightOf="@id/icon"
     android:textAppearance="@style/MwmTextAppearance.PlacePage"
     tools:text="@string/day_off_today"
     tools:textColor="@color/base_red"
@@ -35,7 +33,6 @@
     android:layout_below="@id/today_opening_hours"
     android:layout_marginTop="@dimen/margin_base"
     android:layout_toEndOf="@id/icon"
-    android:layout_toRightOf="@id/icon"
     android:gravity="top|start"
     android:lineSpacingExtra="@dimen/margin_base"
     android:textAppearance="@style/MwmTextAppearance.Body3"

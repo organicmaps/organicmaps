@@ -13,8 +13,8 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:paddingTop="@dimen/margin_base_plus"
-    android:paddingLeft="@dimen/margin_base_plus"
-    android:paddingRight="@dimen/margin_base_plus">
+    android:paddingStart="@dimen/margin_base_plus"
+    android:paddingEnd="@dimen/margin_base_plus">
     <TextView
       android:id="@+id/tv__title"
       style="@style/MwmWidget.StackedButtonsDialogTitle"

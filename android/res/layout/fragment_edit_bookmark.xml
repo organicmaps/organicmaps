@@ -14,7 +14,7 @@
       android:id="@+id/tv__save"
       android:layout_width="wrap_content"
       android:layout_height="match_parent"
-      android:layout_gravity="right"
+      android:layout_gravity="end"
       android:background="?attr/selectableItemBackgroundBorderless"
       android:clickable="true"
       android:gravity="center_vertical"

@@ -4,8 +4,8 @@
   xmlns:tools="http://schemas.android.com/tools"
   android:layout_width="match_parent"
   android:layout_height="match_parent"
-  android:paddingLeft="@dimen/margin_direction_side"
-  android:paddingRight="@dimen/margin_direction_side"
+  android:paddingStart="@dimen/margin_direction_side"
+  android:paddingEnd="@dimen/margin_direction_side"
   tools:background="@color/bg_dialog_translucent">
   <RelativeLayout
     android:layout_width="wrap_content"
@@ -17,7 +17,7 @@
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:layout_centerVertical="true"
-      android:layout_marginRight="@dimen/margin_direction_around_center"
+      android:layout_marginEnd="@dimen/margin_direction_around_center"
       android:src="@drawable/ic_direction_fullscreen"/>
 
     <LinearLayout
@@ -25,7 +25,7 @@
       android:layout_height="wrap_content"
       android:layout_centerHorizontal="true"
       android:layout_centerVertical="true"
-      android:layout_toRightOf="@id/av__direction"
+      android:layout_toEndOf="@id/av__direction"
       android:orientation="vertical">
 
       <TextView

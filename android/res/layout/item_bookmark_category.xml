@@ -19,7 +19,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginTop="@dimen/margin_base"
-    android:layout_toLeftOf="@id/more"
+    android:layout_toStartOf="@id/more"
     android:layout_toEndOf="@id/checkbox"
     android:ellipsize="middle"
     android:singleLine="true"
@@ -31,10 +31,8 @@
     android:layout_height="wrap_content"
     android:layout_below="@id/name"
     android:layout_alignStart="@id/name"
-    android:layout_alignLeft="@id/name"
     android:layout_marginBottom="@dimen/margin_half_plus"
     android:layout_toStartOf="@id/more"
-    android:layout_toLeftOf="@id/more"
     android:orientation="horizontal">
     <TextView
       android:id="@+id/size"

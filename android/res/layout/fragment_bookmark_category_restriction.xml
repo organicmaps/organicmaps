@@ -26,8 +26,6 @@
       android:orientation="vertical"
       android:paddingStart="@dimen/margin_base"
       android:paddingEnd="@dimen/margin_base"
-      android:paddingRight="@dimen/margin_base"
-      android:paddingLeft="@dimen/margin_base"
       android:paddingBottom="@dimen/bookmark_hide_btn_padding_top"
       android:paddingTop="@dimen/margin_half_plus"
       android:background="?attr/cardBackground"
@@ -60,9 +58,7 @@
       android:layout_height="wrap_content"
       android:paddingTop="@dimen/margin_base"
       android:paddingStart="@dimen/margin_base"
-      android:paddingRight="@dimen/margin_base"
       android:paddingEnd="@dimen/margin_base"
-      android:paddingLeft="@dimen/margin_base"
       android:paddingBottom="@dimen/margin_base"
       tools:ignore="UnusedAttribute"/>
   </LinearLayout>
