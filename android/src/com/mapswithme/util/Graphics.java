@@ -77,7 +77,7 @@ public final class Graphics
     for (int i = 0; i < dlist.length; i++)
       dlist[i] = tint(view.getContext(), dlist[i], tintAttr);
 
-    view.setCompoundDrawablesWithIntrinsicBounds(dlist[0], dlist[1], dlist[2], dlist[3]);
+    view.setCompoundDrawablesRelativeWithIntrinsicBounds(dlist[0], dlist[1], dlist[2], dlist[3]);
   }
 
   public static void tint(TextView view, ColorStateList tintColors)
@@ -86,7 +86,7 @@ public final class Graphics
     for (int i = 0; i < dlist.length; i++)
       dlist[i] = tint(dlist[i], tintColors);
 
-    view.setCompoundDrawablesWithIntrinsicBounds(dlist[0], dlist[1], dlist[2], dlist[3]);
+    view.setCompoundDrawablesRelativeWithIntrinsicBounds(dlist[0], dlist[1], dlist[2], dlist[3]);
   }
 
   public static Drawable tint(Context context, @DrawableRes int resId)
