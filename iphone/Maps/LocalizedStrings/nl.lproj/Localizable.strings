@@ -323,6 +323,8 @@
 
 "recent_track_help_text" = "Dit laat u toe het afgelegde traject voor een bepaalde periode te registreren en te bekijken op de kaart. Merk op: activatie van deze functie veroorzaakt een hoger batterijverbruik. Het traject wordt automatisch van de kaart verwijderd nadat het tijdsinterval verloopt.";
 
+"placepage_distance" = "Afstand";
+
 "search_show_on_map" = "Op kaart bekijken";
 
 /* Text in menu */
@@ -464,6 +466,30 @@
 /* pink color */
 "pink" = "Roze";
 
+/* deep purple color */
+"deep_purple" = "Donker paars";
+
+/* light blue color */
+"light_blue" = "Lichtblauw";
+
+/* cyan color */
+"cyan" = "Blauwgroen";
+
+/* teal color */
+"teal" = "Smaragdgroen";
+
+/* lime color */
+"lime" = "Lime";
+
+/* deep orange color */
+"deep_orange" = "Donkeroranje";
+
+/* gray color */
+"gray" = "Grijs";
+
+/* blue gray color */
+"blue_gray" = "Grijsblauw";
+
 /* Wi-Fi available */
 "WiFi_available" = "Ja";
 
@@ -551,6 +577,9 @@
 
 /* Arrive routing message in navigation view */
 "routing_arrive" = "Aankomst: %s";
+
+/* Text for routing::RouterResultCode::FileTooOld dialog. */
+"dialog_routing_download_and_update_maps" = "Om een route te maken, download en update alle kaarten rondom de route.";
 
 "rate_alert_title" = "Vindt u de app leuk?";
 
@@ -1105,6 +1134,8 @@
 "list_settings" = "Lijst Instellingen";
 
 "delete_list" = "Lijst verwijderen";
+
+"hide_from_map" = "Van de kaart verbergen";
 
 "public_access" = "Publiek toegang";
 

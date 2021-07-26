@@ -331,6 +331,8 @@
 
 "recent_track_help_text" = "Bu özellik, belirli bir süre içinde katedilen yolu kaydetmenizi ve harita üzerinde izlemenizi sağlar. Lütfen unutmayın: bu işlevin etkinleştirilmesi pil tüketiminin artmasına neden olur. Takip, zaman aralığının sona ermesinin ardından otomatik olarak haritadan kaldırılacaktır.";
 
+"placepage_distance" = "Mesafe";
+
 "search_show_on_map" = "Haritada görüntüle";
 
 /* Text in menu */
@@ -472,6 +474,30 @@
 /* pink color */
 "pink" = "Pembe";
 
+/* deep purple color */
+"deep_purple" = "Koyu Mor";
+
+/* light blue color */
+"light_blue" = "Açık Mavi";
+
+/* cyan color */
+"cyan" = "Cam Göbeği";
+
+/* teal color */
+"teal" = "Deniz Mavisi";
+
+/* lime color */
+"lime" = "Çim Rengi";
+
+/* deep orange color */
+"deep_orange" = "Koyu Turuncu";
+
+/* gray color */
+"gray" = "Gri";
+
+/* blue gray color */
+"blue_gray" = "Mavi Gri";
+
 /* Wi-Fi available */
 "WiFi_available" = "Evet";
 
@@ -559,6 +585,9 @@
 
 /* Arrive routing message in navigation view */
 "routing_arrive" = "Varış: %s";
+
+/* Text for routing::RouterResultCode::FileTooOld dialog. */
+"dialog_routing_download_and_update_maps" = "Bir rota oluşturmak için lütfen rota üzerindeki tüm haritaları indirin ve güncelleyin.";
 
 "rate_alert_title" = "Uygulamayı beğendiniz mi?";
 
@@ -1113,6 +1142,8 @@
 "list_settings" = "Liste Ayarları";
 
 "delete_list" = "Listeyi sil";
+
+"hide_from_map" = "Haritadan gizle";
 
 "public_access" = "Genel erişim";
 

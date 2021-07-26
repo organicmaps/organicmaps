@@ -204,6 +204,7 @@
 	<string name="duration_12_hours">12 ساعت</string>
 	<string name="duration_1_day">1 روز</string>
 	<string name="recent_track_help_text">با این قابلیت شما می توانید مسیری که می پیمایید را در یک دوره مشخص ضبط نماید و ان را بر روی نقشه ببینید.لطفا توجه نمایید:فعال سازی این قابلیت باعث افزایش مصرف باتری موبایل شما می شود.مسیر به طور خودکار بعد از مدت مشخص شده حذف خواهد شد</string>
+	<string name="placepage_distance">مسافت</string>
 	<string name="search_show_on_map">مشاهده بر روی نقشه</string>
 	<!-- Text in menu -->
 	<string name="website">وب سایت</string>
@@ -293,6 +294,22 @@
 	<string name="brown">قهوای</string>
 	<!-- pink color -->
 	<string name="pink">صورتی</string>
+	<!-- deep purple color -->
+	<string name="deep_purple">ارغوانی سیر</string>
+	<!-- light blue color -->
+	<string name="light_blue">آبی کمرنگ</string>
+	<!-- cyan color -->
+	<string name="cyan">فیروزه ای</string>
+	<!-- teal color -->
+	<string name="teal">آبی سیر</string>
+	<!-- lime color -->
+	<string name="lime">زرد لیویی</string>
+	<!-- deep orange color -->
+	<string name="deep_orange">نارنجی سیر</string>
+	<!-- gray color -->
+	<string name="gray">خاکستری</string>
+	<!-- blue gray color -->
+	<string name="blue_gray">خاکستری کبود</string>
 	<!-- Wi-Fi available -->
 	<string name="WiFi_available">بلی</string>
 
@@ -652,6 +669,7 @@
 	<string name="export_file">ارسال فایل</string>
 	<string name="list_settings">تنظیمات لیست</string>
 	<string name="delete_list">حذف لیست</string>
+	<string name="hide_from_map">پنهان کردن از نقشه</string>
 	<string name="public_access">دسترسی عمومی</string>
 	<string name="limited_access">دسترسی محدود</string>
 	<string name="bookmark_category_name">دسته بندی</string>

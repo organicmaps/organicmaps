@@ -344,6 +344,8 @@
 
 "recent_track_help_text" = "This option allows you to record traveled path for a certain period and see it on the map. Please note: activation of this function causes increased battery usage. The track will be removed automatically from the map after the time interval will expire.";
 
+"placepage_distance" = "Distance";
+
 "search_show_on_map" = "View on map";
 
 /* Text in menu */
@@ -503,6 +505,30 @@
 /* pink color */
 "pink" = "Pink";
 
+/* deep purple color */
+"deep_purple" = "Deep Purple";
+
+/* light blue color */
+"light_blue" = "Light Blue";
+
+/* cyan color */
+"cyan" = "Cyan";
+
+/* teal color */
+"teal" = "Teal";
+
+/* lime color */
+"lime" = "Lime";
+
+/* deep orange color */
+"deep_orange" = "Deep Orange";
+
+/* gray color */
+"gray" = "Gray";
+
+/* blue gray color */
+"blue_gray" = "Blue Gray";
+
 /* Wi-Fi available */
 "WiFi_available" = "Yes";
 
@@ -590,6 +616,9 @@
 
 /* Arrive routing message in navigation view */
 "routing_arrive" = "Arrival at %s";
+
+/* Text for routing::RouterResultCode::FileTooOld dialog. */
+"dialog_routing_download_and_update_maps" = "Download and update all map along the projected path to calculate route.";
 
 "rate_alert_title" = "Like the app?";
 
@@ -1154,6 +1183,8 @@
 "list_settings" = "List Settings";
 
 "delete_list" = "Delete list";
+
+"hide_from_map" = "Hide from map";
 
 "public_access" = "Public access";
 

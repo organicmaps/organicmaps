@@ -319,6 +319,8 @@
 
 "recent_track_help_text" = "با این قابلیت شما می توانید مسیری که می پیمایید را در یک دوره مشخص ضبط نماید و ان را بر روی نقشه ببینید.لطفا توجه نمایید:فعال سازی این قابلیت باعث افزایش مصرف باتری موبایل شما می شود.مسیر به طور خودکار بعد از مدت مشخص شده حذف خواهد شد";
 
+"placepage_distance" = "مسافت";
+
 "search_show_on_map" = "مشاهده بر روی نقشه";
 
 /* Text in menu */
@@ -456,6 +458,30 @@
 
 /* pink color */
 "pink" = "صورتی";
+
+/* deep purple color */
+"deep_purple" = "ارغوانی سیر";
+
+/* light blue color */
+"light_blue" = "آبی کمرنگ";
+
+/* cyan color */
+"cyan" = "فیروزه ای";
+
+/* teal color */
+"teal" = "آبی سیر";
+
+/* lime color */
+"lime" = "زرد لیویی";
+
+/* deep orange color */
+"deep_orange" = "نارنجی سیر";
+
+/* gray color */
+"gray" = "خاکستری";
+
+/* blue gray color */
+"blue_gray" = "خاکستری کبود";
 
 /* Wi-Fi available */
 "WiFi_available" = "بلی";
@@ -1096,6 +1122,8 @@
 "list_settings" = "تنظیمات لیست";
 
 "delete_list" = "حذف لیست";
+
+"hide_from_map" = "پنهان کردن از نقشه";
 
 "public_access" = "دسترسی عمومی";
 

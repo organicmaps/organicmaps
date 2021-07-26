@@ -328,6 +328,8 @@
 
 "recent_track_help_text" = "Detta gör att du kan spara en resväg för en viss tidsperiod och visa den på kartan. Obs: aktivering av den här funktionen ökar batterianvändningen. Spåret tas bort automatiskt från kartan när tidsintervallet slutar gälla.";
 
+"placepage_distance" = "Avstånd";
+
 "search_show_on_map" = "Visa på kartan";
 
 /* Text in menu */
@@ -466,6 +468,30 @@
 /* pink color */
 "pink" = "Rosa";
 
+/* deep purple color */
+"deep_purple" = "Mörk purpur";
+
+/* light blue color */
+"light_blue" = "Ljusblå";
+
+/* cyan color */
+"cyan" = "Blågrön";
+
+/* teal color */
+"teal" = "Smaragdgrön";
+
+/* lime color */
+"lime" = "Limefärg";
+
+/* deep orange color */
+"deep_orange" = "Mörkorange";
+
+/* gray color */
+"gray" = "Grå";
+
+/* blue gray color */
+"blue_gray" = "Ljusblå grå";
+
 /* Wi-Fi available */
 "WiFi_available" = "Ja";
 
@@ -553,6 +579,9 @@
 
 /* Arrive routing message in navigation view */
 "routing_arrive" = "Ankomst: %s";
+
+/* Text for routing::RouterResultCode::FileTooOld dialog. */
+"dialog_routing_download_and_update_maps" = "För att skapa en rutt, ladda ner och uppdatera alla kartor längs rutten.";
 
 "rate_alert_title" = "Gillar du appen?";
 
@@ -1107,6 +1136,8 @@
 "list_settings" = "Listinställningar";
 
 "delete_list" = "Radera listan";
+
+"hide_from_map" = "Dölj från kort";
 
 "public_access" = "Allmänhetens åtkomst";
 

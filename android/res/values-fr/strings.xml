@@ -216,6 +216,7 @@
 	<string name="duration_12_hours">12 heures</string>
 	<string name="duration_1_day">1 jour</string>
 	<string name="recent_track_help_text">Ceci vous permet d’enregistrer le chemin emprunté pendant un certain temps et de le voir sur la carte. Veuillez noter : l’activation de cette fonction entraîne une grande utilisation de la batterie. La route sera supprimée automatiquement de la carte lorsque l’intervalle de temps sera arrivé à expiration.</string>
+	<string name="placepage_distance">Distance</string>
 	<string name="search_show_on_map">Voir sur la carte</string>
 	<!-- Text in menu -->
 	<string name="website">Site internet</string>
@@ -307,6 +308,22 @@
 	<string name="brown">Marron</string>
 	<!-- pink color -->
 	<string name="pink">Rose</string>
+	<!-- deep purple color -->
+	<string name="deep_purple">Pourpre foncé</string>
+	<!-- light blue color -->
+	<string name="light_blue">Bleu ciel</string>
+	<!-- cyan color -->
+	<string name="cyan">Cyan</string>
+	<!-- teal color -->
+	<string name="teal">Émeraude</string>
+	<!-- lime color -->
+	<string name="lime">Vert citron</string>
+	<!-- deep orange color -->
+	<string name="deep_orange">Orange foncé</string>
+	<!-- gray color -->
+	<string name="gray">Gris</string>
+	<!-- blue gray color -->
+	<string name="blue_gray">Gris-bleu</string>
 	<!-- Wi-Fi available -->
 	<string name="WiFi_available">Oui</string>
 
@@ -355,6 +372,8 @@
 	<string name="routing_planning_error">La planification de l\'itinéraire a échoué</string>
 	<!-- Arrive routing message in navigation view -->
 	<string name="routing_arrive">Arrivée: %s</string>
+	<!-- Text for routing::RouterResultCode::FileTooOld dialog. -->
+	<string name="dialog_routing_download_and_update_maps">Pour créer un trajet, veuillez télécharger et mettre à jour toutes les cartes concernant ce trajet.</string>
 	<string name="rate_alert_title">Vous aimez l’application ?</string>
 	<string name="rate_alert_default_message">Merci d’avoir utilisé Organic Maps. Pourriez-vous, s’il vous plaît, noter cette application ? Vos commentaires nous aideront à nous améliorer.</string>
 	<string name="rate_alert_five_star_message">Super ! Nous vous aimons aussi !</string>
@@ -667,6 +686,7 @@
 	<string name="export_file">Fichier d\'exportation</string>
 	<string name="list_settings">Paramètres liste</string>
 	<string name="delete_list">Supprimer liste</string>
+	<string name="hide_from_map">Masquer de la carte</string>
 	<string name="public_access">Accès publique</string>
 	<string name="limited_access">Accès limité</string>
 	<string name="bookmark_category_name">Catégorie</string>

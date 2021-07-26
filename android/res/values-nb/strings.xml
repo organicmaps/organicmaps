@@ -212,6 +212,7 @@
 	<string name="duration_12_hours">12 timer</string>
 	<string name="duration_1_day">1 dag</string>
 	<string name="recent_track_help_text">Det lar deg lagre ruten du har reist i en spesifikk periode og se den på kartet. Merk: Aktivering av funksjonen øker batteriforbruket. Ruten fjernes automatisk fra kartet når tidsintervallet utløper.</string>
+	<string name="placepage_distance">Avstand</string>
 	<string name="search_show_on_map">Vis på kartet</string>
 	<!-- Text in menu -->
 	<string name="website">Nettside</string>
@@ -303,6 +304,22 @@
 	<string name="brown">Brun</string>
 	<!-- pink color -->
 	<string name="pink">Rosa</string>
+	<!-- deep purple color -->
+	<string name="deep_purple">Mørkepurpur</string>
+	<!-- light blue color -->
+	<string name="light_blue">Lyseblå</string>
+	<!-- cyan color -->
+	<string name="cyan">Blågrønn</string>
+	<!-- teal color -->
+	<string name="teal">Smaragdgrønn</string>
+	<!-- lime color -->
+	<string name="lime">Limegrønn</string>
+	<!-- deep orange color -->
+	<string name="deep_orange">Mørkeoransje</string>
+	<!-- gray color -->
+	<string name="gray">Grå</string>
+	<!-- blue gray color -->
+	<string name="blue_gray">Gråblå</string>
 	<!-- Wi-Fi available -->
 	<string name="WiFi_available">Ja</string>
 
@@ -351,6 +368,8 @@
 	<string name="routing_planning_error">Mislykket ruteplanlegging</string>
 	<!-- Arrive routing message in navigation view -->
 	<string name="routing_arrive">Ankomme: %s</string>
+	<!-- Text for routing::RouterResultCode::FileTooOld dialog. -->
+	<string name="dialog_routing_download_and_update_maps">Hvis du vil oppprette en rute, last ned og oppdater alle kartene langs ruten.</string>
 	<string name="rate_alert_title">Liker du appen?</string>
 	<string name="rate_alert_default_message">Takk for at du bruker Organic Maps. Vi setter stor pris på om du rangerer appen. Tilbakemeldinger hjelper oss med å bli bedre.</string>
 	<string name="rate_alert_five_star_message">Hurra! Vi elsker deg også!</string>
@@ -635,6 +654,7 @@
 	<string name="export_file">Eksporter fil</string>
 	<string name="list_settings">Liste Innstillinger</string>
 	<string name="delete_list">Slett liste</string>
+	<string name="hide_from_map">Skjul fra kart</string>
 	<string name="public_access">Offentlig tilgang</string>
 	<string name="limited_access">Begrenset adgang</string>
 	<string name="bookmark_category_name">Kategori</string>

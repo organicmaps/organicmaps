@@ -334,6 +334,8 @@
 
 "recent_track_help_text" = "So können Sie die zurückgelegte Strecke für einen bestimmten Zeitraum aufzeichnen und auf der Karte sehen. Hinweis: Die Aktivierung dieser Funktion führt zu erhöhtem Batterieverbrauch. Die Aufzeichnung wird nach Ablauf des Zeitintervalls automatisch von der Karte entfernt.";
 
+"placepage_distance" = "Entfernung";
+
 "search_show_on_map" = "Auf der Karte ansehen";
 
 /* Text in menu */
@@ -475,6 +477,30 @@
 /* pink color */
 "pink" = "Rosa";
 
+/* deep purple color */
+"deep_purple" = "Dunkelpurpur";
+
+/* light blue color */
+"light_blue" = "Hellblau";
+
+/* cyan color */
+"cyan" = "Blaugrün";
+
+/* teal color */
+"teal" = "Smaragdgrün";
+
+/* lime color */
+"lime" = "Limette";
+
+/* deep orange color */
+"deep_orange" = "Dunkelorange";
+
+/* gray color */
+"gray" = "Grau";
+
+/* blue gray color */
+"blue_gray" = "Graublau";
+
 /* Wi-Fi available */
 "WiFi_available" = "Ja";
 
@@ -562,6 +588,9 @@
 
 /* Arrive routing message in navigation view */
 "routing_arrive" = "Ankunft: %s";
+
+/* Text for routing::RouterResultCode::FileTooOld dialog. */
+"dialog_routing_download_and_update_maps" = "Zum Erstellen einer Route müssen Sie alle Karten herunterladen und aktualisieren, auf der die Route liegt.";
 
 "rate_alert_title" = "Gefällt Ihnen die App?";
 
@@ -1116,6 +1145,8 @@
 "list_settings" = "Listeneinstellungen";
 
 "delete_list" = "Liste löschen";
+
+"hide_from_map" = "Auf der Karte ausblenden";
 
 "public_access" = "Öffentlicher Zugriff";
 

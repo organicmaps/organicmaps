@@ -217,6 +217,7 @@
 	<string name="duration_12_hours">12 horas</string>
 	<string name="duration_1_day">1 dia</string>
 	<string name="recent_track_help_text">Permite-lhe gravar um caminho percorrido durante um determinado período e vê-lo no papa. Nota: esta funcionalidade usa mais bateria. A rota será automaticamente removida do mapa após o intervalo de tempo expirar.</string>
+	<string name="placepage_distance">Distância</string>
 	<string name="search_show_on_map">Ver no mapa</string>
 	<!-- Text in menu -->
 	<string name="website">Site</string>
@@ -308,6 +309,22 @@
 	<string name="brown">Castanho</string>
 	<!-- pink color -->
 	<string name="pink">Rosa</string>
+	<!-- deep purple color -->
+	<string name="deep_purple">Purpúreo escuro</string>
+	<!-- light blue color -->
+	<string name="light_blue">Azul Claro</string>
+	<!-- cyan color -->
+	<string name="cyan">Azul-verde</string>
+	<!-- teal color -->
+	<string name="teal">Esmeralda</string>
+	<!-- lime color -->
+	<string name="lime">Lima</string>
+	<!-- deep orange color -->
+	<string name="deep_orange">Laranja escuro</string>
+	<!-- gray color -->
+	<string name="gray">Cinza</string>
+	<!-- blue gray color -->
+	<string name="blue_gray">Azul-cinza</string>
 	<!-- Wi-Fi available -->
 	<string name="WiFi_available">Sim</string>
 
@@ -356,6 +373,8 @@
 	<string name="routing_planning_error">Falha no planeamento da rota</string>
 	<!-- Arrive routing message in navigation view -->
 	<string name="routing_arrive">Chegada: %s</string>
+	<!-- Text for routing::RouterResultCode::FileTooOld dialog. -->
+	<string name="dialog_routing_download_and_update_maps">Para criar uma rota, por favor, baixe e atualize todos os mapas ao longo do trajeto.</string>
 	<string name="rate_alert_title">Gosta da aplicação?</string>
 	<string name="rate_alert_default_message">Obrigado por usar o Organic Maps. Por favor avalie a aplicação. A sua resposta pode ajudar-nos a desenvolver a aplicação.</string>
 	<string name="rate_alert_five_star_message">Viva! Também gostamos de si!</string>
@@ -673,6 +692,7 @@
 	<string name="export_file">Exportar o ficheiro</string>
 	<string name="list_settings">Configurações de listas</string>
 	<string name="delete_list">Eliminar lista</string>
+	<string name="hide_from_map">Remover do mapa</string>
 	<string name="public_access">Acesso público</string>
 	<string name="limited_access">Acesso limitado</string>
 	<string name="bookmark_category_name">Categoria</string>

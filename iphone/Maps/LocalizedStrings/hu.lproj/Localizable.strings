@@ -328,6 +328,8 @@
 
 "recent_track_help_text" = "Ez lehetővé teszi a bejárt útvonal rögzítését és megtekintését a térképen bizonyos időre. Kérjük, vegye figyelembe, hogy ezen funkció aktiválásával megnöveli az akkumulátor használatát. Az útvonal automatikusan törlődik a térképről az időtartam lejártával.";
 
+"placepage_distance" = "Távolság";
+
 "search_show_on_map" = "Megtekintés a térképen";
 
 /* Text in menu */
@@ -469,6 +471,30 @@
 /* pink color */
 "pink" = "Rózsaszín";
 
+/* deep purple color */
+"deep_purple" = "Sötét lila";
+
+/* light blue color */
+"light_blue" = "Világoskék";
+
+/* cyan color */
+"cyan" = "Cián";
+
+/* teal color */
+"teal" = "Zöldeskék";
+
+/* lime color */
+"lime" = "Lime";
+
+/* deep orange color */
+"deep_orange" = "Sötét Narancs";
+
+/* gray color */
+"gray" = "Szürke";
+
+/* blue gray color */
+"blue_gray" = "Kékes Szürke";
+
 /* Wi-Fi available */
 "WiFi_available" = "Igen";
 
@@ -556,6 +582,9 @@
 
 /* Arrive routing message in navigation view */
 "routing_arrive" = "Megérkezik: %s";
+
+/* Text for routing::RouterResultCode::FileTooOld dialog. */
+"dialog_routing_download_and_update_maps" = "Útvonal létrehozásához kérjük, töltse le és frissítse az összes térképet az útvonal mentén.";
 
 "rate_alert_title" = "Tetszik az app?";
 
@@ -1108,6 +1137,8 @@
 "list_settings" = "Lista beállításai";
 
 "delete_list" = "Törölni a listát";
+
+"hide_from_map" = "Lefedés a térképen";
 
 "public_access" = "Nyílt hozzáférés";
 

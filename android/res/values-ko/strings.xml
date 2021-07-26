@@ -210,6 +210,7 @@
 	<string name="duration_12_hours">12시간</string>
 	<string name="duration_1_day">1일</string>
 	<string name="recent_track_help_text">특정 기간 동안 이동된 경로를 기록하고 지도에서 그 경로를 볼 수 있습니다. 참고: 이 기능을 활성화하면 배터리 사용량이 증가하게 됩니다. 시간 간격이 만료된 후 지도에서 해당 트랙이 자동으로 제거됩니다.</string>
+	<string name="placepage_distance">거리</string>
 	<string name="search_show_on_map">지도 보기</string>
 	<!-- Text in menu -->
 	<string name="website">웹사이트</string>
@@ -301,6 +302,22 @@
 	<string name="brown">갈색</string>
 	<!-- pink color -->
 	<string name="pink">분홍색</string>
+	<!-- deep purple color -->
+	<string name="deep_purple">진보라색</string>
+	<!-- light blue color -->
+	<string name="light_blue">하늘색</string>
+	<!-- cyan color -->
+	<string name="cyan">시안</string>
+	<!-- teal color -->
+	<string name="teal">틸</string>
+	<!-- lime color -->
+	<string name="lime">라임</string>
+	<!-- deep orange color -->
+	<string name="deep_orange">진주황색</string>
+	<!-- gray color -->
+	<string name="gray">회색</string>
+	<!-- blue gray color -->
+	<string name="blue_gray">청회색</string>
 	<!-- Wi-Fi available -->
 	<string name="WiFi_available">네</string>
 
@@ -349,6 +366,8 @@
 	<string name="routing_planning_error">경로 계획 실패</string>
 	<!-- Arrive routing message in navigation view -->
 	<string name="routing_arrive">도착: %s</string>
+	<!-- Text for routing::RouterResultCode::FileTooOld dialog. -->
+	<string name="dialog_routing_download_and_update_maps">경로를 만들려면, 경로를 따라 모든 지도를 다운로드하고 업데이트하십시오.</string>
 	<string name="rate_alert_title">앱을 좋아하나요?</string>
 	<string name="rate_alert_default_message">Organic Maps를 사용해 주셔서 감사합니다. 이 앱을 평가해 주십시오. 당신의 피드백은 이 앱을 더 낫게 만드는데 도움을 줍니다.</string>
 	<string name="rate_alert_five_star_message">야호! 저희는 당신도 사랑합니다!</string>
@@ -656,6 +675,7 @@
 	<string name="export_file">파일 내보내기</string>
 	<string name="list_settings">목록 세팅</string>
 	<string name="delete_list">리스트 삭제</string>
+	<string name="hide_from_map">지도에서 숨기기</string>
 	<string name="public_access">일반 접근</string>
 	<string name="limited_access">제한 접근</string>
 	<string name="bookmark_category_name">범주</string>

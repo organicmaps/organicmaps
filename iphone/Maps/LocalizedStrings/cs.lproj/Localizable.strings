@@ -328,6 +328,8 @@
 
 "recent_track_help_text" = "To vám umožňuje zaznamenávat ujetou cestu po určitou dobu a vidět ji na mapě. Poznámka: aktivace této funkce způsobuje zvýšenou spotřebu baterie. Trať bude automaticky odebrána z mapy poté, co vyprší časový interval.";
 
+"placepage_distance" = "Vzdálenost";
+
 "search_show_on_map" = "Zobrazit na mapě";
 
 /* Text in menu */
@@ -469,6 +471,30 @@
 /* pink color */
 "pink" = "Růžová";
 
+/* deep purple color */
+"deep_purple" = "Tmavě fialová";
+
+/* light blue color */
+"light_blue" = "Světle modrá";
+
+/* cyan color */
+"cyan" = "Cyan";
+
+/* teal color */
+"teal" = "Teal";
+
+/* lime color */
+"lime" = "Limeta";
+
+/* deep orange color */
+"deep_orange" = "Tmavě oranžová";
+
+/* gray color */
+"gray" = "Šedá";
+
+/* blue gray color */
+"blue_gray" = "Modrošedá";
+
 /* Wi-Fi available */
 "WiFi_available" = "Ano";
 
@@ -556,6 +582,9 @@
 
 /* Arrive routing message in navigation view */
 "routing_arrive" = "Příjezd: %s";
+
+/* Text for routing::RouterResultCode::FileTooOld dialog. */
+"dialog_routing_download_and_update_maps" = "Pro vytvoření trasy si prosím stáhněte a aktualizujte všechny mapy podél očekávané cesty.";
 
 "rate_alert_title" = "Líbí se vám aplikace?";
 
@@ -1110,6 +1139,8 @@
 "list_settings" = "Nástroje seznamu";
 
 "delete_list" = "Smazat seznam";
+
+"hide_from_map" = "Neukazovat na mapě";
 
 "public_access" = "Veřejně přístupné";
 

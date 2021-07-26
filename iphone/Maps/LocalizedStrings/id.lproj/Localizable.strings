@@ -331,6 +331,8 @@
 
 "recent_track_help_text" = "Ini memungkinkan Anda untuk merekam jalur yang telah dilalui selama jangka waktu tertentu dan melihatnya pada peta. Harap ketahui: aktivasi fungsi ini menyebabkan peningkatan penggunaan baterai. Trek akan dihapus secara otomatis dari peta setelah selang waktu berakhir.";
 
+"placepage_distance" = "Jarak";
+
 "search_show_on_map" = "Tampilkan pada peta";
 
 /* Text in menu */
@@ -472,6 +474,30 @@
 /* pink color */
 "pink" = "Hồng";
 
+/* deep purple color */
+"deep_purple" = "Ungu Gelap";
+
+/* light blue color */
+"light_blue" = "Biru Muda";
+
+/* cyan color */
+"cyan" = "Biru Kehijauan";
+
+/* teal color */
+"teal" = "Biru Gelap";
+
+/* lime color */
+"lime" = "Kuning Gelap";
+
+/* deep orange color */
+"deep_orange" = "Oranye Gelap";
+
+/* gray color */
+"gray" = "Abu-abu";
+
+/* blue gray color */
+"blue_gray" = "Biru Keabu-abuan";
+
 /* Wi-Fi available */
 "WiFi_available" = "Ya";
 
@@ -559,6 +585,9 @@
 
 /* Arrive routing message in navigation view */
 "routing_arrive" = "Kedatangan: %s";
+
+/* Text for routing::RouterResultCode::FileTooOld dialog. */
+"dialog_routing_download_and_update_maps" = "Untuk membuat rute, silakan unduh dan perbarui semua peta sepanjang rute.";
 
 "rate_alert_title" = "Suka aplikasi ini?";
 
@@ -1113,6 +1142,8 @@
 "list_settings" = "Pengaturan Daftar";
 
 "delete_list" = "Hapus Daftar";
+
+"hide_from_map" = "Sembunyikan dari peta";
 
 "public_access" = "Akses umum";
 

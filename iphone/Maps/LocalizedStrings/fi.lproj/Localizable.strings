@@ -331,6 +331,8 @@
 
 "recent_track_help_text" = "Toiminnon avulla voit tallentaa kuljetun reitin tietyltä ajalta ja nähdä sen kartalla: Huomautus: tämän toiminnon aktivoiminen lisää akun käyttöä. Reitti poistetaan kartalta automaattisesti ajanjakson päätyttyä.";
 
+"placepage_distance" = "Etäisyys";
+
 "search_show_on_map" = "Näytä kartalla";
 
 /* Text in menu */
@@ -472,6 +474,30 @@
 /* pink color */
 "pink" = "Pinkki";
 
+/* deep purple color */
+"deep_purple" = "Tumman purppuranpunainen";
+
+/* light blue color */
+"light_blue" = "Vaaleansininen";
+
+/* cyan color */
+"cyan" = "Sinivihreä";
+
+/* teal color */
+"teal" = "Smaragdinvihreä";
+
+/* lime color */
+"lime" = "Limen värinen";
+
+/* deep orange color */
+"deep_orange" = "Tumman oranssi";
+
+/* gray color */
+"gray" = "Harmaa";
+
+/* blue gray color */
+"blue_gray" = "Harmaan sininen";
+
 /* Wi-Fi available */
 "WiFi_available" = "Kyllä";
 
@@ -559,6 +585,9 @@
 
 /* Arrive routing message in navigation view */
 "routing_arrive" = "Saavut: %s";
+
+/* Text for routing::RouterResultCode::FileTooOld dialog. */
+"dialog_routing_download_and_update_maps" = "Lataa ja päivitä kaikki kartat reitin varrella luodaksesi reitin.";
 
 "rate_alert_title" = "Pidätkö sovelluksesta?";
 
@@ -1113,6 +1142,8 @@
 "list_settings" = "Listan asetukset";
 
 "delete_list" = "Poista lista";
+
+"hide_from_map" = "Piilottaa kartalta";
 
 "public_access" = "Julkinen pääsy";
 

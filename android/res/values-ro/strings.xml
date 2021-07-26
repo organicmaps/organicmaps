@@ -212,6 +212,7 @@
 	<string name="duration_12_hours">12 ore</string>
 	<string name="duration_1_day">1 zi</string>
 	<string name="recent_track_help_text">Vă permite să înregistrați traseul parcurs pentru o anumită perioadă și să îl vedeți pe hartă. Rețineți: activarea acestei funcții crește consumul bateriei. Traseul va fi eliminat automat de pe hartă după expirarea intervalului de timp.</string>
+	<string name="placepage_distance">Distanță</string>
 	<string name="search_show_on_map">Vizualizare pe hartă</string>
 	<!-- Text in menu -->
 	<string name="website">Site web</string>
@@ -302,6 +303,22 @@
 	<string name="brown">Maro</string>
 	<!-- pink color -->
 	<string name="pink">Roz</string>
+	<!-- deep purple color -->
+	<string name="deep_purple">Purpuriu închis</string>
+	<!-- light blue color -->
+	<string name="light_blue">Albastru deschis</string>
+	<!-- cyan color -->
+	<string name="cyan">Albastru-verziu</string>
+	<!-- teal color -->
+	<string name="teal">Smarald</string>
+	<!-- lime color -->
+	<string name="lime">Var</string>
+	<!-- deep orange color -->
+	<string name="deep_orange">Portocaliu închis</string>
+	<!-- gray color -->
+	<string name="gray">Gri</string>
+	<!-- blue gray color -->
+	<string name="blue_gray">Gri albăstriu</string>
 	<!-- Wi-Fi available -->
 	<string name="WiFi_available">Da</string>
 
@@ -350,6 +367,8 @@
 	<string name="routing_planning_error">Planificarea rutei a eșuat</string>
 	<!-- Arrive routing message in navigation view -->
 	<string name="routing_arrive">Sosire: %s</string>
+	<!-- Text for routing::RouterResultCode::FileTooOld dialog. -->
+	<string name="dialog_routing_download_and_update_maps">Pentru a crea o rută, vă rugăm să descărcați și să actualizați toate hărțile de pe parcursul rutei.</string>
 	<string name="rate_alert_title">Vă place aplicația?</string>
 	<string name="rate_alert_default_message">Vă mulțumim că folosiți Organic Maps. Vă rugăm să dați o notă aplicației. Comentariile dvs. ne ajută să devenim mai buni.</string>
 	<string name="rate_alert_five_star_message">Ura! Și noi vă iubim!</string>
@@ -658,6 +677,7 @@
 	<string name="export_file">Exportați fișierul</string>
 	<string name="list_settings">Elaborarea listei</string>
 	<string name="delete_list">Ștergerea listei</string>
+	<string name="hide_from_map">Ascundeți de pe hartă</string>
 	<string name="public_access">Acces public</string>
 	<string name="limited_access">Acces privat</string>
 	<string name="bookmark_category_name">Categorie</string>

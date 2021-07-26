@@ -217,6 +217,7 @@
 	<string name="duration_12_hours">12 horas</string>
 	<string name="duration_1_day">1 dia</string>
 	<string name="recent_track_help_text">Permite você salvar um caminho percorrido durante um determinado período e o ver no papa. Nota: esta funcionalidade usa mais bateria. A rota será automaticamente removida do mapa após o intervalo de tempo expirar.</string>
+	<string name="placepage_distance">Distância</string>
 	<string name="search_show_on_map">Ver no mapa</string>
 	<!-- Text in menu -->
 	<string name="website">Site</string>
@@ -308,6 +309,22 @@
 	<string name="brown">Marrom</string>
 	<!-- pink color -->
 	<string name="pink">Rosa</string>
+	<!-- deep purple color -->
+	<string name="deep_purple">Lilás escuro</string>
+	<!-- light blue color -->
+	<string name="light_blue">Azul Claro</string>
+	<!-- cyan color -->
+	<string name="cyan">Ciano</string>
+	<!-- teal color -->
+	<string name="teal">Cerceta</string>
+	<!-- lime color -->
+	<string name="lime">Lima</string>
+	<!-- deep orange color -->
+	<string name="deep_orange">Laranja escuro</string>
+	<!-- gray color -->
+	<string name="gray">Cinza</string>
+	<!-- blue gray color -->
+	<string name="blue_gray">Azul escuro</string>
 	<!-- Wi-Fi available -->
 	<string name="WiFi_available">Sim</string>
 
@@ -355,6 +372,8 @@
 	<string name="routing_planning_error">Falha no planejamento da rota</string>
 	<!-- Arrive routing message in navigation view -->
 	<string name="routing_arrive">Chegada: %s</string>
+	<!-- Text for routing::RouterResultCode::FileTooOld dialog. -->
+	<string name="dialog_routing_download_and_update_maps">Para criar uma rota, por favor, baixe e atualize todos os mapas ao longo do trajeto.</string>
 	<string name="rate_alert_title">Você gosta do aplicativo?</string>
 	<string name="rate_alert_default_message">Obrigado por usar Organic Maps. Por favor, avalie o aplicativo. Seu feedback nos ajuda a melhorar.</string>
 	<string name="rate_alert_five_star_message">Viva! Também amamos você!</string>
@@ -671,6 +690,7 @@
 	<string name="export_file">Exportar arquivo</string>
 	<string name="list_settings">Configurações de lista</string>
 	<string name="delete_list">Deletar lista</string>
+	<string name="hide_from_map">Esconder do mapa</string>
 	<string name="public_access">Acesso público</string>
 	<string name="limited_access">Acesso limitado</string>
 	<string name="bookmark_category_name">Categoria</string>

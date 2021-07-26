@@ -208,6 +208,7 @@
 	<string name="duration_12_hours">12 horas</string>
 	<string name="duration_1_day">1 día</string>
 	<string name="recent_track_help_text">Permite registrar el recorrido realizado durante un determinado periodo de tiempo y verlo en el mapa. Tenga en cuenta que la activación de esta función aumenta el consumo de la batería. El registro del recorrido se eliminará automáticamente del mapa una vez vencido dicho periodo de tiempo.</string>
+	<string name="placepage_distance">Distancia</string>
 	<string name="search_show_on_map">Ver en el mapa</string>
 	<!-- Text in menu -->
 	<string name="website">Sitio web</string>
@@ -299,6 +300,22 @@
 	<string name="brown">Marrón</string>
 	<!-- pink color -->
 	<string name="pink">Rosa</string>
+	<!-- deep purple color -->
+	<string name="deep_purple">Morado oscuro</string>
+	<!-- light blue color -->
+	<string name="light_blue">Azul Claro</string>
+	<!-- cyan color -->
+	<string name="cyan">Cian</string>
+	<!-- teal color -->
+	<string name="teal">Verde azulado</string>
+	<!-- lime color -->
+	<string name="lime">Lima</string>
+	<!-- deep orange color -->
+	<string name="deep_orange">Naranja oscuro</string>
+	<!-- gray color -->
+	<string name="gray">Gris</string>
+	<!-- blue gray color -->
+	<string name="blue_gray">Gris azulado</string>
 	<!-- Wi-Fi available -->
 	<string name="WiFi_available">Sí</string>
 
@@ -347,6 +364,8 @@
 	<string name="routing_planning_error">Error al planificar la ruta</string>
 	<!-- Arrive routing message in navigation view -->
 	<string name="routing_arrive">Llegada: %s</string>
+	<!-- Text for routing::RouterResultCode::FileTooOld dialog. -->
+	<string name="dialog_routing_download_and_update_maps">Para crear una ruta, por favor, descarga y actualiza todos los mapas a lo largo de la ruta.</string>
 	<string name="rate_alert_title">¿Te gusta la aplicación?</string>
 	<string name="rate_alert_default_message">Gracias por usar Organic Maps. Por favor, puntúa la aplicación. Tus comentarios nos ayudan a mejorar.</string>
 	<string name="rate_alert_five_star_message">¡Genial! ¡Nosotros también te queremos!</string>
@@ -655,6 +674,7 @@
 	<string name="export_file">Exportar como archivo</string>
 	<string name="list_settings">Configurar lista</string>
 	<string name="delete_list">Eliminar lista</string>
+	<string name="hide_from_map">Ocultar en el mapa</string>
 	<string name="public_access">Acceso público</string>
 	<string name="limited_access">Acceso privado</string>
 	<string name="bookmark_category_name">Categoría</string>
