@@ -20,17 +20,26 @@ run this script with the -h option.
 OMIM_ROOT = ""
 
 CORE_RE = re.compile(r'GetLocalizedString\(\"(.*?)\"\)')
-MACRO_RE = re.compile(r'L\(.*?@?\"(.*?)\"\)')
-XML_RE = re.compile(r"value=\"(.*?)\"")
+
+# max 2 matches in L(). Tried to make ()+ group, but no luck ..
+IOS_RE = re.compile(r'L\(.*?\"(\w+)\".*?(?:\"(\w+)\")?\)')
+IOS_XML_RE = re.compile(r"value=\"(.*?)\"")
+
 ANDROID_JAVA_RE = re.compile(r"R\.string\.([\w_]*)")
 ANDROID_JAVA_PLURAL_RE = re.compile(r"R\.plurals\.([\w_]*)")
 ANDROID_XML_RE = re.compile(r"@string/(.*?)\W")
+
 IOS_CANDIDATES_RE = re.compile(r"(.*?):[^L\(]@\"([a-z0-9_]*?)\"")
 
 HARDCODED_CATEGORIES = None
 
 HARDCODED_COLORS = [
-    "red", "yellow", "blue", "green", "purple", "orange", "brown", "pink"
+    # titleForBookmarkColor
+    "red", "blue", "purple", "yellow", "pink", "brown", "green", "orange", "deep_purple", "light_blue",
+    "cyan", "teal", "lime", "deep_orange", "gray", "blue_gray",
+
+    # NSLocalizedString
+    "placepage_distance"
 ]
 
 
@@ -89,9 +98,9 @@ def android_grep_wrapper(grep, regex):
 
 
 def filter_ios_grep(strings):
-    filtered = strings_from_grepped(strings, MACRO_RE)
+    filtered = strings_from_grepped_tuple(strings, IOS_RE)
     filtered = parenthesize(process_ternary_operators(filtered))
-    filtered.update(parenthesize(strings_from_grepped(strings, XML_RE)))
+    filtered.update(parenthesize(strings_from_grepped(strings, IOS_XML_RE)))
     filtered.update(parenthesize(HARDCODED_CATEGORIES))
     filtered.update(parenthesize(HARDCODED_COLORS))
     return filtered
@@ -100,9 +109,17 @@ def filter_ios_grep(strings):
 def process_ternary_operators(filtered):
     return chain(*(s.split('" : @"') for s in filtered))
 
-
 def strings_from_grepped(grepped, regexp):
     return set(chain(*(regexp.findall(s) for s in grepped if s)))
+
+def strings_from_grepped_tuple(grepped, regexp):
+    res = set()
+    for e1 in grepped:
+        for e2 in regexp.findall(e1):
+            for e3 in e2:
+                if e3:
+                    res.add(e3)
+    return res
 
 
 def parenthesize(strings):
