@@ -192,7 +192,8 @@ class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.ViewHolde
     void setTextAndIcon(@StringRes int textResId, @DrawableRes int iconResId)
     {
       mTitle.setText(textResId);
-      mTitle.setCompoundDrawablesWithIntrinsicBounds(iconResId, 0, 0, 0);
+      mTitle.setCompoundDrawablesRelativeWithIntrinsicBounds(iconResId, 0, 0, 0);
+      //mTitle.setCompoundDrawablesWithIntrinsicBounds(iconResId, 0, 0, 0);
     }
 
     @NonNull
