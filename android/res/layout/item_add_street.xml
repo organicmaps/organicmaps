@@ -12,7 +12,6 @@
     android:layout_width="24dp"
     android:layout_height="24dp"
     android:layout_marginEnd="@dimen/margin_double"
-    android:layout_marginRight="@dimen/margin_double"
     android:scaleType="centerCrop"
     android:src="@drawable/ic_plus"
     android:tint="?colorAccent"/>

@@ -15,16 +15,13 @@
   <include
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:layout_marginRight="@dimen/margin_base"
     android:layout_marginEnd="@dimen/margin_base"
     android:layout_gravity="center_vertical"
     layout="@layout/start_button"/>
 
   <TextView
     android:id="@+id/error"
-    android:paddingLeft="@dimen/margin_base"
     android:paddingStart="@dimen/margin_base"
-    android:paddingRight="@dimen/margin_base"
     android:paddingEnd="@dimen/margin_base"
     android:paddingTop="@dimen/margin_half_plus"
     android:paddingBottom="@dimen/margin_half_plus"

@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
   xmlns:android="http://schemas.android.com/apk/res/android"
-  xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
   android:id="@+id/rl__bookmark_details"
   android:layout_width="match_parent"
   android:layout_height="match_parent"
@@ -11,8 +12,8 @@
     android:id="@+id/ll__bookmark_name"
     android:layout_width="match_parent"
     android:layout_height="@dimen/height_item_edit_bookmark"
-    android:layout_marginLeft="@dimen/margin_half"
-    android:layout_marginRight="@dimen/margin_half"
+    android:layout_marginStart="@dimen/margin_half"
+    android:layout_marginEnd="@dimen/margin_half"
     android:orientation="vertical">
     <com.mapswithme.maps.widget.CustomTextInputLayout
       style="?fontBody1"
@@ -34,14 +35,14 @@
     android:layout_width="match_parent"
     android:layout_height="@dimen/height_item_edit_bookmark"
     android:layout_below="@id/ll__bookmark_name"
-    android:layout_marginLeft="@dimen/margin_half_plus"
+    android:layout_marginStart="@dimen/margin_half_plus"
     android:layout_marginTop="@dimen/margin_half">
     <TextView
       android:id="@+id/tv__bookmark_set_title"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:layout_marginTop="@dimen/margin_base"
-      android:layout_marginRight="@dimen/margin_quadruple"
+      android:layout_marginEnd="@dimen/margin_quadruple"
       android:text="@string/set"
       android:textAppearance="@style/MwmTextAppearance.Body3" />
     <TextView
@@ -50,25 +51,25 @@
       android:layout_height="wrap_content"
       android:layout_below="@id/tv__bookmark_set_title"
       android:layout_centerVertical="true"
-      android:layout_marginRight="@dimen/margin_quadruple"
+      android:layout_marginEnd="@dimen/margin_quadruple"
       android:background="?attr/selectableItemBackground"
       android:clickable="true"
-      android:drawableRight="@drawable/ic_arrow_down"
       android:paddingTop="@dimen/margin_quarter_plus"
       android:paddingBottom="@dimen/margin_half"
-      android:textAppearance="@style/MwmTextAppearance.Body1" />
+      android:textAppearance="@style/MwmTextAppearance.Body1"
+      app:drawableEndCompat="@drawable/ic_arrow_down" />
     <View
       android:layout_width="match_parent"
       android:layout_height="1dp"
       android:layout_alignParentBottom="true"
-      android:layout_marginRight="@dimen/margin_quadruple"
+      android:layout_marginEnd="@dimen/margin_quadruple"
       android:layout_marginBottom="@dimen/margin_half"
       android:background="@color/divider" />
     <ImageView
       android:id="@+id/iv__bookmark_color"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:layout_alignParentRight="true"
+      android:layout_alignParentEnd="true"
       android:layout_alignParentBottom="true"
       android:background="?clickableBackground"
       android:padding="@dimen/margin_half"

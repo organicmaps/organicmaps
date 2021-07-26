@@ -7,8 +7,6 @@
   android:background="?clickableBackground"
   android:minHeight="@dimen/editor_height_field"
   android:paddingEnd="@dimen/margin_quarter"
-  android:paddingLeft="@dimen/margin_half_plus"
-  android:paddingRight="@dimen/margin_quarter"
   android:paddingStart="@dimen/margin_half_plus"
   android:tag="schedule"
   tools:ignore="RtlSymmetry">
@@ -17,7 +15,6 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_marginEnd="@dimen/margin_base_plus"
-    android:layout_marginRight="@dimen/margin_base_plus"
     android:layout_marginTop="@dimen/margin_base"
     android:src="@drawable/ic_operating_hours"
     android:tint="?iconTint"/>
@@ -27,7 +24,6 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_centerVertical="true"
-    android:layout_marginLeft="@dimen/editor_margin_timetable_left"
     android:layout_marginStart="@dimen/editor_margin_timetable_left"
     android:orientation="vertical"
     tools:visibility="gone">
@@ -53,7 +49,6 @@
     android:id="@+id/opening_hours"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginLeft="@dimen/editor_margin_timetable_left"
     android:layout_marginStart="@dimen/editor_margin_timetable_left"
     android:layout_marginTop="14dp"
     android:background="?clickableBackground"
@@ -65,7 +60,6 @@
     android:id="@+id/edit_opening_hours"
     style="@style/MwmWidget.Editor.FieldLayout"
     android:layout_below="@id/opening_hours"
-    android:layout_marginLeft="@dimen/editor_margin_timetable_left"
     android:layout_marginStart="@dimen/editor_margin_timetable_left"
     android:layout_marginTop="@dimen/margin_base_plus"
     android:background="?clickableBackground"

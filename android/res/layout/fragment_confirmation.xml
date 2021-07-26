@@ -27,7 +27,6 @@
       android:layout_width="0dp"
       tools:ignore="UnusedAttribute"
       tools:text="Woohoo!"
-      android:layout_marginRight="@dimen/margin_base"
       android:layout_marginEnd="@dimen/margin_base"/>
     <ImageView
       android:id="@+id/image"

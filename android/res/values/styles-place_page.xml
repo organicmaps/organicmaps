@@ -36,10 +36,8 @@
     <item name="android:minHeight">@dimen/height_block_base</item>
     <item name="android:orientation">horizontal</item>
     <item name="android:paddingBottom">@dimen/margin_half</item>
-    <item name="android:paddingLeft">@dimen/margin_base</item>
-    <item name="android:paddingStart" tools:targetApi="jelly_bean_mr1">@dimen/margin_base</item>
-    <item name="android:paddingRight">@dimen/margin_base</item>
-    <item name="android:paddingEnd" tools:targetApi="jelly_bean_mr1">@dimen/margin_base</item>
+    <item name="android:paddingStart">@dimen/margin_base</item>
+    <item name="android:paddingEnd">@dimen/margin_base</item>
     <item name="android:paddingTop">@dimen/margin_half</item>
     <item name="android:gravity">center_vertical</item>
     <item name="android:background">?clickableBackground</item>
@@ -72,15 +70,13 @@
     <item name="android:gravity">center</item>
     <item name="android:textColor">@color/white_primary</item>
     <item name="android:textAllCaps">true</item>
-    <item name="android:drawableRight">@drawable/ic_chevron_right_white</item>
-    <item name="android:drawableEnd" tools:targetApi="jelly_bean_mr1">@drawable/ic_chevron_right_white</item>
+    <item name="android:drawableEnd">@drawable/ic_chevron_right_white</item>
   </style>
 
   <style name="PlacePageMetadataIcon">
     <item name="android:layout_width">wrap_content</item>
     <item name="android:layout_height">wrap_content</item>
     <item name="android:tint">?iconTint</item>
-    <item name="android:layout_marginEnd" tools:targetApi="jelly_bean_mr1">@dimen/margin_base</item>
-    <item name="android:layout_marginRight">@dimen/margin_base</item>
+    <item name="android:layout_marginEnd">@dimen/margin_base</item>
   </style>
 </resources>

@@ -28,7 +28,6 @@
     android:layout_width="@dimen/margin_quadruple"
     android:layout_height="@dimen/margin_quadruple"
     android:layout_marginTop="@dimen/nav_zoom_top"
-    android:layout_alignParentLeft="true"
     android:layout_alignParentStart="true"
     android:background="?nav_background"
     android:src="@drawable/ic_menu_bookmarks"
@@ -38,11 +37,9 @@
     android:id="@+id/search_frame"
     android:layout_width="200dp"
     android:layout_height="200dp"
-    android:layout_alignParentLeft="true"
     android:layout_alignParentStart="true"
     android:layout_marginTop="-68dp"
     android:layout_below="@id/btn_bookmarks"
-    android:layout_marginLeft="-68dp"
     android:layout_marginStart="-68dp"
     android:background="?searchLayoutBackground"
     android:visibility="invisible"
@@ -52,7 +49,6 @@
       android:id="@+id/search_fuel"
       android:layout_marginTop="@dimen/margin_half_plus"
       android:layout_marginStart="@dimen/margin_half_plus"
-      android:layout_marginLeft="@dimen/margin_half_plus"
       style="@style/MwmWidget.SearchNavigationButton"
       android:layout_alignParentTop="true"
       android:layout_centerHorizontal="true"
@@ -63,16 +59,13 @@
       style="@style/MwmWidget.SearchNavigationButton"
       android:layout_marginTop="@dimen/margin_double"
       android:layout_toEndOf="@id/search_fuel"
-      android:layout_toRightOf="@id/search_fuel"
       android:src="@drawable/ic_routing_parking_on"/>
 
     <ImageView
       android:id="@+id/search_eat"
       style="@style/MwmWidget.SearchNavigationButton"
       android:layout_alignParentEnd="true"
-      android:layout_alignParentRight="true"
       android:layout_marginEnd="@dimen/margin_half_plus"
-      android:layout_marginRight="@dimen/margin_half_plus"
       android:layout_centerVertical="true"
       android:src="@drawable/ic_routing_eat_on"/>
 
@@ -82,7 +75,6 @@
       android:layout_alignParentBottom="true"
       android:layout_marginBottom="@dimen/margin_double"
       android:layout_toEndOf="@id/search_fuel"
-      android:layout_toRightOf="@id/search_fuel"
       android:src="@drawable/ic_routing_food_on"/>
 
     <ImageView
@@ -90,7 +82,6 @@
       style="@style/MwmWidget.SearchNavigationButton"
       android:layout_marginBottom="@dimen/margin_half_plus"
       android:layout_marginStart="@dimen/margin_half_plus"
-      android:layout_marginLeft="@dimen/margin_half_plus"
       android:layout_alignParentBottom="true"
       android:layout_centerHorizontal="true"
       android:src="@drawable/ic_routing_atm_on"/>
@@ -103,7 +94,6 @@
     android:layout_width="@dimen/margin_quadruple"
     android:layout_height="@dimen/margin_quadruple"
     android:layout_below="@id/btn_bookmarks"
-    android:layout_alignParentLeft="true"
     android:layout_alignParentStart="true"
     android:background="?nav_background"
     android:src="@drawable/ic_menu_search"

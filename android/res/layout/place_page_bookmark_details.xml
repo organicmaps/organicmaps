@@ -20,8 +20,6 @@
     android:layout_height="wrap_content"
     android:layout_marginBottom="@dimen/margin_half"
     android:layout_marginEnd="@dimen/margin_base"
-    android:layout_marginLeft="@dimen/margin_base"
-    android:layout_marginRight="@dimen/margin_base"
     android:layout_marginStart="@dimen/margin_base"
     android:layout_marginTop="@dimen/margin_base"
     android:textAppearance="?android:attr/textAppearance"
@@ -34,8 +32,6 @@
     android:layout_height="@dimen/height_block_base"
     android:background="?clickableBackground"
     android:paddingEnd="@dimen/margin_base"
-    android:paddingLeft="@dimen/margin_base"
-    android:paddingRight="@dimen/margin_base"
     android:paddingStart="@dimen/margin_base"
     android:text="@string/placepage_edit_bookmark_button"/>
 

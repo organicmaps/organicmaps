@@ -25,9 +25,7 @@
 
   <TextView
     android:id="@+id/error"
-    android:paddingLeft="@dimen/margin_base"
     android:paddingStart="@dimen/margin_base"
-    android:paddingRight="@dimen/margin_base"
     android:paddingEnd="@dimen/margin_base"
     android:paddingTop="@dimen/margin_half_plus"
     android:paddingBottom="@dimen/margin_half_plus"

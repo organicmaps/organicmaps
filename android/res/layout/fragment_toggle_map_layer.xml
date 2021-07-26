@@ -15,26 +15,22 @@
     android:minHeight="@dimen/menu_list_item_height"
     android:src="@drawable/ic_drop_down"
     android:tint="@color/icon_tint"
-    android:paddingLeft="@dimen/margin_base"
     android:paddingStart="@dimen/margin_base"
-    android:paddingRight="@dimen/margin_base"
     android:paddingEnd="@dimen/margin_base"
+    android:background="?attr/selectableItemBackgroundBorderless"
     app:layout_constraintTop_toTopOf="parent"
-    app:layout_constraintRight_toRightOf="parent"
-    android:background="?attr/selectableItemBackgroundBorderless"/>
+    app:layout_constraintEnd_toEndOf="parent"/>
   <TextView
     android:id="@+id/layers_text"
     android:minHeight="@dimen/menu_list_item_height"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:gravity="center_vertical"
-    android:paddingLeft="@dimen/margin_base"
     android:paddingStart="@dimen/margin_base"
-    android:paddingRight="@dimen/margin_base"
     android:paddingEnd="@dimen/margin_base"
-    app:layout_constraintLeft_toLeftOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
     app:layout_constraintTop_toTopOf="parent"
-    app:layout_constraintRight_toLeftOf="@id/сlose_btn"
+    app:layout_constraintEnd_toStartOf="@id/сlose_btn"
     android:visibility="visible"
     android:text="@string/layers_title"
     android:textAppearance="@style/MwmTextAppearance.Body2"/>
@@ -43,9 +39,7 @@
     android:layout_height="wrap_content"
     android:layout_width="match_parent"
     android:minHeight="@dimen/toggle_map_layer_frame_height"
-    android:paddingLeft="@dimen/margin_base"
     android:paddingStart="@dimen/margin_base"
-    android:paddingRight="@dimen/margin_base"
     android:paddingEnd="@dimen/margin_base"
     app:layout_constraintTop_toBottomOf="@id/layers_text">
   </androidx.recyclerview.widget.RecyclerView>

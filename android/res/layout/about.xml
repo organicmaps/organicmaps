@@ -38,8 +38,8 @@
                 android:gravity="center_horizontal"
                 android:layout_marginTop="@dimen/margin_base_plus"
                 android:layout_marginBottom="@dimen/margin_base_plus"
-                android:layout_marginLeft="@dimen/margin_base"
-                android:layout_marginRight="@dimen/margin_base"
+                android:layout_marginStart="@dimen/margin_base"
+                android:layout_marginEnd="@dimen/margin_base"
                 android:textAppearance="@style/MwmTextAppearance.Body2"
                 android:text="@string/about_description"/>
 

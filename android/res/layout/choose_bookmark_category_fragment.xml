@@ -18,12 +18,9 @@
     android:textStyle="normal"
     android:lineSpacingExtra="@dimen/text_size_banner"
     android:text="@string/select_list"
-    tools:text="Select list"
-    tools:targetApi="jelly_bean"
     android:layout_marginEnd="@dimen/margin_base_plus"
-    android:layout_marginRight="@dimen/margin_base_plus"
-    android:layout_marginLeft="@dimen/margin_base_plus"
-    android:layout_marginStart="@dimen/margin_base_plus"/>
+    android:layout_marginStart="@dimen/margin_base_plus"
+    tools:text="Select list"/>
   <include
     android:layout_marginTop="@dimen/margin_base"
     android:layout_height="wrap_content"

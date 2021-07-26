@@ -8,8 +8,6 @@
   android:gravity="center_vertical"
   android:orientation="horizontal"
   android:paddingEnd="@dimen/margin_base"
-  android:paddingLeft="@dimen/margin_half_plus"
-  android:paddingRight="@dimen/margin_base"
   android:paddingStart="@dimen/margin_half_plus">
 
   <RadioButton
@@ -17,14 +15,12 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_centerVertical="true"
-    android:layout_marginEnd="@dimen/margin_base"
-    android:layout_marginRight="@dimen/margin_base"/>
+    android:layout_marginEnd="@dimen/margin_base"/>
 
   <LinearLayout
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_centerVertical="true"
-    android:layout_marginLeft="60dp"
     android:layout_marginStart="60dp"
     android:orientation="vertical">
 

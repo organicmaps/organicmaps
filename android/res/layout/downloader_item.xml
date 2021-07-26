@@ -5,8 +5,8 @@
   android:layout_width="match_parent"
   android:layout_height="wrap_content"
   android:minHeight="@dimen/height_item_multiline"
-  android:paddingLeft="@dimen/margin_base"
-  android:paddingRight="@dimen/margin_base"
+  android:paddingStart="@dimen/margin_base"
+  android:paddingEnd="@dimen/margin_base"
   android:background="?clickableBackground"
   tools:background="#200000FF">
 
@@ -15,14 +15,14 @@
     layout="@layout/downloader_status"
     android:layout_width="@dimen/downloader_status_size"
     android:layout_height="@dimen/downloader_status_size"
-    android:layout_marginRight="@dimen/margin_base"
+    android:layout_marginEnd="@dimen/margin_base"
     android:layout_centerVertical="true"/>
 
   <TextView
     android:id="@+id/size"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:layout_alignParentRight="true"
+    android:layout_alignParentEnd="true"
     android:layout_centerVertical="true"
     android:textAppearance="@style/MwmTextAppearance.Body3"
     tools:text="5000 MB"
@@ -35,8 +35,8 @@
     android:paddingBottom="@dimen/margin_base"
     android:orientation="vertical"
     android:layout_centerVertical="true"
-    android:layout_toRightOf="@id/downloader_status_frame"
-    android:layout_toLeftOf="@id/size">
+    android:layout_toEndOf="@id/downloader_status_frame"
+    android:layout_toStartOf="@id/size">
     <TextView
       android:id="@+id/found_name"
       android:layout_width="match_parent"

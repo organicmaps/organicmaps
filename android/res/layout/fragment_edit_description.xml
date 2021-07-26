@@ -13,7 +13,7 @@
       android:id="@+id/tv__save"
       android:layout_width="wrap_content"
       android:layout_height="match_parent"
-      android:layout_gravity="right"
+      android:layout_gravity="end"
       android:background="?attr/selectableItemBackgroundBorderless"
       android:clickable="true"
       android:gravity="center_vertical"
@@ -26,8 +26,8 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_below="@id/toolbar"
-    android:paddingLeft="@dimen/margin_base"
-    android:paddingRight="@dimen/margin_base">
+    android:paddingStart="@dimen/margin_base"
+    android:paddingEnd="@dimen/margin_base">
     <EditText
       android:id="@+id/et__description"
       style="@style/MwmWidget.PlacePage.EditText"

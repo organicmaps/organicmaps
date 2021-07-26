@@ -8,9 +8,7 @@
     android:layout_weight="1"
     android:layout_marginBottom="@dimen/altitude_chart_margin_bottom"
     android:layout_marginTop="@dimen/altitude_chart_margin_top"
-    android:paddingLeft="@dimen/altitude_chart_container_padding_left"
     android:paddingStart="@dimen/altitude_chart_container_padding_left"
-    android:paddingRight="@dimen/altitude_chart_container_padding_left"
     android:paddingEnd="@dimen/altitude_chart_container_padding_left"
     android:orientation="vertical"
     tools:showIn="@layout/fragment_routing">

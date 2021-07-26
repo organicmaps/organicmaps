@@ -41,10 +41,8 @@
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
           android:layout_above="@id/anchor_center"
-          android:layout_marginLeft="@dimen/margin_quarter"
           android:layout_marginStart="@dimen/margin_quarter"
           android:layout_toEndOf="@id/icon"
-          android:layout_toRightOf="@id/icon"
           android:text="@string/editor_edit_place_category_title"
           android:textAppearance="@style/MwmTextAppearance.Body4"
           tools:text="Trololo"/>
@@ -228,7 +226,6 @@
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_marginStart="@dimen/editor_margin_left"
-            android:layout_toLeftOf="@+id/sw__wifi"
             android:layout_toStartOf="@+id/sw__wifi"
             android:text="@string/wifi"/>
           <androidx.appcompat.widget.SwitchCompat

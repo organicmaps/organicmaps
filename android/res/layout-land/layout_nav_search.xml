@@ -31,7 +31,6 @@
     <ImageView
       android:id="@+id/search_fuel"
       style="@style/MwmWidget.SearchNavigationButton"
-      android:layout_marginLeft="60dp"
       android:layout_marginStart="60dp"
       android:src="@drawable/ic_routing_fuel_on"/>
 
@@ -63,7 +62,6 @@
     android:layout_width="@dimen/margin_quadruple"
     android:layout_height="@dimen/margin_quadruple"
     android:layout_alignParentBottom="true"
-    android:layout_alignParentLeft="true"
     android:layout_alignParentStart="true"
     android:layout_marginBottom="@dimen/margin_base_plus"
     android:background="?nav_background"
@@ -76,7 +74,6 @@
     android:layout_width="@dimen/margin_quadruple"
     android:layout_height="@dimen/margin_quadruple"
     android:layout_above="@id/btn_search"
-    android:layout_alignParentLeft="true"
     android:layout_alignParentStart="true"
     android:background="?nav_background"
     android:src="@drawable/ic_menu_bookmarks"

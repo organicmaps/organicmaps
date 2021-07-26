@@ -25,10 +25,8 @@
     android:layout_marginEnd="@dimen/margin_base_plus"
     android:background="?altitudeBg"
     android:paddingStart="@dimen/margin_quarter_plus"
-    android:paddingLeft="@dimen/margin_quarter_plus"
     android:paddingTop="@dimen/margin_eighth"
     android:paddingEnd="@dimen/margin_quarter_plus"
-    android:paddingRight="@dimen/margin_quarter_plus"
     android:paddingBottom="@dimen/margin_eighth"
     android:textSize="@dimen/text_size_body_5" />
   <TextView
@@ -43,10 +41,8 @@
     android:layout_marginBottom="@dimen/margin_base_plus"
     android:background="?altitudeBg"
     android:paddingStart="@dimen/margin_quarter_plus"
-    android:paddingLeft="@dimen/margin_quarter_plus"
     android:paddingTop="@dimen/margin_eighth"
     android:paddingEnd="@dimen/margin_quarter_plus"
-    android:paddingRight="@dimen/margin_quarter_plus"
     android:paddingBottom="@dimen/margin_eighth"
     android:textSize="@dimen/text_size_body_5" />
 </RelativeLayout>
