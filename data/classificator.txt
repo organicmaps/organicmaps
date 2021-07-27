@@ -536,6 +536,7 @@ world  +
             permissive  -
             private  -
             {}
+        picnic_table  -
         pitch  -
         playground  -
         recreation_ground  -

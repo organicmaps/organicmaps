@@ -2293,7 +2293,7 @@ sk:4Infocentrum|4turistické informácie
 sw:Taarifa ya utalii|taarifa
 fa:اطلاعات گردشگری
 
-tourism-picnic_site|amenity-bbq
+tourism-picnic_site|amenity-bbq|leisure-picnic_table
 en:3Picnic Site
 ru:Место для пикника|3Пикник
 bg:пикник|тревна площ

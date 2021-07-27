@@ -151,7 +151,7 @@ railway|tram;150;
 amenity|toilets;151;
 deprecated|deprecated;152;x
 highway|footway|permissive;[highway=footway][access=permissive],[highway=footway][foot=permissive];;name;int_name;153;
-deprecated|deprecated;154;x
+leisure|picnic_table;154;
 landuse|construction;155;
 tourism|viewpoint;156;
 amenity|atm;157;

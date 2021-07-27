@@ -151,7 +151,7 @@ mapswithme
 *amenity|toilets
 mapswithme
 *highway|footway|permissive
-mapswithme
+*leisure|picnic_table
 *landuse|construction
 *tourism|viewpoint
 *amenity|atm
