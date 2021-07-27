@@ -35687,6 +35687,73 @@ cont {
   }
 }
 cont {
+  name: "leisure-picnic_table"
+  element {
+    scale: 16
+    symbol {
+      name: "picnic_table-m"
+      priority: 16485
+      min_distance: 10
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 1
+      }
+      priority: 15485
+    }
+  }
+  element {
+    scale: 17
+    symbol {
+      name: "picnic_table-m"
+      priority: 16485
+      min_distance: 10
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 1
+      }
+      priority: 15485
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "picnic_table-m"
+      priority: 16485
+      min_distance: 10
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 1
+      }
+      priority: 15485
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "picnic_table-m"
+      priority: 16485
+      min_distance: 10
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 1
+      }
+      priority: 15485
+    }
+  }
+}
+cont {
   name: "leisure-pitch"
   element {
     scale: 15
