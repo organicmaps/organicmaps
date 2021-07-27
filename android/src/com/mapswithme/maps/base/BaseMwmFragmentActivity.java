@@ -21,6 +21,7 @@ import com.mapswithme.maps.MwmApplication;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.SplashActivity;
 import com.mapswithme.util.Config;
+import com.mapswithme.util.RtlUtils;
 import com.mapswithme.util.ThemeUtils;
 import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.Utils;
@@ -66,6 +67,7 @@ public abstract class BaseMwmFragmentActivity extends AppCompatActivity
   protected final void onCreate(@Nullable Bundle savedInstanceState)
   {
     mBaseDelegate.onCreate();
+    RtlUtils.manageRtl(this);
     // An intent that was skipped due to core wasn't initialized has to be used
     // as a target intent for this activity, otherwise all input extras will be lost
     // in a splash activity loop.
