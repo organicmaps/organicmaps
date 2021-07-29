@@ -34,7 +34,6 @@ class PlacePageCommonLayout: NSObject, IPlacePageLayout {
   lazy var previewViewController: PlacePagePreviewViewController = {
     let vc = storyboard.instantiateViewController(ofType: PlacePagePreviewViewController.self)
     vc.placePagePreviewData = placePageData.previewData
-    vc.delegate = interactor
     return vc
   } ()
   
