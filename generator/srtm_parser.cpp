@@ -1,11 +1,14 @@
 #include "generator/srtm_parser.hpp"
 
+#include "platform/platform.hpp"
+
 #include "coding/endianness.hpp"
 #include "coding/zip_reader.hpp"
 
 #include "base/file_name_utils.hpp"
 #include "base/logging.hpp"
 
+#include <fstream>
 #include <iomanip>
 #include <sstream>
 
@@ -60,24 +63,34 @@ void SrtmTile::Init(std::string const & dir, ms::LatLon const & coord)
   std::string const cont = GetSrtmContFileName(dir, base);
   std::string file = base + ".hgt";
 
-  UnzipMemDelegate delegate(m_data);
-  try
+  // Original files are stored in zip archives. Alternatively, they can be loaded
+  // from uncompressed files like "N34E012.hgt".
+  static bool const loadFromZip = static_cast<bool>(std::ifstream(cont));
+  if (loadFromZip)
   {
-    ZipFileReader::UnzipFile(cont, file, delegate);
-  }
-  catch (ZipFileReader::LocateZipException const & e)
-  {
-    // Sometimes packed file has different name. See N39E051 measure.
-    file = base + ".SRTMGL1.hgt";
+    UnzipMemDelegate delegate(m_data);
+    try
+    {
+      ZipFileReader::UnzipFile(cont, file, delegate);
+    }
+    catch (ZipFileReader::LocateZipException const &)
+    {
+      // Sometimes packed file has different name. See N39E051 measure.
+      file = base + ".SRTMGL1.hgt";
 
-    ZipFileReader::UnzipFile(cont, file, delegate);
-  }
+      ZipFileReader::UnzipFile(cont, file, delegate);
+    }
 
-  if (!delegate.m_completed)
+    if (!delegate.m_completed)
+    {
+      LOG(LWARNING, ("Can't decompress SRTM file:", cont));
+      Invalidate();
+      return;
+    }
+  }
+  else
   {
-    LOG(LWARNING, ("Can't decompress SRTM file:", cont));
-    Invalidate();
-    return;
+    GetPlatform().GetReader(file)->ReadAsString(m_data);
   }
 
   if (m_data.size() != kSrtmTileSize)
