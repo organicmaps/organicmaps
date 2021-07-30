@@ -33,11 +33,11 @@ def get_feeds_links(data):
     gtfs_feeds_urls = []
 
     for feed in data:
-        if feed["feed_format"] != "gtfs" or feed["spec"] != "gtfs":
+        if feed["spec"] != "gtfs":
             continue
 
-        if "url" in feed and feed["url"] is not None and feed["url"]:
-            gtfs_feeds_urls.append(feed["url"])
+        if "urls" in feed and feed["urls"] is not None and feed["urls"]:
+            gtfs_feeds_urls.append(feed["urls"]["static_current"])
 
     return gtfs_feeds_urls
 
@@ -57,7 +57,7 @@ def parse_transitland_page(url):
             else:
                 gtfs_feeds_urls = []
 
-            next_page = data["meta"]["next"] if "next" in data["meta"] else ""
+            next_page = data["meta"]["next"] if "next" in data.get("meta", "") else ""
             return gtfs_feeds_urls, next_page
 
         except requests.exceptions.HTTPError as http_err:
@@ -181,10 +181,10 @@ def write_list_to_file(path, lines):
         out.write("\n".join(lines))
 
 
-def crawl_transitland_for_feed_urls(out_path):
+def crawl_transitland_for_feed_urls(out_path, transitland_api_key):
     """Crawls transitland feeds API and parses feeds urls from json on each page
     Do not try to parallel it because of the Transitland HTTP requests restriction."""
-    start_page = "https://api.transit.land/api/v1/feeds/?per_page=50"
+    start_page = "https://transit.land/api/v2/rest/feeds?api_key={}".format(transitland_api_key)
 
     total_feeds = []
     gtfs_feeds_urls, next_page = parse_transitland_page(start_page)
@@ -274,10 +274,18 @@ def main():
     )
 
     parser.add_argument(
-        "-k",
+        "-o",
         "--omd_api_key",
         default="",
         help="user key for working with openmobilitydata API",
+    )
+
+    # Required in order to use Transitlands api
+    parser.add_argument(
+        "-T",
+        "--transitland_api_key",
+        required=True,
+        help="user key for working with transitland API v2"
     )
 
     args = parser.parse_args()
@@ -291,7 +299,7 @@ def main():
     if args.mode in ["fullrun", "load_feed_urls"]:
 
         if args.source in ["all", "transitland"]:
-            crawl_transitland_for_feed_urls(args.path)
+            crawl_transitland_for_feed_urls(args.path, args.transitland_api_key)
         if args.source in ["all", "openmobilitydata"]:
             if not args.omd_api_key:
                 logger.error(
