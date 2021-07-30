@@ -8,8 +8,6 @@ com/mapswithme/maps/downloader/MapDownloadManager.class
 com/mapswithme/maps/location/PlatformSocket.class
 com/mapswithme/maps/search/PopularityProvider.class
 com/mapswithme/maps/widget/placepage/PlacePageData.class
-com/mapswithme/util/AbstractHttpUploader.class
-com/mapswithme/util/HttpBackgroundUploader.class
 com/mapswithme/util/HttpClient$Params.class
 com/mapswithme/util/HttpClient.class
 com/mapswithme/util/HttpPayload.class

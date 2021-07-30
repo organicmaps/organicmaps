@@ -102,7 +102,6 @@ public class PlacePageView extends NestedScrollViewClickFixed
   private TextView mTvWebsite;
   private TextView mTvLatlon;
   private View mOpeningHours;
-  private View mKeyInfo;
   private TextView mFullOpeningHours;
   private TextView mTodayOpeningHours;
   private View mWifi;
@@ -301,7 +300,6 @@ public class PlacePageView extends NestedScrollViewClickFixed
     LinearLayout latlon = findViewById(R.id.ll__place_latlon);
     latlon.setOnClickListener(this);
     mTvLatlon = findViewById(R.id.tv__place_latlon);
-    mKeyInfo = findViewById(R.id.place_page_key_info);
     mOpeningHours = findViewById(R.id.ll__place_schedule);
     mFullOpeningHours = findViewById(R.id.opening_hours);
     mTodayOpeningHours = findViewById(R.id.today_opening_hours);
@@ -805,7 +803,6 @@ public class PlacePageView extends NestedScrollViewClickFixed
     refreshMetadataOrHide(mapObject.getMetadata(Metadata.MetadataType.FMD_WIKIPEDIA), mWiki, null);
     refreshMetadataOrHide(mapObject.getMetadata(Metadata.MetadataType.FMD_INTERNET), mWifi, null);
     refreshMetadataOrHide(mapObject.getMetadata(Metadata.MetadataType.FMD_FLATS), mEntrance, mTvEntrance);
-    UiUtils.showIf(mapObject.hasMetadata(), mKeyInfo);
     refreshOpeningHours(mapObject);
 
 //    showTaxiOffer(mapObject);

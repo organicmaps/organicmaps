@@ -37,8 +37,6 @@
 
     <include layout="@layout/place_page_placename"/>
 
-    <include layout="@layout/place_page_key_info_header"/>
-
     <include layout="@layout/place_page_opening_hours"/>
 
     <include layout="@layout/place_page_entrance"/>
