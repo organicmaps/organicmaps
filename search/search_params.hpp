@@ -28,10 +28,11 @@ struct SearchParams
   inline static size_t const kPreResultsCount = 200;
   inline static double const kDefaultStreetSearchRadiusM = 8e4;
   inline static double const kDefaultVillageSearchRadiusM = 2e5;
+  // TODO: Short timeouts leads to a non-working search on slow devices. Design a better solution.
   inline static std::chrono::steady_clock::duration const kDefaultTimeout =
-      std::chrono::seconds(3);
+      std::chrono::seconds(8);
   inline static std::chrono::steady_clock::duration const kDefaultDesktopTimeout =
-      std::chrono::milliseconds(1500);
+      std::chrono::seconds(8);
 
   using OnStarted = std::function<void()>;
   using OnResults = std::function<void(Results const &)>;
