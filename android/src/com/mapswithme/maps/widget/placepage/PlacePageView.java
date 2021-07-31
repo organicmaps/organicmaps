@@ -13,12 +13,12 @@ import android.text.TextUtils;
 import android.text.style.ForegroundColorSpan;
 import android.text.util.Linkify;
 import android.util.AttributeSet;
-import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -333,7 +333,9 @@ public class PlacePageView extends NestedScrollViewClickFixed
 
     mBookmarkFrame = findViewById(R.id.bookmark_frame);
     mWvBookmarkNote = mBookmarkFrame.findViewById(R.id.wv__bookmark_notes);
-    mWvBookmarkNote.getSettings().setJavaScriptEnabled(false);
+    final WebSettings settings = mWvBookmarkNote.getSettings();
+    settings.setJavaScriptEnabled(false);
+    settings.setDefaultTextEncodingName("utf-8");
     mTvBookmarkNote = mBookmarkFrame.findViewById(R.id.tv__bookmark_notes);
     initEditMapObjectBtn();
 
@@ -934,8 +936,7 @@ public class PlacePageView extends NestedScrollViewClickFixed
 
     if (StringUtils.nativeIsHtml(notes))
     {
-      String base64version = Base64.encodeToString(notes.getBytes(), Base64.DEFAULT);
-      mWvBookmarkNote.loadData(base64version, Utils.TEXT_HTML, Utils.BASE_64);
+      mWvBookmarkNote.loadData(notes, Utils.TEXT_HTML, Utils.UTF_8);
       UiUtils.show(mWvBookmarkNote);
       UiUtils.hide(mTvBookmarkNote);
     }
