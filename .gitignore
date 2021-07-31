@@ -54,6 +54,8 @@ out/*
 qt/mapswithme.log
 
 # XCode
+xcode/keys/*
+xcode/build/*
 iphone/*/*.xcodeproj/*.pbxuser
 iphone/*/*.xcodeproj/*.perspectivev3
 iphone/*/*.xcodeproj/project.xcworkspace/*
