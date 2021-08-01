@@ -646,6 +646,44 @@
 		FA8E808925F412E2002A1434 /* FirstSession.mm in Sources */ = {isa = PBXBuildFile; fileRef = FA8E808825F412E2002A1434 /* FirstSession.mm */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		FAE1CC9C26B68278003DD415 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = FAE1CC9626B68278003DD415 /* shaders.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 4566606E20E254060085E8C1;
+			remoteInfo = shaders;
+		};
+		FAE1CC9E26B68278003DD415 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = FAE1CC9626B68278003DD415 /* shaders.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 456660DA20E25A380085E8C1;
+			remoteInfo = shaders_tests;
+		};
+		FAE1CCA026B68278003DD415 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = FAE1CC9626B68278003DD415 /* shaders.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 4598437C21394BE000F8CAB2;
+			remoteInfo = shaders_metal;
+		};
+		FAE1CCA226B68281003DD415 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = FAE1CC9626B68278003DD415 /* shaders.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 4598437B21394BE000F8CAB2;
+			remoteInfo = shaders_metal;
+		};
+		FAE1CCA426B69E17003DD415 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = FAE1CC9626B68278003DD415 /* shaders.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 4566606D20E254060085E8C1;
+			remoteInfo = shaders;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXCopyFilesBuildPhase section */
 		4740184523F5BDE900A93C81 /* Embed Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
@@ -1615,6 +1653,7 @@
 		FAAEA7D0161BD26600CCD661 /* synonyms.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = synonyms.txt; path = ../../data/synonyms.txt; sourceTree = "<group>"; };
 		FAAFD696139D9BE2000AE70C /* categories.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = categories.txt; path = ../../data/categories.txt; sourceTree = SOURCE_ROOT; };
 		FACE202725ED913A00518E88 /* CoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreServices.framework; path = System/Library/Frameworks/CoreServices.framework; sourceTree = SDKROOT; };
+		FAE1CC9626B68278003DD415 /* shaders.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = shaders.xcodeproj; path = ../../xcode/shaders/shaders.xcodeproj; sourceTree = "<group>"; };
 		FAF30A94173AB23900818BF6 /* 07_roboto_medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = 07_roboto_medium.ttf; path = ../../data/07_roboto_medium.ttf; sourceTree = "<group>"; };
 		FAFF42291347F101009BBB14 /* World.mwm */ = {isa = PBXFileReference; lastKnownFileType = file; name = World.mwm; path = ../../data/World.mwm; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -1774,6 +1813,7 @@
 		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				FAE1CC9626B68278003DD415 /* shaders.xcodeproj */,
 				47A13CA624BE874D00027D4F /* DatePicker.framework */,
 				47A13CA324BE872600027D4F /* DatePicker.framework */,
 				47D48BCF242A475700FEFB1F /* AuthenticationServices.framework */,
@@ -3625,6 +3665,16 @@
 			path = Bookmarks;
 			sourceTree = "<group>";
 		};
+		FAE1CC9726B68278003DD415 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				FAE1CC9D26B68278003DD415 /* libshaders.a */,
+				FAE1CC9F26B68278003DD415 /* shaders_tests.app */,
+				FAE1CCA126B68278003DD415 /* shaders_metal.metallib */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -3641,6 +3691,8 @@
 			buildRules = (
 			);
 			dependencies = (
+				FAE1CCA526B69E17003DD415 /* PBXTargetDependency */,
+				FAE1CCA326B68281003DD415 /* PBXTargetDependency */,
 			);
 			name = OMaps;
 			productName = Maps;
@@ -3711,12 +3763,42 @@
 			mainGroup = 29B97314FDCFA39411CA2CEA /* Maps */;
 			productRefGroup = 19C28FACFE9D520D11CA2CBB /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = FAE1CC9726B68278003DD415 /* Products */;
+					ProjectRef = FAE1CC9626B68278003DD415 /* shaders.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				6741A93D1BF340DE002C974C /* OMaps */,
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		FAE1CC9D26B68278003DD415 /* libshaders.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libshaders.a;
+			remoteRef = FAE1CC9C26B68278003DD415 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		FAE1CC9F26B68278003DD415 /* shaders_tests.app */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.application;
+			path = shaders_tests.app;
+			remoteRef = FAE1CC9E26B68278003DD415 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		FAE1CCA126B68278003DD415 /* shaders_metal.metallib */ = {
+			isa = PBXReferenceProxy;
+			fileType = "archive.metal-library";
+			path = shaders_metal.metallib;
+			remoteRef = FAE1CCA026B68278003DD415 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		6741A9411BF340DE002C974C /* Resources */ = {
@@ -4338,6 +4420,19 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		FAE1CCA326B68281003DD415 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = shaders_metal;
+			targetProxy = FAE1CCA226B68281003DD415 /* PBXContainerItemProxy */;
+		};
+		FAE1CCA526B69E17003DD415 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = shaders;
+			targetProxy = FAE1CCA426B69E17003DD415 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		34F73F5F1E082FF700AC1FD6 /* InfoPlist.strings */ = {
