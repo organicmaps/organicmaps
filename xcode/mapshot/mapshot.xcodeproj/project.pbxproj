@@ -7,45 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		346B76D31DC1ED3A00C7C87E /* libeditor.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 346B76D21DC1ED3A00C7C87E /* libeditor.a */; };
-		346B76D51DC1ED4D00C7C87E /* libpugixml.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 346B76D41DC1ED4D00C7C87E /* libpugixml.a */; };
-		346B76D71DC1ED5D00C7C87E /* liboauthcpp.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 346B76D61DC1ED5D00C7C87E /* liboauthcpp.a */; };
-		346B76D91DC1ED7A00C7C87E /* libtracking.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 346B76D81DC1ED7A00C7C87E /* libtracking.a */; };
-		39B9682823E1AC9900D3B8E3 /* libge0.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 39B9682723E1AC9900D3B8E3 /* libge0.a */; };
-		3D0BBBA323F3FF4600A50354 /* libprotobuf.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3D0BBBA223F3FF4600A50354 /* libprotobuf.a */; };
-		3D0BBBA523F3FF6700A50354 /* libfreetype.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3D0BBBA423F3FF6700A50354 /* libfreetype.a */; };
-		453FEE221F35E87B005C1BB4 /* libsoftware_renderer.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 453FEE211F35E87B005C1BB4 /* libsoftware_renderer.a */; };
-		453FEE241F35E8C1005C1BB4 /* libagg.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 453FEE231F35E8C1005C1BB4 /* libagg.a */; };
-		4740185723F5BEA000A93C81 /* minizip.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4740185623F5BEA000A93C81 /* minizip.framework */; };
-		4740185823F5BEA000A93C81 /* minizip.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 4740185623F5BEA000A93C81 /* minizip.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		675D213D1BFB717400717E4F /* mapshot.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 675D213C1BFB717400717E4F /* mapshot.cpp */; };
-		675D21411BFB76B000717E4F /* libbase.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 675D213E1BFB76B000717E4F /* libbase.a */; };
-		675D21431BFB76B000717E4F /* libmap.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 675D21401BFB76B000717E4F /* libmap.a */; };
-		675D21561BFB779A00717E4F /* libcoding.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 675D21451BFB779A00717E4F /* libcoding.a */; };
-		675D21571BFB779A00717E4F /* libdrape_frontend.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 675D21461BFB779A00717E4F /* libdrape_frontend.a */; };
-		675D21581BFB779A00717E4F /* libdrape.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 675D21471BFB779A00717E4F /* libdrape.a */; };
-		675D21591BFB779A00717E4F /* libexpat.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 675D21481BFB779A00717E4F /* libexpat.a */; };
-		675D215A1BFB779A00717E4F /* libfreetype.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 675D21491BFB779A00717E4F /* libfreetype.a */; };
-		675D215C1BFB779A00717E4F /* libindexer.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 675D214B1BFB779A00717E4F /* libindexer.a */; };
-		675D215D1BFB779A00717E4F /* libjansson.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 675D214C1BFB779A00717E4F /* libjansson.a */; };
-		675D215E1BFB779A00717E4F /* libosrm.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 675D214D1BFB779A00717E4F /* libosrm.a */; };
-		675D215F1BFB779A00717E4F /* libplatform.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 675D214E1BFB779A00717E4F /* libplatform.a */; };
-		675D21601BFB779A00717E4F /* libprotobuf.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 675D214F1BFB779A00717E4F /* libprotobuf.a */; };
-		675D21611BFB779A00717E4F /* librouting.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 675D21501BFB779A00717E4F /* librouting.a */; };
-		675D21621BFB779A00717E4F /* libsearch.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 675D21511BFB779A00717E4F /* libsearch.a */; };
-		675D21631BFB779A00717E4F /* libstorage.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 675D21521BFB779A00717E4F /* libstorage.a */; };
-		675D21641BFB779A00717E4F /* libsuccinct.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 675D21531BFB779A00717E4F /* libsuccinct.a */; };
-		675D21721BFB827B00717E4F /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 675D21711BFB827B00717E4F /* CoreLocation.framework */; };
-		675D21741BFB828200717E4F /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 675D21731BFB828200717E4F /* OpenGL.framework */; };
-		675D21761BFB828900717E4F /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 675D21751BFB828900717E4F /* CoreFoundation.framework */; };
-		675D21781BFB829000717E4F /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 675D21771BFB829000717E4F /* Cocoa.framework */; };
-		675D217E1BFB84BA00717E4F /* libgeometry.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 675D217A1BFB84BA00717E4F /* libgeometry.a */; };
-		675D21801BFB84BA00717E4F /* libopening_hours.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 675D217C1BFB84BA00717E4F /* libopening_hours.a */; };
-		675D21821BFB85E800717E4F /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 675D21811BFB85E800717E4F /* libz.tbd */; };
-		675D21841BFB86F400717E4F /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 675D21831BFB86F400717E4F /* IOKit.framework */; };
-		675D21C91BFB8F7C00717E4F /* libsdf_image.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 675D21C71BFB8F7C00717E4F /* libsdf_image.a */; };
-		675D21CA1BFB8F7C00717E4F /* libstb_image.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 675D21C81BFB8F7C00717E4F /* libstb_image.a */; };
-		675D21CF1BFDDF9300717E4F /* libgflags.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 675D21CE1BFDDF9300717E4F /* libgflags.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -55,7 +17,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				4740185823F5BEA000A93C81 /* minizip.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -72,47 +33,10 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		346B76D21DC1ED3A00C7C87E /* libeditor.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libeditor.a; path = "../../../omim-build/xcode/Debug/libeditor.a"; sourceTree = "<group>"; };
-		346B76D41DC1ED4D00C7C87E /* libpugixml.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libpugixml.a; path = "../../../omim-build/xcode/Debug/libpugixml.a"; sourceTree = "<group>"; };
-		346B76D61DC1ED5D00C7C87E /* liboauthcpp.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = liboauthcpp.a; path = "../../../omim-build/xcode/Debug/liboauthcpp.a"; sourceTree = "<group>"; };
-		346B76D81DC1ED7A00C7C87E /* libtracking.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libtracking.a; path = "../../../omim-build/xcode/Debug/libtracking.a"; sourceTree = "<group>"; };
 		3475E0DF1DBF57AC004C7E69 /* common-debug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = "common-debug.xcconfig"; path = "../common-debug.xcconfig"; sourceTree = "<group>"; };
 		3475E0E01DBF57AC004C7E69 /* common-release.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = "common-release.xcconfig"; path = "../common-release.xcconfig"; sourceTree = "<group>"; };
-		39B9682723E1AC9900D3B8E3 /* libge0.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libge0.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		3D0BBBA223F3FF4600A50354 /* libprotobuf.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libprotobuf.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		3D0BBBA423F3FF6700A50354 /* libfreetype.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libfreetype.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		453FEE211F35E87B005C1BB4 /* libsoftware_renderer.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libsoftware_renderer.a; path = ../software_renderer/build/Debug/libsoftware_renderer.a; sourceTree = "<group>"; };
-		453FEE231F35E8C1005C1BB4 /* libagg.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libagg.a; path = ../agg/build/Release/libagg.a; sourceTree = "<group>"; };
-		4740185623F5BEA000A93C81 /* minizip.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = minizip.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		675D21311BFB6F3D00717E4F /* mapshot */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = mapshot; sourceTree = BUILT_PRODUCTS_DIR; };
 		675D213C1BFB717400717E4F /* mapshot.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = mapshot.cpp; sourceTree = "<group>"; };
-		675D213E1BFB76B000717E4F /* libbase.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libbase.a; path = "../../../omim-xcode-build/Debug/libbase.a"; sourceTree = "<group>"; };
-		675D21401BFB76B000717E4F /* libmap.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libmap.a; path = "../../../omim-xcode-build/Debug/libmap.a"; sourceTree = "<group>"; };
-		675D21451BFB779A00717E4F /* libcoding.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libcoding.a; path = "../../../omim-xcode-build/Debug/libcoding.a"; sourceTree = "<group>"; };
-		675D21461BFB779A00717E4F /* libdrape_frontend.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libdrape_frontend.a; path = "../../../omim-xcode-build/Debug/libdrape_frontend.a"; sourceTree = "<group>"; };
-		675D21471BFB779A00717E4F /* libdrape.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libdrape.a; path = "../../../omim-xcode-build/Debug/libdrape.a"; sourceTree = "<group>"; };
-		675D21481BFB779A00717E4F /* libexpat.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libexpat.a; path = "../../../omim-xcode-build/Debug/libexpat.a"; sourceTree = "<group>"; };
-		675D21491BFB779A00717E4F /* libfreetype.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libfreetype.a; path = "../../../omim-xcode-build/Debug/libfreetype.a"; sourceTree = "<group>"; };
-		675D214B1BFB779A00717E4F /* libindexer.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libindexer.a; path = "../../../omim-xcode-build/Debug/libindexer.a"; sourceTree = "<group>"; };
-		675D214C1BFB779A00717E4F /* libjansson.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libjansson.a; path = "../../../omim-xcode-build/Debug/libjansson.a"; sourceTree = "<group>"; };
-		675D214D1BFB779A00717E4F /* libosrm.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libosrm.a; path = "../../../omim-xcode-build/Debug/libosrm.a"; sourceTree = "<group>"; };
-		675D214E1BFB779A00717E4F /* libplatform.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libplatform.a; path = "../../../omim-xcode-build/Debug/libplatform.a"; sourceTree = "<group>"; };
-		675D214F1BFB779A00717E4F /* libprotobuf.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libprotobuf.a; path = "../../../omim-xcode-build/Debug/libprotobuf.a"; sourceTree = "<group>"; };
-		675D21501BFB779A00717E4F /* librouting.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = librouting.a; path = "../../../omim-xcode-build/Debug/librouting.a"; sourceTree = "<group>"; };
-		675D21511BFB779A00717E4F /* libsearch.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libsearch.a; path = "../../../omim-xcode-build/Debug/libsearch.a"; sourceTree = "<group>"; };
-		675D21521BFB779A00717E4F /* libstorage.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libstorage.a; path = "../../../omim-xcode-build/Debug/libstorage.a"; sourceTree = "<group>"; };
-		675D21531BFB779A00717E4F /* libsuccinct.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libsuccinct.a; path = "../../../omim-xcode-build/Debug/libsuccinct.a"; sourceTree = "<group>"; };
-		675D21711BFB827B00717E4F /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
-		675D21731BFB828200717E4F /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = System/Library/Frameworks/OpenGL.framework; sourceTree = SDKROOT; };
-		675D21751BFB828900717E4F /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = System/Library/Frameworks/CoreFoundation.framework; sourceTree = SDKROOT; };
-		675D21771BFB829000717E4F /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
-		675D217A1BFB84BA00717E4F /* libgeometry.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libgeometry.a; path = "../../../omim-xcode-build/Debug/libgeometry.a"; sourceTree = "<group>"; };
-		675D217C1BFB84BA00717E4F /* libopening_hours.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libopening_hours.a; path = "../../../omim-xcode-build/Debug/libopening_hours.a"; sourceTree = "<group>"; };
-		675D21811BFB85E800717E4F /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
-		675D21831BFB86F400717E4F /* IOKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IOKit.framework; path = System/Library/Frameworks/IOKit.framework; sourceTree = SDKROOT; };
-		675D21C71BFB8F7C00717E4F /* libsdf_image.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libsdf_image.a; path = "../../../omim-xcode-build/Debug/libsdf_image.a"; sourceTree = "<group>"; };
-		675D21C81BFB8F7C00717E4F /* libstb_image.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libstb_image.a; path = "../../../omim-xcode-build/Debug/libstb_image.a"; sourceTree = "<group>"; };
-		675D21CE1BFDDF9300717E4F /* libgflags.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libgflags.a; path = "../../../omim-xcode-build/Debug/libgflags.a"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -120,43 +44,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				39B9682823E1AC9900D3B8E3 /* libge0.a in Frameworks */,
-				3D0BBBA523F3FF6700A50354 /* libfreetype.a in Frameworks */,
-				3D0BBBA323F3FF4600A50354 /* libprotobuf.a in Frameworks */,
-				453FEE241F35E8C1005C1BB4 /* libagg.a in Frameworks */,
-				453FEE221F35E87B005C1BB4 /* libsoftware_renderer.a in Frameworks */,
-				346B76D91DC1ED7A00C7C87E /* libtracking.a in Frameworks */,
-				346B76D71DC1ED5D00C7C87E /* liboauthcpp.a in Frameworks */,
-				346B76D51DC1ED4D00C7C87E /* libpugixml.a in Frameworks */,
-				346B76D31DC1ED3A00C7C87E /* libeditor.a in Frameworks */,
-				675D21CF1BFDDF9300717E4F /* libgflags.a in Frameworks */,
-				675D21C91BFB8F7C00717E4F /* libsdf_image.a in Frameworks */,
-				675D21CA1BFB8F7C00717E4F /* libstb_image.a in Frameworks */,
-				675D21841BFB86F400717E4F /* IOKit.framework in Frameworks */,
-				675D21821BFB85E800717E4F /* libz.tbd in Frameworks */,
-				675D217E1BFB84BA00717E4F /* libgeometry.a in Frameworks */,
-				675D21801BFB84BA00717E4F /* libopening_hours.a in Frameworks */,
-				675D21781BFB829000717E4F /* Cocoa.framework in Frameworks */,
-				675D21761BFB828900717E4F /* CoreFoundation.framework in Frameworks */,
-				675D21741BFB828200717E4F /* OpenGL.framework in Frameworks */,
-				675D21721BFB827B00717E4F /* CoreLocation.framework in Frameworks */,
-				675D21561BFB779A00717E4F /* libcoding.a in Frameworks */,
-				675D21571BFB779A00717E4F /* libdrape_frontend.a in Frameworks */,
-				675D21581BFB779A00717E4F /* libdrape.a in Frameworks */,
-				675D21591BFB779A00717E4F /* libexpat.a in Frameworks */,
-				675D215A1BFB779A00717E4F /* libfreetype.a in Frameworks */,
-				675D215C1BFB779A00717E4F /* libindexer.a in Frameworks */,
-				675D215D1BFB779A00717E4F /* libjansson.a in Frameworks */,
-				675D215E1BFB779A00717E4F /* libosrm.a in Frameworks */,
-				675D215F1BFB779A00717E4F /* libplatform.a in Frameworks */,
-				675D21601BFB779A00717E4F /* libprotobuf.a in Frameworks */,
-				675D21611BFB779A00717E4F /* librouting.a in Frameworks */,
-				675D21621BFB779A00717E4F /* libsearch.a in Frameworks */,
-				675D21631BFB779A00717E4F /* libstorage.a in Frameworks */,
-				675D21641BFB779A00717E4F /* libsuccinct.a in Frameworks */,
-				4740185723F5BEA000A93C81 /* minizip.framework in Frameworks */,
-				675D21411BFB76B000717E4F /* libbase.a in Frameworks */,
-				675D21431BFB76B000717E4F /* libmap.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -166,16 +53,6 @@
 		346B76CF1DC1ED0B00C7C87E /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				39B9682723E1AC9900D3B8E3 /* libge0.a */,
-				4740185623F5BEA000A93C81 /* minizip.framework */,
-				3D0BBBA423F3FF6700A50354 /* libfreetype.a */,
-				3D0BBBA223F3FF4600A50354 /* libprotobuf.a */,
-				453FEE231F35E8C1005C1BB4 /* libagg.a */,
-				453FEE211F35E87B005C1BB4 /* libsoftware_renderer.a */,
-				346B76D81DC1ED7A00C7C87E /* libtracking.a */,
-				346B76D61DC1ED5D00C7C87E /* liboauthcpp.a */,
-				346B76D41DC1ED4D00C7C87E /* libpugixml.a */,
-				346B76D21DC1ED3A00C7C87E /* libeditor.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -185,7 +62,6 @@
 			children = (
 				3475E0DF1DBF57AC004C7E69 /* common-debug.xcconfig */,
 				3475E0E01DBF57AC004C7E69 /* common-release.xcconfig */,
-				675D21CD1BFB90AD00717E4F /* Libs */,
 				675D21331BFB6F3D00717E4F /* mapshot */,
 				675D21321BFB6F3D00717E4F /* Products */,
 				346B76CF1DC1ED0B00C7C87E /* Frameworks */,
@@ -207,40 +83,6 @@
 			);
 			name = mapshot;
 			path = ../../mapshot;
-			sourceTree = "<group>";
-		};
-		675D21CD1BFB90AD00717E4F /* Libs */ = {
-			isa = PBXGroup;
-			children = (
-				675D21CE1BFDDF9300717E4F /* libgflags.a */,
-				675D21C71BFB8F7C00717E4F /* libsdf_image.a */,
-				675D21C81BFB8F7C00717E4F /* libstb_image.a */,
-				675D21831BFB86F400717E4F /* IOKit.framework */,
-				675D21811BFB85E800717E4F /* libz.tbd */,
-				675D217A1BFB84BA00717E4F /* libgeometry.a */,
-				675D217C1BFB84BA00717E4F /* libopening_hours.a */,
-				675D21771BFB829000717E4F /* Cocoa.framework */,
-				675D21751BFB828900717E4F /* CoreFoundation.framework */,
-				675D21731BFB828200717E4F /* OpenGL.framework */,
-				675D21711BFB827B00717E4F /* CoreLocation.framework */,
-				675D21451BFB779A00717E4F /* libcoding.a */,
-				675D21461BFB779A00717E4F /* libdrape_frontend.a */,
-				675D21471BFB779A00717E4F /* libdrape.a */,
-				675D21481BFB779A00717E4F /* libexpat.a */,
-				675D21491BFB779A00717E4F /* libfreetype.a */,
-				675D214B1BFB779A00717E4F /* libindexer.a */,
-				675D214C1BFB779A00717E4F /* libjansson.a */,
-				675D214D1BFB779A00717E4F /* libosrm.a */,
-				675D214E1BFB779A00717E4F /* libplatform.a */,
-				675D214F1BFB779A00717E4F /* libprotobuf.a */,
-				675D21501BFB779A00717E4F /* librouting.a */,
-				675D21511BFB779A00717E4F /* libsearch.a */,
-				675D21521BFB779A00717E4F /* libstorage.a */,
-				675D21531BFB779A00717E4F /* libsuccinct.a */,
-				675D213E1BFB76B000717E4F /* libbase.a */,
-				675D21401BFB76B000717E4F /* libmap.a */,
-			);
-			name = Libs;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -336,7 +178,6 @@
 		675D21391BFB6F3D00717E4F /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "-";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -344,7 +185,6 @@
 		675D213A1BFB6F3D00717E4F /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "-";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;

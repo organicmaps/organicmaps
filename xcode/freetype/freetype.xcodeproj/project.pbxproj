@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 46;
+	objectVersion = 54;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -851,7 +851,6 @@
 		675348541A408D9300A0A8C3 /* freetype */ = {
 			isa = PBXGroup;
 			children = (
-				671F58DD1B874F730032311E /* gzip */,
 				675348601A408E8000A0A8C3 /* autofit */,
 				6753487F1A408E8000A0A8C3 /* base */,
 				675348AB1A408E8000A0A8C3 /* bdf */,
@@ -860,6 +859,7 @@
 				675348CF1A408E8000A0A8C3 /* cff */,
 				675348FA1A408E8000A0A8C3 /* cid */,
 				6753490B1A408E8000A0A8C3 /* gxvalid */,
+				671F58DD1B874F730032311E /* gzip */,
 				675349421A408E8000A0A8C3 /* lzw */,
 				675349481A408E8000A0A8C3 /* otvalid */,
 				6753495A1A408E8000A0A8C3 /* pcf */,
@@ -1698,7 +1698,7 @@
 				};
 			};
 			buildConfigurationList = 6753484D1A408D9300A0A8C3 /* Build configuration list for PBXProject "freetype" */;
-			compatibilityVersion = "Xcode 3.2";
+			compatibilityVersion = "Xcode 12.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (

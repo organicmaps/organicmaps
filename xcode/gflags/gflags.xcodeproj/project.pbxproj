@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 46;
+	objectVersion = 54;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -56,8 +56,8 @@
 			isa = PBXGroup;
 			children = (
 				675344861A3F681800A0A8C3 /* gflags_completions.cc */,
-				675344841A3F67CE00A0A8C3 /* gflags_reporting.cc */,
 				6753443C1A3F654E00A0A8C3 /* gflags_nc.cc */,
+				675344841A3F67CE00A0A8C3 /* gflags_reporting.cc */,
 				6753443D1A3F654E00A0A8C3 /* gflags.cc */,
 			);
 			name = gflags;
@@ -108,7 +108,7 @@
 				};
 			};
 			buildConfigurationList = 675344281A3F64E400A0A8C3 /* Build configuration list for PBXProject "gflags" */;
-			compatibilityVersion = "Xcode 3.2";
+			compatibilityVersion = "Xcode 12.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (

@@ -120,15 +120,15 @@
 		670D04CF1B0BAC210013A7AC /* protobuf */ = {
 			isa = PBXGroup;
 			children = (
-				45B853611F13C1D90087F8ED /* stubs */,
-				45B853601F13C1BD0087F8ED /* io */,
+				45B8534C1F13C1340087F8ED /* arena.cc */,
 				45B8534E1F13C17D0087F8ED /* arenastring.cc */,
 				45B8534F1F13C17D0087F8ED /* extension_set.cc */,
 				45B853501F13C17D0087F8ED /* generated_message_util.cc */,
+				45B853601F13C1BD0087F8ED /* io */,
 				45B853511F13C17D0087F8ED /* message_lite.cc */,
 				45B853521F13C17D0087F8ED /* repeated_field.cc */,
+				45B853611F13C1D90087F8ED /* stubs */,
 				45B853531F13C17D0087F8ED /* wire_format_lite.cc */,
-				45B8534C1F13C1340087F8ED /* arena.cc */,
 			);
 			name = protobuf;
 			path = ../../3party/protobuf;

@@ -3,14 +3,13 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 46;
+	objectVersion = 54;
 	objects = {
 
 /* Begin PBXBuildFile section */
 		4586D0B51F4811BB00DF9CE5 /* bsdiff_common.h in Headers */ = {isa = PBXBuildFile; fileRef = 4586D0B11F4811BB00DF9CE5 /* bsdiff_common.h */; };
 		4586D0B61F4811BB00DF9CE5 /* bsdiff_search.h in Headers */ = {isa = PBXBuildFile; fileRef = 4586D0B21F4811BB00DF9CE5 /* bsdiff_search.h */; };
 		4586D0B71F4811BB00DF9CE5 /* bsdiff.h in Headers */ = {isa = PBXBuildFile; fileRef = 4586D0B31F4811BB00DF9CE5 /* bsdiff.h */; };
-		4586D0B81F4811BB00DF9CE5 /* paged_array.h in Headers */ = {isa = PBXBuildFile; fileRef = 4586D0B41F4811BB00DF9CE5 /* paged_array.h */; };
 		4586D0BE1F4811E600DF9CE5 /* divsufsort_private.h in Headers */ = {isa = PBXBuildFile; fileRef = 4586D0B91F4811E600DF9CE5 /* divsufsort_private.h */; };
 		4586D0BF1F4811E600DF9CE5 /* divsufsort.cc in Sources */ = {isa = PBXBuildFile; fileRef = 4586D0BA1F4811E600DF9CE5 /* divsufsort.cc */; };
 		4586D0C01F4811E600DF9CE5 /* divsufsort.h in Headers */ = {isa = PBXBuildFile; fileRef = 4586D0BB1F4811E600DF9CE5 /* divsufsort.h */; };
@@ -25,7 +24,6 @@
 		4586D0B11F4811BB00DF9CE5 /* bsdiff_common.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = bsdiff_common.h; path = bsdiff/bsdiff_common.h; sourceTree = "<group>"; };
 		4586D0B21F4811BB00DF9CE5 /* bsdiff_search.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = bsdiff_search.h; path = bsdiff/bsdiff_search.h; sourceTree = "<group>"; };
 		4586D0B31F4811BB00DF9CE5 /* bsdiff.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = bsdiff.h; path = bsdiff/bsdiff.h; sourceTree = "<group>"; };
-		4586D0B41F4811BB00DF9CE5 /* paged_array.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = paged_array.h; path = bsdiff/paged_array.h; sourceTree = "<group>"; };
 		4586D0B91F4811E600DF9CE5 /* divsufsort_private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = divsufsort_private.h; path = divsufsort/divsufsort_private.h; sourceTree = "<group>"; };
 		4586D0BA1F4811E600DF9CE5 /* divsufsort.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = divsufsort.cc; path = divsufsort/divsufsort.cc; sourceTree = "<group>"; };
 		4586D0BB1F4811E600DF9CE5 /* divsufsort.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = divsufsort.h; path = divsufsort/divsufsort.h; sourceTree = "<group>"; };
@@ -65,15 +63,14 @@
 		4586D0A31F480FE600DF9CE5 /* bsdiff */ = {
 			isa = PBXGroup;
 			children = (
+				4586D0B11F4811BB00DF9CE5 /* bsdiff_common.h */,
+				4586D0B21F4811BB00DF9CE5 /* bsdiff_search.h */,
+				4586D0B31F4811BB00DF9CE5 /* bsdiff.h */,
 				4586D0B91F4811E600DF9CE5 /* divsufsort_private.h */,
 				4586D0BA1F4811E600DF9CE5 /* divsufsort.cc */,
 				4586D0BB1F4811E600DF9CE5 /* divsufsort.h */,
 				4586D0BC1F4811E600DF9CE5 /* sssort.cc */,
 				4586D0BD1F4811E600DF9CE5 /* trsort.cc */,
-				4586D0B11F4811BB00DF9CE5 /* bsdiff_common.h */,
-				4586D0B21F4811BB00DF9CE5 /* bsdiff_search.h */,
-				4586D0B31F4811BB00DF9CE5 /* bsdiff.h */,
-				4586D0B41F4811BB00DF9CE5 /* paged_array.h */,
 			);
 			name = bsdiff;
 			path = "../../3party/bsdiff-courgette";
@@ -89,7 +86,6 @@
 				4586D0BE1F4811E600DF9CE5 /* divsufsort_private.h in Headers */,
 				4586D0B71F4811BB00DF9CE5 /* bsdiff.h in Headers */,
 				4586D0B61F4811BB00DF9CE5 /* bsdiff_search.h in Headers */,
-				4586D0B81F4811BB00DF9CE5 /* paged_array.h in Headers */,
 				4586D0B51F4811BB00DF9CE5 /* bsdiff_common.h in Headers */,
 				4586D0C01F4811E600DF9CE5 /* divsufsort.h in Headers */,
 			);
@@ -130,7 +126,7 @@
 				};
 			};
 			buildConfigurationList = 4586D09C1F480FE600DF9CE5 /* Build configuration list for PBXProject "bsdiff" */;
-			compatibilityVersion = "Xcode 3.2";
+			compatibilityVersion = "Xcode 12.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (

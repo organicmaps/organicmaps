@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 46;
+	objectVersion = 54;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -67,12 +67,12 @@
 		340C20F71C3E5EA200111D22 /* liboauthcpp */ = {
 			isa = PBXGroup;
 			children = (
-				340C210A1C3E5EF600111D22 /* liboauthcpp.h */,
 				340C20F81C3E5EED00111D22 /* base64.cpp */,
 				340C20F91C3E5EED00111D22 /* base64.h */,
 				340C20FA1C3E5EED00111D22 /* HMAC_SHA1.cpp */,
 				340C20FB1C3E5EED00111D22 /* HMAC_SHA1.h */,
 				340C20FC1C3E5EED00111D22 /* liboauthcpp.cpp */,
+				340C210A1C3E5EF600111D22 /* liboauthcpp.h */,
 				340C20FD1C3E5EED00111D22 /* SHA1.cpp */,
 				340C20FE1C3E5EED00111D22 /* SHA1.h */,
 				340C20FF1C3E5EED00111D22 /* urlencode.cpp */,
@@ -131,7 +131,7 @@
 				};
 			};
 			buildConfigurationList = 340C20EA1C3E5E5000111D22 /* Build configuration list for PBXProject "oauthcpp" */;
-			compatibilityVersion = "Xcode 3.2";
+			compatibilityVersion = "Xcode 12.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
