@@ -264,7 +264,6 @@
 					"$(BOOST_ROOT)",
 					"$(OMIM_ROOT)/3party/jansson/src",
 				);
-				"LIBRARY_SEARCH_PATHS[arch=*]" = "";
 			};
 			name = Debug;
 		};

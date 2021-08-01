@@ -27,40 +27,17 @@
 		3496ABE61DC2035800C5DDBA /* ui2oh_test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3496ABD61DC2034900C5DDBA /* ui2oh_test.cpp */; };
 		3496ABE81DC2035800C5DDBA /* xml_feature_test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3496ABD81DC2034900C5DDBA /* xml_feature_test.cpp */; };
 		3496ABE91DC2041800C5DDBA /* libeditor.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3411386B1C15AD97002E3B3E /* libeditor.a */; };
-		3496ABEF1DC2041800C5DDBA /* libopening_hours.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3496ABEC1DC2041800C5DDBA /* libopening_hours.a */; };
-		3496ABF01DC2041800C5DDBA /* libpugixml.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3496ABED1DC2041800C5DDBA /* libpugixml.a */; };
-		3496ABF51DC2043800C5DDBA /* libbase.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3496ABF11DC2043800C5DDBA /* libbase.a */; };
-		3496ABF61DC2043800C5DDBA /* libgeometry.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3496ABF21DC2043800C5DDBA /* libgeometry.a */; };
-		3496ABF71DC2043800C5DDBA /* liboauthcpp.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3496ABF31DC2043800C5DDBA /* liboauthcpp.a */; };
-		3496ABF81DC2043800C5DDBA /* libplatform.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3496ABF41DC2043800C5DDBA /* libplatform.a */; };
-		3496ABFC1DC2045600C5DDBA /* libcoding.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3496ABF91DC2045600C5DDBA /* libcoding.a */; };
-		3496ABFD1DC2045600C5DDBA /* libindexer.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3496ABFA1DC2045600C5DDBA /* libindexer.a */; };
-		3496ABFE1DC2045600C5DDBA /* libplatform_tests_support.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3496ABFB1DC2045600C5DDBA /* libplatform_tests_support.a */; };
 		3496AC031DC2048E00C5DDBA /* testingmain.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3496AC011DC2047D00C5DDBA /* testingmain.cpp */; };
 		3496AC051DC204B700C5DDBA /* editor.config in Resources */ = {isa = PBXBuildFile; fileRef = 3496AC041DC204B700C5DDBA /* editor.config */; };
-		3496AC071DC204D000C5DDBA /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 3496AC061DC204D000C5DDBA /* libz.tbd */; };
 		34FFB34C1C316A7600BFF6C3 /* server_api.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 34FFB34A1C316A7600BFF6C3 /* server_api.cpp */; };
 		34FFB34D1C316A7600BFF6C3 /* server_api.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 34FFB34B1C316A7600BFF6C3 /* server_api.hpp */; };
 		3D052487200F62EE00F24998 /* feature_matcher.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 3D052485200F62ED00F24998 /* feature_matcher.hpp */; };
 		3D052488200F62EE00F24998 /* feature_matcher.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D052486200F62ED00F24998 /* feature_matcher.cpp */; };
-		3D05248B200F630000F24998 /* feature_matcher_test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D052489200F630000F24998 /* feature_matcher_test.cpp */; };
-		3D05248C200F630000F24998 /* match_by_geometry_test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D05248A200F630000F24998 /* match_by_geometry_test.cpp */; };
 		3D3058741D707DBE004AC712 /* config_loader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D3058721D707DBE004AC712 /* config_loader.cpp */; };
 		3D3058751D707DBE004AC712 /* config_loader.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 3D3058731D707DBE004AC712 /* config_loader.hpp */; };
 		3D489BEF1D4F67E10052AA38 /* editor_storage.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D489BED1D4F67E10052AA38 /* editor_storage.cpp */; };
 		3D489BF01D4F67E10052AA38 /* editor_storage.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 3D489BEE1D4F67E10052AA38 /* editor_storage.hpp */; };
 		671555E820BDC5D3002BA3B4 /* osm_editor_test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 671555E620BDC5D3002BA3B4 /* osm_editor_test.cpp */; };
-		671555EA20BDC649002BA3B4 /* libicu.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 671555E920BDC649002BA3B4 /* libicu.a */; };
-		671555EC20BDC649002BA3B4 /* libjansson.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 671555EB20BDC649002BA3B4 /* libjansson.a */; };
-		671555EE20BDC649002BA3B4 /* libprotobuf.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 671555ED20BDC649002BA3B4 /* libprotobuf.a */; };
-		671555F220BDC690002BA3B4 /* libgenerator_tests_support.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 671555F120BDC690002BA3B4 /* libgenerator_tests_support.a */; };
-		671555F420BDC6D1002BA3B4 /* libgenerator.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 671555F320BDC6D1002BA3B4 /* libgenerator.a */; };
-		671555F620BDC6D1002BA3B4 /* libsearch.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 671555F520BDC6D1002BA3B4 /* libsearch.a */; };
-		671555F820BDC6D1002BA3B4 /* libstorage.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 671555F720BDC6D1002BA3B4 /* libstorage.a */; };
-		671555FA20BDC6FA002BA3B4 /* librouting.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 671555F920BDC6FA002BA3B4 /* librouting.a */; };
-		671555FC20BDC6FA002BA3B4 /* libtess2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 671555FB20BDC6FA002BA3B4 /* libtess2.a */; };
-		671555FE20BDC728002BA3B4 /* librouting_common.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 671555FD20BDC728002BA3B4 /* librouting_common.a */; };
-		6715560020BDC741002BA3B4 /* libsuccinct.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 671555FF20BDC741002BA3B4 /* libsuccinct.a */; };
 		6715560520BEC332002BA3B4 /* osm_editor.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 6715560120BEC330002BA3B4 /* osm_editor.hpp */; };
 		6715560620BEC332002BA3B4 /* edits_migration.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6715560220BEC331002BA3B4 /* edits_migration.cpp */; };
 		6715560720BEC332002BA3B4 /* osm_editor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6715560320BEC331002BA3B4 /* osm_editor.cpp */; };
@@ -74,6 +51,27 @@
 		675B562820D2706000A521D2 /* editable_feature_source.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 675B562620D2706000A521D2 /* editable_feature_source.hpp */; };
 		F60F02EE1C92CBF1003A0AF6 /* editor_notes.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F60F02EC1C92CBF1003A0AF6 /* editor_notes.cpp */; };
 		F60F02EF1C92CBF1003A0AF6 /* editor_notes.hpp in Headers */ = {isa = PBXBuildFile; fileRef = F60F02ED1C92CBF1003A0AF6 /* editor_notes.hpp */; };
+		FACB76B826B89DF700810C9C /* feature_matcher_test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D052489200F630000F24998 /* feature_matcher_test.cpp */; };
+		FACB76B926B89DFB00810C9C /* match_by_geometry_test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D05248A200F630000F24998 /* match_by_geometry_test.cpp */; };
+		FACB76BB26B89FFE00810C9C /* libbase.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FACB76BA26B89FFE00810C9C /* libbase.a */; };
+		FACB76BD26B8A00400810C9C /* libgeometry.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FACB76BC26B8A00400810C9C /* libgeometry.a */; };
+		FACB76BF26B8A00B00810C9C /* liboauthcpp.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FACB76BE26B8A00B00810C9C /* liboauthcpp.a */; };
+		FACB76C126B8A01100810C9C /* libpugixml.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FACB76C026B8A01100810C9C /* libpugixml.a */; };
+		FACB76C326B8A03600810C9C /* libcoding.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FACB76C226B8A03600810C9C /* libcoding.a */; };
+		FACB76C526B8A04200810C9C /* libindexer.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FACB76C426B8A04200810C9C /* libindexer.a */; };
+		FACB76C726B8A08000810C9C /* libicu.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FACB76C626B8A08000810C9C /* libicu.a */; };
+		FACB76C926B8A08800810C9C /* libplatform.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FACB76C826B8A08800810C9C /* libplatform.a */; };
+		FACB76CB26B8A0D200810C9C /* libprotobuf.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FACB76CA26B8A0D200810C9C /* libprotobuf.a */; };
+		FACB76CF26B8A0E800810C9C /* libopening_hours.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FACB76CE26B8A0E800810C9C /* libopening_hours.a */; };
+		FACB76D126B8A10F00810C9C /* libplatform_tests_support.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FACB76D026B8A10F00810C9C /* libplatform_tests_support.a */; };
+		FACB76D326B8A13700810C9C /* libgenerator.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FACB76D226B8A13700810C9C /* libgenerator.a */; };
+		FACB76D526B8A15100810C9C /* libstorage.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FACB76D426B8A15100810C9C /* libstorage.a */; };
+		FACB76D726B8A18F00810C9C /* libsuccinct.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FACB76D626B8A18F00810C9C /* libsuccinct.a */; };
+		FACB76D926B8A22000810C9C /* libjansson.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FACB76D826B8A22000810C9C /* libjansson.a */; };
+		FACB76DA26B8A23E00810C9C /* libgenerator_tests_support.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FACB76CC26B8A0DC00810C9C /* libgenerator_tests_support.a */; };
+		FACB76DE26B8A27000810C9C /* libsearch.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FACB76DD26B8A27000810C9C /* libsearch.a */; };
+		FACB76E026B8A28600810C9C /* librouting_common.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FACB76DF26B8A28600810C9C /* librouting_common.a */; };
+		FACB76E226B8A29300810C9C /* libtess2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FACB76E126B8A29300810C9C /* libtess2.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -98,18 +96,8 @@
 		3496ABD41DC2034900C5DDBA /* opening_hours_ui_test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = opening_hours_ui_test.cpp; sourceTree = "<group>"; };
 		3496ABD61DC2034900C5DDBA /* ui2oh_test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ui2oh_test.cpp; sourceTree = "<group>"; };
 		3496ABD81DC2034900C5DDBA /* xml_feature_test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = xml_feature_test.cpp; sourceTree = "<group>"; };
-		3496ABEC1DC2041800C5DDBA /* libopening_hours.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libopening_hours.a; path = "../../../omim-build/xcode/Debug/libopening_hours.a"; sourceTree = "<group>"; };
-		3496ABED1DC2041800C5DDBA /* libpugixml.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libpugixml.a; path = "../../../omim-build/xcode/Debug/libpugixml.a"; sourceTree = "<group>"; };
-		3496ABF11DC2043800C5DDBA /* libbase.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libbase.a; path = "../../../omim-build/xcode/Debug/libbase.a"; sourceTree = "<group>"; };
-		3496ABF21DC2043800C5DDBA /* libgeometry.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libgeometry.a; path = "../../../omim-build/xcode/Debug/libgeometry.a"; sourceTree = "<group>"; };
-		3496ABF31DC2043800C5DDBA /* liboauthcpp.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = liboauthcpp.a; path = "../../../omim-build/xcode/Debug/liboauthcpp.a"; sourceTree = "<group>"; };
-		3496ABF41DC2043800C5DDBA /* libplatform.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libplatform.a; path = "../../../omim-build/xcode/Debug/libplatform.a"; sourceTree = "<group>"; };
-		3496ABF91DC2045600C5DDBA /* libcoding.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libcoding.a; path = "../../../omim-build/xcode/Debug/libcoding.a"; sourceTree = "<group>"; };
-		3496ABFA1DC2045600C5DDBA /* libindexer.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libindexer.a; path = "../../../omim-build/xcode/Debug/libindexer.a"; sourceTree = "<group>"; };
-		3496ABFB1DC2045600C5DDBA /* libplatform_tests_support.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libplatform_tests_support.a; path = "../../../omim-build/xcode/Debug/libplatform_tests_support.a"; sourceTree = "<group>"; };
 		3496AC011DC2047D00C5DDBA /* testingmain.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = testingmain.cpp; path = ../../testing/testingmain.cpp; sourceTree = "<group>"; };
 		3496AC041DC204B700C5DDBA /* editor.config */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = editor.config; path = ../../data/editor.config; sourceTree = "<group>"; };
-		3496AC061DC204D000C5DDBA /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
 		34F5586E1DBF49B200A4FC11 /* common-debug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = "common-debug.xcconfig"; path = "../common-debug.xcconfig"; sourceTree = "<group>"; };
 		34F5586F1DBF49B200A4FC11 /* common-release.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = "common-release.xcconfig"; path = "../common-release.xcconfig"; sourceTree = "<group>"; };
 		34FFB34A1C316A7600BFF6C3 /* server_api.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = server_api.cpp; sourceTree = "<group>"; };
@@ -124,18 +112,6 @@
 		3D489BEE1D4F67E10052AA38 /* editor_storage.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = editor_storage.hpp; sourceTree = "<group>"; };
 		671555E620BDC5D3002BA3B4 /* osm_editor_test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = osm_editor_test.cpp; sourceTree = "<group>"; };
 		671555E720BDC5D3002BA3B4 /* osm_editor_test.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = osm_editor_test.hpp; sourceTree = "<group>"; };
-		671555E920BDC649002BA3B4 /* libicu.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libicu.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		671555EB20BDC649002BA3B4 /* libjansson.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libjansson.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		671555ED20BDC649002BA3B4 /* libprotobuf.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libprotobuf.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		671555EF20BDC68A002BA3B4 /* libindexer_tests_support.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libindexer_tests_support.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		671555F120BDC690002BA3B4 /* libgenerator_tests_support.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libgenerator_tests_support.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		671555F320BDC6D1002BA3B4 /* libgenerator.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libgenerator.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		671555F520BDC6D1002BA3B4 /* libsearch.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libsearch.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		671555F720BDC6D1002BA3B4 /* libstorage.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libstorage.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		671555F920BDC6FA002BA3B4 /* librouting.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = librouting.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		671555FB20BDC6FA002BA3B4 /* libtess2.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libtess2.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		671555FD20BDC728002BA3B4 /* librouting_common.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = librouting_common.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		671555FF20BDC741002BA3B4 /* libsuccinct.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libsuccinct.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		6715560120BEC330002BA3B4 /* osm_editor.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = osm_editor.hpp; sourceTree = "<group>"; };
 		6715560220BEC331002BA3B4 /* edits_migration.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = edits_migration.cpp; sourceTree = "<group>"; };
 		6715560320BEC331002BA3B4 /* osm_editor.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = osm_editor.cpp; sourceTree = "<group>"; };
@@ -149,9 +125,28 @@
 		671ED37220D3B65100D4317E /* editable_data_source.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = editable_data_source.hpp; sourceTree = "<group>"; };
 		675B562520D2706000A521D2 /* editable_feature_source.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = editable_feature_source.cpp; sourceTree = "<group>"; };
 		675B562620D2706000A521D2 /* editable_feature_source.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = editable_feature_source.hpp; sourceTree = "<group>"; };
-		67A7F0D520DBF00400937412 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		F60F02EC1C92CBF1003A0AF6 /* editor_notes.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = editor_notes.cpp; sourceTree = "<group>"; };
 		F60F02ED1C92CBF1003A0AF6 /* editor_notes.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = editor_notes.hpp; sourceTree = "<group>"; };
+		FACB76BA26B89FFE00810C9C /* libbase.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libbase.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		FACB76BC26B8A00400810C9C /* libgeometry.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libgeometry.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		FACB76BE26B8A00B00810C9C /* liboauthcpp.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = liboauthcpp.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		FACB76C026B8A01100810C9C /* libpugixml.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libpugixml.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		FACB76C226B8A03600810C9C /* libcoding.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libcoding.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		FACB76C426B8A04200810C9C /* libindexer.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libindexer.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		FACB76C626B8A08000810C9C /* libicu.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libicu.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		FACB76C826B8A08800810C9C /* libplatform.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libplatform.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		FACB76CA26B8A0D200810C9C /* libprotobuf.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libprotobuf.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		FACB76CC26B8A0DC00810C9C /* libgenerator_tests_support.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libgenerator_tests_support.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		FACB76CE26B8A0E800810C9C /* libopening_hours.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libopening_hours.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		FACB76D026B8A10F00810C9C /* libplatform_tests_support.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libplatform_tests_support.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		FACB76D226B8A13700810C9C /* libgenerator.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libgenerator.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		FACB76D426B8A15100810C9C /* libstorage.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libstorage.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		FACB76D626B8A18F00810C9C /* libsuccinct.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libsuccinct.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		FACB76D826B8A22000810C9C /* libjansson.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libjansson.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		FACB76DB26B8A25100810C9C /* librouting.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = librouting.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		FACB76DD26B8A27000810C9C /* libsearch.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libsearch.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		FACB76DF26B8A28600810C9C /* librouting_common.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = librouting_common.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		FACB76E126B8A29300810C9C /* libtess2.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libtess2.a; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -166,28 +161,26 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FACB76E226B8A29300810C9C /* libtess2.a in Frameworks */,
+				FACB76E026B8A28600810C9C /* librouting_common.a in Frameworks */,
+				FACB76DE26B8A27000810C9C /* libsearch.a in Frameworks */,
+				FACB76DA26B8A23E00810C9C /* libgenerator_tests_support.a in Frameworks */,
+				FACB76D926B8A22000810C9C /* libjansson.a in Frameworks */,
+				FACB76BB26B89FFE00810C9C /* libbase.a in Frameworks */,
+				FACB76C326B8A03600810C9C /* libcoding.a in Frameworks */,
+				FACB76BF26B8A00B00810C9C /* liboauthcpp.a in Frameworks */,
+				FACB76D726B8A18F00810C9C /* libsuccinct.a in Frameworks */,
+				FACB76BD26B8A00400810C9C /* libgeometry.a in Frameworks */,
+				FACB76C926B8A08800810C9C /* libplatform.a in Frameworks */,
+				FACB76C526B8A04200810C9C /* libindexer.a in Frameworks */,
+				FACB76D526B8A15100810C9C /* libstorage.a in Frameworks */,
+				FACB76D326B8A13700810C9C /* libgenerator.a in Frameworks */,
+				FACB76D126B8A10F00810C9C /* libplatform_tests_support.a in Frameworks */,
+				FACB76CF26B8A0E800810C9C /* libopening_hours.a in Frameworks */,
+				FACB76CB26B8A0D200810C9C /* libprotobuf.a in Frameworks */,
+				FACB76C726B8A08000810C9C /* libicu.a in Frameworks */,
+				FACB76C126B8A01100810C9C /* libpugixml.a in Frameworks */,
 				6715565120BF0F47002BA3B4 /* libeditor_tests_support.a in Frameworks */,
-				6715560020BDC741002BA3B4 /* libsuccinct.a in Frameworks */,
-				671555FE20BDC728002BA3B4 /* librouting_common.a in Frameworks */,
-				671555FA20BDC6FA002BA3B4 /* librouting.a in Frameworks */,
-				671555FC20BDC6FA002BA3B4 /* libtess2.a in Frameworks */,
-				671555F420BDC6D1002BA3B4 /* libgenerator.a in Frameworks */,
-				671555F620BDC6D1002BA3B4 /* libsearch.a in Frameworks */,
-				671555F820BDC6D1002BA3B4 /* libstorage.a in Frameworks */,
-				671555F220BDC690002BA3B4 /* libgenerator_tests_support.a in Frameworks */,
-				671555EA20BDC649002BA3B4 /* libicu.a in Frameworks */,
-				671555EC20BDC649002BA3B4 /* libjansson.a in Frameworks */,
-				671555EE20BDC649002BA3B4 /* libprotobuf.a in Frameworks */,
-				3496AC071DC204D000C5DDBA /* libz.tbd in Frameworks */,
-				3496ABFC1DC2045600C5DDBA /* libcoding.a in Frameworks */,
-				3496ABFD1DC2045600C5DDBA /* libindexer.a in Frameworks */,
-				3496ABFE1DC2045600C5DDBA /* libplatform_tests_support.a in Frameworks */,
-				3496ABF51DC2043800C5DDBA /* libbase.a in Frameworks */,
-				3496ABF61DC2043800C5DDBA /* libgeometry.a in Frameworks */,
-				3496ABF71DC2043800C5DDBA /* liboauthcpp.a in Frameworks */,
-				3496ABF81DC2043800C5DDBA /* libplatform.a in Frameworks */,
-				3496ABEF1DC2041800C5DDBA /* libopening_hours.a in Frameworks */,
-				3496ABF01DC2041800C5DDBA /* libpugixml.a in Frameworks */,
 				3496ABE91DC2041800C5DDBA /* libeditor.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -274,13 +267,13 @@
 				3496ABD31DC2034900C5DDBA /* editor_notes_test.cpp */,
 				3D052489200F630000F24998 /* feature_matcher_test.cpp */,
 				3D05248A200F630000F24998 /* match_by_geometry_test.cpp */,
+				6715560920BEF0A4002BA3B4 /* new_feature_categories_test.cpp */,
 				3496ABD41DC2034900C5DDBA /* opening_hours_ui_test.cpp */,
 				671555E620BDC5D3002BA3B4 /* osm_editor_test.cpp */,
 				671555E720BDC5D3002BA3B4 /* osm_editor_test.hpp */,
 				3496AC011DC2047D00C5DDBA /* testingmain.cpp */,
 				3496ABD61DC2034900C5DDBA /* ui2oh_test.cpp */,
 				3496ABD81DC2034900C5DDBA /* xml_feature_test.cpp */,
-				6715560920BEF0A4002BA3B4 /* new_feature_categories_test.cpp */,
 			);
 			name = editor_tests;
 			path = ../../editor/editor_tests;
@@ -289,29 +282,26 @@
 		3496ABEA1DC2041800C5DDBA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				67A7F0D520DBF00400937412 /* CoreLocation.framework */,
-				671555FF20BDC741002BA3B4 /* libsuccinct.a */,
-				671555FD20BDC728002BA3B4 /* librouting_common.a */,
-				671555F920BDC6FA002BA3B4 /* librouting.a */,
-				671555FB20BDC6FA002BA3B4 /* libtess2.a */,
-				671555F320BDC6D1002BA3B4 /* libgenerator.a */,
-				671555F520BDC6D1002BA3B4 /* libsearch.a */,
-				671555F720BDC6D1002BA3B4 /* libstorage.a */,
-				671555F120BDC690002BA3B4 /* libgenerator_tests_support.a */,
-				671555EF20BDC68A002BA3B4 /* libindexer_tests_support.a */,
-				671555E920BDC649002BA3B4 /* libicu.a */,
-				671555EB20BDC649002BA3B4 /* libjansson.a */,
-				671555ED20BDC649002BA3B4 /* libprotobuf.a */,
-				3496AC061DC204D000C5DDBA /* libz.tbd */,
-				3496ABF91DC2045600C5DDBA /* libcoding.a */,
-				3496ABFA1DC2045600C5DDBA /* libindexer.a */,
-				3496ABFB1DC2045600C5DDBA /* libplatform_tests_support.a */,
-				3496ABF11DC2043800C5DDBA /* libbase.a */,
-				3496ABF21DC2043800C5DDBA /* libgeometry.a */,
-				3496ABF31DC2043800C5DDBA /* liboauthcpp.a */,
-				3496ABF41DC2043800C5DDBA /* libplatform.a */,
-				3496ABEC1DC2041800C5DDBA /* libopening_hours.a */,
-				3496ABED1DC2041800C5DDBA /* libpugixml.a */,
+				FACB76E126B8A29300810C9C /* libtess2.a */,
+				FACB76DF26B8A28600810C9C /* librouting_common.a */,
+				FACB76DD26B8A27000810C9C /* libsearch.a */,
+				FACB76DB26B8A25100810C9C /* librouting.a */,
+				FACB76D826B8A22000810C9C /* libjansson.a */,
+				FACB76D626B8A18F00810C9C /* libsuccinct.a */,
+				FACB76D426B8A15100810C9C /* libstorage.a */,
+				FACB76D226B8A13700810C9C /* libgenerator.a */,
+				FACB76D026B8A10F00810C9C /* libplatform_tests_support.a */,
+				FACB76CE26B8A0E800810C9C /* libopening_hours.a */,
+				FACB76CC26B8A0DC00810C9C /* libgenerator_tests_support.a */,
+				FACB76CA26B8A0D200810C9C /* libprotobuf.a */,
+				FACB76C826B8A08800810C9C /* libplatform.a */,
+				FACB76C626B8A08000810C9C /* libicu.a */,
+				FACB76C426B8A04200810C9C /* libindexer.a */,
+				FACB76C226B8A03600810C9C /* libcoding.a */,
+				FACB76C026B8A01100810C9C /* libpugixml.a */,
+				FACB76BE26B8A00B00810C9C /* liboauthcpp.a */,
+				FACB76BC26B8A00400810C9C /* libgeometry.a */,
+				FACB76BA26B89FFE00810C9C /* libbase.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -469,7 +459,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3D05248B200F630000F24998 /* feature_matcher_test.cpp in Sources */,
 				347C71281C295B1100BE9208 /* xml_feature.cpp in Sources */,
 				341138781C15AE42002E3B3E /* opening_hours_ui.cpp in Sources */,
 				340C20DE1C3E4DFD00111D22 /* osm_auth.cpp in Sources */,
@@ -482,7 +471,6 @@
 				6715560620BEC332002BA3B4 /* edits_migration.cpp in Sources */,
 				34527C511C89B1770015050E /* editor_config.cpp in Sources */,
 				34FFB34C1C316A7600BFF6C3 /* server_api.cpp in Sources */,
-				3D05248C200F630000F24998 /* match_by_geometry_test.cpp in Sources */,
 				675B562720D2706000A521D2 /* editable_feature_source.cpp in Sources */,
 				F60F02EE1C92CBF1003A0AF6 /* editor_notes.cpp in Sources */,
 				6715565420BF0F87002BA3B4 /* new_feature_categories.cpp in Sources */,
@@ -496,12 +484,14 @@
 				3496ABE11DC2035800C5DDBA /* config_loader_test.cpp in Sources */,
 				671555E820BDC5D3002BA3B4 /* osm_editor_test.cpp in Sources */,
 				3496ABE21DC2035800C5DDBA /* editor_config_test.cpp in Sources */,
+				FACB76B826B89DF700810C9C /* feature_matcher_test.cpp in Sources */,
 				6715560A20BEF0A4002BA3B4 /* new_feature_categories_test.cpp in Sources */,
 				3496ABE31DC2035800C5DDBA /* editor_notes_test.cpp in Sources */,
 				3496ABE41DC2035800C5DDBA /* opening_hours_ui_test.cpp in Sources */,
 				3496AC031DC2048E00C5DDBA /* testingmain.cpp in Sources */,
 				3496ABE61DC2035800C5DDBA /* ui2oh_test.cpp in Sources */,
 				3496ABE81DC2035800C5DDBA /* xml_feature_test.cpp in Sources */,
+				FACB76B926B89DFB00810C9C /* match_by_geometry_test.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -553,9 +543,7 @@
 		3496ABCE1DC2031900C5DDBA /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "-";
-				INFOPLIST_FILE = "";
-				PRODUCT_BUNDLE_IDENTIFIER = ru.mail.editor_tests;
+				PRODUCT_BUNDLE_IDENTIFIER = app.organicmaps.editor_tests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -563,9 +551,7 @@
 		3496ABCF1DC2031900C5DDBA /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "-";
-				INFOPLIST_FILE = "";
-				PRODUCT_BUNDLE_IDENTIFIER = ru.mail.editor_tests;
+				PRODUCT_BUNDLE_IDENTIFIER = app.organicmaps.editor_tests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;

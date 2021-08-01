@@ -7,10 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		1D5F8ABC207616F000CAADFC /* codearea.cc in Sources */ = {isa = PBXBuildFile; fileRef = 1D5F8AB8207616F000CAADFC /* codearea.cc */; };
-		1D5F8ABD207616F000CAADFC /* openlocationcode.cc in Sources */ = {isa = PBXBuildFile; fileRef = 1D5F8AB9207616F000CAADFC /* openlocationcode.cc */; };
-		1D5F8AC1207617F200CAADFC /* codearea.h in Headers */ = {isa = PBXBuildFile; fileRef = 1D5F8ABA207616F000CAADFC /* codearea.h */; };
-		1D5F8AC2207617F200CAADFC /* openlocationcode.h in Headers */ = {isa = PBXBuildFile; fileRef = 1D5F8ABB207616F000CAADFC /* openlocationcode.h */; };
+		FACB769826B88C7100810C9C /* openlocationcode.cc in Sources */ = {isa = PBXBuildFile; fileRef = FACB769326B88C7100810C9C /* openlocationcode.cc */; };
+		FACB769926B88C7100810C9C /* codearea.h in Headers */ = {isa = PBXBuildFile; fileRef = FACB769426B88C7100810C9C /* codearea.h */; };
+		FACB769A26B88C7100810C9C /* openlocationcode.h in Headers */ = {isa = PBXBuildFile; fileRef = FACB769526B88C7100810C9C /* openlocationcode.h */; };
+		FACB769B26B88C7100810C9C /* codearea.cc in Sources */ = {isa = PBXBuildFile; fileRef = FACB769626B88C7100810C9C /* codearea.cc */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -27,12 +27,12 @@
 
 /* Begin PBXFileReference section */
 		1D5F8AAC207616D300CAADFC /* libopen_location_code.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libopen_location_code.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		1D5F8AB8207616F000CAADFC /* codearea.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = codearea.cc; path = "../../../3party/open-location-code/codearea.cc"; sourceTree = "<group>"; };
-		1D5F8AB9207616F000CAADFC /* openlocationcode.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = openlocationcode.cc; path = "../../../3party/open-location-code/openlocationcode.cc"; sourceTree = "<group>"; };
-		1D5F8ABA207616F000CAADFC /* codearea.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = codearea.h; path = "../../../3party/open-location-code/codearea.h"; sourceTree = "<group>"; };
-		1D5F8ABB207616F000CAADFC /* openlocationcode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = openlocationcode.h; path = "../../../3party/open-location-code/openlocationcode.h"; sourceTree = "<group>"; };
 		1D5F8AC32076182E00CAADFC /* common-debug.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = "common-debug.xcconfig"; path = "../common-debug.xcconfig"; sourceTree = "<group>"; };
 		1D5F8AC42076182E00CAADFC /* common-release.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = "common-release.xcconfig"; path = "../common-release.xcconfig"; sourceTree = "<group>"; };
+		FACB769326B88C7100810C9C /* openlocationcode.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = openlocationcode.cc; sourceTree = "<group>"; };
+		FACB769426B88C7100810C9C /* codearea.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = codearea.h; sourceTree = "<group>"; };
+		FACB769526B88C7100810C9C /* openlocationcode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = openlocationcode.h; sourceTree = "<group>"; };
+		FACB769626B88C7100810C9C /* codearea.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = codearea.cc; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -49,9 +49,9 @@
 		1D5F8AA3207616D300CAADFC = {
 			isa = PBXGroup;
 			children = (
+				FACB768F26B88C7100810C9C /* open-location-code */,
 				1D5F8AC32076182E00CAADFC /* common-debug.xcconfig */,
 				1D5F8AC42076182E00CAADFC /* common-release.xcconfig */,
-				1D5F8AAE207616D300CAADFC /* open_location_code */,
 				1D5F8AAD207616D300CAADFC /* Products */,
 			);
 			sourceTree = "<group>";
@@ -64,15 +64,16 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		1D5F8AAE207616D300CAADFC /* open_location_code */ = {
+		FACB768F26B88C7100810C9C /* open-location-code */ = {
 			isa = PBXGroup;
 			children = (
-				1D5F8AB8207616F000CAADFC /* codearea.cc */,
-				1D5F8ABA207616F000CAADFC /* codearea.h */,
-				1D5F8AB9207616F000CAADFC /* openlocationcode.cc */,
-				1D5F8ABB207616F000CAADFC /* openlocationcode.h */,
+				FACB769626B88C7100810C9C /* codearea.cc */,
+				FACB769426B88C7100810C9C /* codearea.h */,
+				FACB769326B88C7100810C9C /* openlocationcode.cc */,
+				FACB769526B88C7100810C9C /* openlocationcode.h */,
 			);
-			path = open_location_code;
+			name = "open-location-code";
+			path = "../../3party/open-location-code";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -82,8 +83,8 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1D5F8AC1207617F200CAADFC /* codearea.h in Headers */,
-				1D5F8AC2207617F200CAADFC /* openlocationcode.h in Headers */,
+				FACB769A26B88C7100810C9C /* openlocationcode.h in Headers */,
+				FACB769926B88C7100810C9C /* codearea.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -145,8 +146,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1D5F8ABD207616F000CAADFC /* openlocationcode.cc in Sources */,
-				1D5F8ABC207616F000CAADFC /* codearea.cc in Sources */,
+				FACB769826B88C7100810C9C /* openlocationcode.cc in Sources */,
+				FACB769B26B88C7100810C9C /* codearea.cc in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

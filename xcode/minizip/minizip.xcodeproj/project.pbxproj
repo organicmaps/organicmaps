@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 46;
+	objectVersion = 54;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -84,12 +84,12 @@
 			children = (
 				39E0FA6423EDB80E00001124 /* ioapi.c */,
 				39E0FA6323EDB80E00001124 /* ioapi.h */,
+				3D40DEBA23EB5E0100A0153A /* minizip.cpp */,
+				3D40DEA223EB5E0100A0153A /* minizip.hpp */,
 				3D40DECF23EC071400A0153A /* unzip.c */,
 				3D40DED023EC071400A0153A /* unzip.h */,
 				3D40DECB23EC069300A0153A /* zip.c */,
 				3D40DECC23EC069300A0153A /* zip.h */,
-				3D40DEBA23EB5E0100A0153A /* minizip.cpp */,
-				3D40DEA223EB5E0100A0153A /* minizip.hpp */,
 			);
 			name = minizip;
 			path = ../../3party/minizip;
@@ -143,7 +143,7 @@
 				};
 			};
 			buildConfigurationList = 671F59071B87568D0032311E /* Build configuration list for PBXProject "minizip" */;
-			compatibilityVersion = "Xcode 3.2";
+			compatibilityVersion = "Xcode 12.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -210,7 +210,11 @@
 				GCC_OPTIMIZATION_LEVEL = 0;
 				INFOPLIST_FILE = minizip_framework/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.mapswithme.minizip-ios";
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
@@ -244,7 +248,11 @@
 				GCC_NO_COMMON_BLOCKS = YES;
 				INFOPLIST_FILE = minizip_framework/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.mapswithme.minizip-ios";
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SDKROOT = iphoneos;

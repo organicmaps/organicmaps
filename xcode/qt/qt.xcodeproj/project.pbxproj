@@ -346,7 +346,7 @@
 		6753409C1C5289E0002CF0D9 /* editor_dialog.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = editor_dialog.hpp; sourceTree = "<group>"; };
 		6753409D1C5289E0002CF0D9 /* osm_auth_dialog.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = osm_auth_dialog.cpp; sourceTree = "<group>"; };
 		6753409E1C5289E0002CF0D9 /* osm_auth_dialog.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = osm_auth_dialog.hpp; sourceTree = "<group>"; };
-		675345491A404C6100A0A8C3 /* qtMapsMe.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = qtMapsMe.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		675345491A404C6100A0A8C3 /* qt.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = qt.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6753454D1A404C6100A0A8C3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		6753456C1A404CB200A0A8C3 /* about.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = about.cpp; sourceTree = "<group>"; };
 		6753456D1A404CB200A0A8C3 /* about.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = about.hpp; sourceTree = "<group>"; };
@@ -599,7 +599,7 @@
 				34EBB4821DBF53D8005BE9B8 /* common-debug.xcconfig */,
 				34EBB4831DBF53D8005BE9B8 /* common-release.xcconfig */,
 				6729A5C91A693045007D5872 /* Resources */,
-				6753454B1A404C6100A0A8C3 /* qtMapsMe */,
+				6753454B1A404C6100A0A8C3 /* qt */,
 				6753454A1A404C6100A0A8C3 /* Products */,
 				3475E0DC1DBF5772004C7E69 /* Frameworks */,
 			);
@@ -608,18 +608,14 @@
 		6753454A1A404C6100A0A8C3 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				675345491A404C6100A0A8C3 /* qtMapsMe.app */,
+				675345491A404C6100A0A8C3 /* qt.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		6753454B1A404C6100A0A8C3 /* qtMapsMe */ = {
+		6753454B1A404C6100A0A8C3 /* qt */ = {
 			isa = PBXGroup;
 			children = (
-				4415CD952271B1A200AA3A19 /* routing_settings_dialog.cpp */,
-				4415CD972271B1A200AA3A19 /* routing_settings_dialog.hpp */,
-				4415CD962271B1A200AA3A19 /* screenshoter.cpp */,
-				4415CD982271B1A200AA3A19 /* screenshoter.hpp */,
 				6753456C1A404CB200A0A8C3 /* about.cpp */,
 				6753456D1A404CB200A0A8C3 /* about.hpp */,
 				45D7ADA2210B519300160DE3 /* bookmark_dialog.cpp */,
@@ -644,13 +640,17 @@
 				675345781A404CB200A0A8C3 /* preferences_dialog.hpp */,
 				34FFD2ED1E9CEEA20010AD12 /* qt_common */,
 				670D055E1B0C9A900013A7AC /* res */,
+				4415CD952271B1A200AA3A19 /* routing_settings_dialog.cpp */,
+				4415CD972271B1A200AA3A19 /* routing_settings_dialog.hpp */,
+				4415CD962271B1A200AA3A19 /* screenshoter.cpp */,
+				4415CD982271B1A200AA3A19 /* screenshoter.hpp */,
 				6753457F1A404CB200A0A8C3 /* search_panel.cpp */,
 				675345801A404CB200A0A8C3 /* search_panel.hpp */,
 				6753454C1A404C6100A0A8C3 /* Supporting Files */,
 				675345831A404CB200A0A8C3 /* update_dialog.cpp */,
 				675345841A404CB200A0A8C3 /* update_dialog.hpp */,
 			);
-			name = qtMapsMe;
+			name = qt;
 			path = ../../qt;
 			sourceTree = "<group>";
 		};
@@ -666,9 +666,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		675345481A404C6100A0A8C3 /* qtMapsMe */ = {
+		675345481A404C6100A0A8C3 /* qt */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 675345661A404C6100A0A8C3 /* Build configuration list for PBXNativeTarget "qtMapsMe" */;
+			buildConfigurationList = 675345661A404C6100A0A8C3 /* Build configuration list for PBXNativeTarget "qt" */;
 			buildPhases = (
 				675345451A404C6100A0A8C3 /* Sources */,
 				675345461A404C6100A0A8C3 /* Frameworks */,
@@ -684,9 +684,9 @@
 			);
 			dependencies = (
 			);
-			name = qtMapsMe;
+			name = qt;
 			productName = MapsMe;
-			productReference = 675345491A404C6100A0A8C3 /* qtMapsMe.app */;
+			productReference = 675345491A404C6100A0A8C3 /* qt.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -703,7 +703,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 675345441A404C6100A0A8C3 /* Build configuration list for PBXProject "qtMapsMe" */;
+			buildConfigurationList = 675345441A404C6100A0A8C3 /* Build configuration list for PBXProject "qt" */;
 			compatibilityVersion = "Xcode 12.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -716,7 +716,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				675345481A404C6100A0A8C3 /* qtMapsMe */,
+				675345481A404C6100A0A8C3 /* qt */,
 			);
 		};
 /* End PBXProject section */
@@ -891,16 +891,11 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = "";
 				ENABLE_HARDENED_RUNTIME = YES;
 				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
 				INFOPLIST_FILE = Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/../Frameworks",
-				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 			};
@@ -910,7 +905,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = "";
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -922,10 +916,6 @@
 					"QT_NO_DEBUG=1",
 				);
 				INFOPLIST_FILE = Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/../Frameworks",
-				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 			};
@@ -934,7 +924,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		675345441A404C6100A0A8C3 /* Build configuration list for PBXProject "qtMapsMe" */ = {
+		675345441A404C6100A0A8C3 /* Build configuration list for PBXProject "qt" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				675345641A404C6100A0A8C3 /* Debug */,
@@ -943,7 +933,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		675345661A404C6100A0A8C3 /* Build configuration list for PBXNativeTarget "qtMapsMe" */ = {
+		675345661A404C6100A0A8C3 /* Build configuration list for PBXNativeTarget "qt" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				675345671A404C6100A0A8C3 /* Debug */,

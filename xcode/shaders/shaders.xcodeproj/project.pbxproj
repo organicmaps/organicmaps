@@ -233,13 +233,13 @@
 		4566606520E254060085E8C1 = {
 			isa = PBXGroup;
 			children = (
-				4566610B20E261020085E8C1 /* Resources */,
 				4566607B20E254A60085E8C1 /* common-debug.xcconfig */,
 				4566607C20E254A60085E8C1 /* common-release.xcconfig */,
+				456660F420E25E2E0085E8C1 /* Frameworks */,
+				4566606F20E254060085E8C1 /* Products */,
+				4566610B20E261020085E8C1 /* Resources */,
 				4566607A20E2546C0085E8C1 /* shaders */,
 				456660DB20E25A390085E8C1 /* shaders_tests */,
-				4566606F20E254060085E8C1 /* Products */,
-				456660F420E25E2E0085E8C1 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -347,12 +347,12 @@
 				456660CC20E256510085E8C1 /* texturing.fsh.glsl */,
 				456660D320E256530085E8C1 /* texturing.vsh.glsl */,
 				456660C120E2564F0085E8C1 /* texturing3d.fsh.glsl */,
+				BBF79179214AB8B500D27BD8 /* traffic_circle.fsh.glsl */,
+				BBF7917B214AB8B600D27BD8 /* traffic_circle.vsh.glsl */,
 				456660B120E2564C0085E8C1 /* traffic_line.fsh.glsl */,
 				4566609520E256470085E8C1 /* traffic_line.vsh.glsl */,
 				4566608F20E256470085E8C1 /* traffic.fsh.glsl */,
 				456660BB20E2564E0085E8C1 /* traffic.vsh.glsl */,
-				BBF79179214AB8B500D27BD8 /* traffic_circle.fsh.glsl */,
-				BBF7917B214AB8B600D27BD8 /* traffic_circle.vsh.glsl */,
 				BBF7917A214AB8B600D27BD8 /* transit_circle.fsh.glsl */,
 				BBF7917C214AB8B600D27BD8 /* transit_circle.vsh.glsl */,
 				4566609720E256480085E8C1 /* transit_marker.fsh.glsl */,
@@ -416,10 +416,10 @@
 				BBF79176214970B600D27BD8 /* shaders_lib.h */,
 				451E6930214A8D4200764A97 /* shaders_lib.metal */,
 				BBF7917421495FF900D27BD8 /* shapes.metal */,
+				45355A42214BF358007740F8 /* smaa.metal */,
 				BBF7916F2146D8EC00D27BD8 /* system.metal */,
 				BBF79177214AA53C00D27BD8 /* traffic.metal */,
 				BBF79178214AA92D00D27BD8 /* transit.metal */,
-				45355A42214BF358007740F8 /* smaa.metal */,
 			);
 			path = Metal;
 			sourceTree = "<group>";
@@ -752,7 +752,6 @@
 		456660E920E25A3A0085E8C1 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "-";
 				FRAMEWORK_SEARCH_PATHS = "$(QT_PATH)/lib";
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
@@ -761,14 +760,12 @@
 					"$(OMIM_ROOT)/3party/glm",
 					"$(QT_PATH)/include",
 				);
-				INFOPLIST_FILE = "";
 			};
 			name = Debug;
 		};
 		456660EA20E25A3A0085E8C1 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "-";
 				FRAMEWORK_SEARCH_PATHS = "$(QT_PATH)/lib";
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
@@ -777,7 +774,6 @@
 					"$(OMIM_ROOT)/3party/glm",
 					"$(QT_PATH)/include",
 				);
-				INFOPLIST_FILE = "";
 			};
 			name = Release;
 		};

@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		562DDBDC1FE8EA0A0091F566 /* transit_graph_data.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 562DDBD81FE8EA080091F566 /* transit_graph_data.cpp */; };
 		562DDBDD1FE8EA0A0091F566 /* transit_graph_data.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 562DDBD91FE8EA080091F566 /* transit_graph_data.hpp */; };
-		562DDBDE1FE8EA0A0091F566 /* transit_speed_limits.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 562DDBDA1FE8EA090091F566 /* transit_speed_limits.hpp */; };
 		562DDBDF1FE8EA0A0091F566 /* transit_serdes.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 562DDBDB1FE8EA0A0091F566 /* transit_serdes.hpp */; };
 		56EE14CB1FE7F2900036F20C /* transit_types.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56EE14C91FE7F2900036F20C /* transit_types.cpp */; };
 		56EE14CC1FE7F2900036F20C /* transit_types.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 56EE14CA1FE7F2900036F20C /* transit_types.hpp */; };
@@ -28,7 +27,6 @@
 /* Begin PBXFileReference section */
 		562DDBD81FE8EA080091F566 /* transit_graph_data.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = transit_graph_data.cpp; sourceTree = "<group>"; };
 		562DDBD91FE8EA080091F566 /* transit_graph_data.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = transit_graph_data.hpp; sourceTree = "<group>"; };
-		562DDBDA1FE8EA090091F566 /* transit_speed_limits.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = transit_speed_limits.hpp; sourceTree = "<group>"; };
 		562DDBDB1FE8EA0A0091F566 /* transit_serdes.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = transit_serdes.hpp; sourceTree = "<group>"; };
 		56D7F2F41FE7F0F200D99E62 /* libtransit.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libtransit.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		56EE14C71FE7F1FF0036F20C /* common-debug.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = "common-debug.xcconfig"; path = "../common-debug.xcconfig"; sourceTree = "<group>"; };
@@ -81,17 +79,16 @@
 			children = (
 				D56AD1D624CB02BF0057F2E0 /* experimental */,
 				D55B290524CACF9E000E2EBE /* transit_display_info.hpp */,
-				D5E1DDAF24F6A0E9001F72D5 /* transit_schedule.cpp */,
-				D5E1DDAE24F6A0E9001F72D5 /* transit_schedule.hpp */,
 				D55B290924CACF9E000E2EBE /* transit_entities.hpp */,
-				D55B290724CACF9E000E2EBE /* transit_version.cpp */,
-				D55B290624CACF9E000E2EBE /* transit_version.hpp */,
 				562DDBD81FE8EA080091F566 /* transit_graph_data.cpp */,
 				562DDBD91FE8EA080091F566 /* transit_graph_data.hpp */,
+				D5E1DDAF24F6A0E9001F72D5 /* transit_schedule.cpp */,
+				D5E1DDAE24F6A0E9001F72D5 /* transit_schedule.hpp */,
 				562DDBDB1FE8EA0A0091F566 /* transit_serdes.hpp */,
-				562DDBDA1FE8EA090091F566 /* transit_speed_limits.hpp */,
 				56EE14C91FE7F2900036F20C /* transit_types.cpp */,
 				56EE14CA1FE7F2900036F20C /* transit_types.hpp */,
+				D55B290724CACF9E000E2EBE /* transit_version.cpp */,
+				D55B290624CACF9E000E2EBE /* transit_version.hpp */,
 			);
 			name = transit;
 			path = ../../transit;
@@ -100,10 +97,10 @@
 		D56AD1D624CB02BF0057F2E0 /* experimental */ = {
 			isa = PBXGroup;
 			children = (
-				D56AD1D724CB02BF0057F2E0 /* transit_types_experimental.hpp */,
-				D56AD1D824CB02BF0057F2E0 /* transit_data.hpp */,
 				D56AD1D924CB02BF0057F2E0 /* transit_data.cpp */,
+				D56AD1D824CB02BF0057F2E0 /* transit_data.hpp */,
 				D56AD1DA24CB02BF0057F2E0 /* transit_types_experimental.cpp */,
+				D56AD1D724CB02BF0057F2E0 /* transit_types_experimental.hpp */,
 			);
 			path = experimental;
 			sourceTree = "<group>";
@@ -124,7 +121,6 @@
 				D55B290A24CACF9E000E2EBE /* transit_display_info.hpp in Headers */,
 				D55B290B24CACF9E000E2EBE /* transit_version.hpp in Headers */,
 				562DDBDF1FE8EA0A0091F566 /* transit_serdes.hpp in Headers */,
-				562DDBDE1FE8EA0A0091F566 /* transit_speed_limits.hpp in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
