@@ -172,9 +172,14 @@ RoadGeometry::RoadGeometry(bool oneWay, double weightSpeedKMpH, double etaSpeedK
   ASSERT_GREATER(weightSpeedKMpH, 0.0, ());
   ASSERT_GREATER(etaSpeedKMpH, 0.0, ());
 
-  m_junctions.reserve(points.size());
+  size_t const count = points.size();
+  ASSERT_GREATER(count, 1, ());
+
+  m_junctions.reserve(count);
   for (auto const & point : points)
     m_junctions.emplace_back(mercator::ToLatLon(point), geometry::kDefaultAltitudeMeters);
+
+  m_distances.resize(count - 1, -1);
 }
 
 void RoadGeometry::Load(VehicleModelInterface const & vehicleModel, FeatureType & feature,

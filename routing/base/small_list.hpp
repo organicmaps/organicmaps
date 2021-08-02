@@ -48,4 +48,10 @@ public:
   */
 };
 
+template <typename T>
+inline std::string DebugPrint(SmallList<T> const & v)
+{
+  return DebugPrint(static_cast<buffer_vector<T, 8> const &>(v));
+}
+
 } // namesapce routing

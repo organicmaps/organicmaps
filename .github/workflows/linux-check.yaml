@@ -88,8 +88,6 @@ jobs:
             -e drape_tests \
             -e shaders_tests \
                             \
-            -e routing_tests \
-            -e generator_tests \
             -e opening_hours_tests \
             -e opening_hours_integration_tests \
             -e routing_consistency_tests \
