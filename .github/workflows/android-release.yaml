@@ -13,11 +13,7 @@ jobs:
       matrix:
         include:
           - flavor: google
-            bundle: true
           - flavor: huawei
-            bundle: true
-          - flavor: samsung
-          - flavor: amazon
           - flavor: web
     steps:
       - name: Install build tools and dependencies
@@ -56,34 +52,31 @@ jobs:
         shell: bash
         run: (cd tools/android; ./set_up_android.py --sdk $ANDROID_SDK_ROOT)
 
-      - name: Compile
+      - name: Compile and upload to Google Play
         shell: bash
         working-directory: android
         run: |
-          ./gradlew bundle${{ matrix.flavor }}release assemble${{ matrix.flavor }}release
-
-      - name: Upload AAB to Artifacts
-        uses: actions/upload-artifact@v2
-        if: ${{ matrix.bundle }}
-        with:
-          name: ${{ matrix.flavor }}-release-aab
-          path: ./android/build/outputs/bundle/${{ matrix.flavor }}Release/OrganicMaps-*-${{ matrix.flavor }}-release.aab
-          if-no-files-found: error
-
-      - name: Upload APK to Artifacts
-        uses: actions/upload-artifact@v2
-        if: ${{ !matrix.bundle }}
-        with:
-          name: ${{ matrix.flavor }}-release-apk
-          path: ./android/build/outputs/apk/${{ matrix.flavor }}/release/OrganicMaps-*-${{ matrix.flavor }}-release.apk
-          if-no-files-found: error
-
-      - name: Upload to Google Play
-        run: ./gradlew publishGoogleReleaseBundle
-        working-directory: android
+          ./gradlew bundleGoogleRelease publishGoogleReleaseBundle publishGoogleReleaseListing
         if: ${{ matrix.flavor == 'google' }}
 
-      - name: Upload to Huawei AppGallery
-        run: ./gradlew publishHuaweiAppGalleryHuaweiRelease
+      - name: Compile and upload to Huawei AppGallery
+        shell: bash
         working-directory: android
+        run: |
+          ./gradlew bundleHuaweiRelease publishHuaweiAppGalleryHuaweiRelease
         if: ${{ matrix.flavor == 'huawei' }}
+
+      - name: Compile universal APK
+        shell: bash
+        working-directory: android
+        run: |
+          ./gradlew assembleWebRelease
+        if: ${{ matrix.flavor == 'web' }}
+
+      - name: Upload universal APK to GitHub
+        uses: actions/upload-artifact@v2
+        if: ${{ matrix.flavor == 'web' }}
+        with:
+          name: web-release-apk
+          path: ./android/build/outputs/apk/web/release/OrganicMaps-*-web-release.apk
+          if-no-files-found: error
