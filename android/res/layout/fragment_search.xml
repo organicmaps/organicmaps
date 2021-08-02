@@ -17,8 +17,7 @@
       android:layout_height="wrap_content"
       android:background="?attr/colorPrimary"
       android:elevation="@dimen/dp_0"
-      app:elevation="@dimen/dp_0"
-      tools:targetApi="lollipop">
+      app:elevation="@dimen/dp_0">
         <include
           android:id="@+id/toolbar"
           layout="@layout/toolbar_with_search_no_elevation"

@@ -7,19 +7,19 @@
     <item name="materialCalendarTheme">@style/ThemeOverlay.MaterialComponents.MaterialCalendar</item>
     <item name="android:listViewStyle">@style/MwmWidget.ListView</item>
     <item name="android:textViewStyle">@style/MwmWidget.TextView</item>
-    <item name="android:forceDarkAllowed">false</item>
+    <item name="android:forceDarkAllowed" tools:targetApi="Q">false</item>
 
     <item name="android:textColorPrimary">@color/text_dark</item>
     <item name="android:textColorPrimaryInverse">@color/text_light</item>
     <item name="android:textColorSecondary">@color/text_dark_subtitle</item>
     <item name="android:windowBackground">?windowBackgroundForced</item>
-    <item name="android:colorPrimaryDark" tools:targetApi="lollipop">@color/bg_statusbar</item>
+    <item name="android:colorPrimaryDark">@color/bg_statusbar</item>
     <item name="android:windowSoftInputMode">stateUnspecified|adjustPan</item>
-    <item name="android:fontFamily" tools:targetApi="jelly_bean">@string/robotoRegular</item>
+    <item name="android:fontFamily">@string/robotoRegular</item>
     <item name="android:colorBackgroundCacheHint">@null</item>
     <item name="android:windowActionBarOverlay">true</item>
     <item name="clickableBackground">?selectableItemBackground</item>
-    <item name="android:statusBarColor" tools:targetApi="lollipop">@android:color/transparent</item>
+    <item name="android:statusBarColor">@android:color/transparent</item>
     <item name="alertDialogTheme">@style/MwmTheme.AlertDialog</item>
     <item name="windowBackgroundForced">@color/bg_window</item>
     <item name="cardFrame">@drawable/card_frame</item>
@@ -183,19 +183,19 @@
     <item name="materialCalendarTheme">@style/MwmWidget.MaterialCalendar.Theme.Dark</item>
     <item name="android:listViewStyle">@style/MwmWidget.ListView</item>
     <item name="android:textViewStyle">@style/MwmWidget.TextView</item>
-    <item name="android:forceDarkAllowed">false</item>
+    <item name="android:forceDarkAllowed" tools:targetApi="Q">false</item>
 
     <item name="android:textColorPrimary">@color/text_light</item>
     <item name="android:textColorPrimaryInverse">@color/text_dark</item>
     <item name="android:textColorSecondary">@color/text_light_subtitle</item>
     <item name="android:windowBackground">?windowBackgroundForced</item>
-    <item name="android:colorPrimaryDark" tools:targetApi="lollipop">?statusBar</item>
+    <item name="android:colorPrimaryDark">?statusBar</item>
     <item name="android:windowSoftInputMode">stateUnspecified|adjustPan</item>
-    <item name="android:fontFamily" tools:targetApi="jelly_bean">@string/robotoRegular</item>
+    <item name="android:fontFamily">@string/robotoRegular</item>
     <item name="android:colorBackgroundCacheHint">@null</item>
     <item name="android:windowActionBarOverlay">true</item>
     <item name="clickableBackground">?selectableItemBackground</item>
-    <item name="android:statusBarColor" tools:targetApi="lollipop">@android:color/transparent</item>
+    <item name="android:statusBarColor">@android:color/transparent</item>
 
     <item name="alertDialogTheme">@style/MwmTheme.Night.AlertDialog</item>
     <item name="windowBackgroundForced">@color/bg_window_night</item>

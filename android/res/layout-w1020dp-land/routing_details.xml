@@ -33,6 +33,5 @@
     android:textColor="?colorAccent"
     android:visibility="gone"
     tools:text="43 m"
-    tools:targetApi="jelly_bean"
     tools:visibility="visible"/>
 </RelativeLayout>

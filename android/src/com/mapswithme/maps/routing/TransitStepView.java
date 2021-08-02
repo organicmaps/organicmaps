@@ -8,7 +8,6 @@ import android.graphics.Paint;
 import android.graphics.Rect;
 import android.graphics.RectF;
 import android.graphics.drawable.Drawable;
-import android.os.Build;
 import android.text.TextPaint;
 import android.text.TextUtils;
 import android.util.AttributeSet;
@@ -19,7 +18,6 @@ import androidx.annotation.Dimension;
 import androidx.annotation.DrawableRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.annotation.RequiresApi;
 import androidx.core.graphics.drawable.DrawableCompat;
 
 import com.mapswithme.maps.R;
@@ -63,7 +61,6 @@ public class TransitStepView extends View implements MultilineLayoutManager.Sque
     init(attrs);
   }
 
-  @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
   public TransitStepView(Context context, @Nullable AttributeSet attrs, int defStyleAttr, int defStyleRes)
   {
     super(context, attrs, defStyleAttr, defStyleRes);

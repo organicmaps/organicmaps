@@ -65,8 +65,7 @@
           android:layout_width="@dimen/editor_auth_btn_height"
           android:layout_height="@dimen/editor_auth_btn_height"
           android:layout_gravity="center"
-          android:elevation="@dimen/design_fab_elevation"
-          tools:targetApi="lollipop" />
+          android:elevation="@dimen/design_fab_elevation"/>
       </FrameLayout>
       <TextView
         android:id="@+id/lost_password"

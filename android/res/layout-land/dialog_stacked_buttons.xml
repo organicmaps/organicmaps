@@ -18,8 +18,7 @@
     <TextView
       android:id="@+id/tv__title"
       style="@style/MwmWidget.StackedButtonsDialogTitle"
-      tools:text="Use mobile internet to show detailed information?"
-      tools:targetApi="jelly_bean"/>
+      tools:text="Use mobile internet to show detailed information?"/>
 
     <TextView
       android:id="@+id/tv__message"
@@ -30,8 +29,7 @@
   <TextView
     android:id="@+id/btn__positive"
     style="@style/MwmWidget.Button.StackedButtonsDialog"
-    tools:text="Use Always"
-    tools:targetApi="jelly_bean"/>
+    tools:text="Use Always"/>
 
   <LinearLayout
     android:orientation="horizontal"
@@ -42,14 +40,12 @@
       style="@style/MwmWidget.Button.StackedButtonsDialog"
       android:layout_weight="1"
       android:gravity="start|center_vertical"
-      tools:text="Only Today"
-      tools:targetApi="jelly_bean"/>
+      tools:text="Only Today"/>
 
     <TextView
       android:id="@+id/btn__negative"
       style="@style/MwmWidget.Button.StackedButtonsDialog"
       android:layout_weight="1"
-      tools:text="Do not Use Today"
-      tools:targetApi="jelly_bean"/>
+      tools:text="Do not Use Today"/>
   </LinearLayout>
 </LinearLayout>

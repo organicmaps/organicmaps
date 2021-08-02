@@ -103,8 +103,7 @@
           android:fontFamily="@string/robotoMedium"
           android:text="@string/openstreetmap"
           android:textAllCaps="false"
-          android:textAppearance="@style/MwmTextAppearance.Body1.Light"
-          tools:targetApi="jelly_bean"/>
+          android:textAppearance="@style/MwmTextAppearance.Body1.Light"/>
 
         <TextView
           android:layout_width="wrap_content"

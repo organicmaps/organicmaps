@@ -420,7 +420,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     }
     mIsTabletLayout = getResources().getBoolean(R.bool.tabletLayout);
 
-    if (!mIsTabletLayout && (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP))
+    if (!mIsTabletLayout)
       getWindow().addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
 
     setContentView(R.layout.activity_map);

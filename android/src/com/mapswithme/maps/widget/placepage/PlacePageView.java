@@ -343,8 +343,7 @@ public class PlacePageView extends NestedScrollViewClickFixed
 
     mDownloaderInfo = mPreview.findViewById(R.id.tv__downloader_details);
 
-    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
-      setElevation(UiUtils.dimen(getContext(), R.dimen.placepage_elevation));
+    setElevation(UiUtils.dimen(getContext(), R.dimen.placepage_elevation));
 
     if (UiUtils.isLandscape(getContext()))
       setBackgroundResource(0);

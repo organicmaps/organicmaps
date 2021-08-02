@@ -1,10 +1,8 @@
 package com.mapswithme.maps.widget;
 
-import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.res.Resources;
 import android.content.res.TypedArray;
-import android.os.Build;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -61,7 +59,6 @@ public class PlaceholderView extends LinearLayout
     init(context, attrs);
   }
 
-  @TargetApi(Build.VERSION_CODES.LOLLIPOP)
   public PlaceholderView(Context context, @Nullable AttributeSet attrs, int defStyleAttr,
                          int defStyleRes)
   {

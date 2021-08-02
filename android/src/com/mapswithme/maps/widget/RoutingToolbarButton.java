@@ -1,11 +1,11 @@
 package com.mapswithme.maps.widget;
 
 import android.content.Context;
-import android.os.Build;
 import android.util.AttributeSet;
 
 import androidx.annotation.ColorRes;
 import androidx.annotation.DrawableRes;
+import androidx.appcompat.content.res.AppCompatResources;
 import androidx.appcompat.widget.AppCompatRadioButton;
 
 import com.mapswithme.maps.R;
@@ -86,10 +86,7 @@ public class RoutingToolbarButton extends AppCompatRadioButton
 
   public void setButtonTintList(@ColorRes int color)
   {
-    if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP)
-      setSupportButtonTintList(getResources().getColorStateList(color));
-    else
-      setButtonTintList(getResources().getColorStateList(color));
+    setButtonTintList(AppCompatResources.getColorStateList(getContext(), color));
   }
 
   public void setIcon(@DrawableRes int icon)
