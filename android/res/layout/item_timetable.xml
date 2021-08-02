@@ -192,7 +192,7 @@
       <LinearLayout
         android:id="@+id/time_open_close"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/editor_height_hours"
+        android:layout_height="wrap_content"
         android:baselineAligned="false"
         android:gravity="center_vertical"
         android:orientation="horizontal">

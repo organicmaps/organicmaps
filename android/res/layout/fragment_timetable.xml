@@ -16,14 +16,15 @@
 
   <View
     android:layout_width="match_parent"
-    android:layout_height="@dimen/height_block_base"
+    android:layout_height="wrap_content"
+    android:layout_alignTop="@+id/tv__mode_switch"
     android:layout_alignParentBottom="true"
     android:background="?cardBackground"/>
 
   <TextView
     android:id="@+id/tv__mode_switch"
     android:layout_width="match_parent"
-    android:layout_height="@dimen/height_block_base"
+    android:layout_height="wrap_content"
     android:layout_alignParentBottom="true"
     android:background="?clickableBackground"
     android:gravity="center_vertical"
@@ -31,7 +32,7 @@
     android:text="@string/editor_time_advanced"
     android:textAllCaps="true"
     android:textAppearance="@style/MwmTextAppearance.Body3"
-    android:textColor="?colorAccent"/>
+    android:textColor="?colorAccent" />
 
   <include
     layout="@layout/shadow_bottom"
