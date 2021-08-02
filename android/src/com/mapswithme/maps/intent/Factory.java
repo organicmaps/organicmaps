@@ -39,7 +39,6 @@ import com.mapswithme.util.log.Logger;
 import com.mapswithme.util.log.LoggerFactory;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.List;
 import java.util.Locale;
 
@@ -405,7 +404,11 @@ public class Factory
     @Override
     public boolean isSupported(@NonNull Intent intent)
     {
-      mData = intent.getData();
+      // See KML/KMZ/KMB intent filters in manifest.
+      if (intent.getAction() == Intent.ACTION_VIEW)
+        mData = intent.getData();
+      else if (intent.getAction() == Intent.ACTION_SEND)
+        mData = intent.getParcelableExtra(Intent.EXTRA_STREAM);
       return mData != null;
     }
 
