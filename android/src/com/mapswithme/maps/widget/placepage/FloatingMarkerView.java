@@ -4,7 +4,6 @@ package com.mapswithme.maps.widget.placepage;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Canvas;
-import android.os.Build;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,7 +12,6 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.annotation.RequiresApi;
 
 import com.github.mikephil.charting.charts.Chart;
 import com.github.mikephil.charting.components.IMarker;
@@ -72,7 +70,6 @@ public class FloatingMarkerView extends RelativeLayout implements IMarker
     LayoutInflater.from(getContext()).inflate(R.layout.floating_marker_view, this, true);
   }
 
-  @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
   public FloatingMarkerView(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes)
   {
     super(context, attrs, defStyleAttr, defStyleRes);

@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources xmlns:tools="http://schemas.android.com/tools">
+<resources>
   <style name="PlacePageButtonText">
     <item name="android:layout_width">wrap_content</item>
     <item name="android:layout_height">wrap_content</item>
     <item name="android:gravity">center</item>
-    <item name="android:textAllCaps" tools:targetApi="ice_cream_sandwich">true</item>
+    <item name="android:textAllCaps">true</item>
     <item name="android:textSize">10sp</item>
   </style>
 

@@ -23,7 +23,6 @@ import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.Rect;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Parcel;
 import android.os.Parcelable;
@@ -1894,11 +1893,7 @@ public class NestedScrollViewClickFixed extends FrameLayout implements NestedScr
                 int height = getHeight();
                 int xTranslation = 0;
                 int yTranslation = Math.min(0, scrollY);
-                if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP || getClipToPadding()) {
-                    width -= getPaddingLeft() + getPaddingRight();
-                    xTranslation += getPaddingLeft();
-                }
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP && getClipToPadding()) {
+                if (getClipToPadding()) {
                     height -= getPaddingTop() + getPaddingBottom();
                     yTranslation += getPaddingTop();
                 }
@@ -1915,11 +1910,8 @@ public class NestedScrollViewClickFixed extends FrameLayout implements NestedScr
                 int height = getHeight();
                 int xTranslation = 0;
                 int yTranslation = Math.max(getScrollRange(), scrollY) + height;
-                if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP || getClipToPadding()) {
-                    width -= getPaddingLeft() + getPaddingRight();
-                    xTranslation += getPaddingLeft();
-                }
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP && getClipToPadding()) {
+
+                if (getClipToPadding()) {
                     height -= getPaddingTop() + getPaddingBottom();
                     yTranslation -= getPaddingBottom();
                 }

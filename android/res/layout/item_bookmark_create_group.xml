@@ -26,6 +26,5 @@
     android:text="@string/bookmarks_create_new_group"
     android:textAllCaps="true"
     android:textAppearance="@style/MwmTextAppearance.Body3"
-    android:textColor="?colorAccent"
-    tools:targetApi="jelly_bean" />
+    android:textColor="?colorAccent"/>
 </LinearLayout>

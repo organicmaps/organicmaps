@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources xmlns:tools="http://schemas.android.com/tools">
+<resources>
   <style name="MwmTextAppearance" parent="TextAppearance.AppCompat">
-    <item name="android:fontFamily" tools:ignore="NewApi">@string/robotoRegular</item>
+    <item name="android:fontFamily">@string/robotoRegular</item>
     <!-- Force normal textStyle. Some devices (eg Lenovo P70), uses non-normal textStyle by default. -->
     <item name="android:textStyle">normal</item>
   </style>
@@ -18,7 +18,7 @@
 
   <style name="MwmTextAppearance.Title.Toolbar">
     <item name="android:textSize">@dimen/text_size_toolbar</item>
-    <item name="android:fontFamily" tools:targetApi="jelly_bean">@string/robotoMedium</item>
+    <item name="android:fontFamily">@string/robotoMedium</item>
   </style>
 
   <style name="MwmTextAppearance.Headline">
@@ -144,7 +144,7 @@
 
   <style name="MwmTextAppearance.RoutingDetail">
     <item name="android:textSize">@dimen/text_size_routing_plan_detail</item>
-    <item name="android:fontFamily" tools:ignore="NewApi">@string/robotoMedium</item>
+    <item name="android:fontFamily">@string/robotoMedium</item>
     <item name="android:textColor">?android:textColorPrimary</item>
   </style>
 
@@ -154,13 +154,13 @@
 
   <style name="MwmTextAppearance.NavStreet">
     <item name="android:textSize">@dimen/text_size_nav_street</item>
-    <item name="android:fontFamily" tools:ignore="NewApi">@string/robotoMedium</item>
+    <item name="android:fontFamily">@string/robotoMedium</item>
     <item name="android:textColor">?android:textColorPrimary</item>
   </style>
 
   <style name="MwmTextAppearance.NavNextTurn">
     <item name="android:textSize">@dimen/text_size_nav_next_turn</item>
-    <item name="android:fontFamily" tools:ignore="NewApi">@string/robotoMedium</item>
+    <item name="android:fontFamily">@string/robotoMedium</item>
     <item name="android:textStyle">bold</item>
     <item name="android:textColor">?android:textColorPrimaryInverse</item>
   </style>
@@ -190,7 +190,7 @@
   </style>
 
   <style name="MwmTextAppearance.Discovery.Subtitle" parent="MwmTextAppearance.Body3">
-    <item name="android:fontFamily" tools:targetApi="jelly_bean">@string/robotoMedium</item>
+    <item name="android:fontFamily">@string/robotoMedium</item>
     <item name="android:gravity">start</item>
   </style>
 
@@ -209,11 +209,11 @@
   </style>
 
   <style name="MwmTextAppearance.BookingFilter.Title" parent="MwmTextAppearance.Body3">
-    <item name="android:fontFamily" tools:targetApi="jelly_bean">@string/robotoMedium</item>
+    <item name="android:fontFamily">@string/robotoMedium</item>
   </style>
 
   <style name="MwmTextAppearance.BookingFilter.Warning" parent="MwmTextAppearance.Body3">
-    <item name="android:fontFamily" tools:ignore="NewApi">@string/robotoRegular</item>
+    <item name="android:fontFamily">@string/robotoRegular</item>
     <item name="android:textColor">@color/dark_gray</item>
   </style>
 

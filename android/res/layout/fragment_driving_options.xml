@@ -25,8 +25,7 @@
     android:layout_gravity="center_vertical"
     android:layout_marginTop="@dimen/margin_half_double_plus"
     android:paddingEnd="@dimen/margin_base"
-    android:paddingStart="@dimen/margin_base"
-    tools:targetApi="jelly_bean"/>
+    android:paddingStart="@dimen/margin_base"/>
   <LinearLayout
     android:layout_marginTop="@dimen/margin_half_double_plus"
     android:orientation="horizontal"
@@ -42,8 +41,7 @@
       android:layout_weight="1"
       android:layout_height="wrap_content"
       android:layout_gravity="center_vertical"
-      android:textColor="?android:attr/textColorPrimary"
-      tools:targetApi="jelly_bean"/>
+      android:textColor="?android:attr/textColorPrimary"/>
     <Switch
       android:id="@+id/avoid_tolls_btn"
       android:layout_width="wrap_content"
@@ -64,8 +62,7 @@
       android:layout_weight="1"
       android:layout_height="wrap_content"
       android:layout_gravity="center_vertical"
-      android:textColor="?android:attr/textColorPrimary"
-      tools:targetApi="jelly_bean"/>
+      android:textColor="?android:attr/textColorPrimary"/>
     <Switch
       android:id="@+id/avoid_dirty_roads_btn"
       android:layout_width="wrap_content"
@@ -86,8 +83,7 @@
       android:layout_weight="1"
       android:layout_height="wrap_content"
       android:layout_gravity="center_vertical"
-      android:textColor="?android:attr/textColorPrimary"
-      tools:targetApi="jelly_bean"/>
+      android:textColor="?android:attr/textColorPrimary"/>
     <Switch
       android:id="@+id/avoid_ferries_btn"
       android:layout_width="wrap_content"
@@ -108,8 +104,7 @@
       android:layout_weight="1"
       android:layout_gravity="center_vertical"
       android:layout_height="wrap_content"
-      android:textColor="?android:attr/textColorPrimary"
-      tools:targetApi="jelly_bean"/>
+      android:textColor="?android:attr/textColorPrimary"/>
     <Switch
       android:id="@+id/avoid_motorways_btn"
       android:layout_width="wrap_content"

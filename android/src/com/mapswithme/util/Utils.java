@@ -201,10 +201,7 @@ public class Utils
   {
     final Intent marketIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
     marketIntent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY | Intent.FLAG_ACTIVITY_MULTIPLE_TASK);
-    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
-      marketIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_DOCUMENT);
-    else
-      marketIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+    marketIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_DOCUMENT);
 
     try
     {

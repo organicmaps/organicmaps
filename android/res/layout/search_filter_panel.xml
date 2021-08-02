@@ -23,8 +23,7 @@
     android:background="?clickableBackground"
     android:fontFamily="@string/robotoMedium"
     android:textSize="@dimen/text_size_caption"
-    android:text="@string/search_show_on_map"
-    tools:targetApi="jelly_bean"/>
+    android:text="@string/search_show_on_map"/>
   <include
     android:id="@+id/divider"
     layout="@layout/divider_horizontal"
