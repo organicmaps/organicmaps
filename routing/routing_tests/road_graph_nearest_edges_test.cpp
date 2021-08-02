@@ -98,19 +98,13 @@ UNIT_TEST(RoadGraph_NearestEdges)
   IRoadGraph::EdgeListT actualOutgoing;
   graph.GetOutgoingEdges(crossPos, actualOutgoing);
   sort(actualOutgoing.begin(), actualOutgoing.end());
-
-  TEST_EQUAL(expectedOutgoing.size(), actualOutgoing.size(), ());
-  for (size_t i = 0; i < expectedOutgoing.size(); ++i)
-    TEST_EQUAL(expectedOutgoing[i], actualOutgoing[i], ());
+  TEST_EQUAL(expectedOutgoing, actualOutgoing, ());
 
   // Check ingoing edges.
   IRoadGraph::EdgeListT actualIngoing;
   graph.GetIngoingEdges(crossPos, actualIngoing);
   sort(actualIngoing.begin(), actualIngoing.end());
-
-  TEST_EQUAL(expectedOutgoing.size(), actualIngoing.size(), ());
-  for (size_t i = 0; i < expectedOutgoing.size(); ++i)
-    TEST_EQUAL(expectedOutgoing[i], actualIngoing[i], ());
+  TEST_EQUAL(expectedIngoing, actualIngoing, ());
 }
 
 }  // namespace routing_test
