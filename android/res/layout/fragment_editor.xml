@@ -19,7 +19,7 @@
         android:id="@+id/category"
         style="@style/MwmWidget.Editor.MetadataBlock.Clickable"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/editor_height_field"
+        android:layout_height="wrap_content"
         android:layout_marginBottom="0dp"
         android:padding="@dimen/margin_half_plus">
         <ImageView
@@ -31,16 +31,12 @@
           android:layout_marginStart="@dimen/margin_quarter"
           android:tint="?iconTint"
           tools:src="@drawable/ic_operator"/>
-        <Space
-          android:id="@+id/anchor_center"
-          android:layout_width="0dp"
-          android:layout_height="0dp"
-          android:layout_centerVertical="true"/>
+
         <TextView
           android:id="@+id/title"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
-          android:layout_above="@id/anchor_center"
+          android:layout_alignParentTop="true"
           android:layout_marginStart="@dimen/margin_quarter"
           android:layout_toEndOf="@id/icon"
           android:text="@string/editor_edit_place_category_title"
@@ -51,7 +47,7 @@
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
           android:layout_alignStart="@id/title"
-          android:layout_below="@id/anchor_center"
+          android:layout_below="@id/title"
           android:textAppearance="@style/MwmTextAppearance.Body1"
           tools:text="Ololo"/>
       </RelativeLayout>
