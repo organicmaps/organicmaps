@@ -343,5 +343,11 @@
         android:resource="@xml/file_paths">
       </meta-data>
     </provider>
+
+    <!-- Disable Google's checks for visited sites and loaded URLs in bookmarks description. -->
+    <meta-data android:name="android.webkit.WebView.EnableSafeBrowsing" android:value="false" />
+    <!-- Disable Google's anonymous stats collection -->
+    <meta-data android:name="android.webkit.WebView.MetricsOptOut" android:value="true" />
+
   </application>
 </manifest>
