@@ -93,17 +93,7 @@ private:
     uint32_t m_version = kLatestVersionRoutingWorldSection;
   };
 
-  // Constants for point-coding of double fields (coordinates and edge weight).
-  class SerDesVals
-  {
-  public:
-    static double GetMin();
-    static double GetMax();
-    static constexpr size_t GetBitsCount() { return kBitsForDouble; }
-
-  private:
-    static size_t constexpr kBitsForDouble = 30;
-  };
+  static size_t constexpr kBitsForDouble = 30;
 
   static uint32_t Hash(std::string const & s);
 };
@@ -132,15 +122,11 @@ void CrossBorderGraphSerializer::Serialize(CrossBorderGraph const & graph, Sink 
   for (auto hash : mwmNameHashes)
     WriteToSink(sink, hash);
 
-  auto writeVal = [&sink](double val, bool isCoord = true) {
-    WriteToSink(sink, DoubleToUint32(val, SerDesVals::GetMin(), SerDesVals::GetMax(),
-                                     SerDesVals::GetBitsCount()));
-  };
-
-  auto writeSegEnding = [&](CrossBorderSegmentEnding const & ending) {
+  auto writeSegEnding = [&](CrossBorderSegmentEnding const & ending)
+  {
     auto const & coord = ending.m_point.GetLatLon();
-    writeVal(coord.m_lat);
-    writeVal(coord.m_lon);
+    WriteToSink(sink, DoubleToUint32(coord.m_lat, ms::LatLon::kMinLat, ms::LatLon::kMaxLat, kBitsForDouble));
+    WriteToSink(sink, DoubleToUint32(coord.m_lon, ms::LatLon::kMinLon, ms::LatLon::kMaxLon, kBitsForDouble));
 
     auto const & mwmNameHash = Hash(numMwmIds->GetFile(ending.m_numMwmId).GetName());
     auto it = mwmNameHashes.find(mwmNameHash);
@@ -193,14 +179,12 @@ void CrossBorderGraphSerializer::Deserialize(CrossBorderGraph & graph, Source & 
     mwmNameHashes.emplace(mwmNameHash);
   }
 
-  auto readVal = [&src]() {
-    return Uint32ToDouble(ReadPrimitiveFromSource<uint32_t>(src), SerDesVals::GetMin(),
-                          SerDesVals::GetMax(), SerDesVals::GetBitsCount());
-  };
-
-  auto readSegEnding = [&](CrossBorderSegmentEnding & ending) {
-    double const lat = readVal();
-    double const lon = readVal();
+  auto readSegEnding = [&](CrossBorderSegmentEnding & ending)
+  {
+    double const lat = Uint32ToDouble(ReadPrimitiveFromSource<uint32_t>(src),
+                                      ms::LatLon::kMinLat, ms::LatLon::kMaxLat, kBitsForDouble);
+    double const lon = Uint32ToDouble(ReadPrimitiveFromSource<uint32_t>(src),
+                                      ms::LatLon::kMinLon, ms::LatLon::kMaxLon, kBitsForDouble);
     ending.m_point = LatLonWithAltitude(ms::LatLon(lat, lon), geometry::kDefaultAltitudeMeters);
 
     NumMwmId index = ReadPrimitiveFromSource<uint16_t>(src);

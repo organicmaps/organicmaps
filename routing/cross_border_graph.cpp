@@ -18,11 +18,6 @@ void CrossBorderGraph::AddCrossBorderSegment(RegionSegmentId segId,
   addEndingToMwms(segment.m_end);
 }
 
-// static
-double CrossBorderGraphSerializer::SerDesVals::GetMin() { return ms::LatLon::kMinLat; }
-// static
-double CrossBorderGraphSerializer::SerDesVals::GetMax() { return ms::LatLon::kMaxLat; }
-
 CrossBorderSegmentEnding::CrossBorderSegmentEnding(m2::PointD const & point, NumMwmId const & mwmId)
   : m_point(mercator::ToLatLon(point), geometry::kDefaultAltitudeMeters), m_numMwmId(mwmId)
 {

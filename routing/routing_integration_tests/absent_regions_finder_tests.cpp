@@ -250,4 +250,17 @@ UNIT_CLASS_TEST(TestAbsentRegionsFinder, TestAbsentRegionsFinder_Finland)
 
   TestRegions(checkpoints, planRegions);
 }
+
+// https://github.com/organicmaps/organicmaps/issues/980
+UNIT_CLASS_TEST(TestAbsentRegionsFinder, TestAbsentRegionsFinder_BC_Alberta)
+{
+  Checkpoints const checkpoints{mercator::FromLatLon(49.2608724, -123.1139529),
+                                mercator::FromLatLon(53.5354110, -113.5079960)};
+
+  std::set<std::string> const planRegions{"Canada_Alberta_Edmonton", "Canada_Alberta_South",
+                                          "Canada_British Columbia_Southeast", "Canada_British Columbia_Vancouver"};
+
+  TestRegions(checkpoints, planRegions);
+}
+
 }  // namespace
