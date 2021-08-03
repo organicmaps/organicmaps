@@ -60,9 +60,7 @@ xcodebuild -exportArchive \
     -exportOptionsPlist "$PLIST"
 
 
-# Tag and push on successful upload.
-# Note0: Requires write access to the repo.
-# Note1: Remote 'origin' should be organicmaps git repo.
-TAG="$IOS_VERSION-$NUMBER_OF_COMMITS_ON_THAT_DAY"
-git tag "$TAG"
-git push origin "$TAG"
+echo "Build was successfully uploaded! Please don't forget to tag it with release notes using:"
+TAG="$IOS_VERSION-$NUMBER_OF_COMMITS_ON_THAT_DAY-ios"
+echo "git tag -m $TAG"
+echo "git push origin $TAG"
