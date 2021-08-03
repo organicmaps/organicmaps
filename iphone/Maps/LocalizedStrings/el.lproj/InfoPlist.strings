@@ -7,10 +7,16 @@
 /********** 3d touch strings **********/
 
 /* Used in home screen quick actions. */
+"bookmarks" = "Αγαπημένα";
+
+/* Used in home screen quick actions. */
 "route" = "Διαδρομή";
 
 
 /********** gps strings **********/
 
 /* Needed to explain why we always require access to GPS coordinates, and not only when the app is active. */
-"NSLocationAlwaysAndWhenInUseUsageDescription" = "Η χρήση της γεωγραφικής κατανομής στο παρασκήνιο είναι απαραίτητη για την αποτελεσματική λειτουργία της εφαρμογής και την εξατομίκευση των συστάσεων";
+"NSLocationAlwaysUsageDescription" = "Ο εντοπισμός τοποθεσίας στο παρασκήνιο είναι απαραίτητος για να απολαύσετε πλήρως τη λειτουργικότητα της εφαρμογής. Χρησιμοποιείται για πλοήγηση και αποθήκευση του κομματιού που ταξιδέψατε πρόσφατα.";
+
+/* Needed to explain why we require access to GPS coordinates when the app is active. */
+"NSLocationWhenInUseUsageDescription" = "Ο προσδιορισμός της θέσης σας είναι απαραίτητος για την πλοήγηση και για την αποθήκευση της διαδρομής που διανύσατε πρόσφατα.";

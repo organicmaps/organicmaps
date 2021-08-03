@@ -10,9 +10,6 @@
 "search" = "Cari";
 
 /* Used in home screen quick actions. */
-"share_my_location" = "Bagikan Lokasi Saya";
-
-/* Used in home screen quick actions. */
 "bookmarks" = "Penanda";
 
 /* Used in home screen quick actions. */
@@ -22,10 +19,7 @@
 /********** gps strings **********/
 
 /* Needed to explain why we always require access to GPS coordinates, and not only when the app is active. */
-"NSLocationAlwaysAndWhenInUseUsageDescription" = "Menentukan lokasi saat ini pada latar belakang adalah hal yang diperlukan untuk penggunaan aplikasi yang lebih efektif serta untuk rekomendasi personal";
-
-/* Needed to explain why we always require access to GPS coordinates, and not only when the app is active. */
-"NSLocationAlwaysUsageDescription" = "Menentukan lokasi saat ini di latar belakang diperlukan untuk menikmati fungsi aplikasi. Digunakan terutama dalam opsi mengikuti rute dan menyimpan jalur yang telah Anda tempuh baru-baru ini.";
+"NSLocationAlwaysUsageDescription" = "Menentukan lokasi saat ini di latar belakang diperlukan untuk menikmati fungsi aplikasi. Digunakan dalam opsi mengikuti rute dan menyimpan jalur yang telah Anda tempuh baru-baru ini.";
 
 /* Needed to explain why we require access to GPS coordinates when the app is active. */
 "NSLocationWhenInUseUsageDescription" = "Mendefinisikan lokasi saat ini digunakan dalam opsi-opsi mengikuti rute dan menghemat jalur yang Anda tempuh saat ini.";

@@ -10,9 +10,6 @@
 "search" = "Ara";
 
 /* Used in home screen quick actions. */
-"share_my_location" = "Yerimi paylaş";
-
-/* Used in home screen quick actions. */
 "bookmarks" = "Yer İmleri";
 
 /* Used in home screen quick actions. */
@@ -22,10 +19,7 @@
 /********** gps strings **********/
 
 /* Needed to explain why we always require access to GPS coordinates, and not only when the app is active. */
-"NSLocationAlwaysAndWhenInUseUsageDescription" = "Geçerli konumun arka planda tanımlanması, uygulamanın etkili kullanımı ve kişisel öneriler için gereklidir";
-
-/* Needed to explain why we always require access to GPS coordinates, and not only when the app is active. */
-"NSLocationAlwaysUsageDescription" = "Uygulamanın özelliklerini tamamıyla çıkartmak için arka planda mevcut konumu tanımlamak gereklidir. Genellikle rota izleme ve en son gezilen yolları kaydetme seçeneği için kullanılır.";
+"NSLocationAlwaysUsageDescription" = "Uygulamanın özelliklerini tamamıyla çıkartmak için arka planda mevcut konumu tanımlamak gereklidir. Rota izleme ve en son gezilen yolları kaydetme seçeneği için kullanılır.";
 
 /* Needed to explain why we require access to GPS coordinates when the app is active. */
 "NSLocationWhenInUseUsageDescription" = "Mevcut konumunuzun tayini rota takibi ve en son seyahat edilen yolu kaydetme seçeneklerinde kullanılır.";

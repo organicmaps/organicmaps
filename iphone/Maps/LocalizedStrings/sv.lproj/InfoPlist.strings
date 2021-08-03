@@ -10,9 +10,6 @@
 "search" = "Sök";
 
 /* Used in home screen quick actions. */
-"share_my_location" = "Dela Min Plats";
-
-/* Used in home screen quick actions. */
 "bookmarks" = "Bokmärken";
 
 /* Used in home screen quick actions. */
@@ -22,10 +19,7 @@
 /********** gps strings **********/
 
 /* Needed to explain why we always require access to GPS coordinates, and not only when the app is active. */
-"NSLocationAlwaysAndWhenInUseUsageDescription" = "Användning av geolokalisering i bakgrunden behövs för appens effektiva funktion och personifiering av rekommendationer";
-
-/* Needed to explain why we always require access to GPS coordinates, and not only when the app is active. */
-"NSLocationAlwaysUsageDescription" = "Att fastställa aktuell position i bakgrunden är nödvändigt för att fullt ut använda funktionaliteten hos appen. Det används främst när en rutt ska följas och när din senaste resväg skall sparas.";
+"NSLocationAlwaysUsageDescription" = "Att fastställa aktuell position i bakgrunden är nödvändigt för att fullt ut använda funktionaliteten hos appen. Det används när en rutt ska följas och när din senaste resväg skall sparas.";
 
 /* Needed to explain why we require access to GPS coordinates when the app is active. */
 "NSLocationWhenInUseUsageDescription" = "Definitionen av aktuell plats används i vissa funktioner som t.ex. att spåra rutt eller att spara nyligen tillryggalagda rutter.";
