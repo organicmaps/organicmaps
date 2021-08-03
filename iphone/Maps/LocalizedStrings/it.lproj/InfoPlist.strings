@@ -10,9 +10,6 @@
 "search" = "Cerca";
 
 /* Used in home screen quick actions. */
-"share_my_location" = "Condividi la mia location";
-
-/* Used in home screen quick actions. */
 "bookmarks" = "Segnalibri";
 
 /* Used in home screen quick actions. */
@@ -22,10 +19,7 @@
 /********** gps strings **********/
 
 /* Needed to explain why we always require access to GPS coordinates, and not only when the app is active. */
-"NSLocationAlwaysAndWhenInUseUsageDescription" = "Abilitare la localizzazione in background per ottimizzare e personalizzare l'uso dell'App";
-
-/* Needed to explain why we always require access to GPS coordinates, and not only when the app is active. */
-"NSLocationAlwaysUsageDescription" = "Chcete-li si užívat plnou funkčnost aplikace, pak musíte určit aktuální polohu na pozadí. Používá se především k sledování trasy a ukládání vaší nedávno uskutečněné cesty.";
+"NSLocationAlwaysUsageDescription" = "Il rilevamento della posizione corrente in background è necessario per godere appieno delle funzionalità dell'app. Viene utilizzato per la navigazione e il salvataggio della traccia percorsa di recente.";
 
 /* Needed to explain why we require access to GPS coordinates when the app is active. */
 "NSLocationWhenInUseUsageDescription" = "La definizione della posizione corrente viene utilizzata nelle opzioni di tracciamento del percorso e salvataggio del percorso effettuato di recente.";

@@ -4,7 +4,19 @@
  * Language: fa
  */
 
+/********** 3d touch strings **********/
+
+/* Used in home screen quick actions. */
+"bookmarks" = "نشانه ها";
+
+/* Used in home screen quick actions. */
+"route" = "مسیر";
+
+
 /********** gps strings **********/
 
 /* Needed to explain why we always require access to GPS coordinates, and not only when the app is active. */
-"NSLocationAlwaysAndWhenInUseUsageDescription" = "تعریف مکان فعلی در پس زمینه برای استفاده موثر از برنامه ها و توصیه های شخصی ضروری است";
+"NSLocationAlwaysUsageDescription" = "تشخیص مکان در پس زمینه برای لذت بردن کامل از عملکرد برنامه ضروری است. برای ناوبری و ذخیره مسیرهای اخیر سفر شده شما استفاده می شود.";
+
+/* Needed to explain why we require access to GPS coordinates when the app is active. */
+"NSLocationWhenInUseUsageDescription" = "تعیین موقعیت مکانی شما برای ناوبری و ذخیره مسیرهای اخیر سفر شده ضروری است.";
