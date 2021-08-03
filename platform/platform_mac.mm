@@ -9,11 +9,11 @@
 #include <string>
 #include <utility>
 
-
-#include <IOKit/IOKitLib.h>
-#include <Foundation/NSBundle.h>
-#include <Foundation/NSPathUtilities.h>
 #include <Foundation/NSAutoreleasePool.h>
+#include <Foundation/NSBundle.h>
+#include <Foundation/NSFileManager.h>
+#include <Foundation/NSPathUtilities.h>
+#include <IOKit/IOKitLib.h>
 
 #include <sys/stat.h>
 #include <sys/sysctl.h>
@@ -59,23 +59,37 @@ Platform::Platform()
   else
   {
     m_resourcesDir = resourcesPath + "/";
-    // get writable path
-    // developers can have symlink to data folder
-    char const * dataPath = "../../../data/";
-    if (IsFileExistsByFullPath(m_resourcesDir + dataPath))
-      m_writableDir = m_resourcesDir + dataPath;
-    else
+    std::string const currentDir = [NSFileManager.defaultManager currentDirectoryPath].UTF8String;
+    std::string const paths[] =
     {
-      // Check development environment without symlink but with git repo
-      dataPath = "../../../../omim/data/";
-      if (IsFileExistsByFullPath(m_resourcesDir + dataPath))
-        m_writableDir = m_resourcesDir + dataPath;
-      if (m_writableDir.empty())
+      // Developers can set a symlink to the data folder.
+      m_resourcesDir + "../../../data/",
+      // Check development environment without a symlink but with a git repo.
+      m_resourcesDir + "../../../../omim/data/",
+      m_resourcesDir + "../../../../organicmaps/data/",
+      // Working directory is set to the data folder or any project's subfolder.
+      currentDir + "/../data",
+      // Working directory is set to the project's root.
+      currentDir + "/data",
+      // Working directory is set to the build folder with binaries.
+      currentDir + "/../omim/data",
+      currentDir + "/../organicmaps/data",
+    };
+    // Find the writable path.
+    for (auto const & path : paths)
+    {
+      if (IsFileExistsByFullPath(path))
       {
-        auto p = m_resourcesDir.find("/omim/");
-        if (p != std::string::npos)
-          m_writableDir = m_resourcesDir.substr(0, p) + "/omim/data/";
+        m_writableDir = path;
+        break;
       }
+    }
+
+    if (m_writableDir.empty())
+    {
+      auto const p = m_resourcesDir.find("/omim/");
+      if (p != std::string::npos)
+        m_writableDir = m_resourcesDir.substr(0, p) + "/omim/data/";
     }
 
     if (m_writableDir.empty())
