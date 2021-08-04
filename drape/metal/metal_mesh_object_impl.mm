@@ -102,9 +102,11 @@ private:
   std::vector<id<MTLBuffer>> m_geometryBuffers;
 };
 }  // namespace metal
-  
+
+#ifdef OMIM_METAL_AVAILABLE
 void MeshObject::InitForMetal()
 {
   m_impl = make_unique_dp<metal::MetalMeshObjectImpl>(make_ref(this));
 }
+#endif  // OMIM_METAL_AVAILABLE
 }  // namespace dp
