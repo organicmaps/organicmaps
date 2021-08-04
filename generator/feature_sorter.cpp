@@ -360,7 +360,11 @@ bool GenerateFinalFeatures(feature::GenerateInfo const & info, string const & na
       // We cannot remove it in ~FeaturesCollector2(), we need to remove it in SCOPE_GUARD.
       SCOPE_GUARD(_, [&]() { Platform::RemoveFileIfExists(info.GetTargetFileName(name, FEATURES_FILE_TAG)); });
       FeaturesCollector2 collector(name, info, header, regionData, info.m_versionDate);
-      for (auto const & point : midPoints.GetVector())
+      auto points = midPoints.GetVector();
+      size_t totalPoints = points.size();
+      size_t processedPoints = 0;
+      size_t promillePoints = (totalPoints / 1000);
+      for (auto const & point : points)
       {
         ReaderSource<FileReader> src(reader);
         src.Skip(point.second);
@@ -368,6 +372,9 @@ bool GenerateFinalFeatures(feature::GenerateInfo const & info, string const & na
         FeatureBuilder fb;
         ReadFromSourceRawFormat(src, fb);
         collector(fb);
+        if ( (++processedPoints) % promillePoints == 0) {
+          LOG(LINFO, (processedPoints, "of", totalPoints, "points (", (processedPoints*100/totalPoints) ,"%) exported to MWM"));
+        }
       }
 
       // Update bounds with the limit rect corresponding to region borders.
