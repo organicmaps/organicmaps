@@ -5,6 +5,8 @@
 
 #include "base/assert.hpp"
 
+#include "std/target_os.hpp"
+
 #include <algorithm>
 #include <functional>
 #include <string>
@@ -71,7 +73,17 @@ std::string MetalBaseContext::GetRendererVersion() const
   static std::vector<std::pair<MTLFeatureSet, std::string>> features;
   if (features.empty())
   {
-    features.reserve(12);
+#ifdef OMIM_OS_MAC
+    features.emplace_back(MTLFeatureSet_macOS_GPUFamily1_v1, "macOS_GPUFamily1_v1");
+    features.emplace_back(MTLFeatureSet_macOS_GPUFamily1_v2, "macOS_GPUFamily1_v2");
+    if (@available(macOS 10.13, *))
+      features.emplace_back(MTLFeatureSet_macOS_GPUFamily1_v3, "macOS_GPUFamily1_v3");
+    if (@available(macOS 10.14, *))
+    {
+      features.emplace_back(MTLFeatureSet_macOS_GPUFamily1_v4, "macOS_GPUFamily1_v4");
+      features.emplace_back(MTLFeatureSet_macOS_GPUFamily2_v1, "macOS_GPUFamily2_v1");
+    }
+#else
     features.emplace_back(MTLFeatureSet_iOS_GPUFamily1_v1, "iOS_GPUFamily1_v1");
     features.emplace_back(MTLFeatureSet_iOS_GPUFamily2_v1, "iOS_GPUFamily2_v1");
     features.emplace_back(MTLFeatureSet_iOS_GPUFamily1_v2, "iOS_GPUFamily1_v2");
@@ -89,6 +101,7 @@ std::string MetalBaseContext::GetRendererVersion() const
     features.emplace_back(MTLFeatureSet_iOS_GPUFamily3_v4, "iOS_GPUFamily3_v4");
     features.emplace_back(MTLFeatureSet_iOS_GPUFamily4_v2, "iOS_GPUFamily4_v2");
     features.emplace_back(MTLFeatureSet_iOS_GPUFamily5_v1, "iOS_GPUFamily5_v1");
+#endif
     std::sort(features.begin(), features.end(), [](auto const & s1, auto const & s2)
     {
       return s1.first > s2.first;
