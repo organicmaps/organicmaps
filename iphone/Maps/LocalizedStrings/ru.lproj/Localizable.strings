@@ -2209,6 +2209,8 @@
 
 "type.leisure.park.private" = "Парк";
 
+"type.leisure.picnic_table" = "Стол для пикника";
+
 "type.leisure.pitch" = "Спортплощадка";
 
 "type.leisure.playground" = "Детская площадка";

@@ -2112,6 +2112,8 @@
 
 "type.leisure.park.private" = "Taman";
 
+"type.leisure.picnic_table" = "Meja piknik";
+
 "type.leisure.pitch" = "Lapangan olahraga";
 
 "type.leisure.playground" = "Taman bermain";

@@ -1172,6 +1172,7 @@
 	<string name="type.leisure.park.no.access">Parc</string>
 	<string name="type.leisure.park.permissive">Parc</string>
 	<string name="type.leisure.park.private">Parc</string>
+	<string name="type.leisure.picnic_table">Table de pique-nique</string>
 	<string name="type.leisure.pitch">Terrain de sport</string>
 	<string name="type.leisure.playground">Terrain de jeu</string>
 	<string name="type.leisure.sauna">Sauna</string>

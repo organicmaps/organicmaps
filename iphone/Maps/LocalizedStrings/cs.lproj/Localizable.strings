@@ -2115,6 +2115,8 @@
 
 "type.leisure.park.private" = "Park";
 
+"type.leisure.picnic_table" = "Piknikový stůl";
+
 "type.leisure.pitch" = "Sportovní hřiště";
 
 "type.leisure.playground" = "Hřiště";

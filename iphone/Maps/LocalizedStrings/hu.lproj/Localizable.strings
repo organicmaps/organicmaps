@@ -2117,6 +2117,8 @@
 
 "type.leisure.park.private" = "Park";
 
+"type.leisure.picnic_table" = "Piknik asztal";
+
 "type.leisure.pitch" = "Sportpálya";
 
 "type.leisure.playground" = "Játszótér";

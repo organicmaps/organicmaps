@@ -1191,6 +1191,7 @@
 	<string name="type.leisure.park.no.access">公園</string>
 	<string name="type.leisure.park.permissive">公園</string>
 	<string name="type.leisure.park.private">公園</string>
+	<string name="type.leisure.picnic_table">野餐桌</string>
 	<string name="type.leisure.pitch">運動場</string>
 	<string name="type.leisure.playground">遊樂場</string>
 	<string name="type.leisure.sauna">桑拿</string>

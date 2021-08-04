@@ -1171,6 +1171,7 @@
 	<string name="type.leisure.park.no.access">Park</string>
 	<string name="type.leisure.park.permissive">Park</string>
 	<string name="type.leisure.park.private">Park</string>
+	<string name="type.leisure.picnic_table">Piknik masası</string>
 	<string name="type.leisure.pitch">Spor sahası</string>
 	<string name="type.leisure.playground">Oyun alanı</string>
 	<string name="type.leisure.sauna">Sauna</string>

@@ -1170,6 +1170,7 @@
 	<string name="type.leisure.park.no.access">Taman</string>
 	<string name="type.leisure.park.permissive">Taman</string>
 	<string name="type.leisure.park.private">Taman</string>
+	<string name="type.leisure.picnic_table">Meja piknik</string>
 	<string name="type.leisure.pitch">Lapangan olahraga</string>
 	<string name="type.leisure.playground">Taman bermain</string>
 	<string name="type.leisure.sauna">Sauna</string>

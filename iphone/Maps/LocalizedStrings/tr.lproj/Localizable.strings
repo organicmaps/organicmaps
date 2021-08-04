@@ -2116,6 +2116,8 @@
 
 "type.leisure.park.private" = "Park";
 
+"type.leisure.picnic_table" = "Piknik masası";
+
 "type.leisure.pitch" = "Spor sahası";
 
 "type.leisure.playground" = "Oyun alanı";

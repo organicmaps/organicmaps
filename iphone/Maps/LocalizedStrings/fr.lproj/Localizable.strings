@@ -2111,6 +2111,8 @@
 
 "type.leisure.park.private" = "Parc";
 
+"type.leisure.picnic_table" = "Table de pique-nique";
+
 "type.leisure.pitch" = "Terrain de sport";
 
 "type.leisure.playground" = "Terrain de jeu";

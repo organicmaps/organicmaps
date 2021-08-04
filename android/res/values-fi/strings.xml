@@ -1175,6 +1175,7 @@
 	<string name="type.leisure.park.no.access">Puisto</string>
 	<string name="type.leisure.park.permissive">Puisto</string>
 	<string name="type.leisure.park.private">Puisto</string>
+	<string name="type.leisure.picnic_table">Piknik-pöytä</string>
 	<string name="type.leisure.pitch">Urheilukenttä</string>
 	<string name="type.leisure.playground">Leikkikenttä</string>
 	<string name="type.leisure.sauna">Sauna</string>

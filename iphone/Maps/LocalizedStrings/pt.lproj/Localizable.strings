@@ -2130,6 +2130,8 @@
 
 "type.leisure.park.private" = "Jardim";
 
+"type.leisure.picnic_table" = "Mesa de piquenique";
+
 "type.leisure.pitch" = "Campo de esportes";
 
 "type.leisure.playground" = "Parquinho";

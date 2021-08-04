@@ -1185,6 +1185,7 @@
 	<string name="type.leisure.park.no.access">Jardim</string>
 	<string name="type.leisure.park.permissive">Jardim</string>
 	<string name="type.leisure.park.private">Jardim</string>
+	<string name="type.leisure.picnic_table">Mesa de piquenique</string>
 	<string name="type.leisure.pitch">Campo de esportes</string>
 	<string name="type.leisure.playground">Parquinho</string>
 	<string name="type.leisure.sauna">Sauna</string>

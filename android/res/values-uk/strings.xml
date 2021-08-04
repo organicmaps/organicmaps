@@ -1181,6 +1181,7 @@
 	<string name="type.leisure.park.no.access">Парк</string>
 	<string name="type.leisure.park.permissive">Парк</string>
 	<string name="type.leisure.park.private">Парк</string>
+	<string name="type.leisure.picnic_table">Стіл для пікніка</string>
 	<string name="type.leisure.pitch">Спортмайданчик</string>
 	<string name="type.leisure.playground">Дитячий майданчик</string>
 	<string name="type.leisure.sauna">Сауна</string>

@@ -1253,6 +1253,7 @@
 	<string name="type.leisure.park.no.access">Park</string>
 	<string name="type.leisure.park.permissive">Park</string>
 	<string name="type.leisure.park.private">Park</string>
+	<string name="type.leisure.picnic_table">Stół piknikowy</string>
 	<string name="type.leisure.pitch">Boisko sportowe</string>
 	<string name="type.leisure.playground">Plac zabaw</string>
 	<string name="type.leisure.recreation_ground">Teren rekreacji</string>
