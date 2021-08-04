@@ -2123,6 +2123,8 @@
 
 "type.leisure.park.private" = "공원";
 
+"type.leisure.picnic_table" = "\"피크닉 테이블\"";
+
 "type.leisure.pitch" = "운동장";
 
 "type.leisure.playground" = "놀이터";

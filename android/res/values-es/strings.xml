@@ -1163,6 +1163,7 @@
 	<string name="type.leisure.park.no.access">Parque</string>
 	<string name="type.leisure.park.permissive">Parque</string>
 	<string name="type.leisure.park.private">Parque</string>
+	<string name="type.leisure.picnic_table">Mesa de picnic</string>
 	<string name="type.leisure.pitch">Complejo deportivo</string>
 	<string name="type.leisure.playground">Patio de recreo</string>
 	<string name="type.leisure.sauna">Sauna</string>

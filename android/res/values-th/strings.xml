@@ -1178,6 +1178,7 @@
 	<string name="type.leisure.park.no.access">สวนสาธารณะ</string>
 	<string name="type.leisure.park.permissive">สวนสาธารณะ</string>
 	<string name="type.leisure.park.private">สวนสาธารณะ</string>
+	<string name="type.leisure.picnic_table">โตีะปิกนิก</string>
 	<string name="type.leisure.pitch">พื้นสนามกีฬา</string>
 	<string name="type.leisure.playground">สนามเด็กเล่น</string>
 	<string name="type.leisure.sauna">เซาน่า</string>

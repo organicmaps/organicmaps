@@ -2106,6 +2106,8 @@
 
 "type.leisure.park.private" = "Park";
 
+"type.leisure.picnic_table" = "Picnic bord";
+
 "type.leisure.pitch" = "Sportsplads";
 
 "type.leisure.playground" = "Legeplads";

@@ -1147,6 +1147,7 @@
 	<string name="type.leisure.park.no.access">Park</string>
 	<string name="type.leisure.park.permissive">Park</string>
 	<string name="type.leisure.park.private">Park</string>
+	<string name="type.leisure.picnic_table">Piknikbord</string>
 	<string name="type.leisure.pitch">Sportssenter</string>
 	<string name="type.leisure.playground">Lekeplass</string>
 	<string name="type.leisure.sauna">Badstue</string>

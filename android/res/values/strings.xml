@@ -1327,6 +1327,7 @@
 	<string name="type.leisure.park.no.access">Park</string>
 	<string name="type.leisure.park.permissive">Park</string>
 	<string name="type.leisure.park.private">Park</string>
+	<string name="type.leisure.picnic_table">Picnic Table</string>
 	<string name="type.leisure.pitch">Sports Ground</string>
 	<string name="type.leisure.playground">Playground</string>
 	<string name="type.leisure.recreation_ground">Recreation ground</string>

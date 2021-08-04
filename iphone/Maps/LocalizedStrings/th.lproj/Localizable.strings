@@ -2130,6 +2130,8 @@
 
 "type.leisure.park.private" = "สวนสาธารณะ";
 
+"type.leisure.picnic_table" = "โตีะปิกนิก";
+
 "type.leisure.pitch" = "พื้นสนามกีฬา";
 
 "type.leisure.playground" = "สนามเด็กเล่น";

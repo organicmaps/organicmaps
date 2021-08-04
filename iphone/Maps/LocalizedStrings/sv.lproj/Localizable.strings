@@ -2108,6 +2108,8 @@
 
 "type.leisure.park.private" = "Parken";
 
+"type.leisure.picnic_table" = "Picknickbord";
+
 "type.leisure.pitch" = "Idrottsplats";
 
 "type.leisure.playground" = "Lekplats";

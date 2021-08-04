@@ -1168,6 +1168,7 @@
 	<string name="type.leisure.park.no.access">Πάρκο</string>
 	<string name="type.leisure.park.permissive">Πάρκο</string>
 	<string name="type.leisure.park.private">Πάρκο</string>
+	<string name="type.leisure.picnic_table">Τραπέζι πικ-νικ</string>
 	<string name="type.leisure.pitch">Γήπεδο αθλοπαιδιών</string>
 	<string name="type.leisure.playground">Παιδική χαρά</string>
 	<string name="type.leisure.sauna">Σάουνα</string>

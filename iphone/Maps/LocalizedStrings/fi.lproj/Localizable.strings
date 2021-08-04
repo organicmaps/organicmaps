@@ -2122,6 +2122,8 @@
 
 "type.leisure.park.private" = "Puisto";
 
+"type.leisure.picnic_table" = "Piknik-pöytä";
+
 "type.leisure.pitch" = "Urheilukenttä";
 
 "type.leisure.playground" = "Leikkikenttä";

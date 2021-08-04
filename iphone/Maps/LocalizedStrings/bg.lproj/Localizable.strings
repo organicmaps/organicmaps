@@ -1252,3 +1252,8 @@
 
 /* edit track screen title */
 "track_title" = "Пътека";
+
+
+/********** Types **********/
+
+"type.leisure.picnic_table" = "Маса за пикник";

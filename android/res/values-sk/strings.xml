@@ -1172,6 +1172,7 @@
 	<string name="type.leisure.park.no.access">Park</string>
 	<string name="type.leisure.park.permissive">Park</string>
 	<string name="type.leisure.park.private">Park</string>
+	<string name="type.leisure.picnic_table">Piknikový stôl</string>
 	<string name="type.leisure.pitch">Športovisko</string>
 	<string name="type.leisure.playground">Ihrisko</string>
 	<string name="type.leisure.sauna">Sauna</string>

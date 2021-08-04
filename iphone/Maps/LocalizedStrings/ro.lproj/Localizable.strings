@@ -2100,6 +2100,8 @@
 
 "type.leisure.park.private" = "Parc";
 
+"type.leisure.picnic_table" = "Masă de picnic";
+
 "type.leisure.pitch" = "Teren de sport";
 
 "type.leisure.playground" = "Loc de joacă";

@@ -2084,6 +2084,8 @@
 
 "type.leisure.park.private" = "Park";
 
+"type.leisure.picnic_table" = "Piknikbord";
+
 "type.leisure.pitch" = "Sportssenter";
 
 "type.leisure.playground" = "Lekeplass";

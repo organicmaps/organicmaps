@@ -1174,6 +1174,7 @@
 	<string name="type.leisure.park.no.access">공원</string>
 	<string name="type.leisure.park.permissive">공원</string>
 	<string name="type.leisure.park.private">공원</string>
+	<string name="type.leisure.picnic_table">\"피크닉 테이블\"</string>
 	<string name="type.leisure.pitch">운동장</string>
 	<string name="type.leisure.playground">놀이터</string>
 	<string name="type.leisure.sauna">사우나</string>

@@ -1172,6 +1172,7 @@
 	<string name="type.leisure.park.no.access">Park</string>
 	<string name="type.leisure.park.permissive">Park</string>
 	<string name="type.leisure.park.private">Park</string>
+	<string name="type.leisure.picnic_table">Piknik asztal</string>
 	<string name="type.leisure.pitch">Sportpálya</string>
 	<string name="type.leisure.playground">Játszótér</string>
 	<string name="type.leisure.sauna">Szauna</string>
