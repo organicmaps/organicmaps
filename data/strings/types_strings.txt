@@ -11762,6 +11762,43 @@
     zh-Hant = 公園
     fa = پارک
 
+  [type.leisure.picnic_table]
+    en = Picnic Table
+    ru = Стол для пикника
+    ar = ﺔﻫﺰﻨﻟﺍ ﺔﻟﻭﺎﻃ
+    be = Стол для пікніка
+    bg = Маса за пикник
+    cs = Piknikový stůl
+    da = Picnic bord
+    de = Picknicktisch
+    el = Τραπέζι πικ-νικ
+    es = Mesa de picnic
+    fa = ﮏﯿﻨﮑﯿﭘ ﺰﯿﻣ
+    fi = Piknik-pöytä
+    fr = Table de pique-nique
+    he = קינקיפ ןחלוש
+    hu = Piknik asztal
+    id = Meja piknik
+    it = Tavolo da picnic
+    ja = ピクニック用のテーブル
+    ko = "피크닉 테이블"
+    nb = Piknikbord
+    nl = Picknicktafel
+    pl = Stół piknikowy
+    pt = Mesa de piquenique
+    ro = Masă de picnic
+    ru = Стол для пикника
+    sk = Piknikový stôl
+    sv = Picknickbord
+    sw = Jedwali la Picnic
+    th = โตีะปิกนิก
+    tr = Piknik masası
+    uk = Стіл для пікніка
+    vi = Bàn ăn ngoài trời
+    zh-Hans = 野餐桌
+    zh-Hant = 野餐桌
+
+
   [type.leisure.pitch]
     en = Sports Ground
     ru = Спортплощадка
