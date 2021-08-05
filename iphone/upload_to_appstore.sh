@@ -62,5 +62,5 @@ xcodebuild -exportArchive \
 
 echo "Build was successfully uploaded! Please don't forget to tag it with release notes using:"
 TAG="$IOS_VERSION-$NUMBER_OF_COMMITS_ON_THAT_DAY-ios"
-echo "git tag -m $TAG"
+echo "git tag -a $TAG"
 echo "git push origin $TAG"
