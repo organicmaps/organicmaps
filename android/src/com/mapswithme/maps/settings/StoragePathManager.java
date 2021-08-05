@@ -146,9 +146,28 @@ public class StoragePathManager
     return mCurrentStorageIndex;
   }
 
+  /**
+   * Updates the list of available external storages.
+   *
+   * The scan order is following:
+   *
+   *  1. Current directory from Config.
+   *  2. Application-specific directories on shared/external storage devices.
+   *  3. Application-specific directory on the internal memory.
+   *
+   * Directories are checked for the free space and the write access.
+   *
+   * @param application Application
+   */
   private void updateExternalStorages(Application application)
   {
     List<File> candidates = new ArrayList<>();
+
+    // Current directory.
+    // Config.getStoragePath() can be empty on the first run.
+    String configDir = Config.getStoragePath();
+    if (!TextUtils.isEmpty(configDir))
+      candidates.add(new File(configDir));
 
     // External storages (SD cards and other).
     for (File dir : application.getExternalFilesDirs(null))
@@ -184,80 +203,72 @@ public class StoragePathManager
     if (internalDir != null)
       candidates.add(internalDir);
 
-    // Configured path.
-    String configDir = Config.getStoragePath();
-    if (!TextUtils.isEmpty(configDir))
-      candidates.add(new File(configDir));
-
-    // Current path.
-    String currentDir = Framework.nativeGetWritableDir();
-    if (!TextUtils.isEmpty(currentDir))
-      candidates.add(new File(configDir));;
-
     if (candidates.isEmpty())
       throw new AssertionError("Can't find available storage");
 
     //
     // Update internal state.
     //
+    LOGGER.i(TAG, "Begin scanning storages");
     mItems.clear();
     mCurrentStorageIndex = -1;
     Set<String> unique = new HashSet<>();
     for (File dir : candidates)
     {
-      StorageItem item = buildStorageItem(dir);
-      if (item != null)
+      try
       {
-        String path = item.getFullPath();
-        if (!unique.add(path))
+        String path = dir.getCanonicalPath();
+        // Add the trailing separator because the native code assumes that all paths have it.
+        if (!path.endsWith(File.separator))
+          path = path + File.separator;
+
+        if (!dir.exists() || !dir.isDirectory())
         {
-          // A duplicate
-          LOGGER.d(TAG, "Skip a duplicate : " + path);
+          LOGGER.i(TAG, "Rejected " + path + ": not a directory");
           continue;
         }
-        LOGGER.i(TAG, "Storage found : " + path + ", size : " + item.getFreeSize());
+
+        final long freeSize = StorageUtils.getFreeBytesAtPath(path);
+        if (freeSize <= 0)
+        {
+          LOGGER.i(TAG, "Rejected " + path + ": not enough space");
+          continue;
+        }
+
+        if (!dir.canWrite() || !StorageUtils.isDirWritable(path))
+        {
+          LOGGER.i(TAG, "Rejected " + path + ": not writable");
+          continue;
+        }
+
+        if (!unique.add(path))
+        {
+          LOGGER.i(TAG, "Rejected " + path + ": a duplicate");
+          continue;
+        }
+
+        StorageItem item = new StorageItem(path, freeSize);
         if (!TextUtils.isEmpty(configDir) && configDir.equals(path))
         {
           mCurrentStorageIndex = mItems.size();
         }
+        LOGGER.i(TAG, "Accepted " + path + ": " + freeSize + " bytes available");
         mItems.add(item);
       }
+      catch (IllegalArgumentException | IOException ex)
+      {
+        LOGGER.e(TAG, "Rejected " + dir.getPath() + ": error", ex);
+        continue;
+      }
     }
+    LOGGER.i(TAG, "End scanning storages");
 
     if (!TextUtils.isEmpty(configDir) && mCurrentStorageIndex == -1)
     {
-      LOGGER.w(TAG, "Unrecognized current path : " + configDir);
+      LOGGER.w(TAG, configDir + ": can't find configured directory in the list above!");
       for (StorageItem item : mItems)
         LOGGER.w(TAG, item.toString());
     }
-  }
-
-  private static StorageItem buildStorageItem(@NonNull File dir)
-  {
-    String path = dir.getAbsolutePath();
-    LOGGER.d(TAG, "Check storage : " + path);
-    try
-    {
-      path = dir.getCanonicalPath();
-      // Add the trailing separator because the native code assumes that all paths have it.
-      if (!path.endsWith(File.separator))
-        path = path + File.separator;
-
-      if (dir.exists() && dir.isDirectory() && dir.canWrite() && StorageUtils.isDirWritable(path))
-      {
-        final long freeSize = StorageUtils.getFreeBytesAtPath(path);
-        if (freeSize > 0)
-        {
-          return new StorageItem(path, freeSize);
-        }
-      }
-    }
-    catch (IllegalArgumentException | IOException ex)
-    {
-      LOGGER.e(TAG, "Can't build storage for path : " + path, ex);
-    }
-
-    return null;
   }
 
   void changeStorage(int newIndex)
@@ -350,26 +361,36 @@ public class StoragePathManager
             candidates[0].list().length > 0);
   }
 
-  public String findMapsStorage(@NonNull Application application)
+  /**
+   * Finds a first available storage with existing maps files.
+   * Returns the best available option if no maps files found.
+   * See updateExternalStorages() for the scan order details.
+   */
+  public static String findMapsStorage(@NonNull Application application)
   {
-    updateExternalStorages(application);
+    StoragePathManager instance = new StoragePathManager();
+    instance.updateExternalStorages(application);
 
-    List<StorageItem> items = getStorageItems();
+    List<StorageItem> items = instance.getStorageItems();
+    if (items.isEmpty())
+      throw new IllegalStateException("No storages found");
 
     for (StorageItem item : items)
     {
-      LOGGER.d(TAG, "Scanning: " + item.mPath);
       if (containsMapData(item.mPath))
       {
-        LOGGER.i(TAG, "Found map at: " + item.mPath);
+        LOGGER.i(TAG, "Found maps files at " + item.mPath);
         return item.mPath;
+      }
+      else
+      {
+        LOGGER.i(TAG, "No maps files found at " + item.mPath);
       }
     }
 
     // Use the first item by default.
     final String defaultDir = items.get(0).mPath;
     LOGGER.i(TAG, "Using default directory: " + defaultDir);
-    Config.setStoragePath(defaultDir);
     return defaultDir;
   }
 
@@ -420,6 +441,9 @@ public class StoragePathManager
       return NULL_ERROR;
     }
 
+    LOGGER.i(TAG, "Begin moving maps from " + oldStorage.getFullPath() +
+        " to " + newStorage.getFullPath());
+
     final File oldDir = new File(oldStorage.getFullPath());
     final File newDir = new File(fullNewPath);
     if (!newDir.exists())
@@ -446,28 +470,22 @@ public class StoragePathManager
       newFiles[i] = new File(newDir.getAbsolutePath() + File.separator + relPaths.get(i));
     }
 
-    try
+    for (int i = 0; i < oldFiles.length; ++i)
     {
-      for (int i = 0; i < oldFiles.length; ++i)
+      LOGGER.i(TAG, "Moving " + oldFiles[i].getPath() + " to " + newFiles[i].getPath());
+      File parent = newFiles[i].getParentFile();
+      if (parent != null)
+        parent.mkdirs();
+      if (!MapManager.nativeMoveFile(oldFiles[i].getPath(), newFiles[i].getPath()))
       {
-        File parent = newFiles[i].getParentFile();
-        if (parent != null)
-          parent.mkdirs();
-        if (!MapManager.nativeMoveFile(oldFiles[i].getAbsolutePath(), newFiles[i].getAbsolutePath()))
-        {
-          throw new IOException("Failed to move " + oldFiles[i].getAbsolutePath() + " to " + newFiles[i]
-              .getAbsolutePath());
-        }
+        LOGGER.e(TAG, "Failed to move " + oldFiles[i].getPath() + " to " + newFiles[i].getPath());
+        // In the case of failure delete all new files.  Old files will
+        // be lost if new files were just moved from old locations.
+        StorageUtils.removeFilesInDirectory(newDir, newFiles);
+        return IOEXCEPTION_ERROR;
       }
     }
-    catch (IOException e)
-    {
-      e.printStackTrace();
-      // In the case of failure delete all new files.  Old files will
-      // be lost if new files were just moved from old locations.
-      StorageUtils.removeFilesInDirectory(newDir, newFiles);
-      return IOEXCEPTION_ERROR;
-    }
+    LOGGER.i(TAG, "End moving maps");
 
     UiThread.run(new Runnable()
     {

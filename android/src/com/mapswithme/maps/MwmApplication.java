@@ -181,7 +181,7 @@ public class MwmApplication extends Application implements AppBackgroundTracker.
     final String apkPath = StorageUtils.getApkPath(this);
     log.d(TAG, "Apk path = " + apkPath);
     // Note: StoragePathManager uses Config, which requires initConfig() to be called.
-    final String writablePath = new StoragePathManager().findMapsStorage(this);
+    final String writablePath = StoragePathManager.findMapsStorage(this);
     log.d(TAG, "Writable path = " + writablePath);
     final String privatePath = StorageUtils.getPrivatePath(this);
     log.d(TAG, "Private path = " + privatePath);
