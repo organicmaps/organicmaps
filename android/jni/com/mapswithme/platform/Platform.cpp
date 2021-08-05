@@ -141,9 +141,8 @@ void Platform::Initialize(JNIEnv * env, jobject functorProcessObject, jstring ap
   m_resourcesDir = jni::ToNativeString(env, apkPath);
   m_privateDir = jni::ToNativeString(env, privatePath);
   m_tmpDir = jni::ToNativeString(env, tmpPath);
-  m_writableDir = jni::ToNativeString(env, writablePath);
+  SetWritableDir(jni::ToNativeString(env, writablePath));
   LOG(LINFO, ("Apk path = ", m_resourcesDir));
-  LOG(LINFO, ("Writable path = ", m_writableDir));
   LOG(LINFO, ("Temporary path = ", m_tmpDir));
 
   // IMPORTANT: This method SHOULD be called from UI thread to cache static jni ID-s inside.
