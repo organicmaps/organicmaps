@@ -10,6 +10,7 @@ jobs:
     runs-on: ubuntu-latest
     environment: production
     strategy:
+      fail-fast: false
       matrix:
         include:
           - flavor: google
