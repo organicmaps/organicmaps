@@ -103,14 +103,14 @@ public class Utils
   public static void showSnackbar(@NonNull View view, @NonNull String message)
   {
     Snackbar snackbar = Snackbar.make(view, message, Snackbar.LENGTH_LONG);
-    setSnackbarMaxLines(snackbar,3);
+    setSnackbarMaxLines(snackbar, 3);
     snackbar.show();
   }
 
   public static void showSnackbarAbove(@NonNull View view, @NonNull View viewAbove, @NonNull String message)
   {
     Snackbar snackbar = Snackbar.make(view, message, Snackbar.LENGTH_LONG);
-    setSnackbarMaxLines(snackbar,3);
+    setSnackbarMaxLines(snackbar, 3);
     snackbar.setAnchorView(viewAbove);
     snackbar.show();
   }
