@@ -57,18 +57,6 @@
 		};
 /* End PBXContainerItemProxy section */
 
-/* Begin PBXCopyFilesBuildPhase section */
-		4566606C20E254060085E8C1 /* CopyFiles */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "include/$(PRODUCT_NAME)";
-			dstSubfolderSpec = 16;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXCopyFilesBuildPhase section */
-
 /* Begin PBXFileReference section */
 		451E692C214A53C000764A97 /* route.metal */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.metal; path = route.metal; sourceTree = "<group>"; };
 		451E692E214A6FA200764A97 /* map.metal */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.metal; path = map.metal; sourceTree = "<group>"; };
@@ -203,13 +191,6 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		4566606B20E254060085E8C1 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		456660D720E25A380085E8C1 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -433,9 +414,6 @@
 			buildPhases = (
 				456660D520E256C00085E8C1 /* ShellScript */,
 				4566606A20E254060085E8C1 /* Sources */,
-				4566606B20E254060085E8C1 /* Frameworks */,
-				4566606C20E254060085E8C1 /* CopyFiles */,
-				BB529C26215BE1CA0088A2A5 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -625,20 +603,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "python ${SRCROOT}/../../shaders/gl_shaders_preprocessor.py ${SRCROOT}/../../shaders/GL shader_index.txt programs.hpp shaders_lib.glsl ${SRCROOT}/../../shaders gl_shaders";
-		};
-		BB529C26215BE1CA0088A2A5 /* ShellScript */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "touch \"${BUILT_PRODUCTS_DIR}/shaders_metal.metallib\"";
+			shellScript = "python ${SRCROOT}/../../shaders/gl_shaders_preprocessor.py ${SRCROOT}/../../shaders/GL shader_index.txt programs.hpp shaders_lib.glsl ${SRCROOT}/../../shaders gl_shaders\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 

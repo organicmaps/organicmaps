@@ -586,6 +586,11 @@
 		F6FE3C391CC50FFD00A73196 /* MWMPlaceDoesntExistAlert.m in Sources */ = {isa = PBXBuildFile; fileRef = F6FE3C371CC50FFD00A73196 /* MWMPlaceDoesntExistAlert.m */; };
 		F6FE3C3C1CC5106500A73196 /* MWMPlaceDoesntExistAlert.xib in Resources */ = {isa = PBXBuildFile; fileRef = F6FE3C3A1CC5106500A73196 /* MWMPlaceDoesntExistAlert.xib */; };
 		F6FEA82E1C58F108007223CC /* MWMButton.m in Sources */ = {isa = PBXBuildFile; fileRef = F6FEA82C1C58E89B007223CC /* MWMButton.m */; };
+		FA456C3C26BDC6AD00B83C20 /* Chart.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FA456C3B26BDC6AD00B83C20 /* Chart.framework */; };
+		FA456C3D26BDC6BA00B83C20 /* Chart.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = FA456C3B26BDC6AD00B83C20 /* Chart.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		FA456C3E26BDC6C100B83C20 /* DatePicker.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = FA853BDC26BC58570026D455 /* DatePicker.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		FA456C3F26BDC6CF00B83C20 /* minizip.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = FA853BBE26BC3B8A0026D455 /* minizip.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		FA456C4F26BDCCCC00B83C20 /* shaders_metal.metallib in CopyFiles */ = {isa = PBXBuildFile; fileRef = FA456C4B26BDCC8E00B83C20 /* shaders_metal.metallib */; };
 		FA853BA726BC3ACE0026D455 /* CoreApi.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FA853BA626BC3ACE0026D455 /* CoreApi.framework */; };
 		FA853BA926BC3B8A0026D455 /* libbase.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FA853BA826BC3B8A0026D455 /* libbase.a */; };
 		FA853BAB26BC3B8A0026D455 /* libcoding.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FA853BAA26BC3B8A0026D455 /* libcoding.a */; };
@@ -627,6 +632,37 @@
 		FA8E808925F412E2002A1434 /* FirstSession.mm in Sources */ = {isa = PBXBuildFile; fileRef = FA8E808825F412E2002A1434 /* FirstSession.mm */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		FA456C4626BDCC8E00B83C20 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = FA456C4026BDCC8E00B83C20 /* shaders.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 4566606E20E254060085E8C1;
+			remoteInfo = shaders;
+		};
+		FA456C4826BDCC8E00B83C20 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = FA456C4026BDCC8E00B83C20 /* shaders.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 456660DA20E25A380085E8C1;
+			remoteInfo = shaders_tests;
+		};
+		FA456C4A26BDCC8E00B83C20 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = FA456C4026BDCC8E00B83C20 /* shaders.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 4598437C21394BE000F8CAB2;
+			remoteInfo = shaders_metal;
+		};
+		FA456C4C26BDCC9400B83C20 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = FA456C4026BDCC8E00B83C20 /* shaders.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 4598437B21394BE000F8CAB2;
+			remoteInfo = shaders_metal;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXCopyFilesBuildPhase section */
 		4740184523F5BDE900A93C81 /* Embed Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
@@ -634,8 +670,21 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				FA456C3F26BDC6CF00B83C20 /* minizip.framework in Embed Frameworks */,
+				FA456C3E26BDC6C100B83C20 /* DatePicker.framework in Embed Frameworks */,
+				FA456C3D26BDC6BA00B83C20 /* Chart.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		FA456C4E26BDCCC300B83C20 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 7;
+			files = (
+				FA456C4F26BDCCCC00B83C20 /* shaders_metal.metallib in CopyFiles */,
+			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXCopyFilesBuildPhase section */
@@ -1520,6 +1569,8 @@
 		FA1A4CF226AABBEC00026C44 /* bg */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = bg; path = bg.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
 		FA1A4CF326AABBED00026C44 /* bg */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = bg; path = bg.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		FA1A4CF426AABBEE00026C44 /* bg */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = bg; path = bg.lproj/Localizable.strings; sourceTree = "<group>"; };
+		FA456C3B26BDC6AD00B83C20 /* Chart.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Chart.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		FA456C4026BDCC8E00B83C20 /* shaders.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = shaders.xcodeproj; path = ../../xcode/shaders/shaders.xcodeproj; sourceTree = "<group>"; };
 		FA459EB314327AF700B5BB3C /* WorldCoasts.mwm */ = {isa = PBXFileReference; lastKnownFileType = file; name = WorldCoasts.mwm; path = ../../data/WorldCoasts.mwm; sourceTree = "<group>"; };
 		FA46DA2B12D4166E00968C36 /* countries.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = countries.txt; path = ../../data/countries.txt; sourceTree = SOURCE_ROOT; };
 		FA64D9A813F975AD00350ECF /* types.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = types.txt; path = ../../data/types.txt; sourceTree = SOURCE_ROOT; };
@@ -1579,6 +1630,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FA456C3C26BDC6AD00B83C20 /* Chart.framework in Frameworks */,
 				FA853BF326BC5DE50026D455 /* libshaders.a in Frameworks */,
 				FA853BEF26BC5BA40026D455 /* libdescriptions.a in Frameworks */,
 				FA853BEB26BC5B9E0026D455 /* libbsdiff.a in Frameworks */,
@@ -1668,6 +1720,7 @@
 		29B97314FDCFA39411CA2CEA /* Maps */ = {
 			isa = PBXGroup;
 			children = (
+				FA456C4026BDCC8E00B83C20 /* shaders.xcodeproj */,
 				FA36B8011540388B004560CC /* Bookmarks */,
 				3454D7981E07F045004AF2AD /* Categories */,
 				080E96DDFE201D6D7F000001 /* Classes */,
@@ -1713,6 +1766,7 @@
 		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				FA456C3B26BDC6AD00B83C20 /* Chart.framework */,
 				FA853BF226BC5DE50026D455 /* libshaders.a */,
 				FA853BF026BC5C120026D455 /* libshaders.a */,
 				FA853BEE26BC5BA40026D455 /* libdescriptions.a */,
@@ -3534,6 +3588,16 @@
 			path = Bookmarks;
 			sourceTree = "<group>";
 		};
+		FA456C4126BDCC8E00B83C20 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				FA456C4726BDCC8E00B83C20 /* libshaders.a */,
+				FA456C4926BDCC8E00B83C20 /* shaders_tests.app */,
+				FA456C4B26BDCC8E00B83C20 /* shaders_metal.metallib */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -3542,6 +3606,7 @@
 			buildConfigurationList = 6741AA541BF340DE002C974C /* Build configuration list for PBXNativeTarget "OMaps" */;
 			buildPhases = (
 				47C7F96D2191A3B600C2760C /* ShellScript */,
+				FA456C4E26BDCCC300B83C20 /* CopyFiles */,
 				6741A9411BF340DE002C974C /* Resources */,
 				6741A9A01BF340DE002C974C /* Sources */,
 				6741AA311BF340DE002C974C /* Frameworks */,
@@ -3550,6 +3615,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				FA456C4D26BDCC9400B83C20 /* PBXTargetDependency */,
 			);
 			name = OMaps;
 			productName = Maps;
@@ -3619,12 +3685,42 @@
 			mainGroup = 29B97314FDCFA39411CA2CEA /* Maps */;
 			productRefGroup = 19C28FACFE9D520D11CA2CBB /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = FA456C4126BDCC8E00B83C20 /* Products */;
+					ProjectRef = FA456C4026BDCC8E00B83C20 /* shaders.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				6741A93D1BF340DE002C974C /* OMaps */,
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		FA456C4726BDCC8E00B83C20 /* libshaders.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libshaders.a;
+			remoteRef = FA456C4626BDCC8E00B83C20 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		FA456C4926BDCC8E00B83C20 /* shaders_tests.app */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.application;
+			path = shaders_tests.app;
+			remoteRef = FA456C4826BDCC8E00B83C20 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		FA456C4B26BDCC8E00B83C20 /* shaders_metal.metallib */ = {
+			isa = PBXReferenceProxy;
+			fileType = "archive.metal-library";
+			path = shaders_metal.metallib;
+			remoteRef = FA456C4A26BDCC8E00B83C20 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		6741A9411BF340DE002C974C /* Resources */ = {
@@ -4245,6 +4341,14 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		FA456C4D26BDCC9400B83C20 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = shaders_metal;
+			targetProxy = FA456C4C26BDCC9400B83C20 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		34F73F5F1E082FF700AC1FD6 /* InfoPlist.strings */ = {
