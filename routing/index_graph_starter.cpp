@@ -190,12 +190,18 @@ set<NumMwmId> IndexGraphStarter::GetFinishMwms() const
 
 bool IndexGraphStarter::CheckLength(RouteWeight const & weight)
 {
-  // We allow 1 pass-through/non-pass-through zone changes per ending located in
-  // non-pass-through zone to allow user to leave this zone.
-  int8_t const numPassThroughChangesAllowed =
-      (StartPassThroughAllowed() ? 0 : 1) + (FinishPassThroughAllowed() ? 0 : 1);
+  // Avoid transit through living neighbourhoods.
+  // Assume that start or end belongs to the living neighbourhood (HasNoPassThroughAllowed),
+  // if at least one of the projections is non-pass-through road (service, living_street).
+  // Interesting example here: https://github.com/organicmaps/organicmaps/issues/1008
 
-  return weight.GetNumPassThroughChanges() <= numPassThroughChangesAllowed &&
+  // Allow pass-through <-> non-pass-through zone changes if start or end belongs
+  // to no-pass-through zone (have to leave or arrive at living neighbourhood).
+
+  int8_t const changesAllowed =
+      (HasNoPassThroughAllowed(m_start) ? 1 : 0) + (HasNoPassThroughAllowed(m_finish) ? 1 : 0);
+
+  return weight.GetNumPassThroughChanges() <= changesAllowed &&
          m_graph.CheckLength(weight, m_startToFinishDistanceM);
 }
 
@@ -585,23 +591,18 @@ void IndexGraphStarter::AddFakeEdges(Segment const & segment, bool isOutgoing, E
   edges.append(fakeEdges.begin(), fakeEdges.end());
 }
 
-bool IndexGraphStarter::EndingPassThroughAllowed(Ending const & ending)
+bool IndexGraphStarter::HasNoPassThroughAllowed(Ending const & ending) const
 {
-  return any_of(ending.m_real.cbegin(), ending.m_real.cend(), [this](Segment const & s) {
-    if (IsGuidesSegment(s) || IsRegionsGraphMode())
-      return true;
-    return m_graph.IsPassThroughAllowed(s.GetMwmId(), s.GetFeatureId());
+  if (IsRegionsGraphMode())
+    return false;
+
+  return any_of(ending.m_real.cbegin(), ending.m_real.cend(), [this](Segment const & s)
+  {
+    if (IsGuidesSegment(s))
+      return false;
+
+    return !m_graph.IsPassThroughAllowed(s.GetMwmId(), s.GetFeatureId());
   });
-}
-
-bool IndexGraphStarter::StartPassThroughAllowed()
-{
-  return EndingPassThroughAllowed(m_start);
-}
-
-bool IndexGraphStarter::FinishPassThroughAllowed()
-{
-  return EndingPassThroughAllowed(m_finish);
 }
 
 Segment IndexGraphStarter::GetFakeSegmentAndIncr()
