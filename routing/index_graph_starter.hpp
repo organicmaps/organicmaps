@@ -247,12 +247,8 @@ private:
   // to |segment|
   void AddFakeEdges(Segment const & segment, bool isOutgoing, EdgeListT & edges) const;
 
-  // Checks whether ending belongs to pass-through or non-pass-through zone.
-  bool EndingPassThroughAllowed(Ending const & ending);
-  // Start segment is located in a pass-through/non-pass-through area.
-  bool StartPassThroughAllowed();
-  // Finish segment is located in a pass-through/non-pass-through area.
-  bool FinishPassThroughAllowed();
+  // Checks whether ending belongs to non-pass-through zone (service, living street, etc).
+  bool HasNoPassThroughAllowed(Ending const & ending) const;
 
   static uint32_t constexpr kFakeFeatureId = FakeFeatureIds::kIndexGraphStarterId;
   WorldGraph & m_graph;
