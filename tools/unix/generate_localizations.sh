@@ -29,7 +29,7 @@ if [ ! -e "$TWINE_PATH/twine" ]; then
   exit 1
 fi
 
-TWINE_COMMIT="$(git rev-parse HEAD:$TWINE_SUBMODULE)"
+TWINE_COMMIT="$(git -C $TWINE_SUBMODULE rev-parse HEAD)"
 TWINE_GEM="twine-$TWINE_COMMIT.gem"
 
 if [ ! -f "$TWINE_PATH/$TWINE_GEM" ] || ! gem list -i twine; then
