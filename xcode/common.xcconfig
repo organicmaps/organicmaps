@@ -68,6 +68,8 @@ ENABLE_BITCODE = YES
 ENABLE_STRICT_OBJC_MSGSEND = YES
 GCC_C_LANGUAGE_STANDARD = c11
 GCC_FAST_MATH = YES
+// -fvisibility-inlines-hidden
+GCC_INLINES_ARE_PRIVATE_EXTERN = YES
 GCC_NO_COMMON_BLOCKS = YES
 GCC_PRECOMPILE_PREFIX_HEADER = YES
 // Preprocessor definitions shared in all configurations and projects.
