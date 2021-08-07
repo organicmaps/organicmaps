@@ -112,7 +112,6 @@ def run(cmd) {
 }
 
 def getVersion() {
-  def gitsha = run(['git', 'rev-parse', '--short', 'HEAD']).trim()
   def time = Integer.parseInt(run(['git', 'log', '-1', '--format=%ct']).trim())
   def cal = Calendar.getInstance(TimeZone.getTimeZone("UTC"), Locale.ENGLISH);
   cal.setTimeInMillis((long) time * 1000);
@@ -133,8 +132,8 @@ def getVersion() {
   def versionCode = (year - 2000) * 1_00_00_00 + month * 1_00_00 + day * 1_00 + hour;
 
   // Use the current date to generate the version name:
-  // 2021.04.11-12-gae0bcb54f9-Google (-Google added by flavor)
-  def versionName = String.format("%04d.%02d.%02d-%d-g%s", year, month, day, hour, gitsha)
+  // 2021.04.11-12-Google (-Google added by flavor)
+  def versionName = String.format("%04d.%02d.%02d-%d", year, month, day, hour)
 
   return new Tuple2(versionCode, versionName)
 }
