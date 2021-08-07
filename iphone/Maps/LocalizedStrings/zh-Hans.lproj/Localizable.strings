@@ -35,6 +35,11 @@
 /* View and button titles for accessibility */
 "maps" = "地图";
 
+/* Settings/Downloader - size string, only strings different from English should be translated */
+"mb" = "MB";
+
+"gb" = "GB";
+
 /* Choose measurement on first launch alert - choose imperial system button */
 "miles" = "英里";
 
@@ -211,6 +216,8 @@
 /* Email Subject when sharing bookmarks category */
 "share_bookmarks_email_subject" = "Organic Maps 书签已与您共享";
 
+"share_bookmarks_email_body" = "Hello!\n\nAttached are my bookmarks from Organic Maps app. Please open them if you have Organic Maps installed. Or, if you don't, download the app for your iOS or Android device by following this link: https://omaps.app/get?kmz\n\nEnjoy traveling with Organic Maps!";
+
 /* message title of loading file */
 "load_kmz_title" = "加载书签";
 
@@ -345,10 +352,22 @@
 "website" = "网站";
 
 /* Text in menu */
+"github" = "GitHub";
+
+/* Text in menu */
+"telegram" = "Telegram";
+
+/* Text in menu */
 "facebook" = "脸书";
 
 /* Text in menu */
 "twitter" = "推特";
+
+/* Text in menu */
+"instagram" = "Instagram";
+
+/* Text in menu */
+"openstreetmap" = "OpenStreetMap";
 
 /* Settings: Send feedback button and dialog title */
 "feedback" = "反馈";
@@ -764,6 +783,8 @@
 
 "phone" = "电话";
 
+"editor_add_phone" = "Add Phone";
+
 "please_note" = "请注意";
 
 "downloader_delete_map_dialog" = "所有对地图的修改都将与地图一起被删除。";
@@ -1076,6 +1097,9 @@
 
 "bookmarks_create_new_group" = "创建新的列表";
 
+/* Bookmark categories screen */
+"bookmarks_import" = "Import bookmarks";
+
 "downloader_hide_screen" = "隱藏屏幕";
 
 "downloader_percent" = "%s (%s / %s)";
@@ -1151,6 +1175,8 @@
 "category_desc_more" = "…更多";
 
 "title_error_downloading_bookmarks" = "发生错误";
+
+"popular_place" = "Popular";
 
 "export_file" = "导出文件";
 
@@ -1410,6 +1436,12 @@
 
 "key_information_title" = "关键信息";
 
+"download_map_title" = "Download the world map";
+
+"connection_failure" = "Connection failure";
+
+"disconnect_usb_cable_title" = "Disconnect USB cable";
+
 "enable_screen_sleep" = "允许屏幕进入休眠状态";
 
 /* Description in preferences */
@@ -1427,6 +1459,15 @@
 /* Autoupdate dialog on start */
 "whats_new_auto_update_button_later" = "稍后手动更新";
 
+/* Delete track button on track edit screen */
+"placepage_delete_track_button" = "Delete Track";
+
+/* Placeholder for track name input on track edit screen */
+"placepage_track_name_hint" = "Track Name";
+
+/* move track or bookmark from the list button text */
+"move" = "Move";
+
 /* edit track screen title */
 "track_title" = "追踪";
 
@@ -1439,7 +1480,11 @@
 
 "type.aerialway.chair_lift" = "登山吊椅";
 
+"type.aerialway.drag_lift" = "aerialway-drag_lift";
+
 "type.aerialway.gondola" = "循环式索道";
+
+"type.aerialway.mixed_lift" = "aerialway-mixed_lift";
 
 "type.aerialway.station" = "缆车车站";
 
@@ -1641,6 +1686,8 @@
 
 "type.amenity.shower" = "淋浴间";
 
+"type.amenity.speed_trap" = "amenity-speed_trap";
+
 "type.amenity.taxi" = "出租车";
 
 "type.amenity.telephone" = "电话";
@@ -1680,6 +1727,8 @@
 "type.barrier.border_control" = "边境检查站";
 
 "type.barrier.city_wall" = "城墙";
+
+"type.barrier.cycle_barrier" = "Cycle barrier";
 
 "type.barrier.entrance" = "入口";
 
@@ -2177,6 +2226,10 @@
 
 "type.highway.unclassified.tunnel" = "道路";
 
+"type.highway.world_level" = "highway-world_level";
+
+"type.highway.world_towns_level" = "highway-world_towns_level";
+
 "type.historic" = "历史地点";
 
 "type.historic.archaeological_site" = "考古地点";
@@ -2217,6 +2270,32 @@
 
 "type.historic.wayside_shrine" = "路旁神龛";
 
+"type.hwtag" = "hwtag";
+
+"type.hwtag.bidir_bicycle" = "hwtag-bidir_bicycle";
+
+"type.hwtag.onedir_bicycle" = "hwtag-onedir_bicycle";
+
+"type.hwtag.lit" = "hwtag-lit";
+
+"type.hwtag.nobicycle" = "hwtag-nobicycle";
+
+"type.hwtag.nocar" = "hwtag-nocar";
+
+"type.hwtag.nofoot" = "hwtag-nofoot";
+
+"type.hwtag.oneway" = "hwtag-oneway";
+
+"type.hwtag.private" = "hwtag-private";
+
+"type.hwtag.toll" = "hwtag-toll";
+
+"type.hwtag.yesbicycle" = "hwtag-yesbicycle";
+
+"type.hwtag.yescar" = "hwtag-yescar";
+
+"type.hwtag.yesfoot" = "hwtag-yesfoot";
+
 "type.internet_access" = "互联网";
 
 "type.internet_access.wlan" = "无线热点";
@@ -2248,6 +2327,8 @@
 "type.landuse.farmland" = "农业用地";
 
 "type.landuse.farmyard" = "农庄";
+
+"type.landuse.field" = "Field";
 
 "type.landuse.forest" = "森林";
 
@@ -2287,6 +2368,10 @@
 
 "type.landuse.retail" = "零售用地";
 
+"type.landuse.salt_pond" = "landuse-salt_pond";
+
+"type.landuse.village_green" = "landuse-village_green";
+
 "type.landuse.vineyard" = "葡萄园";
 
 "type.leisure" = "休闲要素";
@@ -2305,6 +2390,8 @@
 
 "type.leisure.ice_rink" = "滑冰场";
 
+"type.leisure.landscape_reserve" = "Landscape reserve";
+
 "type.leisure.marina" = "游艇码头";
 
 "type.leisure.nature_reserve" = "自然保护区";
@@ -2322,6 +2409,8 @@
 "type.leisure.pitch" = "运动场地";
 
 "type.leisure.playground" = "儿童游乐场";
+
+"type.leisure.recreation_ground" = "Recreation ground";
 
 "type.leisure.sauna" = "桑拿";
 
@@ -2348,6 +2437,8 @@
 "type.man_made" = "人造要素";
 
 "type.man_made.breakwater" = "防波堤";
+
+"type.man_made.cairn" = "man_made-cairn";
 
 "type.man_made.chimney" = "工厂烟囱";
 
@@ -2376,6 +2467,10 @@
 "type.man_made.windmill" = "风车";
 
 "type.man_made.works" = "工厂";
+
+"type.mapswithme" = "mapswithme";
+
+"type.mapswithme.grid" = "mapswithme-grid";
 
 "type.military" = "军事";
 
@@ -2409,11 +2504,19 @@
 
 "type.natural.lake" = "湖";
 
+"type.natural.land" = "natural-land";
+
+"type.natural.meadow" = "Meadow";
+
+"type.natural.orchard" = "Orchard";
+
 "type.natural.peak" = "峰";
 
 "type.natural.pond" = "池塘";
 
 "type.natural.rock" = "岩石";
+
+"type.natural.salt_pond" = "Salt pond";
 
 "type.natural.scrub" = "灌木丛";
 
@@ -2425,6 +2528,8 @@
 
 "type.natural.tree_row" = "树列";
 
+"type.natural.vineyard" = "Vineyard";
+
 "type.natural.volcano" = "火山";
 
 "type.natural.water" = "水";
@@ -2434,6 +2539,10 @@
 "type.natural.wetland.bog" = "泥炭地";
 
 "type.natural.wetland.marsh" = "沼泽地";
+
+"type.noexit" = "noexit";
+
+"type.noexit.motor_vehicle" = "noexit-motor_vehicle";
 
 "type.office" = "办公地点";
 
@@ -2450,6 +2559,36 @@
 "type.office.ngo" = "非政府组织办公室";
 
 "type.office.telecommunication" = "电信办公室";
+
+"type.olympics" = "olympics";
+
+"type.olympics.attraction" = "olympics-attraction";
+
+"type.olympics.bike_sport" = "olympics-bike_sport";
+
+"type.olympics.live_site" = "olympics-live_site";
+
+"type.olympics.official_building" = "olympics-official_building";
+
+"type.olympics.stadium" = "olympics-stadium";
+
+"type.olympics.stadium_main" = "olympics-stadium_main";
+
+"type.olympics.transport_airport" = "olympics-transport_airport";
+
+"type.olympics.transport_boat" = "olympics-transport_boat";
+
+"type.olympics.transport_bus" = "olympics-transport_bus";
+
+"type.olympics.transport_cable" = "olympics-transport_cable";
+
+"type.olympics.transport_railway" = "olympics-transport_railway";
+
+"type.olympics.transport_subway" = "olympics-transport_subway";
+
+"type.olympics.transport_tram" = "olympics-transport_tram";
+
+"type.olympics.water_sport" = "olympics-water_sport";
 
 "type.place" = "地点";
 
@@ -2527,9 +2666,21 @@
 
 "type.power.pole" = "电线杆";
 
+"type.power.station" = "power-station";
+
 "type.power.substation" = "变电站";
 
 "type.power.tower" = "高压电塔";
+
+"type.psurface" = "psurface";
+
+"type.psurface.paved_bad" = "psurface-paved_bad";
+
+"type.psurface.paved_good" = "psurface-paved_good";
+
+"type.psurface.unpaved_bad" = "psurface-unpaved_bad";
+
+"type.psurface.unpaved_good" = "psurface-unpaved_good";
 
 "type.public_transport" = "公共交通要素";
 
@@ -2545,6 +2696,8 @@
 
 "type.railway.construction" = "在建铁路";
 
+"type.railway.crossing" = "railway-crossing";
+
 "type.railway.disused" = "废弃铁路";
 
 "type.railway.funicular" = "缆索铁路轨道";
@@ -2554,6 +2707,12 @@
 "type.railway.funicular.tunnel" = "缆索铁路轨道";
 
 "type.railway.halt" = "小站";
+
+"type.railway.incline" = "railway-incline";
+
+"type.railway.incline.bridge" = "railway-incline-bridge";
+
+"type.railway.incline.tunnel" = "railway-incline-tunnel";
 
 "type.railway.level_crossing" = "铁路道口";
 
@@ -2577,6 +2736,12 @@
 
 "type.railway.platform" = "火车站台";
 
+"type.railway.preserved" = "railway-preserved";
+
+"type.railway.preserved.bridge" = "railway-preserved-bridge";
+
+"type.railway.preserved.tunnel" = "railway-preserved-tunnel";
+
 "type.railway.rail" = "铁路轨道";
 
 "type.railway.rail.bridge" = "铁路轨道";
@@ -2584,6 +2749,20 @@
 "type.railway.rail.motor_vehicle" = "铁路轨道";
 
 "type.railway.rail.tunnel" = "铁路轨道";
+
+"type.railway.razed" = "railway-razed";
+
+"type.railway.siding" = "railway-siding";
+
+"type.railway.siding.bridge" = "railway-siding-bridge";
+
+"type.railway.siding.tunnel" = "railway-siding-tunnel";
+
+"type.railway.spur" = "railway-spur";
+
+"type.railway.spur.bridge" = "railway-spur-bridge";
+
+"type.railway.spur.tunnel" = "railway-spur-tunnel";
 
 "type.railway.station" = "火车站";
 
@@ -2641,6 +2820,38 @@
 
 "type.railway.station.subway.yellow" = "地铁车站";
 
+"type.railway.subway" = "railway-subway";
+
+"type.railway.subway.blue" = "railway-subway-blue";
+
+"type.railway.subway.bridge" = "railway-subway-bridge";
+
+"type.railway.subway.brown" = "railway-subway-brown";
+
+"type.railway.subway.darkgreen" = "railway-subway-darkgreen";
+
+"type.railway.subway.gray" = "railway-subway-gray";
+
+"type.railway.subway.green" = "railway-subway-green";
+
+"type.railway.subway.grey" = "railway-subway-grey";
+
+"type.railway.subway.lightblue" = "railway-subway-lightblue";
+
+"type.railway.subway.lightgreen" = "railway-subway-lightgreen";
+
+"type.railway.subway.orange" = "railway-subway-orange";
+
+"type.railway.subway.purple" = "railway-subway-purple";
+
+"type.railway.subway.red" = "railway-subway-red";
+
+"type.railway.subway.tunnel" = "railway-subway-tunnel";
+
+"type.railway.subway.violet" = "railway-subway-violet";
+
+"type.railway.subway.yellow" = "railway-subway-yellow";
+
 "type.railway.subway_entrance" = "地铁入口";
 
 "type.railway.subway_entrance.barcelona" = "地铁入口";
@@ -2686,6 +2897,8 @@
 "type.route.ferry.motor_vehicle" = "航线";
 
 "type.route.ferry.motorcar" = "航线";
+
+"type.route.shuttle_train" = "route-shuttle_train";
 
 "type.shop" = "商店";
 
@@ -2821,7 +3034,63 @@
 
 "type.shop.wine" = "酒品商店";
 
+"type.sponsored" = "sponsored";
+
+"type.sponsored.booking" = "sponsored-booking";
+
+"type.sponsored.holiday" = "Christmas or New Year Celebrations";
+
+"type.sponsored.opentable" = "sponsored-opentable";
+
+"type.sponsored.partner1" = "sponsored-partner1";
+
+"type.sponsored.partner10" = "sponsored-partner10";
+
+"type.sponsored.partner11" = "sponsored-partner11";
+
+"type.sponsored.partner12" = "sponsored-partner12";
+
+"type.sponsored.partner13" = "sponsored-partner13";
+
+"type.sponsored.partner14" = "sponsored-partner14";
+
+"type.sponsored.partner15" = "sponsored-partner15";
+
+"type.sponsored.partner16" = "sponsored-partner16";
+
+"type.sponsored.partner17" = "sponsored-partner17";
+
+"type.sponsored.partner18" = "MegaFon";
+
+"type.sponsored.partner19" = "MegaFon";
+
+"type.sponsored.partner2" = "sponsored-partner2";
+
+"type.sponsored.partner20" = "MegaFon";
+
+"type.sponsored.partner3" = "sponsored-partner3";
+
+"type.sponsored.partner4" = "sponsored-partner4";
+
+"type.sponsored.partner5" = "sponsored-partner5";
+
+"type.sponsored.partner6" = "sponsored-partner6";
+
+"type.sponsored.partner7" = "sponsored-partner7";
+
+"type.sponsored.partner8" = "sponsored-partner8";
+
+"type.sponsored.partner9" = "sponsored-partner9";
+
+"type.sport" = "sport";
+
+"type.sport.american_football" = "sport-american_football";
+
+"type.sport.archery" = "sport-archery";
+
 "type.sport.athletics" = "田径";
+
+"type.sport.australian_football" = "sport-australian_football";
 
 "type.sport.baseball" = "棒球";
 
@@ -2830,6 +3099,8 @@
 "type.sport.bowls" = "保龄球";
 
 "type.sport.cricket" = "板球";
+
+"type.sport.curling" = "sport-curling";
 
 "type.sport.diving" = "跳水";
 
@@ -2845,7 +3116,11 @@
 
 "type.sport.multi" = "多元";
 
+"type.sport.scuba_diving" = "sport-scuba_diving";
+
 "type.sport.shooting" = "射击";
+
+"type.sport.skiing" = "sport-skiing";
 
 "type.sport.soccer" = "足球";
 
@@ -2915,6 +3190,12 @@
 
 "type.tourism.zoo" = "动物园";
 
+"type.traffic_calming" = "traffic_calming";
+
+"type.traffic_calming.bump" = "traffic_calming-bump";
+
+"type.traffic_calming.hump" = "traffic_calming-hump";
+
 "type.waterway" = "航道要素";
 
 "type.waterway.canal" = "运河";
@@ -2932,6 +3213,8 @@
 "type.waterway.drain" = "渠";
 
 "type.waterway.drain.tunnel" = "渠";
+
+"type.waterway.lock" = "waterway-lock";
 
 "type.waterway.lock_gate" = "闸门";
 
@@ -2961,4 +3244,66 @@
 
 "type.wheelchair.yes" = "配备残疾人专用";
 
+"type.piste_lift" = "piste:lift";
+
+"type.piste_lift.j.bar" = "piste:lift-j-bar";
+
+"type.piste_lift.magic_carpet" = "piste:lift-magic_carpet";
+
+"type.piste_lift.platter" = "piste:lift-platter";
+
+"type.piste_lift.rope_tow" = "piste:lift-rope_tow";
+
+"type.piste_lift.t.bar" = "piste:lift-t-bar";
+
+"type.piste_type" = "piste:type";
+
+"type.piste_type.downhill" = "piste:type-downhill";
+
+"type.piste_type.downhill.advanced" = "piste:type-downhill-advanced";
+
+"type.piste_type.downhill.easy" = "piste:type-downhill-easy";
+
+"type.piste_type.downhill.expert" = "piste:type-downhill-expert";
+
+"type.piste_type.downhill.freeride" = "piste:type-downhill-freeride";
+
+"type.piste_type.downhill.intermediate" = "piste:type-downhill-intermediate";
+
+"type.piste_type.downhill.novice" = "piste:type-downhill-novice";
+
+"type.piste_type.nordic" = "piste:type-nordic";
+
+"type.piste_type.sled" = "piste:type-sled";
+
 "type.building_part" = "建筑部分";
+
+"type.area_highway.cycleway" = "area:highway-cycleway";
+
+"type.area_highway.footway" = "area:highway-footway";
+
+"type.area_highway.living_street" = "area:highway-living_street";
+
+"type.area_highway.motorway" = "area:highway-motorway";
+
+"type.area_highway.path" = "area:highway-path";
+
+"type.area_highway.pedestrian" = "area:highway-pedestrian";
+
+"type.area_highway.primary" = "area:highway-primary";
+
+"type.area_highway.residential" = "area:highway-residential";
+
+"type.area_highway.secondary" = "area:highway-secondary";
+
+"type.area_highway.service" = "area:highway-service";
+
+"type.area_highway.tertiary" = "area:highway-tertiary";
+
+"type.area_highway.steps" = "area:highway-steps";
+
+"type.area_highway.track" = "area:highway-track";
+
+"type.area_highway.trunk" = "area:highway-trunk";
+
+"type.area_highway.unclassified" = "area:highway-unclassified";

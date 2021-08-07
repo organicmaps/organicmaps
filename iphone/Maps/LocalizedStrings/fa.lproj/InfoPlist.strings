@@ -7,6 +7,9 @@
 /********** 3d touch strings **********/
 
 /* Used in home screen quick actions. */
+"search" = "Search";
+
+/* Used in home screen quick actions. */
 "bookmarks" = "نشانه ها";
 
 /* Used in home screen quick actions. */

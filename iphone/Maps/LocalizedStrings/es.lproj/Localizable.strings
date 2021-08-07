@@ -35,6 +35,11 @@
 /* View and button titles for accessibility */
 "maps" = "Mapas";
 
+/* Settings/Downloader - size string, only strings different from English should be translated */
+"mb" = "MB";
+
+"gb" = "GB";
+
 /* Choose measurement on first launch alert - choose imperial system button */
 "miles" = "Milla";
 
@@ -211,6 +216,8 @@
 /* Email Subject when sharing bookmarks category */
 "share_bookmarks_email_subject" = "Marcapáginas de Organic Maps compartidos contigo";
 
+"share_bookmarks_email_body" = "Hello!\n\nAttached are my bookmarks from Organic Maps app. Please open them if you have Organic Maps installed. Or, if you don't, download the app for your iOS or Android device by following this link: https://omaps.app/get?kmz\n\nEnjoy traveling with Organic Maps!";
+
 /* message title of loading file */
 "load_kmz_title" = "Cargando favoritos";
 
@@ -219,6 +226,9 @@
 
 /* Kml file loading failed */
 "load_kmz_failed" = "La carga de favoritos ha fallado. El archivo puede estar corrupto o ser defectuoso.";
+
+/* resource for context menu */
+"edit" = "Edit";
 
 /* Warning message when doing search around current position */
 "unknown_current_position" = "Tu ubicación aún no ha sido determinada";
@@ -259,6 +269,9 @@
 /* Prints version number in About dialog */
 "version" = "Versión: %@";
 
+/* Data version in «About» screen */
+"data_version" = "Data version: %d";
+
 /* Confirmation in downloading countries dialog */
 "are_you_sure" = "¿Seguro que desea continuar?";
 
@@ -269,6 +282,12 @@
 "length" = "Longitud";
 
 "share_my_location" = "Compartir mi ubicación";
+
+/* Settings general group in settings screen */
+"prefs_group_general" = "General settings";
+
+/* Settings information group in settings screen */
+"prefs_group_information" = "Information";
 
 "prefs_group_route" = "Navegación";
 
@@ -331,6 +350,24 @@
 
 /* Text in menu */
 "website" = "Sitio web";
+
+/* Text in menu */
+"github" = "GitHub";
+
+/* Text in menu */
+"telegram" = "Telegram";
+
+/* Text in menu */
+"facebook" = "Facebook";
+
+/* Text in menu */
+"twitter" = "Twitter";
+
+/* Text in menu */
+"instagram" = "Instagram";
+
+/* Text in menu */
+"openstreetmap" = "OpenStreetMap";
 
 /* Settings: Send feedback button and dialog title */
 "feedback" = "Comentarios";
@@ -609,6 +646,9 @@
 
 "clear_search" = "Eliminar el historial de búsqueda";
 
+/* Place Page link to Wikipedia article (if map object has it). */
+"read_in_wikipedia" = "Wikipedia";
+
 "p2p_your_location" = "Tu ubicación";
 
 "p2p_start" = "Empezar";
@@ -742,6 +782,8 @@
 "email_or_username" = "Correo electrónico o usuario";
 
 "phone" = "Teléfono";
+
+"editor_add_phone" = "Add Phone";
 
 "please_note" = "Aviso";
 
@@ -1055,6 +1097,9 @@
 
 "bookmarks_create_new_group" = "Crear nueva lista";
 
+/* Bookmark categories screen */
+"bookmarks_import" = "Import bookmarks";
+
 "downloader_hide_screen" = "Ocultar pantalla";
 
 "downloader_percent" = "%s (%s de %s)";
@@ -1130,6 +1175,8 @@
 "category_desc_more" = "…más";
 
 "title_error_downloading_bookmarks" = "Se ha producido un error";
+
+"popular_place" = "Popular";
 
 "export_file" = "Exportar como archivo";
 
@@ -1389,6 +1436,12 @@
 
 "key_information_title" = "Información clave";
 
+"download_map_title" = "Download the world map";
+
+"connection_failure" = "Connection failure";
+
+"disconnect_usb_cable_title" = "Disconnect USB cable";
+
 "enable_screen_sleep" = "Permitir que la pantalla duerma";
 
 /* Description in preferences */
@@ -1406,19 +1459,52 @@
 /* Autoupdate dialog on start */
 "whats_new_auto_update_button_later" = "Actualizar más tarde de forma manual";
 
+/* Delete track button on track edit screen */
+"placepage_delete_track_button" = "Delete Track";
+
+/* Placeholder for track name input on track edit screen */
+"placepage_track_name_hint" = "Track Name";
+
+/* move track or bookmark from the list button text */
+"move" = "Move";
+
 /* edit track screen title */
 "track_title" = "Ruta";
 
 
 /********** Types **********/
 
+"type.aerialway" = "aerialway";
+
+"type.aerialway.cable_car" = "aerialway-cable_car";
+
+"type.aerialway.chair_lift" = "aerialway-chair_lift";
+
+"type.aerialway.drag_lift" = "aerialway-drag_lift";
+
+"type.aerialway.gondola" = "aerialway-gondola";
+
+"type.aerialway.mixed_lift" = "aerialway-mixed_lift";
+
 "type.aerialway.station" = "Estación de teleférico";
+
+"type.aeroway" = "aeroway";
 
 "type.aeroway.aerodrome" = "Aeropuerto";
 
 "type.aeroway.aerodrome.international" = "Aeropuerto";
 
+"type.aeroway.apron" = "aeroway-apron";
+
+"type.aeroway.gate" = "aeroway-gate";
+
 "type.aeroway.helipad" = "Helipuerto";
+
+"type.aeroway.runway" = "aeroway-runway";
+
+"type.aeroway.taxiway" = "aeroway-taxiway";
+
+"type.aeroway.terminal" = "aeroway-terminal";
 
 "type.amenity" = "Infraestructura";
 
@@ -1428,6 +1514,8 @@
 
 "type.amenity.bank" = "Banco";
 
+"type.amenity.bar" = "Bar";
+
 "type.amenity.bbq" = "Picnic";
 
 "type.amenity.bench" = "Banco";
@@ -1435,6 +1523,8 @@
 "type.amenity.bicycle_parking" = "Aparcamiento de bicis";
 
 "type.amenity.bicycle_rental" = "Alquiler de bicicletas";
+
+"type.amenity.biergarten" = "Biergarten";
 
 "type.amenity.brothel" = "Burdel";
 
@@ -1449,6 +1539,8 @@
 "type.amenity.car_sharing" = "Compartir coche";
 
 "type.amenity.car_wash" = "Lavado de coches";
+
+"type.amenity.casino" = "Casino";
 
 "type.amenity.charging_station" = "Estación de carga";
 
@@ -1480,6 +1572,8 @@
 
 "type.amenity.fire_station" = "Parque de bomberos";
 
+"type.amenity.food_court" = "Food court";
+
 "type.amenity.fountain" = "Fuente";
 
 "type.amenity.fuel" = "Gasolinera";
@@ -1487,6 +1581,8 @@
 "type.amenity.grave_yard" = "Cementerio";
 
 "type.amenity.grave_yard.christian" = "Cementerio";
+
+"type.amenity.hospital" = "Hospital";
 
 "type.amenity.hunting_stand" = "Galería de caza";
 
@@ -1556,6 +1652,10 @@
 
 "type.amenity.post_office" = "Oficina de correos";
 
+"type.amenity.prison" = "Prison";
+
+"type.amenity.pub" = "Pub";
+
 "type.amenity.public_bookcase" = "Intercambio de libros";
 
 "type.amenity.recycling" = "Centro de reciclaje";
@@ -1586,6 +1686,10 @@
 
 "type.amenity.shower" = "Ducha";
 
+"type.amenity.speed_trap" = "amenity-speed_trap";
+
+"type.amenity.taxi" = "Taxi";
+
 "type.amenity.telephone" = "Teléfono";
 
 "type.amenity.theatre" = "Teatro";
@@ -1595,6 +1699,8 @@
 "type.amenity.townhall" = "Ayuntamiento";
 
 "type.amenity.university" = "Universidad";
+
+"type.amenity.vending_machine" = "Vending machine";
 
 "type.amenity.vending_machine.cigarettes" = "Máquina expendedora de tabaco";
 
@@ -1612,21 +1718,77 @@
 
 "type.amenity.water_point" = "Fuente de agua potable";
 
+"type.barrier" = "Barrier";
+
 "type.barrier.block" = "Bloque";
 
 "type.barrier.bollard" = "Bolardo";
 
 "type.barrier.border_control" = "Control de fronteras";
 
+"type.barrier.city_wall" = "City wall";
+
+"type.barrier.cycle_barrier" = "Cycle barrier";
+
 "type.barrier.entrance" = "Entrada";
+
+"type.barrier.fence" = "Fence";
 
 "type.barrier.gate" = "Puerta";
 
+"type.barrier.hedge" = "Hedge";
+
 "type.barrier.lift_gate" = "Barrera";
+
+"type.barrier.retaining_wall" = "Retaining wall";
 
 "type.barrier.stile" = "Escalón";
 
 "type.barrier.toll_booth" = "Peaje";
+
+"type.barrier.wall" = "Wall";
+
+"type.boundary" = "Boundary";
+
+"type.boundary.administrative" = "boundary-administrative";
+
+"type.boundary.administrative.10" = "boundary-administrative-10";
+
+"type.boundary.administrative.11" = "boundary-administrative-11";
+
+"type.boundary.administrative.2" = "boundary-administrative-2";
+
+"type.boundary.administrative.3" = "boundary-administrative-3";
+
+"type.boundary.administrative.4" = "boundary-administrative-4";
+
+"type.boundary.administrative.4.state" = "boundary-administrative-4-state";
+
+"type.boundary.administrative.5" = "boundary-administrative-5";
+
+"type.boundary.administrative.6" = "boundary-administrative-6";
+
+"type.boundary.administrative.7" = "boundary-administrative-7";
+
+"type.boundary.administrative.8" = "boundary-administrative-8";
+
+"type.boundary.administrative.9" = "boundary-administrative-9";
+
+"type.boundary.administrative.city" = "boundary-administrative-city";
+
+"type.boundary.administrative.country" = "boundary-administrative-country";
+
+"type.boundary.administrative.county" = "boundary-administrative-county";
+
+"type.boundary.administrative.municipality" = "boundary-administrative-municipality";
+
+"type.boundary.administrative.nation" = "boundary-administrative-nation";
+
+"type.boundary.administrative.region" = "boundary-administrative-region";
+
+"type.boundary.administrative.state" = "boundary-administrative-state";
+
+"type.boundary.administrative.suburb" = "boundary-administrative-suburb";
 
 "type.boundary.national_park" = "Parque nacional";
 
@@ -1639,6 +1801,10 @@
 "type.building.has_parts" = "Edificio";
 
 "type.building.train_station" = "Estación de tren";
+
+"type.building.warehouse" = "Warehouse";
+
+"type.craft" = "craft";
 
 "type.craft.brewery" = "Fábrica de cerveza";
 
@@ -1832,6 +1998,8 @@
 
 "type.cuisine.vietnamese" = "Cocina vietnamita";
 
+"type.emergency" = "emergency";
+
 "type.emergency.defibrillator" = "Desfibrilador";
 
 "type.emergency.fire_hydrant" = "Boca de incendio";
@@ -1840,9 +2008,27 @@
 
 "type.entrance" = "Entrada";
 
+"type.highway" = "highway";
+
+"type.highway.bridleway" = "highway-bridleway";
+
+"type.highway.bridleway.bridge" = "highway-bridleway-bridge";
+
+"type.highway.bridleway.permissive" = "highway-bridleway-permissive";
+
+"type.highway.bridleway.tunnel" = "highway-bridleway-tunnel";
+
 "type.highway.bus_stop" = "Parada de autobús";
 
 "type.highway.construction" = "Carretera en construcción";
+
+"type.highway.cycleway" = "highway-cycleway";
+
+"type.highway.cycleway.bridge" = "highway-cycleway-bridge";
+
+"type.highway.cycleway.permissive" = "highway-cycleway-permissive";
+
+"type.highway.cycleway.tunnel" = "highway-cycleway-tunnel";
 
 "type.highway.footway" = "Camino";
 
@@ -1974,6 +2160,8 @@
 
 "type.highway.service.tunnel" = "Calle";
 
+"type.highway.services" = "highway-services";
+
 "type.highway.speed_camera" = "Radar de velocidad";
 
 "type.highway.steps" = "Camino";
@@ -2038,7 +2226,17 @@
 
 "type.highway.unclassified.tunnel" = "Calle";
 
+"type.highway.world_level" = "highway-world_level";
+
+"type.highway.world_towns_level" = "highway-world_towns_level";
+
+"type.historic" = "historic";
+
 "type.historic.archaeological_site" = "Yacimiento arqueológico";
+
+"type.historic.battlefield" = "Battlefield";
+
+"type.historic.boundary_stone" = "historic-boundary_stone";
 
 "type.historic.castle" = "Castillo";
 
@@ -2046,7 +2244,21 @@
 
 "type.historic.castle.stately" = "Castillo";
 
+"type.historic.citywalls" = "historic-citywalls";
+
+"type.historic.fort" = "historic-fort";
+
+"type.historic.memorial" = "Memorial";
+
+"type.historic.memorial.plaque" = "Memorial";
+
+"type.historic.memorial.sculpture" = "Memorial";
+
+"type.historic.memorial.statue" = "Memorial";
+
 "type.historic.monument" = "Monumento";
+
+"type.historic.museum" = "historic-museum";
 
 "type.historic.ruins" = "Ruinas";
 
@@ -2054,7 +2266,51 @@
 
 "type.historic.tomb" = "Turismo";
 
+"type.historic.wayside_cross" = "historic-wayside_cross";
+
+"type.historic.wayside_shrine" = "historic-wayside_shrine";
+
+"type.hwtag" = "hwtag";
+
+"type.hwtag.bidir_bicycle" = "hwtag-bidir_bicycle";
+
+"type.hwtag.onedir_bicycle" = "hwtag-onedir_bicycle";
+
+"type.hwtag.lit" = "hwtag-lit";
+
+"type.hwtag.nobicycle" = "hwtag-nobicycle";
+
+"type.hwtag.nocar" = "hwtag-nocar";
+
+"type.hwtag.nofoot" = "hwtag-nofoot";
+
+"type.hwtag.oneway" = "hwtag-oneway";
+
+"type.hwtag.private" = "hwtag-private";
+
+"type.hwtag.toll" = "hwtag-toll";
+
+"type.hwtag.yesbicycle" = "hwtag-yesbicycle";
+
+"type.hwtag.yescar" = "hwtag-yescar";
+
+"type.hwtag.yesfoot" = "hwtag-yesfoot";
+
+"type.internet_access" = "Internet";
+
+"type.internet_access.wlan" = "Internet";
+
+"type.junction" = "junction";
+
+"type.junction.roundabout" = "junction-roundabout";
+
+"type.landuse" = "landuse";
+
+"type.landuse.allotments" = "Allotments";
+
 "type.landuse.basin" = "Cuenca";
+
+"type.landuse.brownfield" = "Brownfield";
 
 "type.landuse.cemetery" = "Cementerio";
 
@@ -2062,7 +2318,17 @@
 
 "type.landuse.churchyard" = "Camposanto";
 
+"type.landuse.commercial" = "landuse-commercial";
+
+"type.landuse.construction" = "Construction";
+
+"type.landuse.farm" = "Farm";
+
 "type.landuse.farmland" = "Tierras agrícolas";
+
+"type.landuse.farmyard" = "Farmyard";
+
+"type.landuse.field" = "Field";
 
 "type.landuse.forest" = "Bosque";
 
@@ -2072,13 +2338,45 @@
 
 "type.landuse.forest.mixed" = "Bosque";
 
+"type.landuse.garages" = "Garages";
+
 "type.landuse.grass" = "Césped";
+
+"type.landuse.greenfield" = "landuse-greenfield";
+
+"type.landuse.greenhouse_horticulture" = "landuse-greenhouse_horticulture";
+
+"type.landuse.industrial" = "Industrial land";
 
 "type.landuse.landfill" = "Vertedero";
 
+"type.landuse.meadow" = "Meadow";
+
+"type.landuse.military" = "Military area";
+
+"type.landuse.orchard" = "Orchard";
+
+"type.landuse.quarry" = "Quarry";
+
 "type.landuse.railway" = "Instalaciones ferroviarias";
 
+"type.landuse.recreation_ground" = "landuse-recreation_ground";
+
 "type.landuse.reservoir" = "Cuenca";
+
+"type.landuse.residential" = "landuse-residential";
+
+"type.landuse.retail" = "landuse-retail";
+
+"type.landuse.salt_pond" = "landuse-salt_pond";
+
+"type.landuse.village_green" = "landuse-village_green";
+
+"type.landuse.vineyard" = "Vineyard";
+
+"type.leisure" = "leisure";
+
+"type.leisure.common" = "leisure-common";
 
 "type.leisure.dog_park" = "Parque para perros";
 
@@ -2089,6 +2387,12 @@
 "type.leisure.garden" = "Jardín";
 
 "type.leisure.golf_course" = "Campo de golf";
+
+"type.leisure.ice_rink" = "Ice rink";
+
+"type.leisure.landscape_reserve" = "Landscape reserve";
+
+"type.leisure.marina" = "Marina";
 
 "type.leisure.nature_reserve" = "Territorio reservado";
 
@@ -2106,7 +2410,11 @@
 
 "type.leisure.playground" = "Patio de recreo";
 
+"type.leisure.recreation_ground" = "Recreation ground";
+
 "type.leisure.sauna" = "Sauna";
+
+"type.leisure.slipway" = "leisure-slipway";
 
 "type.leisure.sports_centre" = "Polideportivo";
 
@@ -2122,15 +2430,33 @@
 
 "type.leisure.swimming_pool" = "Piscina";
 
+"type.leisure.track" = "leisure-track";
+
 "type.leisure.water_park" = "Parque acuático";
+
+"type.man_made" = "man_made";
+
+"type.man_made.breakwater" = "man_made-breakwater";
+
+"type.man_made.cairn" = "man_made-cairn";
 
 "type.man_made.chimney" = "Chimenea de fábrica";
 
+"type.man_made.cutline" = "man_made-cutline";
+
 "type.man_made.lighthouse" = "Faro";
+
+"type.man_made.pier" = "man_made-pier";
+
+"type.man_made.pipeline" = "man_made-pipeline";
+
+"type.man_made.pipeline.overground" = "man_made-pipeline-overground";
 
 "type.man_made.surveillance" = "Cámara de vigilancia";
 
 "type.man_made.tower" = "Torre";
+
+"type.man_made.wastewater_plant" = "man_made-wastewater_plant";
 
 "type.man_made.water_tap" = "Toma de agua";
 
@@ -2140,7 +2466,19 @@
 
 "type.man_made.windmill" = "Molino";
 
+"type.man_made.works" = "man_made-works";
+
+"type.mapswithme" = "mapswithme";
+
+"type.mapswithme.grid" = "mapswithme-grid";
+
+"type.military" = "military";
+
 "type.military.bunker" = "Búnker";
+
+"type.natural" = "natural";
+
+"type.natural.bare_rock" = "Bare rock";
 
 "type.natural.bay" = "Bahía";
 
@@ -2150,17 +2488,35 @@
 
 "type.natural.cave_entrance" = "Cueva";
 
+"type.natural.cliff" = "Cliff";
+
+"type.natural.coastline" = "Coastline";
+
 "type.natural.geyser" = "Geiser";
 
 "type.natural.glacier" = "Glaciar";
 
 "type.natural.grassland" = "Campo";
 
+"type.natural.heath" = "Heath";
+
+"type.natural.hot_spring" = "Hot spring";
+
 "type.natural.lake" = "Lago";
+
+"type.natural.land" = "natural-land";
+
+"type.natural.meadow" = "Meadow";
+
+"type.natural.orchard" = "Orchard";
 
 "type.natural.peak" = "Cima";
 
 "type.natural.pond" = "Estanque";
+
+"type.natural.rock" = "Rock";
+
+"type.natural.salt_pond" = "Salt pond";
 
 "type.natural.scrub" = "Matorrales";
 
@@ -2170,11 +2526,23 @@
 
 "type.natural.tree" = "Árbol";
 
+"type.natural.tree_row" = "Tree row";
+
+"type.natural.vineyard" = "Vineyard";
+
 "type.natural.volcano" = "Volcán";
 
 "type.natural.water" = "Cuenca";
 
 "type.natural.wetland" = "Terreno pantanoso";
+
+"type.natural.wetland.bog" = "Wetland";
+
+"type.natural.wetland.marsh" = "Wetland";
+
+"type.noexit" = "noexit";
+
+"type.noexit.motor_vehicle" = "noexit-motor_vehicle";
 
 "type.office" = "Oficina";
 
@@ -2192,7 +2560,61 @@
 
 "type.office.telecommunication" = "Operadora de telefonía móvil";
 
+"type.olympics" = "olympics";
+
+"type.olympics.attraction" = "olympics-attraction";
+
+"type.olympics.bike_sport" = "olympics-bike_sport";
+
+"type.olympics.live_site" = "olympics-live_site";
+
+"type.olympics.official_building" = "olympics-official_building";
+
+"type.olympics.stadium" = "olympics-stadium";
+
+"type.olympics.stadium_main" = "olympics-stadium_main";
+
+"type.olympics.transport_airport" = "olympics-transport_airport";
+
+"type.olympics.transport_boat" = "olympics-transport_boat";
+
+"type.olympics.transport_bus" = "olympics-transport_bus";
+
+"type.olympics.transport_cable" = "olympics-transport_cable";
+
+"type.olympics.transport_railway" = "olympics-transport_railway";
+
+"type.olympics.transport_subway" = "olympics-transport_subway";
+
+"type.olympics.transport_tram" = "olympics-transport_tram";
+
+"type.olympics.water_sport" = "olympics-water_sport";
+
+"type.place" = "place";
+
 "type.place.city" = "Ciudad";
+
+"type.place.city.capital" = "Capital";
+
+"type.place.city.capital.10" = "Capital";
+
+"type.place.city.capital.11" = "Capital";
+
+"type.place.city.capital.2" = "Capital";
+
+"type.place.city.capital.3" = "Capital";
+
+"type.place.city.capital.4" = "Capital";
+
+"type.place.city.capital.5" = "Capital";
+
+"type.place.city.capital.6" = "Capital";
+
+"type.place.city.capital.7" = "Capital";
+
+"type.place.city.capital.8" = "Capital";
+
+"type.place.city.capital.9" = "Capital";
 
 "type.place.continent" = "Continente";
 
@@ -2208,13 +2630,19 @@
 
 "type.place.islet" = "Isla";
 
+"type.place.isolated_dwelling" = "place-isolated_dwelling";
+
 "type.place.locality" = "Localidad";
+
+"type.place.neighbourhood" = "Neighbourhood";
 
 "type.place.ocean" = "Océano";
 
 "type.place.region" = "Región";
 
 "type.place.sea" = "Mar";
+
+"type.place.square" = "place-square";
 
 "type.place.state" = "Estado";
 
@@ -2226,19 +2654,115 @@
 
 "type.place.village" = "Pueblo";
 
+"type.power" = "power";
+
+"type.power.generator" = "power-generator";
+
+"type.power.line" = "power-line";
+
+"type.power.line.underground" = "power-line-underground";
+
+"type.power.minor_line" = "power-minor_line";
+
 "type.power.pole" = "Poste eléctrico";
+
+"type.power.station" = "power-station";
 
 "type.power.substation" = "Subestación";
 
 "type.power.tower" = "Poste eléctrico";
 
+"type.psurface" = "psurface";
+
+"type.psurface.paved_bad" = "psurface-paved_bad";
+
+"type.psurface.paved_good" = "psurface-paved_good";
+
+"type.psurface.unpaved_bad" = "psurface-unpaved_bad";
+
+"type.psurface.unpaved_good" = "psurface-unpaved_good";
+
+"type.public_transport" = "public_transport";
+
+"type.public_transport.platform" = "public_transport-platform";
+
+"type.railway" = "railway";
+
+"type.railway.abandoned" = "railway-abandoned";
+
+"type.railway.abandoned.bridge" = "railway-abandoned-bridge";
+
+"type.railway.abandoned.tunnel" = "railway-abandoned-tunnel";
+
+"type.railway.construction" = "railway-construction";
+
+"type.railway.crossing" = "railway-crossing";
+
+"type.railway.disused" = "railway-disused";
+
+"type.railway.funicular" = "railway-funicular";
+
+"type.railway.funicular.bridge" = "railway-funicular-bridge";
+
+"type.railway.funicular.tunnel" = "railway-funicular-tunnel";
+
 "type.railway.halt" = "Estación de tren";
+
+"type.railway.incline" = "railway-incline";
+
+"type.railway.incline.bridge" = "railway-incline-bridge";
+
+"type.railway.incline.tunnel" = "railway-incline-tunnel";
 
 "type.railway.level_crossing" = "Cruce de ferrocarril";
 
+"type.railway.light_rail" = "railway-light_rail";
+
+"type.railway.light_rail.bridge" = "railway-light_rail-bridge";
+
+"type.railway.light_rail.tunnel" = "railway-light_rail-tunnel";
+
 "type.railway.monorail" = "Tren de monorraíl";
 
+"type.railway.monorail.bridge" = "railway-monorail-bridge";
+
+"type.railway.monorail.tunnel" = "railway-monorail-tunnel";
+
+"type.railway.narrow_gauge" = "railway-narrow_gauge";
+
+"type.railway.narrow_gauge.bridge" = "railway-narrow_gauge-bridge";
+
+"type.railway.narrow_gauge.tunnel" = "railway-narrow_gauge-tunnel";
+
+"type.railway.platform" = "railway-platform";
+
+"type.railway.preserved" = "railway-preserved";
+
+"type.railway.preserved.bridge" = "railway-preserved-bridge";
+
+"type.railway.preserved.tunnel" = "railway-preserved-tunnel";
+
 "type.railway.rail" = "Ferrocarril";
+
+"type.railway.rail.bridge" = "railway-rail-bridge";
+
+"type.railway.rail.motor_vehicle" = "railway-rail-motor_vehicle";
+
+"type.railway.rail.tunnel" = "railway-rail-tunnel";
+
+"type.railway.razed" = "railway-razed";
+
+"type.railway.siding" = "railway-siding";
+
+"type.railway.siding.bridge" = "railway-siding-bridge";
+
+"type.railway.siding.tunnel" = "railway-siding-tunnel";
+
+"type.railway.spur" = "railway-spur";
+
+"type.railway.spur.bridge" = "railway-spur-bridge";
+
+"type.railway.spur.tunnel" = "railway-spur-tunnel";
 
 "type.railway.station" = "Estación de tren";
 
@@ -2296,6 +2820,38 @@
 
 "type.railway.station.subway.yellow" = "Metro";
 
+"type.railway.subway" = "railway-subway";
+
+"type.railway.subway.blue" = "railway-subway-blue";
+
+"type.railway.subway.bridge" = "railway-subway-bridge";
+
+"type.railway.subway.brown" = "railway-subway-brown";
+
+"type.railway.subway.darkgreen" = "railway-subway-darkgreen";
+
+"type.railway.subway.gray" = "railway-subway-gray";
+
+"type.railway.subway.green" = "railway-subway-green";
+
+"type.railway.subway.grey" = "railway-subway-grey";
+
+"type.railway.subway.lightblue" = "railway-subway-lightblue";
+
+"type.railway.subway.lightgreen" = "railway-subway-lightgreen";
+
+"type.railway.subway.orange" = "railway-subway-orange";
+
+"type.railway.subway.purple" = "railway-subway-purple";
+
+"type.railway.subway.red" = "railway-subway-red";
+
+"type.railway.subway.tunnel" = "railway-subway-tunnel";
+
+"type.railway.subway.violet" = "railway-subway-violet";
+
+"type.railway.subway.yellow" = "railway-subway-yellow";
+
 "type.railway.subway_entrance" = "Entrada al metro";
 
 "type.railway.subway_entrance.barcelona" = "Metro";
@@ -2320,7 +2876,29 @@
 
 "type.railway.subway_entrance.spb" = "Metro";
 
+"type.railway.tram" = "railway-tram";
+
+"type.railway.tram.bridge" = "railway-tram-bridge";
+
+"type.railway.tram.tunnel" = "railway-tram-tunnel";
+
 "type.railway.tram_stop" = "Parada de tranvía";
+
+"type.railway.yard" = "railway-yard";
+
+"type.railway.yard.bridge" = "railway-yard-bridge";
+
+"type.railway.yard.tunnel" = "railway-yard-tunnel";
+
+"type.route" = "route";
+
+"type.route.ferry" = "route-ferry";
+
+"type.route.ferry.motor_vehicle" = "route-ferry-motor_vehicle";
+
+"type.route.ferry.motorcar" = "route-ferry-motorcar";
+
+"type.route.shuttle_train" = "route-shuttle_train";
 
 "type.shop" = "Tienda";
 
@@ -2456,13 +3034,101 @@
 
 "type.shop.wine" = "Tienda de vinos";
 
+"type.sponsored" = "sponsored";
+
+"type.sponsored.booking" = "sponsored-booking";
+
+"type.sponsored.holiday" = "Christmas or New Year Celebrations";
+
+"type.sponsored.opentable" = "sponsored-opentable";
+
+"type.sponsored.partner1" = "sponsored-partner1";
+
+"type.sponsored.partner10" = "sponsored-partner10";
+
+"type.sponsored.partner11" = "sponsored-partner11";
+
+"type.sponsored.partner12" = "sponsored-partner12";
+
+"type.sponsored.partner13" = "sponsored-partner13";
+
+"type.sponsored.partner14" = "sponsored-partner14";
+
+"type.sponsored.partner15" = "sponsored-partner15";
+
+"type.sponsored.partner16" = "sponsored-partner16";
+
+"type.sponsored.partner17" = "sponsored-partner17";
+
+"type.sponsored.partner18" = "MegaFon";
+
+"type.sponsored.partner19" = "MegaFon";
+
+"type.sponsored.partner2" = "sponsored-partner2";
+
+"type.sponsored.partner20" = "MegaFon";
+
+"type.sponsored.partner3" = "sponsored-partner3";
+
+"type.sponsored.partner4" = "sponsored-partner4";
+
+"type.sponsored.partner5" = "sponsored-partner5";
+
+"type.sponsored.partner6" = "sponsored-partner6";
+
+"type.sponsored.partner7" = "sponsored-partner7";
+
+"type.sponsored.partner8" = "sponsored-partner8";
+
+"type.sponsored.partner9" = "sponsored-partner9";
+
+"type.sport" = "sport";
+
+"type.sport.american_football" = "sport-american_football";
+
+"type.sport.archery" = "sport-archery";
+
 "type.sport.athletics" = "Atletismo";
+
+"type.sport.australian_football" = "sport-australian_football";
+
+"type.sport.baseball" = "sport-baseball";
 
 "type.sport.basketball" = "Baloncesto";
 
+"type.sport.bowls" = "sport-bowls";
+
+"type.sport.cricket" = "sport-cricket";
+
+"type.sport.curling" = "sport-curling";
+
+"type.sport.diving" = "sport-diving";
+
 "type.sport.equestrian" = "Equitación";
 
+"type.sport.football" = "sport-football";
+
+"type.sport.golf" = "sport-golf";
+
+"type.sport.gymnastics" = "sport-gymnastics";
+
+"type.sport.handball" = "sport-handball";
+
+"type.sport.multi" = "sport-multi";
+
+"type.sport.scuba_diving" = "sport-scuba_diving";
+
+"type.sport.shooting" = "sport-shooting";
+
+"type.sport.skiing" = "sport-skiing";
+
+"type.sport.soccer" = "sport-soccer";
+
+"type.sport.swimming" = "sport-swimming";
+
 "type.sport.tennis" = "Cancha de tenis";
+
+"type.tourism" = "tourism";
 
 "type.tourism.alpine_hut" = "Cabaña";
 
@@ -2496,6 +3162,8 @@
 
 "type.tourism.hostel" = "Albergue juvenil";
 
+"type.tourism.hotel" = "Hotel";
+
 "type.tourism.information" = "Información";
 
 "type.tourism.information.board" = "Tablón de información";
@@ -2506,15 +3174,47 @@
 
 "type.tourism.information.office" = "Oficina de turismo";
 
+"type.tourism.motel" = "Motel";
+
 "type.tourism.museum" = "Museo";
 
 "type.tourism.picnic_site" = "Picnic";
+
+"type.tourism.resort" = "Resort";
 
 "type.tourism.theme_park" = "Parque de atracciones";
 
 "type.tourism.viewpoint" = "Vista panorámica";
 
 "type.tourism.wilderness_hut" = "Cabaña";
+
+"type.tourism.zoo" = "Zoo";
+
+"type.traffic_calming" = "traffic_calming";
+
+"type.traffic_calming.bump" = "traffic_calming-bump";
+
+"type.traffic_calming.hump" = "traffic_calming-hump";
+
+"type.waterway" = "waterway";
+
+"type.waterway.canal" = "Canal";
+
+"type.waterway.canal.tunnel" = "Canal";
+
+"type.waterway.dam" = "waterway-dam";
+
+"type.waterway.ditch" = "waterway-ditch";
+
+"type.waterway.ditch.tunnel" = "waterway-ditch-tunnel";
+
+"type.waterway.dock" = "waterway-dock";
+
+"type.waterway.drain" = "waterway-drain";
+
+"type.waterway.drain.tunnel" = "waterway-drain-tunnel";
+
+"type.waterway.lock" = "waterway-lock";
 
 "type.waterway.lock_gate" = "Compuerta";
 
@@ -2534,10 +3234,76 @@
 
 "type.waterway.waterfall" = "Cascada";
 
+"type.waterway.weir" = "waterway-weir";
+
+"type.wheelchair" = "wheelchair";
+
 "type.wheelchair.limited" = "Parcialmente equipado para discapacitados";
 
 "type.wheelchair.no" = "No equipado para discapacitados";
 
 "type.wheelchair.yes" = "Equipado para discapacitados";
 
+"type.piste_lift" = "piste:lift";
+
+"type.piste_lift.j.bar" = "piste:lift-j-bar";
+
+"type.piste_lift.magic_carpet" = "piste:lift-magic_carpet";
+
+"type.piste_lift.platter" = "piste:lift-platter";
+
+"type.piste_lift.rope_tow" = "piste:lift-rope_tow";
+
+"type.piste_lift.t.bar" = "piste:lift-t-bar";
+
+"type.piste_type" = "piste:type";
+
+"type.piste_type.downhill" = "piste:type-downhill";
+
+"type.piste_type.downhill.advanced" = "piste:type-downhill-advanced";
+
+"type.piste_type.downhill.easy" = "piste:type-downhill-easy";
+
+"type.piste_type.downhill.expert" = "piste:type-downhill-expert";
+
+"type.piste_type.downhill.freeride" = "piste:type-downhill-freeride";
+
+"type.piste_type.downhill.intermediate" = "piste:type-downhill-intermediate";
+
+"type.piste_type.downhill.novice" = "piste:type-downhill-novice";
+
+"type.piste_type.nordic" = "piste:type-nordic";
+
+"type.piste_type.sled" = "piste:type-sled";
+
 "type.building_part" = "Edificio";
+
+"type.area_highway.cycleway" = "area:highway-cycleway";
+
+"type.area_highway.footway" = "area:highway-footway";
+
+"type.area_highway.living_street" = "area:highway-living_street";
+
+"type.area_highway.motorway" = "area:highway-motorway";
+
+"type.area_highway.path" = "area:highway-path";
+
+"type.area_highway.pedestrian" = "area:highway-pedestrian";
+
+"type.area_highway.primary" = "area:highway-primary";
+
+"type.area_highway.residential" = "area:highway-residential";
+
+"type.area_highway.secondary" = "area:highway-secondary";
+
+"type.area_highway.service" = "area:highway-service";
+
+"type.area_highway.tertiary" = "area:highway-tertiary";
+
+"type.area_highway.steps" = "area:highway-steps";
+
+"type.area_highway.track" = "area:highway-track";
+
+"type.area_highway.trunk" = "area:highway-trunk";
+
+"type.area_highway.unclassified" = "area:highway-unclassified";
