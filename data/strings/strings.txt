@@ -2983,7 +2983,7 @@
     comment = Share my position using SMS, %1$@ contains om:// and %2$@ https://omaps.app link WITHOUT NAME. @NOTE non-ascii symbols in the link will result in max 70 characters SMS instead of 140.
     tags = android
     en = Hey, check out my current location in Organic Maps! %1$@ or %2$@ Don't have offline maps? Download here: https://omaps.app/get
-    be = Гэй, глядзі маё цяперашняе месцазнаходжанне на мапе! %1$@ альбо %2$@ Няма офлайн-мапаў? Спампуй тут: https://omaps.app/get
+    be = Гэй, глядзі дзе я зараз на мапе! %1$@ альбо %2$@ Няма офлайн-мапаў? Спампуй тут: https://omaps.app/get
     ru = Смотри где я сейчас. Жми %1$@ или %2$@
     bg = Хей, виж текущото ми местоположение в Organic Maps! %1$@ или %2$@
     ar = هاي، تفقد الموقع الخاص بي على Organic Maps! %1$@ أو %2$@. ليس لديك أي خرائط تعمل بدون الاتصال مع الانترنت مثبتة على جهازك؟ قم بتحميلها من هنا: https://omaps.app/get
@@ -3055,7 +3055,7 @@
     comment = Subject for emailed position
     tags = android, ios
     en = Hey, check out my current location on the Organic Maps map!
-    be = Гэй, глядзі маё цяперашняе месцазнаходжанне на мапе Organic Maps!
+    be = Гэй, глядзі дзе я зараз на мапе Organic Maps!
     ru = Посмотри на карте Organic Maps, где я сейчас нахожусь
     bg = Хей, виж текущото ми местоположение на картата в Organic Maps!
     ar = يا هلا، تحقق من موقعي الحالي على خريطة Organic Maps!
@@ -4296,7 +4296,7 @@
     da = Det giver dig mulighed at optage en rejsterute for en bestemt periode og se den på kortet. Bemærk: aktivering af denne funktion forårsager øget batteriforbrug. Sporet vil blive fjernet automatisk fra kortet efter at tidsintervallet er udløbet.
     nl = Dit laat u toe het afgelegde traject voor een bepaalde periode te registreren en te bekijken op de kaart. Merk op: activatie van deze functie veroorzaakt een hoger batterijverbruik. Het traject wordt automatisch van de kaart verwijderd nadat het tijdsinterval verloopt.
     fi = Toiminnon avulla voit tallentaa kuljetun reitin tietyltä ajalta ja nähdä sen kartalla: Huomautus: tämän toiminnon aktivoiminen lisää akun käyttöä. Reitti poistetaan kartalta automaattisesti ajanjakson päätyttyä.
-    fr = Ceci vous permet d’enregistrer le chemin emprunté pendant un certain temps et de le voir sur la carte. Veuillez noter : l’activation de cette fonction entraîne une grande utilisation de la batterie. La route sera supprimée automatiquement de la carte lorsque l’intervalle de temps sera arrivé à expiration.
+    fr = Ceci vous permet d’enregistrer le chemin emprunté pendant un certain temps et de le voir sur la carte. Veuillez noter : l’activation de cette fonction entraîne une grande utilisation de la batterie. La route sera supprimée automatiquement de la carte lorsque l’intervalle de temps sera arrivé à expiration.
     de = So können Sie die zurückgelegte Strecke für einen bestimmten Zeitraum aufzeichnen und auf der Karte sehen. Hinweis: Die Aktivierung dieser Funktion führt zu erhöhtem Batterieverbrauch. Die Aufzeichnung wird nach Ablauf des Zeitintervalls automatisch von der Karte entfernt.
     hu = Ez lehetővé teszi a bejárt útvonal rögzítését és megtekintését a térképen bizonyos időre. Kérjük, vegye figyelembe, hogy ezen funkció aktiválásával megnöveli az akkumulátor használatát. Az útvonal automatikusan törlődik a térképről az időtartam lejártával.
     id = Ini memungkinkan Anda untuk merekam jalur yang telah dilalui selama jangka waktu tertentu dan melihatnya pada peta. Harap ketahui: aktivasi fungsi ini menyebabkan peningkatan penggunaan baterai. Trek akan dihapus secara otomatis dari peta setelah selang waktu berakhir.
@@ -4395,7 +4395,7 @@
     comment = Text in menu
     tags = android, ios
     en = Website
-    be = Веб-сайт
+    be = Вэб-сайт
     ru = Вебсайт
     bg = Уебсайт
     ar = الموقع الإلكتروني
@@ -4795,7 +4795,7 @@
     comment = Update all button text
     tags = android, ios
     en = Update All
-    be = Абнавіць усе
+    be = Абнавіць усё
     ru = Обновить все
     bg = Обновяване на всичко
     ar = تحديث الكل
@@ -18236,7 +18236,7 @@
   [enable_logging_warning_message]
     tags = android
     en = The option turns on logging for diagnostic purposes. It can be helpful for our team to troubleshoot issues with the app. Enable this option temporarily to record and send detailed logs about your issue to us.
-    be = Гэтая налада ўключае запіс журнала падзей для мэтаў дыягностыкі. Гэта можа дапамагчы нашай камандзе вырашаць праблемы з дадаткам. Уключайце гэтую оцыю часова каб запісаць і паслаць нам дэталёвую інфармацыю пра знойденую вамі праблему.
+    be = Опцыя ўключае запіс журнала падзей для мэтаў дыягностыкі. Гэта можа дапамагчы нашай камандзе вырашаць праблемы з дадаткам. Уключайце гэтую опцыю часова каб запісаць і паслаць нам дэталёвую інфармацыю пра знойденую вамі праблему.
     ru = Данная настройка включается для записи действий в целях диагностики, чтобы помочь нашей команде выявить проблемы с приложением. Временно включайте эту настройку только для отправки детальной информации о найденной вами проблеме в приложении.
     bg = Тази настройка е разрешена, за да се записват действия за диагностични цели, които помагат на нашия екип да идентифицира проблеми с приложението. Временно активирайте тази настройка само за изпращане на подробна информация за проблема, който сте открили с приложението.
     ar = يتحول الخيار إلى التسجيل لإغراض التشخيص. يمكن أن يكون مفيدًا لفريق الدعم الخاص بنا الذين يعملون على استكشاف أخطاء التطبيق وإصلاحها. قم بتفعيل هذا الخيار فقط في حالة طلب الدعم من Organic Maps.
@@ -19223,7 +19223,7 @@
   [keyboard_availability_alert]
     tags = ios
     en = Keyboard is not available while driving
-    be = Клавіятура недасяганьная падчас язды
+    be = Клавіятура недасягальная падчас язды
     ru = Клавиатура недоступна во время движения
     ar = لوحة الكتابة غير متاحة أثناء القيادة
     cs = Při řízení není klávesnice dostupná
@@ -19620,8 +19620,8 @@
   [avoid_unpaved_carplay_2]
     tags = ios
     en = Avoid unpaved
-    be = Без грунтовых
-    ru = Пазбягаць грунтовак
+    be = Пазбягаць грунтовак
+    ru = Без грунтовых
     ar = تجنب غير الممهد
     cs = Vyhnout se nezp
     da = Undgå grus
