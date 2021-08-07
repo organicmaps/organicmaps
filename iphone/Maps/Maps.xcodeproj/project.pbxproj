@@ -3679,7 +3679,6 @@
 				de,
 				fr,
 				es,
-				"en-US",
 				it,
 				cs,
 				"zh-Hant",
