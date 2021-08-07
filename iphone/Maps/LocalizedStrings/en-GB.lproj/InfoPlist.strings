@@ -4,6 +4,18 @@
  * Language: en-GB
  */
 
+/********** 3d touch strings **********/
+
+/* Used in home screen quick actions. */
+"search" = "Search";
+
+/* Used in home screen quick actions. */
+"bookmarks" = "Bookmarks";
+
+/* Used in home screen quick actions. */
+"route" = "Route";
+
+
 /********** gps strings **********/
 
 /* Needed to explain why we always require access to GPS coordinates, and not only when the app is active. */
