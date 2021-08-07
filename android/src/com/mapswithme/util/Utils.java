@@ -18,6 +18,7 @@ import android.text.style.AbsoluteSizeSpan;
 import android.util.AndroidRuntimeException;
 import android.view.View;
 import android.view.Window;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.DimenRes;
@@ -101,13 +102,23 @@ public class Utils
 
   public static void showSnackbar(@NonNull View view, @NonNull String message)
   {
-    Snackbar.make(view, message, Snackbar.LENGTH_LONG).show();
+    Snackbar snackbar = Snackbar.make(view, message, Snackbar.LENGTH_LONG);
+    setSnackbarMaxLines(snackbar, 3);
+    snackbar.show();
   }
 
   public static void showSnackbarAbove(@NonNull View view, @NonNull View viewAbove, @NonNull String message)
   {
-    Snackbar.make(view, message, Snackbar.LENGTH_LONG)
-            .setAnchorView(viewAbove).show();
+    Snackbar snackbar = Snackbar.make(view, message, Snackbar.LENGTH_LONG);
+    setSnackbarMaxLines(snackbar, 3);
+    snackbar.setAnchorView(viewAbove);
+    snackbar.show();
+  }
+
+  private static void setSnackbarMaxLines(@NonNull final Snackbar snackbar, final int maxLinesCount)
+  {
+    TextView snackTextView = snackbar.getView().findViewById(com.google.android.material.R.id.snackbar_text);
+    snackTextView.setMaxLines(maxLinesCount);
   }
 
   public static void showSnackbar(@NonNull Context context, @NonNull View view, int messageResId)
