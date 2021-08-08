@@ -20,10 +20,10 @@
 </p>
 
 <p float="left">
-  <img src="docs/screenshots/1.jpg" width="400" />
-  <img src="docs/screenshots/2.jpg" width="400" /> 
-  <img src="docs/screenshots/3.jpg" width="400" />
-  <img src="docs/screenshots/4.jpg" width="400" />
+  <img src="android/src/fdroid/play/listings/en-US/graphics/phone-screenshots/1.jpg" width="400" />
+  <img src="android/src/fdroid/play/listings/en-US/graphics/phone-screenshots/2.jpg" width="400" />
+  <img src="android/src/fdroid/play/listings/en-US/graphics/phone-screenshots/3.jpg" width="400" />
+  <img src="android/src/fdroid/play/listings/en-US/graphics/phone-screenshots/4.jpg" width="400" />
 </p>
 
 ## Features
