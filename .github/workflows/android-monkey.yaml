@@ -1,32 +1,38 @@
 name: Android Monkey
 on:
   workflow_dispatch: # Manual trigger
-  push: # Please don't change to pull_request because it can expose secrets
-    branches:
-      - master
-    paths-ignore:
-      - .gitignore
-      - .github/**
-      - '**/*_tests/**'
-      - '**/CMakeLists.txt'
-      - CONTRIBUTORS
-      - LICENSE
-      - NOTICE
-      - README.md
-      - iphone/**
-      - xcode/**
-      - docs/**
-      - generator/**
-      - packaging/**
-      - pyhelpers/**
-      - qt*/**
-      - skin_generator/**
-      - track_generator/**
+  schedule:
+    - cron:  '0 5 * * *' # Once per day at 05:00 UTC
 
 jobs:
+  precondition:
+    runs-on: ubuntu-latest
+    name: Check preconditions
+    steps:
+      - name: Checkout sources
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 1000 # fetch month or so
+
+      - name: Check that Android was updated
+        id: check
+        shell: bash
+        run: |
+          DIRS="android base drape drape_frontend editor ge0 map platform routing search shaders storage traffic transit"
+          if [ '${{ github.event_name }}' != 'schedule' ] || 
+             [ $(git rev-list --count --since="24 hours" HEAD $DIRS) -gt 0 ]; then
+            echo "::set-output name=updated::true"
+          else
+            echo "::set-output name=updated::"
+          fi
+    outputs:
+      updated: ${{ steps.check.outputs.updated }}
+
   android-google-debug:
     name: Android Google Debug
     runs-on: ubuntu-latest
+    needs: precondition
+    if: ${{ needs.precondition.outputs.updated != '' }}
     environment: beta
     steps:
       - name: Install build tools and dependencies
