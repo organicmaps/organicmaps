@@ -245,7 +245,7 @@
 	<!-- Update all button text -->
 	<string name="downloader_update_all_button">Абнавіць усё</string>
 	<!-- Cancel all button text -->
-	<string name="downloader_cancel_all">Адмяніць усе</string>
+	<string name="downloader_cancel_all">Адмяніць усё</string>
 	<!-- Downloaded maps category -->
 	<string name="downloader_downloaded_subtitle">Спампаваныя</string>
 	<!-- Downloaded maps category -->
@@ -254,7 +254,7 @@
 	<string name="downloader_queued">У чарзе</string>
 	<string name="downloader_near_me_subtitle">Каля мяне</string>
 	<string name="downloader_status_maps">Мапы</string>
-	<string name="downloader_download_all_button">Спампаваць усе</string>
+	<string name="downloader_download_all_button">Спампаваць усё</string>
 	<string name="downloader_downloading">Спампоўваецца:</string>
 	<string name="downloader_search_results">Знойдзена</string>
 	<!-- Status of outdated country in the list -->
@@ -361,7 +361,7 @@
 	<string name="dialog_routing_try_again">Паспрабуйце зноў</string>
 	<string name="not_now">Не зараз</string>
 	<string name="dialog_routing_download_and_build_cross_route">Спампаваць мапу і пракласці лепшы маршрут праз некалькі мапаў?</string>
-	<string name="dialog_routing_download_cross_route">Спампаваць дадатковыя мапы каб пракласці лепшы маршрут каторы перасякае межы гэтай мапы.</string>
+	<string name="dialog_routing_download_cross_route">Спампаваць дадатковыя мапы, каб пракласці лепшы маршрут, каторы перасякае межы гэтай мапы.</string>
 
 	<!-- SECTION: Strings for downloading map from search -->
 	<string name="search_without_internet_advertisement">Каб шукаць месцы і пракладваць маршруты, спампуйце карту. Пасля гэтага падключэнне да Інтэрнэту вам больш не спатрэбіцца.</string>
@@ -417,14 +417,14 @@
 	<string name="editor_add_select_location">Месцазнаходжанне</string>
 	<string name="editor_done_dialog_1">Вы змянілі мапу свету. Не прыхоўвайце гэта! Расскажыце сябрам і праўце разам.</string>
 	<string name="share_with_friends">Падзяліцца з сябрамі</string>
-	<string name="editor_report_problem_desription_1">Калі ласка, падрабязна апішыце праблему, каб супульнасць OpenStreetMap магла выправіць памылку.</string>
+	<string name="editor_report_problem_desription_1">Калі ласка, падрабязна апішыце праблему, каб супольнасць OpenStreetMap магла выправіць памылку.</string>
 	<string name="editor_report_problem_desription_2">Альбо зрабіце гэта самі на https://www.openstreetmap.org/</string>
 	<string name="editor_report_problem_send_button">Адправіць</string>
 	<string name="editor_report_problem_title">Праблема</string>
 	<string name="editor_report_problem_no_place_title">Месца не існуе</string>
 	<string name="editor_report_problem_under_construction_title">Зачынена на рамонт</string>
 	<string name="editor_report_problem_duplicate_place_title">Паўтараючаеся месца</string>
-	<string name="autodownload">Аўтаматчыная спампоўка</string>
+	<string name="autodownload">Аўтаматычная спампоўка</string>
 	<!-- Place Page opening hours text -->
 	<string name="closed_now">Зараз зачынена</string>
 	<!-- Place Page opening hours text -->
@@ -505,7 +505,7 @@
 	<string name="error_enter_correct_zip_code">Увядзіце паштовы індэкс правільна</string>
 	<!-- Place Page title for long tap -->
 	<string name="core_placepage_unknown_place">Невядомае месца</string>
-	<string name="editor_other_info">Адправіць нататку рэдастарам OSM</string>
+	<string name="editor_other_info">Адправіць нататку рэдактарам OSM</string>
 	<string name="editor_detailed_description_hint">Падрабязны каментар</string>
 	<string name="editor_detailed_description">Запрапанаваныя вамі змены будуць дасланыя суполцы OpenStreetMap. Апішыце любыя іншыя падрабязнасці, каторыя нельга паправіць у Organic Maps.</string>
 	<string name="editor_more_about_osm">Падрабязней пра OpenStreetMap</string>
@@ -585,7 +585,7 @@
 	<string name="decline">Адхіліць</string>
 	<!-- noun -->
 	<string name="search_in_table">Спіс</string>
-	<string name="mobile_data_dialog">Ужываць мабільны інтэрнэт для паказу больш падрабязную інфармацыю?</string>
+	<string name="mobile_data_dialog">Ужываць мабільны інтэрнэт для паказу больш падрабязнай інфармацыі?</string>
 	<string name="mobile_data_option_always">Заўсёды</string>
 	<string name="mobile_data_option_today">Толькі сёння</string>
 	<string name="mobile_data_option_not_today">Не сёння</string>
@@ -651,7 +651,7 @@
 	<string name="bookmarks_error_title_list_name_already_taken">Гэтая назва ўжо занятая</string>
 	<string name="bookmarks_error_message_list_name_already_taken">Выберыце іншую назву</string>
 	<string name="bookmarks_error_title_list_name_too_long">Гэтая назва надта доўгая</string>
-	<string name="please_wait">Калі ласка, пачакайце...</string>
+	<string name="please_wait">Калі ласка, пачакайце…</string>
 	<string name="phone_number">Нумар тэлефона</string>
 	<string name="profile">Профіль OpenStreetMap</string>
 	<string name="place_page_search_similar_hotel">Шукаць падобныя гатэлі</string>
@@ -686,7 +686,7 @@
 	<string name="button_layer_traffic">Рух</string>
 	<string name="button_layer_subway">Метро</string>
 	<string name="layers_title">Слаі карты</string>
-	<string name="subway_data_unavailable">Кара мятро недасягальная</string>
+	<string name="subway_data_unavailable">Мапа метро недасягальная</string>
 	<string name="bookmarks_empty_list_title">Гэты спіс пусты</string>
 	<string name="bookmarks_empty_list_message">Каб дадаць закладку, націсніце на месца на мапе і потым на іконку з зорачкай</string>
 	<string name="category_desc_more">…яшчэ</string>
@@ -768,7 +768,7 @@
 	<!-- Android, title, max 20-22 symbols -->
 	<string name="sort_bookmarks">Сартаваць закладкі</string>
 	<!-- iOS -->
-	<string name="sort_default">Сартаваць па змоўчанні</string>
+	<string name="sort_default">Сартаваць па змаўчанні</string>
 	<string name="sort_type">Сартаваць па тыпу</string>
 	<string name="sort_distance">Сартаваць па адлегласці</string>
 	<string name="sort_date">Сартаваць па даце</string>
@@ -804,7 +804,7 @@
 	<string name="search_in_the_list">Шукаць у спіце</string>
 	<string name="religious_places">Святыя месцы</string>
 	<string name="select_list">Выбраць спіс</string>
-	<string name="transit_not_found">Навігацыя па метро для гэтага рэгіёна пакуль няма</string>
+	<string name="transit_not_found">Навігацыі па метро для гэтага рэгіёна пакуль няма</string>
 	<string name="dialog_pedestrian_route_is_long_header">Маршрут на метро не знойдзены</string>
 	<string name="dialog_pedestrian_route_is_long_message">Выберыце пункт адпраўлення альбо прызначэння бліжэй да станцыі метро</string>
 	<string name="button_layer_isolines">Рэльеф</string>

@@ -400,7 +400,7 @@
 "downloader_update_all_button" = "Абнавіць усё";
 
 /* Cancel all button text */
-"downloader_cancel_all" = "Адмяніць усе";
+"downloader_cancel_all" = "Адмяніць усё";
 
 /* Downloaded maps category */
 "downloader_downloaded_subtitle" = "Спампаваныя";
@@ -415,7 +415,7 @@
 
 "downloader_status_maps" = "Мапы";
 
-"downloader_download_all_button" = "Спампаваць усе";
+"downloader_download_all_button" = "Спампаваць усё";
 
 "downloader_downloading" = "Спампоўваецца:";
 
@@ -593,7 +593,7 @@
 
 "dialog_routing_download_and_build_cross_route" = "Спампаваць мапу і пракласці лепшы маршрут праз некалькі мапаў?";
 
-"dialog_routing_download_cross_route" = "Спампаваць дадатковыя мапы каб пракласці лепшы маршрут каторы перасякае межы гэтай мапы.";
+"dialog_routing_download_cross_route" = "Спампаваць дадатковыя мапы, каб пракласці лепшы маршрут, каторы перасякае межы гэтай мапы.";
 
 
 /********** Strings for downloading map from search **********/
@@ -695,7 +695,7 @@
 
 "share_with_friends" = "Падзяліцца з сябрамі";
 
-"editor_report_problem_desription_1" = "Калі ласка, падрабязна апішыце праблему, каб супульнасць OpenStreetMap магла выправіць памылку.";
+"editor_report_problem_desription_1" = "Калі ласка, падрабязна апішыце праблему, каб супольнасць OpenStreetMap магла выправіць памылку.";
 
 "editor_report_problem_desription_2" = "Альбо зрабіце гэта самі на https://www.openstreetmap.org/";
 
@@ -709,7 +709,7 @@
 
 "editor_report_problem_duplicate_place_title" = "Паўтараючаеся месца";
 
-"autodownload" = "Аўтаматчыная спампоўка";
+"autodownload" = "Аўтаматычная спампоўка";
 
 /* Place Page opening hours text */
 "closed_now" = "Зараз зачынена";
@@ -863,7 +863,7 @@
 /* Place Page title for long tap */
 "core_placepage_unknown_place" = "Невядомае месца";
 
-"editor_other_info" = "Адправіць нататку рэдастарам OSM";
+"editor_other_info" = "Адправіць нататку рэдактарам OSM";
 
 "editor_detailed_description_hint" = "Падрабязны каментар";
 
@@ -1008,7 +1008,7 @@
 /* noun */
 "search_in_table" = "Спіс";
 
-"mobile_data_dialog" = "Ужываць мабільны інтэрнэт для паказу больш падрабязную інфармацыю?";
+"mobile_data_dialog" = "Ужываць мабільны інтэрнэт для паказу больш падрабязнай інфармацыі?";
 
 "mobile_data_option_always" = "Заўсёды";
 
@@ -1126,7 +1126,7 @@
 
 "bookmarks_error_title_list_name_too_long" = "Гэтая назва надта доўгая";
 
-"please_wait" = "Калі ласка, пачакайце...";
+"please_wait" = "Калі ласка, пачакайце…";
 
 "phone_number" = "Нумар тэлефона";
 
@@ -1166,7 +1166,7 @@
 
 "layers_title" = "Слаі карты";
 
-"subway_data_unavailable" = "Кара мятро недасягальная";
+"subway_data_unavailable" = "Мапа метро недасягальная";
 
 "bookmarks_empty_list_title" = "Гэты спіс пусты";
 
@@ -1326,7 +1326,7 @@
 "sort_bookmarks" = "Сартаваць закладкі";
 
 /* iOS */
-"sort_default" = "Сартаваць па змоўчанні";
+"sort_default" = "Сартаваць па змаўчанні";
 
 "sort_type" = "Сартаваць па тыпу";
 
@@ -1394,7 +1394,7 @@
 
 "select_list" = "Выбраць спіс";
 
-"transit_not_found" = "Навігацыя па метро для гэтага рэгіёна пакуль няма";
+"transit_not_found" = "Навігацыі па метро для гэтага рэгіёна пакуль няма";
 
 "dialog_pedestrian_route_is_long_header" = "Маршрут на метро не знойдзены";
 
