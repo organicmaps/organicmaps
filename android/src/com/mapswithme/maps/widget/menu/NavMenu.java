@@ -11,12 +11,10 @@ import androidx.annotation.IntegerRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import com.mapswithme.maps.Framework;
 import com.mapswithme.maps.MwmApplication;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.maplayer.traffic.TrafficManager;
 import com.mapswithme.maps.sound.TtsPlayer;
-import com.mapswithme.maps.widget.RotateDrawable;
 import com.mapswithme.util.Graphics;
 import com.mapswithme.util.UiUtils;
 
@@ -24,11 +22,12 @@ public class NavMenu extends BaseMenu
 {
   @IntegerRes
   private final int mAnimationDuration;
-  private final RotateDrawable mToggleImage;
   @NonNull
   private final ImageView mTts;
   @NonNull
   private final ImageView mTraffic;
+
+  ImageView mToggle;
 
   final View mContentFrame;
 
@@ -83,9 +82,8 @@ public class NavMenu extends BaseMenu
     mAnimationDuration = MwmApplication.from(frame.getContext())
                                        .getResources().getInteger(R.integer.anim_menu);
     mContentFrame = mFrame.findViewById(R.id.content_frame);
-    mToggleImage = new RotateDrawable(Graphics.tint(mFrame.getContext(), R.drawable.ic_menu_close, R.attr.iconTintLight));
-    ImageView toggle = mLineFrame.findViewById(R.id.toggle);
-    toggle.setImageDrawable(mToggleImage);
+    mToggle = mLineFrame.findViewById(R.id.toggle);
+    mToggle.setImageDrawable(Graphics.tint(mFrame.getContext(), R.drawable.ic_menu_close, R.attr.iconTintLight));
 
     setToggleState(false, false);
 
@@ -207,27 +205,22 @@ public class NavMenu extends BaseMenu
     if (mLayoutMeasured)
       return;
 
-    UiUtils.measureView(mContentFrame, new UiUtils.OnViewMeasuredListener()
+    UiUtils.measureView(mContentFrame, (width, height) ->
     {
-      @Override
-      public void onViewMeasured(int width, int height)
+      if (height != 0)
       {
-        if (height != 0)
-        {
-          mContentHeight = height;
-          mLayoutMeasured = true;
+        mContentHeight = height;
+        mLayoutMeasured = true;
 
-          UiUtils.hide(mContentFrame);
-        }
-        afterLayoutMeasured(procAfterMeasurement);
+        UiUtils.hide(mContentFrame);
       }
+      afterLayoutMeasured(procAfterMeasurement);
     });
   }
 
   public void refresh()
   {
     refreshTts();
-//    refreshTraffic();
   }
 
   public void refreshTts()
@@ -251,20 +244,14 @@ public class NavMenu extends BaseMenu
     final float to = open ? -90.0f : 90.0f;
     if (!animate)
     {
-      mToggleImage.setAngle(to);
+      mToggle.setRotation(to);
+      mToggle.invalidate();
       return;
     }
 
     final float from = -to;
     ValueAnimator animator = ValueAnimator.ofFloat(from, to);
-    animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener()
-    {
-      @Override
-      public void onAnimationUpdate(ValueAnimator animation)
-      {
-        mToggleImage.setAngle((float) animation.getAnimatedValue());
-      }
-    });
+    animator.addUpdateListener(animation -> mToggle.setRotation((float) animation.getAnimatedValue()));
 
     animator.setDuration(mAnimationDuration);
     animator.start();
@@ -284,9 +271,6 @@ public class NavMenu extends BaseMenu
   {
     super.show(show);
     measureContent(null);
-    @Framework.RouterType
-    int routerType = Framework.nativeGetRouter();
     UiUtils.showIf(show, mTts);
-//    UiUtils.showIf(show && routerType == Framework.ROUTER_TYPE_VEHICLE, mTraffic);
   }
 }
