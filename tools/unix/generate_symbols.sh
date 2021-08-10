@@ -1,5 +1,5 @@
 #!/bin/bash
-set -e -u
+set -euo pipefail
 
 if ! command -v optipng &> /dev/null
 then
