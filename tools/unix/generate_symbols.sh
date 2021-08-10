@@ -1,6 +1,19 @@
 #!/bin/bash
 set -e -u
 
+if ! command -v optipng &> /dev/null
+then
+    echo -e "\033[1;31moptipng could not be found"
+    if [[ $OSTYPE == 'darwin'* ]]; then
+       echo 'run command'
+       echo 'brew install optipng'
+       echo 'to install it'
+       exit
+    fi
+    echo 'take a look to http://optipng.sourceforge.net/'
+    exit
+fi
+
 # Prevent python from generating compiled *.pyc files
 export PYTHONDONTWRITEBYTECODE=1
 
@@ -97,6 +110,12 @@ BuildSkin clear  clear xxxhdpi 78 _clear symbols-ad -ad
 rm -rf "$OMIM_PATH"/data/resources-{*}
 
 rm -rf "$OMIM_PATH"/data/resources-*_design
+
+for i in mdpi hdpi xhdpi xxhdpi xxxhdpi 6plus; do 
+  optipng -o7 "$OMIM_PATH"/data/resources-${i}_clear/symbols.png
+  optipng -o7 "$OMIM_PATH"/data/resources-${i}_dark/symbols.png
+done
+
 for i in mdpi hdpi xhdpi xxhdpi xxxhdpi 6plus; do
   cp -r "$OMIM_PATH"/data/resources-${i}_clear/ "$OMIM_PATH"/data/resources-${i}_design/
 done
