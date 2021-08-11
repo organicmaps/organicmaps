@@ -98,8 +98,6 @@ set(
   map_style.hpp
   map_style_reader.cpp
   map_style_reader.hpp
-  meta_idx.cpp
-  meta_idx.hpp
   metadata_serdes.cpp
   metadata_serdes.hpp
   mwm_set.cpp

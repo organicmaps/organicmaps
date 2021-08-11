@@ -43,9 +43,6 @@ AltitudeLoader::AltitudeLoader(DataSource const & dataSource, MwmSet::MwmId cons
 
   m_countryFileName = mwmValue.GetCountryFileName();
 
-  CHECK_GREATER_OR_EQUAL(mwmValue.GetHeader().GetFormat(), version::Format::v8,
-                         ("Unsupported mwm format"));
-
   if (!mwmValue.m_cont.IsExist(ALTITUDES_FILE_TAG))
     return;
 

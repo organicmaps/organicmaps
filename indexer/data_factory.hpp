@@ -26,7 +26,6 @@ public:
   template <typename Reader>
   std::unique_ptr<IntervalIndex<Reader, uint32_t>> CreateIndex(Reader const & reader) const
   {
-    CHECK_NOT_EQUAL(m_version.GetFormat(), version::Format::v1, ("Old maps format is not supported"));
     return std::make_unique<IntervalIndex<Reader, uint32_t>>(reader);
   }
 };

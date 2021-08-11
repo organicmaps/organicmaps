@@ -186,18 +186,14 @@ uint8_t ReadByte(TSource & src)
 }  // namespace
 
 FeatureType::FeatureType(SharedLoadInfo const * loadInfo, vector<uint8_t> && buffer,
-                         MetadataIndex const * metadataIndex,
                          indexer::MetadataDeserializer * metadataDeserializer)
   : m_loadInfo(loadInfo)
   , m_data(buffer)
-  , m_metadataIndex(metadataIndex)
   , m_metadataDeserializer(metadataDeserializer)
 {
-  CHECK(loadInfo, ());
+  CHECK(m_loadInfo, ());
 
-  ASSERT(m_loadInfo->GetMWMFormat() < version::Format::v10 ||
-             m_loadInfo->GetMWMFormat() == version::Format::v10 && m_metadataIndex ||
-             m_loadInfo->GetMWMFormat() > version::Format::v10 && m_metadataDeserializer,
+  ASSERT(m_loadInfo->GetMWMFormat() >= version::Format::v11 && m_metadataDeserializer,
          (m_loadInfo->GetMWMFormat()));
 
   m_header = Header(m_data);
@@ -526,46 +522,8 @@ void FeatureType::ParseMetadata()
   CHECK(m_loadInfo, ());
   try
   {
-    auto const format = m_loadInfo->GetMWMFormat();
-    if (format >= version::Format::v11)
-    {
-      UNUSED_VALUE(m_metadataDeserializer->Get(m_id.m_index, m_metadata));
-    }
-    else if (format == version::Format::v10)
-    {
-      uint32_t offset;
-      CHECK(m_metadataIndex, ("metadata index should be set for mwm format >= v10"));
-      if (m_metadataIndex->Get(m_id.m_index, offset))
-      {
-        ReaderSource<FilesContainerR::TReader> src(m_loadInfo->GetMetadataReader());
-        src.Skip(offset);
-        // Before v11 we used the same metadata serialization for mwm and mwm.tmp
-        m_metadata.DeserializeFromMwmTmp(src);
-      }
-    }
-    else
-    {
-      struct MetadataIndexEntry
-      {
-        uint32_t key;
-        uint32_t value;
-      };
-      DDVector<MetadataIndexEntry, FilesContainerR::TReader> idx(
-          m_loadInfo->GetMetadataIndexReader());
+    UNUSED_VALUE(m_metadataDeserializer->Get(m_id.m_index, m_metadata));
 
-      auto it = lower_bound(idx.begin(), idx.end(), m_id.m_index,
-                            [](auto const & idx, auto val) { return idx.key < val; });
-
-      if (it != idx.end() && m_id.m_index == it->key)
-      {
-        ReaderSource<FilesContainerR::TReader> src(m_loadInfo->GetMetadataReader());
-        src.Skip(it->value);
-        CHECK_GREATER_OR_EQUAL(m_loadInfo->GetMWMFormat(), version::Format::v8,
-                               ("Unsupported mwm format"));
-        // Before v11 we used the same metadata serialization for mwm and mwm.tmp
-        m_metadata.DeserializeFromMwmTmp(src);
-      }
-    }
     // December 19 - September 20 mwm compatibility
     auto postcodesReader = m_loadInfo->GetPostcodesReader();
     if (postcodesReader)
@@ -595,11 +553,7 @@ void FeatureType::ParseMetaIds()
   CHECK(m_loadInfo, ());
   try
   {
-    auto const format = m_loadInfo->GetMWMFormat();
-    if (format >= version::Format::v11)
-      UNUSED_VALUE(m_metadataDeserializer->GetIds(m_id.m_index, m_metaIds));
-    else
-      ParseMetadata();
+    UNUSED_VALUE(m_metadataDeserializer->GetIds(m_id.m_index, m_metaIds));
   }
   catch (Reader::OpenException const &)
   {

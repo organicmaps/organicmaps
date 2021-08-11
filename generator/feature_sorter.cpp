@@ -18,7 +18,6 @@
 #include "indexer/feature_impl.hpp"
 #include "indexer/feature_processor.hpp"
 #include "indexer/feature_visibility.hpp"
-#include "indexer/meta_idx.hpp"
 #include "indexer/scales.hpp"
 #include "indexer/scales_patch.hpp"
 
