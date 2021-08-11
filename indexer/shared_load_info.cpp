@@ -9,13 +9,10 @@ namespace feature
 SharedLoadInfo::SharedLoadInfo(FilesContainerR const & cont, DataHeader const & header)
   : m_cont(cont), m_header(header)
 {
-  CHECK_NOT_EQUAL(m_header.GetFormat(), version::Format::v1, ("Old maps format is not supported"));
 }
 
 SharedLoadInfo::Reader SharedLoadInfo::GetDataReader() const
 {
-  if (GetMWMFormat() < version::Format::v10)
-    return m_cont.GetReader(FEATURES_FILE_TAG_V1_V9);
   return m_cont.GetReader(FEATURES_FILE_TAG);
 }
 

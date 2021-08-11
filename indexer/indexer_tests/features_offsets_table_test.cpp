@@ -71,50 +71,24 @@ namespace feature
     Platform & pl = GetPlatform();
 
     FilesContainerR baseContainer(pl.GetReader("minsk-pass" DATA_FILE_EXTENSION));
+    size_t constexpr minFeaturesCount = 5000;
 
     LocalCountryFile localFile = LocalCountryFile::MakeForTesting(testFileName);
     CountryIndexes::PreparePlaceOnDisk(localFile);
 
     string const indexFile = CountryIndexes::GetPath(localFile, CountryIndexes::Index::Offsets);
-    FileWriter::DeleteFileX(indexFile);
-
-    FeaturesOffsetsTable::Builder builder;
-    // minsk-pass.mwm has old format and old FEATURES_FILE_TAG name.
-    FeaturesVector::ForEachOffset(baseContainer.GetReader(FEATURES_FILE_TAG_V1_V9), [&builder](uint32_t offset)
-    {
-      builder.PushOffset(offset);
-    });
-
-    unique_ptr<FeaturesOffsetsTable> table(FeaturesOffsetsTable::Build(builder));
-    TEST(table.get(), ());
-    TEST_EQUAL(builder.size(), table->size(), ());
-
-    string const testFile = pl.WritablePathForFile(testFileName + DATA_FILE_EXTENSION);
-    SCOPE_GUARD(deleteTestFileGuard, bind(&FileWriter::DeleteFileX, cref(testFile)));
     SCOPE_GUARD(deleteTestFileIndexGuard, bind(&FileWriter::DeleteFileX, cref(indexFile)));
 
-    // Store table in a temporary data file.
-    {
-      FilesContainerW testContainer(testFile);
+    FeaturesOffsetsTable::Build(baseContainer, indexFile);
 
-      // Just copy all sections except a possibly existing offsets
-      // table section.
-      baseContainer.ForEachTag([&baseContainer, &testContainer](string const & tag)
-      {
-        testContainer.Write(baseContainer.GetReader(tag), tag);
-      });
-      table->Save(indexFile);
-      testContainer.Finish();
-    }
+    unique_ptr<FeaturesOffsetsTable> table(FeaturesOffsetsTable::Load(baseContainer));
+    TEST(table.get() && table->size() > minFeaturesCount, ());
 
-    // Load table from the temporary data file.
-    {
-      unique_ptr<FeaturesOffsetsTable> loadedTable(FeaturesOffsetsTable::Load(indexFile));
-      TEST(loadedTable.get(), ());
+    unique_ptr<FeaturesOffsetsTable> loadedTable(FeaturesOffsetsTable::Load(indexFile));
+    TEST(loadedTable.get() && loadedTable->size() > minFeaturesCount, ());
 
-      TEST_EQUAL(table->size(), loadedTable->size(), ());
-      for (uint64_t i = 0; i < table->size(); ++i)
-        TEST_EQUAL(table->GetFeatureOffset(i), loadedTable->GetFeatureOffset(i), ());
-    }
+    TEST_EQUAL(table->size(), loadedTable->size(), ());
+    for (uint64_t i = 0; i < table->size(); ++i)
+      TEST_EQUAL(table->GetFeatureOffset(i), loadedTable->GetFeatureOffset(i), ());
   }
 }  // namespace feature

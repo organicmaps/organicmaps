@@ -43,8 +43,6 @@ public:
       // feature ids from it, gets untouched features by ids from |src| and applies |m_fn| by
       // ProcessElement.
       feature::DataHeader const & header = mwmValue->GetHeader();
-      CHECK_GREATER_OR_EQUAL(header.GetFormat(), version::Format::v5,
-                             ("Old maps should not be registered."));
       CheckUniqueIndexes checkUnique;
 
       // In case of WorldCoasts we should pass correct scale in ForEachInIntervalAndScale.

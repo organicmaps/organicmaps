@@ -78,11 +78,10 @@ namespace feature
     return table;
   }
 
-  void FeaturesOffsetsTable::Build(ModelReaderPtr & reader, string const & storePath)
+  void FeaturesOffsetsTable::Build(FilesContainerR const & cont, string const & storePath)
   {
     Builder builder;
-    FeaturesVector::ForEachOffset(reader,
-                                  [&builder](uint32_t offset) { builder.PushOffset(offset); });
+    FeaturesVector::ForEachOffset(cont, [&builder](uint32_t offset) { builder.PushOffset(offset); });
 
     unique_ptr<FeaturesOffsetsTable> table(Build(builder));
     table->Save(storePath);
@@ -129,14 +128,10 @@ namespace feature
       string const destPath = filePath + ".offsets";
       SCOPE_GUARD(fileDeleter, bind(FileWriter::DeleteFileX, destPath));
 
-      FilesContainerR::TReader reader = FilesContainerR(filePath).GetReader(FEATURES_FILE_TAG);
-
-      DatSectionHeader header;
-      header.Read(*reader.GetPtr());
-      CHECK(header.m_version == DatSectionHeader::Version::V0,
-            (base::Underlying(header.m_version)));
-      auto featuresSubreader = reader.SubReader(header.m_featuresOffset, header.m_featuresSize);
-      feature::FeaturesOffsetsTable::Build(featuresSubreader, destPath);
+      {
+        FilesContainerR cont(filePath);
+        feature::FeaturesOffsetsTable::Build(cont, destPath);
+      }
 
       FilesContainerW(filePath, FileWriter::OP_WRITE_EXISTING).Write(destPath, FEATURE_OFFSETS_FILE_TAG);
       return true;

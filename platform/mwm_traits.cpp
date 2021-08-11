@@ -9,60 +9,36 @@ MwmTraits::MwmTraits(MwmVersion const & version) : m_version(version) {}
 
 MwmTraits::SearchIndexFormat MwmTraits::GetSearchIndexFormat() const
 {
-  if (GetFormat() < version::Format::v7)
-    return SearchIndexFormat::FeaturesWithRankAndCenter;
-  if (GetFormat() < version::Format::v10)
-    return SearchIndexFormat::CompressedBitVector;
   return SearchIndexFormat::CompressedBitVectorWithHeader;
 }
 
 MwmTraits::HouseToStreetTableFormat MwmTraits::GetHouseToStreetTableFormat() const
 {
-  if (GetFormat() >= version::Format::v10)
-    return HouseToStreetTableFormat::HouseToStreetTableWithHeader;
-
-  if (GetFormat() < version::Format::v7)
-    return HouseToStreetTableFormat::Unknown;
-
-  uint32_t constexpr kLastVersionWithFixed3BitsDDVector = 190113;
-  if (GetVersion() <= kLastVersionWithFixed3BitsDDVector)
-    return HouseToStreetTableFormat::Fixed3BitsDDVector;
-
-  return HouseToStreetTableFormat::EliasFanoMap;
+  return HouseToStreetTableFormat::HouseToStreetTableWithHeader;
 }
 
 MwmTraits::CentersTableFormat MwmTraits::GetCentersTableFormat() const
 {
-  if (GetFormat() < version::Format::v9)
-    return CentersTableFormat::PlainEliasFanoMap;
-
-  uint32_t constexpr kLastVersionWithPlainEliasFanoMap = 191019;
-  if (GetVersion() <= kLastVersionWithPlainEliasFanoMap)
-    return CentersTableFormat::PlainEliasFanoMap;
-
   return CentersTableFormat::EliasFanoMapWithHeader;
 }
 
-bool MwmTraits::HasOffsetsTable() const { return GetFormat() >= version::Format::v6; }
+bool MwmTraits::HasOffsetsTable() const { return true; }
 
-bool MwmTraits::HasCrossMwmSection() const { return GetFormat() >= version::Format::v9; }
+bool MwmTraits::HasCrossMwmSection() const { return true; }
 
 bool MwmTraits::HasRoutingIndex() const
 {
-  uint32_t constexpr kFirstVersionWithRoutingIndex = 161206;
-  return GetVersion() >= kFirstVersionWithRoutingIndex;
+  return true;
 }
 
 bool MwmTraits::HasCuisineTypes() const
 {
-  uint32_t constexpr kFirstVersionWithCuisineTypes = 180917;
-  return GetVersion() >= kFirstVersionWithCuisineTypes;
+  return true;
 }
 
 bool MwmTraits::HasIsolines() const
 {
-  uint32_t constexpr kFirstVersionWithIsolines = 200209;
-  return GetVersion() >= kFirstVersionWithIsolines;
+  return true;
 }
 
 std::string DebugPrint(MwmTraits::SearchIndexFormat format)
