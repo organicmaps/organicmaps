@@ -79,7 +79,7 @@ UNIT_TEST(ReverseGeocoder_Smoke)
     streetNames.AddString("int_name", "vulica Niamiha");
     streetNames.AddString("be", "вуліца Няміга");
     streetNames.AddString("ru", "улица Немига");
-    TestAddress(coder, mwmInfo, {53.89953, 27.54189}, streetNames, "42");
+    TestAddress(coder, mwmInfo, {53.8997617, 27.5429365}, streetNames, "40");
   }
   {
     StringUtf8Multilang streetNames;

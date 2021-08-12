@@ -22,24 +22,29 @@ namespace
 // sed "s/.*v='\(.*\)'.*/\1/g" |
 // sort | uniq -c | awk '{ printf("{%s, %s},\n", $2, $1) }'
 //
-// But note, as one relation with id 3817793 and postcode 220039 is
-// broken and is not included in minsk-pass.mwm, corresponding
-// postcode frequency is decremented from 32 to 31.
-vector<pair<int, int>> kCodeFreq = {{220000, 1},
-                                    {220001, 1},
-                                    {220004, 9},
-                                    {220006, 131},
-                                    {220007, 212},
-                                    {220010, 4},
-                                    {220011, 1},
-                                    {220030, 183},
-                                    {220036, 72},
-                                    {220039, 31},
-                                    {220050, 1},
-                                    {721806, 1},
-                                    {721816, 1},
-                                    {721819, 1},
-                                    {721882, 1}};
+// Note, (220006, 145) (220007, 271) are broken and not included in minsk-pass.mwm,
+// corresponding postcode frequencies are decremented.
+vector<pair<int, int>> kCodeFreq = {
+  {220000, 2},
+  {220001, 3},
+  {220004, 10},
+  {220006, 144},
+  {220007, 270},
+  {220010, 4},
+  {220011, 1},
+  {220014, 3},
+  {220030, 247},
+  {220033, 7},
+  {220036, 204},
+  {220039, 15},
+  {220048, 1},
+  {220050, 4},
+  {220069, 5},
+  {220073, 1},
+  {220089, 1},
+  {220121, 1},
+  {721816, 1}
+};
 
 UNIT_TEST(FeaturesVectorTest_ParseMetadata)
 {

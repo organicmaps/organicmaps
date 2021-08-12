@@ -22,14 +22,19 @@ UNIT_TEST(Framework_ForEachFeatureAtPoint_And_Others)
   frm.DeregisterAllMaps();
   frm.RegisterMap(platform::LocalCountryFile::MakeForTesting("minsk-pass"));
 
+  // May vary according to the new minsk-pass data.
   vector<char const *> types =
   {
     "highway|footway|",
-    "hwtag|yesfoot|",
     "hwtag|yesbicycle|",
-    "highway|service|parking_aisle|",
+    "psurface|paved_good|",
+
+    "highway|service|",
+    "psurface|paved_good|",
+
     "amenity|parking|",
-    "barrier|lift_gate|"
+
+    "barrier|lift_gate|",
   };
   frm.ForEachFeatureAtPoint([&](FeatureType & ft)
   {
@@ -37,11 +42,11 @@ UNIT_TEST(Framework_ForEachFeatureAtPoint_And_Others)
     {
       string const strType = classif().GetFullObjectName(type);
       auto found = find(types.begin(), types.end(), strType);
-      TEST(found != types.end(), ());
+      TEST(found != types.end(), (strType));
       types.erase(found);
     });
-  }, mercator::FromLatLon(53.882663, 27.537788));
-  TEST_EQUAL(0, types.size(), ());
+  }, mercator::FromLatLon(53.8826576, 27.5378385));
+  TEST_EQUAL(0, types.size(), (types));
 
   ftypes::IsBuildingChecker const & isBuilding = ftypes::IsBuildingChecker::Instance();
   {
