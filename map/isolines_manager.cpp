@@ -41,11 +41,7 @@ IsolinesManager::Info const & IsolinesManager::LoadIsolinesInfo(MwmSet::MwmId co
   Availability status = Availability::NoData;
   isolines::Quality quality = isolines::Quality::None;
   isolines::IsolinesInfo info;
-  if (!version::MwmTraits(id.GetInfo()->m_version).HasIsolines())
-  {
-    status = Availability::ExpiredData;
-  }
-  else if (isolines::LoadIsolinesInfo(m_dataSource, id, info))
+  if (isolines::LoadIsolinesInfo(m_dataSource, id, info))
   {
     LOG(LINFO, ("Isolines min altitude", info.m_minAltitude, "max altitude", info.m_maxAltitude,
                 "altitude step", info.m_altStep));

@@ -22,25 +22,6 @@ MwmTraits::CentersTableFormat MwmTraits::GetCentersTableFormat() const
   return CentersTableFormat::EliasFanoMapWithHeader;
 }
 
-bool MwmTraits::HasOffsetsTable() const { return true; }
-
-bool MwmTraits::HasCrossMwmSection() const { return true; }
-
-bool MwmTraits::HasRoutingIndex() const
-{
-  return true;
-}
-
-bool MwmTraits::HasCuisineTypes() const
-{
-  return true;
-}
-
-bool MwmTraits::HasIsolines() const
-{
-  return true;
-}
-
 std::string DebugPrint(MwmTraits::SearchIndexFormat format)
 {
   switch (format)

@@ -516,10 +516,7 @@ void RoutingManager::SetRouterImpl(RouterType type)
   auto localFileChecker = [this](string const & countryFile) -> bool {
     MwmSet::MwmId const mwmId = m_callbacks.m_dataSourceGetter().GetMwmIdByCountryFile(
       platform::CountryFile(countryFile));
-    if (!mwmId.IsAlive())
-      return false;
-
-    return version::MwmTraits(mwmId.GetInfo()->m_version).HasRoutingIndex();
+    return mwmId.IsAlive();
   };
 
   auto const getMwmRectByName = [this](string const & countryId) -> m2::RectD {
