@@ -203,7 +203,7 @@ Install [Android SDK](https://developer.android.com/sdk/index.html) and
 - Choose "version "30" and click "OK".
 - Check "Show Package Details" checkbox.
 - Choose "NDK (side by side)" version **21.X.Y**.
-- Choose "CMake" version **3.18.XX**.
+- Choose "CMake" version **3.18.1**.
 - Click "OK".
 
 Alternatively, you can install only
@@ -211,6 +211,21 @@ Alternatively, you can install only
 [NDK](https://developer.android.com/tools/sdk/ndk/index.html) without
 installing Android Studio. Please make sure that SDK for API Level 30,
 NDK version **21.X.Y** and CMake version **3.18.XX** are installed.
+
+Configure `PATH` to prefer `cmake` from Android SDK/NDK instead of
+installed in the system:
+
+**Linux**:
+
+```bash
+export PATH=$HOME/Android/sdk/cmake/3.18.1/bin:$PATH
+```
+
+**macOS**:
+
+```bash
+export PATH=$HOME/Library/Android/sdk/cmake/3.18.1/bin:$PATH
+```
 
 ### Getting sources
 
