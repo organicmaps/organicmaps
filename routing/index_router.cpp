@@ -541,7 +541,7 @@ RouterResultCode IndexRouter::DoCalculateRoute(Checkpoints const & checkpoints,
     else if (guidesMwmId == kFakeNumMwmId)
     {
       guidesMwmId = m_numMwmIds->GetId(country);
-    };
+    }
   }
 
   if (!route.GetAbsentCountries().empty())
