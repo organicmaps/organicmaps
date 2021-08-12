@@ -17,13 +17,13 @@ Checkpoints::Checkpoints(std::vector<m2::PointD> && points) : m_points(std::move
 
 void Checkpoints::SetPointFrom(m2::PointD const & point)
 {
-  CHECK_LESS(m_passedIdx, m_points.size(), ());
+  ASSERT_LESS(m_passedIdx, m_points.size(), ());
   m_points[m_passedIdx] = point;
 }
 
 m2::PointD const & Checkpoints::GetPoint(size_t pointIdx) const
 {
-  CHECK_LESS(pointIdx, m_points.size(), ());
+  ASSERT_LESS(pointIdx, m_points.size(), ());
   return m_points[pointIdx];
 }
 
