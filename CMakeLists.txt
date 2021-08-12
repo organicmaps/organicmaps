@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.8)
+cmake_minimum_required(VERSION 3.18)
 
 project(omim C CXX)
 
@@ -268,6 +268,12 @@ if (USE_PCH)
     ${OMIM_PCH_TARGET_NAME}
   )
 endif()
+
+# Suppress "Policy CMP0077 is not set: option() honors normal variables"
+# for the option(EXPAT_SHARED_LIBS) in 3party/expat/expat/CMakeLists.txt
+set(CMAKE_POLICY_DEFAULT_CMP0077 NEW)
+# Build libexpat.a instead of libexpat.so
+set(EXPAT_SHARED_LIBS OFF)
 
 # Include subdirectories
 add_subdirectory(3party/agg)
