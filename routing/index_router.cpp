@@ -134,31 +134,6 @@ shared_ptr<TrafficStash> CreateTrafficStash(VehicleType, shared_ptr<NumMwmIds>, 
   //return (vehicleType == VehicleType::Car ? make_shared<TrafficStash>(trafficCache, numMwmIds) : nullptr);
 }
 
-/// \returns true if the mwm is ready for index graph routing and cross mwm index graph routing.
-/// It means the mwm contains routing and cross_mwm sections. In terms of production mwms
-/// the method returns false for mwms 170328 and earlier, and returns true for mwms 170428 and
-/// later.
-bool MwmHasRoutingData(version::MwmTraits const & traits)
-{
-  return traits.HasRoutingIndex() && traits.HasCrossMwmSection();
-}
-
-void GetOutdatedMwms(DataSource & dataSource, vector<string> & outdatedMwms)
-{
-  outdatedMwms.clear();
-  vector<shared_ptr<MwmInfo>> infos;
-  dataSource.GetMwmsInfo(infos);
-
-  for (auto const & info : infos)
-  {
-    if (info->GetType() != MwmInfo::COUNTRY)
-      continue;
-
-    if (!MwmHasRoutingData(version::MwmTraits(info->m_version)))
-      outdatedMwms.push_back(info->GetCountryName());
-  }
-}
-
 void PushPassedSubroutes(Checkpoints const & checkpoints, vector<Route::SubrouteAttrs> & subroutes)
 {
   for (size_t i = 0; i < checkpoints.GetPassedIdx(); ++i)
@@ -368,17 +343,6 @@ RouterResultCode IndexRouter::CalculateRoute(Checkpoints const & checkpoints,
                                              bool adjustToPrevRoute,
                                              RouterDelegate const & delegate, Route & route)
 {
-  vector<string> outdatedMwms;
-  GetOutdatedMwms(m_dataSource, outdatedMwms);
-
-  if (!outdatedMwms.empty())
-  {
-    for (string const & mwm : outdatedMwms)
-      route.AddAbsentCountry(mwm);
-
-    return RouterResultCode::FileTooOld;
-  }
-
   auto const & startPoint = checkpoints.GetStart();
   auto const & finalPoint = checkpoints.GetFinish();
 

@@ -35,13 +35,6 @@ bool BuildCentersTableFromDataFile(std::string const & filename, bool forceRebui
         return false;
       }
 
-      version::MwmTraits const traits(version);
-      if (!traits.HasOffsetsTable())
-      {
-        LOG(LERROR, (filename, "does not have an offsets table!"));
-        return false;
-      }
-
       auto const table = feature::FeaturesOffsetsTable::Load(rcont);
       if (!table)
       {

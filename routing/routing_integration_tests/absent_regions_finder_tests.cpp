@@ -58,10 +58,7 @@ TestAbsentRegionsFinder::TestAbsentRegionsFinder()
   m_localFileChecker = [&](std::string const & countryFile) {
     MwmSet::MwmId const mwmId =
         m_callbacks.m_dataSourceGetter().GetMwmIdByCountryFile(platform::CountryFile(countryFile));
-    if (!mwmId.IsAlive())
-      return false;
-
-    return version::MwmTraits(mwmId.GetInfo()->m_version).HasRoutingIndex();
+    return mwmId.IsAlive();
   };
 }
 
