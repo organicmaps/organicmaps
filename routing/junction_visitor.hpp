@@ -29,6 +29,21 @@ public:
 
   void operator()(Vertex const & from, Vertex const & to)
   {
+    // For Debug purpose.
+    /*
+    auto const & pointFrom = m_graph.GetPoint(from, true);
+    auto const & pointTo = m_graph.GetPoint(to, true);
+
+    std::cout << "[";
+    auto const printPoint = [](ms::LatLon const & ll)
+    {
+      std::cout << std::setprecision(9) << "[" << ll.m_lon << "," << ll.m_lat << "],";
+    };
+    printPoint(pointFrom);
+    printPoint(pointTo);
+    std::cout << "]," << std::endl;
+    */
+
     ++m_visitCounter;
     if (m_visitCounter % m_visitPeriod != 0)
       return;
