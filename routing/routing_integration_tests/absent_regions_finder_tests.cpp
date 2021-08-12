@@ -84,11 +84,21 @@ std::set<std::string> TestAbsentRegionsFinder::GetRegions(Checkpoints const & ch
 }
 
 // From "Russia_Republic of Karelia_South" to "Russia_Krasnodar Krai".
+// https://www.openstreetmap.org/directions?engine=fossgis_osrm_car&route=61.759%2C34.452%3B45.070%2C38.940#map=5/54.869/40.210
+/**
+ * @todo Current test set and Organic set differ from OSRM route. Need to make deep investigation here.
+ * OSRM wants Novgorod, Tver, Moscow (looks good).
+ * Organic wants Vologda, Tver, Vladimir, Moscow East, Ryazan (also may be good).
+ * Current test set doesn't have Tver (obvious error).
+ * Ukraine_Luhansk Oblast is not a good idea for both variants.
+ */
 UNIT_CLASS_TEST(TestAbsentRegionsFinder, TestAbsentRegionsFinder_Karelia_Krasnodar)
 {
   Checkpoints const checkpoints{mercator::FromLatLon(61.76, 34.45),
                                 mercator::FromLatLon(45.07, 38.94)};
 
+  // Current test set.
+  /*
   std::set<std::string> const planRegions{"Russia_Krasnodar Krai",
                                           "Russia_Leningradskaya Oblast_Southeast",
                                           "Russia_Lipetsk Oblast",
@@ -101,6 +111,16 @@ UNIT_CLASS_TEST(TestAbsentRegionsFinder, TestAbsentRegionsFinder_Karelia_Krasnod
                                           "Russia_Vologda Oblast",
                                           "Russia_Voronezh Oblast",
                                           "Ukraine_Luhansk Oblast"};
+  */
+
+  // Organic test set.
+  std::set<std::string> const planRegions{
+    "Russia_Krasnodar Krai", "Russia_Leningradskaya Oblast_Southeast", "Russia_Lipetsk Oblast",
+    "Russia_Moscow Oblast_East", "Russia_Republic of Karelia_South", "Russia_Rostov Oblast",
+    "Russia_Ryazan Oblast", "Russia_Tula Oblast", "Russia_Tver Oblast", "Russia_Vladimir Oblast",
+    "Russia_Vologda Oblast", "Russia_Voronezh Oblast",
+    "Ukraine_Luhansk Oblast"
+  };
 
   TestRegions(checkpoints, planRegions);
 }
@@ -120,27 +140,30 @@ UNIT_CLASS_TEST(TestAbsentRegionsFinder, TestAbsentRegionsFinder_Kingston_DC)
 }
 
 // From "US_Colorado_Aspen" to "Canada_Saskatchewan_Saskatoon".
+// https://www.openstreetmap.org/directions?engine=fossgis_osrm_car&route=39.9578%2C-106.8238%3B49.9167%2C-106.9606#map=5/46.284/-101.609
 UNIT_CLASS_TEST(TestAbsentRegionsFinder, TestAbsentRegionsFinder_Colorado_Saskatchewan)
 {
   Checkpoints const checkpoints{mercator::FromLatLon(39.95763, -106.79994),
                                 mercator::FromLatLon(49.92034, -106.99302)};
 
-  std::set<std::string> const planRegions{"US_Colorado_Aspen", "Canada_Ontario_Northwestern",
-                                          "US_Illinois_Springfield", "US_Wisconsin_Eau Claire",
-                                          "Canada_Saskatchewan_Saskatoon"};
+  std::set<std::string> const planRegions{"Canada_Saskatchewan_Saskatoon",
+                                          "US_Colorado_Aspen", "US_Montana_East", "US_Wyoming"};
 
   TestRegions(checkpoints, planRegions);
 }
 
 // From "Belgium_Flemish Brabant" to "Germany_North Rhine-Westphalia_Regierungsbezirk Koln_Aachen".
+// https://www.openstreetmap.org/directions?engine=fossgis_osrm_car&route=50.878%2C4.447%3B50.775%2C6.444#map=9/50.8204/5.5810
+/// @todo OSRM route differs from Organic (check the link below). The difference is not significant,
+/// just Organic wants to cross 3 countries instead of 2 (+Netherlands).
 UNIT_CLASS_TEST(TestAbsentRegionsFinder, TestAbsentRegionsFinder_Belgium_Germany)
 {
   Checkpoints const checkpoints{mercator::FromLatLon(50.87763, 4.44676),
                                 mercator::FromLatLon(50.76935, 6.42488)};
 
-  std::set<std::string> const planRegions{
-      "Belgium_Flemish Brabant", "Belgium_Liege", "Belgium_Limburg",
-      "Germany_North Rhine-Westphalia_Regierungsbezirk Koln_Aachen", "Netherlands_Limburg"};
+  std::set<std::string> const planRegions{"Belgium_Flemish Brabant", "Belgium_Limburg",
+                                          "Germany_North Rhine-Westphalia_Regierungsbezirk Koln_Aachen",
+                                          "Netherlands_Limburg"};
 
   TestRegions(checkpoints, planRegions);
 }
