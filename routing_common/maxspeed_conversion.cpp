@@ -46,7 +46,7 @@ MaxspeedType Maxspeed::GetSpeedInUnits(bool forward) const
 
 MaxspeedType Maxspeed::GetSpeedKmPH(bool forward) const
 {
-  auto speedInUnits = GetSpeedInUnits(forward);
+  auto const speedInUnits = GetSpeedInUnits(forward);
   if (speedInUnits == kInvalidSpeed)
     return kInvalidSpeed; // That means IsValid() returns false.
 
@@ -54,19 +54,16 @@ MaxspeedType Maxspeed::GetSpeedKmPH(bool forward) const
     return static_cast<MaxspeedType>(ToSpeedKmPH(speedInUnits, m_units));
 
   // A feature is marked as a feature without any speed limits. (maxspeed=="none").
-  if (kNoneMaxSpeed)
-  {
-    MaxspeedType constexpr kNoneSpeedLimitKmPH = 130;
-    return kNoneSpeedLimitKmPH;
-  }
+  if (speedInUnits == kNoneMaxSpeed)
+    return MaxspeedType{130};
 
   // If a feature is marked with the maxspeed=="walk" tag (speed == kWalkMaxSpeed) a driver
   // should drive with a speed of a walking person.
-  if (kWalkMaxSpeed)
-  {
-    MaxspeedType constexpr kWalkSpeedLimitKmPH = 6;
-    return kWalkSpeedLimitKmPH;
-  }
+  if (speedInUnits == kWalkMaxSpeed)
+    return MaxspeedType{6};
+
+  if (speedInUnits == kCommonMaxSpeedValue)
+    return MaxspeedType{60};
 
   UNREACHABLE();
 }
@@ -269,10 +266,12 @@ SpeedMacro MaxspeedConverter::SpeedToMacro(SpeedInUnits const & speed) const
     // and backward maxspeed has a special value (like "none"), we may get a line is csv
     // like this "100,Imperial,100,65534". Conditions below is written to process such edge cases
     // correctly.
-    if (speed == SpeedInUnits(kNoneMaxSpeed, Units::Imperial))
-      return SpeedMacro::None;
-    if (speed == SpeedInUnits(kWalkMaxSpeed, Units::Imperial))
-      return SpeedMacro::Walk;
+    switch (speed.GetSpeed())
+    {
+    case kNoneMaxSpeed: return SpeedMacro::None;
+    case kWalkMaxSpeed: return SpeedMacro::Walk;
+    case kCommonMaxSpeedValue: return SpeedMacro::Speed60KmPH;
+    }
 
     return SpeedMacro::Undefined;
   }
@@ -310,7 +309,8 @@ bool IsFeatureIdLess(FeatureMaxspeed const & lhs, FeatureMaxspeed const & rhs)
 
 bool IsNumeric(MaxspeedType speed)
 {
-  return speed != kNoneMaxSpeed && speed != kWalkMaxSpeed && speed != kInvalidSpeed;
+  return speed != kNoneMaxSpeed && speed != kWalkMaxSpeed && speed != kInvalidSpeed &&
+         speed != kCommonMaxSpeedValue;
 }
 
 string DebugPrint(Maxspeed maxspeed)
