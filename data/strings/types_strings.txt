@@ -17204,7 +17204,7 @@
     da = Planteskole
     nl = Tuincentrum
     fi = Taimitarha
-    fr = Crèche
+    fr = Jardinerie
     de = Gärtnerei
     hu = Faiskola
     id = Penitipan anak
