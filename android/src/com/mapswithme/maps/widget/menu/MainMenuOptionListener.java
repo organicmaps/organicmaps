@@ -4,6 +4,8 @@ public interface MainMenuOptionListener
 {
   void onAddPlaceOptionSelected();
   void onDownloadMapsOptionSelected();
+  void onHelpOptionSelected();
+  void onFeedbackOptionSelected();
   void onSettingsOptionSelected();
   void onShareLocationOptionSelected();
   void onSubwayLayerOptionSelected();

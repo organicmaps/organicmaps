@@ -30,6 +30,7 @@ public final class Config
   static final String KEY_PREF_CRASHLYTICS = "CrashlyticsEnabled";
   private static final String KEY_PREF_USE_GS = "UseGoogleServices";
 
+  private static final String KEY_MISC_TERMS_ACCEPTED = "AreTermsAccepted";
   private static final String KEY_MISC_DISCLAIMER_ACCEPTED = "IsDisclaimerApproved";
   private static final String KEY_MISC_LOCATION_REQUESTED = "LocationRequested";
   private static final String KEY_MISC_UI_THEME = "UiTheme";
@@ -204,6 +205,16 @@ public final class Config
   public static void acceptRoutingDisclaimer()
   {
     setBool(KEY_MISC_DISCLAIMER_ACCEPTED);
+  }
+
+  public static boolean areTermsAccepted()
+  {
+    return getBool(KEY_MISC_TERMS_ACCEPTED);
+  }
+
+  public static void acceptTerms()
+  {
+    setBool(KEY_MISC_TERMS_ACCEPTED);
   }
 
   public static boolean isLocationRequested()

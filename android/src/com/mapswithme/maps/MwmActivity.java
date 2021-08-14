@@ -8,8 +8,8 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.location.Location;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
+import android.text.Html;
 import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.MenuItem;
@@ -82,6 +82,9 @@ import com.mapswithme.maps.search.SearchEngine;
 import com.mapswithme.maps.search.SearchFilterController;
 import com.mapswithme.maps.search.SearchFragment;
 import com.mapswithme.maps.settings.DrivingOptionsActivity;
+import com.mapswithme.maps.settings.FeedbackDialog;
+import com.mapswithme.maps.settings.HelpActivity;
+import com.mapswithme.maps.settings.HelpFragment;
 import com.mapswithme.maps.settings.RoadType;
 import com.mapswithme.maps.settings.SettingsActivity;
 import com.mapswithme.maps.settings.StoragePathManager;
@@ -99,6 +102,7 @@ import com.mapswithme.maps.widget.placepage.PlacePageController;
 import com.mapswithme.maps.widget.placepage.PlacePageData;
 import com.mapswithme.maps.widget.placepage.PlacePageFactory;
 import com.mapswithme.maps.widget.placepage.RoutingModeListener;
+import com.mapswithme.util.Config;
 import com.mapswithme.util.Counters;
 import com.mapswithme.util.InputUtils;
 import com.mapswithme.util.PermissionsUtils;
@@ -150,7 +154,9 @@ public class MwmActivity extends BaseMwmFragmentActivity
                                                      DownloaderFragment.class.getName(),
                                                      RoutingPlanFragment.class.getName(),
                                                      EditorHostFragment.class.getName(),
-                                                     ReportFragment.class.getName() };
+                                                     ReportFragment.class.getName(),
+                                                     HelpFragment.class.getName()
+                                                    };
 
   private static final String EXTRA_LOCATION_DIALOG_IS_ANNOYING = "LOCATION_DIALOG_IS_ANNOYING";
   private static final int REQ_CODE_LOCATION_PERMISSION = 1;
@@ -503,6 +509,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     initOnmapDownloader();
     initPositionChooser();
     initFilterViews();
+    showTerms();
   }
 
   private void initFilterViews()
@@ -2037,6 +2044,46 @@ public class MwmActivity extends BaseMwmFragmentActivity
     adjustMenuLineFrameVisibility();
   }
 
+  private void showTerms()
+  {
+    //if (Config.areTermsAccepted())
+    //  return;
+
+    StringBuilder builder = new StringBuilder();
+
+    builder.append(" — ");
+    builder.append(getString(R.string.dialog_welcome_disclaimer_1));
+    builder.append(" <b>");
+    builder.append(getString(R.string.dialog_welcome_disclaimer_1a));
+    builder.append("</b>");
+    builder.append("<br/>");
+
+    builder.append(" — ");
+    builder.append(getString(R.string.dialog_welcome_disclaimer_2));
+    builder.append("<b>");
+    builder.append(getString(R.string.dialog_welcome_disclaimer_2a));
+    builder.append(" </b>");
+    builder.append("<br/>");
+
+    builder.append(" — ");
+    builder.append(getString(R.string.dialog_welcome_disclaimer_3));
+    builder.append(" <b>");
+    builder.append(getString(R.string.dialog_welcome_disclaimer_3a));
+    builder.append("</b>");
+    builder.append("<br/>");
+
+    new AlertDialog.Builder(this)
+            .setTitle(R.string.dialog_welcome_disclaimer_title)
+            .setMessage(Html.fromHtml(builder.toString()))
+            .setCancelable(false)
+            .setNegativeButton(R.string.help, (dlg, which) -> {
+              startActivity(new Intent(this, HelpActivity.class));
+            })
+            .setPositiveButton(R.string.dialog_welcome_accepted, (dlg, which) -> {
+              Config.acceptTerms();
+            }).show();
+  }
+
   private class CurrentPositionClickListener implements OnClickListener
   {
     @Override
@@ -2194,6 +2241,19 @@ public class MwmActivity extends BaseMwmFragmentActivity
     {
       RoutingController.get().cancel();
       closeMenu(() -> showDownloader(false));
+    }
+
+    @Override
+    public void onHelpOptionSelected()
+    {
+      Intent intent = new Intent(getActivity(), HelpActivity.class);
+      closeMenu(() -> getActivity().startActivity(intent));
+    }
+
+    @Override
+    public void onFeedbackOptionSelected()
+    {
+      closeMenu(() -> FeedbackDialog.show(MwmActivity.this));
     }
 
     @Override

@@ -77,6 +77,12 @@ public class MainMenuRenderer implements MenuRenderer
     TextView downloadMaps = downloadMapsContainer.findViewById(R.id.download_maps);
     Graphics.tint(downloadMaps);
     mDownloadMapsCounter = downloadMapsContainer.findViewById(R.id.counter);
+    TextView help = view.findViewById(R.id.help);
+    help.setOnClickListener(v -> mListener.onHelpOptionSelected());
+    Graphics.tint(help);
+    TextView feedback = view.findViewById(R.id.feedback);
+    feedback.setOnClickListener(v -> mListener.onFeedbackOptionSelected());
+    Graphics.tint(feedback);
     TextView settings = view.findViewById(R.id.settings);
     settings.setOnClickListener(v -> mListener.onSettingsOptionSelected());
     Graphics.tint(settings);

@@ -343,6 +343,16 @@
 	<!-- Wi-Fi available -->
 	<string name="WiFi_available">Yes</string>
 
+	<!-- SECTION: Welcome dialogs strings -->
+	<string name="dialog_welcome_disclaimer_title">Welcome to Organic Maps!</string>
+	<string name="dialog_welcome_disclaimer_1">Organic Maps is an offline maps app for travelers, tourists, hikers, and cyclists. Maps and navigation work <b>fully offline</b> without Internet connection to save your battery! Please wait until your area is downloaded on the first run.</string>
+	<string name="dialog_welcome_disclaimer_1a">Please wait until your area is downloaded on the first run.</string>
+	<string name="dialog_welcome_disclaimer_2">Maps data is based on OpenStreetMap (https://osm.org). It\'s like Wikipedia, but for maps. OSM is supported by thousands of enthusiasts around the world. Some places can be missing or have wrong names.</string>
+	<string name="dialog_welcome_disclaimer_2a">Please report all inaccuracies and help the world by adding new objects near you.</string>
+	<string name="dialog_welcome_disclaimer_3">This app is fully free and open-source (Apache-2.0 license). No ads. No tracking. No Big Tech Co prying eyes and 💰💰💰 involved. We are a small group of open-source enthusiasts working for free!</string>
+	<string name="dialog_welcome_disclaimer_3a">Your feedback is highly appreciated!🙏</string>
+	<string name="dialog_welcome_accepted">I am in!</string>
+
 	<!-- SECTION: Routing dialogs strings -->
 	<string name="dialog_routing_disclaimer_title">When following the route, please keep in mind:</string>
 	<string name="dialog_routing_disclaimer_priority">— Road conditions, traffic laws, and road signs always take priority over the navigation hints;</string>
@@ -615,7 +625,7 @@
 	<string name="traffic_data_unavailable">Traffic data is not available</string>
 	<string name="enable_logging">Enable logging</string>
 	<!-- Settings: "Send general feedback" button -->
-	<string name="feedback_general">General Feedback</string>
+	<string name="feedback_general">Contact human</string>
 	<string name="on">On</string>
 	<string name="off">Off</string>
 	<string name="prefs_languages_information">We use system TTS for voice instructions. Many Android devices use Google TTS, you can download or update it from Google Play (https://play.google.com/store/apps/details?id=com.google.android.tts)</string>

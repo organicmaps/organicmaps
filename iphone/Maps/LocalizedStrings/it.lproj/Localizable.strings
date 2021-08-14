@@ -533,6 +533,25 @@
 "WiFi_available" = "Sì";
 
 
+/********** Welcome dialogs strings **********/
+
+"dialog_welcome_disclaimer_title" = "Welcome to Organic Maps!";
+
+"dialog_welcome_disclaimer_1" = "Organic Maps is an offline maps app for travelers, tourists, hikers, and cyclists. Maps and navigation work <b>fully offline</b> without Internet connection to save your battery! Please wait until your area is downloaded on the first run.";
+
+"dialog_welcome_disclaimer_1a" = "Please wait until your area is downloaded on the first run.";
+
+"dialog_welcome_disclaimer_2" = "Maps data is based on OpenStreetMap (https://osm.org). It's like Wikipedia, but for maps. OSM is supported by thousands of enthusiasts around the world. Some places can be missing or have wrong names.";
+
+"dialog_welcome_disclaimer_2a" = "Please report all inaccuracies and help the world by adding new objects near you.";
+
+"dialog_welcome_disclaimer_3" = "This app is fully free and open-source (Apache-2.0 license). No ads. No tracking. No Big Tech Co prying eyes and 💰💰💰 involved. We are a small group of open-source enthusiasts working for free!";
+
+"dialog_welcome_disclaimer_3a" = "Your feedback is highly appreciated!🙏";
+
+"dialog_welcome_accepted" = "I am in!";
+
+
 /********** Routing dialogs strings **********/
 
 "dialog_routing_disclaimer_title" = "Quando segui il percorso, ricorda che:";
