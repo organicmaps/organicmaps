@@ -3,6 +3,7 @@ on:
   workflow_dispatch: # Manual trigger
   pull_request:
     paths-ignore:
+      - .gitignore
       - .github/**
       - '**/*_tests/**'
       - '**/CMakeLists.txt'

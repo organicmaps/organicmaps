@@ -3,21 +3,23 @@ on:
   workflow_dispatch: # Manual trigger
   pull_request:
     paths-ignore:
+      - .gitignore
       - .github/**
       - '**/*_tests/**'
+      - '**/CMakeLists.txt'
       - CONTRIBUTORS
       - LICENSE
       - NOTICE
       - README.md
+      - iphone/**
+      - xcode/**
       - docs/**
       - generator/**
-      - iphone/**
       - packaging/**
       - pyhelpers/**
       - qt*/**
       - skin_generator/**
       - track_generator/**
-      - xcode/**
 
 jobs:
   android-check:

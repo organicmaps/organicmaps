@@ -3,18 +3,18 @@ on:
   workflow_dispatch: # Manual trigger
   pull_request:
     paths-ignore:
+      - .gitignore
       - .github/**
       - CONTRIBUTORS
       - LICENSE
       - NOTICE
       - README.md
       - android/**
-      - docs/**
-      - android/**
       - iphone/**
+      - xcode/**
+      - docs/**
       - packaging/**
       - pyhelpers/**
-      - xcode/**
 
 jobs:
   linux-debug:
