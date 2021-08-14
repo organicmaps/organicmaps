@@ -138,10 +138,6 @@ def getVersion() {
   return new Tuple2(versionCode, versionName)
 }
 
-def getReleaseNotes() {
-  return run(['git', 'tag', '-l', '--format=%(contents)', '--points-at', 'HEAD']).trim()
-}
-
 def getCommitMessage() {
   return run(['git', '--no-pager', 'show', '-s', '--format=%s%n%n%b', 'HEAD']).trim()
 }
@@ -435,15 +431,6 @@ android.buildTypes.all { buildType ->
 }
 
 import com.github.triplet.gradle.androidpublisher.ReleaseStatus
-
-// gradle-play-publisher can only read the release notes from a file. 
-task playGenerateReleaseNotes() {
-  def releaseNotesDir = "src/main/play/release-notes/en-US/"
-  mkdir releaseNotesDir
-  new File(projectDir, releaseNotesDir + "default.txt").text = getReleaseNotes()
-}
-
-tasks.named('publishBundle').get().dependsOn playGenerateReleaseNotes
 
 play {
   enabled.set(false)

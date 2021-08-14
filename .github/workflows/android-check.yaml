@@ -1,9 +1,9 @@
 name: Android Check
 on:
+  workflow_dispatch: # Manual trigger
   pull_request:
     paths-ignore:
-      - .github/workflows/linux*
-      - .github/workflows/ios*
+      - .github/**
       - '**/*_tests/**'
       - CONTRIBUTORS
       - LICENSE
@@ -64,3 +64,13 @@ jobs:
           name: android-web-arm64-v8a-debug
           path: android/build/outputs/apk/web/debug/OrganicMaps-*-web-debug.apk
           if-no-files-found: error
+
+  android-check-metadata:
+    name: Check app metadata
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Check metadata
+        run: ./tools/python/check_store_metadata.py android

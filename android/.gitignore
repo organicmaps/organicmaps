@@ -38,6 +38,3 @@ res/drawable-mdpi/uk_england.png
 res/drawable-mdpi/uk_northern_ireland.png
 res/drawable-mdpi/uk_scotland.png
 res/drawable-mdpi/uk_wales.png
-
-# A temporary directory for gradle-play-publisher
-src/main/play/release-notes/en-US/

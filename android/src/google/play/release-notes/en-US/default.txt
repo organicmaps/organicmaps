@@ -1,0 +1,13 @@
+• Updated OpenStreetMap data
+• Added Bulgarian and Brazil Portuguese translations
+• Picnic tables!
+• Fixed layout bugs, including RTL languages
+• Fixed some non-working search queries
+• Fixed wrong encoding in bookmark description
+• Fixed import of KML/KMZ files
+• Silence media volume while announcing navigation directions
+• Display and edit multiple phone numbers
+• Reduced apk size
+• Wrong regions are not offered anymore for cross-region routing
+• Improved ETA for remote roads
+• Fixed FAQ

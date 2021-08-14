@@ -4,10 +4,7 @@ on:
     branches:
       - master
     paths-ignore:
-    - .github/workflows/android-release*
-    - .github/workflows/android-check*
-    - .github/workflows/android-monkey*
-    - .github/workflows/linux*
+    - .github/**
     - '**/*_tests/**'
     - '**/CMakeLists.txt'
     - CONTRIBUTORS
