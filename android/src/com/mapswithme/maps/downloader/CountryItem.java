@@ -58,7 +58,7 @@ public final class CountryItem implements Comparable<CountryItem>
   public boolean present;
 
   // Progress
-  public int progress;
+  public float progress;
   public long downloadedBytes;
   public long bytesToDownload;
 
@@ -161,7 +161,7 @@ public final class CountryItem implements Comparable<CountryItem>
            ", totalSize: " + totalSize +
            ", childCount: " + childCount +
            ", totalChildCount: " + totalChildCount +
-           ", progress: " + progress +
+           ", progress: " + String.format("%.2f", progress) +
            "% }";
   }
 }

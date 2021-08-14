@@ -7,7 +7,6 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.mapswithme.maps.MwmActivity;
@@ -35,9 +34,6 @@ public class OnmapDownloader implements MwmActivity.LeftAnimationTrackListener
   private final TextView mSize;
   private final WheelProgressView mProgress;
   private final Button mButton;
-
-  @NonNull
-  private final View mPromoContentDivider;
 
   private int mStorageSubscriptionSlot;
 
@@ -144,8 +140,8 @@ public class OnmapDownloader implements MwmActivity.LeftAnimationTrackListener
         if (progress)
         {
           mProgress.setPending(false);
-          mProgress.setProgress(mCurrentCountry.progress);
-          sizeText = String.format(Locale.US, "%1$s %2$d%%", mActivity.getString(R.string.downloader_downloading), mCurrentCountry.progress);
+          mProgress.setProgress(Math.round(mCurrentCountry.progress));
+          sizeText = String.format(Locale.US, "%1$s %2$.2f%%", mActivity.getString(R.string.downloader_downloading), mCurrentCountry.progress);
         }
         else
         {
@@ -226,8 +222,6 @@ public class OnmapDownloader implements MwmActivity.LeftAnimationTrackListener
       else
         MapManager.nativeDownload(mCurrentCountry.id);
     }));
-
-    mPromoContentDivider = mFrame.findViewById(R.id.onmap_downloader_divider);
   }
 
   @Override
