@@ -4,22 +4,22 @@ on:
     branches:
       - master
     paths-ignore:
-    - .github/**
-    - '**/*_tests/**'
-    - '**/CMakeLists.txt'
-    - CONTRIBUTORS
-    - LICENSE
-    - NOTICE
-    - README.md
-    - iphone/**
-    - xcode/**
-    - docs/**
-    - generator/**
-    - packaging/**
-    - pyhelpers/**
-    - qt*/**
-    - skin_generator/**
-    - track_generator/**
+      - .github/**
+      - '**/*_tests/**'
+      - '**/CMakeLists.txt'
+      - CONTRIBUTORS
+      - LICENSE
+      - NOTICE
+      - README.md
+      - iphone/**
+      - xcode/**
+      - docs/**
+      - generator/**
+      - packaging/**
+      - pyhelpers/**
+      - qt*/**
+      - skin_generator/**
+      - track_generator/**
 
 jobs:
   android-google-beta:
@@ -75,4 +75,4 @@ jobs:
         shell: bash
         working-directory: android
         run: |
-           ./gradlew appDistributionUploadGoogleBeta
+          ./gradlew appDistributionUploadGoogleBeta

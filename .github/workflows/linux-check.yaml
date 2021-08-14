@@ -23,10 +23,7 @@ jobs:
 
     strategy:
       matrix:
-        compiler: [
-          { CXX: g++-10, CC: gcc-10 },
-          { CXX: clang++, CC: clang },
-        ]
+        compiler: [{ CXX: g++-10, CC: gcc-10 }, { CXX: clang++, CC: clang }]
 
     steps:
       - name: Checkout sources
