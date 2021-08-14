@@ -1,9 +1,9 @@
 name: iOS Check
 on:
+  workflow_dispatch: # Manual trigger
   pull_request:
     paths-ignore:
-    - .github/workflows/android*
-    - .github/workflows/linux*
+    - .github/**
     - '**/*_tests/**'
     - '**/CMakeLists.txt'
     - CONTRIBUTORS
@@ -57,3 +57,13 @@ jobs:
             CODE_SIGNING_REQUIRED=NO \
             CODE_SIGNING_ALLOWED=NO \
           |xcpretty
+
+  ios-check-metadata:
+    name: Check app metadata
+    runs-on: macos-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Check metadata
+        run: ./tools/python/check_store_metadata.py ios

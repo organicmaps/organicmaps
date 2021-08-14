@@ -1,1 +1,1 @@
-en-US
+../../google/play/default-language.txt
