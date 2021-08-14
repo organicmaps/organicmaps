@@ -71,6 +71,11 @@ upload_screenshots() {
         --automatic_release=false
 }
 
+upload_testflight() {
+    check_keys
+    run_fastlane upload_testflight
+}
+
 case ${1:-default} in
 download_metadata)
     download_metadata
@@ -84,12 +89,16 @@ upload_metadata)
 upload_screenshots)
     upload_screenshots
     ;;
+upload_testflight)
+    upload_testflight
+    ;;
 *)
     echo >&2 "Usage:"
     echo >&2 "$0 download_metadata     # Download metadata from AppStore"
     echo >&2 "$0 download_screenshots  # Download screenshots from AppStore"
     echo >&2 "$0 upload_metadata       # Download metadata to AppStore"
     echo >&2 "$0 upload_screenshots    # Download screenshots to AppStore"
+    echo >&2 "$0 upload_testflight     # Build and upload new beta version to TestFlight"
     exit 1
     ;;
 esac

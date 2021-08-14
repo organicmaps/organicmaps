@@ -1,0 +1,56 @@
+name: iOS Beta
+on:
+  push:
+    branches:
+      - master
+      - rt-ios-testflight # TODO: remove
+    paths-ignore:
+      - .github/**
+      - '**/*_tests/**'
+      - '**/CMakeLists.txt'
+      - CONTRIBUTORS
+      - LICENSE
+      - NOTICE
+      - README.md
+      - android/**
+      - docs/**
+      - generator/**
+      - packaging/**
+      - pyhelpers/**
+      - qt*/**
+      - skin_generator/**
+      - track_generator/**
+
+jobs:
+  ios-beta:
+    name: Apple TestFlight
+    runs-on: macos-latest
+    environment: beta
+    defaults:
+      run:
+        shell: bash
+    steps:
+      - name: Checkout sources
+        uses: actions/checkout@v2
+
+      - name: Parallel submodules checkout
+        run: git submodule update --init --recursive --jobs=4
+
+      - name: Checkout private keys
+        uses: actions/checkout@v2
+        with:
+          repository: ${{ secrets.PRIVATE_REPO }}
+          ssh-key: ${{ secrets.PRIVATE_SSH_KEY }}
+          ref: master
+          path: private.git
+
+      - name: Configure repo with private keys
+        run: |
+          ./configure.sh ./private.git
+          rm -rf ./private.git
+
+      - name: Compile and upload to TestFlight
+        run: ./fastlane.sh upload_testflight
+        env:
+          APPSTORE_CERTIFICATE_PASSWORD: '${{ secrets.APPSTORE_CERTIFICATE_PASSWORD }}'
+        working-directory: xcode
