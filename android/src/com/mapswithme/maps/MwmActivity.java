@@ -2210,6 +2210,12 @@ public class MwmActivity extends BaseMwmFragmentActivity
     }
 
     @Override
+    public void onReportOptionSelected()
+    {
+      closeMenu(() -> Utils.sendFeedback(getActivity()));
+    }
+
+    @Override
     public void onSubwayLayerOptionSelected()
     {
       toggleLayer(Mode.SUBWAY);
