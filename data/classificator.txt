@@ -770,28 +770,15 @@ world  +
             subway  +
                 barcelona  -
                 berlin  -
-                blue  -
-                brown  -
-                darkgreen  -
-                gray  -
-                green  -
-                grey  -
                 kiev  -
-                lightblue  -
-                lightgreen  -
                 london  -
                 madrid  -
                 minsk  -
                 moscow  -
                 newyork  -
-                orange  -
                 paris  -
-                purple  -
-                red  -
                 roma  -
                 spb  -
-                violet  -
-                yellow  -
                 {}
             {}
         subway  +
