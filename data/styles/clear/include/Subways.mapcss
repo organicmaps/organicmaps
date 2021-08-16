@@ -523,11 +523,10 @@ node|z18-[railway=subway_entrance][city=milan] {icon-image: subway-milan-m.svg;t
 node|z13[railway=station][transport=subway][city=minsk] {icon-image: subway-minsk-s.svg;text-offset: 1;font-size: 10;text: name;text-color: @label_dark;text-halo-radius: 1;text-halo-opacity: 0.7;text-halo-color: @label_halo_light;icon-min-distance: 1;}
 node|z14[railway=station][transport=subway][city=minsk] {icon-image: subway-minsk-s.svg;text-offset: 1;}
 node|z15[railway=station][transport=subway][city=minsk] {icon-image: subway-minsk-m.svg;text-offset: 1;}
-node|z16[railway=station][transport=subway][city=minsk] {icon-image: zero-icon.svg;font-size: 10;text: name;text-color: @district_label;text-halo-radius: 0;}/*check none*/
+node|z16[railway=station][transport=subway][city=minsk] {icon-image: subway-minsk-m.svg;font-size: 10;text: name;text-color: @district_label;text-halo-radius: 0;}/*check none*/
 node|z17-[railway=station][transport=subway][city=minsk] {icon-image: zero-icon.svg;font-size: 10;text: name;text-color: @district_label;text-halo-radius: 0;text-optional: true;}/*check none*/
 node|z17-[railway=subway_entrance][city=minsk] {icon-image: subway-minsk-m.svg;text-offset: 1;font-size: 12;text: name;text-color: @label_dark;text-halo-radius: 1;text-halo-opacity: 0.8;text-halo-color: @label_halo_light;text-optional: true;}
-node|z17[railway=subway_entrance][city=minsk] {icon-image: subway-minsk-m.svg;font-size: 13;text-optional: true;}
-node|z18-[railway=subway_entrance][city=minsk] {icon-image: subway-minsk-m.svg;font-size: 13;text-optional: true;}
+node|z17-[railway=subway_entrance][city=minsk] {icon-image: subway-minsk-m.svg;font-size: 13;text-optional: true;}
 
 /* Moscow Subway Station */
 node|z11[railway=station][transport=subway][city=moscow]
@@ -544,18 +543,16 @@ node|z15[railway=station][transport=subway][city=moscow]
 {icon-image: subway-moscow-m.svg;text-offset: 1;font-size: 12;text-optional: true;}
 node|z15[railway=station][transport=subway][city=moscow]::int_name
 {text-offset: 1;font-size: 10;text-optional: true;}
-node|z16-[railway=station][transport=subway][city=moscow]
-{icon-image: zero-icon.svg;text: none;}
-node|z16-[railway=station][transport=subway][city=moscow]::int_name
-{text: none;}
-
-
-/*
-node[railway=station][transport=subway][city=moscow]check
+node|z16[railway=station][transport=subway][city=moscow]check
 {icon-image: subway-moscow-m.svg;text-offset: 1;font-size: 10;text-color: @district_label;text-halo-radius: 0;}
-node[railway=station][transport=subway][city=moscow]::int_name
+node|z16[railway=station][transport=subway][city=moscow]::int_name
 {text-offset: 1;font-size: 9;text-color: @district_label;text-halo-radius: 0;} check
-*/
+
+/* Do not draw main metro icon, because entrances will be visible now */
+node|z17-[railway=station][transport=subway][city=moscow]
+{icon-image: zero-icon.svg;text: none;}
+node|z17-[railway=station][transport=subway][city=moscow]::int_name
+{text: none;}
 
 /* Moscow Subway Station entrance */
 node|z16[railway=subway_entrance][city=moscow]
@@ -762,12 +759,16 @@ node|z15[railway=station][transport=subway][city=spb]
 {icon-image: subway-spb-m.svg;text-offset: 1;font-size: 11;text-halo-opacity: 0.8;}
 node|z15[railway=station][transport=subway][city=spb]::int_name
 {text-offset: 1;font-size: 10;text-halo-opacity: 0.8;}
-/*
-node[railway=station][transport=subway][city=spb] check
+node|z16[railway=station][transport=subway][city=spb] check
 {icon-image: subway-spb-m.svg;text-offset: 1;font-size: 10;text-color: @district_label;text-halo-radius: 0;}
-node[railway=station][transport=subway][city=spb]::int_name
+node|z16[railway=station][transport=subway][city=spb]::int_name
 {text-offset: 1;font-size: 9;text-color: @district_label;text-halo-radius: 0;} check
-*/
+
+/* Do not draw station metro icon, because entrances will be visible now */
+node|z17-[railway=station][transport=subway][city=spb]
+{icon-image: zero-icon.svg;text: none;}
+node|z17-[railway=station][transport=subway][city=spb]::int_name
+{text: none;}
 
 /* Saint Petersburg Subway Station entrance */
 node|z16[railway=subway_entrance][city=spb]

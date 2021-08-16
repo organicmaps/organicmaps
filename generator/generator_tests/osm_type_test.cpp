@@ -716,6 +716,66 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_Subway)
     TEST_EQUAL(params.m_types.size(), 1, (params));
     TEST(params.IsTypeExist(GetType({"railway", "station", "subway", "london"})), (params));
   }
+
+  {
+    Tags const tags = {
+      { "artist_name", "Архитекторы: Н.Лопато, В.Шкарупин, В.Телепнев Скульптор: Л.Зильбер. Дизайнер: Н.Грибов" },
+      { "colour", "red" },
+      { "int_name", "Frunzienskaja" },
+      { "name", "Фрунзенская" },
+      { "name:be", "Фрунзенская" },
+      { "name:en", "Frunzienskaja" },
+      { "name:ru", "Фрунзенская" },
+      { "network", "Минский метрополитен" },
+      { "operator", "КУП «Минский метрополитен»" },
+      { "public_transport", "stop_position" },
+      { "railway", "station" },
+      { "ref", "218" },
+      { "start_date", "1990-12-31" },
+      { "station", "subway" },
+      { "subway", "yes" },
+      { "transport", "subway" },
+      { "website", "https://metropoliten.by/sxema-linii/54/224/" },
+      { "wheelchair", "no" },
+      { "wikidata", "Q2445504" },
+    };
+
+    auto const params = GetFeatureBuilderParams(tags);
+
+    TEST_EQUAL(params.m_types.size(), 2, (params));
+    TEST(params.IsTypeExist(GetType({"wheelchair", "no"})), (params));
+    TEST(params.IsTypeExist(GetType({"railway", "station", "subway", "minsk"})), (params));
+  }
+
+  {
+    Tags const tags = {
+      { "artist_name", "Архитектор: В. Лопато" },
+      { "colour", "green" },
+      { "int_name", "Jubiliejnaja plošča" },
+      { "layer", "-5" },
+      { "line", "Зеленый Луг" },
+      { "name", "Юбілейная плошча" },
+      { "name:be", "Юбілейная плошча" },
+      { "name:ru", "Юбилейная площадь" },
+      { "network", "Минский метрополитен" },
+      { "operator", "КУП «Минский метрополитен»" },
+      { "public_transport", "stop_position" },
+      { "railway", "station" },
+      { "ref", "316" },
+      { "start_date", "2020-11-06" },
+      { "station", "subway" },
+      { "subway", "yes" },
+      { "transport", "subway" },
+      { "website", "https://metropoliten.by/sxema-linii/91/2781/" },
+      { "wikidata", "Q4365831" },
+      { "wikipedia", "be:Юбілейная плошча (станцыя метро)" },
+    };
+
+    auto const params = GetFeatureBuilderParams(tags);
+
+    TEST_EQUAL(params.m_types.size(), 1, (params));
+    TEST(params.IsTypeExist(GetType({"railway", "station", "subway", "minsk"})), (params));
+  }
 }
 
 UNIT_CLASS_TEST(TestWithClassificator, OsmType_Hospital)
@@ -1159,7 +1219,7 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_CuisineType)
 UNIT_CLASS_TEST(TestWithClassificator, OsmType_SimpleTypesSmoke)
 {
   Tags const simpleTypes = {
-    // Filtered out by MatchTypes filter because have no styles. 
+    // Filtered out by MatchTypes filter because have no styles.
     // {"aeroway", "apron"},
     // {"area:highway", "cycleway"},
     // {"area:highway", "motorway"},
@@ -1827,7 +1887,7 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_ComplexTypesSmoke)
     // two types (+office) {{"tourism", "information", "office"}, {{"tourism", "information"}, {"office", "any_value"}}},
     // two types (+sport-shooting) {{"leisure", "sports_centre", "shooting"}, {{"leisure", "sports_centre"}, {"sport", "shooting"}}},
     // two types (+sport-swimming) {{"leisure", "sports_centre", "swimming"}, {{"leisure", "sports_centre"}, {"sport", "swimming"}}},
-    // 
+    //
     // Manually constructed type, not parsed from osm.
     // {{"building", "address"}, {{"addr:housenumber", "any_value"}, {"addr:street", "any_value"}}},
     {{"aeroway", "aerodrome", "international"}, {{"aeroway", "aerodrome"}, {"aerodrome", "international"}}},
@@ -2034,24 +2094,8 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_ComplexTypesSmoke)
     {{"railway", "station", "subway", "barcelona"}, {{"railway", "station"}, {"transport", "subway"}, {"city", "barcelona"}}},
     {{"railway", "station", "subway", "berlin"}, {{"railway", "station"}, {"station", "subway"}, {"city", "berlin"}}},
     {{"railway", "station", "subway", "berlin"}, {{"railway", "station"}, {"transport", "subway"}, {"city", "berlin"}}},
-    {{"railway", "station", "subway", "blue"}, {{"railway", "station"}, {"station", "subway"}, {"colour", "blue"}}},
-    {{"railway", "station", "subway", "blue"}, {{"railway", "station"}, {"transport", "subway"}, {"colour", "blue"}}},
-    {{"railway", "station", "subway", "brown"}, {{"railway", "station"}, {"station", "subway"}, {"colour", "brown"}}},
-    {{"railway", "station", "subway", "brown"}, {{"railway", "station"}, {"transport", "subway"}, {"colour", "brown"}}},
-    {{"railway", "station", "subway", "darkgreen"}, {{"railway", "station"}, {"station", "subway"}, {"colour", "darkgreen"}}},
-    {{"railway", "station", "subway", "darkgreen"}, {{"railway", "station"}, {"transport", "subway"}, {"colour", "darkgreen"}}},
-    {{"railway", "station", "subway", "gray"}, {{"railway", "station"}, {"station", "subway"}, {"colour", "gray"}}},
-    {{"railway", "station", "subway", "gray"}, {{"railway", "station"}, {"transport", "subway"}, {"colour", "gray"}}},
-    {{"railway", "station", "subway", "green"}, {{"railway", "station"}, {"station", "subway"}, {"colour", "green"}}},
-    {{"railway", "station", "subway", "green"}, {{"railway", "station"}, {"transport", "subway"}, {"colour", "green"}}},
-    {{"railway", "station", "subway", "grey"}, {{"railway", "station"}, {"station", "subway"}, {"colour", "grey"}}},
-    {{"railway", "station", "subway", "grey"}, {{"railway", "station"}, {"transport", "subway"}, {"colour", "grey"}}},
     {{"railway", "station", "subway", "kiev"}, {{"railway", "station"}, {"station", "subway"}, {"city", "kiev"}}},
     {{"railway", "station", "subway", "kiev"}, {{"railway", "station"}, {"transport", "subway"}, {"city", "kiev"}}},
-    {{"railway", "station", "subway", "lightblue"}, {{"railway", "station"}, {"station", "subway"}, {"colour", "lightblue"}}},
-    {{"railway", "station", "subway", "lightblue"}, {{"railway", "station"}, {"transport", "subway"}, {"colour", "lightblue"}}},
-    {{"railway", "station", "subway", "lightgreen"}, {{"railway", "station"}, {"station", "subway"}, {"colour", "lightgreen"}}},
-    {{"railway", "station", "subway", "lightgreen"}, {{"railway", "station"}, {"transport", "subway"}, {"colour", "lightgreen"}}},
     {{"railway", "station", "subway", "london"}, {{"railway", "station"}, {"station", "subway"}, {"city", "london"}}},
     {{"railway", "station", "subway", "london"}, {{"railway", "station"}, {"transport", "subway"}, {"city", "london"}}},
     {{"railway", "station", "subway", "madrid"}, {{"railway", "station"}, {"station", "subway"}, {"city", "madrid"}}},
@@ -2062,22 +2106,12 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_ComplexTypesSmoke)
     {{"railway", "station", "subway", "moscow"}, {{"railway", "station"}, {"transport", "subway"}, {"city", "moscow"}}},
     {{"railway", "station", "subway", "newyork"}, {{"railway", "station"}, {"station", "subway"}, {"city", "newyork"}}},
     {{"railway", "station", "subway", "newyork"}, {{"railway", "station"}, {"transport", "subway"}, {"city", "newyork"}}},
-    {{"railway", "station", "subway", "orange"}, {{"railway", "station"}, {"station", "subway"}, {"colour", "orange"}}},
-    {{"railway", "station", "subway", "orange"}, {{"railway", "station"}, {"transport", "subway"}, {"colour", "orange"}}},
     {{"railway", "station", "subway", "paris"}, {{"railway", "station"}, {"station", "subway"}, {"city", "paris"}}},
     {{"railway", "station", "subway", "paris"}, {{"railway", "station"}, {"transport", "subway"}, {"city", "paris"}}},
-    {{"railway", "station", "subway", "purple"}, {{"railway", "station"}, {"station", "subway"}, {"colour", "purple"}}},
-    {{"railway", "station", "subway", "purple"}, {{"railway", "station"}, {"transport", "subway"}, {"colour", "purple"}}},
-    {{"railway", "station", "subway", "red"}, {{"railway", "station"}, {"station", "subway"}, {"colour", "red"}}},
-    {{"railway", "station", "subway", "red"}, {{"railway", "station"}, {"transport", "subway"}, {"colour", "red"}}},
     {{"railway", "station", "subway", "roma"}, {{"railway", "station"}, {"station", "subway"}, {"city", "roma"}}},
     {{"railway", "station", "subway", "roma"}, {{"railway", "station"}, {"transport", "subway"}, {"city", "roma"}}},
     {{"railway", "station", "subway", "spb"}, {{"railway", "station"}, {"station", "subway"}, {"city", "spb"}}},
     {{"railway", "station", "subway", "spb"}, {{"railway", "station"}, {"transport", "subway"}, {"city", "spb"}}},
-    {{"railway", "station", "subway", "violet"}, {{"railway", "station"}, {"station", "subway"}, {"colour", "violet"}}},
-    {{"railway", "station", "subway", "violet"}, {{"railway", "station"}, {"transport", "subway"}, {"colour", "violet"}}},
-    {{"railway", "station", "subway", "yellow"}, {{"railway", "station"}, {"station", "subway"}, {"colour", "yellow"}}},
-    {{"railway", "station", "subway", "yellow"}, {{"railway", "station"}, {"transport", "subway"}, {"colour", "yellow"}}},
     {{"railway", "station", "subway"}, {{"railway", "station"}, {"station", "subway"}}},
     {{"railway", "station", "subway"}, {{"railway", "station"}, {"transport", "subway"}}},
     {{"railway", "subway_entrance", "barcelona"}, {{"railway", "subway_entrance"}, {"city", "barcelona"}}},
