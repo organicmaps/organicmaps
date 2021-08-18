@@ -40,6 +40,7 @@ public class MapDownloadProgressTracker
       return;
 
     mTrackingEnabled = true;
+    // Delayed start, because g_completionHandlers are empty until enquee() method finishes.
     UiThread.runLater(mTrackingMethod, PROGRESS_TRACKING_INTERVAL_MILLISECONDS);
   }
 
