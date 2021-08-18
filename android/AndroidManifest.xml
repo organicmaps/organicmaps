@@ -348,7 +348,7 @@
     <provider
       android:name="androidx.core.content.FileProvider"
       android:authorities="${FILE_PROVIDER_PLACEHOLDER}"
-      android:exported="false"
+      android:exported="true"
       android:grantUriPermissions="true">
       <meta-data
         android:name="android.support.FILE_PROVIDER_PATHS"
