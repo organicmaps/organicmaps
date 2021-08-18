@@ -31026,30 +31026,44 @@ cont {
 cont {
   name: "landuse-farmland"
   element {
+    scale: 10
+    area {
+      color: 1381632
+      priority: 1075
+    }
+  }
+  element {
+    scale: 11
+    area {
+      color: 1381632
+      priority: 1075
+    }
+  }
+  element {
     scale: 12
     area {
-      color: 988160
+      color: 1381632
       priority: -15926
     }
   }
   element {
     scale: 13
     area {
-      color: 988160
+      color: 1381632
       priority: -15926
     }
   }
   element {
     scale: 14
     area {
-      color: 1251584
+      color: 1381632
       priority: -15926
     }
   }
   element {
     scale: 15
     area {
-      color: 1251584
+      color: 1381632
       priority: -15926
     }
     caption {
@@ -31063,7 +31077,7 @@ cont {
   element {
     scale: 16
     area {
-      color: 1251584
+      color: 1381632
       priority: -15926
     }
     caption {
@@ -31077,7 +31091,7 @@ cont {
   element {
     scale: 17
     area {
-      color: 1251584
+      color: 1381632
       priority: -15926
     }
     caption {
@@ -31091,7 +31105,7 @@ cont {
   element {
     scale: 18
     area {
-      color: 1251584
+      color: 1381632
       priority: -15926
     }
     caption {
@@ -31105,7 +31119,7 @@ cont {
   element {
     scale: 19
     area {
-      color: 1251584
+      color: 1381632
       priority: -15926
     }
     caption {
