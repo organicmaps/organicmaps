@@ -66,6 +66,7 @@
 @military: #B71C1C;
 @parking: #191509;
 @parking_l: #1F190A;
+@farmland: #151500;
 
 /*4.2 Aerodrome*/
 

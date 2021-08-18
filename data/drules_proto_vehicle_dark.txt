@@ -19246,43 +19246,43 @@ cont {
   element {
     scale: 14
     area {
-      color: 593674
-      priority: -15883
+      color: 1381632
+      priority: 1118
     }
   }
   element {
     scale: 15
     area {
-      color: 593674
-      priority: -15883
+      color: 1381632
+      priority: 1118
     }
   }
   element {
     scale: 16
     area {
-      color: 593674
-      priority: -15883
+      color: 1381632
+      priority: 1118
     }
   }
   element {
     scale: 17
     area {
-      color: 593674
-      priority: -15883
+      color: 1381632
+      priority: 1118
     }
   }
   element {
     scale: 18
     area {
-      color: 593674
-      priority: -15883
+      color: 1381632
+      priority: 1118
     }
   }
   element {
     scale: 19
     area {
-      color: 593674
-      priority: -15883
+      color: 1381632
+      priority: 1118
     }
   }
 }

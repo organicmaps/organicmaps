@@ -16,7 +16,8 @@
 	7.3 University & Sport
 	7.4 Cemetry
 	7.5 Pedestrian areas
-  7.6 Airports
+    7.6 Airports
+    7.7 Agricultural
 8.BUILDINGS
   8.1 Pier
 	8.2 Building
@@ -233,7 +234,6 @@ area|z14-[landuse=grass],
 area|z14-[natural=grassland],
 area|z14-[leisure=golf_course],
 area|z14-[natural=heath],
-area|z14-[landuse=farmland],
 area|z14-[landuse=allotments],
 area|z14-[natural=scrub],
 area|z14-[landuse=orchard],
@@ -255,7 +255,7 @@ area|z14-[landuse=grass],
 area|z14-[natural=grassland],
 area|z14-[leisure=golf_course],
 area|z14-[natural=heath],
-area|z14-[landuse=farmland],
+
 area|z14-[landuse=allotments],
 area|z14-[natural=scrub],
 area|z14-[landuse=orchard],
@@ -514,6 +514,9 @@ area|z15-19[aeroway=aerodrome]
 area|z15-[landuse=churchyard]
 {fill-color: @background; fill-opacity: 1;}
 
+/* 7.8 Agricultural */
+area|z14-[landuse=farmland],
+{fill-color: @farmland;fill-opacity: 1;}
 
 /* Parking */
 
