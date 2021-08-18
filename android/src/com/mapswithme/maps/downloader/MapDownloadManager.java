@@ -136,7 +136,7 @@ public class MapDownloadManager
       requestId = id;
     }
 
-    mProgressTracker.add(requestId);
+    startProgressTracking();
 
     return requestId;
   }
@@ -144,13 +144,11 @@ public class MapDownloadManager
   @MainThread
   public void remove(long requestId)
   {
-    mProgressTracker.remove(requestId);
     mDownloadManager.remove(requestId);
   }
 
   public void onDownloadFinished(boolean status, long id)
   {
-    mProgressTracker.remove(id);
     MapManager.nativeOnDownloadFinished(status, id);
   }
 

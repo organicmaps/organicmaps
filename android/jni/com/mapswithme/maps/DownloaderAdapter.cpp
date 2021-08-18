@@ -198,4 +198,11 @@ Java_com_mapswithme_maps_downloader_MapManager_nativeOnDownloadProgress(JNIEnv *
 
   it->second.second(static_cast<int64_t>(bytesDownloaded), static_cast<int64_t>(bytesTotal));
 }
+
+JNIEXPORT jboolean JNICALL
+Java_com_mapswithme_maps_downloader_MapManager_nativeHasPendingDownloads(JNIEnv *, jclass)
+{
+    return !g_completionHandlers.empty();
+}
+
 }  // extern "C"
