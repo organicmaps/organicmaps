@@ -1,13 +1,6 @@
-• Updated OpenStreetMap data
-• Added Bulgarian and Brazil Portuguese translations
-• Picnic tables!
-• Fixed layout bugs, including RTL languages
-• Fixed some non-working search queries
-• Fixed wrong encoding in bookmark description
-• Fixed import of KML/KMZ files
-• Silence media volume while announcing navigation directions
-• Display and edit multiple phone numbers
-• Reduced apk size
-• Wrong regions are not offered anymore for cross-region routing
-• Improved ETA for remote roads
-• Fixed FAQ
+Please let us know if you still have any issues with maps downloading, or any other issues. We will fix them ASAP!
+
+• Fixed download progress stuck at 0% and made it fractional
+• Fixed metro/subway entry icons in some cities
+• Added "Report a bug" button in the main menu
+• Fixed invisible button in navigation panel on Android 6+
