@@ -418,4 +418,5 @@ public final class MapManager
 
   public static native void nativeOnDownloadFinished(boolean status, long id);
   public static native void nativeOnDownloadProgress(long id, long bytesDownloaded, long bytesTotal);
+  public static native boolean nativeHasPendingDownloads();
 }

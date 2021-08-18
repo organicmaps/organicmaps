@@ -5,13 +5,11 @@ import android.content.Context;
 import android.database.Cursor;
 
 import androidx.annotation.NonNull;
+
 import com.mapswithme.util.Utils;
 import com.mapswithme.util.concurrency.UiThread;
 import com.mapswithme.util.log.Logger;
 import com.mapswithme.util.log.LoggerFactory;
-
-import java.util.HashSet;
-import java.util.Set;
 
 public class MapDownloadProgressTracker
 {
@@ -22,8 +20,6 @@ public class MapDownloadProgressTracker
 
   @NonNull
   private final DownloadManager mDownloadManager;
-  @NonNull
-  private final Set<Long> mTrackingIds = new HashSet<>();
   private boolean mTrackingEnabled = false;
   private final Runnable mTrackingMethod = this::trackProgress;
 
@@ -44,7 +40,7 @@ public class MapDownloadProgressTracker
       return;
 
     mTrackingEnabled = true;
-    trackProgress();
+    UiThread.runLater(mTrackingMethod, PROGRESS_TRACKING_INTERVAL_MILLISECONDS);
   }
 
   public void stop()
@@ -53,20 +49,16 @@ public class MapDownloadProgressTracker
     UiThread.cancelDelayedTasks(mTrackingMethod);
   }
 
-  public void add(long id)
-  {
-    mTrackingIds.add(id);
-  }
-
-  public void remove(long id)
-  {
-    mTrackingIds.remove(id);
-  }
-
   private void trackProgress()
   {
     if (!mTrackingEnabled)
       return;
+
+    if (!MapManager.nativeHasPendingDownloads())
+    {
+      mTrackingEnabled = false;
+      return;
+    }
 
     DownloadManager.Query query = new DownloadManager.Query();
     query.setFilterByStatus(DownloadManager.STATUS_RUNNING);
@@ -80,9 +72,6 @@ public class MapDownloadProgressTracker
       for (int i = 0; i < count; ++i)
       {
         long id = cursor.getInt(cursor.getColumnIndex(DownloadManager.COLUMN_ID));
-        if (!mTrackingIds.contains(id))
-          continue;
-
         long bytesDownloaded = cursor.getLong(cursor.getColumnIndex(DownloadManager.COLUMN_BYTES_DOWNLOADED_SO_FAR));
         long bytesTotal = cursor.getLong(cursor.getColumnIndex(DownloadManager.COLUMN_TOTAL_SIZE_BYTES));
 
