@@ -124,12 +124,14 @@ public:
       // See IsPolygonCCW_DataSet tests for more details.
       // ASSERT(IsPolygonCCW(points.begin(), points.end()), (points));
       if (!IsPolygonCCW(points.begin(), points.end()))
+      {
+        // Usually, it is a bad polygon in OSM.
+        LOG(LWARNING, ("GeometryHolder: Degenerated polygon", m_fb.GetMostGenericOsmId()));
         return false;
+      }
     }
 
-    size_t const index = FindSingleStrip(
-        count, IsDiagonalVisibleFunctor<Points::const_iterator>(points.begin(), points.end()));
-
+    size_t const index = FindSingleStrip(count, IsDiagonalVisibleFunctor(points.begin(), points.end()));
     if (index == count)
     {
       // can't find strip
