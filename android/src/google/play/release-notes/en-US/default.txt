@@ -1,7 +1,6 @@
 Please let us know if you still have any issues with maps downloading, or any other issues. We will fix them ASAP!
 
 • Fixed download progress stuck at 0% and made it fractional
-• Fixed bug with exporting bookmarks
 • Fixed metro/subway entry icons in some cities
 • Added "Report a bug" button in the main menu
 • Fixed invisible button in navigation panel on Android 6+
