@@ -35,6 +35,14 @@ jobs:
         shell: bash
         run: git submodule update --init --recursive --jobs=$(($(nproc) * 2))
 
+      - name: Checkout screenshots
+        uses: actions/checkout@v2
+        with:
+          repository: ${{ secrets.SCREENSHOTS_REPO }}
+          ssh-key: ${{ secrets.SCREENSHOTS_SSH_KEY }}
+          ref: master
+          path: screenshots
+
       - name: Checkout private keys
         uses: actions/checkout@v2
         with:

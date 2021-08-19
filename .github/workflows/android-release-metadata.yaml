@@ -8,12 +8,20 @@ jobs:
     runs-on: ubuntu-latest
     environment: production
     steps:
-      - name: Checkout
+      - name: Checkout sources
         uses: actions/checkout@v2
 
       - name: Parallel submodules checkout
         shell: bash
         run: git submodule update --init --recursive --jobs=$(($(nproc) * 2))
+
+      - name: Checkout screenshots
+        uses: actions/checkout@v2
+        with:
+          repository: ${{ secrets.SCREENSHOTS_REPO }}
+          ssh-key: ${{ secrets.SCREENSHOTS_SSH_KEY }}
+          ref: master
+          path: screenshots
 
       - name: Checkout private keys
         uses: actions/checkout@v2
@@ -28,14 +36,6 @@ jobs:
         run: |
           ./configure.sh ./private.git
           rm -rf ./private.git
-
-      - name: Checkout screenshots
-        uses: actions/checkout@v2
-        with:
-          repository: ${{ secrets.SCREENSHOTS_REPO }}
-          ssh-key: ${{ secrets.SCREENSHOTS_SSH_KEY }}
-          ref: master
-          path: screenshots
 
       - name: Upload
         shell: bash
