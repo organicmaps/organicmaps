@@ -37,7 +37,8 @@ jobs:
       - name: Install build tools and dependencies
         shell: bash
         run: |
-          sudo apt-get install -y \
+          sudo apt update -y
+          sudo apt install -y \
               ninja-build \
               qtbase5-dev \
               libqt5svg5-dev \
