@@ -26,7 +26,7 @@ buildscript {
   ext.googleFirebaseServicesEnabled = project.hasProperty('firebase') ?: googleFirebaseServicesDefault
 
   dependencies {
-    classpath 'com.android.tools.build:gradle:7.0.0'
+    classpath 'com.android.tools.build:gradle:7.0.1'
 
     if (googleMobileServicesEnabled) {
       println("Building with Google Mobile Services")
@@ -153,6 +153,7 @@ android {
   }
   // All properties are read from gradle.properties file
   compileSdkVersion propCompileSdkVersion.toInteger()
+  buildToolsVersion propBuildToolsVersion
 
   ndkVersion '21.4.7075529'
 
@@ -383,9 +384,9 @@ android {
 
   // We don't compress these extensions in assets/ because our random FileReader can't read zip-compressed files from apk.
   // TODO: Load all minor files via separate call to ReadAsString which can correctly handle compressed files in zip containers.
-  aaptOptions {
+  androidResources {
+    ignoreAssetsPattern '!.svn:!.git:!.DS_Store:!*.scc:.*:<dir>_*:!CVS:!thumbs.db:!picasa.ini:!*~'
     noCompress 'txt', 'bin', 'html', 'png', 'json', 'mwm', 'ttf', 'sdf', 'ui', 'config', 'csv', 'spv'
-    ignoreAssetsPattern "!.svn:!.git:!.DS_Store:!*.scc:.*:<dir>_*:!CVS:!thumbs.db:!picasa.ini:!*~"
   }
 
   compileOptions {
