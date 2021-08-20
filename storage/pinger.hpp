@@ -12,6 +12,6 @@ class Pinger
 public:
   using Endpoints = std::vector<std::string>;
   // Returns list of available endpoints. Works synchronously.
-  static Endpoints ExcludeUnavailableEndpoints(Endpoints const & urls);
+  static Endpoints ExcludeUnavailableAndSortEndpoints(Endpoints const & urls);
 };
 }  // namespace storage
