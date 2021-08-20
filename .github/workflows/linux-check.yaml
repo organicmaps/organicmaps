@@ -22,6 +22,7 @@ jobs:
     runs-on: ubuntu-latest
 
     strategy:
+      fail-fast: false
       matrix:
         compiler: [{ CXX: g++-10, CC: gcc-10 }, { CXX: clang++, CC: clang }]
 
