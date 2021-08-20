@@ -18,13 +18,14 @@ using namespace std::chrono;
 namespace
 {
 auto constexpr kTimeoutInSeconds = 4.0;
+int64_t constexpr kInvalidPing = -1;
 
 int64_t DoPing(string const & url)
 {
   if (url.empty())
   {
     ASSERT(false, ("Metaserver returned an empty url."));
-    return -1;
+    return kInvalidPing;
   }
 
   platform::HttpClient request(url);
@@ -40,37 +41,44 @@ int64_t DoPing(string const & url)
     LOG(LWARNING, ("Request to server", url, "failed with code =", request.ErrorCode(), "; redirection =", request.WasRedirected()));
   }
 
-  return -1;
+  return kInvalidPing;
 }
 }  // namespace
 
 namespace storage
 {
 // static
-Pinger::Endpoints Pinger::ExcludeUnavailableEndpoints(Endpoints const & urls)
+Pinger::Endpoints Pinger::ExcludeUnavailableAndSortEndpoints(Endpoints const & urls)
 {
   using base::thread_pool::delayed::ThreadPool;
 
   auto const size = urls.size();
   CHECK_GREATER(size, 0, ());
 
-  map<int64_t, size_t> timeUrls;
+  using EntryT = std::pair<int64_t, size_t>;
+  std::vector<EntryT> timeUrls(size, {kInvalidPing, 0});
   {
-    ThreadPool t(size, ThreadPool::Exit::ExecPending);
+    ThreadPool pool(size, ThreadPool::Exit::ExecPending);
     for (size_t i = 0; i < size; ++i)
     {
-      t.Push([&urls, &timeUrls, i]
+      pool.Push([&urls, &timeUrls, i]
       {
-        auto const pingTime = DoPing(urls[i]);
-        if (pingTime > 0)
-          timeUrls[pingTime] = i;
+        timeUrls[i] = { DoPing(urls[i]), i };
       });
     }
   }
 
+  std::sort(timeUrls.begin(), timeUrls.end(), [](EntryT const & e1, EntryT const & e2)
+  {
+    return e1.first < e2.first;
+  });
+
   Endpoints readyUrls;
-  for (auto const & [_, index] : timeUrls)
-    readyUrls.push_back(urls[index]);
+  for (auto const & [ping, index] : timeUrls)
+  {
+    if (ping >= 0)
+      readyUrls.push_back(urls[index]);
+  }
 
   return readyUrls;
 }
