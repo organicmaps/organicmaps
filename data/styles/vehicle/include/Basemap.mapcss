@@ -3,24 +3,25 @@
 1.Z-INDEX of BASEMAP
 2.LAND
 3.BOUNDARY
-	3.1 Countries
-	3.2 Region
+  3.1 Countries
+  3.2 Region
 4.VEGETATION
 5.BEACH & GLACIER
 6.WATER
-	6.1 Area water(lake,pond etc.)
-	6.2 Line water(river,canal etc.)
+  6.1 Area water(lake,pond etc.)
+  6.2 Line water(river,canal etc.)
 7.LANDUSE
-	7.1 Industrial
-	7.2 Hostital
-	7.3 University & Sport
-	7.4 Cemetry
-	7.5 Pedestrian areas
-    7.6 Airports
-    7.7 Agricultural
+  7.1 Industrial
+  7.2 Hostital
+  7.3 University & Sport
+  7.4 Cemetry
+  7.5 Pedestrian areas
+  7.6 Airports
+  7.7 Religion
+  7.8 Agricultural
 8.BUILDINGS
   8.1 Pier
-	8.2 Building
+  8.2 Building
   8.3 Barrier
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 */
@@ -516,7 +517,7 @@ area|z15-[landuse=churchyard]
 
 /* 7.8 Agricultural */
 area|z14-[landuse=farmland],
-{fill-color: @farmland;fill-opacity: 1;}
+{fill-position: background; fill-color: @farmland; fill-opacity: 1;}
 
 /* Parking */
 
