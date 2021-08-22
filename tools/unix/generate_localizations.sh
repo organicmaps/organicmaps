@@ -55,6 +55,6 @@ $TWINE generate-all-localization-files --format apple "$MERGED_FILE" "$OMIM_PATH
 $TWINE generate-all-localization-files --format apple-plural "$MERGED_FILE" "$OMIM_PATH/iphone/Maps/LocalizedStrings/"
 $TWINE generate-all-localization-files --format apple --file-name InfoPlist.strings "$OMIM_PATH/iphone/plist.txt" "$OMIM_PATH/iphone/Maps/LocalizedStrings/"
 $TWINE generate-all-localization-files --format jquery "$OMIM_PATH/data/countries_names.txt" "$OMIM_PATH/data/countries-strings/"
-$TWINE generate-all-localization-files --format jquery "$OMIM_PATH/data/sound.txt" "$OMIM_PATH/data/sound-strings/"
+$TWINE generate-all-localization-files --format jquery "$OMIM_PATH/data/strings/sound.txt" "$OMIM_PATH/data/sound-strings/"
 
 rm $MERGED_FILE
