@@ -1,7 +1,7 @@
-❗Our free app does not have ads and is constantly being improved by our small team, in our free time, using our own money and user donations.
-❗If something is wrong or missing on the map, please fix it in <b>OpenStreetMap</b> and see your changes in the next update.
-❗If navigation or search doesn't work, please email us. <i>We'll fix it ASAP!</i>
-❗<b>Your feedback and 5-star reviews are the best motivators for us!</b>
+Our free app does not have ads and is constantly being improved by our small team, in our free time, using our own money and user donations.
+If something is wrong or missing on the map, please fix it in <b>OpenStreetMap</b> and see your changes in the next update.
+If navigation or search doesn't work, please email us. <i>We reply to EVERY email, and we'll fix it ASAP!</i>
+<b>Your feedback and 5-star reviews are the best motivators for us!</b>
 
 • Detailed offline maps with places that don't exist on other maps, thanks to the <b>OpenStreetMap</b> community
 • Cycling routes, hiking trails and walking paths
@@ -12,7 +12,8 @@
 • Dark mode to protect your eyes
 • Free and open-source
 
-There is no Android Auto, public transport, satellite maps, and other cool features <i>yet</i> in Organic Maps. But with <i>your help</i>, we can do everything!
+There is no Android Auto, public transport, satellite maps, and other cool features <i>yet</i> in Organic Maps.
+But with <i>your help and support</i>, we can do everything!
 
 Organic Maps is <b>pure and organic, made with love</b>:
 
