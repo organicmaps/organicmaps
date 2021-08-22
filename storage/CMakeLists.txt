@@ -51,12 +51,7 @@ set(
   storage_helpers.hpp
 )
 
-if(${PLATFORM_ANDROID})
-  append(
-    SRC
-    background_downloading/downloader_queue.hpp
-  )
-elseif(${PLATFORM_IPHONE})
+if(${PLATFORM_IPHONE})
   append(
     SRC
     background_downloading/downloader_adapter_ios.h

@@ -17,7 +17,6 @@ import com.mapswithme.maps.background.Notifier;
 import com.mapswithme.maps.base.MediaPlayerWrapper;
 import com.mapswithme.maps.bookmarks.data.BookmarkManager;
 import com.mapswithme.maps.downloader.CountryItem;
-import com.mapswithme.maps.downloader.MapDownloadManager;
 import com.mapswithme.maps.downloader.MapManager;
 import com.mapswithme.maps.editor.Editor;
 import com.mapswithme.maps.location.LocationHelper;
@@ -58,10 +57,6 @@ public class MwmApplication extends Application implements AppBackgroundTracker.
   @SuppressWarnings("NotNullFieldNotInitialized")
   @NonNull
   private IsolinesManager mIsolinesManager;
-
-  @SuppressWarnings("NotNullFieldNotInitialized")
-  @NonNull
-  private MapDownloadManager mMapDownloadManager;
 
   private volatile boolean mFrameworkInitialized;
   private volatile boolean mPlatformInitialized;
@@ -148,7 +143,6 @@ public class MwmApplication extends Application implements AppBackgroundTracker.
     mBackgroundTracker = new AppBackgroundTracker(this);
     mSubwayManager = new SubwayManager(this);
     mIsolinesManager = new IsolinesManager(this);
-    mMapDownloadManager = new MapDownloadManager(this);
 
     mPlayer = new MediaPlayerWrapper(this);
     WebView.setWebContentsDebuggingEnabled(Utils.isDebugOrBeta());
@@ -321,12 +315,6 @@ public class MwmApplication extends Application implements AppBackgroundTracker.
   public void onTransit(boolean foreground)
   {
     nativeOnTransit(foreground);
-  }
-
-  @NonNull
-  public MapDownloadManager getMapDownloadManager()
-  {
-    return mMapDownloadManager;
   }
 
   private class StorageCallbackImpl implements MapManager.StorageCallback

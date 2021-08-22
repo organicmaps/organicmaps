@@ -576,16 +576,4 @@ Java_com_mapswithme_maps_downloader_MapManager_nativeGetSelectedCountry(JNIEnv *
   storage::CountryId const & res = g_framework->GetPlacePageInfo().GetCountryId();
   return (res == storage::kInvalidCountryId ? nullptr : jni::ToJavaString(env, res));
 }
-
-JNIEXPORT jboolean JNICALL
-Java_com_mapswithme_maps_downloader_MapManager_nativeIsUrlSupported(JNIEnv * env, jclass, jstring url)
-{
-  return static_cast<jboolean>(downloader::IsUrlSupported(jni::ToNativeString(env, url)));
-}
-
-JNIEXPORT jstring JNICALL
-Java_com_mapswithme_maps_downloader_MapManager_nativeGetFilePathByUrl(JNIEnv * env, jclass, jstring url)
-{
-  return jni::ToJavaString(env, downloader::GetFilePathByUrl(jni::ToNativeString(env, url)));
-}
 } // extern "C"
