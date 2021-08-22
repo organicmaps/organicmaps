@@ -18319,7 +18319,7 @@
     nl = Omweginstellingen
     fi = Kiertotien asetukset
     fr = Réglages de détour
-    de = Einstellungen des Umweges
+    de = Routenbeschränkungen
     hu = Vezetési lehetőségek
     id = Pilihan berkendara
     it = Impostazioni di deviazione
@@ -18652,7 +18652,7 @@
     nl = Omweginstellingen ingeschakeld
     fi = Kiertotien asetukset on päällä
     fr = Paramètres de détour activés
-    de = Einstellung des Umweges aktiv
+    de = Routenbeschränkungen aktiv
     hu = Vezetési lehetőségek bekapcsolva
     id = Opsi perutean diaktifkan
     it = Impostazioni di deviazione abilitate
