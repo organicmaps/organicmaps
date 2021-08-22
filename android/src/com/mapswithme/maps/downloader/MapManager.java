@@ -411,12 +411,4 @@ public final class MapManager
    * Returns country ID which the current PP object points to, or {@code null}.
    */
   public static native @Nullable String nativeGetSelectedCountry();
-
-  public static native boolean nativeIsUrlSupported(@NonNull String url);
-  @NonNull
-  public static native String nativeGetFilePathByUrl(@NonNull String url);
-
-  public static native void nativeOnDownloadFinished(boolean status, long id);
-  public static native void nativeOnDownloadProgress(long id, long bytesDownloaded, long bytesTotal);
-  public static native boolean nativeHasPendingDownloads();
 }

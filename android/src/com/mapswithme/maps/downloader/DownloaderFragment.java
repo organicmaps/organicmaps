@@ -172,22 +172,6 @@ public class DownloaderFragment extends BaseMwmRecyclerFragment<DownloaderAdapte
   }
 
   @Override
-  public void onResume()
-  {
-    super.onResume();
-
-    MapDownloadManager.from(requireContext()).startProgressTracking();
-  }
-
-  @Override
-  public void onPause()
-  {
-    super.onPause();
-
-    MapDownloadManager.from(requireContext()).stopProgressTracking();
-  }
-
-  @Override
   public boolean onBackPressed()
   {
     if (mToolbarController.hasQuery())
