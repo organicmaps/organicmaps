@@ -1229,7 +1229,7 @@
 
 "access_rules_author_only" = "Online bearbeiten";
 
-"driving_options_title" = "Einstellungen des Umweges";
+"driving_options_title" = "Routenbeschränkungen";
 
 "driving_options_subheader" = "In jeder Reiseroute vermeiden";
 
@@ -1247,7 +1247,7 @@
 
 "define_to_avoid_btn" = "Umwege einstellen";
 
-"change_driving_options_btn" = "Einstellung des Umweges aktiv";
+"change_driving_options_btn" = "Routenbeschränkungen aktiv";
 
 "toll_road" = "Mautstraße";
 

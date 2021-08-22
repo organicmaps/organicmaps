@@ -703,7 +703,7 @@
 	<string name="power_managment_setting_manual_max">Maximale Stromsparung</string>
 	<string name="enable_logging_warning_message">Diese Option wird aktiviert, um Aktivitäten zwecks Diagnostik zu loggen. Das hilft unserem Team Probleme mit der App zu erkennen. Aktivieren Sie diese Option nur auf Ersuchen des Organic Maps-Supports.</string>
 	<string name="access_rules_author_only">Online bearbeiten</string>
-	<string name="driving_options_title">Einstellungen des Umweges</string>
+	<string name="driving_options_title">Routenbeschränkungen</string>
 	<string name="driving_options_subheader">In jeder Reiseroute vermeiden</string>
 	<string name="avoid_tolls">Mautstraßen</string>
 	<string name="avoid_unpaved">Erdwege</string>
@@ -712,7 +712,7 @@
 	<string name="unable_to_calc_alert_title">Es ist unmöglich, eine Route zu planen</string>
 	<string name="unable_to_calc_alert_subtitle">Leider konnten wir keine Route mit ausgewählten Optionen planen. Ändern Sie die Einstellungen und versuchen Sie den Versuch erneut</string>
 	<string name="define_to_avoid_btn">Umwege einstellen</string>
-	<string name="change_driving_options_btn">Einstellung des Umweges aktiv</string>
+	<string name="change_driving_options_btn">Routenbeschränkungen aktiv</string>
 	<string name="toll_road">Mautstraße</string>
 	<string name="unpaved_road">Erdweg</string>
 	<string name="ferry_crossing">Fährstelle</string>
