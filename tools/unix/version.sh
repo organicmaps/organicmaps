@@ -42,8 +42,19 @@ function android_code {
   echo "${cutYear//./}$(printf %02d "$COUNT")"
 }
 
-function git_hash {
-  git describe --match="" --always --abbrev=8 --dirty
+function qt_int_version {
+  # yy_MM_dd
+  # yy - year
+  # MM - month
+  # dd - day
+  local cutYear=${DATE:2}
+  echo "${cutYear//./}"
+}
+
+function qt_version {
+  local GIT_HASH=$(git describe --match="" --always --abbrev=8 --dirty)
+  local OS_NAME=$(uname -s)
+  echo "$DATE-$COUNT-$GIT_HASH-$OS_NAME"
 }
 
 function usage {
@@ -52,11 +63,12 @@ Prints Organic Maps version in specified format.
 Version is the last git commit's date plus a number of commits on that day.
 Usage: $0 <format>
 Where format is one of the following arguments (shows current values):
-  ios_version   $(ios_version)
-  ios_build     $(ios_build)
-  android_name  $(android_name)
-  android_code  $(android_code)
-  git_hash      $(git_hash)
+  ios_version    $(ios_version)
+  ios_build      $(ios_build)
+  android_name   $(android_name)
+  android_code   $(android_code)
+  qt_version     $(qt_version)
+  qt_int_version $(qt_int_version)
 EOF
 }
 

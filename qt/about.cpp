@@ -4,8 +4,6 @@
 
 #include "base/logging.hpp"
 
-#include "build_version.hpp"
-
 #include <string>
 
 #include <QtCore/QFile>
@@ -26,9 +24,11 @@ AboutDialog::AboutDialog(QWidget * parent)
   QLabel * labelIcon = new QLabel();
   labelIcon->setPixmap(icon.pixmap(128));
 
+  Platform & platform = GetPlatform();
+
   QVBoxLayout * versionBox = new QVBoxLayout();
   versionBox->addWidget(new QLabel(qAppName()));
-  versionBox->addWidget(new QLabel(QString("Version: ") + build_version::kName));
+  versionBox->addWidget(new QLabel(QString("Version: ") + QString::fromStdString(platform.Version())));
   // TODO: insert maps data version.
   //versionBox->addWidget(new QLabel(QString("Data: ") + DESIGNER_DATA_VERSION));
 
@@ -39,7 +39,7 @@ AboutDialog::AboutDialog(QWidget * parent)
   std::string aboutText;
   try
   {
-    ReaderPtr<Reader> reader = GetPlatform().GetReader("copyright.html");
+    ReaderPtr<Reader> reader = platform.GetReader("copyright.html");
     reader.ReadAsString(aboutText);
   }
   catch (RootException const & ex)
