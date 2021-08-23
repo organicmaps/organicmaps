@@ -263,7 +263,6 @@ public:
   /// @return url for clients to download maps
   //@{
   std::string MetaServerUrl() const;
-  std::string ResourcesMetaServerUrl() const;
   //@}
 
   /// @return JSON-encoded list of urls if metaserver is unreachable

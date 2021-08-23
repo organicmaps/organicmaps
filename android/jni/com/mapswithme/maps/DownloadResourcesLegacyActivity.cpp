@@ -215,7 +215,7 @@ extern "C"
     Callback onFinish(std::bind(&DownloadFileFinished, jni::make_global_ref(listener), _1));
     Callback onProgress(std::bind(&DownloadFileProgress, jni::make_global_ref(listener), _1));
 
-    g_currentRequest.reset(HttpRequest::PostJson(GetPlatform().ResourcesMetaServerUrl(), curFile.m_fileName,
+    g_currentRequest.reset(HttpRequest::Get(GetPlatform().MetaServerUrl(),
                                                  std::bind(&DownloadURLListFinished, _1, onFinish, onProgress)));
     return ERR_FILE_IN_PROGRESS;
   }
