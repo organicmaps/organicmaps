@@ -118,22 +118,23 @@ def getVersion() {
   def year = cal.get(Calendar.YEAR)
   def month = cal.get(Calendar.MONTH) + 1
   def day = cal.get(Calendar.DAY_OF_MONTH)
-  def hour = cal.get(Calendar.HOUR_OF_DAY)
+  def date_of_last_commit = String.format("%04d-%02d-%02d", year, month, day)
+  def build = Integer.parseInt(run(['git', 'rev-list', '--count', '--after="' + date_of_last_commit + 'T00:00:00Z"', 'HEAD']).trim())
 
   // Use the last git commit date to generate the version code:
-  // RR_yy_MM_dd_HH
+  // RR_yy_MM_dd_CC
   // - RR - reserved to identify special markets, max value is 21.
   // - yy - year
   // - MM - month
   // - dd - day
-  // - hh - hour
+  // - CC - the number of commits from the current day
   // 21_00_00_00_00 is the the greatest value Google Play allows for versionCode.
   // See https://developer.android.com/studio/publish/versioning for details.
-  def versionCode = (year - 2000) * 1_00_00_00 + month * 1_00_00 + day * 1_00 + hour
+  def versionCode = (year - 2000) * 1_00_00_00 + month * 1_00_00 + day * 1_00 + build
 
   // Use the current date to generate the version name:
   // 2021.04.11-12-Google (-Google added by flavor)
-  def versionName = String.format("%04d.%02d.%02d-%d", year, month, day, hour)
+  def versionName = String.format("%04d.%02d.%02d-%d", year, month, day, build)
 
   return new Tuple2(versionCode, versionName)
 }
