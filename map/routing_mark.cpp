@@ -192,7 +192,8 @@ drape_ptr<df::UserPointMark::SymbolNameZoomInfo> RouteMarkPoint::GetSymbolNames(
       case 0: name = "route-point-a"; break;
       case 1: name = "route-point-b"; break;
       case 2: name = "route-point-c"; break;
-      default: name = ""; break;
+      default: name = "route-point-c"; break; // This should be replaced with the "+" icon
+                                              // TODO: Properly add icons for other letters/numbers after C.
       }
       break;
     }
@@ -202,7 +203,7 @@ drape_ptr<df::UserPointMark::SymbolNameZoomInfo> RouteMarkPoint::GetSymbolNames(
   return symbol;
 }
 
-size_t const RoutePointsLayout::kMaxIntermediatePointsCount = 3;
+size_t const RoutePointsLayout::kMaxIntermediatePointsCount = 100;  // This should be tested if the routing algorithm can handle this
 
 RoutePointsLayout::RoutePointsLayout(BookmarkManager & manager)
   : m_manager(manager)
