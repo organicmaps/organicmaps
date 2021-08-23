@@ -150,11 +150,6 @@ string Platform::ReadPathForFile(string const & file, string searchScope) const
                                 "Have been looking in:\n", possiblePaths));
 }
 
-string Platform::ResourcesMetaServerUrl() const
-{
-  return RESOURCES_METASERVER_URL;
-}
-
 string Platform::MetaServerUrl() const
 {
   return METASERVER_URL;
