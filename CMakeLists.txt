@@ -279,27 +279,6 @@ if (USE_PCH)
     ${OMIM_PCH_TARGET_NAME}
   )
 endif()
-
-# Generate version header file.
-execute_process(COMMAND tools/unix/version.sh android_name
-  WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}
-  OUTPUT_VARIABLE OM_VERSION
-  OUTPUT_STRIP_TRAILING_WHITESPACE
-)
-execute_process(COMMAND tools/unix/version.sh android_code
-  WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}
-  OUTPUT_VARIABLE OM_VERSION_CODE
-  OUTPUT_STRIP_TRAILING_WHITESPACE
-)
-execute_process(COMMAND tools/unix/version.sh git_hash
-  WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}
-  OUTPUT_VARIABLE OM_GIT_HASH
-  OUTPUT_STRIP_TRAILING_WHITESPACE
-)
-# TODO: Does it run on every build or only on configure step?
-# TODO: Run only when dependent targets are built.
-configure_file(build_version.hpp.in ${CMAKE_SOURCE_DIR}/build_version.hpp @ONLY)
-
 # Include 3party dependencies.
 
 # Configure expat library.

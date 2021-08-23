@@ -14,8 +14,6 @@
 
 #include "build_style/build_style.h"
 
-#include "build_version.hpp"
-
 #include <cstdio>
 #include <cstdlib>
 #include <sstream>
@@ -119,11 +117,12 @@ int main(int argc, char * argv[])
   // See http://dbaron.org/log/20121222-locale for more details.
   (void)::setenv("LC_NUMERIC", "C", 1);
 
+  Platform & platform = GetPlatform();
+
   gflags::SetUsageMessage("Desktop application.");
-  gflags::SetVersionString(build_version::kName);
+  gflags::SetVersionString(platform.Version());
   gflags::ParseCommandLineFlags(&argc, &argv, true);
 
-  Platform & platform = GetPlatform();
   if (!FLAGS_resources_path.empty())
     platform.SetResourceDir(FLAGS_resources_path);
   if (!FLAGS_data_path.empty())

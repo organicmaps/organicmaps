@@ -154,7 +154,7 @@ designer_version.h
 *.sw?
 
 # Build version
-build_version.hpp
+platform/platform_qt_version.cpp
 
 #python modules building
 tools/python/*/build
