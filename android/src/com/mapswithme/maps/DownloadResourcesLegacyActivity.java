@@ -209,9 +209,6 @@ public class DownloadResourcesLegacyActivity extends BaseMwmFragmentActivity imp
 
       setAction(DOWNLOAD);
 
-      if (ConnectionState.INSTANCE.isWifiConnected())
-        onDownloadClicked();
-
       return;
     }
 
