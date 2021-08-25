@@ -187,15 +187,11 @@ drape_ptr<df::UserPointMark::SymbolNameZoomInfo> RouteMarkPoint::GetSymbolNames(
     case RouteMarkType::Finish: name = "route-point-finish"; break;
     case RouteMarkType::Intermediate:
     {
-      switch (m_markData.m_intermediateIndex)
-      {
-      case 0: name = "route-point-a"; break;
-      case 1: name = "route-point-b"; break;
-      case 2: name = "route-point-c"; break;
-      // TODO: Properly add icons for other letters/numbers after C.
-      default: name = "route-point-c"; break;
-      }
-      break;
+      // TODO: Properly add icons for other letters/numbers after 20.
+      if (m_markData.m_intermediateIndex >= 0 && m_markData.m_intermediateIndex < 19)
+        name = "route-point-" + std::to_string(m_markData.m_intermediateIndex + 1);
+      else
+        name = "route-point-20";
     }
   }
   auto symbol = make_unique_dp<SymbolNameZoomInfo>();
