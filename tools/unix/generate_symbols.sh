@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 set -euo pipefail
 
 if ! command -v optipng &> /dev/null
@@ -111,9 +111,9 @@ rm -rf "$OMIM_PATH"/data/resources-{*}
 
 rm -rf "$OMIM_PATH"/data/resources-*_design
 
-for i in mdpi hdpi xhdpi xxhdpi xxxhdpi 6plus; do 
-  optipng -o7 "$OMIM_PATH"/data/resources-${i}_clear/symbols.png
-  optipng -o7 "$OMIM_PATH"/data/resources-${i}_dark/symbols.png
+for i in mdpi hdpi xhdpi xxhdpi xxxhdpi 6plus; do
+  optipng -zc9 -zm8 -zs0 -f0 "$OMIM_PATH"/data/resources-${i}_clear/symbols.png
+  optipng -zc9 -zm8 -zs0 -f0 "$OMIM_PATH"/data/resources-${i}_dark/symbols.png
 done
 
 for i in mdpi hdpi xhdpi xxhdpi xxxhdpi 6plus; do
