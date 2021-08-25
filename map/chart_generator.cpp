@@ -188,8 +188,8 @@ bool GenerateYAxisChartData(uint32_t height, double minMetersPerPxl,
     LOG(LERROR, ("metersPerPxl == 0.0"));
     return false;
   }
-
-  double const deltaAltPxl = deltaAltM / metersPerPxl;
+  // int avoids double errors which make freeHeightSpacePxl slightly less than zero.
+  int const deltaAltPxl = deltaAltM / metersPerPxl;
   double const freeHeightSpacePxl = drawHeightPxl - deltaAltPxl;
   if (freeHeightSpacePxl < 0 || freeHeightSpacePxl > drawHeightPxl)
   {
