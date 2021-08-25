@@ -171,8 +171,13 @@ public final class PlacePageButtons
         },
         ButtonType.BACK),
 
-    BOOKMARK(
-        R.string.bookmark,
+    BOOKMARK_SAVE(
+        R.string.save,
+        new ImageResources(R.drawable.ic_bookmarks_on),
+        ButtonType.BOOKMARK),
+
+    BOOKMARK_DELETE(
+        R.string.delete,
         new ImageResources(R.drawable.ic_bookmarks_off),
         ButtonType.BOOKMARK),
 
