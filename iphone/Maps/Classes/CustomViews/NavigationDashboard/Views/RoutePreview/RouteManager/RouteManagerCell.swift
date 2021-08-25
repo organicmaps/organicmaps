@@ -49,18 +49,14 @@ final class RouteManagerCell: MWMTableViewCell {
         typeImage.image = #imageLiteral(resourceName: "ic_route_manager_start")
         typeImage.tintColor = UIColor.linkBlue()
       case .intermediate:
-        switch model.intermediateIndex {
-        case 0:
-          typeImage.image = #imageLiteral(resourceName: "ic_route_manager_stop_a")
-          typeImage.tintColor = UIColor.primary()
-        case 1:
-          typeImage.image = #imageLiteral(resourceName: "ic_route_manager_stop_b")
-          typeImage.tintColor = UIColor.primary()
-        case 2:
-          typeImage.image = #imageLiteral(resourceName: "ic_route_manager_stop_c")
-          typeImage.tintColor = UIColor.primary()
-        default: fatalError("Unsupported route point intermediateIndex.")
+        let i = model.intermediateIndex + 1
+        // TODO: Properly support more than 20 icons.
+        var iconName = "route-point-20"
+        if (i >= 1 && i < 20) {
+          iconName = "route-point-" + String(i)
         }
+        typeImage.image = #imageLiteral(resourceName: iconName)
+        typeImage.tintColor = UIColor.primary()
       case .finish:
         typeImage.image = #imageLiteral(resourceName: "ic_route_manager_finish")
         typeImage.tintColor = UIColor.blackPrimaryText()

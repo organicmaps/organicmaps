@@ -19,7 +19,7 @@
                 <rect key="frame" x="0.0" y="0.0" width="20" height="20"/>
                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 <subviews>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_route_manager_stop_a" translatesAutoresizingMaskIntoConstraints="NO" id="kZf-7J-OZ5">
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="route-point-1" translatesAutoresizingMaskIntoConstraints="NO" id="kZf-7J-OZ5">
                         <rect key="frame" x="0.0" y="0.0" width="20" height="20"/>
                         <color key="tintColor" red="0.1215686275" green="0.59999999999999998" blue="0.32156862749999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
@@ -44,6 +44,6 @@
         </collectionViewCell>
     </objects>
     <resources>
-        <image name="ic_route_manager_stop_a" width="24" height="24"/>
+        <image name="route-point-1" width="24" height="24"/>
     </resources>
 </document>
