@@ -1000,7 +1000,8 @@ public class PlacePageView extends NestedScrollViewClickFixed
     if (needToShowRoutingButtons && !hasNumber)
       buttons.add(PlacePageButtons.Item.ROUTE_FROM);
 
-    buttons.add(PlacePageButtons.Item.BOOKMARK);
+    buttons.add(mapObject.getMapObjectType() == MapObject.BOOKMARK ? PlacePageButtons.Item.BOOKMARK_DELETE
+        : PlacePageButtons.Item.BOOKMARK_SAVE);
 
     if (needToShowRoutingButtons)
     {
