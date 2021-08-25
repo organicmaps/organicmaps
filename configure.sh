@@ -14,8 +14,6 @@ BASE_PATH=$(cd "$(dirname "$0")"; pwd)
 
 PRIVATE_HEADER="$BASE_PATH/private.h"
 DEFAULT_PRIVATE_HEADER="$BASE_PATH/private_default.h"
-PRIVATE_CAR_MODEL_COEFS="$BASE_PATH/routing_common/car_model_coefs.hpp"
-DEFAULT_PRIVATE_CAR_MODEL_COEFS="$BASE_PATH/routing_common/car_model_coefs_default.hpp"
 
 PRIVATE_PROPERTIES="$BASE_PATH/android/secure.properties"
 PRIVATE_NETWORK_CONFIG="$BASE_PATH/android/res/xml/network_security_config.xml"
@@ -36,7 +34,6 @@ usage() {
 setup_opensource() {
   echo "Initializing repository with default values in Open-Source mode."
   cat "$DEFAULT_PRIVATE_HEADER" > "$PRIVATE_HEADER"
-  cat "$DEFAULT_PRIVATE_CAR_MODEL_COEFS" > "$PRIVATE_CAR_MODEL_COEFS"
   echo 'ext {
   spropStoreFile = "debug.keystore"
   spropStorePassword = "12345678"
