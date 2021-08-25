@@ -114,7 +114,8 @@
 
 - (void)validatePoint
 {
-  NSAssert(_intermediateIndex >= 0 && _intermediateIndex <= 2, @"Invalid intermediateIndex");
+  // Sync with RoutePointsLayout::kMaxIntermediatePointsCount constant.
+  NSAssert(_intermediateIndex >= 0 && _intermediateIndex <= 100, @"Invalid intermediateIndex");
 }
 
 - (double)latitude { return mercator::YToLat(self.point.y); }
