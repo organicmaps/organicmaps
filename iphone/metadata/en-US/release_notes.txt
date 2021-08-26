@@ -1,13 +1,6 @@
-• Updated OpenStreetMap data
-• Added Bulgarian and Brazil Portuguese translations
-• Picnic tables!
-• You can now edit/move/delete tracks and bookmarks
-• CarPlay map is properly aligned
-• Failed downloads are now resumed
-• Wrong regions are not offered anymore for cross-region routing
-• Improved ETA for remote tracks and roads
-• Improved routing when start or end point is in a private area
-• Fixed FAQ
-• Aligned bottom bar buttons
+With the help of our community, in this release we:
 
-…and other minor improvements!
+• Increased maximum number of intermediate stops from 3 to... try to guess :)
+• Fixed rare crash when downloading maps
+• Made farmlands more visible on the map
+• Updated 🇧🇷 Brazil and 🇵🇹 Portuguese translations
