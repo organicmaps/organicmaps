@@ -10,7 +10,7 @@
 "search" = "Buscar";
 
 /* Used in home screen quick actions. */
-"bookmarks" = "Bookmarks";
+"bookmarks" = "Favoritos";
 
 /* Used in home screen quick actions. */
 "route" = "Rota";
@@ -19,7 +19,7 @@
 /********** gps strings **********/
 
 /* Needed to explain why we always require access to GPS coordinates, and not only when the app is active. */
-"NSLocationAlwaysUsageDescription" = "A detecção da localização atual em segundo plano é necessária para desfrutar plenamente da funcionalidade do aplicativo. Ele é usado para navegação e para salvar sua trilha recentemente viajada.";
+"NSLocationAlwaysUsageDescription" = "A deteção da localização atual em segundo plano é necessária para desfrutar plenamente da funcionalidade do aplicativo. Ela é usada para navegação e para salvar sua trilha recentemente viajada.";
 
 /* Needed to explain why we require access to GPS coordinates when the app is active. */
 "NSLocationWhenInUseUsageDescription" = "A determinação de sua localização é necessária para a navegação e para salvar sua trilha recentemente viajada.";
