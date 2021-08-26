@@ -56,7 +56,7 @@
     nl = Bladwijzers
     pl = Zakładki
     pt = Favoritos
-    pt-br = Favoritos
+    pt-BR = Favoritos
     ro = Marcaje
     ru = Метки
     sk = Záložky

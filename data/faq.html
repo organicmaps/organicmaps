@@ -68,21 +68,23 @@
         return lang;
       }
 
+      // TODO: Update this list with a new translation.
+      const translations = ['en', 'ru', 'de', 'es', 'fr', 'pt', 'pt', 'pl'];
+      // Show Russian for browsers with this language codes.
+      const canReadRussian = ['ab', 'be', 'kk', 'ky', 'tg', 'uk', 'uz'];
+
+      // TODO: Properly handle be-EN, he-RU or similar cases.
       function showLanguage() {
         let lang = getLanguage();
-        lang = lang.substring(0, 2);
-        if (lang == "be" || lang == "uk") lang = "ru";
-        else if (
-          lang != "en" &&
-          lang != "ru" &&
-          lang != "de" &&
-          lang != "es" &&
-          lang != "fr" &&
-          lang != "pt" &&
-	  lang != "pt-BR" &&
-          lang != "pl"
-        )
-          lang = "en";
+        const iso6391 = lang.substring(0, 2);
+        if (canReadRussian.includes(iso6391))
+          lang = 'ru';
+        else if (translations.includes(iso6391)) {
+          if (lang != 'pt-BR')
+            lang = iso6391;
+        } else
+          lang = 'en';
+
         var elems = document.querySelectorAll('[lang="' + lang + '"]');
         // Make them visible
         for (i = 0; i < elems.length; ++i) elems[i].style.display = "block";
