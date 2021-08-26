@@ -73,7 +73,16 @@ void MapObject::SetFromFeatureType(FeatureType & ft)
 {
   m_mercator = feature::GetCenter(ft);
   m_name = ft.GetNames();
+
+  Classificator const & cl = classif();
   m_types = feature::TypesHolder(ft);
+  m_types.RemoveIf([&cl](uint32_t t)
+  {
+    return !cl.IsTypeValid(t);
+  });
+  // Actually, we can't select object on map with invalid (non-drawable type).
+  ASSERT(!m_types.Empty(), ());
+
   m_metadata = ft.GetMetadata();
   m_houseNumber = ft.GetHouseNumber();
   m_roadNumber = ft.GetRoadNumber();

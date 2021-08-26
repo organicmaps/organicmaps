@@ -439,9 +439,12 @@ void SaveFeatureTypes(feature::TypesHolder const & types, kml::BookmarkData & bm
   bmData.m_featureTypes.reserve(copy.Size());
   for (auto it = copy.begin(); it != copy.end(); ++it)
   {
-    bmData.m_featureTypes.push_back(c.GetIndexForType(*it));
-    if (bmData.m_icon == kml::BookmarkIcon::None)
-      bmData.m_icon = GetBookmarkIconByFeatureType(*it);
+    if (c.IsTypeValid(*it))
+    {
+      bmData.m_featureTypes.push_back(c.GetIndexForType(*it));
+      if (bmData.m_icon == kml::BookmarkIcon::None)
+        bmData.m_icon = GetBookmarkIconByFeatureType(*it);
+    }
   }
 }
 
