@@ -49,8 +49,8 @@ ja:食事場所|飲食|飲食店
 ko:어디서먹을까|음식
 nb:Spisesteder|Mat
 pl:Gdzie zjeść|Jedzenie
-pt:Onde lanchar|Alimentação
-pt-BR:Onde comer|Alimentação
+pt:Onde comer|comer|comida
+pt-BR:Onde comer|comer|comida|alimentação
 ro:Unde să mănânci|Alimentație
 es:Dónde comer|Comer
 sv:Var att äta|Mat
@@ -84,7 +84,7 @@ ja:食料雑貨|飲食|買い物
 ko:식료품들|음식|쇼핑
 nb:Dagligvarer|Mat|Butikk
 pl:Produkty|Jedzenie|Sklep
-pt:Alimentos|Alimentação|Compras
+pt:Mercearias|Minimercados|Supermercados|Hipermercados|Comida|Alimentos|Loja
 pt-BR:Mercados|Alimentação|Loja
 ro:Produse|Alimentație|Magazin
 es:Productos|Comer|Tienda
@@ -222,7 +222,7 @@ ja:ショッピング|買い物
 ko:쇼핑
 nb:Shopping|Butikk
 pl:Zakupy|Sklep
-pt:Compras
+pt:Compras|Loja
 pt-BR:Compras|Loja
 ro:Cumpărături|Magazin
 es:Compras|Tienda
@@ -257,7 +257,7 @@ ja:ホテル
 ko:호텔
 nb:Hotell|Hoteller
 pl:Hotel|Hotele
-pt:Hotel|Hoteis
+pt:Hotel|Hotéis
 pt-BR:Hotel|Hoteles
 ro:Hotel|Hoteluri
 es:Hotel|Hoteles
@@ -291,7 +291,7 @@ ja:観光
 ko:관광
 nb:Severdigheter
 pl:Osobliwości miasta|Atrakcje turystyczne|Turystyka|zwiedzanie
-pt:Turismo|Vistas
+pt:Atrações turísticas|3Turismo|Miradouros
 pt-BR:Atração|Turismo
 ro:Obiective turistice
 es:Turismo
@@ -359,8 +359,8 @@ ja:ナイトライフ
 ko:유흥|나이트 라이프|밤의 생활
 nb:Nattliv
 pl:Życie nocne
-pt:Convívio à noite
-pt-BR:Vida Noturna
+pt:Vida noturna
+pt-BR:Vida noturna
 ro:Viața nocturnă
 es:Vida nocturna
 sv:Nattliv
@@ -393,7 +393,7 @@ ja:家族の休日
 ko:가족 기념일|명절
 nb:Familieferie
 pl:Wypoczynek z dziećmi
-pt:Descanso com crianças
+pt:Atividades com crianças
 pt-BR:Feriados em família
 ro:Odihnă cu copii
 es:Descanso con niños
@@ -427,8 +427,8 @@ ja:1ATM
 ko:ATM|현금 인출기
 nb:Minibank
 pl:5Bankomat
-pt:3Multibanco
-pt-BR:3Caixa eletrônico
+pt:3Multibanco|2MB|Caixa Multibanco|2ATM|Multicaixa|Caixa automática|Terminal bancário
+pt-BR:3Caixa eletrônico|caixa automático|banco 24 horas
 ro:3Bancomat
 es:Cajero|cajero automático
 sv:3Bankomat
@@ -462,8 +462,8 @@ ja:atm|お金|マネー|金|引き出し|預金|振り込み
 ko:돈
 nb:2Penger
 pl:pieniądze
-pt:dinheiro
-pt-BR:caixa automático|banco 24 horas|saque|dinheiro
+pt:dinheiro|U+1F3E7|U+1F4B2|U+1F4B3|U+1F4B4|U+1F4B5|U+1F4B6|U+1F4B7
+pt-BR:dinheiro|U+1F3E7|U+1F4B2|U+1F4B3|U+1F4B4|U+1F4B5|U+1F4B6|U+1F4B7
 ro:bani
 es:dinero
 sv:pengar
@@ -528,8 +528,8 @@ it:soldi
 ja:バンク|お金|マネー|金|引き出し|預金|振り込み
 ko:돈
 pl:pieniądze
-pt:dinheiro
-pt-BR:dinheiro
+pt:dinheiro|U+1F3E6|U+1F4B0|U+1F4B2|U+1F4B3|U+1F4B4|U+1F4B5|U+1F4B6|U+1F4B7
+pt-BR:dinheiro|U+1F3E6|U+1F4B0|U+1F4B2|U+1F4B3|U+1F4B4|U+1F4B5|U+1F4B6|U+1F4B7
 ro:bani
 es:dinero
 sv:pengar
@@ -561,7 +561,7 @@ ja:リサイクル|廃物利用|リサイクル可能なもの|ゴミの分別�
 ko:재활용|쓰레기 활용|쓰레기 분리|폐기물 이용|재활용 가능|쓰레기 모음 분리|쓰레기 정리|재사용
 nb:Resirkulering|Avfallsutnytting|Gjenvinningsstasjon|Kildesortering|Gjenbruk
 pl:Recyrkulacja|Utylizacja odpadów|Do recyklingu|Segregacja śmieci|Sortowanie śmieci|Odzysk
-pt:Reciclagem|Recicláveis|Separação de lixo|Reuso
+pt:Reciclagem|Ecoponto|Recicláveis|Separação de lixo|Reutilização
 pt-BR:Reciclagem|Utilização de resíduos|Recicláveis|Coleta de seletiva|Separação de lixo|Reuso
 ro:Reciclarea deșeurilor|Reciclare|Recepționarea reciclării|Colectarea separată a gunoiului|Sortarea gunoiului|Reutilizare
 es:Reciclaje de residuos|Eliminación de residuos|Materiales reciclables|Recogida selectiva de basura|Clasificación de residuos|Reutilización
@@ -595,7 +595,7 @@ ja:1為替|マネー|お金|通貨|金|両替
 ko:1환전|돈|환전소
 nb:4Valutaveksling
 pl:4Kantor|5wymiana|pieniądze
-pt:3Câmbio|3troca|dinheiro
+pt:3Câmbio|3troca|dinheiro|Agência de câmbio
 pt-BR:3Casa de câmbio|3troca|dinheiro
 ro:3Schimb valutar|schimb
 es:3Cambio de divisas|dinero
@@ -662,8 +662,8 @@ ja:1カフェ|喫茶|食べ物|コーヒー|珈琲|お茶|茶|紅茶|食事|軽�
 ko:1카페|레스토랑|커피
 nb:2Kafé
 pl:3Kawiarnia|4restauracja|kawa
-pt:3Café|3restaurante
-pt-BR:3Café|cafeteria|3restaurante|alimentação
+pt:3Café|3cafeteria|3restaurante
+pt-BR:3Café|3cafeteria|3restaurante|alimentação
 ro:3Cafenea|3restaurant
 es:3Café|3restaurante
 sv:3Café|3restaurang
@@ -696,7 +696,7 @@ ja:1ファストフード|レストラン|テイクアウト|持ち帰り|軽食
 ko:1패스트 푸드|레스토랑|카페|테이크 아웃|푸드|패스트푸드
 nb:3Hurtigmat
 pl:4Fast food|restauracja szybkiej obsługi|5na wynos
-pt:4Comida de plástico|comida para levar|3café
+pt:4Comida rápida|4Comida de plástico|4comida para levar|4comida pronta|pronto-a-comer|3restaurante|3café|takeaway
 pt-BR:4Lanchonete|fast-food|3alimentação
 ro:Fast food|3restaurant
 es:4Comida rápida|restaurante|café
@@ -729,7 +729,7 @@ ja:1レストラン|食べ物|食事|2ファミレス
 ko:1레스토랑|카페
 nb:3Restaurant
 pl:4Restauracja|3kawiarnia
-pt:3Restaurante|3café
+pt:3Restaurante|3café|3almoço|3almoçar|3local onde comer|3refeição
 pt-BR:3Restaurante|3comida|3alimentação
 ro:3Restaurant|3cafenea
 es:3Restaurante|3café
@@ -760,7 +760,7 @@ id:Pompa bensin
 ja:ガスステーション|ガス|燃料|軽油|給油
 nb:3Bensinstasjon
 pl:3Benzyna|4paliwo
-pt:Gás
+pt:3Posto de combustível|3Bomba de combustível|3gasolina|3gasóleo
 pt-BR:3Posto de combustível|3gasolina
 ro:3Benzinărie
 sv:3Bensinstation|3bränsle|2gas
@@ -794,7 +794,7 @@ ko:1베이커리|빵집
 nb:3Bakeri
 pl:4Piekarnia
 pt:3Padaria
-pt-BR:3Padaria|3panificadora|compras
+pt-BR:3Padaria|3panificadora
 ro:3Brutărie
 es:3Panadería
 sv:3Bageri
@@ -831,7 +831,7 @@ ko:가게|상점
 nb:Butikk
 nl:Winkel
 pl:sklep|towary
-pt:2Loja
+pt:2Loja|compras|comprar
 pt-BR:2Loja|compras
 ro:Magazin
 sk:Obchod
@@ -931,7 +931,7 @@ ja:保育園|託児所
 ko:식물 상점|원예 용품점|원예
 nb:Planteskole|hagesenter
 pl:Sklep ogrodniczy
-pt:Creche|infantário
+pt:Loja de jardinagem|3jardinagem
 pt-BR:Loja de plantas|jardinagem|jardim|compras
 ro:Pepinieră|magazin cu articole de grădinărit
 es:Vivero|tienda de jardinería
@@ -966,8 +966,8 @@ ja:携帯ショップ
 ko:휴대폰 대리점|핸드폰|전자제품 상점|전자제품
 nb:Mobiltelefonbutikk|elektronikkbutikk
 pl:Sklep z elektroniką|sklep elektroniczny
-pt:Loja de telemóveis|loja de aparelhos eletrónicos
-pt-BR:Loja de celulares|telefone|compras
+pt:Loja de telemóveis|Telemóveis|loja de aparelhos eletrónicos
+pt-BR:Loja de celulares|celulares|telefone|compras
 ro:Magazin de telefoane mobile|magazin de electronice
 es:Móviles|Tienda de telefonía móvil|tienda de aparatos electrónicos
 sv:Mobilbutik|elektronikaffär
@@ -1000,8 +1000,8 @@ ja:フローリスト/花屋|お買い物|ショップ|商店|雑貨
 ko:꽃|꽃집|꽃가게|플로리스트
 nb:Blomsterhandler
 pl:Kwiaciarnia|towary
-pt:Floricultura|2loja
-pt-BR:Floricultura|florista|flores|2loja|compras
+pt:Florista|2loja
+pt-BR:Florista|Floricultura|flores|2loja|compras
 ro:Florărie
 es:Floristería|tienda de flores
 sv:Blomsteraffär
@@ -1033,7 +1033,7 @@ ja:肉屋|お買い物|ショップ|商店|雑貨
 ko:정육점의|푸줏간|정육져|정육ㅈ|정육조|정육좀|정육조멈|정육조머|정육점
 nb:Slakter
 pl:Rzeźnik|towary|Sklep mięsny
-pt:Açougueiro|2loja
+pt:2Talho|2Açougueiro
 pt-BR:Açougue|açougueiro|2loja|compras
 ro:Măcelărie
 es:Carnicería
@@ -1066,7 +1066,7 @@ ja:家具店|お買い物|ショップ|商店|雑貨
 ko:가구점|가구 상점
 nb:Møbelbutikk
 pl:Sklep meblowy|towary
-pt:Loja de móveis|2loja
+pt:Loja de móveis|3Mobiliário
 pt-BR:Loja de móveis|2loja|compras
 ro:Magazin de mobilă
 es:Tienda de muebles
@@ -1101,7 +1101,7 @@ ja:酒屋|お買い物|ショップ|商店|雑貨
 ko:리큐어 스토어|주류 샵
 nb:Vinmonopol|brennevin
 pl:Sklep monopolowy|towary
-pt:Loja de bebidas|bebidas alcoólicas|2loja
+pt:Loja de bebidas|bebidas alcoólicas
 pt-BR:Loja de bebidas|bebidas alcoólicas|2loja|compras
 ro:Băuturi alcoolice
 es:Licorería|licor
@@ -1134,7 +1134,7 @@ ja:本屋|お買い物|ショップ|商店|雑貨
 ko:책방|서점
 nb:Bokhandel
 pl:Księgarnia|towary
-pt:Livraria|2loja
+pt:Livraria
 pt-BR:Livraria|2loja|compras
 ro:Librărie
 es:Librería
@@ -1167,7 +1167,7 @@ ja:靴屋|お買い物|ショップ|商店|雑貨
 ko:신발 가게|신발가게|구두가게|신발|구두
 nb:Skobutikk
 pl:Sklep obuwniczy|towary
-pt:Sapataria|loja de calçados|2loja
+pt:Sapataria|loja de calçado
 pt-BR:Sapataria|loja de calçados|2loja|compras
 ro:Magazin de încălțăminte
 es:Zapatería
@@ -1200,7 +1200,7 @@ ja:電気店|お買い物|ショップ|商店|雑貨
 ko:전자제품|전자|전자가게|전자 가게
 nb:Elektronikk forhandler
 pl:Sklep ze sprzętem elektronicznym|towary
-pt:Loja de eletrônicos|2loja
+pt:Loja de eletrônica
 pt-BR:Loja de eletrônicos|2loja|compras
 ro:Electronice
 es:Electrónica
@@ -1233,7 +1233,7 @@ ja:工具店|お買い物|ショップ|商店|雑貨
 ko:철물점
 nb:Jernvareforretning|hjemmeforbedring
 pl:Sklep narzędziowy|Majsterkowanie|remont|towary
-pt:Loja de ferramentas|ferragens|loja
+pt:Loja de ferramentas|ferragens
 pt-BR:Loja de ferramentas|ferragens|loja|compras
 ro:Magazin de bricolaj|hardware
 es:Ferretería|bricolaje
@@ -1267,7 +1267,7 @@ ja:宝石店|お買い物|ショップ|商店|雑貨
 ko:귀금속방|보석방
 nb:Gullsmed
 pl:Jubiler|towary
-pt:Joias|2loja
+pt:Joias|Joalharia
 pt-BR:Joalheria|2loja|compras
 ro:Bijutier
 es:Joyería
@@ -1301,7 +1301,7 @@ ja:眼鏡店|お買い物|ショップ|商店|雑貨
 ko:안경점 의|안경점
 nb:Optiker
 pl:Sklep optyczny|towary
-pt:Oculista|2loja
+pt:Oculista|Óptica|Ótica
 pt-BR:Ótica|4oculista|3óculos|2loja|compras
 ro:Optică
 es:Óptica
@@ -1334,7 +1334,7 @@ ja:ギフトショップ|お買い物|ショップ|商店|雑貨
 ko:기념품점|선물가게|선물 가게|기념품|선물
 nb:Gavebutikk
 pl:Sklep pamiątkarski|towary
-pt:Loja de presentes|2loja
+pt:Loja de lembranças|Lembranças|presentes
 pt-BR:Loja de presentes|2loja|compras
 ro:Magazin de suveniruri
 es:Tienda de regalos
@@ -1367,7 +1367,7 @@ ja:ビューティーサロン|美粧院|美容品店
 ko:미용실|미용원|미장실|미장원|헤어샵|헤어살롱
 nb:Skjønnhetssalong
 pl:Salon piękności
-pt:Salão de beleza
+pt:Salão de beleza|cabeleireiro|cabeleireira|brabeiro
 pt-BR:Salão de beleza
 ro:Salon de infrumusetare
 es:Centro de belleza
@@ -1402,7 +1402,7 @@ ja:八百屋|お買い物|ショップ|商店|雑貨
 ko:청과물 상인의|청과상|청과물|식료품
 nb:Frukt- og grønnsakshandler
 pl:Warzywniak|towary
-pt:Quitanda|2loja
+pt:3Cash and carry|Venda a retalho|2loja
 pt-BR:Quitanda|verdureiro|varejão|2loja|compras
 ro:Băcănie
 es:Frutería
@@ -1435,7 +1435,7 @@ ja:スポーツ用品店|お買い物|ショップ|商店|雑貨
 ko:스포츠 가게|스포츠 용품|스포츠
 nb:Sportsutstyr
 pl:Sklep sportowy|towary
-pt:Artigos esportivos|2loja
+pt:Artigos desportivos|3Desporto
 pt-BR:Artigos esportivos|2loja|compras
 ro:Articole sportive
 es:Artículos de deporte
@@ -1468,7 +1468,7 @@ ja:1スーパーマーケット|ショップ|お買い物|商店|スーパー
 ko:수퍼마켓|슈퍼마켓
 nb:3Supermarked
 pl:4Supermarket|zakupy
-pt:3Supermercado
+pt:3Supermercado|Hipermercado
 pt-BR:3Supermercado|mercado|compras
 ro:3Supermarket
 es:3Supermercado
@@ -1503,7 +1503,7 @@ ja:モール
 ko:몰|상점|쇼핑몰|쇼핑센터
 nb:Kjøpesenteret
 pl:Centrum handlowe
-pt:O Shopping
+pt:Centro comercia|3Shopping
 pt-BR:Shopping center|compras
 ro:Mall-ul
 es:Centro comercial
@@ -1538,7 +1538,7 @@ ja:デパート|百貨店
 ko:백화점
 nb:Varehus
 pl:Dom towarowy
-pt:Armazém retalhista
+pt:Grande armazém
 pt-BR:Loja de departamentos|compras
 ro:Magazin universal
 es:Grandes almacenes
@@ -1640,7 +1640,7 @@ ja:菓子類|菓子屋
 ko:과저점|디저트점|페이스트리|컨펙셔너리|사탕|과자|제과점|베이커리
 nb:Søtsaker|godtebutikk
 pl:Sklep ze słodyczami
-pt:Confeitaria|loja de doces
+pt:Confeitaria|loja de doces|bolos|doces|guloseimas
 pt-BR:Confeitaria|loja de doces
 ro:Cofetărie
 es:Confitería|confitería
@@ -1706,7 +1706,7 @@ ja:おもちゃ屋|玩具店
 ko:장난감 가게|장난감점
 nb:Legebutikk
 pl:Sklep z zabawkami
-pt:Loja de brinquedos
+pt:Loja de brinquedos|3brinquedos
 pt-BR:Loja de brinquedos
 ro:Magazin de jucării
 es:Tienda de juguetes|juguetería
@@ -1738,7 +1738,7 @@ ja:1市場|お買い物|食料品
 ko:1마켓|시장
 nb:2Torg
 pl:Targ|bazar|targowisko
-pt:3Mercado|mercado|loja
+pt:Feira|3Mercado
 pt-BR:3Mercado|mercadão|feira-livre|loja
 es:3Mercado
 sv:3Marknadsplats|marknad
@@ -1770,7 +1770,7 @@ ja:1洋服|洋服屋さん|ショッピング|衣類|服
 ko:1옷 가게|옷가게의류점
 nb:Klesbutikk
 pl:Sklep z ubraniami|ciuchowy
-pt:Loja de roupas
+pt:Loja de roupas|3roupa|3vestuário
 pt-BR:Loja de roupas
 ro:Magazin de haine
 es:Tienda de ropa|3ropa
@@ -1806,7 +1806,7 @@ ja:カーディーラー|車|車販売|ディーラー
 ko:자동차 판매점|자동차 대리점
 nb:Bil butikk
 pl:Salon samochodowy|samochody
-pt:Loja de carros
+pt:Loja de carros|3Stande|4concessionária|2veículos
 pt-BR:Loja de carros|4concessionária|veículos
 ro:Magazin auto
 es:Venta de coches
@@ -1872,7 +1872,7 @@ it:Chiosco|Edicola|Giornalaio
 ja:1キオスク|売店
 ko:키오스크
 pl:Kiosk|gazety|prasa
-pt:Loja
+pt:Quiosque
 pt-BR:Quiosque
 es:Quiosco
 sv:Kiosk
@@ -1903,7 +1903,7 @@ ja:1バス停|停留所|トランスポート|バス|乗合|交通|ばす
 ko:버스 정류장|버스
 nb:3Busstopp
 pl:2Przystanek autobusowy|autobus
-pt:2Paragem de autocarro|via férrea
+pt:2Paragem de autocarro|2autocarros
 pt-BR:2Ponto de ônibus
 ro:3Stație de autobuz
 es:Parada de autobús
@@ -1937,7 +1937,7 @@ ja:1トラム|トラム停留所|市電|トランスポート|交通|路面電�
 ko:시가 전차 정류장|시가 전차
 nb:3Trikkestopp
 pl:3Przystanek tramwajowy|tramwaj
-pt:3Paragem de elétrico|via férrea
+pt:3Paragem de elétrico|2elétrico
 pt-BR:3Parada de bonde|via férrea
 ro:3Stație de tramvai
 es:Parada de tranvía
@@ -1970,7 +1970,7 @@ ja:1バスステーション|バス|駅|乗合|トランスポート|バス停|�
 ko:버스 터미널|버스 정류장|버스
 nb:3Busstasjon
 pl:2Stacja autobusowa|Zajezdnia
-pt:2Estação rodoviária
+pt:2Estação rodoviária|2autocarros|2rodoviária
 pt-BR:2Rodoviária|estação BRT
 ro:3Gara de autobuz
 es:Estación de autobuses
@@ -2004,7 +2004,7 @@ ja:1鉄道駅|鉄道|電車|交通|駅|鉄|電
 ko:1기차역|철도역
 nb:Togstasjon
 pl:Dworzec kolejowy|stacja kolejowa
-pt:Estação de comboios|caminhos-de-ferro
+pt:Estação de comboios|2caminhos-de-ferro|2Comboios|2Apeadeiro
 pt-BR:Estação de trem|ferrovia
 ro:Feroviar
 es:3Estación de tren|3tren
@@ -2039,8 +2039,8 @@ ja:1地下鉄|地下鉄駅|電車|鉄道|交通|交通|鉄|電
 ko:1지하철|전철
 nb:2T-bane|undergrunnsbane|metro
 pl:3Metro|kolej podziemna
-pt:Metro
-pt-BR:Entrada de estação do metrô
+pt:3Metropolitano
+pt-BR:Estação do metrô|Mêtro|Entrada de estação do metrô
 ro:3Metrou
 es:3Metro
 sv:3Tunnelbana|3tunnelbana|3metro|3tunnelbana
@@ -2073,7 +2073,7 @@ ja:1フェリー
 ko:페리|페리 터미널
 nb:3Ferje|terminal
 pl:2Prom
-pt:2Balsa
+pt:2Terminal de ferry|2Balsa|2Ferry
 pt-BR:2Estação de barcas|balsa
 ro:3Feribot|terminal
 es:3Transbordador|terminal
@@ -2107,8 +2107,8 @@ ja:1タクシー
 ko:1택시|택시로 가다
 nb:3Drosje
 pl:3Taxi|taksówka
-pt:3Táxi
-pt-BR:3Táxi
+pt:2Táxi|2Praça de táxis
+pt-BR:2Táxi
 ro:3Taxi
 es:3Taxi
 sv:3Taxi
@@ -2141,7 +2141,7 @@ ja:1役場|1公会堂|1町役場
 ko:1시청사|시청
 nb:3Rådhus
 pl:3Ratusz
-pt:3Prefeitura
+pt:Câmara municipal|Junta de fregesia|3Prefeitura
 pt-BR:3Prefeitura|atração
 ro:3Primărie
 es:3Ayuntamiento
@@ -2175,7 +2175,7 @@ ja:1アトラクション|観光スポット|観光|名所|観光名所
 ko:1관광 명소|관 광|명소|관광
 nb:3Attraksjon|severdigheter
 pl:4Atrakcje|zwiedzanie|osobliwości miasta
-pt:3Atração|turismo|vistas
+pt:3Atração turística|turismo
 pt-BR:3Atração turística|turismo|atração
 ro:3Punct de atracție|obiective turistice
 es:3Atracción turística|3turismo
@@ -2209,7 +2209,7 @@ ja:1イラスト|1芸術作品
 ko:작품|아트워크
 nb:Kunstverk
 pl:3Rzeźba
-pt:3Artwork
+pt:3Obra de arte|3instalação artística
 pt-BR:3Obra de arte|3instalação artística|atração
 ro:3Turism
 es:3Obras de arte
@@ -2243,7 +2243,7 @@ ja:1観光スポット|見どころ|名所|観光名所
 ko:전망대|관점|뷰포인트|견해|포토 스팟|관망대
 nb:3Utsiktspunkt
 pl:3Punkt widokowy|widok|krajobraz
-pt:4Ponto de vista
+pt:2Miradouro|3Mirante
 pt-BR:4Mirante|miradouro|atração
 ro:3Punct de vedere
 es:3Vista panorámica
@@ -2277,8 +2277,8 @@ ja:1インフォメーション|観光情報|情報|案内
 ko:여행 정보|관광 정보|정보
 nb:3Turistinformasjon
 pl:4Informacja turystyczna|punkt informacji
-pt:4Informações turísticas|4informação
-pt-BR:4Informações turísticas|4informação|atração
+pt:3Informações turísticas|4informação
+pt-BR:3Informações turísticas|4informação|atração
 ro:3Informații turistice
 es:4Información
 sv:4Turistinformation|4information
@@ -2311,7 +2311,7 @@ ja:1ピクニック|ピクニックサイト|ハイキング
 ko:피크닉 장소|피크닉
 nb:3Rasteplasser
 pl:4Pole piknikowe|plener|piknik
-pt:4Local de piquenique
+pt:4Local de piqueniques|3Parque de merendas|3piqueniques
 pt-BR:4Local de piquenique|churrasqueira
 ro:3Locații picnic
 es:3Picnic
@@ -2345,7 +2345,7 @@ ja:1礼拝|1寺院|1神社|仏閣|神殿|お寺
 ko:예배 장소|사찰|예배소
 nb:3Gudshus|3tempel
 pl:3Świątynia
-pt:Local de culto|3templo
+pt:Local de culto|3templo|Local de oração
 pt-BR:Local de culto|3templo|igreja|atração
 ro:3Loc de cult|3templu
 es:4Lugar de culto|templo
@@ -2379,8 +2379,8 @@ ja:教会|寺院|神社|仏閣|神殿|お寺
 ko:교회|기독교 교회|성당|공회당|사찰
 nb:Kirke|gudshus
 pl:Kościół|świątynia|bazylika
-pt:Igreja|local de culto|templo|vistas|basílica
-pt-BR:Igreja|local de culto|templo|basílica
+pt:Igreja|local de culto|templo|catedral|basílica
+pt-BR:Igreja|local de culto|templo|catedral|basílica
 ro:Biserică|loc de cult|templu
 es:Iglesia|templo|lugar de culto|basílica
 sv:Kyrka|plats för tillbedjan|tempel
@@ -2577,7 +2577,7 @@ ja:寺|寺院|神社|仏閣|神殿|お寺
 ko:절|사찰|도교 사원
 nb:Tempel|gudshus
 pl:Świątynia
-pt:Templo|local de culto
+pt:Templo taoísta|local de culto
 pt-BR:Templo taoísta|local de culto|atração
 ro:Templu|loc de cult
 es:Templo|lugar de culto
@@ -2610,7 +2610,7 @@ ja:1博物館|美術館
 ko:1박물관
 nb:3Museum
 pl:2Muzeum|zwiedzanie
-pt:2Museu
+pt:2Museu|galeria|atração turística
 pt-BR:2Museu|atração
 ro:3Muzeu
 es:2Museo
@@ -2644,8 +2644,8 @@ ja:滝
 ko:1폭포
 nb:3Foss
 pl:2Wodospad
-pt:2Cachoeira
-pt-BR:2Cachoeira
+pt:2Queda de água|2Cascata|2Salto|2Catarata
+pt-BR:2Cachoeira|2Queda de água|2Cascata|2Salto|2Catarata
 ro:3Cascadă
 es:3Cascada
 sv:2Vattenfall
@@ -2712,7 +2712,7 @@ ja:城|お城|砦|城砦
 ko:성|궁전|성채|요새
 nb:Slott
 pl:3Zamek
-pt:Castelo
+pt:Castelo|Palácio|Fortaleza
 pt-BR:Castelo|atração
 ro:Castel
 es:Castillo
@@ -2837,6 +2837,8 @@ bg:Кораб|лодка|вода|туризъм
 nl:Schip|boot
 ko:배|보트
 pl:Łódź|okręt
+pt:2Barco|2Navio
+pt-BR:2Barco|2Navio
 de:Schiff|Boot
 
 historic-tomb|@tourism
@@ -2846,6 +2848,8 @@ bg:Гробница|гробище|могила|погребани
 nl:Tombe|graf|gedenkteken
 ko:무덤|묘지
 pl:Grób|grobowiec
+pt:Túmulo|2Sepultura|memorial
+pt-BR:Túmulo|2Sepultura|memorial
 de:Grab|Gedenkstätte
 
 leisure-dog_park
@@ -2856,6 +2860,8 @@ cs:3Psí hřiště
 nl:4Hondenpark|Hondengebied
 ko:개 놀이 공원|도그 파크
 pl:Park dla psów|Wyprowadzanie psów
+pt:Parque canino|Parque para cães
+pt-BR:Parque canino|Parque para cães|Parque para cachorros
 de:4Hundezone|Hundeauslaufzone|Hundeauslauffläche
 fi:Koirapuisto
 he:גינת כלבים
@@ -2913,7 +2919,7 @@ ja:ベンチ|縁台|椅子
 ko:벤치
 nb:Benk
 pl:Ławka
-pt:Assento|Banco
+pt:2Assento|3Banco
 pt-BR:Assento|Banco de praça
 ro:Banchetă|Bancă|Bancă parc
 es:Banco
@@ -2947,7 +2953,7 @@ ja:レンタサイクル|自転車|自転車レンタル|貸し自転車|貸自�
 ko:자전거 대여소|자전거 대여
 nb:Sykkelutleie
 pl:4Wynajem rowerów|4rower|3Wynajem
-pt:Aluguel de bicicletas|4bicicleta|3aluguel
+pt:Aluguer de bicicletas|4bicicleta|3aluguar
 pt-BR:Aluguel de bicicletas|4bicicleta|3aluguel
 ro:Închiriere de biciclete|Bicicletă
 es:Alquiler de bicicletas|4bicicleta|3alquiler
@@ -3014,7 +3020,7 @@ ja:1カーシェアリング|車|レンタカー|レンタル
 ko:카 렌탈|자동차 렌탈|차 렌탈|차 대여|자동차 대여|자동차 임대
 nb:Bilutleie
 pl:Wynajem samochodów|samochód|auto|Wynajem
-pt:Aluguel de automóveis|carro|aluguel
+pt:Aluguer de automóveis|3carro|3automóvel|3aluguer|3rent-a-car
 pt-BR:Aluguel de automóveis|carro|aluguel
 ro:Închiriere mașini
 es:3Coche de alquiler|alquiler
@@ -3117,7 +3123,7 @@ ja:1ナイトクラブ|クラブ|ダンス
 ko:나이트클럽|클럽|나이트 클럽
 nb:Nattklubb
 pl:3Dyskoteka|klub nocny
-pt:3Discoteca|3dançar
+pt:3Discoteca|3dançar|3Danceteria
 pt-BR:3Boate|3discoteca|4casa noturna|3dançar
 ro:Club de noapte
 es:3Discoteca
@@ -3150,7 +3156,7 @@ ja:売春宿
 ko:사창가
 nb:Bordell
 pl:Burdel
-pt:Bordel
+pt:Bordel|3Casa de prostituição
 pt-BR:Bordel
 es:Burdel
 sv:Bordell
@@ -3213,7 +3219,7 @@ ja:1大学|カレッジ
 ko:칼리지|대학|대학교
 nb:Høyskole
 pl:Szkoła wyższa|college
-pt:Faculdade
+pt:Escola técnica|3Cursos técnicos
 pt-BR:Escola técnica
 ro:Colegiu
 es:Colegio
@@ -3247,7 +3253,7 @@ ja:1水飲み場|飲料水|飲水|水
 ko:음수대|식수|분수식 물마시는 곳
 nb:Drikkevann
 pl:4Picie wody|woda|picie
-pt:Água potável
+pt:Água potável|bebedouro|bebedoiro
 pt-BR:Água potável|bebedouro
 ro:Apă de băut
 es:4Agua potable|Fuente de agua potable|Fuente
@@ -3281,7 +3287,7 @@ ja:1消防署
 ko:소방서
 nb:Brannstasjon
 pl:4Straż pożarna|ogień|pożar|katastrofa
-pt:Posto de bombeiros
+pt:Quartel de bombeiros|2Bombeiros
 pt-BR:Posto de bombeiros|corpo de bombeiros
 ro:Unitate de pompieri
 es:Parque de bomberos
@@ -3315,7 +3321,7 @@ ja:1噴水|泉
 ko:분수
 nb:Fontene
 pl:3Fontanna|woda
-pt:Fonte
+pt:Fonte decorativa|chafariz
 pt-BR:Fonte|chafariz
 ro:Fântână
 es:Fuente
@@ -3349,7 +3355,7 @@ ja:1墓地|墓場|お墓|墓苑|霊場
 ko:묘지|묘소|공동묘지
 nb:Gravplass
 pl:3Cmentarz|pochówek
-pt:Cemitério
+pt:Sepultura|Cemitério
 pt-BR:Cemitério
 ro:Cimitir
 es:Cementerio
@@ -3413,8 +3419,8 @@ de:Spital|Klinik|3Arzt|Doktor|Medizinische Einrichtung|Medizinisches Zentrum|Ges
 hu:rendelőintézet|3orvos
 ja:クリニック|医師|医者|ドクター|救急|診療
 pl:klinika|lekarz|doktor|leczenie
-pt:4Clínica|3médico|hospital
-pt-BR:Hospital|3clínica|3médico|saúde
+pt:3Hospital|2Clínica|3médico|serviços de saúde|primeiros socorros
+pt-BR:Hospital|3clínica|3médico|saúde|serviços de saúde|primeiros socorros
 sv:klinik|3läkare
 th:3โรงพยาบาล|แพทย์
 tr:3klinik|doktor
@@ -3443,8 +3449,8 @@ it:Clinica|ospedale
 ja:クリニック|病院、診療所|病院
 nb:Klinikk|sykehus
 pl:Klinika|Szpital
-pt:Clínica|centro de saúde|hospital
-pt-BR:Clínica|centro de saúde|posto de saúde|hospital
+pt:Clínica|centro de saúde|USF|Unidade de Saúde Familiar|Posto médico|policlínica|hospital
+pt-BR:Clínica|centro de saúde|posto de saúde|policlínica|centro médico|posto médico|hospital
 ro:Clinică|spital
 es:Clínica|centro de salud|hospital
 sv:Klinik|sjukhus
@@ -3475,7 +3481,7 @@ it:Studio medico|Clinica|ambulatorio|ospedale
 ja:医者のオフィス|クリニック|病院
 nb:Legekontor|Klinikk|legesenter|sykehus
 pl:Lekarz|doktor|klinika|szpital
-pt:Gabinete do médico|Clínica|hospital
+pt:Médico|Gabinete médico|Consultório médico|clínica|hospital
 pt-BR:Consultório médico|clínica|saúde
 ro:Doctor|medic|Cabinet medical|Clinică|spital
 es:Consulta del médico|Clínica|hospital
@@ -3541,7 +3547,7 @@ ja:1狩猟スタンド
 ko:사냥 스탠드|사냥터
 nb:Jaktpost
 pl:4Budka myśliwska|polowanie|łowiectwo|stanowisko łowieckie
-pt:Suporte de caça
+pt:Posto de caça
 pt-BR:Estande de caça
 ro:Stand de vânătoare
 es:Galería de caza
@@ -3576,7 +3582,7 @@ ja:1幼稚園|保育園|託児|託児所
 ko:유치원|보육|탁아소
 nb:Barnehage
 pl:4Przedszkole|dzieci|zerówka
-pt:Jardim de infância
+pt:Jardim de infância|Jardim infantil|escola infantil|pré-escola
 pt-BR:Jardim de infância|escola infantil|pré-escola
 ro:Grădiniță
 es:Guardería
@@ -3636,7 +3642,7 @@ nl:3Parkeren|parkeerplaats|parking
 fr:3parking
 de:3Parkplatz|Parking|Parkhaus|Tiefgarage
 ja:パーキング|コインパーキング
-pt:3Parking
+pt:3Estacionamento
 pt-BR:3Estacionamento
 es:3aparcamiento
 sv:Parkering
@@ -3696,8 +3702,8 @@ de:Apotheke|Drogerie
 ja:ドラッグストア|薬剤師|調剤|薬屋
 ko:약물 매장|약종상
 pl:Apteka
-pt:3Farmacêutico
-pt-BR:3drogaria
+pt:Parafarmácia
+pt-BR:3Drogaria
 es:3Farmacia
 sv:apotekare
 th:เภสัชกร
@@ -3786,6 +3792,7 @@ fr:3comptoir postal
 de:Postamt
 id:Kantor pos
 pl:Poczta|listy
+pt:Estação de correios|Posto de correios|Correios
 pt-BR:3Correios
 ro:Oficiul postal
 es:4Oficina de correos|3post
@@ -3817,7 +3824,7 @@ ja:ゴミ|ごみ|リサイクル|再利用|ダストボックス
 ko:쓰레기|휴지통
 nb:Søppel
 pl:Wysypisko|Śmieci|ponowne odtworzenie|odpady
-pt:Lixo|lixo
+pt:Contentor do lixo|Caixote do lixo|lixo
 pt-BR:Depósito de lixo|lixo
 ro:Gunoi
 es:Basura
@@ -3852,7 +3859,7 @@ ja:リサクルセンター
 ko:재활용센터|재활용 센터
 nb:Resirkuleringssenter|innsamlingsstasjon
 pl:Przetwarzanie odpadów
-pt:Centro de reciclagem
+pt:Centro de reciclagem|Ecocentro
 pt-BR:Reciclagem|descarte seletivo
 ro:Centru de reciclare
 es:Centro de reciclaje|punto limpio
@@ -3885,7 +3892,7 @@ ja:リサイクルボックス
 ko:재활용 쓰레기통|재활용품통
 nb:Gjenvinningsbeholder
 pl:Pojemnik do recyklingu
-pt:Materiais recicláveis
+pt:Ecoponto|Contentor de reciclagem|Papelão|Vidrão|Embalão|Oleão|reciclagem
 pt-BR:Recipiente de reciclagem
 ro:Containere pentru reciclare
 es:Contenedor de reciclaje
@@ -3919,7 +3926,7 @@ ja:有毒廃棄物|電池廃棄物|危険廃棄物
 ko:위험폐기물|배터리 폐기장|위험물 폐기장|유독성 폐기물|배터리 처|유해성 폐기물
 nb:Giftig avfall|Batterigjenvinning|Farlig avfall
 pl:Odpady toksyczne|Utylizacja akumulatorów|Odpady niebezpieczne
-pt:Resíduo tóxico|Reciclagem de pilhas|Resíduo perigoso
+pt:Resíduos tóxicos|Reciclagem de pilhas|Resíduos perigosos
 pt-BR:Lixo tóxico|Descarte da baterias e pilhas|Lixo perigosos
 ro:Deșeuri toxice|Eliminarea bateriilor|Deșeuri periculoase
 es:Residuos tóxicos|Eliminación de pilas|Residuos peligrosos
@@ -3953,7 +3960,7 @@ ja:古着|古着のリサイクル
 ko:낡은 옷|낡은 옷 재활|낡은 옷 재활용
 nb:Gamle klær|Levere gamle klær
 pl:Stare ubrania|Przekaz niepotrzebne rzeczy
-pt:Roupas velhas|Entregar coisas desnecessárias
+pt:Reciclagem de roupas
 pt-BR:Roupas velhas|Reciclar roupas velhas
 ro:Haine vechi|Înmânarea lucrurilor inutile
 es:Ropa vieja|Reciclaje de cosas innecesarias
@@ -3987,7 +3994,7 @@ ja:ガラス瓶
 ko:유리병
 nb:Glassemballasje
 pl:Szkło
-pt:Vidro
+pt:Resíduos de vidro
 pt-BR:Garrafas de vidro
 ro:Deșeuri de sticlă
 es:Cascos de botellas
@@ -4055,7 +4062,7 @@ ja:プラスチックごみ
 ko:플라스틱 쓰레기
 nb:Plastavfall
 pl:Śmieci z plastiku
-pt:Plástico
+pt:Resíduos de plástico
 pt-BR:Lixo plástico
 ro:Deșeuri de plastic
 es:Residuos de plástico|Residuos plásticos
@@ -4089,7 +4096,7 @@ ja:ペットボトル
 ko:플라스틱 병
 nb:Plastflasker
 pl:Zbieranie plastikowych butelek
-pt:Garrafas plásticas
+pt:Garrafas de plástico
 pt-BR:Garrafas plasticas
 ro:Sticle de plastic
 es:Botellas de plástico
@@ -4157,7 +4164,7 @@ ja:電子廃棄物
 ko:전자제품 쓰레기
 nb:Elektronisk avfall
 pl:Odpady elektryczne
-pt:Resíduo eletrônico
+pt:Resíduos eletrónicos
 pt-BR:Lixo eletrônico
 ro:Deșeuri electrice
 es:Residuos electrónicos|Chatarra electrónica
@@ -4293,7 +4300,7 @@ ja:1トイレ
 ko:화장실
 nb:Toalett
 pl:3Toaleta
-pt:WC
+pt:Casa de banho|WC
 pt-BR:Banheiro
 ro:Toaletă
 es:WC
@@ -4324,6 +4331,7 @@ hu:WC
 it:WC
 ja:お手洗い|便所|厠
 pl:wc|ubikacja|wychodek
+pt:Casa de banho|WC|Sanitários|lavatório
 pt-BR:toalete|wc|sanitários
 es:3Baños|aseos|3lavabo|inodoro|baño|wc
 sv:WC|toalett
@@ -4349,7 +4357,7 @@ ja:1大学
 ko:대학|대학교
 nb:Universitet
 pl:3Uniwersytet|szkoła policealna
-pt:4Universidade
+pt:4Universidade|faculdade|poliécnico
 pt-BR:4Universidade|faculdade
 ro:Universitate
 es:4Universidad
@@ -4488,7 +4496,7 @@ ja:町|村
 ko:도시|타운
 nb:By
 pl:Miasteczko|miasto
-pt:Cidade
+pt:Vila|Cidade
 pt-BR:Cidade
 ro:Oraș
 es:Pueblo
@@ -4729,7 +4737,7 @@ ja:村
 ko:작은 마을|마을
 nb:Landsby
 pl:Wieś|wioska
-pt:Lugarejo
+pt:Aldeia|Lugarejo
 pt-BR:Lugarejo|aldeia|vila
 ro:Cătun
 es:Aldea
@@ -4763,7 +4771,7 @@ ja:村
 ko:작은 마을|마을
 nb:Landsby
 pl:Wioska|wieś
-pt:Aldeia
+pt:Vila
 pt-BR:Povoado|aldeia|vila
 ro:Sat
 es:Pueblo|aldea
@@ -4867,7 +4875,7 @@ ko:강
 nb:Elv
 pl:3Rzeka|strumień
 pt:Rio
-pt-BR:Rio
+pt-BR:Rio|Ribeiro|Ribeira|Córrego|Riaxo
 ro:Râu
 es:Río
 sv:Flod
@@ -4969,7 +4977,7 @@ ja:1歩道|小道|小路|小径|階段|獣道|遊歩道|パス
 ko:길
 nb:Sti
 pl:3Ścieżka|dróżka|droga
-pt:Caminho
+pt:Caminho|trilho
 pt-BR:Caminho|trilha
 ro:Cale
 es:Camino
@@ -5004,7 +5012,7 @@ ja:1ストリート|通り|道路|辻|筋
 ko:거리
 nb:Gate
 pl:3Ulica|droga
-pt:Rua
+pt:Rua|rodovia|estrada|avenida
 pt-BR:Rua|rodovia|estrada|avenida
 ro:Stradă
 es:Calle
@@ -5038,7 +5046,7 @@ ja:1ジャンクション|料金所|高速道路|インターチェンジ
 ko:고속도로 출구|출구|교차로
 nb:Utgang|kryss
 pl:3Wyjazd|wyjście|zjazd
-pt:4Saída|3junção
+pt:4Saída de autoestrada
 pt-BR:2Saída|3junção
 ro:Ieșire
 es:Salida|3intersección
@@ -5073,7 +5081,7 @@ ja:1山頂|山|頂|頂上|峰
 ko:산|산악
 nb:Høydepunkt|fjell
 pl:3Góra|szczyt|wierzchołek
-pt:Pico|montanha
+pt:Pico|montanha|monte
 pt-BR:Pico|montanha
 ro:Munte
 es:Cima|pico|montaña
@@ -5249,7 +5257,7 @@ ja:1森林|森|林|人工林|自然林
 ko:숲
 nb:Skog
 pl:Las
-pt:Floresta
+pt:Floresta|mata
 pt-BR:Floresta|mata
 ro:Pădure
 es:Bosque
@@ -5283,7 +5291,7 @@ ja:1公園
 ko:공원
 nb:Park
 pl:Park
-pt:Parque
+pt:Parque|parque urbano
 pt-BR:Parque|praça
 ro:Parc
 es:Parque
@@ -5379,7 +5387,7 @@ ja:1ゲストハウス|ホステル|民宿
 ko:호스텔|게스트하우스
 nb:Gjestehus
 pl:4Pensjonat|hostel|gościnne pokoje
-pt:Casa de hóspedes|pousada|motel
+pt:Casa de hóspedes|pousada|motel|albergue
 pt-BR:Pousada|casa de hóspedes|hospedagem
 ro:Pensiune
 es:Casa de huéspedes|albergue juvenil|hostal
@@ -5413,7 +5421,7 @@ ja:1モーテル
 ko:모텔|호스텔
 nb:Motell
 pl:3Motel|hostel
-pt:3Motel|3Pousada
+pt:3Motel|3hotel de estrada|3Pousada
 pt-BR:3Motel|3hotel de estrada|3pousada
 ro:Motel
 es:3Motel|albergue juvenil|hostal
@@ -5478,7 +5486,7 @@ ja:1美容師|床屋|髪|パーマ|散髪|理髪
 ko:이발사|미용실|이발소|바버샵
 nb:Frisør
 pl:4Fryzjer
-pt:Cabeleireiro
+pt:Cabeleireiro|Cabeleireira|barbeiro
 pt-BR:Cabeleireiro|barbeiro
 ro:Coafor
 es:4Peluquería
@@ -5512,7 +5520,7 @@ ja:1空港
 ko:공항|비행기
 nb:Flyplass
 pl:3Lotnisko
-pt:3Aeroporto
+pt:3Aeroporto|aeródromo|3avião
 pt-BR:3Aeroporto|aeródromo
 ro:Aeroport
 es:3Aeropuerto|3avión
@@ -5580,7 +5588,7 @@ ja:1児童公園|公園|遊び場
 ko:놀이터
 nb:Lekeplass
 pl:4Plac zabaw
-pt:Recreio
+pt:Parque infantil
 pt-BR:Parquinho|parque infantil
 ro:Loc de joacă
 es:Patio de recreo
@@ -5615,8 +5623,8 @@ ja:1スポーツセンター|スポーツ|体育館|総合体育館
 ko:스포츠 센터|스포츠
 nb:Sportssenter
 pl:Centrum sportowe|sport
-pt:Desporto|sport
-pt-BR:Centro esportivo|clube|esporte
+pt:Centro desportivo|desporto|complexo desportivo
+pt-BR:Centro esportivo|clube|esporte|complexo esportivo
 ro:Sport
 es:Polideportivo|deporte
 sv:Sportcenter|sport
@@ -5683,7 +5691,7 @@ ja:1運動場|スポーツ|トラック|球場
 ko:운동장
 nb:Sportssenter
 pl:Boisko sportowe|pole|boisko|sport
-pt:Campo de esportes|campo|desporto
+pt:Campo de desporto|campo|desporto
 pt-BR:Campo de esportes|campo|quadra|esporte
 ro:Teren de sport|gazon
 es:Complejo deportivo|terreno|deporte
@@ -5744,6 +5752,7 @@ fr:Sport équestre
 hu:Lovassportok
 de:Pferdesport
 es:Deportes ecuestres
+pt:Desportos equestres
 pt-BR:Esportes equestres
 el:Ιππασία
 
@@ -5761,6 +5770,7 @@ fr:Basket-ball
 de:Basketball
 it:Pallacanestro
 hu:Kosárlabda
+pt:Basquetebol
 pt-BR:Basquetebol
 da:Basketball
 fa:بسکتبال
@@ -5779,6 +5789,7 @@ fr:Athlétisme
 de:Leichtathletik
 it:Atletica leggera
 hu:Atlétika
+pt:Atletismo
 pt-BR:Atletismo
 el:Στίβος
 
@@ -5801,7 +5812,7 @@ ja:1建物|ビル
 ko:건물|빌딩
 nb:Bygning
 pl:4Budynek
-pt:Construção
+pt:Edifício|prédio|construção
 pt-BR:Edifício|prédio|construção
 ro:Clădire
 es:Edificio
@@ -5863,6 +5874,7 @@ it:Posto di polizia
 ja:1屯所|ポリス|交番|お巡りさん|おまわりさん|通報
 ko:보안대
 pl:Policja|komisariat|posterunek
+pt:4Polícia|2Guarda Nacional Republicana|2GNR|2PSP
 pt-BR:Polícia
 sv:Polisstation
 uk:4Поліція
@@ -5889,7 +5901,7 @@ ja:1大使館
 ko:대사관
 nb:Ambassade
 pl:4Ambasada
-pt:4Embaixada
+pt:4Embaixada|3Consulado
 pt-BR:4Embaixada
 ro:Ambasadă
 es:4Embajada
@@ -5957,7 +5969,7 @@ ja:泉|湧水|湧き水
 ko:샘
 nb:Vår
 pl:Źródło
-pt:Primavera
+pt:Nascente
 pt-BR:Nascente
 ro:Primăvară
 es:Manantial
@@ -5991,7 +6003,7 @@ ja:1自動車修理|車|自動車|カー|リペア|修理|カーリペア
 ko:자동차 수리|정비|자동차 수리소|차 수리소
 nb:Bilverksted
 pl:3Naprawa samochodu|warsztat samochodowy|warsztat|samochód|auto
-pt:Oficina de reparação de automóveis|estação de serviço
+pt:Oficina de reparação de automóveis|Oficina de automóveis|Oficina|mecânico
 pt-BR:Oficina de automóveis|mecânica|mecânico|auto elétro
 ro:Atelier de reparații auto
 es:Taller|3reparación de automóviles|coche|automóvil
@@ -6025,7 +6037,7 @@ ja:1キャンプ場|キャンプ|キャンピング|バーベキュー|テント
 ko:캠프|캠프장|캠핑을|캠핑|캠핑장|캠핑장소
 nb:Overnatting i bobiler
 pl:4Kamping|pole kempingowe
-pt:4Campismo|Acampamento|área de acampamento|local de acampamento
+pt:2Parque de campismo|4Campismo|Acampamento|área de acampamento|local de acampamento
 pt-BR:4Local de acampamento|área de acampamento|camping
 ro:Camping
 es:4Campamento|cámping|acampar|acampada
@@ -6059,7 +6071,7 @@ ja:1キャラバンサイト
 ko:캐러밴|카라반 사용가능 캠핑장
 nb:Camping
 pl:4Pole namiotowe|5karawaning
-pt:4Parque de campismo|caravanismo
+pt:3Parque de caravanismo|caravanismo|4Parque de campismo|3caravana|autocaravana
 pt-BR:4Área de trailers|caravanismo|acampamento
 ro:Teren pentru campare
 es:Zona de caravanas|zona de camping
@@ -6127,7 +6139,7 @@ ja:会社事務所
 ko:회사|관공서
 nb:Firmakontor
 pl:Biuro przedsiębiorstwa
-pt:Escritório da empresa
+pt:Escritório de empresa
 pt-BR:Escritório de empresa
 ro:Sediu companei
 es:Oficina
@@ -6160,7 +6172,7 @@ ja:官庁
 ko:관공서|정부청사|행정관청
 nb:Offentlig kontor
 pl:Biuro instytucji rządowej
-pt:Gabinete governamental
+pt:Gabinete governamental|órgão público
 pt-BR:Gabinete governamental|órgão público
 ro:Birou guvernamental
 es:Oficina gubernamental
@@ -6194,7 +6206,7 @@ ja:弁護士事務所
 ko:법률 사무소|변호사
 nb:Advokatkontor
 pl:Adwokat|prawnik|radca prawny
-pt:Escritório de advogados
+pt:Escritório de advogados|2Advogado
 pt-BR:Escritório de advogado|advocacia
 ro:Firmă de avocatură
 es:Despacho de abogados|bufete
@@ -6227,7 +6239,7 @@ ja:携帯電話事業者|キャリア
 ko:이동통신 사업자|핸드폰사업자|휴대폰사업자|이통사업자|모바일사업자
 nb:Mobiloperatør
 pl:Operator sieci komórkowej
-pt:Operadora móvel
+pt:Operadora móvel|3Operadora de telecomunicações
 pt-BR:Operadora de telecomunicações|telefonia|móvel
 ro:Operator de telefonie mobilă
 es:Operadora de telefonía móvil
@@ -6260,7 +6272,7 @@ ja:醸造所
 ko:전통 양조장|양조장
 nb:Bryggeri
 pl:Browar|piwo
-pt:Cervejeira
+pt:Cervejaria|Cervejeira
 pt-BR:Cervejaria
 ro:Berărie
 es:Fábrica de cerveza|cervecera
@@ -6359,7 +6371,7 @@ ja:金属工
 ko:철공사|금속공
 nb:Metallarbeider
 pl:Kowal|obróbka metali
-pt:Metalúrgico
+pt:Serralheiro mecânico|Metalúrgico
 pt-BR:Serralheiro|metalúrgico
 ro:Metalurgist
 es:Trabajador del metal
@@ -6492,7 +6504,7 @@ ja:広場
 ko:광장
 nb:Plass
 pl:Plac
-pt:Praça
+pt:Praça|Praceta|Largo
 pt-BR:Largo|praça|rua de pedestres|escadaria
 ro:Piață
 es:Plaza
@@ -6628,6 +6640,7 @@ ko:3인터넷|3Internet
 nb:3Internet
 pl:3Internet
 pt:3Internet
+pt-BR:3Internet
 ro:3Internet
 es:3Internet
 sv:3Internet
@@ -6726,7 +6739,7 @@ ja:コピーショップ|印刷会社
 ko:복사가게|프린터
 nb:Kopieringsbutikk|Trykkeri
 pl:Punkt ksero|Drukarnia
-pt:Copiadora|Impressões
+pt:Centro de cópias|Fotocópias|Impressões|Reprografia|Loja de fotocópias
 pt-BR:Copiadora|impressões
 ro:Centru copiere|Imprimare
 es:Copistería|imprenta|Centro de copiado|Centro de fotocopiado
@@ -6759,7 +6772,7 @@ ja:写真屋|フレーム|店
 ko:사진 가게
 nb:Fotobutikk|ramer
 pl:Fotograf|zdjęcia|punkt
-pt:Artigos para fotografia|molduras|comércio
+pt:Artigos para fotografia|molduras
 pt-BR:Artigos para fotografia|molduras|comércio|compras
 ro:Centru fotografii|cadre
 es:Artículos de fotografía
@@ -6791,8 +6804,8 @@ ja:旅行会社|ツアー
 ko:투어|여행사|관광회사
 nb:Reisebyrå|rundreiser
 pl:Agencja turystyczna|Biuro podróży|wycieczki
-pt:Agência de viagem
-pt-BR:Agência de viagem
+pt:Agência de viagens|viagens
+pt-BR:Agência de viagem|viagens
 ro:Agenție de voiaj|tururi
 es:Agencia de viajes|viajes
 sv:Resebyrå|rundturer
@@ -6824,7 +6837,7 @@ ja:アウトドア用品|トレッキング|クライミング|店
 ko:아웃도어 장비|야외 활동 장비|산행 장비|등산 장비|등산 물품|산행 물품
 nb:Fritidsutstyr|vandring|klatring|camping
 pl:Sprzęt turystyczny|wędrowanie|wspinaczka|camping
-pt:Equipamentos esportivos|caminhada|escalada|camping|comércio
+pt:Artigos de desporto ao ar livre|caminhada|pedestrianismo|escalada|campismo
 pt-BR:Equipamentos esportivos|caminhada|escalada|camping|comércio
 ro:Echipament de exterior|trekking|cățărare|campare
 es:Equipamiento|senderismo|escalada|acampada
@@ -6856,7 +6869,7 @@ ja:クリーニング屋|クリーニング
 ko:세탁소|드라이 클리닝
 nb:Renseri|vaskeri
 pl:Pralnia chemiczna|czyszczenie
-pt:Lavagem a seco|lavanderia
+pt:Limpeza a seco|lavandaria|Lavagem a seco
 pt-BR:Lavagem a seco|lavanderia
 ro:Curățătorie chimică|curățătorie
 es:Tintorería
@@ -6889,7 +6902,7 @@ ja:タイヤ専門店|ショップ
 ko:타이어 상점|타이어 가게
 nb:Dekkforretning
 pl:Wulkanizacja|opony|punkt
-pt:Borracheiro|comércio
+pt:Loja de pneus|pneus
 pt-BR:Loja de pneus|borracharia|borracheiro|comércio
 ro:Magazin anvelope
 es:Tienda de neumáticos
@@ -6988,7 +7001,7 @@ ja:充電ステーション|充電
 ko:충전 역|전기 자동차 충전소|전기차 충전소
 nb:Ladestasjon|lading
 pl:Stacja ładowania|ładowanie
-pt:Posto de combustível|abastecimento
+pt:Posto de carregamento elétrico|Estação de carregamento elétrico|3Ponto de carregamento elétrico|carregamento elétrico
 pt-BR:Eletroposto|recarga|abastecimento
 ro:Stație încărcare|încărcare
 es:Estación de carga
@@ -7021,7 +7034,7 @@ ja:託児所|保育園
 ko:보육|탁아소|유치원
 nb:Førskole|Barnehage
 pl:Opieka nad dzieckiem
-pt:Creche|jardim de infância
+pt:Creche|jardim de infância|jardim infantil
 pt-BR:Creche|jardim de infância
 ro:De îngrijire a copilului|Grădiniță|Îngrijire copii
 es:Guardería
@@ -7258,7 +7271,7 @@ ja:タイヤ修理
 ko:타이어수리점|타이어 교체
 nb:Dekkreparasjon
 pl:Wulkanizacja
-pt:Reparação de pneus
+pt:Reparação de pneus|Recauchutagem
 pt-BR:Borracheiro|borracharia|pneus
 ro:Vulcanizare
 es:Reparación de neumáticos
@@ -7291,7 +7304,7 @@ ja:化学薬品店
 ko:화학물질 가게
 nb:Husholdningsartikler
 pl:Drogeria|Chemia domowa
-pt:Drogaria
+pt:Parafarmácia
 pt-BR:Drogaria|farmácia
 ro:Mercerie
 es:Droguería
@@ -7325,7 +7338,7 @@ ja:ペットショップ
 ko:애완동물점|펫샵|애완동물용품점
 nb:Dyrebutikk
 pl:Sklep zoologiczny
-pt:Loja de animais
+pt:Loja de animais|loja de artigos para animais
 pt-BR:Pet-shop|loja de artigos para animais
 ro:Pet shop
 es:Tienda de mascotas
@@ -7358,7 +7371,7 @@ ja:動物園
 ko:동물원
 nb:Dyrehage
 pl:Ogród zoologiczny
-pt:Jardim zoológico
+pt:Jardim zoológico|Zoológico
 pt-BR:Zoológico|Jardim zoológico
 ro:Grădină zoologică
 es:Zoo
@@ -7393,7 +7406,7 @@ ja:観光案内所
 ko:관광정보센터|안내소|관광 안내소|여행객 안내소|여행자 안내소
 nb:Turistkontor
 pl:Biuro informacji turystycznej
-pt:Gabinete de turismo
+pt:Posto de turismo|Posto de informação turística
 pt-BR:Escritório de turismo
 ro:Birou de informații turistice
 es:Oficina de turismo
@@ -7427,7 +7440,7 @@ ja:コミュニティセンター
 ko:커뮤니티센터|지역 문화 센터|복지관
 nb:Samfunnshus
 pl:Centrum społeczności
-pt:Centro comunitário
+pt:Centro comunitário|Casa do povo
 pt-BR:Centro comunitário
 ro:Centru comunitar
 es:Centro comunitario
@@ -7693,8 +7706,8 @@ ja:ブックメーカー
 ko:마권판매소|마권 업자
 nb:Bookmaker
 pl:Bukmacher
-pt:Livreiro
-pt-BR:Livreiro
+pt:Casa de apostas|Lotaria|Euromilhões|3Totoloto|3Totobola|Payshop
+pt-BR:Casa de apostas
 ro:Casă de pariuri
 es:Casa de apuestas
 sv:Bookmaker|vadhållningsagent
@@ -7727,7 +7740,7 @@ ja:魚屋
 ko:생선가게|해산물 가게|생선 가게|해산물 시장
 nb:Fiskehandler
 pl:Sklep rybny|Owoce morza
-pt:Peixaria
+pt:Peixaria|Peixes|Mariscos
 pt-BR:Peixaria
 ro:Pescărie
 es:Pescadería
@@ -7760,7 +7773,7 @@ ja:チケット売り場
 ko:매표소|티켓 가게|티켓|티켓 판매소
 nb:Billettkontor
 pl:Kasa biletowa
-pt:Bilheteira
+pt:Bilheteira|Bilhetes|Máquina de pagamento
 pt-BR:Bilheteria
 ro:Casă de bilete
 es:Venta de entradas
@@ -7793,7 +7806,7 @@ ja:ワイン|酒屋|ワインショップ
 ko:와인 샵|와인 가게
 nb:Alkoholutsalg
 pl:Sklep z winami
-pt:Vinho|Loja de Vinhos
+pt:Loja de Vinhos|vinhos|bebidas alcoólicas
 pt-BR:Loja de vinhos|bebidas
 ro:Magazin de băuturi alcolice
 es:Tienda de vinos|Vino
@@ -7826,7 +7839,7 @@ ja:車両部品
 ko:차 부품 가게
 nb:Bildeler
 pl:Części samochodowe
-pt:Peças do carro
+pt:Peças para automóveis
 pt-BR:Peças de carro|auto peças
 ro:Piese auto
 es:Piezas de automóvil
@@ -7959,7 +7972,7 @@ ja:ケーブルカー駅
 ko:케이블카 역|케이블카|케이블카역
 nb:Kabelbanestasjon
 pl:Stacja kolejki linowej
-pt:Paragem de elétricos
+pt:Estação de teleférico|teleférico
 pt-BR:Estação de teleférico
 ro:Stație de teleferic
 es:Estación de teleférico
@@ -7991,7 +8004,7 @@ ja:ヘリポート
 ko:헬기착륙장|헬리콥터 이착륙지
 nb:Helipad
 pl:Lądowisko dla helikopterów
-pt:Heliporto
+pt:Heliporto|Heliponto
 pt-BR:Heliponto|heliporto
 ro:Heliport
 es:Helipuerto
@@ -8024,7 +8037,7 @@ ja:駐車券支払機
 ko:주차티켓판매기|주차 티켓
 nb:Parkeringsautomat
 pl:Parkomat
-pt:Máquina de pagamento de talões de estacionamento
+pt:Máquina de pagamento de estacionamento|Máquina de bilhetes de estacionamento|bilhete de estacionamento|talão de estacionamento|Parcómetro|Parquíntemo
 pt-BR:Máquina venda de tíquetes de estacionamento
 ro:Parcomat
 es:Máquina de pago de tique de aparcamiento
@@ -8123,7 +8136,7 @@ ja:給水塔
 ko:급수탑
 nb:Vanntårn
 pl:Wieża ciśnień
-pt:Torre de água
+pt:Torre de água|caixa de água|depósito de água elevado
 pt-BR:Torre de água|caixa de água
 ro:Turn de apă
 es:Depósito de agua
@@ -8156,7 +8169,7 @@ ja:風車
 ko:풍차
 nb:Vindmølle
 pl:Młyn wiatrowy
-pt:Moinho de vento
+pt:Moinho de vento|moinho
 pt-BR:Moinho de vento
 ro:Moară de vânt
 es:Molino
@@ -8191,8 +8204,8 @@ fa:توربین بادی
 # ko:벙커
 # nb:Bunker
 # pl:Bunkier
-# pt:Bunker
-# pt-BR:Bunker
+# pt:Búnquer|Bunker
+# pt-BR:Búnquer|Bunker
 # ro:Buncăr
 # es:Búnker
 # sv:Bunker
@@ -8327,7 +8340,7 @@ ja:不動産業者
 ko:부동산중개소|부동산 업자|부동산 중개인
 nb:Eiendomsmegler
 pl:Pośrednik handlu nieruchomościami
-pt:Agente imobiliário
+pt:Imobiliária|Agente imobiliário
 pt-BR:Corretor imobiliário|agente imobiliário
 ro:Agent imobiliar
 es:Agente inmobiliario
@@ -8361,8 +8374,8 @@ ja:水門
 ko:갑문|수문
 nb:Sluseport
 pl:Wrota śluzy
-pt:Portão de bloqueio
-pt-BR:Comporta|represa|barragem
+pt:Comporta de eclusa
+pt-BR:Comporta de eclusa
 ro:Ecluză
 es:Compuerta
 sv:Slussport
@@ -8425,7 +8438,7 @@ ja:クライミングセンター
 ko:등반 센터|클라이밍 센터
 nb:Klatresenter
 pl:Centrum wspinaczkowe
-pt:Ginásio de escalada
+pt:Ginásio de escalada|Centro de escalada|escalada
 pt-BR:Ginásio de escalada
 ro:Centru cățărare
 es:Centro de escalada
@@ -8458,7 +8471,7 @@ ja:射撃場
 ko:발사 범위|사격장
 nb:Skytebane
 pl:Strzelnica sportowa
-pt:Clube de tiro
+pt:Clube de tiro|Campo de tiro
 pt-BR:Clube de tiro
 ro:Tir
 es:Campo de tiro
@@ -8625,7 +8638,8 @@ ko:비어가르텐|비어가든
 nb:Uteservering
 nl:Biergarten
 pl:Ogródek piwny
-pt:Biergarten
+pt:Biergarten|Jardim da cerveja
+pt-BR:Biergarten|Jardim da cerveja
 ro:Berărie
 sk:Piváreň
 sv:Ölservering
@@ -8691,7 +8705,7 @@ ko:아이스크림 스탠드|아이스크림 가판대
 nb:Iskrem
 nl:Ijskraam|Ijsstand
 pl:Stoisko z lodami
-pt:Banca de gelados
+pt:Gelados|gelataria|geladaria|3banca de gelados
 pt-BR:Sorveteria
 ro:Chioșc cu înghețată
 sk:Zmrzlinový stánok
@@ -8759,7 +8773,7 @@ ko:오토바이 주차|오토바이 주차장
 nb:Motorsykkelparkering
 nl:Motorfiets Parkeerplaats|Parking Motorfietsen
 pl:Parking motocyklowy
-pt:Estacionamento de motos
+pt:Estacionamento de motorizadas
 pt-BR:Estacionamento de motos
 ro:Parcare de motociclete
 sk:Parkovisko pre motocykle
@@ -8793,7 +8807,7 @@ ko:요양원|너싱 홈|요양시설
 nb:Sykehjem
 nl:Bejaardentehuis|Pleeghuis
 pl:Dom opieki
-pt:Casa de repouso
+pt:Lar de idosos|Lar|Casa de repouso
 pt-BR:Casa de repouso
 ro:Centru de îngrijire
 sk:Ošetrovateľská služba
@@ -8827,7 +8841,7 @@ ko:결제 단말기
 nb:Betalingsterminal
 nl:Betaalautomaat
 pl:Wpłatomat|Terminal płatniczy
-pt:Terminal de pagamento
+pt:Terminal de pagamento automático|2TPA
 pt-BR:Terminal de pagamento
 ro:Terminal de plăți
 sk:Platobný terminál
@@ -8963,7 +8977,7 @@ ko:소화전
 nb:Brannhydrant
 nl:Brandkraan
 pl:Hydrant
-pt:Boca de Incêndios
+pt:Boca de incêndio
 pt-BR:Hidrante
 ro:Hidrant
 sk:Požiarny hydrant
@@ -8997,7 +9011,7 @@ ko:피트니스 스테이션
 nb:Treningssenter
 nl:Fitness-Station
 pl:Stacja fitness|Przyrządy do ćwiczeń
-pt:Estação de Fitness
+pt:Estação de fitness|Máquina de exercícios pública
 pt-BR:Estação de fitness
 ro:Sală de fitness
 sk:Fitness
@@ -9065,7 +9079,7 @@ ko:보험 회사|보험 사무실
 nb:Forsikring
 nl:Verzekeringskantoor
 pl:Biuro ubezpieczeń
-pt:Escritório de seguros
+pt:Agência de seguros|Agente de seguros|Escritório de seguros|Seguradora
 pt-BR:Seguradora|Corretora de seguros
 ro:Birou de asigurări
 sk:Poisťovňa
@@ -9134,7 +9148,7 @@ ko:성인용품 가게|성인용품점
 nb:Erotisk butikk
 nl:Erotiekwinkel
 pl:Sex shop|Artykuły erotyczne
-pt:Sex Shop
+pt:Loja de artigos eróticos|Sex Shop
 pt-BR:Sex Shop
 ro:Magazin erotic
 sk:Erotický obchod
@@ -9168,7 +9182,7 @@ ko:마사지샵
 nb:Massasjesalong
 nl:Massagesalon|Massagetherapie|Wellness-Center|Spa|Massage
 pl:Salon masażu
-pt:Centro de massagens
+pt:Centro de massagens|spa|massagista|massagens
 pt-BR:Massagista
 ro:Salon de masaj
 sk:Masážny salón
@@ -9202,7 +9216,7 @@ ko:오토바이 가게
 nb:Motorsykkelforretning
 nl:Motorzaak
 pl:Salon motocyklowy
-pt:Loja de Motos
+pt:Loja de motorizadas
 pt-BR:Loja de Motos
 ro:Magazin moto
 sk:Obchod s motocyklami
@@ -9236,7 +9250,7 @@ ko:신문 가판대
 nb:Aviskiosk
 nl:Kiosk|krant
 pl:Stoisko z prasą
-pt:Banca de jornais
+pt:Banca de jornais|jornaleiro
 pt-BR:Banca de jornais|jornaleiro
 ro:Chioșc cu ziare
 sk:Novinový stánok
@@ -9338,7 +9352,7 @@ ko:문신 시술소|타투 가게
 nb:Tatovør
 nl:Tatoeagezaak|Tattoosalon|Tattoo Studio|Tattoo Shop|tatoeage
 pl:Salon tatuażu
-pt:Estúdio de tatuagens
+pt:Estúdio de tatuagens|tatuador
 pt-BR:Estúdio de tatuagens|tatuador
 ro:Salon de tatuaje
 sk:Tetovací salón
@@ -9372,7 +9386,7 @@ ko:잡화점|버라이어티 스토어
 nb:Billigbutikk
 nl:Bazaar|Variety Store
 pl:Sklep z różnościami
-pt:Loja dos 300
+pt:Loja dos 300|Loja de descontos|Loja de bugigangas|Loja de pechinchas
 pt-BR:1,99|Loja de variedades
 ro:Magazin universal
 sk:Rozličný tovar
@@ -9404,8 +9418,8 @@ ja:ビデオショップ
 ko:비디오 가게
 nb:Videobutikken
 pl:Wypożyczalnia wideo
-pt:Loja de vídeo
-pt-BR:Video Locadora
+pt:Videoclube|clube de vídeo
+pt-BR:Video locadora|Locadora de vídeo
 ro:Magazin video
 es:Tienda de vídeo
 es-MX:Tienda de vídeo
@@ -9439,7 +9453,7 @@ ja:ゲームショップ
 ko:비디오 게임 가게
 nb:Videospillbutikken
 pl:Sklep z grami wideo
-pt:Loja de jogos de vídeo
+pt:Loja de jogos de vídeo|Loja de jogos eletrônicos
 pt-BR:Loja de jogos eletrônicos
 ro:Magazin de jocuri video
 es:Tienda de videojuegos
@@ -9498,6 +9512,8 @@ de:Galerie|Museum
 ko:갤러리|박물관
 nl:Galerij|museum
 pl:Galeria|muzeum
+pt:Galeria|museu
+pt-BR:Galeria|museu
 fa:گالری|موزه
 
 tourism-theme_park|@tourism|@children
@@ -9511,7 +9527,8 @@ fi:Huvipuisto
 ko:테마 파크
 nl:Pretpark|Attractiepark
 pl:Park tematyczny
-pt:Parque de diversão
+pt:Parque de diversões|parque temático
+pt-BR:Parque de diversão|parque temático
 
 boundary-national_park|@tourism
 en:National Park
@@ -9568,7 +9585,7 @@ nb:Reservat
 nl:Natuurgebied|reservaat
 pl:Rezerwat przyrody
 pt:Reserva natural
-pt-BR:Reserva Florestal
+pt-BR:Reserva florestal
 ro:Rezervație naturală
 sk:Rezervácia
 sv:Naturreservat
@@ -9635,7 +9652,7 @@ ko:가이저|간헐천
 nb:Gaysir
 nl:Geiser
 pl:Gejzer
-pt:Geiser
+pt:Géiser|Geiser
 pt-BR:Gêiser
 ro:Gheizer
 sk:Gejzír
@@ -9702,8 +9719,8 @@ ja:浅瀬
 ko:여울
 nb:Vadested
 pl:Bród
-pt:Passo
-pt-BR:Rio raso
+pt:Vau|passo|Passagem em curso de água baixo
+pt-BR:Vau|passo|Rio raso|Passagem em curso de água baixo
 ro:Superficial
 es:Vado (de lugar)
 es-MX:Vado (de lugar)
