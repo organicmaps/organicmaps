@@ -79,6 +79,7 @@
           lang != "es" &&
           lang != "fr" &&
           lang != "pt" &&
+	  lang != "pt-BR" &&
           lang != "pl"
         )
           lang = "en";
@@ -96,7 +97,8 @@
       <h2 lang="de">FAQ</h2>
       <h2 lang="es">FAQ</h2>
       <h2 lang="fr">FAQ</h2>
-      <h2 lang="pt">FAQ</h2>
+      <h2 lang="pt">Perguntas frequentes</h2>
+      <h2 lang="pt-BR">Perguntas frequentes</h2>
       <h2 lang="pl">FAQ</h2>
 
       <ul>
@@ -118,6 +120,9 @@
             >Quelques lieux sont absents de la carte ou mal orthographiés</a
           >
           <a lang="pt" href="#osm"
+            >Faltam alguns lugares no mapa ou têm nomes errados</a
+          >
+	  <a lang="pt-BR" href="#osm"
             >Alguns lugares estão faltando no mapa ou possuem nomes errados</a
           >
           <a lang="pl" href="#osm"
@@ -141,6 +146,9 @@
             >L'application n'arrive pas à déterminer ma position</a
           >
           <a lang="pt" href="#no_location"
+            >A aplicação não consegue determinar a minha localização</a
+          >
+	  <a lang="pt-BR" href="#no_location"
             >O aplicativo não pode determinar minha localização</a
           >
           <a lang="pl" href="#no_location"
@@ -164,6 +172,9 @@
             >Je ne peux pas télécharger (mettre à jour) les cartes</a
           >
           <a lang="pt" href="#cant_download_maps"
+            >Não consigo descarregar (atualizar) mapas</a
+          >
+          <a lang="pt-BR" href="#cant_download_maps"
             >Não consigo baixar (atualizar) mapas</a
           >
           <a lang="pl" href="#cant_download_maps"
@@ -187,6 +198,9 @@
             >La recherche ne trouve pas le lieu sur la carte</a
           >
           <a lang="pt" href="#cant_find_a_place"
+            >A pesquisa não encontrou um lugar no mapa</a
+          >
+          <a lang="pt-BR" href="#cant_find_a_place"
             >A pesquisa não pode encontrar um lugar no mapa</a
           >
           <a lang="pl" href="#cant_find_a_place"
@@ -210,6 +224,9 @@
             >Que faire si l'application ne fonctionne plus (plante)</a
           >
           <a lang="pt" href="#crash"
+            >O que fazer se a aplicação parar de funcionar (bloquear)</a
+          >
+          <a lang="pt-BR" href="#crash"
             >O que fazer se o aplicativo parar de funcionar (travar)</a
           >
           <a lang="pl" href="#crash"
@@ -225,6 +242,7 @@
           <a lang="es" href="#create_route">¿Cómo crear una ruta</a>
           <a lang="fr" href="#create_route">Comment créer un itinéraire</a>
           <a lang="pt" href="#create_route">Como criar uma rota</a>
+          <a lang="pt-BR" href="#create_route">Como criar uma rota</a>
           <a lang="pl" href="#create_route">Jak utworzyć trasę</a>
         </li>
         <li>
@@ -237,7 +255,8 @@
           <a lang="fr" href="#no_voice"
             >Je n'arrive pas à entendre les instructions vocales</a
           >
-          <a lang="pt" href="#no_voice">Não consigo ouvir instruções de voz</a>
+          <a lang="pt" href="#no_voice">Não consigo ouvir as instruções de voz</a>
+          <a lang="pt-BR" href="#no_voice">Não consigo ouvir instruções de voz</a>
           <a lang="pl" href="#no_voice">Nie słyszę instrukcji głosowych</a>
         </li>
         <li>
@@ -251,6 +270,7 @@
           <a lang="es" href="#bookmarks_export">Cómo exportar marcadores</a>
           <a lang="fr" href="#bookmarks_export">Comment exporter des signets</a>
           <a lang="pt" href="#bookmarks_export">Como exportar favoritos</a>
+          <a lang="pt-BR" href="#bookmarks_export">Como exportar favoritos</a>
           <a lang="pl" href="#bookmarks_export">Jak eksportować zakładki</a>
         </li>
         <li>
@@ -264,6 +284,7 @@
           <a lang="es" href="#bookmarks_import">Cómo importar marcadores</a>
           <a lang="fr" href="#bookmarks_import">Comment importer des signets</a>
           <a lang="pt" href="#bookmarks_import">Como importar favoritos</a>
+          <a lang="pt-BR" href="#bookmarks_import">Como importar favoritos</a>
           <a lang="pl" href="#bookmarks_import">Jak importować zakładki</a>
         </li>
       </ul>
@@ -289,6 +310,10 @@
         <a href="https://organicmaps.app/">organicmaps.app</a>
       </h4>
       <h4 lang="pt">
+        Para mais informações, visite o nosso sítio na web
+        <a href="https://organicmaps.app/">organicmaps.app</a>
+      </h4>
+      <h4 lang="pt-BR">
         Para mais informações, visite o nosso sítio web
         <a href="https://organicmaps.app/">organicmaps.app</a>
       </h4>
@@ -316,6 +341,9 @@
           Quelques lieux sont absents de la carte ou mal orthographiés
         </h3>
         <h3 lang="pt">
+          Faltam alguns lugares no mapa ou têm nomes errados
+        </h3>
+        <h3 lang="pt-BR">
           Alguns lugares estão faltando no mapa ou possuem nomes errados
         </h3>
         <h3 lang="pl">
@@ -562,15 +590,62 @@
 
       <dd lang="pt">
         <p>
+          A nossa fonte de dados do mapa é
+          <a href="https://welcome.openstreetmap.org/">OpenStreetMap</a> (OSM).
+          Trata-se de um projeto de mapeamento semelhante à Wikipédia, mas para
+          mapas, onde qualquer pessoa pode criar e editar mapas.
+        </p>
+
+        <p>
+          Se encontrar informações incorretas ou se achar que faltam alguns
+          elementos no mapa,
+          <a href="https://www.openstreetmap.org/note/new">deixe uma nota</a>
+          para os editores do OSM ou
+          <a href="https://www.openstreetmap.org/user/new">registe-se</a> e
+          edite o mapa.
+        </p>
+
+        <p>
+          Quanto mais pessoas contribuirem, mais detalhados são os mapas.
+          Acreditamos que o mapa mais detalhado de todo o mundo, criado pela
+          comunidade de forma aberta, é apenas uma questão de tempo.
+        </p>
+
+        <p><b>Notas:</b></p>
+
+        <ul>
+          <li>
+            <p>
+              Também pode adicionar novos locais, editar o POI existente e
+              adicionar informações (endereços, horário de funcionamento, nomes)
+              diretamente no Organic Maps. Depois de se autenticar com a sua conta
+              do OSM, as suas edições serão automaticamente enviadas para o OSM.
+              Tenha cuidado ao editar, pois as suas edições ficarão visíveis para
+              todos os outros utilizadores.
+            </p>
+          </li>
+          <li>
+            <p>
+              A base de dados do OpenStreetMap é atualizada a cada minuto.
+              O nosso objetivo é atualizar os mapas na aplicação de 1 a 4 vezes
+              por mês. Se alterou alguma coisa no OSM, as suas edições aparecerão
+              em futuras atualizações dos mapas.
+            </p>
+          </li>
+        </ul>
+      </dd>
+
+      <dd lang="pt-BR">
+        <p>
           Nossa fonte de dados de mapa é
           <a href="https://welcome.openstreetmap.org/">OpenStreetMap</a> (OSM).
-          Este é um projeto de mapeamento semelhante à Wikipedia, mas para
+          Este é um projeto de mapeamento semelhante à Wikipédia, mas para
           mapas, onde qualquer pessoa pode criar e editar mapas.
         </p>
 
         <p>
           Se você vir informações incorretas, ou se achar que alguns objetos
-          estão faltando no mapa, você pode
+          estão faltando no mapa,
           <a href="https://www.openstreetmap.org/note/new">deixe uma nota</a>
           para os editores do OSM ou
           <a href="https://www.openstreetmap.org/user/new">registre-se</a> e
@@ -589,7 +664,7 @@
           <li>
             <p>
               Você também pode adicionar novos locais, editar o POI existente e
-              construir informações (endereços, horário de funcionamento, nomes)
+              adicionar informações (endereços, horário de funcionamento, nomes)
               diretamente via Organic Maps. Depois de fazer o login com a conta
               do OSM, suas edições serão automaticamente enviadas para o OSM.
               Tenha cuidado ao editar, pois suas edições ficarão visíveis para
@@ -662,7 +737,8 @@
         <h3 lang="de">Mein Standort kann von der App nicht bestimmt werden</h3>
         <h3 lang="es">La aplicación no puede establecer mi posición</h3>
         <h3 lang="fr">L'application n'arrive pas à déterminer ma position</h3>
-        <h3 lang="pt">O aplicativo não pode determinar minha localização</h3>
+        <h3 lang="pt">A aplicação não consegue determinar a minha localização</h3>
+        <h3 lang="pt-BR">O aplicativo não pode determinar minha localização</h3>
         <h3 lang="pl">Aplikacja nie może określić mojej lokalizacji</h3>
       </dt>
 
@@ -992,8 +1068,75 @@
 
         <p><b>Android</b></p>
 
+        No seu dispositivo, abra Configurações → Localização. É recomendável
+        ligar o modo de alta precisão (GPS assistido ou A-GPS).
+
+        <p>
+          Se tiver dificuldade em determinar a sua localização com o GPS, ative
+          (ou desative, se já estiver ativado) o "Google Play Services" nas
+          configurações da aplicação.
+        </p>
+
+        <p>
+          Nota: só pode usar a localização com maior precisão ver se tiver o
+          Google Play Services instalado (ativado) no seu dispositivo Android.
+          Os serviços do Google são usados para determinar a localização com
+          mais precisão. Se tiver problemas com a precisão da localização
+          depois de desativar a opção, ative-a novamente.
+        </p>
+
+        <p><b>iOS</b></p>
+
+        Se tem um iPhone ou iPad, Por favor, verifique as configurações
+        do iOS → Privacidade → Serviços de localização. A partilha de 
+        dados de geolocalização tem de ser ativada para o Organic Maps.
+
+        <p><b>Notas:</b></p>
+
+        <ul>
+          <li>
+            <p>
+              Para evitar usar dados em roaming, pode desativar todos os dados
+              móveis, ativar o modo de voo ou desativar os dados móveis do 
+              Organic Maps nas configurações do dispositivo. Os dispositivos
+              Android e iOS podem usar o GPS no modo de voo.
+            </p>
+          </li>
+
+          <li>
+            <p>
+              Alguns dispositivos móveis não têm receptores GPS integrados,
+              como o iPod Touch, o iPad (apenas em Wi-Fi), o Kindle Fire Kindle HD
+              7 da Amazon e alguns tablets Android. Nesses dispositivos, a nossa
+              aplicação mostrará a sua localização aproximada, desde que esteja
+              ligado à Internet.
+            </p>
+          </li>
+
+          <li>
+            <p>
+              Finalmente, por favor lembre-se que determinar a localização com o
+	      GPS (com a rede Wi-Fi e a rede móvel desligados) pode demorar algum
+	      tempo. Quanto mais tempo tiver decorrido desde a última vez que usou
+	      o GPS, mais tempo demora a fazer uma nova localização. A velocidade
+	      de localização depende do dispositivo e não da aplicação. A operação
+	      do GPS também depende das condições metereológicas – funciona melhor
+	      em exteriores e com o céu limpo. Os problemas surgem ao usar no
+	      interior de edifícios, numa rua estreita ladeada por prédios altos
+	      ou dentro de um veículo em movimento.
+            </p>
+          </li>
+        </ul>
+      </dd>
+
+      <dd lang="pt-BR">
+        Por favor, verifique se o seu dispositivo tem GPS e as configurações de
+        localização estão ativadas.
+
+        <p><b>Android</b></p>
+
         No seu dispositivo, abra Configurações → Localização. É melhor ligar o
-        modo de alta precisão.
+        modo de alta precisão (GPS assistido, A-GPS).
 
         <p>
           Se tiver dificuldade em determinar a sua localização com o GPS, ative
@@ -1041,11 +1184,15 @@
 
           <li>
             <p>
-              Alguns dispositivos móveis não possuem receptores GPS integrados,
-              como o iPod Touch, o iPad apenas com WiFi, o Kindle Fire Kindle HD
-              7 da Amazon e alguns tablets Android. Nesses dispositivos, nosso
-              aplicativo mostrará sua localização aproximada, desde que você
-              esteja conectado à Internet.
+              Finalmente, por favor se lembre que determinar sua localização com
+	      GPS (com rede Wi-Fi e rede móvel desligados) pode demorar algum
+	      tempo. Quanto mais tempo tiver decorrido desde a última vez que usou
+	      o GPS, mais tempo demora fazer uma nova localização. A velocidade
+	      de localização depende do dispositivo e não do aplicativo. A operação
+	      GPS também depende das condições metereológicas – funciona melhor em
+	      exterior e com o céu limpo. Os problemas surgem usando no interior
+	      de edifícios, numa rua estreita ladeada por prédios altos ou dentro
+	      de um veículo em movimento.
             </p>
           </li>
         </ul>
@@ -1123,7 +1270,8 @@
         <h3 lang="de">Ich kann keine Karten herunterladen (aktualisieren)</h3>
         <h3 lang="es">No puedo descargar (actualizar) mapas</h3>
         <h3 lang="fr">Je ne peux pas télécharger (mettre à jour) les cartes</h3>
-        <h3 lang="pt">Não consigo baixar (atualizar) mapas</h3>
+        <h3 lang="pt">Não consigo descarregar (atualizar) mapas</h3>
+        <h3 lang="pt-BR">Não consigo baixar (atualizar) mapas</h3>
         <h3 lang="pl">Nie mogę pobrać (zaktualizować) map</h3>
       </dt>
 
@@ -1230,6 +1378,27 @@
 
       <dd lang="pt">
         <p>
+          O descarregamento pode falhar devido a um erro de rede temporário ou a
+          configurações específicas do fornecedor da rede / router. Por favor,
+          tente novamente mais tarde ou use outro ponto de acesso Wi-Fi.
+          Certifique-se também que tem espaço livre suficiente para fazer o
+          descarregamento dos mapas.
+        </p>
+
+        <p>
+          Em Android, certifique-se que forneceu o acesso à rede ao Organic Maps
+          e à aplicação do sistema Gestor de Transferências (Download Manager).
+        </p>
+
+        <p>
+          Além disso, se tiver mapas muito desatualizados e a aplicação não
+          consegue atualizá-los, pode tentar eliminar os mapas desatualizados
+          e tentar descarregá-los novamente.
+        </p>
+      </dd>
+
+      <dd lang="pt-BR">
+        <p>
           Seu download pode falhar devido a um erro de rede temporário ou
           configurações específicas de provedor de rede / roteador. Por favor,
           tente novamente mais tarde ou use um ponto de acesso Wi-Fi diferente.
@@ -1276,7 +1445,8 @@
       <h3 lang="de">Die Suche findet einen Ort nicht auf der Karte</h3>
       <h3 lang="es">La función de búsqueda no encuentra un lugar en el mapa</h3>
       <h3 lang="fr">La recherche ne trouve pas le lieu sur la carte</h3>
-      <h3 lang="pt">A pesquisa não pode encontrar um lugar no mapa</h3>
+      <h3 lang="pt">A pesquisa não encontrou um lugar no mapa</h3>
+      <h3 lang="pt-BR">A pesquisa não pode encontrar um lugar no mapa</h3>
       <h3 lang="pl">Wyszukiwanie nie może znaleźć miejsca na mapie</h3>
 
       <dd lang="en">
@@ -1367,7 +1537,7 @@
           <a href="https://www.openstreetmap.org/">OpenStreetMap.org</a>,
           nuestra fuente de datos de mapas. Si quieres ayudar y mejorar el mapa,
           consulta
-          <a href="https://wiki.openstreetmap.org/wiki/Contribute_map_data"
+          <a href="https://wiki.openstreetmap.org/wiki/ES:Contribuir_a_los_datos_del_mapa"
             >esta guía</a
           >.
         </p>
@@ -1393,7 +1563,7 @@
           <a href="https://www.openstreetmap.org/">OpenStreetMap.org</a>, notre
           source de données cartographiques. Si vous souhaitez aider et
           améliorer la carte, consultez
-          <a href="https://wiki.openstreetmap.org/wiki/Contribute_map_data"
+          <a href="https://wiki.openstreetmap.org/wiki/FR:Contribuer_aux_donn%C3%A9es_cartographiques"
             >ce guide</a
           >.
         </p>
@@ -1407,8 +1577,33 @@
       </dd>
 
       <dd lang="pt">
+        Note que para pesquisar um lugar numa área específica, irá precisar de
+        descarregar um mapa desse local e ampliar o mapa nessa área, ou a sua
+        localização deve estar perto dessa área antes de iniciar a pesquisa.
+        Por exemplo, se quer encontrar um lugar no Vietname e a sua localização
+        atual é noutro país, tem de descarregar o mapa do Vietname e abrir o mapa
+        desse país.
+
+        <p>
+          Além disso, o local pode ainda não ter sido adicionado ao mapa em
+          <a href="https://www.openstreetmap.org/">OpenStreetMap.org</a>, a
+          nossa fonte de dados de mapas. Se quiser ajudar a melhorar o mapa,
+          consulte
+          <a href="https://wiki.openstreetmap.org/wiki/Pt:Contribuir_com_dados_do_mapa"
+            >este guia</a
+          >.
+        </p>
+
+        <p>
+          Se o local aparece no mapa no Organic Maps, mas a pesquisa não o encontra,
+          <a href="mailto:support@organicmaps.app">informe-nos</a> as
+          coordenadas do local e as palavras que usou na pesquisa.
+        </p>
+      </dd>
+
+      <dd lang="pt-BR">
         Lembre-se de que para pesquisar um lugar em uma área específica, você
-        precisará baixar um mapa relevante e ampliar o mapa para essa área, ou
+        precisará baixar um mapa desse local e ampliar o mapa para essa área, ou
         sua localização deve estar perto dessa área antes de iniciar a pesquisa.
         Por exemplo, se você deseja encontrar um lugar no Vietnã e sua
         localização é em outro lugar, você deve fazer o download e abrir o mapa
@@ -1419,7 +1614,7 @@
           <a href="https://www.openstreetmap.org/">OpenStreetMap.org</a>, nossa
           fonte de dados de mapas. Se você quer ajudar e melhorar o mapa,
           consulte
-          <a href="https://wiki.openstreetmap.org/wiki/Contribute_map_data"
+          <a href="https://wiki.openstreetmap.org/wiki/Pt:Contribuir_com_dados_do_mapa"
             >este guia</a
           >.
         </p>
@@ -1428,7 +1623,7 @@
           Se o local estiver exibido no mapa no Organic Maps, mas nossa pesquisa
           não o encontrar,
           <a href="mailto:support@organicmaps.app">informe-nos</a> as
-          coordenadas do local e um exemplo de sua solicitação de pesquisa.
+          coordenadas do local e as palavras que usou em sua pesquisa.
         </p>
       </dd>
 
@@ -1444,7 +1639,7 @@
           Ponadto miejsce mogło nie zostać jeszcze dodane do mapy w
           <a href="https://www.openstreetmap.org/">OpenStreetMap.org</a>, naszym
           źródle danych map. Jeśli chcesz pomóc i ulepszyć mapę, zajrzyj do
-          <a href="https://wiki.openstreetmap.org/wiki/Contribute_map_data"
+          <a href="Pl:Wkład w dane mapowe"
             >tego przewodnika</a
           >.
         </p>
@@ -1469,7 +1664,8 @@
         </h3>
         <h3 lang="es">Qué hago si la aplicación se detiene o se bloquea</h3>
         <h3 lang="fr">Pourquoi l'application s'arrête ou crash</h3>
-        <h3 lang="pt">O que posso fazer se o aplicativo parar (travar)</h3>
+        <h3 lang="pt">O que fazer se a aplicação parar de funcionar (bloquear)</h3>
+        <h3 lang="pt-BR">O que posso fazer se o aplicativo parar (travar)</h3>
         <h3 lang="pl">
           Co mogę zrobić, jeśli aplikacja przestała/uległa awarii
         </h3>
@@ -1615,12 +1811,42 @@
 
       <dd lang="pt">
         <p>
+          É provavelmente um erro inesperado e ficaremos contentes em corrigi-lo
+          na próxima atualização.
+        </p>
+
+        <p>
+          Android: se armazena os mapas num cartão SD, a causa mais provável é
+          ser um cartão SD defeituoso. Pode tentar formatar o cartão SD ou
+          melhor ainda, substituí-lo por um novo. Se moveu a aplicação para
+          o cartão SD, mova-o novamente no sentido inverso para o armazenamento
+          interno (dispositivo).
+        </p>
+
+        <p>
+          Se mesmo assim o problema persistir, por favor
+          <a href="mailto:support@organicmaps.app">contacte-nos</a> e
+          forneça as seguintes informações:
+        </p>
+
+        <ul>
+          <li>descrição do problema e etapas para o recriar</li>
+          <li>Versão do Organic Maps</li>
+          <li>
+            modelo do dispositivo e versão do sistema operativo (Android ou
+            iOS).
+          </li>
+        </ul>
+      </dd>
+
+      <dd lang="pt-BR">
+        <p>
           É provavelmente o nosso bug e ficaremos felizes em corrigi-lo na
           próxima atualização.
         </p>
 
         <p>
-          Android: Se você armazenar seus mapas em um cartão SD, a causa mais
+          Android: se você armazenar seus mapas em um cartão SD, a causa mais
           provável é um cartão SD defeituoso. Você pode formatar seu cartão SD
           ou, melhor ainda, substituí-lo por um novo. Se você moveu o aplicativo
           para o cartão SD, mova-o de volta para o armazenamento interno
@@ -1635,7 +1861,7 @@
 
         <ul>
           <li>descrição do problema e etapas para recriá-lo</li>
-          <li>Versão Organic Maps</li>
+          <li>Versão do Organic Maps</li>
           <li>
             modelo de dispositivo e versão do sistema operacional (Android ou
             iOS).
@@ -1683,6 +1909,7 @@
         <h3 lang="es">¿Cómo crear una ruta</h3>
         <h3 lang="fr">Comment créer un itinéraire</h3>
         <h3 lang="pt">Como criar uma rota</h3>
+        <h3 lang="pt-BR">Como criar uma rota</h3>
         <h3 lang="pl">Jak utworzyć trasę</h3>
       </dt>
 
@@ -1930,6 +2157,51 @@
 
       <dd lang="pt">
         <p>
+          Depois da sua localização ter sido determinada no mapa, escolha o seu
+          destino. Pode fazê-lo de duas formas:
+        </p>
+
+        <ul>
+          <li>toque no botão de pesquisa</li>
+          <li>toque no botão de favoritos</li>
+          <li>toque (em áreas vazias toque e mantenha pressionado) em qualquer
+	    lugar no mapa</li>
+        </ul>
+
+        <p>
+          Depois de escolher o ponto de destino, pressione o botão “Itinerário
+          para” na parte inferior do ecrã. A rota será criada e verá a distância
+          e o tempo estimado da viagem. Pode alterar o tipo de rota tocando no
+          ícone Carro, Pedestre, Metropolitano, Bicicleta ou Táxi na parte 
+          superior do ecrã. Para começar a seguir o percurso, toque no
+          botão “Iniciar”. Toque no sinal de seta no canto inferior direito
+          do ecrã e toque em “Parar” para terminar a rota.
+        </p>
+
+        <p>
+          Como alternativa, para planear uma rota, pode tocar no ícone
+          “Rota” no painel do menu inferior. Pode escolher um ponto de
+          partida diferente (botão “De”) para ver uma rota, mas a navegação
+          só está disponível a partir da sua localização atual por GPS.
+        </p>
+
+        <p>
+          Pode adicionar até 3 pontos intermédios à rota. Para adicionar um
+          ponto intermédio: crie uma rota entre um ponto de partida e um
+          destino → depois toque num ponto qualquer do mapa e toque no botão
+          “Adicionar paragem”.
+        </p>
+        <p>
+          Pode alterar as configurações da rota do carro e selecionar os tipos
+          de estrada que quer evitar (estradas com portagem, estradas não
+          pavimentadas, ferry, autoestradas). Abra as configurações da aplicação
+          (ícone com 3 linhas no canto inferior direito) → Configurações de direção
+	  e ative ou desative as estradas a evitar.
+        </p>
+      </dd>
+
+      <dd lang="pt-BR">
+        <p>
           Depois que sua localização for determinada no mapa, escolha seu
           destino. Você pode usar uma das seguintes maneiras:
         </p>
@@ -1941,21 +2213,21 @@
             toque (toque e segure para áreas vazias) em qualquer lugar no mapa
           </li>
         </ul>
-
+	      
         <p>
-          Depois de escolher o ponto de destino, pressione o botão "Itinerario
-          para" na página do local. A rota será criada e você verá a distância e
-          o tempo estimado de viagem. Você pode alterar o tipo de rota
-          pressionando o ícone Carro, Pedestre, Metrô, Bicicleta ou Táxi na
+          Depois de escolher o ponto de destino, pressione o botão “Itinerário
+          para” na parte inferior da tela. A rota será criada e você verá a
+          distância e o tempo estimado de viagem. Você pode alterar o tipo de
+          rota pressionando o ícone Carro, Pedestre, Metrô, Bicicleta ou Táxi na
           parte superior da tela. Para começar a seguir o percurso, toque no
           botão “Iniciar”. Pressione o sinal de seta no canto inferior direito
-          da tela e toque em Parar para finalizar a rota.
+          da tela e toque em “Parar” para finalizar a rota.
         </p>
 
         <p>
           Como alternativa, para planejar uma rota, você pode pressionar o ícone
           "Rota" no painel do menu inferior. Você pode escolher um ponto de
-          partida diferente (De botão) para visualizar uma rota, mas a navegação
+          partida diferente (botão “De”) para visualizar uma rota, mas a navegação
           só está disponível na sua localização atual.
         </p>
 
@@ -1963,13 +2235,13 @@
           Você pode adicionar até 3 pontos intermediários a uma rota. Para
           adicionar um ponto intermediário: crie uma rota entre um ponto de
           partida e um destino → depois toque em um ponto no mapa e toque em
-          "Adicionar paragem".
+          “Adicionar parada”.
         </p>
         <p>
           Você pode alterar as configurações da rota do carro e selecionar os
           tipos de estrada que gostaria de evitar (estradas com portagem,
           estradas rurais, ferryboat, rodovias). Abra as configurações do
-          aplicativo → Configurações de desvio → Ativar as opções necessárias.
+          aplicativo → Opções de direção → Ative as opções que deseja.
         </p>
       </dd>
 
@@ -2026,7 +2298,8 @@
         <h3 lang="de">Ich höre keine Sprachanweisungen</h3>
         <h3 lang="es">No oigo las instrucciones de voz</h3>
         <h3 lang="fr">Je n'arrive pas à entendre les instructions vocales</h3>
-        <h3 lang="pt">Não consigo ouvir instruções de voz</h3>
+        <h3 lang="pt">Não consigo ouvir as instruções de voz</h3>
+        <h3 lang="pt-BR">Não consigo ouvir instruções de voz</h3>
         <h3 lang="pl">Nie słyszę instrukcji głosowych</h3>
       </dt>
 
@@ -2249,6 +2522,45 @@
 
       <dd lang="pt">
         <p>
+          <b>Nota:</b> as instruções de voz estão disponíveis apenas em rotas de
+          carro e de bicicleta. Neste momento pode ouvir as instruções de voz
+          apenas ao conduzir um veículo e quando o ecrã estiver ligado.
+        </p>
+
+        <p>Se não consegue ouvir as instruções de voz:</p>
+
+        <ul>
+          <li>
+            <p>
+              Certifique-se que o volume do seu dispositivo não está no mínimo.
+              Pode alterar o nível de volume com os botões de volume do seu
+              dispositivo. Para isso, pode ter de desativar a opção "Regular
+              volume com botões" (se estiver ativado) nas configurações do
+              dispositivo → Sons.
+            </p>
+          </li>
+
+          <li>
+            <p>
+              Quando tem o Bluetooth ativado, este não deve refletir as instruções
+              de voz. No entanto, não testamos a orientação por voz com o áudio
+              do carro, isso pode causar problemas. Neste caso, pode desativar o
+              Bluetooth.
+            </p>
+          </li>
+
+          <li>
+            <p>
+              Se usar o Android e a opção estiver desativada (ou se alguns idiomas
+              suportados estiverem indisponíveis), verifique as configurações do
+              sistema TTS do Android.
+            </p>
+          </li>
+        </ul>
+      </dd>
+
+      <dd lang="pt-BR">
+        <p>
           <b>Nota:</b> instruções de voz estão disponíveis para rotas de carro e
           de bicicleta. Por enquanto, você pode ouvir instruções de voz apenas
           enquanto estiver dirigindo e quando a tela estiver ligada.
@@ -2280,7 +2592,7 @@
             <p>
               Se você for um usuário do Android e a opção estiver desativada (ou
               se alguns dos idiomas suportados estiverem indisponíveis),
-              verifique as configurações do sistema TTS.
+              verifique as configurações do sistema TTS no Android.
             </p>
           </li>
         </ul>
@@ -2333,7 +2645,8 @@
         <h3 lang="de">Wie kann ich Lesezeichen exportieren</h3>
         <h3 lang="es">¿Cómo puedo exportar los marcadores</h3>
         <h3 lang="fr">Comment partager (exporter) des signets</h3>
-        <h3 lang="pt">Como partilhar (exportar) marcadores</h3>
+        <h3 lang="pt">Como partilhar (exportar) favoritos</h3>
+        <h3 lang="pt-BR">Como compartilhar (exportar) favoritos</h3>
         <h3 lang="pl">Jak udostępniać (eksportować) zakładki</h3>
       </dt>
 
@@ -2388,11 +2701,19 @@
       </dd>
 
       <dd lang="pt">
-        Escolha um marcador no mapa, toque nele e toque no botão "Partilhar" na
-        página do local. Para compartilhar todos os favoritos em uma lista de
-        uma só vez, toque no símbolo de estrela dupla na tela principal, toque
-        no ícone com três pontos à frente do nome da lista com marcadores e
-        toque em "Exportar o arquivo" na janela pop-up.
+        Escolha um favorito no mapa, toque nele e toque no botão "Partilhar"
+        na parte inferior. Para partilhar todos os favoritos de uma lista de
+        uma só vez, toque no símbolo de estrela no ecrã principal sem nada
+        selecionado, depois toque no ícone com três pontos à frente do nome da
+        lista com favoritos e toque em "Exportar o ficheiro" no menu que aparece.
+      </dd>
+
+      <dd lang="pt-BR">
+        Escolha um favorito no mapa, toque nele e toque no botão "Compartilhar"
+        na parte inferior. Para compartilhar todos os favoritos em uma lista de
+        uma só vez, toque no símbolo de estrela na tela principal sem nada
+        selecionado, depois toque no ícone com três pontos à frente do nome da
+        lista com favoritos e toque em "Exportar arquivo" no menu que aparece.
       </dd>
 
       <dd lang="pl">
@@ -2411,7 +2732,8 @@
         <h3 lang="de">Wie kann ich Lesezeichen importieren</h3>
         <h3 lang="es">Cómo puedo importar los marcadores</h3>
         <h3 lang="fr">Comment importer des signets</h3>
-        <h3 lang="pt">Como importar marcadores</h3>
+        <h3 lang="pt">Como importar favoritos</h3>
+        <h3 lang="pt-BR">Como importar favoritos</h3>
         <h3 lang="pl">Jak importować zakładki</h3>
       </dt>
 
@@ -2630,6 +2952,51 @@
       </dd>
 
       <dd lang="pt">
+        Pode importar favoritos enviados do Organic Maps ou de outras aplicações,
+        se estas exportarem favoritos no formato KML:
+
+        <ol>
+          <li>
+            <p>
+              No Android, pode importar favoritos de pastas e aplicações
+              (incluindo o Maps.Me). Toque no botão da estrela para abrir os
+              favoritos, toque em "Importar favoritos" e selecione a unidade ou
+              pasta com o ficheiro KML/KMZ.
+            </p>
+          </li>
+
+          <li>
+            <p>
+              Abra o ficheiro KML/KMZ partilhado com favoritos enviados por
+              e-mail, mensagens instantâneas ou armazenamento na nuvem, por
+              exemplo, iCloud ou Google Drive.
+            </p>
+          </li>
+
+          <li>
+            <p>
+              Toque uma vez ou toque e mantenha premido no ficheiro KML/KMZ
+              com favoritos e escolha "Abrir com Organic Maps" (Android) ou 
+              "Importar com Organic Maps" (iOS) no menu que aparece.
+            </p>
+
+            <!--<p>Como alternativa, pode copiar ficheiros KML para a pasta da aplicação. Depois disso,
+		abra o menu de favoritos e toque no botão "Convert" no menu que aparece. Note que KMZ
+		é um ficheiro KML compactado, tem de o descompactar antes de copiar para a pasta da
+		aplicação.</p></li>-->
+          </li>
+
+          <li>
+            <p>
+              Ele será aberto com o Organic Maps e verá a mensagem "Favoritos
+              carregados com sucesso!". Pode encontrar esses favoritos no mapa
+              ou no Menu de favoritos.
+            </p>
+          </li>
+        </ol>
+      </dd>
+
+      <dd lang="pt-BR">
         Você pode importar favoritos enviados do Organic Maps ou aplicativos de
         terceiros, se eles exportarem favoritos no formato KML:
 
@@ -2645,7 +3012,7 @@
 
           <li>
             <p>
-              Abra o arquivo KML/KMZ compartilhado com marcadores enviados por
+              Abra o arquivo KML/KMZ compartilhado com favoritos enviados por
               e-mail, mensagens instantâneas ou armazenamento na nuvem, por
               exemplo, iCloud ou Google Drive.
             </p>
@@ -2653,13 +3020,13 @@
 
           <li>
             <p>
-              Toque uma vez ou toque e segure o arquivo KML/KMZ com marcadores e
-              escolha Abrir com Organic Maps (Android) ou "Importar com Organic
+              Toque uma vez ou toque e segure o arquivo KML/KMZ com favoritos e
+              escolha "Abrir com Organic Maps" (Android) ou "Importar com Organic
               Maps" (iOS) na janela pop-up.
             </p>
 
             <!--<p>Como alternativa, você pode copiar arquivos KML para a pasta do aplicativo. Depois disso, você
-		deve abrir o menu de favoritos e pressione o botão "Convert" na janela pop-up. Por favor, note: KMZ
+		deve abrir o menu de favoritos e pressione o botão "Converter" na janela pop-up. Por favor, note: KMZ
 		é um arquivo KML compactado, você deve descompactá-lo antes de copiar para a pasta do
 		aplicativo.</p></li>-->
           </li>
@@ -2724,6 +3091,8 @@
     <a href="#" lang="de">Nach oben</a>
     <a href="#" lang="es">Arriba</a>
     <a href="#" lang="fr">En haut</a>
+    <a href="#" lang="pt">Ir para o início</a>
+    <a href="#" lang="pt-BR">Ir para o início</a>
     <a href="#" lang="pl">Idź na górę</a>
   </body>
 </html>
