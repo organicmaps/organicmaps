@@ -288,7 +288,7 @@ void Engine::DoSearch(SearchParams const & params, shared_ptr<ProcessorHandle> h
   LOG(LINFO, ("Search started."));
   base::Timer timer;
   SCOPE_GUARD(printDuration, [&timer]() {
-    LOG(LINFO, ("Search ended. Time:", timer.ElapsedSeconds(), "seconds."));
+    LOG(LINFO, ("Search ended in", timer.ElapsedMilliseconds(), "ms."));
   });
 
   processor.Reset();

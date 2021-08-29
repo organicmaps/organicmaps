@@ -33,12 +33,13 @@ public:
 
   void Emit(bool force = false)
   {
-    if (m_prevEmitSize == m_results.GetCount() && !force)
+    auto const newCount = m_results.GetCount();
+    if (m_prevEmitSize == newCount && !force)
       return;
-    m_prevEmitSize = m_results.GetCount();
 
-    LOG(LINFO, ("Emitting a new batch of results. Time since search start:",
-                m_timer.ElapsedSeconds(), "seconds."));
+    LOG(LINFO, ("Emitting a new batch of results:", newCount - m_prevEmitSize, ",",
+        m_timer.ElapsedMilliseconds(), "ms since the search has started."));
+    m_prevEmitSize = m_results.GetCount();
 
     if (m_onResults)
       m_onResults(m_results);
