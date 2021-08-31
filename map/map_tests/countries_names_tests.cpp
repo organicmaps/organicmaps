@@ -50,7 +50,7 @@ UNIT_TEST(CountriesNamesTest)
                                    "Transnistria",
                                    "Nagorno-Karabakh Republic",
                                    "Republic of Artsakh",
-                                   "Port aux Français"    /// @todo Temporary entry to fix test in current data.
+                                   "Bir Tawil"    /// @todo https://www.openstreetmap.org/node/2542289902
                                    };
 
   auto const features = cache.Get(mwmContext);
