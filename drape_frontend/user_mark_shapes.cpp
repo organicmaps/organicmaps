@@ -35,6 +35,12 @@ std::array<double, 20> const kLineWidthZoomFactor =
 };
 int const kLineSimplifyLevelEnd = 15;
 
+std::string DebugPrint(ColoredSymbolViewParams const & csvp)
+{
+  return DebugPrint(csvp.m_anchor) + DebugPrint(csvp.m_color) +
+         DebugPrint(csvp.m_sizeInPixels) + DebugPrint(csvp.m_offset);
+}
+
 namespace
 {
 template <typename TCreateVector>
@@ -170,9 +176,6 @@ void GenerateColoredSymbolShapes(ref_ptr<dp::GraphicsContext> context, ref_ptr<d
   }
 
   ColoredSymbolViewParams params;
-  params.m_featureId = renderInfo.m_featureId;
-  params.m_markId = renderInfo.m_markId;
-
   if (renderInfo.m_coloredSymbols->m_isSymbolStub)
   {
     params.m_anchor = renderInfo.m_anchor;
@@ -183,16 +186,19 @@ void GenerateColoredSymbolShapes(ref_ptr<dp::GraphicsContext> context, ref_ptr<d
   }
   else
   {
-    for (auto itSym = renderInfo.m_coloredSymbols->m_zoomInfo.rbegin();
-         itSym != renderInfo.m_coloredSymbols->m_zoomInfo.rend(); ++itSym)
+    for (auto const & e : renderInfo.m_coloredSymbols->m_zoomInfo)
     {
-      if (itSym->first <= tileKey.m_zoomLevel)
+      if (e.first <= tileKey.m_zoomLevel)
       {
-        params = itSym->second;
+        params = e.second;
         break;
       }
     }
   }
+
+  // Assign ids after fetching params from map above.
+  params.m_featureId = renderInfo.m_featureId;
+  params.m_markId = renderInfo.m_markId;
 
   m2::PointF coloredSize(0.0f, 0.0f);
   if (params.m_shape == ColoredSymbolViewParams::Shape::Circle)
@@ -428,7 +434,7 @@ void CacheUserMarks(ref_ptr<dp::GraphicsContext> context, TileKey const & tileKe
       {
         GeneratePoiSymbolShape(context, textures, renderInfo, tileKey, tileCenter, symbolName, symbolOffset, batcher);
       }
-      else if (renderInfo.m_symbolNames != nullptr)
+      else
       {
         dp::TextureManager::SymbolRegion region;
         dp::TextureManager::SymbolRegion backgroundRegion;
