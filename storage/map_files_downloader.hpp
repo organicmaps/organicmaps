@@ -58,13 +58,14 @@ public:
 
   void SetServersList(ServersList const & serversList);
   void SetDownloadingPolicy(DownloadingPolicy * policy);
+  void SetDataVersion(int64_t version) { m_dataVersion = version; }
 
 protected:
   bool IsDownloadingAllowed() const;
   std::vector<std::string> MakeUrlList(std::string const & relativeUrl);
 
   // Synchronously loads list of servers by http client.
-  static ServersList LoadServersList();
+  ServersList LoadServersList();
 
 private:
   /**
@@ -84,6 +85,8 @@ private:
   std::unique_ptr<RequestT> m_fileRequest;
 
   ServersList m_serversList;
+  int64_t m_dataVersion = 0;
+
   /// Used as guard for m_serversList assign.
   std::atomic_bool m_isServersListRequested = false;
 

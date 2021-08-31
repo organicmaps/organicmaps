@@ -147,15 +147,14 @@ std::vector<std::string> MapFilesDownloader::MakeUrlList(std::string const & rel
 // static
 MapFilesDownloader::ServersList MapFilesDownloader::LoadServersList()
 {
-  auto constexpr kTimeoutInSeconds = 10.0;
-
   std::string const metaServerUrl = GetPlatform().MetaServerUrl();
   std::string httpResult;
 
   if (!metaServerUrl.empty())
   {
     platform::HttpClient request(metaServerUrl);
-    request.SetTimeout(kTimeoutInSeconds);
+    request.SetRawHeader("X-OM-DataVersion", std::to_string(m_dataVersion));
+    request.SetTimeout(10.0); // timeout in seconds
     request.RunHttpRequest(httpResult);
   }
 

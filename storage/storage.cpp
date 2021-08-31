@@ -134,6 +134,8 @@ Storage::Storage(string const & pathToCountriesFile /* = COUNTRIES_FILE */,
   SetLocale(languages::GetCurrentTwine());
   LoadCountriesFile(pathToCountriesFile);
   CalcMaxMwmSizeBytes();
+
+  m_downloader->SetDataVersion(m_currentVersion);
 }
 
 Storage::Storage(string const & referenceCountriesTxtJsonForTesting,
@@ -147,6 +149,8 @@ Storage::Storage(string const & referenceCountriesTxtJsonForTesting,
                               m_countryNameSynonyms, m_mwmTopCityGeoIds, m_mwmTopCountryGeoIds);
   CHECK_LESS_OR_EQUAL(0, m_currentVersion, ("Can't load test countries file"));
   CalcMaxMwmSizeBytes();
+
+  m_downloader->SetDataVersion(m_currentVersion);
 }
 
 void Storage::Init(UpdateCallback didDownload, DeleteCallback willDelete)
@@ -814,6 +818,7 @@ void Storage::SetEnabledIntegrityValidationForTesting(bool enabled)
 void Storage::SetCurrentDataVersionForTesting(int64_t currentVersion)
 {
   m_currentVersion = currentVersion;
+  m_downloader->SetDataVersion(m_currentVersion);
 }
 
 void Storage::SetDownloadingServersForTesting(vector<string> const & downloadingUrls)
@@ -1028,6 +1033,8 @@ void Storage::ApplyCountries(std::string const & countriesBuffer, Storage & stor
   }
 
   m_currentVersion = storage.m_currentVersion;
+  m_downloader->SetDataVersion(m_currentVersion);
+
   m_countries = std::move(storage.m_countries);
   m_affiliations = std::move(storage.m_affiliations);
   m_countryNameSynonyms = std::move(storage.m_countryNameSynonyms);
