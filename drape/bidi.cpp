@@ -11,22 +11,46 @@
 namespace bidi
 {
 
-strings::UniString log2vis(strings::UniString const & str)
+using StringT = strings::UniString;
+
+StringT log2vis(StringT const & str)
 {
   uint32_t const usize = static_cast<uint32_t>(str.size());
 
   buffer_vector<UChar, 256> ustr(usize);
   bool isAscii = true;
+  bool hasExtendedChars = false;
   for (uint32_t i = 0; i < usize; ++i)
   {
     auto const c = str[i];
-    assert(c <= 0xFFFF);
     if (c >= 0x80)
       isAscii = false;
-    ustr[i] = c;
+
+    // As an example of extended chars: https://www.openstreetmap.org/node/5680098021
+    if (c > 0xFFFF)
+    {
+      hasExtendedChars = true;
+      ustr[i] = ' ';
+    }
+    else
+      ustr[i] = c;
   }
   if (isAscii)
     return str;
+
+  // Remove non-drawable chars if any, or drape will not draw a string otherwise.
+  StringT out;
+  auto const ResultString = [&str, &out, hasExtendedChars]() -> StringT const &
+  {
+    if (hasExtendedChars)
+    {
+      out = str;
+      out.erase_if([](strings::UniChar c) { return c > 0xFFFF; });
+      return out;
+    }
+    else
+      return str;
+  };
 
   UBiDi * bidi = ubidi_open();
   SCOPE_GUARD(closeBidi, [bidi]() { ubidi_close(bidi); });
@@ -37,7 +61,7 @@ strings::UniString log2vis(strings::UniString const & str)
 
   UBiDiDirection const direction = ubidi_getDirection(bidi);
   if (direction == UBIDI_LTR || direction == UBIDI_NEUTRAL)
-    return str;
+    return ResultString();
 
   uint32_t const buffSize = usize * 2;
   buffer_vector<UChar, 256> buff(buffSize, 0);
@@ -47,7 +71,7 @@ strings::UniString log2vis(strings::UniString const & str)
   if (errorCode != U_ZERO_ERROR)
   {
     LOG(LWARNING, ("u_shapeArabic failed, icu error:", errorCode));
-    return str;
+    return ResultString();
   }
 
   icu::UnicodeString shaped(buff.data());
@@ -57,10 +81,9 @@ strings::UniString log2vis(strings::UniString const & str)
   if (errorCode != U_ZERO_ERROR)
   {
     LOG(LWARNING, ("ubidi_writeReordered failed, icu error:", errorCode));
-    return str;
+    return ResultString();
   }
 
-  strings::UniString out;
   out.reserve(buffSize);
   for (uint32_t i = 0; i < buffSize; ++i)
   {
@@ -72,9 +95,9 @@ strings::UniString log2vis(strings::UniString const & str)
   return out;
 }
 
-strings::UniString log2vis(std::string const & utf8)
+StringT log2vis(std::string const & utf8)
 {
-  auto const uni = strings::MakeUniString(utf8);
+  auto uni = strings::MakeUniString(utf8);
   if (utf8.size() == uni.size())
   {
     // obvious ASCII
