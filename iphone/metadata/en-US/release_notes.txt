@@ -1,6 +1,8 @@
-With the help of our community, in this release we:
-
+• Updated OSM maps data to 210825
 • Increased maximum number of intermediate stops from 3 to... try to guess :)
 • Fixed rare crash when downloading maps
 • Made farmlands more visible on the map
-• Updated 🇧🇷 Brazil and 🇵🇹 Portuguese translations
+• Updated Brazil and Portuguese translations
+• Fixed bug with speed camera icon
+• Fixed some non-displayed texts on the map
+• Fixed crash with some deleted map types/objects
