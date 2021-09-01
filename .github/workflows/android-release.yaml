@@ -2,11 +2,65 @@ name: Android Release
 on:
   workflow_dispatch: # Manual trigger
 
+env:
+  RELEASE_NOTES: android/src/google/play/release-notes/en-US/default.txt
+  FDROID_VERSION: android/src/fdroid/play/version.yaml
+
 jobs:
+  tag:
+    name: Tag
+    runs-on: ubuntu-latest
+    environment: production
+    steps:
+      - name: Checkout sources
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 100 # enough to get all commits for the current day
+
+      - name: Tag
+        id: tag
+        shell: bash
+        run: |
+          set -x
+          timestamp=$(date +%s)
+          git config user.name '${{ github.actor }}'
+          git config user.email '${{ github.actor }}@users.noreply.github.com'
+          export GIT_COMMITTER_DATE=$timestamp
+          export GIT_AUTHOR_DATE=$timestamp
+          current_date=$(date -d @$timestamp '+%Y-%m-%d')
+          build=$(($(git rev-list --count --after="${current_date}T00:00:00Z" HEAD) + 1))
+          version=$(date -d @$timestamp '+%Y.%m.%d')
+          code=$(date -d @$timestamp '+%y%m%d')$(printf "%02d" ${build})
+          tag=${version}-${build}-android
+          echo "::set-output name=version::$version"
+          echo "::set-output name=build::$build"
+          echo "::set-output name=tag::$tag"
+          echo "::set-output name=code::$code"
+          echo "version: ${version}-${build}-FDroid+${code}" > ${{ env.FDROID_VERSION }}
+          git add ${{ env.FDROID_VERSION }}
+          {
+            echo $tag
+            echo
+            cat ${{ env.RELEASE_NOTES }}
+          } > ${{ runner.temp }}/tag.txt
+          branch="${GITHUB_REF#refs/heads/}"
+          test -n "$branch"
+          git commit -m "Bump versions" -s
+          git tag -a $tag -F ${{ runner.temp }}/tag.txt
+          git show $tag
+          git push origin $branch:$branch
+          git push origin $tag:$tag
+    outputs:
+      version: ${{ steps.tag.outputs.version }}
+      build: ${{ steps.tag.outputs.build }}
+      code: ${{ steps.tag.outputs.code }}
+      tag: ${{ steps.tag.outputs.tag }}
+
   android-release:
     name: Android Release
     runs-on: ubuntu-latest
     environment: production
+    needs: tag
     strategy:
       fail-fast: false
       matrix:
@@ -30,6 +84,14 @@ jobs:
         uses: actions/checkout@v2
         with:
           fetch-depth: 100 # enough to get all commits for the current day
+          ref: 'refs/tags/${{ needs.tag.outputs.tag }}'
+
+      - name: Check tag
+        shell: bash
+        run: |
+          git show HEAD
+          test -n "${{ needs.tag.outputs.tag }}"
+          test "$(git tag --points-at HEAD)" = "${{ needs.tag.outputs.tag }}"
 
       - name: Parallel submodules checkout
         shell: bash
@@ -83,10 +145,26 @@ jobs:
           ./gradlew assembleWebRelease
         if: ${{ matrix.flavor == 'web' }}
 
+      - name: Prepare release notes
+        if: ${{ matrix.flavor == 'web' }}
+        shell: bash
+        run: |
+          {
+            cat ${{ env.RELEASE_NOTES }}
+            echo "sha256sum:"
+            echo -e '\n```'
+            (cd ./android/build/outputs/apk/web/release/ && sha256sum OrganicMaps-${{ needs.tag.outputs.code }}-web-release.apk) | tr -d '\n'
+            echo -e '\n```'
+          } > ${{ runner.temp }}/release-notes.txt
+
       - name: Upload universal APK to GitHub
-        uses: actions/upload-artifact@v2
+        uses: softprops/action-gh-release@v1
         if: ${{ matrix.flavor == 'web' }}
         with:
-          name: web-release-apk
-          path: ./android/build/outputs/apk/web/release/OrganicMaps-*-web-release.apk
-          if-no-files-found: error
+          body_path: ${{ runner.temp }}/release-notes.txt
+          token: ${{ secrets.GITHUB_TOKEN }}
+          name: ${{ needs.tag.outputs.tag }}
+          tag_name: ${{ needs.tag.outputs.tag }}
+          discussion_category_name: 'Announcements'
+          files: ./android/build/outputs/apk/web/release/OrganicMaps-${{ needs.tag.outputs.code }}-web-release.apk
+          fail_on_unmatched_files: true
