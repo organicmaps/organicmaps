@@ -1,6 +1,9 @@
-Please let us know if you still have any issues with maps downloading, or any other issues. We will fix them ASAP!
-
-• Fixed download progress stuck at 0% and made it fractional
-• Fixed metro/subway entry icons in some cities
-• Added "Report a bug" button in the main menu
-• Fixed invisible button in navigation panel on Android 6+
+• Updated OSM maps 🗺️ data to 210825
+• Max number of intermediate stops is increased from 3 to... try to guess :)
+• Finally, maps download should work for everyone! And if not, please tell us.
+• Bookmark button now shows "Save" and "Delete" instead of just "Bookmark"
+• Farmlands are visible now on the map!
+• 🇧🇷 Brazil and 🇵🇹 Portuguese translations are updated
+• Fixed bug with speed camera icon
+• Fixed some non-displayed texts on the map
+• Fixed crashes with some deleted map types/objects
