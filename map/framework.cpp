@@ -1767,7 +1767,7 @@ void Framework::SetWidgetLayout(gui::TWidgetsLayoutInfo && layout)
 bool Framework::ShowMapForURL(string const & url)
 {
   m2::PointD point;
-  double scale;
+  double scale = 0;
   string name;
   ApiMarkPoint const * apiMark = nullptr;
 
