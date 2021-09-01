@@ -7094,7 +7094,7 @@ da:Skraldespand
 nl:Vuilnisbak
 fi:Roska-astia
 fr:Poubelle
-de:Abfalleimer
+de:Abfalleimer|Mülleimer
 hu:Szemétkosár
 id:Kotak sampah
 it:Contenitore per rifiuti
