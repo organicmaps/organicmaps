@@ -85,6 +85,7 @@ jobs:
         with:
           fetch-depth: 100 # enough to get all commits for the current day
           ref: 'refs/tags/${{ needs.tag.outputs.tag }}'
+          ssh-key: ${{ secrets.RELEASE_SSH_KEY }}
 
       - name: Check tag
         shell: bash
