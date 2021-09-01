@@ -1033,19 +1033,19 @@ void Editor::CreateNote(ms::LatLon const & latLon, FeatureID const & fid,
 {
   CHECK_THREAD_CHECKER(MainThreadChecker, (""));
 
-  auto const version = GetMwmCreationTimeByMwmId(fid.m_mwmId);
-  auto const stringVersion = base::TimestampToString(base::SecondsSinceEpochToTimeT(version));
   ostringstream sstr;
   auto canCreate = true;
 
   if (!note.empty())
-    sstr << "\"" << note << "\"" << endl;
+    sstr << "\"" << note << "\"\n";
 
   switch (type)
   {
   case NoteProblemType::PlaceDoesNotExist:
   {
-    sstr << kPlaceDoesNotExistMessage << endl;
+    sstr << "The place has gone or never existed. A user of Organic Maps application has reported "
+            "that the POI was visible on the map (see snapshot date below), but was not found "
+            "on the ground.\n";
     auto const features = m_features.Get();
     auto const isCreated =
         GetFeatureStatusImpl(*features, fid.m_mwmId, fid.m_index) == FeatureStatus::Created;
@@ -1066,20 +1066,22 @@ void Editor::CreateNote(ms::LatLon const & latLon, FeatureID const & fid,
   if (!canCreate)
     return;
 
+  auto const version = GetMwmCreationTimeByMwmId(fid.m_mwmId);
+  auto const strVersion = base::TimestampToString(base::SecondsSinceEpochToTimeT(version));
+  sstr << "OSM snapshot date: " << strVersion << "\n";
+
   if (defaultName.empty())
-    sstr << "POI has no name" << endl;
+    sstr << "POI has no name\n";
   else
-    sstr << "POI name: " << defaultName << endl;
+    sstr << "POI name: " << defaultName << "\n";
 
   sstr << "POI types:";
   for (auto const & type : holder.ToObjectNames())
   {
     sstr << ' ' << type;
   }
-  sstr << endl;
-
-  sstr << "OSM data version: " << stringVersion << endl;
-
+  sstr << "\n";
+  cout << "***TEXT*** " << sstr.str();
   m_notes->CreateNote(latLon, sstr.str());
 }
 
@@ -1248,11 +1250,6 @@ bool Editor::IsFeatureUploadedImpl(FeaturesContainer const & features, MwmSet::M
   auto const * info = GetFeatureTypeInfo(features, mwmId, index);
   return info && info->m_uploadStatus == kUploaded;
 }
-
-const char * const Editor::kPlaceDoesNotExistMessage =
-    "The place has gone or never existed. This is an auto-generated note from Oragnic Maps application: "
-    "a user reports a POI that is visible on a map (which can be outdated), but cannot be found on "
-    "the ground.";
 
 string DebugPrint(Editor::SaveResult const saveResult)
 {

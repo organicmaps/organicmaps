@@ -913,21 +913,25 @@ void EditorTest::CreateNoteTest()
     std::string defaultName = "Test name";
     editor.CreateNote(pos, fId, holder, defaultName, noteType, "with comment");
 
-    auto notes = editor.m_notes->GetNotes();
+    auto const notes = editor.m_notes->GetNotes();
     TEST_EQUAL(notes.size(), 1, ());
-    TEST(notes.front().m_point.EqualDxDy(pos, 1e-10), ());
-    TEST_NOT_EQUAL(notes.front().m_note.find("with comment"), std::string::npos, ());
-    TEST_NOT_EQUAL(notes.front().m_note.find("OSM data version"), std::string::npos, ());
-    TEST_NOT_EQUAL(notes.front().m_note.find("restaurant"), std::string::npos, ());
-    TEST_NOT_EQUAL(notes.front().m_note.find("Test name"), std::string::npos, ());
+    auto const note = notes.front();
+    TEST(note.m_point.EqualDxDy(pos, 1e-10), ());
+    TEST(note.m_note.find("with comment") != std::string::npos, ());
+    TEST(note.m_note.find("OSM snapshot date") != std::string::npos, ());
+    TEST(note.m_note.find("restaurant") != std::string::npos, ());
+    TEST(note.m_note.find("Test name") != std::string::npos, ());
   };
+
+  // Should match a piece of text in the editor note.
+  constexpr char const * kPlaceDoesNotExistMessage = "The place has gone or never existed";
 
   ForEachCafeAtPoint(m_dataSource, m2::PointD(1.0, 1.0), [&editor, &createAndCheckNote](FeatureType & ft)
   {
     createAndCheckNote(ft.GetID(), {1.0, 1.0}, osm::Editor::NoteProblemType::PlaceDoesNotExist);
 
     auto notes = editor.m_notes->GetNotes();
-    TEST_NOT_EQUAL(notes.front().m_note.find(osm::Editor::kPlaceDoesNotExistMessage), std::string::npos, ());
+    TEST_NOT_EQUAL(notes.front().m_note.find(kPlaceDoesNotExistMessage), std::string::npos, ());
     TEST_EQUAL(editor.GetFeatureStatus(ft.GetID()), FeatureStatus::Obsolete, ());
   });
 
@@ -937,7 +941,7 @@ void EditorTest::CreateNoteTest()
 
     TEST_NOT_EQUAL(editor.GetFeatureStatus(ft.GetID()), FeatureStatus::Obsolete, ());
     auto notes = editor.m_notes->GetNotes();
-    TEST_EQUAL(notes.front().m_note.find(osm::Editor::kPlaceDoesNotExistMessage), std::string::npos, ());
+    TEST_EQUAL(notes.front().m_note.find(kPlaceDoesNotExistMessage), std::string::npos, ());
   });
 }
 

@@ -99,9 +99,6 @@ public:
     time_t m_lastUploadTimestamp = base::INVALID_TIME_STAMP;
   };
 
-  // Predefined messages.
-  static const char * const kPlaceDoesNotExistMessage;
-
   static Editor & Instance();
 
   void SetDelegate(std::unique_ptr<Delegate> delegate) { m_delegate = std::move(delegate); }
@@ -269,7 +266,7 @@ private:
   std::shared_ptr<editor::Notes> m_notes;
 
   std::unique_ptr<editor::StorageBase> m_storage;
-  
+
   std::atomic<bool> m_isUploadingNow;
 
   DECLARE_THREAD_CHECKER(MainThreadChecker);
