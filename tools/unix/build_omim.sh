@@ -12,40 +12,26 @@ OPT_TARGET=
 OPT_PATH=
 OPT_STANDALONE=
 OPT_COMPILE_DATABASE=
-while getopts ":cdrstagjp:" opt; do
+OPT_LAUNCH_BINARY=
+while getopts ":cdrstagjlp:" opt; do
   case $opt in
-    d)
-      OPT_DEBUG=1
+    a) OPT_STANDALONE=1 ;;
+    c) OPT_CLEAN=1 ;;
+    d) OPT_DEBUG=1 ;;
+    g) OPT_GCC=1 ;;
+    j) OPT_COMPILE_DATABASE=1
+       CMAKE_CONFIG="${CMAKE_CONFIG:-} -DCMAKE_EXPORT_COMPILE_COMMANDS=YES"
       ;;
-    r)
-      OPT_RELEASE=1
+    l) OPT_LAUNCH_BINARY=1 ;;
+    p) OPT_PATH="$OPTARG" ;;
+    r) OPT_RELEASE=1 ;;
+    s) OPT_SKIP_DESKTOP=1
+       CMAKE_CONFIG="${CMAKE_CONFIG:-} -DSKIP_DESKTOP=ON"
       ;;
-    c)
-      OPT_CLEAN=1
-      ;;
-    s)
-      OPT_SKIP_DESKTOP=1
-      CMAKE_CONFIG="${CMAKE_CONFIG:-} -DSKIP_DESKTOP=ON"
-      ;;
-    t)
-      OPT_DESIGNER=1
-      ;;
-    a)
-      OPT_STANDALONE=1
-      ;;
-    g)
-      OPT_GCC=1
-      ;;
-    j)
-      OPT_COMPILE_DATABASE=1
-      CMAKE_CONFIG="${CMAKE_CONFIG:-} -DCMAKE_EXPORT_COMPILE_COMMANDS=YES"
-      ;;
-    p)
-      OPT_PATH="$OPTARG"
-      ;;
+    t) OPT_DESIGNER=1 ;;
     *)
       echo "This tool builds omim"
-      echo "Usage: $0 [-d] [-r] [-c] [-s] [-t] [-a] [-g] [-j] [-p PATH] [target1 target2 ...]"
+      echo "Usage: $0 [-d] [-r] [-c] [-s] [-t] [-a] [-g] [-j] [-l] [-p PATH] [target1 target2 ...]"
       echo
       echo -e "-d\tBuild omim-debug"
       echo -e "-r\tBuild omim-release"
@@ -56,6 +42,7 @@ while getopts ":cdrstagjp:" opt; do
       echo -e "-g\tForce use GCC (only for MacOS X platform)"
       echo -e "-p\tDirectory for built binaries"
       echo -e "-j\tGenerate compile_commands.json"
+      echo -e "-l\tLaunches built binary(ies), useful for tests"
       echo "By default both configurations is built."
       exit 1
       ;;
@@ -148,6 +135,11 @@ build()
     fi
     echo ""
     $MAKE_COMMAND $OPT_TARGET
+    if [ -n "$OPT_TARGET" ] && [ -n "$OPT_LAUNCH_BINARY" ]; then
+      for target in $OPT_TARGET; do
+        "$DIRNAME/$target"
+      done
+    fi
   else
     "$CMAKE" "$CMAKE_GENERATOR" "$OMIM_PATH" -DCMAKE_BUILD_TYPE="$CONF" \
     -DBUILD_DESIGNER:bool=True ${CMAKE_CONFIG:-}
