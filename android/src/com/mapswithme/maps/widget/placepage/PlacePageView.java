@@ -31,8 +31,8 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.widget.NestedScrollViewClickFixed;
 import androidx.fragment.app.Fragment;
-
 import androidx.recyclerview.widget.RecyclerView;
+
 import com.mapswithme.maps.Framework;
 import com.mapswithme.maps.MwmActivity;
 import com.mapswithme.maps.MwmApplication;
@@ -85,6 +85,9 @@ public class PlacePageView extends NestedScrollViewClickFixed
   private boolean mIsDocked;
   private boolean mIsFloating;
 
+  // See refreshView().
+  private boolean mIsAndroid11HackApplied = false;
+
   // Preview.
   private ViewGroup mPreview;
   private Toolbar mToolbar;
@@ -94,6 +97,9 @@ public class PlacePageView extends NestedScrollViewClickFixed
   private ArrowView mAvDirection;
   private TextView mTvDistance;
   private TextView mTvAddress;
+
+  // Details.
+  private ViewGroup mDetails;
   private RecyclerView mPhoneRecycler;
   private PlacePhoneAdapter mPhoneAdapter;
   private View mWebsite;
@@ -288,6 +294,7 @@ public class PlacePageView extends NestedScrollViewClickFixed
 
     mTvAddress = mPreview.findViewById(R.id.tv__address);
 
+    mDetails = findViewById(R.id.pp__details_frame);
     RelativeLayout address = findViewById(R.id.ll__place_name);
     mPhoneRecycler = findViewById(R.id.rw__phone);
     mPhoneAdapter = new PlacePhoneAdapter();
@@ -703,6 +710,22 @@ public class PlacePageView extends NestedScrollViewClickFixed
     refreshPreview(mMapObject);
     refreshDetails(mMapObject);
     refreshViewsInternal(mMapObject);
+
+    //
+    // The view is completely broken after the first call to refreshView():
+    // https://github.com/organicmaps/organicmaps/issues/722
+    // https://github.com/organicmaps/organicmaps/issues/1065
+    //
+    // Force re-layout explicitly on the next event loop after the first call to refreshView().
+    //
+    if (!mIsAndroid11HackApplied && Utils.isAndroid11OrLater()) {
+      mIsAndroid11HackApplied = true;
+      post(() -> {
+        mPreview.requestLayout();
+        mDetails.requestLayout();
+        mButtons.getFrame().requestLayout();
+      });
+    }
   }
 
   private void refreshViewsInternal(@NonNull MapObject mapObject)
@@ -1243,7 +1266,7 @@ public class PlacePageView extends NestedScrollViewClickFixed
       final int id = item.getItemId();
       final Context ctx = getContext();
       Utils.copyTextToClipboard(ctx, items.get(id));
-      Utils.showSnackbarAbove(findViewById(R.id.pp__details_frame),
+      Utils.showSnackbarAbove(mDetails,
                               getRootView().findViewById(R.id.menu_frame),
                               ctx.getString(R.string.copied_to_clipboard, items.get(id)));
       return true;
