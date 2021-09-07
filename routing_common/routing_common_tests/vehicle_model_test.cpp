@@ -274,8 +274,8 @@ UNIT_TEST(VehicleModel_CarModelValidation)
       HighwayType::HighwayTrack,         HighwayType::HighwayTrunk,
       HighwayType::HighwayTrunkLink,     HighwayType::HighwayUnclassified,
       HighwayType::ManMadePier,          HighwayType::RailwayRailMotorVehicle,
-      HighwayType::RouteFerryMotorcar,   HighwayType::RouteFerryMotorVehicle,
-      HighwayType::RouteShuttleTrain};
+      HighwayType::RouteFerry,           HighwayType::RouteShuttleTrain,
+  };
 
   for (auto const hwType : carRoadTypes)
   {

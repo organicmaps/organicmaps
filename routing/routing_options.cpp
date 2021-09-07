@@ -67,8 +67,6 @@ RoutingOptionsClassifier::RoutingOptionsClassifier()
     {{"hwtag", "toll"},                   RoutingOptions::Road::Toll},
 
     {{"route", "ferry"},                  RoutingOptions::Road::Ferry},
-    {{"route", "ferry", "motorcar"},      RoutingOptions::Road::Ferry},
-    {{"route", "ferry", "motor_vehicle"}, RoutingOptions::Road::Ferry},
 
     {{"highway", "track"},                RoutingOptions::Road::Dirty},
     {{"highway", "road"},                 RoutingOptions::Road::Dirty},

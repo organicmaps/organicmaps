@@ -129,11 +129,9 @@ VehicleModel::LimitsInitList const kCarOptionsGermany = {
 
 vector<VehicleModel::AdditionalRoadTags> const kAdditionalTags = {
     // {{highway tags}, {weightSpeed, etaSpeed}}
-    {{"route", "ferry", "motorcar"}, kHighwayBasedSpeeds.at(HighwayType::RouteFerryMotorcar)},
-    {{"route", "ferry", "motor_vehicle"}, kHighwayBasedSpeeds.at(HighwayType::RouteFerryMotorVehicle)},
     {{"railway", "rail", "motor_vehicle"}, kHighwayBasedSpeeds.at(HighwayType::RailwayRailMotorVehicle)},
     {{"route", "shuttle_train"}, kHighwayBasedSpeeds.at(HighwayType::RouteShuttleTrain)},
-    {{"route", "ferry"}, kHighwayBasedSpeeds.at(HighwayType::RouteFerryMotorcar)},
+    {{"route", "ferry"}, kHighwayBasedSpeeds.at(HighwayType::RouteFerry)},
     {{"man_made", "pier"}, kHighwayBasedSpeeds.at(HighwayType::ManMadePier)}};
 
 VehicleModel::SurfaceInitList const kCarSurface = {

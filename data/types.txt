@@ -986,12 +986,12 @@ mapswithme
 *amenity|waste_disposal
 *amenity|bbq
 mapswithme
-*route|ferry|motorcar
+route|ferry
 *junction|roundabout
 *highway|speed_camera
 *shop|beauty
 *shop|sports
-*route|ferry|motor_vehicle
+route|ferry
 *railway|rail|motor_vehicle
 *hwtag|nofoot
 *place|city|capital|2

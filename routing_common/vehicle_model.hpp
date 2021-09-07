@@ -57,8 +57,6 @@ enum class HighwayType : uint32_t
   HighwaySecondaryLink = 176,
   RouteFerry = 259,
   HighwayTertiaryLink = 272,
-  RouteFerryMotorcar = 988,
-  RouteFerryMotorVehicle = 993,
   RailwayRailMotorVehicle = 994,
   RouteShuttleTrain = 1054,
 };
@@ -322,6 +320,8 @@ protected:
   /// Used in derived class constructors only. Not for public use.
   void SetAdditionalRoadTypes(Classificator const & c,
                               std::vector<AdditionalRoadTags> const & additionalTags);
+
+  static uint32_t PrepareToMatchType(uint32_t type);
 
   /// \returns true if |types| is a oneway feature.
   /// \note According to OSM, tag "oneway" could have value "-1". That means it's a oneway feature
