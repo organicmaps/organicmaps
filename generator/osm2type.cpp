@@ -235,6 +235,7 @@ public:
     BarrierGate,
     Toll,
     BicycleOnedir,
+    Ferry,
     Count
   };
 
@@ -267,7 +268,9 @@ public:
         {Type::WheelchairYes,      {"wheelchair", "yes"}},
         {Type::BarrierGate,        {"barrier", "gate"}},
         {Type::Toll,               {"hwtag", "toll"}},
-        {Type::BicycleOnedir,      {"hwtag", "onedir_bicycle"}}};
+        {Type::BicycleOnedir,      {"hwtag", "onedir_bicycle"}},
+        {Type::Ferry,              {"route", "ferry"}},
+    };
 
     m_types.resize(static_cast<size_t>(Type::Count));
     for (auto const & kv : kTypeToName)
@@ -285,7 +288,15 @@ public:
     return t == Get(Type::Highway);
   }
 
-  bool IsRailwayStation(uint32_t t) const { return t == Get(Type::RailwayStation); }
+  bool IsFerry(uint32_t t) const
+  {
+    return t == Get(Type::Ferry);
+  }
+
+  bool IsRailwayStation(uint32_t t) const
+  {
+    return t == Get(Type::RailwayStation);
+  }
 
   bool IsSubwayStation(uint32_t t) const
   {
@@ -725,12 +736,15 @@ void PostprocessElement(OsmElement * p, FeatureBuilderParams & params)
   bool highwayDone = false;
   bool subwayDone = false;
   bool railwayDone = false;
+  bool ferryDone = false;
 
   bool addOneway = false;
   bool noOneway = false;
+  bool yesMotorFerry = false;
 
   // Get a copy of source types, because we will modify params in the loop;
   FeatureBuilderParams::Types const vTypes = params.m_types;
+
   for (size_t i = 0; i < vTypes.size(); ++i)
   {
     if (!highwayDone && types.IsHighway(vTypes[i]))
@@ -785,6 +799,23 @@ void PostprocessElement(OsmElement * p, FeatureBuilderParams & params)
         params.AddType(types.Get(CachedTypes::Type::OneWay));
 
       highwayDone = true;
+    }
+
+    if (!ferryDone && types.IsFerry(vTypes[i]))
+    {
+      TagProcessor(p).ApplyRules({
+          {"foot", "!", [&params] { params.AddType(types.Get(CachedTypes::Type::NoFoot)); }},
+          {"foot", "~", [&params] { params.AddType(types.Get(CachedTypes::Type::YesFoot)); }},
+          {"bicycle", "!", [&params] { params.AddType(types.Get(CachedTypes::Type::NoBicycle)); }},
+          {"bicycle", "~", [&params] { params.AddType(types.Get(CachedTypes::Type::YesBicycle)); }},
+          {"motor_vehicle", "yes", [&yesMotorFerry] { yesMotorFerry = true; }},
+          {"motorcar", "yes", [&yesMotorFerry] { yesMotorFerry = true; }},
+      });
+
+      // For car routing 'motorcar' tag should be explicitly defined.
+      params.AddType(types.Get(yesMotorFerry ? CachedTypes::Type::YesCar : CachedTypes::Type::NoCar));
+
+      ferryDone = true;
     }
 
     /// @todo Probably, we can delete this processing because cities

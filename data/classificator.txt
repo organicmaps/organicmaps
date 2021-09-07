@@ -832,10 +832,7 @@ world  +
         toxic  -
         {}
     route  +
-        ferry  +
-            motor_vehicle  -
-            motorcar  -
-            {}
+        ferry  -
         shuttle_train  -
         {}
     shop  +

@@ -527,31 +527,44 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_Ferry)
 {
   routing::CarModel const & carModel = routing::CarModel::AllLimitsInstance();
 
-  Tags const tags = {
-    { "motorcar", "yes" },
-    { "highway", "primary" },
-    { "bridge", "yes" },
-    { "route", "ferry" },
-  };
+  {
+    Tags const tags = {
+      { "route", "ferry" },
+    };
 
-  auto const params = GetFeatureBuilderParams(tags);
+    auto const params = GetFeatureBuilderParams(tags);
 
-  TEST_EQUAL(params.m_types.size(), 3, (params));
+    TEST_EQUAL(params.m_types.size(), 2, (params));
 
-  uint32_t type = GetType({"highway", "primary", "bridge"});
-  TEST(params.IsTypeExist(type), ());
-  TEST(carModel.IsRoadType(type), ());
+    uint32_t type = GetType({"route", "ferry"});
+    TEST(params.IsTypeExist(type), (params));
+    TEST(carModel.IsRoadType(type), ());
 
-  type = GetType({"route", "ferry", "motorcar"});
-  TEST(params.IsTypeExist(type), (params));
-  TEST(carModel.IsRoadType(type), ());
+    type = GetType({"hwtag", "nocar"});
+    TEST(params.IsTypeExist(type), ());
+  }
 
-  type = GetType({"route", "ferry"});
-  TEST(!params.IsTypeExist(type), ());
-  TEST(carModel.IsRoadType(type), ());
+  {
+    Tags const tags = {
+      { "foot", "no" },
+      { "motorcar", "yes" },
+      { "route", "ferry" },
+    };
 
-  type = GetType({"hwtag", "yescar"});
-  TEST(params.IsTypeExist(type), ());
+    auto const params = GetFeatureBuilderParams(tags);
+
+    TEST_EQUAL(params.m_types.size(), 3, (params));
+
+    uint32_t type = GetType({"route", "ferry"});
+    TEST(params.IsTypeExist(type), (params));
+    TEST(carModel.IsRoadType(type), ());
+
+    type = GetType({"hwtag", "yescar"});
+    TEST(params.IsTypeExist(type), ());
+
+    type = GetType({"hwtag", "nofoot"});
+    TEST(params.IsTypeExist(type), ());
+  }
 }
 
 UNIT_CLASS_TEST(TestWithClassificator, OsmType_YesCarNoCar)
@@ -1218,7 +1231,7 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_CuisineType)
 
 UNIT_CLASS_TEST(TestWithClassificator, OsmType_SimpleTypesSmoke)
 {
-  Tags const simpleTypes = {
+  Tags const oneTypes = {
     // Filtered out by MatchTypes filter because have no styles.
     // {"aeroway", "apron"},
     // {"area:highway", "cycleway"},
@@ -1679,7 +1692,6 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_SimpleTypesSmoke)
     {"railway", "tram"},
     {"railway", "tram_stop"},
     {"railway", "yard"},
-    {"route", "ferry"},
     {"route", "shuttle_train"},
     {"shop", "alcohol"},
     {"shop", "bakery"},
@@ -1826,11 +1838,22 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_SimpleTypesSmoke)
     {"wheelchair", "yes"},
   };
 
-  for (auto const & type : simpleTypes)
+  for (auto const & type : oneTypes)
   {
-     auto const params = GetFeatureBuilderParams({type});
-     TEST_EQUAL(params.m_types.size(), 1, (type, params));
-     TEST(params.IsTypeExist(classif().GetTypeByPath({type.m_key, type.m_value})), (type, params));
+    auto const params = GetFeatureBuilderParams({type});
+    TEST_EQUAL(params.m_types.size(), 1, (type, params));
+    TEST(params.IsTypeExist(classif().GetTypeByPath({type.m_key, type.m_value})), (type, params));
+  }
+
+  Tags const exTypes = {
+      {"route", "ferry"},
+  };
+
+  for (auto const & type : exTypes)
+  {
+    auto const params = GetFeatureBuilderParams({type});
+    TEST_GREATER(params.m_types.size(), 1, (type, params));
+    TEST(params.IsTypeExist(classif().GetTypeByPath({type.m_key, type.m_value})), (type, params));
   }
 }
 
@@ -2129,8 +2152,6 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_ComplexTypesSmoke)
     {{"railway", "tram", "tunnel"}, {{"railway", "tram"}, {"tunnel", "any_value"}}},
     {{"railway", "yard", "bridge"}, {{"railway", "yard"}, {"bridge", "any_value"}}},
     {{"railway", "yard", "tunnel"}, {{"railway", "yard"}, {"tunnel", "any_value"}}},
-    {{"route", "ferry", "motor_vehicle"}, {{"route", "ferry"}, {"motor_vehicle", "any_value"}}},
-    {{"route", "ferry", "motorcar"}, {{"route", "ferry"}, {"motorcar", "any_value"}}},
     {{"shop", "car_repair", "tyres"}, {{"shop", "car_repair"}, {"service", "tyres"}}},
     {{"shop", "clothes"}, {{"shop", "clothes"}}},
     {{"shop", "clothes"}, {{"shop", "fashion"}}},

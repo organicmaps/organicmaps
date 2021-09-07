@@ -120,6 +120,7 @@ void SingleVehicleWorldGraph::GetEdgeList(
   auto & indexGraph = GetIndexGraph(parent.GetMwmId());
   indexGraph.GetEdgeList(parentVertexData, parent, isOutgoing, jointEdges, parentWeights, parents);
 
+  // Comment this call to debug routing on single generated mwm.
   if (m_mode != WorldGraphMode::JointSingleMwm)
     CheckAndProcessTransitFeatures(parent, jointEdges, parentWeights, isOutgoing);
 }

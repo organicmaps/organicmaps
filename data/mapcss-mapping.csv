@@ -984,12 +984,12 @@ internet_access|wlan;985;
 amenity|waste_disposal;986;
 amenity|bbq;987;
 deprecated|deprecated;988;x
-route|ferry|motorcar;[route=ferry][motorcar];;name;int_name;989;
+route|ferry|motorcar;[route=ferry][motorcar];x;name;int_name;989;route|ferry
 junction|roundabout;990;
 highway|speed_camera;991;
 shop|beauty;992;
 shop|sports;993;
-route|ferry|motor_vehicle;[route=ferry][motor_vehicle];;name;int_name;994;
+route|ferry|motor_vehicle;[route=ferry][motor_vehicle];x;name;int_name;994;route|ferry
 railway|rail|motor_vehicle;[railway=rail][motor_vehicle];;name;int_name;995;
 hwtag|nofoot;996;
 place|city|capital|2;[place=city][capital=2],[place=city][capital?][admin_level=2];;name;int_name;997;
