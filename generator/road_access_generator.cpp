@@ -103,11 +103,12 @@ TagMapping const kCarBarriersTagMapping = {
     {OsmElement::Tag("barrier", "block"), RoadAccess::Type::No},
     {OsmElement::Tag("barrier", "bollard"), RoadAccess::Type::No},
     {OsmElement::Tag("barrier", "cycle_barrier"), RoadAccess::Type::No},
+    {OsmElement::Tag("barrier", "chain"), RoadAccess::Type::Private},
     {OsmElement::Tag("barrier", "gate"), RoadAccess::Type::Private},
     {OsmElement::Tag("barrier", "lift_gate"), RoadAccess::Type::Private},
+    {OsmElement::Tag("barrier", "swing_gate"), RoadAccess::Type::Private},
+
     // TODO (@gmoryes) The types below should be added.
-    //  {OsmElement::Tag("barrier", "chain"), RoadAccess::Type::No},
-    //  {OsmElement::Tag("barrier", "swing_gate"), RoadAccess::Type::Private}
     //  {OsmElement::Tag("barrier", "log"), RoadAccess::Type::No},
     //  {OsmElement::Tag("barrier", "motorcycle_barrier"), RoadAccess::Type::No},
 };
@@ -396,7 +397,7 @@ string GetVehicleTypeForAccessConditional(string const & accessConditionalTag)
 {
   auto const pos = accessConditionalTag.find(":");
   CHECK_NOT_EQUAL(pos, string::npos, (accessConditionalTag));
-  
+
   string result(accessConditionalTag.begin(), accessConditionalTag.begin() + pos);
   return result;
 }
