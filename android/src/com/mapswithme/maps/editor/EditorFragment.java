@@ -497,6 +497,7 @@ public class EditorFragment extends BaseMwmFragment implements View.OnClickListe
     case R.id.phone:
     case R.id.edit_phone:
       mParent.editPhone();
+      break;
     case R.id.block_wifi:
       mWifi.toggle();
       break;
