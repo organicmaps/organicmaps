@@ -40,8 +40,7 @@ SearchPanel::SearchPanel(DrawWidget * drawWidget, QWidget * parent)
   , m_timestamp(0)
 {
   m_pEditor = new QLineEdit(this);
-  connect(m_pEditor, SIGNAL(textChanged(QString const &)),
-          this, SLOT(OnSearchTextChanged(QString const &)));
+  connect(m_pEditor, &QLineEdit::textChanged, this, &SearchPanel::OnSearchTextChanged);
 
   m_pTable = new QTableWidget(0, 4 /*columns*/, this);
   m_pTable->setFocusPolicy(Qt::NoFocus);
@@ -52,14 +51,14 @@ SearchPanel::SearchPanel(DrawWidget * drawWidget, QWidget * parent)
   m_pTable->horizontalHeader()->setVisible(false);
   m_pTable->horizontalHeader()->setSectionResizeMode(QHeaderView::ResizeToContents);
 
-  connect(m_pTable, SIGNAL(cellClicked(int, int)), this, SLOT(OnSearchPanelItemClicked(int,int)));
+  connect(m_pTable, &QTableWidget::cellClicked, this, &SearchPanel::OnSearchPanelItemClicked);
 
   m_pClearButton = new QPushButton(this);
-  connect(m_pClearButton, SIGNAL(pressed()), this, SLOT(OnClearButton()));
+  connect(m_pClearButton, &QAbstractButton::pressed, this, &SearchPanel::OnClearButton);
   m_pClearButton->setVisible(false);
   m_pClearButton->setFocusPolicy(Qt::NoFocus);
   m_pAnimationTimer = new QTimer(this);
-  connect(m_pAnimationTimer, SIGNAL(timeout()), this, SLOT(OnAnimationTimer()));
+  connect(m_pAnimationTimer, &QTimer::timeout, this, &SearchPanel::OnAnimationTimer);
 
   m_pSearchModeButtons = new QButtonGroup(this);
   QGroupBox * groupBox = new QGroupBox();
@@ -143,14 +142,14 @@ void SearchPanel::OnEverywhereSearchResults(uint64_t timestamp, search::Results 
     for (size_t r = 0; r < res.GetHighlightRangesCount(); ++r)
     {
       std::pair<uint16_t, uint16_t> const & range = res.GetHighlightRange(r);
-      strHigh.append(name.mid(pos, range.first - pos));
+      strHigh.append(name.midRef(pos, range.first - pos));
       strHigh.append("<font color=\"green\">");
-      strHigh.append(name.mid(range.first, range.second));
+      strHigh.append(name.midRef(range.first, range.second));
       strHigh.append("</font>");
 
       pos = range.first + range.second;
     }
-    strHigh.append(name.mid(pos));
+    strHigh.append(name.midRef(pos));
 
     int const rowCount = m_pTable->rowCount();
     m_pTable->insertRow(rowCount);

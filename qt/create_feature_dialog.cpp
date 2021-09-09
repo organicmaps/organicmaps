@@ -4,6 +4,7 @@
 
 #include "editor/new_feature_categories.hpp"
 
+#include <QtWidgets/QAbstractButton>
 #include <QtWidgets/QDialogButtonBox>
 #include <QtWidgets/QListWidget>
 #include <QtWidgets/QVBoxLayout>
@@ -21,12 +22,11 @@ CreateFeatureDialog::CreateFeatureDialog(QWidget * parent, osm::NewFeatureCatego
   {
     new QListWidgetItem(name.c_str() /* name */, allSortedList);
   }
-  connect(allSortedList, SIGNAL(clicked(QModelIndex const &)), this,
-          SLOT(OnListItemSelected(QModelIndex const &)));
+  connect(allSortedList, &QAbstractItemView::clicked, this, &CreateFeatureDialog::OnListItemSelected);
 
   QDialogButtonBox * dbb = new QDialogButtonBox();
   dbb->addButton(QDialogButtonBox::Close);
-  connect(dbb, SIGNAL(clicked(QAbstractButton *)), this, SLOT(reject()));
+  connect(dbb, &QDialogButtonBox::clicked, this, &QDialog::reject);
 
   QVBoxLayout * vBox = new QVBoxLayout();
   vBox->addWidget(allSortedList);

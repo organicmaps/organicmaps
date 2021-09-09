@@ -198,7 +198,7 @@ EdgeIdToFeatureId BuildTransit(std::string const & mwmDir, CountryId const & cou
 
   // Transit graph numerates features according to their orderto their order..
   EdgeIdToFeatureId edgeToFeature;
-  for (size_t i = 0; i < data.GetEdges().size(); ++i)
+  for (uint32_t i = 0; i < data.GetEdges().size(); ++i)
   {
     auto const & e = data.GetEdges()[i];
     EdgeId id(e.GetStop1Id(), e.GetStop2Id(), e.GetLineId());

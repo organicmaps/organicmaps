@@ -31,15 +31,15 @@ namespace qt
 
     // this horizontal layout is for buttons
     QHBoxLayout * hBox = new QHBoxLayout();
-    hBox->addSpacing(browser->width() / 4 * (3.5 - buttons.size()));
+    hBox->addSpacing(static_cast<int>(browser->width() / 4 * (3.5 - buttons.size())));
     for (int i = 0; i < buttons.size(); ++i)
     {
       QPushButton * button = new QPushButton(buttons[i], this);
       switch (i)
       {
-      case 0: connect(button, SIGNAL(clicked()), this, SLOT(OnButtonClick1())); break;
-      case 1: connect(button, SIGNAL(clicked()), this, SLOT(OnButtonClick2())); break;
-      case 2: connect(button, SIGNAL(clicked()), this, SLOT(OnButtonClick3())); break;
+      case 0: connect(button, &QAbstractButton::clicked, this, &InfoDialog::OnButtonClick1); break;
+      case 1: connect(button, &QAbstractButton::clicked, this, &InfoDialog::OnButtonClick2); break;
+      case 2: connect(button, &QAbstractButton::clicked, this, &InfoDialog::OnButtonClick3); break;
       default:
         ASSERT(false, ("Only 3 buttons are currently supported in info dialog"));
       }

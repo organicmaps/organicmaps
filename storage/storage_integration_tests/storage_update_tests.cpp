@@ -30,12 +30,16 @@ static FrameworkParams const kFrameworkParams(false /* m_enableDiffs */);
 string const kCountriesTxtFile = COUNTRIES_FILE;
 
 string const kMwmVersion1 = "190830";
-size_t const kCountriesTxtFileSize1 = 420632;
+//size_t const kCountriesTxtFileSize1 = 420632;
 
 string const kMwmVersion2 = "190910";
-size_t const kCountriesTxtFileSize2 = 420634;
+//size_t const kCountriesTxtFileSize2 = 420634;
 
 string const kGroupCountryId = "Belarus";
+
+// TODO: Remove after uncommenting tests below.
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wunused-function"
 
 bool DownloadFile(string const & url,
                   string const & filePath,
@@ -192,3 +196,5 @@ UNIT_TEST(SmallMwms_Update_Test)
   }
 }
 */
+
+#pragma GCC diagnostic pop

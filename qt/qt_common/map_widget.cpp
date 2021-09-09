@@ -34,7 +34,7 @@ MapWidget::MapWidget(Framework & framework, bool apiOpenGLES3, bool isScreenshot
   , m_screenshotMode(isScreenshotMode)
   , m_slider(nullptr)
   , m_sliderState(SliderState::Released)
-  , m_ratio(1.0)
+  , m_ratio(1.0f)
   , m_contextFactory(nullptr)
 {
   setMouseTracking(true);
@@ -81,9 +81,9 @@ void MapWidget::BindSlider(ScaleSlider & slider)
 {
   m_slider = &slider;
 
-  connect(m_slider, SIGNAL(actionTriggered(int)), this, SLOT(ScaleChanged(int)));
-  connect(m_slider, SIGNAL(sliderPressed()), this, SLOT(SliderPressed()));
-  connect(m_slider, SIGNAL(sliderReleased()), this, SLOT(SliderReleased()));
+  connect(m_slider, &QAbstractSlider::actionTriggered, this, &MapWidget::ScaleChanged);
+  connect(m_slider, &QAbstractSlider::sliderPressed, this, &MapWidget::SliderPressed);
+  connect(m_slider, &QAbstractSlider::sliderReleased, this, &MapWidget::SliderReleased);
 }
 
 void MapWidget::CreateEngine()
@@ -361,8 +361,8 @@ void MapWidget::paintGL()
 
 void MapWidget::resizeGL(int width, int height)
 {
-  float w = m_screenshotMode ? width : static_cast<float>(m_ratio * width);
-  float h = m_screenshotMode ? height : static_cast<float>(m_ratio * height);
+  int const w = m_screenshotMode ? width : m_ratio * width;
+  int const h = m_screenshotMode ? height : m_ratio * height;
   m_framework.OnSize(w, h);
   m_framework.SetVisibleViewport(m2::RectD(0, 0, w, h));
   if (m_skin)

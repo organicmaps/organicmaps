@@ -165,8 +165,8 @@ EditorDialog::EditorDialog(QWidget * parent, osm::EditableMapObject & emo)
   {  // Dialog buttons.
     QDialogButtonBox * buttonBox =
         new QDialogButtonBox(QDialogButtonBox::Cancel | QDialogButtonBox::Save);
-    connect(buttonBox, SIGNAL(accepted()), this, SLOT(OnSave()));
-    connect(buttonBox, SIGNAL(rejected()), this, SLOT(reject()));
+    connect(buttonBox, &QDialogButtonBox::accepted, this, &EditorDialog::OnSave);
+    connect(buttonBox, &QDialogButtonBox::rejected, this, &QDialog::reject);
     // Delete button should send custom int return value from dialog.
     QPushButton * deletePOIButton = new QPushButton("Delete POI");
     QSignalMapper * signalMapper = new QSignalMapper();

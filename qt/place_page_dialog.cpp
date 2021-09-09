@@ -173,13 +173,13 @@ PlacePageDialog::PlacePageDialog(QWidget * parent, place_page::Info const & info
   QDialogButtonBox * dbb = new QDialogButtonBox();
   QPushButton * closeButton = new QPushButton("Close");
   closeButton->setDefault(true);
-  connect(closeButton, SIGNAL(clicked()), this, SLOT(OnClose()));
+  connect(closeButton, &QAbstractButton::clicked, this, &PlacePageDialog::OnClose);
   dbb->addButton(closeButton, QDialogButtonBox::RejectRole);
 
   if (info.ShouldShowEditPlace())
   {
     QPushButton * editButton = new QPushButton("Edit Place");
-    connect(editButton, SIGNAL(clicked()), this, SLOT(OnEdit()));
+    connect(editButton, &QAbstractButton::clicked, this, &PlacePageDialog::OnEdit);
     dbb->addButton(editButton, QDialogButtonBox::AcceptRole);
   }
   grid->addWidget(dbb);

@@ -55,7 +55,9 @@ namespace qt
       }
       m_pUnits->button(static_cast<int>(u))->setChecked(true);
 
-      connect(m_pUnits, SIGNAL(buttonClicked(int)), this, SLOT(OnUnitsChanged(int)));
+      // Temporary to pass the address of overloaded function.
+      void (QButtonGroup::* buttonClicked)(int) = &QButtonGroup::buttonClicked;
+      connect(m_pUnits, buttonClicked, this, &PreferencesDialog::OnUnitsChanged);
     }
 
   #ifdef BUILD_DESIGNER
@@ -67,7 +69,7 @@ namespace qt
         settings::Set(kEnabledAutoRegenGeomIndex, false);
       }
       checkBox->setChecked(enabled);
-      connect(checkBox, SIGNAL(stateChanged(int)), this, SLOT(OnEnabledAutoRegenGeomIndex(int)));
+      connect(checkBox, &QCheckBox::stateChanged, this, &PreferencesDialog::OnEnabledAutoRegenGeomIndex);
     }
   #endif
 
@@ -76,7 +78,7 @@ namespace qt
       QPushButton * closeButton = new QPushButton(tr("Close"));
       closeButton->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
       closeButton->setDefault(true);
-      connect(closeButton, SIGNAL(clicked()), this, SLOT(OnCloseClick()));
+      connect(closeButton, &QAbstractButton::clicked, this, &PreferencesDialog::OnCloseClick);
 
       bottomLayout->addStretch(1);
       bottomLayout->setSpacing(0);
