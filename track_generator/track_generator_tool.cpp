@@ -7,7 +7,7 @@
 
 #include <string>
 
-#include "3party/gflags/src/gflags/gflags.h"
+#include "gflags/gflags.h"
 
 DEFINE_string(inputDir, "", "Path to kmls.");
 
@@ -20,7 +20,7 @@ DEFINE_bool(showHelp, false, "Show help on all flags.");
 
 int main(int argc, char ** argv)
 {
-  google::SetUsageMessage("The tool is used to generate more smooth track based on "
+  gflags::SetUsageMessage("The tool is used to generate more smooth track based on "
                           "waypoints from the kml. The kml has to contain points "
                           "within LineString tag. If the router can't build the route "
                           "than the specific path will be untouched. Multiple kmls into "
@@ -28,18 +28,18 @@ int main(int argc, char ** argv)
                           "Usage example: "
                           "./track_generator_tool -inputDir=path/to/input/ -outputDir=/path/to/output/");
 
-  google::ParseCommandLineFlags(&argc, &argv, false /* remove_flags */);
+  gflags::ParseCommandLineFlags(&argc, &argv, false /* remove_flags */);
 
   if (argc == 1 || FLAGS_showHelp)
   {
-    google::ShowUsageWithFlags(argv[0]);
+    gflags::ShowUsageWithFlags(argv[0]);
     return 0;
   }
 
   if (FLAGS_inputDir.empty() || FLAGS_outputDir.empty())
   {
     LOG(LINFO, (FLAGS_inputDir.empty() ? "Input" : "Output", "directory is required."));
-    google::ShowUsageWithFlags(argv[0]);
+    gflags::ShowUsageWithFlags(argv[0]);
     return 1;
   }
 

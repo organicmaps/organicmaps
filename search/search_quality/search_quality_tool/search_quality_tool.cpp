@@ -50,7 +50,7 @@
 #include <string>
 #include <vector>
 
-#include "3party/gflags/src/gflags/gflags.h"
+#include "gflags/gflags.h"
 
 using namespace search::search_quality;
 using namespace search::tests_support;
@@ -372,8 +372,8 @@ int main(int argc, char * argv[])
   platform::tests_support::ChangeMaxNumberOfOpenFiles(kMaxOpenFiles);
   CheckLocale();
 
-  google::SetUsageMessage("Search quality tests.");
-  google::ParseCommandLineFlags(&argc, &argv, true);
+  gflags::SetUsageMessage("Search quality tests.");
+  gflags::ParseCommandLineFlags(&argc, &argv, true);
 
   SetPlatformDirs(FLAGS_data_path, FLAGS_mwm_path);
 

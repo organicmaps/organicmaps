@@ -1,7 +1,5 @@
 project(routing_quality_tool)
 
-include_directories(${OMIM_ROOT}/3party/gflags/src)
-
 set(
   SRC
   benchmark_results.cpp
@@ -16,6 +14,7 @@ set(
 )
 
 omim_add_executable(${PROJECT_NAME} ${SRC})
+target_link_libraries(${PROJECT_NAME} gflags::gflags)
 
 omim_link_libraries(
   ${PROJECT_NAME}
@@ -42,7 +41,6 @@ omim_link_libraries(
   opening_hours
   oauthcpp
   protobuf
-  gflags
   ${LIBZ}
 )
 

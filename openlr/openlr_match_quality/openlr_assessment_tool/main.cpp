@@ -2,7 +2,7 @@
 
 #include "openlr/openlr_match_quality/openlr_assessment_tool/mainwindow.hpp"
 
-#include "3party/gflags/src/gflags/gflags.h"
+#include "gflags/gflags.h"
 
 #include <cstdio>
 
@@ -18,8 +18,8 @@ DEFINE_string(data_path, "", "Path to data directory");
 
 int main(int argc, char * argv[])
 {
-  google::SetUsageMessage("Visualize and check matched routes.");
-  google::ParseCommandLineFlags(&argc, &argv, true);
+  gflags::SetUsageMessage("Visualize and check matched routes.");
+  gflags::ParseCommandLineFlags(&argc, &argv, true);
 
   Platform & platform = GetPlatform();
   if (!FLAGS_resources_path.empty())

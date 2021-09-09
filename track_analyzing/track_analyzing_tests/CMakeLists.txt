@@ -35,7 +35,6 @@ omim_link_libraries(
   oauthcpp
   protobuf
   succinct
-  gflags
   ${LIBZ}
 )
 

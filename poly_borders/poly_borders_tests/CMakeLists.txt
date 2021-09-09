@@ -36,7 +36,6 @@ omim_link_libraries(
   protobuf
   succinct
   tess2
-  gflags
   oauthcpp
   sqlite3
   ${CMAKE_DL_LIBS}

@@ -1,114 +1,59 @@
-/* src/config.h.  Generated from config.h.in by configure.  */
-/* src/config.h.in.  Generated from configure.ac by autoheader.  */
+// Note: This header file is only used internally. It is not part of public interface!
 
-#ifdef _MSC_VER
-
-#include "windows/config.h"
-
-#else
-
-/* Always the empty-string on non-windows systems. On windows, should be
-   "__declspec(dllexport)". This way, when we compile the dll, we export our
-   functions/classes. It's safe to define this here because config.h is only
-   used internally, to compile the DLL, and every DLL source file #includes
-   "config.h" before anything else. */
-#define GFLAGS_DLL_DECL /**/
-
-/* Namespace for Google classes */
-#define GOOGLE_NAMESPACE ::google
-
-/* Define to 1 if you have the <dlfcn.h> header file. */
-#define HAVE_DLFCN_H 1
-
-/* Define to 1 if you have the <fnmatch.h> header file. */
-//#define HAVE_FNMATCH_H 1
-
-/* Define to 1 if you have the <inttypes.h> header file. */
-#define HAVE_INTTYPES_H 1
-
-/* Define to 1 if you have the <memory.h> header file. */
-#define HAVE_MEMORY_H 1
-
-/* define if the compiler implements namespaces */
-#define HAVE_NAMESPACES 1
-
-/* Define if you have POSIX threads libraries and header files. */
-#define HAVE_PTHREAD 1
-
-/* Define to 1 if you have the <stdint.h> header file. */
-#define HAVE_STDINT_H 1
-
-/* Define to 1 if you have the <stdlib.h> header file. */
-#define HAVE_STDLIB_H 1
-
-/* Define to 1 if you have the <strings.h> header file. */
-#define HAVE_STRINGS_H 1
-
-/* Define to 1 if you have the <string.h> header file. */
-#define HAVE_STRING_H 1
-
-/* Define to 1 if you have the `strtoll' function. */
-#define HAVE_STRTOLL 1
-
-/* Define to 1 if you have the `strtoq' function. */
-#define HAVE_STRTOQ 1
-
-/* Define to 1 if you have the <sys/stat.h> header file. */
-#define HAVE_SYS_STAT_H 1
-
-/* Define to 1 if you have the <sys/types.h> header file. */
-#define HAVE_SYS_TYPES_H 1
-
-/* Define to 1 if you have the <unistd.h> header file. */
-#define HAVE_UNISTD_H 1
-
-/* define if your compiler has __attribute__ */
-#define HAVE___ATTRIBUTE__ 1
-
-/* Define to the sub-directory in which libtool stores uninstalled libraries.
-   */
-#define LT_OBJDIR ".libs/"
-
-/* Name of package */
-#define PACKAGE "gflags"
-
-/* Define to the address where bug reports for this package should be sent. */
-#define PACKAGE_BUGREPORT "google-gflags@googlegroups.com"
-
-/* Define to the full name of this package. */
-#define PACKAGE_NAME "gflags"
-
-/* Define to the full name and version of this package. */
-#define PACKAGE_STRING "gflags 2.0"
-
-/* Define to the one symbol short name of this package. */
-#define PACKAGE_TARNAME "gflags"
-
-/* Define to the version of this package. */
-#define PACKAGE_VERSION "2.0"
-
-/* Define to necessary symbol if this constant uses a non-standard name on
-   your system. */
-/* #undef PTHREAD_CREATE_JOINABLE */
-
-/* Define to 1 if you have the ANSI C header files. */
-#define STDC_HEADERS 1
-
-/* the namespace where STL code like vector<> is defined */
-#define STL_NAMESPACE std
-
-/* Version number of package */
-#define VERSION "2.0"
-
-/* Stops putting the code inside the Google namespace */
-#define _END_GOOGLE_NAMESPACE_ }
-
-/* Puts following code inside the Google namespace */
-#define _START_GOOGLE_NAMESPACE_ namespace google {
+#ifndef GFLAGS_CONFIG_H_
+#define GFLAGS_CONFIG_H_
 
 
-#if defined( __MINGW32__) || defined(__MINGW64__)
-#include "windows/port.h"
+// ---------------------------------------------------------------------------
+// System checks
+
+// CMake build configuration is written to defines.h file, unused by Bazel build
+#if !defined(GFLAGS_BAZEL_BUILD)
+#  include "defines.h"
 #endif
 
-#endif // _MSC_VER
+// gcc requires this to get PRId64, etc.
+#if defined(HAVE_INTTYPES_H) && !defined(__STDC_FORMAT_MACROS)
+#  define __STDC_FORMAT_MACROS 1
+#endif
+
+// ---------------------------------------------------------------------------
+// Path separator
+#ifndef PATH_SEPARATOR
+#  ifdef OS_WINDOWS
+#    define PATH_SEPARATOR  '\\'
+#  else
+#    define PATH_SEPARATOR  '/'
+#  endif
+#endif
+
+// ---------------------------------------------------------------------------
+// Windows
+
+// Always export symbols when compiling a shared library as this file is only
+// included by internal modules when building the gflags library itself.
+// The gflags_declare.h header file will set it to import these symbols otherwise.
+#ifndef GFLAGS_DLL_DECL
+#  if GFLAGS_IS_A_DLL && defined(_MSC_VER)
+#    define GFLAGS_DLL_DECL __declspec(dllexport)
+#  elif defined(__GNUC__) && __GNUC__ >= 4
+#    define GFLAGS_DLL_DECL __attribute__((visibility("default")))
+#  else
+#    define GFLAGS_DLL_DECL
+#  endif
+#endif
+// Flags defined by the gflags library itself must be exported
+#ifndef GFLAGS_DLL_DEFINE_FLAG
+#  define GFLAGS_DLL_DEFINE_FLAG GFLAGS_DLL_DECL
+#endif
+
+#ifdef OS_WINDOWS
+// The unittests import the symbols of the shared gflags library
+#  if GFLAGS_IS_A_DLL && defined(_MSC_VER)
+#    define GFLAGS_DLL_DECL_FOR_UNITTESTS __declspec(dllimport)
+#  endif
+#  include "windows_port.h"
+#endif
+
+
+#endif // GFLAGS_CONFIG_H_

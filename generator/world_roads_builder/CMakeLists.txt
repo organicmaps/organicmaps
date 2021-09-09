@@ -1,7 +1,5 @@
 project(world_roads_builder)
 
-include_directories(${OMIM_ROOT}/3party/gflags/src)
-
 set(
   SRC
   world_roads_builder.cpp

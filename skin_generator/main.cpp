@@ -11,7 +11,7 @@
 #include <QtXml/QXmlSimpleReader>
 #include <QtXml/QXmlInputSource>
 
-#include "3party/gflags/src/gflags/gflags.h"
+#include "gflags/gflags.h"
 
 DEFINE_string(fontFileName, "../../data/01_dejavusans.ttf", "path to TrueType font file");
 DEFINE_string(symbolsFile, "../../data/results.unicode", "file with 2bytes symbols for which the skin should be generated");
@@ -37,7 +37,7 @@ int main(int argc, char *argv[])
 #endif
   try
   {
-    google::ParseCommandLineFlags(&argc, &argv, true);
+    gflags::ParseCommandLineFlags(&argc, &argv, true);
     QApplication app(argc, argv);
 
     tools::SkinGenerator gen;

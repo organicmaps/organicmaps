@@ -4,7 +4,6 @@ set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTOUIC ON)
 
 include_directories(
-  ${OMIM_ROOT}/3party/gflags/src
   ${OMIM_ROOT}/3party/glm
   ${CMAKE_CURRENT_BINARY_DIR}
 )
@@ -29,6 +28,7 @@ set(
 )
 
 omim_add_executable(${PROJECT_NAME} MACOSX_BUNDLE ${SRC})
+target_link_libraries(${PROJECT_NAME} gflags::gflags)
 
 omim_link_libraries(
   ${PROJECT_NAME}
@@ -60,7 +60,6 @@ omim_link_libraries(
   freetype
   icu
   agg
-  gflags
   jansson
   minizip
   oauthcpp

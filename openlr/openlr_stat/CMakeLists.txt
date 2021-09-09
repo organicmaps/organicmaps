@@ -1,13 +1,12 @@
 project(openlr_stat)
 
-include_directories(${OMIM_ROOT}/3party/gflags/src)
-
 set(
   SRC
   openlr_stat.cpp
 )
 
 omim_add_executable(${PROJECT_NAME} ${SRC})
+target_link_libraries(${PROJECT_NAME} gflags::gflags)
 omim_link_libraries(${PROJECT_NAME}
   openlr
   routing
@@ -21,7 +20,6 @@ omim_link_libraries(${PROJECT_NAME}
   geometry
   coding
   base
-  gflags
   icu
   jansson
   oauthcpp

@@ -1,10 +1,9 @@
 project(poly_borders_tool)
 
-include_directories(${OMIM_ROOT}/3party/gflags/src)
-
 set(SRC poly_borders_tool.cpp)
 
 omim_add_executable(${PROJECT_NAME} ${SRC})
+target_link_libraries(${PROJECT_NAME} gflags::gflags)
 
 omim_link_libraries(
   ${PROJECT_NAME}
@@ -31,7 +30,6 @@ omim_link_libraries(
   protobuf
   succinct
   tess2
-  gflags
   oauthcpp
   sqlite3
   ${CMAKE_DL_LIBS}

@@ -18,7 +18,7 @@
 #include <cstdlib>
 #include <sstream>
 
-#include "3party/gflags/src/gflags/gflags.h"
+#include "gflags/gflags.h"
 
 #include <QtCore/QDir>
 #include <QtWidgets/QMessageBox>
@@ -71,7 +71,7 @@ bool ValidateLogAbortLevel(char const * flagname, string const & value)
 }
 
 bool const g_logAbortLevelDummy =
-    google::RegisterFlagValidator(&FLAGS_log_abort_level, &ValidateLogAbortLevel);
+    gflags::RegisterFlagValidator(&FLAGS_log_abort_level, &ValidateLogAbortLevel);
 
 class FinalizeBase
 {
@@ -110,8 +110,8 @@ public:
 
 int main(int argc, char * argv[])
 {
-  google::SetUsageMessage("Desktop application.");
-  google::ParseCommandLineFlags(&argc, &argv, true);
+  gflags::SetUsageMessage("Desktop application.");
+  gflags::ParseCommandLineFlags(&argc, &argv, true);
 
   Platform & platform = GetPlatform();
   if (!FLAGS_resources_path.empty())

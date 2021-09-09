@@ -5,7 +5,7 @@
 
 #include <iostream>
 
-#include "3party/gflags/src/gflags/gflags.h"
+#include "gflags/gflags.h"
 
 using namespace std;
 
@@ -18,14 +18,14 @@ int main(int argc, char ** argv)
 {
   classificator::Load();
 
-  google::SetUsageMessage("MWM benchmarking tool");
+  gflags::SetUsageMessage("MWM benchmarking tool");
   if (argc < 2)
   {
-    google::ShowUsageWithFlagsRestrict(argv[0], "main");
+    gflags::ShowUsageWithFlagsRestrict(argv[0], "main");
     return 0;
   }
 
-  google::ParseCommandLineFlags(&argc, &argv, false);
+  gflags::ParseCommandLineFlags(&argc, &argv, false);
 
   if (FLAGS_print_scales)
   {

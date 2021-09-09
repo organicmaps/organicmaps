@@ -1,18 +1,16 @@
 project(world_roads_builder_tool)
 
-include_directories(${OMIM_ROOT}/3party/gflags/src)
-
 set(
  SRC
  world_roads_builder_tool.cpp
 )
 
 omim_add_executable(${PROJECT_NAME} ${SRC})
+target_link_libraries(${PROJECT_NAME} gflags::gflags)
 
 omim_link_libraries(
   ${PROJECT_NAME}
   world_roads_builder
-  gflags
 )
 
 if (PLATFORM_MAC)

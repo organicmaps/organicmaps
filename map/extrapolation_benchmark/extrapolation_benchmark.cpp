@@ -22,8 +22,8 @@
 #include <utility>
 #include <vector>
 
-#include "3party/gflags/src/gflags/gflags.h"
-#include "3party/gflags/src/gflags/gflags_declare.h"
+#include "gflags/gflags.h"
+#include "gflags/gflags_declare.h"
 
 // This tool is written to estimate quality of location extrapolation. To launch the benchmark
 // you need tracks in csv file with the format described below. To generate the csv file
@@ -179,11 +179,11 @@ void GpsPointToGpsInfo(GpsPoint const gpsPoint, GpsInfo & gpsInfo)
 /// real track.
 int main(int argc, char * argv[])
 {
-  google::SetUsageMessage(
+  gflags::SetUsageMessage(
       "Location extrapolation benchmark. Cumulative moving average, variance and standard "
       "deviation for all extrapolation deviations from tracks passed in comma separated csv with "
       "csv_path.");
-  google::ParseCommandLineFlags(&argc, &argv, true);
+  gflags::ParseCommandLineFlags(&argc, &argv, true);
 
   if (FLAGS_csv_path.empty())
   {

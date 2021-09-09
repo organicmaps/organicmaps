@@ -3,7 +3,7 @@
 #include "base/assert.hpp"
 #include "base/logging.hpp"
 
-#include "3party/gflags/src/gflags/gflags.h"
+#include "gflags/gflags.h"
 
 #include <cstdlib>
 
@@ -55,7 +55,7 @@ using namespace topography_generator;
 
 int main(int argc, char ** argv)
 {
-  google::SetUsageMessage(
+  gflags::SetUsageMessage(
     "\n\nThis tool generates isolines and works in the following modes:\n"
     "1. Automatic isolines generating mode. Generates a binary file with isolines for each\n"
     "   country id from the countries_to_generate_path. Gets options for isolines generating\n"
@@ -82,7 +82,7 @@ int main(int argc, char ** argv)
     "   Isolines cropped by the country regions and cut by max_length parameter.\n"
     "   Isolines simplification activates by nonzero simpl_zoom [1..17]\n\n");
 
-  google::ParseCommandLineFlags(&argc, &argv, true);
+  gflags::ParseCommandLineFlags(&argc, &argv, true);
 
   bool isCustomGeneratingMode = false;
   bool isCustomPackingMode = false;

@@ -1,7 +1,6 @@
 project(generator)
 
 include_directories(
-  ${OMIM_ROOT}/3party/gflags/src
   ${OMIM_ROOT}/3party/jansson/src
 )
 

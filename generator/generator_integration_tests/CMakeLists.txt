@@ -43,7 +43,6 @@ omim_link_libraries(
   succinct
   pugixml
   tess2
-  gflags
   oauthcpp
   opening_hours
   stb_image

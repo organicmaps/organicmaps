@@ -9,7 +9,7 @@
 
 #include <exception>
 
-#include "3party/gflags/src/gflags/gflags.h"
+#include "gflags/gflags.h"
 
 DEFINE_string(borders_path, "", "Path to directory with *.poly files.");
 DEFINE_string(output_path, "", "Path to target directory where the output *.poly files will be placed.");
@@ -18,8 +18,8 @@ using namespace poly_borders;
 
 int main(int argc, char ** argv)
 {
-  google::ParseCommandLineFlags(&argc, &argv, true);
-  google::SetUsageMessage("\n\n\tThe tool is used to process *.poly borders files. We use such files\n"
+  gflags::ParseCommandLineFlags(&argc, &argv, true);
+  gflags::SetUsageMessage("\n\n\tThe tool is used to process *.poly borders files. We use such files\n"
                           "\tto cut the planet into mwms in generator. The problem is that we have\n"
                           "\tempty spaces between neighbouring borders. This tool creates new borders\n"
                           "\tbased on input data by removing points from borders in such a way that the\n"
@@ -30,7 +30,7 @@ int main(int argc, char ** argv)
 
   if (FLAGS_borders_path.empty() || FLAGS_output_path.empty())
   {
-    google::ShowUsageWithFlags("poly_borders_postprocessor");
+    gflags::ShowUsageWithFlags("poly_borders_postprocessor");
     return 0;
   }
 

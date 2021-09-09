@@ -16,7 +16,7 @@
 #include <map>
 #include <string>
 
-#include "3party/gflags/src/gflags/gflags.h"
+#include "gflags/gflags.h"
 
 using namespace routing;
 using namespace std;
@@ -177,9 +177,9 @@ void ReadInput(istream & stream, RouteTester & tester)
 
 int main(int argc, char ** argv)
 {
-  google::SetUsageMessage("Check mwm and routing files consistency. Calculating roads from a user statistics.");
+  gflags::SetUsageMessage("Check mwm and routing files consistency. Calculating roads from a user statistics.");
 
-  google::ParseCommandLineFlags(&argc, &argv, true);
+  gflags::ParseCommandLineFlags(&argc, &argv, true);
 
   g_options.m_dataPath = FLAGS_data_path.c_str();
   g_options.m_resourcePath = FLAGS_user_resource_path.c_str();
