@@ -9497,7 +9497,7 @@
     ru = Круглосуточно
     bg = 24 часа
     ar = ليلا ونهارا
-    cs = Den a noc
+    cs = Nonstop
     da = Dag og nat
     nl = Nacht en dag
     fi = Päivin ja öin
