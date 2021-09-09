@@ -1,7 +1,5 @@
 project(generator_tool)
 
-include_directories(${OMIM_ROOT}/3party/gflags/src)
-
 set(SRC generator_tool.cpp)
 
 if (BUILD_DESIGNER)
@@ -9,6 +7,7 @@ if (BUILD_DESIGNER)
 endif()
 
 omim_add_executable(${PROJECT_NAME} ${SRC})
+target_link_libraries(${PROJECT_NAME} gflags::gflags)
 
 omim_link_libraries(
   ${PROJECT_NAME}
@@ -38,7 +37,6 @@ omim_link_libraries(
   succinct
   pugixml
   tess2
-  gflags
   oauthcpp
   sqlite3
   ${CMAKE_DL_LIBS}

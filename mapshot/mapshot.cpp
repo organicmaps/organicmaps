@@ -16,7 +16,7 @@
 #include <iostream>
 #include <string>
 
-#include "3party/gflags/src/gflags/gflags.h"
+#include "gflags/gflags.h"
 
 #pragma mark Define options
 //----------------------------------------------------------------------------------------
@@ -173,9 +173,9 @@ void RenderPlace(Framework & framework, Place const & place, string const & file
 
 int main(int argc, char * argv[])
 {
-  google::SetUsageMessage(
+  gflags::SetUsageMessage(
       "Generate screenshots of OMaps maps in chosen places, specified by coordinates and zoom.");
-  google::ParseCommandLineFlags(&argc, &argv, true);
+  gflags::ParseCommandLineFlags(&argc, &argv, true);
 
   if (!FLAGS_c && FLAGS_place.empty())
   {

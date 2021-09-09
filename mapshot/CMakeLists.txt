@@ -1,9 +1,7 @@
 project(mapshot_tool)
 
 include_directories(
-  .
   ${OMIM_ROOT}/3party/glm
-  ${OMIM_ROOT}/3party/gflags/src
 )
 
 set(
@@ -12,6 +10,7 @@ set(
 )
 
 omim_add_executable(${PROJECT_NAME} ${SRC})
+target_link_libraries(${PROJECT_NAME} gflags::gflags)
 
 omim_link_libraries(
   ${PROJECT_NAME}
@@ -40,7 +39,6 @@ omim_link_libraries(
   base
   freetype
   expat
-  gflags
   icu
   agg
   jansson

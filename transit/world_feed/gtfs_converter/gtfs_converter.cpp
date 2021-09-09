@@ -11,7 +11,7 @@
 #include "base/logging.hpp"
 #include "base/timer.hpp"
 
-#include "3party/gflags/src/gflags/gflags.h"
+#include "gflags/gflags.h"
 
 DEFINE_string(
     path_mapping, "",
@@ -269,21 +269,21 @@ bool ConvertSubway(transit::IdGenerator & generator, transit::IdGenerator & gene
 
 int main(int argc, char ** argv)
 {
-  google::SetUsageMessage("Reads GTFS feeds or subway transit.json, produces json with global ids for generator.");
-  google::ParseCommandLineFlags(&argc, &argv, true);
+  gflags::SetUsageMessage("Reads GTFS feeds or subway transit.json, produces json with global ids for generator.");
+  gflags::ParseCommandLineFlags(&argc, &argv, true);
   auto const toolName = base::GetNameFromFullPath(argv[0]);
 
   if (FLAGS_path_gtfs_feeds.empty() && FLAGS_path_subway_json.empty())
   {
     LOG(LWARNING, ("Path to GTFS feeds directory or path to the subways json must be specified."));
-    google::ShowUsageWithFlagsRestrict(argv[0], toolName.c_str());
+    gflags::ShowUsageWithFlagsRestrict(argv[0], toolName.c_str());
     return EXIT_FAILURE;
   }
 
   if (FLAGS_path_mapping.empty() || FLAGS_path_mapping_edges.empty() || FLAGS_path_json.empty())
   {
     LOG(LWARNING, ("Some of the required options are not present."));
-    google::ShowUsageWithFlagsRestrict(argv[0], toolName.c_str());
+    gflags::ShowUsageWithFlagsRestrict(argv[0], toolName.c_str());
     return EXIT_FAILURE;
   }
 
@@ -294,7 +294,7 @@ int main(int argc, char ** argv)
   {
     LOG(LWARNING, ("Some paths set in options are not valid. Check the directories:",
                    FLAGS_path_gtfs_feeds, FLAGS_path_json, FLAGS_path_resources));
-    google::ShowUsageWithFlagsRestrict(argv[0], toolName.c_str());
+    gflags::ShowUsageWithFlagsRestrict(argv[0], toolName.c_str());
     return EXIT_FAILURE;
   }
 

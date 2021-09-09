@@ -36,7 +36,7 @@
 #include <unordered_map>
 #include <vector>
 
-#include "3party/gflags/src/gflags/gflags.h"
+#include "gflags/gflags.h"
 
 using namespace search::search_quality;
 using namespace search;
@@ -402,8 +402,8 @@ int main(int argc, char * argv[])
 {
   platform::tests_support::ChangeMaxNumberOfOpenFiles(kMaxOpenFiles);
 
-  google::SetUsageMessage("Samples generation tool.");
-  google::ParseCommandLineFlags(&argc, &argv, true);
+  gflags::SetUsageMessage("Samples generation tool.");
+  gflags::ParseCommandLineFlags(&argc, &argv, true);
 
   SetPlatformDirs(FLAGS_data_path, FLAGS_mwm_path);
 

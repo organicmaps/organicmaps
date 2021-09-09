@@ -20,7 +20,7 @@
 #include <utility>
 #include <vector>
 
-#include "3party/gflags/src/gflags/gflags.h"
+#include "gflags/gflags.h"
 
 DEFINE_string(mapsme_old_results, "", "Path to directory with previous mapsme router results.");
 DEFINE_string(mapsme_results, "", "Path to directory with mapsme router results.");
@@ -262,7 +262,7 @@ int Main(int argc, char ** argv)
   if (HasHelpFlags(argc, argv))
     PrintHelpAndExit();
 
-  google::ParseCommandLineNonHelpFlags(&argc, &argv, true);
+  gflags::ParseCommandLineNonHelpFlags(&argc, &argv, true);
 
   CheckArgs();
 

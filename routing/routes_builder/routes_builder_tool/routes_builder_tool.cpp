@@ -12,7 +12,7 @@
 #include <utility>
 #include <vector>
 
-#include "3party/gflags/src/gflags/gflags.h"
+#include "gflags/gflags.h"
 
 DEFINE_uint64(threads, 0,
               "The number of threads. std::thread::hardware_concurrency() is used by default.");
@@ -66,8 +66,8 @@ void CheckDirExistence(std::string const & dir)
 
 int Main(int argc, char ** argv)
 {
-  google::SetUsageMessage("This tool provides routes building for them further analyze.");
-  google::ParseCommandLineFlags(&argc, &argv, true);
+  gflags::SetUsageMessage("This tool provides routes building for them further analyze.");
+  gflags::ParseCommandLineFlags(&argc, &argv, true);
 
   CHECK_GREATER_OR_EQUAL(FLAGS_timeout, 0, ("Timeout should be greater than zero."));
 

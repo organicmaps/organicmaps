@@ -9,7 +9,6 @@ set_property(SOURCE qrc_resources.cpp PROPERTY SKIP_AUTOGEN ON)
 
 include_directories(
   ${OMIM_ROOT}/3party/glm
-  ${OMIM_ROOT}/3party/gflags/src
   ${OMIM_ROOT}/3party/jansson/src
 )
 
@@ -67,6 +66,7 @@ set(
 )
 
 omim_add_executable(${PROJECT_NAME} MACOSX_BUNDLE ${RES_SOURCES} ${SRC})
+target_link_libraries(${PROJECT_NAME} gflags::gflags)
 
 omim_link_libraries(
   ${PROJECT_NAME}
@@ -96,7 +96,6 @@ omim_link_libraries(
   base
   freetype
   expat
-  gflags
   icu
   agg
   jansson

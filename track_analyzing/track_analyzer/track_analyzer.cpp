@@ -9,7 +9,7 @@
 
 #include "base/checked_cast.hpp"
 
-#include "3party/gflags/src/gflags/gflags.h"
+#include "gflags/gflags.h"
 
 #include <string>
 
@@ -121,7 +121,7 @@ void CmdGPX(string const & logFile, string const & outputFilesDir, string const 
 
 int main(int argc, char ** argv)
 {
-  google::ParseCommandLineFlags(&argc, &argv, true);
+  gflags::ParseCommandLineFlags(&argc, &argv, true);
   string const & cmd = Checked_cmd();
 
   classificator::Load();

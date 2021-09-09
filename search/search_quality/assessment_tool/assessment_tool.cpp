@@ -11,7 +11,7 @@
 
 #include <QtWidgets/QApplication>
 
-#include "3party/gflags/src/gflags/gflags.h"
+#include "gflags/gflags.h"
 
 DEFINE_string(resources_path, "", "Path to resources directory");
 DEFINE_string(data_path, "", "Path to data directory");
@@ -22,8 +22,8 @@ int main(int argc, char ** argv)
 {
   platform::tests_support::ChangeMaxNumberOfOpenFiles(search::search_quality::kMaxOpenFiles);
 
-  google::SetUsageMessage("Assessment tool.");
-  google::ParseCommandLineFlags(&argc, &argv, true);
+  gflags::SetUsageMessage("Assessment tool.");
+  gflags::ParseCommandLineFlags(&argc, &argv, true);
 
   Platform & platform = GetPlatform();
   if (!FLAGS_resources_path.empty())

@@ -1,7 +1,5 @@
 project(track_analyzer)
 
-include_directories(${OMIM_ROOT}/3party/gflags/src)
-
 set(
   SRC
   cmd_balance_csv.cpp
@@ -21,6 +19,7 @@ set(
 )
 
 omim_add_executable(${PROJECT_NAME} ${SRC})
+target_link_libraries(${PROJECT_NAME} gflags::gflags)
 
 omim_link_libraries(
   ${PROJECT_NAME}
@@ -43,7 +42,6 @@ omim_link_libraries(
   opening_hours
   protobuf
   succinct
-  gflags
   ${LIBZ}
 )
 

@@ -38,7 +38,7 @@
 #include <string>
 #include <vector>
 
-#include "3party/gflags/src/gflags/gflags.h"
+#include "gflags/gflags.h"
 
 using namespace search::search_quality;
 using namespace search::tests_support;
@@ -102,8 +102,8 @@ int main(int argc, char * argv[])
   platform::tests_support::ChangeMaxNumberOfOpenFiles(kMaxOpenFiles);
   CheckLocale();
 
-  google::SetUsageMessage("Features collector tool.");
-  google::ParseCommandLineFlags(&argc, &argv, true);
+  gflags::SetUsageMessage("Features collector tool.");
+  gflags::ParseCommandLineFlags(&argc, &argv, true);
 
   SetPlatformDirs(FLAGS_data_path, FLAGS_mwm_path);
 

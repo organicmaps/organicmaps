@@ -66,7 +66,6 @@ omim_link_libraries(
   geometry
   coding
   base
-  gflags
   jansson
   protobuf
   bsdiff

@@ -46,27 +46,24 @@
 //     5a) Force bash to place most-relevent groups at the top of the list
 //     5b) Trim most flag's descriptions to fit on a single terminal line
 
-
-#include <config.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>   // for strlen
+#include <cstdio>
+#include <cstdlib>
+#include <cstring>   // for strlen
 
 #include <set>
 #include <string>
 #include <utility>
 #include <vector>
 
-#include <gflags/gflags.h>
+#include "config.h"
+#include "gflags/gflags.h"
+#include "gflags/gflags_completions.h"
 #include "util.h"
 
 using std::set;
 using std::string;
 using std::vector;
 
-#ifndef PATH_SEPARATOR
-#define PATH_SEPARATOR  '/'
-#endif
 
 DEFINE_string(tab_completion_word, "",
               "If non-empty, HandleCommandLineCompletions() will hijack the "
@@ -75,7 +72,9 @@ DEFINE_string(tab_completion_word, "",
 DEFINE_int32(tab_completion_columns, 80,
              "Number of columns to use in output for tab completion");
 
-_START_GOOGLE_NAMESPACE_
+
+namespace GFLAGS_NAMESPACE {
+
 
 namespace {
 // Function prototypes and Type forward declarations.  Code may be
@@ -120,7 +119,7 @@ static void CategorizeAllMatchingFlags(
     NotableFlags *notable_flags);
 
 static void TryFindModuleAndPackageDir(
-    const vector<CommandLineFlagInfo> all_flags,
+    const vector<CommandLineFlagInfo> &all_flags,
     string *module,
     string *package_dir);
 
@@ -180,6 +179,11 @@ struct CompletionOptions {
   bool flag_description_substring_search;
   bool return_all_matching_flags;
   bool force_no_update;
+  CompletionOptions(): flag_name_substring_search(false),
+                       flag_location_substring_search(false),
+                       flag_description_substring_search(false),
+                       return_all_matching_flags(false),
+                       force_no_update(false) { }
 };
 
 // Notable flags are flags that are special or preferred for some
@@ -203,7 +207,7 @@ struct NotableFlags {
 static void PrintFlagCompletionInfo(void) {
   string cursor_word = FLAGS_tab_completion_word;
   string canonical_token;
-  CompletionOptions options = { };
+  CompletionOptions options = CompletionOptions();
   CanonicalizeCursorWordAndSearchOptions(
       cursor_word,
       &canonical_token,
@@ -321,12 +325,10 @@ static void CanonicalizeCursorWordAndSearchOptions(
     }
     break;
   }
-
-  switch (found_question_marks) {  // all fallthroughs
-    case 3: options->flag_description_substring_search = true;
-    case 2: options->flag_location_substring_search = true;
-    case 1: options->flag_name_substring_search = true;
-  };
+  
+  if (found_question_marks > 2) options->flag_description_substring_search = true;
+  if (found_question_marks > 1) options->flag_location_substring_search = true;
+  if (found_question_marks > 0) options->flag_name_substring_search = true;
 
   options->return_all_matching_flags = (found_plusses > 0);
 }
@@ -449,10 +451,6 @@ static void CategorizeAllMatchingFlags(
       // In the package, since there was no slash after the package portion
       notable_flags->package_flags.insert(*it);
       DVLOG(3) << "Result: package match";
-    } else if (false) {
-      // In the list of the XXX most commonly supplied flags overall
-      // TODO(user): Compile this list.
-      DVLOG(3) << "Result: most-common match";
     } else if (!package_dir.empty() &&
         pos != string::npos && slash != string::npos) {
       // In a subdirectory of the package
@@ -470,7 +468,7 @@ static void PushNameWithSuffix(vector<string>* suffixes, const char* suffix) {
 }
 
 static void TryFindModuleAndPackageDir(
-    const vector<CommandLineFlagInfo> all_flags,
+    const vector<CommandLineFlagInfo> &all_flags,
     string *module,
     string *package_dir) {
   module->clear();
@@ -546,8 +544,7 @@ static void FinalizeCompletionOutput(
 
   vector<DisplayInfoGroup> output_groups;
   bool perfect_match_found = false;
-  if (lines_so_far < max_desired_lines &&
-      !notable_flags->perfect_match_flag.empty()) {
+  if (!notable_flags->perfect_match_flag.empty()) {
     perfect_match_found = true;
     DisplayInfoGroup group =
         { "",
@@ -765,4 +762,5 @@ void HandleCommandLineCompletions(void) {
   gflags_exitfunc(0);
 }
 
-_END_GOOGLE_NAMESPACE_
+
+} // namespace GFLAGS_NAMESPACE

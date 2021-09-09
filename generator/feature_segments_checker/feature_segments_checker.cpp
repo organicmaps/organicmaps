@@ -27,7 +27,7 @@
 #include <set>
 #include <string>
 
-#include "3party/gflags/src/gflags/gflags.h"
+#include "gflags/gflags.h"
 
 using namespace std;
 
@@ -324,8 +324,8 @@ double CalculateEntropy(map<geometry::Altitude, uint32_t> const & diffFromLinear
 
 int main(int argc, char ** argv)
 {
-  google::SetUsageMessage("This tool extracts some staticstics about features and its altitudes.");
-  google::ParseCommandLineFlags(&argc, &argv, true);
+  gflags::SetUsageMessage("This tool extracts some staticstics about features and its altitudes.");
+  gflags::ParseCommandLineFlags(&argc, &argv, true);
 
   LOG(LINFO, ("srtm_dir_path =", FLAGS_srtm_dir_path));
   LOG(LINFO, ("mwm_file_path =", FLAGS_mwm_file_path));

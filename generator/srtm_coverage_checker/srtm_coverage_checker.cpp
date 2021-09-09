@@ -23,7 +23,7 @@
 #include <limits>
 #include <vector>
 
-#include "3party/gflags/src/gflags/gflags.h"
+#include "gflags/gflags.h"
 
 DEFINE_string(srtm_path, "", "Path to directory with SRTM files");
 DEFINE_string(mwm_path, "", "Path to mwm files (writable dir)");
@@ -35,8 +35,8 @@ using namespace std;
 
 int main(int argc, char * argv[])
 {
-  google::SetUsageMessage("SRTM coverage checker.");
-  google::ParseCommandLineFlags(&argc, &argv, true);
+  gflags::SetUsageMessage("SRTM coverage checker.");
+  gflags::ParseCommandLineFlags(&argc, &argv, true);
 
   Platform & platform = GetPlatform();
   if (!FLAGS_mwm_path.empty())

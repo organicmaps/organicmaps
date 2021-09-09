@@ -34,48 +34,52 @@
 #ifndef GFLAGS_UTIL_H_
 #define GFLAGS_UTIL_H_
 
+#include "config.h"
+
 #include <assert.h>
-#include <config.h>
 #ifdef HAVE_INTTYPES_H
-# include <inttypes.h>
+#  include <inttypes.h>
 #endif
 #include <stdarg.h>     // for va_*
 #include <stdlib.h>
 #include <stdio.h>
 #include <iostream>
 #include <string>
+#include <errno.h>
 #ifdef HAVE_SYS_STAT_H
-# include <sys/stat.h>
-#endif   // for mkdir()
+#  include <sys/stat.h> // for mkdir
+#endif
 
-_START_GOOGLE_NAMESPACE_
+
+namespace GFLAGS_NAMESPACE {
+
 
 // This is used for unittests for death-testing.  It is defined in gflags.cc.
 extern GFLAGS_DLL_DECL void (*gflags_exitfunc)(int);
 
-// Work properly if either strtoll or strtoq is on this system
-#ifdef HAVE_STRTOLL
-# define strto64  strtoll
-# define strtou64  strtoull
-#elif HAVE_STRTOQ
-# define strto64  strtoq
-# define strtou64  strtouq
-#else
+// Work properly if either strtoll or strtoq is on this system.
+#if defined(strtoll) || defined(HAVE_STRTOLL)
+#  define strto64  strtoll
+#  define strtou64 strtoull
+#elif defined(HAVE_STRTOQ)
+#  define strto64  strtoq
+#  define strtou64 strtouq
 // Neither strtoll nor strtoq are defined.  I hope strtol works!
-# define strto64 strtol
-# define strtou64 strtoul
+#else
+#  define strto64  strtol
+#  define strtou64 strtoul
 #endif
 
-// If we have inttypes.h, it will have defined PRId32/etc for us.  If
-// not, take our best guess.
+// If we have inttypes.h, it will have defined PRId32/etc for us.
+// If not, take our best guess.
 #ifndef PRId32
-# define PRId32 "d"
+#  define PRId32 "d"
 #endif
 #ifndef PRId64
-# define PRId64 "lld"
+#  define PRId64 "lld"
 #endif
 #ifndef PRIu64
-# define PRIu64 "llu"
+#  define PRIu64 "llu"
 #endif
 
 typedef signed char int8;
@@ -83,9 +87,10 @@ typedef unsigned char uint8;
 
 // -- utility macros ---------------------------------------------------------
 
-template <bool> struct CompileAssert {};
+template <bool b> struct CompileAssert;
+template <> struct CompileAssert<true> {};
 #define COMPILE_ASSERT(expr, msg) \
-  typedef CompileAssert<(bool(expr))> msg[bool(expr) ? 1 : -1]
+  enum { assert_##msg = sizeof(CompileAssert<bool(expr)>) }
 
 // Returns the number of elements in an array.
 #define arraysize(arr) (sizeof(arr)/sizeof(*(arr)))
@@ -230,23 +235,36 @@ class Test {};
 #if defined(__MINGW32__)
 #include <io.h>
 inline void MakeTmpdir(std::string* path) {
+  if (!path->empty()) {
+	path->append("/gflags_unittest_testdir");
+	int err = mkdir(path->c_str());
+	if (err == 0 || errno == EEXIST) return;
+  }
   // I had trouble creating a directory in /tmp from mingw
-  *path = "./gflags_unittest_testdir";
-  mkdir(path->c_str());   // mingw has a weird one-arg mkdir
+  *path = "./gflags_unittest";
+  mkdir(path->c_str());
 }
 #elif defined(_MSC_VER)
 #include <direct.h>
 inline void MakeTmpdir(std::string* path) {
+  if (!path->empty()) {
+	int err = _mkdir(path->c_str());
+	if (err == 0 || errno == EEXIST) return;
+  }
   char tmppath_buffer[1024];
   int tmppath_len = GetTempPathA(sizeof(tmppath_buffer), tmppath_buffer);
   assert(tmppath_len > 0 && tmppath_len < sizeof(tmppath_buffer));
   assert(tmppath_buffer[tmppath_len - 1] == '\\');   // API guarantees it
-  *path = std::string(tmppath_buffer) + "gflags_unittest_testdir";
+  *path = std::string(tmppath_buffer) + "gflags_unittest";
   _mkdir(path->c_str());
 }
 #else
 inline void MakeTmpdir(std::string* path) {
-  mkdir(path->c_str(), 0755);
+  if (!path->empty()) {
+	int err = mkdir(path->c_str(), 0755);
+	if (err == 0 || errno == EEXIST) return;
+  }
+  mkdir("/tmp/gflags_unittest", 0755);
 }
 #endif
 
@@ -264,7 +282,7 @@ inline void InternalStringPrintf(std::string* output, const char* format,
   int bytes_written = vsnprintf(space, sizeof(space), format, backup_ap);
   va_end(backup_ap);
 
-  if ((bytes_written >= 0) && (bytes_written < sizeof(space))) {
+  if ((bytes_written >= 0) && (static_cast<size_t>(bytes_written) < sizeof(space))) {
     output->append(space, bytes_written);
     return;
   }
@@ -320,6 +338,36 @@ inline std::string StringPrintf(const char* format, ...) {
   return output;
 }
 
-_END_GOOGLE_NAMESPACE_
+inline bool SafeGetEnv(const char *varname, std::string &valstr)
+{
+#if defined(_MSC_VER) && _MSC_VER >= 1400
+	char  *val;
+	size_t sz;
+	if (_dupenv_s(&val, &sz, varname) != 0 || !val) return false;
+	valstr = val;
+	free(val);
+#else
+	const char * const val = getenv(varname);
+	if (!val) return false;
+	valstr = val;
+#endif
+	return true;
+}
+
+inline int SafeFOpen(FILE **fp, const char* fname, const char *mode)
+{
+#if defined(_MSC_VER) && _MSC_VER >= 1400
+	return fopen_s(fp, fname, mode);
+#else
+	assert(fp != NULL);
+	*fp = fopen(fname, mode);
+    // errno only guaranteed to be set on failure
+	return ((*fp == NULL) ? errno : 0);
+#endif
+}
+
+
+} // namespace GFLAGS_NAMESPACE
+
 
 #endif  // GFLAGS_UTIL_H_
