@@ -144,8 +144,8 @@ void RoutingSettings::AddButtonBox()
 
   m_form.addRow(buttonBox);
 
-  QObject::connect(buttonBox, SIGNAL(accepted()), this, SLOT(accept()));
-  QObject::connect(buttonBox, SIGNAL(rejected()), this, SLOT(reject()));
+  QObject::connect(buttonBox, &QDialogButtonBox::accepted, this, &QDialog::accept);
+  QObject::connect(buttonBox, &QDialogButtonBox::rejected, this, &QDialog::reject);
 }
 
 void RoutingSettings::AddListWidgetWithRoutingTypes()

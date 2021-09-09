@@ -73,7 +73,7 @@ namespace qt
 
     QPushButton * closeButton = new QPushButton(QObject::tr("Close"), this);
     closeButton->setDefault(true);
-    connect(closeButton, SIGNAL(clicked()), this, SLOT(OnCloseClick()));
+    connect(closeButton, &QAbstractButton::clicked, this, &UpdateDialog::OnCloseClick);
 
     m_tree = new QTreeWidget(this);
     m_tree->setColumnCount(KNumberOfColumns);
@@ -89,7 +89,7 @@ namespace qt
     m_tree->header()->setSectionResizeMode(KColumnIndexPositionInRanking,
                                            QHeaderView::ResizeToContents);
 
-    connect(m_tree, SIGNAL(itemClicked(QTreeWidgetItem *, int)), this, SLOT(OnItemClick(QTreeWidgetItem *, int)));
+    connect(m_tree, &QTreeWidget::itemClicked, this, &UpdateDialog::OnItemClick);
 
     QHBoxLayout * horizontalLayout = new QHBoxLayout();
     horizontalLayout->addStretch();
@@ -98,13 +98,11 @@ namespace qt
     QLabel * localeLabel = new QLabel(tr("locale:"));
     QLineEdit * localeEdit = new QLineEdit(this);
     localeEdit->setText(m_locale.c_str());
-    connect(localeEdit, SIGNAL(textChanged(QString const &)), this,
-            SLOT(OnLocaleTextChanged(QString const &)));
+    connect(localeEdit, &QLineEdit::textChanged, this, &UpdateDialog::OnLocaleTextChanged);
 
     QLabel * queryLabel = new QLabel(tr("search query:"));
     QLineEdit * queryEdit = new QLineEdit(this);
-    connect(queryEdit, SIGNAL(textChanged(QString const &)), this,
-            SLOT(OnQueryTextChanged(QString const &)));
+    connect(queryEdit, &QLineEdit::textChanged, this, &UpdateDialog::OnQueryTextChanged);
 
     QGridLayout * inputLayout = new QGridLayout();
     // widget, row, column
@@ -363,7 +361,7 @@ namespace qt
   void SetRowColor(QTreeWidgetItem & item, QColor const & color)
   {
     for (int column = 0; column < item.columnCount(); ++column)
-      item.setTextColor(column, color);
+      item.setForeground(column, color);
   }
 
   void UpdateDialog::UpdateRowWithCountryInfo(CountryId const & countryId)

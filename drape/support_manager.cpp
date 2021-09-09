@@ -6,7 +6,6 @@
 
 #include "base/logging.hpp"
 
-
 #include "std/target_os.hpp"
 
 #include <algorithm>
@@ -23,7 +22,7 @@ struct SupportManager::Configuration
 };
 
 char const * kSupportedAntialiasing = "Antialiasing";
-char const * kVulkanForbidden = "VulkanForbidden";
+static char const * kVulkanForbidden = "VulkanForbidden";
 
 void SupportManager::Init(ref_ptr<GraphicsContext> context)
 {
@@ -152,7 +151,7 @@ bool SupportManager::IsVulkanTexturePartialUpdateBuggy(int sdkVersion,
 
   // For these configurations partial updates of texture clears whole texture except part updated
   static std::array<Configuration, 1> const kBadConfigurations = {
-      {"Mali-G76", {1, 1, 97}, {18, 0, 0}},
+      {{"Mali-G76", {1, 1, 97}, {18, 0, 0}}},
   };
 
   for (auto const & c : kBadConfigurations)

@@ -64,10 +64,10 @@ UNIT_TEST(RefCounted_Smoke)
       TEST_EQUAL(2, a->NumRefs(), ());
       TEST(!destroyed, ());
 
-#pragma clang diagnostics push
-#pragma clang diagnostics ignore "-Wself-assign-overloaded"
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wself-assign-overloaded"
       a = a;
-#pragma clang diagnostics pop
+#pragma clang diagnostic pop
       TEST_EQUAL(a.Get(), d.Get(), ());
       TEST_EQUAL(2, a->NumRefs(), ());
       TEST(!destroyed, ());

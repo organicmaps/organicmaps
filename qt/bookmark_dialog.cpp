@@ -32,16 +32,16 @@ BookmarkDialog::BookmarkDialog(QWidget * parent, Framework & framework)
 
   QPushButton * closeButton = new QPushButton(tr("Close"), this);
   closeButton->setDefault(true);
-  connect(closeButton, SIGNAL(clicked()), this, SLOT(OnCloseClick()));
+  connect(closeButton, &QAbstractButton::clicked, this, &BookmarkDialog::OnCloseClick);
 
   QPushButton * deleteButton = new QPushButton(tr("Delete"), this);
-  connect(deleteButton, SIGNAL(clicked()), this, SLOT(OnDeleteClick()));
+  connect(deleteButton, &QAbstractButton::clicked, this, &BookmarkDialog::OnDeleteClick);
 
   QPushButton * importButton = new QPushButton(tr("Import KML/KMZ"), this);
-  connect(importButton, SIGNAL(clicked()), this, SLOT(OnImportClick()));
+  connect(importButton, &QAbstractButton::clicked, this, &BookmarkDialog::OnImportClick);
 
   QPushButton * exportButton = new QPushButton(tr("Export KMZ"), this);
-  connect(exportButton, SIGNAL(clicked()), this, SLOT(OnExportClick()));
+  connect(exportButton, &QAbstractButton::clicked, this, &BookmarkDialog::OnExportClick);
 
   m_tree = new QTreeWidget(this);
   m_tree->setColumnCount(2);
@@ -49,7 +49,7 @@ BookmarkDialog::BookmarkDialog(QWidget * parent, Framework & framework)
   columnLabels << tr("Bookmarks and tracks") << "";
   m_tree->setHeaderLabels(columnLabels);
   m_tree->setSelectionBehavior(QAbstractItemView::SelectionBehavior::SelectItems);
-  connect(m_tree, SIGNAL(itemClicked(QTreeWidgetItem *, int)), this, SLOT(OnItemClick(QTreeWidgetItem *, int)));
+  connect(m_tree, &QTreeWidget::itemClicked, this, &BookmarkDialog::OnItemClick);
 
   QHBoxLayout * horizontalLayout = new QHBoxLayout();
   horizontalLayout->addStretch();
@@ -86,10 +86,12 @@ void BookmarkDialog::OnAsyncLoadingFinished()
 
 void BookmarkDialog::OnAsyncLoadingFileSuccess(std::string const & fileName, bool isTemporaryFile)
 {
+  LOG(LINFO, ("OnAsyncLoadingFileSuccess", fileName, isTemporaryFile));
 }
 
 void BookmarkDialog::OnAsyncLoadingFileError(std::string const & fileName, bool isTemporaryFile)
 {
+  LOG(LERROR, ("OnAsyncLoadingFileError", fileName, isTemporaryFile));
 }
 
 void BookmarkDialog::OnItemClick(QTreeWidgetItem * item, int column)
@@ -197,7 +199,7 @@ void BookmarkDialog::OnExportClick()
 void BookmarkDialog::OnDeleteClick()
 {
   auto & bm = m_framework.GetBookmarkManager();
-  for (auto item : m_tree->selectedItems())
+  for (auto const item : m_tree->selectedItems())
   {
     auto const categoryIt = m_categories.find(item);
     if (categoryIt != m_categories.cend())

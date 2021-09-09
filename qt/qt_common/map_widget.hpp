@@ -99,7 +99,7 @@ protected:
   SliderState m_sliderState;
   kml::MarkGroupId m_bookmarksCategoryId = 0;
 
-  qreal m_ratio;
+  float m_ratio;
   drape_ptr<QtOGLContextFactory> m_contextFactory;
   std::unique_ptr<gui::Skin> m_skin;
 

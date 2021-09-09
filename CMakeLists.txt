@@ -30,11 +30,11 @@ endif()
 
 if (CMAKE_SYSTEM_NAME MATCHES "Android")
   set(ANDROID_DETECTED TRUE)
+  if ((${OS} MATCHES "mac"))
+    set(DARWIN TRUE)
+  endif()
 endif()
 
-if (ANDROID_DETECTED AND (${OS} MATCHES "mac"))
-  set(DARWIN TRUE)
-endif()
 
 omim_set_platform_var(PLATFORM_IPHONE "iphone-.*")
 omim_set_platform_var(PLATFORM_ANDROID "android-.*" ${ANDROID_DETECTED})

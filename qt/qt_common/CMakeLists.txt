@@ -27,3 +27,5 @@ set(
 )
 
 omim_add_library(${PROJECT_NAME} ${SRC} ${RESOURCES})
+
+target_compile_options(${PROJECT_NAME} PUBLIC -Wno-shorten-64-to-32 -Wno-deprecated-declarations)

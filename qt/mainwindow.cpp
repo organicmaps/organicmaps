@@ -153,7 +153,7 @@ extern char const * kTokenSecretSetting;
 
 MainWindow::MainWindow(Framework & framework, bool apiOpenGLES3,
                        std::unique_ptr<ScreenshotParams> && screenshotParams,
-                       QString const & mapcssFilePath /*= QString()*/)
+                       QString const & /*mapcssFilePath = QString()*/)
   : m_Docks{}
   , m_locationService(CreateDesktopLocationService(*this))
   , m_screenshotMode(screenshotParams != nullptr)
@@ -187,7 +187,8 @@ MainWindow::MainWindow(Framework & framework, bool apiOpenGLES3,
     setFixedSize(width, height + statusBar()->height());
   }
 
-  QObject::connect(m_pDrawWidget, SIGNAL(BeforeEngineCreation()), this, SLOT(OnBeforeEngineCreation()));
+  QObject::connect(m_pDrawWidget, &common::MapWidget::BeforeEngineCreation, this,
+                   &MainWindow::OnBeforeEngineCreation);
 
   CreateCountryStatusControls();
   CreateNavigationBar();
@@ -339,20 +340,20 @@ void MainWindow::CreateNavigationBar()
     m_selectLayerTrafficAction = new QAction(QIcon(":/navig64/traffic.png"), tr("Traffic"), this);
     m_selectLayerTrafficAction->setCheckable(true);
     m_selectLayerTrafficAction->setChecked(m_pDrawWidget->GetFramework().LoadTrafficEnabled());
-    connect(m_selectLayerTrafficAction, SIGNAL(triggered()), this, SLOT(OnTrafficEnabled()));
+    connect(m_selectLayerTrafficAction, &QAction::triggered, this, &MainWindow::OnTrafficEnabled);
 
     m_selectLayerTransitAction =
         new QAction(QIcon(":/navig64/subway.png"), tr("Public transport"), this);
     m_selectLayerTransitAction->setCheckable(true);
     m_selectLayerTransitAction->setChecked(
         m_pDrawWidget->GetFramework().LoadTransitSchemeEnabled());
-    connect(m_selectLayerTransitAction, SIGNAL(triggered()), this, SLOT(OnTransitEnabled()));
+    connect(m_selectLayerTransitAction, &QAction::triggered, this, &MainWindow::OnTransitEnabled);
 
     m_selectLayerIsolinesAction =
         new QAction(QIcon(":/navig64/isolines.png"), tr("Isolines"), this);
     m_selectLayerIsolinesAction->setCheckable(true);
     m_selectLayerIsolinesAction->setChecked(m_pDrawWidget->GetFramework().LoadIsolinesEnabled());
-    connect(m_selectLayerIsolinesAction, SIGNAL(triggered()), this, SLOT(OnIsolinesEnabled()));
+    connect(m_selectLayerIsolinesAction, &QAction::triggered, this, &MainWindow::OnIsolinesEnabled);
 
     auto layersMenu = new QMenu();
     layersMenu->addAction(m_selectLayerTrafficAction);
@@ -373,15 +374,15 @@ void MainWindow::CreateNavigationBar()
 #ifndef BUILD_DESIGNER
     m_selectStartRoutePoint = new QAction(QIcon(":/navig64/point-start.png"),
                                           tr("Start point"), this);
-    connect(m_selectStartRoutePoint, SIGNAL(triggered()), this, SLOT(OnStartPointSelected()));
+    connect(m_selectStartRoutePoint, &QAction::triggered, this, &MainWindow::OnStartPointSelected);
 
     m_selectFinishRoutePoint = new QAction(QIcon(":/navig64/point-finish.png"),
                                            tr("Finish point"), this);
-    connect(m_selectFinishRoutePoint, SIGNAL(triggered()), this, SLOT(OnFinishPointSelected()));
+    connect(m_selectFinishRoutePoint, &QAction::triggered, this, &MainWindow::OnFinishPointSelected);
 
     m_selectIntermediateRoutePoint = new QAction(QIcon(":/navig64/point-intermediate.png"),
                                                  tr("Intermediate point"), this);
-    connect(m_selectIntermediateRoutePoint, SIGNAL(triggered()), this, SLOT(OnIntermediatePointSelected()));
+    connect(m_selectIntermediateRoutePoint, &QAction::triggered, this, &MainWindow::OnIntermediatePointSelected);
 
     auto routePointsMenu = new QMenu();
     routePointsMenu->addAction(m_selectStartRoutePoint);
@@ -564,12 +565,12 @@ void MainWindow::CreateCountryStatusControls()
   m_downloadButton = new QPushButton("Download");
   mainLayout->addWidget(m_downloadButton, 0, Qt::AlignHCenter);
   m_downloadButton->setVisible(false);
-  connect(m_downloadButton, SIGNAL(released()), this, SLOT(OnDownloadClicked()));
+  connect(m_downloadButton, &QAbstractButton::released, this, &MainWindow::OnDownloadClicked);
 
   m_retryButton = new QPushButton("Retry downloading");
   mainLayout->addWidget(m_retryButton, 0, Qt::AlignHCenter);
   m_retryButton->setVisible(false);
-  connect(m_retryButton, SIGNAL(released()), this, SLOT(OnRetryDownloadClicked()));
+  connect(m_retryButton, &QAbstractButton::released, this, &MainWindow::OnRetryDownloadClicked);
 
   m_downloadingStatusLabel = new QLabel("Downloading");
   mainLayout->addWidget(m_downloadingStatusLabel, 0, Qt::AlignHCenter);
@@ -777,7 +778,7 @@ void MainWindow::OnUploadEditsMenuItem()
 
 void MainWindow::OnBeforeEngineCreation()
 {
-  m_pDrawWidget->GetFramework().SetMyPositionModeListener([this](location::EMyPositionMode mode, bool routingActive)
+  m_pDrawWidget->GetFramework().SetMyPositionModeListener([this](location::EMyPositionMode mode, bool /*routingActive*/)
   {
     LocationStateModeChanged(mode);
   });

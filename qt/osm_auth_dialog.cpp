@@ -51,10 +51,10 @@ OsmAuthDialog::OsmAuthDialog(QWidget * parent)
 
   QPushButton * actionButton = new QPushButton(isLoginDialog ? tr("Login") : tr("Logout"));
   actionButton->setObjectName("button");
-  connect(actionButton, SIGNAL(clicked()), this, SLOT(OnAction()));
+  connect(actionButton, &QAbstractButton::clicked, this, &OsmAuthDialog::OnAction);
 
   QPushButton * closeButton = new QPushButton(tr("Close"));
-  connect(closeButton, SIGNAL(clicked()), this, SLOT(close()));
+  connect(closeButton, &QAbstractButton::clicked, this, &QWidget::close);
 
   QHBoxLayout * buttonsLayout = new QHBoxLayout();
   buttonsLayout->addWidget(closeButton);

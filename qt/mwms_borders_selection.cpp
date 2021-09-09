@@ -35,8 +35,8 @@ QGroupBox * MwmsBordersSelection::CreateButtonBoxGroup()
   groupBox->setLayout(vbox);
   groupBox->setFlat(true);
 
-  QObject::connect(buttonBox, SIGNAL(accepted()), this, SLOT(accept()));
-  QObject::connect(buttonBox, SIGNAL(rejected()), this, SLOT(reject()));
+  QObject::connect(buttonBox, &QDialogButtonBox::accepted, this, &QDialog::accept);
+  QObject::connect(buttonBox, &QDialogButtonBox::rejected, this, &QDialog::reject);
 
   return groupBox;
 }
