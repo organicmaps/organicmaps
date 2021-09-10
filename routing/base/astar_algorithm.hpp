@@ -69,24 +69,15 @@ public:
     return os;
   }
 
-  // |LengthChecker| callback used to check path length from start/finish to the edge (including the
-  // edge itself) before adding the edge to AStar queue. Can be used to clip some path which does
-  // not meet restrictions.
-  template <typename Visitor = astar::DefaultVisitor<Vertex>,
-            typename LengthChecker = astar::DefaultLengthChecker<Weight>>
-  struct Params
+  struct ParamsBase
   {
-    Params(Graph & graph, Vertex const & startVertex, Vertex const & finalVertex,
-           std::vector<Edge> const * prevRoute, base::Cancellable const & cancellable,
-           Visitor && onVisitedVertexCallback = astar::DefaultVisitor<Vertex>(),
-           LengthChecker && checkLengthCallback = astar::DefaultLengthChecker<Weight>())
+    ParamsBase(Graph & graph, Vertex const & startVertex, Vertex const & finalVertex,
+               std::vector<Edge> const * prevRoute, base::Cancellable const & cancellable)
         : m_graph(graph)
         , m_startVertex(startVertex)
         , m_finalVertex(finalVertex)
         , m_prevRoute(prevRoute)
         , m_cancellable(cancellable)
-        , m_onVisitedVertexCallback(std::forward<Visitor>(onVisitedVertexCallback))
-        , m_checkLengthCallback(std::forward<LengthChecker>(checkLengthCallback))
     {
     }
 
@@ -98,37 +89,49 @@ public:
     // Used for AdjustRoute.
     std::vector<Edge> const * const m_prevRoute;
     base::Cancellable const & m_cancellable;
+    std::function<bool(Weight, Weight)> m_badReducedWeight = [](Weight, Weight) { return true; };
+  };
+
+  // |LengthChecker| callback used to check path length from start/finish to the edge (including the
+  // edge itself) before adding the edge to AStar queue. Can be used to clip some path which does
+  // not meet restrictions.
+  template <typename Visitor = astar::DefaultVisitor<Vertex>,
+            typename LengthChecker = astar::DefaultLengthChecker<Weight>>
+  struct Params : public ParamsBase
+  {
+    Params(Graph & graph, Vertex const & startVertex, Vertex const & finalVertex,
+           std::vector<Edge> const * prevRoute, base::Cancellable const & cancellable,
+           Visitor && onVisitedVertexCallback = astar::DefaultVisitor<Vertex>(),
+           LengthChecker && checkLengthCallback = astar::DefaultLengthChecker<Weight>())
+      : ParamsBase(graph, startVertex, finalVertex, prevRoute, cancellable)
+      , m_onVisitedVertexCallback(std::forward<Visitor>(onVisitedVertexCallback))
+      , m_checkLengthCallback(std::forward<LengthChecker>(checkLengthCallback))
+    {
+    }
+
     Visitor m_onVisitedVertexCallback;
     LengthChecker const m_checkLengthCallback;
   };
 
   template <typename LengthChecker = astar::DefaultLengthChecker<Weight>>
-  struct ParamsForTests
+  struct ParamsForTests : public ParamsBase
   {
-    ParamsForTests(
-        Graph & graph, Vertex const & startVertex, Vertex const & finalVertex,
-        std::vector<Edge> const * prevRoute,
-        LengthChecker && checkLengthCallback = astar::DefaultLengthChecker<Weight>())
-      : m_graph(graph)
-      , m_startVertex(startVertex)
-      , m_finalVertex(finalVertex)
-      , m_prevRoute(prevRoute)
+    ParamsForTests(Graph & graph, Vertex const & startVertex, Vertex const & finalVertex,
+                   std::vector<Edge> const * prevRoute,
+                   LengthChecker && checkLengthCallback = astar::DefaultLengthChecker<Weight>())
+      : ParamsBase(graph, startVertex, finalVertex, prevRoute, m_dummy)
       , m_checkLengthCallback(std::forward<LengthChecker>(checkLengthCallback))
     {
     }
 
-    Graph & m_graph;
-    Weight const m_weightEpsilon = m_graph.GetAStarWeightEpsilon();
-    Vertex const m_startVertex;
-    // Used for FindPath, FindPathBidirectional.
-    Vertex const m_finalVertex;
-    // Used for AdjustRoute.
-    std::vector<Edge> const * const m_prevRoute;
-    base::Cancellable const m_cancellable;
     astar::DefaultVisitor<Vertex> const m_onVisitedVertexCallback =
         astar::DefaultVisitor<Vertex>();
     LengthChecker const m_checkLengthCallback;
+
+  private:
+    base::Cancellable const m_dummy;
   };
+
   class Context final
   {
   public:
@@ -659,12 +662,9 @@ AStarAlgorithm<Vertex, Edge, Weight>::FindPathBidirectional(P & params,
       auto const pW = cur->ConsistentHeuristic(stateW.vertex);
       auto const reducedWeight = weight + pW - pV;
 
-      /// @todo We still get crash reports here, but have no idea how to fix this now.
-      // Do not crash on release and safe continue: std::max(reducedWeight, kZeroDistance).
-      // https://github.com/organicmaps/organicmaps/issues/333
-      if (reducedWeight < -epsilon)
+      if (reducedWeight < -epsilon && params.m_badReducedWeight(reducedWeight, std::max(pW, pV)))
       {
-        // Will break in Debug, log in Release.
+        // Break in Debug, log in Release and safe continue: std::max(reducedWeight, kZeroDistance).
         LOG(LERROR, ("Invariant violated for:", "v =", stateV.vertex, "w =", stateW.vertex,
                      "Start =", startVertex, "End =", finalVertex));
       }
