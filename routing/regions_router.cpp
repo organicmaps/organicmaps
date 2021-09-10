@@ -62,6 +62,14 @@ RouterResultCode RegionsRouter::CalculateSubrouteNoLeapsMode(IndexGraphStarter &
       starter, starter.GetStartSegment(), starter.GetFinishSegment(), nullptr /* prevRoute */,
       m_delegate.GetCancellable(), std::move(visitor), AStarLengthChecker(starter));
 
+  params.m_badReducedWeight = [](Weight const & reduced, Weight const & current)
+  {
+    // https://github.com/organicmaps/organicmaps/issues/333
+    // Better to check relative error in cross-mwm regions graph, because it stores weights
+    // in rounded meters, and we observe accumulated error like 5m per ~3500km.
+    return fabs(reduced.GetWeight() / current.GetWeight()) > 1.0E-5;
+  };
+
   RoutingResult<Vertex, Weight> routingResult;
 
   AStarAlgorithm<Vertex, Edge, Weight> algorithm;
