@@ -47,7 +47,7 @@
     ar = إلغاء
     cs = Zrušit
     da = Afbryd
-    nl = Annuleer
+    nl = Annuleren
     fi = Peruuta
     fr = Annuler
     de = Abbrechen
@@ -84,7 +84,7 @@
     ar = إلغاء التنزيل
     cs = Zrušit stahování
     da = Annuller download
-    nl = Download annuleer
+    nl = Downloaden annuleren
     fi = Peruuta lataus
     fr = Annuler le téléchargement
     de = Herunterladen abbrechen
@@ -121,7 +121,7 @@
     ar = حذف
     cs = Smazat
     da = Slet
-    nl = Verwijder
+    nl = Verwijderen
     fi = Poista
     fr = Supprimer
     de = Löschen
@@ -157,7 +157,7 @@
     ar = تنزيل الخرائط
     cs = Stáhnout mapy
     da = Download kort
-    nl = Gedownloade Kaarten
+    nl = Download kaarten
     fi = Lataa karttoja
     fr = Télécharger des cartes
     de = Karten herunterladen
@@ -194,7 +194,7 @@
     ar = فشلت عملية التنزيل، انقر مرة أخرى لإعداة المحاولة
     cs = Stahování selhalo, zkuste to znovu.
     da = Der skete en fejl ved download, tryk for at prøve igen.
-    nl = Download is afgebroken, klik om nog een keer te proberen
+    nl = Downloaden is mislukt. Tik om het opnieuw te proberen.
     fi = Lataus epäonnistui, yritä uudelleen koskettamalla
     fr = Échec lors du téléchargement. Toucher de nouveau pour un essai de plus.
     de = Herunterladen fehlgeschlagen. Antippen für einen neuen Versuch.
@@ -378,18 +378,9 @@
     ru = МБ
     bg = МБ
     ar = م.ب.
-    da = MB
     fi = Mt
     fr = Mo
-    de = MB
-    id = MB
-    nb = MB
-    ro = MB
-    th = MB
-    tr = MB
     uk = МБ
-    vi = MB
-    el = MB
     fa = مگابایت
 
   [gb]
@@ -449,7 +440,7 @@
     ar = موقعي
     cs = Moje poloha
     da = Min position
-    nl = Mijn Locatie
+    nl = Mijn locatie
     fi = Sijaintini
     fr = Ma position
     de = Mein Standort
@@ -558,7 +549,7 @@
     ar = ابحث في الخريطة
     cs = Prohledat mapu
     da = Søg kort
-    nl = Zoek Kaart
+    nl = Op de kaart zoeken
     fi = Hae kartalta
     fr = Rechercher sur la carte
     de = Auf der Karte suchen
@@ -632,7 +623,7 @@
     ar = التطبيق أو جميع خدمات تحديد المواقع معطلة لديك في الوقت الحالي. الرجاء تفعيلها في الإعدادات.
     cs = Aktuálně máte všechny možnosti pro určování polohy vypnuté. Prosím, povolte je v Nastavení.
     da = Du har alle lokationstjenester for denne enhed eller applikation slukket. Slå dem venligst til i Indstillinger.
-    nl = U heeft momenteel alle Locatie Services voor dit apparaat of deze app uitgeschakeld. Schakel ze in bij Instellingen
+    nl = U heeft momenteel alle locatieservices voor dit apparaat of deze app uitgeschakeld. Schakel ze in bij Instellingen
     fi = Laitteen tai sovelluksen kaikki sijaintipalvelut ovat tällä hetkellä poissa käytöstä. Ota ne käyttöön Asetukset-valikossa.
     fr = Tous les services de localisation de cet appareil sont désactivés, ou ils le sont pour cette application. Veuillez les activer dans les paramètres.
     de = Ortungsdienste sind für dieses Gerät oder die App deaktiviert. Bitte aktivieren Sie diese in den Einstellungen.
@@ -742,7 +733,7 @@
     ar = فشلت عملية تنزيل
     cs = Stahování selhalo
     da = Download mislykket
-    nl = Downloaden is niet gelukt
+    nl = Downloaden is mislukt
     fi = Lataus epäonnistui
     fr = Échec lors du téléchargement
     de = Herunterladen fehlgeschlagen
@@ -779,7 +770,7 @@
     ar = محاولة مرة أخرى
     cs = Zkusit znovu
     da = Prøv igen
-    nl = Probeer opnieuw
+    nl = Opnieuw proberen
     fi = Yritä uudelleen
     fr = Ressayer
     de = Erneut versuchen
@@ -994,7 +985,7 @@
     ar = الرجاء فصل كابل الناقل التسلسلي الشامل أو إدخال بطاقة الذاكرة من أجل استخدام Organic Maps.
     cs = Prosím, odpojte USB kabel nebo vložte paměťovou kartu pro použití s Organic Maps
     da = Frakobl venligst USB-kabel eller indsæt et memory kort for at bruge Organic Maps
-    nl = Verwijder de USB kabel of plaats een geheugen kaart om Organic Maps te gebruiken
+    nl = Verwijder de USB kabel of plaats een geheugenkaart om Organic Maps te gebruiken
     fi = Irrota USB-kaapeli tai syötä muistikortti käyttääksesi Organic Maps -sovellusta
     fr = Veuillez débrancher le câble USB ou insérer la carte SD pour utiliser Organic Maps
     de = Bitte USB-Kabel entfernen oder Speicherkarte einsetzen, um Organic Maps zu verwenden
@@ -1029,7 +1020,7 @@
     ar = الرجاء إخلاء بعض المساحة في تخزين البطاقة الرقمية الآمنة\الناقل التسلسلي الشامل أولا من أجل استخدام هذا التطبيق.
     cs = Prosím, uvolněte nejprve místo na SD kartě/USB uložišti
     da = Frigør venligst plads på dit SD-kort/USB lager først for at bruge denne app
-    nl = Maak eerst ruimte vrij op de SD kaart/USB opslag om de app te gebruiken
+    nl = Maak eerst ruimte vrij op de SD-kaart/USB-opslag om de app te gebruiken
     fi = Vapauta ensin tilaa SD-kortilta/USB-massamuistilta käyttääksesi sovellusta
     fr = Veuillez d'abord libérer de l'espace sur la carte SD/le stockage USB afin d'utiliser l'appli
     de = Bitte zuerst Speicherplatz auf SD-Karte/USB-Speicher freigeben, um die Anwendung zu nutzen
@@ -1065,7 +1056,7 @@
     ar = لا يوجد ذاكرة كافية لتشغيل التطبيق.
     cs = Nedostatek paměti ke spuštění aplikace
     da = Ikke nok hukommelse til at åbne app
-    nl = Not genoeg geheugen om app te starten
+    nl = Niet genoeg geheugen om de app te starten
     fi = Ei tarpeeksi muistia sovelluksen avaamiseksi
     fr = Mémoire insuffisante pour lancer l'appli
     de = Nicht genügend Speicher, um die Anwendung zu starten
@@ -1101,7 +1092,7 @@
     ar = قبل أن تبدأ، دعنا نقوم بتنزيل خريطة العالم العامة على جهازك.\nانها بحاجة الى %@ من البيانات.
     cs = Ještě než začnete, bude třeba stáhnout obecnou mapu světa.\nZabere to %@.
     da = Før du starter, så lad os downloade det generelle verdenskort til din enhed.\nIt behøver %@ af data.
-    nl = Voor u van start gaat downloaden we een wereldkaart naar uw apparaat.\nDe kaart neemt %@ in beslag.
+    nl = Voordat u start, laten we de algemene wereldkaart naar uw apparaat downloaden.\nDeze neemt %@ in beslag.
     fi = Ennen aloitusta laitteelle tulee ladata yleinen maailmankartta.\nSe tarvitsee yhteensä %@ dataa.
     fr = Avant de commencer, permettez-nous de télécharger la carte générale du monde dans votre appareil.\n%@ de données sont nécessaires.
     de = Bevor Sie starten, laden Sie die allgemeine Weltkarte auf Ihr Gerät herunter.\nEs wird %@ Speicherplatz benötigt.
@@ -1137,7 +1128,7 @@
     ar = الذهاب الى الخريطة
     cs = Přejít na mapu
     da = Gå til kort
-    nl = Ga naar de Kaart
+    nl = Ga naar de kaart
     fi = Siirry karttaan
     fr = Aller sur la carte
     de = Zur Karte
@@ -1173,7 +1164,7 @@
     ar = تنزيل %@. يمكنك الآن\nالمتابعة الى الخريطة.
     cs = Stahování %@. Nyní můžete\npřejít na mapu.
     da = Downloader %@. Du kan nu\nfortsætte til kortet.
-    nl = %@ aan het downloaden. U kunt doorgaan\nnaar de kaart
+    nl = %@ aan het downloaden. U kunt nu\ndoorgaan naar de kaart.
     fi = Ladataan %@. Voit nyt jatkaa kartalle.
     fr = %@ en téléchargement. Vous pouvez\nmaintenant aller sur la carte.
     de = %@ wird heruntergeladen. Sie können jetzt\nzur Karte weitergehen.
@@ -1282,7 +1273,7 @@
     ar = توقف مؤقت
     cs = Pauza
     da = Pause
-    nl = Pauze
+    nl = Pauzeren
     fi = Pysäytä
     fr = Pause
     de = Pause
@@ -1356,7 +1347,7 @@
     ar = فشلت عملية تنزيل %@
     cs = Stahování selhalo: %@
     da = %@ download mislykkedes
-    nl = %@ download is afgebroken
+    nl = %@ download is mislukt
     fi = %@ lataus epäonnistui
     fr = %@, échec lors du téléchargement
     de = %@ Herunterladen fehlgeschlagen
@@ -1393,7 +1384,7 @@
     ar = إضافة مجموعة جديدة
     cs = Přidat novou skupinu záložek
     da = Tilføj nyt sæt
-    nl = Voeg nieuwe Groep toe
+    nl = Voeg nieuwe groep toe
     fi = Lisää uusi valikoima
     fr = Ajouter un nouveau groupe
     de = Neue Gruppe hinzufügen
@@ -1431,7 +1422,7 @@
     ar = لون الإشارة المرجعية
     cs = Barva záložky
     da = Bogmærke Farve
-    nl = Bladwijzer Kleur
+    nl = Bladwijzer-kleur
     fi = Kirjanmerkin väri
     fr = Couleur du signet
     de = Lesezeichen-Farbe
@@ -1468,7 +1459,7 @@
     ar = اسم مجموعة الإشارات المرجعية
     cs = Název záložky
     da = Indstil bogmærkenavn
-    nl = Bladwijzer Groep Naam
+    nl = Naam van bladwijzergroep
     fi = Kirjanmerkkivalikoiman nimi
     fr = Nom du groupe de signets
     de = Name des Lesezeichens
@@ -1503,7 +1494,7 @@
     ar = مجموعات الإشارات المرجعية
     cs = Skupiny záložek
     da = Bogmærk sæt
-    nl = Bladwijzer groepen
+    nl = Bladwijzergroepen
     fi = Kirjanmerkkivalikoimat
     fr = Groupes de signets
     de = Lesezeichenmappe
@@ -1576,7 +1567,7 @@
     ar = أماكني
     cs = Moje místa
     da = Mine Steder
-    nl = Mijn Plaatsen
+    nl = Mijn plaatsen
     fi = Paikkani
     fr = Mes endroits
     de = Meine Orte
@@ -1797,7 +1788,7 @@
     ar = اختر المكان الذي ينبغي تنزيل الخرائط  فيه.
     cs = Vyberte místo, kam by měly být mapy stahovány
     da = Vælg destination hvor dine kort skal downloades til
-    nl = Selecteer de map waar u de kaarten wilt opslaan
+    nl = Selecteer de plaats waar kaarten naar gedownload zouden moeten worden
     fi = Valitse karttojen latauskohde
     fr = Sélectionner l'emplacement où les cartes devraient être téléchargées
     de = Wählen Sie den Speicherort, an den die Karten heruntergeladen werden sollen
@@ -2243,7 +2234,7 @@
     ar = سياحة
     cs = Pamětihodnost
     da = Seværdigheder
-    nl = Toerisme
+    nl = Bezienswaardigheden
     fi = Nähtävyydet
     fr = Site touristique
     de = Sehenswürdigkeit
@@ -2280,7 +2271,7 @@
     ar = التسلية
     cs = Zábava
     da = Underholdning
-    nl = Uitgaan
+    nl = Amusement
     fi = Viihde
     fr = Divertissement
     de = Unterhaltung
@@ -2719,6 +2710,7 @@
     en = Hello!\n\nAttached are my bookmarks from Organic Maps app. Please open them if you have Organic Maps installed. Or, if you don't, download the app for your iOS or Android device by following this link: https://omaps.app/get?kmz\n\nEnjoy traveling with Organic Maps!
     be = Вітаю!\n\nУ далучаным файле мае закладкі з дататка Organic Maps. Калі ласка, адчыніце іх калі ў вас усталяваны Organic Maps. Калі не, спампуйце дадатак для вашай прылады iOS альбо Andriod па спасылцы: https://omaps.app/get?kmz\n\nПрыемных падарожжаў з Organic Maps!
     ru = Здравствуйте!\n\nВ прикрепленном файле мои метки из офлайновых карт Organic Maps. Для того чтобы открыть этот файл, вам потребуется приложение Organic Maps, которое можно установить по ссылке: https://omaps.app/get?kmz\n\nСпасибо!
+    nl = Hallo!\n\nBijgesloten zijn mijn bladwijzers uit de Organic Maps app. Open ze als je Organic Maps geïnstalleerd hebt. Of, als je dat niet hebt, download de app voor je iOS- of Android-apparaat door deze link te volgen: https://omaps.app/get?kmz\n\nGeniet van het reizen met Organic Maps!
     pt = Olá!\n\nSegue em anexo os meus favoritos da aplicação Organic Maps. Por favor abra-os se tiver o Organic Maps instalado. Caso não tenha, descarregue a aplicação para o seu dispositivo iOS ou Android com a hiperligação https://omaps.app/get?kmz\n\nDivirta-se a viajar com o Organic Maps!
     pt-BR = Olá!\n\nSegue em anexo meus favoritos do app Organic Maps. Por favor os abra se você tiver o Organic Maps instalado. Caso não tenha, baixe o app para o seu dispositivo iOS ou Android com o link https://omaps.app/get?kmz\n\nDisfrute viajar com o Organic Maps!
 
@@ -2732,7 +2724,7 @@
     ar = تحميل الإشارات المرجعية
     cs = Nahrávání záložek
     da = Indlæser Bogmærker
-    nl = Bladwijzers aan het uploaden
+    nl = Bladwijzers worden geladen
     fi = Ladataan kirjanmerkkejä
     fr = Chargement des signets
     de = Lesezeichen werden geladen
@@ -2769,7 +2761,7 @@
     ar = تم تحميل الإشارات المرجعية بنجاح! يمكنك العثور عليها على الخريطة أو على شاشة إدارة الإشارات المرجعية.
     cs = Záložky byly úspěšně nahrány! Naleznete je na mapě nebo ve správci záložek.
     da = Bogmærkerne er indlæst! Du kan nu finde dem på kortet eller i Bogmærke Manager sektionen.
-    nl = Bladwijzers met succes geüpload! U vindt ze op de kaart of op het scherm van de Bladwijzer Manager.
+    nl = Bladwijzers succesvol geüpload! U vindt ze op de kaart of op het scherm van de Bladwijzer Manager.
     fi = Kirjanmerkkien lataaminen onnistui! Löydät ne joko kartalta tai kirjanmerkkien hallinnasta.
     fr = Les signets ont été chargés avec succès ! Vous pouvez les trouver sur la carte ou sur l'écran du Gestionnaire de signets.
     de = Lesezeichen erfolgreich geladen! Sie können diese nun auf Ihrer Karte oder im Lesezeichen-Manager anzeigen.
@@ -2806,7 +2798,7 @@
     ar = فشلت عملية تحميل الإشارات المرجعية. قد يكون الملف تالف.
     cs = Nahrávání záložek se nezdařilo. Soubor může být poškozený nebo vadný.
     da = Bogmærkerne kunne ikke indlæses. Fil kan være skadet eller defekte.
-    nl = Bladwijzers uploaden mislukt. Het bestand is mogelijk beschadigd of defect.
+    nl = Bladwijzers uploaden is mislukt. Het bestand is mogelijk beschadigd of defect.
     fi = Kirjanmerkkien lähetys epäonnistui. Tiedosto saattaa olla vioittunut.
     fr = Échec lors du téléversement des signets. Le fichier peut être corrompu ou défectueux.
     de = Hochladen der Lesezeichen fehlgeschlagen. Die Datei könnte beschädigt oder defekt sein.
@@ -2878,7 +2870,7 @@
     ar = لم يتم التعرف على موقعك بعد.
     cs = Vaše poloha zatím nebyla určena
     da = Din lokation er ikke blevet bestemt endnu
-    nl = Je plaats werd nog niet vastgesteld
+    nl = Je locatie is nog niet vastgesteld
     fi = Sijaintiasi ei ole vielä määritetty
     fr = Votre position n'a pas encore été déterminée
     de = Ihr Standort konnte noch nicht ermittelt werden
@@ -2915,7 +2907,7 @@
     ar = نأسف، اعدادات تخزين الخرائط معطلة حالياً.
     cs = Omlouváme se, nastavení uložení map je dočasně nedostupné.
     da = Beklager, Kort Lagring er ikke slået til i indstillinger.
-    nl = Sorry, instellingen voor kaartopslag uitgeschakeld.
+    nl = Sorry, instellingen voor kaartopslag zijn momenteel uitgeschakeld.
     fi = Valitettavasti karttatallennusasetukset ovat pois päältä.
     fr = Désolé, les paramètres de stockage des cartes sont présentement désactivés.
     de = Leider sind die Einstellungen für die Kartenspeicherung deaktiviert.
@@ -2989,10 +2981,10 @@
     ar = هاي، تفقد الموقع الخاص بي على Organic Maps! %1$@ أو %2$@. ليس لديك أي خرائط تعمل بدون الاتصال مع الانترنت مثبتة على جهازك؟ قم بتحميلها من هنا: https://omaps.app/get
     cs = Koukni kde jsem. Otevři odkaz: %1$@ nebo %2$@
     da = Hey, tjek min nuværende lokation ud på Organic Maps! %1$@ or %2$@. Har du ikke offline kort? Download her: https://omaps.app/get
-    nl = Kijk waar ik nu ben. Open %1$@ of %2$@
+    nl = Hey, kijk naar mijn huidige locatie op Organic Maps! %1$@ of %2$@ Heeft u geen offline-kaarten? Download ze hier: https://omaps.app/get
     fi = Hei, katso sijaintini Organic Maps-sovelluksessa! %1$@ tai %2$@ Eikö sinulla ole vielä offline-karttoja? Lataa ne täältä: https://omaps.app/get
     fr = Hé, regarde ma position actuelle sur Organic Maps ! %1$@ ou %2$@. Les cartes hors ligne ne sont pas installées ? Les télécharger ici : https://omaps.app/get
-    de = Schau wo ich gerade bin. Klicke auf den Link %1$@ oder %2$@ - Keine Offline-Karten installiert? Hier herunterladen: https://omaps.app/get
+    de = Hey, sieh dir meinen aktuellen Standort auf Organic Maps an! %1$@ oder %2$@ Keine Offline-Karten installiert? Hier herunterladen: https://omaps.app/get
     hu = Nézd meg a Organic Maps helyzetemet! %1$@ vagy %2$@ A program letöltése: https://omaps.app/get
     id = Hei, lihat lokasiku saat ini di Organic Maps! %1$@ atau %2$@ belum memiliki peta offline? Unduh di sini: https://omaps.app/get
     it = Vedi dove sono ora. Apri %1$@ o %2$@
@@ -3025,10 +3017,10 @@
     ar = هاي، تفقد الدبوس الخاص بي على خريطة Organic Maps!
     cs = Koukni na moji značku na mapě v Organic Maps
     da = Hey, tjek min knappenål på Organic Maps kortet ud!
-    nl = Kijk naar mijn pin op Organic Maps kaart
+    nl = Hey, kijk naar mijn pin op Organic Maps!
     fi = Hei, katso merkintäni Organic Maps-kartalla
     fr = Hé, regarde mon épingle sur la carte Organic Maps !
-    de = Schau dir meine Stecknadel auf der Organic Maps-Karte an
+    de = Hey, sieh dir meine Stecknadel auf der Organic Maps-Karte an!
     hu = Nézze meg a Organic Maps jelzőmet
     id = Hei, lihat pinku di peta Organic Maps
     it = Dai uno sguardo al mio pin sulla mappa di Organic Maps
@@ -3061,10 +3053,10 @@
     ar = يا هلا، تحقق من موقعي الحالي على خريطة Organic Maps!
     cs = Podívej se na mou aktuální polohu na mapě na Organic Maps
     da = Hey, tjek min nuværende lokation ud på Organic Maps kortet!
-    nl = Kijk naar mijn huidige locatie op Organic Maps kaart
+    nl = Hey, kijk naar mijn huidige locatie op Organic Maps!
     fi = Hei, kurkkaa tämänhetkinen sijaintini Organic Maps:n kartalla!
     fr = Hé, regarde ma position actuelle sur la carte Organic Maps !
-    de = Sieh dir meinen aktuellen Standort auf der Organic Maps-Karte an
+    de = Hey, sieh dir meinen aktuellen Standort auf der Organic Maps-Karte an
     hu = Nézze meg a helyzetemet a Organic Maps térképen!
     id = Hei, lihat lokasiku saat ini di peta Organic Maps!
     it = Guarda dove mi trovo attualmente sulla mappa Organic Maps
@@ -3097,7 +3089,7 @@
     ar = مرحبا،\n\nأنا هنا الآن: %1$@. انقر على هذا الرابط %2$@ أو ذلك الرابط %3$@ لمشاهدة المكان على الخريطة.\n\nشكرا لك.
     cs = Ahoj,\n\nPrávě jsem tady: %1$@. Klepni na jeden z těchto odkazů %2$@, %3$@ a uvidíš toto místo na mapě.\n\nDíky.
     da = Hey, her er jeg nu: %1$@. Tryk på dette link %2$@ eller dette %3$@ for at se stedet på kortet. Tak.
-    nl = Hoi,\n\nMomenteel ben ik hier: %1$@. Klik op deze %2$@ of deze %3$@ om de plaats op de kaart te zien.\n\nBedankt.
+    nl = Hoi,\n\nMomenteel ben ik hier: %1$@. Klik op deze %2$@ link of deze %3$@ link om de plaats op de kaart te zien.\n\nBedankt.
     fi = Hei,n\nOlen nyt täällä: %1$@. Klikkaa linkkiä %2$@ tai %3$@ nähdäksesi paikan kartalla. Kiitos.
     fr = Bonjour,\n\nJe suis actuellement ici : %1$@. Clique sur ce lien %2$@ ou sur celui-ci %3$@ pour voir l'endroit sur la carte.\n\nMerci.
     de = Hi,\n\nich bin gerade hier: %1$@. Klicke den Link %2$@ oder %3$@, um den Ort auf der Karte anzuzeigen.\n\nVielen Dank.
@@ -3170,7 +3162,7 @@
     ar = البريد الالكتروني
     cs = Email
     da = Email
-    nl = Email
+    nl = E-mail
     fi = Sähköposti
     fr = Email
     de = Email
@@ -3206,7 +3198,7 @@
     ar = تم النسخ الى الحافظة: %1$@
     cs = Zkopírováno do schránky: %1$@
     da = Kopieret til udklipsholderen: %1$@
-    nl = Op het klembord gekopieerd: %1$@
+    nl = Naar het klembord gekopieerd: %1$@
     fi = Kopioitu leikepöydälle: %1$@
     fr = Copié dans le presse-papiers : %1$@
     de = In die Zwischenablage kopiert: %1$@
@@ -3280,7 +3272,7 @@
     ar = تم
     cs = Hotovo
     da = Færdig
-    nl = Gedaan
+    nl = Klaar
     fi = Valmis
     fr = Terminé
     de = Fertig
@@ -3351,6 +3343,7 @@
     be = Версія дадзеных: %d
     ru = Версия данных: %d
     bg = Версия на данните: %d
+    nl = Gegevensversie: %d
     fr = Version de données: %d
     de = Datenversion: %d
     pl = Wersja danych: %d
@@ -3515,7 +3508,9 @@
     be = Агульныя налады
     ru = Общие настройки
     bg = Общи настройки
+    nl = Algemene instellingen
     fr = Paramètres généraux
+    de = Allgemeine Einstellungen
     pl = Ustawienia ogólne
     pt = Configurações gerais
     pt-BR = Configurações gerais
@@ -3530,6 +3525,9 @@
     be = Інфармацыя
     ru = Информация
     bg = Информация
+    nl = Informatie
+    fr = Information
+    de = Information
     pl = Informacje
     pt = Informação
     pt-BR = Informação
@@ -4014,7 +4012,7 @@
     ar = المسار الأخير
     cs = Historie polohy
     da = Seneste sti
-    nl = Recente route
+    nl = Recente track
     fi = Viimeisin reitti
     fr = Parcours récent
     de = Letzte Strecke
