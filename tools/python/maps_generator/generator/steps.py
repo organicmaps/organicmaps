@@ -398,7 +398,7 @@ def step_routing(env: Env, country: AnyStr, **kwargs):
         make_cross_mwm=True,
         generate_cameras=True,
         make_routing_index=True,
-        generate_traffic_keys=True,
+        generate_traffic_keys=False,
         output=country,
         **kwargs,
     )
