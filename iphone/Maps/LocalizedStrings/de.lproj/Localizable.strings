@@ -240,13 +240,13 @@
 "downloading_is_active" = "Das Land wird gerade heruntergeladen.";
 
 /* Share my position using SMS, %1$@ contains om:// and %2$@ https://omaps.app link WITHOUT NAME. @NOTE non-ascii symbols in the link will result in max 70 characters SMS instead of 140. */
-"my_position_share_sms" = "Schau wo ich gerade bin. Klicke auf den Link %1$@ oder %2$@ - Keine Offline-Karten installiert? Hier herunterladen: https://omaps.app/get";
+"my_position_share_sms" = "Hey, sieh dir meinen aktuellen Standort auf Organic Maps an! %1$@ oder %2$@ Keine Offline-Karten installiert? Hier herunterladen: https://omaps.app/get";
 
 /* Subject for emailed bookmark */
-"bookmark_share_email_subject" = "Schau dir meine Stecknadel auf der Organic Maps-Karte an";
+"bookmark_share_email_subject" = "Hey, sieh dir meine Stecknadel auf der Organic Maps-Karte an!";
 
 /* Subject for emailed position */
-"my_position_share_email_subject" = "Sieh dir meinen aktuellen Standort auf der Organic Maps-Karte an";
+"my_position_share_email_subject" = "Hey, sieh dir meinen aktuellen Standort auf der Organic Maps-Karte an";
 
 /* Share my position using EMail, %1$@ is om:// and %2$@ is https://omaps.app link WITHOUT NAME */
 "my_position_share_email" = "Hi,\n\nich bin gerade hier: %1$@. Klicke den Link %2$@ oder %3$@, um den Ort auf der Karte anzuzeigen.\n\nVielen Dank.";
@@ -284,7 +284,7 @@
 "share_my_location" = "Meinen Standort teilen";
 
 /* Settings general group in settings screen */
-"prefs_group_general" = "General settings";
+"prefs_group_general" = "Allgemeine Einstellungen";
 
 /* Settings information group in settings screen */
 "prefs_group_information" = "Information";

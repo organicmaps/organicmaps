@@ -23,8 +23,6 @@
 	<string name="leave_a_review">ให้คำวิจารณ์</string>
 	<!-- View and button titles for accessibility -->
 	<string name="maps">แผนที่</string>
-	<!-- Settings/Downloader - size string, only strings different from English should be translated -->
-	<string name="mb">MB</string>
 	<!-- Choose measurement on first launch alert - choose imperial system button -->
 	<string name="miles">ไมล์</string>
 	<!-- View and button titles for accessibility -->

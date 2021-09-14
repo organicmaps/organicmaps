@@ -23,8 +23,6 @@
 	<string name="leave_a_review">Bericht abgeben</string>
 	<!-- View and button titles for accessibility -->
 	<string name="maps">Karten</string>
-	<!-- Settings/Downloader - size string, only strings different from English should be translated -->
-	<string name="mb">MB</string>
 	<!-- Choose measurement on first launch alert - choose imperial system button -->
 	<string name="miles">Meilen</string>
 	<!-- View and button titles for accessibility -->
@@ -153,11 +151,11 @@
 	<!-- Alert message that downloading is in progress. -->
 	<string name="downloading_is_active">Das Land wird gerade heruntergeladen.</string>
 	<!-- Share my position using SMS, %1$@ contains om:// and %2$@ https://omaps.app link WITHOUT NAME. @NOTE non-ascii symbols in the link will result in max 70 characters SMS instead of 140. -->
-	<string name="my_position_share_sms">Schau wo ich gerade bin. Klicke auf den Link %1$s oder %2$s - Keine Offline-Karten installiert? Hier herunterladen: https://omaps.app/get</string>
+	<string name="my_position_share_sms">Hey, sieh dir meinen aktuellen Standort auf Organic Maps an! %1$s oder %2$s Keine Offline-Karten installiert? Hier herunterladen: https://omaps.app/get</string>
 	<!-- Subject for emailed bookmark -->
-	<string name="bookmark_share_email_subject">Schau dir meine Stecknadel auf der Organic Maps-Karte an</string>
+	<string name="bookmark_share_email_subject">Hey, sieh dir meine Stecknadel auf der Organic Maps-Karte an!</string>
 	<!-- Subject for emailed position -->
-	<string name="my_position_share_email_subject">Sieh dir meinen aktuellen Standort auf der Organic Maps-Karte an</string>
+	<string name="my_position_share_email_subject">Hey, sieh dir meinen aktuellen Standort auf der Organic Maps-Karte an</string>
 	<!-- Share my position using EMail, %1$@ is om:// and %2$@ is https://omaps.app link WITHOUT NAME -->
 	<string name="my_position_share_email">Hi,\n\nich bin gerade hier: %1$s. Klicke den Link %2$s oder %3$s, um den Ort auf der Karte anzuzeigen.\n\nVielen Dank.</string>
 	<!-- Share button text which opens menu with more buttons, like Message, EMail, Facebook etc. -->
@@ -181,6 +179,10 @@
 	<!-- Length of track in cell that describes route -->
 	<string name="length">Länge</string>
 	<string name="share_my_location">Meinen Standort teilen</string>
+	<!-- Settings general group in settings screen -->
+	<string name="prefs_group_general">Allgemeine Einstellungen</string>
+	<!-- Settings information group in settings screen -->
+	<string name="prefs_group_information">Information</string>
 	<string name="prefs_group_route">Navigation</string>
 	<string name="pref_zoom_title">Zoom-Tasten</string>
 	<string name="pref_zoom_summary">Auf dem Bildschirm anzeigen</string>
