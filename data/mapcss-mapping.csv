@@ -400,7 +400,7 @@ deprecated|deprecated;399;x
 railway|abandoned|tunnel;[railway=abandoned][tunnel?];;name;int_name;400;
 area:highway|living_street;401;
 piste:type|sled;402;
-deprecated|deprecated;403;x
+leisure|beach_resort;403;
 leisure|dog_park;404;
 aerialway|gondola;405;
 historic|museum;406;
