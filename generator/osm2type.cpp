@@ -765,6 +765,7 @@ void PostprocessElement(OsmElement * p, FeatureBuilderParams & params)
           {"sidewalk", "~", [&params] { params.AddType(types.Get(CachedTypes::Type::YesFoot)); }},
 
           {"bicycle", "!", [&params] { params.AddType(types.Get(CachedTypes::Type::NoBicycle)); }},
+          {"bicycle", "use_sidepath", [&params] { params.AddType(types.Get(CachedTypes::Type::NoBicycle)); }},
           {"bicycle", "~", [&params] { params.AddType(types.Get(CachedTypes::Type::YesBicycle)); }},
           {"cycleway", "~", [&params] { params.AddType(types.Get(CachedTypes::Type::YesBicycle)); }},
           {"cycleway:right", "~",
