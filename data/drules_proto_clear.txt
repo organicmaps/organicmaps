@@ -4721,12 +4721,26 @@ cont {
     }
   }
   element {
+    scale: 18
+    symbol {
+      name: "ice_cream-m"
+      priority: 16000
+      min_distance: 24
+    }
+  }
+  element {
     scale: 19
+    symbol {
+      name: "ice_cream-m"
+      priority: 16000
+      min_distance: 24
+    }
     caption {
       primary {
         height: 10
         color: 4473924
         offset_y: 1
+        is_optional: true
       }
       priority: 15000
     }
@@ -33569,6 +33583,136 @@ cont {
   }
 }
 cont {
+  name: "leisure-beach_resort"
+  element {
+    scale: 10
+    area {
+      color: 16575614
+      priority: -15993
+    }
+  }
+  element {
+    scale: 11
+    area {
+      color: 16575614
+      priority: -15993
+    }
+  }
+  element {
+    scale: 12
+    area {
+      color: 16575614
+      priority: -15993
+    }
+  }
+  element {
+    scale: 13
+    area {
+      color: 16575614
+      priority: -15993
+    }
+  }
+  element {
+    scale: 14
+    area {
+      color: 16575614
+      priority: -15993
+    }
+  }
+  element {
+    scale: 15
+    area {
+      color: 16575614
+      priority: -15993
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+      }
+      priority: 15007
+    }
+  }
+  element {
+    scale: 16
+    area {
+      color: 16575614
+      priority: -15993
+    }
+    symbol {
+      name: "beach-m"
+      priority: 16007
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+      }
+      priority: 15007
+    }
+  }
+  element {
+    scale: 17
+    area {
+      color: 16575614
+      priority: -15963
+    }
+    symbol {
+      name: "beach-m"
+      priority: 16037
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: 15037
+    }
+  }
+  element {
+    scale: 18
+    area {
+      color: 16575614
+      priority: -15963
+    }
+    symbol {
+      name: "beach-m"
+      priority: 16037
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: 15037
+    }
+  }
+  element {
+    scale: 19
+    area {
+      color: 16575614
+      priority: -15963
+    }
+    symbol {
+      name: "beach-m"
+      priority: 16037
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: 15037
+    }
+  }
+}
+cont {
   name: "leisure-common"
   element {
     scale: 17
@@ -37193,10 +37337,6 @@ cont {
       color: 16575614
       priority: -15538
     }
-    symbol {
-      name: "beach-m"
-      priority: 16462
-    }
     caption {
       primary {
         height: 10
@@ -37213,13 +37353,9 @@ cont {
       color: 16575614
       priority: -15538
     }
-    symbol {
-      name: "beach-m"
-      priority: 16462
-    }
     caption {
       primary {
-        height: 11
+        height: 10
         color: 4473924
         offset_y: 1
         is_optional: true
@@ -37233,13 +37369,9 @@ cont {
       color: 16575614
       priority: -15538
     }
-    symbol {
-      name: "beach-m"
-      priority: 16462
-    }
     caption {
       primary {
-        height: 11
+        height: 10
         color: 4473924
         offset_y: 1
         is_optional: true
@@ -37253,13 +37385,9 @@ cont {
       color: 16575614
       priority: -15538
     }
-    symbol {
-      name: "beach-m"
-      priority: 16462
-    }
     caption {
       primary {
-        height: 11
+        height: 10
         color: 4473924
         offset_y: 1
         is_optional: true
