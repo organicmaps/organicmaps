@@ -2535,8 +2535,8 @@ area|z17-[shop=confectionery],
 node|z17-[shop=chocolate],
 area|z17-[shop=chocolate]
 {icon-image: sweets-m.svg;icon-min-distance: 24;text-optional: true;}
-node|z17[amenity=ice_cream],
-area|z17[amenity=ice_cream]
+node|z17-[amenity=ice_cream],
+area|z17-[amenity=ice_cream]
 {icon-image: ice_cream-m.svg;icon-min-distance: 24;text-optional: true;}
 node|z17-[shop=convenience],
 area|z17-[shop=convenience]
