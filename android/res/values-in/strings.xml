@@ -23,6 +23,8 @@
 	<string name="leave_a_review">Tulis Ulasan</string>
 	<!-- View and button titles for accessibility -->
 	<string name="maps">Peta</string>
+	<!-- Settings/Downloader - size string, only strings different from English should be translated -->
+	<string name="mb">MB</string>
 	<!-- Choose measurement on first launch alert - choose imperial system button -->
 	<string name="miles">Mil</string>
 	<!-- View and button titles for accessibility -->
@@ -607,7 +609,6 @@
 	<string name="placepage_remove_stop">Hapus</string>
 	<string name="planning_route_remove_title">Seret ke sini untuk menghapus</string>
 	<string name="placepage_add_stop">Tambah perhentian</string>
-	<string name="preloader_viator_button">Pelajari selengkapnya</string>
 	<string name="start_from_my_position">Mulai dari</string>
 	<string name="profile_authorization_error">Ah, tadi ada kesalahan. Coba masuk kembali.</string>
 	<string name="dialog_error_storage_title">Masalah akses penyimpanan</string>
@@ -638,7 +639,6 @@
 	<string name="please_wait">Mohon tunggu…</string>
 	<string name="phone_number">Nomor telepon</string>
 	<string name="profile">Profil OpenStreetMap</string>
-	<string name="place_page_search_similar_hotel">Cari hotel serupa</string>
 	<string name="bookmarks_detect_title">File baru terdeteksi</string>
 	<plurals name="bookmarks_detect_message">
 	  <item quantity="one">%d file ditemukan. Anda akan melihatnya setelah mengonversi.</item>

@@ -618,7 +618,6 @@
 	<string name="placepage_remove_stop">Удалить</string>
 	<string name="planning_route_remove_title">Перетяните сюда, чтобы удалить</string>
 	<string name="placepage_add_stop">Заехать</string>
-	<string name="preloader_viator_button">Посмотреть</string>
 	<string name="start_from_my_position">Начать от</string>
 	<string name="profile_authorization_error">Упс, произошла ошибка. Попробуйте авторизоваться повторно.</string>
 	<string name="dialog_error_storage_title">Проблема с доступом к хранилищу</string>
@@ -653,7 +652,6 @@
 	<string name="please_wait">Пожалуйста, подождите…</string>
 	<string name="phone_number">Номер телефона</string>
 	<string name="profile">Профиль OpenStreetMap</string>
-	<string name="place_page_search_similar_hotel">Найти похожие отели</string>
 	<string name="bookmarks_detect_title">Обнаружены новые файлы</string>
 	<plurals name="bookmarks_detect_message">
 	  <item quantity="few">%d файла были найдены. Вы увидете их после конвертации.</item>

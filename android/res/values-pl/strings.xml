@@ -613,7 +613,6 @@
 	<string name="placepage_remove_stop">Usuń</string>
 	<string name="planning_route_remove_title">Przeciągnij tu, aby usunąć</string>
 	<string name="placepage_add_stop">Dodaj postój</string>
-	<string name="preloader_viator_button">Dowiedz się więcej</string>
 	<string name="start_from_my_position">Zacznij od</string>
 	<string name="profile_authorization_error">Ups, nastąpił błąd. Spróbuj zalogować się ponownie.</string>
 	<string name="dialog_error_storage_title">Problem z dostępem do pamięci masowej</string>
@@ -644,7 +643,6 @@
 	<string name="please_wait">Proszę czekać…</string>
 	<string name="phone_number">Numer telefonu</string>
 	<string name="profile">Profil OpenStreetMap</string>
-	<string name="place_page_search_similar_hotel">Wyszukaj podobne hotele</string>
 	<string name="bookmarks_detect_title">Wykryto nowe pliki</string>
 	<plurals name="bookmarks_detect_message">
 	  <item quantity="one">Znaleziono %d plik. Zobaczysz to po konwersji.</item>

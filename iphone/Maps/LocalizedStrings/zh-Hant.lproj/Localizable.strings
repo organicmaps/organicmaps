@@ -1073,8 +1073,6 @@
 
 "placepage_add_stop" = "新增停靠站";
 
-"preloader_viator_button" = "進一步了解";
-
 "start_from_my_position" = "起點";
 
 "profile_authorization_error" = "噢，發生錯誤。請嘗試再次登入。";
@@ -1131,8 +1129,6 @@
 "phone_number" = "電話號碼";
 
 "profile" = "OpenStreetMap 資料";
-
-"place_page_search_similar_hotel" = "搜索類似的酒店";
 
 "bookmarks_detect_title" = "檢測到新文件";
 

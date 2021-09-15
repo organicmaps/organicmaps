@@ -610,7 +610,6 @@
 	<string name="placepage_remove_stop">Видалити</string>
 	<string name="planning_route_remove_title">Перетягніть сюди, щоб видалити</string>
 	<string name="placepage_add_stop">Додати зупинку</string>
-	<string name="preloader_viator_button">Докладніше</string>
 	<string name="start_from_my_position">Почати з</string>
 	<string name="profile_authorization_error">Ой, трапилася помилка. Спробуйте увійти знову.</string>
 	<string name="dialog_error_storage_title">Не вдалося отримати доступ до сховища</string>
@@ -641,7 +640,6 @@
 	<string name="please_wait">Будь ласка, зачекайте…</string>
 	<string name="phone_number">Номер телефону</string>
 	<string name="profile">Профіль OpenStreetMap</string>
-	<string name="place_page_search_similar_hotel">Шукати схожі готелі</string>
 	<string name="bookmarks_detect_title">Виявлено нові файли</string>
 	<plurals name="bookmarks_detect_message">
 	  <item quantity="one">%d файл був знайдений. Ви побачите його після перетворення.</item>

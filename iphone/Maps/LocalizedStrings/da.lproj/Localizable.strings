@@ -1073,8 +1073,6 @@
 
 "placepage_add_stop" = "Tilføj stop";
 
-"preloader_viator_button" = "Flere oplysninger";
-
 "start_from_my_position" = "Start fra";
 
 "profile_authorization_error" = "Ups, der skete en fejl. Prøv at logge på igen.";
@@ -1131,8 +1129,6 @@
 "phone_number" = "Telefonnummer";
 
 "profile" = "OpenStreetMap profil";
-
-"place_page_search_similar_hotel" = "Søg lignende hoteller";
 
 "bookmarks_detect_title" = "Nye filer registreret";
 

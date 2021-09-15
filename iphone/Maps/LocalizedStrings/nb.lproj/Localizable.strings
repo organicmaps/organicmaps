@@ -1073,8 +1073,6 @@
 
 "placepage_add_stop" = "Angi stopp";
 
-"preloader_viator_button" = "Finn ut mer";
-
 "start_from_my_position" = "Start fra";
 
 "profile_authorization_error" = "Oops, en feil oppstod. Prøv å logge inn på nytt.";
@@ -1131,8 +1129,6 @@
 "phone_number" = "Telefonnummer";
 
 "profile" = "OpenStreetMap profil";
-
-"place_page_search_similar_hotel" = "Søk lignende hoteller";
 
 "bookmarks_detect_title" = "Nye filer oppdaget";
 

@@ -609,7 +609,6 @@
 	<string name="placepage_remove_stop">إزالة</string>
 	<string name="planning_route_remove_title">اسحب هنا للإزالة</string>
 	<string name="placepage_add_stop">إضافة نقطة توقف</string>
-	<string name="preloader_viator_button">تعلم المزيد</string>
 	<string name="start_from_my_position">بدء من</string>
 	<string name="profile_authorization_error">عفوًا، كان هناك خطأ. حاول تسجيل الدخول مرة اخرى.</string>
 	<string name="dialog_error_storage_title">مشكلة الوصول للتخزين</string>
@@ -640,7 +639,6 @@
 	<string name="please_wait">أرجو الإنتظار…</string>
 	<string name="phone_number">رقم الهاتف</string>
 	<string name="profile">الملف الشخصي OpenStreetMap</string>
-	<string name="place_page_search_similar_hotel">ابحث عن فنادق مماثلة</string>
 	<string name="bookmarks_detect_title">تم اكتشاف ملفات جديدة</string>
 	<plurals name="bookmarks_detect_message">
 	  <item quantity="other">تم العثور على %d ملفات. سوف تراهم بعد التحويل.</item>

@@ -1073,8 +1073,6 @@
 
 "placepage_add_stop" = "Thêm điểm dừng";
 
-"preloader_viator_button" = "Tìm hiểu thêm";
-
 "start_from_my_position" = "Bắt đầu từ";
 
 "profile_authorization_error" = "Rất tiếc, đã có lỗi xảy ra. Hãy thử đăng nhập lại.";
@@ -1131,8 +1129,6 @@
 "phone_number" = "Số điện thoại";
 
 "profile" = "Hồ sơ OpenStreetMap";
-
-"place_page_search_similar_hotel" = "Tìm kiếm khách sạn";
 
 "bookmarks_detect_title" = "Đã phát hiện tệp mới";
 

@@ -1073,8 +1073,6 @@
 
 "placepage_add_stop" = "Pridať zastávku";
 
-"preloader_viator_button" = "Zistiť viac";
-
 "start_from_my_position" = "Začať od";
 
 "profile_authorization_error" = "Ups, vyskytla sa chyba. Skúste sa prihlásiť znova.";
@@ -1131,8 +1129,6 @@
 "phone_number" = "Telefónne číslo";
 
 "profile" = "Profil OpenStreetMap";
-
-"place_page_search_similar_hotel" = "Vyhľadať podobné hotely";
 
 "bookmarks_detect_title" = "Zistené nové súbory";
 

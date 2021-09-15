@@ -595,7 +595,6 @@
 	<string name="placepage_remove_stop">حذف</string>
 	<string name="planning_route_remove_title">برای حذف اینجا بکشید</string>
 	<string name="placepage_add_stop">اضافه کردن توقف</string>
-	<string name="preloader_viator_button">بیشتر بدانید</string>
 	<string name="start_from_my_position">شروع از</string>
 	<string name="profile_authorization_error">اوه، یک خطا وجود داشت سعی کنید دوباره وارد سیستم شوید</string>
 	<string name="dialog_error_storage_title">مشکل دسترسی به ذخیره سازی</string>
@@ -627,7 +626,6 @@
 	<string name="please_wait">لطفا صبر کنید…</string>
 	<string name="phone_number">شماره تلفن</string>
 	<string name="profile">OpenStreetMap نمایه</string>
-	<string name="place_page_search_similar_hotel">جست‌وجوی هتل‌های مشابه</string>
 	<string name="bookmarks_detect_title">فایل‌های جدید پیدا شد</string>
 	<plurals name="bookmarks_detect_message">
 	  <item quantity="one">%d فایل پیدا شد. بعد از تبدیل آن را می‌بینید.</item>

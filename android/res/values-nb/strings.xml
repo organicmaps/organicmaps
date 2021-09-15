@@ -23,6 +23,8 @@
 	<string name="leave_a_review">Legg inn en vurdering</string>
 	<!-- View and button titles for accessibility -->
 	<string name="maps">Kart</string>
+	<!-- Settings/Downloader - size string, only strings different from English should be translated -->
+	<string name="mb">MB</string>
 	<!-- Choose measurement on first launch alert - choose imperial system button -->
 	<string name="miles">Miles</string>
 	<!-- View and button titles for accessibility -->
@@ -605,7 +607,6 @@
 	<string name="placepage_remove_stop">Fjern</string>
 	<string name="planning_route_remove_title">Dra hit for å fjerne</string>
 	<string name="placepage_add_stop">Angi stopp</string>
-	<string name="preloader_viator_button">Finn ut mer</string>
 	<string name="start_from_my_position">Start fra</string>
 	<string name="profile_authorization_error">Oops, en feil oppstod. Prøv å logge inn på nytt.</string>
 	<string name="dialog_error_storage_title">Problemer med tilgang til lagring</string>
@@ -636,7 +637,6 @@
 	<string name="please_wait">Vennligst vent…</string>
 	<string name="phone_number">Telefonnummer</string>
 	<string name="profile">OpenStreetMap profil</string>
-	<string name="place_page_search_similar_hotel">Søk lignende hoteller</string>
 	<string name="bookmarks_detect_title">Nye filer oppdaget</string>
 	<plurals name="bookmarks_detect_message">
 	  <item quantity="one">%d filen ble funnet. Du vil se dem etter konverteringen.</item>

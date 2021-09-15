@@ -605,7 +605,6 @@
 	<string name="placepage_remove_stop">Odstrániť</string>
 	<string name="planning_route_remove_title">Presunutím sem odstránite</string>
 	<string name="placepage_add_stop">Pridať zastávku</string>
-	<string name="preloader_viator_button">Zistiť viac</string>
 	<string name="start_from_my_position">Začať od</string>
 	<string name="profile_authorization_error">Ups, vyskytla sa chyba. Skúste sa prihlásiť znova.</string>
 	<string name="dialog_error_storage_title">Problém s prístupom k úložisku</string>
@@ -636,7 +635,6 @@
 	<string name="please_wait">Prosím čakajte…</string>
 	<string name="phone_number">Telefónne číslo</string>
 	<string name="profile">Profil OpenStreetMap</string>
-	<string name="place_page_search_similar_hotel">Vyhľadať podobné hotely</string>
 	<string name="bookmarks_detect_title">Zistené nové súbory</string>
 	<plurals name="bookmarks_detect_message">
 	  <item quantity="few">Boli nájdené %d súbory. Uvidíte ich po konverzii.</item>

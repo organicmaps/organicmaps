@@ -605,7 +605,6 @@
 	<string name="placepage_remove_stop">Ta bort</string>
 	<string name="planning_route_remove_title">Dra här för att ta bort</string>
 	<string name="placepage_add_stop">Lägg till stopp</string>
-	<string name="preloader_viator_button">Läs mer</string>
 	<string name="start_from_my_position">Starta från</string>
 	<string name="profile_authorization_error">Hoppsan, ett fel har inträffat. Försök att logga in igen.</string>
 	<string name="dialog_error_storage_title">Lagringsåtkomstproblem</string>
@@ -636,7 +635,6 @@
 	<string name="please_wait">Vänligen vänta…</string>
 	<string name="phone_number">Telefonnummer</string>
 	<string name="profile">OpenStreetMap profil</string>
-	<string name="place_page_search_similar_hotel">Sök liknande hotell</string>
 	<string name="bookmarks_detect_title">Nya filer upptäcktes</string>
 	<plurals name="bookmarks_detect_message">
 	  <item quantity="one">%d fil hittades. Du kommer att se den efter omvandlingen.</item>

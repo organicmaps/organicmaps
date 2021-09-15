@@ -1073,8 +1073,6 @@
 
 "placepage_add_stop" = "스톱 추가";
 
-"preloader_viator_button" = "자세히 알아보기";
-
 "start_from_my_position" = "시작 위치:";
 
 "profile_authorization_error" = "죄송합니다. 오류가 발생했습니다. 다시 로그인해 보세요.";
@@ -1131,8 +1129,6 @@
 "phone_number" = "전화 번호";
 
 "profile" = "OpenStreetMap 프로필";
-
-"place_page_search_similar_hotel" = "비슷한 호텔 검색";
 
 "bookmarks_detect_title" = "새 파일이 감지되었습니다.";
 

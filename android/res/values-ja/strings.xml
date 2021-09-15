@@ -605,7 +605,6 @@
 	<string name="placepage_remove_stop">削除</string>
 	<string name="planning_route_remove_title">ここにドラッグして削除</string>
 	<string name="placepage_add_stop">経由地点を追加</string>
-	<string name="preloader_viator_button">詳細情報</string>
 	<string name="start_from_my_position">開始位置</string>
 	<string name="profile_authorization_error">エラーが発生しました。もう一度サインインしてみてください。</string>
 	<string name="dialog_error_storage_title">ストレージアクセスの問題</string>
@@ -636,7 +635,6 @@
 	<string name="please_wait">お待ちください…</string>
 	<string name="phone_number">電話番号</string>
 	<string name="profile">OpenStreetMap プロフィール</string>
-	<string name="place_page_search_similar_hotel">類似のホテルを検索</string>
 	<string name="bookmarks_detect_title">新しいファイルが検出されました</string>
 	<plurals name="bookmarks_detect_message">
 	  <item quantity="other">%d ファイルが見つかりました。 あなたは変換後にそれらを見るでしょう。</item>

@@ -16,7 +16,7 @@
 	<!-- Settings/Downloader - info for country when download fails -->
 	<string name="download_has_failed">Download fallito, tocca di nuovo per un altro tentativo</string>
 	<!-- Settings/Downloader - info for country which started downloading -->
-	<string name="downloading">In fase di download…</string>
+	<string name="downloading">Download in corso…</string>
 	<!-- Choose measurement on first launch alert - choose metric system button -->
 	<string name="kilometres">Chilometri</string>
 	<!-- Leave Review dialog - Review button -->
@@ -32,25 +32,25 @@
 	<!-- View and button titles for accessibility -->
 	<string name="search">Cerca</string>
 	<!-- Search box placeholder text -->
-	<string name="search_map">Ricerca Mappa</string>
+	<string name="search_map">Cerca sulla mappa</string>
 	<!-- Settings/Downloader - 3G download warning dialog confirm button -->
 	<string name="use_cellular_data">Sì</string>
 	<!-- Location services are disabled by user alert - message -->
-	<string name="location_is_disabled_long_text">Attualmente hai disattivati tutti i servizi di locazione per questo dispositivo o applicazione. Cortesemente abilitali nelle Impostazioni.</string>
+	<string name="location_is_disabled_long_text">Attualmente tutti i servizi di localizzazione per questo dispositivo o applicazione sono disattivati. Si prega di abilitarli in Impostazioni.</string>
 	<!-- View and button titles for accessibility -->
 	<string name="zoom_to_country">Mostra sulla mappa</string>
 	<!-- Button text for the button at the center of the screen when the country is not downloaded and the size should not be shown -->
-	<string name="country_status_download_without_size">Scarica Map</string>
+	<string name="country_status_download_without_size">Scarica mappa</string>
 	<!-- Message to display at the center of the screen when the country download has failed -->
-	<string name="country_status_download_failed">Lo scaricamento è fallito</string>
+	<string name="country_status_download_failed">Il download non è riuscito</string>
 	<!-- Button text for the button under the country_status_download_failed message -->
 	<string name="try_again">Riprova</string>
 	<string name="about_menu_title">Informazioni su Organic Maps</string>
 	<string name="connection_settings">Impostazioni di connessione</string>
 	<string name="close">Chiudi</string>
 	<string name="unsupported_phone">È necessaria una accelerazione hardware OpenGL. Purtroppo, il tuo dispositivo non è supportato.</string>
-	<string name="download">Carica</string>
-	<string name="disconnect_usb_cable">Coortesemente scollega il cavo USB oppure inserisci la scheda di memoria per l\'usco dell\'app</string>
+	<string name="download">Scarica</string>
+	<string name="disconnect_usb_cable">Si prega di scollegare il cavo USB o inserire la scheda di memoria per utilizzare Organic Maps</string>
 	<string name="not_enough_free_space_on_sdcard">Libera prima dello spazio sulla scheda Sd/ memoria USB per usare l\'app</string>
 	<string name="not_enough_memory">Memoria insufficiente per lanciare l\'app</string>
 	<string name="download_resources">Prima di iniziare è necessario scaricare la mappa generale del mondo sul tuo dispositivo.\nLa dimensione del download è di %s.</string>
@@ -63,7 +63,7 @@
 	<!-- REMOVE THIS STRING AFTER REFACTORING -->
 	<string name="continue_download">Continua</string>
 	<!-- Show popup notification on top of the map when country download has failed. -->
-	<string name="download_country_failed">Il trasferimento di %s non è riuscito</string>
+	<string name="download_country_failed">Il download di %s non è riuscito</string>
 	<!-- Add New Bookmark Set dialog title -->
 	<string name="add_new_set">Aggiungi un nuovo Set</string>
 	<!-- Bookmark Color dialog title -->
@@ -141,7 +141,7 @@
 	<!-- Kml file loading failed -->
 	<string name="load_kmz_failed">Caricamento dei segnalibri non riuscito. Il file potrebbe essere corrotto o difettoso.</string>
 	<!-- resource for context menu -->
-	<string name="edit">Copia link</string>
+	<string name="edit">Modifica</string>
 	<!-- Warning message when doing search around current position -->
 	<string name="unknown_current_position">La tua posizione non è stata ancora stabilita</string>
 	<!-- Alert message that we can't run Map Storage settings due to some reasons. -->
@@ -159,7 +159,7 @@
 	<!-- Share button text which opens menu with more buttons, like Message, EMail, Facebook etc. -->
 	<string name="share">Condividi</string>
 	<!-- Share by email button text, also used in editor. -->
-	<string name="email">Email</string>
+	<string name="email">E-mail</string>
 	<!-- Text for message when used successfully copied something -->
 	<string name="copied_to_clipboard">Copiato sugli Appunti: %1$s</string>
 	<!-- place preview title -->
@@ -225,7 +225,7 @@
 	<!-- Alert text -->
 	<string name="email_error_body">Il client email non è stato configurato. Si prega di configurarlo o di usare qualsiasi altro metodo per contattarci all\'indirizzo %s</string>
 	<!-- Alert title -->
-	<string name="email_error_title">Errore invio email</string>
+	<string name="email_error_title">Errore invio e-mail</string>
 	<!-- Settings item title -->
 	<string name="pref_calibration_title">Calibrazione del compasso</string>
 	<!-- Search category -->
@@ -605,7 +605,6 @@
 	<string name="placepage_remove_stop">Rimuovi</string>
 	<string name="planning_route_remove_title">Trascina qui per rimuovere</string>
 	<string name="placepage_add_stop">Aggiungi sosta</string>
-	<string name="preloader_viator_button">Ulteriori informazioni</string>
 	<string name="start_from_my_position">Parti da</string>
 	<string name="profile_authorization_error">Ops, si è verificato un errore. Prova a ripetere l\'accesso più tardi.</string>
 	<string name="dialog_error_storage_title">Problema di accesso all\'archivio</string>
@@ -636,7 +635,6 @@
 	<string name="please_wait">Attendere prego…</string>
 	<string name="phone_number">Numero di telefono</string>
 	<string name="profile">Profilo OpenStreetMap</string>
-	<string name="place_page_search_similar_hotel">Cerca hotel simili</string>
 	<string name="bookmarks_detect_title">Nuovi file rilevati</string>
 	<plurals name="bookmarks_detect_message">
 	  <item quantity="one">%d file è stato trovato. Lo vedrai dopo la conversione.</item>

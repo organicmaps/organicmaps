@@ -1073,8 +1073,6 @@
 
 "placepage_add_stop" = "Add Stop";
 
-"preloader_viator_button" = "Learn more";
-
 "start_from_my_position" = "Start from";
 
 "profile_authorization_error" = "Oops, there was an error. Try to sign in again.";
@@ -1131,8 +1129,6 @@
 "phone_number" = "Phone number";
 
 "profile" = "OpenStreetMap profile";
-
-"place_page_search_similar_hotel" = "Buscar hoteles similares";
 
 "bookmarks_detect_title" = "Se detectaron archivos nuevos";
 

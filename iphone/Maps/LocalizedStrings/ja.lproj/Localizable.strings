@@ -1073,8 +1073,6 @@
 
 "placepage_add_stop" = "経由地点を追加";
 
-"preloader_viator_button" = "詳細情報";
-
 "start_from_my_position" = "開始位置";
 
 "profile_authorization_error" = "エラーが発生しました。もう一度サインインしてみてください。";
@@ -1131,8 +1129,6 @@
 "phone_number" = "電話番号";
 
 "profile" = "OpenStreetMap プロフィール";
-
-"place_page_search_similar_hotel" = "類似のホテルを検索";
 
 "bookmarks_detect_title" = "新しいファイルが検出されました";
 

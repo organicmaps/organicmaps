@@ -24,7 +24,7 @@
 "download_has_failed" = "Download fallito, tocca di nuovo per un altro tentativo";
 
 /* Settings/Downloader - info for country which started downloading */
-"downloading" = "In fase di download…";
+"downloading" = "Download in corso…";
 
 /* Choose measurement on first launch alert - choose metric system button */
 "kilometres" = "Chilometri";
@@ -53,22 +53,22 @@
 "search" = "Cerca";
 
 /* Search box placeholder text */
-"search_map" = "Ricerca Mappa";
+"search_map" = "Cerca sulla mappa";
 
 /* Settings/Downloader - 3G download warning dialog confirm button */
 "use_cellular_data" = "Sì";
 
 /* Location services are disabled by user alert - message */
-"location_is_disabled_long_text" = "Attualmente hai disattivati tutti i servizi di locazione per questo dispositivo o applicazione. Cortesemente abilitali nelle Impostazioni.";
+"location_is_disabled_long_text" = "Attualmente tutti i servizi di localizzazione per questo dispositivo o applicazione sono disattivati. Si prega di abilitarli in Impostazioni.";
 
 /* View and button titles for accessibility */
 "zoom_to_country" = "Mostra sulla mappa";
 
 /* Button text for the button at the center of the screen when the country is not downloaded and the size should not be shown */
-"country_status_download_without_size" = "Scarica Map";
+"country_status_download_without_size" = "Scarica mappa";
 
 /* Message to display at the center of the screen when the country download has failed */
-"country_status_download_failed" = "Lo scaricamento è fallito";
+"country_status_download_failed" = "Il download non è riuscito";
 
 /* Button text for the button under the country_status_download_failed message */
 "try_again" = "Riprova";
@@ -81,9 +81,9 @@
 
 "unsupported_phone" = "È necessaria una accelerazione hardware OpenGL. Purtroppo, il tuo dispositivo non è supportato.";
 
-"download" = "Carica";
+"download" = "Scarica";
 
-"disconnect_usb_cable" = "Coortesemente scollega il cavo USB oppure inserisci la scheda di memoria per l'usco dell'app";
+"disconnect_usb_cable" = "Si prega di scollegare il cavo USB o inserire la scheda di memoria per utilizzare Organic Maps";
 
 "not_enough_free_space_on_sdcard" = "Libera prima dello spazio sulla scheda Sd/ memoria USB per usare l'app";
 
@@ -106,7 +106,7 @@
 "continue_download" = "Continua";
 
 /* Show popup notification on top of the map when country download has failed. */
-"download_country_failed" = "Il trasferimento di %@ non è riuscito";
+"download_country_failed" = "Il download di %@ non è riuscito";
 
 /* Add New Bookmark Set dialog title */
 "add_new_set" = "Aggiungi un nuovo Set";
@@ -228,7 +228,7 @@
 "load_kmz_failed" = "Caricamento dei segnalibri non riuscito. Il file potrebbe essere corrotto o difettoso.";
 
 /* resource for context menu */
-"edit" = "Copia link";
+"edit" = "Modifica";
 
 /* Warning message when doing search around current position */
 "unknown_current_position" = "La tua posizione non è stata ancora stabilita";
@@ -255,7 +255,7 @@
 "share" = "Condividi";
 
 /* Share by email button text, also used in editor. */
-"email" = "Email";
+"email" = "E-mail";
 
 /* Text for message when used successfully copied something */
 "copied_to_clipboard" = "Copiato sugli Appunti: %1$@";
@@ -388,7 +388,7 @@
 "email_error_body" = "Il client email non è stato configurato. Si prega di configurarlo o di usare qualsiasi altro metodo per contattarci all'indirizzo %@";
 
 /* Alert title */
-"email_error_title" = "Errore invio email";
+"email_error_title" = "Errore invio e-mail";
 
 /* Settings item title */
 "pref_calibration_title" = "Calibrazione del compasso";
@@ -1073,8 +1073,6 @@
 
 "placepage_add_stop" = "Aggiungi sosta";
 
-"preloader_viator_button" = "Ulteriori informazioni";
-
 "start_from_my_position" = "Parti da";
 
 "profile_authorization_error" = "Ops, si è verificato un errore. Prova a ripetere l'accesso più tardi.";
@@ -1131,8 +1129,6 @@
 "phone_number" = "Numero di telefono";
 
 "profile" = "Profilo OpenStreetMap";
-
-"place_page_search_similar_hotel" = "Cerca hotel simili";
 
 "bookmarks_detect_title" = "Nuovi file rilevati";
 

@@ -1073,8 +1073,6 @@
 
 "placepage_add_stop" = "Tussenstop toevoegen";
 
-"preloader_viator_button" = "Meer leren";
-
 "start_from_my_position" = "Start vanaf";
 
 "profile_authorization_error" = "Oeps, er is een fout opgetreden. Probeer opnieuw aan te melden.";
@@ -1131,8 +1129,6 @@
 "phone_number" = "Telefoonnummer";
 
 "profile" = "OpenStreetMap-profiel";
-
-"place_page_search_similar_hotel" = "Zoek vergelijkbare hotels";
 
 "bookmarks_detect_title" = "Nieuwe bestanden gedetecteerd";
 

@@ -619,7 +619,6 @@
 	<string name="placepage_remove_stop">Выдаліць</string>
 	<string name="planning_route_remove_title">Перацягніце сюды, каб выдаліць</string>
 	<string name="placepage_add_stop">Дадаць прыпынак</string>
-	<string name="preloader_viator_button">Даведацца больш</string>
 	<string name="start_from_my_position">Пачаць ад</string>
 	<string name="profile_authorization_error">Ой-ёй, здарылася памылка. Паспрабуйце аўтарызавацца зноў.</string>
 	<string name="dialog_error_storage_title">Праблема з доступам да сховішча</string>
@@ -654,7 +653,6 @@
 	<string name="please_wait">Калі ласка, пачакайце…</string>
 	<string name="phone_number">Нумар тэлефона</string>
 	<string name="profile">Профіль OpenStreetMap</string>
-	<string name="place_page_search_similar_hotel">Шукаць падобныя гатэлі</string>
 	<string name="bookmarks_detect_title">Знойдзены новыя файлы</string>
 	<string name="button_convert">Ператварыць</string>
 	<string name="bookmarks_convert_error_title">Памылка</string>

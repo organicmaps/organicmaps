@@ -609,7 +609,6 @@
 	<string name="placepage_remove_stop">Poista</string>
 	<string name="planning_route_remove_title">Vedä tähän poistaaksesi</string>
 	<string name="placepage_add_stop">Lisää pysähdys</string>
-	<string name="preloader_viator_button">Lisätietoja</string>
 	<string name="start_from_my_position">Aloita kohdasta</string>
 	<string name="profile_authorization_error">Tapahtui virhe. Yritä kirjautua sisään uudelleen.</string>
 	<string name="dialog_error_storage_title">Ongelma tallennustilan käyttämisessä</string>
@@ -640,7 +639,6 @@
 	<string name="please_wait">Odota…</string>
 	<string name="phone_number">Puhelinnumero</string>
 	<string name="profile">OpenStreetMap-profiili</string>
-	<string name="place_page_search_similar_hotel">Etsi samanlaisia ​​hotelleja</string>
 	<string name="bookmarks_detect_title">Uusia tiedostoja havaittiin</string>
 	<plurals name="bookmarks_detect_message">
 	  <item quantity="one">%d tiedosto löydettiin. Näet sen muunnoksen jälkeen.</item>

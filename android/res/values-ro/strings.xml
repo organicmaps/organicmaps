@@ -7,20 +7,20 @@
 	<!-- Button text (should be short) -->
 	<string name="back">Înapoi</string>
 	<!-- Button text (should be short) -->
-	<string name="cancel">Anulare</string>
+	<string name="cancel">Renunță</string>
 	<!-- Button which interrupts country download -->
-	<string name="cancel_download">Anulare descărcare</string>
+	<string name="cancel_download">Anulează descărcarea</string>
 	<!-- Button which deletes downloaded country -->
-	<string name="delete">Ștergere</string>
-	<string name="download_maps">Descărcare hărți</string>
+	<string name="delete">Șterge</string>
+	<string name="download_maps">Descarcă hărți</string>
 	<!-- Settings/Downloader - info for country when download fails -->
-	<string name="download_has_failed">Descărcarea a eșuat. Atingeți pentru a încerca din nou.</string>
+	<string name="download_has_failed">Descărcarea a eșuat. Apasă pentru a încerca din nou.</string>
 	<!-- Settings/Downloader - info for country which started downloading -->
 	<string name="downloading">Se descarcă…</string>
 	<!-- Choose measurement on first launch alert - choose metric system button -->
 	<string name="kilometres">Kilometri</string>
 	<!-- Leave Review dialog - Review button -->
-	<string name="leave_a_review">Scrieți o recenzie</string>
+	<string name="leave_a_review">Lasă un comentariu</string>
 	<!-- View and button titles for accessibility -->
 	<string name="maps">Hărţi</string>
 	<!-- Choose measurement on first launch alert - choose imperial system button -->
@@ -30,40 +30,40 @@
 	<!-- Update maps later/Buy pro version later button text -->
 	<string name="later">Mai târziu</string>
 	<!-- View and button titles for accessibility -->
-	<string name="search">Căutare</string>
+	<string name="search">Caută</string>
 	<!-- Search box placeholder text -->
-	<string name="search_map">Căutare hartă</string>
+	<string name="search_map">Caută pe hartă</string>
 	<!-- Settings/Downloader - 3G download warning dialog confirm button -->
 	<string name="use_cellular_data">Da</string>
 	<!-- Location services are disabled by user alert - message -->
-	<string name="location_is_disabled_long_text">În acest moment aveți dezactivate toate serviciile de localizare pentru acest dispozitiv sau aplicație. Vă rugăm să le activați la setări.</string>
+	<string name="location_is_disabled_long_text">În prezent, toate serviciile de localizare pentru acest aparat sau aplicație sînt dezactivate. Te rugăm să le activezi în Setări.</string>
 	<!-- View and button titles for accessibility -->
-	<string name="zoom_to_country">Afișare pe hartă</string>
+	<string name="zoom_to_country">Arată pe hartă</string>
 	<!-- Button text for the button at the center of the screen when the country is not downloaded and the size should not be shown -->
-	<string name="country_status_download_without_size">Descărcare hartă</string>
+	<string name="country_status_download_without_size">Descarcă harta</string>
 	<!-- Message to display at the center of the screen when the country download has failed -->
-	<string name="country_status_download_failed">Se descarcă a eșuat</string>
+	<string name="country_status_download_failed">Descărcarea nu a reușit</string>
 	<!-- Button text for the button under the country_status_download_failed message -->
-	<string name="try_again">Încercați din nou</string>
+	<string name="try_again">Încearcă din nou</string>
 	<string name="about_menu_title">Despre Organic Maps</string>
-	<string name="connection_settings">Setări conexiune</string>
-	<string name="close">Închidere</string>
-	<string name="unsupported_phone">Este necesar un OpenGL accelerat din hardware. Din păcate, dispozitivul nu este acceptat.</string>
-	<string name="download">Descărcare</string>
-	<string name="disconnect_usb_cable">Vă rugăm să deconectați cablul USB sau să introduceți cartela de memorie pentru a putea utiliza Organic Maps.</string>
-	<string name="not_enough_free_space_on_sdcard">Vă rugăm să eliberați spațiu pe cartela SD/dispozitivul de stocare USB pentru a putea utiliza aplicația.</string>
-	<string name="not_enough_memory">Nu este suficientă memorie pentru a lansa aplicația.</string>
-	<string name="download_resources">Înainte de a începe, permiteți-ne să descărcăm harta generală a lumii pe dispozitivul dvs.\nAre nevoie de %s de date.</string>
-	<string name="download_resources_continue">Mergeți la hartă.</string>
-	<string name="downloading_country_can_proceed">Se descarcă %s. Puteți\ntrece la hartă.</string>
-	<string name="download_country_ask">Descărcați %s?</string>
-	<string name="update_country_ask">Actualizați %s?</string>
+	<string name="connection_settings">Opțiuni de conectare</string>
+	<string name="close">Închide</string>
+	<string name="unsupported_phone">Este necesară accelerarea hardware OpenGL. Din păcate, aparatul tău nu este compatibil.</string>
+	<string name="download">Descarcă</string>
+	<string name="disconnect_usb_cable">Deconectează cablul USB sau introdu cartela de memorie pentru a utiliza Organic Maps</string>
+	<string name="not_enough_free_space_on_sdcard">Eliberează spațiu pe cartela SD/memoria USB pentru a putea utiliza aplicația</string>
+	<string name="not_enough_memory">Memorie insuficientă pentru a porni aplicația</string>
+	<string name="download_resources">Înainte de a începe, trebuie descărcată harta generală a lumii în aparatul tău.\nAre nevoie de %s de date.</string>
+	<string name="download_resources_continue">Du-te la hartă</string>
+	<string name="downloading_country_can_proceed">Se descarcă %s. Poți\ntrece la hartă.</string>
+	<string name="download_country_ask">Descarci %s?</string>
+	<string name="update_country_ask">Actualizezi %s?</string>
 	<!-- REMOVE THIS STRING AFTER REFACTORING -->
 	<string name="pause">Pauză</string>
 	<!-- REMOVE THIS STRING AFTER REFACTORING -->
-	<string name="continue_download">Continuare</string>
+	<string name="continue_download">Continuă</string>
 	<!-- Show popup notification on top of the map when country download has failed. -->
-	<string name="download_country_failed">%s - descărcarea a eșuat</string>
+	<string name="download_country_failed">Descărcarea %s nu a reușit</string>
 	<!-- Add New Bookmark Set dialog title -->
 	<string name="add_new_set">Adăugare la „Marcaje”</string>
 	<!-- Bookmark Color dialog title -->
@@ -143,9 +143,9 @@
 	<!-- Kml file loading failed -->
 	<string name="load_kmz_failed">Încărcarea marcajelor a eșuat. Fișierul poate fi corupt sau defect.</string>
 	<!-- resource for context menu -->
-	<string name="edit">Editare</string>
+	<string name="edit">Modifică</string>
 	<!-- Warning message when doing search around current position -->
-	<string name="unknown_current_position">Poziția dvs. nu a fost stabilită încă.</string>
+	<string name="unknown_current_position">Poziția ta nu a fost stabilită încă.</string>
 	<!-- Alert message that we can't run Map Storage settings due to some reasons. -->
 	<string name="cant_change_this_setting">Ne pare rău. Setările pentru stocarea hărților sunt dezactivate în acest moment.</string>
 	<!-- Alert message that downloading is in progress. -->
@@ -157,11 +157,11 @@
 	<!-- Subject for emailed position -->
 	<string name="my_position_share_email_subject">Hei, îmi poți vedea poziția actuală pe harta Organic Maps!</string>
 	<!-- Share my position using EMail, %1$@ is om:// and %2$@ is https://omaps.app link WITHOUT NAME -->
-	<string name="my_position_share_email">Chào,\n\nTôi hiện đang ở đây: %1$s. Hãy nhấn vào liên kết này %2$s hoặc liên kết này %3$s để xem địa điểm trên bản đồ.\n\nCám ơn.</string>
+	<string name="my_position_share_email">Bună,\n\nAcum sunt aici: %1$s. Apasă pe adresa %2$s sau pe %3$s pentru a vedea locul pe hartă.\n\nMulțumesc.</string>
 	<!-- Share button text which opens menu with more buttons, like Message, EMail, Facebook etc. -->
 	<string name="share">Partajare</string>
 	<!-- Share by email button text, also used in editor. -->
-	<string name="email">Email</string>
+	<string name="email">E-mail</string>
 	<!-- Text for message when used successfully copied something -->
 	<string name="copied_to_clipboard">Copiat în clipboard: %1$s</string>
 	<!-- place preview title -->
@@ -213,31 +213,31 @@
 	<string name="placepage_distance">Distanță</string>
 	<string name="search_show_on_map">Vizualizare pe hartă</string>
 	<!-- Text in menu -->
-	<string name="website">Site web</string>
+	<string name="website">Sit web</string>
 	<!-- Settings: Send feedback button and dialog title -->
-	<string name="feedback">Feedback</string>
+	<string name="feedback">Părere</string>
 	<!-- Text in menu -->
 	<string name="rate_the_app">Votați-ne aplicația</string>
 	<!-- Text in menu -->
 	<string name="help">Ajutor</string>
 	<!-- Text in menu -->
-	<string name="copyright">Copyright</string>
+	<string name="copyright">Drepturi de autor</string>
 	<!-- Text in menu -->
-	<string name="report_a_bug">Raportați o eroare</string>
+	<string name="report_a_bug">Raportează o eroare</string>
 	<!-- Alert text -->
-	<string name="email_error_body">Nu a fost setat clientul de email. Vă rugăm să o configurați sau să utilizați un alt mod de a ne contacta la %s.</string>
+	<string name="email_error_body">Nu a fost stabilit programul de e-mail. Stabilește-l sau utilizează un alt mod de a ne contacta la %s.</string>
 	<!-- Alert title -->
-	<string name="email_error_title">Eroare trimitere email.</string>
+	<string name="email_error_title">Eroare trimitere e-mail.</string>
 	<!-- Settings item title -->
 	<string name="pref_calibration_title">Calibrare busolă</string>
 	<!-- Search category -->
 	<string name="wifi">WiFi</string>
 	<!-- Update all button text -->
-	<string name="downloader_update_all_button">Actualizați toate</string>
+	<string name="downloader_update_all_button">Actualizează tot</string>
 	<!-- Cancel all button text -->
-	<string name="downloader_cancel_all">Anulare toate</string>
+	<string name="downloader_cancel_all">Anulează tot</string>
 	<!-- Downloaded maps category -->
-	<string name="downloader_downloaded_subtitle">Descărcat</string>
+	<string name="downloader_downloaded_subtitle">Descărcate</string>
 	<!-- Downloaded maps category -->
 	<string name="downloader_available_maps">Disponibil</string>
 	<!-- Country queued for download -->
@@ -606,7 +606,6 @@
 	<string name="placepage_remove_stop">Eliminare</string>
 	<string name="planning_route_remove_title">Trageți aici pentru a elimina</string>
 	<string name="placepage_add_stop">Adăugare oprire</string>
-	<string name="preloader_viator_button">Află mai multe</string>
 	<string name="start_from_my_position">Începând de la</string>
 	<string name="profile_authorization_error">Ups, a survenit o eroare. Încercați să vă conectați din nou.</string>
 	<string name="dialog_error_storage_title">Problemă de accesare spațiu de stocare</string>
@@ -637,7 +636,6 @@
 	<string name="please_wait">Te rog asteapta…</string>
 	<string name="phone_number">Numar de telefon</string>
 	<string name="profile">Profil OpenStreetMap</string>
-	<string name="place_page_search_similar_hotel">Căutați hoteluri similare</string>
 	<string name="bookmarks_detect_title">Au fost detectate fișiere noi</string>
 	<plurals name="bookmarks_detect_message">
 	  <item quantity="one">%d fișier a fost găsit. Veți vedea după conversie.</item>
@@ -804,12 +802,12 @@
 	<string name="isolines_toast_zooms_1_10">Măriți harta pentru a vedea contururile</string>
 	<string name="downloader_updating_ios">Actualizare</string>
 	<string name="downloader_loading_ios">Încărcare</string>
-	<string name="key_information_title">Informații cheie</string>
+	<string name="key_information_title">Informații importante</string>
 	<string name="enable_screen_sleep">Permiteți ecranului să doarmă</string>
 	<!-- Description in preferences -->
 	<string name="enable_screen_sleep_description">Când este activat, ecranul va fi lăsat să doarmă după o perioadă de inactivitate.</string>
 	<!-- Autoupdate dialog on start -->
-	<string name="whats_new_auto_update_title">Actualizați hărțile descărcate</string>
+	<string name="whats_new_auto_update_title">Actualizează hărțile descărcate</string>
 	<!-- Autoupdate dialog on start -->
 	<string name="whats_new_auto_update_message">Actualizarea hărților vă ajută să păstrați actualizate informațiile despre obiecte</string>
 	<!-- Autoupdate dialog on start -->

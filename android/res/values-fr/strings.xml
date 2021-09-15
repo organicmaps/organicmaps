@@ -617,7 +617,6 @@
 	<string name="placepage_remove_stop">Supprimer</string>
 	<string name="planning_route_remove_title">Faire glisser ici pour supprimer</string>
 	<string name="placepage_add_stop">Ajouter un arrêt</string>
-	<string name="preloader_viator_button">En savoir plus</string>
 	<string name="start_from_my_position">Commencer à partir de</string>
 	<string name="profile_authorization_error">Oups, une erreur s\'est produite. Essayez de vous connecter à nouveau.</string>
 	<string name="dialog_error_storage_title">Problème d\'accès au stockage</string>
@@ -648,7 +647,6 @@
 	<string name="please_wait">S\'il vous plaît, attendez…</string>
 	<string name="phone_number">Numéro de téléphone</string>
 	<string name="profile">Profil OpenStreetMap</string>
-	<string name="place_page_search_similar_hotel">Rechercher des hôtels similaires</string>
 	<string name="bookmarks_detect_title">Nouveaux fichiers détectés</string>
 	<plurals name="bookmarks_detect_message">
 	  <item quantity="one">%d fichier a été trouvé. Vous le verrez après la conversion.</item>

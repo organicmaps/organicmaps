@@ -23,6 +23,8 @@
 	<string name="leave_a_review">Bir Yorum Bırak</string>
 	<!-- View and button titles for accessibility -->
 	<string name="maps">Haritalar</string>
+	<!-- Settings/Downloader - size string, only strings different from English should be translated -->
+	<string name="mb">MB</string>
 	<!-- Choose measurement on first launch alert - choose imperial system button -->
 	<string name="miles">Mil</string>
 	<!-- View and button titles for accessibility -->
@@ -607,7 +609,6 @@
 	<string name="placepage_remove_stop">Kaldır</string>
 	<string name="planning_route_remove_title">Kaldırmak için buraya sürükleyin</string>
 	<string name="placepage_add_stop">Ara nokta ekle</string>
-	<string name="preloader_viator_button">Daha fazla bilgi edinin</string>
 	<string name="start_from_my_position">Buradan başla</string>
 	<string name="profile_authorization_error">Üzgünüz, bir hata oluştu. Tekrar oturum açmayı deneyin.</string>
 	<string name="dialog_error_storage_title">Depolama alanı erişim sorunu</string>
@@ -638,7 +639,6 @@
 	<string name="please_wait">Lütfen bekle…</string>
 	<string name="phone_number">Telefon numarası</string>
 	<string name="profile">OpenStreetMap profil</string>
-	<string name="place_page_search_similar_hotel">Benzer otellerde ara</string>
 	<string name="bookmarks_detect_title">Yeni dosyalar algılandı</string>
 	<plurals name="bookmarks_detect_message">
 	  <item quantity="other">%d dosya bulundu. Dönüşümden sonra onları göreceksiniz.</item>

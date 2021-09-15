@@ -607,7 +607,6 @@
 	<string name="placepage_remove_stop">Odstranit</string>
 	<string name="planning_route_remove_title">Pro odebrání přetáhněte sem</string>
 	<string name="placepage_add_stop">Přidat zastávku</string>
-	<string name="preloader_viator_button">Zjistit více</string>
 	<string name="start_from_my_position">Začít z</string>
 	<string name="profile_authorization_error">Jejda, došlo k chybě. Zkuste se přihlásit znovu.</string>
 	<string name="dialog_error_storage_title">Problém s přístupem k úložišti</string>
@@ -638,7 +637,6 @@
 	<string name="please_wait">Prosím, čekejte…</string>
 	<string name="phone_number">Telefonní číslo</string>
 	<string name="profile">Profil OpenStreetMap</string>
-	<string name="place_page_search_similar_hotel">Hledat podobné hotely</string>
 	<string name="bookmarks_detect_title">Byly zjištěny nové soubory</string>
 	<plurals name="bookmarks_detect_message">
 	  <item quantity="few">%d byly nalezeny soubory. Uvidíte je po konverzi.</item>

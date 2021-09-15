@@ -1073,8 +1073,6 @@
 
 "placepage_add_stop" = "Tambah perhentian";
 
-"preloader_viator_button" = "Pelajari selengkapnya";
-
 "start_from_my_position" = "Mulai dari";
 
 "profile_authorization_error" = "Ah, tadi ada kesalahan. Coba masuk kembali.";
@@ -1131,8 +1129,6 @@
 "phone_number" = "Nomor telepon";
 
 "profile" = "Profil OpenStreetMap";
-
-"place_page_search_similar_hotel" = "Cari hotel serupa";
 
 "bookmarks_detect_title" = "File baru terdeteksi";
 

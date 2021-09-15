@@ -632,7 +632,6 @@
 	<string name="placepage_remove_stop">Remove</string>
 	<string name="planning_route_remove_title">Drag here to remove</string>
 	<string name="placepage_add_stop">Add Stop</string>
-	<string name="preloader_viator_button">Learn more</string>
 	<string name="start_from_my_position">Start from</string>
 	<string name="profile_authorization_error">Oops, there was an error. Try to sign in again.</string>
 	<string name="dialog_error_storage_title">Storage access problem</string>
@@ -666,7 +665,6 @@
 	<string name="please_wait">Please wait�</string>
 	<string name="phone_number">Phone number</string>
 	<string name="profile">OpenStreetMap profile</string>
-	<string name="place_page_search_similar_hotel">Search similar hotels</string>
 	<string name="bookmarks_detect_title">New files detected</string>
 	<plurals name="bookmarks_detect_message">
 	  <item quantity="one">%d file was found. You can see it after conversion.</item>

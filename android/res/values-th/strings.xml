@@ -23,6 +23,8 @@
 	<string name="leave_a_review">ให้คำวิจารณ์</string>
 	<!-- View and button titles for accessibility -->
 	<string name="maps">แผนที่</string>
+	<!-- Settings/Downloader - size string, only strings different from English should be translated -->
+	<string name="mb">MB</string>
 	<!-- Choose measurement on first launch alert - choose imperial system button -->
 	<string name="miles">ไมล์</string>
 	<!-- View and button titles for accessibility -->
@@ -607,7 +609,6 @@
 	<string name="placepage_remove_stop">เอาออก</string>
 	<string name="planning_route_remove_title">ลากมาที่นี่เพื่อเอาออก</string>
 	<string name="placepage_add_stop">เพิ่มจุดแวะพัก</string>
-	<string name="preloader_viator_button">เรียนรู้เพิ่มเติม</string>
 	<string name="start_from_my_position">เริ่มจาก</string>
 	<string name="profile_authorization_error">โอ๊ะ มีข้อผิดพลาดเกิดขึ้น ลองลงชื่อเข้าใช้อีกครั้ง</string>
 	<string name="dialog_error_storage_title">ปัญหาการเข้าถึงที่เก็บข้อมูล</string>
@@ -638,7 +639,6 @@
 	<string name="please_wait">โปรดรอสักครู่ …</string>
 	<string name="phone_number">หมายเลขโทรศัพท์</string>
 	<string name="profile">โปรไฟล์ OpenStreetMap</string>
-	<string name="place_page_search_similar_hotel">ค้นหาโรงแรมที่คล้ายกัน</string>
 	<string name="bookmarks_detect_title">พบไฟล์ใหม่แล้ว</string>
 	<plurals name="bookmarks_detect_message">
 	  <item quantity="other">%d ไฟล์ที่ค้นพบ คุณจะเห็นพวกเขาหลังจากการแปลง</item>

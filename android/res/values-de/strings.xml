@@ -23,6 +23,8 @@
 	<string name="leave_a_review">Bericht abgeben</string>
 	<!-- View and button titles for accessibility -->
 	<string name="maps">Karten</string>
+	<!-- Settings/Downloader - size string, only strings different from English should be translated -->
+	<string name="mb">MB</string>
 	<!-- Choose measurement on first launch alert - choose imperial system button -->
 	<string name="miles">Meilen</string>
 	<!-- View and button titles for accessibility -->
@@ -613,7 +615,6 @@
 	<string name="placepage_remove_stop">Entfernen</string>
 	<string name="planning_route_remove_title">Hierher ziehen zum Entfernen</string>
 	<string name="placepage_add_stop">Zwischenstopp hinzufügen</string>
-	<string name="preloader_viator_button">Weitere Informationen</string>
 	<string name="start_from_my_position">Starten von</string>
 	<string name="profile_authorization_error">Hoppla, es ist ein Fehler aufgetreten. Versuchen Sie erneut, sich anzumelden.</string>
 	<string name="dialog_error_storage_title">Problem mit dem Zugreifen auf den Speicher</string>
@@ -644,7 +645,6 @@
 	<string name="please_wait">Warten Sie mal…</string>
 	<string name="phone_number">Telefonnummer</string>
 	<string name="profile">OpenStreetMap-Profil</string>
-	<string name="place_page_search_similar_hotel">Nach ähnlichen Hotels suchen</string>
 	<string name="bookmarks_detect_title">Neue Dateien erkannt</string>
 	<plurals name="bookmarks_detect_message">
 	  <item quantity="one">%d Datei wurde gefunden. Sie werden es nach der Konvertierung sehen.</item>

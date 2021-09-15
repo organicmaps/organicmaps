@@ -619,7 +619,6 @@
 	<string name="placepage_remove_stop">移除</string>
 	<string name="planning_route_remove_title">拖动到此处以移除</string>
 	<string name="placepage_add_stop">添加经停点</string>
-	<string name="preloader_viator_button">了解更多</string>
 	<string name="start_from_my_position">起点</string>
 	<string name="profile_authorization_error">糟糕，出错了。请尝试重新登录。</string>
 	<string name="dialog_error_storage_title">存储空间访问问题</string>
@@ -650,7 +649,6 @@
 	<string name="please_wait">请稍候…</string>
 	<string name="phone_number">电话号码</string>
 	<string name="profile">OpenStreetMap 资料</string>
-	<string name="place_page_search_similar_hotel">搜索类似的酒店</string>
 	<string name="bookmarks_detect_title">检测到新文件</string>
 	<plurals name="bookmarks_detect_message">
 	  <item quantity="other">找到%d个文件。 转换后你会看到它。</item>

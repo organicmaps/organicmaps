@@ -607,7 +607,6 @@
 	<string name="placepage_remove_stop">제거</string>
 	<string name="planning_route_remove_title">여기로 끌어와서 제거</string>
 	<string name="placepage_add_stop">스톱 추가</string>
-	<string name="preloader_viator_button">자세히 알아보기</string>
 	<string name="start_from_my_position">시작 위치:</string>
 	<string name="profile_authorization_error">죄송합니다. 오류가 발생했습니다. 다시 로그인해 보세요.</string>
 	<string name="dialog_error_storage_title">저장소 액세스 문제</string>
@@ -638,7 +637,6 @@
 	<string name="please_wait">잠시만 기다려주십시오…</string>
 	<string name="phone_number">전화 번호</string>
 	<string name="profile">OpenStreetMap 프로필</string>
-	<string name="place_page_search_similar_hotel">비슷한 호텔 검색</string>
 	<string name="bookmarks_detect_title">새 파일이 감지되었습니다.</string>
 	<plurals name="bookmarks_detect_message">
 	  <item quantity="other">%d 파일을 찾았습니다. 회심 후 그들을 볼 수 있습니다.</item>

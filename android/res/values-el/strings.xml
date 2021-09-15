@@ -597,7 +597,6 @@
 	<string name="placepage_remove_stop">Κατάργηση</string>
 	<string name="planning_route_remove_title">Σύρετε εδώ για κατάργηση</string>
 	<string name="placepage_add_stop">Προσθήκη στάσης</string>
-	<string name="preloader_viator_button">Μάθετε περισσότερα</string>
 	<string name="start_from_my_position">Έναρξη από</string>
 	<string name="profile_authorization_error">Ωχ, παρουσιάστηκε σφάλμα. Προσπαθήστε να συνδεθείτε ξανά.</string>
 	<string name="dialog_error_storage_title">Πρόβλημα πρόσβασης στον αποθηκευτικό χώρο</string>
@@ -628,7 +627,6 @@
 	<string name="please_wait">Παρακαλώ περιμένετε…</string>
 	<string name="phone_number">Τηλεφωνικό νούμερο</string>
 	<string name="profile">Προφίλ OpenStreetMap</string>
-	<string name="place_page_search_similar_hotel">Αναζήτηση παρόμοιων ξενοδοχείων</string>
 	<string name="bookmarks_detect_title">Εντοπίστηκαν νέα αρχεία</string>
 	<plurals name="bookmarks_detect_message">
 	  <item quantity="one">Βρέθηκε %d αρχείο. Θα το δείτε μετά τη μετατροπή.</item>

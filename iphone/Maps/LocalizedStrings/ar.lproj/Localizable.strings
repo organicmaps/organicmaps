@@ -1073,8 +1073,6 @@
 
 "placepage_add_stop" = "إضافة نقطة توقف";
 
-"preloader_viator_button" = "تعلم المزيد";
-
 "start_from_my_position" = "بدء من";
 
 "profile_authorization_error" = "عفوًا، كان هناك خطأ. حاول تسجيل الدخول مرة اخرى.";
@@ -1131,8 +1129,6 @@
 "phone_number" = "رقم الهاتف";
 
 "profile" = "الملف الشخصي OpenStreetMap";
-
-"place_page_search_similar_hotel" = "ابحث عن فنادق مماثلة";
 
 "bookmarks_detect_title" = "تم اكتشاف ملفات جديدة";
 

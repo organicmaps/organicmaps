@@ -10,18 +10,18 @@
 "back" = "Înapoi";
 
 /* Button text (should be short) */
-"cancel" = "Anulare";
+"cancel" = "Renunță";
 
 /* Button which interrupts country download */
-"cancel_download" = "Anulare descărcare";
+"cancel_download" = "Anulează descărcarea";
 
 /* Button which deletes downloaded country */
-"delete" = "Ștergere";
+"delete" = "Șterge";
 
-"download_maps" = "Descărcare hărți";
+"download_maps" = "Descarcă hărți";
 
 /* Settings/Downloader - info for country when download fails */
-"download_has_failed" = "Descărcarea a eșuat. Atingeți pentru a încerca din nou.";
+"download_has_failed" = "Descărcarea a eșuat. Apasă pentru a încerca din nou.";
 
 /* Settings/Downloader - info for country which started downloading */
 "downloading" = "Se descarcă…";
@@ -30,7 +30,7 @@
 "kilometres" = "Kilometri";
 
 /* Leave Review dialog - Review button */
-"leave_a_review" = "Scrieți o recenzie";
+"leave_a_review" = "Lasă un comentariu";
 
 /* View and button titles for accessibility */
 "maps" = "Hărţi";
@@ -50,63 +50,63 @@
 "later" = "Mai târziu";
 
 /* View and button titles for accessibility */
-"search" = "Căutare";
+"search" = "Caută";
 
 /* Search box placeholder text */
-"search_map" = "Căutare hartă";
+"search_map" = "Caută pe hartă";
 
 /* Settings/Downloader - 3G download warning dialog confirm button */
 "use_cellular_data" = "Da";
 
 /* Location services are disabled by user alert - message */
-"location_is_disabled_long_text" = "În acest moment aveți dezactivate toate serviciile de localizare pentru acest dispozitiv sau aplicație. Vă rugăm să le activați la setări.";
+"location_is_disabled_long_text" = "În prezent, toate serviciile de localizare pentru acest aparat sau aplicație sînt dezactivate. Te rugăm să le activezi în Setări.";
 
 /* View and button titles for accessibility */
-"zoom_to_country" = "Afișare pe hartă";
+"zoom_to_country" = "Arată pe hartă";
 
 /* Button text for the button at the center of the screen when the country is not downloaded and the size should not be shown */
-"country_status_download_without_size" = "Descărcare hartă";
+"country_status_download_without_size" = "Descarcă harta";
 
 /* Message to display at the center of the screen when the country download has failed */
-"country_status_download_failed" = "Se descarcă a eșuat";
+"country_status_download_failed" = "Descărcarea nu a reușit";
 
 /* Button text for the button under the country_status_download_failed message */
-"try_again" = "Încercați din nou";
+"try_again" = "Încearcă din nou";
 
 "about_menu_title" = "Despre Organic Maps";
 
-"connection_settings" = "Setări conexiune";
+"connection_settings" = "Opțiuni de conectare";
 
-"close" = "Închidere";
+"close" = "Închide";
 
-"unsupported_phone" = "Este necesar un OpenGL accelerat din hardware. Din păcate, dispozitivul nu este acceptat.";
+"unsupported_phone" = "Este necesară accelerarea hardware OpenGL. Din păcate, aparatul tău nu este compatibil.";
 
-"download" = "Descărcare";
+"download" = "Descarcă";
 
-"disconnect_usb_cable" = "Vă rugăm să deconectați cablul USB sau să introduceți cartela de memorie pentru a putea utiliza Organic Maps.";
+"disconnect_usb_cable" = "Deconectează cablul USB sau introdu cartela de memorie pentru a utiliza Organic Maps";
 
-"not_enough_free_space_on_sdcard" = "Vă rugăm să eliberați spațiu pe cartela SD/dispozitivul de stocare USB pentru a putea utiliza aplicația.";
+"not_enough_free_space_on_sdcard" = "Eliberează spațiu pe cartela SD/memoria USB pentru a putea utiliza aplicația";
 
-"not_enough_memory" = "Nu este suficientă memorie pentru a lansa aplicația.";
+"not_enough_memory" = "Memorie insuficientă pentru a porni aplicația";
 
-"download_resources" = "Înainte de a începe, permiteți-ne să descărcăm harta generală a lumii pe dispozitivul dvs.\nAre nevoie de %@ de date.";
+"download_resources" = "Înainte de a începe, trebuie descărcată harta generală a lumii în aparatul tău.\nAre nevoie de %@ de date.";
 
-"download_resources_continue" = "Mergeți la hartă.";
+"download_resources_continue" = "Du-te la hartă";
 
-"downloading_country_can_proceed" = "Se descarcă %@. Puteți\ntrece la hartă.";
+"downloading_country_can_proceed" = "Se descarcă %@. Poți\ntrece la hartă.";
 
-"download_country_ask" = "Descărcați %@?";
+"download_country_ask" = "Descarci %@?";
 
-"update_country_ask" = "Actualizați %@?";
+"update_country_ask" = "Actualizezi %@?";
 
 /* REMOVE THIS STRING AFTER REFACTORING */
 "pause" = "Pauză";
 
 /* REMOVE THIS STRING AFTER REFACTORING */
-"continue_download" = "Continuare";
+"continue_download" = "Continuă";
 
 /* Show popup notification on top of the map when country download has failed. */
-"download_country_failed" = "%@ - descărcarea a eșuat";
+"download_country_failed" = "Descărcarea %@ nu a reușit";
 
 /* Add New Bookmark Set dialog title */
 "add_new_set" = "Adăugare la „Marcaje”";
@@ -228,10 +228,10 @@
 "load_kmz_failed" = "Încărcarea marcajelor a eșuat. Fișierul poate fi corupt sau defect.";
 
 /* resource for context menu */
-"edit" = "Editare";
+"edit" = "Modifică";
 
 /* Warning message when doing search around current position */
-"unknown_current_position" = "Poziția dvs. nu a fost stabilită încă.";
+"unknown_current_position" = "Poziția ta nu a fost stabilită încă.";
 
 /* Alert message that we can't run Map Storage settings due to some reasons. */
 "cant_change_this_setting" = "Ne pare rău. Setările pentru stocarea hărților sunt dezactivate în acest moment.";
@@ -249,13 +249,13 @@
 "my_position_share_email_subject" = "Hei, îmi poți vedea poziția actuală pe harta Organic Maps!";
 
 /* Share my position using EMail, %1$@ is om:// and %2$@ is https://omaps.app link WITHOUT NAME */
-"my_position_share_email" = "Chào,\n\nTôi hiện đang ở đây: %1$@. Hãy nhấn vào liên kết này %2$@ hoặc liên kết này %3$@ để xem địa điểm trên bản đồ.\n\nCám ơn.";
+"my_position_share_email" = "Bună,\n\nAcum sunt aici: %1$@. Apasă pe adresa %2$@ sau pe %3$@ pentru a vedea locul pe hartă.\n\nMulțumesc.";
 
 /* Share button text which opens menu with more buttons, like Message, EMail, Facebook etc. */
 "share" = "Partajare";
 
 /* Share by email button text, also used in editor. */
-"email" = "Email";
+"email" = "E-mail";
 
 /* Text for message when used successfully copied something */
 "copied_to_clipboard" = "Copiat în clipboard: %1$@";
@@ -349,7 +349,7 @@
 "search_show_on_map" = "Vizualizare pe hartă";
 
 /* Text in menu */
-"website" = "Site web";
+"website" = "Sit web";
 
 /* Text in menu */
 "github" = "GitHub";
@@ -370,7 +370,7 @@
 "openstreetmap" = "OpenStreetMap";
 
 /* Settings: Send feedback button and dialog title */
-"feedback" = "Feedback";
+"feedback" = "Părere";
 
 /* Text in menu */
 "rate_the_app" = "Votați-ne aplicația";
@@ -379,16 +379,16 @@
 "help" = "Ajutor";
 
 /* Text in menu */
-"copyright" = "Copyright";
+"copyright" = "Drepturi de autor";
 
 /* Text in menu */
-"report_a_bug" = "Raportați o eroare";
+"report_a_bug" = "Raportează o eroare";
 
 /* Alert text */
-"email_error_body" = "Nu a fost setat clientul de email. Vă rugăm să o configurați sau să utilizați un alt mod de a ne contacta la %@.";
+"email_error_body" = "Nu a fost stabilit programul de e-mail. Stabilește-l sau utilizează un alt mod de a ne contacta la %@.";
 
 /* Alert title */
-"email_error_title" = "Eroare trimitere email.";
+"email_error_title" = "Eroare trimitere e-mail.";
 
 /* Settings item title */
 "pref_calibration_title" = "Calibrare busolă";
@@ -397,13 +397,13 @@
 "wifi" = "WiFi";
 
 /* Update all button text */
-"downloader_update_all_button" = "Actualizați toate";
+"downloader_update_all_button" = "Actualizează tot";
 
 /* Cancel all button text */
-"downloader_cancel_all" = "Anulare toate";
+"downloader_cancel_all" = "Anulează tot";
 
 /* Downloaded maps category */
-"downloader_downloaded_subtitle" = "Descărcat";
+"downloader_downloaded_subtitle" = "Descărcate";
 
 /* Downloaded maps category */
 "downloader_available_maps" = "Disponibil";
@@ -1073,8 +1073,6 @@
 
 "placepage_add_stop" = "Adăugare oprire";
 
-"preloader_viator_button" = "Află mai multe";
-
 "start_from_my_position" = "Începând de la";
 
 "profile_authorization_error" = "Ups, a survenit o eroare. Încercați să vă conectați din nou.";
@@ -1131,8 +1129,6 @@
 "phone_number" = "Numar de telefon";
 
 "profile" = "Profil OpenStreetMap";
-
-"place_page_search_similar_hotel" = "Căutați hoteluri similare";
 
 "bookmarks_detect_title" = "Au fost detectate fișiere noi";
 
@@ -1434,7 +1430,7 @@
 
 "downloader_loading_ios" = "Încărcare";
 
-"key_information_title" = "Informații cheie";
+"key_information_title" = "Informații importante";
 
 "download_map_title" = "Download the world map";
 
@@ -1448,7 +1444,7 @@
 "enable_screen_sleep_description" = "Când este activat, ecranul va fi lăsat să doarmă după o perioadă de inactivitate.";
 
 /* Autoupdate dialog on start */
-"whats_new_auto_update_title" = "Actualizați hărțile descărcate";
+"whats_new_auto_update_title" = "Actualizează hărțile descărcate";
 
 /* Autoupdate dialog on start */
 "whats_new_auto_update_message" = "Actualizarea hărților vă ajută să păstrați actualizate informațiile despre obiecte";

@@ -1073,8 +1073,6 @@
 
 "placepage_add_stop" = "เพิ่มจุดแวะพัก";
 
-"preloader_viator_button" = "เรียนรู้เพิ่มเติม";
-
 "start_from_my_position" = "เริ่มจาก";
 
 "profile_authorization_error" = "โอ๊ะ มีข้อผิดพลาดเกิดขึ้น ลองลงชื่อเข้าใช้อีกครั้ง";
@@ -1131,8 +1129,6 @@
 "phone_number" = "หมายเลขโทรศัพท์";
 
 "profile" = "โปรไฟล์ OpenStreetMap";
-
-"place_page_search_similar_hotel" = "ค้นหาโรงแรมที่คล้ายกัน";
 
 "bookmarks_detect_title" = "พบไฟล์ใหม่แล้ว";
 
