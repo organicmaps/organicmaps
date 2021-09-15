@@ -521,6 +521,7 @@ world  +
         vineyard  -
         {}
     leisure  +
+        beach_resort  -
         common  -
         dog_park  -
         fitness_centre  -

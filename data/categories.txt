@@ -6655,7 +6655,7 @@ sk:3Internet
 sw:Intaneti
 fa:اینترنت
 
-natural-beach
+natural-beach|leisure-beach_resort
 en:Beach|U+1F459
 ru:Пляж
 bg:Плаж

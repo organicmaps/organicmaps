@@ -714,11 +714,11 @@ area|z15-[natural=bare_rock],
 area|z15-[natural=rock]
 {icon-image: peakt-m.svg;text-offset: 1;font-size: 10;text-optional: true;}
 
-node|z16[natural=beach],
-area|z16[natural=beach]
+node|z16[leisure=beach_resort],
+area|z16[leisure=beach_resort]
 {icon-image: beach-m.svg;}
-node|z17-[natural=beach],
-area|z17-[natural=beach]
+node|z17-[leisure=beach_resort],
+area|z17-[leisure=beach_resort]
 {icon-image: beach-m.svg;font-size: 11;text-optional: true;}
 
 node|z11[boundary=national_park],
@@ -2535,8 +2535,8 @@ area|z17-[shop=confectionery],
 node|z17-[shop=chocolate],
 area|z17-[shop=chocolate]
 {icon-image: sweets-m.svg;icon-min-distance: 24;text-optional: true;}
-node|z17[amenity=ice_cream],
-area|z17[amenity=ice_cream]
+node|z17-[amenity=ice_cream],
+area|z17-[amenity=ice_cream]
 {icon-image: ice_cream-m.svg;icon-min-distance: 24;text-optional: true;}
 node|z17-[shop=convenience],
 area|z17-[shop=convenience]

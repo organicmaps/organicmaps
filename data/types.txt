@@ -400,7 +400,7 @@ mapswithme
 *railway|abandoned|tunnel
 *area:highway|living_street
 *piste:type|sled
-mapswithme
+*leisure|beach_resort
 *leisure|dog_park
 *aerialway|gondola
 *historic|museum

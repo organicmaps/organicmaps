@@ -776,7 +776,7 @@ UNIT_CLASS_TEST(ProcessorTest, TestCategories)
   TestCity sanFrancisco(m2::PointD(0, 0), "San Francisco", "en", 100 /* rank */);
 
   TestPOI nonameBeach(m2::PointD(0, 0), "", "ru");
-  nonameBeach.SetTypes({{"natural", "beach"}});
+  nonameBeach.SetTypes({{"leisure", "beach_resort"}});
 
   TestPOI namedBeach(m2::PointD(0.2, 0.2), "San Francisco beach", "en");
   namedBeach.SetTypes({{"natural", "beach"}});
@@ -2387,7 +2387,7 @@ UNIT_CLASS_TEST(ProcessorTest, Postbox)
 
   TestPOI postbox(m2::PointD(0.0, 0.0), "127001", "default");
   postbox.SetTypes({{"amenity", "post_box"}});
-  
+
   auto countryId = BuildCountry(countryName, [&](TestMwmBuilder & builder) {
     builder.Add(postbox);
   });

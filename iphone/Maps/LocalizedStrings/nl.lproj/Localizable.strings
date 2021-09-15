@@ -10,18 +10,18 @@
 "back" = "Terug";
 
 /* Button text (should be short) */
-"cancel" = "Annuleer";
+"cancel" = "Annuleren";
 
 /* Button which interrupts country download */
-"cancel_download" = "Download annuleer";
+"cancel_download" = "Downloaden annuleren";
 
 /* Button which deletes downloaded country */
-"delete" = "Verwijder";
+"delete" = "Verwijderen";
 
-"download_maps" = "Gedownloade Kaarten";
+"download_maps" = "Download kaarten";
 
 /* Settings/Downloader - info for country when download fails */
-"download_has_failed" = "Download is afgebroken, klik om nog een keer te proberen";
+"download_has_failed" = "Downloaden is mislukt. Tik om het opnieuw te proberen.";
 
 /* Settings/Downloader - info for country which started downloading */
 "downloading" = "Downloaden…";
@@ -44,7 +44,7 @@
 "miles" = "Mijlen";
 
 /* View and button titles for accessibility */
-"core_my_position" = "Mijn Locatie";
+"core_my_position" = "Mijn locatie";
 
 /* Update maps later/Buy pro version later button text */
 "later" = "Later";
@@ -53,13 +53,13 @@
 "search" = "Zoeken";
 
 /* Search box placeholder text */
-"search_map" = "Zoek Kaart";
+"search_map" = "Op de kaart zoeken";
 
 /* Settings/Downloader - 3G download warning dialog confirm button */
 "use_cellular_data" = "Ja";
 
 /* Location services are disabled by user alert - message */
-"location_is_disabled_long_text" = "U heeft momenteel alle Locatie Services voor dit apparaat of deze app uitgeschakeld. Schakel ze in bij Instellingen";
+"location_is_disabled_long_text" = "U heeft momenteel alle locatieservices voor dit apparaat of deze app uitgeschakeld. Schakel ze in bij Instellingen";
 
 /* View and button titles for accessibility */
 "zoom_to_country" = "Op de kaart tonen";
@@ -68,10 +68,10 @@
 "country_status_download_without_size" = "Kaart downloaden";
 
 /* Message to display at the center of the screen when the country download has failed */
-"country_status_download_failed" = "Downloaden is niet gelukt";
+"country_status_download_failed" = "Downloaden is mislukt";
 
 /* Button text for the button under the country_status_download_failed message */
-"try_again" = "Probeer opnieuw";
+"try_again" = "Opnieuw proberen";
 
 "about_menu_title" = "Over Organic Maps";
 
@@ -83,48 +83,48 @@
 
 "download" = "Download";
 
-"disconnect_usb_cable" = "Verwijder de USB kabel of plaats een geheugen kaart om Organic Maps te gebruiken";
+"disconnect_usb_cable" = "Verwijder de USB kabel of plaats een geheugenkaart om Organic Maps te gebruiken";
 
-"not_enough_free_space_on_sdcard" = "Maak eerst ruimte vrij op de SD kaart/USB opslag om de app te gebruiken";
+"not_enough_free_space_on_sdcard" = "Maak eerst ruimte vrij op de SD-kaart/USB-opslag om de app te gebruiken";
 
-"not_enough_memory" = "Not genoeg geheugen om app te starten";
+"not_enough_memory" = "Niet genoeg geheugen om de app te starten";
 
-"download_resources" = "Voor u van start gaat downloaden we een wereldkaart naar uw apparaat.\nDe kaart neemt %@ in beslag.";
+"download_resources" = "Voordat u start, laten we de algemene wereldkaart naar uw apparaat downloaden.\nDeze neemt %@ in beslag.";
 
-"download_resources_continue" = "Ga naar de Kaart";
+"download_resources_continue" = "Ga naar de kaart";
 
-"downloading_country_can_proceed" = "%@ aan het downloaden. U kunt doorgaan\nnaar de kaart";
+"downloading_country_can_proceed" = "%@ aan het downloaden. U kunt nu\ndoorgaan naar de kaart.";
 
 "download_country_ask" = "%@ downloaden?";
 
 "update_country_ask" = "%@ updaten?";
 
 /* REMOVE THIS STRING AFTER REFACTORING */
-"pause" = "Pauze";
+"pause" = "Pauzeren";
 
 /* REMOVE THIS STRING AFTER REFACTORING */
 "continue_download" = "Doorgaan";
 
 /* Show popup notification on top of the map when country download has failed. */
-"download_country_failed" = "%@ download is afgebroken";
+"download_country_failed" = "%@ download is mislukt";
 
 /* Add New Bookmark Set dialog title */
-"add_new_set" = "Voeg nieuwe Groep toe";
+"add_new_set" = "Voeg nieuwe groep toe";
 
 /* Bookmark Color dialog title */
-"bookmark_color" = "Bladwijzer Kleur";
+"bookmark_color" = "Bladwijzer-kleur";
 
 /* Add Bookmark Set dialog - hint when set name is empty */
-"bookmark_set_name" = "Bladwijzer Groep Naam";
+"bookmark_set_name" = "Naam van bladwijzergroep";
 
 /* Bookmark Sets dialog title */
-"bookmark_sets" = "Bladwijzer groepen";
+"bookmark_sets" = "Bladwijzergroepen";
 
 /* Bookmarks - dialog title */
 "bookmarks" = "Bladwijzers";
 
 /* Default bookmarks set name */
-"core_my_places" = "Mijn Plaatsen";
+"core_my_places" = "Mijn plaatsen";
 
 /* Add bookmark dialog - bookmark name */
 "name" = "Naam";
@@ -142,7 +142,7 @@
 "maps_storage" = "Kaarten opslaan in";
 
 /* Detailed description of Maps Storage settings button */
-"maps_storage_summary" = "Selecteer de map waar u de kaarten wilt opslaan";
+"maps_storage_summary" = "Selecteer de plaats waar kaarten naar gedownload zouden moeten worden";
 
 /* Question dialog for transferring maps from one storage to another */
 "move_maps" = "Kaarten verplaatsen?";
@@ -178,10 +178,10 @@
 "hotel" = "Hotel";
 
 /* Search category */
-"tourism" = "Toerisme";
+"tourism" = "Bezienswaardigheden";
 
 /* Search category */
-"entertainment" = "Uitgaan";
+"entertainment" = "Amusement";
 
 /* Search category */
 "atm" = "Geldautomaat";
@@ -216,61 +216,61 @@
 /* Email Subject when sharing bookmarks category */
 "share_bookmarks_email_subject" = "Bladwijzers van Organic Maps met u gedeeld";
 
-"share_bookmarks_email_body" = "Hello!\n\nAttached are my bookmarks from Organic Maps app. Please open them if you have Organic Maps installed. Or, if you don't, download the app for your iOS or Android device by following this link: https://omaps.app/get?kmz\n\nEnjoy traveling with Organic Maps!";
+"share_bookmarks_email_body" = "Hallo!\n\nBijgesloten zijn mijn bladwijzers uit de Organic Maps app. Open ze als je Organic Maps geïnstalleerd hebt. Of, als je dat niet hebt, download de app voor je iOS- of Android-apparaat door deze link te volgen: https://omaps.app/get?kmz\n\nGeniet van het reizen met Organic Maps!";
 
 /* message title of loading file */
-"load_kmz_title" = "Bladwijzers aan het uploaden";
+"load_kmz_title" = "Bladwijzers worden geladen";
 
 /* Kmz file successful loading */
-"load_kmz_successful" = "Bladwijzers met succes geüpload! U vindt ze op de kaart of op het scherm van de Bladwijzer Manager.";
+"load_kmz_successful" = "Bladwijzers succesvol geüpload! U vindt ze op de kaart of op het scherm van de Bladwijzer Manager.";
 
 /* Kml file loading failed */
-"load_kmz_failed" = "Bladwijzers uploaden mislukt. Het bestand is mogelijk beschadigd of defect.";
+"load_kmz_failed" = "Bladwijzers uploaden is mislukt. Het bestand is mogelijk beschadigd of defect.";
 
 /* resource for context menu */
 "edit" = "Wijzigen";
 
 /* Warning message when doing search around current position */
-"unknown_current_position" = "Je plaats werd nog niet vastgesteld";
+"unknown_current_position" = "Je locatie is nog niet vastgesteld";
 
 /* Alert message that we can't run Map Storage settings due to some reasons. */
-"cant_change_this_setting" = "Sorry, instellingen voor kaartopslag uitgeschakeld.";
+"cant_change_this_setting" = "Sorry, instellingen voor kaartopslag zijn momenteel uitgeschakeld.";
 
 /* Alert message that downloading is in progress. */
 "downloading_is_active" = "Het downloaden van het land is nu aan de gang.";
 
 /* Share my position using SMS, %1$@ contains om:// and %2$@ https://omaps.app link WITHOUT NAME. @NOTE non-ascii symbols in the link will result in max 70 characters SMS instead of 140. */
-"my_position_share_sms" = "Kijk waar ik nu ben. Open %1$@ of %2$@";
+"my_position_share_sms" = "Hey, kijk naar mijn huidige locatie op Organic Maps! %1$@ of %2$@ Heeft u geen offline-kaarten? Download ze hier: https://omaps.app/get";
 
 /* Subject for emailed bookmark */
-"bookmark_share_email_subject" = "Kijk naar mijn pin op Organic Maps kaart";
+"bookmark_share_email_subject" = "Hey, kijk naar mijn pin op Organic Maps!";
 
 /* Subject for emailed position */
-"my_position_share_email_subject" = "Kijk naar mijn huidige locatie op Organic Maps kaart";
+"my_position_share_email_subject" = "Hey, kijk naar mijn huidige locatie op Organic Maps!";
 
 /* Share my position using EMail, %1$@ is om:// and %2$@ is https://omaps.app link WITHOUT NAME */
-"my_position_share_email" = "Hoi,\n\nMomenteel ben ik hier: %1$@. Klik op deze %2$@ of deze %3$@ om de plaats op de kaart te zien.\n\nBedankt.";
+"my_position_share_email" = "Hoi,\n\nMomenteel ben ik hier: %1$@. Klik op deze %2$@ link of deze %3$@ link om de plaats op de kaart te zien.\n\nBedankt.";
 
 /* Share button text which opens menu with more buttons, like Message, EMail, Facebook etc. */
 "share" = "Delen";
 
 /* Share by email button text, also used in editor. */
-"email" = "Email";
+"email" = "E-mail";
 
 /* Text for message when used successfully copied something */
-"copied_to_clipboard" = "Op het klembord gekopieerd: %1$@";
+"copied_to_clipboard" = "Naar het klembord gekopieerd: %1$@";
 
 /* place preview title */
 "info" = "Info";
 
 /* Used for bookmark editing */
-"done" = "Gedaan";
+"done" = "Klaar";
 
 /* Prints version number in About dialog */
 "version" = "Versie: %@";
 
 /* Data version in «About» screen */
-"data_version" = "Data version: %d";
+"data_version" = "Gegevensversie: %d";
 
 /* Confirmation in downloading countries dialog */
 "are_you_sure" = "Weet u zeker dat u wilt doorgaan?";
@@ -284,10 +284,10 @@
 "share_my_location" = "Deel mijn locatie";
 
 /* Settings general group in settings screen */
-"prefs_group_general" = "General settings";
+"prefs_group_general" = "Algemene instellingen";
 
 /* Settings information group in settings screen */
-"prefs_group_information" = "Information";
+"prefs_group_information" = "Informatie";
 
 "prefs_group_route" = "Navigatie";
 
@@ -326,7 +326,7 @@
 "pref_tts_other_section_title" = "Andere";
 
 /* Settings «Map» category: «Record track» title */
-"pref_track_record_title" = "Recente route";
+"pref_track_record_title" = "Recente track";
 
 "pref_map_auto_zoom" = "Automatisch zoomen";
 
