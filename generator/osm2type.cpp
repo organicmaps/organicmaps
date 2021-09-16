@@ -441,16 +441,24 @@ string DetermineSurface(OsmElement * p)
   if (!isHighway || (surface.empty() && smoothness.empty()))
     return {};
 
+  // According to this:
+  // https://wiki.openstreetmap.org/wiki/Tag:surface=compacted
+  // Surfaces by quality: asphalt, concrete, paving stones, compacted.
   static base::StringIL pavedSurfaces = {
-      "paved",         "asphalt",  "cobblestone",    "cobblestone:flattened", "unhewn_cobblestone",
-      "sett",          "concrete", "concrete:lanes", "concrete:plates",       "pebblestone",
-      "paving_stones", "metal",    "wood",           "chipseal",              "fine_gravel" };
+      "asphalt",  "cobblestone",    "cobblestone:flattened", "chipseal", "compacted",
+      "concrete", "concrete:lanes", "concrete:plates", "fine_gravel", "metal",
+      "paved", "paving_stones", "pebblestone", "sett", "unhewn_cobblestone", "wood"
+  };
 
-  static base::StringIL badSurfaces = {"cobblestone", "sett",   "pebblestone"         "metal", "wood", "grass", "dirt",      "earth",
-                                       "fine_gravel", "gravel", "unhewn_cobblestone", "mud",   "sand",  "snow", "woodchips", "ground" };
+  static base::StringIL badSurfaces = {
+      "cobblestone", "dirt", "earth", "fine_gravel",  "grass", "gravel", "ground", "metal",
+      "mud", "pebblestone", "sand", "sett", "snow", "unhewn_cobblestone", "wood", "woodchips"
+  };
+
   static base::StringIL badSmoothness = {
       "bad",           "very_bad",       "horrible",        "very_horrible", "impassable",
-      "robust_wheels", "high_clearance", "off_road_wheels", "rough"};
+      "robust_wheels", "high_clearance", "off_road_wheels", "rough"
+  };
 
   static base::StringIL goodSmoothness = { "excellent", "good", "intermediate" };
 
