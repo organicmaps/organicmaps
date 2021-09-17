@@ -1,6 +1,6 @@
 #include "routing/edge_estimator.hpp"
-
 #include "routing/latlon_with_altitude.hpp"
+#include "routing/routing_exceptions.hpp"
 #include "routing/routing_helpers.hpp"
 
 #include "traffic/speed_groups.hpp"

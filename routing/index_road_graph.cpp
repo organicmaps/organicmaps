@@ -1,6 +1,7 @@
 #include "routing/index_road_graph.hpp"
 
 #include "routing/fake_feature_ids.hpp"
+#include "routing/index_graph_starter.hpp"
 #include "routing/latlon_with_altitude.hpp"
 #include "routing/routing_exceptions.hpp"
 #include "routing/transit_graph.hpp"

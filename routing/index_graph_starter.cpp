@@ -1,6 +1,7 @@
 #include "routing/index_graph_starter.hpp"
 
 #include "routing/fake_edges_container.hpp"
+#include "routing/regions_sparse_graph.hpp"
 
 #include "routing_common/num_mwm_id.hpp"
 

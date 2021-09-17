@@ -3,27 +3,15 @@
 #include "routing/cross_border_graph.hpp"
 #include "routing/fake_ending.hpp"
 #include "routing/latlon_with_altitude.hpp"
+#include "routing/regions_decl.hpp"
 #include "routing/segment.hpp"
 
 #include "routing/base/small_list.hpp"
 
-#include "routing_common/num_mwm_id.hpp"
-
-#include "indexer/data_source.hpp"
-
-#include "geometry/latlon.hpp"
-#include "geometry/mercator.hpp"
-#include "geometry/point2d.hpp"
-
-#include <cstdint>
 #include <optional>
-#include <unordered_map>
-#include <utility>
-#include <vector>
 
 namespace routing
 {
-using CountryFileGetterFn = std::function<std::string(m2::PointD const &)>;
 
 // Graph used in IndexGraphStarter for building routes through the most important roads which are
 // extracted from World.mwm. These roads are presented as pairs of points between regions.

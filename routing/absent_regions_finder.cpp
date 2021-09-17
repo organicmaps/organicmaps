@@ -1,4 +1,5 @@
 #include "routing/absent_regions_finder.hpp"
+#include "routing/regions_router.hpp"
 
 namespace routing
 {

@@ -1,5 +1,8 @@
 #include "routing/leaps_graph.hpp"
 
+#include "routing/cross_mwm_graph.hpp"
+#include "routing/index_graph_starter.hpp"
+
 #include "base/assert.hpp"
 
 #include <set>

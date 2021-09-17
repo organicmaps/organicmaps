@@ -4,6 +4,7 @@
 
 #include "base/assert.hpp"
 #include "base/checked_cast.hpp"
+#include "base/logging.hpp"
 
 #include <cstdint>
 #include <limits>
@@ -28,6 +29,8 @@ public:
     NumMwmId const id = base::asserted_cast<NumMwmId>(m_idToFile.size());
     m_idToFile.push_back(file);
     m_fileToId[file] = id;
+
+    LOG(LDEBUG, ("MWM:", file.GetName(), "=", id));
   }
 
   bool ContainsFile(platform::CountryFile const & file) const
@@ -37,21 +40,19 @@ public:
 
   bool ContainsFileForMwm(NumMwmId mwmId) const
   {
-    size_t const index = base::asserted_cast<size_t>(mwmId);
-    return index < m_idToFile.size();
+    return mwmId < m_idToFile.size();
   }
 
   platform::CountryFile const & GetFile(NumMwmId mwmId) const
   {
-    size_t const index = base::asserted_cast<size_t>(mwmId);
-    CHECK_LESS(index, m_idToFile.size(), ());
-    return m_idToFile[index];
+    ASSERT_LESS(mwmId, m_idToFile.size(), ());
+    return m_idToFile[mwmId];
   }
 
   NumMwmId GetId(platform::CountryFile const & file) const
   {
     auto const it = m_fileToId.find(file);
-    CHECK(it != m_fileToId.cend(), ("Can't find mwm id for", file));
+    ASSERT(it != m_fileToId.cend(), ("Can't find mwm id for", file));
     return it->second;
   }
 

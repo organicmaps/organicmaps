@@ -2,27 +2,19 @@
 
 #include "routing/base/astar_algorithm.hpp"
 #include "routing/checkpoints.hpp"
-#include "routing/edge_estimator.hpp"
-#include "routing/index_graph_starter.hpp"
-#include "routing/world_graph.hpp"
-
-#include "routing_common/num_mwm_id.hpp"
-
-#include "indexer/data_source.hpp"
-
-#include "geometry/point2d.hpp"
+#include "routing/regions_decl.hpp"
+#include "routing/router_delegate.hpp"
 
 #include "base/thread.hpp"
 
-#include <functional>
-#include <memory>
-#include <string>
 #include <unordered_set>
 #include <utility>
 #include <vector>
 
 namespace routing
 {
+class IndexGraphStarter;
+
 // Encapsulates routing thread for generating all the mwms through which passes the route between
 // |checkpoints|.
 class RegionsRouter : public threads::IRoutine

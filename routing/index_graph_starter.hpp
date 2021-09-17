@@ -11,7 +11,6 @@
 #include "routing/index_graph.hpp"
 #include "routing/joint.hpp"
 #include "routing/latlon_with_altitude.hpp"
-#include "routing/regions_sparse_graph.hpp"
 #include "routing/route_point.hpp"
 #include "routing/route_weight.hpp"
 #include "routing/segment.hpp"
@@ -32,6 +31,7 @@
 namespace routing
 {
 class FakeEdgesContainer;
+class RegionsSparseGraph;
 
 // IndexGraphStarter adds fake start and finish vertices for AStarAlgorithm.
 class IndexGraphStarter : public AStarGraph<IndexGraph::Vertex, IndexGraph::Edge, IndexGraph::Weight>
