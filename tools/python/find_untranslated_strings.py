@@ -1,6 +1,6 @@
-#!/usr/bin/env python
-# coding: utf-8
-from __future__ import print_function
+#!/usr/bin/env python3
+
+
 from collections import namedtuple, defaultdict
 from itertools import combinations
 from os.path import join, dirname
@@ -13,8 +13,6 @@ TRANSLATION = re.compile(r"(.*)\s*=\s*.*$", re.S | re.MULTILINE)
 MANY_DOTS = re.compile(r"\.{4,}")
 SPACE_PUNCTUATION = re.compile(r"\s[.,?!:;]")
 PLACEHOLDERS = re.compile(r"(%\d*\$@|%[@dqus]|\^)")
-
-ITUNES_LANGS = ["en", "en-GB", "ru", "bg", "ar", "cs", "da", "nl", "fi", "fr", "de", "hu", "id", "it", "ja", "ko", "nb", "pl", "pt", "pt-BR", "ro", "sl", "es", "sv", "th", "tr", "uk", "vi", "zh-Hans", "zh-Hant"]
 
 SIMILARITY_THRESHOLD = 20.0 #%
 
@@ -58,7 +56,7 @@ class StringsTxt:
 
 
     def _read_file(self):
-        with open(self.strings_path) as strings:
+        with open(self.strings_path, encoding='utf-8') as strings:
             for line in strings:
                 line = line.strip()
                 if not line:
@@ -91,7 +89,7 @@ class StringsTxt:
 
 
     def print_statistics(self):
-        stats = map(lambda x: (x, len(self.translations[x])), self.translations.keys())
+        stats = [(x, len(self.translations[x])) for x in list(self.translations.keys())]
         stats.sort(key=lambda x: x[1], reverse=True)
 
         for k, v in stats:
@@ -100,7 +98,7 @@ class StringsTxt:
 
     def print_duplicates(self):
         print(self._header("Duplicates:"))
-        for lang, trans_and_keys in self.duplicates.items():
+        for lang, trans_and_keys in list(self.duplicates.items()):
             print("{0}\n {1}\n".format("=" * (len(lang) + 2), lang))
             last_one = ""
             keys = []
@@ -135,7 +133,7 @@ class StringsTxt:
     def _populate_translations_by_langs(self):
         for lang in self.all_langs:
             trans_for_lang = {}
-            for key, tran in self.translations.items(): # (tran = dict<lang, translation>)
+            for key, tran in list(self.translations.items()): # (tran = dict<lang, translation>)
                 if lang not in tran:
                     continue
                 trans_for_lang[key] = tran[lang]
@@ -143,8 +141,8 @@ class StringsTxt:
 
 
     def _find_duplicates(self):
-        for lang, tran in self.translations_by_language.items():
-            trans_for_lang = map(lambda x: TransAndKey(x[1], x[0]), tran.items())
+        for lang, tran in list(self.translations_by_language.items()):
+            trans_for_lang = [TransAndKey(x[1], x[0]) for x in list(tran.items())]
             trans_for_lang.sort(key=lambda x: x.translation)
             prev_tran = TransAndKey("", "")
             possible_duplicates = set()
@@ -159,11 +157,11 @@ class StringsTxt:
 
     def _find_most_duplicated(self):
         most_duplicated = defaultdict(int)
-        for trans_and_keys in self.duplicates.values():
+        for trans_and_keys in list(self.duplicates.values()):
             for trans_and_key in trans_and_keys:
                 most_duplicated[trans_and_key.key] += 1
 
-        self.most_duplicated = sorted(most_duplicated.items(), key=lambda x: x[1], reverse=True)
+        self.most_duplicated = sorted(list(most_duplicated.items()), key=lambda x: x[1], reverse=True)
 
 
     def print_most_duplicated(self):
@@ -172,11 +170,11 @@ class StringsTxt:
             print("{}\t{}".format(pair[0], pair[1]))
 
 
-    def print_missing_itunes_langs(self):
-        print(self._header("Missing translations for iTunes languages:"))
-
+    def print_missing_translations(self):
+        print(self._header("Missing translations for languages:"))
+        print(self.all_langs)
         all_translation_keys = set(self.translations.keys())
-        for lang in ITUNES_LANGS:
+        for lang in self.all_langs:
             keys_for_lang = set(self.translations_by_language[lang].keys())
             missing_keys = sorted(list(all_translation_keys - keys_for_lang))
             print("{0}:\n{1}\n".format(lang, "\n".join(missing_keys)))
@@ -186,7 +184,6 @@ class StringsTxt:
         before_block = ""
         if target_file is None:
             target_file = self.strings_path
-        non_itunes_langs = sorted(list(self.all_langs - set(ITUNES_LANGS)))
         with open(target_file, "w") as outfile:
             for key in self.keys_in_order:
                 if not key:
@@ -203,10 +200,14 @@ class StringsTxt:
                 before_block = "\n"
 
                 if key in self.comments_and_tags:
-                    for k, v in self.comments_and_tags[key].items():
+                    for k, v in list(self.comments_and_tags[key].items()):
                         outfile.write("    {0} = {1}\n".format(k, v))
-                self._write_translations_for_langs(ITUNES_LANGS, tran, outfile, only_langs=languages)
-                self._write_translations_for_langs(non_itunes_langs, tran, outfile, only_langs=languages)
+                en_langs = []
+                for lang in self.all_langs:
+                    if lang.startswith('en'):
+                        en_langs.append(lang)
+                sorted_langs = sorted(en_langs) + sorted(self.all_langs - set(en_langs))
+                self._write_translations_for_langs(sorted_langs, tran, outfile, only_langs=languages)
 
 
     def _write_translations_for_langs(self, langs, tran, outfile, only_langs=None):
@@ -235,10 +236,10 @@ class StringsTxt:
             if block_1[key] == block_2[key]:
                 common_elements += 1
 
-        return filter(lambda x: x[1] > SIMILARITY_THRESHOLD, [
+        return [x for x in [
             (self._similarity_string(key_1, key_2), self._similarity_index(len(block_1), common_elements)),
             (self._similarity_string(key_2, key_1), self._similarity_index(len(block_2), common_elements))
-        ])
+        ] if x[1] > SIMILARITY_THRESHOLD]
 
 
     def _similarity_string(self, key_1, key_2):
@@ -250,7 +251,7 @@ class StringsTxt:
 
 
     def _find_most_similar(self):
-        search_scope = filter(lambda x : x[1] > len(self.translations[x[0]]) / 10, self.most_duplicated)
+        search_scope = [x for x in self.most_duplicated if x[1] > len(self.translations[x[0]]) / 10]
         for one, two in combinations(search_scope, 2):
             self.similarity_indices.extend(self._compare_blocks(one[0], two[0]))
 
@@ -280,9 +281,9 @@ class StringsTxt:
 
     def print_strings_with_spaces_before_punctuation(self):
         print(self._header("Strings with spaces before punctuation:"))
-        for key, lang_and_trans in self.translations.items():
+        for key, lang_and_trans in list(self.translations.items()):
             wrote_key = False
-            for lang, translation in lang_and_trans.items():
+            for lang, translation in list(lang_and_trans.items()):
                 if self._has_space_before_punctuation(lang, translation):
                     if not wrote_key:
                         print("\n{}".format(key))
@@ -295,13 +296,13 @@ class StringsTxt:
         key = self.translations[block_key].get("en")
         if not key:
             print("No english for key: {}".format(block_key))
-            print("Existing keys are: {}".format(",".join(self.translations[block_key].keys())))
+            print("Existing keys are: {}".format(",".join(list(self.translations[block_key].keys()))))
             raise KeyError
 
         en_placeholders = sorted(PLACEHOLDERS.findall(key))
 
         
-        for lang, translation in self.translations[block_key].items():
+        for lang, translation in list(self.translations[block_key].items()):
             if lang == "en":
                 continue
             found = sorted(PLACEHOLDERS.findall(translation))
@@ -313,7 +314,7 @@ class StringsTxt:
 
     def print_strings_with_wrong_paceholders(self):
         print(self._header("Strings with a wrong number of placeholders:"))
-        for key, lang_and_trans in self.translations.items():
+        for key, lang_and_trans in list(self.translations.items()):
             wrong_placeholders = self._check_placeholders_in_block(key)
             if not wrong_placeholders:
                 continue
@@ -325,13 +326,14 @@ class StringsTxt:
 
 
 if __name__ == "__main__":
-    strings = StringsTxt()
+    import sys
+    strings = StringsTxt(sys.argv[1] if len(sys.argv) > 1 else None)
     strings.process_file()
     strings.print_statistics()
     strings.print_duplicates()
     strings.print_most_duplicated()
     strings.print_most_similar()
-    strings.print_missing_itunes_langs()
+    strings.print_missing_translations()
     strings.write_formatted()
     strings.print_strings_with_spaces_before_punctuation()
     strings.print_strings_with_wrong_paceholders()
