@@ -1,4 +1,5 @@
 [[Brands]]
+
   [brand.aiya]
     en = Aiya
     ja = 藍屋
@@ -43,10 +44,10 @@
 
   [brand.burger_king]
     en = Burger King
-    ru = Бургер Кинг
     ar = برغر كينغ
     ja = バーガーキング
     ko = 버거킹
+    ru = Бургер Кинг
     zh-Hans = 汉堡王
     zh-Hant = 漢堡王
     zh_pinyin = Hànbǎo Wáng
@@ -143,11 +144,11 @@
 
   [brand.dominos_pizza]
     en = Domino's Pizza
-    ru = Домино'с Пицца
     ar = دومينوز بيتزا
     he = דומינוס פיצה
     ja = ドミノ・ピザ
     ko = 도미노피자
+    ru = Домино'с Пицца
     zh-Hans = 达美乐比萨
     zh-Hant = 達美樂披薩
 
@@ -161,8 +162,8 @@
 
   [brand.dunkin_donuts]
     en = Dunkin Donuts
-    ru = Данкин Донатс
     ar = دنكن دونتس
+    ru = Данкин Донатс
 
   [brand.espresso_house]
     en = Espresso House
@@ -339,9 +340,9 @@
 
   [brand.marugame_seimen]
     en = Marugame Seimen
-    ru = Марукамэ
     be = Марукамэ
     ja = 丸亀製麺
+    ru = Марукамэ
 
   [brand.matsunoya]
     en = Matsunoya
@@ -353,13 +354,13 @@
 
   [brand.mcdonalds]
     en = McDonald's
-    ru = Макдоналдс
     ar = ماكدونالدز
     bg = Макдоналдс
     he = מקדונלד'ס
     ja = マクドナルド
     ka = მაკდონალდსი
     ko = 디몰 맥도날드
+    ru = Макдоналдс
     sr = Мекдоналдс
     th = แมคโดนลด
     uk = МакДональдз
@@ -428,10 +429,10 @@
 
   [brand.pizza_hut]
     en = Pizza Hut
-    ru = Пицца Хат
     ar = بيتزا هت
     he = פיצה האט
     ja = ピザハット
+    ru = Пицца Хат
     zh-Hans = 必胜客
     zh-Hant = 必勝客
     zh_pinyin = Bì Shèng Kè
@@ -496,10 +497,10 @@
 
   [brand.starbucks]
     en = Starbucks
-    ru = Старбакс
     ar = ستاربكس
     ja = スターバックス
     ko = 스타벅스
+    ru = Старбакс
     zh-Hans = 星巴克
     zh-Hant = 星巴克
     zh_pinyin = Xīngbākè
@@ -517,8 +518,8 @@
 
   [brand.subway]
     en = Subway
-    ru = Сабвэй
     ja = サブウェイ
+    ru = Сабвэй
     zh-Hans = 賽百味
     zh-Hant = 赛百味
 
