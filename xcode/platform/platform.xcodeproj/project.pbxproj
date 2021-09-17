@@ -128,6 +128,8 @@
 		FAA8389926BB490C002E54C6 /* liboauthcpp.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FAA8389826BB490C002E54C6 /* liboauthcpp.a */; };
 		FAA8389A26BB4931002E54C6 /* libplatform_tests_support.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 675340E91C58C496002CF0D9 /* libplatform_tests_support.a */; };
 		FAA8389C26BB4948002E54C6 /* libgeometry.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FAA8389B26BB4948002E54C6 /* libgeometry.a */; };
+		FADA4B2626F529BD000FF3CA /* languages.hpp in Headers */ = {isa = PBXBuildFile; fileRef = FADA4B2426F529B5000FF3CA /* languages.hpp */; };
+		FADA4B2726F529BD000FF3CA /* locale.hpp in Headers */ = {isa = PBXBuildFile; fileRef = FADA4B2526F529B9000FF3CA /* locale.hpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -255,6 +257,8 @@
 		FAA8389626BB4906002E54C6 /* minizip.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = minizip.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		FAA8389826BB490C002E54C6 /* liboauthcpp.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = liboauthcpp.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		FAA8389B26BB4948002E54C6 /* libgeometry.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libgeometry.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		FADA4B2426F529B5000FF3CA /* languages.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = languages.hpp; sourceTree = "<group>"; };
+		FADA4B2526F529B9000FF3CA /* locale.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = locale.hpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -406,10 +410,12 @@
 				D5B191CE2386C7E4009CD0D6 /* http_uploader_background.hpp */,
 				470C77C923CCB04C006F6385 /* http_uploader_background.mm */,
 				3D318A052021DD8B007B2607 /* http_uploader.hpp */,
+				FADA4B2426F529B5000FF3CA /* languages.hpp */,
 				674125041B4C00CC00A3E828 /* local_country_file_utils.cpp */,
 				674125051B4C00CC00A3E828 /* local_country_file_utils.hpp */,
 				674125061B4C00CC00A3E828 /* local_country_file.cpp */,
 				674125071B4C00CC00A3E828 /* local_country_file.hpp */,
+				FADA4B2526F529B9000FF3CA /* locale.hpp */,
 				3DE28A7424BE01A30009465C /* locale.mm */,
 				3DA587412550116C002E024C /* localization.cpp */,
 				3D15ACE0214A707800F725D5 /* localization.hpp */,
@@ -504,6 +510,7 @@
 				67AB92EB1B7B3E9100AB5194 /* get_text_by_id.hpp in Headers */,
 				675343D41A3F5D5A00A0A8C3 /* settings.hpp in Headers */,
 				675343B51A3F5D5A00A0A8C3 /* constants.hpp in Headers */,
+				FADA4B2726F529BD000FF3CA /* locale.hpp in Headers */,
 				34C624BE1DABCCD100510300 /* socket.hpp in Headers */,
 				D50B2296238591570056820A /* http_payload.hpp in Headers */,
 				675343C11A3F5D5A00A0A8C3 /* location_service.hpp in Headers */,
@@ -514,6 +521,7 @@
 				675343B41A3F5D5A00A0A8C3 /* chunks_download_strategy.hpp in Headers */,
 				3DFACF322432421C00A29A94 /* background_downloader_ios.h in Headers */,
 				3D78157D1F3D8A0A0068B6AC /* safe_callback.hpp in Headers */,
+				FADA4B2626F529BD000FF3CA /* languages.hpp in Headers */,
 				3DF528EB238BFFC1000ED0D5 /* downloader_defines.hpp in Headers */,
 				4564FA7E2094978D0043CCFB /* remote_file.hpp in Headers */,
 				3D78156F1F3A14090068B6AC /* gui_thread.hpp in Headers */,
