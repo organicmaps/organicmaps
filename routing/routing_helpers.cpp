@@ -1,7 +1,10 @@
 #include "routing/routing_helpers.hpp"
 
+#include "routing/fake_feature_ids.hpp"
+#include "routing/index_graph_starter.hpp"
 #include "routing/road_point.hpp"
 #include "routing/segment.hpp"
+#include "routing/world_graph.hpp"
 
 #include "traffic/traffic_info.hpp"
 

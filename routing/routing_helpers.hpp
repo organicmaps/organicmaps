@@ -27,6 +27,7 @@
 namespace routing
 {
 class IndexGraphStarter;
+class WorldGraph;
 
 inline double KMPH2MPS(double kmph) { return kmph * 1000.0 / (60 * 60); }
 

@@ -2,7 +2,6 @@
 
 #include "routing/base/astar_graph.hpp"
 #include "routing/base/astar_vertex_data.hpp"
-#include "routing/index_graph_starter.hpp"
 #include "routing/mwm_hierarchy_handler.hpp"
 #include "routing/route_weight.hpp"
 #include "routing/segment.hpp"
@@ -13,6 +12,8 @@
 
 namespace routing
 {
+class IndexGraphStarter;
+
 class LeapsGraph : public AStarGraph<Segment, SegmentEdge, RouteWeight>
 {
 public:

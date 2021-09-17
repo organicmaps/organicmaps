@@ -1,5 +1,7 @@
 #include "routing/cross_border_graph.hpp"
 
+#include "geometry/mercator.hpp"
+
 namespace routing
 {
 void CrossBorderGraph::AddCrossBorderSegment(RegionSegmentId segId,
@@ -7,9 +9,9 @@ void CrossBorderGraph::AddCrossBorderSegment(RegionSegmentId segId,
 {
   m_segments.emplace(segId, segment);
 
-  auto addEndingToMwms = [&](CrossBorderSegmentEnding const & ending) {
-    auto const & [it, inserted] =
-        m_mwms.emplace(ending.m_numMwmId, std::vector<RegionSegmentId>{segId});
+  auto addEndingToMwms = [&](CrossBorderSegmentEnding const & ending)
+  {
+    auto [it, inserted] = m_mwms.emplace(ending.m_numMwmId, std::vector<RegionSegmentId>{segId});
     if (!inserted)
       it->second.push_back(segId);
   };

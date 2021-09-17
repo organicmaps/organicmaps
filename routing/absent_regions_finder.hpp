@@ -1,15 +1,7 @@
 #pragma once
 
-#include "routing/checkpoints.hpp"
-#include "routing/regions_router.hpp"
+#include "routing/regions_decl.hpp"
 #include "routing/router_delegate.hpp"
-
-#include "routing_common/num_mwm_id.hpp"
-
-#include "indexer/data_source.hpp"
-
-#include "geometry/rect2d.hpp"
-#include "geometry/tree4d.hpp"
 
 #include "base/thread.hpp"
 

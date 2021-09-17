@@ -1,7 +1,6 @@
 #pragma once
 
 #include "routing/base/astar_vertex_data.hpp"
-#include "routing/cross_mwm_graph.hpp"
 #include "routing/edge_estimator.hpp"
 #include "routing/geometry.hpp"
 #include "routing/index_graph.hpp"
@@ -28,6 +27,8 @@
 
 namespace routing
 {
+class CrossMwmGraph;
+
 enum class WorldGraphMode
 {
   LeapsOnly,       // Mode for building a cross mwm route containing only leaps. In case of start and

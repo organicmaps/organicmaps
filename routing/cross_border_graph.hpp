@@ -8,17 +8,13 @@
 #include "coding/reader.hpp"
 #include "coding/write_to_sink.hpp"
 
-#include "geometry/mercator.hpp"
+#include "geometry/latlon.hpp"
 #include "geometry/point2d.hpp"
-#include "geometry/point_with_altitude.hpp"
 
 #include "base/assert.hpp"
-#include "base/logging.hpp"
 
-#include <algorithm>
 #include <cmath>
 #include <cstdint>
-#include <iterator>
 #include <limits>
 #include <memory>
 #include <set>
@@ -164,7 +160,7 @@ void CrossBorderGraphSerializer::Deserialize(CrossBorderGraph & graph, Source & 
 
   numMwmIds->ForEachId([&](NumMwmId id) {
     std::string const & region = numMwmIds->GetFile(id).GetName();
-    auto const & mwmNameHash = Hash(region);
+    uint32_t const mwmNameHash = Hash(region);
     // Triggering of this check in runtime means that the latest built mwm set differs from
     // the previous one ("classic" mwm set which is constant for many years). The solution is to
     // replace current hash function Hash() and rebuild World.mwm.

@@ -3,7 +3,6 @@
 #include "routing/base/astar_graph.hpp"
 #include "routing/base/astar_vertex_data.hpp"
 #include "routing/fake_feature_ids.hpp"
-#include "routing/index_graph_starter.hpp"
 #include "routing/joint_segment.hpp"
 #include "routing/segment.hpp"
 
@@ -26,6 +25,8 @@
 
 namespace routing
 {
+enum class WorldGraphMode;
+
 template <typename Graph>
 class IndexGraphStarterJoints : public AStarGraph<JointSegment, JointEdge, RouteWeight>
 {
@@ -96,7 +97,7 @@ public:
   // @}
 
   WorldGraphMode GetMode() const { return m_graph.GetMode(); }
-  
+
   /// \brief Reconstructs JointSegment by segment after building the route.
   std::vector<Segment> ReconstructJoint(JointSegment const & joint);
 

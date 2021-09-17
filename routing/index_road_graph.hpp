@@ -1,6 +1,5 @@
 #pragma once
 
-#include "routing/index_graph_starter.hpp"
 #include "routing/road_graph.hpp"
 #include "routing/segment.hpp"
 
@@ -16,6 +15,8 @@
 
 namespace routing
 {
+class IndexGraphStarter;
+
 class IndexRoadGraph : public RoadGraphBase
 {
 public:

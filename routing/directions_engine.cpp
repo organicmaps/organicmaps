@@ -1,5 +1,5 @@
 #include "routing/directions_engine.hpp"
-
+#include "routing/fake_feature_ids.hpp"
 #include "routing/routing_helpers.hpp"
 
 #include "traffic/traffic_info.hpp"
