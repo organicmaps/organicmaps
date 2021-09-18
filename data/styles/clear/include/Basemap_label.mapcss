@@ -12,19 +12,19 @@
   5.1 Vegetation
   5.2 Beach & Glacier
 6.WATER
-	6.1 Area water(lake,pond etc.)
-	6.2 Line water(river,canal etc.)
+  6.1 Area water(lake,pond etc.)
+  6.2 Line water(river,canal etc.)
 7.LANDUSE
-	7.1 Industrial
-	7.2 Hostital
-	7.3 University & Sport
-	7.4 Cemetry
-	7.5 Pedestrian areas
+  7.1 Industrial
+  7.2 Hostital
+  7.3 University & Sport
+  7.4 Cemetry
+  7.5 Pedestrian areas
   7.6 Military
   7.7 Commercial
 8.BUILDINGS
   8.1 Pier
-	8.2 Building
+  8.2 Building
   8.3 Airports
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 */
@@ -445,16 +445,22 @@ area|z14-[landuse=forest][name]::int_name,
 area|z16-[leisure=garden][name]::int_name
 {text: int_name;text-color: @park_label;text-halo-color: @halo_park_label;text-halo-radius: 0.5;text-halo-opacity: 0.8;}
 
+/*
+  If we define [name] styles, we should also define at least empty [!name] stub.
+  Looks strange, but needed for current styles generator.
+*/
+area|z14-[leisure=park][!name],
+area|z14-[landuse=forest][!name],
+area|z16-[leisure=garden][!name],
+{}
+
 area|z14-[landuse=forest][name]
 {icon-image: nparkf-s.svg;text-offset: 1;font-size: 10;}
-area|z14-[leisure=park][name],
+area|z14-[leisure=park][name]
 {icon-image: park-s.svg;text-offset: 1;font-size: 10;}
 area|z14-[leisure=park][name]::int_name,
 area|z14-[landuse=forest][name]::int_name
 {text-offset: 1;}
-area|z14-[leisure=park][!name],
-area|z14-[landuse=forest][!name]
-{}/*check*/
 
 area|z15-[landuse=forest][name]
 {icon-image: nparkf-m.svg;text-offset: 1;font-size: 11;}
@@ -462,39 +468,21 @@ area|z15-[leisure=park][name],
 {icon-image: park-m.svg;text-offset: 1;font-size: 11;}
 area|z15-17[leisure=park][name]::int_name,
 area|z15-17[landuse=forest][name]::int_name,
-area|z16-17[landuse=forest][name]::int_name
 {text-offset: 1;font-size: 10;}
-area|z15[leisure=park][!name],
-area|z15[landuse=forest][!name]
-{}/*check*/
 
 area|z16[landuse=forest][name]
 {icon-image: nparkf-m.svg;text-offset: 1;font-size: 11;}
-area|z16[leisure=park][name],
+area|z16[leisure=park][name]
 {icon-image: park-m.svg;text-offset: 1;font-size: 11;}
 area|z16[leisure=garden][name]
 {icon-image: garden-m.svg;text-offset: 1;font-size: 11;}
-area|z16[leisure=park][!name],
-area|z16[leisure=garden][!name],
-area|z16[landuse=forest][!name],
-area|z16[leisure=park][!name]::int_name,
-area|z16[leisure=garden][!name]::int_name,
-area|z16[landuse=forest][!name]::int_name
-{}/*check*/
 
 area|z17[landuse=forest][name]
 {icon-image: nparkf-m.svg;text-offset: 1;font-size: 12;}
-area|z17[leisure=park][name],
+area|z17[leisure=park][name]
 {icon-image: park-m.svg;text-offset: 1;font-size: 12;}
 area|z17[leisure=garden][name]
 {icon-image: garden-m.svg;text-offset: 1;font-size: 12;}
-area|z17[leisure=park][!name],
-area|z17[landuse=forest][!name],
-area|z17[leisure=garden][!name],
-area|z17[leisure=park][!name]::int_name,
-area|z17[leisure=garden][!name]::int_name,
-area|z17[leisure=forest][!name]::int_name
-{}
 
 area|z18-[landuse=forest]
 {icon-image: nparkf-m.svg;text-offset: 1;font-size: 13;}

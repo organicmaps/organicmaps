@@ -752,19 +752,16 @@ area|z15-[leisure=nature_reserve]
 
 node|z12-[landuse=forest][name],
 area|z12-[landuse=forest][name]
-{fill-color: @green2;text: name;text-color: @park_label;text-halo-opacity: 0.8;text-halo-color: @label_halo_light;text-halo-radius:0.5;}
+{text: name;text-color: @park_label;text-halo-opacity: 0.8;text-halo-color: @label_halo_light;text-halo-radius:0.5;}
 node|z13[landuse=forest][name],
 area|z13[landuse=forest][name]
-{fill-color: @green3;icon-image: nparkf-s.svg;text-offset: 1;font-size: 10;icon-min-distance: 12;}
+{icon-image: nparkf-s.svg;text-offset: 1;font-size: 10;icon-min-distance: 12;}
 node|z14[landuse=forest][name],
 area|z14[landuse=forest][name]
-{fill-color: @green4;icon-image: nparkf-s.svg;text-offset: 1;font-size: 11;}
-node|z15[landuse=forest][name],
-area|z15[landuse=forest][name]
-{fill-color: @green5;icon-image: nparkf-m.svg;text-offset: 1;font-size: 12;text-halo-opacity: 0.9;}
-node|z16-[landuse=forest][name],
-area|z16-[landuse=forest][name]
-{fill-color: @forest;icon-image: nparkf-m.svg;text-offset: 1;font-size: 12;text-halo-opacity: 0.9;}
+{icon-image: nparkf-s.svg;text-offset: 1;font-size: 11;}
+node|z15-[landuse=forest][name],
+area|z15-[landuse=forest][name]
+{icon-image: nparkf-m.svg;text-offset: 1;font-size: 12;text-halo-opacity: 0.9;}
 
 node|z12-[landuse=forest][!name],
 area|z12-[landuse=forest][!name]
@@ -1426,7 +1423,7 @@ area|z15[sponsored=booking][tourism=wilderness_hut][rating>=7]
 {icon-image:alpine_hut-m.svg;icon-min-distance: 24;text: name;text-offset: 1;font-size: 10;text-color: @poi_label;text-halo-color: @halo_park_label;text-halo-radius: 0.5;text-halo-opacity: 0.8;}
 node|z15[sponsored=booking][rating<7],
 area|z15[sponsored=booking][rating<7]
-{icon-image: zero-icon.svg;text: none;} 
+{icon-image: zero-icon.svg;text: none;}
 
 node|z16- [sponsored=booking][tourism=hotel],
 area|z16- [sponsored=booking][tourism=hotel],
@@ -2715,9 +2712,9 @@ node|z16[amenity=parking_space][access=private],
 area|z16[amenity=parking_space][access=private]
 {icon-image: zero-icon.svg;}
 
-node|z17[amenity=parking], 
+node|z17[amenity=parking],
 area|z17[amenity=parking],
-node|z17[amenity=parking_space], 
+node|z17[amenity=parking_space],
 area|z17[amenity=parking_space]
 {icon-image: parking-m.svg;}
 node|z17[amenity=parking][access=permissive],
