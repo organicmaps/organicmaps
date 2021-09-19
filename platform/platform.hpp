@@ -103,10 +103,6 @@ protected:
   /// Writable directory to store persistent application data
   std::string m_settingsDir;
 
-  /// Default search scope for resource files.
-  /// Used in Android only and initialized according to the market type (Play, Amazon, Samsung).
-  std::string m_androidDefResScope;
-
   /// Used in Android only to get corret GUI elements layout.
   bool m_isTablet;
 
@@ -202,7 +198,7 @@ public:
   /// @param[in] searchScope looks for file in dirs in given order: \n
   /// [w]ritable, [r]esources, [s]ettings, by [f]ull path, [e]xternal resources,
   std::unique_ptr<ModelReader> GetReader(std::string const & file,
-                                         std::string const & searchScope = std::string()) const;
+                                         std::string searchScope = std::string()) const;
 
   /// @name File operations
   //@{
