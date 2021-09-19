@@ -378,9 +378,9 @@ deprecated|deprecated;377;x
 highway|bridleway|bridge;[highway=bridleway][bridge?];;name;int_name;378;
 highway|service|driveway|tunnel;[highway=service][service=driveway][tunnel?];x;name;int_name;379;highway|service|driveway
 deprecated|deprecated;380;x
-deprecated|deprecated;381;x
+amenity|events_venue;381;
 railway|narrow_gauge|tunnel;[railway=narrow_gauge][tunnel?];;name;int_name;382;
-deprecated|deprecated;383;x
+amenity|loading_dock;383;
 waterway|dock;384;
 deprecated|deprecated;385;x
 highway|service|driveway|area;[highway=service][service=driveway][area?];x;name;int_name;386;highway|service|driveway
