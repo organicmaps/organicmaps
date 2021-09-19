@@ -117,9 +117,9 @@ bool Platform::GetFileSizeByName(std::string const & fileName, uint64_t & size) 
   }
 }
 
-std::unique_ptr<ModelReader> Platform::GetReader(std::string const & file, std::string const & searchScope) const
+std::unique_ptr<ModelReader> Platform::GetReader(std::string const & file, std::string searchScope) const
 {
-  return std::make_unique<FileReader>(ReadPathForFile(file, searchScope), READER_CHUNK_LOG_SIZE,
+  return std::make_unique<FileReader>(ReadPathForFile(file, std::move(searchScope)), READER_CHUNK_LOG_SIZE,
                                       READER_CHUNK_LOG_COUNT);
 }
 

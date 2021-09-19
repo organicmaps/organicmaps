@@ -145,9 +145,8 @@ string Platform::ReadPathForFile(string const & file, string searchScope) const
       return fullPath;
   }
 
-  string const possiblePaths = m_writableDir  + "\n" + m_resourcesDir + "\n" + m_settingsDir;
   MYTHROW(FileAbsentException, ("File", file, "doesn't exist in the scope", searchScope,
-                                "Have been looking in:\n", possiblePaths));
+      "\nw: ", m_writableDir, "\nr: ", m_resourcesDir, "\ns: ", m_settingsDir));
 }
 
 string Platform::MetaServerUrl() const

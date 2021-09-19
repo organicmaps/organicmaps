@@ -25,57 +25,8 @@ Platform::Platform()
   /// @see initialization routine in android/jni/com/.../Platform.hpp
 }
 
-namespace
-{
-enum SourceT
-{
-  RESOURCE,
-  WRITABLE_PATH,
-  SETTINGS_PATH,
-  FULL_PATH,
-  SOURCE_COUNT
-};
-
-bool IsResource(string const & file, string const & ext)
-{
-  if (ext == DATA_FILE_EXTENSION)
-  {
-    return (strings::StartsWith(file, WORLD_COASTS_FILE_NAME) ||
-            strings::StartsWith(file, WORLD_FILE_NAME));
-  }
-  else if (ext == BOOKMARKS_FILE_EXTENSION ||
-           file == SETTINGS_FILE_NAME)
-  {
-    return false;
-  }
-
-  return true;
-}
-
-size_t GetSearchSources(string const & file, string const & searchScope,
-                        SourceT (&arr)[SOURCE_COUNT])
-{
-  size_t ret = 0;
-
-  for (size_t i = 0; i < searchScope.size(); ++i)
-  {
-    switch (searchScope[i])
-    {
-    case 'w': arr[ret++] = WRITABLE_PATH; break;
-    case 'r': arr[ret++] = RESOURCE; break;
-    case 's': arr[ret++] = SETTINGS_PATH; break;
-    case 'f':
-      if (strings::StartsWith(file, "/"))
-        arr[ret++] = FULL_PATH;
-      break;
-    default : CHECK(false, ("Unsupported searchScope:", searchScope)); break;
-    }
-  }
-
-  return ret;
-}
-
 #ifdef DEBUG
+namespace {
 class DbgLogger
 {
 public:
@@ -86,16 +37,17 @@ public:
     LOG(LDEBUG, ("Source for file", m_file, "is", m_src));
   }
 
-  void SetSource(SourceT src) { m_src = src; }
+  void SetSource(char src) { m_src = src; }
 
 private:
   string const & m_file;
-  SourceT m_src;
+  char m_src;
 };
-#endif
 }  // namespace
+#endif
 
-unique_ptr<ModelReader> Platform::GetReader(string const & file, string const & searchScope) const
+
+unique_ptr<ModelReader> Platform::GetReader(string const & file, string searchScope) const
 {
   string const ext = base::GetFileExtension(file);
   ASSERT(!ext.empty(), ());
@@ -103,41 +55,41 @@ unique_ptr<ModelReader> Platform::GetReader(string const & file, string const & 
   uint32_t const logPageSize = (ext == DATA_FILE_EXTENSION) ? READER_CHUNK_LOG_SIZE : 10;
   uint32_t const logPageCount = (ext == DATA_FILE_EXTENSION) ? READER_CHUNK_LOG_COUNT : 4;
 
-  SourceT sources[SOURCE_COUNT];
-  size_t n = 0;
-
   if (searchScope.empty())
   {
-    // Default behaviour - use predefined scope for resource files and writable path for all others.
-
-    if (IsResource(file, ext))
-      n = GetSearchSources(file, m_androidDefResScope, sources);
+    if (file[0] == '/')
+      searchScope = "f";
     else
     {
-      // Add source for map files and other dynamic stored data.
-      sources[n++] = WRITABLE_PATH;
-      sources[n++] = FULL_PATH;
+      if (ext == DATA_FILE_EXTENSION)
+      {
+        if (strings::StartsWith(file, WORLD_COASTS_FILE_NAME) || strings::StartsWith(file, WORLD_FILE_NAME))
+          searchScope = "wsr";
+        else
+          searchScope = "w";
+      }
+      else if (ext == BOOKMARKS_FILE_EXTENSION)
+        searchScope = "w";
+      else if (file == SETTINGS_FILE_NAME)
+        searchScope = "s";
+      else
+        searchScope = "rw";
     }
-  }
-  else
-  {
-    // Use passed scope as client wishes.
-    n = GetSearchSources(file, searchScope, sources);
   }
 
 #ifdef DEBUG
   DbgLogger logger(file);
 #endif
 
-  for (size_t i = 0; i < n; ++i)
+  for (char const s : searchScope)
   {
 #ifdef DEBUG
-    logger.SetSource(sources[i]);
+    logger.SetSource(s);
 #endif
 
-    switch (sources[i])
+    switch (s)
     {
-    case WRITABLE_PATH:
+    case 'w':
     {
       string const path = m_writableDir + file;
       if (IsFileExistsByFullPath(path))
@@ -145,7 +97,7 @@ unique_ptr<ModelReader> Platform::GetReader(string const & file, string const & 
       break;
     }
 
-    case SETTINGS_PATH:
+    case 's':
     {
       string const path = m_settingsDir + file;
       if (IsFileExistsByFullPath(path))
@@ -153,12 +105,12 @@ unique_ptr<ModelReader> Platform::GetReader(string const & file, string const & 
       break;
     }
 
-    case FULL_PATH:
+    case 'f':
       if (IsFileExistsByFullPath(file))
         return make_unique<FileReader>(file, logPageSize, logPageCount);
       break;
 
-    case RESOURCE:
+    case 'r':
       ASSERT_EQUAL(file.find("assets/"), string::npos, ());
       try
       {
@@ -171,12 +123,12 @@ unique_ptr<ModelReader> Platform::GetReader(string const & file, string const & 
       break;
 
     default:
-      CHECK(false, ("Unsupported source:", sources[i]));
+      CHECK(false, ("Unsupported source:", s));
       break;
     }
   }
 
-  LOG(LWARNING, ("Can't get reader for:", file));
+  LOG(LWARNING, ("Can't get reader for:", file, "in scope", searchScope));
   MYTHROW(FileAbsentException, ("File not found", file));
   return nullptr;
 }

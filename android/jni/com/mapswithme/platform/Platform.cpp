@@ -130,13 +130,6 @@ void Platform::Initialize(JNIEnv * env, jobject functorProcessObject, jstring ap
   LOG(LINFO, ("Flavor name:", flavor));
   LOG(LINFO, ("Build type name:", build));
 
-  if (build == "beta" || build == "debug")
-    m_androidDefResScope = "fwr";
-  else if (flavor.find("google") == 0 || flavor.find("amazon") == 0 || flavor.find("samsung") == 0) // optimization to read World mwm-s faster
-    m_androidDefResScope = "frw";
-  else
-    m_androidDefResScope = "fwr";
-
   m_isTablet = isTablet;
   m_resourcesDir = jni::ToNativeString(env, apkPath);
   m_privateDir = jni::ToNativeString(env, privatePath);

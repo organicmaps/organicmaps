@@ -25,9 +25,9 @@
 
 using namespace std;
 
-unique_ptr<ModelReader> Platform::GetReader(string const & file, string const & searchScope) const
+unique_ptr<ModelReader> Platform::GetReader(string const & file, string searchScope) const
 {
-  return make_unique<FileReader>(ReadPathForFile(file, searchScope),
+  return make_unique<FileReader>(ReadPathForFile(file, move(searchScope)),
                                  READER_CHUNK_LOG_SIZE, READER_CHUNK_LOG_COUNT);
 }
 
