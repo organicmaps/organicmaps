@@ -48,6 +48,7 @@ world  +
         drinking_water  -
         driving_school  -
         embassy  -
+        events_venue  -
         fast_food  -
         ferry_terminal  -
         fire_station  -
@@ -63,6 +64,7 @@ world  +
         internet_cafe  -
         kindergarten  -
         library  -
+        loading_dock  -
         marketplace  -
         motorcycle_parking  -
         nightclub  -
@@ -582,7 +584,10 @@ world  +
     natural  +
         bare_rock  -
         bay  -
-        beach  -
+        beach  +
+            gravel  -
+            sand  -
+            {}
         cape  -
         cave_entrance  -
         cliff  -

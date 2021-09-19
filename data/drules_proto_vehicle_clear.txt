@@ -22701,6 +22701,222 @@ cont {
   }
 }
 cont {
+  name: "natural-beach-gravel"
+  element {
+    scale: 10
+    area {
+      color: 2801593470
+      priority: -15989
+    }
+  }
+  element {
+    scale: 11
+    area {
+      color: 2801593470
+      priority: -15989
+    }
+  }
+  element {
+    scale: 12
+    area {
+      color: 2801593470
+      priority: -15989
+    }
+  }
+  element {
+    scale: 13
+    area {
+      color: 2801593470
+      priority: -15989
+    }
+  }
+  element {
+    scale: 14
+    area {
+      color: 2801593470
+      priority: -15989
+    }
+  }
+  element {
+    scale: 15
+    area {
+      color: 2801593470
+      priority: -15989
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+      }
+      priority: 15011
+    }
+  }
+  element {
+    scale: 16
+    area {
+      color: 2801593470
+      priority: -15989
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+      }
+      priority: 15011
+    }
+  }
+  element {
+    scale: 17
+    area {
+      color: 2801593470
+      priority: -15989
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+      }
+      priority: 15011
+    }
+  }
+  element {
+    scale: 18
+    area {
+      color: 2801593470
+      priority: -15989
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+      }
+      priority: 15011
+    }
+  }
+  element {
+    scale: 19
+    area {
+      color: 2801593470
+      priority: -15989
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+      }
+      priority: 15011
+    }
+  }
+}
+cont {
+  name: "natural-beach-sand"
+  element {
+    scale: 10
+    area {
+      color: 2801593470
+      priority: -15989
+    }
+  }
+  element {
+    scale: 11
+    area {
+      color: 2801593470
+      priority: -15989
+    }
+  }
+  element {
+    scale: 12
+    area {
+      color: 2801593470
+      priority: -15989
+    }
+  }
+  element {
+    scale: 13
+    area {
+      color: 2801593470
+      priority: -15989
+    }
+  }
+  element {
+    scale: 14
+    area {
+      color: 2801593470
+      priority: -15989
+    }
+  }
+  element {
+    scale: 15
+    area {
+      color: 2801593470
+      priority: -15989
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+      }
+      priority: 15011
+    }
+  }
+  element {
+    scale: 16
+    area {
+      color: 2801593470
+      priority: -15989
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+      }
+      priority: 15011
+    }
+  }
+  element {
+    scale: 17
+    area {
+      color: 2801593470
+      priority: -15989
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+      }
+      priority: 15011
+    }
+  }
+  element {
+    scale: 18
+    area {
+      color: 2801593470
+      priority: -15989
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+      }
+      priority: 15011
+    }
+  }
+  element {
+    scale: 19
+    area {
+      color: 2801593470
+      priority: -15989
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+      }
+      priority: 15011
+    }
+  }
+}
+cont {
   name: "natural-cape"
   element {
     scale: 14

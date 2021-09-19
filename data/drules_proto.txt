@@ -3876,6 +3876,42 @@ cont {
   }
 }
 cont {
+  name: "amenity-events_venue"
+  element {
+    scale: 17
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 1
+      }
+      priority: 15455
+    }
+  }
+  element {
+    scale: 18
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 1
+      }
+      priority: 15455
+    }
+  }
+  element {
+    scale: 19
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 1
+      }
+      priority: 15455
+    }
+  }
+}
+cont {
   name: "amenity-fast_food"
   element {
     scale: 15
@@ -4878,6 +4914,43 @@ cont {
         is_optional: true
       }
       priority: 15485
+    }
+  }
+}
+cont {
+  name: "amenity-loading_dock"
+  element {
+    scale: 18
+    symbol {
+      name: "entrance-s"
+      apply_for_type: 1
+      priority: 16044
+    }
+    caption {
+      primary {
+        height: 10
+        color: 6381914
+        offset_x: 1
+        text: "ref"
+      }
+      priority: 15044
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "entrance-s"
+      apply_for_type: 1
+      priority: 16044
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_x: 1
+        offset_y: 1
+      }
+      priority: 15044
     }
   }
 }
@@ -34276,6 +34349,26 @@ cont {
     apply_if: "name"
   }
   element {
+    scale: 18
+    area {
+      color: 11190117
+      priority: -15963
+    }
+    symbol {
+      name: "garden-m"
+      priority: 16037
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 1
+      }
+      priority: 15037
+    }
+    apply_if: "!name"
+  }
+  element {
     scale: 19
     area {
       color: 11190117
@@ -34303,6 +34396,26 @@ cont {
       priority: 15037
     }
     apply_if: "name"
+  }
+  element {
+    scale: 19
+    area {
+      color: 11190117
+      priority: -15963
+    }
+    symbol {
+      name: "garden-m"
+      priority: 16037
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 1
+      }
+      priority: 15037
+    }
+    apply_if: "!name"
   }
 }
 cont {
@@ -37498,6 +37611,238 @@ cont {
 }
 cont {
   name: "natural-beach"
+  element {
+    scale: 10
+    area {
+      color: 16575614
+      priority: -15538
+    }
+  }
+  element {
+    scale: 11
+    area {
+      color: 16575614
+      priority: -15538
+    }
+  }
+  element {
+    scale: 12
+    area {
+      color: 16575614
+      priority: -15538
+    }
+  }
+  element {
+    scale: 13
+    area {
+      color: 16575614
+      priority: -15538
+    }
+  }
+  element {
+    scale: 14
+    area {
+      color: 16575614
+      priority: -15538
+    }
+  }
+  element {
+    scale: 15
+    area {
+      color: 16575614
+      priority: -15538
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+      }
+      priority: 15462
+    }
+  }
+  element {
+    scale: 16
+    area {
+      color: 16575614
+      priority: -15538
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: 15462
+    }
+  }
+  element {
+    scale: 17
+    area {
+      color: 16575614
+      priority: -15538
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: 15462
+    }
+  }
+  element {
+    scale: 18
+    area {
+      color: 16575614
+      priority: -15538
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: 15462
+    }
+  }
+  element {
+    scale: 19
+    area {
+      color: 16575614
+      priority: -15538
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: 15462
+    }
+  }
+}
+cont {
+  name: "natural-beach-gravel"
+  element {
+    scale: 10
+    area {
+      color: 16575614
+      priority: -15538
+    }
+  }
+  element {
+    scale: 11
+    area {
+      color: 16575614
+      priority: -15538
+    }
+  }
+  element {
+    scale: 12
+    area {
+      color: 16575614
+      priority: -15538
+    }
+  }
+  element {
+    scale: 13
+    area {
+      color: 16575614
+      priority: -15538
+    }
+  }
+  element {
+    scale: 14
+    area {
+      color: 16575614
+      priority: -15538
+    }
+  }
+  element {
+    scale: 15
+    area {
+      color: 16575614
+      priority: -15538
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+      }
+      priority: 15462
+    }
+  }
+  element {
+    scale: 16
+    area {
+      color: 16575614
+      priority: -15538
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: 15462
+    }
+  }
+  element {
+    scale: 17
+    area {
+      color: 16575614
+      priority: -15538
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: 15462
+    }
+  }
+  element {
+    scale: 18
+    area {
+      color: 16575614
+      priority: -15538
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: 15462
+    }
+  }
+  element {
+    scale: 19
+    area {
+      color: 16575614
+      priority: -15538
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: 15462
+    }
+  }
+}
+cont {
+  name: "natural-beach-sand"
   element {
     scale: 10
     area {

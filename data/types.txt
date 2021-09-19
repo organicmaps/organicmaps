@@ -185,7 +185,7 @@ landuse|forest|coniferous
 *amenity|hunting_stand
 *boundary|administrative|9
 *amenity|fountain
-mapswithme
+*natural|beach|sand
 *amenity|bar
 *landuse|garages
 *boundary|administrative|2
@@ -193,7 +193,7 @@ mapswithme
 *highway|track|bridge
 *highway|path|bridge
 *piste:type|nordic
-mapswithme
+*natural|beach|gravel
 *railway|crossing
 *boundary|national_park
 landuse|forest|deciduous
@@ -378,9 +378,9 @@ mapswithme
 *highway|bridleway|bridge
 highway|service|driveway
 mapswithme
-mapswithme
+*amenity|events_venue
 *railway|narrow_gauge|tunnel
-mapswithme
+*amenity|loading_dock
 *waterway|dock
 mapswithme
 highway|service|driveway
