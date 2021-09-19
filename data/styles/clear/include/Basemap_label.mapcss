@@ -31,7 +31,8 @@
 
 /* 1. Z-INDEX BASE MAP LABEL */
 
-node[entrance]
+node[entrance],
+node[amenity=loading_dock],
 {z-index: 10;}
 
 area[building],
@@ -664,7 +665,8 @@ node|z16-[building]::int_name,
 area|z16-[addr:housenumber][addr:street]::int_name,
 node|z16-[addr:housenumber][addr:street]::int_name
 {text:int_name;text-color: @building_label;text-position: center;}
-node|z18-[entrance]
+node|z18-[entrance],
+node|z18-[amenity=loading_dock],
 {text-color: @building_label;}
 
 /* 8.1 Pier */
@@ -711,7 +713,8 @@ area|z18-[addr:housenumber][addr:street]::int_name,
 node|z18-[addr:housenumber][addr:street]::int_name
 {font-size: 10;}
 
-node|z18-[entrance]
+node|z18-[entrance],
+node|z18-[amenity=loading_dock],
 {icon-image: entrance-s.svg;font-size: 10;text: ref;text-offset-x: 1;}
 node|z19-[entrance]::flats
 {text: "addr:flats";font-size: 12;text-offset-y: 10;}
