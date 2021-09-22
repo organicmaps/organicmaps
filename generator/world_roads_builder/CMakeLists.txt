@@ -11,8 +11,6 @@ omim_add_library(${PROJECT_NAME} ${SRC})
 omim_link_libraries(
   ${PROJECT_NAME}
   ge0
-  drape_frontend
-  shaders
   generator
   routing
   search
@@ -24,7 +22,6 @@ omim_link_libraries(
   routing_common
   transit
   descriptions
-  drape
   kml
   editor
   indexer
@@ -35,7 +32,6 @@ omim_link_libraries(
   freetype
   expat
   icu
-  agg
   jansson
   protobuf
   minizip
@@ -43,27 +39,9 @@ omim_link_libraries(
   pugixml
   oauthcpp
   opening_hours
-  stb_image
-  sdf_image
-  vulkan_wrapper
   ${LIBZ}
 )
 
-if (PLATFORM_MAC)
-  omim_link_libraries(
-    ${PROJECT_NAME}
-    ${Qt5Widgets_LIBRARIES}
-)
-endif()
-
-if (PLATFORM_LINUX)
-  omim_link_libraries(
-    ${PROJECT_NAME}
-    dl
-)
-endif()
-
-link_opengl(${PROJECT_NAME})
 link_qt5_core(${PROJECT_NAME})
 
 add_subdirectory(world_roads_builder_tool)
