@@ -926,7 +926,7 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_Hotel)
       {{"tourism", "hotel"}},
     },
     {
-      {{"tourism", "hotel"}, {"building"}},
+      {{"building"}},
       {{"building", "hotel"}},
     },
     {
