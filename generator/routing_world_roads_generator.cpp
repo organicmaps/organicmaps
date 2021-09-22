@@ -90,8 +90,9 @@ bool BuildWorldRoads(std::string const & mwmFilePath, std::string const & roadsF
   FilesContainerW cont(mwmFilePath, FileWriter::OP_WRITE_EXISTING);
   auto writer = cont.GetWriter(ROUTING_WORLD_FILE_TAG);
 
+  /// @todo Default ctor loads countries.txt from data folder.
+  /// But this is a "previous build" countries list!
   storage::Storage storage;
-  storage.RegisterAllLocalMaps(false /* enableDiffs */);
   std::shared_ptr<NumMwmIds> numMwmIds = CreateNumMwmIds(storage);
 
   CrossBorderGraphSerializer::Serialize(graph, writer, numMwmIds);
