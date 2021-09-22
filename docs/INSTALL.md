@@ -47,10 +47,10 @@ sudo dnf install -y \
     sqlite-devel
 ```
 
-**macOS**:
+**macOS**: 
 
 ```bash
-brew install qt cmake
+brew install cmake qt@5
 ```
 
 ### Getting sources
