@@ -49,7 +49,7 @@ void WriteSegmentToStream(RegionSegmentId const & segId, CrossBorderSegment cons
 {
   CHECK(output.is_open(), ());
 
-  output << segId << kDelim << static_cast<size_t>(std::ceil(seg.m_weight));
+  output << segId << kDelim << seg.m_weight;
   WriteEndingToSteam(seg.m_start, output);
   WriteEndingToSteam(seg.m_end, output);
   output << std::endl;
@@ -254,6 +254,7 @@ bool WriteGraphToFile(CrossBorderGraph const & graph, std::string const & path, 
     std::ios_base::openmode mode = overwrite ? std::ofstream::trunc : std::ofstream::app;
     output.open(path, mode);
 
+    output << std::setprecision(12);
     for (auto const & [segId, segData] : graph.m_segments)
       WriteSegmentToStream(segId, segData, output);
   }
