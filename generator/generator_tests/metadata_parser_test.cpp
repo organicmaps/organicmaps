@@ -270,3 +270,196 @@ UNIT_CLASS_TEST(TestWithClassificator, Metadata_ValidateAndFormat_duration)
   test("P4D", "");
   test("PT50:20", "");
 }
+
+
+UNIT_CLASS_TEST(TestWithClassificator, ValidateAndFormat_facebook)
+{
+  FeatureBuilderParams params;
+  MetadataTagProcessor p(params);
+  Metadata & md = params.GetMetadata();
+
+  p("contact:facebook", "");
+  TEST(md.Empty(), ());
+
+  p("contact:facebook", "osm.us");
+  TEST_EQUAL(md.Get(Metadata::FMD_FACEBOOK_PAGE), "osm.us", ());
+  md.Drop(Metadata::FMD_FACEBOOK_PAGE);
+
+  p("contact:facebook", "@vtbgroup");
+  TEST_EQUAL(md.Get(Metadata::FMD_FACEBOOK_PAGE), "vtbgroup", ());
+  md.Drop(Metadata::FMD_FACEBOOK_PAGE);
+
+  p("contact:facebook", "https://www.facebook.com/pyaterochka");
+  TEST_EQUAL(md.Get(Metadata::FMD_FACEBOOK_PAGE), "pyaterochka", ());
+  md.Drop(Metadata::FMD_FACEBOOK_PAGE);
+
+  p("contact:facebook", "facebook.de/mcdonaldsbonn/");
+  TEST_EQUAL(md.Get(Metadata::FMD_FACEBOOK_PAGE), "mcdonaldsbonn", ());
+  md.Drop(Metadata::FMD_FACEBOOK_PAGE);
+
+  p("contact:facebook", "https://facebook.com/238702340219158/posts/284664265622965");
+  TEST_EQUAL(md.Get(Metadata::FMD_FACEBOOK_PAGE), "238702340219158/posts/284664265622965", ());
+  md.Drop(Metadata::FMD_FACEBOOK_PAGE);
+
+  p("contact:facebook", "https://facebook.com/238702340219158/posts/284664265622965");
+  TEST_EQUAL(md.Get(Metadata::FMD_FACEBOOK_PAGE), "238702340219158/posts/284664265622965", ());
+  md.Drop(Metadata::FMD_FACEBOOK_PAGE);
+
+  p("contact:facebook", "https://fr-fr.facebook.com/people/Paillote-Lgm/100012630853826/");
+  TEST_EQUAL(md.Get(Metadata::FMD_FACEBOOK_PAGE), "people/Paillote-Lgm/100012630853826", ());
+  md.Drop(Metadata::FMD_FACEBOOK_PAGE);
+
+  p("contact:facebook", "https://www.sandwichparlour.com.au/");
+  TEST(md.Empty(), ());
+}
+
+UNIT_CLASS_TEST(TestWithClassificator, ValidateAndFormat_instagram)
+{
+  FeatureBuilderParams params;
+  MetadataTagProcessor p(params);
+  Metadata & md = params.GetMetadata();
+
+  p("contact:instagram", "");
+  TEST(md.Empty(), ());
+
+  p("contact:instagram", "instagram.com/openstreetmapus");
+  TEST_EQUAL(md.Get(Metadata::FMD_INSTAGRAM_PAGE), "openstreetmapus", ());
+  md.Drop(Metadata::FMD_INSTAGRAM_PAGE);
+
+  p("contact:instagram", "www.instagram.com/openstreetmapus");
+  TEST_EQUAL(md.Get(Metadata::FMD_INSTAGRAM_PAGE), "openstreetmapus", ());
+  md.Drop(Metadata::FMD_INSTAGRAM_PAGE);
+
+  p("contact:instagram", "https://instagram.com/openstreetmapus");
+  TEST_EQUAL(md.Get(Metadata::FMD_INSTAGRAM_PAGE), "openstreetmapus", ());
+  md.Drop(Metadata::FMD_INSTAGRAM_PAGE);
+
+  p("contact:instagram", "https://en-us.instagram.com/openstreetmapus/");
+  TEST_EQUAL(md.Get(Metadata::FMD_INSTAGRAM_PAGE), "openstreetmapus", ());
+  md.Drop(Metadata::FMD_INSTAGRAM_PAGE);
+
+  p("contact:instagram", "@open.street.map.us");
+  TEST_EQUAL(md.Get(Metadata::FMD_INSTAGRAM_PAGE), "open.street.map.us", ());
+  md.Drop(Metadata::FMD_INSTAGRAM_PAGE);
+
+  p("contact:instagram", "_osm_");
+  TEST_EQUAL(md.Get(Metadata::FMD_INSTAGRAM_PAGE), "_osm_", ());
+  md.Drop(Metadata::FMD_INSTAGRAM_PAGE);
+
+  p("contact:instagram", "https://www.instagram.com/explore/locations/358536820/trivium-sport-en-dance/");
+  TEST_EQUAL(md.Get(Metadata::FMD_INSTAGRAM_PAGE), "explore/locations/358536820/trivium-sport-en-dance", ());
+  md.Drop(Metadata::FMD_INSTAGRAM_PAGE);
+
+  p("contact:instagram", "https://www.instagram.com/explore/tags/boojum/");
+  TEST_EQUAL(md.Get(Metadata::FMD_INSTAGRAM_PAGE), "explore/tags/boojum", ());
+  md.Drop(Metadata::FMD_INSTAGRAM_PAGE);
+
+  p("contact:instagram", "https://www.instagram.com/p/BvkgKZNDbqN");
+  TEST_EQUAL(md.Get(Metadata::FMD_INSTAGRAM_PAGE), "p/BvkgKZNDbqN", ());
+  md.Drop(Metadata::FMD_INSTAGRAM_PAGE);
+
+  p("contact:instagram", "dharampura road");
+  TEST(md.Empty(), ());
+
+  p("contact:instagram", "https://twitter.com/theuafpub");
+  TEST(md.Empty(), ());
+
+  p("contact:instagram", ".dots_not_allowed.");
+  TEST(md.Empty(), ());
+}
+
+UNIT_CLASS_TEST(TestWithClassificator, ValidateAndFormat_twitter)
+{
+  FeatureBuilderParams params;
+  MetadataTagProcessor p(params);
+  Metadata & md = params.GetMetadata();
+
+  p("contact:twitter", "");
+  TEST(md.Empty(), ());
+
+  p("contact:twitter", "https://twitter.com/hashtag/sotanosiete");
+  TEST_EQUAL(md.Get(Metadata::FMD_TWITTER_PAGE), "hashtag/sotanosiete", ());
+  md.Drop(Metadata::FMD_TWITTER_PAGE);
+
+  p("contact:twitter", "twitter.com/osm_tech");
+  TEST_EQUAL(md.Get(Metadata::FMD_TWITTER_PAGE), "osm_tech", ());
+  md.Drop(Metadata::FMD_TWITTER_PAGE);
+
+  p("contact:twitter", "http://twitter.com/osm_tech");
+  TEST_EQUAL(md.Get(Metadata::FMD_TWITTER_PAGE), "osm_tech", ());
+  md.Drop(Metadata::FMD_TWITTER_PAGE);
+
+  p("contact:twitter", "https://twitter.com/osm_tech");
+  TEST_EQUAL(md.Get(Metadata::FMD_TWITTER_PAGE), "osm_tech", ());
+  md.Drop(Metadata::FMD_TWITTER_PAGE);
+
+  p("contact:twitter", "osm_tech");
+  TEST_EQUAL(md.Get(Metadata::FMD_TWITTER_PAGE), "osm_tech", ());
+  md.Drop(Metadata::FMD_TWITTER_PAGE);
+
+  p("contact:twitter", "@the_osm_tech");
+  TEST_EQUAL(md.Get(Metadata::FMD_TWITTER_PAGE), "the_osm_tech", ());
+  md.Drop(Metadata::FMD_TWITTER_PAGE);
+
+  p("contact:twitter", "dharampura road");
+  TEST(md.Empty(), ());
+
+  p("contact:twitter", "http://www.facebook.com/pages/tree-house-interiors/333581653310");
+  TEST(md.Empty(), ());
+
+  p("contact:twitter", "dots.not.allowed");
+  TEST(md.Empty(), ());
+
+  p("contact:twitter", "@AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
+  TEST(md.Empty(), ());
+}
+
+UNIT_CLASS_TEST(TestWithClassificator, ValidateAndFormat_vk)
+{
+  FeatureBuilderParams params;
+  MetadataTagProcessor p(params);
+  Metadata & md = params.GetMetadata();
+
+  p("contact:vk", "");
+  TEST(md.Empty(), ());
+
+  p("contact:vk", "vk.com/osm63ru");
+  TEST_EQUAL(md.Get(Metadata::FMD_VK_PAGE), "osm63ru", ());
+  md.Drop(Metadata::FMD_VK_PAGE);
+
+  p("contact:vk", "www.vk.com/osm63ru");
+  TEST_EQUAL(md.Get(Metadata::FMD_VK_PAGE), "osm63ru", ());
+  md.Drop(Metadata::FMD_OPERATOR);
+
+  p("contact:vk", "http://vk.com/osm63ru");
+  TEST_EQUAL(md.Get(Metadata::FMD_VK_PAGE), "osm63ru", ());
+  md.Drop(Metadata::FMD_VK_PAGE);
+
+  p("contact:vk", "https://vk.com/osm63ru");
+  TEST_EQUAL(md.Get(Metadata::FMD_VK_PAGE), "osm63ru", ());
+  md.Drop(Metadata::FMD_VK_PAGE);
+
+  p("contact:vk", "https://www.vk.com/osm63ru");
+  TEST_EQUAL(md.Get(Metadata::FMD_VK_PAGE), "osm63ru", ());
+  md.Drop(Metadata::FMD_VK_PAGE);
+
+  p("contact:vk", "osm63ru");
+  TEST_EQUAL(md.Get(Metadata::FMD_VK_PAGE), "osm63ru", ());
+  md.Drop(Metadata::FMD_VK_PAGE);
+
+  p("contact:vk", "@osm63ru");
+  TEST_EQUAL(md.Get(Metadata::FMD_VK_PAGE), "osm63ru", ());
+  md.Drop(Metadata::FMD_VK_PAGE);
+
+  p("contact:vk", "@_invalid_underscores_");
+  TEST(md.Empty(), ());
+
+  p("contact:vk", "http://www.facebook.com/pages/tree-house-interiors/333581653310");
+  TEST(md.Empty(), ());
+
+  p("contact:vk", "invalid-dashes");
+  TEST(md.Empty(), ());
+
+  p("contact:vk", "@AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
+  TEST(md.Empty(), ());
+}

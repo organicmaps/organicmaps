@@ -10,6 +10,8 @@
 #include "base/macros.hpp"
 #include "base/string_utils.hpp"
 
+#include "coding/url.hpp"
+
 #include <algorithm>
 #include <cctype>
 #include <cmath>
@@ -492,6 +494,26 @@ void EditableMapObject::SetWebsite(string website)
   m_metadata.Drop(feature::Metadata::FMD_URL);
 }
 
+void EditableMapObject::SetFacebookPage(string facebookPage)
+{
+  m_metadata.Set(feature::Metadata::FMD_FACEBOOK_PAGE, facebookPage);
+}
+
+void EditableMapObject::SetInstagramPage(string instagramPage)
+{
+  m_metadata.Set(feature::Metadata::FMD_INSTAGRAM_PAGE, instagramPage);
+}
+
+void EditableMapObject::SetTwitterPage(string twitterPage)
+{
+  m_metadata.Set(feature::Metadata::FMD_TWITTER_PAGE, twitterPage);
+}
+
+void EditableMapObject::SetVkPage(string vkPage)
+{
+  m_metadata.Set(feature::Metadata::FMD_VK_PAGE, vkPage);
+}
+
 void EditableMapObject::SetInternet(Internet internet)
 {
   m_metadata.Set(feature::Metadata::FMD_INTERNET, DebugPrint(internet));
@@ -742,6 +764,125 @@ bool EditableMapObject::ValidateWebsite(string const & site)
     return false;
 
   return true;
+}
+
+//static
+bool EditableMapObject::ValidateFacebookPage(string const & page)
+{
+  if (page.empty())
+    return true;
+  // Check that facebookPage contains valid username.
+  // See rules: https://www.facebook.com/help/105399436216001
+  if (regex_match(page, regex(R"(^@?[a-zA-Z\d.\-]{5,}$)")))
+    return true;
+  if (ValidateWebsite(page))
+  {
+    string facebookPageUrl = page;
+    // Check if HTTP protocol is present
+    if (!strings::StartsWith(page, "http://") && !strings::StartsWith(page, "https://"))
+      facebookPageUrl = "https://" + page;
+
+    const url::Url url = url::Url(facebookPageUrl);
+    const string &domain = strings::MakeLowerCase(url.GetWebDomain());
+    // Check Facebook domain name
+    return strings::EndsWith(domain, "facebook.com") || strings::EndsWith(domain, "fb.com")
+        || strings::EndsWith(domain, "fb.me") || strings::EndsWith(domain, "facebook.de")
+        || strings::EndsWith(domain, "facebook.fr");
+  }
+
+  return false;
+}
+
+//static
+bool EditableMapObject::ValidateInstagramPage(string const & page)
+{
+  if (page.empty())
+    return true;
+
+  // Check that `page` contains valid username.
+  // Rules took here: https://blog.jstassen.com/2016/03/code-regex-for-instagram-username-and-hashtags/
+  if (regex_match(page, regex(R"(^@?[A-Za-z0-9_][A-Za-z0-9_.]{0,28}[A-Za-z0-9_]$)")))
+    return true;
+  if (ValidateWebsite(page))
+  {
+    string instagramPageUrl = page;
+    // Check if HTTP protocol is present
+    if (!strings::StartsWith(page, "http://") && !strings::StartsWith(page, "https://"))
+      instagramPageUrl = "https://" + page;
+
+    const url::Url url = url::Url(instagramPageUrl);
+    const string &domain = strings::MakeLowerCase(url.GetWebDomain());
+    // Check Facebook domain name
+    return domain == "instagram.com" || strings::EndsWith(domain, ".instagram.com");
+  }
+
+  return false;
+}
+
+//static
+bool EditableMapObject::ValidateTwitterPage(string const & page)
+{
+  if (page.empty())
+    return true;
+  if (ValidateWebsite(page))
+  {
+    string twitterPageUrl = page;
+    // Check if HTTP protocol is present
+    if (!strings::StartsWith(page, "http://") && !strings::StartsWith(page, "https://"))
+      twitterPageUrl = "https://" + page;
+
+    const url::Url url = url::Url(twitterPageUrl);
+    const string &domain = strings::MakeLowerCase(url.GetWebDomain());
+    // Check Facebook domain name
+    return domain == "twitter.com" || strings::EndsWith(domain, ".twitter.com");
+  }
+  else
+  {
+    // Check that page contains valid username.
+    // Rules took here: https://stackoverflow.com/q/11361044
+    return regex_match(page, regex(R"(^@?[A-Za-z0-9_]{1,15}$)"));
+  }
+}
+
+//static
+bool EditableMapObject::ValidateVkPage(string const & page)
+{
+  if (page.empty())
+    return true;
+
+  {
+    /* Check that page contains valid username. Rules took here: https://vk.com/faq18038
+       The page name must be between 5 and 32 characters.
+       Invalid format could be in cases:
+     * - begins with three or more numbers (one or two numbers are allowed).
+     * - begins and ends with "_".
+     * - contains a period with less than four symbols after it starting with a letter.
+     */
+
+    string vkPageClean = page;
+    if (vkPageClean.front() == '@')
+      vkPageClean = vkPageClean.substr(1);
+
+    if (vkPageClean.front() == '_' && vkPageClean.back() == '_') return false;
+    if (regex_match(vkPageClean, regex(R"(^\d\d\d.+$)"))) return false;
+    if (regex_match(vkPageClean, regex(R"(^[A-Za-z0-9_.]{5,32}$)"))) return true;
+  }
+
+  if (ValidateWebsite(page))
+  {
+    string vkPageUrl = page;
+    // Check if HTTP protocol is present
+    if (!strings::StartsWith(page, "http://") && !strings::StartsWith(page, "https://"))
+      vkPageUrl = "https://" + page;
+
+    const url::Url url = url::Url(vkPageUrl);
+    const string &domain = strings::MakeLowerCase(url.GetWebDomain());
+    // Check Facebook domain name
+    return domain == "vk.com" || strings::EndsWith(domain, ".vk.com")
+        || domain == "vkontakte.ru" || strings::EndsWith(domain, ".vkontakte.ru");
+  }
+
+  return false;
 }
 
 // static

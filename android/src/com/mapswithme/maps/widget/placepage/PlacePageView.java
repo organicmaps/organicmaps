@@ -105,6 +105,16 @@ public class PlacePageView extends NestedScrollViewClickFixed
   private View mWebsite;
   private TextView mTvWebsite;
   private TextView mTvLatlon;
+  //Social links
+  private View mFacebookPage;
+  private TextView mTvFacebookPage;
+  private View mInstagramPage;
+  private TextView mTvInstagramPage;
+  private View mTwitterPage;
+  private TextView mTvTwitterPage;
+  private View mVkPage;
+  private TextView mTvVkPage;
+
   private View mOpeningHours;
   private TextView mFullOpeningHours;
   private TextView mTodayOpeningHours;
@@ -302,6 +312,26 @@ public class PlacePageView extends NestedScrollViewClickFixed
     mWebsite = findViewById(R.id.ll__place_website);
     mWebsite.setOnClickListener(this);
     mTvWebsite = findViewById(R.id.tv__place_website);
+    //Social links
+    mFacebookPage = findViewById(R.id.ll__place_facebook);
+    mFacebookPage.setOnClickListener(this);
+    mFacebookPage.setOnLongClickListener(this);
+    mTvFacebookPage = findViewById(R.id.tv__place_facebook_page);
+
+    mInstagramPage = findViewById(R.id.ll__place_instagram);
+    mInstagramPage.setOnClickListener(this);
+    mInstagramPage.setOnLongClickListener(this);
+    mTvInstagramPage = findViewById(R.id.tv__place_instagram_page);
+
+    mTwitterPage = findViewById(R.id.ll__place_twitter);
+    mTwitterPage.setOnClickListener(this);
+    mTwitterPage.setOnLongClickListener(this);
+    mTvTwitterPage = findViewById(R.id.tv__place_twitter_page);
+
+    mVkPage = findViewById(R.id.ll__place_vk);
+    mVkPage.setOnClickListener(this);
+    mVkPage.setOnLongClickListener(this);
+    mTvVkPage = findViewById(R.id.tv__place_vk_page);
     LinearLayout latlon = findViewById(R.id.ll__place_latlon);
     latlon.setOnClickListener(this);
     mTvLatlon = findViewById(R.id.tv__place_latlon);
@@ -826,6 +856,7 @@ public class PlacePageView extends NestedScrollViewClickFixed
     refreshMetadataOrHide(mapObject.getMetadata(Metadata.MetadataType.FMD_INTERNET), mWifi, null);
     refreshMetadataOrHide(mapObject.getMetadata(Metadata.MetadataType.FMD_FLATS), mEntrance, mTvEntrance);
     refreshOpeningHours(mapObject);
+    refreshSocialLinks(mapObject);
 
 //    showTaxiOffer(mapObject);
 
@@ -908,6 +939,34 @@ public class PlacePageView extends NestedScrollViewClickFixed
     UiUtils.setTextAndShow(mFullOpeningHours, TimeFormatUtils.formatTimetables(getContext(), timetables));
     if (!containsCurrentWeekday)
       refreshTodayOpeningHours(resources.getString(R.string.day_off_today), resources.getColor(R.color.base_red));
+  }
+
+  private void refreshSocialLinks(@NonNull MapObject mapObject)
+  {
+    final String facebookPageLink = mapObject.getMetadata(Metadata.MetadataType.FMD_FACEBOOK_PAGE);
+    refreshSocialPageLink(mFacebookPage, mTvFacebookPage, facebookPageLink, "facebook.com");
+    final String instagramPageLink = mapObject.getMetadata(Metadata.MetadataType.FMD_INSTAGRAM_PAGE);
+    refreshSocialPageLink(mInstagramPage, mTvInstagramPage, instagramPageLink, "instagram.com");
+    final String twitterPageLink = mapObject.getMetadata(Metadata.MetadataType.FMD_TWITTER_PAGE);
+    refreshSocialPageLink(mTwitterPage, mTvTwitterPage, twitterPageLink, "twitter.com");
+    final String vkPageLink = mapObject.getMetadata(Metadata.MetadataType.FMD_VK_PAGE);
+    refreshSocialPageLink(mVkPage, mTvVkPage, vkPageLink, "vk.com");
+  }
+
+  private void refreshSocialPageLink(View view, TextView tvSocialPage, String socialPage, String webDomain)
+  {
+    if (TextUtils.isEmpty(socialPage))
+    {
+      view.setVisibility(GONE);
+    }
+    else
+    {
+      view.setVisibility(VISIBLE);
+      if (socialPage.indexOf('/') >= 0)
+        tvSocialPage.setText("https://" + webDomain + "/" + socialPage);
+      else
+        tvSocialPage.setText("@" + socialPage);
+    }
   }
 
   private void refreshTodayOpeningHours(String text, @ColorInt int color)
@@ -1177,6 +1236,22 @@ public class PlacePageView extends NestedScrollViewClickFixed
       case R.id.ll__place_website:
         Utils.openUrl(getContext(), mTvWebsite.getText().toString());
         break;
+      case R.id.ll__place_facebook:
+        final String facebookPage = mMapObject.getMetadata(Metadata.MetadataType.FMD_FACEBOOK_PAGE);
+        Utils.openUrl(getContext(), "https://m.facebook.com/"+facebookPage);
+        break;
+      case R.id.ll__place_instagram:
+        final String instagramPage = mMapObject.getMetadata(Metadata.MetadataType.FMD_INSTAGRAM_PAGE);
+        Utils.openUrl(getContext(), "https://instagram.com/"+instagramPage);
+        break;
+      case R.id.ll__place_twitter:
+        final String twitterPage = mMapObject.getMetadata(Metadata.MetadataType.FMD_TWITTER_PAGE);
+        Utils.openUrl(getContext(), "https://mobile.twitter.com/"+twitterPage);
+        break;
+      case R.id.ll__place_vk:
+        final String vkPage = mMapObject.getMetadata(Metadata.MetadataType.FMD_VK_PAGE);
+        Utils.openUrl(getContext(), "https://vk.com/" + vkPage);
+        break;
       case R.id.ll__place_wiki:
         // TODO: Refactor and use separate getters for Wiki and all other PP meta info too.
         if (mMapObject == null)
@@ -1235,6 +1310,22 @@ public class PlacePageView extends NestedScrollViewClickFixed
         break;
       case R.id.ll__place_website:
         items.add(mTvWebsite.getText().toString());
+        break;
+      case R.id.ll__place_facebook:
+        final String facebookPage = mMapObject.getMetadata(Metadata.MetadataType.FMD_FACEBOOK_PAGE);
+        items.add("https://m.facebook.com/"+facebookPage);
+        break;
+      case R.id.ll__place_instagram:
+        final String instagramPage = mMapObject.getMetadata(Metadata.MetadataType.FMD_INSTAGRAM_PAGE);
+        items.add("https://instagram.com/"+instagramPage);
+        break;
+      case R.id.ll__place_twitter:
+        final String twitterPage = mMapObject.getMetadata(Metadata.MetadataType.FMD_TWITTER_PAGE);
+        items.add("https://mobile.twitter.com/"+twitterPage);
+        break;
+      case R.id.ll__place_vk:
+        final String vkPage = mMapObject.getMetadata(Metadata.MetadataType.FMD_VK_PAGE);
+        items.add("https://vk.com/"+vkPage);
         break;
       case R.id.ll__place_email:
         items.add(mTvEmail.getText().toString());

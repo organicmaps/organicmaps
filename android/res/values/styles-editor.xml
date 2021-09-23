@@ -28,6 +28,9 @@
     <item name="android:layout_height">wrap_content</item>
     <item name="android:layout_centerVertical">true</item>
     <item name="android:layout_margin">@dimen/margin_half</item>
+    <item name="android:maxHeight">24dp</item>
+    <item name="android:maxWidth">24dp</item>
+    <item name="android:adjustViewBounds">true</item>
     <item name="android:tint">?iconTint</item>
   </style>
 
