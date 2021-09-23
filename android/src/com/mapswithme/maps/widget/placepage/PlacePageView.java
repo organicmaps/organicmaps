@@ -1313,19 +1313,19 @@ public class PlacePageView extends NestedScrollViewClickFixed
         break;
       case R.id.ll__place_facebook:
         final String facebookPage = mMapObject.getMetadata(Metadata.MetadataType.FMD_FACEBOOK_PAGE);
-        items.add("https://m.facebook.com/"+facebookPage);
+        items.add("https://m.facebook.com/" + facebookPage);
         break;
       case R.id.ll__place_instagram:
         final String instagramPage = mMapObject.getMetadata(Metadata.MetadataType.FMD_INSTAGRAM_PAGE);
-        items.add("https://instagram.com/"+instagramPage);
+        items.add("https://instagram.com/" + instagramPage);
         break;
       case R.id.ll__place_twitter:
         final String twitterPage = mMapObject.getMetadata(Metadata.MetadataType.FMD_TWITTER_PAGE);
-        items.add("https://mobile.twitter.com/"+twitterPage);
+        items.add("https://mobile.twitter.com/" + twitterPage);
         break;
       case R.id.ll__place_vk:
         final String vkPage = mMapObject.getMetadata(Metadata.MetadataType.FMD_VK_PAGE);
-        items.add("https://vk.com/"+vkPage);
+        items.add("https://vk.com/" + vkPage);
         break;
       case R.id.ll__place_email:
         items.add(mTvEmail.getText().toString());
@@ -1340,11 +1340,6 @@ public class PlacePageView extends NestedScrollViewClickFixed
         items.add(mTvOperator.getText().toString());
         break;
       case R.id.ll__place_wiki:
-        if (mMapObject == null)
-        {
-          LOGGER.e(TAG, "A long click tap on wiki cannot be handled, mMapObject is null!");
-          break;
-        }
         items.add(mMapObject.getMetadata(Metadata.MetadataType.FMD_WIKIPEDIA));
         break;
     }
