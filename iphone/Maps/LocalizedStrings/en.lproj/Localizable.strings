@@ -366,6 +366,9 @@
 /* Text in menu */
 "instagram" = "Instagram";
 
+/* Text in editor */
+"vk" = "VK";
+
 /* Text in menu */
 "openstreetmap" = "OpenStreetMap";
 
@@ -960,6 +963,14 @@
 "error_enter_correct_web" = "Enter a valid web address";
 
 "error_enter_correct_email" = "Enter a valid email";
+
+"error_enter_correct_facebook_page" = "Enter a valid Facebook web address, account, or page name";
+
+"error_enter_correct_instagram_page" = "Enter a valid Instagram web address or account name";
+
+"error_enter_correct_twitter_page" = "Enter a valid Twitter web address or username";
+
+"error_enter_correct_vk_page" = "Enter a valid VK web address or account name";
 
 "refresh" = "Update";
 

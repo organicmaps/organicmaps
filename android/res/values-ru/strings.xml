@@ -555,6 +555,10 @@
 	<string name="error_enter_correct_phone">Введите корректный номер телефона</string>
 	<string name="error_enter_correct_web">Введите корректный веб-адрес</string>
 	<string name="error_enter_correct_email">Введите корректный email</string>
+	<string name="error_enter_correct_facebook_page">Введите корректный веб-адрес Facebook страницы или имя пользователя</string>
+	<string name="error_enter_correct_instagram_page">Введите корректный веб-адрес Instagram страницы или имя пользователя</string>
+	<string name="error_enter_correct_twitter_page">Введите корректный веб-адрес Twitter страницы или имя пользователя</string>
+	<string name="error_enter_correct_vk_page">Введите корректный веб-адрес VK страницы или имя пользователя</string>
 	<string name="refresh">Обновить</string>
 	<string name="placepage_add_place_button">Добавить место на карту</string>
 	<!-- Displayed when saving some edits to the map to warn against publishing personal data -->

@@ -547,6 +547,10 @@
 	<string name="error_enter_correct_phone">Введіть правильний номер телефону</string>
 	<string name="error_enter_correct_web">Введіть вірну адресу веб-сайту</string>
 	<string name="error_enter_correct_email">Введіть вірну адресу електронної пошти</string>
+	<string name="error_enter_correct_facebook_page">Введіть вірну веб-адресу Facebook сторінки або і\'мя користувача</string>
+	<string name="error_enter_correct_instagram_page">Введіть вірну веб-адресу Instagram сторінки або і\'мя користувача</string>
+	<string name="error_enter_correct_twitter_page">Введіть вірну веб-адресу Twitter сторінки або і\'мя користувача</string>
+	<string name="error_enter_correct_vk_page">Введіть вірну веб-адресу VK сторінки або і\'мя користувача</string>
 	<string name="refresh">Оновити</string>
 	<string name="placepage_add_place_button">Додати на мапу</string>
 	<!-- Displayed when saving some edits to the map to warn against publishing personal data -->

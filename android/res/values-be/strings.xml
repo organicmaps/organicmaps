@@ -630,8 +630,8 @@
 	<string name="bookmarks_groups_hide_all">Схаваць усе</string>
 	<string name="bookmarks_groups_show_all">Паказаць усе</string>
 	<plurals name="bookmarks_places">
-	  <item quantity="one">%d закладка</item>
 	  <item quantity="few">%d закладкі</item>
+	  <item quantity="one">%d закладка</item>
 	  <item quantity="other">%d закладак</item>
 	</plurals>
 	<string name="bookmarks_create_new_group">Стварыць новы спіс</string>
@@ -662,18 +662,18 @@
 	<string name="error_system_message">Адбылася невядомая памылка</string>
 	<string name="restore">Узнавіць</string>
 	<plurals name="objects">
-	  <item quantity="one">%d аб\'ект</item>
 	  <item quantity="few">%d аб\'екты</item>
+	  <item quantity="one">%d аб\'ект</item>
 	  <item quantity="other">%d аб\'ектаў</item>
 	</plurals>
 	<plurals name="places">
-	  <item quantity="one">%d месца</item>
 	  <item quantity="few">%d месцы</item>
+	  <item quantity="one">%d месца</item>
 	  <item quantity="other">%d месцаў</item>
 	</plurals>
 	<plurals name="tracks">
-	  <item quantity="one">%d сцежка</item>
 	  <item quantity="few">%d сцежкі</item>
+	  <item quantity="one">%d сцежка</item>
 	  <item quantity="other">%d сцежак</item>
 	</plurals>
 	<string name="subtittle_opt_out">Налады адсочвання</string>
