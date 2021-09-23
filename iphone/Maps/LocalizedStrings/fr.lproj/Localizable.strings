@@ -342,7 +342,7 @@
 
 "duration_1_day" = "1 jour";
 
-"recent_track_help_text" = "Ceci vous permet d’enregistrer le chemin emprunté pendant un certain temps et de le voir sur la carte. Veuillez noter : l’activation de cette fonction entraîne une grande utilisation de la batterie. La route sera supprimée automatiquement de la carte lorsque l’intervalle de temps sera arrivé à expiration.";
+"recent_track_help_text" = "Ceci vous permet d’enregistrer le chemin emprunté pendant un certain temps et de le voir sur la carte. Veuillez noter : l’activation de cette fonction entraîne une grande utilisation de la batterie. La route sera supprimée automatiquement de la carte lorsque l’intervalle de temps sera arrivé à expiration.";
 
 "placepage_distance" = "Distance";
 
@@ -365,6 +365,9 @@
 
 /* Text in menu */
 "instagram" = "Instagram";
+
+/* Text in editor */
+"vk" = "VK";
 
 /* Text in menu */
 "openstreetmap" = "OpenStreetMap";
@@ -960,6 +963,14 @@
 "error_enter_correct_web" = "Saisir une adresse Internet valide";
 
 "error_enter_correct_email" = "Saisir un email valide";
+
+"error_enter_correct_facebook_page" = "Enter a valid Facebook web address, account, or page name";
+
+"error_enter_correct_instagram_page" = "Enter a valid Instagram web address or account name";
+
+"error_enter_correct_twitter_page" = "Enter a valid Twitter web address or username";
+
+"error_enter_correct_vk_page" = "Enter a valid VK web address or account name";
 
 "refresh" = "Mettre à jour";
 

@@ -366,6 +366,9 @@
 /* Text in menu */
 "instagram" = "Instagram";
 
+/* Text in editor */
+"vk" = "VK";
+
 /* Text in menu */
 "openstreetmap" = "OpenStreetMap";
 
@@ -960,6 +963,14 @@
 "error_enter_correct_web" = "Введіть вірну адресу веб-сайту";
 
 "error_enter_correct_email" = "Введіть вірну адресу електронної пошти";
+
+"error_enter_correct_facebook_page" = "Введіть вірну веб-адресу Facebook сторінки або і'мя користувача";
+
+"error_enter_correct_instagram_page" = "Введіть вірну веб-адресу Instagram сторінки або і'мя користувача";
+
+"error_enter_correct_twitter_page" = "Введіть вірну веб-адресу Twitter сторінки або і'мя користувача";
+
+"error_enter_correct_vk_page" = "Введіть вірну веб-адресу VK сторінки або і'мя користувача";
 
 "refresh" = "Оновити";
 
