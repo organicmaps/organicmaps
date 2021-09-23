@@ -192,6 +192,12 @@ Url::Url(std::string const & url)
   }
 }
 
+Url Url::FromString(std::string const & url)
+{
+  bool const hasProtocol = strings::StartsWith(url, "http://") || strings::StartsWith(url, "https://");
+  return Url(hasProtocol ? url : "https://" + url);
+}
+
 bool Url::Parse(std::string const & url)
 {
   // Get url scheme.
@@ -265,10 +271,10 @@ string Url::GetWebDomain() const
 
 string Url::GetWebPath() const
 {
-  // Return everything after domain name
+  // Return everything after the domain name.
   auto const found = m_path.find('/');
   if (found != string::npos && m_path.size() > found + 1)
-    return m_path.substr(found+1);
+    return m_path.substr(found + 1);
   return {};
 }
 

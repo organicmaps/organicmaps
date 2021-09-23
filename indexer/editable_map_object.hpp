@@ -175,7 +175,7 @@ public:
   static bool ValidateFacebookPage(std::string const & facebookPage);
   static bool ValidateInstagramPage(std::string const & page);
   static bool ValidateTwitterPage(std::string const & page);
-  static bool ValidateVkPage(std::string const & page);
+  static bool ValidateVkPage(std::string page);
   static bool ValidateEmail(std::string const & email);
   static bool ValidateLevel(std::string const & level);
   static bool ValidateName(std::string const & name);

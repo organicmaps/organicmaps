@@ -771,23 +771,17 @@ bool EditableMapObject::ValidateFacebookPage(string const & page)
 {
   if (page.empty())
     return true;
-  // Check that facebookPage contains valid username.
+
   // See rules: https://www.facebook.com/help/105399436216001
-  if (regex_match(page, regex(R"(^@?[a-zA-Z\d.\-]{5,}$)")))
+  static auto const s_fbRegex = regex(R"(^@?[a-zA-Z\d.\-]{5,}$)");
+  if (regex_match(page, s_fbRegex))
     return true;
+
   if (ValidateWebsite(page))
   {
-    string facebookPageUrl = page;
-    // Check if HTTP protocol is present
-    if (!strings::StartsWith(page, "http://") && !strings::StartsWith(page, "https://"))
-      facebookPageUrl = "https://" + page;
-
-    const url::Url url = url::Url(facebookPageUrl);
-    const string &domain = strings::MakeLowerCase(url.GetWebDomain());
-    // Check Facebook domain name
-    return strings::EndsWith(domain, "facebook.com") || strings::EndsWith(domain, "fb.com")
-        || strings::EndsWith(domain, "fb.me") || strings::EndsWith(domain, "facebook.de")
-        || strings::EndsWith(domain, "facebook.fr");
+    string const domain = strings::MakeLowerCase(url::Url::FromString(page).GetWebDomain());
+    return (strings::StartsWith(domain, "facebook.") || strings::StartsWith(domain, "fb.") ||
+            domain.find(".facebook.") != string::npos || domain.find(".fb.") != string::npos);
   }
 
   return false;
@@ -799,20 +793,14 @@ bool EditableMapObject::ValidateInstagramPage(string const & page)
   if (page.empty())
     return true;
 
-  // Check that `page` contains valid username.
   // Rules took here: https://blog.jstassen.com/2016/03/code-regex-for-instagram-username-and-hashtags/
-  if (regex_match(page, regex(R"(^@?[A-Za-z0-9_][A-Za-z0-9_.]{0,28}[A-Za-z0-9_]$)")))
+  static auto const s_instaRegex = regex(R"(^@?[A-Za-z0-9_][A-Za-z0-9_.]{0,28}[A-Za-z0-9_]$)");
+  if (regex_match(page, s_instaRegex))
     return true;
+
   if (ValidateWebsite(page))
   {
-    string instagramPageUrl = page;
-    // Check if HTTP protocol is present
-    if (!strings::StartsWith(page, "http://") && !strings::StartsWith(page, "https://"))
-      instagramPageUrl = "https://" + page;
-
-    const url::Url url = url::Url(instagramPageUrl);
-    const string &domain = strings::MakeLowerCase(url.GetWebDomain());
-    // Check Facebook domain name
+    string const domain = strings::MakeLowerCase(url::Url::FromString(page).GetWebDomain());
     return domain == "instagram.com" || strings::EndsWith(domain, ".instagram.com");
   }
 
@@ -824,28 +812,22 @@ bool EditableMapObject::ValidateTwitterPage(string const & page)
 {
   if (page.empty())
     return true;
+
   if (ValidateWebsite(page))
   {
-    string twitterPageUrl = page;
-    // Check if HTTP protocol is present
-    if (!strings::StartsWith(page, "http://") && !strings::StartsWith(page, "https://"))
-      twitterPageUrl = "https://" + page;
-
-    const url::Url url = url::Url(twitterPageUrl);
-    const string &domain = strings::MakeLowerCase(url.GetWebDomain());
-    // Check Facebook domain name
+    string const domain = strings::MakeLowerCase(url::Url::FromString(page).GetWebDomain());
     return domain == "twitter.com" || strings::EndsWith(domain, ".twitter.com");
   }
   else
   {
-    // Check that page contains valid username.
     // Rules took here: https://stackoverflow.com/q/11361044
-    return regex_match(page, regex(R"(^@?[A-Za-z0-9_]{1,15}$)"));
+    static auto const s_twitterRegex = regex(R"(^@?[A-Za-z0-9_]{1,15}$)");
+    return regex_match(page, s_twitterRegex);
   }
 }
 
 //static
-bool EditableMapObject::ValidateVkPage(string const & page)
+bool EditableMapObject::ValidateVkPage(string page)
 {
   if (page.empty())
     return true;
@@ -859,25 +841,26 @@ bool EditableMapObject::ValidateVkPage(string const & page)
      * - contains a period with less than four symbols after it starting with a letter.
      */
 
-    string vkPageClean = page;
-    if (vkPageClean.front() == '@')
-      vkPageClean = vkPageClean.substr(1);
+    if (page.size() < 5)
+      return false;
 
-    if (vkPageClean.front() == '_' && vkPageClean.back() == '_') return false;
-    if (regex_match(vkPageClean, regex(R"(^\d\d\d.+$)"))) return false;
-    if (regex_match(vkPageClean, regex(R"(^[A-Za-z0-9_.]{5,32}$)"))) return true;
+    if (page.front() == '@')
+      page = page.substr(1);
+    if (page.front() == '_' && page.back() == '_')
+      return false;
+
+    static auto const s_badVkRegex = regex(R"(^\d\d\d.+$)");
+    if (regex_match(page, s_badVkRegex))
+      return false;
+
+    static auto const s_goodVkRegex = regex(R"(^[A-Za-z0-9_.]{5,32}$)");
+    if (regex_match(page, s_goodVkRegex))
+      return true;
   }
 
   if (ValidateWebsite(page))
   {
-    string vkPageUrl = page;
-    // Check if HTTP protocol is present
-    if (!strings::StartsWith(page, "http://") && !strings::StartsWith(page, "https://"))
-      vkPageUrl = "https://" + page;
-
-    const url::Url url = url::Url(vkPageUrl);
-    const string &domain = strings::MakeLowerCase(url.GetWebDomain());
-    // Check Facebook domain name
+    string const domain = strings::MakeLowerCase(url::Url::FromString(page).GetWebDomain());
     return domain == "vk.com" || strings::EndsWith(domain, ".vk.com")
         || domain == "vkontakte.ru" || strings::EndsWith(domain, ".vkontakte.ru");
   }
@@ -892,7 +875,10 @@ bool EditableMapObject::ValidateEmail(string const & email)
     return true;
 
   if (strings::IsASCIIString(email))
-    return regex_match(email, regex(R"([^@\s]+@[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)+$)"));
+  {
+    static auto const s_emailRegex = regex(R"([^@\s]+@[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)+$)");
+    return regex_match(email, s_emailRegex);
+  }
 
   if ('@' == email.front() || '@' == email.back())
     return false;
@@ -945,7 +931,10 @@ bool EditableMapObject::ValidateName(string const & name)
     return true;
 
   if (strings::IsASCIIString(name))
-    return regex_match(name, regex(R"(^[ A-Za-z0-9.,?!@#$%&()\-\+:;"'`]+$)"));
+  {
+    static auto const s_nameRegex = regex(R"(^[ A-Za-z0-9.,?!@#$%&()\-\+:;"'`]+$)");
+    return regex_match(name, s_nameRegex);
+  }
 
   std::wstring_convert<std::codecvt_utf8<char32_t>, char32_t> converter;
 
