@@ -4,6 +4,7 @@
 
 #include "indexer/classificator.hpp"
 #include "indexer/ftypes_matcher.hpp"
+#include "indexer/editable_map_object.hpp"
 
 #include "platform/measurement_utils.hpp"
 
@@ -26,6 +27,7 @@ using namespace std;
 
 namespace
 {
+using osm::EditableMapObject;
 
 constexpr char const * kOSMMultivalueDelimiter = ";";
 
@@ -124,6 +126,171 @@ string MetadataTagProcessorImpl::ValidateAndFormat_operator(string const & v) co
 string MetadataTagProcessorImpl::ValidateAndFormat_url(string const & v) const
 {
   return v;
+}
+
+string MetadataTagProcessorImpl::ValidateAndFormat_facebook(string const & facebookPage) const
+{
+  if (facebookPage.empty())
+    return {};
+  // Check that facebookPage contains valid username. See rules: https://www.facebook.com/help/105399436216001
+  if (strings::EndsWith(facebookPage, ".com") || strings::EndsWith(facebookPage, ".net"))
+    return {};
+  if (regex_match(facebookPage, regex(R"(^@?[a-zA-Z\d.\-]{5,}$)")))
+  {
+    if (facebookPage.front() == '@')
+      return facebookPage.substr(1);
+    else
+      return facebookPage;
+  }
+  if (EditableMapObject::ValidateWebsite(facebookPage))
+  {
+    string facebookPageUrl = facebookPage;
+    // Check if HTTP protocol is present
+    if (!strings::StartsWith(facebookPage, "http://") && !strings::StartsWith(facebookPage, "https://"))
+      facebookPageUrl = "https://" + facebookPage;
+
+    const url::Url url = url::Url(facebookPageUrl);
+    const string &domain = strings::MakeLowerCase(url.GetWebDomain());
+    // Check Facebook domain name
+    if (strings::EndsWith(domain, "facebook.com") || strings::EndsWith(domain, "fb.com")
+       || strings::EndsWith(domain, "fb.me") || strings::EndsWith(domain, "facebook.de")
+       || strings::EndsWith(domain, "facebook.fr"))
+    {
+      auto webPath = url.GetWebPath();
+      // Strip last '/' symbol
+      if (webPath.back() == '/')
+        return webPath.substr(0, webPath.length()-1);
+      else
+        return webPath;
+    }
+  }
+
+  return {};
+}
+
+string MetadataTagProcessorImpl::ValidateAndFormat_instagram(string const & instagramPage) const
+{
+  if (instagramPage.empty())
+    return {};
+  // Check that instagramPage contains valid username.
+  // Rules took here: https://blog.jstassen.com/2016/03/code-regex-for-instagram-username-and-hashtags/
+  if (regex_match(instagramPage, regex(R"(^@?[A-Za-z0-9_][A-Za-z0-9_.]{0,28}[A-Za-z0-9_]$)")))
+  {
+    if (instagramPage.front() == '@')
+      return instagramPage.substr(1);
+    else
+      return instagramPage;
+  }
+  if (EditableMapObject::ValidateWebsite(instagramPage))
+  {
+    string instagramPageUrl = instagramPage;
+    // Check if HTTP protocol is present
+    if (!strings::StartsWith(instagramPage, "http://") && !strings::StartsWith(instagramPage, "https://"))
+      instagramPageUrl = "https://" + instagramPage;
+
+    const url::Url url = url::Url(instagramPageUrl);
+    const string &domain = strings::MakeLowerCase(url.GetWebDomain());
+    // Check Facebook domain name
+    if (domain == "instagram.com" || strings::EndsWith(domain, ".instagram.com"))
+    {
+      auto webPath = url.GetWebPath();
+      // Strip last '/' symbol
+      if (webPath.back() == '/')
+        return webPath.substr(0, webPath.length()-1);
+      else
+        return webPath;
+    }
+  }
+
+  return {};
+}
+
+string MetadataTagProcessorImpl::ValidateAndFormat_twitter(string const & twitterPage) const
+{
+  if (twitterPage.empty())
+    return {};
+  // Check that twitterPage contains valid username.
+  // Rules took here: https://stackoverflow.com/q/11361044
+  if (regex_match(twitterPage, regex(R"(^@?[A-Za-z0-9_]{1,15}$)")))
+  {
+    if (twitterPage.front() == '@')
+      return twitterPage.substr(1);
+    else
+      return twitterPage;
+  }
+  if (EditableMapObject::ValidateWebsite(twitterPage))
+  {
+    string twitterPageUrl = twitterPage;
+    // Check if HTTP protocol is present
+    if (!strings::StartsWith(twitterPage, "http://") && !strings::StartsWith(twitterPage, "https://"))
+      twitterPageUrl = "https://" + twitterPage;
+
+    const url::Url url = url::Url(twitterPageUrl);
+    const string &domain = strings::MakeLowerCase(url.GetWebDomain());
+    // Check Facebook domain name
+    if (domain == "twitter.com" || strings::EndsWith(domain, ".twitter.com"))
+    {
+      auto webPath = url.GetWebPath();
+      // Strip last '/' symbol
+      if (webPath.back() == '/')
+        webPath = webPath.substr(0, webPath.length()-1);
+
+      // Strip first '@' symbol
+      if (webPath.front() == '@')
+        webPath = webPath.substr(1);
+
+      return webPath;
+    }
+  }
+
+  return {};
+}
+
+string MetadataTagProcessorImpl::ValidateAndFormat_vk(string const & vkPage) const
+{
+  if (vkPage.empty())
+    return {};
+  {
+    /* Check that vkPage contains valid page name. Rules took here: https://vk.com/faq18038
+     * The page name must be between 5 and 32 characters.
+       Invalid format could be in cases:
+     * - begins with three or more numbers (one or two numbers are allowed).
+     * - begins and ends with "_".
+     * - contains a period with less than four symbols after it starting with a letter.
+     */
+
+    string vkPageClean = vkPage;
+    if (vkPageClean.front() == '@')
+      vkPageClean = vkPageClean.substr(1);
+
+    if (vkPageClean.front() == '_' && vkPageClean.back() == '_') return {};
+    if (regex_match(vkPageClean, regex(R"(^\d\d\d.+$)"))) return {};
+    if (regex_match(vkPageClean, regex(R"(^[A-Za-z0-9_.]{5,32}$)"))) return vkPageClean;
+  }
+
+  if (EditableMapObject::ValidateWebsite(vkPage))
+  {
+    string vkPageUrl = vkPage;
+    // Check if HTTP protocol is present
+    if (!strings::StartsWith(vkPage, "http://") && !strings::StartsWith(vkPage, "https://"))
+      vkPageUrl = "https://" + vkPage;
+
+    const url::Url url = url::Url(vkPageUrl);
+    const string &domain = strings::MakeLowerCase(url.GetWebDomain());
+    // Check Facebook domain name
+    if (domain == "vk.com" || strings::EndsWith(domain, ".vk.com") ||
+        domain == "vkontakte.ru" || strings::EndsWith(domain, ".vkontakte.ru"))
+    {
+      auto webPath = url.GetWebPath();
+      // Strip last '/' symbol
+      if (webPath.back() == '/')
+        return webPath.substr(0, webPath.length()-1);
+      else
+        return webPath;
+    }
+  }
+
+  return {};
 }
 
 string MetadataTagProcessorImpl::ValidateAndFormat_phone(string const & v) const

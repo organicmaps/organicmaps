@@ -4301,7 +4301,7 @@
     es = Permite registrar el recorrido realizado durante un determinado periodo de tiempo y verlo en el mapa. Tenga en cuenta que la activación de esta función aumenta el consumo de la batería. El registro del recorrido se eliminará automáticamente del mapa una vez vencido dicho periodo de tiempo.
     fa = با این قابلیت شما می توانید مسیری که می پیمایید را در یک دوره مشخص ضبط نماید و ان را بر روی نقشه ببینید.لطفا توجه نمایید:فعال سازی این قابلیت باعث افزایش مصرف باتری موبایل شما می شود.مسیر به طور خودکار بعد از مدت مشخص شده حذف خواهد شد
     fi = Toiminnon avulla voit tallentaa kuljetun reitin tietyltä ajalta ja nähdä sen kartalla: Huomautus: tämän toiminnon aktivoiminen lisää akun käyttöä. Reitti poistetaan kartalta automaattisesti ajanjakson päätyttyä.
-    fr = Ceci vous permet d’enregistrer le chemin emprunté pendant un certain temps et de le voir sur la carte. Veuillez noter : l’activation de cette fonction entraîne une grande utilisation de la batterie. La route sera supprimée automatiquement de la carte lorsque l’intervalle de temps sera arrivé à expiration.
+    fr = Ceci vous permet d’enregistrer le chemin emprunté pendant un certain temps et de le voir sur la carte. Veuillez noter : l’activation de cette fonction entraîne une grande utilisation de la batterie. La route sera supprimée automatiquement de la carte lorsque l’intervalle de temps sera arrivé à expiration.
     hu = Ez lehetővé teszi a bejárt útvonal rögzítését és megtekintését a térképen bizonyos időre. Kérjük, vegye figyelembe, hogy ezen funkció aktiválásával megnöveli az akkumulátor használatát. Az útvonal automatikusan törlődik a térképről az időtartam lejártával.
     id = Ini memungkinkan Anda untuk merekam jalur yang telah dilalui selama jangka waktu tertentu dan melihatnya pada peta. Harap ketahui: aktivasi fungsi ini menyebabkan peningkatan penggunaan baterai. Trek akan dihapus secara otomatis dari peta setelah selang waktu berakhir.
     it = Consente di registrare il tratto percorso in un determinato periodo di tempo e vedere lo stesso sulla mappa. Nota: l'attivazione di questa funzione incrementa l'uso della batteria. Il tratto viene rimosso automaticamente dalla mappa allo scadere dell'intervallo di tempo.
@@ -4458,6 +4458,11 @@
     comment = Text in menu
     tags = android, ios
     en = Instagram
+
+  [vk]
+    comment = Text in editor
+    tags = android
+    en = VK
 
   [openstreetmap]
     comment = Text in menu
@@ -13522,6 +13527,30 @@
     vi = Nhập email hợp lệ
     zh-Hans = 输入有效电子邮箱
     zh-Hant = 輸入有效電子郵箱
+
+  [error_enter_correct_facebook_page]
+    tags = android
+    en = Enter a valid Facebook web address, account, or page name
+    ru = Введите корректный веб-адрес Facebook страницы или имя пользователя
+    uk = Введіть вірну веб-адресу Facebook сторінки або і'мя користувача
+
+  [error_enter_correct_instagram_page]
+    tags = android
+    en = Enter a valid Instagram web address or account name
+    ru = Введите корректный веб-адрес Instagram страницы или имя пользователя
+    uk = Введіть вірну веб-адресу Instagram сторінки або і'мя користувача
+
+  [error_enter_correct_twitter_page]
+    tags = android
+    en = Enter a valid Twitter web address or username
+    ru = Введите корректный веб-адрес Twitter страницы или имя пользователя
+    uk = Введіть вірну веб-адресу Twitter сторінки або і'мя користувача
+
+  [error_enter_correct_vk_page]
+    tags = android
+    en = Enter a valid VK web address or account name
+    ru = Введите корректный веб-адрес VK страницы или имя пользователя
+    uk = Введіть вірну веб-адресу VK сторінки або і'мя користувача
 
   [refresh]
     tags = ios

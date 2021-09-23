@@ -32,6 +32,8 @@ public:
 
   std::string const & GetScheme() const { return m_scheme; }
   std::string const & GetPath() const { return m_path; }
+  std::string GetWebDomain() const;
+  std::string GetWebPath() const;
   bool IsValid() const { return !m_scheme.empty(); }
   void ForEachParam(Callback const & callback) const;
 
