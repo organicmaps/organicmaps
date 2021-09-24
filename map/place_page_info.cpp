@@ -214,7 +214,7 @@ void Info::SetCustomNameWithCoordinates(m2::PointD const & mercator, std::string
     m_uiTitle = name;
     m_uiSubtitle = measurement_utils::FormatLatLon(
         mercator::YToLat(mercator.y), mercator::XToLon(mercator.x),
-                                                   true /* withSemicolon */);
+                                                   true /* withComma */);
   }
   m_customName = name;
 }
@@ -279,7 +279,7 @@ std::string Info::GetFormattedCoordinate(bool isDMS) const
 {
   auto const & ll = GetLatLon();
   return isDMS ? measurement_utils::FormatLatLon(ll.m_lat, ll.m_lon, true)
-               : measurement_utils::FormatLatLonAsDMS(ll.m_lat, ll.m_lon, 2);
+               : measurement_utils::FormatLatLonAsDMS(ll.m_lat, ll.m_lon, false, 2);
 }
 
 void Info::SetRoadType(RoadWarningMarkType type, std::string const & localizedType, std::string const & distance)

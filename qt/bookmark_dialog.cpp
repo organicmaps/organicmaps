@@ -286,7 +286,7 @@ void BookmarkDialog::FillTree()
         {
           name = measurement_utils::FormatLatLon(mercator::YToLat(bookmark->GetPivot().y),
                                                  mercator::XToLon(bookmark->GetPivot().x),
-                                                 true /* withSemicolon */);
+                                                 true /* withComma */);
         }
         auto bookmarkItem = CreateTreeItem(name + " (Bookmark)", categoryItem);
         bookmarkItem->setTextColor(0, Qt::blue);

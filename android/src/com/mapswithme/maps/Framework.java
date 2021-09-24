@@ -207,10 +207,7 @@ public class Framework
 
   public static native DistanceAndAzimut nativeGetDistanceAndAzimuthFromLatLon(double dstLat, double dstLon, double srcLat, double srcLon, double north);
 
-  public static native String nativeFormatLatLon(double lat, double lon, boolean useDmsFormat);
-
-  @Size(2)
-  public static native String[] nativeFormatLatLonToArr(double lat, double lon, boolean useDmsFormat);
+  public static native String nativeFormatLatLon(double lat, double lon, int coordFormat);
 
   public static native String nativeFormatAltitude(double alt);
 

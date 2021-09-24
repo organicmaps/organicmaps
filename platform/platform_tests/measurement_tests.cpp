@@ -65,29 +65,39 @@ UNIT_TEST(Measurement_Smoke)
 
 UNIT_TEST(LatLonToDMS_Origin)
 {
-  TEST_EQUAL(FormatLatLonAsDMS(0, 0), "00°00′00″ 00°00′00″", ());
-  TEST_EQUAL(FormatLatLonAsDMS(0, 0, 3), "00°00′00″ 00°00′00″", ());
+  TEST_EQUAL(FormatLatLonAsDMS(0, 0, false), "00°00′00″ 00°00′00″", ());
+  TEST_EQUAL(FormatLatLonAsDMS(0, 0, false, 3), "00°00′00″ 00°00′00″", ());
 }
 
 UNIT_TEST(LatLonToDMS_Rounding)
 {
   // Here and after data is from Wiki: http://bit.ly/datafotformatingtest
   // Boston
-  TEST_EQUAL(FormatLatLonAsDMS(42.358056, -71.063611, 0), "42°21′29″N 71°03′49″W", ());
+  TEST_EQUAL(FormatLatLonAsDMS(42.358056, -71.063611, false, 0), "42°21′29″N 71°03′49″W", ());
   // Minsk
-  TEST_EQUAL(FormatLatLonAsDMS(53.916667, 27.55, 0), "53°55′00″N 27°33′00″E", ());
+  TEST_EQUAL(FormatLatLonAsDMS(53.916667, 27.55, false, 0), "53°55′00″N 27°33′00″E", ());
   // Rio
-  TEST_EQUAL(FormatLatLonAsDMS(-22.908333, -43.196389, 0), "22°54′30″S 43°11′47″W", ());
+  TEST_EQUAL(FormatLatLonAsDMS(-22.908333, -43.196389, false, 0), "22°54′30″S 43°11′47″W", ());
 }
 
 UNIT_TEST(LatLonToDMS_NoRounding)
 {
   // Paris
-  TEST_EQUAL(FormatLatLonAsDMS(48.8567, 2.3508, 2), "48°51′24.12″N 02°21′02.88″E", ());
+  TEST_EQUAL(FormatLatLonAsDMS(48.8567, 2.3508, false, 2), "48°51′24.12″N 02°21′02.88″E", ());
   // Vatican
-  TEST_EQUAL(FormatLatLonAsDMS(41.904, 12.453, 2), "41°54′14.4″N 12°27′10.8″E", ());
+  TEST_EQUAL(FormatLatLonAsDMS(41.904, 12.453, false, 2), "41°54′14.4″N 12°27′10.8″E", ());
 
-  TEST_EQUAL(FormatLatLonAsDMS(21.981112, -159.371112, 2), "21°58′52″N 159°22′16″W", ());
+  TEST_EQUAL(FormatLatLonAsDMS(21.981112, -159.371112, false, 2), "21°58′52″N 159°22′16″W", ());
+}
+
+UNIT_TEST(FormatOsmLink)
+{
+  //Zero point
+  TEST_EQUAL(FormatOsmLink(0, 0, 5), "https://osm.org/go/wAAAA-?m=", ());
+  //Eifel tower
+  TEST_EQUAL(FormatOsmLink(48.85825, 2.29450, 15), "https://osm.org/go/0BOdUs9e--?m=", ());
+  //Buenos Aires
+  TEST_EQUAL(FormatOsmLink(-34.6061, -58.4360, 10), "https://osm.org/go/Mnx6SB?m=", ());
 }
 
 UNIT_TEST(FormatAltitude)
