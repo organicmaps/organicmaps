@@ -552,7 +552,9 @@ world  +
             yoga  -
             {}
         stadium  -
-        swimming_pool  -
+        swimming_pool  +
+            private  -
+            {}
         track  -
         water_park  -
         {}
@@ -788,21 +790,8 @@ world  +
                 {}
             {}
         subway  +
-            blue  -
             bridge  -
-            brown  -
-            darkgreen  -
-            gray  -
-            green  -
-            grey  -
-            lightblue  -
-            lightgreen  -
-            orange  -
-            purple  -
-            red  -
             tunnel  -
-            violet  -
-            yellow  -
             {}
         subway_entrance  +
             barcelona  -

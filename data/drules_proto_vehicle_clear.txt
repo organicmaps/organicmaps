@@ -22295,6 +22295,58 @@ cont {
   }
 }
 cont {
+  name: "leisure-swimming_pool-private"
+  element {
+    scale: 13
+    area {
+      color: 9163744
+      priority: -15812
+    }
+  }
+  element {
+    scale: 14
+    area {
+      color: 9163744
+      priority: -15812
+    }
+  }
+  element {
+    scale: 15
+    area {
+      color: 9163744
+      priority: -15812
+    }
+  }
+  element {
+    scale: 16
+    area {
+      color: 9163744
+      priority: -15812
+    }
+  }
+  element {
+    scale: 17
+    area {
+      color: 9163744
+      priority: -15812
+    }
+  }
+  element {
+    scale: 18
+    area {
+      color: 9163744
+      priority: -15812
+    }
+  }
+  element {
+    scale: 19
+    area {
+      color: 9163744
+      priority: -15812
+    }
+  }
+}
+cont {
   name: "man_made-breakwater"
   element {
     scale: 12
@@ -36553,6 +36605,282 @@ cont {
         text: "int_name"
       }
       priority: 15905
+    }
+  }
+}
+cont {
+  name: "railway-subway"
+  element {
+    scale: 13
+    lines {
+      width: 0.9
+      color: 11710882
+      priority: 1376
+      cap: BUTTCAP
+    }
+  }
+  element {
+    scale: 14
+    lines {
+      width: 1.15
+      color: 11710882
+      priority: 1376
+      cap: BUTTCAP
+    }
+  }
+  element {
+    scale: 15
+    lines {
+      width: 1.8
+      color: 11710882
+      priority: 1376
+      cap: BUTTCAP
+    }
+  }
+  element {
+    scale: 16
+    lines {
+      width: 2.8
+      color: 11710882
+      priority: 1376
+    }
+    lines {
+      width: 1.5
+      color: 15658734
+      dashdot {
+        dd: 4.5
+        dd: 4.5
+      }
+      priority: 1388
+    }
+  }
+  element {
+    scale: 17
+    lines {
+      width: 3.2
+      color: 11710882
+      priority: 1376
+    }
+    lines {
+      width: 2.4
+      color: 15658734
+      dashdot {
+        dd: 6.3
+        dd: 6.3
+      }
+      priority: 1388
+    }
+  }
+  element {
+    scale: 18
+    lines {
+      width: 4.2
+      color: 11710882
+      priority: 1376
+    }
+    lines {
+      width: 3.3
+      color: 15658734
+      dashdot {
+        dd: 8.1
+        dd: 8.1
+      }
+      priority: 1388
+    }
+  }
+  element {
+    scale: 19
+    lines {
+      width: 5.8
+      color: 11710882
+      priority: 1376
+    }
+    lines {
+      width: 5.0
+      color: 15658734
+      dashdot {
+        dd: 10.1
+        dd: 10.1
+      }
+      priority: 1388
+    }
+  }
+}
+cont {
+  name: "railway-subway-bridge"
+  element {
+    scale: 13
+    lines {
+      width: 0.9
+      color: 11710882
+      priority: 1376
+      cap: BUTTCAP
+    }
+  }
+  element {
+    scale: 14
+    lines {
+      width: 1.15
+      color: 11710882
+      priority: 1376
+      cap: BUTTCAP
+    }
+    lines {
+      width: 4.3
+      color: 15066325
+      dashdot {
+      }
+      priority: 1304
+      cap: BUTTCAP
+    }
+  }
+  element {
+    scale: 15
+    lines {
+      width: 1.8
+      color: 11710882
+      priority: 1376
+      cap: BUTTCAP
+    }
+    lines {
+      width: 5.6
+      color: 15066325
+      dashdot {
+      }
+      priority: 1304
+      cap: BUTTCAP
+    }
+  }
+  element {
+    scale: 16
+    lines {
+      width: 2.8
+      color: 11710882
+      priority: 1376
+    }
+    lines {
+      width: 5.4
+      color: 15066325
+      dashdot {
+      }
+      priority: 1304
+      cap: BUTTCAP
+    }
+    lines {
+      width: 5.8
+      color: 8421504
+      dashdot {
+      }
+      priority: 1293
+      cap: BUTTCAP
+    }
+    lines {
+      width: 1.5
+      color: 15658734
+      dashdot {
+        dd: 4.5
+        dd: 4.5
+      }
+      priority: 1388
+    }
+  }
+  element {
+    scale: 17
+    lines {
+      width: 3.2
+      color: 11710882
+      priority: 1376
+    }
+    lines {
+      width: 7.6
+      color: 15066325
+      dashdot {
+      }
+      priority: 1304
+      cap: BUTTCAP
+    }
+    lines {
+      width: 8.0
+      color: 8421504
+      dashdot {
+      }
+      priority: 1293
+      cap: BUTTCAP
+    }
+    lines {
+      width: 2.4
+      color: 15658734
+      dashdot {
+        dd: 6.3
+        dd: 6.3
+      }
+      priority: 1388
+    }
+  }
+  element {
+    scale: 18
+    lines {
+      width: 4.2
+      color: 11710882
+      priority: 1376
+    }
+    lines {
+      width: 10.6
+      color: 15066325
+      dashdot {
+      }
+      priority: 1304
+      cap: BUTTCAP
+    }
+    lines {
+      width: 11.0
+      color: 8421504
+      dashdot {
+      }
+      priority: 1293
+      cap: BUTTCAP
+    }
+    lines {
+      width: 3.3
+      color: 15658734
+      dashdot {
+        dd: 8.1
+        dd: 8.1
+      }
+      priority: 1388
+    }
+  }
+  element {
+    scale: 19
+    lines {
+      width: 5.8
+      color: 11710882
+      priority: 1376
+    }
+    lines {
+      width: 14.0
+      color: 15066325
+      dashdot {
+      }
+      priority: 1304
+      cap: BUTTCAP
+    }
+    lines {
+      width: 14.4
+      color: 8421504
+      dashdot {
+      }
+      priority: 1293
+      cap: BUTTCAP
+    }
+    lines {
+      width: 5.0
+      color: 15658734
+      dashdot {
+        dd: 10.1
+        dd: 10.1
+      }
+      priority: 1388
     }
   }
 }
