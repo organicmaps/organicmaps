@@ -333,7 +333,7 @@ public class Utils
 
   public static void sendFeedback(@NonNull Activity activity)
   {
-    LoggerFactory.INSTANCE.zipLogs(new SupportInfoWithLogsCallback(activity, "Feedback",
+    LoggerFactory.INSTANCE.zipLogs(new SupportInfoWithLogsCallback(activity, "Organic Maps Feedback",
                                                                    Constants.Email.FEEDBACK));
   }
 

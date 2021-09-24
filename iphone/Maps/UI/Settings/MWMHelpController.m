@@ -106,13 +106,13 @@ static NSString * const kiOSEmail = @"ios@organicmaps.app";
 - (void)commonReportAction
 {
   // Do not localize subject. Support team uses it to filter emails.
-  [self sendEmailWithSubject:@"Feedback from user" toRecipient:kiOSEmail];
+  [self sendEmailWithSubject:@"Organic Maps Feedback" toRecipient:kiOSEmail];
 }
 
 - (void)bugReportAction
 {
   // Do not localize subject. Support team uses it to filter emails.
-  [self sendEmailWithSubject:@"Bugreport from user" toRecipient:kiOSEmail];
+  [self sendEmailWithSubject:@"Organic Maps Bugreport" toRecipient:kiOSEmail];
 }
 
 #pragma mark - Email

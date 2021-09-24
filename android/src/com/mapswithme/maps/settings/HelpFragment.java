@@ -29,7 +29,7 @@ public class HelpFragment extends BaseSettingsFragment
 
     private void reportBug()
     {
-      Utils.sendBugReport(requireActivity(), "Bugreport from user");
+      Utils.sendBugReport(requireActivity(), "Organic Maps Bugreport");
     }
 
     @Override
