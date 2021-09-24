@@ -3,42 +3,42 @@
 1.Z-INDEX ROADS
 2.WORLD LAVEL ROAD 4-9 ZOOM
 3.TRUNK & MOTORWAY 7-22 ZOOM
-	3.1 Trunk & Motorway 7-22 ZOOM
-	3.2 Trunk & Motorway tunnel 12-22 ZOOM
-	3.3 Trunk & Motorway bridge 13-22 ZOOM
+  3.1 Trunk & Motorway 7-22 ZOOM
+  3.2 Trunk & Motorway tunnel 12-22 ZOOM
+  3.3 Trunk & Motorway bridge 13-22 ZOOM
 4.PRIMARY 8-22 ZOOM
-	4.1 Primary 8-22 ZOOM
-	4.2 Primary tunnel 14-22 ZOOM
-	4.3 Primary bridge 14-22 ZOOM
+  4.1 Primary 8-22 ZOOM
+  4.2 Primary tunnel 14-22 ZOOM
+  4.3 Primary bridge 14-22 ZOOM
 5.SECONDARY 10-22 ZOOM
-	5.1 Secondary 10-22 ZOOM
-	5.2 Secondary tunnel 16-22 ZOOM
-	5.3 Secondary bridge 14-22 ZOOM
+  5.1 Secondary 10-22 ZOOM
+  5.2 Secondary tunnel 16-22 ZOOM
+  5.3 Secondary bridge 14-22 ZOOM
 6.RESIDENTAL & TERTIARY 11-22 ZOOM
-	6.1 Residential & Tertiary 11-22 ZOOM
-	6.2 Residential & Tertiary tunnel 16-22 ZOOM
-	6.3 Residential & Tertiary bridge 14-22 ZOOM
+  6.1 Residential & Tertiary 11-22 ZOOM
+  6.2 Residential & Tertiary tunnel 16-22 ZOOM
+  6.3 Residential & Tertiary bridge 14-22 ZOOM
 7.ROAD, STREETS, UNCLASSIFIED & SERVICE 12-22 ZOOM
-	7.1 Road, Street, Unclassified 12-22 ZOOM
-	7.2 Road, Street, Unclassified tunnel 16-22 ZOOM
-	7.3 Road, Street, Unclassified bridge 14-22 ZOOM
-	7.4 Service 15-22 ZOOM
+  7.1 Road, Street, Unclassified 12-22 ZOOM
+  7.2 Road, Street, Unclassified tunnel 16-22 ZOOM
+  7.3 Road, Street, Unclassified bridge 14-22 ZOOM
+  7.4 Service 15-22 ZOOM
 8.OTHERS ROADS 13-22 ZOOM
   8.1 Pedestrian & ford 13-22 ZOOM
-	8.2 Pedestrian & ford tunnel 16-22 ZOOM
-	8.3 Pedestrian & other brige 13-22 ZOOM
-	8.4 Cycleway 13-22 ZOOM
-	8.5 Construction & Proposed 13-22 ZOOM
-	8.6 Track & Path 14-22 ZOOM
-	8.7 Footway 14-22 ZOOM
-	8.8 Footway & Path tunnel 17-22 ZOOM
-	8.9 Bridleway 14-22 ZOOM
-	8.10 Steps 16-22 ZOOM
+  8.2 Pedestrian & ford tunnel 16-22 ZOOM
+  8.3 Pedestrian & other brige 13-22 ZOOM
+  8.4 Cycleway 13-22 ZOOM
+  8.5 Construction & Proposed 13-22 ZOOM
+  8.6 Track & Path 14-22 ZOOM
+  8.7 Footway 14-22 ZOOM
+  8.8 Footway & Path tunnel 17-22 ZOOM
+  8.9 Bridleway 14-22 ZOOM
+  8.10 Steps 16-22 ZOOM
   8.11 Runway 12-22 ZOOM
 9.RAIL 11-22 ZOOM
-	9.1 RAIL 11-22 ZOOM
-	9.2 Rail tunnel 14-22 ZOOM
-	9.3 Rail bridge 14-22 ZOOM
+  9.1 RAIL 11-22 ZOOM
+  9.2 Rail tunnel 14-22 ZOOM
+  9.3 Rail bridge 14-22 ZOOM
   9.4 Monorail 14-22 ZOOM
   9.5 Tram line 13-22 ZOOM
   9.6 Funicular 12-22 ZOOM
@@ -75,6 +75,7 @@ line[railway=rail][tunnel?],
 line[highway=footway][tunnel?]::tunnelCasing,
 line[highway=path][tunnel?]::tunnelCasing,
 line[railway=rail][bridge?]::bridgeblack,
+line[railway=subway][bridge?]::bridgeblack,
 line[railway=light_rail][bridge?]::bridgeblack,
 line[railway=yard][bridge?]::bridgeblack
 {z-index: 25;}
@@ -82,6 +83,7 @@ line[railway=yard][bridge?]::bridgeblack
 line[highway=footway][tunnel?]::tunnelBackground,
 line[highway=path][tunnel?]::tunnelBackground,
 line[railway=rail][bridge?]::bridgewhite,
+line[railway=subway][bridge?]::bridgewhite,
 line[railway=light_rail][bridge?]::bridgewhite,
 line[railway=yard][bridge?]::bridgewhite
 {z-index: 30;}
@@ -124,7 +126,8 @@ line[highway=footway][bridge?]::bridgeblack,
 line[highway=steps][bridge?]::bridgeblack,
 line[highway=road][bridge?]::bridgeblack,
 line[highway=service][bridge?]::bridgeblack,
-line[railway=rail][bridge?]::bridgeblack
+line[railway=rail][bridge?]::bridgeblack,
+line[railway=subway][bridge?]::bridgeblack,
 {z-index: 390;}
 
 line[highway=motorway][bridge?]::bridgewhite,
@@ -144,7 +147,8 @@ line[highway=footway][bridge?]::bridgewhite,
 line[highway=steps][bridge?]::bridgewhite,
 line[highway=road][bridge?]::bridgewhite,
 line[highway=service][bridge?]::bridgewhite,
-line[railway=rail][bridge?]::bridgewhite
+line[railway=rail][bridge?]::bridgewhite,
+line[railway=subway][bridge?]::bridgewhite,
 {z-index: 400;}
 
 line[highway=construction],
@@ -174,11 +178,13 @@ line[highway=ford]
 {z-index: 660;}
 
 line[railway=rail],
+line[railway=subway][!tunnel],
 line[railway=light_rail],
 line[railway=yard]
 {z-index: 680;}
 
 line[railway=rail]::dash,
+line[railway=subway][!tunnel]::dash,
 line[railway=light_rail]::dash,
 line[railway=yard]::dash
 {z-index: 690;}
@@ -1047,6 +1053,7 @@ line|z11-[railway=rail],
 line|z11-[railway=yard],
 line|z12-[railway=funicular],
 line|z13-[railway=light_rail],
+line|z13-[railway=subway][!tunnel],
 line|z14-[railway=monorail],
 line|z15-[railway=narrow_gauge],
 line|z16-[railway=construction],
@@ -1059,15 +1066,18 @@ line|z16-[railway=tram]::centerline,
 line|z16-[railway=tram]
 {color: @tram;opacity:1;}
 line|z16-[railway=rail]::dash,
+line|z16-[railway=subway][!tunnel]::dash,
 line|z16-[railway=light_rail]::dash,
 line|z16-[railway=yard]::dash
 {color: @railway_dash;opacity:1;}
 line|z14-[railway=rail][bridge?]::bridgewhite,
+line|z14-[railway=subway][bridge?]::bridgewhite,
 line|z14-[railway=light_rail][bridge?]::bridgewhite,
 line|z14-[railway=yard][bridge?]::bridgewhite,
 line|z16-[railway=tram][bridge?]::bridgewhite,
 {casing-linecap: butt;casing-color:@bridge_background;}
 line|z14-[railway=rail][bridge?]::bridgeblack,
+line|z14-[railway=subway][bridge?]::bridgeblack,
 line|z14-[railway=light_rail][bridge?]::bridgeblack,
 line|z14-[railway=yard][bridge?]::bridgeblack,
 line|z16-[railway=tram][bridge?]::bridgeblack
@@ -1079,47 +1089,58 @@ line|z11-12[railway=rail],
 line|z11-12[railway=yard]
 {color: @railway_light;width: 0.7;}
 line|z13-[railway=rail],
+line|z13-[railway=subway][!tunnel],
 line|z13-[railway=light_rail],
 line|z13-[railway=yard]
 {color: @railway_light;width: 0.9;}
 line|z14[railway=rail],
+line|z14[railway=subway][!tunnel],
 line|z14[railway=light_rail],
 line|z14[railway=yard]
 {width: 1.15;}
 line|z15[railway=rail],
+line|z15[railway=subway][!tunnel],
 line|z15[railway=light_rail],
 line|z15[railway=yard],
 {width: 1.8;}
 line|z16[railway=rail],
+line|z16[railway=subway][!tunnel],
 line|z16[railway=light_rail],
 line|z16[railway=yard]
 {width: 2.8;}
 line|z17[railway=rail],
+line|z17[railway=subway][!tunnel],
 line|z17[railway=light_rail],
 line|z17[railway=yard]
 {width: 3.2;}
 line|z18[railway=rail],
+line|z18[railway=subway][!tunnel],
 line|z18[railway=light_rail],
 line|z18[railway=yard]
 {width: 4.2;}
 line|z19[railway=rail],
+line|z19[railway=subway][!tunnel],
 line|z19[railway=light_rail],
 line|z19[railway=yard]
 {width: 5.8;}
 
 line|z16[railway=rail]::dash,
+line|z16[railway=subway][!tunnel]::dash,
 line|z16[railway=light_rail]::dash,
 line|z16[railway=yard]::dash,
 {width: 1.5;dashes: 4.5,4.5;}
 line|z17[railway=rail]::dash,
+line|z17[railway=subway][!tunnel]::dash,
 line|z17[railway=light_rail]::dash,
 line|z17[railway=yard]::dash
 {width: 2.4;dashes: 6.3,6.3;}
 line|z18[railway=rail]::dash,
+line|z18[railway=subway][!tunnel]::dash,
 line|z18[railway=light_rail]::dash,
 line|z18[railway=yard]::dash
 {width: 3.3;dashes: 8.1,8.1;}
 line|z19[railway=rail]::dash,
+line|z19[railway=subway][!tunnel]::dash,
 line|z19[railway=light_rail]::dash,
 line|z19[railway=yard]::dash
 {width: 5;dashes: 10.1,10.1;}
@@ -1154,19 +1175,23 @@ line|z17-[railway=light_rail][bridge?]::bridgewhite,
 line|z17-[railway=yard][bridge?]::bridgewhite
 {casing-width: eval(prop("width")+1.4);}
 line|z18-[railway=rail][bridge?]::bridgewhite,
+line|z18-[railway=subway][bridge?]::bridgewhite,
 line|z18-[railway=light_rail][bridge?]::bridgewhite,
 line|z18-[railway=yard][bridge?]::bridgewhite
 {casing-width: eval(prop("width")+2);}
 
 line|z16[railway=rail][bridge?]::bridgeblack,
+line|z16[railway=subway][bridge?]::bridgeblack,
 line|z16[railway=light_rail][bridge?]::bridgeblack ,
 line|z16[railway=yard][bridge?]::bridgeblack ,
 {casing-width: eval(prop("width")+1.4);}
 line|z17-[railway=rail][bridge?]::bridgeblack,
+line|z17-[railway=subway][bridge?]::bridgeblack,
 line|z17-[railway=light_rail][bridge?]::bridgeblack,
 line|z17-[railway=yard][bridge?]::bridgeblack
 {casing-width: eval(prop("width")+1.6);}
 line|z18-[railway=rail][bridge?]::bridgeblack,
+line|z18-[railway=subway][bridge?]::bridgeblack,
 line|z18-[railway=light_rail][bridge?]::bridgeblack,
 line|z18-[railway=yard][bridge?]::bridgeblack
 {casing-width: eval(prop("width")+2.2);}
