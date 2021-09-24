@@ -1848,6 +1848,9 @@ node|z17-[leisure=playground]
 node|z17-[leisure=swimming_pool],
 area|z17-[leisure=swimming_pool]
 {icon-image: swimming-m.svg;icon-min-distance: 10;}
+node|z17-[leisure=swimming_pool][access=private],
+area|z17-[leisure=swimming_pool][access=private]
+{icon-image: zero-icon.svg;}
 node|z17-[leisure=golf_course],
 area|z17-[leisure=golf_course]
 {icon-image: golf-m.svg;icon-min-distance: 10;}

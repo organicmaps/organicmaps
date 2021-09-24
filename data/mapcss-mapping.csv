@@ -124,7 +124,7 @@ waterway|stream|tunnel;[waterway=stream][tunnel?];;name;int_name;123;
 tourism|information|guidepost;[tourism=information][information=guidepost];;name;int_name;124;
 amenity|parking|fee;[amenity=parking][fee?];;name;int_name;125;
 amenity|kindergarten;126;
-deprecated|deprecated;127;x
+leisure|swimming_pool|private;[leisure=swimming_pool][access=private],[amenity=swimming_pool][access=private];;name;int_name;127;
 place|suburb;128;
 landuse|allotments;129;
 landuse|forest|coniferous;[landuse=forest][wood=coniferous],[landuse=forest][leaf_type=coniferous],[natural=wood][wood=coniferous],[natural=wood][leaf_type=coniferous];;name;int_name;130;
