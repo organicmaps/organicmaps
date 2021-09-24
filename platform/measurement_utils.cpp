@@ -143,9 +143,9 @@ string FormatLatLonAsDMSImpl(double value, char positive, char negative, int dac
   return sstream.str();
 }
 
-string FormatLatLonAsDMS(double lat, double lon, int dac)
+string FormatLatLonAsDMS(double lat, double lon, bool withComma, int dac)
 {
-  return (FormatLatLonAsDMSImpl(lat, 'N', 'S', dac) + " "  +
+  return (FormatLatLonAsDMSImpl(lat, 'N', 'S', dac) + (withComma ? ", " : " ") +
           FormatLatLonAsDMSImpl(lon, 'E', 'W', dac));
 }
 
@@ -172,9 +172,9 @@ string FormatLatLon(double lat, double lon, int dac)
   return to_string_dac(lat, dac) + " " + to_string_dac(lon, dac);
 }
 
-string FormatLatLon(double lat, double lon, bool withSemicolon, int dac)
+string FormatLatLon(double lat, double lon, bool withComma, int dac)
 {
-  return to_string_dac(lat, dac) + (withSemicolon ? ", " : " ") + to_string_dac(lon, dac);
+  return to_string_dac(lat, dac) + (withComma ? ", " : " ") + to_string_dac(lon, dac);
 }
 
 void FormatLatLon(double lat, double lon, string & latText, string & lonText, int dac)
@@ -243,6 +243,40 @@ string FormatSpeedUnits(Units units)
   case Units::Metric: return "km/h";
   }
   UNREACHABLE();
+}
+
+// Interleaves the bits of two 32-bit numbers.
+// The result is known as a Morton code.
+long interleave_bits(long x, long y)
+{
+  long c = 0;
+  for(int i=31; i>=0; i--)
+  {
+    c = (c << 1) | ((x >> i) & 1);
+    c = (c << 1) | ((y >> i) & 1);
+  }
+
+  return c;
+}
+
+string FormatOsmLink(double lat, double lon, int zoom)
+{
+  long x = round((lon + 180.0) / 360.0 * (1L<<32));
+  long y = round((lat + 90.0) / 180.0 * (1L<<32));
+  long code = interleave_bits(x, y);
+  string encodedCoords = "";
+  char char_array[] = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789_~";
+  int i;
+
+  for (i = 0; i < ceil((zoom + 8) / 3.0); ++i) {
+    int digit = (code >> (58 - (6 * i))) & 0x3f;
+    encodedCoords += char_array[digit];
+  }
+
+  for (i = 0; i < ((zoom + 8) % 3); ++i)
+    encodedCoords += "-";
+
+  return "https://osm.org/go/" + encodedCoords + "?m=";
 }
 
 bool OSMDistanceToMeters(string const & osmRawValue, double & outMeters)

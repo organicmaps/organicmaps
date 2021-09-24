@@ -67,6 +67,7 @@ import com.mapswithme.util.log.Logger;
 import com.mapswithme.util.log.LoggerFactory;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
@@ -81,6 +82,11 @@ public class PlacePageView extends NestedScrollViewClickFixed
   private static final Logger LOGGER = LoggerFactory.INSTANCE.getLogger(LoggerFactory.Type.MISC);
   private static final String TAG = PlacePageView.class.getSimpleName();
   private static final String PREF_USE_DMS = "use_dms";
+  private static final List<CoordinatesFormat> visibleCoordsFormat =
+      Arrays.asList(CoordinatesFormat.LatLonDMS,
+                    CoordinatesFormat.LatLonDecimal,
+                    CoordinatesFormat.OLCFull,
+                    CoordinatesFormat.OSMLink);
 
   private boolean mIsDocked;
   private boolean mIsFloating;
@@ -166,7 +172,7 @@ public class PlacePageView extends NestedScrollViewClickFixed
   // Data
   @Nullable
   private MapObject mMapObject;
-  private boolean mIsLatLonDms;
+  private CoordinatesFormat mCoordsFormat = CoordinatesFormat.LatLonDecimal;
 
   // Downloader`s stuff
   private DownloaderStatusIcon mDownloaderIcon;
@@ -283,7 +289,7 @@ public class PlacePageView extends NestedScrollViewClickFixed
   public PlacePageView(Context context, AttributeSet attrs, int defStyleAttr)
   {
     super(context, attrs);
-    mIsLatLonDms = MwmApplication.prefs(context).getBoolean(PREF_USE_DMS, false);
+    mCoordsFormat = CoordinatesFormat.fromId(MwmApplication.prefs(context).getInt(PREF_USE_DMS, CoordinatesFormat.LatLonDecimal.getId()));
     init(attrs, defStyleAttr);
   }
 
@@ -1156,9 +1162,8 @@ public class PlacePageView extends NestedScrollViewClickFixed
   {
     final double lat = mapObject.getLat();
     final double lon = mapObject.getLon();
-    final String[] latLon = Framework.nativeFormatLatLonToArr(lat, lon, mIsLatLonDms);
-    if (latLon.length == 2)
-      mTvLatlon.setText(String.format(Locale.US, "%1$s, %2$s", latLon[0], latLon[1]));
+    final String latLon = Framework.nativeFormatLatLon(lat, lon, mCoordsFormat.getId());
+    mTvLatlon.setText(latLon);
   }
 
   private static void refreshMetadataOrHide(String metadata, View metaLayout, TextView metaTv)
@@ -1224,8 +1229,9 @@ public class PlacePageView extends NestedScrollViewClickFixed
         addPlace();
         break;
       case R.id.ll__place_latlon:
-        mIsLatLonDms = !mIsLatLonDms;
-        MwmApplication.prefs(getContext()).edit().putBoolean(PREF_USE_DMS, mIsLatLonDms).apply();
+        final int formatIndex = visibleCoordsFormat.indexOf(mCoordsFormat);
+        mCoordsFormat = visibleCoordsFormat.get((formatIndex + 1) % visibleCoordsFormat.size());
+        MwmApplication.prefs(getContext()).edit().putInt(PREF_USE_DMS, mCoordsFormat.getId()).apply();
         if (mMapObject == null)
         {
           LOGGER.e(TAG, "A LatLon cannot be refreshed, mMapObject is null");
@@ -1305,8 +1311,8 @@ public class PlacePageView extends NestedScrollViewClickFixed
         }
         final double lat = mMapObject.getLat();
         final double lon = mMapObject.getLon();
-        items.add(Framework.nativeFormatLatLon(lat, lon, false));
-        items.add(Framework.nativeFormatLatLon(lat, lon, true));
+        for(CoordinatesFormat format: visibleCoordsFormat)
+          items.add(Framework.nativeFormatLatLon(lat, lon, format.getId()));
         break;
       case R.id.ll__place_website:
         items.add(mTvWebsite.getText().toString());

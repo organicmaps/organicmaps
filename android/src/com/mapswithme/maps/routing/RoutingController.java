@@ -23,6 +23,7 @@ import com.mapswithme.maps.base.Initializable;
 import com.mapswithme.maps.bookmarks.data.FeatureId;
 import com.mapswithme.maps.bookmarks.data.MapObject;
 import com.mapswithme.maps.location.LocationHelper;
+import com.mapswithme.maps.widget.placepage.CoordinatesFormat;
 import com.mapswithme.util.Config;
 import com.mapswithme.util.StringUtils;
 import com.mapswithme.util.Utils;
@@ -933,7 +934,7 @@ public class RoutingController implements Initializable<Void>
       }
       else
       {
-        title = Framework.nativeFormatLatLon(point.getLat(), point.getLon(), false /* useDmsFormat */);
+        title = Framework.nativeFormatLatLon(point.getLat(), point.getLon(), CoordinatesFormat.LatLonDecimal.getId());
       }
     }
     return new Pair<>(title, subtitle);
