@@ -41,9 +41,7 @@ omim_link_libraries(
   pugixml
   icu
   agg
-  ${Qt5Widgets_LIBRARIES}
   ${LIBZ}
 )
 
 link_qt5_core(${PROJECT_NAME})
-link_qt5_network(${PROJECT_NAME})

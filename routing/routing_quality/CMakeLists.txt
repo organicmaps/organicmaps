@@ -37,4 +37,3 @@ add_subdirectory(routing_quality_tool)
 omim_add_test_subdirectory(routing_quality_tests)
 
 link_qt5_core(${PROJECT_NAME})
-link_qt5_network(${PROJECT_NAME})
