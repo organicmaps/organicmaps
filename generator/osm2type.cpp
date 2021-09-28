@@ -738,10 +738,6 @@ void PostprocessElement(OsmElement * p, FeatureBuilderParams & params)
   bool railwayDone = false;
   bool ferryDone = false;
 
-  bool addOneway = false;
-  bool noOneway = false;
-  bool yesMotorFerry = false;
-
   // Get a copy of source types, because we will modify params in the loop;
   FeatureBuilderParams::Types const vTypes = params.m_types;
 
@@ -749,6 +745,9 @@ void PostprocessElement(OsmElement * p, FeatureBuilderParams & params)
   {
     if (!highwayDone && types.IsHighway(vTypes[i]))
     {
+      bool addOneway = false;
+      bool noOneway = false;
+
       TagProcessor(p).ApplyRules({
           {"oneway", "yes", [&addOneway] { addOneway = true; }},
           {"oneway", "1", [&addOneway] { addOneway = true; }},
@@ -803,17 +802,40 @@ void PostprocessElement(OsmElement * p, FeatureBuilderParams & params)
 
     if (!ferryDone && types.IsFerry(vTypes[i]))
     {
+      bool yesMotorFerry = false;
+      bool noMotorFerry = false;
+
       TagProcessor(p).ApplyRules({
           {"foot", "!", [&params] { params.AddType(types.Get(CachedTypes::Type::NoFoot)); }},
           {"foot", "~", [&params] { params.AddType(types.Get(CachedTypes::Type::YesFoot)); }},
+          {"ferry", "footway", [&params] { params.AddType(types.Get(CachedTypes::Type::YesFoot)); }},
+          {"ferry", "pedestrian", [&params] { params.AddType(types.Get(CachedTypes::Type::YesFoot)); }},
+          {"ferry", "path", [&params] {
+             params.AddType(types.Get(CachedTypes::Type::YesFoot));
+             params.AddType(types.Get(CachedTypes::Type::YesBicycle));
+          }},
+
           {"bicycle", "!", [&params] { params.AddType(types.Get(CachedTypes::Type::NoBicycle)); }},
           {"bicycle", "~", [&params] { params.AddType(types.Get(CachedTypes::Type::YesBicycle)); }},
+
+          // Check for explicit no-tag.
+          {"motor_vehicle", "!", [&noMotorFerry] { noMotorFerry = true; }},
+          {"motorcar", "!", [&noMotorFerry] { noMotorFerry = true; }},
+
           {"motor_vehicle", "yes", [&yesMotorFerry] { yesMotorFerry = true; }},
           {"motorcar", "yes", [&yesMotorFerry] { yesMotorFerry = true; }},
+          {"ferry", "trunk", [&yesMotorFerry] { yesMotorFerry = true; }},
+          {"ferry", "primary", [&yesMotorFerry] { yesMotorFerry = true; }},
+          {"ferry", "secondary", [&yesMotorFerry] { yesMotorFerry = true; }},
+          {"ferry", "tertiary", [&yesMotorFerry] { yesMotorFerry = true; }},
+          {"ferry", "residential", [&yesMotorFerry] { yesMotorFerry = true; }},
+          {"ferry", "service", [&yesMotorFerry] { yesMotorFerry = true; }},
+          {"ferry", "unclassified", [&yesMotorFerry] { yesMotorFerry = true; }},
+          {"ferry", "track", [&yesMotorFerry] { yesMotorFerry = true; }},
       });
 
-      // For car routing 'motorcar' tag should be explicitly defined.
-      params.AddType(types.Get(yesMotorFerry ? CachedTypes::Type::YesCar : CachedTypes::Type::NoCar));
+      // Car routing for ferries should be explicitly defined.
+      params.AddType(types.Get(!noMotorFerry && yesMotorFerry ? CachedTypes::Type::YesCar : CachedTypes::Type::NoCar));
 
       ferryDone = true;
     }
