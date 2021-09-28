@@ -203,4 +203,11 @@
     <item name="android:windowBackground">@null</item>
   </style>
 
+  <style name="PopupMenu" parent="ThemeOverlay.AppCompat">
+    <item name="android:popupBackground">?windowBackgroundForced</item>
+  </style>
+
+  <style name="PopupMenu.Dark" parent="ThemeOverlay.AppCompat.Dark">
+    <item name="android:popupBackground">?windowBackgroundForced</item>
+  </style>
 </resources>
