@@ -922,16 +922,16 @@ Java_com_mapswithme_maps_Framework_nativeGetDistanceAndAzimuthFromLatLon(
 JNIEXPORT jobject JNICALL
 Java_com_mapswithme_maps_Framework_nativeFormatLatLon(JNIEnv * env, jclass, jdouble lat, jdouble lon, int coordsFormat)
 {
-  switch (coordsFormat) // See CoordinatesFormat enum for all possible values.
+  switch (static_cast<android::CoordinatesFormat>(coordsFormat))
   {
     default:
-    case 0: // DMS, comma separated
+    case android::CoordinatesFormat::LatLonDMS: // DMS, comma separated
       return jni::ToJavaString(env, measurement_utils::FormatLatLonAsDMS(lat, lon, true /*withComma*/, 2));
-    case 1: // Decimal, comma separated
+    case android::CoordinatesFormat::LatLonDecimal: // Decimal, comma separated
       return jni::ToJavaString(env, measurement_utils::FormatLatLon(lat, lon, true /* withComma */, 6));
-    case 2: // Open location code, long format
+    case android::CoordinatesFormat::OLCFull: // Open location code, long format
       return jni::ToJavaString(env, openlocationcode::Encode({lat, lon}));
-    case 3: // Link to osm.org
+    case android::CoordinatesFormat::OSMLink: // Link to osm.org
       return jni::ToJavaString(env, measurement_utils::FormatOsmLink(lat, lon, 14));
   }
 }

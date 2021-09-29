@@ -5,6 +5,7 @@
 #include "geometry/mercator.hpp"
 
 #include "base/assert.hpp"
+#include "base/bits.hpp"
 #include "base/macros.hpp"
 #include "base/math.hpp"
 #include "base/stl_helpers.hpp"
@@ -245,38 +246,24 @@ string FormatSpeedUnits(Units units)
   UNREACHABLE();
 }
 
-// Interleaves the bits of two 32-bit numbers.
-// The result is known as a Morton code.
-long interleave_bits(long x, long y)
-{
-  long c = 0;
-  for(int i=31; i>=0; i--)
-  {
-    c = (c << 1) | ((x >> i) & 1);
-    c = (c << 1) | ((y >> i) & 1);
-  }
-
-  return c;
-}
-
 string FormatOsmLink(double lat, double lon, int zoom)
 {
-  long x = round((lon + 180.0) / 360.0 * (1L<<32));
-  long y = round((lat + 90.0) / 180.0 * (1L<<32));
-  long code = interleave_bits(x, y);
-  string encodedCoords = "";
-  char char_array[] = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789_~";
-  int i;
+  static char char_array[] = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789_~";
+  uint32_t x = round((lon + 180.0) / 360.0 * (1L<<32));
+  uint32_t y = round((lat + 90.0) / 180.0 * (1L<<32));
+  uint64_t code = bits::BitwiseMerge(y, x);
+  string osmUrl = "https://osm.org/go/";
 
-  for (i = 0; i < ceil((zoom + 8) / 3.0); ++i) {
+  for (int i = 0; i < ((zoom+10)/3) ; ++i)
+  {
     int digit = (code >> (58 - (6 * i))) & 0x3f;
-    encodedCoords += char_array[digit];
+    osmUrl += char_array[digit];
   }
 
-  for (i = 0; i < ((zoom + 8) % 3); ++i)
-    encodedCoords += "-";
+  for (int i = 0; i < ((zoom + 8) % 3); ++i)
+    osmUrl +=  "-";
 
-  return "https://osm.org/go/" + encodedCoords + "?m=";
+  return osmUrl + "?m=";
 }
 
 bool OSMDistanceToMeters(string const & osmRawValue, double & outMeters)

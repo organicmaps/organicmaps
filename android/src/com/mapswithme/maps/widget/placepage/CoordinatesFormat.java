@@ -27,6 +27,6 @@ public enum CoordinatesFormat
         return cursor;
     }
 
-    throw new IllegalArgumentException();
+    return LatLonDMS; // Default format is DMS
   }
 }
