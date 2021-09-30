@@ -233,7 +233,8 @@ line[railway=tram]
 
 line[highway=cycleway],
 line[highway=steps],
-node[highway=motorway_junction]
+node[highway=motorway_junction],
+node[junction],
 {z-index: 1000;}
 
 line[aerialway=cable_car]::dash,
