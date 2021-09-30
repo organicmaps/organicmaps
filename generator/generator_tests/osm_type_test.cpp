@@ -1252,6 +1252,32 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_CuisineType)
   }
 }
 
+UNIT_CLASS_TEST(TestWithClassificator, OsmType_Junctions)
+{
+  for (char const * value : { "yes", "circular", "jughandle" })
+  {
+    Tags const tags = {
+        {"junction", value }
+    };
+
+    auto const params = GetFeatureBuilderParams(tags);
+
+    TEST_EQUAL(params.m_types.size(), 1, (params));
+    TEST(params.IsTypeExist(GetType({"junction"})), (params));
+  }
+
+  {
+    Tags const tags = {
+        {"junction", "roundabout" }
+    };
+
+    auto const params = GetFeatureBuilderParams(tags);
+
+    TEST_EQUAL(params.m_types.size(), 1, (params));
+    TEST(params.IsTypeExist(GetType({"junction", "roundabout"})), (params));
+  }
+}
+
 UNIT_CLASS_TEST(TestWithClassificator, OsmType_SimpleTypesSmoke)
 {
   Tags const oneTypes = {

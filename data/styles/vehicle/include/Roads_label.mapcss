@@ -569,10 +569,12 @@ line|z18-[hwtag=oneway]::arrows
 
 /* 13.JUNCTION  */
 
-node|z15-[highway=motorway_junction]
+node|z15-[highway=motorway_junction],
+node|z17-[junction],
 {text: name;text-color: @subway_label;text-position: center;}
 
 node|z15[highway=motorway_junction]
 {font-size: 9;}
-node|z16-[highway=motorway_junction]
+node|z16-[highway=motorway_junction],
+node|z17-[junction],
 {font-size: 10;}
