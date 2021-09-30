@@ -155,22 +155,45 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_Combined)
 
 UNIT_CLASS_TEST(TestWithClassificator, OsmType_Address)
 {
-  Tags const tags = {
-    { "addr:conscriptionnumber", "223" },
-    { "addr:housenumber", "223/5" },
-    { "addr:postcode", "11000" },
-    { "addr:street", "Řetězová" },
-    { "addr:streetnumber", "5" },
-    { "source:addr", "uir_adr" },
-    { "uir_adr:ADRESA_KOD", "21717036" }
-  };
+  {
+    Tags const tags = {
+      { "addr:conscriptionnumber", "223" },
+      { "addr:housenumber", "223/5" },
+      { "addr:postcode", "11000" },
+      { "addr:street", "Řetězová" },
+      { "addr:streetnumber", "5" },
+      { "source:addr", "uir_adr" },
+      { "uir_adr:ADRESA_KOD", "21717036" }
+    };
 
-  auto const params = GetFeatureBuilderParams(tags);
+    auto const params = GetFeatureBuilderParams(tags);
 
-  TEST_EQUAL(params.m_types.size(), 1, (params));
-  TEST(params.IsTypeExist(GetType({"building", "address"})), ());
+    TEST_EQUAL(params.m_types.size(), 1, (params));
+    TEST(params.IsTypeExist(GetType({"building", "address"})), ());
 
-  TEST_EQUAL(params.house.Get(), "223/5", ());
+    TEST_EQUAL(params.house.Get(), "223/5", ());
+  }
+
+  {
+    Tags const tags = {
+      {"addr:city", "Zürich"},
+      {"addr:housenumber", "41"},
+      {"addr:postcode", "8050"},
+      {"addr:street", "Leutschenbachstrasse"},
+      {"entrance", "main"},
+      {"survey:date", "2020-12-17"},
+      {"wheelchair", "no"},
+    };
+
+    auto const params = GetFeatureBuilderParams(tags);
+
+    TEST_EQUAL(params.m_types.size(), 2, (params));
+    TEST(params.IsTypeExist(GetType({"building", "address"})), ());
+    TEST(params.IsTypeExist(GetType({"wheelchair", "no"})), ());
+    TEST(!params.IsTypeExist(GetType({"entrance"})), ());
+
+    TEST_EQUAL(params.house.Get(), "41", ());
+  }
 }
 
 UNIT_CLASS_TEST(TestWithClassificator, OsmType_PlaceState)

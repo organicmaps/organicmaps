@@ -231,6 +231,7 @@ public:
     Wlan,
     RailwayStation,
     SubwayStation,
+    WheelchairAny,
     WheelchairYes,
     BarrierGate,
     Toll,
@@ -265,6 +266,7 @@ public:
         {Type::Wlan,               {"internet_access", "wlan"}},
         {Type::RailwayStation,     {"railway", "station"}},
         {Type::SubwayStation,      {"railway", "station", "subway"}},
+        {Type::WheelchairAny,      {"wheelchair"}},
         {Type::WheelchairYes,      {"wheelchair", "yes"}},
         {Type::BarrierGate,        {"barrier", "gate"}},
         {Type::Toll,               {"hwtag", "toll"}},
@@ -717,7 +719,8 @@ void PostprocessElement(OsmElement * p, FeatureBuilderParams & params)
   {
     // Delete "entrance" type for house number (use it only with refs).
     // Add "address" type if we have house number but no valid types.
-    if (params.PopExactType(types.Get(CachedTypes::Type::Entrance)))
+    if (params.PopExactType(types.Get(CachedTypes::Type::Entrance)) ||
+        (params.m_types.size() == 1 && params.IsTypeExist(types.Get(CachedTypes::Type::WheelchairAny), 1)))
     {
       params.name.Clear();
       // If we have address (house name or number), we should assign valid type.
