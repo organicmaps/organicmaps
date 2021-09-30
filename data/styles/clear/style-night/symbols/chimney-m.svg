@@ -3,7 +3,8 @@
     <title>chimney-m</title>
     <g id="Page-2:-Night" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" opacity="0.6">
         <g id="chimney-m" fill="#FFFFFF" fill-rule="nonzero">
-            <circle id="Oval" opacity="0.2" cx="12" cy="12" r="12"></circle>
+            <circle id="Oval" fill="#FFFFFF" cx="12" cy="12" r="12"></circle>
+            <circle id="Oval" fill="#717065" cx="12" cy="12" r="11"></circle>
             <g id="chimney" transform="translate(8.000000, 6.000000)">
                 <polygon id="Path" points="0.705882353 9.52941176 3.52941176 9.52941176 3.52941176 10.2352941 0.705882353 10.2352941"></polygon>
                 <polygon id="Path" points="0.705882353 10.9411765 2.11764706 10.9411765 2.11764706 12 0.705882353 12"></polygon>
