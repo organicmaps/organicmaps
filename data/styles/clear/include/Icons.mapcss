@@ -1267,10 +1267,12 @@ node|z17-[historic=wayside_shrine],
 area|z17-[historic=wayside_shrine]
 {icon-image: wayside_shrine-m.svg;font-size: 11;icon-min-distance: 8;}
 
-node|z15[tourism=artwork]
+node|z15[tourism=artwork],
+area|z15[tourism=artwork],
 {icon-image: tourism-m.svg;icon-min-distance: 8;}
-node|z16[tourism=artwork]
-{icon-image: tourism-m.svg;icon-min-distance: 28;}
+area|z16-[tourism=artwork],
+{icon-image: tourism-m.svg;icon-min-distance: 24;}
+
 node|z14[tourism=attraction][attraction=specified],
 area|z14[tourism=attraction][attraction=specified],
 area|z14[place=square]
@@ -1294,15 +1296,6 @@ area|z16-[tourism=theme_park]
 node|z17-[tourism=attraction][attraction=animal],
 area|z17-[tourism=attraction][attraction=animal]
 {icon-image: zoo-m.svg;icon-min-distance: 24;}
-node|z16-[tourism=artwork][artwork_type=architecture],
-area|z16-[tourism=artwork][artwork_type=architecture],
-node|z17-[tourism=artwork][artwork_type=sculpture],
-area|z17-[tourism=artwork][artwork_type=sculpture],
-node|z17-[tourism=artwork][artwork_type=statue],
-area|z17-[tourism=artwork][artwork_type=statue],
-node|z18-[tourism=artwork][artwork_type=painting],
-area|z18-[tourism=artwork][artwork_type=painting],
-{icon-image: tourism-m.svg;icon-min-distance: 24;}
 
 node|z14[amenity=community_centre],
 area|z14[amenity=community_centre]
