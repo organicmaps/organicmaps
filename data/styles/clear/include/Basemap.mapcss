@@ -46,7 +46,8 @@ area[aeroway=aerodrome]
 {z-index: 1;}
 
 area[amenity=hospital],
-area[amenity=doctors]
+area[amenity=doctors],
+area[healthcare=laboratory],
 {z-index: 2;}
 
 area[landuse=industrial],
@@ -444,6 +445,7 @@ area|z10-[aeroway=airport],
 area|z10-[aeroway=aerodrome],
 area|z14-[amenity=hospital],
 area|z14-[amenity=doctors],
+area|z14-[healthcare=laboratory],
 area|z14-[highway=pedestrian][area?],
 area|z14-[area:highway=pedestrian],
 area|z14-[highway=footway][area?][!sac_scale],
