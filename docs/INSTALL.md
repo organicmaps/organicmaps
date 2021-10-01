@@ -366,18 +366,6 @@ or with private repository
 ./configure.sh <private-repo-name>
 ```
 
-Install [CocoaPods](https://cocoapods.org/):
-
-```bash
-brew install cocoapods
-```
-
-Install required pods for the project:
-
-```bash
-(cd iphone/Maps && pod install)
-```
-
 ### Configuring Xcode
 
 Set up your developer account and add certificates:
