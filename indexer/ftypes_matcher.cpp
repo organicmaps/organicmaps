@@ -474,7 +474,6 @@ AttractionsChecker::AttractionsChecker() : BaseChecker(2 /* level */)
       {"historic", "fort"},
       {"historic", "memorial"},
       {"historic", "monument"},
-      {"historic", "museum"},
       {"historic", "ruins"},
       {"historic", "ship"},
       {"historic", "tomb"},

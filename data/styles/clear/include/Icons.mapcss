@@ -1130,8 +1130,6 @@ node|z16-[historic=ship],
 area|z16-[historic=ship],
 node|z16-[historic=tomb],
 area|z16-[historic=tomb],
-node|z16-[historic=museum],
-area|z16-[historic=museum],
 node|z17-[historic=ruins],
 area|z17-[historic=ruins],
 node|z17-[historic=wayside_shrine],
@@ -1200,8 +1198,6 @@ area|z15[tourism=museum]
 {icon-image: museum-m.svg;icon-min-distance: 24;}
 node|z16-[tourism=museum],
 area|z16-[tourism=museum],
-node|z16-[historic=museum],
-area|z16-[historic=museum]
 {icon-image: museum-m.svg;text-offset: 1;icon-min-distance: 12;}
 
 node|z15[tourism=gallery]

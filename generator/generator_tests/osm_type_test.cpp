@@ -1589,7 +1589,6 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_SimpleTypesSmoke)
     {"historic", "fort"},
     {"historic", "memorial"},
     {"historic", "monument"},
-    {"historic", "museum"},
     {"historic", "ruins"},
     {"historic", "ship"},
     {"historic", "tomb"},
