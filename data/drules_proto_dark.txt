@@ -11434,6 +11434,58 @@ cont {
   }
 }
 cont {
+  name: "healthcare-laboratory"
+  element {
+    scale: 17
+    symbol {
+      name: "hospital-m"
+      priority: 16500
+      min_distance: 4
+    }
+    caption {
+      primary {
+        height: 10
+        color: 5592405
+        offset_y: 1
+        is_optional: true
+      }
+      priority: 15500
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "hospital-m"
+      priority: 16500
+    }
+    caption {
+      primary {
+        height: 11
+        color: 5592405
+        offset_y: 1
+        is_optional: true
+      }
+      priority: 15500
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "hospital-m"
+      priority: 16500
+    }
+    caption {
+      primary {
+        height: 11
+        color: 5592405
+        offset_y: 1
+        is_optional: true
+      }
+      priority: 15500
+    }
+  }
+}
+cont {
   name: "highway-bridleway"
   element {
     scale: 14
@@ -29559,77 +29611,6 @@ cont {
   }
 }
 cont {
-  name: "historic-museum"
-  element {
-    scale: 16
-    symbol {
-      name: "museum-m"
-      priority: 16000
-      min_distance: 12
-    }
-    caption {
-      primary {
-        height: 10
-        color: 5592405
-        offset_y: 1
-        is_optional: true
-      }
-      priority: 15000
-    }
-  }
-  element {
-    scale: 17
-    symbol {
-      name: "museum-m"
-      priority: 16000
-      min_distance: 12
-    }
-    caption {
-      primary {
-        height: 10
-        color: 5592405
-        offset_y: 1
-        is_optional: true
-      }
-      priority: 15000
-    }
-  }
-  element {
-    scale: 18
-    symbol {
-      name: "museum-m"
-      priority: 16000
-      min_distance: 12
-    }
-    caption {
-      primary {
-        height: 10
-        color: 5592405
-        offset_y: 1
-        is_optional: true
-      }
-      priority: 15000
-    }
-  }
-  element {
-    scale: 19
-    symbol {
-      name: "museum-m"
-      priority: 16000
-      min_distance: 12
-    }
-    caption {
-      primary {
-        height: 10
-        color: 5592405
-        offset_y: 1
-        is_optional: true
-      }
-      priority: 15000
-    }
-  }
-}
-cont {
   name: "historic-ruins"
   element {
     scale: 17
@@ -30605,6 +30586,72 @@ cont {
         color: 5666134
       }
       priority: 16313
+    }
+  }
+}
+cont {
+  name: "junction"
+  element {
+    scale: 17
+    caption {
+      primary {
+        height: 10
+        color: 5592405
+      }
+      priority: 15365
+    }
+  }
+  element {
+    scale: 18
+    caption {
+      primary {
+        height: 10
+        color: 5592405
+      }
+      priority: 15365
+    }
+  }
+  element {
+    scale: 19
+    caption {
+      primary {
+        height: 10
+        color: 5592405
+      }
+      priority: 15365
+    }
+  }
+}
+cont {
+  name: "junction-roundabout"
+  element {
+    scale: 17
+    caption {
+      primary {
+        height: 10
+        color: 5592405
+      }
+      priority: 15365
+    }
+  }
+  element {
+    scale: 18
+    caption {
+      primary {
+        height: 10
+        color: 5592405
+      }
+      priority: 15365
+    }
+  }
+  element {
+    scale: 19
+    caption {
+      primary {
+        height: 10
+        color: 5592405
+      }
+      priority: 15365
     }
   }
 }
@@ -37085,6 +37132,20 @@ cont {
 cont {
   name: "man_made-chimney"
   element {
+    scale: 16
+    symbol {
+      name: "chimney-m"
+      priority: 16455
+    }
+  }
+  element {
+    scale: 17
+    symbol {
+      name: "chimney-m"
+      priority: 16455
+    }
+  }
+  element {
     scale: 18
     symbol {
       name: "chimney-m"
@@ -37469,6 +37530,20 @@ cont {
 }
 cont {
   name: "man_made-works"
+  element {
+    scale: 16
+    symbol {
+      name: "chimney-m"
+      priority: 16000
+    }
+  }
+  element {
+    scale: 17
+    symbol {
+      name: "chimney-m"
+      priority: 16000
+    }
+  }
   element {
     scale: 18
     symbol {
@@ -49178,6 +49253,7 @@ cont {
     scale: 16
     symbol {
       name: "dot-m"
+      apply_for_type: 1
       priority: 16000
     }
   }
@@ -49185,6 +49261,7 @@ cont {
     scale: 17
     symbol {
       name: "dot-m"
+      apply_for_type: 1
       priority: 16000
     }
   }
@@ -49192,6 +49269,7 @@ cont {
     scale: 18
     symbol {
       name: "dot-m"
+      apply_for_type: 1
       priority: 16000
     }
   }
@@ -49199,6 +49277,7 @@ cont {
     scale: 19
     symbol {
       name: "dot-m"
+      apply_for_type: 1
       priority: 16000
     }
   }
@@ -49958,7 +50037,7 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "railway-crossing"
+      name: "railway-crossing-m"
       apply_for_type: 1
       priority: 16500
     }
@@ -49966,7 +50045,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "railway-crossing"
+      name: "railway-crossing-m"
       apply_for_type: 1
       priority: 16500
     }
@@ -49974,7 +50053,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "railway-crossing"
+      name: "railway-crossing-m"
       apply_for_type: 1
       priority: 16500
     }
@@ -53766,13 +53845,6 @@ cont {
       priority: 1261
     }
     lines {
-      width: 5.4
-      dashdot {
-      }
-      priority: 999
-      cap: BUTTCAP
-    }
-    lines {
       width: 1.3
       color: 1118481
       dashdot {
@@ -53788,13 +53860,6 @@ cont {
       width: 3.0
       color: 3355443
       priority: 1261
-    }
-    lines {
-      width: 7.2
-      dashdot {
-      }
-      priority: 999
-      cap: BUTTCAP
     }
     lines {
       width: 2.0
@@ -53814,20 +53879,6 @@ cont {
       priority: 1261
     }
     lines {
-      width: 8.0
-      dashdot {
-      }
-      priority: 999
-      cap: BUTTCAP
-    }
-    lines {
-      width: 8.4
-      dashdot {
-      }
-      priority: 999
-      cap: BUTTCAP
-    }
-    lines {
       width: 2.0
       color: 1118481
       dashdot {
@@ -53843,20 +53894,6 @@ cont {
       width: 3.0
       color: 3355443
       priority: 1261
-    }
-    lines {
-      width: 8.0
-      dashdot {
-      }
-      priority: 999
-      cap: BUTTCAP
-    }
-    lines {
-      width: 8.4
-      dashdot {
-      }
-      priority: 999
-      cap: BUTTCAP
     }
     lines {
       width: 2.0
@@ -64478,7 +64515,6 @@ cont {
     scale: 15
     symbol {
       name: "tourism-m"
-      apply_for_type: 1
       priority: 16514
       min_distance: 8
     }
@@ -64496,9 +64532,8 @@ cont {
     scale: 16
     symbol {
       name: "tourism-m"
-      apply_for_type: 1
       priority: 16514
-      min_distance: 28
+      min_distance: 24
     }
     caption {
       primary {
@@ -64512,6 +64547,11 @@ cont {
   }
   element {
     scale: 17
+    symbol {
+      name: "tourism-m"
+      priority: 16514
+      min_distance: 24
+    }
     caption {
       primary {
         height: 10
@@ -64524,6 +64564,11 @@ cont {
   }
   element {
     scale: 18
+    symbol {
+      name: "tourism-m"
+      priority: 16514
+      min_distance: 24
+    }
     caption {
       primary {
         height: 11
@@ -64536,6 +64581,11 @@ cont {
   }
   element {
     scale: 19
+    symbol {
+      name: "tourism-m"
+      priority: 16514
+      min_distance: 24
+    }
     caption {
       primary {
         height: 11
@@ -64553,7 +64603,6 @@ cont {
     scale: 15
     symbol {
       name: "tourism-m"
-      apply_for_type: 1
       priority: 16514
       min_distance: 8
     }
@@ -64642,7 +64691,6 @@ cont {
     scale: 15
     symbol {
       name: "tourism-m"
-      apply_for_type: 1
       priority: 16514
       min_distance: 8
     }
@@ -64660,9 +64708,8 @@ cont {
     scale: 16
     symbol {
       name: "tourism-m"
-      apply_for_type: 1
       priority: 16514
-      min_distance: 28
+      min_distance: 24
     }
     caption {
       primary {
@@ -64676,6 +64723,11 @@ cont {
   }
   element {
     scale: 17
+    symbol {
+      name: "tourism-m"
+      priority: 16514
+      min_distance: 24
+    }
     caption {
       primary {
         height: 10
@@ -64727,7 +64779,6 @@ cont {
     scale: 15
     symbol {
       name: "tourism-m"
-      apply_for_type: 1
       priority: 16514
       min_distance: 8
     }
@@ -64745,9 +64796,8 @@ cont {
     scale: 16
     symbol {
       name: "tourism-m"
-      apply_for_type: 1
       priority: 16514
-      min_distance: 28
+      min_distance: 24
     }
     caption {
       primary {
@@ -64817,7 +64867,6 @@ cont {
     scale: 15
     symbol {
       name: "tourism-m"
-      apply_for_type: 1
       priority: 16514
       min_distance: 8
     }
@@ -64835,9 +64884,8 @@ cont {
     scale: 16
     symbol {
       name: "tourism-m"
-      apply_for_type: 1
       priority: 16514
-      min_distance: 28
+      min_distance: 24
     }
     caption {
       primary {

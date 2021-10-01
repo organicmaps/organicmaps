@@ -403,7 +403,7 @@ mapswithme
 *leisure|beach_resort
 *leisure|dog_park
 *aerialway|gondola
-*historic|museum
+tourism|museum
 *highway|living_street|bridge
 mapswithme
 *railway|monorail
@@ -412,7 +412,7 @@ mapswithme
 *leisure|park|private
 mapswithme
 *noexit|motor_vehicle
-mapswithme
+*healthcare|laboratory
 *highway|motorway|tunnel
 *railway|light_rail|tunnel
 *area:highway|service
@@ -1006,7 +1006,7 @@ route|ferry
 *place|city|capital|11
 *hwtag|yesfoot
 *public_transport|platform
-mapswithme
+*junction
 *aeroway|aerodrome|international
 *railway|station|light_rail
 *railway|station|monorail

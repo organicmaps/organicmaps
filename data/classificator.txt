@@ -299,6 +299,9 @@ world  +
         phone  -
         {}
     entrance  -
+    healthcare  +
+        laboratory  -
+        {}
     highway  +
         bridleway  +
             bridge  -
@@ -449,7 +452,6 @@ world  +
             statue  -
             {}
         monument  -
-        museum  -
         ruins  -
         ship  -
         tomb  -
