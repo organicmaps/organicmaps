@@ -88,7 +88,6 @@ class IsComplexPoiChecker : public ftypes::BaseChecker
                                           {"historic", "archaeological_site"},
                                           {"historic", "castle"},
                                           {"historic", "fort"},
-                                          {"historic", "museum"},
                                           {"landuse", "cemetery"},
                                           {"landuse", "churchyard"},
                                           {"landuse", "commercial"},

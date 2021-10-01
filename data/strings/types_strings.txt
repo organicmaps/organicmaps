@@ -10877,14 +10877,6 @@
     zh-Hans = 纪念堂
     zh-Hant = 紀念碑
 
-  [type.historic.museum]
-    en = historic-museum
-    ja = 歴史的なミュージアム
-    pl = Muzeum historyczne
-    pt = Museu
-    pt-BR = Museu
-    zh-Hans = 历史博物馆
-
   [type.historic.ruins]
     en = Ruins
     ar = آثار
