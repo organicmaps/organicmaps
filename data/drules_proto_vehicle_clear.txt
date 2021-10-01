@@ -18130,73 +18130,6 @@ cont {
   }
 }
 cont {
-  name: "historic-museum"
-  element {
-    scale: 16
-    symbol {
-      name: "museum-m"
-      priority: 16000
-      min_distance: 12
-    }
-    caption {
-      primary {
-        height: 10
-        color: 4473924
-        offset_y: 1
-      }
-      priority: 15000
-    }
-  }
-  element {
-    scale: 17
-    symbol {
-      name: "museum-m"
-      priority: 16000
-      min_distance: 12
-    }
-    caption {
-      primary {
-        height: 10
-        color: 4473924
-        offset_y: 1
-      }
-      priority: 15000
-    }
-  }
-  element {
-    scale: 18
-    symbol {
-      name: "museum-m"
-      priority: 16000
-      min_distance: 12
-    }
-    caption {
-      primary {
-        height: 10
-        color: 4473924
-        offset_y: 1
-      }
-      priority: 15000
-    }
-  }
-  element {
-    scale: 19
-    symbol {
-      name: "museum-m"
-      priority: 16000
-      min_distance: 12
-    }
-    caption {
-      primary {
-        height: 10
-        color: 4473924
-        offset_y: 1
-      }
-      priority: 15000
-    }
-  }
-}
-cont {
   name: "historic-ruins"
   element {
     scale: 17
@@ -18578,6 +18511,72 @@ cont {
         step: 184.0
         offset: 200.0
       }
+    }
+  }
+}
+cont {
+  name: "junction"
+  element {
+    scale: 17
+    caption {
+      primary {
+        height: 10
+        color: 3355443
+      }
+      priority: 15529
+    }
+  }
+  element {
+    scale: 18
+    caption {
+      primary {
+        height: 10
+        color: 3355443
+      }
+      priority: 15529
+    }
+  }
+  element {
+    scale: 19
+    caption {
+      primary {
+        height: 10
+        color: 3355443
+      }
+      priority: 15529
+    }
+  }
+}
+cont {
+  name: "junction-roundabout"
+  element {
+    scale: 17
+    caption {
+      primary {
+        height: 10
+        color: 3355443
+      }
+      priority: 15529
+    }
+  }
+  element {
+    scale: 18
+    caption {
+      primary {
+        height: 10
+        color: 3355443
+      }
+      priority: 15529
+    }
+  }
+  element {
+    scale: 19
+    caption {
+      primary {
+        height: 10
+        color: 3355443
+      }
+      priority: 15529
     }
   }
 }
@@ -32469,22 +32468,6 @@ cont {
 }
 cont {
   name: "railway-level_crossing"
-  element {
-    scale: 15
-    symbol {
-      name: "railway-crossing-m"
-      apply_for_type: 1
-      priority: 16870
-    }
-  }
-  element {
-    scale: 16
-    symbol {
-      name: "railway-crossing-m"
-      apply_for_type: 1
-      priority: 16870
-    }
-  }
   element {
     scale: 17
     symbol {
