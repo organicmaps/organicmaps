@@ -49,7 +49,10 @@ int TesselateInterior(PolygonsT const & polys, TrianglesInfo & info)
     TESSindex const * elements = tessGetElements(tess.get());
     info.Reserve(elementCount);
     for (int i = 0; i < elementCount; ++i)
-      info.Add(elements[i * 3], elements[i * 3 + 1], elements[i * 3 + 2]);
+    {
+      if (!info.Add(elements[i * 3], elements[i * 3 + 1], elements[i * 3 + 2]))
+        return 0;
+    }
   }
   return elementCount;
 }
@@ -60,23 +63,22 @@ int TesselateInterior(PolygonsT const & polys, TrianglesInfo & info)
 
   int TrianglesInfo::ListInfo::empty_key = -1;
 
-  void TrianglesInfo::ListInfo::AddNeighbour(int p1, int p2, int trg)
+  bool TrianglesInfo::ListInfo::AddNeighbour(int p1, int p2, int trg)
   {
-    // find or insert element for key
-    std::pair<TNeighbours::iterator, bool> ret = m_neighbors.insert(std::make_pair(std::make_pair(p1, p2), trg));
-
-    // triangles should not duplicate
-    CHECK ( ret.second, ("Duplicating triangles for indices : ", p1, p2) );
+    return m_neighbors.insert({{p1, p2}, trg}).second;
   }
 
-  void TrianglesInfo::ListInfo::Add(int p0, int p1, int p2)
+  bool TrianglesInfo::ListInfo::Add(int p0, int p1, int p2)
   {
-    m_triangles.emplace_back(p0, p1, p2);
+    int const trg = static_cast<int>(m_triangles.size());
+    if (!AddNeighbour(p0, p1, trg) || !AddNeighbour(p1, p2, trg) || !AddNeighbour(p2, p0, trg))
+    {
+      LOG(LERROR, ("Duplicating triangle {", p0, p1, p2, "}"));
+      return false;
+    }
 
-    int const trg = static_cast<int>(m_triangles.size()) - 1;
-    AddNeighbour(p0, p1, trg);
-    AddNeighbour(p1, p2, trg);
-    AddNeighbour(p2, p0, trg);
+    m_triangles.emplace_back(p0, p1, p2);
+    return true;
   }
 
   template <class IterT> size_t GetBufferSize(IterT b, IterT e)
@@ -236,9 +238,9 @@ int TesselateInterior(PolygonsT const & polys, TrianglesInfo & info)
     //  MakeTrianglesChainImpl<edge_less_delta>(points, start, chain);
   }
 
-  void TrianglesInfo::Add(int p0, int p1, int p2)
+  bool TrianglesInfo::Add(int p0, int p1, int p2)
   {
-    m_triangles.back().Add(p0, p1, p2);
+    return m_triangles.back().Add(p0, p1, p2);
   }
 
   void TrianglesInfo::GetPointsInfo(m2::PointU const & baseP,
