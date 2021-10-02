@@ -249,19 +249,19 @@ string FormatSpeedUnits(Units units)
 string FormatOsmLink(double lat, double lon, int zoom)
 {
   static char char_array[] = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789_~";
-  uint32_t x = round((lon + 180.0) / 360.0 * (1L<<32));
-  uint32_t y = round((lat + 90.0) / 180.0 * (1L<<32));
-  uint64_t code = bits::BitwiseMerge(y, x);
+  uint32_t const x = round((lon + 180.0) / 360.0 * (1L<<32));
+  uint32_t const y = round((lat + 90.0) / 180.0 * (1L<<32));
+  uint64_t const code = bits::BitwiseMerge(y, x);
   string osmUrl = "https://osm.org/go/";
 
-  for (int i = 0; i < ((zoom+10)/3) ; ++i)
+  for (int i = 0; i < (zoom + 10) / 3; ++i)
   {
-    int digit = (code >> (58 - (6 * i))) & 0x3f;
+    int digit = (code >> (58 - 6 * i)) & 0x3f;
     osmUrl += char_array[digit];
   }
 
-  for (int i = 0; i < ((zoom + 8) % 3); ++i)
-    osmUrl +=  "-";
+  for (int i = 0; i < (zoom + 8) % 3; ++i)
+    osmUrl += "-";
 
   return osmUrl + "?m=";
 }
