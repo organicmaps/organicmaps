@@ -338,7 +338,7 @@ Install Command Line Tools:
 
 Install [Xcode](https://apps.apple.com/ru/app/xcode/id497799835?mt=12) from AppStore.
 
-Enroll in the [Apple Developer Program](https://developer.apple.com/programs/).
+Enroll in the [Apple Developer Program](https://developer.apple.com/programs/) (you can run Organic Maps in Simulator without this step).
 
 ### Getting sources
 
