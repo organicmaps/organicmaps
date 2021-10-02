@@ -198,23 +198,23 @@ public:
 
 namespace routing
 {
-bool ParseMaxspeeds(string const & maxspeedsFilename, OsmIdToMaxspeed & osmIdToMaxspeed)
+bool ParseMaxspeeds(string const & filePath, OsmIdToMaxspeed & osmIdToMaxspeed)
 {
   osmIdToMaxspeed.clear();
 
-  ifstream stream(maxspeedsFilename);
+  ifstream stream(filePath);
   if (!stream)
     return false;
 
   string line;
-  while (getline(stream, line))
+  while (stream.good())
   {
+    getline(stream, line);
     strings::SimpleTokenizer iter(line, kDelim);
 
-    if (!iter)  // the line is empty
-      return false;
-    // @TODO(bykoianko) strings::to_uint64 returns not-zero value if |*iter| is equal to
-    // a too long string of numbers. But ParseMaxspeeds() should return false in this case.
+    if (!iter)  // empty line
+      continue;
+
     uint64_t osmId = 0;
     if (!strings::to_uint64(*iter, osmId))
       return false;
