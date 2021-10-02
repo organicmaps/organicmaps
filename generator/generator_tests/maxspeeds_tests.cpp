@@ -137,7 +137,7 @@ bool ParseCsv(string const & maxspeedsCsvContent, OsmIdToMaxspeed & mapping)
   return ParseMaxspeeds(base::JoinPath(testDirFullPath, kCsv), mapping);
 }
 
-UNIT_TEST(MaxspeedTagValueToSpeedTest)
+UNIT_TEST(Maxspeed_ValueToSpeed)
 {
   SpeedInUnits speed;
 
@@ -184,7 +184,7 @@ UNIT_TEST(MaxspeedTagValueToSpeedTest)
   TEST(!ParseMaxspeedTag("1234567890", speed), ());
 }
 
-UNIT_TEST(ParseMaxspeeds_Smoke)
+UNIT_TEST(Maxspeed_ParseEmpty)
 {
   string const maxspeedsCsvContent;
   OsmIdToMaxspeed osmIdToMaxspeed;
@@ -192,7 +192,7 @@ UNIT_TEST(ParseMaxspeeds_Smoke)
   TEST(osmIdToMaxspeed.empty(), ());
 }
 
-UNIT_TEST(ParseMaxspeeds1)
+UNIT_TEST(Maxspeed_Parse1)
 {
   string const maxspeedsCsvContent = R"(10,Metric,60
                                         11,Metric,90)";
@@ -204,7 +204,7 @@ UNIT_TEST(ParseMaxspeeds1)
   TEST_EQUAL(osmIdToMaxspeed, expectedMapping, ());
 }
 
-UNIT_TEST(ParseMaxspeeds2)
+UNIT_TEST(Maxspeed_Parse2)
 {
   string const maxspeedsCsvContent = R"(10,Metric,60,80
                                         11,Metric,120)";
@@ -216,7 +216,7 @@ UNIT_TEST(ParseMaxspeeds2)
   TEST_EQUAL(osmIdToMaxspeed, expectedMapping, ());
 }
 
-UNIT_TEST(ParseMaxspeeds3)
+UNIT_TEST(Maxspeed_Parse3)
 {
   string const maxspeedsCsvContent = R"(184467440737095516,Imperial,60,80
                                         184467440737095517,Metric,120)";
@@ -229,7 +229,7 @@ UNIT_TEST(ParseMaxspeeds3)
   TEST_EQUAL(osmIdToMaxspeed, expectedMapping, ());
 }
 
-UNIT_TEST(ParseMaxspeeds4)
+UNIT_TEST(Maxspeed_Parse4)
 {
   // Note. kNoneMaxSpeed == 65534 and kWalkMaxSpeed == 65533.
   string const maxspeedsCsvContent = R"(1,Metric,200,65534
@@ -242,36 +242,40 @@ UNIT_TEST(ParseMaxspeeds4)
   TEST_EQUAL(osmIdToMaxspeed, expectedMapping, ());
 }
 
-UNIT_TEST(ParseMaxspeeds5)
+UNIT_TEST(Maxspeed_Parse5)
 {
   string const maxspeedsCsvContent = R"(
                                         2,Metric,10)";
+  OsmIdToMaxspeed const expectedMapping = {
+      {base::MakeOsmWay(2), {Units::Metric, 10, kInvalidSpeed}}};
+
   OsmIdToMaxspeed osmIdToMaxspeed;
-  TEST(!ParseCsv(maxspeedsCsvContent, osmIdToMaxspeed), ());
+  TEST(ParseCsv(maxspeedsCsvContent, osmIdToMaxspeed), ());
+  TEST_EQUAL(osmIdToMaxspeed, expectedMapping, ());
 }
 
-UNIT_TEST(ParseMaxspeeds6)
+UNIT_TEST(Maxspeed_Parse6)
 {
   string const maxspeedsCsvContent = R"(2U,Metric,10)";
   OsmIdToMaxspeed osmIdToMaxspeed;
   TEST(!ParseCsv(maxspeedsCsvContent, osmIdToMaxspeed), ());
 }
 
-UNIT_TEST(ParseMaxspeeds7)
+UNIT_TEST(Maxspeed_Parse7)
 {
   string const maxspeedsCsvContent = R"(2,Metric)";
   OsmIdToMaxspeed osmIdToMaxspeed;
   TEST(!ParseCsv(maxspeedsCsvContent, osmIdToMaxspeed), ());
 }
 
-UNIT_TEST(ParseMaxspeeds8)
+UNIT_TEST(Maxspeed_Parse8)
 {
   string const maxspeedsCsvContent = R"(2,Metric,10,11m)";
   OsmIdToMaxspeed osmIdToMaxspeed;
   TEST(!ParseCsv(maxspeedsCsvContent, osmIdToMaxspeed), ());
 }
 
-UNIT_TEST(ParseMaxspeeds_Big)
+UNIT_TEST(Maxspeed_ParseBig)
 {
   // Note. kNoneMaxSpeed == 65534.
   string const maxspeedsCsvContent = R"(100,Metric,200,65534
@@ -288,7 +292,7 @@ UNIT_TEST(ParseMaxspeeds_Big)
   TEST_EQUAL(osmIdToMaxspeed, expectedMapping, ());
 }
 
-UNIT_TEST(MaxspeedSection_Smoke)
+UNIT_TEST(Maxspeed_SectionEmpty)
 {
   Features const roads;
   string const maxspeedsCsvContent;
@@ -296,7 +300,7 @@ UNIT_TEST(MaxspeedSection_Smoke)
   TestMaxspeedsSection(roads, maxspeedsCsvContent, featureIdToOsmId);
 }
 
-UNIT_TEST(MaxspeedSection1)
+UNIT_TEST(Maxspeed_Section1)
 {
   Features const roads = {{{0.0, 0.0}, {0.0, 1.0}, {0.0, 2.0}} /* Points of feature 0 */,
                           {{1.0, 0.0}, {1.0, 1.0}, {1.0, 2.0}} /* Points of feature 1 */};
@@ -308,7 +312,7 @@ UNIT_TEST(MaxspeedSection1)
   TestMaxspeedsSection(roads, maxspeedsCsvContent, featureIdToOsmId);
 }
 
-UNIT_TEST(MaxspeedSection2)
+UNIT_TEST(Maxspeed_Section2)
 {
   Features const roads = {{{0.0, 0.0}, {0.0, 1.0}} /* Points of feature 0 */,
                           {{1.0, 0.0}, {1.0, 2.0}} /* Points of feature 1 */,
@@ -322,7 +326,7 @@ UNIT_TEST(MaxspeedSection2)
   TestMaxspeedsSection(roads, maxspeedsCsvContent, featureIdToOsmId);
 }
 
-UNIT_TEST(MaxspeedSection3)
+UNIT_TEST(Maxspeed_Section3)
 {
   Features const roads = {{{0.0, 0.0}, {0.0, 1.0}} /* Points of feature 0 */,
                           {{1.0, 0.0}, {1.0, 2.0}} /* Points of feature 1 */,
@@ -338,7 +342,7 @@ UNIT_TEST(MaxspeedSection3)
   TestMaxspeedsSection(roads, maxspeedsCsvContent, featureIdToOsmId);
 }
 
-UNIT_TEST(MaxspeedSection4)
+UNIT_TEST(Maxspeed_Section4)
 {
   Features const roads = {{{0.0, 0.0}, {0.0, 1.0}} /* Points of feature 0 */,
                           {{1.0, 0.0}, {0.0, 0.0}} /* Points of feature 1 */};
@@ -350,7 +354,7 @@ UNIT_TEST(MaxspeedSection4)
   TestMaxspeedsSection(roads, maxspeedsCsvContent, featureIdToOsmId);
 }
 
-UNIT_TEST(MaxspeedSection_Big)
+UNIT_TEST(Maxspeed_SectionBig)
 {
   Features const roads = {{{0.0, 0.0}, {0.0, 1.0}} /* Points of feature 0 */,
                           {{1.0, 0.0}, {1.0, 2.0}} /* Points of feature 1 */,
@@ -374,7 +378,7 @@ UNIT_TEST(MaxspeedSection_Big)
   TestMaxspeedsSection(roads, maxspeedsCsvContent, featureIdToOsmId);
 }
 
-UNIT_TEST(MaxspeedCollector_Merge)
+UNIT_TEST(Maxspeed_CollectorMerge)
 {
   classificator::Load();
   auto const filename = GetFileName();
@@ -400,7 +404,7 @@ UNIT_TEST(MaxspeedCollector_Merge)
   TEST_EQUAL(osmIdToMaxspeed[base::MakeOsmWay(4)].GetForward(), static_cast<MaxspeedType>(80), ());
 }
 
-UNIT_TEST(MaxspeedCollector_Smoke)
+UNIT_TEST(Maxspeed_CollectorSmoke)
 {
   classificator::Load();
   auto const filename = GetFileName();

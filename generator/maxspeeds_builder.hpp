@@ -16,9 +16,9 @@ namespace routing
 class IndexGraph;
 using OsmIdToMaxspeed = std::map<base::GeoObjectId, Maxspeed>;
 
-/// \brief Parses csv file with path |maxspeedsFilename| and stores the result in |osmIdToMaxspeed|.
+/// \brief Parses csv file with |filePath| and stores the result in |osmIdToMaxspeed|.
 /// \note There's a detailed description of the csv file in generator/maxspeed_collector.hpp.
-bool ParseMaxspeeds(std::string const & maxspeedsFilename, OsmIdToMaxspeed & osmIdToMaxspeed);
+bool ParseMaxspeeds(std::string const & filePath, OsmIdToMaxspeed & osmIdToMaxspeed);
 
 /// \brief Writes |speeds| to maxspeeds section to mwm with |dataPath|.
 void SerializeMaxspeeds(std::string const & dataPath, std::vector<FeatureMaxspeed> const & speeds);
