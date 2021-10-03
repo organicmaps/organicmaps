@@ -13,7 +13,17 @@
 class StringNumericOptimal
 {
 public:
-  bool operator==(StringNumericOptimal const & rhs) const { return m_s == rhs.m_s; }
+  bool operator==(StringNumericOptimal const & rhs) const
+  {
+    if (m_s != rhs.m_s)
+    {
+      uint64_t n1, n2;
+      if (ToInt(n1) && rhs.ToInt(n2))
+        return n1 == n2;
+      return false;
+    }
+    return true;
+  }
 
   void Set(std::string const & s)
   {
@@ -44,9 +54,8 @@ public:
   template <typename Sink>
   void Write(Sink & sink) const
   {
-    // If string is a number and we have space for control bit
     uint64_t n;
-    if (strings::to_uint64(m_s, n) && ((n << 1) >> 1) == n)
+    if (ToInt(n))
       WriteVarUint(sink, ((n << 1) | 1));
     else
     {
@@ -76,6 +85,12 @@ public:
   }
 
 private:
+  bool ToInt(uint64_t & n) const
+  {
+    // If string is a number and we have space for control bit
+    return (strings::to_uint64(m_s, n) && ((n << 1) >> 1) == n);
+  }
+
   std::string m_s;
 };
 
