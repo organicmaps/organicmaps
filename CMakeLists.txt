@@ -187,7 +187,7 @@ if (NOT SKIP_TESTS)
 endif()
 
 if (NOT PYTHON_VERSION)
-  set(PYTHON_VERSION 2.7)
+  set(PYTHON_VERSION 3.8)
 endif()
 
 # End of setting environment variables
