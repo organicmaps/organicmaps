@@ -92,6 +92,8 @@ template <typename IterT> bool IsPolygonCCW(IterT beg, IterT end)
   IterT iNext = base::NextIterInCycle(iRes, beg, end);
   cp =  m2::robust::OrientedS(*iPrev, *iRes, *iNext);
 
+  // Feel free to comment this assert when debugging generator tool.
+  // It fires on degenerated polygons which a lot in OSM.
   ASSERT_NOT_EQUAL(cp, 0.0, (*iPrev, *iRes, *iNext));
   return (cp > 0.0);
 }
@@ -161,7 +163,7 @@ namespace detail
 }
 
 /// Make single strip for the range of points [beg, end), started with index = i.
-template <typename F> 
+template <typename F>
 void MakeSingleStripFromIndex(size_t i, size_t n, F f)
 {
   ASSERT_LESS(i, n, ());
