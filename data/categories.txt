@@ -140,7 +140,7 @@ en:2Gas
 ru:3Заправка
 bg:Гориво|Бензиностанция
 ar:1وقود|بنزين|سولار|ديزل|غاز
-cs:2Čerpací stanice
+cs:2Čerpací stanice|Benzinová pumpa|benzinka
 da:Brændstof|Benzin
 nl:3Benzine
 fi:3Huoltoasema
@@ -780,7 +780,7 @@ en:3Bakery|U+1F35E
 ru:3Булочная
 bg:Пекарна
 ar:مخبز|متجر
-cs:3Pekárna
+cs:3Pekárna|Pekařství
 da:2Bager|bageri
 nl:3Bakkerij
 fi:3Leipomo
