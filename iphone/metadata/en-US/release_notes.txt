@@ -1,8 +1,7 @@
-• Updated OSM maps data to 210825
-• Increased maximum number of intermediate stops from 3 to... try to guess :)
-• Fixed rare crash when downloading maps
-• Made farmlands more visible on the map
-• Updated Brazil and Portuguese translations
-• Fixed bug with speed camera icon
-• Fixed some non-displayed texts on the map
-• Fixed crash with some deleted map types/objects
+• New OSM maps data as of 02.10.2021
+• Added healthcare=laboratory type
+• Fixed some map icons and their visibility
+• Fixed rare routing crash
+• Fixed junction, building=hotel, power=substation, railway=subway, tourism=artwork types
+• Fixed missing addresses for some buildings with entrances
+• Minor localization fixes
