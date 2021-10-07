@@ -1,1 +1,10 @@
-• Fixed missing buttons on toolbar after the search
+• New OSM maps data as of 02.10.2021
+• Editable Facebook, Instagram, Twitter and VK links for places
+• Added healthcare=laboratory type
+• Copy OSM and Open Location Code coordinates links
+• Fixed black screen on PowerVR Rogue G6110 chips
+• Fixed some map icons and their visibility
+• Fixed rare routing crash
+• Fixed junction, building=hotel, power=substation, railway=subway, tourism=artwork types
+• Fixed missing addresses for some buildings with entrances
+• Minor localization fixes
