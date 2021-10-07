@@ -3529,6 +3529,43 @@ el:Οδοντίατρος
 sk:Zubár
 fa:دندان پزشکی
 
+healthcare-laboratory
+en:Medical Laboratory|lab
+ru:Медицинская лаборатория
+ar:ﺔﻴﺒﻄﻟﺍ ﺕﺍﺮﺒﺘﺨﻤﻟﺍ
+be:Медыцынская лабараторыя
+bg:Медицинска лаборатория
+cs:Lékařská laboratoř
+da:Medicinsk laboratorium
+de:Medizinisches Labor
+el:Ιατρικό Εργαστήριο
+es:Laboratorio médico
+fa:ﯽﮑﺷﺰﭘ ﻩﺎﮕﺸﯾﺎﻣﺯﺁ
+fi:Lääketieteellinen laboratorio
+fr:Laboratoire médical
+he:תיאופר הדבעמ
+hu:Orvosi laboratórium
+id:Laboratorium medis
+it:Laboratorio Medico
+ja:医療研究所
+ko:의료 연구실
+nb:Medisinsk laboratorium
+nl:Medisch laboratorium
+pl:Laboratorium Medyczne
+pt:Laboratório médico
+pt-BR:Laboratório médico
+ro:Laborator medical
+ru:Медицинская лаборатория
+sk:Lekárske laboratórium
+sv:Medicinskt laboratorium
+sw:Maabara ya Matibabu
+th:ห้องปฏิบัติการทางการแพทย์
+tr:Tıbbi laboratuvar
+uk:Медична лабораторія
+vi:Phòng thí nghiệm y tế
+zh-Hans:医学实验室
+zh-Hant:醫學實驗室
+
 amenity-hunting_stand
 en:Hunting Stand
 ru:Охотничья вышка
