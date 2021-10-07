@@ -13,10 +13,11 @@ namespace turns
 {
 namespace sound
 {
-std::array<std::pair<std::string, std::string>, 31> const kLanguageList =
+std::array<std::pair<std::string, std::string>, 32> const kLanguageList =
 {{
   {"en", "English"},
   {"ru", "Русский"},
+  {"be", "Беларуская"},
   {"cs", "Čeština"},
   {"da", "Dansk"},
   {"de", "Deutsch"},

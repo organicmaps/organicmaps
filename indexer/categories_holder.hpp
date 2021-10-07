@@ -63,51 +63,56 @@ private:
   GroupTranslations m_groupTranslations;
 
 public:
+  // Should match codes in the array below.
   static int8_t constexpr kEnglishCode = 1;
   static int8_t constexpr kUnsupportedLocaleCode = -1;
+  static int8_t constexpr kSimplifiedChineseCode = 37;
+  static int8_t constexpr kTraditionalChineseCode = 38;
   // *NOTE* These constants should be updated when adding new
   // translation to categories.txt. When editing, keep in mind to check
   // CategoriesHolder::MapLocaleToInteger() and
   // CategoriesHolder::MapIntegerToLocale() as their implementations
   // strongly depend on the contents of the variable.
   // TODO: Refactor for more flexibility and to avoid breaking rules in two methods mentioned above.
-  static std::array<CategoriesHolder::Mapping, 36> constexpr kLocaleMapping = {{
-      {"en", 1},
+  static std::array<CategoriesHolder::Mapping, 38> constexpr kLocaleMapping = {{
+      {"en", kEnglishCode},
       {"en-AU", 2},
       {"en-GB", 3},
       {"en-US", 4},
-      {"ru", 5},
-      {"ar", 6},
+      {"ar", 5},
+      {"be", 6},
       {"bg", 7},
       {"cs", 8},
       {"da", 9},
       {"de", 10},
       {"el", 11},
       {"es", 12},
-      {"fa", 13},
-      {"fi", 14},
-      {"fr", 15},
-      {"he", 16},
-      {"hu", 17},
-      {"id", 18},
-      {"it", 19},
-      {"ja", 20},
-      {"ko", 21},
-      {"nb", 22},
-      {"nl", 23},
-      {"pl", 24},
-      {"pt", 25},
-      {"pt-BR", 26},
-      {"ro", 27},
-      {"sk", 28},
-      {"sv", 29},
-      {"sw", 30},
-      {"th", 31},
-      {"tr", 32},
-      {"uk", 33},
-      {"vi", 34},
-      {"zh-Hans", 35},
-      {"zh-Hant", 36},
+      {"es-MX", 13},
+      {"fa", 14},
+      {"fi", 15},
+      {"fr", 16},
+      {"he", 17},
+      {"hu", 18},
+      {"id", 19},
+      {"it", 20},
+      {"ja", 21},
+      {"ko", 22},
+      {"nb", 23},
+      {"nl", 24},
+      {"pl", 25},
+      {"pt", 26},
+      {"pt-BR", 27},
+      {"ro", 28},
+      {"ru", 29},
+      {"sk", 30},
+      {"sv", 31},
+      {"sw", 32},
+      {"th", 33},
+      {"tr", 34},
+      {"uk", 35},
+      {"vi", 36},
+      {"zh-Hans", kSimplifiedChineseCode},
+      {"zh-Hant", kTraditionalChineseCode},
   }};
 
   // List of languages that are currently disabled in the application

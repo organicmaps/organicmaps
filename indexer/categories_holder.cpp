@@ -339,10 +339,10 @@ int8_t CategoriesHolder::MapLocaleToInteger(string const & locale)
     for (char const * s : {"hant", "tw", "hk", "mo"})
     {
       if (lower.find(s) != string::npos)
-        return 36;  // Traditional Chinese
+        return kTraditionalChineseCode;
     }
-
-    return 35;  // Simplified Chinese by default for all other cases
+    // Simplified Chinese by default for all other cases.
+    return kSimplifiedChineseCode;
   }
 
   return kUnsupportedLocaleCode;
