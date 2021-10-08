@@ -13,10 +13,11 @@ buildscript {
   // Detect flavors from the task name.
   def taskName = getGradle().getStartParameter().getTaskRequests().toString().toLowerCase()
   def isFdroid = taskName.contains("fdroid")
+  def isHuawei = taskName.contains("huawei")
   def isBeta = taskName.contains("beta")
 
-  // Enable Google Mobile Services for all flavors except fdroid.
-  def googleMobileServicesDefault = !isFdroid
+  // Enable Google Mobile Services for all flavors except FDroid and Huawei.
+  def googleMobileServicesDefault = !isFdroid && !isHuawei
   // Add a parameter to force GMS.
   ext.googleMobileServicesEnabled = project.hasProperty('gms') ?: googleMobileServicesDefault
 
