@@ -27,7 +27,7 @@ buildscript {
   ext.googleFirebaseServicesEnabled = project.hasProperty('firebase') ?: googleFirebaseServicesDefault
 
   dependencies {
-    classpath 'com.android.tools.build:gradle:7.0.1'
+    classpath 'com.android.tools.build:gradle:7.0.2'
 
     if (googleMobileServicesEnabled) {
       println("Building with Google Mobile Services")
@@ -83,7 +83,7 @@ dependencies {
   }
 
   // 3-party
-  implementation 'com.google.code.gson:gson:2.8.7'
+  implementation 'com.google.code.gson:gson:2.8.8'
   // BottomSheet
   implementation 'com.cocosw:bottomsheet:1.5.0@aar'
   implementation 'com.timehop.stickyheadersrecyclerview:library:0.4.3@aar'
@@ -92,8 +92,8 @@ dependencies {
   // Java concurrency annotations
   implementation 'net.jcip:jcip-annotations:1.0'
 
-  implementation 'androidx.constraintlayout:constraintlayout:2.1.0'
-  implementation 'androidx.work:work-runtime:2.5.0'
+  implementation 'androidx.constraintlayout:constraintlayout:2.1.1'
+  implementation 'androidx.work:work-runtime:2.6.0'
   implementation 'com.trafi:anchor-bottom-sheet-behavior:0.13-alpha'
   implementation 'com.github.yoksnod:MPAndroidChart:3.2.0-alpha'
   implementation 'com.google.android.material:material:1.5.0-alpha02'
