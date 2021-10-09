@@ -81,7 +81,7 @@ public class PlacePageView extends NestedScrollViewClickFixed
 {
   private static final Logger LOGGER = LoggerFactory.INSTANCE.getLogger(LoggerFactory.Type.MISC);
   private static final String TAG = PlacePageView.class.getSimpleName();
-  private static final String PREF_USE_DMS = "use_dms";
+  private static final String PREF_COORDINATES_FORMAT = "coordinates_format";
   private static final List<CoordinatesFormat> visibleCoordsFormat =
       Arrays.asList(CoordinatesFormat.LatLonDMS,
                     CoordinatesFormat.LatLonDecimal,
@@ -289,7 +289,7 @@ public class PlacePageView extends NestedScrollViewClickFixed
   public PlacePageView(Context context, AttributeSet attrs, int defStyleAttr)
   {
     super(context, attrs);
-    mCoordsFormat = CoordinatesFormat.fromId(MwmApplication.prefs(context).getInt(PREF_USE_DMS, CoordinatesFormat.LatLonDecimal.getId()));
+    mCoordsFormat = CoordinatesFormat.fromId(MwmApplication.prefs(context).getInt(PREF_COORDINATES_FORMAT, CoordinatesFormat.LatLonDecimal.getId()));
     init(attrs, defStyleAttr);
   }
 
@@ -1231,7 +1231,7 @@ public class PlacePageView extends NestedScrollViewClickFixed
       case R.id.ll__place_latlon:
         final int formatIndex = visibleCoordsFormat.indexOf(mCoordsFormat);
         mCoordsFormat = visibleCoordsFormat.get((formatIndex + 1) % visibleCoordsFormat.size());
-        MwmApplication.prefs(getContext()).edit().putInt(PREF_USE_DMS, mCoordsFormat.getId()).apply();
+        MwmApplication.prefs(getContext()).edit().putInt(PREF_COORDINATES_FORMAT, mCoordsFormat.getId()).apply();
         if (mMapObject == null)
         {
           LOGGER.e(TAG, "A LatLon cannot be refreshed, mMapObject is null");
