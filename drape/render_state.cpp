@@ -247,10 +247,8 @@ void TextureState::ApplyTextures(ref_ptr<GraphicsContext> context, RenderState c
     auto const & bindings = p->GetTextureBindings();
     for (auto const & texture : state.GetTextures())
     {
-      auto const it = bindings.find(texture.first);
-      CHECK(it != bindings.end(), ("Texture bindings inconsistency."));
-      CHECK(texture.second != nullptr, ("Texture must be set for Vulkan rendering",
-                                        texture.first, p->GetName()));
+      if (texture.second == nullptr)
+        continue;
 
       ref_ptr<dp::vulkan::VulkanTexture> t = texture.second->GetHardwareTexture();
       if (t == nullptr)
@@ -267,7 +265,11 @@ void TextureState::ApplyTextures(ref_ptr<GraphicsContext> context, RenderState c
       descriptor.m_imageDescriptor.imageView = t->GetTextureView();
       descriptor.m_imageDescriptor.sampler = vulkanContext->GetSampler(t->GetSamplerKey());
       descriptor.m_imageDescriptor.imageLayout = VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL;
+
+      auto const it = bindings.find(texture.first);
+      ASSERT(it != bindings.end(), ());
       descriptor.m_textureSlot = it->second;
+
       descriptor.m_id = texture.second->GetID();
       vulkanContext->ApplyParamDescriptor(std::move(descriptor));
     }
@@ -286,9 +288,9 @@ uint8_t TextureState::GetLastUsedSlots()
 void ApplyState(ref_ptr<GraphicsContext> context, ref_ptr<GpuProgram> program, RenderState const & state)
 {
   auto const apiVersion = context->GetApiVersion();
-  
+
   TextureState::ApplyTextures(context, state, program);
-  
+
   // Apply blending state.
   if (apiVersion == dp::ApiVersion::Metal)
   {
@@ -307,7 +309,7 @@ void ApplyState(ref_ptr<GraphicsContext> context, ref_ptr<GpuProgram> program, R
   {
     state.GetBlending().Apply(context, program);
   }
-  
+
   // Apply depth state.
   context->SetDepthTestEnabled(state.GetDepthTestEnabled());
   if (state.GetDepthTestEnabled())
