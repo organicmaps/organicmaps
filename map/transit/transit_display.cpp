@@ -39,6 +39,8 @@ const int kTransferTitleOffset = 2;
 const int kStopTitleOffset = 0;
 const int kGateTitleOffset = 0;
 
+std::string const kZeroIcon = "zero-icon";
+
 TransitType GetTransitType(string const &type)
 {
   if (type == "subway")
@@ -522,7 +524,7 @@ void TransitRouteDisplay::AddGateSubwayForSubroute(routing::RouteSegment const &
   gateMarkInfo.m_point =
       sp.m_pendingEntrance ? subroute.m_polyline.Back() : segment.GetJunction().GetPoint();
   gateMarkInfo.m_type = TransitMarkInfo::Type::Gate;
-  gateMarkInfo.m_symbolName = "zero-icon";
+  gateMarkInfo.m_symbolName = kZeroIcon;
   if (gate.m_featureId != routing::transit::kInvalidFeatureId)
   {
     auto const fid = FeatureID(ssp.m_mwmId, gate.m_featureId);
@@ -574,7 +576,7 @@ void TransitRouteDisplay::AddGatePTForSubroute(routing::RouteSegment const & seg
   gateMarkInfo.m_point =
       sp.m_pendingEntrance ? subroute.m_polyline.Back() : segment.GetJunction().GetPoint();
   gateMarkInfo.m_type = TransitMarkInfo::Type::Gate;
-  gateMarkInfo.m_symbolName = "zero-icon";
+  gateMarkInfo.m_symbolName = kZeroIcon;
   if (gate.m_featureId != ::transit::experimental::kInvalidFeatureId)
   {
     auto const fid = FeatureID(ssp.m_mwmId, gate.m_featureId);
@@ -809,7 +811,7 @@ void TransitRouteDisplay::CreateTransitMarks()
     transferArrowOffsets.emplace_back(0.0f, size.y * 0.5f);
 
   auto const vs = static_cast<float>(df::VisualParams::Instance().GetVisualScale());
-  
+
   auto editSession = m_bmManager->GetEditSession();
   for (auto const & mark : m_transitMarks)
   {
@@ -827,10 +829,16 @@ void TransitRouteDisplay::CreateTransitMarks()
         titleDecl.m_primaryOptional = true;
         transitMark->AddTitle(titleDecl);
       }
+
+      auto const GetSymbolName = [](std::string const & name, char const * suffix)
+      {
+        return name != kZeroIcon ? name + suffix : name;
+      };
       df::UserPointMark::SymbolNameZoomInfo symbolNames;
-      symbolNames[kSmallIconZoom] = mark.m_symbolName + "-s";
-      symbolNames[kMediumIconZoom] = mark.m_symbolName + "-m";
+      symbolNames[kSmallIconZoom] = GetSymbolName(mark.m_symbolName, "-s");
+      symbolNames[kMediumIconZoom] = GetSymbolName(mark.m_symbolName, "-m");
       transitMark->SetSymbolNames(symbolNames);
+
       transitMark->SetPriority(UserMark::Priority::TransitGate);
     }
     else if (mark.m_type == TransitMarkInfo::Type::Transfer)
