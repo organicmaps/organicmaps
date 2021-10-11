@@ -1101,7 +1101,7 @@
     zh-Hans = 驾校
     zh-Hant = 駕訓班
 
-  [type.amenity.embassy]
+  [type.office.diplomatic]
     en = Embassy
     ar = سفارة
     cs = Velvyslanectví
