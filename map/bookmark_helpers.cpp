@@ -51,7 +51,6 @@ std::map<std::string, BookmarkMatchInfo> const kFeatureTypeToBookmarkMatchInfo =
 
   {"amenity-college", {kml::BookmarkIcon::Building, BookmarkBaseType::Building}},
   {"amenity-courthouse", {kml::BookmarkIcon::Building, BookmarkBaseType::Building}},
-  {"amenity-embassy", {kml::BookmarkIcon::Building, BookmarkBaseType::Building}},
   {"amenity-kindergarten", {kml::BookmarkIcon::Building, BookmarkBaseType::Building}},
   {"amenity-library", {kml::BookmarkIcon::Building, BookmarkBaseType::Building}},
   {"amenity-police", {kml::BookmarkIcon::Building, BookmarkBaseType::Building}},
@@ -59,6 +58,7 @@ std::map<std::string, BookmarkMatchInfo> const kFeatureTypeToBookmarkMatchInfo =
   {"amenity-school", {kml::BookmarkIcon::Building, BookmarkBaseType::Building}},
   {"building-university", {kml::BookmarkIcon::Building, BookmarkBaseType::Building}},
   {"office", {kml::BookmarkIcon::Building, BookmarkBaseType::Building}},
+  {"office-diplomatic", {kml::BookmarkIcon::Building, BookmarkBaseType::Building}},
   {"office-lawyer", {kml::BookmarkIcon::Building, BookmarkBaseType::Building}},
 
   {"amenity-grave_yard-christian", {kml::BookmarkIcon::Christianity, BookmarkBaseType::ReligiousPlace}},

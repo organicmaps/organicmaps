@@ -5920,7 +5920,7 @@ sk:3policajná stanica
 fa:کلانتری|اگاهی
 el:Αστυνομία
 
-amenity-embassy
+office-diplomatic
 en:4Embassy
 ru:4Посольство
 bg:Посолство|Консолство

@@ -699,14 +699,14 @@ deprecated|deprecated;698;x
 deprecated|deprecated;699;x
 deprecated|deprecated;700;x
 deprecated|deprecated;701;x
-deprecated|deprecated;702;x
+office|diplomatic;702;
 railway|station|subway;[railway=station][transport=subway],[railway=station][station=subway];;name;int_name;703;
 amenity|police;704;
 amenity|car_rental;705;
 amenity|taxi;706;
 amenity|marketplace;707;
 amenity|nightclub;708;
-amenity|embassy;709;
+amenity|embassy;709;office|diplomatic
 amenity|townhall;710;
 barrier|gate;711;
 barrier|lift_gate;712;

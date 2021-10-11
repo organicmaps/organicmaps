@@ -275,8 +275,8 @@ node[amenity=police],
 area[amenity=police],
 node[amenity=prison],
 area[amenity=prison],
-node[amenity=embassy],
-area[amenity=embassy],
+node[office=diplomatic],
+area[office=diplomatic],
 node[office=lawyer],
 area[office=lawyer]
 {z-index: 2600;}
@@ -1624,8 +1624,8 @@ node|z17-[amenity=police],
 area|z17-[amenity=police],
 node|z17-[amenity=prison],
 area|z17-[amenity=prison],
-node|z17-[amenity=embassy],
-area|z17-[amenity=embassy],
+node|z17-[office=diplomatic],
+area|z17-[office=diplomatic],
 node|z17-[office=lawyer],
 area|z17-[office=lawyer],
 node|z17-[vending=parking_tickets],
@@ -2128,11 +2128,11 @@ node|z18-[amenity=prison],
 area|z18-[amenity=prison]
 {font-size: 11;text-optional: true;}
 
-node|z17-[amenity=embassy],
-area|z17-[amenity=embassy]
+node|z17-[office=diplomatic],
+area|z17-[office=diplomatic]
 {icon-image: embassy-m.svg;text-optional: true;}
-node|z18-[amenity=embassy],
-area|z18-[amenity=embassy]
+node|z18-[office=diplomatic],
+area|z18-[office=diplomatic]
 {font-size: 11;text-optional: true;}
 
 node|z17-[amenity=bicycle_rental],
