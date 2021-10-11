@@ -446,7 +446,7 @@ earthquake:damage|spontaneous_camp;445;
 deprecated|deprecated;446;x
 railway|yard;447;
 deprecated|deprecated;448;x
-natural|meadow;449;
+natural|meadow;449;landuse|meadow
 deprecated|deprecated;450;x
 railway|razed;451;
 highway|footway|demanding_mountain_hiking;[highway=footway][sac_scale=demanding_mountain_hiking];;name;int_name;452;
@@ -683,14 +683,14 @@ deprecated|deprecated;682;x
 deprecated|deprecated;683;x
 deprecated|deprecated;684;x
 deprecated|deprecated;685;x
-natural|vineyard;686;
+natural|vineyard;686;landuse|vineyard
 deprecated|deprecated;687;x
 deprecated|deprecated;688;x
 deprecated|deprecated;689;x
 deprecated|deprecated;690;x
 boundary|administrative|country;[boundary=administrative][border_type=country];;name;int_name;691;
 deprecated|deprecated;692;x
-natural|orchard;693;
+natural|orchard;693;landuse|orchard
 deprecated|deprecated;694;x
 deprecated|deprecated;695;x
 deprecated|deprecated;696;x
