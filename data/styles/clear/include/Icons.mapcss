@@ -1576,6 +1576,7 @@ line|z16-[barrier=block],
 line|z16-[barrier=bollard],
 line|z16-[barrier=entrance],
 line|z16-[barrier=gate],
+line|z16-[barrier=swing_gate],
 line|z16-[barrier=stile],
 node|z16-[amenity=nightclub],
 area|z16-[amenity=nightclub],
@@ -2037,11 +2038,8 @@ area|z15-[man_made=lighthouse]
 node|z12-14[barrier=toll_booth],
 area|z12-14[barrier=toll_booth]
 {icon-image: toll_booth-s.svg;icon-min-distance: 8;}
-node|z15-16[barrier=toll_booth],
-area|z15-16[barrier=toll_booth]
-{icon-image: toll_booth-m.svg;icon-min-distance: 8;text-optional: true;}
-node|z17-[barrier=toll_booth],
-area|z17-[barrier=toll_booth]
+node|z15-[barrier=toll_booth],
+area|z15-[barrier=toll_booth]
 {icon-image: toll_booth-m.svg;icon-min-distance: 8;text-optional: true;}
 
 node|z15-[barrier=border_control]
@@ -2050,6 +2048,7 @@ line|z16-[barrier=block],
 line|z16-[barrier=bollard],
 line|z16-[barrier=entrance],
 line|z16-[barrier=gate],
+line|z16-[barrier=swing_gate],
 line|z16-[barrier=stile],
 {icon-image: dot-m.svg;font-size: 11;}
 
