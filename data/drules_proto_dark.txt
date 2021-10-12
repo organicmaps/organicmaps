@@ -3825,57 +3825,6 @@ cont {
   }
 }
 cont {
-  name: "amenity-embassy"
-  element {
-    scale: 17
-    symbol {
-      name: "embassy-m"
-      priority: 16500
-    }
-    caption {
-      primary {
-        height: 10
-        color: 5592405
-        offset_y: 1
-        is_optional: true
-      }
-      priority: 15500
-    }
-  }
-  element {
-    scale: 18
-    symbol {
-      name: "embassy-m"
-      priority: 16500
-    }
-    caption {
-      primary {
-        height: 11
-        color: 5592405
-        offset_y: 1
-        is_optional: true
-      }
-      priority: 15500
-    }
-  }
-  element {
-    scale: 19
-    symbol {
-      name: "embassy-m"
-      priority: 16500
-    }
-    caption {
-      primary {
-        height: 11
-        color: 5592405
-        offset_y: 1
-        is_optional: true
-      }
-      priority: 15500
-    }
-  }
-}
-cont {
   name: "amenity-events_venue"
   element {
     scale: 17
@@ -16297,9 +16246,9 @@ cont {
     scale: 14
     lines {
       width: 0.9
-      color: 2828327
+      color: 10506258
       dashdot {
-        dd: 2.52
+        dd: 1.52
         dd: 1.35
       }
       priority: 1238
@@ -16310,9 +16259,9 @@ cont {
     scale: 15
     lines {
       width: 1.1
-      color: 2828327
+      color: 10506258
       dashdot {
-        dd: 2.7
+        dd: 1.7
         dd: 1.26
       }
       priority: 1238
@@ -16331,9 +16280,9 @@ cont {
     scale: 16
     lines {
       width: 1.8
-      color: 2828327
+      color: 10506258
       dashdot {
-        dd: 3.6
+        dd: 2.5
         dd: 1.8
       }
       priority: 1238
@@ -16351,9 +16300,9 @@ cont {
     scale: 17
     lines {
       width: 2.0
-      color: 2828327
+      color: 10506258
       dashdot {
-        dd: 4.5
+        dd: 3.0
         dd: 1.8
       }
       priority: 1238
@@ -16371,9 +16320,9 @@ cont {
     scale: 18
     lines {
       width: 3.0
-      color: 2828327
+      color: 10506258
       dashdot {
-        dd: 7.2
+        dd: 4.0
         dd: 2.7
       }
       priority: 1238
@@ -16391,9 +16340,9 @@ cont {
     scale: 19
     lines {
       width: 4.0
-      color: 2828327
+      color: 10506258
       dashdot {
-        dd: 9.0
+        dd: 6.0
         dd: 3.6
       }
       priority: 1238
@@ -16414,9 +16363,9 @@ cont {
     scale: 14
     lines {
       width: 0.9
-      color: 2828327
+      color: 10506258
       dashdot {
-        dd: 2.52
+        dd: 1.52
         dd: 1.35
       }
       priority: 1238
@@ -16427,9 +16376,9 @@ cont {
     scale: 15
     lines {
       width: 1.1
-      color: 2828327
+      color: 10506258
       dashdot {
-        dd: 2.7
+        dd: 1.7
         dd: 1.26
       }
       priority: 1238
@@ -16448,9 +16397,9 @@ cont {
     scale: 16
     lines {
       width: 1.8
-      color: 2828327
+      color: 10506258
       dashdot {
-        dd: 3.6
+        dd: 2.5
         dd: 1.8
       }
       priority: 1238
@@ -16468,9 +16417,9 @@ cont {
     scale: 17
     lines {
       width: 2.0
-      color: 2828327
+      color: 10506258
       dashdot {
-        dd: 4.5
+        dd: 3.0
         dd: 1.8
       }
       priority: 1238
@@ -16488,9 +16437,9 @@ cont {
     scale: 18
     lines {
       width: 3.0
-      color: 2828327
+      color: 10506258
       dashdot {
-        dd: 7.2
+        dd: 4.0
         dd: 2.7
       }
       priority: 1238
@@ -16508,9 +16457,9 @@ cont {
     scale: 19
     lines {
       width: 4.0
-      color: 2828327
+      color: 10506258
       dashdot {
-        dd: 9.0
+        dd: 6.0
         dd: 3.6
       }
       priority: 1238
@@ -16531,9 +16480,9 @@ cont {
     scale: 14
     lines {
       width: 0.9
-      color: 2828327
+      color: 10506258
       dashdot {
-        dd: 2.52
+        dd: 1.52
         dd: 1.35
       }
       priority: 1238
@@ -16544,9 +16493,9 @@ cont {
     scale: 15
     lines {
       width: 1.1
-      color: 2828327
+      color: 10506258
       dashdot {
-        dd: 2.7
+        dd: 1.7
         dd: 1.26
       }
       priority: 1238
@@ -16565,9 +16514,9 @@ cont {
     scale: 16
     lines {
       width: 1.8
-      color: 2828327
+      color: 10506258
       dashdot {
-        dd: 3.6
+        dd: 2.5
         dd: 1.8
       }
       priority: 1238
@@ -16585,9 +16534,9 @@ cont {
     scale: 17
     lines {
       width: 2.0
-      color: 2828327
+      color: 10506258
       dashdot {
-        dd: 4.5
+        dd: 3.0
         dd: 1.8
       }
       priority: 1238
@@ -16605,9 +16554,9 @@ cont {
     scale: 18
     lines {
       width: 3.0
-      color: 2828327
+      color: 10506258
       dashdot {
-        dd: 7.2
+        dd: 4.0
         dd: 2.7
       }
       priority: 1238
@@ -16625,9 +16574,9 @@ cont {
     scale: 19
     lines {
       width: 4.0
-      color: 2828327
+      color: 10506258
       dashdot {
-        dd: 9.0
+        dd: 6.0
         dd: 3.6
       }
       priority: 1238
@@ -16648,9 +16597,9 @@ cont {
     scale: 14
     lines {
       width: 0.9
-      color: 2828327
+      color: 10506258
       dashdot {
-        dd: 2.52
+        dd: 1.52
         dd: 1.35
       }
       priority: 1238
@@ -16661,9 +16610,9 @@ cont {
     scale: 15
     lines {
       width: 1.1
-      color: 2828327
+      color: 10506258
       dashdot {
-        dd: 2.7
+        dd: 1.7
         dd: 1.26
       }
       priority: 1238
@@ -16682,9 +16631,9 @@ cont {
     scale: 16
     lines {
       width: 1.8
-      color: 2828327
+      color: 10506258
       dashdot {
-        dd: 3.6
+        dd: 2.5
         dd: 1.8
       }
       priority: 1238
@@ -16702,9 +16651,9 @@ cont {
     scale: 17
     lines {
       width: 2.0
-      color: 2828327
+      color: 10506258
       dashdot {
-        dd: 4.5
+        dd: 3.0
         dd: 1.8
       }
       priority: 1238
@@ -16722,9 +16671,9 @@ cont {
     scale: 18
     lines {
       width: 3.0
-      color: 2828327
+      color: 10506258
       dashdot {
-        dd: 7.2
+        dd: 4.0
         dd: 2.7
       }
       priority: 1238
@@ -16742,9 +16691,9 @@ cont {
     scale: 19
     lines {
       width: 4.0
-      color: 2828327
+      color: 10506258
       dashdot {
-        dd: 9.0
+        dd: 6.0
         dd: 3.6
       }
       priority: 1238
@@ -16765,9 +16714,9 @@ cont {
     scale: 14
     lines {
       width: 0.9
-      color: 2828327
+      color: 10506258
       dashdot {
-        dd: 2.52
+        dd: 1.52
         dd: 1.35
       }
       priority: 1238
@@ -16778,9 +16727,9 @@ cont {
     scale: 15
     lines {
       width: 1.1
-      color: 2828327
+      color: 10506258
       dashdot {
-        dd: 2.7
+        dd: 1.7
         dd: 1.26
       }
       priority: 1238
@@ -16799,9 +16748,9 @@ cont {
     scale: 16
     lines {
       width: 1.8
-      color: 2828327
+      color: 10506258
       dashdot {
-        dd: 3.6
+        dd: 2.5
         dd: 1.8
       }
       priority: 1238
@@ -16819,9 +16768,9 @@ cont {
     scale: 17
     lines {
       width: 2.0
-      color: 2828327
+      color: 10506258
       dashdot {
-        dd: 4.5
+        dd: 3.0
         dd: 1.8
       }
       priority: 1238
@@ -16839,9 +16788,9 @@ cont {
     scale: 18
     lines {
       width: 3.0
-      color: 2828327
+      color: 10506258
       dashdot {
-        dd: 7.2
+        dd: 4.0
         dd: 2.7
       }
       priority: 1238
@@ -16859,9 +16808,9 @@ cont {
     scale: 19
     lines {
       width: 4.0
-      color: 2828327
+      color: 10506258
       dashdot {
-        dd: 9.0
+        dd: 6.0
         dd: 3.6
       }
       priority: 1238
@@ -16882,9 +16831,9 @@ cont {
     scale: 14
     lines {
       width: 0.9
-      color: 2828327
+      color: 10506258
       dashdot {
-        dd: 2.52
+        dd: 1.52
         dd: 1.35
       }
       priority: 1238
@@ -16895,9 +16844,9 @@ cont {
     scale: 15
     lines {
       width: 1.1
-      color: 2828327
+      color: 10506258
       dashdot {
-        dd: 2.7
+        dd: 1.7
         dd: 1.26
       }
       priority: 1238
@@ -16916,9 +16865,9 @@ cont {
     scale: 16
     lines {
       width: 1.8
-      color: 2828327
+      color: 10506258
       dashdot {
-        dd: 3.6
+        dd: 2.5
         dd: 1.8
       }
       priority: 1238
@@ -16936,9 +16885,9 @@ cont {
     scale: 17
     lines {
       width: 2.0
-      color: 2828327
+      color: 10506258
       dashdot {
-        dd: 4.5
+        dd: 3.0
         dd: 1.8
       }
       priority: 1238
@@ -16956,9 +16905,9 @@ cont {
     scale: 18
     lines {
       width: 3.0
-      color: 2828327
+      color: 10506258
       dashdot {
-        dd: 7.2
+        dd: 4.0
         dd: 2.7
       }
       priority: 1238
@@ -16976,9 +16925,9 @@ cont {
     scale: 19
     lines {
       width: 4.0
-      color: 2828327
+      color: 10506258
       dashdot {
-        dd: 9.0
+        dd: 6.0
         dd: 3.6
       }
       priority: 1238
@@ -16999,9 +16948,9 @@ cont {
     scale: 14
     lines {
       width: 0.9
-      color: 2828327
+      color: 10506258
       dashdot {
-        dd: 2.52
+        dd: 1.52
         dd: 1.35
       }
       priority: 1238
@@ -17012,9 +16961,9 @@ cont {
     scale: 15
     lines {
       width: 1.1
-      color: 2828327
+      color: 10506258
       dashdot {
-        dd: 2.7
+        dd: 1.7
         dd: 1.26
       }
       priority: 1238
@@ -17033,9 +16982,9 @@ cont {
     scale: 16
     lines {
       width: 1.8
-      color: 2828327
+      color: 10506258
       dashdot {
-        dd: 3.6
+        dd: 2.5
         dd: 1.8
       }
       priority: 1238
@@ -17053,9 +17002,9 @@ cont {
     scale: 17
     lines {
       width: 2.0
-      color: 2828327
+      color: 10506258
       dashdot {
-        dd: 4.5
+        dd: 3.0
         dd: 1.8
       }
       priority: 1238
@@ -17073,9 +17022,9 @@ cont {
     scale: 18
     lines {
       width: 3.0
-      color: 2828327
+      color: 10506258
       dashdot {
-        dd: 7.2
+        dd: 4.0
         dd: 2.7
       }
       priority: 1238
@@ -17093,9 +17042,9 @@ cont {
     scale: 19
     lines {
       width: 4.0
-      color: 2828327
+      color: 10506258
       dashdot {
-        dd: 9.0
+        dd: 6.0
         dd: 3.6
       }
       priority: 1238
@@ -17116,9 +17065,9 @@ cont {
     scale: 14
     lines {
       width: 0.9
-      color: 2828327
+      color: 10506258
       dashdot {
-        dd: 2.52
+        dd: 1.52
         dd: 1.35
       }
       priority: 1238
@@ -17129,9 +17078,9 @@ cont {
     scale: 15
     lines {
       width: 1.1
-      color: 2828327
+      color: 10506258
       dashdot {
-        dd: 2.7
+        dd: 1.7
         dd: 1.26
       }
       priority: 1238
@@ -17150,9 +17099,9 @@ cont {
     scale: 16
     lines {
       width: 1.8
-      color: 2828327
+      color: 10506258
       dashdot {
-        dd: 3.6
+        dd: 2.5
         dd: 1.8
       }
       priority: 1238
@@ -17170,9 +17119,9 @@ cont {
     scale: 17
     lines {
       width: 2.0
-      color: 2828327
+      color: 10506258
       dashdot {
-        dd: 4.5
+        dd: 3.0
         dd: 1.8
       }
       priority: 1238
@@ -17190,9 +17139,9 @@ cont {
     scale: 18
     lines {
       width: 3.0
-      color: 2828327
+      color: 10506258
       dashdot {
-        dd: 7.2
+        dd: 4.0
         dd: 2.7
       }
       priority: 1238
@@ -17210,9 +17159,9 @@ cont {
     scale: 19
     lines {
       width: 4.0
-      color: 2828327
+      color: 10506258
       dashdot {
-        dd: 9.0
+        dd: 6.0
         dd: 3.6
       }
       priority: 1238
@@ -17233,9 +17182,9 @@ cont {
     scale: 14
     lines {
       width: 0.9
-      color: 2828327
+      color: 10506258
       dashdot {
-        dd: 2.52
+        dd: 1.52
         dd: 1.35
       }
       priority: 1238
@@ -17246,9 +17195,9 @@ cont {
     scale: 15
     lines {
       width: 1.1
-      color: 2828327
+      color: 10506258
       dashdot {
-        dd: 2.7
+        dd: 1.7
         dd: 1.26
       }
       priority: 1238
@@ -17267,9 +17216,9 @@ cont {
     scale: 16
     lines {
       width: 1.8
-      color: 2828327
+      color: 10506258
       dashdot {
-        dd: 3.6
+        dd: 2.5
         dd: 1.8
       }
       priority: 1238
@@ -17287,9 +17236,9 @@ cont {
     scale: 17
     lines {
       width: 2.0
-      color: 2828327
+      color: 10506258
       dashdot {
-        dd: 4.5
+        dd: 3.0
         dd: 1.8
       }
       priority: 1238
@@ -17307,9 +17256,9 @@ cont {
     scale: 18
     lines {
       width: 3.0
-      color: 2828327
+      color: 10506258
       dashdot {
-        dd: 7.2
+        dd: 4.0
         dd: 2.7
       }
       priority: 1238
@@ -17327,9 +17276,9 @@ cont {
     scale: 19
     lines {
       width: 4.0
-      color: 2828327
+      color: 10506258
       dashdot {
-        dd: 9.0
+        dd: 6.0
         dd: 3.6
       }
       priority: 1238
@@ -17350,9 +17299,9 @@ cont {
     scale: 14
     lines {
       width: 0.9
-      color: 2828327
+      color: 10506258
       dashdot {
-        dd: 2.52
+        dd: 1.52
         dd: 1.35
       }
       priority: 1238
@@ -17363,9 +17312,9 @@ cont {
     scale: 15
     lines {
       width: 1.1
-      color: 2828327
+      color: 10506258
       dashdot {
-        dd: 2.7
+        dd: 1.7
         dd: 1.26
       }
       priority: 1238
@@ -17384,9 +17333,9 @@ cont {
     scale: 16
     lines {
       width: 1.8
-      color: 2828327
+      color: 10506258
       dashdot {
-        dd: 3.6
+        dd: 2.5
         dd: 1.8
       }
       priority: 1238
@@ -17404,9 +17353,9 @@ cont {
     scale: 17
     lines {
       width: 2.0
-      color: 2828327
+      color: 10506258
       dashdot {
-        dd: 4.5
+        dd: 3.0
         dd: 1.8
       }
       priority: 1238
@@ -17424,9 +17373,9 @@ cont {
     scale: 18
     lines {
       width: 3.0
-      color: 2828327
+      color: 10506258
       dashdot {
-        dd: 7.2
+        dd: 4.0
         dd: 2.7
       }
       priority: 1238
@@ -17444,9 +17393,9 @@ cont {
     scale: 19
     lines {
       width: 4.0
-      color: 2828327
+      color: 10506258
       dashdot {
-        dd: 9.0
+        dd: 6.0
         dd: 3.6
       }
       priority: 1238
@@ -17467,9 +17416,9 @@ cont {
     scale: 14
     lines {
       width: 0.9
-      color: 2828327
+      color: 10506258
       dashdot {
-        dd: 2.52
+        dd: 1.52
         dd: 1.35
       }
       priority: 1238
@@ -17480,9 +17429,9 @@ cont {
     scale: 15
     lines {
       width: 1.1
-      color: 2828327
+      color: 10506258
       dashdot {
-        dd: 2.7
+        dd: 1.7
         dd: 1.26
       }
       priority: 1238
@@ -17501,9 +17450,9 @@ cont {
     scale: 16
     lines {
       width: 1.8
-      color: 2828327
+      color: 10506258
       dashdot {
-        dd: 3.6
+        dd: 2.5
         dd: 1.8
       }
       priority: 1238
@@ -17521,9 +17470,9 @@ cont {
     scale: 17
     lines {
       width: 2.0
-      color: 2828327
+      color: 10506258
       dashdot {
-        dd: 4.5
+        dd: 3.0
         dd: 1.8
       }
       priority: 1238
@@ -17541,9 +17490,9 @@ cont {
     scale: 18
     lines {
       width: 3.0
-      color: 2828327
+      color: 10506258
       dashdot {
-        dd: 7.2
+        dd: 4.0
         dd: 2.7
       }
       priority: 1238
@@ -17561,9 +17510,9 @@ cont {
     scale: 19
     lines {
       width: 4.0
-      color: 2828327
+      color: 10506258
       dashdot {
-        dd: 9.0
+        dd: 6.0
         dd: 3.6
       }
       priority: 1238
@@ -17584,9 +17533,9 @@ cont {
     scale: 14
     lines {
       width: 0.9
-      color: 2828327
+      color: 10506258
       dashdot {
-        dd: 2.52
+        dd: 1.52
         dd: 1.35
       }
       priority: 1238
@@ -17597,9 +17546,9 @@ cont {
     scale: 15
     lines {
       width: 1.1
-      color: 2828327
+      color: 10506258
       dashdot {
-        dd: 2.7
+        dd: 1.7
         dd: 1.26
       }
       priority: 1238
@@ -17618,9 +17567,9 @@ cont {
     scale: 16
     lines {
       width: 1.8
-      color: 2828327
+      color: 10506258
       dashdot {
-        dd: 3.6
+        dd: 2.5
         dd: 1.8
       }
       priority: 1238
@@ -17656,9 +17605,9 @@ cont {
     }
     lines {
       width: 2.0
-      color: 2828327
+      color: 10506258
       dashdot {
-        dd: 4.5
+        dd: 3.0
         dd: 1.8
       }
       priority: 1238
@@ -17694,9 +17643,9 @@ cont {
     }
     lines {
       width: 3.0
-      color: 2828327
+      color: 10506258
       dashdot {
-        dd: 7.2
+        dd: 4.0
         dd: 2.7
       }
       priority: 1238
@@ -17732,9 +17681,9 @@ cont {
     }
     lines {
       width: 4.0
-      color: 2828327
+      color: 10506258
       dashdot {
-        dd: 9.0
+        dd: 6.0
         dd: 3.6
       }
       priority: 1238
@@ -40887,6 +40836,57 @@ cont {
   }
 }
 cont {
+  name: "office-diplomatic"
+  element {
+    scale: 17
+    symbol {
+      name: "embassy-m"
+      priority: 16500
+    }
+    caption {
+      primary {
+        height: 10
+        color: 5592405
+        offset_y: 1
+        is_optional: true
+      }
+      priority: 15500
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "embassy-m"
+      priority: 16500
+    }
+    caption {
+      primary {
+        height: 11
+        color: 5592405
+        offset_y: 1
+        is_optional: true
+      }
+      priority: 15500
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "embassy-m"
+      priority: 16500
+    }
+    caption {
+      primary {
+        height: 11
+        color: 5592405
+        offset_y: 1
+        is_optional: true
+      }
+      priority: 15500
+    }
+  }
+}
+cont {
   name: "office-estate_agent"
   element {
     scale: 18
@@ -59346,11 +59346,11 @@ cont {
     symbol {
       name: "shop-m"
       priority: 16955
-      min_distance: 10
+      min_distance: 16
     }
     caption {
       primary {
-        height: 10
+        height: 11
         color: 5592405
         offset_y: 1
       }
@@ -59362,11 +59362,11 @@ cont {
     symbol {
       name: "shop-m"
       priority: 16955
-      min_distance: 10
+      min_distance: 8
     }
     caption {
       primary {
-        height: 10
+        height: 11
         color: 5592405
         offset_y: 1
       }
@@ -59378,11 +59378,11 @@ cont {
     symbol {
       name: "shop-m"
       priority: 16955
-      min_distance: 10
+      min_distance: 8
     }
     caption {
       primary {
-        height: 10
+        height: 11
         color: 5592405
         offset_y: 1
       }
@@ -59394,11 +59394,11 @@ cont {
     symbol {
       name: "shop-m"
       priority: 16955
-      min_distance: 10
+      min_distance: 8
     }
     caption {
       primary {
-        height: 10
+        height: 11
         color: 5592405
         offset_y: 1
       }
@@ -59443,7 +59443,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "shop-m"
+      name: "sauna-m"
       priority: 16462
       min_distance: 10
     }
@@ -59460,7 +59460,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "shop-m"
+      name: "sauna-m"
       priority: 16462
       min_distance: 10
     }
@@ -59566,9 +59566,9 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "shop-m"
+      name: "bank-m"
       priority: 16462
-      min_distance: 10
+      min_distance: 20
     }
     caption {
       primary {
@@ -59583,9 +59583,9 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "shop-m"
+      name: "bank-m"
       priority: 16462
-      min_distance: 10
+      min_distance: 20
     }
     caption {
       primary {
@@ -59600,9 +59600,9 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "shop-m"
+      name: "bank-m"
       priority: 16462
-      min_distance: 10
+      min_distance: 20
     }
     caption {
       primary {
@@ -60056,7 +60056,7 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "shop-m"
+      name: "bookmaker-m"
       priority: 16485
       min_distance: 10
     }
@@ -60073,7 +60073,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "shop-m"
+      name: "bookmaker-m"
       priority: 16485
       min_distance: 10
     }
@@ -60090,7 +60090,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "shop-m"
+      name: "bookmaker-m"
       priority: 16485
       min_distance: 10
     }
@@ -60530,13 +60530,13 @@ cont {
   element {
     scale: 16
     symbol {
-      name: "shop-m"
+      name: "grocery-m"
       priority: 16500
-      min_distance: 10
+      min_distance: 16
     }
     caption {
       primary {
-        height: 10
+        height: 11
         color: 5592405
         offset_y: 1
       }
@@ -60546,13 +60546,13 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "shop-m"
+      name: "grocery-m"
       priority: 16500
-      min_distance: 10
+      min_distance: 8
     }
     caption {
       primary {
-        height: 10
+        height: 11
         color: 5592405
         offset_y: 1
       }
@@ -60562,13 +60562,13 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "shop-m"
+      name: "grocery-m"
       priority: 16500
-      min_distance: 10
+      min_distance: 8
     }
     caption {
       primary {
-        height: 10
+        height: 11
         color: 5592405
         offset_y: 1
       }
@@ -60578,13 +60578,13 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "shop-m"
+      name: "grocery-m"
       priority: 16500
-      min_distance: 10
+      min_distance: 8
     }
     caption {
       primary {
-        height: 10
+        height: 11
         color: 5592405
         offset_y: 1
       }
@@ -61029,11 +61029,11 @@ cont {
     symbol {
       name: "shop-m"
       priority: 16462
-      min_distance: 10
+      min_distance: 8
     }
     caption {
       primary {
-        height: 10
+        height: 11
         color: 5592405
         offset_y: 1
       }
@@ -61045,11 +61045,11 @@ cont {
     symbol {
       name: "shop-m"
       priority: 16462
-      min_distance: 10
+      min_distance: 8
     }
     caption {
       primary {
-        height: 10
+        height: 11
         color: 5592405
         offset_y: 1
       }
@@ -61061,11 +61061,11 @@ cont {
     symbol {
       name: "shop-m"
       priority: 16462
-      min_distance: 10
+      min_distance: 8
     }
     caption {
       primary {
-        height: 10
+        height: 11
         color: 5592405
         offset_y: 1
       }

@@ -47,7 +47,6 @@ world  +
         doctors  -
         drinking_water  -
         driving_school  -
-        embassy  -
         events_venue  -
         fast_food  -
         ferry_terminal  -
@@ -603,8 +602,6 @@ world  +
         hot_spring  -
         lake  -
         land  -
-        meadow  -
-        orchard  -
         peak  -
         pond  -
         rock  -
@@ -614,7 +611,6 @@ world  +
         strait  -
         tree  -
         tree_row  -
-        vineyard  -
         volcano  -
         water  -
         wetland  +
@@ -627,6 +623,7 @@ world  +
         {}
     office  +
         company  -
+        diplomatic  -
         estate_agent  -
         government  -
         insurance  -
