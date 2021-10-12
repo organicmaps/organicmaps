@@ -23,6 +23,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="center_horizontal"
                 android:textAppearance="@style/MwmTextAppearance.Body1"
+                android:textIsSelectable="true"
                 tools:text="Version: 5.0.0"/>
 
       <TextView
@@ -31,6 +32,7 @@
         android:layout_height="wrap_content"
         android:gravity="center_horizontal"
         android:textAppearance="@style/MwmTextAppearance.Body4"
+        android:textIsSelectable="true"
         tools:text="Data: 151215"/>
 
       <TextView android:layout_width="match_parent"
