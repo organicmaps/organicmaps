@@ -439,7 +439,7 @@ play {
   track.set("production")
   userFraction.set(Double.valueOf(0.05)) // 5%
   defaultToAppBundles.set(true)
-  releaseStatus.set(ReleaseStatus.COMPLETED)
+  releaseStatus.set(ReleaseStatus.HALTED)
   serviceAccountCredentials.set(file("google-play.json"))
 }
 
