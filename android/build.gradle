@@ -448,7 +448,8 @@ huaweiPublish {
     huaweiRelease {
       credentialsPath = "$rootDir/huawei-appgallery.json"
       buildFormat = "aab"
-      deployType = 'publish'
+      // https://github.com/cianru/huawei-publish-gradle-plugin/issues/32
+      deployType = 'draft'
     }
   }
 }
