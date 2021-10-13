@@ -40,6 +40,7 @@
 @cycleway: #FF87AD;
 @construction: #BBBBAA;
 @track: #635730;
+@path: #A05012;
 @bridleway: #3D361E;
 
 
