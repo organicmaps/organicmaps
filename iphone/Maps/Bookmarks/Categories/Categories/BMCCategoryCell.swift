@@ -4,7 +4,6 @@ protocol BMCCategoryCellDelegate: AnyObject {
 }
 
 final class BMCCategoryCell: MWMTableViewCell {
-  @IBOutlet private weak var accessImageView: UIImageView!
   @IBOutlet private weak var titleLabel: UILabel!
   @IBOutlet private weak var subtitleLabel: UILabel!
 
@@ -41,21 +40,6 @@ final class BMCCategoryCell: MWMTableViewCell {
   func categoryUpdated() {
     guard let category = category else { return }
     titleLabel.text = category.title
-
-    switch category.accessStatus {
-    case .local:
-      accessImageView.image = UIImage(named: "ic_category_private")
-    case .public:
-      accessImageView.image = UIImage(named: "ic_category_public")
-    case .private:
-      accessImageView.image = UIImage(named: "ic_category_link")
-    case .authorOnly:
-      accessImageView.image = UIImage(named: "ic_category_private")
-    case .other:
-      assert(false, "We don't expect category with .other status here")
-      accessImageView.image = nil
-    }
-
     subtitleLabel.text = category.placesCountTitle()
     visibleCheckmark.isChecked = category.isVisible
   }
