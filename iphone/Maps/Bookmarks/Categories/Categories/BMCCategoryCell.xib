@@ -61,13 +61,6 @@
                             <action selector="moreAction" destination="KGk-i7-Jjw" eventType="touchUpInside" id="zmP-yn-CEM"/>
                         </connections>
                     </button>
-                    <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_category_public" translatesAutoresizingMaskIntoConstraints="NO" id="gJP-vc-RTA">
-                        <rect key="frame" x="56" y="36.5" width="12" height="12"/>
-                        <constraints>
-                            <constraint firstAttribute="height" constant="12" id="1aT-fn-f8T"/>
-                            <constraint firstAttribute="width" constant="12" id="vb2-sC-rLt"/>
-                        </constraints>
-                    </imageView>
                 </subviews>
                 <constraints>
                     <constraint firstItem="jBd-Tj-RiW" firstAttribute="leading" secondItem="wcq-KH-q74" secondAttribute="trailing" id="BBj-bB-xCt"/>
@@ -77,9 +70,7 @@
                     <constraint firstItem="jut-eq-wia" firstAttribute="leading" secondItem="wcq-KH-q74" secondAttribute="trailing" id="RBv-Jh-88n"/>
                     <constraint firstItem="jBd-Tj-RiW" firstAttribute="top" secondItem="jut-eq-wia" secondAttribute="bottom" constant="4" id="TT5-VN-D7j"/>
                     <constraint firstItem="2gi-fk-gR6" firstAttribute="leading" secondItem="jut-eq-wia" secondAttribute="trailing" constant="4" id="Xx2-s7-Jt0"/>
-                    <constraint firstItem="gJP-vc-RTA" firstAttribute="leading" secondItem="jut-eq-wia" secondAttribute="leading" id="Y5h-nV-1hQ"/>
                     <constraint firstItem="2gi-fk-gR6" firstAttribute="leading" secondItem="jBd-Tj-RiW" secondAttribute="trailing" constant="4" id="b4E-PQ-Lca"/>
-                    <constraint firstItem="gJP-vc-RTA" firstAttribute="centerY" secondItem="jBd-Tj-RiW" secondAttribute="centerY" id="eff-V8-yEn"/>
                     <constraint firstItem="wcq-KH-q74" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="fYG-79-pgs"/>
                     <constraint firstItem="wcq-KH-q74" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="lui-lx-nl7"/>
                     <constraint firstAttribute="bottom" secondItem="2gi-fk-gR6" secondAttribute="bottom" id="maE-v3-UlZ"/>
@@ -89,7 +80,6 @@
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
-                <outlet property="accessImageView" destination="gJP-vc-RTA" id="LSs-ef-5cO"/>
                 <outlet property="moreButton" destination="2gi-fk-gR6" id="t3r-XO-zDV"/>
                 <outlet property="subtitleLabel" destination="jBd-Tj-RiW" id="D3j-45-I9U"/>
                 <outlet property="titleLabel" destination="jut-eq-wia" id="pHy-5L-bhq"/>
@@ -99,7 +89,6 @@
         </tableViewCell>
     </objects>
     <resources>
-        <image name="ic_category_public" width="10" height="10"/>
         <image name="radioBtnOff" width="22" height="22"/>
         <image name="radioBtnOn" width="22" height="22"/>
     </resources>
