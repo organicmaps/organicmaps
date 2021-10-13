@@ -42,28 +42,21 @@ final class BMCCategoryCell: MWMTableViewCell {
     guard let category = category else { return }
     titleLabel.text = category.title
 
-    let accessString: String
     switch category.accessStatus {
     case .local:
-      accessString = L("not_shared")
       accessImageView.image = UIImage(named: "ic_category_private")
     case .public:
-      accessString = L("public_access")
       accessImageView.image = UIImage(named: "ic_category_public")
     case .private:
-      accessString = L("limited_access")
       accessImageView.image = UIImage(named: "ic_category_link")
     case .authorOnly:
-      accessString = L("access_rules_author_only")
       accessImageView.image = UIImage(named: "ic_category_private")
     case .other:
       assert(false, "We don't expect category with .other status here")
       accessImageView.image = nil
-      accessString = ""
     }
 
-    let placesString = category.placesCountTitle()
-    subtitleLabel.text = accessString.count > 0 ? "\(accessString) • \(placesString)" : placesString
+    subtitleLabel.text = category.placesCountTitle()
     visibleCheckmark.isChecked = category.isVisible
   }
 }
