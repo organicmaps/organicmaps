@@ -1,7 +1,7 @@
 [[Types]]
 
   [type.aerialway]
-    en = aerialway
+    en = Aerialway
     ja = 索道
     pl = Transport linowy
     pt = Transporte aéreo
@@ -9,7 +9,7 @@
     zh-Hans = 缆车要素
 
   [type.aerialway.cable_car]
-    en = aerialway-cable_car
+    en = Aerialway
     ja = ロープウェイ
     pl = Kolej linowa
     pt = Teleférico
@@ -18,7 +18,7 @@
     zh-Hant = 纜車
 
   [type.aerialway.chair_lift]
-    en = aerialway-chair_lift
+    en = Aerialway
     ja = チェアリフト
     pl = Wyciąg krzesełkowy
     pt = Telecadeira
@@ -26,14 +26,14 @@
     zh-Hans = 登山吊椅
 
   [type.aerialway.drag_lift]
-    en = aerialway-drag_lift
+    en = Aerialway
     ja = 牽引リフト
     pl = Wyciąg orczykowy
     pt = Telesquis
     pt-BR = Telesquis
 
   [type.aerialway.gondola]
-    en = aerialway-gondola
+    en = Aerialway
     ja = ゴンドラ
     pl = Gondola kolejki linowej
     pt = Telecabine
@@ -41,7 +41,7 @@
     zh-Hans = 循环式索道
 
   [type.aerialway.mixed_lift]
-    en = aerialway-mixed_lift
+    en = Aerialway
     ja = 混合リフト
     pl = Wyciąg mieszany
     pt = Teleférico híbrido
@@ -158,7 +158,7 @@
     zh-Hans = 机场停机坪
 
   [type.aeroway.gate]
-    en = aeroway-gate
+    en = Gate
     ja = 搭乗口
     pl = Wyjście lotniskowe
     pt = Porta de embarque
@@ -213,7 +213,7 @@
     zh-Hans = 滑行道
 
   [type.aeroway.terminal]
-    en = aeroway-terminal
+    en = Terminal
     ja = 空港ターミナルビル
     pl = Terminal lotniskowy
     pt = Terminal de passageiros
@@ -11477,7 +11477,7 @@
     zh-Hant = 草坪
 
   [type.landuse.greenfield]
-    en = landuse-greenfield
+    en = Greenfield
     ja = 建設予定地
     pl = Obszar pod zabudowę
     pt = Terreno com construção planeada
@@ -11485,7 +11485,7 @@
     zh-Hans = 待开发荒地
 
   [type.landuse.greenhouse_horticulture]
-    en = landuse-greenhouse_horticulture
+    en = Greenhouse
     ja = 温室栽培
     pt = Estufas
     pt-BR = Estufas
@@ -11603,7 +11603,7 @@
     zh-Hant = 鐵路設施
 
   [type.landuse.recreation_ground]
-    en = landuse-recreation_ground
+    en = Recreation ground
     ja = レクリエーション
     pl = Tereny wypoczynkowe
     pt = Área de lazer
@@ -11642,7 +11642,7 @@
     zh-Hant = 水庫
 
   [type.landuse.residential]
-    en = landuse-residential
+    en = Residential land
     ja = 住宅地
     pl = Tereny zamieszkania
     pt = Área residencial
@@ -11650,7 +11650,7 @@
     zh-Hans = 住宅用地
 
   [type.landuse.retail]
-    en = landuse-retail
+    en = Retail land
     ja = 小売店エリア
     pl = Obszar handlu
     pt = Área de retalho
@@ -11658,14 +11658,14 @@
     zh-Hans = 零售用地
 
   [type.landuse.salt_pond]
-    en = landuse-salt_pond
+    en = Salt pond
     ja = 塩田
     pl = Słone jezioro
     pt = Salinas
     pt-BR = Salinas
 
   [type.landuse.village_green]
-    en = landuse-village_green
+    en = Green land
     ja = 村の中心
     pl = Nawsie
     pt = Espaço verde de um vilarejo
@@ -12188,7 +12188,7 @@
     zh-Hant = 桑拿
 
   [type.leisure.slipway]
-    en = leisure-slipway
+    en = Slipway
     ja = スリップウェイ
     pl = Pochylnia
     pt = Rampa de barcos
@@ -12417,7 +12417,7 @@
     zh-Hant = 游泳池
 
   [type.leisure.track]
-    en = leisure-track
+    en = Track
     ja = トラック
     pt = Pista para desportos não motorizados
     pt-BR = Pista para esportes não motorizados
@@ -12463,7 +12463,7 @@
     zh-Hans = 人造要素
 
   [type.man_made.breakwater]
-    en = man_made-breakwater
+    en = Breakwater
     ja = 防波堤
     pl = Falochron
     pt = Molhe
@@ -12471,7 +12471,7 @@
     zh-Hans = 防波堤
 
   [type.man_made.cairn]
-    en = man_made-cairn
+    en = Cairn
     ja = ケルン
     pl = Kopiec
     pt = Moledro ou mariola
@@ -12509,7 +12509,7 @@
     zh-Hant = 工廠煙囪
 
   [type.man_made.cutline]
-    en = man_made-cutline
+    en = Cutline
     ja = 森林の切れ目
     pl = Przecinka leśna
     pt = Atalhada
@@ -12549,7 +12549,7 @@
     zh-Hant = 燈塔
 
   [type.man_made.pier]
-    en = man_made-pier
+    en = Pier
     ja = 桟橋
     pl = Molo
     pt = Pontão
@@ -12557,7 +12557,7 @@
     zh-Hans = 码头
 
   [type.man_made.pipeline]
-    en = man_made-pipeline
+    en = Pipeline
     ja = パイプライン
     pl = Rurociąg
     pt = Pipeline
@@ -12565,7 +12565,7 @@
     zh-Hans = 管道
 
   [type.man_made.pipeline.overground]
-    en = man_made-pipeline-overground
+    en = Overground pipeline
     ja = 地表のパイプライン
     pl = Rurociąg nad ziemią
     pt = Pipeline subterrâneo
@@ -12637,7 +12637,7 @@
     zh-Hant = 塔
 
   [type.man_made.wastewater_plant]
-    en = man_made-wastewater_plant
+    en = Wastewater plant
     ja = 下水処理場
     pl = Oczyszczalnia ścieków
     pt = Estação de tratamento de águas residuais
@@ -12773,7 +12773,7 @@
     zh-Hant = 風車
 
   [type.man_made.works]
-    en = man_made-works
+    en = Works
     ja = 工場
     pt = Fábrica
     pt-BR = Fábrica
@@ -12786,7 +12786,7 @@
     en = mapswithme-grid
 
   [type.military]
-    en = military
+    en = Military
     ja = 軍事
     pl = Wojskowe
     pt = Militar
@@ -12815,7 +12815,7 @@
     zh-Hant = 地堡
 
   [type.natural]
-    en = natural
+    en = Natural
     ja = 自然
     pl = Natura
     pt = Natureza
@@ -13128,7 +13128,7 @@
     zh-Hant = 湖泊
 
   [type.natural.land]
-    en = natural-land
+    en = Land
     ja = 陸地
     pt = Campo
     pt-BR = Campo
@@ -14431,7 +14431,7 @@
     zh-Hant = 島
 
   [type.place.isolated_dwelling]
-    en = place-isolated_dwelling
+    en = Dwelling
     ja = 小規模な村
     pl = Mała osada
     pt = Habitação isolada
@@ -14565,7 +14565,7 @@
     zh-Hant = 海
 
   [type.place.square]
-    en = place-square
+    en = Square
     ja = 広場
     pl = Plac
     pt = Praça ou largo
@@ -14739,14 +14739,14 @@
     zh-Hans = 电力要素
 
   [type.power.generator]
-    en = power-generator
+    en = Power generator
     ja = 発電機
     pt = Gerador de energia
     pt-BR = Gerador de energia
     zh-Hans = 发电机
 
   [type.power.line]
-    en = power-line
+    en = Power line
     ja = 電力線
     pl = Linia wysokiego napięcia
     pt = Linha de transmissão de energia
@@ -14754,7 +14754,7 @@
     zh-Hans = 超高压输电线
 
   [type.power.line.underground]
-    en = power-line-underground
+    en = Underground power line
     ja = 地下電力線
     pl = Podziemna linia wysokiego napięcia
     pt = Linha de transmissão de energia subterrânea
@@ -14762,7 +14762,7 @@
     zh-Hans = 超高压输电线
 
   [type.power.minor_line]
-    en = power-minor_line
+    en = Minor power line
     ja = 低圧電力線
     pl = Linia niskiego napięcia
     pt = Linha de transmissão de energia de baixa tensão
@@ -14802,7 +14802,7 @@
     zh-Hant = 電塔
 
   [type.power.station]
-    en = power-station
+    en = Power station
     ja = 変電所
     pl = Elektrownia
     pt = Subestação elétrica
@@ -14886,7 +14886,7 @@
     en = psurface-unpaved_good
 
   [type.public_transport]
-    en = public_transport
+    en = Public transport
     ja = 公共交通機関
     pl = Transport publiczny
     pt = Transporte público
@@ -14894,7 +14894,7 @@
     zh-Hans = 公共交通要素
 
   [type.public_transport.platform]
-    en = public_transport-platform
+    en = Platform
     ja = 公共交通機関のプラットホーム
     pl = Przystanek transportu publicznego
     pt = Plataforma de transporte público
@@ -14902,7 +14902,7 @@
     zh-Hans = 公共交通站台
 
   [type.railway]
-    en = railway
+    en = Railway
     ja = 鉄道
     pl = Kolej
     pt = Ferrovia
@@ -14910,62 +14910,62 @@
     zh-Hans = 铁路要素
 
   [type.railway.abandoned]
-    en = railway-abandoned
+    en = Abandoned railway
     ja = 廃線
     pt = Ferrovia abandonada
     pt-BR = Ferrovia abandonada
     zh-Hans = 铁路遗迹
 
   [type.railway.abandoned.bridge]
-    en = railway-abandoned-bridge
+    en = Abandoned railway
     ja = 廃線(橋)
     pt = Ferrovia abandonada
     pt-BR = Ferrovia abandonada
     zh-Hans = 铁路遗迹
 
   [type.railway.abandoned.tunnel]
-    en = railway-abandoned-tunnel
+    en = Abandoned railway
     ja = 廃線(トンネル)
     pt = Ferrovia abandonada
     pt-BR = Ferrovia abandonada
     zh-Hans = 铁路遗迹
 
   [type.railway.construction]
-    en = railway-construction
+    en = Railway's construction
     ja = 建設中の鉄道
     pt = Ferrovia em construção
     pt-BR = Ferrovia em construção
     zh-Hans = 在建铁路
 
   [type.railway.crossing]
-    en = railway-crossing
+    en = Railway crossing
     ja = 歩行者用踏切
     pt = Passagem pedestre
     pt-BR = Passagem pedestre
 
   [type.railway.disused]
-    en = railway-disused
+    en = Disused railway
     ja = 休止線
     pt = Ferrovia em desuso
     pt-BR = Ferrovia em desuso
     zh-Hans = 废弃铁路
 
   [type.railway.funicular]
-    en = railway-funicular
+    en = Funicular
     ja = ケーブルカー
     pt = Funicular
     pt-BR = Funicular
     zh-Hans = 缆索铁路轨道
 
   [type.railway.funicular.bridge]
-    en = railway-funicular-bridge
+    en = Funicular
     ja = ケーブルカー(橋)
     pt = Funicular
     pt-BR = Funicular
     zh-Hans = 缆索铁路轨道
 
   [type.railway.funicular.tunnel]
-    en = railway-funicular-tunnel
+    en = Funicular
     ja = ケーブルカー(トンネル)
     pt = Funicular
     pt-BR = Funicular
@@ -15004,13 +15004,13 @@
     zh-Hant = 小站
 
   [type.railway.incline]
-    en = railway-incline
+    en = Railway incline
 
   [type.railway.incline.bridge]
-    en = railway-incline-bridge
+    en = Railway incline
 
   [type.railway.incline.tunnel]
-    en = railway-incline-tunnel
+    en = Railway incline
 
   [type.railway.level_crossing]
     en = Level Crossing
@@ -15047,21 +15047,21 @@
     zh-Hant = 鐵路道口
 
   [type.railway.light_rail]
-    en = railway-light_rail
+    en = Light rail
     ja = ライトレール
     pt = Metropolitano de superfície
     pt-BR = Metrô de superfície
     zh-Hans = 轻轨轨道
 
   [type.railway.light_rail.bridge]
-    en = railway-light_rail-bridge
+    en = Light rail
     ja = ライトレール(橋)
     pt = Metropolitano de superfície
     pt-BR = Metrô de superfície
     zh-Hans = 轻轨轨道
 
   [type.railway.light_rail.tunnel]
-    en = railway-light_rail-tunnel
+    en = Light rail
     ja = ライトレール(トンネル)
     pt = Metropolitano de superfície
     pt-BR = Metrô de superfície
@@ -15102,7 +15102,7 @@
     zh-Hant = 單軌軌道
 
   [type.railway.monorail.bridge]
-    en = railway-monorail-bridge
+    en = Monorail
     ja = モノレール(橋)
     pt = Monocarril
     pt-BR = Monotrilho
@@ -15110,7 +15110,7 @@
     zh-Hant = 單軌軌道
 
   [type.railway.monorail.tunnel]
-    en = railway-monorail-tunnel
+    en = Monorail
     ja = モノレール(トンネル)
     pt = Monocarril
     pt-BR = Monotrilho
@@ -15118,47 +15118,47 @@
     zh-Hant = 單軌軌道
 
   [type.railway.narrow_gauge]
-    en = railway-narrow_gauge
+    en = Narrow gauge railway
     ja = 狭軌鉄道
     pt = Caminho de ferro de via estreita
     pt-BR = Caminho de ferro de via estreita
     zh-Hans = 窄轨铁路轨道
 
   [type.railway.narrow_gauge.bridge]
-    en = railway-narrow_gauge-bridge
+    en = Narrow gauge railway
     ja = 狭軌鉄道(橋)
     pt = Caminho de ferro de via estreita
     pt-BR = Caminho de ferro de via estreita
     zh-Hans = 窄轨铁路轨道
 
   [type.railway.narrow_gauge.tunnel]
-    en = railway-narrow_gauge-tunnel
+    en = Narrow gauge railway
     ja = ja = 狭軌鉄道(トンネル)
     pt = Caminho de ferro de via estreita
     pt-BR = Caminho de ferro de via estreita
     zh-Hans = 窄轨铁路轨道
 
   [type.railway.platform]
-    en = railway-platform
+    en = Platform
     ja = プラットホーム
     pt = Plataforma ferroviária
     pt-BR = Plataforma ferroviária
     zh-Hans = 火车站台
 
   [type.railway.preserved]
-    en = railway-preserved
+    en = Preserved railway
     ja = 保存鉄道
     pt = Ferrovia preservada
     pt-BR = Ferrovia preservada
 
   [type.railway.preserved.bridge]
-    en = railway-preserved-bridge
+    en = Preserved railway
     ja = 保存鉄道(橋)
     pt = Ferrovia preservada
     pt-BR = Ferrovia preservada
 
   [type.railway.preserved.tunnel]
-    en = railway-preserved-tunnel
+    en = Preserved railway
     ja = 保存鉄道(トンネル)
     pt = Ferrovia preservada
     pt-BR = Ferrovia preservada
@@ -15198,7 +15198,7 @@
     zh-Hant = 鐵路軌道
 
   [type.railway.rail.bridge]
-    en = railway-rail-bridge
+    en = Railway
     ja = 鉄道(橋)
     pt = Ferrovia
     pt-BR = Ferrovia
@@ -15206,7 +15206,7 @@
     zh-Hant = 鐵路軌道
 
   [type.railway.rail.motor_vehicle]
-    en = railway-rail-motor_vehicle
+    en = Railway
     ja = 鉄道
     pt = Ferrovia
     pt-BR = Ferrovia
@@ -15214,7 +15214,7 @@
     zh-Hant = 鐵路軌道
 
   [type.railway.rail.tunnel]
-    en = railway-rail-tunnel
+    en = Railway
     ja = 鉄道(鉄道)
     pt = Ferrovia
     pt-BR = Ferrovia
@@ -15222,43 +15222,43 @@
     zh-Hant = 鐵路軌道
 
   [type.railway.razed]
-    en = railway-razed
+    en = Razed railway
     ja = 撤去済の鉄道
     pt = Ferrovia removida
     pt-BR = Ferrovia removida
 
   [type.railway.siding]
-    en = railway-siding
+    en = Siding
     ja = 側線
     pt = Desvio de ferrovia
     pt-BR = Desvio de ferrovia
 
   [type.railway.siding.bridge]
-    en = railway-siding-bridge
+    en = Siding
     ja = 側線(橋)
     pt = Desvio de ferrovia
     pt-BR = Desvio de ferrovia
 
   [type.railway.siding.tunnel]
-    en = railway-siding-tunnel
+    en = Siding
     ja = 側線(トンネル)
     pt = Desvio de ferrovia
     pt-BR = Desvio de ferrovia
 
   [type.railway.spur]
-    en = railway-spur
+    en = Spur
     ja = 引き込み線
     pt = Ramal de ferrovia
     pt-BR = Ramal de ferrovia
 
   [type.railway.spur.bridge]
-    en = railway-spur-bridge
+    en = Spur
     ja = 引き込み線(橋)
     pt = Ramal de ferrovia
     pt-BR = Ramal de ferrovia
 
   [type.railway.spur.tunnel]
-    en = railway-spur-tunnel
+    en = Spur
     ja = 引き込み線(トンネル)
     pt = Ramal de ferrovia
     pt-BR = Ramal de ferrovia
@@ -15455,263 +15455,7 @@
     zh-Hans = 地铁车站
     zh-Hant = 地鐵車站
 
-  [type.railway.station.subway.blue]
-    en = Subway
-    ar = محطة مترو
-    cs = Metro
-    da = Metro
-    de = U-Bahn
-    el = Μετρό
-    es = Metro
-    fa = حمل و نقل
-    fi = Metro
-    fr = Métro
-    hu = Földalatti
-    id = Stasiun bawah tanah
-    it = Metrò
-    ja = 地下鉄
-    ko = 지하철
-    nb = T-bane
-    nl = Metro
-    pl = Metro
-    pt = Estação de metropolitano
-    pt-BR = Estação do metrô
-    ro = Metrou
-    ru = Метро
-    sk = Metro
-    sv = Tunnelbana
-    th = รถไฟ
-    tr = Metro
-    uk = Метро
-    vi = Ngầm
-    zh-Hans = 地铁车站
-    zh-Hant = 地鐵車站
-
-  [type.railway.station.subway.brown]
-    en = Subway
-    ar = محطة مترو
-    cs = Metro
-    da = Metro
-    de = U-Bahn
-    el = Μετρό
-    es = Metro
-    fa = حمل و نقل
-    fi = Metro
-    fr = Métro
-    hu = Földalatti
-    id = Stasiun bawah tanah
-    it = Metrò
-    ja = 地下鉄
-    ko = 지하철
-    nb = T-bane
-    nl = Metro
-    pl = Metro
-    pt = Estação de metropolitano
-    pt-BR = Estação do metrô
-    ro = Metrou
-    ru = Метро
-    sk = Metro
-    sv = Tunnelbana
-    th = รถไฟ
-    tr = Metro
-    uk = Метро
-    vi = Ngầm
-    zh-Hans = 地铁车站
-    zh-Hant = 地鐵車站
-
-  [type.railway.station.subway.darkgreen]
-    en = Subway
-    ar = محطة مترو
-    cs = Metro
-    da = Metro
-    de = U-Bahn
-    el = Μετρό
-    es = Metro
-    fa = حمل و نقل
-    fi = Metro
-    fr = Métro
-    hu = Földalatti
-    id = Stasiun bawah tanah
-    it = Metrò
-    ja = 地下鉄
-    ko = 지하철
-    nb = T-bane
-    nl = Metro
-    pl = Metro
-    pt = Estação de metropolitano
-    pt-BR = Estação do metrô
-    ro = Metrou
-    ru = Метро
-    sk = Metro
-    sv = Tunnelbana
-    th = รถไฟ
-    tr = Metro
-    uk = Метро
-    vi = Ngầm
-    zh-Hans = 地铁车站
-    zh-Hant = 地鐵車站
-
-  [type.railway.station.subway.gray]
-    en = Subway
-    ar = محطة مترو
-    cs = Metro
-    da = Metro
-    de = U-Bahn
-    el = Μετρό
-    es = Metro
-    fa = حمل و نقل
-    fi = Metro
-    fr = Métro
-    hu = Földalatti
-    id = Stasiun bawah tanah
-    it = Metrò
-    ja = 地下鉄
-    ko = 지하철
-    nb = T-bane
-    nl = Metro
-    pl = Metro
-    pt = Estação de metropolitano
-    pt-BR = Estação do metrô
-    ro = Metrou
-    ru = Метро
-    sk = Metro
-    sv = Tunnelbana
-    th = รถไฟ
-    tr = Metro
-    uk = Метро
-    vi = Ngầm
-    zh-Hans = 地铁车站
-    zh-Hant = 地鐵車站
-
-  [type.railway.station.subway.green]
-    en = Subway
-    ar = محطة مترو
-    cs = Metro
-    da = Metro
-    de = U-Bahn
-    el = Μετρό
-    es = Metro
-    fa = حمل و نقل
-    fi = Metro
-    fr = Métro
-    hu = Földalatti
-    id = Stasiun bawah tanah
-    it = Metrò
-    ja = 地下鉄
-    ko = 지하철
-    nb = T-bane
-    nl = Metro
-    pl = Metro
-    pt = Estação de metropolitano
-    pt-BR = Estação do metrô
-    ro = Metrou
-    ru = Метро
-    sk = Metro
-    sv = Tunnelbana
-    th = รถไฟ
-    tr = Metro
-    uk = Метро
-    vi = Ngầm
-    zh-Hans = 地铁车站
-    zh-Hant = 地鐵車站
-
-  [type.railway.station.subway.grey]
-    en = Subway
-    ar = محطة مترو
-    cs = Metro
-    da = Metro
-    de = U-Bahn
-    el = Μετρό
-    es = Metro
-    fa = حمل و نقل
-    fi = Metro
-    fr = Métro
-    hu = Földalatti
-    id = Stasiun bawah tanah
-    it = Metrò
-    ja = 地下鉄
-    ko = 지하철
-    nb = T-bane
-    nl = Metro
-    pl = Metro
-    pt = Estação de metropolitano
-    pt-BR = Estação do metrô
-    ro = Metrou
-    ru = Метро
-    sk = Metro
-    sv = Tunnelbana
-    th = รถไฟ
-    tr = Metro
-    uk = Метро
-    vi = Ngầm
-    zh-Hans = 地铁车站
-    zh-Hant = 地鐵車站
-
   [type.railway.station.subway.kiev]
-    en = Subway
-    ar = محطة مترو
-    cs = Metro
-    da = Metro
-    de = U-Bahn
-    el = Μετρό
-    es = Metro
-    fa = حمل و نقل
-    fi = Metro
-    fr = Métro
-    hu = Földalatti
-    id = Stasiun bawah tanah
-    it = Metrò
-    ja = 地下鉄
-    ko = 지하철
-    nb = T-bane
-    nl = Metro
-    pl = Metro
-    pt = Estação de metropolitano
-    pt-BR = Estação do metrô
-    ro = Metrou
-    ru = Метро
-    sk = Metro
-    sv = Tunnelbana
-    th = รถไฟ
-    tr = Metro
-    uk = Метро
-    vi = Ngầm
-    zh-Hans = 地铁车站
-    zh-Hant = 地鐵車站
-
-  [type.railway.station.subway.lightblue]
-    en = Subway
-    ar = محطة مترو
-    cs = Metro
-    da = Metro
-    de = U-Bahn
-    el = Μετρό
-    es = Metro
-    fa = حمل و نقل
-    fi = Metro
-    fr = Métro
-    hu = Földalatti
-    id = Stasiun bawah tanah
-    it = Metrò
-    ja = 地下鉄
-    ko = 지하철
-    nb = T-bane
-    nl = Metro
-    pl = Metro
-    pt = Estação de metropolitano
-    pt-BR = Estação do metrô
-    ro = Metrou
-    ru = Метро
-    sk = Metro
-    sv = Tunnelbana
-    th = รถไฟ
-    tr = Metro
-    uk = Метро
-    vi = Ngầm
-    zh-Hans = 地铁车站
-    zh-Hant = 地鐵車站
-
-  [type.railway.station.subway.lightgreen]
     en = Subway
     ar = محطة مترو
     cs = Metro
@@ -15903,103 +15647,7 @@
     zh-Hans = 地铁车站
     zh-Hant = 地鐵車站
 
-  [type.railway.station.subway.orange]
-    en = Subway
-    ar = محطة مترو
-    cs = Metro
-    da = Metro
-    de = U-Bahn
-    el = Μετρό
-    es = Metro
-    fa = حمل و نقل
-    fi = Metro
-    fr = Métro
-    hu = Földalatti
-    id = Stasiun bawah tanah
-    it = Metrò
-    ja = 地下鉄
-    ko = 지하철
-    nb = T-bane
-    nl = Metro
-    pl = Metro
-    pt = Estação de metropolitano
-    pt-BR = Estação do metrô
-    ro = Metrou
-    ru = Метро
-    sk = Metro
-    sv = Tunnelbana
-    th = รถไฟ
-    tr = Metro
-    uk = Метро
-    vi = Ngầm
-    zh-Hans = 地铁车站
-    zh-Hant = 地鐵車站
-
   [type.railway.station.subway.paris]
-    en = Subway
-    ar = محطة مترو
-    cs = Metro
-    da = Metro
-    de = U-Bahn
-    el = Μετρό
-    es = Metro
-    fa = حمل و نقل
-    fi = Metro
-    fr = Métro
-    hu = Földalatti
-    id = Stasiun bawah tanah
-    it = Metrò
-    ja = 地下鉄
-    ko = 지하철
-    nb = T-bane
-    nl = Metro
-    pl = Metro
-    pt = Estação de metropolitano
-    pt-BR = Estação do metrô
-    ro = Metrou
-    ru = Метро
-    sk = Metro
-    sv = Tunnelbana
-    th = รถไฟ
-    tr = Metro
-    uk = Метро
-    vi = Ngầm
-    zh-Hans = 地铁车站
-    zh-Hant = 地鐵車站
-
-  [type.railway.station.subway.purple]
-    en = Subway
-    ar = محطة مترو
-    cs = Metro
-    da = Metro
-    de = U-Bahn
-    el = Μετρό
-    es = Metro
-    fa = حمل و نقل
-    fi = Metro
-    fr = Métro
-    hu = Földalatti
-    id = Stasiun bawah tanah
-    it = Metrò
-    ja = 地下鉄
-    ko = 지하철
-    nb = T-bane
-    nl = Metro
-    pl = Metro
-    pt = Estação de metropolitano
-    pt-BR = Estação do metrô
-    ro = Metrou
-    ru = Метро
-    sk = Metro
-    sv = Tunnelbana
-    th = รถไฟ
-    tr = Metro
-    uk = Метро
-    vi = Ngầm
-    zh-Hans = 地铁车站
-    zh-Hant = 地鐵車站
-
-  [type.railway.station.subway.red]
     en = Subway
     ar = محطة مترو
     cs = Metro
@@ -16095,147 +15743,18 @@
     zh-Hans = 地铁车站
     zh-Hant = 地鐵車站
 
-  [type.railway.station.subway.violet]
-    en = Subway
-    ar = محطة مترو
-    cs = Metro
-    da = Metro
-    de = U-Bahn
-    el = Μετρό
-    es = Metro
-    fa = حمل و نقل
-    fi = Metro
-    fr = Métro
-    hu = Földalatti
-    id = Stasiun bawah tanah
-    it = Metrò
-    ja = 地下鉄
-    ko = 지하철
-    nb = T-bane
-    nl = Metro
-    pl = Metro
-    pt = Estação de metropolitano
-    pt-BR = Estação do metrô
-    ro = Metrou
-    ru = Метро
-    sk = Metro
-    sv = Tunnelbana
-    th = รถไฟ
-    tr = Metro
-    uk = Метро
-    vi = Ngầm
-    zh-Hans = 地铁车站
-    zh-Hant = 地鐵車站
-
-  [type.railway.station.subway.yellow]
-    en = Subway
-    ar = محطة مترو
-    cs = Metro
-    da = Metro
-    de = U-Bahn
-    el = Μετρό
-    es = Metro
-    fa = حمل و نقل
-    fi = Metro
-    fr = Métro
-    hu = Földalatti
-    id = Stasiun bawah tanah
-    it = Metrò
-    ja = 地下鉄
-    ko = 지하철
-    nb = T-bane
-    nl = Metro
-    pl = Metro
-    pt = Estação de metropolitano
-    pt-BR = Estação do metrô
-    ro = Metrou
-    ru = Метро
-    sk = Metro
-    sv = Tunnelbana
-    th = รถไฟ
-    tr = Metro
-    uk = Метро
-    vi = Ngầm
-    zh-Hans = 地铁车站
-    zh-Hant = 地鐵車站
-
   [type.railway.subway]
-    en = railway-subway
-    pt = Metropolitano
-    pt-BR = Metrô
-
-  [type.railway.subway.blue]
-    en = railway-subway-blue
+    en = Subway line
     pt = Metropolitano
     pt-BR = Metrô
 
   [type.railway.subway.bridge]
-    en = railway-subway-bridge
-    pt = Metropolitano
-    pt-BR = Metrô
-
-  [type.railway.subway.brown]
-    en = railway-subway-brown
-    pt = Metropolitano
-    pt-BR = Metrô
-
-  [type.railway.subway.darkgreen]
-    en = railway-subway-darkgreen
-    pt = Metropolitano
-    pt-BR = Metrô
-
-  [type.railway.subway.gray]
-    en = railway-subway-gray
-    pt = Metropolitano
-    pt-BR = Metrô
-
-  [type.railway.subway.green]
-    en = railway-subway-green
-    pt = Metropolitano
-    pt-BR = Metrô
-
-  [type.railway.subway.grey]
-    en = railway-subway-grey
-    pt = Metropolitano
-    pt-BR = Metrô
-
-  [type.railway.subway.lightblue]
-    en = railway-subway-lightblue
-    pt = Metropolitano
-    pt-BR = Metrô
-
-  [type.railway.subway.lightgreen]
-    en = railway-subway-lightgreen
-    pt = Metropolitano
-    pt-BR = Metrô
-
-  [type.railway.subway.orange]
-    en = railway-subway-orange
-    pt = Metropolitano
-    pt-BR = Metrô
-
-  [type.railway.subway.purple]
-    en = railway-subway-purple
-    pt = Metropolitano
-    pt-BR = Metrô
-
-  [type.railway.subway.red]
-    en = railway-subway-red
+    en = Subway line
     pt = Metropolitano
     pt-BR = Metrô
 
   [type.railway.subway.tunnel]
-    en = railway-subway-tunnel
-    pt = Metropolitano
-    pt-BR = Metrô
-
-  [type.railway.subway.violet]
-    en = railway-subway-violet
-    pt = Metropolitano
-    pt-BR = Metrô
-
-  [type.railway.subway.yellow]
-    en = railway-subway-yellow
+    en = Subway line
     pt = Metropolitano
     pt-BR = Metrô
 
@@ -16682,21 +16201,21 @@
     zh-Hant = 電車站
 
   [type.railway.yard]
-    en = railway-yard
+    en = Railway yard
     ja = ヤード
     pt = Pátio de manobras ferroviárias
     pt-BR = Pátio de manobras ferroviárias
     zh-Hans = 铁路货场
 
   [type.railway.yard.bridge]
-    en = railway-yard-bridge
+    en = Railway yard
     ja = ヤード(橋)
     pt = Pátio de manobras ferroviárias
     pt-BR = Pátio de manobras ferroviárias
     zh-Hans = 铁路货场
 
   [type.railway.yard.tunnel]
-    en = railway-yard-tunnel
+    en = Railway yard
     ja = ヤード(トンネル)
     pt = Pátio de manobras ferroviárias
     pt-BR = Pátio de manobras ferroviárias
@@ -16710,28 +16229,14 @@
     zh-Hans = 线路
 
   [type.route.ferry]
-    en = route-ferry
+    en = Ferry
     ja = フェリー航路
     pt = Rota de ferry
     pt-BR = Rota de balsa
     zh-Hans = 航线
 
-  [type.route.ferry.motor_vehicle]
-    en = route-ferry-motor_vehicle
-    ja = フェリー航路(動力車)
-    pt = Rota de ferry
-    pt-BR = Rota de balsa
-    zh-Hans = 航线
-
-  [type.route.ferry.motorcar]
-    en = route-ferry-motorcar
-    ja = フェリー航路(自動車)
-    pt = Rota de ferry
-    pt-BR = Rota de balsa
-    zh-Hans = 航线
-
   [type.route.shuttle_train]
-    en = route-shuttle_train
+    en = Shuttle train
     pt = Rota de comboio vaivem
     pt-BR = Rota de trem vaivem
 
