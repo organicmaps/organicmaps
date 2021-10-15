@@ -91,9 +91,6 @@ public class PlacePageView extends NestedScrollViewClickFixed
   private boolean mIsDocked;
   private boolean mIsFloating;
 
-  // See refreshView().
-  private boolean mIsAndroid11HackApplied = false;
-
   // Preview.
   private ViewGroup mPreview;
   private Toolbar mToolbar;
@@ -754,8 +751,7 @@ public class PlacePageView extends NestedScrollViewClickFixed
     //
     // Force re-layout explicitly on the next event loop after the first call to refreshView().
     //
-    if (!mIsAndroid11HackApplied && Utils.isAndroid11OrLater()) {
-      mIsAndroid11HackApplied = true;
+    if (Utils.isAndroid11OrLater()) {
       post(() -> {
         mPreview.requestLayout();
         mDetails.requestLayout();
