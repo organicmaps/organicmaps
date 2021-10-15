@@ -170,7 +170,7 @@ android {
     targetSdkVersion propTargetSdkVersion.toInteger()
     applicationId project.ext.appId
     buildConfigField 'String', 'SUPPORT_MAIL', '"android@organicmaps.app"'
-    buildConfigField 'String', 'REVIEW_URL', '"market://details?id=app.omaps"'
+    buildConfigField 'String', 'REVIEW_URL', '"market://details?id=app.organicmaps"'
     buildConfigField 'int', 'RATING_THRESHOLD', '5'
 
     multiDexEnabled true
