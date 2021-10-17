@@ -13146,7 +13146,7 @@
     ru = Горячий источник
     zh-Hans = 温泉
 
-  [type.natural.lake]
+  [type.natural.water.lake]
     en = Lake
     ar = بحيرة
     cs = Jezero
@@ -13230,7 +13230,7 @@
     zh-Hans = 峰
     zh-Hant = 山峰
 
-  [type.natural.pond]
+  [type.natural.water.pond]
     en = Pond
     ar = بركة
     cs = Rybník

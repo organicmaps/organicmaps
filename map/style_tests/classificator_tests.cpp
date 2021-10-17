@@ -250,7 +250,7 @@ UNIT_TEST(Classificator_AreaPriority)
     // ?
     //{"leisure", "park"}, {"leisure", "garden"}, - maybe next time (too tricky to do it now)
     // 3
-    {"natural", "water"}, {"natural", "lake"}, {"landuse", "basin"}, {"waterway", "riverbank"}
+    {"natural", "water"}, {"natural", "water", "lake"}, {"landuse", "basin"}, {"waterway", "riverbank"}
   }, {1, 2, 7, 4}, drule::area);
 }
 

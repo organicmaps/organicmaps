@@ -5174,7 +5174,7 @@ sw:Maji
 fa:اب
 
 # Skipped if empty name
-natural-pond
+natural-water-pond
 en:Pond|water
 ru:Пруд|водоём
 bg:локва|вода|езеро|басейн
@@ -5209,7 +5209,7 @@ sw:Bwawa
 fa:تالاب
 
 # Skipped if empty name
-natural-lake
+natural-water-lake
 en:Lake|water
 ru:Озеро|водоём
 bg:Езеро|вода

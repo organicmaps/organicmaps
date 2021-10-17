@@ -44,10 +44,10 @@ deprecated|deprecated;43;x
 highway|motorway_link;44;
 waterway|stream|intermittent;[waterway=stream][intermittent=yes];;name;int_name;45;
 highway|track|grade4;[highway=track][tracktype=grade4];;name;int_name;46;
-deprecated|deprecated;47;x
+natural|water|pond;[natural=water][water=pond];;name;int_name;47;
 landuse|farmland;48;
 barrier|fence;49;
-deprecated|deprecated;50;x
+natural|water|lake;[natural=water][water=lake];;name;int_name;50;
 power|pole;51;
 waterway|riverbank;52;
 highway|path|bicycle;[highway=path][bicycle?];;name;int_name;53;
@@ -145,11 +145,11 @@ railway|abandoned;144;
 amenity|parking|private;[amenity=parking][access=private];;name;int_name;145;
 boundary|administrative|7;[boundary=administrative][admin_level=7];;name;int_name;146;
 tourism|attraction;147;
-deprecated|deprecated;148;x
-deprecated|deprecated;149;x
+natural|water|reservoir;[natural=water][water=reservoir];;name;int_name;148;
+natural|water|river;[natural=water][water=river];;name;int_name;149;
 railway|tram;150;
 amenity|toilets;151;
-deprecated|deprecated;152;x
+natural|water|basin;[natural=water][water=basin];;name;int_name;152;
 highway|footway|permissive;[highway=footway][access=permissive],[highway=footway][foot=permissive];;name;int_name;153;
 leisure|picnic_table;154;
 landuse|construction;155;
@@ -561,7 +561,7 @@ deprecated|deprecated;560;x
 deprecated|deprecated;561;x
 deprecated|deprecated;562;x
 deprecated|deprecated;563;x
-natural|lake;564;
+natural|lake;564;natural|water|lake
 deprecated|deprecated;565;x
 deprecated|deprecated;566;x
 deprecated|deprecated;567;x
@@ -573,7 +573,7 @@ deprecated|deprecated;572;x
 deprecated|deprecated;573;x
 deprecated|deprecated;574;x
 piste:lift|rope_tow;575;
-natural|pond;576;
+natural|pond;576;natural|water|pond
 deprecated|deprecated;577;x
 highway|secondary_link|tunnel;[highway=secondary_link][tunnel?];;name;int_name;578;
 deprecated|deprecated;579;x

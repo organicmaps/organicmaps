@@ -183,7 +183,7 @@ UNIT_CLASS_TEST(SmokeTest, CategoriesTest)
                                                        {"man_made", "water_tower"},
                                                        {"man_made", "water_well"},
                                                        {"natural", "glacier"},
-                                                       {"natural", "pond"},
+                                                       {"natural", "water", "pond"},
                                                        {"natural", "tree"}};
   set<uint32_t> invisibleTypes;
   for (auto const & tags : invisibleAsPointTags)
