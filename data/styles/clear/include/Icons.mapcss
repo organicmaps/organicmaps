@@ -22,7 +22,7 @@
  5.5 Others
 6.SHOP
 7.CAR
-    7.1 Parking
+ 7.1 Parking
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 */
 
@@ -38,11 +38,12 @@ area|z16[amenity=parking_space]
 node|z17-[leisure=golf_course],
 area|z17-[leisure=golf_course]
 {z-index: 50;}
-/* нельзя другой z-inex^иначе пропадают все объекты на поле */
+/* нельзя другой z-index, иначе пропадают все объекты на поле */
 
 node[amenity=fountain],
 area[amenity=fountain]
 {z-index: 2000;}
+
 node[natural=spring],
 area[natural=spring],
 node[natural=hot_spring],
@@ -60,7 +61,9 @@ area[amenity=water_point],
 node[amenity=waste_basket],
 node[amenity=waste_disposal],
 area[amenity=waste_disposal],
-node[man_made=survey_point]
+node[man_made=survey_point],
+node[highway=elevator],
+area[highway=elevator],
 {z-index: 2100;}
 
 node[natural=cave_entrance],
@@ -936,6 +939,10 @@ node|z17-[railway=subway_entrance]
 {icon-image: subway-entrance-m.svg;text-offset: 1;font-size: 13;text-halo-opacity: 0.9;text-optional: true;}
 node|z17-[railway=subway_entrance]::int_name
 {text-offset: 1;font-size: 11;text-halo-opacity: 0.9;text-optional: true;} /*check*/
+
+node|z17-[highway=elevator],
+area|z17-[highway=elevator],
+{icon-image: elevator.svg;}
 
 /* 3.3 Tram Station */
 
