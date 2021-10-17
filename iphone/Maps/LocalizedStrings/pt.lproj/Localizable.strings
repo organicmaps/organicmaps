@@ -1571,7 +1571,7 @@
 
 "type.amenity.driving_school" = "Escola de condução";
 
-"type.amenity.embassy" = "Embaixada ou consulado";
+"type.office.diplomatic" = "Embaixada ou consulado";
 
 "type.amenity.fast_food" = "Comida rápida";
 
@@ -1692,8 +1692,6 @@
 "type.amenity.shelter" = "Abrigo";
 
 "type.amenity.shower" = "Chuveiro";
-
-"type.amenity.speed_trap" = "Radar de velocidade";
 
 "type.amenity.taxi" = "Táxi";
 
@@ -2015,6 +2013,8 @@
 
 "type.entrance" = "Entrada";
 
+"type.healthcare.laboratory" = "Laboratório médico";
+
 "type.highway" = "Rodovia";
 
 "type.highway.bridleway" = "Caminho para cavaleiros";
@@ -2036,6 +2036,8 @@
 "type.highway.cycleway.permissive" = "Ciclovia";
 
 "type.highway.cycleway.tunnel" = "Ciclovia";
+
+"type.highway.elevator" = "Elevator";
 
 "type.highway.footway" = "Caminho pedonal";
 
@@ -2264,8 +2266,6 @@
 "type.historic.memorial.statue" = "Estátua memorial";
 
 "type.historic.monument" = "Monumento";
-
-"type.historic.museum" = "Museu";
 
 "type.historic.ruins" = "Ruínas";
 
@@ -2509,7 +2509,7 @@
 
 "type.natural.hot_spring" = "Nascente de água quente";
 
-"type.natural.lake" = "Lago";
+"type.natural.water.lake" = "Lago";
 
 "type.natural.land" = "Campo";
 
@@ -2519,11 +2519,9 @@
 
 "type.natural.peak" = "Pico";
 
-"type.natural.pond" = "Lagoa";
+"type.natural.water.pond" = "Lagoa";
 
 "type.natural.rock" = "Rochedo";
-
-"type.natural.salt_pond" = "Salina";
 
 "type.natural.scrub" = "Matagal";
 
@@ -2715,12 +2713,6 @@
 
 "type.railway.halt" = "Apeadeiro";
 
-"type.railway.incline" = "railway-incline";
-
-"type.railway.incline.bridge" = "railway-incline-bridge";
-
-"type.railway.incline.tunnel" = "railway-incline-tunnel";
-
 "type.railway.level_crossing" = "Passagem de nível";
 
 "type.railway.light_rail" = "Metropolitano de superfície";
@@ -2783,23 +2775,7 @@
 
 "type.railway.station.subway.berlin" = "Estação de metropolitano";
 
-"type.railway.station.subway.blue" = "Estação de metropolitano";
-
-"type.railway.station.subway.brown" = "Estação de metropolitano";
-
-"type.railway.station.subway.darkgreen" = "Estação de metropolitano";
-
-"type.railway.station.subway.gray" = "Estação de metropolitano";
-
-"type.railway.station.subway.green" = "Estação de metropolitano";
-
-"type.railway.station.subway.grey" = "Estação de metropolitano";
-
 "type.railway.station.subway.kiev" = "Estação de metropolitano";
-
-"type.railway.station.subway.lightblue" = "Estação de metropolitano";
-
-"type.railway.station.subway.lightgreen" = "Estação de metropolitano";
 
 "type.railway.station.subway.london" = "Estação de metropolitano";
 
@@ -2811,53 +2787,17 @@
 
 "type.railway.station.subway.newyork" = "Estação de metropolitano";
 
-"type.railway.station.subway.orange" = "Estação de metropolitano";
-
 "type.railway.station.subway.paris" = "Estação de metropolitano";
-
-"type.railway.station.subway.purple" = "Estação de metropolitano";
-
-"type.railway.station.subway.red" = "Estação de metropolitano";
 
 "type.railway.station.subway.roma" = "Estação de metropolitano";
 
 "type.railway.station.subway.spb" = "Estação de metropolitano";
 
-"type.railway.station.subway.violet" = "Estação de metropolitano";
-
-"type.railway.station.subway.yellow" = "Estação de metropolitano";
-
 "type.railway.subway" = "Metropolitano";
-
-"type.railway.subway.blue" = "Metropolitano";
 
 "type.railway.subway.bridge" = "Metropolitano";
 
-"type.railway.subway.brown" = "Metropolitano";
-
-"type.railway.subway.darkgreen" = "Metropolitano";
-
-"type.railway.subway.gray" = "Metropolitano";
-
-"type.railway.subway.green" = "Metropolitano";
-
-"type.railway.subway.grey" = "Metropolitano";
-
-"type.railway.subway.lightblue" = "Metropolitano";
-
-"type.railway.subway.lightgreen" = "Metropolitano";
-
-"type.railway.subway.orange" = "Metropolitano";
-
-"type.railway.subway.purple" = "Metropolitano";
-
-"type.railway.subway.red" = "Metropolitano";
-
 "type.railway.subway.tunnel" = "Metropolitano";
-
-"type.railway.subway.violet" = "Metropolitano";
-
-"type.railway.subway.yellow" = "Metropolitano";
 
 "type.railway.subway_entrance" = "Entrada de metropolitano";
 
@@ -2900,10 +2840,6 @@
 "type.route" = "Rota";
 
 "type.route.ferry" = "Rota de ferry";
-
-"type.route.ferry.motor_vehicle" = "Rota de ferry";
-
-"type.route.ferry.motorcar" = "Rota de ferry";
 
 "type.route.shuttle_train" = "Rota de comboio vaivem";
 
@@ -3112,8 +3048,6 @@
 "type.sport.diving" = "Mergulho";
 
 "type.sport.equestrian" = "Hipismo";
-
-"type.sport.football" = "Futebol";
 
 "type.sport.golf" = "Golfe";
 

@@ -1495,7 +1495,7 @@
 
 "type.aerialway.station" = "Stacja kolejki linowej";
 
-"type.aeroway" = "aeroway";
+"type.aeroway" = "Aeroway";
 
 "type.aeroway.aerodrome" = "Lotnisko";
 
@@ -1571,7 +1571,7 @@
 
 "type.amenity.driving_school" = "Szkoła nauki jazdy";
 
-"type.amenity.embassy" = "Ambasada";
+"type.office.diplomatic" = "Ambasada";
 
 "type.amenity.fast_food" = "Fast food";
 
@@ -1692,8 +1692,6 @@
 "type.amenity.shelter" = "Wiata";
 
 "type.amenity.shower" = "Prysznic";
-
-"type.amenity.speed_trap" = "Kontrola radarowa";
 
 "type.amenity.taxi" = "Taksówka";
 
@@ -2015,6 +2013,8 @@
 
 "type.entrance" = "Wejście";
 
+"type.healthcare.laboratory" = "Laboratorium Medyczne";
+
 "type.highway" = "Droga";
 
 "type.highway.bridleway" = "Droga dla koni";
@@ -2036,6 +2036,8 @@
 "type.highway.cycleway.permissive" = "Droga rowerowa ograniczona";
 
 "type.highway.cycleway.tunnel" = "Tunel drogowy dla rowerów";
+
+"type.highway.elevator" = "Elevator";
 
 "type.highway.footway" = "Chodnik";
 
@@ -2265,8 +2267,6 @@
 
 "type.historic.monument" = "Monument";
 
-"type.historic.museum" = "Muzeum historyczne";
-
 "type.historic.ruins" = "Ruiny";
 
 "type.historic.ship" = "Okręt";
@@ -2351,7 +2351,7 @@
 
 "type.landuse.greenfield" = "Obszar pod zabudowę";
 
-"type.landuse.greenhouse_horticulture" = "landuse-greenhouse_horticulture";
+"type.landuse.greenhouse_horticulture" = "Greenhouse";
 
 "type.landuse.industrial" = "Obszar przemysłowy";
 
@@ -2437,11 +2437,11 @@
 
 "type.leisure.swimming_pool" = "Basen";
 
-"type.leisure.track" = "leisure-track";
+"type.leisure.track" = "Track";
 
 "type.leisure.water_park" = "Park wodny";
 
-"type.man_made" = "man_made";
+"type.man_made" = "Man Made";
 
 "type.man_made.breakwater" = "Falochron";
 
@@ -2473,7 +2473,7 @@
 
 "type.man_made.windmill" = "Młyn wiatrowy";
 
-"type.man_made.works" = "man_made-works";
+"type.man_made.works" = "Works";
 
 "type.mapswithme" = "mapswithme";
 
@@ -2509,9 +2509,9 @@
 
 "type.natural.hot_spring" = "Gorące źródło";
 
-"type.natural.lake" = "Jezioro";
+"type.natural.water.lake" = "Jezioro";
 
-"type.natural.land" = "natural-land";
+"type.natural.land" = "Land";
 
 "type.natural.meadow" = "Łąka";
 
@@ -2519,11 +2519,9 @@
 
 "type.natural.peak" = "Szczyt";
 
-"type.natural.pond" = "Staw";
+"type.natural.water.pond" = "Staw";
 
 "type.natural.rock" = "Skała";
-
-"type.natural.salt_pond" = "Słony staw";
 
 "type.natural.scrub" = "Zarośla";
 
@@ -2661,9 +2659,9 @@
 
 "type.place.village" = "Wioska";
 
-"type.power" = "power";
+"type.power" = "Power";
 
-"type.power.generator" = "power-generator";
+"type.power.generator" = "Generator";
 
 "type.power.line" = "Linia wysokiego napięcia";
 
@@ -2695,81 +2693,75 @@
 
 "type.railway" = "Kolej";
 
-"type.railway.abandoned" = "railway-abandoned";
+"type.railway.abandoned" = "Abandoned railway";
 
-"type.railway.abandoned.bridge" = "railway-abandoned-bridge";
+"type.railway.abandoned.bridge" = "Abandoned railway";
 
-"type.railway.abandoned.tunnel" = "railway-abandoned-tunnel";
+"type.railway.abandoned.tunnel" = "Abandoned railway";
 
-"type.railway.construction" = "railway-construction";
+"type.railway.construction" = "Railway's construction";
 
-"type.railway.crossing" = "railway-crossing";
+"type.railway.crossing" = "Railway crossing";
 
-"type.railway.disused" = "railway-disused";
+"type.railway.disused" = "Disused railway";
 
-"type.railway.funicular" = "railway-funicular";
+"type.railway.funicular" = "Funicular";
 
-"type.railway.funicular.bridge" = "railway-funicular-bridge";
+"type.railway.funicular.bridge" = "Funicular";
 
-"type.railway.funicular.tunnel" = "railway-funicular-tunnel";
+"type.railway.funicular.tunnel" = "Funicular";
 
 "type.railway.halt" = "Przystanek kolejowy";
 
-"type.railway.incline" = "railway-incline";
-
-"type.railway.incline.bridge" = "railway-incline-bridge";
-
-"type.railway.incline.tunnel" = "railway-incline-tunnel";
-
 "type.railway.level_crossing" = "Przejazd kolejowy";
 
-"type.railway.light_rail" = "railway-light_rail";
+"type.railway.light_rail" = "Light Rail";
 
-"type.railway.light_rail.bridge" = "railway-light_rail-bridge";
+"type.railway.light_rail.bridge" = "Light Rail";
 
-"type.railway.light_rail.tunnel" = "railway-light_rail-tunnel";
+"type.railway.light_rail.tunnel" = "Light Rail";
 
 "type.railway.monorail" = "Kolej jednoszynowa";
 
-"type.railway.monorail.bridge" = "railway-monorail-bridge";
+"type.railway.monorail.bridge" = "Monorail";
 
-"type.railway.monorail.tunnel" = "railway-monorail-tunnel";
+"type.railway.monorail.tunnel" = "Monorail";
 
-"type.railway.narrow_gauge" = "railway-narrow_gauge";
+"type.railway.narrow_gauge" = "Narrow Gauge Rail";
 
-"type.railway.narrow_gauge.bridge" = "railway-narrow_gauge-bridge";
+"type.railway.narrow_gauge.bridge" = "Narrow Gauge Rail";
 
-"type.railway.narrow_gauge.tunnel" = "railway-narrow_gauge-tunnel";
+"type.railway.narrow_gauge.tunnel" = "Narrow Gauge Rail";
 
-"type.railway.platform" = "railway-platform";
+"type.railway.platform" = "Platform";
 
-"type.railway.preserved" = "railway-preserved";
+"type.railway.preserved" = "Preserved Rail";
 
-"type.railway.preserved.bridge" = "railway-preserved-bridge";
+"type.railway.preserved.bridge" = "Preserved Rail";
 
-"type.railway.preserved.tunnel" = "railway-preserved-tunnel";
+"type.railway.preserved.tunnel" = "Preserved Rail";
 
 "type.railway.rail" = "Kolej";
 
-"type.railway.rail.bridge" = "railway-rail-bridge";
+"type.railway.rail.bridge" = "Railway";
 
-"type.railway.rail.motor_vehicle" = "railway-rail-motor_vehicle";
+"type.railway.rail.motor_vehicle" = "Railway";
 
-"type.railway.rail.tunnel" = "railway-rail-tunnel";
+"type.railway.rail.tunnel" = "Railway";
 
-"type.railway.razed" = "railway-razed";
+"type.railway.razed" = "Razed Rail";
 
-"type.railway.siding" = "railway-siding";
+"type.railway.siding" = "Siding Rail";
 
-"type.railway.siding.bridge" = "railway-siding-bridge";
+"type.railway.siding.bridge" = "Siding Rail";
 
-"type.railway.siding.tunnel" = "railway-siding-tunnel";
+"type.railway.siding.tunnel" = "Siding Rail";
 
-"type.railway.spur" = "railway-spur";
+"type.railway.spur" = "Spur Rail";
 
-"type.railway.spur.bridge" = "railway-spur-bridge";
+"type.railway.spur.bridge" = "Spur Rail";
 
-"type.railway.spur.tunnel" = "railway-spur-tunnel";
+"type.railway.spur.tunnel" = "Spur Rail";
 
 "type.railway.station" = "Dworzec kolejowy";
 
@@ -2783,23 +2775,7 @@
 
 "type.railway.station.subway.berlin" = "Metro";
 
-"type.railway.station.subway.blue" = "Metro";
-
-"type.railway.station.subway.brown" = "Metro";
-
-"type.railway.station.subway.darkgreen" = "Metro";
-
-"type.railway.station.subway.gray" = "Metro";
-
-"type.railway.station.subway.green" = "Metro";
-
-"type.railway.station.subway.grey" = "Metro";
-
 "type.railway.station.subway.kiev" = "Metro";
-
-"type.railway.station.subway.lightblue" = "Metro";
-
-"type.railway.station.subway.lightgreen" = "Metro";
 
 "type.railway.station.subway.london" = "Metro";
 
@@ -2811,53 +2787,17 @@
 
 "type.railway.station.subway.newyork" = "Metro";
 
-"type.railway.station.subway.orange" = "Metro";
-
 "type.railway.station.subway.paris" = "Metro";
-
-"type.railway.station.subway.purple" = "Metro";
-
-"type.railway.station.subway.red" = "Metro";
 
 "type.railway.station.subway.roma" = "Metro";
 
 "type.railway.station.subway.spb" = "Metro";
 
-"type.railway.station.subway.violet" = "Metro";
+"type.railway.subway" = "Subway Line";
 
-"type.railway.station.subway.yellow" = "Metro";
+"type.railway.subway.bridge" = "Subway Line";
 
-"type.railway.subway" = "railway-subway";
-
-"type.railway.subway.blue" = "railway-subway-blue";
-
-"type.railway.subway.bridge" = "railway-subway-bridge";
-
-"type.railway.subway.brown" = "railway-subway-brown";
-
-"type.railway.subway.darkgreen" = "railway-subway-darkgreen";
-
-"type.railway.subway.gray" = "railway-subway-gray";
-
-"type.railway.subway.green" = "railway-subway-green";
-
-"type.railway.subway.grey" = "railway-subway-grey";
-
-"type.railway.subway.lightblue" = "railway-subway-lightblue";
-
-"type.railway.subway.lightgreen" = "railway-subway-lightgreen";
-
-"type.railway.subway.orange" = "railway-subway-orange";
-
-"type.railway.subway.purple" = "railway-subway-purple";
-
-"type.railway.subway.red" = "railway-subway-red";
-
-"type.railway.subway.tunnel" = "railway-subway-tunnel";
-
-"type.railway.subway.violet" = "railway-subway-violet";
-
-"type.railway.subway.yellow" = "railway-subway-yellow";
+"type.railway.subway.tunnel" = "Subway Line";
 
 "type.railway.subway_entrance" = "Wejście do metra";
 
@@ -2883,29 +2823,25 @@
 
 "type.railway.subway_entrance.spb" = "Metro";
 
-"type.railway.tram" = "railway-tram";
+"type.railway.tram" = "Tram Line";
 
-"type.railway.tram.bridge" = "railway-tram-bridge";
+"type.railway.tram.bridge" = "Tram Line";
 
-"type.railway.tram.tunnel" = "railway-tram-tunnel";
+"type.railway.tram.tunnel" = "Tram Line";
 
 "type.railway.tram_stop" = "Przystanek tramwajowy";
 
-"type.railway.yard" = "railway-yard";
+"type.railway.yard" = "Railway Yard";
 
-"type.railway.yard.bridge" = "railway-yard-bridge";
+"type.railway.yard.bridge" = "Railway Yard";
 
-"type.railway.yard.tunnel" = "railway-yard-tunnel";
+"type.railway.yard.tunnel" = "Railway Yard";
 
 "type.route" = "route";
 
-"type.route.ferry" = "route-ferry";
+"type.route.ferry" = "Ferry";
 
-"type.route.ferry.motor_vehicle" = "route-ferry-motor_vehicle";
-
-"type.route.ferry.motorcar" = "route-ferry-motorcar";
-
-"type.route.shuttle_train" = "route-shuttle_train";
+"type.route.shuttle_train" = "Shuttle Train";
 
 "type.shop" = "Sklep";
 
@@ -3097,7 +3033,7 @@
 
 "type.sport.athletics" = "Lekka atletyka";
 
-"type.sport.australian_football" = "sport-australian_football";
+"type.sport.australian_football" = "Rugby";
 
 "type.sport.baseball" = "Baseball";
 
@@ -3107,13 +3043,11 @@
 
 "type.sport.cricket" = "Krykiet";
 
-"type.sport.curling" = "sport-curling";
+"type.sport.curling" = "Сurling";
 
-"type.sport.diving" = "sport-diving";
+"type.sport.diving" = "Diving";
 
 "type.sport.equestrian" = "Jeździectwo";
-
-"type.sport.football" = "Piłka nożna";
 
 "type.sport.golf" = "Golf";
 
@@ -3121,15 +3055,15 @@
 
 "type.sport.handball" = "Piłka ręczna";
 
-"type.sport.multi" = "sport-multi";
+"type.sport.multi" = "Various Sport";
 
 "type.sport.scuba_diving" = "Nurkowanie";
 
 "type.sport.shooting" = "Strzelectwo sportowe";
 
-"type.sport.skiing" = "sport-skiing";
+"type.sport.skiing" = "Skiing";
 
-"type.sport.soccer" = "sport-soccer";
+"type.sport.soccer" = "Soccer (Football)";
 
 "type.sport.swimming" = "Pływanie";
 
@@ -3203,25 +3137,25 @@
 
 "type.traffic_calming.hump" = "Długi próg zwalniający";
 
-"type.waterway" = "waterway";
+"type.waterway" = "Waterway";
 
 "type.waterway.canal" = "Kanał";
 
 "type.waterway.canal.tunnel" = "Kanał";
 
-"type.waterway.dam" = "waterway-dam";
+"type.waterway.dam" = "Dam";
 
-"type.waterway.ditch" = "waterway-ditch";
+"type.waterway.ditch" = "Ditch";
 
-"type.waterway.ditch.tunnel" = "waterway-ditch-tunnel";
+"type.waterway.ditch.tunnel" = "Ditch";
 
-"type.waterway.dock" = "waterway-dock";
+"type.waterway.dock" = "Waterway Dock";
 
-"type.waterway.drain" = "waterway-drain";
+"type.waterway.drain" = "Drain";
 
-"type.waterway.drain.tunnel" = "waterway-drain-tunnel";
+"type.waterway.drain.tunnel" = "Drain";
 
-"type.waterway.lock" = "waterway-lock";
+"type.waterway.lock" = "Waterway Lock";
 
 "type.waterway.lock_gate" = "Wrota śluzy";
 
@@ -3241,9 +3175,9 @@
 
 "type.waterway.waterfall" = "Wodospad";
 
-"type.waterway.weir" = "waterway-weir";
+"type.waterway.weir" = "Weir";
 
-"type.wheelchair" = "wheelchair";
+"type.wheelchair" = "Wheelchair";
 
 "type.wheelchair.limited" = "Częściowo wyposażono dla osób niepełnosprawnych";
 
@@ -3285,29 +3219,29 @@
 
 "type.building_part" = "Część budynku";
 
-"type.area_highway.cycleway" = "area:highway-cycleway";
+"type.area_highway.cycleway" = "Bike Path";
 
-"type.area_highway.footway" = "area:highway-footway";
+"type.area_highway.footway" = "Path";
 
-"type.area_highway.living_street" = "area:highway-living_street";
+"type.area_highway.living_street" = "Street";
 
 "type.area_highway.motorway" = "area:highway-motorway";
 
-"type.area_highway.path" = "area:highway-path";
+"type.area_highway.path" = "Path";
 
-"type.area_highway.pedestrian" = "area:highway-pedestrian";
+"type.area_highway.pedestrian" = "Street";
 
-"type.area_highway.primary" = "area:highway-primary";
+"type.area_highway.primary" = "Street";
 
-"type.area_highway.residential" = "area:highway-residential";
+"type.area_highway.residential" = "Street";
 
-"type.area_highway.secondary" = "area:highway-secondary";
+"type.area_highway.secondary" = "Street";
 
-"type.area_highway.service" = "area:highway-service";
+"type.area_highway.service" = "Street";
 
-"type.area_highway.tertiary" = "area:highway-tertiary";
+"type.area_highway.tertiary" = "Street";
 
-"type.area_highway.steps" = "area:highway-steps";
+"type.area_highway.steps" = "Steps";
 
 "type.area_highway.track" = "area:highway-track";
 

@@ -847,5 +847,6 @@
 	<string name="track_title">Сцежка</string>
 
 	<!-- SECTION: Types -->
+	<string name="type.healthcare.laboratory">Медыцынская лабараторыя</string>
 	<string name="type.leisure.picnic_table">Стол для пікніка</string>
 </resources>
