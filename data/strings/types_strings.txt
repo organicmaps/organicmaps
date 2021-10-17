@@ -79,7 +79,7 @@
     zh-Hant = 纜車站
 
   [type.aeroway]
-    en = aeroway
+    en = Aeroway
     ja = 空路
     pt = Via aérea
     pt-BR = Via aérea
@@ -255,7 +255,7 @@
     zh-Hant = 設施
 
   [type.amenity.arts_centre]
-    en = Art center
+    en = Art Center
     ar = مركز فن
     cs = Umělecké centrum
     da = Kunsthus
@@ -1230,7 +1230,7 @@
     zh-Hant = 消防局
 
   [type.amenity.food_court]
-    en = Food court
+    en = Food Court
     ja = フードコート
     pl = Sekcja gastronomiczna
     pt = Praça de alimentação
@@ -1936,7 +1936,7 @@
     zh-Hant = 停車場
 
   [type.amenity.parking_space]
-    en = Parking space
+    en = Parking Space
     ar = مكان لوقوف السيارات
     cs = Prostor pro parkování
     da = Parkeringsplads
@@ -1970,7 +1970,7 @@
     zh-Hant = 停車地點
 
   [type.amenity.parking_space.permissive]
-    en = Parking space
+    en = Parking Space
     ar = مكان لوقوف السيارات
     cs = Prostor pro parkování
     da = Parkeringsplads
@@ -2004,7 +2004,7 @@
     zh-Hant = 停車地點
 
   [type.amenity.parking_space.private]
-    en = Parking space
+    en = Parking Space
     ar = مكان لوقوف السيارات
     cs = Prostor pro parkování
     da = Parkeringsplads
@@ -2038,7 +2038,7 @@
     zh-Hant = 停車地點
 
   [type.amenity.parking_space.underground]
-    en = Parking space
+    en = Parking Space
     ar = مكان لوقوف السيارات
     cs = Prostor pro parkování
     da = Parkeringsplads
@@ -2451,7 +2451,7 @@
     zh-Hant = 郵筒
 
   [type.amenity.post_office]
-    en = Post office
+    en = Post Office
     ar = مكتب بريد
     cs = Pošta
     da = Postkontor
@@ -2582,7 +2582,7 @@
     zh-Hant = 回收中心
 
   [type.amenity.recycling_container]
-    en = Recycling container
+    en = Recycling Container
     ar = حاوية لإعادة التدوير
     cs = Recyklační nádoba
     da = Genbrugscontainer
@@ -2615,7 +2615,7 @@
     zh-Hant = 回收箱
 
   [type.recycling.toxic]
-    en = Toxic waste
+    en = Toxic Waste
     ar = نفايات سامة
     cs = Toxický odpad
     da = Giftigt affald
@@ -2648,7 +2648,7 @@
     zh-Hant = 有毒垃圾
 
   [type.recycling.clothes]
-    en = Old clothes
+    en = Old Clothes
     ar = ملابس قديمة
     cs = Staré oblečení
     da = Gammelt tøj
@@ -2681,7 +2681,7 @@
     zh-Hant = 舊衣物
 
   [type.recycling.glass_bottles]
-    en = Glass bottles
+    en = Glass Bottles
     ar = زجاجات زجاجية
     cs = Skleněné lahve
     da = Glasflasker
@@ -2714,7 +2714,7 @@
     zh-Hant = 玻璃瓶
 
   [type.recycling.paper]
-    en = Paper waste
+    en = Paper Waste
     ar = نفايات ورقية
     cs = Papírový odpad
     da = Papiraffald
@@ -2747,7 +2747,7 @@
     zh-Hant = 廢紙
 
   [type.recycling.plastic]
-    en = Plastic waste
+    en = Plastic Waste
     ar = نفايات بلاستيكية
     cs = Plastový odpad
     da = Plastaffald
@@ -2780,7 +2780,7 @@
     zh-Hant = 廢塑料
 
   [type.recycling.plastic_bottles]
-    en = Plastic bottles
+    en = Plastic Bottles
     ar = زجاجات بلاستيكية
     cs = Plastové lahve
     da = Plastik flasker
@@ -2813,7 +2813,7 @@
     zh-Hant = 塑料瓶
 
   [type.recycling.scrap_metal]
-    en = Scrap metal
+    en = Scrap Metal
     ar = نفايات معدنية
     cs = Kovový šrot
     da = Skrot metal
@@ -2846,7 +2846,7 @@
     zh-Hant = 廢金屬
 
   [type.recycling.small_appliances]
-    en = Electronic waste
+    en = Electronic Waste
     ar = نفايات الكترونية
     cs = Elektronický odpad
     da = Elektronik affald
@@ -2998,12 +2998,6 @@
     zh-Hans = 淋浴间
     zh-Hant = 淋浴間
 
-  [type.amenity.speed_trap]
-    en = amenity-speed_trap
-    pl = Kontrola radarowa
-    pt = Radar de velocidade
-    pt-BR = Radar de velocidade
-
   [type.amenity.taxi]
     en = Taxi
     ar = سيارة أجرة
@@ -3118,7 +3112,7 @@
     zh-Hant = 廁所
 
   [type.amenity.townhall]
-    en = Town hall
+    en = Town Hall
     ar = مبنى البلدية
     cs = Radnice
     da = Rådhus
@@ -3182,7 +3176,7 @@
     zh-Hant = 大學
 
   [type.amenity.vending_machine]
-    en = Vending machine
+    en = Vending Machine
     ja = 自動販売機
     pl = Automat sprzedający
     pt = Máquina de venda automática
@@ -3191,7 +3185,7 @@
     zh-Hans = 自动售货机
 
   [type.amenity.vending_machine.cigarettes]
-    en = Cigarette dispenser
+    en = Cigarette Dispenser
     ar = ماكينة بيع سجائر
     cs = Automat na cigarety
     da = Cigaretautomat
@@ -3287,7 +3281,7 @@
     zh-Hant = 違規停車罰單繳費機
 
   [type.amenity.vending_machine.public_transport_tickets]
-    en = Vending machine for public transport tickets
+    en = Vending Machine for Public Transport Tickets
     ar = آلة بيع تذاكر النقل العام
     cs = Prodejní automat lístků na městskou dopravu
     da = Billetautomat for offentlig transport
@@ -3553,7 +3547,7 @@
     zh-Hant = 邊境管制
 
   [type.barrier.city_wall]
-    en = City wall
+    en = City Wall
     ja = 城壁
     pl = Mur miejski
     pt = Muralha de cidade
@@ -3562,7 +3556,7 @@
     zh-Hans = 城墙
 
   [type.barrier.cycle_barrier]
-    en = Cycle barrier
+    en = Cycle Barrier
     ja = バリカー
     pl = Bariera rowerowa
     pt = Barreira de bicicletas
@@ -3652,7 +3646,7 @@
     zh-Hans = 树篱
 
   [type.barrier.lift_gate]
-    en = Lift gate
+    en = Lift Gate
     ar = حاجز بوابة
     cs = Závora
     da = Bom
@@ -3684,7 +3678,7 @@
     zh-Hant = 遮斷機
 
   [type.barrier.retaining_wall]
-    en = Retaining wall
+    en = Retaining Wall
     ja = 擁壁
     pl = Mur oporowy
     pt = Muro de retenção
@@ -3904,7 +3898,7 @@
     zh-Hans = 市郊行政区域界线
 
   [type.boundary.national_park]
-    en = National park
+    en = National Park
     ar = منتزه وطني
     cs = Národní park
     da = National park
@@ -4097,7 +4091,7 @@
     zh-Hans = 仓库
 
   [type.craft]
-    en = craft
+    en = Craft
     ja = 工房
     pl = Rzemiosło
     pt = Ofícios
@@ -4105,7 +4099,7 @@
     zh-Hans = 工艺作坊
 
   [type.craft.brewery]
-    en = Craft brewery
+    en = Craft Brewery
     ar = مصنع جعة
     cs = Pivovar
     da = Bryggeri
@@ -7174,7 +7168,7 @@
     zh-Hant = 越南料理
 
   [type.emergency]
-    en = emergency
+    en = Emergency
     pl = Ratunkowe
     pt = Emergência
     pt-BR = Emergência
@@ -7342,7 +7336,7 @@
     zh-Hant = 醫學實驗室
 
   [type.highway]
-    en = highway
+    en = Highway
     ja = 道路
     pl = Droga
     pt = Rodovia
@@ -7350,35 +7344,39 @@
     zh-Hans = 公路要素
 
   [type.highway.bridleway]
-    en = highway-bridleway
+    en = Rider's Path
     ja = 馬道
     pl = Droga dla koni
     pt = Caminho para cavaleiros
     pt-BR = Caminho para cavaleiros
+    ru = Дорога для всадников
     zh-Hans = 马道
 
   [type.highway.bridleway.bridge]
-    en = highway-bridleway-bridge
+    en = Rider's Path
     ja = 馬道(橋)
     pl = Most drogowy dla koni
     pt = Caminho para cavaleiros
     pt-BR = Caminho para cavaleiros
+    ru = Дорога для всадников
     zh-Hans = 马道
 
   [type.highway.bridleway.permissive]
-    en = highway-bridleway-permissive
+    en = Rider's Path
     ja = 馬道
     pl = Droga dla koni ograniczona
     pt = Caminho para cavaleiros
     pt-BR = Caminho para cavaleiros
+    ru = Дорога для всадников
     zh-Hans = 马道
 
   [type.highway.bridleway.tunnel]
-    en = highway-bridleway-tunnel
+    en = Rider's Path
     ja = 馬道(トンネル)
     pl = Tunel drogowy dla koni
     pt = Caminho para cavaleiros
     pt-BR = Caminho para cavaleiros
+    ru = Дорога для всадников
     zh-Hans = 马道
 
   [type.highway.bus_stop]
@@ -7414,7 +7412,7 @@
     zh-Hant = 巴士站
 
   [type.highway.construction]
-    en = Road under construction
+    en = Road under Construction
     ar = طريق تحت الإنشاء
     cs = Silnice v rekonstrukci
     da = Vej under opbygning
@@ -7448,35 +7446,39 @@
     zh-Hant = 在建道路
 
   [type.highway.cycleway]
-    en = highway-cycleway
+    en = Bike Path
     ja = 自転車道
     pl = Droga rowerowa
     pt = Ciclovia
     pt-BR = Ciclovia
+    ru = Велодорожка
     zh-Hans = 自行车道
 
   [type.highway.cycleway.bridge]
-    en = highway-cycleway-bridge
+    en = Bike Path
     ja = 自転車道(橋)
     pl = Most drogowy dla rowerów
     pt = Ciclovia
     pt-BR = Ciclovia
+    ru = Велодорожка
     zh-Hans = 自行车道
 
   [type.highway.cycleway.permissive]
-    en = highway-cycleway-permissive
+    en = Bike Path
     ja = 自転車道
     pl = Droga rowerowa ograniczona
     pt = Ciclovia
     pt-BR = Ciclovia
+    ru = Велодорожка
     zh-Hans = 自行车道
 
   [type.highway.cycleway.tunnel]
-    en = highway-cycleway-tunnel
+    en = Bike Path
     ja = 自転車道(トンネル)
     pl = Tunel drogowy dla rowerów
     pt = Ciclovia
     pt-BR = Ciclovia
+    ru = Велодорожка
     zh-Hans = 自行车道
 
   [type.highway.footway]
@@ -9558,7 +9560,7 @@
     zh-Hant = 輔助道路
 
   [type.highway.services]
-    en = highway-services
+    en = Service on the Road
     ja = サービスエリア
     pl = Miejsce obsługi podróżnych
     pt = Área de serviço
@@ -10597,7 +10599,7 @@
     en = highway-world_towns_level
 
   [type.historic]
-    en = historic
+    en = Historic
     ja = 史跡
     pl = Historyczne
     pt = Histórico
@@ -10646,11 +10648,12 @@
     zh-Hans = 古战场
 
   [type.historic.boundary_stone]
-    en = historic-boundary_stone
+    en = Boundary Stone
     ja = 境界標
     pl = Historyczny kamień graniczny
     pt = Marco fronteiriço
     pt-BR = Marco fronteiriço
+    ru = Пограничный знак
     zh-Hans = 界碑
 
   [type.historic.castle]
@@ -10750,19 +10753,21 @@
     zh-Hant = 城堡
 
   [type.historic.citywalls]
-    en = historic-citywalls
+    en = City Wall
     ja = 歴史的な城壁
     pl = Historyczne mury miasta
     pt = Muralha de cidade
     pt-BR = Muralha de cidade
+    ru = Городская стена
     zh-Hans = 历史城墙
 
   [type.historic.fort]
-    en = historic-fort
+    en = Fort
     ja = 歴史的な要塞
     pl = Historyczny fort
     pt = Forte histórico
     pt-BR = Forte histórico
+    ru = Форт
     zh-Hans = 历史要塞
 
   [type.historic.memorial]
@@ -11010,19 +11015,21 @@
     zh-Hant = 旅遊景點
 
   [type.historic.wayside_cross]
-    en = historic-wayside_cross
+    en = Christian Cross
     ja = 歴史的な十字架
     pl = Krzyż przydrożny
     pt = Cruzeiro
     pt-BR = Cruzeiro
+    ru = Христианский крест
     zh-Hans = 路旁十字架
 
   [type.historic.wayside_shrine]
-    en = historic-wayside_shrine
+    en = Shrine
     ja = 歴史的な祠
     pl = Kapliczka przydrożna
     pt = Alminhas
     pt-BR = Alminhas
+    ru = Святыня
     zh-Hans = 路旁神龛
 
   [type.hwtag]
@@ -11095,7 +11102,7 @@
     zh-Hant = 互聯網
 
   [type.junction]
-    en = junction
+    en = Junction
     ja = 交差点
     pl = Skrzyżowanie
     pt = Cruzamento
@@ -11103,15 +11110,16 @@
     zh-Hans = 交叉口
 
   [type.junction.roundabout]
-    en = junction-roundabout
+    en = Roundabout
     ja = ラウンドアバウト
     pl = Rondo
     pt = Rotunda
     pt-BR = Rotatória
+    ru = Кольцо
     zh-Hans = 环岛
 
   [type.landuse]
-    en = landuse
+    en = Landuse
     ja = 土地利用
     pl = Zagospodarowanie ziemi
     pt = Uso do solo
@@ -11200,7 +11208,7 @@
     zh-Hant = 墓地
 
   [type.landuse.cemetery.christian]
-    en = Christian graveyard
+    en = Christian Graveyard
     ar = مقبرة
     cs = Hřbitov
     da = Kirkegård
@@ -11266,11 +11274,12 @@
     zh-Hant = 教堂庭院
 
   [type.landuse.commercial]
-    en = landuse-commercial
+    en = Commercial Area
     ja = 商業用地
     pl = Teren handlu i usług
     pt = Área comercial
     pt-BR = Área comercial
+    ru = Коммерческая застройка
     zh-Hans = 商务办公用地
 
   [type.landuse.construction]
@@ -11374,7 +11383,7 @@
     zh-Hant = 樹林
 
   [type.landuse.forest.coniferous]
-    en = Coniferous forest
+    en = Coniferous Forest
     ar = غابة
     cs = Les
     da = Skov
@@ -11406,7 +11415,7 @@
     zh-Hant = 樹林
 
   [type.landuse.forest.deciduous]
-    en = Deciduous forest
+    en = Deciduous Forest
     ar = غابة
     cs = Les
     da = Skov
@@ -11438,7 +11447,7 @@
     zh-Hant = 樹林
 
   [type.landuse.forest.mixed]
-    en = Mixed forest
+    en = Mixed Forest
     ar = غابة
     cs = Les
     da = Skov
@@ -11528,7 +11537,7 @@
     zh-Hans = 温室园艺
 
   [type.landuse.industrial]
-    en = Industrial land
+    en = Industrial Land
     ja = 工業用地
     pl = Obszar przemysłowy
     pt = Terreno industrial
@@ -11580,7 +11589,7 @@
     zh-Hans = 草甸
 
   [type.landuse.military]
-    en = Military area
+    en = Military Area
     ja = 軍用地
     pl = Teren wojskowy
     pt = Área militar
@@ -11605,7 +11614,7 @@
     zh-Hans = 矿场
 
   [type.landuse.railway]
-    en = Railway premises
+    en = Railway Premises
     ar = محطة خط سكة حديد
     cs = Areál železnice
     da = Jernbaneanlæg
@@ -11639,11 +11648,12 @@
     zh-Hant = 鐵路設施
 
   [type.landuse.recreation_ground]
-    en = Recreation ground
+    en = Recreation Ground
     ja = レクリエーション
     pl = Tereny wypoczynkowe
     pt = Área de lazer
     pt-BR = Área de lazer
+    ru = База отдыха
     zh-Hans = 康体场地
 
   [type.landuse.reservoir]
@@ -11678,7 +11688,7 @@
     zh-Hant = 水庫
 
   [type.landuse.residential]
-    en = Residential land
+    en = Residential Land
     ja = 住宅地
     pl = Tereny zamieszkania
     pt = Área residencial
@@ -11686,7 +11696,7 @@
     zh-Hans = 住宅用地
 
   [type.landuse.retail]
-    en = Retail land
+    en = Retail Land
     ja = 小売店エリア
     pl = Obszar handlu
     pt = Área de retalho
@@ -11694,14 +11704,14 @@
     zh-Hans = 零售用地
 
   [type.landuse.salt_pond]
-    en = Salt pond
+    en = Pond
     ja = 塩田
     pl = Słone jezioro
     pt = Salinas
     pt-BR = Salinas
 
   [type.landuse.village_green]
-    en = Green land
+    en = Land
     ja = 村の中心
     pl = Nawsie
     pt = Espaço verde de um vilarejo
@@ -11716,7 +11726,7 @@
     zh-Hans = 葡萄园
 
   [type.leisure]
-    en = leisure
+    en = Leisure
     ja = レジャー
     pl = Wypoczynek
     pt = Lazer
@@ -11731,7 +11741,7 @@
     zh-Hans = 公共用地
 
   [type.leisure.dog_park]
-    en = Dog area
+    en = Dog Area
     ar = منطقة كلاب
     cs = Místo pro psy
     da = Hundepark
@@ -11893,15 +11903,16 @@
     zh-Hant = 高爾夫球場
 
   [type.leisure.ice_rink]
-    en = Ice rink
+    en = Ice Rink
     ja = アイスリンク
     pl = Lodowisko
     pt = Rinque de patinagem
     pt-BR = Rinque de patinação
+    ru = Каток
     zh-Hans = 滑冰场
 
   [type.leisure.landscape_reserve]
-    en = Landscape reserve
+    en = Landscape Reserve
     ja = 自然保護区
     pl = Rezerwat krajobrazu
     pt = Reserva natural
@@ -11915,7 +11926,7 @@
     zh-Hans = 游艇码头
 
   [type.leisure.nature_reserve]
-    en = Nature reserve
+    en = Nature Reserve
     ar = محمية
     cs = Rezervace
     da = Reservat
@@ -12184,7 +12195,7 @@
     zh-Hant = 遊樂場
 
   [type.leisure.recreation_ground]
-    en = Recreation ground
+    en = Recreation Ground
     pl = Teren rekreacji
     pt = Zona recreativa
     pt-BR = Zona recreativa
@@ -12492,7 +12503,7 @@
     zh-Hant = 水上樂園
 
   [type.man_made]
-    en = man_made
+    en = Man Made
     ja = 構造物
     pt = Construção humana
     pt-BR = Construção humana
@@ -12601,7 +12612,7 @@
     zh-Hans = 管道
 
   [type.man_made.pipeline.overground]
-    en = Overground pipeline
+    en = Overground Pipeline
     ja = 地表のパイプライン
     pl = Rurociąg nad ziemią
     pt = Pipeline subterrâneo
@@ -12673,7 +12684,7 @@
     zh-Hant = 塔
 
   [type.man_made.wastewater_plant]
-    en = Wastewater plant
+    en = Wastewater Plant
     ja = 下水処理場
     pl = Oczyszczalnia ścieków
     pt = Estação de tratamento de águas residuais
@@ -12859,7 +12870,7 @@
     zh-Hans = 自然
 
   [type.natural.bare_rock]
-    en = Bare rock
+    en = Bare Rock
     ja = 岩肌
     pl = Skała macierzysta
     pt = Zona rochosa
@@ -13123,7 +13134,7 @@
     zh-Hans = 荒野
 
   [type.natural.hot_spring]
-    en = Hot spring
+    en = Hot Spring
     ja = 温泉
     pl = Gorące źródło
     pt = Nascente de água quente
@@ -13254,13 +13265,6 @@
     pt = Rochedo
     pt-BR = Rochedo
     zh-Hans = 岩石
-
-  [type.natural.salt_pond]
-    en = Salt pond
-    ja = 塩田
-    pl = Słony staw
-    pt = Salina
-    pt-BR = Salina
 
   [type.natural.scrub]
     en = Scrub
@@ -13395,7 +13399,7 @@
     zh-Hant = 樹
 
   [type.natural.tree_row]
-    en = Tree row
+    en = Tree Row
     ja = 並木
     pl = Rząd drzew
     pt = Linha de árvores
@@ -13473,7 +13477,7 @@
     zh-Hant = 水庫
 
   [type.natural.wetland]
-    en = Wetland area
+    en = Wetland
     ar = منطقة رطبة
     cs = Mokřadní oblast
     da = Vådområde
@@ -14768,21 +14772,21 @@
     zh-Hant = 村莊
 
   [type.power]
-    en = power
+    en = Power
     ja = 電力
     pt = Energia
     pt-BR = Energia
     zh-Hans = 电力要素
 
   [type.power.generator]
-    en = Power generator
+    en = Generator
     ja = 発電機
     pt = Gerador de energia
     pt-BR = Gerador de energia
     zh-Hans = 发电机
 
   [type.power.line]
-    en = Power line
+    en = Power Line
     ja = 電力線
     pl = Linia wysokiego napięcia
     pt = Linha de transmissão de energia
@@ -14790,7 +14794,7 @@
     zh-Hans = 超高压输电线
 
   [type.power.line.underground]
-    en = Underground power line
+    en = Underground Power Line
     ja = 地下電力線
     pl = Podziemna linia wysokiego napięcia
     pt = Linha de transmissão de energia subterrânea
@@ -14798,7 +14802,7 @@
     zh-Hans = 超高压输电线
 
   [type.power.minor_line]
-    en = Minor power line
+    en = Minor Power Line
     ja = 低圧電力線
     pl = Linia niskiego napięcia
     pt = Linha de transmissão de energia de baixa tensão
@@ -14838,7 +14842,7 @@
     zh-Hant = 電塔
 
   [type.power.station]
-    en = Power station
+    en = Power Station
     ja = 変電所
     pl = Elektrownia
     pt = Subestação elétrica
@@ -14922,11 +14926,12 @@
     en = psurface-unpaved_good
 
   [type.public_transport]
-    en = Public transport
+    en = Public Transport
     ja = 公共交通機関
     pl = Transport publiczny
     pt = Transporte público
     pt-BR = Transporte público
+    ru = Общественный транспорт
     zh-Hans = 公共交通要素
 
   [type.public_transport.platform]
@@ -14935,6 +14940,7 @@
     pl = Przystanek transportu publicznego
     pt = Plataforma de transporte público
     pt-BR = Plataforma de transporte público
+    ru = Платформа
     zh-Hans = 公共交通站台
 
   [type.railway]
@@ -14943,6 +14949,7 @@
     pl = Kolej
     pt = Ferrovia
     pt-BR = Ferrovia
+    ru = Ж/Д
     zh-Hans = 铁路要素
 
   [type.railway.abandoned]
@@ -14991,6 +14998,7 @@
     ja = ケーブルカー
     pt = Funicular
     pt-BR = Funicular
+    ru = Фуникулер
     zh-Hans = 缆索铁路轨道
 
   [type.railway.funicular.bridge]
@@ -14998,6 +15006,7 @@
     ja = ケーブルカー(橋)
     pt = Funicular
     pt-BR = Funicular
+    ru = Фуникулер
     zh-Hans = 缆索铁路轨道
 
   [type.railway.funicular.tunnel]
@@ -15005,6 +15014,7 @@
     ja = ケーブルカー(トンネル)
     pt = Funicular
     pt-BR = Funicular
+    ru = Фуникулер
     zh-Hans = 缆索铁路轨道
 
   [type.railway.halt]
@@ -15040,13 +15050,13 @@
     zh-Hant = 小站
 
   [type.railway.incline]
-    en = Railway incline
+    en = Railway Incline
 
   [type.railway.incline.bridge]
-    en = Railway incline
+    en = Railway Incline
 
   [type.railway.incline.tunnel]
-    en = Railway incline
+    en = Railway Incline
 
   [type.railway.level_crossing]
     en = Level Crossing
@@ -15083,24 +15093,27 @@
     zh-Hant = 鐵路道口
 
   [type.railway.light_rail]
-    en = Light rail
+    en = Light Rail
     ja = ライトレール
     pt = Metropolitano de superfície
     pt-BR = Metrô de superfície
+    ru = Скоростной трамвай
     zh-Hans = 轻轨轨道
 
   [type.railway.light_rail.bridge]
-    en = Light rail
+    en = Light Rail
     ja = ライトレール(橋)
     pt = Metropolitano de superfície
     pt-BR = Metrô de superfície
+    ru = Скоростной трамвай
     zh-Hans = 轻轨轨道
 
   [type.railway.light_rail.tunnel]
-    en = Light rail
+    en = Light Rail
     ja = ライトレール(トンネル)
     pt = Metropolitano de superfície
     pt-BR = Metrô de superfície
+    ru = Скоростной трамвай
     zh-Hans = 轻轨轨道
 
   [type.railway.monorail]
@@ -15142,6 +15155,7 @@
     ja = モノレール(橋)
     pt = Monocarril
     pt-BR = Monotrilho
+    ru = Монорельсовая железная дорога
     zh-Hans = 单轨轨道
     zh-Hant = 單軌軌道
 
@@ -15150,28 +15164,32 @@
     ja = モノレール(トンネル)
     pt = Monocarril
     pt-BR = Monotrilho
+    ru = Монорельсовая железная дорога
     zh-Hans = 单轨轨道
     zh-Hant = 單軌軌道
 
   [type.railway.narrow_gauge]
-    en = Narrow gauge railway
+    en = Narrow Gauge Rail
     ja = 狭軌鉄道
     pt = Caminho de ferro de via estreita
     pt-BR = Caminho de ferro de via estreita
+    ru = Узкоколейка
     zh-Hans = 窄轨铁路轨道
 
   [type.railway.narrow_gauge.bridge]
-    en = Narrow gauge railway
+    en = Narrow Gauge Rail
     ja = 狭軌鉄道(橋)
     pt = Caminho de ferro de via estreita
     pt-BR = Caminho de ferro de via estreita
+    ru = Узкоколейка
     zh-Hans = 窄轨铁路轨道
 
   [type.railway.narrow_gauge.tunnel]
-    en = Narrow gauge railway
+    en = Narrow Gauge Rail
     ja = ja = 狭軌鉄道(トンネル)
     pt = Caminho de ferro de via estreita
     pt-BR = Caminho de ferro de via estreita
+    ru = Узкоколейка
     zh-Hans = 窄轨铁路轨道
 
   [type.railway.platform]
@@ -15182,22 +15200,25 @@
     zh-Hans = 火车站台
 
   [type.railway.preserved]
-    en = Preserved railway
+    en = Preserved Rail
     ja = 保存鉄道
     pt = Ferrovia preservada
     pt-BR = Ferrovia preservada
+    ru = Законсервированная Ж/Д
 
   [type.railway.preserved.bridge]
-    en = Preserved railway
+    en = Preserved Rail
     ja = 保存鉄道(橋)
     pt = Ferrovia preservada
     pt-BR = Ferrovia preservada
+    ru = Законсервированная Ж/Д
 
   [type.railway.preserved.tunnel]
-    en = Preserved railway
+    en = Preserved Rail
     ja = 保存鉄道(トンネル)
     pt = Ferrovia preservada
     pt-BR = Ferrovia preservada
+    ru = Законсервированная Ж/Д
 
   [type.railway.rail]
     en = Railway
@@ -15258,46 +15279,53 @@
     zh-Hant = 鐵路軌道
 
   [type.railway.razed]
-    en = Razed railway
+    en = Razed Rail
     ja = 撤去済の鉄道
     pt = Ferrovia removida
     pt-BR = Ferrovia removida
+    ru = Заброшенная Ж/Д
 
   [type.railway.siding]
-    en = Siding
+    en = Siding Rail
     ja = 側線
     pt = Desvio de ferrovia
     pt-BR = Desvio de ferrovia
+    ru = Ветка Ж/Д
 
   [type.railway.siding.bridge]
-    en = Siding
+    en = Siding Rail
     ja = 側線(橋)
     pt = Desvio de ferrovia
     pt-BR = Desvio de ferrovia
+    ru = Ветка Ж/Д
 
   [type.railway.siding.tunnel]
-    en = Siding
+    en = Siding Rail
     ja = 側線(トンネル)
     pt = Desvio de ferrovia
     pt-BR = Desvio de ferrovia
+    ru = Ветка Ж/Д
 
   [type.railway.spur]
-    en = Spur
+    en = Spur Rail
     ja = 引き込み線
     pt = Ramal de ferrovia
     pt-BR = Ramal de ferrovia
+    ru = Подъездная Ж/Д
 
   [type.railway.spur.bridge]
-    en = Spur
+    en = Spur Rail
     ja = 引き込み線(橋)
     pt = Ramal de ferrovia
     pt-BR = Ramal de ferrovia
+    ru = Подъездная Ж/Д
 
   [type.railway.spur.tunnel]
-    en = Spur
+    en = Spur Rail
     ja = 引き込み線(トンネル)
     pt = Ramal de ferrovia
     pt-BR = Ramal de ferrovia
+    ru = Подъездная Ж/Д
 
   [type.railway.station]
     en = Train Station
@@ -15780,22 +15808,25 @@
     zh-Hant = 地鐵車站
 
   [type.railway.subway]
-    en = Subway line
+    en = Subway Line
     pt = Metropolitano
     pt-BR = Metrô
+    ru = Ветка метро
 
   [type.railway.subway.bridge]
-    en = Subway line
+    en = Subway Line
     pt = Metropolitano
     pt-BR = Metrô
+    ru = Ветка метро
 
   [type.railway.subway.tunnel]
-    en = Subway line
+    en = Subway Line
     pt = Metropolitano
     pt-BR = Metrô
+    ru = Ветка метро
 
   [type.railway.subway_entrance]
-    en = Subway entrance
+    en = Subway Entrance
     ar = مدخل المترو
     cs = Vchod do podchodu
     da = Indgang til undergrundsbane
@@ -16181,26 +16212,29 @@
     zh-Hant = 地鐵入口
 
   [type.railway.tram]
-    en = railway-tram
+    en = Tram Line
     ja = トラム
     pt = Linha de elétrico
     pt-BR = Linha de bonde
+    ru = Трамвай
     zh-Hans = 电车轨道
     zh-Hant = 電車軌道
 
   [type.railway.tram.bridge]
-    en = railway-tram-bridge
+    en = Tram Line
     ja = トラム(橋)
     pt = Linha de elétrico
     pt-BR = Linha de bonde
+    ru = Трамвай
     zh-Hans = 电车轨道
     zh-Hant = 電車軌道
 
   [type.railway.tram.tunnel]
-    en = railway-tram-tunnel
+    en = Tram Line
     ja = トラム(トンネル)
     pt = Linha de elétrico
     pt-BR = Linha de bonde
+    ru = Трамвай
     zh-Hans = 电车轨道
     zh-Hant = 電車軌道
 
@@ -16226,7 +16260,7 @@
     pt = Paragem de elétrico
     pt-BR = Parada de bonde
     ro = Stație de tramvai
-    ru = Остановка
+    ru = Остановка трамвая
     sk = Električková zastávka
     sv = Spårvagnshållplats
     th = ป้ายรถราง
@@ -16237,24 +16271,27 @@
     zh-Hant = 電車站
 
   [type.railway.yard]
-    en = Railway yard
+    en = Railway Yard
     ja = ヤード
     pt = Pátio de manobras ferroviárias
     pt-BR = Pátio de manobras ferroviárias
+    ru = Ж/Д площадка
     zh-Hans = 铁路货场
 
   [type.railway.yard.bridge]
-    en = Railway yard
+    en = Railway Yard
     ja = ヤード(橋)
     pt = Pátio de manobras ferroviárias
     pt-BR = Pátio de manobras ferroviárias
+    ru = Ж/Д площадка
     zh-Hans = 铁路货场
 
   [type.railway.yard.tunnel]
-    en = Railway yard
+    en = Railway Yard
     ja = ヤード(トンネル)
     pt = Pátio de manobras ferroviárias
     pt-BR = Pátio de manobras ferroviárias
+    ru = Ж/Д площадка
     zh-Hans = 铁路货场
 
   [type.route]
@@ -16272,7 +16309,7 @@
     zh-Hans = 航线
 
   [type.route.shuttle_train]
-    en = Shuttle train
+    en = Shuttle Train
     pt = Rota de comboio vaivem
     pt-BR = Rota de trem vaivem
 
@@ -17542,7 +17579,7 @@
     zh-Hant = 商场
 
   [type.shop.massage]
-    en = Massage salon
+    en = Massage Salon
     ar = قاعة تدليك
     cs = Masážní salon
     da = Massageklinik
@@ -18305,7 +18342,7 @@
     zh-Hant = 雜貨店
 
   [type.shop.video]
-    en = Video shop
+    en = Video Shop
     ar = متجر فيديو
     cs = Videopůjčovna
     da = Videobutik
@@ -18339,7 +18376,7 @@
     zh-Hant = 視頻商城
 
   [type.shop.video_games]
-    en = Video games shop
+    en = Video Games Shop
     ar = متجر ألعاب فيديو
     cs = Obchod s videohrami
     da = Computerspilbutik
@@ -18493,18 +18530,20 @@
     pt-BR = Esporte
 
   [type.sport.american_football]
-    en = sport-american_football
+    en = American Football
     ja = アメリカンフットボール
     pl = Futbol amerykański
     pt = Futebol americano
     pt-BR = Futebol americano
+    ru = Американский футбол
 
   [type.sport.archery]
-    en = sport-archery
+    en = Archery
     ja = アーチェリー
     pl = Łucznictwo sportowe
     pt = Tiro com arco
     pt-BR = Tiro com arco
+    ru = Стрельба из лука
 
   [type.sport.athletics]
     en = Athletics
@@ -18541,17 +18580,19 @@
     zh-Hant = 田徑
 
   [type.sport.australian_football]
-    en = sport-australian_football
+    en = Rugby
     ja = オーストラリアンフットボール
     pt = Futebol australiano
     pt-BR = Futebol australiano
+    ru = Регби
 
   [type.sport.baseball]
-    en = sport-baseball
+    en = Baseball
     ja = 野球
     pl = Baseball
     pt = Beisebol
     pt-BR = Beisebol
+    ru = Бейсбол
     zh-Hans = 棒球
 
   [type.sport.basketball]
@@ -18589,32 +18630,36 @@
     zh-Hant = 籃球
 
   [type.sport.bowls]
-    en = sport-bowls
+    en = Bowls
     ja = ローンボウルズ
     pl = Kręgle
     pt = Bowls
     pt-BR = Bowls
+    ru = Кегли
     zh-Hans = 保龄球
 
   [type.sport.cricket]
-    en = sport-cricket
+    en = Cricket
     ja = クリケット
     pl = Krykiet
     pt = Críquete
     pt-BR = Críquete
+    ru = Крикет
     zh-Hans = 板球
 
   [type.sport.curling]
-    en = sport-curling
+    en = Сurling
     ja = カーリング
     pt = Curling
     pt-BR = Curling
+    ru = Керлинг
 
   [type.sport.diving]
-    en = sport-diving
+    en = Diving
     ja = ダイビング
     pt = Mergulho
     pt-BR = Mergulho
+    ru = Подводное плавание
     zh-Hans = 跳水
 
   [type.sport.equestrian]
@@ -18651,83 +18696,84 @@
     zh-Hans = 马术运动
     zh-Hant = 馬術運動
 
-  [type.sport.football]
-    en = sport-football
-    ja = フットボール
-    pl = Piłka nożna
-    pt = Futebol
-    pt-BR = Futebol
-    zh-Hans = 足球
-
   [type.sport.golf]
-    en = sport-golf
+    en = Golf
     ja = ゴルフ
     pl = Golf
     pt = Golfe
     pt-BR = Golfe
+    ru = Гольф
     zh-Hans = 高尔夫球
 
   [type.sport.gymnastics]
-    en = sport-gymnastics
+    en = Gymnastics
     ja = 体操競技
     pl = Gimnastyka
     pt = Ginástica
     pt-BR = Ginástica
+    ru = Гимнастика
     zh-Hans = 体操
 
   [type.sport.handball]
-    en = sport-handball
+    en = Handball
     ja = ハンドボール
     pl = Piłka ręczna
     pt = Andebol
     pt-BR = Andebol
+    ru = Гандбол
     zh-Hans = 手球
 
   [type.sport.multi]
-    en = sport-multi
+    en = Various Sport
     ja = 複数
     pt = Vários desportos
     pt-BR = Vários desportos
+    ru = Различные виды спорта
     zh-Hans = 多元
 
   [type.sport.scuba_diving]
-    en = sport-scuba_diving
+    en = Scuba Diving
     ja = スクーバダイビング
     pl = Nurkowanie
     pt = Mergulho autónomo
     pt-BR = Mergulho autônomo
+    ru = Акваланг
 
   [type.sport.shooting]
-    en = sport-shooting
+    en = Shooting
     ja = 射撃競技
     pl = Strzelectwo sportowe
     pt = Tiro desportivo
     pt-BR = Tiro esportivo
+    ru = Стрельба
     zh-Hans = 射击
 
   [type.sport.skiing]
-    en = sport-skiing
+    en = Skiing
     ja = スキー
     pt = Esqui
     pt-BR = Esqui
+    ru = Лыжи
 
   [type.sport.soccer]
-    en = sport-soccer
+    en = Soccer (Football)
     ja = サッカー
     pt = Futebol
     pt-BR = Futebol
+    ru = Футбол
     zh-Hans = 足球
 
   [type.sport.swimming]
-    en = sport-swimming
+    en = Swimming
     ja = 水泳
     pl = Pływanie
     pt = Natação desportiva
     pt-BR = Natação esportiva
+    ru = Плавание
     zh-Hans = 游泳
 
   [type.sport.tennis]
-    en = Tennis court
+    en = Tennis Court
     ar = ملعب تنس
     cs = Tenisový kurt
     da = Tennisbane
@@ -18761,7 +18807,7 @@
     zh-Hant = 網球場
 
   [type.tourism]
-    en = tourism
+    en = Tourism
     ja = 観光
     pl = Turystyka
     pt = Turismo
@@ -19543,7 +19589,7 @@
     zh-Hant = 度假酒店
 
   [type.tourism.theme_park]
-    en = Theme park
+    en = Theme Park
     ar = سياحة
     cs = Pamětihodnost
     da = Turisme
@@ -19665,28 +19711,30 @@
     zh-Hant = 動物園
 
   [type.traffic_calming]
-    en = traffic_calming
+    en = Traffic Calming
     ja = 交通静穏化
     pl = Uspokojenie ruchu drogowego
     pt = Redutor de velocidade
     pt-BR = Redutor de velocidade
 
   [type.traffic_calming.bump]
-    en = traffic_calming-bump
+    en = Traffic Bump
     ja = スピードバンプ
     pl = Krótki próg zwalniający
     pt = Lomba
     pt-BR = Quebra-molas
+    ru = Лежачий полицейский
 
   [type.traffic_calming.hump]
-    en = traffic_calming-hump
+    en = Traffic Hump
     ja = スピードハンプ
     pl = Długi próg zwalniający
     pt = Lomba longa
     pt-BR = Quebra-molas longa
+    ru = Лежачий полицейский
 
   [type.waterway]
-    en = waterway
+    en = Waterway
     ja = 水域
     pt = Curso de água
     pt-BR = Curso de água
@@ -19751,51 +19799,58 @@
     zh-Hant = 運河
 
   [type.waterway.dam]
-    en = waterway-dam
+    en = Dam
     ja = ダム
     pt = Barragem
     pt-BR = Usina
+    ru = Плотина
     zh-Hans = 水坝
 
   [type.waterway.ditch]
-    en = waterway-ditch
+    en = Ditch
     ja = 排水路
     pt = Vala
     pt-BR = Vala
+    ru = Канава
     zh-Hans = 水沟
 
   [type.waterway.ditch.tunnel]
-    en = waterway-ditch-tunnel
+    en = Ditch
     ja = 排水路(トンネル)
     pt = Vala
     pt-BR = Vala
+    ru = Канава
     zh-Hans = 水沟
 
   [type.waterway.dock]
-    en = waterway-dock
+    en = Waterway Dock
     ja = ドック
     pt = Doca
     pt-BR = Doca
+    ru = Причал
     zh-Hans = 船坞
 
   [type.waterway.drain]
-    en = waterway-drain
+    en = Drain
     ja = 用水路
     pt = Valeta de drenagem
     pt-BR = Valeta de drenagem
+    ru = Водоотвод
     zh-Hans = 渠
 
   [type.waterway.drain.tunnel]
-    en = waterway-drain-tunnel
+    en = Drain
     ja = 用水路
     pt = Valeta de drenagem
     pt-BR = Valeta de drenagem
+    ru = Водоотвод
     zh-Hans = 渠
 
   [type.waterway.lock]
-    en = waterway-lock
+    en = Waterway Lock
     pt = Eclusa
     pt-BR = Eclusa
+    ru = Шлюз
 
   [type.waterway.lock_gate]
     en = Lock Gate
@@ -20085,21 +20140,22 @@
     zh-Hant = 瀑布
 
   [type.waterway.weir]
-    en = waterway-weir
+    en = Weir
     ja = 堰
     pt = Represa
     pt-BR = Açude
+    ru = Плотина
     zh-Hans = 堰
 
   [type.wheelchair]
-    en = wheelchair
+    en = Wheelchair
     ja = 車椅子
     pt = Cadeiras de rodas
     pt-BR = Cadeiras de rodas
     zh-Hans = 轮椅
 
   [type.wheelchair.limited]
-    en = Limited wheelchair access
+    en = Limited Wheelchair Access
     ar = دعم محدود لكراسي المعاقين
     cs = Omezený vstup pro vozíčkáře
     da = Begrænset tilgængelighed for kørestol
@@ -20133,7 +20189,7 @@
     zh-Hant = 部分配備為殘疾人專用
 
   [type.wheelchair.no]
-    en = No wheelchair access
+    en = No Wheelchair Access
     ar = لا يدعم لكراسي المعاقين
     cs = Bez přístupu pro vozíčkáře
     da = Ingen tilgængelighed for kørestol
@@ -20167,7 +20223,7 @@
     zh-Hant = 未配備殘疾人專用
 
   [type.wheelchair.yes]
-    en = Full wheelchair access
+    en = Full Wheelchair Access
     ar = دعم كامل لكراسي المعاقين
     cs = Plný vstup pro vozíčkáře
     da = Fuld tilgængelighed for kørestol
@@ -20313,19 +20369,22 @@
     zh-Hant = 建築物
 
   [type.area_highway.cycleway]
-    en = area:highway-cycleway
+    en = Bike Path
     pt = Ciclovia
     pt-BR = Ciclovia
+    ru = Велодорожка
 
   [type.area_highway.footway]
-    en = area:highway-footway
+    en = Path
     pt = Caminho pedonal
     pt-BR = Caminho pedonal
+    ru = Дорожка
 
   [type.area_highway.living_street]
-    en = area:highway-living_street
+    en = Street
     pt = Zona de coexistência
     pt-BR = Zona de coexistência
+    ru = Улица
 
   [type.area_highway.motorway]
     en = area:highway-motorway
@@ -20333,44 +20392,52 @@
     pt-BR = Rodovia
 
   [type.area_highway.path]
-    en = area:highway-path
+    en = Path
     pt = Caminho
     pt-BR = Caminho
+    ru = Дорожка
 
   [type.area_highway.pedestrian]
-    en = area:highway-pedestrian
+    en = Street
     pt = Rua pedonal
     pt-BR = Rua pedonal
+    ru = Улица
 
   [type.area_highway.primary]
-    en = area:highway-primary
+    en = Street
     pt = Estrada primária
     pt-BR = Estrada
+    ru = Улица
 
   [type.area_highway.residential]
-    en = area:highway-residential
+    en = Street
     pt = Rua residencial
     pt-BR = Rua residencial
+    ru = Улица
 
   [type.area_highway.secondary]
-    en = area:highway-secondary
+    en = Street
     pt = Estrada secundária
     pt-BR = Estrada
+    ru = Улица
 
   [type.area_highway.service]
-    en = area:highway-service
+    en = Street
     pt = Estrada de acesso ou serviço
     pt-BR = Estrada de acesso ou serviço
+    ru = Улица
 
   [type.area_highway.tertiary]
-    en = area:highway-tertiary
+    en = Street
     pt = Estrada terciária
     pt-BR = Estrada
+    ru = Улица
 
   [type.area_highway.steps]
-    en = area:highway-steps
+    en = Steps
     pt = Escadas
     pt-BR = Escadas
+    ru = Лестница
 
   [type.area_highway.track]
     en = area:highway-track

@@ -1,3 +1,4 @@
+
 #include "testing/testing.hpp"
 
 #include "generator/generator_tests/types_helper.hpp"
@@ -1420,7 +1421,6 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_SimpleTypesSmoke)
     {"amenity", "school"},
     {"amenity", "shelter"},
     {"amenity", "shower"},
-    {"amenity", "speed_trap"},
     {"amenity", "taxi"},
     {"amenity", "telephone"},
     {"amenity", "theatre"},
@@ -1674,7 +1674,6 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_SimpleTypesSmoke)
     {"natural", "peak"},
     {"natural", "pond"},
     {"natural", "rock"},
-    {"natural", "salt_pond"},
     {"natural", "scrub"},
     {"natural", "spring"},
     {"natural", "volcano"},
@@ -1839,7 +1838,6 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_SimpleTypesSmoke)
     {"sport", "curling"},
     {"sport", "diving"},
     {"sport", "equestrian"},
-    {"sport", "football"},
     {"sport", "gymnastics"},
     {"sport", "handball"},
     {"sport", "multi"},
