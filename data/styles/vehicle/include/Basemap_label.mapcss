@@ -95,7 +95,6 @@ node[place=ocean],
 node[place=sea]
 {z-index: 3000;}
 
-area[natural=lake],
 area[landuse=reservoir],
 area[natural=water],
 line[waterway=river],
@@ -473,7 +472,6 @@ node|z17-[natural=beach]
 
 node|z1-[place=ocean],
 node|z4-[place=sea],
-area|z10-[natural=lake][bbox_area>=4000000],
 area|z10-[landuse=reservoir][bbox_area>=4000000],
 area|z10-[natural=water][bbox_area>=80000000],
 line|z11-[waterway=river],
@@ -517,11 +515,9 @@ area|z16-[natural=water],
 area|z16-[natural=wetland],
 {font-size: 10.5;}
 
-area|z10-[natural=lake][bbox_area>=4000000],
 area|z10-[landuse=reservoir][bbox_area>=4000000],
 area|z10-[natural=water][bbox_area>=4000000],
 {font-size: 8.5;}
-area|z10-[natural=lake][bbox_area<4000000],
 area|z10-[landuse=reservoir][bbox_area<4000000],
 area|z10-[natural=water][bbox_area<4000000],
 {font-size: 0;} /*check*/

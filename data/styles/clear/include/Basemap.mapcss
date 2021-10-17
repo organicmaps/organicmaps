@@ -128,8 +128,6 @@ line[waterway=ditch],
 line[waterway=drain],
 {z-index: 50;}
 
-area[natural=lake],
-area[natural=pond],
 area[natural=water],
 area[waterway=dock],
 area[waterway=riverbank],
@@ -336,8 +334,6 @@ area|z10-[leisure=beach_resort],
 
 /* 6.WATER */
 
-area|z0-[natural=lake],
-area|z0-[natural=pond],
 area|z0-[natural=water],
 area|z0-[landuse=salt_pond],
 area|z0-[waterway=dock],
@@ -361,8 +357,6 @@ line|z16-[waterway=lock],
 
 /* 6.1 Area water(lake,pond etc.) */
 
-area|z0-[natural=lake],
-area|z0-[natural=pond],
 area|z0-[natural=water],
 area|z0-[landuse=salt_pond],
 area|z0-[waterway=dock],
