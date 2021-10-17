@@ -326,7 +326,7 @@ amenity|grave_yard|christian;[amenity=grave_yard][religion=christian];;name;int_
 highway|trunk|tunnel;[highway=trunk][tunnel?];;name;int_name;326;
 highway|steps|tunnel;[highway=steps][tunnel?];;name;int_name;327;
 amenity|car_sharing;328;
-sport|football;329;
+sport|football;329;sport|soccer
 highway|steps|bridge;[highway=steps][bridge?];;name;int_name;330;
 highway|track|tunnel;[highway=track][tunnel?];;name;int_name;331;
 highway|pedestrian|tunnel;[highway=pedestrian][tunnel?];;name;int_name;332;
@@ -539,7 +539,7 @@ deprecated|deprecated;538;x
 railway|funicular|tunnel;[railway=funicular][tunnel?];;name;int_name;539;
 barrier|cycle_barrier;540;
 deprecated|deprecated;541;x
-amenity|speed_trap;542;
+amenity|speed_trap;542;highway|speed_camera
 area:highway|track;543;
 area:highway|primary;544;
 power|line|underground;[power=line][location=underground];;name;int_name;545;
@@ -858,7 +858,7 @@ deprecated|deprecated;857;x
 deprecated|deprecated;858;x
 deprecated|deprecated;859;x
 deprecated|deprecated;860;x
-natural|salt_pond;861;
+natural|salt_pond;861;landuse|salt_pond
 deprecated|deprecated;862;x
 railway|incline|bridge;[railway=incline][bridge?];;name;int_name;863;
 railway|siding|tunnel;[railway=siding][tunnel?];;name;int_name;864;

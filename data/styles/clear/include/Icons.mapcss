@@ -1854,9 +1854,6 @@ area|z17-[leisure=golf_course]
 node|z17-[sport=soccer],
 area|z17-[sport=soccer]
 {icon-image: soccer-m.svg;icon-min-distance: 10;}
-node|z17-[sport=football],
-area|z17-[sport=football]
-{icon-image: soccer-m.svg;icon-min-distance: 10;}
 node|z17-[sport=tennis]
 {icon-image: tennis-m.svg;icon-min-distance: 10;}
 node|z17-[leisure=skiing]
