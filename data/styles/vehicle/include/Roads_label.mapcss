@@ -75,12 +75,14 @@ line[highway=ford]
 {z-index: 660;}
 
 line[railway=rail],
-line[railway=light_rail],
+line[railway=light_rail][!tunnel],
+line[railway=subway][!tunnel],
 line[railway=yard]
 {z-index: 680;}
 
 line[railway=rail]::dash,
-line[railway=light_rail]::dash,
+line[railway=light_rail][!tunnel]::dash,
+line[railway=subway][!tunnel]::dash,
 line[railway=yard]::dash
 {z-index: 690;}
 
