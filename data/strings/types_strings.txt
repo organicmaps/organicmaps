@@ -15053,15 +15053,6 @@
     zh-Hans = 小站
     zh-Hant = 小站
 
-  [type.railway.incline]
-    en = Railway Incline
-
-  [type.railway.incline.bridge]
-    en = Railway Incline
-
-  [type.railway.incline.tunnel]
-    en = Railway Incline
-
   [type.railway.level_crossing]
     en = Level Crossing
     ar = مزلقان

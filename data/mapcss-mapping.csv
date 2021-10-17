@@ -653,7 +653,7 @@ deprecated|deprecated;652;x
 deprecated|deprecated;653;x
 deprecated|deprecated;654;x
 deprecated|deprecated;655;x
-railway|incline|tunnel;[railway=incline][tunnel?];;name;int_name;656;
+deprecated|deprecated;656;x
 boundary|administrative|municipality;[boundary=administrative][border_type=municipality];;name;int_name;657;
 deprecated|deprecated;658;x
 deprecated|deprecated;659;x
@@ -860,7 +860,7 @@ deprecated|deprecated;859;x
 deprecated|deprecated;860;x
 natural|salt_pond;861;landuse|salt_pond
 deprecated|deprecated;862;x
-railway|incline|bridge;[railway=incline][bridge?];;name;int_name;863;
+deprecated|deprecated;863;x
 railway|siding|tunnel;[railway=siding][tunnel?];;name;int_name;864;
 railway|yard|tunnel;[railway=yard][tunnel?];;name;int_name;865;
 area:highway|footway;866;
