@@ -1571,7 +1571,7 @@
 
 "type.amenity.driving_school" = "自動車教習所";
 
-"type.amenity.embassy" = "大使館";
+"type.office.diplomatic" = "大使館";
 
 "type.amenity.fast_food" = "ファストフード";
 
@@ -1692,8 +1692,6 @@
 "type.amenity.shelter" = "避難所";
 
 "type.amenity.shower" = "シャワー";
-
-"type.amenity.speed_trap" = "amenity-speed_trap";
 
 "type.amenity.taxi" = "タクシー";
 
@@ -2005,7 +2003,7 @@
 
 "type.cuisine.vietnamese" = "ベトナム料理";
 
-"type.emergency" = "emergency";
+"type.emergency" = "Emergency";
 
 "type.emergency.defibrillator" = "除細動器";
 
@@ -2014,6 +2012,8 @@
 "type.emergency.phone" = "緊急電話";
 
 "type.entrance" = "エントランス";
+
+"type.healthcare.laboratory" = "医療研究所";
 
 "type.highway" = "道路";
 
@@ -2036,6 +2036,8 @@
 "type.highway.cycleway.permissive" = "自転車道";
 
 "type.highway.cycleway.tunnel" = "自転車道(トンネル)";
+
+"type.highway.elevator" = "Elevator";
 
 "type.highway.footway" = "歩道";
 
@@ -2265,8 +2267,6 @@
 
 "type.historic.monument" = "記念碑";
 
-"type.historic.museum" = "歴史的なミュージアム";
-
 "type.historic.ruins" = "古跡";
 
 "type.historic.ship" = "退役船";
@@ -2417,7 +2417,7 @@
 
 "type.leisure.playground" = "児童公園";
 
-"type.leisure.recreation_ground" = "Recreation ground";
+"type.leisure.recreation_ground" = "Recreation Ground";
 
 "type.leisure.sauna" = "サウナ";
 
@@ -2509,7 +2509,7 @@
 
 "type.natural.hot_spring" = "温泉";
 
-"type.natural.lake" = "湖";
+"type.natural.water.lake" = "湖";
 
 "type.natural.land" = "陸地";
 
@@ -2519,11 +2519,9 @@
 
 "type.natural.peak" = "山頂";
 
-"type.natural.pond" = "池";
+"type.natural.water.pond" = "池";
 
 "type.natural.rock" = "岩";
-
-"type.natural.salt_pond" = "塩田";
 
 "type.natural.scrub" = "雑木林";
 
@@ -2715,12 +2713,6 @@
 
 "type.railway.halt" = "鉄道駅";
 
-"type.railway.incline" = "railway-incline";
-
-"type.railway.incline.bridge" = "railway-incline-bridge";
-
-"type.railway.incline.tunnel" = "railway-incline-tunnel";
-
 "type.railway.level_crossing" = "踏切";
 
 "type.railway.light_rail" = "ライトレール";
@@ -2783,23 +2775,7 @@
 
 "type.railway.station.subway.berlin" = "地下鉄";
 
-"type.railway.station.subway.blue" = "地下鉄";
-
-"type.railway.station.subway.brown" = "地下鉄";
-
-"type.railway.station.subway.darkgreen" = "地下鉄";
-
-"type.railway.station.subway.gray" = "地下鉄";
-
-"type.railway.station.subway.green" = "地下鉄";
-
-"type.railway.station.subway.grey" = "地下鉄";
-
 "type.railway.station.subway.kiev" = "地下鉄";
-
-"type.railway.station.subway.lightblue" = "地下鉄";
-
-"type.railway.station.subway.lightgreen" = "地下鉄";
 
 "type.railway.station.subway.london" = "地下鉄";
 
@@ -2811,53 +2787,17 @@
 
 "type.railway.station.subway.newyork" = "地下鉄";
 
-"type.railway.station.subway.orange" = "地下鉄";
-
 "type.railway.station.subway.paris" = "地下鉄";
-
-"type.railway.station.subway.purple" = "地下鉄";
-
-"type.railway.station.subway.red" = "地下鉄";
 
 "type.railway.station.subway.roma" = "地下鉄";
 
 "type.railway.station.subway.spb" = "地下鉄";
 
-"type.railway.station.subway.violet" = "地下鉄";
+"type.railway.subway" = "Subway Line";
 
-"type.railway.station.subway.yellow" = "地下鉄";
+"type.railway.subway.bridge" = "Subway Line";
 
-"type.railway.subway" = "railway-subway";
-
-"type.railway.subway.blue" = "railway-subway-blue";
-
-"type.railway.subway.bridge" = "railway-subway-bridge";
-
-"type.railway.subway.brown" = "railway-subway-brown";
-
-"type.railway.subway.darkgreen" = "railway-subway-darkgreen";
-
-"type.railway.subway.gray" = "railway-subway-gray";
-
-"type.railway.subway.green" = "railway-subway-green";
-
-"type.railway.subway.grey" = "railway-subway-grey";
-
-"type.railway.subway.lightblue" = "railway-subway-lightblue";
-
-"type.railway.subway.lightgreen" = "railway-subway-lightgreen";
-
-"type.railway.subway.orange" = "railway-subway-orange";
-
-"type.railway.subway.purple" = "railway-subway-purple";
-
-"type.railway.subway.red" = "railway-subway-red";
-
-"type.railway.subway.tunnel" = "railway-subway-tunnel";
-
-"type.railway.subway.violet" = "railway-subway-violet";
-
-"type.railway.subway.yellow" = "railway-subway-yellow";
+"type.railway.subway.tunnel" = "Subway Line";
 
 "type.railway.subway_entrance" = "地下鉄入り口";
 
@@ -2901,11 +2841,7 @@
 
 "type.route.ferry" = "フェリー航路";
 
-"type.route.ferry.motor_vehicle" = "フェリー航路(動力車)";
-
-"type.route.ferry.motorcar" = "フェリー航路(自動車)";
-
-"type.route.shuttle_train" = "route-shuttle_train";
+"type.route.shuttle_train" = "Shuttle Train";
 
 "type.shop" = "買い物";
 
@@ -3113,8 +3049,6 @@
 
 "type.sport.equestrian" = "馬術";
 
-"type.sport.football" = "フットボール";
-
 "type.sport.golf" = "ゴルフ";
 
 "type.sport.gymnastics" = "体操競技";
@@ -3221,7 +3155,7 @@
 
 "type.waterway.drain.tunnel" = "用水路";
 
-"type.waterway.lock" = "waterway-lock";
+"type.waterway.lock" = "Waterway Lock";
 
 "type.waterway.lock_gate" = "水門";
 
@@ -3285,29 +3219,29 @@
 
 "type.building_part" = "建物";
 
-"type.area_highway.cycleway" = "area:highway-cycleway";
+"type.area_highway.cycleway" = "Bike Path";
 
-"type.area_highway.footway" = "area:highway-footway";
+"type.area_highway.footway" = "Path";
 
-"type.area_highway.living_street" = "area:highway-living_street";
+"type.area_highway.living_street" = "Street";
 
 "type.area_highway.motorway" = "area:highway-motorway";
 
-"type.area_highway.path" = "area:highway-path";
+"type.area_highway.path" = "Path";
 
-"type.area_highway.pedestrian" = "area:highway-pedestrian";
+"type.area_highway.pedestrian" = "Street";
 
-"type.area_highway.primary" = "area:highway-primary";
+"type.area_highway.primary" = "Street";
 
-"type.area_highway.residential" = "area:highway-residential";
+"type.area_highway.residential" = "Street";
 
-"type.area_highway.secondary" = "area:highway-secondary";
+"type.area_highway.secondary" = "Street";
 
-"type.area_highway.service" = "area:highway-service";
+"type.area_highway.service" = "Street";
 
-"type.area_highway.tertiary" = "area:highway-tertiary";
+"type.area_highway.tertiary" = "Street";
 
-"type.area_highway.steps" = "area:highway-steps";
+"type.area_highway.steps" = "Steps";
 
 "type.area_highway.track" = "area:highway-track";
 
