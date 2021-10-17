@@ -1054,7 +1054,7 @@ route|shuttle_train;1055;
 shop|copyshop;1056;
 shop|photo;1057;
 shop|travel_agency;[shop=travel_agency],[office=travel_agent];;name;int_name;1058;
-deprecated|deprecated;1059;x
+highway|elevator;1059;
 shop|outdoor;1060;
 deprecated|deprecated;1061;x
 deprecated|deprecated;1062;x

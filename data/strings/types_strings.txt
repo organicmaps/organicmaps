@@ -7481,6 +7481,10 @@
     ru = Велодорожка
     zh-Hans = 自行车道
 
+  [type.highway.elevator]
+    en = Elevator
+    ru = Лифт
+
   [type.highway.footway]
     en = Path
     ar = مسار

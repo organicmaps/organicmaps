@@ -5099,6 +5099,10 @@ sk:Dopravný uzol|3diaľnica
 sw:Njia panda
 fa:تقاطع
 
+highway-elevator
+en:Lift
+ru:Лифт
+
 # Skipped if empty name
 natural-peak
 en:Peak|mountain|mount|U+1F5FB|U+1F304
