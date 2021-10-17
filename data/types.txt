@@ -44,10 +44,10 @@ mapswithme
 *highway|motorway_link
 *waterway|stream|intermittent
 *highway|track|grade4
-mapswithme
+*natural|water|pond
 *landuse|farmland
 *barrier|fence
-mapswithme
+*natural|water|lake
 *power|pole
 *waterway|riverbank
 *highway|path|bicycle
@@ -145,11 +145,11 @@ leisure|pitch
 *amenity|parking|private
 *boundary|administrative|7
 *tourism|attraction
-mapswithme
-mapswithme
+*natural|water|reservoir
+*natural|water|river
 *railway|tram
 *amenity|toilets
-mapswithme
+*natural|water|basin
 *highway|footway|permissive
 *leisure|picnic_table
 *landuse|construction
@@ -326,7 +326,7 @@ mapswithme
 *highway|trunk|tunnel
 *highway|steps|tunnel
 *amenity|car_sharing
-*sport|football
+sport|soccer
 *highway|steps|bridge
 *highway|track|tunnel
 *highway|pedestrian|tunnel
@@ -539,7 +539,7 @@ mapswithme
 *railway|funicular|tunnel
 *barrier|cycle_barrier
 mapswithme
-*amenity|speed_trap
+highway|speed_camera
 *area:highway|track
 *area:highway|primary
 *power|line|underground
@@ -561,7 +561,7 @@ mapswithme
 mapswithme
 mapswithme
 mapswithme
-*natural|lake
+natural|water|lake
 mapswithme
 mapswithme
 mapswithme
@@ -573,7 +573,7 @@ mapswithme
 mapswithme
 mapswithme
 *piste:lift|rope_tow
-*natural|pond
+natural|water|pond
 mapswithme
 *highway|secondary_link|tunnel
 mapswithme
@@ -653,7 +653,7 @@ mapswithme
 mapswithme
 mapswithme
 mapswithme
-*railway|incline|tunnel
+mapswithme
 *boundary|administrative|municipality
 mapswithme
 mapswithme
@@ -858,9 +858,9 @@ mapswithme
 mapswithme
 mapswithme
 mapswithme
-*natural|salt_pond
+landuse|salt_pond
 mapswithme
-*railway|incline|bridge
+mapswithme
 *railway|siding|tunnel
 *railway|yard|tunnel
 *area:highway|footway
@@ -1056,7 +1056,7 @@ route|ferry
 *shop|copyshop
 *shop|photo
 *shop|travel_agency
-mapswithme
+*highway|elevator
 *shop|outdoor
 mapswithme
 mapswithme

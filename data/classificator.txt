@@ -105,7 +105,6 @@ world  +
         school  -
         shelter  -
         shower  -
-        speed_trap  -
         taxi  -
         telephone  -
         theatre  -
@@ -314,6 +313,7 @@ world  +
             permissive  -
             tunnel  -
             {}
+        elevator  -
         footway  +
             alpine_hiking  -
             area  -
@@ -600,19 +600,22 @@ world  +
         grassland  -
         heath  -
         hot_spring  -
-        lake  -
         land  -
         peak  -
-        pond  -
         rock  -
-        salt_pond  -
         scrub  -
         spring  -
         strait  -
         tree  -
         tree_row  -
         volcano  -
-        water  -
+        water  +
+            basin  -
+            lake  -
+            pond  -
+            reservoir  -
+            river  -
+            {}
         wetland  +
             bog  -
             marsh  -
@@ -735,10 +738,6 @@ world  +
             tunnel  -
             {}
         halt  -
-        incline  +
-            bridge  -
-            tunnel  -
-            {}
         level_crossing  -
         light_rail  +
             bridge  -
@@ -936,7 +935,6 @@ world  +
         curling  -
         diving  -
         equestrian  -
-        football  -
         golf  -
         gymnastics  -
         handball  -
