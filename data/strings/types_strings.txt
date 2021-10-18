@@ -12602,6 +12602,7 @@
   [type.man_made.pier]
     en = Pier
     ja = 桟橋
+    nl = Pier
     pl = Molo
     pt = Pontão
     pt-BR = Píer
@@ -12610,6 +12611,7 @@
   [type.man_made.pipeline]
     en = Pipeline
     ja = パイプライン
+    nl = Pijpleiding
     pl = Rurociąg
     pt = Pipeline
     pt-BR = Pipeline
@@ -12618,6 +12620,7 @@
   [type.man_made.pipeline.overground]
     en = Overground Pipeline
     ja = 地表のパイプライン
+    nl = Bovengrondse pijpleiding
     pl = Rurociąg nad ziemią
     pt = Pipeline subterrâneo
     pt-BR = Pipeline subterrâneo
@@ -12868,6 +12871,7 @@
   [type.natural]
     en = Natural
     ja = 自然
+    nl = Natuurlijk
     pl = Natura
     pt = Natureza
     pt-BR = Natureza
@@ -12876,6 +12880,7 @@
   [type.natural.bare_rock]
     en = Bare Rock
     ja = 岩肌
+    nl = Kale steen
     pl = Skała macierzysta
     pt = Zona rochosa
     pt-BR = Zona rochosa
@@ -13013,6 +13018,7 @@
   [type.natural.cliff]
     en = Cliff
     ja = 崖
+    nl = Klif
     pl = Klif
     pt = Falésia
     pt-BR = Falésia
@@ -13021,6 +13027,7 @@
   [type.natural.coastline]
     en = Coastline
     ja = 海岸線
+    nl = Kustlijn
     pl = Linia brzegowa
     pt = Linha costeira
     pt-BR = Linha costeira
@@ -13132,6 +13139,7 @@
   [type.natural.heath]
     en = Heath
     ja = ヒース
+    nl = Heide
     pl = Wrzosowisko
     pt = Charneca
     pt-BR = Charneca
@@ -13140,6 +13148,7 @@
   [type.natural.hot_spring]
     en = Hot Spring
     ja = 温泉
+    nl = Heetwaterbron
     pl = Gorące źródło
     pt = Nascente de água quente
     pt-BR = Nascente de água quente
@@ -13181,12 +13190,14 @@
   [type.natural.land]
     en = Land
     ja = 陸地
+    nl = Land
     pt = Campo
     pt-BR = Campo
 
   [type.natural.meadow]
     en = Meadow
     ja = 牧草地
+    nl = Weiland
     pl = Łąka
     pt = Pradaria
     pt-BR = Pradaria
@@ -13194,6 +13205,7 @@
   [type.natural.orchard]
     en = Orchard
     ja = 果樹園
+    nl = Boomgaard
     pl = Sad
     pt = Pomar
     pt-BR = Pomar
@@ -13265,6 +13277,7 @@
   [type.natural.rock]
     en = Rock
     ja = 岩
+    nl = Steen
     pl = Skała
     pt = Rochedo
     pt-BR = Rochedo
@@ -13405,6 +13418,7 @@
   [type.natural.tree_row]
     en = Tree Row
     ja = 並木
+    nl = Bomenrij
     pl = Rząd drzew
     pt = Linha de árvores
     pt-BR = Linha de árvores
@@ -13413,6 +13427,7 @@
   [type.natural.vineyard]
     en = Vineyard
     ja = ブドウ園
+    nl = Wijngaard
     pl = Winnica
     pt = Vinha
     pt-BR = Vinha
@@ -13466,6 +13481,7 @@
     ja = 水地
     ko = 저수지
     nb = Vann
+    nl = Water
     pl = Woda
     pt = Água
     pt-BR = Água
@@ -13517,6 +13533,7 @@
   [type.natural.wetland.bog]
     en = Wetland
     ja = 泥炭地
+    nl = Moeras
     pl = Torfowisko
     pt = Zona úmida
     pt-BR = Zona úmida
@@ -13525,6 +13542,7 @@
   [type.natural.wetland.marsh]
     en = Wetland
     ja = 沼地
+    nl = Moeras
     pl = Moczary
     pt = Zona úmida
     pt-BR = Zona úmida
