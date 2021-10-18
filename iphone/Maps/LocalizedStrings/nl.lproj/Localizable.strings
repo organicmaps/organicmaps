@@ -2455,9 +2455,9 @@
 
 "type.man_made.pier" = "Pier";
 
-"type.man_made.pipeline" = "Pipeline";
+"type.man_made.pipeline" = "Pijpleiding";
 
-"type.man_made.pipeline.overground" = "Overground Pipeline";
+"type.man_made.pipeline.overground" = "Bovengrondse pijpleiding";
 
 "type.man_made.surveillance" = "Bewakingscamera";
 
@@ -2483,9 +2483,9 @@
 
 "type.military.bunker" = "Bunker";
 
-"type.natural" = "Natural";
+"type.natural" = "Natuurlijk";
 
-"type.natural.bare_rock" = "Bare Rock";
+"type.natural.bare_rock" = "Kale steen";
 
 "type.natural.bay" = "Baai";
 
@@ -2495,9 +2495,9 @@
 
 "type.natural.cave_entrance" = "Grot";
 
-"type.natural.cliff" = "Cliff";
+"type.natural.cliff" = "Klif";
 
-"type.natural.coastline" = "Coastline";
+"type.natural.coastline" = "Kustlijn";
 
 "type.natural.geyser" = "Geiser";
 
@@ -2505,23 +2505,23 @@
 
 "type.natural.grassland" = "Veld";
 
-"type.natural.heath" = "Heath";
+"type.natural.heath" = "Heide";
 
-"type.natural.hot_spring" = "Hot Spring";
+"type.natural.hot_spring" = "Heetwaterbron";
 
 "type.natural.water.lake" = "Meer";
 
 "type.natural.land" = "Land";
 
-"type.natural.meadow" = "Meadow";
+"type.natural.meadow" = "Weiland";
 
-"type.natural.orchard" = "Orchard";
+"type.natural.orchard" = "Boomgaard";
 
 "type.natural.peak" = "Top";
 
 "type.natural.water.pond" = "Plas";
 
-"type.natural.rock" = "Rock";
+"type.natural.rock" = "Steen";
 
 "type.natural.scrub" = "Kreupel bos";
 
@@ -2531,9 +2531,9 @@
 
 "type.natural.tree" = "Boom";
 
-"type.natural.tree_row" = "Tree Row";
+"type.natural.tree_row" = "Bomenrij";
 
-"type.natural.vineyard" = "Vineyard";
+"type.natural.vineyard" = "Wijngaard";
 
 "type.natural.volcano" = "Vulkaan";
 
@@ -2541,9 +2541,9 @@
 
 "type.natural.wetland" = "Moerasland";
 
-"type.natural.wetland.bog" = "Wetland";
+"type.natural.wetland.bog" = "Moeras";
 
-"type.natural.wetland.marsh" = "Wetland";
+"type.natural.wetland.marsh" = "Moeras";
 
 "type.noexit" = "noexit";
 
