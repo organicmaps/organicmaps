@@ -12868,6 +12868,13 @@
     zh-Hans = 地堡
     zh-Hant = 地堡
 
+  [type.mountain_pass]
+    en = Mountain Pass
+    be = Перавал
+    it = Passo
+    ru = Перевал
+    uk = Перевал
+
   [type.natural]
     en = Natural
     ja = 自然
@@ -13241,6 +13248,13 @@
     vi = Đỉnh
     zh-Hans = 峰
     zh-Hant = 山峰
+
+  [type.natural.saddle]
+    en = Mountain Saddle
+    be = Седлавіна
+    it = Sella
+    ru = Седловина
+    uk = Сідловина
 
   [type.natural.water.pond]
     en = Pond

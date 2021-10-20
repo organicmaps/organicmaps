@@ -303,8 +303,8 @@ deprecated|deprecated;302;x
 power|generator;303;
 highway|pedestrian|bridge;[highway=pedestrian][bridge?];;name;int_name;304;
 man_made|pipeline|overground;[man_made=pipeline][location=overground];;name;int_name;305;
-deprecated|deprecated;306;x
-deprecated|deprecated;307;x
+natural|saddle;306;
+mountain_pass;[mountain_pass];;name;int_name;307;
 highway|raceway;308;
 highway|primary|tunnel;[highway=primary][tunnel?];;name;int_name;309;
 highway|primary_link|bridge;[highway=primary_link][bridge?];;name;int_name;310;

@@ -74,6 +74,10 @@ node[natural=volcano],
 area[natural=volcano],
 node[natural=peak],
 area[natural=peak],
+node[natural=saddle],
+area[natural=saddle],
+node[mountain_pass],
+area[mountain_pass],
 node[tourism=information],
 node[historic=wayside_shrine],
 area[historic=wayside_shrine],
@@ -639,6 +643,10 @@ node|z11-[waterway=waterfall],
 area|z11-[waterway=waterfall],
 node|z13-[natural=peak],
 area|z13-[natural=peak],
+node|z14-[natural=saddle],
+area|z14-[natural=saddle],
+node|z14-[mountain_pass],
+area|z14-[mountain_pass],
 node|z14-[natural=spring],
 area|z14-[natural=spring],
 node|z14-[natural=hot_spring],
@@ -720,6 +728,13 @@ area|z15-[natural=peak],
 area|z15-[natural=bare_rock],
 area|z15-[natural=rock]
 {icon-image: peakt-m.svg;text-offset: 1;font-size: 10;text-optional: true;}
+
+/* ToDo: Make the same as natural=peak when we will have -s,-m icons */
+node|z14-[natural=saddle],
+area|z14-[natural=saddle],
+node|z14-[mountain_pass],
+area|z14-[mountain_pass],
+{icon-image: mountain-pass.svg;text-offset: 1;font-size: 10;text-optional: true;}
 
 node|z16[leisure=beach_resort],
 area|z16[leisure=beach_resort]
