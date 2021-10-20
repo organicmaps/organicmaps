@@ -12626,6 +12626,18 @@
     pt-BR = Pipeline subterrâneo
     zh-Hans = 地面管道
 
+  [type.man_made.silo]
+    en = Silo
+    be = Сілас
+    ru = Элеватор
+    uk = Силос
+
+  [type.man_made.storage_tank]
+    en = Storage Tank
+    be = Рэзервуар
+    ru = Резервуар
+    uk = Резервуар
+
   [type.man_made.surveillance]
     en = Surveillance Camera
     ar = كاميرا مراقبة
