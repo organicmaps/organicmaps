@@ -298,13 +298,13 @@ mapswithme
 *railway|abandoned|bridge
 *man_made|lighthouse
 *highway|path|demanding_mountain_hiking
-mapswithme
-mapswithme
+*man_made|storage_tank
+*man_made|silo
 *power|generator
 *highway|pedestrian|bridge
 *man_made|pipeline|overground
-mapswithme
-mapswithme
+*natural|saddle
+*mountain_pass
 *highway|raceway
 *highway|primary|tunnel
 *highway|primary_link|bridge

@@ -569,6 +569,8 @@ world  +
         pipeline  +
             overground  -
             {}
+        silo  -
+        storage_tank  -
         surveillance  -
         tower  -
         wastewater_plant  -
@@ -584,6 +586,7 @@ world  +
     military  +
         bunker  -
         {}
+    mountain_pass  -
     natural  +
         bare_rock  -
         bay  -
@@ -603,6 +606,7 @@ world  +
         land  -
         peak  -
         rock  -
+        saddle  -
         scrub  -
         spring  -
         strait  -
