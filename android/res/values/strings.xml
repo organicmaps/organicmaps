@@ -1355,6 +1355,8 @@
 	<string name="type.man_made.pier">Pier</string>
 	<string name="type.man_made.pipeline">Pipeline</string>
 	<string name="type.man_made.pipeline.overground">Overground Pipeline</string>
+	<string name="type.man_made.silo">Silo</string>
+	<string name="type.man_made.storage_tank">Storage Tank</string>
 	<string name="type.man_made.surveillance">Surveillance Camera</string>
 	<string name="type.man_made.tower">Tower</string>
 	<string name="type.man_made.wastewater_plant">Wastewater Plant</string>
@@ -1367,6 +1369,7 @@
 	<string name="type.mapswithme.grid">mapswithme-grid</string>
 	<string name="type.military">Military</string>
 	<string name="type.military.bunker">Bunker</string>
+	<string name="type.mountain_pass">Mountain Pass</string>
 	<string name="type.natural">Natural</string>
 	<string name="type.natural.bare_rock">Bare Rock</string>
 	<string name="type.natural.bay">Bay</string>
@@ -1385,6 +1388,7 @@
 	<string name="type.natural.meadow">Meadow</string>
 	<string name="type.natural.orchard">Orchard</string>
 	<string name="type.natural.peak">Peak</string>
+	<string name="type.natural.saddle">Mountain Saddle</string>
 	<string name="type.natural.water.pond">Pond</string>
 	<string name="type.natural.rock">Rock</string>
 	<string name="type.natural.scrub">Scrub</string>

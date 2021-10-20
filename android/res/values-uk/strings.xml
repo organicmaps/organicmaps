@@ -1198,6 +1198,8 @@
 	<string name="type.leisure.water_park">Аквапарк</string>
 	<string name="type.man_made.chimney">Заводська труба</string>
 	<string name="type.man_made.lighthouse">Маяк</string>
+	<string name="type.man_made.silo">Силос</string>
+	<string name="type.man_made.storage_tank">Резервуар</string>
 	<string name="type.man_made.surveillance">Камера спостереження</string>
 	<string name="type.man_made.tower">Вежа</string>
 	<string name="type.man_made.water_tap">Водопровідний кран</string>
@@ -1205,6 +1207,7 @@
 	<string name="type.man_made.water_well">Криниця</string>
 	<string name="type.man_made.windmill">Вітряк</string>
 	<string name="type.military.bunker">Бункер</string>
+	<string name="type.mountain_pass">Перевал</string>
 	<string name="type.natural.bay">Затока</string>
 	<string name="type.natural.beach">Пляж</string>
 	<string name="type.natural.cape">Мис</string>
@@ -1214,6 +1217,7 @@
 	<string name="type.natural.grassland">Поле</string>
 	<string name="type.natural.water.lake">Озеро</string>
 	<string name="type.natural.peak">Гора</string>
+	<string name="type.natural.saddle">Сідловина</string>
 	<string name="type.natural.water.pond">Ставок</string>
 	<string name="type.natural.scrub">Зарості</string>
 	<string name="type.natural.spring">Джерело</string>

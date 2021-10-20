@@ -2459,6 +2459,10 @@
 
 "type.man_made.pipeline.overground" = "地表のパイプライン";
 
+"type.man_made.silo" = "Silo";
+
+"type.man_made.storage_tank" = "Storage Tank";
+
 "type.man_made.surveillance" = "監視カメラ";
 
 "type.man_made.tower" = "タワー";
@@ -2482,6 +2486,8 @@
 "type.military" = "軍事";
 
 "type.military.bunker" = "掩蔽壕";
+
+"type.mountain_pass" = "Mountain Pass";
 
 "type.natural" = "自然";
 
@@ -2518,6 +2524,8 @@
 "type.natural.orchard" = "果樹園";
 
 "type.natural.peak" = "山頂";
+
+"type.natural.saddle" = "Mountain Saddle";
 
 "type.natural.water.pond" = "池";
 
