@@ -37375,6 +37375,100 @@ cont {
   }
 }
 cont {
+  name: "man_made-silo"
+  element {
+    scale: 16
+    symbol {
+      name: "storage-tank"
+      priority: 16000
+    }
+  }
+  element {
+    scale: 17
+    symbol {
+      name: "storage-tank"
+      priority: 16000
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "storage-tank"
+      priority: 16000
+    }
+    caption {
+      primary {
+        height: 11
+        color: 5592405
+        offset_y: 1
+      }
+      priority: 15000
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "storage-tank"
+      priority: 16000
+    }
+    caption {
+      primary {
+        height: 11
+        color: 5592405
+        offset_y: 1
+      }
+      priority: 15000
+    }
+  }
+}
+cont {
+  name: "man_made-storage_tank"
+  element {
+    scale: 16
+    symbol {
+      name: "storage-tank"
+      priority: 16000
+    }
+  }
+  element {
+    scale: 17
+    symbol {
+      name: "storage-tank"
+      priority: 16000
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "storage-tank"
+      priority: 16000
+    }
+    caption {
+      primary {
+        height: 11
+        color: 5592405
+        offset_y: 1
+      }
+      priority: 15000
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "storage-tank"
+      priority: 16000
+    }
+    caption {
+      primary {
+        height: 11
+        color: 5592405
+        offset_y: 1
+      }
+      priority: 15000
+    }
+  }
+}
+cont {
   name: "man_made-water_tap"
   element {
     scale: 15
@@ -37535,40 +37629,214 @@ cont {
   }
 }
 cont {
-  name: "natural-bare_rock"
+  name: "mountain_pass"
+  element {
+    scale: 14
+    symbol {
+      name: "mountain-pass"
+      priority: 16455
+    }
+    caption {
+      primary {
+        height: 10
+        color: 5592405
+        offset_y: 1
+        is_optional: true
+      }
+      priority: 15455
+    }
+  }
   element {
     scale: 15
     symbol {
-      name: "peakt-m"
-      priority: 16000
+      name: "mountain-pass"
+      priority: 16455
+    }
+    caption {
+      primary {
+        height: 10
+        color: 5592405
+        offset_y: 1
+        is_optional: true
+      }
+      priority: 15455
     }
   }
   element {
     scale: 16
     symbol {
-      name: "peakt-m"
-      priority: 16000
+      name: "mountain-pass"
+      priority: 16455
+    }
+    caption {
+      primary {
+        height: 10
+        color: 5592405
+        offset_y: 1
+        is_optional: true
+      }
+      priority: 15455
     }
   }
   element {
     scale: 17
     symbol {
-      name: "peakt-m"
-      priority: 16000
+      name: "mountain-pass"
+      priority: 16455
+    }
+    caption {
+      primary {
+        height: 10
+        color: 5592405
+        offset_y: 1
+        is_optional: true
+      }
+      priority: 15455
     }
   }
   element {
     scale: 18
     symbol {
-      name: "peakt-m"
-      priority: 16000
+      name: "mountain-pass"
+      priority: 16455
+    }
+    caption {
+      primary {
+        height: 10
+        color: 5592405
+        offset_y: 1
+        is_optional: true
+      }
+      priority: 15455
     }
   }
   element {
     scale: 19
     symbol {
-      name: "peakt-m"
-      priority: 16000
+      name: "mountain-pass"
+      priority: 16455
+    }
+    caption {
+      primary {
+        height: 10
+        color: 5592405
+        offset_y: 1
+        is_optional: true
+      }
+      priority: 15455
+    }
+  }
+}
+cont {
+  name: "natural-bare_rock"
+  element {
+    scale: 12
+    area {
+      color: 15590876
+      priority: -15926
+    }
+  }
+  element {
+    scale: 13
+    area {
+      color: 15590876
+      priority: -15926
+    }
+  }
+  element {
+    scale: 14
+    area {
+      color: 15590876
+      priority: -15926
+    }
+    caption {
+      primary {
+        height: 10
+        color: 5592405
+        offset_y: 1
+        is_optional: true
+      }
+      priority: 15074
+    }
+  }
+  element {
+    scale: 15
+    area {
+      color: 15590876
+      priority: -15926
+    }
+    caption {
+      primary {
+        height: 10
+        color: 5592405
+        offset_y: 1
+        is_optional: true
+      }
+      priority: 15074
+    }
+  }
+  element {
+    scale: 16
+    area {
+      color: 15590876
+      priority: -15926
+    }
+    caption {
+      primary {
+        height: 10
+        color: 5592405
+        offset_y: 1
+        is_optional: true
+      }
+      priority: 15074
+    }
+  }
+  element {
+    scale: 17
+    area {
+      color: 15590876
+      priority: -15926
+    }
+    caption {
+      primary {
+        height: 10
+        color: 5592405
+        offset_y: 1
+        is_optional: true
+      }
+      priority: 15074
+    }
+  }
+  element {
+    scale: 18
+    area {
+      color: 15590876
+      priority: -15926
+    }
+    caption {
+      primary {
+        height: 10
+        color: 5592405
+        offset_y: 1
+        is_optional: true
+      }
+      priority: 15074
+    }
+  }
+  element {
+    scale: 19
+    area {
+      color: 15590876
+      priority: -15926
+    }
+    caption {
+      primary {
+        height: 10
+        color: 5592405
+        offset_y: 1
+        is_optional: true
+      }
+      priority: 15074
     }
   }
 }
@@ -39122,6 +39390,105 @@ cont {
     symbol {
       name: "peakt-m"
       priority: 16000
+    }
+  }
+}
+cont {
+  name: "natural-saddle"
+  element {
+    scale: 14
+    symbol {
+      name: "mountain-pass"
+      priority: 16455
+    }
+    caption {
+      primary {
+        height: 10
+        color: 5592405
+        offset_y: 1
+        is_optional: true
+      }
+      priority: 15455
+    }
+  }
+  element {
+    scale: 15
+    symbol {
+      name: "mountain-pass"
+      priority: 16455
+    }
+    caption {
+      primary {
+        height: 10
+        color: 5592405
+        offset_y: 1
+        is_optional: true
+      }
+      priority: 15455
+    }
+  }
+  element {
+    scale: 16
+    symbol {
+      name: "mountain-pass"
+      priority: 16455
+    }
+    caption {
+      primary {
+        height: 10
+        color: 5592405
+        offset_y: 1
+        is_optional: true
+      }
+      priority: 15455
+    }
+  }
+  element {
+    scale: 17
+    symbol {
+      name: "mountain-pass"
+      priority: 16455
+    }
+    caption {
+      primary {
+        height: 10
+        color: 5592405
+        offset_y: 1
+        is_optional: true
+      }
+      priority: 15455
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "mountain-pass"
+      priority: 16455
+    }
+    caption {
+      primary {
+        height: 10
+        color: 5592405
+        offset_y: 1
+        is_optional: true
+      }
+      priority: 15455
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "mountain-pass"
+      priority: 16455
+    }
+    caption {
+      primary {
+        height: 10
+        color: 5592405
+        offset_y: 1
+        is_optional: true
+      }
+      priority: 15455
     }
   }
 }
