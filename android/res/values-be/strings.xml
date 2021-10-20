@@ -849,4 +849,8 @@
 	<!-- SECTION: Types -->
 	<string name="type.healthcare.laboratory">Медыцынская лабараторыя</string>
 	<string name="type.leisure.picnic_table">Стол для пікніка</string>
+	<string name="type.man_made.silo">Сілас</string>
+	<string name="type.man_made.storage_tank">Рэзервуар</string>
+	<string name="type.mountain_pass">Перавал</string>
+	<string name="type.natural.saddle">Седлавіна</string>
 </resources>

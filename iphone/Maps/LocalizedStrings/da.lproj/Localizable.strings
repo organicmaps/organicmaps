@@ -2459,6 +2459,10 @@
 
 "type.man_made.pipeline.overground" = "Overground Pipeline";
 
+"type.man_made.silo" = "Silo";
+
+"type.man_made.storage_tank" = "Storage Tank";
+
 "type.man_made.surveillance" = "Overvågningskamera";
 
 "type.man_made.tower" = "Tårn";
@@ -2482,6 +2486,8 @@
 "type.military" = "Military";
 
 "type.military.bunker" = "Bunker";
+
+"type.mountain_pass" = "Mountain Pass";
 
 "type.natural" = "Natural";
 
@@ -2518,6 +2524,8 @@
 "type.natural.orchard" = "Orchard";
 
 "type.natural.peak" = "Bjerg";
+
+"type.natural.saddle" = "Mountain Saddle";
 
 "type.natural.water.pond" = "Dam";
 

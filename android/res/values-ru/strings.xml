@@ -1269,6 +1269,8 @@
 	<string name="type.leisure.water_park">Аквапарк</string>
 	<string name="type.man_made.chimney">Заводская труба</string>
 	<string name="type.man_made.lighthouse">Маяк</string>
+	<string name="type.man_made.silo">Элеватор</string>
+	<string name="type.man_made.storage_tank">Резервуар</string>
 	<string name="type.man_made.surveillance">Камера наблюдения</string>
 	<string name="type.man_made.tower">Башня</string>
 	<string name="type.man_made.water_tap">Колонка с водой</string>
@@ -1276,6 +1278,7 @@
 	<string name="type.man_made.water_well">Колодец</string>
 	<string name="type.man_made.windmill">Ветряная мельница</string>
 	<string name="type.military.bunker">Бункер</string>
+	<string name="type.mountain_pass">Перевал</string>
 	<string name="type.natural.bay">Залив</string>
 	<string name="type.natural.beach">Пляж</string>
 	<string name="type.natural.cape">Мыс</string>
@@ -1287,6 +1290,7 @@
 	<string name="type.natural.hot_spring">Горячий источник</string>
 	<string name="type.natural.water.lake">Озеро</string>
 	<string name="type.natural.peak">Гора</string>
+	<string name="type.natural.saddle">Седловина</string>
 	<string name="type.natural.water.pond">Пруд</string>
 	<string name="type.natural.scrub">Заросли</string>
 	<string name="type.natural.spring">Родник</string>

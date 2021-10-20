@@ -1183,6 +1183,7 @@
 	<string name="type.man_made.water_tower">Cisterna per acqua</string>
 	<string name="type.man_made.water_well">Pozzo d\'acqua</string>
 	<string name="type.man_made.windmill">Mulino a vento</string>
+	<string name="type.mountain_pass">Passo</string>
 	<string name="type.natural.bay">Baia</string>
 	<string name="type.natural.beach">Spiaggia</string>
 	<string name="type.natural.cape">Capo</string>
@@ -1192,6 +1193,7 @@
 	<string name="type.natural.grassland">Campo</string>
 	<string name="type.natural.water.lake">Lago</string>
 	<string name="type.natural.peak">Monte</string>
+	<string name="type.natural.saddle">Sella</string>
 	<string name="type.natural.water.pond">Stagno</string>
 	<string name="type.natural.scrub">Boscaglia</string>
 	<string name="type.natural.spring">Sorgente</string>
