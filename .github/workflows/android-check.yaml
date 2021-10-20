@@ -6,7 +6,6 @@ on:
       - .gitignore
       - .github/**
       - '**/*_tests/**'
-      - '**/CMakeLists.txt'
       - CONTRIBUTORS
       - LICENSE
       - NOTICE
