@@ -187,7 +187,8 @@ if (NOT SKIP_TESTS)
 endif()
 
 if (NOT PYTHON_VERSION)
-  set(PYTHON_VERSION 3.8)
+  # FDroid build server has 3.5.3 Python installed.
+  set(PYTHON_VERSION 3.5)
 endif()
 
 # End of setting environment variables
