@@ -52,7 +52,8 @@ enum class Props : uint8_t
   ContactFacebook = 14,
   ContactInstagram = 15,
   ContactTwitter = 16,
-  ContactVk = 17
+  ContactVk = 17,
+  ContactLine = 18
 };
 std::string DebugPrint(Props props);
 
@@ -85,6 +86,7 @@ public:
   std::string GetInstagramPage() const;
   std::string GetTwitterPage() const;
   std::string GetVkPage() const;
+  std::string GetLinePage() const;
   Internet GetInternet() const;
   /// @returns non-localized cuisines keys.
   std::vector<std::string> GetCuisines() const;
@@ -164,6 +166,7 @@ std::vector<Props> MetadataToProps(std::vector<T> const & metadata)
     case Metadata::FMD_CONTACT_INSTAGRAM: res.push_back(Props::ContactInstagram); break;
     case Metadata::FMD_CONTACT_TWITTER: res.push_back(Props::ContactTwitter); break;
     case Metadata::FMD_CONTACT_VK: res.push_back(Props::ContactVk); break;
+    case Metadata::FMD_CONTACT_LINE: res.push_back(Props::ContactLine); break;
     case Metadata::FMD_INTERNET: res.push_back(Props::Internet); break;
     case Metadata::FMD_ELE: res.push_back(Props::Elevation); break;
     case Metadata::FMD_EMAIL: res.push_back(Props::Email); break;

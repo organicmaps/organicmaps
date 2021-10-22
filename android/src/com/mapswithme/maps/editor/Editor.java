@@ -81,6 +81,8 @@ public final class Editor
   public static native void nativeSetTwitterPage(String twitterPage);
   public static native String nativeGetVkPage();
   public static native void nativeSetVkPage(String vkPage);
+  public static native String nativeGetLinePage();
+  public static native void nativeSetLinePage(String vkPage);
   public static native String nativeGetEmail();
   public static native void nativeSetEmail(String email);
   public static native int nativeGetStars();
@@ -127,6 +129,7 @@ public final class Editor
   public static native boolean nativeIsInstagramPageValid(String site);
   public static native boolean nativeIsTwitterPageValid(String site);
   public static native boolean nativeIsVkPageValid(String site);
+  public static native boolean nativeIsLinePageValid(String site);
   public static native boolean nativeIsEmailValid(String email);
   public static native boolean nativeIsNameValid(String name);
 

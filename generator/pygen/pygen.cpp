@@ -349,7 +349,8 @@ BOOST_PYTHON_MODULE(pygen)
         .value("contact_facebook", Metadata::EType::FMD_CONTACT_FACEBOOK)
         .value("contact_instagram", Metadata::EType::FMD_CONTACT_INSTAGRAM)
         .value("contact_twitter", Metadata::EType::FMD_CONTACT_TWITTER)
-        .value("contact_vk", Metadata::EType::FMD_CONTACT_VK);
+        .value("contact_vk", Metadata::EType::FMD_CONTACT_VK)
+        .value("contact_line", Metadata::EType::FMD_CONTACT_LINE);
 
     bp::enum_<GeomType>("GeomType")
         .value("undefined", GeomType::Undefined)
