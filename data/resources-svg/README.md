@@ -8,3 +8,4 @@ Twitter icon is downloaded from https://about.twitter.com/en/who-we-are/brand-to
 
 VK icon is downloaded from https://vk.com/brand
 
+Line logo is downloaded from https://line.me/en/logo
