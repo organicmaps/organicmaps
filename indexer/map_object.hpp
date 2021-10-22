@@ -49,10 +49,10 @@ enum class Props : uint8_t
   Flats = 11,
   BuildingLevels = 12,
   Level = 13,
-  FacebookPage = 14,
-  InstagramPage = 15,
-  TwitterPage = 16,
-  VkPage = 17
+  ContactFacebook = 14,
+  ContactInstagram = 15,
+  ContactTwitter = 16,
+  ContactVk = 17
 };
 std::string DebugPrint(Props props);
 
@@ -160,10 +160,10 @@ std::vector<Props> MetadataToProps(std::vector<T> const & metadata)
     // Url is not used in UI and should be matched to Website.
     case Metadata::FMD_URL:
     case Metadata::FMD_WEBSITE: res.push_back(Props::Website); break;
-    case Metadata::FMD_FACEBOOK_PAGE: res.push_back(Props::FacebookPage); break;
-    case Metadata::FMD_INSTAGRAM_PAGE: res.push_back(Props::InstagramPage); break;
-    case Metadata::FMD_TWITTER_PAGE: res.push_back(Props::TwitterPage); break;
-    case Metadata::FMD_VK_PAGE: res.push_back(Props::VkPage); break;
+    case Metadata::FMD_CONTACT_FACEBOOK: res.push_back(Props::ContactFacebook); break;
+    case Metadata::FMD_CONTACT_INSTAGRAM: res.push_back(Props::ContactInstagram); break;
+    case Metadata::FMD_CONTACT_TWITTER: res.push_back(Props::ContactTwitter); break;
+    case Metadata::FMD_CONTACT_VK: res.push_back(Props::ContactVk); break;
     case Metadata::FMD_INTERNET: res.push_back(Props::Internet); break;
     case Metadata::FMD_ELE: res.push_back(Props::Elevation); break;
     case Metadata::FMD_EMAIL: res.push_back(Props::Email); break;

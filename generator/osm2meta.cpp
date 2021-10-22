@@ -190,7 +190,7 @@ string MetadataTagProcessorImpl::ValidateAndFormat_instagram(string const & inst
 
     const url::Url url = url::Url(instagramPageUrl);
     const string &domain = strings::MakeLowerCase(url.GetWebDomain());
-    // Check Facebook domain name
+    // Check Instagram domain name
     if (domain == "instagram.com" || strings::EndsWith(domain, ".instagram.com"))
     {
       auto webPath = url.GetWebPath();
@@ -227,7 +227,7 @@ string MetadataTagProcessorImpl::ValidateAndFormat_twitter(string const & twitte
 
     const url::Url url = url::Url(twitterPageUrl);
     const string &domain = strings::MakeLowerCase(url.GetWebDomain());
-    // Check Facebook domain name
+    // Check Twitter domain name
     if (domain == "twitter.com" || strings::EndsWith(domain, ".twitter.com"))
     {
       auto webPath = url.GetWebPath();
@@ -277,7 +277,7 @@ string MetadataTagProcessorImpl::ValidateAndFormat_vk(string const & vkPage) con
 
     const url::Url url = url::Url(vkPageUrl);
     const string &domain = strings::MakeLowerCase(url.GetWebDomain());
-    // Check Facebook domain name
+    // Check VK domain name
     if (domain == "vk.com" || strings::EndsWith(domain, ".vk.com") ||
         domain == "vkontakte.ru" || strings::EndsWith(domain, ".vkontakte.ru"))
     {

@@ -75,10 +75,10 @@ public:
     case Metadata::FMD_OPERATOR: valid = ValidateAndFormat_operator(v); break;
     case Metadata::FMD_URL:  // The same validator as for website.
     case Metadata::FMD_WEBSITE: valid = ValidateAndFormat_url(v); break;
-    case Metadata::FMD_FACEBOOK_PAGE: valid = ValidateAndFormat_facebook(v); break;
-    case Metadata::FMD_INSTAGRAM_PAGE: valid = ValidateAndFormat_instagram(v); break;
-    case Metadata::FMD_TWITTER_PAGE: valid = ValidateAndFormat_twitter(v); break;
-    case Metadata::FMD_VK_PAGE: valid = ValidateAndFormat_vk(v); break;
+    case Metadata::FMD_CONTACT_FACEBOOK: valid = ValidateAndFormat_facebook(v); break;
+    case Metadata::FMD_CONTACT_INSTAGRAM: valid = ValidateAndFormat_instagram(v); break;
+    case Metadata::FMD_CONTACT_TWITTER: valid = ValidateAndFormat_twitter(v); break;
+    case Metadata::FMD_CONTACT_VK: valid = ValidateAndFormat_vk(v); break;
     case Metadata::FMD_INTERNET: valid = ValidateAndFormat_internet(v); break;
     case Metadata::FMD_ELE: valid = ValidateAndFormat_ele(v); break;
     case Metadata::FMD_TURN_LANES: valid = ValidateAndFormat_turn_lanes(v); break;

@@ -47,10 +47,10 @@ public class Metadata implements Parcelable
     FMD_AIRPORT_IATA(29),
     FMD_BRAND(30),
     FMD_DURATION(31),
-    FMD_FACEBOOK_PAGE(32),
-    FMD_INSTAGRAM_PAGE(33),
-    FMD_TWITTER_PAGE(34),
-    FMD_VK_PAGE(35);
+    FMD_CONTACT_FACEBOOK(32),
+    FMD_CONTACT_INSTAGRAM(33),
+    FMD_CONTACT_TWITTER(34),
+    FMD_CONTACT_VK(35);
     private final int mMetaType;
 
     MetadataType(int metadataType)
