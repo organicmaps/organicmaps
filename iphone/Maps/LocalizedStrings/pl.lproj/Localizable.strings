@@ -369,6 +369,9 @@
 /* Text in editor */
 "vk" = "VK";
 
+/* Text in editor */
+"line_social_network" = "LINE";
+
 /* Text in menu */
 "openstreetmap" = "OpenStreetMap";
 
@@ -977,6 +980,8 @@
 "error_enter_correct_twitter_page" = "Wprowadź poprawny adres lub nazwę konta na Twitterze";
 
 "error_enter_correct_vk_page" = "Wprowadź poprawny adres lub nazwę konta na VK";
+
+"error_enter_correct_line_page" = "Enter a valid LINE web address or LINE ID";
 
 "refresh" = "Uaktualnić";
 

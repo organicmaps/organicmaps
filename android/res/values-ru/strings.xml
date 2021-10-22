@@ -563,6 +563,7 @@
 	<string name="error_enter_correct_instagram_page">Введите корректный веб-адрес Instagram страницы или имя пользователя</string>
 	<string name="error_enter_correct_twitter_page">Введите корректный веб-адрес Twitter страницы или имя пользователя</string>
 	<string name="error_enter_correct_vk_page">Введите корректный веб-адрес VK страницы или имя пользователя</string>
+	<string name="error_enter_correct_line_page">Введите корректный веб-адрес LINE страницы или LINE ID</string>
 	<string name="refresh">Обновить</string>
 	<string name="placepage_add_place_button">Добавить место на карту</string>
 	<!-- Displayed when saving some edits to the map to warn against publishing personal data -->
