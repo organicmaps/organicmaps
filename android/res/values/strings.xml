@@ -236,6 +236,8 @@
 	<string name="instagram">Instagram</string>
 	<!-- Text in editor -->
 	<string name="vk">VK</string>
+	<!-- Text in editor -->
+	<string name="line_social_network">LINE</string>
 	<!-- Text in menu -->
 	<string name="openstreetmap">OpenStreetMap</string>
 	<!-- Settings: Send feedback button and dialog title -->
@@ -575,6 +577,7 @@
 	<string name="error_enter_correct_instagram_page">Enter a valid Instagram web address or account name</string>
 	<string name="error_enter_correct_twitter_page">Enter a valid Twitter web address or username</string>
 	<string name="error_enter_correct_vk_page">Enter a valid VK web address or account name</string>
+	<string name="error_enter_correct_line_page">Enter a valid LINE web address or LINE ID</string>
 	<string name="refresh">Update</string>
 	<string name="placepage_add_place_button">Add a place to the map</string>
 	<!-- Displayed when saving some edits to the map to warn against publishing personal data -->
