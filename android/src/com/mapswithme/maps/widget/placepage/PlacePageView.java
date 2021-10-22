@@ -117,6 +117,8 @@ public class PlacePageView extends NestedScrollViewClickFixed
   private TextView mTvTwitterPage;
   private View mVkPage;
   private TextView mTvVkPage;
+  private View mLinePage;
+  private TextView mTvLinePage;
 
   private View mOpeningHours;
   private TextView mFullOpeningHours;
@@ -335,6 +337,11 @@ public class PlacePageView extends NestedScrollViewClickFixed
     mVkPage.setOnClickListener(this);
     mVkPage.setOnLongClickListener(this);
     mTvVkPage = findViewById(R.id.tv__place_vk_page);
+
+    mLinePage = findViewById(R.id.ll__place_line);
+    mLinePage.setOnClickListener(this);
+    mLinePage.setOnLongClickListener(this);
+    mTvLinePage = findViewById(R.id.tv__place_line_page);
     LinearLayout latlon = findViewById(R.id.ll__place_latlon);
     latlon.setOnClickListener(this);
     mTvLatlon = findViewById(R.id.tv__place_latlon);
@@ -953,6 +960,8 @@ public class PlacePageView extends NestedScrollViewClickFixed
     refreshSocialPageLink(mTwitterPage, mTvTwitterPage, twitterPageLink, "twitter.com");
     final String vkPageLink = mapObject.getMetadata(Metadata.MetadataType.FMD_CONTACT_VK);
     refreshSocialPageLink(mVkPage, mTvVkPage, vkPageLink, "vk.com");
+    final String linePageLink = mapObject.getMetadata(Metadata.MetadataType.FMD_CONTACT_LINE);
+    refreshLinePageLink(mLinePage, mTvLinePage, linePageLink);
   }
 
   private void refreshSocialPageLink(View view, TextView tvSocialPage, String socialPage, String webDomain)
@@ -966,6 +975,24 @@ public class PlacePageView extends NestedScrollViewClickFixed
       view.setVisibility(VISIBLE);
       if (socialPage.indexOf('/') >= 0)
         tvSocialPage.setText("https://" + webDomain + "/" + socialPage);
+      else
+        tvSocialPage.setText("@" + socialPage);
+    }
+  }
+
+  // Tag `contact:line` could contain urls from domains: line.me, liff.line.me, page.line.me, etc.
+  // And `socialPage` should not be prepended with domain, but only with "https://" protocol
+  private void refreshLinePageLink(View view, TextView tvSocialPage, String socialPage)
+  {
+    if (TextUtils.isEmpty(socialPage))
+    {
+      view.setVisibility(GONE);
+    }
+    else
+    {
+      view.setVisibility(VISIBLE);
+      if (socialPage.indexOf('/') >= 0)
+        tvSocialPage.setText("https://" + socialPage);
       else
         tvSocialPage.setText("@" + socialPage);
     }
@@ -1254,6 +1281,13 @@ public class PlacePageView extends NestedScrollViewClickFixed
         final String vkPage = mMapObject.getMetadata(Metadata.MetadataType.FMD_CONTACT_VK);
         Utils.openUrl(getContext(), "https://vk.com/" + vkPage);
         break;
+      case R.id.ll__place_line:
+        final String linePage = mMapObject.getMetadata(Metadata.MetadataType.FMD_CONTACT_LINE);
+        if (linePage.indexOf('/') >= 0)
+          Utils.openUrl(getContext(), "https://" + linePage);
+        else
+          Utils.openUrl(getContext(), "https://line.me/R/ti/p/@" + linePage);
+        break;
       case R.id.ll__place_wiki:
         // TODO: Refactor and use separate getters for Wiki and all other PP meta info too.
         if (mMapObject == null)
@@ -1328,6 +1362,13 @@ public class PlacePageView extends NestedScrollViewClickFixed
       case R.id.ll__place_vk:
         final String vkPage = mMapObject.getMetadata(Metadata.MetadataType.FMD_CONTACT_VK);
         items.add("https://vk.com/" + vkPage);
+        break;
+      case R.id.ll__place_line:
+        final String linePage = mMapObject.getMetadata(Metadata.MetadataType.FMD_CONTACT_LINE);
+        if (linePage.indexOf('/') >= 0)
+          items.add("https://" + linePage);
+        else
+          items.add("https://line.me/R/ti/p/@" + linePage);
         break;
       case R.id.ll__place_email:
         items.add(mTvEmail.getText().toString());

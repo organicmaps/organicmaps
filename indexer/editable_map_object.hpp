@@ -141,6 +141,7 @@ public:
   void SetInstagramPage(std::string instagramPage);
   void SetTwitterPage(std::string twitterPage);
   void SetVkPage(std::string vkPage);
+  void SetLinePage(std::string linePage);
   void SetWikipedia(std::string const & wikipedia);
 
   void SetInternet(Internet internet);
@@ -176,6 +177,7 @@ public:
   static bool ValidateInstagramPage(std::string const & page);
   static bool ValidateTwitterPage(std::string const & page);
   static bool ValidateVkPage(std::string const & page);
+  static bool ValidateLinePage(std::string const & page);
   static bool ValidateEmail(std::string const & email);
   static bool ValidateLevel(std::string const & level);
   static bool ValidateName(std::string const & name);

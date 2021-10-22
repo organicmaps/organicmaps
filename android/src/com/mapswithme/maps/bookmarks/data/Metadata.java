@@ -50,7 +50,8 @@ public class Metadata implements Parcelable
     FMD_CONTACT_FACEBOOK(32),
     FMD_CONTACT_INSTAGRAM(33),
     FMD_CONTACT_TWITTER(34),
-    FMD_CONTACT_VK(35);
+    FMD_CONTACT_VK(35),
+    FMD_CONTACT_LINE(36);
     private final int mMetaType;
 
     MetadataType(int metadataType)

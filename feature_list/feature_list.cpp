@@ -261,6 +261,7 @@ public:
     string const & contact_instagram = meta.Get(feature::Metadata::FMD_CONTACT_INSTAGRAM);
     string const & contact_twitter = meta.Get(feature::Metadata::FMD_CONTACT_TWITTER);
     string const & contact_vk = meta.Get(feature::Metadata::FMD_CONTACT_VK);
+    string const & contact_line = meta.Get(feature::Metadata::FMD_CONTACT_LINE);
     string cuisine = meta.Get(feature::Metadata::FMD_CUISINE);
     replace(cuisine.begin(), cuisine.end(), ';', ',');
     string const & stars = meta.Get(feature::Metadata::FMD_STARS);
@@ -277,7 +278,7 @@ public:
         osmId,             uid,             lat,           lon,       mwmName, category, name,    city,
         addrStreet,        addrHouse,       phone,         website,   cuisine, stars,    operatr, internet,
         denomination,      wheelchair,      opening_hours, wikipedia, floor,   fee,      atm,     contact_facebook,
-        contact_instagram, contact_twitter, contact_vk};
+        contact_instagram, contact_twitter, contact_vk,    contact_line};
     AppendNames(f, columns);
     PrintAsCSV(columns, ';', cout);
   }
@@ -290,7 +291,7 @@ void PrintHeader()
                             "phone",           "website",      "cuisines",   "stars",            "operator",
                             "internet",        "denomination", "wheelchair", "opening_hours",    "wikipedia",
                             "floor",           "fee",          "atm",        "contact_facebook", "contact_instagram",
-                            "contact_twitter", "contact_vk"};
+                            "contact_twitter", "contact_vk",   "contact_line"};
   // Append all supported name languages in order.
   for (uint8_t idx = 1; idx < kLangCount; idx++)
     columns.push_back("name_" + string(StringUtf8Multilang::GetLangByCode(idx)));

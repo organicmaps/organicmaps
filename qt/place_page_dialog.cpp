@@ -136,6 +136,11 @@ PlacePageDialog::PlacePageDialog(QWidget * parent, place_page::Info const & info
       v = info.GetVkPage();
       link = true;
       break;
+    case osm::Props::ContactLine:
+      k = "LINE";
+      v = info.GetLinePage();
+      link = true;
+      break;
     case osm::Props::Internet:
       k = "Internet";
       v = DebugPrint(info.GetInternet());

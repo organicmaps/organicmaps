@@ -167,6 +167,18 @@ Java_com_mapswithme_maps_editor_Editor_nativeSetVkPage(JNIEnv * env, jclass, jst
 }
 
 JNIEXPORT jstring JNICALL
+Java_com_mapswithme_maps_editor_Editor_nativeGetLinePage(JNIEnv * env, jclass)
+{
+  return jni::ToJavaString(env, g_editableMapObject.GetLinePage());
+}
+
+JNIEXPORT void JNICALL
+Java_com_mapswithme_maps_editor_Editor_nativeSetLinePage(JNIEnv * env, jclass, jstring value)
+{
+  g_editableMapObject.SetLinePage(jni::ToNativeString(env, value));
+}
+
+JNIEXPORT jstring JNICALL
 Java_com_mapswithme_maps_editor_Editor_nativeGetEmail(JNIEnv * env, jclass)
 {
   return jni::ToJavaString(env, g_editableMapObject.GetEmail());
@@ -665,6 +677,13 @@ JNIEXPORT jboolean JNICALL
 Java_com_mapswithme_maps_editor_Editor_nativeIsVkPageValid(JNIEnv * env, jclass, jstring vkPage)
 {
   return osm::EditableMapObject::ValidateVkPage(jni::ToNativeString(env, vkPage));
+}
+
+// static boolean nativeIsLinePageValid(String linePage)
+JNIEXPORT jboolean JNICALL
+Java_com_mapswithme_maps_editor_Editor_nativeIsLinePageValid(JNIEnv * env, jclass, jstring linePage)
+{
+  return osm::EditableMapObject::ValidateLinePage(jni::ToNativeString(env, linePage));
 }
 
 // static boolean nativeIsEmailValid(String email)

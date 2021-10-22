@@ -514,6 +514,11 @@ void EditableMapObject::SetVkPage(string vkPage)
   m_metadata.Set(feature::Metadata::FMD_CONTACT_VK, vkPage);
 }
 
+void EditableMapObject::SetLinePage(string linePage)
+{
+  m_metadata.Set(feature::Metadata::FMD_CONTACT_LINE, linePage);
+}
+
 void EditableMapObject::SetInternet(Internet internet)
 {
   m_metadata.Set(feature::Metadata::FMD_INTERNET, DebugPrint(internet));
@@ -864,6 +869,42 @@ bool EditableMapObject::ValidateVkPage(string const & page)
     string const domain = strings::MakeLowerCase(url::Url::FromString(page).GetWebDomain());
     return domain == "vk.com" || strings::EndsWith(domain, ".vk.com")
         || domain == "vkontakte.ru" || strings::EndsWith(domain, ".vkontakte.ru");
+  }
+
+  return false;
+}
+
+//static
+bool EditableMapObject::ValidateLinePage(string const & page)
+{
+  if (page.empty())
+    return {};
+
+  {
+    /* Check that linePage contains valid page name. Rules took here: https://help.line.me/line/?contentId=10009904
+     * The page name must be between 4 and 20 characters. Should contains alphanumeric characters
+     * and symbols '.', '-', and '_'
+     */
+
+    string linePageClean = page;
+    if (linePageClean.front() == '@')
+      linePageClean = linePageClean.substr(1);
+
+    if (regex_match(linePageClean, regex(R"(^[a-z0-9-_.]{4,20}$)"))) return true;
+  }
+
+  if (EditableMapObject::ValidateWebsite(page))
+  {
+    string linePageUrl = page;
+    // Check if HTTP protocol is present
+    if (!strings::StartsWith(page, "http://") && !strings::StartsWith(page, "https://"))
+      linePageUrl = "https://" + page;
+
+    const url::Url url = url::Url(linePageUrl);
+    const string &domain = strings::MakeLowerCase(url.GetWebDomain());
+    // Check Line domain name
+    if (domain == "line.me" || strings::EndsWith(domain, ".line.me"))
+      return true;
   }
 
   return false;

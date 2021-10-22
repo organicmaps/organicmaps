@@ -59,6 +59,7 @@ string DebugPrint(Props props)
   case osm::Props::ContactInstagram: k = "contact:instagram"; break;
   case osm::Props::ContactTwitter: k = "contact:twitter"; break;
   case osm::Props::ContactVk: k = "contact:vk"; break;
+  case osm::Props::ContactLine: k = "contact:line"; break;
   case osm::Props::Internet: k = "internet_access"; break;
   case osm::Props::Cuisine: k = "cuisine"; break;
   case osm::Props::OpeningHours: k = "opening_hours"; break;
@@ -181,6 +182,11 @@ string MapObject::GetTwitterPage() const
 string MapObject::GetVkPage() const
 {
   return m_metadata.Get(feature::Metadata::FMD_CONTACT_VK);
+}
+
+string MapObject::GetLinePage() const
+{
+  return m_metadata.Get(feature::Metadata::FMD_CONTACT_LINE);
 }
 
 Internet MapObject::GetInternet() const

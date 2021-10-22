@@ -105,6 +105,7 @@ public class EditorFragment extends BaseMwmFragment implements View.OnClickListe
   private EditText mInstagramPage;
   private EditText mTwitterPage;
   private EditText mVkPage;
+  private EditText mLinePage;
   private TextView mCuisine;
   private EditText mOperator;
   private SwitchCompat mWifi;
@@ -118,6 +119,7 @@ public class EditorFragment extends BaseMwmFragment implements View.OnClickListe
   private TextInputLayout mInputInstagramPage;
   private TextInputLayout mInputTwitterPage;
   private TextInputLayout mInputVkPage;
+  private TextInputLayout mInputLinePage;
 
   private View mEmptyOpeningHours;
   private TextView mOpeningHours;
@@ -239,6 +241,16 @@ public class EditorFragment extends BaseMwmFragment implements View.OnClickListe
       }
     });
 
+    mLinePage.setText(Editor.nativeGetLinePage());
+    mLinePage.addTextChangedListener(new StringUtils.SimpleTextWatcher()
+    {
+      @Override
+      public void onTextChanged(CharSequence s, int start, int before, int count)
+      {
+        UiUtils.setInputError(mInputLinePage, Editor.nativeIsLinePageValid(s.toString()) ? 0 : R.string.error_enter_correct_line_page);
+      }
+    });
+
     mCuisine.setText(Editor.nativeGetFormattedCuisine());
     mOperator.setText(Editor.nativeGetOperator());
     mWifi.setChecked(Editor.nativeHasWifi());
@@ -268,6 +280,7 @@ public class EditorFragment extends BaseMwmFragment implements View.OnClickListe
     Editor.nativeSetInstagramPage(mInstagramPage.getText().toString());
     Editor.nativeSetTwitterPage(mTwitterPage.getText().toString());
     Editor.nativeSetVkPage(mVkPage.getText().toString());
+    Editor.nativeSetLinePage(mLinePage.getText().toString());
     Editor.nativeSetHasWifi(mWifi.isChecked());
     Editor.nativeSetOperator(mOperator.getText().toString());
     Editor.nativeSetNames(mParent.getNamesAsArray());
@@ -353,6 +366,13 @@ public class EditorFragment extends BaseMwmFragment implements View.OnClickListe
     {
       mVkPage.requestFocus();
       InputUtils.showKeyboard(mVkPage);
+      return false;
+    }
+
+    if (!Editor.nativeIsLinePageValid(mLinePage.getText().toString()))
+    {
+      mLinePage.requestFocus();
+      InputUtils.showKeyboard(mLinePage);
       return false;
     }
 
@@ -536,6 +556,11 @@ public class EditorFragment extends BaseMwmFragment implements View.OnClickListe
     mVkPage = findInputAndInitBlock(blockVkPage, R.drawable.ic_vk_white, R.string.vk);
     mVkPage.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_URI);
     mInputVkPage = blockVkPage.findViewById(R.id.custom_input);
+
+    View blockLinePage = view.findViewById(R.id.block_line);
+    mLinePage = findInputAndInitBlock(blockLinePage, R.drawable.ic_line_white, R.string.line_social_network);
+    mLinePage.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_URI);
+    mInputLinePage = blockLinePage.findViewById(R.id.custom_input);
 
     View blockCuisine = view.findViewById(R.id.block_cuisine);
     blockCuisine.setOnClickListener(this);

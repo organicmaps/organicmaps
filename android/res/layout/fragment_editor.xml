@@ -186,6 +186,9 @@
           android:id="@+id/block_vk"
           layout="@layout/item_editor_input"/>
         <include
+          android:id="@+id/block_line"
+          layout="@layout/item_editor_input"/>
+        <include
           android:id="@+id/block_operator"
           layout="@layout/item_editor_input"/>
         <RelativeLayout

@@ -79,6 +79,8 @@ bool Metadata::TypeFromString(string const & k, Metadata::EType & outType)
     outType = Metadata::FMD_CONTACT_TWITTER;
   else if (k == "vk" || k == "contact:vk")
     outType = Metadata::FMD_CONTACT_VK;
+  else if (k == "contact:line")
+    outType = Metadata::FMD_CONTACT_LINE;
   else if (k == "internet_access" || k == "wifi")
     outType = Metadata::FMD_INTERNET;
   else if (k == "ele")
@@ -195,6 +197,7 @@ string ToString(Metadata::EType type)
   case Metadata::FMD_CONTACT_INSTAGRAM: return "contact:instagram";
   case Metadata::FMD_CONTACT_TWITTER: return "contact:twitter";
   case Metadata::FMD_CONTACT_VK: return "contact:vk";
+  case Metadata::FMD_CONTACT_LINE: return "contact:line";
   case Metadata::FMD_INTERNET: return "internet_access";
   case Metadata::FMD_ELE: return "ele";
   case Metadata::FMD_TURN_LANES: return "turn:lanes";

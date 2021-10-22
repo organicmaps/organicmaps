@@ -16,6 +16,7 @@ struct MetadataTagProcessorImpl
   std::string ValidateAndFormat_instagram(std::string const & v) const;
   std::string ValidateAndFormat_twitter(std::string const & v) const;
   std::string ValidateAndFormat_vk(std::string const & v) const;
+  std::string ValidateAndFormat_contactLine(std::string const & v) const;
   std::string ValidateAndFormat_phone(std::string const & v) const;
   std::string ValidateAndFormat_opening_hours(std::string const & v) const;
   std::string ValidateAndFormat_ele(std::string const & v) const;
@@ -79,6 +80,7 @@ public:
     case Metadata::FMD_CONTACT_INSTAGRAM: valid = ValidateAndFormat_instagram(v); break;
     case Metadata::FMD_CONTACT_TWITTER: valid = ValidateAndFormat_twitter(v); break;
     case Metadata::FMD_CONTACT_VK: valid = ValidateAndFormat_vk(v); break;
+    case Metadata::FMD_CONTACT_LINE: valid = ValidateAndFormat_contactLine(v); break;
     case Metadata::FMD_INTERNET: valid = ValidateAndFormat_internet(v); break;
     case Metadata::FMD_ELE: valid = ValidateAndFormat_ele(v); break;
     case Metadata::FMD_TURN_LANES: valid = ValidateAndFormat_turn_lanes(v); break;
