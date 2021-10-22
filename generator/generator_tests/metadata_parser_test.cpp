@@ -282,32 +282,32 @@ UNIT_CLASS_TEST(TestWithClassificator, ValidateAndFormat_facebook)
   TEST(md.Empty(), ());
 
   p("contact:facebook", "osm.us");
-  TEST_EQUAL(md.Get(Metadata::FMD_FACEBOOK_PAGE), "osm.us", ());
-  md.Drop(Metadata::FMD_FACEBOOK_PAGE);
+  TEST_EQUAL(md.Get(Metadata::FMD_CONTACT_FACEBOOK), "osm.us", ());
+  md.Drop(Metadata::FMD_CONTACT_FACEBOOK);
 
   p("contact:facebook", "@vtbgroup");
-  TEST_EQUAL(md.Get(Metadata::FMD_FACEBOOK_PAGE), "vtbgroup", ());
-  md.Drop(Metadata::FMD_FACEBOOK_PAGE);
+  TEST_EQUAL(md.Get(Metadata::FMD_CONTACT_FACEBOOK), "vtbgroup", ());
+  md.Drop(Metadata::FMD_CONTACT_FACEBOOK);
 
   p("contact:facebook", "https://www.facebook.com/pyaterochka");
-  TEST_EQUAL(md.Get(Metadata::FMD_FACEBOOK_PAGE), "pyaterochka", ());
-  md.Drop(Metadata::FMD_FACEBOOK_PAGE);
+  TEST_EQUAL(md.Get(Metadata::FMD_CONTACT_FACEBOOK), "pyaterochka", ());
+  md.Drop(Metadata::FMD_CONTACT_FACEBOOK);
 
   p("contact:facebook", "facebook.de/mcdonaldsbonn/");
-  TEST_EQUAL(md.Get(Metadata::FMD_FACEBOOK_PAGE), "mcdonaldsbonn", ());
-  md.Drop(Metadata::FMD_FACEBOOK_PAGE);
+  TEST_EQUAL(md.Get(Metadata::FMD_CONTACT_FACEBOOK), "mcdonaldsbonn", ());
+  md.Drop(Metadata::FMD_CONTACT_FACEBOOK);
 
   p("contact:facebook", "https://facebook.com/238702340219158/posts/284664265622965");
-  TEST_EQUAL(md.Get(Metadata::FMD_FACEBOOK_PAGE), "238702340219158/posts/284664265622965", ());
-  md.Drop(Metadata::FMD_FACEBOOK_PAGE);
+  TEST_EQUAL(md.Get(Metadata::FMD_CONTACT_FACEBOOK), "238702340219158/posts/284664265622965", ());
+  md.Drop(Metadata::FMD_CONTACT_FACEBOOK);
 
   p("contact:facebook", "https://facebook.com/238702340219158/posts/284664265622965");
-  TEST_EQUAL(md.Get(Metadata::FMD_FACEBOOK_PAGE), "238702340219158/posts/284664265622965", ());
-  md.Drop(Metadata::FMD_FACEBOOK_PAGE);
+  TEST_EQUAL(md.Get(Metadata::FMD_CONTACT_FACEBOOK), "238702340219158/posts/284664265622965", ());
+  md.Drop(Metadata::FMD_CONTACT_FACEBOOK);
 
   p("contact:facebook", "https://fr-fr.facebook.com/people/Paillote-Lgm/100012630853826/");
-  TEST_EQUAL(md.Get(Metadata::FMD_FACEBOOK_PAGE), "people/Paillote-Lgm/100012630853826", ());
-  md.Drop(Metadata::FMD_FACEBOOK_PAGE);
+  TEST_EQUAL(md.Get(Metadata::FMD_CONTACT_FACEBOOK), "people/Paillote-Lgm/100012630853826", ());
+  md.Drop(Metadata::FMD_CONTACT_FACEBOOK);
 
   p("contact:facebook", "https://www.sandwichparlour.com.au/");
   TEST(md.Empty(), ());
@@ -323,40 +323,40 @@ UNIT_CLASS_TEST(TestWithClassificator, ValidateAndFormat_instagram)
   TEST(md.Empty(), ());
 
   p("contact:instagram", "instagram.com/openstreetmapus");
-  TEST_EQUAL(md.Get(Metadata::FMD_INSTAGRAM_PAGE), "openstreetmapus", ());
-  md.Drop(Metadata::FMD_INSTAGRAM_PAGE);
+  TEST_EQUAL(md.Get(Metadata::FMD_CONTACT_INSTAGRAM), "openstreetmapus", ());
+  md.Drop(Metadata::FMD_CONTACT_INSTAGRAM);
 
   p("contact:instagram", "www.instagram.com/openstreetmapus");
-  TEST_EQUAL(md.Get(Metadata::FMD_INSTAGRAM_PAGE), "openstreetmapus", ());
-  md.Drop(Metadata::FMD_INSTAGRAM_PAGE);
+  TEST_EQUAL(md.Get(Metadata::FMD_CONTACT_INSTAGRAM), "openstreetmapus", ());
+  md.Drop(Metadata::FMD_CONTACT_INSTAGRAM);
 
   p("contact:instagram", "https://instagram.com/openstreetmapus");
-  TEST_EQUAL(md.Get(Metadata::FMD_INSTAGRAM_PAGE), "openstreetmapus", ());
-  md.Drop(Metadata::FMD_INSTAGRAM_PAGE);
+  TEST_EQUAL(md.Get(Metadata::FMD_CONTACT_INSTAGRAM), "openstreetmapus", ());
+  md.Drop(Metadata::FMD_CONTACT_INSTAGRAM);
 
   p("contact:instagram", "https://en-us.instagram.com/openstreetmapus/");
-  TEST_EQUAL(md.Get(Metadata::FMD_INSTAGRAM_PAGE), "openstreetmapus", ());
-  md.Drop(Metadata::FMD_INSTAGRAM_PAGE);
+  TEST_EQUAL(md.Get(Metadata::FMD_CONTACT_INSTAGRAM), "openstreetmapus", ());
+  md.Drop(Metadata::FMD_CONTACT_INSTAGRAM);
 
   p("contact:instagram", "@open.street.map.us");
-  TEST_EQUAL(md.Get(Metadata::FMD_INSTAGRAM_PAGE), "open.street.map.us", ());
-  md.Drop(Metadata::FMD_INSTAGRAM_PAGE);
+  TEST_EQUAL(md.Get(Metadata::FMD_CONTACT_INSTAGRAM), "open.street.map.us", ());
+  md.Drop(Metadata::FMD_CONTACT_INSTAGRAM);
 
   p("contact:instagram", "_osm_");
-  TEST_EQUAL(md.Get(Metadata::FMD_INSTAGRAM_PAGE), "_osm_", ());
-  md.Drop(Metadata::FMD_INSTAGRAM_PAGE);
+  TEST_EQUAL(md.Get(Metadata::FMD_CONTACT_INSTAGRAM), "_osm_", ());
+  md.Drop(Metadata::FMD_CONTACT_INSTAGRAM);
 
   p("contact:instagram", "https://www.instagram.com/explore/locations/358536820/trivium-sport-en-dance/");
-  TEST_EQUAL(md.Get(Metadata::FMD_INSTAGRAM_PAGE), "explore/locations/358536820/trivium-sport-en-dance", ());
-  md.Drop(Metadata::FMD_INSTAGRAM_PAGE);
+  TEST_EQUAL(md.Get(Metadata::FMD_CONTACT_INSTAGRAM), "explore/locations/358536820/trivium-sport-en-dance", ());
+  md.Drop(Metadata::FMD_CONTACT_INSTAGRAM);
 
   p("contact:instagram", "https://www.instagram.com/explore/tags/boojum/");
-  TEST_EQUAL(md.Get(Metadata::FMD_INSTAGRAM_PAGE), "explore/tags/boojum", ());
-  md.Drop(Metadata::FMD_INSTAGRAM_PAGE);
+  TEST_EQUAL(md.Get(Metadata::FMD_CONTACT_INSTAGRAM), "explore/tags/boojum", ());
+  md.Drop(Metadata::FMD_CONTACT_INSTAGRAM);
 
   p("contact:instagram", "https://www.instagram.com/p/BvkgKZNDbqN");
-  TEST_EQUAL(md.Get(Metadata::FMD_INSTAGRAM_PAGE), "p/BvkgKZNDbqN", ());
-  md.Drop(Metadata::FMD_INSTAGRAM_PAGE);
+  TEST_EQUAL(md.Get(Metadata::FMD_CONTACT_INSTAGRAM), "p/BvkgKZNDbqN", ());
+  md.Drop(Metadata::FMD_CONTACT_INSTAGRAM);
 
   p("contact:instagram", "dharampura road");
   TEST(md.Empty(), ());
@@ -378,28 +378,28 @@ UNIT_CLASS_TEST(TestWithClassificator, ValidateAndFormat_twitter)
   TEST(md.Empty(), ());
 
   p("contact:twitter", "https://twitter.com/hashtag/sotanosiete");
-  TEST_EQUAL(md.Get(Metadata::FMD_TWITTER_PAGE), "hashtag/sotanosiete", ());
-  md.Drop(Metadata::FMD_TWITTER_PAGE);
+  TEST_EQUAL(md.Get(Metadata::FMD_CONTACT_TWITTER), "hashtag/sotanosiete", ());
+  md.Drop(Metadata::FMD_CONTACT_TWITTER);
 
   p("contact:twitter", "twitter.com/osm_tech");
-  TEST_EQUAL(md.Get(Metadata::FMD_TWITTER_PAGE), "osm_tech", ());
-  md.Drop(Metadata::FMD_TWITTER_PAGE);
+  TEST_EQUAL(md.Get(Metadata::FMD_CONTACT_TWITTER), "osm_tech", ());
+  md.Drop(Metadata::FMD_CONTACT_TWITTER);
 
   p("contact:twitter", "http://twitter.com/osm_tech");
-  TEST_EQUAL(md.Get(Metadata::FMD_TWITTER_PAGE), "osm_tech", ());
-  md.Drop(Metadata::FMD_TWITTER_PAGE);
+  TEST_EQUAL(md.Get(Metadata::FMD_CONTACT_TWITTER), "osm_tech", ());
+  md.Drop(Metadata::FMD_CONTACT_TWITTER);
 
   p("contact:twitter", "https://twitter.com/osm_tech");
-  TEST_EQUAL(md.Get(Metadata::FMD_TWITTER_PAGE), "osm_tech", ());
-  md.Drop(Metadata::FMD_TWITTER_PAGE);
+  TEST_EQUAL(md.Get(Metadata::FMD_CONTACT_TWITTER), "osm_tech", ());
+  md.Drop(Metadata::FMD_CONTACT_TWITTER);
 
   p("contact:twitter", "osm_tech");
-  TEST_EQUAL(md.Get(Metadata::FMD_TWITTER_PAGE), "osm_tech", ());
-  md.Drop(Metadata::FMD_TWITTER_PAGE);
+  TEST_EQUAL(md.Get(Metadata::FMD_CONTACT_TWITTER), "osm_tech", ());
+  md.Drop(Metadata::FMD_CONTACT_TWITTER);
 
   p("contact:twitter", "@the_osm_tech");
-  TEST_EQUAL(md.Get(Metadata::FMD_TWITTER_PAGE), "the_osm_tech", ());
-  md.Drop(Metadata::FMD_TWITTER_PAGE);
+  TEST_EQUAL(md.Get(Metadata::FMD_CONTACT_TWITTER), "the_osm_tech", ());
+  md.Drop(Metadata::FMD_CONTACT_TWITTER);
 
   p("contact:twitter", "dharampura road");
   TEST(md.Empty(), ());
@@ -424,32 +424,32 @@ UNIT_CLASS_TEST(TestWithClassificator, ValidateAndFormat_vk)
   TEST(md.Empty(), ());
 
   p("contact:vk", "vk.com/osm63ru");
-  TEST_EQUAL(md.Get(Metadata::FMD_VK_PAGE), "osm63ru", ());
-  md.Drop(Metadata::FMD_VK_PAGE);
+  TEST_EQUAL(md.Get(Metadata::FMD_CONTACT_VK), "osm63ru", ());
+  md.Drop(Metadata::FMD_CONTACT_VK);
 
   p("contact:vk", "www.vk.com/osm63ru");
-  TEST_EQUAL(md.Get(Metadata::FMD_VK_PAGE), "osm63ru", ());
+  TEST_EQUAL(md.Get(Metadata::FMD_CONTACT_VK), "osm63ru", ());
   md.Drop(Metadata::FMD_OPERATOR);
 
   p("contact:vk", "http://vk.com/osm63ru");
-  TEST_EQUAL(md.Get(Metadata::FMD_VK_PAGE), "osm63ru", ());
-  md.Drop(Metadata::FMD_VK_PAGE);
+  TEST_EQUAL(md.Get(Metadata::FMD_CONTACT_VK), "osm63ru", ());
+  md.Drop(Metadata::FMD_CONTACT_VK);
 
   p("contact:vk", "https://vk.com/osm63ru");
-  TEST_EQUAL(md.Get(Metadata::FMD_VK_PAGE), "osm63ru", ());
-  md.Drop(Metadata::FMD_VK_PAGE);
+  TEST_EQUAL(md.Get(Metadata::FMD_CONTACT_VK), "osm63ru", ());
+  md.Drop(Metadata::FMD_CONTACT_VK);
 
   p("contact:vk", "https://www.vk.com/osm63ru");
-  TEST_EQUAL(md.Get(Metadata::FMD_VK_PAGE), "osm63ru", ());
-  md.Drop(Metadata::FMD_VK_PAGE);
+  TEST_EQUAL(md.Get(Metadata::FMD_CONTACT_VK), "osm63ru", ());
+  md.Drop(Metadata::FMD_CONTACT_VK);
 
   p("contact:vk", "osm63ru");
-  TEST_EQUAL(md.Get(Metadata::FMD_VK_PAGE), "osm63ru", ());
-  md.Drop(Metadata::FMD_VK_PAGE);
+  TEST_EQUAL(md.Get(Metadata::FMD_CONTACT_VK), "osm63ru", ());
+  md.Drop(Metadata::FMD_CONTACT_VK);
 
   p("contact:vk", "@osm63ru");
-  TEST_EQUAL(md.Get(Metadata::FMD_VK_PAGE), "osm63ru", ());
-  md.Drop(Metadata::FMD_VK_PAGE);
+  TEST_EQUAL(md.Get(Metadata::FMD_CONTACT_VK), "osm63ru", ());
+  md.Drop(Metadata::FMD_CONTACT_VK);
 
   p("contact:vk", "@_invalid_underscores_");
   TEST(md.Empty(), ());

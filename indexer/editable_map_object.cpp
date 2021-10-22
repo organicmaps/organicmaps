@@ -496,22 +496,22 @@ void EditableMapObject::SetWebsite(string website)
 
 void EditableMapObject::SetFacebookPage(string facebookPage)
 {
-  m_metadata.Set(feature::Metadata::FMD_FACEBOOK_PAGE, facebookPage);
+  m_metadata.Set(feature::Metadata::FMD_CONTACT_FACEBOOK, facebookPage);
 }
 
 void EditableMapObject::SetInstagramPage(string instagramPage)
 {
-  m_metadata.Set(feature::Metadata::FMD_INSTAGRAM_PAGE, instagramPage);
+  m_metadata.Set(feature::Metadata::FMD_CONTACT_INSTAGRAM, instagramPage);
 }
 
 void EditableMapObject::SetTwitterPage(string twitterPage)
 {
-  m_metadata.Set(feature::Metadata::FMD_TWITTER_PAGE, twitterPage);
+  m_metadata.Set(feature::Metadata::FMD_CONTACT_TWITTER, twitterPage);
 }
 
 void EditableMapObject::SetVkPage(string vkPage)
 {
-  m_metadata.Set(feature::Metadata::FMD_VK_PAGE, vkPage);
+  m_metadata.Set(feature::Metadata::FMD_CONTACT_VK, vkPage);
 }
 
 void EditableMapObject::SetInternet(Internet internet)
@@ -827,7 +827,7 @@ bool EditableMapObject::ValidateTwitterPage(string const & page)
 }
 
 //static
-bool EditableMapObject::ValidateVkPage(string page)
+bool EditableMapObject::ValidateVkPage(string const & page)
 {
   if (page.empty())
     return true;
@@ -844,17 +844,18 @@ bool EditableMapObject::ValidateVkPage(string page)
     if (page.size() < 5)
       return false;
 
-    if (page.front() == '@')
-      page = page.substr(1);
-    if (page.front() == '_' && page.back() == '_')
+    string vkLogin = page;
+    if (vkLogin.front() == '@')
+      vkLogin = vkLogin.substr(1);
+    if (vkLogin.front() == '_' && vkLogin.back() == '_')
       return false;
 
     static auto const s_badVkRegex = regex(R"(^\d\d\d.+$)");
-    if (regex_match(page, s_badVkRegex))
+    if (regex_match(vkLogin, s_badVkRegex))
       return false;
 
     static auto const s_goodVkRegex = regex(R"(^[A-Za-z0-9_.]{5,32}$)");
-    if (regex_match(page, s_goodVkRegex))
+    if (regex_match(vkLogin, s_goodVkRegex))
       return true;
   }
 

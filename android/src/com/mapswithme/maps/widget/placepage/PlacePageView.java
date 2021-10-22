@@ -945,13 +945,13 @@ public class PlacePageView extends NestedScrollViewClickFixed
 
   private void refreshSocialLinks(@NonNull MapObject mapObject)
   {
-    final String facebookPageLink = mapObject.getMetadata(Metadata.MetadataType.FMD_FACEBOOK_PAGE);
+    final String facebookPageLink = mapObject.getMetadata(Metadata.MetadataType.FMD_CONTACT_FACEBOOK);
     refreshSocialPageLink(mFacebookPage, mTvFacebookPage, facebookPageLink, "facebook.com");
-    final String instagramPageLink = mapObject.getMetadata(Metadata.MetadataType.FMD_INSTAGRAM_PAGE);
+    final String instagramPageLink = mapObject.getMetadata(Metadata.MetadataType.FMD_CONTACT_INSTAGRAM);
     refreshSocialPageLink(mInstagramPage, mTvInstagramPage, instagramPageLink, "instagram.com");
-    final String twitterPageLink = mapObject.getMetadata(Metadata.MetadataType.FMD_TWITTER_PAGE);
+    final String twitterPageLink = mapObject.getMetadata(Metadata.MetadataType.FMD_CONTACT_TWITTER);
     refreshSocialPageLink(mTwitterPage, mTvTwitterPage, twitterPageLink, "twitter.com");
-    final String vkPageLink = mapObject.getMetadata(Metadata.MetadataType.FMD_VK_PAGE);
+    final String vkPageLink = mapObject.getMetadata(Metadata.MetadataType.FMD_CONTACT_VK);
     refreshSocialPageLink(mVkPage, mTvVkPage, vkPageLink, "vk.com");
   }
 
@@ -1239,19 +1239,19 @@ public class PlacePageView extends NestedScrollViewClickFixed
         Utils.openUrl(getContext(), mTvWebsite.getText().toString());
         break;
       case R.id.ll__place_facebook:
-        final String facebookPage = mMapObject.getMetadata(Metadata.MetadataType.FMD_FACEBOOK_PAGE);
+        final String facebookPage = mMapObject.getMetadata(Metadata.MetadataType.FMD_CONTACT_FACEBOOK);
         Utils.openUrl(getContext(), "https://m.facebook.com/"+facebookPage);
         break;
       case R.id.ll__place_instagram:
-        final String instagramPage = mMapObject.getMetadata(Metadata.MetadataType.FMD_INSTAGRAM_PAGE);
+        final String instagramPage = mMapObject.getMetadata(Metadata.MetadataType.FMD_CONTACT_INSTAGRAM);
         Utils.openUrl(getContext(), "https://instagram.com/"+instagramPage);
         break;
       case R.id.ll__place_twitter:
-        final String twitterPage = mMapObject.getMetadata(Metadata.MetadataType.FMD_TWITTER_PAGE);
+        final String twitterPage = mMapObject.getMetadata(Metadata.MetadataType.FMD_CONTACT_TWITTER);
         Utils.openUrl(getContext(), "https://mobile.twitter.com/"+twitterPage);
         break;
       case R.id.ll__place_vk:
-        final String vkPage = mMapObject.getMetadata(Metadata.MetadataType.FMD_VK_PAGE);
+        final String vkPage = mMapObject.getMetadata(Metadata.MetadataType.FMD_CONTACT_VK);
         Utils.openUrl(getContext(), "https://vk.com/" + vkPage);
         break;
       case R.id.ll__place_wiki:
@@ -1314,19 +1314,19 @@ public class PlacePageView extends NestedScrollViewClickFixed
         items.add(mTvWebsite.getText().toString());
         break;
       case R.id.ll__place_facebook:
-        final String facebookPage = mMapObject.getMetadata(Metadata.MetadataType.FMD_FACEBOOK_PAGE);
+        final String facebookPage = mMapObject.getMetadata(Metadata.MetadataType.FMD_CONTACT_FACEBOOK);
         items.add("https://m.facebook.com/" + facebookPage);
         break;
       case R.id.ll__place_instagram:
-        final String instagramPage = mMapObject.getMetadata(Metadata.MetadataType.FMD_INSTAGRAM_PAGE);
+        final String instagramPage = mMapObject.getMetadata(Metadata.MetadataType.FMD_CONTACT_INSTAGRAM);
         items.add("https://instagram.com/" + instagramPage);
         break;
       case R.id.ll__place_twitter:
-        final String twitterPage = mMapObject.getMetadata(Metadata.MetadataType.FMD_TWITTER_PAGE);
+        final String twitterPage = mMapObject.getMetadata(Metadata.MetadataType.FMD_CONTACT_TWITTER);
         items.add("https://mobile.twitter.com/" + twitterPage);
         break;
       case R.id.ll__place_vk:
-        final String vkPage = mMapObject.getMetadata(Metadata.MetadataType.FMD_VK_PAGE);
+        final String vkPage = mMapObject.getMetadata(Metadata.MetadataType.FMD_CONTACT_VK);
         items.add("https://vk.com/" + vkPage);
         break;
       case R.id.ll__place_email:

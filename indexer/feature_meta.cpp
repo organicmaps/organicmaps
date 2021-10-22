@@ -72,13 +72,13 @@ bool Metadata::TypeFromString(string const & k, Metadata::EType & outType)
   else if (k == "website" || k == "contact:website")
     outType = Metadata::FMD_WEBSITE;
   else if (k == "facebook" || k == "contact:facebook")
-    outType = Metadata::FMD_FACEBOOK_PAGE;
+    outType = Metadata::FMD_CONTACT_FACEBOOK;
   else if (k == "instagram" || k == "contact:instagram")
-    outType = Metadata::FMD_INSTAGRAM_PAGE;
+    outType = Metadata::FMD_CONTACT_INSTAGRAM;
   else if (k == "twitter" || k == "contact:twitter")
-    outType = Metadata::FMD_TWITTER_PAGE;
+    outType = Metadata::FMD_CONTACT_TWITTER;
   else if (k == "vk" || k == "contact:vk")
-    outType = Metadata::FMD_VK_PAGE;
+    outType = Metadata::FMD_CONTACT_VK;
   else if (k == "internet_access" || k == "wifi")
     outType = Metadata::FMD_INTERNET;
   else if (k == "ele")
@@ -191,10 +191,10 @@ string ToString(Metadata::EType type)
   case Metadata::FMD_OPERATOR: return "operator";
   case Metadata::FMD_URL: return "url";
   case Metadata::FMD_WEBSITE: return "website";
-  case Metadata::FMD_FACEBOOK_PAGE: return "contact:facebook";
-  case Metadata::FMD_INSTAGRAM_PAGE: return "contact:instagram";
-  case Metadata::FMD_TWITTER_PAGE: return "contact:twitter";
-  case Metadata::FMD_VK_PAGE: return "contact:vk";
+  case Metadata::FMD_CONTACT_FACEBOOK: return "contact:facebook";
+  case Metadata::FMD_CONTACT_INSTAGRAM: return "contact:instagram";
+  case Metadata::FMD_CONTACT_TWITTER: return "contact:twitter";
+  case Metadata::FMD_CONTACT_VK: return "contact:vk";
   case Metadata::FMD_INTERNET: return "internet_access";
   case Metadata::FMD_ELE: return "ele";
   case Metadata::FMD_TURN_LANES: return "turn:lanes";

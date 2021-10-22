@@ -55,10 +55,10 @@ string DebugPrint(Props props)
   case osm::Props::Fax: k = "fax"; break;
   case osm::Props::Email: k = "email"; break;
   case osm::Props::Website: k = "website"; break;
-  case osm::Props::FacebookPage: k = "contact:facebook"; break;
-  case osm::Props::InstagramPage: k = "contact:instagram"; break;
-  case osm::Props::TwitterPage: k = "contact:twitter"; break;
-  case osm::Props::VkPage: k = "contact:vk"; break;
+  case osm::Props::ContactFacebook: k = "contact:facebook"; break;
+  case osm::Props::ContactInstagram: k = "contact:instagram"; break;
+  case osm::Props::ContactTwitter: k = "contact:twitter"; break;
+  case osm::Props::ContactVk: k = "contact:vk"; break;
   case osm::Props::Internet: k = "internet_access"; break;
   case osm::Props::Cuisine: k = "cuisine"; break;
   case osm::Props::OpeningHours: k = "opening_hours"; break;
@@ -165,22 +165,22 @@ string MapObject::GetWebsite() const
 
 string MapObject::GetFacebookPage() const
 {
-  return m_metadata.Get(feature::Metadata::FMD_FACEBOOK_PAGE);
+  return m_metadata.Get(feature::Metadata::FMD_CONTACT_FACEBOOK);
 }
 
 string MapObject::GetInstagramPage() const
 {
-  return m_metadata.Get(feature::Metadata::FMD_INSTAGRAM_PAGE);
+  return m_metadata.Get(feature::Metadata::FMD_CONTACT_INSTAGRAM);
 }
 
 string MapObject::GetTwitterPage() const
 {
-  return m_metadata.Get(feature::Metadata::FMD_TWITTER_PAGE);
+  return m_metadata.Get(feature::Metadata::FMD_CONTACT_TWITTER);
 }
 
 string MapObject::GetVkPage() const
 {
-  return m_metadata.Get(feature::Metadata::FMD_VK_PAGE);
+  return m_metadata.Get(feature::Metadata::FMD_CONTACT_VK);
 }
 
 Internet MapObject::GetInternet() const

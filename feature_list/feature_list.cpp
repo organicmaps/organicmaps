@@ -257,10 +257,10 @@ public:
     }
     string const & phone = meta.Get(feature::Metadata::FMD_PHONE_NUMBER);
     string const & website = meta.Get(feature::Metadata::FMD_WEBSITE);
-    string const & facebook_page = meta.Get(feature::Metadata::FMD_FACEBOOK_PAGE);
-    string const & instagram_page = meta.Get(feature::Metadata::FMD_INSTAGRAM_PAGE);
-    string const & twitter_page = meta.Get(feature::Metadata::FMD_TWITTER_PAGE);
-    string const & vk_page = meta.Get(feature::Metadata::FMD_VK_PAGE);
+    string const & contact_facebook = meta.Get(feature::Metadata::FMD_CONTACT_FACEBOOK);
+    string const & contact_instagram = meta.Get(feature::Metadata::FMD_CONTACT_INSTAGRAM);
+    string const & contact_twitter = meta.Get(feature::Metadata::FMD_CONTACT_TWITTER);
+    string const & contact_vk = meta.Get(feature::Metadata::FMD_CONTACT_VK);
     string cuisine = meta.Get(feature::Metadata::FMD_CUISINE);
     replace(cuisine.begin(), cuisine.end(), ';', ',');
     string const & stars = meta.Get(feature::Metadata::FMD_STARS);
@@ -274,10 +274,10 @@ public:
     string const & atm = HasAtm(f) ? "yes" : "";
 
     vector<string> columns = {
-        osmId,          uid,          lat,           lon,       mwmName, category, name,    city,
-        addrStreet,     addrHouse,    phone,         website,   cuisine, stars,    operatr, internet,
-        denomination,   wheelchair,   opening_hours, wikipedia, floor,   fee,      atm,     facebook_page,
-        instagram_page, twitter_page, vk_page};
+        osmId,             uid,             lat,           lon,       mwmName, category, name,    city,
+        addrStreet,        addrHouse,       phone,         website,   cuisine, stars,    operatr, internet,
+        denomination,      wheelchair,      opening_hours, wikipedia, floor,   fee,      atm,     contact_facebook,
+        contact_instagram, contact_twitter, contact_vk};
     AppendNames(f, columns);
     PrintAsCSV(columns, ';', cout);
   }
@@ -285,12 +285,12 @@ public:
 
 void PrintHeader()
 {
-  vector<string> columns = {"id",           "old_id",       "lat",        "lon",           "mwm",
-                            "category",     "name",         "city",       "street",        "house",
-                            "phone",        "website",      "cuisines",   "stars",         "operator",
-                            "internet",     "denomination", "wheelchair", "opening_hours", "wikipedia",
-                            "floor",        "fee",          "atm",        "facebook_page", "instagram_page",
-                            "twitter_page", "vk_page"};
+  vector<string> columns = {"id",              "old_id",       "lat",        "lon",              "mwm",
+                            "category",        "name",         "city",       "street",           "house",
+                            "phone",           "website",      "cuisines",   "stars",            "operator",
+                            "internet",        "denomination", "wheelchair", "opening_hours",    "wikipedia",
+                            "floor",           "fee",          "atm",        "contact_facebook", "contact_instagram",
+                            "contact_twitter", "contact_vk"};
   // Append all supported name languages in order.
   for (uint8_t idx = 1; idx < kLangCount; idx++)
     columns.push_back("name_" + string(StringUtf8Multilang::GetLangByCode(idx)));
