@@ -78,6 +78,7 @@ area[leisure=garden]
 area[landuse=farmland],
 area[landuse=allotments],
 area[natural=scrub],
+area[natural=bare_rock],
 area[landuse=orchard],
 area[landuse=vineyard],
 area[landuse=meadow],
@@ -249,6 +250,7 @@ area|z12-[leisure=golf_course],
 area|z12-[natural=heath],
 area|z12-[landuse=allotments],
 area|z12-[natural=scrub],
+area|z12-[natural=bare_rock],
 area|z12-[landuse=orchard],
 area|z12-[landuse=vineyard],
 area|z12-[landuse=meadow],
@@ -317,6 +319,9 @@ area|z16-[landuse=forest],
 area|z16-[leisure=park],
 area|z16-[leisure=garden]
 {fill-color: @forest;}
+
+area|z12-[natural=bare_rock],
+{fill-color: #EDE5DC;}
 
 /* 5.BEACH & GLACIER */
 

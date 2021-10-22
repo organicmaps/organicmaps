@@ -654,7 +654,8 @@ area|z14-[natural=hot_spring],
 node|z14-[natural=geyser],
 area|z14-[natural=geyser],
 node|z16-[natural=beach],
-area|z16-[natural=beach]
+area|z16-[natural=beach],
+area|z14-[natural=bare_rock],
 {text: name;text-color: @poi_label;text-position: center;text-offset: 1;text-optional: true;}
 
 node|z12-[boundary=national_park],
@@ -709,10 +710,8 @@ node|z12[natural=peak][name],
 area|z12[natural=peak][name]
 {icon-image: peakt-s.svg;icon-min-distance: 10;text-offset: 1;text: name;text-color: @poi_label;text-position: center;text-optional: true;}
 node|z12-14[natural=peak][!name],
-node|z12-14[natural=bare_rock][!name],
 node|z12-14[natural=rock][!name],
 area|z12-14[natural=peak][!name],
-area|z12-14[natural=bare_rock][!name],
 area|z12-14[natural=rock][!name]
 {font-size: 0;}
 node|z13[natural=peak][name],
@@ -722,10 +721,8 @@ node|z14[natural=peak][name],
 area|z14[natural=peak][name]
 {icon-image: peakt-s.svg;text-offset: 1;font-size: 10;text-optional: true;}
 node|z15-[natural=peak],
-node|z15-[natural=bare_rock],
 node|z15-[natural=rock],
 area|z15-[natural=peak],
-area|z15-[natural=bare_rock],
 area|z15-[natural=rock]
 {icon-image: peakt-m.svg;text-offset: 1;font-size: 10;text-optional: true;}
 
