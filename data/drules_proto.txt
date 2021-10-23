@@ -8905,6 +8905,69 @@ cont {
   }
 }
 cont {
+  name: "barrier-chain"
+  element {
+    scale: 16
+    symbol {
+      name: "dot-m"
+      priority: 16000
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        offset_y: 1
+      }
+      priority: 15000
+    }
+  }
+  element {
+    scale: 17
+    symbol {
+      name: "dot-m"
+      priority: 16000
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        offset_y: 1
+      }
+      priority: 15000
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "dot-m"
+      priority: 16000
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        offset_y: 1
+      }
+      priority: 15000
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "dot-m"
+      priority: 16000
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        offset_y: 1
+      }
+      priority: 15000
+    }
+  }
+}
+cont {
   name: "barrier-city_wall"
   element {
     scale: 16
@@ -9362,6 +9425,76 @@ cont {
         height: 11
         color: 4473924
         offset_y: 1
+      }
+      priority: 15000
+    }
+  }
+}
+cont {
+  name: "barrier-swing_gate"
+  element {
+    scale: 16
+    symbol {
+      name: "lift_gate-m"
+      priority: 16000
+      min_distance: 30
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 1
+      }
+      priority: 15000
+    }
+  }
+  element {
+    scale: 17
+    symbol {
+      name: "lift_gate-m"
+      priority: 16000
+      min_distance: 20
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: 15000
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "lift_gate-m"
+      priority: 16000
+      min_distance: 20
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: 15000
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "lift_gate-m"
+      priority: 16000
+      min_distance: 20
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 1
+        is_optional: true
       }
       priority: 15000
     }

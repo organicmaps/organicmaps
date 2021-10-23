@@ -737,8 +737,8 @@ mapswithme
 *place|state|USA
 *building|address
 *amenity|parking|no-access
-mapswithme
-mapswithme
+*barrier|swing_gate
+*barrier|chain
 mapswithme
 mapswithme
 mapswithme

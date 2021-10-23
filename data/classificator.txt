@@ -143,6 +143,7 @@ world  +
         block  -
         bollard  -
         border_control  -
+        chain  -
         city_wall  -
         cycle_barrier  -
         entrance  -
@@ -152,6 +153,7 @@ world  +
         lift_gate  -
         retaining_wall  -
         stile  -
+        swing_gate  -
         toll_booth  -
         wall  -
         {}
