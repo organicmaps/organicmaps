@@ -927,6 +927,7 @@
 	<string name="type.barrier.gate">Grind</string>
 	<string name="type.barrier.lift_gate">Bom</string>
 	<string name="type.barrier.stile">Stätta</string>
+	<string name="type.barrier.swing_gate">Bom</string>
 	<string name="type.barrier.toll_booth">Tullhus</string>
 	<string name="type.boundary.national_park">Nationalpark</string>
 	<string name="type.building">Byggnad</string>

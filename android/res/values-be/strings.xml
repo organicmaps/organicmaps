@@ -847,6 +847,9 @@
 	<string name="track_title">Сцежка</string>
 
 	<!-- SECTION: Types -->
+	<string name="type.barrier.chain">Ланцуг</string>
+	<string name="type.barrier.lift_gate">Шлагбаўм</string>
+	<string name="type.barrier.swing_gate">Шлагбаўм</string>
 	<string name="type.healthcare.laboratory">Медыцынская лабараторыя</string>
 	<string name="type.leisure.picnic_table">Стол для пікніка</string>
 	<string name="type.man_made.silo">Сілас</string>

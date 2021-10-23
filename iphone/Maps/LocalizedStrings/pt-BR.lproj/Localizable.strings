@@ -1731,6 +1731,8 @@
 
 "type.barrier.border_control" = "Controle de fronteira";
 
+"type.barrier.chain" = "Chain";
+
 "type.barrier.city_wall" = "Muralha de cidade";
 
 "type.barrier.cycle_barrier" = "Barreira de bicicletas";
@@ -1748,6 +1750,8 @@
 "type.barrier.retaining_wall" = "Muro de retenção";
 
 "type.barrier.stile" = "Travessia de escada cerca ou muro";
+
+"type.barrier.swing_gate" = "Cancela";
 
 "type.barrier.toll_booth" = "Cabine de pedágio";
 

@@ -1731,6 +1731,8 @@
 
 "type.barrier.border_control" = "Погранконтроль";
 
+"type.barrier.chain" = "Цепь";
+
 "type.barrier.city_wall" = "Городская стена";
 
 "type.barrier.cycle_barrier" = "Ограждение, предотвращающее проезд велосипедов";
@@ -1748,6 +1750,8 @@
 "type.barrier.retaining_wall" = "Стена, удерживающая от осыпания";
 
 "type.barrier.stile" = "Перелаз";
+
+"type.barrier.swing_gate" = "Шлагбаум";
 
 "type.barrier.toll_booth" = "Пункт оплаты";
 

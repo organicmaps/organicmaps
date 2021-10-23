@@ -924,6 +924,7 @@
 	<string name="type.barrier.gate">Puerta</string>
 	<string name="type.barrier.lift_gate">Barrera</string>
 	<string name="type.barrier.stile">Escalón</string>
+	<string name="type.barrier.swing_gate">Barrera</string>
 	<string name="type.barrier.toll_booth">Peaje</string>
 	<string name="type.boundary.national_park">Parque nacional</string>
 	<string name="type.building">Edificio</string>

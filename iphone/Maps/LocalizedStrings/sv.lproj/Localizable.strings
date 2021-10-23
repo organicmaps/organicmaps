@@ -1731,6 +1731,8 @@
 
 "type.barrier.border_control" = "Gränskontroll";
 
+"type.barrier.chain" = "Chain";
+
 "type.barrier.city_wall" = "City Wall";
 
 "type.barrier.cycle_barrier" = "Cycle Barrier";
@@ -1748,6 +1750,8 @@
 "type.barrier.retaining_wall" = "Retaining Wall";
 
 "type.barrier.stile" = "Stätta";
+
+"type.barrier.swing_gate" = "Bom";
 
 "type.barrier.toll_booth" = "Tullhus";
 

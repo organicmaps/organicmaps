@@ -932,6 +932,7 @@
 	<string name="type.barrier.gate">Tor</string>
 	<string name="type.barrier.lift_gate">Schranke</string>
 	<string name="type.barrier.stile">Zaunübertritt</string>
+	<string name="type.barrier.swing_gate">Schranke</string>
 	<string name="type.barrier.toll_booth">Mautstelle</string>
 	<string name="type.boundary.national_park">Nationalpark</string>
 	<string name="type.building">Gebäude</string>

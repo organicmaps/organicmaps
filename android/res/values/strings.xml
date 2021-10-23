@@ -991,6 +991,7 @@
 	<string name="type.barrier.block">Block</string>
 	<string name="type.barrier.bollard">Pillar</string>
 	<string name="type.barrier.border_control">Border Control</string>
+	<string name="type.barrier.chain">Chain</string>
 	<string name="type.barrier.city_wall">City Wall</string>
 	<string name="type.barrier.cycle_barrier">Cycle Barrier</string>
 	<string name="type.barrier.entrance">Entrance</string>
@@ -1000,6 +1001,7 @@
 	<string name="type.barrier.lift_gate">Lift Gate</string>
 	<string name="type.barrier.retaining_wall">Retaining Wall</string>
 	<string name="type.barrier.stile">Stile</string>
+	<string name="type.barrier.swing_gate">Swing Gate</string>
 	<string name="type.barrier.toll_booth">Toll Booth</string>
 	<string name="type.barrier.wall">Wall</string>
 	<string name="type.boundary">Boundary</string>

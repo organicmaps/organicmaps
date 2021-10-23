@@ -922,6 +922,7 @@
 	<string name="type.barrier.gate">ورودی</string>
 	<string name="type.barrier.lift_gate">اسانسور</string>
 	<string name="type.barrier.stile">پلکان</string>
+	<string name="type.barrier.swing_gate">اسانسور</string>
 	<string name="type.barrier.toll_booth">گیشه عوارضی</string>
 	<string name="type.boundary.national_park">پارک ملی</string>
 	<string name="type.building">ساختمان</string>

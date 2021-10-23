@@ -922,6 +922,7 @@
 	<string name="type.barrier.gate">Poartă</string>
 	<string name="type.barrier.lift_gate">Barieră cu braț</string>
 	<string name="type.barrier.stile">Barieră</string>
+	<string name="type.barrier.swing_gate">Barieră cu braț</string>
 	<string name="type.barrier.toll_booth">Cabină de taxare</string>
 	<string name="type.boundary.national_park">Parcul național</string>
 	<string name="type.building">Clădire</string>

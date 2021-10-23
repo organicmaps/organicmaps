@@ -949,6 +949,7 @@
 	<string name="type.barrier.lift_gate">ブームバリア</string>
 	<string name="type.barrier.retaining_wall">擁壁</string>
 	<string name="type.barrier.stile">回転扉</string>
+	<string name="type.barrier.swing_gate">ブームバリア</string>
 	<string name="type.barrier.toll_booth">料金所</string>
 	<string name="type.barrier.wall">壁</string>
 	<string name="type.boundary">境界線</string>

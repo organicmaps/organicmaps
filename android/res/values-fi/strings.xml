@@ -932,6 +932,7 @@
 	<string name="type.barrier.gate">Portti</string>
 	<string name="type.barrier.lift_gate">Puomi</string>
 	<string name="type.barrier.stile">Portaat</string>
+	<string name="type.barrier.swing_gate">Puomi</string>
 	<string name="type.barrier.toll_booth">Tietulliasema</string>
 	<string name="type.boundary.national_park">Kansallispuisto</string>
 	<string name="type.building">Rakennus</string>

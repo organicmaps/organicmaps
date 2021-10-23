@@ -933,6 +933,7 @@
 	<string name="type.barrier.gate">ประตู</string>
 	<string name="type.barrier.lift_gate">ไม้กั้น</string>
 	<string name="type.barrier.stile">บันไดข้าม</string>
+	<string name="type.barrier.swing_gate">ไม้กั้น</string>
 	<string name="type.barrier.toll_booth">ด่านเก็บเงิน</string>
 	<string name="type.boundary.national_park">อุทยานแห่งชาติ</string>
 	<string name="type.building">อาคาร</string>

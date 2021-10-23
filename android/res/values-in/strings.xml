@@ -928,6 +928,7 @@
 	<string name="type.barrier.gate">Gerbang</string>
 	<string name="type.barrier.lift_gate">Polisi tidur</string>
 	<string name="type.barrier.stile">Undakan</string>
+	<string name="type.barrier.swing_gate">Polisi tidur</string>
 	<string name="type.barrier.toll_booth">Gerbang tol</string>
 	<string name="type.boundary.national_park">Taman Nasional</string>
 	<string name="type.building">Gedung</string>

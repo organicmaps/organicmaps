@@ -971,6 +971,7 @@
 	<string name="type.barrier.lift_gate">Cancela elevatória</string>
 	<string name="type.barrier.retaining_wall">Muro de retenção</string>
 	<string name="type.barrier.stile">Travessia de escada em vedação ou muro</string>
+	<string name="type.barrier.swing_gate">Cancela elevatória</string>
 	<string name="type.barrier.toll_booth">Portagem</string>
 	<string name="type.barrier.wall">Muro</string>
 	<string name="type.boundary">Fronteira</string>

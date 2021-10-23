@@ -1731,6 +1731,8 @@
 
 "type.barrier.border_control" = "国境管理";
 
+"type.barrier.chain" = "Chain";
+
 "type.barrier.city_wall" = "城壁";
 
 "type.barrier.cycle_barrier" = "バリカー";
@@ -1748,6 +1750,8 @@
 "type.barrier.retaining_wall" = "擁壁";
 
 "type.barrier.stile" = "回転扉";
+
+"type.barrier.swing_gate" = "ブームバリア";
 
 "type.barrier.toll_booth" = "料金所";
 

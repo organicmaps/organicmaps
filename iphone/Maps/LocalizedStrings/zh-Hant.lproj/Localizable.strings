@@ -1731,6 +1731,8 @@
 
 "type.barrier.border_control" = "邊境管制";
 
+"type.barrier.chain" = "Chain";
+
 "type.barrier.city_wall" = "City Wall";
 
 "type.barrier.cycle_barrier" = "Cycle Barrier";
@@ -1748,6 +1750,8 @@
 "type.barrier.retaining_wall" = "Retaining Wall";
 
 "type.barrier.stile" = "梯磴";
+
+"type.barrier.swing_gate" = "遮斷機";
 
 "type.barrier.toll_booth" = "收費站";
 
