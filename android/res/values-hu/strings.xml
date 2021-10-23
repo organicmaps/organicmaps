@@ -929,6 +929,7 @@
 	<string name="type.barrier.gate">Kapu</string>
 	<string name="type.barrier.lift_gate">Sorompó</string>
 	<string name="type.barrier.stile">Átjáró</string>
+	<string name="type.barrier.swing_gate">Sorompó</string>
 	<string name="type.barrier.toll_booth">Díjfizető kapu</string>
 	<string name="type.boundary.national_park">Nemzeti park</string>
 	<string name="type.building">Épület</string>

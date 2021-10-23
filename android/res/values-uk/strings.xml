@@ -936,10 +936,12 @@
 	<string name="type.barrier.block">Блок</string>
 	<string name="type.barrier.bollard">Стовпчик</string>
 	<string name="type.barrier.border_control">Прикордонний контроль</string>
+	<string name="type.barrier.chain">Ланцюг</string>
 	<string name="type.barrier.entrance">Прохід</string>
 	<string name="type.barrier.gate">Ворота</string>
 	<string name="type.barrier.lift_gate">Шлагбаум</string>
 	<string name="type.barrier.stile">Перелаз</string>
+	<string name="type.barrier.swing_gate">Шлагбаум</string>
 	<string name="type.barrier.toll_booth">Пункт оплати</string>
 	<string name="type.boundary.national_park">Національний парк</string>
 	<string name="type.building">Будівля</string>

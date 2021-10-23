@@ -928,6 +928,7 @@
 	<string name="type.barrier.gate">Poort</string>
 	<string name="type.barrier.lift_gate">Slagboom</string>
 	<string name="type.barrier.stile">Tourniquet</string>
+	<string name="type.barrier.swing_gate">Slagboom</string>
 	<string name="type.barrier.toll_booth">Tolhokje</string>
 	<string name="type.boundary.national_park">Nationaal park</string>
 	<string name="type.building">Gebouw</string>

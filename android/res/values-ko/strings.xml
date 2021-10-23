@@ -930,6 +930,7 @@
 	<string name="type.barrier.gate">게이트</string>
 	<string name="type.barrier.lift_gate">차량차단기</string>
 	<string name="type.barrier.stile">디딤대</string>
+	<string name="type.barrier.swing_gate">차량차단기</string>
 	<string name="type.barrier.toll_booth">톨게이트</string>
 	<string name="type.boundary.national_park">국립 공원</string>
 	<string name="type.building">건물</string>

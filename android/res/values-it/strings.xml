@@ -923,6 +923,7 @@
 	<string name="type.barrier.gate">Cancello</string>
 	<string name="type.barrier.lift_gate">Barriera ferroviaria</string>
 	<string name="type.barrier.stile">Scaletta per recinzioni</string>
+	<string name="type.barrier.swing_gate">Barriera ferroviaria</string>
 	<string name="type.barrier.toll_booth">Casello di pedaggio</string>
 	<string name="type.boundary.national_park">Parco nazionale</string>
 	<string name="type.building">Edificio</string>

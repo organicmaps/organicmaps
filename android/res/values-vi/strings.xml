@@ -930,6 +930,7 @@
 	<string name="type.barrier.gate">Cổng</string>
 	<string name="type.barrier.lift_gate">Thanh Chắn</string>
 	<string name="type.barrier.stile">Trụ chắn</string>
+	<string name="type.barrier.swing_gate">Thanh Chắn</string>
 	<string name="type.barrier.toll_booth">Quầy Soát Vé</string>
 	<string name="type.boundary.national_park">Công viên quốc gia</string>
 	<string name="type.building">Tòa nhà</string>

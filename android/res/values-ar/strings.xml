@@ -933,6 +933,7 @@
 	<string name="type.barrier.gate">بوابة</string>
 	<string name="type.barrier.lift_gate">حاجز بوابة</string>
 	<string name="type.barrier.stile">ممر عبور</string>
+	<string name="type.barrier.swing_gate">حاجز بوابة</string>
 	<string name="type.barrier.toll_booth">كشك رسوم عبور</string>
 	<string name="type.boundary.national_park">منتزه وطني</string>
 	<string name="type.building">مبنى</string>

@@ -1731,6 +1731,8 @@
 
 "type.barrier.border_control" = "Kontrola graniczna";
 
+"type.barrier.chain" = "Chain";
+
 "type.barrier.city_wall" = "Mur miejski";
 
 "type.barrier.cycle_barrier" = "Bariera rowerowa";
@@ -1748,6 +1750,8 @@
 "type.barrier.retaining_wall" = "Mur oporowy";
 
 "type.barrier.stile" = "Przełaz";
+
+"type.barrier.swing_gate" = "Szlaban";
 
 "type.barrier.toll_booth" = "Kasa";
 

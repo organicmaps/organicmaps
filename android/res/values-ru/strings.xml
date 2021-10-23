@@ -971,6 +971,7 @@
 	<string name="type.barrier.block">Блок</string>
 	<string name="type.barrier.bollard">Столбик</string>
 	<string name="type.barrier.border_control">Погранконтроль</string>
+	<string name="type.barrier.chain">Цепь</string>
 	<string name="type.barrier.city_wall">Городская стена</string>
 	<string name="type.barrier.cycle_barrier">Ограждение, предотвращающее проезд велосипедов</string>
 	<string name="type.barrier.entrance">Проход</string>
@@ -980,6 +981,7 @@
 	<string name="type.barrier.lift_gate">Шлагбаум</string>
 	<string name="type.barrier.retaining_wall">Стена, удерживающая от осыпания</string>
 	<string name="type.barrier.stile">Перелаз</string>
+	<string name="type.barrier.swing_gate">Шлагбаум</string>
 	<string name="type.barrier.toll_booth">Пункт оплаты</string>
 	<string name="type.barrier.wall">Стена</string>
 	<string name="type.boundary">Граница</string>

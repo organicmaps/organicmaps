@@ -1731,6 +1731,8 @@
 
 "type.barrier.border_control" = "국경통제소";
 
+"type.barrier.chain" = "Chain";
+
 "type.barrier.city_wall" = "City Wall";
 
 "type.barrier.cycle_barrier" = "Cycle Barrier";
@@ -1748,6 +1750,8 @@
 "type.barrier.retaining_wall" = "Retaining Wall";
 
 "type.barrier.stile" = "디딤대";
+
+"type.barrier.swing_gate" = "차량차단기";
 
 "type.barrier.toll_booth" = "톨게이트";
 

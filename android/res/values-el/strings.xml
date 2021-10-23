@@ -921,6 +921,7 @@
 	<string name="type.barrier.gate">Πύλη</string>
 	<string name="type.barrier.lift_gate">Ανυψούμενη μπάρα</string>
 	<string name="type.barrier.stile">Τουρνικέ</string>
+	<string name="type.barrier.swing_gate">Ανυψούμενη μπάρα</string>
 	<string name="type.barrier.toll_booth">Σταθμός διοδίων</string>
 	<string name="type.boundary.national_park">Εθνικό πάρκο</string>
 	<string name="type.building">Κτίριο</string>

@@ -961,6 +961,7 @@
 	<string name="type.barrier.lift_gate">道闸</string>
 	<string name="type.barrier.retaining_wall">挡土墙</string>
 	<string name="type.barrier.stile">台阶</string>
+	<string name="type.barrier.swing_gate">道闸</string>
 	<string name="type.barrier.toll_booth">收费站</string>
 	<string name="type.barrier.wall">墙</string>
 	<string name="type.boundary">边界</string>

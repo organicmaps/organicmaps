@@ -968,6 +968,7 @@
 	<string name="type.barrier.lift_gate">Cancela</string>
 	<string name="type.barrier.retaining_wall">Muro de retenção</string>
 	<string name="type.barrier.stile">Travessia de escada cerca ou muro</string>
+	<string name="type.barrier.swing_gate">Cancela</string>
 	<string name="type.barrier.toll_booth">Cabine de pedágio</string>
 	<string name="type.barrier.wall">Muro</string>
 	<string name="type.boundary">Fronteira</string>

@@ -924,6 +924,7 @@
 	<string name="type.barrier.gate">Port</string>
 	<string name="type.barrier.lift_gate">Bom</string>
 	<string name="type.barrier.stile">Gærdebro</string>
+	<string name="type.barrier.swing_gate">Bom</string>
 	<string name="type.barrier.toll_booth">Betalingsstation</string>
 	<string name="type.boundary.national_park">National park</string>
 	<string name="type.building">Bygning</string>

@@ -954,6 +954,7 @@
 	<string name="type.barrier.lift_gate">Szlaban</string>
 	<string name="type.barrier.retaining_wall">Mur oporowy</string>
 	<string name="type.barrier.stile">Przełaz</string>
+	<string name="type.barrier.swing_gate">Szlaban</string>
 	<string name="type.barrier.toll_booth">Kasa</string>
 	<string name="type.barrier.wall">Mur</string>
 	<string name="type.boundary">Granica</string>

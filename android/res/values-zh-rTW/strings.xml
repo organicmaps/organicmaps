@@ -945,6 +945,7 @@
 	<string name="type.barrier.gate">大門</string>
 	<string name="type.barrier.lift_gate">遮斷機</string>
 	<string name="type.barrier.stile">梯磴</string>
+	<string name="type.barrier.swing_gate">遮斷機</string>
 	<string name="type.barrier.toll_booth">收費站</string>
 	<string name="type.boundary.national_park">國家公園</string>
 	<string name="type.building">建築物</string>
