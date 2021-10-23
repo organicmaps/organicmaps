@@ -3546,6 +3546,12 @@
     zh-Hans = 边境检查站
     zh-Hant = 邊境管制
 
+  [type.barrier.chain]
+    en = Chain
+    be = Ланцуг
+    ru = Цепь
+    uk = Ланцюг
+
   [type.barrier.city_wall]
     en = City Wall
     ja = 城壁
@@ -3648,6 +3654,7 @@
   [type.barrier.lift_gate]
     en = Lift Gate
     ar = حاجز بوابة
+    be = Шлагбаўм
     cs = Závora
     da = Bom
     de = Schranke
@@ -3717,6 +3724,39 @@
     vi = Trụ chắn
     zh-Hans = 台阶
     zh-Hant = 梯磴
+
+  [type.barrier.swing_gate]
+    en = Swing Gate
+    ar = حاجز بوابة
+    be = Шлагбаўм
+    cs = Závora
+    da = Bom
+    de = Schranke
+    el = Ανυψούμενη μπάρα
+    es = Barrera
+    fa = اسانسور
+    fi = Puomi
+    fr = Barrière levante
+    hu = Sorompó
+    id = Polisi tidur
+    it = Barriera ferroviaria
+    ja = ブームバリア
+    ko = 차량차단기
+    nb = Bom
+    nl = Slagboom
+    pl = Szlaban
+    pt = Cancela elevatória
+    pt-BR = Cancela
+    ro = Barieră cu braț
+    ru = Шлагбаум
+    sk = Závora
+    sv = Bom
+    th = ไม้กั้น
+    tr = Barrière levante
+    uk = Шлагбаум
+    vi = Thanh Chắn
+    zh-Hans = 道闸
+    zh-Hant = 遮斷機
 
   [type.barrier.toll_booth]
     en = Toll Booth
