@@ -737,8 +737,8 @@ boundary|administrative|4|state;[boundary=administrative][admin_level=4][border_
 place|state|USA;[place=state][addr:country=US],[place=state][is_in=USA],[place=state][is_in:country=USA],[place=state][is_in:country_code=us];;name;int_name;737;
 building|address;[addr:housenumber][addr:street];;addr:housenumber;name;738;
 amenity|parking|no-access;[amenity=parking][access=no];;name;int_name;739;
-deprecated|deprecated;740;x
-deprecated|deprecated;741;x
+barrier|swing_gate;740;
+barrier|chain;741;
 deprecated|deprecated;742;x
 deprecated|deprecated;743;x
 deprecated|deprecated;744;x
