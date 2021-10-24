@@ -244,59 +244,15 @@ node|z12-[landuse=forest][!name],
 area|z12-[landuse=forest][!name],
 {}
 
-/* 3. TRANSPORT */
-
-area|z11-[building=train_station],
-{text: name;text-color: @label_dark;text-halo-radius: 1;text-halo-opacity: 0.6;text-halo-color: @label_halo_light; icon-min-distance: 2; -x-me-icon-priority: 19100;}
-area|z11-[building=train_station]::int_name,
-{text: int_name;text-color: @label_dark;text-halo-radius: 1;text-halo-opacity: 0.6;text-halo-color: @label_halo_light;icon-min-distance: 2; -x-me-icon-priority: 19100;}
-
-node|z13-[railway=station],
-node|z14-[railway=halt],
-node|z14-15[railway=station][transport=subway],
-{text: name;text-color: @label_dark;text-halo-radius: 1;text-halo-opacity: 0.6;text-halo-color: @label_halo_light;}
-node|z13-17[railway=station]::int_name,
-node|z14-17[railway=halt]::int_name,
-node|z14-15[railway=station][transport=subway]::int_name,
-{text: int_name;text-color: @label_dark;text-halo-radius: 1;text-halo-opacity: 0.6;text-halo-color: @label_halo_light;}
-
-
-
-
-node|z12-15[railway=station][transport=subway][city=moscow],
-node|z12-15[railway=station][transport=subway][city=spb],
-{text: name;text-color: @label_dark;text-halo-radius: 1;text-halo-opacity: 1;text-halo-color: @label_halo_light;}
-node|z12-15[railway=station][transport=subway][city=moscow]::int_name,
-node|z12-15[railway=station][transport=subway][city=spb]::int_name,
-{text: int_name;text-color: @label_dark;text-halo-radius: 1;text-halo-opacity: 1;text-halo-color: @label_halo_light;}
-node|z17-[public_transport=station],
-area|z17-[public_transport=station],
-{text: name;text-color: @label_dark;text-halo-radius: 1;text-halo-opacity: 0.9;text-halo-color: @label_halo_light;text-position: center;}
-node|z17-[public_transport=station]::int_name,
-area|z17-[public_transport=station]::int_name
-{text: int_name;text-color: @label_dark;text-halo-radius: 1;text-halo-opacity: 0.9;text-halo-color: @label_halo_light;text-position: center;}
-
-area|z10-[aeroway=airport],
-area|z10-[aeroway=aerodrome],
-node|z10-[aeroway=airport],
-node|z10-[aeroway=aerodrome],
-{text: name;text-color: @label_dark;text-halo-radius: 1;text-halo-opacity: 0.7;text-halo-color: @label_halo_light;text-position: center;}
-area|z12-[aeroway=airport]::int_name,
-area|z12-[aeroway=aerodrome]::int_name,
-node|z12-[aeroway=airport]::int_name,
-node|z12-[aeroway=aerodrome]::int_name,
-{text: int_name;text-color: @label_dark;text-halo-radius: 1;text-halo-opacity: 0.7;text-halo-color: @label_halo_light;text-position: center;}
-
-/* 3.1 Train Station */
 
 /* 3. TRANSPORT */
 
 node|z14-[railway=halt],
-node|z14-[railway=station][transport=subway],
+node|z14-[railway=station],
 node|z16-[railway=subway_entrance]
 {text: name;text-color: @label_dark;text-halo-radius: 1;text-halo-opacity: 0.6;text-halo-color: @label_halo_light;}
 node|z14-[railway=halt]::int_name,
-node|z14-[railway=station][transport=subway]::int_name,
+node|z14-[railway=station]::int_name,
 node|z16-[railway=subway_entrance]::int_name
 {text: int_name;text-color: @label_dark;text-halo-radius: 1;text-halo-opacity: 0.6;text-halo-color: @label_halo_light;}
 
@@ -312,7 +268,6 @@ node|z16-[railway=subway_entrance][city=moscow]::int_name,
 node|z17-[railway=tram_stop]::int_name,
 area|z17-[railway=tram_stop]::int_name
 {text: int_name;text-color: @label_dark;text-halo-radius: 1;text-halo-opacity: 1;text-halo-color: @label_halo_light;}
-
 
 area|z10-[aeroway=airport],
 area|z10-[aeroway=aerodrome],
