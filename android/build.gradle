@@ -437,9 +437,9 @@ import com.github.triplet.gradle.androidpublisher.ReleaseStatus
 play {
   enabled.set(false)
   track.set("production")
-  userFraction.set(Double.valueOf(0.05)) // 5%
+  userFraction.set(Double.valueOf(0.10)) // 10%
   defaultToAppBundles.set(true)
-  releaseStatus.set(ReleaseStatus.HALTED)
+  releaseStatus.set(ReleaseStatus.IN_PROGRESS)
   serviceAccountCredentials.set(file("google-play.json"))
 }
 
