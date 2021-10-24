@@ -817,11 +817,11 @@ area|z15-[amenity=water_point]
 /* 3. TRANSPORT */
 
 node|z12-[railway=halt],
-node|z14-[railway=station][transport=subway],
+node|z14-[railway=station],
 node|z16-[railway=subway_entrance]
 {text: name;text-color: @label_dark;text-halo-radius: 1;text-halo-opacity: 0.6;text-halo-color: @label_halo_light;text-optional: true;}
 node|z12-[railway=halt]::int_name,
-node|z14-[railway=station][transport=subway]::int_name,
+node|z14-[railway=station]::int_name,
 node|z16-[railway=subway_entrance]::int_name
 {text: int_name;text-color: @label_dark;text-halo-radius: 1;text-halo-opacity: 0.6;text-halo-color: @label_halo_light;text-optional: true;}
 
