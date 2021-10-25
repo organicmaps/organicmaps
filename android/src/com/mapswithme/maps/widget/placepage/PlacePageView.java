@@ -1349,18 +1349,26 @@ public class PlacePageView extends NestedScrollViewClickFixed
         break;
       case R.id.ll__place_facebook:
         final String facebookPage = mMapObject.getMetadata(Metadata.MetadataType.FMD_CONTACT_FACEBOOK);
+        if (facebookPage.indexOf('/') == -1)
+          items.add(facebookPage); // Show username along with URL
         items.add("https://m.facebook.com/" + facebookPage);
         break;
       case R.id.ll__place_instagram:
         final String instagramPage = mMapObject.getMetadata(Metadata.MetadataType.FMD_CONTACT_INSTAGRAM);
+        if (instagramPage.indexOf('/') == -1)
+          items.add(instagramPage); // Show username along with URL
         items.add("https://instagram.com/" + instagramPage);
         break;
       case R.id.ll__place_twitter:
         final String twitterPage = mMapObject.getMetadata(Metadata.MetadataType.FMD_CONTACT_TWITTER);
+        if (twitterPage.indexOf('/') == -1)
+          items.add(twitterPage); // Show username along with URL
         items.add("https://mobile.twitter.com/" + twitterPage);
         break;
       case R.id.ll__place_vk:
         final String vkPage = mMapObject.getMetadata(Metadata.MetadataType.FMD_CONTACT_VK);
+        if (vkPage.indexOf('/') == -1)
+          items.add(vkPage); // Show username along with URL
         items.add("https://vk.com/" + vkPage);
         break;
       case R.id.ll__place_line:
@@ -1368,7 +1376,10 @@ public class PlacePageView extends NestedScrollViewClickFixed
         if (linePage.indexOf('/') >= 0)
           items.add("https://" + linePage);
         else
+        {
+          items.add(linePage); // Show username along with URL
           items.add("https://line.me/R/ti/p/@" + linePage);
+        }
         break;
       case R.id.ll__place_email:
         items.add(mTvEmail.getText().toString());
