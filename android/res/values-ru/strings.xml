@@ -1765,4 +1765,6 @@
     <string name="type.boundary.administrative.nation"></string>
     <string name="type.area_highway.motorway"></string>
     <string name="type.sponsored.partner8"></string>
+    <string name="openstreetmap"></string>
+    <string name="github"></string>
 </resources>
