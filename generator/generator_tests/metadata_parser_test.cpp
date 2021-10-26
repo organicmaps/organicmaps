@@ -493,7 +493,7 @@ UNIT_CLASS_TEST(TestWithClassificator, ValidateAndFormat_contactLine)
   TEST_EQUAL(md.Get(Metadata::FMD_CONTACT_LINE), "bfsg1a8x9u", ());
   md.Drop(Metadata::FMD_CONTACT_LINE);
 
-  p("contact:line", "https://line.me/r/ti/p/gdltt7s380");
+  p("contact:line", "https://line.me/R/ti/p/gdltt7s380");
   TEST_EQUAL(md.Get(Metadata::FMD_CONTACT_LINE), "gdltt7s380", ());
   md.Drop(Metadata::FMD_CONTACT_LINE);
 
@@ -501,7 +501,7 @@ UNIT_CLASS_TEST(TestWithClassificator, ValidateAndFormat_contactLine)
   TEST_EQUAL(md.Get(Metadata::FMD_CONTACT_LINE), "sdb2pb3lsg", ());
   md.Drop(Metadata::FMD_CONTACT_LINE);
 
-  p("contact:line", "https://line.me/r/ti/p/%40b30h5mdj11");
+  p("contact:line", "https://line.me/R/ti/p/%40b30h5mdj11");
   TEST_EQUAL(md.Get(Metadata::FMD_CONTACT_LINE), "b30h5mdj11", ());
   md.Drop(Metadata::FMD_CONTACT_LINE);
 

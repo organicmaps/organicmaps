@@ -150,8 +150,8 @@ string MetadataTagProcessorImpl::ValidateAndFormat_facebook(string const & faceb
       facebookPageUrl = "https://" + facebookPage;
 
     const url::Url url = url::Url(facebookPageUrl);
-    const string &domain = strings::MakeLowerCase(url.GetWebDomain());
-    // Check Facebook domain name
+    const string & domain = strings::MakeLowerCase(url.GetWebDomain());
+    // Check Facebook domain name.
     if (strings::EndsWith(domain, "facebook.com") || strings::EndsWith(domain, "fb.com")
        || strings::EndsWith(domain, "fb.me") || strings::EndsWith(domain, "facebook.de")
        || strings::EndsWith(domain, "facebook.fr"))
@@ -173,7 +173,7 @@ string MetadataTagProcessorImpl::ValidateAndFormat_instagram(string const & inst
   if (instagramPage.empty())
     return {};
   // Check that instagramPage contains valid username.
-  // Rules took here: https://blog.jstassen.com/2016/03/code-regex-for-instagram-username-and-hashtags/
+  // Rules are defined here: https://blog.jstassen.com/2016/03/code-regex-for-instagram-username-and-hashtags/
   if (regex_match(instagramPage, regex(R"(^@?[A-Za-z0-9_][A-Za-z0-9_.]{0,28}[A-Za-z0-9_]$)")))
   {
     if (instagramPage.front() == '@')
@@ -184,17 +184,17 @@ string MetadataTagProcessorImpl::ValidateAndFormat_instagram(string const & inst
   if (EditableMapObject::ValidateWebsite(instagramPage))
   {
     string instagramPageUrl = instagramPage;
-    // Check if HTTP protocol is present
+    // Check if HTTP protocol is present.
     if (!strings::StartsWith(instagramPage, "http://") && !strings::StartsWith(instagramPage, "https://"))
       instagramPageUrl = "https://" + instagramPage;
 
     const url::Url url = url::Url(instagramPageUrl);
-    const string &domain = strings::MakeLowerCase(url.GetWebDomain());
-    // Check Instagram domain name
+    const string & domain = strings::MakeLowerCase(url.GetWebDomain());
+    // Check Instagram domain name.
     if (domain == "instagram.com" || strings::EndsWith(domain, ".instagram.com"))
     {
       auto webPath = url.GetWebPath();
-      // Strip last '/' symbol
+      // Strip last '/' symbol.
       if (webPath.back() == '/')
         return webPath.substr(0, webPath.length()-1);
       else
@@ -221,17 +221,17 @@ string MetadataTagProcessorImpl::ValidateAndFormat_twitter(string const & twitte
   if (EditableMapObject::ValidateWebsite(twitterPage))
   {
     string twitterPageUrl = twitterPage;
-    // Check if HTTP protocol is present
+    // Check if HTTP protocol is present.
     if (!strings::StartsWith(twitterPage, "http://") && !strings::StartsWith(twitterPage, "https://"))
       twitterPageUrl = "https://" + twitterPage;
 
     const url::Url url = url::Url(twitterPageUrl);
-    const string &domain = strings::MakeLowerCase(url.GetWebDomain());
-    // Check Twitter domain name
+    const string & domain = strings::MakeLowerCase(url.GetWebDomain());
+    // Check Twitter domain name.
     if (domain == "twitter.com" || strings::EndsWith(domain, ".twitter.com"))
     {
       auto webPath = url.GetWebPath();
-      // Strip last '/' symbol
+      // Strip last '/' symbol.
       if (webPath.back() == '/')
         webPath = webPath.substr(0, webPath.length()-1);
 
@@ -251,7 +251,7 @@ string MetadataTagProcessorImpl::ValidateAndFormat_vk(string const & vkPage) con
   if (vkPage.empty())
     return {};
   {
-    /* Check that vkPage contains valid page name. Rules took here: https://vk.com/faq18038
+    /* Check that vkPage contains valid page name. Rules are defined here: https://vk.com/faq18038
      * The page name must be between 5 and 32 characters.
        Invalid format could be in cases:
      * - begins with three or more numbers (one or two numbers are allowed).
@@ -271,18 +271,18 @@ string MetadataTagProcessorImpl::ValidateAndFormat_vk(string const & vkPage) con
   if (EditableMapObject::ValidateWebsite(vkPage))
   {
     string vkPageUrl = vkPage;
-    // Check if HTTP protocol is present
+    // Check if HTTP protocol is present.
     if (!strings::StartsWith(vkPage, "http://") && !strings::StartsWith(vkPage, "https://"))
       vkPageUrl = "https://" + vkPage;
 
     const url::Url url = url::Url(vkPageUrl);
-    const string &domain = strings::MakeLowerCase(url.GetWebDomain());
-    // Check VK domain name
+    const string & domain = strings::MakeLowerCase(url.GetWebDomain());
+    // Check VK domain name.
     if (domain == "vk.com" || strings::EndsWith(domain, ".vk.com") ||
         domain == "vkontakte.ru" || strings::EndsWith(domain, ".vkontakte.ru"))
     {
       auto webPath = url.GetWebPath();
-      // Strip last '/' symbol
+      // Strip last '/' symbol.
       if (webPath.back() == '/')
         return webPath.substr(0, webPath.length()-1);
       else
@@ -293,22 +293,43 @@ string MetadataTagProcessorImpl::ValidateAndFormat_vk(string const & vkPage) con
   return {};
 }
 
+string const stripAtSymbol(string const & lineId)
+{
+  if (lineId.empty())
+    return lineId;
+  if (strings::StartsWith(lineId, "%40")) // Strip '%40' chars from Line ID.
+    return lineId.substr(3);
+  if (lineId.front() == '@') // Strip '@' char from Line ID.
+    return lineId.substr(1);
+  return lineId;
+}
+
+string & stripAtSymbol(string & lineId)
+{
+  if (lineId.empty())
+    return lineId;
+  if (strings::StartsWith(lineId, "%40")) // Strip '%40' chars from Line ID.
+    lineId = lineId.substr(3);
+  if (lineId.front() == '@') // Strip '@' char from Line ID.
+    lineId = lineId.erase(0, 1);
+  return lineId;
+}
+
 string MetadataTagProcessorImpl::ValidateAndFormat_contactLine(string const & linePage) const
 {
   if (linePage.empty())
     return {};
 
   {
-    /* Check that linePage contains valid page name. Rules took here: https://help.line.me/line/?contentId=10009904
-     * The page name must be between 4 and 20 characters. Should contains alphanumeric characters
-     * and symbols '.', '-', and '_'
-     */
+    // Check that linePage contains valid page name.
+    // Rules are defined here: https://help.line.me/line/?contentId=10009904
+    // The page name must be between 4 and 20 characters. Should contains alphanumeric characters
+    // and symbols '.', '-', and '_'
 
-    string linePageClean = linePage;
-    if (linePageClean.front() == '@')
-      linePageClean = linePageClean.substr(1);
+    string linePageClean = stripAtSymbol(linePage);
 
-    if (regex_match(linePageClean, regex(R"(^[a-z0-9-_.]{4,20}$)"))) return linePageClean;
+    if (regex_match(linePageClean, regex(R"(^[a-z0-9-_.]{4,20}$)")))
+      return linePageClean;
   }
 
   if (EditableMapObject::ValidateWebsite(linePage))
@@ -316,60 +337,38 @@ string MetadataTagProcessorImpl::ValidateAndFormat_contactLine(string const & li
     // URL schema documentation: https://developers.line.biz/en/docs/messaging-api/using-line-url-scheme/
 
     string linePageUrl = linePage;
-    // Check if HTTP protocol is present
+    // Check if HTTP protocol is present.
     if (!strings::StartsWith(linePage, "http://") && !strings::StartsWith(linePage, "https://"))
       linePageUrl = "https://" + linePage;
 
-    const url::Url url = url::Url(linePageUrl);
-    const string &domain = strings::MakeLowerCase(url.GetWebDomain());
-    // Check Line domain name
+    url::Url const url = url::Url(linePageUrl);
+    string const & domain = strings::MakeLowerCase(url.GetWebDomain());
+    // Check Line domain name.
     if (domain == "page.line.me")
     {
       // Parse https://page.line.me/{LINE ID}
       string lineId = url.GetWebPath();
-      if (strings::StartsWith(lineId, "%40")) //Strip '%40' chars from Line ID
-        lineId = lineId.substr(3);
-      else if (lineId.front() == '@') //Strip '@' char from Line ID
-        lineId = lineId.substr(1);
-      return lineId;
+      return stripAtSymbol(lineId);
     }
     else if (domain == "line.me" || strings::EndsWith(domain, ".line.me"))
     {
-      auto webPath = strings::MakeLowerCase(url.GetWebPath());
-      if (strings::StartsWith(webPath, "r/ti/p/"))
+      auto webPath = url.GetWebPath();
+      if (strings::StartsWith(webPath, "R/ti/p/"))
       {
         // Parse https://line.me/R/ti/p/{LINE ID}
         string lineId = webPath.substr(7, webPath.length());
-        if (strings::StartsWith(lineId, "%40")) //Strip '%40' chars from Line ID
-          lineId = lineId.substr(3);
-        else if (lineId.front() == '@') //Strip '@' char from Line ID
-          lineId = lineId.substr(1);
-        return lineId;
+        return stripAtSymbol(lineId);
       }
       else if (strings::StartsWith(webPath, "ti/p/"))
       {
         // Parse https://line.me/ti/p/{LINE ID}
         string lineId = webPath.substr(5, webPath.length());
-        if (strings::StartsWith(lineId, "%40")) //Strip '%40' chars from Line ID
-          lineId = lineId.substr(3);
-        else if (lineId.front() == '@') //Strip '@' char from Line ID
-          lineId = lineId.substr(1);
-        return lineId;
+        return stripAtSymbol(lineId);
       }
-      else if (strings::StartsWith(webPath, "r/home/public/main"))
+      else if (strings::StartsWith(webPath, "R/home/public/main") || strings::StartsWith(webPath, "R/home/public/profile"))
       {
         // Parse https://line.me/R/home/public/main?id={LINE ID without @}
-        string lineId = {};
-        url.ForEachParam([&lineId](url::Param const & param) {
-          if (param.m_name == "id")
-            lineId = param.m_value;
-        });
-
-        return lineId;
-      }
-      else if (strings::StartsWith(webPath, "r/home/public/profile"))
-      {
-        // Parse https://line.me/R/home/public/profile?id={LINE ID without @}
+        // and https://line.me/R/home/public/profile?id={LINE ID without @}
         string lineId = {};
         url.ForEachParam([&lineId](url::Param const & param) {
           if (param.m_name == "id")
