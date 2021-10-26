@@ -558,7 +558,7 @@ public class EditorFragment extends BaseMwmFragment implements View.OnClickListe
     mInputVkPage = blockVkPage.findViewById(R.id.custom_input);
 
     View blockLinePage = view.findViewById(R.id.block_line);
-    mLinePage = findInputAndInitBlock(blockLinePage, R.drawable.ic_line_white, R.string.line_social_network);
+    mLinePage = findInputAndInitBlock(blockLinePage, R.drawable.ic_line_white, R.string.editor_line_social_network);
     mLinePage.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_URI);
     mInputLinePage = blockLinePage.findViewById(R.id.custom_input);
 
