@@ -366,11 +366,11 @@
 /* Text in menu */
 "instagram" = "Instagram";
 
-/* Text in editor */
+/* Text in the editor */
 "vk" = "VK";
 
-/* Text in editor */
-"line_social_network" = "LINE";
+/* Text in the editor */
+"editor_line_social_network" = "LINE";
 
 /* Text in menu */
 "openstreetmap" = "OpenStreetMap";

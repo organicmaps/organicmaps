@@ -4462,12 +4462,12 @@
     en = Instagram
 
   [vk]
-    comment = Text in editor
+    comment = Text in the editor
     tags = android
     en = VK
 
-  [line_social_network]
-    comment = Text in editor
+  [editor_line_social_network]
+    comment = Text in the editor
     tags = android
     en = LINE
 
@@ -13647,6 +13647,7 @@
   [error_enter_correct_line_page]
     tags = android
     en = Enter a valid LINE web address or LINE ID
+    be = Упішыце вэб-адрас LINE старонкі або LINE ID
     ru = Введите корректный веб-адрес LINE страницы или LINE ID
     uk = Введіть вірну веб-адресу LINE сторінки або LINE ID
 
