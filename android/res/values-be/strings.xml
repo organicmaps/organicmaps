@@ -556,6 +556,7 @@
 	<string name="error_enter_correct_phone">Увядзіце нумар тэлефона правільна</string>
 	<string name="error_enter_correct_web">Увядзіце web-адрас правільна</string>
 	<string name="error_enter_correct_email">Увядзіце email правільна</string>
+	<string name="error_enter_correct_line_page">Упішыце вэб-адрас LINE старонкі або LINE ID</string>
 	<string name="refresh">Абнавіць</string>
 	<string name="placepage_add_place_button">Дадаць месца на мапу</string>
 	<!-- Displayed when saving some edits to the map to warn against publishing personal data -->

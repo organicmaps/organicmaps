@@ -366,11 +366,11 @@
 /* Text in menu */
 "instagram" = "Instagram";
 
-/* Text in editor */
+/* Text in the editor */
 "vk" = "VK";
 
-/* Text in editor */
-"line_social_network" = "LINE";
+/* Text in the editor */
+"editor_line_social_network" = "LINE";
 
 /* Text in menu */
 "openstreetmap" = "OpenStreetMap";
@@ -975,7 +975,7 @@
 
 "error_enter_correct_vk_page" = "Enter a valid VK web address or account name";
 
-"error_enter_correct_line_page" = "Enter a valid LINE web address or LINE ID";
+"error_enter_correct_line_page" = "Упішыце вэб-адрас LINE старонкі або LINE ID";
 
 "refresh" = "Абнавіць";
 

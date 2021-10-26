@@ -234,10 +234,10 @@
 	<string name="twitter">Twitter</string>
 	<!-- Text in menu -->
 	<string name="instagram">Instagram</string>
-	<!-- Text in editor -->
+	<!-- Text in the editor -->
 	<string name="vk">VK</string>
-	<!-- Text in editor -->
-	<string name="line_social_network">LINE</string>
+	<!-- Text in the editor -->
+	<string name="editor_line_social_network">LINE</string>
 	<!-- Text in menu -->
 	<string name="openstreetmap">OpenStreetMap</string>
 	<!-- Settings: Send feedback button and dialog title -->

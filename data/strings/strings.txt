@@ -4460,12 +4460,12 @@
     en = Instagram
 
   [vk]
-    comment = Text in editor
+    comment = Text in the editor
     tags = android
     en = VK
 
-  [line_social_network]
-    comment = Text in editor
+  [editor_line_social_network]
+    comment = Text in the editor
     tags = android
     en = LINE
 
@@ -13560,6 +13560,7 @@
   [error_enter_correct_line_page]
     tags = android
     en = Enter a valid LINE web address or LINE ID
+    be = Упішыце вэб-адрас LINE старонкі або LINE ID
     ru = Введите корректный веб-адрес LINE страницы или LINE ID
     uk = Введіть вірну веб-адресу LINE сторінки або LINE ID
 
@@ -17502,7 +17503,7 @@
     zh-Hant = 從卡中隱藏
 
   [public_access]
-    tags = android, ios
+    tags = android
     en = Public access
     ar = إطلاع الجمهور
     be = Публічны доступ
@@ -17539,7 +17540,7 @@
     zh-Hant = 公共訪問
 
   [limited_access]
-    tags = android, ios
+    tags = android
     en = Limited access
     ar = محدودية فرص حصول
     be = Абмежаваны доступ
@@ -17648,7 +17649,7 @@
     zh-Hant = 添加說明(文字或html)
 
   [not_shared]
-    tags = android, ios
+    tags = android
     en = Private
     ar = خاص
     be = Прыватны
@@ -18240,7 +18241,7 @@
     zh-Hant = 此選項啟用以記錄操作來進行診斷。這有助於團隊識別應用程序的問題。請僅在Organic Maps支持請求時開啟該選項。
 
   [access_rules_author_only]
-    tags = android, ios
+    tags = android
     en = Online editing
     ar = التحرير على الإنترنت
     be = Рэдагаванне анлайн
