@@ -881,16 +881,17 @@ bool EditableMapObject::ValidateLinePage(string const & page)
     return {};
 
   {
-    /* Check that linePage contains valid page name. Rules took here: https://help.line.me/line/?contentId=10009904
-     * The page name must be between 4 and 20 characters. Should contains alphanumeric characters
-     * and symbols '.', '-', and '_'
-     */
+    // Check that linePage contains valid page name.
+    // Rules are defined here: https://help.line.me/line/?contentId=10009904
+    // The page name must be between 4 and 20 characters. Should contains alphanumeric characters
+    // and symbols '.', '-', and '_'
 
     string linePageClean = page;
     if (linePageClean.front() == '@')
       linePageClean = linePageClean.substr(1);
 
-    if (regex_match(linePageClean, regex(R"(^[a-z0-9-_.]{4,20}$)"))) return true;
+    if (regex_match(linePageClean, regex(R"(^[a-z0-9-_.]{4,20}$)")))
+      return true;
   }
 
   if (EditableMapObject::ValidateWebsite(page))
