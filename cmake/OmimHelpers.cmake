@@ -154,7 +154,7 @@ function(link_opengl target)
     if (PLATFORM_LINUX)
       omim_link_libraries(
         ${target}
-        ${OPENGL_gl_LIBRARY}
+        OpenGL::GL
       )
     endif()
 endfunction()
