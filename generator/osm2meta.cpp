@@ -293,25 +293,15 @@ string MetadataTagProcessorImpl::ValidateAndFormat_vk(string const & vkPage) con
   return {};
 }
 
-string const stripAtSymbol(string const & lineId)
+// Strip '%40' and `@` chars from Line ID start.
+string stripAtSymbol(string const & lineId)
 {
   if (lineId.empty())
     return lineId;
-  if (strings::StartsWith(lineId, "%40")) // Strip '%40' chars from Line ID.
-    return lineId.substr(3);
-  if (lineId.front() == '@') // Strip '@' char from Line ID.
+  if (lineId.front() == '@')
     return lineId.substr(1);
-  return lineId;
-}
-
-string & stripAtSymbol(string & lineId)
-{
-  if (lineId.empty())
-    return lineId;
-  if (strings::StartsWith(lineId, "%40")) // Strip '%40' chars from Line ID.
-    lineId = lineId.substr(3);
-  if (lineId.front() == '@') // Strip '@' char from Line ID.
-    lineId = lineId.erase(0, 1);
+  if (strings::StartsWith(lineId, "%40"))
+    return lineId.substr(3);
   return lineId;
 }
 
