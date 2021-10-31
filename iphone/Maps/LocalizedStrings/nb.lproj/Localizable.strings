@@ -381,10 +381,16 @@
 /* Text in menu */
 "help" = "Hjelp";
 
-/* Text in menu */
+/* Button in the main Help dialog */
+"faq" = "Spørsmål og svar";
+
+/* Button in the main Help dialog */
+"how_to_support_us" = "Hvordan støtte oss?";
+
+/* Button in the main Help dialog */
 "copyright" = "Opphavsrett";
 
-/* Text in menu */
+/* Text in menu + Button in the main Help dialog */
 "report_a_bug" = "Rapporter en feil";
 
 /* Alert text */
@@ -996,17 +1002,8 @@
 
 "recent_track_background_dialog_message" = "Organic Maps bruker geografiske funksjoner i bakgrunnen for å registrere din nylig reiste rute.";
 
-/* Rate on Google Play (Android only) */
-"rate_gp" = "Gi vurdering på Google Play";
-
-/* Share with friends: menu item title */
-"tell_friends" = "Fortell en venn";
-
-/* Share with friends: sharing text */
-"tell_friends_text" = "Hei! Installer Organic Maps!";
-
-/* About short text (below logo) */
-"about_description" = "Organic Maps er en offline app for reising. Organic Maps bygger på OpenStreetMap-data og tillater redigering av den.";
+/* About short text */
+"about_description" = "Organic Maps er en gratis applikasjon. Den er utviklet av noen ingeniører på fritiden. Alle kartdata er fra OpenStreetMap. Ingen annonser. Ingen sporing. Dine personopplysninger er ikke samlet.";
 
 "general_settings" = "Generelle innstillinger";
 

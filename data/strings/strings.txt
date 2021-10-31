@@ -803,7 +803,7 @@
     zh-Hant = 再試一次
 
   [about_menu_title]
-    tags = android, ios
+    tags = ios
     en = About Organic Maps
     ar = حول Organic Maps
     be = Аб дадатку Organic Maps
@@ -3307,7 +3307,7 @@
 
   [version]
     comment = Prints version number in About dialog
-    tags = android, ios
+    tags = ios
     en = Version: %@
     ar = الاصدار: %@
     be = Версія: %@
@@ -4508,7 +4508,7 @@
 
   [rate_the_app]
     comment = Text in menu
-    tags = ios
+    tags = android, ios
     en = Rate the app
     ar = تقييم التطبيق
     be = Ацаніць дадатак
@@ -4580,8 +4580,83 @@
     zh-Hans = 帮助
     zh-Hant = 幫助
 
+  [faq]
+    comment = Button in the main Help dialog
+    tags = android
+    en = FAQ
+    ar = ﺔﺑﻮﺟﺃﻭ ﺔﻠﺌﺳﺃ
+    be = Пытанні і адказы
+    bg = Въпроси и отговори
+    cs = Otázky a odpovědi
+    da = Spørgsmål og svar
+    de = Fragen und Antworten
+    el = Ερωτήσεις και απαντήσεις
+    es = Preguntas y respuestas
+    fa = ﺦﺳﺎﭘ ﻭ ﺶﺳﺮﭘ
+    fi = Kysymykset ja vastaukset
+    fr = Questions et réponses
+    he = תובושתו תולאש
+    hu = Kérdések és válaszok
+    id = Pertanyaan dan jawaban
+    it = Domande e risposte
+    ja = 質問と回答
+    ko = 질문과 답변
+    nb = Spørsmål og svar
+    nl = Vragen en antwoorden
+    pl = Pytania i odpowiedzi
+    pt = Perguntas e respostas
+    pt-BR = Perguntas e respostas
+    ro = Intrebari si raspunsuri
+    ru = Вопросы и ответы
+    sk = Otázky a odpovede
+    sv = Frågor och svar
+    sw = Maswali na majibu
+    th = คำถามและคำตอบ
+    tr = Sorular ve cevaplar
+    uk = Питання та відповіді
+    vi = Câu hỏi và trả lời
+    zh-Hans = 问题和解答
+    zh-Hant = 問題和解答
+
+  [how_to_support_us]
+    comment = Button in the main Help dialog
+    tags = android
+    en = How to support us?
+    ar = كيف تدعم لنا؟
+    be = Як нас падтрымаць?
+    bg = Как да ни подкрепите?
+    cs = Jak nás podpořit?
+    da = Sådan støtter vi os?
+    de = Wie unterstützen Sie uns?
+    el = Πώς να μας υποστηρίξετε;
+    es = ¿Cómo apoyarnos?
+    fa = چگونه از ما حمایت کنیم؟
+    fi = Kuinka tukea meitä?
+    fr = Comment nous soutenir?
+    he = כיצד לתמוך בנו?
+    hu = Hogyan támogat minket?
+    id = Bagaimana cara mendukung kami?
+    it = Come supportarci?
+    ja = どのように私たちを支持する方法？
+    ko = 우리를 지원하는 방법?
+    nb = Hvordan støtte oss?
+    nl = Hoe ons te steunen?
+    pl = Jak nas wspierać?
+    pt = Como nos apoiar?
+    ro = Cum să ne sprijiniți?
+    ru = Как наc поддержать?
+    sk = Ako nás podporiť?
+    sv = Hur stöder vi oss?
+    sw = Jinsi ya kutuunga mkono?
+    th = วิธีการสนับสนุนเรา
+    tr = Bizi nasıl destekleyebilirim?
+    uk = Як нас підтримати?
+    vi = Làm thế nào để hỗ trợ chúng tôi?
+    zh-Hans = 如何支持我们？
+    zh-Hant = 如何支持我們？
+
   [copyright]
-    comment = Text in menu
+    comment = Button in the main Help dialog
     tags = android, ios
     en = Copyright
     ar = حقوق الطبع والنشر
@@ -4618,7 +4693,7 @@
     zh-Hant = 版權
 
   [report_a_bug]
-    comment = Text in menu
+    comment = Text in menu + Button in the main Help dialog
     tags = android, ios
     en = Report a bug
     ar = الإبلاغ عن خطأ
@@ -9113,7 +9188,7 @@
     zh-Hant = 您已經改變了世界地圖。別藏私！告訴您的朋友們一起來編輯。
 
   [share_with_friends]
-    tags = android, ios
+    tags = ios
     en = Share with friends
     ar = شارك مع الأصدقاء
     be = Падзяліцца з сябрамі
@@ -13910,149 +13985,42 @@
     zh-Hans = Organic Maps使用背景中的地理位置记录您最近去过的路径。
     zh-Hant = Organic Maps使用背景中的地理位置記錄您最近去過的路徑。
 
-  [rate_gp]
-    comment = Rate on Google Play (Android only)
-    tags = android
-    en = Rate on Google Play
-    ar = تصنيف على Google Play
-    be = Ацаніць на Google Play
-    bg = Оценка в Google Play
-    cs = Ohodnotit na Google Play
-    da = Bedøm på Google Play
-    de = Bei Google Play bewerten
-    el = Βαθμολογήστε το στο Google Play
-    es = Valorar en Google Play
-    fa = امتیاز دادن در گوگل پلی
-    fi = Arvioi Google Playssa
-    fr = Noter sur Google Play
-    hu = Arány a Google Play-n
-    id = Beri nilai di Google Play
-    it = Vota su Google Play
-    ja = Google Play で評価
-    ko = Google Play에서 평가
-    nb = Gi vurdering på Google Play
-    nl = Beoordeel op Google Play
-    pl = Oceń w Google Play
-    pt = Avaliar no Google Play
-    pt-BR = Avaliar em Google Play
-    ro = Dați un calificativ pe Google Play
-    ru = Оценить в Google Play
-    sk = Ohodnotiť v službe Google Play
-    sv = Betygsätt på Google Play
-    th = ให้คะแนนบน Google Play
-    tr = Google Play'de Oy Ver
-    uk = Рейтинг на Google Play
-    vi = Cho điểm trên Google Play
-    zh-Hans = 在 Google Play 上的评分
-    zh-Hant = 在 Google Play 評分
-
-  [tell_friends]
-    comment = Share with friends: menu item title
-    tags = android
-    en = Tell a Friend
-    ar = أخبر صديق
-    be = Рассказаць сябрам
-    bg = Кажи на приятел
-    cs = Sdílet s přáteli
-    da = Sig det videre til en ven
-    de = Einem Freund empfehlen
-    el = Πείτε το σε ένα φίλο
-    es = Enviar a un amigo
-    fa = به یک دوست بگویید
-    fi = Kerro kaverille
-    fr = Recommander à un ami
-    hu = Mondja el egy ismerősének
-    id = Beri Tahu Teman
-    it = Dillo a un amico
-    ja = 友達に教える
-    ko = 친구에게 알려주기
-    nb = Fortell en venn
-    nl = Vertel een Vriend
-    pl = Powiadom znajomego
-    pt = Indique a um amigo
-    pt-BR = Indique a um amigo
-    ro = Spuneți unui prieten
-    ru = Рассказать друзьям
-    sk = Povedať priateľovi
-    sv = Tipsa en vän
-    th = บอกเพื่อน
-    tr = Arkadaşınıza söyleyin
-    uk = Розповісти другу
-    vi = Giới thiệu với Bạn bè
-    zh-Hans = 告诉朋友
-    zh-Hant = 告訴朋友
-
-  [tell_friends_text]
-    comment = Share with friends: sharing text
-    tags = android
-    en = Hi! Install Organic Maps!
-    ar = مرحبًا! تثبيت Organic Maps!
-    be = Прывітанне! Усталюй Organic Maps!
-    bg = Здравей! Инсталирай Organic Maps!
-    cs = Ahoj! Naisntalujte si Organic Maps!
-    da = Hej! Installer Organic Maps!
-    de = Hallo! Installiere dir Organic Maps!
-    el = Γεια σας! Εγκαταστήστε το Organic Maps!
-    es = ¡Hola! ¡Instala Organic Maps!
-    fa = سلام!  Organic Maps را نصب کنید.
-    fi = Hei, asenna Organic Maps!
-    fr = Salut! Installe Organic Maps!
-    hu = Szia! Telepítsd a Organic Maps alkalmazást!
-    id = Hai! Instal Organic Maps yuk!
-    it = Ciao! Installa Organic Maps!
-    ja = こんにちは！Organic Maps をインストールしましょう！
-    ko = 안녕하세요! Organic Maps를 설치하세요!
-    nb = Hei! Installer Organic Maps!
-    nl = Hallo! Installeer Organic Maps!
-    pl = Cześć! Zainstaluj Organic Maps!
-    pt = Olá! Instale o Organic Maps!
-    pt-BR = Olá! Instale o Organic Maps!
-    ro = Bună! Instalați Organic Maps!
-    ru = Привет! Установи Organic Maps!
-    sk = Ahoj! Nainštaluj si aplikáciu Organic Maps
-    sv = Hej! Installera Organic Maps!
-    th = สวัสดี! ติดตั้ง Organic Maps กันเถอะ!
-    tr = Merhaba! Organic Maps'yi hemen yükle!
-    uk = Привіт! Встанови Organic Maps!
-    vi = Xin chào! Hãy cài đặt Organic Maps!
-    zh-Hans = 您好！安装 Organic Maps！
-    zh-Hant = 嗨！安裝 Organic Maps！
-
   [about_description]
-    comment = About short text (below logo)
+    comment = About short text
     tags = android, ios
-    en = Organic Maps is an essential offline application for travelling. Organic Maps is based on OpenStreetMap data and allows editing it.
-    ar = Organic Maps هو تطبيق أساسي للسفر بدون اتصال بالإنترنت. يعتمد برنامج Organic Maps على بيانات OpenStreetMap ويتيح تحريرها.
-    be = Organic Maps — неабходны дататак для падарожжаў, каторы працуе без падлучэння да інтэрнэту. Organic Maps ужывае дадзеныя OpenStreetMap і дазваляе іх правіць.
-    bg = Organic Maps е офлайн приложение за пътуване. Organic Maps се основава на данни от OpenStreetMap и позволява тяхното редактиране.
-    cs = Organic Maps je základní aplikace pro každého cestovatele. Organic Maps je založena na datech z OpenStreetMap a umožňuje je upravovat.
-    da = Organic Maps er en essentiel offline-app for rejsende. Organic Maps er baseret på data fra OpenStreetMap, og gør det muligt at redigere disse data.
-    de = Organic Maps ist eine wichtige Offline-App zum Reisen. Organic Maps basiert auf OpenStreetMap-Daten und ermöglicht das Bearbeiten dieser.
-    el = Το Organic Maps είναι η απαραίτητη εφαρμογή γα ταξίδια που λειτουργεί εκτός σύνδεσης. Το Organic Maps βασίζεται σε δεδομένα OpenStreetMap και σας επιτρέπει να τα επεξεργαστείτε.
-    es = Organic Maps es una aplicación esencial offline para viajar. Organic Maps se basa en datos de OpenStreetMap y permite editarla.
-    fa = Organic Maps یک نرم افزار افلاین مخصوص سفر است. Organic Maps بر پایه دیتای OpenStreetMap است و به شما اجازه ویرایش در ان را می دهد.
-    fi = Organic Maps on ehdoton offline-sovellus matkoja varten. Organic Maps perustuu OpenStreetMap-dataan ja sallii sen muokkauksen.
-    fr = Organic Maps est une application hors ligne essentielle pour les voyages. Organic Maps se base sur les données OpenStreetMap et permet de les modifier.
-    hu = A Organic Maps egy nélkülözhetetlen alkalmazás utazáshoz. A Organic Maps az OpenStreetMap adataira épül, és lehetővé teszi ezek szerkesztését.
-    id = Organic Maps adalah aplikasi offline yang sangat berguna untuk bepergian. Organic Maps didasarkan pada data OpenStreetMap dan memungkinkan kita untuk mengeditnya.
-    it = Organic Maps è un'applicazione offline essenziale per chi ama viaggiare. Organic Maps si basa sui dati OpenStreetMap e consente di apportare modifiche.
-    ja = Organic Maps は旅に必要不可欠なオフラインアプリケーションです。Organic Maps は OpenStreetMap データに基づいており、データを編集することができます。
-    ko = Organic Maps는 여행용 필수 오프라인 응용 프로그램입니다. Organic Maps는 OpenStreetMap 데이터를 기반으로 하며 이 데이터 편집을 허용합니다.
-    nb = Organic Maps er en offline app for reising. Organic Maps bygger på OpenStreetMap-data og tillater redigering av den.
-    nl = Organic Maps is een essentiële offline applicatie om te reizen. Organic Maps is gebaseerd op OpenStreetMap gegevens en laat bewerking toe.
-    pl = Organic Maps to niezbędna aplikacja do podróży działająca w trybie offline. Organic Maps opiera się o dane OpenStreetMap oraz umożliwia ich edycję.
-    pt = O Organic Maps é uma aplicação offline essencial para viajar. O Organic Maps baseia-se nos dados do OpenStreetMap e permite editá-los.
-    pt-BR = O Organic Maps é um aplicativo offline essencial para viajar. O Organic Maps se baseia nos dados do OpenStreetMap e permite editá-los.
-    ro = Organic Maps este o aplicație offline esențială când călătoriți. Organic Maps utilizează datele OpenStreeMap și permite editarea acestora.
-    ru = Organic Maps — незаменимое приложение для путешествий, работающее без подключения к интернету. Organic Maps использует данные OpenStreetMap и позволяет их улучшать.
-    sk = Organic Maps je offine aplikácia na cestovanie. Základom aplikácie Organic Maps sú dáta OpenStreetMap, pričom aplikácia nám ich umožňuje upravovať.
-    sv = Organic Maps är en offline-applikation som du behöver när du reser. Organic Maps baseras på OpenStreetMap-data och tillåter redigering i den.
-    th = Organic Maps เป็นแอปพลิเคชั่นออฟไลน์ที่จำเป็นสำหรับการท่องเที่ยว Organic Maps นั้นใช้งานบนพื้นฐานของข้อมูล OpenStreetMap และใช้แก้ไขได้ด้วย
-    tr = Organic Maps, seyahatler için vazgeçilmez bir çevrimdışı uygulamadır. Organic Maps, OpenStreetMap verilerine dayanmakta ve bu verilerin düzenlenmesini sağlamaktadır.
-    uk = Organic Maps — це додаток must-have для мандрівників. У Organic Maps використовуються офлайн-дані OpenStreetMap, які можна редагувати.
-    vi = Organic Maps là một ứng dụng ngoại tuyến thiết yếu khi đi du lịch. Organic Maps được dựa trên dữ liệu của OpenStreetMap và cho phép bạn hiệu chỉnh nó.
-    zh-Hans = Organic Maps 是一款基本的离线旅行应用。Organic Maps 基于 OpenStreetMap 数据并且允许对其进行编辑。
-    zh-Hant = Organic Maps 是一款基本離線旅遊應用程式。Organic Maps 以 OpenStreetMap 數據為基礎，並允許對其進行編輯。
+    en = Organic Maps is a free and open-source offline maps app, developed by a few geeks in their free time. All map data is from OpenStreetMap. No ads. No tracking and personal data collection.
+    ar = Organic Maps هو تطبيق مجاني. تم تطويره من قبل عدد قليل من المهندسين في وقت فراغنا. جميع بيانات الخريطة من OpenStreetMap. لا اعلانات. لا تتبع. لم يتم جمع بياناتك الشخصية.
+    be = Organic Maps гэта бясплатнае прыкладанне. Ён распрацаваны некалькіх інжынераў у вольны час. Усе дадзеныя карты з OpenstreetMap. Няма аб'яваў. Няма адсочвання. Вашы асабістыя дадзеныя не збіраюцца.
+    bg = Organic Maps е безплатно приложение. Разработено е от няколко инженери в свободното ни време. Всички картографски данни са от OpenstreetMap. Без реклами. Без проследяване. Вашите лични данни не се събират.
+    cs = Organic Maps je bezplatná aplikace. Vyvíjejí se několik inženýrů v našem volném čase. Všechna mapová data jsou z OpenStreetMap. Žádné reklamy. Žádné sledování. Vaše osobní údaje nejsou shromažďovány.
+    da = Organic Maps er en gratis applikation. Det er udviklet af et par ingeniører i vores fritid. Alle kortdata er fra OpenSTreetMap. Ingen annoncer. Ingen sporing. Dine personlige data indsamles ikke.
+    de = Organic Maps ist eine kostenlose Anwendung. Es wird von einigen Ingenieuren in unserer Freizeit entwickelt. Alle Kartendaten stammen aus OpenStreetMap. Keine Werbung. Keine Verfolgung. Ihre persönlichen Daten werden nicht gesammelt.
+    el = Ο Organic Maps είναι μια δωρεάν εφαρμογή. Αναπτύσσεται από λίγους μηχανικούς στον ελεύθερο χρόνο μας. Όλα τα δεδομένα χάρτη είναι από το OpenStreetMap. Χωρίς διαφημίσεις. Χωρίς εντοπισμό. Τα προσωπικά σας δεδομένα δεν συλλέγονται.
+    es = Organic Maps es una aplicación gratuita. Es desarrollado por unos pocos ingenieros en nuestro tiempo libre. Todos los datos de mapas son de OpenStreetMap. Sin anuncios. Sin seguimiento. Sus datos personales no se recopilan.
+    fa = Organic Maps یک برنامه رایگان است. این توسط چند مهندس در زمان آزاد ما توسعه یافته است. تمام داده های نقشه از OpenStreetMap است. بدون تبلیغاتبدون ردیابیاطلاعات شخصی شما جمع آوری نشده است.
+    fi = Organic Maps on ilmainen sovellus. Se kehittää muutamia insinöörejä vapaa-ajalla. Kaikki karttatiedot ovat OpenStreetMapista. Ei mainoksia. Ei seurantaa. Henkilötietojasi ei kerätä.
+    fr = Organic Maps est une application gratuite. Il est développé par quelques ingénieurs dans notre temps libre. Toutes les données cartographiques proviennent de OpenStreetMap. Pas de pubs. Pas de localisation. Vos données personnelles ne sont pas collectées.
+    he = Organic Maps הוא יישום חינם. הוא פותח על ידי כמה מהנדסים בזמן הפנוי שלנו. כל נתוני המפה הם מ- OpenStreetmap. ללא פרסומות. אין מעקב. הנתונים האישיים שלך אינם נאספים.
+    hu = Az Organic Maps ingyenes alkalmazás. A szabadidőben néhány mérnök fejlett. Az összes térképadat az OpenStreetMapból származik. Nincsenek hirdetések. Nincs nyomkövetés. Az Ön személyes adatait nem gyűjtik össze.
+    id = Organic Maps adalah aplikasi gratis. Ini dikembangkan oleh beberapa insinyur di waktu luang kami. Semua data peta berasal dari openstreetmap. Tanpa iklan. Tidak ada pelacakan. Data pribadi Anda tidak dikumpulkan.
+    it = Organic Maps è un'applicazione gratuita. È sviluppato da alcuni ingegneri nel nostro tempo libero. Tutti i dati della mappa provengono da OpenStreetMap. Nessuna pubblicità. No tracciabilità. I tuoi dati personali non sono raccolti.
+    ja = Organic Mapsは無料のアプリケーションです。それは私たちの自由な時間にいくつかのエンジニアによって開発されています。すべての地図データはOpenStreetMapからのものです。広告なし。全く追跡しません。あなたの個人データは収集されません。
+    ko = Organic Maps는 무료 응용 프로그램입니다. 그것은 자유 시간에 몇 명의 엔지니어가 개발했습니다. 모든지도 데이터는 OpenStreetMap에서입니다. 광고 없음. 추적 없음. 귀하의 개인 데이터는 수집되지 않습니다.
+    nb = Organic Maps er en gratis applikasjon. Den er utviklet av noen ingeniører på fritiden. Alle kartdata er fra OpenStreetMap. Ingen annonser. Ingen sporing. Dine personopplysninger er ikke samlet.
+    nl = Organic Maps is een gratis applicatie. Het is ontwikkeld door een paar ingenieurs in onze vrije tijd. Alle kaartgegevens zijn van OpenStreetMap. Geen advertenties. Geen volgen. Uw persoonlijke gegevens worden niet verzameld.
+    pl = Organic Maps to darmowa aplikacja. Jest rozwijany przez kilku inżynierów w naszym wolnym czasie. Wszystkie dane mapowe pochodzą z OpenStreetMap. Bez reklam. Bez śledzenia. Twoje dane osobowe nie są gromadzone.
+    pt = Organic Maps é um aplicativo gratuito. É desenvolvido por alguns engenheiros em nosso tempo livre. Todos os dados do mapa são do OpenStreetMap. Nenhum anúncio. Nenhum rastreamento. Seus dados pessoais não são coletados.
+    ro = Organic Maps este o aplicație gratuită. Este dezvoltat de câțiva ingineri în timpul liber. Toate datele hărților sunt din OpenStreetMap. Fără reclame. Nici o urmărire. Datele dvs.  personale nu sunt colectate.
+    ru = Organic Maps - это бесплатное приложение, разработанное несколькими гиками свободное временя. Все данные карты из OpenStreetMap. Без рекламы. Нет отслеживания. Ваши личные данные не собираются.
+    sk = Organic Maps je bezplatná aplikácia. Je vyvinutý niekoľkými inžiniermi v našom voľnom čase. Všetky údaje mapy sú z OpenSTREETMAP. Žiadne reklamy. Žiadne sledovanie. Vaše osobné údaje sa nezbierajú.
+    sv = Organic Maps är en gratis applikation. Den är utvecklad av några ingenjörer på vår fritid. Alla kartdata är från OpenStreetMap. Inga annonser. Ingen spårning. Dina personuppgifter samlas inte in.
+    sw = Organic Maps ni programu ya bure. Inatengenezwa na wahandisi wachache wakati wetu wa bure. Takwimu zote za ramani ni kutoka kwa OpenStreetMap. Hakuna matangazo. Hakuna kufuatilia. Takwimu zako za kibinafsi hazikusanywa.
+    th = Organic Maps เป็นแอปพลิเคชั่นฟรีมันได้รับการพัฒนาโดยวิศวกรสองสามคนในเวลาว่างของเราข้อมูลแผนที่ทั้งหมดมาจาก OpenStreetMapไม่มีโฆษณาไม่มีการติดตาม. ข้อมูลส่วนบุคคลของคุณจะไม่ถูกเก็บรวบรวม
+    tr = Organic Maps ücretsiz bir uygulamadır. Boş zamanlarımızda birkaç mühendis tarafından geliştirilmiştir. Tüm harita verileri OpenStreetMap'tendir. Reklamsız. İzleme yok. Kişisel verileriniz toplanmaz.
+    uk = Organic Maps - це безкоштовна програма. Він розроблений кількома інженерами у вільний час. Всі дані карти є від OpenStreetMap. Немає реклами. Немає відстеження. Ваші особисті дані не збираються.
+    vi = Organic Maps là một ứng dụng miễn phí. Nó được phát triển bởi một vài kỹ sư trong thời gian rảnh của chúng tôi. Tất cả dữ liệu bản đồ là từ OpenStreetMap. Không quảng cáo. Không theo dõi. Dữ liệu cá nhân của bạn không được thu thập.
+    zh-Hans = Organic Maps是免费的申请。它是由我们的空闲时间的少数工程师开发的。所有地图数据都来自OpenStreetMap。无广告。没有跟踪。您的个人数据不会收集。
+    zh-Hant = Organic Maps是免費的申請。它是由我們的空閒時間的少數工程師開發的。所有地圖數據都來自OpenStreetMap。無廣告。沒有跟踪。您的個人數據不會收集。
 
   [general_settings]
     tags = ios
@@ -17499,7 +17467,7 @@
     zh-Hant = 從卡中隱藏
 
   [public_access]
-    tags = android, ios
+    tags = android
     en = Public access
     ar = إطلاع الجمهور
     be = Публічны доступ
@@ -17536,7 +17504,7 @@
     zh-Hant = 公共訪問
 
   [limited_access]
-    tags = android, ios
+    tags = android
     en = Limited access
     ar = محدودية فرص حصول
     be = Абмежаваны доступ
@@ -17645,7 +17613,7 @@
     zh-Hant = 添加說明(文字或html)
 
   [not_shared]
-    tags = android, ios
+    tags = android
     en = Private
     ar = خاص
     be = Прыватны
@@ -18237,7 +18205,7 @@
     zh-Hant = 此選項啟用以記錄操作來進行診斷。這有助於團隊識別應用程序的問題。請僅在Organic Maps支持請求時開啟該選項。
 
   [access_rules_author_only]
-    tags = android, ios
+    tags = android
     en = Online editing
     ar = التحرير على الإنترنت
     be = Рэдагаванне анлайн

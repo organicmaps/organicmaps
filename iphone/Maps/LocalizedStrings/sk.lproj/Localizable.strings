@@ -381,10 +381,16 @@
 /* Text in menu */
 "help" = "Nápoveda";
 
-/* Text in menu */
+/* Button in the main Help dialog */
+"faq" = "Otázky a odpovede";
+
+/* Button in the main Help dialog */
+"how_to_support_us" = "Ako nás podporiť?";
+
+/* Button in the main Help dialog */
 "copyright" = "Autorské práva";
 
-/* Text in menu */
+/* Text in menu + Button in the main Help dialog */
 "report_a_bug" = "Nahlásiť chybu";
 
 /* Alert text */
@@ -996,17 +1002,8 @@
 
 "recent_track_background_dialog_message" = "Organic Maps používa vašu geopozíciu na pozadí pre zaznamenávanie vami nedávno precestovanej trasy.";
 
-/* Rate on Google Play (Android only) */
-"rate_gp" = "Ohodnotiť v službe Google Play";
-
-/* Share with friends: menu item title */
-"tell_friends" = "Povedať priateľovi";
-
-/* Share with friends: sharing text */
-"tell_friends_text" = "Ahoj! Nainštaluj si aplikáciu Organic Maps";
-
-/* About short text (below logo) */
-"about_description" = "Organic Maps je offine aplikácia na cestovanie. Základom aplikácie Organic Maps sú dáta OpenStreetMap, pričom aplikácia nám ich umožňuje upravovať.";
+/* About short text */
+"about_description" = "Organic Maps je bezplatná aplikácia. Je vyvinutý niekoľkými inžiniermi v našom voľnom čase. Všetky údaje mapy sú z OpenSTREETMAP. Žiadne reklamy. Žiadne sledovanie. Vaše osobné údaje sa nezbierajú.";
 
 "general_settings" = "Všeobecné nastavenia";
 

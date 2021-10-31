@@ -6,6 +6,10 @@ Thank you for your interest in contributing to Organic Maps!
 
 There are many ways to contribute.
 
+### Donate
+
+See https://organicmaps.app/donate/
+
 ### Bug Reports
 
 The simplest way to contribute is to [submit an issue](https://github.com/organicmaps/organicmaps/issues).

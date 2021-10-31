@@ -381,10 +381,16 @@
 /* Text in menu */
 "help" = "Hjälp";
 
-/* Text in menu */
+/* Button in the main Help dialog */
+"faq" = "Frågor och svar";
+
+/* Button in the main Help dialog */
+"how_to_support_us" = "Hur stöder vi oss?";
+
+/* Button in the main Help dialog */
 "copyright" = "Copyright";
 
-/* Text in menu */
+/* Text in menu + Button in the main Help dialog */
 "report_a_bug" = "Rapportera en bugg";
 
 /* Alert text */
@@ -996,17 +1002,8 @@
 
 "recent_track_background_dialog_message" = "Organic Maps använder din geografiska position i bakgrunden för att spela in din senaste resta rutt.";
 
-/* Rate on Google Play (Android only) */
-"rate_gp" = "Betygsätt på Google Play";
-
-/* Share with friends: menu item title */
-"tell_friends" = "Tipsa en vän";
-
-/* Share with friends: sharing text */
-"tell_friends_text" = "Hej! Installera Organic Maps!";
-
-/* About short text (below logo) */
-"about_description" = "Organic Maps är en offline-applikation som du behöver när du reser. Organic Maps baseras på OpenStreetMap-data och tillåter redigering i den.";
+/* About short text */
+"about_description" = "Organic Maps är en gratis applikation. Den är utvecklad av några ingenjörer på vår fritid. Alla kartdata är från OpenStreetMap. Inga annonser. Ingen spårning. Dina personuppgifter samlas inte in.";
 
 "general_settings" = "Allmänna inställningar";
 

@@ -227,9 +227,13 @@
 	<string name="rate_the_app">Oceń aplikację</string>
 	<!-- Text in menu -->
 	<string name="help">Pomoc</string>
-	<!-- Text in menu -->
+	<!-- Button in the main Help dialog -->
+	<string name="faq">Pytania i odpowiedzi</string>
+	<!-- Button in the main Help dialog -->
+	<string name="how_to_support_us">Jak nas wspierać?</string>
+	<!-- Button in the main Help dialog -->
 	<string name="copyright">Prawa autorskie</string>
-	<!-- Text in menu -->
+	<!-- Text in menu + Button in the main Help dialog -->
 	<string name="report_a_bug">Zgłoś błąd</string>
 	<!-- Alert text -->
 	<string name="email_error_body">Email klienta nie został założony. Proszę skonfigurować adres email, bądź skorzystać z innych opcji, aby się z nami skontaktować na %s</string>
@@ -570,14 +574,8 @@
 	<!-- For sharing via SMS and so on -->
 	<string name="sharing_call_action_look">Sprawdź</string>
 	<string name="recent_track_background_dialog_message">Organic Maps używa w tle geolokalizacji w celu rejestrowania niedawno przebytej trasy.</string>
-	<!-- Rate on Google Play (Android only) -->
-	<string name="rate_gp">Oceń w Google Play</string>
-	<!-- Share with friends: menu item title -->
-	<string name="tell_friends">Powiadom znajomego</string>
-	<!-- Share with friends: sharing text -->
-	<string name="tell_friends_text">Cześć! Zainstaluj Organic Maps!</string>
-	<!-- About short text (below logo) -->
-	<string name="about_description">Organic Maps to niezbędna aplikacja do podróży działająca w trybie offline. Organic Maps opiera się o dane OpenStreetMap oraz umożliwia ich edycję.</string>
+	<!-- About short text -->
+	<string name="about_description">Organic Maps to darmowa aplikacja. Jest rozwijany przez kilku inżynierów w naszym wolnym czasie. Wszystkie dane mapowe pochodzą z OpenStreetMap. Bez reklam. Bez śledzenia. Twoje dane osobowe nie są gromadzone.</string>
 	<string name="general_settings">Ustawienia ogólne</string>
 	<!-- For the first routing -->
 	<string name="accept">Zaakceptuj</string>

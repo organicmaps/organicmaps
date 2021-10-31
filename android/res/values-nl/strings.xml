@@ -224,9 +224,13 @@
 	<string name="rate_the_app">App beoordelen</string>
 	<!-- Text in menu -->
 	<string name="help">Hulp</string>
-	<!-- Text in menu -->
+	<!-- Button in the main Help dialog -->
+	<string name="faq">Vragen en antwoorden</string>
+	<!-- Button in the main Help dialog -->
+	<string name="how_to_support_us">Hoe ons te steunen?</string>
+	<!-- Button in the main Help dialog -->
 	<string name="copyright">Auteursrechten</string>
-	<!-- Text in menu -->
+	<!-- Text in menu + Button in the main Help dialog -->
 	<string name="report_a_bug">Meld een fout</string>
 	<!-- Alert text -->
 	<string name="email_error_body">De emailcliënt is niet ingesteld. Gelieve de cliënt te configureren of op een andere manier contact met ons op te nemen op %s</string>
@@ -562,14 +566,8 @@
 	<!-- For sharing via SMS and so on -->
 	<string name="sharing_call_action_look">Bekijk</string>
 	<string name="recent_track_background_dialog_message">Organic Maps gebruikt uw geografische positie op de achtergrond om uw onlangs afgelegde route vast te leggen.</string>
-	<!-- Rate on Google Play (Android only) -->
-	<string name="rate_gp">Beoordeel op Google Play</string>
-	<!-- Share with friends: menu item title -->
-	<string name="tell_friends">Vertel een Vriend</string>
-	<!-- Share with friends: sharing text -->
-	<string name="tell_friends_text">Hallo! Installeer Organic Maps!</string>
-	<!-- About short text (below logo) -->
-	<string name="about_description">Organic Maps is een essentiële offline applicatie om te reizen. Organic Maps is gebaseerd op OpenStreetMap gegevens en laat bewerking toe.</string>
+	<!-- About short text -->
+	<string name="about_description">Organic Maps is een gratis applicatie. Het is ontwikkeld door een paar ingenieurs in onze vrije tijd. Alle kaartgegevens zijn van OpenStreetMap. Geen advertenties. Geen volgen. Uw persoonlijke gegevens worden niet verzameld.</string>
 	<string name="general_settings">Algemene instellingen</string>
 	<!-- For the first routing -->
 	<string name="accept">Aanvaarden</string>

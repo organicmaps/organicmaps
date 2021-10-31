@@ -276,6 +276,17 @@
         android:parentActivityName="com.mapswithme.maps.MwmActivity" />
 
     <activity
+        android:name="com.mapswithme.maps.help.HelpActivity"
+        android:configChanges="orientation|screenLayout|screenSize"
+        android:label="@string/help"
+        android:parentActivityName="com.mapswithme.maps.MwmActivity">
+      <intent-filter>
+        <action android:name="com.mapswithme.maps.help.HelpActivity" />
+        <category android:name="android.intent.category.DEFAULT" />
+      </intent-filter>
+    </activity>
+
+    <activity
         android:name="com.mapswithme.maps.bookmarks.BookmarkCategoriesActivity"
         android:configChanges="orientation|screenLayout|screenSize"
         android:label="@string/bookmarks"

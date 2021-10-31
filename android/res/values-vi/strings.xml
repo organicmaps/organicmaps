@@ -220,9 +220,13 @@
 	<string name="rate_the_app">Cho điểm ứng dụng</string>
 	<!-- Text in menu -->
 	<string name="help">Trợ giúp</string>
-	<!-- Text in menu -->
+	<!-- Button in the main Help dialog -->
+	<string name="faq">Câu hỏi và trả lời</string>
+	<!-- Button in the main Help dialog -->
+	<string name="how_to_support_us">Làm thế nào để hỗ trợ chúng tôi?</string>
+	<!-- Button in the main Help dialog -->
 	<string name="copyright">Bản quyền</string>
-	<!-- Text in menu -->
+	<!-- Text in menu + Button in the main Help dialog -->
 	<string name="report_a_bug">Báo cáo lỗi</string>
 	<!-- Alert text -->
 	<string name="email_error_body">Trình khách email này chưa được thiết lập. Bạn vui lòng cấu hình nó hoặc sử dụng một cách khác để liên hệ với chúng tôi tại %s</string>
@@ -558,14 +562,8 @@
 	<!-- For sharing via SMS and so on -->
 	<string name="sharing_call_action_look">Xem</string>
 	<string name="recent_track_background_dialog_message">Organic Maps sử dụng định vị của bạn trong ứng dụng chạy nền để ghi lại tuyến đường đã đi gần đây của bạn.</string>
-	<!-- Rate on Google Play (Android only) -->
-	<string name="rate_gp">Cho điểm trên Google Play</string>
-	<!-- Share with friends: menu item title -->
-	<string name="tell_friends">Giới thiệu với Bạn bè</string>
-	<!-- Share with friends: sharing text -->
-	<string name="tell_friends_text">Xin chào! Hãy cài đặt Organic Maps!</string>
-	<!-- About short text (below logo) -->
-	<string name="about_description">Organic Maps là một ứng dụng ngoại tuyến thiết yếu khi đi du lịch. Organic Maps được dựa trên dữ liệu của OpenStreetMap và cho phép bạn hiệu chỉnh nó.</string>
+	<!-- About short text -->
+	<string name="about_description">Organic Maps là một ứng dụng miễn phí. Nó được phát triển bởi một vài kỹ sư trong thời gian rảnh của chúng tôi. Tất cả dữ liệu bản đồ là từ OpenStreetMap. Không quảng cáo. Không theo dõi. Dữ liệu cá nhân của bạn không được thu thập.</string>
 	<string name="general_settings">Thiết lập chung</string>
 	<!-- For the first routing -->
 	<string name="accept">Chấp nhận</string>

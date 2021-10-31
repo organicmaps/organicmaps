@@ -222,9 +222,13 @@
 	<string name="rate_the_app">تقييم التطبيق</string>
 	<!-- Text in menu -->
 	<string name="help">مساعدة</string>
-	<!-- Text in menu -->
+	<!-- Button in the main Help dialog -->
+	<string name="faq">ﺔﺑﻮﺟﺃﻭ ﺔﻠﺌﺳﺃ</string>
+	<!-- Button in the main Help dialog -->
+	<string name="how_to_support_us">كيف تدعم لنا؟</string>
+	<!-- Button in the main Help dialog -->
 	<string name="copyright">حقوق الطبع والنشر</string>
-	<!-- Text in menu -->
+	<!-- Text in menu + Button in the main Help dialog -->
 	<string name="report_a_bug">الإبلاغ عن خطأ</string>
 	<!-- Alert text -->
 	<string name="email_error_body">لم يتم تعيين البريد الإلكتروني للعميل. يرجى تكوينه أو استخدام أي وسيلة أخرى للاتصال بنا على %s</string>
@@ -560,14 +564,8 @@
 	<!-- For sharing via SMS and so on -->
 	<string name="sharing_call_action_look">انظر</string>
 	<string name="recent_track_background_dialog_message">يستخدم Organic Maps موقعك الجغرافي في الخلفية لتسجيل مسار سفرك الأخير.</string>
-	<!-- Rate on Google Play (Android only) -->
-	<string name="rate_gp">تصنيف على Google Play</string>
-	<!-- Share with friends: menu item title -->
-	<string name="tell_friends">أخبر صديق</string>
-	<!-- Share with friends: sharing text -->
-	<string name="tell_friends_text">مرحبًا! تثبيت Organic Maps!</string>
-	<!-- About short text (below logo) -->
-	<string name="about_description">Organic Maps هو تطبيق أساسي للسفر بدون اتصال بالإنترنت. يعتمد برنامج Organic Maps على بيانات OpenStreetMap ويتيح تحريرها.</string>
+	<!-- About short text -->
+	<string name="about_description">Organic Maps هو تطبيق مجاني. تم تطويره من قبل عدد قليل من المهندسين في وقت فراغنا. جميع بيانات الخريطة من OpenStreetMap. لا اعلانات. لا تتبع. لم يتم جمع بياناتك الشخصية.</string>
 	<string name="general_settings">إعدادات عامة</string>
 	<!-- For the first routing -->
 	<string name="accept">قبول</string>

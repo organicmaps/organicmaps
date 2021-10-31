@@ -381,10 +381,16 @@
 /* Text in menu */
 "help" = "Βοήθεια";
 
-/* Text in menu */
+/* Button in the main Help dialog */
+"faq" = "Ερωτήσεις και απαντήσεις";
+
+/* Button in the main Help dialog */
+"how_to_support_us" = "Πώς να μας υποστηρίξετε;";
+
+/* Button in the main Help dialog */
 "copyright" = "Πνευματικά δικαιώματα";
 
-/* Text in menu */
+/* Text in menu + Button in the main Help dialog */
 "report_a_bug" = "Αναφορά σφάλματος";
 
 /* Alert text */
@@ -996,17 +1002,8 @@
 
 "recent_track_background_dialog_message" = "Το Organic Maps χρησιμοποιεί τη γεωγραφική σας τοποθεσία στο παρασκήνιο για την καταγραφή των πρόσφατων διαδρομών σας.";
 
-/* Rate on Google Play (Android only) */
-"rate_gp" = "Βαθμολογήστε το στο Google Play";
-
-/* Share with friends: menu item title */
-"tell_friends" = "Πείτε το σε ένα φίλο";
-
-/* Share with friends: sharing text */
-"tell_friends_text" = "Γεια σας! Εγκαταστήστε το Organic Maps!";
-
-/* About short text (below logo) */
-"about_description" = "Το Organic Maps είναι η απαραίτητη εφαρμογή γα ταξίδια που λειτουργεί εκτός σύνδεσης. Το Organic Maps βασίζεται σε δεδομένα OpenStreetMap και σας επιτρέπει να τα επεξεργαστείτε.";
+/* About short text */
+"about_description" = "Ο Organic Maps είναι μια δωρεάν εφαρμογή. Αναπτύσσεται από λίγους μηχανικούς στον ελεύθερο χρόνο μας. Όλα τα δεδομένα χάρτη είναι από το OpenStreetMap. Χωρίς διαφημίσεις. Χωρίς εντοπισμό. Τα προσωπικά σας δεδομένα δεν συλλέγονται.";
 
 "general_settings" = "Γενικές ρυθμίσεις";
 

@@ -83,9 +83,6 @@ public class MainMenuRenderer implements MenuRenderer
     TextView share = view.findViewById(R.id.share);
     share.setOnClickListener(v -> mListener.onShareLocationOptionSelected());
     Graphics.tint(share);
-    TextView report = view.findViewById(R.id.report);
-    report.setOnClickListener(v -> mListener.onReportOptionSelected());
-    Graphics.tint(report);
   }
 
   private void initLayersRecycler(@NonNull View view)

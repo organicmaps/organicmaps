@@ -222,9 +222,13 @@
 	<string name="rate_the_app">Arvioi sovellus</string>
 	<!-- Text in menu -->
 	<string name="help">Ohje</string>
-	<!-- Text in menu -->
+	<!-- Button in the main Help dialog -->
+	<string name="faq">Kysymykset ja vastaukset</string>
+	<!-- Button in the main Help dialog -->
+	<string name="how_to_support_us">Kuinka tukea meitä?</string>
+	<!-- Button in the main Help dialog -->
 	<string name="copyright">Copyright</string>
-	<!-- Text in menu -->
+	<!-- Text in menu + Button in the main Help dialog -->
 	<string name="report_a_bug">Ilmoita virheestä</string>
 	<!-- Alert text -->
 	<string name="email_error_body">Sähköpostisovellusta ei ole asetettu. Ole hyvä ja määritä sähköpostiasetukset tai ota meihin yhteyttä toista kautta osoitteessa %s</string>
@@ -560,14 +564,8 @@
 	<!-- For sharing via SMS and so on -->
 	<string name="sharing_call_action_look">Tarkastele</string>
 	<string name="recent_track_background_dialog_message">MAPS.SE käyttää taustalla geosijaintia sinun viimeisen matkareitin tallentamiseksi.</string>
-	<!-- Rate on Google Play (Android only) -->
-	<string name="rate_gp">Arvioi Google Playssa</string>
-	<!-- Share with friends: menu item title -->
-	<string name="tell_friends">Kerro kaverille</string>
-	<!-- Share with friends: sharing text -->
-	<string name="tell_friends_text">Hei, asenna Organic Maps!</string>
-	<!-- About short text (below logo) -->
-	<string name="about_description">Organic Maps on ehdoton offline-sovellus matkoja varten. Organic Maps perustuu OpenStreetMap-dataan ja sallii sen muokkauksen.</string>
+	<!-- About short text -->
+	<string name="about_description">Organic Maps on ilmainen sovellus. Se kehittää muutamia insinöörejä vapaa-ajalla. Kaikki karttatiedot ovat OpenStreetMapista. Ei mainoksia. Ei seurantaa. Henkilötietojasi ei kerätä.</string>
 	<string name="general_settings">Yleiset asetukset</string>
 	<!-- For the first routing -->
 	<string name="accept">Hyväksy</string>

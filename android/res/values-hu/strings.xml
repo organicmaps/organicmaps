@@ -220,9 +220,13 @@
 	<string name="rate_the_app">Értékeld az alkalmazást</string>
 	<!-- Text in menu -->
 	<string name="help">Segítség</string>
-	<!-- Text in menu -->
+	<!-- Button in the main Help dialog -->
+	<string name="faq">Kérdések és válaszok</string>
+	<!-- Button in the main Help dialog -->
+	<string name="how_to_support_us">Hogyan támogat minket?</string>
+	<!-- Button in the main Help dialog -->
 	<string name="copyright">Szerzői jog</string>
-	<!-- Text in menu -->
+	<!-- Text in menu + Button in the main Help dialog -->
 	<string name="report_a_bug">Hibabejelentés</string>
 	<!-- Alert text -->
 	<string name="email_error_body">Az email kliens nincs beállítva. Kérjük, konfiguráld vagy próbálj meg valamilyen más módon kapcsolatba lépni velünk a %s email címen keresztül.</string>
@@ -557,14 +561,8 @@
 	<!-- For sharing via SMS and so on -->
 	<string name="sharing_call_action_look">Tekintse meg</string>
 	<string name="recent_track_background_dialog_message">A Organic Maps a geopozíciód használatával a háttérben rögzíti a legutóbb megtett utad.</string>
-	<!-- Rate on Google Play (Android only) -->
-	<string name="rate_gp">Arány a Google Play-n</string>
-	<!-- Share with friends: menu item title -->
-	<string name="tell_friends">Mondja el egy ismerősének</string>
-	<!-- Share with friends: sharing text -->
-	<string name="tell_friends_text">Szia! Telepítsd a Organic Maps alkalmazást!</string>
-	<!-- About short text (below logo) -->
-	<string name="about_description">A Organic Maps egy nélkülözhetetlen alkalmazás utazáshoz. A Organic Maps az OpenStreetMap adataira épül, és lehetővé teszi ezek szerkesztését.</string>
+	<!-- About short text -->
+	<string name="about_description">Az Organic Maps ingyenes alkalmazás. A szabadidőben néhány mérnök fejlett. Az összes térképadat az OpenStreetMapból származik. Nincsenek hirdetések. Nincs nyomkövetés. Az Ön személyes adatait nem gyűjtik össze.</string>
 	<string name="general_settings">Általános beállítások</string>
 	<!-- For the first routing -->
 	<string name="accept">Elfogadja</string>

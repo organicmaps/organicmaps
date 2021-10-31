@@ -381,10 +381,16 @@
 /* Text in menu */
 "help" = "Ohje";
 
-/* Text in menu */
+/* Button in the main Help dialog */
+"faq" = "Kysymykset ja vastaukset";
+
+/* Button in the main Help dialog */
+"how_to_support_us" = "Kuinka tukea meitä?";
+
+/* Button in the main Help dialog */
 "copyright" = "Copyright";
 
-/* Text in menu */
+/* Text in menu + Button in the main Help dialog */
 "report_a_bug" = "Ilmoita virheestä";
 
 /* Alert text */
@@ -996,17 +1002,8 @@
 
 "recent_track_background_dialog_message" = "MAPS.SE käyttää taustalla geosijaintia sinun viimeisen matkareitin tallentamiseksi.";
 
-/* Rate on Google Play (Android only) */
-"rate_gp" = "Arvioi Google Playssa";
-
-/* Share with friends: menu item title */
-"tell_friends" = "Kerro kaverille";
-
-/* Share with friends: sharing text */
-"tell_friends_text" = "Hei, asenna Organic Maps!";
-
-/* About short text (below logo) */
-"about_description" = "Organic Maps on ehdoton offline-sovellus matkoja varten. Organic Maps perustuu OpenStreetMap-dataan ja sallii sen muokkauksen.";
+/* About short text */
+"about_description" = "Organic Maps on ilmainen sovellus. Se kehittää muutamia insinöörejä vapaa-ajalla. Kaikki karttatiedot ovat OpenStreetMapista. Ei mainoksia. Ei seurantaa. Henkilötietojasi ei kerätä.";
 
 "general_settings" = "Yleiset asetukset";
 

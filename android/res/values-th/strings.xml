@@ -222,9 +222,13 @@
 	<string name="rate_the_app">ให้คะแนนแอป</string>
 	<!-- Text in menu -->
 	<string name="help">ความช่วยเหลือ</string>
-	<!-- Text in menu -->
+	<!-- Button in the main Help dialog -->
+	<string name="faq">คำถามและคำตอบ</string>
+	<!-- Button in the main Help dialog -->
+	<string name="how_to_support_us">วิธีการสนับสนุนเรา</string>
+	<!-- Button in the main Help dialog -->
 	<string name="copyright">ลิขสิทธิ์</string>
-	<!-- Text in menu -->
+	<!-- Text in menu + Button in the main Help dialog -->
 	<string name="report_a_bug">แจ้งข้อผิดพลาด</string>
 	<!-- Alert text -->
 	<string name="email_error_body">อีเมลลูกค้ายังไม่ได้รับการจัดตั้งขึ้น กรุณาตั้งค่าหรือใช้วิธีอื่นที่จะติดต่อเราที่ %s</string>
@@ -560,14 +564,8 @@
 	<!-- For sharing via SMS and so on -->
 	<string name="sharing_call_action_look">ตรวจชม</string>
 	<string name="recent_track_background_dialog_message">Organic Maps ใช้ตำแหน่งทางภูมิศาสตร์ของคุณในพื้นหลังเพื่อบันทึกเส้นทางที่คุณเดินทางเมื่อเร็ว ๆ นี้</string>
-	<!-- Rate on Google Play (Android only) -->
-	<string name="rate_gp">ให้คะแนนบน Google Play</string>
-	<!-- Share with friends: menu item title -->
-	<string name="tell_friends">บอกเพื่อน</string>
-	<!-- Share with friends: sharing text -->
-	<string name="tell_friends_text">สวัสดี! ติดตั้ง Organic Maps กันเถอะ!</string>
-	<!-- About short text (below logo) -->
-	<string name="about_description">Organic Maps เป็นแอปพลิเคชั่นออฟไลน์ที่จำเป็นสำหรับการท่องเที่ยว Organic Maps นั้นใช้งานบนพื้นฐานของข้อมูล OpenStreetMap และใช้แก้ไขได้ด้วย</string>
+	<!-- About short text -->
+	<string name="about_description">Organic Maps เป็นแอปพลิเคชั่นฟรีมันได้รับการพัฒนาโดยวิศวกรสองสามคนในเวลาว่างของเราข้อมูลแผนที่ทั้งหมดมาจาก OpenStreetMapไม่มีโฆษณาไม่มีการติดตาม. ข้อมูลส่วนบุคคลของคุณจะไม่ถูกเก็บรวบรวม</string>
 	<string name="general_settings">การตั้งค่าทั่วไป</string>
 	<!-- For the first routing -->
 	<string name="accept">ยอมรับ</string>

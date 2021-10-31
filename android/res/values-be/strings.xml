@@ -230,9 +230,13 @@
 	<string name="rate_the_app">Ацаніць дадатак</string>
 	<!-- Text in menu -->
 	<string name="help">Дапамога</string>
-	<!-- Text in menu -->
+	<!-- Button in the main Help dialog -->
+	<string name="faq">Пытанні і адказы</string>
+	<!-- Button in the main Help dialog -->
+	<string name="how_to_support_us">Як нас падтрымаць?</string>
+	<!-- Button in the main Help dialog -->
 	<string name="copyright">Капірайт</string>
-	<!-- Text in menu -->
+	<!-- Text in menu + Button in the main Help dialog -->
 	<string name="report_a_bug">Паведаміць аб памылцы</string>
 	<!-- Alert text -->
 	<string name="email_error_body">Паштовы кліент не наладжаны. Наладзьце яго альбо звяжыцеся з намі па адрасе %s іншым чынам.</string>
@@ -570,14 +574,8 @@
 	<!-- For sharing via SMS and so on -->
 	<string name="sharing_call_action_look">Паглядзі</string>
 	<string name="recent_track_background_dialog_message">Organic Maps ужывае вашу геалакацыю ў фонавым рэжыме каб запісваць ваш нядаўна пройдзены маршрут.</string>
-	<!-- Rate on Google Play (Android only) -->
-	<string name="rate_gp">Ацаніць на Google Play</string>
-	<!-- Share with friends: menu item title -->
-	<string name="tell_friends">Рассказаць сябрам</string>
-	<!-- Share with friends: sharing text -->
-	<string name="tell_friends_text">Прывітанне! Усталюй Organic Maps!</string>
-	<!-- About short text (below logo) -->
-	<string name="about_description">Organic Maps — неабходны дататак для падарожжаў, каторы працуе без падлучэння да інтэрнэту. Organic Maps ужывае дадзеныя OpenStreetMap і дазваляе іх правіць.</string>
+	<!-- About short text -->
+	<string name="about_description">Organic Maps гэта бясплатнае прыкладанне. Ён распрацаваны некалькіх інжынераў у вольны час. Усе дадзеныя карты з OpenstreetMap. Няма аб\'яваў. Няма адсочвання. Вашы асабістыя дадзеныя не збіраюцца.</string>
 	<string name="general_settings">Агульныя налады</string>
 	<!-- For the first routing -->
 	<string name="accept">Прыняць</string>

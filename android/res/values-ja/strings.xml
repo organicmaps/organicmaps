@@ -218,9 +218,13 @@
 	<string name="rate_the_app">アプリを評価</string>
 	<!-- Text in menu -->
 	<string name="help">ヘルプ</string>
-	<!-- Text in menu -->
+	<!-- Button in the main Help dialog -->
+	<string name="faq">質問と回答</string>
+	<!-- Button in the main Help dialog -->
+	<string name="how_to_support_us">どのように私たちを支持する方法？</string>
+	<!-- Button in the main Help dialog -->
 	<string name="copyright">著作権</string>
-	<!-- Text in menu -->
+	<!-- Text in menu + Button in the main Help dialog -->
 	<string name="report_a_bug">バグを報告</string>
 	<!-- Alert text -->
 	<string name="email_error_body">このメールクライアントはセットアップされていません。設定するか、他の方法で%sにご連絡ください。</string>
@@ -556,14 +560,8 @@
 	<!-- For sharing via SMS and so on -->
 	<string name="sharing_call_action_look">ご覧ください</string>
 	<string name="recent_track_background_dialog_message">Organic Mapsは、あなたの位置情報をバックグラウンドで使用して最近の走行ルートを記録します。</string>
-	<!-- Rate on Google Play (Android only) -->
-	<string name="rate_gp">Google Play で評価</string>
-	<!-- Share with friends: menu item title -->
-	<string name="tell_friends">友達に教える</string>
-	<!-- Share with friends: sharing text -->
-	<string name="tell_friends_text">こんにちは！Organic Maps をインストールしましょう！</string>
-	<!-- About short text (below logo) -->
-	<string name="about_description">Organic Maps は旅に必要不可欠なオフラインアプリケーションです。Organic Maps は OpenStreetMap データに基づいており、データを編集することができます。</string>
+	<!-- About short text -->
+	<string name="about_description">Organic Mapsは無料のアプリケーションです。それは私たちの自由な時間にいくつかのエンジニアによって開発されています。すべての地図データはOpenStreetMapからのものです。広告なし。全く追跡しません。あなたの個人データは収集されません。</string>
 	<string name="general_settings">一般設定</string>
 	<!-- For the first routing -->
 	<string name="accept">了解</string>

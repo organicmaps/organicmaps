@@ -75,14 +75,14 @@ public class MainMenu extends BaseMenu
             return new MwmActivity.SearchClickDelegate(activity, item);
           }
         },
-    POINT_TO_POINT(R.id.p2p)
+    HELP(R.id.help)
         {
           @NonNull
           @Override
           public ClickMenuDelegate createClickDelegate(@NonNull MwmActivity activity,
                                                        @NonNull Item item)
           {
-            return new MwmActivity.PointToPointDelegate(activity, item);
+            return new MwmActivity.HelpDelegate(activity, item);
           }
         },
     BOOKMARKS(R.id.bookmarks)
@@ -210,7 +210,7 @@ public class MainMenu extends BaseMenu
   {
     mapItem(Item.ADD_PLACE);
     mapItem(Item.SEARCH);
-    mapItem(Item.POINT_TO_POINT);
+    mapItem(Item.HELP);
     mapItem(Item.BOOKMARKS);
     mapItem(Item.SHARE_MY_LOCATION);
     mapItem(Item.DOWNLOAD_MAPS);
