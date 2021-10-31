@@ -3,9 +3,6 @@ package com.mapswithme.maps.settings;
 import android.os.Bundle;
 import android.text.TextUtils;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.preference.Preference;
 import androidx.preference.PreferenceFragmentCompat;
@@ -18,9 +15,6 @@ public class SettingsActivity extends BaseToolbarActivity
                               implements PreferenceFragmentCompat.OnPreferenceStartFragmentCallback,
                                          PreferenceFragmentCompat.OnPreferenceStartScreenCallback
 {
-  @Nullable
-  private String mLastTitle;
-
   @Override
   protected int getContentLayoutResId()
   {
@@ -41,7 +35,7 @@ public class SettingsActivity extends BaseToolbarActivity
     try
     {
       Class<? extends Fragment> fragment = (Class<? extends Fragment>) Class.forName(pref.getFragment());
-      replaceFragment(fragment, title, pref.getExtras());
+      stackFragment(fragment, title, pref.getExtras());
     } catch (ClassNotFoundException e)
     {
       e.printStackTrace();
@@ -54,43 +48,7 @@ public class SettingsActivity extends BaseToolbarActivity
   {
     Bundle args = new Bundle();
     args.putString(PreferenceFragmentCompat.ARG_PREFERENCE_ROOT, preferenceScreen.getKey());
-    replaceFragment(SettingsPrefsFragment.class, preferenceScreen.getTitle().toString(), args);
+    stackFragment(SettingsPrefsFragment.class, preferenceScreen.getTitle().toString(), args);
     return true;
-  }
-
-  public void replaceFragment(@NonNull Class<? extends Fragment> fragmentClass,
-                              @Nullable String title, @Nullable Bundle args)
-  {
-    final int resId = getFragmentContentResId();
-    if (resId <= 0 || findViewById(resId) == null)
-      throw new IllegalStateException("Fragment can't be added, since getFragmentContentResId() " +
-                                      "isn't implemented or returns wrong resourceId.");
-
-    String name = fragmentClass.getName();
-    final Fragment fragment = Fragment.instantiate(this, name, args);
-    getSupportFragmentManager().beginTransaction()
-                               .replace(resId, fragment, name)
-                               .addToBackStack(null)
-                               .commitAllowingStateLoss();
-    getSupportFragmentManager().executePendingTransactions();
-
-    if (title != null)
-    {
-      Toolbar toolbar = getToolbar();
-      if (toolbar != null && toolbar.getTitle() != null)
-      {
-        mLastTitle = toolbar.getTitle().toString();
-        toolbar.setTitle(title);
-      }
-    }
-  }
-
-  @Override
-  public void onBackPressed()
-  {
-    if (mLastTitle != null)
-      getToolbar().setTitle(mLastTitle);
-
-    super.onBackPressed();
   }
 }

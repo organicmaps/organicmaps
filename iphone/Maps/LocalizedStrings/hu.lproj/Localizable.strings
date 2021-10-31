@@ -381,10 +381,16 @@
 /* Text in menu */
 "help" = "Segítség";
 
-/* Text in menu */
+/* Button in the main Help dialog */
+"faq" = "Kérdések és válaszok";
+
+/* Button in the main Help dialog */
+"how_to_support_us" = "Hogyan támogat minket?";
+
+/* Button in the main Help dialog */
 "copyright" = "Szerzői jog";
 
-/* Text in menu */
+/* Text in menu + Button in the main Help dialog */
 "report_a_bug" = "Hibabejelentés";
 
 /* Alert text */
@@ -996,17 +1002,8 @@
 
 "recent_track_background_dialog_message" = "A Organic Maps a geopozíciód használatával a háttérben rögzíti a legutóbb megtett utad.";
 
-/* Rate on Google Play (Android only) */
-"rate_gp" = "Arány a Google Play-n";
-
-/* Share with friends: menu item title */
-"tell_friends" = "Mondja el egy ismerősének";
-
-/* Share with friends: sharing text */
-"tell_friends_text" = "Szia! Telepítsd a Organic Maps alkalmazást!";
-
-/* About short text (below logo) */
-"about_description" = "A Organic Maps egy nélkülözhetetlen alkalmazás utazáshoz. A Organic Maps az OpenStreetMap adataira épül, és lehetővé teszi ezek szerkesztését.";
+/* About short text */
+"about_description" = "Az Organic Maps ingyenes alkalmazás. A szabadidőben néhány mérnök fejlett. Az összes térképadat az OpenStreetMapból származik. Nincsenek hirdetések. Nincs nyomkövetés. Az Ön személyes adatait nem gyűjtik össze.";
 
 "general_settings" = "Általános beállítások";
 

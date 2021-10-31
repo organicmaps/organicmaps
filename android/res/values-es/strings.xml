@@ -218,9 +218,13 @@
 	<string name="rate_the_app">Valora la aplicación</string>
 	<!-- Text in menu -->
 	<string name="help">Ayuda</string>
-	<!-- Text in menu -->
+	<!-- Button in the main Help dialog -->
+	<string name="faq">Preguntas y respuestas</string>
+	<!-- Button in the main Help dialog -->
+	<string name="how_to_support_us">¿Cómo apoyarnos?</string>
+	<!-- Button in the main Help dialog -->
 	<string name="copyright">Copyright</string>
-	<!-- Text in menu -->
+	<!-- Text in menu + Button in the main Help dialog -->
 	<string name="report_a_bug">Hay un error</string>
 	<!-- Alert text -->
 	<string name="email_error_body">No se ha configurado el cliente de correo electrónico. Por favor, configúralo o utiliza alguna otra forma de ponerte en contacto con nosotros en %s</string>
@@ -556,14 +560,8 @@
 	<!-- For sharing via SMS and so on -->
 	<string name="sharing_call_action_look">Comprueba</string>
 	<string name="recent_track_background_dialog_message">Organic Maps usa tu geolocalización en segundo plano para registrar tu ruta recorrida recientemente.</string>
-	<!-- Rate on Google Play (Android only) -->
-	<string name="rate_gp">Valorar en Google Play</string>
-	<!-- Share with friends: menu item title -->
-	<string name="tell_friends">Enviar a un amigo</string>
-	<!-- Share with friends: sharing text -->
-	<string name="tell_friends_text">¡Hola! ¡Instala Organic Maps!</string>
-	<!-- About short text (below logo) -->
-	<string name="about_description">Organic Maps es una aplicación esencial offline para viajar. Organic Maps se basa en datos de OpenStreetMap y permite editarla.</string>
+	<!-- About short text -->
+	<string name="about_description">Organic Maps es una aplicación gratuita. Es desarrollado por unos pocos ingenieros en nuestro tiempo libre. Todos los datos de mapas son de OpenStreetMap. Sin anuncios. Sin seguimiento. Sus datos personales no se recopilan.</string>
 	<string name="general_settings">Ajustes generales</string>
 	<!-- For the first routing -->
 	<string name="accept">Aceptar</string>

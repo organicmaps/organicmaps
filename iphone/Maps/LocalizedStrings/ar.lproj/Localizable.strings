@@ -381,10 +381,16 @@
 /* Text in menu */
 "help" = "مساعدة";
 
-/* Text in menu */
+/* Button in the main Help dialog */
+"faq" = "ﺔﺑﻮﺟﺃﻭ ﺔﻠﺌﺳﺃ";
+
+/* Button in the main Help dialog */
+"how_to_support_us" = "كيف تدعم لنا؟";
+
+/* Button in the main Help dialog */
 "copyright" = "حقوق الطبع والنشر";
 
-/* Text in menu */
+/* Text in menu + Button in the main Help dialog */
 "report_a_bug" = "الإبلاغ عن خطأ";
 
 /* Alert text */
@@ -996,17 +1002,8 @@
 
 "recent_track_background_dialog_message" = "يستخدم Organic Maps موقعك الجغرافي في الخلفية لتسجيل مسار سفرك الأخير.";
 
-/* Rate on Google Play (Android only) */
-"rate_gp" = "تصنيف على Google Play";
-
-/* Share with friends: menu item title */
-"tell_friends" = "أخبر صديق";
-
-/* Share with friends: sharing text */
-"tell_friends_text" = "مرحبًا! تثبيت Organic Maps!";
-
-/* About short text (below logo) */
-"about_description" = "Organic Maps هو تطبيق أساسي للسفر بدون اتصال بالإنترنت. يعتمد برنامج Organic Maps على بيانات OpenStreetMap ويتيح تحريرها.";
+/* About short text */
+"about_description" = "Organic Maps هو تطبيق مجاني. تم تطويره من قبل عدد قليل من المهندسين في وقت فراغنا. جميع بيانات الخريطة من OpenStreetMap. لا اعلانات. لا تتبع. لم يتم جمع بياناتك الشخصية.";
 
 "general_settings" = "إعدادات عامة";
 

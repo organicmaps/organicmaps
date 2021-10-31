@@ -381,10 +381,16 @@
 /* Text in menu */
 "help" = "Yardım";
 
-/* Text in menu */
+/* Button in the main Help dialog */
+"faq" = "Sorular ve cevaplar";
+
+/* Button in the main Help dialog */
+"how_to_support_us" = "Bizi nasıl destekleyebilirim?";
+
+/* Button in the main Help dialog */
 "copyright" = "Telif hakkı";
 
-/* Text in menu */
+/* Text in menu + Button in the main Help dialog */
 "report_a_bug" = "Hata bildir";
 
 /* Alert text */
@@ -996,17 +1002,8 @@
 
 "recent_track_background_dialog_message" = "Organic Maps, en son seyahat ettiğiniz rotayı kaydetmek için arka planda coğrafi konumunuzu kullanır.";
 
-/* Rate on Google Play (Android only) */
-"rate_gp" = "Google Play'de Oy Ver";
-
-/* Share with friends: menu item title */
-"tell_friends" = "Arkadaşınıza söyleyin";
-
-/* Share with friends: sharing text */
-"tell_friends_text" = "Merhaba! Organic Maps'yi hemen yükle!";
-
-/* About short text (below logo) */
-"about_description" = "Organic Maps, seyahatler için vazgeçilmez bir çevrimdışı uygulamadır. Organic Maps, OpenStreetMap verilerine dayanmakta ve bu verilerin düzenlenmesini sağlamaktadır.";
+/* About short text */
+"about_description" = "Organic Maps ücretsiz bir uygulamadır. Boş zamanlarımızda birkaç mühendis tarafından geliştirilmiştir. Tüm harita verileri OpenStreetMap'tendir. Reklamsız. İzleme yok. Kişisel verileriniz toplanmaz.";
 
 "general_settings" = "Genel ayarlar";
 

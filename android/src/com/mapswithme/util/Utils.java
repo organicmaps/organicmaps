@@ -246,6 +246,11 @@ public class Utils
     activity.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(Constants.Url.TWITTER)));
   }
 
+  public static void showContributionPage(Activity activity)
+  {
+    activity.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(Constants.Url.CONTRIBUTE)));
+  }
+
   public static void openUrl(@NonNull Context context, @Nullable String url)
   {
     if (TextUtils.isEmpty(url))

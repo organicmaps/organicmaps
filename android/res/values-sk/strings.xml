@@ -220,9 +220,13 @@
 	<string name="rate_the_app">Ohodnotiť aplikáciu</string>
 	<!-- Text in menu -->
 	<string name="help">Nápoveda</string>
-	<!-- Text in menu -->
+	<!-- Button in the main Help dialog -->
+	<string name="faq">Otázky a odpovede</string>
+	<!-- Button in the main Help dialog -->
+	<string name="how_to_support_us">Ako nás podporiť?</string>
+	<!-- Button in the main Help dialog -->
 	<string name="copyright">Autorské práva</string>
-	<!-- Text in menu -->
+	<!-- Text in menu + Button in the main Help dialog -->
 	<string name="report_a_bug">Nahlásiť chybu</string>
 	<!-- Alert text -->
 	<string name="email_error_body">Emailový klient nebol nastavený. Nakonfigurujte ho prosím alebo použite iný spôsob k tomu, abyste nás kontaktovali na %s</string>
@@ -556,14 +560,8 @@
 	<!-- For sharing via SMS and so on -->
 	<string name="sharing_call_action_look">Pozrite si</string>
 	<string name="recent_track_background_dialog_message">Organic Maps používa vašu geopozíciu na pozadí pre zaznamenávanie vami nedávno precestovanej trasy.</string>
-	<!-- Rate on Google Play (Android only) -->
-	<string name="rate_gp">Ohodnotiť v službe Google Play</string>
-	<!-- Share with friends: menu item title -->
-	<string name="tell_friends">Povedať priateľovi</string>
-	<!-- Share with friends: sharing text -->
-	<string name="tell_friends_text">Ahoj! Nainštaluj si aplikáciu Organic Maps</string>
-	<!-- About short text (below logo) -->
-	<string name="about_description">Organic Maps je offine aplikácia na cestovanie. Základom aplikácie Organic Maps sú dáta OpenStreetMap, pričom aplikácia nám ich umožňuje upravovať.</string>
+	<!-- About short text -->
+	<string name="about_description">Organic Maps je bezplatná aplikácia. Je vyvinutý niekoľkými inžiniermi v našom voľnom čase. Všetky údaje mapy sú z OpenSTREETMAP. Žiadne reklamy. Žiadne sledovanie. Vaše osobné údaje sa nezbierajú.</string>
 	<string name="general_settings">Všeobecné nastavenia</string>
 	<!-- For the first routing -->
 	<string name="accept">Prijať</string>

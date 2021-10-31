@@ -381,10 +381,16 @@
 /* Text in menu */
 "help" = "ヘルプ";
 
-/* Text in menu */
+/* Button in the main Help dialog */
+"faq" = "質問と回答";
+
+/* Button in the main Help dialog */
+"how_to_support_us" = "どのように私たちを支持する方法？";
+
+/* Button in the main Help dialog */
 "copyright" = "著作権";
 
-/* Text in menu */
+/* Text in menu + Button in the main Help dialog */
 "report_a_bug" = "バグを報告";
 
 /* Alert text */
@@ -996,17 +1002,8 @@
 
 "recent_track_background_dialog_message" = "Organic Mapsは、あなたの位置情報をバックグラウンドで使用して最近の走行ルートを記録します。";
 
-/* Rate on Google Play (Android only) */
-"rate_gp" = "Google Play で評価";
-
-/* Share with friends: menu item title */
-"tell_friends" = "友達に教える";
-
-/* Share with friends: sharing text */
-"tell_friends_text" = "こんにちは！Organic Maps をインストールしましょう！";
-
-/* About short text (below logo) */
-"about_description" = "Organic Maps は旅に必要不可欠なオフラインアプリケーションです。Organic Maps は OpenStreetMap データに基づいており、データを編集することができます。";
+/* About short text */
+"about_description" = "Organic Mapsは無料のアプリケーションです。それは私たちの自由な時間にいくつかのエンジニアによって開発されています。すべての地図データはOpenStreetMapからのものです。広告なし。全く追跡しません。あなたの個人データは収集されません。";
 
 "general_settings" = "一般設定";
 

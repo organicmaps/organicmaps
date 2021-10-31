@@ -381,10 +381,16 @@
 /* Text in menu */
 "help" = "ความช่วยเหลือ";
 
-/* Text in menu */
+/* Button in the main Help dialog */
+"faq" = "คำถามและคำตอบ";
+
+/* Button in the main Help dialog */
+"how_to_support_us" = "วิธีการสนับสนุนเรา";
+
+/* Button in the main Help dialog */
 "copyright" = "ลิขสิทธิ์";
 
-/* Text in menu */
+/* Text in menu + Button in the main Help dialog */
 "report_a_bug" = "แจ้งข้อผิดพลาด";
 
 /* Alert text */
@@ -996,17 +1002,8 @@
 
 "recent_track_background_dialog_message" = "Organic Maps ใช้ตำแหน่งทางภูมิศาสตร์ของคุณในพื้นหลังเพื่อบันทึกเส้นทางที่คุณเดินทางเมื่อเร็ว ๆ นี้";
 
-/* Rate on Google Play (Android only) */
-"rate_gp" = "ให้คะแนนบน Google Play";
-
-/* Share with friends: menu item title */
-"tell_friends" = "บอกเพื่อน";
-
-/* Share with friends: sharing text */
-"tell_friends_text" = "สวัสดี! ติดตั้ง Organic Maps กันเถอะ!";
-
-/* About short text (below logo) */
-"about_description" = "Organic Maps เป็นแอปพลิเคชั่นออฟไลน์ที่จำเป็นสำหรับการท่องเที่ยว Organic Maps นั้นใช้งานบนพื้นฐานของข้อมูล OpenStreetMap และใช้แก้ไขได้ด้วย";
+/* About short text */
+"about_description" = "Organic Maps เป็นแอปพลิเคชั่นฟรีมันได้รับการพัฒนาโดยวิศวกรสองสามคนในเวลาว่างของเราข้อมูลแผนที่ทั้งหมดมาจาก OpenStreetMapไม่มีโฆษณาไม่มีการติดตาม. ข้อมูลส่วนบุคคลของคุณจะไม่ถูกเก็บรวบรวม";
 
 "general_settings" = "การตั้งค่าทั่วไป";
 

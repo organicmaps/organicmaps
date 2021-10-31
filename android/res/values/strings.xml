@@ -244,9 +244,13 @@
 	<string name="rate_the_app">Rate the app</string>
 	<!-- Text in menu -->
 	<string name="help">Help</string>
-	<!-- Text in menu -->
+	<!-- Button in the main Help dialog -->
+	<string name="faq">FAQ</string>
+	<!-- Button in the main Help dialog -->
+	<string name="how_to_support_us">How to support us?</string>
+	<!-- Button in the main Help dialog -->
 	<string name="copyright">Copyright</string>
-	<!-- Text in menu -->
+	<!-- Text in menu + Button in the main Help dialog -->
 	<string name="report_a_bug">Report a bug</string>
 	<!-- Alert text -->
 	<string name="email_error_body">The email client has not been set up. Please configure it or use any other way to contact us at %s</string>
@@ -589,14 +593,8 @@
 	<!-- For sharing via SMS and so on -->
 	<string name="sharing_call_action_look">Check out</string>
 	<string name="recent_track_background_dialog_message">Organic Maps uses your geoposition in the background for recording your recently traveled route.</string>
-	<!-- Rate on Google Play (Android only) -->
-	<string name="rate_gp">Rate on Google Play</string>
-	<!-- Share with friends: menu item title -->
-	<string name="tell_friends">Tell a Friend</string>
-	<!-- Share with friends: sharing text -->
-	<string name="tell_friends_text">Hi! Install Organic Maps!</string>
-	<!-- About short text (below logo) -->
-	<string name="about_description">Organic Maps is an essential offline application for travelling. Organic Maps is based on OpenStreetMap data and allows editing it.</string>
+	<!-- About short text -->
+	<string name="about_description">Organic Maps is a free and open-source offline maps app, developed by a few geeks in their free time. All map data is from OpenStreetMap. No ads. No tracking and personal data collection.</string>
 	<string name="general_settings">General settings</string>
 	<!-- For the first routing -->
 	<string name="accept">Accept</string>

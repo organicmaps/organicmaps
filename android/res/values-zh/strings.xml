@@ -230,9 +230,13 @@
 	<string name="rate_the_app">为该应用打分</string>
 	<!-- Text in menu -->
 	<string name="help">帮助</string>
-	<!-- Text in menu -->
+	<!-- Button in the main Help dialog -->
+	<string name="faq">问题和解答</string>
+	<!-- Button in the main Help dialog -->
+	<string name="how_to_support_us">如何支持我们？</string>
+	<!-- Button in the main Help dialog -->
 	<string name="copyright">版权</string>
-	<!-- Text in menu -->
+	<!-- Text in menu + Button in the main Help dialog -->
 	<string name="report_a_bug">报告漏洞</string>
 	<!-- Alert text -->
 	<string name="email_error_body">电子邮件客户端尚未建立。请配置或使用任何其他方式与我们联系%s</string>
@@ -570,14 +574,8 @@
 	<!-- For sharing via SMS and so on -->
 	<string name="sharing_call_action_look">来看看</string>
 	<string name="recent_track_background_dialog_message">Organic Maps使用背景中的地理位置记录您最近去过的路径。</string>
-	<!-- Rate on Google Play (Android only) -->
-	<string name="rate_gp">在 Google Play 上的评分</string>
-	<!-- Share with friends: menu item title -->
-	<string name="tell_friends">告诉朋友</string>
-	<!-- Share with friends: sharing text -->
-	<string name="tell_friends_text">您好！安装 Organic Maps！</string>
-	<!-- About short text (below logo) -->
-	<string name="about_description">Organic Maps 是一款基本的离线旅行应用。Organic Maps 基于 OpenStreetMap 数据并且允许对其进行编辑。</string>
+	<!-- About short text -->
+	<string name="about_description">Organic Maps是免费的申请。它是由我们的空闲时间的少数工程师开发的。所有地图数据都来自OpenStreetMap。无广告。没有跟踪。您的个人数据不会收集。</string>
 	<string name="general_settings">常规设置</string>
 	<!-- For the first routing -->
 	<string name="accept">接受</string>

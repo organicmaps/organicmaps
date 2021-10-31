@@ -228,9 +228,13 @@
 	<string name="rate_the_app">Évaluer l\'appli</string>
 	<!-- Text in menu -->
 	<string name="help">Aide</string>
-	<!-- Text in menu -->
+	<!-- Button in the main Help dialog -->
+	<string name="faq">Questions et réponses</string>
+	<!-- Button in the main Help dialog -->
+	<string name="how_to_support_us">Comment nous soutenir?</string>
+	<!-- Button in the main Help dialog -->
 	<string name="copyright">Tous droits réservés</string>
-	<!-- Text in menu -->
+	<!-- Text in menu + Button in the main Help dialog -->
 	<string name="report_a_bug">Signaler un bug</string>
 	<!-- Alert text -->
 	<string name="email_error_body">Le client de courriel n\'a pas été configuré. Veuillez le faire ou employer tout autre moyen pour nous contacter à %s</string>
@@ -568,14 +572,8 @@
 	<!-- For sharing via SMS and so on -->
 	<string name="sharing_call_action_look">Consultez</string>
 	<string name="recent_track_background_dialog_message">Organic Maps utilise votre géolocalisation en arrière-plan pour enregistrer vos itinéraires récents.</string>
-	<!-- Rate on Google Play (Android only) -->
-	<string name="rate_gp">Noter sur Google Play</string>
-	<!-- Share with friends: menu item title -->
-	<string name="tell_friends">Recommander à un ami</string>
-	<!-- Share with friends: sharing text -->
-	<string name="tell_friends_text">Salut! Installe Organic Maps!</string>
-	<!-- About short text (below logo) -->
-	<string name="about_description">Organic Maps est une application hors ligne essentielle pour les voyages. Organic Maps se base sur les données OpenStreetMap et permet de les modifier.</string>
+	<!-- About short text -->
+	<string name="about_description">Organic Maps est une application gratuite. Il est développé par quelques ingénieurs dans notre temps libre. Toutes les données cartographiques proviennent de OpenStreetMap. Pas de pubs. Pas de localisation. Vos données personnelles ne sont pas collectées.</string>
 	<string name="general_settings">Paramètres généraux</string>
 	<!-- For the first routing -->
 	<string name="accept">Accepter</string>

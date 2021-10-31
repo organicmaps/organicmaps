@@ -220,9 +220,13 @@
 	<string name="rate_the_app">Ohodnotit aplikaci</string>
 	<!-- Text in menu -->
 	<string name="help">Nápověda</string>
-	<!-- Text in menu -->
+	<!-- Button in the main Help dialog -->
+	<string name="faq">Otázky a odpovědi</string>
+	<!-- Button in the main Help dialog -->
+	<string name="how_to_support_us">Jak nás podpořit?</string>
+	<!-- Button in the main Help dialog -->
 	<string name="copyright">Autorská práva</string>
-	<!-- Text in menu -->
+	<!-- Text in menu + Button in the main Help dialog -->
 	<string name="report_a_bug">Nahlásit chybu</string>
 	<!-- Alert text -->
 	<string name="email_error_body">Emailový klient nebyl ještě nakonfigurován. Nastavte ho, prosím, nebo použijte jiný způsob k našemu kontaktování na %s</string>
@@ -558,14 +562,8 @@
 	<!-- For sharing via SMS and so on -->
 	<string name="sharing_call_action_look">Odjezd</string>
 	<string name="recent_track_background_dialog_message">Organic Maps používají geopozici na pozadí, aby se zaznamenala vaše nedávno ujetá trasa.</string>
-	<!-- Rate on Google Play (Android only) -->
-	<string name="rate_gp">Ohodnotit na Google Play</string>
-	<!-- Share with friends: menu item title -->
-	<string name="tell_friends">Sdílet s přáteli</string>
-	<!-- Share with friends: sharing text -->
-	<string name="tell_friends_text">Ahoj! Naisntalujte si Organic Maps!</string>
-	<!-- About short text (below logo) -->
-	<string name="about_description">Organic Maps je základní aplikace pro každého cestovatele. Organic Maps je založena na datech z OpenStreetMap a umožňuje je upravovat.</string>
+	<!-- About short text -->
+	<string name="about_description">Organic Maps je bezplatná aplikace. Vyvíjejí se několik inženýrů v našem volném čase. Všechna mapová data jsou z OpenStreetMap. Žádné reklamy. Žádné sledování. Vaše osobní údaje nejsou shromažďovány.</string>
 	<string name="general_settings">Obecná nastavení</string>
 	<!-- For the first routing -->
 	<string name="accept">Přijmout</string>

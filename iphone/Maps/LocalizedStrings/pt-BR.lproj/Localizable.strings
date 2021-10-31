@@ -381,10 +381,16 @@
 /* Text in menu */
 "help" = "Ajuda";
 
-/* Text in menu */
+/* Button in the main Help dialog */
+"faq" = "Perguntas e respostas";
+
+/* Button in the main Help dialog */
+"how_to_support_us" = "How to support us?";
+
+/* Button in the main Help dialog */
 "copyright" = "Direitos autorais";
 
-/* Text in menu */
+/* Text in menu + Button in the main Help dialog */
 "report_a_bug" = "Relatar um problema";
 
 /* Alert text */
@@ -996,17 +1002,8 @@
 
 "recent_track_background_dialog_message" = "O Organic Maps usa sua localização geográfica em segundo plano para registrar sua rota recente.";
 
-/* Rate on Google Play (Android only) */
-"rate_gp" = "Avaliar em Google Play";
-
-/* Share with friends: menu item title */
-"tell_friends" = "Indique a um amigo";
-
-/* Share with friends: sharing text */
-"tell_friends_text" = "Olá! Instale o Organic Maps!";
-
-/* About short text (below logo) */
-"about_description" = "O Organic Maps é um aplicativo offline essencial para viajar. O Organic Maps se baseia nos dados do OpenStreetMap e permite editá-los.";
+/* About short text */
+"about_description" = "Organic Maps is a free and open-source offline maps app, developed by a few geeks in their free time. All map data is from OpenStreetMap. No ads. No tracking and personal data collection.";
 
 "general_settings" = "Definições gerais";
 

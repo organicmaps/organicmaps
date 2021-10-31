@@ -1,4 +1,4 @@
-package com.mapswithme.maps.settings;
+package com.mapswithme.maps.help;
 
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -14,10 +14,11 @@ import androidx.appcompat.app.AlertDialog;
 
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.WebContainerDelegate;
+import com.mapswithme.maps.base.BaseMwmFragment;
 import com.mapswithme.util.Constants;
 import com.mapswithme.util.Utils;
 
-public class HelpFragment extends BaseSettingsFragment
+public class FaqFragment extends BaseMwmFragment
 {
   @NonNull
   private final DialogInterface.OnClickListener mDialogClickListener = new DialogInterface.OnClickListener()
@@ -49,15 +50,9 @@ public class HelpFragment extends BaseSettingsFragment
   };
 
   @Override
-  protected int getLayoutRes()
-  {
-    return R.layout.fragment_prefs_help;
-  }
-
-  @Override
   public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState)
   {
-    View root = super.onCreateView(inflater, container, savedInstanceState);
+    View root = inflater.inflate(R.layout.fragment_prefs_faq, container, false);
 
     new WebContainerDelegate(root, Constants.Url.FAQ)
     {

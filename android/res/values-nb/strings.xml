@@ -222,9 +222,13 @@
 	<string name="rate_the_app">Ranger appen</string>
 	<!-- Text in menu -->
 	<string name="help">Hjelp</string>
-	<!-- Text in menu -->
+	<!-- Button in the main Help dialog -->
+	<string name="faq">Spørsmål og svar</string>
+	<!-- Button in the main Help dialog -->
+	<string name="how_to_support_us">Hvordan støtte oss?</string>
+	<!-- Button in the main Help dialog -->
 	<string name="copyright">Opphavsrett</string>
-	<!-- Text in menu -->
+	<!-- Text in menu + Button in the main Help dialog -->
 	<string name="report_a_bug">Rapporter en feil</string>
 	<!-- Alert text -->
 	<string name="email_error_body">E-postklienten har ikke blitt konfigurert. Konfigurer den eller bruk en annen måte å kontakte oss på %s</string>
@@ -558,14 +562,8 @@
 	<!-- For sharing via SMS and so on -->
 	<string name="sharing_call_action_look">Sjekk ut</string>
 	<string name="recent_track_background_dialog_message">Organic Maps bruker geografiske funksjoner i bakgrunnen for å registrere din nylig reiste rute.</string>
-	<!-- Rate on Google Play (Android only) -->
-	<string name="rate_gp">Gi vurdering på Google Play</string>
-	<!-- Share with friends: menu item title -->
-	<string name="tell_friends">Fortell en venn</string>
-	<!-- Share with friends: sharing text -->
-	<string name="tell_friends_text">Hei! Installer Organic Maps!</string>
-	<!-- About short text (below logo) -->
-	<string name="about_description">Organic Maps er en offline app for reising. Organic Maps bygger på OpenStreetMap-data og tillater redigering av den.</string>
+	<!-- About short text -->
+	<string name="about_description">Organic Maps er en gratis applikasjon. Den er utviklet av noen ingeniører på fritiden. Alle kartdata er fra OpenStreetMap. Ingen annonser. Ingen sporing. Dine personopplysninger er ikke samlet.</string>
 	<string name="general_settings">Generelle innstillinger</string>
 	<!-- For the first routing -->
 	<string name="accept">Godta</string>

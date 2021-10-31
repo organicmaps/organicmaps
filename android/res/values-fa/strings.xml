@@ -214,9 +214,13 @@
 	<string name="rate_the_app">امتیاز به این اپلیکیشن</string>
 	<!-- Text in menu -->
 	<string name="help">کمک</string>
-	<!-- Text in menu -->
+	<!-- Button in the main Help dialog -->
+	<string name="faq">ﺦﺳﺎﭘ ﻭ ﺶﺳﺮﭘ</string>
+	<!-- Button in the main Help dialog -->
+	<string name="how_to_support_us">چگونه از ما حمایت کنیم؟</string>
+	<!-- Button in the main Help dialog -->
 	<string name="copyright">حق نشر و کپی رایت</string>
-	<!-- Text in menu -->
+	<!-- Text in menu + Button in the main Help dialog -->
 	<string name="report_a_bug">گزارش خطا</string>
 	<!-- Alert text -->
 	<string name="email_error_body">کلاینت ایمیل شما پیکربندی نشده است.لطفا ان را پیکربندی کنید یا از طریق دیگر با ما تماس بگیرید %s</string>
@@ -546,14 +550,8 @@
 	<!-- For sharing via SMS and so on -->
 	<string name="sharing_call_action_look">بررسی کنید</string>
 	<string name="recent_track_background_dialog_message">Organic Maps  از اطلاعات موقعیت مکانی شما در پس ضمینه برای ذخیره مسیر هایی که اخیرا سفر کرده اید استفاده می کند.</string>
-	<!-- Rate on Google Play (Android only) -->
-	<string name="rate_gp">امتیاز دادن در گوگل پلی</string>
-	<!-- Share with friends: menu item title -->
-	<string name="tell_friends">به یک دوست بگویید</string>
-	<!-- Share with friends: sharing text -->
-	<string name="tell_friends_text">سلام!  Organic Maps را نصب کنید.</string>
-	<!-- About short text (below logo) -->
-	<string name="about_description">Organic Maps یک نرم افزار افلاین مخصوص سفر است. Organic Maps بر پایه دیتای OpenStreetMap است و به شما اجازه ویرایش در ان را می دهد.</string>
+	<!-- About short text -->
+	<string name="about_description">Organic Maps یک برنامه رایگان است. این توسط چند مهندس در زمان آزاد ما توسعه یافته است. تمام داده های نقشه از OpenStreetMap است. بدون تبلیغاتبدون ردیابیاطلاعات شخصی شما جمع آوری نشده است.</string>
 	<string name="general_settings">تنظیمات عمومی</string>
 	<!-- For the first routing -->
 	<string name="accept">موافقم</string>

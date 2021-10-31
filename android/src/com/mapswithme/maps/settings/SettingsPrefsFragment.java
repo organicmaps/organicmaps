@@ -722,7 +722,7 @@ public class SettingsPrefsFragment extends BaseXmlSettingsFragment
               .show();
         else
 //          getSettingsActivity().switchToFragment(StoragePathFragment.class, R.string.maps_storage);
-          getSettingsActivity().replaceFragment(StoragePathFragment.class,
+          getSettingsActivity().stackFragment(StoragePathFragment.class,
                                                 getString(R.string.maps_storage), null);
 
         return true;

@@ -69,12 +69,6 @@
       android:text="@string/settings"
       tools:background="#20FF0000" />
     <TextView
-        android:id="@+id/report"
-        style="@style/MwmTheme.Menu.Content.ListItem"
-        android:drawableStart="@drawable/ic_menu_report"
-        android:text="@string/report_a_bug"
-        tools:background="#20FF0000" />
-    <TextView
       android:id="@+id/share"
       style="@style/MwmTheme.Menu.Content.ListItem"
       android:drawableStart="@drawable/ic_menu_share"

@@ -381,10 +381,16 @@
 /* Text in menu */
 "help" = "Справка";
 
-/* Text in menu */
+/* Button in the main Help dialog */
+"faq" = "Вопросы и ответы";
+
+/* Button in the main Help dialog */
+"how_to_support_us" = "Как наc поддержать?";
+
+/* Button in the main Help dialog */
 "copyright" = "Копирайт";
 
-/* Text in menu */
+/* Text in menu + Button in the main Help dialog */
 "report_a_bug" = "Сообщить о проблеме";
 
 /* Alert text */
@@ -996,17 +1002,8 @@
 
 "recent_track_background_dialog_message" = "Organic Maps использует вашу геопозицию в фоновом режиме для записи недавно пройденного пути.";
 
-/* Rate on Google Play (Android only) */
-"rate_gp" = "Оценить в Google Play";
-
-/* Share with friends: menu item title */
-"tell_friends" = "Рассказать друзьям";
-
-/* Share with friends: sharing text */
-"tell_friends_text" = "Привет! Установи Organic Maps!";
-
-/* About short text (below logo) */
-"about_description" = "Organic Maps — незаменимое приложение для путешествий, работающее без подключения к интернету. Organic Maps использует данные OpenStreetMap и позволяет их улучшать.";
+/* About short text */
+"about_description" = "Organic Maps - это бесплатное приложение, разработанное несколькими гиками свободное временя. Все данные карты из OpenStreetMap. Без рекламы. Нет отслеживания. Ваши личные данные не собираются.";
 
 "general_settings" = "Общие настройки";
 

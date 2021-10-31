@@ -17,11 +17,6 @@ public class BaseMwmFragment extends Fragment implements OnBackPressListener
     Utils.detachFragmentIfCoreNotInitialized(context, this);
   }
 
-  public BaseMwmFragmentActivity getMwmActivity()
-  {
-    return Utils.castTo(getActivity());
-  }
-
   @Override
   public boolean onBackPressed()
   {

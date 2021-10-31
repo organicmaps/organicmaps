@@ -11,9 +11,9 @@
     android:orientation="horizontal">
 
     <ImageView
-      android:id="@+id/p2p"
+      android:id="@+id/help"
       style="@style/MwmTheme.Menu.Line.Button"
-      android:src="@drawable/ic_menu_point_to_point"
+      android:src="@drawable/ic_question_mark"
       android:tag="@string/tag_menu_collapse"/>
 
     <Space

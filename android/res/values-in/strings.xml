@@ -222,9 +222,13 @@
 	<string name="rate_the_app">Beri nilai aplikasi</string>
 	<!-- Text in menu -->
 	<string name="help">Bantuan</string>
-	<!-- Text in menu -->
+	<!-- Button in the main Help dialog -->
+	<string name="faq">Pertanyaan dan jawaban</string>
+	<!-- Button in the main Help dialog -->
+	<string name="how_to_support_us">Bagaimana cara mendukung kami?</string>
+	<!-- Button in the main Help dialog -->
 	<string name="copyright">Hak cipta</string>
-	<!-- Text in menu -->
+	<!-- Text in menu + Button in the main Help dialog -->
 	<string name="report_a_bug">Laporkan gangguan</string>
 	<!-- Alert text -->
 	<string name="email_error_body">Surel pelanggan belum diatur. Mohon konfigurasikan atau gunakan cara lain untuk menghubungi kami di %s</string>
@@ -560,14 +564,8 @@
 	<!-- For sharing via SMS and so on -->
 	<string name="sharing_call_action_look">Lihat</string>
 	<string name="recent_track_background_dialog_message">Organic Maps menggunakan geoposisi di latar belakang untuk merekam rute yang baru Anda lalui.</string>
-	<!-- Rate on Google Play (Android only) -->
-	<string name="rate_gp">Beri nilai di Google Play</string>
-	<!-- Share with friends: menu item title -->
-	<string name="tell_friends">Beri Tahu Teman</string>
-	<!-- Share with friends: sharing text -->
-	<string name="tell_friends_text">Hai! Instal Organic Maps yuk!</string>
-	<!-- About short text (below logo) -->
-	<string name="about_description">Organic Maps adalah aplikasi offline yang sangat berguna untuk bepergian. Organic Maps didasarkan pada data OpenStreetMap dan memungkinkan kita untuk mengeditnya.</string>
+	<!-- About short text -->
+	<string name="about_description">Organic Maps adalah aplikasi gratis. Ini dikembangkan oleh beberapa insinyur di waktu luang kami. Semua data peta berasal dari openstreetmap. Tanpa iklan. Tidak ada pelacakan. Data pribadi Anda tidak dikumpulkan.</string>
 	<string name="general_settings">Setelan umum</string>
 	<!-- For the first routing -->
 	<string name="accept">Terima</string>

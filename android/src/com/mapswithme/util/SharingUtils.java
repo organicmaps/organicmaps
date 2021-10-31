@@ -116,18 +116,4 @@ public class SharingUtils
 
     context.startActivity(Intent.createChooser(intent, context.getString(R.string.share)));
   }
-
-  public static void shareApplication(@NonNull Context context)
-  {
-    Intent intent = new Intent(Intent.ACTION_SEND);
-    intent.setType(TEXT_MIME_TYPE);
-
-    final String subject = context.getString(R.string.tell_friends);
-    intent.putExtra(Intent.EXTRA_SUBJECT, subject);
-
-    final String text = context.getString(R.string.tell_friends_text);
-    intent.putExtra(Intent.EXTRA_TEXT, text);
-
-    context.startActivity(Intent.createChooser(intent, context.getString(R.string.share)));
-  }
 }

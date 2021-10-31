@@ -165,12 +165,8 @@
     <Preference
       android:key="@string/pref_help"
       android:title="@string/help"
-      android:fragment="com.mapswithme.maps.settings.HelpFragment"
-      android:order="1"/>
-    <Preference
-      android:key="@string/pref_about"
-      android:title="@string/about_menu_title"
-      android:fragment="com.mapswithme.maps.settings.AboutFragment"
-      android:order="2"/>
+      android:order="1">
+      <intent android:action="com.mapswithme.maps.help.HelpActivity"/>
+    </Preference>
   </androidx.preference.PreferenceCategory>
 </androidx.preference.PreferenceScreen>

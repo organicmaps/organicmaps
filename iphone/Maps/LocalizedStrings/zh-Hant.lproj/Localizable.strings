@@ -381,10 +381,16 @@
 /* Text in menu */
 "help" = "幫助";
 
-/* Text in menu */
+/* Button in the main Help dialog */
+"faq" = "問題和解答";
+
+/* Button in the main Help dialog */
+"how_to_support_us" = "如何支持我們？";
+
+/* Button in the main Help dialog */
 "copyright" = "版權";
 
-/* Text in menu */
+/* Text in menu + Button in the main Help dialog */
 "report_a_bug" = "報告錯誤";
 
 /* Alert text */
@@ -996,17 +1002,8 @@
 
 "recent_track_background_dialog_message" = "Organic Maps使用背景中的地理位置記錄您最近去過的路徑。";
 
-/* Rate on Google Play (Android only) */
-"rate_gp" = "在 Google Play 評分";
-
-/* Share with friends: menu item title */
-"tell_friends" = "告訴朋友";
-
-/* Share with friends: sharing text */
-"tell_friends_text" = "嗨！安裝 Organic Maps！";
-
-/* About short text (below logo) */
-"about_description" = "Organic Maps 是一款基本離線旅遊應用程式。Organic Maps 以 OpenStreetMap 數據為基礎，並允許對其進行編輯。";
+/* About short text */
+"about_description" = "Organic Maps是免費的申請。它是由我們的空閒時間的少數工程師開發的。所有地圖數據都來自OpenStreetMap。無廣告。沒有跟踪。您的個人數據不會收集。";
 
 "general_settings" = "一般設定";
 

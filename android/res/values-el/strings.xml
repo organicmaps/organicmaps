@@ -222,9 +222,13 @@
 	<string name="rate_the_app">Βαθμολογήστε την εφαρμογή</string>
 	<!-- Text in menu -->
 	<string name="help">Βοήθεια</string>
-	<!-- Text in menu -->
+	<!-- Button in the main Help dialog -->
+	<string name="faq">Ερωτήσεις και απαντήσεις</string>
+	<!-- Button in the main Help dialog -->
+	<string name="how_to_support_us">Πώς να μας υποστηρίξετε;</string>
+	<!-- Button in the main Help dialog -->
 	<string name="copyright">Πνευματικά δικαιώματα</string>
-	<!-- Text in menu -->
+	<!-- Text in menu + Button in the main Help dialog -->
 	<string name="report_a_bug">Αναφορά σφάλματος</string>
 	<!-- Alert text -->
 	<string name="email_error_body">Το πρόγραμμα-client ηλεκτρονικού ταχυδρομείου έχει δεν έχει ρυθμιστεί. Ρυθμίστε το ή χρησιμοποιήστε άλλο τρόπο να επικοινωνήσετε μαζί μας στη διεύθυνση %s</string>
@@ -548,14 +552,8 @@
 	<!-- For sharing via SMS and so on -->
 	<string name="sharing_call_action_look">Αναχώρηση</string>
 	<string name="recent_track_background_dialog_message">Το Organic Maps χρησιμοποιεί τη γεωγραφική σας τοποθεσία στο παρασκήνιο για την καταγραφή των πρόσφατων διαδρομών σας.</string>
-	<!-- Rate on Google Play (Android only) -->
-	<string name="rate_gp">Βαθμολογήστε το στο Google Play</string>
-	<!-- Share with friends: menu item title -->
-	<string name="tell_friends">Πείτε το σε ένα φίλο</string>
-	<!-- Share with friends: sharing text -->
-	<string name="tell_friends_text">Γεια σας! Εγκαταστήστε το Organic Maps!</string>
-	<!-- About short text (below logo) -->
-	<string name="about_description">Το Organic Maps είναι η απαραίτητη εφαρμογή γα ταξίδια που λειτουργεί εκτός σύνδεσης. Το Organic Maps βασίζεται σε δεδομένα OpenStreetMap και σας επιτρέπει να τα επεξεργαστείτε.</string>
+	<!-- About short text -->
+	<string name="about_description">Ο Organic Maps είναι μια δωρεάν εφαρμογή. Αναπτύσσεται από λίγους μηχανικούς στον ελεύθερο χρόνο μας. Όλα τα δεδομένα χάρτη είναι από το OpenStreetMap. Χωρίς διαφημίσεις. Χωρίς εντοπισμό. Τα προσωπικά σας δεδομένα δεν συλλέγονται.</string>
 	<string name="general_settings">Γενικές ρυθμίσεις</string>
 	<!-- For the first routing -->
 	<string name="accept">Συμφωνώ</string>

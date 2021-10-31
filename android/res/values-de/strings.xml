@@ -228,9 +228,13 @@
 	<string name="rate_the_app">Bewerten Sie die App</string>
 	<!-- Text in menu -->
 	<string name="help">Hilfe</string>
-	<!-- Text in menu -->
+	<!-- Button in the main Help dialog -->
+	<string name="faq">Fragen und Antworten</string>
+	<!-- Button in the main Help dialog -->
+	<string name="how_to_support_us">Wie unterstützen Sie uns?</string>
+	<!-- Button in the main Help dialog -->
 	<string name="copyright">Copyright</string>
-	<!-- Text in menu -->
+	<!-- Text in menu + Button in the main Help dialog -->
 	<string name="report_a_bug">Fehler melden</string>
 	<!-- Alert text -->
 	<string name="email_error_body">Der Email-Client ist noch nicht eingerichtet worden. Konfigurieren Sie ihn bitte oder nutzen Sie eine andere Möglichkeit, uns unter %s zu erreichen.</string>
@@ -566,14 +570,8 @@
 	<!-- For sharing via SMS and so on -->
 	<string name="sharing_call_action_look">Nachsehen</string>
 	<string name="recent_track_background_dialog_message">Organic Maps verwendet Ihre Geoposition im Hintergrund, um Ihre kürzlich gefahrene Route aufzunehmen.</string>
-	<!-- Rate on Google Play (Android only) -->
-	<string name="rate_gp">Bei Google Play bewerten</string>
-	<!-- Share with friends: menu item title -->
-	<string name="tell_friends">Einem Freund empfehlen</string>
-	<!-- Share with friends: sharing text -->
-	<string name="tell_friends_text">Hallo! Installiere dir Organic Maps!</string>
-	<!-- About short text (below logo) -->
-	<string name="about_description">Organic Maps ist eine wichtige Offline-App zum Reisen. Organic Maps basiert auf OpenStreetMap-Daten und ermöglicht das Bearbeiten dieser.</string>
+	<!-- About short text -->
+	<string name="about_description">Organic Maps ist eine kostenlose Anwendung. Es wird von einigen Ingenieuren in unserer Freizeit entwickelt. Alle Kartendaten stammen aus OpenStreetMap. Keine Werbung. Keine Verfolgung. Ihre persönlichen Daten werden nicht gesammelt.</string>
 	<string name="general_settings">Allgemeine Einstellungen</string>
 	<!-- For the first routing -->
 	<string name="accept">Annehmen</string>

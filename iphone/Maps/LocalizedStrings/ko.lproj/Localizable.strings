@@ -381,10 +381,16 @@
 /* Text in menu */
 "help" = "도움말";
 
-/* Text in menu */
+/* Button in the main Help dialog */
+"faq" = "질문과 답변";
+
+/* Button in the main Help dialog */
+"how_to_support_us" = "우리를 지원하는 방법?";
+
+/* Button in the main Help dialog */
 "copyright" = "저작권";
 
-/* Text in menu */
+/* Text in menu + Button in the main Help dialog */
 "report_a_bug" = "오류 신고";
 
 /* Alert text */
@@ -996,17 +1002,8 @@
 
 "recent_track_background_dialog_message" = "Organic Maps는 최근 여행한 경로를 녹음하기 위해 배경 화면에서 지역 위치 서비스를 사용합니다.";
 
-/* Rate on Google Play (Android only) */
-"rate_gp" = "Google Play에서 평가";
-
-/* Share with friends: menu item title */
-"tell_friends" = "친구에게 알려주기";
-
-/* Share with friends: sharing text */
-"tell_friends_text" = "안녕하세요! Organic Maps를 설치하세요!";
-
-/* About short text (below logo) */
-"about_description" = "Organic Maps는 여행용 필수 오프라인 응용 프로그램입니다. Organic Maps는 OpenStreetMap 데이터를 기반으로 하며 이 데이터 편집을 허용합니다.";
+/* About short text */
+"about_description" = "Organic Maps는 무료 응용 프로그램입니다. 그것은 자유 시간에 몇 명의 엔지니어가 개발했습니다. 모든지도 데이터는 OpenStreetMap에서입니다. 광고 없음. 추적 없음. 귀하의 개인 데이터는 수집되지 않습니다.";
 
 "general_settings" = "일반 설정";
 

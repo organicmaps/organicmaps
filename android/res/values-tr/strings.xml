@@ -222,9 +222,13 @@
 	<string name="rate_the_app">Uygulamayı değerlendir</string>
 	<!-- Text in menu -->
 	<string name="help">Yardım</string>
-	<!-- Text in menu -->
+	<!-- Button in the main Help dialog -->
+	<string name="faq">Sorular ve cevaplar</string>
+	<!-- Button in the main Help dialog -->
+	<string name="how_to_support_us">Bizi nasıl destekleyebilirim?</string>
+	<!-- Button in the main Help dialog -->
 	<string name="copyright">Telif hakkı</string>
-	<!-- Text in menu -->
+	<!-- Text in menu + Button in the main Help dialog -->
 	<string name="report_a_bug">Hata bildir</string>
 	<!-- Alert text -->
 	<string name="email_error_body">E-posta istemcisi henüz kurulmamış. Lütfen e-posta istemcisini yapılandırın ya da bize %s adresinden ulaşmak için başka bir yöntem deneyin</string>
@@ -560,14 +564,8 @@
 	<!-- For sharing via SMS and so on -->
 	<string name="sharing_call_action_look">İncele</string>
 	<string name="recent_track_background_dialog_message">Organic Maps, en son seyahat ettiğiniz rotayı kaydetmek için arka planda coğrafi konumunuzu kullanır.</string>
-	<!-- Rate on Google Play (Android only) -->
-	<string name="rate_gp">Google Play\'de Oy Ver</string>
-	<!-- Share with friends: menu item title -->
-	<string name="tell_friends">Arkadaşınıza söyleyin</string>
-	<!-- Share with friends: sharing text -->
-	<string name="tell_friends_text">Merhaba! Organic Maps\'yi hemen yükle!</string>
-	<!-- About short text (below logo) -->
-	<string name="about_description">Organic Maps, seyahatler için vazgeçilmez bir çevrimdışı uygulamadır. Organic Maps, OpenStreetMap verilerine dayanmakta ve bu verilerin düzenlenmesini sağlamaktadır.</string>
+	<!-- About short text -->
+	<string name="about_description">Organic Maps ücretsiz bir uygulamadır. Boş zamanlarımızda birkaç mühendis tarafından geliştirilmiştir. Tüm harita verileri OpenStreetMap\'tendir. Reklamsız. İzleme yok. Kişisel verileriniz toplanmaz.</string>
 	<string name="general_settings">Genel ayarlar</string>
 	<!-- For the first routing -->
 	<string name="accept">Kabul</string>

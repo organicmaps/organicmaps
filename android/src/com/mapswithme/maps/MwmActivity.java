@@ -8,7 +8,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.location.Location;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.KeyEvent;
@@ -54,6 +53,7 @@ import com.mapswithme.maps.editor.EditorActivity;
 import com.mapswithme.maps.editor.EditorHostFragment;
 import com.mapswithme.maps.editor.FeatureCategoryActivity;
 import com.mapswithme.maps.editor.ReportFragment;
+import com.mapswithme.maps.help.HelpActivity;
 import com.mapswithme.maps.intent.Factory;
 import com.mapswithme.maps.intent.MapTask;
 import com.mapswithme.maps.location.CompassData;
@@ -2135,9 +2135,9 @@ public class MwmActivity extends BaseMwmFragmentActivity
     }
   }
 
-  public static class PointToPointDelegate extends AbstractClickMenuDelegate
+  public static class HelpDelegate extends AbstractClickMenuDelegate
   {
-    public PointToPointDelegate(@NonNull MwmActivity activity, @NonNull MainMenu.Item item)
+    public HelpDelegate(@NonNull MwmActivity activity, @NonNull MainMenu.Item item)
     {
       super(activity, item);
     }
@@ -2145,7 +2145,8 @@ public class MwmActivity extends BaseMwmFragmentActivity
     @Override
     void onMenuItemClickInternal()
     {
-      getActivity().startLocationToPoint(null, false);
+      Intent intent = new Intent(getActivity(), HelpActivity.class);
+      getActivity().startActivity(intent);
     }
   }
 

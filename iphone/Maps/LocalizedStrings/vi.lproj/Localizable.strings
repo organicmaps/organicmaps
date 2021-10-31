@@ -381,10 +381,16 @@
 /* Text in menu */
 "help" = "Trợ giúp";
 
-/* Text in menu */
+/* Button in the main Help dialog */
+"faq" = "Câu hỏi và trả lời";
+
+/* Button in the main Help dialog */
+"how_to_support_us" = "Làm thế nào để hỗ trợ chúng tôi?";
+
+/* Button in the main Help dialog */
 "copyright" = "Bản quyền";
 
-/* Text in menu */
+/* Text in menu + Button in the main Help dialog */
 "report_a_bug" = "Báo cáo lỗi";
 
 /* Alert text */
@@ -996,17 +1002,8 @@
 
 "recent_track_background_dialog_message" = "Organic Maps sử dụng định vị của bạn trong ứng dụng chạy nền để ghi lại tuyến đường đã đi gần đây của bạn.";
 
-/* Rate on Google Play (Android only) */
-"rate_gp" = "Cho điểm trên Google Play";
-
-/* Share with friends: menu item title */
-"tell_friends" = "Giới thiệu với Bạn bè";
-
-/* Share with friends: sharing text */
-"tell_friends_text" = "Xin chào! Hãy cài đặt Organic Maps!";
-
-/* About short text (below logo) */
-"about_description" = "Organic Maps là một ứng dụng ngoại tuyến thiết yếu khi đi du lịch. Organic Maps được dựa trên dữ liệu của OpenStreetMap và cho phép bạn hiệu chỉnh nó.";
+/* About short text */
+"about_description" = "Organic Maps là một ứng dụng miễn phí. Nó được phát triển bởi một vài kỹ sư trong thời gian rảnh của chúng tôi. Tất cả dữ liệu bản đồ là từ OpenStreetMap. Không quảng cáo. Không theo dõi. Dữ liệu cá nhân của bạn không được thu thập.";
 
 "general_settings" = "Thiết lập chung";
 

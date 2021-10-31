@@ -381,10 +381,16 @@
 /* Text in menu */
 "help" = "Ajutor";
 
-/* Text in menu */
+/* Button in the main Help dialog */
+"faq" = "Intrebari si raspunsuri";
+
+/* Button in the main Help dialog */
+"how_to_support_us" = "Cum să ne sprijiniți?";
+
+/* Button in the main Help dialog */
 "copyright" = "Drepturi de autor";
 
-/* Text in menu */
+/* Text in menu + Button in the main Help dialog */
 "report_a_bug" = "Raportează o eroare";
 
 /* Alert text */
@@ -996,17 +1002,8 @@
 
 "recent_track_background_dialog_message" = "Organic Maps folosește în fundal geo-locația pentru a înregistra cel mai recent traseu urmat.";
 
-/* Rate on Google Play (Android only) */
-"rate_gp" = "Dați un calificativ pe Google Play";
-
-/* Share with friends: menu item title */
-"tell_friends" = "Spuneți unui prieten";
-
-/* Share with friends: sharing text */
-"tell_friends_text" = "Bună! Instalați Organic Maps!";
-
-/* About short text (below logo) */
-"about_description" = "Organic Maps este o aplicație offline esențială când călătoriți. Organic Maps utilizează datele OpenStreeMap și permite editarea acestora.";
+/* About short text */
+"about_description" = "Organic Maps este o aplicație gratuită. Este dezvoltat de câțiva ingineri în timpul liber. Toate datele hărților sunt din OpenStreetMap. Fără reclame. Nici o urmărire. Datele dvs.  personale nu sunt colectate.";
 
 "general_settings" = "Setări generale";
 

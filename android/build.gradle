@@ -170,7 +170,7 @@ android {
     targetSdkVersion propTargetSdkVersion.toInteger()
     applicationId project.ext.appId
     buildConfigField 'String', 'SUPPORT_MAIL', '"android@organicmaps.app"'
-    buildConfigField 'String', 'REVIEW_URL', '"market://details?id=app.organicmaps"'
+    buildConfigField 'String', 'REVIEW_URL', '"https://organicmaps.app/donate/"'
     buildConfigField 'int', 'RATING_THRESHOLD', '5'
 
     multiDexEnabled true
@@ -224,6 +224,7 @@ android {
       dimension "default"
       versionName = android.defaultConfig.versionName + '-Google'
       buildConfigField 'String', 'SUPPORT_MAIL', '"googleplay@organicmaps.app"'
+      buildConfigField 'String', 'REVIEW_URL', '"market://details?id=app.organicmaps"'
       android.sourceSets.google.assets.srcDirs = ['flavors/world-enabled']
     }
 
@@ -246,6 +247,7 @@ android {
       versionName = android.defaultConfig.versionName + '-Huawei'
       versionCode = HUAWEI_VERSION_CODE_BASE + android.defaultConfig.versionCode
       buildConfigField 'String', 'SUPPORT_MAIL', '"huawei@organicmaps.app"'
+      buildConfigField 'String', 'REVIEW_URL', '"appmarket://details?id=app.organicmaps"'
       android.sourceSets.huawei.assets.srcDirs = ['flavors/world-enabled']
     }
   }

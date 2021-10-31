@@ -227,9 +227,11 @@
 	<string name="rate_the_app">Avaliar o aplicativo</string>
 	<!-- Text in menu -->
 	<string name="help">Ajuda</string>
-	<!-- Text in menu -->
+	<!-- Button in the main Help dialog -->
+	<string name="faq">Perguntas e respostas</string>
+	<!-- Button in the main Help dialog -->
 	<string name="copyright">Direitos autorais</string>
-	<!-- Text in menu -->
+	<!-- Text in menu + Button in the main Help dialog -->
 	<string name="report_a_bug">Relatar um problema</string>
 	<!-- Alert text -->
 	<string name="email_error_body">O cliente de email não está configurado. Por favor, configure-o ou utilize qualquer outro modo para nos contatar através de %s</string>
@@ -566,14 +568,6 @@
 	<!-- For sharing via SMS and so on -->
 	<string name="sharing_call_action_look">Procure</string>
 	<string name="recent_track_background_dialog_message">O Organic Maps usa sua localização geográfica em segundo plano para registrar sua rota recente.</string>
-	<!-- Rate on Google Play (Android only) -->
-	<string name="rate_gp">Avaliar em Google Play</string>
-	<!-- Share with friends: menu item title -->
-	<string name="tell_friends">Indique a um amigo</string>
-	<!-- Share with friends: sharing text -->
-	<string name="tell_friends_text">Olá! Instale o Organic Maps!</string>
-	<!-- About short text (below logo) -->
-	<string name="about_description">O Organic Maps é um aplicativo offline essencial para viajar. O Organic Maps se baseia nos dados do OpenStreetMap e permite editá-los.</string>
 	<string name="general_settings">Definições gerais</string>
 	<!-- For the first routing -->
 	<string name="accept">Aceitar</string>
