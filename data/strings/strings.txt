@@ -2715,6 +2715,7 @@
     en = Hello!\n\nAttached are my bookmarks from Organic Maps app. Please open them if you have Organic Maps installed. Or, if you don't, download the app for your iOS or Android device by following this link: https://omaps.app/get?kmz\n\nEnjoy traveling with Organic Maps!
     be = Вітаю!\n\nУ далучаным файле мае закладкі з дататка Organic Maps. Калі ласка, адчыніце іх калі ў вас усталяваны Organic Maps. Калі не, спампуйце дадатак для вашай прылады iOS альбо Andriod па спасылцы: https://omaps.app/get?kmz\n\nПрыемных падарожжаў з Organic Maps!
     nl = Hallo!\n\nBijgesloten zijn mijn bladwijzers uit de Organic Maps app. Open ze als je Organic Maps geïnstalleerd hebt. Of, als je dat niet hebt, download de app voor je iOS- of Android-apparaat door deze link te volgen: https://omaps.app/get?kmz\n\nGeniet van het reizen met Organic Maps!
+    pl = Cześć!\n\nZałączam moje zakładki z aplikacji Organic Maps. Proszę otwórz je jeżeli masz zaintalowane Organic Maps. Lub, jeżeli nie masz, pobierz aplikację na swoje urządzenie iOS/Android za pomocą tego linka: https://omaps.app/get?kmz\n\nMiłego podróżowania z Organic Maps!
     pt = Olá!\n\nSegue em anexo os meus favoritos da aplicação Organic Maps. Por favor abra-os se tiver o Organic Maps instalado. Caso não tenha, descarregue a aplicação para o seu dispositivo iOS ou Android com a hiperligação https://omaps.app/get?kmz\n\nDivirta-se a viajar com o Organic Maps!
     pt-BR = Olá!\n\nSegue em anexo meus favoritos do app Organic Maps. Por favor os abra se você tiver o Organic Maps instalado. Caso não tenha, baixe o app para o seu dispositivo iOS ou Android com o link https://omaps.app/get?kmz\n\nDisfrute viajar com o Organic Maps!
     ru = Здравствуйте!\n\nВ прикрепленном файле мои метки из офлайновых карт Organic Maps. Для того чтобы открыть этот файл, вам потребуется приложение Organic Maps, которое можно установить по ссылке: https://omaps.app/get?kmz\n\nСпасибо!
@@ -10590,6 +10591,7 @@
   [editor_add_phone]
     tags = android
     en = Add Phone
+    pl = Dodaj numer telefonu
     ru = Добавить телефон
 
   [please_note]
@@ -13531,24 +13533,28 @@
   [error_enter_correct_facebook_page]
     tags = android
     en = Enter a valid Facebook web address, account, or page name
+    pl = Wprowadź poprawny link, nazwę konta lub nazwę strony na Facebooku
     ru = Введите корректный веб-адрес Facebook страницы или имя пользователя
     uk = Введіть вірну веб-адресу Facebook сторінки або і'мя користувача
 
   [error_enter_correct_instagram_page]
     tags = android
     en = Enter a valid Instagram web address or account name
+    pl = Wprowadź poprawny link lub nazwę konta na Instagramie
     ru = Введите корректный веб-адрес Instagram страницы или имя пользователя
     uk = Введіть вірну веб-адресу Instagram сторінки або і'мя користувача
 
   [error_enter_correct_twitter_page]
     tags = android
     en = Enter a valid Twitter web address or username
+    pl = Wprowadź poprawny adres lub nazwę konta na Twitterze
     ru = Введите корректный веб-адрес Twitter страницы или имя пользователя
     uk = Введіть вірну веб-адресу Twitter сторінки або і'мя користувача
 
   [error_enter_correct_vk_page]
     tags = android
     en = Enter a valid VK web address or account name
+    pl = Wprowadź poprawny adres lub nazwę konta na VK
     ru = Введите корректный веб-адрес VK страницы или имя пользователя
     uk = Введіть вірну веб-адресу VK сторінки або і'мя користувача
 
@@ -15754,6 +15760,7 @@
     en = Import bookmarks
     be = Імпартаваць закладкі
     bg = Импортиране на отметки
+    pl = Import zakładek
     pt = Importar favoritos
     pt-BR = Importar favoritos
     ru = Импортировать метки
@@ -17339,6 +17346,7 @@
     bg = Популярно
     fa = مشهور
     fr = Populaire
+    pl = Popularne
     pt = Popular
     pt-BR = Popular
     ru = Популярно
@@ -21915,6 +21923,7 @@
     en = Download the world map
     be = Спампаваць мапу света
     bg = Изтегляне на картата на света
+    pl = Pobierz mapę świata
     pt = Descarregar o mapa mundial
     pt-BR = Baixar mapa mundial
     ru = Скачать карту мира
@@ -21924,6 +21933,7 @@
     en = Connection failure
     be = Памылка падлучэння
     bg = Неуспешно свързване
+    pl = Błąd połączenia
     pt = Falha na coneção
     pt-BR = Falha na coneção
     ru = Ошибка подключения
@@ -21933,6 +21943,7 @@
     en = Disconnect USB cable
     be = Адлучыце USB кабель
     bg = Изключване на USB кабел
+    pl = Odłącz kabel USB
     ru = Отсоедините USB кабель
 
   [enable_screen_sleep]
@@ -22181,6 +22192,7 @@
     tags = ios
     en = Delete Track
     be = Выдаліць сцежку
+    pl = Usuwanie trasy
     ru = Удалить трек
 
   [placepage_track_name_hint]
@@ -22188,6 +22200,7 @@
     tags = ios
     en = Track Name
     be = Назва сцежкі
+    pl = Nazwa trasy
     ru = Название трека
 
   [move]
@@ -22195,6 +22208,7 @@
     tags = ios
     en = Move
     be = Перамясціць
+    pl = Przenieś
     ru = Переместить
 
   [track_title]
