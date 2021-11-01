@@ -560,7 +560,7 @@ it:Riciclo|Utilizzazione dei rifiuti|Ritiro dei materiali riciclabili|Separazion
 ja:リサイクル|廃物利用|リサイクル可能なもの|ゴミの分別回収|ゴミの分別|再利用
 ko:재활용|쓰레기 활용|쓰레기 분리|폐기물 이용|재활용 가능|쓰레기 모음 분리|쓰레기 정리|재사용
 nb:Resirkulering|Avfallsutnytting|Gjenvinningsstasjon|Kildesortering|Gjenbruk
-pl:Recyrkulacja|Utylizacja odpadów|Do recyklingu|Segregacja śmieci|Sortowanie śmieci|Odzysk
+pl:Recykling|Recyrkulacja|Utylizacja odpadów|Do recyklingu|Segregacja śmieci|Sortowanie śmieci|Odzysk
 pt:Reciclagem|Ecoponto|Recicláveis|Separação de lixo|Reutilização
 pt-BR:Reciclagem|Utilização de resíduos|Recicláveis|Coleta de seletiva|Separação de lixo|Reuso
 ro:Reciclarea deșeurilor|Reciclare|Recepționarea reciclării|Colectarea separată a gunoiului|Sortarea gunoiului|Reutilizare
@@ -627,7 +627,7 @@ it:2Bar|2birra|pub|mangiare
 ja:1居酒屋|バー|パブ|ビール|飲み屋|呑み屋|酒
 ko:주점|맥주|음료|바|펍
 nb:2Bar|pub
-pl:2Bar|2pub|piwo|napoje
+pl:2Bar|2pub|piwo|napoje|alkohol|drinki
 pt:2Bar|2pub|cerveja|beber
 pt-BR:2Drinqueria|bar|pub|boteco|cerveja|drink|beber|alimentação
 ro:2Bar|2cârciumă|băutură
@@ -1082,7 +1082,7 @@ sk:Nábytok
 fa:فروشگاه لوازم خانگی
 
 shop-alcohol|@food
-en:Liquor Store|liquor|U+1F377
+en:Liquor Store|liquor|alcohol|U+1F377
 en-GB:Off licence|liquor|U+1F377
 en-AU:Bottleshop|liquor|U+1F377
 ru:Магазин алкоголя|4алкоголь|3винный|3вино-водочный
@@ -1100,7 +1100,7 @@ it:Enoteca
 ja:酒屋|お買い物|ショップ|商店|雑貨
 ko:리큐어 스토어|주류 샵
 nb:Vinmonopol|brennevin
-pl:Sklep monopolowy|towary
+pl:Sklep monopolowy|alkohol|towary
 pt:Loja de bebidas|bebidas alcoólicas
 pt-BR:Loja de bebidas|bebidas alcoólicas|2loja|compras
 ro:Băuturi alcoolice
@@ -1166,7 +1166,7 @@ it:Negozio di scarpe
 ja:靴屋|お買い物|ショップ|商店|雑貨
 ko:신발 가게|신발가게|구두가게|신발|구두
 nb:Skobutikk
-pl:Sklep obuwniczy|towary
+pl:Sklep obuwniczy|buty|towary
 pt:Sapataria|loja de calçado
 pt-BR:Sapataria|loja de calçados|2loja|compras
 ro:Magazin de încălțăminte
@@ -1199,7 +1199,7 @@ it:Negozio di elettronica
 ja:電気店|お買い物|ショップ|商店|雑貨
 ko:전자제품|전자|전자가게|전자 가게
 nb:Elektronikk forhandler
-pl:Sklep ze sprzętem elektronicznym|towary
+pl:Sklep ze sprzętem elektronicznym|elektronika|towary
 pt:Loja de eletrônica
 pt-BR:Loja de eletrônicos|2loja|compras
 ro:Electronice
@@ -1266,7 +1266,7 @@ it:Gioielleria
 ja:宝石店|お買い物|ショップ|商店|雑貨
 ko:귀금속방|보석방
 nb:Gullsmed
-pl:Jubiler|towary
+pl:Jubiler|biżuteria|towary
 pt:Joias|Joalharia
 pt-BR:Joalheria|2loja|compras
 ro:Bijutier
@@ -1300,7 +1300,7 @@ it:Ottico
 ja:眼鏡店|お買い物|ショップ|商店|雑貨
 ko:안경점 의|안경점
 nb:Optiker
-pl:Sklep optyczny|towary
+pl:Okulista|Optyk|towary
 pt:Oculista|Óptica|Ótica
 pt-BR:Ótica|4oculista|3óculos|2loja|compras
 ro:Optică
@@ -1333,7 +1333,7 @@ it:Negozio di regali
 ja:ギフトショップ|お買い物|ショップ|商店|雑貨
 ko:기념품점|선물가게|선물 가게|기념품|선물
 nb:Gavebutikk
-pl:Sklep pamiątkarski|towary
+pl:Sklep pamiątkarski|prezenty|pamiątki|towary
 pt:Loja de lembranças|Lembranças|presentes
 pt-BR:Loja de presentes|2loja|compras
 ro:Magazin de suveniruri
@@ -1639,7 +1639,7 @@ it:Pasticceria|drogheria
 ja:菓子類|菓子屋
 ko:과저점|디저트점|페이스트리|컨펙셔너리|사탕|과자|제과점|베이커리
 nb:Søtsaker|godtebutikk
-pl:Sklep ze słodyczami
+pl:Sklep ze słodyczami|słodycze
 pt:Confeitaria|loja de doces|bolos|doces|guloseimas
 pt-BR:Confeitaria|loja de doces
 ro:Cofetărie
@@ -1705,7 +1705,7 @@ it:Negozio di giocattoli
 ja:おもちゃ屋|玩具店
 ko:장난감 가게|장난감점
 nb:Legebutikk
-pl:Sklep z zabawkami
+pl:Sklep z zabawkami|zabawki|dzieci
 pt:Loja de brinquedos|3brinquedos
 pt-BR:Loja de brinquedos
 ro:Magazin de jucării
@@ -1769,7 +1769,7 @@ it:Negozio di abbigliamento
 ja:1洋服|洋服屋さん|ショッピング|衣類|服
 ko:1옷 가게|옷가게의류점
 nb:Klesbutikk
-pl:Sklep z ubraniami|ciuchowy
+pl:Sklep z ubraniami|ciuchowy|ubrania|ciuchy
 pt:Loja de roupas|3roupa|3vestuário
 pt-BR:Loja de roupas
 ro:Magazin de haine
@@ -2003,7 +2003,7 @@ it:3Stazione ferroviaria|3treno
 ja:1鉄道駅|鉄道|電車|交通|駅|鉄|電
 ko:1기차역|철도역
 nb:Togstasjon
-pl:Dworzec kolejowy|stacja kolejowa
+pl:Dworzec kolejowy|stacja kolejowa|pociąg|kolej
 pt:Estação de comboios|2caminhos-de-ferro|2Comboios|2Apeadeiro
 pt-BR:Estação de trem|ferrovia
 ro:Feroviar
@@ -8745,7 +8745,7 @@ ja:アイスクリーム屋
 ko:아이스크림 스탠드|아이스크림 가판대
 nb:Iskrem
 nl:Ijskraam|Ijsstand
-pl:Stoisko z lodami
+pl:Stoisko z lodami|lody
 pt:Gelados|gelataria|geladaria|3banca de gelados
 pt-BR:Sorveteria
 ro:Chioșc cu înghețată
