@@ -24,6 +24,19 @@ If you have some ideas or want to request a new feature, please [start a discuss
 
 If you want to improve app translations or add more search synonyms, please update [strings.txt](https://github.com/organicmaps/organicmaps/blob/master/data/strings/strings.txt) file, run `./tools/unix/generate_localizations.sh` and create a [Pull Request](#pull-requests).
 
+Use `./tools/python/strings/google_translate.py` to generate initial strings for all languages:
+
+```bash
+cd tools/python/strings
+python3 -m venv venv
+source venv/bin/activate
+pip3 install -r requirements.txt
+```
+
+```bash
+./google_translate.py "Hello"
+```
+
 ### Code Contributions
 
 Please follow instructions in [INSTALL.md](INSTALL.md) to set up your development environment.
