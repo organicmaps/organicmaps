@@ -216,7 +216,7 @@
 /* Email Subject when sharing bookmarks category */
 "share_bookmarks_email_subject" = "Udostępnione zakładki z Organic Maps";
 
-"share_bookmarks_email_body" = "Hello!\n\nAttached are my bookmarks from Organic Maps app. Please open them if you have Organic Maps installed. Or, if you don't, download the app for your iOS or Android device by following this link: https://omaps.app/get?kmz\n\nEnjoy traveling with Organic Maps!";
+"share_bookmarks_email_body" = "Cześć!\n\nZałączam moje zakładki z aplikacji Organic Maps. Proszę otwórz je jeżeli masz zaintalowane Organic Maps. Lub, jeżeli nie masz, pobierz aplikację na swoje urządzenie iOS/Android za pomocą tego linka: https://omaps.app/get?kmz\n\nMiłego podróżowania z Organic Maps!";
 
 /* message title of loading file */
 "load_kmz_title" = "Wczytywanie zakładek";
@@ -786,7 +786,7 @@
 
 "phone" = "Telefon";
 
-"editor_add_phone" = "Add Phone";
+"editor_add_phone" = "Dodaj numer telefonu";
 
 "please_note" = "Uwaga!";
 
@@ -964,13 +964,13 @@
 
 "error_enter_correct_email" = "Wpisz prawidłowy email";
 
-"error_enter_correct_facebook_page" = "Enter a valid Facebook web address, account, or page name";
+"error_enter_correct_facebook_page" = "Wprowadź poprawny link, nazwę konta lub nazwę strony na Facebooku";
 
-"error_enter_correct_instagram_page" = "Enter a valid Instagram web address or account name";
+"error_enter_correct_instagram_page" = "Wprowadź poprawny link lub nazwę konta na Instagramie";
 
-"error_enter_correct_twitter_page" = "Enter a valid Twitter web address or username";
+"error_enter_correct_twitter_page" = "Wprowadź poprawny adres lub nazwę konta na Twitterze";
 
-"error_enter_correct_vk_page" = "Enter a valid VK web address or account name";
+"error_enter_correct_vk_page" = "Wprowadź poprawny adres lub nazwę konta na VK";
 
 "refresh" = "Uaktualnić";
 
@@ -1107,7 +1107,7 @@
 "bookmarks_create_new_group" = "Utwórz nową listę";
 
 /* Bookmark categories screen */
-"bookmarks_import" = "Import bookmarks";
+"bookmarks_import" = "Import zakładek";
 
 "downloader_hide_screen" = "Ukryj ekran";
 
@@ -1183,7 +1183,7 @@
 
 "title_error_downloading_bookmarks" = "Wystąpił błąd";
 
-"popular_place" = "Popular";
+"popular_place" = "Popularne";
 
 "export_file" = "Eksportuj plik";
 
@@ -1443,11 +1443,11 @@
 
 "key_information_title" = "Kluczowe informacje";
 
-"download_map_title" = "Download the world map";
+"download_map_title" = "Pobierz mapę świata";
 
-"connection_failure" = "Connection failure";
+"connection_failure" = "Błąd połączenia";
 
-"disconnect_usb_cable_title" = "Disconnect USB cable";
+"disconnect_usb_cable_title" = "Odłącz kabel USB";
 
 "enable_screen_sleep" = "Pozwól ekranowi spać";
 
@@ -1467,13 +1467,13 @@
 "whats_new_auto_update_button_later" = "Zaktualizuj ręcznie później";
 
 /* Delete track button on track edit screen */
-"placepage_delete_track_button" = "Delete Track";
+"placepage_delete_track_button" = "Usuwanie trasy";
 
 /* Placeholder for track name input on track edit screen */
-"placepage_track_name_hint" = "Track Name";
+"placepage_track_name_hint" = "Nazwa trasy";
 
 /* move track or bookmark from the list button text */
-"move" = "Move";
+"move" = "Przenieś";
 
 /* edit track screen title */
 "track_title" = "Trasa";

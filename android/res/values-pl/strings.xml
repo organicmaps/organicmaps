@@ -136,6 +136,7 @@
 	<string name="description">Notatki</string>
 	<!-- Email Subject when sharing bookmarks category -->
 	<string name="share_bookmarks_email_subject">Udostępnione zakładki z Organic Maps</string>
+	<string name="share_bookmarks_email_body">Cześć!\n\nZałączam moje zakładki z aplikacji Organic Maps. Proszę otwórz je jeżeli masz zaintalowane Organic Maps. Lub, jeżeli nie masz, pobierz aplikację na swoje urządzenie iOS/Android za pomocą tego linka: https://omaps.app/get?kmz\n\nMiłego podróżowania z Organic Maps!</string>
 	<!-- message title of loading file -->
 	<string name="load_kmz_title">Wczytywanie zakładek</string>
 	<!-- Kmz file successful loading -->
@@ -458,6 +459,7 @@
 	<!-- login text field -->
 	<string name="email_or_username">Email lub nazwa użytkownika</string>
 	<string name="phone">Telefon</string>
+	<string name="editor_add_phone">Dodaj numer telefonu</string>
 	<string name="please_note">Uwaga!</string>
 	<string name="downloader_delete_map_dialog">Wszystkie zmiany dotyczące mapy zostaną usunięte wraz z nią.</string>
 	<string name="downloader_update_maps">Aktualizuj mapy</string>
@@ -550,6 +552,10 @@
 	<string name="error_enter_correct_phone">Wprowadź poprawny numer telefonu</string>
 	<string name="error_enter_correct_web">Wpisz prawidłowy adres strony internetowej</string>
 	<string name="error_enter_correct_email">Wpisz prawidłowy email</string>
+	<string name="error_enter_correct_facebook_page">Wprowadź poprawny link, nazwę konta lub nazwę strony na Facebooku</string>
+	<string name="error_enter_correct_instagram_page">Wprowadź poprawny link lub nazwę konta na Instagramie</string>
+	<string name="error_enter_correct_twitter_page">Wprowadź poprawny adres lub nazwę konta na Twitterze</string>
+	<string name="error_enter_correct_vk_page">Wprowadź poprawny adres lub nazwę konta na VK</string>
 	<string name="refresh">Uaktualnić</string>
 	<string name="placepage_add_place_button">Dodaj miejsce do mapy</string>
 	<!-- Displayed when saving some edits to the map to warn against publishing personal data -->
@@ -627,6 +633,8 @@
 	  <item quantity="other">Zakładki: %d</item>
 	</plurals>
 	<string name="bookmarks_create_new_group">Utwórz nową listę</string>
+	<!-- Bookmark categories screen -->
+	<string name="bookmarks_import">Import zakładek</string>
 	<string name="downloader_hide_screen">Ukryj ekran</string>
 	<string name="downloader_percent">%1$s (%2$s z %3$s)</string>
 	<string name="downloader_process">Pobieranie %s…</string>
@@ -678,6 +686,7 @@
 	<string name="bookmarks_empty_list_message">Aby dodać zakładkę, dotknij miejsca na mapie, a następnie dotknij ikony gwiazdy.</string>
 	<string name="category_desc_more">…więcej</string>
 	<string name="title_error_downloading_bookmarks">Wystąpił błąd</string>
+	<string name="popular_place">Popularne</string>
 	<string name="export_file">Eksportuj plik</string>
 	<string name="list_settings">Ustawienia listy</string>
 	<string name="delete_list">Usuń listę</string>
@@ -811,6 +820,9 @@
 	<string name="downloader_updating_ios">Aktualizacja</string>
 	<string name="downloader_loading_ios">Pobieranie</string>
 	<string name="key_information_title">Kluczowe informacje</string>
+	<string name="download_map_title">Pobierz mapę świata</string>
+	<string name="connection_failure">Błąd połączenia</string>
+	<string name="disconnect_usb_cable_title">Odłącz kabel USB</string>
 	<string name="enable_screen_sleep">Pozwól ekranowi spać</string>
 	<!-- Description in preferences -->
 	<string name="enable_screen_sleep_description">Po włączeniu ekran będzie mógł spać po okresie bezczynności.</string>
@@ -822,6 +834,12 @@
 	<string name="whats_new_auto_update_button_size">Zaktualizuj (%s)</string>
 	<!-- Autoupdate dialog on start -->
 	<string name="whats_new_auto_update_button_later">Zaktualizuj ręcznie później</string>
+	<!-- Delete track button on track edit screen -->
+	<string name="placepage_delete_track_button">Usuwanie trasy</string>
+	<!-- Placeholder for track name input on track edit screen -->
+	<string name="placepage_track_name_hint">Nazwa trasy</string>
+	<!-- move track or bookmark from the list button text -->
+	<string name="move">Przenieś</string>
 	<!-- edit track screen title -->
 	<string name="track_title">Trasa</string>
 
