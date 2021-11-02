@@ -53,11 +53,13 @@
     <string name="disconnect_usb_cable">Отключите USB кабель или вставьте SD-карту</string>
     <string name="not_enough_free_space_on_sdcard">Недостаточно свободного места на SD карте/в памяти устройства для использования программы</string>
     <string name="not_enough_memory">Недостаточно памяти для запуска программы</string>
-    <string name="download_resources">Перед началом работы разрешите нам загрузить общую карту мира на ваше устройство.\nЭто потребует %s данных.</string>
+    <string name="download_resources">Перед началом работы разрешите нам загрузить общую карту мира на ваше устройство.
+\nЭто потребует %s данных.</string>
     <string name="download_resources_continue">Перейти на карту</string>
-    <string name="downloading_country_can_proceed">Пока загружается %s,\nвы можете пользоваться картой.</string>
-    <string name="download_country_ask">Загрузить %s?</string>
-    <string name="update_country_ask">Обновить %s?</string>
+    <string name="downloading_country_can_proceed">Пока загружается %s,
+\nвы можете пользоваться картой.</string>
+    <string name="download_country_ask">Загрузить %s\?</string>
+    <string name="update_country_ask">Обновить %s\?</string>
     <!-- REMOVE THIS STRING AFTER REFACTORING -->
     <string name="pause">Приостановить</string>
     <!-- REMOVE THIS STRING AFTER REFACTORING -->
@@ -89,9 +91,10 @@
     <!-- Detailed description of Maps Storage settings button -->
     <string name="maps_storage_summary">Выберите место, где будут храниться загруженные карты</string>
     <!-- Question dialog for transferring maps from one storage to another -->
-    <string name="move_maps">Переместить карты?</string>
+    <string name="move_maps">Переместить карты\?</string>
     <!-- Ask to wait user several minutes (some long process in modal dialog). -->
-    <string name="wait_several_minutes">Это может занять несколько минут.\nПожалуйста, подождите…</string>
+    <string name="wait_several_minutes">Это может занять несколько минут.
+\nПожалуйста, подождите…</string>
     <!-- Measurement units title in settings activity -->
     <string name="measurement_units">Единицы измерения</string>
     <!-- Detailed description of Measurement Units settings button -->
@@ -136,7 +139,11 @@
     <string name="description">Примечание</string>
     <!-- Email Subject when sharing bookmarks category -->
     <string name="share_bookmarks_email_subject">С вами поделились метками Organic Maps</string>
-    <string name="share_bookmarks_email_body">Здравствуйте!\n\nВ прикрепленном файле мои метки из офлайновых карт Organic Maps. Для того чтобы открыть этот файл, вам потребуется приложение Organic Maps, которое можно установить по ссылке: https://omaps.app/get?kmz\n\nСпасибо!</string>
+    <string name="share_bookmarks_email_body">Здравствуйте!
+\n
+\nВ прикрепленном файле мои метки из офлайновых карт Organic Maps. Для того чтобы открыть этот файл, вам потребуется приложение Organic Maps, которое можно установить по ссылке: https://omaps.app/get\?kmz
+\n
+\nСпасибо!</string>
     <!-- message title of loading file -->
     <string name="load_kmz_title">Загрузка меток</string>
     <!-- Kmz file successful loading -->
@@ -158,7 +165,11 @@
     <!-- Subject for emailed position -->
     <string name="my_position_share_email_subject">Посмотри на карте Organic Maps, где я сейчас нахожусь</string>
     <!-- Share my position using EMail, %1$@ is om:// and %2$@ is https://omaps.app link WITHOUT NAME -->
-    <string name="my_position_share_email">Привет!\n\nЯ сейчас здесь: %1$s. Чтобы увидеть это место на карте Organic Maps, открой эту ссылку %2$s или эту %3$s\n\nСпасибо.</string>
+    <string name="my_position_share_email">Привет!
+\n
+\nЯ сейчас здесь: %1$s. Чтобы увидеть это место на карте Organic Maps, открой эту ссылку %2$s или эту %3$s
+\n
+\nСпасибо.</string>
     <!-- Share button text which opens menu with more buttons, like Message, EMail, Facebook etc. -->
     <string name="share">Поделиться</string>
     <!-- Share by email button text, also used in editor. -->
@@ -174,7 +185,7 @@
     <!-- Data version in «About» screen -->
     <string name="data_version">Версия данных: %d</string>
     <!-- Confirmation in downloading countries dialog -->
-    <string name="are_you_sure">Вы уверены, что хотите продолжить?</string>
+    <string name="are_you_sure">Вы уверены, что хотите продолжить\?</string>
     <!-- Title for tracks category in bookmarks manager -->
     <string name="tracks_title">Треки</string>
     <!-- Length of track in cell that describes route -->
@@ -277,7 +288,7 @@
     <!-- Text for rating dialog -->
     <string name="rating_thanks">Спасибо!</string>
     <!-- Text for rating dialog -->
-    <string name="rating_share_ideas">Что-то не так?  Расскажите, что бы мы могли исправить или улучшить в приложении.</string>
+    <string name="rating_share_ideas">Что-то не так\? Расскажите, что бы мы могли исправить или улучшить в приложении.</string>
     <!-- Text for rating dialog -->
     <string name="rating_send_feedback">Напишите нам</string>
     <!-- Text for routing error dialog -->
@@ -356,7 +367,7 @@
     <string name="dialog_routing_application_error">Не удалось проложить маршрут из-за ошибки приложения.</string>
     <string name="dialog_routing_try_again">Попробуйте снова</string>
     <string name="not_now">Не сейчас</string>
-    <string name="dialog_routing_download_and_build_cross_route">Загрузить карту и построить более оптимальный маршрут с пересечением границы карты?</string>
+    <string name="dialog_routing_download_and_build_cross_route">Загрузить карту и построить более оптимальный маршрут с пересечением границы карты\?</string>
     <string name="dialog_routing_download_cross_route">Для построения более оптимального маршрута с пересечением границы требуется загрузить карту.</string>
     <!-- SECTION: Strings for downloading map from search -->
     <string name="search_without_internet_advertisement">Для поиска мест и построения маршрутов скачайте карту, и интернет вам больше не понадобится.</string>
@@ -373,11 +384,11 @@
     <string name="routing_arrive">Прибытие в %s</string>
     <!-- Text for routing::RouterResultCode::FileTooOld dialog. -->
     <string name="dialog_routing_download_and_update_maps">Для построения маршрута загрузите и обновите все карты по пути следования.</string>
-    <string name="rate_alert_title">Нравится приложение?</string>
+    <string name="rate_alert_title">Нравится приложение\?</string>
     <string name="rate_alert_default_message">Спасибо что пользуетесь картами Organic Maps. Пожалуйста, оцените приложение. Ваши оценки и отзывы помогают нам становиться лучше.</string>
     <string name="rate_alert_five_star_message">Ура! Мы вас тоже любим!</string>
     <string name="rate_alert_four_star_message">Спасибо, мы будем стараться!</string>
-    <string name="rate_alert_less_than_four_star_message">Расскажите, что мы могли бы улучшить?</string>
+    <string name="rate_alert_less_than_four_star_message">Расскажите, что мы могли бы улучшить\?</string>
     <string name="categories">Категории</string>
     <string name="history">История</string>
     <string name="closed">Закрыто</string>
@@ -391,7 +402,7 @@
     <string name="p2p_from_here">Отсюда</string>
     <string name="p2p_to_here">Сюда</string>
     <string name="p2p_only_from_current">Навигация возможна только из текущего местоположения.</string>
-    <string name="p2p_reroute_from_current">Хотите перестроить маршрут от вашего местоположения?</string>
+    <string name="p2p_reroute_from_current">Хотите перестроить маршрут от вашего местоположения\?</string>
     <!-- Edit open hours/set time and minutes dialog -->
     <string name="next_button">Далее</string>
     <string name="editor_time_add">Добавить расписание</string>
@@ -428,13 +439,13 @@
     <string name="today">Сегодня</string>
     <string name="add_opening_hours">Добавить время работы</string>
     <string name="edit_opening_hours">Редактировать время работы</string>
-    <string name="no_osm_account">Не зарегистрированы в OpenStreetMap?</string>
+    <string name="no_osm_account">Не зарегистрированы в OpenStreetMap\?</string>
     <string name="register_at_openstreetmap">Зарегистрироваться</string>
     <string name="password_8_chars_min">Пароль (минимум 8 символов)</string>
     <string name="invalid_username_or_password">Неверное имя пользователя или пароль.</string>
     <string name="login">Войти</string>
     <string name="password">Пароль</string>
-    <string name="forgot_password">Забыли пароль?</string>
+    <string name="forgot_password">Забыли пароль\?</string>
     <string name="osm_account">OSM Аккаунт</string>
     <string name="logout">Выйти</string>
     <!-- Information text: "Last upload 11.01.2016" -->
@@ -489,7 +500,7 @@
     <string name="editor_sharing_title">Я улучшил карты Organic Maps</string>
     <!-- Downloaded 10 **of** 20 <- it is that "of" -->
     <string name="downloader_of">%1$d из %2$d</string>
-    <string name="download_over_mobile_header">Загрузить через сотовую связь?</string>
+    <string name="download_over_mobile_header">Загрузить через сотовую связь\?</string>
     <string name="download_over_mobile_message">На некоторых тарифных планах или в роуминге это может привести к значительным расходам.</string>
     <string name="error_enter_correct_house_number">Введите корректный номер дома</string>
     <string name="editor_storey_number">Количество этажей (максимум %d)</string>
@@ -508,7 +519,7 @@
     <string name="downloader_no_downloaded_maps_title">У вас нет загруженных карт</string>
     <string name="downloader_no_downloaded_maps_message">Загрузите необходимые карты, чтобы находить места и пользоваться навигацией без интернета.</string>
     <!-- Error title that appears after certain time without location. -->
-    <string name="current_location_unknown_title">Продолжить поиск местоположения?</string>
+    <string name="current_location_unknown_title">Продолжить поиск местоположения\?</string>
     <!-- Error that appears after certain time without location. -->
     <string name="current_location_unknown_message">Местоположение не найдено. Возможно, вы находитесь в помещении или в туннеле.</string>
     <string name="current_location_unknown_continue_button">Продолжить</string>
@@ -540,9 +551,9 @@
     <string name="placepage_delete_bookmark_button">Удалить метку</string>
     <string name="editor_edits_sent_message">Предложенные вами изменения отправлены</string>
     <string name="editor_comment_hint">Коментарий…</string>
-    <string name="editor_reset_edits_message">Сбросить все локальные правки?</string>
+    <string name="editor_reset_edits_message">Сбросить все локальные правки\?</string>
     <string name="editor_reset_edits_button">Сбросить</string>
-    <string name="editor_remove_place_message">Удалить добавленный вами объект?</string>
+    <string name="editor_remove_place_message">Удалить добавленный вами объект\?</string>
     <string name="editor_remove_place_button">Удалить</string>
     <string name="editor_place_doesnt_exist">Места не существует</string>
     <string name="text_more_button">…ещё</string>
@@ -557,13 +568,13 @@
     <string name="refresh">Обновить</string>
     <string name="placepage_add_place_button">Добавить место на карту</string>
     <!-- Displayed when saving some edits to the map to warn against publishing personal data -->
-    <string name="editor_share_to_all_dialog_title">Отправить всем пользователям?</string>
+    <string name="editor_share_to_all_dialog_title">Отправить всем пользователям\?</string>
     <!-- iOS Dialog before publishing the modifications to the public map. -->
     <string name="editor_share_to_all_dialog_message_1">Убедитесь, что вы не ввели личные данные.</string>
     <string name="editor_share_to_all_dialog_message_2">Если при проверке изменений возникнут вопросы, мы напишем вам на email.</string>
     <string name="navigation_stop_button">стоп</string>
     <!-- iOS dialog for the case when recent track recording is on and the app comes back from background -->
-    <string name="recent_track_background_dialog_title">Выключить запись недавно пройденого пути?</string>
+    <string name="recent_track_background_dialog_title">Выключить запись недавно пройденого пути\?</string>
     <string name="off_recent_track_background_button">Выключить</string>
     <!-- For sharing via SMS and so on -->
     <string name="sharing_call_action_look">Посмотри</string>
@@ -583,7 +594,7 @@
     <string name="decline">Отклонить</string>
     <!-- noun -->
     <string name="search_in_table">Список</string>
-    <string name="mobile_data_dialog">Загружать дополнительную информацию через мобильный интернет?</string>
+    <string name="mobile_data_dialog">Загружать дополнительную информацию через мобильный интернет\?</string>
     <string name="mobile_data_option_always">Всегда</string>
     <string name="mobile_data_option_today">Только сегодня</string>
     <string name="mobile_data_option_not_today">Не сегодня</string>
@@ -603,8 +614,10 @@
     <string name="feedback_general">Отправить отзыв</string>
     <string name="on">Вкл.</string>
     <string name="off">Выкл.</string>
-    <string name="prefs_languages_information">Подсказки озвучиваются системным синтезатором речи (TTS). На многих устройствах используется Google TTS, его можно загрузить или обновить в Google Play (https://play.google.com/store/apps/details?id=com.google.android.tts)</string>
-    <string name="prefs_languages_information_off">Для некоторых языков, возможно, необходимо установить дополнительный синтезатор речи (TTS) из магазина приложений (Google Play Market, Samsung Apps).\nЧтобы настроить синтезатор речи, перейдите в Настройки → Язык и ввод → Синтез речи.\nЗдесь можно установить дополнительные языковые пакеты или выбрать синтезатор речи.</string>
+    <string name="prefs_languages_information">Подсказки озвучиваются системным синтезатором речи (TTS). На многих устройствах используется Google TTS, его можно загрузить или обновить в Google Play (https://play.google.com/store/apps/details\?id=com.google.android.tts)</string>
+    <string name="prefs_languages_information_off">Для некоторых языков, возможно, необходимо установить дополнительный синтезатор речи (TTS) из магазина приложений (Google Play Market, Samsung Apps).
+\nЧтобы настроить синтезатор речи, перейдите в Настройки → Язык и ввод → Синтез речи.
+\nЗдесь можно установить дополнительные языковые пакеты или выбрать синтезатор речи.</string>
     <string name="prefs_languages_information_off_link">Более подробная информация — в этом руководстве.</string>
     <string name="transliteration_title">Латинская транслитерация</string>
     <string name="learn_more">Узнать больше</string>
@@ -620,7 +633,7 @@
     <string name="start_from_my_position">Начать от</string>
     <string name="profile_authorization_error">Упс, произошла ошибка. Попробуйте авторизоваться повторно.</string>
     <string name="dialog_error_storage_title">Проблема с доступом к хранилищу</string>
-    <string name="dialog_error_storage_message">Внешняя память устройства недоступна, возможно SD карта была удалена, повреждена или файловая система доступна только для чтения. Проверьте это и свяжитесь, пожалуйста, с нами support\@organicmaps.app</string>
+    <string name="dialog_error_storage_message">Внешняя память устройства недоступна, возможно SD карта была удалена, повреждена или файловая система доступна только для чтения. Проверьте это и свяжитесь, пожалуйста, с нами support@organicmaps.app</string>
     <string name="setting_emulate_bad_storage">Эмуляция ошибки с внешней памятью</string>
     <string name="core_entrance">Вход</string>
     <string name="error_enter_correct_name">Пожалуйста, введите название правильно</string>
@@ -628,8 +641,9 @@
     <string name="bookmarks_groups_hide_all">Спрятать все</string>
     <string name="bookmarks_groups_show_all">Показать все</string>
     <plurals name="bookmarks_places">
-        <item quantity="few">%d метки</item>
-        <item quantity="one">%d метка</item>
+        <item quantity="one">%d метки</item>
+        <item quantity="few">%d метка</item>
+        <item quantity="many">%d меток</item>
         <item quantity="other">%d меток</item>
     </plurals>
     <string name="bookmarks_create_new_group">Создать новый список</string>
@@ -653,34 +667,35 @@
     <string name="profile">Профиль OpenStreetMap</string>
     <string name="bookmarks_detect_title">Обнаружены новые файлы</string>
     <plurals name="bookmarks_detect_message">
-        <item quantity="few">%d файла были найдены. Вы увидете их после конвертации.</item>
-        <item quantity="one">%d файл был найден. Вы увидете его после конвертации.</item>
+        <item quantity="one">%d файла были найдены. Вы увидете их после конвертации.</item>
+        <item quantity="few">%d файл был найден. Вы увидете его после конвертации.</item>
+        <item quantity="many">%d файлов было найдено. Вы увидете их после конвертации.</item>
         <item quantity="other">%d файлов было найдено. Вы увидете их после конвертации.</item>
     </plurals>
     <string name="button_convert">Конвертировать</string>
     <string name="bookmarks_convert_error_title">Ошибка</string>
     <string name="bookmarks_convert_error_message">Некоторые файлы не конвертировались.</string>
-    <string name="bookmarks_restore_title">Восстановить эту версию?</string>
+    <string name="bookmarks_restore_title">Восстановить эту версию\?</string>
     <string name="common_check_internet_connection_dialog_title">Нет интернет соединения</string>
     <string name="error_system_message">Произошла неизвестная ошибка</string>
     <string name="restore">Восстановить</string>
     <plurals name="objects">
-        <item quantity="few">%d объекта</item>
-        <item quantity="one">%d объект</item>
+        <item quantity="one">%d объекта</item>
+        <item quantity="few">%d объект</item>
+        <item quantity="many">%d объектов</item>
         <item quantity="other">%d объектов</item>
-        <item quantity="two">%d объекта</item>
     </plurals>
     <plurals name="places">
-        <item quantity="few">%d места</item>
-        <item quantity="one">%d место</item>
+        <item quantity="one">%d места</item>
+        <item quantity="few">%d место</item>
+        <item quantity="many">%d мест</item>
         <item quantity="other">%d мест</item>
-        <item quantity="two">%d места</item>
     </plurals>
     <plurals name="tracks">
-        <item quantity="few">%d трека</item>
-        <item quantity="one">%d трек</item>
+        <item quantity="one">%d трека</item>
+        <item quantity="few">%d трек</item>
+        <item quantity="many">%d треков</item>
         <item quantity="other">%d треков</item>
-        <item quantity="two">%d трека</item>
     </plurals>
     <string name="subtittle_opt_out">Настройки сопровождения</string>
     <string name="crash_reports">Отчеты об ошибках</string>
@@ -714,7 +729,9 @@
     <string name="place_description_title">Описание места</string>
     <!-- this text will be shown in application notification preferences opposite checkbox which enable/disable downloader notifications. Devices on Android 8+ are affected. -->
     <string name="notification_channel_downloader">Загрузка карт</string>
-    <string name="speedcams_notice_message">Авто - Предупреждать о камерах скорости, если есть риск превышения скоростного лимита\nВсегда - Всегда предупреждать о камерах\nНикогда - Никогда не предупреждать о камерах</string>
+    <string name="speedcams_notice_message">Авто - Предупреждать о камерах скорости, если есть риск превышения скоростного лимита
+\nВсегда - Всегда предупреждать о камерах
+\nНикогда - Никогда не предупреждать о камерах</string>
     <string name="power_managment_title">Режим энергосбережения</string>
     <string name="power_managment_description">Если режим энергосбережения включен, приложение будет отключать энергозатратные функции в зависимости от текущего заряда телефона</string>
     <string name="power_managment_setting_never">Никогда</string>
@@ -743,7 +760,7 @@
     <string name="follow_my_position">Отцентровать</string>
     <string name="search_results">Результаты поиска</string>
     <string name="then_turn">Затем</string>
-    <string name="redirect_route_alert">Хотите перестроить маршрут?</string>
+    <string name="redirect_route_alert">Хотите перестроить маршрут\?</string>
     <string name="redirect_route_yes">Да</string>
     <string name="redirect_route_no">Нет</string>
     <string name="trip_finished">Вы прибыли!</string>
@@ -1557,4 +1574,195 @@
     <string name="type.area_highway.service">Улица</string>
     <string name="type.area_highway.tertiary">Улица</string>
     <string name="type.area_highway.steps">Лестница</string>
+    <string name="type.aerialway.cable_car"></string>
+    <string name="type.aerialway.chair_lift"></string>
+    <string name="type.aerialway.drag_lift"></string>
+    <string name="type.aerialway.gondola"></string>
+    <string name="type.aerialway.mixed_lift"></string>
+    <string name="type.aeroway"></string>
+    <string name="type.boundary.administrative.10"></string>
+    <string name="type.boundary.administrative.3"></string>
+    <string name="type.boundary.administrative.county"></string>
+    <string name="type.boundary.administrative.municipality"></string>
+    <string name="type.boundary.administrative.region"></string>
+    <string name="type.boundary.administrative.state"></string>
+    <string name="type.hwtag"></string>
+    <string name="type.hwtag.onedir_bicycle"></string>
+    <string name="type.hwtag.nobicycle"></string>
+    <string name="type.hwtag.toll"></string>
+    <string name="type.junction"></string>
+    <string name="type.landuse.greenfield"></string>
+    <string name="type.landuse.salt_pond"></string>
+    <string name="type.landuse.village_green"></string>
+    <string name="type.leisure.common"></string>
+    <string name="type.leisure.track"></string>
+    <string name="type.mapswithme"></string>
+    <string name="type.man_made.works"></string>
+    <string name="type.psurface"></string>
+    <string name="type.railway.disused"></string>
+    <string name="type.sponsored.booking"></string>
+    <string name="type.sponsored.opentable"></string>
+    <string name="type.sponsored.partner10"></string>
+    <string name="type.sponsored.partner11"></string>
+    <string name="type.sponsored.partner14"></string>
+    <string name="type.sponsored.partner15"></string>
+    <string name="type.sponsored.partner16"></string>
+    <string name="type.sponsored.partner3"></string>
+    <string name="type.tourism"></string>
+    <string name="type.waterway"></string>
+    <string name="type.piste_type"></string>
+    <string name="type.piste_type.downhill"></string>
+    <string name="type.piste_type.downhill.easy"></string>
+    <string name="type.piste_type.downhill.expert"></string>
+    <string name="type.piste_type.downhill.freeride"></string>
+    <string name="type.piste_type.downhill.intermediate"></string>
+    <string name="type.piste_type.downhill.novice"></string>
+    <string name="type.piste_type.sled"></string>
+    <string name="type.area_highway.trunk"></string>
+    <string name="type.piste_lift.magic_carpet"></string>
+    <string name="type.natural.orchard"></string>
+    <string name="type.power.line"></string>
+    <string name="type.power.line.underground"></string>
+    <string name="type.piste_lift.platter"></string>
+    <string name="type.psurface.unpaved_bad"></string>
+    <string name="type.natural.bare_rock"></string>
+    <string name="type.boundary.administrative.city"></string>
+    <string name="type.boundary.administrative.6"></string>
+    <string name="type.natural.heath"></string>
+    <string name="type.power.generator"></string>
+    <string name="type.railway.abandoned.bridge"></string>
+    <string name="type.piste_lift.rope_tow"></string>
+    <string name="type.hwtag.yesfoot"></string>
+    <string name="type.piste_type.downhill.advanced"></string>
+    <string name="type.olympics.stadium_main"></string>
+    <string name="type.boundary.administrative.5"></string>
+    <string name="type.boundary.administrative.2"></string>
+    <string name="type.natural.wetland.marsh"></string>
+    <string name="type.natural.land"></string>
+    <string name="type.piste_lift.t.bar"></string>
+    <string name="type.power.minor_line"></string>
+    <string name="type.aeroway.gate"></string>
+    <string name="type.railway.crossing"></string>
+    <string name="type.sponsored.partner12"></string>
+    <string name="type.natural"></string>
+    <string name="type.man_made.wastewater_plant"></string>
+    <string name="type.railway.rail.bridge"></string>
+    <string name="type.highway"></string>
+    <string name="type.hwtag.yescar"></string>
+    <string name="type.route.shuttle_train"></string>
+    <string name="type.olympics.transport_subway"></string>
+    <string name="type.natural.rock"></string>
+    <string name="type.place"></string>
+    <string name="type.olympics.transport_tram"></string>
+    <string name="type.leisure.landscape_reserve"></string>
+    <string name="type.railway.abandoned"></string>
+    <string name="type.boundary.administrative.4.state"></string>
+    <string name="type.piste_type.nordic"></string>
+    <string name="type.hwtag.lit"></string>
+    <string name="type.aeroway.terminal"></string>
+    <string name="type.place.isolated_dwelling"></string>
+    <string name="type.landuse.vineyard"></string>
+    <string name="type.man_made.pipeline"></string>
+    <string name="type.landuse.residential"></string>
+    <string name="type.leisure.recreation_ground"></string>
+    <string name="type.man_made.cutline"></string>
+    <string name="type.hwtag.nocar"></string>
+    <string name="type.olympics.transport_boat"></string>
+    <string name="type.olympics.water_sport"></string>
+    <string name="type.olympics.live_site"></string>
+    <string name="type.place.neighbourhood"></string>
+    <string name="type.sponsored.partner4"></string>
+    <string name="type.hwtag.yesbicycle"></string>
+    <string name="telegram"></string>
+    <string name="type.olympics.stadium"></string>
+    <string name="type.military"></string>
+    <string name="type.noexit.motor_vehicle"></string>
+    <string name="type.hwtag.private"></string>
+    <string name="type.hwtag.nofoot"></string>
+    <string name="type.man_made.breakwater"></string>
+    <string name="type.sponsored.partner2"></string>
+    <string name="type.landuse.military"></string>
+    <string name="type.boundary.administrative.country"></string>
+    <string name="type.sponsored.partner1"></string>
+    <string name="type.aerialway"></string>
+    <string name="facebook"></string>
+    <string name="type.emergency"></string>
+    <string name="type.route"></string>
+    <string name="type.man_made.cairn"></string>
+    <string name="type.boundary.administrative.7"></string>
+    <string name="type.natural.tree_row"></string>
+    <string name="type.olympics.bike_sport"></string>
+    <string name="type.psurface.paved_good"></string>
+    <string name="read_in_wikipedia"></string>
+    <string name="type.landuse.retail"></string>
+    <string name="type.mapswithme.grid"></string>
+    <string name="twitter"></string>
+    <string name="type.sponsored.partner9"></string>
+    <string name="type.traffic_calming"></string>
+    <string name="type.olympics"></string>
+    <string name="type.boundary.administrative.8"></string>
+    <string name="type.railway.platform"></string>
+    <string name="type.highway.world_towns_level"></string>
+    <string name="type.olympics.attraction"></string>
+    <string name="type.psurface.paved_bad"></string>
+    <string name="type.leisure"></string>
+    <string name="type.highway.services"></string>
+    <string name="type.leisure.slipway"></string>
+    <string name="type.olympics.official_building"></string>
+    <string name="type.boundary.administrative.11"></string>
+    <string name="type.power.station"></string>
+    <string name="type.natural.meadow"></string>
+    <string name="type.boundary.administrative"></string>
+    <string name="type.olympics.transport_railway"></string>
+    <string name="type.boundary.administrative.9"></string>
+    <string name="type.aeroway.taxiway"></string>
+    <string name="instagram"></string>
+    <string name="type.natural.cliff"></string>
+    <string name="type.sponsored.partner6"></string>
+    <string name="type.hwtag.oneway"></string>
+    <string name="type.noexit"></string>
+    <string name="type.leisure.marina"></string>
+    <string name="type.route.ferry"></string>
+    <string name="type.historic"></string>
+    <string name="type.sponsored"></string>
+    <string name="type.craft"></string>
+    <string name="type.man_made"></string>
+    <string name="type.railway.abandoned.tunnel"></string>
+    <string name="type.railway.rail.motor_vehicle"></string>
+    <string name="vk"></string>
+    <string name="type.natural.vineyard"></string>
+    <string name="type.aeroway.apron"></string>
+    <string name="type.landuse.quarry"></string>
+    <string name="type.aeroway.runway"></string>
+    <string name="type.area_highway.unclassified"></string>
+    <string name="type.natural.wetland.bog"></string>
+    <string name="type.sport"></string>
+    <string name="type.place.square"></string>
+    <string name="type.olympics.transport_cable"></string>
+    <string name="type.man_made.pipeline.overground"></string>
+    <string name="type.railway.rail.tunnel"></string>
+    <string name="type.building.warehouse"></string>
+    <string name="type.man_made.pier"></string>
+    <string name="type.olympics.transport_airport"></string>
+    <string name="type.highway.world_level"></string>
+    <string name="type.area_highway.track"></string>
+    <string name="type.railway.construction"></string>
+    <string name="type.boundary.administrative.4"></string>
+    <string name="type.hwtag.bidir_bicycle"></string>
+    <string name="type.psurface.unpaved_good"></string>
+    <string name="type.power"></string>
+    <string name="type.olympics.transport_bus"></string>
+    <string name="type.landuse.greenhouse_horticulture"></string>
+    <string name="type.piste_lift"></string>
+    <string name="type.boundary.administrative.suburb"></string>
+    <string name="type.sponsored.partner17"></string>
+    <string name="type.sponsored.partner5"></string>
+    <string name="type.piste_lift.j.bar"></string>
+    <string name="type.sponsored.partner13"></string>
+    <string name="type.sponsored.partner7"></string>
+    <string name="type.landuse"></string>
+    <string name="type.wheelchair"></string>
+    <string name="type.boundary.administrative.nation"></string>
+    <string name="type.area_highway.motorway"></string>
+    <string name="type.sponsored.partner8"></string>
 </resources>
