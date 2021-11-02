@@ -1,8 +1,6 @@
-<?xml version="1.0" encoding="utf-8"?>
-<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-	 	 viewBox="0 0 453.6 453.6">
-	<title>mountain-pass</title>
-	<g id="Page-1" fill="#717065">
-		<path d="M226.8,212.2c-113.6,0-107-104.5-226.8-104.3v237.7h453.6V107.9C342.3,107.7,340.4,212.2,226.8,212.2z"/>
-	</g>
+<svg width="16" height="8.38449" version="1.1" viewBox="0 0 16 8.38449" xmlns="http://www.w3.org/2000/svg">
+    <title>mountain-pass</title>
+    <g transform="matrix(.03527337 0 0 .03527337 0 -3.805986)" fill="#252522">
+        <path d="m226.8 212.2c-113.6 0-107-104.5-226.8-104.3v237.7h453.6v-237.7c-111.3-0.2-113.2 104.3-226.8 104.3z"/>
+    </g>
 </svg>
