@@ -226,12 +226,14 @@ bool FeatureBuilder::PreSerialize()
 
     if (!m_params.ref.empty())
     {
-      if (ftypes::IsMotorwayJunctionChecker::Instance()(GetTypes()) ||
+      auto const & types = GetTypes();
+      if (ftypes::IsMotorwayJunctionChecker::Instance()(types) ||
           (m_params.name.IsEmpty() &&
-           (ftypes::IsPostBoxChecker::Instance()(GetTypes()) ||
-            ftypes::IsRailwaySubwayEntranceChecker::Instance()(GetTypes()) ||
-            ftypes::IsEntranceChecker::Instance()(GetTypes()) ||
-            ftypes::IsRailwayStationChecker::Instance()(GetTypes()))))
+           (ftypes::IsPostBoxChecker::Instance()(types) ||
+            ftypes::IsRailwaySubwayEntranceChecker::Instance()(types) ||
+            ftypes::IsEntranceChecker::Instance()(types) ||
+            ftypes::IsRailwayStationChecker::Instance()(types) ||
+            ftypes::IsAerowayGateChecker::Instance()(types))))
       {
         m_params.name.AddString(StringUtf8Multilang::kDefaultCode, m_params.ref);
       }
