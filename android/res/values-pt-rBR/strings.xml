@@ -50,11 +50,13 @@
     <string name="disconnect_usb_cable">Por favor desligue o cabo USB ou introduza um cartão de memória para utilizar Organic Maps</string>
     <string name="not_enough_free_space_on_sdcard">Por favor libere primeiro algum espaço no cartão SD/armazenamento USB para utilizar o app</string>
     <string name="not_enough_memory">Não há memória suficiente para executar o app</string>
-    <string name="download_resources">Antes de começar, vamos baixar um mapa mundial geral para o seu dispositivo.\n%s de memória serão utilizados.</string>
+    <string name="download_resources">Antes de começar, vamos baixar um mapa mundial geral para o seu dispositivo.
+\n%s de memória serão utilizados.</string>
     <string name="download_resources_continue">Ir para o mapa</string>
-    <string name="downloading_country_can_proceed">Baixando %s. Você pode\ncontinuar para o mapa agora.</string>
-    <string name="download_country_ask">Baixar %s?</string>
-    <string name="update_country_ask">Atualizar %s?</string>
+    <string name="downloading_country_can_proceed">Baixando %s. Você pode
+\ncontinuar para o mapa agora.</string>
+    <string name="download_country_ask">Baixar %s\?</string>
+    <string name="update_country_ask">Atualizar %s\?</string>
     <!-- REMOVE THIS STRING AFTER REFACTORING -->
     <string name="pause">Pausas</string>
     <!-- REMOVE THIS STRING AFTER REFACTORING -->
@@ -86,9 +88,10 @@
     <!-- Detailed description of Maps Storage settings button -->
     <string name="maps_storage_summary">Selecione o local para onde os mapas devem ser baixados</string>
     <!-- Question dialog for transferring maps from one storage to another -->
-    <string name="move_maps">Mover mapas?</string>
+    <string name="move_maps">Mover mapas\?</string>
     <!-- Ask to wait user several minutes (some long process in modal dialog). -->
-    <string name="wait_several_minutes">Isto pode demorar alguns minutos.\nPor favor aguarde…</string>
+    <string name="wait_several_minutes">Isto pode demorar alguns minutos.
+\nPor favor aguarde…</string>
     <!-- Measurement units title in settings activity -->
     <string name="measurement_units">Unidades de medida</string>
     <!-- Detailed description of Measurement Units settings button -->
@@ -133,7 +136,11 @@
     <string name="description">Notas</string>
     <!-- Email Subject when sharing bookmarks category -->
     <string name="share_bookmarks_email_subject">Favoritos do Organic Maps foram compartilhados com você</string>
-    <string name="share_bookmarks_email_body">Olá!\n\nSegue em anexo meus favoritos do app Organic Maps. Por favor os abra se você tiver o Organic Maps instalado. Caso não tenha, baixe o app para o seu dispositivo iOS ou Android com o link https://omaps.app/get?kmz\n\nDisfrute viajar com o Organic Maps!</string>
+    <string name="share_bookmarks_email_body">Olá!
+\n
+\nSegue em anexo meus favoritos do app Organic Maps. Por favor os abra se você tiver o Organic Maps instalado. Caso não tenha, baixe o app para o seu dispositivo iOS ou Android com o link https://omaps.app/get\?kmz
+\n
+\nDisfrute viajar com o Organic Maps!</string>
     <!-- message title of loading file -->
     <string name="load_kmz_title">Carregando favoritos</string>
     <!-- Kmz file successful loading -->
@@ -149,13 +156,17 @@
     <!-- Alert message that downloading is in progress. -->
     <string name="downloading_is_active">O download do país está atualmente em progresso.</string>
     <!-- Share my position using SMS, %1$@ contains om:// and %2$@ https://omaps.app link WITHOUT NAME. @NOTE non-ascii symbols in the link will result in max 70 characters SMS instead of 140. -->
-    <string name="my_position_share_sms">Veja onde estou agora. Abra o link: %1$s ou %2$s Não tem um aplicativo de mapa offline? Baixe aqui: https://omaps.app/get</string>
+    <string name="my_position_share_sms">Veja onde estou agora. Abra o link: %1$s ou %2$s Não tem um aplicativo de mapa offline\? Baixe aqui: https://omaps.app/get</string>
     <!-- Subject for emailed bookmark -->
     <string name="bookmark_share_email_subject">Veja o meu marcador no mapa do Organic Maps.</string>
     <!-- Subject for emailed position -->
     <string name="my_position_share_email_subject">Veja a minha localização atual no mapa Organic Maps!</string>
     <!-- Share my position using EMail, %1$@ is om:// and %2$@ is https://omaps.app link WITHOUT NAME -->
-    <string name="my_position_share_email">Olá,\n\nEstou aqui agora: %1$s. Clique neste link %2$s ou neste %3$s para ver o local no mapa.\n\nObrigado.</string>
+    <string name="my_position_share_email">Olá,
+\n
+\nEstou aqui agora: %1$s. Clique neste link %2$s ou neste %3$s para ver o local no mapa.
+\n
+\nObrigado.</string>
     <!-- Share button text which opens menu with more buttons, like Message, EMail, Facebook etc. -->
     <string name="share">Compartilhar</string>
     <!-- Share by email button text, also used in editor. -->
@@ -171,7 +182,7 @@
     <!-- Data version in «About» screen -->
     <string name="data_version">Versão dos dados: %d</string>
     <!-- Confirmation in downloading countries dialog -->
-    <string name="are_you_sure">Tem certeza que deseja continuar?</string>
+    <string name="are_you_sure">Tem certeza que deseja continuar\?</string>
     <!-- Title for tracks category in bookmarks manager -->
     <string name="tracks_title">Percursos</string>
     <!-- Length of track in cell that describes route -->
@@ -352,7 +363,7 @@
     <string name="dialog_routing_application_error">Não foi possível traçar uma rota devido a um erro no aplicativo.</string>
     <string name="dialog_routing_try_again">Por favor, tente novamente</string>
     <string name="not_now">Agora não</string>
-    <string name="dialog_routing_download_and_build_cross_route">Deseja baixar o mapa e traçar uma rota melhor, mas que se estenda por mais de um mapa?</string>
+    <string name="dialog_routing_download_and_build_cross_route">Deseja baixar o mapa e traçar uma rota melhor, mas que se estenda por mais de um mapa\?</string>
     <string name="dialog_routing_download_cross_route">Baixe o mapa para traçar uma rota melhor que vai além dos limites desse mapa.</string>
     <!-- SECTION: Strings for downloading map from search -->
     <string name="search_without_internet_advertisement">Para começar a pesquisar e criar rotas, por favor, baixe o mapa. Assim, você não precisará mais de uma conexão com a internet.</string>
@@ -369,11 +380,11 @@
     <string name="routing_arrive">Chegada: %s</string>
     <!-- Text for routing::RouterResultCode::FileTooOld dialog. -->
     <string name="dialog_routing_download_and_update_maps">Para criar uma rota, por favor, baixe e atualize todos os mapas ao longo do trajeto.</string>
-    <string name="rate_alert_title">Você gosta do aplicativo?</string>
+    <string name="rate_alert_title">Você gosta do aplicativo\?</string>
     <string name="rate_alert_default_message">Obrigado por usar Organic Maps. Por favor, avalie o aplicativo. Seu feedback nos ajuda a melhorar.</string>
     <string name="rate_alert_five_star_message">Viva! Também amamos você!</string>
     <string name="rate_alert_four_star_message">Obrigado, faremos o nosso melhor!</string>
-    <string name="rate_alert_less_than_four_star_message">Alguma ideia sobre como podemos melhorar?</string>
+    <string name="rate_alert_less_than_four_star_message">Alguma ideia sobre como podemos melhorar\?</string>
     <string name="categories">Categorias</string>
     <string name="history">Histórico</string>
     <string name="closed">Fechado</string>
@@ -389,7 +400,7 @@
     <string name="p2p_from_here">De</string>
     <string name="p2p_to_here">Para</string>
     <string name="p2p_only_from_current">Só é possível navegar a partir da sua localização atual.</string>
-    <string name="p2p_reroute_from_current">Deseja planejar uma rota a partir da sua localização atual?</string>
+    <string name="p2p_reroute_from_current">Deseja planejar uma rota a partir da sua localização atual\?</string>
     <!-- Edit open hours/set time and minutes dialog -->
     <string name="next_button">Próxima</string>
     <string name="editor_time_add">Adicionar horário</string>
@@ -426,13 +437,13 @@
     <string name="today">Hoje</string>
     <string name="add_opening_hours">Adicionar horário de funcionamento</string>
     <string name="edit_opening_hours">Editar horário de funcionamento</string>
-    <string name="no_osm_account">Sem conta no OpenStreetMap?</string>
+    <string name="no_osm_account">Sem conta no OpenStreetMap\?</string>
     <string name="register_at_openstreetmap">Cadastrar-se</string>
     <string name="password_8_chars_min">Senha (mínimo de 8 caracteres)</string>
     <string name="invalid_username_or_password">Nome de usuário ou senha inválida.</string>
     <string name="login">Login</string>
     <string name="password">Senha</string>
-    <string name="forgot_password">Esqueceu sua senha?</string>
+    <string name="forgot_password">Esqueceu sua senha\?</string>
     <string name="osm_account">Conta OSM</string>
     <string name="logout">Encerrar sessão</string>
     <!-- Information text: "Last upload 11.01.2016" -->
@@ -486,7 +497,7 @@
     <string name="editor_sharing_title">Eu melhorei os mapas do Organic Maps</string>
     <!-- Downloaded 10 **of** 20 <- it is that "of" -->
     <string name="downloader_of">%1$d de %2$d</string>
-    <string name="download_over_mobile_header">Baixar usando uma conexão de rede celular?</string>
+    <string name="download_over_mobile_header">Baixar usando uma conexão de rede celular\?</string>
     <string name="download_over_mobile_message">Isto pode ser muito caro com alguns planos ou se você estiver em roaming.</string>
     <string name="error_enter_correct_house_number">Informe o número correto do endereço</string>
     <string name="editor_storey_number">Número de andares (máx. %d)</string>
@@ -505,7 +516,7 @@
     <string name="downloader_no_downloaded_maps_title">Você não fez o download de nenhum mapa</string>
     <string name="downloader_no_downloaded_maps_message">Baixe mapas para pesquisar locais e usar navegação offline.</string>
     <!-- Error title that appears after certain time without location. -->
-    <string name="current_location_unknown_title">Continuar detectando sua localização atual?</string>
+    <string name="current_location_unknown_title">Continuar detectando sua localização atual\?</string>
     <!-- Error that appears after certain time without location. -->
     <string name="current_location_unknown_message">A localização atual é desconhecida. Talvez você esteja em um edifício ou túnel.</string>
     <string name="current_location_unknown_continue_button">Continuar</string>
@@ -537,9 +548,9 @@
     <string name="placepage_delete_bookmark_button">Apagar favorito</string>
     <string name="editor_edits_sent_message">Suas sugestões de mudança foram enviadas</string>
     <string name="editor_comment_hint">Comentar…</string>
-    <string name="editor_reset_edits_message">Descartar todas as modificações locais?</string>
+    <string name="editor_reset_edits_message">Descartar todas as modificações locais\?</string>
     <string name="editor_reset_edits_button">Descartar</string>
-    <string name="editor_remove_place_message">Remover local adicionado?</string>
+    <string name="editor_remove_place_message">Remover local adicionado\?</string>
     <string name="editor_remove_place_button">Remover</string>
     <string name="editor_place_doesnt_exist">O lugar não existe</string>
     <string name="text_more_button">…mais</string>
@@ -550,13 +561,13 @@
     <string name="refresh">Atualizar</string>
     <string name="placepage_add_place_button">Adicionar um local ao mapa</string>
     <!-- Displayed when saving some edits to the map to warn against publishing personal data -->
-    <string name="editor_share_to_all_dialog_title">Deseja enviar para todos os usuários?</string>
+    <string name="editor_share_to_all_dialog_title">Deseja enviar para todos os usuários\?</string>
     <!-- iOS Dialog before publishing the modifications to the public map. -->
     <string name="editor_share_to_all_dialog_message_1">Certifique-se de não ter incluído nenhum dado pessoal.</string>
     <string name="editor_share_to_all_dialog_message_2">Verificaremos as alterações. Se tivermos perguntas, entraremos em contato com você por email.</string>
     <string name="navigation_stop_button">parar</string>
     <!-- iOS dialog for the case when recent track recording is on and the app comes back from background -->
-    <string name="recent_track_background_dialog_title">Desabilitar registro de sua rota recente?</string>
+    <string name="recent_track_background_dialog_title">Desabilitar registro de sua rota recente\?</string>
     <string name="off_recent_track_background_button">Desabilitar</string>
     <!-- For sharing via SMS and so on -->
     <string name="sharing_call_action_look">Procure</string>
@@ -576,7 +587,7 @@
     <string name="decline">Declinar</string>
     <!-- noun -->
     <string name="search_in_table">Lista</string>
-    <string name="mobile_data_dialog">Utilizar a internet móvel para mostrar informações detalhadas?</string>
+    <string name="mobile_data_dialog">Utilizar a internet móvel para mostrar informações detalhadas\?</string>
     <string name="mobile_data_option_always">Utilizar sempre</string>
     <string name="mobile_data_option_today">Apenas hoje</string>
     <string name="mobile_data_option_not_today">Não utilizar hoje</string>
@@ -596,7 +607,7 @@
     <string name="feedback_general">Opinão geral</string>
     <string name="on">Lig.</string>
     <string name="off">Deslig.</string>
-    <string name="prefs_languages_information">Utilizamos o sistema TTS para instruções de voz. Muitos dispositivos Android usam o Google TTS, pode transferir ou atualizá-lo a partir do Google Play (https://play.google.com/store/apps/details?id=com.google.android.tts)</string>
+    <string name="prefs_languages_information">Utilizamos o sistema TTS para instruções de voz. Muitos dispositivos Android usam o Google TTS, pode transferir ou atualizá-lo a partir do Google Play (https://play.google.com/store/apps/details\?id=com.google.android.tts)</string>
     <string name="prefs_languages_information_off_link">Para obter mais informações, consulte este guia.</string>
     <string name="transliteration_title">Transliteração para alfabeto latino</string>
     <string name="learn_more">Saber mais</string>
@@ -612,7 +623,7 @@
     <string name="start_from_my_position">Iniciar a partir de</string>
     <string name="profile_authorization_error">Ups, ocorreu um erro. Tente iniciar sessão novamente.</string>
     <string name="dialog_error_storage_title">Problema de acesso ao armazenamento</string>
-    <string name="dialog_error_storage_message">O armazenamento externo não está disponível, é provável que o cartão SD tenha sido removido, danificado ou o sistema de arquivo seja apenas para leitura. Verifique e entre em contato conosco em support\@organicmaps.app</string>
+    <string name="dialog_error_storage_message">O armazenamento externo não está disponível, é provável que o cartão SD tenha sido removido, danificado ou o sistema de arquivo seja apenas para leitura. Verifique e entre em contato conosco em support@organicmaps.app</string>
     <string name="setting_emulate_bad_storage">Emular memória ruim</string>
     <string name="core_entrance">Entrada</string>
     <string name="error_enter_correct_name">Por favor, digite um nome correto</string>
@@ -650,7 +661,7 @@
     <string name="button_convert">Converter</string>
     <string name="bookmarks_convert_error_title">Erro</string>
     <string name="bookmarks_convert_error_message">Alguns arquivos não foram convertidos.</string>
-    <string name="bookmarks_restore_title">Restaurar esta versão?</string>
+    <string name="bookmarks_restore_title">Restaurar esta versão\?</string>
     <string name="common_check_internet_connection_dialog_title">Sem conexão com a Internet</string>
     <string name="error_system_message">Ocorreu um erro desconhecido</string>
     <string name="restore">Restaurar</string>
@@ -698,7 +709,9 @@
     <string name="place_description_title">Descrição do lugar</string>
     <!-- this text will be shown in application notification preferences opposite checkbox which enable/disable downloader notifications. Devices on Android 8+ are affected. -->
     <string name="notification_channel_downloader">Downloader do mapa</string>
-    <string name="speedcams_notice_message">Automático - Avisar sobre radar se houver risco de ultrapassar o limite de velocidade\nSempre - Sempre avisar sobre radares\nNunca - Nunca avisar sobre radares</string>
+    <string name="speedcams_notice_message">Automático - Avisar sobre radar se houver risco de ultrapassar o limite de velocidade
+\nSempre - Sempre avisar sobre radares
+\nNunca - Nunca avisar sobre radares</string>
     <string name="power_managment_title">Modo de economia de energia</string>
     <string name="power_managment_description">Quando o modo automático é selecionado, o aplicativo começa a desativar as características que drenam a bateria dependendo do nível de energia atual</string>
     <string name="power_managment_setting_never">Nunca</string>
@@ -727,7 +740,7 @@
     <string name="follow_my_position">Re-centralizar</string>
     <string name="search_results">Resultados da busca</string>
     <string name="then_turn">Então</string>
-    <string name="redirect_route_alert">Você deseja retraçar a rota?</string>
+    <string name="redirect_route_alert">Você deseja retraçar a rota\?</string>
     <string name="redirect_route_yes">Sim</string>
     <string name="redirect_route_no">Não</string>
     <string name="trip_finished">Você chegou!</string>
@@ -1659,4 +1672,84 @@
     <string name="type.area_highway.track">Pista para desportos não motorizados</string>
     <string name="type.area_highway.trunk">Via expressa</string>
     <string name="type.area_highway.unclassified">Estrada sem classificação</string>
+    <string name="error_enter_correct_vk_page"></string>
+    <string name="move"></string>
+    <string name="type.highway.world_level"></string>
+    <string name="type.hwtag.nocar"></string>
+    <string name="type.sponsored.opentable"></string>
+    <string name="type.sponsored.partner1"></string>
+    <string name="type.sponsored.partner11"></string>
+    <string name="type.sponsored.partner13"></string>
+    <string name="type.sponsored.partner14"></string>
+    <string name="type.sponsored.partner15"></string>
+    <string name="type.sponsored.partner16"></string>
+    <string name="type.sponsored.partner17"></string>
+    <string name="type.sponsored.partner18"></string>
+    <string name="type.sponsored.partner19"></string>
+    <string name="type.sponsored.partner5"></string>
+    <string name="dialog_routing_change_intermediate"></string>
+    <string name="type.hwtag.oneway"></string>
+    <string name="type.hwtag.onedir_bicycle"></string>
+    <string name="type.olympics.transport_railway"></string>
+    <string name="type.psurface.paved_good"></string>
+    <string name="type.highway.elevator"></string>
+    <string name="type.mapswithme.grid"></string>
+    <string name="type.olympics.transport_bus"></string>
+    <string name="type.hwtag.yescar"></string>
+    <string name="type.man_made.storage_tank"></string>
+    <string name="type.psurface.paved_bad"></string>
+    <string name="type.olympics.live_site"></string>
+    <string name="type.sponsored.partner8"></string>
+    <string name="disconnect_usb_cable_title"></string>
+    <string name="type.psurface"></string>
+    <string name="twitter"></string>
+    <string name="type.hwtag.bidir_bicycle"></string>
+    <string name="type.hwtag.nobicycle"></string>
+    <string name="type.hwtag.toll"></string>
+    <string name="type.natural.saddle"></string>
+    <string name="facebook"></string>
+    <string name="type.olympics.transport_cable"></string>
+    <string name="github"></string>
+    <string name="placepage_delete_track_button"></string>
+    <string name="type.psurface.unpaved_good"></string>
+    <string name="type.olympics.transport_subway"></string>
+    <string name="mb"></string>
+    <string name="type.sponsored.partner7"></string>
+    <string name="type.hwtag.lit"></string>
+    <string name="error_enter_correct_facebook_page"></string>
+    <string name="type.sponsored.partner2"></string>
+    <string name="type.hwtag.yesfoot"></string>
+    <string name="type.sponsored.booking"></string>
+    <string name="error_enter_correct_twitter_page"></string>
+    <string name="type.hwtag.private"></string>
+    <string name="type.sponsored.partner6"></string>
+    <string name="type.sponsored.partner12"></string>
+    <string name="type.olympics.transport_tram"></string>
+    <string name="type.psurface.unpaved_bad"></string>
+    <string name="type.mountain_pass"></string>
+    <string name="prefs_languages_information_off"></string>
+    <string name="placepage_track_name_hint"></string>
+    <string name="type.barrier.chain"></string>
+    <string name="type.hwtag.yesbicycle"></string>
+    <string name="type.highway.world_towns_level"></string>
+    <string name="type.sponsored.partner10"></string>
+    <string name="editor_add_phone"></string>
+    <string name="type.sponsored.partner3"></string>
+    <string name="telegram"></string>
+    <string name="type.sponsored.partner9"></string>
+    <string name="type.sponsored.partner4"></string>
+    <string name="type.aeroway.terminal"></string>
+    <string name="gb"></string>
+    <string name="instagram"></string>
+    <string name="type.olympics.transport_airport"></string>
+    <string name="type.mapswithme"></string>
+    <string name="type.hwtag"></string>
+    <string name="type.sponsored.partner20"></string>
+    <string name="openstreetmap"></string>
+    <string name="type.cuisine.hotdog"></string>
+    <string name="type.hwtag.nofoot"></string>
+    <string name="type.olympics.transport_boat"></string>
+    <string name="type.man_made.silo"></string>
+    <string name="error_enter_correct_instagram_page"></string>
+    <string name="vk"></string>
 </resources>
