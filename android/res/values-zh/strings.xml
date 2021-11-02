@@ -50,11 +50,13 @@
     <string name="disconnect_usb_cable">请断开 USB 线或插入存储卡以使用 Organic Maps</string>
     <string name="not_enough_free_space_on_sdcard">请在存储卡/ USB 储存设备上释放一些空间以 使用此应用</string>
     <string name="not_enough_memory">没有足够的内存来启动应用程序</string>
-    <string name="download_resources">在您开始前请让我们下载通用世界地图至您的设备中。\n它需要%s的 数据。</string>
+    <string name="download_resources">在您开始前请让我们下载通用世界地图至您的设备中。
+\n它需要%s的 数据。</string>
     <string name="download_resources_continue">前往地图</string>
-    <string name="downloading_country_can_proceed">下载 %s。您现在可\n前往地图。</string>
-    <string name="download_country_ask">下载 %s?</string>
-    <string name="update_country_ask">更新 %s?</string>
+    <string name="downloading_country_can_proceed">下载 %s。您现在可
+\n前往地图。</string>
+    <string name="download_country_ask">下载 %s\?</string>
+    <string name="update_country_ask">更新 %s\?</string>
     <!-- REMOVE THIS STRING AFTER REFACTORING -->
     <string name="pause">暂停</string>
     <!-- REMOVE THIS STRING AFTER REFACTORING -->
@@ -88,7 +90,8 @@
     <!-- Question dialog for transferring maps from one storage to another -->
     <string name="move_maps">移动地图？</string>
     <!-- Ask to wait user several minutes (some long process in modal dialog). -->
-    <string name="wait_several_minutes">这可能需要几分钟的时间。\n请稍候…</string>
+    <string name="wait_several_minutes">这可能需要几分钟的时间。
+\n请稍候…</string>
     <!-- Measurement units title in settings activity -->
     <string name="measurement_units">测量单位</string>
     <!-- Detailed description of Measurement Units settings button -->
@@ -154,7 +157,11 @@
     <!-- Subject for emailed position -->
     <string name="my_position_share_email_subject">嗨，到 Organic Maps 查看我的当前位置！</string>
     <!-- Share my position using EMail, %1$@ is om:// and %2$@ is https://omaps.app link WITHOUT NAME -->
-    <string name="my_position_share_email">嗨，\n\n我现在在这:%1$s。点击此链 接%2$s或此链接 %3$s来查看在地图上的位置。\n\n谢谢。</string>
+    <string name="my_position_share_email">嗨，
+\n
+\n我现在在这:%1$s。点击此链 接%2$s或此链接 %3$s来查看在地图上的位置。
+\n
+\n谢谢。</string>
     <!-- Share button text which opens menu with more buttons, like Message, EMail, Facebook etc. -->
     <string name="share">分享</string>
     <!-- Share by email button text, also used in editor. -->
@@ -600,8 +607,10 @@
     <string name="feedback_general">一般反馈</string>
     <string name="on">开</string>
     <string name="off">关</string>
-    <string name="prefs_languages_information">我们为语音指令使用“文字转语音”系统。许多 Android 设备使用 Google 文字转语音，您可以从 Google Play (https://play.google.com/store/apps/details?id=com.google.android.tts) 下载或更新这一功能</string>
-    <string name="prefs_languages_information_off">对于某些语言，您需要从应用商店（Google Play Market、Samsung Apps）中安装其他语音合成器或语言包。\n打开您的设备的设置 → 语言和输入法 → 语音 → 文字转语音 (TTS) 输出。\n您可以在这里管理语音合成的设置（例如，下载语言包供离线使用）和选择其他文字转语音引擎。</string>
+    <string name="prefs_languages_information">我们为语音指令使用“文字转语音”系统。许多 Android 设备使用 Google 文字转语音，您可以从 Google Play (https://play.google.com/store/apps/details\?id=com.google.android.tts) 下载或更新这一功能</string>
+    <string name="prefs_languages_information_off">对于某些语言，您需要从应用商店（Google Play Market、Samsung Apps）中安装其他语音合成器或语言包。
+\n打开您的设备的设置 → 语言和输入法 → 语音 → 文字转语音 (TTS) 输出。
+\n您可以在这里管理语音合成的设置（例如，下载语言包供离线使用）和选择其他文字转语音引擎。</string>
     <string name="prefs_languages_information_off_link">如需了解更多信息，请查阅此指南。</string>
     <string name="transliteration_title">直译成拉丁文</string>
     <string name="learn_more">了解更多</string>
@@ -617,7 +626,7 @@
     <string name="start_from_my_position">起点</string>
     <string name="profile_authorization_error">糟糕，出错了。请尝试重新登录。</string>
     <string name="dialog_error_storage_title">存储空间访问问题</string>
-    <string name="dialog_error_storage_message">外部存储空间不可用，可能是存储卡已移除、损坏，或者文件系统为只读。请检查，然后通过以下方式联系我们：support\@organicmaps.app</string>
+    <string name="dialog_error_storage_message">外部存储空间不可用，可能是存储卡已移除、损坏，或者文件系统为只读。请检查，然后通过以下方式联系我们：support@organicmaps.app</string>
     <string name="setting_emulate_bad_storage">模拟不良存储空间</string>
     <string name="core_entrance">入口</string>
     <string name="error_enter_correct_name">请输入正确的名称</string>
@@ -695,7 +704,9 @@
     <string name="place_description_title">地点说明</string>
     <!-- this text will be shown in application notification preferences opposite checkbox which enable/disable downloader notifications. Devices on Android 8+ are affected. -->
     <string name="notification_channel_downloader">加载地图</string>
-    <string name="speedcams_notice_message">自动 - 如果存在超出速度限制的风险，则对速度摄像头发出警告\n总是 - 始终提醒摄像头\n从不 - 永远不会对摄像头发出警告</string>
+    <string name="speedcams_notice_message">自动 - 如果存在超出速度限制的风险，则对速度摄像头发出警告
+\n总是 - 始终提醒摄像头
+\n从不 - 永远不会对摄像头发出警告</string>
     <string name="power_managment_title">省电模式</string>
     <string name="power_managment_description">如果开启省电模式，应用程序将根据手机的当前电量关耗电功能</string>
     <string name="power_managment_setting_never">从不</string>
@@ -724,7 +735,7 @@
     <string name="follow_my_position">定好中心</string>
     <string name="search_results">搜索结果</string>
     <string name="then_turn">接下来</string>
-    <string name="redirect_route_alert">想重建路线?</string>
+    <string name="redirect_route_alert">想重建路线\?</string>
     <string name="redirect_route_yes">是</string>
     <string name="redirect_route_no">否</string>
     <string name="trip_finished">您已到达!</string>
@@ -1574,4 +1585,165 @@
     <string name="type.wheelchair.no">未配备残疾人专用</string>
     <string name="type.wheelchair.yes">配备残疾人专用</string>
     <string name="type.building_part">建筑部分</string>
+    <string name="telegram"></string>
+    <string name="vk"></string>
+    <string name="error_enter_correct_instagram_page"></string>
+    <string name="download_map_title"></string>
+    <string name="type.highway.world_level"></string>
+    <string name="type.hwtag.lit"></string>
+    <string name="type.hwtag.private"></string>
+    <string name="type.natural.orchard"></string>
+    <string name="type.noexit"></string>
+    <string name="type.olympics"></string>
+    <string name="type.railway.preserved.bridge"></string>
+    <string name="type.railway.siding.bridge"></string>
+    <string name="type.railway.spur"></string>
+    <string name="type.railway.subway.bridge"></string>
+    <string name="type.railway.subway.tunnel"></string>
+    <string name="type.route.shuttle_train"></string>
+    <string name="type.sport"></string>
+    <string name="type.sport.archery"></string>
+    <string name="type.waterway.lock"></string>
+    <string name="type.piste_type.downhill.easy"></string>
+    <string name="type.piste_type.downhill.novice"></string>
+    <string name="type.piste_type.nordic"></string>
+    <string name="type.area_highway.cycleway"></string>
+    <string name="type.area_highway.tertiary"></string>
+    <string name="type.area_highway.steps"></string>
+    <string name="type.olympics.live_site"></string>
+    <string name="type.olympics.transport_airport"></string>
+    <string name="type.sponsored.holiday"></string>
+    <string name="type.sponsored.partner2"></string>
+    <string name="type.traffic_calming"></string>
+    <string name="error_enter_correct_vk_page"></string>
+    <string name="type.sponsored.partner19"></string>
+    <string name="placepage_delete_track_button"></string>
+    <string name="type.landuse.village_green"></string>
+    <string name="type.area_highway.motorway"></string>
+    <string name="type.area_highway.unclassified"></string>
+    <string name="type.railway.spur.tunnel"></string>
+    <string name="type.olympics.water_sport"></string>
+    <string name="type.railway.razed"></string>
+    <string name="type.piste_lift.j.bar"></string>
+    <string name="type.sponsored.partner17"></string>
+    <string name="type.man_made.cairn"></string>
+    <string name="type.piste_lift.platter"></string>
+    <string name="type.sport.scuba_diving"></string>
+    <string name="type.highway.world_towns_level"></string>
+    <string name="type.highway.elevator"></string>
+    <string name="type.sponsored.opentable"></string>
+    <string name="type.sponsored.partner4"></string>
+    <string name="type.hwtag"></string>
+    <string name="type.hwtag.toll"></string>
+    <string name="openstreetmap"></string>
+    <string name="type.sponsored.partner13"></string>
+    <string name="type.area_highway.track"></string>
+    <string name="type.area_highway.secondary"></string>
+    <string name="type.piste_type.downhill.advanced"></string>
+    <string name="type.psurface.paved_bad"></string>
+    <string name="type.sponsored.partner15"></string>
+    <string name="type.sponsored.partner6"></string>
+    <string name="type.olympics.bike_sport"></string>
+    <string name="type.piste_type.downhill.freeride"></string>
+    <string name="type.olympics.transport_bus"></string>
+    <string name="type.piste_lift"></string>
+    <string name="type.leisure.landscape_reserve"></string>
+    <string name="type.sponsored.partner18"></string>
+    <string name="type.sponsored.partner20"></string>
+    <string name="type.psurface"></string>
+    <string name="type.hwtag.yescar"></string>
+    <string name="type.olympics.stadium_main"></string>
+    <string name="type.area_highway.pedestrian"></string>
+    <string name="type.power.station"></string>
+    <string name="type.railway.spur.bridge"></string>
+    <string name="error_enter_correct_facebook_page"></string>
+    <string name="move"></string>
+    <string name="type.piste_lift.magic_carpet"></string>
+    <string name="type.man_made.storage_tank"></string>
+    <string name="type.olympics.transport_railway"></string>
+    <string name="type.olympics.transport_subway"></string>
+    <string name="type.area_highway.primary"></string>
+    <string name="type.traffic_calming.hump"></string>
+    <string name="github"></string>
+    <string name="type.mapswithme"></string>
+    <string name="type.railway.crossing"></string>
+    <string name="type.hwtag.onedir_bicycle"></string>
+    <string name="share_bookmarks_email_body"></string>
+    <string name="bookmarks_import"></string>
+    <string name="type.area_highway.footway"></string>
+    <string name="gb"></string>
+    <string name="instagram"></string>
+    <string name="type.piste_type.downhill.intermediate"></string>
+    <string name="type.psurface.unpaved_good"></string>
+    <string name="type.piste_lift.t.bar"></string>
+    <string name="type.aerialway.mixed_lift"></string>
+    <string name="connection_failure"></string>
+    <string name="type.sponsored.partner1"></string>
+    <string name="type.sponsored.partner14"></string>
+    <string name="type.sponsored.partner12"></string>
+    <string name="type.sponsored.booking"></string>
+    <string name="type.sport.curling"></string>
+    <string name="type.area_highway.residential"></string>
+    <string name="type.piste_type.sled"></string>
+    <string name="type.psurface.unpaved_bad"></string>
+    <string name="type.area_highway.living_street"></string>
+    <string name="type.hwtag.yesfoot"></string>
+    <string name="type.sponsored.partner7"></string>
+    <string name="type.mountain_pass"></string>
+    <string name="type.natural.meadow"></string>
+    <string name="type.natural.vineyard"></string>
+    <string name="type.olympics.transport_tram"></string>
+    <string name="type.hwtag.bidir_bicycle"></string>
+    <string name="type.sponsored.partner11"></string>
+    <string name="type.railway.siding"></string>
+    <string name="popular_place"></string>
+    <string name="type.natural.land"></string>
+    <string name="type.hwtag.yesbicycle"></string>
+    <string name="type.barrier.chain"></string>
+    <string name="type.piste_type.downhill"></string>
+    <string name="type.railway.preserved.tunnel"></string>
+    <string name="type.area_highway.trunk"></string>
+    <string name="type.sport.american_football"></string>
+    <string name="type.railway.subway"></string>
+    <string name="type.hwtag.nofoot"></string>
+    <string name="type.psurface.paved_good"></string>
+    <string name="type.landuse.salt_pond"></string>
+    <string name="type.piste_type"></string>
+    <string name="editor_add_phone"></string>
+    <string name="type.area_highway.path"></string>
+    <string name="type.area_highway.service"></string>
+    <string name="placepage_track_name_hint"></string>
+    <string name="type.olympics.transport_boat"></string>
+    <string name="type.piste_lift.rope_tow"></string>
+    <string name="type.noexit.motor_vehicle"></string>
+    <string name="type.sponsored"></string>
+    <string name="type.olympics.transport_cable"></string>
+    <string name="type.mapswithme.grid"></string>
+    <string name="type.piste_type.downhill.expert"></string>
+    <string name="type.sponsored.partner16"></string>
+    <string name="type.olympics.stadium"></string>
+    <string name="type.railway.siding.tunnel"></string>
+    <string name="type.landuse.field"></string>
+    <string name="type.natural.saddle"></string>
+    <string name="type.traffic_calming.bump"></string>
+    <string name="type.man_made.silo"></string>
+    <string name="type.sponsored.partner3"></string>
+    <string name="type.sponsored.partner10"></string>
+    <string name="type.hwtag.oneway"></string>
+    <string name="type.railway.preserved"></string>
+    <string name="mb"></string>
+    <string name="type.sponsored.partner9"></string>
+    <string name="type.barrier.cycle_barrier"></string>
+    <string name="error_enter_correct_twitter_page"></string>
+    <string name="type.aerialway.drag_lift"></string>
+    <string name="type.sport.australian_football"></string>
+    <string name="type.olympics.official_building"></string>
+    <string name="type.hwtag.nobicycle"></string>
+    <string name="disconnect_usb_cable_title"></string>
+    <string name="type.olympics.attraction"></string>
+    <string name="type.sport.skiing"></string>
+    <string name="type.hwtag.nocar"></string>
+    <string name="type.leisure.recreation_ground"></string>
+    <string name="type.sponsored.partner8"></string>
+    <string name="type.sponsored.partner5"></string>
 </resources>
