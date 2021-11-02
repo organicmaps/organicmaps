@@ -43,18 +43,38 @@ if [ ! -f "$TWINE_PATH/$TWINE_GEM" ] || ! gem list -i twine; then
 fi
 
 TWINE="$(gem contents twine | grep -m 1 bin/twine)"
-STRINGS_PATH="$OMIM_PATH/data/strings"
+STRINGS_FILE="$OMIM_PATH/data/strings/strings.txt"
 
-MERGED_FILE="$(mktemp)"
-cat "$STRINGS_PATH"/{strings,types_strings}.txt> "$MERGED_FILE"
+generate(){
+  # TODO: Add "--untagged --tags android" when tags are properly set.
+  # TODO: Add validate-strings-file call to check for duplicates (and avoid Android build errors) when tags are properly set.
+  $TWINE generate-all-localization-files --include translated --format android "$STRINGS_FILE" "$OMIM_PATH/android/res/"
+  $TWINE generate-all-localization-files --format apple "$STRINGS_FILE" "$OMIM_PATH/iphone/Maps/LocalizedStrings/"
+  $TWINE generate-all-localization-files --format apple-plural "$STRINGS_FILE" "$OMIM_PATH/iphone/Maps/LocalizedStrings/"
+  $TWINE generate-all-localization-files --format apple --file-name InfoPlist.strings "$OMIM_PATH/iphone/plist.txt" "$OMIM_PATH/iphone/Maps/LocalizedStrings/"
+  $TWINE generate-all-localization-files --format jquery "$OMIM_PATH/data/countries_names.txt" "$OMIM_PATH/data/countries-strings/"
+  $TWINE generate-all-localization-files --format jquery "$OMIM_PATH/data/strings/sound.txt" "$OMIM_PATH/data/sound-strings/"
+}
 
-# TODO: Add "--untagged --tags android" when tags are properly set.
-# TODO: Add validate-strings-file call to check for duplicates (and avoid Android build errors) when tags are properly set.
-$TWINE generate-all-localization-files --include translated --format android "$MERGED_FILE" "$OMIM_PATH/android/res/"
-$TWINE generate-all-localization-files --format apple "$MERGED_FILE" "$OMIM_PATH/iphone/Maps/LocalizedStrings/"
-$TWINE generate-all-localization-files --format apple-plural "$MERGED_FILE" "$OMIM_PATH/iphone/Maps/LocalizedStrings/"
-$TWINE generate-all-localization-files --format apple --file-name InfoPlist.strings "$OMIM_PATH/iphone/plist.txt" "$OMIM_PATH/iphone/Maps/LocalizedStrings/"
-$TWINE generate-all-localization-files --format jquery "$OMIM_PATH/data/countries_names.txt" "$OMIM_PATH/data/countries-strings/"
-$TWINE generate-all-localization-files --format jquery "$OMIM_PATH/data/strings/sound.txt" "$OMIM_PATH/data/sound-strings/"
+consume() {
+  # Known problems: en-GB is re-ordered
+  #$TWINE consume-all-localization-files --format android "$STRINGS_FILE" "$OMIM_PATH/android/res/"
+  # Known problems: es-MX, English is added as a default for all non-translated strings
+  #$TWINE consume-all-localization-files --format apple "$STRINGS_FILE" "$OMIM_PATH/iphone/Maps/LocalizedStrings/"
+  # Broken: not implemented in twine
+  #$TWINE consume-all-localization-files --format apple-plural "$STRINGS_FILE" "$OMIM_PATH/iphone/Maps/LocalizedStrings/"
+  # Broken: --file-name is not supported
+  $TWINE consume-all-localization-files --format apple --file-name InfoPlist.strings "$OMIM_PATH/iphone/plist.txt" "$OMIM_PATH/iphone/Maps/LocalizedStrings/" 
+  # Broken: doesn't detect languages in JSON files properly
+  #$TWINE consume-all-localization-files --format jquery "$OMIM_PATH/data/countries_names.txt" "$OMIM_PATH/data/countries-strings/"
+  # Broken: doesn't detect languages in JSON files properly
+  #$TWINE consume-all-localization-files --format jquery "$OMIM_PATH/data/strings/sound.txt" "$OMIM_PATH/data/sound-strings/"
+}
 
-rm $MERGED_FILE
+case "${1:-generate}" in
+  generate) generate;;
+  consume) consume;;
+  *)
+    >&2 echo "Usage: $0 generate|consume"
+    ;;
+esac
