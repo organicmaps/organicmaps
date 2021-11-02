@@ -52,11 +52,12 @@
     <string name="disconnect_usb_cable">Mohon lepas kabel USB atau masukkan kartu memori untuk menggunakan Organic Maps</string>
     <string name="not_enough_free_space_on_sdcard">Mohon bebaskan sejumlah ruang pada kartu SD/penyimpanan USB terlebih dahulu untuk menggunakan aplikasi</string>
     <string name="not_enough_memory">Memori tidak cukup untuk meluncurkan aplikasi</string>
-    <string name="download_resources">Sebelum Anda mulai izinkan kami mengunduh peta dunia secara umum ke perangkat Anda.\nHal ini memerlukan data %s.</string>
+    <string name="download_resources">Sebelum Anda mulai izinkan kami mengunduh peta dunia secara umum ke perangkat Anda.
+\nHal ini memerlukan data %s.</string>
     <string name="download_resources_continue">Pergi ke Peta</string>
     <string name="downloading_country_can_proceed">Sedang mengunduh %s. Sekarang Anda dapat melanjutkan ke peta.</string>
-    <string name="download_country_ask">Unduh %s?</string>
-    <string name="update_country_ask">Perbarui %s?</string>
+    <string name="download_country_ask">Unduh %s\?</string>
+    <string name="update_country_ask">Perbarui %s\?</string>
     <!-- REMOVE THIS STRING AFTER REFACTORING -->
     <string name="pause">Jeda</string>
     <!-- REMOVE THIS STRING AFTER REFACTORING -->
@@ -88,9 +89,10 @@
     <!-- Detailed description of Maps Storage settings button -->
     <string name="maps_storage_summary">Pilih tempat untuk menyimpan unduhan peta</string>
     <!-- Question dialog for transferring maps from one storage to another -->
-    <string name="move_maps">Pindahkan peta?</string>
+    <string name="move_maps">Pindahkan peta\?</string>
     <!-- Ask to wait user several minutes (some long process in modal dialog). -->
-    <string name="wait_several_minutes">Ini akan memakan waktu beberapa menit.\nMohon tunggu…</string>
+    <string name="wait_several_minutes">Ini akan memakan waktu beberapa menit.
+\nMohon tunggu…</string>
     <!-- Measurement units title in settings activity -->
     <string name="measurement_units">Unit Pengukuran</string>
     <!-- Detailed description of Measurement Units settings button -->
@@ -150,13 +152,17 @@
     <!-- Alert message that downloading is in progress. -->
     <string name="downloading_is_active">Pengunduhan negara sedang berjalan.</string>
     <!-- Share my position using SMS, %1$@ contains om:// and %2$@ https://omaps.app link WITHOUT NAME. @NOTE non-ascii symbols in the link will result in max 70 characters SMS instead of 140. -->
-    <string name="my_position_share_sms">Hei, lihat lokasiku saat ini di Organic Maps! %1$s atau %2$s belum memiliki peta offline? Unduh di sini: https://omaps.app/get</string>
+    <string name="my_position_share_sms">Hei, lihat lokasiku saat ini di Organic Maps! %1$s atau %2$s belum memiliki peta offline\? Unduh di sini: https://omaps.app/get</string>
     <!-- Subject for emailed bookmark -->
     <string name="bookmark_share_email_subject">Hei, lihat pinku di peta Organic Maps</string>
     <!-- Subject for emailed position -->
     <string name="my_position_share_email_subject">Hei, lihat lokasiku saat ini di peta Organic Maps!</string>
     <!-- Share my position using EMail, %1$@ is om:// and %2$@ is https://omaps.app link WITHOUT NAME -->
-    <string name="my_position_share_email">Hai,\n\nSekarang saya ada di sini: %1$s. Klik tautan ini %2$s atau yang ini %3$s untuk melihat tempatnya di peta.\n\nTerima kasih.</string>
+    <string name="my_position_share_email">Hai,
+\n
+\nSekarang saya ada di sini: %1$s. Klik tautan ini %2$s atau yang ini %3$s untuk melihat tempatnya di peta.
+\n
+\nTerima kasih.</string>
     <!-- Share button text which opens menu with more buttons, like Message, EMail, Facebook etc. -->
     <string name="share">Bagikan</string>
     <!-- Share by email button text, also used in editor. -->
@@ -170,7 +176,7 @@
     <!-- Prints version number in About dialog -->
     <string name="version">Versi: %s</string>
     <!-- Confirmation in downloading countries dialog -->
-    <string name="are_you_sure">Apakah Anda yakin ingin melanjutkan?</string>
+    <string name="are_you_sure">Apakah Anda yakin ingin melanjutkan\?</string>
     <!-- Title for tracks category in bookmarks manager -->
     <string name="tracks_title">Jalur</string>
     <!-- Length of track in cell that describes route -->
@@ -348,7 +354,7 @@
     <string name="dialog_routing_application_error">Tidak dapat membuat rute karena kesalahan aplikasi.</string>
     <string name="dialog_routing_try_again">Mohon coba lagi</string>
     <string name="not_now">Jangan Sekarang</string>
-    <string name="dialog_routing_download_and_build_cross_route">Apakah Anda ingin mengunduh peta dan membuat rute yang lebih optimal yang meliputi lebih dari satu peta?</string>
+    <string name="dialog_routing_download_and_build_cross_route">Apakah Anda ingin mengunduh peta dan membuat rute yang lebih optimal yang meliputi lebih dari satu peta\?</string>
     <string name="dialog_routing_download_cross_route">Unduh peta untuk membuat rute yang lebih optimal yang melewati ujung peta ini.</string>
     <!-- SECTION: Strings for downloading map from search -->
     <string name="search_without_internet_advertisement">Untuk mulai mencari dan membuat rute, silakan unduh peta, dan Anda tidak akan membutuhkan koneksi internet lagi.</string>
@@ -365,11 +371,11 @@
     <string name="routing_arrive">Kedatangan: %s</string>
     <!-- Text for routing::RouterResultCode::FileTooOld dialog. -->
     <string name="dialog_routing_download_and_update_maps">Untuk membuat rute, silakan unduh dan perbarui semua peta sepanjang rute.</string>
-    <string name="rate_alert_title">Suka aplikasi ini?</string>
+    <string name="rate_alert_title">Suka aplikasi ini\?</string>
     <string name="rate_alert_default_message">Terima kasih karena menggunakan Organic Maps. Mohon beri peringkat untuk aplikasi ini. Masukan dari Anda membantu kami untuk menjadi lebih baik.</string>
     <string name="rate_alert_five_star_message">Hore! Kami juga sangat menyukai Anda!</string>
     <string name="rate_alert_four_star_message">Terima kasih, kami akan melakukan yang terbaik!</string>
-    <string name="rate_alert_less_than_four_star_message">Anda punya ide agar kami bisa membuatnya menjadi lebih baik?</string>
+    <string name="rate_alert_less_than_four_star_message">Anda punya ide agar kami bisa membuatnya menjadi lebih baik\?</string>
     <string name="categories">Kategori</string>
     <string name="history">Riwayat</string>
     <string name="closed">Tutup</string>
@@ -383,7 +389,7 @@
     <string name="p2p_from_here">Dari</string>
     <string name="p2p_to_here">Rute ke</string>
     <string name="p2p_only_from_current">Navigasi tersedia hanya dari lokasi Anda saat ini.</string>
-    <string name="p2p_reroute_from_current">Apakah Anda ingin kami merencanakan sebuah rute dari lokasi Anda saat ini?</string>
+    <string name="p2p_reroute_from_current">Apakah Anda ingin kami merencanakan sebuah rute dari lokasi Anda saat ini\?</string>
     <!-- Edit open hours/set time and minutes dialog -->
     <string name="next_button">Berikut</string>
     <string name="editor_time_add">Tambah Jadwal</string>
@@ -420,13 +426,13 @@
     <string name="today">Hari ini</string>
     <string name="add_opening_hours">Tambah jam kerja</string>
     <string name="edit_opening_hours">Sunting jam kerja</string>
-    <string name="no_osm_account">Tidak ada akun di OpenStreetMap?</string>
+    <string name="no_osm_account">Tidak ada akun di OpenStreetMap\?</string>
     <string name="register_at_openstreetmap">Mendaftar</string>
     <string name="password_8_chars_min">Kata Sandi (minimal 8 karakter)</string>
     <string name="invalid_username_or_password">Nama pengguna dan Kata sandi tidak valid.</string>
     <string name="login">Masuk</string>
     <string name="password">Kata sandi</string>
-    <string name="forgot_password">Lupa kata sandi?</string>
+    <string name="forgot_password">Lupa kata sandi\?</string>
     <string name="osm_account">Akun OSM</string>
     <string name="logout">Keluar</string>
     <!-- Information text: "Last upload 11.01.2016" -->
@@ -480,7 +486,7 @@
     <string name="editor_sharing_title">Saya meningkatkan peta Organic Maps</string>
     <!-- Downloaded 10 **of** 20 <- it is that "of" -->
     <string name="downloader_of">%1$d dari %2$d</string>
-    <string name="download_over_mobile_header">Unduh dengan menggunakan koneksi jaringan seluler?</string>
+    <string name="download_over_mobile_header">Unduh dengan menggunakan koneksi jaringan seluler\?</string>
     <string name="download_over_mobile_message">Ini bisa menjadi jauh mahal pada beberapa paket atau jika roaming.</string>
     <string name="error_enter_correct_house_number">Masukkan nomor rumah yang benar</string>
     <string name="editor_storey_number">Jumlah lantai (maksimum %d)</string>
@@ -499,7 +505,7 @@
     <string name="downloader_no_downloaded_maps_title">Tidak ada peta apa pun yang diunduh</string>
     <string name="downloader_no_downloaded_maps_message">Unduh peta untuk menemukan lokasi dan bernavigasi secara offline.</string>
     <!-- Error title that appears after certain time without location. -->
-    <string name="current_location_unknown_title">Terus mendeteksi lokasi Anda saat ini?</string>
+    <string name="current_location_unknown_title">Terus mendeteksi lokasi Anda saat ini\?</string>
     <!-- Error that appears after certain time without location. -->
     <string name="current_location_unknown_message">Lokasi saat ini tidak diketahui. Anda mungkin berada dalam bangunan atau terowongan.</string>
     <string name="current_location_unknown_continue_button">Lanjutkan</string>
@@ -531,9 +537,9 @@
     <string name="placepage_delete_bookmark_button">Hapus Bookmark</string>
     <string name="editor_edits_sent_message">Saran perubahan Anda telah dikirim</string>
     <string name="editor_comment_hint">Komentar…</string>
-    <string name="editor_reset_edits_message">Atur ulang perubahan lokal?</string>
+    <string name="editor_reset_edits_message">Atur ulang perubahan lokal\?</string>
     <string name="editor_reset_edits_button">Atur Ulang</string>
-    <string name="editor_remove_place_message">Hapus tempat yang ditambahkan?</string>
+    <string name="editor_remove_place_message">Hapus tempat yang ditambahkan\?</string>
     <string name="editor_remove_place_button">Hapus</string>
     <string name="editor_place_doesnt_exist">Tempat tidak ada</string>
     <string name="text_more_button">…selebihnya</string>
@@ -544,13 +550,13 @@
     <string name="refresh">Memperbarui</string>
     <string name="placepage_add_place_button">Tambahkan tempat ke peta</string>
     <!-- Displayed when saving some edits to the map to warn against publishing personal data -->
-    <string name="editor_share_to_all_dialog_title">Apakah Anda ingin mengirimkannya ke semua pengguna?</string>
+    <string name="editor_share_to_all_dialog_title">Apakah Anda ingin mengirimkannya ke semua pengguna\?</string>
     <!-- iOS Dialog before publishing the modifications to the public map. -->
     <string name="editor_share_to_all_dialog_message_1">Pastikan Anda tidak memasukkan data pribadi apa pun.</string>
     <string name="editor_share_to_all_dialog_message_2">Kami akan memeriksa perubahan tersebut. Jika kami memiliki pertanyaan maka kami akan menghubungi Anda melalui surel.</string>
     <string name="navigation_stop_button">berhenti</string>
     <!-- iOS dialog for the case when recent track recording is on and the app comes back from background -->
-    <string name="recent_track_background_dialog_title">Nonaktifkan rekaman dari rute yang baru Anda lalui?</string>
+    <string name="recent_track_background_dialog_title">Nonaktifkan rekaman dari rute yang baru Anda lalui\?</string>
     <string name="off_recent_track_background_button">Nonaktifkan</string>
     <!-- For sharing via SMS and so on -->
     <string name="sharing_call_action_look">Lihat</string>
@@ -570,7 +576,7 @@
     <string name="decline">Tolak</string>
     <!-- noun -->
     <string name="search_in_table">Daftar</string>
-    <string name="mobile_data_dialog">Gunakan internet seluler untuk memperlihatkan informasi terperinci?</string>
+    <string name="mobile_data_dialog">Gunakan internet seluler untuk memperlihatkan informasi terperinci\?</string>
     <string name="mobile_data_option_always">Selalu Gunakan</string>
     <string name="mobile_data_option_today">Hanya Hari Ini</string>
     <string name="mobile_data_option_not_today">Jangan Gunakan Hari Ini</string>
@@ -590,8 +596,10 @@
     <string name="feedback_general">Umpan Balik Umum</string>
     <string name="on">On</string>
     <string name="off">Mati</string>
-    <string name="prefs_languages_information">Kami menggunakan TTS sistem untuk petunjuk suara. Banyak perangkat Android menggunakan Google TTS, Anda dapat mengunduhnya dari Google Play (https://play.google.com/store/apps/details?id=com.google.android.tts)</string>
-    <string name="prefs_languages_information_off">Untuk beberapa bahasa, Anda perlu menginstal synthesizer suara atau paket bahasa tambahan dari toko aplikasi (Google Play Market, Samsung Apps).\nBuka pengaturan perangkat Anda → Language and input (Bahasa dan input) → Speech (Suara) → Text to speech (Teks ke suara).\nDi sini, Anda dapat mengelola pengaturan untuk sintesis suara (contohnya, mengunduh paket bahasa untuk penggunaan tanpa internet) dan memilih mesin tekske suara lain.</string>
+    <string name="prefs_languages_information">Kami menggunakan TTS sistem untuk petunjuk suara. Banyak perangkat Android menggunakan Google TTS, Anda dapat mengunduhnya dari Google Play (https://play.google.com/store/apps/details\?id=com.google.android.tts)</string>
+    <string name="prefs_languages_information_off">Untuk beberapa bahasa, Anda perlu menginstal synthesizer suara atau paket bahasa tambahan dari toko aplikasi (Google Play Market, Samsung Apps).
+\nBuka pengaturan perangkat Anda → Language and input (Bahasa dan input) → Speech (Suara) → Text to speech (Teks ke suara).
+\nDi sini, Anda dapat mengelola pengaturan untuk sintesis suara (contohnya, mengunduh paket bahasa untuk penggunaan tanpa internet) dan memilih mesin tekske suara lain.</string>
     <string name="prefs_languages_information_off_link">Untuk informasi selengkapnya, bacalah panduan ini.</string>
     <string name="transliteration_title">Transliterasi ke dalam bahasa Latin</string>
     <string name="learn_more">Pelajari selengkapnya</string>
@@ -607,7 +615,7 @@
     <string name="start_from_my_position">Mulai dari</string>
     <string name="profile_authorization_error">Ah, tadi ada kesalahan. Coba masuk kembali.</string>
     <string name="dialog_error_storage_title">Masalah akses penyimpanan</string>
-    <string name="dialog_error_storage_message">Penyimpanan eksternal tidak tersedia, mungkin Kartu SD sudah dilepaskan, rusak, atau sistem berkasnya hanya dapat dibaca. Silakan periksa dan beri tahu kami di alamat support\@ maps.me</string>
+    <string name="dialog_error_storage_message">Penyimpanan eksternal tidak tersedia, mungkin Kartu SD sudah dilepaskan, rusak, atau sistem berkasnya hanya dapat dibaca. Silakan periksa dan beri tahu kami di alamat support@ maps.me</string>
     <string name="setting_emulate_bad_storage">Emulasi penyimpanan yang buruk</string>
     <string name="core_entrance">Tempat masuk</string>
     <string name="error_enter_correct_name">Harap masukkan nama yang benar</string>
@@ -636,13 +644,12 @@
     <string name="profile">Profil OpenStreetMap</string>
     <string name="bookmarks_detect_title">File baru terdeteksi</string>
     <plurals name="bookmarks_detect_message">
-        <item quantity="one">%d file ditemukan. Anda akan melihatnya setelah mengonversi.</item>
-        <item quantity="other">%d file telah ditemukan. Anda akan melihatnya setelah konversi.</item>
+        <item quantity="other">%d file ditemukan. Anda akan melihatnya setelah mengonversi.</item>
     </plurals>
     <string name="button_convert">Mengubah</string>
     <string name="bookmarks_convert_error_title">Kesalahan</string>
     <string name="bookmarks_convert_error_message">Beberapa file tidak dikonversi.</string>
-    <string name="bookmarks_restore_title">Kembalikan versi ini?</string>
+    <string name="bookmarks_restore_title">Kembalikan versi ini\?</string>
     <string name="common_check_internet_connection_dialog_title">Tidak ada koneksi internet</string>
     <string name="error_system_message">Terjadi kesalahan yang tidak diketahui</string>
     <string name="restore">Mengembalikan</string>
@@ -686,7 +693,9 @@
     <string name="place_description_title">Deskripsi Tempat</string>
     <!-- this text will be shown in application notification preferences opposite checkbox which enable/disable downloader notifications. Devices on Android 8+ are affected. -->
     <string name="notification_channel_downloader">Pengunduh peta</string>
-    <string name="speedcams_notice_message">Auto - Peringatkan tentang kamera kecepatan saat terdapat risiko melebihi batas kecepatan\nSelalu - Selalu peringatkan tentang kamera kecepatan\nTidak pernah - Jangan pernah peringatkan tentang kamera kecepatan</string>
+    <string name="speedcams_notice_message">Auto - Peringatkan tentang kamera kecepatan saat terdapat risiko melebihi batas kecepatan
+\nSelalu - Selalu peringatkan tentang kamera kecepatan
+\nTidak pernah - Jangan pernah peringatkan tentang kamera kecepatan</string>
     <string name="power_managment_title">Mode hemat daya</string>
     <string name="power_managment_description">Saat mode otomatis dipilih, aplikasi mulai menonaktifkan fitur yang menghabiskan daya baterai, bergantung pada tingkat daya baterai saat ini</string>
     <string name="power_managment_setting_never">Jangan pernah</string>
@@ -715,7 +724,7 @@
     <string name="follow_my_position">Pusatkan ulang</string>
     <string name="search_results">Hasil pencarian</string>
     <string name="then_turn">Lalu</string>
-    <string name="redirect_route_alert">Anda ingin membuat ulang rute?</string>
+    <string name="redirect_route_alert">Anda ingin membuat ulang rute\?</string>
     <string name="redirect_route_yes">Ya</string>
     <string name="redirect_route_no">Tidak</string>
     <string name="trip_finished">Anda telah tiba!</string>
@@ -1381,4 +1390,354 @@
     <string name="type.wheelchair.no">Tidak ada akses kursi roda</string>
     <string name="type.wheelchair.yes">Akses penuh kursi roda</string>
     <string name="type.building_part">Gedung</string>
+    <string name="type.boundary"></string>
+    <string name="type.landuse.retail"></string>
+    <string name="type.landuse.village_green"></string>
+    <string name="type.natural"></string>
+    <string name="type.railway.construction"></string>
+    <string name="type.railway.yard"></string>
+    <string name="type.sponsored.partner14"></string>
+    <string name="type.aerialway.drag_lift"></string>
+    <string name="type.waterway.ditch.tunnel"></string>
+    <string name="type.landuse.military"></string>
+    <string name="type.internet_access"></string>
+    <string name="type.junction"></string>
+    <string name="type.aerialway.gondola"></string>
+    <string name="download_map_title"></string>
+    <string name="type.railway.abandoned.tunnel"></string>
+    <string name="type.boundary.administrative.6"></string>
+    <string name="type.natural.coastline"></string>
+    <string name="type.shop.mall"></string>
+    <string name="type.place.isolated_dwelling"></string>
+    <string name="type.sport.bowls"></string>
+    <string name="type.barrier.cycle_barrier"></string>
+    <string name="type.piste_lift.j.bar"></string>
+    <string name="move"></string>
+    <string name="type.leisure.recreation_ground"></string>
+    <string name="type.railway.spur.bridge"></string>
+    <string name="type.boundary.administrative.region"></string>
+    <string name="type.psurface.unpaved_good"></string>
+    <string name="type.sponsored.partner3"></string>
+    <string name="type.piste_type.nordic"></string>
+    <string name="type.hwtag.private"></string>
+    <string name="type.boundary.administrative.state"></string>
+    <string name="type.man_made.pipeline"></string>
+    <string name="type.sponsored.opentable"></string>
+    <string name="type.sport.australian_football"></string>
+    <string name="type.natural.vineyard"></string>
+    <string name="type.leisure.track"></string>
+    <string name="type.waterway.ditch"></string>
+    <string name="type.piste_lift.platter"></string>
+    <string name="type.historic.citywalls"></string>
+    <string name="type.natural.saddle"></string>
+    <string name="type.olympics.transport_bus"></string>
+    <string name="type.sponsored.partner16"></string>
+    <string name="type.area_highway.trunk"></string>
+    <string name="type.sponsored.partner7"></string>
+    <string name="type.boundary.administrative.5"></string>
+    <string name="prefs_group_information"></string>
+    <string name="type.place.neighbourhood"></string>
+    <string name="type.area_highway.service"></string>
+    <string name="type.shop.supermarket"></string>
+    <string name="type.area_highway.residential"></string>
+    <string name="type.boundary.administrative.9"></string>
+    <string name="type.railway.monorail.bridge"></string>
+    <string name="type.railway.preserved.tunnel"></string>
+    <string name="type.psurface.paved_bad"></string>
+    <string name="type.natural.heath"></string>
+    <string name="type.hwtag.bidir_bicycle"></string>
+    <string name="type.boundary.administrative.county"></string>
+    <string name="editor_add_phone"></string>
+    <string name="type.natural.tree_row"></string>
+    <string name="type.sport.multi"></string>
+    <string name="type.railway.siding.tunnel"></string>
+    <string name="type.sponsored.partner8"></string>
+    <string name="type.noexit"></string>
+    <string name="type.mapswithme"></string>
+    <string name="gb"></string>
+    <string name="type.amenity.biergarten"></string>
+    <string name="type.historic.fort"></string>
+    <string name="type.railway.crossing"></string>
+    <string name="type.area_highway.track"></string>
+    <string name="type.sponsored.partner12"></string>
+    <string name="type.hwtag.yesbicycle"></string>
+    <string name="type.boundary.administrative.4.state"></string>
+    <string name="type.sponsored"></string>
+    <string name="type.hwtag.yescar"></string>
+    <string name="error_enter_correct_instagram_page"></string>
+    <string name="type.amenity.vending_machine"></string>
+    <string name="type.aerialway"></string>
+    <string name="type.area_highway.path"></string>
+    <string name="type.railway.subway.tunnel"></string>
+    <string name="type.landuse"></string>
+    <string name="type.railway"></string>
+    <string name="type.aerialway.cable_car"></string>
+    <string name="type.power.line.underground"></string>
+    <string name="type.route.shuttle_train"></string>
+    <string name="type.highway.cycleway.tunnel"></string>
+    <string name="type.railway.razed"></string>
+    <string name="type.sport.shooting"></string>
+    <string name="type.olympics.transport_railway"></string>
+    <string name="type.natural.rock"></string>
+    <string name="type.hwtag.oneway"></string>
+    <string name="type.sponsored.partner17"></string>
+    <string name="type.landuse.residential"></string>
+    <string name="type.railway.funicular.tunnel"></string>
+    <string name="type.boundary.administrative.suburb"></string>
+    <string name="type.piste_type.downhill.freeride"></string>
+    <string name="type.aeroway.runway"></string>
+    <string name="type.hwtag.nobicycle"></string>
+    <string name="type.sport.swimming"></string>
+    <string name="type.man_made.storage_tank"></string>
+    <string name="type.area_highway.primary"></string>
+    <string name="type.boundary.administrative.country"></string>
+    <string name="type.railway.preserved"></string>
+    <string name="type.amenity.bank"></string>
+    <string name="type.highway.cycleway"></string>
+    <string name="type.railway.rail.motor_vehicle"></string>
+    <string name="type.piste_type.downhill.novice"></string>
+    <string name="type.amenity.toilets"></string>
+    <string name="type.sponsored.partner6"></string>
+    <string name="disconnect_usb_cable_title"></string>
+    <string name="type.man_made.wastewater_plant"></string>
+    <string name="type.piste_type.downhill.intermediate"></string>
+    <string name="type.highway.bridleway.tunnel"></string>
+    <string name="data_version"></string>
+    <string name="error_enter_correct_vk_page"></string>
+    <string name="type.sport"></string>
+    <string name="type.highway.bridleway.bridge"></string>
+    <string name="type.area_highway.pedestrian"></string>
+    <string name="type.olympics.transport_airport"></string>
+    <string name="type.leisure.landscape_reserve"></string>
+    <string name="type.aeroway.apron"></string>
+    <string name="type.sponsored.partner1"></string>
+    <string name="type.highway"></string>
+    <string name="type.man_made.breakwater"></string>
+    <string name="type.sport.scuba_diving"></string>
+    <string name="type.landuse.vineyard"></string>
+    <string name="bookmarks_import"></string>
+    <string name="type.barrier.retaining_wall"></string>
+    <string name="type.hwtag.nocar"></string>
+    <string name="type.railway.narrow_gauge.bridge"></string>
+    <string name="type.railway.yard.bridge"></string>
+    <string name="type.waterway.weir"></string>
+    <string name="type.boundary.administrative.11"></string>
+    <string name="type.landuse.construction"></string>
+    <string name="type.sport.soccer"></string>
+    <string name="type.railway.preserved.bridge"></string>
+    <string name="type.leisure"></string>
+    <string name="type.leisure.slipway"></string>
+    <string name="type.public_transport"></string>
+    <string name="type.power"></string>
+    <string name="type.landuse.recreation_ground"></string>
+    <string name="type.power.generator"></string>
+    <string name="type.natural.cliff"></string>
+    <string name="type.sponsored.partner4"></string>
+    <string name="type.olympics.transport_cable"></string>
+    <string name="type.piste_type"></string>
+    <string name="type.hwtag.nofoot"></string>
+    <string name="type.man_made.silo"></string>
+    <string name="type.sport.archery"></string>
+    <string name="type.area_highway.motorway"></string>
+    <string name="type.olympics.stadium_main"></string>
+    <string name="type.traffic_calming.hump"></string>
+    <string name="type.waterway.drain.tunnel"></string>
+    <string name="type.tourism.hotel"></string>
+    <string name="type.emergency"></string>
+    <string name="type.waterway.drain"></string>
+    <string name="type.boundary.administrative.city"></string>
+    <string name="type.highway.bridleway"></string>
+    <string name="type.highway.world_level"></string>
+    <string name="type.waterway.dock"></string>
+    <string name="type.sponsored.booking"></string>
+    <string name="type.boundary.administrative.3"></string>
+    <string name="type.waterway.dam"></string>
+    <string name="type.olympics.attraction"></string>
+    <string name="type.man_made"></string>
+    <string name="type.leisure.marina"></string>
+    <string name="type.route.ferry"></string>
+    <string name="type.sport.baseball"></string>
+    <string name="type.natural.wetland.marsh"></string>
+    <string name="type.mountain_pass"></string>
+    <string name="type.boundary.administrative.municipality"></string>
+    <string name="type.man_made.cairn"></string>
+    <string name="type.railway.light_rail.bridge"></string>
+    <string name="type.sponsored.partner5"></string>
+    <string name="type.barrier.chain"></string>
+    <string name="type.piste_type.downhill.expert"></string>
+    <string name="type.barrier.hedge"></string>
+    <string name="type.psurface"></string>
+    <string name="instagram"></string>
+    <string name="type.historic.wayside_cross"></string>
+    <string name="type.place"></string>
+    <string name="type.craft"></string>
+    <string name="prefs_group_general"></string>
+    <string name="type.traffic_calming.bump"></string>
+    <string name="type.olympics.transport_tram"></string>
+    <string name="type.railway.tram.bridge"></string>
+    <string name="type.leisure.ice_rink"></string>
+    <string name="type.aeroway"></string>
+    <string name="type.landuse.meadow"></string>
+    <string name="type.landuse.orchard"></string>
+    <string name="type.psurface.paved_good"></string>
+    <string name="placepage_delete_track_button"></string>
+    <string name="type.piste_lift.rope_tow"></string>
+    <string name="type.mapswithme.grid"></string>
+    <string name="type.tourism.hostel"></string>
+    <string name="type.sponsored.partner15"></string>
+    <string name="type.route"></string>
+    <string name="type.landuse.greenhouse_horticulture"></string>
+    <string name="type.boundary.administrative.2"></string>
+    <string name="type.boundary.administrative.8"></string>
+    <string name="type.psurface.unpaved_bad"></string>
+    <string name="type.hwtag.yesfoot"></string>
+    <string name="type.olympics.official_building"></string>
+    <string name="type.railway.yard.tunnel"></string>
+    <string name="type.internet_access.wlan"></string>
+    <string name="type.sport.american_football"></string>
+    <string name="error_enter_correct_facebook_page"></string>
+    <string name="type.railway.funicular.bridge"></string>
+    <string name="type.landuse.salt_pond"></string>
+    <string name="type.piste_type.downhill"></string>
+    <string name="type.sport.diving"></string>
+    <string name="type.aerialway.mixed_lift"></string>
+    <string name="type.aerialway.chair_lift"></string>
+    <string name="type.railway.spur"></string>
+    <string name="type.natural.land"></string>
+    <string name="type.natural.meadow"></string>
+    <string name="type.historic.wayside_shrine"></string>
+    <string name="type.barrier.wall"></string>
+    <string name="type.traffic_calming"></string>
+    <string name="type.landuse.greenfield"></string>
+    <string name="type.piste_lift.t.bar"></string>
+    <string name="openstreetmap"></string>
+    <string name="type.sponsored.partner11"></string>
+    <string name="type.landuse.commercial"></string>
+    <string name="type.hwtag.onedir_bicycle"></string>
+    <string name="type.olympics.live_site"></string>
+    <string name="type.railway.light_rail"></string>
+    <string name="type.power.station"></string>
+    <string name="type.highway.bridleway.permissive"></string>
+    <string name="type.railway.monorail.tunnel"></string>
+    <string name="type.sport.handball"></string>
+    <string name="popular_place"></string>
+    <string name="type.highway.world_towns_level"></string>
+    <string name="type.historic"></string>
+    <string name="type.military.bunker"></string>
+    <string name="type.sponsored.holiday"></string>
+    <string name="type.man_made.pier"></string>
+    <string name="type.barrier"></string>
+    <string name="facebook"></string>
+    <string name="type.railway.subway.bridge"></string>
+    <string name="type.area_highway.secondary"></string>
+    <string name="type.boundary.administrative"></string>
+    <string name="type.sport.curling"></string>
+    <string name="type.tourism.motel"></string>
+    <string name="type.landuse.farm"></string>
+    <string name="type.sponsored.partner9"></string>
+    <string name="type.sponsored.partner20"></string>
+    <string name="type.waterway"></string>
+    <string name="type.historic.battlefield"></string>
+    <string name="placepage_track_name_hint"></string>
+    <string name="type.railway.siding"></string>
+    <string name="type.highway.elevator"></string>
+    <string name="error_enter_correct_twitter_page"></string>
+    <string name="type.railway.rail.bridge"></string>
+    <string name="type.railway.platform"></string>
+    <string name="type.sponsored.partner10"></string>
+    <string name="type.amenity.prison"></string>
+    <string name="type.highway.cycleway.bridge"></string>
+    <string name="type.highway.cycleway.permissive"></string>
+    <string name="type.boundary.administrative.4"></string>
+    <string name="type.olympics.transport_subway"></string>
+    <string name="type.noexit.motor_vehicle"></string>
+    <string name="vk"></string>
+    <string name="type.olympics"></string>
+    <string name="type.public_transport.platform"></string>
+    <string name="type.craft.hvac"></string>
+    <string name="type.railway.siding.bridge"></string>
+    <string name="type.railway.light_rail.tunnel"></string>
+    <string name="type.natural.wetland.bog"></string>
+    <string name="type.landuse.allotments"></string>
+    <string name="type.railway.narrow_gauge"></string>
+    <string name="type.area_highway.cycleway"></string>
+    <string name="type.building.warehouse"></string>
+    <string name="type.sport.cricket"></string>
+    <string name="type.place.square"></string>
+    <string name="type.sponsored.partner13"></string>
+    <string name="type.piste_lift"></string>
+    <string name="type.landuse.industrial"></string>
+    <string name="type.amenity.pub"></string>
+    <string name="share_bookmarks_email_body"></string>
+    <string name="type.amenity.bar"></string>
+    <string name="type.piste_lift.magic_carpet"></string>
+    <string name="type.hwtag.lit"></string>
+    <string name="type.piste_type.downhill.advanced"></string>
+    <string name="type.tourism"></string>
+    <string name="type.man_made.works"></string>
+    <string name="type.junction.roundabout"></string>
+    <string name="type.landuse.farmyard"></string>
+    <string name="github"></string>
+    <string name="type.aeroway.gate"></string>
+    <string name="type.amenity.food_court"></string>
+    <string name="type.sponsored.partner18"></string>
+    <string name="type.area_highway.tertiary"></string>
+    <string name="type.olympics.bike_sport"></string>
+    <string name="type.railway.rail.tunnel"></string>
+    <string name="type.man_made.pipeline.overground"></string>
+    <string name="twitter"></string>
+    <string name="type.olympics.water_sport"></string>
+    <string name="type.railway.spur.tunnel"></string>
+    <string name="type.railway.abandoned"></string>
+    <string name="type.railway.subway"></string>
+    <string name="type.sport.skiing"></string>
+    <string name="type.sport.gymnastics"></string>
+    <string name="type.area_highway.living_street"></string>
+    <string name="type.natural.orchard"></string>
+    <string name="type.landuse.garages"></string>
+    <string name="type.power.minor_line"></string>
+    <string name="type.natural.bare_rock"></string>
+    <string name="type.military"></string>
+    <string name="type.barrier.fence"></string>
+    <string name="type.landuse.field"></string>
+    <string name="type.historic.boundary_stone"></string>
+    <string name="type.aeroway.taxiway"></string>
+    <string name="type.area_highway.unclassified"></string>
+    <string name="type.landuse.brownfield"></string>
+    <string name="type.area_highway.steps"></string>
+    <string name="type.tourism.museum"></string>
+    <string name="type.railway.funicular"></string>
+    <string name="type.hwtag"></string>
+    <string name="type.olympics.stadium"></string>
+    <string name="type.man_made.cutline"></string>
+    <string name="type.railway.abandoned.bridge"></string>
+    <string name="read_in_wikipedia"></string>
+    <string name="type.tourism.chalet"></string>
+    <string name="type.boundary.administrative.nation"></string>
+    <string name="type.railway.narrow_gauge.tunnel"></string>
+    <string name="type.hwtag.toll"></string>
+    <string name="type.aeroway.terminal"></string>
+    <string name="type.railway.tram.tunnel"></string>
+    <string name="type.railway.disused"></string>
+    <string name="type.area_highway.footway"></string>
+    <string name="type.boundary.administrative.10"></string>
+    <string name="type.railway.tram"></string>
+    <string name="type.waterway.lock"></string>
+    <string name="type.barrier.city_wall"></string>
+    <string name="type.piste_type.downhill.easy"></string>
+    <string name="type.amenity.atm"></string>
+    <string name="type.natural.hot_spring"></string>
+    <string name="type.sponsored.partner2"></string>
+    <string name="type.wheelchair"></string>
+    <string name="type.landuse.quarry"></string>
+    <string name="type.sponsored.partner19"></string>
+    <string name="type.sport.golf"></string>
+    <string name="type.power.line"></string>
+    <string name="type.piste_type.sled"></string>
+    <string name="telegram"></string>
+    <string name="type.leisure.common"></string>
+    <string name="type.olympics.transport_boat"></string>
+    <string name="connection_failure"></string>
+    <string name="type.boundary.administrative.7"></string>
+    <string name="type.highway.services"></string>
 </resources>
