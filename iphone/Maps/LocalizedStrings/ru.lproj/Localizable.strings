@@ -21,7 +21,7 @@
 "download_maps" = "Загрузить карты";
 
 /* Settings/Downloader - info for country when download fails */
-"download_has_failed" = "Ошибка загрузки. Нажмите, чтобы повторить попытку";
+"download_has_failed" = "Ошибка загрузки. Нажмите, чтобы повторить попытку.";
 
 /* Settings/Downloader - info for country which started downloading */
 "downloading" = "Загружается…";
@@ -228,10 +228,10 @@
 "my_position_share_sms" = "Смотри где я сейчас. Жми %1$@ или %2$@";
 
 /* Subject for emailed bookmark */
-"bookmark_share_email_subject" = "Смотри мою метку на карте Organic Maps";
+"bookmark_share_email_subject" = "Смотри мою метку на карте Organic Maps!";
 
 /* Subject for emailed position */
-"my_position_share_email_subject" = "Посмотри на карте Organic Maps, где я сейчас нахожусь";
+"my_position_share_email_subject" = "Посмотри на карте Organic Maps, где я сейчас нахожусь!";
 
 /* Share my position using EMail, %1$@ is om:// and %2$@ is https://omaps.app link WITHOUT NAME */
 "my_position_share_email" = "Привет!\n\nЯ сейчас здесь: %1$@. Чтобы увидеть это место на карте Organic Maps, открой эту ссылку %2$@ или эту %3$@\n\nСпасибо.";
@@ -505,7 +505,7 @@
 "dialog_routing_disclaimer_priority" = "— Дорожная обстановка, ПДД и знаки приоритетнее советов приложения;";
 "dialog_routing_disclaimer_precision" = "— Карта может быть неточной, а предложенный маршрут не всегда оптимален;";
 "dialog_routing_disclaimer_recommendations" = "— Предлагаемые маршруты — лишь рекомендации;";
-"dialog_routing_disclaimer_borders" = "— Будьте внимательны с маршрутами в приграничных зонах: в построенных программой маршрутах иногда возможны пересечения границ в неположенных местах;";
+"dialog_routing_disclaimer_borders" = "— Будьте внимательны с маршрутами в приграничных зонах: в построенных программой маршрутах иногда возможны пересечения границ в неположенных местах.";
 "dialog_routing_disclaimer_beware" = "Будьте внимательны на дорогах и берегите себя!";
 "dialog_routing_check_gps" = "Проверьте сигнал GPS";
 "dialog_routing_error_location_not_found" = "Маршрут не построен. Текущая геопозиция не определена.";
@@ -676,7 +676,7 @@
 "whatsnew_editor_message_1" = "Добавляйте новые объекты и редактируйте старые прямо из приложения.";
 "dialog_incorrect_feature_position" = "Измените местоположение";
 "message_invalid_feature_position" = "Объект не может находиться в этом месте";
-"login_to_make_edits_visible" = "Войдите, чтобы ваши изменения увидели другие пользователи.";
+"login_to_make_edits_visible" = "Войдите, чтобы ваши изменения увидели другие пользователи";
 
 /* Error dialog no space */
 "migration_no_space_message" = "Для загрузки требуется больше свободного места. Пожалуйста, удалите ненужные данные.";
@@ -715,7 +715,7 @@
 "current_location_unknown_error_title" = "Местоположение не найдено.";
 "current_location_unknown_error_message" = "При поиске местоположения произошла неизвестная ошибка. Проверьте работоспособность устройства и попробуйте найти местоположение позднее.";
 "location_services_disabled_header" = "Определение местоположения отключено";
-"location_services_disabled_message" = "Разрешите доступ к геопозиции в настройках устройства.";
+"location_services_disabled_message" = "Разрешите доступ к геопозиции в настройках устройства";
 "location_services_disabled_1" = "1. Откройте Настройки";
 "location_services_disabled_2" = "2. Нажмите Геопозиция";
 
@@ -918,7 +918,7 @@
 "avoid_ferry" = "Паромные переправы";
 "avoid_motorways" = "Магистрали";
 "unable_to_calc_alert_title" = "Невозможно построить маршрут";
-"unable_to_calc_alert_subtitle" = "К сожалению, мы не смогли построить маршрут с выбранными опциями. Измените настройки и повторите попытку";
+"unable_to_calc_alert_subtitle" = "К сожалению, мы не смогли построить маршрут с выбранными опциями. Измените настройки и повторите попытку.";
 "define_to_avoid_btn" = "Настроить пути объезда";
 "change_driving_options_btn" = "Настройки объезда включены";
 "toll_road" = "Платная дорога";
@@ -946,7 +946,7 @@
 "dialog_routing_rebuild_from_current_location_carplay" = "Маршрут будет перестроен от вашего текущего местоположения";
 "dialog_routing_rebuild_for_vehicle_carplay" = "Маршрут будет изменен на автомобильный";
 "ok" = "Ок";
-"avoid_unpaved_carplay_1" = "Без грунт.";
+"avoid_unpaved_carplay_1" = "Без грунтовыйх дорог";
 "avoid_unpaved_carplay_2" = "Без грунтовых";
 "avoid_ferry_carplay_1" = "Без паромов";
 "avoid_ferry_carplay_2" = "Без паромов";
