@@ -6,6 +6,7 @@
 
 /********** Strings **********/
 
+
 /* Button text (should be short) */
 "back" = "Back";
 
@@ -17,7 +18,6 @@
 
 /* Button which deletes downloaded country */
 "delete" = "Delete";
-
 "download_maps" = "Download Maps";
 
 /* Settings/Downloader - info for country when download fails */
@@ -37,7 +37,6 @@
 
 /* Settings/Downloader - size string, only strings different from English should be translated */
 "mb" = "MB";
-
 "gb" = "GB";
 
 /* Choose measurement on first launch alert - choose imperial system button */
@@ -72,31 +71,18 @@
 
 /* Button text for the button under the country_status_download_failed message */
 "try_again" = "Try Again";
-
 "about_menu_title" = "About Organic Maps";
-
 "connection_settings" = "Connection Settings";
-
 "close" = "Close";
-
 "unsupported_phone" = "The app requires hardware accelerated OpenGL. Unfortunately, your device is not supported.";
-
 "download" = "Download";
-
 "disconnect_usb_cable" = "Please disconnect USB cable or insert memory card to use Organic Maps";
-
 "not_enough_free_space_on_sdcard" = "Please free up some space on the SD card/USB storage first in order to use the app";
-
 "not_enough_memory" = "Not enough memory to launch app";
-
 "download_resources" = "Before you start using the app, allow us to download the general world map to your device.\nIt will use %@ of storage.";
-
 "download_resources_continue" = "Go to Map";
-
 "downloading_country_can_proceed" = "Downloading %@. You can now\nproceed to the map.";
-
 "download_country_ask" = "Download %@?";
-
 "update_country_ask" = "Update %@?";
 
 /* REMOVE THIS STRING AFTER REFACTORING */
@@ -215,7 +201,6 @@
 
 /* Email Subject when sharing bookmarks category */
 "share_bookmarks_email_subject" = "Organic Maps bookmarks were shared with you";
-
 "share_bookmarks_email_body" = "Hello!\n\nAttached are my bookmarks from Organic Maps app. Please open them if you have Organic Maps installed. Or, if you don't, download the app for your iOS or Android device by following this link: https://omaps.app/get?kmz\n\nEnjoy traveling with Organic Maps!";
 
 /* message title of loading file */
@@ -280,7 +265,6 @@
 
 /* Length of track in cell that describes route */
 "length" = "Length";
-
 "share_my_location" = "Share My Location";
 
 /* Settings general group in settings screen */
@@ -288,11 +272,8 @@
 
 /* Settings information group in settings screen */
 "prefs_group_information" = "Information";
-
 "prefs_group_route" = "Navigation";
-
 "pref_zoom_title" = "Zoom buttons";
-
 "pref_zoom_summary" = "Display on the map";
 
 /* Settings «Map» category: «Night style» title */
@@ -327,25 +308,15 @@
 
 /* Settings «Map» category: «Record track» title */
 "pref_track_record_title" = "Recent track";
-
 "pref_map_auto_zoom" = "Auto zoom";
-
 "duration_disabled" = "Off";
-
 "duration_1_hour" = "1 hour";
-
 "duration_2_hours" = "2 hours";
-
 "duration_6_hours" = "6 hours";
-
 "duration_12_hours" = "12 hours";
-
 "duration_1_day" = "1 day";
-
 "recent_track_help_text" = "This option allows you to record traveled path for a certain period and see it on the map. Please note: activation of this function causes increased battery usage. The track will be removed automatically from the map after the time interval will expire.";
-
 "placepage_distance" = "Distance";
-
 "search_show_on_map" = "View on map";
 
 /* Text in menu */
@@ -413,15 +384,10 @@
 
 /* Country queued for download */
 "downloader_queued" = "Queued";
-
 "downloader_near_me_subtitle" = "Near me";
-
 "downloader_status_maps" = "Maps";
-
 "downloader_download_all_button" = "Download All";
-
 "downloader_downloading" = "Downloading:";
-
 "downloader_search_results" = "Found";
 
 /* Status of outdated country in the list */
@@ -477,11 +443,8 @@
 
 /* location service disabled */
 "enable_location_services" = "Please enable Location Services";
-
 "save" = "Save";
-
 "edit_description_hint" = "Your descriptions (text or html)";
-
 "create" = "create";
 
 /* red color */
@@ -539,70 +502,40 @@
 /********** Routing dialogs strings **********/
 
 "dialog_routing_disclaimer_title" = "When following the route, please keep in mind:";
-
 "dialog_routing_disclaimer_priority" = "— Road conditions, traffic laws, and road signs always take priority over the navigation hints;";
-
 "dialog_routing_disclaimer_precision" = "— The map might be inaccurate, and the suggested route might not always be the most optimal way to reach the destination;";
-
 "dialog_routing_disclaimer_recommendations" = "— Suggested routes should only be understood as recommendations;";
-
 "dialog_routing_disclaimer_borders" = "— Exercise caution with routes in border zones: the routes created by our app may sometimes cross country borders in unauthorized places.";
-
 "dialog_routing_disclaimer_beware" = "Please stay alert and safe on the roads!";
-
 "dialog_routing_check_gps" = "Check GPS signal";
-
 "dialog_routing_error_location_not_found" = "Unable to create route. Current GPS coordinates could not be identified.";
-
 "dialog_routing_location_turn_wifi" = "Please check your GPS signal. Enabling Wi-Fi will improve your location accuracy.";
-
 "dialog_routing_location_turn_on" = "Enable location services";
-
 "dialog_routing_location_unknown_turn_on" = "Unable to locate current GPS coordinates. Enable location services to calculate route.";
-
 "dialog_routing_download_files" = "Download required files";
-
 "dialog_routing_download_and_update_all" = "Download and update all map and routing information along the projected path to calculate route.";
-
 "dialog_routing_unable_locate_route" = "Unable to locate route";
-
 "dialog_routing_cant_build_route" = "Unable to create route.";
-
 "dialog_routing_change_start_or_end" = "Please adjust your starting point or your destination.";
-
 "dialog_routing_change_start" = "Adjust starting point";
-
 "dialog_routing_start_not_determined" = "Route was not created. Unable to locate starting point.";
-
 "dialog_routing_select_closer_start" = "Please select a starting point closer to a road.";
-
 "dialog_routing_change_end" = "Adjust destination";
-
 "dialog_routing_end_not_determined" = "Route was not created. Unable to locate the destination.";
-
 "dialog_routing_select_closer_end" = "Please select a destination point located closer to a road.";
-
 "dialog_routing_change_intermediate" = "Unable to locate the intermediate point.";
-
 "dialog_routing_intermediate_not_determined" = "Please adjust your intermediate point.";
-
 "dialog_routing_system_error" = "System error";
-
 "dialog_routing_application_error" = "Unable to create route due to an application error.";
-
 "dialog_routing_try_again" = "Please try again";
-
 "not_now" = "Not Now";
-
 "dialog_routing_download_and_build_cross_route" = "Would you like to download the map and create a more optimal route spanning more than one map?";
-
 "dialog_routing_download_cross_route" = "Download additional maps to create a better route that crosses the boundaries of this map.";
 
 
 /********** Strings for downloading map from search **********/
 
 "search_without_internet_advertisement" = "To start searching and creating routes, please download the map. After that you will no longer need an Internet connection.";
-
 "search_select_map" = "Select Map";
 
 /* «Show» context menu */
@@ -622,96 +555,55 @@
 
 /* Text for routing::RouterResultCode::FileTooOld dialog. */
 "dialog_routing_download_and_update_maps" = "Download and update all map along the projected path to calculate route.";
-
 "rate_alert_title" = "Like the app?";
-
 "rate_alert_default_message" = "Thank you for using Organic Maps. Please rate the app. Your feedback helps us improve our product.";
-
 "rate_alert_five_star_message" = "Hooray! We love you, too!";
-
 "rate_alert_four_star_message" = "Thank you, we will do our best!";
-
 "rate_alert_less_than_four_star_message" = "Any idea how we can make it better?";
-
 "categories" = "Categories";
-
 "history" = "History";
-
 "closed" = "Closed";
-
 "search_not_found" = "Oops, no results found.";
-
 "search_not_found_query" = "Try changing your search criteria.";
-
 "search_history_title" = "Search History";
-
 "search_history_text" = "View recent searches.";
-
 "clear_search" = "Clear Search History";
 
 /* Place Page link to Wikipedia article (if map object has it). */
 "read_in_wikipedia" = "Wikipedia";
-
 "p2p_your_location" = "Your Location";
-
 "p2p_start" = "Start";
-
 "p2p_from_here" = "Route from";
-
 "p2p_to_here" = "Route to";
-
 "p2p_only_from_current" = "Navigation is available only from your current location.";
-
 "p2p_reroute_from_current" = "Do you want us to plan a route from your current location?";
 
 /* Edit open hours/set time and minutes dialog */
 "next_button" = "Next";
-
 "editor_time_add" = "Add Schedule";
-
 "editor_time_delete" = "Delete Schedule";
 
 /* Text for allday switch. */
 "editor_time_allday" = "All Day (24 hours)";
-
 "editor_time_open" = "Open";
-
 "editor_time_close" = "Closed";
-
 "editor_time_add_closed" = "Add Non-Business Hours";
-
 "editor_time_title" = "Business Hours";
-
 "editor_time_advanced" = "Advanced Mode";
-
 "editor_time_simple" = "Simple Mode";
-
 "editor_hours_closed" = "Non-Business Hours";
-
 "editor_example_values" = "Example Values";
-
 "editor_correct_mistake" = "Correct mistake";
-
 "editor_add_select_location" = "Location";
-
 "editor_done_dialog_1" = "You’ve changed the world map. Do not keep it to yourself! Tell your friends, and edit it together.";
-
 "share_with_friends" = "Share with friends";
-
 "editor_report_problem_desription_1" = "Please describe the problem in detail so that the OpenStreeMap community can fix the error.";
-
 "editor_report_problem_desription_2" = "Or do it yourself at https://www.openstreetmap.org/";
-
 "editor_report_problem_send_button" = "Send";
-
 "editor_report_problem_title" = "Issue";
-
 "editor_report_problem_no_place_title" = "The place does not exist";
-
 "editor_report_problem_under_construction_title" = "Сlosed for maintenance";
-
 "editor_report_problem_duplicate_place_title" = "Duplicated place";
-
 "autodownload" = "Auto-download";
 
 /* Place Page opening hours text */
@@ -719,167 +611,98 @@
 
 /* Place Page opening hours text */
 "daily" = "Daily";
-
 "twentyfour_seven" = "24/7";
-
 "day_off_today" = "Closed today";
-
 "day_off" = "Closed";
-
 "today" = "Today";
-
 "add_opening_hours" = "Add opening hours";
-
 "edit_opening_hours" = "Edit business hours";
-
 "no_osm_account" = "Don't have an OpenStreetMap account?";
-
 "register_at_openstreetmap" = "Register at OSM";
-
 "password_8_chars_min" = "Password (8 characters minimum)";
-
 "invalid_username_or_password" = "Invalid username or password.";
-
 "login" = "Log In";
-
 "password" = "Password";
-
 "forgot_password" = "Forgot your password?";
-
 "osm_account" = "OSM Account";
-
 "logout" = "Log Out";
 
 /* Information text: "Last upload 11.01.2016" */
 "last_upload" = "Last upload";
-
 "thank_you" = "Thank You";
-
 "edit_place" = "Edit Place";
-
 "place_name" = "Place Name";
-
 "add_language" = "Add a language";
-
 "street" = "Street";
 
 /* Editable House Number text field (in address block). */
 "house_number" = "Building number";
-
 "details" = "Details";
 
 /* Text field to enter non-existing street name, below list of known streets around */
 "add_street" = "Add a street";
-
 "choose_language" = "Choose a language";
-
 "choose_street" = "Choose a street";
-
 "postal_code" = "Postal Code";
-
 "cuisine" = "Cuisine";
-
 "select_cuisine" = "Select cuisine";
 
 /* login text field */
 "email_or_username" = "Email or username";
-
 "phone" = "Phone";
-
 "editor_add_phone" = "Add Phone";
-
 "please_note" = "Please note";
-
 "downloader_delete_map_dialog" = "All of your map edits will be deleted together with the map.";
-
 "downloader_update_maps" = "Update Maps";
-
 "downloader_mwm_migration_dialog" = "To create a route, you need to update all maps and then plan the route again.";
-
 "downloader_search_field_hint" = "Find map";
-
 "migration_download_error_dialog" = "Download error";
-
 "common_check_internet_connection_dialog" = "Please check your settings and make sure your device is connected to the Internet.";
-
 "downloader_no_space_title" = "Not enough space";
-
 "downloader_no_space_message" = "Please delete any unnecessary data";
-
 "editor_login_error_dialog" = "Login error.";
-
 "editor_profile_changes" = "Verified Changes";
-
 "editor_focus_map_on_location" = "Drag the map to select the correct location of the object.";
-
 "editor_add_select_category" = "Select category";
-
 "editor_add_select_category_popular_subtitle" = "Popular";
-
 "editor_add_select_category_all_subtitle" = "All Categories";
-
 "editor_edit_place_title" = "Editing";
-
 "editor_add_place_title" = "Adding";
-
 "editor_edit_place_name_hint" = "Name of the place";
-
 "editor_edit_place_category_title" = "Category";
-
 "detailed_problem_description" = "Detailed description of the issue";
-
 "editor_report_problem_other_title" = "Different problem";
-
 "placepage_add_business_button" = "Add business";
-
 "whatsnew_editor_message_1" = "Add new places to the map, and edit existing ones directly from the app.";
-
 "dialog_incorrect_feature_position" = "Change location";
-
 "message_invalid_feature_position" = "No object can be located here";
-
 "login_to_make_edits_visible" = "Log in so other users can see the changes that you have made";
 
 /* Error dialog no space */
 "migration_no_space_message" = "To download, you need more space. Please delete any unnecessary data.";
-
 "editor_sharing_title" = "I improved the Organic Maps maps";
 
 /* Downloaded 10 **of** 20 <- it is that "of" */
 "downloader_of" = "%1$d of %2$d";
-
 "download_over_mobile_header" = "Download over a cellular network connection?";
-
 "download_over_mobile_message" = "This could be considerably expensive with some plans or if roaming.";
-
 "error_enter_correct_house_number" = "Enter a valid building number";
-
 "editor_storey_number" = "Number of floors (maximum of %d)";
 
 /* Error message in Editor when a user tries to set the number of floors for a building higher than 25 */
 "error_enter_correct_storey_number" = "The number of floors must non exceed 25";
-
 "editor_zip_code" = "ZIP Code";
-
 "error_enter_correct_zip_code" = "Enter a valid ZIP code";
 
 /* Place Page title for long tap */
 "core_placepage_unknown_place" = "Unknown Place";
-
 "editor_other_info" = "Enviar nota a los editores de OSM";
-
 "editor_detailed_description_hint" = "Detailed comment";
-
 "editor_detailed_description" = "Your suggested map changes will be sent to the OpenStreetMap community. Describe any additional details that cannot be edited in Organic Maps.";
-
 "editor_more_about_osm" = "More about OpenStreetMap";
-
 "editor_operator" = "Owner";
-
 "downloader_my_maps_title" = "My maps";
-
 "downloader_no_downloaded_maps_title" = "You haven't downloaded any maps";
-
 "downloader_no_downloaded_maps_message" = "Download maps to search for a location and use navigation offline.";
 
 /* Error title that appears after certain time without location. */
@@ -887,93 +710,52 @@
 
 /* Error that appears after certain time without location. */
 "current_location_unknown_message" = "Current location is unknown. Maybe you are in a building or in a tunnel.";
-
 "current_location_unknown_continue_button" = "Continue";
-
 "current_location_unknown_stop_button" = "Stop";
-
 "current_location_unknown_error_title" = "Current location is unknown.";
-
 "current_location_unknown_error_message" = "An error occurred while searching for your location. Check that your device is working properly and try again later.";
-
 "location_services_disabled_header" = "Location services are disabled";
-
 "location_services_disabled_message" = "Enable access to geolocation in the device settings";
-
 "location_services_disabled_1" = "1. Open Settings";
-
 "location_services_disabled_2" = "2. Tap Location";
 
 /* iOS Dialog for the case when the location permission is not granted */
 "location_services_disabled_3" = "3. Select While Using the App";
-
 "meter" = "m";
-
 "kilometer" = "km";
-
 "kilometers_per_hour" = "km/h";
-
 "mile" = "mi";
-
 "foot" = "ft";
-
 "miles_per_hour" = "mph";
-
 "hour" = "h";
-
 "minute" = "min";
-
 "placepage_place_description" = "Description";
-
 "placepage_more_button" = "More";
-
 "placepage_more_reviews_button" = "Más comentarios";
-
 "book_button" = "Book";
-
 "placepage_call_button" = "Call";
-
 "placepage_edit_bookmark_button" = "Edit Bookmark";
-
 "placepage_bookmark_name_hint" = "Bookmark Name";
-
 "placepage_personal_notes_hint" = "Personal notes";
-
 "placepage_delete_bookmark_button" = "Delete Bookmark";
-
 "editor_edits_sent_message" = "Your suggested changes have been sent";
-
 "editor_comment_hint" = "Comment…";
-
 "editor_reset_edits_message" = "Discard all local changes?";
-
 "editor_reset_edits_button" = "Discard";
-
 "editor_remove_place_message" = "Delete added place?";
-
 "editor_remove_place_button" = "Delete";
-
 "editor_place_doesnt_exist" = "Place does not exist";
-
 "text_more_button" = "…more";
 
 /* Phone number error message */
 "error_enter_correct_phone" = "Enter a valid phone number";
-
 "error_enter_correct_web" = "Enter a valid web address";
-
 "error_enter_correct_email" = "Enter a valid email";
-
 "error_enter_correct_facebook_page" = "Enter a valid Facebook web address, account, or page name";
-
 "error_enter_correct_instagram_page" = "Enter a valid Instagram web address or account name";
-
 "error_enter_correct_twitter_page" = "Enter a valid Twitter web address or username";
-
 "error_enter_correct_vk_page" = "Enter a valid VK web address or account name";
-
 "refresh" = "Update";
-
 "placepage_add_place_button" = "Add a place to the map";
 
 /* Displayed when saving some edits to the map to warn against publishing personal data */
@@ -981,19 +763,15 @@
 
 /* iOS Dialog before publishing the modifications to the public map. */
 "editor_share_to_all_dialog_message_1" = "Make sure you did not enter any personal data.";
-
 "editor_share_to_all_dialog_message_2" = "We will check the changes. If we have any questions we will contact you via email.";
-
 "navigation_stop_button" = "stop";
 
 /* iOS dialog for the case when recent track recording is on and the app comes back from background */
 "recent_track_background_dialog_title" = "Disable recording of your recently traveled route?";
-
 "off_recent_track_background_button" = "Disable";
 
 /* For sharing via SMS and so on */
 "sharing_call_action_look" = "Check out";
-
 "recent_track_background_dialog_message" = "Organic Maps uses your geoposition in the background for recording your recently traveled route.";
 
 /* Rate on Google Play (Android only) */
@@ -1007,7 +785,6 @@
 
 /* About short text (below logo) */
 "about_description" = "Organic Maps is an essential offline application for travelling. Organic Maps is based on OpenStreetMap data and allows editing it.";
-
 "general_settings" = "General settings";
 
 /* For the first routing */
@@ -1018,27 +795,16 @@
 
 /* noun */
 "search_in_table" = "List";
-
 "mobile_data_dialog" = "Use mobile internet to show detailed information?";
-
 "mobile_data_option_always" = "Use Always";
-
 "mobile_data_option_today" = "Only Today";
-
 "mobile_data_option_not_today" = "Do not Use Today";
-
 "mobile_data" = "Mobile Internet";
-
 "mobile_data_description" = "Mobile internet is required for displaying detailed information about places, such as photographs, prices and reviews.";
-
 "mobile_data_option_never" = "Never Use";
-
 "mobile_data_option_ask" = "Always Ask";
-
 "traffic_update_maps_text" = "To display traffic data, maps must be updated.";
-
 "big_font" = "Increase font size on the map";
-
 "traffic_update_app" = "Please update Organic Maps";
 
 /* "traffic" as in road congestion */
@@ -1046,284 +812,149 @@
 
 /* "traffic" as in "road congestion" */
 "traffic_data_unavailable" = "Traffic data is not available";
-
 "enable_logging" = "Enable logging";
 
 /* Settings: "Send general feedback" button */
 "feedback_general" = "General Feedback";
-
 "on" = "On";
-
 "off" = "Off";
-
 "prefs_languages_information" = "We use system TTS for voice instructions. Many Android devices use Google TTS, you can download or update it from Google Play (https://play.google.com/store/apps/details?id=com.google.android.tts)";
-
 "prefs_languages_information_off" = "For some languages, you will need to install a speech synthesizer or an additional language pack from the app store (Google Play Market, Samsung Apps).\nOpen your device's settings → Language and input → Speech → Text to speech output.\nHere you can manage settings for speech synthesis (for example, download language pack for offline use) and select another text-to-speech engine.";
-
 "prefs_languages_information_off_link" = "For more information please check this guide.";
-
 "transliteration_title" = "Transliteración al alfabeto latino";
-
 "learn_more" = "Learn more";
-
 "core_exit" = "Exit";
-
 "routing_add_start_point" = "Add a starting point to plan a route";
-
 "routing_add_finish_point" = "Add a destination to plan a route";
-
 "button_exit" = "Exit";
-
 "planning_route_manage_route" = "Manage Route";
-
 "button_plan" = "Plan";
-
 "placepage_remove_stop" = "Remove";
-
 "planning_route_remove_title" = "Drag here to remove";
-
 "placepage_add_stop" = "Add Stop";
-
 "start_from_my_position" = "Start from";
-
 "profile_authorization_error" = "Oops, there was an error. Try to sign in again.";
-
 "dialog_error_storage_title" = "Problema de acceso al almacenamiento";
-
 "dialog_error_storage_message" = "El almacenamiento externo no está disponible. Es posible que se haya quitado o dañado la tarjeta SD, o que el sistema de archivos solo permita la lectura. Revíselo y escríbanos a support@organicmaps.app";
-
 "setting_emulate_bad_storage" = "Emular el almacenamiento dañado";
-
 "core_entrance" = "Entrada";
-
 "error_enter_correct_name" = "Introduzca el nombre correcto";
-
 "bookmarks_groups" = "Listas";
-
 "bookmarks_groups_hide_all" = "Ocultar todo";
-
 "bookmarks_groups_show_all" = "Mostrar todo";
-
 "bookmarks_create_new_group" = "Crear lista nueva";
 
 /* Bookmark categories screen */
 "bookmarks_import" = "Import bookmarks";
-
 "downloader_hide_screen" = "Ocultar pantalla";
-
 "downloader_percent" = "%s (%s de %s)";
-
 "downloader_process" = "Descargando %s…";
-
 "downloader_applying" = "Aplicando %s…";
-
 "bookmarks_error_message_share_general" = "No se puede compartir debido a un error de la aplicación";
-
 "bookmarks_error_title_share_empty" = "Error al compartir";
-
 "bookmarks_error_message_share_empty" = "No se puede compartir una lista vacía";
-
 "bookmarks_error_title_empty_list_name" = "El nombre no puede quedar vacío";
-
 "bookmarks_error_message_empty_list_name" = "Escriba el nombre";
-
 "bookmarks_new_list_hint" = "Lista nueva";
-
 "bookmarks_error_title_list_name_already_taken" = "Este nombre ya está en uso";
-
 "bookmarks_error_message_list_name_already_taken" = "Por favor elige otro nombre";
-
 "bookmarks_error_title_list_name_too_long" = "Este nombre es demasiado largo";
-
 "please_wait" = "Por favor, espere…";
-
 "phone_number" = "Phone number";
-
 "profile" = "OpenStreetMap profile";
-
 "bookmarks_detect_title" = "Se detectaron archivos nuevos";
-
 "button_convert" = "Convertir";
-
 "bookmarks_convert_error_title" = "Error";
-
 "bookmarks_convert_error_message" = "Algunos archivos no se convirtieron.";
-
 "bookmarks_restore_title" = "¿Está seguro que desea restaurar esta versión?";
-
 "common_check_internet_connection_dialog_title" = "Sin conexión a Internet";
-
 "error_system_message" = "Ocurrió un error desconocido";
-
 "restore" = "Restaurar";
-
 "subtittle_opt_out" = "Configuraciones de rastreo";
-
 "crash_reports" = "Reporte de fallas";
-
 "crash_reports_description" = "Puede que utilicemos sus datos para mejorar la experiencia de Organic Maps. Los cambios surtirán efecto después de que reinicie la aplicación.";
-
 "privacy_policy" = "Política de Privacidad";
-
 "terms_of_use" = "Términos de uso";
-
 "button_layer_traffic" = "Tráfico";
-
 "button_layer_subway" = "Metro";
-
 "layers_title" = "Capas del mapa";
-
 "subway_data_unavailable" = "El mapa del metro no está disponible";
-
 "bookmarks_empty_list_title" = "Esta lista está vacía";
-
 "bookmarks_empty_list_message" = "Para añadir un marcador, toque un lugar en el mapa y después toque el ícono de estrella";
-
 "category_desc_more" = "…más";
-
 "title_error_downloading_bookmarks" = "Ocurrió un error";
-
 "popular_place" = "Popular";
-
 "export_file" = "Exportar archivo";
-
 "list_settings" = "Ajustes de lista";
-
 "delete_list" = "Eliminar lista";
-
 "hide_from_map" = "Ocultar del mapa";
-
 "public_access" = "Acceso público";
-
 "limited_access" = "Acceso limitado";
-
 "bookmark_category_name" = "Category";
-
 "bookmark_category_description_hint" = "Introduzca una descripción (texto o html)";
-
 "not_shared" = "Privado";
-
 "tags_loading_error_subtitle" = "Ocurrió un error al cargar las etiquetas, por favor intente de nuevo";
-
 "download_button" = "Descargar";
-
 "speedcams_alert_title" = "Cámaras de velocidad";
-
 "speedcam_option_auto" = "Automático";
-
 "speedcam_option_always" = "Siempre";
-
 "speedcam_option_never" = "Nunca";
-
 "place_description_title" = "Descripción de lugares";
 
 /* this text will be shown in application notification preferences opposite checkbox which enable/disable downloader notifications. Devices on Android 8+ are affected. */
 "notification_channel_downloader" = "Descargar mapas";
-
 "speedcams_notice_message" = "Automático - Aviso de las cámaras de velocidad si existe el riesgo de exceder el límite de velocidad\nSiempre - Siempre dar aviso de las cámaras de velocidad\nNunca - Nunca dar aviso de las cámaras de velocidad";
-
 "power_managment_title" = "Modo de ahorro de energía";
-
 "power_managment_description" = "Si el modo de ahorro de energía está activado, la aplicación desactivará las funciones de ahorro de energía, en función de la carga actual del teléfono";
-
 "power_managment_setting_never" = "Nunca";
-
 "power_managment_setting_auto" = "Automático";
-
 "power_managment_setting_manual_max" = "Máximo ahorro de energía";
-
 "enable_logging_warning_message" = "Esta opción está habilitada para las acciones de registro con fines de diagnóstico. Esto ayuda a nuestro equipo a identificar problemas con la aplicación. Habilite la opción solo a petición del apoyo de Organic Maps.";
-
 "access_rules_author_only" = "Se edita en línea";
-
 "driving_options_title" = "Ajustes de desvío";
-
 "driving_options_subheader" = "Evitar en cada ruta";
-
 "avoid_tolls" = "Carreteras de peaje";
-
 "avoid_unpaved" = "Caminos de tierra";
-
 "avoid_ferry" = "Cruces de ferri";
-
 "avoid_motorways" = "Autopistas";
-
 "unable_to_calc_alert_title" = "No se puede construir una ruta";
-
 "unable_to_calc_alert_subtitle" = "Desafortunadamente, no pudimos construir una ruta con las opciones seleccionadas. Cambie la configuración y vuelva a intentarlo";
-
 "define_to_avoid_btn" = "Configurar rutas de desvío";
-
 "change_driving_options_btn" = "Ajustes de desvío habilitados";
-
 "toll_road" = "Carretera de peaje";
-
 "unpaved_road" = "Camino de tierra";
-
 "ferry_crossing" = "Cruce de ferri";
-
 "avoid_toll_roads_placepage" = "Evitar las carreteras de peaje";
-
 "avoid_unpaved_roads_placepage" = "Evitar los caminos de tierra";
-
 "avoid_ferry_crossing_placepage" = "Evitar los trasbordadores de ferri";
-
 "trip_start" = "Vamos";
-
 "pick_destination" = "Objetivo";
-
 "follow_my_position" = "Centrar";
-
 "search_results" = "Resultados de la búsqueda";
-
 "then_turn" = "Después";
-
 "redirect_route_alert" = "¿Quiere reconstruir la ruta?";
-
 "redirect_route_yes" = "Si";
-
 "redirect_route_no" = "No";
-
 "trip_finished" = "¡Ya llegó!";
-
 "keyboard_availability_alert" = "El teclado no está disponible durante el movimiento";
-
 "dialog_routing_change_start_carplay" = "No se puede construir una ruta desde la ubicación actual";
-
 "dialog_routing_change_end_carplay" = "No se puede construir una ruta hasta el punto final. Seleccione otra";
-
 "dialog_routing_check_gps_carplay" = "No hay señal de GPS. Vaya a una zona abierta";
-
 "dialog_routing_unable_locate_route_carplay" = "No se puede construir una ruta. Seleccione otros puntos de ruta";
-
 "dialog_routing_download_files_carplay" = "Al construir ruta, descargue los mapas ausentes en su dispositivo";
-
 "dialog_routing_system_error_carplay" = "Ocurrió un error. Reinicie la aplicación";
-
 "dialog_routing_rebuild_from_current_location_carplay" = "La ruta se reconstruirá desde su ubicación actual";
-
 "dialog_routing_rebuild_for_vehicle_carplay" = "La ruta se cambiará a en auto";
-
 "ok" = "Ok";
-
 "avoid_unpaved_carplay_1" = "Sin de grava";
-
 "avoid_unpaved_carplay_2" = "Sin de grava";
-
 "avoid_ferry_carplay_1" = "Sin ferri";
-
 "avoid_ferry_carplay_2" = "Sin ferri";
-
 "avoid_tolls_carplay_1" = "Sin peaje";
-
 "avoid_tolls_carplay_2" = "Sin peaje";
-
 "speedcams_alert_title_carplay_1" = "Cám.velocid.";
-
 "speedcams_alert_title_carplay_2" = "Alerta velocid.";
-
 "download_map_carplay" = "Descargue mapas en la aplicación Organic Maps en su dispositivo";
-
 "carplay_roundabout_exit" = "%s desviación";
 
 /* max. 10 symbols, both iOS and Android */
@@ -1334,11 +965,8 @@
 
 /* iOS */
 "sort_default" = "Ordenar por defecto";
-
 "sort_type" = "Ordenar por tipo";
-
 "sort_distance" = "Ordenar por distancia";
-
 "sort_date" = "Ordenar por fecha";
 
 /* Android */
@@ -1352,103 +980,54 @@
 
 /* Android */
 "by_date" = "Por fecha";
-
 "week_ago_sorttype" = "Hace una semana";
-
 "month_ago_sorttype" = "Hace un mes";
-
 "moremonth_ago_sorttype" = "Hace más de un mes";
-
 "moreyear_ago_sorttype" = "Hace más de un año";
-
 "near_me_sorttype" = "Cerca a mí";
-
 "others_sorttype" = "Otros";
-
 "food_places" = "Comida";
-
 "tourist_places" = "Sitios de interés";
-
 "museums" = "Museos";
-
 "parks" = "Parques";
-
 "swim_places" = "Natación";
-
 "mountains" = "Montañas";
-
 "animals" = "Animales";
-
 "hotels" = "Hoteles";
-
 "buildings" = "Edificios";
-
 "money" = "Dinero";
-
 "shops" = "Comercio";
-
 "parkings" = "Aparcamientos";
-
 "fuel_places" = "Gasolinería";
-
 "water" = "Agua";
-
 "medicine" = "Medicina";
-
 "search_in_the_list" = "Buscar en la lista";
-
 "religious_places" = "Sitios religiosos";
-
 "select_list" = "Seleccionar lista";
-
 "transit_not_found" = "Navegación por metro aún no disponible en esta región";
-
 "dialog_pedestrian_route_is_long_header" = "Ruta de metro no encontrada";
-
 "dialog_pedestrian_route_is_long_message" = "Elija el punto de inicio o fin de ruta más cercano al metro";
-
 "button_layer_isolines" = "Alturas";
-
 "isolines_activation_error_dialog" = "Para usar la altitud de relieve, actualice o descargue el mapa del área deseada";
-
 "isolines_location_error_dialog" = "La altitud de relieve no está aún disponible en esta región";
-
 "elevation_profile_diff_level" = "Nivel de dificultad";
-
 "elevation_profile_diff_level_easy" = "Fácil";
-
 "elevation_profile_diff_level_moderate" = "Moderado";
-
 "elevation_profile_diff_level_hard" = "Difícil";
-
 "elevation_profile_ascent" = "Ascenso";
-
 "elevation_profile_descent" = "Descenso";
-
 "elevation_profile_minaltitude" = "Altura mínima";
-
 "elevation_profile_maxaltitude" = "Altura máxima";
-
 "elevation_profile_difficulty" = "Dificultad";
-
 "elevation_profile_distance" = "Distancia";
-
 "elevation_profile_time" = "Lapso:";
-
 "isolines_toast_zooms_1_10" = "Amplíe el mapa para ver las isolíneas";
-
 "downloader_updating_ios" = "Actualización";
-
 "downloader_loading_ios" = "Cargando";
-
 "key_information_title" = "Información clave";
-
 "download_map_title" = "Download the world map";
-
 "connection_failure" = "Connection failure";
-
 "disconnect_usb_cable_title" = "Disconnect USB cable";
-
 "enable_screen_sleep" = "Allow screen to sleep";
 
 /* Description in preferences */
@@ -1482,1781 +1061,892 @@
 /********** Types **********/
 
 "type.aerialway" = "Aerialway";
-
 "type.aerialway.cable_car" = "Aerialway";
-
 "type.aerialway.chair_lift" = "Aerialway";
-
 "type.aerialway.drag_lift" = "Aerialway";
-
 "type.aerialway.gondola" = "Aerialway";
-
 "type.aerialway.mixed_lift" = "Aerialway";
-
 "type.aerialway.station" = "Aerialway Station";
-
 "type.aeroway" = "Aeroway";
-
 "type.aeroway.aerodrome" = "Airport";
-
 "type.aeroway.aerodrome.international" = "Airport";
-
 "type.aeroway.apron" = "aeroway-apron";
-
 "type.aeroway.gate" = "Gate";
-
 "type.aeroway.helipad" = "Helipad";
-
 "type.aeroway.runway" = "aeroway-runway";
-
 "type.aeroway.taxiway" = "aeroway-taxiway";
-
 "type.aeroway.terminal" = "Terminal";
-
 "type.amenity" = "Infraestructura";
-
 "type.amenity.arts_centre" = "Centro de artes";
-
 "type.amenity.atm" = "ATM";
-
 "type.amenity.bank" = "Bank";
-
 "type.amenity.bar" = "Bar";
-
 "type.amenity.bbq" = "Picnic Site";
-
 "type.amenity.bench" = "Bench";
-
 "type.amenity.bicycle_parking" = "Bicycle Parking";
-
 "type.amenity.bicycle_rental" = "Bicycle Rental";
-
 "type.amenity.biergarten" = "Biergarten";
-
 "type.amenity.brothel" = "Brothel";
-
 "type.amenity.bureau_de_change" = "Currency Exchange";
-
 "type.amenity.bus_station" = "Bus Station";
-
 "type.amenity.cafe" = "Cafe";
-
 "type.amenity.car_rental" = "Car Rental";
-
 "type.amenity.car_sharing" = "Car Sharing";
-
 "type.amenity.car_wash" = "Car Wash";
-
 "type.amenity.casino" = "Casino";
-
 "type.amenity.charging_station" = "Charging Station";
-
 "type.amenity.childcare" = "Nursery";
-
 "type.amenity.cinema" = "Cinema";
-
 "type.amenity.clinic" = "Clinic";
-
 "type.amenity.college" = "College";
-
 "type.amenity.community_centre" = "Community Centre";
-
 "type.amenity.courthouse" = "Courthouse";
-
 "type.amenity.dentist" = "Dentist";
-
 "type.amenity.doctors" = "Doctor";
-
 "type.amenity.drinking_water" = "Drinking Water";
-
 "type.amenity.driving_school" = "Driving School";
-
 "type.office.diplomatic" = "Embassy";
-
 "type.amenity.fast_food" = "Fast Food";
-
 "type.amenity.ferry_terminal" = "Ferry";
-
 "type.amenity.fire_station" = "Fire Station";
-
 "type.amenity.food_court" = "Food Court";
-
 "type.amenity.fountain" = "Fountain";
-
 "type.amenity.fuel" = "Gas Station";
-
 "type.amenity.grave_yard" = "Graveyard";
-
 "type.amenity.grave_yard.christian" = "Graveyard";
-
 "type.amenity.hospital" = "Hospital";
-
 "type.amenity.hunting_stand" = "Hunting Stand";
-
 "type.amenity.ice_cream" = "Ice Cream Stand";
-
 "type.amenity.internet_cafe" = "Internet Cafe";
-
 "type.amenity.kindergarten" = "Kindergarten";
-
 "type.amenity.library" = "Library";
-
 "type.amenity.marketplace" = "Marketplace";
-
 "type.amenity.motorcycle_parking" = "Motorcycle Parking";
-
 "type.amenity.nightclub" = "Nightclub";
-
 "type.amenity.nursing_home" = "Nursing Home";
-
 "type.amenity.parking" = "Parking";
-
 "type.amenity.parking.fee" = "Parking";
-
 "type.amenity.parking.multi.storey" = "Parking";
-
 "type.amenity.parking.no.access" = "Parking";
-
 "type.amenity.parking.park_and_ride" = "Parking";
-
 "type.amenity.parking.permissive" = "Parking";
-
 "type.amenity.parking.private" = "Parking";
-
 "type.amenity.parking.underground" = "Parking";
-
 "type.amenity.parking_space" = "Plaza de aparcamiento";
-
 "type.amenity.parking_space.permissive" = "Plaza de aparcamiento";
-
 "type.amenity.parking_space.private" = "Plaza de aparcamiento";
-
 "type.amenity.parking_space.underground" = "Plaza de aparcamiento";
-
 "type.amenity.payment_terminal" = "Payment Terminal";
-
 "type.amenity.pharmacy" = "Pharmacy";
-
 "type.amenity.place_of_worship" = "Place of Worship";
-
 "type.amenity.place_of_worship.buddhist" = "Temple";
-
 "type.amenity.place_of_worship.christian" = "Church";
-
 "type.amenity.place_of_worship.hindu" = "Temple";
-
 "type.amenity.place_of_worship.jewish" = "Synagogue";
-
 "type.amenity.place_of_worship.muslim" = "Mosque";
-
 "type.amenity.place_of_worship.shinto" = "Shrine";
-
 "type.amenity.place_of_worship.taoist" = "Temple";
-
 "type.amenity.police" = "Police";
-
 "type.amenity.post_box" = "Postbox";
-
 "type.amenity.post_office" = "Oficina de correos";
-
 "type.amenity.prison" = "Prison";
-
 "type.amenity.pub" = "Pub";
-
 "type.amenity.public_bookcase" = "Book Exchange";
-
 "type.amenity.recycling" = "Recycling Center";
-
 "type.amenity.recycling_container" = "Contenedor de reciclaje";
-
 "type.recycling.toxic" = "Desechos tóxicos";
-
 "type.recycling.clothes" = "Ropa vieja";
-
 "type.recycling.glass_bottles" = "Envase de vidrio";
-
 "type.recycling.paper" = "Desechos de papel";
-
 "type.recycling.plastic" = "Desechos de plástico";
-
 "type.recycling.plastic_bottles" = "Botellas de plástico";
-
 "type.recycling.scrap_metal" = "Desechos de metal";
-
 "type.recycling.small_appliances" = "Desechos electrónicos";
-
 "type.amenity.restaurant" = "Restaurant";
-
 "type.amenity.school" = "School";
-
 "type.amenity.shelter" = "Shelter";
-
 "type.amenity.shower" = "Shower";
-
 "type.amenity.taxi" = "Taxi";
-
 "type.amenity.telephone" = "Phone";
-
 "type.amenity.theatre" = "Theatre";
-
 "type.amenity.toilets" = "Toilet";
-
 "type.amenity.townhall" = "Town Hall";
-
 "type.amenity.university" = "University";
-
 "type.amenity.vending_machine" = "Vending Machine";
-
 "type.amenity.vending_machine.cigarettes" = "Cigarette Dispenser";
-
 "type.amenity.vending_machine.drinks" = "Drink Dispenser";
-
 "type.amenity.vending_machine.parking_tickets" = "Parking Tickets";
-
 "type.amenity.vending_machine.public_transport_tickets" = "Máquina expendedora de billetes de transporte público";
-
 "type.amenity.veterinary" = "Veterinary Doctor";
-
 "type.amenity.waste_basket" = "Trash Bin";
-
 "type.amenity.waste_disposal" = "Dumpster";
-
 "type.amenity.water_point" = "Water Point";
-
 "type.barrier" = "Barrier";
-
 "type.barrier.block" = "Block";
-
 "type.barrier.bollard" = "Pillar";
-
 "type.barrier.border_control" = "Border Control";
-
 "type.barrier.chain" = "Chain";
-
 "type.barrier.city_wall" = "City Wall";
-
 "type.barrier.cycle_barrier" = "Cycle Barrier";
-
 "type.barrier.entrance" = "Entrance";
-
 "type.barrier.fence" = "Fence";
-
 "type.barrier.gate" = "Gate";
-
 "type.barrier.hedge" = "Hedge";
-
 "type.barrier.lift_gate" = "Lift Gate";
-
 "type.barrier.retaining_wall" = "Retaining Wall";
-
 "type.barrier.stile" = "Stile";
-
 "type.barrier.swing_gate" = "Swing Gate";
-
 "type.barrier.toll_booth" = "Toll Booth";
-
 "type.barrier.wall" = "Wall";
-
 "type.boundary" = "Boundary";
-
 "type.boundary.administrative" = "boundary-administrative";
-
 "type.boundary.administrative.10" = "boundary-administrative-10";
-
 "type.boundary.administrative.11" = "boundary-administrative-11";
-
 "type.boundary.administrative.2" = "boundary-administrative-2";
-
 "type.boundary.administrative.3" = "boundary-administrative-3";
-
 "type.boundary.administrative.4" = "boundary-administrative-4";
-
 "type.boundary.administrative.4.state" = "boundary-administrative-4-state";
-
 "type.boundary.administrative.5" = "boundary-administrative-5";
-
 "type.boundary.administrative.6" = "boundary-administrative-6";
-
 "type.boundary.administrative.7" = "boundary-administrative-7";
-
 "type.boundary.administrative.8" = "boundary-administrative-8";
-
 "type.boundary.administrative.9" = "boundary-administrative-9";
-
 "type.boundary.administrative.city" = "boundary-administrative-city";
-
 "type.boundary.administrative.country" = "boundary-administrative-country";
-
 "type.boundary.administrative.county" = "boundary-administrative-county";
-
 "type.boundary.administrative.municipality" = "boundary-administrative-municipality";
-
 "type.boundary.administrative.nation" = "boundary-administrative-nation";
-
 "type.boundary.administrative.region" = "boundary-administrative-region";
-
 "type.boundary.administrative.state" = "boundary-administrative-state";
-
 "type.boundary.administrative.suburb" = "boundary-administrative-suburb";
-
 "type.boundary.national_park" = "Parque nacional";
-
 "type.building" = "Building";
-
 "type.building.address" = "Building";
-
 "type.building.garage" = "Garage";
-
 "type.building.has_parts" = "Building";
-
 "type.building.train_station" = "Train Station";
-
 "type.building.warehouse" = "Warehouse";
-
 "type.craft" = "Craft";
-
 "type.craft.brewery" = "Craft Brewery";
-
 "type.craft.carpenter" = "Carpenter";
-
 "type.craft.electrician" = "Electrician";
-
 "type.craft.gardener" = "Gardener";
-
 "type.craft.hvac" = "Hvac";
-
 "type.craft.metal_construction" = "Metal Worker";
-
 "type.craft.painter" = "Painter";
-
 "type.craft.photographer" = "Photographer";
-
 "type.craft.plumber" = "Plumber";
-
 "type.craft.shoemaker" = "Shoe Repair";
-
 "type.craft.tailor" = "Tailor";
-
 "type.cuisine.african" = "African";
-
 "type.cuisine.american" = "American";
-
 "type.cuisine.arab" = "Arab";
-
 "type.cuisine.argentinian" = "Argentinian";
-
 "type.cuisine.asian" = "Asian";
-
 "type.cuisine.austrian" = "Austrian";
-
 "type.cuisine.bagel" = "Bagel";
-
 "type.cuisine.balkan" = "Balkan";
-
 "type.cuisine.barbecue" = "Barbecue";
-
 "type.cuisine.bavarian" = "Bavarian";
-
 "type.cuisine.beef_bowl" = "Beef Bowl";
-
 "type.cuisine.brazilian" = "Brazilian";
-
 "type.cuisine.breakfast" = "Breakfast";
-
 "type.cuisine.burger" = "Burger";
-
 "type.cuisine.buschenschank" = "Buschenschank";
-
 "type.cuisine.cake" = "Cake";
-
 "type.cuisine.caribbean" = "Caribbean";
-
 "type.cuisine.chicken" = "Chicken";
-
 "type.cuisine.chinese" = "Chinese";
-
 "type.cuisine.coffee_shop" = "Coffee";
-
 "type.cuisine.crepe" = "Crepe";
-
 "type.cuisine.croatian" = "Croatian";
-
 "type.cuisine.curry" = "Curry";
-
 "type.cuisine.deli" = "Deli";
-
 "type.cuisine.diner" = "Diner";
-
 "type.cuisine.donut" = "Donut";
-
 "type.cuisine.ethiopian" = "Ethiopian";
-
 "type.cuisine.filipino" = "Filipino";
-
 "type.cuisine.fine_dining" = "Fine Dining";
-
 "type.cuisine.fish" = "Fish";
-
 "type.cuisine.fish_and_chips" = "Fish and Chips";
-
 "type.cuisine.french" = "French";
-
 "type.cuisine.friture" = "Friture";
-
 "type.cuisine.georgian" = "Georgian";
-
 "type.cuisine.german" = "German";
-
 "type.cuisine.greek" = "Greek";
-
 "type.cuisine.grill" = "Grill";
-
 "type.cuisine.heuriger" = "Heuriger";
-
 "type.cuisine.hotdog" = "Hotdog";
-
 "type.cuisine.hungarian" = "Hungarian";
-
 "type.cuisine.ice_cream" = "Ice Cream";
-
 "type.cuisine.indian" = "Indian";
-
 "type.cuisine.indonesian" = "Indonesian";
-
 "type.cuisine.international" = "International";
-
 "type.cuisine.irish" = "Irish";
-
 "type.cuisine.italian" = "Italian";
-
 "type.cuisine.italian_pizza" = "Italian, Pizza";
-
 "type.cuisine.japanese" = "Japanese";
-
 "type.cuisine.kebab" = "Kebab";
-
 "type.cuisine.korean" = "Korean";
-
 "type.cuisine.lao" = "Lao";
-
 "type.cuisine.lebanese" = "Lebanese";
-
 "type.cuisine.local" = "Local";
-
 "type.cuisine.malagasy" = "Malagasy";
-
 "type.cuisine.malaysian" = "Malaysian";
-
 "type.cuisine.mediterranean" = "Mediterranean";
-
 "type.cuisine.mexican" = "Mexican";
-
 "type.cuisine.moroccan" = "Moroccan";
-
 "type.cuisine.noodles" = "Noodles";
-
 "type.cuisine.oriental" = "Far Eastern";
-
 "type.cuisine.pancake" = "Pancake";
-
 "type.cuisine.pasta" = "Pasta";
-
 "type.cuisine.persian" = "Persian";
-
 "type.cuisine.peruvian" = "Peruvian";
-
 "type.cuisine.pizza" = "Pizza";
-
 "type.cuisine.polish" = "Polish";
-
 "type.cuisine.portuguese" = "Portuguese";
-
 "type.cuisine.ramen" = "Ramen";
-
 "type.cuisine.regional" = "Regional";
-
 "type.cuisine.russian" = "Russian";
-
 "type.cuisine.sandwich" = "Sandwich";
-
 "type.cuisine.sausage" = "Sausage";
-
 "type.cuisine.savory_pancakes" = "Savory Pancakes";
-
 "type.cuisine.seafood" = "Seafood";
-
 "type.cuisine.soba" = "Soba";
-
 "type.cuisine.spanish" = "Spanish";
-
 "type.cuisine.steak_house" = "Steak House";
-
 "type.cuisine.sushi" = "Sushi";
-
 "type.cuisine.tapas" = "Tapas";
-
 "type.cuisine.tea" = "Tea";
-
 "type.cuisine.thai" = "Thai";
-
 "type.cuisine.turkish" = "Turkish";
-
 "type.cuisine.vegan" = "Vegan";
-
 "type.cuisine.vegetarian" = "Vegetarian";
-
 "type.cuisine.vietnamese" = "Vietnamese";
-
 "type.emergency" = "Emergency";
-
 "type.emergency.defibrillator" = "Defibrillator";
-
 "type.emergency.fire_hydrant" = "Fire Hydrant";
-
 "type.emergency.phone" = "Emergency Phone";
-
 "type.entrance" = "Entrance";
-
 "type.healthcare.laboratory" = "Medical Laboratory";
-
 "type.highway" = "Highway";
-
 "type.highway.bridleway" = "Rider's Path";
-
 "type.highway.bridleway.bridge" = "Rider's Path";
-
 "type.highway.bridleway.permissive" = "Rider's Path";
-
 "type.highway.bridleway.tunnel" = "Rider's Path";
-
 "type.highway.bus_stop" = "Bus Stop";
-
 "type.highway.construction" = "Carretera en construcción";
-
 "type.highway.cycleway" = "Bike Path";
-
 "type.highway.cycleway.bridge" = "Bike Path";
-
 "type.highway.cycleway.permissive" = "Bike Path";
-
 "type.highway.cycleway.tunnel" = "Bike Path";
-
 "type.highway.elevator" = "Elevator";
-
 "type.highway.footway" = "Path";
-
 "type.highway.footway.alpine_hiking" = "Path";
-
 "type.highway.footway.area" = "Path";
-
 "type.highway.footway.bridge" = "Path";
-
 "type.highway.footway.demanding_alpine_hiking" = "Path";
-
 "type.highway.footway.demanding_mountain_hiking" = "Path";
-
 "type.highway.footway.difficult_alpine_hiking" = "Path";
-
 "type.highway.footway.hiking" = "Path";
-
 "type.highway.footway.mountain_hiking" = "Path";
-
 "type.highway.footway.permissive" = "Path";
-
 "type.highway.footway.tunnel" = "Path";
-
 "type.highway.ford" = "Vado (de lugar)";
-
 "type.highway.living_street" = "Street";
-
 "type.highway.living_street.bridge" = "Street";
-
 "type.highway.living_street.tunnel" = "Street";
-
 "type.highway.motorway" = "Street";
-
 "type.highway.motorway.bridge" = "Street";
-
 "type.highway.motorway.tunnel" = "Street";
-
 "type.highway.motorway_junction" = "Exit";
-
 "type.highway.motorway_link" = "Street";
-
 "type.highway.motorway_link.bridge" = "Street";
-
 "type.highway.motorway_link.tunnel" = "Street";
-
 "type.highway.path" = "Path";
-
 "type.highway.path.alpine_hiking" = "Path";
-
 "type.highway.path.bicycle" = "Path";
-
 "type.highway.path.bridge" = "Path";
-
 "type.highway.path.demanding_alpine_hiking" = "Path";
-
 "type.highway.path.demanding_mountain_hiking" = "Path";
-
 "type.highway.path.difficult_alpine_hiking" = "Path";
-
 "type.highway.path.hiking" = "Path";
-
 "type.highway.path.horse" = "Path";
-
 "type.highway.path.mountain_hiking" = "Path";
-
 "type.highway.path.permissive" = "Path";
-
 "type.highway.path.tunnel" = "Path";
-
 "type.highway.pedestrian" = "Street";
-
 "type.highway.pedestrian.area" = "Street";
-
 "type.highway.pedestrian.bridge" = "Street";
-
 "type.highway.pedestrian.tunnel" = "Street";
-
 "type.highway.primary" = "Street";
-
 "type.highway.primary.bridge" = "Street";
-
 "type.highway.primary.tunnel" = "Street";
-
 "type.highway.primary_link" = "Street";
-
 "type.highway.primary_link.bridge" = "Street";
-
 "type.highway.primary_link.tunnel" = "Street";
-
 "type.highway.raceway" = "Racetrack";
-
 "type.highway.residential" = "Street";
-
 "type.highway.residential.area" = "Street";
-
 "type.highway.residential.bridge" = "Street";
-
 "type.highway.residential.tunnel" = "Street";
-
 "type.highway.rest_area" = "Highway Rest Area";
-
 "type.highway.road" = "Street";
-
 "type.highway.road.bridge" = "Street";
-
 "type.highway.road.tunnel" = "Street";
-
 "type.highway.secondary" = "Street";
-
 "type.highway.secondary.bridge" = "Street";
-
 "type.highway.secondary.tunnel" = "Street";
-
 "type.highway.secondary_link" = "Street";
-
 "type.highway.secondary_link.bridge" = "Street";
-
 "type.highway.secondary_link.tunnel" = "Street";
-
 "type.highway.service" = "Street";
-
 "type.highway.service.area" = "Street";
-
 "type.highway.service.bridge" = "Street";
-
 "type.highway.service.driveway" = "Street";
-
 "type.highway.service.parking_aisle" = "Street";
-
 "type.highway.service.tunnel" = "Street";
-
 "type.highway.services" = "Service on the Road";
-
 "type.highway.speed_camera" = "Speed Camera";
-
 "type.highway.steps" = "Path";
-
 "type.highway.steps.bridge" = "Path";
-
 "type.highway.steps.tunnel" = "Path";
-
 "type.highway.tertiary" = "Street";
-
 "type.highway.tertiary.bridge" = "Street";
-
 "type.highway.tertiary.tunnel" = "Street";
-
 "type.highway.tertiary_link" = "Street";
-
 "type.highway.tertiary_link.bridge" = "Street";
-
 "type.highway.tertiary_link.tunnel" = "Street";
-
 "type.highway.track" = "Street";
-
 "type.highway.track.area" = "Street";
-
 "type.highway.track.bridge" = "Street";
-
 "type.highway.track.grade1" = "Street";
-
 "type.highway.track.grade2" = "Street";
-
 "type.highway.track.grade3" = "Street";
-
 "type.highway.track.grade4" = "Street";
-
 "type.highway.track.grade5" = "Street";
-
 "type.highway.track.no.access" = "Street";
-
 "type.highway.track.permissive" = "Street";
-
 "type.highway.track.tunnel" = "Street";
-
 "type.highway.traffic_signals" = "Traffic Lights";
-
 "type.highway.trunk" = "Street";
-
 "type.highway.trunk.bridge" = "Street";
-
 "type.highway.trunk.tunnel" = "Street";
-
 "type.highway.trunk_link" = "Street";
-
 "type.highway.trunk_link.bridge" = "Street";
-
 "type.highway.trunk_link.tunnel" = "Street";
-
 "type.highway.unclassified" = "Street";
-
 "type.highway.unclassified.area" = "Street";
-
 "type.highway.unclassified.bridge" = "Street";
-
 "type.highway.unclassified.tunnel" = "Street";
-
 "type.highway.world_level" = "highway-world_level";
-
 "type.highway.world_towns_level" = "highway-world_towns_level";
-
 "type.historic" = "Historic";
-
 "type.historic.archaeological_site" = "Archaeological Site";
-
 "type.historic.battlefield" = "Battlefield";
-
 "type.historic.boundary_stone" = "Boundary Stone";
-
 "type.historic.castle" = "Castle";
-
 "type.historic.castle.defensive" = "Castle";
-
 "type.historic.castle.stately" = "Castle";
-
 "type.historic.citywalls" = "City Wall";
-
 "type.historic.fort" = "Fort";
-
 "type.historic.memorial" = "Memorial";
-
 "type.historic.memorial.plaque" = "Memorial";
-
 "type.historic.memorial.sculpture" = "Memorial";
-
 "type.historic.memorial.statue" = "Memorial";
-
 "type.historic.monument" = "Monument";
-
 "type.historic.ruins" = "Ruins";
-
 "type.historic.ship" = "Ship";
-
 "type.historic.tomb" = "Tomb";
-
 "type.historic.wayside_cross" = "Christian Cross";
-
 "type.historic.wayside_shrine" = "Shrine";
-
 "type.hwtag" = "hwtag";
-
 "type.hwtag.bidir_bicycle" = "hwtag-bidir_bicycle";
-
 "type.hwtag.onedir_bicycle" = "hwtag-onedir_bicycle";
-
 "type.hwtag.lit" = "hwtag-lit";
-
 "type.hwtag.nobicycle" = "hwtag-nobicycle";
-
 "type.hwtag.nocar" = "hwtag-nocar";
-
 "type.hwtag.nofoot" = "hwtag-nofoot";
-
 "type.hwtag.oneway" = "hwtag-oneway";
-
 "type.hwtag.private" = "hwtag-private";
-
 "type.hwtag.toll" = "hwtag-toll";
-
 "type.hwtag.yesbicycle" = "hwtag-yesbicycle";
-
 "type.hwtag.yescar" = "hwtag-yescar";
-
 "type.hwtag.yesfoot" = "hwtag-yesfoot";
-
 "type.internet_access" = "Internet";
-
 "type.internet_access.wlan" = "Internet";
-
 "type.junction" = "Junction";
-
 "type.junction.roundabout" = "Roundabout";
-
 "type.landuse" = "Landuse";
-
 "type.landuse.allotments" = "Allotments";
-
 "type.landuse.basin" = "Water";
-
 "type.landuse.brownfield" = "Brownfield";
-
 "type.landuse.cemetery" = "Graveyard";
-
 "type.landuse.cemetery.christian" = "Christian Graveyard";
-
 "type.landuse.churchyard" = "Camposanto";
-
 "type.landuse.commercial" = "Commercial Area";
-
 "type.landuse.construction" = "Construction";
-
 "type.landuse.farm" = "Farm";
-
 "type.landuse.farmland" = "Terreno agrícola";
-
 "type.landuse.farmyard" = "Farmyard";
-
 "type.landuse.field" = "Field";
-
 "type.landuse.forest" = "Forest";
-
 "type.landuse.forest.coniferous" = "Coniferous Forest";
-
 "type.landuse.forest.deciduous" = "Deciduous Forest";
-
 "type.landuse.forest.mixed" = "Mixed Forest";
-
 "type.landuse.garages" = "Garages";
-
 "type.landuse.grass" = "Césped";
-
 "type.landuse.greenfield" = "Greenfield";
-
 "type.landuse.greenhouse_horticulture" = "Greenhouse";
-
 "type.landuse.industrial" = "Industrial Land";
-
 "type.landuse.landfill" = "Vertedero";
-
 "type.landuse.meadow" = "Meadow";
-
 "type.landuse.military" = "Military Area";
-
 "type.landuse.orchard" = "Orchard";
-
 "type.landuse.quarry" = "Quarry";
-
 "type.landuse.railway" = "Estructuras ferroviarias";
-
 "type.landuse.recreation_ground" = "Recreation Ground";
-
 "type.landuse.reservoir" = "Water";
-
 "type.landuse.residential" = "Residential Land";
-
 "type.landuse.retail" = "Retail Land";
-
 "type.landuse.salt_pond" = "Pond";
-
 "type.landuse.village_green" = "Land";
-
 "type.landuse.vineyard" = "Vineyard";
-
 "type.leisure" = "Leisure";
-
 "type.leisure.common" = "leisure-common";
-
 "type.leisure.dog_park" = "Lugar para pasear al perro";
-
 "type.leisure.fitness_centre" = "Fitness Centre";
-
 "type.leisure.fitness_station" = "Fitness Station";
-
 "type.leisure.garden" = "Garden";
-
 "type.leisure.golf_course" = "Golf Course";
-
 "type.leisure.ice_rink" = "Ice Rink";
-
 "type.leisure.landscape_reserve" = "Landscape Reserve";
-
 "type.leisure.marina" = "Marina";
-
 "type.leisure.nature_reserve" = "Reserva";
-
 "type.leisure.park" = "Parque";
-
 "type.leisure.park.no.access" = "Parque";
-
 "type.leisure.park.permissive" = "Parque";
-
 "type.leisure.park.private" = "Parque";
-
 "type.leisure.picnic_table" = "Picnic Table";
-
 "type.leisure.pitch" = "Sports Ground";
-
 "type.leisure.playground" = "Playground";
-
 "type.leisure.recreation_ground" = "Recreation Ground";
-
 "type.leisure.sauna" = "Sauna";
-
 "type.leisure.slipway" = "Slipway";
-
 "type.leisure.sports_centre" = "Sports Center";
-
 "type.leisure.sports_centre.climbing" = "Climbing Centre";
-
 "type.leisure.sports_centre.shooting" = "Shooting Range";
-
 "type.leisure.sports_centre.swimming" = "Swimming Centre";
-
 "type.leisure.sports_centre.yoga" = "Yoga Studio";
-
 "type.leisure.stadium" = "Stadium";
-
 "type.leisure.swimming_pool" = "Swimming Pool";
-
 "type.leisure.track" = "Track";
-
 "type.leisure.water_park" = "Water Park";
-
 "type.man_made" = "Man Made";
-
 "type.man_made.breakwater" = "Breakwater";
-
 "type.man_made.cairn" = "Cairn";
-
 "type.man_made.chimney" = "Factory Chimney";
-
 "type.man_made.cutline" = "Cutline";
-
 "type.man_made.lighthouse" = "Lighthouse";
-
 "type.man_made.pier" = "Pier";
-
 "type.man_made.pipeline" = "Pipeline";
-
 "type.man_made.pipeline.overground" = "Overground Pipeline";
-
 "type.man_made.silo" = "Silo";
-
 "type.man_made.storage_tank" = "Storage Tank";
-
 "type.man_made.surveillance" = "Surveillance Camera";
-
 "type.man_made.tower" = "Tower";
-
 "type.man_made.wastewater_plant" = "Wastewater Plant";
-
 "type.man_made.water_tap" = "Water Tap";
-
 "type.man_made.water_tower" = "Water Tower";
-
 "type.man_made.water_well" = "Water Well";
-
 "type.man_made.windmill" = "Windmill";
-
 "type.man_made.works" = "Works";
-
 "type.mapswithme" = "mapswithme";
-
 "type.mapswithme.grid" = "mapswithme-grid";
-
 "type.military" = "Military";
-
 "type.military.bunker" = "Bunker";
-
 "type.mountain_pass" = "Mountain Pass";
-
 "type.natural" = "Natural";
-
 "type.natural.bare_rock" = "Bare Rock";
-
 "type.natural.bay" = "Bay";
-
 "type.natural.beach" = "Beach";
-
 "type.natural.cape" = "Cabo";
-
 "type.natural.cave_entrance" = "Cave";
-
 "type.natural.cliff" = "Cliff";
-
 "type.natural.coastline" = "Coastline";
-
 "type.natural.geyser" = "Géiser";
-
 "type.natural.glacier" = "Glaciar";
-
 "type.natural.grassland" = "Campo";
-
 "type.natural.heath" = "Heath";
-
 "type.natural.hot_spring" = "Hot Spring";
-
 "type.natural.water.lake" = "Lake";
-
 "type.natural.land" = "Land";
-
 "type.natural.meadow" = "Meadow";
-
 "type.natural.orchard" = "Orchard";
-
 "type.natural.peak" = "Peak";
-
 "type.natural.saddle" = "Mountain Saddle";
-
 "type.natural.water.pond" = "Pond";
-
 "type.natural.rock" = "Rock";
-
 "type.natural.scrub" = "Maleza";
-
 "type.natural.spring" = "Spring";
-
 "type.natural.strait" = "Estrecho";
-
 "type.natural.tree" = "Tree";
-
 "type.natural.tree_row" = "Tree Row";
-
 "type.natural.vineyard" = "Vineyard";
-
 "type.natural.volcano" = "Volcano";
-
 "type.natural.water" = "Water";
-
 "type.natural.wetland" = "Tierra pantanosa";
-
 "type.natural.wetland.bog" = "Wetland";
-
 "type.natural.wetland.marsh" = "Wetland";
-
 "type.noexit" = "noexit";
-
 "type.noexit.motor_vehicle" = "noexit-motor_vehicle";
-
 "type.office" = "Office";
-
 "type.office.company" = "Company Office";
-
 "type.office.estate_agent" = "Estate Agent";
-
 "type.office.government" = "Government Office";
-
 "type.office.insurance" = "Insurance Office";
-
 "type.office.lawyer" = "Lawyer";
-
 "type.office.ngo" = "NGO Office";
-
 "type.office.telecommunication" = "Mobile Operator";
-
 "type.olympics" = "olympics";
-
 "type.olympics.attraction" = "olympics-attraction";
-
 "type.olympics.bike_sport" = "olympics-bike_sport";
-
 "type.olympics.live_site" = "olympics-live_site";
-
 "type.olympics.official_building" = "olympics-official_building";
-
 "type.olympics.stadium" = "olympics-stadium";
-
 "type.olympics.stadium_main" = "olympics-stadium_main";
-
 "type.olympics.transport_airport" = "olympics-transport_airport";
-
 "type.olympics.transport_boat" = "olympics-transport_boat";
-
 "type.olympics.transport_bus" = "olympics-transport_bus";
-
 "type.olympics.transport_cable" = "olympics-transport_cable";
-
 "type.olympics.transport_railway" = "olympics-transport_railway";
-
 "type.olympics.transport_subway" = "olympics-transport_subway";
-
 "type.olympics.transport_tram" = "olympics-transport_tram";
-
 "type.olympics.water_sport" = "olympics-water_sport";
-
 "type.place" = "place";
-
 "type.place.city" = "City";
-
 "type.place.city.capital" = "Capital";
-
 "type.place.city.capital.10" = "Capital";
-
 "type.place.city.capital.11" = "Capital";
-
 "type.place.city.capital.2" = "Capital";
-
 "type.place.city.capital.3" = "Capital";
-
 "type.place.city.capital.4" = "Capital";
-
 "type.place.city.capital.5" = "Capital";
-
 "type.place.city.capital.6" = "Capital";
-
 "type.place.city.capital.7" = "Capital";
-
 "type.place.city.capital.8" = "Capital";
-
 "type.place.city.capital.9" = "Capital";
-
 "type.place.continent" = "Continent";
-
 "type.place.country" = "Country";
-
 "type.place.county" = "County";
-
 "type.place.farm" = "Farm";
-
 "type.place.hamlet" = "Hamlet";
-
 "type.place.island" = "Island";
-
 "type.place.islet" = "Island";
-
 "type.place.isolated_dwelling" = "Dwelling";
-
 "type.place.locality" = "Locality";
-
 "type.place.neighbourhood" = "Neighbourhood";
-
 "type.place.ocean" = "Ocean";
-
 "type.place.region" = "Region";
-
 "type.place.sea" = "Sea";
-
 "type.place.square" = "Square";
-
 "type.place.state" = "State";
-
 "type.place.state.USA" = "State";
-
 "type.place.suburb" = "Suburb";
-
 "type.place.town" = "Town";
-
 "type.place.village" = "Village";
-
 "type.power" = "Power";
-
 "type.power.generator" = "Generator";
-
 "type.power.line" = "Power Line";
-
 "type.power.line.underground" = "Underground Power Line";
-
 "type.power.minor_line" = "Minor Power Line";
-
 "type.power.pole" = "Power Tower";
-
 "type.power.station" = "Power Station";
-
 "type.power.substation" = "Substation";
-
 "type.power.tower" = "Power Tower";
-
 "type.psurface" = "psurface";
-
 "type.psurface.paved_bad" = "psurface-paved_bad";
-
 "type.psurface.paved_good" = "psurface-paved_good";
-
 "type.psurface.unpaved_bad" = "psurface-unpaved_bad";
-
 "type.psurface.unpaved_good" = "psurface-unpaved_good";
-
 "type.public_transport" = "Public Transport";
-
 "type.public_transport.platform" = "Platform";
-
 "type.railway" = "Railway";
-
 "type.railway.abandoned" = "Abandoned railway";
-
 "type.railway.abandoned.bridge" = "Abandoned railway";
-
 "type.railway.abandoned.tunnel" = "Abandoned railway";
-
 "type.railway.construction" = "Railway's construction";
-
 "type.railway.crossing" = "Railway crossing";
-
 "type.railway.disused" = "Disused railway";
-
 "type.railway.funicular" = "Funicular";
-
 "type.railway.funicular.bridge" = "Funicular";
-
 "type.railway.funicular.tunnel" = "Funicular";
-
 "type.railway.halt" = "Train Station";
-
 "type.railway.level_crossing" = "Cruce de ferrocarril";
-
 "type.railway.light_rail" = "Light Rail";
-
 "type.railway.light_rail.bridge" = "Light Rail";
-
 "type.railway.light_rail.tunnel" = "Light Rail";
-
 "type.railway.monorail" = "Monorraíl";
-
 "type.railway.monorail.bridge" = "Monorail";
-
 "type.railway.monorail.tunnel" = "Monorail";
-
 "type.railway.narrow_gauge" = "Narrow Gauge Rail";
-
 "type.railway.narrow_gauge.bridge" = "Narrow Gauge Rail";
-
 "type.railway.narrow_gauge.tunnel" = "Narrow Gauge Rail";
-
 "type.railway.platform" = "Platform";
-
 "type.railway.preserved" = "Preserved Rail";
-
 "type.railway.preserved.bridge" = "Preserved Rail";
-
 "type.railway.preserved.tunnel" = "Preserved Rail";
-
 "type.railway.rail" = "Línea de ferrocarril";
-
 "type.railway.rail.bridge" = "Railway";
-
 "type.railway.rail.motor_vehicle" = "Railway";
-
 "type.railway.rail.tunnel" = "Railway";
-
 "type.railway.razed" = "Razed Rail";
-
 "type.railway.siding" = "Siding Rail";
-
 "type.railway.siding.bridge" = "Siding Rail";
-
 "type.railway.siding.tunnel" = "Siding Rail";
-
 "type.railway.spur" = "Spur Rail";
-
 "type.railway.spur.bridge" = "Spur Rail";
-
 "type.railway.spur.tunnel" = "Spur Rail";
-
 "type.railway.station" = "Train Station";
-
 "type.railway.station.light_rail" = "Train Station";
-
 "type.railway.station.monorail" = "Train Station";
-
 "type.railway.station.subway" = "Subway";
-
 "type.railway.station.subway.barcelona" = "Subway";
-
 "type.railway.station.subway.berlin" = "Subway";
-
 "type.railway.station.subway.kiev" = "Subway";
-
 "type.railway.station.subway.london" = "Subway";
-
 "type.railway.station.subway.madrid" = "Subway";
-
 "type.railway.station.subway.minsk" = "Subway";
-
 "type.railway.station.subway.moscow" = "Subway";
-
 "type.railway.station.subway.newyork" = "Subway";
-
 "type.railway.station.subway.paris" = "Subway";
-
 "type.railway.station.subway.roma" = "Subway";
-
 "type.railway.station.subway.spb" = "Subway";
-
 "type.railway.subway" = "Subway Line";
-
 "type.railway.subway.bridge" = "Subway Line";
-
 "type.railway.subway.tunnel" = "Subway Line";
-
 "type.railway.subway_entrance" = "Entrada de metro";
-
 "type.railway.subway_entrance.barcelona" = "Subway";
-
 "type.railway.subway_entrance.berlin" = "Subway";
-
 "type.railway.subway_entrance.kiev" = "Subway";
-
 "type.railway.subway_entrance.london" = "Subway";
-
 "type.railway.subway_entrance.madrid" = "Subway";
-
 "type.railway.subway_entrance.minsk" = "Subway";
-
 "type.railway.subway_entrance.moscow" = "Subway";
-
 "type.railway.subway_entrance.newyork" = "Subway";
-
 "type.railway.subway_entrance.paris" = "Subway";
-
 "type.railway.subway_entrance.roma" = "Subway";
-
 "type.railway.subway_entrance.spb" = "Subway";
-
 "type.railway.tram" = "Tram Line";
-
 "type.railway.tram.bridge" = "Tram Line";
-
 "type.railway.tram.tunnel" = "Tram Line";
-
 "type.railway.tram_stop" = "Tram Stop";
-
 "type.railway.yard" = "Railway Yard";
-
 "type.railway.yard.bridge" = "Railway Yard";
-
 "type.railway.yard.tunnel" = "Railway Yard";
-
 "type.route" = "route";
-
 "type.route.ferry" = "Ferry";
-
 "type.route.shuttle_train" = "Shuttle Train";
-
 "type.shop" = "Shop";
-
 "type.shop.alcohol" = "Liquor Store";
-
 "type.shop.bakery" = "Bakery";
-
 "type.shop.beauty" = "Beauty Shop";
-
 "type.shop.beverages" = "Beverages";
-
 "type.shop.bicycle" = "Bicycle Shop";
-
 "type.shop.bookmaker" = "Bookmaker";
-
 "type.shop.books" = "Bookstore";
-
 "type.shop.butcher" = "Butcher’s";
-
 "type.shop.car" = "Car Shop";
-
 "type.shop.car_parts" = "Car Parts";
-
 "type.shop.car_repair" = "Car Repair Shop";
-
 "type.shop.car_repair.tyres" = "Tyre Repair";
-
 "type.shop.chemist" = "Chemist Shop";
-
 "type.shop.chocolate" = "Shop";
-
 "type.shop.clothes" = "Clothes Shop";
-
 "type.shop.coffee" = "Shop";
-
 "type.shop.computer" = "Computer Store";
-
 "type.shop.confectionery" = "Sweets";
-
 "type.shop.convenience" = "Convenience Store";
-
 "type.shop.copyshop" = "Copy Shop";
-
 "type.shop.cosmetics" = "Beauty Care";
-
 "type.shop.department_store" = "Department Store";
-
 "type.shop.doityourself" = "Hardware Store";
-
 "type.shop.dry_cleaning" = "Dry Cleaning";
-
 "type.shop.electronics" = "Electronics";
-
 "type.shop.erotic" = "Erotic Shop";
-
 "type.shop.fabric" = "Shop";
-
 "type.shop.florist" = "Florist’s";
-
 "type.shop.funeral_directors" = "Funeral Directors";
-
 "type.shop.furniture" = "Furniture Store";
-
 "type.shop.garden_centre" = "Garden Store";
-
 "type.shop.gift" = "Gift Shop";
-
 "type.shop.greengrocer" = "Greengrocer's";
-
 "type.shop.hairdresser" = "Hairdresser";
-
 "type.shop.hardware" = "Hardware Store";
-
 "type.shop.jewelry" = "Jewelry";
-
 "type.shop.kiosk" = "Kiosk";
-
 "type.shop.laundry" = "Laundry";
-
 "type.shop.mall" = "Mall";
-
 "type.shop.massage" = "Massage Salon";
-
 "type.shop.mobile_phone" = "Cell Phones";
-
 "type.shop.money_lender" = "Shop";
-
 "type.shop.motorcycle" = "Motorcycle Shop";
-
 "type.shop.music" = "Shop";
-
 "type.shop.musical_instrument" = "Shop";
-
 "type.shop.newsagent" = "Newspaper Stand";
-
 "type.shop.optician" = "Optician’s";
-
 "type.shop.outdoor" = "Outdoor Equipment";
-
 "type.shop.pawnbroker" = "Pawnbroker";
-
 "type.shop.pet" = "Petshop";
-
 "type.shop.photo" = "Photo Shop";
-
 "type.shop.seafood" = "Seafood Shop";
-
 "type.shop.shoes" = "Shoe Store";
-
 "type.shop.sports" = "Sports Goods";
-
 "type.shop.stationery" = "Stationery Shop";
-
 "type.shop.supermarket" = "Supermarket";
-
 "type.shop.tattoo" = "Tattoo Parlour";
-
 "type.shop.tea" = "Shop";
-
 "type.shop.ticket" = "Ticket Shop";
-
 "type.shop.toys" = "Toy Store";
-
 "type.shop.travel_agency" = "Travel Agency";
-
 "type.shop.tyres" = "Tyre Shop";
-
 "type.shop.variety_store" = "Variety Store";
-
 "type.shop.video" = "Tienda de vídeo";
-
 "type.shop.video_games" = "Tienda de videojuegos";
-
 "type.shop.wine" = "Wine Shop";
-
 "type.sponsored" = "sponsored";
-
 "type.sponsored.booking" = "sponsored-booking";
-
 "type.sponsored.holiday" = "Christmas or New Year Celebrations";
-
 "type.sponsored.opentable" = "sponsored-opentable";
-
 "type.sponsored.partner1" = "sponsored-partner1";
-
 "type.sponsored.partner10" = "sponsored-partner10";
-
 "type.sponsored.partner11" = "sponsored-partner11";
-
 "type.sponsored.partner12" = "sponsored-partner12";
-
 "type.sponsored.partner13" = "sponsored-partner13";
-
 "type.sponsored.partner14" = "sponsored-partner14";
-
 "type.sponsored.partner15" = "sponsored-partner15";
-
 "type.sponsored.partner16" = "sponsored-partner16";
-
 "type.sponsored.partner17" = "sponsored-partner17";
-
 "type.sponsored.partner18" = "MegaFon";
-
 "type.sponsored.partner19" = "MegaFon";
-
 "type.sponsored.partner2" = "sponsored-partner2";
-
 "type.sponsored.partner20" = "MegaFon";
-
 "type.sponsored.partner3" = "sponsored-partner3";
-
 "type.sponsored.partner4" = "sponsored-partner4";
-
 "type.sponsored.partner5" = "sponsored-partner5";
-
 "type.sponsored.partner6" = "sponsored-partner6";
-
 "type.sponsored.partner7" = "sponsored-partner7";
-
 "type.sponsored.partner8" = "sponsored-partner8";
-
 "type.sponsored.partner9" = "sponsored-partner9";
-
 "type.sport" = "sport";
-
 "type.sport.american_football" = "American Football";
-
 "type.sport.archery" = "Archery";
-
 "type.sport.athletics" = "Atletismo";
-
 "type.sport.australian_football" = "Rugby";
-
 "type.sport.baseball" = "Baseball";
-
 "type.sport.basketball" = "Baloncesto";
-
 "type.sport.bowls" = "Bowls";
-
 "type.sport.cricket" = "Cricket";
-
 "type.sport.curling" = "Сurling";
-
 "type.sport.diving" = "Diving";
-
 "type.sport.equestrian" = "Deporte hípico";
-
 "type.sport.golf" = "Golf";
-
 "type.sport.gymnastics" = "Gymnastics";
-
 "type.sport.handball" = "Handball";
-
 "type.sport.multi" = "Various Sport";
-
 "type.sport.scuba_diving" = "Scuba Diving";
-
 "type.sport.shooting" = "Shooting";
-
 "type.sport.skiing" = "Skiing";
-
 "type.sport.soccer" = "Soccer (Football)";
-
 "type.sport.swimming" = "Swimming";
-
 "type.sport.tennis" = "Cancha de tenis";
-
 "type.tourism" = "Tourism";
-
 "type.tourism.alpine_hut" = "Mountains Lodging";
-
 "type.tourism.apartment" = "Apartments";
-
 "type.tourism.artwork" = "Artwork";
-
 "type.tourism.artwork.architecture" = "Artwork";
-
 "type.tourism.artwork.painting" = "Artwork";
-
 "type.tourism.artwork.sculpture" = "Artwork";
-
 "type.tourism.artwork.statue" = "Artwork";
-
 "type.tourism.attraction" = "Attraction";
-
 "type.tourism.attraction.animal" = "Attraction";
-
 "type.tourism.attraction.specified" = "Attraction";
-
 "type.tourism.camp_site" = "Camping";
-
 "type.tourism.caravan_site" = "Caravan Site";
-
 "type.tourism.chalet" = "Chalet";
-
 "type.tourism.gallery" = "Gallery";
-
 "type.tourism.guest_house" = "Guest House";
-
 "type.tourism.hostel" = "Hostel";
-
 "type.tourism.hotel" = "Hotel";
-
 "type.tourism.information" = "Tourist Information";
-
 "type.tourism.information.board" = "Information Board";
-
 "type.tourism.information.guidepost" = "Tourist Information";
-
 "type.tourism.information.map" = "Tourist Map";
-
 "type.tourism.information.office" = "Tourist Office";
-
 "type.tourism.motel" = "Motel";
-
 "type.tourism.museum" = "Museum";
-
 "type.tourism.picnic_site" = "Picnic Site";
-
 "type.tourism.resort" = "Resort";
-
 "type.tourism.theme_park" = "Theme Park";
-
 "type.tourism.viewpoint" = "Viewpoint";
-
 "type.tourism.wilderness_hut" = "Wilderness Hut";
-
 "type.tourism.zoo" = "Zoo";
-
 "type.traffic_calming" = "Traffic Calming";
-
 "type.traffic_calming.bump" = "Traffic Bump";
-
 "type.traffic_calming.hump" = "Traffic Hump";
-
 "type.waterway" = "Waterway";
-
 "type.waterway.canal" = "Canal";
-
 "type.waterway.canal.tunnel" = "Canal";
-
 "type.waterway.dam" = "Dam";
-
 "type.waterway.ditch" = "Ditch";
-
 "type.waterway.ditch.tunnel" = "Ditch";
-
 "type.waterway.dock" = "Waterway Dock";
-
 "type.waterway.drain" = "Drain";
-
 "type.waterway.drain.tunnel" = "Drain";
-
 "type.waterway.lock" = "Waterway Lock";
-
 "type.waterway.lock_gate" = "Lock Gate";
-
 "type.waterway.river" = "River";
-
 "type.waterway.river.tunnel" = "River";
-
 "type.waterway.riverbank" = "River";
-
 "type.waterway.stream" = "River";
-
 "type.waterway.stream.ephemeral" = "River";
-
 "type.waterway.stream.intermittent" = "River";
-
 "type.waterway.stream.tunnel" = "River";
-
 "type.waterway.waterfall" = "Waterfall";
-
 "type.waterway.weir" = "Weir";
-
 "type.wheelchair" = "Wheelchair";
-
 "type.wheelchair.limited" = "Parcialmente equipado para discapacitados";
-
 "type.wheelchair.no" = "No equipado para discapacitados";
-
 "type.wheelchair.yes" = "Equipado para discapacitados";
-
 "type.piste_lift" = "piste:lift";
-
 "type.piste_lift.j.bar" = "piste:lift-j-bar";
-
 "type.piste_lift.magic_carpet" = "piste:lift-magic_carpet";
-
 "type.piste_lift.platter" = "piste:lift-platter";
-
 "type.piste_lift.rope_tow" = "piste:lift-rope_tow";
-
 "type.piste_lift.t.bar" = "piste:lift-t-bar";
-
 "type.piste_type" = "piste:type";
-
 "type.piste_type.downhill" = "piste:type-downhill";
-
 "type.piste_type.downhill.advanced" = "piste:type-downhill-advanced";
-
 "type.piste_type.downhill.easy" = "piste:type-downhill-easy";
-
 "type.piste_type.downhill.expert" = "piste:type-downhill-expert";
-
 "type.piste_type.downhill.freeride" = "piste:type-downhill-freeride";
-
 "type.piste_type.downhill.intermediate" = "piste:type-downhill-intermediate";
-
 "type.piste_type.downhill.novice" = "piste:type-downhill-novice";
-
 "type.piste_type.nordic" = "piste:type-nordic";
-
 "type.piste_type.sled" = "piste:type-sled";
-
 "type.building_part" = "Building";
-
 "type.area_highway.cycleway" = "Bike Path";
-
 "type.area_highway.footway" = "Path";
-
 "type.area_highway.living_street" = "Street";
-
 "type.area_highway.motorway" = "area:highway-motorway";
-
 "type.area_highway.path" = "Path";
-
 "type.area_highway.pedestrian" = "Street";
-
 "type.area_highway.primary" = "Street";
-
 "type.area_highway.residential" = "Street";
-
 "type.area_highway.secondary" = "Street";
-
 "type.area_highway.service" = "Street";
-
 "type.area_highway.tertiary" = "Street";
-
 "type.area_highway.steps" = "Steps";
-
 "type.area_highway.track" = "area:highway-track";
-
 "type.area_highway.trunk" = "area:highway-trunk";
-
 "type.area_highway.unclassified" = "area:highway-unclassified";

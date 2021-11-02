@@ -6,6 +6,7 @@
 
 /********** Strings **********/
 
+
 /* Button text (should be short) */
 "back" = "Kembali";
 
@@ -17,7 +18,6 @@
 
 /* Button which deletes downloaded country */
 "delete" = "Hapus";
-
 "download_maps" = "Unduh Peta";
 
 /* Settings/Downloader - info for country when download fails */
@@ -37,7 +37,6 @@
 
 /* Settings/Downloader - size string, only strings different from English should be translated */
 "mb" = "MB";
-
 "gb" = "GB";
 
 /* Choose measurement on first launch alert - choose imperial system button */
@@ -72,31 +71,18 @@
 
 /* Button text for the button under the country_status_download_failed message */
 "try_again" = "Coba Lagi";
-
 "about_menu_title" = "Tentang Organic Maps";
-
 "connection_settings" = "Pengaturan Koneksi";
-
 "close" = "Tutup";
-
 "unsupported_phone" = "OpenGL yang dipercepat oleh OpenGL diperlukan. Sayangnya, perangkat Anda tidak mendukung.";
-
 "download" = "Unduh";
-
 "disconnect_usb_cable" = "Mohon lepas kabel USB atau masukkan kartu memori untuk menggunakan Organic Maps";
-
 "not_enough_free_space_on_sdcard" = "Mohon bebaskan sejumlah ruang pada kartu SD/penyimpanan USB terlebih dahulu untuk menggunakan aplikasi";
-
 "not_enough_memory" = "Memori tidak cukup untuk meluncurkan aplikasi";
-
 "download_resources" = "Sebelum Anda mulai izinkan kami mengunduh peta dunia secara umum ke perangkat Anda.\nHal ini memerlukan data %@.";
-
 "download_resources_continue" = "Pergi ke Peta";
-
 "downloading_country_can_proceed" = "Sedang mengunduh %@. Sekarang Anda dapat melanjutkan ke peta.";
-
 "download_country_ask" = "Unduh %@?";
-
 "update_country_ask" = "Perbarui %@?";
 
 /* REMOVE THIS STRING AFTER REFACTORING */
@@ -215,7 +201,6 @@
 
 /* Email Subject when sharing bookmarks category */
 "share_bookmarks_email_subject" = "Bagikan penanda Organic Maps";
-
 "share_bookmarks_email_body" = "Hello!\n\nAttached are my bookmarks from Organic Maps app. Please open them if you have Organic Maps installed. Or, if you don't, download the app for your iOS or Android device by following this link: https://omaps.app/get?kmz\n\nEnjoy traveling with Organic Maps!";
 
 /* message title of loading file */
@@ -280,7 +265,6 @@
 
 /* Length of track in cell that describes route */
 "length" = "Panjang";
-
 "share_my_location" = "Bagikan Lokasi Saya";
 
 /* Settings general group in settings screen */
@@ -288,11 +272,8 @@
 
 /* Settings information group in settings screen */
 "prefs_group_information" = "Information";
-
 "prefs_group_route" = "Navigasi";
-
 "pref_zoom_title" = "Tombol perbesaran";
-
 "pref_zoom_summary" = "Tampilkan pada layar";
 
 /* Settings «Map» category: «Night style» title */
@@ -327,25 +308,15 @@
 
 /* Settings «Map» category: «Record track» title */
 "pref_track_record_title" = "Jalur terkini";
-
 "pref_map_auto_zoom" = "Perbesar otomatis";
-
 "duration_disabled" = "Nonaktif";
-
 "duration_1_hour" = "1 jam";
-
 "duration_2_hours" = "2 jam";
-
 "duration_6_hours" = "6 jam";
-
 "duration_12_hours" = "12 jam";
-
 "duration_1_day" = "1 hari";
-
 "recent_track_help_text" = "Ini memungkinkan Anda untuk merekam jalur yang telah dilalui selama jangka waktu tertentu dan melihatnya pada peta. Harap ketahui: aktivasi fungsi ini menyebabkan peningkatan penggunaan baterai. Trek akan dihapus secara otomatis dari peta setelah selang waktu berakhir.";
-
 "placepage_distance" = "Jarak";
-
 "search_show_on_map" = "Tampilkan pada peta";
 
 /* Text in menu */
@@ -413,15 +384,10 @@
 
 /* Country queued for download */
 "downloader_queued" = "Telah diantrekan";
-
 "downloader_near_me_subtitle" = "Dekat saya";
-
 "downloader_status_maps" = "Peta";
-
 "downloader_download_all_button" = "Unduh semua";
-
 "downloader_downloading" = "Mengunduh:";
-
 "downloader_search_results" = "Ditemukan";
 
 /* Status of outdated country in the list */
@@ -477,11 +443,8 @@
 
 /* location service disabled */
 "enable_location_services" = "Mohon aktifkan Layanan Lokasi";
-
 "save" = "Simpan";
-
 "edit_description_hint" = "Deskripsi Anda (teks atau html)";
-
 "create" = "buat";
 
 /* red color */
@@ -539,70 +502,40 @@
 /********** Routing dialogs strings **********/
 
 "dialog_routing_disclaimer_title" = "Saat mengikuti rute, harap diingat:";
-
 "dialog_routing_disclaimer_priority" = "— Kondisi jalan, peraturan lalu lintas, dan marka jalan harus selalu didahulukan daripada saran navigasi;";
-
 "dialog_routing_disclaimer_precision" = "— Peta mungkin tidak akurat dan rute yang disarankan tidak mutlak merupakan cara paling optimal untuk mencapai tujuan;";
-
 "dialog_routing_disclaimer_recommendations" = "— Rute yang disarankan hanya untuk digunakan sebagai rekomendasi;";
-
 "dialog_routing_disclaimer_borders" = "— Berhati-hatilah dengan rute di zona perbatasan: rute yang dibuat oleh aplikasi kami terkadang mungkin saja melintasi batas negara di lokasi yang tidak sah;";
-
 "dialog_routing_disclaimer_beware" = "Jaga selalu kewaspadaan dan keselamatan di jalan!";
-
 "dialog_routing_check_gps" = "Periksa sinyal GPS";
-
 "dialog_routing_error_location_not_found" = "Tidak dapat membuat rute. Koordinat GPS saat ini tidak dapat dikenali.";
-
 "dialog_routing_location_turn_wifi" = "Mohon periksa sinyal GPS Anda. Mengaktifkan Wi-Fi akan meningkatkan akurasi lokasi Anda.";
-
 "dialog_routing_location_turn_on" = "Aktifkan layanan lokasi";
-
 "dialog_routing_location_unknown_turn_on" = "TIdak dapat menemukan koordinat GPS saat ini. Aktifkan layanan lokasi untuk mengalkulasi rute.";
-
 "dialog_routing_download_files" = "Unduh file yang diperlukan";
-
 "dialog_routing_download_and_update_all" = "Unduh dan perbarui semua informasi peta dan perutean di sepanjang proyeksi jalan untuk mengalkulasi rute.";
-
 "dialog_routing_unable_locate_route" = "Tidak dapat menemukan rute";
-
 "dialog_routing_cant_build_route" = "Tidak dapat membuat rute.";
-
 "dialog_routing_change_start_or_end" = "Sesuaikan titik mula atau tujuan Anda.";
-
 "dialog_routing_change_start" = "Sesuaikan titik mula";
-
 "dialog_routing_start_not_determined" = "Rute tidak dibuat. Tidak dapat menemukan titik mula.";
-
 "dialog_routing_select_closer_start" = "Pilih titik mula yang lebih dekat dengan jalan.";
-
 "dialog_routing_change_end" = "Sesuaikan tujuan";
-
 "dialog_routing_end_not_determined" = "Rute tidak dibuat. Tidak dapat menemukan tujuan.";
-
 "dialog_routing_select_closer_end" = "Pilih titik tujuan yang lebih dekat dengan jalan.";
-
 "dialog_routing_change_intermediate" = "Tidak dapat menemukan titik antara.";
-
 "dialog_routing_intermediate_not_determined" = "Harap sesuaikan titik antara Anda.";
-
 "dialog_routing_system_error" = "Kesalahan sistem";
-
 "dialog_routing_application_error" = "Tidak dapat membuat rute karena kesalahan aplikasi.";
-
 "dialog_routing_try_again" = "Mohon coba lagi";
-
 "not_now" = "Jangan Sekarang";
-
 "dialog_routing_download_and_build_cross_route" = "Apakah Anda ingin mengunduh peta dan membuat rute yang lebih optimal yang meliputi lebih dari satu peta?";
-
 "dialog_routing_download_cross_route" = "Unduh peta untuk membuat rute yang lebih optimal yang melewati ujung peta ini.";
 
 
 /********** Strings for downloading map from search **********/
 
 "search_without_internet_advertisement" = "Untuk mulai mencari dan membuat rute, silakan unduh peta, dan Anda tidak akan membutuhkan koneksi internet lagi.";
-
 "search_select_map" = "Pilih Peta";
 
 /* «Show» context menu */
@@ -622,96 +555,55 @@
 
 /* Text for routing::RouterResultCode::FileTooOld dialog. */
 "dialog_routing_download_and_update_maps" = "Untuk membuat rute, silakan unduh dan perbarui semua peta sepanjang rute.";
-
 "rate_alert_title" = "Suka aplikasi ini?";
-
 "rate_alert_default_message" = "Terima kasih karena menggunakan Organic Maps. Mohon beri peringkat untuk aplikasi ini. Masukan dari Anda membantu kami untuk menjadi lebih baik.";
-
 "rate_alert_five_star_message" = "Hore! Kami juga sangat menyukai Anda!";
-
 "rate_alert_four_star_message" = "Terima kasih, kami akan melakukan yang terbaik!";
-
 "rate_alert_less_than_four_star_message" = "Anda punya ide agar kami bisa membuatnya menjadi lebih baik?";
-
 "categories" = "Kategori";
-
 "history" = "Riwayat";
-
 "closed" = "Tutup";
-
 "search_not_found" = "Maaf, saya tidak menemukan apa pun.";
-
 "search_not_found_query" = "Silakan coba kueri lainnya.";
-
 "search_history_title" = "Riwayat Pencarian";
-
 "search_history_text" = "Akses kueri pencarian terbaru dengan cepat.";
-
 "clear_search" = "Bersihkan riwayat pencarian";
 
 /* Place Page link to Wikipedia article (if map object has it). */
 "read_in_wikipedia" = "Wikipedia";
-
 "p2p_your_location" = "Lokasi Anda";
-
 "p2p_start" = "Mulai";
-
 "p2p_from_here" = "Dari";
-
 "p2p_to_here" = "Rute ke";
-
 "p2p_only_from_current" = "Navigasi tersedia hanya dari lokasi Anda saat ini.";
-
 "p2p_reroute_from_current" = "Apakah Anda ingin kami merencanakan sebuah rute dari lokasi Anda saat ini?";
 
 /* Edit open hours/set time and minutes dialog */
 "next_button" = "Berikut";
-
 "editor_time_add" = "Tambah Jadwal";
-
 "editor_time_delete" = "Hapus Jadwal";
 
 /* Text for allday switch. */
 "editor_time_allday" = "Setiap Hari (24 jam)";
-
 "editor_time_open" = "Buka";
-
 "editor_time_close" = "Tutup";
-
 "editor_time_add_closed" = "Tambah Jam Tutup";
-
 "editor_time_title" = "Jam buka";
-
 "editor_time_advanced" = "Mode Lanjutan";
-
 "editor_time_simple" = "Mode Sederhana";
-
 "editor_hours_closed" = "Jam Tutup";
-
 "editor_example_values" = "Contoh Nilai";
-
 "editor_correct_mistake" = "Koreksi kesalahan";
-
 "editor_add_select_location" = "Lokasi";
-
 "editor_done_dialog_1" = "Anda telah mengubah peta dunia. Jangan menyembunyikan ini! Katakan kepada teman-teman Anda, dan edit bersama.";
-
 "share_with_friends" = "Bagikan dengan teman-teman";
-
 "editor_report_problem_desription_1" = "Harap menggambarkan masalah secara rinci sehingga komunitas OpenStreeMap dapat memperbaiki kesalahan.";
-
 "editor_report_problem_desription_2" = "Atau Anda bisa melakukan sendiri di https://www.openstreetmap.org/";
-
 "editor_report_problem_send_button" = "Kirim";
-
 "editor_report_problem_title" = "Masalah";
-
 "editor_report_problem_no_place_title" = "Tempat tidak ada";
-
 "editor_report_problem_under_construction_title" = "Ditutup karena pemeliharaan";
-
 "editor_report_problem_duplicate_place_title" = "Tempat ganda";
-
 "autodownload" = "Unduhan otomatis";
 
 /* Place Page opening hours text */
@@ -719,167 +611,98 @@
 
 /* Place Page opening hours text */
 "daily" = "Setiap Hari";
-
 "twentyfour_seven" = "siang dan malam";
-
 "day_off_today" = "Tutup hari ini";
-
 "day_off" = "Tutup";
-
 "today" = "Hari ini";
-
 "add_opening_hours" = "Tambah jam kerja";
-
 "edit_opening_hours" = "Sunting jam kerja";
-
 "no_osm_account" = "Tidak ada akun di OpenStreetMap?";
-
 "register_at_openstreetmap" = "Mendaftar";
-
 "password_8_chars_min" = "Kata Sandi (minimal 8 karakter)";
-
 "invalid_username_or_password" = "Nama pengguna dan Kata sandi tidak valid.";
-
 "login" = "Masuk";
-
 "password" = "Kata sandi";
-
 "forgot_password" = "Lupa kata sandi?";
-
 "osm_account" = "Akun OSM";
-
 "logout" = "Keluar";
 
 /* Information text: "Last upload 11.01.2016" */
 "last_upload" = "Pengunggahan terakhir";
-
 "thank_you" = "Terima kasih";
-
 "edit_place" = "Sunting tempat";
-
 "place_name" = "Nama tempat";
-
 "add_language" = "Tambahkan bahasa";
-
 "street" = "Jalan";
 
 /* Editable House Number text field (in address block). */
 "house_number" = "Nomor rumah";
-
 "details" = "Detail";
 
 /* Text field to enter non-existing street name, below list of known streets around */
 "add_street" = "Tambahkan jalan";
-
 "choose_language" = "Pilih bahasa";
-
 "choose_street" = "Pilih jalan";
-
 "postal_code" = "Kode Pos";
-
 "cuisine" = "Masakan";
-
 "select_cuisine" = "Pilih Masakan";
 
 /* login text field */
 "email_or_username" = "Surel atau nama pengguna";
-
 "phone" = "Telepon";
-
 "editor_add_phone" = "Add Phone";
-
 "please_note" = "Harap diperhatikan";
-
 "downloader_delete_map_dialog" = "Semua perubahan peta akan dihapus bersama dengan peta.";
-
 "downloader_update_maps" = "Perbarui peta";
-
 "downloader_mwm_migration_dialog" = "Untuk membuat rute, Anda perlu memperbarui semua peta dan kemudian merencanakan rute tersebut lagi.";
-
 "downloader_search_field_hint" = "Temukan peta";
-
 "migration_download_error_dialog" = "Unduh kesalahan";
-
 "common_check_internet_connection_dialog" = "Harap memeriksa pengaturan Anda dan pastikan perangkat Anda terhubung dengan internet.";
-
 "downloader_no_space_title" = "Tidak cukup ruang";
-
 "downloader_no_space_message" = "Harap menghapus data yang tidak diperlukan";
-
 "editor_login_error_dialog" = "Kesalahan masuk.";
-
 "editor_profile_changes" = "Perubahan Terverifikasi";
-
 "editor_focus_map_on_location" = "Tarik peta untuk memilih lokasi yang benar dari obyek.";
-
 "editor_add_select_category" = "Pilih kategori";
-
 "editor_add_select_category_popular_subtitle" = "Populer";
-
 "editor_add_select_category_all_subtitle" = "Semua kategori";
-
 "editor_edit_place_title" = "Mengedit";
-
 "editor_add_place_title" = "Menambahkan";
-
 "editor_edit_place_name_hint" = "Nama tempat";
-
 "editor_edit_place_category_title" = "Kategori";
-
 "detailed_problem_description" = "Gambaran terperinci tentang masalah";
-
 "editor_report_problem_other_title" = "Masalah yang berbeda";
-
 "placepage_add_business_button" = "Tambahkan organisasi";
-
 "whatsnew_editor_message_1" = "Tambahkan tempat-tempat baru di peta, dan edit peta-peta yang ada langsung dari aplikasi.";
-
 "dialog_incorrect_feature_position" = "Ubah lokasi";
-
 "message_invalid_feature_position" = "Objek tidak dapat diletakkan di sini";
-
 "login_to_make_edits_visible" = "Masuk agar pengguna lain dapat melihat perubahan yang Anda buat.";
 
 /* Error dialog no space */
 "migration_no_space_message" = "Untuk mengunduh, Anda perlu ruang lebih banyak. Harap menghapus data yang tidak diperlukan.";
-
 "editor_sharing_title" = "Saya meningkatkan peta Organic Maps";
 
 /* Downloaded 10 **of** 20 <- it is that "of" */
 "downloader_of" = "%1$d dari %2$d";
-
 "download_over_mobile_header" = "Unduh dengan menggunakan koneksi jaringan seluler?";
-
 "download_over_mobile_message" = "Ini bisa menjadi jauh mahal pada beberapa paket atau jika roaming.";
-
 "error_enter_correct_house_number" = "Masukkan nomor rumah yang benar";
-
 "editor_storey_number" = "Jumlah lantai (maksimum %d)";
 
 /* Error message in Editor when a user tries to set the number of floors for a building higher than 25 */
 "error_enter_correct_storey_number" = "Edit bangunan dengan maksimum 25 lantai";
-
 "editor_zip_code" = "Kode Pos";
-
 "error_enter_correct_zip_code" = "Masukkan Kode Pos yang benar";
 
 /* Place Page title for long tap */
 "core_placepage_unknown_place" = "Tempat Tidak Dikenal";
-
 "editor_other_info" = "Kirim catatan ke editor OSM";
-
 "editor_detailed_description_hint" = "Komentar mendetail";
-
 "editor_detailed_description" = "Saran perubahan Anda akan dikirimkan ke komunitas OpenStreetMap. Jelaskan detail yang tidak dapat diedit di Organic Maps.";
-
 "editor_more_about_osm" = "Selengkapnya tentang OpenStreetMap";
-
 "editor_operator" = "Pemilik";
-
 "downloader_my_maps_title" = "Peta saya";
-
 "downloader_no_downloaded_maps_title" = "Tidak ada peta apa pun yang diunduh";
-
 "downloader_no_downloaded_maps_message" = "Unduh peta untuk menemukan lokasi dan bernavigasi secara offline.";
 
 /* Error title that appears after certain time without location. */
@@ -887,93 +710,52 @@
 
 /* Error that appears after certain time without location. */
 "current_location_unknown_message" = "Lokasi saat ini tidak diketahui. Anda mungkin berada dalam bangunan atau terowongan.";
-
 "current_location_unknown_continue_button" = "Lanjutkan";
-
 "current_location_unknown_stop_button" = "Berhenti";
-
 "current_location_unknown_error_title" = "Lokasi saat ini tidak diketahui.";
-
 "current_location_unknown_error_message" = "Terjadi kesalahan saat mencari lokasi Anda. Periksa apakah perangkat Anda bekerja dengan benar dan coba lagi nanti.";
-
 "location_services_disabled_header" = "Identifikasi lokasi dinonaktifkan";
-
 "location_services_disabled_message" = "Izinkan akses ke geolokasi pada pengaturan perangkat";
-
 "location_services_disabled_1" = "1. Buka Pengaturan";
-
 "location_services_disabled_2" = "2. Ketuk Lokasi";
 
 /* iOS Dialog for the case when the location permission is not granted */
 "location_services_disabled_3" = "3. Pilih While Using the App";
-
 "meter" = "m";
-
 "kilometer" = "km";
-
 "kilometers_per_hour" = "km/j";
-
 "mile" = "mil";
-
 "foot" = "kaki";
-
 "miles_per_hour" = "mpj";
-
 "hour" = "j";
-
 "minute" = "mnt";
-
 "placepage_place_description" = "Deskripsi";
-
 "placepage_more_button" = "Lainnya";
-
 "placepage_more_reviews_button" = "Ulasan Lainnya";
-
 "book_button" = "Pesan";
-
 "placepage_call_button" = "Hubungi";
-
 "placepage_edit_bookmark_button" = "Edit Bookmark";
-
 "placepage_bookmark_name_hint" = "Nama Bookmark";
-
 "placepage_personal_notes_hint" = "Catatan pribadi";
-
 "placepage_delete_bookmark_button" = "Hapus Bookmark";
-
 "editor_edits_sent_message" = "Saran perubahan Anda telah dikirim";
-
 "editor_comment_hint" = "Komentar…";
-
 "editor_reset_edits_message" = "Atur ulang perubahan lokal?";
-
 "editor_reset_edits_button" = "Atur Ulang";
-
 "editor_remove_place_message" = "Hapus tempat yang ditambahkan?";
-
 "editor_remove_place_button" = "Hapus";
-
 "editor_place_doesnt_exist" = "Tempat tidak ada";
-
 "text_more_button" = "…selebihnya";
 
 /* Phone number error message */
 "error_enter_correct_phone" = "Masukkan nomor telepon yang benar";
-
 "error_enter_correct_web" = "Masukkan alamat web valid";
-
 "error_enter_correct_email" = "Masukkan surel valid";
-
 "error_enter_correct_facebook_page" = "Enter a valid Facebook web address, account, or page name";
-
 "error_enter_correct_instagram_page" = "Enter a valid Instagram web address or account name";
-
 "error_enter_correct_twitter_page" = "Enter a valid Twitter web address or username";
-
 "error_enter_correct_vk_page" = "Enter a valid VK web address or account name";
-
 "refresh" = "Memperbarui";
-
 "placepage_add_place_button" = "Tambahkan tempat ke peta";
 
 /* Displayed when saving some edits to the map to warn against publishing personal data */
@@ -981,19 +763,15 @@
 
 /* iOS Dialog before publishing the modifications to the public map. */
 "editor_share_to_all_dialog_message_1" = "Pastikan Anda tidak memasukkan data pribadi apa pun.";
-
 "editor_share_to_all_dialog_message_2" = "Kami akan memeriksa perubahan tersebut. Jika kami memiliki pertanyaan maka kami akan menghubungi Anda melalui surel.";
-
 "navigation_stop_button" = "berhenti";
 
 /* iOS dialog for the case when recent track recording is on and the app comes back from background */
 "recent_track_background_dialog_title" = "Nonaktifkan rekaman dari rute yang baru Anda lalui?";
-
 "off_recent_track_background_button" = "Nonaktifkan";
 
 /* For sharing via SMS and so on */
 "sharing_call_action_look" = "Lihat";
-
 "recent_track_background_dialog_message" = "Organic Maps menggunakan geoposisi di latar belakang untuk merekam rute yang baru Anda lalui.";
 
 /* Rate on Google Play (Android only) */
@@ -1007,7 +785,6 @@
 
 /* About short text (below logo) */
 "about_description" = "Organic Maps adalah aplikasi offline yang sangat berguna untuk bepergian. Organic Maps didasarkan pada data OpenStreetMap dan memungkinkan kita untuk mengeditnya.";
-
 "general_settings" = "Setelan umum";
 
 /* For the first routing */
@@ -1018,27 +795,16 @@
 
 /* noun */
 "search_in_table" = "Daftar";
-
 "mobile_data_dialog" = "Gunakan internet seluler untuk memperlihatkan informasi terperinci?";
-
 "mobile_data_option_always" = "Selalu Gunakan";
-
 "mobile_data_option_today" = "Hanya Hari Ini";
-
 "mobile_data_option_not_today" = "Jangan Gunakan Hari Ini";
-
 "mobile_data" = "Internet Seluler";
-
 "mobile_data_description" = "Internet seluler diperlukan untuk menampilkan informasi terperinci tentang tempat, seperti foto, harga, dan ulasan.";
-
 "mobile_data_option_never" = "Jangan Gunakan";
-
 "mobile_data_option_ask" = "Selalu Tanya";
-
 "traffic_update_maps_text" = "Untuk memperlihatkan data lalu lintas, peta harus diperbarui.";
-
 "big_font" = "Perbesar ukuran huruf pada peta";
-
 "traffic_update_app" = "Perbarui Organic Maps";
 
 /* "traffic" as in road congestion */
@@ -1046,284 +812,149 @@
 
 /* "traffic" as in "road congestion" */
 "traffic_data_unavailable" = "Data lalu lintas tidak tersedia";
-
 "enable_logging" = "Aktifkan pencatatan";
 
 /* Settings: "Send general feedback" button */
 "feedback_general" = "Umpan Balik Umum";
-
 "on" = "On";
-
 "off" = "Mati";
-
 "prefs_languages_information" = "Kami menggunakan TTS sistem untuk petunjuk suara. Banyak perangkat Android menggunakan Google TTS, Anda dapat mengunduhnya dari Google Play (https://play.google.com/store/apps/details?id=com.google.android.tts)";
-
 "prefs_languages_information_off" = "Untuk beberapa bahasa, Anda perlu menginstal synthesizer suara atau paket bahasa tambahan dari toko aplikasi (Google Play Market, Samsung Apps).\nBuka pengaturan perangkat Anda → Language and input (Bahasa dan input) → Speech (Suara) → Text to speech (Teks ke suara).\nDi sini, Anda dapat mengelola pengaturan untuk sintesis suara (contohnya, mengunduh paket bahasa untuk penggunaan tanpa internet) dan memilih mesin tekske suara lain.";
-
 "prefs_languages_information_off_link" = "Untuk informasi selengkapnya, bacalah panduan ini.";
-
 "transliteration_title" = "Transliterasi ke dalam bahasa Latin";
-
 "learn_more" = "Pelajari selengkapnya";
-
 "core_exit" = "Keluar";
-
 "routing_add_start_point" = "Tambahkan titik awal untuk merencanakan rute";
-
 "routing_add_finish_point" = "Tambahkan titik akhir untuk merencanakan rute";
-
 "button_exit" = "Keluar";
-
 "planning_route_manage_route" = "Kelola rute";
-
 "button_plan" = "Rencana";
-
 "placepage_remove_stop" = "Hapus";
-
 "planning_route_remove_title" = "Seret ke sini untuk menghapus";
-
 "placepage_add_stop" = "Tambah perhentian";
-
 "start_from_my_position" = "Mulai dari";
-
 "profile_authorization_error" = "Ah, tadi ada kesalahan. Coba masuk kembali.";
-
 "dialog_error_storage_title" = "Masalah akses penyimpanan";
-
 "dialog_error_storage_message" = "Penyimpanan eksternal tidak tersedia, mungkin Kartu SD sudah dilepaskan, rusak, atau sistem berkasnya hanya dapat dibaca. Silakan periksa dan beri tahu kami di alamat support@ maps.me";
-
 "setting_emulate_bad_storage" = "Emulasi penyimpanan yang buruk";
-
 "core_entrance" = "Tempat masuk";
-
 "error_enter_correct_name" = "Harap masukkan nama yang benar";
-
 "bookmarks_groups" = "Daftar";
-
 "bookmarks_groups_hide_all" = "Sembunyikan semua";
-
 "bookmarks_groups_show_all" = "Perlihatkan semua";
-
 "bookmarks_create_new_group" = "Buat daftar baru";
 
 /* Bookmark categories screen */
 "bookmarks_import" = "Import bookmarks";
-
 "downloader_hide_screen" = "Sembunyikan Layar";
-
 "downloader_percent" = "%s (%s dari %s)";
-
 "downloader_process" = "Mengunduh %s…";
-
 "downloader_applying" = "Menerapkan %s…";
-
 "bookmarks_error_message_share_general" = "Tidak dapat berbagi karena kesalahan aplikasi";
-
 "bookmarks_error_title_share_empty" = "Kesalahan dalam membagikan";
-
 "bookmarks_error_message_share_empty" = "Tidak dapat membagikan daftar kosong";
-
 "bookmarks_error_title_empty_list_name" = "Namanya tidak boleh kosong";
-
 "bookmarks_error_message_empty_list_name" = "Silakan masukkan nama daftar";
-
 "bookmarks_new_list_hint" = "Daftar baru";
-
 "bookmarks_error_title_list_name_already_taken" = "Nama ini sudah dipakai";
-
 "bookmarks_error_message_list_name_already_taken" = "Silakan pilih nama lain";
-
 "bookmarks_error_title_list_name_too_long" = "Nama ini terlalu panjang";
-
 "please_wait" = "Mohon tunggu…";
-
 "phone_number" = "Nomor telepon";
-
 "profile" = "Profil OpenStreetMap";
-
 "bookmarks_detect_title" = "File baru terdeteksi";
-
 "button_convert" = "Mengubah";
-
 "bookmarks_convert_error_title" = "Kesalahan";
-
 "bookmarks_convert_error_message" = "Beberapa file tidak dikonversi.";
-
 "bookmarks_restore_title" = "Kembalikan versi ini?";
-
 "common_check_internet_connection_dialog_title" = "Tidak ada koneksi internet";
-
 "error_system_message" = "Terjadi kesalahan yang tidak diketahui";
-
 "restore" = "Mengembalikan";
-
 "subtittle_opt_out" = "Pengaturan treking";
-
 "crash_reports" = "Laporan tabrakan";
-
 "crash_reports_description" = "Kami dapat menggunakan data Anda untuk meningkatkan pengalaman Organic Maps. Perubahan akan berlaku setelah Anda memulai ulang aplikasi.";
-
 "privacy_policy" = "Kebijakan privasi";
-
 "terms_of_use" = "Ketentuan penggunaan";
-
 "button_layer_traffic" = "Lalu lintas";
-
 "button_layer_subway" = "Kereta bawah tanah";
-
 "layers_title" = "Lapisan peta";
-
 "subway_data_unavailable" = "Peta bawah tanah tidak tersedia";
-
 "bookmarks_empty_list_title" = "Daftar ini kosong";
-
 "bookmarks_empty_list_message" = "Untuk menambahkan bookmark, ketuk satu tempat di peta lalu ketuk ikon bintang";
-
 "category_desc_more" = "…selengkapnya";
-
 "title_error_downloading_bookmarks" = "Terjadi kesalahan";
-
 "popular_place" = "Popular";
-
 "export_file" = "File ekspor";
-
 "list_settings" = "Pengaturan Daftar";
-
 "delete_list" = "Hapus Daftar";
-
 "hide_from_map" = "Sembunyikan dari peta";
-
 "public_access" = "Akses umum";
-
 "limited_access" = "Akses terbatas";
-
 "bookmark_category_name" = "Kategori";
-
 "bookmark_category_description_hint" = "Ketikkan deskripsi (teks atau html)";
-
 "not_shared" = "Pribadi";
-
 "tags_loading_error_subtitle" = "Kesalahan terjadi saat memuat tag, silakan coba lagi";
-
 "download_button" = "Unduh";
-
 "speedcams_alert_title" = "Kamera cepat";
-
 "speedcam_option_auto" = "Auto";
-
 "speedcam_option_always" = "Selalu";
-
 "speedcam_option_never" = "Tidak pernah";
-
 "place_description_title" = "Deskripsi Tempat";
 
 /* this text will be shown in application notification preferences opposite checkbox which enable/disable downloader notifications. Devices on Android 8+ are affected. */
 "notification_channel_downloader" = "Pengunduh peta";
-
 "speedcams_notice_message" = "Auto - Peringatkan tentang kamera kecepatan saat terdapat risiko melebihi batas kecepatan\nSelalu - Selalu peringatkan tentang kamera kecepatan\nTidak pernah - Jangan pernah peringatkan tentang kamera kecepatan";
-
 "power_managment_title" = "Mode hemat daya";
-
 "power_managment_description" = "Saat mode otomatis dipilih, aplikasi mulai menonaktifkan fitur yang menghabiskan daya baterai, bergantung pada tingkat daya baterai saat ini";
-
 "power_managment_setting_never" = "Jangan pernah";
-
 "power_managment_setting_auto" = "Otomatis";
-
 "power_managment_setting_manual_max" = "Hemat daya maksimum";
-
 "enable_logging_warning_message" = "Opsi ini mengaktifkan pencatatan untuk tujuan diagnostik. Bisa amat membantu bagi staf dukungan kami yang memecahkan masalah dalam aplikasi. Aktifkan opsi ini hanya saat diminta oleh dukungan Organic Maps.";
-
 "access_rules_author_only" = "Pengeditan online";
-
 "driving_options_title" = "Pilihan berkendara";
-
 "driving_options_subheader" = "Hindari di setiap rute";
-
 "avoid_tolls" = "Jalan tol";
-
 "avoid_unpaved" = "Jalan tanah";
-
 "avoid_ferry" = "Penyeberangan kapal feri";
-
 "avoid_motorways" = "Jalur motor";
-
 "unable_to_calc_alert_title" = "Tidak dapat menghitung rute";
-
 "unable_to_calc_alert_subtitle" = "Sayangnya kami tidak dapat menemukan rute karena opsi pilihan Anda. Harap ubah pengaturan lalu coba lagi";
-
 "define_to_avoid_btn" = "Tentukan jalan yang dihindari";
-
 "change_driving_options_btn" = "Opsi perutean diaktifkan";
-
 "toll_road" = "Jalan tol";
-
 "unpaved_road" = "Jalan tanah";
-
 "ferry_crossing" = "Penyeberangan kapal feri";
-
 "avoid_toll_roads_placepage" = "Hindari jalan tol";
-
 "avoid_unpaved_roads_placepage" = "Hindari jalan tanah";
-
 "avoid_ferry_crossing_placepage" = "Hindari penyeberangan kapal feri";
-
 "trip_start" = "Ayo";
-
 "pick_destination" = "Tujuan";
-
 "follow_my_position" = "Pusatkan ulang";
-
 "search_results" = "Hasil pencarian";
-
 "then_turn" = "Lalu";
-
 "redirect_route_alert" = "Anda ingin membuat ulang rute?";
-
 "redirect_route_yes" = "Ya";
-
 "redirect_route_no" = "Tidak";
-
 "trip_finished" = "Anda telah tiba!";
-
 "keyboard_availability_alert" = "Papan ketik tidak tersedia saat berkendara";
-
 "dialog_routing_change_start_carplay" = "Tidak dapat membuat rute dari lokasi saat ini";
-
 "dialog_routing_change_end_carplay" = "Tidak dapat membuat rute ke tujuan Anda. Pilih titik lainnya";
-
 "dialog_routing_check_gps_carplay" = "Tidak ada sinyal GPS. Harap pindah ke area terbuka";
-
 "dialog_routing_unable_locate_route_carplay" = "Tidak dapat membuat rute. Harap tentukan titik rute lainnya";
-
 "dialog_routing_download_files_carplay" = "Untuk membuat rute, unduh peta baru di perangkat anda";
-
 "dialog_routing_system_error_carplay" = "Terjadi kesalahan. Harap mulai ulang aplikasi";
-
 "dialog_routing_rebuild_from_current_location_carplay" = "Rute akan dibuat ulang dari lokasi saat ini";
-
 "dialog_routing_rebuild_for_vehicle_carplay" = "Rute akan diubah untuk mobil";
-
 "ok" = "Oke";
-
 "avoid_unpaved_carplay_1" = "Jalan aspal";
-
 "avoid_unpaved_carplay_2" = "Hindari tanah";
-
 "avoid_ferry_carplay_1" = "Tanpa feri";
-
 "avoid_ferry_carplay_2" = "Hindari feri";
-
 "avoid_tolls_carplay_1" = "Tanpa tol";
-
 "avoid_tolls_carplay_2" = "Hindari tol";
-
 "speedcams_alert_title_carplay_1" = "Speedcam";
-
 "speedcams_alert_title_carplay_2" = "Info kecepatan";
-
 "download_map_carplay" = "Silakan unduh peta di apl Organic Maps pada perangkat Anda";
-
 "carplay_roundabout_exit" = "Jalan keluar ke %s";
 
 /* max. 10 symbols, both iOS and Android */
@@ -1334,11 +965,8 @@
 
 /* iOS */
 "sort_default" = "Urutkan standar";
-
 "sort_type" = "Urutkan per tipe";
-
 "sort_distance" = "Urutkan per jarak";
-
 "sort_date" = "Urutkan per tanggal";
 
 /* Android */
@@ -1352,103 +980,54 @@
 
 /* Android */
 "by_date" = "Per tanggal";
-
 "week_ago_sorttype" = "Seminggu yang lalu";
-
 "month_ago_sorttype" = "Sebulan yang lalu";
-
 "moremonth_ago_sorttype" = "Lebih dari sebulan yang lalu";
-
 "moreyear_ago_sorttype" = "Lebih dari setahun yang lalu";
-
 "near_me_sorttype" = "Dekat dengan saya";
-
 "others_sorttype" = "Lainnya";
-
 "food_places" = "Makanan";
-
 "tourist_places" = "Tempat Rekreasi";
-
 "museums" = "Museum";
-
 "parks" = "Taman";
-
 "swim_places" = "Kolam renang";
-
 "mountains" = "Pegunungan";
-
 "animals" = "Kebun binatang";
-
 "hotels" = "Hotel";
-
 "buildings" = "Gedung";
-
 "money" = "Uang";
-
 "shops" = "Pusat perbelanjaan";
-
 "parkings" = "Parkir";
-
 "fuel_places" = "SPBU";
-
 "water" = "Air";
-
 "medicine" = "Obat";
-
 "search_in_the_list" = "Cari dalam daftar";
-
 "religious_places" = "Tempat ibadah";
-
 "select_list" = "Pilih daftar";
-
 "transit_not_found" = "Navigasi kereta bawah tanah di wilayah ini belum tersedia";
-
 "dialog_pedestrian_route_is_long_header" = "Jalur kereta bawah tanah tidak ditemukan";
-
 "dialog_pedestrian_route_is_long_message" = "Silakan pilih titik awal atau akhir yang lebih dekat ke stasiun kereta bawah tanah";
-
 "button_layer_isolines" = "Isometrik";
-
 "isolines_activation_error_dialog" = "Untuk mengaktifkan dan menggunakan lapisan topografi, silakan perbarui atau unduh peta area";
-
 "isolines_location_error_dialog" = "Lapisan topografi belum tersedia untuk wilayah ini";
-
 "elevation_profile_diff_level" = "Tingkat kesulitan";
-
 "elevation_profile_diff_level_easy" = "Mudah";
-
 "elevation_profile_diff_level_moderate" = "Sedang";
-
 "elevation_profile_diff_level_hard" = "Sulit";
-
 "elevation_profile_ascent" = "Menanjak";
-
 "elevation_profile_descent" = "Menurun";
-
 "elevation_profile_minaltitude" = "Ketinggian Min.";
-
 "elevation_profile_maxaltitude" = "Ketinggian Maks.";
-
 "elevation_profile_difficulty" = "Kesulitan";
-
 "elevation_profile_distance" = "Jarak:";
-
 "elevation_profile_time" = "Waktu:";
-
 "isolines_toast_zooms_1_10" = "Perbesar untuk menjelajahi garis kontur";
-
 "downloader_updating_ios" = "Memperbarui";
-
 "downloader_loading_ios" = "Mengunduh";
-
 "key_information_title" = "Informasi kunci";
-
 "download_map_title" = "Download the world map";
-
 "connection_failure" = "Connection failure";
-
 "disconnect_usb_cable_title" = "Disconnect USB cable";
-
 "enable_screen_sleep" = "Izinkan layar untuk tidur";
 
 /* Description in preferences */
@@ -1482,1781 +1061,892 @@
 /********** Types **********/
 
 "type.aerialway" = "Aerialway";
-
 "type.aerialway.cable_car" = "Aerialway";
-
 "type.aerialway.chair_lift" = "Aerialway";
-
 "type.aerialway.drag_lift" = "Aerialway";
-
 "type.aerialway.gondola" = "Aerialway";
-
 "type.aerialway.mixed_lift" = "Aerialway";
-
 "type.aerialway.station" = "Stasiun kereta gantung";
-
 "type.aeroway" = "Aeroway";
-
 "type.aeroway.aerodrome" = "Bandar udara";
-
 "type.aeroway.aerodrome.international" = "Bandar udara";
-
 "type.aeroway.apron" = "aeroway-apron";
-
 "type.aeroway.gate" = "Gate";
-
 "type.aeroway.helipad" = "Landasan helikopter";
-
 "type.aeroway.runway" = "aeroway-runway";
-
 "type.aeroway.taxiway" = "aeroway-taxiway";
-
 "type.aeroway.terminal" = "Terminal";
-
 "type.amenity" = "Ruang berfasilitas";
-
 "type.amenity.arts_centre" = "Pusat kesenian";
-
 "type.amenity.atm" = "ATM";
-
 "type.amenity.bank" = "Bank";
-
 "type.amenity.bar" = "Bar";
-
 "type.amenity.bbq" = "Lokasi piknik";
-
 "type.amenity.bench" = "Bangku panjang";
-
 "type.amenity.bicycle_parking" = "Parkir Sepeda";
-
 "type.amenity.bicycle_rental" = "Penyewaan Sepeda";
-
 "type.amenity.biergarten" = "Biergarten";
-
 "type.amenity.brothel" = "Hiburan";
-
 "type.amenity.bureau_de_change" = "Pertukaran valuta";
-
 "type.amenity.bus_station" = "Stasiun bus";
-
 "type.amenity.cafe" = "Kafe";
-
 "type.amenity.car_rental" = "Rental mobil";
-
 "type.amenity.car_sharing" = "Berbagi mobil";
-
 "type.amenity.car_wash" = "Cuci Mobil";
-
 "type.amenity.casino" = "Hiburan";
-
 "type.amenity.charging_station" = "Pusat Pengisian Daya";
-
 "type.amenity.childcare" = "Penitipan Anak";
-
 "type.amenity.cinema" = "Bioskop";
-
 "type.amenity.clinic" = "Klinik";
-
 "type.amenity.college" = "Kampus";
-
 "type.amenity.community_centre" = "Pusat komunitas";
-
 "type.amenity.courthouse" = "Gedung pengadilan";
-
 "type.amenity.dentist" = "Dokter gigi";
-
 "type.amenity.doctors" = "Praktik dokter";
-
 "type.amenity.drinking_water" = "Air minum";
-
 "type.amenity.driving_school" = "Sekolah Mengemudi";
-
 "type.office.diplomatic" = "Kedutaan";
-
 "type.amenity.fast_food" = "Cepat saji";
-
 "type.amenity.ferry_terminal" = "Terminal";
-
 "type.amenity.fire_station" = "Kantor pemadam kebakaran";
-
 "type.amenity.food_court" = "Food Court";
-
 "type.amenity.fountain" = "Air mancur";
-
 "type.amenity.fuel" = "Pompa bensin";
-
 "type.amenity.grave_yard" = "Pemakaman";
-
 "type.amenity.grave_yard.christian" = "Pemakaman";
-
 "type.amenity.hospital" = "Rumahsakit";
-
 "type.amenity.hunting_stand" = "Lokasi berburu";
-
 "type.amenity.ice_cream" = "Kios Es Krim";
-
 "type.amenity.internet_cafe" = "Kafe Internet";
-
 "type.amenity.kindergarten" = "Taman kanak-kanak";
-
 "type.amenity.library" = "Perpustakaan";
-
 "type.amenity.marketplace" = "Toko";
-
 "type.amenity.motorcycle_parking" = "Tempat Parkir Sepeda Motor";
-
 "type.amenity.nightclub" = "Kelab malam";
-
 "type.amenity.nursing_home" = "Panti Jompo";
-
 "type.amenity.parking" = "Parkir";
-
 "type.amenity.parking.fee" = "Parkir";
-
 "type.amenity.parking.multi.storey" = "Parkir";
-
 "type.amenity.parking.no.access" = "Parkir";
-
 "type.amenity.parking.park_and_ride" = "Parkir";
-
 "type.amenity.parking.permissive" = "Parkir";
-
 "type.amenity.parking.private" = "Parkir";
-
 "type.amenity.parking.underground" = "Parkir";
-
 "type.amenity.parking_space" = "Tempat parkir";
-
 "type.amenity.parking_space.permissive" = "Tempat parkir";
-
 "type.amenity.parking_space.private" = "Tempat parkir";
-
 "type.amenity.parking_space.underground" = "Tempat parkir";
-
 "type.amenity.payment_terminal" = "Terminal Pembayaran";
-
 "type.amenity.pharmacy" = "Apotek";
-
 "type.amenity.place_of_worship" = "Tempat ibadah";
-
 "type.amenity.place_of_worship.buddhist" = "Kuil";
-
 "type.amenity.place_of_worship.christian" = "Gereja";
-
 "type.amenity.place_of_worship.hindu" = "Kuil";
-
 "type.amenity.place_of_worship.jewish" = "Sinagoge";
-
 "type.amenity.place_of_worship.muslim" = "Masjid";
-
 "type.amenity.place_of_worship.shinto" = "Kuil";
-
 "type.amenity.place_of_worship.taoist" = "Kuil";
-
 "type.amenity.police" = "Polisi";
-
 "type.amenity.post_box" = "Kotak pos";
-
 "type.amenity.post_office" = "Kantor pos";
-
 "type.amenity.prison" = "Prison";
-
 "type.amenity.pub" = "Pub";
-
 "type.amenity.public_bookcase" = "Rak Buku";
-
 "type.amenity.recycling" = "TPA";
-
 "type.amenity.recycling_container" = "Wadah daur ulang";
-
 "type.recycling.toxic" = "Limbah beracun";
-
 "type.recycling.clothes" = "Pakaian lama";
-
 "type.recycling.glass_bottles" = "Botol kaca";
-
 "type.recycling.paper" = "Limbah kertas";
-
 "type.recycling.plastic" = "Limbah plastik";
-
 "type.recycling.plastic_bottles" = "Botol-botol plastik";
-
 "type.recycling.scrap_metal" = "Besi tua";
-
 "type.recycling.small_appliances" = "Limbah elektronik";
-
 "type.amenity.restaurant" = "Restoran";
-
 "type.amenity.school" = "Sekolah";
-
 "type.amenity.shelter" = "Tempat penampungan";
-
 "type.amenity.shower" = "Pancuran";
-
 "type.amenity.taxi" = "Taksi";
-
 "type.amenity.telephone" = "Telepon";
-
 "type.amenity.theatre" = "Teater";
-
 "type.amenity.toilets" = "Toilet";
-
 "type.amenity.townhall" = "Balai kota";
-
 "type.amenity.university" = "Universitas";
-
 "type.amenity.vending_machine" = "Vending Machine";
-
 "type.amenity.vending_machine.cigarettes" = "Mesin rokok";
-
 "type.amenity.vending_machine.drinks" = "Mesin penjual minuman";
-
 "type.amenity.vending_machine.parking_tickets" = "Mesin pembayaran tiket parkir";
-
 "type.amenity.vending_machine.public_transport_tickets" = "Mesin penjual otomatis tiket transportasi umum";
-
 "type.amenity.veterinary" = "Dokter Hewan";
-
 "type.amenity.waste_basket" = "Kotak sampah";
-
 "type.amenity.waste_disposal" = "Sampah";
-
 "type.amenity.water_point" = "Titik Air";
-
 "type.barrier" = "Barrier";
-
 "type.barrier.block" = "Blok";
-
 "type.barrier.bollard" = "Pilar";
-
 "type.barrier.border_control" = "Gerbang perbatasan";
-
 "type.barrier.chain" = "Chain";
-
 "type.barrier.city_wall" = "City Wall";
-
 "type.barrier.cycle_barrier" = "Cycle Barrier";
-
 "type.barrier.entrance" = "Pintu masuk";
-
 "type.barrier.fence" = "Fence";
-
 "type.barrier.gate" = "Gerbang";
-
 "type.barrier.hedge" = "Hedge";
-
 "type.barrier.lift_gate" = "Polisi tidur";
-
 "type.barrier.retaining_wall" = "Retaining Wall";
-
 "type.barrier.stile" = "Undakan";
-
 "type.barrier.swing_gate" = "Polisi tidur";
-
 "type.barrier.toll_booth" = "Gerbang tol";
-
 "type.barrier.wall" = "Wall";
-
 "type.boundary" = "Boundary";
-
 "type.boundary.administrative" = "boundary-administrative";
-
 "type.boundary.administrative.10" = "boundary-administrative-10";
-
 "type.boundary.administrative.11" = "boundary-administrative-11";
-
 "type.boundary.administrative.2" = "boundary-administrative-2";
-
 "type.boundary.administrative.3" = "boundary-administrative-3";
-
 "type.boundary.administrative.4" = "boundary-administrative-4";
-
 "type.boundary.administrative.4.state" = "boundary-administrative-4-state";
-
 "type.boundary.administrative.5" = "boundary-administrative-5";
-
 "type.boundary.administrative.6" = "boundary-administrative-6";
-
 "type.boundary.administrative.7" = "boundary-administrative-7";
-
 "type.boundary.administrative.8" = "boundary-administrative-8";
-
 "type.boundary.administrative.9" = "boundary-administrative-9";
-
 "type.boundary.administrative.city" = "boundary-administrative-city";
-
 "type.boundary.administrative.country" = "boundary-administrative-country";
-
 "type.boundary.administrative.county" = "boundary-administrative-county";
-
 "type.boundary.administrative.municipality" = "boundary-administrative-municipality";
-
 "type.boundary.administrative.nation" = "boundary-administrative-nation";
-
 "type.boundary.administrative.region" = "boundary-administrative-region";
-
 "type.boundary.administrative.state" = "boundary-administrative-state";
-
 "type.boundary.administrative.suburb" = "boundary-administrative-suburb";
-
 "type.boundary.national_park" = "Taman Nasional";
-
 "type.building" = "Gedung";
-
 "type.building.address" = "Gedung";
-
 "type.building.garage" = "Garasi";
-
 "type.building.has_parts" = "Gedung";
-
 "type.building.train_station" = "Rel kereta api";
-
 "type.building.warehouse" = "Warehouse";
-
 "type.craft" = "Craft";
-
 "type.craft.brewery" = "Toko minuman";
-
 "type.craft.carpenter" = "Tukang kayu";
-
 "type.craft.electrician" = "Tukang listrik";
-
 "type.craft.gardener" = "Tukang kebun";
-
 "type.craft.hvac" = "Hvac";
-
 "type.craft.metal_construction" = "Tukang besi";
-
 "type.craft.painter" = "Tukang cat";
-
 "type.craft.photographer" = "Juru foto";
-
 "type.craft.plumber" = "Tukang pipa";
-
 "type.craft.shoemaker" = "Tukang sepatu";
-
 "type.craft.tailor" = "Tukang jahit";
-
 "type.cuisine.african" = "Masakan afrika";
-
 "type.cuisine.american" = "Masakan amerika";
-
 "type.cuisine.arab" = "Masakan arab";
-
 "type.cuisine.argentinian" = "Masakan argentina";
-
 "type.cuisine.asian" = "Masakan asia";
-
 "type.cuisine.austrian" = "Masakan austria";
-
 "type.cuisine.bagel" = "Roti bagel";
-
 "type.cuisine.balkan" = "Masakan balkan";
-
 "type.cuisine.barbecue" = "Barbekyu";
-
 "type.cuisine.bavarian" = "Masakan bavaria";
-
 "type.cuisine.beef_bowl" = "Nasi daging sapi";
-
 "type.cuisine.brazilian" = "Masakan brasil";
-
 "type.cuisine.breakfast" = "Sarapan";
-
 "type.cuisine.burger" = "Burger";
-
 "type.cuisine.buschenschank" = "Taverna anggur";
-
 "type.cuisine.cake" = "Kue";
-
 "type.cuisine.caribbean" = "Masakan karibia";
-
 "type.cuisine.chicken" = "Ayam";
-
 "type.cuisine.chinese" = "Masakan tionghoa";
-
 "type.cuisine.coffee_shop" = "Kopi";
-
 "type.cuisine.crepe" = "Kue dadar";
-
 "type.cuisine.croatian" = "Masakan kroasia";
-
 "type.cuisine.curry" = "Kari";
-
 "type.cuisine.deli" = "Toko makanan jadi";
-
 "type.cuisine.diner" = "Makan malam";
-
 "type.cuisine.donut" = "Donat";
-
 "type.cuisine.ethiopian" = "Masakan etiopia";
-
 "type.cuisine.filipino" = "Masakan filipina";
-
 "type.cuisine.fine_dining" = "Adiboga";
-
 "type.cuisine.fish" = "Ikan";
-
 "type.cuisine.fish_and_chips" = "Ikan dan kentang goreng";
-
 "type.cuisine.french" = "Masakan prancis";
-
 "type.cuisine.friture" = "Gorengan";
-
 "type.cuisine.georgian" = "Masakan georgia";
-
 "type.cuisine.german" = "Masakan jerman";
-
 "type.cuisine.greek" = "Masakan yunani";
-
 "type.cuisine.grill" = "Panggangan";
-
 "type.cuisine.heuriger" = "Taverna anggur";
-
 "type.cuisine.hotdog" = "Hotdog";
-
 "type.cuisine.hungarian" = "Masakan hongaria";
-
 "type.cuisine.ice_cream" = "Es_krim";
-
 "type.cuisine.indian" = "Masakan india";
-
 "type.cuisine.indonesian" = "Masakan indonesia";
-
 "type.cuisine.international" = "Masakan internasional";
-
 "type.cuisine.irish" = "Masakan irlandia";
-
 "type.cuisine.italian" = "Masakan italia";
-
 "type.cuisine.italian_pizza" = "Italia, pizza";
-
 "type.cuisine.japanese" = "Masakan jepang";
-
 "type.cuisine.kebab" = "Kebab";
-
 "type.cuisine.korean" = "Korea";
-
 "type.cuisine.lao" = "Masakan laos";
-
 "type.cuisine.lebanese" = "Masakan lebanon";
-
 "type.cuisine.local" = "Masakan lokal";
-
 "type.cuisine.malagasy" = "Masakan madagaskar";
-
 "type.cuisine.malaysian" = "Masakan malaysia";
-
 "type.cuisine.mediterranean" = "Masakan mediterania";
-
 "type.cuisine.mexican" = "Masakan meksiko";
-
 "type.cuisine.moroccan" = "Masakan maroko";
-
 "type.cuisine.noodles" = "Bakmi";
-
 "type.cuisine.oriental" = "Masakan oriental";
-
 "type.cuisine.pancake" = "Panekuk";
-
 "type.cuisine.pasta" = "Pasta";
-
 "type.cuisine.persian" = "Masakan persia";
-
 "type.cuisine.peruvian" = "Masakan peru";
-
 "type.cuisine.pizza" = "Pizza";
-
 "type.cuisine.polish" = "Masakan polandia";
-
 "type.cuisine.portuguese" = "Masakan portugis";
-
 "type.cuisine.ramen" = "Ramen";
-
 "type.cuisine.regional" = "Masakan regional";
-
 "type.cuisine.russian" = "Masakan rusia";
-
 "type.cuisine.sandwich" = "Roti isi";
-
 "type.cuisine.sausage" = "Sosis";
-
 "type.cuisine.savory_pancakes" = "Panekuk gurih";
-
 "type.cuisine.seafood" = "Hidangan laut";
-
 "type.cuisine.soba" = "Soba";
-
 "type.cuisine.spanish" = "Masakan spanyol";
-
 "type.cuisine.steak_house" = "Restoran_steik";
-
 "type.cuisine.sushi" = "Sushi";
-
 "type.cuisine.tapas" = "Kudapan spanyol";
-
 "type.cuisine.tea" = "Teh";
-
 "type.cuisine.thai" = "Masakan thailand";
-
 "type.cuisine.turkish" = "Masakan turki";
-
 "type.cuisine.vegan" = "Masakan vegan";
-
 "type.cuisine.vegetarian" = "Masakan vegetarian";
-
 "type.cuisine.vietnamese" = "Masakan vietnam";
-
 "type.emergency" = "Emergency";
-
 "type.emergency.defibrillator" = "Defibrilator";
-
 "type.emergency.fire_hydrant" = "Keran Kebakaran";
-
 "type.emergency.phone" = "Telepon darurat";
-
 "type.entrance" = "Pintu masuk";
-
 "type.healthcare.laboratory" = "Laboratorium medis";
-
 "type.highway" = "Highway";
-
 "type.highway.bridleway" = "Rider's Path";
-
 "type.highway.bridleway.bridge" = "Rider's Path";
-
 "type.highway.bridleway.permissive" = "Rider's Path";
-
 "type.highway.bridleway.tunnel" = "Rider's Path";
-
 "type.highway.bus_stop" = "Halte bus";
-
 "type.highway.construction" = "Jalan sedang dibangun";
-
 "type.highway.cycleway" = "Bike Path";
-
 "type.highway.cycleway.bridge" = "Bike Path";
-
 "type.highway.cycleway.permissive" = "Bike Path";
-
 "type.highway.cycleway.tunnel" = "Bike Path";
-
 "type.highway.elevator" = "Elevator";
-
 "type.highway.footway" = "Jalur";
-
 "type.highway.footway.alpine_hiking" = "Jalur";
-
 "type.highway.footway.area" = "Jalur";
-
 "type.highway.footway.bridge" = "Jalur";
-
 "type.highway.footway.demanding_alpine_hiking" = "Jalur";
-
 "type.highway.footway.demanding_mountain_hiking" = "Jalur";
-
 "type.highway.footway.difficult_alpine_hiking" = "Jalur";
-
 "type.highway.footway.hiking" = "Jalur";
-
 "type.highway.footway.mountain_hiking" = "Jalur";
-
 "type.highway.footway.permissive" = "Jalur";
-
 "type.highway.footway.tunnel" = "Jalur";
-
 "type.highway.ford" = "Menyeberang";
-
 "type.highway.living_street" = "Jalan";
-
 "type.highway.living_street.bridge" = "Jalan";
-
 "type.highway.living_street.tunnel" = "Jalan";
-
 "type.highway.motorway" = "Jalan";
-
 "type.highway.motorway.bridge" = "Jalan";
-
 "type.highway.motorway.tunnel" = "Jalan";
-
 "type.highway.motorway_junction" = "Keluar";
-
 "type.highway.motorway_link" = "Jalan";
-
 "type.highway.motorway_link.bridge" = "Jalan";
-
 "type.highway.motorway_link.tunnel" = "Jalan";
-
 "type.highway.path" = "Jalur";
-
 "type.highway.path.alpine_hiking" = "Jalur";
-
 "type.highway.path.bicycle" = "Jalur";
-
 "type.highway.path.bridge" = "Jalur";
-
 "type.highway.path.demanding_alpine_hiking" = "Jalur";
-
 "type.highway.path.demanding_mountain_hiking" = "Jalur";
-
 "type.highway.path.difficult_alpine_hiking" = "Jalur";
-
 "type.highway.path.hiking" = "Jalur";
-
 "type.highway.path.horse" = "Jalur";
-
 "type.highway.path.mountain_hiking" = "Jalur";
-
 "type.highway.path.permissive" = "Jalur";
-
 "type.highway.path.tunnel" = "Jalur";
-
 "type.highway.pedestrian" = "Jalan";
-
 "type.highway.pedestrian.area" = "Jalan";
-
 "type.highway.pedestrian.bridge" = "Jalan";
-
 "type.highway.pedestrian.tunnel" = "Jalan";
-
 "type.highway.primary" = "Jalan";
-
 "type.highway.primary.bridge" = "Jalan";
-
 "type.highway.primary.tunnel" = "Jalan";
-
 "type.highway.primary_link" = "Jalan";
-
 "type.highway.primary_link.bridge" = "Jalan";
-
 "type.highway.primary_link.tunnel" = "Jalan";
-
 "type.highway.raceway" = "Lintasan balap";
-
 "type.highway.residential" = "Jalan";
-
 "type.highway.residential.area" = "Jalan";
-
 "type.highway.residential.bridge" = "Jalan";
-
 "type.highway.residential.tunnel" = "Jalan";
-
 "type.highway.rest_area" = "Tempat istirahat";
-
 "type.highway.road" = "Jalan";
-
 "type.highway.road.bridge" = "Jalan";
-
 "type.highway.road.tunnel" = "Jalan";
-
 "type.highway.secondary" = "Jalan";
-
 "type.highway.secondary.bridge" = "Jalan";
-
 "type.highway.secondary.tunnel" = "Jalan";
-
 "type.highway.secondary_link" = "Jalan";
-
 "type.highway.secondary_link.bridge" = "Jalan";
-
 "type.highway.secondary_link.tunnel" = "Jalan";
-
 "type.highway.service" = "Jalan";
-
 "type.highway.service.area" = "Jalan";
-
 "type.highway.service.bridge" = "Jalan";
-
 "type.highway.service.driveway" = "Jalan";
-
 "type.highway.service.parking_aisle" = "Jalan";
-
 "type.highway.service.tunnel" = "Jalan";
-
 "type.highway.services" = "Service on the Road";
-
 "type.highway.speed_camera" = "Kamera Kecepatan";
-
 "type.highway.steps" = "Jalur";
-
 "type.highway.steps.bridge" = "Jalur";
-
 "type.highway.steps.tunnel" = "Jalur";
-
 "type.highway.tertiary" = "Jalan";
-
 "type.highway.tertiary.bridge" = "Jalan";
-
 "type.highway.tertiary.tunnel" = "Jalan";
-
 "type.highway.tertiary_link" = "Jalan";
-
 "type.highway.tertiary_link.bridge" = "Jalan";
-
 "type.highway.tertiary_link.tunnel" = "Jalan";
-
 "type.highway.track" = "Jalan";
-
 "type.highway.track.area" = "Jalan";
-
 "type.highway.track.bridge" = "Jalan";
-
 "type.highway.track.grade1" = "Jalan";
-
 "type.highway.track.grade2" = "Jalan";
-
 "type.highway.track.grade3" = "Jalan";
-
 "type.highway.track.grade4" = "Jalan";
-
 "type.highway.track.grade5" = "Jalan";
-
 "type.highway.track.no.access" = "Jalan";
-
 "type.highway.track.permissive" = "Jalan";
-
 "type.highway.track.tunnel" = "Jalan";
-
 "type.highway.traffic_signals" = "Lampu lalu lintas";
-
 "type.highway.trunk" = "Jalan";
-
 "type.highway.trunk.bridge" = "Jalan";
-
 "type.highway.trunk.tunnel" = "Jalan";
-
 "type.highway.trunk_link" = "Jalan";
-
 "type.highway.trunk_link.bridge" = "Jalan";
-
 "type.highway.trunk_link.tunnel" = "Jalan";
-
 "type.highway.unclassified" = "Jalan";
-
 "type.highway.unclassified.area" = "Jalan";
-
 "type.highway.unclassified.bridge" = "Jalan";
-
 "type.highway.unclassified.tunnel" = "Jalan";
-
 "type.highway.world_level" = "highway-world_level";
-
 "type.highway.world_towns_level" = "highway-world_towns_level";
-
 "type.historic" = "Historic";
-
 "type.historic.archaeological_site" = "Situs arkeologi";
-
 "type.historic.battlefield" = "Battlefield";
-
 "type.historic.boundary_stone" = "Boundary Stone";
-
 "type.historic.castle" = "Kastel";
-
 "type.historic.castle.defensive" = "Kastel";
-
 "type.historic.castle.stately" = "Kastel";
-
 "type.historic.citywalls" = "City Wall";
-
 "type.historic.fort" = "Fort";
-
 "type.historic.memorial" = "Tugu peringatan";
-
 "type.historic.memorial.plaque" = "Tugu peringatan";
-
 "type.historic.memorial.sculpture" = "Tugu peringatan";
-
 "type.historic.memorial.statue" = "Tugu peringatan";
-
 "type.historic.monument" = "Monumen";
-
 "type.historic.ruins" = "Reruntuhan";
-
 "type.historic.ship" = "Pemandangan";
-
 "type.historic.tomb" = "Pemandangan";
-
 "type.historic.wayside_cross" = "Christian Cross";
-
 "type.historic.wayside_shrine" = "Shrine";
-
 "type.hwtag" = "hwtag";
-
 "type.hwtag.bidir_bicycle" = "hwtag-bidir_bicycle";
-
 "type.hwtag.onedir_bicycle" = "hwtag-onedir_bicycle";
-
 "type.hwtag.lit" = "hwtag-lit";
-
 "type.hwtag.nobicycle" = "hwtag-nobicycle";
-
 "type.hwtag.nocar" = "hwtag-nocar";
-
 "type.hwtag.nofoot" = "hwtag-nofoot";
-
 "type.hwtag.oneway" = "hwtag-oneway";
-
 "type.hwtag.private" = "hwtag-private";
-
 "type.hwtag.toll" = "hwtag-toll";
-
 "type.hwtag.yesbicycle" = "hwtag-yesbicycle";
-
 "type.hwtag.yescar" = "hwtag-yescar";
-
 "type.hwtag.yesfoot" = "hwtag-yesfoot";
-
 "type.internet_access" = "Internet";
-
 "type.internet_access.wlan" = "Internet";
-
 "type.junction" = "Junction";
-
 "type.junction.roundabout" = "Roundabout";
-
 "type.landuse" = "Landuse";
-
 "type.landuse.allotments" = "Allotments";
-
 "type.landuse.basin" = "Air";
-
 "type.landuse.brownfield" = "Brownfield";
-
 "type.landuse.cemetery" = "Pemakaman";
-
 "type.landuse.cemetery.christian" = "Pemakaman";
-
 "type.landuse.churchyard" = "Halaman gereja";
-
 "type.landuse.commercial" = "Commercial Area";
-
 "type.landuse.construction" = "Construction";
-
 "type.landuse.farm" = "Farm";
-
 "type.landuse.farmland" = "Lahan pertanian";
-
 "type.landuse.farmyard" = "Farmyard";
-
 "type.landuse.field" = "Field";
-
 "type.landuse.forest" = "Hutan";
-
 "type.landuse.forest.coniferous" = "Hutan";
-
 "type.landuse.forest.deciduous" = "Hutan";
-
 "type.landuse.forest.mixed" = "Hutan";
-
 "type.landuse.garages" = "Garages";
-
 "type.landuse.grass" = "Lapangan rumput";
-
 "type.landuse.greenfield" = "Greenfield";
-
 "type.landuse.greenhouse_horticulture" = "Greenhouse";
-
 "type.landuse.industrial" = "Industrial Land";
-
 "type.landuse.landfill" = "TPA";
-
 "type.landuse.meadow" = "Meadow";
-
 "type.landuse.military" = "Military Area";
-
 "type.landuse.orchard" = "Orchard";
-
 "type.landuse.quarry" = "Quarry";
-
 "type.landuse.railway" = "Stasiun kereta api";
-
 "type.landuse.recreation_ground" = "Recreation Ground";
-
 "type.landuse.reservoir" = "Air";
-
 "type.landuse.residential" = "Residential Land";
-
 "type.landuse.retail" = "Retail Land";
-
 "type.landuse.salt_pond" = "Pond";
-
 "type.landuse.village_green" = "Land";
-
 "type.landuse.vineyard" = "Vineyard";
-
 "type.leisure" = "Leisure";
-
 "type.leisure.common" = "leisure-common";
-
 "type.leisure.dog_park" = "Area untuk anjing";
-
 "type.leisure.fitness_centre" = "Pusat kebugaran";
-
 "type.leisure.fitness_station" = "Stasiun Kebugaran";
-
 "type.leisure.garden" = "Situs arkeologi";
-
 "type.leisure.golf_course" = "Lapangan golf";
-
 "type.leisure.ice_rink" = "Ice Rink";
-
 "type.leisure.landscape_reserve" = "Landscape Reserve";
-
 "type.leisure.marina" = "Marina";
-
 "type.leisure.nature_reserve" = "Cagar Alam";
-
 "type.leisure.park" = "Taman";
-
 "type.leisure.park.no.access" = "Taman";
-
 "type.leisure.park.permissive" = "Taman";
-
 "type.leisure.park.private" = "Taman";
-
 "type.leisure.picnic_table" = "Meja piknik";
-
 "type.leisure.pitch" = "Lapangan olahraga";
-
 "type.leisure.playground" = "Taman bermain";
-
 "type.leisure.recreation_ground" = "Recreation Ground";
-
 "type.leisure.sauna" = "Sauna";
-
 "type.leisure.slipway" = "Slipway";
-
 "type.leisure.sports_centre" = "Olahraga";
-
 "type.leisure.sports_centre.climbing" = "Pusat Peralatan Mendaki";
-
 "type.leisure.sports_centre.shooting" = "Lapangan tembak";
-
 "type.leisure.sports_centre.swimming" = "Kolam Renang";
-
 "type.leisure.sports_centre.yoga" = "Studio Yoga";
-
 "type.leisure.stadium" = "Stadion";
-
 "type.leisure.swimming_pool" = "Kolam renang";
-
 "type.leisure.track" = "Track";
-
 "type.leisure.water_park" = "Taman air";
-
 "type.man_made" = "Man Made";
-
 "type.man_made.breakwater" = "Breakwater";
-
 "type.man_made.cairn" = "Cairn";
-
 "type.man_made.chimney" = "Cerobong asap pabrik";
-
 "type.man_made.cutline" = "Cutline";
-
 "type.man_made.lighthouse" = "Mercusuar";
-
 "type.man_made.pier" = "Pier";
-
 "type.man_made.pipeline" = "Pipeline";
-
 "type.man_made.pipeline.overground" = "Overground Pipeline";
-
 "type.man_made.silo" = "Silo";
-
 "type.man_made.storage_tank" = "Storage Tank";
-
 "type.man_made.surveillance" = "Kamera Pengawas";
-
 "type.man_made.tower" = "Menara";
-
 "type.man_made.wastewater_plant" = "Wastewater Plant";
-
 "type.man_made.water_tap" = "Keran Air";
-
 "type.man_made.water_tower" = "Menara air";
-
 "type.man_made.water_well" = "Sumur air";
-
 "type.man_made.windmill" = "Kincir angin";
-
 "type.man_made.works" = "Works";
-
 "type.mapswithme" = "mapswithme";
-
 "type.mapswithme.grid" = "mapswithme-grid";
-
 "type.military" = "Military";
-
 "type.military.bunker" = "Bunker";
-
 "type.mountain_pass" = "Mountain Pass";
-
 "type.natural" = "Natural";
-
 "type.natural.bare_rock" = "Bare Rock";
-
 "type.natural.bay" = "Teluk";
-
 "type.natural.beach" = "Pantai";
-
 "type.natural.cape" = "Tanjung";
-
 "type.natural.cave_entrance" = "Gua";
-
 "type.natural.cliff" = "Cliff";
-
 "type.natural.coastline" = "Coastline";
-
 "type.natural.geyser" = "Geiser";
-
 "type.natural.glacier" = "Gletser";
-
 "type.natural.grassland" = "Ladang";
-
 "type.natural.heath" = "Heath";
-
 "type.natural.hot_spring" = "Hot Spring";
-
 "type.natural.water.lake" = "Danau";
-
 "type.natural.land" = "Land";
-
 "type.natural.meadow" = "Meadow";
-
 "type.natural.orchard" = "Orchard";
-
 "type.natural.peak" = "Puncak";
-
 "type.natural.saddle" = "Mountain Saddle";
-
 "type.natural.water.pond" = "Kolam";
-
 "type.natural.rock" = "Rock";
-
 "type.natural.scrub" = "Semak";
-
 "type.natural.spring" = "Mata air";
-
 "type.natural.strait" = "Selat";
-
 "type.natural.tree" = "Pohon";
-
 "type.natural.tree_row" = "Tree Row";
-
 "type.natural.vineyard" = "Vineyard";
-
 "type.natural.volcano" = "Gunung berapi";
-
 "type.natural.water" = "Air";
-
 "type.natural.wetland" = "Area lahan basah";
-
 "type.natural.wetland.bog" = "Wetland";
-
 "type.natural.wetland.marsh" = "Wetland";
-
 "type.noexit" = "noexit";
-
 "type.noexit.motor_vehicle" = "noexit-motor_vehicle";
-
 "type.office" = "Kantor";
-
 "type.office.company" = "Kantor perusahaan";
-
 "type.office.estate_agent" = "Agen ril estat";
-
 "type.office.government" = "Kantor pemerintah";
-
 "type.office.insurance" = "Kantor Asuransi";
-
 "type.office.lawyer" = "Kantor pengacara";
-
 "type.office.ngo" = "Kantor LSM";
-
 "type.office.telecommunication" = "Operator seluler";
-
 "type.olympics" = "olympics";
-
 "type.olympics.attraction" = "olympics-attraction";
-
 "type.olympics.bike_sport" = "olympics-bike_sport";
-
 "type.olympics.live_site" = "olympics-live_site";
-
 "type.olympics.official_building" = "olympics-official_building";
-
 "type.olympics.stadium" = "olympics-stadium";
-
 "type.olympics.stadium_main" = "olympics-stadium_main";
-
 "type.olympics.transport_airport" = "olympics-transport_airport";
-
 "type.olympics.transport_boat" = "olympics-transport_boat";
-
 "type.olympics.transport_bus" = "olympics-transport_bus";
-
 "type.olympics.transport_cable" = "olympics-transport_cable";
-
 "type.olympics.transport_railway" = "olympics-transport_railway";
-
 "type.olympics.transport_subway" = "olympics-transport_subway";
-
 "type.olympics.transport_tram" = "olympics-transport_tram";
-
 "type.olympics.water_sport" = "olympics-water_sport";
-
 "type.place" = "place";
-
 "type.place.city" = "Kota";
-
 "type.place.city.capital" = "Ibu kota";
-
 "type.place.city.capital.10" = "Ibu kota";
-
 "type.place.city.capital.11" = "Ibu kota";
-
 "type.place.city.capital.2" = "Ibu kota";
-
 "type.place.city.capital.3" = "Ibu kota";
-
 "type.place.city.capital.4" = "Ibu kota";
-
 "type.place.city.capital.5" = "Ibu kota";
-
 "type.place.city.capital.6" = "Ibu kota";
-
 "type.place.city.capital.7" = "Ibu kota";
-
 "type.place.city.capital.8" = "Ibu kota";
-
 "type.place.city.capital.9" = "Ibu kota";
-
 "type.place.continent" = "Benua";
-
 "type.place.country" = "Benua";
-
 "type.place.county" = "Kabupaten";
-
 "type.place.farm" = "Ladang";
-
 "type.place.hamlet" = "Dusun";
-
 "type.place.island" = "Pulau";
-
 "type.place.islet" = "Pulau";
-
 "type.place.isolated_dwelling" = "Dwelling";
-
 "type.place.locality" = "Wilayah";
-
 "type.place.neighbourhood" = "Neighbourhood";
-
 "type.place.ocean" = "Samudra";
-
 "type.place.region" = "Wilayah";
-
 "type.place.sea" = "Laut";
-
 "type.place.square" = "Square";
-
 "type.place.state" = "Negara bagian";
-
 "type.place.state.USA" = "Negara bagian";
-
 "type.place.suburb" = "Pinggiran kota";
-
 "type.place.town" = "Kota";
-
 "type.place.village" = "Desa";
-
 "type.power" = "Power";
-
 "type.power.generator" = "Generator";
-
 "type.power.line" = "Power Line";
-
 "type.power.line.underground" = "Underground Power Line";
-
 "type.power.minor_line" = "Minor Power Line";
-
 "type.power.pole" = "Menara listrik";
-
 "type.power.station" = "Power Station";
-
 "type.power.substation" = "Stasiun bawah tanah";
-
 "type.power.tower" = "Menara listrik";
-
 "type.psurface" = "psurface";
-
 "type.psurface.paved_bad" = "psurface-paved_bad";
-
 "type.psurface.paved_good" = "psurface-paved_good";
-
 "type.psurface.unpaved_bad" = "psurface-unpaved_bad";
-
 "type.psurface.unpaved_good" = "psurface-unpaved_good";
-
 "type.public_transport" = "Public Transport";
-
 "type.public_transport.platform" = "Platform";
-
 "type.railway" = "Railway";
-
 "type.railway.abandoned" = "Abandoned railway";
-
 "type.railway.abandoned.bridge" = "Abandoned railway";
-
 "type.railway.abandoned.tunnel" = "Abandoned railway";
-
 "type.railway.construction" = "Railway's construction";
-
 "type.railway.crossing" = "Railway crossing";
-
 "type.railway.disused" = "Disused railway";
-
 "type.railway.funicular" = "Funicular";
-
 "type.railway.funicular.bridge" = "Funicular";
-
 "type.railway.funicular.tunnel" = "Funicular";
-
 "type.railway.halt" = "Rel kereta api";
-
 "type.railway.level_crossing" = "Perlintasan Kereta Api";
-
 "type.railway.light_rail" = "Light Rail";
-
 "type.railway.light_rail.bridge" = "Light Rail";
-
 "type.railway.light_rail.tunnel" = "Light Rail";
-
 "type.railway.monorail" = "Monorel";
-
 "type.railway.monorail.bridge" = "Monorail";
-
 "type.railway.monorail.tunnel" = "Monorail";
-
 "type.railway.narrow_gauge" = "Narrow Gauge Rail";
-
 "type.railway.narrow_gauge.bridge" = "Narrow Gauge Rail";
-
 "type.railway.narrow_gauge.tunnel" = "Narrow Gauge Rail";
-
 "type.railway.platform" = "Platform";
-
 "type.railway.preserved" = "Preserved Rail";
-
 "type.railway.preserved.bridge" = "Preserved Rail";
-
 "type.railway.preserved.tunnel" = "Preserved Rail";
-
 "type.railway.rail" = "Kereta api";
-
 "type.railway.rail.bridge" = "Railway";
-
 "type.railway.rail.motor_vehicle" = "Railway";
-
 "type.railway.rail.tunnel" = "Railway";
-
 "type.railway.razed" = "Razed Rail";
-
 "type.railway.siding" = "Siding Rail";
-
 "type.railway.siding.bridge" = "Siding Rail";
-
 "type.railway.siding.tunnel" = "Siding Rail";
-
 "type.railway.spur" = "Spur Rail";
-
 "type.railway.spur.bridge" = "Spur Rail";
-
 "type.railway.spur.tunnel" = "Spur Rail";
-
 "type.railway.station" = "Rel kereta api";
-
 "type.railway.station.light_rail" = "Rel kereta api";
-
 "type.railway.station.monorail" = "Rel kereta api";
-
 "type.railway.station.subway" = "Stasiun bawah tanah";
-
 "type.railway.station.subway.barcelona" = "Stasiun bawah tanah";
-
 "type.railway.station.subway.berlin" = "Stasiun bawah tanah";
-
 "type.railway.station.subway.kiev" = "Stasiun bawah tanah";
-
 "type.railway.station.subway.london" = "Stasiun bawah tanah";
-
 "type.railway.station.subway.madrid" = "Stasiun bawah tanah";
-
 "type.railway.station.subway.minsk" = "Stasiun bawah tanah";
-
 "type.railway.station.subway.moscow" = "Stasiun bawah tanah";
-
 "type.railway.station.subway.newyork" = "Stasiun bawah tanah";
-
 "type.railway.station.subway.paris" = "Stasiun bawah tanah";
-
 "type.railway.station.subway.roma" = "Stasiun bawah tanah";
-
 "type.railway.station.subway.spb" = "Stasiun bawah tanah";
-
 "type.railway.subway" = "Subway Line";
-
 "type.railway.subway.bridge" = "Subway Line";
-
 "type.railway.subway.tunnel" = "Subway Line";
-
 "type.railway.subway_entrance" = "Pintu masuk kereta bawah tanah";
-
 "type.railway.subway_entrance.barcelona" = "Stasiun bawah tanah";
-
 "type.railway.subway_entrance.berlin" = "Stasiun bawah tanah";
-
 "type.railway.subway_entrance.kiev" = "Stasiun bawah tanah";
-
 "type.railway.subway_entrance.london" = "Stasiun bawah tanah";
-
 "type.railway.subway_entrance.madrid" = "Stasiun bawah tanah";
-
 "type.railway.subway_entrance.minsk" = "Stasiun bawah tanah";
-
 "type.railway.subway_entrance.moscow" = "Stasiun bawah tanah";
-
 "type.railway.subway_entrance.newyork" = "Stasiun bawah tanah";
-
 "type.railway.subway_entrance.paris" = "Stasiun bawah tanah";
-
 "type.railway.subway_entrance.roma" = "Stasiun bawah tanah";
-
 "type.railway.subway_entrance.spb" = "Stasiun bawah tanah";
-
 "type.railway.tram" = "Tram Line";
-
 "type.railway.tram.bridge" = "Tram Line";
-
 "type.railway.tram.tunnel" = "Tram Line";
-
 "type.railway.tram_stop" = "Perhentian trem";
-
 "type.railway.yard" = "Railway Yard";
-
 "type.railway.yard.bridge" = "Railway Yard";
-
 "type.railway.yard.tunnel" = "Railway Yard";
-
 "type.route" = "route";
-
 "type.route.ferry" = "Ferry";
-
 "type.route.shuttle_train" = "Shuttle Train";
-
 "type.shop" = "Toko";
-
 "type.shop.alcohol" = "Toko alkohol";
-
 "type.shop.bakery" = "Toko roti";
-
 "type.shop.beauty" = "Salon kecantikan";
-
 "type.shop.beverages" = "Minuman";
-
 "type.shop.bicycle" = "Toko sepeda";
-
 "type.shop.bookmaker" = "Bandar judi";
-
 "type.shop.books" = "Toko buku";
-
 "type.shop.butcher" = "Tukang daging";
-
 "type.shop.car" = "Toko mobil";
-
 "type.shop.car_parts" = "Bagian mobil";
-
 "type.shop.car_repair" = "Bengkel mobil";
-
 "type.shop.car_repair.tyres" = "Tambal ban";
-
 "type.shop.chemist" = "Toko Bahan Kimia";
-
 "type.shop.chocolate" = "Toko";
-
 "type.shop.clothes" = "Toko baju";
-
 "type.shop.coffee" = "Toko";
-
 "type.shop.computer" = "Toko komputer";
-
 "type.shop.confectionery" = "Penganan";
-
 "type.shop.convenience" = "Mini market";
-
 "type.shop.copyshop" = "Fotokopi";
-
 "type.shop.cosmetics" = "Kosmetik";
-
 "type.shop.department_store" = "Toko serba ada";
-
 "type.shop.doityourself" = "Toko perangkat keras";
-
 "type.shop.dry_cleaning" = "Cuci Kering";
-
 "type.shop.electronics" = "Elektronik";
-
 "type.shop.erotic" = "Toko Erotik";
-
 "type.shop.fabric" = "Toko";
-
 "type.shop.florist" = "Tukang bunga";
-
 "type.shop.funeral_directors" = "Direktur Pemakaman";
-
 "type.shop.furniture" = "Toko mebel";
-
 "type.shop.garden_centre" = "Penitipan anak";
-
 "type.shop.gift" = "Toko hadiah";
-
 "type.shop.greengrocer" = "Penjual sayuran";
-
 "type.shop.hairdresser" = "Penata rambut";
-
 "type.shop.hardware" = "Toko perangkat keras";
-
 "type.shop.jewelry" = "Perhiasan";
-
 "type.shop.kiosk" = "Toko";
-
 "type.shop.laundry" = "Londri";
-
 "type.shop.mall" = "Mall";
-
 "type.shop.massage" = "Tempat Pijat";
-
 "type.shop.mobile_phone" = "Toko telepon";
-
 "type.shop.money_lender" = "Toko";
-
 "type.shop.motorcycle" = "Toko Sepeda Motor";
-
 "type.shop.music" = "Toko";
-
 "type.shop.musical_instrument" = "Toko";
-
 "type.shop.newsagent" = "Kios Surat Kabar";
-
 "type.shop.optician" = "Toko kacamata";
-
 "type.shop.outdoor" = "Peralatan Outdoor";
-
 "type.shop.pawnbroker" = "Rumah Gadai";
-
 "type.shop.pet" = "Toko hewan";
-
 "type.shop.photo" = "Studio Foto";
-
 "type.shop.seafood" = "Penjual Ikan";
-
 "type.shop.shoes" = "Toko sepatu";
-
 "type.shop.sports" = "Barang olahraga";
-
 "type.shop.stationery" = "Toko Alat Tulis";
-
 "type.shop.supermarket" = "Supermarket";
-
 "type.shop.tattoo" = "Tempat Tato";
-
 "type.shop.tea" = "Toko";
-
 "type.shop.ticket" = "Tempat penjualan karcis";
-
 "type.shop.toys" = "Toko mainan";
-
 "type.shop.travel_agency" = "Agen Perjalanan Wisata";
-
 "type.shop.tyres" = "Toko Ban";
-
 "type.shop.variety_store" = "Toko Kelontong";
-
 "type.shop.video" = "Toko video";
-
 "type.shop.video_games" = "Toko permainan video";
-
 "type.shop.wine" = "Toko anggur";
-
 "type.sponsored" = "sponsored";
-
 "type.sponsored.booking" = "sponsored-booking";
-
 "type.sponsored.holiday" = "Christmas or New Year Celebrations";
-
 "type.sponsored.opentable" = "sponsored-opentable";
-
 "type.sponsored.partner1" = "sponsored-partner1";
-
 "type.sponsored.partner10" = "sponsored-partner10";
-
 "type.sponsored.partner11" = "sponsored-partner11";
-
 "type.sponsored.partner12" = "sponsored-partner12";
-
 "type.sponsored.partner13" = "sponsored-partner13";
-
 "type.sponsored.partner14" = "sponsored-partner14";
-
 "type.sponsored.partner15" = "sponsored-partner15";
-
 "type.sponsored.partner16" = "sponsored-partner16";
-
 "type.sponsored.partner17" = "sponsored-partner17";
-
 "type.sponsored.partner18" = "MegaFon";
-
 "type.sponsored.partner19" = "MegaFon";
-
 "type.sponsored.partner2" = "sponsored-partner2";
-
 "type.sponsored.partner20" = "MegaFon";
-
 "type.sponsored.partner3" = "sponsored-partner3";
-
 "type.sponsored.partner4" = "sponsored-partner4";
-
 "type.sponsored.partner5" = "sponsored-partner5";
-
 "type.sponsored.partner6" = "sponsored-partner6";
-
 "type.sponsored.partner7" = "sponsored-partner7";
-
 "type.sponsored.partner8" = "sponsored-partner8";
-
 "type.sponsored.partner9" = "sponsored-partner9";
-
 "type.sport" = "sport";
-
 "type.sport.american_football" = "American Football";
-
 "type.sport.archery" = "Archery";
-
 "type.sport.athletics" = "Atletik";
-
 "type.sport.australian_football" = "Rugby";
-
 "type.sport.baseball" = "Baseball";
-
 "type.sport.basketball" = "Bola basket";
-
 "type.sport.bowls" = "Bowls";
-
 "type.sport.cricket" = "Cricket";
-
 "type.sport.curling" = "Сurling";
-
 "type.sport.diving" = "Diving";
-
 "type.sport.equestrian" = "Olahraga Berkuda";
-
 "type.sport.golf" = "Golf";
-
 "type.sport.gymnastics" = "Gymnastics";
-
 "type.sport.handball" = "Handball";
-
 "type.sport.multi" = "Various Sport";
-
 "type.sport.scuba_diving" = "Scuba Diving";
-
 "type.sport.shooting" = "Shooting";
-
 "type.sport.skiing" = "Skiing";
-
 "type.sport.soccer" = "Soccer (Football)";
-
 "type.sport.swimming" = "Swimming";
-
 "type.sport.tennis" = "Lapangan tenis";
-
 "type.tourism" = "Tourism";
-
 "type.tourism.alpine_hut" = "Penginapan di pegunungan";
-
 "type.tourism.apartment" = "Apartemen";
-
 "type.tourism.artwork" = "Pariwisata";
-
 "type.tourism.artwork.architecture" = "Pariwisata";
-
 "type.tourism.artwork.painting" = "Pariwisata";
-
 "type.tourism.artwork.sculpture" = "Pariwisata";
-
 "type.tourism.artwork.statue" = "Pariwisata";
-
 "type.tourism.attraction" = "Atraksi";
-
 "type.tourism.attraction.animal" = "Atraksi";
-
 "type.tourism.attraction.specified" = "Atraksi";
-
 "type.tourism.camp_site" = "Perkemahan";
-
 "type.tourism.caravan_site" = "Lokasi perkemahan";
-
 "type.tourism.chalet" = "Chalet";
-
 "type.tourism.gallery" = "Pemandangan";
-
 "type.tourism.guest_house" = "Wisma tamu";
-
 "type.tourism.hostel" = "Hostel";
-
 "type.tourism.hotel" = "Hotel";
-
 "type.tourism.information" = "Informasi turis";
-
 "type.tourism.information.board" = "Papan informasi";
-
 "type.tourism.information.guidepost" = "Informasi turis";
-
 "type.tourism.information.map" = "Peta wisata";
-
 "type.tourism.information.office" = "Kantor wisata";
-
 "type.tourism.motel" = "Motel";
-
 "type.tourism.museum" = "Museum";
-
 "type.tourism.picnic_site" = "Lokasi piknik";
-
 "type.tourism.resort" = "Sanggraloka";
-
 "type.tourism.theme_park" = "Pemandangan";
-
 "type.tourism.viewpoint" = "Titik pandang";
-
 "type.tourism.wilderness_hut" = "Pondok Alam Liar";
-
 "type.tourism.zoo" = "Kebun binatang";
-
 "type.traffic_calming" = "Traffic Calming";
-
 "type.traffic_calming.bump" = "Traffic Bump";
-
 "type.traffic_calming.hump" = "Traffic Hump";
-
 "type.waterway" = "Waterway";
-
 "type.waterway.canal" = "Kanal";
-
 "type.waterway.canal.tunnel" = "Kanal";
-
 "type.waterway.dam" = "Dam";
-
 "type.waterway.ditch" = "Ditch";
-
 "type.waterway.ditch.tunnel" = "Ditch";
-
 "type.waterway.dock" = "Waterway Dock";
-
 "type.waterway.drain" = "Drain";
-
 "type.waterway.drain.tunnel" = "Drain";
-
 "type.waterway.lock" = "Waterway Lock";
-
 "type.waterway.lock_gate" = "Gerbang pengunci";
-
 "type.waterway.river" = "Sungai";
-
 "type.waterway.river.tunnel" = "Sungai";
-
 "type.waterway.riverbank" = "Sungai";
-
 "type.waterway.stream" = "Sungai";
-
 "type.waterway.stream.ephemeral" = "Sungai";
-
 "type.waterway.stream.intermittent" = "Sungai";
-
 "type.waterway.stream.tunnel" = "Sungai";
-
 "type.waterway.waterfall" = "Air terjun";
-
 "type.waterway.weir" = "Weir";
-
 "type.wheelchair" = "Wheelchair";
-
 "type.wheelchair.limited" = "Akses kursi roda terbatas";
-
 "type.wheelchair.no" = "Tidak ada akses kursi roda";
-
 "type.wheelchair.yes" = "Akses penuh kursi roda";
-
 "type.piste_lift" = "piste:lift";
-
 "type.piste_lift.j.bar" = "piste:lift-j-bar";
-
 "type.piste_lift.magic_carpet" = "piste:lift-magic_carpet";
-
 "type.piste_lift.platter" = "piste:lift-platter";
-
 "type.piste_lift.rope_tow" = "piste:lift-rope_tow";
-
 "type.piste_lift.t.bar" = "piste:lift-t-bar";
-
 "type.piste_type" = "piste:type";
-
 "type.piste_type.downhill" = "piste:type-downhill";
-
 "type.piste_type.downhill.advanced" = "piste:type-downhill-advanced";
-
 "type.piste_type.downhill.easy" = "piste:type-downhill-easy";
-
 "type.piste_type.downhill.expert" = "piste:type-downhill-expert";
-
 "type.piste_type.downhill.freeride" = "piste:type-downhill-freeride";
-
 "type.piste_type.downhill.intermediate" = "piste:type-downhill-intermediate";
-
 "type.piste_type.downhill.novice" = "piste:type-downhill-novice";
-
 "type.piste_type.nordic" = "piste:type-nordic";
-
 "type.piste_type.sled" = "piste:type-sled";
-
 "type.building_part" = "Gedung";
-
 "type.area_highway.cycleway" = "Bike Path";
-
 "type.area_highway.footway" = "Path";
-
 "type.area_highway.living_street" = "Street";
-
 "type.area_highway.motorway" = "area:highway-motorway";
-
 "type.area_highway.path" = "Path";
-
 "type.area_highway.pedestrian" = "Street";
-
 "type.area_highway.primary" = "Street";
-
 "type.area_highway.residential" = "Street";
-
 "type.area_highway.secondary" = "Street";
-
 "type.area_highway.service" = "Street";
-
 "type.area_highway.tertiary" = "Street";
-
 "type.area_highway.steps" = "Steps";
-
 "type.area_highway.track" = "area:highway-track";
-
 "type.area_highway.trunk" = "area:highway-trunk";
-
 "type.area_highway.unclassified" = "area:highway-unclassified";

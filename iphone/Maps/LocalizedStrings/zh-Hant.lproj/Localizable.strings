@@ -6,6 +6,7 @@
 
 /********** Strings **********/
 
+
 /* Button text (should be short) */
 "back" = "返回";
 
@@ -17,7 +18,6 @@
 
 /* Button which deletes downloaded country */
 "delete" = "刪除";
-
 "download_maps" = "下載地圖";
 
 /* Settings/Downloader - info for country when download fails */
@@ -37,7 +37,6 @@
 
 /* Settings/Downloader - size string, only strings different from English should be translated */
 "mb" = "MB";
-
 "gb" = "GB";
 
 /* Choose measurement on first launch alert - choose imperial system button */
@@ -72,31 +71,18 @@
 
 /* Button text for the button under the country_status_download_failed message */
 "try_again" = "再試一次";
-
 "about_menu_title" = "關於 Organic Maps";
-
 "connection_settings" = "連線設定";
-
 "close" = "關閉";
-
 "unsupported_phone" = "需要 OpenGL 硬體加速功能的支援。但很不幸的，您的裝置並不支援此功能！";
-
 "download" = "下載";
-
 "disconnect_usb_cable" = "請拔除 USB 線或插入 SD 卡以使用 Organic Maps";
-
 "not_enough_free_space_on_sdcard" = "如要繼續使用，請先釋放一些 SD 卡/ USB 儲存空間";
-
 "not_enough_memory" = "沒有足夠的記憶體以啟動應用程式";
-
 "download_resources" = "在您開始之前，先讓我們下載世界地圖到您的裝置中以便瀏覽。\n這需要資料的 %@。";
-
 "download_resources_continue" = "跳到地圖";
-
 "downloading_country_can_proceed" = "正在下載 %@。您現在 可以繼續使用地圖了";
-
 "download_country_ask" = "下載 %@?";
-
 "update_country_ask" = "更新 %@？";
 
 /* REMOVE THIS STRING AFTER REFACTORING */
@@ -215,7 +201,6 @@
 
 /* Email Subject when sharing bookmarks category */
 "share_bookmarks_email_subject" = "已分享 Organic Maps 書籤";
-
 "share_bookmarks_email_body" = "Hello!\n\nAttached are my bookmarks from Organic Maps app. Please open them if you have Organic Maps installed. Or, if you don't, download the app for your iOS or Android device by following this link: https://omaps.app/get?kmz\n\nEnjoy traveling with Organic Maps!";
 
 /* message title of loading file */
@@ -280,7 +265,6 @@
 
 /* Length of track in cell that describes route */
 "length" = "長度";
-
 "share_my_location" = "分享我的位置";
 
 /* Settings general group in settings screen */
@@ -288,11 +272,8 @@
 
 /* Settings information group in settings screen */
 "prefs_group_information" = "信息";
-
 "prefs_group_route" = "導航";
-
 "pref_zoom_title" = "縮放按鈕";
-
 "pref_zoom_summary" = "在螢幕上顯示";
 
 /* Settings «Map» category: «Night style» title */
@@ -327,25 +308,15 @@
 
 /* Settings «Map» category: «Record track» title */
 "pref_track_record_title" = "最近的軌跡";
-
 "pref_map_auto_zoom" = "自動縮放";
-
 "duration_disabled" = "關閉";
-
 "duration_1_hour" = "1小時";
-
 "duration_2_hours" = "2小時";
-
 "duration_6_hours" = "6小時";
-
 "duration_12_hours" = "12小時";
-
 "duration_1_day" = "1天";
-
 "recent_track_help_text" = "它可讓您記錄特定期間所行經的路徑，並在地圖上看到該路徑。請注意：啟用此項功能會增加電池使用量。在時間間隔過期後，會從地圖中自動移除行進路線。";
-
 "placepage_distance" = "距离";
-
 "search_show_on_map" = "在地圖上查看";
 
 /* Text in menu */
@@ -413,15 +384,10 @@
 
 /* Country queued for download */
 "downloader_queued" = "已佇列";
-
 "downloader_near_me_subtitle" = "在我附近";
-
 "downloader_status_maps" = "地圖";
-
 "downloader_download_all_button" = "下載全部";
-
 "downloader_downloading" = "正在下載：";
-
 "downloader_search_results" = "已找到";
 
 /* Status of outdated country in the list */
@@ -477,11 +443,8 @@
 
 /* location service disabled */
 "enable_location_services" = "請啟用定位服務";
-
 "save" = "儲存";
-
 "edit_description_hint" = "您的描述（文字或 html）";
-
 "create" = "建立";
 
 /* red color */
@@ -539,70 +502,40 @@
 /********** Routing dialogs strings **********/
 
 "dialog_routing_disclaimer_title" = "依照路線行進時，請牢記：";
-
 "dialog_routing_disclaimer_priority" = "— 路況、交通規則及號誌優先於導航意見；";
-
 "dialog_routing_disclaimer_precision" = "— 地圖可能不準確，建議的路線不盡然是最佳選擇；";
-
 "dialog_routing_disclaimer_recommendations" = "— 建議的路線僅供推薦參考；";
-
 "dialog_routing_disclaimer_borders" = "— 小心對待國界區的路線：我們應用程式建立的路線有時會在未經授權的地方跨越國界；";
-
 "dialog_routing_disclaimer_beware" = "請保持警戒，一路平安！";
-
 "dialog_routing_check_gps" = "查看 GPS 訊號";
-
 "dialog_routing_error_location_not_found" = "無法產生路線。 無法定位目前 GPS 座標。";
-
 "dialog_routing_location_turn_wifi" = "請確認您的 GPS 訊號。啟用無線網路將提升地理位置定位準確度。";
-
 "dialog_routing_location_turn_on" = "啟用定位服務";
-
 "dialog_routing_location_unknown_turn_on" = "無法定位目前 GPS 座標。請啟用定位服務以產生路線。";
-
 "dialog_routing_download_files" = "下載所需檔案";
-
 "dialog_routing_download_and_update_all" = "若要產生路線，請下載並更新所有地圖及沿路線的路線檔案。";
-
 "dialog_routing_unable_locate_route" = "路線未找到";
-
 "dialog_routing_cant_build_route" = "無法產生路線。";
-
 "dialog_routing_change_start_or_end" = "請變更起點或最終目的地。";
-
 "dialog_routing_change_start" = "變更起點";
-
 "dialog_routing_start_not_determined" = "此路線尚未產生。無法定位起點。";
-
 "dialog_routing_select_closer_start" = "請選擇更接近道路的起點。";
-
 "dialog_routing_change_end" = "變更目的地";
-
 "dialog_routing_end_not_determined" = "未產生路線。無法定位目的地。";
-
 "dialog_routing_select_closer_end" = "請選擇更接近道路的目的地。";
-
 "dialog_routing_change_intermediate" = "找不到中途休息站。";
-
 "dialog_routing_intermediate_not_determined" = "請調整您的中途休息站。";
-
 "dialog_routing_system_error" = "系統錯誤";
-
 "dialog_routing_application_error" = "由於此錯誤，尚未建立路線。";
-
 "dialog_routing_try_again" = "請再試一次";
-
 "not_now" = "現在不要";
-
 "dialog_routing_download_and_build_cross_route" = "您是否要下載地圖，產生跨越邊界的更好路線？";
-
 "dialog_routing_download_cross_route" = "若要產生跨越邊界的更理想路線，您需要下載地圖。";
 
 
 /********** Strings for downloading map from search **********/
 
 "search_without_internet_advertisement" = "要開始搜索和建立路線，請下載地圖，那您就不再需要網絡連接了。";
-
 "search_select_map" = "選擇地圖";
 
 /* «Show» context menu */
@@ -622,96 +555,55 @@
 
 /* Text for routing::RouterResultCode::FileTooOld dialog. */
 "dialog_routing_download_and_update_maps" = "要建立路線，請下載並更新所有沿線的地圖。";
-
 "rate_alert_title" = "喜歡這個應用程式嗎？";
-
 "rate_alert_default_message" = "感謝您使用 Organic Maps。請評價此應用程式。您的回饋幫助我們改善我們的產品。";
-
 "rate_alert_five_star_message" = "太棒了！我們也愛您！";
-
 "rate_alert_four_star_message" = "謝謝您，我們會盡可能做好!";
-
 "rate_alert_less_than_four_star_message" = "有沒有想法我們能怎麽把它變得更好？";
-
 "categories" = "類別";
-
 "history" = "記錄";
-
 "closed" = "已關閉";
-
 "search_not_found" = "很抱歉，找不到任何東西。";
-
 "search_not_found_query" = "請嘗試其他搜尋字詞。";
-
 "search_history_title" = "搜尋歷史紀錄";
-
 "search_history_text" = "檢視最近的搜尋。";
-
 "clear_search" = "清除搜尋記錄";
 
 /* Place Page link to Wikipedia article (if map object has it). */
 "read_in_wikipedia" = "維基百科";
-
 "p2p_your_location" = "您的位置";
-
 "p2p_start" = "開始";
-
 "p2p_from_here" = "從";
-
 "p2p_to_here" = "路線終點";
-
 "p2p_only_from_current" = "導航只能從您目前的位置開始。";
-
 "p2p_reroute_from_current" = "你是否想要規劃目前位置的路線？";
 
 /* Edit open hours/set time and minutes dialog */
 "next_button" = "下一頁";
-
 "editor_time_add" = "新增排程";
-
 "editor_time_delete" = "刪除排程";
 
 /* Text for allday switch. */
 "editor_time_allday" = "全天 (24 小時)";
-
 "editor_time_open" = "營業中";
-
 "editor_time_close" = "休息時間";
-
 "editor_time_add_closed" = "新增休息時間";
-
 "editor_time_title" = "營業時間";
-
 "editor_time_advanced" = "進階模式";
-
 "editor_time_simple" = "簡易模式";
-
 "editor_hours_closed" = "休息時間";
-
 "editor_example_values" = "範例值";
-
 "editor_correct_mistake" = "修正錯誤";
-
 "editor_add_select_location" = "位置";
-
 "editor_done_dialog_1" = "您已經改變了世界地圖。別藏私！告訴您的朋友們一起來編輯。";
-
 "share_with_friends" = "和朋友分享";
-
 "editor_report_problem_desription_1" = "請詳細描述此問題以便 OpenStreeMap 社群修復此錯誤。";
-
 "editor_report_problem_desription_2" = "或者在https://www.openstreetmap.org/上親自修復此錯誤";
-
 "editor_report_problem_send_button" = "發送";
-
 "editor_report_problem_title" = "問題";
-
 "editor_report_problem_no_place_title" = "該地點不存在";
-
 "editor_report_problem_under_construction_title" = "因維護而關閉";
-
 "editor_report_problem_duplicate_place_title" = "重複的地點";
-
 "autodownload" = "自動下載";
 
 /* Place Page opening hours text */
@@ -719,167 +611,98 @@
 
 /* Place Page opening hours text */
 "daily" = "每天";
-
 "twentyfour_seven" = "全天候";
-
 "day_off_today" = "今天沒有營業";
-
 "day_off" = "沒有營業";
-
 "today" = "今天";
-
 "add_opening_hours" = "新增營業時間";
-
 "edit_opening_hours" = "編輯營業時間";
-
 "no_osm_account" = "沒有 OpenStreeMap 帳號嗎？";
-
 "register_at_openstreetmap" = "註冊";
-
 "password_8_chars_min" = "密碼（最少8個字母）";
-
 "invalid_username_or_password" = "無效的使用者名稱或密碼。";
-
 "login" = "登入";
-
 "password" = "密碼";
-
 "forgot_password" = "忘記密碼";
-
 "osm_account" = "OSM 帳號";
-
 "logout" = "登出";
 
 /* Information text: "Last upload 11.01.2016" */
 "last_upload" = "上次上傳";
-
 "thank_you" = "謝謝您";
-
 "edit_place" = "編輯地點";
-
 "place_name" = "地點名稱";
-
 "add_language" = "新增語言";
-
 "street" = "街道";
 
 /* Editable House Number text field (in address block). */
 "house_number" = "門牌號碼";
-
 "details" = "詳細資訊";
 
 /* Text field to enter non-existing street name, below list of known streets around */
 "add_street" = "新增街道";
-
 "choose_language" = "選擇語言";
-
 "choose_street" = "選擇街道";
-
 "postal_code" = "郵遞區號";
-
 "cuisine" = "料理";
-
 "select_cuisine" = "選擇料理";
 
 /* login text field */
 "email_or_username" = "電子郵件或使用者名稱";
-
 "phone" = "電話";
-
 "editor_add_phone" = "Add Phone";
-
 "please_note" = "請註意";
-
 "downloader_delete_map_dialog" = "所有對地圖的修改都將與地圖一起被刪除。";
-
 "downloader_update_maps" = "更新地圖";
-
 "downloader_mwm_migration_dialog" = "為了建立路線，您需要更新全部地圖並重新規劃路線。";
-
 "downloader_search_field_hint" = "找到地圖";
-
 "migration_download_error_dialog" = "下載錯誤";
-
 "common_check_internet_connection_dialog" = "請檢查您的設定並確保您的設備已連接至網路。";
-
 "downloader_no_space_title" = "無足夠的空間";
-
 "downloader_no_space_message" = "請刪除不必要的資料";
-
 "editor_login_error_dialog" = "登入錯誤。";
-
 "editor_profile_changes" = "已驗證的變更";
-
 "editor_focus_map_on_location" = "拖動地圖以選擇此物件的正確位置。";
-
 "editor_add_select_category" = "選擇類別";
-
 "editor_add_select_category_popular_subtitle" = "受歡迎的";
-
 "editor_add_select_category_all_subtitle" = "所有類別";
-
 "editor_edit_place_title" = "編輯中";
-
 "editor_add_place_title" = "新增中";
-
 "editor_edit_place_name_hint" = "該地點的名稱";
-
 "editor_edit_place_category_title" = "類別";
-
 "detailed_problem_description" = "問題的詳細描述";
-
 "editor_report_problem_other_title" = "一個不同的問題";
-
 "placepage_add_business_button" = "添加組織";
-
 "whatsnew_editor_message_1" = "新增新地點到該地圖，並直接通過此應用程式編輯已存在的地點。";
-
 "dialog_incorrect_feature_position" = "改變位置";
-
 "message_invalid_feature_position" = "物件無法設置在這裡";
-
 "login_to_make_edits_visible" = "登入來讓其他使用者能看到您所作出的修改。";
 
 /* Error dialog no space */
 "migration_no_space_message" = "為了下載，您需要更多的空間。請刪除不必要的數據。";
-
 "editor_sharing_title" = "我改進了 Organic Maps 地圖";
 
 /* Downloaded 10 **of** 20 <- it is that "of" */
 "downloader_of" = "%1$d個/共%2$d個";
-
 "download_over_mobile_header" = "用手機網絡連接下載嗎？";
-
 "download_over_mobile_message" = "用某些方案或漫遊的話這可能相當昂貴。";
-
 "error_enter_correct_house_number" = "輸入正確的門牌號碼";
-
 "editor_storey_number" = "樓號（最大 %d）";
 
 /* Error message in Editor when a user tries to set the number of floors for a building higher than 25 */
 "error_enter_correct_storey_number" = "編輯最多 25 層的建築";
-
 "editor_zip_code" = "郵遞區號";
-
 "error_enter_correct_zip_code" = "輸入正確的郵遞區號";
 
 /* Place Page title for long tap */
 "core_placepage_unknown_place" = "未知的位置";
-
 "editor_other_info" = "給OSM編輯器發送標記";
-
 "editor_detailed_description_hint" = "詳細註釋";
-
 "editor_detailed_description" = "您建議的變更將傳送至 OpenStreetMap 社群。說明無法在 Organic Maps 中編輯的詳細資料。";
-
 "editor_more_about_osm" = "關於 OpenStreetMap 的更多資訊";
-
 "editor_operator" = "營運者";
-
 "downloader_my_maps_title" = "我的地圖";
-
 "downloader_no_downloaded_maps_title" = "您尚未下載任何地圖";
-
 "downloader_no_downloaded_maps_message" = "下載地圖來尋找位置和離線瀏覽。";
 
 /* Error title that appears after certain time without location. */
@@ -887,93 +710,52 @@
 
 /* Error that appears after certain time without location. */
 "current_location_unknown_message" = "目前位置未知，可能您在建築物內或隧道內。";
-
 "current_location_unknown_continue_button" = "繼續";
-
 "current_location_unknown_stop_button" = "停止";
-
 "current_location_unknown_error_title" = "目前位置未知。";
-
 "current_location_unknown_error_message" = "搜尋您的位置時發生錯誤。請檢查您的裝置是否正常運作，然後重試。";
-
 "location_services_disabled_header" = "地點定位被禁用";
-
 "location_services_disabled_message" = "啟用設備設置中的地理位置定位";
-
 "location_services_disabled_1" = "1. 打開設置";
-
 "location_services_disabled_2" = "2. 點擊位置";
 
 /* iOS Dialog for the case when the location permission is not granted */
 "location_services_disabled_3" = "3. 使用應用時選擇";
-
 "meter" = "米";
-
 "kilometer" = "公里";
-
 "kilometers_per_hour" = "公里每小時";
-
 "mile" = "英里";
-
 "foot" = "英尺";
-
 "miles_per_hour" = "英里每小時";
-
 "hour" = "小時";
-
 "minute" = "分鐘";
-
 "placepage_place_description" = "說明";
-
 "placepage_more_button" = "更多";
-
 "placepage_more_reviews_button" = "更多評論";
-
 "book_button" = "預約";
-
 "placepage_call_button" = "呼叫";
-
 "placepage_edit_bookmark_button" = "編輯書籤";
-
 "placepage_bookmark_name_hint" = "書籤名稱";
-
 "placepage_personal_notes_hint" = "個人備註";
-
 "placepage_delete_bookmark_button" = "刪除書籤";
-
 "editor_edits_sent_message" = "您的建議已傳送";
-
 "editor_comment_hint" = "註解…";
-
 "editor_reset_edits_message" = "重設所有本機變更？";
-
 "editor_reset_edits_button" = "重設";
-
 "editor_remove_place_message" = "移除已新增的位置？";
-
 "editor_remove_place_button" = "移除";
-
 "editor_place_doesnt_exist" = "位置不存在";
-
 "text_more_button" = "…更多";
 
 /* Phone number error message */
 "error_enter_correct_phone" = "輸入正確的電話號碼";
-
 "error_enter_correct_web" = "輸入有效網址";
-
 "error_enter_correct_email" = "輸入有效電子郵箱";
-
 "error_enter_correct_facebook_page" = "Enter a valid Facebook web address, account, or page name";
-
 "error_enter_correct_instagram_page" = "Enter a valid Instagram web address or account name";
-
 "error_enter_correct_twitter_page" = "Enter a valid Twitter web address or username";
-
 "error_enter_correct_vk_page" = "Enter a valid VK web address or account name";
-
 "refresh" = "更新";
-
 "placepage_add_place_button" = "添加地點到地圖上";
 
 /* Displayed when saving some edits to the map to warn against publishing personal data */
@@ -981,19 +763,15 @@
 
 /* iOS Dialog before publishing the modifications to the public map. */
 "editor_share_to_all_dialog_message_1" = "確保您沒有輸入任何個人數據。";
-
 "editor_share_to_all_dialog_message_2" = "我們會檢查更改。如果我們有任何問題，我們會郵件與您聯系。";
-
 "navigation_stop_button" = "停止";
 
 /* iOS dialog for the case when recent track recording is on and the app comes back from background */
 "recent_track_background_dialog_title" = "禁止記錄您最近去過的路徑？";
-
 "off_recent_track_background_button" = "禁用";
 
 /* For sharing via SMS and so on */
 "sharing_call_action_look" = "看一看";
-
 "recent_track_background_dialog_message" = "Organic Maps使用背景中的地理位置記錄您最近去過的路徑。";
 
 /* Rate on Google Play (Android only) */
@@ -1007,7 +785,6 @@
 
 /* About short text (below logo) */
 "about_description" = "Organic Maps 是一款基本離線旅遊應用程式。Organic Maps 以 OpenStreetMap 數據為基礎，並允許對其進行編輯。";
-
 "general_settings" = "一般設定";
 
 /* For the first routing */
@@ -1018,27 +795,16 @@
 
 /* noun */
 "search_in_table" = "清單";
-
 "mobile_data_dialog" = "使用手機網路顯示詳細資訊？";
-
 "mobile_data_option_always" = "一律使用";
-
 "mobile_data_option_today" = "僅限今天";
-
 "mobile_data_option_not_today" = "今天不使用";
-
 "mobile_data" = "手機網路";
-
 "mobile_data_description" = "需有手機網路才能顯示相片、價格與評論等詳細資訊和地點。";
-
 "mobile_data_option_never" = "絕不使用";
-
 "mobile_data_option_ask" = "一律詢問";
-
 "traffic_update_maps_text" = "若要顯示交通資料，必須更新地圖。";
-
 "big_font" = "增加地圖上的字體大小";
-
 "traffic_update_app" = "請更新 Organic Maps";
 
 /* "traffic" as in road congestion */
@@ -1046,284 +812,149 @@
 
 /* "traffic" as in "road congestion" */
 "traffic_data_unavailable" = "無法使用交通資訊";
-
 "enable_logging" = "啟用記錄";
 
 /* Settings: "Send general feedback" button */
 "feedback_general" = "一般反應";
-
 "on" = "開";
-
 "off" = "關";
-
 "prefs_languages_information" = "我們使用系統 TTS 提供語音指示。許多 Android 裝置使用 Google TTS，您可從 Google Play 下載或更新 (https://play.google.com/store/apps/details?id=com.google.android.tts)";
-
 "prefs_languages_information_off" = "對於某些語言，您將需要從 App 商店 (Google Play Market, Samsung Apps) 安裝其他語音合成器或額外的語言套件。\n開啟您裝置的設定 → 語言與輸入 → 語音 → 文字轉換語音輸出。\n在這裡，您可以管理語音合成器的設定（例如，下載語言套件以供離線使用），並選取其他文字轉換語音引擎。";
-
 "prefs_languages_information_off_link" = "如需更多資訊，請參閱本指南。";
-
 "transliteration_title" = "音譯為拉丁文";
-
 "learn_more" = "瞭解更多資訊";
-
 "core_exit" = "退出";
-
 "routing_add_start_point" = "新增起點以計劃路線";
-
 "routing_add_finish_point" = "新增終點以計劃路線";
-
 "button_exit" = "退出";
-
 "planning_route_manage_route" = "管理路線";
-
 "button_plan" = "計畫";
-
 "placepage_remove_stop" = "移除";
-
 "planning_route_remove_title" = "在此拖曳以移除";
-
 "placepage_add_stop" = "新增停靠站";
-
 "start_from_my_position" = "起點";
-
 "profile_authorization_error" = "噢，發生錯誤。請嘗試再次登入。";
-
 "dialog_error_storage_title" = "儲存空間存取問題";
-
 "dialog_error_storage_message" = "外部儲存空間不可用，很可能是因為 SD 卡已移除、毀損，或檔案系統處於唯讀狀態。請進行檢查，然後以 support@organicmaps.app 方式聯繫我們";
-
 "setting_emulate_bad_storage" = "模擬不良儲存空間";
-
 "core_entrance" = "入口";
-
 "error_enter_correct_name" = "請輸入正確的名稱";
-
 "bookmarks_groups" = "清單";
-
 "bookmarks_groups_hide_all" = "隱藏全部";
-
 "bookmarks_groups_show_all" = "顯示全部";
-
 "bookmarks_create_new_group" = "創建新列表";
 
 /* Bookmark categories screen */
 "bookmarks_import" = "Import bookmarks";
-
 "downloader_hide_screen" = "隱藏畫面";
-
 "downloader_percent" = "%s (%s，共%s)";
-
 "downloader_process" = "下載 %s 中……";
-
 "downloader_applying" = "應用 %s 中……";
-
 "bookmarks_error_message_share_general" = "由於應用程序出錯而無法分享";
-
 "bookmarks_error_title_share_empty" = "分享錯誤";
-
 "bookmarks_error_message_share_empty" = "無法分享空列表";
-
 "bookmarks_error_title_empty_list_name" = "名字不能為空";
-
 "bookmarks_error_message_empty_list_name" = "請輸入列表名稱";
-
 "bookmarks_new_list_hint" = "新的列表";
-
 "bookmarks_error_title_list_name_already_taken" = "這個名字已經被使用了";
-
 "bookmarks_error_message_list_name_already_taken" = "請選擇其他名稱";
-
 "bookmarks_error_title_list_name_too_long" = "這個名字太長了";
-
 "please_wait" = "請稍候…";
-
 "phone_number" = "電話號碼";
-
 "profile" = "OpenStreetMap 資料";
-
 "bookmarks_detect_title" = "檢測到新文件";
-
 "button_convert" = "兌換";
-
 "bookmarks_convert_error_title" = "錯誤";
-
 "bookmarks_convert_error_message" = "有些文件未被轉換。";
-
 "bookmarks_restore_title" = "還原這個版本？";
-
 "common_check_internet_connection_dialog_title" = "沒有互聯網連接";
-
 "error_system_message" = "出現未知錯誤";
-
 "restore" = "恢復";
-
 "subtittle_opt_out" = "跟蹤設置";
-
 "crash_reports" = "錯誤報告";
-
 "crash_reports_description" = "我們可以使用您的數據來開發和改進Organic Maps。更改將再重新啟動應用程序后生效。";
-
 "privacy_policy" = "隱私政策";
-
 "terms_of_use" = "使用條款";
-
 "button_layer_traffic" = "路況";
-
 "button_layer_subway" = "地鐵";
-
 "layers_title" = "地圖圖層";
-
 "subway_data_unavailable" = "地鐵圖不可用";
-
 "bookmarks_empty_list_title" = "列表為空";
-
 "bookmarks_empty_list_message" = "要添加新標籤，請單擊對象卡片中的星型圖標";
-
 "category_desc_more" = "…更多";
-
 "title_error_downloading_bookmarks" = "發生錯誤";
-
 "popular_place" = "Popular";
-
 "export_file" = "導出文件";
-
 "list_settings" = "列表設置";
-
 "delete_list" = "刪除列表";
-
 "hide_from_map" = "從卡中隱藏";
-
 "public_access" = "公共訪問";
-
 "limited_access" = "私人訪問";
-
 "bookmark_category_name" = "類別";
-
 "bookmark_category_description_hint" = "添加說明(文字或html)";
-
 "not_shared" = "私人";
-
 "tags_loading_error_subtitle" = "加載代碼時出錯，請重試";
-
 "download_button" = "下載";
-
 "speedcams_alert_title" = "高速相機";
-
 "speedcam_option_auto" = "自動";
-
 "speedcam_option_always" = "總是";
-
 "speedcam_option_never" = "從不";
-
 "place_description_title" = "地點說明";
 
 /* this text will be shown in application notification preferences opposite checkbox which enable/disable downloader notifications. Devices on Android 8+ are affected. */
 "notification_channel_downloader" = "加載地圖";
-
 "speedcams_notice_message" = "自動 - 如果存在超出速度限制的風險，則對速度攝像頭髮出警告\n總是 - 始終提醒攝像頭\n從不 - 永遠不會對攝像頭發出警告";
-
 "power_managment_title" = "省電模式";
-
 "power_managment_description" = "如果開啟省電模式，應用程序將根據手機的當前電量關耗電功能";
-
 "power_managment_setting_never" = "從不";
-
 "power_managment_setting_auto" = "自動";
-
 "power_managment_setting_manual_max" = "最大程度省電";
-
 "enable_logging_warning_message" = "此選項啟用以記錄操作來進行診斷。這有助於團隊識別應用程序的問題。請僅在Organic Maps支持請求時開啟該選項。";
-
 "access_rules_author_only" = "在線編輯";
-
 "driving_options_title" = "繞行設置";
-
 "driving_options_subheader" = "在每條線路上規避";
-
 "avoid_tolls" = "收費公路";
-
 "avoid_unpaved" = "土路";
-
 "avoid_ferry" = "渡輪渡口";
-
 "avoid_motorways" = "高速公路";
-
 "unable_to_calc_alert_title" = "無法規劃路線";
-
 "unable_to_calc_alert_subtitle" = "很遺憾，我們無法使用所選選項規劃路線。請更改設置，然後重試";
-
 "define_to_avoid_btn" = "設置繞行路徑";
-
 "change_driving_options_btn" = "绕行设置已开启";
-
 "toll_road" = "收費公路";
-
 "unpaved_road" = "土路";
-
 "ferry_crossing" = "輪渡";
-
 "avoid_toll_roads_placepage" = "規避收費公路";
-
 "avoid_unpaved_roads_placepage" = "規避土路";
-
 "avoid_ferry_crossing_placepage" = "規避渡輪渡口";
-
 "trip_start" = "前往";
-
 "pick_destination" = "目標";
-
 "follow_my_position" = "定好中心";
-
 "search_results" = "搜索結果";
-
 "then_turn" = "接下來";
-
 "redirect_route_alert" = "想重建路線?";
-
 "redirect_route_yes" = "是";
-
 "redirect_route_no" = "否";
-
 "trip_finished" = "您已到達!";
-
 "keyboard_availability_alert" = "移動時鍵盤不可用";
-
 "dialog_routing_change_start_carplay" = "無法從當前位置構建路線";
-
 "dialog_routing_change_end_carplay" = "無法建立到終點的路線。請選擇其他（路線）";
-
 "dialog_routing_check_gps_carplay" = "無GPS信號。請沿著空曠區域行駛";
-
 "dialog_routing_unable_locate_route_carplay" = "無法建立路線。請選擇其他路線點";
-
 "dialog_routing_download_files_carplay" = "爲了創建線路，請在您的設備中下載所缺少的地圖";
-
 "dialog_routing_system_error_carplay" = "發生了錯誤。請重新啟動程序";
-
 "dialog_routing_rebuild_from_current_location_carplay" = "該路線將從您的當前位置重建";
-
 "dialog_routing_rebuild_for_vehicle_carplay" = "該路線將改為汽車（路線）";
-
 "ok" = "好的";
-
 "avoid_unpaved_carplay_1" = "無土路路段";
-
 "avoid_unpaved_carplay_2" = "無土路路段";
-
 "avoid_ferry_carplay_1" = "無渡船";
-
 "avoid_ferry_carplay_2" = "無渡船";
-
 "avoid_tolls_carplay_1" = "無付費路段";
-
 "avoid_tolls_carplay_2" = "無付費路段";
-
 "speedcams_alert_title_carplay_1" = "攝像頭";
-
 "speedcams_alert_title_carplay_2" = "攝像頭信息";
-
 "download_map_carplay" = "將Organic Maps軟件中的地圖下載至個人設備中";
-
 "carplay_roundabout_exit" = "%s號坡道";
 
 /* max. 10 symbols, both iOS and Android */
@@ -1334,11 +965,8 @@
 
 /* iOS */
 "sort_default" = "默認排序";
-
 "sort_type" = "按類型排序";
-
 "sort_distance" = "按距離排序";
-
 "sort_date" = "按日期排序";
 
 /* Android */
@@ -1352,103 +980,54 @@
 
 /* Android */
 "by_date" = "按時間";
-
 "week_ago_sorttype" = "一周前";
-
 "month_ago_sorttype" = "一月前";
-
 "moremonth_ago_sorttype" = "一個多月前";
-
 "moreyear_ago_sorttype" = "一年多以前";
-
 "near_me_sorttype" = "在我旁邊";
-
 "others_sorttype" = "其他";
-
 "food_places" = "美食";
-
 "tourist_places" = "名勝";
-
 "museums" = "博物館";
-
 "parks" = "公園";
-
 "swim_places" = "游泳";
-
 "mountains" = "山";
-
 "animals" = "動物";
-
 "hotels" = "酒店";
-
 "buildings" = "建築物";
-
 "money" = "貨幣";
-
 "shops" = "商店";
-
 "parkings" = "停車場";
-
 "fuel_places" = "加油站";
-
 "water" = "水";
-
 "medicine" = "醫療";
-
 "search_in_the_list" = "在列表中搜索";
-
 "religious_places" = "聖地";
-
 "select_list" = "選擇列表";
-
 "transit_not_found" = "本區域的地鐵導航目前不可用";
-
 "dialog_pedestrian_route_is_long_header" = "地鐵路線圖未找到";
-
 "dialog_pedestrian_route_is_long_message" = "選擇地鐵站附近的起點和終點";
-
 "button_layer_isolines" = "高度";
-
 "isolines_activation_error_dialog" = "如需使用高度线，请更新或下载所需区域的地图";
-
 "isolines_location_error_dialog" = "暫時無法獲取該地區的高低線";
-
 "elevation_profile_diff_level" = "難度等級";
-
 "elevation_profile_diff_level_easy" = "容易";
-
 "elevation_profile_diff_level_moderate" = "中等";
-
 "elevation_profile_diff_level_hard" = "困難";
-
 "elevation_profile_ascent" = "上坡";
-
 "elevation_profile_descent" = "下坡";
-
 "elevation_profile_minaltitude" = "最小高度";
-
 "elevation_profile_maxaltitude" = "最大高度";
-
 "elevation_profile_difficulty" = "難度";
-
 "elevation_profile_distance" = "距離：";
-
 "elevation_profile_time" = "在路上：";
-
 "isolines_toast_zooms_1_10" = "放大地圖以查看等高線";
-
 "downloader_updating_ios" = "更新";
-
 "downloader_loading_ios" = "加載";
-
 "key_information_title" = "關鍵信息";
-
 "download_map_title" = "Download the world map";
-
 "connection_failure" = "Connection failure";
-
 "disconnect_usb_cable_title" = "Disconnect USB cable";
-
 "enable_screen_sleep" = "允许屏幕进入休眠状态";
 
 /* Description in preferences */
@@ -1482,1781 +1061,892 @@
 /********** Types **********/
 
 "type.aerialway" = "Aerialway";
-
 "type.aerialway.cable_car" = "纜車";
-
 "type.aerialway.chair_lift" = "Aerialway";
-
 "type.aerialway.drag_lift" = "Aerialway";
-
 "type.aerialway.gondola" = "Aerialway";
-
 "type.aerialway.mixed_lift" = "Aerialway";
-
 "type.aerialway.station" = "纜車站";
-
 "type.aeroway" = "Aeroway";
-
 "type.aeroway.aerodrome" = "機場";
-
 "type.aeroway.aerodrome.international" = "機場";
-
 "type.aeroway.apron" = "aeroway-apron";
-
 "type.aeroway.gate" = "Gate";
-
 "type.aeroway.helipad" = "直升機場";
-
 "type.aeroway.runway" = "機場跑道";
-
 "type.aeroway.taxiway" = "aeroway-taxiway";
-
 "type.aeroway.terminal" = "Terminal";
-
 "type.amenity" = "設施";
-
 "type.amenity.arts_centre" = "藝術中心";
-
 "type.amenity.atm" = "自動櫃員機";
-
 "type.amenity.bank" = "銀行";
-
 "type.amenity.bar" = "酒吧";
-
 "type.amenity.bbq" = "野餐";
-
 "type.amenity.bench" = "長板凳";
-
 "type.amenity.bicycle_parking" = "腳踏車停放區";
-
 "type.amenity.bicycle_rental" = "自行車出租";
-
 "type.amenity.biergarten" = "啤酒花園";
-
 "type.amenity.brothel" = "妓院";
-
 "type.amenity.bureau_de_change" = "匯率";
-
 "type.amenity.bus_station" = "公車站";
-
 "type.amenity.cafe" = "咖啡廳";
-
 "type.amenity.car_rental" = "租車";
-
 "type.amenity.car_sharing" = "汽車共用";
-
 "type.amenity.car_wash" = "洗車";
-
 "type.amenity.casino" = "賭場";
-
 "type.amenity.charging_station" = "充電站";
-
 "type.amenity.childcare" = "保育";
-
 "type.amenity.cinema" = "電影院";
-
 "type.amenity.clinic" = "診所";
-
 "type.amenity.college" = "學院";
-
 "type.amenity.community_centre" = "社區活動中心";
-
 "type.amenity.courthouse" = "法院";
-
 "type.amenity.dentist" = "牙醫";
-
 "type.amenity.doctors" = "醫師診間";
-
 "type.amenity.drinking_water" = "飲用水";
-
 "type.amenity.driving_school" = "駕訓班";
-
 "type.office.diplomatic" = "大使館";
-
 "type.amenity.fast_food" = "速食店";
-
 "type.amenity.ferry_terminal" = "渡船";
-
 "type.amenity.fire_station" = "消防局";
-
 "type.amenity.food_court" = "Food Court";
-
 "type.amenity.fountain" = "噴泉";
-
 "type.amenity.fuel" = "加氣站";
-
 "type.amenity.grave_yard" = "墓地";
-
 "type.amenity.grave_yard.christian" = "墓地";
-
 "type.amenity.hospital" = "醫院";
-
 "type.amenity.hunting_stand" = "狩獵場";
-
 "type.amenity.ice_cream" = "冰淇淋攤";
-
 "type.amenity.internet_cafe" = "網路咖啡店";
-
 "type.amenity.kindergarten" = "幼兒園";
-
 "type.amenity.library" = "圖書館";
-
 "type.amenity.marketplace" = "市場";
-
 "type.amenity.motorcycle_parking" = "機車停車格";
-
 "type.amenity.nightclub" = "夜店";
-
 "type.amenity.nursing_home" = "養老院";
-
 "type.amenity.parking" = "停車場";
-
 "type.amenity.parking.fee" = "停車場";
-
 "type.amenity.parking.multi.storey" = "停車場";
-
 "type.amenity.parking.no.access" = "停車場";
-
 "type.amenity.parking.park_and_ride" = "停車場";
-
 "type.amenity.parking.permissive" = "停車場";
-
 "type.amenity.parking.private" = "停車場";
-
 "type.amenity.parking.underground" = "停車場";
-
 "type.amenity.parking_space" = "停車地點";
-
 "type.amenity.parking_space.permissive" = "停車地點";
-
 "type.amenity.parking_space.private" = "停車地點";
-
 "type.amenity.parking_space.underground" = "停車地點";
-
 "type.amenity.payment_terminal" = "付款終端";
-
 "type.amenity.pharmacy" = "藥局";
-
 "type.amenity.place_of_worship" = "寺廟";
-
 "type.amenity.place_of_worship.buddhist" = "寺廟";
-
 "type.amenity.place_of_worship.christian" = "教堂";
-
 "type.amenity.place_of_worship.hindu" = "寺廟";
-
 "type.amenity.place_of_worship.jewish" = "猶太教堂";
-
 "type.amenity.place_of_worship.muslim" = "清真寺";
-
 "type.amenity.place_of_worship.shinto" = "聖殿";
-
 "type.amenity.place_of_worship.taoist" = "寺廟";
-
 "type.amenity.police" = "警察局";
-
 "type.amenity.post_box" = "郵筒";
-
 "type.amenity.post_office" = "郵局";
-
 "type.amenity.prison" = "Prison";
-
 "type.amenity.pub" = "酒館";
-
 "type.amenity.public_bookcase" = "書架";
-
 "type.amenity.recycling" = "回收中心";
-
 "type.amenity.recycling_container" = "回收箱";
-
 "type.recycling.toxic" = "有毒垃圾";
-
 "type.recycling.clothes" = "舊衣物";
-
 "type.recycling.glass_bottles" = "玻璃瓶";
-
 "type.recycling.paper" = "廢紙";
-
 "type.recycling.plastic" = "廢塑料";
-
 "type.recycling.plastic_bottles" = "塑料瓶";
-
 "type.recycling.scrap_metal" = "廢金屬";
-
 "type.recycling.small_appliances" = "電子垃圾";
-
 "type.amenity.restaurant" = "餐廳";
-
 "type.amenity.school" = "學校";
-
 "type.amenity.shelter" = "隱藏處";
-
 "type.amenity.shower" = "淋浴間";
-
 "type.amenity.taxi" = "計程車";
-
 "type.amenity.telephone" = "電話";
-
 "type.amenity.theatre" = "劇場";
-
 "type.amenity.toilets" = "廁所";
-
 "type.amenity.townhall" = "市政廳";
-
 "type.amenity.university" = "大學";
-
 "type.amenity.vending_machine" = "Vending Machine";
-
 "type.amenity.vending_machine.cigarettes" = "香菸自動販賣機";
-
 "type.amenity.vending_machine.drinks" = "飲料自動販賣機";
-
 "type.amenity.vending_machine.parking_tickets" = "違規停車罰單繳費機";
-
 "type.amenity.vending_machine.public_transport_tickets" = "公共交通售票機";
-
 "type.amenity.veterinary" = "獸醫";
-
 "type.amenity.waste_basket" = "垃圾箱";
-
 "type.amenity.waste_disposal" = "垃圾";
-
 "type.amenity.water_point" = "飲水站";
-
 "type.barrier" = "Barrier";
-
 "type.barrier.block" = "街區";
-
 "type.barrier.bollard" = "柱";
-
 "type.barrier.border_control" = "邊境管制";
-
 "type.barrier.chain" = "Chain";
-
 "type.barrier.city_wall" = "City Wall";
-
 "type.barrier.cycle_barrier" = "Cycle Barrier";
-
 "type.barrier.entrance" = "入口";
-
 "type.barrier.fence" = "Fence";
-
 "type.barrier.gate" = "大門";
-
 "type.barrier.hedge" = "Hedge";
-
 "type.barrier.lift_gate" = "遮斷機";
-
 "type.barrier.retaining_wall" = "Retaining Wall";
-
 "type.barrier.stile" = "梯磴";
-
 "type.barrier.swing_gate" = "遮斷機";
-
 "type.barrier.toll_booth" = "收費站";
-
 "type.barrier.wall" = "Wall";
-
 "type.boundary" = "Boundary";
-
 "type.boundary.administrative" = "boundary-administrative";
-
 "type.boundary.administrative.10" = "boundary-administrative-10";
-
 "type.boundary.administrative.11" = "boundary-administrative-11";
-
 "type.boundary.administrative.2" = "boundary-administrative-2";
-
 "type.boundary.administrative.3" = "boundary-administrative-3";
-
 "type.boundary.administrative.4" = "boundary-administrative-4";
-
 "type.boundary.administrative.4.state" = "boundary-administrative-4-state";
-
 "type.boundary.administrative.5" = "boundary-administrative-5";
-
 "type.boundary.administrative.6" = "boundary-administrative-6";
-
 "type.boundary.administrative.7" = "boundary-administrative-7";
-
 "type.boundary.administrative.8" = "boundary-administrative-8";
-
 "type.boundary.administrative.9" = "boundary-administrative-9";
-
 "type.boundary.administrative.city" = "boundary-administrative-city";
-
 "type.boundary.administrative.country" = "boundary-administrative-country";
-
 "type.boundary.administrative.county" = "boundary-administrative-county";
-
 "type.boundary.administrative.municipality" = "boundary-administrative-municipality";
-
 "type.boundary.administrative.nation" = "boundary-administrative-nation";
-
 "type.boundary.administrative.region" = "boundary-administrative-region";
-
 "type.boundary.administrative.state" = "boundary-administrative-state";
-
 "type.boundary.administrative.suburb" = "boundary-administrative-suburb";
-
 "type.boundary.national_park" = "國家公園";
-
 "type.building" = "建築物";
-
 "type.building.address" = "建築物";
-
 "type.building.garage" = "車庫";
-
 "type.building.has_parts" = "建築物";
-
 "type.building.train_station" = "鐵道";
-
 "type.building.warehouse" = "Warehouse";
-
 "type.craft" = "Craft";
-
 "type.craft.brewery" = "釀酒廠";
-
 "type.craft.carpenter" = "木工";
-
 "type.craft.electrician" = "電工";
-
 "type.craft.gardener" = "園藝師";
-
 "type.craft.hvac" = "空調設備";
-
 "type.craft.metal_construction" = "鐵工";
-
 "type.craft.painter" = "油漆工";
-
 "type.craft.photographer" = "攝影師";
-
 "type.craft.plumber" = "水管工人";
-
 "type.craft.shoemaker" = "修鞋工";
-
 "type.craft.tailor" = "裁縫師";
-
 "type.cuisine.african" = "非洲料理";
-
 "type.cuisine.american" = "美國料理";
-
 "type.cuisine.arab" = "阿拉伯料理";
-
 "type.cuisine.argentinian" = "阿根廷料理";
-
 "type.cuisine.asian" = "亞洲料理";
-
 "type.cuisine.austrian" = "奧地利料理";
-
 "type.cuisine.bagel" = "貝果";
-
 "type.cuisine.balkan" = "巴爾幹料理";
-
 "type.cuisine.barbecue" = "燒烤";
-
 "type.cuisine.bavarian" = "巴伐利亞料理";
-
 "type.cuisine.beef_bowl" = "牛丼";
-
 "type.cuisine.brazilian" = "巴西料理";
-
 "type.cuisine.breakfast" = "早餐";
-
 "type.cuisine.burger" = "漢堡";
-
 "type.cuisine.buschenschank" = "酒莊";
-
 "type.cuisine.cake" = "蛋糕";
-
 "type.cuisine.caribbean" = "加勒比料理";
-
 "type.cuisine.chicken" = "雞肉";
-
 "type.cuisine.chinese" = "中華料理";
-
 "type.cuisine.coffee_shop" = "咖啡";
-
 "type.cuisine.crepe" = "可麗餅";
-
 "type.cuisine.croatian" = "克羅埃西亞料理";
-
 "type.cuisine.curry" = "咖哩";
-
 "type.cuisine.deli" = "熟食店";
-
 "type.cuisine.diner" = "美式餐廳";
-
 "type.cuisine.donut" = "甜甜圈";
-
 "type.cuisine.ethiopian" = "衣索比亞料理";
-
 "type.cuisine.filipino" = "菲律賓料理";
-
 "type.cuisine.fine_dining" = "高級餐飲";
-
 "type.cuisine.fish" = "魚";
-
 "type.cuisine.fish_and_chips" = "炸魚薯條";
-
 "type.cuisine.french" = "法國料理";
-
 "type.cuisine.friture" = "油炸";
-
 "type.cuisine.georgian" = "喬治亞料理";
-
 "type.cuisine.german" = "德國料理";
-
 "type.cuisine.greek" = "希臘料理";
-
 "type.cuisine.grill" = "烤";
-
 "type.cuisine.heuriger" = "霍里格";
-
 "type.cuisine.hotdog" = "熱狗";
-
 "type.cuisine.hungarian" = "匈牙利料理";
-
 "type.cuisine.ice_cream" = "冰淇淋";
-
 "type.cuisine.indian" = "印度料理";
-
 "type.cuisine.indonesian" = "印度尼西亞料理";
-
 "type.cuisine.international" = "國際菜肴";
-
 "type.cuisine.irish" = "愛爾蘭料理";
-
 "type.cuisine.italian" = "義大利料理";
-
 "type.cuisine.italian_pizza" = "義大利料理；披薩";
-
 "type.cuisine.japanese" = "日本料理";
-
 "type.cuisine.kebab" = "烤肉";
-
 "type.cuisine.korean" = "韓國料理";
-
 "type.cuisine.lao" = "寮國料理";
-
 "type.cuisine.lebanese" = "黎巴嫩料理";
-
 "type.cuisine.local" = "本地料理";
-
 "type.cuisine.malagasy" = "馬達加斯加料理";
-
 "type.cuisine.malaysian" = "馬來西亞料理";
-
 "type.cuisine.mediterranean" = "地中海料理";
-
 "type.cuisine.mexican" = "墨西哥料理";
-
 "type.cuisine.moroccan" = "摩洛哥料理";
-
 "type.cuisine.noodles" = "麵食";
-
 "type.cuisine.oriental" = "東方料理";
-
 "type.cuisine.pancake" = "煎餅";
-
 "type.cuisine.pasta" = "義大利麵";
-
 "type.cuisine.persian" = "波斯料理";
-
 "type.cuisine.peruvian" = "秘魯料理";
-
 "type.cuisine.pizza" = "披薩";
-
 "type.cuisine.polish" = "波蘭料理";
-
 "type.cuisine.portuguese" = "葡萄牙料理";
-
 "type.cuisine.ramen" = "拉麵";
-
 "type.cuisine.regional" = "地方料理";
-
 "type.cuisine.russian" = "俄羅斯料理";
-
 "type.cuisine.sandwich" = "三明治";
-
 "type.cuisine.sausage" = "火腿";
-
 "type.cuisine.savory_pancakes" = "鹹味煎餅";
-
 "type.cuisine.seafood" = "海鮮";
-
 "type.cuisine.soba" = "蕎麥面";
-
 "type.cuisine.spanish" = "西班牙料理";
-
 "type.cuisine.steak_house" = "牛排館";
-
 "type.cuisine.sushi" = "壽司";
-
 "type.cuisine.tapas" = "塔帕斯";
-
 "type.cuisine.tea" = "茶";
-
 "type.cuisine.thai" = "泰國料理";
-
 "type.cuisine.turkish" = "土耳其料理";
-
 "type.cuisine.vegan" = "全素料理";
-
 "type.cuisine.vegetarian" = "素食";
-
 "type.cuisine.vietnamese" = "越南料理";
-
 "type.emergency" = "Emergency";
-
 "type.emergency.defibrillator" = "心臟電擊器";
-
 "type.emergency.fire_hydrant" = "消防栓";
-
 "type.emergency.phone" = "緊急電話";
-
 "type.entrance" = "入口";
-
 "type.healthcare.laboratory" = "醫學實驗室";
-
 "type.highway" = "Highway";
-
 "type.highway.bridleway" = "Rider's Path";
-
 "type.highway.bridleway.bridge" = "Rider's Path";
-
 "type.highway.bridleway.permissive" = "Rider's Path";
-
 "type.highway.bridleway.tunnel" = "Rider's Path";
-
 "type.highway.bus_stop" = "巴士站";
-
 "type.highway.construction" = "在建道路";
-
 "type.highway.cycleway" = "Bike Path";
-
 "type.highway.cycleway.bridge" = "Bike Path";
-
 "type.highway.cycleway.permissive" = "Bike Path";
-
 "type.highway.cycleway.tunnel" = "Bike Path";
-
 "type.highway.elevator" = "Elevator";
-
 "type.highway.footway" = "人行步道";
-
 "type.highway.footway.alpine_hiking" = "人行步道";
-
 "type.highway.footway.area" = "人行步道";
-
 "type.highway.footway.bridge" = "人行步道";
-
 "type.highway.footway.demanding_alpine_hiking" = "人行步道";
-
 "type.highway.footway.demanding_mountain_hiking" = "人行步道";
-
 "type.highway.footway.difficult_alpine_hiking" = "人行步道";
-
 "type.highway.footway.hiking" = "人行步道";
-
 "type.highway.footway.mountain_hiking" = "人行步道";
-
 "type.highway.footway.permissive" = "人行步道";
-
 "type.highway.footway.tunnel" = "人行步道";
-
 "type.highway.ford" = "淺灘";
-
 "type.highway.living_street" = "路";
-
 "type.highway.living_street.bridge" = "路";
-
 "type.highway.living_street.tunnel" = "路";
-
 "type.highway.motorway" = "高速公路";
-
 "type.highway.motorway.bridge" = "高速公路";
-
 "type.highway.motorway.tunnel" = "高速公路";
-
 "type.highway.motorway_junction" = "交流道";
-
 "type.highway.motorway_link" = "高速公路連接路";
-
 "type.highway.motorway_link.bridge" = "高速公路連接路";
-
 "type.highway.motorway_link.tunnel" = "高速公路連接路";
-
 "type.highway.path" = "人行步道";
-
 "type.highway.path.alpine_hiking" = "人行步道";
-
 "type.highway.path.bicycle" = "人行步道";
-
 "type.highway.path.bridge" = "人行步道";
-
 "type.highway.path.demanding_alpine_hiking" = "人行步道";
-
 "type.highway.path.demanding_mountain_hiking" = "人行步道";
-
 "type.highway.path.difficult_alpine_hiking" = "人行步道";
-
 "type.highway.path.hiking" = "人行步道";
-
 "type.highway.path.horse" = "人行步道";
-
 "type.highway.path.mountain_hiking" = "人行步道";
-
 "type.highway.path.permissive" = "人行步道";
-
 "type.highway.path.tunnel" = "人行步道";
-
 "type.highway.pedestrian" = "路";
-
 "type.highway.pedestrian.area" = "路";
-
 "type.highway.pedestrian.bridge" = "路";
-
 "type.highway.pedestrian.tunnel" = "路";
-
 "type.highway.primary" = "主要道路";
-
 "type.highway.primary.bridge" = "主要道路";
-
 "type.highway.primary.tunnel" = "主要道路";
-
 "type.highway.primary_link" = "主要道路連接路";
-
 "type.highway.primary_link.bridge" = "主要道路連接路";
-
 "type.highway.primary_link.tunnel" = "主要道路連接路";
-
 "type.highway.raceway" = "跑道";
-
 "type.highway.residential" = "住宅區道路";
-
 "type.highway.residential.area" = "住宅區道路";
-
 "type.highway.residential.bridge" = "住宅區道路";
-
 "type.highway.residential.tunnel" = "住宅區道路";
-
 "type.highway.rest_area" = "休息區";
-
 "type.highway.road" = "道路";
-
 "type.highway.road.bridge" = "道路";
-
 "type.highway.road.tunnel" = "道路";
-
 "type.highway.secondary" = "次要道路";
-
 "type.highway.secondary.bridge" = "次要道路";
-
 "type.highway.secondary.tunnel" = "次要道路";
-
 "type.highway.secondary_link" = "次要道路連接路";
-
 "type.highway.secondary_link.bridge" = "次要道路連接路";
-
 "type.highway.secondary_link.tunnel" = "次要道路連接路";
-
 "type.highway.service" = "輔助道路";
-
 "type.highway.service.area" = "輔助道路";
-
 "type.highway.service.bridge" = "輔助道路";
-
 "type.highway.service.driveway" = "車道";
-
 "type.highway.service.parking_aisle" = "停車場通道";
-
 "type.highway.service.tunnel" = "輔助道路";
-
 "type.highway.services" = "服務區";
-
 "type.highway.speed_camera" = "測速照相機";
-
 "type.highway.steps" = "人行步道";
-
 "type.highway.steps.bridge" = "人行步道";
-
 "type.highway.steps.tunnel" = "人行步道";
-
 "type.highway.tertiary" = "三级道路";
-
 "type.highway.tertiary.bridge" = "三级道路";
-
 "type.highway.tertiary.tunnel" = "三级道路";
-
 "type.highway.tertiary_link" = "三级道路連接路";
-
 "type.highway.tertiary_link.bridge" = "三级道路連接路";
-
 "type.highway.tertiary_link.tunnel" = "三级道路連接路";
-
 "type.highway.track" = "土路";
-
 "type.highway.track.area" = "土路";
-
 "type.highway.track.bridge" = "土路";
-
 "type.highway.track.grade1" = "土路";
-
 "type.highway.track.grade2" = "土路";
-
 "type.highway.track.grade3" = "土路";
-
 "type.highway.track.grade4" = "土路";
-
 "type.highway.track.grade5" = "土路";
-
 "type.highway.track.no.access" = "土路";
-
 "type.highway.track.permissive" = "土路";
-
 "type.highway.track.tunnel" = "土路";
-
 "type.highway.traffic_signals" = "紅綠燈";
-
 "type.highway.trunk" = "主幹道";
-
 "type.highway.trunk.bridge" = "主幹道";
-
 "type.highway.trunk.tunnel" = "主幹道";
-
 "type.highway.trunk_link" = "主幹道連接路";
-
 "type.highway.trunk_link.bridge" = "主幹道連接路";
-
 "type.highway.trunk_link.tunnel" = "主幹道連接路";
-
 "type.highway.unclassified" = "道路";
-
 "type.highway.unclassified.area" = "道路";
-
 "type.highway.unclassified.bridge" = "道路";
-
 "type.highway.unclassified.tunnel" = "道路";
-
 "type.highway.world_level" = "highway-world_level";
-
 "type.highway.world_towns_level" = "highway-world_towns_level";
-
 "type.historic" = "Historic";
-
 "type.historic.archaeological_site" = "考古遺址";
-
 "type.historic.battlefield" = "Battlefield";
-
 "type.historic.boundary_stone" = "Boundary Stone";
-
 "type.historic.castle" = "城堡";
-
 "type.historic.castle.defensive" = "城堡";
-
 "type.historic.castle.stately" = "城堡";
-
 "type.historic.citywalls" = "City Wall";
-
 "type.historic.fort" = "Fort";
-
 "type.historic.memorial" = "紀念館";
-
 "type.historic.memorial.plaque" = "紀念館";
-
 "type.historic.memorial.sculpture" = "紀念館";
-
 "type.historic.memorial.statue" = "紀念館";
-
 "type.historic.monument" = "紀念碑";
-
 "type.historic.ruins" = "廢墟";
-
 "type.historic.ship" = "旅遊景點";
-
 "type.historic.tomb" = "旅遊景點";
-
 "type.historic.wayside_cross" = "Christian Cross";
-
 "type.historic.wayside_shrine" = "Shrine";
-
 "type.hwtag" = "hwtag";
-
 "type.hwtag.bidir_bicycle" = "hwtag-bidir_bicycle";
-
 "type.hwtag.onedir_bicycle" = "hwtag-onedir_bicycle";
-
 "type.hwtag.lit" = "hwtag-lit";
-
 "type.hwtag.nobicycle" = "hwtag-nobicycle";
-
 "type.hwtag.nocar" = "hwtag-nocar";
-
 "type.hwtag.nofoot" = "hwtag-nofoot";
-
 "type.hwtag.oneway" = "hwtag-oneway";
-
 "type.hwtag.private" = "hwtag-private";
-
 "type.hwtag.toll" = "hwtag-toll";
-
 "type.hwtag.yesbicycle" = "hwtag-yesbicycle";
-
 "type.hwtag.yescar" = "hwtag-yescar";
-
 "type.hwtag.yesfoot" = "hwtag-yesfoot";
-
 "type.internet_access" = "互聯網";
-
 "type.internet_access.wlan" = "互聯網";
-
 "type.junction" = "Junction";
-
 "type.junction.roundabout" = "Roundabout";
-
 "type.landuse" = "Landuse";
-
 "type.landuse.allotments" = "Allotments";
-
 "type.landuse.basin" = "水庫";
-
 "type.landuse.brownfield" = "Brownfield";
-
 "type.landuse.cemetery" = "墓地";
-
 "type.landuse.cemetery.christian" = "基督教墓地";
-
 "type.landuse.churchyard" = "教堂庭院";
-
 "type.landuse.commercial" = "Commercial Area";
-
 "type.landuse.construction" = "Construction";
-
 "type.landuse.farm" = "Farm";
-
 "type.landuse.farmland" = "農業用地";
-
 "type.landuse.farmyard" = "Farmyard";
-
 "type.landuse.field" = "Field";
-
 "type.landuse.forest" = "樹林";
-
 "type.landuse.forest.coniferous" = "樹林";
-
 "type.landuse.forest.deciduous" = "樹林";
-
 "type.landuse.forest.mixed" = "樹林";
-
 "type.landuse.garages" = "Garages";
-
 "type.landuse.grass" = "草坪";
-
 "type.landuse.greenfield" = "Greenfield";
-
 "type.landuse.greenhouse_horticulture" = "Greenhouse";
-
 "type.landuse.industrial" = "Industrial Land";
-
 "type.landuse.landfill" = "堆積場";
-
 "type.landuse.meadow" = "Meadow";
-
 "type.landuse.military" = "Military Area";
-
 "type.landuse.orchard" = "Orchard";
-
 "type.landuse.quarry" = "Quarry";
-
 "type.landuse.railway" = "鐵路設施";
-
 "type.landuse.recreation_ground" = "Recreation Ground";
-
 "type.landuse.reservoir" = "水庫";
-
 "type.landuse.residential" = "Residential Land";
-
 "type.landuse.retail" = "Retail Land";
-
 "type.landuse.salt_pond" = "Pond";
-
 "type.landuse.village_green" = "Land";
-
 "type.landuse.vineyard" = "Vineyard";
-
 "type.leisure" = "Leisure";
-
 "type.leisure.common" = "leisure-common";
-
 "type.leisure.dog_park" = "遛狗區";
-
 "type.leisure.fitness_centre" = "健身中心";
-
 "type.leisure.fitness_station" = "健身房";
-
 "type.leisure.garden" = "花園";
-
 "type.leisure.golf_course" = "高爾夫球場";
-
 "type.leisure.ice_rink" = "Ice Rink";
-
 "type.leisure.landscape_reserve" = "Landscape Reserve";
-
 "type.leisure.marina" = "Marina";
-
 "type.leisure.nature_reserve" = "自然保護區";
-
 "type.leisure.park" = "公園";
-
 "type.leisure.park.no.access" = "公園";
-
 "type.leisure.park.permissive" = "公園";
-
 "type.leisure.park.private" = "公園";
-
 "type.leisure.picnic_table" = "野餐桌";
-
 "type.leisure.pitch" = "運動場";
-
 "type.leisure.playground" = "遊樂場";
-
 "type.leisure.recreation_ground" = "Recreation Ground";
-
 "type.leisure.sauna" = "桑拿";
-
 "type.leisure.slipway" = "Slipway";
-
 "type.leisure.sports_centre" = "體育中心";
-
 "type.leisure.sports_centre.climbing" = "攀登中心";
-
 "type.leisure.sports_centre.shooting" = "射擊場";
-
 "type.leisure.sports_centre.swimming" = "遊泳中心";
-
 "type.leisure.sports_centre.yoga" = "瑜伽工作室";
-
 "type.leisure.stadium" = "體育場";
-
 "type.leisure.swimming_pool" = "游泳池";
-
 "type.leisure.track" = "Track";
-
 "type.leisure.water_park" = "水上樂園";
-
 "type.man_made" = "Man Made";
-
 "type.man_made.breakwater" = "Breakwater";
-
 "type.man_made.cairn" = "Cairn";
-
 "type.man_made.chimney" = "工廠煙囪";
-
 "type.man_made.cutline" = "Cutline";
-
 "type.man_made.lighthouse" = "燈塔";
-
 "type.man_made.pier" = "Pier";
-
 "type.man_made.pipeline" = "Pipeline";
-
 "type.man_made.pipeline.overground" = "Overground Pipeline";
-
 "type.man_made.silo" = "Silo";
-
 "type.man_made.storage_tank" = "Storage Tank";
-
 "type.man_made.surveillance" = "監控攝影機";
-
 "type.man_made.tower" = "塔";
-
 "type.man_made.wastewater_plant" = "Wastewater Plant";
-
 "type.man_made.water_tap" = "水龍頭";
-
 "type.man_made.water_tower" = "水塔";
-
 "type.man_made.water_well" = "水井";
-
 "type.man_made.windmill" = "風車";
-
 "type.man_made.works" = "Works";
-
 "type.mapswithme" = "mapswithme";
-
 "type.mapswithme.grid" = "mapswithme-grid";
-
 "type.military" = "Military";
-
 "type.military.bunker" = "地堡";
-
 "type.mountain_pass" = "Mountain Pass";
-
 "type.natural" = "Natural";
-
 "type.natural.bare_rock" = "Bare Rock";
-
 "type.natural.bay" = "海灣";
-
 "type.natural.beach" = "海灘";
-
 "type.natural.cape" = "海角";
-
 "type.natural.cave_entrance" = "洞穴";
-
 "type.natural.cliff" = "Cliff";
-
 "type.natural.coastline" = "Coastline";
-
 "type.natural.geyser" = "間歇泉";
-
 "type.natural.glacier" = "冰川";
-
 "type.natural.grassland" = "田野";
-
 "type.natural.heath" = "Heath";
-
 "type.natural.hot_spring" = "Hot Spring";
-
 "type.natural.water.lake" = "湖泊";
-
 "type.natural.land" = "Land";
-
 "type.natural.meadow" = "Meadow";
-
 "type.natural.orchard" = "Orchard";
-
 "type.natural.peak" = "山峰";
-
 "type.natural.saddle" = "Mountain Saddle";
-
 "type.natural.water.pond" = "潭";
-
 "type.natural.rock" = "Rock";
-
 "type.natural.scrub" = "叢林";
-
 "type.natural.spring" = "泉水";
-
 "type.natural.strait" = "海峽";
-
 "type.natural.tree" = "樹";
-
 "type.natural.tree_row" = "Tree Row";
-
 "type.natural.vineyard" = "Vineyard";
-
 "type.natural.volcano" = "火山";
-
 "type.natural.water" = "水庫";
-
 "type.natural.wetland" = "沼澤";
-
 "type.natural.wetland.bog" = "Wetland";
-
 "type.natural.wetland.marsh" = "Wetland";
-
 "type.noexit" = "noexit";
-
 "type.noexit.motor_vehicle" = "noexit-motor_vehicle";
-
 "type.office" = "辦公室";
-
 "type.office.company" = "公司辦公室";
-
 "type.office.estate_agent" = "地產代理";
-
 "type.office.government" = "政府辦公室";
-
 "type.office.insurance" = "保險公司";
-
 "type.office.lawyer" = "律師事務所";
-
 "type.office.ngo" = "非政府組織辦公室";
-
 "type.office.telecommunication" = "行動電話業者";
-
 "type.olympics" = "olympics";
-
 "type.olympics.attraction" = "olympics-attraction";
-
 "type.olympics.bike_sport" = "olympics-bike_sport";
-
 "type.olympics.live_site" = "olympics-live_site";
-
 "type.olympics.official_building" = "olympics-official_building";
-
 "type.olympics.stadium" = "olympics-stadium";
-
 "type.olympics.stadium_main" = "olympics-stadium_main";
-
 "type.olympics.transport_airport" = "olympics-transport_airport";
-
 "type.olympics.transport_boat" = "olympics-transport_boat";
-
 "type.olympics.transport_bus" = "olympics-transport_bus";
-
 "type.olympics.transport_cable" = "olympics-transport_cable";
-
 "type.olympics.transport_railway" = "olympics-transport_railway";
-
 "type.olympics.transport_subway" = "olympics-transport_subway";
-
 "type.olympics.transport_tram" = "olympics-transport_tram";
-
 "type.olympics.water_sport" = "olympics-water_sport";
-
 "type.place" = "place";
-
 "type.place.city" = "城市";
-
 "type.place.city.capital" = "首府";
-
 "type.place.city.capital.10" = "首府";
-
 "type.place.city.capital.11" = "首府";
-
 "type.place.city.capital.2" = "首都";
-
 "type.place.city.capital.3" = "首都";
-
 "type.place.city.capital.4" = "首府";
-
 "type.place.city.capital.5" = "首府";
-
 "type.place.city.capital.6" = "首府";
-
 "type.place.city.capital.7" = "首府";
-
 "type.place.city.capital.8" = "首府";
-
 "type.place.city.capital.9" = "首府";
-
 "type.place.continent" = "大陸";
-
 "type.place.country" = "國家/地區";
-
 "type.place.county" = "縣";
-
 "type.place.farm" = "農場";
-
 "type.place.hamlet" = "村";
-
 "type.place.island" = "島";
-
 "type.place.islet" = "島";
-
 "type.place.isolated_dwelling" = "Dwelling";
-
 "type.place.locality" = "當地";
-
 "type.place.neighbourhood" = "Neighbourhood";
-
 "type.place.ocean" = "海洋";
-
 "type.place.region" = "地區";
-
 "type.place.sea" = "海";
-
 "type.place.square" = "Square";
-
 "type.place.state" = "州/省";
-
 "type.place.state.USA" = "州";
-
 "type.place.suburb" = "郊區";
-
 "type.place.town" = "鎮";
-
 "type.place.village" = "村莊";
-
 "type.power" = "Power";
-
 "type.power.generator" = "Generator";
-
 "type.power.line" = "Power Line";
-
 "type.power.line.underground" = "Underground Power Line";
-
 "type.power.minor_line" = "Minor Power Line";
-
 "type.power.pole" = "電塔";
-
 "type.power.station" = "Power Station";
-
 "type.power.substation" = "變電所";
-
 "type.power.tower" = "電塔";
-
 "type.psurface" = "psurface";
-
 "type.psurface.paved_bad" = "psurface-paved_bad";
-
 "type.psurface.paved_good" = "psurface-paved_good";
-
 "type.psurface.unpaved_bad" = "psurface-unpaved_bad";
-
 "type.psurface.unpaved_good" = "psurface-unpaved_good";
-
 "type.public_transport" = "Public Transport";
-
 "type.public_transport.platform" = "Platform";
-
 "type.railway" = "Railway";
-
 "type.railway.abandoned" = "Abandoned railway";
-
 "type.railway.abandoned.bridge" = "Abandoned railway";
-
 "type.railway.abandoned.tunnel" = "Abandoned railway";
-
 "type.railway.construction" = "Railway's construction";
-
 "type.railway.crossing" = "Railway crossing";
-
 "type.railway.disused" = "Disused railway";
-
 "type.railway.funicular" = "Funicular";
-
 "type.railway.funicular.bridge" = "Funicular";
-
 "type.railway.funicular.tunnel" = "Funicular";
-
 "type.railway.halt" = "小站";
-
 "type.railway.level_crossing" = "鐵路道口";
-
 "type.railway.light_rail" = "Light Rail";
-
 "type.railway.light_rail.bridge" = "Light Rail";
-
 "type.railway.light_rail.tunnel" = "Light Rail";
-
 "type.railway.monorail" = "單軌軌道";
-
 "type.railway.monorail.bridge" = "單軌軌道";
-
 "type.railway.monorail.tunnel" = "單軌軌道";
-
 "type.railway.narrow_gauge" = "Narrow Gauge Rail";
-
 "type.railway.narrow_gauge.bridge" = "Narrow Gauge Rail";
-
 "type.railway.narrow_gauge.tunnel" = "Narrow Gauge Rail";
-
 "type.railway.platform" = "Platform";
-
 "type.railway.preserved" = "Preserved Rail";
-
 "type.railway.preserved.bridge" = "Preserved Rail";
-
 "type.railway.preserved.tunnel" = "Preserved Rail";
-
 "type.railway.rail" = "鐵路軌道";
-
 "type.railway.rail.bridge" = "鐵路軌道";
-
 "type.railway.rail.motor_vehicle" = "鐵路軌道";
-
 "type.railway.rail.tunnel" = "鐵路軌道";
-
 "type.railway.razed" = "Razed Rail";
-
 "type.railway.siding" = "Siding Rail";
-
 "type.railway.siding.bridge" = "Siding Rail";
-
 "type.railway.siding.tunnel" = "Siding Rail";
-
 "type.railway.spur" = "Spur Rail";
-
 "type.railway.spur.bridge" = "Spur Rail";
-
 "type.railway.spur.tunnel" = "Spur Rail";
-
 "type.railway.station" = "火車站";
-
 "type.railway.station.light_rail" = "輕軌車站";
-
 "type.railway.station.monorail" = "單軌車站";
-
 "type.railway.station.subway" = "地鐵車站";
-
 "type.railway.station.subway.barcelona" = "地鐵車站";
-
 "type.railway.station.subway.berlin" = "地鐵車站";
-
 "type.railway.station.subway.kiev" = "地鐵車站";
-
 "type.railway.station.subway.london" = "地鐵車站";
-
 "type.railway.station.subway.madrid" = "地鐵車站";
-
 "type.railway.station.subway.minsk" = "地鐵車站";
-
 "type.railway.station.subway.moscow" = "地鐵車站";
-
 "type.railway.station.subway.newyork" = "地鐵車站";
-
 "type.railway.station.subway.paris" = "地鐵車站";
-
 "type.railway.station.subway.roma" = "地鐵車站";
-
 "type.railway.station.subway.spb" = "地鐵車站";
-
 "type.railway.subway" = "Subway Line";
-
 "type.railway.subway.bridge" = "Subway Line";
-
 "type.railway.subway.tunnel" = "Subway Line";
-
 "type.railway.subway_entrance" = "地鐵入口";
-
 "type.railway.subway_entrance.barcelona" = "地鐵入口";
-
 "type.railway.subway_entrance.berlin" = "地鐵入口";
-
 "type.railway.subway_entrance.kiev" = "地鐵入口";
-
 "type.railway.subway_entrance.london" = "地鐵入口";
-
 "type.railway.subway_entrance.madrid" = "地鐵入口";
-
 "type.railway.subway_entrance.minsk" = "地鐵入口";
-
 "type.railway.subway_entrance.moscow" = "地鐵入口";
-
 "type.railway.subway_entrance.newyork" = "地鐵入口";
-
 "type.railway.subway_entrance.paris" = "地鐵入口";
-
 "type.railway.subway_entrance.roma" = "地鐵入口";
-
 "type.railway.subway_entrance.spb" = "地鐵入口";
-
 "type.railway.tram" = "電車軌道";
-
 "type.railway.tram.bridge" = "電車軌道";
-
 "type.railway.tram.tunnel" = "電車軌道";
-
 "type.railway.tram_stop" = "電車站";
-
 "type.railway.yard" = "Railway Yard";
-
 "type.railway.yard.bridge" = "Railway Yard";
-
 "type.railway.yard.tunnel" = "Railway Yard";
-
 "type.route" = "route";
-
 "type.route.ferry" = "Ferry";
-
 "type.route.shuttle_train" = "Shuttle Train";
-
 "type.shop" = "購物";
-
 "type.shop.alcohol" = "烈酒";
-
 "type.shop.bakery" = "麵包店";
-
 "type.shop.beauty" = "美容院";
-
 "type.shop.beverages" = "飲料";
-
 "type.shop.bicycle" = "自行車店";
-
 "type.shop.bookmaker" = "博彩公司";
-
 "type.shop.books" = "書店";
-
 "type.shop.butcher" = "肉商";
-
 "type.shop.car" = "買車";
-
 "type.shop.car_parts" = "汽車零件";
-
 "type.shop.car_repair" = "汽車維修";
-
 "type.shop.car_repair.tyres" = "輪胎修補";
-
 "type.shop.chemist" = "藥妝店";
-
 "type.shop.chocolate" = "購物";
-
 "type.shop.clothes" = "買衣服";
-
 "type.shop.coffee" = "購物";
-
 "type.shop.computer" = "電腦商店";
-
 "type.shop.confectionery" = "糕餅店";
-
 "type.shop.convenience" = "便利商店";
-
 "type.shop.copyshop" = "復印店";
-
 "type.shop.cosmetics" = "化妆品";
-
 "type.shop.department_store" = "百貨公司";
-
 "type.shop.doityourself" = "五金行";
-
 "type.shop.dry_cleaning" = "乾洗";
-
 "type.shop.electronics" = "電子產品";
-
 "type.shop.erotic" = "情趣用品店";
-
 "type.shop.fabric" = "購物";
-
 "type.shop.florist" = "花店";
-
 "type.shop.funeral_directors" = "葬儀社";
-
 "type.shop.furniture" = "家具店";
-
 "type.shop.garden_centre" = "園藝店";
-
 "type.shop.gift" = "禮品店";
-
 "type.shop.greengrocer" = "蔬果零售店";
-
 "type.shop.hairdresser" = "理髮師";
-
 "type.shop.hardware" = "五金行";
-
 "type.shop.jewelry" = "珠寶店";
-
 "type.shop.kiosk" = "小舖";
-
 "type.shop.laundry" = "洗衣店";
-
 "type.shop.mall" = "商场";
-
 "type.shop.massage" = "按摩館";
-
 "type.shop.mobile_phone" = "手機專賣店";
-
 "type.shop.money_lender" = "購物";
-
 "type.shop.motorcycle" = "機車行";
-
 "type.shop.music" = "購物";
-
 "type.shop.musical_instrument" = "購物";
-
 "type.shop.newsagent" = "報攤";
-
 "type.shop.optician" = "眼鏡店";
-
 "type.shop.outdoor" = "室外設備";
-
 "type.shop.pawnbroker" = "當舖";
-
 "type.shop.pet" = "寵物店";
-
 "type.shop.photo" = "照片店";
-
 "type.shop.seafood" = "魚販";
-
 "type.shop.shoes" = "鞋店";
-
 "type.shop.sports" = "運動商品店";
-
 "type.shop.stationery" = "文具用品店";
-
 "type.shop.supermarket" = "超級市場";
-
 "type.shop.tattoo" = "刺青店";
-
 "type.shop.tea" = "購物";
-
 "type.shop.ticket" = "售票處";
-
 "type.shop.toys" = "玩具商店";
-
 "type.shop.travel_agency" = "旅行社";
-
 "type.shop.tyres" = "輪胎店";
-
 "type.shop.variety_store" = "雜貨店";
-
 "type.shop.video" = "視頻商城";
-
 "type.shop.video_games" = "電子遊戲商城";
-
 "type.shop.wine" = "販酒處";
-
 "type.sponsored" = "sponsored";
-
 "type.sponsored.booking" = "sponsored-booking";
-
 "type.sponsored.holiday" = "Christmas or New Year Celebrations";
-
 "type.sponsored.opentable" = "sponsored-opentable";
-
 "type.sponsored.partner1" = "sponsored-partner1";
-
 "type.sponsored.partner10" = "sponsored-partner10";
-
 "type.sponsored.partner11" = "sponsored-partner11";
-
 "type.sponsored.partner12" = "sponsored-partner12";
-
 "type.sponsored.partner13" = "sponsored-partner13";
-
 "type.sponsored.partner14" = "sponsored-partner14";
-
 "type.sponsored.partner15" = "sponsored-partner15";
-
 "type.sponsored.partner16" = "sponsored-partner16";
-
 "type.sponsored.partner17" = "sponsored-partner17";
-
 "type.sponsored.partner18" = "MegaFon";
-
 "type.sponsored.partner19" = "MegaFon";
-
 "type.sponsored.partner2" = "sponsored-partner2";
-
 "type.sponsored.partner20" = "MegaFon";
-
 "type.sponsored.partner3" = "sponsored-partner3";
-
 "type.sponsored.partner4" = "sponsored-partner4";
-
 "type.sponsored.partner5" = "sponsored-partner5";
-
 "type.sponsored.partner6" = "sponsored-partner6";
-
 "type.sponsored.partner7" = "sponsored-partner7";
-
 "type.sponsored.partner8" = "sponsored-partner8";
-
 "type.sponsored.partner9" = "sponsored-partner9";
-
 "type.sport" = "sport";
-
 "type.sport.american_football" = "American Football";
-
 "type.sport.archery" = "Archery";
-
 "type.sport.athletics" = "田徑";
-
 "type.sport.australian_football" = "Rugby";
-
 "type.sport.baseball" = "Baseball";
-
 "type.sport.basketball" = "籃球";
-
 "type.sport.bowls" = "Bowls";
-
 "type.sport.cricket" = "Cricket";
-
 "type.sport.curling" = "Сurling";
-
 "type.sport.diving" = "Diving";
-
 "type.sport.equestrian" = "馬術運動";
-
 "type.sport.golf" = "Golf";
-
 "type.sport.gymnastics" = "Gymnastics";
-
 "type.sport.handball" = "Handball";
-
 "type.sport.multi" = "Various Sport";
-
 "type.sport.scuba_diving" = "Scuba Diving";
-
 "type.sport.shooting" = "Shooting";
-
 "type.sport.skiing" = "Skiing";
-
 "type.sport.soccer" = "Soccer (Football)";
-
 "type.sport.swimming" = "Swimming";
-
 "type.sport.tennis" = "網球場";
-
 "type.tourism" = "Tourism";
-
 "type.tourism.alpine_hut" = "山上住宿";
-
 "type.tourism.apartment" = "公寓";
-
 "type.tourism.artwork" = "藝術品";
-
 "type.tourism.artwork.architecture" = "藝術品";
-
 "type.tourism.artwork.painting" = "藝術品";
-
 "type.tourism.artwork.sculpture" = "藝術品";
-
 "type.tourism.artwork.statue" = "藝術品";
-
 "type.tourism.attraction" = "景點";
-
 "type.tourism.attraction.animal" = "景點";
-
 "type.tourism.attraction.specified" = "景點";
-
 "type.tourism.camp_site" = "露營";
-
 "type.tourism.caravan_site" = "營區";
-
 "type.tourism.chalet" = "木屋";
-
 "type.tourism.gallery" = "旅遊景點";
-
 "type.tourism.guest_house" = "賓館";
-
 "type.tourism.hostel" = "旅舍";
-
 "type.tourism.hotel" = "飯店";
-
 "type.tourism.information" = "觀光諮詢";
-
 "type.tourism.information.board" = "資訊中心";
-
 "type.tourism.information.guidepost" = "觀光諮詢";
-
 "type.tourism.information.map" = "旅遊地圖";
-
 "type.tourism.information.office" = "旅遊辦事處";
-
 "type.tourism.motel" = "汽車旅館";
-
 "type.tourism.museum" = "博物館";
-
 "type.tourism.picnic_site" = "野餐";
-
 "type.tourism.resort" = "度假酒店";
-
 "type.tourism.theme_park" = "旅遊景點";
-
 "type.tourism.viewpoint" = "視野";
-
 "type.tourism.wilderness_hut" = "山屋";
-
 "type.tourism.zoo" = "動物園";
-
 "type.traffic_calming" = "Traffic Calming";
-
 "type.traffic_calming.bump" = "Traffic Bump";
-
 "type.traffic_calming.hump" = "Traffic Hump";
-
 "type.waterway" = "Waterway";
-
 "type.waterway.canal" = "運河";
-
 "type.waterway.canal.tunnel" = "運河";
-
 "type.waterway.dam" = "Dam";
-
 "type.waterway.ditch" = "Ditch";
-
 "type.waterway.ditch.tunnel" = "Ditch";
-
 "type.waterway.dock" = "Waterway Dock";
-
 "type.waterway.drain" = "Drain";
-
 "type.waterway.drain.tunnel" = "Drain";
-
 "type.waterway.lock" = "Waterway Lock";
-
 "type.waterway.lock_gate" = "閘門";
-
 "type.waterway.river" = "河流";
-
 "type.waterway.river.tunnel" = "河流";
-
 "type.waterway.riverbank" = "河流";
-
 "type.waterway.stream" = "溪";
-
 "type.waterway.stream.ephemeral" = "溪";
-
 "type.waterway.stream.intermittent" = "溪";
-
 "type.waterway.stream.tunnel" = "溪";
-
 "type.waterway.waterfall" = "瀑布";
-
 "type.waterway.weir" = "Weir";
-
 "type.wheelchair" = "Wheelchair";
-
 "type.wheelchair.limited" = "部分配備為殘疾人專用";
-
 "type.wheelchair.no" = "未配備殘疾人專用";
-
 "type.wheelchair.yes" = "配備殘疾人專用";
-
 "type.piste_lift" = "piste:lift";
-
 "type.piste_lift.j.bar" = "piste:lift-j-bar";
-
 "type.piste_lift.magic_carpet" = "piste:lift-magic_carpet";
-
 "type.piste_lift.platter" = "piste:lift-platter";
-
 "type.piste_lift.rope_tow" = "piste:lift-rope_tow";
-
 "type.piste_lift.t.bar" = "piste:lift-t-bar";
-
 "type.piste_type" = "piste:type";
-
 "type.piste_type.downhill" = "piste:type-downhill";
-
 "type.piste_type.downhill.advanced" = "piste:type-downhill-advanced";
-
 "type.piste_type.downhill.easy" = "piste:type-downhill-easy";
-
 "type.piste_type.downhill.expert" = "piste:type-downhill-expert";
-
 "type.piste_type.downhill.freeride" = "piste:type-downhill-freeride";
-
 "type.piste_type.downhill.intermediate" = "piste:type-downhill-intermediate";
-
 "type.piste_type.downhill.novice" = "piste:type-downhill-novice";
-
 "type.piste_type.nordic" = "piste:type-nordic";
-
 "type.piste_type.sled" = "piste:type-sled";
-
 "type.building_part" = "建築物";
-
 "type.area_highway.cycleway" = "Bike Path";
-
 "type.area_highway.footway" = "Path";
-
 "type.area_highway.living_street" = "Street";
-
 "type.area_highway.motorway" = "area:highway-motorway";
-
 "type.area_highway.path" = "Path";
-
 "type.area_highway.pedestrian" = "Street";
-
 "type.area_highway.primary" = "Street";
-
 "type.area_highway.residential" = "Street";
-
 "type.area_highway.secondary" = "Street";
-
 "type.area_highway.service" = "Street";
-
 "type.area_highway.tertiary" = "Street";
-
 "type.area_highway.steps" = "Steps";
-
 "type.area_highway.track" = "area:highway-track";
-
 "type.area_highway.trunk" = "area:highway-trunk";
-
 "type.area_highway.unclassified" = "area:highway-unclassified";

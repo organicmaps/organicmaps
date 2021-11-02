@@ -6,6 +6,7 @@
 
 /********** Strings **********/
 
+
 /* Button text (should be short) */
 "back" = "Geri";
 
@@ -17,7 +18,6 @@
 
 /* Button which deletes downloaded country */
 "delete" = "Sil";
-
 "download_maps" = "Haritaları İndir";
 
 /* Settings/Downloader - info for country when download fails */
@@ -37,7 +37,6 @@
 
 /* Settings/Downloader - size string, only strings different from English should be translated */
 "mb" = "MB";
-
 "gb" = "GB";
 
 /* Choose measurement on first launch alert - choose imperial system button */
@@ -72,31 +71,18 @@
 
 /* Button text for the button under the country_status_download_failed message */
 "try_again" = "Tekrar Deneyin";
-
 "about_menu_title" = "Organic Maps Hakkında";
-
 "connection_settings" = "Bağlantı Ayarları";
-
 "close" = "Kapat";
-
 "unsupported_phone" = "Hızlı donanıma sahip bir OpenGL gerekli. Ne yazık ki cihazınız desteklenmiyor.";
-
 "download" = "İndir";
-
 "disconnect_usb_cable" = "Organic Maps’yi kullanabilmeniz için lütfen USB kablosunun bağlantısını kesin veya hafıza kartı takın";
-
 "not_enough_free_space_on_sdcard" = "Uygulamayı kullanabilmeniz için lütfen SD kart/USB depolama aygıtında biraz alan boşaltın";
-
 "not_enough_memory" = "Uygulamayı başlatmak için yeterli hafıza yok";
-
 "download_resources" = "Başlamadan önce cihazınıza genel dünya haritasını indirelim.\nVerilerin %@’si gerekli.";
-
 "download_resources_continue" = "Haritaya Git";
-
 "downloading_country_can_proceed" = "%@ indiriliyor. Şimdi haritaya\ngidebilirsiniz.";
-
 "download_country_ask" = "%@ indir?";
-
 "update_country_ask" = "%@ güncelle?";
 
 /* REMOVE THIS STRING AFTER REFACTORING */
@@ -215,7 +201,6 @@
 
 /* Email Subject when sharing bookmarks category */
 "share_bookmarks_email_subject" = "Paylaşılan Organic Maps yer imleri";
-
 "share_bookmarks_email_body" = "Hello!\n\nAttached are my bookmarks from Organic Maps app. Please open them if you have Organic Maps installed. Or, if you don't, download the app for your iOS or Android device by following this link: https://omaps.app/get?kmz\n\nEnjoy traveling with Organic Maps!";
 
 /* message title of loading file */
@@ -280,7 +265,6 @@
 
 /* Length of track in cell that describes route */
 "length" = "Uzunluk";
-
 "share_my_location" = "Yerimi paylaş";
 
 /* Settings general group in settings screen */
@@ -288,11 +272,8 @@
 
 /* Settings information group in settings screen */
 "prefs_group_information" = "Information";
-
 "prefs_group_route" = "Navigasyon";
-
 "pref_zoom_title" = "Yakınlaştırma butonları";
-
 "pref_zoom_summary" = "Ekranda göster";
 
 /* Settings «Map» category: «Night style» title */
@@ -327,25 +308,15 @@
 
 /* Settings «Map» category: «Record track» title */
 "pref_track_record_title" = "En son yol";
-
 "pref_map_auto_zoom" = "Otomatik yakınlaştırma";
-
 "duration_disabled" = "Kapalı";
-
 "duration_1_hour" = "1 saat";
-
 "duration_2_hours" = "2 saat";
-
 "duration_6_hours" = "6 saat";
-
 "duration_12_hours" = "12 saat";
-
 "duration_1_day" = "1 gün";
-
 "recent_track_help_text" = "Bu özellik, belirli bir süre içinde katedilen yolu kaydetmenizi ve harita üzerinde izlemenizi sağlar. Lütfen unutmayın: bu işlevin etkinleştirilmesi pil tüketiminin artmasına neden olur. Takip, zaman aralığının sona ermesinin ardından otomatik olarak haritadan kaldırılacaktır.";
-
 "placepage_distance" = "Mesafe";
-
 "search_show_on_map" = "Haritada görüntüle";
 
 /* Text in menu */
@@ -413,15 +384,10 @@
 
 /* Country queued for download */
 "downloader_queued" = "Sıraya alındı";
-
 "downloader_near_me_subtitle" = "Yakınlarımda";
-
 "downloader_status_maps" = "Haritalar";
-
 "downloader_download_all_button" = "Hepsini indir";
-
 "downloader_downloading" = "İndiriliyor:";
-
 "downloader_search_results" = "Bulundu";
 
 /* Status of outdated country in the list */
@@ -477,11 +443,8 @@
 
 /* location service disabled */
 "enable_location_services" = "Lütfen Yer Hizmetlerini etkinleştirin";
-
 "save" = "Kaydet";
-
 "edit_description_hint" = "Açıklamalarınız (metin veya html)";
-
 "create" = "oluştur";
 
 /* red color */
@@ -539,70 +502,40 @@
 /********** Routing dialogs strings **********/
 
 "dialog_routing_disclaimer_title" = "Güzergahınızı takip ederken şunları lütfen unutmayın:";
-
 "dialog_routing_disclaimer_priority" = "— Yol durumları, trafik kuralları ve trafik işaretleri, her zaman navigasyon tavsiyelerinden önceliklidir;";
-
 "dialog_routing_disclaimer_precision" = "— Harita doğru olmayabilir, önerilen güzergah da hedefinize ulaşmak için en uygun yol olmayabilir;";
-
 "dialog_routing_disclaimer_recommendations" = "— Önerilen güzergahlar yalnızca tavsiye olarak kabul edilmelidir;";
-
 "dialog_routing_disclaimer_borders" = "— Sınır bölgelerinde rotalar konusunda dikkatli olun: uygulamamız tarafından oluşturulan rotalar bazen izin verilmeyen yerlerdeki ülke sınırlarını geçebilir;";
-
 "dialog_routing_disclaimer_beware" = "Lütfen yolda dikkatli ve emniyetli olun!";
-
 "dialog_routing_check_gps" = "GPS sinyalini kontrol edin";
-
 "dialog_routing_error_location_not_found" = "Güzergah oluşturulamıyor. Mevcut GPS koordinatları tanımlanamadı.";
-
 "dialog_routing_location_turn_wifi" = "Lütfen GPS sinyalinizi kontrol edin. Wi-Fi'ı etkinleştirmek konum isabetini arttırır.";
-
 "dialog_routing_location_turn_on" = "Konum hizmetlerini etkinleştirin";
-
 "dialog_routing_location_unknown_turn_on" = "Mevcut GPS koordinatları belirlenemiyor. Güzergah hesaplamak için konum hizmetlerini etkinleştirin.";
-
 "dialog_routing_download_files" = "Gerekli dosyaları indirin";
-
 "dialog_routing_download_and_update_all" = "Planlanan yoldaki tüm harita ve güzergah bilgilerini indirip güncelleyerek güzergahı hesaplayın.";
-
 "dialog_routing_unable_locate_route" = "Güzergah belirlenemiyor";
-
 "dialog_routing_cant_build_route" = "Güzergah oluşturulamıyor.";
-
 "dialog_routing_change_start_or_end" = "Lütfen başlangıç noktanızı veya hedefinizi ayarlayın.";
-
 "dialog_routing_change_start" = "Başlangıç noktasını ayarlayın";
-
 "dialog_routing_start_not_determined" = "Güzergah oluşturulamadı. Başlangıç noktası belirlenemiyor.";
-
 "dialog_routing_select_closer_start" = "Lütfen yola daha yakın bir başlangıç noktası seçin.";
-
 "dialog_routing_change_end" = "Hedefinizi ayarlayın";
-
 "dialog_routing_end_not_determined" = "Güzergah oluşturulamadı. Hedef belirlenemiyor.";
-
 "dialog_routing_select_closer_end" = "Lütfen yola daha yakın bir hedef noktası seçin.";
-
 "dialog_routing_change_intermediate" = "Ara nokta bulunamadı.";
-
 "dialog_routing_intermediate_not_determined" = "Lütfen ara noktanızı ayarlayın.";
-
 "dialog_routing_system_error" = "Sistem hatası";
-
 "dialog_routing_application_error" = "Uygulama hatası nedeniyle güzergah oluşturulamadı.";
-
 "dialog_routing_try_again" = "Lütfen daha sonra tekrar deneyin";
-
 "not_now" = "Şimdi Değil";
-
 "dialog_routing_download_and_build_cross_route" = "Haritayı indirerek birden fazla haritaya uzanan daha uygun bir güzergah oluşturmak ister misiniz?";
-
 "dialog_routing_download_cross_route" = "Bu haritanın bir kısmından geçen daha uygun bir güzergah oluşturmak için haritayı indirin.";
 
 
 /********** Strings for downloading map from search **********/
 
 "search_without_internet_advertisement" = "Rotaları aramak ve oluşturmaya başlamak için lütfen haritayı indirin ve artık internet bağlantısına ihtiyacınız yok.";
-
 "search_select_map" = "Haritayi Seçin";
 
 /* «Show» context menu */
@@ -622,96 +555,55 @@
 
 /* Text for routing::RouterResultCode::FileTooOld dialog. */
 "dialog_routing_download_and_update_maps" = "Bir rota oluşturmak için lütfen rota üzerindeki tüm haritaları indirin ve güncelleyin.";
-
 "rate_alert_title" = "Uygulamayı beğendiniz mi?";
-
 "rate_alert_default_message" = "Organic Maps’yi kullandığınız için teşekkür ederiz. Lütfen uygulamaya puan verin. Geri bildiriminiz daha iyi hale gelebilmemize yardımcı olur.";
-
 "rate_alert_five_star_message" = "Yaşasın! Biz de sizi seviyoruz!";
-
 "rate_alert_four_star_message" = "Teşekkür ederiz, elimizden geleni yapacağız!";
-
 "rate_alert_less_than_four_star_message" = "Daha iyi hale getirebilmemiz için herhangi bir fikriniz var mı?";
-
 "categories" = "Kategoriler";
-
 "history" = "Geçmiş";
-
 "closed" = "Kapatıldı";
-
 "search_not_found" = "Üzgünüz, hiç bir şey bulamadık.";
-
 "search_not_found_query" = "Lütfen başka bir sorgu girin.";
-
 "search_history_title" = "Arama Geçmişi";
-
 "search_history_text" = "En son yapılan arama sorgularına hızlı erişim.";
-
 "clear_search" = "Arama geçmişini temizle";
 
 /* Place Page link to Wikipedia article (if map object has it). */
 "read_in_wikipedia" = "Wikipedia";
-
 "p2p_your_location" = "Konumunuz";
-
 "p2p_start" = "Başla";
-
 "p2p_from_here" = "Başlangıç";
-
 "p2p_to_here" = "Varış yeri:";
-
 "p2p_only_from_current" = "Navigasyon sadece şu anki konumunuzdan mevcut.";
-
 "p2p_reroute_from_current" = "Mevcut konumunuzdan bir rota planlamamızı ister misiniz?";
 
 /* Edit open hours/set time and minutes dialog */
 "next_button" = "Sonraki";
-
 "editor_time_add" = "Plan Ekle";
-
 "editor_time_delete" = "Planı Sil";
 
 /* Text for allday switch. */
 "editor_time_allday" = "Tüm gün (24 saat)";
-
 "editor_time_open" = "Açık";
-
 "editor_time_close" = "Kapalı";
-
 "editor_time_add_closed" = "Kapalı olduğu saatleri ekle";
-
 "editor_time_title" = "Açık olduğu saatler";
-
 "editor_time_advanced" = "Gelişmiş Mod";
-
 "editor_time_simple" = "Basit Mod";
-
 "editor_hours_closed" = "Kapalı olduğu saatler";
-
 "editor_example_values" = "Örnek Değerler";
-
 "editor_correct_mistake" = "Hatayı düzelt";
-
 "editor_add_select_location" = "Konum";
-
 "editor_done_dialog_1" = "Dünya haritasını değiştirdiniz. Bunu gizlemeyin! Arkadaşlarınıza anlatın ve birlikte düzenleyin.";
-
 "share_with_friends" = "Arkadaşlarınla paylaş";
-
 "editor_report_problem_desription_1" = "OpenStreetMap topluluğunun hatayı düzeltmesi için lütfen problemi detaylı bir şekilde tanımlayın.";
-
 "editor_report_problem_desription_2" = "Veya bunu adresinden kendiniz yapın https://www.openstreetmap.org/";
-
 "editor_report_problem_send_button" = "Gönder";
-
 "editor_report_problem_title" = "Problem";
-
 "editor_report_problem_no_place_title" = "Yer mevcut değil";
-
 "editor_report_problem_under_construction_title" = "Bakım için kapalı";
-
 "editor_report_problem_duplicate_place_title" = "Kopyalanmış yer";
-
 "autodownload" = "Otomatik indir";
 
 /* Place Page opening hours text */
@@ -719,167 +611,98 @@
 
 /* Place Page opening hours text */
 "daily" = "Günlük";
-
 "twentyfour_seven" = "Gündüz ve gece";
-
 "day_off_today" = "Bugün kapalı";
-
 "day_off" = "Kapalı";
-
 "today" = "Bugün";
-
 "add_opening_hours" = "İş saatlerini ekle";
-
 "edit_opening_hours" = "İş saatlerini düzenle";
-
 "no_osm_account" = "OpenStreetMap' hesabın yok mu?";
-
 "register_at_openstreetmap" = "Kaydol";
-
 "password_8_chars_min" = "Şifre (en az 8 karakter)";
-
 "invalid_username_or_password" = "Geçersiz Kullanıcı Adı veya Şifre.";
-
 "login" = "Oturum aç";
-
 "password" = "Şifre";
-
 "forgot_password" = "Şifreni mi unuttun?";
-
 "osm_account" = "OSM Hesabı";
-
 "logout" = "Oturumu kapat";
 
 /* Information text: "Last upload 11.01.2016" */
 "last_upload" = "Son yükleme";
-
 "thank_you" = "Teşekkür ederiz";
-
 "edit_place" = "Yeri düzenle";
-
 "place_name" = "Yer ismi";
-
 "add_language" = "Bir dil ekle";
-
 "street" = "Sokak";
 
 /* Editable House Number text field (in address block). */
 "house_number" = "Bir ev numarası";
-
 "details" = "Detaylar";
 
 /* Text field to enter non-existing street name, below list of known streets around */
 "add_street" = "Bir sokak ekle";
-
 "choose_language" = "Bir dil seç";
-
 "choose_street" = "Bir sokak seç";
-
 "postal_code" = "Posta kodu";
-
 "cuisine" = "Mutfak";
-
 "select_cuisine" = "Mutfak Seç";
 
 /* login text field */
 "email_or_username" = "E-posta veya kullanıcı adı";
-
 "phone" = "Telefon";
-
 "editor_add_phone" = "Add Phone";
-
 "please_note" = "Lütfen dikkat";
-
 "downloader_delete_map_dialog" = "Harita ile birlikte tüm harita değişiklikleri de silinecektir.";
-
 "downloader_update_maps" = "Haritaları güncelle";
-
 "downloader_mwm_migration_dialog" = "Bir rota oluşturmak için tüm haritaları güncellemeli ve ardından rotayı tekrar planlamalısınız.";
-
 "downloader_search_field_hint" = "Harita bul";
-
 "migration_download_error_dialog" = "İndirme hatası";
-
 "common_check_internet_connection_dialog" = "Lütfen ayarlarınızı kontrol edin ve cihazınızın internete bağlı olduğundan emin olun.";
-
 "downloader_no_space_title" = "Yeterli alan yok";
-
 "downloader_no_space_message" = "Lütfen gereksiz verileri silin";
-
 "editor_login_error_dialog" = "Giriş hatası";
-
 "editor_profile_changes" = "Doğrulanan Değişiklikler";
-
 "editor_focus_map_on_location" = "Objenin doğru konumunu seçmek için haritayı çekin.";
-
 "editor_add_select_category" = "Kategori seç";
-
 "editor_add_select_category_popular_subtitle" = "Popüler";
-
 "editor_add_select_category_all_subtitle" = "Tüm kategoriler";
-
 "editor_edit_place_title" = "Düzenleme";
-
 "editor_add_place_title" = "Ekleme";
-
 "editor_edit_place_name_hint" = "Yerin ismi";
-
 "editor_edit_place_category_title" = "Kategori";
-
 "detailed_problem_description" = "Sorunun ayrıntılı açıklaması";
-
 "editor_report_problem_other_title" = "Farklı bir problem";
-
 "placepage_add_business_button" = "Kuruluş ekle";
-
 "whatsnew_editor_message_1" = "Doğrudan uygulamadan haritaya yeni yerler ekle ve mevcut yerleri düzenleyin.";
-
 "dialog_incorrect_feature_position" = "Konumu değiştir";
-
 "message_invalid_feature_position" = "Buraya bir nesne konumlandırılamıyor";
-
 "login_to_make_edits_visible" = "Giriş yapın böylelikle diğer kullanıcılar yaptığınız değişiklikleri görebilirler.";
 
 /* Error dialog no space */
 "migration_no_space_message" = "İndirmek için daha fazla alana ihtiyacınız var. Lütfen gereksiz verileri silin.";
-
 "editor_sharing_title" = "Organic Maps haritalarını iyileştirdim";
 
 /* Downloaded 10 **of** 20 <- it is that "of" */
 "downloader_of" = "%1$d/%2$d";
-
 "download_over_mobile_header" = "Hücresel bir ağ bağlantısı kullanarak indir?";
-
 "download_over_mobile_message" = "Bu işlem bazı planlarla ya da dolaşım ise büyük ölçüde pahalı olabilir.";
-
 "error_enter_correct_house_number" = "Doğru ev numarası girin";
-
 "editor_storey_number" = "Kat sayısı (en fazla %d)";
 
 /* Error message in Editor when a user tries to set the number of floors for a building higher than 25 */
 "error_enter_correct_storey_number" = "Binayı en fazla 25 katlı düzenle";
-
 "editor_zip_code" = "Posta Kodu";
-
 "error_enter_correct_zip_code" = "Doğru Posta Kodunu girin";
 
 /* Place Page title for long tap */
 "core_placepage_unknown_place" = "Bilinmeyen Yer";
-
 "editor_other_info" = "OSM editörlerine bir not gönderin";
-
 "editor_detailed_description_hint" = "Ayrıntılı yorum";
-
 "editor_detailed_description" = "Önerdiğiniz değişiklikler OpenStreetMap topluluğuna gönderilecek. Organic Maps’de düzenlenemeyen ayrıntıları açıklayın.";
-
 "editor_more_about_osm" = "OpenStreetMap hakkında ek bilgi";
-
 "editor_operator" = "İşletmeci";
-
 "downloader_my_maps_title" = "Haritalarım";
-
 "downloader_no_downloaded_maps_title" = "Hiç harita indirmediniz";
-
 "downloader_no_downloaded_maps_message" = "Çevrimdışı olarak adres bulmak ve gezinmek için haritaları indirin.";
 
 /* Error title that appears after certain time without location. */
@@ -887,93 +710,52 @@
 
 /* Error that appears after certain time without location. */
 "current_location_unknown_message" = "Geçerli konum bilinmiyor Muhtemelen bir binanın içinde veya tüneldesiniz.";
-
 "current_location_unknown_continue_button" = "Devam";
-
 "current_location_unknown_stop_button" = "Dur";
-
 "current_location_unknown_error_title" = "Geçerli konum bilinmiyor.";
-
 "current_location_unknown_error_message" = "Konumunuz aranırken bir hata oluştu. Cihazının düzgün çalışıp çalışmadığını kontrol edip daha sonra tekrar deneyin.";
-
 "location_services_disabled_header" = "Konum tanımlama devre dışı bırakıldı";
-
 "location_services_disabled_message" = "Cihaz ayarlarında konum belirlemeye erişimi etkinleştirin";
-
 "location_services_disabled_1" = "1. Ayarları Açın";
-
 "location_services_disabled_2" = "2. Konuma Dokunun";
 
 /* iOS Dialog for the case when the location permission is not granted */
 "location_services_disabled_3" = "3. Uygulamayı Kullanırken Seç";
-
 "meter" = "m";
-
 "kilometer" = "km";
-
 "kilometers_per_hour" = "km/s";
-
 "mile" = "mil";
-
 "foot" = "fit";
-
 "miles_per_hour" = "mph";
-
 "hour" = "sa";
-
 "minute" = "dk";
-
 "placepage_place_description" = "Açıklama";
-
 "placepage_more_button" = "Diğer";
-
 "placepage_more_reviews_button" = "Diğer yorumlar";
-
 "book_button" = "Rezervasyon";
-
 "placepage_call_button" = "Çağrı";
-
 "placepage_edit_bookmark_button" = "Yer İmini Düzenle";
-
 "placepage_bookmark_name_hint" = "Yer İmi Adı";
-
 "placepage_personal_notes_hint" = "Kişisel notlar";
-
 "placepage_delete_bookmark_button" = "Yer İmini Sil";
-
 "editor_edits_sent_message" = "Önerdiğiniz değişiklikler gönderildi";
-
 "editor_comment_hint" = "Yorum…";
-
 "editor_reset_edits_message" = "Tüm yerel değişiklikler sıfırlansın mı?";
-
 "editor_reset_edits_button" = "Sıfırla";
-
 "editor_remove_place_message" = "Eklenen bir yer kaldırılsın mı?";
-
 "editor_remove_place_button" = "Kaldır";
-
 "editor_place_doesnt_exist" = "Bu yer mevcut değil";
-
 "text_more_button" = "…daha fazla";
 
 /* Phone number error message */
 "error_enter_correct_phone" = "Doğru telefon numarası gir";
-
 "error_enter_correct_web" = "Geçerli bir web adresi girin";
-
 "error_enter_correct_email" = "Geçerli bir e-posta girin";
-
 "error_enter_correct_facebook_page" = "Enter a valid Facebook web address, account, or page name";
-
 "error_enter_correct_instagram_page" = "Enter a valid Instagram web address or account name";
-
 "error_enter_correct_twitter_page" = "Enter a valid Twitter web address or username";
-
 "error_enter_correct_vk_page" = "Enter a valid VK web address or account name";
-
 "refresh" = "Güncelleştirme";
-
 "placepage_add_place_button" = "Haritaya bir yer ekleyin";
 
 /* Displayed when saving some edits to the map to warn against publishing personal data */
@@ -981,19 +763,15 @@
 
 /* iOS Dialog before publishing the modifications to the public map. */
 "editor_share_to_all_dialog_message_1" = "Herhangi bir kişisel bilgi girmediğinizden emin olun.";
-
 "editor_share_to_all_dialog_message_2" = "Değişikliği kontrol edeceğiz. Eğer herhangi bir sorumuz olursa sizinle e-posta aracılığıyla temasa geçeceğiz.";
-
 "navigation_stop_button" = "dur";
 
 /* iOS dialog for the case when recent track recording is on and the app comes back from background */
 "recent_track_background_dialog_title" = "En son seyahat edilen rotanızı kaydetmeyi devre dışı bırakmak istiyor musunuz?";
-
 "off_recent_track_background_button" = "Devre Dışı Bırak";
 
 /* For sharing via SMS and so on */
 "sharing_call_action_look" = "İncele";
-
 "recent_track_background_dialog_message" = "Organic Maps, en son seyahat ettiğiniz rotayı kaydetmek için arka planda coğrafi konumunuzu kullanır.";
 
 /* Rate on Google Play (Android only) */
@@ -1007,7 +785,6 @@
 
 /* About short text (below logo) */
 "about_description" = "Organic Maps, seyahatler için vazgeçilmez bir çevrimdışı uygulamadır. Organic Maps, OpenStreetMap verilerine dayanmakta ve bu verilerin düzenlenmesini sağlamaktadır.";
-
 "general_settings" = "Genel ayarlar";
 
 /* For the first routing */
@@ -1018,27 +795,16 @@
 
 /* noun */
 "search_in_table" = "Liste";
-
 "mobile_data_dialog" = "Ayrıntılı bilgileri görüntülemek için mobil internet kullanılsın mı?";
-
 "mobile_data_option_always" = "Her zaman kullan";
-
 "mobile_data_option_today" = "Sadece Bugün";
-
 "mobile_data_option_not_today" = "Bugün Kullanma";
-
 "mobile_data" = "Mobil İnternet";
-
 "mobile_data_description" = "Mobil internet, fotoğraflar, fiyatlar ve yorumlar gibi mekanlarla ilgili ayrıntılı bilgileri görüntülemek için gereklidir.";
-
 "mobile_data_option_never" = "Asla Kullanma";
-
 "mobile_data_option_ask" = "Her Zaman Sor";
-
 "traffic_update_maps_text" = "Trafik verilerini görüntülemek için haritaların güncellenmesi gerekiyor.";
-
 "big_font" = "Harita üzerindeki yazı tipi boyutunu artır";
-
 "traffic_update_app" = "Lütfen Organic Maps uygulamasını güncelleyin";
 
 /* "traffic" as in road congestion */
@@ -1046,284 +812,149 @@
 
 /* "traffic" as in "road congestion" */
 "traffic_data_unavailable" = "Trafik verileri kullanılamıyor";
-
 "enable_logging" = "Günlüğü etkinleştir";
 
 /* Settings: "Send general feedback" button */
 "feedback_general" = "Genel Geribildirim";
-
 "on" = "Aç";
-
 "off" = "Kapat";
-
 "prefs_languages_information" = "Sesli talimatlar için TTS sistemini kullanıyoruz. Çoğu Android cihaz, Google TTS'yi kullanıyor, Uygulamayı, Google Play'den indirebilir veya güncelleyebilirsiniz (https://play.google.com/store/apps/details?id=com.google.android.tts)";
-
 "prefs_languages_information_off" = "Bazı diller için uygulama mağazasından (Google Play Market, Samsung Apps) farklı bir konuşma sentezleyicisi veya ek bir dil paketi yüklemeniz gerekebilir. Cihaz ayarları → Dil ve Giriş → Konuşma → Metin Okuma sekmelerini açın. Buradan konuşma sentezi ayarlarını yönetebilir (örneğin, çevrimdışı kullanım için bir dil paketini karşıdan yükleyebilir) ve başka bir metin okuma motorunu seçebilirsiniz.";
-
 "prefs_languages_information_off_link" = "Daha fazla bilgi için lütfen bu kılavuzu inceleyin.";
-
 "transliteration_title" = "Latince alfabesine çevirme";
-
 "learn_more" = "Daha fazla bilgi edinin";
-
 "core_exit" = "Çık";
-
 "routing_add_start_point" = "Güzergâhı planlamak için bir başlangıç noktası ekleyin";
-
 "routing_add_finish_point" = "Güzergâhı planlamak için bir varış noktası ekleyin";
-
 "button_exit" = "Çık";
-
 "planning_route_manage_route" = "Güzergâhı yönet";
-
 "button_plan" = "Plan";
-
 "placepage_remove_stop" = "Kaldır";
-
 "planning_route_remove_title" = "Kaldırmak için buraya sürükleyin";
-
 "placepage_add_stop" = "Ara nokta ekle";
-
 "start_from_my_position" = "Buradan başla";
-
 "profile_authorization_error" = "Üzgünüz, bir hata oluştu. Tekrar oturum açmayı deneyin.";
-
 "dialog_error_storage_title" = "Depolama alanı erişim sorunu";
-
 "dialog_error_storage_message" = "Harici bellek kullanılamıyor, muhtemelen SD Kart çıkarılmış, hasarlı veya dosya sistemi salt okunur. Lütfen kontrol edin ve support@organicmaps.app adresinden bizimle iletişime geçin";
-
 "setting_emulate_bad_storage" = "Bozuk depolama alanını taklit et";
-
 "core_entrance" = "Giriş";
-
 "error_enter_correct_name" = "Lütfen, doğru bir isim girin";
-
 "bookmarks_groups" = "Listeler";
-
 "bookmarks_groups_hide_all" = "Tümünü gizle";
-
 "bookmarks_groups_show_all" = "Tümünü göster";
-
 "bookmarks_create_new_group" = "Yeni liste oluştur";
 
 /* Bookmark categories screen */
 "bookmarks_import" = "Import bookmarks";
-
 "downloader_hide_screen" = "Ekranı Gizle";
-
 "downloader_percent" = "%s (%s / %s)";
-
 "downloader_process" = "%s indiriliyor…";
-
 "downloader_applying" = "%s uygulanıyor…";
-
 "bookmarks_error_message_share_general" = "Bir uygulama hatasından dolayı paylaşılamıyor";
-
 "bookmarks_error_title_share_empty" = "Paylaşma hatası";
-
 "bookmarks_error_message_share_empty" = "Boş bir liste paylaşılamaz";
-
 "bookmarks_error_title_empty_list_name" = "Isim boş olamaz";
-
 "bookmarks_error_message_empty_list_name" = "Lütfen liste ismini giriniz";
-
 "bookmarks_new_list_hint" = "Yeni liste";
-
 "bookmarks_error_title_list_name_already_taken" = "Bu isim zaten alınmış";
-
 "bookmarks_error_message_list_name_already_taken" = "Lütfen başka bir isim seçiniz";
-
 "bookmarks_error_title_list_name_too_long" = "Bu isim çok uzun";
-
 "please_wait" = "Lütfen bekle…";
-
 "phone_number" = "Telefon numarası";
-
 "profile" = "OpenStreetMap profil";
-
 "bookmarks_detect_title" = "Yeni dosyalar algılandı";
-
 "button_convert" = "Dönüştürmek";
-
 "bookmarks_convert_error_title" = "Hata";
-
 "bookmarks_convert_error_message" = "Bazı dosyalar dönüştürülmedi.";
-
 "bookmarks_restore_title" = "Bu sürümü geri yükle?";
-
 "common_check_internet_connection_dialog_title" = "İnternet bağlantısı yok";
-
 "error_system_message" = "Bilinmeyen bir hata oluştu";
-
 "restore" = "Restore";
-
 "subtittle_opt_out" = "İzleme ayarları";
-
 "crash_reports" = "Kilitlenme raporu";
-
 "crash_reports_description" = "Organic Maps deneyimini geliştirmek için verilerinizi kullanabiliriz. Değişiklikler, uygulama yeniden başlatıldıktan sonra geçerli olur.";
-
 "privacy_policy" = "Gizlilik politikası";
-
 "terms_of_use" = "Kullanım koşulları";
-
 "button_layer_traffic" = "Trafik";
-
 "button_layer_subway" = "Metro";
-
 "layers_title" = "Harita katmanları";
-
 "subway_data_unavailable" = "Metro haritası mevcut değil";
-
 "bookmarks_empty_list_title" = "Bu liste boş";
-
 "bookmarks_empty_list_message" = "Yer imi eklemek için önce haritadaki bir yere sonrasında ise yıldız simgesine dokunun";
-
 "category_desc_more" = "…daha fazla";
-
 "title_error_downloading_bookmarks" = "Bir hata oluştu";
-
 "popular_place" = "Popular";
-
 "export_file" = "Dosyayı dışa aktar";
-
 "list_settings" = "Liste Ayarları";
-
 "delete_list" = "Listeyi sil";
-
 "hide_from_map" = "Haritadan gizle";
-
 "public_access" = "Genel erişim";
-
 "limited_access" = "Sınırlı erişim";
-
 "bookmark_category_name" = "Kategori";
-
 "bookmark_category_description_hint" = "Bir açıklama yazın (metin veya html)";
-
 "not_shared" = "Şahsi";
-
 "tags_loading_error_subtitle" = "Etiketler yüklenirken bir hata oluştu, lütfen tekrar deneyin";
-
 "download_button" = "İndir";
-
 "speedcams_alert_title" = "Hız kameraları";
-
 "speedcam_option_auto" = "Otomatik";
-
 "speedcam_option_always" = "Her zaman";
-
 "speedcam_option_never" = "Asla";
-
 "place_description_title" = "Yer Açıklaması";
 
 /* this text will be shown in application notification preferences opposite checkbox which enable/disable downloader notifications. Devices on Android 8+ are affected. */
 "notification_channel_downloader" = "Harita indiricisi";
-
 "speedcams_notice_message" = "Otomatik - Hız sınırını aşma riski varsa hız kameraları hakkında uyar\nHer zaman - Hız kameraları hakkında her zaman uyar\nAsla - Hız kameraları hakkında hiçbir zaman uyarma";
-
 "power_managment_title" = "Güç tasarrufu modu";
-
 "power_managment_description" = "Otomatik mod seçildiğinde, uygulama geçerli pil seviyesine bağlı olarak şarj harcayan özellikleri devre dışı bırakmaya başlar";
-
 "power_managment_setting_never" = "Asla";
-
 "power_managment_setting_auto" = "Otomatik";
-
 "power_managment_setting_manual_max" = "Maksimum güç tasarrufu";
-
 "enable_logging_warning_message" = "Seçenek tanı amaçlı, günlüğe kaydetmeyi açar. Uygulamayla ilgili sorunları gideren destek ekibimiz için yardımcı olabilir. Bu seçeneği yalnızca Organic Maps desteğinin isteği üzerine etkinleştirin.";
-
 "access_rules_author_only" = "Çevrimiçi düzenleme";
-
 "driving_options_title" = "Sürüş seçenekleri";
-
 "driving_options_subheader" = "Her rotada kaçının";
-
 "avoid_tolls" = "Paralı yollar";
-
 "avoid_unpaved" = "Asfaltsız yollar";
-
 "avoid_ferry" = "Feribot geçişleri";
-
 "avoid_motorways" = "Otoyollar";
-
 "unable_to_calc_alert_title" = "Rota hesaplanamıyor";
-
 "unable_to_calc_alert_subtitle" = "Maalesef, muhtemelen belirlediğiniz seçeneklerden dolayı bir rota bulamadık. Lütfen seçenekleri değiştirin ve tekrar deneyin";
-
 "define_to_avoid_btn" = "Kaçınılması gereken yolları tanımlayın";
-
 "change_driving_options_btn" = "Sürüş seçenekleri etkinleştirildi";
-
 "toll_road" = "Paralı yol";
-
 "unpaved_road" = "Asfaltsız yol";
-
 "ferry_crossing" = "Feribot geçişi";
-
 "avoid_toll_roads_placepage" = "Paralı yollardan kaçın";
-
 "avoid_unpaved_roads_placepage" = "Asfaltsız yollardan kaçın";
-
 "avoid_ferry_crossing_placepage" = "Feribot geçişlerinden kaçın";
-
 "trip_start" = "Hadi gidelim";
-
 "pick_destination" = "Hedef";
-
 "follow_my_position" = "Tekrar ortala";
-
 "search_results" = "Arama sonuçları";
-
 "then_turn" = "Sonra";
-
 "redirect_route_alert" = "Yeniden bir rota oluşturmak ister misiniz?";
-
 "redirect_route_yes" = "Evet";
-
 "redirect_route_no" = "Hayır";
-
 "trip_finished" = "Vardınız!";
-
 "keyboard_availability_alert" = "Klavye, sürüş sırasında kullanılamaz";
-
 "dialog_routing_change_start_carplay" = "Mevcut konumunuzdan rota oluşturulamıyor";
-
 "dialog_routing_change_end_carplay" = "Hedefinize rota oluşturulamıyor. Lütfen başka bir nokta seçin";
-
 "dialog_routing_check_gps_carplay" = "GPS sinyali yok. Lütfen açık bir alana geçin";
-
 "dialog_routing_unable_locate_route_carplay" = "Rota oluşturulamıyor. Lütfen başka bir rota noktası belirtin";
-
 "dialog_routing_download_files_carplay" = "Rota oluşturmak için cihazınızdaki eksik haritaları indirin";
-
 "dialog_routing_system_error_carplay" = "Hata oluştu. Lütfen uygulamayı yeniden başlatın";
-
 "dialog_routing_rebuild_from_current_location_carplay" = "Rota, mevcut konumunuzdan yeniden oluşturulacak";
-
 "dialog_routing_rebuild_for_vehicle_carplay" = "Rota, bir arabalı seyahat rotasına dönüştürülecek";
-
 "ok" = "Tamam";
-
 "avoid_unpaved_carplay_1" = "Stabilizesiz";
-
 "avoid_unpaved_carplay_2" = "Asfaltsız hariç";
-
 "avoid_ferry_carplay_1" = "Feribotsuz";
-
 "avoid_ferry_carplay_2" = "Feribot hariç";
-
 "avoid_tolls_carplay_1" = "Paralı yok";
-
 "avoid_tolls_carplay_2" = "Paralı hariç";
-
 "speedcams_alert_title_carplay_1" = "Hız kamerası";
-
 "speedcams_alert_title_carplay_2" = "Hız uyarıları";
-
 "download_map_carplay" = "Lütfen haritaları cihazınıza Organic Maps uygulamasından indirin";
-
 "carplay_roundabout_exit" = "%s çıkış";
 
 /* max. 10 symbols, both iOS and Android */
@@ -1334,11 +965,8 @@
 
 /* iOS */
 "sort_default" = "Varsayılana göre sırala";
-
 "sort_type" = "Türe göre sırala";
-
 "sort_distance" = "Mesafeye göre sırala";
-
 "sort_date" = "Tarihe göre sırala";
 
 /* Android */
@@ -1352,103 +980,54 @@
 
 /* Android */
 "by_date" = "Tarihe göre";
-
 "week_ago_sorttype" = "Bir hafta önce";
-
 "month_ago_sorttype" = "Bir ay önce";
-
 "moremonth_ago_sorttype" = "Bir aydan daha önce";
-
 "moreyear_ago_sorttype" = "Bir yıldan daha önce";
-
 "near_me_sorttype" = "Bana yakın";
-
 "others_sorttype" = "Diğerleri";
-
 "food_places" = "Yiyecek";
-
 "tourist_places" = "Görülecek yerler";
-
 "museums" = "Müzeler";
-
 "parks" = "Parklar";
-
 "swim_places" = "Yüzme";
-
 "mountains" = "Dağlar";
-
 "animals" = "Hayvanlar";
-
 "hotels" = "Oteller";
-
 "buildings" = "Binalar";
-
 "money" = "Para";
-
 "shops" = "Mağazalar";
-
 "parkings" = "Otoparklar";
-
 "fuel_places" = "Benzin istasyonları";
-
 "water" = "Su";
-
 "medicine" = "İlaç";
-
 "search_in_the_list" = "Listede ara";
-
 "religious_places" = "Dini yerler";
-
 "select_list" = "Liste seç";
-
 "transit_not_found" = "Metro navigasyonu bu bölgede henüz mevcut değil";
-
 "dialog_pedestrian_route_is_long_header" = "Metro güzergahı bulunamadı";
-
 "dialog_pedestrian_route_is_long_message" = "Metro istasyonuna en yakın rotanın başlangıç veya bitiş noktasını seçin";
-
 "button_layer_isolines" = "Yükseklikler";
-
 "isolines_activation_error_dialog" = "Yükseklik çizgilerini kullanmak için, istediğiniz arazinin haritasını güncelleyin veya indirin";
-
 "isolines_location_error_dialog" = "Bu bölgede henüz yükseklik çizgileri mevcut değil";
-
 "elevation_profile_diff_level" = "Zorluk seviyesi";
-
 "elevation_profile_diff_level_easy" = "Kolay";
-
 "elevation_profile_diff_level_moderate" = "Orta";
-
 "elevation_profile_diff_level_hard" = "Karmaşık";
-
 "elevation_profile_ascent" = "Tırmanış";
-
 "elevation_profile_descent" = "İniş";
-
 "elevation_profile_minaltitude" = "Min. rakım";
-
 "elevation_profile_maxaltitude" = "Maks. rakım";
-
 "elevation_profile_difficulty" = "Zorluk";
-
 "elevation_profile_distance" = "Mesafe:";
-
 "elevation_profile_time" = "Süre:";
-
 "isolines_toast_zooms_1_10" = "Konturları görmek için haritayı büyütün";
-
 "downloader_updating_ios" = "Güncelleme";
-
 "downloader_loading_ios" = "İndir";
-
 "key_information_title" = "Anahtar bilgisi";
-
 "download_map_title" = "Download the world map";
-
 "connection_failure" = "Connection failure";
-
 "disconnect_usb_cable_title" = "Disconnect USB cable";
-
 "enable_screen_sleep" = "Ekranın uyumasına izin ver";
 
 /* Description in preferences */
@@ -1482,1781 +1061,892 @@
 /********** Types **********/
 
 "type.aerialway" = "Aerialway";
-
 "type.aerialway.cable_car" = "Aerialway";
-
 "type.aerialway.chair_lift" = "Aerialway";
-
 "type.aerialway.drag_lift" = "Aerialway";
-
 "type.aerialway.gondola" = "Aerialway";
-
 "type.aerialway.mixed_lift" = "Aerialway";
-
 "type.aerialway.station" = "Remontées mécaniques";
-
 "type.aeroway" = "Aeroway";
-
 "type.aeroway.aerodrome" = "Havaalanıuçak";
-
 "type.aeroway.aerodrome.international" = "Havaalanıuçak";
-
 "type.aeroway.apron" = "aeroway-apron";
-
 "type.aeroway.gate" = "Gate";
-
 "type.aeroway.helipad" = "Hélisurface";
-
 "type.aeroway.runway" = "aeroway-runway";
-
 "type.aeroway.taxiway" = "aeroway-taxiway";
-
 "type.aeroway.terminal" = "Terminal";
-
 "type.amenity" = "Tesis";
-
 "type.amenity.arts_centre" = "Sanat merkezi";
-
 "type.amenity.atm" = "Bankamatik";
-
 "type.amenity.bank" = "Banka";
-
 "type.amenity.bar" = "Bar";
-
 "type.amenity.bbq" = "Piknik alanı";
-
 "type.amenity.bench" = "Bank";
-
 "type.amenity.bicycle_parking" = "Parking à vélo";
-
 "type.amenity.bicycle_rental" = "Bisiklet kiralama";
-
 "type.amenity.biergarten" = "Biergarten";
-
 "type.amenity.brothel" = "Genelev";
-
 "type.amenity.bureau_de_change" = "Döviz bürosu";
-
 "type.amenity.bus_station" = "Otobüs terminali";
-
 "type.amenity.cafe" = "Kafeterya่";
-
 "type.amenity.car_rental" = "Araç kiralama";
-
 "type.amenity.car_sharing" = "Araç Paylaşımı";
-
 "type.amenity.car_wash" = "Araba Yıkama";
-
 "type.amenity.casino" = "Casino";
-
 "type.amenity.charging_station" = "Şarj İstasyonu";
-
 "type.amenity.childcare" = "Çocuk Yuvası";
-
 "type.amenity.cinema" = "Sinema";
-
 "type.amenity.clinic" = "Klinik";
-
 "type.amenity.college" = "Kolej";
-
 "type.amenity.community_centre" = "Centre communautaire";
-
 "type.amenity.courthouse" = "Palais de justice";
-
 "type.amenity.dentist" = "Diş hekimi";
-
 "type.amenity.doctors" = "Doktor muayenehanesi";
-
 "type.amenity.drinking_water" = "Içme suyu";
-
 "type.amenity.driving_school" = "Sürücü Kursu";
-
 "type.office.diplomatic" = "Büyükelçilik";
-
 "type.amenity.fast_food" = "Fast food";
-
 "type.amenity.ferry_terminal" = "Feribot";
-
 "type.amenity.fire_station" = "Itfaiye";
-
 "type.amenity.food_court" = "Food Court";
-
 "type.amenity.fountain" = "Çeşme";
-
 "type.amenity.fuel" = "Benzin istasyonu";
-
 "type.amenity.grave_yard" = "Mezarlık";
-
 "type.amenity.grave_yard.christian" = "Mezarlık";
-
 "type.amenity.hospital" = "Hastane";
-
 "type.amenity.hunting_stand" = "Avlanma alanı";
-
 "type.amenity.ice_cream" = "Dondurma Standı";
-
 "type.amenity.internet_cafe" = "İnternet Cafe";
-
 "type.amenity.kindergarten" = "Anaokulu";
-
 "type.amenity.library" = "Kütüphane";
-
 "type.amenity.marketplace" = "Pazaryeri";
-
 "type.amenity.motorcycle_parking" = "Motosiklet Parkı";
-
 "type.amenity.nightclub" = "Gece kulübü";
-
 "type.amenity.nursing_home" = "Huzurevi";
-
 "type.amenity.parking" = "Otopark";
-
 "type.amenity.parking.fee" = "Otopark";
-
 "type.amenity.parking.multi.storey" = "Otopark";
-
 "type.amenity.parking.no.access" = "Otopark";
-
 "type.amenity.parking.park_and_ride" = "Otopark";
-
 "type.amenity.parking.permissive" = "Otopark";
-
 "type.amenity.parking.private" = "Otopark";
-
 "type.amenity.parking.underground" = "Otopark";
-
 "type.amenity.parking_space" = "Park alanı";
-
 "type.amenity.parking_space.permissive" = "Park alanı";
-
 "type.amenity.parking_space.private" = "Park alanı";
-
 "type.amenity.parking_space.underground" = "Park alanı";
-
 "type.amenity.payment_terminal" = "Ödeme Noktası";
-
 "type.amenity.pharmacy" = "Eczane";
-
 "type.amenity.place_of_worship" = "Ibadet yerleri";
-
 "type.amenity.place_of_worship.buddhist" = "Tapınak";
-
 "type.amenity.place_of_worship.christian" = "Kilise";
-
 "type.amenity.place_of_worship.hindu" = "Tapınak";
-
 "type.amenity.place_of_worship.jewish" = "Sinagog";
-
 "type.amenity.place_of_worship.muslim" = "Cami";
-
 "type.amenity.place_of_worship.shinto" = "Mabet";
-
 "type.amenity.place_of_worship.taoist" = "Tapınak";
-
 "type.amenity.police" = "Polis";
-
 "type.amenity.post_box" = "Posta kutusu";
-
 "type.amenity.post_office" = "Postane";
-
 "type.amenity.prison" = "Prison";
-
 "type.amenity.pub" = "Pub";
-
 "type.amenity.public_bookcase" = "Kütüphane";
-
 "type.amenity.recycling" = "Geri dönüşüm merkezi";
-
 "type.amenity.recycling_container" = "Atık toplama merkezi";
-
 "type.recycling.toxic" = "Zehirli atık";
-
 "type.recycling.clothes" = "Eski kıyafetler";
-
 "type.recycling.glass_bottles" = "Cam şişeler";
-
 "type.recycling.paper" = "Kağıt atıkları";
-
 "type.recycling.plastic" = "Plastik atıklar";
-
 "type.recycling.plastic_bottles" = "Plastik şişeler";
-
 "type.recycling.scrap_metal" = "Metal hurdalar";
-
 "type.recycling.small_appliances" = "Elektronik atık";
-
 "type.amenity.restaurant" = "Restoran";
-
 "type.amenity.school" = "Okul";
-
 "type.amenity.shelter" = "Barınak";
-
 "type.amenity.shower" = "Duş";
-
 "type.amenity.taxi" = "Taksi";
-
 "type.amenity.telephone" = "Telefon";
-
 "type.amenity.theatre" = "Tiyatro";
-
 "type.amenity.toilets" = "Tuvalet";
-
 "type.amenity.townhall" = "Belediye binası";
-
 "type.amenity.university" = "Üniversite";
-
 "type.amenity.vending_machine" = "Vending Machine";
-
 "type.amenity.vending_machine.cigarettes" = "Distributeur de cigarettes";
-
 "type.amenity.vending_machine.drinks" = "Distributeur de boissons";
-
 "type.amenity.vending_machine.parking_tickets" = "Horodateur";
-
 "type.amenity.vending_machine.public_transport_tickets" = "Toplu taşıma biletleri için otomatlar";
-
 "type.amenity.veterinary" = "Veteriner";
-
 "type.amenity.waste_basket" = "Poubelle";
-
 "type.amenity.waste_disposal" = "Çöplüğü";
-
 "type.amenity.water_point" = "Su Noktası";
-
 "type.barrier" = "Barrier";
-
 "type.barrier.block" = "Bloc";
-
 "type.barrier.bollard" = "Pilier";
-
 "type.barrier.border_control" = "Contrôle aux frontières";
-
 "type.barrier.chain" = "Chain";
-
 "type.barrier.city_wall" = "City Wall";
-
 "type.barrier.cycle_barrier" = "Cycle Barrier";
-
 "type.barrier.entrance" = "Entrée";
-
 "type.barrier.fence" = "Fence";
-
 "type.barrier.gate" = "Porte";
-
 "type.barrier.hedge" = "Hedge";
-
 "type.barrier.lift_gate" = "Barrière levante";
-
 "type.barrier.retaining_wall" = "Retaining Wall";
-
 "type.barrier.stile" = "Échalier";
-
 "type.barrier.swing_gate" = "Barrière levante";
-
 "type.barrier.toll_booth" = "Poste de péage";
-
 "type.barrier.wall" = "Wall";
-
 "type.boundary" = "Boundary";
-
 "type.boundary.administrative" = "boundary-administrative";
-
 "type.boundary.administrative.10" = "boundary-administrative-10";
-
 "type.boundary.administrative.11" = "boundary-administrative-11";
-
 "type.boundary.administrative.2" = "boundary-administrative-2";
-
 "type.boundary.administrative.3" = "boundary-administrative-3";
-
 "type.boundary.administrative.4" = "boundary-administrative-4";
-
 "type.boundary.administrative.4.state" = "boundary-administrative-4-state";
-
 "type.boundary.administrative.5" = "boundary-administrative-5";
-
 "type.boundary.administrative.6" = "boundary-administrative-6";
-
 "type.boundary.administrative.7" = "boundary-administrative-7";
-
 "type.boundary.administrative.8" = "boundary-administrative-8";
-
 "type.boundary.administrative.9" = "boundary-administrative-9";
-
 "type.boundary.administrative.city" = "boundary-administrative-city";
-
 "type.boundary.administrative.country" = "boundary-administrative-country";
-
 "type.boundary.administrative.county" = "boundary-administrative-county";
-
 "type.boundary.administrative.municipality" = "boundary-administrative-municipality";
-
 "type.boundary.administrative.nation" = "boundary-administrative-nation";
-
 "type.boundary.administrative.region" = "boundary-administrative-region";
-
 "type.boundary.administrative.state" = "boundary-administrative-state";
-
 "type.boundary.administrative.suburb" = "boundary-administrative-suburb";
-
 "type.boundary.national_park" = "Ulusal park";
-
 "type.building" = "Bina";
-
 "type.building.address" = "Bina";
-
 "type.building.garage" = "Garage";
-
 "type.building.has_parts" = "Bina";
-
 "type.building.train_station" = "Gar";
-
 "type.building.warehouse" = "Warehouse";
-
 "type.craft" = "Craft";
-
 "type.craft.brewery" = "Bira fabrikası";
-
 "type.craft.carpenter" = "Marangoz";
-
 "type.craft.electrician" = "Elektrikçi";
-
 "type.craft.gardener" = "Bahçe düzenleyici";
-
 "type.craft.hvac" = "Klimacı";
-
 "type.craft.metal_construction" = "Dökümcü";
-
 "type.craft.painter" = "Boyacı";
-
 "type.craft.photographer" = "Fotoğraf stüdyosu";
-
 "type.craft.plumber" = "Sıhhi tesisatçı";
-
 "type.craft.shoemaker" = "Ayakkabı tamircisi";
-
 "type.craft.tailor" = "Terzi";
-
 "type.cuisine.african" = "Afrika mutfağı";
-
 "type.cuisine.american" = "Amerikan mutfağı";
-
 "type.cuisine.arab" = "Arap mutfağı";
-
 "type.cuisine.argentinian" = "Arjantin mutfağı";
-
 "type.cuisine.asian" = "Asya mutfağı";
-
 "type.cuisine.austrian" = "Avusturya mutfağı";
-
 "type.cuisine.bagel" = "Simit";
-
 "type.cuisine.balkan" = "Balkan mutfağı";
-
 "type.cuisine.barbecue" = "Mangal";
-
 "type.cuisine.bavarian" = "Bavyera mutfağı";
-
 "type.cuisine.beef_bowl" = "Biftek tabağı";
-
 "type.cuisine.brazilian" = "Brezilya mutfağı";
-
 "type.cuisine.breakfast" = "Kahvaltı";
-
 "type.cuisine.burger" = "Hamburger";
-
 "type.cuisine.buschenschank" = "Buschenschank";
-
 "type.cuisine.cake" = "Pasta";
-
 "type.cuisine.caribbean" = "Karayip mutfağı";
-
 "type.cuisine.chicken" = "Tavuk";
-
 "type.cuisine.chinese" = "Çin mutfağı";
-
 "type.cuisine.coffee_shop" = "Kahve";
-
 "type.cuisine.crepe" = "Krep";
-
 "type.cuisine.croatian" = "Hırvat mutfağı";
-
 "type.cuisine.curry" = "Köri";
-
 "type.cuisine.deli" = "Şarküteri";
-
 "type.cuisine.diner" = "Vagon restoran";
-
 "type.cuisine.donut" = "Donut";
-
 "type.cuisine.ethiopian" = "Etiyopya mutfağı";
-
 "type.cuisine.filipino" = "Filipino mutfağı";
-
 "type.cuisine.fine_dining" = "Birinci sınıf restoran";
-
 "type.cuisine.fish" = "Balık";
-
 "type.cuisine.fish_and_chips" = "Balık ve patates cipsi";
-
 "type.cuisine.french" = "Fransız mutfağı";
-
 "type.cuisine.friture" = "Kızartma";
-
 "type.cuisine.georgian" = "Gürcistan mutfağı";
-
 "type.cuisine.german" = "Alman mutfağı";
-
 "type.cuisine.greek" = "Yunan mutfağı";
-
 "type.cuisine.grill" = "ızgara";
-
 "type.cuisine.heuriger" = "Heuriger";
-
 "type.cuisine.hotdog" = "Sosisli";
-
 "type.cuisine.hungarian" = "Macar mutfağı";
-
 "type.cuisine.ice_cream" = "Dondurma";
-
 "type.cuisine.indian" = "Hint mutfağı";
-
 "type.cuisine.indonesian" = "Endonezya mutfağı";
-
 "type.cuisine.international" = "Uluslararası mutfak";
-
 "type.cuisine.irish" = "Irlanda mutfağı";
-
 "type.cuisine.italian" = "Italyan mutfağı";
-
 "type.cuisine.italian_pizza" = "Italyan, pizza";
-
 "type.cuisine.japanese" = "Japon mutfağı";
-
 "type.cuisine.kebab" = "Kebap";
-
 "type.cuisine.korean" = "Kore mutfağı";
-
 "type.cuisine.lao" = "Lao mutfağı";
-
 "type.cuisine.lebanese" = "Lübnan mutfağı";
-
 "type.cuisine.local" = "Yerel mutfak";
-
 "type.cuisine.malagasy" = "Malgaş mutfağı";
-
 "type.cuisine.malaysian" = "Malezya mutfağı";
-
 "type.cuisine.mediterranean" = "Akdeniz mutfağı";
-
 "type.cuisine.mexican" = "Meksika mutfağı";
-
 "type.cuisine.moroccan" = "Fas mutfağı";
-
 "type.cuisine.noodles" = "Erişte";
-
 "type.cuisine.oriental" = "Doğu mutfağı";
-
 "type.cuisine.pancake" = "Gözleme";
-
 "type.cuisine.pasta" = "Makarna";
-
 "type.cuisine.persian" = "Iran mutfağı";
-
 "type.cuisine.peruvian" = "Peru mutfağı";
-
 "type.cuisine.pizza" = "Pizza";
-
 "type.cuisine.polish" = "Polonya mutfağı";
-
 "type.cuisine.portuguese" = "Portekiz mutfağı";
-
 "type.cuisine.ramen" = "Japon eriştesi";
-
 "type.cuisine.regional" = "Bölgesel mutfak";
-
 "type.cuisine.russian" = "Rus mutfağı";
-
 "type.cuisine.sandwich" = "Sandviç";
-
 "type.cuisine.sausage" = "Sucuk";
-
 "type.cuisine.savory_pancakes" = "Açma";
-
 "type.cuisine.seafood" = "Deniz ürünleri";
-
 "type.cuisine.soba" = "Erişte";
-
 "type.cuisine.spanish" = "Ispanyol mutfağı";
-
 "type.cuisine.steak_house" = "Et lokantası";
-
 "type.cuisine.sushi" = "Suşi";
-
 "type.cuisine.tapas" = "Tapas";
-
 "type.cuisine.tea" = "Çay";
-
 "type.cuisine.thai" = "Tayland mutfağı";
-
 "type.cuisine.turkish" = "Türk mutfağı";
-
 "type.cuisine.vegan" = "Vegan mutfağı";
-
 "type.cuisine.vegetarian" = "Vejetaryen mutfağı";
-
 "type.cuisine.vietnamese" = "Vietnam mutfağı";
-
 "type.emergency" = "Emergency";
-
 "type.emergency.defibrillator" = "Defibrilatör";
-
 "type.emergency.fire_hydrant" = "Yangın Söndürme Musluğu";
-
 "type.emergency.phone" = "Acil telefon";
-
 "type.entrance" = "Entrée";
-
 "type.healthcare.laboratory" = "Tıbbi laboratuvar";
-
 "type.highway" = "Highway";
-
 "type.highway.bridleway" = "Rider's Path";
-
 "type.highway.bridleway.bridge" = "Rider's Path";
-
 "type.highway.bridleway.permissive" = "Rider's Path";
-
 "type.highway.bridleway.tunnel" = "Rider's Path";
-
 "type.highway.bus_stop" = "Otobüs durağı";
-
 "type.highway.construction" = "Yol yapım aşamasında";
-
 "type.highway.cycleway" = "Bike Path";
-
 "type.highway.cycleway.bridge" = "Bike Path";
-
 "type.highway.cycleway.permissive" = "Bike Path";
-
 "type.highway.cycleway.tunnel" = "Bike Path";
-
 "type.highway.elevator" = "Elevator";
-
 "type.highway.footway" = "Yol";
-
 "type.highway.footway.alpine_hiking" = "Yol";
-
 "type.highway.footway.area" = "Yol";
-
 "type.highway.footway.bridge" = "Yol";
-
 "type.highway.footway.demanding_alpine_hiking" = "Yol";
-
 "type.highway.footway.demanding_mountain_hiking" = "Yol";
-
 "type.highway.footway.difficult_alpine_hiking" = "Yol";
-
 "type.highway.footway.hiking" = "Yol";
-
 "type.highway.footway.mountain_hiking" = "Yol";
-
 "type.highway.footway.permissive" = "Yol";
-
 "type.highway.footway.tunnel" = "Yol";
-
 "type.highway.ford" = "Geçit";
-
 "type.highway.living_street" = "Cadde";
-
 "type.highway.living_street.bridge" = "Cadde";
-
 "type.highway.living_street.tunnel" = "Cadde";
-
 "type.highway.motorway" = "Cadde";
-
 "type.highway.motorway.bridge" = "Cadde";
-
 "type.highway.motorway.tunnel" = "Cadde";
-
 "type.highway.motorway_junction" = "Çıkış";
-
 "type.highway.motorway_link" = "Cadde";
-
 "type.highway.motorway_link.bridge" = "Cadde";
-
 "type.highway.motorway_link.tunnel" = "Cadde";
-
 "type.highway.path" = "Yol";
-
 "type.highway.path.alpine_hiking" = "Yol";
-
 "type.highway.path.bicycle" = "Yol";
-
 "type.highway.path.bridge" = "Yol";
-
 "type.highway.path.demanding_alpine_hiking" = "Yol";
-
 "type.highway.path.demanding_mountain_hiking" = "Yol";
-
 "type.highway.path.difficult_alpine_hiking" = "Yol";
-
 "type.highway.path.hiking" = "Yol";
-
 "type.highway.path.horse" = "Yol";
-
 "type.highway.path.mountain_hiking" = "Yol";
-
 "type.highway.path.permissive" = "Yol";
-
 "type.highway.path.tunnel" = "Yol";
-
 "type.highway.pedestrian" = "Cadde";
-
 "type.highway.pedestrian.area" = "Cadde";
-
 "type.highway.pedestrian.bridge" = "Cadde";
-
 "type.highway.pedestrian.tunnel" = "Cadde";
-
 "type.highway.primary" = "Cadde";
-
 "type.highway.primary.bridge" = "Cadde";
-
 "type.highway.primary.tunnel" = "Cadde";
-
 "type.highway.primary_link" = "Cadde";
-
 "type.highway.primary_link.bridge" = "Cadde";
-
 "type.highway.primary_link.tunnel" = "Cadde";
-
 "type.highway.raceway" = "Koşu yolu";
-
 "type.highway.residential" = "Cadde";
-
 "type.highway.residential.area" = "Cadde";
-
 "type.highway.residential.bridge" = "Cadde";
-
 "type.highway.residential.tunnel" = "Cadde";
-
 "type.highway.rest_area" = "Aire de repos";
-
 "type.highway.road" = "Cadde";
-
 "type.highway.road.bridge" = "Cadde";
-
 "type.highway.road.tunnel" = "Cadde";
-
 "type.highway.secondary" = "Cadde";
-
 "type.highway.secondary.bridge" = "Cadde";
-
 "type.highway.secondary.tunnel" = "Cadde";
-
 "type.highway.secondary_link" = "Cadde";
-
 "type.highway.secondary_link.bridge" = "Cadde";
-
 "type.highway.secondary_link.tunnel" = "Cadde";
-
 "type.highway.service" = "Cadde";
-
 "type.highway.service.area" = "Cadde";
-
 "type.highway.service.bridge" = "Cadde";
-
 "type.highway.service.driveway" = "Cadde";
-
 "type.highway.service.parking_aisle" = "Cadde";
-
 "type.highway.service.tunnel" = "Cadde";
-
 "type.highway.services" = "Service on the Road";
-
 "type.highway.speed_camera" = "Hız Kamerası";
-
 "type.highway.steps" = "Yol";
-
 "type.highway.steps.bridge" = "Yol";
-
 "type.highway.steps.tunnel" = "Yol";
-
 "type.highway.tertiary" = "Cadde";
-
 "type.highway.tertiary.bridge" = "Cadde";
-
 "type.highway.tertiary.tunnel" = "Cadde";
-
 "type.highway.tertiary_link" = "Cadde";
-
 "type.highway.tertiary_link.bridge" = "Cadde";
-
 "type.highway.tertiary_link.tunnel" = "Cadde";
-
 "type.highway.track" = "Cadde";
-
 "type.highway.track.area" = "Cadde";
-
 "type.highway.track.bridge" = "Cadde";
-
 "type.highway.track.grade1" = "Cadde";
-
 "type.highway.track.grade2" = "Cadde";
-
 "type.highway.track.grade3" = "Cadde";
-
 "type.highway.track.grade4" = "Cadde";
-
 "type.highway.track.grade5" = "Cadde";
-
 "type.highway.track.no.access" = "Cadde";
-
 "type.highway.track.permissive" = "Cadde";
-
 "type.highway.track.tunnel" = "Cadde";
-
 "type.highway.traffic_signals" = "Feux de circulation";
-
 "type.highway.trunk" = "Cadde";
-
 "type.highway.trunk.bridge" = "Cadde";
-
 "type.highway.trunk.tunnel" = "Cadde";
-
 "type.highway.trunk_link" = "Cadde";
-
 "type.highway.trunk_link.bridge" = "Cadde";
-
 "type.highway.trunk_link.tunnel" = "Cadde";
-
 "type.highway.unclassified" = "Cadde";
-
 "type.highway.unclassified.area" = "Cadde";
-
 "type.highway.unclassified.bridge" = "Cadde";
-
 "type.highway.unclassified.tunnel" = "Cadde";
-
 "type.highway.world_level" = "highway-world_level";
-
 "type.highway.world_towns_level" = "highway-world_towns_level";
-
 "type.historic" = "Historic";
-
 "type.historic.archaeological_site" = "Arkeolojik alan";
-
 "type.historic.battlefield" = "Battlefield";
-
 "type.historic.boundary_stone" = "Boundary Stone";
-
 "type.historic.castle" = "Kale";
-
 "type.historic.castle.defensive" = "Kale";
-
 "type.historic.castle.stately" = "Kale";
-
 "type.historic.citywalls" = "City Wall";
-
 "type.historic.fort" = "Fort";
-
 "type.historic.memorial" = "Anıt";
-
 "type.historic.memorial.plaque" = "Anıt";
-
 "type.historic.memorial.sculpture" = "Anıt";
-
 "type.historic.memorial.statue" = "Anıt";
-
 "type.historic.monument" = "Abide";
-
 "type.historic.ruins" = "Harabeler";
-
 "type.historic.ship" = "Görülecek yerler";
-
 "type.historic.tomb" = "Görülecek yerler";
-
 "type.historic.wayside_cross" = "Christian Cross";
-
 "type.historic.wayside_shrine" = "Shrine";
-
 "type.hwtag" = "hwtag";
-
 "type.hwtag.bidir_bicycle" = "hwtag-bidir_bicycle";
-
 "type.hwtag.onedir_bicycle" = "hwtag-onedir_bicycle";
-
 "type.hwtag.lit" = "hwtag-lit";
-
 "type.hwtag.nobicycle" = "hwtag-nobicycle";
-
 "type.hwtag.nocar" = "hwtag-nocar";
-
 "type.hwtag.nofoot" = "hwtag-nofoot";
-
 "type.hwtag.oneway" = "hwtag-oneway";
-
 "type.hwtag.private" = "hwtag-private";
-
 "type.hwtag.toll" = "hwtag-toll";
-
 "type.hwtag.yesbicycle" = "hwtag-yesbicycle";
-
 "type.hwtag.yescar" = "hwtag-yescar";
-
 "type.hwtag.yesfoot" = "hwtag-yesfoot";
-
 "type.internet_access" = "Internet";
-
 "type.internet_access.wlan" = "Internet";
-
 "type.junction" = "Junction";
-
 "type.junction.roundabout" = "Roundabout";
-
 "type.landuse" = "Landuse";
-
 "type.landuse.allotments" = "Allotments";
-
 "type.landuse.basin" = "Su";
-
 "type.landuse.brownfield" = "Brownfield";
-
 "type.landuse.cemetery" = "Mezarlık";
-
 "type.landuse.cemetery.christian" = "Mezarlık";
-
 "type.landuse.churchyard" = "Kilise Bölgesi";
-
 "type.landuse.commercial" = "Commercial Area";
-
 "type.landuse.construction" = "Construction";
-
 "type.landuse.farm" = "Farm";
-
 "type.landuse.farmland" = "Tarım arazileri";
-
 "type.landuse.farmyard" = "Farmyard";
-
 "type.landuse.field" = "Field";
-
 "type.landuse.forest" = "Orman";
-
 "type.landuse.forest.coniferous" = "Orman";
-
 "type.landuse.forest.deciduous" = "Orman";
-
 "type.landuse.forest.mixed" = "Orman";
-
 "type.landuse.garages" = "Garages";
-
 "type.landuse.grass" = "Çim";
-
 "type.landuse.greenfield" = "Greenfield";
-
 "type.landuse.greenhouse_horticulture" = "Greenhouse";
-
 "type.landuse.industrial" = "Industrial Land";
-
 "type.landuse.landfill" = "Çöp sahası";
-
 "type.landuse.meadow" = "Meadow";
-
 "type.landuse.military" = "Military Area";
-
 "type.landuse.orchard" = "Orchard";
-
 "type.landuse.quarry" = "Quarry";
-
 "type.landuse.railway" = "Demiryolu binası";
-
 "type.landuse.recreation_ground" = "Recreation Ground";
-
 "type.landuse.reservoir" = "Su";
-
 "type.landuse.residential" = "Residential Land";
-
 "type.landuse.retail" = "Retail Land";
-
 "type.landuse.salt_pond" = "Pond";
-
 "type.landuse.village_green" = "Land";
-
 "type.landuse.vineyard" = "Vineyard";
-
 "type.leisure" = "Leisure";
-
 "type.leisure.common" = "leisure-common";
-
 "type.leisure.dog_park" = "Köpek alanı";
-
 "type.leisure.fitness_centre" = "Centre fitness";
-
 "type.leisure.fitness_station" = "Fitness Salonu";
-
 "type.leisure.garden" = "Bahçe";
-
 "type.leisure.golf_course" = "Golf sahası";
-
 "type.leisure.ice_rink" = "Ice Rink";
-
 "type.leisure.landscape_reserve" = "Landscape Reserve";
-
 "type.leisure.marina" = "Marina";
-
 "type.leisure.nature_reserve" = "Doğal koruma alanı";
-
 "type.leisure.park" = "Park";
-
 "type.leisure.park.no.access" = "Park";
-
 "type.leisure.park.permissive" = "Park";
-
 "type.leisure.park.private" = "Park";
-
 "type.leisure.picnic_table" = "Piknik masası";
-
 "type.leisure.pitch" = "Spor sahası";
-
 "type.leisure.playground" = "Oyun alanı";
-
 "type.leisure.recreation_ground" = "Recreation Ground";
-
 "type.leisure.sauna" = "Sauna";
-
 "type.leisure.slipway" = "Slipway";
-
 "type.leisure.sports_centre" = "Spor";
-
 "type.leisure.sports_centre.climbing" = "Tırmanma Merkezi";
-
 "type.leisure.sports_centre.shooting" = "Poligon";
-
 "type.leisure.sports_centre.swimming" = "Yüzme Merkezi";
-
 "type.leisure.sports_centre.yoga" = "Yoga Stüdyosu";
-
 "type.leisure.stadium" = "Stadyum";
-
 "type.leisure.swimming_pool" = "Yüzme havuzu";
-
 "type.leisure.track" = "Track";
-
 "type.leisure.water_park" = "Centre aquatique";
-
 "type.man_made" = "Man Made";
-
 "type.man_made.breakwater" = "Breakwater";
-
 "type.man_made.cairn" = "Cairn";
-
 "type.man_made.chimney" = "Cheminée d'usine";
-
 "type.man_made.cutline" = "Cutline";
-
 "type.man_made.lighthouse" = "Deniz Feneri";
-
 "type.man_made.pier" = "Pier";
-
 "type.man_made.pipeline" = "Pipeline";
-
 "type.man_made.pipeline.overground" = "Overground Pipeline";
-
 "type.man_made.silo" = "Silo";
-
 "type.man_made.storage_tank" = "Storage Tank";
-
 "type.man_made.surveillance" = "Güvenlik Kamerası";
-
 "type.man_made.tower" = "Tour";
-
 "type.man_made.wastewater_plant" = "Wastewater Plant";
-
 "type.man_made.water_tap" = "Çeşme Suyu";
-
 "type.man_made.water_tower" = "Château d'eau";
-
 "type.man_made.water_well" = "Puits à eau";
-
 "type.man_made.windmill" = "Moulin";
-
 "type.man_made.works" = "Works";
-
 "type.mapswithme" = "mapswithme";
-
 "type.mapswithme.grid" = "mapswithme-grid";
-
 "type.military" = "Military";
-
 "type.military.bunker" = "Bunker";
-
 "type.mountain_pass" = "Mountain Pass";
-
 "type.natural" = "Natural";
-
 "type.natural.bare_rock" = "Bare Rock";
-
 "type.natural.bay" = "Koy";
-
 "type.natural.beach" = "Plaj";
-
 "type.natural.cape" = "Burun";
-
 "type.natural.cave_entrance" = "Mağara";
-
 "type.natural.cliff" = "Cliff";
-
 "type.natural.coastline" = "Coastline";
-
 "type.natural.geyser" = "Gayzer";
-
 "type.natural.glacier" = "Buzul";
-
 "type.natural.grassland" = "Yeşillik";
-
 "type.natural.heath" = "Heath";
-
 "type.natural.hot_spring" = "Hot Spring";
-
 "type.natural.water.lake" = "Göl";
-
 "type.natural.land" = "Land";
-
 "type.natural.meadow" = "Meadow";
-
 "type.natural.orchard" = "Orchard";
-
 "type.natural.peak" = "Zirve";
-
 "type.natural.saddle" = "Mountain Saddle";
-
 "type.natural.water.pond" = "Gölet";
-
 "type.natural.rock" = "Rock";
-
 "type.natural.scrub" = "Çalılık";
-
 "type.natural.spring" = "Pınar";
-
 "type.natural.strait" = "Boğaz";
-
 "type.natural.tree" = "Arbre";
-
 "type.natural.tree_row" = "Tree Row";
-
 "type.natural.vineyard" = "Vineyard";
-
 "type.natural.volcano" = "Volcan";
-
 "type.natural.water" = "Su";
-
 "type.natural.wetland" = "Sulak alan";
-
 "type.natural.wetland.bog" = "Wetland";
-
 "type.natural.wetland.marsh" = "Wetland";
-
 "type.noexit" = "noexit";
-
 "type.noexit.motor_vehicle" = "noexit-motor_vehicle";
-
 "type.office" = "Ofis";
-
 "type.office.company" = "Şirket bürosu";
-
 "type.office.estate_agent" = "Agent immobilier";
-
 "type.office.government" = "Devlet dairesi";
-
 "type.office.insurance" = "Sigorta Acentası";
-
 "type.office.lawyer" = "Avukatlık bürosu";
-
 "type.office.ngo" = "STK Binası";
-
 "type.office.telecommunication" = "Cep telefonu operatörü";
-
 "type.olympics" = "olympics";
-
 "type.olympics.attraction" = "olympics-attraction";
-
 "type.olympics.bike_sport" = "olympics-bike_sport";
-
 "type.olympics.live_site" = "olympics-live_site";
-
 "type.olympics.official_building" = "olympics-official_building";
-
 "type.olympics.stadium" = "olympics-stadium";
-
 "type.olympics.stadium_main" = "olympics-stadium_main";
-
 "type.olympics.transport_airport" = "olympics-transport_airport";
-
 "type.olympics.transport_boat" = "olympics-transport_boat";
-
 "type.olympics.transport_bus" = "olympics-transport_bus";
-
 "type.olympics.transport_cable" = "olympics-transport_cable";
-
 "type.olympics.transport_railway" = "olympics-transport_railway";
-
 "type.olympics.transport_subway" = "olympics-transport_subway";
-
 "type.olympics.transport_tram" = "olympics-transport_tram";
-
 "type.olympics.water_sport" = "olympics-water_sport";
-
 "type.place" = "place";
-
 "type.place.city" = "Şehir";
-
 "type.place.city.capital" = "Başkent";
-
 "type.place.city.capital.10" = "Başkent";
-
 "type.place.city.capital.11" = "Başkent";
-
 "type.place.city.capital.2" = "Başkent";
-
 "type.place.city.capital.3" = "Başkent";
-
 "type.place.city.capital.4" = "Başkent";
-
 "type.place.city.capital.5" = "Başkent";
-
 "type.place.city.capital.6" = "Başkent";
-
 "type.place.city.capital.7" = "Başkent";
-
 "type.place.city.capital.8" = "Başkent";
-
 "type.place.city.capital.9" = "Başkent";
-
 "type.place.continent" = "Kıta";
-
 "type.place.country" = "Ülke";
-
 "type.place.county" = "Kırsal kesim";
-
 "type.place.farm" = "Çiftlik";
-
 "type.place.hamlet" = "Küçük";
-
 "type.place.island" = "Ada";
-
 "type.place.islet" = "Ada";
-
 "type.place.isolated_dwelling" = "Dwelling";
-
 "type.place.locality" = "Semt";
-
 "type.place.neighbourhood" = "Neighbourhood";
-
 "type.place.ocean" = "Okyanus";
-
 "type.place.region" = "Bölge";
-
 "type.place.sea" = "Deniz";
-
 "type.place.square" = "Square";
-
 "type.place.state" = "Eyalet";
-
 "type.place.state.USA" = "Eyalet";
-
 "type.place.suburb" = "Banliyö";
-
 "type.place.town" = "Kasaba";
-
 "type.place.village" = "Köy";
-
 "type.power" = "Power";
-
 "type.power.generator" = "Generator";
-
 "type.power.line" = "Power Line";
-
 "type.power.line.underground" = "Underground Power Line";
-
 "type.power.minor_line" = "Minor Power Line";
-
 "type.power.pole" = "Poteau électrique";
-
 "type.power.station" = "Power Station";
-
 "type.power.substation" = "Sous-station";
-
 "type.power.tower" = "Poteau électrique";
-
 "type.psurface" = "psurface";
-
 "type.psurface.paved_bad" = "psurface-paved_bad";
-
 "type.psurface.paved_good" = "psurface-paved_good";
-
 "type.psurface.unpaved_bad" = "psurface-unpaved_bad";
-
 "type.psurface.unpaved_good" = "psurface-unpaved_good";
-
 "type.public_transport" = "Public Transport";
-
 "type.public_transport.platform" = "Platform";
-
 "type.railway" = "Railway";
-
 "type.railway.abandoned" = "Abandoned railway";
-
 "type.railway.abandoned.bridge" = "Abandoned railway";
-
 "type.railway.abandoned.tunnel" = "Abandoned railway";
-
 "type.railway.construction" = "Railway's construction";
-
 "type.railway.crossing" = "Railway crossing";
-
 "type.railway.disused" = "Disused railway";
-
 "type.railway.funicular" = "Funicular";
-
 "type.railway.funicular.bridge" = "Funicular";
-
 "type.railway.funicular.tunnel" = "Funicular";
-
 "type.railway.halt" = "Gar";
-
 "type.railway.level_crossing" = "Hemzemin Geçit";
-
 "type.railway.light_rail" = "Light Rail";
-
 "type.railway.light_rail.bridge" = "Light Rail";
-
 "type.railway.light_rail.tunnel" = "Light Rail";
-
 "type.railway.monorail" = "Monoray";
-
 "type.railway.monorail.bridge" = "Monorail";
-
 "type.railway.monorail.tunnel" = "Monorail";
-
 "type.railway.narrow_gauge" = "Narrow Gauge Rail";
-
 "type.railway.narrow_gauge.bridge" = "Narrow Gauge Rail";
-
 "type.railway.narrow_gauge.tunnel" = "Narrow Gauge Rail";
-
 "type.railway.platform" = "Platform";
-
 "type.railway.preserved" = "Preserved Rail";
-
 "type.railway.preserved.bridge" = "Preserved Rail";
-
 "type.railway.preserved.tunnel" = "Preserved Rail";
-
 "type.railway.rail" = "Demiryolu";
-
 "type.railway.rail.bridge" = "Railway";
-
 "type.railway.rail.motor_vehicle" = "Railway";
-
 "type.railway.rail.tunnel" = "Railway";
-
 "type.railway.razed" = "Razed Rail";
-
 "type.railway.siding" = "Siding Rail";
-
 "type.railway.siding.bridge" = "Siding Rail";
-
 "type.railway.siding.tunnel" = "Siding Rail";
-
 "type.railway.spur" = "Spur Rail";
-
 "type.railway.spur.bridge" = "Spur Rail";
-
 "type.railway.spur.tunnel" = "Spur Rail";
-
 "type.railway.station" = "Gar";
-
 "type.railway.station.light_rail" = "Gar";
-
 "type.railway.station.monorail" = "Gar";
-
 "type.railway.station.subway" = "Metro";
-
 "type.railway.station.subway.barcelona" = "Metro";
-
 "type.railway.station.subway.berlin" = "Metro";
-
 "type.railway.station.subway.kiev" = "Metro";
-
 "type.railway.station.subway.london" = "Metro";
-
 "type.railway.station.subway.madrid" = "Metro";
-
 "type.railway.station.subway.minsk" = "Metro";
-
 "type.railway.station.subway.moscow" = "Metro";
-
 "type.railway.station.subway.newyork" = "Metro";
-
 "type.railway.station.subway.paris" = "Metro";
-
 "type.railway.station.subway.roma" = "Metro";
-
 "type.railway.station.subway.spb" = "Metro";
-
 "type.railway.subway" = "Subway Line";
-
 "type.railway.subway.bridge" = "Subway Line";
-
 "type.railway.subway.tunnel" = "Subway Line";
-
 "type.railway.subway_entrance" = "Metro girişi";
-
 "type.railway.subway_entrance.barcelona" = "Metro";
-
 "type.railway.subway_entrance.berlin" = "Metro";
-
 "type.railway.subway_entrance.kiev" = "Metro";
-
 "type.railway.subway_entrance.london" = "Metro";
-
 "type.railway.subway_entrance.madrid" = "Metro";
-
 "type.railway.subway_entrance.minsk" = "Metro";
-
 "type.railway.subway_entrance.moscow" = "Metro";
-
 "type.railway.subway_entrance.newyork" = "Metro";
-
 "type.railway.subway_entrance.paris" = "Metro";
-
 "type.railway.subway_entrance.roma" = "Metro";
-
 "type.railway.subway_entrance.spb" = "Metro";
-
 "type.railway.tram" = "Tram Line";
-
 "type.railway.tram.bridge" = "Tram Line";
-
 "type.railway.tram.tunnel" = "Tram Line";
-
 "type.railway.tram_stop" = "Tramvay durağı";
-
 "type.railway.yard" = "Railway Yard";
-
 "type.railway.yard.bridge" = "Railway Yard";
-
 "type.railway.yard.tunnel" = "Railway Yard";
-
 "type.route" = "route";
-
 "type.route.ferry" = "Ferry";
-
 "type.route.shuttle_train" = "Shuttle Train";
-
 "type.shop" = "Mağaza";
-
 "type.shop.alcohol" = "Içki dükkanı";
-
 "type.shop.bakery" = "Fırın";
-
 "type.shop.beauty" = "Güzellik salonu";
-
 "type.shop.beverages" = "Içecek";
-
 "type.shop.bicycle" = "Bisiklet";
-
 "type.shop.bookmaker" = "Bookmaker";
-
 "type.shop.books" = "Kitapçı";
-
 "type.shop.butcher" = "Kasap";
-
 "type.shop.car" = "Otomobil mağazası";
-
 "type.shop.car_parts" = "Araba parçaları";
-
 "type.shop.car_repair" = "Oto tamir dükkanı";
-
 "type.shop.car_repair.tyres" = "Réparation de pneus";
-
 "type.shop.chemist" = "Temizlik Ürünleri Mağazası";
-
 "type.shop.chocolate" = "Mağaza";
-
 "type.shop.clothes" = "Giyim mağazası";
-
 "type.shop.coffee" = "Mağaza";
-
 "type.shop.computer" = "Bilgisayar mağazası";
-
 "type.shop.confectionery" = "Şekerci";
-
 "type.shop.convenience" = "Bakkal";
-
 "type.shop.copyshop" = "Kopyalama Merkezi";
-
 "type.shop.cosmetics" = "Bakım ürünleri";
-
 "type.shop.department_store" = "Alışveriş merkezi";
-
 "type.shop.doityourself" = "Hırdavatçı";
-
 "type.shop.dry_cleaning" = "Kuru Temizleme";
-
 "type.shop.electronics" = "Elektronik mağazası";
-
 "type.shop.erotic" = "Erotik Ürünler Mağazası";
-
 "type.shop.fabric" = "Mağaza";
-
 "type.shop.florist" = "Çiçekçi";
-
 "type.shop.funeral_directors" = "Cenaze Levazımcısı";
-
 "type.shop.furniture" = "Mobilya mağazası";
-
 "type.shop.garden_centre" = "Çocuk yuvası";
-
 "type.shop.gift" = "Hediyelik eşya mağazası";
-
 "type.shop.greengrocer" = "Manav";
-
 "type.shop.hairdresser" = "Kuaför";
-
 "type.shop.hardware" = "Hırdavatçı";
-
 "type.shop.jewelry" = "Kuyumcu";
-
 "type.shop.kiosk" = "Mağaza";
-
 "type.shop.laundry" = "Çamaşırhane";
-
 "type.shop.mall" = "Alışveriş merkezi";
-
 "type.shop.massage" = "Masaj Salonu";
-
 "type.shop.mobile_phone" = "Cep telefonu mağazası";
-
 "type.shop.money_lender" = "Mağaza";
-
 "type.shop.motorcycle" = "Motosiklet Dükkanı";
-
 "type.shop.music" = "Mağaza";
-
 "type.shop.musical_instrument" = "Mağaza";
-
 "type.shop.newsagent" = "Gazete Standı";
-
 "type.shop.optician" = "Gözlükçü";
-
 "type.shop.outdoor" = "Dış Mekan Ekipmanları";
-
 "type.shop.pawnbroker" = "Tefeci";
-
 "type.shop.pet" = "Animalerie";
-
 "type.shop.photo" = "Fotoğrafçı";
-
 "type.shop.seafood" = "Poissonnier";
-
 "type.shop.shoes" = "Ayakkabı mağazası";
-
 "type.shop.sports" = "Spor ürünleri";
-
 "type.shop.stationery" = "Kırtasiye Dükkanı";
-
 "type.shop.supermarket" = "Süpermarket";
-
 "type.shop.tattoo" = "Dövme Salonu";
-
 "type.shop.tea" = "Mağaza";
-
 "type.shop.ticket" = "Billetterie";
-
 "type.shop.toys" = "Oyuncakçı";
-
 "type.shop.travel_agency" = "Seyahat Acentesi";
-
 "type.shop.tyres" = "Tekerlekçi";
-
 "type.shop.variety_store" = "Ucuz Ürünler Mağazası";
-
 "type.shop.video" = "Video mağazası";
-
 "type.shop.video_games" = "Video oyunları mağazası";
-
 "type.shop.wine" = "Caviste";
-
 "type.sponsored" = "sponsored";
-
 "type.sponsored.booking" = "sponsored-booking";
-
 "type.sponsored.holiday" = "Christmas or New Year Celebrations";
-
 "type.sponsored.opentable" = "sponsored-opentable";
-
 "type.sponsored.partner1" = "sponsored-partner1";
-
 "type.sponsored.partner10" = "sponsored-partner10";
-
 "type.sponsored.partner11" = "sponsored-partner11";
-
 "type.sponsored.partner12" = "sponsored-partner12";
-
 "type.sponsored.partner13" = "sponsored-partner13";
-
 "type.sponsored.partner14" = "sponsored-partner14";
-
 "type.sponsored.partner15" = "sponsored-partner15";
-
 "type.sponsored.partner16" = "sponsored-partner16";
-
 "type.sponsored.partner17" = "sponsored-partner17";
-
 "type.sponsored.partner18" = "MegaFon";
-
 "type.sponsored.partner19" = "MegaFon";
-
 "type.sponsored.partner2" = "sponsored-partner2";
-
 "type.sponsored.partner20" = "MegaFon";
-
 "type.sponsored.partner3" = "sponsored-partner3";
-
 "type.sponsored.partner4" = "sponsored-partner4";
-
 "type.sponsored.partner5" = "sponsored-partner5";
-
 "type.sponsored.partner6" = "sponsored-partner6";
-
 "type.sponsored.partner7" = "sponsored-partner7";
-
 "type.sponsored.partner8" = "sponsored-partner8";
-
 "type.sponsored.partner9" = "sponsored-partner9";
-
 "type.sport" = "sport";
-
 "type.sport.american_football" = "American Football";
-
 "type.sport.archery" = "Archery";
-
 "type.sport.athletics" = "Atletizm";
-
 "type.sport.australian_football" = "Rugby";
-
 "type.sport.baseball" = "Baseball";
-
 "type.sport.basketball" = "Basketbol";
-
 "type.sport.bowls" = "Bowls";
-
 "type.sport.cricket" = "Cricket";
-
 "type.sport.curling" = "Сurling";
-
 "type.sport.diving" = "Diving";
-
 "type.sport.equestrian" = "Binicilik Sporları";
-
 "type.sport.golf" = "Golf";
-
 "type.sport.gymnastics" = "Gymnastics";
-
 "type.sport.handball" = "Handball";
-
 "type.sport.multi" = "Various Sport";
-
 "type.sport.scuba_diving" = "Scuba Diving";
-
 "type.sport.shooting" = "Shooting";
-
 "type.sport.skiing" = "Skiing";
-
 "type.sport.soccer" = "Soccer (Football)";
-
 "type.sport.swimming" = "Swimming";
-
 "type.sport.tennis" = "Tenis kortu";
-
 "type.tourism" = "Tourism";
-
 "type.tourism.alpine_hut" = "Dağda konaklama";
-
 "type.tourism.apartment" = "Apart otel";
-
 "type.tourism.artwork" = "Turizm";
-
 "type.tourism.artwork.architecture" = "Turizm";
-
 "type.tourism.artwork.painting" = "Turizm";
-
 "type.tourism.artwork.sculpture" = "Turizm";
-
 "type.tourism.artwork.statue" = "Turizm";
-
 "type.tourism.attraction" = "Cazibe merkezleri";
-
 "type.tourism.attraction.animal" = "Cazibe merkezleri";
-
 "type.tourism.attraction.specified" = "Cazibe merkezleri";
-
 "type.tourism.camp_site" = "Kamp alanı";
-
 "type.tourism.caravan_site" = "Karavan alanı";
-
 "type.tourism.chalet" = "Chalet";
-
 "type.tourism.gallery" = "Görülecek yerler";
-
 "type.tourism.guest_house" = "Misafir evi";
-
 "type.tourism.hostel" = "Pansiyon";
-
 "type.tourism.hotel" = "Otel";
-
 "type.tourism.information" = "Turist bilgileri";
-
 "type.tourism.information.board" = "Panneau d'informations";
-
 "type.tourism.information.guidepost" = "Turist bilgileri";
-
 "type.tourism.information.map" = "Carte touristique";
-
 "type.tourism.information.office" = "Office de tourisme";
-
 "type.tourism.motel" = "Motel";
-
 "type.tourism.museum" = "Müze";
-
 "type.tourism.picnic_site" = "Piknik alanı";
-
 "type.tourism.resort" = "Tatil köyü";
-
 "type.tourism.theme_park" = "Görülecek yerler";
-
 "type.tourism.viewpoint" = "Bakış";
-
 "type.tourism.wilderness_hut" = "Vahşi Doğa Kulübesi";
-
 "type.tourism.zoo" = "Hayvanat bahçesi";
-
 "type.traffic_calming" = "Traffic Calming";
-
 "type.traffic_calming.bump" = "Traffic Bump";
-
 "type.traffic_calming.hump" = "Traffic Hump";
-
 "type.waterway" = "Waterway";
-
 "type.waterway.canal" = "Kanal";
-
 "type.waterway.canal.tunnel" = "Kanal";
-
 "type.waterway.dam" = "Dam";
-
 "type.waterway.ditch" = "Ditch";
-
 "type.waterway.ditch.tunnel" = "Ditch";
-
 "type.waterway.dock" = "Waterway Dock";
-
 "type.waterway.drain" = "Drain";
-
 "type.waterway.drain.tunnel" = "Drain";
-
 "type.waterway.lock" = "Waterway Lock";
-
 "type.waterway.lock_gate" = "Écluse";
-
 "type.waterway.river" = "Nehir";
-
 "type.waterway.river.tunnel" = "Nehir";
-
 "type.waterway.riverbank" = "Nehir";
-
 "type.waterway.stream" = "Nehir";
-
 "type.waterway.stream.ephemeral" = "Nehir";
-
 "type.waterway.stream.intermittent" = "Nehir";
-
 "type.waterway.stream.tunnel" = "Nehir";
-
 "type.waterway.waterfall" = "Şelale";
-
 "type.waterway.weir" = "Weir";
-
 "type.wheelchair" = "Wheelchair";
-
 "type.wheelchair.limited" = "Kısıtlı tekerlekli sandalye erişimi";
-
 "type.wheelchair.no" = "Tekerlekli sandalye erişimi yok";
-
 "type.wheelchair.yes" = "Tam tekerlekli sandalye erişimi";
-
 "type.piste_lift" = "piste:lift";
-
 "type.piste_lift.j.bar" = "piste:lift-j-bar";
-
 "type.piste_lift.magic_carpet" = "piste:lift-magic_carpet";
-
 "type.piste_lift.platter" = "piste:lift-platter";
-
 "type.piste_lift.rope_tow" = "piste:lift-rope_tow";
-
 "type.piste_lift.t.bar" = "piste:lift-t-bar";
-
 "type.piste_type" = "piste:type";
-
 "type.piste_type.downhill" = "piste:type-downhill";
-
 "type.piste_type.downhill.advanced" = "piste:type-downhill-advanced";
-
 "type.piste_type.downhill.easy" = "piste:type-downhill-easy";
-
 "type.piste_type.downhill.expert" = "piste:type-downhill-expert";
-
 "type.piste_type.downhill.freeride" = "piste:type-downhill-freeride";
-
 "type.piste_type.downhill.intermediate" = "piste:type-downhill-intermediate";
-
 "type.piste_type.downhill.novice" = "piste:type-downhill-novice";
-
 "type.piste_type.nordic" = "piste:type-nordic";
-
 "type.piste_type.sled" = "piste:type-sled";
-
 "type.building_part" = "Bina";
-
 "type.area_highway.cycleway" = "Bike Path";
-
 "type.area_highway.footway" = "Path";
-
 "type.area_highway.living_street" = "Street";
-
 "type.area_highway.motorway" = "area:highway-motorway";
-
 "type.area_highway.path" = "Path";
-
 "type.area_highway.pedestrian" = "Street";
-
 "type.area_highway.primary" = "Street";
-
 "type.area_highway.residential" = "Street";
-
 "type.area_highway.secondary" = "Street";
-
 "type.area_highway.service" = "Street";
-
 "type.area_highway.tertiary" = "Street";
-
 "type.area_highway.steps" = "Steps";
-
 "type.area_highway.track" = "area:highway-track";
-
 "type.area_highway.trunk" = "area:highway-trunk";
-
 "type.area_highway.unclassified" = "area:highway-unclassified";

@@ -6,6 +6,7 @@
 
 /********** Strings **********/
 
+
 /* Button text (should be short) */
 "back" = "Tilbake";
 
@@ -17,7 +18,6 @@
 
 /* Button which deletes downloaded country */
 "delete" = "Slett";
-
 "download_maps" = "Last ned kart";
 
 /* Settings/Downloader - info for country when download fails */
@@ -37,7 +37,6 @@
 
 /* Settings/Downloader - size string, only strings different from English should be translated */
 "mb" = "MB";
-
 "gb" = "GB";
 
 /* Choose measurement on first launch alert - choose imperial system button */
@@ -72,31 +71,18 @@
 
 /* Button text for the button under the country_status_download_failed message */
 "try_again" = "Prøv på nytt";
-
 "about_menu_title" = "Om Organic Maps";
-
 "connection_settings" = "Tilkoblingsinnstillinger";
-
 "close" = "Lukk";
-
 "unsupported_phone" = "En maskinvareakselerert OpenGL kreves. Dessverre støttes ikke enheten din.";
-
 "download" = "Last ned";
-
 "disconnect_usb_cable" = "Koble fra USB-kabelen eller sett inn minnekortet for å bruke Organic Maps";
-
 "not_enough_free_space_on_sdcard" = "Frigjør plass på SD-kortet/USB-enheten først for å bruke appen";
-
 "not_enough_memory" = "Ikke nok minne til å starte appen";
-
 "download_resources" = "Før du begynner, la oss laste ned det generelle verdenskartet til enheten. Det trengs %@ med data.";
-
 "download_resources_continue" = "Gå til kart";
-
 "downloading_country_can_proceed" = "Laster ned %@. Du kan nå\nfortsette til kartet.";
-
 "download_country_ask" = "Vil du laste ned %@?";
-
 "update_country_ask" = "Vil du oppdatere %@?";
 
 /* REMOVE THIS STRING AFTER REFACTORING */
@@ -215,7 +201,6 @@
 
 /* Email Subject when sharing bookmarks category */
 "share_bookmarks_email_subject" = "Delte Organic Maps-bokmerker";
-
 "share_bookmarks_email_body" = "Hello!\n\nAttached are my bookmarks from Organic Maps app. Please open them if you have Organic Maps installed. Or, if you don't, download the app for your iOS or Android device by following this link: https://omaps.app/get?kmz\n\nEnjoy traveling with Organic Maps!";
 
 /* message title of loading file */
@@ -280,7 +265,6 @@
 
 /* Length of track in cell that describes route */
 "length" = "Lengde";
-
 "share_my_location" = "Del posisjonen min";
 
 /* Settings general group in settings screen */
@@ -288,11 +272,8 @@
 
 /* Settings information group in settings screen */
 "prefs_group_information" = "Information";
-
 "prefs_group_route" = "Navigasjon";
-
 "pref_zoom_title" = "Zoom-knapper";
-
 "pref_zoom_summary" = "Vis på skjermen";
 
 /* Settings «Map» category: «Night style» title */
@@ -327,25 +308,15 @@
 
 /* Settings «Map» category: «Record track» title */
 "pref_track_record_title" = "Siste rute";
-
 "pref_map_auto_zoom" = "Automatisk zooming";
-
 "duration_disabled" = "Av";
-
 "duration_1_hour" = "1 time";
-
 "duration_2_hours" = "2 timer";
-
 "duration_6_hours" = "6 timer";
-
 "duration_12_hours" = "12 timer";
-
 "duration_1_day" = "1 dag";
-
 "recent_track_help_text" = "Det lar deg lagre ruten du har reist i en spesifikk periode og se den på kartet. Merk: Aktivering av funksjonen øker batteriforbruket. Ruten fjernes automatisk fra kartet når tidsintervallet utløper.";
-
 "placepage_distance" = "Avstand";
-
 "search_show_on_map" = "Vis på kartet";
 
 /* Text in menu */
@@ -413,15 +384,10 @@
 
 /* Country queued for download */
 "downloader_queued" = "Lagt i kø";
-
 "downloader_near_me_subtitle" = "I nærheten";
-
 "downloader_status_maps" = "Kart";
-
 "downloader_download_all_button" = "Last ned alle";
-
 "downloader_downloading" = "Laster ned:";
-
 "downloader_search_results" = "Funnet";
 
 /* Status of outdated country in the list */
@@ -477,11 +443,8 @@
 
 /* location service disabled */
 "enable_location_services" = "Aktiver posisjonstjenester";
-
 "save" = "Lagre";
-
 "edit_description_hint" = "Dine beskrivelser (tekst eller html)";
-
 "create" = "opprett";
 
 /* red color */
@@ -539,70 +502,40 @@
 /********** Routing dialogs strings **********/
 
 "dialog_routing_disclaimer_title" = "Husk følgende når du følger ruten:";
-
 "dialog_routing_disclaimer_priority" = "– Veiforhold, trafikkregler og skilt skal alltid prioriteres fremfor navigasjonsråd;";
-
 "dialog_routing_disclaimer_precision" = "– Kartet kan inneholde unøyaktigheter, og den foreslåtte ruten er ikke nødvendigvis alltid den mest optimale veien;";
-
 "dialog_routing_disclaimer_recommendations" = "– Foreslåtte ruter bør bare anses som anbefalinger;";
-
 "dialog_routing_disclaimer_borders" = "— Vær forsiktig når det gjelder ruter i grenseområder: rutene som appen vår oppretter kan komme til å krysse landegrenser i uatoriserte områder;";
-
 "dialog_routing_disclaimer_beware" = "Kjør trygt!";
-
 "dialog_routing_check_gps" = "Sjekk GPS-signal";
-
 "dialog_routing_error_location_not_found" = "Ingen rute ble opprettet. Nåværende GPS-koordinater ble ikke funnet.";
-
 "dialog_routing_location_turn_wifi" = "Sjekk GPS-signalet. Resultatet blir mer nøyaktig når du bruker wi-fi.";
-
 "dialog_routing_location_turn_on" = "Aktiver stedstjenester";
-
 "dialog_routing_location_unknown_turn_on" = "Nåværende GPS-koordinater ble ikke funnet. Aktiver stedstjenester for å beregne en rute.";
-
 "dialog_routing_download_files" = "Last ned nødvendige filer";
-
 "dialog_routing_download_and_update_all" = "Last ned og oppdater all kart- og ruteinformasjon langs den foreslåtte veien for å beregne ruten.";
-
 "dialog_routing_unable_locate_route" = "Kunne ikke finne rute";
-
 "dialog_routing_cant_build_route" = "Kunne ikke finne rute.";
-
 "dialog_routing_change_start_or_end" = "Endre startpunkt eller bestemmelsessted.";
-
 "dialog_routing_change_start" = "Endre startpunkt";
-
 "dialog_routing_start_not_determined" = "Ingen rute ble opprettet. Startpunktet ble ikke funnet.";
-
 "dialog_routing_select_closer_start" = "Velg et startpunkt som er i nærheten av en vei.";
-
 "dialog_routing_change_end" = "Endre bestemmelsessted";
-
 "dialog_routing_end_not_determined" = "Ingen rute ble opprettet. Bestemmelsesstedet ble ikke funnet.";
-
 "dialog_routing_select_closer_end" = "Velg et bestemmelsessted som er i nærheten av en vei.";
-
 "dialog_routing_change_intermediate" = "Kunne ikke finne mellomstopp.";
-
 "dialog_routing_intermediate_not_determined" = "Kontroller og juster mellomstopp.";
-
 "dialog_routing_system_error" = "Systemfeil";
-
 "dialog_routing_application_error" = "En applikasjonsfeil førte til at ruten ikke kunne opprettes.";
-
 "dialog_routing_try_again" = "Vennligst prøv igjen";
-
 "not_now" = "Ikke nå";
-
 "dialog_routing_download_and_build_cross_route" = "Vil du laste ned kartet og lage en mer optimal rute som går over flere kart?";
-
 "dialog_routing_download_cross_route" = "Last ned kartet for å opprette en mer optimal rute som går utenfor dette kartet.";
 
 
 /********** Strings for downloading map from search **********/
 
 "search_without_internet_advertisement" = "Last vennligst ned kartet for å begynne å søke og opprette ruter - så slipper du i fremtiden å være avhengig av å ha internettforbindelse.";
-
 "search_select_map" = "Velg kartet";
 
 /* «Show» context menu */
@@ -622,96 +555,55 @@
 
 /* Text for routing::RouterResultCode::FileTooOld dialog. */
 "dialog_routing_download_and_update_maps" = "Hvis du vil oppprette en rute, last ned og oppdater alle kartene langs ruten.";
-
 "rate_alert_title" = "Liker du appen?";
-
 "rate_alert_default_message" = "Takk for at du bruker Organic Maps. Vi setter stor pris på om du rangerer appen. Tilbakemeldinger hjelper oss med å bli bedre.";
-
 "rate_alert_five_star_message" = "Hurra! Vi elsker deg også!";
-
 "rate_alert_four_star_message" = "Tusen takk, vi skal gjøre vårt beste!";
-
 "rate_alert_less_than_four_star_message" = "Noen tanker om hvordan vi kan forbedre den?";
-
 "categories" = "Kategorier";
-
 "history" = "Historikk";
-
 "closed" = "Stengt";
-
 "search_not_found" = "Beklager, jeg fant ingenting.";
-
 "search_not_found_query" = "Vennligst prøv et annet søk.";
-
 "search_history_title" = "Søkehistorikk";
-
 "search_history_text" = "Vis de siste søkene raskt.";
-
 "clear_search" = "Tøm søkehistorikk";
 
 /* Place Page link to Wikipedia article (if map object has it). */
 "read_in_wikipedia" = "Wikipedia";
-
 "p2p_your_location" = "Din beliggenhet";
-
 "p2p_start" = "Start";
-
 "p2p_from_here" = "Fra";
-
 "p2p_to_here" = "Rute til";
-
 "p2p_only_from_current" = "Navigering er kun tilgjengelig fra din nåværende beliggenhet.";
-
 "p2p_reroute_from_current" = "Vil du vi skal planlegge en rute fra din nåværende posisjon?";
 
 /* Edit open hours/set time and minutes dialog */
 "next_button" = "Neste";
-
 "editor_time_add" = "Legg til tidsrom";
-
 "editor_time_delete" = "Slett tidsrom";
 
 /* Text for allday switch. */
 "editor_time_allday" = "Hele dagen (24 timer)";
-
 "editor_time_open" = "Åpen";
-
 "editor_time_close" = "Stengt";
-
 "editor_time_add_closed" = "Legg til stengt tid";
-
 "editor_time_title" = "Åpningstider";
-
 "editor_time_advanced" = "Avansert modus";
-
 "editor_time_simple" = "Enkel modus";
-
 "editor_hours_closed" = "Stengt";
-
 "editor_example_values" = "Eksempelverdier";
-
 "editor_correct_mistake" = "Rett feil";
-
 "editor_add_select_location" = "Plassering";
-
 "editor_done_dialog_1" = "Du har endret verdenskartet. Ikke skjul denne! Fortell vennene dine, og rediger det sammen.";
-
 "share_with_friends" = "Del med venner";
-
 "editor_report_problem_desription_1" = "Beskriv problemet detaljert slik at OpenStreetMap-samfunnet kan fikse feilen.";
-
 "editor_report_problem_desription_2" = "Eller gjør det selv på https://www.openstreetmap.org/";
-
 "editor_report_problem_send_button" = "Send";
-
 "editor_report_problem_title" = "Problem";
-
 "editor_report_problem_no_place_title" = "Stedet finnes ikke";
-
 "editor_report_problem_under_construction_title" = "Stengt pga. vedlikehold";
-
 "editor_report_problem_duplicate_place_title" = "Duplisert sted";
-
 "autodownload" = "Automatisk nedlasting";
 
 /* Place Page opening hours text */
@@ -719,167 +611,98 @@
 
 /* Place Page opening hours text */
 "daily" = "Daglig";
-
 "twentyfour_seven" = "Dag og natt";
-
 "day_off_today" = "Fridag i dag";
-
 "day_off" = "Fridag";
-
 "today" = "I dag";
-
 "add_opening_hours" = "Legg til åpningstider";
-
 "edit_opening_hours" = "Rediger åpningstider";
-
 "no_osm_account" = "Har du ingen konto hos OpenStreetMap?";
-
 "register_at_openstreetmap" = "Registrer deg";
-
 "password_8_chars_min" = "Passord (minimum 8 tegn)";
-
 "invalid_username_or_password" = "Ugyldig brukernavn eller passord.";
-
 "login" = "Logg inn";
-
 "password" = "Passord";
-
 "forgot_password" = "Glemt passordet?";
-
 "osm_account" = "OSM-konto";
-
 "logout" = "Logg ut";
 
 /* Information text: "Last upload 11.01.2016" */
 "last_upload" = "Siste opplasting";
-
 "thank_you" = "Takk skal du ha";
-
 "edit_place" = "Rediger stedet";
-
 "place_name" = "Stedsnavn";
-
 "add_language" = "Legg til et språk";
-
 "street" = "Gate";
 
 /* Editable House Number text field (in address block). */
 "house_number" = "Et husnummer";
-
 "details" = "Detaljer";
 
 /* Text field to enter non-existing street name, below list of known streets around */
 "add_street" = "Legg til en gate";
-
 "choose_language" = "Velg et språk";
-
 "choose_street" = "Velg en gate";
-
 "postal_code" = "Postnummer";
-
 "cuisine" = "Matrett";
-
 "select_cuisine" = "Velg matrett";
 
 /* login text field */
 "email_or_username" = "E-postadresse eller brukernavn";
-
 "phone" = "Telefon";
-
 "editor_add_phone" = "Add Phone";
-
 "please_note" = "Vær oppmerksom på at";
-
 "downloader_delete_map_dialog" = "Alle endringer i kartet vil slettes sammen med kartet.";
-
 "downloader_update_maps" = "Oppdater kart";
-
 "downloader_mwm_migration_dialog" = "For å opprette en reiserute må du oppdatere alle kartene og deretter planlegge reiseruten på nytt.";
-
 "downloader_search_field_hint" = "Finn kartet";
-
 "migration_download_error_dialog" = "Nedlastningsfeil";
-
 "common_check_internet_connection_dialog" = "Kontroller innstillingene dine og sørg for at enheten din er koblet til internett.";
-
 "downloader_no_space_title" = "Ikke nok plass";
-
 "downloader_no_space_message" = "Fjern unødvendig data";
-
 "editor_login_error_dialog" = "Innloggingsfeil.";
-
 "editor_profile_changes" = "Bekreftede endringer";
-
 "editor_focus_map_on_location" = "Dra kartet for å velge riktig beliggenhet for objektet.";
-
 "editor_add_select_category" = "Velg kategori";
-
 "editor_add_select_category_popular_subtitle" = "Populære";
-
 "editor_add_select_category_all_subtitle" = "Alle kategorier";
-
 "editor_edit_place_title" = "Redigerer";
-
 "editor_add_place_title" = "Legger til";
-
 "editor_edit_place_name_hint" = "Navn på stedet";
-
 "editor_edit_place_category_title" = "Kategori";
-
 "detailed_problem_description" = "Detaljert beskrivelse av problemet";
-
 "editor_report_problem_other_title" = "Et annet problem";
-
 "placepage_add_business_button" = "Legg til organisasjon";
-
 "whatsnew_editor_message_1" = "Legg til nye steder i kartet og rediger eksisterende steder direkte fra appen.";
-
 "dialog_incorrect_feature_position" = "Endre plassering";
-
 "message_invalid_feature_position" = "Et objekt kan ikke plasseres her";
-
 "login_to_make_edits_visible" = "Logg inn slik at andre brukere kan se endringene du har utført.";
 
 /* Error dialog no space */
 "migration_no_space_message" = "Du må frigjøre mer lagringsplass for å laste ned. Slett unødvendig data.";
-
 "editor_sharing_title" = "Jeg har forbedret Organic Maps kartene";
 
 /* Downloaded 10 **of** 20 <- it is that "of" */
 "downloader_of" = "%1$d av %2$d";
-
 "download_over_mobile_header" = "Download over a cellular network connection?";
-
 "download_over_mobile_message" = "This could be considerably expensive with some plans or if roaming.";
-
 "error_enter_correct_house_number" = "Skriv riktig husnummer";
-
 "editor_storey_number" = "Antall etasjer (maks. %d)";
 
 /* Error message in Editor when a user tries to set the number of floors for a building higher than 25 */
 "error_enter_correct_storey_number" = "Rediger bygningen med maks. 25 etasjer";
-
 "editor_zip_code" = "Postnummer";
-
 "error_enter_correct_zip_code" = "Angi riktig postnummer";
 
 /* Place Page title for long tap */
 "core_placepage_unknown_place" = "Ukjent sted";
-
 "editor_other_info" = "Send et notat til OSM-redaktørene";
-
 "editor_detailed_description_hint" = "Detaljert kommentar";
-
 "editor_detailed_description" = "De foreslåtte endringene vil sendes til OpenStreetMap-gruppen. Beskriv detaljene som ikke kan redigeres i Organic Maps.";
-
 "editor_more_about_osm" = "Mer om OpenStreetMap";
-
 "editor_operator" = "Eier";
-
 "downloader_my_maps_title" = "Mine kart";
-
 "downloader_no_downloaded_maps_title" = "Du har ikke lastet ned noen kart";
-
 "downloader_no_downloaded_maps_message" = "Last ned kart for å finne plasseringen og navigere frakoblet.";
 
 /* Error title that appears after certain time without location. */
@@ -887,93 +710,52 @@
 
 /* Error that appears after certain time without location. */
 "current_location_unknown_message" = "Gjeldende plassering er ukjent. Du kan være i en bygning eller en tunnel.";
-
 "current_location_unknown_continue_button" = "Fortsett";
-
 "current_location_unknown_stop_button" = "Stopp";
-
 "current_location_unknown_error_title" = "Gjeldende plassering er ukjent.";
-
 "current_location_unknown_error_message" = "Det oppstod en feil under søking etter plasseringen din. Kontroller at plasseringen din virker som den skal, og prøv på nytt senere.";
-
 "location_services_disabled_header" = "Lokalisering er deaktivert";
-
 "location_services_disabled_message" = "Tillat bruk av av geografisk lokalisering i enhetens innstillinger";
-
 "location_services_disabled_1" = "1. Åpne Innstillinger";
-
 "location_services_disabled_2" = "2. Trykk Lokalisering";
 
 /* iOS Dialog for the case when the location permission is not granted */
 "location_services_disabled_3" = "3.Velg når appen er i bruk";
-
 "meter" = "m";
-
 "kilometer" = "km";
-
 "kilometers_per_hour" = "km/t";
-
 "mile" = "mi";
-
 "foot" = "fot";
-
 "miles_per_hour" = "mph";
-
 "hour" = "t";
-
 "minute" = "min";
-
 "placepage_place_description" = "Beskrivelse";
-
 "placepage_more_button" = "Mer";
-
 "placepage_more_reviews_button" = "Flere anmeldelser";
-
 "book_button" = "Bestill";
-
 "placepage_call_button" = "Ring";
-
 "placepage_edit_bookmark_button" = "Rediger bokmerke";
-
 "placepage_bookmark_name_hint" = "Bokmerkenavn";
-
 "placepage_personal_notes_hint" = "Personlige notater";
-
 "placepage_delete_bookmark_button" = "Slett bokmerke";
-
 "editor_edits_sent_message" = "De foreslåtte endringene er sendt";
-
 "editor_comment_hint" = "Kommentar…";
-
 "editor_reset_edits_message" = "Nullstille alle lokale endringer?";
-
 "editor_reset_edits_button" = "Nullstill";
-
 "editor_remove_place_message" = "Fjerne et tilføyd sted?";
-
 "editor_remove_place_button" = "Fjern";
-
 "editor_place_doesnt_exist" = "Sted finnes ikke";
-
 "text_more_button" = "…mer";
 
 /* Phone number error message */
 "error_enter_correct_phone" = "Skriv riktig telefonnummer";
-
 "error_enter_correct_web" = "Oppgi en gyldig nettadresse";
-
 "error_enter_correct_email" = "Oppgi en gyldig epostadresse";
-
 "error_enter_correct_facebook_page" = "Enter a valid Facebook web address, account, or page name";
-
 "error_enter_correct_instagram_page" = "Enter a valid Instagram web address or account name";
-
 "error_enter_correct_twitter_page" = "Enter a valid Twitter web address or username";
-
 "error_enter_correct_vk_page" = "Enter a valid VK web address or account name";
-
 "refresh" = "Oppdatere";
-
 "placepage_add_place_button" = "Legg til en plass på kartet";
 
 /* Displayed when saving some edits to the map to warn against publishing personal data */
@@ -981,19 +763,15 @@
 
 /* iOS Dialog before publishing the modifications to the public map. */
 "editor_share_to_all_dialog_message_1" = "Sørg for at du ikke har skrevet noe personlig informasjon.";
-
 "editor_share_to_all_dialog_message_2" = "Vi vil sjekke endringene. Vi kontakter deg via e-post dersom vi har spørsmål.";
-
 "navigation_stop_button" = "stopp";
 
 /* iOS dialog for the case when recent track recording is on and the app comes back from background */
 "recent_track_background_dialog_title" = "Deaktivere opptak av nylig reiste rute?";
-
 "off_recent_track_background_button" = "Deaktiver";
 
 /* For sharing via SMS and so on */
 "sharing_call_action_look" = "Sjekk ut";
-
 "recent_track_background_dialog_message" = "Organic Maps bruker geografiske funksjoner i bakgrunnen for å registrere din nylig reiste rute.";
 
 /* Rate on Google Play (Android only) */
@@ -1007,7 +785,6 @@
 
 /* About short text (below logo) */
 "about_description" = "Organic Maps er en offline app for reising. Organic Maps bygger på OpenStreetMap-data og tillater redigering av den.";
-
 "general_settings" = "Generelle innstillinger";
 
 /* For the first routing */
@@ -1018,27 +795,16 @@
 
 /* noun */
 "search_in_table" = "Liste";
-
 "mobile_data_dialog" = "Bruke mobilt Internett til å vise detaljert informasjon?";
-
 "mobile_data_option_always" = "Bruk alltid";
-
 "mobile_data_option_today" = "Bare i dag";
-
 "mobile_data_option_not_today" = "Ikke bruk i dag";
-
 "mobile_data" = "Mobilt Internett";
-
 "mobile_data_description" = "Mobilt Internett er nødvendig for å vise detaljert informasjon om steder, for eksempel fotografier, priser og anmeldelser.";
-
 "mobile_data_option_never" = "Aldri bruk";
-
 "mobile_data_option_ask" = "Alltid spør";
-
 "traffic_update_maps_text" = "For å vise trafikkdata må kartene i appen være oppdaterte.";
-
 "big_font" = "Forstørr skriften på kartet";
-
 "traffic_update_app" = "Vennligst oppdater Organic Maps";
 
 /* "traffic" as in road congestion */
@@ -1046,284 +812,149 @@
 
 /* "traffic" as in "road congestion" */
 "traffic_data_unavailable" = "Trafikkdata er ikke tilgjengelig";
-
 "enable_logging" = "Aktiver loggføring";
 
 /* Settings: "Send general feedback" button */
 "feedback_general" = "Generell tilbakemelding";
-
 "on" = "På";
-
 "off" = "Av";
-
 "prefs_languages_information" = "Vi bruker system TTS for stemmeveiledning. Mange Android-enheter bruker Google TTS, Du kan laste ned eller oppdatere via Google Play (https://play.google.com/store/apps/details?id=com.google.android.tts)";
-
 "prefs_languages_information_off" = "For enkelte språk er det nødvendig å installere en annen talesyntese eller en ekstra språkpakke fra appbutikken (Google Play Market, Samsung Apps).\nGå til enhetens innstillinger → Språk og input → Tale → Tekst til tale output.\nHer kan du administrere innstillingene for talesyntese (for eksempel laste ned språkpakke for offline bruk) og velge en annen tekst-til-tale-motor.";
-
 "prefs_languages_information_off_link" = "Les denne veiledningen for mer informasjon.";
-
 "transliteration_title" = "Omskrivning til latin";
-
 "learn_more" = "Finn ut mer";
-
 "core_exit" = "Avslutt";
-
 "routing_add_start_point" = "Angi startpunkt for å planlegge rute";
-
 "routing_add_finish_point" = "Angi sluttpunkt for å planlegge rute";
-
 "button_exit" = "Avslutt";
-
 "planning_route_manage_route" = "Administrere rute";
-
 "button_plan" = "Planlegge";
-
 "placepage_remove_stop" = "Fjern";
-
 "planning_route_remove_title" = "Dra hit for å fjerne";
-
 "placepage_add_stop" = "Angi stopp";
-
 "start_from_my_position" = "Start fra";
-
 "profile_authorization_error" = "Oops, en feil oppstod. Prøv å logge inn på nytt.";
-
 "dialog_error_storage_title" = "Problemer med tilgang til lagring";
-
 "dialog_error_storage_message" = "Ekstern lagring er ikke tilgjengelig. Sannsynligvis er SD-kortet fjernet eller skadet eller så er filsystemet skrivebeskyttet. Undersøk og kontakt oss på support@organicmaps.app";
-
 "setting_emulate_bad_storage" = "Emulere skadet lagring";
-
 "core_entrance" = "Inngang";
-
 "error_enter_correct_name" = "Skriv inn korrekt navn";
-
 "bookmarks_groups" = "Lister";
-
 "bookmarks_groups_hide_all" = "Skjul alle";
-
 "bookmarks_groups_show_all" = "Vis alle";
-
 "bookmarks_create_new_group" = "Opprett ny liste";
 
 /* Bookmark categories screen */
 "bookmarks_import" = "Import bookmarks";
-
 "downloader_hide_screen" = "Skjul skjerm";
-
 "downloader_percent" = "%s (%s av %s)";
-
 "downloader_process" = "Laster ned %s …";
-
 "downloader_applying" = "Bruker %s …";
-
 "bookmarks_error_message_share_general" = "Kan ikke dele på grunn av en programfeil";
-
 "bookmarks_error_title_share_empty" = "Delingsfeil";
-
 "bookmarks_error_message_share_empty" = "Kan ikke dele en tom liste";
-
 "bookmarks_error_title_empty_list_name" = "Navnet kan ikke være tomt";
-
 "bookmarks_error_message_empty_list_name" = "Vennligst skriv inn listenavnet";
-
 "bookmarks_new_list_hint" = "Ny liste";
-
 "bookmarks_error_title_list_name_already_taken" = "Dette navnet er allerede tatt";
-
 "bookmarks_error_message_list_name_already_taken" = "Vennligst velg et annet navn";
-
 "bookmarks_error_title_list_name_too_long" = "Dette navnet er for langt";
-
 "please_wait" = "Vennligst vent…";
-
 "phone_number" = "Telefonnummer";
-
 "profile" = "OpenStreetMap profil";
-
 "bookmarks_detect_title" = "Nye filer oppdaget";
-
 "button_convert" = "Konvertere";
-
 "bookmarks_convert_error_title" = "Feil";
-
 "bookmarks_convert_error_message" = "Noen filer ble ikke konvertert.";
-
 "bookmarks_restore_title" = "Gjenopprett denne versjonen?";
-
 "common_check_internet_connection_dialog_title" = "Ingen internettforbindelse";
-
 "error_system_message" = "En ukjent feil oppstod";
-
 "restore" = "Restaurere";
-
 "subtittle_opt_out" = "Tracking settings";
-
 "crash_reports" = "Crash report";
-
 "crash_reports_description" = "We may use your data to improve Organic Maps experience. Changes will take effect after you restart the app.";
-
 "privacy_policy" = "Privacy policy";
-
 "terms_of_use" = "Terms of use";
-
 "button_layer_traffic" = "Traffic";
-
 "button_layer_subway" = "Subway";
-
 "layers_title" = "Map layers";
-
 "subway_data_unavailable" = "Subway map is unavailable";
-
 "bookmarks_empty_list_title" = "This list is empty";
-
 "bookmarks_empty_list_message" = "To add a bookmark, tap a place on the map and then tap the star icon";
-
 "category_desc_more" = "…more";
-
 "title_error_downloading_bookmarks" = "An error occurred";
-
 "popular_place" = "Popular";
-
 "export_file" = "Eksporter fil";
-
 "list_settings" = "Liste Innstillinger";
-
 "delete_list" = "Slett liste";
-
 "hide_from_map" = "Skjul fra kart";
-
 "public_access" = "Offentlig tilgang";
-
 "limited_access" = "Begrenset adgang";
-
 "bookmark_category_name" = "Kategori";
-
 "bookmark_category_description_hint" = "Lag en beskrivelse (text or html)";
-
 "not_shared" = "Privat";
-
 "tags_loading_error_subtitle" = "Det oppsto en feil under lasting av emneknagger, prøv igjen";
-
 "download_button" = "Last ned";
-
 "speedcams_alert_title" = "Fartskamera";
-
 "speedcam_option_auto" = "Auto";
-
 "speedcam_option_always" = "Alltid";
-
 "speedcam_option_never" = "Aldri";
-
 "place_description_title" = "Plasser beskrivelse";
 
 /* this text will be shown in application notification preferences opposite checkbox which enable/disable downloader notifications. Devices on Android 8+ are affected. */
 "notification_channel_downloader" = "Nedlast kart";
-
 "speedcams_notice_message" = "Auto - Advarsel om fartskamera hvis det er fare for å overskride fartsgrensen\nAlltid - Advar alltid om farskameraer\nAldri - Advar aldri om fartskameraer";
-
 "power_managment_title" = "Strømsparemodus";
-
 "power_managment_description" = "Når automatisk modus er valgt, begynner programmet å deaktivere batteridriftfunksjonene avhengig av det nåværende batterinivået";
-
 "power_managment_setting_never" = "Aldri";
-
 "power_managment_setting_auto" = "Automatisk";
-
 "power_managment_setting_manual_max" = "Maksimum strømsparing";
-
 "enable_logging_warning_message" = "Alternativet slår på logging for diagnostiske formål. Det kan være nyttig for våre supportpersonale som feilsøker problemer med appen. Aktiver dette alternativet bare på forespørsel fra Organic Maps-brukerstøtte.";
-
 "access_rules_author_only" = "Redigering på nett";
-
 "driving_options_title" = "Kjørealternativer";
-
 "driving_options_subheader" = "Unngå ved hver rute";
-
 "avoid_tolls" = "Bompengeveier";
-
 "avoid_unpaved" = "Uasfaltert vei";
-
 "avoid_ferry" = "Fergeoverganger";
-
 "avoid_motorways" = "Motorvei";
-
 "unable_to_calc_alert_title" = "Kan ikke beregne rute";
-
 "unable_to_calc_alert_subtitle" = "Dessverre kunne vi ikke finne en rute sannsynligvis på grunn av dine definerte alternativer. Vennligst endre innstillingene og prøv igjen";
-
 "define_to_avoid_btn" = "Definer veier som skal unngås";
-
 "change_driving_options_btn" = "Kjørealternativer aktivert";
-
 "toll_road" = "Bompengevei";
-
 "unpaved_road" = "Uasfaltert vei";
-
 "ferry_crossing" = "Fergeovergang";
-
 "avoid_toll_roads_placepage" = "Unngå bompengeveier";
-
 "avoid_unpaved_roads_placepage" = "Unngå uasfalterte veier";
-
 "avoid_ferry_crossing_placepage" = "Unngå fergeoverganger";
-
 "trip_start" = "La oss begynne";
-
 "pick_destination" = "Destinasjon";
-
 "follow_my_position" = "Sentrer";
-
 "search_results" = "Søkeresultater";
-
 "then_turn" = "Deretter";
-
 "redirect_route_alert" = "Vil du planlegge en rute på nytt?";
-
 "redirect_route_yes" = "Ja";
-
 "redirect_route_no" = "Nei";
-
 "trip_finished" = "Du har ankommet!";
-
 "keyboard_availability_alert" = "Tastatur er ikke tilgjengelig mens en kjører";
-
 "dialog_routing_change_start_carplay" = "Kan ikke planlegge rute fra din nåværende posisjon";
-
 "dialog_routing_change_end_carplay" = "Kan ikke planlegge rute til din nåværende posisjon. Vennligst velg en annen posisjon";
-
 "dialog_routing_check_gps_carplay" = "Ingen GPS-signal. Vennligst gå til et åpent område";
-
 "dialog_routing_unable_locate_route_carplay" = "Kan ikke planlegge rute. Vennligst spesifiser en annen posisjon for rute";
-
 "dialog_routing_download_files_carplay" = "For å beregne rute last ned manglende kart på enheten din";
-
 "dialog_routing_system_error_carplay" = "Feil oppstod. Vennligst restart appen";
-
 "dialog_routing_rebuild_from_current_location_carplay" = "Rute vil planlegges fra din nåværende posisjon";
-
 "dialog_routing_rebuild_for_vehicle_carplay" = "Rute vil oppdateres til kjørerute";
-
 "ok" = "Ok";
-
 "avoid_unpaved_carplay_1" = "Ikke grusvei";
-
 "avoid_unpaved_carplay_2" = "Ikke uasfaltert";
-
 "avoid_ferry_carplay_1" = "Ingen ferger";
-
 "avoid_ferry_carplay_2" = "Unngå ferger";
-
 "avoid_tolls_carplay_1" = "Ingen bomvei";
-
 "avoid_tolls_carplay_2" = "Unngå bomvei";
-
 "speedcams_alert_title_carplay_1" = "Kamera-info";
-
 "speedcams_alert_title_carplay_2" = "Kamera-advarsel";
-
 "download_map_carplay" = "Vennligst last ned kart i Organic Maps appen på enheten din";
-
 "carplay_roundabout_exit" = "%s avkjøring";
 
 /* max. 10 symbols, both iOS and Android */
@@ -1334,11 +965,8 @@
 
 /* iOS */
 "sort_default" = "Sortere som standard";
-
 "sort_type" = "Sortere etter type";
-
 "sort_distance" = "Sortere etter avstand";
-
 "sort_date" = "Sortere etter dato";
 
 /* Android */
@@ -1352,103 +980,54 @@
 
 /* Android */
 "by_date" = "Etter dato";
-
 "week_ago_sorttype" = "For en uke siden";
-
 "month_ago_sorttype" = "For en måned siden";
-
 "moremonth_ago_sorttype" = "Mer enn en måned siden";
-
 "moreyear_ago_sorttype" = "Mer enn ett år siden";
-
 "near_me_sorttype" = "Nær meg";
-
 "others_sorttype" = "Andre";
-
 "food_places" = "Mat";
-
 "tourist_places" = "Severdigheter";
-
 "museums" = "Museer";
-
 "parks" = "Parker";
-
 "swim_places" = "Svømming";
-
 "mountains" = "Fjell";
-
 "animals" = "Dyr";
-
 "hotels" = "Hoteller";
-
 "buildings" = "Bygninger";
-
 "money" = "Penger";
-
 "shops" = "Butikker";
-
 "parkings" = "Parkeringer";
-
 "fuel_places" = "Bensinstasjoner";
-
 "water" = "Vann";
-
 "medicine" = "Medisin";
-
 "search_in_the_list" = "Søk på lista";
-
 "religious_places" = "Hellige steder";
-
 "select_list" = "Velge liste";
-
 "transit_not_found" = "T-bane navigasjon er ikke tilgjengelig i denne regionen ennå";
-
 "dialog_pedestrian_route_is_long_header" = "T-bane rute ikke funnet";
-
 "dialog_pedestrian_route_is_long_message" = "Velg utgangspunkt eller destinasjon som befinner seg nærmere en T-bane stasjon";
-
 "button_layer_isolines" = "Høyder";
-
 "isolines_activation_error_dialog" = "For å bruke høydekurver oppdater eller last opp kartet til nødvendig område";
-
 "isolines_location_error_dialog" = "Høydekurver er ikke tilgjengelige i dette området ennå";
-
 "elevation_profile_diff_level" = "Vanskelighetsgrad";
-
 "elevation_profile_diff_level_easy" = "Lett";
-
 "elevation_profile_diff_level_moderate" = "Middels";
-
 "elevation_profile_diff_level_hard" = "Vanskelig";
-
 "elevation_profile_ascent" = "Stigning";
-
 "elevation_profile_descent" = "Nedstigning";
-
 "elevation_profile_minaltitude" = "Min. høyde";
-
 "elevation_profile_maxaltitude" = "Maks. høyde";
-
 "elevation_profile_difficulty" = "Vanskelighet";
-
 "elevation_profile_distance" = "Avstand:";
-
 "elevation_profile_time" = "I rute";
-
 "isolines_toast_zooms_1_10" = "Forstørr kartet for å se høydekurver";
-
 "downloader_updating_ios" = "Oppdatering";
-
 "downloader_loading_ios" = "Nedlasting";
-
 "key_information_title" = "Nøkkelinformasjon";
-
 "download_map_title" = "Download the world map";
-
 "connection_failure" = "Connection failure";
-
 "disconnect_usb_cable_title" = "Disconnect USB cable";
-
 "enable_screen_sleep" = "La skjermen sove";
 
 /* Description in preferences */
@@ -1482,1781 +1061,892 @@
 /********** Types **********/
 
 "type.aerialway" = "Aerialway";
-
 "type.aerialway.cable_car" = "Aerialway";
-
 "type.aerialway.chair_lift" = "Aerialway";
-
 "type.aerialway.drag_lift" = "Aerialway";
-
 "type.aerialway.gondola" = "Aerialway";
-
 "type.aerialway.mixed_lift" = "Aerialway";
-
 "type.aerialway.station" = "Kabelbanestasjon";
-
 "type.aeroway" = "Aeroway";
-
 "type.aeroway.aerodrome" = "Flyplass";
-
 "type.aeroway.aerodrome.international" = "Flyplass";
-
 "type.aeroway.apron" = "aeroway-apron";
-
 "type.aeroway.gate" = "Gate";
-
 "type.aeroway.helipad" = "Helipad";
-
 "type.aeroway.runway" = "aeroway-runway";
-
 "type.aeroway.taxiway" = "aeroway-taxiway";
-
 "type.aeroway.terminal" = "Terminal";
-
 "type.amenity" = "Rekreasjonsområde";
-
 "type.amenity.arts_centre" = "Kunstsenter";
-
 "type.amenity.atm" = "Minibank";
-
 "type.amenity.bank" = "Bank";
-
 "type.amenity.bar" = "Bar";
-
 "type.amenity.bbq" = "Rasteplasser";
-
 "type.amenity.bench" = "Benk";
-
 "type.amenity.bicycle_parking" = "Sykkelparkering";
-
 "type.amenity.bicycle_rental" = "Sykkelutleie";
-
 "type.amenity.biergarten" = "Uteservering";
-
 "type.amenity.brothel" = "Bordell";
-
 "type.amenity.bureau_de_change" = "Valutaveksling";
-
 "type.amenity.bus_station" = "Busstasjon";
-
 "type.amenity.cafe" = "Kafé";
-
 "type.amenity.car_rental" = "Bilutleie";
-
 "type.amenity.car_sharing" = "Kjøre sammen";
-
 "type.amenity.car_wash" = "Bilvask";
-
 "type.amenity.casino" = "Kasino";
-
 "type.amenity.charging_station" = "Ladestasjon";
-
 "type.amenity.childcare" = "Førskole";
-
 "type.amenity.cinema" = "Kino";
-
 "type.amenity.clinic" = "Klinikk";
-
 "type.amenity.college" = "Høyskole";
-
 "type.amenity.community_centre" = "Samfunnshus";
-
 "type.amenity.courthouse" = "Domstol";
-
 "type.amenity.dentist" = "Tannlege";
-
 "type.amenity.doctors" = "Legekontor";
-
 "type.amenity.drinking_water" = "Drikkevann";
-
 "type.amenity.driving_school" = "Kjøreskole";
-
 "type.office.diplomatic" = "Ambassade";
-
 "type.amenity.fast_food" = "Hurtigmat";
-
 "type.amenity.ferry_terminal" = "Ferje";
-
 "type.amenity.fire_station" = "Brannstasjon";
-
 "type.amenity.food_court" = "Food Court";
-
 "type.amenity.fountain" = "Fontene";
-
 "type.amenity.fuel" = "Bensinstasjon";
-
 "type.amenity.grave_yard" = "Gravplass";
-
 "type.amenity.grave_yard.christian" = "Gravplass";
-
 "type.amenity.hospital" = "Sykehus";
-
 "type.amenity.hunting_stand" = "Jaktpost";
-
 "type.amenity.ice_cream" = "Iskrem";
-
 "type.amenity.internet_cafe" = "Internettkafé";
-
 "type.amenity.kindergarten" = "Barnehage";
-
 "type.amenity.library" = "Bibliotek";
-
 "type.amenity.marketplace" = "Torg";
-
 "type.amenity.motorcycle_parking" = "Motorsykkelparkering";
-
 "type.amenity.nightclub" = "Nattklubb";
-
 "type.amenity.nursing_home" = "Sykehjem";
-
 "type.amenity.parking" = "Parkering";
-
 "type.amenity.parking.fee" = "Parkering";
-
 "type.amenity.parking.multi.storey" = "Parkering";
-
 "type.amenity.parking.no.access" = "Parkering";
-
 "type.amenity.parking.park_and_ride" = "Parkering";
-
 "type.amenity.parking.permissive" = "Parkering";
-
 "type.amenity.parking.private" = "Parkering";
-
 "type.amenity.parking.underground" = "Parkering";
-
 "type.amenity.parking_space" = "Parkeringsplass";
-
 "type.amenity.parking_space.permissive" = "Parkeringsplass";
-
 "type.amenity.parking_space.private" = "Parkeringsplass";
-
 "type.amenity.parking_space.underground" = "Parkeringsplass";
-
 "type.amenity.payment_terminal" = "Betalingsterminal";
-
 "type.amenity.pharmacy" = "Apotek";
-
 "type.amenity.place_of_worship" = "Gudshus";
-
 "type.amenity.place_of_worship.buddhist" = "Tempel";
-
 "type.amenity.place_of_worship.christian" = "Kirke";
-
 "type.amenity.place_of_worship.hindu" = "Tempel";
-
 "type.amenity.place_of_worship.jewish" = "Synagoge";
-
 "type.amenity.place_of_worship.muslim" = "Moské";
-
 "type.amenity.place_of_worship.shinto" = "Alter";
-
 "type.amenity.place_of_worship.taoist" = "Tempel";
-
 "type.amenity.police" = "Politi";
-
 "type.amenity.post_box" = "Postboks";
-
 "type.amenity.post_office" = "Postkontor";
-
 "type.amenity.prison" = "Prison";
-
 "type.amenity.pub" = "Pub";
-
 "type.amenity.public_bookcase" = "Bokhylle";
-
 "type.amenity.recycling" = "Resirkuleringssenter";
-
 "type.amenity.recycling_container" = "Gjenvinningsbeholder";
-
 "type.recycling.toxic" = "Giftig avfall";
-
 "type.recycling.clothes" = "Gamle klær";
-
 "type.recycling.glass_bottles" = "Glassemballasje";
-
 "type.recycling.paper" = "Papiravfall";
-
 "type.recycling.plastic" = "Plastavfall";
-
 "type.recycling.plastic_bottles" = "Plastflasker";
-
 "type.recycling.scrap_metal" = "Metallavfall";
-
 "type.recycling.small_appliances" = "Elektronisk avfall";
-
 "type.amenity.restaurant" = "Restaurant";
-
 "type.amenity.school" = "Skole";
-
 "type.amenity.shelter" = "Tilfluktsrom";
-
 "type.amenity.shower" = "Dusj";
-
 "type.amenity.taxi" = "Drosje";
-
 "type.amenity.telephone" = "Telefon";
-
 "type.amenity.theatre" = "Teater";
-
 "type.amenity.toilets" = "Toalett";
-
 "type.amenity.townhall" = "Rådhus";
-
 "type.amenity.university" = "Universitet";
-
 "type.amenity.vending_machine" = "Vending Machine";
-
 "type.amenity.vending_machine.cigarettes" = "Sigarettautomat";
-
 "type.amenity.vending_machine.drinks" = "Drikkeautomat";
-
 "type.amenity.vending_machine.parking_tickets" = "Parkeringsautomat";
-
 "type.amenity.vending_machine.public_transport_tickets" = "Billettmaskin for offentlig transport";
-
 "type.amenity.veterinary" = "Veterinær";
-
 "type.amenity.waste_basket" = "Søppelkasse";
-
 "type.amenity.waste_disposal" = "Søppel";
-
 "type.amenity.water_point" = "Vannpunkt";
-
 "type.barrier" = "Barrier";
-
 "type.barrier.block" = "Blokk";
-
 "type.barrier.bollard" = "Pullert";
-
 "type.barrier.border_control" = "Grensekontroll";
-
 "type.barrier.chain" = "Chain";
-
 "type.barrier.city_wall" = "City Wall";
-
 "type.barrier.cycle_barrier" = "Cycle Barrier";
-
 "type.barrier.entrance" = "Inngangspassasje";
-
 "type.barrier.fence" = "Fence";
-
 "type.barrier.gate" = "Port";
-
 "type.barrier.hedge" = "Hedge";
-
 "type.barrier.lift_gate" = "Bom";
-
 "type.barrier.retaining_wall" = "Retaining Wall";
-
 "type.barrier.stile" = "Sperre";
-
 "type.barrier.swing_gate" = "Bom";
-
 "type.barrier.toll_booth" = "Bomstasjon";
-
 "type.barrier.wall" = "Wall";
-
 "type.boundary" = "Boundary";
-
 "type.boundary.administrative" = "boundary-administrative";
-
 "type.boundary.administrative.10" = "boundary-administrative-10";
-
 "type.boundary.administrative.11" = "boundary-administrative-11";
-
 "type.boundary.administrative.2" = "boundary-administrative-2";
-
 "type.boundary.administrative.3" = "boundary-administrative-3";
-
 "type.boundary.administrative.4" = "boundary-administrative-4";
-
 "type.boundary.administrative.4.state" = "boundary-administrative-4-state";
-
 "type.boundary.administrative.5" = "boundary-administrative-5";
-
 "type.boundary.administrative.6" = "boundary-administrative-6";
-
 "type.boundary.administrative.7" = "boundary-administrative-7";
-
 "type.boundary.administrative.8" = "boundary-administrative-8";
-
 "type.boundary.administrative.9" = "boundary-administrative-9";
-
 "type.boundary.administrative.city" = "boundary-administrative-city";
-
 "type.boundary.administrative.country" = "boundary-administrative-country";
-
 "type.boundary.administrative.county" = "boundary-administrative-county";
-
 "type.boundary.administrative.municipality" = "boundary-administrative-municipality";
-
 "type.boundary.administrative.nation" = "boundary-administrative-nation";
-
 "type.boundary.administrative.region" = "boundary-administrative-region";
-
 "type.boundary.administrative.state" = "boundary-administrative-state";
-
 "type.boundary.administrative.suburb" = "boundary-administrative-suburb";
-
 "type.boundary.national_park" = "Nasonalpark";
-
 "type.building" = "Bygning";
-
 "type.building.address" = "Bygning";
-
 "type.building.garage" = "Verksted";
-
 "type.building.has_parts" = "Bygning";
-
 "type.building.train_station" = "Togstasjon";
-
 "type.building.warehouse" = "Warehouse";
-
 "type.craft" = "Craft";
-
 "type.craft.brewery" = "Bryggeri";
-
 "type.craft.carpenter" = "Snekker";
-
 "type.craft.electrician" = "Elektriker";
-
 "type.craft.gardener" = "Anleggsgartner";
-
 "type.craft.hvac" = "Klimaanlegg";
-
 "type.craft.metal_construction" = "Metallarbeider";
-
 "type.craft.painter" = "Maler";
-
 "type.craft.photographer" = "Fotograf";
-
 "type.craft.plumber" = "Rørlegger";
-
 "type.craft.shoemaker" = "Skoreparasjon";
-
 "type.craft.tailor" = "Skredder";
-
 "type.cuisine.african" = "Afrikansk mat";
-
 "type.cuisine.american" = "Amerikansk mat";
-
 "type.cuisine.arab" = "Arabisk mat";
-
 "type.cuisine.argentinian" = "Argentinsk mat";
-
 "type.cuisine.asian" = "Asiatisk mat";
-
 "type.cuisine.austrian" = "Østerriksk mat";
-
 "type.cuisine.bagel" = "Bagel";
-
 "type.cuisine.balkan" = "Balkan mat";
-
 "type.cuisine.barbecue" = "Grillmat";
-
 "type.cuisine.bavarian" = "Bayersk mat";
-
 "type.cuisine.beef_bowl" = "Biffbolle";
-
 "type.cuisine.brazilian" = "Brasiliansk mat";
-
 "type.cuisine.breakfast" = "Frokost";
-
 "type.cuisine.burger" = "Burger";
-
 "type.cuisine.buschenschank" = "Buschenschank";
-
 "type.cuisine.cake" = "Kake";
-
 "type.cuisine.caribbean" = "Karibisk mat";
-
 "type.cuisine.chicken" = "Kylling";
-
 "type.cuisine.chinese" = "Kinesisk mat";
-
 "type.cuisine.coffee_shop" = "Kaffe";
-
 "type.cuisine.crepe" = "Crepe";
-
 "type.cuisine.croatian" = "Kroatisk mat";
-
 "type.cuisine.curry" = "Karri";
-
 "type.cuisine.deli" = "Delimat";
-
 "type.cuisine.diner" = "Middag";
-
 "type.cuisine.donut" = "Smultring";
-
 "type.cuisine.ethiopian" = "Etiopisk mat";
-
 "type.cuisine.filipino" = "Filippinsk mat";
-
 "type.cuisine.fine_dining" = "Gourmet";
-
 "type.cuisine.fish" = "Fisk";
-
 "type.cuisine.fish_and_chips" = "Fisk og pommes frites";
-
 "type.cuisine.french" = "Fransk mat";
-
 "type.cuisine.friture" = "Frityrt";
-
 "type.cuisine.georgian" = "Georgisk mat";
-
 "type.cuisine.german" = "Tysk mat";
-
 "type.cuisine.greek" = "Gresk mat";
-
 "type.cuisine.grill" = "Grill";
-
 "type.cuisine.heuriger" = "Heuriger";
-
 "type.cuisine.hotdog" = "Hotdog";
-
 "type.cuisine.hungarian" = "Ungarsk mat";
-
 "type.cuisine.ice_cream" = "Iskrem";
-
 "type.cuisine.indian" = "Indisk mat";
-
 "type.cuisine.indonesian" = "Indonesisk mat";
-
 "type.cuisine.international" = "Internasjonal mat";
-
 "type.cuisine.irish" = "Irsk mat";
-
 "type.cuisine.italian" = "Italiensk mat";
-
 "type.cuisine.italian_pizza" = "Italiensk mat;pizza";
-
 "type.cuisine.japanese" = "Japansk mat";
-
 "type.cuisine.kebab" = "Kebab";
-
 "type.cuisine.korean" = "Koreansk mat";
-
 "type.cuisine.lao" = "Lao mat";
-
 "type.cuisine.lebanese" = "Libanesisk mat";
-
 "type.cuisine.local" = "Lokal mat";
-
 "type.cuisine.malagasy" = "Gassisk";
-
 "type.cuisine.malaysian" = "Malaysisk mat";
-
 "type.cuisine.mediterranean" = "Middelhavsmat";
-
 "type.cuisine.mexican" = "Meksikansk mat";
-
 "type.cuisine.moroccan" = "Marokkansk mat";
-
 "type.cuisine.noodles" = "Nudler";
-
 "type.cuisine.oriental" = "Orientalsk mat";
-
 "type.cuisine.pancake" = "Pannekake";
-
 "type.cuisine.pasta" = "Pasta";
-
 "type.cuisine.persian" = "Persisk mat";
-
 "type.cuisine.peruvian" = "Peruansk mat";
-
 "type.cuisine.pizza" = "Pizza";
-
 "type.cuisine.polish" = "Polsk mat";
-
 "type.cuisine.portuguese" = "Portugisisk mat";
-
 "type.cuisine.ramen" = "Ramen";
-
 "type.cuisine.regional" = "Regional mat";
-
 "type.cuisine.russian" = "Russisk mat";
-
 "type.cuisine.sandwich" = "Smørbrød";
-
 "type.cuisine.sausage" = "Pølse";
-
 "type.cuisine.savory_pancakes" = "Fylte pannekaker";
-
 "type.cuisine.seafood" = "Sjømat";
-
 "type.cuisine.soba" = "Soba";
-
 "type.cuisine.spanish" = "Spansk mat";
-
 "type.cuisine.steak_house" = "Biffrestaurant";
-
 "type.cuisine.sushi" = "Sushi";
-
 "type.cuisine.tapas" = "Tapas";
-
 "type.cuisine.tea" = "Te";
-
 "type.cuisine.thai" = "Thaimat";
-
 "type.cuisine.turkish" = "Tyrkisk mat";
-
 "type.cuisine.vegan" = "Veganermat";
-
 "type.cuisine.vegetarian" = "Vegetar mat";
-
 "type.cuisine.vietnamese" = "Vietnamesisk mat";
-
 "type.emergency" = "Emergency";
-
 "type.emergency.defibrillator" = "Hjertestarter";
-
 "type.emergency.fire_hydrant" = "Brannhydrant";
-
 "type.emergency.phone" = "Nødtelefon";
-
 "type.entrance" = "Inngang";
-
 "type.healthcare.laboratory" = "Medisinsk laboratorium";
-
 "type.highway" = "Highway";
-
 "type.highway.bridleway" = "Rider's Path";
-
 "type.highway.bridleway.bridge" = "Rider's Path";
-
 "type.highway.bridleway.permissive" = "Rider's Path";
-
 "type.highway.bridleway.tunnel" = "Rider's Path";
-
 "type.highway.bus_stop" = "Busstopp";
-
 "type.highway.construction" = "Veikonstruksjon";
-
 "type.highway.cycleway" = "Bike Path";
-
 "type.highway.cycleway.bridge" = "Bike Path";
-
 "type.highway.cycleway.permissive" = "Bike Path";
-
 "type.highway.cycleway.tunnel" = "Bike Path";
-
 "type.highway.elevator" = "Elevator";
-
 "type.highway.footway" = "Sti";
-
 "type.highway.footway.alpine_hiking" = "Sti";
-
 "type.highway.footway.area" = "Sti";
-
 "type.highway.footway.bridge" = "Sti";
-
 "type.highway.footway.demanding_alpine_hiking" = "Sti";
-
 "type.highway.footway.demanding_mountain_hiking" = "Sti";
-
 "type.highway.footway.difficult_alpine_hiking" = "Sti";
-
 "type.highway.footway.hiking" = "Sti";
-
 "type.highway.footway.mountain_hiking" = "Sti";
-
 "type.highway.footway.permissive" = "Sti";
-
 "type.highway.footway.tunnel" = "Sti";
-
 "type.highway.ford" = "Vadested";
-
 "type.highway.living_street" = "Gate";
-
 "type.highway.living_street.bridge" = "Gate";
-
 "type.highway.living_street.tunnel" = "Gate";
-
 "type.highway.motorway" = "Gate";
-
 "type.highway.motorway.bridge" = "Gate";
-
 "type.highway.motorway.tunnel" = "Gate";
-
 "type.highway.motorway_junction" = "Utgang";
-
 "type.highway.motorway_link" = "Gate";
-
 "type.highway.motorway_link.bridge" = "Gate";
-
 "type.highway.motorway_link.tunnel" = "Gate";
-
 "type.highway.path" = "Sti";
-
 "type.highway.path.alpine_hiking" = "Sti";
-
 "type.highway.path.bicycle" = "Sti";
-
 "type.highway.path.bridge" = "Sti";
-
 "type.highway.path.demanding_alpine_hiking" = "Sti";
-
 "type.highway.path.demanding_mountain_hiking" = "Sti";
-
 "type.highway.path.difficult_alpine_hiking" = "Sti";
-
 "type.highway.path.hiking" = "Sti";
-
 "type.highway.path.horse" = "Sti";
-
 "type.highway.path.mountain_hiking" = "Sti";
-
 "type.highway.path.permissive" = "Sti";
-
 "type.highway.path.tunnel" = "Sti";
-
 "type.highway.pedestrian" = "Gate";
-
 "type.highway.pedestrian.area" = "Gate";
-
 "type.highway.pedestrian.bridge" = "Gate";
-
 "type.highway.pedestrian.tunnel" = "Gate";
-
 "type.highway.primary" = "Gate";
-
 "type.highway.primary.bridge" = "Gate";
-
 "type.highway.primary.tunnel" = "Gate";
-
 "type.highway.primary_link" = "Gate";
-
 "type.highway.primary_link.bridge" = "Gate";
-
 "type.highway.primary_link.tunnel" = "Gate";
-
 "type.highway.raceway" = "Løpebane";
-
 "type.highway.residential" = "Gate";
-
 "type.highway.residential.area" = "Gate";
-
 "type.highway.residential.bridge" = "Gate";
-
 "type.highway.residential.tunnel" = "Gate";
-
 "type.highway.rest_area" = "Rasteplass";
-
 "type.highway.road" = "Gate";
-
 "type.highway.road.bridge" = "Gate";
-
 "type.highway.road.tunnel" = "Gate";
-
 "type.highway.secondary" = "Gate";
-
 "type.highway.secondary.bridge" = "Gate";
-
 "type.highway.secondary.tunnel" = "Gate";
-
 "type.highway.secondary_link" = "Gate";
-
 "type.highway.secondary_link.bridge" = "Gate";
-
 "type.highway.secondary_link.tunnel" = "Gate";
-
 "type.highway.service" = "Gate";
-
 "type.highway.service.area" = "Gate";
-
 "type.highway.service.bridge" = "Gate";
-
 "type.highway.service.driveway" = "Gate";
-
 "type.highway.service.parking_aisle" = "Gate";
-
 "type.highway.service.tunnel" = "Gate";
-
 "type.highway.services" = "Service on the Road";
-
 "type.highway.speed_camera" = "Fotoboks";
-
 "type.highway.steps" = "Sti";
-
 "type.highway.steps.bridge" = "Sti";
-
 "type.highway.steps.tunnel" = "Sti";
-
 "type.highway.tertiary" = "Gate";
-
 "type.highway.tertiary.bridge" = "Gate";
-
 "type.highway.tertiary.tunnel" = "Gate";
-
 "type.highway.tertiary_link" = "Gate";
-
 "type.highway.tertiary_link.bridge" = "Gate";
-
 "type.highway.tertiary_link.tunnel" = "Gate";
-
 "type.highway.track" = "Gate";
-
 "type.highway.track.area" = "Gate";
-
 "type.highway.track.bridge" = "Gate";
-
 "type.highway.track.grade1" = "Gate";
-
 "type.highway.track.grade2" = "Gate";
-
 "type.highway.track.grade3" = "Gate";
-
 "type.highway.track.grade4" = "Gate";
-
 "type.highway.track.grade5" = "Gate";
-
 "type.highway.track.no.access" = "Gate";
-
 "type.highway.track.permissive" = "Gate";
-
 "type.highway.track.tunnel" = "Gate";
-
 "type.highway.traffic_signals" = "Trafikklys";
-
 "type.highway.trunk" = "Gate";
-
 "type.highway.trunk.bridge" = "Gate";
-
 "type.highway.trunk.tunnel" = "Gate";
-
 "type.highway.trunk_link" = "Gate";
-
 "type.highway.trunk_link.bridge" = "Gate";
-
 "type.highway.trunk_link.tunnel" = "Gate";
-
 "type.highway.unclassified" = "Gate";
-
 "type.highway.unclassified.area" = "Gate";
-
 "type.highway.unclassified.bridge" = "Gate";
-
 "type.highway.unclassified.tunnel" = "Gate";
-
 "type.highway.world_level" = "highway-world_level";
-
 "type.highway.world_towns_level" = "highway-world_towns_level";
-
 "type.historic" = "Historic";
-
 "type.historic.archaeological_site" = "Arkeologisk område";
-
 "type.historic.battlefield" = "Battlefield";
-
 "type.historic.boundary_stone" = "Boundary Stone";
-
 "type.historic.castle" = "Slott";
-
 "type.historic.castle.defensive" = "Slott";
-
 "type.historic.castle.stately" = "Slott";
-
 "type.historic.citywalls" = "City Wall";
-
 "type.historic.fort" = "Fort";
-
 "type.historic.memorial" = "Minnesmerke";
-
 "type.historic.memorial.plaque" = "Minnesmerke";
-
 "type.historic.memorial.sculpture" = "Minnesmerke";
-
 "type.historic.memorial.statue" = "Minnesmerke";
-
 "type.historic.monument" = "Monument";
-
 "type.historic.ruins" = "Ruiner";
-
 "type.historic.ship" = "Severdigheter";
-
 "type.historic.tomb" = "Severdigheter";
-
 "type.historic.wayside_cross" = "Christian Cross";
-
 "type.historic.wayside_shrine" = "Shrine";
-
 "type.hwtag" = "hwtag";
-
 "type.hwtag.bidir_bicycle" = "hwtag-bidir_bicycle";
-
 "type.hwtag.onedir_bicycle" = "hwtag-onedir_bicycle";
-
 "type.hwtag.lit" = "hwtag-lit";
-
 "type.hwtag.nobicycle" = "hwtag-nobicycle";
-
 "type.hwtag.nocar" = "hwtag-nocar";
-
 "type.hwtag.nofoot" = "hwtag-nofoot";
-
 "type.hwtag.oneway" = "hwtag-oneway";
-
 "type.hwtag.private" = "hwtag-private";
-
 "type.hwtag.toll" = "hwtag-toll";
-
 "type.hwtag.yesbicycle" = "hwtag-yesbicycle";
-
 "type.hwtag.yescar" = "hwtag-yescar";
-
 "type.hwtag.yesfoot" = "hwtag-yesfoot";
-
 "type.internet_access" = "Internet";
-
 "type.internet_access.wlan" = "Internet";
-
 "type.junction" = "Junction";
-
 "type.junction.roundabout" = "Roundabout";
-
 "type.landuse" = "Landuse";
-
 "type.landuse.allotments" = "Allotments";
-
 "type.landuse.basin" = "Vann";
-
 "type.landuse.brownfield" = "Brownfield";
-
 "type.landuse.cemetery" = "Gravplass";
-
 "type.landuse.cemetery.christian" = "Gravplass";
-
 "type.landuse.churchyard" = "Kirkegård";
-
 "type.landuse.commercial" = "Commercial Area";
-
 "type.landuse.construction" = "Construction";
-
 "type.landuse.farm" = "Farm";
-
 "type.landuse.farmland" = "Jordbruksområde";
-
 "type.landuse.farmyard" = "Farmyard";
-
 "type.landuse.field" = "Field";
-
 "type.landuse.forest" = "Skog";
-
 "type.landuse.forest.coniferous" = "Skog";
-
 "type.landuse.forest.deciduous" = "Skog";
-
 "type.landuse.forest.mixed" = "Skog";
-
 "type.landuse.garages" = "Garages";
-
 "type.landuse.grass" = "Plen";
-
 "type.landuse.greenfield" = "Greenfield";
-
 "type.landuse.greenhouse_horticulture" = "Greenhouse";
-
 "type.landuse.industrial" = "Industrial Land";
-
 "type.landuse.landfill" = "Land-deponi";
-
 "type.landuse.meadow" = "Meadow";
-
 "type.landuse.military" = "Military Area";
-
 "type.landuse.orchard" = "Orchard";
-
 "type.landuse.quarry" = "Quarry";
-
 "type.landuse.railway" = "Jernbaneområde";
-
 "type.landuse.recreation_ground" = "Recreation Ground";
-
 "type.landuse.reservoir" = "Vann";
-
 "type.landuse.residential" = "Residential Land";
-
 "type.landuse.retail" = "Retail Land";
-
 "type.landuse.salt_pond" = "Pond";
-
 "type.landuse.village_green" = "Land";
-
 "type.landuse.vineyard" = "Vineyard";
-
 "type.leisure" = "Leisure";
-
 "type.leisure.common" = "leisure-common";
-
 "type.leisure.dog_park" = "Hundeområde";
-
 "type.leisure.fitness_centre" = "Treningssenter";
-
 "type.leisure.fitness_station" = "Treningssenter";
-
 "type.leisure.garden" = "Hage";
-
 "type.leisure.golf_course" = "Golfbane";
-
 "type.leisure.ice_rink" = "Ice Rink";
-
 "type.leisure.landscape_reserve" = "Landscape Reserve";
-
 "type.leisure.marina" = "Marina";
-
 "type.leisure.nature_reserve" = "Reservat";
-
 "type.leisure.park" = "Park";
-
 "type.leisure.park.no.access" = "Park";
-
 "type.leisure.park.permissive" = "Park";
-
 "type.leisure.park.private" = "Park";
-
 "type.leisure.picnic_table" = "Piknikbord";
-
 "type.leisure.pitch" = "Sportssenter";
-
 "type.leisure.playground" = "Lekeplass";
-
 "type.leisure.recreation_ground" = "Recreation Ground";
-
 "type.leisure.sauna" = "Badstue";
-
 "type.leisure.slipway" = "Slipway";
-
 "type.leisure.sports_centre" = "Sportssenter";
-
 "type.leisure.sports_centre.climbing" = "Klatresenter";
-
 "type.leisure.sports_centre.shooting" = "Skytebane";
-
 "type.leisure.sports_centre.swimming" = "Svømmehall";
-
 "type.leisure.sports_centre.yoga" = "Yogastudio";
-
 "type.leisure.stadium" = "Stadion";
-
 "type.leisure.swimming_pool" = "Svømmebasseng";
-
 "type.leisure.track" = "Track";
-
 "type.leisure.water_park" = "Vannpark";
-
 "type.man_made" = "Man Made";
-
 "type.man_made.breakwater" = "Breakwater";
-
 "type.man_made.cairn" = "Cairn";
-
 "type.man_made.chimney" = "Fabrikkpipe";
-
 "type.man_made.cutline" = "Cutline";
-
 "type.man_made.lighthouse" = "Fyr";
-
 "type.man_made.pier" = "Pier";
-
 "type.man_made.pipeline" = "Pipeline";
-
 "type.man_made.pipeline.overground" = "Overground Pipeline";
-
 "type.man_made.silo" = "Silo";
-
 "type.man_made.storage_tank" = "Storage Tank";
-
 "type.man_made.surveillance" = "Overvåkingskamera";
-
 "type.man_made.tower" = "Tårn";
-
 "type.man_made.wastewater_plant" = "Wastewater Plant";
-
 "type.man_made.water_tap" = "Vannkran";
-
 "type.man_made.water_tower" = "Vanntårn";
-
 "type.man_made.water_well" = "Brønn";
-
 "type.man_made.windmill" = "Vindmølle";
-
 "type.man_made.works" = "Works";
-
 "type.mapswithme" = "mapswithme";
-
 "type.mapswithme.grid" = "mapswithme-grid";
-
 "type.military" = "Military";
-
 "type.military.bunker" = "Bunker";
-
 "type.mountain_pass" = "Mountain Pass";
-
 "type.natural" = "Natural";
-
 "type.natural.bare_rock" = "Bare Rock";
-
 "type.natural.bay" = "Bukt";
-
 "type.natural.beach" = "Strand";
-
 "type.natural.cape" = "Kapp";
-
 "type.natural.cave_entrance" = "Grotte";
-
 "type.natural.cliff" = "Cliff";
-
 "type.natural.coastline" = "Coastline";
-
 "type.natural.geyser" = "Gaysir";
-
 "type.natural.glacier" = "Isbre";
-
 "type.natural.grassland" = "Slette";
-
 "type.natural.heath" = "Heath";
-
 "type.natural.hot_spring" = "Hot Spring";
-
 "type.natural.water.lake" = "Innsjø";
-
 "type.natural.land" = "Land";
-
 "type.natural.meadow" = "Meadow";
-
 "type.natural.orchard" = "Orchard";
-
 "type.natural.peak" = "Høydepunkt";
-
 "type.natural.saddle" = "Mountain Saddle";
-
 "type.natural.water.pond" = "Dam";
-
 "type.natural.rock" = "Rock";
-
 "type.natural.scrub" = "Myr";
-
 "type.natural.spring" = "Vår";
-
 "type.natural.strait" = "Sund";
-
 "type.natural.tree" = "Tre";
-
 "type.natural.tree_row" = "Tree Row";
-
 "type.natural.vineyard" = "Vineyard";
-
 "type.natural.volcano" = "Vulkan";
-
 "type.natural.water" = "Vann";
-
 "type.natural.wetland" = "Våtmarksområde";
-
 "type.natural.wetland.bog" = "Wetland";
-
 "type.natural.wetland.marsh" = "Wetland";
-
 "type.noexit" = "noexit";
-
 "type.noexit.motor_vehicle" = "noexit-motor_vehicle";
-
 "type.office" = "Kontor";
-
 "type.office.company" = "Firmakontor";
-
 "type.office.estate_agent" = "Eiendomsmegler";
-
 "type.office.government" = "Offentlig kontor";
-
 "type.office.insurance" = "Forsikring";
-
 "type.office.lawyer" = "Advokatkontor";
-
 "type.office.ngo" = "NGO-kontor";
-
 "type.office.telecommunication" = "Mobiloperatør";
-
 "type.olympics" = "olympics";
-
 "type.olympics.attraction" = "olympics-attraction";
-
 "type.olympics.bike_sport" = "olympics-bike_sport";
-
 "type.olympics.live_site" = "olympics-live_site";
-
 "type.olympics.official_building" = "olympics-official_building";
-
 "type.olympics.stadium" = "olympics-stadium";
-
 "type.olympics.stadium_main" = "olympics-stadium_main";
-
 "type.olympics.transport_airport" = "olympics-transport_airport";
-
 "type.olympics.transport_boat" = "olympics-transport_boat";
-
 "type.olympics.transport_bus" = "olympics-transport_bus";
-
 "type.olympics.transport_cable" = "olympics-transport_cable";
-
 "type.olympics.transport_railway" = "olympics-transport_railway";
-
 "type.olympics.transport_subway" = "olympics-transport_subway";
-
 "type.olympics.transport_tram" = "olympics-transport_tram";
-
 "type.olympics.water_sport" = "olympics-water_sport";
-
 "type.place" = "place";
-
 "type.place.city" = "By";
-
 "type.place.city.capital" = "Hovedstad";
-
 "type.place.city.capital.10" = "Hovedstad";
-
 "type.place.city.capital.11" = "Hovedstad";
-
 "type.place.city.capital.2" = "Hovedstad";
-
 "type.place.city.capital.3" = "Hovedstad";
-
 "type.place.city.capital.4" = "Hovedstad";
-
 "type.place.city.capital.5" = "Hovedstad";
-
 "type.place.city.capital.6" = "Hovedstad";
-
 "type.place.city.capital.7" = "Hovedstad";
-
 "type.place.city.capital.8" = "Hovedstad";
-
 "type.place.city.capital.9" = "Hovedstad";
-
 "type.place.continent" = "Kontinent";
-
 "type.place.country" = "Land";
-
 "type.place.county" = "Fylke";
-
 "type.place.farm" = "Gård";
-
 "type.place.hamlet" = "Landsby";
-
 "type.place.island" = "Øy";
-
 "type.place.islet" = "Øy";
-
 "type.place.isolated_dwelling" = "Dwelling";
-
 "type.place.locality" = "Lokalitet";
-
 "type.place.neighbourhood" = "Neighbourhood";
-
 "type.place.ocean" = "Hav";
-
 "type.place.region" = "Region";
-
 "type.place.sea" = "Sjø";
-
 "type.place.square" = "Square";
-
 "type.place.state" = "Stat";
-
 "type.place.state.USA" = "Stat";
-
 "type.place.suburb" = "Forstad";
-
 "type.place.town" = "By";
-
 "type.place.village" = "Landsby";
-
 "type.power" = "Power";
-
 "type.power.generator" = "Generator";
-
 "type.power.line" = "Power Line";
-
 "type.power.line.underground" = "Underground Power Line";
-
 "type.power.minor_line" = "Minor Power Line";
-
 "type.power.pole" = "Strømmast";
-
 "type.power.station" = "Power Station";
-
 "type.power.substation" = "Trafo";
-
 "type.power.tower" = "Strømmast";
-
 "type.psurface" = "psurface";
-
 "type.psurface.paved_bad" = "psurface-paved_bad";
-
 "type.psurface.paved_good" = "psurface-paved_good";
-
 "type.psurface.unpaved_bad" = "psurface-unpaved_bad";
-
 "type.psurface.unpaved_good" = "psurface-unpaved_good";
-
 "type.public_transport" = "Public Transport";
-
 "type.public_transport.platform" = "Platform";
-
 "type.railway" = "Railway";
-
 "type.railway.abandoned" = "Abandoned railway";
-
 "type.railway.abandoned.bridge" = "Abandoned railway";
-
 "type.railway.abandoned.tunnel" = "Abandoned railway";
-
 "type.railway.construction" = "Railway's construction";
-
 "type.railway.crossing" = "Railway crossing";
-
 "type.railway.disused" = "Disused railway";
-
 "type.railway.funicular" = "Funicular";
-
 "type.railway.funicular.bridge" = "Funicular";
-
 "type.railway.funicular.tunnel" = "Funicular";
-
 "type.railway.halt" = "Togstasjon";
-
 "type.railway.level_crossing" = "Planovergang";
-
 "type.railway.light_rail" = "Light Rail";
-
 "type.railway.light_rail.bridge" = "Light Rail";
-
 "type.railway.light_rail.tunnel" = "Light Rail";
-
 "type.railway.monorail" = "Monorail";
-
 "type.railway.monorail.bridge" = "Monorail";
-
 "type.railway.monorail.tunnel" = "Monorail";
-
 "type.railway.narrow_gauge" = "Narrow Gauge Rail";
-
 "type.railway.narrow_gauge.bridge" = "Narrow Gauge Rail";
-
 "type.railway.narrow_gauge.tunnel" = "Narrow Gauge Rail";
-
 "type.railway.platform" = "Platform";
-
 "type.railway.preserved" = "Preserved Rail";
-
 "type.railway.preserved.bridge" = "Preserved Rail";
-
 "type.railway.preserved.tunnel" = "Preserved Rail";
-
 "type.railway.rail" = "Toglinje";
-
 "type.railway.rail.bridge" = "Railway";
-
 "type.railway.rail.motor_vehicle" = "Railway";
-
 "type.railway.rail.tunnel" = "Railway";
-
 "type.railway.razed" = "Razed Rail";
-
 "type.railway.siding" = "Siding Rail";
-
 "type.railway.siding.bridge" = "Siding Rail";
-
 "type.railway.siding.tunnel" = "Siding Rail";
-
 "type.railway.spur" = "Spur Rail";
-
 "type.railway.spur.bridge" = "Spur Rail";
-
 "type.railway.spur.tunnel" = "Spur Rail";
-
 "type.railway.station" = "Togstasjon";
-
 "type.railway.station.light_rail" = "Togstasjon";
-
 "type.railway.station.monorail" = "Togstasjon";
-
 "type.railway.station.subway" = "T-bane";
-
 "type.railway.station.subway.barcelona" = "T-bane";
-
 "type.railway.station.subway.berlin" = "T-bane";
-
 "type.railway.station.subway.kiev" = "T-bane";
-
 "type.railway.station.subway.london" = "T-bane";
-
 "type.railway.station.subway.madrid" = "T-bane";
-
 "type.railway.station.subway.minsk" = "T-bane";
-
 "type.railway.station.subway.moscow" = "T-bane";
-
 "type.railway.station.subway.newyork" = "T-bane";
-
 "type.railway.station.subway.paris" = "T-bane";
-
 "type.railway.station.subway.roma" = "T-bane";
-
 "type.railway.station.subway.spb" = "T-bane";
-
 "type.railway.subway" = "Subway Line";
-
 "type.railway.subway.bridge" = "Subway Line";
-
 "type.railway.subway.tunnel" = "Subway Line";
-
 "type.railway.subway_entrance" = "T-bane inngang";
-
 "type.railway.subway_entrance.barcelona" = "T-bane";
-
 "type.railway.subway_entrance.berlin" = "T-bane";
-
 "type.railway.subway_entrance.kiev" = "T-bane";
-
 "type.railway.subway_entrance.london" = "T-bane";
-
 "type.railway.subway_entrance.madrid" = "T-bane";
-
 "type.railway.subway_entrance.minsk" = "T-bane";
-
 "type.railway.subway_entrance.moscow" = "T-bane";
-
 "type.railway.subway_entrance.newyork" = "T-bane";
-
 "type.railway.subway_entrance.paris" = "T-bane";
-
 "type.railway.subway_entrance.roma" = "T-bane";
-
 "type.railway.subway_entrance.spb" = "T-bane";
-
 "type.railway.tram" = "Tram Line";
-
 "type.railway.tram.bridge" = "Tram Line";
-
 "type.railway.tram.tunnel" = "Tram Line";
-
 "type.railway.tram_stop" = "Trikkestopp";
-
 "type.railway.yard" = "Railway Yard";
-
 "type.railway.yard.bridge" = "Railway Yard";
-
 "type.railway.yard.tunnel" = "Railway Yard";
-
 "type.route" = "route";
-
 "type.route.ferry" = "Ferry";
-
 "type.route.shuttle_train" = "Shuttle Train";
-
 "type.shop" = "Butikk";
-
 "type.shop.alcohol" = "Vinmonopol";
-
 "type.shop.bakery" = "Bakeri";
-
 "type.shop.beauty" = "Skjønnhetssalong";
-
 "type.shop.beverages" = "Drinker";
-
 "type.shop.bicycle" = "Sykkel";
-
 "type.shop.bookmaker" = "Bookmaker";
-
 "type.shop.books" = "Bokhandel";
-
 "type.shop.butcher" = "Slakter";
-
 "type.shop.car" = "Bil butikk";
-
 "type.shop.car_parts" = "Bildeler";
-
 "type.shop.car_repair" = "Bilverksted";
-
 "type.shop.car_repair.tyres" = "Dekkreparasjon";
-
 "type.shop.chemist" = "Husholdningsartikler";
-
 "type.shop.chocolate" = "Butikk";
-
 "type.shop.clothes" = "Klesbutikk";
-
 "type.shop.coffee" = "Butikk";
-
 "type.shop.computer" = "Databutikk";
-
 "type.shop.confectionery" = "Søtsaker";
-
 "type.shop.convenience" = "Nærbutikk";
-
 "type.shop.copyshop" = "Kopieringsbutikk";
-
 "type.shop.cosmetics" = "Kosmetikk";
-
 "type.shop.department_store" = "Varehus";
-
 "type.shop.doityourself" = "Jernvareforretning";
-
 "type.shop.dry_cleaning" = "Renseri";
-
 "type.shop.electronics" = "Elektronikk forhandler";
-
 "type.shop.erotic" = "Erotisk butikk";
-
 "type.shop.fabric" = "Butikk";
-
 "type.shop.florist" = "Blomsterhandler";
-
 "type.shop.funeral_directors" = "Begravelsebyrå";
-
 "type.shop.furniture" = "Møbelbutikk";
-
 "type.shop.garden_centre" = "Planteskole";
-
 "type.shop.gift" = "Gavebutikk";
-
 "type.shop.greengrocer" = "Frukt- og grønnsakshandler";
-
 "type.shop.hairdresser" = "Frisør";
-
 "type.shop.hardware" = "Jernvareforretning";
-
 "type.shop.jewelry" = "Gullsmed";
-
 "type.shop.kiosk" = "Butikk";
-
 "type.shop.laundry" = "Vaskeri";
-
 "type.shop.mall" = "Kjøpesenteret";
-
 "type.shop.massage" = "Massasjesalong";
-
 "type.shop.mobile_phone" = "Mobiltelefonbutikk";
-
 "type.shop.money_lender" = "Butikk";
-
 "type.shop.motorcycle" = "Motorsykkelforretning";
-
 "type.shop.music" = "Butikk";
-
 "type.shop.musical_instrument" = "Butikk";
-
 "type.shop.newsagent" = "Aviskiosk";
-
 "type.shop.optician" = "Optiker";
-
 "type.shop.outdoor" = "Fritidsutstyr";
-
 "type.shop.pawnbroker" = "Pantelåner";
-
 "type.shop.pet" = "Dyrebutikk";
-
 "type.shop.photo" = "Fotobutikk";
-
 "type.shop.seafood" = "Fiskehandler";
-
 "type.shop.shoes" = "Skobutikk";
-
 "type.shop.sports" = "Sportsutstyr";
-
 "type.shop.stationery" = "Bokhandel";
-
 "type.shop.supermarket" = "Supermarked";
-
 "type.shop.tattoo" = "Tatovør";
-
 "type.shop.tea" = "Butikk";
-
 "type.shop.ticket" = "Billettkontor";
-
 "type.shop.toys" = "Legebutikk";
-
 "type.shop.travel_agency" = "Reisebyrå";
-
 "type.shop.tyres" = "Dekkforretning";
-
 "type.shop.variety_store" = "Billigbutikk";
-
 "type.shop.video" = "Videobutikken";
-
 "type.shop.video_games" = "Videospillbutikken";
-
 "type.shop.wine" = "Alkoholutsalg";
-
 "type.sponsored" = "sponsored";
-
 "type.sponsored.booking" = "sponsored-booking";
-
 "type.sponsored.holiday" = "Christmas or New Year Celebrations";
-
 "type.sponsored.opentable" = "sponsored-opentable";
-
 "type.sponsored.partner1" = "sponsored-partner1";
-
 "type.sponsored.partner10" = "sponsored-partner10";
-
 "type.sponsored.partner11" = "sponsored-partner11";
-
 "type.sponsored.partner12" = "sponsored-partner12";
-
 "type.sponsored.partner13" = "sponsored-partner13";
-
 "type.sponsored.partner14" = "sponsored-partner14";
-
 "type.sponsored.partner15" = "sponsored-partner15";
-
 "type.sponsored.partner16" = "sponsored-partner16";
-
 "type.sponsored.partner17" = "sponsored-partner17";
-
 "type.sponsored.partner18" = "MegaFon";
-
 "type.sponsored.partner19" = "MegaFon";
-
 "type.sponsored.partner2" = "sponsored-partner2";
-
 "type.sponsored.partner20" = "MegaFon";
-
 "type.sponsored.partner3" = "sponsored-partner3";
-
 "type.sponsored.partner4" = "sponsored-partner4";
-
 "type.sponsored.partner5" = "sponsored-partner5";
-
 "type.sponsored.partner6" = "sponsored-partner6";
-
 "type.sponsored.partner7" = "sponsored-partner7";
-
 "type.sponsored.partner8" = "sponsored-partner8";
-
 "type.sponsored.partner9" = "sponsored-partner9";
-
 "type.sport" = "sport";
-
 "type.sport.american_football" = "American Football";
-
 "type.sport.archery" = "Archery";
-
 "type.sport.athletics" = "Friidrett";
-
 "type.sport.australian_football" = "Rugby";
-
 "type.sport.baseball" = "Baseball";
-
 "type.sport.basketball" = "Basketball";
-
 "type.sport.bowls" = "Bowls";
-
 "type.sport.cricket" = "Cricket";
-
 "type.sport.curling" = "Сurling";
-
 "type.sport.diving" = "Diving";
-
 "type.sport.equestrian" = "Hestesport";
-
 "type.sport.golf" = "Golf";
-
 "type.sport.gymnastics" = "Gymnastics";
-
 "type.sport.handball" = "Handball";
-
 "type.sport.multi" = "Various Sport";
-
 "type.sport.scuba_diving" = "Scuba Diving";
-
 "type.sport.shooting" = "Shooting";
-
 "type.sport.skiing" = "Skiing";
-
 "type.sport.soccer" = "Soccer (Football)";
-
 "type.sport.swimming" = "Swimming";
-
 "type.sport.tennis" = "Tennisbane";
-
 "type.tourism" = "Tourism";
-
 "type.tourism.alpine_hut" = "Fjellstue";
-
 "type.tourism.apartment" = "Leiligheter";
-
 "type.tourism.artwork" = "Kunstverk";
-
 "type.tourism.artwork.architecture" = "Kunstverk";
-
 "type.tourism.artwork.painting" = "Kunstverk";
-
 "type.tourism.artwork.sculpture" = "Kunstverk";
-
 "type.tourism.artwork.statue" = "Kunstverk";
-
 "type.tourism.attraction" = "Attraksjon";
-
 "type.tourism.attraction.animal" = "Attraksjon";
-
 "type.tourism.attraction.specified" = "Attraksjon";
-
 "type.tourism.camp_site" = "Overnatting i bobiler";
-
 "type.tourism.caravan_site" = "Camping";
-
 "type.tourism.chalet" = "Chalet";
-
 "type.tourism.gallery" = "Severdigheter";
-
 "type.tourism.guest_house" = "Gjestehus";
-
 "type.tourism.hostel" = "Vandrerhjem";
-
 "type.tourism.hotel" = "Hotell";
-
 "type.tourism.information" = "Turistinformasjon";
-
 "type.tourism.information.board" = "Informasjonstavle";
-
 "type.tourism.information.guidepost" = "Turistinformasjon";
-
 "type.tourism.information.map" = "Turistkart";
-
 "type.tourism.information.office" = "Turistkontor";
-
 "type.tourism.motel" = "Motell";
-
 "type.tourism.museum" = "Museum";
-
 "type.tourism.picnic_site" = "Rasteplasser";
-
 "type.tourism.resort" = "Ferieresort";
-
 "type.tourism.theme_park" = "Severdigheter";
-
 "type.tourism.viewpoint" = "Utsiktspunkt";
-
 "type.tourism.wilderness_hut" = "Villmarkshytte";
-
 "type.tourism.zoo" = "Dyrehage";
-
 "type.traffic_calming" = "Traffic Calming";
-
 "type.traffic_calming.bump" = "Traffic Bump";
-
 "type.traffic_calming.hump" = "Traffic Hump";
-
 "type.waterway" = "Waterway";
-
 "type.waterway.canal" = "Kanal";
-
 "type.waterway.canal.tunnel" = "Kanal";
-
 "type.waterway.dam" = "Dam";
-
 "type.waterway.ditch" = "Ditch";
-
 "type.waterway.ditch.tunnel" = "Ditch";
-
 "type.waterway.dock" = "Waterway Dock";
-
 "type.waterway.drain" = "Drain";
-
 "type.waterway.drain.tunnel" = "Drain";
-
 "type.waterway.lock" = "Waterway Lock";
-
 "type.waterway.lock_gate" = "Sluseport";
-
 "type.waterway.river" = "Elv";
-
 "type.waterway.river.tunnel" = "Elv";
-
 "type.waterway.riverbank" = "Elv";
-
 "type.waterway.stream" = "Elv";
-
 "type.waterway.stream.ephemeral" = "Elv";
-
 "type.waterway.stream.intermittent" = "Elv";
-
 "type.waterway.stream.tunnel" = "Elv";
-
 "type.waterway.waterfall" = "Foss";
-
 "type.waterway.weir" = "Weir";
-
 "type.wheelchair" = "Wheelchair";
-
 "type.wheelchair.limited" = "Begrenset tilgang for rullestol";
-
 "type.wheelchair.no" = "Ingen tilgang for rullestol";
-
 "type.wheelchair.yes" = "Full tilgang for rullestol";
-
 "type.piste_lift" = "piste:lift";
-
 "type.piste_lift.j.bar" = "piste:lift-j-bar";
-
 "type.piste_lift.magic_carpet" = "piste:lift-magic_carpet";
-
 "type.piste_lift.platter" = "piste:lift-platter";
-
 "type.piste_lift.rope_tow" = "piste:lift-rope_tow";
-
 "type.piste_lift.t.bar" = "piste:lift-t-bar";
-
 "type.piste_type" = "piste:type";
-
 "type.piste_type.downhill" = "piste:type-downhill";
-
 "type.piste_type.downhill.advanced" = "piste:type-downhill-advanced";
-
 "type.piste_type.downhill.easy" = "piste:type-downhill-easy";
-
 "type.piste_type.downhill.expert" = "piste:type-downhill-expert";
-
 "type.piste_type.downhill.freeride" = "piste:type-downhill-freeride";
-
 "type.piste_type.downhill.intermediate" = "piste:type-downhill-intermediate";
-
 "type.piste_type.downhill.novice" = "piste:type-downhill-novice";
-
 "type.piste_type.nordic" = "piste:type-nordic";
-
 "type.piste_type.sled" = "piste:type-sled";
-
 "type.building_part" = "Bygning";
-
 "type.area_highway.cycleway" = "Bike Path";
-
 "type.area_highway.footway" = "Path";
-
 "type.area_highway.living_street" = "Street";
-
 "type.area_highway.motorway" = "area:highway-motorway";
-
 "type.area_highway.path" = "Path";
-
 "type.area_highway.pedestrian" = "Street";
-
 "type.area_highway.primary" = "Street";
-
 "type.area_highway.residential" = "Street";
-
 "type.area_highway.secondary" = "Street";
-
 "type.area_highway.service" = "Street";
-
 "type.area_highway.tertiary" = "Street";
-
 "type.area_highway.steps" = "Steps";
-
 "type.area_highway.track" = "area:highway-track";
-
 "type.area_highway.trunk" = "area:highway-trunk";
-
 "type.area_highway.unclassified" = "area:highway-unclassified";

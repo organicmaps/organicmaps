@@ -6,6 +6,7 @@
 
 /********** Strings **********/
 
+
 /* Button text (should be short) */
 "back" = "Назад";
 
@@ -17,7 +18,6 @@
 
 /* Button which deletes downloaded country */
 "delete" = "Видалити";
-
 "download_maps" = "Завантажити мапи";
 
 /* Settings/Downloader - info for country when download fails */
@@ -37,7 +37,6 @@
 
 /* Settings/Downloader - size string, only strings different from English should be translated */
 "mb" = "МБ";
-
 "gb" = "ГБ";
 
 /* Choose measurement on first launch alert - choose imperial system button */
@@ -72,31 +71,18 @@
 
 /* Button text for the button under the country_status_download_failed message */
 "try_again" = "Спробуйте ще раз";
-
 "about_menu_title" = "Про програму";
-
 "connection_settings" = "Налаштування підключення";
-
 "close" = "Закрити";
-
 "unsupported_phone" = "Для роботи програми необхідний апаратно прискорений OpenGL. На жаль, ваш пристрій не підтримується.";
-
 "download" = "Завантажити";
-
 "disconnect_usb_cable" = "Вимкніть USB кабель або вставте SD-карту";
-
 "not_enough_free_space_on_sdcard" = "Недостатньо вільного місця на SD карті / в пам'яті пристрою для використання програми";
-
 "not_enough_memory" = "Недостатньо пам'яті для запуску програми";
-
 "download_resources" = "Перш ніж розпочати дозвольте нам завантажити мапу світу на ваш пристрій.\nВона потребує %@ даних.";
-
 "download_resources_continue" = "Перейти на мапу";
-
 "downloading_country_can_proceed" = "Поки завантажується %@\nви можете користуватися програмою.";
-
 "download_country_ask" = "Завантажити %@?";
-
 "update_country_ask" = "Oновити %@?";
 
 /* REMOVE THIS STRING AFTER REFACTORING */
@@ -215,7 +201,6 @@
 
 /* Email Subject when sharing bookmarks category */
 "share_bookmarks_email_subject" = "З вами поділилися мiтками Organic Maps";
-
 "share_bookmarks_email_body" = "Hello!\n\nAttached are my bookmarks from Organic Maps app. Please open them if you have Organic Maps installed. Or, if you don't, download the app for your iOS or Android device by following this link: https://omaps.app/get?kmz\n\nEnjoy traveling with Organic Maps!";
 
 /* message title of loading file */
@@ -280,7 +265,6 @@
 
 /* Length of track in cell that describes route */
 "length" = "Довжина";
-
 "share_my_location" = "Поділитися моїм місцезнаходженням";
 
 /* Settings general group in settings screen */
@@ -288,11 +272,8 @@
 
 /* Settings information group in settings screen */
 "prefs_group_information" = "Information";
-
 "prefs_group_route" = "Навігація";
-
 "pref_zoom_title" = "Кнопки трансфокації";
-
 "pref_zoom_summary" = "Відображення на екрані";
 
 /* Settings «Map» category: «Night style» title */
@@ -327,25 +308,15 @@
 
 /* Settings «Map» category: «Record track» title */
 "pref_track_record_title" = "Недавній маршрут";
-
 "pref_map_auto_zoom" = "Автозум";
-
 "duration_disabled" = "Вимкнуто";
-
 "duration_1_hour" = "1 година";
-
 "duration_2_hours" = "2 години";
-
 "duration_6_hours" = "6 годин";
-
 "duration_12_hours" = "12 годин";
-
 "duration_1_day" = "1 день";
-
 "recent_track_help_text" = "Ця функція дозволяє прокласти подоланий маршрут протягом певного проміжку часу та переглянути його на мапі. Звертаємо вашу увагу, що вмикання цієї функції пришвидшить розрядження акумулятора. Щойно сплине заданий проміжок часу, прокладений маршрут буде видалено з мапи.";
-
 "placepage_distance" = "Відстань";
-
 "search_show_on_map" = "Подивитись на мапі";
 
 /* Text in menu */
@@ -413,15 +384,10 @@
 
 /* Country queued for download */
 "downloader_queued" = "В черзі";
-
 "downloader_near_me_subtitle" = "Поблизу";
-
 "downloader_status_maps" = "Мапи";
-
 "downloader_download_all_button" = "Завантажити всі";
-
 "downloader_downloading" = "Завантажується:";
-
 "downloader_search_results" = "Знайдено";
 
 /* Status of outdated country in the list */
@@ -477,11 +443,8 @@
 
 /* location service disabled */
 "enable_location_services" = "Будь ласка, увімкніть геолокацію";
-
 "save" = "Зберегти";
-
 "edit_description_hint" = "Ваше описання (текст або html)";
-
 "create" = "створити";
 
 /* red color */
@@ -539,70 +502,40 @@
 /********** Routing dialogs strings **********/
 
 "dialog_routing_disclaimer_title" = "Під час руху за маршрутом пам'ятайте:";
-
 "dialog_routing_disclaimer_priority" = "— Дорожня обстановка, правила дорожнього руху і знаки пріоритетніші, ніж поради програми;";
-
 "dialog_routing_disclaimer_precision" = "— Мапа може бути неточною, а запропонований маршрут не завжди оптимальний;";
-
 "dialog_routing_disclaimer_recommendations" = "— Запропоновані маршрути — лише рекомендації;";
-
 "dialog_routing_disclaimer_borders" = "— Дотримуйтеся обережності з маршрутами у прикордонних зонах: маршрути, створені нашою програмою, іноді можуть перетинати кордони країн у несанкціонованих місцях;";
-
 "dialog_routing_disclaimer_beware" = "Будьте уважні на дорогах і бережіть себе!";
-
 "dialog_routing_check_gps" = "Перевірте сигнал GPS";
-
 "dialog_routing_error_location_not_found" = "Маршрут не побудовано. Поточну геопозицію не визначено.";
-
 "dialog_routing_location_turn_wifi" = "Будь ласка, перевірте сигнал GPS. Для покращання точності геопозиції увімкніть Wi-Fi.";
-
 "dialog_routing_location_turn_on" = "Увімкніть режим визначення геопозиції";
-
 "dialog_routing_location_unknown_turn_on" = "Поточну геопозицію не визначено. Для побудови маршруту увімкніть режим визначення геопозиції.";
-
 "dialog_routing_download_files" = "Завантажте необхідні файли";
-
 "dialog_routing_download_and_update_all" = "Для побудови маршруту завантажте і обновіть всі мапи і файли маршрутів на шляху руху.";
-
 "dialog_routing_unable_locate_route" = "Маршрут не знайдено";
-
 "dialog_routing_cant_build_route" = "Не вдалося побудувати маршрут.";
-
 "dialog_routing_change_start_or_end" = "Будь ласка, змініть початкову або кінцеву точку маршруту.";
-
 "dialog_routing_change_start" = "Змініть початкову точку маршруту";
-
 "dialog_routing_start_not_determined" = "Маршрут не побудовано. Не визначено початкову точку маршруту.";
-
 "dialog_routing_select_closer_start" = "Будь ласка, виберіть початкову точку маршруту ближче до дороги.";
-
 "dialog_routing_change_end" = "Змініть кінцеву точку маршруту";
-
 "dialog_routing_end_not_determined" = "Маршрут не побудовано. Не визначено кінцеву точку маршруту.";
-
 "dialog_routing_select_closer_end" = "Будь ласка, виберіть кінцеву точку маршруту ближче до дороги.";
-
 "dialog_routing_change_intermediate" = "Не вдалося знайти місцерозташування проміжної точки.";
-
 "dialog_routing_intermediate_not_determined" = "Будь ласка, вкажіть місцерозташування проміжної точки вручну.";
-
 "dialog_routing_system_error" = "Системна помилка";
-
 "dialog_routing_application_error" = "Не вдалося прокласти маршрут через помилки програми.";
-
 "dialog_routing_try_again" = "Спробуйте знову";
-
 "not_now" = "Не зараз";
-
 "dialog_routing_download_and_build_cross_route" = "Завантажити мапу і побудувати більш оптимальний маршрут з перетином межі мапи?";
-
 "dialog_routing_download_cross_route" = "Для побудови більш оптимального маршруту з перетином межі потрібно завантажити мапу.";
 
 
 /********** Strings for downloading map from search **********/
 
 "search_without_internet_advertisement" = "Щоб розпочати пошук та створення маршрутів, будь ласка, завантажте мапу і вам більше ніколи не знадобиться інтернет-з’єднання.";
-
 "search_select_map" = "Вибрати мапу";
 
 /* «Show» context menu */
@@ -622,96 +555,55 @@
 
 /* Text for routing::RouterResultCode::FileTooOld dialog. */
 "dialog_routing_download_and_update_maps" = "Для створення маршруту, будь ласка, скачайте та обновіть всі карти за ним.";
-
 "rate_alert_title" = "Подобається програма?";
-
 "rate_alert_default_message" = "Дякуємо за використання Organic Maps. Будь ласка, дайте їй оцінку. Ваш відгук допоможе нам стати краще.";
-
 "rate_alert_five_star_message" = "Ура! Ми теж вас любимо!";
-
 "rate_alert_four_star_message" = "Дякуємо, ми зробимо все можливе!";
-
 "rate_alert_less_than_four_star_message" = "Є пропозиції щодо того, як ми можемо її вдосконалити?";
-
 "categories" = "Категорії";
-
 "history" = "Історія";
-
 "closed" = "Зачинено";
-
 "search_not_found" = "На жаль, нічого не знайдено.";
-
 "search_not_found_query" = "Спробуйте змінити запит.";
-
 "search_history_title" = "Історія пошуку";
-
 "search_history_text" = "Швидкий доступ до недавніх результатів пошуку.";
-
 "clear_search" = "Очистити історію пошуку";
 
 /* Place Page link to Wikipedia article (if map object has it). */
 "read_in_wikipedia" = "Wikipedia";
-
 "p2p_your_location" = "Ваше місцезнаходження";
-
 "p2p_start" = "Почати рух";
-
 "p2p_from_here" = "Звідси";
-
 "p2p_to_here" = "Сюди";
-
 "p2p_only_from_current" = "Маршрут можна прокласти лише з поточного місцезнаходження.";
-
 "p2p_reroute_from_current" = "Хочете спланувати маршрут із поточного місцезнаходження?";
 
 /* Edit open hours/set time and minutes dialog */
 "next_button" = "Далі";
-
 "editor_time_add" = "Додати розклад";
-
 "editor_time_delete" = "Видалити розклад";
 
 /* Text for allday switch. */
 "editor_time_allday" = "Весь день (24 години)";
-
 "editor_time_open" = "Відчинено";
-
 "editor_time_close" = "Зачинено";
-
 "editor_time_add_closed" = "Додати перерву";
-
 "editor_time_title" = "Час роботи";
-
 "editor_time_advanced" = "Розширений режим";
-
 "editor_time_simple" = "Простий режим";
-
 "editor_hours_closed" = "Перерва";
-
 "editor_example_values" = "Приклади значень";
-
 "editor_correct_mistake" = "Виправте помилку";
-
 "editor_add_select_location" = "Місцезнаходження";
-
 "editor_done_dialog_1" = "Ви змінили карту світу. Не приховуйте це! Розкажіть своїм друзям і редагуйте разом.";
-
 "share_with_friends" = "Поділитися з друзями";
-
 "editor_report_problem_desription_1" = "Будь-ласка, напишіть детально про проблему, щоб суспільство OpenStreetMap виправило помилку.";
-
 "editor_report_problem_desription_2" = "Або зробіть це самостійно на сайті https://www.openstreetmap.org/";
-
 "editor_report_problem_send_button" = "Надіслати";
-
 "editor_report_problem_title" = "Проблема";
-
 "editor_report_problem_no_place_title" = "Місце не існує";
-
 "editor_report_problem_under_construction_title" = "Зачинено на ремонт";
-
 "editor_report_problem_duplicate_place_title" = "Дубльовані місця";
-
 "autodownload" = "Автоматичне завантаження";
 
 /* Place Page opening hours text */
@@ -719,167 +611,98 @@
 
 /* Place Page opening hours text */
 "daily" = "Щоденно";
-
 "twentyfour_seven" = "Цілодобово";
-
 "day_off_today" = "Сьогодні зачинено";
-
 "day_off" = "Зачинено";
-
 "today" = "Сьогодні";
-
 "add_opening_hours" = "Додати години роботи";
-
 "edit_opening_hours" = "Редагувати години роботи";
-
 "no_osm_account" = "Не зареєстровані в OpenStreetMap?";
-
 "register_at_openstreetmap" = "Зареєструватися";
-
 "password_8_chars_min" = "Пароль (мінімум 8 символів)";
-
 "invalid_username_or_password" = "Невірне ім'я користувача або пароль.";
-
 "login" = "Увійти";
-
 "password" = "Пароль";
-
 "forgot_password" = "Забули пароль?";
-
 "osm_account" = "Обліковий запис OSM";
-
 "logout" = "Вийти";
 
 /* Information text: "Last upload 11.01.2016" */
 "last_upload" = "Остання вiдправка";
-
 "thank_you" = "Дякуємо";
-
 "edit_place" = "Редагувати місце";
-
 "place_name" = "Назва";
-
 "add_language" = "Додати мову";
-
 "street" = "Вулиця";
 
 /* Editable House Number text field (in address block). */
 "house_number" = "Номер будинку";
-
 "details" = "Детальніше";
 
 /* Text field to enter non-existing street name, below list of known streets around */
 "add_street" = "Додати вулицю";
-
 "choose_language" = "Вибрати мову";
-
 "choose_street" = "Вибрати вулицю";
-
 "postal_code" = "Поштовий індекс";
-
 "cuisine" = "Кухня";
-
 "select_cuisine" = "Вибрати кухню";
 
 /* login text field */
 "email_or_username" = "Ел. пошта або ім'я користувача";
-
 "phone" = "Телефон";
-
 "editor_add_phone" = "Add Phone";
-
 "please_note" = "Будь ласка, зверніть увагу";
-
 "downloader_delete_map_dialog" = "Разом з мапою будуть видалені й внесені Вами правки на цій мапі.";
-
 "downloader_update_maps" = "Оновити мапи";
-
 "downloader_mwm_migration_dialog" = "Для побудови маршруту необхідно оновити усі мапи та побудувати маршрут заново.";
-
 "downloader_search_field_hint" = "Знайти мапу";
-
 "migration_download_error_dialog" = "Помилка завантаження";
-
 "common_check_internet_connection_dialog" = "Будь ласка, перевірте свої налаштування і переконайтеся, що ваш пристрій підлючено до Інтернету.";
-
 "downloader_no_space_title" = "Недостатньо місця";
-
 "downloader_no_space_message" = "Видаліть непотрібні дані";
-
 "editor_login_error_dialog" = "Виникла помилка при авторизації.";
-
 "editor_profile_changes" = "Виправлення, що ураховані";
-
 "editor_focus_map_on_location" = "Потягніть мапу, щоб вибрати правильне місцезнаходження об’єкту.";
-
 "editor_add_select_category" = "Вибрати категорію";
-
 "editor_add_select_category_popular_subtitle" = "Популярні";
-
 "editor_add_select_category_all_subtitle" = "Усі категорії";
-
 "editor_edit_place_title" = "Редагування";
-
 "editor_add_place_title" = "Додовання";
-
 "editor_edit_place_name_hint" = "Назва місця";
-
 "editor_edit_place_category_title" = "Категорія";
-
 "detailed_problem_description" = "Детальний опис проблеми";
-
 "editor_report_problem_other_title" = "Інші проблема";
-
 "placepage_add_business_button" = "Додати організацію";
-
 "whatsnew_editor_message_1" = "Додати нові місця до мапи і редагувати існуючі місця прямо з програми.";
-
 "dialog_incorrect_feature_position" = "Змініть розташування";
-
 "message_invalid_feature_position" = "Об'єкт не може перебувати в цьому місцезнаходженні";
-
 "login_to_make_edits_visible" = "Увійдіть, щоб ваші зміни побачили інші користувачі.";
 
 /* Error dialog no space */
 "migration_no_space_message" = "Для завантаження потрібно більше вільного місця. Будь ласка, видаліть непотрібні дані.";
-
 "editor_sharing_title" = "Я покращив мапи Organic Maps";
 
 /* Downloaded 10 **of** 20 <- it is that "of" */
 "downloader_of" = "%1$d з %2$d";
-
 "download_over_mobile_header" = "Завантажити за допомогою мобільної мережі?";
-
 "download_over_mobile_message" = "Це може бути задорого за деякими планами або за умовами роумінгу.";
-
 "error_enter_correct_house_number" = "Введіть правильний номер будинку";
-
 "editor_storey_number" = "Кількість поверхів (максимум %d)";
 
 /* Error message in Editor when a user tries to set the number of floors for a building higher than 25 */
 "error_enter_correct_storey_number" = "Редагуйте будівлі висотою максимум 25 поверхів";
-
 "editor_zip_code" = "Поштовий індекс";
-
 "error_enter_correct_zip_code" = "Введіть коректний поштовий індекс";
 
 /* Place Page title for long tap */
 "core_placepage_unknown_place" = "Невідоме місце";
-
 "editor_other_info" = "Надіслати нотатку редакторам OSM";
-
 "editor_detailed_description_hint" = "Докладний коментар";
-
 "editor_detailed_description" = "Зміни, що ви запропонували, буде відправлено до OpenStreetMap. Опишіть подробиці про об'єкт, які не можна редагувати у Organic Maps.";
-
 "editor_more_about_osm" = "Більше про OpenStreetMap";
-
 "editor_operator" = "Власник";
-
 "downloader_my_maps_title" = "Мої мапи";
-
 "downloader_no_downloaded_maps_title" = "Ви не маєте завантажених мап";
-
 "downloader_no_downloaded_maps_message" = "Завантажте необхідні мапи, щоб знаходити місця та користуватися навігацією без iнтернету.";
 
 /* Error title that appears after certain time without location. */
@@ -887,93 +710,52 @@
 
 /* Error that appears after certain time without location. */
 "current_location_unknown_message" = "Місцезнаходження не знайдено. Можливо, ви знаходитесь у приміщенні або тунелі.";
-
 "current_location_unknown_continue_button" = "Продовжити";
-
 "current_location_unknown_stop_button" = "Зупинити";
-
 "current_location_unknown_error_title" = "Місцезнаходження не знайдено.";
-
 "current_location_unknown_error_message" = "Під час пошуку місцезнаходження сталася невідома помилка. Перевірте працездатність пристрою та спробуйте відшукати місцеположення пізніше.";
-
 "location_services_disabled_header" = "Ідентифікацію місцезнаходження відключено";
-
 "location_services_disabled_message" = "Увімкніть доступ до геолокації в налаштуваннях цього пристрою";
-
 "location_services_disabled_1" = "1. Відкрийте «Налаштування»";
-
 "location_services_disabled_2" = "2. Клацніть «Місцезнаходження»";
 
 /* iOS Dialog for the case when the location permission is not granted */
 "location_services_disabled_3" = "3. Оберіть \"Під час роботи програми\"";
-
 "meter" = "м";
-
 "kilometer" = "км";
-
 "kilometers_per_hour" = "км/год";
-
 "mile" = "ми";
-
 "foot" = "фут";
-
 "miles_per_hour" = "ми/год";
-
 "hour" = "год";
-
 "minute" = "хв";
-
 "placepage_place_description" = "Опис";
-
 "placepage_more_button" = "Ще";
-
 "placepage_more_reviews_button" = "Ще відгуки";
-
 "book_button" = "Забронювати";
-
 "placepage_call_button" = "Подзвонити";
-
 "placepage_edit_bookmark_button" = "Редагувати мiтку";
-
 "placepage_bookmark_name_hint" = "Назва мiтки";
-
 "placepage_personal_notes_hint" = "Примітка";
-
 "placepage_delete_bookmark_button" = "Видалити мiтку";
-
 "editor_edits_sent_message" = "Зміни, що ви запропонували, відправлено";
-
 "editor_comment_hint" = "Коментар…";
-
 "editor_reset_edits_message" = "Скинути всі локальні виправлення?";
-
 "editor_reset_edits_button" = "Скинути";
-
 "editor_remove_place_message" = "Видалити об'єкт, що ви додали?";
-
 "editor_remove_place_button" = "Видалити";
-
 "editor_place_doesnt_exist" = "Місце не існує";
-
 "text_more_button" = "…більше";
 
 /* Phone number error message */
 "error_enter_correct_phone" = "Введіть правильний номер телефону";
-
 "error_enter_correct_web" = "Введіть вірну адресу веб-сайту";
-
 "error_enter_correct_email" = "Введіть вірну адресу електронної пошти";
-
 "error_enter_correct_facebook_page" = "Введіть вірну веб-адресу Facebook сторінки або і'мя користувача";
-
 "error_enter_correct_instagram_page" = "Введіть вірну веб-адресу Instagram сторінки або і'мя користувача";
-
 "error_enter_correct_twitter_page" = "Введіть вірну веб-адресу Twitter сторінки або і'мя користувача";
-
 "error_enter_correct_vk_page" = "Введіть вірну веб-адресу VK сторінки або і'мя користувача";
-
 "refresh" = "Оновити";
-
 "placepage_add_place_button" = "Додати на мапу";
 
 /* Displayed when saving some edits to the map to warn against publishing personal data */
@@ -981,19 +763,15 @@
 
 /* iOS Dialog before publishing the modifications to the public map. */
 "editor_share_to_all_dialog_message_1" = "Переконайтеся, що ви не ввели особисті дані.";
-
 "editor_share_to_all_dialog_message_2" = "Якщо при перевірці змін виникнуть питання, ми напишемо вам на email.";
-
 "navigation_stop_button" = "стоп";
 
 /* iOS dialog for the case when recent track recording is on and the app comes back from background */
 "recent_track_background_dialog_title" = "Вимкнути запис нещодавно пройденого шляху?";
-
 "off_recent_track_background_button" = "Вимкнути";
 
 /* For sharing via SMS and so on */
 "sharing_call_action_look" = "Подивись,";
-
 "recent_track_background_dialog_message" = "Organic Maps використовує вашу геопозицію у фоновому режимі для запису нещодавно пройденого шляху.";
 
 /* Rate on Google Play (Android only) */
@@ -1007,7 +785,6 @@
 
 /* About short text (below logo) */
 "about_description" = "Organic Maps — це додаток must-have для мандрівників. У Organic Maps використовуються офлайн-дані OpenStreetMap, які можна редагувати.";
-
 "general_settings" = "Загальні налаштування";
 
 /* For the first routing */
@@ -1018,27 +795,16 @@
 
 /* noun */
 "search_in_table" = "Список";
-
 "mobile_data_dialog" = "Використовувати мобільні дані для перегляду докладної інформації?";
-
 "mobile_data_option_always" = "Завжди";
-
 "mobile_data_option_today" = "Тільки сьогодні";
-
 "mobile_data_option_not_today" = "За винятком сьогодні";
-
 "mobile_data" = "Мобільні дані";
-
 "mobile_data_description" = "Використання мобільних даних необхідно для відображення докладної інформації про місця (наприклад, фотографій, цін та відгуків).";
-
 "mobile_data_option_never" = "Ніколи";
-
 "mobile_data_option_ask" = "Завжди питати";
-
 "traffic_update_maps_text" = "Для відображення інформації про трафік необхідно оновити мапи.";
-
 "big_font" = "Збільшити розмір шрифту на мапі";
-
 "traffic_update_app" = "Будь ласка, встановіть оновлення Organic Maps";
 
 /* "traffic" as in road congestion */
@@ -1046,284 +812,149 @@
 
 /* "traffic" as in "road congestion" */
 "traffic_data_unavailable" = "Дані про трафік недоступні";
-
 "enable_logging" = "Включити логіювання";
 
 /* Settings: "Send general feedback" button */
 "feedback_general" = "Загальний відгук";
-
 "on" = "Увімкн.";
-
 "off" = "Вимкн.";
-
 "prefs_languages_information" = "Для озвучування голосових інструкцій ми використовуємо систему TTS. Більшість Android-пристроїв підтримують систему Google TTS. Для завантаження або оновлення перейдіть до магазину Google Play (https://play.google.com/store/apps/details?id=com.google.android.tts)";
-
 "prefs_languages_information_off" = "Для деяких мов вам знадобиться встановити інший додаток для синтезу мовлення або додатковий мовний пакет з магазину додатків (Google Play Market, Samsung Apps).\nВідкрийте налаштування пристрою → Мови та введення → Мовлення → Синтез мовлення.\nТут ви можете здійснювати управління налаштуваннями синтезу мовлення (наприклад, завантажити мовний пакет для використання офлайн) або вибрати інший програмний рушій для синтезу мовлення.";
-
 "prefs_languages_information_off_link" = "Додаткову інформацію див. у цьому керівництві.";
-
 "transliteration_title" = "Транслітерація латинськими літерами";
-
 "learn_more" = "Докладніше";
-
 "core_exit" = "Вихід";
-
 "routing_add_start_point" = "Вкажіть початкову точку для побудови маршруту";
-
 "routing_add_finish_point" = "Вкажіть кінцеву точку для побудови маршруту";
-
 "button_exit" = "Вихід";
-
 "planning_route_manage_route" = "Редагування маршруту";
-
 "button_plan" = "Прокласти маршрут";
-
 "placepage_remove_stop" = "Видалити";
-
 "planning_route_remove_title" = "Перетягніть сюди, щоб видалити";
-
 "placepage_add_stop" = "Додати зупинку";
-
 "start_from_my_position" = "Почати з";
-
 "profile_authorization_error" = "Ой, трапилася помилка. Спробуйте увійти знову.";
-
 "dialog_error_storage_title" = "Не вдалося отримати доступ до сховища";
-
 "dialog_error_storage_message" = "Зовнішнє сховище не доступно. Ймовірно, SD-картку пам'яті було вилучено, пошкоджено, або система файлів доступна тільки для читання. Будь ласка, перевірте та зв'яжіться з нами, написавши на адресу електронну пошту support@organicmaps.app";
-
 "setting_emulate_bad_storage" = "Емулювати проблемне сховище";
-
 "core_entrance" = "Вхід";
-
 "error_enter_correct_name" = "Будь ласка, введіть коректне ім'я";
-
 "bookmarks_groups" = "Списки";
-
 "bookmarks_groups_hide_all" = "Приховати всі";
-
 "bookmarks_groups_show_all" = "Показати всі";
-
 "bookmarks_create_new_group" = "Створити новий список";
 
 /* Bookmark categories screen */
 "bookmarks_import" = "Import bookmarks";
-
 "downloader_hide_screen" = "Приховати екран";
-
 "downloader_percent" = "%s (%s з %s)";
-
 "downloader_process" = "Завантаження %s…";
-
 "downloader_applying" = "Застосування %s…";
-
 "bookmarks_error_message_share_general" = "Неможливо поділитися через помилку програми";
-
 "bookmarks_error_title_share_empty" = "Помилка обміну";
-
 "bookmarks_error_message_share_empty" = "Неможливо поділитися пустим списком";
-
 "bookmarks_error_title_empty_list_name" = "Ім'я не може бути порожнім";
-
 "bookmarks_error_message_empty_list_name" = "Будь ласка, введіть назву списку";
-
 "bookmarks_new_list_hint" = "Новий список";
-
 "bookmarks_error_title_list_name_already_taken" = "Це ім'я вже зайнято";
-
 "bookmarks_error_message_list_name_already_taken" = "Виберіть інше ім'я";
-
 "bookmarks_error_title_list_name_too_long" = "Це ім'я задовге";
-
 "please_wait" = "Будь ласка, зачекайте…";
-
 "phone_number" = "Номер телефону";
-
 "profile" = "Профіль OpenStreetMap";
-
 "bookmarks_detect_title" = "Виявлено нові файли";
-
 "button_convert" = "Конвертувати";
-
 "bookmarks_convert_error_title" = "Помилка";
-
 "bookmarks_convert_error_message" = "Деякі файли не конвертувалися.";
-
 "bookmarks_restore_title" = "Відновити цю версію?";
-
 "common_check_internet_connection_dialog_title" = "Нема інтернет з'єднання";
-
 "error_system_message" = "Виникла невідома помилка";
-
 "restore" = "Відновити";
-
 "subtittle_opt_out" = "Налаштування супроводу";
-
 "crash_reports" = "Звіти про помилки";
-
 "crash_reports_description" = "Ми можемо використовувати ваші дані, щоб розвивати та покращувати Organic Maps. Зміни вступлять у силу після перезапуску програми";
-
 "privacy_policy" = "Політика конфіденційності";
-
 "terms_of_use" = "Умови використання";
-
 "button_layer_traffic" = "Затор";
-
 "button_layer_subway" = "Метрополітен";
-
 "layers_title" = "Зображення мапи";
-
 "subway_data_unavailable" = "Мапа метрополітену недоступна";
-
 "bookmarks_empty_list_title" = "Список порожній";
-
 "bookmarks_empty_list_message" = "Щоб додати нову позначку, натисніть на значок зірочки в картці об’єкта";
-
 "category_desc_more" = "…ще";
-
 "title_error_downloading_bookmarks" = "Виникла помилка";
-
 "popular_place" = "Popular";
-
 "export_file" = "Експортувати файл";
-
 "list_settings" = "Налаштування списку";
-
 "delete_list" = "Видалити список";
-
 "hide_from_map" = "Приховати з карти";
-
 "public_access" = "Публічний доступ";
-
 "limited_access" = "Приватний доступ";
-
 "bookmark_category_name" = "Категорія";
-
 "bookmark_category_description_hint" = "Додайте опис (текст чи html)";
-
 "not_shared" = "Особистий";
-
 "tags_loading_error_subtitle" = "Під час завантаження тегів сталася помилка, будь ласка, спробуйте ще раз";
-
 "download_button" = "Завантажити";
-
 "speedcams_alert_title" = "Камери швидкості";
-
 "speedcam_option_auto" = "Авто";
-
 "speedcam_option_always" = "Завжди";
-
 "speedcam_option_never" = "Ніколи";
-
 "place_description_title" = "Опис місця";
 
 /* this text will be shown in application notification preferences opposite checkbox which enable/disable downloader notifications. Devices on Android 8+ are affected. */
 "notification_channel_downloader" = "Завантаження мап";
-
 "speedcams_notice_message" = "Авто - Попереджати про камери швидкості, якщо є ризик перевищення швидкісного ліміту\nЗавжди - Завжди попереджати про камери\nНіколи - Ніколи не попереджати про камери";
-
 "power_managment_title" = "Режим енергозбереження";
-
 "power_managment_description" = "Якщо увімкнено режим енергозбереження, додаток буде відключати енерговитратні функції в залежності від поточного заряду телефону";
-
 "power_managment_setting_never" = "Ніколи";
-
 "power_managment_setting_auto" = "Автоматично";
-
 "power_managment_setting_manual_max" = "Максимальне енергозбереження";
-
 "enable_logging_warning_message" = "Дана опція вмикається для логування дій з метою діагностики. Це допомагає команді виявити проблеми з додатком. Тимчасово включайте цю настройку тільки для відправки детальної інформації про знайдену вами проблему в додатку.";
-
 "access_rules_author_only" = "Редагується онлайн";
-
 "driving_options_title" = "Налаштування об’їзду";
-
 "driving_options_subheader" = "Уникати в кожному маршруті";
-
 "avoid_tolls" = "Платні дороги";
-
 "avoid_unpaved" = "Ґрунтові дороги";
-
 "avoid_ferry" = "Поромні переправи";
-
 "avoid_motorways" = "Магістралі";
-
 "unable_to_calc_alert_title" = "Неможливо побудувати маршрут";
-
 "unable_to_calc_alert_subtitle" = "На жаль, ми не змогли побудувати маршрут з вибраними опціями. Змініть налаштування та спробуйте ще раз";
-
 "define_to_avoid_btn" = "Налаштувати шляхи об’їзду";
-
 "change_driving_options_btn" = "Увімкнено налаштування об’їзду";
-
 "toll_road" = "Платна дорога";
-
 "unpaved_road" = "Ґрунтова дорога";
-
 "ferry_crossing" = "Поромна переправа";
-
 "avoid_toll_roads_placepage" = "Уникати платних доріг";
-
 "avoid_unpaved_roads_placepage" = "Уникати ґрунтових доріг";
-
 "avoid_ferry_crossing_placepage" = "Уникати поромних переправ";
-
 "trip_start" = "Поїхали";
-
 "pick_destination" = "Ціль";
-
 "follow_my_position" = "Відцентрувати";
-
 "search_results" = "Результати пошуку";
-
 "then_turn" = "Далі";
-
 "redirect_route_alert" = "Бажаєте перебудувати маршрут?";
-
 "redirect_route_yes" = "Так";
-
 "redirect_route_no" = "Ні";
-
 "trip_finished" = "Ви прибули!";
-
 "keyboard_availability_alert" = "Клавіатура недоступна під час руху";
-
 "dialog_routing_change_start_carplay" = "Неможливо побудувати маршрут від поточного місця розташування";
-
 "dialog_routing_change_end_carplay" = "Неможливо побудувати маршрут до кінцевої точки. Оберіть іншу";
-
 "dialog_routing_check_gps_carplay" = "Немає сигналу GPS. Перейдіть на відкриту місцевість";
-
 "dialog_routing_unable_locate_route_carplay" = "Неможливо побудувати маршрут. Оберіть інші точки маршруту";
-
 "dialog_routing_download_files_carplay" = "Щоб побудувати маршрут, завантажте відсутні карти на своєму пристрої";
-
 "dialog_routing_system_error_carplay" = "Виникла помилка. Перезапустіть додаток";
-
 "dialog_routing_rebuild_from_current_location_carplay" = "Маршрут буде перебудовано від вашого поточного місця розташування";
-
 "dialog_routing_rebuild_for_vehicle_carplay" = "Маршрут буде змінено на автомобільний";
-
 "ok" = "Ок";
-
 "avoid_unpaved_carplay_1" = "Без ґрунт.";
-
 "avoid_unpaved_carplay_2" = "Без ґрунтових";
-
 "avoid_ferry_carplay_1" = "Без поромів";
-
 "avoid_ferry_carplay_2" = "Без поромів";
-
 "avoid_tolls_carplay_1" = "Без платних";
-
 "avoid_tolls_carplay_2" = "Без платних";
-
 "speedcams_alert_title_carplay_1" = "Камери";
-
 "speedcams_alert_title_carplay_2" = "Інфо о камерах";
-
 "download_map_carplay" = "Завантажте карти в додатку Organic Maps на своєму пристрої";
-
 "carplay_roundabout_exit" = "%s з’їзд";
 
 /* max. 10 symbols, both iOS and Android */
@@ -1334,11 +965,8 @@
 
 /* iOS */
 "sort_default" = "Сортувати за промовчанням";
-
 "sort_type" = "Сортувати за типом";
-
 "sort_distance" = "Сортувати за відстанню";
-
 "sort_date" = "Сортувати за датою";
 
 /* Android */
@@ -1352,103 +980,54 @@
 
 /* Android */
 "by_date" = "За датою";
-
 "week_ago_sorttype" = "Тиждень тому";
-
 "month_ago_sorttype" = "Місяць тому";
-
 "moremonth_ago_sorttype" = "Понад місяць тому";
-
 "moreyear_ago_sorttype" = "Понад рік тому";
-
 "near_me_sorttype" = "Поруч зі мною";
-
 "others_sorttype" = "Інші";
-
 "food_places" = "Їжа";
-
 "tourist_places" = "Пам’ятки";
-
 "museums" = "Музеї";
-
 "parks" = "Парки";
-
 "swim_places" = "Плавання";
-
 "mountains" = "Гори";
-
 "animals" = "Тварини";
-
 "hotels" = "Готелі";
-
 "buildings" = "Будівлі";
-
 "money" = "Гроші";
-
 "shops" = "Магазини";
-
 "parkings" = "Парковки";
-
 "fuel_places" = "Заправки";
-
 "water" = "Вода";
-
 "medicine" = "Медицина";
-
 "search_in_the_list" = "Шукати в списку";
-
 "religious_places" = "Святі місця";
-
 "select_list" = "Обрати список";
-
 "transit_not_found" = "Навігація на метро ще недоступна в цьому регіоні";
-
 "dialog_pedestrian_route_is_long_header" = "Маршрут метро не знайдено";
-
 "dialog_pedestrian_route_is_long_message" = "Виберіть початкову чи кінцеву точку маршруту ближче до станції метро";
-
 "button_layer_isolines" = "Висоти";
-
 "isolines_activation_error_dialog" = "Щоб скористатися лініями висот, оновіть чи завантажте карту потрібної місцевості";
-
 "isolines_location_error_dialog" = "Лінії висот ще недоступні в цьому регіоні";
-
 "elevation_profile_diff_level" = "Рівень складності";
-
 "elevation_profile_diff_level_easy" = "Простий";
-
 "elevation_profile_diff_level_moderate" = "Помірний";
-
 "elevation_profile_diff_level_hard" = "Складний";
-
 "elevation_profile_ascent" = "Підйом";
-
 "elevation_profile_descent" = "Спуск";
-
 "elevation_profile_minaltitude" = "Мін. висота";
-
 "elevation_profile_maxaltitude" = "Макс. висота";
-
 "elevation_profile_difficulty" = "Складність";
-
 "elevation_profile_distance" = "Відст.:";
-
 "elevation_profile_time" = "Шлях:";
-
 "isolines_toast_zooms_1_10" = "Збільште мапу, щоб побачити ізолінії";
-
 "downloader_updating_ios" = "Оновлення";
-
 "downloader_loading_ios" = "Завантаження";
-
 "key_information_title" = "Ключова інформація";
-
 "download_map_title" = "Download the world map";
-
 "connection_failure" = "Connection failure";
-
 "disconnect_usb_cable_title" = "Disconnect USB cable";
-
 "enable_screen_sleep" = "Дозволити екрану вимкнутись";
 
 /* Description in preferences */
@@ -1482,1781 +1061,892 @@
 /********** Types **********/
 
 "type.aerialway" = "Aerialway";
-
 "type.aerialway.cable_car" = "Aerialway";
-
 "type.aerialway.chair_lift" = "Aerialway";
-
 "type.aerialway.drag_lift" = "Aerialway";
-
 "type.aerialway.gondola" = "Aerialway";
-
 "type.aerialway.mixed_lift" = "Aerialway";
-
 "type.aerialway.station" = "Канатна дорога";
-
 "type.aeroway" = "Aeroway";
-
 "type.aeroway.aerodrome" = "Аеропорт";
-
 "type.aeroway.aerodrome.international" = "Аеропорт";
-
 "type.aeroway.apron" = "aeroway-apron";
-
 "type.aeroway.gate" = "Gate";
-
 "type.aeroway.helipad" = "Майданчик для гелікоптерів";
-
 "type.aeroway.runway" = "aeroway-runway";
-
 "type.aeroway.taxiway" = "aeroway-taxiway";
-
 "type.aeroway.terminal" = "Terminal";
-
 "type.amenity" = "Об’єкти інфраструктури";
-
 "type.amenity.arts_centre" = "Центр мистецтв";
-
 "type.amenity.atm" = "Банкомат";
-
 "type.amenity.bank" = "Банк";
-
 "type.amenity.bar" = "Бар";
-
 "type.amenity.bbq" = "Пікнік";
-
 "type.amenity.bench" = "Лавка";
-
 "type.amenity.bicycle_parking" = "Велостоянка";
-
 "type.amenity.bicycle_rental" = "Велопрокат";
-
 "type.amenity.biergarten" = "Пивна під відкритим небом";
-
 "type.amenity.brothel" = "Бордель";
-
 "type.amenity.bureau_de_change" = "Обмін валют";
-
 "type.amenity.bus_station" = "Автовокзал";
-
 "type.amenity.cafe" = "Кафе";
-
 "type.amenity.car_rental" = "Прокат авто";
-
 "type.amenity.car_sharing" = "Каршерінг";
-
 "type.amenity.car_wash" = "Автомийна";
-
 "type.amenity.casino" = "Казино";
-
 "type.amenity.charging_station" = "Зарядна станція";
-
 "type.amenity.childcare" = "Дитяча кімната";
-
 "type.amenity.cinema" = "Кіно";
-
 "type.amenity.clinic" = "Поліклініка";
-
 "type.amenity.college" = "Коледж";
-
 "type.amenity.community_centre" = "Центр культури та дозвілля, Дім культури";
-
 "type.amenity.courthouse" = "Суд";
-
 "type.amenity.dentist" = "Стоматолог";
-
 "type.amenity.doctors" = "Лікар";
-
 "type.amenity.drinking_water" = "Питна вода";
-
 "type.amenity.driving_school" = "Автошкола";
-
 "type.office.diplomatic" = "Посольство";
-
 "type.amenity.fast_food" = "Фастфуд";
-
 "type.amenity.ferry_terminal" = "Пором";
-
 "type.amenity.fire_station" = "Пожежна частина";
-
 "type.amenity.food_court" = "Food Court";
-
 "type.amenity.fountain" = "Фонтан";
-
 "type.amenity.fuel" = "Заправка";
-
 "type.amenity.grave_yard" = "Цвинтар";
-
 "type.amenity.grave_yard.christian" = "Цвинтар";
-
 "type.amenity.hospital" = "Лікарня";
-
 "type.amenity.hunting_stand" = "Мисливська башта";
-
 "type.amenity.ice_cream" = "Кіоск з морозивом";
-
 "type.amenity.internet_cafe" = "Інтернет-кафе";
-
 "type.amenity.kindergarten" = "Дитячий садок";
-
 "type.amenity.library" = "Бібліотека";
-
 "type.amenity.marketplace" = "Ринок";
-
 "type.amenity.motorcycle_parking" = "Парковка для мотоциклів";
-
 "type.amenity.nightclub" = "Нічний клуб";
-
 "type.amenity.nursing_home" = "Будинок для людей похилого віку";
-
 "type.amenity.parking" = "Парковка";
-
 "type.amenity.parking.fee" = "Парковка";
-
 "type.amenity.parking.multi.storey" = "Парковка";
-
 "type.amenity.parking.no.access" = "Парковка";
-
 "type.amenity.parking.park_and_ride" = "Парковка";
-
 "type.amenity.parking.permissive" = "Парковка";
-
 "type.amenity.parking.private" = "Парковка";
-
 "type.amenity.parking.underground" = "Парковка";
-
 "type.amenity.parking_space" = "Паркувальне місце";
-
 "type.amenity.parking_space.permissive" = "Паркувальне місце";
-
 "type.amenity.parking_space.private" = "Паркувальне місце";
-
 "type.amenity.parking_space.underground" = "Паркувальне місце";
-
 "type.amenity.payment_terminal" = "Платіжний термінал";
-
 "type.amenity.pharmacy" = "Аптека";
-
 "type.amenity.place_of_worship" = "Храм";
-
 "type.amenity.place_of_worship.buddhist" = "Храм";
-
 "type.amenity.place_of_worship.christian" = "Церква";
-
 "type.amenity.place_of_worship.hindu" = "Храм";
-
 "type.amenity.place_of_worship.jewish" = "Синагога";
-
 "type.amenity.place_of_worship.muslim" = "Мечеть";
-
 "type.amenity.place_of_worship.shinto" = "Святиня";
-
 "type.amenity.place_of_worship.taoist" = "Храм";
-
 "type.amenity.police" = "Міліція";
-
 "type.amenity.post_box" = "Поштова скринька";
-
 "type.amenity.post_office" = "Поштове відділення";
-
 "type.amenity.prison" = "Prison";
-
 "type.amenity.pub" = "Паб";
-
 "type.amenity.public_bookcase" = "Книги";
-
 "type.amenity.recycling" = "Прийом вторсировини";
-
 "type.amenity.recycling_container" = "Контейнер для вторсировини";
-
 "type.recycling.toxic" = "Отруйні відходи";
-
 "type.recycling.clothes" = "Старий одяг";
-
 "type.recycling.glass_bottles" = "Склотара";
-
 "type.recycling.paper" = "Макулатура";
-
 "type.recycling.plastic" = "Пластикове сміття";
-
 "type.recycling.plastic_bottles" = "Збір пластикових пляшок";
-
 "type.recycling.scrap_metal" = "Металобрухт";
-
 "type.recycling.small_appliances" = "Електровідходи";
-
 "type.amenity.restaurant" = "Ресторан";
-
 "type.amenity.school" = "Школа";
-
 "type.amenity.shelter" = "Укриття";
-
 "type.amenity.shower" = "Душ";
-
 "type.amenity.taxi" = "Таксі";
-
 "type.amenity.telephone" = "Телефон";
-
 "type.amenity.theatre" = "Театр";
-
 "type.amenity.toilets" = "Туалет";
-
 "type.amenity.townhall" = "Ратуша";
-
 "type.amenity.university" = "Університет";
-
 "type.amenity.vending_machine" = "Vending Machine";
-
 "type.amenity.vending_machine.cigarettes" = "Автомат з продажу сигарет";
-
 "type.amenity.vending_machine.drinks" = "Автомат з напоями";
-
 "type.amenity.vending_machine.parking_tickets" = "Паркомат";
-
 "type.amenity.vending_machine.public_transport_tickets" = "Автомат з продажу квитків на громадський транспорт";
-
 "type.amenity.veterinary" = "Ветеринарна клініка";
-
 "type.amenity.waste_basket" = "Бак для сміття";
-
 "type.amenity.waste_disposal" = "Сміттєвий контейнер";
-
 "type.amenity.water_point" = "Пункт постачання води";
-
 "type.barrier" = "Barrier";
-
 "type.barrier.block" = "Блок";
-
 "type.barrier.bollard" = "Стовпчик";
-
 "type.barrier.border_control" = "Прикордонний контроль";
-
 "type.barrier.chain" = "Ланцюг";
-
 "type.barrier.city_wall" = "City Wall";
-
 "type.barrier.cycle_barrier" = "Cycle Barrier";
-
 "type.barrier.entrance" = "Прохід";
-
 "type.barrier.fence" = "Fence";
-
 "type.barrier.gate" = "Ворота";
-
 "type.barrier.hedge" = "Hedge";
-
 "type.barrier.lift_gate" = "Шлагбаум";
-
 "type.barrier.retaining_wall" = "Retaining Wall";
-
 "type.barrier.stile" = "Перелаз";
-
 "type.barrier.swing_gate" = "Шлагбаум";
-
 "type.barrier.toll_booth" = "Пункт оплати";
-
 "type.barrier.wall" = "Wall";
-
 "type.boundary" = "Boundary";
-
 "type.boundary.administrative" = "boundary-administrative";
-
 "type.boundary.administrative.10" = "boundary-administrative-10";
-
 "type.boundary.administrative.11" = "boundary-administrative-11";
-
 "type.boundary.administrative.2" = "boundary-administrative-2";
-
 "type.boundary.administrative.3" = "boundary-administrative-3";
-
 "type.boundary.administrative.4" = "boundary-administrative-4";
-
 "type.boundary.administrative.4.state" = "boundary-administrative-4-state";
-
 "type.boundary.administrative.5" = "boundary-administrative-5";
-
 "type.boundary.administrative.6" = "boundary-administrative-6";
-
 "type.boundary.administrative.7" = "boundary-administrative-7";
-
 "type.boundary.administrative.8" = "boundary-administrative-8";
-
 "type.boundary.administrative.9" = "boundary-administrative-9";
-
 "type.boundary.administrative.city" = "boundary-administrative-city";
-
 "type.boundary.administrative.country" = "boundary-administrative-country";
-
 "type.boundary.administrative.county" = "boundary-administrative-county";
-
 "type.boundary.administrative.municipality" = "boundary-administrative-municipality";
-
 "type.boundary.administrative.nation" = "boundary-administrative-nation";
-
 "type.boundary.administrative.region" = "boundary-administrative-region";
-
 "type.boundary.administrative.state" = "boundary-administrative-state";
-
 "type.boundary.administrative.suburb" = "boundary-administrative-suburb";
-
 "type.boundary.national_park" = "Національний парк";
-
 "type.building" = "Будівля";
-
 "type.building.address" = "Будівля";
-
 "type.building.garage" = "Гараж";
-
 "type.building.has_parts" = "Будівля";
-
 "type.building.train_station" = "Залізничний вокзал";
-
 "type.building.warehouse" = "Warehouse";
-
 "type.craft" = "Craft";
-
 "type.craft.brewery" = "Пивоварня";
-
 "type.craft.carpenter" = "Столяр";
-
 "type.craft.electrician" = "Електрик";
-
 "type.craft.gardener" = "Садівник";
-
 "type.craft.hvac" = "Кондиціонери";
-
 "type.craft.metal_construction" = "Кування металу";
-
 "type.craft.painter" = "Маляр";
-
 "type.craft.photographer" = "Фотограф";
-
 "type.craft.plumber" = "Сантехнік";
-
 "type.craft.shoemaker" = "Ремонт взуття";
-
 "type.craft.tailor" = "Ательє";
-
 "type.cuisine.african" = "Африканська кухня";
-
 "type.cuisine.american" = "Американська кухня";
-
 "type.cuisine.arab" = "Арабська кухня";
-
 "type.cuisine.argentinian" = "Аргентинська кухня";
-
 "type.cuisine.asian" = "Азіатська кухня";
-
 "type.cuisine.austrian" = "Австрійська кухня";
-
 "type.cuisine.bagel" = "Випічка";
-
 "type.cuisine.balkan" = "Балканська кухня";
-
 "type.cuisine.barbecue" = "Барбекю";
-
 "type.cuisine.bavarian" = "Баварська кухня";
-
 "type.cuisine.beef_bowl" = "Тарілка з яловичиною";
-
 "type.cuisine.brazilian" = "Бразильська кухня";
-
 "type.cuisine.breakfast" = "Сніданки";
-
 "type.cuisine.burger" = "Бургери";
-
 "type.cuisine.buschenschank" = "Домашня таверна (бушеншанк)";
-
 "type.cuisine.cake" = "Кондитерська";
-
 "type.cuisine.caribbean" = "Карибська кухня";
-
 "type.cuisine.chicken" = "Страви з курки";
-
 "type.cuisine.chinese" = "Китайська кухня";
-
 "type.cuisine.coffee_shop" = "Кава";
-
 "type.cuisine.crepe" = "Креп";
-
 "type.cuisine.croatian" = "Сербська кухня";
-
 "type.cuisine.curry" = "Каррі";
-
 "type.cuisine.deli" = "Делікатеси";
-
 "type.cuisine.diner" = "Дайнер";
-
 "type.cuisine.donut" = "Пончики";
-
 "type.cuisine.ethiopian" = "Ефіопська кухня";
-
 "type.cuisine.filipino" = "Філіппінська кухня";
-
 "type.cuisine.fine_dining" = "Ресторан високої кухні";
-
 "type.cuisine.fish" = "Рибний ресторан";
-
 "type.cuisine.fish_and_chips" = "Риба зі смаженою картоплею";
-
 "type.cuisine.french" = "Французька кухня";
-
 "type.cuisine.friture" = "Страви у фритюрі";
-
 "type.cuisine.georgian" = "Грузинська кухня";
-
 "type.cuisine.german" = "Німецька кухня";
-
 "type.cuisine.greek" = "Грецька кухня";
-
 "type.cuisine.grill" = "Гриль";
-
 "type.cuisine.heuriger" = "Винна таверна (хойригер)";
-
 "type.cuisine.hotdog" = "Хот-доги";
-
 "type.cuisine.hungarian" = "Угорська кухня";
-
 "type.cuisine.ice_cream" = "Морозиво";
-
 "type.cuisine.indian" = "Індійська кухня";
-
 "type.cuisine.indonesian" = "Індонезійська кухня";
-
 "type.cuisine.international" = "Міжнародна кухня";
-
 "type.cuisine.irish" = "Ірландська кухня";
-
 "type.cuisine.italian" = "Італійська кухня";
-
 "type.cuisine.italian_pizza" = "Італійська кухня, піцерія";
-
 "type.cuisine.japanese" = "Японська кухня";
-
 "type.cuisine.kebab" = "Кебаби";
-
 "type.cuisine.korean" = "Корейська кухня";
-
 "type.cuisine.lao" = "Лаоська кухня";
-
 "type.cuisine.lebanese" = "Ліванська кухня";
-
 "type.cuisine.local" = "Місцева кухня";
-
 "type.cuisine.malagasy" = "Малагасійська кухня";
-
 "type.cuisine.malaysian" = "Малайзійська кухня";
-
 "type.cuisine.mediterranean" = "Середземноморська кухня";
-
 "type.cuisine.mexican" = "Мексиканська кухня";
-
 "type.cuisine.moroccan" = "Марокканська кухня";
-
 "type.cuisine.noodles" = "Вермішель";
-
 "type.cuisine.oriental" = "Східна кухня";
-
 "type.cuisine.pancake" = "Млинці";
-
 "type.cuisine.pasta" = "Паста";
-
 "type.cuisine.persian" = "Перська кухня";
-
 "type.cuisine.peruvian" = "Перуанська кухня";
-
 "type.cuisine.pizza" = "Піцерія";
-
 "type.cuisine.polish" = "Польська кухня";
-
 "type.cuisine.portuguese" = "Португальська кухня";
-
 "type.cuisine.ramen" = "Рамен";
-
 "type.cuisine.regional" = "Регіональна кухня";
-
 "type.cuisine.russian" = "Російська кухня";
-
 "type.cuisine.sandwich" = "Сандвічі";
-
 "type.cuisine.sausage" = "Сосисочна";
-
 "type.cuisine.savory_pancakes" = "Пікантні оладки";
-
 "type.cuisine.seafood" = "Морська їжа";
-
 "type.cuisine.soba" = "Соба";
-
 "type.cuisine.spanish" = "Іспанська кухня";
-
 "type.cuisine.steak_house" = "Стейк-хаус";
-
 "type.cuisine.sushi" = "Суші";
-
 "type.cuisine.tapas" = "Тапас-бар";
-
 "type.cuisine.tea" = "Чайна";
-
 "type.cuisine.thai" = "Тайська кухня";
-
 "type.cuisine.turkish" = "Турецька кухня";
-
 "type.cuisine.vegan" = "Веганська кухня";
-
 "type.cuisine.vegetarian" = "Вегетаріанська кухня";
-
 "type.cuisine.vietnamese" = "В'єтнамська кухня";
-
 "type.emergency" = "Emergency";
-
 "type.emergency.defibrillator" = "Дефібрилятор";
-
 "type.emergency.fire_hydrant" = "Пожежний кран";
-
 "type.emergency.phone" = "Аварійний телефон";
-
 "type.entrance" = "Вхід";
-
 "type.healthcare.laboratory" = "Медична лабораторія";
-
 "type.highway" = "Highway";
-
 "type.highway.bridleway" = "Rider's Path";
-
 "type.highway.bridleway.bridge" = "Rider's Path";
-
 "type.highway.bridleway.permissive" = "Rider's Path";
-
 "type.highway.bridleway.tunnel" = "Rider's Path";
-
 "type.highway.bus_stop" = "Зупинка";
-
 "type.highway.construction" = "Дорога, що будується";
-
 "type.highway.cycleway" = "Bike Path";
-
 "type.highway.cycleway.bridge" = "Bike Path";
-
 "type.highway.cycleway.permissive" = "Bike Path";
-
 "type.highway.cycleway.tunnel" = "Bike Path";
-
 "type.highway.elevator" = "Elevator";
-
 "type.highway.footway" = "Пішохідна доріжка";
-
 "type.highway.footway.alpine_hiking" = "Пішохідна доріжка";
-
 "type.highway.footway.area" = "Пішохідна доріжка";
-
 "type.highway.footway.bridge" = "Пішохідна доріжка";
-
 "type.highway.footway.demanding_alpine_hiking" = "Пішохідна доріжка";
-
 "type.highway.footway.demanding_mountain_hiking" = "Пішохідна доріжка";
-
 "type.highway.footway.difficult_alpine_hiking" = "Пішохідна доріжка";
-
 "type.highway.footway.hiking" = "Пішохідна доріжка";
-
 "type.highway.footway.mountain_hiking" = "Пішохідна доріжка";
-
 "type.highway.footway.permissive" = "Пішохідна доріжка";
-
 "type.highway.footway.tunnel" = "Пішохідна доріжка";
-
 "type.highway.ford" = "Брід";
-
 "type.highway.living_street" = "Вулиця";
-
 "type.highway.living_street.bridge" = "Вулиця";
-
 "type.highway.living_street.tunnel" = "Вулиця";
-
 "type.highway.motorway" = "Вулиця";
-
 "type.highway.motorway.bridge" = "Вулиця";
-
 "type.highway.motorway.tunnel" = "Вулиця";
-
 "type.highway.motorway_junction" = "З'їзд";
-
 "type.highway.motorway_link" = "Вулиця";
-
 "type.highway.motorway_link.bridge" = "Вулиця";
-
 "type.highway.motorway_link.tunnel" = "Вулиця";
-
 "type.highway.path" = "Пішохідна доріжка";
-
 "type.highway.path.alpine_hiking" = "Пішохідна доріжка";
-
 "type.highway.path.bicycle" = "Пішохідна доріжка";
-
 "type.highway.path.bridge" = "Пішохідна доріжка";
-
 "type.highway.path.demanding_alpine_hiking" = "Пішохідна доріжка";
-
 "type.highway.path.demanding_mountain_hiking" = "Пішохідна доріжка";
-
 "type.highway.path.difficult_alpine_hiking" = "Пішохідна доріжка";
-
 "type.highway.path.hiking" = "Пішохідна доріжка";
-
 "type.highway.path.horse" = "Пішохідна доріжка";
-
 "type.highway.path.mountain_hiking" = "Пішохідна доріжка";
-
 "type.highway.path.permissive" = "Пішохідна доріжка";
-
 "type.highway.path.tunnel" = "Пішохідна доріжка";
-
 "type.highway.pedestrian" = "Вулиця";
-
 "type.highway.pedestrian.area" = "Вулиця";
-
 "type.highway.pedestrian.bridge" = "Вулиця";
-
 "type.highway.pedestrian.tunnel" = "Вулиця";
-
 "type.highway.primary" = "Вулиця";
-
 "type.highway.primary.bridge" = "Вулиця";
-
 "type.highway.primary.tunnel" = "Вулиця";
-
 "type.highway.primary_link" = "Вулиця";
-
 "type.highway.primary_link.bridge" = "Вулиця";
-
 "type.highway.primary_link.tunnel" = "Вулиця";
-
 "type.highway.raceway" = "Автодром";
-
 "type.highway.residential" = "Вулиця";
-
 "type.highway.residential.area" = "Вулиця";
-
 "type.highway.residential.bridge" = "Вулиця";
-
 "type.highway.residential.tunnel" = "Вулиця";
-
 "type.highway.rest_area" = "Зона відпочинку";
-
 "type.highway.road" = "Вулиця";
-
 "type.highway.road.bridge" = "Вулиця";
-
 "type.highway.road.tunnel" = "Вулиця";
-
 "type.highway.secondary" = "Вулиця";
-
 "type.highway.secondary.bridge" = "Вулиця";
-
 "type.highway.secondary.tunnel" = "Вулиця";
-
 "type.highway.secondary_link" = "Вулиця";
-
 "type.highway.secondary_link.bridge" = "Вулиця";
-
 "type.highway.secondary_link.tunnel" = "Вулиця";
-
 "type.highway.service" = "Вулиця";
-
 "type.highway.service.area" = "Вулиця";
-
 "type.highway.service.bridge" = "Вулиця";
-
 "type.highway.service.driveway" = "Вулиця";
-
 "type.highway.service.parking_aisle" = "Вулиця";
-
 "type.highway.service.tunnel" = "Вулиця";
-
 "type.highway.services" = "Service on the Road";
-
 "type.highway.speed_camera" = "Камера безпеки дорожнього руху";
-
 "type.highway.steps" = "Пішохідна доріжка";
-
 "type.highway.steps.bridge" = "Пішохідна доріжка";
-
 "type.highway.steps.tunnel" = "Пішохідна доріжка";
-
 "type.highway.tertiary" = "Вулиця";
-
 "type.highway.tertiary.bridge" = "Вулиця";
-
 "type.highway.tertiary.tunnel" = "Вулиця";
-
 "type.highway.tertiary_link" = "Вулиця";
-
 "type.highway.tertiary_link.bridge" = "Вулиця";
-
 "type.highway.tertiary_link.tunnel" = "Вулиця";
-
 "type.highway.track" = "Вулиця";
-
 "type.highway.track.area" = "Вулиця";
-
 "type.highway.track.bridge" = "Вулиця";
-
 "type.highway.track.grade1" = "Вулиця";
-
 "type.highway.track.grade2" = "Вулиця";
-
 "type.highway.track.grade3" = "Вулиця";
-
 "type.highway.track.grade4" = "Вулиця";
-
 "type.highway.track.grade5" = "Вулиця";
-
 "type.highway.track.no.access" = "Вулиця";
-
 "type.highway.track.permissive" = "Вулиця";
-
 "type.highway.track.tunnel" = "Вулиця";
-
 "type.highway.traffic_signals" = "Світлофор";
-
 "type.highway.trunk" = "Вулиця";
-
 "type.highway.trunk.bridge" = "Вулиця";
-
 "type.highway.trunk.tunnel" = "Вулиця";
-
 "type.highway.trunk_link" = "Вулиця";
-
 "type.highway.trunk_link.bridge" = "Вулиця";
-
 "type.highway.trunk_link.tunnel" = "Вулиця";
-
 "type.highway.unclassified" = "Вулиця";
-
 "type.highway.unclassified.area" = "Вулиця";
-
 "type.highway.unclassified.bridge" = "Вулиця";
-
 "type.highway.unclassified.tunnel" = "Вулиця";
-
 "type.highway.world_level" = "highway-world_level";
-
 "type.highway.world_towns_level" = "highway-world_towns_level";
-
 "type.historic" = "Historic";
-
 "type.historic.archaeological_site" = "Розкопки";
-
 "type.historic.battlefield" = "Battlefield";
-
 "type.historic.boundary_stone" = "Boundary Stone";
-
 "type.historic.castle" = "Замок";
-
 "type.historic.castle.defensive" = "Замок";
-
 "type.historic.castle.stately" = "Замок";
-
 "type.historic.citywalls" = "City Wall";
-
 "type.historic.fort" = "Fort";
-
 "type.historic.memorial" = "Меморіал";
-
 "type.historic.memorial.plaque" = "Меморіал";
-
 "type.historic.memorial.sculpture" = "Меморіал";
-
 "type.historic.memorial.statue" = "Меморіал";
-
 "type.historic.monument" = "Пам'ятник";
-
 "type.historic.ruins" = "Руїни";
-
 "type.historic.ship" = "Пам’ятні місця";
-
 "type.historic.tomb" = "Пам’ятні місця";
-
 "type.historic.wayside_cross" = "Christian Cross";
-
 "type.historic.wayside_shrine" = "Shrine";
-
 "type.hwtag" = "hwtag";
-
 "type.hwtag.bidir_bicycle" = "hwtag-bidir_bicycle";
-
 "type.hwtag.onedir_bicycle" = "hwtag-onedir_bicycle";
-
 "type.hwtag.lit" = "hwtag-lit";
-
 "type.hwtag.nobicycle" = "hwtag-nobicycle";
-
 "type.hwtag.nocar" = "hwtag-nocar";
-
 "type.hwtag.nofoot" = "hwtag-nofoot";
-
 "type.hwtag.oneway" = "hwtag-oneway";
-
 "type.hwtag.private" = "hwtag-private";
-
 "type.hwtag.toll" = "hwtag-toll";
-
 "type.hwtag.yesbicycle" = "hwtag-yesbicycle";
-
 "type.hwtag.yescar" = "hwtag-yescar";
-
 "type.hwtag.yesfoot" = "hwtag-yesfoot";
-
 "type.internet_access" = "Інтернет";
-
 "type.internet_access.wlan" = "Інтернет";
-
 "type.junction" = "Junction";
-
 "type.junction.roundabout" = "Roundabout";
-
 "type.landuse" = "Landuse";
-
 "type.landuse.allotments" = "Allotments";
-
 "type.landuse.basin" = "Водоймище";
-
 "type.landuse.brownfield" = "Brownfield";
-
 "type.landuse.cemetery" = "Цвинтар";
-
 "type.landuse.cemetery.christian" = "Цвинтар";
-
 "type.landuse.churchyard" = "Церковний двір";
-
 "type.landuse.commercial" = "Commercial Area";
-
 "type.landuse.construction" = "Construction";
-
 "type.landuse.farm" = "Farm";
-
 "type.landuse.farmland" = "Сільськогосподарська земля";
-
 "type.landuse.farmyard" = "Farmyard";
-
 "type.landuse.field" = "Field";
-
 "type.landuse.forest" = "Ліс";
-
 "type.landuse.forest.coniferous" = "Ліс";
-
 "type.landuse.forest.deciduous" = "Ліс";
-
 "type.landuse.forest.mixed" = "Ліс";
-
 "type.landuse.garages" = "Garages";
-
 "type.landuse.grass" = "Газон";
-
 "type.landuse.greenfield" = "Greenfield";
-
 "type.landuse.greenhouse_horticulture" = "Greenhouse";
-
 "type.landuse.industrial" = "Industrial Land";
-
 "type.landuse.landfill" = "Звалище";
-
 "type.landuse.meadow" = "Meadow";
-
 "type.landuse.military" = "Military Area";
-
 "type.landuse.orchard" = "Orchard";
-
 "type.landuse.quarry" = "Quarry";
-
 "type.landuse.railway" = "Залізничні споруди";
-
 "type.landuse.recreation_ground" = "Recreation Ground";
-
 "type.landuse.reservoir" = "Водоймище";
-
 "type.landuse.residential" = "Residential Land";
-
 "type.landuse.retail" = "Retail Land";
-
 "type.landuse.salt_pond" = "Pond";
-
 "type.landuse.village_green" = "Land";
-
 "type.landuse.vineyard" = "Vineyard";
-
 "type.leisure" = "Leisure";
-
 "type.leisure.common" = "leisure-common";
-
 "type.leisure.dog_park" = "Місце для вигулу собак";
-
 "type.leisure.fitness_centre" = "Фітнес-зал";
-
 "type.leisure.fitness_station" = "Фітнес-зал";
-
 "type.leisure.garden" = "Садок";
-
 "type.leisure.golf_course" = "Майданчик для гольфу";
-
 "type.leisure.ice_rink" = "Ice Rink";
-
 "type.leisure.landscape_reserve" = "Landscape Reserve";
-
 "type.leisure.marina" = "Marina";
-
 "type.leisure.nature_reserve" = "Заповідник";
-
 "type.leisure.park" = "Парк";
-
 "type.leisure.park.no.access" = "Парк";
-
 "type.leisure.park.permissive" = "Парк";
-
 "type.leisure.park.private" = "Парк";
-
 "type.leisure.picnic_table" = "Стіл для пікніка";
-
 "type.leisure.pitch" = "Спортмайданчик";
-
 "type.leisure.playground" = "Дитячий майданчик";
-
 "type.leisure.recreation_ground" = "Recreation Ground";
-
 "type.leisure.sauna" = "Сауна";
-
 "type.leisure.slipway" = "Slipway";
-
 "type.leisure.sports_centre" = "Спорткомплекс";
-
 "type.leisure.sports_centre.climbing" = "Спортивний скеледром";
-
 "type.leisure.sports_centre.shooting" = "Тир";
-
 "type.leisure.sports_centre.swimming" = "Басейн";
-
 "type.leisure.sports_centre.yoga" = "Студія йоги";
-
 "type.leisure.stadium" = "Стадіон";
-
 "type.leisure.swimming_pool" = "Басейн";
-
 "type.leisure.track" = "Track";
-
 "type.leisure.water_park" = "Аквапарк";
-
 "type.man_made" = "Man Made";
-
 "type.man_made.breakwater" = "Breakwater";
-
 "type.man_made.cairn" = "Cairn";
-
 "type.man_made.chimney" = "Заводська труба";
-
 "type.man_made.cutline" = "Cutline";
-
 "type.man_made.lighthouse" = "Маяк";
-
 "type.man_made.pier" = "Pier";
-
 "type.man_made.pipeline" = "Pipeline";
-
 "type.man_made.pipeline.overground" = "Overground Pipeline";
-
 "type.man_made.silo" = "Силос";
-
 "type.man_made.storage_tank" = "Резервуар";
-
 "type.man_made.surveillance" = "Камера спостереження";
-
 "type.man_made.tower" = "Вежа";
-
 "type.man_made.wastewater_plant" = "Wastewater Plant";
-
 "type.man_made.water_tap" = "Водопровідний кран";
-
 "type.man_made.water_tower" = "Водонапірна вежа";
-
 "type.man_made.water_well" = "Криниця";
-
 "type.man_made.windmill" = "Вітряк";
-
 "type.man_made.works" = "Works";
-
 "type.mapswithme" = "mapswithme";
-
 "type.mapswithme.grid" = "mapswithme-grid";
-
 "type.military" = "Military";
-
 "type.military.bunker" = "Бункер";
-
 "type.mountain_pass" = "Перевал";
-
 "type.natural" = "Natural";
-
 "type.natural.bare_rock" = "Bare Rock";
-
 "type.natural.bay" = "Затока";
-
 "type.natural.beach" = "Пляж";
-
 "type.natural.cape" = "Мис";
-
 "type.natural.cave_entrance" = "Печера";
-
 "type.natural.cliff" = "Cliff";
-
 "type.natural.coastline" = "Coastline";
-
 "type.natural.geyser" = "Гейзер";
-
 "type.natural.glacier" = "Льодовик";
-
 "type.natural.grassland" = "Поле";
-
 "type.natural.heath" = "Heath";
-
 "type.natural.hot_spring" = "Hot Spring";
-
 "type.natural.water.lake" = "Озеро";
-
 "type.natural.land" = "Land";
-
 "type.natural.meadow" = "Meadow";
-
 "type.natural.orchard" = "Orchard";
-
 "type.natural.peak" = "Гора";
-
 "type.natural.saddle" = "Сідловина";
-
 "type.natural.water.pond" = "Ставок";
-
 "type.natural.rock" = "Rock";
-
 "type.natural.scrub" = "Зарості";
-
 "type.natural.spring" = "Джерело";
-
 "type.natural.strait" = "Протока";
-
 "type.natural.tree" = "Дерево";
-
 "type.natural.tree_row" = "Tree Row";
-
 "type.natural.vineyard" = "Vineyard";
-
 "type.natural.volcano" = "Вулкан";
-
 "type.natural.water" = "Водоймище";
-
 "type.natural.wetland" = "Болотиста місцевість";
-
 "type.natural.wetland.bog" = "Wetland";
-
 "type.natural.wetland.marsh" = "Wetland";
-
 "type.noexit" = "noexit";
-
 "type.noexit.motor_vehicle" = "noexit-motor_vehicle";
-
 "type.office" = "Офіс";
-
 "type.office.company" = "Організація";
-
 "type.office.estate_agent" = "Агенція нерухомості/ріелтор";
-
 "type.office.government" = "Держустанова";
-
 "type.office.insurance" = "Офіс страхової компанії";
-
 "type.office.lawyer" = "Адвокат";
-
 "type.office.ngo" = "Офіс громадської організації";
-
 "type.office.telecommunication" = "Мобільний оператор";
-
 "type.olympics" = "olympics";
-
 "type.olympics.attraction" = "olympics-attraction";
-
 "type.olympics.bike_sport" = "olympics-bike_sport";
-
 "type.olympics.live_site" = "olympics-live_site";
-
 "type.olympics.official_building" = "olympics-official_building";
-
 "type.olympics.stadium" = "olympics-stadium";
-
 "type.olympics.stadium_main" = "olympics-stadium_main";
-
 "type.olympics.transport_airport" = "olympics-transport_airport";
-
 "type.olympics.transport_boat" = "olympics-transport_boat";
-
 "type.olympics.transport_bus" = "olympics-transport_bus";
-
 "type.olympics.transport_cable" = "olympics-transport_cable";
-
 "type.olympics.transport_railway" = "olympics-transport_railway";
-
 "type.olympics.transport_subway" = "olympics-transport_subway";
-
 "type.olympics.transport_tram" = "olympics-transport_tram";
-
 "type.olympics.water_sport" = "olympics-water_sport";
-
 "type.place" = "place";
-
 "type.place.city" = "Місто";
-
 "type.place.city.capital" = "Столиця";
-
 "type.place.city.capital.10" = "Столиця";
-
 "type.place.city.capital.11" = "Столиця";
-
 "type.place.city.capital.2" = "Столиця";
-
 "type.place.city.capital.3" = "Столиця";
-
 "type.place.city.capital.4" = "Столиця";
-
 "type.place.city.capital.5" = "Столиця";
-
 "type.place.city.capital.6" = "Столиця";
-
 "type.place.city.capital.7" = "Столиця";
-
 "type.place.city.capital.8" = "Столиця";
-
 "type.place.city.capital.9" = "Столиця";
-
 "type.place.continent" = "Континент";
-
 "type.place.country" = "Країна";
-
 "type.place.county" = "Округ";
-
 "type.place.farm" = "Ферма";
-
 "type.place.hamlet" = "Поселення";
-
 "type.place.island" = "Острів";
-
 "type.place.islet" = "Острів";
-
 "type.place.isolated_dwelling" = "Dwelling";
-
 "type.place.locality" = "Місцевість";
-
 "type.place.neighbourhood" = "Neighbourhood";
-
 "type.place.ocean" = "Океан";
-
 "type.place.region" = "Район";
-
 "type.place.sea" = "Море";
-
 "type.place.square" = "Square";
-
 "type.place.state" = "Штат";
-
 "type.place.state.USA" = "Штат";
-
 "type.place.suburb" = "Район";
-
 "type.place.town" = "Місто";
-
 "type.place.village" = "Село";
-
 "type.power" = "Power";
-
 "type.power.generator" = "Generator";
-
 "type.power.line" = "Power Line";
-
 "type.power.line.underground" = "Underground Power Line";
-
 "type.power.minor_line" = "Minor Power Line";
-
 "type.power.pole" = "Стовп ЛЕП";
-
 "type.power.station" = "Power Station";
-
 "type.power.substation" = "Підстанція";
-
 "type.power.tower" = "Стовп ЛЕП";
-
 "type.psurface" = "psurface";
-
 "type.psurface.paved_bad" = "psurface-paved_bad";
-
 "type.psurface.paved_good" = "psurface-paved_good";
-
 "type.psurface.unpaved_bad" = "psurface-unpaved_bad";
-
 "type.psurface.unpaved_good" = "psurface-unpaved_good";
-
 "type.public_transport" = "Public Transport";
-
 "type.public_transport.platform" = "Platform";
-
 "type.railway" = "Railway";
-
 "type.railway.abandoned" = "Abandoned railway";
-
 "type.railway.abandoned.bridge" = "Abandoned railway";
-
 "type.railway.abandoned.tunnel" = "Abandoned railway";
-
 "type.railway.construction" = "Railway's construction";
-
 "type.railway.crossing" = "Railway crossing";
-
 "type.railway.disused" = "Disused railway";
-
 "type.railway.funicular" = "Funicular";
-
 "type.railway.funicular.bridge" = "Funicular";
-
 "type.railway.funicular.tunnel" = "Funicular";
-
 "type.railway.halt" = "Залізничний вокзал";
-
 "type.railway.level_crossing" = "Залізничний переїзд";
-
 "type.railway.light_rail" = "Light Rail";
-
 "type.railway.light_rail.bridge" = "Light Rail";
-
 "type.railway.light_rail.tunnel" = "Light Rail";
-
 "type.railway.monorail" = "Монорейкова залізниця";
-
 "type.railway.monorail.bridge" = "Monorail";
-
 "type.railway.monorail.tunnel" = "Monorail";
-
 "type.railway.narrow_gauge" = "Narrow Gauge Rail";
-
 "type.railway.narrow_gauge.bridge" = "Narrow Gauge Rail";
-
 "type.railway.narrow_gauge.tunnel" = "Narrow Gauge Rail";
-
 "type.railway.platform" = "Platform";
-
 "type.railway.preserved" = "Preserved Rail";
-
 "type.railway.preserved.bridge" = "Preserved Rail";
-
 "type.railway.preserved.tunnel" = "Preserved Rail";
-
 "type.railway.rail" = "Залізна дорога";
-
 "type.railway.rail.bridge" = "Railway";
-
 "type.railway.rail.motor_vehicle" = "Railway";
-
 "type.railway.rail.tunnel" = "Railway";
-
 "type.railway.razed" = "Razed Rail";
-
 "type.railway.siding" = "Siding Rail";
-
 "type.railway.siding.bridge" = "Siding Rail";
-
 "type.railway.siding.tunnel" = "Siding Rail";
-
 "type.railway.spur" = "Spur Rail";
-
 "type.railway.spur.bridge" = "Spur Rail";
-
 "type.railway.spur.tunnel" = "Spur Rail";
-
 "type.railway.station" = "Залізничний вокзал";
-
 "type.railway.station.light_rail" = "Залізничний вокзал";
-
 "type.railway.station.monorail" = "Залізничний вокзал";
-
 "type.railway.station.subway" = "Метро";
-
 "type.railway.station.subway.barcelona" = "Метро";
-
 "type.railway.station.subway.berlin" = "Метро";
-
 "type.railway.station.subway.kiev" = "Метро";
-
 "type.railway.station.subway.london" = "Метро";
-
 "type.railway.station.subway.madrid" = "Метро";
-
 "type.railway.station.subway.minsk" = "Метро";
-
 "type.railway.station.subway.moscow" = "Метро";
-
 "type.railway.station.subway.newyork" = "Метро";
-
 "type.railway.station.subway.paris" = "Метро";
-
 "type.railway.station.subway.roma" = "Метро";
-
 "type.railway.station.subway.spb" = "Метро";
-
 "type.railway.subway" = "Subway Line";
-
 "type.railway.subway.bridge" = "Subway Line";
-
 "type.railway.subway.tunnel" = "Subway Line";
-
 "type.railway.subway_entrance" = "Вхід до метро";
-
 "type.railway.subway_entrance.barcelona" = "Метро";
-
 "type.railway.subway_entrance.berlin" = "Метро";
-
 "type.railway.subway_entrance.kiev" = "Метро";
-
 "type.railway.subway_entrance.london" = "Метро";
-
 "type.railway.subway_entrance.madrid" = "Метро";
-
 "type.railway.subway_entrance.minsk" = "Метро";
-
 "type.railway.subway_entrance.moscow" = "Метро";
-
 "type.railway.subway_entrance.newyork" = "Метро";
-
 "type.railway.subway_entrance.paris" = "Метро";
-
 "type.railway.subway_entrance.roma" = "Метро";
-
 "type.railway.subway_entrance.spb" = "Метро";
-
 "type.railway.tram" = "Tram Line";
-
 "type.railway.tram.bridge" = "Tram Line";
-
 "type.railway.tram.tunnel" = "Tram Line";
-
 "type.railway.tram_stop" = "Зупинка";
-
 "type.railway.yard" = "Railway Yard";
-
 "type.railway.yard.bridge" = "Railway Yard";
-
 "type.railway.yard.tunnel" = "Railway Yard";
-
 "type.route" = "route";
-
 "type.route.ferry" = "Ferry";
-
 "type.route.shuttle_train" = "Shuttle Train";
-
 "type.shop" = "Крамниця";
-
 "type.shop.alcohol" = "Винний магазин";
-
 "type.shop.bakery" = "Пекарня";
-
 "type.shop.beauty" = "Салон краси";
-
 "type.shop.beverages" = "Напої";
-
 "type.shop.bicycle" = "Веломагазін";
-
 "type.shop.bookmaker" = "Букмекерська контора";
-
 "type.shop.books" = "Книгарня";
-
 "type.shop.butcher" = "М'ясний магазин";
-
 "type.shop.car" = "Автосалон";
-
 "type.shop.car_parts" = "Автозапчастини";
-
 "type.shop.car_repair" = "СТО";
-
 "type.shop.car_repair.tyres" = "Шиномонтаж";
-
 "type.shop.chemist" = "Магазин побутової хімії";
-
 "type.shop.chocolate" = "Крамниця";
-
 "type.shop.clothes" = "Магазин одягу";
-
 "type.shop.coffee" = "Крамниця";
-
 "type.shop.computer" = "Комп'ютерний магазин";
-
 "type.shop.confectionery" = "Кондитерська";
-
 "type.shop.convenience" = "Міні-маркет";
-
 "type.shop.copyshop" = "Копіювальний центр";
-
 "type.shop.cosmetics" = "Косметика";
-
 "type.shop.department_store" = "Універмаг";
-
 "type.shop.doityourself" = "Будматеріали";
-
 "type.shop.dry_cleaning" = "Хімчистка";
-
 "type.shop.electronics" = "Електротехнічний магазин";
-
 "type.shop.erotic" = "Секс-шоп";
-
 "type.shop.fabric" = "Крамниця";
-
 "type.shop.florist" = "Магазин квітів";
-
 "type.shop.funeral_directors" = "Ритуальна служба";
-
 "type.shop.furniture" = "Магазин меблів";
-
 "type.shop.garden_centre" = "Товари для саду";
-
 "type.shop.gift" = "Магазин сувенірів";
-
 "type.shop.greengrocer" = "Магазин овочів";
-
 "type.shop.hairdresser" = "Перукарня";
-
 "type.shop.hardware" = "Будматеріали";
-
 "type.shop.jewelry" = "Ювелірний магазин";
-
 "type.shop.kiosk" = "Кіоск";
-
 "type.shop.laundry" = "Пральня";
-
 "type.shop.mall" = "Торговий центр";
-
 "type.shop.massage" = "Масажний кабінет";
-
 "type.shop.mobile_phone" = "Мобільні телефони";
-
 "type.shop.money_lender" = "Крамниця";
-
 "type.shop.motorcycle" = "Магазин мотоциклів";
-
 "type.shop.music" = "Крамниця";
-
 "type.shop.musical_instrument" = "Крамниця";
-
 "type.shop.newsagent" = "Газетний кіоск";
-
 "type.shop.optician" = "Оптика";
-
 "type.shop.outdoor" = "Спорядження";
-
 "type.shop.pawnbroker" = "Ломбард";
-
 "type.shop.pet" = "Зоотовари";
-
 "type.shop.photo" = "Фототовари";
-
 "type.shop.seafood" = "Рибна крамниця";
-
 "type.shop.shoes" = "Магазин взуття";
-
 "type.shop.sports" = "Спортивні товари";
-
 "type.shop.stationery" = "Магазин канцелярських товарів";
-
 "type.shop.supermarket" = "Супермаркет";
-
 "type.shop.tattoo" = "Тату-салон";
-
 "type.shop.tea" = "Крамниця";
-
 "type.shop.ticket" = "Білетна каса";
-
 "type.shop.toys" = "Магазин іграшок";
-
 "type.shop.travel_agency" = "Турагентство";
-
 "type.shop.tyres" = "Магазин шин";
-
 "type.shop.variety_store" = "Магазин господарських товарів";
-
 "type.shop.video" = "Магазин відео";
-
 "type.shop.video_games" = "Магазин відеоігор";
-
 "type.shop.wine" = "Винна крамниця";
-
 "type.sponsored" = "sponsored";
-
 "type.sponsored.booking" = "sponsored-booking";
-
 "type.sponsored.holiday" = "Christmas or New Year Celebrations";
-
 "type.sponsored.opentable" = "sponsored-opentable";
-
 "type.sponsored.partner1" = "sponsored-partner1";
-
 "type.sponsored.partner10" = "sponsored-partner10";
-
 "type.sponsored.partner11" = "sponsored-partner11";
-
 "type.sponsored.partner12" = "sponsored-partner12";
-
 "type.sponsored.partner13" = "sponsored-partner13";
-
 "type.sponsored.partner14" = "sponsored-partner14";
-
 "type.sponsored.partner15" = "sponsored-partner15";
-
 "type.sponsored.partner16" = "sponsored-partner16";
-
 "type.sponsored.partner17" = "sponsored-partner17";
-
 "type.sponsored.partner18" = "MegaFon";
-
 "type.sponsored.partner19" = "MegaFon";
-
 "type.sponsored.partner2" = "sponsored-partner2";
-
 "type.sponsored.partner20" = "MegaFon";
-
 "type.sponsored.partner3" = "sponsored-partner3";
-
 "type.sponsored.partner4" = "sponsored-partner4";
-
 "type.sponsored.partner5" = "sponsored-partner5";
-
 "type.sponsored.partner6" = "sponsored-partner6";
-
 "type.sponsored.partner7" = "sponsored-partner7";
-
 "type.sponsored.partner8" = "sponsored-partner8";
-
 "type.sponsored.partner9" = "sponsored-partner9";
-
 "type.sport" = "sport";
-
 "type.sport.american_football" = "American Football";
-
 "type.sport.archery" = "Archery";
-
 "type.sport.athletics" = "Легка атлетика";
-
 "type.sport.australian_football" = "Rugby";
-
 "type.sport.baseball" = "Baseball";
-
 "type.sport.basketball" = "Баскетбол";
-
 "type.sport.bowls" = "Bowls";
-
 "type.sport.cricket" = "Cricket";
-
 "type.sport.curling" = "Сurling";
-
 "type.sport.diving" = "Diving";
-
 "type.sport.equestrian" = "Кінний спорт";
-
 "type.sport.golf" = "Golf";
-
 "type.sport.gymnastics" = "Gymnastics";
-
 "type.sport.handball" = "Handball";
-
 "type.sport.multi" = "Various Sport";
-
 "type.sport.scuba_diving" = "Scuba Diving";
-
 "type.sport.shooting" = "Shooting";
-
 "type.sport.skiing" = "Skiing";
-
 "type.sport.soccer" = "Soccer (Football)";
-
 "type.sport.swimming" = "Swimming";
-
 "type.sport.tennis" = "Тенісний корт";
-
 "type.tourism" = "Tourism";
-
 "type.tourism.alpine_hut" = "Гірський готель";
-
 "type.tourism.apartment" = "Апартаменти";
-
 "type.tourism.artwork" = "Твір мистецтва";
-
 "type.tourism.artwork.architecture" = "Твір мистецтва";
-
 "type.tourism.artwork.painting" = "Твір мистецтва";
-
 "type.tourism.artwork.sculpture" = "Твір мистецтва";
-
 "type.tourism.artwork.statue" = "Твір мистецтва";
-
 "type.tourism.attraction" = "Пам’ятка";
-
 "type.tourism.attraction.animal" = "Пам’ятка";
-
 "type.tourism.attraction.specified" = "Пам’ятка";
-
 "type.tourism.camp_site" = "Кемпінг";
-
 "type.tourism.caravan_site" = "Автокемпінг";
-
 "type.tourism.chalet" = "Шале";
-
 "type.tourism.gallery" = "Пам’ятні місця";
-
 "type.tourism.guest_house" = "Гостинний дім";
-
 "type.tourism.hostel" = "Хостел";
-
 "type.tourism.hotel" = "Готель";
-
 "type.tourism.information" = "Турінформація";
-
 "type.tourism.information.board" = "Інформаційний щит";
-
 "type.tourism.information.guidepost" = "Турінформація";
-
 "type.tourism.information.map" = "Мапа";
-
 "type.tourism.information.office" = "Туристичний офіс";
-
 "type.tourism.motel" = "Мотель";
-
 "type.tourism.museum" = "Музей";
-
 "type.tourism.picnic_site" = "Пікнік";
-
 "type.tourism.resort" = "Будинок відпочинку";
-
 "type.tourism.theme_park" = "Пам’ятні місця";
-
 "type.tourism.viewpoint" = "Оглядний майданчик";
-
 "type.tourism.wilderness_hut" = "Хибара";
-
 "type.tourism.zoo" = "Зоопарк";
-
 "type.traffic_calming" = "Traffic Calming";
-
 "type.traffic_calming.bump" = "Traffic Bump";
-
 "type.traffic_calming.hump" = "Traffic Hump";
-
 "type.waterway" = "Waterway";
-
 "type.waterway.canal" = "Канал";
-
 "type.waterway.canal.tunnel" = "Канал";
-
 "type.waterway.dam" = "Dam";
-
 "type.waterway.ditch" = "Ditch";
-
 "type.waterway.ditch.tunnel" = "Ditch";
-
 "type.waterway.dock" = "Waterway Dock";
-
 "type.waterway.drain" = "Drain";
-
 "type.waterway.drain.tunnel" = "Drain";
-
 "type.waterway.lock" = "Waterway Lock";
-
 "type.waterway.lock_gate" = "Шлюз";
-
 "type.waterway.river" = "Річка";
-
 "type.waterway.river.tunnel" = "Річка";
-
 "type.waterway.riverbank" = "Річка";
-
 "type.waterway.stream" = "Річка";
-
 "type.waterway.stream.ephemeral" = "Річка";
-
 "type.waterway.stream.intermittent" = "Річка";
-
 "type.waterway.stream.tunnel" = "Річка";
-
 "type.waterway.waterfall" = "Водоспад";
-
 "type.waterway.weir" = "Weir";
-
 "type.wheelchair" = "Wheelchair";
-
 "type.wheelchair.limited" = "Частково обладнано для інвалідів";
-
 "type.wheelchair.no" = "Не обладнано для інвалідів";
-
 "type.wheelchair.yes" = "Обладнано для інвалідів";
-
 "type.piste_lift" = "piste:lift";
-
 "type.piste_lift.j.bar" = "piste:lift-j-bar";
-
 "type.piste_lift.magic_carpet" = "piste:lift-magic_carpet";
-
 "type.piste_lift.platter" = "piste:lift-platter";
-
 "type.piste_lift.rope_tow" = "piste:lift-rope_tow";
-
 "type.piste_lift.t.bar" = "piste:lift-t-bar";
-
 "type.piste_type" = "piste:type";
-
 "type.piste_type.downhill" = "piste:type-downhill";
-
 "type.piste_type.downhill.advanced" = "piste:type-downhill-advanced";
-
 "type.piste_type.downhill.easy" = "piste:type-downhill-easy";
-
 "type.piste_type.downhill.expert" = "piste:type-downhill-expert";
-
 "type.piste_type.downhill.freeride" = "piste:type-downhill-freeride";
-
 "type.piste_type.downhill.intermediate" = "piste:type-downhill-intermediate";
-
 "type.piste_type.downhill.novice" = "piste:type-downhill-novice";
-
 "type.piste_type.nordic" = "piste:type-nordic";
-
 "type.piste_type.sled" = "piste:type-sled";
-
 "type.building_part" = "Будівля";
-
 "type.area_highway.cycleway" = "Bike Path";
-
 "type.area_highway.footway" = "Path";
-
 "type.area_highway.living_street" = "Street";
-
 "type.area_highway.motorway" = "area:highway-motorway";
-
 "type.area_highway.path" = "Path";
-
 "type.area_highway.pedestrian" = "Street";
-
 "type.area_highway.primary" = "Street";
-
 "type.area_highway.residential" = "Street";
-
 "type.area_highway.secondary" = "Street";
-
 "type.area_highway.service" = "Street";
-
 "type.area_highway.tertiary" = "Street";
-
 "type.area_highway.steps" = "Steps";
-
 "type.area_highway.track" = "area:highway-track";
-
 "type.area_highway.trunk" = "area:highway-trunk";
-
 "type.area_highway.unclassified" = "area:highway-unclassified";

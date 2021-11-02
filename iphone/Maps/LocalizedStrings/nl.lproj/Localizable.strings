@@ -6,6 +6,7 @@
 
 /********** Strings **********/
 
+
 /* Button text (should be short) */
 "back" = "Terug";
 
@@ -17,7 +18,6 @@
 
 /* Button which deletes downloaded country */
 "delete" = "Verwijderen";
-
 "download_maps" = "Download kaarten";
 
 /* Settings/Downloader - info for country when download fails */
@@ -37,7 +37,6 @@
 
 /* Settings/Downloader - size string, only strings different from English should be translated */
 "mb" = "MB";
-
 "gb" = "GB";
 
 /* Choose measurement on first launch alert - choose imperial system button */
@@ -72,31 +71,18 @@
 
 /* Button text for the button under the country_status_download_failed message */
 "try_again" = "Opnieuw proberen";
-
 "about_menu_title" = "Over Organic Maps";
-
 "connection_settings" = "Verbindingsinstellingen";
-
 "close" = "Sluiten";
-
 "unsupported_phone" = "Een hardware geaccellereerde OpenGL is nodig. Jammer genoeg wordt uw apparaat niet ondersteund.";
-
 "download" = "Download";
-
 "disconnect_usb_cable" = "Verwijder de USB kabel of plaats een geheugenkaart om Organic Maps te gebruiken";
-
 "not_enough_free_space_on_sdcard" = "Maak eerst ruimte vrij op de SD-kaart/USB-opslag om de app te gebruiken";
-
 "not_enough_memory" = "Niet genoeg geheugen om de app te starten";
-
 "download_resources" = "Voordat u start, laten we de algemene wereldkaart naar uw apparaat downloaden.\nDeze neemt %@ in beslag.";
-
 "download_resources_continue" = "Ga naar de kaart";
-
 "downloading_country_can_proceed" = "%@ aan het downloaden. U kunt nu\ndoorgaan naar de kaart.";
-
 "download_country_ask" = "%@ downloaden?";
-
 "update_country_ask" = "%@ updaten?";
 
 /* REMOVE THIS STRING AFTER REFACTORING */
@@ -215,7 +201,6 @@
 
 /* Email Subject when sharing bookmarks category */
 "share_bookmarks_email_subject" = "Bladwijzers van Organic Maps met u gedeeld";
-
 "share_bookmarks_email_body" = "Hallo!\n\nBijgesloten zijn mijn bladwijzers uit de Organic Maps app. Open ze als je Organic Maps geïnstalleerd hebt. Of, als je dat niet hebt, download de app voor je iOS- of Android-apparaat door deze link te volgen: https://omaps.app/get?kmz\n\nGeniet van het reizen met Organic Maps!";
 
 /* message title of loading file */
@@ -280,7 +265,6 @@
 
 /* Length of track in cell that describes route */
 "length" = "Lengte";
-
 "share_my_location" = "Deel mijn locatie";
 
 /* Settings general group in settings screen */
@@ -288,11 +272,8 @@
 
 /* Settings information group in settings screen */
 "prefs_group_information" = "Informatie";
-
 "prefs_group_route" = "Navigatie";
-
 "pref_zoom_title" = "Zoomknoppen";
-
 "pref_zoom_summary" = "Weergave op het scherm";
 
 /* Settings «Map» category: «Night style» title */
@@ -327,25 +308,15 @@
 
 /* Settings «Map» category: «Record track» title */
 "pref_track_record_title" = "Recente track";
-
 "pref_map_auto_zoom" = "Automatisch zoomen";
-
 "duration_disabled" = "Uit";
-
 "duration_1_hour" = "1 uur";
-
 "duration_2_hours" = "2 uur";
-
 "duration_6_hours" = "6 uur";
-
 "duration_12_hours" = "12 uur";
-
 "duration_1_day" = "1 dag";
-
 "recent_track_help_text" = "Dit laat u toe het afgelegde traject voor een bepaalde periode te registreren en te bekijken op de kaart. Merk op: activatie van deze functie veroorzaakt een hoger batterijverbruik. Het traject wordt automatisch van de kaart verwijderd nadat het tijdsinterval verloopt.";
-
 "placepage_distance" = "Afstand";
-
 "search_show_on_map" = "Op kaart bekijken";
 
 /* Text in menu */
@@ -413,15 +384,10 @@
 
 /* Country queued for download */
 "downloader_queued" = "In de wachtrij";
-
 "downloader_near_me_subtitle" = "Bij mij in de buurt";
-
 "downloader_status_maps" = "Kaarten";
-
 "downloader_download_all_button" = "Alles downloaden";
-
 "downloader_downloading" = "Aan het downloaden:";
-
 "downloader_search_results" = "Gevonden";
 
 /* Status of outdated country in the list */
@@ -477,11 +443,8 @@
 
 /* location service disabled */
 "enable_location_services" = "Schakel Locatie Services in";
-
 "save" = "Opslaan";
-
 "edit_description_hint" = "Uw omschrijvingen (tekst of html)";
-
 "create" = "aanmaken";
 
 /* red color */
@@ -539,70 +502,40 @@
 /********** Routing dialogs strings **********/
 
 "dialog_routing_disclaimer_title" = "Belangrijk bij het volgen van een route:";
-
 "dialog_routing_disclaimer_priority" = "— De toestand van het wegdek, de verkeersregels en de -borden hebben altijd voorrang op het advies van het navigatiesysteem;";
-
 "dialog_routing_disclaimer_precision" = "— De kaart kan onnauwkeurig zijn en de voorgestelde route is niet altijd de meest optimale manier om uw bestemming te bereiken;";
-
 "dialog_routing_disclaimer_recommendations" = "— Beschouw de voorgestelde routes enkel als aanbevelingen;";
-
 "dialog_routing_disclaimer_borders" = "— Wees voorzichtig met de routes in de grenszones: de routes die door onze app gecreëerd zijn, gaan wellicht door landgrenzen in ongeautoriseerde plaatsen;";
-
 "dialog_routing_disclaimer_beware" = "Blijf alert en rij veilig!";
-
 "dialog_routing_check_gps" = "Controleer gps-signaal";
-
 "dialog_routing_error_location_not_found" = "Route samenstellen mislukt. De huidige gps-coördinaten kunnen niet worden geïdentificeerd.";
-
 "dialog_routing_location_turn_wifi" = "Controleer uw gps-signaal. Schakel wifi in voor een betere locatiebepaling.";
-
 "dialog_routing_location_turn_on" = "Schakel locatiediensten in";
-
 "dialog_routing_location_unknown_turn_on" = "De huidige gps-coördinaten kunnen niet worden gevonden. Schakel locatiediensten in om de route te berekenen.";
-
 "dialog_routing_download_files" = "Download vereiste bestanden";
-
 "dialog_routing_download_and_update_all" = "Download de kaart en route-informatie voor het ingestelde traject en werk deze bij om de route te berekenen.";
-
 "dialog_routing_unable_locate_route" = "Route vinden mislukt";
-
 "dialog_routing_cant_build_route" = "Route samenstellen mislukt.";
-
 "dialog_routing_change_start_or_end" = "Kies een ander startpunt of andere bestemming.";
-
 "dialog_routing_change_start" = "Ander startpunt kiezen";
-
 "dialog_routing_start_not_determined" = "Route samenstellen mislukt. Startpunt kan niet worden gevonden.";
-
 "dialog_routing_select_closer_start" = "Kies een startpunt dat dichter bij een weg ligt.";
-
 "dialog_routing_change_end" = "Andere bestemming kiezen";
-
 "dialog_routing_end_not_determined" = "Route samenstellen mislukt. Bestemming kan niet worden gevonden.";
-
 "dialog_routing_select_closer_end" = "Kies een bestemming die dichter bij een weg ligt.";
-
 "dialog_routing_change_intermediate" = "Kan de tussenstop niet vinden.";
-
 "dialog_routing_intermediate_not_determined" = "Gelieve uw tussenstop aan te passen.";
-
 "dialog_routing_system_error" = "Systeemfout";
-
 "dialog_routing_application_error" = "Route samenstellen mislukt door een applicatiefout.";
-
 "dialog_routing_try_again" = "Probeer het opnieuw";
-
 "not_now" = "Niet nu";
-
 "dialog_routing_download_and_build_cross_route" = "Wilt u de kaart downloaden en een betere route samenstellen die meer dan één kaart beslaat?";
-
 "dialog_routing_download_cross_route" = "Download de kaart om een betere route samen te stellen die de grenzen van deze kaart overschrijdt.";
 
 
 /********** Strings for downloading map from search **********/
 
 "search_without_internet_advertisement" = "Om te beginnen met zoeken en om routebeschrijvingen te kunnen maken, moet u de kaart downloaden. U heeft vervolgens geen internetverbinding meer nodig.";
-
 "search_select_map" = "Selecteer de kaart";
 
 /* «Show» context menu */
@@ -622,96 +555,55 @@
 
 /* Text for routing::RouterResultCode::FileTooOld dialog. */
 "dialog_routing_download_and_update_maps" = "Om een route te maken, download en update alle kaarten rondom de route.";
-
 "rate_alert_title" = "Vindt u de app leuk?";
-
 "rate_alert_default_message" = "Bedankt om Organic Maps te gebruiken. Gelieve de app te beoordelen. Uw feedback helpt ons beter te worden.";
-
 "rate_alert_five_star_message" = "Hoera! Wij houden ook van u!";
-
 "rate_alert_four_star_message" = "Bedankt, we zullen ons best doen!";
-
 "rate_alert_less_than_four_star_message" = "Heeft u suggesties voor verbeteringen?";
-
 "categories" = "Categorieën";
-
 "history" = "Geschiedenis";
-
 "closed" = "Gesloten";
-
 "search_not_found" = "Sorry, ik heb niets gevonden.";
-
 "search_not_found_query" = "Probeer een andere zoekopdracht.";
-
 "search_history_title" = "Zoekgeschiedenis";
-
 "search_history_text" = "Snel toegang tot recente zoekopdrachten.";
-
 "clear_search" = "Zoekgeschiedenis wissen";
 
 /* Place Page link to Wikipedia article (if map object has it). */
 "read_in_wikipedia" = "Wikipedia";
-
 "p2p_your_location" = "Uw locatie";
-
 "p2p_start" = "Beginnen";
-
 "p2p_from_here" = "Van";
-
 "p2p_to_here" = "Route naar";
-
 "p2p_only_from_current" = "Navigatie is uitsluitend beschikbaar vanuit uw huidige locatie.";
-
 "p2p_reroute_from_current" = "Wilt u dat wij een route plannen vanaf uw huidige locatie?";
 
 /* Edit open hours/set time and minutes dialog */
 "next_button" = "Volgende";
-
 "editor_time_add" = "Schema toevoegen";
-
 "editor_time_delete" = "Schema verwijderen";
 
 /* Text for allday switch. */
 "editor_time_allday" = "Elke dag (dag en nacht)";
-
 "editor_time_open" = "Open";
-
 "editor_time_close" = "Gesloten";
-
 "editor_time_add_closed" = "Sluitingstijden toevoegen";
-
 "editor_time_title" = "Openingstijden";
-
 "editor_time_advanced" = "Geavanceerde modus";
-
 "editor_time_simple" = "Eenvoudige modus";
-
 "editor_hours_closed" = "Sluitingstijden";
-
 "editor_example_values" = "Voorbeeldwaarden";
-
 "editor_correct_mistake" = "Fout corrigeren";
-
 "editor_add_select_location" = "Locatie";
-
 "editor_done_dialog_1" = "Je hebt de wereldkaart gewijzigd. Verberg dit niet! Vertel het je vrienden en bewerk het samen.";
-
 "share_with_friends" = "Deel met je vrienden";
-
 "editor_report_problem_desription_1" = "Beschrijf het probleem gedetailleerd, zodat de OpenStreetMap-community de fout kan oplossen.";
-
 "editor_report_problem_desription_2" = "Of doe het zelf op https://www.openstreetmap.org/";
-
 "editor_report_problem_send_button" = "Verzenden";
-
 "editor_report_problem_title" = "Probleem";
-
 "editor_report_problem_no_place_title" = "De plaats bestaat niet";
-
 "editor_report_problem_under_construction_title" = "Gesloten voor onderhoud";
-
 "editor_report_problem_duplicate_place_title" = "Dubbele plaats";
-
 "autodownload" = "Automatische download";
 
 /* Place Page opening hours text */
@@ -719,167 +611,98 @@
 
 /* Place Page opening hours text */
 "daily" = "Dagelijks";
-
 "twentyfour_seven" = "Nacht en dag";
-
 "day_off_today" = "Vrije dag vandaag";
-
 "day_off" = "Vrije dag";
-
 "today" = "Vandaag";
-
 "add_opening_hours" = "Openingsuren toevoegen";
-
 "edit_opening_hours" = "Openingsuren bewerken";
-
 "no_osm_account" = "Geen account bij OpenStreetMap?";
-
 "register_at_openstreetmap" = "Registeren";
-
 "password_8_chars_min" = "Wachtwoord (minimaal 8 tekens)";
-
 "invalid_username_or_password" = "Ongeldige gebruikersnaam of ongeldig wachtwoord.";
-
 "login" = "Log in";
-
 "password" = "Wachtwoord";
-
 "forgot_password" = "Wachtwoord vergeten?";
-
 "osm_account" = "OSM-account";
-
 "logout" = "Uitloggen";
 
 /* Information text: "Last upload 11.01.2016" */
 "last_upload" = "Laatste upload";
-
 "thank_you" = "Dank je wel";
-
 "edit_place" = "De locatie bewerken";
-
 "place_name" = "Locatienaam";
-
 "add_language" = "Een taal toevoegen";
-
 "street" = "Straat";
 
 /* Editable House Number text field (in address block). */
 "house_number" = "Huisnummer";
-
 "details" = "Details";
 
 /* Text field to enter non-existing street name, below list of known streets around */
 "add_street" = "Een straat toevoegen";
-
 "choose_language" = "Een taal kiezen";
-
 "choose_street" = "Een straat kiezen";
-
 "postal_code" = "Postcode";
-
 "cuisine" = "Keuken";
-
 "select_cuisine" = "Selecteer Keuken";
 
 /* login text field */
 "email_or_username" = "Emailadres of gebruikersnaam";
-
 "phone" = "Telefoonnummer";
-
 "editor_add_phone" = "Add Phone";
-
 "please_note" = "Opgelet";
-
 "downloader_delete_map_dialog" = "Alle wijzigingen aan de kaart zullen samen met de kaart worden verwijderd.";
-
 "downloader_update_maps" = "Kaarten updaten";
-
 "downloader_mwm_migration_dialog" = "Om een route te creëren, moet je alle kaarten updaten en dan de route opnieuw plannen.";
-
 "downloader_search_field_hint" = "Vind de kaart";
-
 "migration_download_error_dialog" = "Downloadfout";
-
 "common_check_internet_connection_dialog" = "Controleer je instellingen en zorg ervoor dat het apparaat is verbonden met het internet.";
-
 "downloader_no_space_title" = "Niet genoeg ruimte";
-
 "downloader_no_space_message" = "Verwijder overbodige gegevens";
-
 "editor_login_error_dialog" = "Inlogfout.";
-
 "editor_profile_changes" = "Gecontroleerde wijzigingen";
-
 "editor_focus_map_on_location" = "Trek aan de kaart om de juiste locatie van het object te selecteren.";
-
 "editor_add_select_category" = "Selecteer categorie";
-
 "editor_add_select_category_popular_subtitle" = "Populair";
-
 "editor_add_select_category_all_subtitle" = "Alle categorieën";
-
 "editor_edit_place_title" = "Aan het aanpassen";
-
 "editor_add_place_title" = "Aan het toevoegen";
-
 "editor_edit_place_name_hint" = "Naam van de plaats";
-
 "editor_edit_place_category_title" = "Categorie";
-
 "detailed_problem_description" = "Gedetailleerde probleemomschrijving";
-
 "editor_report_problem_other_title" = "Een ander probleem";
-
 "placepage_add_business_button" = "Een organisatie toevoegen";
-
 "whatsnew_editor_message_1" = "Voeg nieuwe plaatsen toe aan de kaart en bewerk de bestaande rechtstreeks vanuit de app.";
-
 "dialog_incorrect_feature_position" = "Locatie wijzigen";
-
 "message_invalid_feature_position" = "Hier kan geen object worden geplaatst";
-
 "login_to_make_edits_visible" = "Log in zodat andere gebruikers kunnen zien wat u hebt gewijzigd.";
 
 /* Error dialog no space */
 "migration_no_space_message" = "Om te kunnen downloaden, heb je meer ruimte nodig. Verwijder overbodige gegevens.";
-
 "editor_sharing_title" = "Ik heb de Organic Maps-kaarten verbeterd";
 
 /* Downloaded 10 **of** 20 <- it is that "of" */
 "downloader_of" = "%1$d van %2$d";
-
 "download_over_mobile_header" = "Downloaden via een mobiele gegevensverbinding?";
-
 "download_over_mobile_message" = "Met sommige abonnementen of bij roaming kan dit behoorlijk duur zijn.";
-
 "error_enter_correct_house_number" = "Een juist huisnummer invoeren";
-
 "editor_storey_number" = "Aantal verdiepingen (max. %d)";
 
 /* Error message in Editor when a user tries to set the number of floors for a building higher than 25 */
 "error_enter_correct_storey_number" = "Bewerk het gebouw met maximaal 25 verdiepingen";
-
 "editor_zip_code" = "Postcode";
-
 "error_enter_correct_zip_code" = "Voer de juiste postcode in";
 
 /* Place Page title for long tap */
 "core_placepage_unknown_place" = "Onbekende locatie";
-
 "editor_other_info" = "Notitie sturen naar de OSM-editors";
-
 "editor_detailed_description_hint" = "Gedetailleerde reactie";
-
 "editor_detailed_description" = "Uw voorgestelde wijzigingen worden verzonden naar de OpenStreetMap-community. Beschrijf de details die niet kunnen worden bewerkt in Organic Maps.";
-
 "editor_more_about_osm" = "Meer over OpenStreetMap";
-
 "editor_operator" = "Uitvoerder";
-
 "downloader_my_maps_title" = "Mijn kaarten";
-
 "downloader_no_downloaded_maps_title" = "U hebt geen kaarten gedownload";
-
 "downloader_no_downloaded_maps_message" = "Download kaarten om de locatie te zoeken en offline te navigeren.";
 
 /* Error title that appears after certain time without location. */
@@ -887,93 +710,52 @@
 
 /* Error that appears after certain time without location. */
 "current_location_unknown_message" = "Huidige locatie is onbekend. Misschien bevindt u zich in een gebouw of tunnel.";
-
 "current_location_unknown_continue_button" = "Doorgaan";
-
 "current_location_unknown_stop_button" = "Stoppen";
-
 "current_location_unknown_error_title" = "Huidige locatie is onbekend.";
-
 "current_location_unknown_error_message" = "Er is een fout opgetreden tijdens het zoeken naar uw locatie. Controleer of uw apparaat goed werkt en probeer het later opnieuw.";
-
 "location_services_disabled_header" = "Locatie-identificatie is uitgeschakeld";
-
 "location_services_disabled_message" = "Schakel de toegang tot geolocaties in in de instellingen van het apparaat";
-
 "location_services_disabled_1" = "1. Instellingen openen";
-
 "location_services_disabled_2" = "2. Tik op locatie";
 
 /* iOS Dialog for the case when the location permission is not granted */
 "location_services_disabled_3" = "3. Selecteer Terwijl Je de App Gebruikt";
-
 "meter" = "m";
-
 "kilometer" = "km";
-
 "kilometers_per_hour" = "km/h";
-
 "mile" = "mijl";
-
 "foot" = "voet";
-
 "miles_per_hour" = "mph";
-
 "hour" = "u";
-
 "minute" = "min";
-
 "placepage_place_description" = "Beschrijving";
-
 "placepage_more_button" = "Meer";
-
 "placepage_more_reviews_button" = "Meer reacties";
-
 "book_button" = "Boeken";
-
 "placepage_call_button" = "Bellen";
-
 "placepage_edit_bookmark_button" = "Bladwijzer bewerken";
-
 "placepage_bookmark_name_hint" = "Bladwijzernaam";
-
 "placepage_personal_notes_hint" = "Persoonlijke aantekeningen";
-
 "placepage_delete_bookmark_button" = "Bladwijzer verwijderen";
-
 "editor_edits_sent_message" = "Uw voorgestelde wijzigingen zijn verzonden";
-
 "editor_comment_hint" = "Reactie…";
-
 "editor_reset_edits_message" = "Alle lokale wijzigingen herstellen?";
-
 "editor_reset_edits_button" = "Herstellen";
-
 "editor_remove_place_message" = "Een toegevoegde locatie verwijderen?";
-
 "editor_remove_place_button" = "Verwijderen";
-
 "editor_place_doesnt_exist" = "Locatie bestaat niet";
-
 "text_more_button" = "…meer";
 
 /* Phone number error message */
 "error_enter_correct_phone" = "Voer het juiste telefoonnummer in";
-
 "error_enter_correct_web" = "Voer een geldig webadres in";
-
 "error_enter_correct_email" = "Voer een geldig emailadres in";
-
 "error_enter_correct_facebook_page" = "Enter a valid Facebook web address, account, or page name";
-
 "error_enter_correct_instagram_page" = "Enter a valid Instagram web address or account name";
-
 "error_enter_correct_twitter_page" = "Enter a valid Twitter web address or username";
-
 "error_enter_correct_vk_page" = "Enter a valid VK web address or account name";
-
 "refresh" = "Updaten";
-
 "placepage_add_place_button" = "Een plek toevoegen aan de kaart";
 
 /* Displayed when saving some edits to the map to warn against publishing personal data */
@@ -981,19 +763,15 @@
 
 /* iOS Dialog before publishing the modifications to the public map. */
 "editor_share_to_all_dialog_message_1" = "Controleer dat je geen persoonlijke gegevens hebt ingevoerd.";
-
 "editor_share_to_all_dialog_message_2" = "We zullen de wijzigingen controleren. Als we nog vragen hebben, zullen we contact met je opnemen via email.";
-
 "navigation_stop_button" = "stoppen";
 
 /* iOS dialog for the case when recent track recording is on and the app comes back from background */
 "recent_track_background_dialog_title" = "Vastleggen van uw onlangs afgelegde route uitschakelen?";
-
 "off_recent_track_background_button" = "Uitschakelen";
 
 /* For sharing via SMS and so on */
 "sharing_call_action_look" = "Bekijk";
-
 "recent_track_background_dialog_message" = "Organic Maps gebruikt uw geografische positie op de achtergrond om uw onlangs afgelegde route vast te leggen.";
 
 /* Rate on Google Play (Android only) */
@@ -1007,7 +785,6 @@
 
 /* About short text (below logo) */
 "about_description" = "Organic Maps is een essentiële offline applicatie om te reizen. Organic Maps is gebaseerd op OpenStreetMap gegevens en laat bewerking toe.";
-
 "general_settings" = "Algemene instellingen";
 
 /* For the first routing */
@@ -1018,27 +795,16 @@
 
 /* noun */
 "search_in_table" = "Lijst";
-
 "mobile_data_dialog" = "Mobiel internet gebruiken om gedetailleerde informatie weer te geven?";
-
 "mobile_data_option_always" = "Altijd Gebruiken";
-
 "mobile_data_option_today" = "Enkel Vandaag";
-
 "mobile_data_option_not_today" = "Vandaag niet Gebruiken";
-
 "mobile_data" = "Mobiel Internet";
-
 "mobile_data_description" = "Mobiel internet is vereist voor het weergeven van gedetailleerde informatie over plaatsen, zoals foto's, prijzen en beoordelingen.";
-
 "mobile_data_option_never" = "Nooit Gebruiken";
-
 "mobile_data_option_ask" = "Altijd Vragen";
-
 "traffic_update_maps_text" = "Om verkeersgegevens weer te geven, moeten de kaarten bijgewerkt worden.";
-
 "big_font" = "Lettergrootte op de kaart vergroten";
-
 "traffic_update_app" = "Gelieve Organic Maps bij te werken";
 
 /* "traffic" as in road congestion */
@@ -1046,284 +812,149 @@
 
 /* "traffic" as in "road congestion" */
 "traffic_data_unavailable" = "Verkeersgegevens zijn niet beschikbaar";
-
 "enable_logging" = "Logboekregistratie inschakelen";
 
 /* Settings: "Send general feedback" button */
 "feedback_general" = "Algemene Feedback";
-
 "on" = "Aan";
-
 "off" = "Uit";
-
 "prefs_languages_information" = "We gebruiken het TTS-systeem voor gesproken instructies. Vele Android toestellen gebruiken Google TTS, u kunt het downloaden of bijwerken in Google Play (https://play.google.com/store/apps/details?id=com.google.android.tts)";
-
 "prefs_languages_information_off" = "Voor sommige talen dient u een andere spraaksynthese software of een aanvullende taalpakket te installeren van de app store (Google Play Market, Samsung Apps).\nOpen de instellingen van uw toestel → Taal en invoer → Spraak → Uitvoer voor tekst-naar-spraak.\nHier kunt u instellingen voor spraaksynthese beheren (bijvoorbeeld taalpakket downloaden voor offline gebruik) en een andere tekst-naar-spraak engine selecteren.";
-
 "prefs_languages_information_off_link" = "Gelieve deze handleiding te lezen voor meer informatie.";
-
 "transliteration_title" = "Transliteratie in het Latijn";
-
 "learn_more" = "Meer informatie";
-
 "core_exit" = "Verlaten";
-
 "routing_add_start_point" = "Voeg beginpunt toe om een route te plannen";
-
 "routing_add_finish_point" = "Voeg eindpunt toe om een route te plannen";
-
 "button_exit" = "Verlaten";
-
 "planning_route_manage_route" = "Route beheren";
-
 "button_plan" = "Plannen";
-
 "placepage_remove_stop" = "Verwijderen";
-
 "planning_route_remove_title" = "Sleep hier om te verwijderen";
-
 "placepage_add_stop" = "Tussenstop toevoegen";
-
 "start_from_my_position" = "Start vanaf";
-
 "profile_authorization_error" = "Oeps, er is een fout opgetreden. Probeer opnieuw aan te melden.";
-
 "dialog_error_storage_title" = "Probleem met opslagtoegang";
-
 "dialog_error_storage_message" = "Externe opslag is niet beschikbaar, wellicht is de SD-kaart verwijderd, beschadigd of is het bestandssysteem alleen-lezen. Gelieve het te controleren en ons te contacteren via support@organicmaps.app";
-
 "setting_emulate_bad_storage" = "Slechte opslag emuleren";
-
 "core_entrance" = "Ingang";
-
 "error_enter_correct_name" = "Voer een juiste naam in";
-
 "bookmarks_groups" = "lijsten";
-
 "bookmarks_groups_hide_all" = "Alles verbergen";
-
 "bookmarks_groups_show_all" = "Alles weergeven";
-
 "bookmarks_create_new_group" = "Nieuwe lijst maken";
 
 /* Bookmark categories screen */
 "bookmarks_import" = "Import bookmarks";
-
 "downloader_hide_screen" = "Scherm Verbergen";
-
 "downloader_percent" = "%s (%s van %s)";
-
 "downloader_process" = "%s downloaden…";
-
 "downloader_applying" = "%s toepassen…";
-
 "bookmarks_error_message_share_general" = "Delen is onmogelijk wegens een toepassingsfout";
-
 "bookmarks_error_title_share_empty" = "Deelfout";
-
 "bookmarks_error_message_share_empty" = "Een lege lijst kan niet gedeeld worden";
-
 "bookmarks_error_title_empty_list_name" = "De naam kan niet leeg zijn";
-
 "bookmarks_error_message_empty_list_name" = "Voer de lijstnaam in";
-
 "bookmarks_new_list_hint" = "Nieuwe lijst";
-
 "bookmarks_error_title_list_name_already_taken" = "Deze naam is al in gebruik";
-
 "bookmarks_error_message_list_name_already_taken" = "Kies alstublieft een andere naam";
-
 "bookmarks_error_title_list_name_too_long" = "Deze naam is te lang";
-
 "please_wait" = "Even geduld aub…";
-
 "phone_number" = "Telefoonnummer";
-
 "profile" = "OpenStreetMap-profiel";
-
 "bookmarks_detect_title" = "Nieuwe bestanden gedetecteerd";
-
 "button_convert" = "Omzetten";
-
 "bookmarks_convert_error_title" = "Fout";
-
 "bookmarks_convert_error_message" = "Sommige bestanden waren niet geconverteerd.";
-
 "bookmarks_restore_title" = "Deze versie herstellen?";
-
 "common_check_internet_connection_dialog_title" = "Geen internet verbinding";
-
 "error_system_message" = "Er is een onbekende fout opgetreden";
-
 "restore" = "Herstellen";
-
 "subtittle_opt_out" = "Tracking-instellingen";
-
 "crash_reports" = "Crash rapport";
-
 "crash_reports_description" = "Wij kunnen uw gegevens gebruiken om Organic Maps te verbeteren. Wijzigingen treden in werking na het opnieuw opstarten van de app.";
-
 "privacy_policy" = "Privacy beleid";
-
 "terms_of_use" = "Gebruiksvoorwaarden";
-
 "button_layer_traffic" = "Verkeer";
-
 "button_layer_subway" = "Metro";
-
 "layers_title" = "Map layers";
-
 "subway_data_unavailable" = "Metrokaart is niet beschikbaar";
-
 "bookmarks_empty_list_title" = "Deze lijst is leeg";
-
 "bookmarks_empty_list_message" = "Om een bladwijzer toe te voegen, tikt u op een plaats op de kaart en vervolgens op het sterpictogram";
-
 "category_desc_more" = "…meer";
-
 "title_error_downloading_bookmarks" = "Er is een fout opgetreden";
-
 "popular_place" = "Popular";
-
 "export_file" = "Bestand exporteren";
-
 "list_settings" = "Lijst Instellingen";
-
 "delete_list" = "Lijst verwijderen";
-
 "hide_from_map" = "Van de kaart verbergen";
-
 "public_access" = "Publiek toegang";
-
 "limited_access" = "Beperkte toegang";
-
 "bookmark_category_name" = "Categorie";
-
 "bookmark_category_description_hint" = "Maak een beschrijving aan (tekst of html)";
-
 "not_shared" = "Privé";
-
 "tags_loading_error_subtitle" = "Er is een fout opgetreden tijdens het laden van tags, probeer het opnieuw";
-
 "download_button" = "Downloaden";
-
 "speedcams_alert_title" = "Snelheidscamera's";
-
 "speedcam_option_auto" = "Auto";
-
 "speedcam_option_always" = "Altijd";
-
 "speedcam_option_never" = "Nooit";
-
 "place_description_title" = "Plaats Beschrijving";
 
 /* this text will be shown in application notification preferences opposite checkbox which enable/disable downloader notifications. Devices on Android 8+ are affected. */
 "notification_channel_downloader" = "Kaart downloader";
-
 "speedcams_notice_message" = "Auto - Waarschuw voor speedcams als er een risico bestaat dat de snelheidslimiet wordt overschreden\nAltijd - Waarschuw altijd voor flitspalen\nNooit - Waarschuw nooit over flitspalen";
-
 "power_managment_title" = "Energiebesparende modus";
-
 "power_managment_description" = "Als de energiebesparende modus is ingeschakeld, schakelt de app de energieverbruikende functies uit afhankelijk van de huidige lading van de mobiele telefoon";
-
 "power_managment_setting_never" = "Nooit";
-
 "power_managment_setting_auto" = "Auto";
-
 "power_managment_setting_manual_max" = "Maximale energiebesparing";
-
 "enable_logging_warning_message" = "Deze optie is ingeschakeld voor logboekregistraties voor diagnostische doeleinden. Het helpt bij het identificeren van problemen met de applicatie. Schakel de optie alleen in op verzoek van Organic Maps-ondersteuning.";
-
 "access_rules_author_only" = "Wordt online bewerkt";
-
 "driving_options_title" = "Omweginstellingen";
-
 "driving_options_subheader" = "Vermijden op elke route";
-
 "avoid_tolls" = "Tolwegen";
-
 "avoid_unpaved" = "Aardewegen";
-
 "avoid_ferry" = "Ferries";
-
 "avoid_motorways" = "Hoofdverkeerswegen";
-
 "unable_to_calc_alert_title" = "Kan route niet opbouwen";
-
 "unable_to_calc_alert_subtitle" = "Helaas konden we geen route opbouwen met de gekozen opties. Wijzig de instellingen en probeer het opnieuw";
-
 "define_to_avoid_btn" = "Omwegen configureren";
-
 "change_driving_options_btn" = "Omweginstellingen ingeschakeld";
-
 "toll_road" = "Tolweg";
-
 "unpaved_road" = "Aardeweg";
-
 "ferry_crossing" = "Ferry";
-
 "avoid_toll_roads_placepage" = "Tolwegen vermijden";
-
 "avoid_unpaved_roads_placepage" = "Aardewegen vermijden";
-
 "avoid_ferry_crossing_placepage" = "Ferries vermijden";
-
 "trip_start" = "Kom op";
-
 "pick_destination" = "Doel";
-
 "follow_my_position" = "Centreren";
-
 "search_results" = "Zoekresultaten";
-
 "then_turn" = "Dan";
-
 "redirect_route_alert" = "Wilt u de route wijzigen?";
-
 "redirect_route_yes" = "Ja";
-
 "redirect_route_no" = "Nee";
-
 "trip_finished" = "U bent aangekomen!";
-
 "keyboard_availability_alert" = "Toetsenbord is niet beschikbaar tijdens het rijden";
-
 "dialog_routing_change_start_carplay" = "Kan route vanaf huidige positie niet opbouwen";
-
 "dialog_routing_change_end_carplay" = "Kan route naar het eindpunt niet opbouwen. Kies een andere punt";
-
 "dialog_routing_check_gps_carplay" = "Geen GPS-signaal. Ga naar het open veld";
-
 "dialog_routing_unable_locate_route_carplay" = "Kan route niet bouwen. Selecteer andere tussenpunten";
-
 "dialog_routing_download_files_carplay" = "Om een route te bouwen, download u ontbrekende kaarten";
-
 "dialog_routing_system_error_carplay" = "Lets fout gegaan. Start de app opnieuw";
-
 "dialog_routing_rebuild_from_current_location_carplay" = "De route wordt opnieuw opgebouwd vanaf uw huidige positie";
-
 "dialog_routing_rebuild_for_vehicle_carplay" = "De route wordt gewijzigd in de autoroute";
-
 "ok" = "Goed";
-
 "avoid_unpaved_carplay_1" = "Geen aardew.";
-
 "avoid_unpaved_carplay_2" = "Geen aardewegen";
-
 "avoid_ferry_carplay_1" = "Geen ferry's";
-
 "avoid_ferry_carplay_2" = "Geen ferry's";
-
 "avoid_tolls_carplay_1" = "Zonder tol";
-
 "avoid_tolls_carplay_2" = "Zonder tol";
-
 "speedcams_alert_title_carplay_1" = "Cameras";
-
 "speedcams_alert_title_carplay_2" = "Over cameras";
-
 "download_map_carplay" = "Download kaarten in de Organic Maps app op uw apparaat";
-
 "carplay_roundabout_exit" = "Afrit nr. %s";
 
 /* max. 10 symbols, both iOS and Android */
@@ -1334,11 +965,8 @@
 
 /* iOS */
 "sort_default" = "Standaard sorteren";
-
 "sort_type" = "Sorteren op type";
-
 "sort_distance" = "Sorteer op afstand";
-
 "sort_date" = "Sorteer op datum";
 
 /* Android */
@@ -1352,103 +980,54 @@
 
 /* Android */
 "by_date" = "Op datum";
-
 "week_ago_sorttype" = "Een week geleden";
-
 "month_ago_sorttype" = "Een maand geleden";
-
 "moremonth_ago_sorttype" = "Meer dan een maand geleden";
-
 "moreyear_ago_sorttype" = "Meer dan een jaar geleden";
-
 "near_me_sorttype" = "Naast mij";
-
 "others_sorttype" = "Andere";
-
 "food_places" = "Eten";
-
 "tourist_places" = "Bezienswaardigheden";
-
 "museums" = "Musea";
-
 "parks" = "Parken";
-
 "swim_places" = "Zwemmen";
-
 "mountains" = "Bergen";
-
 "animals" = "Dieren";
-
 "hotels" = "Hotels";
-
 "buildings" = "Gebouwen";
-
 "money" = "Geld";
-
 "shops" = "Winkels";
-
 "parkings" = "Parkeerplaatsen";
-
 "fuel_places" = "Benzinestations";
-
 "water" = "Water";
-
 "medicine" = "Geneeskunde";
-
 "search_in_the_list" = "In de lijst zoeken";
-
 "religious_places" = "Religieuze plaatsen";
-
 "select_list" = "Lijst kiezen";
-
 "transit_not_found" = "Metro-navigatie is nog niet beschikbaar in deze regio";
-
 "dialog_pedestrian_route_is_long_header" = "Metroroute niet gevonden";
-
 "dialog_pedestrian_route_is_long_message" = "Kies een begin- of eindpunt dichter bij het metrostation";
-
 "button_layer_isolines" = "Hoogtes";
-
 "isolines_activation_error_dialog" = "Als u gebruik wilt maken van hoogtelijnen, moet u een kaart van het gewenste gebied bijwerken of downloaden";
-
 "isolines_location_error_dialog" = "De hoogtelijnen zijn nog niet beschikbaar in deze regio";
-
 "elevation_profile_diff_level" = "Moeilijkheidsgraad";
-
 "elevation_profile_diff_level_easy" = "Gemakkelijk";
-
 "elevation_profile_diff_level_moderate" = "Middelmatig";
-
 "elevation_profile_diff_level_hard" = "Moeilijk";
-
 "elevation_profile_ascent" = "Opstijging";
-
 "elevation_profile_descent" = "Afdaling";
-
 "elevation_profile_minaltitude" = "Min. hoogte";
-
 "elevation_profile_maxaltitude" = "Max. hoogte";
-
 "elevation_profile_difficulty" = "Moeilijkheid";
-
 "elevation_profile_distance" = "Afst.:";
-
 "elevation_profile_time" = "Op weg";
-
 "isolines_toast_zooms_1_10" = "Zoom in om isolijnen te bekijken";
-
 "downloader_updating_ios" = "Updaten";
-
 "downloader_loading_ios" = "Downloaden";
-
 "key_information_title" = "Belangrijke informatie";
-
 "download_map_title" = "Download the world map";
-
 "connection_failure" = "Connection failure";
-
 "disconnect_usb_cable_title" = "Disconnect USB cable";
-
 "enable_screen_sleep" = "Laat het scherm slapen";
 
 /* Description in preferences */
@@ -1482,1781 +1061,892 @@
 /********** Types **********/
 
 "type.aerialway" = "Aerialway";
-
 "type.aerialway.cable_car" = "Aerialway";
-
 "type.aerialway.chair_lift" = "Aerialway";
-
 "type.aerialway.drag_lift" = "Aerialway";
-
 "type.aerialway.gondola" = "Aerialway";
-
 "type.aerialway.mixed_lift" = "Aerialway";
-
 "type.aerialway.station" = "Kabelwagenstation";
-
 "type.aeroway" = "Aeroway";
-
 "type.aeroway.aerodrome" = "Vliegveld";
-
 "type.aeroway.aerodrome.international" = "Vliegveld";
-
 "type.aeroway.apron" = "aeroway-apron";
-
 "type.aeroway.gate" = "Gate";
-
 "type.aeroway.helipad" = "Heliplatform";
-
 "type.aeroway.runway" = "aeroway-runway";
-
 "type.aeroway.taxiway" = "aeroway-taxiway";
-
 "type.aeroway.terminal" = "Terminal";
-
 "type.amenity" = "Infrastructuur objecten";
-
 "type.amenity.arts_centre" = "Kunstcentrum";
-
 "type.amenity.atm" = "Geldautomaat";
-
 "type.amenity.bank" = "Bank";
-
 "type.amenity.bar" = "Bar";
-
 "type.amenity.bbq" = "Picnicplaats";
-
 "type.amenity.bench" = "Zitbank";
-
 "type.amenity.bicycle_parking" = "Fietsenstalling";
-
 "type.amenity.bicycle_rental" = "Fietsverhuur";
-
 "type.amenity.biergarten" = "Biergarten";
-
 "type.amenity.brothel" = "Bordeel";
-
 "type.amenity.bureau_de_change" = "Wisselkantoor";
-
 "type.amenity.bus_station" = "Busstation";
-
 "type.amenity.cafe" = "Tearoom";
-
 "type.amenity.car_rental" = "Autoverhuur";
-
 "type.amenity.car_sharing" = "Autodelen";
-
 "type.amenity.car_wash" = "Car wash";
-
 "type.amenity.casino" = "Casino";
-
 "type.amenity.charging_station" = "Oplaadstation";
-
 "type.amenity.childcare" = "Crèche";
-
 "type.amenity.cinema" = "Bioscoop";
-
 "type.amenity.clinic" = "Kliniek";
-
 "type.amenity.college" = "Hogeschool";
-
 "type.amenity.community_centre" = "Wijkcentrum";
-
 "type.amenity.courthouse" = "Rechtbank";
-
 "type.amenity.dentist" = "Tandarts";
-
 "type.amenity.doctors" = "Huisartsenpost";
-
 "type.amenity.drinking_water" = "Drinkwater";
-
 "type.amenity.driving_school" = "Rijschool";
-
 "type.office.diplomatic" = "Ambassade";
-
 "type.amenity.fast_food" = "Fast food";
-
 "type.amenity.ferry_terminal" = "Veerpont";
-
 "type.amenity.fire_station" = "Brandweer";
-
 "type.amenity.food_court" = "Food Court";
-
 "type.amenity.fountain" = "Fontein";
-
 "type.amenity.fuel" = "Tankstation";
-
 "type.amenity.grave_yard" = "Begraafplaats";
-
 "type.amenity.grave_yard.christian" = "Begraafplaats";
-
 "type.amenity.hospital" = "Ziekenhuis";
-
 "type.amenity.hunting_stand" = "Jaagplek";
-
 "type.amenity.ice_cream" = "Ijsstand";
-
 "type.amenity.internet_cafe" = "Internetcafe";
-
 "type.amenity.kindergarten" = "Kleuterschool";
-
 "type.amenity.library" = "Bibliotheek";
-
 "type.amenity.marketplace" = "Markt";
-
 "type.amenity.motorcycle_parking" = "Parking Motorfietsen";
-
 "type.amenity.nightclub" = "Discotheek";
-
 "type.amenity.nursing_home" = "Bejaardentehuis";
-
 "type.amenity.parking" = "Parkeerplaats";
-
 "type.amenity.parking.fee" = "Parkeerplaats";
-
 "type.amenity.parking.multi.storey" = "Parkeerplaats";
-
 "type.amenity.parking.no.access" = "Parkeerplaats";
-
 "type.amenity.parking.park_and_ride" = "Parkeerplaats";
-
 "type.amenity.parking.permissive" = "Parkeerplaats";
-
 "type.amenity.parking.private" = "Parkeerplaats";
-
 "type.amenity.parking.underground" = "Parkeerplaats";
-
 "type.amenity.parking_space" = "Parkeerplaats";
-
 "type.amenity.parking_space.permissive" = "Parkeerplaats";
-
 "type.amenity.parking_space.private" = "Parkeerplaats";
-
 "type.amenity.parking_space.underground" = "Parkeerplaats";
-
 "type.amenity.payment_terminal" = "Betaalautomaat";
-
 "type.amenity.pharmacy" = "Apotheek";
-
 "type.amenity.place_of_worship" = "Gebedsplaats";
-
 "type.amenity.place_of_worship.buddhist" = "Tempel";
-
 "type.amenity.place_of_worship.christian" = "Kerk";
-
 "type.amenity.place_of_worship.hindu" = "Tempel";
-
 "type.amenity.place_of_worship.jewish" = "Synagoge";
-
 "type.amenity.place_of_worship.muslim" = "Moskee";
-
 "type.amenity.place_of_worship.shinto" = "Heiligdom";
-
 "type.amenity.place_of_worship.taoist" = "Tempel";
-
 "type.amenity.police" = "Politie";
-
 "type.amenity.post_box" = "Brievenbus";
-
 "type.amenity.post_office" = "Postkantoor";
-
 "type.amenity.prison" = "Prison";
-
 "type.amenity.pub" = "Kroeg";
-
 "type.amenity.public_bookcase" = "Boekenkast";
-
 "type.amenity.recycling" = "Milieustraat";
-
 "type.amenity.recycling_container" = "Recycling container";
-
 "type.recycling.toxic" = "Giftig afval";
-
 "type.recycling.clothes" = "Oude kleding";
-
 "type.recycling.glass_bottles" = "Glazen flessen";
-
 "type.recycling.paper" = "Papierafval";
-
 "type.recycling.plastic" = "Plastic afval";
-
 "type.recycling.plastic_bottles" = "Plastic flessen";
-
 "type.recycling.scrap_metal" = "Schroot";
-
 "type.recycling.small_appliances" = "Elektronisch afval";
-
 "type.amenity.restaurant" = "Restaurant";
-
 "type.amenity.school" = "School";
-
 "type.amenity.shelter" = "Beschutting";
-
 "type.amenity.shower" = "Douche";
-
 "type.amenity.taxi" = "Taxi";
-
 "type.amenity.telephone" = "Telefoon";
-
 "type.amenity.theatre" = "Theater";
-
 "type.amenity.toilets" = "Toilet";
-
 "type.amenity.townhall" = "Gemeentehuis";
-
 "type.amenity.university" = "Universiteit";
-
 "type.amenity.vending_machine" = "Vending Machine";
-
 "type.amenity.vending_machine.cigarettes" = "Sigarettenautomaat";
-
 "type.amenity.vending_machine.drinks" = "Drankautomaat";
-
 "type.amenity.vending_machine.parking_tickets" = "Betaalautomaat parkeergarage";
-
 "type.amenity.vending_machine.public_transport_tickets" = "Kaartjesautomaat voor openbaar vervoer";
-
 "type.amenity.veterinary" = "Dierenarts";
-
 "type.amenity.waste_basket" = "Vuilnisbak";
-
 "type.amenity.waste_disposal" = "Uitschot";
-
 "type.amenity.water_point" = "Waterpunt";
-
 "type.barrier" = "Barrier";
-
 "type.barrier.block" = "Blok";
-
 "type.barrier.bollard" = "Pilaar";
-
 "type.barrier.border_control" = "Grenscontrole";
-
 "type.barrier.chain" = "Chain";
-
 "type.barrier.city_wall" = "City Wall";
-
 "type.barrier.cycle_barrier" = "Cycle Barrier";
-
 "type.barrier.entrance" = "Ingang";
-
 "type.barrier.fence" = "Fence";
-
 "type.barrier.gate" = "Poort";
-
 "type.barrier.hedge" = "Hedge";
-
 "type.barrier.lift_gate" = "Slagboom";
-
 "type.barrier.retaining_wall" = "Retaining Wall";
-
 "type.barrier.stile" = "Tourniquet";
-
 "type.barrier.swing_gate" = "Slagboom";
-
 "type.barrier.toll_booth" = "Tolhokje";
-
 "type.barrier.wall" = "Wall";
-
 "type.boundary" = "Boundary";
-
 "type.boundary.administrative" = "boundary-administrative";
-
 "type.boundary.administrative.10" = "boundary-administrative-10";
-
 "type.boundary.administrative.11" = "boundary-administrative-11";
-
 "type.boundary.administrative.2" = "boundary-administrative-2";
-
 "type.boundary.administrative.3" = "boundary-administrative-3";
-
 "type.boundary.administrative.4" = "boundary-administrative-4";
-
 "type.boundary.administrative.4.state" = "boundary-administrative-4-state";
-
 "type.boundary.administrative.5" = "boundary-administrative-5";
-
 "type.boundary.administrative.6" = "boundary-administrative-6";
-
 "type.boundary.administrative.7" = "boundary-administrative-7";
-
 "type.boundary.administrative.8" = "boundary-administrative-8";
-
 "type.boundary.administrative.9" = "boundary-administrative-9";
-
 "type.boundary.administrative.city" = "boundary-administrative-city";
-
 "type.boundary.administrative.country" = "boundary-administrative-country";
-
 "type.boundary.administrative.county" = "boundary-administrative-county";
-
 "type.boundary.administrative.municipality" = "boundary-administrative-municipality";
-
 "type.boundary.administrative.nation" = "boundary-administrative-nation";
-
 "type.boundary.administrative.region" = "boundary-administrative-region";
-
 "type.boundary.administrative.state" = "boundary-administrative-state";
-
 "type.boundary.administrative.suburb" = "boundary-administrative-suburb";
-
 "type.boundary.national_park" = "Nationaal park";
-
 "type.building" = "Gebouw";
-
 "type.building.address" = "Gebouw";
-
 "type.building.garage" = "Garage";
-
 "type.building.has_parts" = "Gebouw";
-
 "type.building.train_station" = "Station";
-
 "type.building.warehouse" = "Warehouse";
-
 "type.craft" = "Craft";
-
 "type.craft.brewery" = "Brouwerij";
-
 "type.craft.carpenter" = "Timmerman";
-
 "type.craft.electrician" = "Elektricien";
-
 "type.craft.gardener" = "Tuinarchitect";
-
 "type.craft.hvac" = "Airconditioning";
-
 "type.craft.metal_construction" = "Metaalarbeider";
-
 "type.craft.painter" = "Schilder";
-
 "type.craft.photographer" = "Fotograaf";
-
 "type.craft.plumber" = "Loodgieter";
-
 "type.craft.shoemaker" = "Schoenmaker";
-
 "type.craft.tailor" = "Kleermaker";
-
 "type.cuisine.african" = "Afrikaans";
-
 "type.cuisine.american" = "Amerikaans";
-
 "type.cuisine.arab" = "Arabisch";
-
 "type.cuisine.argentinian" = "Argentijns";
-
 "type.cuisine.asian" = "Aziatisch";
-
 "type.cuisine.austrian" = "Oostenrijks";
-
 "type.cuisine.bagel" = "Bagels";
-
 "type.cuisine.balkan" = "Balkan";
-
 "type.cuisine.barbecue" = "Barbecue";
-
 "type.cuisine.bavarian" = "Beiers";
-
 "type.cuisine.beef_bowl" = "Gyudon";
-
 "type.cuisine.brazilian" = "Braziliaans";
-
 "type.cuisine.breakfast" = "Ontbijt";
-
 "type.cuisine.burger" = "Hamburgers";
-
 "type.cuisine.buschenschank" = "Buschenschank";
-
 "type.cuisine.cake" = "Taart";
-
 "type.cuisine.caribbean" = "Caraïbisch";
-
 "type.cuisine.chicken" = "Kip";
-
 "type.cuisine.chinese" = "Chinees";
-
 "type.cuisine.coffee_shop" = "Koffie";
-
 "type.cuisine.crepe" = "Pannenkoek";
-
 "type.cuisine.croatian" = "Kroatisch";
-
 "type.cuisine.curry" = "Curry's";
-
 "type.cuisine.deli" = "Deli";
-
 "type.cuisine.diner" = "Diner";
-
 "type.cuisine.donut" = "Donuts";
-
 "type.cuisine.ethiopian" = "Ethiopisch";
-
 "type.cuisine.filipino" = "Filipijns";
-
 "type.cuisine.fine_dining" = "Gastronomisch";
-
 "type.cuisine.fish" = "Vis";
-
 "type.cuisine.fish_and_chips" = "Fish and chips";
-
 "type.cuisine.french" = "Frans";
-
 "type.cuisine.friture" = "Frituur";
-
 "type.cuisine.georgian" = "Georgisch";
-
 "type.cuisine.german" = "Duits";
-
 "type.cuisine.greek" = "Grieks";
-
 "type.cuisine.grill" = "Gegrilde gerechten";
-
 "type.cuisine.heuriger" = "Heuriger";
-
 "type.cuisine.hotdog" = "Hotdogs";
-
 "type.cuisine.hungarian" = "Hongaars";
-
 "type.cuisine.ice_cream" = "Ijs";
-
 "type.cuisine.indian" = "Indisch";
-
 "type.cuisine.indonesian" = "Indonesisch";
-
 "type.cuisine.international" = "Internationaal";
-
 "type.cuisine.irish" = "Iers";
-
 "type.cuisine.italian" = "Italiaans";
-
 "type.cuisine.italian_pizza" = "Italiaans, pizza";
-
 "type.cuisine.japanese" = "Japans";
-
 "type.cuisine.kebab" = "Kebab";
-
 "type.cuisine.korean" = "Koreaans";
-
 "type.cuisine.lao" = "Laotiaans";
-
 "type.cuisine.lebanese" = "Libanees";
-
 "type.cuisine.local" = "Regionale keuken";
-
 "type.cuisine.malagasy" = "Malagassisch";
-
 "type.cuisine.malaysian" = "Maleisisch";
-
 "type.cuisine.mediterranean" = "Mediterraans";
-
 "type.cuisine.mexican" = "Mexicaans";
-
 "type.cuisine.moroccan" = "Marokkaans";
-
 "type.cuisine.noodles" = "Noedels";
-
 "type.cuisine.oriental" = "Oosters";
-
 "type.cuisine.pancake" = "Pannenkoek";
-
 "type.cuisine.pasta" = "Pasta";
-
 "type.cuisine.persian" = "Perzisch";
-
 "type.cuisine.peruvian" = "Peruaans";
-
 "type.cuisine.pizza" = "Pizza's";
-
 "type.cuisine.polish" = "Pools";
-
 "type.cuisine.portuguese" = "Portugees";
-
 "type.cuisine.ramen" = "Ramennoedels";
-
 "type.cuisine.regional" = "Regionale keuken";
-
 "type.cuisine.russian" = "Russisch";
-
 "type.cuisine.sandwich" = "Broodjes";
-
 "type.cuisine.sausage" = "Worst";
-
 "type.cuisine.savory_pancakes" = "Hartige pannenkoeken";
-
 "type.cuisine.seafood" = "Vis en zeevruchten";
-
 "type.cuisine.soba" = "Soba";
-
 "type.cuisine.spanish" = "Spaans";
-
 "type.cuisine.steak_house" = "Steakhouse";
-
 "type.cuisine.sushi" = "Sushi";
-
 "type.cuisine.tapas" = "Tapas";
-
 "type.cuisine.tea" = "Thee";
-
 "type.cuisine.thai" = "Thais gerechten";
-
 "type.cuisine.turkish" = "Turks";
-
 "type.cuisine.vegan" = "Veganistisch";
-
 "type.cuisine.vegetarian" = "Vegetarisch";
-
 "type.cuisine.vietnamese" = "Vietnamees";
-
 "type.emergency" = "Emergency";
-
 "type.emergency.defibrillator" = "Defibrillator";
-
 "type.emergency.fire_hydrant" = "Brandkraan";
-
 "type.emergency.phone" = "Praatpaal";
-
 "type.entrance" = "Ingang";
-
 "type.healthcare.laboratory" = "Medisch laboratorium";
-
 "type.highway" = "Highway";
-
 "type.highway.bridleway" = "Rider's Path";
-
 "type.highway.bridleway.bridge" = "Rider's Path";
-
 "type.highway.bridleway.permissive" = "Rider's Path";
-
 "type.highway.bridleway.tunnel" = "Rider's Path";
-
 "type.highway.bus_stop" = "Bushalte";
-
 "type.highway.construction" = "Baan in aanbouw";
-
 "type.highway.cycleway" = "Bike Path";
-
 "type.highway.cycleway.bridge" = "Bike Path";
-
 "type.highway.cycleway.permissive" = "Bike Path";
-
 "type.highway.cycleway.tunnel" = "Bike Path";
-
 "type.highway.elevator" = "Elevator";
-
 "type.highway.footway" = "Pad";
-
 "type.highway.footway.alpine_hiking" = "Pad";
-
 "type.highway.footway.area" = "Pad";
-
 "type.highway.footway.bridge" = "Pad";
-
 "type.highway.footway.demanding_alpine_hiking" = "Pad";
-
 "type.highway.footway.demanding_mountain_hiking" = "Pad";
-
 "type.highway.footway.difficult_alpine_hiking" = "Pad";
-
 "type.highway.footway.hiking" = "Pad";
-
 "type.highway.footway.mountain_hiking" = "Pad";
-
 "type.highway.footway.permissive" = "Pad";
-
 "type.highway.footway.tunnel" = "Pad";
-
 "type.highway.ford" = "Voorde";
-
 "type.highway.living_street" = "Straat";
-
 "type.highway.living_street.bridge" = "Straat";
-
 "type.highway.living_street.tunnel" = "Straat";
-
 "type.highway.motorway" = "Straat";
-
 "type.highway.motorway.bridge" = "Straat";
-
 "type.highway.motorway.tunnel" = "Straat";
-
 "type.highway.motorway_junction" = "Afrit";
-
 "type.highway.motorway_link" = "Straat";
-
 "type.highway.motorway_link.bridge" = "Straat";
-
 "type.highway.motorway_link.tunnel" = "Straat";
-
 "type.highway.path" = "Pad";
-
 "type.highway.path.alpine_hiking" = "Pad";
-
 "type.highway.path.bicycle" = "Pad";
-
 "type.highway.path.bridge" = "Pad";
-
 "type.highway.path.demanding_alpine_hiking" = "Pad";
-
 "type.highway.path.demanding_mountain_hiking" = "Pad";
-
 "type.highway.path.difficult_alpine_hiking" = "Pad";
-
 "type.highway.path.hiking" = "Pad";
-
 "type.highway.path.horse" = "Pad";
-
 "type.highway.path.mountain_hiking" = "Pad";
-
 "type.highway.path.permissive" = "Pad";
-
 "type.highway.path.tunnel" = "Tunnel";
-
 "type.highway.pedestrian" = "Straat";
-
 "type.highway.pedestrian.area" = "Straat";
-
 "type.highway.pedestrian.bridge" = "Straat";
-
 "type.highway.pedestrian.tunnel" = "Straat";
-
 "type.highway.primary" = "Straat";
-
 "type.highway.primary.bridge" = "Straat";
-
 "type.highway.primary.tunnel" = "Straat";
-
 "type.highway.primary_link" = "Straat";
-
 "type.highway.primary_link.bridge" = "Straat";
-
 "type.highway.primary_link.tunnel" = "Straat";
-
 "type.highway.raceway" = "Racebaan";
-
 "type.highway.residential" = "Straat";
-
 "type.highway.residential.area" = "Straat";
-
 "type.highway.residential.bridge" = "Straat";
-
 "type.highway.residential.tunnel" = "Straat";
-
 "type.highway.rest_area" = "Parkeerplaats";
-
 "type.highway.road" = "Straat";
-
 "type.highway.road.bridge" = "Straat";
-
 "type.highway.road.tunnel" = "Straat";
-
 "type.highway.secondary" = "Straat";
-
 "type.highway.secondary.bridge" = "Straat";
-
 "type.highway.secondary.tunnel" = "Straat";
-
 "type.highway.secondary_link" = "Straat";
-
 "type.highway.secondary_link.bridge" = "Straat";
-
 "type.highway.secondary_link.tunnel" = "Straat";
-
 "type.highway.service" = "Straat";
-
 "type.highway.service.area" = "Straat";
-
 "type.highway.service.bridge" = "Straat";
-
 "type.highway.service.driveway" = "Straat";
-
 "type.highway.service.parking_aisle" = "Straat";
-
 "type.highway.service.tunnel" = "Straat";
-
 "type.highway.services" = "Service on the Road";
-
 "type.highway.speed_camera" = "Flitspaal";
-
 "type.highway.steps" = "Pad";
-
 "type.highway.steps.bridge" = "Pad";
-
 "type.highway.steps.tunnel" = "Pad";
-
 "type.highway.tertiary" = "Straat";
-
 "type.highway.tertiary.bridge" = "Straat";
-
 "type.highway.tertiary.tunnel" = "Straat";
-
 "type.highway.tertiary_link" = "Straat";
-
 "type.highway.tertiary_link.bridge" = "Straat";
-
 "type.highway.tertiary_link.tunnel" = "Straat";
-
 "type.highway.track" = "Straat";
-
 "type.highway.track.area" = "Straat";
-
 "type.highway.track.bridge" = "Straat";
-
 "type.highway.track.grade1" = "Straat";
-
 "type.highway.track.grade2" = "Straat";
-
 "type.highway.track.grade3" = "Straat";
-
 "type.highway.track.grade4" = "Straat";
-
 "type.highway.track.grade5" = "Straat";
-
 "type.highway.track.no.access" = "Straat";
-
 "type.highway.track.permissive" = "Straat";
-
 "type.highway.track.tunnel" = "Straat";
-
 "type.highway.traffic_signals" = "Verkeerslichten";
-
 "type.highway.trunk" = "Straat";
-
 "type.highway.trunk.bridge" = "Straat";
-
 "type.highway.trunk.tunnel" = "Straat";
-
 "type.highway.trunk_link" = "Straat";
-
 "type.highway.trunk_link.bridge" = "Straat";
-
 "type.highway.trunk_link.tunnel" = "Straat";
-
 "type.highway.unclassified" = "Straat";
-
 "type.highway.unclassified.area" = "Straat";
-
 "type.highway.unclassified.bridge" = "Straat";
-
 "type.highway.unclassified.tunnel" = "Straat";
-
 "type.highway.world_level" = "highway-world_level";
-
 "type.highway.world_towns_level" = "highway-world_towns_level";
-
 "type.historic" = "Historic";
-
 "type.historic.archaeological_site" = "Archeologische site";
-
 "type.historic.battlefield" = "Battlefield";
-
 "type.historic.boundary_stone" = "Boundary Stone";
-
 "type.historic.castle" = "Kasteel";
-
 "type.historic.castle.defensive" = "Kasteel";
-
 "type.historic.castle.stately" = "Kasteel";
-
 "type.historic.citywalls" = "City Wall";
-
 "type.historic.fort" = "Fort";
-
 "type.historic.memorial" = "Gedenkteken";
-
 "type.historic.memorial.plaque" = "Gedenkteken";
-
 "type.historic.memorial.sculpture" = "Gedenkteken";
-
 "type.historic.memorial.statue" = "Gedenkteken";
-
 "type.historic.monument" = "Monument";
-
 "type.historic.ruins" = "Ruïne";
-
 "type.historic.ship" = "Toerisme";
-
 "type.historic.tomb" = "Toerisme";
-
 "type.historic.wayside_cross" = "Christian Cross";
-
 "type.historic.wayside_shrine" = "Shrine";
-
 "type.hwtag" = "hwtag";
-
 "type.hwtag.bidir_bicycle" = "hwtag-bidir_bicycle";
-
 "type.hwtag.onedir_bicycle" = "hwtag-onedir_bicycle";
-
 "type.hwtag.lit" = "hwtag-lit";
-
 "type.hwtag.nobicycle" = "hwtag-nobicycle";
-
 "type.hwtag.nocar" = "hwtag-nocar";
-
 "type.hwtag.nofoot" = "hwtag-nofoot";
-
 "type.hwtag.oneway" = "hwtag-oneway";
-
 "type.hwtag.private" = "hwtag-private";
-
 "type.hwtag.toll" = "hwtag-toll";
-
 "type.hwtag.yesbicycle" = "hwtag-yesbicycle";
-
 "type.hwtag.yescar" = "hwtag-yescar";
-
 "type.hwtag.yesfoot" = "hwtag-yesfoot";
-
 "type.internet_access" = "Internet";
-
 "type.internet_access.wlan" = "Internet";
-
 "type.junction" = "Junction";
-
 "type.junction.roundabout" = "Roundabout";
-
 "type.landuse" = "Landuse";
-
 "type.landuse.allotments" = "Allotments";
-
 "type.landuse.basin" = "Water";
-
 "type.landuse.brownfield" = "Brownfield";
-
 "type.landuse.cemetery" = "Begraafplaats";
-
 "type.landuse.cemetery.christian" = "Begraafplaats";
-
 "type.landuse.churchyard" = "Kerkhof";
-
 "type.landuse.commercial" = "Commercial Area";
-
 "type.landuse.construction" = "Construction";
-
 "type.landuse.farm" = "Farm";
-
 "type.landuse.farmland" = "Landbouwgrond";
-
 "type.landuse.farmyard" = "Farmyard";
-
 "type.landuse.field" = "Field";
-
 "type.landuse.forest" = "Bos";
-
 "type.landuse.forest.coniferous" = "Bos";
-
 "type.landuse.forest.deciduous" = "Bos";
-
 "type.landuse.forest.mixed" = "Bos";
-
 "type.landuse.garages" = "Garages";
-
 "type.landuse.grass" = "Gazon";
-
 "type.landuse.greenfield" = "Greenfield";
-
 "type.landuse.greenhouse_horticulture" = "Greenhouse";
-
 "type.landuse.industrial" = "Industrial Land";
-
 "type.landuse.landfill" = "Stortplaats";
-
 "type.landuse.meadow" = "Meadow";
-
 "type.landuse.military" = "Military Area";
-
 "type.landuse.orchard" = "Orchard";
-
 "type.landuse.quarry" = "Quarry";
-
 "type.landuse.railway" = "Spoorwegfaciliteiten";
-
 "type.landuse.recreation_ground" = "Recreation Ground";
-
 "type.landuse.reservoir" = "Water";
-
 "type.landuse.residential" = "Residential Land";
-
 "type.landuse.retail" = "Retail Land";
-
 "type.landuse.salt_pond" = "Pond";
-
 "type.landuse.village_green" = "Land";
-
 "type.landuse.vineyard" = "Vineyard";
-
 "type.leisure" = "Leisure";
-
 "type.leisure.common" = "leisure-common";
-
 "type.leisure.dog_park" = "Plaats voor hondenuitlaten";
-
 "type.leisure.fitness_centre" = "Fitnesscentrum";
-
 "type.leisure.fitness_station" = "Fitness-Station";
-
 "type.leisure.garden" = "Tuin";
-
 "type.leisure.golf_course" = "Golfbaan";
-
 "type.leisure.ice_rink" = "Ice Rink";
-
 "type.leisure.landscape_reserve" = "Landscape Reserve";
-
 "type.leisure.marina" = "Marina";
-
 "type.leisure.nature_reserve" = "Reserve";
-
 "type.leisure.park" = "Park";
-
 "type.leisure.park.no.access" = "Park";
-
 "type.leisure.park.permissive" = "Park";
-
 "type.leisure.park.private" = "Park";
-
 "type.leisure.picnic_table" = "Picknicktafel";
-
 "type.leisure.pitch" = "Sportveld";
-
 "type.leisure.playground" = "Speeltuin";
-
 "type.leisure.recreation_ground" = "Recreation Ground";
-
 "type.leisure.sauna" = "Sauna";
-
 "type.leisure.slipway" = "Slipway";
-
 "type.leisure.sports_centre" = "Sportcentrum";
-
 "type.leisure.sports_centre.climbing" = "Klimhal";
-
 "type.leisure.sports_centre.shooting" = "Schietbaan";
-
 "type.leisure.sports_centre.swimming" = "Zwembad";
-
 "type.leisure.sports_centre.yoga" = "Yogastudio";
-
 "type.leisure.stadium" = "Stadium";
-
 "type.leisure.swimming_pool" = "Zwembad";
-
 "type.leisure.track" = "Track";
-
 "type.leisure.water_park" = "Waterpark";
-
 "type.man_made" = "Man Made";
-
 "type.man_made.breakwater" = "Breakwater";
-
 "type.man_made.cairn" = "Cairn";
-
 "type.man_made.chimney" = "Fabrieksschoorsteen";
-
 "type.man_made.cutline" = "Cutline";
-
 "type.man_made.lighthouse" = "Vuurtoren";
-
 "type.man_made.pier" = "Pier";
-
 "type.man_made.pipeline" = "Pijpleiding";
-
 "type.man_made.pipeline.overground" = "Bovengrondse pijpleiding";
-
 "type.man_made.silo" = "Silo";
-
 "type.man_made.storage_tank" = "Storage Tank";
-
 "type.man_made.surveillance" = "Bewakingscamera";
-
 "type.man_made.tower" = "Toren";
-
 "type.man_made.wastewater_plant" = "Wastewater Plant";
-
 "type.man_made.water_tap" = "Waterkraan";
-
 "type.man_made.water_tower" = "Watertoren";
-
 "type.man_made.water_well" = "Waterbron";
-
 "type.man_made.windmill" = "Windmolen";
-
 "type.man_made.works" = "Works";
-
 "type.mapswithme" = "mapswithme";
-
 "type.mapswithme.grid" = "mapswithme-grid";
-
 "type.military" = "Military";
-
 "type.military.bunker" = "Bunker";
-
 "type.mountain_pass" = "Mountain Pass";
-
 "type.natural" = "Natuurlijk";
-
 "type.natural.bare_rock" = "Kale steen";
-
 "type.natural.bay" = "Baai";
-
 "type.natural.beach" = "Strand";
-
 "type.natural.cape" = "Kaap";
-
 "type.natural.cave_entrance" = "Grot";
-
 "type.natural.cliff" = "Klif";
-
 "type.natural.coastline" = "Kustlijn";
-
 "type.natural.geyser" = "Geiser";
-
 "type.natural.glacier" = "Gletsjer";
-
 "type.natural.grassland" = "Veld";
-
 "type.natural.heath" = "Heide";
-
 "type.natural.hot_spring" = "Heetwaterbron";
-
 "type.natural.water.lake" = "Meer";
-
 "type.natural.land" = "Land";
-
 "type.natural.meadow" = "Weiland";
-
 "type.natural.orchard" = "Boomgaard";
-
 "type.natural.peak" = "Top";
-
 "type.natural.saddle" = "Mountain Saddle";
-
 "type.natural.water.pond" = "Plas";
-
 "type.natural.rock" = "Steen";
-
 "type.natural.scrub" = "Kreupel bos";
-
 "type.natural.spring" = "Bron";
-
 "type.natural.strait" = "Zeestraat";
-
 "type.natural.tree" = "Boom";
-
 "type.natural.tree_row" = "Bomenrij";
-
 "type.natural.vineyard" = "Wijngaard";
-
 "type.natural.volcano" = "Vulkaan";
-
 "type.natural.water" = "Water";
-
 "type.natural.wetland" = "Moerasland";
-
 "type.natural.wetland.bog" = "Moeras";
-
 "type.natural.wetland.marsh" = "Moeras";
-
 "type.noexit" = "noexit";
-
 "type.noexit.motor_vehicle" = "noexit-motor_vehicle";
-
 "type.office" = "Kantoor";
-
 "type.office.company" = "Bedrijfskantoor";
-
 "type.office.estate_agent" = "Makelaar";
-
 "type.office.government" = "Overheidskantoor";
-
 "type.office.insurance" = "Verzekeringskantoor";
-
 "type.office.lawyer" = "Advocatenkantoor";
-
 "type.office.ngo" = "NGO-kantoor";
-
 "type.office.telecommunication" = "Mobiele provider";
-
 "type.olympics" = "olympics";
-
 "type.olympics.attraction" = "olympics-attraction";
-
 "type.olympics.bike_sport" = "olympics-bike_sport";
-
 "type.olympics.live_site" = "olympics-live_site";
-
 "type.olympics.official_building" = "olympics-official_building";
-
 "type.olympics.stadium" = "olympics-stadium";
-
 "type.olympics.stadium_main" = "olympics-stadium_main";
-
 "type.olympics.transport_airport" = "olympics-transport_airport";
-
 "type.olympics.transport_boat" = "olympics-transport_boat";
-
 "type.olympics.transport_bus" = "olympics-transport_bus";
-
 "type.olympics.transport_cable" = "olympics-transport_cable";
-
 "type.olympics.transport_railway" = "olympics-transport_railway";
-
 "type.olympics.transport_subway" = "olympics-transport_subway";
-
 "type.olympics.transport_tram" = "olympics-transport_tram";
-
 "type.olympics.water_sport" = "olympics-water_sport";
-
 "type.place" = "place";
-
 "type.place.city" = "Stad";
-
 "type.place.city.capital" = "Hoofdstad";
-
 "type.place.city.capital.10" = "Hoofdstad";
-
 "type.place.city.capital.11" = "Hoofdstad";
-
 "type.place.city.capital.2" = "Hoofdstad";
-
 "type.place.city.capital.3" = "Hoofdstad";
-
 "type.place.city.capital.4" = "Hoofdstad";
-
 "type.place.city.capital.5" = "Hoofdstad";
-
 "type.place.city.capital.6" = "Hoofdstad";
-
 "type.place.city.capital.7" = "Hoofdstad";
-
 "type.place.city.capital.8" = "Hoofdstad";
-
 "type.place.city.capital.9" = "Hoofdstad";
-
 "type.place.continent" = "Continent";
-
 "type.place.country" = "Land";
-
 "type.place.county" = "Graafschap";
-
 "type.place.farm" = "Boerderij";
-
 "type.place.hamlet" = "Gehucht";
-
 "type.place.island" = "Eilandje";
-
 "type.place.islet" = "Eilandje";
-
 "type.place.isolated_dwelling" = "Dwelling";
-
 "type.place.locality" = "Plaats";
-
 "type.place.neighbourhood" = "Neighbourhood";
-
 "type.place.ocean" = "Oceaan";
-
 "type.place.region" = "Regio";
-
 "type.place.sea" = "Zee";
-
 "type.place.square" = "Square";
-
 "type.place.state" = "Deelstaat";
-
 "type.place.state.USA" = "Deelstaat";
-
 "type.place.suburb" = "Buitenwijken";
-
 "type.place.town" = "Stad";
-
 "type.place.village" = "Dorp";
-
 "type.power" = "Power";
-
 "type.power.generator" = "Generator";
-
 "type.power.line" = "Power Line";
-
 "type.power.line.underground" = "Underground Power Line";
-
 "type.power.minor_line" = "Minor Power Line";
-
 "type.power.pole" = "Elektriciteitspaal";
-
 "type.power.station" = "Power Station";
-
 "type.power.substation" = "Substation";
-
 "type.power.tower" = "Elektriciteitspaal";
-
 "type.psurface" = "psurface";
-
 "type.psurface.paved_bad" = "psurface-paved_bad";
-
 "type.psurface.paved_good" = "psurface-paved_good";
-
 "type.psurface.unpaved_bad" = "psurface-unpaved_bad";
-
 "type.psurface.unpaved_good" = "psurface-unpaved_good";
-
 "type.public_transport" = "Public Transport";
-
 "type.public_transport.platform" = "Platform";
-
 "type.railway" = "Railway";
-
 "type.railway.abandoned" = "Abandoned railway";
-
 "type.railway.abandoned.bridge" = "Abandoned railway";
-
 "type.railway.abandoned.tunnel" = "Abandoned railway";
-
 "type.railway.construction" = "Railway's construction";
-
 "type.railway.crossing" = "Railway crossing";
-
 "type.railway.disused" = "Disused railway";
-
 "type.railway.funicular" = "Funicular";
-
 "type.railway.funicular.bridge" = "Funicular";
-
 "type.railway.funicular.tunnel" = "Funicular";
-
 "type.railway.halt" = "Station";
-
 "type.railway.level_crossing" = "Spoorwegovergang";
-
 "type.railway.light_rail" = "Light Rail";
-
 "type.railway.light_rail.bridge" = "Light Rail";
-
 "type.railway.light_rail.tunnel" = "Light Rail";
-
 "type.railway.monorail" = "Monorail";
-
 "type.railway.monorail.bridge" = "Monorail";
-
 "type.railway.monorail.tunnel" = "Monorail";
-
 "type.railway.narrow_gauge" = "Narrow Gauge Rail";
-
 "type.railway.narrow_gauge.bridge" = "Narrow Gauge Rail";
-
 "type.railway.narrow_gauge.tunnel" = "Narrow Gauge Rail";
-
 "type.railway.platform" = "Platform";
-
 "type.railway.preserved" = "Preserved Rail";
-
 "type.railway.preserved.bridge" = "Preserved Rail";
-
 "type.railway.preserved.tunnel" = "Preserved Rail";
-
 "type.railway.rail" = "Spoorlijn";
-
 "type.railway.rail.bridge" = "Railway";
-
 "type.railway.rail.motor_vehicle" = "Railway";
-
 "type.railway.rail.tunnel" = "Railway";
-
 "type.railway.razed" = "Razed Rail";
-
 "type.railway.siding" = "Siding Rail";
-
 "type.railway.siding.bridge" = "Siding Rail";
-
 "type.railway.siding.tunnel" = "Siding Rail";
-
 "type.railway.spur" = "Spur Rail";
-
 "type.railway.spur.bridge" = "Spur Rail";
-
 "type.railway.spur.tunnel" = "Spur Rail";
-
 "type.railway.station" = "Station";
-
 "type.railway.station.light_rail" = "Station";
-
 "type.railway.station.monorail" = "Station";
-
 "type.railway.station.subway" = "Metro";
-
 "type.railway.station.subway.barcelona" = "Metro";
-
 "type.railway.station.subway.berlin" = "Metro";
-
 "type.railway.station.subway.kiev" = "Metro";
-
 "type.railway.station.subway.london" = "Metro";
-
 "type.railway.station.subway.madrid" = "Metro";
-
 "type.railway.station.subway.minsk" = "Metro";
-
 "type.railway.station.subway.moscow" = "Metro";
-
 "type.railway.station.subway.newyork" = "Metro";
-
 "type.railway.station.subway.paris" = "Metro";
-
 "type.railway.station.subway.roma" = "Metro";
-
 "type.railway.station.subway.spb" = "Metro";
-
 "type.railway.subway" = "Subway Line";
-
 "type.railway.subway.bridge" = "Subway Line";
-
 "type.railway.subway.tunnel" = "Subway Line";
-
 "type.railway.subway_entrance" = "Metro ingang";
-
 "type.railway.subway_entrance.barcelona" = "Metro";
-
 "type.railway.subway_entrance.berlin" = "Metro";
-
 "type.railway.subway_entrance.kiev" = "Metro";
-
 "type.railway.subway_entrance.london" = "Metro";
-
 "type.railway.subway_entrance.madrid" = "Metro";
-
 "type.railway.subway_entrance.minsk" = "Metro";
-
 "type.railway.subway_entrance.moscow" = "Metro";
-
 "type.railway.subway_entrance.newyork" = "Metro";
-
 "type.railway.subway_entrance.paris" = "Metro";
-
 "type.railway.subway_entrance.roma" = "Metro";
-
 "type.railway.subway_entrance.spb" = "Metro";
-
 "type.railway.tram" = "Tram Line";
-
 "type.railway.tram.bridge" = "Tram Line";
-
 "type.railway.tram.tunnel" = "Tram Line";
-
 "type.railway.tram_stop" = "Tramhalte";
-
 "type.railway.yard" = "Railway Yard";
-
 "type.railway.yard.bridge" = "Railway Yard";
-
 "type.railway.yard.tunnel" = "Railway Yard";
-
 "type.route" = "route";
-
 "type.route.ferry" = "Ferry";
-
 "type.route.shuttle_train" = "Shuttle Train";
-
 "type.shop" = "Winkel";
-
 "type.shop.alcohol" = "Slijterij";
-
 "type.shop.bakery" = "Bakkerij";
-
 "type.shop.beauty" = "Schoonheidssalon";
-
 "type.shop.beverages" = "Drank";
-
 "type.shop.bicycle" = "Fietsenwinkel";
-
 "type.shop.bookmaker" = "Bookmaker";
-
 "type.shop.books" = "Boekenwinkel";
-
 "type.shop.butcher" = "Slager";
-
 "type.shop.car" = "Autohandelaar";
-
 "type.shop.car_parts" = "Auto onderdelen";
-
 "type.shop.car_repair" = "Auto reparatie";
-
 "type.shop.car_repair.tyres" = "Bandenreparatie";
-
 "type.shop.chemist" = "Drogisterij";
-
 "type.shop.chocolate" = "Winkel";
-
 "type.shop.clothes" = "Kledingwinkel";
-
 "type.shop.coffee" = "Winkel";
-
 "type.shop.computer" = "Computerwinkel";
-
 "type.shop.confectionery" = "Banketbakker";
-
 "type.shop.convenience" = "Buurtwinkel";
-
 "type.shop.copyshop" = "Copy Shop";
-
 "type.shop.cosmetics" = "Schoonheidsmiddelen";
-
 "type.shop.department_store" = "Warenhuis";
-
 "type.shop.doityourself" = "Ijzerhandel";
-
 "type.shop.dry_cleaning" = "Droogkuis";
-
 "type.shop.electronics" = "Elektronicazaak";
-
 "type.shop.erotic" = "Erotiekwinkel";
-
 "type.shop.fabric" = "Winkel";
-
 "type.shop.florist" = "Bloemist";
-
 "type.shop.funeral_directors" = "Begrafenisondernemer";
-
 "type.shop.furniture" = "Meubelzaak";
-
 "type.shop.garden_centre" = "Tuincentrum";
-
 "type.shop.gift" = "Cadeauwinkel";
-
 "type.shop.greengrocer" = "Groentenwinkel";
-
 "type.shop.hairdresser" = "Kapper";
-
 "type.shop.hardware" = "Ijzerhandel";
-
 "type.shop.jewelry" = "Juwelier";
-
 "type.shop.kiosk" = "Kiosk";
-
 "type.shop.laundry" = "Wasserette";
-
 "type.shop.mall" = "Het winkelcentrum";
-
 "type.shop.massage" = "Massagesalon";
-
 "type.shop.mobile_phone" = "Mobiele telefoonwinkel";
-
 "type.shop.money_lender" = "Winkel";
-
 "type.shop.motorcycle" = "Motorzaak";
-
 "type.shop.music" = "Winkel";
-
 "type.shop.musical_instrument" = "Winkel";
-
 "type.shop.newsagent" = "Kiosk";
-
 "type.shop.optician" = "Opticien";
-
 "type.shop.outdoor" = "Outdooruitrusting";
-
 "type.shop.pawnbroker" = "Pandjesbaas";
-
 "type.shop.pet" = "Dierenwinkel";
-
 "type.shop.photo" = "Fotowinkel";
-
 "type.shop.seafood" = "Visboer";
-
 "type.shop.shoes" = "Schoenenwinkel";
-
 "type.shop.sports" = "Sportartikelen";
-
 "type.shop.stationery" = "Kantoorboekhandel";
-
 "type.shop.supermarket" = "Supermarkt";
-
 "type.shop.tattoo" = "Tattoosalon";
-
 "type.shop.tea" = "Winkel";
-
 "type.shop.ticket" = "Kaartjesverkoop";
-
 "type.shop.toys" = "Speelgoedwinkel";
-
 "type.shop.travel_agency" = "Reisagentschap";
-
 "type.shop.tyres" = "Bandenwinkel";
-
 "type.shop.variety_store" = "Bazaar";
-
 "type.shop.video" = "Videowinkel";
-
 "type.shop.video_games" = "Winkel voor videogames";
-
 "type.shop.wine" = "Wijn";
-
 "type.sponsored" = "sponsored";
-
 "type.sponsored.booking" = "sponsored-booking";
-
 "type.sponsored.holiday" = "Christmas or New Year Celebrations";
-
 "type.sponsored.opentable" = "sponsored-opentable";
-
 "type.sponsored.partner1" = "sponsored-partner1";
-
 "type.sponsored.partner10" = "sponsored-partner10";
-
 "type.sponsored.partner11" = "sponsored-partner11";
-
 "type.sponsored.partner12" = "sponsored-partner12";
-
 "type.sponsored.partner13" = "sponsored-partner13";
-
 "type.sponsored.partner14" = "sponsored-partner14";
-
 "type.sponsored.partner15" = "sponsored-partner15";
-
 "type.sponsored.partner16" = "sponsored-partner16";
-
 "type.sponsored.partner17" = "sponsored-partner17";
-
 "type.sponsored.partner18" = "MegaFon";
-
 "type.sponsored.partner19" = "MegaFon";
-
 "type.sponsored.partner2" = "sponsored-partner2";
-
 "type.sponsored.partner20" = "MegaFon";
-
 "type.sponsored.partner3" = "sponsored-partner3";
-
 "type.sponsored.partner4" = "sponsored-partner4";
-
 "type.sponsored.partner5" = "sponsored-partner5";
-
 "type.sponsored.partner6" = "sponsored-partner6";
-
 "type.sponsored.partner7" = "sponsored-partner7";
-
 "type.sponsored.partner8" = "sponsored-partner8";
-
 "type.sponsored.partner9" = "sponsored-partner9";
-
 "type.sport" = "sport";
-
 "type.sport.american_football" = "American Football";
-
 "type.sport.archery" = "Archery";
-
 "type.sport.athletics" = "Atletiek";
-
 "type.sport.australian_football" = "Rugby";
-
 "type.sport.baseball" = "Baseball";
-
 "type.sport.basketball" = "Basketbal";
-
 "type.sport.bowls" = "Bowls";
-
 "type.sport.cricket" = "Cricket";
-
 "type.sport.curling" = "Сurling";
-
 "type.sport.diving" = "Diving";
-
 "type.sport.equestrian" = "Paardesport";
-
 "type.sport.golf" = "Golf";
-
 "type.sport.gymnastics" = "Gymnastics";
-
 "type.sport.handball" = "Handball";
-
 "type.sport.multi" = "Various Sport";
-
 "type.sport.scuba_diving" = "Scuba Diving";
-
 "type.sport.shooting" = "Shooting";
-
 "type.sport.skiing" = "Skiing";
-
 "type.sport.soccer" = "Soccer (Football)";
-
 "type.sport.swimming" = "Swimming";
-
 "type.sport.tennis" = "Tennisveld";
-
 "type.tourism" = "Tourism";
-
 "type.tourism.alpine_hut" = "Berghut";
-
 "type.tourism.apartment" = "Appartementen";
-
 "type.tourism.artwork" = "Kunstwerk";
-
 "type.tourism.artwork.architecture" = "Kunstwerk";
-
 "type.tourism.artwork.painting" = "Kunstwerk";
-
 "type.tourism.artwork.sculpture" = "Kunstwerk";
-
 "type.tourism.artwork.statue" = "Kunstwerk";
-
 "type.tourism.attraction" = "Attractie";
-
 "type.tourism.attraction.animal" = "Attractie";
-
 "type.tourism.attraction.specified" = "Attractie";
-
 "type.tourism.camp_site" = "Camping";
-
 "type.tourism.caravan_site" = "Caravan site";
-
 "type.tourism.chalet" = "Chalet";
-
 "type.tourism.gallery" = "Toerisme";
-
 "type.tourism.guest_house" = "Gasthuis";
-
 "type.tourism.hostel" = "Hostel";
-
 "type.tourism.hotel" = "Hotel";
-
 "type.tourism.information" = "Toeristische informatie";
-
 "type.tourism.information.board" = "Informatiebord";
-
 "type.tourism.information.guidepost" = "Toeristische informatie";
-
 "type.tourism.information.map" = "Toeristische kaart";
-
 "type.tourism.information.office" = "Toeristische informatie";
-
 "type.tourism.motel" = "Motel";
-
 "type.tourism.museum" = "Museum";
-
 "type.tourism.picnic_site" = "Picnicplaats";
-
 "type.tourism.resort" = "Complex";
-
 "type.tourism.theme_park" = "Toerisme";
-
 "type.tourism.viewpoint" = "Uitzicht";
-
 "type.tourism.wilderness_hut" = "Wildernishut";
-
 "type.tourism.zoo" = "Dierentuin";
-
 "type.traffic_calming" = "Traffic Calming";
-
 "type.traffic_calming.bump" = "Traffic Bump";
-
 "type.traffic_calming.hump" = "Traffic Hump";
-
 "type.waterway" = "Waterway";
-
 "type.waterway.canal" = "Kanaal";
-
 "type.waterway.canal.tunnel" = "Kanaal";
-
 "type.waterway.dam" = "Dam";
-
 "type.waterway.ditch" = "Ditch";
-
 "type.waterway.ditch.tunnel" = "Ditch";
-
 "type.waterway.dock" = "Waterway Dock";
-
 "type.waterway.drain" = "Drain";
-
 "type.waterway.drain.tunnel" = "Drain";
-
 "type.waterway.lock" = "Waterway Lock";
-
 "type.waterway.lock_gate" = "Gesloten poort";
-
 "type.waterway.river" = "Rivier";
-
 "type.waterway.river.tunnel" = "Rivier";
-
 "type.waterway.riverbank" = "Rivier";
-
 "type.waterway.stream" = "Rivier";
-
 "type.waterway.stream.ephemeral" = "Rivier";
-
 "type.waterway.stream.intermittent" = "Rivier";
-
 "type.waterway.stream.tunnel" = "Rivier";
-
 "type.waterway.waterfall" = "Watervallen";
-
 "type.waterway.weir" = "Weir";
-
 "type.wheelchair" = "Wheelchair";
-
 "type.wheelchair.limited" = "Gedeeltelijk uitgerust voor gehandicapten";
-
 "type.wheelchair.no" = "Niet uitgerust voor gehandicapten";
-
 "type.wheelchair.yes" = "Uitgerust voor gehandicapten";
-
 "type.piste_lift" = "piste:lift";
-
 "type.piste_lift.j.bar" = "piste:lift-j-bar";
-
 "type.piste_lift.magic_carpet" = "piste:lift-magic_carpet";
-
 "type.piste_lift.platter" = "piste:lift-platter";
-
 "type.piste_lift.rope_tow" = "piste:lift-rope_tow";
-
 "type.piste_lift.t.bar" = "piste:lift-t-bar";
-
 "type.piste_type" = "piste:type";
-
 "type.piste_type.downhill" = "piste:type-downhill";
-
 "type.piste_type.downhill.advanced" = "piste:type-downhill-advanced";
-
 "type.piste_type.downhill.easy" = "piste:type-downhill-easy";
-
 "type.piste_type.downhill.expert" = "piste:type-downhill-expert";
-
 "type.piste_type.downhill.freeride" = "piste:type-downhill-freeride";
-
 "type.piste_type.downhill.intermediate" = "piste:type-downhill-intermediate";
-
 "type.piste_type.downhill.novice" = "piste:type-downhill-novice";
-
 "type.piste_type.nordic" = "piste:type-nordic";
-
 "type.piste_type.sled" = "piste:type-sled";
-
 "type.building_part" = "Gebouw";
-
 "type.area_highway.cycleway" = "Bike Path";
-
 "type.area_highway.footway" = "Path";
-
 "type.area_highway.living_street" = "Street";
-
 "type.area_highway.motorway" = "area:highway-motorway";
-
 "type.area_highway.path" = "Path";
-
 "type.area_highway.pedestrian" = "Street";
-
 "type.area_highway.primary" = "Street";
-
 "type.area_highway.residential" = "Street";
-
 "type.area_highway.secondary" = "Street";
-
 "type.area_highway.service" = "Street";
-
 "type.area_highway.tertiary" = "Street";
-
 "type.area_highway.steps" = "Steps";
-
 "type.area_highway.track" = "area:highway-track";
-
 "type.area_highway.trunk" = "area:highway-trunk";
-
 "type.area_highway.unclassified" = "area:highway-unclassified";

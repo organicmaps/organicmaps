@@ -6,6 +6,7 @@
 
 /********** Strings **********/
 
+
 /* Button text (should be short) */
 "back" = "Назад";
 
@@ -17,7 +18,6 @@
 
 /* Button which deletes downloaded country */
 "delete" = "Удалить";
-
 "download_maps" = "Загрузить карты";
 
 /* Settings/Downloader - info for country when download fails */
@@ -37,7 +37,6 @@
 
 /* Settings/Downloader - size string, only strings different from English should be translated */
 "mb" = "МБ";
-
 "gb" = "ГБ";
 
 /* Choose measurement on first launch alert - choose imperial system button */
@@ -72,31 +71,18 @@
 
 /* Button text for the button under the country_status_download_failed message */
 "try_again" = "Попробуйте еще раз";
-
 "about_menu_title" = "О программе";
-
 "connection_settings" = "Настройки подключения";
-
 "close" = "Закрыть";
-
 "unsupported_phone" = "Для работы приложения необходим аппаратно ускоренный OpenGL. К сожалению, ваше устройство не поддерживается.";
-
 "download" = "Загрузить";
-
 "disconnect_usb_cable" = "Отключите USB кабель или вставьте SD-карту";
-
 "not_enough_free_space_on_sdcard" = "Недостаточно свободного места на SD карте/в памяти устройства для использования программы";
-
 "not_enough_memory" = "Недостаточно памяти для запуска программы";
-
 "download_resources" = "Перед началом работы разрешите нам загрузить общую карту мира на ваше устройство.\nЭто потребует %@ данных.";
-
 "download_resources_continue" = "Перейти на карту";
-
 "downloading_country_can_proceed" = "Пока загружается %@,\nвы можете пользоваться картой.";
-
 "download_country_ask" = "Загрузить %@?";
-
 "update_country_ask" = "Обновить %@?";
 
 /* REMOVE THIS STRING AFTER REFACTORING */
@@ -215,7 +201,6 @@
 
 /* Email Subject when sharing bookmarks category */
 "share_bookmarks_email_subject" = "С вами поделились метками Organic Maps";
-
 "share_bookmarks_email_body" = "Здравствуйте!\n\nВ прикрепленном файле мои метки из офлайновых карт Organic Maps. Для того чтобы открыть этот файл, вам потребуется приложение Organic Maps, которое можно установить по ссылке: https://omaps.app/get?kmz\n\nСпасибо!";
 
 /* message title of loading file */
@@ -280,7 +265,6 @@
 
 /* Length of track in cell that describes route */
 "length" = "Длина";
-
 "share_my_location" = "Поделиться местоположением";
 
 /* Settings general group in settings screen */
@@ -288,11 +272,8 @@
 
 /* Settings information group in settings screen */
 "prefs_group_information" = "Информация";
-
 "prefs_group_route" = "Навигация";
-
 "pref_zoom_title" = "Кнопки масштаба";
-
 "pref_zoom_summary" = "Показать на карте";
 
 /* Settings «Map» category: «Night style» title */
@@ -327,25 +308,15 @@
 
 /* Settings «Map» category: «Record track» title */
 "pref_track_record_title" = "Недавний путь";
-
 "pref_map_auto_zoom" = "Автозум";
-
 "duration_disabled" = "Выключено";
-
 "duration_1_hour" = "1 час";
-
 "duration_2_hours" = "2 часа";
-
 "duration_6_hours" = "6 часов";
-
 "duration_12_hours" = "12 часов";
-
 "duration_1_day" = "1 сутки";
-
 "recent_track_help_text" = "Эта функция позволяет записывать пройденный путь за определенный период времени и видеть его на карте. Внимание: активация этой функции может привести к повышенному расходу батареи. Записанный трек будет удален с карты по истечении этого срока.";
-
 "placepage_distance" = "Расстояние";
-
 "search_show_on_map" = "Посмотреть на карте";
 
 /* Text in menu */
@@ -413,15 +384,10 @@
 
 /* Country queued for download */
 "downloader_queued" = "В очереди";
-
 "downloader_near_me_subtitle" = "Возле меня";
-
 "downloader_status_maps" = "Карт";
-
 "downloader_download_all_button" = "Загрузить все";
-
 "downloader_downloading" = "Загружается:";
-
 "downloader_search_results" = "Найдено";
 
 /* Status of outdated country in the list */
@@ -477,11 +443,8 @@
 
 /* location service disabled */
 "enable_location_services" = "Пожалуйста, включите геолокацию";
-
 "save" = "Сохранить";
-
 "edit_description_hint" = "Ваше описание (текст или html)";
-
 "create" = "создать";
 
 /* red color */
@@ -539,70 +502,40 @@
 /********** Routing dialogs strings **********/
 
 "dialog_routing_disclaimer_title" = "При движении по маршруту помните:";
-
 "dialog_routing_disclaimer_priority" = "— Дорожная обстановка, ПДД и знаки приоритетнее советов приложения;";
-
 "dialog_routing_disclaimer_precision" = "— Карта может быть неточной, а предложенный маршрут не всегда оптимален;";
-
 "dialog_routing_disclaimer_recommendations" = "— Предлагаемые маршруты — лишь рекомендации;";
-
 "dialog_routing_disclaimer_borders" = "— Будьте внимательны с маршрутами в приграничных зонах: в построенных программой маршрутах иногда возможны пересечения границ в неположенных местах;";
-
 "dialog_routing_disclaimer_beware" = "Будьте внимательны на дорогах и берегите себя!";
-
 "dialog_routing_check_gps" = "Проверьте сигнал GPS";
-
 "dialog_routing_error_location_not_found" = "Маршрут не построен. Текущая геопозиция не определена.";
-
 "dialog_routing_location_turn_wifi" = "Пожалуйста, проверьте сигнал GPS. Для улучшения точности геопозиции включите Wi-Fi.";
-
 "dialog_routing_location_turn_on" = "Включите режим определения геопозиции";
-
 "dialog_routing_location_unknown_turn_on" = "Текущая геопозиция не определена. Для построения маршрута включите режим определения геопозиции.";
-
 "dialog_routing_download_files" = "Загрузите необходимые файлы";
-
 "dialog_routing_download_and_update_all" = "Для построения маршрута загрузите и обновите все карты и файлы маршрутов по пути следования.";
-
 "dialog_routing_unable_locate_route" = "Маршрут не найден";
-
 "dialog_routing_cant_build_route" = "Не получилось построить маршрут.";
-
 "dialog_routing_change_start_or_end" = "Пожалуйста, измените начальную или конечную точку маршрута.";
-
 "dialog_routing_change_start" = "Измените начальную точку маршрута";
-
 "dialog_routing_start_not_determined" = "Маршрут не построен. Не определена начальная точка маршрута.";
-
 "dialog_routing_select_closer_start" = "Пожалуйста, выберите начальную точку маршрута ближе к дороге.";
-
 "dialog_routing_change_end" = "Измените конечную точку маршрута";
-
 "dialog_routing_end_not_determined" = "Маршрут не построен. Не определена конечная точка маршрута.";
-
 "dialog_routing_select_closer_end" = "Пожалуйста, выберите конечную точку маршрута ближе к дороге.";
-
 "dialog_routing_change_intermediate" = "Не определена промежуточная точка маршрута.";
-
 "dialog_routing_intermediate_not_determined" = "Пожалуйста, измените промежуточную точку маршрута.";
-
 "dialog_routing_system_error" = "Системная ошибка";
-
 "dialog_routing_application_error" = "Не удалось проложить маршрут из-за ошибки приложения.";
-
 "dialog_routing_try_again" = "Попробуйте снова";
-
 "not_now" = "Не сейчас";
-
 "dialog_routing_download_and_build_cross_route" = "Загрузить карту и построить более оптимальный маршрут с пересечением границы карты?";
-
 "dialog_routing_download_cross_route" = "Для построения более оптимального маршрута с пересечением границы требуется загрузить карту.";
 
 
 /********** Strings for downloading map from search **********/
 
 "search_without_internet_advertisement" = "Для поиска мест и построения маршрутов скачайте карту, и интернет вам больше не понадобится.";
-
 "search_select_map" = "Выбрать карту";
 
 /* «Show» context menu */
@@ -622,96 +555,55 @@
 
 /* Text for routing::RouterResultCode::FileTooOld dialog. */
 "dialog_routing_download_and_update_maps" = "Для построения маршрута загрузите и обновите все карты по пути следования.";
-
 "rate_alert_title" = "Нравится приложение?";
-
 "rate_alert_default_message" = "Спасибо что пользуетесь картами Organic Maps. Пожалуйста, оцените приложение. Ваши оценки и отзывы помогают нам становиться лучше.";
-
 "rate_alert_five_star_message" = "Ура! Мы вас тоже любим!";
-
 "rate_alert_four_star_message" = "Спасибо, мы будем стараться!";
-
 "rate_alert_less_than_four_star_message" = "Расскажите, что мы могли бы улучшить?";
-
 "categories" = "Категории";
-
 "history" = "История";
-
 "closed" = "Закрыто";
-
 "search_not_found" = "К сожалению, мы ничего не нашли.";
-
 "search_not_found_query" = "Попробуйте изменить условия поиска.";
-
 "search_history_title" = "История поиска";
-
 "search_history_text" = "Быстрый доступ к последним поисковым запросам.";
-
 "clear_search" = "Очистить историю поиска";
 
 /* Place Page link to Wikipedia article (if map object has it). */
 "read_in_wikipedia" = "Wikipedia";
-
 "p2p_your_location" = "Ваше местоположение";
-
 "p2p_start" = "Начать";
-
 "p2p_from_here" = "Отсюда";
-
 "p2p_to_here" = "Сюда";
-
 "p2p_only_from_current" = "Навигация возможна только из текущего местоположения.";
-
 "p2p_reroute_from_current" = "Хотите перестроить маршрут от вашего местоположения?";
 
 /* Edit open hours/set time and minutes dialog */
 "next_button" = "Далее";
-
 "editor_time_add" = "Добавить расписание";
-
 "editor_time_delete" = "Удалить расписание";
 
 /* Text for allday switch. */
 "editor_time_allday" = "Весь день (24 часа)";
-
 "editor_time_open" = "Открыто";
-
 "editor_time_close" = "Закрыто";
-
 "editor_time_add_closed" = "Добавить перерыв";
-
 "editor_time_title" = "Время работы";
-
 "editor_time_advanced" = "Расширенный режим";
-
 "editor_time_simple" = "Простой режим";
-
 "editor_hours_closed" = "Перерыв";
-
 "editor_example_values" = "Примеры значений";
-
 "editor_correct_mistake" = "Исправьте ошибку";
-
 "editor_add_select_location" = "Местоположение";
-
 "editor_done_dialog_1" = "Вы изменили карту мира. Не скрывайте это, расскажите друзьям и редактируйте вместе.";
-
 "share_with_friends" = "Поделиться с друзьями";
-
 "editor_report_problem_desription_1" = "Пожалуйста, напишите подробно о проблеме, чтобы сообщество OpenStreetMap исправило ошибку.";
-
 "editor_report_problem_desription_2" = "Или сделайте это самостоятельно на сайте https://www.openstreetmap.org/";
-
 "editor_report_problem_send_button" = "Отправить";
-
 "editor_report_problem_title" = "Проблема";
-
 "editor_report_problem_no_place_title" = "Места не существует";
-
 "editor_report_problem_under_construction_title" = "Закрыто на ремонт";
-
 "editor_report_problem_duplicate_place_title" = "Повторяющееся место";
-
 "autodownload" = "Автоматическая загрузка";
 
 /* Place Page opening hours text */
@@ -719,167 +611,98 @@
 
 /* Place Page opening hours text */
 "daily" = "Ежедневно";
-
 "twentyfour_seven" = "Круглосуточно";
-
 "day_off_today" = "Сегодня закрыто";
-
 "day_off" = "Закрыто";
-
 "today" = "Сегодня";
-
 "add_opening_hours" = "Добавить время работы";
-
 "edit_opening_hours" = "Редактировать время работы";
-
 "no_osm_account" = "Не зарегистрированы в OpenStreetMap?";
-
 "register_at_openstreetmap" = "Зарегистрироваться";
-
 "password_8_chars_min" = "Пароль (минимум 8 символов)";
-
 "invalid_username_or_password" = "Неверное имя пользователя или пароль.";
-
 "login" = "Войти";
-
 "password" = "Пароль";
-
 "forgot_password" = "Забыли пароль?";
-
 "osm_account" = "OSM Аккаунт";
-
 "logout" = "Выйти";
 
 /* Information text: "Last upload 11.01.2016" */
 "last_upload" = "Последняя отправка";
-
 "thank_you" = "Спасибо";
-
 "edit_place" = "Редактировать место";
-
 "place_name" = "Название";
-
 "add_language" = "Добавить язык";
-
 "street" = "Улица";
 
 /* Editable House Number text field (in address block). */
 "house_number" = "Номер дома";
-
 "details" = "Подробнее";
 
 /* Text field to enter non-existing street name, below list of known streets around */
 "add_street" = "Добавить улицу";
-
 "choose_language" = "Выбрать язык";
-
 "choose_street" = "Выбрать улицу";
-
 "postal_code" = "Почтовый индекс";
-
 "cuisine" = "Кухня";
-
 "select_cuisine" = "Выбрать кухню";
 
 /* login text field */
 "email_or_username" = "Эл. почта или имя пользователя";
-
 "phone" = "Телефон";
-
 "editor_add_phone" = "Добавить телефон";
-
 "please_note" = "Обратите внимание";
-
 "downloader_delete_map_dialog" = "Вместе с картой удалятся и внесенные вами правки на этой карте.";
-
 "downloader_update_maps" = "Обновите карты";
-
 "downloader_mwm_migration_dialog" = "Для построения маршрутов необходимо обновить все карты и построить маршрут заново.";
-
 "downloader_search_field_hint" = "Найти карту";
-
 "migration_download_error_dialog" = "Ошибка загрузки";
-
 "common_check_internet_connection_dialog" = "Проверьте настройки и убедитесь, что устройство подключено к интернету.";
-
 "downloader_no_space_title" = "Недостаточно места";
-
 "downloader_no_space_message" = "Удалите ненужные данные";
-
 "editor_login_error_dialog" = "Произошла ошибка при авторизации.";
-
 "editor_profile_changes" = "Учтённые правки";
-
 "editor_focus_map_on_location" = "Потяните карту, чтобы выбрать правильное местоположение объекта.";
-
 "editor_add_select_category" = "Выбрать категорию";
-
 "editor_add_select_category_popular_subtitle" = "Популярные";
-
 "editor_add_select_category_all_subtitle" = "Все категории";
-
 "editor_edit_place_title" = "Редактирование";
-
 "editor_add_place_title" = "Добавление";
-
 "editor_edit_place_name_hint" = "Название места";
-
 "editor_edit_place_category_title" = "Категория";
-
 "detailed_problem_description" = "Подробное описание проблемы";
-
 "editor_report_problem_other_title" = "Другая проблема";
-
 "placepage_add_business_button" = "Добавить организацию";
-
 "whatsnew_editor_message_1" = "Добавляйте новые объекты и редактируйте старые прямо из приложения.";
-
 "dialog_incorrect_feature_position" = "Измените местоположение";
-
 "message_invalid_feature_position" = "Объект не может находиться в этом месте";
-
 "login_to_make_edits_visible" = "Войдите, чтобы ваши изменения увидели другие пользователи.";
 
 /* Error dialog no space */
 "migration_no_space_message" = "Для загрузки требуется больше свободного места. Пожалуйста, удалите ненужные данные.";
-
 "editor_sharing_title" = "Я улучшил карты Organic Maps";
 
 /* Downloaded 10 **of** 20 <- it is that "of" */
 "downloader_of" = "%1$d из %2$d";
-
 "download_over_mobile_header" = "Загрузить через сотовую связь?";
-
 "download_over_mobile_message" = "На некоторых тарифных планах или в роуминге это может привести к значительным расходам.";
-
 "error_enter_correct_house_number" = "Введите корректный номер дома";
-
 "editor_storey_number" = "Количество этажей (максимум %d)";
 
 /* Error message in Editor when a user tries to set the number of floors for a building higher than 25 */
 "error_enter_correct_storey_number" = "Количество этажей не должно превышать 25";
-
 "editor_zip_code" = "Почтовый индекс";
-
 "error_enter_correct_zip_code" = "Введите корректный почтовый индекс";
 
 /* Place Page title for long tap */
 "core_placepage_unknown_place" = "Неизвестное место";
-
 "editor_other_info" = "Отправить заметку редакторам OSM";
-
 "editor_detailed_description_hint" = "Подробный комментарий";
-
 "editor_detailed_description" = "Предложенные вами изменения на карте будут отправлены в OpenStreetMap. Опишите дополнительные сведения об объекте, которые Organic Maps не позволяет отредактировать.";
-
 "editor_more_about_osm" = "Подробнее об OpenStreetMap";
-
 "editor_operator" = "Владелец";
-
 "downloader_my_maps_title" = "Мои карты";
-
 "downloader_no_downloaded_maps_title" = "У вас нет загруженных карт";
-
 "downloader_no_downloaded_maps_message" = "Загрузите необходимые карты, чтобы находить места и пользоваться навигацией без интернета.";
 
 /* Error title that appears after certain time without location. */
@@ -887,93 +710,52 @@
 
 /* Error that appears after certain time without location. */
 "current_location_unknown_message" = "Местоположение не найдено. Возможно, вы находитесь в помещении или в туннеле.";
-
 "current_location_unknown_continue_button" = "Продолжить";
-
 "current_location_unknown_stop_button" = "Стоп";
-
 "current_location_unknown_error_title" = "Местоположение не найдено.";
-
 "current_location_unknown_error_message" = "При поиске местоположения произошла неизвестная ошибка. Проверьте работоспособность устройства и попробуйте найти местоположение позднее.";
-
 "location_services_disabled_header" = "Определение местоположения отключено";
-
 "location_services_disabled_message" = "Разрешите доступ к геопозиции в настройках устройства.";
-
 "location_services_disabled_1" = "1. Откройте Настройки";
-
 "location_services_disabled_2" = "2. Нажмите Геопозиция";
 
 /* iOS Dialog for the case when the location permission is not granted */
 "location_services_disabled_3" = "3. Выберите «При использовании программы»";
-
 "meter" = "м";
-
 "kilometer" = "км";
-
 "kilometers_per_hour" = "км/ч";
-
 "mile" = "ми";
-
 "foot" = "фут";
-
 "miles_per_hour" = "ми/ч";
-
 "hour" = "ч";
-
 "minute" = "мин";
-
 "placepage_place_description" = "Описание";
-
 "placepage_more_button" = "Ещё";
-
 "placepage_more_reviews_button" = "Ещё отзывы";
-
 "book_button" = "Забронировать";
-
 "placepage_call_button" = "Позвонить";
-
 "placepage_edit_bookmark_button" = "Редактировать метку";
-
 "placepage_bookmark_name_hint" = "Название метки";
-
 "placepage_personal_notes_hint" = "Примечание";
-
 "placepage_delete_bookmark_button" = "Удалить метку";
-
 "editor_edits_sent_message" = "Предложенные вами изменения отправлены";
-
 "editor_comment_hint" = "Коментарий…";
-
 "editor_reset_edits_message" = "Сбросить все локальные правки?";
-
 "editor_reset_edits_button" = "Сбросить";
-
 "editor_remove_place_message" = "Удалить добавленный вами объект?";
-
 "editor_remove_place_button" = "Удалить";
-
 "editor_place_doesnt_exist" = "Места не существует";
-
 "text_more_button" = "…ещё";
 
 /* Phone number error message */
 "error_enter_correct_phone" = "Введите корректный номер телефона";
-
 "error_enter_correct_web" = "Введите корректный веб-адрес";
-
 "error_enter_correct_email" = "Введите корректный email";
-
 "error_enter_correct_facebook_page" = "Введите корректный веб-адрес Facebook страницы или имя пользователя";
-
 "error_enter_correct_instagram_page" = "Введите корректный веб-адрес Instagram страницы или имя пользователя";
-
 "error_enter_correct_twitter_page" = "Введите корректный веб-адрес Twitter страницы или имя пользователя";
-
 "error_enter_correct_vk_page" = "Введите корректный веб-адрес VK страницы или имя пользователя";
-
 "refresh" = "Обновить";
-
 "placepage_add_place_button" = "Добавить место на карту";
 
 /* Displayed when saving some edits to the map to warn against publishing personal data */
@@ -981,19 +763,15 @@
 
 /* iOS Dialog before publishing the modifications to the public map. */
 "editor_share_to_all_dialog_message_1" = "Убедитесь, что вы не ввели личные данные.";
-
 "editor_share_to_all_dialog_message_2" = "Если при проверке изменений возникнут вопросы, мы напишем вам на email.";
-
 "navigation_stop_button" = "стоп";
 
 /* iOS dialog for the case when recent track recording is on and the app comes back from background */
 "recent_track_background_dialog_title" = "Выключить запись недавно пройденого пути?";
-
 "off_recent_track_background_button" = "Выключить";
 
 /* For sharing via SMS and so on */
 "sharing_call_action_look" = "Посмотри";
-
 "recent_track_background_dialog_message" = "Organic Maps использует вашу геопозицию в фоновом режиме для записи недавно пройденного пути.";
 
 /* Rate on Google Play (Android only) */
@@ -1007,7 +785,6 @@
 
 /* About short text (below logo) */
 "about_description" = "Organic Maps — незаменимое приложение для путешествий, работающее без подключения к интернету. Organic Maps использует данные OpenStreetMap и позволяет их улучшать.";
-
 "general_settings" = "Общие настройки";
 
 /* For the first routing */
@@ -1018,27 +795,16 @@
 
 /* noun */
 "search_in_table" = "Список";
-
 "mobile_data_dialog" = "Загружать дополнительную информацию через мобильный интернет?";
-
 "mobile_data_option_always" = "Всегда";
-
 "mobile_data_option_today" = "Только сегодня";
-
 "mobile_data_option_not_today" = "Не сегодня";
-
 "mobile_data" = "Мобильный интернет";
-
 "mobile_data_description" = "Мобильный интернет требуется для отображения более детальной информации о местах: фотографий, цен, отзывов.";
-
 "mobile_data_option_never" = "Никогда не использовать";
-
 "mobile_data_option_ask" = "Всегда спрашивать";
-
 "traffic_update_maps_text" = "Для отображения пробок необходимо обновить карты.";
-
 "big_font" = "Увеличить шрифт на карте";
-
 "traffic_update_app" = "Обновите Organic Maps";
 
 /* "traffic" as in road congestion */
@@ -1046,284 +812,149 @@
 
 /* "traffic" as in "road congestion" */
 "traffic_data_unavailable" = "Данные о пробках недоступны";
-
 "enable_logging" = "Включить запись логов";
 
 /* Settings: "Send general feedback" button */
 "feedback_general" = "Отправить отзыв";
-
 "on" = "Вкл.";
-
 "off" = "Выкл.";
-
 "prefs_languages_information" = "Подсказки озвучиваются системным синтезатором речи (TTS). На многих устройствах используется Google TTS, его можно загрузить или обновить в Google Play (https://play.google.com/store/apps/details?id=com.google.android.tts)";
-
 "prefs_languages_information_off" = "Для некоторых языков, возможно, необходимо установить дополнительный синтезатор речи (TTS) из магазина приложений (Google Play Market, Samsung Apps).\nЧтобы настроить синтезатор речи, перейдите в Настройки → Язык и ввод → Синтез речи.\nЗдесь можно установить дополнительные языковые пакеты или выбрать синтезатор речи.";
-
 "prefs_languages_information_off_link" = "Более подробная информация — в этом руководстве.";
-
 "transliteration_title" = "Латинская транслитерация";
-
 "learn_more" = "Узнать больше";
-
 "core_exit" = "Выход";
-
 "routing_add_start_point" = "Добавьте стартовую точку, чтобы построить маршрут";
-
 "routing_add_finish_point" = "Добавьте конечную точку, чтобы построить маршрут";
-
 "button_exit" = "Выход";
-
 "planning_route_manage_route" = "Изменить маршрут";
-
 "button_plan" = "Построить";
-
 "placepage_remove_stop" = "Удалить";
-
 "planning_route_remove_title" = "Перетяните сюда, чтобы удалить";
-
 "placepage_add_stop" = "Заехать";
-
 "start_from_my_position" = "Начать от";
-
 "profile_authorization_error" = "Упс, произошла ошибка. Попробуйте авторизоваться повторно.";
-
 "dialog_error_storage_title" = "Проблема с доступом к хранилищу";
-
 "dialog_error_storage_message" = "Внешняя память устройства недоступна, возможно SD карта была удалена, повреждена или файловая система доступна только для чтения. Проверьте это и свяжитесь, пожалуйста, с нами support@organicmaps.app";
-
 "setting_emulate_bad_storage" = "Эмуляция ошибки с внешней памятью";
-
 "core_entrance" = "Вход";
-
 "error_enter_correct_name" = "Пожалуйста, введите название правильно";
-
 "bookmarks_groups" = "Списки";
-
 "bookmarks_groups_hide_all" = "Спрятать все";
-
 "bookmarks_groups_show_all" = "Показать все";
-
 "bookmarks_create_new_group" = "Создать новый список";
 
 /* Bookmark categories screen */
 "bookmarks_import" = "Импортировать метки";
-
 "downloader_hide_screen" = "Скрыть";
-
 "downloader_percent" = "%s (%s из %s)";
-
 "downloader_process" = "Загрузка %s…";
-
 "downloader_applying" = "Применение %s…";
-
 "bookmarks_error_message_share_general" = "Не удалось поделиться из-за ошибки приложения";
-
 "bookmarks_error_title_share_empty" = "Ошибка при попытке поделиться";
-
 "bookmarks_error_message_share_empty" = "Нельзя делиться пустыми списками";
-
 "bookmarks_error_title_empty_list_name" = "Имя списка не может быть пустым";
-
 "bookmarks_error_message_empty_list_name" = "Введите имя списка, пожалуйста";
-
 "bookmarks_new_list_hint" = "Новый список";
-
 "bookmarks_error_title_list_name_already_taken" = "Такое имя уже занято";
-
 "bookmarks_error_message_list_name_already_taken" = "Выберите, пожалуйста, другое имя";
-
 "bookmarks_error_title_list_name_too_long" = "Слишком длинное название";
-
 "please_wait" = "Пожалуйста, подождите…";
-
 "phone_number" = "Номер телефона";
-
 "profile" = "Профиль OpenStreetMap";
-
 "bookmarks_detect_title" = "Обнаружены новые файлы";
-
 "button_convert" = "Конвертировать";
-
 "bookmarks_convert_error_title" = "Ошибка";
-
 "bookmarks_convert_error_message" = "Некоторые файлы не конвертировались.";
-
 "bookmarks_restore_title" = "Восстановить эту версию?";
-
 "common_check_internet_connection_dialog_title" = "Нет интернет соединения";
-
 "error_system_message" = "Произошла неизвестная ошибка";
-
 "restore" = "Восстановить";
-
 "subtittle_opt_out" = "Настройки сопровождения";
-
 "crash_reports" = "Отчеты об ошибках";
-
 "crash_reports_description" = "Мы можем использовать ваши данные, чтобы развивать и улучшать Organic Maps. Изменения вступят в силу после перезапуска приложения.";
-
 "privacy_policy" = "Политика конфиденциальности";
-
 "terms_of_use" = "Условия использования";
-
 "button_layer_traffic" = "Пробки";
-
 "button_layer_subway" = "Метро";
-
 "layers_title" = "Слои карты";
-
 "subway_data_unavailable" = "Карта метро недоступна";
-
 "bookmarks_empty_list_title" = "Список пустой";
-
 "bookmarks_empty_list_message" = "Чтобы добавить новую метку, нажмите на значок звездочки в карточке объекта";
-
 "category_desc_more" = "…еще";
-
 "title_error_downloading_bookmarks" = "Произошла ошибка";
-
 "popular_place" = "Популярно";
-
 "export_file" = "Экспортировать файл";
-
 "list_settings" = "Настройки списка";
-
 "delete_list" = "Удалить список";
-
 "hide_from_map" = "Скрыть с карты";
-
 "public_access" = "Публичный доступ";
-
 "limited_access" = "Ограниченный доступ";
-
 "bookmark_category_name" = "Категория";
-
 "bookmark_category_description_hint" = "Добавьте описание (текст или html)";
-
 "not_shared" = "Личный";
-
 "tags_loading_error_subtitle" = "Во время загрузки тегов произошла ошибка, пожалуйста, попробуйте еще раз";
-
 "download_button" = "Скачать";
-
 "speedcams_alert_title" = "Камеры скорости";
-
 "speedcam_option_auto" = "Авто";
-
 "speedcam_option_always" = "Всегда";
-
 "speedcam_option_never" = "Никогда";
-
 "place_description_title" = "Описание места";
 
 /* this text will be shown in application notification preferences opposite checkbox which enable/disable downloader notifications. Devices on Android 8+ are affected. */
 "notification_channel_downloader" = "Загрузка карт";
-
 "speedcams_notice_message" = "Авто - Предупреждать о камерах скорости, если есть риск превышения скоростного лимита\nВсегда - Всегда предупреждать о камерах\nНикогда - Никогда не предупреждать о камерах";
-
 "power_managment_title" = "Режим энергосбережения";
-
 "power_managment_description" = "Если режим энергосбережения включен, приложение будет отключать энергозатратные функции в зависимости от текущего заряда телефона";
-
 "power_managment_setting_never" = "Никогда";
-
 "power_managment_setting_auto" = "Авто";
-
 "power_managment_setting_manual_max" = "Максимальное энергосбережение";
-
 "enable_logging_warning_message" = "Данная настройка включается для записи действий в целях диагностики, чтобы помочь нашей команде выявить проблемы с приложением. Временно включайте эту настройку только для отправки детальной информации о найденной вами проблеме в приложении.";
-
 "access_rules_author_only" = "Редактируется онлайн";
-
 "driving_options_title" = "Настройки объезда";
-
 "driving_options_subheader" = "Избегать в каждом маршруте";
-
 "avoid_tolls" = "Платные дороги";
-
 "avoid_unpaved" = "Грунтовые дороги";
-
 "avoid_ferry" = "Паромные переправы";
-
 "avoid_motorways" = "Магистрали";
-
 "unable_to_calc_alert_title" = "Невозможно построить маршрут";
-
 "unable_to_calc_alert_subtitle" = "К сожалению, мы не смогли построить маршрут с выбранными опциями. Измените настройки и повторите попытку";
-
 "define_to_avoid_btn" = "Настроить пути объезда";
-
 "change_driving_options_btn" = "Настройки объезда включены";
-
 "toll_road" = "Платная дорога";
-
 "unpaved_road" = "Грунтовая дорога";
-
 "ferry_crossing" = "Паромная переправа";
-
 "avoid_toll_roads_placepage" = "Избегать платных дорог";
-
 "avoid_unpaved_roads_placepage" = "Избегать грунтовых дорог";
-
 "avoid_ferry_crossing_placepage" = "Избегать паромных переправ";
-
 "trip_start" = "Поехали";
-
 "pick_destination" = "Цель";
-
 "follow_my_position" = "Отцентровать";
-
 "search_results" = "Результаты поиска";
-
 "then_turn" = "Затем";
-
 "redirect_route_alert" = "Хотите перестроить маршрут?";
-
 "redirect_route_yes" = "Да";
-
 "redirect_route_no" = "Нет";
-
 "trip_finished" = "Вы прибыли!";
-
 "keyboard_availability_alert" = "Клавиатура недоступна во время движения";
-
 "dialog_routing_change_start_carplay" = "Невозможно построить маршрут от текущего местоположения";
-
 "dialog_routing_change_end_carplay" = "Невозможно построить маршрут до конечной точки. Выберите другую";
-
 "dialog_routing_check_gps_carplay" = "Нет сигнала GPS. Проследуйте на открытую местность";
-
 "dialog_routing_unable_locate_route_carplay" = "Невозможно построить маршрут. Выберите другие точки маршрута";
-
 "dialog_routing_download_files_carplay" = "Чтобы построить маршрут, загрузите недостающие карты на своем устройстве";
-
 "dialog_routing_system_error_carplay" = "Произошла ошибка. Перезапустите приложение";
-
 "dialog_routing_rebuild_from_current_location_carplay" = "Маршрут будет перестроен от вашего текущего местоположения";
-
 "dialog_routing_rebuild_for_vehicle_carplay" = "Маршрут будет изменен на автомобильный";
-
 "ok" = "Ок";
-
 "avoid_unpaved_carplay_1" = "Без грунт.";
-
 "avoid_unpaved_carplay_2" = "Без грунтовых";
-
 "avoid_ferry_carplay_1" = "Без паромов";
-
 "avoid_ferry_carplay_2" = "Без паромов";
-
 "avoid_tolls_carplay_1" = "Без платных";
-
 "avoid_tolls_carplay_2" = "Без платных";
-
 "speedcams_alert_title_carplay_1" = "Камеры";
-
 "speedcams_alert_title_carplay_2" = "Инфо о камерах";
-
 "download_map_carplay" = "Скачайте карты в приложении Organic Maps на своем устройстве";
-
 "carplay_roundabout_exit" = "%s съезд";
 
 /* max. 10 symbols, both iOS and Android */
@@ -1334,11 +965,8 @@
 
 /* iOS */
 "sort_default" = "Сортировать по умолчанию";
-
 "sort_type" = "Сортировать по типу";
-
 "sort_distance" = "Сортировать по расстоянию";
-
 "sort_date" = "Сортировать по дате";
 
 /* Android */
@@ -1352,103 +980,54 @@
 
 /* Android */
 "by_date" = "По дате";
-
 "week_ago_sorttype" = "Неделю назад";
-
 "month_ago_sorttype" = "Месяц назад";
-
 "moremonth_ago_sorttype" = "Больше месяца назад";
-
 "moreyear_ago_sorttype" = "Больше года назад";
-
 "near_me_sorttype" = "Рядом со мной";
-
 "others_sorttype" = "Другие";
-
 "food_places" = "Еда";
-
 "tourist_places" = "Достопримечательности";
-
 "museums" = "Музеи";
-
 "parks" = "Парки";
-
 "swim_places" = "Плавание";
-
 "mountains" = "Горы";
-
 "animals" = "Животные";
-
 "hotels" = "Отели";
-
 "buildings" = "Здания";
-
 "money" = "Деньги";
-
 "shops" = "Магазины";
-
 "parkings" = "Парковки";
-
 "fuel_places" = "Заправки";
-
 "water" = "Вода";
-
 "medicine" = "Медицина";
-
 "search_in_the_list" = "Искать в списке";
-
 "religious_places" = "Святые места";
-
 "select_list" = "Выбрать список";
-
 "transit_not_found" = "Навигация на метро ещё недоступна в данном регионе";
-
 "dialog_pedestrian_route_is_long_header" = "Маршрут метро не найден";
-
 "dialog_pedestrian_route_is_long_message" = "Выберите начальную или конечную точку маршрута ближе к станции метро";
-
 "button_layer_isolines" = "Высоты";
-
 "isolines_activation_error_dialog" = "Чтобы воспользоваться линиями высот, обновите или загрузите карту нужной местности";
-
 "isolines_location_error_dialog" = "Линии высот пока не доступны в этом регионе";
-
 "elevation_profile_diff_level" = "Уровень сложности";
-
 "elevation_profile_diff_level_easy" = "Лёгкий";
-
 "elevation_profile_diff_level_moderate" = "Умеренный";
-
 "elevation_profile_diff_level_hard" = "Сложный";
-
 "elevation_profile_ascent" = "Подъём";
-
 "elevation_profile_descent" = "Спуск";
-
 "elevation_profile_minaltitude" = "Мин. высота";
-
 "elevation_profile_maxaltitude" = "Макс. высота";
-
 "elevation_profile_difficulty" = "Сложность";
-
 "elevation_profile_distance" = "Расст.:";
-
 "elevation_profile_time" = "В пути:";
-
 "isolines_toast_zooms_1_10" = "Увеличьте карту, чтобы увидеть изолинии";
-
 "downloader_updating_ios" = "Обновление";
-
 "downloader_loading_ios" = "Загрузка";
-
 "key_information_title" = "Ключевая информация";
-
 "download_map_title" = "Скачать карту мира";
-
 "connection_failure" = "Ошибка подключения";
-
 "disconnect_usb_cable_title" = "Отсоедините USB кабель";
-
 "enable_screen_sleep" = "Разрешить экрану спать";
 
 /* Description in preferences */
@@ -1482,1781 +1061,892 @@
 /********** Types **********/
 
 "type.aerialway" = "Aerialway";
-
 "type.aerialway.cable_car" = "Aerialway";
-
 "type.aerialway.chair_lift" = "Aerialway";
-
 "type.aerialway.drag_lift" = "Aerialway";
-
 "type.aerialway.gondola" = "Aerialway";
-
 "type.aerialway.mixed_lift" = "Aerialway";
-
 "type.aerialway.station" = "Канатная дорога";
-
 "type.aeroway" = "Aeroway";
-
 "type.aeroway.aerodrome" = "Аэропорт";
-
 "type.aeroway.aerodrome.international" = "Аэропорт";
-
 "type.aeroway.apron" = "aeroway-apron";
-
 "type.aeroway.gate" = "Gate";
-
 "type.aeroway.helipad" = "Вертолётная площадка";
-
 "type.aeroway.runway" = "aeroway-runway";
-
 "type.aeroway.taxiway" = "aeroway-taxiway";
-
 "type.aeroway.terminal" = "Terminal";
-
 "type.amenity" = "Объекты инфраструктуры";
-
 "type.amenity.arts_centre" = "Центр искусств";
-
 "type.amenity.atm" = "Банкомат";
-
 "type.amenity.bank" = "Банк";
-
 "type.amenity.bar" = "Бар";
-
 "type.amenity.bbq" = "Место для пикника";
-
 "type.amenity.bench" = "Скамейка";
-
 "type.amenity.bicycle_parking" = "Велостоянка";
-
 "type.amenity.bicycle_rental" = "Велопрокат";
-
 "type.amenity.biergarten" = "Пивная под открытым небом";
-
 "type.amenity.brothel" = "Бордель";
-
 "type.amenity.bureau_de_change" = "Обмен валюты";
-
 "type.amenity.bus_station" = "Автовокзал";
-
 "type.amenity.cafe" = "Кафе";
-
 "type.amenity.car_rental" = "Прокат авто";
-
 "type.amenity.car_sharing" = "Каршеринг";
-
 "type.amenity.car_wash" = "Автомойка";
-
 "type.amenity.casino" = "Казино";
-
 "type.amenity.charging_station" = "Зарядная станция";
-
 "type.amenity.childcare" = "Детская комната";
-
 "type.amenity.cinema" = "Кинотеатр";
-
 "type.amenity.clinic" = "Поликлиника";
-
 "type.amenity.college" = "Колледж";
-
 "type.amenity.community_centre" = "Культурно-досуговый центр";
-
 "type.amenity.courthouse" = "Суд";
-
 "type.amenity.dentist" = "Стоматолог";
-
 "type.amenity.doctors" = "Врач";
-
 "type.amenity.drinking_water" = "Питьевой фонтан";
-
 "type.amenity.driving_school" = "Автошкола";
-
 "type.office.diplomatic" = "Посольство";
-
 "type.amenity.fast_food" = "Фастфуд";
-
 "type.amenity.ferry_terminal" = "Паром";
-
 "type.amenity.fire_station" = "Пожарная часть";
-
 "type.amenity.food_court" = "Ресторанный дворик";
-
 "type.amenity.fountain" = "Фонтан";
-
 "type.amenity.fuel" = "Заправка";
-
 "type.amenity.grave_yard" = "Кладбище";
-
 "type.amenity.grave_yard.christian" = "Кладбище";
-
 "type.amenity.hospital" = "Больница";
-
 "type.amenity.hunting_stand" = "Охотничья вышка";
-
 "type.amenity.ice_cream" = "Мороженое";
-
 "type.amenity.internet_cafe" = "Интернет-кафе";
-
 "type.amenity.kindergarten" = "Детсад";
-
 "type.amenity.library" = "Библиотека";
-
 "type.amenity.marketplace" = "Рынок";
-
 "type.amenity.motorcycle_parking" = "Мотопарковка";
-
 "type.amenity.nightclub" = "Ночной клуб";
-
 "type.amenity.nursing_home" = "Дом престарелых";
-
 "type.amenity.parking" = "Парковка";
-
 "type.amenity.parking.fee" = "Парковка";
-
 "type.amenity.parking.multi.storey" = "Парковка";
-
 "type.amenity.parking.no.access" = "Парковка";
-
 "type.amenity.parking.park_and_ride" = "Парковка";
-
 "type.amenity.parking.permissive" = "Парковка";
-
 "type.amenity.parking.private" = "Парковка";
-
 "type.amenity.parking.underground" = "Парковка";
-
 "type.amenity.parking_space" = "Парковочное место";
-
 "type.amenity.parking_space.permissive" = "Парковочное место";
-
 "type.amenity.parking_space.private" = "Парковочное место";
-
 "type.amenity.parking_space.underground" = "Парковочное место";
-
 "type.amenity.payment_terminal" = "Терминал оплаты";
-
 "type.amenity.pharmacy" = "Аптека";
-
 "type.amenity.place_of_worship" = "Храм";
-
 "type.amenity.place_of_worship.buddhist" = "Храм";
-
 "type.amenity.place_of_worship.christian" = "Храм";
-
 "type.amenity.place_of_worship.hindu" = "Храм";
-
 "type.amenity.place_of_worship.jewish" = "Синагога";
-
 "type.amenity.place_of_worship.muslim" = "Мечеть";
-
 "type.amenity.place_of_worship.shinto" = "Святилище";
-
 "type.amenity.place_of_worship.taoist" = "Храм";
-
 "type.amenity.police" = "Полиция";
-
 "type.amenity.post_box" = "Почтовый ящик";
-
 "type.amenity.post_office" = "Почтовое отделение";
-
 "type.amenity.prison" = "Тюрьма";
-
 "type.amenity.pub" = "Паб";
-
 "type.amenity.public_bookcase" = "Книжный шкаф";
-
 "type.amenity.recycling" = "Приём вторсырья";
-
 "type.amenity.recycling_container" = "Контейнер для вторсырья";
-
 "type.recycling.toxic" = "Ядовитые отходы";
-
 "type.recycling.clothes" = "Старая одежда";
-
 "type.recycling.glass_bottles" = "Стеклотара";
-
 "type.recycling.paper" = "Макулатура";
-
 "type.recycling.plastic" = "Пластиковый мусор";
-
 "type.recycling.plastic_bottles" = "Сбор пластиковых бутылок";
-
 "type.recycling.scrap_metal" = "Металлолом";
-
 "type.recycling.small_appliances" = "Электроотходы";
-
 "type.amenity.restaurant" = "Ресторан";
-
 "type.amenity.school" = "Школа";
-
 "type.amenity.shelter" = "Укрытие";
-
 "type.amenity.shower" = "Душ";
-
 "type.amenity.taxi" = "Такси";
-
 "type.amenity.telephone" = "Телефон";
-
 "type.amenity.theatre" = "Театр";
-
 "type.amenity.toilets" = "Туалет";
-
 "type.amenity.townhall" = "Ратуша";
-
 "type.amenity.university" = "Университет";
-
 "type.amenity.vending_machine" = "Торговый автомат";
-
 "type.amenity.vending_machine.cigarettes" = "Сигаретный автомат";
-
 "type.amenity.vending_machine.drinks" = "Автомат с напитками";
-
 "type.amenity.vending_machine.parking_tickets" = "Паркомат";
-
 "type.amenity.vending_machine.public_transport_tickets" = "Автомат по продаже билетов на общественный транспорт";
-
 "type.amenity.veterinary" = "Ветеринарная клиника";
-
 "type.amenity.waste_basket" = "Урна";
-
 "type.amenity.waste_disposal" = "Мусорный контейнер";
-
 "type.amenity.water_point" = "Выдача питьевой воды";
-
 "type.barrier" = "Преграда";
-
 "type.barrier.block" = "Блок";
-
 "type.barrier.bollard" = "Столбик";
-
 "type.barrier.border_control" = "Погранконтроль";
-
 "type.barrier.chain" = "Цепь";
-
 "type.barrier.city_wall" = "Городская стена";
-
 "type.barrier.cycle_barrier" = "Ограждение, предотвращающее проезд велосипедов";
-
 "type.barrier.entrance" = "Проход";
-
 "type.barrier.fence" = "Забор";
-
 "type.barrier.gate" = "Ворота";
-
 "type.barrier.hedge" = "Живая изгородь";
-
 "type.barrier.lift_gate" = "Шлагбаум";
-
 "type.barrier.retaining_wall" = "Стена, удерживающая от осыпания";
-
 "type.barrier.stile" = "Перелаз";
-
 "type.barrier.swing_gate" = "Шлагбаум";
-
 "type.barrier.toll_booth" = "Пункт оплаты";
-
 "type.barrier.wall" = "Стена";
-
 "type.boundary" = "Граница";
-
 "type.boundary.administrative" = "boundary-administrative";
-
 "type.boundary.administrative.10" = "boundary-administrative-10";
-
 "type.boundary.administrative.11" = "boundary-administrative-11";
-
 "type.boundary.administrative.2" = "boundary-administrative-2";
-
 "type.boundary.administrative.3" = "boundary-administrative-3";
-
 "type.boundary.administrative.4" = "boundary-administrative-4";
-
 "type.boundary.administrative.4.state" = "boundary-administrative-4-state";
-
 "type.boundary.administrative.5" = "boundary-administrative-5";
-
 "type.boundary.administrative.6" = "boundary-administrative-6";
-
 "type.boundary.administrative.7" = "boundary-administrative-7";
-
 "type.boundary.administrative.8" = "boundary-administrative-8";
-
 "type.boundary.administrative.9" = "boundary-administrative-9";
-
 "type.boundary.administrative.city" = "boundary-administrative-city";
-
 "type.boundary.administrative.country" = "boundary-administrative-country";
-
 "type.boundary.administrative.county" = "boundary-administrative-county";
-
 "type.boundary.administrative.municipality" = "boundary-administrative-municipality";
-
 "type.boundary.administrative.nation" = "boundary-administrative-nation";
-
 "type.boundary.administrative.region" = "boundary-administrative-region";
-
 "type.boundary.administrative.state" = "boundary-administrative-state";
-
 "type.boundary.administrative.suburb" = "boundary-administrative-suburb";
-
 "type.boundary.national_park" = "Национальный парк";
-
 "type.building" = "Здание";
-
 "type.building.address" = "Здание";
-
 "type.building.garage" = "Гараж";
-
 "type.building.has_parts" = "Здание";
-
 "type.building.train_station" = "Ж/д станция";
-
 "type.building.warehouse" = "Warehouse";
-
 "type.craft" = "Craft";
-
 "type.craft.brewery" = "Крафтовое пиво";
-
 "type.craft.carpenter" = "Столяр";
-
 "type.craft.electrician" = "Электрик";
-
 "type.craft.gardener" = "Садовник";
-
 "type.craft.hvac" = "Кондиционеры";
-
 "type.craft.metal_construction" = "Ковка металла";
-
 "type.craft.painter" = "Маляр";
-
 "type.craft.photographer" = "Фотограф";
-
 "type.craft.plumber" = "Сантехник";
-
 "type.craft.shoemaker" = "Ремонт обуви";
-
 "type.craft.tailor" = "Ателье";
-
 "type.cuisine.african" = "Африканская кухня";
-
 "type.cuisine.american" = "Американская кухня";
-
 "type.cuisine.arab" = "Арабская кухня";
-
 "type.cuisine.argentinian" = "Аргентинская кухня";
-
 "type.cuisine.asian" = "Азиатская кухня";
-
 "type.cuisine.austrian" = "Австрийская кухня";
-
 "type.cuisine.bagel" = "Бубличная";
-
 "type.cuisine.balkan" = "Балканская кухня";
-
 "type.cuisine.barbecue" = "Барбекю";
-
 "type.cuisine.bavarian" = "Баварская кухня";
-
 "type.cuisine.beef_bowl" = "Рис и говядина";
-
 "type.cuisine.brazilian" = "Бразильская кухня";
-
 "type.cuisine.breakfast" = "Завтраки";
-
 "type.cuisine.burger" = "Бургеры";
-
 "type.cuisine.buschenschank" = "Домашняя таверна (бушеншанк)";
-
 "type.cuisine.cake" = "Кондитерская";
-
 "type.cuisine.caribbean" = "Карибская кухня";
-
 "type.cuisine.chicken" = "Блюда из курицы";
-
 "type.cuisine.chinese" = "Китайская кухня";
-
 "type.cuisine.coffee_shop" = "Кофе";
-
 "type.cuisine.crepe" = "Тонкие блинчики";
-
 "type.cuisine.croatian" = "Хорватская кухня";
-
 "type.cuisine.curry" = "Блюда карри";
-
 "type.cuisine.deli" = "Деликатесы";
-
 "type.cuisine.diner" = "Дайнер";
-
 "type.cuisine.donut" = "Пончики";
-
 "type.cuisine.ethiopian" = "Эфиопская кухня";
-
 "type.cuisine.filipino" = "Филиппинская кухня";
-
 "type.cuisine.fine_dining" = "Ресторан высокой кухни";
-
 "type.cuisine.fish" = "Рыбный ресторан";
-
 "type.cuisine.fish_and_chips" = "Рыба и картофель фри";
-
 "type.cuisine.french" = "Французская кухня";
-
 "type.cuisine.friture" = "Блюда во фритюре";
-
 "type.cuisine.georgian" = "Грузинская кухня";
-
 "type.cuisine.german" = "Немецкая кухня";
-
 "type.cuisine.greek" = "Греческая кухня";
-
 "type.cuisine.grill" = "Гриль";
-
 "type.cuisine.heuriger" = "Винная таверна (хойригер)";
-
 "type.cuisine.hotdog" = "Хот-доги";
-
 "type.cuisine.hungarian" = "Венгерская кухня";
-
 "type.cuisine.ice_cream" = "Кафе-мороженое";
-
 "type.cuisine.indian" = "Индийская кухня";
-
 "type.cuisine.indonesian" = "Индонезийская кухня";
-
 "type.cuisine.international" = "Международная кухня";
-
 "type.cuisine.irish" = "Ирландская кухня";
-
 "type.cuisine.italian" = "Итальянская кухня";
-
 "type.cuisine.italian_pizza" = "Итальянская, пиццерия";
-
 "type.cuisine.japanese" = "Японская кухня";
-
 "type.cuisine.kebab" = "Кебабы";
-
 "type.cuisine.korean" = "Корейская";
-
 "type.cuisine.lao" = "Лаосская кухня";
-
 "type.cuisine.lebanese" = "Ливанская кухня";
-
 "type.cuisine.local" = "Местная кухня";
-
 "type.cuisine.malagasy" = "Мадагаскарская кухня";
-
 "type.cuisine.malaysian" = "Малазийская кухня";
-
 "type.cuisine.mediterranean" = "Средиземноморская кухня";
-
 "type.cuisine.mexican" = "Мексиканская кухня";
-
 "type.cuisine.moroccan" = "Марокканская кухня";
-
 "type.cuisine.noodles" = "Лапшичная";
-
 "type.cuisine.oriental" = "Восточная кухня";
-
 "type.cuisine.pancake" = "Блинная";
-
 "type.cuisine.pasta" = "Паста";
-
 "type.cuisine.persian" = "Иранская кухня";
-
 "type.cuisine.peruvian" = "Перуанская кухня";
-
 "type.cuisine.pizza" = "Пиццерия";
-
 "type.cuisine.polish" = "Польская кухня";
-
 "type.cuisine.portuguese" = "Португальская кухня";
-
 "type.cuisine.ramen" = "Рамен";
-
 "type.cuisine.regional" = "Региональная кухня";
-
 "type.cuisine.russian" = "Русская кухня";
-
 "type.cuisine.sandwich" = "Сэндвичи";
-
 "type.cuisine.sausage" = "Сосисочная";
-
 "type.cuisine.savory_pancakes" = "Несладкие блинчики";
-
 "type.cuisine.seafood" = "Морепродукты";
-
 "type.cuisine.soba" = "Соба";
-
 "type.cuisine.spanish" = "Испанская кухня";
-
 "type.cuisine.steak_house" = "Стейк-хаус";
-
 "type.cuisine.sushi" = "Суши";
-
 "type.cuisine.tapas" = "Тапас-бар";
-
 "type.cuisine.tea" = "Чайная";
-
 "type.cuisine.thai" = "Тайская кухня";
-
 "type.cuisine.turkish" = "Турецкая кухня";
-
 "type.cuisine.vegan" = "Веганская кухня";
-
 "type.cuisine.vegetarian" = "Вегетарианская кухня";
-
 "type.cuisine.vietnamese" = "Вьетнамская кухня";
-
 "type.emergency" = "Emergency";
-
 "type.emergency.defibrillator" = "Дефибриллятор";
-
 "type.emergency.fire_hydrant" = "Гидрант";
-
 "type.emergency.phone" = "Телефон для экстренных вызовов";
-
 "type.entrance" = "Вход";
-
 "type.healthcare.laboratory" = "Медицинская лаборатория";
-
 "type.highway" = "Highway";
-
 "type.highway.bridleway" = "Дорога для всадников";
-
 "type.highway.bridleway.bridge" = "Дорога для всадников";
-
 "type.highway.bridleway.permissive" = "Дорога для всадников";
-
 "type.highway.bridleway.tunnel" = "Дорога для всадников";
-
 "type.highway.bus_stop" = "Остановка";
-
 "type.highway.construction" = "Строящаяся дорога";
-
 "type.highway.cycleway" = "Велодорожка";
-
 "type.highway.cycleway.bridge" = "Велодорожка";
-
 "type.highway.cycleway.permissive" = "Велодорожка";
-
 "type.highway.cycleway.tunnel" = "Велодорожка";
-
 "type.highway.elevator" = "Лифт";
-
 "type.highway.footway" = "Дорожка";
-
 "type.highway.footway.alpine_hiking" = "Дорожка";
-
 "type.highway.footway.area" = "Дорожка";
-
 "type.highway.footway.bridge" = "Дорожка";
-
 "type.highway.footway.demanding_alpine_hiking" = "Дорожка";
-
 "type.highway.footway.demanding_mountain_hiking" = "Дорожка";
-
 "type.highway.footway.difficult_alpine_hiking" = "Дорожка";
-
 "type.highway.footway.hiking" = "Дорожка";
-
 "type.highway.footway.mountain_hiking" = "Дорожка";
-
 "type.highway.footway.permissive" = "Дорожка";
-
 "type.highway.footway.tunnel" = "Дорожка";
-
 "type.highway.ford" = "Брод";
-
 "type.highway.living_street" = "Улица";
-
 "type.highway.living_street.bridge" = "Улица";
-
 "type.highway.living_street.tunnel" = "Улица";
-
 "type.highway.motorway" = "Улица";
-
 "type.highway.motorway.bridge" = "Улица";
-
 "type.highway.motorway.tunnel" = "Улица";
-
 "type.highway.motorway_junction" = "Съезд";
-
 "type.highway.motorway_link" = "Улица";
-
 "type.highway.motorway_link.bridge" = "Улица";
-
 "type.highway.motorway_link.tunnel" = "Улица";
-
 "type.highway.path" = "Дорожка";
-
 "type.highway.path.alpine_hiking" = "Дорожка";
-
 "type.highway.path.bicycle" = "Дорожка";
-
 "type.highway.path.bridge" = "Дорожка";
-
 "type.highway.path.demanding_alpine_hiking" = "Дорожка";
-
 "type.highway.path.demanding_mountain_hiking" = "Дорожка";
-
 "type.highway.path.difficult_alpine_hiking" = "Дорожка";
-
 "type.highway.path.hiking" = "Дорожка";
-
 "type.highway.path.horse" = "Дорожка";
-
 "type.highway.path.mountain_hiking" = "Дорожка";
-
 "type.highway.path.permissive" = "Дорожка";
-
 "type.highway.path.tunnel" = "Дорожка";
-
 "type.highway.pedestrian" = "Улица";
-
 "type.highway.pedestrian.area" = "Улица";
-
 "type.highway.pedestrian.bridge" = "Улица";
-
 "type.highway.pedestrian.tunnel" = "Улица";
-
 "type.highway.primary" = "Улица";
-
 "type.highway.primary.bridge" = "Улица";
-
 "type.highway.primary.tunnel" = "Улица";
-
 "type.highway.primary_link" = "Улица";
-
 "type.highway.primary_link.bridge" = "Улица";
-
 "type.highway.primary_link.tunnel" = "Улица";
-
 "type.highway.raceway" = "Гоночный трек";
-
 "type.highway.residential" = "Улица";
-
 "type.highway.residential.area" = "Улица";
-
 "type.highway.residential.bridge" = "Улица";
-
 "type.highway.residential.tunnel" = "Улица";
-
 "type.highway.rest_area" = "Зона отдыха на трассе";
-
 "type.highway.road" = "Улица";
-
 "type.highway.road.bridge" = "Улица";
-
 "type.highway.road.tunnel" = "Улица";
-
 "type.highway.secondary" = "Улица";
-
 "type.highway.secondary.bridge" = "Улица";
-
 "type.highway.secondary.tunnel" = "Улица";
-
 "type.highway.secondary_link" = "Улица";
-
 "type.highway.secondary_link.bridge" = "Улица";
-
 "type.highway.secondary_link.tunnel" = "Улица";
-
 "type.highway.service" = "Улица";
-
 "type.highway.service.area" = "Улица";
-
 "type.highway.service.bridge" = "Улица";
-
 "type.highway.service.driveway" = "Улица";
-
 "type.highway.service.parking_aisle" = "Улица";
-
 "type.highway.service.tunnel" = "Улица";
-
 "type.highway.services" = "Service on the Road";
-
 "type.highway.speed_camera" = "Камера скорости";
-
 "type.highway.steps" = "Дорожка";
-
 "type.highway.steps.bridge" = "Дорожка";
-
 "type.highway.steps.tunnel" = "Дорожка";
-
 "type.highway.tertiary" = "Улица";
-
 "type.highway.tertiary.bridge" = "Улица";
-
 "type.highway.tertiary.tunnel" = "Улица";
-
 "type.highway.tertiary_link" = "Улица";
-
 "type.highway.tertiary_link.bridge" = "Улица";
-
 "type.highway.tertiary_link.tunnel" = "Улица";
-
 "type.highway.track" = "Улица";
-
 "type.highway.track.area" = "Улица";
-
 "type.highway.track.bridge" = "Улица";
-
 "type.highway.track.grade1" = "Улица";
-
 "type.highway.track.grade2" = "Улица";
-
 "type.highway.track.grade3" = "Улица";
-
 "type.highway.track.grade4" = "Улица";
-
 "type.highway.track.grade5" = "Улица";
-
 "type.highway.track.no.access" = "Улица";
-
 "type.highway.track.permissive" = "Улица";
-
 "type.highway.track.tunnel" = "Улица";
-
 "type.highway.traffic_signals" = "Светофор";
-
 "type.highway.trunk" = "Улица";
-
 "type.highway.trunk.bridge" = "Улица";
-
 "type.highway.trunk.tunnel" = "Улица";
-
 "type.highway.trunk_link" = "Улица";
-
 "type.highway.trunk_link.bridge" = "Улица";
-
 "type.highway.trunk_link.tunnel" = "Улица";
-
 "type.highway.unclassified" = "Улица";
-
 "type.highway.unclassified.area" = "Улица";
-
 "type.highway.unclassified.bridge" = "Улица";
-
 "type.highway.unclassified.tunnel" = "Улица";
-
 "type.highway.world_level" = "highway-world_level";
-
 "type.highway.world_towns_level" = "highway-world_towns_level";
-
 "type.historic" = "Historic";
-
 "type.historic.archaeological_site" = "Раскопки";
-
 "type.historic.battlefield" = "Место исторического сражения";
-
 "type.historic.boundary_stone" = "Пограничный знак";
-
 "type.historic.castle" = "Замок";
-
 "type.historic.castle.defensive" = "Замок";
-
 "type.historic.castle.stately" = "Замок";
-
 "type.historic.citywalls" = "Городская стена";
-
 "type.historic.fort" = "Форт";
-
 "type.historic.memorial" = "Памятник";
-
 "type.historic.memorial.plaque" = "Памятник";
-
 "type.historic.memorial.sculpture" = "Памятник";
-
 "type.historic.memorial.statue" = "Памятник";
-
 "type.historic.monument" = "Монумент";
-
 "type.historic.ruins" = "Руины";
-
 "type.historic.ship" = "Корабль";
-
 "type.historic.tomb" = "Гробница";
-
 "type.historic.wayside_cross" = "Христианский крест";
-
 "type.historic.wayside_shrine" = "Святыня";
-
 "type.hwtag" = "hwtag";
-
 "type.hwtag.bidir_bicycle" = "hwtag-bidir_bicycle";
-
 "type.hwtag.onedir_bicycle" = "hwtag-onedir_bicycle";
-
 "type.hwtag.lit" = "hwtag-lit";
-
 "type.hwtag.nobicycle" = "hwtag-nobicycle";
-
 "type.hwtag.nocar" = "hwtag-nocar";
-
 "type.hwtag.nofoot" = "hwtag-nofoot";
-
 "type.hwtag.oneway" = "hwtag-oneway";
-
 "type.hwtag.private" = "hwtag-private";
-
 "type.hwtag.toll" = "hwtag-toll";
-
 "type.hwtag.yesbicycle" = "hwtag-yesbicycle";
-
 "type.hwtag.yescar" = "hwtag-yescar";
-
 "type.hwtag.yesfoot" = "hwtag-yesfoot";
-
 "type.internet_access" = "Интернет";
-
 "type.internet_access.wlan" = "Интернет";
-
 "type.junction" = "Junction";
-
 "type.junction.roundabout" = "Кольцо";
-
 "type.landuse" = "Landuse";
-
 "type.landuse.allotments" = "Земельные участки";
-
 "type.landuse.basin" = "Водоём";
-
 "type.landuse.brownfield" = "Земли для застройки";
-
 "type.landuse.cemetery" = "Кладбище";
-
 "type.landuse.cemetery.christian" = "Христианское кладбище";
-
 "type.landuse.churchyard" = "Церковный двор";
-
 "type.landuse.commercial" = "Коммерческая застройка";
-
 "type.landuse.construction" = "Стройка";
-
 "type.landuse.farm" = "Ферма";
-
 "type.landuse.farmland" = "Сельскохозяйственная земля";
-
 "type.landuse.farmyard" = "Сельскохозяйственная земля";
-
 "type.landuse.field" = "Поле";
-
 "type.landuse.forest" = "Лес";
-
 "type.landuse.forest.coniferous" = "Хвойный лес";
-
 "type.landuse.forest.deciduous" = "Лиственный лес";
-
 "type.landuse.forest.mixed" = "Смешанный лес";
-
 "type.landuse.garages" = "Гаражи";
-
 "type.landuse.grass" = "Газон";
-
 "type.landuse.greenfield" = "Greenfield";
-
 "type.landuse.greenhouse_horticulture" = "Greenhouse";
-
 "type.landuse.industrial" = "Промзона";
-
 "type.landuse.landfill" = "Свалка";
-
 "type.landuse.meadow" = "Луг";
-
 "type.landuse.military" = "Military Area";
-
 "type.landuse.orchard" = "Сад";
-
 "type.landuse.quarry" = "Quarry";
-
 "type.landuse.railway" = "Железнодорожные сооружения";
-
 "type.landuse.recreation_ground" = "База отдыха";
-
 "type.landuse.reservoir" = "Водоём";
-
 "type.landuse.residential" = "Residential Land";
-
 "type.landuse.retail" = "Retail Land";
-
 "type.landuse.salt_pond" = "Pond";
-
 "type.landuse.village_green" = "Land";
-
 "type.landuse.vineyard" = "Vineyard";
-
 "type.leisure" = "Leisure";
-
 "type.leisure.common" = "leisure-common";
-
 "type.leisure.dog_park" = "Место для выгула собак";
-
 "type.leisure.fitness_centre" = "Фитнес-клуб";
-
 "type.leisure.fitness_station" = "Спортивные снаряды";
-
 "type.leisure.garden" = "Сад";
-
 "type.leisure.golf_course" = "Площадка для гольфа";
-
 "type.leisure.ice_rink" = "Каток";
-
 "type.leisure.landscape_reserve" = "Landscape Reserve";
-
 "type.leisure.marina" = "Marina";
-
 "type.leisure.nature_reserve" = "Заповедник";
-
 "type.leisure.park" = "Парк";
-
 "type.leisure.park.no.access" = "Парк";
-
 "type.leisure.park.permissive" = "Парк";
-
 "type.leisure.park.private" = "Парк";
-
 "type.leisure.picnic_table" = "Стол для пикника";
-
 "type.leisure.pitch" = "Спортплощадка";
-
 "type.leisure.playground" = "Детская площадка";
-
 "type.leisure.recreation_ground" = "Recreation Ground";
-
 "type.leisure.sauna" = "Сауна";
-
 "type.leisure.slipway" = "Slipway";
-
 "type.leisure.sports_centre" = "Спорткомплекс";
-
 "type.leisure.sports_centre.climbing" = "Скалодром";
-
 "type.leisure.sports_centre.shooting" = "Тир";
-
 "type.leisure.sports_centre.swimming" = "Плавательный бассейн";
-
 "type.leisure.sports_centre.yoga" = "Йога-центр";
-
 "type.leisure.stadium" = "Стадион";
-
 "type.leisure.swimming_pool" = "Бассейн";
-
 "type.leisure.track" = "Track";
-
 "type.leisure.water_park" = "Аквапарк";
-
 "type.man_made" = "Man Made";
-
 "type.man_made.breakwater" = "Breakwater";
-
 "type.man_made.cairn" = "Cairn";
-
 "type.man_made.chimney" = "Заводская труба";
-
 "type.man_made.cutline" = "Cutline";
-
 "type.man_made.lighthouse" = "Маяк";
-
 "type.man_made.pier" = "Pier";
-
 "type.man_made.pipeline" = "Pipeline";
-
 "type.man_made.pipeline.overground" = "Overground Pipeline";
-
 "type.man_made.silo" = "Элеватор";
-
 "type.man_made.storage_tank" = "Резервуар";
-
 "type.man_made.surveillance" = "Камера наблюдения";
-
 "type.man_made.tower" = "Башня";
-
 "type.man_made.wastewater_plant" = "Wastewater Plant";
-
 "type.man_made.water_tap" = "Колонка с водой";
-
 "type.man_made.water_tower" = "Водонапорная башня";
-
 "type.man_made.water_well" = "Колодец";
-
 "type.man_made.windmill" = "Ветряная мельница";
-
 "type.man_made.works" = "Works";
-
 "type.mapswithme" = "mapswithme";
-
 "type.mapswithme.grid" = "mapswithme-grid";
-
 "type.military" = "Military";
-
 "type.military.bunker" = "Бункер";
-
 "type.mountain_pass" = "Перевал";
-
 "type.natural" = "Natural";
-
 "type.natural.bare_rock" = "Bare Rock";
-
 "type.natural.bay" = "Залив";
-
 "type.natural.beach" = "Пляж";
-
 "type.natural.cape" = "Мыс";
-
 "type.natural.cave_entrance" = "Пещера";
-
 "type.natural.cliff" = "Cliff";
-
 "type.natural.coastline" = "Береговая линия";
-
 "type.natural.geyser" = "Гейзер";
-
 "type.natural.glacier" = "Ледник";
-
 "type.natural.grassland" = "Поле";
-
 "type.natural.heath" = "Heath";
-
 "type.natural.hot_spring" = "Горячий источник";
-
 "type.natural.water.lake" = "Озеро";
-
 "type.natural.land" = "Land";
-
 "type.natural.meadow" = "Meadow";
-
 "type.natural.orchard" = "Orchard";
-
 "type.natural.peak" = "Гора";
-
 "type.natural.saddle" = "Седловина";
-
 "type.natural.water.pond" = "Пруд";
-
 "type.natural.rock" = "Rock";
-
 "type.natural.scrub" = "Заросли";
-
 "type.natural.spring" = "Родник";
-
 "type.natural.strait" = "Пролив";
-
 "type.natural.tree" = "Дерево";
-
 "type.natural.tree_row" = "Tree Row";
-
 "type.natural.vineyard" = "Vineyard";
-
 "type.natural.volcano" = "Вулкан";
-
 "type.natural.water" = "Водоём";
-
 "type.natural.wetland" = "Болотистая местность";
-
 "type.natural.wetland.bog" = "Wetland";
-
 "type.natural.wetland.marsh" = "Wetland";
-
 "type.noexit" = "noexit";
-
 "type.noexit.motor_vehicle" = "noexit-motor_vehicle";
-
 "type.office" = "Офис";
-
 "type.office.company" = "Организация";
-
 "type.office.estate_agent" = "Агентство недвижимости";
-
 "type.office.government" = "Госучреждение";
-
 "type.office.insurance" = "Продажа страховок";
-
 "type.office.lawyer" = "Адвокат";
-
 "type.office.ngo" = "Офис НКО";
-
 "type.office.telecommunication" = "Мобильный оператор";
-
 "type.olympics" = "olympics";
-
 "type.olympics.attraction" = "olympics-attraction";
-
 "type.olympics.bike_sport" = "olympics-bike_sport";
-
 "type.olympics.live_site" = "olympics-live_site";
-
 "type.olympics.official_building" = "olympics-official_building";
-
 "type.olympics.stadium" = "olympics-stadium";
-
 "type.olympics.stadium_main" = "olympics-stadium_main";
-
 "type.olympics.transport_airport" = "olympics-transport_airport";
-
 "type.olympics.transport_boat" = "olympics-transport_boat";
-
 "type.olympics.transport_bus" = "olympics-transport_bus";
-
 "type.olympics.transport_cable" = "olympics-transport_cable";
-
 "type.olympics.transport_railway" = "olympics-transport_railway";
-
 "type.olympics.transport_subway" = "olympics-transport_subway";
-
 "type.olympics.transport_tram" = "olympics-transport_tram";
-
 "type.olympics.water_sport" = "olympics-water_sport";
-
 "type.place" = "place";
-
 "type.place.city" = "Город";
-
 "type.place.city.capital" = "Столица";
-
 "type.place.city.capital.10" = "Столица";
-
 "type.place.city.capital.11" = "Столица";
-
 "type.place.city.capital.2" = "Столица";
-
 "type.place.city.capital.3" = "Столица";
-
 "type.place.city.capital.4" = "Столица";
-
 "type.place.city.capital.5" = "Столица";
-
 "type.place.city.capital.6" = "Столица";
-
 "type.place.city.capital.7" = "Столица";
-
 "type.place.city.capital.8" = "Столица";
-
 "type.place.city.capital.9" = "Столица";
-
 "type.place.continent" = "Континент";
-
 "type.place.country" = "Страна";
-
 "type.place.county" = "Округ";
-
 "type.place.farm" = "Ферма";
-
 "type.place.hamlet" = "Посёлок";
-
 "type.place.island" = "Остров";
-
 "type.place.islet" = "Остров";
-
 "type.place.isolated_dwelling" = "Dwelling";
-
 "type.place.locality" = "Местность";
-
 "type.place.neighbourhood" = "Neighbourhood";
-
 "type.place.ocean" = "Океан";
-
 "type.place.region" = "Район";
-
 "type.place.sea" = "Море";
-
 "type.place.square" = "Square";
-
 "type.place.state" = "Штат";
-
 "type.place.state.USA" = "Штат";
-
 "type.place.suburb" = "Район";
-
 "type.place.town" = "Город";
-
 "type.place.village" = "Деревня";
-
 "type.power" = "Power";
-
 "type.power.generator" = "Generator";
-
 "type.power.line" = "Power Line";
-
 "type.power.line.underground" = "Underground Power Line";
-
 "type.power.minor_line" = "Minor Power Line";
-
 "type.power.pole" = "Опора ЛЭП";
-
 "type.power.station" = "Power Station";
-
 "type.power.substation" = "Подстанция";
-
 "type.power.tower" = "Опора ЛЭП";
-
 "type.psurface" = "psurface";
-
 "type.psurface.paved_bad" = "psurface-paved_bad";
-
 "type.psurface.paved_good" = "psurface-paved_good";
-
 "type.psurface.unpaved_bad" = "psurface-unpaved_bad";
-
 "type.psurface.unpaved_good" = "psurface-unpaved_good";
-
 "type.public_transport" = "Общественный транспорт";
-
 "type.public_transport.platform" = "Платформа";
-
 "type.railway" = "Ж/Д";
-
 "type.railway.abandoned" = "Abandoned railway";
-
 "type.railway.abandoned.bridge" = "Abandoned railway";
-
 "type.railway.abandoned.tunnel" = "Abandoned railway";
-
 "type.railway.construction" = "Railway's construction";
-
 "type.railway.crossing" = "Railway crossing";
-
 "type.railway.disused" = "Disused railway";
-
 "type.railway.funicular" = "Фуникулер";
-
 "type.railway.funicular.bridge" = "Фуникулер";
-
 "type.railway.funicular.tunnel" = "Фуникулер";
-
 "type.railway.halt" = "Ж/д станция";
-
 "type.railway.level_crossing" = "Железнодорожный переезд";
-
 "type.railway.light_rail" = "Скоростной трамвай";
-
 "type.railway.light_rail.bridge" = "Скоростной трамвай";
-
 "type.railway.light_rail.tunnel" = "Скоростной трамвай";
-
 "type.railway.monorail" = "Монорельсовая железная дорога";
-
 "type.railway.monorail.bridge" = "Монорельсовая железная дорога";
-
 "type.railway.monorail.tunnel" = "Монорельсовая железная дорога";
-
 "type.railway.narrow_gauge" = "Узкоколейка";
-
 "type.railway.narrow_gauge.bridge" = "Узкоколейка";
-
 "type.railway.narrow_gauge.tunnel" = "Узкоколейка";
-
 "type.railway.platform" = "Platform";
-
 "type.railway.preserved" = "Законсервированная Ж/Д";
-
 "type.railway.preserved.bridge" = "Законсервированная Ж/Д";
-
 "type.railway.preserved.tunnel" = "Законсервированная Ж/Д";
-
 "type.railway.rail" = "Железнодорожный путь";
-
 "type.railway.rail.bridge" = "Railway";
-
 "type.railway.rail.motor_vehicle" = "Railway";
-
 "type.railway.rail.tunnel" = "Railway";
-
 "type.railway.razed" = "Заброшенная Ж/Д";
-
 "type.railway.siding" = "Ветка Ж/Д";
-
 "type.railway.siding.bridge" = "Ветка Ж/Д";
-
 "type.railway.siding.tunnel" = "Ветка Ж/Д";
-
 "type.railway.spur" = "Подъездная Ж/Д";
-
 "type.railway.spur.bridge" = "Подъездная Ж/Д";
-
 "type.railway.spur.tunnel" = "Подъездная Ж/Д";
-
 "type.railway.station" = "Ж/д станция";
-
 "type.railway.station.light_rail" = "Ж/д станция";
-
 "type.railway.station.monorail" = "Ж/д станция";
-
 "type.railway.station.subway" = "Метро";
-
 "type.railway.station.subway.barcelona" = "Метро";
-
 "type.railway.station.subway.berlin" = "Метро";
-
 "type.railway.station.subway.kiev" = "Метро";
-
 "type.railway.station.subway.london" = "Метро";
-
 "type.railway.station.subway.madrid" = "Метро";
-
 "type.railway.station.subway.minsk" = "Метро";
-
 "type.railway.station.subway.moscow" = "Метро";
-
 "type.railway.station.subway.newyork" = "Метро";
-
 "type.railway.station.subway.paris" = "Метро";
-
 "type.railway.station.subway.roma" = "Метро";
-
 "type.railway.station.subway.spb" = "Метро";
-
 "type.railway.subway" = "Ветка метро";
-
 "type.railway.subway.bridge" = "Ветка метро";
-
 "type.railway.subway.tunnel" = "Ветка метро";
-
 "type.railway.subway_entrance" = "Вход в метро";
-
 "type.railway.subway_entrance.barcelona" = "Метро";
-
 "type.railway.subway_entrance.berlin" = "Метро";
-
 "type.railway.subway_entrance.kiev" = "Метро";
-
 "type.railway.subway_entrance.london" = "Метро";
-
 "type.railway.subway_entrance.madrid" = "Метро";
-
 "type.railway.subway_entrance.minsk" = "Метро";
-
 "type.railway.subway_entrance.moscow" = "Метро";
-
 "type.railway.subway_entrance.newyork" = "Метро";
-
 "type.railway.subway_entrance.paris" = "Метро";
-
 "type.railway.subway_entrance.roma" = "Метро";
-
 "type.railway.subway_entrance.spb" = "Метро";
-
 "type.railway.tram" = "Трамвай";
-
 "type.railway.tram.bridge" = "Трамвай";
-
 "type.railway.tram.tunnel" = "Трамвай";
-
 "type.railway.tram_stop" = "Остановка трамвая";
-
 "type.railway.yard" = "Ж/Д площадка";
-
 "type.railway.yard.bridge" = "Ж/Д площадка";
-
 "type.railway.yard.tunnel" = "Ж/Д площадка";
-
 "type.route" = "route";
-
 "type.route.ferry" = "Ferry";
-
 "type.route.shuttle_train" = "Shuttle Train";
-
 "type.shop" = "Магазин";
-
 "type.shop.alcohol" = "Магазин алкоголя";
-
 "type.shop.bakery" = "Булочная";
-
 "type.shop.beauty" = "Салон красоты";
-
 "type.shop.beverages" = "Напитки";
-
 "type.shop.bicycle" = "Веломагазин";
-
 "type.shop.bookmaker" = "Букмекерская контора";
-
 "type.shop.books" = "Книжный магазин";
-
 "type.shop.butcher" = "Мясная лавка";
-
 "type.shop.car" = "Автосалон";
-
 "type.shop.car_parts" = "Автомобильные запчасти";
-
 "type.shop.car_repair" = "СТО";
-
 "type.shop.car_repair.tyres" = "Шиномонтаж";
-
 "type.shop.chemist" = "Бытовая химия";
-
 "type.shop.chocolate" = "Магазин";
-
 "type.shop.clothes" = "Магазин одежды";
-
 "type.shop.coffee" = "Магазин";
-
 "type.shop.computer" = "Компьютерный магазин";
-
 "type.shop.confectionery" = "Кондитерская";
-
 "type.shop.convenience" = "Продуктовый магазин";
-
 "type.shop.copyshop" = "Копировальный центр";
-
 "type.shop.cosmetics" = "Магазин косметики";
-
 "type.shop.department_store" = "Универмаг";
-
 "type.shop.doityourself" = "Хозяйственный";
-
 "type.shop.dry_cleaning" = "Химчистка";
-
 "type.shop.electronics" = "Электротехника";
-
 "type.shop.erotic" = "Секс-шоп";
-
 "type.shop.fabric" = "Магазин";
-
 "type.shop.florist" = "Цветочный магазин";
-
 "type.shop.funeral_directors" = "Ритуальные услуги";
-
 "type.shop.furniture" = "Магазин мебели";
-
 "type.shop.garden_centre" = "Садовые товары";
-
 "type.shop.gift" = "Магазин сувениров";
-
 "type.shop.greengrocer" = "Овощи и фрукты";
-
 "type.shop.hairdresser" = "Парикмахерская";
-
 "type.shop.hardware" = "Хозяйственный";
-
 "type.shop.jewelry" = "Ювелирный магазин";
-
 "type.shop.kiosk" = "Киоск";
-
 "type.shop.laundry" = "Прачечная";
-
 "type.shop.mall" = "Торговый центр";
-
 "type.shop.massage" = "Массажный салон";
-
 "type.shop.mobile_phone" = "Магазин мобильных телефонов";
-
 "type.shop.money_lender" = "Магазин";
-
 "type.shop.motorcycle" = "Магазин мотоциклов";
-
 "type.shop.music" = "Магазин";
-
 "type.shop.musical_instrument" = "Магазин";
-
 "type.shop.newsagent" = "Газетный киоск";
-
 "type.shop.optician" = "Оптика";
-
 "type.shop.outdoor" = "Магазин снаряжения";
-
 "type.shop.pawnbroker" = "Ломбард";
-
 "type.shop.pet" = "Зоотовары";
-
 "type.shop.photo" = "Фототовары";
-
 "type.shop.seafood" = "Рыбный магазин";
-
 "type.shop.shoes" = "Магазин обуви";
-
 "type.shop.sports" = "Магазин спорттоваров";
-
 "type.shop.stationery" = "Канцелярский магазин";
-
 "type.shop.supermarket" = "Супермаркет";
-
 "type.shop.tattoo" = "Тату-салон";
-
 "type.shop.tea" = "Магазин";
-
 "type.shop.ticket" = "Билетная касса";
-
 "type.shop.toys" = "Магазин игрушек";
-
 "type.shop.travel_agency" = "Турагентство";
-
 "type.shop.tyres" = "Магазин шин";
-
 "type.shop.variety_store" = "Магазин полезных мелочей";
-
 "type.shop.video" = "Магазин видео";
-
 "type.shop.video_games" = "Магазин видеоигр";
-
 "type.shop.wine" = "Винный магазин";
-
 "type.sponsored" = "sponsored";
-
 "type.sponsored.booking" = "sponsored-booking";
-
 "type.sponsored.holiday" = "Празднование Рождества или Нового года";
-
 "type.sponsored.opentable" = "sponsored-opentable";
-
 "type.sponsored.partner1" = "sponsored-partner1";
-
 "type.sponsored.partner10" = "sponsored-partner10";
-
 "type.sponsored.partner11" = "sponsored-partner11";
-
 "type.sponsored.partner12" = "sponsored-partner12";
-
 "type.sponsored.partner13" = "sponsored-partner13";
-
 "type.sponsored.partner14" = "sponsored-partner14";
-
 "type.sponsored.partner15" = "sponsored-partner15";
-
 "type.sponsored.partner16" = "sponsored-partner16";
-
 "type.sponsored.partner17" = "sponsored-partner17";
-
 "type.sponsored.partner18" = "МегаФон";
-
 "type.sponsored.partner19" = "МегаФон";
-
 "type.sponsored.partner2" = "sponsored-partner2";
-
 "type.sponsored.partner20" = "МегаФон";
-
 "type.sponsored.partner3" = "sponsored-partner3";
-
 "type.sponsored.partner4" = "sponsored-partner4";
-
 "type.sponsored.partner5" = "sponsored-partner5";
-
 "type.sponsored.partner6" = "sponsored-partner6";
-
 "type.sponsored.partner7" = "sponsored-partner7";
-
 "type.sponsored.partner8" = "sponsored-partner8";
-
 "type.sponsored.partner9" = "sponsored-partner9";
-
 "type.sport" = "sport";
-
 "type.sport.american_football" = "Американский футбол";
-
 "type.sport.archery" = "Стрельба из лука";
-
 "type.sport.athletics" = "Лёгкая атлетика";
-
 "type.sport.australian_football" = "Регби";
-
 "type.sport.baseball" = "Бейсбол";
-
 "type.sport.basketball" = "Баскетбол";
-
 "type.sport.bowls" = "Кегли";
-
 "type.sport.cricket" = "Крикет";
-
 "type.sport.curling" = "Керлинг";
-
 "type.sport.diving" = "Подводное плавание";
-
 "type.sport.equestrian" = "Конный спорт";
-
 "type.sport.golf" = "Гольф";
-
 "type.sport.gymnastics" = "Гимнастика";
-
 "type.sport.handball" = "Гандбол";
-
 "type.sport.multi" = "Различные виды спорта";
-
 "type.sport.scuba_diving" = "Акваланг";
-
 "type.sport.shooting" = "Стрельба";
-
 "type.sport.skiing" = "Лыжи";
-
 "type.sport.soccer" = "Футбол";
-
 "type.sport.swimming" = "Плавание";
-
 "type.sport.tennis" = "Теннисный корт";
-
 "type.tourism" = "Tourism";
-
 "type.tourism.alpine_hut" = "Горный отель";
-
 "type.tourism.apartment" = "Апартаменты";
-
 "type.tourism.artwork" = "Произведение искусства";
-
 "type.tourism.artwork.architecture" = "Произведение искусства";
-
 "type.tourism.artwork.painting" = "Произведение искусства";
-
 "type.tourism.artwork.sculpture" = "Произведение искусства";
-
 "type.tourism.artwork.statue" = "Произведение искусства";
-
 "type.tourism.attraction" = "Достопримечательность";
-
 "type.tourism.attraction.animal" = "Достопримечательность";
-
 "type.tourism.attraction.specified" = "Достопримечательность";
-
 "type.tourism.camp_site" = "Кемпинг";
-
 "type.tourism.caravan_site" = "Автокемпинг";
-
 "type.tourism.chalet" = "Шале";
-
 "type.tourism.gallery" = "Галерея";
-
 "type.tourism.guest_house" = "Гостевой дом";
-
 "type.tourism.hostel" = "Хостел";
-
 "type.tourism.hotel" = "Гостиница";
-
 "type.tourism.information" = "Туринформация";
-
 "type.tourism.information.board" = "Информационный щит";
-
 "type.tourism.information.guidepost" = "Туринформация";
-
 "type.tourism.information.map" = "Карта";
-
 "type.tourism.information.office" = "Туристический офис";
-
 "type.tourism.motel" = "Мотель";
-
 "type.tourism.museum" = "Музей";
-
 "type.tourism.picnic_site" = "Место для пикника";
-
 "type.tourism.resort" = "Дом отдыха";
-
 "type.tourism.theme_park" = "Парк развлечений";
-
 "type.tourism.viewpoint" = "Обзорная площадка";
-
 "type.tourism.wilderness_hut" = "Хижина в лесу";
-
 "type.tourism.zoo" = "Зоопарк";
-
 "type.traffic_calming" = "Traffic Calming";
-
 "type.traffic_calming.bump" = "Лежачий полицейский";
-
 "type.traffic_calming.hump" = "Лежачий полицейский";
-
 "type.waterway" = "Waterway";
-
 "type.waterway.canal" = "Канал";
-
 "type.waterway.canal.tunnel" = "Канал";
-
 "type.waterway.dam" = "Плотина";
-
 "type.waterway.ditch" = "Канава";
-
 "type.waterway.ditch.tunnel" = "Канава";
-
 "type.waterway.dock" = "Причал";
-
 "type.waterway.drain" = "Водоотвод";
-
 "type.waterway.drain.tunnel" = "Водоотвод";
-
 "type.waterway.lock" = "Шлюз";
-
 "type.waterway.lock_gate" = "Шлюз";
-
 "type.waterway.river" = "Река";
-
 "type.waterway.river.tunnel" = "Река";
-
 "type.waterway.riverbank" = "Река";
-
 "type.waterway.stream" = "Река";
-
 "type.waterway.stream.ephemeral" = "Река";
-
 "type.waterway.stream.intermittent" = "Река";
-
 "type.waterway.stream.tunnel" = "Река";
-
 "type.waterway.waterfall" = "Водопад";
-
 "type.waterway.weir" = "Плотина";
-
 "type.wheelchair" = "Wheelchair";
-
 "type.wheelchair.limited" = "Частично оборудовано для инвалидов";
-
 "type.wheelchair.no" = "Не оборудовано для инвалидов";
-
 "type.wheelchair.yes" = "Оборудовано для инвалидов";
-
 "type.piste_lift" = "piste:lift";
-
 "type.piste_lift.j.bar" = "piste:lift-j-bar";
-
 "type.piste_lift.magic_carpet" = "piste:lift-magic_carpet";
-
 "type.piste_lift.platter" = "piste:lift-platter";
-
 "type.piste_lift.rope_tow" = "piste:lift-rope_tow";
-
 "type.piste_lift.t.bar" = "piste:lift-t-bar";
-
 "type.piste_type" = "piste:type";
-
 "type.piste_type.downhill" = "piste:type-downhill";
-
 "type.piste_type.downhill.advanced" = "piste:type-downhill-advanced";
-
 "type.piste_type.downhill.easy" = "piste:type-downhill-easy";
-
 "type.piste_type.downhill.expert" = "piste:type-downhill-expert";
-
 "type.piste_type.downhill.freeride" = "piste:type-downhill-freeride";
-
 "type.piste_type.downhill.intermediate" = "piste:type-downhill-intermediate";
-
 "type.piste_type.downhill.novice" = "piste:type-downhill-novice";
-
 "type.piste_type.nordic" = "piste:type-nordic";
-
 "type.piste_type.sled" = "piste:type-sled";
-
 "type.building_part" = "Здание";
-
 "type.area_highway.cycleway" = "Велодорожка";
-
 "type.area_highway.footway" = "Дорожка";
-
 "type.area_highway.living_street" = "Улица";
-
 "type.area_highway.motorway" = "area:highway-motorway";
-
 "type.area_highway.path" = "Дорожка";
-
 "type.area_highway.pedestrian" = "Улица";
-
 "type.area_highway.primary" = "Улица";
-
 "type.area_highway.residential" = "Улица";
-
 "type.area_highway.secondary" = "Улица";
-
 "type.area_highway.service" = "Улица";
-
 "type.area_highway.tertiary" = "Улица";
-
 "type.area_highway.steps" = "Лестница";
-
 "type.area_highway.track" = "area:highway-track";
-
 "type.area_highway.trunk" = "area:highway-trunk";
-
 "type.area_highway.unclassified" = "area:highway-unclassified";
