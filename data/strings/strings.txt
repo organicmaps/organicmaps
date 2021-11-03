@@ -1670,7 +1670,7 @@
     uk = Адреса
     vi = Địa chỉ
     zh-Hans = 地址
-    zh-Hant = 位址
+    zh-Hant = 地址
 
   [set]
     comment = Add bookmark dialog - bookmark set, Bookmarks dialog - Bookmark set cell
@@ -2227,7 +2227,7 @@
     uk = Готель
     vi = Khách sạn
     zh-Hans = 旅店
-    zh-Hant = 飯店
+    zh-Hant = 旅館
 
   [tourism]
     comment = Search category
@@ -2721,6 +2721,7 @@
     pt = Olá!\n\nSegue em anexo os meus favoritos da aplicação Organic Maps. Por favor abra-os se tiver o Organic Maps instalado. Caso não tenha, descarregue a aplicação para o seu dispositivo iOS ou Android com a hiperligação https://omaps.app/get?kmz\n\nDivirta-se a viajar com o Organic Maps!
     pt-BR = Olá!\n\nSegue em anexo meus favoritos do app Organic Maps. Por favor os abra se você tiver o Organic Maps instalado. Caso não tenha, baixe o app para o seu dispositivo iOS ou Android com o link https://omaps.app/get?kmz\n\nDisfrute viajar com o Organic Maps!
     ru = Здравствуйте!\n\nВ прикрепленном файле мои метки из офлайновых карт Organic Maps. Для того чтобы открыть этот файл, вам потребуется приложение Organic Maps, которое можно установить по ссылке: https://omaps.app/get?kmz\n\nСпасибо!
+    zh-Hant = 你好！\n\n附件為 Organic Maps app 的書籤，如果你有安裝 Organic Maps 則直接開啟，如果沒有的話，請先在 iOS 或是 Android 裝置，從下面連結下載：https://omaps.app/get?kmz\n\n旅行時用上 Organic Maps！
 
   [load_kmz_title]
     comment = message title of loading file
@@ -2978,7 +2979,7 @@
     uk = Зараз відбувається завантаження країни.
     vi = Hiện đang tải xuống quốc gia.
     zh-Hans = 地图下载进行中。
-    zh-Hant = 國家地圖正在進行下載
+    zh-Hant = 地圖下載中。
 
   [my_position_share_sms]
     comment = Share my position using SMS, %1$@ contains om:// and %2$@ https://omaps.app link WITHOUT NAME. @NOTE non-ascii symbols in the link will result in max 70 characters SMS instead of 140.
@@ -3545,7 +3546,7 @@
     pt-BR = Informação
     ru = Информация
     zh-Hans = 信息
-    zh-Hant = 信息
+    zh-Hant = 資訊
 
   [prefs_group_route]
     tags = android, ios
@@ -4480,6 +4481,7 @@
     comment = Text in menu
     tags = android, ios
     en = OpenStreetMap
+    zh-Hant = 開放街圖
 
   [feedback]
     comment = Settings: Send feedback button and dialog title
@@ -5604,7 +5606,7 @@
     uk = Я щойно оцінив вашу програму
     vi = Tôi vừa đánh giá ứng dụng của bạn
     zh-Hans = 我刚刚评价了您的应用
-    zh-Hant = 我剛剛評價了您的應用
+    zh-Hant = 我剛剛評價了您的應用程式
 
   [rating_thanks]
     comment = Text for rating dialog
@@ -9301,7 +9303,7 @@
     uk = Або зробіть це самостійно на сайті https://www.openstreetmap.org/
     vi = Hoặc bạn có thể tự sửa tại https://www.openstreetmap.org/
     zh-Hans = 或者在https://www.openstreetmap.org/上亲自修复此错误。
-    zh-Hant = 或者在https://www.openstreetmap.org/上親自修復此錯誤
+    zh-Hant = 或者在 https://www.openstreetmap.org/ 上親自修復此錯誤
 
   [editor_report_problem_send_button]
     tags = android, ios
@@ -10680,6 +10682,7 @@
     fr = Ajouter un numéro de téléphone
     pl = Dodaj numer telefonu
     ru = Добавить телефон
+    zh-Hant = 新增電話
 
   [please_note]
     tags = ios
@@ -10854,7 +10857,7 @@
     uk = Знайти мапу
     vi = Tìm bản đồ
     zh-Hans = 找到地图
-    zh-Hant = 找到地圖
+    zh-Hant = 尋找地圖
 
   [migration_download_error_dialog]
     tags = ios
@@ -11414,7 +11417,7 @@
     uk = Інші проблема
     vi = Một vấn đề khác
     zh-Hans = 一个不同的问题
-    zh-Hant = 一個不同的問題
+    zh-Hant = 不同的問題
 
   [placepage_add_business_button]
     tags = android
@@ -11625,7 +11628,7 @@
     uk = Для завантаження потрібно більше вільного місця. Будь ласка, видаліть непотрібні дані.
     vi = Để tải xuống, bạn cần thêm dung lượng. Xin xóa mọi dữ liệu không cần thiết.
     zh-Hans = 为了下载，您需要更多的空间。请删除不必要的数据。
-    zh-Hant = 為了下載，您需要更多的空間。請刪除不必要的數據。
+    zh-Hant = 為了下載，您需要更多的空間。請刪除不必要的資料。
 
   [editor_sharing_title]
     tags = ios
@@ -11730,7 +11733,7 @@
     uk = Завантажити за допомогою мобільної мережі?
     vi = Tải xuống qua kết nối mạng di động?
     zh-Hans = 用手机网络连接下载吗？
-    zh-Hant = 用手機網絡連接下載嗎？
+    zh-Hant = 用手機網路連線下載嗎？
 
   [download_over_mobile_message]
     tags = android, ios
@@ -11834,7 +11837,7 @@
     uk = Кількість поверхів (максимум %d)
     vi = Số tầng (tối đa %d)
     zh-Hans = 楼号 (最大 %d)
-    zh-Hant = 樓號（最大 %d）
+    zh-Hant = 樓層數（最大 %d）
 
   [error_enter_correct_storey_number]
     comment = Error message in Editor when a user tries to set the number of floors for a building higher than 25
@@ -12576,7 +12579,7 @@
     uk = 1. Відкрийте «Налаштування»
     vi = 1. Mở Thiết lập
     zh-Hans = 1. 打开设置
-    zh-Hant = 1. 打開設置
+    zh-Hant = 1. 開啟設定
 
   [location_services_disabled_2]
     tags = ios
@@ -12611,7 +12614,7 @@
     uk = 2. Клацніть «Місцезнаходження»
     vi = 2. Chạm mục Địa điểm
     zh-Hans = 2. 点击位置
-    zh-Hant = 2. 點擊位置
+    zh-Hant = 2. 點一下位置
 
   [location_services_disabled_3]
     comment = iOS Dialog for the case when the location permission is not granted
@@ -12680,7 +12683,7 @@
     uk = м
     vi = m
     zh-Hans = 米
-    zh-Hant = 米
+    zh-Hant = 公尺
 
   [kilometer]
     tags = android, ios
@@ -12781,7 +12784,7 @@
     uk = ми
     vi = dặm
     zh-Hans = 英里
-    zh-Hant = 英里
+    zh-Hant = 英哩
 
   [foot]
     tags = android, ios
@@ -12848,7 +12851,7 @@
     uk = ми/год
     vi = mph
     zh-Hans = 英里每小时
-    zh-Hant = 英里每小時
+    zh-Hant = 英哩每小時
 
   [hour]
     tags = android
@@ -13615,7 +13618,7 @@
     uk = Введіть вірну адресу електронної пошти
     vi = Nhập email hợp lệ
     zh-Hans = 输入有效电子邮箱
-    zh-Hant = 輸入有效電子郵箱
+    zh-Hant = 輸入有效電子郵件
 
   [error_enter_correct_facebook_page]
     tags = android
@@ -13625,6 +13628,7 @@
     pl = Wprowadź poprawny link, nazwę konta lub nazwę strony na Facebooku
     ru = Введите корректный веб-адрес Facebook страницы или имя пользователя
     uk = Введіть вірну веб-адресу Facebook сторінки або і'мя користувача
+    zh-Hant = 輸入有效臉書網址、帳號或粉絲頁名稱
 
   [error_enter_correct_instagram_page]
     tags = android
@@ -13634,6 +13638,7 @@
     pl = Wprowadź poprawny link lub nazwę konta na Instagramie
     ru = Введите корректный веб-адрес Instagram страницы или имя пользователя
     uk = Введіть вірну веб-адресу Instagram сторінки або і'мя користувача
+    zh-Hant = 輸入有效 Instagram 網址或帳號名稱
 
   [error_enter_correct_twitter_page]
     tags = android
@@ -13643,6 +13648,7 @@
     pl = Wprowadź poprawny adres lub nazwę konta na Twitterze
     ru = Введите корректный веб-адрес Twitter страницы или имя пользователя
     uk = Введіть вірну веб-адресу Twitter сторінки або і'мя користувача
+    zh-Hant = 輸入有效推特網址或使用者名稱
 
   [error_enter_correct_vk_page]
     tags = android
@@ -13652,6 +13658,7 @@
     pl = Wprowadź poprawny adres lub nazwę konta na VK
     ru = Введите корректный веб-адрес VK страницы или имя пользователя
     uk = Введіть вірну веб-адресу VK сторінки або і'мя користувача
+    zh-Hant = 輸入有效 VK 網益止或帳號名稱
 
   [error_enter_correct_line_page]
     tags = android
@@ -13728,7 +13735,7 @@
     uk = Додати на мапу
     vi = Thêm địa điểm vào bản đồ
     zh-Hans = 添加地点到地图上
-    zh-Hant = 添加地點到地圖上
+    zh-Hant = 增加地點到地圖上
 
   [editor_share_to_all_dialog_title]
     comment = Displayed when saving some edits to the map to warn against publishing personal data
@@ -13800,7 +13807,7 @@
     uk = Переконайтеся, що ви не ввели особисті дані.
     vi = Chắc chắn rằng bạn không nhập bất kỳ thông tin cá nhân nào.
     zh-Hans = 确保您没有输入任何个人数据。
-    zh-Hant = 確保您沒有輸入任何個人數據。
+    zh-Hant = 確保您沒有輸入任何個人資料。
 
   [editor_share_to_all_dialog_message_2]
     tags = android, ios
@@ -13835,7 +13842,7 @@
     uk = Якщо при перевірці змін виникнуть питання, ми напишемо вам на email.
     vi = Chúng tôi sẽ kiểm tra những thay đổi. Nếu chúng tôi có câu hỏi nào, chúng tôi sẽ liên lạc với bạn qua email.
     zh-Hans = 我们会检查更改。如果我们有任何问题，我们会邮件与您联系。
-    zh-Hant = 我們會檢查更改。如果我們有任何問題，我們會郵件與您聯系。
+    zh-Hant = 我們會檢查更改。如果我們有任何問題，我們會郵件與您聯絡。
 
   [navigation_stop_button]
     tags = ios
@@ -14048,7 +14055,7 @@
     uk = Organic Maps – це безкоштовні офлайнові карти із відкритим вихідним кодом. Без реклами. Без відстеження. Якщо ви бачите помилку на карті, виправте її в OpenStreetMap. Проект створюється ентузіастами у вільний час, тому нам потрібні ваші відгуки та підтримка.
     vi = Organic Maps là một ứng dụng bản đồ ngoại tuyến mã nguồn mở và miễn phí. Không quảng cáo. Không theo dõi. Nếu bạn thấy lỗi trên bản đồ, hãy sửa lỗi đó trong OpenStreetMap. Dự án được tạo ra bởi những người đam mê trong thời gian rảnh của chúng tôi, vì vậy chúng tôi cần phản hồi và hỗ trợ của bạn.
     zh-Hans = Organic Maps 是一款免费的开源离线地图应用程序。无广告。没有跟踪。如果您在地图上看到错误，请在 OpenStreetMap 中修复它。该项目由爱好者在我们的空闲时间创建，因此我们需要您的反馈和支持。
-    zh-Hant = Organic Maps 是一款免費的開源離線地圖應用程序。無廣告。沒有跟踪。如果您在地圖上看到錯誤，請在 OpenStreetMap 中修復它。該項目由愛好者在我們的空閒時間創建，因此我們需要您的反饋和支持。
+    zh-Hant = Organic Maps 是一款免費的開源離線地圖 app。沒有廣告，不會追蹤。如果您在地圖上看到錯誤，請在 OpenStreetMap 中修復吧。這個專案由愛好者在我們的空閒時間創建，因此我們需要您的回饋和支援。
 
   [general_settings]
     tags = ios
@@ -14612,7 +14619,7 @@
     uk = Для відображення даних про трафік оновіть додаток.
     vi = Để hiển thị dữ liệu giao thông, ứng dụng cần phải được cập nhật.
     zh-Hans = 要显示交通数据，必须更新应用。
-    zh-Hant = 若要顯示交通資訊，必須更新應用程式。
+    zh-Hant = 若要顯示交通資訊，必須更新 app。
 
   [traffic_data_unavailable]
     comment = "traffic" as in "road congestion"
@@ -14863,7 +14870,7 @@
     uk = Для деяких мов вам знадобиться встановити інший додаток для синтезу мовлення або додатковий мовний пакет з магазину додатків (Google Play Market, Samsung Apps).\nВідкрийте налаштування пристрою → Мови та введення → Мовлення → Синтез мовлення.\nТут ви можете здійснювати управління налаштуваннями синтезу мовлення (наприклад, завантажити мовний пакет для використання офлайн) або вибрати інший програмний рушій для синтезу мовлення.
     vi = Đối với một số ngôn ngữ, bạn sẽ cần cài đặt một trình tổng hợp lời nói khác hoặc một gói ngôn ngữ bổ sung từ cửa hàng ứng dụng (Google Play Market, Samsung Apps).\nMở cài đặt của thiết bị → Ngôn ngữ và nhập liệu → Lời nói → Đầu ra văn bản sang lời nói.\nTại đây bạn có thể quản lý các cài đặt tổng hợp lời nói (ví dụ, tải về các gói ngôn ngữ để sử dụng ngoại tuyến) và chọn một công cụ chuyển đổi văn bản sang lời nói khác.
     zh-Hans = 对于某些语言，您需要从应用商店（Google Play Market、Samsung Apps）中安装其他语音合成器或语言包。\n打开您的设备的设置 → 语言和输入法 → 语音 → 文字转语音 (TTS) 输出。\n您可以在这里管理语音合成的设置（例如，下载语言包供离线使用）和选择其他文字转语音引擎。
-    zh-Hant = 對於某些語言，您將需要從 App 商店 (Google Play Market, Samsung Apps) 安裝其他語音合成器或額外的語言套件。\n開啟您裝置的設定 → 語言與輸入 → 語音 → 文字轉換語音輸出。\n在這裡，您可以管理語音合成器的設定（例如，下載語言套件以供離線使用），並選取其他文字轉換語音引擎。
+    zh-Hant = 對於某些語言，您將需要從 App 商店 (Google Play 商店, Samsung Apps) 安裝其他語音合成器或額外的語言套件。\n開啟您裝置的設定 → 語言與輸入 → 語音 → 文字轉換語音輸出。\n在這裡，您可以管理語音合成器的設定（例如，下載語言套件以供離線使用），並選取其他文字轉換語音引擎。
 
   [prefs_languages_information_off_link]
     tags = android
@@ -15711,7 +15718,7 @@
     uk = %d закладок
     vi = %d dấu trang
     zh-Hans = %d 個書籤
-    zh-Hant = %d個書籤
+    zh-Hant = %d 個書籤
 
   [bookmarks_create_new_group]
     tags = android, ios
@@ -15762,6 +15769,7 @@
     pt = Importar favoritos
     pt-BR = Importar favoritos
     ru = Импортировать метки
+    zh-Hant = 匯入書籤
 
   [downloader_hide_screen]
     tags = ios
@@ -15946,7 +15954,7 @@
     uk = Неможливо поділитися через помилку програми
     vi = Không thể chia sẻ do lỗi ứng dụng
     zh-Hans = 由于应用程序出错而无法分享
-    zh-Hant = 由於應用程序出錯而無法分享
+    zh-Hant = 由於 app 出錯而無法分享
 
   [bookmarks_error_title_share_empty]
     tags = android, ios
@@ -16020,7 +16028,7 @@
     uk = Неможливо поділитися пустим списком
     vi = Không thể chia sẻ một danh sách trống
     zh-Hans = 无法分享空列表
-    zh-Hant = 無法分享空列表
+    zh-Hant = 無法分享空的列表
 
   [bookmarks_error_title_empty_list_name]
     tags = android
@@ -16639,7 +16647,7 @@
     uk = Нема інтернет з'єднання
     vi = Không có kết nối internet
     zh-Hans = 没有互联网连接
-    zh-Hant = 沒有互聯網連接
+    zh-Hant = 沒有網路連線
 
   [error_system_message]
     tags = ios
@@ -16969,7 +16977,7 @@
     uk = Ми можемо використовувати ваші дані, щоб розвивати та покращувати Organic Maps. Зміни вступлять у силу після перезапуску програми
     vi = Chúng tôi có thể sử dụng dữ liệu của bạn để cải thiện trải nghiệm trên Organic Maps. Thay đổi sẽ có hiệu lực sau khi bạn khởi động lại ứng dụng.
     zh-Hans = 我们可以使用您的数据来开发和改进Organic Maps。更改将在重新启动应用程序后生效。
-    zh-Hant = 我們可以使用您的數據來開發和改進Organic Maps。更改將再重新啟動應用程序后生效。
+    zh-Hant = 我們可以使用您的數據來開發和改進Organic Maps。更改將再重新啟動 app 後生效。
 
   [privacy_policy]
     tags = android, ios
@@ -17117,7 +17125,7 @@
     uk = Метрополітен
     vi = Xe điện ngầm
     zh-Hans = 地铁
-    zh-Hant = 地鐵
+    zh-Hant = 捷運
 
   [layers_title]
     tags = android, ios
@@ -17191,7 +17199,7 @@
     uk = Мапа метрополітену недоступна
     vi = Bản đồ tàu điện ngầm không khả dụng
     zh-Hans = 地铁地图不可用
-    zh-Hant = 地鐵圖不可用
+    zh-Hant = 捷運圖層不可用
 
   [bookmarks_empty_list_title]
     tags = android
@@ -17265,7 +17273,7 @@
     uk = Щоб додати нову позначку, натисніть на значок зірочки в картці об’єкта
     vi = Để thêm dấu trang, hãy nhấn vào một địa điểm trên bản đồ và sau đó nhấn vào biểu tượng dấu sao
     zh-Hans = 要添加新标签，请单击对象卡中的星形图标
-    zh-Hant = 要添加新標籤，請單擊對象卡片中的星型圖標
+    zh-Hant = 要增加新標籤，請點一下對象卡片中的星型圖標
 
   [category_desc_more]
     tags = android
@@ -17352,6 +17360,7 @@
     pt = Popular
     pt-BR = Popular
     ru = Популярно
+    zh-Hant = 受歡迎的
 
   [export_file]
     tags = android, ios
@@ -17425,7 +17434,7 @@
     uk = Налаштування списку
     vi = Cài đặt danh sách
     zh-Hans = 列表设置
-    zh-Hant = 列表設置
+    zh-Hant = 列表設定
 
   [delete_list]
     tags = android, ios
@@ -17535,7 +17544,7 @@
     uk = Публічний доступ
     vi = Truy cập công khai
     zh-Hans = 公共访问
-    zh-Hant = 公共訪問
+    zh-Hant = 開放空間
 
   [limited_access]
     tags = android
@@ -17572,7 +17581,7 @@
     uk = Приватний доступ
     vi = Truy cập hạn chế
     zh-Hans = 私人访问
-    zh-Hant = 私人訪問
+    zh-Hant = 私人空間
 
   [bookmark_category_name]
     tags = android
@@ -17644,7 +17653,7 @@
     uk = Додайте опис (текст чи html)
     vi = Đánh vào một mô tả (văn bản hoặc html)
     zh-Hans = 请添加说明（文字或html）
-    zh-Hant = 添加說明(文字或html)
+    zh-Hant = 增加說明(文字或html)
 
   [not_shared]
     tags = android
@@ -17718,7 +17727,7 @@
     uk = Під час завантаження тегів сталася помилка, будь ласка, спробуйте ще раз
     vi = Đã xảy ra lỗi khi tải thẻ, vui lòng thử lại
     zh-Hans = 加载标签时出错，请重试
-    zh-Hant = 加載代碼時出錯，請重試
+    zh-Hant = 載入標籤時出錯，請重試
 
   [download_button]
     tags = ios
@@ -17791,7 +17800,7 @@
     uk = Камери швидкості
     vi = Tăn tốc độ máy ảnh
     zh-Hans = 高速摄像机
-    zh-Hant = 高速相機
+    zh-Hant = 超速照相機
 
   [speedcam_option_auto]
     tags = android, ios
@@ -17977,7 +17986,7 @@
     uk = Завантаження мап
     vi = Trình tải xuống bản đồ
     zh-Hans = 加载地图
-    zh-Hant = 加載地圖
+    zh-Hant = 載入地圖
 
   [speedcams_notice_message]
     tags = ios
@@ -18014,7 +18023,7 @@
     uk = Авто - Попереджати про камери швидкості, якщо є ризик перевищення швидкісного ліміту\nЗавжди - Завжди попереджати про камери\nНіколи - Ніколи не попереджати про камери
     vi = Tự động - Cảnh báo về speedcam nếu có nguy cơ vượt quá giới hạn tốc độ\nLuôn luôn - Luôn cảnh báo về speedcams\nKhông bao giờ - Không bao giờ cảnh báo về speedcams
     zh-Hans = 自动 - 如果存在超出速度限制的风险，则对速度摄像头发出警告\n总是 - 始终提醒摄像头\n从不 - 永远不会对摄像头发出警告
-    zh-Hant = 自動 - 如果存在超出速度限制的風險，則對速度攝像頭髮出警告\n總是 - 始終提醒攝像頭\n從不 - 永遠不會對攝像頭發出警告
+    zh-Hant = 自動 - 如果存在超出速度限制的風險，則對速度照相機發出警告\n總是 - 始終提醒照相機\n從不 - 永遠不會對照相機發出警告
 
   [power_managment_title]
     tags = android, ios
@@ -18088,7 +18097,7 @@
     uk = Якщо увімкнено режим енергозбереження, додаток буде відключати енерговитратні функції в залежності від поточного заряду телефону
     vi = Nếu chế độ tiết kiệm năng lượng được bật, ứng dụng sẽ tắt các chức năng tiêu thụ năng lượng tùy thuộc vào mức pin hiện tại của điện thoại
     zh-Hans = 如果开启省电模式，应用程序将根据手机的当前电量关耗电功能
-    zh-Hant = 如果開啟省電模式，應用程序將根據手機的當前電量關耗電功能
+    zh-Hant = 如果開啟省電模式，應用程序將根據手機的當前電量關閉耗電功能
 
   [power_managment_setting_never]
     tags = android, ios
@@ -18236,7 +18245,7 @@
     uk = Дана опція вмикається для логування дій з метою діагностики. Це допомагає команді виявити проблеми з додатком. Тимчасово включайте цю настройку тільки для відправки детальної інформації про знайдену вами проблему в додатку.
     vi = Tùy chọn này được kích hoạt để ghi nhật ký đăng nhập cho mục đích chẩn đoán. Điều này sẽ giúp nhóm chúng tôi làm rõ các vấn đề liên quan đến ứng dụng. Hãy bật tùy chọn này chỉ khi nào có yêu cầu hỗ trợ từ Organic Maps.
     zh-Hans = 此选项启用以记录操作来进行诊断。这有助于团队识别应用程序的问题。请仅在Organic Maps支持请求时开启该选项。
-    zh-Hant = 此選項啟用以記錄操作來進行診斷。這有助於團隊識別應用程序的問題。請僅在Organic Maps支持請求時開啟該選項。
+    zh-Hant = 此選項啟用以記錄操作來進行診斷。這有助於團隊辨別 app 的問題。請僅在Organic Maps支援請求時開啟該選項。
 
   [access_rules_author_only]
     tags = android
@@ -18273,7 +18282,7 @@
     uk = Редагується онлайн
     vi = Chỉnh sửa trực tuyến
     zh-Hans = 在线编辑
-    zh-Hant = 在線編輯
+    zh-Hant = 線上編輯
 
   [driving_options_title]
     tags = android, ios
@@ -18310,7 +18319,7 @@
     uk = Налаштування об’їзду
     vi = Thiết lập đi vòng
     zh-Hans = 绕行设置
-    zh-Hant = 繞行設置
+    zh-Hant = 繞行設定
 
   [driving_options_subheader]
     tags = android, ios
@@ -18569,7 +18578,7 @@
     uk = На жаль, ми не змогли побудувати маршрут з вибраними опціями. Змініть налаштування та спробуйте ще раз
     vi = Rất tiếc, chúng không thể tạo tuyến đường với những tùy chọn đã chọn. Hãy thay đổi thiết lập và thử lại
     zh-Hans = 很遗憾，我们无法使用所选选项规划路线。请更改设置，然后重试
-    zh-Hant = 很遺憾，我們無法使用所選選項規劃路線。請更改設置，然後重試
+    zh-Hant = 很遺憾，我們無法使用所選選項規劃路線。請更改設定，然後重試
 
   [define_to_avoid_btn]
     tags = android, ios
@@ -18606,7 +18615,7 @@
     uk = Налаштувати шляхи об’їзду
     vi = Thiết lập đường đi vòng
     zh-Hans = 设置绕行路径
-    zh-Hant = 設置繞行路徑
+    zh-Hant = 設定繞行路徑
 
   [change_driving_options_btn]
     tags = android, ios
@@ -18642,8 +18651,8 @@
     tr = Sürüş seçenekleri etkinleştirildi
     uk = Увімкнено налаштування об’їзду
     vi = Thiết lập đường đi tránh đã được bật
-    zh-Hans = 繞行設置已開啟
-    zh-Hant = 绕行设置已开启
+    zh-Hans = 绕行设置已开启
+    zh-Hant = 繞行設定已開啟
 
   [toll_road]
     tags = android, ios
@@ -18751,7 +18760,7 @@
     uk = Поромна переправа
     vi = Bến phà
     zh-Hans = 轮渡
-    zh-Hant = 輪渡
+    zh-Hant = 渡輪
 
   [avoid_toll_roads_placepage]
     tags = android, ios
@@ -18970,7 +18979,7 @@
     uk = Відцентрувати
     vi = Định tâm
     zh-Hans = 定好中心
-    zh-Hant = 定好中心
+    zh-Hant = 重新設定中心點
 
   [search_results]
     tags = ios
@@ -19006,7 +19015,7 @@
     uk = Результати пошуку
     vi = Kết quả tìm kiếm
     zh-Hans = 搜索结果
-    zh-Hant = 搜索結果
+    zh-Hant = 搜尋結果
 
   [then_turn]
     tags = ios
@@ -19186,7 +19195,7 @@
     uk = Ви прибули!
     vi = Bạn đã tới nơi!
     zh-Hans = 您已到达!
-    zh-Hant = 您已到達!
+    zh-Hant = 您已經到達了!
 
   [keyboard_availability_alert]
     tags = ios
@@ -19222,7 +19231,7 @@
     uk = Клавіатура недоступна під час руху
     vi = Bàn phím không khả dụng trong thời gian di chuyển
     zh-Hans = 移动时键盘不可用
-    zh-Hant = 移動時鍵盤不可用
+    zh-Hant = 開車時鍵盤不可用
 
   [dialog_routing_change_start_carplay]
     tags = ios
@@ -19438,7 +19447,7 @@
     uk = Виникла помилка. Перезапустіть додаток
     vi = Đã xảy ra lỗi. Khởi động lại ứng dụng
     zh-Hans = 发生了错误。请重新启动程序
-    zh-Hant = 發生了錯誤。請重新啟動程序
+    zh-Hant = 發生錯誤，請重新啟動 app
 
   [dialog_routing_rebuild_from_current_location_carplay]
     tags = ios
@@ -19547,7 +19556,7 @@
     uk = Ок
     vi = Ok
     zh-Hans = 好的
-    zh-Hant = 好的
+    zh-Hant = 好
 
   [avoid_unpaved_carplay_1]
     tags = ios
@@ -19799,7 +19808,7 @@
     uk = Камери
     vi = Сam tốc độ
     zh-Hans = 摄像头
-    zh-Hant = 攝像頭
+    zh-Hant = 測速照相機
 
   [speedcams_alert_title_carplay_2]
     tags = ios
@@ -19835,7 +19844,7 @@
     uk = Інфо о камерах
     vi = Cảnh báo tốc độ
     zh-Hans = 摄像头信息
-    zh-Hant = 攝像頭信息
+    zh-Hant = 超速警告
 
   [download_map_carplay]
     tags = ios
@@ -19871,7 +19880,7 @@
     uk = Завантажте карти в додатку Organic Maps на своєму пристрої
     vi = Vui lòng tải xuống bản đồ trong ứng dụng Organic Maps trên thiết bị của bạn
     zh-Hans = 将Organic Maps软件中的地图下载至个人设备中
-    zh-Hant = 將Organic Maps軟件中的地圖下載至個人設備中
+    zh-Hant = 將Organic Maps app 中的地圖下載至個人設備中
 
   [carplay_roundabout_exit]
     tags = ios
@@ -19983,7 +19992,7 @@
     uk = Сортувати мітки
     vi = Sắp xếp dấu trang
     zh-Hans = 分类标签
-    zh-Hant = 分類標籤
+    zh-Hant = 分類書籤
 
   [sort_default]
     comment = iOS
@@ -20020,7 +20029,7 @@
     uk = Сортувати за промовчанням
     vi = Sắp xếp theo mặc định
     zh-Hans = 默认排序
-    zh-Hant = 默認排序
+    zh-Hant = 按預設值排序
 
   [sort_type]
     tags = ios
@@ -20166,7 +20175,7 @@
     uk = Усталено
     vi = Theo mặc định
     zh-Hans = 默认情况下
-    zh-Hant = 默認情況下
+    zh-Hant = 採用預設值
 
   [by_type]
     comment = Android
@@ -20316,7 +20325,7 @@
     uk = Тиждень тому
     vi = Tuần trước
     zh-Hans = 一周前
-    zh-Hant = 一周前
+    zh-Hant = 一週前
 
   [month_ago_sorttype]
     tags = android, ios
@@ -20352,7 +20361,7 @@
     uk = Місяць тому
     vi = Tháng trước
     zh-Hans = 一月前
-    zh-Hant = 一月前
+    zh-Hant = 一個月前
 
   [moremonth_ago_sorttype]
     tags = android, ios
@@ -20460,7 +20469,7 @@
     uk = Поруч зі мною
     vi = Ở gần tôi
     zh-Hans = 在我旁边
-    zh-Hant = 在我旁邊
+    zh-Hant = 附近
 
   [others_sorttype]
     tags = android, ios
@@ -20532,7 +20541,7 @@
     uk = Їжа
     vi = Đồ ăn
     zh-Hans = 美食
-    zh-Hant = 美食
+    zh-Hant = 食物
 
   [tourist_places]
     tags = android, ios
@@ -20568,7 +20577,7 @@
     uk = Пам’ятки
     vi = Danh lam thắng cảnh
     zh-Hans = 名胜
-    zh-Hant = 名勝
+    zh-Hant = 觀光景點
 
   [museums]
     tags = android, ios
@@ -20712,7 +20721,7 @@
     uk = Гори
     vi = Núi non
     zh-Hans = 山
-    zh-Hant = 山
+    zh-Hant = 山峰
 
   [animals]
     tags = android, ios
@@ -20748,7 +20757,7 @@
     uk = Тварини
     vi = Động vật
     zh-Hans = 动物
-    zh-Hant = 動物
+    zh-Hant = 動物園
 
   [hotels]
     tags = android, ios
@@ -20784,7 +20793,7 @@
     uk = Готелі
     vi = Khách sạn
     zh-Hans = 酒店
-    zh-Hant = 酒店
+    zh-Hant = 旅館
 
   [buildings]
     tags = android, ios
@@ -21073,7 +21082,7 @@
     uk = Шукати в списку
     vi = Tìm trong danh sách
     zh-Hans = 在列表中搜索
-    zh-Hant = 在列表中搜索
+    zh-Hant = 在列表中搜尋
 
   [religious_places]
     tags = android, ios
@@ -21109,7 +21118,7 @@
     uk = Святі місця
     vi = Những nơi tôn nghiêm
     zh-Hans = 圣地
-    zh-Hant = 聖地
+    zh-Hant = 宗教聖地
 
   [select_list]
     tags = android
@@ -21220,7 +21229,7 @@
     uk = Маршрут метро не знайдено
     vi = Không tìm thấy tuyến Metro
     zh-Hans = 地铁路线图未找到
-    zh-Hant = 地鐵路線圖未找到
+    zh-Hant = 未找到捷運路線圖
 
   [dialog_pedestrian_route_is_long_message]
     tags = android, ios
@@ -21257,7 +21266,7 @@
     uk = Виберіть початкову чи кінцеву точку маршруту ближче до станції метро
     vi = Hãy chọn điểm đầu hoặc điểm cuối của tuyến gần với bến Metro
     zh-Hans = 选择地铁站附近的起点和终点
-    zh-Hant = 選擇地鐵站附近的起點和終點
+    zh-Hant = 選擇捷運站附近的起點和終點
 
   [button_layer_isolines]
     tags = android, ios
@@ -21330,8 +21339,8 @@
     tr = Yükseklik çizgilerini kullanmak için, istediğiniz arazinin haritasını güncelleyin veya indirin
     uk = Щоб скористатися лініями висот, оновіть чи завантажте карту потрібної місцевості
     vi = Để sử dụng các đường chỉ độ cao, hãy cập nhật hoặc tải xuống bản đồ của khu vực bạn mong muốn
-    zh-Hans = 如需使用高度線，請更新或下載所需區域的地圖
-    zh-Hant = 如需使用高度线，请更新或下载所需区域的地图
+    zh-Hans = 如需使用高度线，请更新或下载所需区域的地图
+    zh-Hant = 如需使用等高線，請更新或下載所需區域的地圖
 
   [isolines_location_error_dialog]
     tags = android, ios
@@ -21368,7 +21377,7 @@
     uk = Лінії висот ще недоступні в цьому регіоні
     vi = Đường hiển thị độ cao hiện chưa khả dụng tại khu vực này
     zh-Hans = 暂时无法获取该地区的高低线
-    zh-Hant = 暫時無法獲取該地區的高低線
+    zh-Hant = 暫時無法獲取該地區的等高線
 
   [elevation_profile_diff_level]
     tags = ios
@@ -21698,7 +21707,7 @@
     uk = Складність
     vi = Độ khó
     zh-Hans = 难度
-    zh-Hant = 難度
+    zh-Hant = 難易度
 
   [elevation_profile_distance]
     tags = android
@@ -21772,7 +21781,7 @@
     uk = Шлях:
     vi = Giờ:
     zh-Hans = 在路上：
-    zh-Hant = 在路上：
+    zh-Hant = 時間：
 
   [isolines_toast_zooms_1_10]
     tags = android, ios
@@ -21881,7 +21890,7 @@
     uk = Завантаження
     vi = Tải xuống
     zh-Hans = 加载
-    zh-Hant = 加載
+    zh-Hant = 載入
 
   [key_information_title]
     tags = ios
@@ -21918,7 +21927,7 @@
     uk = Ключова інформація
     vi = Thông tin chìa khóa
     zh-Hans = 关键信息
-    zh-Hant = 關鍵信息
+    zh-Hant = 關鍵資訊
 
   [download_map_title]
     tags = android
@@ -21953,6 +21962,7 @@
     fr = Déconnectez le câble USB
     pl = Odłącz kabel USB
     ru = Отсоедините USB кабель
+    zh-Hant = 拔除 USB 線
 
   [enable_screen_sleep]
     tags = android
@@ -21988,7 +21998,7 @@
     uk = Дозволити екрану вимкнутись
     vi = Cho phép màn hình ở chế độ ngủ
     zh-Hans = 允许屏幕进入休眠状态
-    zh-Hant = 允许屏幕进入休眠状态
+    zh-Hant = 允许螢幕進入休眠狀態
 
   [enable_screen_sleep_description]
     comment = Description in preferences
@@ -22025,7 +22035,7 @@
     uk = При включенні екран може переходити в сплячий режим після певного періоду бездіяльності
     vi = Khi được bật, màn hình sẽ được phép ở chế độ ngủ sau một thời gian không hoạt động.
     zh-Hans = 启用后，屏幕将在一段时间不活动后进入休眠状态。
-    zh-Hant = 启用后，屏幕将在一段时间不活动后进入休眠状态。
+    zh-Hant = 啟用後，螢幕將在一段時間不活動後進入休眠狀態。
 
   [whats_new_auto_update_title]
     comment = Autoupdate dialog on start
@@ -22204,6 +22214,7 @@
     fr = Supprimer la route
     pl = Usuwanie trasy
     ru = Удалить трек
+    zh-Hant = 刪除路徑
 
   [placepage_track_name_hint]
     comment = Placeholder for track name input on track edit screen
@@ -22214,6 +22225,7 @@
     fr = Nom de la route
     pl = Nazwa trasy
     ru = Название трека
+    zh-Hant = 路徑名稱
 
   [move]
     comment = move track or bookmark from the list button text
@@ -22224,6 +22236,7 @@
     fr = Déplacer
     pl = Przenieś
     ru = Переместить
+    zh-Hant = 移動
 
   [track_title]
     comment = edit track screen title
