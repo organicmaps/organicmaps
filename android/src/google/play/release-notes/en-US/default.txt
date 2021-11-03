@@ -1,10 +1,5 @@
-This update fixes crashes for public transport routes and some styles.
-
-In the previous update:
-• New OSM maps data as of 02.10.2021
-• Editable Facebook, Instagram, Twitter and VK links for places
-• Added healthcare=laboratory type
-• Copy OSM and Open Location Code coordinates links
-• Fixed black screen on PowerVR Rogue G6110 chips
-• Fixed icons, visibility and styles for many object types on the map
-• Translation fixes
+• New OSM maps data as of October 22
+• Moved Help dialog on the main screen for a better new user experience
+• Added x86_64 arch for Chromebooks and some old Intel Atom devices
+• Added mountain saddle, mountain pass, silo, storage tank, chain barrier, swing gate
+• Fixed some icons and translations
