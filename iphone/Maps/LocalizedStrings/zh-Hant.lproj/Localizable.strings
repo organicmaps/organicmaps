@@ -1002,8 +1002,8 @@
 
 "recent_track_background_dialog_message" = "Organic Maps使用背景中的地理位置記錄您最近去過的路徑。";
 
-/* About short text */
-"about_description" = "Organic Maps是免費的申請。它是由我們的空閒時間的少數工程師開發的。所有地圖數據都來自OpenStreetMap。無廣告。沒有跟踪。您的個人數據不會收集。";
+/* Text under the version number in the Help dialog. */
+"about_description" = "Organic Maps 是一款免費的開源離線地圖應用程序。無廣告。沒有跟踪。如果您在地圖上看到錯誤，請在 OpenStreetMap 中修復它。該項目由愛好者在我們的空閒時間創建，因此我們需要您的反饋和支持。";
 
 "general_settings" = "一般設定";
 

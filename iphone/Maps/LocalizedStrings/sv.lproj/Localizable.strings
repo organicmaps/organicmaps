@@ -1002,8 +1002,8 @@
 
 "recent_track_background_dialog_message" = "Organic Maps använder din geografiska position i bakgrunden för att spela in din senaste resta rutt.";
 
-/* About short text */
-"about_description" = "Organic Maps är en gratis applikation. Den är utvecklad av några ingenjörer på vår fritid. Alla kartdata är från OpenStreetMap. Inga annonser. Ingen spårning. Dina personuppgifter samlas inte in.";
+/* Text under the version number in the Help dialog. */
+"about_description" = "Organic Maps är en gratis offlinekartapplikation med öppen källkod. Inga annonser. Ingen spårning. Om du ser ett fel på kartan, åtgärda det i OpenStreetMap. Projektet skapas av entusiaster på vår fritid, så vi behöver din feedback och support.";
 
 "general_settings" = "Allmänna inställningar";
 

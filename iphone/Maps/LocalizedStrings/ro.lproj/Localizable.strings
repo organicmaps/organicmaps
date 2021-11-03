@@ -1002,8 +1002,8 @@
 
 "recent_track_background_dialog_message" = "Organic Maps folosește în fundal geo-locația pentru a înregistra cel mai recent traseu urmat.";
 
-/* About short text */
-"about_description" = "Organic Maps este o aplicație gratuită. Este dezvoltat de câțiva ingineri în timpul liber. Toate datele hărților sunt din OpenStreetMap. Fără reclame. Nici o urmărire. Datele dvs.  personale nu sunt colectate.";
+/* Text under the version number in the Help dialog. */
+"about_description" = "Organic Maps este o aplicație gratuită și open source pentru hărți offline. Fără reclame. Fără urmărire. Dacă vedeți o eroare pe hartă, remediați-o în OpenStreetMap. Proiectul este creat de entuziaști în timpul nostru liber, așa că avem nevoie de feedback-ul și asistența dvs..";
 
 "general_settings" = "Setări generale";
 

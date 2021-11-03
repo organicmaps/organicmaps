@@ -574,8 +574,8 @@
 	<!-- For sharing via SMS and so on -->
 	<string name="sharing_call_action_look">Паглядзі</string>
 	<string name="recent_track_background_dialog_message">Organic Maps ужывае вашу геалакацыю ў фонавым рэжыме каб запісваць ваш нядаўна пройдзены маршрут.</string>
-	<!-- About short text -->
-	<string name="about_description">Organic Maps гэта бясплатнае прыкладанне. Ён распрацаваны некалькіх інжынераў у вольны час. Усе дадзеныя карты з OpenstreetMap. Няма аб\'яваў. Няма адсочвання. Вашы асабістыя дадзеныя не збіраюцца.</string>
+	<!-- Text under the version number in the Help dialog. -->
+	<string name="about_description">Organic Maps – бясплатныя мапы з адкрытым зыходным кодам, якія працуюць без інтэрнэту. Ніякай рэкламы. Ніякага адсочвання. Калі вы бачыце памылку на карце, выпраўце яе ў OpenStreetMap. Праект ствараецца энтузіястамі ў вольны час, таму нам патрэбны вашы водгукі і падтрымка.</string>
 	<string name="general_settings">Агульныя налады</string>
 	<!-- For the first routing -->
 	<string name="accept">Прыняць</string>

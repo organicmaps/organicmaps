@@ -560,8 +560,8 @@
 	<!-- For sharing via SMS and so on -->
 	<string name="sharing_call_action_look">ご覧ください</string>
 	<string name="recent_track_background_dialog_message">Organic Mapsは、あなたの位置情報をバックグラウンドで使用して最近の走行ルートを記録します。</string>
-	<!-- About short text -->
-	<string name="about_description">Organic Mapsは無料のアプリケーションです。それは私たちの自由な時間にいくつかのエンジニアによって開発されています。すべての地図データはOpenStreetMapからのものです。広告なし。全く追跡しません。あなたの個人データは収集されません。</string>
+	<!-- Text under the version number in the Help dialog. -->
+	<string name="about_description">Organic Mapsは、無料のオープンソースのオフラインマップアプリケーションです。広告なし。全く追跡しません。地図上にエラーが表示された場合は、OpenStreetMapで修正してください。プロジェクトは私たちの自由な時間に愛好家によって作成されているため、フィードバックとサポートが必要です。</string>
 	<string name="general_settings">一般設定</string>
 	<!-- For the first routing -->
 	<string name="accept">了解</string>

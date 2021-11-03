@@ -564,8 +564,8 @@
 	<!-- For sharing via SMS and so on -->
 	<string name="sharing_call_action_look">Tarkastele</string>
 	<string name="recent_track_background_dialog_message">MAPS.SE käyttää taustalla geosijaintia sinun viimeisen matkareitin tallentamiseksi.</string>
-	<!-- About short text -->
-	<string name="about_description">Organic Maps on ilmainen sovellus. Se kehittää muutamia insinöörejä vapaa-ajalla. Kaikki karttatiedot ovat OpenStreetMapista. Ei mainoksia. Ei seurantaa. Henkilötietojasi ei kerätä.</string>
+	<!-- Text under the version number in the Help dialog. -->
+	<string name="about_description">Organic Maps on ilmainen ja avoimen lähdekoodin offline-karttasovellus. Ei mainoksia. Ei seurantaa. Jos näet virheen kartalla, korjaa se OpenStreetMapissa. Hankkeen ovat luoneet harrastajat vapaa-ajallamme, joten tarvitsemme palautettasi ja tukeasi.</string>
 	<string name="general_settings">Yleiset asetukset</string>
 	<!-- For the first routing -->
 	<string name="accept">Hyväksy</string>

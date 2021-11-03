@@ -572,8 +572,8 @@
 	<!-- For sharing via SMS and so on -->
 	<string name="sharing_call_action_look">Consultez</string>
 	<string name="recent_track_background_dialog_message">Organic Maps utilise votre géolocalisation en arrière-plan pour enregistrer vos itinéraires récents.</string>
-	<!-- About short text -->
-	<string name="about_description">Organic Maps est une application gratuite. Il est développé par quelques ingénieurs dans notre temps libre. Toutes les données cartographiques proviennent de OpenStreetMap. Pas de pubs. Pas de localisation. Vos données personnelles ne sont pas collectées.</string>
+	<!-- Text under the version number in the Help dialog. -->
+	<string name="about_description">Organic Maps est une application de cartographie hors ligne gratuite et open source. Pas de pubs. Pas de localisation. Si vous voyez une erreur sur la carte, veuillez la corriger dans OpenStreetMap. Le projet est créé par des passionnés pendant notre temps libre, nous avons donc besoin de vos commentaires et de votre soutien.</string>
 	<string name="general_settings">Paramètres généraux</string>
 	<!-- For the first routing -->
 	<string name="accept">Accepter</string>

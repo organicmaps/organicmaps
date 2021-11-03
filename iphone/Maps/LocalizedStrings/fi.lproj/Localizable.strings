@@ -1002,8 +1002,8 @@
 
 "recent_track_background_dialog_message" = "MAPS.SE käyttää taustalla geosijaintia sinun viimeisen matkareitin tallentamiseksi.";
 
-/* About short text */
-"about_description" = "Organic Maps on ilmainen sovellus. Se kehittää muutamia insinöörejä vapaa-ajalla. Kaikki karttatiedot ovat OpenStreetMapista. Ei mainoksia. Ei seurantaa. Henkilötietojasi ei kerätä.";
+/* Text under the version number in the Help dialog. */
+"about_description" = "Organic Maps on ilmainen ja avoimen lähdekoodin offline-karttasovellus. Ei mainoksia. Ei seurantaa. Jos näet virheen kartalla, korjaa se OpenStreetMapissa. Hankkeen ovat luoneet harrastajat vapaa-ajallamme, joten tarvitsemme palautettasi ja tukeasi.";
 
 "general_settings" = "Yleiset asetukset";
 

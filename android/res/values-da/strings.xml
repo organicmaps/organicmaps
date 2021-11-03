@@ -562,8 +562,8 @@
 	<!-- For sharing via SMS and so on -->
 	<string name="sharing_call_action_look">Tjek</string>
 	<string name="recent_track_background_dialog_message">Organic Maps anvender din geoposition i baggrunden til at gemme din seneste rejserute.</string>
-	<!-- About short text -->
-	<string name="about_description">Organic Maps er en gratis applikation. Det er udviklet af et par ingeniører i vores fritid. Alle kortdata er fra OpenSTreetMap. Ingen annoncer. Ingen sporing. Dine personlige data indsamles ikke.</string>
+	<!-- Text under the version number in the Help dialog. -->
+	<string name="about_description">Organic Maps er en gratis og open source offline kortapplikation. Ingen annoncer. Ingen sporing. Hvis du ser en fejl på kortet, skal du rette den i OpenStreetMap. Projektet er skabt af entusiaster i vores fritid, så vi har brug for din feedback og support.</string>
 	<string name="general_settings">Generelle indstillinger</string>
 	<!-- For the first routing -->
 	<string name="accept">Accepter</string>

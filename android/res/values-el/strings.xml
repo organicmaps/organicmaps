@@ -552,8 +552,8 @@
 	<!-- For sharing via SMS and so on -->
 	<string name="sharing_call_action_look">Αναχώρηση</string>
 	<string name="recent_track_background_dialog_message">Το Organic Maps χρησιμοποιεί τη γεωγραφική σας τοποθεσία στο παρασκήνιο για την καταγραφή των πρόσφατων διαδρομών σας.</string>
-	<!-- About short text -->
-	<string name="about_description">Ο Organic Maps είναι μια δωρεάν εφαρμογή. Αναπτύσσεται από λίγους μηχανικούς στον ελεύθερο χρόνο μας. Όλα τα δεδομένα χάρτη είναι από το OpenStreetMap. Χωρίς διαφημίσεις. Χωρίς εντοπισμό. Τα προσωπικά σας δεδομένα δεν συλλέγονται.</string>
+	<!-- Text under the version number in the Help dialog. -->
+	<string name="about_description">Οι Organic Maps είναι μια δωρεάν και ανοιχτού κώδικα εφαρμογή χαρτών εκτός σύνδεσης. Χωρίς διαφημίσεις. Χωρίς εντοπισμό. Εάν δείτε κάποιο σφάλμα στον χάρτη, διορθώστε το στο OpenStreetMap. Το έργο δημιουργείται από λάτρεις στον ελεύθερο χρόνο μας, επομένως χρειαζόμαστε τα σχόλια και την υποστήριξή σας.</string>
 	<string name="general_settings">Γενικές ρυθμίσεις</string>
 	<!-- For the first routing -->
 	<string name="accept">Συμφωνώ</string>

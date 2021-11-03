@@ -564,8 +564,8 @@
 	<!-- For sharing via SMS and so on -->
 	<string name="sharing_call_action_look">Lihat</string>
 	<string name="recent_track_background_dialog_message">Organic Maps menggunakan geoposisi di latar belakang untuk merekam rute yang baru Anda lalui.</string>
-	<!-- About short text -->
-	<string name="about_description">Organic Maps adalah aplikasi gratis. Ini dikembangkan oleh beberapa insinyur di waktu luang kami. Semua data peta berasal dari openstreetmap. Tanpa iklan. Tidak ada pelacakan. Data pribadi Anda tidak dikumpulkan.</string>
+	<!-- Text under the version number in the Help dialog. -->
+	<string name="about_description">Organic Maps adalah aplikasi peta offline sumber terbuka dan gratis. Tanpa iklan. Tidak ada pelacakan. Jika Anda melihat kesalahan pada peta, harap perbaiki di OpenStreetMap. Proyek ini dibuat oleh para penggemar di waktu luang kami, jadi kami membutuhkan masukan dan dukungan Anda.</string>
 	<string name="general_settings">Setelan umum</string>
 	<!-- For the first routing -->
 	<string name="accept">Terima</string>
