@@ -5139,6 +5139,14 @@ sw:Kilele|mlima
 fa:قله|کوه|کوهستان
 
 # Skipped if empty name
+natural-saddle|mountain_pass
+en:Saddle
+be:Седлавіна
+it:Sella
+ru:Седловина|Перевал
+uk:Сідловина
+
+# Skipped if empty name
 natural-water|landuse-basin|landuse-reservoir
 en:Water
 ru:Водоём
