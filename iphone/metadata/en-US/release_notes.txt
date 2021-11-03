@@ -1,7 +1,3 @@
-• New OSM maps data as of 02.10.2021
-• Added healthcare=laboratory type
-• Fixed some map icons and their visibility
-• Fixed rare routing crash
-• Fixed junction, building=hotel, power=substation, railway=subway, tourism=artwork types
-• Fixed missing addresses for some buildings with entrances
-• Minor localization fixes
+• New OSM maps data as of October 22
+• Added mountain saddle, mountain pass, silo, storage tank, chain barrier, swing gate
+• Fixed some icons and translations
