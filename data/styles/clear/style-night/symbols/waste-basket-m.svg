@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
     <title>waste-basket-m</title>
-    <g id="Page-2:-Night" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" opacity="0.6">
-        <g id="waste-basket-m" fill-rule="nonzero">
-            <circle id="Oval" fill="#FFFFFF" opacity="0.2" cx="12" cy="12" r="12"></circle>
-            <path d="M7.71428571,17.4285714 C7.71428571,18.2142857 8.35714286,18.8571429 9.14285714,18.8571429 L14.8571429,18.8571429 C15.6428571,18.8571429 16.2857143,18.2142857 16.2857143,17.4285714 L16.2857143,8.85714286 L7.71428571,8.85714286 L7.71428571,17.4285714 Z M17,6.71428571 L14.5,6.71428571 L13.7857143,6 L10.2142857,6 L9.5,6.71428571 L7,6.71428571 L7,8.14285714 L17,8.14285714 L17,6.71428571 Z" id="Shape" fill="#717065"></path>
+    <g id="Page-2:-Night" stroke="none" stroke-width="1" fill="none" fill-rule="nonzero" opacity="0.6">
+        <g id="waste-basket-m" fill="#FFF">
+            <path d="M7.71428571,17.4285714 C7.71428571,18.2142857 8.35714286,18.8571429 9.14285714,18.8571429 L14.8571429,18.8571429 C15.6428571,18.8571429 16.2857143,18.2142857 16.2857143,17.4285714 L16.2857143,8.85714286 L7.71428571,8.85714286 L7.71428571,17.4285714 Z M17,6.71428571 L14.5,6.71428571 L13.7857143,6 L10.2142857,6 L9.5,6.71428571 L7,6.71428571 L7,8.14285714 L17,8.14285714 L17,6.71428571 Z"></path>
         </g>
     </g>
 </svg>
