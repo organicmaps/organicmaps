@@ -15,7 +15,6 @@ public final class Constants
   {
     public static final String SHORT_SHARE_PREFIX = "om://";
     public static final String HTTP_SHARE_PREFIX = "https://omaps.app/";
-    public static final String INSTALL_LINK = "https://omaps.app/";
 
     public static final String MAILTO_SCHEME = "mailto:";
     public static final String MAIL_SUBJECT = "?subject=";
@@ -25,10 +24,10 @@ public final class Constants
     // Profile id is taken from http://graph.facebook.com/MapsWithMe
     public static final String FB_MAPSME_COMMUNITY_NATIVE = "fb://profile/102378968471811";
     public static final String TWITTER = "https://twitter.com/OrganicMapsApp";
-    public static final String TELEGRAM = "https://t.me/OrganicMapsApp";
+    public static final String TELEGRAM = "https://t.me/OrganicMaps";
     public static final String INSTAGRAM = "https://www.instagram.com/organicmaps.app";
 
-    public static final String CONTRIBUTE = "https://github.com/organicmaps/organicmaps/blob/master/docs/CONTRIBUTING.md#how-can-i-contribute";
+    public static final String SUPPORT_US = "https://organicmaps.app/support-us";
 
     public static final String WEB_SITE = "https://organicmaps.app";
     public static final String GITHUB = "https://github.com/organicmaps/organicmaps";
