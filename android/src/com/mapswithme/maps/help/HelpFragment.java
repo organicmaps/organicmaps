@@ -4,6 +4,7 @@ package com.mapswithme.maps.help;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.text.method.LinkMovementMethod;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -50,7 +51,7 @@ public class HelpFragment extends BaseMwmFragment implements View.OnClickListene
     setupItem(R.id.twitter, false, root);
     setupItem(R.id.faq, true, root);
     setupItem(R.id.report, true, root);
-    setupItem(R.id.contribute, true, root);
+    setupItem(R.id.support_us, true, root);
     setupItem(R.id.rate, true, root);
     setupItem(R.id.copyright, false, root);
     View termOfUseView = root.findViewById(R.id.term_of_use_link);
@@ -113,8 +114,8 @@ public class HelpFragment extends BaseMwmFragment implements View.OnClickListene
       Utils.sendFeedback(getActivity());
       break;
 
-    case R.id.contribute:
-      Utils.showContributionPage(getActivity());
+    case R.id.support_us:
+      Utils.showSupportUsPage(getActivity());
       break;
 
     case R.id.rate:

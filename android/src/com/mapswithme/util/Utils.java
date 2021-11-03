@@ -246,9 +246,9 @@ public class Utils
     activity.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(Constants.Url.TWITTER)));
   }
 
-  public static void showContributionPage(Activity activity)
+  public static void showSupportUsPage(Activity activity)
   {
-    activity.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(Constants.Url.CONTRIBUTE)));
+    activity.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(Constants.Url.SUPPORT_US)));
   }
 
   public static void openUrl(@NonNull Context context, @Nullable String url)

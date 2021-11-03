@@ -71,7 +71,7 @@
           app:drawableStartCompat="@drawable/ic_report_a_bug"/>
 
       <TextView
-          android:id="@+id/contribute"
+          android:id="@+id/support_us"
           style="@style/MwmWidget.TextView.Item"
           android:text="@string/how_to_support_us"
           app:drawableStartCompat="@drawable/ic_contribute" />
