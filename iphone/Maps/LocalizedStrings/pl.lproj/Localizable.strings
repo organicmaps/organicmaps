@@ -1002,8 +1002,8 @@
 
 "recent_track_background_dialog_message" = "Organic Maps używa w tle geolokalizacji w celu rejestrowania niedawno przebytej trasy.";
 
-/* About short text */
-"about_description" = "Organic Maps to darmowa aplikacja. Jest rozwijany przez kilku inżynierów w naszym wolnym czasie. Wszystkie dane mapowe pochodzą z OpenStreetMap. Bez reklam. Bez śledzenia. Twoje dane osobowe nie są gromadzone.";
+/* Text under the version number in the Help dialog. */
+"about_description" = "Organic Maps to bezpłatna aplikacja do map offline typu open source. Bez reklam. Bez śledzenia. Jeśli zobaczysz błąd na mapie, napraw go w OpenStreetMap. Projekt jest tworzony przez entuzjastów w czasie wolnym, dlatego potrzebujemy Twojej opinii i wsparcia.";
 
 "general_settings" = "Ustawienia ogólne";
 

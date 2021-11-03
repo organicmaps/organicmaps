@@ -1002,8 +1002,8 @@
 
 "recent_track_background_dialog_message" = "يستخدم Organic Maps موقعك الجغرافي في الخلفية لتسجيل مسار سفرك الأخير.";
 
-/* About short text */
-"about_description" = "Organic Maps هو تطبيق مجاني. تم تطويره من قبل عدد قليل من المهندسين في وقت فراغنا. جميع بيانات الخريطة من OpenStreetMap. لا اعلانات. لا تتبع. لم يتم جمع بياناتك الشخصية.";
+/* Text under the version number in the Help dialog. */
+"about_description" = "Organic Maps هي تطبيق خرائط مجاني ومفتوح المصدر بلا اتصال بالإنترنت. لا اعلانات. لا تتبع. إذا رأيت خطأً على الخريطة ، فيرجى إصلاحه في OpenStreetMap. تم إنشاء المشروع بواسطة المتحمسين في أوقات فراغنا ، لذلك نحتاج إلى ملاحظاتك ودعمك.";
 
 "general_settings" = "إعدادات عامة";
 

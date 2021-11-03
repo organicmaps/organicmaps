@@ -245,7 +245,7 @@
 	<!-- Text in menu -->
 	<string name="help">Help</string>
 	<!-- Button in the main Help dialog -->
-	<string name="faq">FAQ</string>
+	<string name="faq">Frequently Asked Questions</string>
 	<!-- Button in the main Help dialog -->
 	<string name="how_to_support_us">How to support us?</string>
 	<!-- Button in the main Help dialog -->
@@ -593,8 +593,8 @@
 	<!-- For sharing via SMS and so on -->
 	<string name="sharing_call_action_look">Check out</string>
 	<string name="recent_track_background_dialog_message">Organic Maps uses your geoposition in the background for recording your recently traveled route.</string>
-	<!-- About short text -->
-	<string name="about_description">Organic Maps is a free and open-source offline maps app, developed by a few geeks in their free time. All map data is from OpenStreetMap. No ads. No tracking and personal data collection.</string>
+	<!-- Text under the version number in the Help dialog. -->
+	<string name="about_description">Organic Maps is a free and open-source offline maps application. No ads. No tracking. If you see an error on the map, please fix it in OpenStreetMap. The project is created by enthusiasts in our free time, so we need your feedback and support.</string>
 	<string name="general_settings">General settings</string>
 	<!-- For the first routing -->
 	<string name="accept">Accept</string>

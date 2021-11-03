@@ -577,8 +577,8 @@
 	<!-- For sharing via SMS and so on -->
 	<string name="sharing_call_action_look">Посмотри</string>
 	<string name="recent_track_background_dialog_message">Organic Maps использует вашу геопозицию в фоновом режиме для записи недавно пройденного пути.</string>
-	<!-- About short text -->
-	<string name="about_description">Organic Maps - это бесплатное приложение, разработанное несколькими гиками свободное временя. Все данные карты из OpenStreetMap. Без рекламы. Нет отслеживания. Ваши личные данные не собираются.</string>
+	<!-- Text under the version number in the Help dialog. -->
+	<string name="about_description">Organic Maps — бесплатные офлайновые карты с открытым исходным кодом, без рекламы и без сбора ваших персональных данных, созданные энтузиастами в свободное от основной работы время. Так как все данные мы берём из OpenStreetMap, то ошибки на карте нужно исправлять именно там. Будем рады вашей поддержке и обратной связи.</string>
 	<string name="general_settings">Общие настройки</string>
 	<!-- For the first routing -->
 	<string name="accept">Принять</string>

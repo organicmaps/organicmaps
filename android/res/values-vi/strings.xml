@@ -562,8 +562,8 @@
 	<!-- For sharing via SMS and so on -->
 	<string name="sharing_call_action_look">Xem</string>
 	<string name="recent_track_background_dialog_message">Organic Maps sử dụng định vị của bạn trong ứng dụng chạy nền để ghi lại tuyến đường đã đi gần đây của bạn.</string>
-	<!-- About short text -->
-	<string name="about_description">Organic Maps là một ứng dụng miễn phí. Nó được phát triển bởi một vài kỹ sư trong thời gian rảnh của chúng tôi. Tất cả dữ liệu bản đồ là từ OpenStreetMap. Không quảng cáo. Không theo dõi. Dữ liệu cá nhân của bạn không được thu thập.</string>
+	<!-- Text under the version number in the Help dialog. -->
+	<string name="about_description">Organic Maps là một ứng dụng bản đồ ngoại tuyến mã nguồn mở và miễn phí. Không quảng cáo. Không theo dõi. Nếu bạn thấy lỗi trên bản đồ, hãy sửa lỗi đó trong OpenStreetMap. Dự án được tạo ra bởi những người đam mê trong thời gian rảnh của chúng tôi, vì vậy chúng tôi cần phản hồi và hỗ trợ của bạn.</string>
 	<string name="general_settings">Thiết lập chung</string>
 	<!-- For the first routing -->
 	<string name="accept">Chấp nhận</string>

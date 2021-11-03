@@ -1002,8 +1002,8 @@
 
 "recent_track_background_dialog_message" = "Organic Maps používa vašu geopozíciu na pozadí pre zaznamenávanie vami nedávno precestovanej trasy.";
 
-/* About short text */
-"about_description" = "Organic Maps je bezplatná aplikácia. Je vyvinutý niekoľkými inžiniermi v našom voľnom čase. Všetky údaje mapy sú z OpenSTREETMAP. Žiadne reklamy. Žiadne sledovanie. Vaše osobné údaje sa nezbierajú.";
+/* Text under the version number in the Help dialog. */
+"about_description" = "Organic Maps je bezplatná offline aplikácia máp s otvoreným zdrojom. Žiadne reklamy. Žiadne sledovanie. Ak na mape vidíte chybu, opravte ju v OpenStreetMap. Projekt vytvárajú nadšenci v našom voľnom čase, preto potrebujeme vašu spätnú väzbu a podporu.";
 
 "general_settings" = "Všeobecné nastavenia";
 

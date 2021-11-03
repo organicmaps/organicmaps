@@ -382,7 +382,7 @@
 "help" = "Help";
 
 /* Button in the main Help dialog */
-"faq" = "FAQ";
+"faq" = "Frequently Asked Questions";
 
 /* Button in the main Help dialog */
 "how_to_support_us" = "How to support us?";
@@ -1002,8 +1002,8 @@
 
 "recent_track_background_dialog_message" = "Organic Maps uses your geoposition in the background for recording your recently traveled route.";
 
-/* About short text */
-"about_description" = "Organic Maps is a free and open-source offline maps app, developed by a few geeks in their free time. All map data is from OpenStreetMap. No ads. No tracking and personal data collection.";
+/* Text under the version number in the Help dialog. */
+"about_description" = "Organic Maps is a free and open-source offline maps application. No ads. No tracking. If you see an error on the map, please fix it in OpenStreetMap. The project is created by enthusiasts in our free time, so we need your feedback and support.";
 
 "general_settings" = "General settings";
 

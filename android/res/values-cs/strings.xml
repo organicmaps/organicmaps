@@ -562,8 +562,8 @@
 	<!-- For sharing via SMS and so on -->
 	<string name="sharing_call_action_look">Odjezd</string>
 	<string name="recent_track_background_dialog_message">Organic Maps používají geopozici na pozadí, aby se zaznamenala vaše nedávno ujetá trasa.</string>
-	<!-- About short text -->
-	<string name="about_description">Organic Maps je bezplatná aplikace. Vyvíjejí se několik inženýrů v našem volném čase. Všechna mapová data jsou z OpenStreetMap. Žádné reklamy. Žádné sledování. Vaše osobní údaje nejsou shromažďovány.</string>
+	<!-- Text under the version number in the Help dialog. -->
+	<string name="about_description">Organic Maps jsou bezplatná offline mapová aplikace s otevřeným zdrojovým kódem. Žádné reklamy. Žádné sledování. Pokud na mapě vidíte chybu, opravte ji v OpenStreetMap. Projekt vytvářejí nadšenci v našem volném čase, takže potřebujeme vaši zpětnou vazbu a podporu.</string>
 	<string name="general_settings">Obecná nastavení</string>
 	<!-- For the first routing -->
 	<string name="accept">Přijmout</string>

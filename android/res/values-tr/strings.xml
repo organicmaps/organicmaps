@@ -564,8 +564,8 @@
 	<!-- For sharing via SMS and so on -->
 	<string name="sharing_call_action_look">İncele</string>
 	<string name="recent_track_background_dialog_message">Organic Maps, en son seyahat ettiğiniz rotayı kaydetmek için arka planda coğrafi konumunuzu kullanır.</string>
-	<!-- About short text -->
-	<string name="about_description">Organic Maps ücretsiz bir uygulamadır. Boş zamanlarımızda birkaç mühendis tarafından geliştirilmiştir. Tüm harita verileri OpenStreetMap\'tendir. Reklamsız. İzleme yok. Kişisel verileriniz toplanmaz.</string>
+	<!-- Text under the version number in the Help dialog. -->
+	<string name="about_description">Organic Maps, ücretsiz ve açık kaynaklı bir çevrimdışı harita uygulamasıdır. Reklamsız. İzleme yok. Haritada bir hata görürseniz, lütfen OpenStreetMap\'te düzeltin. Proje meraklıları tarafından boş zamanlarımızda oluşturulduğundan geri bildiriminize ve desteğinize ihtiyacımız var.</string>
 	<string name="general_settings">Genel ayarlar</string>
 	<!-- For the first routing -->
 	<string name="accept">Kabul</string>

@@ -1002,8 +1002,8 @@
 
 "recent_track_background_dialog_message" = "Organic Maps usa la tua posizione geografica in background per registrare il tuo percorso effettuato più di recente.";
 
-/* About short text */
-"about_description" = "Organic Maps è un'applicazione gratuita. È sviluppato da alcuni ingegneri nel nostro tempo libero. Tutti i dati della mappa provengono da OpenStreetMap. Nessuna pubblicità. No tracciabilità. I tuoi dati personali non sono raccolti.";
+/* Text under the version number in the Help dialog. */
+"about_description" = "Organic Maps è un'applicazione di mappe offline gratuita e open source. Nessuna pubblicità. No tracciabilità. Se vedi un errore sulla mappa, correggilo in OpenStreetMap. Il progetto è creato da appassionati nel nostro tempo libero, quindi abbiamo bisogno del tuo feedback e supporto.";
 
 "general_settings" = "Impostazioni generali";
 
