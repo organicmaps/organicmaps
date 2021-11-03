@@ -19446,7 +19446,7 @@
     uk = Виникла помилка. Перезапустіть додаток
     vi = Đã xảy ra lỗi. Khởi động lại ứng dụng
     zh-Hans = 发生了错误。请重新启动程序
-    zh-Hant = 發生了錯誤。請重新 app
+    zh-Hant = 發生錯誤，請重新啟動 app
 
   [dialog_routing_rebuild_from_current_location_carplay]
     tags = ios
