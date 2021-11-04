@@ -1,0 +1,1 @@
+kaarten,offline,reizen,navigatie,GPS,routebeschrijving,wandelen,fietsen,openstreetmap,osm,routes,nav

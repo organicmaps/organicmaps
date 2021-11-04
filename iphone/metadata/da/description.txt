@@ -1,0 +1,37 @@
+- Detaljerede offline-kort med steder, der ikke findes på andre kort
+- Cykelruter, vandrestier og vandrestier
+- Konturlinjer, højdeprofiler, tinder og skråninger
+- Drej-for-sving-navigation til fods, på cykel og i bil med stemmestyring
+- Hurtig offline-søgning på kortet og bogmærker
+- Mørk tilstand for at beskytte dine øjne
+
+Organic Maps er rent og økologisk og lavet med kærlighed:
+
+- Respekterer dit privatliv
+- Sparer dit batteri
+- Ingen uventede mobildataafgifter
+
+Organic Maps er fri for trackere og andre dårlige ting:
+
+- Ingen reklamer
+- Ingen sporing
+- Ingen dataindsamling
+- Ingen opringning hjem
+- Ingen irriterende registrering
+- Ingen obligatoriske tutorials
+- Ingen støjende e-mailspam
+- Ingen push-meddelelser
+- Ingen crapware
+- Ingen pesticider
+
+Hos Organic Maps mener vi, at privatlivets fred er en grundlæggende menneskerettighed:
+
+- Organic Maps er et indie-fællesskabsdrevet projekt
+- Koden er open-sourced
+- Kortdataene er taget fra OpenStreetMap, også et fællesskabsdrevet projekt
+- Vi beskytter dit privatliv mod Big Tech's nysgerrige øjne
+- Vær sikker, uanset hvor du er
+
+Afvis overvågning, omfavn din frihed, og støt fællesskabet.
+
+Giv Organic Maps en chance!

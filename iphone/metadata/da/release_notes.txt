@@ -1,0 +1,7 @@
+- Nye OSM-kortdata fra 02.10.2021
+- Tilføjet sundhedspleje=laboratorium type
+- Rettet nogle kortikoner og deres synlighed
+- Rettet et sjældent nedbrud ved ruteføring
+- Rettet kryds, bygning=hotel, el=understation, jernbane=undervej, turisme=kunstværkstyper
+- Rettet manglende adresser for nogle bygninger med indgange
+- Mindre rettelser af lokalisering

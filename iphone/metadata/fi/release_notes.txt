@@ -1,0 +1,7 @@
+- Uudet OSM-karttatiedot 02.10.2021 alkaen.
+- Lisätty terveydenhuolto=laboratoriotyyppi
+- Korjattu joitakin karttakuvakkeita ja niiden näkyvyyttä.
+- Korjattu harvinainen reitityksen kaatuminen
+- Korjattu risteys-, rakennus=hotelli-, sähkö=alajakeluasema-, rautatie=metrotie-, matkailu=artwork-tyypit
+- Korjattu puuttuvat osoitteet joistakin rakennuksista, joissa on sisäänkäyntejä
+- Pieniä lokalisointikorjauksia

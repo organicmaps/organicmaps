@@ -1,0 +1,7 @@
+- Date noi pentru hărțile OSM începând cu 02.10.2021
+- A fost adăugat tipul healthcare=laborator
+- Fixate unele pictograme de hartă și vizibilitatea acestora
+- S-a reparat o eroare rară de rutare
+- Fixate tipurile joncțiune, building=hotel, power=substație, railway=subteran, tourism=lucrări de artă
+- Fixat adresele lipsă pentru unele clădiri cu intrări
+- Corecții minore de localizare

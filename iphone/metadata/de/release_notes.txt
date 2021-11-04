@@ -1,0 +1,7 @@
+- Neue OSM-Kartendaten ab dem 02.10.2021
+- Typ healthcare=laboratory hinzugefügt
+- Einige Kartensymbole und deren Sichtbarkeit korrigiert
+- Seltener Routing-Absturz behoben
+- Kreuzung, Gebäude=Hotel, Strom=Umspannwerk, Eisenbahn=U-Bahn, Tourismus=Kunstwerk Typen korrigiert
+- Fehlende Adressen für einige Gebäude mit Eingängen behoben
+- Kleinere Lokalisierungskorrekturen

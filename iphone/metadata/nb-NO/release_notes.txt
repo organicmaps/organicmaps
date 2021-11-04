@@ -1,0 +1,7 @@
+• Nye OSM-kartdata fra 02.10.2021
+• Lagt til helsevesen=laboratorietype
+• Rettet noen kartikoner og deres synlighet
+• Rettet sjeldne rutekrasj
+• Fast veikryss, bygning=hotell, kraft=nettstasjon, jernbane=t-bane, turisme=kunsttyper
+• Rettet manglende adresser for enkelte bygninger med innganger
+• Mindre lokaliseringsrettinger

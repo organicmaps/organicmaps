@@ -1,0 +1,7 @@
+- Nya OSM-kartor från och med 02.10.2021
+- Läggs till sjukvård=laboratorium typ
+- Korrigerat vissa kartikoner och deras synlighet.
+- Fastställt en sällsynt krasch i samband med ruttplanering
+- Korrigerade typerna korsning, byggnad=hotell, kraft=understation, järnväg=underväg, turism=konstverk.
+- Fixade saknade adresser för vissa byggnader med ingångar.
+- Mindre korrigeringar av lokalisering

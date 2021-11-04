@@ -1,0 +1,7 @@
+- Nieuwe OSM-kaartgegevens vanaf 02.10.2021
+- type gezondheidszorg=laboratorium toegevoegd
+- Sommige kaartsymbolen en hun zichtbaarheid gerepareerd
+- Zeldzame routing crash verholpen
+- Knooppunt, gebouw=hotel, energie=station, spoorlijn=subway, toerisme=kunstwerk typen opgelost
+- Ontbrekende adressen voor sommige gebouwen met ingangen opgelost
+- Kleine lokalisatie verbeteringen

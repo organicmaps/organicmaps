@@ -1,0 +1,7 @@
+- Novos dados de mapas OSM a partir de 02.10.2021
+- Tipo de saúde adicionado=laboratório
+- Fixados alguns ícones do mapa e sua visibilidade
+- Corrigido o erro de roteamento raro
+- Junção fixa, edifício=hotel, energia=subestação, caminho-de-ferro=subway, turismo=tarefas
+- Endereços fixos em falta para alguns edifícios com entradas
+- Pequenas correcções de localização

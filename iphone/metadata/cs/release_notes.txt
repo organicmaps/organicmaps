@@ -1,0 +1,7 @@
+- Nová data map OSM k 02.10.2021
+- Přidán typ zdravotnictví=laboratoř
+- Opraveny některé ikony map a jejich viditelnost
+- Opraven vzácný pád směrování
+- Opraveny typy křižovatka, budova=hotel, elektrárna=rozvodna, železnice=dálnice, cestovní ruch=umělecká práce
+- Opraveny chybějící adresy některých budov s vchody
+- Drobné opravy lokalizace

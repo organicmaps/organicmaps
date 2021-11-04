@@ -1,0 +1,7 @@
+- 2021.10.02現在の新しいOSMマップデータ
+- healthcare=laboratoryタイプを追加
+- いくつかの地図アイコンとその表示を修正
+- 稀に発生するルーティングのクラッシュを修正
+- junction、building=hotel、power=substation、railway=subway、tourism=artworkのタイプを修正
+- 入り口のある建物の住所が表示されないことがあったので修正
+- ローカライズに関する細かい修正

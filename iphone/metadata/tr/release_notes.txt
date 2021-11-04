@@ -1,0 +1,7 @@
+• 02.10.2021 itibariyle yeni OSM harita verileri
+• Sağlık hizmeti=laboratuvar türü eklendi
+• Bazı harita simgeleri ve görünürlükleri düzeltildi
+• Sabit nadir yönlendirme çökmesi
+• Sabit kavşak, bina=otel, elektrik=trafo merkezi, demiryolu=metro, turizm=sanat türleri
+• Girişi olan bazı binaların eksik adresleri düzeltildi
+• Küçük yerelleştirme düzeltmeleri

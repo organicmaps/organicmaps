@@ -1,0 +1,7 @@
+• Dữ liệu bản đồ OSM mới kể từ 02.10.2021
+• Chăm sóc sức khỏe được bổ sung = loại phòng thí nghiệm
+• Đã sửa một số biểu tượng bản đồ và khả năng hiển thị của chúng
+• Đã sửa lỗi định tuyến hiếm gặp
+• Đường giao nhau cố định, tòa nhà = khách sạn, điện = trạm biến áp, đường sắt = tàu điện ngầm, du lịch = các loại tác phẩm nghệ thuật
+• Sửa lỗi địa chỉ bị thiếu cho một số tòa nhà có lối vào
+• Các bản sửa lỗi bản địa hóa nhỏ

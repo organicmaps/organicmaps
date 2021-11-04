@@ -1,0 +1,37 @@
+- Yksityiskohtaiset offline-kartat, joissa on paikkoja, joita ei ole muissa kartoissa.
+- Pyöräilyreitit, vaellusreitit ja kävelyreitit.
+- Korkeusviivat, korkeusprofiilit, huiput ja rinteet.
+- Kävely-, pyöräily- ja autonavigointi käännös kerrallaan ääniopastuksella.
+- Nopea offline-haku kartalla ja kirjanmerkit
+- Pimeä tila suojaa silmiäsi
+
+Organic Maps on puhdas ja orgaaninen, rakkaudella tehty:
+
+- Kunnioittaa yksityisyyttäsi
+- Säästää akkua
+- Ei odottamattomia mobiilidatamaksuja
+
+Organic Maps on vapaa jäljittimistä ja muusta pahasta:
+
+- Ei mainoksia
+- Ei seurantaa
+- Ei tiedonkeruuta
+- Ei kotiin soittamista
+- Ei ärsyttävää rekisteröitymistä
+- Ei pakollisia opetusohjelmia
+- Ei meluisaa roskapostia
+- Ei push-ilmoituksia
+- Ei roskaohjelmia
+- Ei torjunta-aineita
+
+Me Organic Mapsilla uskomme, että yksityisyys on perustavanlaatuinen ihmisoikeus:
+
+- Organic Maps on indie-yhteisölähtöinen projekti.
+- Koodi on avointa.
+- Karttatiedot on otettu OpenStreetMapista, joka on myös yhteisölähtöinen projekti.
+- Suojelemme yksityisyyttäsi Big Techin uteliailta katseilta.
+- Pysy turvassa missä ikinä oletkin
+
+Hylkää valvonta, hyväksy vapautesi ja tue yhteisöä.
+
+Kokeile Organic Mapsia!

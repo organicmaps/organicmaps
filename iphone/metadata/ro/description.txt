@@ -1,0 +1,37 @@
+- Hărți offline detaliate cu locuri care nu există pe alte hărți
+- Trasee de ciclism, trasee de drumeție și poteci de mers pe jos
+- Curbe de nivel, profile de altitudine, vârfuri și pante
+- Navigație pentru mers pe jos, cu bicicleta și cu mașina, pas cu pas, cu ghidare vocală
+- Căutare rapidă offline pe hartă și semne de carte
+- Mod întunecat pentru a vă proteja ochii
+
+Organic Maps este pură și organică, realizată cu dragoste:
+
+- Îți respectă intimitatea
+- Vă economisește bateria
+- Fără taxe neașteptate pentru datele mobile
+
+Organic Maps nu conține dispozitive de urmărire și alte lucruri rele:
+
+- Fără reclame
+- Fără urmărire
+- Fără colectare de date
+- Fără apeluri telefonice acasă
+- Fără înregistrare enervantă
+- Fără tutoriale obligatorii
+- Nu există spam de e-mail zgomotos
+- Fără notificări push
+- Nici un crapware
+- Fără pesticide
+
+La Organic Maps, credem că intimitatea este un drept fundamental al omului:
+
+- Organic Maps este un proiect independent, condus de o comunitate.
+- Codul este open-source
+- Datele hărților sunt preluate de pe OpenStreetMap, un proiect de asemenea bazat pe comunitate.
+- Vă protejăm intimitatea de ochii curioși ai Big Tech
+- Rămâneți în siguranță indiferent unde vă aflați
+
+Respingeți supravegherea, îmbrățișați-vă libertatea și susțineți comunitatea.
+
+Încercați Organic Maps!
