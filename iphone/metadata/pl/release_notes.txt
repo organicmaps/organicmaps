@@ -1,0 +1,7 @@
+• Nowe dane map OSM z dnia 02.10.2021
+• Dodano rodzaj healthcare=laboratory
+• Naprawiono niektóre ikony mapy i ich widoczność
+• Naprawiono rzadką awarię routingu
+• Poprawiono rodzaje skrzyżowań, building=hotel, power=substation, railway=subway, tourism=artwork
+• Naprawiono brakujące adresy niektórych budynków z wejściami
+• Drobne poprawki lokalizacji
