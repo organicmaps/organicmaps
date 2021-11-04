@@ -22,7 +22,7 @@ static unordered_map<string, EType> const kNamesToFMD = {
     // {"", feature::Metadata::FMD_URL},
     {"website", feature::Metadata::FMD_WEBSITE},
     {"contact_facebook", feature::Metadata::FMD_CONTACT_FACEBOOK},
-    {"contact_instagra", feature::Metadata::FMD_CONTACT_INSTAGRAM},
+    {"contact_instagram", feature::Metadata::FMD_CONTACT_INSTAGRAM},
     {"contact_twitter", feature::Metadata::FMD_CONTACT_TWITTER},
     {"contact_vk", feature::Metadata::FMD_CONTACT_VK},
     {"contact_line", feature::Metadata::FMD_CONTACT_LINE},
