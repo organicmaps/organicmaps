@@ -1,0 +1,7 @@
+• Novos dados de mapas OSM a partir de 02.10.2021
+• Adicionado healthcare=laboratory
+• Corrigidos alguns ícones de mapa e sua visibilidade
+• Corrigida uma rara falha de roteamento
+• Corrigida a Junção, building=hotel, power=substation, railway=subway, tourism=artwork
+• Endereços ausentes corrigidos para alguns edifícios com entradas
+• Pequenas correções de localização
