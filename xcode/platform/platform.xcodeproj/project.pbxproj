@@ -605,7 +605,7 @@
 		675343701A3F5CF500A0A8C3 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 1240;
+				LastUpgradeCheck = 1310;
 				TargetAttributes = {
 					675340E81C58C496002CF0D9 = {
 						CreatedOnToolsVersion = 7.2;
@@ -918,6 +918,7 @@
 		678338931C6DE54700FD6263 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "-";
 				PRODUCT_BUNDLE_IDENTIFIER = app.organicmaps.platform_tests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -926,6 +927,7 @@
 		678338941C6DE54700FD6263 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "-";
 				PRODUCT_BUNDLE_IDENTIFIER = app.organicmaps.platform_tests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};

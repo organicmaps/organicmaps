@@ -23,8 +23,6 @@
 		47A13C9E24BD3F3400027D4F /* RangeMiddleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47A13C9D24BD3F3400027D4F /* RangeMiddleCell.swift */; };
 		47A13CA024BDEFF400027D4F /* CellStrategy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47A13C9F24BDEFF400027D4F /* CellStrategy.swift */; };
 		47A13CA224BE6E4B00027D4F /* DatePickerViewTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47A13CA124BE6E4B00027D4F /* DatePickerViewTheme.swift */; };
-		FA4C8E5C263B1FC20048FA99 /* common-release.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = FA4C8E59263B1FC20048FA99 /* common-release.xcconfig */; };
-		FA4C8E5D263B1FC20048FA99 /* common-debug.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = FA4C8E5A263B1FC20048FA99 /* common-debug.xcconfig */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -148,7 +146,7 @@
 		47A13C5C24B4A86000027D4F /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 1250;
+				LastUpgradeCheck = 1310;
 				ORGANIZATIONNAME = "Organic Maps";
 				TargetAttributes = {
 					47A13C6424B4A86000027D4F = {
@@ -180,8 +178,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FA4C8E5D263B1FC20048FA99 /* common-debug.xcconfig in Resources */,
-				FA4C8E5C263B1FC20048FA99 /* common-release.xcconfig in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -223,6 +219,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -252,6 +249,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;

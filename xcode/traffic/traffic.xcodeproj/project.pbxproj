@@ -219,7 +219,7 @@
 		67BECB421DDA43AF00FC4E99 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 1240;
+				LastUpgradeCheck = 1310;
 				TargetAttributes = {
 					67BECB491DDA43AF00FC4E99 = {
 						CreatedOnToolsVersion = 8.1;
@@ -320,6 +320,7 @@
 		67BECB7C1DDA466800FC4E99 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "-";
 				PRODUCT_BUNDLE_IDENTIFIER = app.organicmaps.traffic_tests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -328,6 +329,7 @@
 		67BECB7D1DDA466800FC4E99 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "-";
 				PRODUCT_BUNDLE_IDENTIFIER = app.organicmaps.traffic_tests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
