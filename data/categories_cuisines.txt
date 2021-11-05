@@ -338,7 +338,7 @@ cs:Smažené pokrmy
 da:Friture
 nl:Frituur
 fi:Uppopaistettu
-fr:Friture
+fr:Friterie
 de:Friterie
 hu:Olajban sütött ételek
 id:Gorengan
