@@ -71,33 +71,6 @@ public class Framework
 
   public static final int ROUTE_REBUILD_AFTER_POINTS_LOADING = 0;
 
-  @Retention(RetentionPolicy.SOURCE)
-  @IntDef({ SOCIAL_TOKEN_INVALID, SOCIAL_TOKEN_GOOGLE,
-            SOCIAL_TOKEN_PHONE, TOKEN_MAPSME })
-  public @interface AuthTokenType
-  {}
-  public static final int SOCIAL_TOKEN_INVALID = -1;
-  public static final int SOCIAL_TOKEN_GOOGLE = 1;
-  public static final int SOCIAL_TOKEN_PHONE = 2;
-  //TODO(@alexzatsepin): remove TOKEN_MAPSME from this list.
-  public static final int TOKEN_MAPSME = 3;
-
-  @Retention(RetentionPolicy.SOURCE)
-  @IntDef({ PURCHASE_VERIFIED, PURCHASE_NOT_VERIFIED,
-            PURCHASE_VALIDATION_SERVER_ERROR, PURCHASE_VALIDATION_AUTH_ERROR })
-  public @interface PurchaseValidationCode {}
-
-  public static final int PURCHASE_VERIFIED = 0;
-  public static final int PURCHASE_NOT_VERIFIED = 1;
-  public static final int PURCHASE_VALIDATION_SERVER_ERROR = 2;
-  public static final int PURCHASE_VALIDATION_AUTH_ERROR = 3;
-
-  @Retention(RetentionPolicy.SOURCE)
-  @IntDef({ SUBSCRIPTION_TYPE_REMOVE_ADS, SUBSCRIPTION_TYPE_BOOKMARK_CATALOG })
-  public @interface SubscriptionType {}
-  public static final int SUBSCRIPTION_TYPE_REMOVE_ADS = 0;
-  public static final int SUBSCRIPTION_TYPE_BOOKMARK_CATALOG = 1;
-
   @SuppressWarnings("unused")
   public interface PlacePageActivationListener
   {
@@ -130,14 +103,6 @@ public class Framework
   public interface RoutingLoadPointsListener
   {
     void onRoutePointsLoaded(boolean success);
-  }
-
-  @SuppressWarnings("unused")
-  public interface PurchaseValidationListener
-  {
-    void onValidatePurchase(@PurchaseValidationCode int code, @NonNull String serverId,
-                            @NonNull String vendorId, @NonNull String encodedPurchaseData,
-                            boolean isTrial);
   }
 
   @SuppressWarnings("unused")
