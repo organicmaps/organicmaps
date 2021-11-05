@@ -418,7 +418,7 @@ cs:3Bankomat
 da:3Hæveautomat
 nl:3Geldautomaat
 fi:Pankkiautomaatti
-fr:GAB
+fr:DAB|GAB|argent|Distributeur de billets
 de:3Geldautomat
 hu:4Pénzautomata
 id:2ATM
@@ -753,7 +753,7 @@ ar:محطة وقود|بترول
 cs:2pumpa
 da:3Tankstation
 nl:3Tankstation|3brandstof
-fr:Station-service|3carburant
+fr:Station-service|3carburant|3essence
 de:Tankstation|Tankstelle
 hu:3Benzinkút|benzin
 id:Pompa bensin
@@ -922,7 +922,7 @@ cs:Školka|zahradní centrum
 da:Planteskole|havecenter|plantecenter|havebutik
 nl:Tuincentrum
 fi:Taimitarha
-fr:Crèche|garderie d'enfants
+fr:Jardinerie
 de:Gärtnerei|Garten-Center
 hu:Kertészet|Kertészeti áruház
 id:Penitipan anak
@@ -1024,7 +1024,7 @@ cs:Řeznictví
 da:Slagter|slagterbutik
 nl:Slager|beenhouwer
 fi:Lihakauppias
-fr:Boucherie
+fr:Boucherie|Charcuterie
 de:Metzgerei|Metzger|Schlachter
 hu:Hentes|Mészáros
 id:Tukang daging
@@ -1057,7 +1057,7 @@ cs:Nábytek
 da:Møbelbutik|møbelforretning|møbelhandler
 nl:Meubelzaak
 fi:Huonekalukauppa
-fr:Magasin de meubles
+fr:Magasin de meubles|Ameublement
 de:Möbelgeschäft
 hu:Bútoráruház
 id:Toko mebel
@@ -1092,7 +1092,7 @@ cs:Obchod s alkoholem
 da:Alkohol|vinhandel|sprut|spiritus
 nl:Slijterij|drankhandel
 fi:Alkoholikauppa|alkoholi
-fr:Magasin de vins et spiritueux|vins et spiritueux
+fr:Magasin de vins et spiritueux|vins et spiritueux|alcool
 de:Spirituosengeschäft|Spirituosen
 hu:Italbolt|ital
 id:Toko alkohol|minuman keras
@@ -1191,7 +1191,7 @@ cs:Elektronika
 da:Elektronikbutik|elektronik
 nl:Elektronicazaak
 fi:Elektroniikka
-fr:Magasin d'électroménager
+fr:Magasin d'électroménager|électronique
 de:Elektronik
 hu:Elektronika
 id:Elektronik
@@ -1325,7 +1325,7 @@ cs:Obchod s dárkovým zbožím
 da:Gavebutik|souvenirbutik
 nl:Cadeauwinkel
 fi:Lahjatavaraliike
-fr:Boutique de souvenirs
+fr:Boutique de souvenirs|cadeaux
 de:Geschenkladen|Geschenke|Geschenkartikelladen|Andenkenladen|Andenken|Präsente
 hu:Ajándékbolt|Souvenir|Szuvenír
 id:Toko hadiah
@@ -1393,7 +1393,7 @@ cs:Ovoce a zelenina
 da:Grønthandler|grønthandel|frugt og grønt
 nl:Groentenwinkel|groenteboer
 fi:Vihanneskauppias
-fr:Primeur
+fr:Primeur|Marchand de fruits et légumes
 de:Gemüseladen|Gemüsehändler
 hu:Zöldséges|Zöldség-gyümölcs
 id:Penjual sayuran
@@ -1459,7 +1459,7 @@ cs:3Supermarket
 da:3Supermarked|dagligvarebutik
 nl:3Supermarkt
 fi:3Supermarketti
-fr:3Supermarché
+fr:3Supermarché|Hypermarché
 de:3Supermarkt
 hu:3Szupermarket
 id:3Supermarket
@@ -1494,7 +1494,7 @@ cs:Obchoďák
 da:Indkøbscenter|butikscenter|storcenter|center
 nl:Het winkelcentrum
 fi:Ostoskeskus
-fr:Le centre commercial
+fr:Centre commercial|Galerie marchande
 de:Einkaufszentrum|Ladenstraße|Einkaufsgalerie|Einkaufen|Einkaufspassage|Kaufhalle|Vergnügungszentrum|Einzelhandel
 hu:Bevásárlóközpont
 id:Mall
@@ -1664,7 +1664,7 @@ cs:4Prádelna|veřejná prádelna
 da:4Vaskeri|møntvask
 nl:4Wasserette
 fi:4Pesula
-fr:4Blanchisserie|laverie automatique
+fr:4Blanchisserie|laverie automatique|pressing
 de:Wäscherei|Waschsalon
 hu:4Mosoda
 id:4Londri|binatu
@@ -2635,7 +2635,7 @@ cs:2Vodopád|zajímavost
 da:2Vandfald
 nl:2Watervallen|waterval
 fi:3Vesiputous
-fr:3Cascade
+fr:3Cascade|Chute d'eau
 de:2Wasserfall
 hu:2Vízesés
 id:2Air terjun
@@ -2703,7 +2703,7 @@ cs:Zámek|zajímavost
 da:Slot|borg
 nl:Kasteel|burcht|attractie
 fi:Linna
-fr:Château
+fr:Château|Forteresse|Palais
 de:Burg|Schloss|Festung
 hu:Vár|Katély|Erőd|Palota
 id:Kastel
@@ -2834,6 +2834,7 @@ historic-ship|@tourism
 en:Ship|boat
 ru:Корабль|судно|лодка
 bg:Кораб|лодка|вода|туризъм
+fr:Bâteau|navire
 nl:Schip|boot
 ko:배|보트
 pl:Łódź|okręt
@@ -2845,6 +2846,7 @@ historic-tomb|@tourism
 en:Tomb|grave|memorial
 ru:Гробница|склеп|захоронение|могила|кладбище
 bg:Гробница|гробище|могила|погребани
+fr:Tombe
 nl:Tombe|graf|gedenkteken
 ko:무덤|묘지
 pl:Grób|grobowiec
@@ -2857,6 +2859,7 @@ en:3Dog area|Dog park
 ru:Место для выгула собак|Площадка для собак|4Собачья площадка
 bg:Кучешка зона|домашни любимци
 cs:3Psí hřiště
+fr:Parc canin
 nl:4Hondenpark|Hondengebied
 ko:개 놀이 공원|도그 파크
 pl:Park dla psów|Wyprowadzanie psów
@@ -2980,7 +2983,7 @@ de:Carsharing|Car-Sharing|Carsharing-Dienste|Auto teilen|Auto|Teilen|Fahrgemeins
 el:Παραχώρηση αυτοκινήτου
 es:Compartir coche
 fi:Autojen yhteiskäyttö
-fr:Car Sharing
+fr:Station d'autopartage|auto-partage
 hu:Gépjárműmegosztás
 id:Berbagi mobil
 it:Car Sharing
@@ -3473,7 +3476,7 @@ cs:Lékařská ordinace|Klinika|nemocnice
 da:Lægekontor|lægehus|klinik|hospital
 nl:Huisartsenpost|Kliniek|huisarts|ziekenhuis|dokter
 fi:Lääkärin vastaanotto|Klinikka|sairaala
-fr:Cabinet médical|hôpital
+fr:Cabinet médical|docteur|hôpital
 de:Arztpraxis|Klinik|Krankenhaus
 hu:Rendelő|Klinika|orvosi rendelő|kórház
 id:Praktik dokter|Klinik|rumah sakit
@@ -3542,7 +3545,7 @@ el:Ιατρικό Εργαστήριο
 es:Laboratorio médico
 fa:ﯽﮑﺷﺰﭘ ﻩﺎﮕﺸﯾﺎﻣﺯﺁ
 fi:Lääketieteellinen laboratorio
-fr:Laboratoire médical
+fr:Laboratoire médical|Laboratoire de biologie médicale|Laboratoire d'analyses médicales
 he:תיאופר הדבעמ
 hu:Orvosi laboratórium
 id:Laboratorium medis
@@ -3610,7 +3613,7 @@ cs:Školka|mateřská škola|dětská školka|mateřská školka
 da:4Børnehave
 nl:Kleuterschool
 fi:Päiväkoti
-fr:Maternelle|garderie
+fr:Maternelle|garderie|crèche|halte-garderie
 de:Kindergarten|Kinderkrippe|Krippe|Tagesstätte|Hort|Kinderbetreuung|Kinderbetreuungseinrichtung|Vorschule
 hu:Óvoda
 id:Taman kanak-kanak
@@ -3825,7 +3828,7 @@ bg:Поща
 ar:مكتب بريد
 da:3Postkontor|posthus
 nl:3Postkantoor
-fr:3comptoir postal
+fr:3comptoir postal|bureau de poste
 de:Postamt
 id:Kantor pos
 pl:Poczta|listy
@@ -4260,7 +4263,7 @@ cs:Přístřešek|úkryt
 da:Shelter|læskur|hytte
 nl:Beschutting
 fi:Turvapaikka
-fr:Refuge
+fr:Refuge|abri
 de:Schutzhütte|Schutzraum|Zivilschutz
 hu:Menedék
 id:Tempat penampungan
@@ -4833,7 +4836,7 @@ cs:Lokalita
 da:Lokalitet|sted
 nl:Plaats|streek|localiteit
 fi:Paikkakunta
-fr:Localité
+fr:Lieu-dit|Localité|hameau
 de:Örtlichkeit|Lokalität|Region|Ort
 hu:Dűlő|Lakatlan hely
 id:Wilayah
@@ -5142,6 +5145,7 @@ fa:قله|کوه|کوهستان
 natural-saddle|mountain_pass
 en:Saddle
 be:Седлавіна
+fr:Col
 it:Sella
 ru:Седловина|Перевал
 uk:Сідловина
@@ -5156,7 +5160,7 @@ cs:Voda
 da:Vand
 nl:Water
 fi:Vesi
-fr:Eau
+fr:Eau|lac|bassin|réservoir
 de:Wasserfläche|Wasserbecken
 hu:Víz
 id:Air
@@ -5427,7 +5431,7 @@ cs:Penzion|hostel|ubytovna
 da:Gæstehus|gæstehjem|hostel
 nl:Gasthuis|B&B|bed and breakfast|hostel
 fi:Majatalo
-fr:Maison d'hôtes|auberge de jeunesse
+fr:Maison d'hôtes|chambre d'hôtes
 de:Gästehaus|Wohnheim|Unterkunft|Herberge
 hu:Vendégház|panzió
 id:Wisma tamu
@@ -5494,7 +5498,7 @@ cs:4Ubytování v horách|Horská chata|horský hotel|hotel
 da:Bjerg logi|hotel
 nl:3Berghut|alpenhut|hotel
 fi:Vuorimajoitus|hotelli
-fr:Hôtel de montagne|hôtel|auberge de jeunesse|cabane alpine
+fr:Refuge de montagne|auberge de jeunesse|cabane alpine
 de:4Berghütte|Almhütte|Berghotel|Hotel|Unterkunft|Bergunterkunft|Herberge|Lager
 hu:Hegyi menedék|kabin|hotel|szálloda
 id:Penginapan di pegunungan|hotel
@@ -5919,6 +5923,7 @@ bg:Полиция|милиция
 ar:الشرطة
 cs:4bezpečnost
 de:Polizeiwache|Polizei
+fr:Poste de police|Commissariat
 it:Posto di polizia
 ja:1屯所|ポリス|交番|お巡りさん|おまわりさん|通報
 ko:보안대
@@ -6312,7 +6317,7 @@ cs:Pivovar
 da:Bryggeri
 nl:Brouwerij|bier|ambachtelijk bier|brouwhuis
 fi:Panimo
-fr:Brasserie
+fr:Brasserie artisanale|Brasseur
 de:Brauerei|Brauhaus|Hausbrauerei|Bier|Bierausschank|Hausbräu
 hu:Sörfőzde|sör
 id:Toko minuman
@@ -6909,7 +6914,7 @@ cs:Chemické čištění|čistírna
 da:Renseri|vaskeri
 nl:Stomerij|chemisch reinigen|droogkuis|wassen|stomen
 fi:Kuivapesula|pesula
-fr:Nettoyage à sec|Lavage
+fr:Nettoyage à sec|Pressing|Lavage
 de:Chemische Reinigung|Reinigung
 hu:Ruhatisztító|vegytisztító|patyolat|tisztító
 id:Cuci Kering|kering
@@ -7513,7 +7518,7 @@ cs:Soud
 da:Domhus|retsbygning
 nl:Rechtban|gerechtsgebouw
 fi:Oikeustalo
-fr:Palais de justice
+fr:Tribunal|Palais de justice
 de:Justizgebäude|Gerichtsgebäude
 hu:Bíróság
 id:Gedung pengadilan
@@ -7846,7 +7851,7 @@ cs:Vinařství
 da:Vinhandel
 nl:Slijterij|Wijn
 fi:Alkoholimyymälä
-fr:Hors licence
+fr:Cave à vins|Caviste|Magasin de vins
 de:Wein- und Spirituosengeschäft|Weinladen
 hu:Borkereskedés
 id:Toko anggur
@@ -7914,7 +7919,7 @@ cs:Chalet|Horská chata
 da:Hytte
 nl:Chalet
 fi:Alppimaja
-fr:Chalet
+fr:Chalet|Meublé de tourisme
 de:Hütte
 hu:Nyaralóház|Kulcsosház
 id:Chalet
@@ -8278,7 +8283,7 @@ cs:Jeskyně
 da:Hule
 nl:Grot
 fi:Luola
-fr:Cave
+fr:Grotte
 de:Höhle
 hu:Barlang
 id:Gua
@@ -8380,7 +8385,7 @@ cs:Realitní makléř
 da:Ejendomsmægler
 nl:Makelaar
 fi:Kiinteistönvälittäjä
-fr:Agent immobilier
+fr:Agence immobilière|agent immobilier
 de:Immobilienmakler
 hu:Ingatlaniroda
 id:Agen ril estat
@@ -8446,7 +8451,7 @@ cs:Knihovna|Směnárna knih
 da:Bog udveksling
 nl:Boekenkast|Boekuitwisseling
 fi:Kirjahylly|Kirjakauppa
-fr:Bibliothèque
+fr:Microbibliothèque|boîte à livres
 de:Bücherregal|Büchertausch|Bücherschrank
 hu:Nyilvános könyvespolc|könyvcsere
 id:Rak Buku|Bursa Buku
@@ -8511,7 +8516,7 @@ cs:Střelnice
 da:Skydebane
 nl:Schietbaan
 fi:Ampumarata
-fr:Centre de tir
+fr:Stand de tir|Centre de tir
 de:Schießanlage
 hu:Lőtér
 id:Lapangan tembak
@@ -8779,7 +8784,7 @@ de:Internetcafé
 el:Καφετέρια με Ίντερνετ
 es:Cibercafé
 fi:Internetkahvila
-fr:Internet café
+fr:Cybercafé
 hu:Internetkávézó
 id:Kafe Internet
 it:Internet Cafe
@@ -8983,7 +8988,7 @@ de:Defibrillator
 el:Πρώτες βοήθειες|απινιδωτής
 es:Desfibrilador
 fi:Defibrillaattori
-fr:Défibrillateur
+fr:Défibrillateur|DAE
 hu:Defibrillátor
 id:Defibrilator
 it:Defibrillatore
@@ -9017,7 +9022,7 @@ de:Hydrant
 el:Πυροσβεστικός κρουνός
 es:Boca de incendio
 fi:Paloposti
-fr:Bouche d’incendie
+fr:Bouche d’incendie|borne d'incendie
 hu:Tűzcsap
 id:Keran Kebakaran
 it:Idrante
@@ -9041,7 +9046,7 @@ zh-Hant:消防栓
 fa:شیر آتش‌نشانی
 
 leisure-fitness_station
-en:Fitness Station
+en:Fitness Station|street workout
 ru:Спортивные снаряды
 bg:Спортно оборудване|фитнес
 ar:مركز لياقة
@@ -9085,7 +9090,7 @@ de:Wasserhahn
 el:Βρύση νερού
 es:Toma de agua
 fi:Vesihana
-fr:Robinet d'eau
+fr:Robinet d'eau|point d'eau
 hu:Vízcsap
 id:Keran Air
 it:Rubinetto dell'acqua
@@ -9154,7 +9159,7 @@ de:Büro einer Nichtregierungsorganisation
 el:Γραφείο ΜΚΟ
 es:Sede de ONG
 fi:Valtioista riippumattoman järjestön toimisto
-fr:Bureau ONG
+fr:Bureau d'ONG|organisation non gouvernementale
 hu:Civil szervezet irodája
 id:Kantor LSM
 it:Sede ONG
@@ -9530,7 +9535,7 @@ de:Wildnishütte
 el:Καλύβα|αγροικία
 es:Cabaña
 fi:Autiotupa
-fr:Cabane sauvage
+fr:Refuge non gardé|Refuge-bivouac
 hu:Menedékház
 id:Pondok Alam Liar
 it:Rifugio
@@ -9558,6 +9563,8 @@ en:Gallery|museum
 ru:Галерея|музей|картины|картинная галерея
 bg:Галерия|музей|изложба|туризъм|картини
 de:Galerie|Museum
+es:Galería de arte|museo
+fr:Galerie d'art|musée d'art
 ko:갤러리|박물관
 nl:Galerij|museum
 pl:Galeria|muzeum
