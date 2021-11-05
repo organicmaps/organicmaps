@@ -26,7 +26,7 @@ class PyKmlibAdsTest(unittest.TestCase):
             c.annotation['en'] = 'Test annotation'
             c.image_url = 'https://localhost/123.png'
             c.visible = True
-            c.author_name = 'Maps.Me'
+            c.author_name = 'Organic Maps'
             c.author_id = '12345'
             c.rating = 8.9
             c.reviews_number = 567

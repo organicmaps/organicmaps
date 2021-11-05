@@ -322,11 +322,10 @@ public class StoragePathManager
   }
 
   /**
-   * Dumb way to determine whether the storage contains Maps.me data.
+   * Dumb way to determine whether the storage contains Organic Maps data.
    * <p>The algorithm is quite simple:
    * <ul>
    *   <li>Find all writable storages;</li>
-   *   <li>For each storage list sub-dirs under "MapsWithMe" dir;</li>
    *   <li>If there is a directory with version-like name (e.g. "160602")…</li>
    *   <li>…and it is not empty…</li>
    *   <li>…we got it!</li>

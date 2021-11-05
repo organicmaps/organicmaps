@@ -259,7 +259,7 @@ public class MwmApplication extends Application implements AppBackgroundTracker.
 
   static
   {
-    System.loadLibrary("mapswithme");
+    System.loadLibrary("organicmaps");
   }
 
   public static void onUpgrade(@NonNull Context context)

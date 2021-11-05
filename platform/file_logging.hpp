@@ -10,7 +10,7 @@
 // to a special subsystem which depends on base and coding.
 
 // If you uncomment the line bellow the application log will be written to a file.
-// You'll find a log file (logging_<date><time>.log) in the MapsWithMe directory on Android platform and in Documents on iOS.
+// You'll find a log file (logging_<date><time>.log) in the writable directory on Android platform and in Documents on iOS.
 // #define MWM_LOG_TO_FILE
 
 // Writing information about free memory to log file.
