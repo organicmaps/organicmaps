@@ -162,8 +162,8 @@ android {
     vectorDrawables.useSupportLibrary = true
     // Default package name is taken from the manifest and should be app.organicmaps
     def ver = getVersion()
-    println("Version:" + ver.first)
-    println("VersionCode:" + ver.second)
+    println('Version: ' + ver.first)
+    println('VersionCode: ' + ver.second)
     versionCode = ver.first
     versionName = ver.second
     minSdkVersion propMinSdkVersion.toInteger()
@@ -189,6 +189,30 @@ android {
                   "-DOS=$osName", '-DSKIP_TESTS=ON', "-DUSE_PCH=$pchFlag"
         targets 'mapswithme'
       }
+    }
+
+    // Use, for example, -Parm32 gradle parameter to build only for armeabi-v7a.
+    ndk {
+      abiFilters = new HashSet<>()
+      if (project.hasProperty('arm32') || project.hasProperty('armeabi-v7a')) {
+        abiFilters.add('armeabi-v7a')
+      }
+      if (project.hasProperty('arm64') || project.hasProperty('arm64-v8a')) {
+        abiFilters.add('arm64-v8a')
+      }
+      if (project.hasProperty('x86')) {
+        abiFilters.add('x86')
+      }
+      if (project.hasProperty('x86_64') || project.hasProperty('x64')) {
+        abiFilters.add('x86_64')
+      }
+      if (abiFilters.isEmpty()) {
+        abiFilters.add('armeabi-v7a')
+        abiFilters.add('arm64-v8a')
+        // For the emulator, chromebooks and some Intel Atom devices.
+        abiFilters.add('x86_64')
+      }
+      println("Building for " + abiFilters + " archs.")
     }
 
     setProperty("archivesBaseName", appName.replaceAll("\\s","") + "-" + defaultConfig.versionCode)
@@ -307,28 +331,6 @@ android {
       resValue 'string', 'app_id', android.defaultConfig.applicationId + applicationIdSuffix
       resValue 'string', 'app_name', project.ext.appName  + ' ' + '(Debug)'
       ndk.debugSymbolLevel = 'SYMBOL_TABLE'
-
-      ndk {
-        abiFilters = new HashSet<>()
-        if (project.hasProperty('arm32') || project.hasProperty('armeabi-v7a')) {
-          abiFilters.add('armeabi-v7a')
-        }
-        if (project.hasProperty('arm64') || project.hasProperty('arm64-v8a')) {
-          abiFilters.add('arm64-v8a')
-        }
-        if (project.hasProperty('x86')) {
-          abiFilters.add('x86')
-        }
-        if (project.hasProperty('x86_64') || project.hasProperty('x64')) {
-          abiFilters.add('x86_64')
-        }
-        if (abiFilters.isEmpty()) {
-          abiFilters.add('armeabi-v7a')
-          abiFilters.add('arm64-v8a')
-          // For the emulator, chromebooks and some Intel Atom devices.
-          abiFilters.add('x86_64')
-        }
-      }
 
       if (googleFirebaseServicesEnabled) {
         firebaseCrashlytics {
