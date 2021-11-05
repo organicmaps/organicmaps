@@ -20,8 +20,6 @@
 		47375E522420E97100FFCC49 /* ChartYAxisView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47375E472420E96F00FFCC49 /* ChartYAxisView.swift */; };
 		47375E542420E97100FFCC49 /* ChartPreviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47375E492420E97100FFCC49 /* ChartPreviewView.swift */; };
 		47D48BD324302FE200FEFB1F /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 47D48BD524302FE200FEFB1F /* Localizable.strings */; };
-		FA4C8E56263B1FA80048FA99 /* common-release.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = FA4C8E53263B1FA80048FA99 /* common-release.xcconfig */; };
-		FA4C8E57263B1FA80048FA99 /* common-debug.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = FA4C8E54263B1FA80048FA99 /* common-debug.xcconfig */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -184,7 +182,7 @@
 			isa = PBXProject;
 			attributes = {
 				DefaultBuildSystemTypeForWorkspace = Latest;
-				LastUpgradeCheck = 1240;
+				LastUpgradeCheck = 1310;
 				ORGANIZATIONNAME = "Organic Maps";
 				TargetAttributes = {
 					47375D952420D4DB00FFCC49 = {
@@ -244,8 +242,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				47D48BD324302FE200FEFB1F /* Localizable.strings in Resources */,
-				FA4C8E57263B1FA80048FA99 /* common-debug.xcconfig in Resources */,
-				FA4C8E56263B1FA80048FA99 /* common-release.xcconfig in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

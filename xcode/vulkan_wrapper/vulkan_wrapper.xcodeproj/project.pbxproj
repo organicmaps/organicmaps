@@ -95,7 +95,7 @@
 		4577B26521F2044300864FAC /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 1250;
+				LastUpgradeCheck = 1310;
 				TargetAttributes = {
 					4577B26C21F2044300864FAC = {
 						CreatedOnToolsVersion = 10.1;
@@ -134,19 +134,20 @@
 /* Begin XCBuildConfiguration section */
 		4577B27421F2044300864FAC /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 4577B27921F2053900864FAC /* common-debug.xcconfig */;
 			buildSettings = {
 			};
 			name = Debug;
 		};
 		4577B27521F2044300864FAC /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 4577B27A21F2053900864FAC /* common-release.xcconfig */;
 			buildSettings = {
 			};
 			name = Release;
 		};
 		4577B27721F2044300864FAC /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 4577B27921F2053900864FAC /* common-debug.xcconfig */;
 			buildSettings = {
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
@@ -159,7 +160,6 @@
 		};
 		4577B27821F2044300864FAC /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 4577B27A21F2053900864FAC /* common-release.xcconfig */;
 			buildSettings = {
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",

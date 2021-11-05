@@ -1051,7 +1051,7 @@
 		675343F01A3F640D00A0A8C3 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 1240;
+				LastUpgradeCheck = 1310;
 				TargetAttributes = {
 					6742AD0D1C68A91B009CB89E = {
 						CreatedOnToolsVersion = 7.2.1;
@@ -1298,6 +1298,7 @@
 		56F0D75D1D896A5300045886 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "-";
 				PRODUCT_BUNDLE_IDENTIFIER = app.organicmaps.routing_benchmarks;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -1306,6 +1307,7 @@
 		56F0D75E1D896A5300045886 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "-";
 				PRODUCT_BUNDLE_IDENTIFIER = app.organicmaps.routing_benchmarks;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -1314,6 +1316,7 @@
 		6742AD231C68A91B009CB89E /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "-";
 				PRODUCT_BUNDLE_IDENTIFIER = app.organicmaps.routing_tests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -1322,6 +1325,7 @@
 		6742AD241C68A91B009CB89E /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "-";
 				PRODUCT_BUNDLE_IDENTIFIER = app.organicmaps.routing_tests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -1372,6 +1376,7 @@
 		67BD35AA1C69F03E003AA26F /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "-";
 				PRODUCT_BUNDLE_IDENTIFIER = app.organicmaps.routing_integration_tests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -1380,6 +1385,7 @@
 		67BD35AB1C69F03E003AA26F /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "-";
 				PRODUCT_BUNDLE_IDENTIFIER = app.organicmaps.routing_integration_tests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
