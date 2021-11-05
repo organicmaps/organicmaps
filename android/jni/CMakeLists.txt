@@ -87,10 +87,10 @@ set(
   com/mapswithme/vulkan/android_vulkan_context_factory.cpp
 )
 
-omim_add_library(mapswithme SHARED ${SRC})
+omim_add_library(organicmaps SHARED ${SRC})
 
 target_link_libraries(
-  mapswithme
+  organicmaps
   # Android libs
   log
   android
@@ -98,7 +98,7 @@ target_link_libraries(
   GLESv2
   atomic
   z
-  # MapsWithMe libs
+  # Organic Maps libs
   map
   ge0
   tracking

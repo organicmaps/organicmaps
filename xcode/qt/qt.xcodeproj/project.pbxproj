@@ -296,8 +296,8 @@
 		6714E5E01BD13F67008AB603 /* drules_proto_dark.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; path = drules_proto_dark.bin; sourceTree = "<group>"; };
 		6714E6001BD14016008AB603 /* resources-mdpi_clear */ = {isa = PBXFileReference; lastKnownFileType = folder; path = "resources-mdpi_clear"; sourceTree = "<group>"; };
 		6714E6011BD14016008AB603 /* resources-mdpi_dark */ = {isa = PBXFileReference; lastKnownFileType = folder; path = "resources-mdpi_dark"; sourceTree = "<group>"; };
-		671E78E41E6A4E1A00B2859B /* librouting_common.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = librouting_common.a; path = "/Users/darkserj/mapsme/omim/xcode/routing_common/../../../omim-build/xcode/Debug/librouting_common.a"; sourceTree = "<absolute>"; };
-		671E79211E6A508600B2859B /* libopenlr.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libopenlr.a; path = "/Users/darkserj/mapsme/omim/xcode/openlr/../../../omim-build/xcode/Debug/libopenlr.a"; sourceTree = "<absolute>"; };
+		671E78E41E6A4E1A00B2859B /* librouting_common.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = librouting_common.a; path = "../../../omim-build/xcode/Debug/librouting_common.a"; sourceTree = "<absolute>"; };
+		671E79211E6A508600B2859B /* libopenlr.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libopenlr.a; path = "../../../omim-build/xcode/Debug/libopenlr.a"; sourceTree = "<absolute>"; };
 		671F59011B8755FE0032311E /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 		672292B01DE307DC005BA3A7 /* libtraffic.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libtraffic.a; path = "../../../omim-build/xcode/Debug/libtraffic.a"; sourceTree = "<group>"; };
 		6729A5B91A693013007D5872 /* categories.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = categories.txt; sourceTree = "<group>"; };
@@ -660,7 +660,7 @@
 				6753454D1A404C6100A0A8C3 /* Info.plist */,
 			);
 			name = "Supporting Files";
-			path = MapsMe;
+			path = OMaps;
 			sourceTree = SOURCE_ROOT;
 		};
 /* End PBXGroup section */
@@ -685,7 +685,7 @@
 			dependencies = (
 			);
 			name = qt;
-			productName = MapsMe;
+			productName = OMaps;
 			productReference = 675345491A404C6100A0A8C3 /* qt.app */;
 			productType = "com.apple.product-type.application";
 		};

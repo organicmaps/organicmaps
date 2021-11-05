@@ -57,7 +57,7 @@ kml::FileData GenerateKmlFileData()
   result.m_categoryData.m_annotation[kEnLang] = "Test annotation";
   result.m_categoryData.m_imageUrl = "https://localhost/123.png";
   result.m_categoryData.m_visible = true;
-  result.m_categoryData.m_authorName = "Maps.Me";
+  result.m_categoryData.m_authorName = "Organic Maps";
   result.m_categoryData.m_authorId = "12345";
   result.m_categoryData.m_rating = 8.9;
   result.m_categoryData.m_reviewsNumber = 567;
@@ -119,7 +119,7 @@ kml::FileData GenerateKmlFileData()
   compilationData1.m_annotation[kEnLang] = "Test collection annotation";
   compilationData1.m_imageUrl = "https://localhost/1234.png";
   compilationData1.m_visible = true;
-  compilationData1.m_authorName = "Maps.Me";
+  compilationData1.m_authorName = "Organic Maps";
   compilationData1.m_authorId = "54321";
   compilationData1.m_rating = 5.9;
   compilationData1.m_reviewsNumber = 333;
@@ -142,7 +142,7 @@ kml::FileData GenerateKmlFileData()
   compilationData2.m_annotation[kEnLang] = "Test category annotation";
   compilationData2.m_imageUrl = "https://localhost/134.png";
   compilationData2.m_visible = false;
-  compilationData2.m_authorName = "Maps.Me";
+  compilationData2.m_authorName = "Organic Maps";
   compilationData2.m_authorId = "11111";
   compilationData2.m_rating = 3.3;
   compilationData2.m_reviewsNumber = 222;
@@ -291,7 +291,7 @@ R"(<?xml version="1.0" encoding="UTF-8"?>
       <mwm:lang code="default">Test description</mwm:lang>
     </mwm:description>
     <mwm:imageUrl>https://localhost/123.png</mwm:imageUrl>
-    <mwm:author id="12345">Maps.Me</mwm:author>
+    <mwm:author id="12345">Organic Maps</mwm:author>
     <mwm:lastModified>1970-01-01T00:16:40Z</mwm:lastModified>
     <mwm:rating>8.9</mwm:rating>
     <mwm:reviewsNumber>567</mwm:reviewsNumber>
@@ -329,7 +329,7 @@ R"(<?xml version="1.0" encoding="UTF-8"?>
       </mwm:description>
       <mwm:visibility>1</mwm:visibility>
       <mwm:imageUrl>https://localhost/1234.png</mwm:imageUrl>
-      <mwm:author id="54321">Maps.Me</mwm:author>
+      <mwm:author id="54321">Organic Maps</mwm:author>
       <mwm:lastModified>1970-01-01T00:16:39Z</mwm:lastModified>
       <mwm:rating>5.9</mwm:rating>
       <mwm:reviewsNumber>333</mwm:reviewsNumber>
@@ -367,7 +367,7 @@ R"(<?xml version="1.0" encoding="UTF-8"?>
       </mwm:description>
       <mwm:visibility>0</mwm:visibility>
       <mwm:imageUrl>https://localhost/134.png</mwm:imageUrl>
-      <mwm:author id="11111">Maps.Me</mwm:author>
+      <mwm:author id="11111">Organic Maps</mwm:author>
       <mwm:lastModified>1970-01-01T00:05:23Z</mwm:lastModified>
       <mwm:rating>3.3</mwm:rating>
       <mwm:reviewsNumber>222</mwm:reviewsNumber>

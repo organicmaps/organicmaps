@@ -24,7 +24,7 @@ static bool GetUserWritableDir(string & outDir)
   {
     outDir = pathBuf;
     ::CreateDirectoryA(outDir.c_str(), NULL);
-    outDir += "\\MapsWithMe\\";
+    outDir += "\\OrganicMaps\\";
     ::CreateDirectoryA(outDir.c_str(), NULL);
     return true;
   }

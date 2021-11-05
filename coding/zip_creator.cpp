@@ -83,7 +83,7 @@ bool CreateZipFromPathDeflatedAndDefaultCompression(std::string const & filePath
   std::string fileName = filePath;
   base::GetNameFromFullPath(fileName);
   if (!strings::IsASCIIString(fileName))
-    fileName = "MapsMe.kml";
+    fileName = "OrganicMaps.kml";
 
   if (zip::Code::Ok != zip::OpenNewFileInZip(zip.Handle(), fileName, zipInfo, "ZIP from OMaps",
                                              Z_DEFLATED, Z_DEFAULT_COMPRESSION))

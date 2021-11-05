@@ -9,7 +9,7 @@
 
 namespace style
 {
-// Fixes icons which are not supported by MapsWithMe.
+// Fixes icons which are not supported by Organic Maps.
 std::string GetSupportedStyle(std::string const & style);
 }  // style
 

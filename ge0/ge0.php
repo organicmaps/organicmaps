@@ -5,8 +5,8 @@
 // Returns array(lat, lon, zoom) or empty array in the case of error
 function DecodeGe0LatLonZoom($latLonZoom)
 {
-  $MAPSWITHME_MAX_POINT_BYTES = 10;
-  $MAPSWITHME_MAX_COORD_BITS = $MAPSWITHME_MAX_POINT_BYTES * 3;
+  $OM_MAX_POINT_BYTES = 10;
+  $OM_MAX_COORD_BITS = $OM_MAX_POINT_BYTES * 3;
 
   $FAILED = array();
 
@@ -21,7 +21,7 @@ function DecodeGe0LatLonZoom($latLonZoom)
   $latLonBytes = strlen($latLonStr);
   $lat = 0;
   $lon = 0;
-  for($i = 0, $shift = $MAPSWITHME_MAX_COORD_BITS - 3; $i < $latLonBytes; $i++, $shift -= 3)
+  for($i = 0, $shift = $OM_MAX_COORD_BITS - 3; $i < $latLonBytes; $i++, $shift -= 3)
   {
     $a = $base64ReverseArray[ord($latLonStr[$i])];
     $lat1 =  ((($a >> 5) & 1) << 2 |
@@ -34,12 +34,12 @@ function DecodeGe0LatLonZoom($latLonZoom)
     $lon |= $lon1 << $shift;
   }
 
-  $middleOfSquare = 1 << (3 * ($MAPSWITHME_MAX_POINT_BYTES - $latLonBytes) - 1);
+  $middleOfSquare = 1 << (3 * ($OM_MAX_POINT_BYTES - $latLonBytes) - 1);
   $lat += $middleOfSquare;
   $lon += $middleOfSquare;
 
-  $lat = round($lat / ((1 << $MAPSWITHME_MAX_COORD_BITS) - 1) * 180.0 - 90.0, 5);
-  $lon = round($lon / (1 << $MAPSWITHME_MAX_COORD_BITS) * 360.0 - 180.0, 5);
+  $lat = round($lat / ((1 << $OM_MAX_COORD_BITS) - 1) * 180.0 - 90.0, 5);
+  $lon = round($lon / (1 << $OM_MAX_COORD_BITS) * 360.0 - 180.0, 5);
 
   if ($lat <= -90.0 || $lat >= 90.0)
     return $FAILED;
@@ -59,7 +59,7 @@ function DecodeGe0Name($name)
 // In the good case, returns array(lat, lon, zoom) or array(lat, lon, zoom, name)
 function DecodeGe0Url($url)
 {
-  $MAPSWITHME_ZOOM_POSITION = 6;
+  $OM_ZOOM_POSITION = 6;
   $NAME_POSITON_IN_URL = 17;
 
   $FAILED = array();
