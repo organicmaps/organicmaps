@@ -39,17 +39,24 @@
 
 /* 1. Z-INDEX OF ICONS */
 
+/*
+  Set default text priority for all POIs greater than building text priority (15201) to avoid name and symbol overlap.
+  This is the only valid variant to change text priority without overriding background filling priority.
+  ToDo: I'd prefer something like area[amenity] { z-name-index: 500; };
+  -x-me-min-text-priority and -x-me-text-priority are hacks.
+*/
+area[amenity],
+area[man_made],
+{-x-me-min-text-priority: 15300;}
+
 node|z17-[leisure],
 node[amenity=marketplace],
 area[amenity=marketplace]
 {z-index: 6;}
 
-
-
 node[shop=supermarket],
 area[shop=supermarket],
 {z-index: 2600;}
-
 
 node[boundary=national_park],
 area[boundary=national_park],

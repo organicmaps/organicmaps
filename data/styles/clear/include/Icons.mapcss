@@ -28,14 +28,15 @@
 
 /* 1. Z-INDEX OF ICONS */
 
-/* Default priority for all POIs to avoid building captions overlap.
-   Should be greater than [building] priority.
- */
-node[amenity],
+/*
+  Set default text priority for all POIs greater than building text priority (15201) to avoid name and symbol overlap.
+  This is the only valid variant to change text priority without overriding background filling priority.
+  ToDo: I'd prefer something like area[amenity] { z-name-index: 500; };
+  -x-me-min-text-priority and -x-me-text-priority are hacks.
+*/
 area[amenity],
-node[man_made],
 area[man_made],
-{z-index: 1000;}
+{-x-me-min-text-priority: 15300;}
 
 node|z17-[leisure],
 node|z16[amenity=parking],
