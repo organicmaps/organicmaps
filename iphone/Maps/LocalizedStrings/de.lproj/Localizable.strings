@@ -98,7 +98,7 @@
 "add_new_set" = "Neue Gruppe hinzufügen";
 
 /* Bookmark Color dialog title */
-"bookmark_color" = "Lesezeichen-Farbe";
+"bookmark_color" = "Lesezeichenfarbe";
 
 /* Add Bookmark Set dialog - hint when set name is empty */
 "bookmark_set_name" = "Name des Lesezeichens";
@@ -650,7 +650,7 @@
 /* login text field */
 "email_or_username" = "Email oder Benutzername";
 "phone" = "Telefon";
-"editor_add_phone" = "Add Phone";
+"editor_add_phone" = "Telefon hinzufügen";
 "please_note" = "Bitte beachten";
 "downloader_delete_map_dialog" = "Alle Kartenänderungen werden zusammen mit der Karte gelöscht.";
 "downloader_update_maps" = "Karten aktualisieren";
@@ -751,10 +751,10 @@
 "error_enter_correct_phone" = "Geben Sie die richtige Telefonnummer ein";
 "error_enter_correct_web" = "Geben Sie eine gültige Internetadresse ein";
 "error_enter_correct_email" = "Geben Sie eine gültige Email-Adresse ein";
-"error_enter_correct_facebook_page" = "Enter a valid Facebook web address, account, or page name";
-"error_enter_correct_instagram_page" = "Enter a valid Instagram web address or account name";
-"error_enter_correct_twitter_page" = "Enter a valid Twitter web address or username";
-"error_enter_correct_vk_page" = "Enter a valid VK web address or account name";
+"error_enter_correct_facebook_page" = "Geben Sie eine gültige Facebook-Webadresse, ein Konto oder einen Seitennamen ein";
+"error_enter_correct_instagram_page" = "Geben Sie eine gültige Instagram-Webadresse oder einen Kontonamen ein";
+"error_enter_correct_twitter_page" = "Geben Sie eine gültige Twitter-Webadresse oder einen Benutzernamen ein";
+"error_enter_correct_vk_page" = "Geben Sie eine gültige VK-Webadresse oder einen Kontonamen ein";
 "refresh" = "Aktualisieren";
 "placepage_add_place_button" = "Einen Ort zur Karte hinzufügen";
 
@@ -845,7 +845,7 @@
 "bookmarks_create_new_group" = "Erstelle eine neue Liste";
 
 /* Bookmark categories screen */
-"bookmarks_import" = "Import bookmarks";
+"bookmarks_import" = "Lesezeichen importieren";
 "downloader_hide_screen" = "Bildschirm verbergen";
 "downloader_percent" = "%s (%s von %s)";
 "downloader_process" = "%s heruntergeladen…";
@@ -883,7 +883,7 @@
 "bookmarks_empty_list_message" = "Um eine neue Markierung hinzuzufügen, drücken Sie auf das Sternzeichen in der Karte des Objekts";
 "category_desc_more" = "…mehr";
 "title_error_downloading_bookmarks" = "Es ist ein Fehler aufgetreten";
-"popular_place" = "Popular";
+"popular_place" = "Beliebt";
 "export_file" = "Datei exportieren";
 "list_settings" = "Listeneinstellungen";
 "delete_list" = "Liste löschen";
@@ -1025,9 +1025,9 @@
 "downloader_updating_ios" = "Update";
 "downloader_loading_ios" = "Download";
 "key_information_title" = "Wichtige Informationen";
-"download_map_title" = "Download the world map";
-"connection_failure" = "Connection failure";
-"disconnect_usb_cable_title" = "Disconnect USB cable";
+"download_map_title" = "Download der Weltkarte";
+"connection_failure" = "Verbindungsfehler";
+"disconnect_usb_cable_title" = "USB-Kabel trennen";
 "enable_screen_sleep" = "Bildschirm schlafen lassen";
 
 /* Description in preferences */
@@ -1046,7 +1046,7 @@
 "whats_new_auto_update_button_later" = "Später manuell aktualisieren";
 
 /* Delete track button on track edit screen */
-"placepage_delete_track_button" = "Delete Track";
+"placepage_delete_track_button" = "Strecke löschen";
 
 /* Placeholder for track name input on track edit screen */
 "placepage_track_name_hint" = "Track Name";
@@ -1055,7 +1055,7 @@
 "move" = "Move";
 
 /* edit track screen title */
-"track_title" = "Strecken";
+"track_title" = "Strecke";
 
 
 /********** Types **********/
@@ -1093,7 +1093,7 @@
 "type.amenity.car_rental" = "Autoverleih";
 "type.amenity.car_sharing" = "Carsharing";
 "type.amenity.car_wash" = "Autowäsche";
-"type.amenity.casino" = "Casino";
+"type.amenity.casino" = "Kasino";
 "type.amenity.charging_station" = "Ladestation";
 "type.amenity.childcare" = "Kindertagesstätte";
 "type.amenity.cinema" = "Kino";
@@ -1149,7 +1149,7 @@
 "type.amenity.police" = "Polizeistation";
 "type.amenity.post_box" = "Briefkasten";
 "type.amenity.post_office" = "Poststelle";
-"type.amenity.prison" = "Prison";
+"type.amenity.prison" = "Gefängnis";
 "type.amenity.pub" = "Kneipe";
 "type.amenity.public_bookcase" = "Bücherschrank";
 "type.amenity.recycling" = "Recyclinghof";
@@ -1185,20 +1185,20 @@
 "type.barrier.block" = "Block";
 "type.barrier.bollard" = "Poller";
 "type.barrier.border_control" = "Grenzkontrolle";
-"type.barrier.chain" = "Chain";
-"type.barrier.city_wall" = "City Wall";
+"type.barrier.chain" = "Kette";
+"type.barrier.city_wall" = "Stadtmauer";
 "type.barrier.cycle_barrier" = "Cycle Barrier";
 "type.barrier.entrance" = "Durchgang";
-"type.barrier.fence" = "Fence";
+"type.barrier.fence" = "Zaun";
 "type.barrier.gate" = "Tor";
-"type.barrier.hedge" = "Hedge";
+"type.barrier.hedge" = "Hecke";
 "type.barrier.lift_gate" = "Schranke";
-"type.barrier.retaining_wall" = "Retaining Wall";
+"type.barrier.retaining_wall" = "Stützmauer";
 "type.barrier.stile" = "Zaunübertritt";
 "type.barrier.swing_gate" = "Schranke";
 "type.barrier.toll_booth" = "Mautstelle";
-"type.barrier.wall" = "Wall";
-"type.boundary" = "Boundary";
+"type.barrier.wall" = "Mauer";
+"type.boundary" = "Grenze";
 "type.boundary.administrative" = "boundary-administrative";
 "type.boundary.administrative.10" = "boundary-administrative-10";
 "type.boundary.administrative.11" = "boundary-administrative-11";
@@ -1323,13 +1323,13 @@
 "type.cuisine.vegan" = "Vegane Küche";
 "type.cuisine.vegetarian" = "Vegetarische Küche";
 "type.cuisine.vietnamese" = "Vietnamesische Küche";
-"type.emergency" = "Emergency";
+"type.emergency" = "Notfall";
 "type.emergency.defibrillator" = "Defibrillator";
 "type.emergency.fire_hydrant" = "Hydrant";
 "type.emergency.phone" = "Notruftelefon";
 "type.entrance" = "Eingang";
 "type.healthcare.laboratory" = "Medizinisches Labor";
-"type.highway" = "Highway";
+"type.highway" = "Autobahn";
 "type.highway.bridleway" = "Rider's Path";
 "type.highway.bridleway.bridge" = "Rider's Path";
 "type.highway.bridleway.permissive" = "Rider's Path";
@@ -1878,9 +1878,9 @@
 "type.tourism.guest_house" = "Gästehaus";
 "type.tourism.hostel" = "Herberge";
 "type.tourism.hotel" = "Hotel";
-"type.tourism.information" = "Tourist-Information";
+"type.tourism.information" = "Touristeninformation";
 "type.tourism.information.board" = "Informationstafel";
-"type.tourism.information.guidepost" = "Wegweiser";
+"type.tourism.information.guidepost" = "Touristeninformation";
 "type.tourism.information.map" = "Touristenkarte";
 "type.tourism.information.office" = "Fremdenverkehrsamt";
 "type.tourism.motel" = "Motel";
@@ -1897,12 +1897,12 @@
 "type.waterway" = "Waterway";
 "type.waterway.canal" = "Kanal";
 "type.waterway.canal.tunnel" = "Kanal";
-"type.waterway.dam" = "Dam";
-"type.waterway.ditch" = "Ditch";
-"type.waterway.ditch.tunnel" = "Ditch";
+"type.waterway.dam" = "Damm";
+"type.waterway.ditch" = "Graben";
+"type.waterway.ditch.tunnel" = "Graben";
 "type.waterway.dock" = "Waterway Dock";
-"type.waterway.drain" = "Drain";
-"type.waterway.drain.tunnel" = "Drain";
+"type.waterway.drain" = "Abfluss";
+"type.waterway.drain.tunnel" = "Abfluss";
 "type.waterway.lock" = "Waterway Lock";
 "type.waterway.lock_gate" = "Schleuse";
 "type.waterway.river" = "Fluss";
@@ -1913,11 +1913,11 @@
 "type.waterway.stream.intermittent" = "Fluss";
 "type.waterway.stream.tunnel" = "Fluss";
 "type.waterway.waterfall" = "Wasserfall";
-"type.waterway.weir" = "Weir";
-"type.wheelchair" = "Wheelchair";
-"type.wheelchair.limited" = "Teilweise für Behinderte ausgestattet";
-"type.wheelchair.no" = "Für Behinderte nicht ausgestattet";
-"type.wheelchair.yes" = "Für Behinderte ausgestattet";
+"type.waterway.weir" = "Wehr";
+"type.wheelchair" = "Rollstuhl";
+"type.wheelchair.limited" = "Eingeschränkter Rollstuhlzugang";
+"type.wheelchair.no" = "Kein Rollstuhlzugang";
+"type.wheelchair.yes" = "Vollständiger Zugang für Rollstühle";
 "type.piste_lift" = "piste:lift";
 "type.piste_lift.j.bar" = "piste:lift-j-bar";
 "type.piste_lift.magic_carpet" = "piste:lift-magic_carpet";
@@ -1935,8 +1935,8 @@
 "type.piste_type.nordic" = "piste:type-nordic";
 "type.piste_type.sled" = "piste:type-sled";
 "type.building_part" = "Gebäude";
-"type.area_highway.cycleway" = "Bike Path";
-"type.area_highway.footway" = "Path";
+"type.area_highway.cycleway" = "Radweg";
+"type.area_highway.footway" = "Weg";
 "type.area_highway.living_street" = "Street";
 "type.area_highway.motorway" = "area:highway-motorway";
 "type.area_highway.path" = "Path";
