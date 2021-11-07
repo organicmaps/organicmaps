@@ -2,6 +2,7 @@
 
   [type.aerialway]
     en = Aerialway
+    fr = Transport par câble aérien
     ja = 索道
     pl = Transport linowy
     pt = Transporte aéreo
@@ -10,6 +11,7 @@
 
   [type.aerialway.cable_car]
     en = Aerialway
+    fr = Téléphérique
     ja = ロープウェイ
     pl = Kolej linowa
     pt = Teleférico
@@ -19,6 +21,7 @@
 
   [type.aerialway.chair_lift]
     en = Aerialway
+    fr = Télésiège
     ja = チェアリフト
     pl = Wyciąg krzesełkowy
     pt = Telecadeira
@@ -27,6 +30,7 @@
 
   [type.aerialway.drag_lift]
     en = Aerialway
+    fr = Téléski
     ja = 牽引リフト
     pl = Wyciąg orczykowy
     pt = Telesquis
@@ -34,6 +38,7 @@
 
   [type.aerialway.gondola]
     en = Aerialway
+    fr = Télécabine
     ja = ゴンドラ
     pl = Gondola kolejki linowej
     pt = Telecabine
@@ -151,6 +156,7 @@
 
   [type.aeroway.apron]
     en = aeroway-apron
+    fr = Aire de stationnement pour aéronefs
     ja = エプロン
     pl = Płyta postojowa samolotów
     pt = Plataforma de estacionamento de aviões
@@ -159,6 +165,7 @@
 
   [type.aeroway.gate]
     en = Gate
+    fr = Porte d'embarquement
     ja = 搭乗口
     pl = Wyjście lotniskowe
     pt = Porta de embarque
@@ -197,6 +204,7 @@
 
   [type.aeroway.runway]
     en = aeroway-runway
+    fr = Piste d'aviation
     ja = 滑走路
     pl = Droga startowa
     pt = Pista de aeroporto ou aeródromo
@@ -206,6 +214,7 @@
 
   [type.aeroway.taxiway]
     en = aeroway-taxiway
+    fr = Taxiway
     ja = 誘導路
     pl = Droga kołowania
     pt = Faixa de manobras
@@ -265,7 +274,7 @@
     es-MX = Centro de artes
     fa = مرکز هنری
     fi = Taidekeskus
-    fr = Centre d'art
+    fr = Centre artistique
     hu = Művészeti központ
     id = Pusat kesenian
     it = Centro artistico
@@ -677,6 +686,7 @@
     el = Παραχώρηση αυτοκινήτου
     es = Compartir coche
     fi = Autojen yhteiskäyttö
+    fr = Station d'autopartage
     hu = Gépjármű megosztása
     id = Berbagi mobil
     ja = カーシェアリング
@@ -735,6 +745,7 @@
     el = Καζίνο
     fa = قمارخانه
     fi = Kasino
+    fr = Casino
     hu = Kaszinó
     id = Hiburan
     it = Casinò
@@ -1175,7 +1186,7 @@
     es = Transbordador
     fa = حمل و نقل
     fi = Lautta
-    fr = Traversier
+    fr = Terminal de ferry
     hu = Komp
     id = Terminal
     it = Traghetto
@@ -1231,6 +1242,7 @@
 
   [type.amenity.food_court]
     en = Food Court
+    fr = Aire de restauration
     ja = フードコート
     pl = Sekcja gastronomiczna
     pt = Praça de alimentação
@@ -1470,7 +1482,7 @@
     es = Cibercafé
     fa = کافی نت
     fi = Internetkahvila
-    fr = Internet café
+    fr = Cybercafé
     hu = Internet kávézó
     id = Kafe Internet
     ja = インターネットカフェ
@@ -1817,7 +1829,7 @@
     es = Aparcamiento
     fa = پارکینگ
     fi = Parkkipaikka
-    fr = Stationnement
+    fr = Parking relais
     hu = Parkoló
     id = Parkir
     it = Parcheggio
@@ -1913,7 +1925,7 @@
     es = Aparcamiento
     fa = پارکینگ
     fi = Parkkipaikka
-    fr = Stationnement
+    fr = Parking souterrain
     hu = Parkoló
     id = Parkir
     it = Parcheggio
@@ -1946,7 +1958,7 @@
     es-MX = Plaza de aparcamiento
     fa = جای پارک
     fi = Parkkipaikka
-    fr = Parking
+    fr = Place de stationnement
     hu = Parkolóhely
     id = Tempat parkir
     it = Parcheggio
@@ -1980,7 +1992,7 @@
     es-MX = Plaza de aparcamiento
     fa = جای پارک
     fi = Parkkipaikka
-    fr = Parking
+    fr = Place de stationnement
     hu = Parkolóhely
     id = Tempat parkir
     it = Parcheggio
@@ -2014,7 +2026,7 @@
     es-MX = Plaza de aparcamiento
     fa = جای پارک
     fi = Parkkipaikka
-    fr = Parking
+    fr = Place de stationnement
     hu = Parkolóhely
     id = Tempat parkir
     it = Parcheggio
@@ -2048,7 +2060,7 @@
     es-MX = Plaza de aparcamiento
     fa = جای پارک
     fi = Parkkipaikka
-    fr = Parking
+    fr = Place de stationnement
     hu = Parkolóhely
     id = Tempat parkir
     it = Parcheggio
@@ -2502,7 +2514,7 @@
     el = Παμπ
     fa = میکده
     fi = Pubi
-    fr = Bistrot
+    fr = Pub
     hu = Kocsma
     ja = バー
     ko = 술집
@@ -2527,7 +2539,7 @@
     el = Ανταλλαγή βιβλίων
     es = Intercambio de libros
     fi = Kirjahylly
-    fr = Bibliothèque
+    fr = Microbibliothèque
     hu = Nyilvános könyvespolc
     id = Rak Buku
     it = Libreria
@@ -2944,7 +2956,7 @@
     es = Refugio
     fa = پناهگاه
     fi = Turvapaikka
-    fr = Refuge
+    fr = Abri
     hu = Menedék
     id = Tempat penampungan
     it = Riparo
@@ -3177,6 +3189,7 @@
 
   [type.amenity.vending_machine]
     en = Vending Machine
+    fr = Distributeur automatique
     ja = 自動販売機
     pl = Automat sprzedający
     pt = Máquina de venda automática
@@ -3291,7 +3304,7 @@
     es-MX = Máquina expendedora de billetes de transporte público
     fa = دستگاه فروش خودکار بلیط های حمل و نقل عمومی
     fi = Julkisen liikenteen lippuautomaatti
-    fr = Distributeur de billets pour le transport en commun
+    fr = Distributeur de billets de transport en commun
     hu = Automata jegykiadó tömegközlekedési eszközökhöz
     id = Mesin penjual otomatis tiket transportasi umum
     it = Distributore automatico biglietti di trasporto
@@ -3444,6 +3457,7 @@
 
   [type.barrier]
     en = Barrier
+    fr = Barrière
     ja = 障害物
     pl = Bariera
     pt = Barreira
@@ -3492,7 +3506,7 @@
     es = Bolardo
     fa = ستون
     fi = Tolppa
-    fr = Pilier
+    fr = Poteau
     hu = Oszlop
     id = Pilar
     it = Pilastro
@@ -3549,11 +3563,13 @@
   [type.barrier.chain]
     en = Chain
     be = Ланцуг
+    fr = Chaîne
     ru = Цепь
     uk = Ланцюг
 
   [type.barrier.city_wall]
     en = City Wall
+    fr = Muraille
     ja = 城壁
     pl = Mur miejski
     pt = Muralha de cidade
@@ -3603,6 +3619,7 @@
 
   [type.barrier.fence]
     en = Fence
+    fr = Clôture
     ja = フェンス
     pl = Płot
     pt = Vedação
@@ -3644,6 +3661,7 @@
 
   [type.barrier.hedge]
     en = Hedge
+    fr = Haie
     ja = 生垣
     pl = Żywopłot
     pt = Sebe
@@ -3686,6 +3704,7 @@
 
   [type.barrier.retaining_wall]
     en = Retaining Wall
+    fr = Mur de soutènement
     ja = 擁壁
     pl = Mur oporowy
     pt = Muro de retenção
@@ -3736,7 +3755,7 @@
     es = Barrera
     fa = اسانسور
     fi = Puomi
-    fr = Barrière levante
+    fr = Barrière tournante
     hu = Sorompó
     id = Polisi tidur
     it = Barriera ferroviaria
@@ -3792,6 +3811,7 @@
 
   [type.barrier.wall]
     en = Wall
+    fr = Mur
     ja = 壁
     pl = Mur
     pt = Muro
@@ -4126,12 +4146,14 @@
 
   [type.building.warehouse]
     en = Warehouse
+    fr = Entrepôt
     pt = Armazém
     pt-BR = Armazém
     zh-Hans = 仓库
 
   [type.craft]
     en = Craft
+    fr = Artisanat
     ja = 工房
     pl = Rzemiosło
     pt = Ofícios
@@ -4148,7 +4170,7 @@
     es = Fábrica de cerveza
     fa = کارخانه ابجوسازی
     fi = Panimo
-    fr = Brasserie
+    fr = Brasserie artisanale
     hu = Sörfőzde
     id = Toko minuman
     it = Birrificio
@@ -4180,7 +4202,7 @@
     es = Carpintero
     fa = نجار
     fi = Puuseppä
-    fr = Menuisier
+    fr = Charpentier
     hu = Ács
     id = Tukang kayu
     it = Falegname
@@ -5136,7 +5158,7 @@
     el = Κρέπα
     es = Crepes
     fi = Kreppi
-    fr = Crêpe
+    fr = Crêperie
     he = קרפ
     hu = Francia palacsinta
     id = Kue dadar
@@ -5520,7 +5542,7 @@
     el = Τηγανητά
     es = Frituras
     fi = Uppopaistettu
-    fr = Friture
+    fr = Friterie
     he = פריטורה
     hu = Olajban sütött ételek
     id = Gorengan
@@ -7209,6 +7231,7 @@
 
   [type.emergency]
     en = Emergency
+    fr = Urgence
     pl = Ratunkowe
     pt = Emergência
     pt-BR = Emergência
@@ -7385,6 +7408,7 @@
 
   [type.highway.bridleway]
     en = Rider's Path
+    fr = Chemin pour cavalier
     ja = 馬道
     pl = Droga dla koni
     pt = Caminho para cavaleiros
@@ -7394,6 +7418,7 @@
 
   [type.highway.bridleway.bridge]
     en = Rider's Path
+    fr = Chemin pour cavalier
     ja = 馬道(橋)
     pl = Most drogowy dla koni
     pt = Caminho para cavaleiros
@@ -7403,6 +7428,7 @@
 
   [type.highway.bridleway.permissive]
     en = Rider's Path
+    fr = Chemin pour cavalier
     ja = 馬道
     pl = Droga dla koni ograniczona
     pt = Caminho para cavaleiros
@@ -7412,6 +7438,7 @@
 
   [type.highway.bridleway.tunnel]
     en = Rider's Path
+    fr = Chemin pour cavalier
     ja = 馬道(トンネル)
     pl = Tunel drogowy dla koni
     pt = Caminho para cavaleiros
@@ -7487,6 +7514,7 @@
 
   [type.highway.cycleway]
     en = Bike Path
+    fr = Piste cyclable
     ja = 自転車道
     pl = Droga rowerowa
     pt = Ciclovia
@@ -7496,6 +7524,7 @@
 
   [type.highway.cycleway.bridge]
     en = Bike Path
+    fr = Piste cyclable
     ja = 自転車道(橋)
     pl = Most drogowy dla rowerów
     pt = Ciclovia
@@ -7505,6 +7534,7 @@
 
   [type.highway.cycleway.permissive]
     en = Bike Path
+    fr = Piste cyclable
     ja = 自転車道
     pl = Droga rowerowa ograniczona
     pt = Ciclovia
@@ -7514,6 +7544,7 @@
 
   [type.highway.cycleway.tunnel]
     en = Bike Path
+    fr = Piste cyclable
     ja = 自転車道(トンネル)
     pl = Tunel drogowy dla rowerów
     pt = Ciclovia
@@ -7523,6 +7554,7 @@
 
   [type.highway.elevator]
     en = Elevator
+    fr = Ascenseur
     ru = Лифт
 
   [type.highway.footway]
@@ -7920,7 +7952,7 @@
     es = Calle
     fa = جاده
     fi = Katu
-    fr = Rue
+    fr = Zone de rencontre
     hu = Utca
     id = Jalan
     it = Via
@@ -7952,7 +7984,7 @@
     es = Calle
     fa = جاده
     fi = Katu
-    fr = Rue
+    fr = Zone de rencontre
     hu = Utca
     id = Jalan
     it = Via
@@ -7984,7 +8016,7 @@
     es = Calle
     fa = جاده
     fi = Katu
-    fr = Rue
+    fr = Zone de rencontre
     hu = Utca
     id = Jalan
     it = Via
@@ -8016,7 +8048,7 @@
     es = Calle
     fa = جاده
     fi = Katu
-    fr = Rue
+    fr = Autoroute
     hu = Utca
     id = Jalan
     it = Via
@@ -8048,7 +8080,7 @@
     es = Calle
     fa = جاده
     fi = Katu
-    fr = Rue
+    fr = Autoroute
     hu = Utca
     id = Jalan
     it = Via
@@ -8080,7 +8112,7 @@
     es = Calle
     fa = جاده
     fi = Katu
-    fr = Rue
+    fr = Autoroute
     hu = Utca
     id = Jalan
     it = Via
@@ -8622,7 +8654,7 @@
     es = Calle
     fa = جاده
     fi = Katu
-    fr = Rue
+    fr = Rue piétonne
     hu = Utca
     id = Jalan
     it = Via
@@ -8654,7 +8686,7 @@
     es = Calle
     fa = جاده
     fi = Katu
-    fr = Rue
+    fr = Rue piétonne
     hu = Utca
     id = Jalan
     it = Via
@@ -8686,7 +8718,7 @@
     es = Calle
     fa = جاده
     fi = Katu
-    fr = Rue
+    fr = Rue piétonne
     hu = Utca
     id = Jalan
     it = Via
@@ -8718,7 +8750,7 @@
     es = Calle
     fa = جاده
     fi = Katu
-    fr = Rue
+    fr = Rue piétonne
     hu = Utca
     id = Jalan
     it = Via
@@ -9549,7 +9581,7 @@
     es = Calle
     fa = جاده
     fi = Katu
-    fr = Rue
+    fr = Allée
     hu = Utca
     id = Jalan
     it = Via
@@ -9605,6 +9637,7 @@
 
   [type.highway.services]
     en = Service on the Road
+    fr = Aire de service
     ja = サービスエリア
     pl = Miejsce obsługi podróżnych
     pt = Área de serviço
@@ -9654,7 +9687,7 @@
     es = Camino
     fa = مسیر
     fi = Polku
-    fr = Chemin
+    fr = Escaliers
     hu = Ösvény
     id = Jalur
     it = Sentiero
@@ -9686,7 +9719,7 @@
     es = Camino
     fa = مسیر
     fi = Polku
-    fr = Chemin
+    fr = Escaliers
     hu = Ösvény
     id = Jalur
     it = Sentiero
@@ -9718,7 +9751,7 @@
     es = Camino
     fa = مسیر
     fi = Polku
-    fr = Chemin
+    fr = Escaliers
     hu = Ösvény
     id = Jalur
     it = Sentiero
@@ -9942,7 +9975,7 @@
     es = Calle
     fa = جاده
     fi = Katu
-    fr = Rue
+    fr = Piste
     hu = Utca
     id = Jalan
     it = Via
@@ -9974,7 +10007,7 @@
     es = Calle
     fa = جاده
     fi = Katu
-    fr = Rue
+    fr = Piste
     hu = Utca
     id = Jalan
     it = Via
@@ -10006,7 +10039,7 @@
     es = Calle
     fa = جاده
     fi = Katu
-    fr = Rue
+    fr = Piste
     hu = Utca
     id = Jalan
     it = Via
@@ -10038,7 +10071,7 @@
     es = Calle
     fa = جاده
     fi = Katu
-    fr = Rue
+    fr = Piste
     hu = Utca
     id = Jalan
     it = Via
@@ -10070,7 +10103,7 @@
     es = Calle
     fa = جاده
     fi = Katu
-    fr = Rue
+    fr = Piste
     hu = Utca
     id = Jalan
     it = Via
@@ -10102,7 +10135,7 @@
     es = Calle
     fa = جاده
     fi = Katu
-    fr = Rue
+    fr = Piste
     hu = Utca
     id = Jalan
     it = Via
@@ -10134,7 +10167,7 @@
     es = Calle
     fa = جاده
     fi = Katu
-    fr = Rue
+    fr = Piste
     hu = Utca
     id = Jalan
     it = Via
@@ -10166,7 +10199,7 @@
     es = Calle
     fa = جاده
     fi = Katu
-    fr = Rue
+    fr = Piste
     hu = Utca
     id = Jalan
     it = Via
@@ -10198,7 +10231,7 @@
     es = Calle
     fa = جاده
     fi = Katu
-    fr = Rue
+    fr = Piste
     hu = Utca
     id = Jalan
     it = Via
@@ -10230,7 +10263,7 @@
     es = Calle
     fa = جاده
     fi = Katu
-    fr = Rue
+    fr = Piste
     hu = Utca
     id = Jalan
     it = Via
@@ -10262,7 +10295,7 @@
     es = Calle
     fa = جاده
     fi = Katu
-    fr = Rue
+    fr = Piste
     hu = Utca
     id = Jalan
     it = Via
@@ -10326,7 +10359,7 @@
     es = Calle
     fa = جاده
     fi = Katu
-    fr = Rue
+    fr = Voie rapide
     hu = Utca
     id = Jalan
     it = Via
@@ -10358,7 +10391,7 @@
     es = Calle
     fa = جاده
     fi = Katu
-    fr = Rue
+    fr = Voie rapide
     hu = Utca
     id = Jalan
     it = Via
@@ -10390,7 +10423,7 @@
     es = Calle
     fa = جاده
     fi = Katu
-    fr = Rue
+    fr = Voie rapide
     hu = Utca
     id = Jalan
     it = Via
@@ -10684,6 +10717,7 @@
 
   [type.historic.battlefield]
     en = Battlefield
+    fr = Champ de bataille
     ja = 古戦場
     pl = Miejsce historycznej bitwy
     pt = Campo de batalha
@@ -10798,6 +10832,7 @@
 
   [type.historic.citywalls]
     en = City Wall
+    fr = Muraille
     ja = 歴史的な城壁
     pl = Historyczne mury miasta
     pt = Muralha de cidade
@@ -10807,6 +10842,7 @@
 
   [type.historic.fort]
     en = Fort
+    fr = Fort militaire
     ja = 歴史的な要塞
     pl = Historyczny fort
     pt = Forte histórico
@@ -10854,7 +10890,7 @@
     el = Μνημείο
     fa = گردشگری
     fi = Muistomerkki
-    fr = Mémorial
+    fr = Plaque commémorative
     hu = Emlékmű
     id = Tugu peringatan
     it = Memoriale
@@ -10946,6 +10982,7 @@
     es = Monumento
     fa = گردشگری
     fi = Monumentti
+    fr = Monument
     hu = Műemlék
     id = Monumen
     it = Monumento
@@ -11004,7 +11041,7 @@
     es = Turismo
     fa = گردشگری
     fi = Nähtävyydet
-    fr = Tourisme
+    fr = Navire
     hu = Túrizmus
     id = Pemandangan
     it = Turistico
@@ -11036,7 +11073,7 @@
     es = Turismo
     fa = گردشگری
     fi = Nähtävyydet
-    fr = Tourisme
+    fr = Tombe historique
     hu = Túrizmus
     id = Pemandangan
     it = Turistico
@@ -11060,6 +11097,7 @@
 
   [type.historic.wayside_cross]
     en = Christian Cross
+    fr = Croix
     ja = 歴史的な十字架
     pl = Krzyż przydrożny
     pt = Cruzeiro
@@ -11069,6 +11107,7 @@
 
   [type.historic.wayside_shrine]
     en = Shrine
+    fr = Oratoire
     ja = 歴史的な祠
     pl = Kapliczka przydrożna
     pt = Alminhas
@@ -11155,6 +11194,7 @@
 
   [type.junction.roundabout]
     en = Roundabout
+    fr = Rond-point
     ja = ラウンドアバウト
     pl = Rondo
     pt = Rotunda
@@ -11172,6 +11212,7 @@
 
   [type.landuse.allotments]
     en = Allotments
+    fr = Jardins familiaux
     ja = 市民農園
     pl = Działki
     pt = Horta comunitária
@@ -11212,6 +11253,7 @@
 
   [type.landuse.brownfield]
     en = Brownfield
+    fr = Friche industrielle
     ja = 再開発用地
     pl = Teren do zabudowy
     pt = Terreno industrial devoluto
@@ -11319,6 +11361,7 @@
 
   [type.landuse.commercial]
     en = Commercial Area
+    fr = Zone commerciale
     ja = 商業用地
     pl = Teren handlu i usług
     pt = Área comercial
@@ -11328,6 +11371,7 @@
 
   [type.landuse.construction]
     en = Construction
+    fr = Chantier de construction
     ja = 建設工事中
     pl = Teren budowy
     pt = Construção
@@ -11380,6 +11424,7 @@
 
   [type.landuse.farmyard]
     en = Farmyard
+    fr = Ferme
     ja = 農地
     pl = Obejście gospodarskie
     pt = Pátio de quinta
@@ -11389,6 +11434,7 @@
 
   [type.landuse.field]
     en = Field
+    fr = Champ
     pl = Pole
     pt = Campo
     pt-BR = Campo
@@ -11436,7 +11482,7 @@
     es = Bosque
     fa = جنگل
     fi = Metsä
-    fr = Forêt
+    fr = Forêt de conifères
     hu = Erdő
     id = Hutan
     it = Foresta
@@ -11468,7 +11514,7 @@
     es = Bosque
     fa = جنگل
     fi = Metsä
-    fr = Forêt
+    fr = Forêt de feuillus
     hu = Erdő
     id = Hutan
     it = Foresta
@@ -11567,6 +11613,7 @@
 
   [type.landuse.greenfield]
     en = Greenfield
+    fr = Terrain vierge
     ja = 建設予定地
     pl = Obszar pod zabudowę
     pt = Terreno com construção planeada
@@ -11575,6 +11622,7 @@
 
   [type.landuse.greenhouse_horticulture]
     en = Greenhouse
+    fr = Culture sous serre
     ja = 温室栽培
     pt = Estufas
     pt-BR = Estufas
@@ -11582,6 +11630,7 @@
 
   [type.landuse.industrial]
     en = Industrial Land
+    fr = Zone industrielle
     ja = 工業用地
     pl = Obszar przemysłowy
     pt = Terreno industrial
@@ -11600,7 +11649,7 @@
     es-MX = Vertedero
     fa = دفن گاه زباله
     fi = Kaatopaikka
-    fr = Voirie
+    fr = Décharge
     hu = Hulladéklerakó
     id = TPA
     it = Luogo di scarico
@@ -11625,6 +11674,7 @@
 
   [type.landuse.meadow]
     en = Meadow
+    fr = Prairie
     ja = 牧草地
     pl = Łąka
     pt = Pradaria
@@ -11634,6 +11684,7 @@
 
   [type.landuse.military]
     en = Military Area
+    fr = Terrain militaire
     ja = 軍用地
     pl = Teren wojskowy
     pt = Área militar
@@ -11642,6 +11693,7 @@
 
   [type.landuse.orchard]
     en = Orchard
+    fr = Vergers
     ja = 果樹園
     pl = Sad
     pt = Pomar
@@ -11651,6 +11703,7 @@
 
   [type.landuse.quarry]
     en = Quarry
+    fr = Carrières
     ja = 採石場
     pl = Kamieniołom
     pt = Pedreira
@@ -11710,7 +11763,7 @@
     es = Cuenca
     fa = اب
     fi = Vesi
-    fr = Eau
+    fr = Bassin de retenue
     hu = Víz
     id = Air
     it = Bacino
@@ -11733,6 +11786,7 @@
 
   [type.landuse.residential]
     en = Residential Land
+    fr = Zone résidentielle
     ja = 住宅地
     pl = Tereny zamieszkania
     pt = Área residencial
@@ -11749,6 +11803,7 @@
 
   [type.landuse.salt_pond]
     en = Pond
+    fr = Marais salant
     ja = 塩田
     pl = Słone jezioro
     pt = Salinas
@@ -11763,6 +11818,7 @@
 
   [type.landuse.vineyard]
     en = Vineyard
+    fr = Vignes
     ja = ブドウ園
     pl = Winnica
     pt = Vinha
@@ -11795,7 +11851,7 @@
     es-MX = Lugar para pasear al perro
     fa = محدوده مخصوص سگ
     fi = Koirien ulkoilupaikka
-    fr = Places autorisés pour promener les chiens
+    fr = Parc canin
     hu = Kutyás terület
     id = Area untuk anjing
     it = Area sgambamento cani
@@ -11948,6 +12004,7 @@
 
   [type.leisure.ice_rink]
     en = Ice Rink
+    fr = Patinoire
     ja = アイスリンク
     pl = Lodowisko
     pt = Rinque de patinagem
@@ -12216,7 +12273,7 @@
     es = Patio de recreo
     fa = زمین بازی
     fi = Leikkikenttä
-    fr = Terrain de jeu
+    fr = Aire de jeu
     hu = Játszótér
     id = Taman bermain
     it = Campo giochi
@@ -12280,6 +12337,7 @@
 
   [type.leisure.slipway]
     en = Slipway
+    fr = Cale de lancement
     ja = スリップウェイ
     pl = Pochylnia
     pt = Rampa de barcos
@@ -12509,6 +12567,7 @@
 
   [type.leisure.track]
     en = Track
+    fr = Piste de course
     ja = トラック
     pt = Pista para desportos não motorizados
     pt-BR = Pista para esportes não motorizados
@@ -12555,6 +12614,7 @@
 
   [type.man_made.breakwater]
     en = Breakwater
+    fr = Brise-lames
     ja = 防波堤
     pl = Falochron
     pt = Molhe
@@ -12641,6 +12701,7 @@
 
   [type.man_made.pier]
     en = Pier
+    fr = Jetée
     ja = 桟橋
     nl = Pier
     pl = Molo
@@ -12674,6 +12735,7 @@
 
   [type.man_made.storage_tank]
     en = Storage Tank
+    fr = Réservoir
     be = Рэзервуар
     ru = Резервуар
     uk = Резервуар
@@ -12744,6 +12806,7 @@
 
   [type.man_made.wastewater_plant]
     en = Wastewater Plant
+    fr = Station d'épuration
     ja = 下水処理場
     pl = Oczyszczalnia ścieków
     pt = Estação de tratamento de águas residuais
@@ -12856,7 +12919,7 @@
     es = Molino
     fa = توربین بادی
     fi = Tuulimylly
-    fr = Moulin
+    fr = Moulin à vent
     hu = Szélmalom
     id = Kincir angin
     it = Mulino a vento
@@ -12922,6 +12985,7 @@
 
   [type.mountain_pass]
     en = Mountain Pass
+    fr = Col de montagne
     be = Перавал
     it = Passo
     ru = Перевал
@@ -12938,6 +13002,7 @@
 
   [type.natural.bare_rock]
     en = Bare Rock
+    fr = Zone rocheuse
     ja = 岩肌
     nl = Kale steen
     pl = Skała macierzysta
@@ -13052,7 +13117,7 @@
     es = Cueva
     fa = غار
     fi = Luola
-    fr = Cave
+    fr = Grotte
     hu = Barlang
     id = Gua
     it = Grotta
@@ -13076,6 +13141,7 @@
 
   [type.natural.cliff]
     en = Cliff
+    fr = Falaise
     ja = 崖
     nl = Klif
     pl = Klif
@@ -13085,6 +13151,7 @@
 
   [type.natural.coastline]
     en = Coastline
+    fr = Littoral
     ja = 海岸線
     nl = Kustlijn
     pl = Linia brzegowa
@@ -13197,6 +13264,7 @@
 
   [type.natural.heath]
     en = Heath
+    fr = Lande
     ja = ヒース
     nl = Heide
     pl = Wrzosowisko
@@ -13206,6 +13274,7 @@
 
   [type.natural.hot_spring]
     en = Hot Spring
+    fr = Source chaude
     ja = 温泉
     nl = Heetwaterbron
     pl = Gorące źródło
@@ -13303,6 +13372,7 @@
 
   [type.natural.saddle]
     en = Mountain Saddle
+    fr = Col de montagne
     be = Седлавіна
     it = Sella
     ru = Седловина
@@ -13342,6 +13412,7 @@
 
   [type.natural.rock]
     en = Rock
+    fr = Rocher
     ja = 岩
     nl = Steen
     pl = Skała
@@ -13483,6 +13554,7 @@
 
   [type.natural.tree_row]
     en = Tree Row
+    fr = Rangée d'arbre
     ja = 並木
     nl = Bomenrij
     pl = Rząd drzew
@@ -13573,7 +13645,7 @@
     es-MX = Tierra pantanosa
     fa = ناحیه تالابی
     fi = Suoperäinen seutu
-    fr = Marais
+    fr = Zone humide
     hu = Vizes terület
     id = Area lahan basah
     it = Terreno paludoso
@@ -13598,6 +13670,7 @@
 
   [type.natural.wetland.bog]
     en = Wetland
+    fr = Tourbière
     ja = 泥炭地
     nl = Moeras
     pl = Torfowisko
@@ -13607,6 +13680,7 @@
 
   [type.natural.wetland.marsh]
     en = Wetland
+    fr = Marais
     ja = 沼地
     nl = Moeras
     pl = Moczary
@@ -13702,7 +13776,7 @@
     es = Agente inmobiliario
     fa = بنگاه معاملات ملکی
     fi = Kiinteistönvälittäjä
-    fr = Agent immobilier
+    fr = Agence immobilière
     hu = Ingatlanügynök
     id = Agen ril estat
     it = Agenzia immobiliare
@@ -14560,6 +14634,7 @@
 
   [type.place.isolated_dwelling]
     en = Dwelling
+    fr = Lieu-dit
     ja = 小規模な村
     pl = Mała osada
     pt = Habitação isolada
@@ -14576,7 +14651,7 @@
     es = Localidad
     fa = محله
     fi = Paikkakunta
-    fr = Localité
+    fr = Lieu-dit
     hu = Falu
     id = Wilayah
     it = Località
@@ -14774,7 +14849,7 @@
     es = Barrio
     fa = حومه
     fi = Esikaupunki
-    fr = Banlieue
+    fr = Quartier
     hu = Kerület
     id = Pinggiran kota
     it = Quartiere
@@ -14945,7 +15020,7 @@
     el = Υποσταθμός
     es = Subestación
     fi = Muuntoasema
-    fr = Sous-station
+    fr = Poste électrique
     hu = Kapcsolószekrény
     id = Stasiun bawah tanah
     it = Sottostazione elettrica
@@ -15033,6 +15108,7 @@
 
   [type.railway]
     en = Railway
+    fr = Chemin de fer
     ja = 鉄道
     pl = Kolej
     pt = Ferrovia
@@ -15083,6 +15159,7 @@
 
   [type.railway.funicular]
     en = Funicular
+    fr = Funiculaire
     ja = ケーブルカー
     pt = Funicular
     pt-BR = Funicular
@@ -15091,6 +15168,7 @@
 
   [type.railway.funicular.bridge]
     en = Funicular
+    fr = Funiculaire
     ja = ケーブルカー(橋)
     pt = Funicular
     pt-BR = Funicular
@@ -15099,6 +15177,7 @@
 
   [type.railway.funicular.tunnel]
     en = Funicular
+    fr = Funiculaire
     ja = ケーブルカー(トンネル)
     pt = Funicular
     pt-BR = Funicular
@@ -15206,7 +15285,7 @@
     es-MX = Monorraíl
     fa = مونوریل
     fi = Monorail (kohorata)
-    fr = Téléphérique
+    fr = Monorail
     hu = Egysínű vasút
     id = Monorel
     it = Monorotaia
@@ -15231,6 +15310,7 @@
 
   [type.railway.monorail.bridge]
     en = Monorail
+    fr = Monorail
     ja = モノレール(橋)
     pt = Monocarril
     pt-BR = Monotrilho
@@ -15240,6 +15320,7 @@
 
   [type.railway.monorail.tunnel]
     en = Monorail
+    fr = Monorail
     ja = モノレール(トンネル)
     pt = Monocarril
     pt-BR = Monotrilho
@@ -15888,18 +15969,22 @@
 
   [type.railway.subway]
     en = Subway Line
+    fr = Voie de métro
+    fr = Ligne de métroo
     pt = Metropolitano
     pt-BR = Metrô
     ru = Ветка метро
 
   [type.railway.subway.bridge]
     en = Subway Line
+    fr = Voie de métro
     pt = Metropolitano
     pt-BR = Metrô
     ru = Ветка метро
 
   [type.railway.subway.tunnel]
     en = Subway Line
+    fr = Voie de métro
     pt = Metropolitano
     pt-BR = Metrô
     ru = Ветка метро
@@ -16292,6 +16377,7 @@
 
   [type.railway.tram]
     en = Tram Line
+    fr = Voie de tramway
     ja = トラム
     pt = Linha de elétrico
     pt-BR = Linha de bonde
@@ -16301,6 +16387,7 @@
 
   [type.railway.tram.bridge]
     en = Tram Line
+    fr = Voie de tramway
     ja = トラム(橋)
     pt = Linha de elétrico
     pt-BR = Linha de bonde
@@ -16310,6 +16397,7 @@
 
   [type.railway.tram.tunnel]
     en = Tram Line
+    fr = Voie de tramway
     ja = トラム(トンネル)
     pt = Linha de elétrico
     pt-BR = Linha de bonde
@@ -16382,6 +16470,7 @@
 
   [type.route.ferry]
     en = Ferry
+    fr = Trajet de ferry
     ja = フェリー航路
     pt = Rota de ferry
     pt-BR = Rota de balsa
@@ -16684,7 +16773,7 @@
     es = Venta de coches
     fa = فروشگاه
     fi = Autokauppa
-    fr = Réparation auto
+    fr = Concessionnaire automobile
     hu = Gépkocsi bolt
     id = Toko mobil
     it = Concessionaria
@@ -16844,7 +16933,7 @@
     es = Tienda
     fa = فروشگاه
     fi = Kauppa
-    fr = Magasin
+    fr = Chocolatier
     hu = Bolt
     id = Toko
     it = Negozio
@@ -16908,7 +16997,7 @@
     es = Tienda
     fa = فروشگاه
     fi = Kauppa
-    fr = Magasin
+    fr = Boutique de cafés
     hu = Bolt
     id = Toko
     it = Negozio
@@ -16972,7 +17061,7 @@
     es = Confitería
     fa = فروشگاه
     fi = Makeiskauppa
-    fr = Pâtisserie
+    fr = Confiserie
     hu = Cukrászüzlet
     id = Penganan
     it = Pasticceria
@@ -17131,7 +17220,7 @@
     es = Ferretería
     fa = فروشگاه
     fi = Rautakauppa
-    fr = Quincaillerie
+    fr = Magasin de bricolage
     hu = Vaskereskedés
     id = Toko perangkat keras
     it = Ferramenta
@@ -17259,7 +17348,7 @@
     es = Tienda
     fa = فروشگاه
     fi = Kauppa
-    fr = Magasin
+    fr = Magasin de tissus
     hu = Bolt
     id = Toko
     it = Negozio
@@ -17604,7 +17693,7 @@
     es = Lavandería
     fa = لباس شویی
     fi = Pesula
-    fr = Blanchisserie
+    fr = Laverie
     hu = Mosoda
     id = Londri
     it = Lavanderia
@@ -17636,7 +17725,7 @@
     es = Centro comercial
     fa = فروشگاه
     fi = Ostoskeskus
-    fr = Le centre commercial
+    fr = Centre commercial
     hu = A pláza
     it = Il centro commerciale
     ja = モール
@@ -17699,7 +17788,7 @@
     es = Móviles
     fa = فروشگاه
     fi = Elektroniikkakauppa
-    fr = Magasin de téléphonie
+    fr = Magasin de téléphonie mobile
     hu = Mobiltelefon üzlet
     id = Toko telepon
     it = Negozio di telefonia mobile
@@ -17795,7 +17884,7 @@
     es = Tienda
     fa = فروشگاه
     fi = Kauppa
-    fr = Magasin
+    fr = Disquaire
     hu = Bolt
     id = Toko
     it = Negozio
@@ -17827,7 +17916,7 @@
     es = Tienda
     fa = فروشگاه
     fi = Kauppa
-    fr = Magasin
+    fr = Magasin d'instruments de musique
     hu = Bolt
     id = Toko
     it = Negozio
@@ -18238,7 +18327,7 @@
     es = Tienda
     fa = فروشگاه
     fi = Kauppa
-    fr = Magasin
+    fr = Boutique de thés
     hu = Bolt
     id = Toko
     it = Negozio
@@ -18498,7 +18587,7 @@
     es = Tienda de vinos
     fa = فروشگاه
     fi = Alkoholimyymälä
-    fr = Hors licence
+    fr = Caviste
     hu = Szeszesital-üzlet
     id = Toko anggur
     it = Negozio di alcolici
@@ -18618,6 +18707,7 @@
 
   [type.sport.archery]
     en = Archery
+    fr = Tir à l'arc
     ja = アーチェリー
     pl = Łucznictwo sportowe
     pt = Tiro com arco
@@ -18786,6 +18876,7 @@
 
   [type.sport.gymnastics]
     en = Gymnastics
+    fr = Gymnastique
     ja = 体操競技
     pl = Gimnastyka
     pt = Ginástica
@@ -18812,6 +18903,7 @@
 
   [type.sport.scuba_diving]
     en = Scuba Diving
+    fr = Plongée sous-marine
     ja = スクーバダイビング
     pl = Nurkowanie
     pt = Mergulho autónomo
@@ -18820,6 +18912,7 @@
 
   [type.sport.shooting]
     en = Shooting
+    fr = Sports de tir
     ja = 射撃競技
     pl = Strzelectwo sportowe
     pt = Tiro desportivo
@@ -18829,6 +18922,7 @@
 
   [type.sport.skiing]
     en = Skiing
+    fr = Ski
     ja = スキー
     pt = Esqui
     pt-BR = Esqui
@@ -18836,6 +18930,7 @@
 
   [type.sport.soccer]
     en = Soccer (Football)
+    fr = Football
     ja = サッカー
     pt = Futebol
     pt-BR = Futebol
@@ -18844,6 +18939,7 @@
 
   [type.sport.swimming]
     en = Swimming
+    fr = Natation
     ja = 水泳
     pl = Pływanie
     pt = Natação desportiva
@@ -18902,7 +18998,7 @@
     el = Ορεινό καταφύγιο
     es = Cabaña
     fi = Vuorimajoitus
-    fr = Hôtel de montagne
+    fr = Refuge de montagne
     hu = Hegyi menedék
     id = Penginapan di pegunungan
     it = Hotel di montagna
@@ -19244,7 +19340,7 @@
     el = Χώρος για τροχόσπιτα
     es = Zona de caravanas
     fi = Asuntovaunupaikka
-    fr = Parc caravanier
+    fr = Aire de camping-car
     hu = Karaván pihenő
     id = Lokasi perkemahan
     it = Area per campeggiatori
@@ -19275,6 +19371,7 @@
     es = Chalé
     fa = هتل
     fi = Alppimaja
+    fr = Meublé de tourisme
     hu = Turistaház
     ja = シャレー
     ko = 별장
@@ -19301,7 +19398,7 @@
     es = Turismo
     fa = گالری
     fi = Nähtävyydet
-    fr = Tourisme
+    fr = Galerie d'art
     hu = Túrizmus
     id = Pemandangan
     it = Turistico
@@ -19476,7 +19573,7 @@
     es = Información
     fa = گردشگری
     fi = Turisti-informaatio
-    fr = Informations touristiques
+    fr = Poteaux indicateurs
     hu = Túrista információ
     id = Informasi turis
     it = Informazione
@@ -19741,7 +19838,7 @@
     es = Cabaña
     fa = کلبه‌ی صحرایی
     fi = Autiotupa
-    fr = Cabane sauvage
+    fr = Refuge non gardé
     hu = Kunyhó a vadonban
     id = Pondok Alam Liar
     it = Rifugio
@@ -19798,6 +19895,7 @@
 
   [type.traffic_calming.bump]
     en = Traffic Bump
+    fr = Ralentisseur
     ja = スピードバンプ
     pl = Krótki próg zwalniający
     pt = Lomba
@@ -19806,6 +19904,7 @@
 
   [type.traffic_calming.hump]
     en = Traffic Hump
+    fr = Ralentisseur
     ja = スピードハンプ
     pl = Długi próg zwalniający
     pt = Lomba longa
@@ -19879,6 +19978,7 @@
 
   [type.waterway.dam]
     en = Dam
+    fr = Dam
     ja = ダム
     pt = Barragem
     pt-BR = Usina
@@ -19887,6 +19987,7 @@
 
   [type.waterway.ditch]
     en = Ditch
+    fr = Fossé
     ja = 排水路
     pt = Vala
     pt-BR = Vala
@@ -19895,6 +19996,7 @@
 
   [type.waterway.ditch.tunnel]
     en = Ditch
+    fr = Fossé
     ja = 排水路(トンネル)
     pt = Vala
     pt-BR = Vala
@@ -19903,6 +20005,7 @@
 
   [type.waterway.dock]
     en = Waterway Dock
+    fr = Cale
     ja = ドック
     pt = Doca
     pt-BR = Doca
@@ -19927,6 +20030,7 @@
 
   [type.waterway.lock]
     en = Waterway Lock
+    fr = Écluse
     pt = Eclusa
     pt-BR = Eclusa
     ru = Шлюз
@@ -19940,7 +20044,7 @@
     el = Φράγμα
     es = Compuerta
     fi = Kanavasulku
-    fr = Écluse
+    fr = Porte d'écluse
     hu = Zsilip
     id = Gerbang pengunci
     it = Sbarramento
@@ -20068,7 +20172,7 @@
     es = Río
     fa = رودخانه
     fi = Joki
-    fr = Rivière
+    fr = Ruisseau
     hu = Folyó
     id = Sungai
     it = Fiume
@@ -20100,7 +20204,7 @@
     es = Río
     fa = رودخانه
     fi = Joki
-    fr = Rivière
+    fr = Ruisseau
     hu = Folyó
     id = Sungai
     it = Fiume
@@ -20132,7 +20236,7 @@
     es = Río
     fa = رودخانه
     fi = Joki
-    fr = Rivière
+    fr = Ruisseau
     hu = Folyó
     id = Sungai
     it = Fiume
@@ -20164,7 +20268,7 @@
     es = Río
     fa = رودخانه
     fi = Joki
-    fr = Rivière
+    fr = Ruisseau
     hu = Folyó
     id = Sungai
     it = Fiume
@@ -20244,7 +20348,7 @@
     es-MX = Parcialmente equipado para discapacitados
     fa = دسترسی محدود با صندلی چرخ دار
     fi = Osittain varustettu vammaisille
-    fr = Partiellement équipé pour les handicapés
+    fr = Partiellement équipé pour l'usage des fauteuils roulants
     hu = Korlátozottan akadálymentesített
     id = Akses kursi roda terbatas
     it = Accessibile in parte
@@ -20278,7 +20382,7 @@
     es-MX = No equipado para discapacitados
     fa = بدون دسترسی با صندلی چرخ دار
     fi = Ei varustettu vammaisille
-    fr = Non équipé pour les handicapés
+    fr = Non équipé pour l'usage des fauteuils roulants
     hu = Nem akadálymentesített
     id = Tidak ada akses kursi roda
     it = Non accessibile ai disabili
@@ -20312,7 +20416,7 @@
     es-MX = Equipado para discapacitados
     fa = دسترسی کامل با صندلی چرخ دار
     fi = Varustettu vammaisille
-    fr = Équipé pour les handicapés
+    fr = Équipé pour l'usage des fauteuils roulants
     hu = Teljesen akadálymentesített
     id = Akses penuh kursi roda
     it = Accessibile ai disabili
@@ -20449,71 +20553,83 @@
 
   [type.area_highway.cycleway]
     en = Bike Path
+    fr = Piste cyclable
     pt = Ciclovia
     pt-BR = Ciclovia
     ru = Велодорожка
 
   [type.area_highway.footway]
     en = Path
+    fr = Chemin
     pt = Caminho pedonal
     pt-BR = Caminho pedonal
     ru = Дорожка
 
   [type.area_highway.living_street]
     en = Street
+    fr = Zone de rencontre
     pt = Zona de coexistência
     pt-BR = Zona de coexistência
     ru = Улица
 
   [type.area_highway.motorway]
     en = area:highway-motorway
+    fr = Autoroute
     pt = Autoestrada
     pt-BR = Rodovia
 
   [type.area_highway.path]
     en = Path
+    fr = Chemin
     pt = Caminho
     pt-BR = Caminho
     ru = Дорожка
 
   [type.area_highway.pedestrian]
     en = Street
+    fr = Rue piétonne
     pt = Rua pedonal
     pt-BR = Rua pedonal
     ru = Улица
 
   [type.area_highway.primary]
     en = Street
+    fr = Rue
     pt = Estrada primária
     pt-BR = Estrada
     ru = Улица
 
   [type.area_highway.residential]
     en = Street
+    fr = Rue
     pt = Rua residencial
     pt-BR = Rua residencial
     ru = Улица
 
   [type.area_highway.secondary]
     en = Street
+    fr = Rue
     pt = Estrada secundária
     pt-BR = Estrada
     ru = Улица
 
   [type.area_highway.service]
     en = Street
+    fr = Rue
     pt = Estrada de acesso ou serviço
     pt-BR = Estrada de acesso ou serviço
     ru = Улица
 
   [type.area_highway.tertiary]
     en = Street
+    fr = Rue
     pt = Estrada terciária
     pt-BR = Estrada
     ru = Улица
 
   [type.area_highway.steps]
     en = Steps
+    fr = Escaliers
     pt = Escadas
     pt-BR = Escadas
     ru = Лестница
@@ -20525,10 +20641,12 @@
 
   [type.area_highway.trunk]
     en = area:highway-trunk
+    fr = Voie rapide
     pt = Via rápida
     pt-BR = Via expressa
 
   [type.area_highway.unclassified]
     en = area:highway-unclassified
+    fr = Rue
     pt = Estrada sem classificação
     pt-BR = Estrada sem classificação
