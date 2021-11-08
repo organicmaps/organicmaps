@@ -190,7 +190,7 @@ Some tests [are known to be broken](https://github.com/organicmaps/organicmaps/i
 
 Linux, Mac, or Windows should work to build Organic Maps for Android.
 
-Ensure that you have at least 20GB of free space.
+Ensure that you have at least 30GB of free space.
 
 Install [Android Studio](https://developer.android.com/studio).
 
@@ -198,13 +198,13 @@ Install [Android SDK](https://developer.android.com/sdk/index.html) and
 [NDK](https://developer.android.com/tools/sdk/ndk/index.html):
 
 - Run the Android Studio.
-- Open "SDK Manager" ("Tools" → "SDK Manager").
-- Choose "Android 11 (R) API Level 30" SDK.
-- Choose "version "30" and click "OK".
+- Open "SDK Manager" (under "More Actions" in a welcome screen or a three-dot menu in a list of recent projects screen or "Tools" top menu item in an open project).
+- Select "Android 11.0 (R) / API Level 30" SDK.
+- Switch to "SDK Tools" tab
 - Check "Show Package Details" checkbox.
-- Choose "NDK (side by side)" version **21.X.Y**.
-- Choose "CMake" version **3.18.1**.
-- Click "OK".
+- Select "NDK (Side by side)" version **21.4.7075529**.
+- Select "CMake" version **3.18.1**.
+- Click "OK" and wait for downloads and installation to finish.
 
 Alternatively, you can install only
 [Android SDK](https://developer.android.com/sdk/index.html) and
@@ -225,6 +225,26 @@ export PATH=$HOME/Android/Sdk/cmake/3.18.1/bin:$PATH
 
 ```bash
 export PATH=$HOME/Library/Android/Sdk/cmake/3.18.1/bin:$PATH
+```
+
+Check if you have a system-wide Java runtime environment (JRE) installed:
+
+```bash
+java -version
+```
+
+If your system doesn't have a JRE installed or Java version is less than 11 (openjdk) or you want command line builds to use a JRE version bundled with the Studio then set `JAVA_HOME` environment variable:
+
+**Linux**:
+
+```bash
+export JAVA_HOME=*A-PATH-TO-YOUR-ANDROID-STUDIO-INSTALLATION*/android-studio/jre
+```
+
+**macOS**:
+
+```bash
+export JAVA_HOME=*A-PATH-TO-YOUR-ANDROID-STUDIO-INSTALLATION*/Contents/jre/Contents/Home
 ```
 
 ### Getting sources
