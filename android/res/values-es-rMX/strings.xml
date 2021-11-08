@@ -167,8 +167,8 @@
 	<string name="avoid_ferry_carplay_2">Sin ferri</string>
 	<string name="avoid_tolls_carplay_1">Sin peaje</string>
 	<string name="avoid_tolls_carplay_2">Sin peaje</string>
-	<string name="speedcams_alert_title_carplay_1">Cám.velocid.</string>
-	<string name="speedcams_alert_title_carplay_2">Alerta velocid.</string>
+	<string name="speedcams_alert_title_carplay_1">Cám.velocidad.</string>
+	<string name="speedcams_alert_title_carplay_2">Alerta velocidad.</string>
 	<string name="download_map_carplay">Descargue mapas en la aplicación Organic Maps en su dispositivo</string>
 	<string name="carplay_roundabout_exit">%s desviación</string>
 	<!-- max. 10 symbols, both iOS and Android -->
@@ -227,7 +227,7 @@
 	<string name="elevation_profile_minaltitude">Altura mínima</string>
 	<string name="elevation_profile_maxaltitude">Altura máxima</string>
 	<string name="elevation_profile_difficulty">Dificultad</string>
-	<string name="elevation_profile_distance">Distancia</string>
+	<string name="elevation_profile_distance">Distancia:</string>
 	<string name="elevation_profile_time">Lapso:</string>
 	<string name="isolines_toast_zooms_1_10">Amplíe el mapa para ver las isolíneas</string>
 	<string name="downloader_updating_ios">Actualización</string>

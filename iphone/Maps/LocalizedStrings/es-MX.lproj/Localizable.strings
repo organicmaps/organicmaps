@@ -1320,9 +1320,9 @@
 
 "avoid_tolls_carplay_2" = "Sin peaje";
 
-"speedcams_alert_title_carplay_1" = "Cám.velocid.";
+"speedcams_alert_title_carplay_1" = "Cám.velocidad.";
 
-"speedcams_alert_title_carplay_2" = "Alerta velocid.";
+"speedcams_alert_title_carplay_2" = "Alerta velocidad.";
 
 "download_map_carplay" = "Descargue mapas en la aplicación Organic Maps en su dispositivo";
 
@@ -1433,7 +1433,7 @@
 
 "elevation_profile_difficulty" = "Dificultad";
 
-"elevation_profile_distance" = "Distancia";
+"elevation_profile_distance" = "Distancia:";
 
 "elevation_profile_time" = "Lapso:";
 
