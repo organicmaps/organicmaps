@@ -603,7 +603,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "python ${SRCROOT}/../../shaders/gl_shaders_preprocessor.py ${SRCROOT}/../../shaders/GL shader_index.txt programs.hpp shaders_lib.glsl ${SRCROOT}/../../shaders gl_shaders\n";
+			shellScript = "# Without this check shaders library is always rebuilt in XCode 13.\n# See https://stackoverflow.com/a/69481200/1209392\nif [ $ACTION != \"indexbuild\" ]; then\npython ${SRCROOT}/../../shaders/gl_shaders_preprocessor.py ${SRCROOT}/../../shaders/GL shader_index.txt programs.hpp shaders_lib.glsl ${SRCROOT}/../../shaders gl_shaders\nfi\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
