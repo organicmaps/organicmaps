@@ -2714,13 +2714,13 @@
     tags = android, ios
     en = Hello!\n\nAttached are my bookmarks from Organic Maps app. Please open them if you have Organic Maps installed. Or, if you don't, download the app for your iOS or Android device by following this link: https://omaps.app/get?kmz\n\nEnjoy traveling with Organic Maps!
     be = Вітаю!\n\nУ далучаным файле мае закладкі з дататка Organic Maps. Калі ласка, адчыніце іх калі ў вас усталяваны Organic Maps. Калі не, спампуйце дадатак для вашай прылады iOS альбо Andriod па спасылцы: https://omaps.app/get?kmz\n\nПрыемных падарожжаў з Organic Maps!
+    es = Hola!\n\Adjunto mis marcadores de la aplicación Organic Maps. Por favor, ábrelos si tienes instalado Organic Maps. O, si no lo tienes, descarga la aplicación para tu dispositivo iOS o Android siguiendo este link: https://omaps.app/get?kmz\n¡Disfruta viajando con Organic Maps!
     fr = Bonjour !\n\nVous trouverez ci-joint mes signets de l'appli Organic Maps. Veuillez les ouvrir si vous avez installé Organic Maps. Si vous ne l'avez pas, téléchargez l'application pour votre appareil iOS ou Android en suivant ce lien : https://omaps.app/get?kmz\n\nBon voyage avec Organic Maps !
     nl = Hallo!\n\nBijgesloten zijn mijn bladwijzers uit de Organic Maps app. Open ze als je Organic Maps geïnstalleerd hebt. Of, als je dat niet hebt, download de app voor je iOS- of Android-apparaat door deze link te volgen: https://omaps.app/get?kmz\n\nGeniet van het reizen met Organic Maps!
     pl = Cześć!\n\nZałączam moje zakładki z aplikacji Organic Maps. Proszę otwórz je jeżeli masz zaintalowane Organic Maps. Lub, jeżeli nie masz, pobierz aplikację na swoje urządzenie iOS/Android za pomocą tego linka: https://omaps.app/get?kmz\n\nMiłego podróżowania z Organic Maps!
     pt = Olá!\n\nSegue em anexo os meus favoritos da aplicação Organic Maps. Por favor abra-os se tiver o Organic Maps instalado. Caso não tenha, descarregue a aplicação para o seu dispositivo iOS ou Android com a hiperligação https://omaps.app/get?kmz\n\nDivirta-se a viajar com o Organic Maps!
     pt-BR = Olá!\n\nSegue em anexo meus favoritos do app Organic Maps. Por favor os abra se você tiver o Organic Maps instalado. Caso não tenha, baixe o app para o seu dispositivo iOS ou Android com o link https://omaps.app/get?kmz\n\nDisfrute viajar com o Organic Maps!
     ru = Здравствуйте!\n\nВ прикрепленном файле мои метки из офлайновых карт Organic Maps. Для того чтобы открыть этот файл, вам потребуется приложение Organic Maps, которое можно установить по ссылке: https://omaps.app/get?kmz\n\nСпасибо!
-    es = Hola!\n\Adjunto mis marcadores de la aplicación Organic Maps. Por favor, ábrelos si tienes instalado Organic Maps. O, si no lo tienes, descarga la aplicación para tu dispositivo iOS o Android siguiendo este link: https://omaps.app/get?kmz\n¡Disfruta viajando con Organic Maps!
 
   [load_kmz_title]
     comment = message title of loading file
@@ -13615,36 +13615,36 @@
   [error_enter_correct_facebook_page]
     tags = android
     en = Enter a valid Facebook web address, account, or page name
-	  fr = Saisissez une adresse web, un compte ou un nom de page Facebook valide
-    pl = Wprowadź poprawny link, nazwę konta lub nazwę strony na Facebooku
     es = Introduce una dirección web, una cuenta o un nombre de página de Facebook válidos
+	fr = Saisissez une adresse web, un compte ou un nom de page Facebook valide
+    pl = Wprowadź poprawny link, nazwę konta lub nazwę strony na Facebooku
     ru = Введите корректный веб-адрес Facebook страницы или имя пользователя
     uk = Введіть вірну веб-адресу Facebook сторінки або і'мя користувача
 
   [error_enter_correct_instagram_page]
     tags = android
     en = Enter a valid Instagram web address or account name
-	  fr = Saisissez une adresse web, un nom de compte Instagram valide
-    pl = Wprowadź poprawny link lub nazwę konta na Instagramie
     es = Introduce una dirección web o un nombre de cuenta de Instagram válidos
+	fr = Saisissez une adresse web, un nom de compte Instagram valide
+    pl = Wprowadź poprawny link lub nazwę konta na Instagramie
     ru = Введите корректный веб-адрес Instagram страницы или имя пользователя
     uk = Введіть вірну веб-адресу Instagram сторінки або і'мя користувача
 
   [error_enter_correct_twitter_page]
     tags = android
     en = Enter a valid Twitter web address or username
-	  fr = Saisissez une adresse web, un nom de compte Twitter valide
-    pl = Wprowadź poprawny adres lub nazwę konta na Twitterze
     es = Introduzca una dirección web o un nombre de usuario válido de Twitter
+	fr = Saisissez une adresse web, un nom de compte Twitter valide
+    pl = Wprowadź poprawny adres lub nazwę konta na Twitterze
     ru = Введите корректный веб-адрес Twitter страницы или имя пользователя
     uk = Введіть вірну веб-адресу Twitter сторінки або і'мя користувача
 
   [error_enter_correct_vk_page]
     tags = android
     en = Enter a valid VK web address or account name
-	  fr = Saisissez une adresse web, un nom de compte VK valide
-    pl = Wprowadź poprawny adres lub nazwę konta na VK
     es = Introduce una dirección web o un nombre de cuenta de VK válidos
+	fr = Saisissez une adresse web, un nom de compte VK valide
+    pl = Wprowadź poprawny adres lub nazwę konta na VK
     ru = Введите корректный веб-адрес VK страницы или имя пользователя
     uk = Введіть вірну веб-адресу VK сторінки або і'мя користувача
 
@@ -15745,7 +15745,7 @@
     be = Імпартаваць закладкі
     bg = Импортиране на отметки
     es = Importar marcadores
-	  fr = Importer des signets
+	fr = Importer des signets
     pl = Import zakładek
     pt = Importar favoritos
     pt-BR = Importar favoritos
@@ -16772,7 +16772,7 @@
     fa:other = %d مکان
     fi = %d paikat
     fr:one = %d lieu
-	  fr:other = %d lieux
+	fr:other = %d lieux
     hu = %d hely
     id = tempat %d
     it = %d luoghi
@@ -21913,34 +21913,35 @@
     en = Download the world map
     be = Спампаваць мапу света
     bg = Изтегляне на картата на света
+    es = Descarga mapa mundial
     fr = Télécharcher la carte du monde
     pl = Pobierz mapę świata
     pt = Descarregar o mapa mundial
     pt-BR = Baixar mapa mundial
     ru = Скачать карту мира
-    es = Descarga mapa mundial
 
   [connection_failure]
     tags = android
     en = Connection failure
     be = Памылка падлучэння
     bg = Неуспешно свързване
+    es = Problema de conexión
     fr = Erreur de connexion
     pl = Błąd połączenia
     pt = Falha na coneção
     pt-BR = Falha na coneção
     ru = Ошибка подключения
-    es = Problema de conexión
 
   [disconnect_usb_cable_title]
     tags = android
     en = Disconnect USB cable
     be = Адлучыце USB кабель
     bg = Изключване на USB кабел
+    es = Desconecte el cable USB
     fr = Déconnectez le câble USB
     pl = Odłącz kabel USB
     ru = Отсоедините USB кабель
-    es = Desconecte el cable USB
+
 
   [enable_screen_sleep]
     tags = android
@@ -22187,31 +22188,31 @@
     comment = Delete track button on track edit screen
     tags = ios
     en = Delete Track
+    es = Borrar ruta
     fr = Supprimer la route
     be = Выдаліць сцежку
     pl = Usuwanie trasy
     ru = Удалить трек
-    es = Borrar ruta
 
   [placepage_track_name_hint]
     comment = Placeholder for track name input on track edit screen
     tags = ios
     en = Track Name
     be = Назва сцежкі
+    es = Nombre de la ruta
     fr = Nom de la route
     pl = Nazwa trasy
     ru = Название трека
-    es = Nombre de la ruta
 
   [move]
     comment = move track or bookmark from the list button text
     tags = ios
     en = Move
     be = Перамясціць
+    es = Mover
     fr = Déplacer
     pl = Przenieś
     ru = Переместить
-    es = Mover
 
   [track_title]
     comment = edit track screen title
