@@ -10677,7 +10677,7 @@
   [editor_add_phone]
     tags = android
     en = Add Phone
-	fr = Ajouter un numéro de téléphone
+    fr = Ajouter un numéro de téléphone
     pl = Dodaj numer telefonu
     ru = Добавить телефон
 
@@ -13621,7 +13621,7 @@
     tags = android
     en = Enter a valid Facebook web address, account, or page name
     es = Introduce una dirección web, una cuenta o un nombre de página de Facebook válidos
-	fr = Saisissez une adresse web, un compte ou un nom de page Facebook valide
+    fr = Saisissez une adresse web, un compte ou un nom de page Facebook valide
     pl = Wprowadź poprawny link, nazwę konta lub nazwę strony na Facebooku
     ru = Введите корректный веб-адрес Facebook страницы или имя пользователя
     uk = Введіть вірну веб-адресу Facebook сторінки або і'мя користувача
@@ -13630,7 +13630,7 @@
     tags = android
     en = Enter a valid Instagram web address or account name
     es = Introduce una dirección web o un nombre de cuenta de Instagram válidos
-	fr = Saisissez une adresse web, un nom de compte Instagram valide
+    fr = Saisissez une adresse web, un nom de compte Instagram valide
     pl = Wprowadź poprawny link lub nazwę konta na Instagramie
     ru = Введите корректный веб-адрес Instagram страницы или имя пользователя
     uk = Введіть вірну веб-адресу Instagram сторінки або і'мя користувача
@@ -13639,7 +13639,7 @@
     tags = android
     en = Enter a valid Twitter web address or username
     es = Introduzca una dirección web o un nombre de usuario válido de Twitter
-	fr = Saisissez une adresse web, un nom de compte Twitter valide
+    fr = Saisissez une adresse web, un nom de compte Twitter valide
     pl = Wprowadź poprawny adres lub nazwę konta na Twitterze
     ru = Введите корректный веб-адрес Twitter страницы или имя пользователя
     uk = Введіть вірну веб-адресу Twitter сторінки або і'мя користувача
@@ -13648,7 +13648,7 @@
     tags = android
     en = Enter a valid VK web address or account name
     es = Introduce una dirección web o un nombre de cuenta de VK válidos
-	fr = Saisissez une adresse web, un nom de compte VK valide
+    fr = Saisissez une adresse web, un nom de compte VK valide
     pl = Wprowadź poprawny adres lub nazwę konta na VK
     ru = Введите корректный веб-адрес VK страницы или имя пользователя
     uk = Введіть вірну веб-адресу VK сторінки або і'мя користувача
@@ -15757,7 +15757,7 @@
     be = Імпартаваць закладкі
     bg = Импортиране на отметки
     es = Importar marcadores
-	fr = Importer des signets
+    fr = Importer des signets
     pl = Import zakładek
     pt = Importar favoritos
     pt-BR = Importar favoritos
@@ -16784,7 +16784,7 @@
     fa:other = %d مکان
     fi = %d paikat
     fr:one = %d lieu
-	fr:other = %d lieux
+    fr:other = %d lieux
     hu = %d hely
     id = tempat %d
     it = %d luoghi
