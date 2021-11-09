@@ -13560,7 +13560,7 @@
     es = Introduce una dirección web válida
     fa = ادرس وب معتبری وارد نمایید
     fi = Syötä kelvollinen verkko-osoite
-    fr =  Saisissez une adresse Internet valide
+    fr = Saisissez une adresse Internet valide
     hu = Adj meg egy érvényes weboldalcímet
     id = Masukkan alamat web valid
     it = Inserisci un indirizzo web valido
@@ -16729,9 +16729,9 @@
     da = %d sted
     de = %d Platz
     el = %d μέρος
+    es-MX = %d lugar
     es:one = %d objecto
     es:other = %d objectos
-    es-MX = %d lugar
     fa:one = %d شیء
     fa:other = %d شیء
     fi = %d paikka
@@ -16777,9 +16777,9 @@
     da = %d steder
     de = %d Plätze
     el = %d μέρη
+    es-MX = %d lugares
     es:one = %d lugar
     es:other = %d lugares
-    es-MX = %d lugares
     fa:one = %d مکان
     fa:other = %d مکان
     fi = %d paikat
@@ -16826,9 +16826,9 @@
     da = %d ruter
     de = %d Strecken
     el = %d διαδρομές
+    es-MX = %d rastreos
     es:one = %d ruta
     es:other = %d rutas
-    es-MX = %d rastreos
     fa:one = %d رد
     fa:other = %d رد
     fi = %d radat
@@ -21954,7 +21954,6 @@
     pl = Odłącz kabel USB
     ru = Отсоедините USB кабель
 
-
   [enable_screen_sleep]
     tags = android
     en = Allow screen to sleep
@@ -22200,9 +22199,9 @@
     comment = Delete track button on track edit screen
     tags = ios
     en = Delete Track
+    be = Выдаліць сцежку
     es = Borrar ruta
     fr = Supprimer la route
-    be = Выдаліць сцежку
     pl = Usuwanie trasy
     ru = Удалить трек
 
