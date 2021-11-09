@@ -8,6 +8,7 @@
   android:padding="@dimen/margin_quarter"
   android:background="?cardBackground"
   android:clipToPadding="false"
+  android:clickable="true"
   android:visibility="gone"
   tools:visibility="visible"
   tools:showIn="@layout/fragment_search">
