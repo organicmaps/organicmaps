@@ -9,12 +9,6 @@
   }
 
   func applicationDidFinishLaunching(_ options: [UIApplication.LaunchOptionsKey : Any]? = nil) {
-    if let userActivityOptions = options?[.userActivityDictionary] as? [UIApplication.LaunchOptionsKey : Any],
-      let userActivityType = userActivityOptions[.userActivityType] as? String,
-      userActivityType == NSUserActivityTypeBrowsingWeb {
-      isLaunchedByDeeplink = true
-    }
-
     if let launchDeeplink = options?[UIApplication.LaunchOptionsKey.url] as? URL {
       isLaunchedByDeeplink = true
       url = launchDeeplink

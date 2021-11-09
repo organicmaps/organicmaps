@@ -2135,9 +2135,6 @@ std::optional<place_page::Info> Framework::BuildPlacePageInfo(
     place_page::BuildInfo const & buildInfo)
 {
   place_page::Info outInfo;
-  if (m_drapeEngine == nullptr)
-    return {};
-
   outInfo.SetBuildInfo(buildInfo);
 
   if (buildInfo.IsUserMarkMatchingEnabled())
@@ -2212,7 +2209,8 @@ std::optional<place_page::Info> Framework::BuildPlacePageInfo(
   FeatureID selectedFeature = buildInfo.m_featureId;
   auto const isFeatureMatchingEnabled = buildInfo.IsFeatureMatchingEnabled();
 
-  if (buildInfo.IsTrackMatchingEnabled() && !buildInfo.m_isLongTap &&
+  // Using VisualParams inside FindTrackInTapPosition/GetDefaultTapRect requires drapeEngine.
+  if (m_drapeEngine != nullptr && buildInfo.IsTrackMatchingEnabled() && !buildInfo.m_isLongTap &&
       !(isFeatureMatchingEnabled && selectedFeature.IsValid()))
   {
     auto const trackSelectionInfo = FindTrackInTapPosition(buildInfo);
