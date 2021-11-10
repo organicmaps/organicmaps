@@ -120,7 +120,8 @@ Please join our beta program, suggest your features, and report bugs:
 
 ## Feedback
 
-- **Rate us on AppStore and Google Play**.
+- **Rate us on [App Store](https://apps.apple.com/app/organic-maps/id1567437057)
+and [Google Play](https://play.google.com/store/apps/details?id=app.organicmaps)**.
 - **Star us on GitHub**.
 - Report bugs or issues to [the issue tracker](https://github.com/organicmaps/organicmaps/issues).
 - [Discuss](https://github.com/organicmaps/organicmaps/discussions/categories/ideas) ideas or propose feature requests.
@@ -128,5 +129,7 @@ Please join our beta program, suggest your features, and report bugs:
 - Join our [Telegram Group](https://t.me/OrganicMaps) to discuss with other users.
 - Присоединяйтесь к нашей [русскоязычной группе в Telegram](https://t.me/OrganicMapsRu) для обратной связи и помощи.
 - Contact us by [email](mailto:hello@organicmaps.app).
+- Follow our updates in [Facebook](https://facebook.com/OrganicMaps), [Twitter](https://twitter.com/OrganicMapsApp),
+[Instagram](https://instagram.com/organicmaps.app/).
 
 The Organic Maps community abides by the CNCF code of conduct.
