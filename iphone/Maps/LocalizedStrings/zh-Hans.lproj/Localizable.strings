@@ -1256,7 +1256,7 @@
 
 "define_to_avoid_btn" = "设置绕行路径";
 
-"change_driving_options_btn" = "繞行設置已開啟";
+"change_driving_options_btn" = "绕行设置已开启";
 
 "toll_road" = "收费公路";
 
@@ -1411,7 +1411,7 @@
 
 "button_layer_isolines" = "高度";
 
-"isolines_activation_error_dialog" = "如需使用高度線，請更新或下載所需區域的地圖";
+"isolines_activation_error_dialog" = "如需使用高度线，请更新或下载所需区域的地图";
 
 "isolines_location_error_dialog" = "暂时无法获取该地区的高低线";
 
