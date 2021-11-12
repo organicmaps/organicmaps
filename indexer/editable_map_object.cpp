@@ -1,6 +1,7 @@
 #include "indexer/editable_map_object.hpp"
 
 #include "indexer/classificator.hpp"
+#include "indexer/contacts_processor.hpp"
 #include "indexer/cuisines.hpp"
 #include "indexer/postcodes_matcher.hpp"
 
@@ -496,27 +497,27 @@ void EditableMapObject::SetWebsite(string website)
 
 void EditableMapObject::SetFacebookPage(string facebookPage)
 {
-  m_metadata.Set(feature::Metadata::FMD_CONTACT_FACEBOOK, facebookPage);
+  m_metadata.Set(feature::Metadata::FMD_CONTACT_FACEBOOK, ValidateAndFormat_facebook(facebookPage));
 }
 
 void EditableMapObject::SetInstagramPage(string instagramPage)
 {
-  m_metadata.Set(feature::Metadata::FMD_CONTACT_INSTAGRAM, instagramPage);
+  m_metadata.Set(feature::Metadata::FMD_CONTACT_INSTAGRAM, ValidateAndFormat_instagram(instagramPage));
 }
 
 void EditableMapObject::SetTwitterPage(string twitterPage)
 {
-  m_metadata.Set(feature::Metadata::FMD_CONTACT_TWITTER, twitterPage);
+  m_metadata.Set(feature::Metadata::FMD_CONTACT_TWITTER, ValidateAndFormat_twitter(twitterPage));
 }
 
 void EditableMapObject::SetVkPage(string vkPage)
 {
-  m_metadata.Set(feature::Metadata::FMD_CONTACT_VK, vkPage);
+  m_metadata.Set(feature::Metadata::FMD_CONTACT_VK, ValidateAndFormat_vk(vkPage));
 }
 
 void EditableMapObject::SetLinePage(string linePage)
 {
-  m_metadata.Set(feature::Metadata::FMD_CONTACT_LINE, linePage);
+  m_metadata.Set(feature::Metadata::FMD_CONTACT_LINE, ValidateAndFormat_contactLine(linePage));
 }
 
 void EditableMapObject::SetInternet(Internet internet)
@@ -878,7 +879,7 @@ bool EditableMapObject::ValidateVkPage(string const & page)
 bool EditableMapObject::ValidateLinePage(string const & page)
 {
   if (page.empty())
-    return {};
+    return true;
 
   {
     // Check that linePage contains valid page name.

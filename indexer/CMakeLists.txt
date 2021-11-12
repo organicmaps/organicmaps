@@ -30,6 +30,8 @@ set(
   complex/serdes.hpp
   complex/serdes_utils.hpp
   complex/tree_node.hpp
+  contacts_processor.cpp
+  contacts_processor.hpp
   cuisines.cpp
   cuisines.hpp
   data_factory.cpp

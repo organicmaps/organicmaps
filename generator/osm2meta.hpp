@@ -1,6 +1,7 @@
 #pragma once
 
 #include "indexer/feature_data.hpp"
+#include "indexer/contacts_processor.hpp"
 
 #include <string>
 
@@ -12,11 +13,6 @@ struct MetadataTagProcessorImpl
   std::string ValidateAndFormat_stars(std::string const & v) const;
   std::string ValidateAndFormat_operator(std::string const & v) const;
   std::string ValidateAndFormat_url(std::string const & v) const;
-  std::string ValidateAndFormat_facebook(std::string const & v) const;
-  std::string ValidateAndFormat_instagram(std::string const & v) const;
-  std::string ValidateAndFormat_twitter(std::string const & v) const;
-  std::string ValidateAndFormat_vk(std::string const & v) const;
-  std::string ValidateAndFormat_contactLine(std::string const & v) const;
   std::string ValidateAndFormat_phone(std::string const & v) const;
   std::string ValidateAndFormat_opening_hours(std::string const & v) const;
   std::string ValidateAndFormat_ele(std::string const & v) const;
