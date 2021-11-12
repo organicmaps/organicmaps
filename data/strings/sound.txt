@@ -440,7 +440,7 @@
     uk = Ви прибули.
     vi = Bạn đã đến.
     zh-Hans = 您已到达目的地。
-    zh-Hant = 你也到達目的地。
+    zh-Hant = 你已到達目的地。
 
   [in_50_meters]
     en = In fifty meters
