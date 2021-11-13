@@ -5104,6 +5104,7 @@
     it = Scaricate
     ja = ダウンロード済み
     ko = 다운로드
+    lt = Atsisiunčiama
     nb = Lastet ned
     nl = Gedownload
     pl = Pobrane
