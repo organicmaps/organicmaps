@@ -210,7 +210,7 @@
     it = Download fallito, tocca di nuovo per un altro tentativo
     ja = ダウンロードが失敗しました。もう一度試すには画面をタッチしてください。
     ko = 다운로드에 실패하였습니다. 다시 두드려 시도하여 주십시요.
-    lt = Atsisiųsti nepavyko. Palieskite pabandyti dar kartą. 
+    lt = Atsisiųsti nepavyko. Palieskite pabandyti dar kartą.
     nb = Nedlastingen mislyktes – trykk på nytt for å prøve en gang til
     nl = Downloaden is mislukt. Tik om het opnieuw te proberen.
     pl = Nie udało się pobrać. Proszę nacisnąć, aby spróbować ponownie.
@@ -3041,6 +3041,7 @@
     it = Il download della nazione è in corso.
     ja = ダウンロードを実行中です
     ko = 국가 다운로드가 지금 진행 중입니다.
+    lt = Vyksta žemėlapio atsisiuntimas.
     nb = Nedlasting av land pågår nå.
     nl = Het downloaden van het land is nu aan de gang.
     pl = Trwa pobieranie mapy kraju.
@@ -3077,6 +3078,7 @@
     it = Vedi dove sono ora. Apri %1$@ o %2$@
     ja = 私は今ここにいます。リンク: %1$@, %2$@
     ko = 현재 위치를 알아 보십시오. %1$@ 또는 %2$@ 열기
+    lt = Sveiki, patikrinkite mano dabartinę buvimo vietą "Organic Maps"! %1$@ arba %2$@ Neturite atsisiuntę žemėlapių? Atsisiųskite čia: https://omaps.app/get
     nb = Hei, se posisjonen min på Organic Maps! %1$@ eller %2$@ Har du ikke offline-kart? Last dem ned her: https://omaps.app/get
     nl = Hey, kijk naar mijn huidige locatie op Organic Maps! %1$@ of %2$@ Heeft u geen offline-kaarten? Download ze hier: https://omaps.app/get
     pl = Zobacz gdzie jestem. Link %1$@ lub %2$@
@@ -3113,6 +3115,7 @@
     it = Dai uno sguardo al mio pin sulla mappa di Organic Maps
     ja = Organic Mapsでピン情報を確認
     ko = Organic Maps 지도에서 내 핀 보기
+    lt = Labas, peržiūrėk mano išsaugotą žymę Organic Maps!
     nb = Hei, se merket mitt på Organic Maps-kartet
     nl = Hey, kijk naar mijn pin op Organic Maps!
     pl = Obejrzyj mój znacznik na mapie w Organic Maps
@@ -3149,6 +3152,7 @@
     it = Guarda dove mi trovo attualmente sulla mappa Organic Maps
     ja = Organic Mapsで現在地を確認
     ko = Organic Maps 지도에서 제 현재 위치를 살펴 보시기 바랍니다
+	  lt = Labas, peržiūrėk mano dabartinę vietą Organic Maps!
     nb = Hei, se posisjonen min på Organic Maps-kartet!
     nl = Hey, kijk naar mijn huidige locatie op Organic Maps!
     pl = Zobacz moją aktualną lokalizację na mapie przy użyciu Organic Maps
@@ -3185,6 +3189,7 @@
     it = Ciao,\n\nSono qui adesso: %1$@. Clicca su questo link %2$@ oppure su questo %3$@ per vedere il posto sulla mappa.\n\nGrazie.
     ja = 私は今ここにいます: %1$@\n\nリンクをクリックすると詳細がマップに表示されます。\n\n%2$@\n\n%3$@
     ko = 안녕하세요.\n\n지금 다음 위치에 있습니다: %1$@. %2$@ 또는 %3$@ 링크를 클릭하여 지도상에서 해당 장소를 살펴보시기 바랍니다.\n\n감사합니다.
+	  lt = Labas,\n\nŠiuo metu esu čia: %1$@. Spausk ant šios %2$@ arba šios nuorodos %3$@ tam, kad pamatytum vietą žemėlapyje.\n\nAčiū.
     nb = Hei,Jeg er her nå: %1$@. Klikk på denne koblingen %2$@ eller denne %3$@ for å se stedet på kartet.\n\nTakk.
     nl = Hoi,\n\nMomenteel ben ik hier: %1$@. Klik op deze %2$@ link of deze %3$@ link om de plaats op de kaart te zien.\n\nBedankt.
     pl = Cześć,\n\nJestem teraz tutaj: %1$@. Naciśnij na ten link %2$@ lub ten %3$@, aby zobaczyć to miejsce na mapie.\n\nDziękuję.
@@ -3222,6 +3227,7 @@
     it = Condividi
     ja = 共有
     ko = 공유
+	  lt = Dalintis
     nb = Del
     nl = Delen
     pl = Udostępnij
@@ -3258,6 +3264,7 @@
     it = E-mail
     ja = Eメール
     ko = 이메일
+  	lt = El-laiškas
     nb = E-post
     nl = E-mail
     pl = Email
@@ -3295,6 +3302,7 @@
     it = Copiato sugli Appunti: %1$@
     ja = クリップボードにコピーしました: %1$@
     ko = 클립보드에 복사됨: %1$@
+	  lt = Nukopijuota į atmintį: %1$@
     nb = Kopiert til utklippstavlen: %1$@
     nl = Naar het klembord gekopieerd: %1$@
     pl = Skopiowano do schowka: %1$@
@@ -3332,6 +3340,7 @@
     it = Informazioni
     ja = 情報
     ko = 정보
+  	lt = Informacija
     nb = Informasjon
     nl = Info
     pl = Informacje
@@ -3369,6 +3378,7 @@
     it = Fine
     ja = 完了
     ko = 완료
+  	lt = Atlikta
     nb = Ferdig
     nl = Klaar
     pl = Gotowe
@@ -3406,6 +3416,7 @@
     it = Versione: %@
     ja = バージョン： %@
     ko = 버전: %@
+	  lt = Versija: %@
     nb = Versjon: %@
     nl = Versie: %@
     pl = Wersja: %@
@@ -3432,6 +3443,7 @@
     el = Ημερομηνία έκδοσης: %d
     fa = ورژن داده: %d
     fr = Version de données: %d
+	  lt = Duomenų versija: %d
     nl = Gegevensversie: %d
     pl = Wersja danych: %d
     pt = Versão dos dados: %d
@@ -3461,6 +3473,7 @@
     it = Sei sicuro di voler continuare?
     ja = 本当に続けますか?
     ko = 계속하겠습니까?
+	  lt = Ar tikrai norite tęsti?
     nb = Er du sikker på at du ønsker å fortsette?
     nl = Weet u zeker dat u wilt doorgaan?
     pl = Kontynuować?
@@ -3498,6 +3511,7 @@
     it = Tracciati
     ja = トラック
     ko = 트랙
+	  lt = Trasos
     nb = Ruter
     nl = Tracks
     pl = Trasy
@@ -3535,6 +3549,7 @@
     it = Lunghezza
     ja = 距離
     ko = 길이
+	  lt = Ilgis
     nb = Lengde
     nl = Lengte
     pl = Długość
@@ -3571,6 +3586,7 @@
     it = Condividi la mia location
     ja = 位置情報を共有する
     ko = 내 위치 공유
+	  lt = Dalintis mano vieta
     nb = Del posisjonen min
     nl = Deel mijn locatie
     pl = Udostępnij aktualne położenie
@@ -3596,6 +3612,7 @@
     de = Allgemeine Einstellungen
     fa = تنظیمات عمومی
     fr = Paramètres généraux
+	  lt = Bendri nustatymai
     nl = Algemene instellingen
     pl = Ustawienia ogólne
     pt = Configurações gerais
@@ -3614,6 +3631,7 @@
     fa = اطلاعات
     fr = Information
     nl = Informatie
+	  lt = Informacija
     pl = Informacje
     pt = Informação
     pt-BR = Informação
@@ -3640,6 +3658,7 @@
     it = Navigazione
     ja = ナビゲーション
     ko = 네비게이션
+  	lt = Navigacija
     nb = Navigasjon
     nl = Navigatie
     pl = Nawigacja
@@ -3676,6 +3695,7 @@
     it = Pulsanti per lo zoom
     ja = ズームボタン
     ko = 확대/축소 버튼
+  	lt = Didinimo mygtukai
     nb = Zoom-knapper
     nl = Zoomknoppen
     pl = Przyciski przybliżania
@@ -3712,6 +3732,7 @@
     it = Condividi la mia location
     ja = 画面上に表示
     ko = 화면에 표시
+  	lt = Rodyti žemėlapyje
     nb = Vis på skjermen
     nl = Weergave op het scherm
     pl = Wyświetla na ekranie
@@ -3748,6 +3769,7 @@
     it = Modalità notturna
     ja = 夜間モード
     ko = 나이트 모드
+  	lt = Naktinis rėžimas
     nb = Nattmodus
     nl = Nachtmodus
     pl = Tryb nocny
@@ -3784,6 +3806,7 @@
     it = Spento
     ja = オフ
     ko = 끄기
+	  lt = Išjungta
     nb = Av
     nl = Uit
     pl = Wyłączony
@@ -3820,6 +3843,7 @@
     it = Acceso
     ja = オン
     ko = 켜기
+  	lt = Įjungta
     nb = På
     nl = Aan
     pl = Włączony
@@ -3856,6 +3880,7 @@
     it = Auto
     ja = 自動
     ko = 자동
+  	lt = Automatiškai
     nb = Auto
     nl = Automatisch
     pl = Automatycznie
@@ -3892,6 +3917,7 @@
     it = Vista in prospettiva
     ja = パースペクティブ表示
     ko = 원근 보기
+	  lt = Perspektyva
     nb = Perspektivvisning
     nl = Perspectiefbeeld
     pl = Widok z perspektywy
@@ -3928,6 +3954,7 @@
     it = Edifici in 3D
     ja = 3Dビルディング
     ko = 주변 건물 3D
+  	lt = 3D pastatai
     nb = Bygninger i 3D
     nl = 3D-gebouwen
     pl = Budynki w 3D
@@ -3964,6 +3991,7 @@
     it = Istruzioni vocali
     ja = 音声指示
     ko = 음성 지침
+	  lt = Balso instrukcijos
     nb = Taleinstrukser
     nl = Gesproken instructies
     pl = Komunikaty głosowe
@@ -4000,6 +4028,7 @@
     it = Lingua per la voce
     ja = 音声言語
     ko = 음성 언어
+  	lt = Balso instrukcijų kalba
     nb = Talespråk
     nl = Gesproken taal
     pl = Język komunikatów
@@ -4036,6 +4065,7 @@
     it = Non disponibile
     ja = 利用不可
     ko = 사용할 수 없음
+  	lt = Nėra duomenų
     nb = Ikke tilgjengelig
     nl = Niet beschikbaar
     pl = Niedostępne
@@ -4072,6 +4102,7 @@
     it = Altro
     ja = その他
     ko = 다른 언어
+	  lt = Kita
     nb = Andre
     nl = Andere
     pl = Inny
@@ -4108,6 +4139,7 @@
     it = Percorso recente
     ja = 最近の移動経路
     ko = 최근 추적
+	  lt = Naujausios trasos
     nb = Siste rute
     nl = Recente track
     pl = Ostatnia trasa
@@ -4143,6 +4175,7 @@
     it = Zoom automatico
     ja = 自動ズーム
     ko = 자동 줌
+	  lt = Automatinis didinimas
     nb = Automatisk zooming
     nl = Automatisch zoomen
     pl = Automatyczne powiększanie
@@ -4178,6 +4211,7 @@
     it = Disabilitato
     ja = オフ
     ko = 선택 안 함
+	  lt = Išjungta
     nb = Av
     nl = Uit
     pl = Wyłączona
@@ -4213,6 +4247,7 @@
     it = 1 ora
     ja = 1時間
     ko = 1시간
+	  lt = 1 valanda
     nb = 1 time
     nl = 1 uur
     pl = 1 godzina
@@ -4248,6 +4283,7 @@
     it = 2 ore
     ja = 2時間
     ko = 2시간
+  	lt = 2 valandos
     nb = 2 timer
     nl = 2 uur
     pl = 2 godziny
@@ -4283,6 +4319,7 @@
     it = 6 ore
     ja = 6時間
     ko = 6시간
+	  lt = 6 valandos
     nb = 6 timer
     nl = 6 uur
     pl = 6 godzin
@@ -4318,6 +4355,7 @@
     it = 12 ore
     ja = 12時間
     ko = 12시간
+  	lt = 12 valandų
     nb = 12 timer
     nl = 12 uur
     pl = 12 godzin
@@ -4353,6 +4391,7 @@
     it = 1 giorno
     ja = 1日
     ko = 1일
+	  lt = 1 diena
     nb = 1 dag
     nl = 1 dag
     pl = 1 dzień
@@ -4388,6 +4427,7 @@
     it = Consente di registrare il tratto percorso in un determinato periodo di tempo e vedere lo stesso sulla mappa. Nota: l'attivazione di questa funzione incrementa l'uso della batteria. Il tratto viene rimosso automaticamente dalla mappa allo scadere dell'intervallo di tempo.
     ja = 移動経路を一定期間記録し、地図上で確認できるようにします。注意：この機能を有効にすると、バッテリーの消費量が増えます。表示期間が終了すると、走行軌跡は地図から自動的に削除されます。
     ko = 특정 기간 동안 이동된 경로를 기록하고 지도에서 그 경로를 볼 수 있습니다. 참고: 이 기능을 활성화하면 배터리 사용량이 증가하게 됩니다. 시간 간격이 만료된 후 지도에서 해당 트랙이 자동으로 제거됩니다.
+  	lt = Ši parinktis leidžia įrašyti nueitą kelią per tam tikrą laiko tarpą ir matyti tai žemėlapyje. Atkreipkite dėmesį: įjungus šią funkciją, padidėja akumuliatoriaus naudojimas. Pasibaigus nustatytam laiko intervalui, kelias bus automatiškai pašalintas iš žemėlapio.
     nb = Det lar deg lagre ruten du har reist i en spesifikk periode og se den på kartet. Merk: Aktivering av funksjonen øker batteriforbruket. Ruten fjernes automatisk fra kartet når tidsintervallet utløper.
     nl = Dit laat u toe het afgelegde traject voor een bepaalde periode te registreren en te bekijken op de kaart. Merk op: activatie van deze functie veroorzaakt een hoger batterijverbruik. Het traject wordt automatisch van de kaart verwijderd nadat het tijdsinterval verloopt.
     pl = Umożliwia na pewien okres zapisanie przebytej trasy i obejrzenie jej na mapie. Uwaga: włączenie tej funkcji spowoduje większe zużycie baterii. Trasa zostanie usunięta z mapy automatycznie po upływie określonego czasu.
@@ -4423,6 +4463,7 @@
     it = Distanza
     ja = 距離
     ko = 거리
+  	lt = Atstumas
     nb = Avstand
     nl = Afstand
     pl = Dystans
@@ -4459,6 +4500,7 @@
     it = Visualizza sulla mappa
     ja = 地図に表示
     ko = 지도 보기
+	  lt = Žiūrėti žemėlapyje
     nb = Vis på kartet
     nl = Op kaart bekijken
     pl = Wyświetl na mapie
@@ -4495,6 +4537,7 @@
     it = Sito web
     ja = ウェブサイト
     ko = 웹사이트
+	  lt = Svetainė
     nb = Nettside
     nl = Website
     pl = Strona internetowa
@@ -4570,6 +4613,7 @@
     it = Feedback
     ja = フィードバック
     ko = 피드백
+  	lt = Grįžtamasis ryšys
     nb = Tilbakemelding
     nl = Feedback
     pl = Opinia
@@ -4607,6 +4651,7 @@
     it = Vota l'app
     ja = アプリを評価
     ko = 앱 평가
+	  lt = Įvertinti aplikaciją
     nb = Ranger appen
     nl = App beoordelen
     pl = Oceń aplikację
@@ -4644,6 +4689,7 @@
     it = Aiuto
     ja = ヘルプ
     ko = 도움말
+	  lt = Pagalba
     nb = Hjelp
     nl = Hulp
     pl = Pomoc
@@ -4681,6 +4727,7 @@
     it = Domande e risposte
     ja = 質問と回答
     ko = 질문과 답변
+	  lt = Dažniausiai užduodami klausimai
     nb = Spørsmål og svar
     nl = Vragen en antwoorden
     pl = Pytania i odpowiedzi
@@ -4719,6 +4766,7 @@
     it = Come supportarci?
     ja = どのように私たちを支持する方法？
     ko = 우리를 지원하는 방법?
+  	lt = Kaip mus paremti?
     nb = Hvordan støtte oss?
     nl = Hoe ons te steunen?
     pl = Jak nas wspierać?
@@ -4756,6 +4804,7 @@
     it = Copyright
     ja = 著作権
     ko = 저작권
+  	lt = Autorinės teisės
     nb = Opphavsrett
     nl = Auteursrechten
     pl = Prawa autorskie
@@ -4793,6 +4842,7 @@
     it = Riporta un bug
     ja = バグを報告
     ko = 오류 신고
+	  lt = Pranešti apie klaidą
     nb = Rapporter en feil
     nl = Meld een fout
     pl = Zgłoś błąd
@@ -4830,6 +4880,7 @@
     it = Il client email non è stato configurato. Si prega di configurarlo o di usare qualsiasi altro metodo per contattarci all'indirizzo %@
     ja = このメールクライアントはセットアップされていません。設定するか、他の方法で%@にご連絡ください。
     ko = 이메일 클라이언트가 설정되지 않았습니다. 이를 구성하거나 %@로 연락할 다른 방법을 사용하십시오.
+  	lt = El. pašto klientas nebuvo nustatytas. Prašome sukonfigūruoti arba kitu būdu susisiekti su mumis adresu %@
     nb = E-postklienten har ikke blitt konfigurert. Konfigurer den eller bruk en annen måte å kontakte oss på %@
     nl = De emailcliënt is niet ingesteld. Gelieve de cliënt te configureren of op een andere manier contact met ons op te nemen op %@
     pl = Email klienta nie został założony. Proszę skonfigurować adres email, bądź skorzystać z innych opcji, aby się z nami skontaktować na %@
@@ -4867,6 +4918,7 @@
     it = Errore invio e-mail
     ja = メール送信エラー
     ko = 메일 전송 중 오류
+	  lt = Laiško siuntimo klaida
     nb = Feil ved sending av e-post
     nl = Email verzendfout
     pl = Błąd wysyłania wiadomości
@@ -4904,6 +4956,7 @@
     it = Calibrazione del compasso
     ja = コンパスの調整
     ko = 나침반 보정
+  	lt = Kompaso kalibravimas
     nb = Kompasskalibrering
     nl = Kompascalibratie
     pl = Kalibracja kompasu
@@ -4940,6 +4993,7 @@
     it = WiFi
     ja = 無線LAN
     ko = WiFi 인터넷
+  	lt = WiFi
     nb = WiFi
     nl = WiFi
     pl = WiFi
@@ -4975,6 +5029,7 @@
     it = Aggiorna tutte
     ja = 全てをアップデート
     ko = 모두 업데이트
+	  lt = Atnaujinti viską
     nb = Oppdater alle
     nl = Update alles
     pl = Aktualizuj wszystkie
@@ -5012,6 +5067,7 @@
     it = Annulla tutto
     ja = すべてキャンセル
     ko = 모두 취소
+	  lt = Viską atšaukti
     nb = Avbryt alle
     nl = Alles annuleren
     pl = Anuluj wszystko
