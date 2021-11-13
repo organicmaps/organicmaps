@@ -826,7 +826,7 @@ public class PlacePageView extends NestedScrollViewClickFixed
     {
       SpannableStringBuilder sb = new SpannableStringBuilder(text);
       int start = text.indexOf("★");
-      int end = text.lastIndexOf("★") + 1
+      int end = text.lastIndexOf("★") + 1;
       if (start > -1)
       {
         sb.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.base_yellow)),
