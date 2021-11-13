@@ -830,7 +830,7 @@ public class PlacePageView extends NestedScrollViewClickFixed
       if (start > -1)
       {
         sb.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.base_yellow)),
-                   start, end), Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
+                   start, end, Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
 
       }
       mTvSubtitle.setText(sb);
