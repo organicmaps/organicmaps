@@ -1,7 +1,5 @@
 #include "routing/mwm_hierarchy_handler.hpp"
 
-#include "base/logging.hpp"
-
 #include <unordered_set>
 
 namespace routing
@@ -12,60 +10,57 @@ namespace routing
 inline size_t constexpr kCrossCountryPenaltyS = 60 * 60 * 2;
 
 // The Eurasian Economic Union (EAEU) list of countries.
-std::unordered_set<std::string> kEAEU{"Armenia", "Belarus", "Kazakhstan", "Kyrgyzstan",
-                                      "Russian Federation"};
+std::unordered_set<std::string> kEAEU = {
+  "Armenia", "Belarus", "Kazakhstan", "Kyrgyzstan", "Russian Federation"
+};
 
 // The Schengen Area list of countries.
-std::unordered_set<std::string> kSchengenArea{
+std::unordered_set<std::string> kSchengenArea = {
     "Austria", "Belgium",       "Czech Republic", "Denmark",    "Estonia",  "Finland",
     "France",  "Germany",       "Greece",         "Hungary",    "Iceland",  "Italy",
     "Latvia",  "Liechtenstein", "Lithuania",      "Luxembourg", "Malta",    "Netherlands",
     "Norway",  "Poland",        "Portugal",       "Slovakia",   "Slovenia", "Spain",
-    "Sweden",  "Switzerland"};
+    "Sweden",  "Switzerland"
+};
 
-// Returns country name for |mwmName|. The logic of searching for a parent is determined by |fn|.
-// Country name may be empty.
-std::string GetCountryByMwmName(std::string const & mwmName, CountryParentNameGetterFn fn)
+/// @return Top level hierarchy name for MWMs \a mwmName.
+/// @note May be empty for the disputed territories.
+std::string GetCountryByMwmName(std::string const & mwmName, CountryParentNameGetterFn const & fn)
 {
-  static std::string const CountriesRoot = "Countries";
-  std::string country;
-
-  if (!fn)
-    return country;
-
-  std::string parent = mwmName;
-
-  while (parent != CountriesRoot)
+  std::string country = mwmName;
+  while (true)
   {
-    country = parent;
     if (country.empty())
       break;
 
-    parent = fn(parent);
+    auto parent = fn(country);
+    if (parent == "Countries")
+      break;
+    else
+      country = std::move(parent);
   }
-
   return country;
 }
 
-std::string GetCountryByMwmId(NumMwmId mwmId, CountryParentNameGetterFn fn,
-                              std::shared_ptr<NumMwmIds> const & numMwmIds)
+MwmHierarchyHandler::MwmHierarchyHandler(std::shared_ptr<NumMwmIds> numMwmIds,
+                                         CountryParentNameGetterFn parentGetterFn)
+  : m_numMwmIds(std::move(numMwmIds)), m_countryParentNameGetterFn(std::move(parentGetterFn))
 {
-  if (numMwmIds != nullptr && numMwmIds->ContainsFileForMwm(mwmId))
-    return GetCountryByMwmName(numMwmIds->GetFile(mwmId).GetName(), fn);
+}
+
+std::string MwmHierarchyHandler::GetParentCountry(NumMwmId mwmId) const
+{
+  if (m_numMwmIds && m_numMwmIds->ContainsFileForMwm(mwmId))
+    return GetCountryByMwmName(m_numMwmIds->GetFile(mwmId).GetName(), m_countryParentNameGetterFn);
   return {};
 }
 
-MwmHierarchyHandler::MwmHierarchyHandler(std::shared_ptr<NumMwmIds> numMwmIds,
-                                         CountryParentNameGetterFn countryParentNameGetterFn)
-  : m_numMwmIds(numMwmIds), m_countryParentNameGetterFn(countryParentNameGetterFn)
+std::string const & MwmHierarchyHandler::GetParentCountryCached(NumMwmId mwmId)
 {
-}
-
-std::string const & MwmHierarchyHandler::GetParentCountryByMwmId(NumMwmId mwmId)
-{
+  /// @todo Possible races here? Because can't say for sure that MwmHierarchyHandler is not used concurrently.
   auto [it, inserted] = m_mwmCountriesCache.emplace(mwmId, "");
   if (inserted)
-    it->second = GetCountryByMwmId(mwmId, m_countryParentNameGetterFn, m_numMwmIds);
+    it->second = GetParentCountry(mwmId);
 
   return it->second;
 }
@@ -75,8 +70,8 @@ bool MwmHierarchyHandler::HasCrossBorderPenalty(NumMwmId mwmId1, NumMwmId mwmId2
   if (mwmId1 == mwmId2)
     return false;
 
-  std::string const country1 = GetParentCountryByMwmId(mwmId1);
-  std::string const country2 = GetParentCountryByMwmId(mwmId2);
+  std::string const country1 = GetParentCountryCached(mwmId1);
+  std::string const country2 = GetParentCountryCached(mwmId2);
 
   // If one of the mwms belongs to the territorial dispute we add penalty for crossing its borders.
   if (country1.empty() || country2.empty())

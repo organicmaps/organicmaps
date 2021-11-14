@@ -369,7 +369,7 @@ void TestIndexGraphTopology::Builder::BuildGraphFromRequests(vector<EdgeRequest>
     if (!request.m_accessConditionalType.IsEmpty())
       wayToAccessConditional[request.m_id] = request.m_accessConditionalType;
 
-    // All features have 1 segment. |from| has point index 0, |to| has point index 1. 
+    // All features have 1 segment. |from| has point index 0, |to| has point index 1.
     if (request.m_fromAccessType != RoadAccess::Type::Yes)
       pointToAccess[RoadPoint(request.m_id, 0 /* pointId */)] = request.m_fromAccessType;
 
@@ -420,7 +420,7 @@ unique_ptr<SingleVehicleWorldGraph> BuildWorldGraph(unique_ptr<TestGeometryLoade
   auto indexLoader = make_unique<TestIndexGraphLoader>();
   indexLoader->AddGraph(kTestNumMwmId, move(graph));
   return make_unique<SingleVehicleWorldGraph>(nullptr /* crossMwmGraph */, move(indexLoader),
-                                              estimator, MwmHierarchyHandler(nullptr, nullptr));
+                                              estimator, MwmHierarchyHandler());
 }
 
 unique_ptr<IndexGraph> BuildIndexGraph(unique_ptr<TestGeometryLoader> geometryLoader,
@@ -437,12 +437,12 @@ unique_ptr<SingleVehicleWorldGraph> BuildWorldGraph(unique_ptr<ZeroGeometryLoade
                                                     vector<Joint> const & joints)
 {
   auto graph = make_unique<IndexGraph>(make_shared<Geometry>(move(geometryLoader)), estimator);
-  
+
   graph->Import(joints);
   auto indexLoader = make_unique<TestIndexGraphLoader>();
   indexLoader->AddGraph(kTestNumMwmId, move(graph));
   return make_unique<SingleVehicleWorldGraph>(nullptr /* crossMwmGraph */, move(indexLoader),
-                                              estimator, MwmHierarchyHandler(nullptr, nullptr));
+                                              estimator, MwmHierarchyHandler());
 }
 
 unique_ptr<TransitWorldGraph> BuildWorldGraph(unique_ptr<TestGeometryLoader> geometryLoader,
@@ -464,7 +464,7 @@ unique_ptr<TransitWorldGraph> BuildWorldGraph(unique_ptr<TestGeometryLoader> geo
 
   auto transitLoader = make_unique<TestTransitGraphLoader>();
   transitLoader->AddGraph(kTestNumMwmId, move(transitGraph));
-  
+
   return make_unique<TransitWorldGraph>(nullptr /* crossMwmGraph */, move(indexLoader),
                                         move(transitLoader), estimator);
 }

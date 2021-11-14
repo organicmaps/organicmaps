@@ -11,25 +11,29 @@
 
 namespace routing
 {
-using MwmToCountry = std::unordered_map<NumMwmId, std::string>;
 
-// Class for calculating penalty while crossing country borders. Also finds parent country for mwm.
+/// Class for calculating penalty while crossing country borders. Also finds parent country for mwm.
 class MwmHierarchyHandler
 {
 public:
+  // Used in tests only.
+  MwmHierarchyHandler() = default;
+  // Used in IndexRouter.
   MwmHierarchyHandler(std::shared_ptr<NumMwmIds> numMwmIds,
                       CountryParentNameGetterFn countryParentNameGetterFn);
 
+  bool HasCrossBorderPenalty(NumMwmId mwmId1, NumMwmId mwmId2);
   RouteWeight GetCrossBorderPenalty(NumMwmId mwmId1, NumMwmId mwmId2);
 
 private:
-  bool HasCrossBorderPenalty(NumMwmId mwmId1, NumMwmId mwmId2);
+  /// @return Parent country name for \a mwmId.
+  std::string GetParentCountry(NumMwmId mwmId) const;
+  std::string const & GetParentCountryCached(NumMwmId mwmId);
 
-  // Returns parent country name for |mwmId|.
-  std::string const & GetParentCountryByMwmId(NumMwmId mwmId);
+  std::shared_ptr<NumMwmIds> m_numMwmIds;
+  CountryParentNameGetterFn m_countryParentNameGetterFn;
 
-  std::shared_ptr<NumMwmIds> m_numMwmIds = nullptr;
-  CountryParentNameGetterFn m_countryParentNameGetterFn = nullptr;
+  using MwmToCountry = std::unordered_map<NumMwmId, std::string>;
   MwmToCountry m_mwmCountriesCache;
 };
 }  // namespace routing
