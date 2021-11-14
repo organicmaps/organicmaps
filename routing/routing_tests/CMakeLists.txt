@@ -21,6 +21,7 @@ set(
   index_graph_tools.cpp
   index_graph_tools.hpp
   maxspeeds_tests.cpp
+  mwm_hierarchy_test.cpp
   nearest_edge_finder_tests.cpp
   opening_hours_serdes_tests.cpp
   position_accumulator_tests.cpp
