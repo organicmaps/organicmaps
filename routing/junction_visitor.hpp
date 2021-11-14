@@ -13,6 +13,15 @@ namespace routing
 {
 double constexpr kProgressInterval = 0.5;
 
+#ifdef DEBUG
+inline void DebugRoutingState(...) {}
+
+class JointSegment;
+class RouteWeight;
+void DebugRoutingState(JointSegment const & vertex, std::optional<JointSegment> const & parent,
+                       RouteWeight const & heuristic, RouteWeight const & distance);
+#endif
+
 template <typename Graph>
 class JunctionVisitor
 {
@@ -27,23 +36,22 @@ public:
       m_lastProgressPercent = progress->GetLastPercent();
   }
 
+  /// @param[in]  p   { Current state, Step context } pair.
+  /// @param[in]  to  End vertex (final for forward and start for backward waves).
+  template <class StateContextPair> void operator()(StateContextPair const & p, Vertex const & to)
+  {
+    auto const & state = p.first;
+#ifdef DEBUG
+    // For Debug purpose.
+    DebugRoutingState(state.vertex, p.second->GetParent(state.vertex), state.heuristic, state.distance);
+#endif
+    this->operator()(state.vertex, to);
+  }
+
+  /// @param[in]  from  Current processing vertex.
+  /// @param[in]  to    End vertex (final for forward and start for backward waves).
   void operator()(Vertex const & from, Vertex const & to)
   {
-    // For Debug purpose.
-    /*
-    auto const & pointFrom = m_graph.GetPoint(from, true);
-    auto const & pointTo = m_graph.GetPoint(to, true);
-
-    std::cout << "[";
-    auto const printPoint = [](ms::LatLon const & ll)
-    {
-      std::cout << std::setprecision(9) << "[" << ll.m_lon << "," << ll.m_lat << "],";
-    };
-    printPoint(pointFrom);
-    printPoint(pointTo);
-    std::cout << "]," << std::endl;
-    */
-
     ++m_visitCounter;
     if (m_visitCounter % m_visitPeriod != 0)
       return;

@@ -85,6 +85,7 @@ set(
   joint_index.hpp
   joint_segment.cpp
   joint_segment.hpp
+  junction_visitor.cpp
   junction_visitor.hpp
   latlon_with_altitude.cpp
   latlon_with_altitude.hpp
