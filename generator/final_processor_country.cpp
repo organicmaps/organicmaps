@@ -106,7 +106,7 @@ void CountryFinalProcessor::Process()
   if (!m_isolinesPath.empty())
     AddIsolines();
 
-  DropProhibitedSpeedCameras();
+  //DropProhibitedSpeedCameras();
   ProcessBuildingParts();
   Finish();
 }
