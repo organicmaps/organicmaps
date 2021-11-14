@@ -26,7 +26,7 @@ git checkout release-92
 
 The app version can be found in the "About" section in the settings menu of OMaps.
 
-1. [Build and install generator_tool.](https://github.com/organicmaps/organicmaps/blob/master/docs/INSTALL.md#maps-generator)
+1. [Build and install generator_tool.](https://github.com/organicmaps/organicmaps/blob/master/docs/INSTALL.md#desktop-app)
 2. Change directory:
 
 ```sh
