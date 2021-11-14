@@ -279,32 +279,32 @@ void MapWidget::ShowInfoPopup(QMouseEvent * e, m2::PointD const & pt)
 {
   // show feature types
   QMenu menu;
-  auto const addStringFn = [&menu](std::string const & s) {
-    if (s.empty())
-      return;
-
-    menu.addAction(QString::fromUtf8(s.c_str()));
+  auto const addStringFn = [&menu](std::string const & s)
+  {
+    if (!s.empty())
+      menu.addAction(QString::fromUtf8(s.c_str()));
   };
 
-  m_framework.ForEachFeatureAtPoint(
-      [&](FeatureType & ft) {
-        std::string concat;
-        auto types = feature::TypesHolder(ft);
-        types.SortBySpec();
-        for (auto const & type : types.ToObjectNames())
-          concat += type + " ";
-        addStringFn(concat);
+  m_framework.ForEachFeatureAtPoint([&](FeatureType & ft)
+  {
+    addStringFn(DebugPrint(ft.GetID()));
 
-        std::string name;
-        ft.GetReadableName(name);
-        addStringFn(name);
+    std::string concat;
+    auto types = feature::TypesHolder(ft);
+    types.SortBySpec();
+    for (auto const & type : types.ToObjectNames())
+      concat += type + " ";
+    addStringFn(concat);
 
-        auto const info = GetFeatureAddressInfo(m_framework, ft);
-        addStringFn(info.FormatAddress());
+    std::string name;
+    ft.GetReadableName(name);
+    addStringFn(name);
 
-        menu.addSeparator();
-      },
-      m_framework.PtoG(pt));
+    auto const info = GetFeatureAddressInfo(m_framework, ft);
+    addStringFn(info.FormatAddress());
+
+    menu.addSeparator();
+  }, m_framework.PtoG(pt));
 
   menu.exec(e->pos());
 }

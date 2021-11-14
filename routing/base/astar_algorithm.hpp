@@ -25,16 +25,15 @@ namespace routing
 {
 namespace astar
 {
-template <typename Vertex>
+
 struct DefaultVisitor
 {
-  void operator()(Vertex const & /* from */, Vertex const & /* to */) const {};
+  template <class State, class Vertex> void operator() (State const &, Vertex const &) const {};
 };
 
-template <typename Weight>
 struct DefaultLengthChecker
 {
-  bool operator()(Weight const & /* weight */) const { return true; }
+  template <class Weight> bool operator()(Weight const &) const { return true; }
 };
 }  // namespace astar
 
@@ -95,14 +94,14 @@ public:
   // |LengthChecker| callback used to check path length from start/finish to the edge (including the
   // edge itself) before adding the edge to AStar queue. Can be used to clip some path which does
   // not meet restrictions.
-  template <typename Visitor = astar::DefaultVisitor<Vertex>,
-            typename LengthChecker = astar::DefaultLengthChecker<Weight>>
+  template <typename Visitor = astar::DefaultVisitor,
+            typename LengthChecker = astar::DefaultLengthChecker>
   struct Params : public ParamsBase
   {
     Params(Graph & graph, Vertex const & startVertex, Vertex const & finalVertex,
            std::vector<Edge> const * prevRoute, base::Cancellable const & cancellable,
-           Visitor && onVisitedVertexCallback = astar::DefaultVisitor<Vertex>(),
-           LengthChecker && checkLengthCallback = astar::DefaultLengthChecker<Weight>())
+           Visitor && onVisitedVertexCallback = astar::DefaultVisitor(),
+           LengthChecker && checkLengthCallback = astar::DefaultLengthChecker())
       : ParamsBase(graph, startVertex, finalVertex, prevRoute, cancellable)
       , m_onVisitedVertexCallback(std::forward<Visitor>(onVisitedVertexCallback))
       , m_checkLengthCallback(std::forward<LengthChecker>(checkLengthCallback))
@@ -113,19 +112,18 @@ public:
     LengthChecker const m_checkLengthCallback;
   };
 
-  template <typename LengthChecker = astar::DefaultLengthChecker<Weight>>
+  template <typename LengthChecker = astar::DefaultLengthChecker>
   struct ParamsForTests : public ParamsBase
   {
     ParamsForTests(Graph & graph, Vertex const & startVertex, Vertex const & finalVertex,
                    std::vector<Edge> const * prevRoute,
-                   LengthChecker && checkLengthCallback = astar::DefaultLengthChecker<Weight>())
+                   LengthChecker && checkLengthCallback = astar::DefaultLengthChecker())
       : ParamsBase(graph, startVertex, finalVertex, prevRoute, m_dummy)
       , m_checkLengthCallback(std::forward<LengthChecker>(checkLengthCallback))
     {
     }
 
-    astar::DefaultVisitor<Vertex> const m_onVisitedVertexCallback =
-        astar::DefaultVisitor<Vertex>();
+    astar::DefaultVisitor const m_onVisitedVertexCallback{};
     LengthChecker const m_checkLengthCallback;
 
   private:
@@ -355,6 +353,12 @@ private:
     }
 
     Parents & GetParents() { return parent; }
+
+    std::optional<Vertex> GetParent(Vertex const & vertex) const
+    {
+      auto const it = parent.find(vertex);
+      return it != parent.cend() ? std::optional<Vertex>(it->second) : std::nullopt;
+    }
 
     bool const forward;
     Vertex const & startVertex;
@@ -588,14 +592,13 @@ AStarAlgorithm<Vertex, Edge, Weight>::FindPathBidirectional(P & params,
   BidirectionalStepContext * cur = &forward;
   BidirectionalStepContext * nxt = &backward;
 
-  auto const getResult = [&]() {
+  auto const getResult = [&]()
+  {
     if (!params.m_checkLengthCallback(bestPathRealLength))
       return Result::NoPath;
 
-    ReconstructPathBidirectional(cur->bestVertex, nxt->bestVertex, cur->parent, nxt->parent,
-                                 result.m_path);
+    ReconstructPathBidirectional(cur->bestVertex, nxt->bestVertex, cur->parent, nxt->parent, result.m_path);
     result.m_distance = bestPathRealLength;
-    CHECK(!result.m_path.empty(), ());
     if (!cur->forward)
       reverse(result.m_path.begin(), result.m_path.end());
 
@@ -646,8 +649,8 @@ AStarAlgorithm<Vertex, Edge, Weight>::FindPathBidirectional(P & params,
     if (cur->ExistsStateWithBetterDistance(stateV))
       continue;
 
-    params.m_onVisitedVertexCallback(stateV.vertex,
-                                     cur->forward ? cur->finalVertex : cur->startVertex);
+    auto const endV = cur->forward ? cur->finalVertex : cur->startVertex;
+    params.m_onVisitedVertexCallback(std::make_pair(stateV, cur), endV);
 
     cur->GetAdjacencyList(stateV, adj);
     auto const & pV = stateV.heuristic;
@@ -704,7 +707,7 @@ AStarAlgorithm<Vertex, Edge, Weight>::FindPathBidirectional(P & params,
         }
       }
 
-      if (stateW.vertex != (cur->forward ? cur->finalVertex : cur->startVertex))
+      if (stateW.vertex != endV)
         cur->queue.push(stateW);
     }
   }
@@ -721,16 +724,11 @@ typename AStarAlgorithm<Vertex, Edge, Weight>::Result
 AStarAlgorithm<Vertex, Edge, Weight>::AdjustRoute(P & params,
                                                   RoutingResult<Vertex, Weight> & result) const
 {
-  CHECK(params.m_prevRoute, ());
   auto & graph = params.m_graph;
   auto const & startVertex = params.m_startVertex;
   auto const & prevRoute = *params.m_prevRoute;
 
   CHECK(!prevRoute.empty(), ());
-
-  static_assert(!std::is_same<decltype(params.m_checkLengthCallback),
-                              astar::DefaultLengthChecker<Weight>>::value,
-                "CheckLengthCallback expected to be set to limit wave propagation.");
 
   result.Clear();
 
