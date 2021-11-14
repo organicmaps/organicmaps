@@ -1,19 +1,11 @@
-@NOTE1: Run <organicmaps>/tools/android/update_assets.sh once every time when assets are added/removed
-@NOTE2: To increase apk version, please edit gradle.properties
-@NOTE3: Run <organicmaps>/tools/android/set_up_android.py to set up everything.
+To build, install and run e.g. a Web Debug version on your device/emulator: './gradlew runWebDebug'
 
-To clean everything, use './gradlew clean'
+Or to compile a redistributable Fdroid Beta apk for testing: './gradlew assembleFdroidBeta'
 
-To build all production apks, use './gradlew assembleRelease' or './gradlew aR'
-
-To build production version, use './gradlew assembleGoogleRelease'
-
-To build beta, use './gradlew assembleGoogleBeta'
-
-To build specific store version, use './gradlew assembleAmazonDebug'
+Or to build release apks for all flavors: './gradlew assembleRelease'
 
 To see all available build targets './gradlew tasks'
 
-To build and install debug version on a device './gradlew installGoogleDebug'
+To remove all intermediate build files run './gradlew clean'
 
-To build, install and run application './gradlew runGoogleDebug'
+See ../docs/INSTALL.md for more detailed instructions.

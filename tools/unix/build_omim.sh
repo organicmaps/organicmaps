@@ -30,11 +30,14 @@ while getopts ":cdrstagjlp:" opt; do
       ;;
     t) OPT_DESIGNER=1 ;;
     *)
-      echo "This tool builds omim"
+      echo "This tool builds Organic Maps"
       echo "Usage: $0 [-d] [-r] [-c] [-s] [-t] [-a] [-g] [-j] [-l] [-p PATH] [target1 target2 ...]"
       echo
-      echo -e "-d\tBuild omim-debug"
-      echo -e "-r\tBuild omim-release"
+      echo "By default both debug and release versions are built"
+      echo "and binaries are put into ../omim-build-<buildtype> dir."
+      echo
+      echo -e "-d\tBuild debug version"
+      echo -e "-r\tBuild release version"
       echo -e "-c\tClean before building"
       echo -e "-s\tSkip desktop app building"
       echo -e "-t\tBuild designer tool (only for MacOS X platform)"
@@ -43,7 +46,6 @@ while getopts ":cdrstagjlp:" opt; do
       echo -e "-p\tDirectory for built binaries"
       echo -e "-j\tGenerate compile_commands.json"
       echo -e "-l\tLaunches built binary(ies), useful for tests"
-      echo "By default both configurations is built."
       exit 1
       ;;
   esac
