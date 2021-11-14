@@ -460,17 +460,17 @@ MAIN_WITH_ERROR_HANDLING([](int argc, char ** argv)
 
     if (FLAGS_generate_cameras)
     {
-      if (routing::AreSpeedCamerasProhibited(platform::CountryFile(country)))
-      {
-        LOG(LINFO,
-            ("Cameras info is prohibited for", country, "and speedcams section is not generated."));
-      }
-      else
-      {
+//      if (routing::AreSpeedCamerasProhibited(platform::CountryFile(country)))
+//      {
+//        LOG(LINFO,
+//            ("Cameras info is prohibited for", country, "and speedcams section is not generated."));
+//      }
+//      else
+//      {
         string const camerasFilename = genInfo.GetIntermediateFileName(CAMERAS_TO_WAYS_FILENAME);
 
         BuildCamerasInfo(dataFile, camerasFilename, osmToFeatureFilename);
-      }
+//      }
     }
 
     if (country == WORLD_FILE_NAME && !FLAGS_world_roads_path.empty())
