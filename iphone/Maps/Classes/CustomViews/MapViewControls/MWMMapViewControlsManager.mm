@@ -249,9 +249,10 @@ NSString *const kMapToCategorySelectorSegue = @"MapToCategorySelectorSegue";
 
 - (BottomTabBarViewController *)tabBarController {
   if (!_tabBarController) {
-    _tabBarController = [BottomTabBarBuilder buildWithMapViewController:_ownerController controlsManager:self];
-    [self.ownerController addChildViewController:_tabBarController];
-    UIView *tabBarViewSuperView = self.ownerController.controlsView;
+    MapViewController * ownerController = _ownerController;
+    _tabBarController = [BottomTabBarBuilder buildWithMapViewController:ownerController controlsManager:self];
+    [ownerController addChildViewController:_tabBarController];
+    UIView * tabBarViewSuperView = ownerController.controlsView;
     [tabBarViewSuperView addSubview:_tabBarController.view];
   }
 
@@ -307,23 +308,16 @@ NSString *const kMapToCategorySelectorSegue = @"MapToCategorySelectorSegue";
 
 - (void)setMenuState:(MWMBottomMenuState)menuState {
   _menuState = menuState;
+  MapViewController * ownerController = _ownerController;
   switch (_menuState) {
     case MWMBottomMenuStateActive:
-      _tabBarController.isHidden = NO;
-      if (_menuController == nil) {
-        _menuController = [BottomMenuBuilder buildMenuWithMapViewController:_ownerController
-                                                            controlsManager:self
-                                                                   delegate:self];
-        [_ownerController presentViewController:_menuController animated:YES completion:nil];
-      }
-      break;
     case MWMBottomMenuStateLayers:
       _tabBarController.isHidden = NO;
       if (_menuController == nil) {
-        _menuController = [BottomMenuBuilder buildLayersWithMapViewController:_ownerController
+        _menuController = [BottomMenuBuilder buildLayersWithMapViewController:ownerController
                                                               controlsManager:self
                                                                      delegate:self];
-        [_ownerController presentViewController:_menuController animated:YES completion:nil];
+        [ownerController presentViewController:_menuController animated:YES completion:nil];
       }
       break;
     case MWMBottomMenuStateInactive:

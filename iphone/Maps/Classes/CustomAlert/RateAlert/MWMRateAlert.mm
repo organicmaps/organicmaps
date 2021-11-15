@@ -122,9 +122,7 @@ static NSString * const kRateEmail = @"rating@organicmaps.app";
 
 - (void)sendFeedback
 {
-  self.alpha = 0.;
-  MWMAlertViewController * alertController = self.alertController;
-  alertController.view.alpha = 0.;
+  UIViewController * ownerVC = self.alertController.ownerViewController;
   if ([MWMMailViewController canSendMail])
   {
     NSString * deviceModel = [AppInfo sharedInfo].deviceModel;
@@ -147,18 +145,18 @@ static NSString * const kRateEmail = @"rating@organicmaps.app";
     [mailController setToRecipients:@[ kRateEmail ]];
     [mailController setMessageBody:text isHTML:NO];
     mailController.navigationBar.tintColor = UIColor.blackColor;
-    [alertController.ownerViewController presentViewController:mailController
-                                                      animated:YES
-                                                    completion:nil];
+    [ownerVC presentViewController:mailController animated:YES completion:nil];
   }
   else
   {
     NSString * text = [NSString stringWithFormat:L(@"email_error_body"), kRateEmail];
-    [[[UIAlertView alloc] initWithTitle:L(@"email_error_title")
-                                message:text
-                               delegate:nil
-                      cancelButtonTitle:L(@"ok")
-                      otherButtonTitles:nil] show];
+    UIAlertController * alert = [UIAlertController alertControllerWithTitle:L(@"email_error_title")
+                                                                    message:text
+                                                             preferredStyle:UIAlertControllerStyleAlert];
+    [alert addAction:[UIAlertAction actionWithTitle:L(@"ok")
+                                              style:UIAlertActionStyleDefault
+                                            handler:^(UIAlertAction * action) {}]];
+    [ownerVC presentViewController:alert animated:YES completion:nil];
   }
 }
 

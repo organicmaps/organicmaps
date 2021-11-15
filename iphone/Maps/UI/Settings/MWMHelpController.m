@@ -147,11 +147,13 @@ static NSString * const kiOSEmail = @"ios@organicmaps.app";
   else
   {
     NSString * text = [NSString stringWithFormat:L(@"email_error_body"), email];
-    [[[UIAlertView alloc] initWithTitle:L(@"email_error_title")
-                                message:text
-                               delegate:nil
-                      cancelButtonTitle:L(@"ok")
-                      otherButtonTitles:nil] show];
+    UIAlertController * alert = [UIAlertController alertControllerWithTitle:L(@"email_error_title")
+                                                                    message:text
+                                                             preferredStyle:UIAlertControllerStyleAlert];
+    [alert addAction:[UIAlertAction actionWithTitle:L(@"ok")
+                                              style:UIAlertActionStyleDefault
+                                            handler:^(UIAlertAction * _) {}]];
+    [self presentViewController:alert animated:YES completion:nil];
   }
 }
 

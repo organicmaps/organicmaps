@@ -1,4 +1,4 @@
-typedef NS_ENUM(NSUInteger, MWMRouterResultCode) {
+typedef NS_CLOSED_ENUM(NSUInteger, MWMRouterResultCode) {
   MWMRouterResultCodeNoError = 0,
   MWMRouterResultCodeCancelled = 1,
   MWMRouterResultCodeNoCurrentPosition = 2,

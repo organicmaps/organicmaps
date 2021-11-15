@@ -1,4 +1,4 @@
-typedef NS_ENUM(NSUInteger, MWMRoutePointType) {
+typedef NS_CLOSED_ENUM(NSUInteger, MWMRoutePointType) {
   MWMRoutePointTypeStart,
   MWMRoutePointTypeIntermediate,
   MWMRoutePointTypeFinish
