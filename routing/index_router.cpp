@@ -32,6 +32,7 @@
 #include "indexer/scales.hpp"
 
 #include "platform/mwm_traits.hpp"
+#include "platform/settings.hpp"
 
 #include "geometry/mercator.hpp"
 #include "geometry/parametrized_segment.hpp"
@@ -1130,11 +1131,11 @@ bool IndexRouter::FindBestEdges(m2::PointD const & checkpoint,
     MYTHROW(MwmIsNotAliveException, ("Can't get mwm handle for", pointCountryFile));
 
   auto const rect = mercator::RectByCenterXYAndSizeInMeters(checkpoint, closestEdgesRadiusM);
-  auto const isGoodFeature = [this](FeatureID const & fid) {
+  auto closestRoads = m_roadGraph.FindRoads(rect, [this](FeatureID const & fid)
+  {
     auto const & info = fid.m_mwmId.GetInfo();
     return m_numMwmIds->ContainsFile(info->GetLocalFile().GetCountryFile());
-  };
-  auto closestRoads = m_roadGraph.FindRoads(rect, isGoodFeature);
+  });
 
   // Removing all dead ends from |closestRoads|. Then some candidates will be taken from |closestRoads|.
   // It's necessary to remove all dead ends for all |closestRoads| before IsFencedOff().
@@ -1147,11 +1148,13 @@ bool IndexRouter::FindBestEdges(m2::PointD const & checkpoint,
   // a feature to a |checkpoint| the more chances that it crosses the segment
   // |checkpoint|, projections of |checkpoint| on feature edges. It confirmed with benchmarks.
   sort(closestRoads.begin(), closestRoads.end(),
-       [&checkpoint](IRoadGraph::FullRoadInfo const & lhs, IRoadGraph::FullRoadInfo const & rhs) {
-    CHECK(!lhs.m_roadInfo.m_junctions.empty(), ());
-    return
-        checkpoint.SquaredLength(lhs.m_roadInfo.m_junctions[0].GetPoint()) <
-            checkpoint.SquaredLength(rhs.m_roadInfo.m_junctions[0].GetPoint());
+       [&checkpoint](IRoadGraph::FullRoadInfo const & lhs, IRoadGraph::FullRoadInfo const & rhs)
+  {
+    auto const & lj = lhs.m_roadInfo.m_junctions;
+    auto const & rj = rhs.m_roadInfo.m_junctions;
+    ASSERT(!lj.empty() && !rj.empty(), ());
+
+    return checkpoint.SquaredLength(lj[0].GetPoint()) < checkpoint.SquaredLength(rj[0].GetPoint());
   });
 
   // Note about necessity of removing dead ends twice.
@@ -1164,7 +1167,8 @@ bool IndexRouter::FindBestEdges(m2::PointD const & checkpoint,
   // candidates if it's a dead end taking into acount routing options. We ignore candidates as well
   // if they don't match RoutingOptions.
   set<Segment> deadEnds;
-  auto const isGood = [&](pair<Edge, geometry::PointWithAltitude> const & edgeProj) {
+  auto const isGood = [&](pair<Edge, geometry::PointWithAltitude> const & edgeProj)
+  {
     auto const segment = GetSegmentByEdge(edgeProj.first);
     if (IsDeadEndCached(segment, isOutgoing, true /* useRoutingOptions */,  worldGraph, deadEnds))
       return false;
@@ -1457,30 +1461,21 @@ RouterResultCode IndexRouter::RedressRoute(vector<Segment> const & segments,
     times.emplace_back(static_cast<uint32_t>(i + 1), time);
   }
 
-  CHECK(m_directionsEngine, ());
-
   m_directionsEngine->SetVehicleType(m_vehicleType);
   ReconstructRoute(*m_directionsEngine, roadGraph, m_trafficStash, cancellable, junctions,
                    move(times), route);
 
-  CHECK(m_numMwmIds, ());
   auto & worldGraph = starter.GetGraph();
   for (auto & routeSegment : route.GetRouteSegments())
   {
-    routeSegment.SetTransitInfo(worldGraph.GetTransitInfo(routeSegment.GetSegment()));
-
     auto & segment = routeSegment.GetSegment();
-    // Removing speed cameras from the route with method AreSpeedCamerasProhibited(...)
-    // at runtime is necessary for maps from Jan 2019 with speed cameras where it's prohibited
-    // to use them.
+    routeSegment.SetTransitInfo(worldGraph.GetTransitInfo(segment));
+
     if (m_vehicleType == VehicleType::Car)
     {
       routeSegment.SetRoadTypes(starter.GetRoutingOptions(segment));
-      if (segment.IsRealSegment() &&
-          !AreSpeedCamerasProhibited(m_numMwmIds->GetFile(segment.GetMwmId())))
-      {
+      if (segment.IsRealSegment() && !AreSpeedCamerasProhibited(segment.GetMwmId()))
         routeSegment.SetSpeedCameraInfo(worldGraph.GetSpeedCamInfo(segment));
-      }
     }
 
     if (!segment.IsRealSegment())
@@ -1501,6 +1496,19 @@ RouterResultCode IndexRouter::RedressRoute(vector<Segment> const & segments,
   }
 
   return RouterResultCode::NoError;
+}
+
+bool IndexRouter::AreSpeedCamerasProhibited(NumMwmId mwmID) const
+{
+  if (::AreSpeedCamerasProhibited(m_numMwmIds->GetFile(mwmID)))
+  {
+    // Not a big overhead here, but can cache flag in IndexRouter and reset it via
+    // Framework -> RoutingSession -> IndexRouter.
+    bool enabled = false;
+    settings::TryGet(kDebugSpeedCamSetting, enabled);
+    return !enabled;
+  }
+  return false;
 }
 
 bool IndexRouter::AreMwmsNear(IndexGraphStarter const & starter) const
