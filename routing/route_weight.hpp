@@ -32,33 +32,10 @@ public:
   double ToCrossMwmWeight() const;
   double GetWeight() const { return m_weight; }
   int8_t GetNumPassThroughChanges() const { return m_numPassThroughChanges; }
-  int8_t GetNumAccessChanges() const { return m_numAccessChanges; }
   double GetTransitTime() const { return m_transitTime; }
 
-  int8_t GetNumAccessConditionalPenalties() const { return m_numAccessConditionalPenalties; }
-  void AddAccessConditionalPenalty();
-
-  bool operator<(RouteWeight const & rhs) const
-  {
-    if (m_numPassThroughChanges != rhs.m_numPassThroughChanges)
-      return m_numPassThroughChanges < rhs.m_numPassThroughChanges;
-    // We compare m_numAccessChanges after m_numPassThroughChanges because we can have multiple
-    // nodes with access tags on the way from the area with limited access and no access tags on the
-    // ways inside this area. So we probably need to make access restriction less strict than pass
-    // through restrictions e.g. allow to cross access={private, destination} and build the route
-    // with the least possible number of such crosses or introduce some maximal number of
-    // access={private, destination} crosses.
-    if (m_numAccessChanges != rhs.m_numAccessChanges)
-      return m_numAccessChanges < rhs.m_numAccessChanges;
-
-    if (m_numAccessConditionalPenalties != rhs.m_numAccessConditionalPenalties)
-      return m_numAccessConditionalPenalties < rhs.m_numAccessConditionalPenalties;
-
-    if (m_weight != rhs.m_weight)
-      return m_weight < rhs.m_weight;
-    // Prefer bigger transit time if total weights are same.
-    return m_transitTime > rhs.m_transitTime;
-  }
+  double GetIntegratedWeight() const;
+  bool operator<(RouteWeight const & rhs) const;
 
   bool operator==(RouteWeight const & rhs) const { return !((*this) < rhs) && !(rhs < (*this)); }
 
@@ -85,7 +62,7 @@ public:
                        -m_numAccessConditionalPenalties, -m_transitTime);
   }
 
-  bool IsAlmostEqualForTests(RouteWeight const & rhs, double epsilon)
+  bool IsAlmostEqualForTests(RouteWeight const & rhs, double epsilon) const
   {
     return m_numPassThroughChanges == rhs.m_numPassThroughChanges &&
            m_numAccessChanges == rhs.m_numAccessChanges &&
@@ -93,6 +70,10 @@ public:
            base::AlmostEqualAbs(m_weight, rhs.m_weight, epsilon) &&
            base::AlmostEqualAbs(m_transitTime, rhs.m_transitTime, epsilon);
   }
+
+  friend std::ostream & operator<<(std::ostream & os, RouteWeight const & routeWeight);
+
+  friend RouteWeight operator*(double lhs, RouteWeight const & rhs);
 
 private:
   // Regular weight (seconds).
@@ -107,10 +88,6 @@ private:
   // Transit time. It's already included in |m_weight| (m_transitTime <= m_weight).
   double m_transitTime = 0.0;
 };
-
-std::ostream & operator<<(std::ostream & os, RouteWeight const & routeWeight);
-
-RouteWeight operator*(double lhs, RouteWeight const & rhs);
 
 template <>
 constexpr RouteWeight GetAStarWeightMax<RouteWeight>()
