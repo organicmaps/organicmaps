@@ -78,18 +78,56 @@ RouteWeight & RouteWeight::operator+=(RouteWeight const & rhs)
   return *this;
 }
 
-void RouteWeight::AddAccessConditionalPenalty()
+bool RouteWeight::operator<(RouteWeight const & rhs) const
 {
-  ASSERT_LESS(m_numAccessConditionalPenalties,
-              std::numeric_limits<decltype(m_numAccessConditionalPenalties)>::max(), ());
-  ++m_numAccessConditionalPenalties;
+  if (m_numPassThroughChanges != rhs.m_numPassThroughChanges)
+    return m_numPassThroughChanges < rhs.m_numPassThroughChanges;
+  // We compare m_numAccessChanges after m_numPassThroughChanges because we can have multiple
+  // nodes with access tags on the way from the area with limited access and no access tags on the
+  // ways inside this area. So we probably need to make access restriction less strict than pass
+  // through restrictions e.g. allow to cross access={private, destination} and build the route
+  // with the least possible number of such crosses or introduce some maximal number of
+  // access={private, destination} crosses.
+  if (m_numAccessChanges != rhs.m_numAccessChanges)
+    return m_numAccessChanges < rhs.m_numAccessChanges;
+
+  if (m_numAccessConditionalPenalties != rhs.m_numAccessConditionalPenalties)
+    return m_numAccessConditionalPenalties < rhs.m_numAccessConditionalPenalties;
+
+  if (m_weight != rhs.m_weight)
+    return m_weight < rhs.m_weight;
+  // Prefer bigger transit time if total weights are same.
+  return m_transitTime > rhs.m_transitTime;
+}
+
+/// @todo Introduce this integrated weight criteria into operator< to avoid strange situation when
+/// short path but with m_numAccessChanges > 0 is worse than very long path but with m_numAccessChanges == 0.
+/// Make some reasonable multiply factors with tests.
+double RouteWeight::GetIntegratedWeight() const
+{
+  double res = m_weight;
+
+  // +200% for each additional change.
+  if (m_numPassThroughChanges)
+    res += m_numPassThroughChanges * m_weight * 2;
+
+  // +200% for each additional change.
+  if (m_numAccessChanges)
+    res += m_numAccessChanges * m_weight * 2;
+
+  // +100% for each conditional.
+  if (m_numAccessConditionalPenalties)
+    res += m_numAccessConditionalPenalties * m_weight;
+
+  return res;
 }
 
 ostream & operator<<(ostream & os, RouteWeight const & routeWeight)
 {
-  os << "(" << static_cast<int32_t>(routeWeight.GetNumPassThroughChanges()) << ", "
-     << static_cast<int32_t>(routeWeight.GetNumAccessChanges()) << ", "
-     << static_cast<int32_t>(routeWeight.GetNumAccessConditionalPenalties()) << ", "
+  os << "("
+     << static_cast<int32_t>(routeWeight.GetNumPassThroughChanges()) << ", "
+     << static_cast<int32_t>(routeWeight.m_numAccessChanges) << ", "
+     << static_cast<int32_t>(routeWeight.m_numAccessConditionalPenalties) << ", "
      << routeWeight.GetWeight() << ", " << routeWeight.GetTransitTime() << ")";
   return os;
 }
@@ -97,7 +135,7 @@ ostream & operator<<(ostream & os, RouteWeight const & routeWeight)
 RouteWeight operator*(double lhs, RouteWeight const & rhs)
 {
   return RouteWeight(lhs * rhs.GetWeight(), rhs.GetNumPassThroughChanges(),
-                     rhs.GetNumAccessChanges(), rhs.GetNumAccessConditionalPenalties(),
+                     rhs.m_numAccessChanges, rhs.m_numAccessConditionalPenalties,
                      lhs * rhs.GetTransitTime());
 }
 }  // namespace routing
