@@ -1,7 +1,7 @@
 #pragma once
 
 #include "indexer/feature_data.hpp"
-#include "indexer/contacts_processor.hpp"
+#include "indexer/validate_and_format_contacts.hpp"
 
 #include <string>
 

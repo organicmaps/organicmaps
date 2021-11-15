@@ -7,6 +7,7 @@
 
 #include "indexer/cuisines.hpp"
 #include "indexer/editable_map_object.hpp"
+#include "indexer/validate_and_format_contacts.hpp"
 
 #include "coding/string_utf8_multilang.hpp"
 
@@ -655,35 +656,35 @@ Java_com_mapswithme_maps_editor_Editor_nativeIsWebsiteValid(JNIEnv * env, jclass
 JNIEXPORT jboolean JNICALL
 Java_com_mapswithme_maps_editor_Editor_nativeIsFacebookPageValid(JNIEnv * env, jclass, jstring facebookPage)
 {
-  return osm::EditableMapObject::ValidateFacebookPage(jni::ToNativeString(env, facebookPage));
+  return osm::ValidateFacebookPage(jni::ToNativeString(env, facebookPage));
 }
 
 // static boolean nativeIsInstagramPageValid(String instagramPage)
 JNIEXPORT jboolean JNICALL
 Java_com_mapswithme_maps_editor_Editor_nativeIsInstagramPageValid(JNIEnv * env, jclass, jstring instagramPage)
 {
-  return osm::EditableMapObject::ValidateInstagramPage(jni::ToNativeString(env, instagramPage));
+  return osm::ValidateInstagramPage(jni::ToNativeString(env, instagramPage));
 }
 
 // static boolean nativeIsTwitterPageValid(String twitterPage)
 JNIEXPORT jboolean JNICALL
 Java_com_mapswithme_maps_editor_Editor_nativeIsTwitterPageValid(JNIEnv * env, jclass, jstring twitterPage)
 {
-  return osm::EditableMapObject::ValidateTwitterPage(jni::ToNativeString(env, twitterPage));
+  return osm::ValidateTwitterPage(jni::ToNativeString(env, twitterPage));
 }
 
 // static boolean nativeIsVkPageValid(String vkPage)
 JNIEXPORT jboolean JNICALL
 Java_com_mapswithme_maps_editor_Editor_nativeIsVkPageValid(JNIEnv * env, jclass, jstring vkPage)
 {
-  return osm::EditableMapObject::ValidateVkPage(jni::ToNativeString(env, vkPage));
+  return osm::ValidateVkPage(jni::ToNativeString(env, vkPage));
 }
 
 // static boolean nativeIsLinePageValid(String linePage)
 JNIEXPORT jboolean JNICALL
 Java_com_mapswithme_maps_editor_Editor_nativeIsLinePageValid(JNIEnv * env, jclass, jstring linePage)
 {
-  return osm::EditableMapObject::ValidateLinePage(jni::ToNativeString(env, linePage));
+  return osm::ValidateLinePage(jni::ToNativeString(env, linePage));
 }
 
 // static boolean nativeIsEmailValid(String email)

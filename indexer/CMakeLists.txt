@@ -30,8 +30,6 @@ set(
   complex/serdes.hpp
   complex/serdes_utils.hpp
   complex/tree_node.hpp
-  contacts_processor.cpp
-  contacts_processor.hpp
   cuisines.cpp
   cuisines.hpp
   data_factory.cpp
@@ -139,6 +137,8 @@ set(
   unique_index.hpp
   utils.cpp
   utils.hpp
+  validate_and_format_contacts.cpp
+  validate_and_format_contacts.hpp
 )
 
 set(

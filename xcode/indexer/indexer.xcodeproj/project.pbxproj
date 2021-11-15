@@ -184,6 +184,8 @@
 		FA67C84626BB356800B33DCA /* categories_cuisines.txt in Resources */ = {isa = PBXBuildFile; fileRef = 4052928E21496D2B00D821F1 /* categories_cuisines.txt */; };
 		FA67C84926BB35A400B33DCA /* bounds.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 40C3C090205BF9F400CED188 /* bounds.hpp */; };
 		FA67C84F26BB36D700B33DCA /* categories_brands.txt in Resources */ = {isa = PBXBuildFile; fileRef = FA67C84E26BB36D600B33DCA /* categories_brands.txt */; };
+    FA7F9B84273F32680093EA08 /* validate_and_format_contacts.hpp in Headers */ = {isa = PBXBuildFile; fileRef = FA7F9B82273F32680093EA08 /* validate_and_format_contacts.hpp */; };
+    FA7F9B85273F32680093EA08 /* validate_and_format_contacts.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FA7F9B83273F32680093EA08 /* validate_and_format_contacts.cpp */; };
 		FACB7C0B26B9176500810C9C /* brands_tests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 406970A121AEF2F10024DDB2 /* brands_tests.cpp */; };
 		FACB7C0C26B9176A00810C9C /* centers_table_test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D452AF91EE6D9F5009EAB9B /* centers_table_test.cpp */; };
 		FACB7C0D26B9176F00810C9C /* classificator_tests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 40DF582C2174979200E4E0FC /* classificator_tests.cpp */; };
@@ -416,6 +418,8 @@
 		F6DF5F301CD0FD9A00A87154 /* categories_index.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = categories_index.hpp; sourceTree = "<group>"; };
 		F6F1DABD1F13D8B4006A69B7 /* ftraits.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = ftraits.hpp; sourceTree = "<group>"; };
 		FA67C84E26BB36D600B33DCA /* categories_brands.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = categories_brands.txt; path = ../../data/categories_brands.txt; sourceTree = "<group>"; };
+    FA7F9B82273F32680093EA08 /* validate_and_format_contacts.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = validate_and_format_contacts.hpp; sourceTree = "<group>"; };
+    FA7F9B83273F32680093EA08 /* validate_and_format_contacts.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = validate_and_format_contacts.cpp; sourceTree = "<group>"; };
 		FACB7C1A26B919AD00810C9C /* libbase.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libbase.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		FACB7C1B26B919AD00810C9C /* libcoding.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libcoding.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		FACB7C1C26B919AD00810C9C /* libgeometry.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libgeometry.a; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -622,6 +626,8 @@
 				675340AD1A3F540F00A0A8C3 /* classificator_loader.hpp */,
 				675340AE1A3F540F00A0A8C3 /* classificator.cpp */,
 				675340AF1A3F540F00A0A8C3 /* classificator.hpp */,
+        FA7F9B83273F32680093EA08 /* validate_and_format_contacts.cpp */,
+        FA7F9B82273F32680093EA08 /* validate_and_format_contacts.hpp */,
 				34583BC11C88552100F94664 /* cuisines.cpp */,
 				34583BC21C88552100F94664 /* cuisines.hpp */,
 				40D62CEE23F2E8BE009A20F5 /* dat_section_header.hpp */,
@@ -797,6 +803,7 @@
 				6758AED21BB4413000C26E27 /* drules_selector_parser.hpp in Headers */,
 				6753413F1A3F540F00A0A8C3 /* scale_index.hpp in Headers */,
 				6753410E1A3F540F00A0A8C3 /* drawing_rules.hpp in Headers */,
+				FA7F9B84273F32680093EA08 /* validate_and_format_contacts.hpp in Headers */,
 				409EE3E3237E9AA700EA31A4 /* postcodes.hpp in Headers */,
 				670C615C1AB0691900C38A8C /* features_offsets_table.hpp in Headers */,
 				6758AED41BB4413000C26E27 /* drules_selector.hpp in Headers */,
@@ -998,6 +1005,7 @@
 				675341121A3F540F00A0A8C3 /* feature_algo.cpp in Sources */,
 				675341211A3F540F00A0A8C3 /* feature_utils.cpp in Sources */,
 				4099F6491FC7142A002A7B05 /* fake_feature_ids.cpp in Sources */,
+				FA7F9B85273F32680093EA08 /* validate_and_format_contacts.cpp in Sources */,
 				675341231A3F540F00A0A8C3 /* feature_visibility.cpp in Sources */,
 				56C74C221C749E4700B71B9F /* search_delimiters.cpp in Sources */,
 				347F337B1C454242009758CC /* rank_table.cpp in Sources */,
