@@ -60,10 +60,9 @@ extension BottomMenuInteractor: BottomMenuInteractorProtocol {
   func shareLocation(cell: BottomMenuItemCell) {
     let lastLocation = LocationManager.lastLocation()
     guard let coordinates = lastLocation?.coordinate else {
-      UIAlertView(title: L("unknown_current_position"),
-                  message: nil,
-                  delegate: nil,
-                  cancelButtonTitle: L("ok")).show()
+      let alert = UIAlertController(title: L("unknown_current_position"), message: nil, preferredStyle: .alert)
+      alert.addAction(UIAlertAction(title: L("ok"), style: .default, handler: nil))
+      viewController?.present(alert, animated: true, completion: nil)
       return;
     }
     guard let viewController = viewController else { return }

@@ -23,7 +23,9 @@
         hideView(listButton, isHidden: false, animated: true)
       case .default:
         break
-      @unknown default:
+        case .hidden: fallthrough
+        case .result: fallthrough
+        @unknown default:
         break
       }
     }

@@ -62,13 +62,11 @@ extension BottomTabBarInteractor: BottomTabBarInteractorProtocol {
       fatalError()
     }
     switch state {
-    case .hidden: assertionFailure("Incorrect state")
-    case .inactive:
-      controlsManager?.menuState = .active
-    case .active:
-      controlsManager?.menuState = .inactive
-    @unknown default:
-      fatalError()
+    case .inactive: controlsManager?.menuState = .active
+    case .active: controlsManager?.menuState = .inactive
+    case .hidden: fallthrough
+    case .layers: fallthrough
+    @unknown default: fatalError()
     }
   }
 }
