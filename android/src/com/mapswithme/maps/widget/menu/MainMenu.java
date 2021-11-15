@@ -7,6 +7,8 @@ import androidx.annotation.Nullable;
 import com.mapswithme.maps.ClickMenuDelegate;
 import com.mapswithme.maps.MwmActivity;
 import com.mapswithme.maps.R;
+import com.mapswithme.maps.downloader.MapManager;
+import com.mapswithme.maps.downloader.UpdateInfo;
 import com.mapswithme.maps.routing.RoutingController;
 import com.mapswithme.util.UiUtils;
 
@@ -40,6 +42,7 @@ public class MainMenu extends BaseMenu
 
   private final View mButtonsFrame;
   private final View mRoutePlanFrame;
+  private final View mNewsMarker;
 
   private final MenuToggle mToggle;
 
@@ -201,6 +204,28 @@ public class MainMenu extends BaseMenu
   }
 
   @Override
+  public void updateMarker()
+  {
+    final UpdateInfo info = MapManager.nativeGetUpdateInfo(null);
+    final int count = (info == null ? 0 : info.filesCount);
+    final boolean show = (count > 0 && !isOpen());
+
+    UiUtils.showIf(show, mNewsMarker);
+
+    // if (show)
+    //   return;
+
+    // for (Mode mode : Mode.values())
+    // {
+    //   show = SharedPropertiesUtils.shouldShowNewMarkerForLayerMode(mFrame.getContext(), mode);
+    //   if (show)
+    //     break;
+    // }
+
+    // UiUtils.showIf(show, mNewsMarker);
+  }
+
+  @Override
   protected void setToggleState(boolean open, boolean animate)
   {
     // Do nothing.
@@ -225,6 +250,7 @@ public class MainMenu extends BaseMenu
 
     mButtonsFrame = mLineFrame.findViewById(R.id.buttons_frame);
     mRoutePlanFrame = mLineFrame.findViewById(R.id.routing_plan_frame);
+    mNewsMarker = mButtonsFrame.findViewById(R.id.marker);
 
     mToggle = new MenuToggle(mLineFrame, getHeightResId());
     mapItem(Item.MENU, mLineFrame);
