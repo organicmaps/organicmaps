@@ -10,6 +10,13 @@ using namespace std;
 
 namespace osm {
 
+static auto const s_fbRegex = regex(R"(^@?[a-zA-Z\d.\-]{5,}$)");
+static auto const s_instaRegex = regex(R"(^@?[A-Za-z0-9_][A-Za-z0-9_.]{0,28}[A-Za-z0-9_]$)");
+static auto const s_twitterRegex = regex(R"(^@?[A-Za-z0-9_]{1,15}$)");
+static auto const s_badVkRegex = regex(R"(^\d\d\d.+$)");
+static auto const s_goodVkRegex = regex(R"(^[A-Za-z0-9_.]{5,32}$)");
+static auto const s_lineRegex = regex(R"(^[a-z0-9-_.]{4,20}$)");
+
 string ValidateAndFormat_facebook(string const & facebookPage)
 {
   if (facebookPage.empty())
@@ -17,7 +24,7 @@ string ValidateAndFormat_facebook(string const & facebookPage)
   // Check that facebookPage contains valid username. See rules: https://www.facebook.com/help/105399436216001
   if (strings::EndsWith(facebookPage, ".com") || strings::EndsWith(facebookPage, ".net"))
     return {};
-  if (regex_match(facebookPage, regex(R"(^@?[a-zA-Z\d.\-]{5,}$)")))
+  if (regex_match(facebookPage, s_fbRegex))
   {
     if (facebookPage.front() == '@')
       return facebookPage.substr(1);
@@ -55,7 +62,7 @@ string ValidateAndFormat_instagram(string const & instagramPage)
     return {};
   // Check that instagramPage contains valid username.
   // Rules are defined here: https://blog.jstassen.com/2016/03/code-regex-for-instagram-username-and-hashtags/
-  if (regex_match(instagramPage, regex(R"(^@?[A-Za-z0-9_][A-Za-z0-9_.]{0,28}[A-Za-z0-9_]$)")))
+  if (regex_match(instagramPage, s_instaRegex))
   {
     if (instagramPage.front() == '@')
       return instagramPage.substr(1);
@@ -90,7 +97,7 @@ string ValidateAndFormat_twitter(string const & twitterPage)
     return {};
   // Check that twitterPage contains valid username.
   // Rules took here: https://stackoverflow.com/q/11361044
-  if (regex_match(twitterPage, regex(R"(^@?[A-Za-z0-9_]{1,15}$)")))
+  if (regex_match(twitterPage, s_twitterRegex))
   {
     if (twitterPage.front() == '@')
       return twitterPage.substr(1);
@@ -143,9 +150,9 @@ string ValidateAndFormat_vk(string const & vkPage)
 
     if (vkPageClean.front() == '_' && vkPageClean.back() == '_')
       return {};
-    if (regex_match(vkPageClean, regex(R"(^\d\d\d.+$)")))
+    if (regex_match(vkPageClean, s_badVkRegex))
       return {};
-    if (regex_match(vkPageClean, regex(R"(^[A-Za-z0-9_.]{5,32}$)")))
+    if (regex_match(vkPageClean, s_goodVkRegex))
       return vkPageClean;
   }
 
@@ -198,7 +205,7 @@ string ValidateAndFormat_contactLine(string const & linePage)
 
     string linePageClean = stripAtSymbol(linePage);
 
-    if (regex_match(linePageClean, regex(R"(^[a-z0-9-_.]{4,20}$)")))
+    if (regex_match(linePageClean, s_lineRegex))
       return linePageClean;
   }
 
@@ -266,7 +273,6 @@ bool ValidateFacebookPage(string const & page)
     return true;
 
   // See rules: https://www.facebook.com/help/105399436216001
-  static auto const s_fbRegex = regex(R"(^@?[a-zA-Z\d.\-]{5,}$)");
   if (regex_match(page, s_fbRegex))
     return true;
 
@@ -286,7 +292,6 @@ bool ValidateInstagramPage(string const & page)
     return true;
 
   // Rules took here: https://blog.jstassen.com/2016/03/code-regex-for-instagram-username-and-hashtags/
-  static auto const s_instaRegex = regex(R"(^@?[A-Za-z0-9_][A-Za-z0-9_.]{0,28}[A-Za-z0-9_]$)");
   if (regex_match(page, s_instaRegex))
     return true;
 
@@ -312,7 +317,6 @@ bool ValidateTwitterPage(string const & page)
   else
   {
     // Rules took here: https://stackoverflow.com/q/11361044
-    static auto const s_twitterRegex = regex(R"(^@?[A-Za-z0-9_]{1,15}$)");
     return regex_match(page, s_twitterRegex);
   }
 }
@@ -340,11 +344,9 @@ bool ValidateVkPage(string const & page)
     if (vkLogin.front() == '_' && vkLogin.back() == '_')
       return false;
 
-    static auto const s_badVkRegex = regex(R"(^\d\d\d.+$)");
     if (regex_match(vkLogin, s_badVkRegex))
       return false;
 
-    static auto const s_goodVkRegex = regex(R"(^[A-Za-z0-9_.]{5,32}$)");
     if (regex_match(vkLogin, s_goodVkRegex))
       return true;
   }
@@ -374,7 +376,7 @@ bool ValidateLinePage(string const & page)
     if (linePageClean.front() == '@')
       linePageClean = linePageClean.substr(1);
 
-    if (regex_match(linePageClean, regex(R"(^[a-z0-9-_.]{4,20}$)")))
+    if (regex_match(linePageClean, s_lineRegex))
       return true;
   }
 
