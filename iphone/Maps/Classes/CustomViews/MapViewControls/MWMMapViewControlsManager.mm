@@ -311,6 +311,14 @@ NSString *const kMapToCategorySelectorSegue = @"MapToCategorySelectorSegue";
   MapViewController * ownerController = _ownerController;
   switch (_menuState) {
     case MWMBottomMenuStateActive:
+      _tabBarController.isHidden = NO;
+      if (_menuController == nil) {
+        _menuController = [BottomMenuBuilder buildMenuWithMapViewController:ownerController
+                                                            controlsManager:self
+                                                                   delegate:self];
+        [ownerController presentViewController:_menuController animated:YES completion:nil];
+      }
+      break;
     case MWMBottomMenuStateLayers:
       _tabBarController.isHidden = NO;
       if (_menuController == nil) {
