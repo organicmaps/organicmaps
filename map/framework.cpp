@@ -16,6 +16,7 @@
 #include "routing/index_router.hpp"
 #include "routing/route.hpp"
 #include "routing/routing_helpers.hpp"
+#include "routing/speed_camera_prohibition.hpp"
 
 #include "routing_common/num_mwm_id.hpp"
 
@@ -2728,16 +2729,18 @@ bool Framework::ParseEditorDebugCommand(search::SearchParams const & params)
   return false;
 }
 
-bool Framework::ParseRoutingDebugCommand(search::SearchParams const &)
+bool Framework::ParseRoutingDebugCommand(search::SearchParams const & params)
 {
-  // This is an example.
-  /*
-    if (params.m_query == "?speedcams")
-    {
-      GetRoutingManager().RoutingSession().EnableMyFeature();
-      return true;
-    }
-  */
+  if (params.m_query == "?debug-cam")
+  {
+    settings::Set(kDebugSpeedCamSetting, true);
+    return true;
+  }
+  else if (params.m_query == "?no-debug-cam")
+  {
+    settings::Set(kDebugSpeedCamSetting, false);
+    return true;
+  }
   return false;
 }
 

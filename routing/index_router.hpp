@@ -183,6 +183,7 @@ private:
                                 base::Cancellable const & cancellable, IndexGraphStarter & starter,
                                 Route & route) const;
 
+  bool AreSpeedCamerasProhibited(NumMwmId mwmID) const;
   bool AreMwmsNear(IndexGraphStarter const & starter) const;
   bool DoesTransitSectionExist(NumMwmId numMwmId) const;
 
