@@ -30,27 +30,20 @@ string ValidateAndFormat_facebook(string const & facebookPage)
       return facebookPage.substr(1);
     return facebookPage;
   }
-  if (EditableMapObject::ValidateWebsite(facebookPage))
-  {
-    string facebookPageUrl = facebookPage;
-    // Check if HTTP protocol is present
-    if (!strings::StartsWith(facebookPage, "http://") && !strings::StartsWith(facebookPage, "https://"))
-      facebookPageUrl = "https://" + facebookPage;
+  if (!EditableMapObject::ValidateWebsite(facebookPage))
+    return {};
 
-    url::Url const url = url::Url(facebookPageUrl);
-    string const domain = strings::MakeLowerCase(url.GetWebDomain());
-    // Check Facebook domain name.
-    if (strings::EndsWith(domain, "facebook.com") || strings::EndsWith(domain, "fb.com")
-        || strings::EndsWith(domain, "fb.me") || strings::EndsWith(domain, "facebook.de")
-        || strings::EndsWith(domain, "facebook.fr"))
-    {
-      auto webPath = url.GetWebPath();
-      // Strip last '/' symbol
-      if (webPath.back() == '/')
-        return webPath.substr(0, webPath.length()-1);
-      else
-        return webPath;
-    }
+  url::Url const url = url::Url::FromString(facebookPage);
+  string const domain = strings::MakeLowerCase(url.GetWebDomain());
+  // Check Facebook domain name.
+  if (strings::EndsWith(domain, "facebook.com") || strings::EndsWith(domain, "fb.com")
+      || strings::EndsWith(domain, "fb.me") || strings::EndsWith(domain, "facebook.de")
+      || strings::EndsWith(domain, "facebook.fr"))
+  {
+    auto webPath = url.GetWebPath();
+    // Strip last '/' symbol
+    webPath.erase(webPath.find_last_not_of('/') + 1);
+    return webPath;
   }
 
   return {};
@@ -68,24 +61,18 @@ string ValidateAndFormat_instagram(string const & instagramPage)
       return instagramPage.substr(1);
     return instagramPage;
   }
-  if (EditableMapObject::ValidateWebsite(instagramPage))
-  {
-    string instagramPageUrl = instagramPage;
-    // Check if HTTP protocol is present.
-    if (!strings::StartsWith(instagramPage, "http://") && !strings::StartsWith(instagramPage, "https://"))
-      instagramPageUrl = "https://" + instagramPage;
+  if (!EditableMapObject::ValidateWebsite(instagramPage))
+    return {};
 
-    const url::Url url = url::Url(instagramPageUrl);
-    const string & domain = strings::MakeLowerCase(url.GetWebDomain());
-    // Check Instagram domain name.
-    if (domain == "instagram.com" || strings::EndsWith(domain, ".instagram.com"))
-    {
-      auto webPath = url.GetWebPath();
-      // Strip last '/' symbol.
-      if (webPath.back() == '/')
-        return webPath.substr(0, webPath.length()-1);
-      return webPath;
-    }
+  url::Url const url = url::Url::FromString(instagramPage);
+  string const domain = strings::MakeLowerCase(url.GetWebDomain());
+  // Check Instagram domain name.
+  if (domain == "instagram.com" || strings::EndsWith(domain, ".instagram.com"))
+  {
+    auto webPath = url.GetWebPath();
+    // Strip last '/' symbol.
+    webPath.erase(webPath.find_last_not_of('/') + 1);
+    return webPath;
   }
 
   return {};
@@ -103,29 +90,21 @@ string ValidateAndFormat_twitter(string const & twitterPage)
       return twitterPage.substr(1);
     return twitterPage;
   }
-  if (EditableMapObject::ValidateWebsite(twitterPage))
+  if (!EditableMapObject::ValidateWebsite(twitterPage))
+    return {};
+
+  url::Url const url = url::Url::FromString(twitterPage);
+  string const domain = strings::MakeLowerCase(url.GetWebDomain());
+  // Check Twitter domain name.
+  if (domain == "twitter.com" || strings::EndsWith(domain, ".twitter.com"))
   {
-    string twitterPageUrl = twitterPage;
-    // Check if HTTP protocol is present.
-    if (!strings::StartsWith(twitterPage, "http://") && !strings::StartsWith(twitterPage, "https://"))
-      twitterPageUrl = "https://" + twitterPage;
+    auto webPath = url.GetWebPath();
 
-    const url::Url url = url::Url(twitterPageUrl);
-    const string & domain = strings::MakeLowerCase(url.GetWebDomain());
-    // Check Twitter domain name.
-    if (domain == "twitter.com" || strings::EndsWith(domain, ".twitter.com"))
-    {
-      auto webPath = url.GetWebPath();
-      // Strip last '/' symbol.
-      if (webPath.back() == '/')
-        webPath = webPath.substr(0, webPath.length()-1);
+    // Strip last '/' symbol and first '@' symbol
+    webPath.erase(webPath.find_last_not_of('/') + 1);
+    webPath.erase(0, webPath.find_first_not_of('@'));
 
-      // Strip first '@' symbol
-      if (webPath.front() == '@')
-        webPath = webPath.substr(1);
-
-      return webPath;
-    }
+    return webPath;
   }
 
   return {};
@@ -136,45 +115,35 @@ string ValidateAndFormat_vk(string const & vkPage)
   if (vkPage.empty())
     return {};
   {
-    /* Check that vkPage contains valid page name. Rules are defined here: https://vk.com/faq18038
-     * The page name must be between 5 and 32 characters.
-       Invalid format could be in cases:
-     * - begins with three or more numbers (one or two numbers are allowed).
-     * - begins and ends with "_".
-     * - contains a period with less than four symbols after it starting with a letter.
-     */
+    // Check that vkPage contains valid page name. Rules are defined here: https://vk.com/faq18038
+    // The page name must be between 5 and 32 characters.
+    // Invalid format could be in cases:
+    // - begins with three or more numbers (one or two numbers are allowed).
+    // - begins and ends with "_".
+    // - contains a period with less than four symbols after it starting with a letter.
 
     string vkPageClean = vkPage;
     if (vkPageClean.front() == '@')
       vkPageClean = vkPageClean.substr(1);
 
-    if (vkPageClean.front() == '_' && vkPageClean.back() == '_')
-      return {};
-    if (regex_match(vkPageClean, s_badVkRegex))
+    if ((vkPageClean.front() == '_' && vkPageClean.back() == '_') || regex_match(vkPageClean, s_badVkRegex))
       return {};
     if (regex_match(vkPageClean, s_goodVkRegex))
       return vkPageClean;
   }
+  if (!EditableMapObject::ValidateWebsite(vkPage))
+    return {};
 
-  if (EditableMapObject::ValidateWebsite(vkPage))
+  url::Url const url = url::Url::FromString(vkPage);
+  string const domain = strings::MakeLowerCase(url.GetWebDomain());
+  // Check VK domain name.
+  if (domain == "vk.com" || strings::EndsWith(domain, ".vk.com") ||
+      domain == "vkontakte.ru" || strings::EndsWith(domain, ".vkontakte.ru"))
   {
-    string vkPageUrl = vkPage;
-    // Check if HTTP protocol is present.
-    if (!strings::StartsWith(vkPage, "http://") && !strings::StartsWith(vkPage, "https://"))
-      vkPageUrl = "https://" + vkPage;
-
-    const url::Url url = url::Url(vkPageUrl);
-    const string & domain = strings::MakeLowerCase(url.GetWebDomain());
-    // Check VK domain name.
-    if (domain == "vk.com" || strings::EndsWith(domain, ".vk.com") ||
-        domain == "vkontakte.ru" || strings::EndsWith(domain, ".vkontakte.ru"))
-    {
-      auto webPath = url.GetWebPath();
-      // Strip last '/' symbol.
-      if (webPath.back() == '/')
-        return webPath.substr(0, webPath.length()-1);
-      return webPath;
-    }
+    auto webPath = url.GetWebPath();
+    // Strip last '/' symbol.
+    webPath.erase(webPath.find_last_not_of('/') + 1);
+    return webPath;
   }
 
   return {};
@@ -209,58 +178,52 @@ string ValidateAndFormat_contactLine(string const & linePage)
       return linePageClean;
   }
 
-  if (EditableMapObject::ValidateWebsite(linePage))
+  if (!EditableMapObject::ValidateWebsite(linePage))
+    return {};
+
+  // URL schema documentation: https://developers.line.biz/en/docs/messaging-api/using-line-url-scheme/
+  url::Url const url = url::Url::FromString(linePage);
+  string const domain = strings::MakeLowerCase(url.GetWebDomain());
+  // Check Line domain name.
+  if (domain == "page.line.me")
   {
-    // URL schema documentation: https://developers.line.biz/en/docs/messaging-api/using-line-url-scheme/
-
-    string linePageUrl = linePage;
-    // Check if HTTP protocol is present.
-    if (!strings::StartsWith(linePage, "http://") && !strings::StartsWith(linePage, "https://"))
-      linePageUrl = "https://" + linePage;
-
-    url::Url const url = url::Url(linePageUrl);
-    string const & domain = strings::MakeLowerCase(url.GetWebDomain());
-    // Check Line domain name.
-    if (domain == "page.line.me")
+    // Parse https://page.line.me/{LINE ID}
+    string lineId = url.GetWebPath();
+    return stripAtSymbol(lineId);
+  }
+  else if (domain == "line.me" || strings::EndsWith(domain, ".line.me"))
+  {
+    auto webPath = url.GetWebPath();
+    if (strings::StartsWith(webPath, "R/ti/p/"))
     {
-      // Parse https://page.line.me/{LINE ID}
-      string lineId = url.GetWebPath();
+      // Parse https://line.me/R/ti/p/{LINE ID}
+      string lineId = webPath.substr(7, webPath.length());
       return stripAtSymbol(lineId);
     }
-    else if (domain == "line.me" || strings::EndsWith(domain, ".line.me"))
+    else if (strings::StartsWith(webPath, "ti/p/"))
     {
-      auto webPath = url.GetWebPath();
-      if (strings::StartsWith(webPath, "R/ti/p/"))
-      {
-        // Parse https://line.me/R/ti/p/{LINE ID}
-        string lineId = webPath.substr(7, webPath.length());
-        return stripAtSymbol(lineId);
-      }
-      else if (strings::StartsWith(webPath, "ti/p/"))
-      {
-        // Parse https://line.me/ti/p/{LINE ID}
-        string lineId = webPath.substr(5, webPath.length());
-        return stripAtSymbol(lineId);
-      }
-      else if (strings::StartsWith(webPath, "R/home/public/main") || strings::StartsWith(webPath, "R/home/public/profile"))
-      {
-        // Parse https://line.me/R/home/public/main?id={LINE ID without @}
-        // and https://line.me/R/home/public/profile?id={LINE ID without @}
-        string lineId = {};
-        url.ForEachParam([&lineId](url::Param const & param) {
-          if (param.m_name == "id")
-            lineId = param.m_value;
-        });
+      // Parse https://line.me/ti/p/{LINE ID}
+      string lineId = webPath.substr(5, webPath.length());
+      return stripAtSymbol(lineId);
+    }
+    else if (strings::StartsWith(webPath, "R/home/public/main") || strings::StartsWith(webPath, "R/home/public/profile"))
+    {
+      // Parse https://line.me/R/home/public/main?id={LINE ID without @}
+      // and https://line.me/R/home/public/profile?id={LINE ID without @}
+      string lineId = {};
+      url.ForEachParam([&lineId](url::Param const & param) {
+        if (param.m_name == "id")
+          lineId = param.m_value;
+      });
 
-        return lineId;
-      }
-      else
-      {
-        if (strings::StartsWith(linePage, "http://"))
-          return linePage.substr(7);
-        if (strings::StartsWith(linePage, "https://"))
-          return linePage.substr(8);
-      }
+      return lineId;
+    }
+    else
+    {
+      if (strings::StartsWith(linePage, "http://"))
+        return linePage.substr(7);
+      if (strings::StartsWith(linePage, "https://"))
+        return linePage.substr(8);
     }
   }
 
@@ -272,18 +235,16 @@ bool ValidateFacebookPage(string const & page)
   if (page.empty())
     return true;
 
-  // See rules: https://www.facebook.com/help/105399436216001
+  // Rules are defined here: https://www.facebook.com/help/105399436216001
   if (regex_match(page, s_fbRegex))
     return true;
 
-  if (EditableMapObject::ValidateWebsite(page))
-  {
-    string const domain = strings::MakeLowerCase(url::Url::FromString(page).GetWebDomain());
-    return (strings::StartsWith(domain, "facebook.") || strings::StartsWith(domain, "fb.") ||
-            domain.find(".facebook.") != string::npos || domain.find(".fb.") != string::npos);
-  }
+  if (!EditableMapObject::ValidateWebsite(page))
+    return false;
 
-  return false;
+  string const domain = strings::MakeLowerCase(url::Url::FromString(page).GetWebDomain());
+  return (strings::StartsWith(domain, "facebook.") || strings::StartsWith(domain, "fb.") ||
+          domain.find(".facebook.") != string::npos || domain.find(".fb.") != string::npos);
 }
 
 bool ValidateInstagramPage(string const & page)
@@ -291,17 +252,15 @@ bool ValidateInstagramPage(string const & page)
   if (page.empty())
     return true;
 
-  // Rules took here: https://blog.jstassen.com/2016/03/code-regex-for-instagram-username-and-hashtags/
+  // Rules are defined here: https://blog.jstassen.com/2016/03/code-regex-for-instagram-username-and-hashtags/
   if (regex_match(page, s_instaRegex))
     return true;
 
-  if (EditableMapObject::ValidateWebsite(page))
-  {
-    string const domain = strings::MakeLowerCase(url::Url::FromString(page).GetWebDomain());
-    return domain == "instagram.com" || strings::EndsWith(domain, ".instagram.com");
-  }
+  if (!EditableMapObject::ValidateWebsite(page))
+    return false;
 
-  return false;
+  string const domain = strings::MakeLowerCase(url::Url::FromString(page).GetWebDomain());
+  return domain == "instagram.com" || strings::EndsWith(domain, ".instagram.com");
 }
 
 bool ValidateTwitterPage(string const & page)
@@ -309,16 +268,11 @@ bool ValidateTwitterPage(string const & page)
   if (page.empty())
     return true;
 
-  if (EditableMapObject::ValidateWebsite(page))
-  {
-    string const domain = strings::MakeLowerCase(url::Url::FromString(page).GetWebDomain());
-    return domain == "twitter.com" || strings::EndsWith(domain, ".twitter.com");
-  }
-  else
-  {
-    // Rules took here: https://stackoverflow.com/q/11361044
-    return regex_match(page, s_twitterRegex);
-  }
+  if (!EditableMapObject::ValidateWebsite(page))
+    return regex_match(page, s_twitterRegex); // Rules are defined here: https://stackoverflow.com/q/11361044
+
+  string const domain = strings::MakeLowerCase(url::Url::FromString(page).GetWebDomain());
+  return domain == "twitter.com" || strings::EndsWith(domain, ".twitter.com");
 }
 
 bool ValidateVkPage(string const & page)
@@ -327,13 +281,12 @@ bool ValidateVkPage(string const & page)
     return true;
 
   {
-    /* Check that page contains valid username. Rules took here: https://vk.com/faq18038
-       The page name must be between 5 and 32 characters.
-       Invalid format could be in cases:
-     * - begins with three or more numbers (one or two numbers are allowed).
-     * - begins and ends with "_".
-     * - contains a period with less than four symbols after it starting with a letter.
-     */
+    // Check that page contains valid username. Rules took here: https://vk.com/faq18038
+    // The page name must be between 5 and 32 characters.
+    // Invalid format could be in cases:
+    // - begins with three or more numbers (one or two numbers are allowed).
+    // - begins and ends with "_".
+    // - contains a period with less than four symbols after it starting with a letter.
 
     if (page.size() < 5)
       return false;
@@ -341,24 +294,19 @@ bool ValidateVkPage(string const & page)
     string vkLogin = page;
     if (vkLogin.front() == '@')
       vkLogin = vkLogin.substr(1);
-    if (vkLogin.front() == '_' && vkLogin.back() == '_')
-      return false;
 
-    if (regex_match(vkLogin, s_badVkRegex))
+    if ((vkLogin.front() == '_' && vkLogin.back() == '_') || regex_match(vkLogin, s_badVkRegex))
       return false;
-
     if (regex_match(vkLogin, s_goodVkRegex))
       return true;
   }
 
-  if (EditableMapObject::ValidateWebsite(page))
-  {
-    string const domain = strings::MakeLowerCase(url::Url::FromString(page).GetWebDomain());
-    return domain == "vk.com" || strings::EndsWith(domain, ".vk.com")
-           || domain == "vkontakte.ru" || strings::EndsWith(domain, ".vkontakte.ru");
-  }
+  if (!EditableMapObject::ValidateWebsite(page))
+    return false;
 
-  return false;
+  string const domain = strings::MakeLowerCase(url::Url::FromString(page).GetWebDomain());
+  return domain == "vk.com" || strings::EndsWith(domain, ".vk.com")
+         || domain == "vkontakte.ru" || strings::EndsWith(domain, ".vkontakte.ru");
 }
 
 bool ValidateLinePage(string const & page)
@@ -372,29 +320,16 @@ bool ValidateLinePage(string const & page)
     // The page name must be between 4 and 20 characters. Should contains alphanumeric characters
     // and symbols '.', '-', and '_'
 
-    string linePageClean = page;
-    if (linePageClean.front() == '@')
-      linePageClean = linePageClean.substr(1);
-
-    if (regex_match(linePageClean, s_lineRegex))
+    if (regex_match(stripAtSymbol(page), s_lineRegex))
       return true;
   }
 
-  if (EditableMapObject::ValidateWebsite(page))
-  {
-    string linePageUrl = page;
-    // Check if HTTP protocol is present
-    if (!strings::StartsWith(page, "http://") && !strings::StartsWith(page, "https://"))
-      linePageUrl = "https://" + page;
+  if (!EditableMapObject::ValidateWebsite(page))
+    return false;
 
-    const url::Url url = url::Url(linePageUrl);
-    const string &domain = strings::MakeLowerCase(url.GetWebDomain());
-    // Check Line domain name
-    if (domain == "line.me" || strings::EndsWith(domain, ".line.me"))
-      return true;
-  }
-
-  return false;
+  string const domain = strings::MakeLowerCase(url::Url::FromString(page).GetWebDomain());
+  // Check Line domain name.
+  return (domain == "line.me" || strings::EndsWith(domain, ".line.me"));
 }
 
-}
+} // namespace osm
