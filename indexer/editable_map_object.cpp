@@ -3,6 +3,7 @@
 #include "indexer/classificator.hpp"
 #include "indexer/cuisines.hpp"
 #include "indexer/postcodes_matcher.hpp"
+#include "indexer/validate_and_format_contacts.hpp"
 
 #include "platform/preferred_languages.hpp"
 
@@ -494,29 +495,29 @@ void EditableMapObject::SetWebsite(string website)
   m_metadata.Drop(feature::Metadata::FMD_URL);
 }
 
-void EditableMapObject::SetFacebookPage(string facebookPage)
+void EditableMapObject::SetFacebookPage(string const & facebookPage)
 {
-  m_metadata.Set(feature::Metadata::FMD_CONTACT_FACEBOOK, facebookPage);
+  m_metadata.Set(feature::Metadata::FMD_CONTACT_FACEBOOK, ValidateAndFormat_facebook(facebookPage));
 }
 
-void EditableMapObject::SetInstagramPage(string instagramPage)
+void EditableMapObject::SetInstagramPage(string const & instagramPage)
 {
-  m_metadata.Set(feature::Metadata::FMD_CONTACT_INSTAGRAM, instagramPage);
+  m_metadata.Set(feature::Metadata::FMD_CONTACT_INSTAGRAM, ValidateAndFormat_instagram(instagramPage));
 }
 
-void EditableMapObject::SetTwitterPage(string twitterPage)
+void EditableMapObject::SetTwitterPage(string const & twitterPage)
 {
-  m_metadata.Set(feature::Metadata::FMD_CONTACT_TWITTER, twitterPage);
+  m_metadata.Set(feature::Metadata::FMD_CONTACT_TWITTER, ValidateAndFormat_twitter(twitterPage));
 }
 
-void EditableMapObject::SetVkPage(string vkPage)
+void EditableMapObject::SetVkPage(string const & vkPage)
 {
-  m_metadata.Set(feature::Metadata::FMD_CONTACT_VK, vkPage);
+  m_metadata.Set(feature::Metadata::FMD_CONTACT_VK, ValidateAndFormat_vk(vkPage));
 }
 
-void EditableMapObject::SetLinePage(string linePage)
+void EditableMapObject::SetLinePage(string const & linePage)
 {
-  m_metadata.Set(feature::Metadata::FMD_CONTACT_LINE, linePage);
+  m_metadata.Set(feature::Metadata::FMD_CONTACT_LINE, ValidateAndFormat_contactLine(linePage));
 }
 
 void EditableMapObject::SetInternet(Internet internet)
@@ -769,146 +770,6 @@ bool EditableMapObject::ValidateWebsite(string const & site)
     return false;
 
   return true;
-}
-
-//static
-bool EditableMapObject::ValidateFacebookPage(string const & page)
-{
-  if (page.empty())
-    return true;
-
-  // See rules: https://www.facebook.com/help/105399436216001
-  static auto const s_fbRegex = regex(R"(^@?[a-zA-Z\d.\-]{5,}$)");
-  if (regex_match(page, s_fbRegex))
-    return true;
-
-  if (ValidateWebsite(page))
-  {
-    string const domain = strings::MakeLowerCase(url::Url::FromString(page).GetWebDomain());
-    return (strings::StartsWith(domain, "facebook.") || strings::StartsWith(domain, "fb.") ||
-            domain.find(".facebook.") != string::npos || domain.find(".fb.") != string::npos);
-  }
-
-  return false;
-}
-
-//static
-bool EditableMapObject::ValidateInstagramPage(string const & page)
-{
-  if (page.empty())
-    return true;
-
-  // Rules took here: https://blog.jstassen.com/2016/03/code-regex-for-instagram-username-and-hashtags/
-  static auto const s_instaRegex = regex(R"(^@?[A-Za-z0-9_][A-Za-z0-9_.]{0,28}[A-Za-z0-9_]$)");
-  if (regex_match(page, s_instaRegex))
-    return true;
-
-  if (ValidateWebsite(page))
-  {
-    string const domain = strings::MakeLowerCase(url::Url::FromString(page).GetWebDomain());
-    return domain == "instagram.com" || strings::EndsWith(domain, ".instagram.com");
-  }
-
-  return false;
-}
-
-//static
-bool EditableMapObject::ValidateTwitterPage(string const & page)
-{
-  if (page.empty())
-    return true;
-
-  if (ValidateWebsite(page))
-  {
-    string const domain = strings::MakeLowerCase(url::Url::FromString(page).GetWebDomain());
-    return domain == "twitter.com" || strings::EndsWith(domain, ".twitter.com");
-  }
-  else
-  {
-    // Rules took here: https://stackoverflow.com/q/11361044
-    static auto const s_twitterRegex = regex(R"(^@?[A-Za-z0-9_]{1,15}$)");
-    return regex_match(page, s_twitterRegex);
-  }
-}
-
-//static
-bool EditableMapObject::ValidateVkPage(string const & page)
-{
-  if (page.empty())
-    return true;
-
-  {
-    /* Check that page contains valid username. Rules took here: https://vk.com/faq18038
-       The page name must be between 5 and 32 characters.
-       Invalid format could be in cases:
-     * - begins with three or more numbers (one or two numbers are allowed).
-     * - begins and ends with "_".
-     * - contains a period with less than four symbols after it starting with a letter.
-     */
-
-    if (page.size() < 5)
-      return false;
-
-    string vkLogin = page;
-    if (vkLogin.front() == '@')
-      vkLogin = vkLogin.substr(1);
-    if (vkLogin.front() == '_' && vkLogin.back() == '_')
-      return false;
-
-    static auto const s_badVkRegex = regex(R"(^\d\d\d.+$)");
-    if (regex_match(vkLogin, s_badVkRegex))
-      return false;
-
-    static auto const s_goodVkRegex = regex(R"(^[A-Za-z0-9_.]{5,32}$)");
-    if (regex_match(vkLogin, s_goodVkRegex))
-      return true;
-  }
-
-  if (ValidateWebsite(page))
-  {
-    string const domain = strings::MakeLowerCase(url::Url::FromString(page).GetWebDomain());
-    return domain == "vk.com" || strings::EndsWith(domain, ".vk.com")
-        || domain == "vkontakte.ru" || strings::EndsWith(domain, ".vkontakte.ru");
-  }
-
-  return false;
-}
-
-//static
-bool EditableMapObject::ValidateLinePage(string const & page)
-{
-  if (page.empty())
-    return {};
-
-  {
-    // Check that linePage contains valid page name.
-    // Rules are defined here: https://help.line.me/line/?contentId=10009904
-    // The page name must be between 4 and 20 characters. Should contains alphanumeric characters
-    // and symbols '.', '-', and '_'
-
-    string linePageClean = page;
-    if (linePageClean.front() == '@')
-      linePageClean = linePageClean.substr(1);
-
-    if (regex_match(linePageClean, regex(R"(^[a-z0-9-_.]{4,20}$)")))
-      return true;
-  }
-
-  if (EditableMapObject::ValidateWebsite(page))
-  {
-    string linePageUrl = page;
-    // Check if HTTP protocol is present
-    if (!strings::StartsWith(page, "http://") && !strings::StartsWith(page, "https://"))
-      linePageUrl = "https://" + page;
-
-    const url::Url url = url::Url(linePageUrl);
-    const string &domain = strings::MakeLowerCase(url.GetWebDomain());
-    // Check Line domain name
-    if (domain == "line.me" || strings::EndsWith(domain, ".line.me"))
-      return true;
-  }
-
-  return false;
 }
 
 // static

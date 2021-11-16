@@ -137,6 +137,8 @@ set(
   unique_index.hpp
   utils.cpp
   utils.hpp
+  validate_and_format_contacts.cpp
+  validate_and_format_contacts.hpp
 )
 
 set(

@@ -38,6 +38,7 @@ set(
   test_type.cpp
   tree_node_tests.cpp
   trie_test.cpp
+  validate_and_format_contacts_test.cpp
   visibility_test.cpp
   wheelchair_tests.cpp
 )
