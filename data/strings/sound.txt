@@ -405,8 +405,8 @@
     tr = Varacaksınız.
     uk = Ви прибудете.
     vi = Bạn sẽ đến.
-    zh-Hans = 您将到达。
-    zh-Hant = 您將到達。
+    zh-Hans = 您将到达目的地。
+    zh-Hant = 您將到達目的地。
 
   [you_have_reached_the_destination]
     en = You have arrived.
@@ -439,8 +439,8 @@
     tr = Vardınız.
     uk = Ви прибули.
     vi = Bạn đã đến.
-    zh-Hans = 您已抵达。
-    zh-Hant = 您已抵達
+    zh-Hans = 您已到达目的地。
+    zh-Hant = 你已到達目的地。
 
   [in_50_meters]
     en = In fifty meters
