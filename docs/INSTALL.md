@@ -1,8 +1,68 @@
 # Building
 
+- [Getting sources](#getting-sources)
 - [Desktop](#desktop-app)
 - [Android](#android-app)
 - [iOS](#ios-app)
+
+## Getting sources
+
+First of all get the source code. The full Organic Maps sources repository is ~8.5Gb in size, however its possible to reduce the size e.g. if full commit history is not required.
+
+For _Windows 10_ enable [symlinks][git-symlinks] support in git first:
+
+[git-symlinks]: https://git-scm.com/docs/git-config#Documentation/git-config.txt-coresymlinks
+
+```bash
+git config --global core.symlinks true
+```
+
+If you plan to contribute and propose pull requests then fork the repo https://github.com/organicmaps/organicmaps first.
+
+Clone the main repository (~5.5Gb):
+
+```bash
+git clone https://github.com/organicmaps/organicmaps.git
+```
+or your fork of it:
+```bash
+git clone https://github.com/<your-github-name>/organicmaps.git
+```
+
+Add a `--filter=blob:limit=128k` option to above command to make a _partial clone_ of just ~1.2Gb, i.e. blob files over 128k in size will be excluded form the history and downloaded on-demand - should be suitable for a generic development use.
+
+And/or add a `--depth=1` option to make a _shallow copy_ (and possibly a `--no-single-branch` to have all branches not just `master`), i.e. omit history retaining current commits only - suitable for one-off builds.
+
+Go into the cloned repo:
+```bash
+cd organicmaps
+```
+
+Clone git submodules (~3Gb):
+
+```bash
+git submodule update --init --recursive
+```
+
+Add a `--depth=1` option to make a _shallow copy_ of just ~1.3Gb - should be suitable for a generic development if no work on submodules planned.
+
+Configure the repository:
+
+```bash
+./configure.sh
+```
+
+**Windows 10:** Use WSL to run `./configure.sh`:
+
+```bash
+bash ./configure.sh # execute the script by using Ubuntu WSL VM
+```
+
+By default the repo is configured for an opensource build. Configure for a private build if private keys and configs are needed to publish the app in stores e.g. in Google Play (check options via `./configure.sh --help`):
+
+```bash
+./configure.sh <private-repo-name>
+```
 
 ## Desktop app
 
@@ -52,36 +112,6 @@ sudo dnf install -y \
 ```bash
 brew install cmake qt@5
 ```
-
-### Getting sources
-
-Clone the repository:
-
-```bash
-git clone --recursive https://github.com/organicmaps/organicmaps.git
-```
-
-Default clone destination directory is organicmaps.
-
-Update git submodules (sometimes doesn't work automatically):
-
-```bash
-git submodule update --init --recursive
-```
-
-Configure the repository as opensource build:
-
-```bash
-./configure.sh
-```
-
-or with private repository
-
-```bash
-./configure.sh <private-repo-name>
-```
-
-You can check usage `./configure.sh --help`
 
 ### Building
 
@@ -247,46 +277,6 @@ export JAVA_HOME=*A-PATH-TO-YOUR-ANDROID-STUDIO-INSTALLATION*/android-studio/jre
 export JAVA_HOME=*A-PATH-TO-YOUR-ANDROID-STUDIO-INSTALLATION*/Contents/jre/Contents/Home
 ```
 
-### Getting sources
-
-**Windows 10.** Enable [symlinks][git-symlinks] support in git:
-
-[git-symlinks]: https://git-scm.com/docs/git-config#Documentation/git-config.txt-coresymlinks
-
-```bash
-git config --global core.symlinks true
-```
-
-Clone the repository:
-
-```bash
-git clone --recursive https://github.com/organicmaps/organicmaps.git
-```
-
-Update git submodules (sometimes doesn't work automatically):
-
-```
-git submodule update --init --recursive
-```
-
-Configure the repository as opensource build:
-
-```bash
-./configure.sh
-```
-
-or with private repository
-
-```bash
-./configure.sh <private-repo-name>
-```
-
-**Windows 10.** Use WSL to run `./configure.sh`:
-
-```bash
-bash ./configure.sh # execute the script by using Ubuntu WSL VM
-```
-
 **Windows 10.** Alternative way is to initialize Boost manually:
 
 1. Install Visual Studio 2019 Community Edition.
@@ -359,32 +349,6 @@ Install Command Line Tools:
 Install [Xcode](https://apps.apple.com/ru/app/xcode/id497799835?mt=12) from AppStore.
 
 Enroll in the [Apple Developer Program](https://developer.apple.com/programs/) (you can run Organic Maps in Simulator without this step).
-
-### Getting sources
-
-Clone the repository:
-
-```bash
-git clone --recursive https://github.com/organicmaps/organicmaps.git
-```
-
-Update git submodules (sometimes doesn't work automatically):
-
-```
-git submodule update --init --recursive
-```
-
-Configure the repository as opensource build:
-
-```bash
-./configure.sh
-```
-
-or with private repository
-
-```bash
-./configure.sh <private-repo-name>
-```
 
 ### Configuring Xcode
 
