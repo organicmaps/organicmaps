@@ -3521,6 +3521,7 @@
     de = Allgemeine Einstellungen
     es = Ajustes generales
     fa = تنظیمات عمومی
+    fi = Yleiset asetukset
     fr = Paramètres généraux
     nl = Algemene instellingen
     pl = Ustawienia ogólne
@@ -3539,6 +3540,7 @@
     de = Information
     es = Información
     fa = اطلاعات
+    fi = Tietoja
     fr = Information
     nl = Informatie
     pl = Informacje
@@ -15764,6 +15766,7 @@
     be = Імпартаваць закладкі
     bg = Импортиране на отметки
     es = Importar marcadores
+    fi = Tuo kirjamerkit
     fr = Importer des signets
     pl = Import zakładek
     pt = Importar favoritos
@@ -21935,6 +21938,7 @@
     be = Спампаваць мапу света
     bg = Изтегляне на картата на света
     es = Descarga mapa mundial
+    fi = Lataa maailmankartta
     fr = Télécharcher la carte du monde
     pl = Pobierz mapę świata
     pt = Descarregar o mapa mundial
@@ -21947,6 +21951,7 @@
     be = Памылка падлучэння
     bg = Неуспешно свързване
     es = Problema de conexión
+    fi = Yhteysvirhe
     fr = Erreur de connexion
     pl = Błąd połączenia
     pt = Falha na coneção
@@ -21959,6 +21964,7 @@
     be = Адлучыце USB кабель
     bg = Изключване на USB кабел
     es = Desconecte el cable USB
+    fi = Irrota USB-kaapeli
     fr = Déconnectez le câble USB
     pl = Odłącz kabel USB
     ru = Отсоедините USB кабель
@@ -22211,6 +22217,7 @@
     en = Delete Track
     be = Выдаліць сцежку
     es = Borrar ruta
+    fi = Poista reitti
     fr = Supprimer la route
     pl = Usuwanie trasy
     ru = Удалить трек
@@ -22222,6 +22229,7 @@
     en = Track Name
     be = Назва сцежкі
     es = Nombre de la ruta
+    fi = Reitin nimi
     fr = Nom de la route
     pl = Nazwa trasy
     ru = Название трека
@@ -22231,6 +22239,7 @@
     comment = move track or bookmark from the list button text
     tags = ios
     en = Move
+    fi = Siirrä
     be = Перамясціць
     es = Mover
     fr = Déplacer
