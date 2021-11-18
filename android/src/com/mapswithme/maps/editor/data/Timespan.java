@@ -16,4 +16,9 @@ public class Timespan
   {
     return start + "-" + end;
   }
+
+  public String toWideString()
+  {
+    return start + " - " + end;
+  }
 }

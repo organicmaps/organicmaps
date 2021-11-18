@@ -91,4 +91,56 @@ public class TimeFormatUtils
 
     return builder.toString();
   }
+
+  public static String formatNonBusinessTime(Timespan[] closedTimespans, String hoursClosedLabel)
+  {
+    StringBuilder closedTextBuilder = new StringBuilder();
+    boolean firstLine = true;
+
+    for (Timespan cts: closedTimespans) {
+      if (!firstLine)
+        closedTextBuilder.append('\n');
+
+      closedTextBuilder.append(hoursClosedLabel).append(' ').append(cts.toWideString());
+      firstLine = false;
+    }
+    return closedTextBuilder.toString();
+  }
+
+  public static String generateCopyText(Resources resources, String ohStr, Timetable[] timetables)
+  {
+    if(timetables == null || timetables.length == 0)
+      return ohStr;
+
+    // Generate string "24/7" or "Daily HH:MM - HH:MM"
+    if (timetables[0].isFullWeek())
+    {
+      Timetable tt = timetables[0];
+      if (tt.isFullday)
+        return resources.getString(R.string.twentyfour_seven);
+      else
+        return resources.getString(R.string.daily) + " " + tt.workingTimespan.toWideString();
+    }
+
+    // Generate full week multiline string. E.g.
+    // "Mon-Fri HH:MM - HH:MM
+    //  Sa HH:MM - HH:MM"
+    StringBuilder weekSchedule = new StringBuilder();
+    boolean firstRow = true;
+    for (Timetable tt : timetables)
+    {
+      if (!firstRow)
+        weekSchedule.append('\n');
+
+      final String weekdays = formatWeekdays(tt);
+      final String openTime = tt.isFullday ?
+                              Utils.unCapitalize(resources.getString(R.string.editor_time_allday)) :
+                              tt.workingTimespan.toWideString();
+
+      weekSchedule.append(weekdays).append(' ').append(openTime);
+      firstRow = false;
+    }
+
+    return weekSchedule.toString();
+  }
 }

@@ -50,6 +50,7 @@ import com.mapswithme.maps.downloader.MapManager;
 import com.mapswithme.maps.editor.Editor;
 import com.mapswithme.maps.editor.OpeningHours;
 import com.mapswithme.maps.editor.data.TimeFormatUtils;
+import com.mapswithme.maps.editor.data.Timespan;
 import com.mapswithme.maps.editor.data.Timetable;
 import com.mapswithme.maps.location.LocationHelper;
 import com.mapswithme.maps.routing.RoutingController;
@@ -121,8 +122,11 @@ public class PlacePageView extends NestedScrollViewClickFixed
   private TextView mTvLinePage;
 
   private View mOpeningHours;
-  private TextView mFullOpeningHours;
-  private TextView mTodayOpeningHours;
+  private TextView mTodayLabel;
+  private TextView mTodayOpenTime;
+  private TextView mTodayNonBusinessTime;
+  private RecyclerView mFullWeekOpeningHours;
+  private PlaceOpeningHoursAdapter mOpeningHoursAdapter;
   private View mWifi;
   private View mEmail;
   private TextView mTvEmail;
@@ -346,8 +350,12 @@ public class PlacePageView extends NestedScrollViewClickFixed
     latlon.setOnClickListener(this);
     mTvLatlon = findViewById(R.id.tv__place_latlon);
     mOpeningHours = findViewById(R.id.ll__place_schedule);
-    mFullOpeningHours = findViewById(R.id.opening_hours);
-    mTodayOpeningHours = findViewById(R.id.today_opening_hours);
+    mTodayLabel = findViewById(R.id.oh_today_label);
+    mTodayOpenTime = findViewById(R.id.oh_today_open_time);
+    mTodayNonBusinessTime = findViewById(R.id.oh_nonbusiness_time);
+    mFullWeekOpeningHours = findViewById(R.id.rw__full_opening_hours);
+    mOpeningHoursAdapter = new PlaceOpeningHoursAdapter();
+    mFullWeekOpeningHours.setAdapter(mOpeningHoursAdapter);
     mWifi = findViewById(R.id.ll__place_wifi);
     mEmail = findViewById(R.id.ll__place_email);
     mEmail.setOnClickListener(this);
@@ -893,35 +901,51 @@ public class PlacePageView extends NestedScrollViewClickFixed
     final boolean isEmptyTT = (timetables == null || timetables.length == 0);
     final int color = ThemeUtils.getColor(getContext(), android.R.attr.textColorPrimary);
 
-    String ohStringToShow = null;
-
     if (isEmptyTT)
     {
+      // 'opening_hours' tag wasn't parsed either because it's empty or wrong format.
       if (!ohStr.isEmpty())
-        ohStringToShow = ohStr;
+      {
+        UiUtils.show(mOpeningHours);
+        refreshTodayOpeningHours(ohStr, color);
+        UiUtils.hide(mTodayNonBusinessTime);
+        UiUtils.hide(mFullWeekOpeningHours);
+      }
       else
       {
         UiUtils.hide(mOpeningHours);
-        return;
       }
+      return;
     }
 
     UiUtils.show(mOpeningHours);
 
     final Resources resources = getResources();
-    if (!isEmptyTT && timetables[0].isFullWeek())
-    {
-      ohStringToShow = timetables[0].isFullday ? resources.getString(R.string.twentyfour_seven)
-                                               : resources.getString(R.string.daily) + " " + timetables[0].workingTimespan;
-    }
 
-    if (ohStringToShow != null)
+    if (timetables[0].isFullWeek())
     {
-      refreshTodayOpeningHours(ohStringToShow, color);
-      UiUtils.clearTextAndHide(mFullOpeningHours);
+      final Timetable tt = timetables[0];
+      if (tt.isFullday)
+      {
+        refreshTodayOpeningHours(resources.getString(R.string.twentyfour_seven), color);
+        UiUtils.clearTextAndHide(mTodayNonBusinessTime);
+        UiUtils.hide(mTodayNonBusinessTime);
+      }
+      else
+      {
+        refreshTodayOpeningHours(resources.getString(R.string.daily), tt.workingTimespan.toWideString(), color);
+        refreshTodayNonBusinessTime(tt.closedTimespans);
+      }
+
+      UiUtils.hide(mFullWeekOpeningHours);
       return;
     }
 
+    // Show whole week time table.
+    mOpeningHoursAdapter.setTimetables(timetables);
+    UiUtils.show(mFullWeekOpeningHours);
+
+    // Show today's open time + non-business time.
     boolean containsCurrentWeekday = false;
     final int currentDay = Calendar.getInstance().get(Calendar.DAY_OF_WEEK);
     for (Timetable tt : timetables)
@@ -929,26 +953,40 @@ public class PlacePageView extends NestedScrollViewClickFixed
       if (tt.containsWeekday(currentDay))
       {
         containsCurrentWeekday = true;
-        String workingTime;
+        String openTime;
 
         if (tt.isFullday)
         {
           String allDay = resources.getString(R.string.editor_time_allday);
-          workingTime = Utils.unCapitalize(allDay);
+          openTime = Utils.unCapitalize(allDay);
         }
         else
         {
-          workingTime = tt.workingTimespan.toString();
+          openTime = tt.workingTimespan.toWideString();
         }
 
-        refreshTodayOpeningHours(resources.getString(R.string.today) + " " + workingTime, color);
+        refreshTodayOpeningHours(resources.getString(R.string.today), openTime, color);
+        refreshTodayNonBusinessTime(tt.closedTimespans);
+
         break;
       }
     }
 
-    UiUtils.setTextAndShow(mFullOpeningHours, TimeFormatUtils.formatTimetables(getContext(), timetables));
+    // Show that place is closed today.
     if (!containsCurrentWeekday)
+    {
       refreshTodayOpeningHours(resources.getString(R.string.day_off_today), resources.getColor(R.color.base_red));
+      UiUtils.hide(mTodayNonBusinessTime);
+    }
+  }
+
+  private void refreshTodayNonBusinessTime(Timespan[] closedTimespans)
+  {
+    final String hoursClosedLabel = getResources().getString(R.string.editor_hours_closed);
+    if (closedTimespans==null || closedTimespans.length == 0)
+      UiUtils.clearTextAndHide(mTodayNonBusinessTime);
+    else
+      UiUtils.setTextAndShow(mTodayNonBusinessTime, TimeFormatUtils.formatNonBusinessTime(closedTimespans, hoursClosedLabel));
   }
 
   private void refreshSocialLinks(@NonNull MapObject mapObject)
@@ -999,10 +1037,22 @@ public class PlacePageView extends NestedScrollViewClickFixed
     }
   }
 
-  private void refreshTodayOpeningHours(String text, @ColorInt int color)
+  private void refreshTodayOpeningHours(String label, String openTime, @ColorInt int color)
   {
-    UiUtils.setTextAndShow(mTodayOpeningHours, text);
-    mTodayOpeningHours.setTextColor(color);
+    UiUtils.setTextAndShow(mTodayLabel, label);
+    UiUtils.setTextAndShow(mTodayOpenTime, openTime);
+
+    mTodayLabel.setTextColor(color);
+    mTodayOpenTime.setTextColor(color);
+  }
+
+  private void refreshTodayOpeningHours(String label, @ColorInt int color)
+  {
+    UiUtils.setTextAndShow(mTodayLabel, label);
+    UiUtils.hide(mTodayOpenTime);
+
+    mTodayLabel.setTextColor(color);
+    mTodayOpenTime.setTextColor(color);
   }
 
   private void refreshPhoneNumberList(String phones)
@@ -1386,10 +1436,9 @@ public class PlacePageView extends NestedScrollViewClickFixed
         items.add(mTvEmail.getText().toString());
         break;
       case R.id.ll__place_schedule:
-        String text = UiUtils.isVisible(mFullOpeningHours)
-                      ? mFullOpeningHours.getText().toString()
-                      : mTodayOpeningHours.getText().toString();
-        items.add(text);
+        final String ohStr = mMapObject.getMetadata(Metadata.MetadataType.FMD_OPEN_HOURS);
+        final Timetable[] timetables = OpeningHours.nativeTimetablesFromString(ohStr);
+        items.add(TimeFormatUtils.generateCopyText(getResources(), ohStr, timetables));
         break;
       case R.id.ll__place_operator:
         items.add(mTvOperator.getText().toString());
