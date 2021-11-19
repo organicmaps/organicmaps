@@ -1329,7 +1329,7 @@
 "type.emergency.phone" = "Телефон для экстренных вызовов";
 "type.entrance" = "Вход";
 "type.healthcare.laboratory" = "Медицинская лаборатория";
-"type.highway" = "Highway";
+"type.highway" = "Автомагистраль";
 "type.highway.bridleway" = "Дорога для всадников";
 "type.highway.bridleway.bridge" = "Дорога для всадников";
 "type.highway.bridleway.permissive" = "Дорога для всадников";
