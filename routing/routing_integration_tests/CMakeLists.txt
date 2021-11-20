@@ -8,7 +8,6 @@
 project(routing_integration_tests)
 
 include_directories(
-        ${OMIM_ROOT}/3party/freetype/include
         ${OMIM_ROOT}/3party/glm
         ${OMIM_ROOT}/3party/jansson/src
         ${OMIM_ROOT}/3party/protobuf/protobuf/src

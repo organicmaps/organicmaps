@@ -1,0 +1,8 @@
+add_subdirectory(freetype)
+
+# Use ft2build.h from the current directory instead of the default.
+target_include_directories(freetype
+  BEFORE PUBLIC
+    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>
+    $<INSTALL_INTERFACE:include/freetype2>
+)

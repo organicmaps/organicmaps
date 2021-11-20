@@ -731,7 +731,8 @@
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(OMIM_ROOT)/3party/glm/",
-					"$(OMIM_ROOT)/3party/freetype/include",
+					"$(OMIM_ROOT)/3party/freetype",
+					"$(OMIM_ROOT)/3party/freetype/freetype/include",
 					"$(OMIM_ROOT)/3party/expat/lib",
 					"$(OMIM_ROOT)/3party/icu",
 					"$(OMIM_ROOT)/3party/icu/icu/icu4c/source/common",
@@ -754,7 +755,8 @@
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(OMIM_ROOT)/3party/glm/",
-					"$(OMIM_ROOT)/3party/freetype/include",
+					"$(OMIM_ROOT)/3party/freetype",
+					"$(OMIM_ROOT)/3party/freetype/freetype/include",
 					"$(OMIM_ROOT)/3party/expat/lib",
 					"$(OMIM_ROOT)/3party/icu",
 					"$(OMIM_ROOT)/3party/icu/icu/icu4c/source/common",

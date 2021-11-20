@@ -9,7 +9,6 @@ add_definitions(
 include_directories(
   ${OMIM_ROOT}/3party/gmock/include
   ${OMIM_ROOT}/3party/gmock/gtest/include
-  ${OMIM_ROOT}/3party/freetype/include
 )
 
 set(

@@ -3,7 +3,6 @@ project(drape)
 get_filename_component(DRAPE_ROOT ${PROJECT_SOURCE_DIR} ABSOLUTE)
 
 include_directories(
-  ${OMIM_ROOT}/3party/freetype/include
   ${OMIM_ROOT}/3party/glm
   ${OMIM_ROOT}/3party/Vulkan-Headers/include
   ${OMIM_ROOT}/3party/vulkan_wrapper
@@ -176,5 +175,5 @@ omim_add_library(${PROJECT_NAME} ${DRAPE_COMMON_SRC} ${SRC} ${VULKAN_SRC})
 
 omim_add_test_subdirectory(drape_tests)
 
-# For bidi algorithm.
-target_link_libraries(${PROJECT_NAME} icu)
+# icu is included for bidi algorithm.
+target_link_libraries(${PROJECT_NAME} icu freetype)

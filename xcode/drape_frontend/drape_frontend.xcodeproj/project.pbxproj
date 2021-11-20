@@ -972,7 +972,6 @@
 					"$(OMIM_ROOT)/3party/glm",
 					"$(OMIM_ROOT)/3party/protobuf/protobuf/src",
 					"$(OMIM_ROOT)/3party/protobuf",
-					"$(OMIM_ROOT)/3party/freetype/include",
 					"$(OMIM_ROOT)/3party/jansson/src",
 				);
 			};
@@ -993,7 +992,6 @@
 					"$(OMIM_ROOT)/3party/glm",
 					"$(OMIM_ROOT)/3party/protobuf/protobuf/src",
 					"$(OMIM_ROOT)/3party/protobuf",
-					"$(OMIM_ROOT)/3party/freetype/include",
 					"$(OMIM_ROOT)/3party/jansson/src",
 				);
 			};
