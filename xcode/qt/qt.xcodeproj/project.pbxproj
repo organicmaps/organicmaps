@@ -837,7 +837,6 @@
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(OMIM_ROOT)/3party/freetype/include",
 					"$(QT_PATH)/include",
 					"$(OMIM_ROOT)/3party/glm",
 					"$(DERIVED_FILE_DIR)",
@@ -870,7 +869,6 @@
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(OMIM_ROOT)/3party/freetype/include",
 					"$(QT_PATH)/include",
 					"$(OMIM_ROOT)/3party/glm",
 					"$(DERIVED_FILE_DIR)",

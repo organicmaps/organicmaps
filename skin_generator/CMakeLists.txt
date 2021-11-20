@@ -1,7 +1,6 @@
 project(skin_generator_tool)
 
 include_directories(
-  ${OMIM_ROOT}/3party/freetype/include
   ${Boost_INCLUDE_DIRS}
 )
 

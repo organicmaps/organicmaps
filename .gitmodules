@@ -35,3 +35,6 @@
 [submodule "3party/icu/icu"]
   path = 3party/icu/icu
   url = https://github.com/unicode-org/icu.git
+[submodule "3party/freetype/freetype"]
+	path = 3party/freetype/freetype
+	url = https://gitlab.freedesktop.org/freetype/freetype.git

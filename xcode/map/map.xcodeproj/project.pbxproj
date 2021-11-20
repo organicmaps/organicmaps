@@ -772,7 +772,6 @@
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(QT_PATH)/include",
-					"$(OMIM_ROOT)/3party/freetype/include",
 					"$(OMIM_ROOT)/3party/expat/lib",
 					"$(OMIM_ROOT)/3party/glm",
 					"$(OMIM_ROOT)/3party/jansson/src",
@@ -792,7 +791,6 @@
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(QT_PATH)/include",
-					"$(OMIM_ROOT)/3party/freetype/include",
 					"$(OMIM_ROOT)/3party/expat/lib",
 					"$(OMIM_ROOT)/3party/glm",
 					"$(OMIM_ROOT)/3party/jansson/src",
