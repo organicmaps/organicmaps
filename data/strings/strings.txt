@@ -1426,7 +1426,7 @@
     bg = Цвят на отметка
     cs = Barva záložky
     da = Bogmærke Farve
-    de = Lesezeichen-Farbe
+    de = Lesezeichenfarbe
     el = Χρώμα αγαπημένου
     es = Color del marcador
     fa = رنگ نشانه
@@ -10681,6 +10681,7 @@
   [editor_add_phone]
     tags = android
     en = Add Phone
+    de = Telefon hinzufügen
     fr = Ajouter un numéro de téléphone
     pl = Dodaj numer telefonu
     ru = Добавить телефон
@@ -13625,6 +13626,7 @@
   [error_enter_correct_facebook_page]
     tags = android
     en = Enter a valid Facebook web address, account, or page name
+    de = Geben Sie eine gültige Facebook-Webadresse, ein Konto oder einen Seitennamen ein
     es = Introduce una dirección web, una cuenta o un nombre de página de Facebook válidos
     fr = Saisissez une adresse web, un compte ou un nom de page Facebook valide
     pl = Wprowadź poprawny link, nazwę konta lub nazwę strony na Facebooku
@@ -13635,6 +13637,7 @@
   [error_enter_correct_instagram_page]
     tags = android
     en = Enter a valid Instagram web address or account name
+    de = Geben Sie eine gültige Instagram-Webadresse oder einen Kontonamen ein
     es = Introduce una dirección web o un nombre de cuenta de Instagram válidos
     fr = Saisissez une adresse web, un nom de compte Instagram valide
     pl = Wprowadź poprawny link lub nazwę konta na Instagramie
@@ -13645,6 +13648,7 @@
   [error_enter_correct_twitter_page]
     tags = android
     en = Enter a valid Twitter web address or username
+    de = Geben Sie eine gültige Twitter-Webadresse oder einen Benutzernamen ein
     es = Introduzca una dirección web o un nombre de usuario válido de Twitter
     fr = Saisissez une adresse web, un nom de compte Twitter valide
     pl = Wprowadź poprawny adres lub nazwę konta na Twitterze
@@ -13655,6 +13659,7 @@
   [error_enter_correct_vk_page]
     tags = android
     en = Enter a valid VK web address or account name
+    de = Geben Sie eine gültige VK-Webadresse oder einen Kontonamen ein
     es = Introduce una dirección web o un nombre de cuenta de VK válidos
     fr = Saisissez une adresse web, un nom de compte VK valide
     pl = Wprowadź poprawny adres lub nazwę konta na VK
@@ -15765,6 +15770,7 @@
     en = Import bookmarks
     be = Імпартаваць закладкі
     bg = Импортиране на отметки
+    de = Lesezeichen importieren
     es = Importar marcadores
     fi = Tuo kirjamerkit
     fr = Importer des signets
@@ -17357,6 +17363,7 @@
     en = Popular
     be = Папулярнае
     bg = Популярно
+    de = Beliebt
     fa = مشهور
     fr = Populaire
     pl = Popularne
@@ -21937,6 +21944,7 @@
     en = Download the world map
     be = Спампаваць мапу света
     bg = Изтегляне на картата на света
+    de = Download der Weltkarte
     es = Descarga mapa mundial
     fi = Lataa maailmankartta
     fr = Télécharcher la carte du monde
@@ -21950,6 +21958,7 @@
     en = Connection failure
     be = Памылка падлучэння
     bg = Неуспешно свързване
+    de = Verbindungsfehler
     es = Problema de conexión
     fi = Yhteysvirhe
     fr = Erreur de connexion
@@ -21963,6 +21972,7 @@
     en = Disconnect USB cable
     be = Адлучыце USB кабель
     bg = Изключване на USB кабел
+    de = USB-Kabel trennen
     es = Desconecte el cable USB
     fi = Irrota USB-kaapeli
     fr = Déconnectez le câble USB
@@ -22216,6 +22226,7 @@
     tags = ios
     en = Delete Track
     be = Выдаліць сцежку
+    de = Strecke löschen
     es = Borrar ruta
     fi = Poista reitti
     fr = Supprimer la route
@@ -22239,9 +22250,9 @@
     comment = move track or bookmark from the list button text
     tags = ios
     en = Move
-    fi = Siirrä
     be = Перамясціць
     es = Mover
+    fi = Siirrä
     fr = Déplacer
     pl = Przenieś
     ru = Переместить

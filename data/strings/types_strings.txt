@@ -742,6 +742,7 @@
     en = Casino
     ar = كازينو
     da = Kasino
+    de = Kasino
     el = Καζίνο
     fa = قمارخانه
     fi = Kasino
@@ -2498,6 +2499,7 @@
 
   [type.amenity.prison]
     en = Prison
+    de = Gefängnis
     ja = 刑務所
     pl = Więzienie
     pt = Prisão
@@ -3562,6 +3564,7 @@
 
   [type.barrier.chain]
     en = Chain
+    de = Kette
     be = Ланцуг
     fr = Chaîne
     ru = Цепь
@@ -3569,6 +3572,7 @@
 
   [type.barrier.city_wall]
     en = City Wall
+    de = Stadtmauer
     fr = Muraille
     ja = 城壁
     pl = Mur miejski
@@ -3661,6 +3665,7 @@
 
   [type.barrier.hedge]
     en = Hedge
+    de = Hecke
     fr = Haie
     ja = 生垣
     pl = Żywopłot
@@ -3704,6 +3709,7 @@
 
   [type.barrier.retaining_wall]
     en = Retaining Wall
+    de = Stützmauer
     fr = Mur de soutènement
     ja = 擁壁
     pl = Mur oporowy
@@ -3811,6 +3817,7 @@
 
   [type.barrier.wall]
     en = Wall
+    de = Mauer
     fr = Mur
     ja = 壁
     pl = Mur
@@ -3821,6 +3828,7 @@
 
   [type.boundary]
     en = Boundary
+    de = Grenze
     ja = 境界線
     pl = Granica
     pt = Fronteira
@@ -7231,6 +7239,7 @@
 
   [type.emergency]
     en = Emergency
+    de = Notfall
     fr = Urgence
     pl = Ratunkowe
     pt = Emergência
@@ -7400,6 +7409,7 @@
 
   [type.highway]
     en = Highway
+    de = Autobahn
     ja = 道路
     pl = Droga
     pt = Rodovia
@@ -19501,6 +19511,7 @@
 
   [type.tourism.information]
     en = Tourist Information
+    de = Touristeninformation
     ar = معلومات سياحية
     cs = Infocentrum
     da = Turistinformation
@@ -19565,6 +19576,7 @@
 
   [type.tourism.information.guidepost]
     en = Tourist Information
+    de = Touristeninformation
     ar = معلومات سياحية
     cs = Infocentrum
     da = Turistinformation
@@ -19978,6 +19990,7 @@
 
   [type.waterway.dam]
     en = Dam
+    de = Damm
     fr = Dam
     ja = ダム
     pt = Barragem
@@ -19987,6 +20000,7 @@
 
   [type.waterway.ditch]
     en = Ditch
+    de = Graben
     fr = Fossé
     ja = 排水路
     pt = Vala
@@ -19996,6 +20010,7 @@
 
   [type.waterway.ditch.tunnel]
     en = Ditch
+    de = Graben
     fr = Fossé
     ja = 排水路(トンネル)
     pt = Vala
@@ -20014,6 +20029,7 @@
 
   [type.waterway.drain]
     en = Drain
+    de = Abfluss
     ja = 用水路
     pt = Valeta de drenagem
     pt-BR = Valeta de drenagem
@@ -20022,6 +20038,7 @@
 
   [type.waterway.drain.tunnel]
     en = Drain
+    de = Abfluss
     ja = 用水路
     pt = Valeta de drenagem
     pt-BR = Valeta de drenagem
@@ -20324,6 +20341,7 @@
 
   [type.waterway.weir]
     en = Weir
+    de = Wehr
     ja = 堰
     pt = Represa
     pt-BR = Açude
@@ -20332,6 +20350,7 @@
 
   [type.wheelchair]
     en = Wheelchair
+    de = Rollstuhl
     ja = 車椅子
     pt = Cadeiras de rodas
     pt-BR = Cadeiras de rodas
@@ -20342,7 +20361,7 @@
     ar = دعم محدود لكراسي المعاقين
     cs = Omezený vstup pro vozíčkáře
     da = Begrænset tilgængelighed for kørestol
-    de = Teilweise für Behinderte ausgestattet
+    de = Eingeschränkter Rollstuhlzugang
     el = Μερικώς εξοπλισμένο για άτομα με ειδικές ανάγκες
     es = Parcialmente equipado para discapacitados
     es-MX = Parcialmente equipado para discapacitados
@@ -20376,7 +20395,7 @@
     ar = لا يدعم لكراسي المعاقين
     cs = Bez přístupu pro vozíčkáře
     da = Ingen tilgængelighed for kørestol
-    de = Für Behinderte nicht ausgestattet
+    de = Kein Rollstuhlzugang
     el = Δεν υπάρχει πρόβλεψη για άτομα με ειδικές ανάγκες
     es = No equipado para discapacitados
     es-MX = No equipado para discapacitados
@@ -20410,7 +20429,7 @@
     ar = دعم كامل لكراسي المعاقين
     cs = Plný vstup pro vozíčkáře
     da = Fuld tilgængelighed for kørestol
-    de = Für Behinderte ausgestattet
+    de = Vollständiger Zugang für Rollstühle
     el = Εξοπλισμένο για άτομα με ειδικές ανάγκες
     es = Equipado para discapacitados
     es-MX = Equipado para discapacitados
@@ -20553,6 +20572,7 @@
 
   [type.area_highway.cycleway]
     en = Bike Path
+    de = Radweg
     fr = Piste cyclable
     pt = Ciclovia
     pt-BR = Ciclovia
@@ -20560,6 +20580,7 @@
 
   [type.area_highway.footway]
     en = Path
+    de = Weg
     fr = Chemin
     pt = Caminho pedonal
     pt-BR = Caminho pedonal
