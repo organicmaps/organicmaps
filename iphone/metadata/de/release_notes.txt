@@ -1,0 +1,3 @@
+• Neue OSM-Kartendaten ab 22.10.2021
+• Bergsattel, Pass, Silo, Lagertank, Kettensperre, Drehtor hinzugefügt
+• Einige Symbole und Übersetzungen korrigiert
