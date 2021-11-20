@@ -1,1 +1,1 @@
-en-US
+../../fdroid/play/default-language.txt
