@@ -112,7 +112,7 @@
 "add_new_set" = "Neue Gruppe hinzufügen";
 
 /* Bookmark Color dialog title */
-"bookmark_color" = "Lesezeichen-Farbe";
+"bookmark_color" = "Lesezeichenfarbe";
 
 /* Add Bookmark Set dialog - hint when set name is empty */
 "bookmark_set_name" = "Name des Lesezeichens";
@@ -795,7 +795,7 @@
 
 "phone" = "Telefon";
 
-"editor_add_phone" = "Add Phone";
+"editor_add_phone" = "Telefon hinzufügen";
 
 "please_note" = "Bitte beachten";
 
@@ -973,13 +973,13 @@
 
 "error_enter_correct_email" = "Geben Sie eine gültige Email-Adresse ein";
 
-"error_enter_correct_facebook_page" = "Enter a valid Facebook web address, account, or page name";
+"error_enter_correct_facebook_page" = "Geben Sie eine gültige Facebook-Webadresse, ein Konto oder einen Seitennamen ein";
 
-"error_enter_correct_instagram_page" = "Enter a valid Instagram web address or account name";
+"error_enter_correct_instagram_page" = "Geben Sie eine gültige Instagram-Webadresse oder einen Kontonamen ein";
 
-"error_enter_correct_twitter_page" = "Enter a valid Twitter web address or username";
+"error_enter_correct_twitter_page" = "Geben Sie eine gültige Twitter-Webadresse oder einen Benutzernamen ein";
 
-"error_enter_correct_vk_page" = "Enter a valid VK web address or account name";
+"error_enter_correct_vk_page" = "Geben Sie eine gültige VK-Webadresse oder einen Kontonamen ein";
 
 "error_enter_correct_line_page" = "Enter a valid LINE web address or LINE ID";
 
@@ -1109,7 +1109,7 @@
 "bookmarks_create_new_group" = "Erstelle eine neue Liste";
 
 /* Bookmark categories screen */
-"bookmarks_import" = "Import bookmarks";
+"bookmarks_import" = "Lesezeichen importieren";
 
 "downloader_hide_screen" = "Bildschirm verbergen";
 
@@ -1185,7 +1185,7 @@
 
 "title_error_downloading_bookmarks" = "Es ist ein Fehler aufgetreten";
 
-"popular_place" = "Popular";
+"popular_place" = "Beliebt";
 
 "export_file" = "Datei exportieren";
 
@@ -1445,11 +1445,11 @@
 
 "key_information_title" = "Wichtige Informationen";
 
-"download_map_title" = "Download the world map";
+"download_map_title" = "Download der Weltkarte";
 
-"connection_failure" = "Connection failure";
+"connection_failure" = "Verbindungsfehler";
 
-"disconnect_usb_cable_title" = "Disconnect USB cable";
+"disconnect_usb_cable_title" = "USB-Kabel trennen";
 
 "enable_screen_sleep" = "Bildschirm schlafen lassen";
 
@@ -1469,7 +1469,7 @@
 "whats_new_auto_update_button_later" = "Später manuell aktualisieren";
 
 /* Delete track button on track edit screen */
-"placepage_delete_track_button" = "Delete Track";
+"placepage_delete_track_button" = "Strecke löschen";
 
 /* Placeholder for track name input on track edit screen */
 "placepage_track_name_hint" = "Track Name";
@@ -1549,7 +1549,7 @@
 
 "type.amenity.car_wash" = "Autowäsche";
 
-"type.amenity.casino" = "Casino";
+"type.amenity.casino" = "Kasino";
 
 "type.amenity.charging_station" = "Ladestation";
 
@@ -1661,7 +1661,7 @@
 
 "type.amenity.post_office" = "Poststelle";
 
-"type.amenity.prison" = "Prison";
+"type.amenity.prison" = "Gefängnis";
 
 "type.amenity.pub" = "Kneipe";
 
@@ -1733,9 +1733,9 @@
 
 "type.barrier.border_control" = "Grenzkontrolle";
 
-"type.barrier.chain" = "Chain";
+"type.barrier.chain" = "Kette";
 
-"type.barrier.city_wall" = "City Wall";
+"type.barrier.city_wall" = "Stadtmauer";
 
 "type.barrier.cycle_barrier" = "Cycle Barrier";
 
@@ -1745,11 +1745,11 @@
 
 "type.barrier.gate" = "Tor";
 
-"type.barrier.hedge" = "Hedge";
+"type.barrier.hedge" = "Hecke";
 
 "type.barrier.lift_gate" = "Schranke";
 
-"type.barrier.retaining_wall" = "Retaining Wall";
+"type.barrier.retaining_wall" = "Stützmauer";
 
 "type.barrier.stile" = "Zaunübertritt";
 
@@ -1757,9 +1757,9 @@
 
 "type.barrier.toll_booth" = "Mautstelle";
 
-"type.barrier.wall" = "Wall";
+"type.barrier.wall" = "Mauer";
 
-"type.boundary" = "Boundary";
+"type.boundary" = "Grenze";
 
 "type.boundary.administrative" = "boundary-administrative";
 
@@ -2009,7 +2009,7 @@
 
 "type.cuisine.vietnamese" = "Vietnamesische Küche";
 
-"type.emergency" = "Emergency";
+"type.emergency" = "Notfall";
 
 "type.emergency.defibrillator" = "Defibrillator";
 
@@ -2021,7 +2021,7 @@
 
 "type.healthcare.laboratory" = "Medizinisches Labor";
 
-"type.highway" = "Highway";
+"type.highway" = "Autobahn";
 
 "type.highway.bridleway" = "Rider's Path";
 
@@ -3157,17 +3157,17 @@
 
 "type.waterway.canal.tunnel" = "Kanal";
 
-"type.waterway.dam" = "Dam";
+"type.waterway.dam" = "Damm";
 
-"type.waterway.ditch" = "Ditch";
+"type.waterway.ditch" = "Graben";
 
-"type.waterway.ditch.tunnel" = "Ditch";
+"type.waterway.ditch.tunnel" = "Graben";
 
 "type.waterway.dock" = "Waterway Dock";
 
-"type.waterway.drain" = "Drain";
+"type.waterway.drain" = "Abfluss";
 
-"type.waterway.drain.tunnel" = "Drain";
+"type.waterway.drain.tunnel" = "Abfluss";
 
 "type.waterway.lock" = "Waterway Lock";
 
@@ -3189,15 +3189,15 @@
 
 "type.waterway.waterfall" = "Wasserfall";
 
-"type.waterway.weir" = "Weir";
+"type.waterway.weir" = "Wehr";
 
-"type.wheelchair" = "Wheelchair";
+"type.wheelchair" = "Rollstuhl";
 
-"type.wheelchair.limited" = "Teilweise für Behinderte ausgestattet";
+"type.wheelchair.limited" = "Eingeschränkter Rollstuhlzugang";
 
-"type.wheelchair.no" = "Für Behinderte nicht ausgestattet";
+"type.wheelchair.no" = "Kein Rollstuhlzugang";
 
-"type.wheelchair.yes" = "Für Behinderte ausgestattet";
+"type.wheelchair.yes" = "Vollständiger Zugang für Rollstühle";
 
 "type.piste_lift" = "piste:lift";
 
@@ -3233,9 +3233,9 @@
 
 "type.building_part" = "Gebäude";
 
-"type.area_highway.cycleway" = "Bike Path";
+"type.area_highway.cycleway" = "Radweg";
 
-"type.area_highway.footway" = "Path";
+"type.area_highway.footway" = "Weg";
 
 "type.area_highway.living_street" = "Street";
 

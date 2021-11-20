@@ -179,6 +179,10 @@
 	<!-- Length of track in cell that describes route -->
 	<string name="length">Pituus</string>
 	<string name="share_my_location">Jaa sijaintini</string>
+	<!-- Settings general group in settings screen -->
+	<string name="prefs_group_general">Yleiset asetukset</string>
+	<!-- Settings information group in settings screen -->
+	<string name="prefs_group_information">Tietoja</string>
 	<string name="prefs_group_route">Navigaatio</string>
 	<string name="pref_zoom_title">Zoomauspainikkeet</string>
 	<string name="pref_zoom_summary">Näytä ruudulla</string>
@@ -621,6 +625,8 @@
 	  <item quantity="other">%d kirjanmerkkiä</item>
 	</plurals>
 	<string name="bookmarks_create_new_group">Luo uusi luettelo</string>
+	<!-- Bookmark categories screen -->
+	<string name="bookmarks_import">Tuo kirjamerkit</string>
 	<string name="downloader_hide_screen">Piilota näyttö</string>
 	<string name="downloader_percent">%1$s (%2$s / %3$s)</string>
 	<string name="downloader_process">Ladataan %s…</string>
@@ -804,6 +810,9 @@
 	<string name="downloader_updating_ios">Päivitys</string>
 	<string name="downloader_loading_ios">Lataus</string>
 	<string name="key_information_title">Avaintietoa</string>
+	<string name="download_map_title">Lataa maailmankartta</string>
+	<string name="connection_failure">Yhteysvirhe</string>
+	<string name="disconnect_usb_cable_title">Irrota USB-kaapeli</string>
 	<string name="enable_screen_sleep">Anna näytön nukkua</string>
 	<!-- Description in preferences -->
 	<string name="enable_screen_sleep_description">Kun tämä asetus on käytössä, näytön annetaan nukkua käyttämättömyyden jälkeen.</string>
@@ -815,6 +824,12 @@
 	<string name="whats_new_auto_update_button_size">Päivitä (%s)</string>
 	<!-- Autoupdate dialog on start -->
 	<string name="whats_new_auto_update_button_later">Päivitä manuaalisesti myöhemmin</string>
+	<!-- Delete track button on track edit screen -->
+	<string name="placepage_delete_track_button">Poista reitti</string>
+	<!-- Placeholder for track name input on track edit screen -->
+	<string name="placepage_track_name_hint">Reitin nimi</string>
+	<!-- move track or bookmark from the list button text -->
+	<string name="move">Siirrä</string>
 	<!-- edit track screen title -->
 	<string name="track_title">Reitti</string>
 

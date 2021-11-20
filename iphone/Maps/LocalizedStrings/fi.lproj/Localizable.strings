@@ -284,10 +284,10 @@
 "share_my_location" = "Jaa sijaintini";
 
 /* Settings general group in settings screen */
-"prefs_group_general" = "General settings";
+"prefs_group_general" = "Yleiset asetukset";
 
 /* Settings information group in settings screen */
-"prefs_group_information" = "Information";
+"prefs_group_information" = "Tietoja";
 
 "prefs_group_route" = "Navigaatio";
 
@@ -1109,7 +1109,7 @@
 "bookmarks_create_new_group" = "Luo uusi luettelo";
 
 /* Bookmark categories screen */
-"bookmarks_import" = "Import bookmarks";
+"bookmarks_import" = "Tuo kirjamerkit";
 
 "downloader_hide_screen" = "Piilota näyttö";
 
@@ -1445,11 +1445,11 @@
 
 "key_information_title" = "Avaintietoa";
 
-"download_map_title" = "Download the world map";
+"download_map_title" = "Lataa maailmankartta";
 
-"connection_failure" = "Connection failure";
+"connection_failure" = "Yhteysvirhe";
 
-"disconnect_usb_cable_title" = "Disconnect USB cable";
+"disconnect_usb_cable_title" = "Irrota USB-kaapeli";
 
 "enable_screen_sleep" = "Anna näytön nukkua";
 
@@ -1469,13 +1469,13 @@
 "whats_new_auto_update_button_later" = "Päivitä manuaalisesti myöhemmin";
 
 /* Delete track button on track edit screen */
-"placepage_delete_track_button" = "Delete Track";
+"placepage_delete_track_button" = "Poista reitti";
 
 /* Placeholder for track name input on track edit screen */
-"placepage_track_name_hint" = "Track Name";
+"placepage_track_name_hint" = "Reitin nimi";
 
 /* move track or bookmark from the list button text */
-"move" = "Move";
+"move" = "Siirrä";
 
 /* edit track screen title */
 "track_title" = "Reitti";

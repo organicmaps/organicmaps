@@ -69,7 +69,7 @@
 	<!-- Add New Bookmark Set dialog title -->
 	<string name="add_new_set">Neue Gruppe hinzufügen</string>
 	<!-- Bookmark Color dialog title -->
-	<string name="bookmark_color">Lesezeichen-Farbe</string>
+	<string name="bookmark_color">Lesezeichenfarbe</string>
 	<!-- Add Bookmark Set dialog - hint when set name is empty -->
 	<string name="bookmark_set_name">Name des Lesezeichens</string>
 	<!-- Bookmark Sets dialog title -->
@@ -464,6 +464,7 @@
 	<!-- login text field -->
 	<string name="email_or_username">Email oder Benutzername</string>
 	<string name="phone">Telefon</string>
+	<string name="editor_add_phone">Telefon hinzufügen</string>
 	<string name="please_note">Bitte beachten</string>
 	<string name="downloader_delete_map_dialog">Alle Kartenänderungen werden zusammen mit der Karte gelöscht.</string>
 	<string name="downloader_update_maps">Karten aktualisieren</string>
@@ -556,6 +557,10 @@
 	<string name="error_enter_correct_phone">Geben Sie die richtige Telefonnummer ein</string>
 	<string name="error_enter_correct_web">Geben Sie eine gültige Internetadresse ein</string>
 	<string name="error_enter_correct_email">Geben Sie eine gültige Email-Adresse ein</string>
+	<string name="error_enter_correct_facebook_page">Geben Sie eine gültige Facebook-Webadresse, ein Konto oder einen Seitennamen ein</string>
+	<string name="error_enter_correct_instagram_page">Geben Sie eine gültige Instagram-Webadresse oder einen Kontonamen ein</string>
+	<string name="error_enter_correct_twitter_page">Geben Sie eine gültige Twitter-Webadresse oder einen Benutzernamen ein</string>
+	<string name="error_enter_correct_vk_page">Geben Sie eine gültige VK-Webadresse oder einen Kontonamen ein</string>
 	<string name="refresh">Aktualisieren</string>
 	<string name="placepage_add_place_button">Einen Ort zur Karte hinzufügen</string>
 	<!-- Displayed when saving some edits to the map to warn against publishing personal data -->
@@ -627,6 +632,8 @@
 	  <item quantity="other">%d Lesezeichen</item>
 	</plurals>
 	<string name="bookmarks_create_new_group">Erstelle eine neue Liste</string>
+	<!-- Bookmark categories screen -->
+	<string name="bookmarks_import">Lesezeichen importieren</string>
 	<string name="downloader_hide_screen">Bildschirm verbergen</string>
 	<string name="downloader_percent">%1$s (%2$s von %3$s)</string>
 	<string name="downloader_process">%s heruntergeladen…</string>
@@ -677,6 +684,7 @@
 	<string name="bookmarks_empty_list_message">Um eine neue Markierung hinzuzufügen, drücken Sie auf das Sternzeichen in der Karte des Objekts</string>
 	<string name="category_desc_more">…mehr</string>
 	<string name="title_error_downloading_bookmarks">Es ist ein Fehler aufgetreten</string>
+	<string name="popular_place">Beliebt</string>
 	<string name="export_file">Datei exportieren</string>
 	<string name="list_settings">Listeneinstellungen</string>
 	<string name="delete_list">Liste löschen</string>
@@ -810,6 +818,9 @@
 	<string name="downloader_updating_ios">Update</string>
 	<string name="downloader_loading_ios">Download</string>
 	<string name="key_information_title">Wichtige Informationen</string>
+	<string name="download_map_title">Download der Weltkarte</string>
+	<string name="connection_failure">Verbindungsfehler</string>
+	<string name="disconnect_usb_cable_title">USB-Kabel trennen</string>
 	<string name="enable_screen_sleep">Bildschirm schlafen lassen</string>
 	<!-- Description in preferences -->
 	<string name="enable_screen_sleep_description">Wenn diese Option aktiviert ist, kann der Bildschirm nach einer gewissen Zeit der Inaktivität in den Ruhezustand versetzt werden.</string>
@@ -821,6 +832,8 @@
 	<string name="whats_new_auto_update_button_size">Aktualisieren (%s)</string>
 	<!-- Autoupdate dialog on start -->
 	<string name="whats_new_auto_update_button_later">Später manuell aktualisieren</string>
+	<!-- Delete track button on track edit screen -->
+	<string name="placepage_delete_track_button">Strecke löschen</string>
 	<!-- edit track screen title -->
 	<string name="track_title">Strecken</string>
 
@@ -843,6 +856,7 @@
 	<string name="type.amenity.car_rental">Autoverleih</string>
 	<string name="type.amenity.car_sharing">Carsharing</string>
 	<string name="type.amenity.car_wash">Autowäsche</string>
+	<string name="type.amenity.casino">Kasino</string>
 	<string name="type.amenity.charging_station">Ladestation</string>
 	<string name="type.amenity.childcare">Kindertagesstätte</string>
 	<string name="type.amenity.cinema">Kino</string>
@@ -896,6 +910,7 @@
 	<string name="type.amenity.police">Polizeistation</string>
 	<string name="type.amenity.post_box">Briefkasten</string>
 	<string name="type.amenity.post_office">Poststelle</string>
+	<string name="type.amenity.prison">Gefängnis</string>
 	<string name="type.amenity.pub">Kneipe</string>
 	<string name="type.amenity.public_bookcase">Bücherschrank</string>
 	<string name="type.amenity.recycling">Recyclinghof</string>
@@ -926,12 +941,18 @@
 	<string name="type.amenity.water_point">Wasseranschluss</string>
 	<string name="type.barrier.bollard">Poller</string>
 	<string name="type.barrier.border_control">Grenzkontrolle</string>
+	<string name="type.barrier.chain">Kette</string>
+	<string name="type.barrier.city_wall">Stadtmauer</string>
 	<string name="type.barrier.entrance">Durchgang</string>
 	<string name="type.barrier.gate">Tor</string>
+	<string name="type.barrier.hedge">Hecke</string>
 	<string name="type.barrier.lift_gate">Schranke</string>
+	<string name="type.barrier.retaining_wall">Stützmauer</string>
 	<string name="type.barrier.stile">Zaunübertritt</string>
 	<string name="type.barrier.swing_gate">Schranke</string>
 	<string name="type.barrier.toll_booth">Mautstelle</string>
+	<string name="type.barrier.wall">Mauer</string>
+	<string name="type.boundary">Grenze</string>
 	<string name="type.boundary.national_park">Nationalpark</string>
 	<string name="type.building">Gebäude</string>
 	<string name="type.building.address">Gebäude</string>
@@ -1033,10 +1054,12 @@
 	<string name="type.cuisine.vegan">Vegane Küche</string>
 	<string name="type.cuisine.vegetarian">Vegetarische Küche</string>
 	<string name="type.cuisine.vietnamese">Vietnamesische Küche</string>
+	<string name="type.emergency">Notfall</string>
 	<string name="type.emergency.fire_hydrant">Hydrant</string>
 	<string name="type.emergency.phone">Notruftelefon</string>
 	<string name="type.entrance">Eingang</string>
 	<string name="type.healthcare.laboratory">Medizinisches Labor</string>
+	<string name="type.highway">Autobahn</string>
 	<string name="type.highway.bus_stop">Bushaltestelle</string>
 	<string name="type.highway.construction">Straße im Bau</string>
 	<string name="type.highway.footway">Fußweg</string>
@@ -1373,6 +1396,11 @@
 	<string name="type.tourism.wilderness_hut">Wildnishütte</string>
 	<string name="type.waterway.canal">Kanal</string>
 	<string name="type.waterway.canal.tunnel">Kanal</string>
+	<string name="type.waterway.dam">Damm</string>
+	<string name="type.waterway.ditch">Graben</string>
+	<string name="type.waterway.ditch.tunnel">Graben</string>
+	<string name="type.waterway.drain">Abfluss</string>
+	<string name="type.waterway.drain.tunnel">Abfluss</string>
 	<string name="type.waterway.lock_gate">Schleuse</string>
 	<string name="type.waterway.river">Fluss</string>
 	<string name="type.waterway.river.tunnel">Fluss</string>
@@ -1382,8 +1410,12 @@
 	<string name="type.waterway.stream.intermittent">Fluss</string>
 	<string name="type.waterway.stream.tunnel">Fluss</string>
 	<string name="type.waterway.waterfall">Wasserfall</string>
-	<string name="type.wheelchair.limited">Teilweise für Behinderte ausgestattet</string>
-	<string name="type.wheelchair.no">Für Behinderte nicht ausgestattet</string>
-	<string name="type.wheelchair.yes">Für Behinderte ausgestattet</string>
+	<string name="type.waterway.weir">Wehr</string>
+	<string name="type.wheelchair">Rollstuhl</string>
+	<string name="type.wheelchair.limited">Eingeschränkter Rollstuhlzugang</string>
+	<string name="type.wheelchair.no">Kein Rollstuhlzugang</string>
+	<string name="type.wheelchair.yes">Vollständiger Zugang für Rollstühle</string>
 	<string name="type.building_part">Gebäude</string>
+	<string name="type.area_highway.cycleway">Radweg</string>
+	<string name="type.area_highway.footway">Weg</string>
 </resources>
