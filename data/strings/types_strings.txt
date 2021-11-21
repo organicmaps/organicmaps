@@ -18703,12 +18703,14 @@
 
   [type.sport]
     en = sport
+    fi = Urheilu
     ja = スポーツ
     pt = Desporto
     pt-BR = Esporte
 
   [type.sport.american_football]
     en = American Football
+    fi = Amerikkalainen jalkapallo
     ja = アメリカンフットボール
     pl = Futbol amerykański
     pt = Futebol americano
@@ -18717,6 +18719,7 @@
 
   [type.sport.archery]
     en = Archery
+    fi = Jousiammunta
     fr = Tir à l'arc
     ja = アーチェリー
     pl = Łucznictwo sportowe
@@ -18810,6 +18813,7 @@
 
   [type.sport.bowls]
     en = Bowls
+    fi = Bowls
     ja = ローンボウルズ
     pl = Kręgle
     pt = Bowls
@@ -18819,6 +18823,7 @@
 
   [type.sport.cricket]
     en = Cricket
+    fi = Kriketti
     ja = クリケット
     pl = Krykiet
     pt = Críquete
@@ -18828,6 +18833,7 @@
 
   [type.sport.curling]
     en = Сurling
+    fi = Curling
     ja = カーリング
     pt = Curling
     pt-BR = Curling
@@ -18877,6 +18883,7 @@
 
   [type.sport.golf]
     en = Golf
+    fi = Golf
     ja = ゴルフ
     pl = Golf
     pt = Golfe
@@ -18886,6 +18893,7 @@
 
   [type.sport.gymnastics]
     en = Gymnastics
+    fi = Voimistelu
     fr = Gymnastique
     ja = 体操競技
     pl = Gimnastyka
@@ -18896,6 +18904,7 @@
 
   [type.sport.handball]
     en = Handball
+    fi = Käsipallo
     ja = ハンドボール
     pl = Piłka ręczna
     pt = Andebol
@@ -18922,6 +18931,7 @@
 
   [type.sport.shooting]
     en = Shooting
+    fi = Ammunta
     fr = Sports de tir
     ja = 射撃競技
     pl = Strzelectwo sportowe
@@ -18932,6 +18942,7 @@
 
   [type.sport.skiing]
     en = Skiing
+    fi = Hiihto
     fr = Ski
     ja = スキー
     pt = Esqui
@@ -18940,6 +18951,7 @@
 
   [type.sport.soccer]
     en = Soccer (Football)
+    fi = Jalkapallo
     fr = Football
     ja = サッカー
     pt = Futebol
@@ -18949,6 +18961,7 @@
 
   [type.sport.swimming]
     en = Swimming
+    fi = Uinti
     fr = Natation
     ja = 水泳
     pl = Pływanie
@@ -18993,6 +19006,7 @@
 
   [type.tourism]
     en = Tourism
+    fi = Turismi
     ja = 観光
     pl = Turystyka
     pt = Turismo
@@ -19907,6 +19921,7 @@
 
   [type.traffic_calming.bump]
     en = Traffic Bump
+    fi = Hidastetöyssy
     fr = Ralentisseur
     ja = スピードバンプ
     pl = Krótki próg zwalniający
@@ -19925,6 +19940,7 @@
 
   [type.waterway]
     en = Waterway
+    fi = Vesiväylä
     ja = 水域
     pt = Curso de água
     pt-BR = Curso de água
@@ -19991,6 +20007,7 @@
   [type.waterway.dam]
     en = Dam
     de = Damm
+    fi = Pato
     fr = Dam
     ja = ダム
     pt = Barragem
@@ -20001,6 +20018,7 @@
   [type.waterway.ditch]
     en = Ditch
     de = Graben
+    fi = Oja
     fr = Fossé
     ja = 排水路
     pt = Vala
@@ -20020,6 +20038,7 @@
 
   [type.waterway.dock]
     en = Waterway Dock
+    fi = Telakka
     fr = Cale
     ja = ドック
     pt = Doca
@@ -20351,6 +20370,7 @@
   [type.wheelchair]
     en = Wheelchair
     de = Rollstuhl
+    fi = Rullatuoli
     ja = 車椅子
     pt = Cadeiras de rodas
     pt-BR = Cadeiras de rodas
@@ -20495,6 +20515,7 @@
 
   [type.piste_type.downhill]
     en = piste:type-downhill
+    fi = Laskettelurinne
     pt = Esqui alpino
     pt-BR = Esqui alpino
 
@@ -20530,6 +20551,7 @@
 
   [type.piste_type.nordic]
     en = piste:type-nordic
+    fi = Latu
     pt = Pista tipo nórdico
     pt-BR = Pista tipo nórdico
 
@@ -20573,6 +20595,7 @@
   [type.area_highway.cycleway]
     en = Bike Path
     de = Radweg
+    fi = Pyörätie
     fr = Piste cyclable
     pt = Ciclovia
     pt-BR = Ciclovia
@@ -20581,6 +20604,7 @@
   [type.area_highway.footway]
     en = Path
     de = Weg
+    fi = Kävelytie
     fr = Chemin
     pt = Caminho pedonal
     pt-BR = Caminho pedonal
@@ -20595,12 +20619,14 @@
 
   [type.area_highway.motorway]
     en = area:highway-motorway
+    fi = Moottoritie
     fr = Autoroute
     pt = Autoestrada
     pt-BR = Rodovia
 
   [type.area_highway.path]
     en = Path
+    fi = Polku
     fr = Chemin
     pt = Caminho
     pt-BR = Caminho
@@ -20608,6 +20634,7 @@
 
   [type.area_highway.pedestrian]
     en = Street
+    fi = Kävelykatu
     fr = Rue piétonne
     pt = Rua pedonal
     pt-BR = Rua pedonal
@@ -20622,6 +20649,7 @@
 
   [type.area_highway.residential]
     en = Street
+    fi = Katu
     fr = Rue
     pt = Rua residencial
     pt-BR = Rua residencial
@@ -20650,6 +20678,7 @@
 
   [type.area_highway.steps]
     en = Steps
+    fi = Portaat
     fr = Escaliers
     pt = Escadas
     pt-BR = Escadas
