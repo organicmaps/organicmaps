@@ -2019,7 +2019,7 @@
     el = Παντοπωλεία
     es = Productos
     fa = عطاری
-    fi = Tuotteet
+    fi = Elintarvikkeet
     fr = Les courses
     hu = Termékek
     id = Toserba
@@ -4683,7 +4683,7 @@
     el = Πνευματικά δικαιώματα
     es = Derechos de autor
     fa = حق نشر و کپی رایت
-    fi = Copyright
+    fi = Tekijänoikeudet
     fr = Tous droits réservés
     he = זכויות יוצרים
     hu = Szerzői jog
@@ -16163,7 +16163,7 @@
     es = Este nombre ya ha sido tomado
     es-MX = Este nombre ya está en uso
     fa = این اسم قبلا انتخاب شده است
-    fi = Tämä nimi on jo otettu
+    fi = Nimi on jo käytössä
     fr = Ce nom est déjà pris
     hu = Ez a név már foglalt
     id = Nama ini sudah dipakai
@@ -16890,7 +16890,7 @@
     es = Configuraciones de seguimiento
     es-MX = Configuraciones de rastreo
     fa = تنظیمات ردیابی
-    fi = Seuranta-asetukset
+    fi = Paikannusasetukset
     fr = Paramètres de suivi
     hu = Követési beállítások
     id = Pengaturan treking
@@ -17149,7 +17149,7 @@
     es = Capas del mapa
     es-MX = Capas del mapa
     fa = لایه های نقشه
-    fi = Kartan tasot
+    fi = Karttatasot
     fr = Couches de carte
     hu = Térképrétegek
     id = Lapisan peta
@@ -17495,7 +17495,7 @@
     es = Ocultar en el mapa
     es-MX = Ocultar del mapa
     fa = پنهان کردن از نقشه
-    fi = Piilottaa kartalta
+    fi = Piilota kartalta
     fr = Masquer de la carte
     hu = Lefedés a térképen
     id = Sembunyikan dari peta
@@ -19399,7 +19399,7 @@
     es = Para construir una ruta, descarga los mapas ausentes en tu dispositivo
     es-MX = Al construir ruta, descargue los mapas ausentes en su dispositivo
     fa = برای ایجاد مسیر، نقشه های ناقص را روی دستگاه خود را دانلود کنید
-    fi = Luodaksesi reitin lataa puutt. kartat
+    fi = Luodaksesi reitin lataa puuttuvat kartat
     fr = Pour créer l'itinéraire, téléchargez les cartes manquantes sur votre appareil
     hu = Útvonal létrehozásához töltsd le a hiányzó térképeket az eszközre
     id = Untuk membuat rute, unduh peta baru di perangkat anda
@@ -21217,7 +21217,7 @@
     es = Ruta de metro no encontrada
     es-MX = Ruta de metro no encontrada
     fa = مسیر مترو یافت نشد
-    fi = Metroreittiä ei ole löytynyt
+    fi = Metroreittiä ei löytynyt
     fr = Itinéraire de métro non trouvé
     hu = Metró útvonal nem található
     id = Jalur kereta bawah tanah tidak ditemukan
@@ -21291,7 +21291,7 @@
     es = Alturas
     es-MX = Alturas
     fa = ایزومپ
-    fi = Korkeudet
+    fi = Maasto
     fr = Terrain
     hu = Terep
     id = Isometrik
@@ -21328,7 +21328,7 @@
     es = Para usar la altitud de relieve, actualiza o descarga el mapa del área deseada
     es-MX = Para usar la altitud de relieve, actualice o descargue el mapa del área deseada
     fa = برای فعال سازی و استفاده از لایه توپوگرافی نقشه منطقه را به روزرسانی یا دانلود کنید
-    fi = Päivitä tai lataa haluamasi alueen kartta, voidaksesi käyttää korkeuslinjoja
+    fi = Päivitä tai lataa haluamasi alueen kartta, voidaksesi käyttää korkeuskäyriä
     fr = Pour utiliser les lignes d'altitude, mettez à jour ou téléchargez la carte de l'endroit désiré
     hu = A topográfiai réteg aktiválásához és használatához kérjük frissítse vagy töltse le az adott terület térképét
     id = Untuk mengaktifkan dan menggunakan lapisan topografi, silakan perbarui atau unduh peta area
@@ -21365,7 +21365,7 @@
     es = La altitud de relieve aún no está disponible en esta región
     es-MX = La altitud de relieve no está aún disponible en esta región
     fa = لایه توپوگرافی هنوز برای این منطقه در دسترس نیست
-    fi = Korkeus linjat eivät ole vielä saatavilla tällä alueella
+    fi = Korkeuskäyrät eivät ole vielä saatavilla tällä alueella
     fr = Les lignes d'élévation ne sont pas encore disponibles dans cette région
     hu = Ezen a területen a topográfiai réteg még nem elérhető
     id = Lapisan topografi belum tersedia untuk wilayah ini
@@ -21547,7 +21547,7 @@
     es = Ascenso
     es-MX = Ascenso
     fa = بالا رفتن
-    fi = Nosto
+    fi = Nousua
     fr = Montée
     hu = Felemelkedés
     id = Menanjak
@@ -21584,7 +21584,7 @@
     es = Descenso
     es-MX = Descenso
     fa = پایین آمدن
-    fi = Lasku
+    fi = Laskua
     fr = Descente
     hu = Leereszkedés
     id = Menurun
@@ -21806,7 +21806,7 @@
     es = Amplía el mapa para ver las isolíneas
     es-MX = Amplíe el mapa para ver las isolíneas
     fa = برای بررسی خطوط تراز زوم کنید
-    fi = Suurenna kartta nähdäksesi korkeuslinjat
+    fi = Suurenna kartta nähdäksesi korkeuskäyrät
     fr = Zoomez pour voir les courbes de niveaux
     hu = Nagyítás az isovonalak felfedezéséhez
     id = Perbesar untuk menjelajahi garis kontur
@@ -21992,7 +21992,7 @@
     el = Αφήστε την οθόνη να κοιμηθεί
     es = Permitir que la pantalla duerma
     fa = اجازه دهید صفحه نمایش بخوابد
-    fi = Anna näytön nukkua
+    fi = Salli näytön lepotila
     fr = Autoriser l'écran à dormir
     he = אפשר למסך לישון
     hu = Hagyja aludni a képernyőt
@@ -22029,7 +22029,7 @@
     el = Όταν είναι ενεργοποιημένη, η οθόνη θα αφεθεί να κοιμηθεί μετά από περίοδο αδράνειας.
     es = Cuando está habilitado, la pantalla podrá dormir después de un período de inactividad.
     fa = درصورت فعال بودن ، بعد از یک دوره عدم فعالیت به صفحه اجازه خواب داده می شود.
-    fi = Kun tämä asetus on käytössä, näytön annetaan nukkua käyttämättömyyden jälkeen.
+    fi = Kun tämä asetus on käytössä, näyttö menee lepotilaan käyttämättömyyden jälkeen.
     fr = Lorsqu'il est activé, l'écran sera autorisé à dormir après une période d'inactivité.
     he = כאשר מופעל המסך יורשה לישון לאחר תקופה של חוסר פעילות.
     hu = Ha engedélyezve van, akkor a képernyő inaktivitás után alszik.
