@@ -160,7 +160,7 @@
 "eat" = "Missä syödä";
 
 /* Search category for grocery stores */
-"food" = "Tuotteet";
+"food" = "Elintarvikkeet";
 
 /* Search category */
 "transport" = "Liikenne";
@@ -391,7 +391,7 @@
 "how_to_support_us" = "Kuinka tukea meitä?";
 
 /* Button in the main Help dialog */
-"copyright" = "Copyright";
+"copyright" = "Tekijänoikeudet";
 
 /* Text in menu + Button in the main Help dialog */
 "report_a_bug" = "Ilmoita virheestä";
@@ -1131,7 +1131,7 @@
 
 "bookmarks_new_list_hint" = "Uusi lista";
 
-"bookmarks_error_title_list_name_already_taken" = "Tämä nimi on jo otettu";
+"bookmarks_error_title_list_name_already_taken" = "Nimi on jo käytössä";
 
 "bookmarks_error_message_list_name_already_taken" = "Valitse toinen nimi";
 
@@ -1159,7 +1159,7 @@
 
 "restore" = "Palauttaa";
 
-"subtittle_opt_out" = "Seuranta-asetukset";
+"subtittle_opt_out" = "Paikannusasetukset";
 
 "crash_reports" = "Kaatumisraportti";
 
@@ -1173,7 +1173,7 @@
 
 "button_layer_subway" = "Metro";
 
-"layers_title" = "Kartan tasot";
+"layers_title" = "Karttatasot";
 
 "subway_data_unavailable" = "Metrokartta ei ole saatavilla";
 
@@ -1193,7 +1193,7 @@
 
 "delete_list" = "Poista lista";
 
-"hide_from_map" = "Piilottaa kartalta";
+"hide_from_map" = "Piilota kartalta";
 
 "public_access" = "Julkinen pääsy";
 
@@ -1298,7 +1298,7 @@
 
 "dialog_routing_unable_locate_route_carplay" = "Reittiä ei ole mahdollista luoda. Valitse muut reittipisteet";
 
-"dialog_routing_download_files_carplay" = "Luodaksesi reitin lataa puutt. kartat";
+"dialog_routing_download_files_carplay" = "Luodaksesi reitin lataa puuttuvat kartat";
 
 "dialog_routing_system_error_carplay" = "On tapahtunut virhe. Käynnistä sovellus uudelleen";
 
@@ -1405,15 +1405,15 @@
 
 "transit_not_found" = "Metron reittiohjeet eivät ole vielä saatavilla tällä alueella";
 
-"dialog_pedestrian_route_is_long_header" = "Metroreittiä ei ole löytynyt";
+"dialog_pedestrian_route_is_long_header" = "Metroreittiä ei löytynyt";
 
 "dialog_pedestrian_route_is_long_message" = "Valitse reitin aloitus- tai loppupiste lähemmäksi metroasemaa";
 
-"button_layer_isolines" = "Korkeudet";
+"button_layer_isolines" = "Maasto";
 
-"isolines_activation_error_dialog" = "Päivitä tai lataa haluamasi alueen kartta, voidaksesi käyttää korkeuslinjoja";
+"isolines_activation_error_dialog" = "Päivitä tai lataa haluamasi alueen kartta, voidaksesi käyttää korkeuskäyriä";
 
-"isolines_location_error_dialog" = "Korkeus linjat eivät ole vielä saatavilla tällä alueella";
+"isolines_location_error_dialog" = "Korkeuskäyrät eivät ole vielä saatavilla tällä alueella";
 
 "elevation_profile_diff_level" = "Vaikeustaso";
 
@@ -1423,9 +1423,9 @@
 
 "elevation_profile_diff_level_hard" = "Vaikea";
 
-"elevation_profile_ascent" = "Nosto";
+"elevation_profile_ascent" = "Nousua";
 
-"elevation_profile_descent" = "Lasku";
+"elevation_profile_descent" = "Laskua";
 
 "elevation_profile_minaltitude" = "Min. korkeus";
 
@@ -1437,7 +1437,7 @@
 
 "elevation_profile_time" = "Aika:";
 
-"isolines_toast_zooms_1_10" = "Suurenna kartta nähdäksesi korkeuslinjat";
+"isolines_toast_zooms_1_10" = "Suurenna kartta nähdäksesi korkeuskäyrät";
 
 "downloader_updating_ios" = "Päivitys";
 
@@ -1451,10 +1451,10 @@
 
 "disconnect_usb_cable_title" = "Irrota USB-kaapeli";
 
-"enable_screen_sleep" = "Anna näytön nukkua";
+"enable_screen_sleep" = "Salli näytön lepotila";
 
 /* Description in preferences */
-"enable_screen_sleep_description" = "Kun tämä asetus on käytössä, näytön annetaan nukkua käyttämättömyyden jälkeen.";
+"enable_screen_sleep_description" = "Kun tämä asetus on käytössä, näyttö menee lepotilaan käyttämättömyyden jälkeen.";
 
 /* Autoupdate dialog on start */
 "whats_new_auto_update_title" = "Päivitä ladatut kartat";
@@ -3039,11 +3039,11 @@
 
 "type.sponsored.partner9" = "sponsored-partner9";
 
-"type.sport" = "sport";
+"type.sport" = "Urheilu";
 
-"type.sport.american_football" = "American Football";
+"type.sport.american_football" = "Amerikkalainen jalkapallo";
 
-"type.sport.archery" = "Archery";
+"type.sport.archery" = "Jousiammunta";
 
 "type.sport.athletics" = "Yleisurheilu";
 
@@ -3055,9 +3055,9 @@
 
 "type.sport.bowls" = "Bowls";
 
-"type.sport.cricket" = "Cricket";
+"type.sport.cricket" = "Kriketti";
 
-"type.sport.curling" = "Сurling";
+"type.sport.curling" = "Curling";
 
 "type.sport.diving" = "Diving";
 
@@ -3065,25 +3065,25 @@
 
 "type.sport.golf" = "Golf";
 
-"type.sport.gymnastics" = "Gymnastics";
+"type.sport.gymnastics" = "Voimistelu";
 
-"type.sport.handball" = "Handball";
+"type.sport.handball" = "Käsipallo";
 
 "type.sport.multi" = "Various Sport";
 
 "type.sport.scuba_diving" = "Scuba Diving";
 
-"type.sport.shooting" = "Shooting";
+"type.sport.shooting" = "Ammunta";
 
-"type.sport.skiing" = "Skiing";
+"type.sport.skiing" = "Hiihto";
 
-"type.sport.soccer" = "Soccer (Football)";
+"type.sport.soccer" = "Jalkapallo";
 
-"type.sport.swimming" = "Swimming";
+"type.sport.swimming" = "Uinti";
 
 "type.sport.tennis" = "Tenniskenttä";
 
-"type.tourism" = "Tourism";
+"type.tourism" = "Turismi";
 
 "type.tourism.alpine_hut" = "Vuorimajoitus";
 
@@ -3147,23 +3147,23 @@
 
 "type.traffic_calming" = "Traffic Calming";
 
-"type.traffic_calming.bump" = "Traffic Bump";
+"type.traffic_calming.bump" = "Hidastetöyssy";
 
 "type.traffic_calming.hump" = "Traffic Hump";
 
-"type.waterway" = "Waterway";
+"type.waterway" = "Vesiväylä";
 
 "type.waterway.canal" = "Kanaali";
 
 "type.waterway.canal.tunnel" = "Kanaali";
 
-"type.waterway.dam" = "Dam";
+"type.waterway.dam" = "Pato";
 
-"type.waterway.ditch" = "Ditch";
+"type.waterway.ditch" = "Oja";
 
 "type.waterway.ditch.tunnel" = "Ditch";
 
-"type.waterway.dock" = "Waterway Dock";
+"type.waterway.dock" = "Telakka";
 
 "type.waterway.drain" = "Drain";
 
@@ -3191,7 +3191,7 @@
 
 "type.waterway.weir" = "Weir";
 
-"type.wheelchair" = "Wheelchair";
+"type.wheelchair" = "Rullatuoli";
 
 "type.wheelchair.limited" = "Osittain varustettu vammaisille";
 
@@ -3213,7 +3213,7 @@
 
 "type.piste_type" = "piste:type";
 
-"type.piste_type.downhill" = "piste:type-downhill";
+"type.piste_type.downhill" = "Laskettelurinne";
 
 "type.piste_type.downhill.advanced" = "piste:type-downhill-advanced";
 
@@ -3227,27 +3227,27 @@
 
 "type.piste_type.downhill.novice" = "piste:type-downhill-novice";
 
-"type.piste_type.nordic" = "piste:type-nordic";
+"type.piste_type.nordic" = "Latu";
 
 "type.piste_type.sled" = "piste:type-sled";
 
 "type.building_part" = "Rakennus";
 
-"type.area_highway.cycleway" = "Bike Path";
+"type.area_highway.cycleway" = "Pyörätie";
 
-"type.area_highway.footway" = "Path";
+"type.area_highway.footway" = "Kävelytie";
 
 "type.area_highway.living_street" = "Street";
 
-"type.area_highway.motorway" = "area:highway-motorway";
+"type.area_highway.motorway" = "Moottoritie";
 
-"type.area_highway.path" = "Path";
+"type.area_highway.path" = "Polku";
 
-"type.area_highway.pedestrian" = "Street";
+"type.area_highway.pedestrian" = "Kävelykatu";
 
 "type.area_highway.primary" = "Street";
 
-"type.area_highway.residential" = "Street";
+"type.area_highway.residential" = "Katu";
 
 "type.area_highway.secondary" = "Street";
 
@@ -3255,7 +3255,7 @@
 
 "type.area_highway.tertiary" = "Street";
 
-"type.area_highway.steps" = "Steps";
+"type.area_highway.steps" = "Portaat";
 
 "type.area_highway.track" = "area:highway-track";
 

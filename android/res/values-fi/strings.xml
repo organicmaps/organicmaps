@@ -101,7 +101,7 @@
 	<!-- Search category for cafes, bars, restaurants -->
 	<string name="eat">Missä syödä</string>
 	<!-- Search category for grocery stores -->
-	<string name="food">Tuotteet</string>
+	<string name="food">Elintarvikkeet</string>
 	<!-- Search category -->
 	<string name="transport">Liikenne</string>
 	<!-- Search category -->
@@ -231,7 +231,7 @@
 	<!-- Button in the main Help dialog -->
 	<string name="how_to_support_us">Kuinka tukea meitä?</string>
 	<!-- Button in the main Help dialog -->
-	<string name="copyright">Copyright</string>
+	<string name="copyright">Tekijänoikeudet</string>
 	<!-- Text in menu + Button in the main Help dialog -->
 	<string name="report_a_bug">Ilmoita virheestä</string>
 	<!-- Alert text -->
@@ -637,7 +637,7 @@
 	<string name="bookmarks_error_title_empty_list_name">Nimi ei voinut olla tyhjä</string>
 	<string name="bookmarks_error_message_empty_list_name">Anna luettelon nimi</string>
 	<string name="bookmarks_new_list_hint">Uusi lista</string>
-	<string name="bookmarks_error_title_list_name_already_taken">Tämä nimi on jo otettu</string>
+	<string name="bookmarks_error_title_list_name_already_taken">Nimi on jo käytössä</string>
 	<string name="bookmarks_error_message_list_name_already_taken">Valitse toinen nimi</string>
 	<string name="bookmarks_error_title_list_name_too_long">Tämä nimi on liian pitkä</string>
 	<string name="please_wait">Odota…</string>
@@ -664,14 +664,14 @@
 	<plurals name="tracks">
 	  <item quantity="other">%d radat</item>
 	</plurals>
-	<string name="subtittle_opt_out">Seuranta-asetukset</string>
+	<string name="subtittle_opt_out">Paikannusasetukset</string>
 	<string name="crash_reports">Kaatumisraportti</string>
 	<string name="crash_reports_description">Me saatamme käyttää tietojasi parantaaksemme Organic Maps kokemusta. Muutokset alkavat vaikuttamaan kun käynnistät sovelluksen uudestaan.</string>
 	<string name="privacy_policy">Yksityisyyskäytäntö</string>
 	<string name="terms_of_use">Käyttöehdot</string>
 	<string name="button_layer_traffic">Liikenne</string>
 	<string name="button_layer_subway">Metro</string>
-	<string name="layers_title">Kartan tasot</string>
+	<string name="layers_title">Karttatasot</string>
 	<string name="subway_data_unavailable">Metrokartta ei ole saatavilla</string>
 	<string name="bookmarks_empty_list_title">Lista on tyhjä</string>
 	<string name="bookmarks_empty_list_message">Lisätäksesi kirjanmerkin, paina kartasta ja sitten paina tähden kuvaa</string>
@@ -680,7 +680,7 @@
 	<string name="export_file">Viedä tiedosto</string>
 	<string name="list_settings">Listan asetukset</string>
 	<string name="delete_list">Poista lista</string>
-	<string name="hide_from_map">Piilottaa kartalta</string>
+	<string name="hide_from_map">Piilota kartalta</string>
 	<string name="public_access">Julkinen pääsy</string>
 	<string name="limited_access">Yksityinen pääsy</string>
 	<string name="bookmark_category_name">Kategoria</string>
@@ -733,7 +733,7 @@
 	<string name="dialog_routing_change_end_carplay">Reittiä ei ole mahdollista luoda loppupisteeseen. Valitse toinen</string>
 	<string name="dialog_routing_check_gps_carplay">Ei ole GPS-signaalia. Siirry avaralle alueelle</string>
 	<string name="dialog_routing_unable_locate_route_carplay">Reittiä ei ole mahdollista luoda. Valitse muut reittipisteet</string>
-	<string name="dialog_routing_download_files_carplay">Luodaksesi reitin lataa puutt. kartat</string>
+	<string name="dialog_routing_download_files_carplay">Luodaksesi reitin lataa puuttuvat kartat</string>
 	<string name="dialog_routing_system_error_carplay">On tapahtunut virhe. Käynnistä sovellus uudelleen</string>
 	<string name="dialog_routing_rebuild_from_current_location_carplay">Reitti luodaan nykyisestä sijainnista</string>
 	<string name="dialog_routing_rebuild_for_vehicle_carplay">Reitti muutetaan autoilijan reitiksi</string>
@@ -790,32 +790,32 @@
 	<string name="religious_places">Pyhät paikat</string>
 	<string name="select_list">Valitse luettelo</string>
 	<string name="transit_not_found">Metron reittiohjeet eivät ole vielä saatavilla tällä alueella</string>
-	<string name="dialog_pedestrian_route_is_long_header">Metroreittiä ei ole löytynyt</string>
+	<string name="dialog_pedestrian_route_is_long_header">Metroreittiä ei löytynyt</string>
 	<string name="dialog_pedestrian_route_is_long_message">Valitse reitin aloitus- tai loppupiste lähemmäksi metroasemaa</string>
-	<string name="button_layer_isolines">Korkeudet</string>
-	<string name="isolines_activation_error_dialog">Päivitä tai lataa haluamasi alueen kartta, voidaksesi käyttää korkeuslinjoja</string>
-	<string name="isolines_location_error_dialog">Korkeus linjat eivät ole vielä saatavilla tällä alueella</string>
+	<string name="button_layer_isolines">Maasto</string>
+	<string name="isolines_activation_error_dialog">Päivitä tai lataa haluamasi alueen kartta, voidaksesi käyttää korkeuskäyriä</string>
+	<string name="isolines_location_error_dialog">Korkeuskäyrät eivät ole vielä saatavilla tällä alueella</string>
 	<string name="elevation_profile_diff_level">Vaikeustaso</string>
 	<string name="elevation_profile_diff_level_easy">Helppo</string>
 	<string name="elevation_profile_diff_level_moderate">Kohtuullinen</string>
 	<string name="elevation_profile_diff_level_hard">Vaikea</string>
-	<string name="elevation_profile_ascent">Nosto</string>
-	<string name="elevation_profile_descent">Lasku</string>
+	<string name="elevation_profile_ascent">Nousua</string>
+	<string name="elevation_profile_descent">Laskua</string>
 	<string name="elevation_profile_minaltitude">Min. korkeus</string>
 	<string name="elevation_profile_maxaltitude">Maks. korkeus</string>
 	<string name="elevation_profile_difficulty">Vaikeus</string>
 	<string name="elevation_profile_distance">Etäisyys:</string>
 	<string name="elevation_profile_time">Aika:</string>
-	<string name="isolines_toast_zooms_1_10">Suurenna kartta nähdäksesi korkeuslinjat</string>
+	<string name="isolines_toast_zooms_1_10">Suurenna kartta nähdäksesi korkeuskäyrät</string>
 	<string name="downloader_updating_ios">Päivitys</string>
 	<string name="downloader_loading_ios">Lataus</string>
 	<string name="key_information_title">Avaintietoa</string>
 	<string name="download_map_title">Lataa maailmankartta</string>
 	<string name="connection_failure">Yhteysvirhe</string>
 	<string name="disconnect_usb_cable_title">Irrota USB-kaapeli</string>
-	<string name="enable_screen_sleep">Anna näytön nukkua</string>
+	<string name="enable_screen_sleep">Salli näytön lepotila</string>
 	<!-- Description in preferences -->
-	<string name="enable_screen_sleep_description">Kun tämä asetus on käytössä, näytön annetaan nukkua käyttämättömyyden jälkeen.</string>
+	<string name="enable_screen_sleep_description">Kun tämä asetus on käytössä, näyttö menee lepotilaan käyttämättömyyden jälkeen.</string>
 	<!-- Autoupdate dialog on start -->
 	<string name="whats_new_auto_update_title">Päivitä ladatut kartat</string>
 	<!-- Autoupdate dialog on start -->
@@ -1364,10 +1364,24 @@
 	<string name="type.shop.video">Videokauppa</string>
 	<string name="type.shop.video_games">Videopelikauppa</string>
 	<string name="type.shop.wine">Alkoholimyymälä</string>
+	<string name="type.sport">Urheilu</string>
+	<string name="type.sport.american_football">Amerikkalainen jalkapallo</string>
+	<string name="type.sport.archery">Jousiammunta</string>
 	<string name="type.sport.athletics">Yleisurheilu</string>
 	<string name="type.sport.basketball">Koripallo</string>
+	<string name="type.sport.bowls">Bowls</string>
+	<string name="type.sport.cricket">Kriketti</string>
+	<string name="type.sport.curling">Curling</string>
 	<string name="type.sport.equestrian">Hevosurheilu</string>
+	<string name="type.sport.golf">Golf</string>
+	<string name="type.sport.gymnastics">Voimistelu</string>
+	<string name="type.sport.handball">Käsipallo</string>
+	<string name="type.sport.shooting">Ammunta</string>
+	<string name="type.sport.skiing">Hiihto</string>
+	<string name="type.sport.soccer">Jalkapallo</string>
+	<string name="type.sport.swimming">Uinti</string>
 	<string name="type.sport.tennis">Tenniskenttä</string>
+	<string name="type.tourism">Turismi</string>
 	<string name="type.tourism.alpine_hut">Vuorimajoitus</string>
 	<string name="type.tourism.apartment">Loma-asunnot</string>
 	<string name="type.tourism.artwork">Taideteos</string>
@@ -1398,8 +1412,13 @@
 	<string name="type.tourism.viewpoint">Näköalatasanne</string>
 	<string name="type.tourism.wilderness_hut">Autiotupa</string>
 	<string name="type.tourism.zoo">Eläintarha</string>
+	<string name="type.traffic_calming.bump">Hidastetöyssy</string>
+	<string name="type.waterway">Vesiväylä</string>
 	<string name="type.waterway.canal">Kanaali</string>
 	<string name="type.waterway.canal.tunnel">Kanaali</string>
+	<string name="type.waterway.dam">Pato</string>
+	<string name="type.waterway.ditch">Oja</string>
+	<string name="type.waterway.dock">Telakka</string>
 	<string name="type.waterway.lock_gate">Kanavasulku</string>
 	<string name="type.waterway.river">Joki</string>
 	<string name="type.waterway.river.tunnel">Joki</string>
@@ -1409,8 +1428,18 @@
 	<string name="type.waterway.stream.intermittent">Joki</string>
 	<string name="type.waterway.stream.tunnel">Joki</string>
 	<string name="type.waterway.waterfall">Vesiputous</string>
+	<string name="type.wheelchair">Rullatuoli</string>
 	<string name="type.wheelchair.limited">Osittain varustettu vammaisille</string>
 	<string name="type.wheelchair.no">Ei varustettu vammaisille</string>
 	<string name="type.wheelchair.yes">Varustettu vammaisille</string>
+	<string name="type.piste_type.downhill">Laskettelurinne</string>
+	<string name="type.piste_type.nordic">Latu</string>
 	<string name="type.building_part">Rakennus</string>
+	<string name="type.area_highway.cycleway">Pyörätie</string>
+	<string name="type.area_highway.footway">Kävelytie</string>
+	<string name="type.area_highway.motorway">Moottoritie</string>
+	<string name="type.area_highway.path">Polku</string>
+	<string name="type.area_highway.pedestrian">Kävelykatu</string>
+	<string name="type.area_highway.residential">Katu</string>
+	<string name="type.area_highway.steps">Portaat</string>
 </resources>
