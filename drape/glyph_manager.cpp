@@ -1,5 +1,4 @@
 #include "drape/glyph_manager.hpp"
-#include "3party/sdf_image/sdf_image.h"
 
 #include "platform/platform.hpp"
 
@@ -9,6 +8,8 @@
 #include "base/logging.hpp"
 #include "base/math.hpp"
 #include "base/timer.hpp"
+
+#include "3party/sdf_image/sdf_image.h"
 
 #include <limits>
 #include <memory>
@@ -154,12 +155,8 @@ public:
     args.params = 0;
 
     FT_Error const err = FT_Open_Face(lib, &args, 0, &m_fontFace);
-#ifdef DEBUG
-    if (err)
-      LOG(LWARNING, ("Freetype:", g_FT_Errors[err].m_code, g_FT_Errors[err].m_message));
-#endif
     if (err || !IsValid())
-      MYTHROW(InvalidFontException, ());
+      MYTHROW(InvalidFontException, (g_FT_Errors[err].m_code, g_FT_Errors[err].m_message));
   }
 
   bool IsValid() const
@@ -418,7 +415,7 @@ GlyphManager::GlyphManager(GlyphManager::Params const & params)
     }
     catch(RootException const & e)
     {
-      LOG(LWARNING, ("Error read font file : ", e.what()));
+      LOG(LWARNING, ("Error reading font file =", fontName, "; Reason =", e.what()));
       continue;
     }
 
