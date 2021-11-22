@@ -54,12 +54,6 @@ public:
   {
   }
 
-  CountryPolygons(CountryPolygons && other) = default;
-  CountryPolygons(CountryPolygons const & other) = default;
-
-  CountryPolygons & operator=(CountryPolygons && other) = default;
-  CountryPolygons & operator=(CountryPolygons const & other) = default;
-
   std::string const & GetName() const { return m_name; }
   bool IsEmpty() const { return m_polygons.IsEmpty(); }
   void Clear()
@@ -68,12 +62,26 @@ public:
     m_name.clear();
   }
 
-  bool Contains(m2::PointD const & point) const
+  class ContainsCompareFn
   {
-    return m_polygons.ForAnyInRect(m2::RectD(point, point), [&](auto const & rgn) {
-      return rgn.Contains(point);
-    });
-  }
+    double m_eps, m_squareEps;
+
+  public:
+    explicit ContainsCompareFn(double eps) : m_eps(eps), m_squareEps(eps*eps) {}
+    bool EqualPoints(m2::PointD const & p1, m2::PointD const & p2) const
+    {
+      return base::AlmostEqualAbs(p1.x, p2.x, m_eps) &&
+             base::AlmostEqualAbs(p1.y, p2.y, m_eps);
+    }
+    bool EqualZeroSquarePrecision(double val) const
+    {
+      return base::AlmostEqualAbs(val, 0.0, m_squareEps);
+    }
+  };
+
+  static double GetContainsEpsilon() { return 1.0E-4; }
+
+  bool Contains(m2::PointD const & point) const;
 
   template <typename Do>
   void ForEachPolygon(Do && fn) const
