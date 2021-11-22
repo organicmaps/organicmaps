@@ -25,20 +25,20 @@
 #include FT_STROKER_H
 #include FT_CACHE_H
 
+#undef __FTERRORS_H__
+#define FT_ERRORDEF(e, v, s) {e, s},
+#define FT_ERROR_START_LIST  {
+#define FT_ERROR_END_LIST    {0, 0}};
+struct FreetypeError
+{
+  int m_code;
+  char const * m_message;
+};
+
+FreetypeError g_FT_Errors[] =
+#include FT_ERRORS_H
+
 #ifdef DEBUG
-  #undef __FTERRORS_H__
-  #define FT_ERRORDEF(e, v, s) {e, s},
-  #define FT_ERROR_START_LIST  {
-  #define FT_ERROR_END_LIST    {0, 0}};
-  struct FreetypeError
-  {
-    int m_code;
-    char const * m_message;
-  };
-
-  FreetypeError g_FT_Errors[] =
-  #include FT_ERRORS_H
-
   #define FREETYPE_CHECK(x) \
     do \
     { \
