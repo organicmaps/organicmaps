@@ -327,7 +327,7 @@ FT_BEGIN_HEADER
    *   You would normally undefine this configuration macro when building a
    *   version of FreeType that doesn't contain a Type~1 or CFF driver.
    */
-/* #define FT_CONFIG_OPTION_POSTSCRIPT_NAMES */
+#define FT_CONFIG_OPTION_POSTSCRIPT_NAMES
 
 
   /**************************************************************************
