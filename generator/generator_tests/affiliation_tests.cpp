@@ -8,6 +8,7 @@
 
 #include "platform/platform.hpp"
 
+#include "geometry/mercator.hpp"
 #include "geometry/point2d.hpp"
 
 #include "base/assert.hpp"
@@ -168,6 +169,8 @@ void TestCountriesFilesAffiliation(std::string const & borderPath)
   }
 }
 
+} // namespace
+
 UNIT_CLASS_TEST(AffiliationTests, SingleAffiliationTests)
 {
   std::string const kName = "Name";
@@ -197,4 +200,32 @@ UNIT_CLASS_TEST(AffiliationTests, CountriesFilesIndexAffiliationTests)
   TestCountriesFilesAffiliation<feature::CountriesFilesIndexAffiliation>(
       AffiliationTests::GetBorderPath());
 }
-}  // namespace
+
+UNIT_TEST(Lithuania_Belarus_Border)
+{
+  using namespace borders;
+  auto const bordersDir = base::JoinPath(GetPlatform().WritableDir(), BORDERS_DIR);
+
+  // https://www.openstreetmap.org/node/3951697639 should belong to both countries.
+  auto const point = mercator::FromLatLon({54.5443346, 25.6997363});
+
+  for (auto const country : {"Lithuania_East", "Belarus_Hrodna Region"})
+  {
+    std::vector<m2::RegionD> regions;
+    LoadBorders(bordersDir +  country + BORDERS_EXTENSION, regions);
+    TEST_EQUAL(regions.size(), 1, ());
+
+    bool found = false;
+    for (auto const eps : { 1.0E-5, 5.0E-5, 1.0E-4 })
+    {
+      if (regions[0].Contains(point, CountryPolygons::ContainsCompareFn(eps)))
+      {
+        LOG(LINFO, (eps, country));
+        TEST_LESS_OR_EQUAL(eps, CountryPolygons::GetContainsEpsilon(), ());
+        found = true;
+        break;
+      }
+    }
+    TEST(found, (country));
+  }
+}
