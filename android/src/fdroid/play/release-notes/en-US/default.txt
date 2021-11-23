@@ -1,1 +1,1 @@
-android/src/google/play/release-notes/en-US/default.txt
+../../../../google/play/release-notes/en-US/default.txt
