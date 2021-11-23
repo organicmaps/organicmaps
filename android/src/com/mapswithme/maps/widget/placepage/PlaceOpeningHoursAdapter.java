@@ -42,8 +42,8 @@ public class PlaceOpeningHoursAdapter extends RecyclerView.Adapter<PlaceOpeningH
   {
     List<Integer> unhandledDays = new ArrayList<>(Arrays.asList(1, 2, 3, 4, 5, 6, 7));
 
-    for(Timetable tt : timetables) {
-      for(int weekDay: tt.weekdays) {
+    for (Timetable tt : timetables) {
+      for (int weekDay : tt.weekdays) {
         unhandledDays.remove(Integer.valueOf(weekDay));
       }
     }
@@ -53,7 +53,7 @@ public class PlaceOpeningHoursAdapter extends RecyclerView.Adapter<PlaceOpeningH
 
     // Convert List<Integer> to int[].
     int[] days = new int[unhandledDays.size()];
-    for(int i = 0; i<days.length; i++)
+    for (int i = 0; i < days.length; i++)
       days[i] = unhandledDays.get(i);
 
     return days;
@@ -78,8 +78,8 @@ public class PlaceOpeningHoursAdapter extends RecyclerView.Adapter<PlaceOpeningH
       if (closedDays == null)
         return;
       holder.setWeekdays(formatWeekdays(closedDays));
-      holder.hideNonBusinessTime();
       holder.setOpenTime(holder.itemView.getResources().getString(R.string.day_off));
+      holder.hideNonBusinessTime();
       return;
     }
 
