@@ -15,11 +15,14 @@ import com.mapswithme.maps.editor.data.Timespan;
 import com.mapswithme.maps.editor.data.Timetable;
 import com.mapswithme.util.UiUtils;
 
-import java.util.Locale;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class PlaceOpeningHoursAdapter extends RecyclerView.Adapter<PlaceOpeningHoursAdapter.ViewHolder>
 {
   private Timetable[] mTimetables = {};
+  private int[] closedDays = null;
 
   public PlaceOpeningHoursAdapter() {}
 
@@ -31,7 +34,29 @@ public class PlaceOpeningHoursAdapter extends RecyclerView.Adapter<PlaceOpeningH
   public void setTimetables(Timetable[] timetables)
   {
     mTimetables = timetables;
+    closedDays = findUnhandledDays(timetables);
     notifyDataSetChanged();
+  }
+
+  private int[] findUnhandledDays(Timetable[] timetables)
+  {
+    List<Integer> unhandledDays = new ArrayList<>(Arrays.asList(1, 2, 3, 4, 5, 6, 7));
+
+    for(Timetable tt : timetables) {
+      for(int weekDay: tt.weekdays) {
+        unhandledDays.remove(Integer.valueOf(weekDay));
+      }
+    }
+
+    if (unhandledDays.isEmpty())
+      return null;
+
+    // Convert List<Integer> to int[].
+    int[] days = new int[unhandledDays.size()];
+    for(int i = 0; i<days.length; i++)
+      days[i] = unhandledDays.get(i);
+
+    return days;
   }
 
   @NonNull
@@ -45,8 +70,19 @@ public class PlaceOpeningHoursAdapter extends RecyclerView.Adapter<PlaceOpeningH
   @Override
   public void onBindViewHolder(@NonNull ViewHolder holder, int position)
   {
-    if (mTimetables == null || position >= mTimetables.length || position < 0)
+    if (mTimetables == null || position > mTimetables.length || position < 0)
       return;
+
+    if (position == mTimetables.length)
+    {
+      if (closedDays == null)
+        return;
+      holder.setWeekdays(formatWeekdays(closedDays));
+      holder.hideNonBusinessTime();
+      holder.setOpenTime(holder.itemView.getResources().getString(R.string.day_off));
+      return;
+    }
+
     final Timetable tt = mTimetables[position];
 
     final String weekdays = formatWeekdays(tt);
@@ -71,7 +107,7 @@ public class PlaceOpeningHoursAdapter extends RecyclerView.Adapter<PlaceOpeningH
   @Override
   public int getItemCount()
   {
-    return mTimetables != null ? mTimetables.length : 0;
+    return (mTimetables != null ? mTimetables.length : 0) + (closedDays == null ? 0 : 1);
   }
 
   public static class ViewHolder extends RecyclerView.ViewHolder

@@ -42,7 +42,11 @@ public class TimeFormatUtils
   public static String formatWeekdays(@NonNull Timetable timetable)
   {
     refreshWithCurrentLocale();
-    final int[] weekdays = timetable.weekdays;
+    return formatWeekdays(timetable.weekdays);
+  }
+
+  public static String formatWeekdays(@NonNull int[] weekdays)
+  {
     if (weekdays.length == 0)
       return "";
 
