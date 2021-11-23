@@ -37,4 +37,4 @@
   url = https://github.com/unicode-org/icu.git
 [submodule "3party/freetype/freetype"]
 	path = 3party/freetype/freetype
-	url = https://gitlab.freedesktop.org/freetype/freetype.git
+	url = https://github.com/freetype/freetype.git
