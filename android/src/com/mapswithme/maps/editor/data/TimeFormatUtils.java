@@ -109,22 +109,21 @@ public class TimeFormatUtils
 
   public static String generateCopyText(Resources resources, String ohStr, Timetable[] timetables)
   {
-    if(timetables == null || timetables.length == 0)
+    if (timetables == null || timetables.length == 0)
       return ohStr;
 
-    // Generate string "24/7" or "Daily HH:MM - HH:MM"
+    // Generate string "24/7" or "Daily HH:MM - HH:MM".
     if (timetables[0].isFullWeek())
     {
       Timetable tt = timetables[0];
       if (tt.isFullday)
         return resources.getString(R.string.twentyfour_seven);
-      else
-        return resources.getString(R.string.daily) + " " + tt.workingTimespan.toWideString();
+      return resources.getString(R.string.daily) + " " + tt.workingTimespan.toWideString();
     }
 
     // Generate full week multiline string. E.g.
     // "Mon-Fri HH:MM - HH:MM
-    //  Sa HH:MM - HH:MM"
+    // Sat HH:MM - HH:MM"
     StringBuilder weekSchedule = new StringBuilder();
     boolean firstRow = true;
     for (Timetable tt : timetables)

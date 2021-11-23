@@ -19,6 +19,6 @@ public class Timespan
 
   public String toWideString()
   {
-    return start + " - " + end;
+    return start + "\u2014" + end;
   }
 }

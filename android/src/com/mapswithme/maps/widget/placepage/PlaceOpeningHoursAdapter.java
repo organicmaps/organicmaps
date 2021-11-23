@@ -23,7 +23,8 @@ public class PlaceOpeningHoursAdapter extends RecyclerView.Adapter<PlaceOpeningH
 
   public PlaceOpeningHoursAdapter() {}
 
-  public PlaceOpeningHoursAdapter(Timetable[] timetables) {
+  public PlaceOpeningHoursAdapter(Timetable[] timetables)
+  {
     setTimetables(timetables);
   }
 
@@ -56,7 +57,7 @@ public class PlaceOpeningHoursAdapter extends RecyclerView.Adapter<PlaceOpeningH
     holder.setOpenTime(workingTime);
 
     final Timespan[] closedTime = tt.closedTimespans;
-    if (closedTime == null || closedTime.length==0)
+    if (closedTime == null || closedTime.length == 0)
     {
       holder.hideNonBusinessTime();
     }
@@ -70,7 +71,7 @@ public class PlaceOpeningHoursAdapter extends RecyclerView.Adapter<PlaceOpeningH
   @Override
   public int getItemCount()
   {
-    return mTimetables!=null ? mTimetables.length : 0;
+    return mTimetables != null ? mTimetables.length : 0;
   }
 
   public static class ViewHolder extends RecyclerView.ViewHolder
