@@ -7,6 +7,7 @@
     pl = Transport linowy
     pt = Transporte aéreo
     pt-BR = Transporte aéreo
+    ru = Канатная дорога
     zh-Hans = 缆车要素
 
   [type.aerialway.cable_car]
@@ -16,6 +17,7 @@
     pl = Kolej linowa
     pt = Teleférico
     pt-BR = Teleférico
+    ru = Канатная дорога
     zh-Hans = 缆车
     zh-Hant = 纜車
 
@@ -26,6 +28,7 @@
     pl = Wyciąg krzesełkowy
     pt = Telecadeira
     pt-BR = Telecadeira
+    ru = Кресельная канатная дорога
     zh-Hans = 登山吊椅
 
   [type.aerialway.drag_lift]
@@ -35,6 +38,7 @@
     pl = Wyciąg orczykowy
     pt = Telesquis
     pt-BR = Telesquis
+    ru = Бугельная канатная дорога
 
   [type.aerialway.gondola]
     en = Aerialway
@@ -43,6 +47,7 @@
     pl = Gondola kolejki linowej
     pt = Telecabine
     pt-BR = Telecabine
+    ru = Канатная дорога
     zh-Hans = 循环式索道
 
   [type.aerialway.mixed_lift]
@@ -51,6 +56,7 @@
     pl = Wyciąg mieszany
     pt = Teleférico híbrido
     pt-BR = Teleférico híbrido
+    ru = Канатная дорога
 
   [type.aerialway.station]
     en = Aerialway Station
@@ -88,6 +94,7 @@
     ja = 空路
     pt = Via aérea
     pt-BR = Via aérea
+    ru = Аэропорт
     zh-Hans = 机场要素
 
   [type.aeroway.aerodrome]
@@ -144,7 +151,7 @@
     pt = Aeroporto internacional
     pt-BR = Aeroporto internacional
     ro = Aeroport
-    ru = Аэропорт
+    ru = Международный аэропорт
     sk = Letisko
     sv = Flygplats
     th = สนามบิน
@@ -161,6 +168,7 @@
     pl = Płyta postojowa samolotów
     pt = Plataforma de estacionamento de aviões
     pt-BR = Plataforma de estacionamento de aviões
+    ru = Перрон
     zh-Hans = 机场停机坪
 
   [type.aeroway.gate]
@@ -170,6 +178,7 @@
     pl = Wyjście lotniskowe
     pt = Porta de embarque
     pt-BR = Porta de embarque
+    ru = Выход на посадку
     zh-Hans = 登机口
 
   [type.aeroway.helipad]
@@ -209,6 +218,7 @@
     pl = Droga startowa
     pt = Pista de aeroporto ou aeródromo
     pt-BR = Pista de aeroporto ou aeródromo
+    ru = Взлётно-посадочная полоса
     zh-Hans = 机场跑道
     zh-Hant = 機場跑道
 
@@ -219,6 +229,7 @@
     pl = Droga kołowania
     pt = Faixa de manobras
     pt-BR = Pista de rolagem
+    ru = Рулёжная дорожка
     zh-Hans = 滑行道
 
   [type.aeroway.terminal]
@@ -227,6 +238,7 @@
     pl = Terminal lotniskowy
     pt = Terminal de passageiros
     pt_BR = Aerogare de passageiros
+    ru = Терминал
     zh-Hans = 航站楼
 
   [type.amenity]
@@ -3842,72 +3854,84 @@
     pl = Granica administracyjna
     pt = Fronteira administrativa
     pt-BR = Fronteira administrativa
+    ru = Административная граница
     zh-Hans = 行政区域界线
 
   [type.boundary.administrative.10]
     en = boundary-administrative-10
     pt = Fronteira administrativa
     pt-BR = Fronteira administrativa
+    ru = Административная граница
     zh-Hans = 10级行政区域界线
 
   [type.boundary.administrative.11]
     en = boundary-administrative-11
     pt = Fronteira administrativa
     pt-BR = Fronteira administrativa
+    ru = Административная граница
     zh-Hans = 11级行政区域界线
 
   [type.boundary.administrative.2]
     en = boundary-administrative-2
     pt = Fronteira administrativa
     pt-BR = Fronteira administrativa
+    ru = Административная граница
     zh-Hans = 2级行政区域界线
 
   [type.boundary.administrative.3]
     en = boundary-administrative-3
     pt = Fronteira administrativa
     pt-BR = Fronteira administrativa
+    ru = Административная граница
     zh-Hans = 3级行政区域界线
 
   [type.boundary.administrative.4]
     en = boundary-administrative-4
     pt = Fronteira administrativa
     pt-BR = Fronteira administrativa
+    ru = Административная граница
     zh-Hans = 4级行政区域界线
 
   [type.boundary.administrative.4.state]
     en = boundary-administrative-4-state
     pt = Fronteira administrativa
     pt-BR = Fronteira administrativa
+    ru = Административная граница
     zh-Hans = 4级州省界线
 
   [type.boundary.administrative.5]
     en = boundary-administrative-5
     pt = Fronteira administrativa
     pt-BR = Fronteira administrativa
+    ru = Административная граница
     zh-Hans = 5级行政区域界线
 
   [type.boundary.administrative.6]
     en = boundary-administrative-6
     pt = Fronteira administrativa
     pt-BR = Fronteira administrativa
+    ru = Административная граница
     zh-Hans = 6级行政区域界线
 
   [type.boundary.administrative.7]
     en = boundary-administrative-7
     pt = Fronteira administrativa
     pt-BR = Fronteira administrativa
+    ru = Административная граница
     zh-Hans = 7级行政区域界线
 
   [type.boundary.administrative.8]
     en = boundary-administrative-8
     pt = Fronteira administrativa
     pt-BR = Fronteira administrativa
+    ru = Административная граница
     zh-Hans = 8级行政区域界线
 
   [type.boundary.administrative.9]
     en = boundary-administrative-9
     pt = Fronteira administrativa
     pt-BR = Fronteira administrativa
+    ru = Административная граница
     zh-Hans = 9级行政区域界线
 
   [type.boundary.administrative.city]
@@ -3915,6 +3939,7 @@
     pl = Granica miasta
     pt = Fronteira de cidade
     pt-BR = Fronteira de cidade
+    ru = Граница города
     zh-Hans = 城市行政区域界线
 
   [type.boundary.administrative.country]
@@ -3922,6 +3947,7 @@
     pl = Granica państwa
     pt = Fronteira de país
     pt-BR = Fronteira de país
+    ru = Граница страны
     zh-Hans = 国家行政区域界线
 
   [type.boundary.administrative.county]
@@ -3929,6 +3955,7 @@
     pl = Granica hrabstwa
     pt = Fronteira de condado
     pt-BR = Fronteira de condado
+    ru = Граница округа
     zh-Hans = 县行政区域界线
 
   [type.boundary.administrative.municipality]
@@ -3936,12 +3963,14 @@
     pl = Granica gminy
     pt = Fronteira de município
     pt-BR = Fronteira de município
+    ru = Граница муниципалитета
     zh-Hans = 自治市行政区域界线
 
   [type.boundary.administrative.nation]
     en = boundary-administrative-nation
     pt = Fronteira de nação
     pt-BR = Fronteira de nação
+    ru = Национальная граница
     zh-Hans = 国家行政区域界线
 
   [type.boundary.administrative.region]
@@ -3949,6 +3978,7 @@
     pl = Granica regionu
     pt = Fronteira de região
     pt-BR = Fronteira de região
+    ru = Граница региона
     zh-Hans = 1区域行政区域界线
 
   [type.boundary.administrative.state]
@@ -3956,6 +3986,7 @@
     pl = Granica województwa
     pt = Fronteira de estado
     pt-BR = Fronteira de estado
+    ru = Граница штата
     zh-Hans = 州省行政区域界线
 
   [type.boundary.administrative.suburb]
@@ -3963,6 +3994,7 @@
     pl = Granica przedmieść
     pt = Fronteira de subúrbio
     pt-BR = Fronteira de subúrbio
+    ru = Граница пригорода
     zh-Hans = 市郊行政区域界线
 
   [type.boundary.national_park]
@@ -4157,6 +4189,7 @@
     fr = Entrepôt
     pt = Armazém
     pt-BR = Armazém
+    ru = Склад
     zh-Hans = 仓库
 
   [type.craft]
@@ -4166,6 +4199,7 @@
     pl = Rzemiosło
     pt = Ofícios
     pt-BR = Ofícios
+    ru = Мастерская
     zh-Hans = 工艺作坊
 
   [type.craft.brewery]
@@ -7244,6 +7278,7 @@
     pl = Ratunkowe
     pt = Emergência
     pt-BR = Emergência
+    ru = Экстренная служба
     zh-Hans = 应急要素
 
   [type.emergency.defibrillator]
@@ -7414,6 +7449,7 @@
     pl = Droga
     pt = Rodovia
     pt-BR = Rodovia
+    ru = Дорога
     zh-Hans = 公路要素
 
   [type.highway.bridleway]
@@ -9652,6 +9688,7 @@
     pl = Miejsce obsługi podróżnych
     pt = Área de serviço
     pt-BR = Área de serviços de estrada
+    ru = СТО
     zh-Hans = 服务区
     zh-Hant = 服務區
 
@@ -10691,6 +10728,7 @@
     pl = Historyczne
     pt = Histórico
     pt-BR = Histórico
+    ru = Историческое место
     zh-Hans = 历史地点
 
   [type.historic.archaeological_site]
@@ -11200,6 +11238,7 @@
     pl = Skrzyżowanie
     pt = Cruzamento
     pt-BR = Cruzamento
+    ru = Перекрёсткок
     zh-Hans = 交叉口
 
   [type.junction.roundabout]
@@ -11218,6 +11257,7 @@
     pl = Zagospodarowanie ziemi
     pt = Uso do solo
     pt-BR = Uso do solo
+    ru = Землепользование
     zh-Hans = 土地利用要素
 
   [type.landuse.allotments]
@@ -11628,6 +11668,7 @@
     pl = Obszar pod zabudowę
     pt = Terreno com construção planeada
     pt-BR = Terreno com construção planeada
+    ru = Район под застройку
     zh-Hans = 待开发荒地
 
   [type.landuse.greenhouse_horticulture]
@@ -11636,6 +11677,7 @@
     ja = 温室栽培
     pt = Estufas
     pt-BR = Estufas
+    ru = Теплицы
     zh-Hans = 温室园艺
 
   [type.landuse.industrial]
@@ -11699,6 +11741,7 @@
     pl = Teren wojskowy
     pt = Área militar
     pt-BR = Área militar
+    ru = Военные объекты
     zh-Hans = 军事用地
 
   [type.landuse.orchard]
@@ -11718,6 +11761,7 @@
     pl = Kamieniołom
     pt = Pedreira
     pt-BR = Pedreira
+    ru = Карьер
     zh-Hans = 矿场
 
   [type.landuse.railway]
@@ -11801,6 +11845,7 @@
     pl = Tereny zamieszkania
     pt = Área residencial
     pt-BR = Área residencial
+    ru = Жилая зона
     zh-Hans = 住宅用地
 
   [type.landuse.retail]
@@ -11809,6 +11854,7 @@
     pl = Obszar handlu
     pt = Área de retalho
     pt-BR = Área de varejo
+    ru = Зона торговли
     zh-Hans = 零售用地
 
   [type.landuse.salt_pond]
@@ -11818,6 +11864,7 @@
     pl = Słone jezioro
     pt = Salinas
     pt-BR = Salinas
+    ru = Соляной пруд
 
   [type.landuse.village_green]
     en = Land
@@ -11825,6 +11872,7 @@
     pl = Nawsie
     pt = Espaço verde de um vilarejo
     pt-BR = Espaço verde de um vilarejo
+    ru = Парк
 
   [type.landuse.vineyard]
     en = Vineyard
@@ -11833,6 +11881,7 @@
     pl = Winnica
     pt = Vinha
     pt-BR = Vinha
+    ru = Виноградник
     zh-Hans = 葡萄园
 
   [type.leisure]
@@ -11841,6 +11890,7 @@
     pl = Wypoczynek
     pt = Lazer
     pt-BR = Lazer
+    ru = Место для отдыха
     zh-Hans = 休闲要素
 
   [type.leisure.common]
@@ -11848,6 +11898,7 @@
     ja = レジャー(共有地)
     pt = Terreno baldio
     pt-BR = Terreno baldio
+    ru = Общественная земля
     zh-Hans = 公共用地
 
   [type.leisure.dog_park]
@@ -12028,12 +12079,14 @@
     pl = Rezerwat krajobrazu
     pt = Reserva natural
     pt-BR = Reserva natural
+    ru = Ландшафтный заповедник
 
   [type.leisure.marina]
     en = Marina
     ja = マリーナ
     pt = Marina
     pt-BR = Marina
+    ru = Причал для яхт
     zh-Hans = 游艇码头
 
   [type.leisure.nature_reserve]
@@ -12310,6 +12363,7 @@
     pl = Teren rekreacji
     pt = Zona recreativa
     pt-BR = Zona recreativa
+    ru = Зона для отдыха
 
   [type.leisure.sauna]
     en = Sauna
@@ -12352,6 +12406,7 @@
     pl = Pochylnia
     pt = Rampa de barcos
     pt-BR = Rampa de barcos
+    ru = Лодочный спуск
     zh-Hans = 船台
 
   [type.leisure.sports_centre]
@@ -12581,6 +12636,7 @@
     ja = トラック
     pt = Pista para desportos não motorizados
     pt-BR = Pista para esportes não motorizados
+    ru = Дорожка
     zh-Hans = 賽道
 
   [type.leisure.water_park]
@@ -12620,6 +12676,7 @@
     ja = 構造物
     pt = Construção humana
     pt-BR = Construção humana
+    ru = Искусственное сооружение
     zh-Hans = 人造要素
 
   [type.man_made.breakwater]
@@ -12629,6 +12686,7 @@
     pl = Falochron
     pt = Molhe
     pt-BR = Molhe
+    ru = Волнорез
     zh-Hans = 防波堤
 
   [type.man_made.cairn]
@@ -12637,6 +12695,7 @@
     pl = Kopiec
     pt = Moledro ou mariola
     pt-BR = Moledro ou mariola
+    ru = Пирамидка из камней
 
   [type.man_made.chimney]
     en = Factory Chimney
@@ -12675,6 +12734,7 @@
     pl = Przecinka leśna
     pt = Atalhada
     pt-BR = Aceiro
+    ru = Просека
     zh-Hans = 树林分界线
 
   [type.man_made.lighthouse]
@@ -12717,6 +12777,7 @@
     pl = Molo
     pt = Pontão
     pt-BR = Píer
+    ru = Пирс
     zh-Hans = 码头
 
   [type.man_made.pipeline]
@@ -12726,6 +12787,7 @@
     pl = Rurociąg
     pt = Pipeline
     pt-BR = Pipeline
+    ru = Трубопровод
     zh-Hans = 管道
 
   [type.man_made.pipeline.overground]
@@ -12735,6 +12797,7 @@
     pl = Rurociąg nad ziemią
     pt = Pipeline subterrâneo
     pt-BR = Pipeline subterrâneo
+    ru = Трубопровод над землёй
     zh-Hans = 地面管道
 
   [type.man_made.silo]
@@ -12821,6 +12884,7 @@
     pl = Oczyszczalnia ścieków
     pt = Estação de tratamento de águas residuais
     pt-BR = Estação de tratamento de esgoto
+    ru = Очистные сооружения
     zh-Hans = 污水处理厂
 
   [type.man_made.water_tap]
@@ -12956,6 +13020,7 @@
     ja = 工場
     pt = Fábrica
     pt-BR = Fábrica
+    ru = Промышленные строения
     zh-Hans = 工厂
 
   [type.mapswithme]
@@ -12970,6 +13035,7 @@
     pl = Wojskowe
     pt = Militar
     pt-BR = Militar
+    ru = Военные объекты
     zh-Hans = 军事
 
   [type.military.bunker]
@@ -13008,6 +13074,7 @@
     pl = Natura
     pt = Natureza
     pt-BR = Natureza
+    ru = Природа
     zh-Hans = 自然
 
   [type.natural.bare_rock]
@@ -13018,6 +13085,7 @@
     pl = Skała macierzysta
     pt = Zona rochosa
     pt-BR = Zona rochosa
+    ru = Скалы
     zh-Hans = 岩石
 
   [type.natural.bay]
@@ -13157,6 +13225,7 @@
     pl = Klif
     pt = Falésia
     pt-BR = Falésia
+    ru = Обрыв
     zh-Hans = 峭壁
 
   [type.natural.coastline]
@@ -13280,6 +13349,7 @@
     pl = Wrzosowisko
     pt = Charneca
     pt-BR = Charneca
+    ru = Пустошь
     zh-Hans = 荒野
 
   [type.natural.hot_spring]
@@ -13331,6 +13401,7 @@
     nl = Land
     pt = Campo
     pt-BR = Campo
+    ru = Земля
 
   [type.natural.meadow]
     en = Meadow
@@ -13339,6 +13410,7 @@
     pl = Łąka
     pt = Pradaria
     pt-BR = Pradaria
+    ru = Луг
 
   [type.natural.orchard]
     en = Orchard
@@ -13347,6 +13419,7 @@
     pl = Sad
     pt = Pomar
     pt-BR = Pomar
+    ru = Фруктовый сад
 
   [type.natural.peak]
     en = Peak
@@ -13428,6 +13501,7 @@
     pl = Skała
     pt = Rochedo
     pt-BR = Rochedo
+    ru = Камень
     zh-Hans = 岩石
 
   [type.natural.scrub]
@@ -13570,6 +13644,7 @@
     pl = Rząd drzew
     pt = Linha de árvores
     pt-BR = Linha de árvores
+    ru = Ряд деревьев
     zh-Hans = 树列
 
   [type.natural.vineyard]
@@ -13579,6 +13654,7 @@
     pl = Winnica
     pt = Vinha
     pt-BR = Vinha
+    ru = Виноградник
 
   [type.natural.volcano]
     en = Volcano
@@ -13686,6 +13762,7 @@
     pl = Torfowisko
     pt = Zona úmida
     pt-BR = Zona úmida
+    ru = Торфяное болото
     zh-Hans = 泥炭地
 
   [type.natural.wetland.marsh]
@@ -13696,6 +13773,7 @@
     pl = Moczary
     pt = Zona úmida
     pt-BR = Zona úmida
+    ru = Болотистая местность
     zh-Hans = 沼泽地
 
   [type.noexit]
@@ -13704,6 +13782,7 @@
     pl = Ślepy koniec drogi
     pt = Via sem saída
     pt-BR = Via sem saída
+    ru = Тупик
 
   [type.noexit.motor_vehicle]
     en = noexit-motor_vehicle
@@ -13711,6 +13790,7 @@
     pl = Ślepy koniec drogi dla pojazdów mechanicznych
     pt = Via sem saída para veículos a motor
     pt-BR = Via sem saída para veículos a motor
+    ru = Тупик для моторного транспорта
 
   [type.office]
     en = Office
@@ -13974,6 +14054,7 @@
     pl = Olimpiada
     pt = Jogos olímpicos
     pt-BR = Jogos olímpicos
+    ru = Олимпийские игры
 
   [type.olympics.attraction]
     en = olympics-attraction
@@ -13981,6 +14062,7 @@
     pl = Atrakcje olimpijskie
     pt = Atração dos jogos olímpicos
     pt-BR = Atração dos jogos olímpicos
+    ru = Достопримечательности
 
   [type.olympics.bike_sport]
     en = olympics-bike_sport
@@ -13988,15 +14070,18 @@
     pl = Olimpijskie sporty rowerowe
     pt = Jogos olímpicos de bicicleta
     pt-BR = Jogos olímpicos de bicicleta
+    ru = Велоспорт
 
   [type.olympics.live_site]
     en = olympics-live_site
+    ru = Место жительства
 
   [type.olympics.official_building]
     en = olympics-official_building
     pl = Oficjalny budynek olimpijski
     pt = Edifício oficial dos jogos olímpicos
     pt-BR = Edifício oficial dos jogos olímpicos
+    ru = Здание Олимпийских игр
 
   [type.olympics.stadium]
     en = olympics-stadium
@@ -14004,6 +14089,7 @@
     pl = Stadion olimpijski
     pt = Estádio dos jogos olímpicos
     pt-BR = Estádio dos jogos olímpicos
+    ru = Олимпийский стадион
 
   [type.olympics.stadium_main]
     en = olympics-stadium_main
@@ -14011,27 +14097,35 @@
     pl = Główny stadion olimpijski
     pt = Estádio principal dos jogos olímpicos
     pt-BR = Estádio principal dos jogos olímpicos
+    ru = Главный Олимпийский стадион
 
   [type.olympics.transport_airport]
     en = olympics-transport_airport
+    ru = Аэропорт
 
   [type.olympics.transport_boat]
     en = olympics-transport_boat
+    ru = Лодка
 
   [type.olympics.transport_bus]
     en = olympics-transport_bus
+    ru = Автобус
 
   [type.olympics.transport_cable]
     en = olympics-transport_cable
+    ru = Канатная дорога
 
   [type.olympics.transport_railway]
     en = olympics-transport_railway
+    ru = Железная дорога
 
   [type.olympics.transport_subway]
     en = olympics-transport_subway
+    ru = Метро
 
   [type.olympics.transport_tram]
     en = olympics-transport_tram
+    ru = Трамвай
 
   [type.olympics.water_sport]
     en = olympics-water_sport
@@ -14039,6 +14133,7 @@
     pl = Olimpijskie sporty wodne
     pt = Jogos olímpicos na água
     pt-BR = Jogos olímpicos na água
+    ru = Водные виды спорта
 
   [type.place]
     en = place
@@ -14046,6 +14141,7 @@
     pl = Miejsce
     pt = Local
     pt-BR = Local
+    ru = Место
     zh-Hans = 地点
 
   [type.place.city]
@@ -14649,6 +14745,7 @@
     pl = Mała osada
     pt = Habitação isolada
     pt-BR = Habitação isolada
+    ru = Жилище
     zh-Hans = 孤立居所
 
   [type.place.locality]
@@ -14689,6 +14786,7 @@
     pl = Sąsiedztwo
     pt = Bairro
     pt-BR = Bairro
+    ru = Микрорайон
     zh-Hans = 街坊社区/小区
 
   [type.place.ocean]
@@ -14783,6 +14881,7 @@
     pl = Plac
     pt = Praça ou largo
     pt-BR = Praça ou largo
+    ru = Площадь
     zh-Hans = 广场
 
   [type.place.state]
@@ -14949,6 +15048,7 @@
     ja = 電力
     pt = Energia
     pt-BR = Energia
+    ru = Энергетика
     zh-Hans = 电力要素
 
   [type.power.generator]
@@ -14956,6 +15056,7 @@
     ja = 発電機
     pt = Gerador de energia
     pt-BR = Gerador de energia
+    ru = Генератор энергии
     zh-Hans = 发电机
 
   [type.power.line]
@@ -14964,6 +15065,7 @@
     pl = Linia wysokiego napięcia
     pt = Linha de transmissão de energia
     pt-BR = Linha de transmissão de energia
+    ru = Линия электропередач
     zh-Hans = 超高压输电线
 
   [type.power.line.underground]
@@ -14972,6 +15074,7 @@
     pl = Podziemna linia wysokiego napięcia
     pt = Linha de transmissão de energia subterrânea
     pt-BR = Linha de transmissão de energia subterrânea
+    ru = Подземная линия электропередач
     zh-Hans = 超高压输电线
 
   [type.power.minor_line]
@@ -14980,6 +15083,7 @@
     pl = Linia niskiego napięcia
     pt = Linha de transmissão de energia de baixa tensão
     pt-BR = Linha de transmissão de energia de baixa tensão
+    ru = Линия электропередачи низкого напряжения
     zh-Hans = 超高压输电线
 
   [type.power.pole]
@@ -15020,6 +15124,7 @@
     pl = Elektrownia
     pt = Subestação elétrica
     pt-BR = Subestação elétrica
+    ru = Электростанция
 
   [type.power.substation]
     en = Substation
@@ -15085,18 +15190,23 @@
 
   [type.psurface]
     en = psurface
+    ru = Поверхность
 
   [type.psurface.paved_bad]
     en = psurface-paved_bad
+    ru = Плохая асфальтированная
 
   [type.psurface.paved_good]
     en = psurface-paved_good
+    ru = Хорошая асфальтированная
 
   [type.psurface.unpaved_bad]
     en = psurface-unpaved_bad
+    ru = Плохая неасфальтированная
 
   [type.psurface.unpaved_good]
     en = psurface-unpaved_good
+    ru = Хорошая неасфальтированная
 
   [type.public_transport]
     en = Public Transport
@@ -15131,6 +15241,7 @@
     ja = 廃線
     pt = Ferrovia abandonada
     pt-BR = Ferrovia abandonada
+    ru = Заброшенная железная дорога
     zh-Hans = 铁路遗迹
 
   [type.railway.abandoned.bridge]
@@ -15138,6 +15249,7 @@
     ja = 廃線(橋)
     pt = Ferrovia abandonada
     pt-BR = Ferrovia abandonada
+    ru = Заброшенный железнодорожный мост
     zh-Hans = 铁路遗迹
 
   [type.railway.abandoned.tunnel]
@@ -15145,6 +15257,7 @@
     ja = 廃線(トンネル)
     pt = Ferrovia abandonada
     pt-BR = Ferrovia abandonada
+    ru = Заброшенный железнодорожный туннель
     zh-Hans = 铁路遗迹
 
   [type.railway.construction]
@@ -15152,6 +15265,7 @@
     ja = 建設中の鉄道
     pt = Ferrovia em construção
     pt-BR = Ferrovia em construção
+    ru = Строящаяся железная дорога
     zh-Hans = 在建铁路
 
   [type.railway.crossing]
@@ -15159,12 +15273,14 @@
     ja = 歩行者用踏切
     pt = Passagem pedestre
     pt-BR = Passagem pedestre
+    ru = Пешеходный переход
 
   [type.railway.disused]
     en = Disused railway
     ja = 休止線
     pt = Ferrovia em desuso
     pt-BR = Ferrovia em desuso
+    ru = Неиспользуемая железная дорога
     zh-Hans = 废弃铁路
 
   [type.railway.funicular]
@@ -15367,6 +15483,7 @@
     ja = プラットホーム
     pt = Plataforma ferroviária
     pt-BR = Plataforma ferroviária
+    ru = Железнодорожная платформа
     zh-Hans = 火车站台
 
   [type.railway.preserved]
@@ -15429,6 +15546,7 @@
     ja = 鉄道(橋)
     pt = Ferrovia
     pt-BR = Ferrovia
+    ru = Железнодорожный мост
     zh-Hans = 铁路轨道
     zh-Hant = 鐵路軌道
 
@@ -15437,6 +15555,7 @@
     ja = 鉄道
     pt = Ferrovia
     pt-BR = Ferrovia
+    ru = Железная дорога
     zh-Hans = 铁路轨道
     zh-Hant = 鐵路軌道
 
@@ -15445,6 +15564,7 @@
     ja = 鉄道(鉄道)
     pt = Ferrovia
     pt-BR = Ferrovia
+    ru = Железнодорожный туннель
     zh-Hans = 铁路轨道
     zh-Hant = 鐵路軌道
 
@@ -16476,6 +16596,7 @@
     ja = ルート
     pt = Rota
     pt-BR = Rota
+    ru = Маршрут
     zh-Hans = 线路
 
   [type.route.ferry]
@@ -16484,12 +16605,14 @@
     ja = フェリー航路
     pt = Rota de ferry
     pt-BR = Rota de balsa
+    ru = Паромная переправа
     zh-Hans = 航线
 
   [type.route.shuttle_train]
     en = Shuttle Train
     pt = Rota de comboio vaivem
     pt-BR = Rota de trem vaivem
+    ru = Челночная линия
 
   [type.shop]
     en = Shop
@@ -18707,6 +18830,7 @@
     ja = スポーツ
     pt = Desporto
     pt-BR = Esporte
+    ru = Спорт
 
   [type.sport.american_football]
     en = American Football
@@ -19011,6 +19135,7 @@
     pl = Turystyka
     pt = Turismo
     pt-BR = Turismo
+    ru = Туризм
     zh-Hans = 旅游要素
 
   [type.tourism.alpine_hut]
@@ -19918,6 +20043,7 @@
     pl = Uspokojenie ruchu drogowego
     pt = Redutor de velocidade
     pt-BR = Redutor de velocidade
+    ru = Лежачий полицейский
 
   [type.traffic_calming.bump]
     en = Traffic Bump
@@ -19944,6 +20070,7 @@
     ja = 水域
     pt = Curso de água
     pt-BR = Curso de água
+    ru = Водный путь
     zh-Hans = 航道要素
 
   [type.waterway.canal]
@@ -20374,6 +20501,7 @@
     ja = 車椅子
     pt = Cadeiras de rodas
     pt-BR = Cadeiras de rodas
+    ru = Инвалидная коляска
     zh-Hans = 轮椅
 
   [type.wheelchair.limited]
@@ -20482,83 +20610,99 @@
     en = piste:lift
     pt = Telesqui
     pt-BR = Telesqui
+    ru = Подъёмник
 
   [type.piste_lift.j.bar]
     en = piste:lift-j-bar
     pt = Telesqui de barra em J
     pt-BR = Telesqui de barra em J
+    ru = Подъёмник
 
   [type.piste_lift.magic_carpet]
     en = piste:lift-magic_carpet
     pt = Tapete deslizante
     pt-BR = Tapete deslizante
+    ru = Ленточный конвейер
 
   [type.piste_lift.platter]
     en = piste:lift-platter
     pt = Telesqui de disco
     pt-BR = Telesqui de disco
+    ru = Подъёмник
 
   [type.piste_lift.rope_tow]
     en = piste:lift-rope_tow
     pt = Telesqui de corda
     pt-BR = Telesqui de corda
+    ru = Подъёмник
 
   [type.piste_lift.t.bar]
     en = piste:lift-t-bar
     pt = Telesqui de barra em T
     pt-BR = Telesqui de barra em T
+    ru = Подъёмник
 
   [type.piste_type]
     en = piste:type
     pt = Tipo de pista
     pt-BR = Tipo de pista
+    ru = Тип трассы
 
   [type.piste_type.downhill]
     en = piste:type-downhill
     fi = Laskettelurinne
     pt = Esqui alpino
     pt-BR = Esqui alpino
+    ru = Горнолыжная трасса
 
   [type.piste_type.downhill.advanced]
     en = piste:type-downhill-advanced
     pt = Esqui alpino avançado
     pt-BR = Esqui alpino avançado
+    ru = Продвинутая горнолыжная трасса
 
   [type.piste_type.downhill.easy]
     en = piste:type-downhill-easy
     pt = Esqui alpino fácil
     pt-BR = Esqui alpino fácil
+    ru = Лёгкая горнолыжная трасса
 
   [type.piste_type.downhill.expert]
     en = piste:type-downhill-expert
     pt = Esqui alpino avançado
     pt-BR = Esqui alpino avançado
+    ru = Горнолыжная трасса для экспертов
 
   [type.piste_type.downhill.freeride]
     en = piste:type-downhill-freeride
     pt = Esqui alpino livre
     pt-BR = Esqui alpino livre
+    ru = Горнолыжная трасса для фрирайда
 
   [type.piste_type.downhill.intermediate]
     en = piste:type-downhill-intermediate
     pt = Esqui alpino intermédio
     pt-BR = Esqui alpino intermédio
+    ru = Горнолыжная трасса средней сложности
 
   [type.piste_type.downhill.novice]
     en = piste:type-downhill-novice
     pt = Esqui alpino iniciante
     pt-BR = Esqui alpino iniciante
+    ru = Горнолыжная трасса для новичков
 
   [type.piste_type.nordic]
     en = piste:type-nordic
     fi = Latu
     pt = Pista tipo nórdico
     pt-BR = Pista tipo nórdico
+    ru = Трасса для скандинавской ходьбы
 
   [type.piste_type.sled]
     en = piste:type-sled
     pt = Pista para trenós
     pt-BR = Pista para trenós
+    ru = Трасса для саней
 
   [type.building_part]
     en = Building
@@ -20623,6 +20767,7 @@
     fr = Autoroute
     pt = Autoestrada
     pt-BR = Rodovia
+    ru = Автомагистраль
 
   [type.area_highway.path]
     en = Path
@@ -20688,12 +20833,14 @@
     en = area:highway-track
     pt = Pista para desportos não motorizados
     pt-BR = Pista para desportos não motorizados
+    ru = Грунтовая дорога
 
   [type.area_highway.trunk]
     en = area:highway-trunk
     fr = Voie rapide
     pt = Via rápida
     pt-BR = Via expressa
+    ru = Автомобильная трасса
 
   [type.area_highway.unclassified]
     en = area:highway-unclassified
