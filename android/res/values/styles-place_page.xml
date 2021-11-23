@@ -82,4 +82,18 @@
     <item name="android:tint">?iconTint</item>
     <item name="android:layout_marginEnd">@dimen/margin_base</item>
   </style>
+
+  <style name="PlacePageOpeningHoursItem">
+    <item name="android:layout_width">match_parent</item>
+    <item name="android:layout_height">wrap_content</item>
+    <item name="android:minHeight">24dp</item>
+    <item name="android:adjustViewBounds">true</item>
+    <item name="android:gravity">center_vertical</item>
+    <item name="android:clickable">false</item>
+    <item name="android:paddingStart">0dp</item>
+    <item name="android:paddingEnd">0dp</item>
+    <item name="android:paddingTop">@dimen/margin_half</item>
+    <item name="android:paddingBottom">@dimen/margin_half</item>
+    <item name="android:orientation">horizontal</item>
+  </style>
 </resources>

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
   xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
   xmlns:tools="http://schemas.android.com/tools"
   android:id="@+id/ll__place_schedule"
   style="@style/PlacePageItemFrame"
@@ -16,27 +17,49 @@
     android:tint="?iconTint"/>
 
   <TextView
-    android:id="@+id/today_opening_hours"
-    android:layout_width="match_parent"
+    android:id="@+id/oh_today_label"
+    android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_marginTop="6dp"
+    android:layout_marginBottom="0dp"
     android:layout_toEndOf="@id/icon"
     android:textAppearance="@style/MwmTextAppearance.PlacePage"
-    tools:text="@string/day_off_today"
-    tools:textColor="@color/base_red"
+    tools:text="@string/today"
+    android:text="@string/today"
     tools:visibility="visible"/>
 
   <TextView
-    android:id="@+id/opening_hours"
-    android:layout_width="match_parent"
+    android:id="@+id/oh_today_open_time"
+    android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:layout_below="@id/today_opening_hours"
-    android:layout_marginTop="@dimen/margin_base"
-    android:layout_toEndOf="@id/icon"
-    android:gravity="top|start"
-    android:lineSpacingExtra="@dimen/margin_base"
-    android:textAppearance="@style/MwmTextAppearance.Body3"
-    android:visibility="gone"
-    tools:text="Mo-Fr 16:00-18.00"/>
+    android:layout_marginTop="6dp"
+    android:layout_toEndOf="@id/oh_today_label"
+    android:layout_alignParentEnd="true"
+    android:textAppearance="@style/MwmTextAppearance.PlacePage"
+    tools:text="@string/twentyfour_seven"
+    android:text="@string/twentyfour_seven"
+    android:textAlignment="viewEnd"
+    tools:visibility="visible"/>
+
+  <TextView
+    android:id="@+id/oh_nonbusiness_time"
+    android:layout_height="wrap_content"
+    android:layout_width="wrap_content"
+    android:layout_alignParentEnd="true"
+    android:layout_alignStart="@id/oh_today_label"
+    android:layout_below="@id/oh_today_label"
+    android:textAppearance="@style/MwmTextAppearance.Body4"
+    android:textAlignment="viewEnd"
+    android:visibility="gone"/>
+
+  <androidx.recyclerview.widget.RecyclerView
+    android:id="@+id/rw__full_opening_hours"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_alignParentEnd="true"
+    android:layout_alignStart="@id/oh_nonbusiness_time"
+    android:layout_below="@id/oh_nonbusiness_time"
+    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+    android:layout_marginTop="8dp"/>
 
 </RelativeLayout>
