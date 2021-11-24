@@ -42,6 +42,7 @@ set(
   lower_case.cpp
   lru_cache.hpp
   macros.hpp
+  math.cpp
   math.hpp
   matrix.hpp
   mem_trie.hpp

@@ -28,7 +28,6 @@ UNIT_TEST(ReadFeatures_Smoke)
   LOG(LINFO, (guard.GetNumFeatures()));
   for (uint32_t i = 0; i + 1 < guard.GetNumFeatures(); ++i)
   {
-    LOG(LINFO, ("Trying", i, i + 1));
     auto ft1 = guard.GetFeatureByIndex(i);
     auto ft2 = guard.GetFeatureByIndex(i + 1);
 

@@ -2,15 +2,10 @@
 
 #include "base/assert.hpp"
 
-#include <algorithm>
-#include <climits>
+#include <algorithm>    // std::max
 #include <cmath>
-#include <cstring>
-#include <functional>
-#include <limits>
+#include <functional>   // std::hash
 #include <type_traits>
-
-#include <boost/integer.hpp>
 
 namespace math
 {
@@ -44,33 +39,7 @@ int constexpr Sign(Number const number) noexcept
 // See https://randomascii.wordpress.com/2012/02/25/comparing-floating-point-numbers-2012-edition/
 // for details.
 template <typename Float>
-bool AlmostEqualULPs(Float x, Float y, unsigned int maxULPs = 256)
-{
-  static_assert(std::is_floating_point<Float>::value, "");
-  static_assert(std::numeric_limits<Float>::is_iec559, "");
-
-  // Make sure maxUlps is non-negative and small enough that the
-  // default NaN won't compare as equal to anything.
-  ASSERT_LESS(maxULPs, 4 * 1024 * 1024, ());
-
-  int const bits = CHAR_BIT * sizeof(Float);
-  typedef typename boost::int_t<bits>::exact IntType;
-  typedef typename boost::uint_t<bits>::exact UIntType;
-  IntType xInt, yInt;
-  static_assert(sizeof(xInt) == sizeof(x), "bit_cast impossible");
-  std::memcpy(&xInt, &x, sizeof(x));
-  std::memcpy(&yInt, &y, sizeof(y));
-  // Make xInt and yInt lexicographically ordered as a twos-complement int
-  IntType const highestBit = IntType(1) << (bits - 1);
-  if (xInt < 0)
-    xInt = highestBit - xInt;
-  if (yInt < 0)
-    yInt = highestBit - yInt;
-
-  UIntType const diff = Abs(xInt - yInt);
-
-  return diff <= maxULPs;
-}
+bool AlmostEqualULPs(Float x, Float y, uint32_t maxULPs = 256);
 
 // Returns true if x and y are equal up to the absolute difference eps.
 // Does not produce a sensible result if any of the arguments is NaN or infinity.
