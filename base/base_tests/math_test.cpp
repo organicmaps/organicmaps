@@ -46,7 +46,7 @@ UNIT_TEST(PowUInt)
   TEST_EQUAL(base::PowUint(3, 10), 59049, ());
 }
 
-UNIT_TEST(AlmostEqualULPs_Smoke)
+UNIT_TEST(AlmostEqualULPs_double)
 {
   TEST_ALMOST_EQUAL_ULPS(3.0, 3.0, ());
   TEST_ALMOST_EQUAL_ULPS(+0.0, -0.0, ());
@@ -68,6 +68,30 @@ UNIT_TEST(AlmostEqualULPs_Smoke)
   TEST(!base::AlmostEqualULPs(2.0, -2.0), ());
   TEST(!base::AlmostEqualULPs(dmax, -dmax), ());
   TEST(!base::AlmostEqualULPs(0.0, eps), ());
+}
+
+UNIT_TEST(AlmostEqualULPs_float)
+{
+  TEST_ALMOST_EQUAL_ULPS(3.0f, 3.0f, ());
+  TEST_ALMOST_EQUAL_ULPS(+0.0f, -0.0f, ());
+
+  float const eps = std::numeric_limits<float>::epsilon();
+  float const dmax = std::numeric_limits<float>::max();
+
+  TEST_ALMOST_EQUAL_ULPS(1.0f + eps, 1.0f, ());
+  TEST_ALMOST_EQUAL_ULPS(1.0f - eps, 1.0f, ());
+  TEST_ALMOST_EQUAL_ULPS(1.0f - eps, 1.0f + eps, ());
+
+  TEST_ALMOST_EQUAL_ULPS(dmax, dmax, ());
+  TEST_ALMOST_EQUAL_ULPS(-dmax, -dmax, ());
+  TEST_ALMOST_EQUAL_ULPS(dmax/2.0f, dmax/2.0f, ());
+  TEST_ALMOST_EQUAL_ULPS(1.0f/dmax, 1.0f/dmax, ());
+  TEST_ALMOST_EQUAL_ULPS(-1.0f/dmax, -1.0f/dmax, ());
+
+  TEST(!base::AlmostEqualULPs(1.0f, -1.0f), ());
+  TEST(!base::AlmostEqualULPs(2.0f, -2.0f), ());
+  TEST(!base::AlmostEqualULPs(dmax, -dmax), ());
+  TEST(!base::AlmostEqualULPs(0.0f, eps), ());
 }
 
 UNIT_TEST(AlmostEqual_Smoke)
