@@ -1,6 +1,6 @@
 # List of additional categories for OSM objects.
 # Format: type,id,key1=value1,key2=value2,...
-# Example: way,34306743,olympics=stadium
+# Example: way,34306743,tourism=attraction
 
 # Pedestrian streets of high popularity
 
