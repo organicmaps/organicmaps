@@ -640,22 +640,6 @@ world  +
         ngo  -
         telecommunication  -
         {}
-    olympics  +
-        attraction  -
-        bike_sport  -
-        live_site  -
-        official_building  -
-        stadium  -
-        stadium_main  -
-        transport_airport  -
-        transport_boat  -
-        transport_bus  -
-        transport_cable  -
-        transport_railway  -
-        transport_subway  -
-        transport_tram  -
-        water_sport  -
-        {}
     piste:lift  +
         j-bar  -
         magic_carpet  -
