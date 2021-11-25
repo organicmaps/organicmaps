@@ -640,22 +640,6 @@ world  00000000000000000000  +
         ngo  00000000000000000000  -
         telecommunication  00000000000000000000  -
         {}
-    olympics  00000000000000000000  +
-        attraction  00000000000000000000  -
-        bike_sport  00000000000000000000  -
-        live_site  00000000000000000000  -
-        official_building  00000000000000000000  -
-        stadium  00000000000000000000  -
-        stadium_main  00000000000000000000  -
-        transport_airport  00000000000000000000  -
-        transport_boat  00000000000000000000  -
-        transport_bus  00000000000000000000  -
-        transport_cable  00000000000000000000  -
-        transport_railway  00000000000000000000  -
-        transport_subway  00000000000000000000  -
-        transport_tram  00000000000000000000  -
-        water_sport  00000000000000000000  -
-        {}
     piste:lift  00000000000000000000  +
         j-bar  00000000000000000000  -
         magic_carpet  00000000000000000000  -
