@@ -24,16 +24,6 @@ data/bookmarks
 # Compiled Python
 *.pyc
 
-# Symbian
-.obj/*
-*.mmp
-*.cache
-*.inf
-*.loc
-*.rss
-*.pkg
-*.d
-
 # Windows generated files
 *.vcxproj*
 ipch/*

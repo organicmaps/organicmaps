@@ -18,6 +18,7 @@ on:
       - pyhelpers/**
       - qt*/**
       - skin_generator/**
+      - tools/**
       - track_generator/**
 
 jobs:
@@ -38,7 +39,7 @@ jobs:
 
       - name: Compile
         shell: bash
-        # Just check compilation
+        # Check for compilation errors.
         run: |
           # Run twice as a workaround for a dependency problem.
           # https://github.com/organicmaps/organicmaps/issues/133
