@@ -90,14 +90,6 @@ OsmOAuth OsmOAuth::ServerAuth(KeySecret const & userKeySecret) noexcept
   return auth;
 }
 // static
-OsmOAuth OsmOAuth::IZServerAuth() noexcept
-{
-  constexpr char const * kIZTestServer = "http://test.osmz.ru";
-  constexpr char const * kIZConsumerKey = "F0rURWssXDYxtm61279rHdyu3iSLYSP3LdF6DL3Y";
-  constexpr char const * kIZConsumerSecret = "IoR5TAedXxcybtd5tIBZqAK07rDRAuFMsQ4nhAP6";
-  return OsmOAuth(kIZConsumerKey, kIZConsumerSecret, kIZTestServer, kIZTestServer);
-}
-// static
 OsmOAuth OsmOAuth::DevServerAuth() noexcept
 {
   constexpr char const * kOsmDevServer = "https://master.apis.dev.openstreetmap.org";
@@ -342,9 +334,9 @@ bool OsmOAuth::ResetPassword(string const & email) const
   SessionID const sid = FetchSessionId(kForgotPasswordUrlPart);
   map<string, string> const params =
   {
-    {"user[email]", email},
+    {"email", email},
     {"authenticity_token", sid.m_token},
-    {"commit", "Reset password"}
+    {"commit", "Reset password"},
   };
   HttpClient request(m_baseUrl + kForgotPasswordUrlPart);
   request.SetBodyData(BuildPostRequest(params), "application/x-www-form-urlencoded");

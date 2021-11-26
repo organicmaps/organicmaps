@@ -64,8 +64,6 @@ public:
   static OsmOAuth ServerAuth() noexcept;
   static OsmOAuth ServerAuth(KeySecret const & userKeySecret) noexcept;
 
-  /// Ilya Zverev's test server.
-  static OsmOAuth IZServerAuth() noexcept;
   /// master.apis.dev.openstreetmap.org
   static OsmOAuth DevServerAuth() noexcept;
   /// api.openstreetmap.org
