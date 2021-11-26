@@ -2579,36 +2579,6 @@
 
 "type.office.telecommunication" = "携帯電話事業者";
 
-"type.olympics" = "オリンピック";
-
-"type.olympics.attraction" = "オリンピックアトラクション";
-
-"type.olympics.bike_sport" = "オリンピック自転車競技";
-
-"type.olympics.live_site" = "olympics-live_site";
-
-"type.olympics.official_building" = "olympics-official_building";
-
-"type.olympics.stadium" = "オリンピックスタジアム";
-
-"type.olympics.stadium_main" = "オリンピックメインスタジアム";
-
-"type.olympics.transport_airport" = "olympics-transport_airport";
-
-"type.olympics.transport_boat" = "olympics-transport_boat";
-
-"type.olympics.transport_bus" = "olympics-transport_bus";
-
-"type.olympics.transport_cable" = "olympics-transport_cable";
-
-"type.olympics.transport_railway" = "olympics-transport_railway";
-
-"type.olympics.transport_subway" = "olympics-transport_subway";
-
-"type.olympics.transport_tram" = "olympics-transport_tram";
-
-"type.olympics.water_sport" = "オリンピック水上競技";
-
 "type.place" = "地名";
 
 "type.place.city" = "市";

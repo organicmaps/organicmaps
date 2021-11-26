@@ -2579,36 +2579,6 @@
 
 "type.office.telecommunication" = "Мобильный оператор";
 
-"type.olympics" = "Олимпийские игры";
-
-"type.olympics.attraction" = "Достопримечательности";
-
-"type.olympics.bike_sport" = "Велоспорт";
-
-"type.olympics.live_site" = "Место жительства";
-
-"type.olympics.official_building" = "Здание Олимпийских игр";
-
-"type.olympics.stadium" = "Олимпийский стадион";
-
-"type.olympics.stadium_main" = "Главный Олимпийский стадион";
-
-"type.olympics.transport_airport" = "Аэропорт";
-
-"type.olympics.transport_boat" = "Лодка";
-
-"type.olympics.transport_bus" = "Автобус";
-
-"type.olympics.transport_cable" = "Канатная дорога";
-
-"type.olympics.transport_railway" = "Железная дорога";
-
-"type.olympics.transport_subway" = "Метро";
-
-"type.olympics.transport_tram" = "Трамвай";
-
-"type.olympics.water_sport" = "Водные виды спорта";
-
 "type.place" = "Место";
 
 "type.place.city" = "Город";

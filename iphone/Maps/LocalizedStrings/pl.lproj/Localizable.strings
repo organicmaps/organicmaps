@@ -2579,36 +2579,6 @@
 
 "type.office.telecommunication" = "Biuro operatora telefonii komórkowej";
 
-"type.olympics" = "Olimpiada";
-
-"type.olympics.attraction" = "Atrakcje olimpijskie";
-
-"type.olympics.bike_sport" = "Olimpijskie sporty rowerowe";
-
-"type.olympics.live_site" = "olympics-live_site";
-
-"type.olympics.official_building" = "Oficjalny budynek olimpijski";
-
-"type.olympics.stadium" = "Stadion olimpijski";
-
-"type.olympics.stadium_main" = "Główny stadion olimpijski";
-
-"type.olympics.transport_airport" = "olympics-transport_airport";
-
-"type.olympics.transport_boat" = "olympics-transport_boat";
-
-"type.olympics.transport_bus" = "olympics-transport_bus";
-
-"type.olympics.transport_cable" = "olympics-transport_cable";
-
-"type.olympics.transport_railway" = "olympics-transport_railway";
-
-"type.olympics.transport_subway" = "olympics-transport_subway";
-
-"type.olympics.transport_tram" = "olympics-transport_tram";
-
-"type.olympics.water_sport" = "Olimpijskie sporty wodne";
-
 "type.place" = "Miejsce";
 
 "type.place.city" = "Miasto";

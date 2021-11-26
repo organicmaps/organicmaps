@@ -2579,36 +2579,6 @@
 
 "type.office.telecommunication" = "Operadora de telecomunicações";
 
-"type.olympics" = "Jogos olímpicos";
-
-"type.olympics.attraction" = "Atração dos jogos olímpicos";
-
-"type.olympics.bike_sport" = "Jogos olímpicos de bicicleta";
-
-"type.olympics.live_site" = "olympics-live_site";
-
-"type.olympics.official_building" = "Edifício oficial dos jogos olímpicos";
-
-"type.olympics.stadium" = "Estádio dos jogos olímpicos";
-
-"type.olympics.stadium_main" = "Estádio principal dos jogos olímpicos";
-
-"type.olympics.transport_airport" = "olympics-transport_airport";
-
-"type.olympics.transport_boat" = "olympics-transport_boat";
-
-"type.olympics.transport_bus" = "olympics-transport_bus";
-
-"type.olympics.transport_cable" = "olympics-transport_cable";
-
-"type.olympics.transport_railway" = "olympics-transport_railway";
-
-"type.olympics.transport_subway" = "olympics-transport_subway";
-
-"type.olympics.transport_tram" = "olympics-transport_tram";
-
-"type.olympics.water_sport" = "Jogos olímpicos na água";
-
 "type.place" = "Local";
 
 "type.place.city" = "Cidade";
