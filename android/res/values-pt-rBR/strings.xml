@@ -1354,13 +1354,6 @@
 	<string name="type.office.lawyer">Escritório de advogado</string>
 	<string name="type.office.ngo">Escritório de ONG</string>
 	<string name="type.office.telecommunication">Operadora de telecomunicações</string>
-	<string name="type.olympics">Jogos olímpicos</string>
-	<string name="type.olympics.attraction">Atração dos jogos olímpicos</string>
-	<string name="type.olympics.bike_sport">Jogos olímpicos de bicicleta</string>
-	<string name="type.olympics.official_building">Edifício oficial dos jogos olímpicos</string>
-	<string name="type.olympics.stadium">Estádio dos jogos olímpicos</string>
-	<string name="type.olympics.stadium_main">Estádio principal dos jogos olímpicos</string>
-	<string name="type.olympics.water_sport">Jogos olímpicos na água</string>
 	<string name="type.place">Local</string>
 	<string name="type.place.city">Cidade</string>
 	<string name="type.place.city.capital">Capital</string>

@@ -1338,13 +1338,6 @@
 	<string name="type.office.lawyer">Prawnik</string>
 	<string name="type.office.ngo">Biuro organizacji pozarządowej</string>
 	<string name="type.office.telecommunication">Biuro operatora telefonii komórkowej</string>
-	<string name="type.olympics">Olimpiada</string>
-	<string name="type.olympics.attraction">Atrakcje olimpijskie</string>
-	<string name="type.olympics.bike_sport">Olimpijskie sporty rowerowe</string>
-	<string name="type.olympics.official_building">Oficjalny budynek olimpijski</string>
-	<string name="type.olympics.stadium">Stadion olimpijski</string>
-	<string name="type.olympics.stadium_main">Główny stadion olimpijski</string>
-	<string name="type.olympics.water_sport">Olimpijskie sporty wodne</string>
 	<string name="type.place">Miejsce</string>
 	<string name="type.place.city">Miasto</string>
 	<string name="type.place.city.capital">Stolica</string>

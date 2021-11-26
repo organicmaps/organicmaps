@@ -1315,12 +1315,6 @@
 	<string name="type.office.lawyer">弁護士事務所</string>
 	<string name="type.office.ngo">NGO 事務局</string>
 	<string name="type.office.telecommunication">携帯電話事業者</string>
-	<string name="type.olympics">オリンピック</string>
-	<string name="type.olympics.attraction">オリンピックアトラクション</string>
-	<string name="type.olympics.bike_sport">オリンピック自転車競技</string>
-	<string name="type.olympics.stadium">オリンピックスタジアム</string>
-	<string name="type.olympics.stadium_main">オリンピックメインスタジアム</string>
-	<string name="type.olympics.water_sport">オリンピック水上競技</string>
 	<string name="type.place">地名</string>
 	<string name="type.place.city">市</string>
 	<string name="type.place.city.capital">首都</string>
