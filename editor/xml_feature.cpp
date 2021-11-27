@@ -531,7 +531,8 @@ bool FromXML(XMLFeature const & xml, osm::EditableMapObject & object)
                ("At the moment only new nodes (points) can be created."));
   object.SetPointType();
   object.SetMercator(xml.GetMercatorCenter());
-  xml.ForEachName([&object](string const & lang, string const & name) {
+  xml.ForEachName([&object](string const & lang, string const & name)
+  {
     object.SetName(name, StringUtf8Multilang::GetLangIndex(lang));
   });
 
@@ -549,12 +550,12 @@ bool FromXML(XMLFeature const & xml, osm::EditableMapObject & object)
   feature::TypesHolder types = object.GetTypes();
 
   Classificator const & cl = classif();
-  xml.ForEachTag([&](string const & k, string const & v) {
+  xml.ForEachTag([&](string const & k, string const & v)
+  {
     if (object.UpdateMetadataValue(k, v))
       return;
 
-    // We support multiple semicolon separated cuisines. Cuisines are already processed before this
-    // loop.
+    // Cuisines are already processed before this loop.
     if (k == "cuisine")
       return;
 
@@ -587,11 +588,14 @@ bool FromXML(XMLFeature const & xml, osm::EditableMapObject & object)
     else if (type)
       types.Add(type);
     else
-      LOG(LWARNING, ("Can't load/parse type:", k, v));
+    {
+      //LOG(LWARNING, ("Can't load/parse type:", k, v));
+      /// @todo Refactor to make one ForEachTag loop. Now we have separate ForEachName,
+      /// so we can't log any suspicious tag here ...
+    }
   });
 
   object.SetTypes(types);
-
   return types.Size() > 0;
 }
 
