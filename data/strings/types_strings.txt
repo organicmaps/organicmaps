@@ -13151,6 +13151,68 @@
     zh-Hans = 海滩
     zh-Hant = 海灘
 
+  [type.natural.beach.sand]
+    en = Sandy Beach
+    ar = شاطئ
+    cs = Pláž
+    da = Strand
+    de = Strand
+    el = Παραλία
+    es = Playa
+    fa = ساحل
+    fi = Ranta
+    fr = Plage
+    hu = Strand
+    id = Pantai
+    it = Spiaggia
+    ja = ビーチ
+    ko = 바닷가
+    nb = Strand
+    nl = Strand
+    pl = Plaża
+    pt = Praia
+    pt-BR = Praia
+    ro = Plajă
+    ru = Песчаный пляж
+    sv = Strand
+    th = ชายหาด
+    tr = Plaj
+    uk = Піщаний пляж
+    vi = Bãi biển
+    zh-Hans = 海滩
+    zh-Hant = 海灘
+
+  [type.natural.beach.gravel]
+    en = Gravel Beach
+    ar = شاطئ
+    cs = Pláž
+    da = Strand
+    de = Strand
+    el = Παραλία
+    es = Playa
+    fa = ساحل
+    fi = Ranta
+    fr = Plage
+    hu = Strand
+    id = Pantai
+    it = Spiaggia
+    ja = ビーチ
+    ko = 바닷가
+    nb = Strand
+    nl = Strand
+    pl = Plaża
+    pt = Praia
+    pt-BR = Praia
+    ro = Plajă
+    ru = Галечный пляж
+    sv = Strand
+    th = ชายหาด
+    tr = Plaj
+    uk = Гальковий пляж
+    vi = Bãi biển
+    zh-Hans = 海滩
+    zh-Hant = 海灘
+
   [type.natural.cape]
     en = Cape
     ar = رأس
@@ -13395,6 +13457,81 @@
     zh-Hans = 湖
     zh-Hant = 湖泊
 
+  [type.natural.water.pond]
+    en = Pond
+    ar = بركة
+    cs = Rybník
+    da = Dam
+    de = Teich
+    el = Δεξαμενή
+    es = Estanque
+    fa = تالاب
+    fi = Lampi
+    fr = Étang
+    hu = Tavacska
+    id = Kolam
+    it = Stagno
+    ja = 池
+    ko = 연못이
+    nb = Dam
+    nl = Plas
+    pl = Staw
+    pt = Lagoa
+    pt-BR = Lagoa
+    ro = Heleșteu
+    ru = Пруд
+    sk = Rybník
+    sv = Damm
+    th = บ่อ
+    tr = Gölet
+    uk = Ставок
+    vi = Ao
+    zh-Hans = 池塘
+    zh-Hant = 潭
+
+  [type.natural.water.reservoir]
+    en = Reservoir
+    de = Reservoir
+    es = Embalse
+    ru = Водохранилище
+    uk = Водосховище
+
+  [type.natural.water.basin]
+    en = Basin
+    ru = Резервуар
+
+  [type.natural.water.river]
+    en = River
+    ar = نهر
+    cs = Řeka
+    da = Flod
+    de = Fluss
+    el = Ποταμός
+    es = Río
+    fa = رودخانه
+    fi = Joki
+    fr = Rivière
+    hu = Folyó
+    id = Sungai
+    it = Fiume
+    ja = 河川
+    ko = 강
+    nb = Elv
+    nl = Rivier
+    pl = Rzeka
+    pt = Rio
+    pt-BR = Rio
+    ro = Râu
+    ru = Река
+    sk = Rieka
+    sv = Flod
+    th = แม่น้ำ
+    tr = Nehir
+    uk = Річка
+    vi = Sông
+    zh-Hans = 河流
+    zh-Hant = 河流
+
   [type.natural.land]
     en = Land
     ja = 陸地
@@ -13402,6 +13539,7 @@
     pt = Campo
     pt-BR = Campo
     ru = Земля
+    uk = Земля
 
   [type.natural.meadow]
     en = Meadow
@@ -13411,6 +13549,7 @@
     pt = Pradaria
     pt-BR = Pradaria
     ru = Луг
+    uk = Гай
 
   [type.natural.orchard]
     en = Orchard
@@ -13420,6 +13559,7 @@
     pt = Pomar
     pt-BR = Pomar
     ru = Фруктовый сад
+    uk = Фруктовий сад
 
   [type.natural.peak]
     en = Peak
@@ -13460,38 +13600,6 @@
     it = Sella
     ru = Седловина
     uk = Сідловина
-
-  [type.natural.water.pond]
-    en = Pond
-    ar = بركة
-    cs = Rybník
-    da = Dam
-    de = Teich
-    el = Δεξαμενή
-    es = Estanque
-    fa = تالاب
-    fi = Lampi
-    fr = Étang
-    hu = Tavacska
-    id = Kolam
-    it = Stagno
-    ja = 池
-    ko = 연못이
-    nb = Dam
-    nl = Plas
-    pl = Staw
-    pt = Lagoa
-    pt-BR = Lagoa
-    ro = Heleșteu
-    ru = Пруд
-    sk = Rybník
-    sv = Damm
-    th = บ่อ
-    tr = Gölet
-    uk = Ставок
-    vi = Ao
-    zh-Hans = 池塘
-    zh-Hant = 潭
 
   [type.natural.rock]
     en = Rock
