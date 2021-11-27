@@ -11238,7 +11238,7 @@
     pl = Skrzyżowanie
     pt = Cruzamento
     pt-BR = Cruzamento
-    ru = Перекрёсткок
+    ru = Перекрёсток
     zh-Hans = 交叉口
 
   [type.junction.roundabout]
@@ -12086,7 +12086,7 @@
     ja = マリーナ
     pt = Marina
     pt-BR = Marina
-    ru = Причал для яхт
+    ru = Причал
     zh-Hans = 游艇码头
 
   [type.leisure.nature_reserve]
@@ -12636,7 +12636,7 @@
     ja = トラック
     pt = Pista para desportos não motorizados
     pt-BR = Pista para esportes não motorizados
-    ru = Дорожка
+    ru = Беговая дорожка
     zh-Hans = 賽道
 
   [type.leisure.water_park]
