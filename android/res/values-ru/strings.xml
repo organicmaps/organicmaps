@@ -1257,7 +1257,7 @@
 	<string name="type.historic.wayside_shrine">Святыня</string>
 	<string name="type.internet_access">Интернет</string>
 	<string name="type.internet_access.wlan">Интернет</string>
-	<string name="type.junction">Перекрёсткок</string>
+	<string name="type.junction">Перекрёсток</string>
 	<string name="type.junction.roundabout">Кольцо</string>
 	<string name="type.landuse">Землепользование</string>
 	<string name="type.landuse.allotments">Земельные участки</string>
@@ -1303,7 +1303,7 @@
 	<string name="type.leisure.golf_course">Площадка для гольфа</string>
 	<string name="type.leisure.ice_rink">Каток</string>
 	<string name="type.leisure.landscape_reserve">Ландшафтный заповедник</string>
-	<string name="type.leisure.marina">Причал для яхт</string>
+	<string name="type.leisure.marina">Причал</string>
 	<string name="type.leisure.nature_reserve">Заповедник</string>
 	<string name="type.leisure.park">Парк</string>
 	<string name="type.leisure.park.no.access">Парк</string>
@@ -1322,7 +1322,7 @@
 	<string name="type.leisure.sports_centre.yoga">Йога-центр</string>
 	<string name="type.leisure.stadium">Стадион</string>
 	<string name="type.leisure.swimming_pool">Бассейн</string>
-	<string name="type.leisure.track">Дорожка</string>
+	<string name="type.leisure.track">Беговая дорожка</string>
 	<string name="type.leisure.water_park">Аквапарк</string>
 	<string name="type.man_made">Искусственное сооружение</string>
 	<string name="type.man_made.breakwater">Волнорез</string>

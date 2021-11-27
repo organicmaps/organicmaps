@@ -2313,7 +2313,7 @@
 
 "type.internet_access.wlan" = "Интернет";
 
-"type.junction" = "Перекрёсткок";
+"type.junction" = "Перекрёсток";
 
 "type.junction.roundabout" = "Кольцо";
 
@@ -2405,7 +2405,7 @@
 
 "type.leisure.landscape_reserve" = "Ландшафтный заповедник";
 
-"type.leisure.marina" = "Причал для яхт";
+"type.leisure.marina" = "Причал";
 
 "type.leisure.nature_reserve" = "Заповедник";
 
@@ -2443,7 +2443,7 @@
 
 "type.leisure.swimming_pool" = "Бассейн";
 
-"type.leisure.track" = "Дорожка";
+"type.leisure.track" = "Беговая дорожка";
 
 "type.leisure.water_park" = "Аквапарк";
 
