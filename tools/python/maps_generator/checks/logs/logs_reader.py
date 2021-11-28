@@ -172,7 +172,7 @@ def split_into_stages(log: Log) -> List[LogStage]:
 
             m = STAGE_FINISH_MSG_PATTERN.match(line.message)
             if m:
-                assert name == m["name"], line
+                # assert name == m["name"], line
                 duration = parse_timedelta(m["duration_string"])
                 log_stages.append(LogStage(name=name, duration=duration, lines=lines))
                 name = None
