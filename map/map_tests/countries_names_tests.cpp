@@ -50,7 +50,7 @@ UNIT_TEST(CountriesNamesTest)
                                    "Transnistria",
                                    "Nagorno-Karabakh Republic",
                                    "Republic of Artsakh",
-                                   "Bir Tawil"    /// @todo https://www.openstreetmap.org/node/2542289902
+                                   "Republic of Pandora", /// @todo https://www.openstreetmap.org/way/495525351
                                    };
 
   auto const features = cache.Get(mwmContext);
