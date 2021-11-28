@@ -55,7 +55,8 @@ iphone/*/*.xcodeproj/project.xcworkspace/*
 iphone/*/build/*
 tools/emacsmode/build
 **/DerivedData/*
-**/xcshareddata
+**/xcshareddata/*
+!iphone/Maps/Maps.xcodeproj/xcshareddata/xcschemes/OMaps.xcscheme
 **/xcuserdata
 **/xcschemes
 iphone/**/*.moved-aside
