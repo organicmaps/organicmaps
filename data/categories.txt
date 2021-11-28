@@ -4896,7 +4896,7 @@ sw:Shamba
 fa:مزرعه
 
 # Skipped if empty name
-waterway-river|waterway-stream|waterway-riverbank
+waterway-river|waterway-stream|waterway-riverbank|natural-water-river
 en:River|stream|creek
 ru:Река
 bg:река|течение
@@ -5143,17 +5143,18 @@ fa:قله|کوه|کوهستان
 
 # Skipped if empty name
 natural-saddle|mountain_pass
-en:Saddle
-be:Седлавіна
+en:Saddle|Pass
+be:Седлавіна|Перавал
 fr:Col
 it:Sella
 ru:Седловина|Перевал
-uk:Сідловина
+uk:Сідловина|Перевал
 
 # Skipped if empty name
-natural-water|landuse-basin|landuse-reservoir
+natural-water|landuse-basin|natural-water-basin
 en:Water
-ru:Водоём
+be:Вадаём|рэзервуар
+ru:Водоём|резервуар
 bg:вода|резервоар
 ar:مياه
 cs:Voda
@@ -5188,6 +5189,7 @@ fa:اب
 # Skipped if empty name
 natural-water-pond
 en:Pond|water
+be:Сажалка
 ru:Пруд|водоём
 bg:локва|вода|езеро|басейн
 ar:بركة|مياه
@@ -5254,6 +5256,14 @@ el:Λίμνη|νερό
 sk:Jazero|vodná nádrž|voda
 sw:Ziwa
 fa:دریاچه
+
+# Skipped if empty name
+natural-water-reservoir|landuse-reservoir
+en:Reservoir
+be:Вадасховішча
+de:Reservoir
+ru:Водохранилище
+uk:Водосховище
 
 # Skipped if empty name
 natural-strait
