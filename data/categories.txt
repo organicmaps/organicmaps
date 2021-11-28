@@ -5189,7 +5189,7 @@ fa:اب
 # Skipped if empty name
 natural-water-pond
 en:Pond|water
-be:Сажалка
+be:Сажалка|вадаём
 ru:Пруд|водоём
 bg:локва|вода|езеро|басейн
 ar:بركة|مياه
@@ -5259,11 +5259,11 @@ fa:دریاچه
 
 # Skipped if empty name
 natural-water-reservoir|landuse-reservoir
-en:Reservoir
-be:Вадасховішча
+en:Reservoir|water
+be:Вадасховішча|вадаём
 de:Reservoir
-ru:Водохранилище
-uk:Водосховище
+ru:Водохранилище|водоём
+uk:Водосховище|водоймище
 
 # Skipped if empty name
 natural-strait
@@ -6719,7 +6719,7 @@ sk:3Internet
 sw:Intaneti
 fa:اینترنت
 
-natural-beach|leisure-beach_resort
+natural-beach|natural-beach-sand|natural-beach-gravel|leisure-beach_resort
 en:Beach|U+1F459
 ru:Пляж
 bg:Плаж
