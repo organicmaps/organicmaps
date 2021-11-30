@@ -1,5 +1,10 @@
-• New OSM maps data as of October 22
-• Moved Help dialog on the main screen for a better new user experience
-• Added x86_64 arch for Chromebooks and some old Intel Atom devices
-• Added mountain saddle, mountain pass, silo, storage tank, chain barrier, swing gate
-• Fixed some icons and translations
+• New OSM maps data as of November 22
+• Fixed routing between map regions, please test and report to us any issues!
+• Type "water" or "drinking water" in search to find it around yourself
+• Long tap on a POI/bookmark name/address to copy them into clipboard
+• Reworked opening hours UI
+• Restored "maps update is available" indicator
+• Added LINE contacts to the place page
+• Reduced APK size
+• Updated Vulkan driver libraries
+• Updated be, de, es, fi, ru, ua and zh translations
