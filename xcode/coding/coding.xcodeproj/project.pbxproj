@@ -799,7 +799,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 34A72A431DBE4989003D1F5F /* common-debug.xcconfig */;
 			buildSettings = {
-				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
 					UCONFIG_USE_LOCAL,
@@ -819,7 +818,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 34A72A441DBE4989003D1F5F /* common-release.xcconfig */;
 			buildSettings = {
-				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
 					UCONFIG_USE_LOCAL,

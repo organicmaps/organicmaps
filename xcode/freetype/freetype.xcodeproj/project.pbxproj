@@ -1462,7 +1462,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 34F558661DBF474D00A4FC11 /* common-debug.xcconfig */;
 			buildSettings = {
-				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
 					FT2_BUILD_LIBRARY,
@@ -1480,7 +1479,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 34F558671DBF474D00A4FC11 /* common-release.xcconfig */;
 			buildSettings = {
-				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
 					FT2_BUILD_LIBRARY,

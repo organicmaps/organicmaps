@@ -291,7 +291,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 45E4558A205849DC00D9F45E /* common-debug.xcconfig */;
 			buildSettings = {
-				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 			};
 			name = Debug;
 		};
@@ -299,7 +298,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 45E45589205849DC00D9F45E /* common-release.xcconfig */;
 			buildSettings = {
-				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 			};
 			name = Release;
 		};
