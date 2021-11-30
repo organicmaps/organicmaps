@@ -1,4 +1,5 @@
 • New OSM maps data as of November 22
-• Fixed cross regions routing, please test and report to us any routing issues!
-• Updated Russian, Finnish, German, French Spanish and Chinese translations
+• Fixed routing between map regions, please test and report to us any issues!
+• Type "water" or "drinking water" in search to find it around yourself
 • Fixed opening of https://omaps.app/ and om:// links on the cold start
+• Updated Russian, Finnish, German, French, Spanish, Ukrainian, Belarusian and Chinese translations

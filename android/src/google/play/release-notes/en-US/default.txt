@@ -1,9 +1,10 @@
 • New OSM maps data as of November 22
-• Fixed cross regions routing, please test and report to us any routing issues!
+• Fixed routing between map regions, please test and report to us any issues!
+• Type "water" or "drinking water" in search to find it around yourself
+• Long tap on a POI/bookmark name/address to copy them into clipboard
 • Reworked opening hours UI
-• Fixed reading of OpenType fonts
-• Updated Vulkan libraries
-• Reduced APK size
-• Restored "update is available" indicator
-• Updated Russian, Finnish, German, French Spanish and Chinese translations
+• Restored "maps update is available" indicator
 • Added LINE contacts to the place page
+• Reduced APK size
+• Updated Vulkan driver libraries
+• Updated be, de, es, fi, ru, ua and zh translations
