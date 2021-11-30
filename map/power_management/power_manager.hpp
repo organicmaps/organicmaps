@@ -19,10 +19,10 @@ public:
   class Subscriber
   {
   public:
+    virtual void OnPowerFacilityChanged(Facility const facility, bool enabled) = 0;
+    virtual void OnPowerSchemeChanged(Scheme const actualScheme) = 0;
+  protected:
     virtual ~Subscriber() = default;
-
-    virtual void OnPowerFacilityChanged(Facility const facility, bool enabled) {}
-    virtual void OnPowerSchemeChanged(Scheme const actualScheme) {}
   };
 
   static std::string GetConfigPath();

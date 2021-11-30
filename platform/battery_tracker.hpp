@@ -14,6 +14,8 @@ public:
   {
   public:
     virtual void OnBatteryLevelReceived(uint8_t level) = 0;
+  protected:
+    virtual ~Subscriber() = default;
   };
 
   void Subscribe(Subscriber * subscriber);
