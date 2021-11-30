@@ -10,6 +10,8 @@ class LocationObserver
 public:
   virtual void OnLocationError(TLocationError errorCode) = 0;
   virtual void OnLocationUpdated(GpsInfo const & info) = 0;
+protected:
+  virtual ~LocationObserver() = default;
 };
 
 class LocationService
@@ -19,7 +21,7 @@ protected:
 
 public:
   LocationService(LocationObserver & observer) : m_observer(observer) {}
-  virtual ~LocationService() {}
+  virtual ~LocationService() = default;
 
   virtual void Start() = 0;
   virtual void Stop() = 0;
