@@ -9,7 +9,7 @@ set(CMAKE_CXX_EXTENSIONS OFF)
 set(CMAKE_C_EXTENSIONS OFF)
 
 # Force colored errors and warnings for Ninja.
-if (CMAKE_GENERATOR MATCHES "Ninja" AND NOT (ENV{COLORS_DISABLE} EQUAL "1") )
+if (CMAKE_GENERATOR MATCHES "Ninja" AND NOT (DEFINED ENV{COLORS_DISABLE}))
   if ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU")
     add_compile_options (-fdiagnostics-color=always)
   elseif ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "Clang" OR
@@ -151,7 +151,7 @@ set(CMAKE_POSITION_INDEPENDENT_CODE ON)
 set(EXECUTABLE_OUTPUT_PATH ${CMAKE_CURRENT_BINARY_DIR})
 set(LIBRARY_OUTPUT_PATH ${CMAKE_CURRENT_BINARY_DIR})
 
-if (NOT (ENV{CCACHE_DISABLE} EQUAL "1"))
+if (NOT (DEFINED ENV{CCACHE_DISABLE}))
   find_program(CCACHE_PROGRAM ccache HINTS /usr/local/bin/)
   if (CCACHE_PROGRAM)
     message(STATUS "Using ccache, export CCACHE_DISABLE=1 to disable it.")
