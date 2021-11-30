@@ -1,5 +1,9 @@
-• New OSM maps data as of October 22
-• Moved Help dialog on the main screen for a better new user experience
-• Added x86_64 arch for Chromebooks and some old Intel Atom devices
-• Added mountain saddle, mountain pass, silo, storage tank, chain barrier, swing gate
-• Fixed some icons and translations
+• New OSM maps data as of November 22
+• Fixed cross regions routing, please test and report to us any routing issues!
+• Reworked opening hours UI
+• Fixed reading of OpenType fonts
+• Updated Vulkan libraries
+• Reduced APK size
+• Restored "update is available" indicator
+• Updated Russian, Finnish, German, French Spanish and Chinese translations
+• Added LINE contacts to the place page
