@@ -2321,7 +2321,7 @@
 
 "type.landuse.allotments" = "市民农园";
 
-"type.landuse.basin" = "水";
+"type.landuse.basin" = "水盆地";
 
 "type.landuse.brownfield" = "棕土";
 
@@ -2503,6 +2503,10 @@
 
 "type.natural.beach" = "海滩";
 
+"type.natural.beach.sand" = "Sandy Beach";
+
+"type.natural.beach.gravel" = "Gravel Beach";
+
 "type.natural.cape" = "海角";
 
 "type.natural.cave_entrance" = "洞口";
@@ -2523,6 +2527,14 @@
 
 "type.natural.water.lake" = "湖";
 
+"type.natural.water.pond" = "池塘";
+
+"type.natural.water.reservoir" = "水库";
+
+"type.natural.water.basin" = "水盆地";
+
+"type.natural.water.river" = "河流";
+
 "type.natural.land" = "Land";
 
 "type.natural.meadow" = "Meadow";
@@ -2532,8 +2544,6 @@
 "type.natural.peak" = "峰";
 
 "type.natural.saddle" = "Mountain Saddle";
-
-"type.natural.water.pond" = "池塘";
 
 "type.natural.rock" = "岩石";
 
@@ -2551,7 +2561,7 @@
 
 "type.natural.volcano" = "火山";
 
-"type.natural.water" = "水";
+"type.natural.water" = "水體";
 
 "type.natural.wetland" = "湿地";
 

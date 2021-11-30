@@ -1258,9 +1258,9 @@
 	<string name="type.historic.citywalls">City Wall</string>
 	<string name="type.historic.fort">Fort</string>
 	<string name="type.historic.memorial">Memorial</string>
-	<string name="type.historic.memorial.plaque">Memorial</string>
-	<string name="type.historic.memorial.sculpture">Memorial</string>
-	<string name="type.historic.memorial.statue">Memorial</string>
+	<string name="type.historic.memorial.plaque">Commemorative plaque</string>
+	<string name="type.historic.memorial.sculpture">Sculpture</string>
+	<string name="type.historic.memorial.statue">Statue</string>
 	<string name="type.historic.monument">Monument</string>
 	<string name="type.historic.ruins">Ruins</string>
 	<string name="type.historic.ship">Ship</string>
@@ -1286,7 +1286,7 @@
 	<string name="type.junction.roundabout">Roundabout</string>
 	<string name="type.landuse">Landuse</string>
 	<string name="type.landuse.allotments">Allotments</string>
-	<string name="type.landuse.basin">Water</string>
+	<string name="type.landuse.basin">Basin</string>
 	<string name="type.landuse.brownfield">Brownfield</string>
 	<string name="type.landuse.cemetery">Graveyard</string>
 	<string name="type.landuse.cemetery.christian">Christian Graveyard</string>
@@ -1367,7 +1367,7 @@
 	<string name="type.man_made.water_tower">Water Tower</string>
 	<string name="type.man_made.water_well">Water Well</string>
 	<string name="type.man_made.windmill">Windmill</string>
-	<string name="type.man_made.works">Works</string>
+	<string name="type.man_made.works">Industrial Works</string>
 	<string name="type.mapswithme">mapswithme</string>
 	<string name="type.mapswithme.grid">mapswithme-grid</string>
 	<string name="type.military">Military</string>
@@ -1377,6 +1377,8 @@
 	<string name="type.natural.bare_rock">Bare Rock</string>
 	<string name="type.natural.bay">Bay</string>
 	<string name="type.natural.beach">Beach</string>
+	<string name="type.natural.beach.sand">Sandy Beach</string>
+	<string name="type.natural.beach.gravel">Gravel Beach</string>
 	<string name="type.natural.cape">Cape</string>
 	<string name="type.natural.cave_entrance">Cave</string>
 	<string name="type.natural.cliff">Cliff</string>
@@ -1387,12 +1389,15 @@
 	<string name="type.natural.heath">Heath</string>
 	<string name="type.natural.hot_spring">Hot Spring</string>
 	<string name="type.natural.water.lake">Lake</string>
+	<string name="type.natural.water.pond">Pond</string>
+	<string name="type.natural.water.reservoir">Reservoir</string>
+	<string name="type.natural.water.basin">Basin</string>
+	<string name="type.natural.water.river">River</string>
 	<string name="type.natural.land">Land</string>
 	<string name="type.natural.meadow">Meadow</string>
 	<string name="type.natural.orchard">Orchard</string>
 	<string name="type.natural.peak">Peak</string>
 	<string name="type.natural.saddle">Mountain Saddle</string>
-	<string name="type.natural.water.pond">Pond</string>
 	<string name="type.natural.rock">Rock</string>
 	<string name="type.natural.scrub">Scrub</string>
 	<string name="type.natural.spring">Spring</string>
@@ -1401,7 +1406,7 @@
 	<string name="type.natural.tree_row">Tree Row</string>
 	<string name="type.natural.vineyard">Vineyard</string>
 	<string name="type.natural.volcano">Volcano</string>
-	<string name="type.natural.water">Water</string>
+	<string name="type.natural.water">Water body</string>
 	<string name="type.natural.wetland">Wetland</string>
 	<string name="type.natural.wetland.bog">Wetland</string>
 	<string name="type.natural.wetland.marsh">Wetland</string>

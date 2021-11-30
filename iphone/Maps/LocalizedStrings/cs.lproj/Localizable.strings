@@ -2321,7 +2321,7 @@
 
 "type.landuse.allotments" = "Allotments";
 
-"type.landuse.basin" = "Voda";
+"type.landuse.basin" = "Vodní nádrž";
 
 "type.landuse.brownfield" = "Brownfield";
 
@@ -2483,7 +2483,7 @@
 
 "type.man_made.windmill" = "Větrný mlýn";
 
-"type.man_made.works" = "Works";
+"type.man_made.works" = "Industrial Works";
 
 "type.mapswithme" = "mapswithme";
 
@@ -2502,6 +2502,10 @@
 "type.natural.bay" = "Záliv";
 
 "type.natural.beach" = "Pláž";
+
+"type.natural.beach.sand" = "Sandy Beach";
+
+"type.natural.beach.gravel" = "Gravel Beach";
 
 "type.natural.cape" = "Mys";
 
@@ -2523,6 +2527,14 @@
 
 "type.natural.water.lake" = "Jezero";
 
+"type.natural.water.pond" = "Rybník";
+
+"type.natural.water.reservoir" = "Nádrž";
+
+"type.natural.water.basin" = "Vodní nádrž";
+
+"type.natural.water.river" = "Řeka";
+
 "type.natural.land" = "Land";
 
 "type.natural.meadow" = "Meadow";
@@ -2532,8 +2544,6 @@
 "type.natural.peak" = "Hora";
 
 "type.natural.saddle" = "Mountain Saddle";
-
-"type.natural.water.pond" = "Rybník";
 
 "type.natural.rock" = "Rock";
 
@@ -2551,7 +2561,7 @@
 
 "type.natural.volcano" = "Sopka";
 
-"type.natural.water" = "Voda";
+"type.natural.water" = "Vodní plocha";
 
 "type.natural.wetland" = "Mokřadní oblast";
 

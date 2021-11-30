@@ -1137,7 +1137,7 @@
 	<string name="type.historic.ruins">Ruine</string>
 	<string name="type.historic.ship">Obiective turistice</string>
 	<string name="type.historic.tomb">Obiective turistice</string>
-	<string name="type.landuse.basin">Apă</string>
+	<string name="type.landuse.basin">Bazin de apă</string>
 	<string name="type.landuse.cemetery">Cimitir</string>
 	<string name="type.landuse.cemetery.christian">Cimitir</string>
 	<string name="type.landuse.churchyard">Curtea Bisericii</string>
@@ -1189,8 +1189,11 @@
 	<string name="type.natural.glacier">Ghețar</string>
 	<string name="type.natural.grassland">Câmp</string>
 	<string name="type.natural.water.lake">Lac</string>
-	<string name="type.natural.peak">Munte</string>
 	<string name="type.natural.water.pond">Heleșteu</string>
+	<string name="type.natural.water.reservoir">Rezervor</string>
+	<string name="type.natural.water.basin">Bazin de apă</string>
+	<string name="type.natural.water.river">Râu</string>
+	<string name="type.natural.peak">Munte</string>
 	<string name="type.natural.scrub">Boschet</string>
 	<string name="type.natural.spring">Primăvară</string>
 	<string name="type.natural.strait">Strâmtoare</string>

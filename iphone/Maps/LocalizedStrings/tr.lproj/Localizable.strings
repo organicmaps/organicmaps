@@ -2321,7 +2321,7 @@
 
 "type.landuse.allotments" = "Allotments";
 
-"type.landuse.basin" = "Su";
+"type.landuse.basin" = "Bir su havzası";
 
 "type.landuse.brownfield" = "Brownfield";
 
@@ -2483,7 +2483,7 @@
 
 "type.man_made.windmill" = "Moulin";
 
-"type.man_made.works" = "Works";
+"type.man_made.works" = "Industrial Works";
 
 "type.mapswithme" = "mapswithme";
 
@@ -2502,6 +2502,10 @@
 "type.natural.bay" = "Koy";
 
 "type.natural.beach" = "Plaj";
+
+"type.natural.beach.sand" = "Sandy Beach";
+
+"type.natural.beach.gravel" = "Gravel Beach";
 
 "type.natural.cape" = "Burun";
 
@@ -2523,6 +2527,14 @@
 
 "type.natural.water.lake" = "Göl";
 
+"type.natural.water.pond" = "Gölet";
+
+"type.natural.water.reservoir" = "Rezervuar";
+
+"type.natural.water.basin" = "Bir su havzası";
+
+"type.natural.water.river" = "Nehir";
+
 "type.natural.land" = "Land";
 
 "type.natural.meadow" = "Meadow";
@@ -2532,8 +2544,6 @@
 "type.natural.peak" = "Zirve";
 
 "type.natural.saddle" = "Mountain Saddle";
-
-"type.natural.water.pond" = "Gölet";
 
 "type.natural.rock" = "Rock";
 
@@ -2551,7 +2561,7 @@
 
 "type.natural.volcano" = "Volcan";
 
-"type.natural.water" = "Su";
+"type.natural.water" = "Water body";
 
 "type.natural.wetland" = "Sulak alan";
 

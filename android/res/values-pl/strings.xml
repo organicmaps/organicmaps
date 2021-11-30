@@ -1222,7 +1222,7 @@
 	<string name="type.junction.roundabout">Rondo</string>
 	<string name="type.landuse">Zagospodarowanie ziemi</string>
 	<string name="type.landuse.allotments">Działki</string>
-	<string name="type.landuse.basin">Woda</string>
+	<string name="type.landuse.basin">Zbiornik</string>
 	<string name="type.landuse.brownfield">Teren do zabudowy</string>
 	<string name="type.landuse.cemetery">Cmentarz</string>
 	<string name="type.landuse.cemetery.christian">Cmentarz chrześcijański</string>
@@ -1312,10 +1312,13 @@
 	<string name="type.natural.heath">Wrzosowisko</string>
 	<string name="type.natural.hot_spring">Gorące źródło</string>
 	<string name="type.natural.water.lake">Jezioro</string>
+	<string name="type.natural.water.pond">Staw</string>
+	<string name="type.natural.water.reservoir">Zbiornik</string>
+	<string name="type.natural.water.basin">Zbiornik</string>
+	<string name="type.natural.water.river">Rzeka</string>
 	<string name="type.natural.meadow">Łąka</string>
 	<string name="type.natural.orchard">Sad</string>
 	<string name="type.natural.peak">Szczyt</string>
-	<string name="type.natural.water.pond">Staw</string>
 	<string name="type.natural.rock">Skała</string>
 	<string name="type.natural.scrub">Zarośla</string>
 	<string name="type.natural.spring">Źródło</string>
@@ -1324,7 +1327,7 @@
 	<string name="type.natural.tree_row">Rząd drzew</string>
 	<string name="type.natural.vineyard">Winnica</string>
 	<string name="type.natural.volcano">Wulkan</string>
-	<string name="type.natural.water">Woda</string>
+	<string name="type.natural.water">Akwen</string>
 	<string name="type.natural.wetland">Tereny podmokłe</string>
 	<string name="type.natural.wetland.bog">Torfowisko</string>
 	<string name="type.natural.wetland.marsh">Moczary</string>

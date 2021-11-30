@@ -1565,11 +1565,11 @@
 
 "type.amenity.courthouse" = "Суд";
 
-"type.amenity.dentist" = "Стоматолог";
+"type.amenity.dentist" = "Стоматология";
 
 "type.amenity.doctors" = "Врач";
 
-"type.amenity.drinking_water" = "Питьевой фонтан";
+"type.amenity.drinking_water" = "Питьевая вода";
 
 "type.amenity.driving_school" = "Автошкола";
 
@@ -1643,7 +1643,7 @@
 
 "type.amenity.place_of_worship.buddhist" = "Храм";
 
-"type.amenity.place_of_worship.christian" = "Храм";
+"type.amenity.place_of_worship.christian" = "Церковь";
 
 "type.amenity.place_of_worship.hindu" = "Храм";
 
@@ -1659,13 +1659,13 @@
 
 "type.amenity.post_box" = "Почтовый ящик";
 
-"type.amenity.post_office" = "Почтовое отделение";
+"type.amenity.post_office" = "Почта";
 
 "type.amenity.prison" = "Тюрьма";
 
 "type.amenity.pub" = "Паб";
 
-"type.amenity.public_bookcase" = "Книжный шкаф";
+"type.amenity.public_bookcase" = "Книгообмен";
 
 "type.amenity.recycling" = "Приём вторсырья";
 
@@ -1723,7 +1723,7 @@
 
 "type.amenity.waste_disposal" = "Мусорный контейнер";
 
-"type.amenity.water_point" = "Выдача питьевой воды";
+"type.amenity.water_point" = "Заправка водой";
 
 "type.barrier" = "Преграда";
 
@@ -1737,7 +1737,7 @@
 
 "type.barrier.city_wall" = "Городская стена";
 
-"type.barrier.cycle_barrier" = "Ограждение, предотвращающее проезд велосипедов";
+"type.barrier.cycle_barrier" = "Велосипедный барьер";
 
 "type.barrier.entrance" = "Проход";
 
@@ -1749,7 +1749,7 @@
 
 "type.barrier.lift_gate" = "Шлагбаум";
 
-"type.barrier.retaining_wall" = "Стена, удерживающая от осыпания";
+"type.barrier.retaining_wall" = "Поддерживающая стена";
 
 "type.barrier.stile" = "Перелаз";
 
@@ -1811,7 +1811,7 @@
 
 "type.building.has_parts" = "Здание";
 
-"type.building.train_station" = "Ж/д станция";
+"type.building.train_station" = "Ж/д вокзал";
 
 "type.building.warehouse" = "Склад";
 
@@ -1851,7 +1851,7 @@
 
 "type.cuisine.austrian" = "Австрийская кухня";
 
-"type.cuisine.bagel" = "Бубличная";
+"type.cuisine.bagel" = "Бeйглы";
 
 "type.cuisine.balkan" = "Балканская кухня";
 
@@ -1859,7 +1859,7 @@
 
 "type.cuisine.bavarian" = "Баварская кухня";
 
-"type.cuisine.beef_bowl" = "Рис и говядина";
+"type.cuisine.beef_bowl" = "Говядина";
 
 "type.cuisine.brazilian" = "Бразильская кухня";
 
@@ -2045,27 +2045,27 @@
 
 "type.highway.elevator" = "Лифт";
 
-"type.highway.footway" = "Дорожка";
+"type.highway.footway" = "Пешеходная дорожка";
 
-"type.highway.footway.alpine_hiking" = "Дорожка";
+"type.highway.footway.alpine_hiking" = "Пешеходная дорожка";
 
-"type.highway.footway.area" = "Дорожка";
+"type.highway.footway.area" = "Пешеходная дорожка";
 
-"type.highway.footway.bridge" = "Дорожка";
+"type.highway.footway.bridge" = "Пешеходная дорожка";
 
-"type.highway.footway.demanding_alpine_hiking" = "Дорожка";
+"type.highway.footway.demanding_alpine_hiking" = "Пешеходная дорожка";
 
-"type.highway.footway.demanding_mountain_hiking" = "Дорожка";
+"type.highway.footway.demanding_mountain_hiking" = "Пешеходная дорожка";
 
-"type.highway.footway.difficult_alpine_hiking" = "Дорожка";
+"type.highway.footway.difficult_alpine_hiking" = "Пешеходная дорожка";
 
-"type.highway.footway.hiking" = "Дорожка";
+"type.highway.footway.hiking" = "Пешеходная дорожка";
 
-"type.highway.footway.mountain_hiking" = "Дорожка";
+"type.highway.footway.mountain_hiking" = "Пешеходная дорожка";
 
-"type.highway.footway.permissive" = "Дорожка";
+"type.highway.footway.permissive" = "Пешеходная дорожка";
 
-"type.highway.footway.tunnel" = "Дорожка";
+"type.highway.footway.tunnel" = "Пешеходная дорожка";
 
 "type.highway.ford" = "Брод";
 
@@ -2245,13 +2245,13 @@
 
 "type.highway.world_towns_level" = "highway-world_towns_level";
 
-"type.historic" = "Историческое место";
+"type.historic" = "Исторический объект";
 
-"type.historic.archaeological_site" = "Раскопки";
+"type.historic.archaeological_site" = "Археологический памятник";
 
-"type.historic.battlefield" = "Место исторического сражения";
+"type.historic.battlefield" = "Поле боя";
 
-"type.historic.boundary_stone" = "Пограничный знак";
+"type.historic.boundary_stone" = "Пограничный камень";
 
 "type.historic.castle" = "Замок";
 
@@ -2263,15 +2263,15 @@
 
 "type.historic.fort" = "Форт";
 
-"type.historic.memorial" = "Памятник";
+"type.historic.memorial" = "Мемориал";
 
-"type.historic.memorial.plaque" = "Памятник";
+"type.historic.memorial.plaque" = "Памятная доска";
 
-"type.historic.memorial.sculpture" = "Памятник";
+"type.historic.memorial.sculpture" = "Скульптура";
 
-"type.historic.memorial.statue" = "Памятник";
+"type.historic.memorial.statue" = "Статуя";
 
-"type.historic.monument" = "Монумент";
+"type.historic.monument" = "Памятник";
 
 "type.historic.ruins" = "Руины";
 
@@ -2321,9 +2321,9 @@
 
 "type.landuse.allotments" = "Земельные участки";
 
-"type.landuse.basin" = "Водоём";
+"type.landuse.basin" = "Резервуар";
 
-"type.landuse.brownfield" = "Земли для застройки";
+"type.landuse.brownfield" = "Земля для застройки";
 
 "type.landuse.cemetery" = "Кладбище";
 
@@ -2355,7 +2355,7 @@
 
 "type.landuse.grass" = "Газон";
 
-"type.landuse.greenfield" = "Район под застройку";
+"type.landuse.greenfield" = "Земля для застройки";
 
 "type.landuse.greenhouse_horticulture" = "Теплицы";
 
@@ -2365,7 +2365,7 @@
 
 "type.landuse.meadow" = "Луг";
 
-"type.landuse.military" = "Военные объекты";
+"type.landuse.military" = "Военная зона";
 
 "type.landuse.orchard" = "Сад";
 
@@ -2441,7 +2441,7 @@
 
 "type.leisure.stadium" = "Стадион";
 
-"type.leisure.swimming_pool" = "Бассейн";
+"type.leisure.swimming_pool" = "Плавательный бассейн";
 
 "type.leisure.track" = "Беговая дорожка";
 
@@ -2451,7 +2451,7 @@
 
 "type.man_made.breakwater" = "Волнорез";
 
-"type.man_made.cairn" = "Пирамидка из камней";
+"type.man_made.cairn" = "Тур";
 
 "type.man_made.chimney" = "Заводская труба";
 
@@ -2463,7 +2463,7 @@
 
 "type.man_made.pipeline" = "Трубопровод";
 
-"type.man_made.pipeline.overground" = "Трубопровод над землёй";
+"type.man_made.pipeline.overground" = "Наземный трубопровод";
 
 "type.man_made.silo" = "Элеватор";
 
@@ -2475,7 +2475,7 @@
 
 "type.man_made.wastewater_plant" = "Очистные сооружения";
 
-"type.man_made.water_tap" = "Колонка с водой";
+"type.man_made.water_tap" = "Водопроводный кран";
 
 "type.man_made.water_tower" = "Водонапорная башня";
 
@@ -2483,7 +2483,7 @@
 
 "type.man_made.windmill" = "Ветряная мельница";
 
-"type.man_made.works" = "Промышленные строения";
+"type.man_made.works" = "Промышленное производство";
 
 "type.mapswithme" = "mapswithme";
 
@@ -2502,6 +2502,10 @@
 "type.natural.bay" = "Залив";
 
 "type.natural.beach" = "Пляж";
+
+"type.natural.beach.sand" = "Песчаный пляж";
+
+"type.natural.beach.gravel" = "Галечный пляж";
 
 "type.natural.cape" = "Мыс";
 
@@ -2523,17 +2527,23 @@
 
 "type.natural.water.lake" = "Озеро";
 
-"type.natural.land" = "Земля";
+"type.natural.water.pond" = "Пруд";
+
+"type.natural.water.reservoir" = "Водохранилище";
+
+"type.natural.water.basin" = "Резервуар";
+
+"type.natural.water.river" = "Река";
+
+"type.natural.land" = "Суша";
 
 "type.natural.meadow" = "Луг";
 
-"type.natural.orchard" = "Фруктовый сад";
+"type.natural.orchard" = "Сад";
 
 "type.natural.peak" = "Гора";
 
 "type.natural.saddle" = "Седловина";
-
-"type.natural.water.pond" = "Пруд";
 
 "type.natural.rock" = "Камень";
 

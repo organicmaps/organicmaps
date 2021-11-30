@@ -1194,7 +1194,7 @@
 	<string name="type.junction.roundabout">ラウンドアバウト</string>
 	<string name="type.landuse">土地利用</string>
 	<string name="type.landuse.allotments">市民農園</string>
-	<string name="type.landuse.basin">遊水地</string>
+	<string name="type.landuse.basin">水地</string>
 	<string name="type.landuse.brownfield">再開発用地</string>
 	<string name="type.landuse.cemetery">墓地</string>
 	<string name="type.landuse.cemetery.christian">キリスト教墓地</string>
@@ -1288,11 +1288,14 @@
 	<string name="type.natural.heath">ヒース</string>
 	<string name="type.natural.hot_spring">温泉</string>
 	<string name="type.natural.water.lake">湖</string>
+	<string name="type.natural.water.pond">池</string>
+	<string name="type.natural.water.reservoir">貯水池</string>
+	<string name="type.natural.water.basin">水地</string>
+	<string name="type.natural.water.river">河川</string>
 	<string name="type.natural.land">陸地</string>
 	<string name="type.natural.meadow">牧草地</string>
 	<string name="type.natural.orchard">果樹園</string>
 	<string name="type.natural.peak">山頂</string>
-	<string name="type.natural.water.pond">池</string>
 	<string name="type.natural.rock">岩</string>
 	<string name="type.natural.scrub">雑木林</string>
 	<string name="type.natural.spring">泉</string>

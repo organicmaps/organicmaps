@@ -2321,7 +2321,7 @@
 
 "type.landuse.allotments" = "Allotments";
 
-"type.landuse.basin" = "Vand";
+"type.landuse.basin" = "Vandbassin";
 
 "type.landuse.brownfield" = "Brownfield";
 
@@ -2483,7 +2483,7 @@
 
 "type.man_made.windmill" = "Vindmølle";
 
-"type.man_made.works" = "Works";
+"type.man_made.works" = "Industrial Works";
 
 "type.mapswithme" = "mapswithme";
 
@@ -2502,6 +2502,10 @@
 "type.natural.bay" = "Bugt";
 
 "type.natural.beach" = "Strand";
+
+"type.natural.beach.sand" = "Sandy Beach";
+
+"type.natural.beach.gravel" = "Gravel Beach";
 
 "type.natural.cape" = "Tange";
 
@@ -2523,6 +2527,14 @@
 
 "type.natural.water.lake" = "Sø";
 
+"type.natural.water.pond" = "Dam";
+
+"type.natural.water.reservoir" = "Reservoir";
+
+"type.natural.water.basin" = "Vandbassin";
+
+"type.natural.water.river" = "Flod";
+
 "type.natural.land" = "Land";
 
 "type.natural.meadow" = "Meadow";
@@ -2532,8 +2544,6 @@
 "type.natural.peak" = "Bjerg";
 
 "type.natural.saddle" = "Mountain Saddle";
-
-"type.natural.water.pond" = "Dam";
 
 "type.natural.rock" = "Rock";
 
@@ -2551,7 +2561,7 @@
 
 "type.natural.volcano" = "Vulkan";
 
-"type.natural.water" = "Vand";
+"type.natural.water" = "Vandmasse";
 
 "type.natural.wetland" = "Vådområde";
 

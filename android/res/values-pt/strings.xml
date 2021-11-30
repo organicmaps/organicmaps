@@ -1237,7 +1237,7 @@
 	<string name="type.junction.roundabout">Rotunda</string>
 	<string name="type.landuse">Uso do solo</string>
 	<string name="type.landuse.allotments">Horta comunitária</string>
-	<string name="type.landuse.basin">Água</string>
+	<string name="type.landuse.basin">Reservatório</string>
 	<string name="type.landuse.brownfield">Terreno industrial devoluto</string>
 	<string name="type.landuse.cemetery">Cemitério</string>
 	<string name="type.landuse.cemetery.christian">Cemitério cristão</string>
@@ -1308,7 +1308,7 @@
 	<string name="type.man_made.lighthouse">Farol</string>
 	<string name="type.man_made.pier">Pontão</string>
 	<string name="type.man_made.pipeline">Pipeline</string>
-	<string name="type.man_made.pipeline.overground">Pipeline subterrâneo</string>
+	<string name="type.man_made.pipeline.overground">Pipeline aéreo</string>
 	<string name="type.man_made.surveillance">Câmara de vigilância</string>
 	<string name="type.man_made.tower">Torre</string>
 	<string name="type.man_made.wastewater_plant">Estação de tratamento de águas residuais</string>
@@ -1333,11 +1333,14 @@
 	<string name="type.natural.heath">Charneca</string>
 	<string name="type.natural.hot_spring">Nascente de água quente</string>
 	<string name="type.natural.water.lake">Lago</string>
+	<string name="type.natural.water.pond">Lagoa</string>
+	<string name="type.natural.water.reservoir">Reservatório</string>
+	<string name="type.natural.water.basin">Reservatório</string>
+	<string name="type.natural.water.river">Rio</string>
 	<string name="type.natural.land">Campo</string>
 	<string name="type.natural.meadow">Pradaria</string>
 	<string name="type.natural.orchard">Pomar</string>
 	<string name="type.natural.peak">Pico</string>
-	<string name="type.natural.water.pond">Lagoa</string>
 	<string name="type.natural.rock">Rochedo</string>
 	<string name="type.natural.scrub">Matagal</string>
 	<string name="type.natural.spring">Nascente</string>
@@ -1346,7 +1349,7 @@
 	<string name="type.natural.tree_row">Linha de árvores</string>
 	<string name="type.natural.vineyard">Vinha</string>
 	<string name="type.natural.volcano">Vulcão</string>
-	<string name="type.natural.water">Água</string>
+	<string name="type.natural.water">Corpo de água</string>
 	<string name="type.natural.wetland">Zona úmida</string>
 	<string name="type.natural.wetland.bog">Zona úmida</string>
 	<string name="type.natural.wetland.marsh">Zona úmida</string>

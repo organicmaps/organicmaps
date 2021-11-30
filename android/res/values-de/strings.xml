@@ -1170,7 +1170,7 @@
 	<string name="type.historic.ruins">Ruinen</string>
 	<string name="type.historic.ship">Schiff</string>
 	<string name="type.historic.tomb">Grabstätte</string>
-	<string name="type.landuse.basin">Wasserfläche</string>
+	<string name="type.landuse.basin">Wasserbecken</string>
 	<string name="type.landuse.cemetery">Friedhof</string>
 	<string name="type.landuse.cemetery.christian">Friedhof</string>
 	<string name="type.landuse.churchyard">Kirchenhof</string>
@@ -1220,8 +1220,11 @@
 	<string name="type.natural.glacier">Gletscher</string>
 	<string name="type.natural.grassland">Grasland</string>
 	<string name="type.natural.water.lake">See</string>
-	<string name="type.natural.peak">Berg</string>
 	<string name="type.natural.water.pond">Teich</string>
+	<string name="type.natural.water.reservoir">Reservoir</string>
+	<string name="type.natural.water.basin">Wasserbecken</string>
+	<string name="type.natural.water.river">Fluss</string>
+	<string name="type.natural.peak">Berg</string>
 	<string name="type.natural.scrub">Dickicht</string>
 	<string name="type.natural.spring">Quelle</string>
 	<string name="type.natural.strait">Meerenge</string>

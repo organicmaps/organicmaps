@@ -12,4 +12,7 @@
 	<string name="measurement_units_summary">Choose between miles and kilometres</string>
 	<!-- Search category -->
 	<string name="fuel">Petrol</string>
+
+	<!-- SECTION: Types -->
+	<string name="type.highway.elevator">Lift</string>
 </resources>

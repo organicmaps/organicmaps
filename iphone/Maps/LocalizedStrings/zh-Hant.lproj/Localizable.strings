@@ -2483,7 +2483,7 @@
 
 "type.man_made.windmill" = "風車";
 
-"type.man_made.works" = "Works";
+"type.man_made.works" = "Industrial Works";
 
 "type.mapswithme" = "mapswithme";
 
@@ -2502,6 +2502,10 @@
 "type.natural.bay" = "海灣";
 
 "type.natural.beach" = "海灘";
+
+"type.natural.beach.sand" = "Sandy Beach";
+
+"type.natural.beach.gravel" = "Gravel Beach";
 
 "type.natural.cape" = "海角";
 
@@ -2523,6 +2527,14 @@
 
 "type.natural.water.lake" = "湖泊";
 
+"type.natural.water.pond" = "潭";
+
+"type.natural.water.reservoir" = "水庫";
+
+"type.natural.water.basin" = "水庫";
+
+"type.natural.water.river" = "河流";
+
 "type.natural.land" = "Land";
 
 "type.natural.meadow" = "Meadow";
@@ -2532,8 +2544,6 @@
 "type.natural.peak" = "山峰";
 
 "type.natural.saddle" = "Mountain Saddle";
-
-"type.natural.water.pond" = "潭";
 
 "type.natural.rock" = "Rock";
 
@@ -2551,7 +2561,7 @@
 
 "type.natural.volcano" = "火山";
 
-"type.natural.water" = "水庫";
+"type.natural.water" = "水體";
 
 "type.natural.wetland" = "沼澤";
 

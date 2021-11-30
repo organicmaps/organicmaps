@@ -1147,7 +1147,7 @@
 	<string name="type.historic.ruins">Zrúcanina</string>
 	<string name="type.historic.ship">Pamätihodnosť</string>
 	<string name="type.historic.tomb">Pamätihodnosť</string>
-	<string name="type.landuse.basin">Voda</string>
+	<string name="type.landuse.basin">Vodná nádrž</string>
 	<string name="type.landuse.cemetery">Cintorín</string>
 	<string name="type.landuse.cemetery.christian">Cintorín</string>
 	<string name="type.landuse.churchyard">Cintorín</string>
@@ -1197,8 +1197,11 @@
 	<string name="type.natural.glacier">Ľadovec</string>
 	<string name="type.natural.grassland">Lúka</string>
 	<string name="type.natural.water.lake">Jazero</string>
-	<string name="type.natural.peak">Hora</string>
 	<string name="type.natural.water.pond">Rybník</string>
+	<string name="type.natural.water.reservoir">Nádrž</string>
+	<string name="type.natural.water.basin">Vodná nádrž</string>
+	<string name="type.natural.water.river">Rieka</string>
+	<string name="type.natural.peak">Hora</string>
 	<string name="type.natural.scrub">Krovie</string>
 	<string name="type.natural.spring">Prameň</string>
 	<string name="type.natural.strait">Prieliv</string>

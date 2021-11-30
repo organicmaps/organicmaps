@@ -2321,7 +2321,7 @@
 
 "type.landuse.allotments" = "Jardins familiaux";
 
-"type.landuse.basin" = "Eau";
+"type.landuse.basin" = "Réservoir";
 
 "type.landuse.brownfield" = "Friche industrielle";
 
@@ -2483,7 +2483,7 @@
 
 "type.man_made.windmill" = "Moulin à vent";
 
-"type.man_made.works" = "Works";
+"type.man_made.works" = "Industrial Works";
 
 "type.mapswithme" = "mapswithme";
 
@@ -2502,6 +2502,10 @@
 "type.natural.bay" = "Baie";
 
 "type.natural.beach" = "Plage";
+
+"type.natural.beach.sand" = "Sandy Beach";
+
+"type.natural.beach.gravel" = "Gravel Beach";
 
 "type.natural.cape" = "Cap";
 
@@ -2523,6 +2527,14 @@
 
 "type.natural.water.lake" = "Lac";
 
+"type.natural.water.pond" = "Étang";
+
+"type.natural.water.reservoir" = "Réservoir";
+
+"type.natural.water.basin" = "Réservoir";
+
+"type.natural.water.river" = "Rivière";
+
 "type.natural.land" = "Land";
 
 "type.natural.meadow" = "Meadow";
@@ -2532,8 +2544,6 @@
 "type.natural.peak" = "Sommet";
 
 "type.natural.saddle" = "Col de montagne";
-
-"type.natural.water.pond" = "Étang";
 
 "type.natural.rock" = "Rocher";
 
@@ -2551,7 +2561,7 @@
 
 "type.natural.volcano" = "Volcan";
 
-"type.natural.water" = "Eau";
+"type.natural.water" = "Étendue d'eau";
 
 "type.natural.wetland" = "Zone humide";
 

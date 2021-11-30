@@ -1142,7 +1142,7 @@
 	<string name="type.historic.ruins">Ruiner</string>
 	<string name="type.historic.ship">Attraktion</string>
 	<string name="type.historic.tomb">Attraktion</string>
-	<string name="type.landuse.basin">Vatten</string>
+	<string name="type.landuse.basin">Vattenbassäng</string>
 	<string name="type.landuse.cemetery">Begravningsplats</string>
 	<string name="type.landuse.cemetery.christian">Begravningsplats</string>
 	<string name="type.landuse.churchyard">Kyrkogård</string>
@@ -1193,8 +1193,11 @@
 	<string name="type.natural.glacier">Glaciär</string>
 	<string name="type.natural.grassland">Fältet</string>
 	<string name="type.natural.water.lake">Sjö</string>
-	<string name="type.natural.peak">Bergstopp</string>
 	<string name="type.natural.water.pond">Damm</string>
+	<string name="type.natural.water.reservoir">Reservoar</string>
+	<string name="type.natural.water.basin">Vattenbassäng</string>
+	<string name="type.natural.water.river">Flod</string>
+	<string name="type.natural.peak">Bergstopp</string>
 	<string name="type.natural.scrub">Ruggen</string>
 	<string name="type.natural.spring">Vattenkälla</string>
 	<string name="type.natural.strait">Sund</string>

@@ -2321,7 +2321,7 @@
 
 "type.landuse.allotments" = "Allotments";
 
-"type.landuse.basin" = "Νερό";
+"type.landuse.basin" = "Μια λεκάνη νερού";
 
 "type.landuse.brownfield" = "Brownfield";
 
@@ -2483,7 +2483,7 @@
 
 "type.man_made.windmill" = "Ανεμόμυλος";
 
-"type.man_made.works" = "Works";
+"type.man_made.works" = "Industrial Works";
 
 "type.mapswithme" = "mapswithme";
 
@@ -2502,6 +2502,10 @@
 "type.natural.bay" = "Κόλπος";
 
 "type.natural.beach" = "Παραλία";
+
+"type.natural.beach.sand" = "Sandy Beach";
+
+"type.natural.beach.gravel" = "Gravel Beach";
 
 "type.natural.cape" = "Ακρωτήρι";
 
@@ -2523,6 +2527,14 @@
 
 "type.natural.water.lake" = "Λίμνη";
 
+"type.natural.water.pond" = "Δεξαμενή";
+
+"type.natural.water.reservoir" = "Δεξαμενή";
+
+"type.natural.water.basin" = "Μια λεκάνη νερού";
+
+"type.natural.water.river" = "Ποταμός";
+
 "type.natural.land" = "Land";
 
 "type.natural.meadow" = "Meadow";
@@ -2532,8 +2544,6 @@
 "type.natural.peak" = "Κορυφή";
 
 "type.natural.saddle" = "Mountain Saddle";
-
-"type.natural.water.pond" = "Δεξαμενή";
 
 "type.natural.rock" = "Rock";
 
@@ -2551,7 +2561,7 @@
 
 "type.natural.volcano" = "Ηφαίστειο";
 
-"type.natural.water" = "Νερό";
+"type.natural.water" = "Σώμα νερού";
 
 "type.natural.wetland" = "Υγρότοπος";
 

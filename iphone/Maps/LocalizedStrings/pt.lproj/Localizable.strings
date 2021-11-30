@@ -2321,7 +2321,7 @@
 
 "type.landuse.allotments" = "Horta comunitária";
 
-"type.landuse.basin" = "Água";
+"type.landuse.basin" = "Reservatório";
 
 "type.landuse.brownfield" = "Terreno industrial devoluto";
 
@@ -2463,7 +2463,7 @@
 
 "type.man_made.pipeline" = "Pipeline";
 
-"type.man_made.pipeline.overground" = "Pipeline subterrâneo";
+"type.man_made.pipeline.overground" = "Pipeline aéreo";
 
 "type.man_made.silo" = "Silo";
 
@@ -2503,6 +2503,10 @@
 
 "type.natural.beach" = "Praia";
 
+"type.natural.beach.sand" = "Sandy Beach";
+
+"type.natural.beach.gravel" = "Gravel Beach";
+
 "type.natural.cape" = "Cabo";
 
 "type.natural.cave_entrance" = "Caverna";
@@ -2523,6 +2527,14 @@
 
 "type.natural.water.lake" = "Lago";
 
+"type.natural.water.pond" = "Lagoa";
+
+"type.natural.water.reservoir" = "Reservatório";
+
+"type.natural.water.basin" = "Reservatório";
+
+"type.natural.water.river" = "Rio";
+
 "type.natural.land" = "Campo";
 
 "type.natural.meadow" = "Pradaria";
@@ -2532,8 +2544,6 @@
 "type.natural.peak" = "Pico";
 
 "type.natural.saddle" = "Mountain Saddle";
-
-"type.natural.water.pond" = "Lagoa";
 
 "type.natural.rock" = "Rochedo";
 
@@ -2551,7 +2561,7 @@
 
 "type.natural.volcano" = "Vulcão";
 
-"type.natural.water" = "Água";
+"type.natural.water" = "Corpo de água";
 
 "type.natural.wetland" = "Zona úmida";
 

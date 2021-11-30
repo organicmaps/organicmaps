@@ -1227,7 +1227,7 @@
 	<string name="type.junction.roundabout">环岛</string>
 	<string name="type.landuse">土地利用要素</string>
 	<string name="type.landuse.allotments">市民农园</string>
-	<string name="type.landuse.basin">水</string>
+	<string name="type.landuse.basin">水盆地</string>
 	<string name="type.landuse.brownfield">棕土</string>
 	<string name="type.landuse.cemetery">墓地</string>
 	<string name="type.landuse.cemetery.christian">基督教墓地</string>
@@ -1317,8 +1317,11 @@
 	<string name="type.natural.heath">荒野</string>
 	<string name="type.natural.hot_spring">温泉</string>
 	<string name="type.natural.water.lake">湖</string>
-	<string name="type.natural.peak">峰</string>
 	<string name="type.natural.water.pond">池塘</string>
+	<string name="type.natural.water.reservoir">水库</string>
+	<string name="type.natural.water.basin">水盆地</string>
+	<string name="type.natural.water.river">河流</string>
+	<string name="type.natural.peak">峰</string>
 	<string name="type.natural.rock">岩石</string>
 	<string name="type.natural.scrub">灌木丛</string>
 	<string name="type.natural.spring">泉水</string>
@@ -1326,7 +1329,7 @@
 	<string name="type.natural.tree">树</string>
 	<string name="type.natural.tree_row">树列</string>
 	<string name="type.natural.volcano">火山</string>
-	<string name="type.natural.water">水</string>
+	<string name="type.natural.water">水體</string>
 	<string name="type.natural.wetland">湿地</string>
 	<string name="type.natural.wetland.bog">泥炭地</string>
 	<string name="type.natural.wetland.marsh">沼泽地</string>

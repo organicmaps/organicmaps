@@ -2265,11 +2265,11 @@
 
 "type.historic.memorial" = "Memorial";
 
-"type.historic.memorial.plaque" = "Memorial";
+"type.historic.memorial.plaque" = "Commemorative plaque";
 
-"type.historic.memorial.sculpture" = "Memorial";
+"type.historic.memorial.sculpture" = "Sculpture";
 
-"type.historic.memorial.statue" = "Memorial";
+"type.historic.memorial.statue" = "Statue";
 
 "type.historic.monument" = "Monument";
 
@@ -2321,7 +2321,7 @@
 
 "type.landuse.allotments" = "Allotments";
 
-"type.landuse.basin" = "Water";
+"type.landuse.basin" = "Рэзервуар";
 
 "type.landuse.brownfield" = "Brownfield";
 
@@ -2483,7 +2483,7 @@
 
 "type.man_made.windmill" = "Windmill";
 
-"type.man_made.works" = "Works";
+"type.man_made.works" = "Industrial Works";
 
 "type.mapswithme" = "mapswithme";
 
@@ -2502,6 +2502,10 @@
 "type.natural.bay" = "Bay";
 
 "type.natural.beach" = "Beach";
+
+"type.natural.beach.sand" = "Пяшчаны пляж";
+
+"type.natural.beach.gravel" = "Галечны пляж";
 
 "type.natural.cape" = "Cape";
 
@@ -2523,17 +2527,23 @@
 
 "type.natural.water.lake" = "Lake";
 
-"type.natural.land" = "Land";
+"type.natural.water.pond" = "Сажалка";
 
-"type.natural.meadow" = "Meadow";
+"type.natural.water.reservoir" = "Вадасховішча";
 
-"type.natural.orchard" = "Orchard";
+"type.natural.water.basin" = "Рэзервуар";
 
-"type.natural.peak" = "Peak";
+"type.natural.water.river" = "Рака";
+
+"type.natural.land" = "Суша";
+
+"type.natural.meadow" = "Луг";
+
+"type.natural.orchard" = "Сад";
+
+"type.natural.peak" = "Вяршыня";
 
 "type.natural.saddle" = "Седлавіна";
-
-"type.natural.water.pond" = "Pond";
 
 "type.natural.rock" = "Rock";
 
@@ -2551,7 +2561,7 @@
 
 "type.natural.volcano" = "Volcano";
 
-"type.natural.water" = "Water";
+"type.natural.water" = "Вадаём";
 
 "type.natural.wetland" = "Wetland";
 
@@ -3143,19 +3153,19 @@
 
 "type.waterway.lock_gate" = "Lock Gate";
 
-"type.waterway.river" = "River";
+"type.waterway.river" = "Рака";
 
-"type.waterway.river.tunnel" = "River";
+"type.waterway.river.tunnel" = "Рака";
 
-"type.waterway.riverbank" = "River";
+"type.waterway.riverbank" = "Рака";
 
-"type.waterway.stream" = "River";
+"type.waterway.stream" = "Рака";
 
-"type.waterway.stream.ephemeral" = "River";
+"type.waterway.stream.ephemeral" = "Рака";
 
-"type.waterway.stream.intermittent" = "River";
+"type.waterway.stream.intermittent" = "Рака";
 
-"type.waterway.stream.tunnel" = "River";
+"type.waterway.stream.tunnel" = "Рака";
 
 "type.waterway.waterfall" = "Waterfall";
 

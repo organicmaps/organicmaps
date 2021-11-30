@@ -2321,7 +2321,7 @@
 
 "type.landuse.allotments" = "Allotments";
 
-"type.landuse.basin" = "Vatten";
+"type.landuse.basin" = "Vattenbassäng";
 
 "type.landuse.brownfield" = "Brownfield";
 
@@ -2483,7 +2483,7 @@
 
 "type.man_made.windmill" = "Väderkvarn";
 
-"type.man_made.works" = "Works";
+"type.man_made.works" = "Industrial Works";
 
 "type.mapswithme" = "mapswithme";
 
@@ -2502,6 +2502,10 @@
 "type.natural.bay" = "Bukt";
 
 "type.natural.beach" = "Strand";
+
+"type.natural.beach.sand" = "Sandy Beach";
+
+"type.natural.beach.gravel" = "Gravel Beach";
 
 "type.natural.cape" = "Udde";
 
@@ -2523,6 +2527,14 @@
 
 "type.natural.water.lake" = "Sjö";
 
+"type.natural.water.pond" = "Damm";
+
+"type.natural.water.reservoir" = "Reservoar";
+
+"type.natural.water.basin" = "Vattenbassäng";
+
+"type.natural.water.river" = "Flod";
+
 "type.natural.land" = "Land";
 
 "type.natural.meadow" = "Meadow";
@@ -2532,8 +2544,6 @@
 "type.natural.peak" = "Bergstopp";
 
 "type.natural.saddle" = "Mountain Saddle";
-
-"type.natural.water.pond" = "Damm";
 
 "type.natural.rock" = "Rock";
 

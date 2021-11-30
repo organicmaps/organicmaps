@@ -2321,7 +2321,7 @@
 
 "type.landuse.allotments" = "Allotments";
 
-"type.landuse.basin" = "Apă";
+"type.landuse.basin" = "Bazin de apă";
 
 "type.landuse.brownfield" = "Brownfield";
 
@@ -2483,7 +2483,7 @@
 
 "type.man_made.windmill" = "Moară de vânt";
 
-"type.man_made.works" = "Works";
+"type.man_made.works" = "Industrial Works";
 
 "type.mapswithme" = "mapswithme";
 
@@ -2502,6 +2502,10 @@
 "type.natural.bay" = "Golf";
 
 "type.natural.beach" = "Plajă";
+
+"type.natural.beach.sand" = "Sandy Beach";
+
+"type.natural.beach.gravel" = "Gravel Beach";
 
 "type.natural.cape" = "Mantie";
 
@@ -2523,6 +2527,14 @@
 
 "type.natural.water.lake" = "Lac";
 
+"type.natural.water.pond" = "Heleșteu";
+
+"type.natural.water.reservoir" = "Rezervor";
+
+"type.natural.water.basin" = "Bazin de apă";
+
+"type.natural.water.river" = "Râu";
+
 "type.natural.land" = "Land";
 
 "type.natural.meadow" = "Meadow";
@@ -2532,8 +2544,6 @@
 "type.natural.peak" = "Munte";
 
 "type.natural.saddle" = "Mountain Saddle";
-
-"type.natural.water.pond" = "Heleșteu";
 
 "type.natural.rock" = "Rock";
 

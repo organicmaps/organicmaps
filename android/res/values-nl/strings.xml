@@ -1143,6 +1143,7 @@
 	<string name="type.historic.ruins">Ruïne</string>
 	<string name="type.historic.ship">Toerisme</string>
 	<string name="type.historic.tomb">Toerisme</string>
+	<string name="type.landuse.basin">Waterbassin</string>
 	<string name="type.landuse.cemetery">Begraafplaats</string>
 	<string name="type.landuse.cemetery.christian">Begraafplaats</string>
 	<string name="type.landuse.churchyard">Kerkhof</string>
@@ -1200,11 +1201,14 @@
 	<string name="type.natural.heath">Heide</string>
 	<string name="type.natural.hot_spring">Heetwaterbron</string>
 	<string name="type.natural.water.lake">Meer</string>
+	<string name="type.natural.water.pond">Plas</string>
+	<string name="type.natural.water.reservoir">Reservoir</string>
+	<string name="type.natural.water.basin">Waterbassin</string>
+	<string name="type.natural.water.river">Rivier</string>
 	<string name="type.natural.land">Land</string>
 	<string name="type.natural.meadow">Weiland</string>
 	<string name="type.natural.orchard">Boomgaard</string>
 	<string name="type.natural.peak">Top</string>
-	<string name="type.natural.water.pond">Plas</string>
 	<string name="type.natural.rock">Steen</string>
 	<string name="type.natural.scrub">Kreupel bos</string>
 	<string name="type.natural.spring">Bron</string>
@@ -1213,7 +1217,7 @@
 	<string name="type.natural.tree_row">Bomenrij</string>
 	<string name="type.natural.vineyard">Wijngaard</string>
 	<string name="type.natural.volcano">Vulkaan</string>
-	<string name="type.natural.water">Water</string>
+	<string name="type.natural.water">Waterlichaam</string>
 	<string name="type.natural.wetland">Moerasland</string>
 	<string name="type.natural.wetland.bog">Moeras</string>
 	<string name="type.natural.wetland.marsh">Moeras</string>

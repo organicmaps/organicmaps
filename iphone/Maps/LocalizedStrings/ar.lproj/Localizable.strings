@@ -2321,7 +2321,7 @@
 
 "type.landuse.allotments" = "Allotments";
 
-"type.landuse.basin" = "مياه";
+"type.landuse.basin" = "حوض المياه";
 
 "type.landuse.brownfield" = "Brownfield";
 
@@ -2483,7 +2483,7 @@
 
 "type.man_made.windmill" = "طاحونة هواء";
 
-"type.man_made.works" = "Works";
+"type.man_made.works" = "Industrial Works";
 
 "type.mapswithme" = "mapswithme";
 
@@ -2502,6 +2502,10 @@
 "type.natural.bay" = "خليج";
 
 "type.natural.beach" = "شاطئ";
+
+"type.natural.beach.sand" = "Sandy Beach";
+
+"type.natural.beach.gravel" = "Gravel Beach";
 
 "type.natural.cape" = "رأس";
 
@@ -2523,6 +2527,14 @@
 
 "type.natural.water.lake" = "بحيرة";
 
+"type.natural.water.pond" = "بركة";
+
+"type.natural.water.reservoir" = "خزان";
+
+"type.natural.water.basin" = "حوض المياه";
+
+"type.natural.water.river" = "نهر";
+
 "type.natural.land" = "Land";
 
 "type.natural.meadow" = "Meadow";
@@ -2532,8 +2544,6 @@
 "type.natural.peak" = "قمة";
 
 "type.natural.saddle" = "Mountain Saddle";
-
-"type.natural.water.pond" = "بركة";
 
 "type.natural.rock" = "Rock";
 
@@ -2551,7 +2561,7 @@
 
 "type.natural.volcano" = "بركان";
 
-"type.natural.water" = "مياه";
+"type.natural.water" = "مسطح مائي";
 
 "type.natural.wetland" = "منطقة رطبة";
 

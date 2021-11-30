@@ -1208,7 +1208,7 @@
 	<string name="type.historic.wayside_shrine">Oratoire</string>
 	<string name="type.junction.roundabout">Rond-point</string>
 	<string name="type.landuse.allotments">Jardins familiaux</string>
-	<string name="type.landuse.basin">Eau</string>
+	<string name="type.landuse.basin">Réservoir</string>
 	<string name="type.landuse.brownfield">Friche industrielle</string>
 	<string name="type.landuse.cemetery">Cimetière</string>
 	<string name="type.landuse.cemetery.christian">Cimetière</string>
@@ -1287,9 +1287,12 @@
 	<string name="type.natural.heath">Lande</string>
 	<string name="type.natural.hot_spring">Source chaude</string>
 	<string name="type.natural.water.lake">Lac</string>
+	<string name="type.natural.water.pond">Étang</string>
+	<string name="type.natural.water.reservoir">Réservoir</string>
+	<string name="type.natural.water.basin">Réservoir</string>
+	<string name="type.natural.water.river">Rivière</string>
 	<string name="type.natural.peak">Sommet</string>
 	<string name="type.natural.saddle">Col de montagne</string>
-	<string name="type.natural.water.pond">Étang</string>
 	<string name="type.natural.rock">Rocher</string>
 	<string name="type.natural.scrub">Fourré</string>
 	<string name="type.natural.spring">Source</string>
@@ -1297,7 +1300,7 @@
 	<string name="type.natural.tree">Arbre</string>
 	<string name="type.natural.tree_row">Rangée d\'arbre</string>
 	<string name="type.natural.volcano">Volcan</string>
-	<string name="type.natural.water">Eau</string>
+	<string name="type.natural.water">Étendue d\'eau</string>
 	<string name="type.natural.wetland">Zone humide</string>
 	<string name="type.natural.wetland.bog">Tourbière</string>
 	<string name="type.natural.wetland.marsh">Marais</string>

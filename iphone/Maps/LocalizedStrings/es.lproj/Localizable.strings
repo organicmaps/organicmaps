@@ -1723,7 +1723,7 @@
 
 "type.amenity.waste_disposal" = "Basura";
 
-"type.amenity.water_point" = "Fuente de agua potable";
+"type.amenity.water_point" = "Fuente de agua";
 
 "type.barrier" = "Barrier";
 
@@ -2265,11 +2265,11 @@
 
 "type.historic.memorial" = "Memorial";
 
-"type.historic.memorial.plaque" = "Memorial";
+"type.historic.memorial.plaque" = "Commemorative plaque";
 
-"type.historic.memorial.sculpture" = "Memorial";
+"type.historic.memorial.sculpture" = "Sculpture";
 
-"type.historic.memorial.statue" = "Memorial";
+"type.historic.memorial.statue" = "Statue";
 
 "type.historic.monument" = "Monumento";
 
@@ -2483,7 +2483,7 @@
 
 "type.man_made.windmill" = "Molino";
 
-"type.man_made.works" = "Works";
+"type.man_made.works" = "Industrial Works";
 
 "type.mapswithme" = "mapswithme";
 
@@ -2502,6 +2502,10 @@
 "type.natural.bay" = "Bahía";
 
 "type.natural.beach" = "Playa";
+
+"type.natural.beach.sand" = "Sandy Beach";
+
+"type.natural.beach.gravel" = "Gravel Beach";
 
 "type.natural.cape" = "Cabo";
 
@@ -2523,6 +2527,14 @@
 
 "type.natural.water.lake" = "Lago";
 
+"type.natural.water.pond" = "Estanque";
+
+"type.natural.water.reservoir" = "Embalse";
+
+"type.natural.water.basin" = "Cuenca";
+
+"type.natural.water.river" = "Río";
+
 "type.natural.land" = "Land";
 
 "type.natural.meadow" = "Meadow";
@@ -2532,8 +2544,6 @@
 "type.natural.peak" = "Cima";
 
 "type.natural.saddle" = "Mountain Saddle";
-
-"type.natural.water.pond" = "Estanque";
 
 "type.natural.rock" = "Rock";
 
@@ -2551,7 +2561,7 @@
 
 "type.natural.volcano" = "Volcán";
 
-"type.natural.water" = "Cuenca";
+"type.natural.water" = "Cuerpo de agua";
 
 "type.natural.wetland" = "Terreno pantanoso";
 

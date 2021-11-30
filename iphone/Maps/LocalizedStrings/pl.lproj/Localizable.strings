@@ -2321,7 +2321,7 @@
 
 "type.landuse.allotments" = "Działki";
 
-"type.landuse.basin" = "Woda";
+"type.landuse.basin" = "Zbiornik";
 
 "type.landuse.brownfield" = "Teren do zabudowy";
 
@@ -2483,7 +2483,7 @@
 
 "type.man_made.windmill" = "Młyn wiatrowy";
 
-"type.man_made.works" = "Works";
+"type.man_made.works" = "Industrial Works";
 
 "type.mapswithme" = "mapswithme";
 
@@ -2502,6 +2502,10 @@
 "type.natural.bay" = "Zatoka";
 
 "type.natural.beach" = "Plaża";
+
+"type.natural.beach.sand" = "Sandy Beach";
+
+"type.natural.beach.gravel" = "Gravel Beach";
 
 "type.natural.cape" = "Przylądek";
 
@@ -2523,6 +2527,14 @@
 
 "type.natural.water.lake" = "Jezioro";
 
+"type.natural.water.pond" = "Staw";
+
+"type.natural.water.reservoir" = "Zbiornik";
+
+"type.natural.water.basin" = "Zbiornik";
+
+"type.natural.water.river" = "Rzeka";
+
 "type.natural.land" = "Land";
 
 "type.natural.meadow" = "Łąka";
@@ -2532,8 +2544,6 @@
 "type.natural.peak" = "Szczyt";
 
 "type.natural.saddle" = "Mountain Saddle";
-
-"type.natural.water.pond" = "Staw";
 
 "type.natural.rock" = "Skała";
 
@@ -2551,7 +2561,7 @@
 
 "type.natural.volcano" = "Wulkan";
 
-"type.natural.water" = "Woda";
+"type.natural.water" = "Akwen";
 
 "type.natural.wetland" = "Tereny podmokłe";
 

@@ -2321,7 +2321,7 @@
 
 "type.landuse.allotments" = "Allotments";
 
-"type.landuse.basin" = "Air";
+"type.landuse.basin" = "Sebuah baskom air";
 
 "type.landuse.brownfield" = "Brownfield";
 
@@ -2483,7 +2483,7 @@
 
 "type.man_made.windmill" = "Kincir angin";
 
-"type.man_made.works" = "Works";
+"type.man_made.works" = "Industrial Works";
 
 "type.mapswithme" = "mapswithme";
 
@@ -2502,6 +2502,10 @@
 "type.natural.bay" = "Teluk";
 
 "type.natural.beach" = "Pantai";
+
+"type.natural.beach.sand" = "Sandy Beach";
+
+"type.natural.beach.gravel" = "Gravel Beach";
 
 "type.natural.cape" = "Tanjung";
 
@@ -2523,6 +2527,14 @@
 
 "type.natural.water.lake" = "Danau";
 
+"type.natural.water.pond" = "Kolam";
+
+"type.natural.water.reservoir" = "Waduk";
+
+"type.natural.water.basin" = "Sebuah baskom air";
+
+"type.natural.water.river" = "Sungai";
+
 "type.natural.land" = "Land";
 
 "type.natural.meadow" = "Meadow";
@@ -2532,8 +2544,6 @@
 "type.natural.peak" = "Puncak";
 
 "type.natural.saddle" = "Mountain Saddle";
-
-"type.natural.water.pond" = "Kolam";
 
 "type.natural.rock" = "Rock";
 
@@ -2551,7 +2561,7 @@
 
 "type.natural.volcano" = "Gunung berapi";
 
-"type.natural.water" = "Air";
+"type.natural.water" = "Perairan";
 
 "type.natural.wetland" = "Area lahan basah";
 

@@ -1146,7 +1146,7 @@
 	<string name="type.historic.ruins">Harabeler</string>
 	<string name="type.historic.ship">Görülecek yerler</string>
 	<string name="type.historic.tomb">Görülecek yerler</string>
-	<string name="type.landuse.basin">Su</string>
+	<string name="type.landuse.basin">Bir su havzası</string>
 	<string name="type.landuse.cemetery">Mezarlık</string>
 	<string name="type.landuse.cemetery.christian">Mezarlık</string>
 	<string name="type.landuse.churchyard">Kilise Bölgesi</string>
@@ -1197,14 +1197,16 @@
 	<string name="type.natural.glacier">Buzul</string>
 	<string name="type.natural.grassland">Yeşillik</string>
 	<string name="type.natural.water.lake">Göl</string>
-	<string name="type.natural.peak">Zirve</string>
 	<string name="type.natural.water.pond">Gölet</string>
+	<string name="type.natural.water.reservoir">Rezervuar</string>
+	<string name="type.natural.water.basin">Bir su havzası</string>
+	<string name="type.natural.water.river">Nehir</string>
+	<string name="type.natural.peak">Zirve</string>
 	<string name="type.natural.scrub">Çalılık</string>
 	<string name="type.natural.spring">Pınar</string>
 	<string name="type.natural.strait">Boğaz</string>
 	<string name="type.natural.tree">Arbre</string>
 	<string name="type.natural.volcano">Volcan</string>
-	<string name="type.natural.water">Su</string>
 	<string name="type.natural.wetland">Sulak alan</string>
 	<string name="type.office">Ofis</string>
 	<string name="type.office.company">Şirket bürosu</string>

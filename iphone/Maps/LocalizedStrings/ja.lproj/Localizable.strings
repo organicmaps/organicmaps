@@ -2321,7 +2321,7 @@
 
 "type.landuse.allotments" = "市民農園";
 
-"type.landuse.basin" = "遊水地";
+"type.landuse.basin" = "水地";
 
 "type.landuse.brownfield" = "再開発用地";
 
@@ -2503,6 +2503,10 @@
 
 "type.natural.beach" = "ビーチ";
 
+"type.natural.beach.sand" = "Sandy Beach";
+
+"type.natural.beach.gravel" = "Gravel Beach";
+
 "type.natural.cape" = "岬";
 
 "type.natural.cave_entrance" = "洞窟";
@@ -2523,6 +2527,14 @@
 
 "type.natural.water.lake" = "湖";
 
+"type.natural.water.pond" = "池";
+
+"type.natural.water.reservoir" = "貯水池";
+
+"type.natural.water.basin" = "水地";
+
+"type.natural.water.river" = "河川";
+
 "type.natural.land" = "陸地";
 
 "type.natural.meadow" = "牧草地";
@@ -2532,8 +2544,6 @@
 "type.natural.peak" = "山頂";
 
 "type.natural.saddle" = "Mountain Saddle";
-
-"type.natural.water.pond" = "池";
 
 "type.natural.rock" = "岩";
 

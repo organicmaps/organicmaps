@@ -2321,7 +2321,7 @@
 
 "type.landuse.allotments" = "Allotments";
 
-"type.landuse.basin" = "Víz";
+"type.landuse.basin" = "Vízgyűjtő";
 
 "type.landuse.brownfield" = "Brownfield";
 
@@ -2483,7 +2483,7 @@
 
 "type.man_made.windmill" = "Szélmalom";
 
-"type.man_made.works" = "Works";
+"type.man_made.works" = "Industrial Works";
 
 "type.mapswithme" = "mapswithme";
 
@@ -2502,6 +2502,10 @@
 "type.natural.bay" = "Öböl";
 
 "type.natural.beach" = "Strand";
+
+"type.natural.beach.sand" = "Sandy Beach";
+
+"type.natural.beach.gravel" = "Gravel Beach";
 
 "type.natural.cape" = "Hegytető";
 
@@ -2523,6 +2527,14 @@
 
 "type.natural.water.lake" = "Tó";
 
+"type.natural.water.pond" = "Tavacska";
+
+"type.natural.water.reservoir" = "Rezervoár";
+
+"type.natural.water.basin" = "Vízgyűjtő";
+
+"type.natural.water.river" = "Folyó";
+
 "type.natural.land" = "Land";
 
 "type.natural.meadow" = "Meadow";
@@ -2532,8 +2544,6 @@
 "type.natural.peak" = "Csúcs";
 
 "type.natural.saddle" = "Mountain Saddle";
-
-"type.natural.water.pond" = "Tavacska";
 
 "type.natural.rock" = "Rock";
 
@@ -2551,7 +2561,7 @@
 
 "type.natural.volcano" = "Tűzhányó";
 
-"type.natural.water" = "Víz";
+"type.natural.water" = "Vizek";
 
 "type.natural.wetland" = "Vizes terület";
 

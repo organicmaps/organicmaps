@@ -2321,7 +2321,7 @@
 
 "type.landuse.allotments" = "Allotments";
 
-"type.landuse.basin" = "Bacino";
+"type.landuse.basin" = "Bacino d'acqua";
 
 "type.landuse.brownfield" = "Brownfield";
 
@@ -2483,7 +2483,7 @@
 
 "type.man_made.windmill" = "Mulino a vento";
 
-"type.man_made.works" = "Works";
+"type.man_made.works" = "Industrial Works";
 
 "type.mapswithme" = "mapswithme";
 
@@ -2502,6 +2502,10 @@
 "type.natural.bay" = "Baia";
 
 "type.natural.beach" = "Spiaggia";
+
+"type.natural.beach.sand" = "Sandy Beach";
+
+"type.natural.beach.gravel" = "Gravel Beach";
 
 "type.natural.cape" = "Capo";
 
@@ -2523,6 +2527,14 @@
 
 "type.natural.water.lake" = "Lago";
 
+"type.natural.water.pond" = "Stagno";
+
+"type.natural.water.reservoir" = "Serbatoio";
+
+"type.natural.water.basin" = "Bacino d'acqua";
+
+"type.natural.water.river" = "Fiume";
+
 "type.natural.land" = "Land";
 
 "type.natural.meadow" = "Meadow";
@@ -2532,8 +2544,6 @@
 "type.natural.peak" = "Monte";
 
 "type.natural.saddle" = "Sella";
-
-"type.natural.water.pond" = "Stagno";
 
 "type.natural.rock" = "Rock";
 
@@ -2551,7 +2561,7 @@
 
 "type.natural.volcano" = "Vulcano";
 
-"type.natural.water" = "Bacino";
+"type.natural.water" = "Corpo d'acqua";
 
 "type.natural.wetland" = "Terreno paludoso";
 

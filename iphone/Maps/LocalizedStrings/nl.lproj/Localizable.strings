@@ -2321,7 +2321,7 @@
 
 "type.landuse.allotments" = "Allotments";
 
-"type.landuse.basin" = "Water";
+"type.landuse.basin" = "Waterbassin";
 
 "type.landuse.brownfield" = "Brownfield";
 
@@ -2483,7 +2483,7 @@
 
 "type.man_made.windmill" = "Windmolen";
 
-"type.man_made.works" = "Works";
+"type.man_made.works" = "Industrial Works";
 
 "type.mapswithme" = "mapswithme";
 
@@ -2502,6 +2502,10 @@
 "type.natural.bay" = "Baai";
 
 "type.natural.beach" = "Strand";
+
+"type.natural.beach.sand" = "Sandy Beach";
+
+"type.natural.beach.gravel" = "Gravel Beach";
 
 "type.natural.cape" = "Kaap";
 
@@ -2523,6 +2527,14 @@
 
 "type.natural.water.lake" = "Meer";
 
+"type.natural.water.pond" = "Plas";
+
+"type.natural.water.reservoir" = "Reservoir";
+
+"type.natural.water.basin" = "Waterbassin";
+
+"type.natural.water.river" = "Rivier";
+
 "type.natural.land" = "Land";
 
 "type.natural.meadow" = "Weiland";
@@ -2532,8 +2544,6 @@
 "type.natural.peak" = "Top";
 
 "type.natural.saddle" = "Mountain Saddle";
-
-"type.natural.water.pond" = "Plas";
 
 "type.natural.rock" = "Steen";
 
@@ -2551,7 +2561,7 @@
 
 "type.natural.volcano" = "Vulkaan";
 
-"type.natural.water" = "Water";
+"type.natural.water" = "Waterlichaam";
 
 "type.natural.wetland" = "Moerasland";
 

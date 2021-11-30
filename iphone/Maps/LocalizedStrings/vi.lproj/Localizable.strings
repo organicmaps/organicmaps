@@ -2321,7 +2321,7 @@
 
 "type.landuse.allotments" = "Allotments";
 
-"type.landuse.basin" = "Nước";
+"type.landuse.basin" = "Một chậu nước";
 
 "type.landuse.brownfield" = "Brownfield";
 
@@ -2483,7 +2483,7 @@
 
 "type.man_made.windmill" = "Cối xay gió";
 
-"type.man_made.works" = "Works";
+"type.man_made.works" = "Industrial Works";
 
 "type.mapswithme" = "mapswithme";
 
@@ -2502,6 +2502,10 @@
 "type.natural.bay" = "Vịnh";
 
 "type.natural.beach" = "Bãi biển";
+
+"type.natural.beach.sand" = "Sandy Beach";
+
+"type.natural.beach.gravel" = "Gravel Beach";
 
 "type.natural.cape" = "Áo choàng";
 
@@ -2523,6 +2527,14 @@
 
 "type.natural.water.lake" = "Hồ";
 
+"type.natural.water.pond" = "Ao";
+
+"type.natural.water.reservoir" = "Hồ chứa";
+
+"type.natural.water.basin" = "Một chậu nước";
+
+"type.natural.water.river" = "Sông";
+
 "type.natural.land" = "Land";
 
 "type.natural.meadow" = "Meadow";
@@ -2532,8 +2544,6 @@
 "type.natural.peak" = "Đỉnh";
 
 "type.natural.saddle" = "Mountain Saddle";
-
-"type.natural.water.pond" = "Ao";
 
 "type.natural.rock" = "Rock";
 
@@ -2551,7 +2561,7 @@
 
 "type.natural.volcano" = "Núi lửa";
 
-"type.natural.water" = "Nước";
+"type.natural.water" = "Thủy vực";
 
 "type.natural.wetland" = "Khu vực đầm lầy";
 

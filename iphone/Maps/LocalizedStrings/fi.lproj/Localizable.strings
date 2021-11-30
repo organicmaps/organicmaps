@@ -2321,7 +2321,7 @@
 
 "type.landuse.allotments" = "Allotments";
 
-"type.landuse.basin" = "Vesi";
+"type.landuse.basin" = "Vesisäiliö";
 
 "type.landuse.brownfield" = "Brownfield";
 
@@ -2483,7 +2483,7 @@
 
 "type.man_made.windmill" = "Tuulimylly";
 
-"type.man_made.works" = "Works";
+"type.man_made.works" = "Industrial Works";
 
 "type.mapswithme" = "mapswithme";
 
@@ -2502,6 +2502,10 @@
 "type.natural.bay" = "Lahti";
 
 "type.natural.beach" = "Ranta";
+
+"type.natural.beach.sand" = "Sandy Beach";
+
+"type.natural.beach.gravel" = "Gravel Beach";
 
 "type.natural.cape" = "Niemeke";
 
@@ -2523,6 +2527,14 @@
 
 "type.natural.water.lake" = "Järvi";
 
+"type.natural.water.pond" = "Lampi";
+
+"type.natural.water.reservoir" = "Säiliö";
+
+"type.natural.water.basin" = "Vesisäiliö";
+
+"type.natural.water.river" = "Joki";
+
 "type.natural.land" = "Land";
 
 "type.natural.meadow" = "Meadow";
@@ -2532,8 +2544,6 @@
 "type.natural.peak" = "Huippu";
 
 "type.natural.saddle" = "Mountain Saddle";
-
-"type.natural.water.pond" = "Lampi";
 
 "type.natural.rock" = "Rock";
 
@@ -2551,7 +2561,7 @@
 
 "type.natural.volcano" = "Tulivuori";
 
-"type.natural.water" = "Vesi";
+"type.natural.water" = "Vesimuodostuma";
 
 "type.natural.wetland" = "Suoperäinen seutu";
 
