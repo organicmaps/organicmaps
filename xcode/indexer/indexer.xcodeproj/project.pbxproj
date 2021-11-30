@@ -1071,7 +1071,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 34AF87D11DBE540700E5E7DC /* common-debug.xcconfig */;
 			buildSettings = {
-				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(OMIM_ROOT)/3party/protobuf/protobuf/src",
@@ -1083,7 +1082,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 34AF87D21DBE540700E5E7DC /* common-release.xcconfig */;
 			buildSettings = {
-				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(OMIM_ROOT)/3party/protobuf/protobuf/src",

@@ -153,7 +153,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 3475E0DF1DBF57AC004C7E69 /* common-debug.xcconfig */;
 			buildSettings = {
-				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(OMIM_ROOT)/3party/glm",
@@ -166,7 +165,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 3475E0E01DBF57AC004C7E69 /* common-release.xcconfig */;
 			buildSettings = {
-				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(OMIM_ROOT)/3party/glm",

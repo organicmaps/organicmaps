@@ -204,7 +204,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 34EBB47A1DBF51D4005BE9B8 /* common-debug.xcconfig */;
 			buildSettings = {
-				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
 					XML_POOR_ENTROPY,
@@ -218,7 +217,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 34EBB47B1DBF51D4005BE9B8 /* common-release.xcconfig */;
 			buildSettings = {
-				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
 					XML_POOR_ENTROPY,

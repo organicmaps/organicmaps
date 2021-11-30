@@ -826,7 +826,6 @@
 			baseConfigurationReference = 34EBB4821DBF53D8005BE9B8 /* common-debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(OMIM_ROOT)/iphone/Maps/3party/Carthage/Build/Mac",
@@ -858,7 +857,6 @@
 			baseConfigurationReference = 34EBB4831DBF53D8005BE9B8 /* common-release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(OMIM_ROOT)/iphone/Maps/3party/Carthage/Build/Mac",
@@ -910,7 +908,6 @@
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
 					"NDEBUG=1",
-					"_NDEBUG=1",
 					"QT_NO_DEBUG=1",
 				);
 				INFOPLIST_FILE = Info.plist;
