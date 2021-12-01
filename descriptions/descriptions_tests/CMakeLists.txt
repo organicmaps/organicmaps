@@ -1,22 +1,9 @@
 project(descriptions_tests)
 
-set(
-  SRC
+set(SRC
   descriptions_tests.cpp
 )
 
-omim_add_test(${PROJECT_NAME} ${SRC})
+omim_add_test_no_platform_init(${PROJECT_NAME} ${SRC})
 
-omim_link_libraries(
-  ${PROJECT_NAME}
-  descriptions
-  indexer
-  platform
-  coding
-  base
-  jansson
-  oauthcpp
-  ${LIBZ}
-)
-
-link_qt5_core(${PROJECT_NAME})
+target_link_libraries(${PROJECT_NAME} descriptions)

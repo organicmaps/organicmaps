@@ -1,14 +1,6 @@
 project(software_renderer)
 
-include_directories(
-  .
-  ${OMIM_ROOT}/3party/protobuf/protobuf/src
-  ${OMIM_ROOT}/3party/expat/lib
-  ${OMIM_ROOT}/3party/glm
-)
-
-set(
-  SRC
+set(SRC
   area_info.hpp
   brush_info.hpp
   circle_info.hpp
@@ -40,3 +32,5 @@ set(
 )
 
 omim_add_library(${PROJECT_NAME} ${SRC})
+
+target_link_libraries(${PROJECT_NAME} indexer freetype agg)

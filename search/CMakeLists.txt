@@ -1,7 +1,6 @@
 project(search)
 
-set(
-  SRC
+set(SRC
   algos.hpp
   approximate_string_match.cpp
   approximate_string_match.hpp
@@ -167,15 +166,17 @@ set(
 
 omim_add_library(${PROJECT_NAME} ${SRC})
 
-if (PLATFORM_DESKTOP)
+target_link_libraries(${PROJECT_NAME}
+  editor
+  storage
+  ge0
+  openlocationcode
+)
+
+if(PLATFORM_DESKTOP)
   add_subdirectory(search_quality)
   add_subdirectory(search_tests_support)
 endif()
-omim_add_pybindings_subdirectory(pysearch)
+
 omim_add_test_subdirectory(search_tests)
 omim_add_test_subdirectory(search_integration_tests)
-
-target_link_libraries(
-  ${PROJECT_NAME}
-  openlocationcode
-)

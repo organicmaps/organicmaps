@@ -1,7 +1,6 @@
 project(traffic)
 
-set(
-  SRC
+set(SRC
   speed_groups.cpp
   speed_groups.hpp
   traffic_cache.cpp
@@ -12,5 +11,9 @@ set(
 
 omim_add_library(${PROJECT_NAME} ${SRC})
 
-omim_add_pybindings_subdirectory(pytraffic)
+target_link_libraries(${PROJECT_NAME}
+  routing_common
+  indexer
+)
+
 omim_add_test_subdirectory(traffic_tests)

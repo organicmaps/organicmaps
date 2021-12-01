@@ -5,9 +5,6 @@
 #include "drape/vulkan/vulkan_object_manager.hpp"
 #include "drape/vulkan/vulkan_utils.hpp"
 
-#include <vulkan_wrapper.h>
-#include <vulkan/vulkan.h>
-
 #include <cstdint>
 
 namespace dp

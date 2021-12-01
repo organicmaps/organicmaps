@@ -1,11 +1,6 @@
 project(openlr)
 
-include_directories(
-  ${OMIM_ROOT}/3party/jansson/src
-)
-
-set(
-  SRC
+set(SRC
   cache_line_size.hpp
   candidate_paths_getter.cpp
   candidate_paths_getter.hpp
@@ -41,6 +36,15 @@ set(
 )
 
 omim_add_library(${PROJECT_NAME} ${SRC})
+
+target_link_libraries(${PROJECT_NAME}
+  routing
+  indexer
+  geometry
+  pugixml
+)
+
 add_subdirectory(openlr_match_quality)
 add_subdirectory(openlr_stat)
+
 omim_add_test_subdirectory(openlr_tests)

@@ -8,8 +8,6 @@
 #include "drape/vulkan/vulkan_layers.hpp"
 #include "drape/pointers.hpp"
 
-#include <vulkan_wrapper.h>
-#include <vulkan/vulkan.h>
 #include <vulkan/vulkan_android.h>
 
 #include <android/native_window.h>

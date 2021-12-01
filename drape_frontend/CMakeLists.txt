@@ -1,15 +1,6 @@
 project(drape_frontend)
 
-include_directories(
-  .
-  ${OMIM_ROOT}/3party/protobuf/protobuf/src
-  ${OMIM_ROOT}/3party/expat/lib
-  ${OMIM_ROOT}/3party/jansson/src
-  ${OMIM_ROOT}/3party/glm
-)
-
-set(
-  SRC
+set(SRC
   animation/animation.cpp
   animation/animation.hpp
   animation/arrow_animation.cpp
@@ -217,5 +208,14 @@ set(
 )
 
 omim_add_library(${PROJECT_NAME} ${SRC})
+
+target_link_libraries(${PROJECT_NAME}
+  editor
+  drape
+  indexer
+  traffic
+  transit
+  shaders
+)
 
 omim_add_test_subdirectory(drape_frontend_tests)

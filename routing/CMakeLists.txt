@@ -1,12 +1,6 @@
 project(routing)
 
-include_directories(
-  .
-  ${OMIM_ROOT}/3party/jansson/src
-)
-
-set(
-  SRC
+set(SRC
   absent_regions_finder.cpp
   absent_regions_finder.hpp
   async_router.cpp
@@ -186,6 +180,14 @@ set(
 )
 
 omim_add_library(${PROJECT_NAME} ${SRC})
+
+target_link_libraries(${PROJECT_NAME}
+  routing_common
+  platform
+  traffic
+  transit
+  opening_hours
+)
 
 if (PLATFORM_DESKTOP)
   add_subdirectory(routing_quality)

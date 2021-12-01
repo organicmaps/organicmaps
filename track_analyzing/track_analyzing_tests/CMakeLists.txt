@@ -1,7 +1,6 @@
 project(track_analyzing_tests)
 
-set(
-  SRC
+set(SRC
   ../track_analyzer/cmd_balance_csv.cpp
   ../track_analyzer/cmd_balance_csv.hpp
   ../track_analyzer/utils.cpp
@@ -13,29 +12,8 @@ set(
 
 omim_add_test(${PROJECT_NAME} ${SRC})
 
-omim_link_libraries(
-  ${PROJECT_NAME}
-  track_analyzing
+target_link_libraries(${PROJECT_NAME}
+  map
   tracking
-  generator
-  routing
-  traffic
-  routing_common
-  storage
-  indexer
-  platform
-  minizip
-  mwm_diff
-  bsdiff
-  geometry
-  coding
-  base
-  icu
-  jansson
-  oauthcpp
-  protobuf
-  succinct
-  ${LIBZ}
+  track_analyzing
 )
-
-link_qt5_core(${PROJECT_NAME})

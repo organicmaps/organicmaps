@@ -6,7 +6,7 @@
 #include "routing/features_road_graph.hpp"
 #include "routing/router_delegate.hpp"
 
-#include "routing_integration_tests/routing_test_tools.hpp"
+#include "routing/routing_integration_tests/routing_test_tools.hpp"
 
 #include "indexer/classificator_loader.hpp"
 #include "indexer/mwm_set.hpp"

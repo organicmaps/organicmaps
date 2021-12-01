@@ -1,179 +1,182 @@
 project(drape)
 
-get_filename_component(DRAPE_ROOT ${PROJECT_SOURCE_DIR} ABSOLUTE)
-
-include_directories(
-  ${OMIM_ROOT}/3party/glm
-  ${OMIM_ROOT}/3party/Vulkan-Headers/include
-  ${OMIM_ROOT}/3party/vulkan_wrapper
-)
-
-set(
-  DRAPE_COMMON_SRC
-  ${DRAPE_ROOT}/attribute_buffer_mutator.cpp
-  ${DRAPE_ROOT}/attribute_buffer_mutator.hpp
-  ${DRAPE_ROOT}/attribute_provider.cpp
-  ${DRAPE_ROOT}/attribute_provider.hpp
-  ${DRAPE_ROOT}/batcher.cpp
-  ${DRAPE_ROOT}/batcher.hpp
-  ${DRAPE_ROOT}/batcher_helpers.cpp
-  ${DRAPE_ROOT}/batcher_helpers.hpp
-  ${DRAPE_ROOT}/bidi.cpp
-  ${DRAPE_ROOT}/bidi.hpp
-  ${DRAPE_ROOT}/binding_info.cpp
-  ${DRAPE_ROOT}/binding_info.hpp
-  ${DRAPE_ROOT}/buffer_base.cpp
-  ${DRAPE_ROOT}/buffer_base.hpp
-  ${DRAPE_ROOT}/color.cpp
-  ${DRAPE_ROOT}/color.hpp
-  ${DRAPE_ROOT}/constants.hpp
-  ${DRAPE_ROOT}/cpu_buffer.cpp
-  ${DRAPE_ROOT}/cpu_buffer.hpp
-  ${DRAPE_ROOT}/data_buffer.cpp
-  ${DRAPE_ROOT}/data_buffer.hpp
-  ${DRAPE_ROOT}/data_buffer_impl.hpp
-  ${DRAPE_ROOT}/debug_renderer.hpp
-  ${DRAPE_ROOT}/drape_diagnostics.hpp
-  ${DRAPE_ROOT}/drape_global.hpp
-  ${DRAPE_ROOT}/drape_routine.hpp
-  ${DRAPE_ROOT}/dynamic_texture.hpp
-  ${DRAPE_ROOT}/font_texture.cpp
-  ${DRAPE_ROOT}/font_texture.hpp
-  ${DRAPE_ROOT}/framebuffer.cpp
-  ${DRAPE_ROOT}/framebuffer.hpp
-  ${DRAPE_ROOT}/gl_constants.cpp
-  ${DRAPE_ROOT}/gl_constants.hpp
-  ${DRAPE_ROOT}/gl_gpu_program.cpp
-  ${DRAPE_ROOT}/gl_gpu_program.hpp
-  ${DRAPE_ROOT}/gl_extensions_list.cpp
-  ${DRAPE_ROOT}/gl_extensions_list.hpp
-  ${DRAPE_ROOT}/gl_functions.hpp
-  ${DRAPE_ROOT}/gl_includes.hpp
-  ${DRAPE_ROOT}/glsl_func.hpp
-  ${DRAPE_ROOT}/glsl_types.hpp
-  ${DRAPE_ROOT}/glyph_generator.cpp
-  ${DRAPE_ROOT}/glyph_generator.hpp
-  ${DRAPE_ROOT}/glyph_manager.cpp
-  ${DRAPE_ROOT}/glyph_manager.hpp
-  ${DRAPE_ROOT}/gpu_buffer.cpp
-  ${DRAPE_ROOT}/gpu_buffer.hpp
-  ${DRAPE_ROOT}/gpu_program.hpp
-  ${DRAPE_ROOT}/graphics_context.hpp
-  ${DRAPE_ROOT}/graphics_context_factory.cpp
-  ${DRAPE_ROOT}/graphics_context_factory.hpp
-  ${DRAPE_ROOT}/hw_texture.cpp
-  ${DRAPE_ROOT}/hw_texture.hpp
-  ${DRAPE_ROOT}/index_buffer.cpp
-  ${DRAPE_ROOT}/index_buffer.hpp
-  ${DRAPE_ROOT}/index_buffer_mutator.cpp
-  ${DRAPE_ROOT}/index_buffer_mutator.hpp
-  ${DRAPE_ROOT}/index_storage.cpp
-  ${DRAPE_ROOT}/index_storage.hpp
-  ${DRAPE_ROOT}/mesh_object.cpp
-  ${DRAPE_ROOT}/mesh_object.hpp
-  ${DRAPE_ROOT}/object_pool.hpp
-  ${DRAPE_ROOT}/oglcontext.cpp
-  ${DRAPE_ROOT}/oglcontext.hpp
-  ${DRAPE_ROOT}/overlay_handle.cpp
-  ${DRAPE_ROOT}/overlay_handle.hpp
-  ${DRAPE_ROOT}/overlay_tree.cpp
-  ${DRAPE_ROOT}/overlay_tree.hpp
-  ${DRAPE_ROOT}/pointers.cpp
-  ${DRAPE_ROOT}/pointers.hpp
-  ${DRAPE_ROOT}/render_bucket.cpp
-  ${DRAPE_ROOT}/render_bucket.hpp
-  ${DRAPE_ROOT}/render_state.cpp
-  ${DRAPE_ROOT}/render_state.hpp
-  ${DRAPE_ROOT}/shader.cpp
-  ${DRAPE_ROOT}/shader.hpp
-  ${DRAPE_ROOT}/static_texture.cpp
-  ${DRAPE_ROOT}/static_texture.hpp
-  ${DRAPE_ROOT}/stipple_pen_resource.cpp
-  ${DRAPE_ROOT}/stipple_pen_resource.hpp
-  ${DRAPE_ROOT}/support_manager.cpp
-  ${DRAPE_ROOT}/support_manager.hpp
-  ${DRAPE_ROOT}/symbols_texture.cpp
-  ${DRAPE_ROOT}/symbols_texture.hpp
-  ${DRAPE_ROOT}/texture.cpp
-  ${DRAPE_ROOT}/texture.hpp
-  ${DRAPE_ROOT}/texture_manager.cpp
-  ${DRAPE_ROOT}/texture_manager.hpp
-  ${DRAPE_ROOT}/texture_of_colors.cpp
-  ${DRAPE_ROOT}/texture_of_colors.hpp
-  ${DRAPE_ROOT}/texture_types.hpp
-  ${DRAPE_ROOT}/uniform_value.cpp
-  ${DRAPE_ROOT}/uniform_value.hpp
-  ${DRAPE_ROOT}/utils/glyph_usage_tracker.cpp
-  ${DRAPE_ROOT}/utils/glyph_usage_tracker.hpp
-  ${DRAPE_ROOT}/utils/gpu_mem_tracker.cpp
-  ${DRAPE_ROOT}/utils/gpu_mem_tracker.hpp
-  ${DRAPE_ROOT}/utils/projection.cpp
-  ${DRAPE_ROOT}/utils/projection.hpp
-  ${DRAPE_ROOT}/utils/vertex_decl.cpp
-  ${DRAPE_ROOT}/utils/vertex_decl.hpp
-  ${DRAPE_ROOT}/vertex_array_buffer.cpp
-  ${DRAPE_ROOT}/vertex_array_buffer.hpp
-  ${DRAPE_ROOT}/viewport.cpp
-  ${DRAPE_ROOT}/viewport.hpp
-  ${DRAPE_ROOT}/visual_scale.hpp
-)
-
-set(
-  SRC
+set(SRC
+  attribute_buffer_mutator.cpp
+  attribute_buffer_mutator.hpp
+  attribute_provider.cpp
+  attribute_provider.hpp
+  batcher.cpp
+  batcher.hpp
+  batcher_helpers.cpp
+  batcher_helpers.hpp
+  bidi.cpp
+  bidi.hpp
+  binding_info.cpp
+  binding_info.hpp
+  buffer_base.cpp
+  buffer_base.hpp
+  color.cpp
+  color.hpp
+  constants.hpp
+  cpu_buffer.cpp
+  cpu_buffer.hpp
+  data_buffer.cpp
+  data_buffer.hpp
+  data_buffer_impl.hpp
+  debug_renderer.hpp
+  drape_diagnostics.hpp
+  drape_global.hpp
+  drape_routine.hpp
+  dynamic_texture.hpp
+  font_texture.cpp
+  font_texture.hpp
+  framebuffer.cpp
+  framebuffer.hpp
+  gl_constants.cpp
+  gl_constants.hpp
+  gl_gpu_program.cpp
+  gl_gpu_program.hpp
+  gl_extensions_list.cpp
+  gl_extensions_list.hpp
   gl_functions.cpp
+  gl_functions.hpp
+  gl_includes.hpp
+  glsl_func.hpp
+  glsl_types.hpp
+  glyph_generator.cpp
+  glyph_generator.hpp
+  glyph_manager.cpp
+  glyph_manager.hpp
+  gpu_buffer.cpp
+  gpu_buffer.hpp
+  gpu_program.hpp
+  graphics_context.hpp
+  graphics_context_factory.cpp
+  graphics_context_factory.hpp
+  hw_texture.cpp
+  hw_texture.hpp
+  index_buffer.cpp
+  index_buffer.hpp
+  index_buffer_mutator.cpp
+  index_buffer_mutator.hpp
+  index_storage.cpp
+  index_storage.hpp
+  mesh_object.cpp
+  mesh_object.hpp
+  object_pool.hpp
+  oglcontext.cpp
+  oglcontext.hpp
+  overlay_handle.cpp
+  overlay_handle.hpp
+  overlay_tree.cpp
+  overlay_tree.hpp
+  pointers.cpp
+  pointers.hpp
+  render_bucket.cpp
+  render_bucket.hpp
+  render_state.cpp
+  render_state.hpp
+  shader.cpp
+  shader.hpp
+  static_texture.cpp
+  static_texture.hpp
+  stipple_pen_resource.cpp
+  stipple_pen_resource.hpp
+  support_manager.cpp
+  support_manager.hpp
+  symbols_texture.cpp
+  symbols_texture.hpp
+  texture.cpp
+  texture.hpp
+  texture_manager.cpp
+  texture_manager.hpp
+  texture_of_colors.cpp
+  texture_of_colors.hpp
+  texture_types.hpp
+  uniform_value.cpp
+  uniform_value.hpp
+  utils/glyph_usage_tracker.cpp
+  utils/glyph_usage_tracker.hpp
+  utils/gpu_mem_tracker.cpp
+  utils/gpu_mem_tracker.hpp
+  utils/projection.cpp
+  utils/projection.hpp
+  utils/vertex_decl.cpp
+  utils/vertex_decl.hpp
+  vertex_array_buffer.cpp
+  vertex_array_buffer.hpp
+  viewport.cpp
+  viewport.hpp
+  visual_scale.hpp
+  # TODO: Why Vulkan is added on all platforms, even on iOS and Mac?
+  vulkan/vulkan_base_context.cpp
+  vulkan/vulkan_base_context.hpp
+  vulkan/vulkan_gpu_buffer_impl.cpp
+  vulkan/vulkan_gpu_buffer_impl.hpp
+  vulkan/vulkan_gpu_program.hpp
+  vulkan/vulkan_layers.cpp
+  vulkan/vulkan_layers.hpp
+  vulkan/vulkan_memory_manager.cpp
+  vulkan/vulkan_memory_manager.hpp
+  vulkan/vulkan_mesh_object_impl.cpp
+  vulkan/vulkan_object_manager.cpp
+  vulkan/vulkan_object_manager.hpp
+  vulkan/vulkan_param_descriptor.cpp
+  vulkan/vulkan_param_descriptor.hpp
+  vulkan/vulkan_pipeline.cpp
+  vulkan/vulkan_pipeline.hpp
+  vulkan/vulkan_staging_buffer.cpp
+  vulkan/vulkan_staging_buffer.hpp
+  vulkan/vulkan_texture.cpp
+  vulkan/vulkan_texture.hpp
+  vulkan/vulkan_utils.cpp
+  vulkan/vulkan_utils.hpp
+  vulkan/vulkan_vertex_array_buffer_impl.cpp
 )
 
 if (PLATFORM_IPHONE)
-append(
-  SRC
-  hw_texture_ios.hpp
-  hw_texture_ios.mm
-  metal/metal_base_context.hpp
-  metal/metal_base_context.mm
-  metal/metal_cleaner.hpp
-  metal/metal_cleaner.mm
-  metal/metal_gpu_buffer_impl.mm
-  metal/metal_gpu_program.hpp
-  metal/metal_mesh_object_impl.mm
-  metal/metal_states.hpp
-  metal/metal_states.mm
-  metal/metal_texture.hpp
-  metal/metal_texture.mm
-  metal/metal_vertex_array_buffer_impl.mm
-  metal/render_state_metal.mm
-)
+  append(SRC
+    hw_texture_ios.hpp
+    hw_texture_ios.mm
+    metal/metal_base_context.hpp
+    metal/metal_base_context.mm
+    metal/metal_cleaner.hpp
+    metal/metal_cleaner.mm
+    metal/metal_gpu_buffer_impl.mm
+    metal/metal_gpu_program.hpp
+    metal/metal_mesh_object_impl.mm
+    metal/metal_states.hpp
+    metal/metal_states.mm
+    metal/metal_texture.hpp
+    metal/metal_texture.mm
+    metal/metal_vertex_array_buffer_impl.mm
+    metal/render_state_metal.mm
+  )
 endif()
 
-append(
-  VULKAN_SRC
-  ${DRAPE_ROOT}/vulkan/vulkan_base_context.cpp
-  ${DRAPE_ROOT}/vulkan/vulkan_base_context.hpp
-  ${DRAPE_ROOT}/vulkan/vulkan_gpu_buffer_impl.cpp
-  ${DRAPE_ROOT}/vulkan/vulkan_gpu_buffer_impl.hpp
-  ${DRAPE_ROOT}/vulkan/vulkan_gpu_program.hpp
-  ${DRAPE_ROOT}/vulkan/vulkan_layers.cpp
-  ${DRAPE_ROOT}/vulkan/vulkan_layers.hpp
-  ${DRAPE_ROOT}/vulkan/vulkan_memory_manager.cpp
-  ${DRAPE_ROOT}/vulkan/vulkan_memory_manager.hpp
-  ${DRAPE_ROOT}/vulkan/vulkan_mesh_object_impl.cpp
-  ${DRAPE_ROOT}/vulkan/vulkan_object_manager.cpp
-  ${DRAPE_ROOT}/vulkan/vulkan_object_manager.hpp
-  ${DRAPE_ROOT}/vulkan/vulkan_param_descriptor.cpp
-  ${DRAPE_ROOT}/vulkan/vulkan_param_descriptor.hpp
-  ${DRAPE_ROOT}/vulkan/vulkan_pipeline.cpp
-  ${DRAPE_ROOT}/vulkan/vulkan_pipeline.hpp
-  ${DRAPE_ROOT}/vulkan/vulkan_staging_buffer.cpp
-  ${DRAPE_ROOT}/vulkan/vulkan_staging_buffer.hpp
-  ${DRAPE_ROOT}/vulkan/vulkan_texture.cpp
-  ${DRAPE_ROOT}/vulkan/vulkan_texture.hpp
-  ${DRAPE_ROOT}/vulkan/vulkan_utils.cpp
-  ${DRAPE_ROOT}/vulkan/vulkan_utils.hpp
-  ${DRAPE_ROOT}/vulkan/vulkan_vertex_array_buffer_impl.cpp
+omim_add_library(${PROJECT_NAME} ${SRC})
+
+# Do not include glm's CMakeLists.txt, because it's outdated and not necessary.
+target_include_directories(${PROJECT_NAME} PUBLIC ${OMIM_ROOT}/3party/glm)
+
+if (PLATFORM_LINUX)
+  find_package(OpenGL)
+endif()
+
+target_link_libraries(${PROJECT_NAME}
+  indexer
+  platform
+  geometry
+  coding
+  base
+  freetype
+  vulkan_wrapper
+  stb_image
+  sdf_image
+  icu
+  expat
+  $<$<BOOL:${PLATFORM_MAC}>:-framework\ OpenGL>
+  $<$<BOOL:${PLATFORM_LINUX}>:OpenGL::GL>
 )
 
-omim_add_library(${PROJECT_NAME} ${DRAPE_COMMON_SRC} ${SRC} ${VULKAN_SRC})
-
 omim_add_test_subdirectory(drape_tests)
-
-# icu is included for bidi algorithm.
-target_link_libraries(${PROJECT_NAME} icu freetype)

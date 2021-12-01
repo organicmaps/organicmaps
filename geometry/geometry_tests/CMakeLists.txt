@@ -1,9 +1,6 @@
 project(geometry_tests)
 
-add_definitions(-DOMIM_UNIT_TEST_DISABLE_PLATFORM_INIT)
-
-set(
-  SRC
+set(SRC
   algorithm_test.cpp
   angle_test.cpp
   anyrect_test.cpp
@@ -47,5 +44,6 @@ set(
   vector_test.cpp
 )
 
-omim_add_test(${PROJECT_NAME} ${SRC})
-omim_link_libraries(${PROJECT_NAME} geometry base)
+omim_add_test_no_platform_init(${PROJECT_NAME} ${SRC})
+
+target_link_libraries(${PROJECT_NAME} geometry)

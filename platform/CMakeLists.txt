@@ -1,13 +1,6 @@
 project(platform)
 
-include_directories(${OMIM_ROOT}/3party/jansson/src ${OMIM_ROOT}/platform)
-
-if(NOT PLATFORM_ANDROID AND NOT PLATFORM_IPHONE)
-  set(CMAKE_AUTOMOC ON)
-endif()
-
-set(
-  SRC
+set(SRC
   ../private.h  # To properly detect its changes with CMake.
   battery_tracker.cpp
   battery_tracker.hpp
@@ -66,8 +59,7 @@ set(
 )
 
 if(${PLATFORM_IPHONE})
-  append(
-    SRC
+  append(SRC
     background_downloader_ios.h
     background_downloader_ios.mm
     gui_thread_apple.mm
@@ -87,15 +79,13 @@ if(${PLATFORM_IPHONE})
     socket_apple.mm
   )
 elseif(${PLATFORM_ANDROID})
-  append(
-    SRC
+  append(SRC
     platform_android.cpp
     platform_unix_impl.cpp
     platform_unix_impl.hpp
   )
 else() # neither iPhone nor Android
-  append(
-    SRC
+  append(SRC
     localization_dummy.cpp
     location_service.cpp
     location_service.hpp
@@ -106,8 +96,7 @@ else() # neither iPhone nor Android
   )
 
   if (${PLATFORM_WIN})
-    append(
-      SRC
+    append(SRC
       http_client_curl.cpp
       http_thread_qt.cpp
       http_thread_qt.hpp
@@ -118,8 +107,7 @@ else() # neither iPhone nor Android
       wifi_info_windows.cpp
     )
   elseif(${PLATFORM_MAC})
-    append(
-      SRC
+    append(SRC
       apple_location_service.mm
       gui_thread_apple.mm
       http_client_apple.mm
@@ -136,8 +124,7 @@ else() # neither iPhone nor Android
       http_session_manager.mm
     )
   elseif(${PLATFORM_LINUX})
-    append(
-      SRC
+    append(SRC
       gui_thread_linux.cpp
       http_client_curl.cpp
       http_thread_qt.cpp
@@ -153,16 +140,23 @@ else() # neither iPhone nor Android
   endif()
 endif()
 
-add_subdirectory(platform_tests_support)
-
 omim_add_library(${PROJECT_NAME} ${SRC})
 
 if (APPLE)
-  target_compile_options(${PROJECT_NAME} PUBLIC "-fobjc-arc")
+  target_compile_options(${PROJECT_NAME} PRIVATE "-fobjc-arc")
 endif()
 
 if (PLATFORM_LINUX)
-  link_qt5_network(${PROJECT_NAME})
+  set_target_properties(${PROJECT_NAME} PROPERTIES AUTOMOC ON)
 endif()
 
+target_link_libraries(${PROJECT_NAME}
+  geometry  # mercator::YToLat
+  coding
+  $<$<BOOL:${PLATFORM_DESKTOP}>:Qt5::Core>
+  $<$<BOOL:${PLATFORM_LINUX}>:Qt5::Network>
+  $<$<BOOL:${PLATFORM_MAC}>:-framework\ Foundation -framework\ SystemConfiguration -framework\ CoreLocation -framework\ CFNetwork>
+)
+
+omim_add_test_subdirectory(platform_tests_support)
 omim_add_test_subdirectory(platform_tests)

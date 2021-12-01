@@ -1,7 +1,6 @@
 project(geometry)
 
-set(
-  SRC
+set(SRC
   algorithm.cpp
   algorithm.hpp
   angles.cpp
@@ -69,8 +68,7 @@ set(
 )
 
 if (NOT PLATFORM_IPHONE AND NOT PLATFORM_ANDROID)
-  append(
-    SRC
+  append(SRC
     region2d/binary_operators.cpp
     region2d/binary_operators.hpp
     region2d/boost_concept.hpp
@@ -78,5 +76,7 @@ if (NOT PLATFORM_IPHONE AND NOT PLATFORM_ANDROID)
 endif()
 
 omim_add_library(${PROJECT_NAME} ${SRC})
+
+target_link_libraries(${PROJECT_NAME} base)
 
 omim_add_test_subdirectory(geometry_tests)

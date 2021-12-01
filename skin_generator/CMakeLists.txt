@@ -1,33 +1,17 @@
 project(skin_generator_tool)
 
-include_directories(
-  ${Boost_INCLUDE_DIRS}
-)
-
-set(
-  SRC
+set(SRC
   generator.cpp
   generator.hpp
   main.cpp
 )
 
-if (BUILD_DESIGNER)
-  set(SRC MACOSX_BUNDLE ${SRC})
-endif()
-
 omim_add_executable(${PROJECT_NAME} ${SRC})
-target_link_libraries(${PROJECT_NAME} gflags::gflags)
 
-omim_link_libraries(
-  ${PROJECT_NAME}
+target_link_libraries(${PROJECT_NAME}
   geometry
-  coding
-  base
-  freetype
-  Boost::boost
-  ${Qt5Gui_LIBRARIES}
-  ${Qt5Widgets_LIBRARIES}
-  ${Qt5Xml_LIBRARIES}
-  ${Qt5Svg_LIBRARIES}
-  ${LIBZ}
+  gflags::gflags
+  Qt5::Xml
+  Qt5::Svg
+  Qt5::Widgets
 )

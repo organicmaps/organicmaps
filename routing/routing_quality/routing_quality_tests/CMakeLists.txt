@@ -1,7 +1,6 @@
 project(routing_quality_tests)
 
-set(
-  SRC
+set(SRC
   barriers_tests.cpp
   bigger_roads_tests.cpp
   ferry_tests.cpp
@@ -13,28 +12,6 @@ set(
 
 omim_add_test(${PROJECT_NAME} ${SRC})
 
-omim_link_libraries(
-  ${PROJECT_NAME}
-  routes_builder
+target_link_libraries(${PROJECT_NAME}
   routing_quality
-  routing
-  traffic
-  routing_common
-  transit
-  storage
-  indexer
-  platform
-  mwm_diff
-  bsdiff
-  geometry
-  coding
-  base
-  icu
-  opening_hours
-  jansson
-  oauthcpp
-  protobuf
-  ${LIBZ}
 )
-
-link_qt5_core(${PROJECT_NAME})

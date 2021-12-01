@@ -1,9 +1,6 @@
 project(platform_tests)
 
-add_definitions(-DOMIM_UNIT_TEST_WITH_QT_EVENT_LOOP)
-
-set(
-  SRC
+set(SRC
   apk_test.cpp
   country_file_tests.cpp
   downloader_tests/downloader_test.cpp
@@ -18,32 +15,9 @@ set(
   platform_test.cpp
 )
 
-omim_add_test(${PROJECT_NAME} ${SRC})
+omim_add_test_with_qt_event_loop(${PROJECT_NAME} ${SRC})
 
-omim_link_libraries(
-  ${PROJECT_NAME}
+target_link_libraries(${PROJECT_NAME}
   platform_tests_support
   platform
-  coding
-  geometry
-  base
-  jansson
-  minizip
-  oauthcpp
-  ${LIBZ}
 )
-
-if (PLATFORM_MAC)
-  omim_link_libraries(
-    ${PROJECT_NAME}
-    ${Qt5Widgets_LIBRARIES}
-    "-framework QuartzCore"
-  )
-endif()
-
-if (PLATFORM_WIN OR PLATFORM_LINUX)
-  omim_link_libraries(
-    ${PROJECT_NAME}
-    ${Qt5Widgets_LIBRARIES}
-  )
-endif()

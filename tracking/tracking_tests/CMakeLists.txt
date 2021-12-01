@@ -9,18 +9,8 @@ set(
 
 omim_add_test(${PROJECT_NAME} ${SRC})
 
-omim_link_libraries(
-  ${PROJECT_NAME}
+omim_link_libraries(${PROJECT_NAME}
+  platform_tests_support
   tracking
   routing
-  platform
-  platform_tests_support
-  traffic
-  coding
-  base
-  geometry
-  oauthcpp
-  minizip
-  ${LIBZ}
-  ${Qt5Widgets_LIBRARIES}
 )

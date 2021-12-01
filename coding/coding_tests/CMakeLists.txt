@@ -1,7 +1,6 @@
 project(coding_tests)
 
-set(
-  SRC
+set(SRC
   base64_test.cpp
   bit_streams_test.cpp
   bwt_coder_tests.cpp
@@ -51,18 +50,8 @@ set(
 
 omim_add_test(${PROJECT_NAME} ${SRC})
 
-omim_link_libraries(
-  ${PROJECT_NAME}
-  platform_tests_support
-  platform
+target_link_libraries(${PROJECT_NAME}
+  platform_tests_support  # For csv_reader_test (TODO: Move ScopedFile into a base header)
+  geometry                # For traffic_test and serdes_json_test (TODO: Remove dependency)
   coding
-  base
-  geometry
-  expat
-  jansson
-  minizip
-  succinct
-  oauthcpp
-  ${Qt5Widgets_LIBRARIES}
-  ${LIBZ}
 )

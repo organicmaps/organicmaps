@@ -7,14 +7,7 @@
 
 project(routing_integration_tests)
 
-include_directories(
-        ${OMIM_ROOT}/3party/glm
-        ${OMIM_ROOT}/3party/jansson/src
-        ${OMIM_ROOT}/3party/protobuf/protobuf/src
-)
-
-set(
-  SRC
+set(SRC
   absent_regions_finder_tests.cpp
   archival_reporter_tests.cpp
   bicycle_route_test.cpp
@@ -38,56 +31,8 @@ set(
 
 omim_add_test(${PROJECT_NAME} ${SRC})
 
-omim_link_libraries(
-  ${PROJECT_NAME}
-  editor_tests_support
-  generator
-  map
-  ge0
+target_link_libraries(${PROJECT_NAME}
   tracking
-  drape_frontend
-  shaders
   routing
-  search
-  storage
-  mwm_diff
-  traffic
-  routing_common
-  transit
-  descriptions
-  drape
-  platform_tests_support
-  kml
-  editor
-  indexer
-  platform
-  oauthcpp
-  geometry
-  coding
-  base
-  jansson
-  protobuf
-  bsdiff
-  succinct
-  minizip
-  pugixml
-  opening_hours
-  expat
-  freetype
-  icu
-  sdf_image
-  stb_image
-  vulkan_wrapper
-  agg
-  ${LIBZ}
+  map
 )
-
-if (PLATFORM_LINUX)
-  omim_link_libraries(
-    ${PROJECT_NAME}
-    dl
-  )
-endif()
-
-link_opengl(${PROJECT_NAME})
-link_qt5_core(${PROJECT_NAME})

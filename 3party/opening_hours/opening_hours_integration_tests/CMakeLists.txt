@@ -1,11 +1,12 @@
 project(opening_hours_integration_tests)
 
-include_directories(${PROJECT_SOURCE_DIR} ${OMIM_ROOT}/3party/opening_hours)
-
-set(
-  SRC
-  opening_hours_integration_tests.cpp
-)
+set(SRC opening_hours_integration_tests.cpp)
 
 omim_add_executable(${PROJECT_NAME} ${SRC})
-omim_link_libraries(${PROJECT_NAME} base opening_hours)
+
+target_link_libraries(${PROJECT_NAME} opening_hours)
+
+add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
+  COMMAND rsync -a "${CMAKE_CURRENT_SOURCE_DIR}/opening-count.lst" "${CMAKE_BINARY_DIR}/"
+  COMMENT "Copying opening-count.lst file for testing"
+)

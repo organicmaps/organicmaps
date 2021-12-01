@@ -3,7 +3,6 @@
 #include "drape/pointers.hpp"
 
 #include <vulkan_wrapper.h>
-#include <vulkan/vulkan.h>
 
 #include <array>
 #include <cstdint>

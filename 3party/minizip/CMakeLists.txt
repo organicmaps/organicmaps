@@ -1,12 +1,6 @@
 project(minizip)
 
-add_definitions(-DUSE_FILE32API -DNOCRYPT)
-
-add_clang_compile_options("-Wno-unused-value")
-add_gcc_compile_options("-Wno-unused-value")
-
-set(
-  SRC
+set(SRC
   minizip.cpp
   minizip.hpp
   src/ioapi.c
@@ -18,3 +12,13 @@ set(
 )
 
 add_library(${PROJECT_NAME} ${SRC})
+
+target_compile_definitions(${PROJECT_NAME}
+  PUBLIC
+    USE_FILE32API
+  PRIVATE
+    NOCRYPT
+    NOUNCRYPT
+)
+
+target_compile_options(${PROJECT_NAME} PRIVATE $<$<C_COMPILER_ID:Clang,AppleClang,GNU>:-Wno-unused-value>)

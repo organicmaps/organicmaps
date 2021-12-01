@@ -152,6 +152,8 @@
 		FACB768326B8738F00810C9C /* linked_map_tests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D08987A24810A1300837783 /* linked_map_tests.cpp */; };
 		FACB768426B8739300810C9C /* checked_cast_tests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3DBD7B94240FB11200ED9FE8 /* checked_cast_tests.cpp */; };
 		FACB768526B873A000810C9C /* lru_cache_tests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56290B8B206D0937003892E0 /* lru_cache_tests.cpp */; };
+		FAF23E1F274E3E5600684735 /* checked_cast.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 67C79B9E1E2929DB00C40034 /* checked_cast.hpp */; };
+		FAF23E21274E3F1000684735 /* exception_tests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FAF23E20274E3F1000684735 /* exception_tests.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -304,6 +306,7 @@
 		E1B7FFC521FA1A2100F094DC /* thread_pool_computational_tests.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = thread_pool_computational_tests.cpp; sourceTree = "<group>"; };
 		E1B7FFC621FA1A2200F094DC /* thread_pool_delayed_tests.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = thread_pool_delayed_tests.cpp; sourceTree = "<group>"; };
 		F61B9796229BFDF1000E878B /* non_intersecting_intervals_tests.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = non_intersecting_intervals_tests.cpp; sourceTree = "<group>"; };
+		FAF23E20274E3F1000684735 /* exception_tests.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = exception_tests.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -340,6 +343,7 @@
 				39FD26CD1CC65A0E00AFF551 /* collection_cast_test.cpp */,
 				39FD26D01CC65A0E00AFF551 /* containers_test.cpp */,
 				39B89C391FD1898A001104AF /* control_flow_tests.cpp */,
+				FAF23E20274E3F1000684735 /* exception_tests.cpp */,
 				564BB446206E8A4D00BDD211 /* fifo_cache_test.cpp */,
 				390F1C0F2294299A00EA58E3 /* file_name_utils_tests.cpp */,
 				3917FA60211E00F100937DF4 /* geo_object_id_tests.cpp */,
@@ -582,6 +586,7 @@
 				675341CB1A3F57E400A0A8C3 /* array_adapters.hpp in Headers */,
 				3446C6751DDCA96300146687 /* uni_string_dfa.hpp in Headers */,
 				6753420B1A3F57E400A0A8C3 /* threaded_container.hpp in Headers */,
+				FAF23E1F274E3E5600684735 /* checked_cast.hpp in Headers */,
 				E1B7FFC321FA19FE00F094DC /* thread_utils.hpp in Headers */,
 				397DC50E22BB8EBF007126DB /* non_intersecting_intervals.hpp in Headers */,
 				672DD4C41E0425600078E13C /* newtype.hpp in Headers */,
@@ -700,6 +705,7 @@
 				3975D20B235F2738004D84D3 /* cancellable_tests.cpp in Sources */,
 				39FD27381CC65AD000AFF551 /* timegm_test.cpp in Sources */,
 				39FD272C1CC65AD000AFF551 /* range_iterator_test.cpp in Sources */,
+				FAF23E21274E3F1000684735 /* exception_tests.cpp in Sources */,
 				39FD27261CC65AD000AFF551 /* containers_test.cpp in Sources */,
 				397DC51122BB8ED2007126DB /* bidirectional_map_tests.cpp in Sources */,
 				390F1C12229429A700EA58E3 /* thread_pool_computational_tests.cpp in Sources */,

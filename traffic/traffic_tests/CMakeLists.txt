@@ -1,49 +1,7 @@
 project(traffic_tests)
 
-add_definitions(-DOMIM_UNIT_TEST_WITH_QT_EVENT_LOOP)
+set(SRC traffic_info_test.cpp)
 
-include_directories(${OMIM_ROOT}/3party/jansson/src)
+omim_add_test_with_qt_event_loop(${PROJECT_NAME} ${SRC})
 
-set(
-  SRC
-  traffic_info_test.cpp
-)
-
-omim_add_test(${PROJECT_NAME} ${SRC})
-
-omim_link_libraries(
-  ${PROJECT_NAME}
-  traffic
-  routing_common
-  indexer
-  editor
-  platform_tests_support
-  platform
-  coding
-  geometry
-  base
-  icu
-  jansson
-  oauthcpp
-  opening_hours
-  protobuf
-  pugixml
-  succinct
-  ${LIBZ}
-)
-
-if (PLATFORM_MAC)
-  omim_link_libraries(
-    ${PROJECT_NAME}
-    ${Qt5Widgets_LIBRARIES}
-  )
-endif()
-
-if (PLATFORM_WIN OR PLATFORM_LINUX)
-  omim_link_libraries(
-    ${PROJECT_NAME}
-    ${Qt5Network_LIBRARIES}
-  )
-endif()
-
-link_qt5_core(${PROJECT_NAME})
+target_link_libraries(${PROJECT_NAME} traffic)

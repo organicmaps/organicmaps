@@ -1,7 +1,6 @@
 #pragma once
 
 #include <vulkan_wrapper.h>
-#include <vulkan/vulkan.h>
 
 #include <cstdint>
 #include <vector>

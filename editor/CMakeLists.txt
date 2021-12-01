@@ -1,7 +1,6 @@
 project(editor)
 
-set(
-  SRC
+set(SRC
   changeset_wrapper.cpp
   changeset_wrapper.hpp
   config_loader.cpp
@@ -37,6 +36,12 @@ set(
 )
 
 omim_add_library(${PROJECT_NAME} ${SRC})
+
+target_link_libraries(${PROJECT_NAME}
+  indexer
+  opening_hours
+  pugixml
+)
 
 omim_add_test_subdirectory(editor_tests)
 omim_add_test_subdirectory(editor_tests_support)

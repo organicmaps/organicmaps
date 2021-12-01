@@ -1,18 +1,6 @@
 project(succinct)
 
-add_definitions(-DLTC_NO_ROLC)
-
-include_directories(src/headers)
-
-add_clang_compile_options(
-  "-Wno-unused-local-typedef"
-  "-Wno-unused-private-field"
-)
-
-add_gcc_compile_options("-Wno-unused-local-typedef")
-
-set(
-  SRC
+set(SRC
   bit_vector.hpp
   bp_vector.cpp
   bp_vector.hpp

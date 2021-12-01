@@ -1,7 +1,6 @@
 project(platform_tests_support)
 
-set(
-  SRC
+set(SRC
   async_gui_thread.hpp
   helpers.hpp
   scoped_dir.cpp
@@ -17,3 +16,5 @@ set(
 )
 
 omim_add_library(${PROJECT_NAME} ${SRC})
+
+target_link_libraries(${PROJECT_NAME} platform)

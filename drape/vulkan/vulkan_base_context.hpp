@@ -12,9 +12,6 @@
 
 #include "geometry/point2d.hpp"
 
-#include <vulkan_wrapper.h>
-#include <vulkan/vulkan.h>
-
 #include <array>
 #include <atomic>
 #include <cstdint>

@@ -1,11 +1,6 @@
 project(assessment_tool)
 
-set(CMAKE_AUTOMOC ON)
-
-include_directories(${OMIM_ROOT}/3party/glm)
-
-set(
-  SRC
+set(SRC
   assessment_tool.cpp
   context.cpp
   context.hpp
@@ -33,70 +28,22 @@ set(
   view.hpp
 )
 
-omim_add_executable(${PROJECT_NAME} MACOSX_BUNDLE ${SRC})
-target_link_libraries(${PROJECT_NAME} gflags::gflags)
+#omim_add_executable(${PROJECT_NAME} MACOSX_BUNDLE ${SRC})
+omim_add_executable(${PROJECT_NAME} ${SRC})
 
-omim_link_libraries(
-  ${PROJECT_NAME}
+set_target_properties(${PROJECT_NAME} PROPERTIES AUTOMOC ON)
+
+target_link_libraries(${PROJECT_NAME}
+  search_quality
   qt_common
   map
-  ge0
-  drape_frontend
-  shaders
-  routing
-  search_quality
-  search_tests_support
-  search
-  storage
-  tracking
-  traffic
-  routing_common
-  transit
-  descriptions
-  drape
-  kml
-  editor
-  indexer
-  platform
-  mwm_diff
-  bsdiff
-  geometry
-  coding
-  base
-  expat
-  freetype
-  icu
-  agg
-  jansson
-  minizip
-  oauthcpp
-  opening_hours
-  openlr
-  protobuf
-  pugixml
-  sdf_image
-  stb_image
-  succinct
-  vulkan_wrapper
-  ${Qt5Widgets_LIBRARIES}
-  ${LIBZ}
+  gflags::gflags
 )
 
-if (PLATFORM_LINUX)
-  omim_link_libraries(
-    ${PROJECT_NAME}
-    dl
-  )
-endif()
-
-link_opengl(${PROJECT_NAME})
-link_qt5_core(${PROJECT_NAME})
-link_qt5_network(${PROJECT_NAME})
-
-if (PLATFORM_MAC)
-  set_target_properties(
-    ${PROJECT_NAME}
-    PROPERTIES
-    MACOSX_BUNDLE_INFO_PLIST ${PROJECT_SOURCE_DIR}/Info.plist
-  )
-endif()
+# if (PLATFORM_MAC)
+#   set_target_properties(
+#     ${PROJECT_NAME}
+#     PROPERTIES
+#     MACOSX_BUNDLE_INFO_PLIST ${PROJECT_SOURCE_DIR}/Info.plist
+#   )
+# endif()

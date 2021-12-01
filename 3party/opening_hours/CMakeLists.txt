@@ -1,24 +1,6 @@
-cmake_minimum_required(VERSION 3.2)
+project(opening_hours)
 
-project(opening_hours C CXX)
-
-add_definitions(-DBOOST_SPIRIT_USE_PHOENIX_V3)
-
-include_directories(src ../../)
-
-add_compile_options(
-  "-Wall"
-  "-std=c++11"
-)
-
-add_clang_compile_options("-Wno-unused-local-typedef")
-add_gcc_compile_options(
-  "-Wno-unused-local-typedef"
-  "-Wno-return-type"
-)
-
-set(
-  SRC
+set(SRC
   opening_hours.hpp
   opening_hours.cpp
   opening_hours_parsers.hpp
@@ -35,7 +17,9 @@ set(
   rules_evaluation.cpp
 )
 
-add_library(opening_hours ${SRC})
+omim_add_library(${PROJECT_NAME} ${SRC})
+
+target_include_directories(${PROJECT_NAME} INTERFACE .)
 
 omim_add_test_subdirectory(opening_hours_tests)
 omim_add_test_subdirectory(opening_hours_integration_tests)

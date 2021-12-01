@@ -23,7 +23,6 @@
 #include FT_SYSTEM_H
 #include FT_FREETYPE_H
 #include FT_STROKER_H
-#include FT_CACHE_H
 
 #undef __FTERRORS_H__
 #define FT_ERRORDEF(e, v, s) {e, s},
@@ -180,7 +179,7 @@ public:
 
   GlyphManager::Glyph GetGlyph(strings::UniChar unicodePoint, uint32_t baseHeight, bool isSdf) const
   {
-    uint32_t glyphHeight = isSdf ? baseHeight * m_sdfScale : baseHeight;
+    uint32_t const glyphHeight = isSdf ? baseHeight * m_sdfScale : baseHeight;
 
     FREETYPE_CHECK(FT_Set_Pixel_Sizes(m_fontFace, glyphHeight, glyphHeight));
     FREETYPE_CHECK(FT_Load_Glyph(m_fontFace, FT_Get_Char_Index(m_fontFace, unicodePoint), FT_LOAD_RENDER));
@@ -191,7 +190,7 @@ public:
     FT_BBox bbox;
     FT_Glyph_Get_CBox(glyph, FT_GLYPH_BBOX_PIXELS , &bbox);
 
-    FT_Bitmap bitmap = m_fontFace->glyph->bitmap;
+    FT_Bitmap const bitmap = m_fontFace->glyph->bitmap;
 
     float const scale = isSdf ? 1.0f / m_sdfScale : 1.0f;
 
@@ -202,7 +201,7 @@ public:
     {
       if (isSdf)
       {
-        sdf_image::SdfImage img(bitmap.rows, bitmap.pitch, bitmap.buffer, m_sdfScale * kSdfBorder);
+        sdf_image::SdfImage const img(bitmap.rows, bitmap.pitch, bitmap.buffer, m_sdfScale * kSdfBorder);
         imageWidth = img.GetWidth() * scale;
         imageHeight = img.GetHeight() * scale;
 

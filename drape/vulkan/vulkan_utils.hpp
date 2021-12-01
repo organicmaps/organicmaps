@@ -6,7 +6,6 @@
 #include "base/logging.hpp"
 
 #include <vulkan_wrapper.h>
-#include <vulkan/vulkan.h>
 
 #include <string>
 #include <vector>

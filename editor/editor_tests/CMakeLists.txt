@@ -1,7 +1,6 @@
 project(editor_tests)
 
-set(
-  SRC
+set(SRC
   config_loader_test.cpp
   editor_config_test.cpp
   editor_notes_test.cpp
@@ -17,32 +16,10 @@ set(
 
 omim_add_test(${PROJECT_NAME} ${SRC})
 
-omim_link_libraries(
-  ${PROJECT_NAME}
+target_link_libraries(${PROJECT_NAME}
   editor_tests_support
   platform_tests_support
   generator_tests_support
-  generator
-  routing
-  routing_common
   search
-  editor
   indexer
-  storage
-  platform
-  geometry
-  coding
-  base
-  opening_hours
-  pugixml
-  tess2
-  jansson
-  succinct
-  icu
-  protobuf
-  oauthcpp
-  traffic
-  ${CMAKE_DL_LIBS}
-  ${LIBZ}
-  ${Qt5Widgets_LIBRARIES}
 )

@@ -1,7 +1,6 @@
 project(routing_api)
 
-set(
-  SRC
+set(SRC
   api.cpp
   api.hpp
   google/google_api.cpp
@@ -15,23 +14,5 @@ set(
 
 omim_add_library(${PROJECT_NAME} ${SRC})
 
-omim_link_libraries(
-  ${PROJECT_NAME}
-  routing
-  traffic
-  routing_common
-  transit
-  storage
-  indexer
-  platform
-  mwm_diff
-  bsdiff
-  geometry
-  coding
-  base
-  icu
-  jansson
-  oauthcpp
-  protobuf
-  ${LIBZ}
+target_link_libraries(${PROJECT_NAME}
 )

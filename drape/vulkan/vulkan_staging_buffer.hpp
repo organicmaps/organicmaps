@@ -5,9 +5,6 @@
 
 #include "base/thread_checker.hpp"
 
-#include <vulkan_wrapper.h>
-#include <vulkan/vulkan.h>
-
 #include <cstdint>
 #include <string>
 #include <vector>
