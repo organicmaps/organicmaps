@@ -61,10 +61,13 @@ def check_android():
         ok = check_url(flavor + "contact-website.txt") and ok
         ok = check_email(flavor + "contact-email.txt") and ok
         ok = check_exact(flavor + "default-language.txt", "en-US") and ok
+        maxTitle = 30 if 'google' in flavor else 50
         for locale in glob.glob(flavor + 'listings/??-??/'):
-            ok = check_text(locale + "title.txt", 50) and ok
+            ok = check_text(locale + "title.txt", maxTitle) and ok
             ok = check_text(locale + "short-description.txt", 80) and ok
             ok = check_text(locale + "full-description.txt", 4000) and ok
+        for locale in glob.glob(flavor + 'release-notes/??-??/'):
+            ok = check_text(locale + "default.txt", 500) and ok
     return ok
 
 def check_ios():
