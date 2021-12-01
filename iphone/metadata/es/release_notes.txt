@@ -1,7 +1,0 @@
-- Nuevos datos de mapas OSM a partir del 02/10/2021
-- Añadido el tipo healthcare=laboratorio
-- Corregidos algunos iconos de mapas y su visibilidad
-- Arreglado un raro fallo de enrutamiento
-- Corregidos los tipos de cruce, edificio=hotel, energía=subestación, ferrocarril=subterráneo, turismo=obra de arte
-- Se ha corregido la falta de direcciones de algunos edificios con entradas.
-- Arreglos menores de localización

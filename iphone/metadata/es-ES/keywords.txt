@@ -1,0 +1,1 @@
+mapas,desconectado,viaje,navegación,GPS,direcciones,ruta,caminata,bicicleta,ciclismo,openstreetmap
