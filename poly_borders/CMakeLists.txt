@@ -10,6 +10,8 @@ set(
 
 omim_add_library(${PROJECT_NAME} ${SRC})
 
+target_link_libraries(${PROJECT_NAME} generator)
+
 omim_add_test_subdirectory(poly_borders_tests)
 
 add_subdirectory(poly_borders_tool)

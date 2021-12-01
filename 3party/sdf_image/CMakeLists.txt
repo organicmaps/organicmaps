@@ -1,11 +1,12 @@
 project(sdf_image)
 
-add_clang_compile_options("-Wno-shorten-64-to-32")
-
-set(
-  SRC
+set(SRC
   sdf_image.cpp
   sdf_image.h
 )
 
 add_library(${PROJECT_NAME} ${SRC})
+
+target_compile_options(${PROJECT_NAME}
+  PRIVATE $<$<CXX_COMPILER_ID:AppleClang,Clang>:-Wno-shorten-64-to-32>
+)

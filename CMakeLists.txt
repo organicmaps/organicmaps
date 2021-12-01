@@ -8,17 +8,13 @@ set(CMAKE_C_STANDARD 11)
 set(CMAKE_CXX_EXTENSIONS OFF)
 set(CMAKE_C_EXTENSIONS OFF)
 
-# Force colored errors and warnings for Ninja.
-if (CMAKE_GENERATOR MATCHES "Ninja" AND NOT (DEFINED ENV{COLORS_DISABLE}))
-  if ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU")
-    add_compile_options (-fdiagnostics-color=always)
-  elseif ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "Clang" OR
-          "${CMAKE_CXX_COMPILER_ID}" STREQUAL "AppleClang")
-    add_compile_options (-fcolor-diagnostics)
-  endif()
+if(NOT (DEFINED ENV{COLORS_DISABLE}) AND CMAKE_CXX_COMPILER_ID MATCHES "GNU|Clang")
+  message(STATUS "export COLORS_DISABLE=1 to disable colored compiler output.")
+  add_compile_options($<$<CXX_COMPILER_ID:GNU>:-fdiagnostics-color=always> $<$<CXX_COMPILER_ID:Clang,AppleClang>:-fcolor-diagnostics>)
+  add_link_options($<$<CXX_COMPILER_ID:GNU>:-fdiagnostics-color=always> $<$<CXX_COMPILER_ID:Clang,AppleClang>:-fcolor-diagnostics>)
 endif()
 
-get_filename_component(OMIM_ROOT . ABSOLUTE)
+set(OMIM_ROOT ${CMAKE_SOURCE_DIR})
 
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${OMIM_ROOT}/cmake")
 
@@ -96,6 +92,7 @@ option(USE_TSAN "Enable Thread Sanitizer" OFF)
 option(USE_LIBFUZZER "Enable LibFuzzer" OFF)
 option(PYBINDINGS "Create makefiles for building python bindings" OFF)
 option(SKIP_DESKTOP "Skip building of desktop application" OFF)
+# TODO: Fix mapshot, it doesn't work without our old FreeType hack.
 option(BUILD_MAPSHOT "Build mapshot tool" OFF)
 option(USE_PCH "Use precompiled headers" OFF)
 
@@ -157,7 +154,7 @@ if (NOT (DEFINED ENV{CCACHE_DISABLE}))
   endif()
 endif()
 
-if (PLATFORM_LINUX)
+if (PLATFORM_LINUX OR PLATFORM_ANDROID)
   find_program(GOLD_FOUND ld.gold)
   if (GOLD_FOUND)
     message(STATUS "Using ld.gold")
@@ -219,27 +216,13 @@ if (NOT PLATFORM_IPHONE AND NOT PLATFORM_ANDROID)
   endif()
 endif()
 
-if (PLATFORM_LINUX)
-  find_package(OpenGL)
-endif()
-
 find_library(LIBZ NAMES z)
 if (LIBZ STREQUAL "LIBZ-NOTFOUND")
   message(FATAL_ERROR "Failed to find libz library.")
 endif()
 
-if (NOT DEVELOPER_FRAMEWORKS_DIR)
-  message("Doing nothing, because we know nothing about developer frameworks dir")
-  #do nothing
-else()
-  include_directories(${DEVELOPER_FRAMEWORKS_DIR})
-endif()
-
-include_directories(
-  ${CMAKE_HOME_DIRECTORY}
-  ${Qt5Core_INCLUDE_DIRS}
-  ${Qt5Network_INCLUDE_DIRS}
-)
+# To allow #include "base/file_name.hpp" in all sources.
+include_directories(${CMAKE_HOME_DIRECTORY})
 
 set(CMAKE_POSITION_INDEPENDENT_CODE ON)
 
@@ -272,16 +255,23 @@ if (USE_PCH)
   )
 endif()
 
-# Suppress "Policy CMP0077 is not set: option() honors normal variables"
-# for the option(EXPAT_SHARED_LIBS) in 3party/expat/expat/CMakeLists.txt
-set(CMAKE_POLICY_DEFAULT_CMP0077 NEW)
-# Build libexpat.a instead of libexpat.so
-set(EXPAT_SHARED_LIBS OFF)
 
-# Include subdirectories
+# Include 3party dependencies.
+
+# Configure expat library.
+# Suppress "Policy CMP0077 is not set: option() honors normal variables"
+# for the expat options below.
+set(CMAKE_POLICY_DEFAULT_CMP0077 NEW)
+set(EXPAT_BUILD_TOOLS OFF)
+set(EXPAT_BUILD_EXAMPLES OFF)
+set(EXPAT_BUILD_TESTS OFF)
+set(EXPAT_BUILD_DOCS OFF)
+set(EXPAT_BUILD_PKGCONFIG OFF)
+set(EXPAT_ENABLE_INSTALL OFF)
+set(EXPAT_SHARED_LIBS OFF)
+add_subdirectory(3party/expat/expat)
 add_subdirectory(3party/agg)
 add_subdirectory(3party/bsdiff-courgette)
-add_subdirectory(3party/expat/expat)
 add_subdirectory(3party/freetype)
 add_subdirectory(3party/gflags)
 add_subdirectory(3party/icu)
@@ -289,7 +279,6 @@ add_subdirectory(3party/jansson)
 add_subdirectory(3party/liboauthcpp)
 add_subdirectory(3party/minizip)
 add_subdirectory(3party/opening_hours)
-add_subdirectory(3party/protobuf)
 add_subdirectory(3party/pugixml)
 add_subdirectory(3party/sdf_image)
 add_subdirectory(3party/stb_image)
@@ -306,12 +295,6 @@ endif()
 add_compile_options(
   "-Wall"
 )
-
-add_clang_compile_options("-Wshorten-64-to-32")
-if (CMAKE_CXX_COMPILER_ID MATCHES "GNU" AND
-    CMAKE_CXX_COMPILER_VERSION VERSION_GREATER 7.0)
-  add_gcc_cpp_compile_options("-Wno-noexcept-type")
-endif()
 
 find_package(PythonInterp ${PYTHON_VERSION})
 if (PYTHONINTERP_FOUND)
@@ -360,7 +343,6 @@ if (PLATFORM_DESKTOP)
   endif()
 endif()
 
-omim_add_test_subdirectory(3party/gmock)
 omim_add_test_subdirectory(qt_tstfrm)
 
 if (PLATFORM_ANDROID)

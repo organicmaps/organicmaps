@@ -1,44 +1,13 @@
 project(map_integration_tests)
 
-set(
-  SRC
+set(SRC
   interactive_search_test.cpp
 )
 
 omim_add_test(${PROJECT_NAME} ${SRC})
 
-omim_link_libraries(
-  ${PROJECT_NAME}
-  map
+target_link_libraries(${PROJECT_NAME}
   search_tests_support
-  editor_tests_support
   generator_tests_support
-  generator
-  routing
-  routing_common
-  search
-  storage
-  editor
-  indexer
-  ge0
-  platform
-  mwm_diff
-  bsdiff
-  geometry
-  coding
-  base
-  oauthcpp
-  tess2
-  protobuf
-  jansson
-  succinct
-  pugixml
-  opening_hours
-  icu
-  traffic
-  ${CMAKE_DL_LIBS}
-  ${Qt5Network_LIBRARIES}
-  ${LIBZ}
+  map
 )
-
-link_qt5_core(${PROJECT_NAME})

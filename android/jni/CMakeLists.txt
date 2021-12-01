@@ -1,25 +1,8 @@
-cmake_minimum_required(VERSION 3.8)
-set(CMAKE_SHARED_LINKER_FLAGS "${CMAKE_SHARED_LINKER_FLAGS} -fuse-ld=gold")
-project(mapswithme C CXX)
+cmake_minimum_required(VERSION 3.18)
 
-include_directories(
-  ${OMIM_ROOT}/3party/jansson/src
-  ${OMIM_ROOT}/3party/boost
-  ${OMIM_ROOT}/3party/protobuf/protobuf/src
-  ${OMIM_ROOT}/3party/glm
-  ${OMIM_ROOT}/3party/succinct
-  ${OMIM_ROOT}/3party/agg
-  ${OMIM_ROOT}/3party/icu/common
-  ${OMIM_ROOT}/3party/icu/i18n
-  ${OMIM_ROOT}/3party/stb_image
-  ${OMIM_ROOT}/3party/sdf_image
-  ${OMIM_ROOT}/3party/Vulkan-Headers/include
-  ${OMIM_ROOT}/3party/vulkan_wrapper
-  ${OMIM_ROOT}/android/jni
-)
+project(organicmaps C CXX)
 
-set(
-  SRC
+set(SRC
   # JNI headers
   ../../private.h
   com/mapswithme/core/jni_helper.hpp
@@ -87,10 +70,49 @@ set(
   com/mapswithme/vulkan/android_vulkan_context_factory.cpp
 )
 
-omim_add_library(organicmaps SHARED ${SRC})
+omim_add_library(${PROJECT_NAME} SHARED ${SRC})
 
-target_link_libraries(
-  organicmaps
+target_include_directories(${PROJECT_NAME} PRIVATE .)
+
+target_link_libraries(${PROJECT_NAME}
+  # Organic Maps libs
+  map
+  # ge0
+  # tracking
+  # routing
+  # traffic
+  # routing_common
+  # drape_frontend
+  # shaders
+  # search
+  # storage
+  # descriptions
+  # drape
+  # kml
+  # editor
+  # transit
+  # indexer
+  # platform
+  # mwm_diff
+  # bsdiff
+  # geometry
+  # coding
+  # base
+  # opening_hours
+  # pugixml
+  # oauthcpp
+  # expat
+  # freetype
+  # minizip
+  # jansson
+  # protobuf
+  # succinct
+  # stb_image
+  # sdf_image
+  # icu
+  # agg
+  # vulkan_wrapper
+
   # Android libs
   log
   android
@@ -98,41 +120,6 @@ target_link_libraries(
   GLESv2
   atomic
   z
-  # Organic Maps libs
-  map
-  ge0
-  tracking
-  routing
-  traffic
-  routing_common
-  drape_frontend
-  shaders
-  search
-  storage
-  descriptions
-  drape
-  kml
-  editor
-  transit
-  indexer
-  platform
-  mwm_diff
-  bsdiff
-  geometry
-  coding
-  base
-  opening_hours
-  pugixml
-  oauthcpp
-  expat
-  freetype
-  minizip
-  jansson
-  protobuf
-  succinct
-  stb_image
-  sdf_image
-  icu
-  agg
-  vulkan_wrapper
 )
+
+#target_link_options(${PROJECT_NAME} PRIVATE "-fuse-ld=gold")

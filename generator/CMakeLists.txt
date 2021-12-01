@@ -1,11 +1,6 @@
 project(generator)
 
-include_directories(
-  ${OMIM_ROOT}/3party/jansson/src
-)
-
-set(
-  SRC
+set(SRC
   affiliation.cpp
   affiliation.hpp
   altitude_generator.cpp
@@ -245,7 +240,18 @@ set(
 
 omim_add_library(${PROJECT_NAME} ${SRC})
 
-omim_add_pybindings_subdirectory(pygen)
+target_link_libraries(${PROJECT_NAME}
+  transit
+  search
+  routing
+  storage
+  descriptions
+  indexer
+  jansson
+  expat
+  tess2
+  $<$<BOOL:CMAKE_DL_LIBS>:${CMAKE_DL_LIBS}>  # dladdr from boost::stacktrace
+)
 
 omim_add_test_subdirectory(generator_tests_support)
 omim_add_test_subdirectory(generator_tests)

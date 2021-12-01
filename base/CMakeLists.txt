@@ -1,7 +1,6 @@
 project(base)
 
-set(
-  SRC
+set(SRC
   array_adapters.hpp
   assert.hpp
   atomic_shared_ptr.hpp
@@ -101,5 +100,9 @@ set(
 )
 
 omim_add_library(${PROJECT_NAME} ${SRC})
+
+set(THREADS_PREFER_PTHREAD_FLAG ON)
+find_package(Threads REQUIRED)
+target_link_libraries(${PROJECT_NAME} INTERFACE Threads::Threads)
 
 omim_add_test_subdirectory(base_tests)

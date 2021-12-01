@@ -1,9 +1,6 @@
 project(base_tests)
 
-add_definitions(-DOMIM_UNIT_TEST_DISABLE_PLATFORM_INIT)
-
-set(
-  SRC
+set(SRC
   assert_test.cpp
   beam_tests.cpp
   bidirectional_map_tests.cpp
@@ -53,5 +50,6 @@ set(
   visitor_tests.cpp
 )
 
-omim_add_test(${PROJECT_NAME} ${SRC})
-omim_link_libraries(${PROJECT_NAME} base)
+omim_add_test_no_platform_init(${PROJECT_NAME} ${SRC})
+
+target_link_libraries(${PROJECT_NAME} base)

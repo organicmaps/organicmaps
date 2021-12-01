@@ -1,12 +1,6 @@
 project(coding)
 
-include_directories(
-  ${OMIM_ROOT}/coding
-  ${OMIM_ROOT}/3party/expat/expat
-)
-
-set(
-  SRC
+set(SRC
   base64.cpp
   base64.hpp
   bit_streams.hpp
@@ -98,7 +92,15 @@ set(
 
 omim_add_library(${PROJECT_NAME} ${SRC})
 
-omim_add_test_subdirectory(coding_tests)
+target_link_libraries(${PROJECT_NAME}
+  base
+  expat
+  jansson
+  succinct
+  icu       # For transliteration.
+  oauthcpp  # For base64_encode and base64_decode
+  minizip
+  ${LIBZ}
+)
 
-# For transliteration.
-target_link_libraries(${PROJECT_NAME} icu)
+omim_add_test_subdirectory(coding_tests)

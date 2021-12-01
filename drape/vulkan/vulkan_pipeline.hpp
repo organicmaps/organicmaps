@@ -6,9 +6,6 @@
 #include "drape/texture_types.hpp"
 #include "drape/vulkan/vulkan_gpu_program.hpp"
 
-#include <vulkan_wrapper.h>
-#include <vulkan/vulkan.h>
-
 #include <cstdint>
 #include <map>
 

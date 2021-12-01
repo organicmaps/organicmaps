@@ -1,7 +1,6 @@
 project(routes_builder)
 
-set(
-  SRC
+set(SRC
   data_source_storage.cpp
   data_source_storage.hpp
   routes_builder.cpp
@@ -10,6 +9,11 @@ set(
 
 omim_add_library(${PROJECT_NAME} ${SRC})
 
-add_subdirectory(routes_builder_tool)
+target_link_libraries(${PROJECT_NAME}
+  routing
+  indexer
+  platform
+  storage
+)
 
-link_qt5_core(${PROJECT_NAME})
+add_subdirectory(routes_builder_tool)

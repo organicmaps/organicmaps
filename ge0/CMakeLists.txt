@@ -1,7 +1,6 @@
 project(ge0)
 
-set(
-  SRC
+set(SRC
   parser.cpp
   parser.hpp
   url_generator.cpp

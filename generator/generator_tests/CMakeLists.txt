@@ -1,7 +1,6 @@
 project(generator_tests)
 
-set(
-  SRC
+set(SRC
   affiliation_tests.cpp
   altitude_test.cpp
   brands_loader_test.cpp
@@ -55,44 +54,8 @@ set(
 
 omim_add_test(${PROJECT_NAME} ${SRC})
 
-omim_link_libraries(
-  ${PROJECT_NAME}
-  generator_tests_support
+target_link_libraries(${PROJECT_NAME}
   platform_tests_support
+  generator_tests_support
   generator
-  routing
-  search
-  storage
-  traffic
-  routing_common
-  descriptions
-  transit
-  editor
-  indexer
-  platform
-  geometry
-  coding
-  base
-  expat
-  icu
-  jansson
-  protobuf
-  minizip
-  succinct
-  pugixml
-  tess2
-  oauthcpp
-  opening_hours
-  # TODO(syershov): Use FindPackage.
-  sqlite3
-  ${LIBZ}
 )
-
-if (PLATFORM_LINUX)
-  omim_link_libraries(
-    ${PROJECT_NAME}
-    dl
-  )
-endif()
-
-link_qt5_core(${PROJECT_NAME})

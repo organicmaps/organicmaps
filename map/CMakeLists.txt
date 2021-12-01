@@ -1,13 +1,6 @@
 project(map)
 
-include_directories(
-  ${OMIM_ROOT}/3party/protobuf/protobuf/src
-  ${OMIM_ROOT}/3party/jansson/src
-  ${OMIM_ROOT}/3party/glm
-)
-
-set(
-  SRC
+set(SRC
   api_mark_point.cpp
   api_mark_point.hpp
   benchmark_tools.hpp
@@ -88,12 +81,24 @@ set(
 
 omim_add_library(${PROJECT_NAME} ${SRC})
 
+target_link_libraries(${PROJECT_NAME}
+  routing
+  indexer
+  search
+  descriptions
+  transit
+  kml
+  ge0
+  drape_frontend
+  agg
+)
+
 omim_add_test_subdirectory(map_integration_tests)
 omim_add_test_subdirectory(map_tests)
 omim_add_test_subdirectory(mwm_tests)
 omim_add_test_subdirectory(style_tests)
 
-if (PLATFORM_DESKTOP)
+if(PLATFORM_DESKTOP)
   add_subdirectory(benchmark_tool)
   add_subdirectory(extrapolation_benchmark)
 endif()

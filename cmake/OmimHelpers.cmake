@@ -80,15 +80,36 @@ function(omim_add_library library)
   endif()
 endfunction()
 
-function(omim_add_test executable)
-  if (NOT SKIP_TESTS)
-    omim_add_executable(
-      ${executable}
+function(omim_add_test_impl disable_platform_init executable)
+  if(NOT SKIP_TESTS)
+    omim_add_executable(${executable}
       ${ARGN}
       ${OMIM_ROOT}/testing/testingmain.cpp
-     )
+    )
+    if(disable_platform_init)
+      target_compile_definitions(${PROJECT_NAME} PRIVATE OMIM_UNIT_TEST_DISABLE_PLATFORM_INIT)
+    else()
+      target_link_libraries(${executable} platform)
+    endif()
+    # testingmain.cpp uses base::HighResTimer::ElapsedNano
+    target_link_libraries(${executable} base)
   endif()
 endfunction()
+
+function(omim_add_test executable)
+  omim_add_test_impl(NO ${executable} ${ARGN})
+endfunction()
+
+function(omim_add_test_with_qt_event_loop executable)
+  omim_add_test_impl(NO ${executable} ${ARGN})
+  target_compile_definitions(${executable} PRIVATE OMIM_UNIT_TEST_WITH_QT_EVENT_LOOP)
+  target_link_libraries(${executable} Qt5::Widgets)
+endfunction()
+
+function(omim_add_test_no_platform_init executable)
+  omim_add_test_impl(YES ${executable} ${ARGN})
+endfunction()
+
 
 function(omim_add_test_subdirectory subdir)
   if (NOT SKIP_TESTS)
@@ -133,74 +154,6 @@ endfunction()
 
 function(append VAR)
   set(${VAR} ${${VAR}} ${ARGN} PARENT_SCOPE)
-endfunction()
-
-function(link_opengl target)
-    if (PLATFORM_MAC)
-      omim_link_libraries(
-        ${target}
-        "-framework OpenGL"
-      )
-    endif()
-
-    if (PLATFORM_LINUX)
-      omim_link_libraries(
-        ${target}
-        OpenGL::GL
-      )
-    endif()
-endfunction()
-
-function(link_qt5_core target)
-  omim_link_libraries(
-    ${target}
-    ${Qt5Core_LIBRARIES}
-  )
-
-  if (PLATFORM_MAC)
-    omim_link_libraries(
-      ${target}
-      "-framework IOKit"
-    )
-  endif()
-endfunction()
-
-function(link_qt5_network target)
-  omim_link_libraries(
-    ${target}
-    ${Qt5Network_LIBRARIES}
-  )
-endfunction()
-
-function(link_qt5_webengine target)
-  omim_link_libraries(
-    ${target}
-    ${Qt5WebEngineWidgets_LIBRARIES}
-  )
-endfunction()
-
-function(add_clang_compile_options)
-  if (CMAKE_CXX_COMPILER_ID MATCHES "Clang")
-    add_compile_options(${ARGV})
-  endif()
-endfunction()
-
-function(add_gcc_compile_options)
-  if (CMAKE_CXX_COMPILER_ID MATCHES "GNU")
-    add_compile_options(${ARGV})
-  endif()
-endfunction()
-
-function(add_clang_cpp_compile_options)
-  if (CMAKE_CXX_COMPILER_ID MATCHES "Clang")
-    add_compile_options("$<$<COMPILE_LANGUAGE:CXX>:${ARGV}>")
-  endif()
-endfunction()
-
-function(add_gcc_cpp_compile_options)
-  if (CMAKE_CXX_COMPILER_ID MATCHES "GNU")
-    add_compile_options("$<$<COMPILE_LANGUAGE:CXX>:${ARGV}>")
-  endif()
 endfunction()
 
 function(export_directory_flags filename)

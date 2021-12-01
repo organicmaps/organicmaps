@@ -1,7 +1,6 @@
 project(kml)
 
-set(
-  SRC
+set(SRC
   header_binary.hpp
   minzoom_quadtree.hpp
   serdes.cpp
@@ -22,9 +21,10 @@ set(
 
 omim_add_library(${PROJECT_NAME} ${SRC})
 
-omim_add_pybindings_subdirectory(pykmlib)
+target_link_libraries(${PROJECT_NAME} indexer)
+
 omim_add_test_subdirectory(kml_tests)
 
-if(NOT PLATFORM_ANDROID)
+if(PLATFORM_DESKTOP)
   add_subdirectory(kmb_to_kml)
 endif()

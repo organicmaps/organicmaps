@@ -2,8 +2,7 @@ project(shaders)
 
 add_library(${PROJECT_NAME})
 
-set(
-  shader_files
+set(shader_files
     GL/area.vsh.glsl
     GL/area3d.vsh.glsl
     GL/area3d_outline.vsh.glsl
@@ -106,15 +105,7 @@ add_custom_command(
 
 source_group("Shader Index" FILES GL/shader_index.txt)
 
-include_directories(
-  ${OMIM_ROOT}/3party/glm
-  ${OMIM_ROOT}/3party/jansson/src
-  ${OMIM_ROOT}/3party/Vulkan-Headers/include
-  ${OMIM_ROOT}/3party/vulkan_wrapper
-)
-
-target_sources(
-  ${PROJECT_NAME}
+target_sources(${PROJECT_NAME}
   PRIVATE
     ${shader_files}
     gl_program_info.hpp
@@ -138,8 +129,7 @@ target_sources(
 )
 
 if (PLATFORM_IPHONE)
-  target_sources(
-    ${PROJECT_NAME}
+  target_sources(${PROJECT_NAME}
     PRIVATE
       Metal/debug_rect.metal
       metal_program_params.hpp
@@ -149,5 +139,10 @@ if (PLATFORM_IPHONE)
       program_manager_metal.mm
   )
 endif()
+
+# Do not include glm's CMakeLists.txt, because it's outdated and not necessary.
+target_include_directories(${PROJECT_NAME} PUBLIC ${OMIM_ROOT}/3party/glm)
+
+target_link_libraries(${PROJECT_NAME} drape)
 
 omim_add_test_subdirectory(shaders_tests)

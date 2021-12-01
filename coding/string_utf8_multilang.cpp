@@ -3,8 +3,6 @@
 #include <algorithm>
 #include <array>
 
-#include "defines.hpp"
-
 using namespace std;
 
 namespace

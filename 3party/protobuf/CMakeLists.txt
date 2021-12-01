@@ -1,18 +1,8 @@
 project(protobuf)
 
-include_directories(. protobuf/src ../../)
-
-if (NOT PLATFORM_WIN)
-  add_definitions(-DHAVE_PTHREAD)
-endif ()
-
-add_clang_compile_options("-Wno-shorten-64-to-32")
-
-set(
-  SRC
+set(SRC
   config.h
   protobuf/src/google/protobuf/arena.cc
-  protobuf/src/google/protobuf/arenastring.cc
   protobuf/src/google/protobuf/extension_set.cc
   protobuf/src/google/protobuf/generated_message_util.cc
   protobuf/src/google/protobuf/io/coded_stream.cc
@@ -36,3 +26,17 @@ set(
 )
 
 add_library(${PROJECT_NAME} ${SRC})
+
+target_include_directories(${PROJECT_NAME}
+  PRIVATE . ../../
+  PUBLIC protobuf/src 
+)
+
+if(NOT PLATFORM_WIN)
+  target_compile_definitions(${PROJECT_NAME} PRIVATE HAVE_PTHREAD)
+endif ()
+
+target_compile_options(${PROJECT_NAME}
+  PRIVATE $<$<CXX_COMPILER_ID:AppleClang,Clang>:-Wno-shorten-64-to-32>
+)
+

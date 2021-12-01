@@ -1,7 +1,6 @@
 project(routing_benchmarks)
 
-set(
-  SRC
+set(SRC
   ../routing_integration_tests/routing_test_tools.cpp
   ../routing_integration_tests/routing_test_tools.hpp
   bicycle_routing_tests.cpp
@@ -13,35 +12,7 @@ set(
 
 omim_add_test(${PROJECT_NAME} ${SRC})
 
-omim_link_libraries(
-  ${PROJECT_NAME}
-  map
-  ge0
+target_link_libraries(${PROJECT_NAME}
   routing
-  traffic
-  routing_common
-  transit
-  search
-  storage
-  mwm_diff
-  traffic
-  kml
-  editor
-  indexer
-  platform
-  oauthcpp
-  opening_hours
-  geometry
-  coding
-  base
-  jansson
-  protobuf
-  bsdiff
-  succinct
-  pugixml
-  icu
-  agg
-  ${LIBZ}
+  map
 )
-
-link_qt5_core(${PROJECT_NAME})

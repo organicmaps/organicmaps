@@ -4,9 +4,6 @@
 #include "drape/vulkan/vulkan_gpu_program.hpp"
 #include "drape/vulkan/vulkan_utils.hpp"
 
-#include <vulkan_wrapper.h>
-#include <vulkan/vulkan.h>
-
 #include <array>
 #include <cstdint>
 #include <string>

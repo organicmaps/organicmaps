@@ -1,7 +1,6 @@
 project(topography_generator_tool)
 
-set(
-  SRC
+set(SRC
   filters_impl.cpp
   filters_impl.hpp
   generator.cpp
@@ -20,27 +19,12 @@ set(
 )
 
 omim_add_executable(${PROJECT_NAME} ${SRC})
-target_link_libraries(${PROJECT_NAME} gflags::gflags)
 
-omim_link_libraries(
-  ${PROJECT_NAME}
+target_link_libraries(${PROJECT_NAME}
   generator
-  routing
-  routing_common
-  traffic
   storage
-  platform
   indexer
-  geometry
+  platform
   coding
-  base
-  oauthcpp
-  expat
-  jansson
-  protobuf
-  minizip
-  icu
-  ${LIBZ}
+  gflags::gflags
 )
-
-link_qt5_core(${PROJECT_NAME})

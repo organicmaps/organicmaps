@@ -457,6 +457,7 @@ ApplyPointFeature::ApplyPointFeature(TileKey const & tileKey, TInsertShapeFn con
 
 void ApplyPointFeature::operator()(m2::PointD const & point, bool hasArea)
 {
+  // TODO: This is only one place of cross-dependency with Editor.
   auto const & editor = osm::Editor::Instance();
   m_hasPoint = true;
   m_hasArea = hasArea;

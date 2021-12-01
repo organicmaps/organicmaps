@@ -153,7 +153,11 @@ extern char const * kTokenSecretSetting;
 
 MainWindow::MainWindow(Framework & framework, bool apiOpenGLES3,
                        std::unique_ptr<ScreenshotParams> && screenshotParams,
-                       QString const & /*mapcssFilePath = QString()*/)
+                       QString const &
+#ifdef BUILD_DESIGNER
+                       mapcssFilePath
+#endif
+                       )
   : m_Docks{}
   , m_locationService(CreateDesktopLocationService(*this))
   , m_screenshotMode(screenshotParams != nullptr)
@@ -878,7 +882,7 @@ void MainWindow::OnRunTests()
 {
   try
   {
-    pair<bool, QString> res = build_style::RunCurrentStyleTests();
+    std::pair<bool, QString> res = build_style::RunCurrentStyleTests();
     InfoDialog dlg(QString("Style tests: ") + (res.first ? "OK" : "FAILED"), res.second, NULL);
     dlg.exec();
   }
