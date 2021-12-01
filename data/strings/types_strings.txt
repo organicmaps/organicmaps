@@ -13660,6 +13660,7 @@
   [type.natural.peak]
     en = Peak
     ar = قمة
+    be = Вяршыня
     cs = Hora
     da = Bjerg
     de = Berg
@@ -13900,13 +13901,16 @@
     bg = Воден басейн
     cs = Vodní plocha
     da = Vandmasse
-    de = Wasserfläche|Gewässer
+    de = Wasserfläche
+    el = Σώμα νερού
     es = Cuerpo de agua
     fa = پهنه آبی
     fi = Vesimuodostuma
     fr = Étendue d'eau
     he = גוף מים
+    hu = Vizek
     id = Perairan
+    it = Corpo d'acqua
     ja = 水地
     ko = 수역
     nl = Waterlichaam
@@ -13914,7 +13918,11 @@
     pl = Akwen
     pt = Corpo de água
     pt-BR = Corpo de água
+    ro = Apă
+    sk = Voda
+    sv = Vatten
     th = แหล่งน้ำ
+    tu = Su
     uk = Водоймище
     vi = Thủy vực
     zh-Hans = 水體
