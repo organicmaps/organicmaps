@@ -3,10 +3,12 @@ package com.mapswithme.maps.dialog;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.Dialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.text.InputFilter;
 import android.text.TextUtils;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -15,10 +17,13 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 
+import androidx.fragment.app.FragmentActivity;
 import com.google.android.material.textfield.TextInputLayout;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.base.BaseMwmDialogFragment;
 import com.mapswithme.util.InputUtils;
+import com.mapswithme.util.Option;
+import com.mapswithme.util.StringUtils;
 
 public class EditTextDialogFragment extends BaseMwmDialogFragment
 {
@@ -35,50 +40,47 @@ public class EditTextDialogFragment extends BaseMwmDialogFragment
   private String mInitialText;
   private String mHint;
   private EditText mEtInput;
+  private TextInputLayout mEtInputLayout;
+  private Button mPositiveButton;
+  private Validator mInputValidator;
+  private OnTextSaveListener mTextSaveListener;
 
-  public interface EditTextDialogInterface
-  {
-    @NonNull
-    OnTextSaveListener getSaveTextListener();
-
-    @NonNull
-    Validator getValidator();
-  }
-
+  // Interface of dialog input consumer.
   public interface OnTextSaveListener
   {
     void onSaveText(@NonNull String text);
   }
 
+  // Interface of dialog input validator.
   public interface Validator
   {
-    boolean validate(@NonNull Activity activity, @Nullable String text);
+    Option<String> validate(@NonNull Activity activity, @Nullable String text);
   }
 
-  public static void show(@Nullable String title, @Nullable String initialText,
+  public static EditTextDialogFragment show(@Nullable String title, @Nullable String initialText,
                           @Nullable String positiveBtn, @Nullable String negativeBtn,
-                          @NonNull Fragment parent)
+                          @NonNull Fragment parent, @Nullable Validator inputValidator)
   {
-    show(title, initialText, "", positiveBtn, negativeBtn, NO_LIMITED_TEXT_LENGTH, parent);
+    return show(title, initialText, "", positiveBtn, negativeBtn, NO_LIMITED_TEXT_LENGTH, parent, inputValidator);
   }
 
-  public static void show(@Nullable String title, @Nullable String initialText,
+  public static EditTextDialogFragment show(@Nullable String title, @Nullable String initialText,
                           @Nullable String positiveBtn, @Nullable String negativeBtn,
-                          int textLimit, @NonNull Fragment parent)
+                          int textLimit, @NonNull Fragment parent, @Nullable Validator inputValidator)
   {
-    show(title, initialText, "", positiveBtn, negativeBtn, textLimit, parent);
+    return show(title, initialText, "", positiveBtn, negativeBtn, textLimit, parent, inputValidator);
   }
 
-  public static void show(@Nullable String title, @Nullable String initialText, @Nullable String hint,
+  public static EditTextDialogFragment show(@Nullable String title, @Nullable String initialText, @Nullable String hint,
                           @Nullable String positiveBtn, @Nullable String negativeBtn,
-                          @NonNull Fragment parent)
+                          @NonNull Fragment parent, @Nullable Validator inputValidator)
   {
-    show(title, initialText, hint, positiveBtn, negativeBtn, NO_LIMITED_TEXT_LENGTH, parent);
+    return show(title, initialText, hint, positiveBtn, negativeBtn, NO_LIMITED_TEXT_LENGTH, parent, inputValidator);
   }
 
-  public static void show(@Nullable String title, @Nullable String initialText, @Nullable String hint,
+  public static EditTextDialogFragment show(@Nullable String title, @Nullable String initialText, @Nullable String hint,
                           @Nullable String positiveBtn, @Nullable String negativeBtn, int textLimit,
-                          @NonNull Fragment parent)
+                          @NonNull Fragment parent, @Nullable Validator inputValidator)
   {
     final Bundle args = new Bundle();
     args.putString(ARG_TITLE, title);
@@ -90,6 +92,14 @@ public class EditTextDialogFragment extends BaseMwmDialogFragment
     final EditTextDialogFragment fragment = (EditTextDialogFragment) Fragment.instantiate(parent.getActivity(), EditTextDialogFragment.class.getName());
     fragment.setArguments(args);
     fragment.show(parent.getChildFragmentManager(), EditTextDialogFragment.class.getName());
+    fragment.mInputValidator = inputValidator;
+
+    return fragment;
+  }
+
+  public void setTextSaveListener(OnTextSaveListener textSaveListener)
+  {
+    mTextSaveListener = textSaveListener;
   }
 
   @NonNull
@@ -109,46 +119,62 @@ public class EditTextDialogFragment extends BaseMwmDialogFragment
       negativeButtonText = args.getString(ARG_NEGATIVE_BUTTON);
     }
 
-    return new AlertDialog.Builder(getActivity())
+    AlertDialog editTextDialog = new AlertDialog.Builder(getActivity())
         .setView(buildView())
         .setNegativeButton(negativeButtonText, null)
         .setPositiveButton(positiveButtonText, (dialog, which) -> {
-          final Fragment parentFragment = getParentFragment();
           final String result = mEtInput.getText().toString();
-          if (parentFragment instanceof EditTextDialogInterface)
-          {
-            dismiss();
-            processInput((EditTextDialogInterface) parentFragment, result);
-            return;
-          }
-
-          final Activity activity = getActivity();
-          if (activity instanceof EditTextDialogInterface)
-          {
-            processInput((EditTextDialogInterface) activity, result);
-          }
+          processInput(result);
+          dismiss();
         }).create();
+
+    // Wait till alert is shown to get mPositiveButton.
+    editTextDialog.setOnShowListener((dialog) -> {
+      mPositiveButton = editTextDialog.getButton(DialogInterface.BUTTON_POSITIVE);
+      this.validateInput(getActivity(), mInitialText);
+    });
+
+
+    // Setup validation on input edit.
+    mEtInput.addTextChangedListener(new StringUtils.SimpleTextWatcher()
+    {
+      @Override
+      public void onTextChanged(CharSequence s, int start, int before, int count)
+      {
+        EditTextDialogFragment.this.validateInput(getActivity(), s.toString());
+      }
+    });
+
+    return editTextDialog;
   }
 
-  private void processInput(@NonNull EditTextDialogInterface editInterface,
-                            @Nullable String text)
+  private void validateInput(@NonNull FragmentActivity activity, @Nullable String input)
   {
-    Validator validator = editInterface.getValidator();
-    if (!validator.validate(getActivity(), text))
-      return;
+    if (mPositiveButton != null && mInputValidator != null)
+    {
+      Option<String> maybeError = mInputValidator.validate(activity, input);
+      mPositiveButton.setEnabled(!maybeError.hasValue());
+      mEtInputLayout.setError(maybeError.getOrElse(null));
+    }
+  }
 
-    if (TextUtils.isEmpty(text))
-      throw new AssertionError("Input must be non-empty!");
+  private void processInput(@Nullable String text)
+  {
+    if (mTextSaveListener != null)
+    {
+      if (TextUtils.isEmpty(text))
+        throw new AssertionError("Input must be non-empty!");
 
-    editInterface.getSaveTextListener().onSaveText(text);
+      mTextSaveListener.onSaveText(text);
+    }
   }
 
   private View buildView()
   {
     @SuppressLint("InflateParams") final View root = getActivity().getLayoutInflater().inflate(R.layout.dialog_edit_text, null);
-    TextInputLayout inputLayout = root.findViewById(R.id.input);
-    inputLayout.setHint(TextUtils.isEmpty(mHint) ? getString(R.string.name) : mHint);
-    mEtInput = inputLayout.findViewById(R.id.et__input);
+    mEtInputLayout = root.findViewById(R.id.et__input_layout);
+    mEtInputLayout.setHint(TextUtils.isEmpty(mHint) ? getString(R.string.name) : mHint);
+    mEtInput = mEtInputLayout.findViewById(R.id.et__input);
     int maxLength = getArguments().getInt(ARG_TEXT_LENGTH_LIMIT);
     if (maxLength != NO_LIMITED_TEXT_LENGTH)
     {

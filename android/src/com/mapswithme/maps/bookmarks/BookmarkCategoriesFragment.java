@@ -45,8 +45,7 @@ import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class BookmarkCategoriesFragment extends BaseMwmRecyclerFragment<BookmarkCategoriesAdapter>
-    implements EditTextDialogFragment.EditTextDialogInterface,
-    MenuItem.OnMenuItemClickListener,
+    implements MenuItem.OnMenuItemClickListener,
     BookmarkManager.BookmarksLoadingListener,
     CategoryListCallback,
     OnItemClickListener<BookmarkCategory>,
@@ -229,11 +228,14 @@ public class BookmarkCategoriesFragment extends BaseMwmRecyclerFragment<Bookmark
   {
     mCategoryEditor = BookmarkManager.INSTANCE::createCategory;
 
-    EditTextDialogFragment.show(getString(R.string.bookmarks_create_new_group),
-        getString(R.string.bookmarks_new_list_hint),
-        getString(R.string.bookmark_set_name),
-        getString(R.string.create), getString(R.string.cancel),
-        MAX_CATEGORY_NAME_LENGTH, this);
+    EditTextDialogFragment dialogFragment = EditTextDialogFragment.show(getString(R.string.bookmarks_create_new_group),
+                                                              getString(R.string.bookmarks_new_list_hint),
+                                                              getString(R.string.bookmark_set_name),
+                                                              getString(R.string.create), getString(R.string.cancel),
+                                                              MAX_CATEGORY_NAME_LENGTH,
+                                                              this,
+                                                              new CategoryValidator());
+    dialogFragment.setTextSaveListener(this::onSaveText);
   }
 
   @Override
@@ -251,20 +253,6 @@ public class BookmarkCategoriesFragment extends BaseMwmRecyclerFragment<Bookmark
 
     intent.putExtra(DocumentsContract.EXTRA_EXCLUDE_SELF, true);
     startActivityForResult(intent, REQ_CODE_IMPORT_DIRECTORY);
-  }
-
-  @NonNull
-  @Override
-  public EditTextDialogFragment.OnTextSaveListener getSaveTextListener()
-  {
-    return this::onSaveText;
-  }
-
-  @NonNull
-  @Override
-  public EditTextDialogFragment.Validator getValidator()
-  {
-    return new CategoryValidator();
   }
 
   @Override
@@ -497,7 +485,8 @@ public class BookmarkCategoriesFragment extends BaseMwmRecyclerFragment<Bookmark
             frag.getString(R.string.rename),
             frag.getString(R.string.cancel),
             MAX_CATEGORY_NAME_LENGTH,
-            frag);
+            frag,
+            new CategoryValidator());
       }
     }
 

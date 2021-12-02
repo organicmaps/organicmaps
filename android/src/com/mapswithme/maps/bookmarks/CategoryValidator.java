@@ -10,26 +10,19 @@ import com.mapswithme.maps.R;
 import com.mapswithme.maps.bookmarks.data.BookmarkManager;
 import com.mapswithme.maps.dialog.DialogUtils;
 import com.mapswithme.maps.dialog.EditTextDialogFragment;
+import com.mapswithme.util.Option;
 
 class CategoryValidator implements EditTextDialogFragment.Validator
 {
   @Override
-  public boolean validate(@NonNull Activity activity, @Nullable String text)
+  public Option<String> validate(@NonNull Activity activity, @Nullable String text)
   {
     if (TextUtils.isEmpty(text))
-    {
-      DialogUtils.showAlertDialog(activity, R.string.bookmarks_error_title_empty_list_name,
-                                  R.string.bookmarks_error_message_empty_list_name);
-      return false;
-    }
+      return new Option<>(activity.getString(R.string.bookmarks_error_title_empty_list_name));
 
     if (BookmarkManager.INSTANCE.isUsedCategoryName(text))
-    {
-      DialogUtils.showAlertDialog(activity, R.string.bookmarks_error_title_list_name_already_taken,
-                                  R.string.bookmarks_error_message_list_name_already_taken);
-      return false;
-    }
+      return new Option<>(activity.getString(R.string.bookmarks_error_title_list_name_already_taken));
 
-    return true;
+    return Option.empty();
   }
 }
