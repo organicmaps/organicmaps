@@ -25,6 +25,10 @@ jobs:
   ios-check:
     name: Build iOS Debug
     runs-on: macos-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        buildType: [Debug, Release]
     steps:
       - name: Checkout sources
         uses: actions/checkout@v2
@@ -41,24 +45,13 @@ jobs:
         shell: bash
         # Check for compilation errors.
         run: |
-          # Run twice as a workaround for a dependency problem.
-          # https://github.com/organicmaps/organicmaps/issues/133
           xcodebuild \
             -workspace xcode/omim.xcworkspace \
             -scheme OMaps \
-            -configuration Debug build \
+            -configuration ${{ matrix.buildType }} build \
             'generic/platform=iOS' \
             CODE_SIGNING_REQUIRED=NO \
-            CODE_SIGNING_ALLOWED=NO \
-          |xcpretty || true
-          xcodebuild \
-            -workspace xcode/omim.xcworkspace \
-            -scheme OMaps \
-            -configuration Debug build \
-            'generic/platform=iOS' \
-            CODE_SIGNING_REQUIRED=NO \
-            CODE_SIGNING_ALLOWED=NO \
-          |xcpretty
+            CODE_SIGNING_ALLOWED=NO
 
   ios-check-metadata:
     name: Check app metadata
