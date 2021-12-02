@@ -89,7 +89,7 @@ add_custom_command(
     GL/shader_index.txt
     programs.hpp
   COMMAND
-    ${PYTHON_EXECUTABLE}
+    ${Python3_EXECUTABLE}
     ARGS
       gl_shaders_preprocessor.py
       GL/

@@ -234,7 +234,7 @@ if (BUILD_DESIGNER)
 elseif (BUILD_STANDALONE)
   add_custom_command(TARGET desktop POST_BUILD
     COMMAND "${QT_PATH}/bin/macdeployqt" ${BUNDLE_FOLDER}
-    COMMAND ${PYTHON_EXECUTABLE} "${OMIM_ROOT}/tools/macdeployqtfix/macdeployqtfix.py" -q -nl ${BUNDLE_FOLDER}/Contents/MacOS/${BUNDLE_NAME} ${QT_PATH}
+    COMMAND ${Python3_EXECUTABLE} "${OMIM_ROOT}/tools/macdeployqtfix/macdeployqtfix.py" -q -nl ${BUNDLE_FOLDER}/Contents/MacOS/${BUNDLE_NAME} ${QT_PATH}
     COMMAND echo "Fixing Qt dependencies finished."
     VERBATIM
     COMMENT "Fixing Qt dependencies for standalone desktop app"

@@ -296,11 +296,11 @@ add_compile_options(
   "-Wall"
 )
 
-find_package(PythonInterp ${PYTHON_VERSION})
-if (PYTHONINTERP_FOUND)
-  message("Found python to use in qt/, shaders/ and 3party/: ${PYTHON_EXECUTABLE}")
+find_package(Python3 COMPONENTS Interpreter)
+if (Python3_Interpreter_FOUND)
+  message("Found python to use in qt/, shaders/ and 3party/: ${Python3_EXECUTABLE}")
 else()
-  message(FATAL_ERROR "Could not find python to use in qt/, shaders/ and 3party/.")
+  message(FATAL_ERROR "Could not find python3 to use in qt/, shaders/ and 3party/.")
 endif()
 
 add_subdirectory(base)
