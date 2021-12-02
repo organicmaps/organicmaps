@@ -18,14 +18,13 @@ on:
 
 jobs:
   linux-debug:
-    name: Linux Debug and Release Build and Test
+    name: Linux builds and tests
     runs-on: ubuntu-latest
-
     strategy:
       fail-fast: false
       matrix:
         compiler: [{ CXX: g++-10, CC: gcc-10 }, { CXX: clang++-12, CC: clang-12 }]
-        params: [{ CMAKE_BUILD_TYPE: Debug }, { CMAKE_BUILD_TYPE: Release }]
+        CMAKE_BUILD_TYPE: [Debug, RelWithDebInfo]
 
     steps:
       - name: Checkout sources
@@ -57,7 +56,7 @@ jobs:
         # -g1 should slightly reduce build time.
         run: |
           echo "Building ${{ matrix.params.CMAKE_BUILD_TYPE }}"
-          cmake . -B build -G Ninja -DCMAKE_BUILD_TYPE=${{ matrix.params.CMAKE_BUILD_TYPE }} -DCMAKE_CXX_FLAGS_DEBUG=-g1
+          cmake . -B build -G Ninja -DCMAKE_BUILD_TYPE=${{ matrix.CMAKE_BUILD_TYPE }} -DCMAKE_CXX_FLAGS=-g1
 
       - name: Compile
         shell: bash
