@@ -23,7 +23,7 @@ on:
 
 jobs:
   ios-check:
-    name: Build iOS Debug
+    name: Build iOS
     runs-on: macos-latest
     strategy:
       fail-fast: false
