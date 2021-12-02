@@ -34,8 +34,8 @@ function(setup_bundled_boost)
 endfunction()
 
 function(setup_bundled_boost_with_python)
-  if (PYTHON_VERSION)
-    string(REPLACE "." "" BOOST_PYTHON_LIBNAME ${PYTHON_VERSION})
+  if (Python3_VERSION)
+    string(REPLACE "." "" BOOST_PYTHON_LIBNAME ${Python3_VERSION})
     # Quote from https://cmake.org/cmake/help/v3.16/module/FindBoost.html:
     #   "Note that Boost Python components require a Python version
     #   suffix (Boost 1.67 and later), e.g. python36 or python27 for the
