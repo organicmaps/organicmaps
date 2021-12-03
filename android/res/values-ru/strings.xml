@@ -1584,10 +1584,6 @@
 	<string name="type.shop.video">Магазин видео</string>
 	<string name="type.shop.video_games">Магазин видеоигр</string>
 	<string name="type.shop.wine">Винный магазин</string>
-	<string name="type.sponsored.holiday">Празднование Рождества или Нового года</string>
-	<string name="type.sponsored.partner18">МегаФон</string>
-	<string name="type.sponsored.partner19">МегаФон</string>
-	<string name="type.sponsored.partner20">МегаФон</string>
 	<string name="type.sport">Спорт</string>
 	<string name="type.sport.american_football">Американский футбол</string>
 	<string name="type.sport.archery">Стрельба из лука</string>
