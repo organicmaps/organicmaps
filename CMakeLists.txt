@@ -187,9 +187,6 @@ endif()
 
 find_package(Threads REQUIRED)
 
-# Cannot call it at the beginning of the file because it depends on PYTHON_VERSION.
-include(BundledBoost)
-
 # Scripts
 
 if (NOT CMAKE_HOST_WIN32)

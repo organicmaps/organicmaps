@@ -22,9 +22,9 @@
 #include <utility>
 #include <vector>
 
-#include "3party/boost/boost/geometry.hpp"
-#include "3party/boost/boost/geometry/geometries/register/point.hpp"
-#include "3party/boost/boost/geometry/geometries/register/ring.hpp"
+#include <boost/geometry.hpp>
+#include <boost/geometry/geometries/register/point.hpp>
+#include <boost/geometry/geometries/register/ring.hpp>
 
 BOOST_GEOMETRY_REGISTER_POINT_2D(m2::PointD, double, boost::geometry::cs::cartesian, x, y)
 BOOST_GEOMETRY_REGISTER_RING(std::vector<m2::PointD>)

@@ -32,14 +32,7 @@
 #include <utility>
 #include <vector>
 
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wcomma"
-#include <boost/geometry.hpp>
-#pragma clang diagnostic pop
-
-namespace generator
-{
-namespace hierarchy
+namespace generator::hierarchy
 {
 using GetMainTypeFn = std::function<uint32_t(FeatureParams::Types const &)>;
 using GetNameFn = std::function<std::string(StringUtf8Multilang const &)>;
@@ -152,5 +145,4 @@ void AddChildrenTo(HierarchyLinker::Node::Ptrs & trees,
 //        |_building-part
 //        |_building-part
 void FlattenBuildingParts(HierarchyLinker::Node::Ptrs & trees);
-}  // namespace hierarchy
-}  // namespace generator
+}  // namespace generator::hierarchy

@@ -1,9 +1,8 @@
 #include "parse_opening_hours.hpp"
 #include "opening_hours_parsers.hpp"
 
-#include <boost/spirit/include/phoenix_bind.hpp>
-#include <boost/spirit/include/phoenix_operator.hpp>  // operator,
-
+#include <boost/phoenix/bind.hpp>
+#include <boost/phoenix/operator.hpp>  // operator,
 
 namespace osmoh
 {

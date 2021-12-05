@@ -15,9 +15,9 @@
 
 #include "base/logging.hpp"
 
-#include "3party/boost/boost/geometry.hpp"
-#include "3party/boost/boost/geometry/geometries/point_xy.hpp"
-#include "3party/boost/boost/geometry/geometries/polygon.hpp"
+#include <boost/geometry.hpp>
+#include <boost/geometry/geometries/point_xy.hpp>
+#include <boost/geometry/geometries/polygon.hpp>
 
 #include <cstdint>
 #include <tuple>

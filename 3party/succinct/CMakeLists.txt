@@ -26,4 +26,5 @@ set(SRC
   vbyte.hpp
 )
 
-add_library(${PROJECT_NAME} ${SRC})
+# Requires boost include.
+omim_add_library(${PROJECT_NAME} ${SRC})

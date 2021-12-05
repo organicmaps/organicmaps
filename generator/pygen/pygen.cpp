@@ -29,10 +29,10 @@
 #include <map>
 #include <string>
 
-#include "3party/boost/boost/noncopyable.hpp"
-#include "3party/boost/boost/python.hpp"
-#include "3party/boost/boost/shared_ptr.hpp"
-#include "3party/boost/boost/weak_ptr.hpp"
+#include <boost/noncopyable.hpp>
+#include <boost/python.hpp>
+#include <boost/shared_ptr.hpp>
+#include <boost/weak_ptr.hpp>
 
 using namespace feature;
 namespace bp = boost::python;

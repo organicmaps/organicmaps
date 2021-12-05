@@ -4,8 +4,6 @@
 #include <algorithm>
 #include <limits>
 
-#include <boost/range.hpp>
-
 #include "rs_bit_vector.hpp"
 
 namespace succinct {
