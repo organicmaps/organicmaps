@@ -101,14 +101,14 @@ public:
   /// \returns a poiter item in the tree if found and nullptr otherwise.
   void Find(CountryId const & key, std::vector<Node const *> & found) const;
 
-  Node const * const FindFirst(CountryId const & key) const;
+  Node const * FindFirst(CountryId const & key) const;
 
   /// \brief Find only leaves.
   /// \note It's a termprary fucntion for compatablity with old countries.txt.
   /// When new countries.txt with unique ids will be added FindLeaf will be removed
   /// and Find will be used intead.
   /// @TODO(bykoianko) Remove this method on countries.txt update.
-  Node const * const FindFirstLeaf(CountryId const & key) const;
+  Node const * FindFirstLeaf(CountryId const & key) const;
 
 private:
   std::unique_ptr<Node> m_countryTree;

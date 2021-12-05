@@ -103,9 +103,9 @@ Spline::iterator Spline::GetPoint(double step) const
   return it;
 }
 
-Spline const & Spline::operator = (Spline const & spl)
+Spline const & Spline::operator=(Spline const & spl)
 {
-  if(&spl != this)
+  if (&spl != this)
   {
     m_position = spl.m_position;
     m_direction = spl.m_direction;
@@ -332,4 +332,3 @@ Spline const * SharedSpline::Get() const
   return m_spline.get();
 }
 }
-

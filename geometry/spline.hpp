@@ -49,7 +49,8 @@ public:
   explicit Spline(size_t reservedSize);
   explicit Spline(std::vector<PointD> const & path);
   explicit Spline(std::vector<PointD> && path);
-  Spline const & operator = (Spline const & spl);
+  Spline(Spline const & spl) = default;
+  Spline const & operator=(Spline const & spl);
 
   void AddPoint(PointD const & pt);
   void ReplacePoint(PointD const & pt);

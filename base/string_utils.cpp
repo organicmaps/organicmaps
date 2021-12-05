@@ -7,17 +7,8 @@
 #include <iomanip>
 #include <iterator>
 
-#if defined(__clang__)
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wunused-local-typedef"
-#endif
-
 #include <boost/algorithm/string/trim.hpp>
 #include <boost/math/special_functions/fpclassify.hpp>
-
-#if defined(__clang__)
-#pragma clang diagnostic pop
-#endif
 
 namespace strings
 {

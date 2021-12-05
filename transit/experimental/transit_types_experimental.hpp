@@ -302,7 +302,7 @@ public:
   TransitId GetId() const;
   FeatureId GetFeatureId() const;
   OsmId GetOsmId() const;
-  
+
   std::vector<SingleMwmSegment> const & GetBestPedestrianSegments() const;
   void SetBestPedestrianSegments(std::vector<SingleMwmSegment> const & seg);
 

@@ -76,7 +76,7 @@ private:
   }
 
   template <typename Doc, typename Fn>
-  void ForEachToken(Id const & id, Doc const & doc, Fn && fn)
+  void ForEachToken(Id const & /*id*/, Doc const & doc, Fn && fn)
   {
     doc.ForEachToken([&](int8_t lang, Token const & token) {
       if (lang >= 0)

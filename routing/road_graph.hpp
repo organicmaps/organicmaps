@@ -309,15 +309,14 @@ public:
   /// Finds the closest edges to the center of |rect|.
   /// @return Array of pairs of Edge and projection point on the Edge. If there is no the closest edges
   /// then returns empty array.
-  virtual void FindClosestEdges(
-      m2::RectD const & rect, uint32_t count,
-      std::vector<std::pair<Edge, geometry::PointWithAltitude>> & vicinities) const {};
+  virtual void FindClosestEdges(m2::RectD const & /*rect*/, uint32_t /*count*/,
+      std::vector<std::pair<Edge, geometry::PointWithAltitude>> & /*vicinities*/) const {};
 
   /// \returns Vector of pairs FeatureID and corresponding RoadInfo for road features
   /// lying in |rect|.
   /// \note |RoadInfo::m_speedKMPH| is set to |kInvalidSpeedKMPH|.
   virtual std::vector<FullRoadInfo> FindRoads(
-      m2::RectD const & rect, IsGoodFeatureFn const & isGoodFeature) const { return {}; }
+      m2::RectD const & /*rect*/, IsGoodFeatureFn const & /*isGoodFeature*/) const { return {}; }
 
   /// @return Types for the specified feature
   virtual void GetFeatureTypes(FeatureID const & featureId, feature::TypesHolder & types) const = 0;

@@ -157,14 +157,12 @@ namespace succinct { namespace util {
     {
     public:
         buffer_line_iterator()
-            : m_buffer(0)
-            , m_end(0)
+            : m_end(0)
             , m_cur_pos(0)
         {}
 
         buffer_line_iterator(const char* buffer, size_t size)
-            : m_buffer(buffer)
-            , m_end(buffer + size)
+            :m_end(buffer + size)
             , m_cur_pos(buffer)
         {
             increment();
@@ -202,7 +200,6 @@ namespace succinct { namespace util {
             return m_cur_value;
         }
 
-        const char* m_buffer;
         const char* m_end;
         const char* m_cur_pos;
         std::string m_cur_value;

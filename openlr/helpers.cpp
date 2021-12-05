@@ -6,6 +6,8 @@
 
 #include "geometry/mercator.hpp"
 
+#include "base/stl_iterator.hpp"
+
 #include <algorithm>
 #include <optional>
 #include <sstream>

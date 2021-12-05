@@ -1,7 +1,6 @@
 #pragma once
 #include "base/assert.hpp"
 #include "base/checked_cast.hpp"
-#include "base/stl_iterator.hpp"
 
 #include <algorithm>
 #include <cstring>       // for memcpy

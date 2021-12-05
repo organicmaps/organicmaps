@@ -222,7 +222,7 @@ unique_ptr<RankTable> LoadRankTable(unique_ptr<TRegion> && region)
   return unique_ptr<RankTable>();
 }
 
-uint8_t CalcEventRank(FeatureType & ft)
+uint8_t CalcEventRank(FeatureType & /*ft*/)
 {
   //TODO: add custom event processing, i.e. fc2018.
   return 0;

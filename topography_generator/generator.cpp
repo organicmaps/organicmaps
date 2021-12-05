@@ -436,7 +436,7 @@ void RunGenerateIsolinesTasks(int left, int bottom, int right, int top,
   int tilesRowPerTask = top - bottom;
   int tilesColPerTask = right - left;
 
-  if (tilesRowPerTask * tilesColPerTask <= threadsCount)
+  if (tilesRowPerTask * tilesColPerTask <= static_cast<ssize_t>(threadsCount))
   {
     tilesRowPerTask = 1;
     tilesColPerTask = 1;

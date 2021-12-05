@@ -7,9 +7,15 @@
 #include "base/string_utils.hpp"
 #include "base/scope_guard.hpp"
 
+#include "std/target_os.hpp"
+
 #include <cstddef>
 #include <cstdint>
 #include <string>
+
+#ifndef OMIM_OS_WINDOWS
+#include <unistd.h>  // _SC_PAGESIZE
+#endif
 
 using namespace std;
 
@@ -331,7 +337,7 @@ UNIT_TEST(FilesMappingContainer_PageSize)
 
   size_t const pageSize =
 #ifndef OMIM_OS_WINDOWS
-      sysconf(_SC_PAGE_SIZE);
+      sysconf(_SC_PAGESIZE);
 #else
       4096;
 #endif
