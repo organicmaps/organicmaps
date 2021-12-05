@@ -79,7 +79,7 @@ void SingleVehicleWorldGraph::CheckAndProcessTransitFeatures(Segment const & par
         newCrossMwmEdges.back().GetWeight() +=
             m_hierarchyHandler.GetCrossBorderPenalty(mwmId, twinMwmId);
 
-        parentWeights.emplace_back(parentWeights[i]);
+        parentWeights.push_back(parentWeights[i]);
       }
     }
   }
