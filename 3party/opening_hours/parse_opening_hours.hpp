@@ -1,9 +1,10 @@
 #pragma once
 
 #include "opening_hours.hpp"
-#include <string>
-#include <boost/spirit/include/qi.hpp>
 
+#include <string>
+
+#include <boost/spirit/include/qi.hpp>
 
 namespace osmoh
 {
