@@ -381,7 +381,6 @@ class BuildOmimBindingCommand(build_ext, object):
                     '-DSKIP_DESKTOP=1',
                     '-DPYBINDINGS=ON',
                     '-DPYBINDINGS_VERSION={}'.format(get_version()),
-                    '-DPYTHON_VERSION={}'.format(get_python_version()),
                     '-DPYTHON_EXECUTABLE={}'.format(sys.executable),
                     '-DPYTHON_INCLUDE_DIR={}'.format(get_python_inc()),
                     OMIM_ROOT,

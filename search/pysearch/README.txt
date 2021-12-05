@@ -25,7 +25,6 @@ This document describes how to use this module.
 
      cmake <path-to-omim-directory>\
         -DPYBINDINGS=ON\
-        -DPYTHON_VERSION=3.7\
         -DPYBINDINGS_VERSION=3.7\
         -DPYTHON_INCLUDE_DIRS=<path-to-dir-with-Python.h>\
         -DCMAKE_PREFIX_PATH=<path-to-qt5.5>
