@@ -26,46 +26,42 @@ endfunction()
 function(omim_add_executable executable)
   add_executable(${executable} ${ARGN})
   add_dependencies(${executable} BuildVersion)
+  # Enable warnings for all our binaries.
+  target_compile_options(${executable} PRIVATE ${OMIM_WARNING_FLAGS})
   target_include_directories(${executable} PRIVATE ${OMIM_INCLUDE_DIRS})
   if (USE_ASAN)
-    target_link_libraries(
-      ${executable}
-      "-fsanitize=address"
-      "-fno-omit-frame-pointer"
+    target_link_libraries(${executable}
+      -fsanitize=address
+      -fno-omit-frame-pointer
     )
   endif()
   if (USE_TSAN)
-    target_link_libraries(
-      ${executable}
-      "-fsanitize=thread"
-      "-fno-omit-frame-pointer"
+    target_link_libraries(${executable}
+      -fsanitize=thread
+      -fno-omit-frame-pointer
     )
   endif()
   if (USE_LIBFUZZER)
-    target_link_libraries(
-      ${executable}
-      "-fsanitize=fuzzer"
-    )
+    target_link_libraries(${executable} -fsanitize=fuzzer)
   endif()
   if (USE_PPROF)
     if (PLATFORM_MAC)
       find_library(PPROF_LIBRARY libprofiler.dylib)
       target_link_libraries(${executable} ${PPROF_LIBRARY})
     else()
-      target_link_libraries(${executable} "-lprofiler")
+      target_link_libraries(${executable} -lprofiler)
     endif()
   endif()
   if (USE_HEAPPROF)
     if (PLATFORM_MAC)
       find_library(HEAPPROF_LIBRARY libtcmalloc.dylib)
       if (NOT HEAPPROF_LIBRARY)
-          message(
-            FATAL_ERROR
+          message(FATAL_ERROR
             "Trying to use -ltcmalloc on MacOS, make sure that you have installed it (https://github.com/mapsme/omim/pull/12671).")
       endif()
       target_link_libraries(${executable} ${HEAPPROF_LIBRARY})
     else()
-      target_link_libraries(${executable} "-ltcmalloc")
+      target_link_libraries(${executable} -ltcmalloc)
     endif()
   endif()
   if (USE_PCH)
@@ -76,6 +72,8 @@ endfunction()
 function(omim_add_library library)
   add_library(${library} ${ARGN})
   add_dependencies(${library} BuildVersion)
+  # Enable warnings for all our libraries.
+  target_compile_options(${library} PRIVATE ${OMIM_WARNING_FLAGS})
   target_include_directories(${library} PRIVATE ${OMIM_INCLUDE_DIRS})
   if (USE_PPROF AND PLATFORM_MAC)
     find_path(PPROF_INCLUDE_DIR NAMES gperftools/profiler.h)
@@ -87,11 +85,12 @@ function(omim_add_library library)
 endfunction()
 
 function(omim_add_test_impl disable_platform_init executable)
-  if(NOT SKIP_TESTS)
+  if (NOT SKIP_TESTS)
     omim_add_executable(${executable}
       ${ARGN}
       ${OMIM_ROOT}/testing/testingmain.cpp
     )
+    target_compile_options(${executable} PRIVATE ${OMIM_WARNING_FLAGS})
     target_include_directories(${executable} PRIVATE ${OMIM_INCLUDE_DIRS})
     if(disable_platform_init)
       target_compile_definitions(${PROJECT_NAME} PRIVATE OMIM_UNIT_TEST_DISABLE_PLATFORM_INIT)
@@ -268,11 +267,10 @@ function(add_precompiled_headers_to_target target pch_target)
   endif()
 
   # Force gcc first search gch header in pch_exe/pch_lib:
-  target_include_directories(
-    ${target}
+  target_include_directories(${target}
     BEFORE
     PUBLIC
-    ${include_compiled_header_dir}
+      ${include_compiled_header_dir}
   )
 
   foreach(source ${sources})

@@ -121,6 +121,8 @@ void AsyncRouter::RouterDelegateProxy::OnPointCheck(ms::LatLon const & pt)
   }
 
   GetPlatform().RunTask(Platform::Thread::Gui, [onPointCheck, point]() { onPointCheck(point); });
+#else
+  UNUSED_VALUE(pt);
 #endif
 }
 

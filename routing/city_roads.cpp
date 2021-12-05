@@ -32,7 +32,7 @@ void LoadCityRoads(std::string const & fileName, FilesContainerR::TReader const 
   }
 }
 
-std::unique_ptr<CityRoads> LoadCityRoads(DataSource const & dataSource,
+std::unique_ptr<CityRoads> LoadCityRoads(DataSource const & /*dataSource*/,
                                          MwmSet::MwmHandle const & handle)
 {
   auto cityRoads = std::make_unique<CityRoads>();

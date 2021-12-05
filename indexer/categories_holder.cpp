@@ -133,7 +133,7 @@ CategoriesHolder::CategoriesHolder(unique_ptr<Reader> && reader)
 
 #if defined(DEBUG)
   for (auto const & entry : kLocaleMapping)
-    ASSERT_LESS_OR_EQUAL(entry.m_code, kLocaleMapping.size(), ());
+    ASSERT_LESS_OR_EQUAL(uint8_t(entry.m_code), kLocaleMapping.size(), ());
 #endif
 }
 

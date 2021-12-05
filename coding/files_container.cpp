@@ -10,7 +10,7 @@
 
 #ifndef OMIM_OS_WINDOWS
   #include <stdio.h>
-  #include <unistd.h>
+  #include <unistd.h>  // _SC_PAGESIZE
   #include <sys/mman.h>
   #include <sys/stat.h>
   #ifdef OMIM_OS_ANDROID
@@ -175,7 +175,7 @@ MappedFile::Handle MappedFile::Map(uint64_t offset, uint64_t size, string const 
   GetSystemInfo(&sysInfo);
   long const align = sysInfo.dwAllocationGranularity;
 #else
-  long const align = sysconf(_SC_PAGE_SIZE);
+  long const align = sysconf(_SC_PAGESIZE);
 #endif
 
   uint64_t const alignedOffset = (offset / align) * align;

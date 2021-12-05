@@ -40,12 +40,6 @@ public:
   Type const & Get() const { return m_value; }
   Type & Get() { return m_value; }
 
-  NewType & operator=(NewType const & v)
-  {
-    m_value = v.m_value;
-    return *this;
-  }
-
   NewType & operator++()
   {
     ++m_value;

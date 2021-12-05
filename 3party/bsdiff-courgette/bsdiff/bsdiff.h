@@ -103,7 +103,7 @@ struct MemStream {
   MemStream(): m_writer(m_buf) {}
 
   MemWriter<std::vector<uint8_t>> & GetWriter() { return m_writer; }
-  size_t const Size() const { return m_buf.size(); }
+  size_t Size() const { return m_buf.size(); }
   std::vector<uint8_t> const & GetBuf() const { return m_buf; }
 
 private:

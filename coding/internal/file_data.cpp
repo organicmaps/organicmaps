@@ -20,6 +20,8 @@
 
 #ifdef OMIM_OS_WINDOWS
 #include <io.h>
+#else
+#include <unistd.h>  // ftruncate
 #endif
 
 using namespace std;

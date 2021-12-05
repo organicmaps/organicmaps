@@ -725,14 +725,15 @@ UNIT_TEST(Bookmarks_Sorting)
   auto const addrBermuda = fm.GetBookmarkManager().GetLocalizedRegionAddress(kBermuda);
 
   BookmarkManager::SortedBlocksCollection expectedSortedByDistance2 = {
-    {addrVladimir, {102}},
-    {addrMoscow, {106, 112}},
-    {addrMinsk, {107, 104, 108}},
-    {addrBerlin, {100, 105, 110}},
-    {addrGreenland, {101}},
-    {addrKathmandu, {103}},
-    {addrWashington, {109}},
-    {addrBermuda, {111}}};
+    {addrVladimir, {102}, {}},
+    {addrMoscow, {106, 112}, {}},
+    {addrMinsk, {107, 104, 108}, {}},
+    {addrBerlin, {100, 105, 110}, {}},
+    {addrGreenland, {101}, {}},
+    {addrKathmandu, {103}, {}},
+    {addrWashington, {109}, {}},
+    {addrBermuda, {111}, {}},
+  };
 
   BookmarkManager::SortedBlocksCollection expectedSortedByType2 = {
     {GetLocalizedBookmarkBaseType(BookmarkBaseType::Food), {111, 109, 107, 103}, {}},
@@ -759,7 +760,7 @@ UNIT_TEST(Bookmarks_Sorting)
   };
 
   BookmarkManager::SortedBlocksCollection expectedSortedByType4 = {
-    {GetLocalizedBookmarkBaseType(BookmarkBaseType::Hotel), {305}},
+    {GetLocalizedBookmarkBaseType(BookmarkBaseType::Hotel), {305}, {}},
     {BookmarkManager::GetOthersSortedBlockName(), {304, 303, 302, 301, 300}, {}}};
 
   std::vector<TestTrackData> testTracksData5 = {

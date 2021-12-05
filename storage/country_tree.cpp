@@ -312,7 +312,7 @@ void CountryTree::Find(CountryId const & key, vector<Node const *> & found) cons
     found.push_back(it->second);
 }
 
-CountryTree::Node const * const CountryTree::FindFirst(CountryId const & key) const
+CountryTree::Node const * CountryTree::FindFirst(CountryId const & key) const
 {
   if (IsEmpty())
     return nullptr;
@@ -324,7 +324,7 @@ CountryTree::Node const * const CountryTree::FindFirst(CountryId const & key) co
   return found[0];
 }
 
-CountryTree::Node const * const CountryTree::FindFirstLeaf(CountryId const & key) const
+CountryTree::Node const * CountryTree::FindFirstLeaf(CountryId const & key) const
 {
   if (IsEmpty())
     return nullptr;

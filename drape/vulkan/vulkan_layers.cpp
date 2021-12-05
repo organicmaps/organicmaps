@@ -140,9 +140,9 @@ bool IsContained(char const * name, std::vector<char const *> const & collection
 
 VkBool32 VKAPI_PTR DebugReportCallbackImpl(VkDebugReportFlagsEXT flags,
                                            VkDebugReportObjectTypeEXT objectType, uint64_t object,
-                                           size_t location, int32_t messageCode,
+                                           size_t location, int32_t /*messageCode*/,
                                            const char * pLayerPrefix, const char * pMessage,
-                                           void * pUserData)
+                                           void * /*pUserData*/)
 {
   auto logLevel = base::LogLevel::LINFO;
   if ((flags & VK_DEBUG_REPORT_WARNING_BIT_EXT) ||
