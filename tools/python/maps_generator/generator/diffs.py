@@ -1,12 +1,7 @@
 from pathlib import Path
 
+import subprocess
 import warnings
-
-try:
-    from pymwm_diff import make_diff
-except ImportError:
-    warnings.warn('No pymwm_diff module found', ImportWarning)
-
 
 class Status:
     NO_NEW_VERSION = "Failed: new version doesn't exist: {new}"
@@ -37,8 +32,8 @@ def calculate_diff(params):
     if out.exists():
         status = Status.NOTHING_TO_DO
     else:
-        res = make_diff(old.as_posix(), new.as_posix(), out.as_posix())
-        if not res:
+        res = subprocess.run("mwm_diff_tool " + old.as_posix() + " " + new.as_posix() + " " + out.as_posix())
+        if res.returncode != 0:
             return Status.INTERNAL_ERROR, params
 
     diff_size = out.stat().st_size
