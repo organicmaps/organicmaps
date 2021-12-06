@@ -1205,8 +1205,9 @@
 	<string name="type.natural.glacier">كتلة جليدية</string>
 	<string name="type.natural.grassland">ملعب</string>
 	<string name="type.natural.water.lake">بحيرة</string>
-	<string name="type.natural.peak">قمة</string>
 	<string name="type.natural.water.pond">بركة</string>
+	<string name="type.natural.water.river">نهر</string>
+	<string name="type.natural.peak">قمة</string>
 	<string name="type.natural.scrub">أَيْكَة</string>
 	<string name="type.natural.spring">ينبوع</string>
 	<string name="type.natural.strait">مضيق</string>

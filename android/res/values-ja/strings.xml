@@ -1288,11 +1288,12 @@
 	<string name="type.natural.heath">ヒース</string>
 	<string name="type.natural.hot_spring">温泉</string>
 	<string name="type.natural.water.lake">湖</string>
+	<string name="type.natural.water.pond">池</string>
+	<string name="type.natural.water.river">河川</string>
 	<string name="type.natural.land">陸地</string>
 	<string name="type.natural.meadow">牧草地</string>
 	<string name="type.natural.orchard">果樹園</string>
 	<string name="type.natural.peak">山頂</string>
-	<string name="type.natural.water.pond">池</string>
 	<string name="type.natural.rock">岩</string>
 	<string name="type.natural.scrub">雑木林</string>
 	<string name="type.natural.spring">泉</string>

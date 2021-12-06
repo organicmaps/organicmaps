@@ -780,6 +780,9 @@
 /* Text field to enter non-existing street name, below list of known streets around */
 "add_street" = "Дадаць вуліцу";
 
+/* New street dialog validation message */
+"empty_street_name_error" = "Please enter street name";
+
 "choose_language" = "Выбраць мову";
 
 "choose_street" = "Выбраць вуліцу";
@@ -963,6 +966,9 @@
 "editor_remove_place_button" = "Выдаліць";
 
 "editor_place_doesnt_exist" = "Месца не існуе";
+
+/*  */
+"delete_place_empty_comment_error" = "Please enter comment";
 
 "text_more_button" = "…яшчэ";
 
@@ -2503,6 +2509,10 @@
 
 "type.natural.beach" = "Beach";
 
+"type.natural.beach.sand" = "Пяшчаны пляж";
+
+"type.natural.beach.gravel" = "Галечны пляж";
+
 "type.natural.cape" = "Cape";
 
 "type.natural.cave_entrance" = "Cave";
@@ -2523,17 +2533,23 @@
 
 "type.natural.water.lake" = "Lake";
 
-"type.natural.land" = "Land";
+"type.natural.water.pond" = "Сажалка";
 
-"type.natural.meadow" = "Meadow";
+"type.natural.water.reservoir" = "Вадасховішча";
 
-"type.natural.orchard" = "Orchard";
+"type.natural.water.basin" = "Рэзервуар";
+
+"type.natural.water.river" = "Рака";
+
+"type.natural.land" = "Суша";
+
+"type.natural.meadow" = "Луг";
+
+"type.natural.orchard" = "Сад";
 
 "type.natural.peak" = "Peak";
 
 "type.natural.saddle" = "Седлавіна";
-
-"type.natural.water.pond" = "Pond";
 
 "type.natural.rock" = "Rock";
 
@@ -3143,19 +3159,19 @@
 
 "type.waterway.lock_gate" = "Lock Gate";
 
-"type.waterway.river" = "River";
+"type.waterway.river" = "Рака";
 
-"type.waterway.river.tunnel" = "River";
+"type.waterway.river.tunnel" = "Рака";
 
-"type.waterway.riverbank" = "River";
+"type.waterway.riverbank" = "Рака";
 
-"type.waterway.stream" = "River";
+"type.waterway.stream" = "Рака";
 
-"type.waterway.stream.ephemeral" = "River";
+"type.waterway.stream.ephemeral" = "Рака";
 
-"type.waterway.stream.intermittent" = "River";
+"type.waterway.stream.intermittent" = "Рака";
 
-"type.waterway.stream.tunnel" = "River";
+"type.waterway.stream.tunnel" = "Рака";
 
 "type.waterway.waterfall" = "Waterfall";
 

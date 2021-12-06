@@ -1105,8 +1105,9 @@
 	<string name="type.natural.glacier">یخچال طبیعی</string>
 	<string name="type.natural.grassland">کشتزار</string>
 	<string name="type.natural.water.lake">دریاچه</string>
-	<string name="type.natural.peak">قله</string>
 	<string name="type.natural.water.pond">تالاب</string>
+	<string name="type.natural.water.river">رودخانه</string>
+	<string name="type.natural.peak">قله</string>
 	<string name="type.natural.scrub">بوته زار</string>
 	<string name="type.natural.spring">چشمه</string>
 	<string name="type.natural.strait">تنگه</string>

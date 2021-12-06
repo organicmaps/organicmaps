@@ -1217,8 +1217,10 @@
 	<string name="type.natural.glacier">Glaciar</string>
 	<string name="type.natural.grassland">Campo</string>
 	<string name="type.natural.water.lake">Lago</string>
-	<string name="type.natural.peak">Cima</string>
 	<string name="type.natural.water.pond">Estanque</string>
+	<string name="type.natural.water.reservoir">Embalse</string>
+	<string name="type.natural.water.river">Río</string>
+	<string name="type.natural.peak">Cima</string>
 	<string name="type.natural.scrub">Matorrales</string>
 	<string name="type.natural.spring">Manantial</string>
 	<string name="type.natural.strait">Estrecho</string>

@@ -1201,8 +1201,9 @@
 	<string name="type.natural.glacier">빙하</string>
 	<string name="type.natural.grassland">밭</string>
 	<string name="type.natural.water.lake">호수</string>
-	<string name="type.natural.peak">산</string>
 	<string name="type.natural.water.pond">연못이</string>
+	<string name="type.natural.water.river">강</string>
+	<string name="type.natural.peak">산</string>
 	<string name="type.natural.scrub">관목지</string>
 	<string name="type.natural.spring">샘</string>
 	<string name="type.natural.strait">해협</string>

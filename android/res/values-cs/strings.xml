@@ -1199,8 +1199,9 @@
 	<string name="type.natural.glacier">Ledovec</string>
 	<string name="type.natural.grassland">Pole</string>
 	<string name="type.natural.water.lake">Jezero</string>
-	<string name="type.natural.peak">Hora</string>
 	<string name="type.natural.water.pond">Rybník</string>
+	<string name="type.natural.water.river">Řeka</string>
+	<string name="type.natural.peak">Hora</string>
 	<string name="type.natural.scrub">Křoviny</string>
 	<string name="type.natural.spring">Pramen</string>
 	<string name="type.natural.strait">Průliv</string>

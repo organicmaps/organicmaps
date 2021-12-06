@@ -1197,8 +1197,9 @@
 	<string name="type.natural.glacier">Buzul</string>
 	<string name="type.natural.grassland">Yeşillik</string>
 	<string name="type.natural.water.lake">Göl</string>
-	<string name="type.natural.peak">Zirve</string>
 	<string name="type.natural.water.pond">Gölet</string>
+	<string name="type.natural.water.river">Nehir</string>
+	<string name="type.natural.peak">Zirve</string>
 	<string name="type.natural.scrub">Çalılık</string>
 	<string name="type.natural.spring">Pınar</string>
 	<string name="type.natural.strait">Boğaz</string>

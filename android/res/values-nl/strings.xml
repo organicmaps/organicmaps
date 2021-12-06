@@ -1200,11 +1200,12 @@
 	<string name="type.natural.heath">Heide</string>
 	<string name="type.natural.hot_spring">Heetwaterbron</string>
 	<string name="type.natural.water.lake">Meer</string>
+	<string name="type.natural.water.pond">Plas</string>
+	<string name="type.natural.water.river">Rivier</string>
 	<string name="type.natural.land">Land</string>
 	<string name="type.natural.meadow">Weiland</string>
 	<string name="type.natural.orchard">Boomgaard</string>
 	<string name="type.natural.peak">Top</string>
-	<string name="type.natural.water.pond">Plas</string>
 	<string name="type.natural.rock">Steen</string>
 	<string name="type.natural.scrub">Kreupel bos</string>
 	<string name="type.natural.spring">Bron</string>

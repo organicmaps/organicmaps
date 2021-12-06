@@ -1200,8 +1200,9 @@
 	<string name="type.natural.glacier">Sông băng</string>
 	<string name="type.natural.grassland">Cánh đồng</string>
 	<string name="type.natural.water.lake">Hồ</string>
-	<string name="type.natural.peak">Đỉnh</string>
 	<string name="type.natural.water.pond">Ao</string>
+	<string name="type.natural.water.river">Sông</string>
+	<string name="type.natural.peak">Đỉnh</string>
 	<string name="type.natural.scrub">Bụi rậm</string>
 	<string name="type.natural.spring">Suối</string>
 	<string name="type.natural.strait">Eo biển</string>

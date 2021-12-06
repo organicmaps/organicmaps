@@ -1196,8 +1196,9 @@
 	<string name="type.natural.glacier">Gletser</string>
 	<string name="type.natural.grassland">Ladang</string>
 	<string name="type.natural.water.lake">Danau</string>
-	<string name="type.natural.peak">Puncak</string>
 	<string name="type.natural.water.pond">Kolam</string>
+	<string name="type.natural.water.river">Sungai</string>
+	<string name="type.natural.peak">Puncak</string>
 	<string name="type.natural.scrub">Semak</string>
 	<string name="type.natural.spring">Mata air</string>
 	<string name="type.natural.strait">Selat</string>

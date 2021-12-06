@@ -1217,8 +1217,9 @@
 	<string name="type.natural.glacier">Jäätikkö</string>
 	<string name="type.natural.grassland">Pelto</string>
 	<string name="type.natural.water.lake">Järvi</string>
-	<string name="type.natural.peak">Huippu</string>
 	<string name="type.natural.water.pond">Lampi</string>
+	<string name="type.natural.water.river">Joki</string>
+	<string name="type.natural.peak">Huippu</string>
 	<string name="type.natural.scrub">Tiheiköt</string>
 	<string name="type.natural.spring">Lähde</string>
 	<string name="type.natural.strait">Salmi</string>

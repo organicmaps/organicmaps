@@ -1287,9 +1287,10 @@
 	<string name="type.natural.heath">Lande</string>
 	<string name="type.natural.hot_spring">Source chaude</string>
 	<string name="type.natural.water.lake">Lac</string>
+	<string name="type.natural.water.pond">Étang</string>
+	<string name="type.natural.water.river">Rivière</string>
 	<string name="type.natural.peak">Sommet</string>
 	<string name="type.natural.saddle">Col de montagne</string>
-	<string name="type.natural.water.pond">Étang</string>
 	<string name="type.natural.rock">Rocher</string>
 	<string name="type.natural.scrub">Fourré</string>
 	<string name="type.natural.spring">Source</string>

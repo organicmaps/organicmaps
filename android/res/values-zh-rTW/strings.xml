@@ -1236,8 +1236,9 @@
 	<string name="type.natural.glacier">冰川</string>
 	<string name="type.natural.grassland">田野</string>
 	<string name="type.natural.water.lake">湖泊</string>
-	<string name="type.natural.peak">山峰</string>
 	<string name="type.natural.water.pond">潭</string>
+	<string name="type.natural.water.river">河流</string>
+	<string name="type.natural.peak">山峰</string>
 	<string name="type.natural.scrub">叢林</string>
 	<string name="type.natural.spring">泉水</string>
 	<string name="type.natural.strait">海峽</string>

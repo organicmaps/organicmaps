@@ -780,6 +780,9 @@
 /* Text field to enter non-existing street name, below list of known streets around */
 "add_street" = "Добавить улицу";
 
+/* New street dialog validation message */
+"empty_street_name_error" = "Введите название улицы";
+
 "choose_language" = "Выбрать язык";
 
 "choose_street" = "Выбрать улицу";
@@ -963,6 +966,9 @@
 "editor_remove_place_button" = "Удалить";
 
 "editor_place_doesnt_exist" = "Места не существует";
+
+/*  */
+"delete_place_empty_comment_error" = "Введите коментарий к удалению";
 
 "text_more_button" = "…ещё";
 
@@ -2503,6 +2509,10 @@
 
 "type.natural.beach" = "Пляж";
 
+"type.natural.beach.sand" = "Песчаный пляж";
+
+"type.natural.beach.gravel" = "Галечный пляж";
+
 "type.natural.cape" = "Мыс";
 
 "type.natural.cave_entrance" = "Пещера";
@@ -2523,17 +2533,23 @@
 
 "type.natural.water.lake" = "Озеро";
 
-"type.natural.land" = "Земля";
+"type.natural.water.pond" = "Пруд";
+
+"type.natural.water.reservoir" = "Водохранилище";
+
+"type.natural.water.basin" = "Резервуар";
+
+"type.natural.water.river" = "Река";
+
+"type.natural.land" = "Суша";
 
 "type.natural.meadow" = "Луг";
 
-"type.natural.orchard" = "Фруктовый сад";
+"type.natural.orchard" = "Сад";
 
 "type.natural.peak" = "Гора";
 
 "type.natural.saddle" = "Седловина";
-
-"type.natural.water.pond" = "Пруд";
 
 "type.natural.rock" = "Камень";
 

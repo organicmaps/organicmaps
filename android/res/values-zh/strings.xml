@@ -1317,8 +1317,9 @@
 	<string name="type.natural.heath">荒野</string>
 	<string name="type.natural.hot_spring">温泉</string>
 	<string name="type.natural.water.lake">湖</string>
-	<string name="type.natural.peak">峰</string>
 	<string name="type.natural.water.pond">池塘</string>
+	<string name="type.natural.water.river">河流</string>
+	<string name="type.natural.peak">峰</string>
 	<string name="type.natural.rock">岩石</string>
 	<string name="type.natural.scrub">灌木丛</string>
 	<string name="type.natural.spring">泉水</string>

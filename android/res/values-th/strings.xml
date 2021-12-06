@@ -1205,8 +1205,9 @@
 	<string name="type.natural.glacier">ธารน้ำแข็ง</string>
 	<string name="type.natural.grassland">ทุ่งหญ้า</string>
 	<string name="type.natural.water.lake">ทะเลสาบ</string>
-	<string name="type.natural.peak">จุดสูงสุด</string>
 	<string name="type.natural.water.pond">บ่อ</string>
+	<string name="type.natural.water.river">แม่น้ำ</string>
+	<string name="type.natural.peak">จุดสูงสุด</string>
 	<string name="type.natural.scrub">ป่าละเมาะ</string>
 	<string name="type.natural.spring">ฤดูใบไม้ผลิ</string>
 	<string name="type.natural.strait">ช่องแคบ</string>

@@ -780,6 +780,9 @@
 /* Text field to enter non-existing street name, below list of known streets around */
 "add_street" = "Adicionar uma rua";
 
+/* New street dialog validation message */
+"empty_street_name_error" = "Please enter street name";
+
 "choose_language" = "Escolher um idioma";
 
 "choose_street" = "Escolher uma rua";
@@ -963,6 +966,9 @@
 "editor_remove_place_button" = "Remover";
 
 "editor_place_doesnt_exist" = "O lugar não existe";
+
+/*  */
+"delete_place_empty_comment_error" = "Please enter comment";
 
 "text_more_button" = "…mais";
 
@@ -2503,6 +2509,10 @@
 
 "type.natural.beach" = "Praia";
 
+"type.natural.beach.sand" = "Sandy Beach";
+
+"type.natural.beach.gravel" = "Gravel Beach";
+
 "type.natural.cape" = "Cabo";
 
 "type.natural.cave_entrance" = "Caverna";
@@ -2523,6 +2533,14 @@
 
 "type.natural.water.lake" = "Lago";
 
+"type.natural.water.pond" = "Lagoa";
+
+"type.natural.water.reservoir" = "Reservoir";
+
+"type.natural.water.basin" = "Basin";
+
+"type.natural.water.river" = "Rio";
+
 "type.natural.land" = "Campo";
 
 "type.natural.meadow" = "Pradaria";
@@ -2532,8 +2550,6 @@
 "type.natural.peak" = "Pico";
 
 "type.natural.saddle" = "Mountain Saddle";
-
-"type.natural.water.pond" = "Lagoa";
 
 "type.natural.rock" = "Rochedo";
 

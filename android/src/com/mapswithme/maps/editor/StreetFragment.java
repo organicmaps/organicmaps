@@ -10,6 +10,7 @@ import androidx.annotation.CallSuper;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import com.mapswithme.maps.R;
 import com.mapswithme.maps.base.BaseMwmRecyclerFragment;
 import com.mapswithme.maps.dialog.EditTextDialogFragment;
 import com.mapswithme.maps.editor.data.LocalizedStreet;
@@ -68,7 +69,7 @@ public class StreetFragment extends BaseMwmRecyclerFragment<StreetAdapter>
   {
     return (activity, text) -> {
       if (TextUtils.isEmpty(text))
-        return new Option<>("Please enter street name");
+        return new Option<>(activity.getString(R.string.empty_street_name_error));
       else
         return Option.empty();
     };

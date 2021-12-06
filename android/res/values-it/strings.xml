@@ -1191,9 +1191,10 @@
 	<string name="type.natural.glacier">Ghiacciaio</string>
 	<string name="type.natural.grassland">Campo</string>
 	<string name="type.natural.water.lake">Lago</string>
+	<string name="type.natural.water.pond">Stagno</string>
+	<string name="type.natural.water.river">Fiume</string>
 	<string name="type.natural.peak">Monte</string>
 	<string name="type.natural.saddle">Sella</string>
-	<string name="type.natural.water.pond">Stagno</string>
 	<string name="type.natural.scrub">Boscaglia</string>
 	<string name="type.natural.spring">Sorgente</string>
 	<string name="type.natural.strait">Stretto</string>

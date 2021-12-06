@@ -780,6 +780,9 @@
 /* Text field to enter non-existing street name, below list of known streets around */
 "add_street" = "إضافة شارع";
 
+/* New street dialog validation message */
+"empty_street_name_error" = "Please enter street name";
+
 "choose_language" = "اختر اللغة";
 
 "choose_street" = "اختر الشارع";
@@ -963,6 +966,9 @@
 "editor_remove_place_button" = "إزالة";
 
 "editor_place_doesnt_exist" = "المكان غير موجود";
+
+/*  */
+"delete_place_empty_comment_error" = "Please enter comment";
 
 "text_more_button" = "…المزيد";
 
@@ -2503,6 +2509,10 @@
 
 "type.natural.beach" = "شاطئ";
 
+"type.natural.beach.sand" = "Sandy Beach";
+
+"type.natural.beach.gravel" = "Gravel Beach";
+
 "type.natural.cape" = "رأس";
 
 "type.natural.cave_entrance" = "كهف";
@@ -2523,6 +2533,14 @@
 
 "type.natural.water.lake" = "بحيرة";
 
+"type.natural.water.pond" = "بركة";
+
+"type.natural.water.reservoir" = "Reservoir";
+
+"type.natural.water.basin" = "Basin";
+
+"type.natural.water.river" = "نهر";
+
 "type.natural.land" = "Land";
 
 "type.natural.meadow" = "Meadow";
@@ -2532,8 +2550,6 @@
 "type.natural.peak" = "قمة";
 
 "type.natural.saddle" = "Mountain Saddle";
-
-"type.natural.water.pond" = "بركة";
 
 "type.natural.rock" = "Rock";
 

@@ -1193,8 +1193,9 @@
 	<string name="type.natural.glacier">Glaciär</string>
 	<string name="type.natural.grassland">Fältet</string>
 	<string name="type.natural.water.lake">Sjö</string>
-	<string name="type.natural.peak">Bergstopp</string>
 	<string name="type.natural.water.pond">Damm</string>
+	<string name="type.natural.water.river">Flod</string>
+	<string name="type.natural.peak">Bergstopp</string>
 	<string name="type.natural.scrub">Ruggen</string>
 	<string name="type.natural.spring">Vattenkälla</string>
 	<string name="type.natural.strait">Sund</string>

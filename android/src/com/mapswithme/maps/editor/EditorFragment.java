@@ -804,7 +804,7 @@ public class EditorFragment extends BaseMwmFragment implements View.OnClickListe
   {
     return (activity, text) -> {
       if (TextUtils.isEmpty(text))
-        return new Option<>("Please enter comment");
+        return new Option<>(activity.getString(R.string.delete_place_empty_comment_error));
       else
         return Option.empty();
     };

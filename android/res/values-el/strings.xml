@@ -1193,8 +1193,9 @@
 	<string name="type.natural.glacier">Παγετώνας</string>
 	<string name="type.natural.grassland">Λιβάδι</string>
 	<string name="type.natural.water.lake">Λίμνη</string>
-	<string name="type.natural.peak">Κορυφή</string>
 	<string name="type.natural.water.pond">Δεξαμενή</string>
+	<string name="type.natural.water.river">Ποταμός</string>
+	<string name="type.natural.peak">Κορυφή</string>
 	<string name="type.natural.scrub">Θαμνώδες περιοχή</string>
 	<string name="type.natural.spring">Πηγή νερού</string>
 	<string name="type.natural.strait">Πορθμός</string>

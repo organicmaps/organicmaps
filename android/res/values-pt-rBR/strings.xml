@@ -1327,11 +1327,12 @@
 	<string name="type.natural.heath">Charneca</string>
 	<string name="type.natural.hot_spring">Nascente de água quente</string>
 	<string name="type.natural.water.lake">Lago</string>
+	<string name="type.natural.water.pond">Lagoa</string>
+	<string name="type.natural.water.river">Rio</string>
 	<string name="type.natural.land">Campo</string>
 	<string name="type.natural.meadow">Pradaria</string>
 	<string name="type.natural.orchard">Pomar</string>
 	<string name="type.natural.peak">Pico</string>
-	<string name="type.natural.water.pond">Lagoa</string>
 	<string name="type.natural.rock">Rochedo</string>
 	<string name="type.natural.scrub">Matagal</string>
 	<string name="type.natural.spring">Nascente</string>

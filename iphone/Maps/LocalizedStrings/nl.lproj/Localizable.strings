@@ -780,6 +780,9 @@
 /* Text field to enter non-existing street name, below list of known streets around */
 "add_street" = "Een straat toevoegen";
 
+/* New street dialog validation message */
+"empty_street_name_error" = "Please enter street name";
+
 "choose_language" = "Een taal kiezen";
 
 "choose_street" = "Een straat kiezen";
@@ -963,6 +966,9 @@
 "editor_remove_place_button" = "Verwijderen";
 
 "editor_place_doesnt_exist" = "Locatie bestaat niet";
+
+/*  */
+"delete_place_empty_comment_error" = "Please enter comment";
 
 "text_more_button" = "…meer";
 
@@ -2503,6 +2509,10 @@
 
 "type.natural.beach" = "Strand";
 
+"type.natural.beach.sand" = "Sandy Beach";
+
+"type.natural.beach.gravel" = "Gravel Beach";
+
 "type.natural.cape" = "Kaap";
 
 "type.natural.cave_entrance" = "Grot";
@@ -2523,6 +2533,14 @@
 
 "type.natural.water.lake" = "Meer";
 
+"type.natural.water.pond" = "Plas";
+
+"type.natural.water.reservoir" = "Reservoir";
+
+"type.natural.water.basin" = "Basin";
+
+"type.natural.water.river" = "Rivier";
+
 "type.natural.land" = "Land";
 
 "type.natural.meadow" = "Weiland";
@@ -2532,8 +2550,6 @@
 "type.natural.peak" = "Top";
 
 "type.natural.saddle" = "Mountain Saddle";
-
-"type.natural.water.pond" = "Plas";
 
 "type.natural.rock" = "Steen";
 

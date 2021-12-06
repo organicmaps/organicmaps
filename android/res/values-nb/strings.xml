@@ -1173,8 +1173,9 @@
 	<string name="type.natural.glacier">Isbre</string>
 	<string name="type.natural.grassland">Slette</string>
 	<string name="type.natural.water.lake">Innsjø</string>
-	<string name="type.natural.peak">Høydepunkt</string>
 	<string name="type.natural.water.pond">Dam</string>
+	<string name="type.natural.water.river">Elv</string>
+	<string name="type.natural.peak">Høydepunkt</string>
 	<string name="type.natural.scrub">Myr</string>
 	<string name="type.natural.spring">Vår</string>
 	<string name="type.natural.strait">Sund</string>

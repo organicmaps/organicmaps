@@ -1190,8 +1190,9 @@
 	<string name="type.natural.glacier">Gletsjer</string>
 	<string name="type.natural.grassland">Mark</string>
 	<string name="type.natural.water.lake">Sø</string>
-	<string name="type.natural.peak">Bjerg</string>
 	<string name="type.natural.water.pond">Dam</string>
+	<string name="type.natural.water.river">Flod</string>
+	<string name="type.natural.peak">Bjerg</string>
 	<string name="type.natural.scrub">Kratbevokset område</string>
 	<string name="type.natural.spring">Kilde</string>
 	<string name="type.natural.strait">Stræde</string>
