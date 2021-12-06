@@ -108,8 +108,7 @@ public class SearchFragment extends BaseMwmFragment
     @Override
     protected boolean onStartSearchClick()
     {
-      if (!RoutingController.get().isWaitingPoiPick())
-        showAllResultsOnMap();
+      deactivate();
       return true;
     }
 
