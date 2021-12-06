@@ -49,6 +49,6 @@ T SwapIfBigEndianMacroBased(T t)
 inline bool IsLittleEndian()
 {
   uint16_t const word = 0x0001;
-  uint8_t const * const b = reinterpret_cast<uint8_t const * const>(&word);
+  uint8_t const * b = reinterpret_cast<uint8_t const *>(&word);
   return b[0] != 0x0;
 }

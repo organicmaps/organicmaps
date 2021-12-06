@@ -424,7 +424,7 @@ bool WeekdayRange::operator==(WeekdayRange const & rhs) const
          m_nths == rhs.m_nths;
 }
 
-std::ostream & operator<<(std::ostream & ost, Weekday const wday)
+std::ostream & operator<<(std::ostream & ost, Weekday wday)
 {
   switch (wday)
   {
