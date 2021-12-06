@@ -296,7 +296,7 @@ enum class Weekday
   Saturday
 };
 
-inline constexpr Weekday ToWeekday(uint64_t const day)
+inline constexpr Weekday ToWeekday(uint64_t day)
 {
   using TDay = decltype(day);
   return ((day <= static_cast<TDay>(Weekday::None) ||
@@ -310,7 +310,7 @@ inline constexpr Weekday operator ""_weekday(unsigned long long int day)
   return ToWeekday(day);
 }
 
-std::ostream & operator<<(std::ostream & ost, Weekday const wday);
+std::ostream & operator<<(std::ostream & ost, Weekday wday);
 
 class WeekdayRange
 {
@@ -497,7 +497,7 @@ private:
   DateOffset m_offset;
 };
 
-inline constexpr MonthDay::Month ToMonth(uint64_t const month)
+inline constexpr MonthDay::Month ToMonth(uint64_t month)
 {
   using TMonth = decltype(month);
   return ((month <= static_cast<TMonth>(MonthDay::Month::None) ||
