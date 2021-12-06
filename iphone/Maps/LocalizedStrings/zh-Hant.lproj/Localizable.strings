@@ -967,7 +967,7 @@
 
 "editor_place_doesnt_exist" = "位置不存在";
 
-/*  */
+/* Error message for "Place doesn't exist" dialog when comment is empty */
 "delete_place_empty_comment_error" = "Please enter comment";
 
 "text_more_button" = "…更多";
@@ -2489,7 +2489,7 @@
 
 "type.man_made.windmill" = "風車";
 
-"type.man_made.works" = "Works";
+"type.man_made.works" = "Industrial Works";
 
 "type.mapswithme" = "mapswithme";
 
@@ -2535,9 +2535,9 @@
 
 "type.natural.water.pond" = "潭";
 
-"type.natural.water.reservoir" = "Reservoir";
+"type.natural.water.reservoir" = "水庫";
 
-"type.natural.water.basin" = "Basin";
+"type.natural.water.basin" = "水庫";
 
 "type.natural.water.river" = "河流";
 
@@ -2567,7 +2567,7 @@
 
 "type.natural.volcano" = "火山";
 
-"type.natural.water" = "水庫";
+"type.natural.water" = "水體";
 
 "type.natural.wetland" = "沼澤";
 

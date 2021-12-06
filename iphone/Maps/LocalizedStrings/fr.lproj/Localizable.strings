@@ -967,7 +967,7 @@
 
 "editor_place_doesnt_exist" = "Ce lieu n'existe pas";
 
-/*  */
+/* Error message for "Place doesn't exist" dialog when comment is empty */
 "delete_place_empty_comment_error" = "Please enter comment";
 
 "text_more_button" = "…Afficher la suite";
@@ -2327,7 +2327,7 @@
 
 "type.landuse.allotments" = "Jardins familiaux";
 
-"type.landuse.basin" = "Eau";
+"type.landuse.basin" = "Réservoir";
 
 "type.landuse.brownfield" = "Friche industrielle";
 
@@ -2489,7 +2489,7 @@
 
 "type.man_made.windmill" = "Moulin à vent";
 
-"type.man_made.works" = "Works";
+"type.man_made.works" = "Industrial Works";
 
 "type.mapswithme" = "mapswithme";
 
@@ -2535,9 +2535,9 @@
 
 "type.natural.water.pond" = "Étang";
 
-"type.natural.water.reservoir" = "Reservoir";
+"type.natural.water.reservoir" = "Réservoir";
 
-"type.natural.water.basin" = "Basin";
+"type.natural.water.basin" = "Réservoir";
 
 "type.natural.water.river" = "Rivière";
 
@@ -2567,7 +2567,7 @@
 
 "type.natural.volcano" = "Volcan";
 
-"type.natural.water" = "Eau";
+"type.natural.water" = "Étendue d'eau";
 
 "type.natural.wetland" = "Zone humide";
 

@@ -850,6 +850,7 @@
 	<string name="type.barrier.lift_gate">Шлагбаўм</string>
 	<string name="type.barrier.swing_gate">Шлагбаўм</string>
 	<string name="type.healthcare.laboratory">Медыцынская лабараторыя</string>
+	<string name="type.landuse.basin">Рэзервуар</string>
 	<string name="type.leisure.picnic_table">Стол для пікніка</string>
 	<string name="type.man_made.silo">Сілас</string>
 	<string name="type.man_made.storage_tank">Рэзервуар</string>
@@ -863,7 +864,9 @@
 	<string name="type.natural.land">Суша</string>
 	<string name="type.natural.meadow">Луг</string>
 	<string name="type.natural.orchard">Сад</string>
+	<string name="type.natural.peak">Вяршыня</string>
 	<string name="type.natural.saddle">Седлавіна</string>
+	<string name="type.natural.water">Вадаём</string>
 	<string name="type.waterway.river">Рака</string>
 	<string name="type.waterway.river.tunnel">Рака</string>
 	<string name="type.waterway.riverbank">Рака</string>

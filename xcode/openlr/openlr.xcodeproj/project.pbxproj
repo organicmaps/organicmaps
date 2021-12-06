@@ -257,7 +257,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 671E791F1E6A503F00B2859B /* common-debug.xcconfig */;
 			buildSettings = {
-				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(OMIM_ROOT)",
@@ -271,7 +270,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 671E79201E6A503F00B2859B /* common-release.xcconfig */;
 			buildSettings = {
-				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(OMIM_ROOT)",

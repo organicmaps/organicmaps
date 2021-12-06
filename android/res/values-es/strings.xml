@@ -941,7 +941,7 @@
 	<string name="type.amenity.veterinary">Clínica veterinaria</string>
 	<string name="type.amenity.waste_basket">Papelera</string>
 	<string name="type.amenity.waste_disposal">Basura</string>
-	<string name="type.amenity.water_point">Fuente de agua potable</string>
+	<string name="type.amenity.water_point">Fuente de agua</string>
 	<string name="type.barrier.block">Bloque</string>
 	<string name="type.barrier.bollard">Bolardo</string>
 	<string name="type.barrier.border_control">Control de fronteras</string>
@@ -1219,6 +1219,7 @@
 	<string name="type.natural.water.lake">Lago</string>
 	<string name="type.natural.water.pond">Estanque</string>
 	<string name="type.natural.water.reservoir">Embalse</string>
+	<string name="type.natural.water.basin">Cuenca</string>
 	<string name="type.natural.water.river">Río</string>
 	<string name="type.natural.peak">Cima</string>
 	<string name="type.natural.scrub">Matorrales</string>
@@ -1226,7 +1227,7 @@
 	<string name="type.natural.strait">Estrecho</string>
 	<string name="type.natural.tree">Árbol</string>
 	<string name="type.natural.volcano">Volcán</string>
-	<string name="type.natural.water">Cuenca</string>
+	<string name="type.natural.water">Cuerpo de agua</string>
 	<string name="type.natural.wetland">Terreno pantanoso</string>
 	<string name="type.office">Oficina</string>
 	<string name="type.office.company">Oficina</string>

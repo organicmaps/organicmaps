@@ -1,3 +1,5 @@
-• New OSM maps data as of October 22
-• Added mountain saddle, mountain pass, silo, storage tank, chain barrier, swing gate
-• Fixed some icons and translations
+• New OSM maps data as of November 22
+• Fixed routing between map regions, please test and report to us any issues!
+• Type "water" or "drinking water" in search to find it around yourself
+• Fixed opening of https://omaps.app/ and om:// links on the cold start
+• Updated Russian, Finnish, German, French, Spanish, Ukrainian, Belarusian and Chinese translations

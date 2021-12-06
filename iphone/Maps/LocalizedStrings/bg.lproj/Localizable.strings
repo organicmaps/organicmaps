@@ -967,7 +967,7 @@
 
 "editor_place_doesnt_exist" = "Мястото не съществува";
 
-/*  */
+/* Error message for "Place doesn't exist" dialog when comment is empty */
 "delete_place_empty_comment_error" = "Please enter comment";
 
 "text_more_button" = "…още";
@@ -2271,11 +2271,11 @@
 
 "type.historic.memorial" = "Memorial";
 
-"type.historic.memorial.plaque" = "Memorial";
+"type.historic.memorial.plaque" = "Commemorative plaque";
 
-"type.historic.memorial.sculpture" = "Memorial";
+"type.historic.memorial.sculpture" = "Sculpture";
 
-"type.historic.memorial.statue" = "Memorial";
+"type.historic.memorial.statue" = "Statue";
 
 "type.historic.monument" = "Monument";
 
@@ -2327,7 +2327,7 @@
 
 "type.landuse.allotments" = "Allotments";
 
-"type.landuse.basin" = "Water";
+"type.landuse.basin" = "Резервоар";
 
 "type.landuse.brownfield" = "Brownfield";
 
@@ -2489,7 +2489,7 @@
 
 "type.man_made.windmill" = "Windmill";
 
-"type.man_made.works" = "Works";
+"type.man_made.works" = "Industrial Works";
 
 "type.mapswithme" = "mapswithme";
 
@@ -2535,9 +2535,9 @@
 
 "type.natural.water.pond" = "Pond";
 
-"type.natural.water.reservoir" = "Reservoir";
+"type.natural.water.reservoir" = "Резервоар";
 
-"type.natural.water.basin" = "Basin";
+"type.natural.water.basin" = "Резервоар";
 
 "type.natural.water.river" = "River";
 
@@ -2567,7 +2567,7 @@
 
 "type.natural.volcano" = "Volcano";
 
-"type.natural.water" = "Water";
+"type.natural.water" = "Воден басейн";
 
 "type.natural.wetland" = "Wetland";
 

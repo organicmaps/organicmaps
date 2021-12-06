@@ -967,7 +967,7 @@
 
 "editor_place_doesnt_exist" = "Stedet eksisterer ikke";
 
-/*  */
+/* Error message for "Place doesn't exist" dialog when comment is empty */
 "delete_place_empty_comment_error" = "Please enter comment";
 
 "text_more_button" = "…mere";
@@ -2327,7 +2327,7 @@
 
 "type.landuse.allotments" = "Allotments";
 
-"type.landuse.basin" = "Vand";
+"type.landuse.basin" = "Vandbassin";
 
 "type.landuse.brownfield" = "Brownfield";
 
@@ -2489,7 +2489,7 @@
 
 "type.man_made.windmill" = "Vindmølle";
 
-"type.man_made.works" = "Works";
+"type.man_made.works" = "Industrial Works";
 
 "type.mapswithme" = "mapswithme";
 
@@ -2537,7 +2537,7 @@
 
 "type.natural.water.reservoir" = "Reservoir";
 
-"type.natural.water.basin" = "Basin";
+"type.natural.water.basin" = "Vandbassin";
 
 "type.natural.water.river" = "Flod";
 
@@ -2567,7 +2567,7 @@
 
 "type.natural.volcano" = "Vulkan";
 
-"type.natural.water" = "Vand";
+"type.natural.water" = "Vandmasse";
 
 "type.natural.wetland" = "Vådområde";
 

@@ -967,7 +967,7 @@
 
 "editor_place_doesnt_exist" = "Η τοποθεσία δεν υπάρχει";
 
-/*  */
+/* Error message for "Place doesn't exist" dialog when comment is empty */
 "delete_place_empty_comment_error" = "Please enter comment";
 
 "text_more_button" = "…περισσότερα";
@@ -2327,7 +2327,7 @@
 
 "type.landuse.allotments" = "Allotments";
 
-"type.landuse.basin" = "Νερό";
+"type.landuse.basin" = "Μια λεκάνη νερού";
 
 "type.landuse.brownfield" = "Brownfield";
 
@@ -2489,7 +2489,7 @@
 
 "type.man_made.windmill" = "Ανεμόμυλος";
 
-"type.man_made.works" = "Works";
+"type.man_made.works" = "Industrial Works";
 
 "type.mapswithme" = "mapswithme";
 
@@ -2535,9 +2535,9 @@
 
 "type.natural.water.pond" = "Δεξαμενή";
 
-"type.natural.water.reservoir" = "Reservoir";
+"type.natural.water.reservoir" = "Δεξαμενή";
 
-"type.natural.water.basin" = "Basin";
+"type.natural.water.basin" = "Μια λεκάνη νερού";
 
 "type.natural.water.river" = "Ποταμός";
 
@@ -2567,7 +2567,7 @@
 
 "type.natural.volcano" = "Ηφαίστειο";
 
-"type.natural.water" = "Νερό";
+"type.natural.water" = "Σώμα νερού";
 
 "type.natural.wetland" = "Υγρότοπος";
 

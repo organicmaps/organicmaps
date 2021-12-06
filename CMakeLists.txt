@@ -9,7 +9,7 @@ set(CMAKE_CXX_EXTENSIONS OFF)
 set(CMAKE_C_EXTENSIONS OFF)
 
 # Force colored errors and warnings for Ninja.
-if (CMAKE_GENERATOR MATCHES "Ninja" AND NOT (ENV{COLORS_DISABLE} EQUAL "1") )
+if (CMAKE_GENERATOR MATCHES "Ninja" AND NOT (DEFINED ENV{COLORS_DISABLE}))
   if ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU")
     add_compile_options (-fdiagnostics-color=always)
   elseif ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "Clang" OR
@@ -70,15 +70,11 @@ endif()
 # Global compile options for all configurations.
 add_compile_options(-ffast-math)
 
-if ("${CMAKE_BUILD_TYPE}" STREQUAL "Debug")
-  add_definitions(-DDEBUG)
-elseif ("${CMAKE_BUILD_TYPE}" STREQUAL "Release")
+if (${CMAKE_BUILD_TYPE} STREQUAL "Debug")
+  add_definitions(-DDEBUG -fno-omit-frame-pointer)
+elseif (${CMAKE_BUILD_TYPE} MATCHES "^Rel")
   add_definitions(-DRELEASE)
-elseif ("${CMAKE_BUILD_TYPE}" STREQUAL "RelWithDebInfo")
-  add_definitions(-DRELEASE)
-  add_compile_options(
-    "-fno-omit-frame-pointer"
-  )
+  add_compile_options(-Ofast)
 else()
   message(FATAL_ERROR "Unknown build type: " ${CMAKE_BUILD_TYPE})
 endif()
@@ -103,8 +99,7 @@ option(SKIP_DESKTOP "Skip building of desktop application" OFF)
 option(BUILD_MAPSHOT "Build mapshot tool" OFF)
 option(USE_PCH "Use precompiled headers" OFF)
 
-if (CMAKE_CXX_COMPILER_ID MATCHES "GNU" AND
-    CMAKE_CXX_COMPILER_VERSION VERSION_LESS 7.0)
+if (CMAKE_CXX_COMPILER_ID MATCHES "GNU" AND CMAKE_CXX_COMPILER_VERSION VERSION_LESS 7.0)
   message(FATAL_ERROR "Minimum supported g++ version is 7.0 yours is ${CMAKE_CXX_COMPILER_VERSION}")
 endif()
 
@@ -151,7 +146,7 @@ set(CMAKE_POSITION_INDEPENDENT_CODE ON)
 set(EXECUTABLE_OUTPUT_PATH ${CMAKE_CURRENT_BINARY_DIR})
 set(LIBRARY_OUTPUT_PATH ${CMAKE_CURRENT_BINARY_DIR})
 
-if (NOT (ENV{CCACHE_DISABLE} EQUAL "1"))
+if (NOT (DEFINED ENV{CCACHE_DISABLE}))
   find_program(CCACHE_PROGRAM ccache HINTS /usr/local/bin/)
   if (CCACHE_PROGRAM)
     message(STATUS "Using ccache, export CCACHE_DISABLE=1 to disable it.")

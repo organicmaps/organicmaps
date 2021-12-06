@@ -967,7 +967,7 @@
 
 "editor_place_doesnt_exist" = "O local não existe";
 
-/*  */
+/* Error message for "Place doesn't exist" dialog when comment is empty */
 "delete_place_empty_comment_error" = "Please enter comment";
 
 "text_more_button" = "…mais";
@@ -2327,7 +2327,7 @@
 
 "type.landuse.allotments" = "Horta comunitária";
 
-"type.landuse.basin" = "Água";
+"type.landuse.basin" = "Reservatório";
 
 "type.landuse.brownfield" = "Terreno industrial devoluto";
 
@@ -2469,7 +2469,7 @@
 
 "type.man_made.pipeline" = "Pipeline";
 
-"type.man_made.pipeline.overground" = "Pipeline subterrâneo";
+"type.man_made.pipeline.overground" = "Pipeline aéreo";
 
 "type.man_made.silo" = "Silo";
 
@@ -2535,9 +2535,9 @@
 
 "type.natural.water.pond" = "Lagoa";
 
-"type.natural.water.reservoir" = "Reservoir";
+"type.natural.water.reservoir" = "Reservatório";
 
-"type.natural.water.basin" = "Basin";
+"type.natural.water.basin" = "Reservatório";
 
 "type.natural.water.river" = "Rio";
 
@@ -2567,7 +2567,7 @@
 
 "type.natural.volcano" = "Vulcão";
 
-"type.natural.water" = "Água";
+"type.natural.water" = "Corpo de água";
 
 "type.natural.wetland" = "Zona úmida";
 

@@ -967,7 +967,7 @@
 
 "editor_place_doesnt_exist" = "Dieser Ort existiert nicht";
 
-/*  */
+/* Error message for "Place doesn't exist" dialog when comment is empty */
 "delete_place_empty_comment_error" = "Please enter comment";
 
 "text_more_button" = "…Mehr";
@@ -2327,7 +2327,7 @@
 
 "type.landuse.allotments" = "Allotments";
 
-"type.landuse.basin" = "Wasserfläche";
+"type.landuse.basin" = "Wasserbecken";
 
 "type.landuse.brownfield" = "Brownfield";
 
@@ -2489,7 +2489,7 @@
 
 "type.man_made.windmill" = "Windmühle";
 
-"type.man_made.works" = "Works";
+"type.man_made.works" = "Industrial Works";
 
 "type.mapswithme" = "mapswithme";
 
@@ -2537,7 +2537,7 @@
 
 "type.natural.water.reservoir" = "Reservoir";
 
-"type.natural.water.basin" = "Basin";
+"type.natural.water.basin" = "Wasserbecken";
 
 "type.natural.water.river" = "Fluss";
 

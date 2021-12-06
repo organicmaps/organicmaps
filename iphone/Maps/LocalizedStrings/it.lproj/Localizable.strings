@@ -967,7 +967,7 @@
 
 "editor_place_doesnt_exist" = "Luogo inesistente";
 
-/*  */
+/* Error message for "Place doesn't exist" dialog when comment is empty */
 "delete_place_empty_comment_error" = "Please enter comment";
 
 "text_more_button" = "…continua";
@@ -2327,7 +2327,7 @@
 
 "type.landuse.allotments" = "Allotments";
 
-"type.landuse.basin" = "Bacino";
+"type.landuse.basin" = "Bacino d'acqua";
 
 "type.landuse.brownfield" = "Brownfield";
 
@@ -2489,7 +2489,7 @@
 
 "type.man_made.windmill" = "Mulino a vento";
 
-"type.man_made.works" = "Works";
+"type.man_made.works" = "Industrial Works";
 
 "type.mapswithme" = "mapswithme";
 
@@ -2535,9 +2535,9 @@
 
 "type.natural.water.pond" = "Stagno";
 
-"type.natural.water.reservoir" = "Reservoir";
+"type.natural.water.reservoir" = "Serbatoio";
 
-"type.natural.water.basin" = "Basin";
+"type.natural.water.basin" = "Bacino d'acqua";
 
 "type.natural.water.river" = "Fiume";
 
@@ -2567,7 +2567,7 @@
 
 "type.natural.volcano" = "Vulcano";
 
-"type.natural.water" = "Bacino";
+"type.natural.water" = "Corpo d'acqua";
 
 "type.natural.wetland" = "Terreno paludoso";
 

@@ -244,11 +244,19 @@ public class PlacePageView extends NestedScrollViewClickFixed
   private Closable mClosable;
 
   @Nullable
+  private PlacePageGestureListener mPlacePageGestureListener;
+
+  @Nullable
   private RoutingModeListener mRoutingModeListener;
 
   void setScrollable(boolean scrollable)
   {
     mScrollable = scrollable;
+  }
+
+  void addPlacePageGestureListener(@NonNull PlacePageGestureListener ppGestureListener)
+  {
+    mPlacePageGestureListener = ppGestureListener;
   }
 
   void addClosable(@NonNull Closable closable)
@@ -302,7 +310,11 @@ public class PlacePageView extends NestedScrollViewClickFixed
     super.onFinishInflate();
     mPreview = findViewById(R.id.pp__preview);
     mTvTitle = mPreview.findViewById(R.id.tv__title);
+    mTvTitle.setOnLongClickListener(this);
+    mTvTitle.setOnClickListener(this);
     mTvSecondaryTitle = mPreview.findViewById(R.id.tv__secondary_title);
+    mTvSecondaryTitle.setOnLongClickListener(this);
+    mTvSecondaryTitle.setOnClickListener(this);
     mToolbar = findViewById(R.id.toolbar);
     mTvSubtitle = mPreview.findViewById(R.id.tv__subtitle);
 
@@ -312,6 +324,8 @@ public class PlacePageView extends NestedScrollViewClickFixed
     directionFrame.setOnClickListener(this);
 
     mTvAddress = mPreview.findViewById(R.id.tv__address);
+    mTvAddress.setOnLongClickListener(this);
+    mTvAddress.setOnClickListener(this);
 
     mDetails = findViewById(R.id.pp__details_frame);
     RelativeLayout address = findViewById(R.id.ll__place_name);
@@ -390,6 +404,7 @@ public class PlacePageView extends NestedScrollViewClickFixed
     settings.setJavaScriptEnabled(false);
     settings.setDefaultTextEncodingName("utf-8");
     mTvBookmarkNote = mBookmarkFrame.findViewById(R.id.tv__bookmark_notes);
+    mTvBookmarkNote.setOnLongClickListener(this);
     initEditMapObjectBtn();
 
     mDownloaderIcon = new DownloaderStatusIcon(mPreview.findViewById(R.id.downloader_status_frame));
@@ -653,6 +668,7 @@ public class PlacePageView extends NestedScrollViewClickFixed
   {
     mPlaceDescriptionContainer = findViewById(R.id.poi_description_container);
     mPlaceDescriptionView = findViewById(R.id.poi_description);
+    mPlaceDescriptionView.setOnLongClickListener(this);
     mPlaceDescriptionHeaderContainer = findViewById(R.id.pp_description_header_container);
     mPlaceDescriptionMoreBtn = findViewById(R.id.more_btn);
     mPlaceDescriptionMoreBtn.setOnClickListener(v -> showDescriptionScreen());
@@ -1288,6 +1304,15 @@ public class PlacePageView extends NestedScrollViewClickFixed
   {
     switch (v.getId())
     {
+      case R.id.tv__title:
+      case R.id.tv__secondary_title:
+      case R.id.tv__address:
+        // A workaround to make single taps toggle the bottom sheet.
+        if (mPlacePageGestureListener != null)
+        {
+          mPlacePageGestureListener.onSingleTapConfirmed(null);
+        }
+        break;
       case R.id.ll__place_editor:
         if (mMapObject == null)
         {
@@ -1384,6 +1409,21 @@ public class PlacePageView extends NestedScrollViewClickFixed
     final List<String> items = new ArrayList<>();
     switch (v.getId())
     {
+      case R.id.tv__title:
+        items.add(mTvTitle.getText().toString());
+        break;
+      case R.id.tv__secondary_title:
+        items.add(mTvSecondaryTitle.getText().toString());
+        break;
+      case R.id.tv__address:
+        items.add(mTvAddress.getText().toString());
+        break;
+      case R.id.tv__bookmark_notes:
+        items.add(mTvBookmarkNote.getText().toString());
+        break;
+      case R.id.poi_description:
+        items.add(mPlaceDescriptionView.getText().toString());
+        break;
       case R.id.ll__place_latlon:
         if (mMapObject == null)
         {

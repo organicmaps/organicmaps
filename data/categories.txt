@@ -1,16 +1,30 @@
-# Category groups referenced in many categories, should be defined before being referenced.
+# Category @groups allow to apply same set of search terms to different categories.
+# The @groups should be defined before being referenced in categories.
+# In the example below a "groceries" will result in POIs of both shop-greengrocers and
+# shop-supermarket categories, while a "fruit" search will result in shop-greengrocers only.
+# ---
+# @food
+# en:Food|groceries
+#
+# shop-greengrocers|@food
+# en:Greengrocer|vegetables|fruit|
+#
+# shop-supermarket|@food
+# en:Supermarket
+# ---
+#
+# Categories match their sub-categories, e.g. a search term defined for historic-memorial
+# will also match historic-memorial-statue, historic-memorial-plaque, etc.
 #
 # Syntax:
-# @   - string that starts with this symbol indicates the beginning of the group
-#       translations which are used for the search.
-# :   - symbol that is used to separate the name of the language and translation
-#       (or group of translated synonyms). Language name is located on the left side
-#       of ':', and the translation on the right.
-# |   - symbol that is used to separate several translated synonyms.
+# @   - indicates the beginning of the group of searh terms translations
+# :   - used to separate the name of the language and translated search synonims.
+# |   - used to separate several categories/groups or translated synonyms.
 # 1-9 - digits in front of a synonym indicate the number of symbols than need to be
 #       typed in a search query to make this synonym appear in the list of suggestions.
 #       Located immediately after the separating characters ':' or '|'. At most one
 #       digit per synonym is allowed.
+# Its possible to use emoji codes as search synonims, e.g. U+1F6B0 for Potable water.
 # Each category must end with an empty line.
 #
 # BNF:
@@ -2651,7 +2665,7 @@ es:3Cascada
 sv:2Vattenfall
 th:2น้ำตก
 tr:2Şelale
-uk:2Водоспад|пам’ятні місця
+uk:2Водоспад
 vi:2Thác nước|điểm tham quan
 zh-Hans:2瀑布|景点
 zh-Hant:1瀑布|旅遊景點
@@ -2833,7 +2847,7 @@ fa:خرابه های تاریخی
 historic-ship|@tourism
 en:Ship|boat
 ru:Корабль|судно|лодка
-bg:Кораб|лодка|вода|туризъм
+bg:Кораб|лодка|туризъм
 fr:Bâteau|navire
 nl:Schip|boot
 ko:배|보트
@@ -3238,40 +3252,6 @@ sk:Vysoká škola
 sw:Chuo
 fa:دانشگاه
 
-amenity-drinking_water
-en:4Drinking Water|U+1F6B0
-ru:4Питьевой фонтан
-bg:вода|фонтан|чешма
-ar:مياه شرب
-cs:4Pitná voda
-da:3Vand|4drikkevand
-nl:4Drinkwater
-fi:Juomavesi
-fr:4Eau potable
-de:4Trinkwasser|Brunnen
-hu:4Ivóvíz
-id:Air minum
-it:4Acqua potabile
-ja:1水飲み場|飲料水|飲水|水
-ko:음수대|식수|분수식 물마시는 곳
-nb:Drikkevann
-pl:4Picie wody|woda|picie
-pt:Água potável|bebedouro|bebedoiro
-pt-BR:Água potável|bebedouro
-ro:Apă de băut
-es:4Agua potable|Fuente de agua potable|Fuente
-sv:4Dricksvatten
-th:4น้ำดื่ม
-tr:4Içme suyu
-uk:4Питна вода
-vi:Nước uống
-zh-Hans:1饮用水
-zh-Hant:1飲用水|飲水機|可喝的水|2飲水設施|喝水|口渴
-el:Πόσιμο νερό
-sk:4Pitná voda
-sw:Maji ya kunywa
-fa:اب اشامیدنی
-
 amenity-fire_station
 en:Fire Station|U+1F692
 ru:Пожарная часть|Пожарная станция|Пожарные
@@ -3309,7 +3289,7 @@ fa:ایستگاه اتش نشانی
 amenity-fountain
 en:Fountain|U+26F2
 ru:Фонтан
-bg:фонтан|вода
+bg:фонтан
 ar:نافورة
 cs:Kašna|fontána
 da:3Springvand|fontæne
@@ -4895,76 +4875,6 @@ sk:Farma
 sw:Shamba
 fa:مزرعه
 
-# Skipped if empty name
-waterway-river|waterway-stream|waterway-riverbank|natural-water-river
-en:River|stream|creek
-ru:Река
-bg:река|течение
-ar:نهر
-cs:Řeka
-da:Flod
-nl:Rivier|beek|stroom|waterloop
-fi:Joki
-fr:Rivière|fleuve
-de:Fluss|Strom
-hu:Folyó
-id:Sungai
-it:Fiume
-ja:河川|川|河|流域|河川流域
-ko:강
-nb:Elv
-pl:3Rzeka|strumień
-pt:Rio
-pt-BR:Rio|Ribeiro|Ribeira|Córrego|Riaxo
-ro:Râu
-es:Río
-sv:Flod
-th:แม่น้ำ
-tr:Nehir
-uk:Річка
-vi:Sông
-zh-Hans:河
-zh-Hant:1河流|河
-el:Ποταμός|ρυάκι
-sk:Rieka
-sw:Mto
-fa:رودخانه
-
-# Skipped if empty name
-waterway-canal
-en:Canal
-ru:Канал
-bg:канал
-ar:قناة
-cs:Kanál
-da:Kanal
-nl:Kanaal|waterloop|gracht
-fi:Kanaali
-fr:Canal
-de:Kanal
-hu:Csatorna
-id:Kanal
-it:Canale
-ja:1運河
-ko:운하
-nb:Kanal
-pl:4Kanał
-pt:Canal
-pt-BR:Canal
-ro:Canal
-es:Canal
-sv:Kanal
-th:คลอง
-tr:Kanal
-uk:Канал
-vi:Kênh
-zh-Hans:运河
-zh-Hant:1運河
-el:Κανάλι
-sk:Kanál
-sw:Mfereji
-fa:کانال اب
-
 highway-raceway
 en:Racetrack|U+1F3C1
 ru:Гоночный трек
@@ -5150,120 +5060,6 @@ it:Sella
 ru:Седловина|Перевал
 uk:Сідловина|Перевал
 
-# Skipped if empty name
-natural-water|landuse-basin|natural-water-basin
-en:Water
-be:Вадаём|рэзервуар
-ru:Водоём|резервуар
-bg:вода|резервоар
-ar:مياه
-cs:Voda
-da:Vand
-nl:Water
-fi:Vesi
-fr:Eau|lac|bassin|réservoir
-de:Wasserfläche|Wasserbecken
-hu:Víz
-id:Air
-it:Bacino
-ja:1水地|池|貯水所
-ko:저수지|물
-nb:Vann
-pl:Woda|naturalna woda
-pt:Água
-pt-BR:Água|reservatório|represa
-ro:Apă
-es:Cuenca
-sv:Vatten
-th:น้ำ
-tr:Su
-uk:Водоймище|резервуар|басейн
-vi:Nước
-zh-Hans:水
-zh-Hant:1水庫|盆地|休閒|大自然
-el:Νερό
-sk:Voda
-sw:Maji
-fa:اب
-
-# Skipped if empty name
-natural-water-pond
-en:Pond|water
-be:Сажалка|вадаём
-ru:Пруд|водоём
-bg:локва|вода|езеро|басейн
-ar:بركة|مياه
-cs:Rybník|vodní nádrž|voda
-da:Dam|vandhul
-nl:Plas|water
-fi:Lampi|vesi
-fr:Étang|bassin|eau
-de:Teich|Wasserbecken
-hu:Tavacska|víz
-id:Kolam
-it:Stagno|bacino
-ja:池
-ko:연못이|연못
-nb:Dam|vann
-pl:3Staw|woda
-pt:Lagoa|água
-pt-BR:Lagoa|água
-ro:Heleșteu
-es:Estanque|agua
-sv:Damm|vatten
-th:1บ่อ|น้ำ
-tr:Gölet|su
-uk:Ставок|водойма
-vi:Ao
-zh-Hans:1池塘|水
-zh-Hant:潭|池塘
-el:Δεξαμενή|νερό
-sk:Rybník|vodná nádrž|voda
-sw:Bwawa
-fa:تالاب
-
-# Skipped if empty name
-natural-water-lake
-en:Lake|water
-ru:Озеро|водоём
-bg:Езеро|вода
-ar:بحيرة|مياه
-cs:Jezero|vodní nádrž|voda
-da:1Sø
-nl:Meer|water
-fi:Järvi|vesi
-fr:Lac|eau
-de:See|Wasserbecken
-hu:Tó|víz
-id:Danau
-it:Lago|bacino
-ja:湖|池
-ko:호수
-nb:Innsjø|vann
-pl:3Jezioro|woda|akwen|zbiornik
-pt:Lago|água
-pt-BR:Lago|água
-ro:Lac
-es:Lago|agua
-sv:Sjö|vatten
-th:2ทะเลสาบ|น้ำ
-tr:Göl|su
-uk:Озеро|водойма
-vi:Hồ
-zh-Hans:湖|水
-zh-Hant:1湖泊|湖
-el:Λίμνη|νερό
-sk:Jazero|vodná nádrž|voda
-sw:Ziwa
-fa:دریاچه
-
-# Skipped if empty name
-natural-water-reservoir|landuse-reservoir
-en:Reservoir|water
-be:Вадасховішча|вадаём
-de:Reservoir
-ru:Водохранилище|водоём
-uk:Водосховище|водоймище
 
 # Skipped if empty name
 natural-strait
@@ -5928,7 +5724,7 @@ fa:پلیس
 
 amenity-police|@police
 en:U+1F693|U+1F46E|U+1F694|U+1F482|U+1F6A8
-ru:4милиция
+ru:4милиция|4полиция
 bg:Полиция|милиция
 ar:الشرطة
 cs:4bezpečnost
@@ -6015,9 +5811,93 @@ sk:Záliv
 sw:Ghuba
 fa:خلیج
 
-natural-spring
+# A generic "Water" search shall result in all water sources with a likely drinkable water:
+#   amenity=drinking_water
+#   amenity=water_point
+#   man_made=water_tap
+#   man_made=water_well
+#   natural=spring
+#
+# Bigger bodies of water like rivers, lakes, ponds etc. should not be included in "Water" search
+# as they are quite big and obvious terrain features on the map anyway.
+#
+# A search for "Drinking/Potable water" shall result in amenity=drinking_water only.
+#
+@water
+en:3Water|water source
+ru:3Вода|источник воды
+be:3Вада
+bg:3Вода
+ar:ماء
+cs:3Voda
+da:3Vand
+de:3Wasser
+el:3Νερό
+es:3Agua
+fa:اب
+fi:3Vesi
+fr:3Eau|L'eau
+he:מים
+hu:3Víz
+id:3Air
+it:3Acqua
+ja:水
+ko:물
+nl:3Water
+nb:Vann
+pl:3Woda
+pt:2Água
+pt-BR:2Água
+ro:3Apă
+sk:3Voda
+sv:3Vatten
+sw:4Maji
+th:น้ำ
+tr:Su
+uk:3Вода|джерело води
+vi:Nước
+zh-Hans:水
+zh-Hant:水
+
+amenity-drinking_water|@water
+en:4Drinking Water|3Potable Water|U+1F6B0
+ru:3Питьевая вода
+be:3Пітная вада
+bg:3Питейна вода
+ar:مياه شرب
+cs:4Pitná voda
+da:4Drikkevand
+nl:4Drinkwater
+fi:Juomavesi
+fr:3Eau potable
+de:4Trinkwasser
+hu:4Ivóvíz
+id:Air minum
+it:3Acqua potabile
+ja:1水飲み場|飲料水|飲水
+ko:음수대|식수|분수식 물마시는 곳
+nb:4Drikkevann
+pl:4Picie wody|woda pitna
+pt:2Água potável|4bebedouro|bebedoiro
+pt-BR:2Água potável|4bebedouro
+ro:Apă de băut|apă potabilă
+es:3Agua potable|Fuente de agua potable
+sv:4Dricksvatten
+th:4น้ำดื่ม
+tr:4Içme suyu
+uk:3Питна вода
+vi:Nước uống
+zh-Hans:1饮用水
+zh-Hant:1飲用水|飲水機|可喝的水|2飲水設施|喝水|口渴
+el:4Πόσιμο νερό
+sk:4Pitná voda
+sw:4Maji ya kunywa
+fa:اب اشامیدنی
+
+natural-spring|@water
 en:Spring
-ru:Родник
+ru:Родник|ключ|источник
+be:Крыніца
 bg:Извор
 ar:ينبوع
 cs:Pramen
@@ -6040,7 +5920,7 @@ es:Manantial
 sv:Vattenkälla
 th:ฤดูใบไม้ผลิ
 tr:Pınar
-uk:Джерело|криниця
+uk:Джерело
 vi:Suối
 zh-Hans:海湾
 zh-Hant:1泉水|泉|玩水
@@ -6048,6 +5928,363 @@ el:Πηγή νερού
 sk:Prameň
 sw:Chemchemi
 fa:چشمه
+
+man_made-water_well|@water
+en:Water Well
+ru:Колодец|скважина
+be:Калодзеж|студня
+bg:Кладенец
+ar:بئر ماء
+cs:Studna
+da:Brønd
+nl:Waterbron
+fi:Kaivo
+fr:Puits à eau
+de:Brunnen
+hu:Kút
+id:Sumur air
+it:Pozzo d'acqua
+ja:井戸
+ko:우물
+nb:Brønn
+pl:Studnia
+pt:Poço de água
+pt-BR:Poço de água
+ro:Puț de apă
+es:Pozo
+sv:Brunn
+th:บ่อน้ำ
+tr:Puits à eau
+uk:Криниця
+vi:Giếng Nước
+zh-Hans:水井
+zh-Hant:水井
+el:Πηγάδι νερού
+sk:Studňa
+fa:چاه اب
+
+amenity-water_point|@water
+en:Water Point|water for rv|water for campervan|water for caravan
+ru:Заправка водой|вода для трейлера|вода для дома на колёсах
+be:Запраўка вадой|вада для каравану
+bg:водна точка|вода за каравана
+ar:نقطة مائية|الماء للقافلة
+cs:Vodní zdroj|voda pro karavanu
+da:Vandstation
+de:Wasseranschluss
+el:Παροχή νερού
+es:Fuente de agua|agua para caravana
+fi:Vesipiste
+fr:Point d’eau|eau pour caravane
+hu:Vízvételi pont
+he:מים לקרון
+id:Titik Air
+it:Distributore acqua|acqua per la roulotte
+ja:給水所
+ko:급수장
+nb:Vannpunkt
+nl:Waterpunt
+pl:Ujęcie wody
+pt:Ponto de água|Água para Caravana
+pt-BR:Ponto de água|Água para Caravana
+ro:Punct de alimentare cu apă
+sk:Voda pre karavan
+sv:Vattenpost
+sw:Kituo cha Maji
+th:จุดเติมน้ำ
+tr:Su Noktası
+uk:Заправка водою|вода для каравану
+vi:Điểm cấp nước
+zh-Hans:取水点
+zh-Hant:飲水站
+fa:شیر آب قابل شرب
+
+man_made-water_tap|@water
+en:Water Tap
+ru:Водопроводный кран
+be:Вадаправодны кран
+bg:кран за вода|чешмяна вода
+ar:حنفية مياه
+cs:Vodovodní kohoutek
+da:Vandhane
+de:Wasserhahn
+el:Βρύση νερού
+es:Toma de agua
+fi:Vesihana
+fr:Robinet d'eau|point d'eau
+hu:Vízcsap
+id:Keran Air
+it:Rubinetto dell'acqua
+ja:給水栓
+ko:수도꼭지|수마개
+nb:Vannkran
+nl:Waterkraan
+pl:Dotknięcie wody
+pt:Torneira de água
+pt-BR:Torneira de água
+ro:Robinet cu apă
+sk:Vodovodný kohútik
+sv:Vattenkran
+sw:Bomba la Maji
+th:ก๊อกน้ำ
+tr:Çeşme Suyu|su musluğu
+uk:Водопровідний кран
+vi:Vòi nước
+zh-Hans:水龙头
+zh-Hant:水龍頭
+fa:شیراب
+
+# Do not add the "water" search term,
+# use terms like at https://www.wikidata.org/wiki/Q15324#sitelinks-wikipedia
+#
+# Bigger bodies of water like lakes, ponds, rivers etc. should not be included in "water" search
+# as they are quite big and obvious terrain features on the map anyway.
+@waterbody
+en:Water body|water surface
+ru:Водоём
+ar:مسطح مائي
+be:Вадаём
+bg:Воден басейн
+cs:Vodní plocha
+da:Vandmasse
+de:Wasserfläche|Gewässer
+es:Cuerpo de agua
+fa:پهنه آبی
+fi:Vesimuodostuma
+fr:Étendue d'eau
+he:גוף מים
+id:Perairan
+ja:水地
+ko:수역
+nl:Waterlichaam
+nb:Vassmasse
+pl:Akwen
+pt:Corpo de água
+pt-BR:Corpo de água
+th:แหล่งน้ำ
+uk:Водоймище|водойма
+vi:Thủy vực
+zh-Hans:水體
+zh-Hant:水體
+
+natural-water|@waterbody
+
+# Do not add the "water" search term
+natural-water-basin|landuse-basin|@waterbody
+en:Basin
+be:Рэзервуар
+ru:Резервуар
+bg:Резервоар
+ar:حوض المياه
+cs:Vodní nádrž
+da:Vandbassin
+de:Wasserbecken
+el:Μια λεκάνη νερού
+es:Cuenca
+fa:حوضه آب
+fi:Vesisäiliö
+fr:bassin|réservoir
+he:אגן מים
+hu:Vízgyűjtő
+id:Sebuah baskom air
+it:Bacino d'acqua
+ja:水地|貯水所
+ko:저수지
+nl:Waterbassin
+nb:Vannvask
+pl:Basen wodny|zbiornik
+pt:Reservatório
+pt-BR:Reservatório
+ro:Bazin de apă
+ru:Водный бассейн
+sk:Vodná nádrž
+sv:Vattenbassäng
+sw:Bonde la Maji
+th:อ่างน้ำ
+tr:Bir su havzası
+uk:Резервуар|басейн
+vi:Một chậu nước
+zh-Hans:水盆地
+zh-Hant:水庫|盆地
+
+# Do not add the "water" search term
+natural-water-pond|@waterbody
+en:Pond
+ru:Пруд
+be:Сажалка
+bg:локва|езерце|басейн
+ar:بركة|مياه
+cs:Rybník
+da:Dam|vandhul
+nl:Plas
+fi:Lampi
+fr:Étang|bassin
+de:Teich|Wasserbecken
+hu:Tavacska
+id:Kolam
+it:Stagno|bacino
+ja:池
+ko:연못이|연못
+nb:Dam
+pl:3Staw
+pt:Lagoa
+pt-BR:Lagoa
+ro:Heleșteu
+es:Estanque
+sv:Damm
+th:1บ่อ|น้ำ
+tr:Gölet
+uk:Ставок
+vi:Ao
+zh-Hans:1池塘
+zh-Hant:潭|池塘
+el:Δεξαμενή
+sk:Rybník
+sw:Bwawa
+fa:تالاب
+
+# Do not add the "water" search term
+natural-water-lake|@waterbody
+en:Lake
+ru:Озеро
+be:Возера
+bg:Езеро
+ar:بحيرة|مياه
+cs:Jezero
+da:1Sø
+nl:Meer
+fi:Järvi
+fr:Lac
+de:See|Wasserbecken
+hu:Tó
+id:Danau
+it:Lago|bacino
+ja:湖|池
+ko:호수
+nb:Innsjø
+pl:Jezioro
+pt:Lago
+pt-BR:Lago
+ro:Lac
+es:Lago
+sv:Sjö
+th:ทะเลสาบ
+tr:Göl
+uk:Озеро
+vi:Hồ
+zh-Hans:湖|水
+zh-Hant:湖泊|湖
+el:Λίμνη
+sk:Jazero
+sw:Ziwa
+fa:دریاچه
+
+# Do not add the "water" search term
+natural-water-reservoir|landuse-reservoir|@waterbody
+en:Reservoir
+ru:Водохранилище
+be:Вадасховішча
+ar:خزان
+bg:Резервоар
+cs:Nádrž
+da:Reservoir
+de:Reservoir
+el:Δεξαμενή
+es:Reservorio
+fa:مخزن
+fi:Säiliö
+fr:Réservoir
+he:מאגר
+hu:Rezervoár
+id:Waduk
+it:Serbatoio
+ja:貯水池
+ko:저수지
+nl:Reservoir
+nb:Reservoar
+pl:Zbiornik
+pt:Reservatório
+ro:Rezervor
+sk:Nádrž
+sv:Reservoar
+sw:Hifadhi
+th:อ่างเก็บน้ำ
+tr:Rezervuar
+uk:Водосховище
+vi:Hồ chứa
+zh-Hans:水库
+zh-Hant:水庫
+
+# Do not add the "water" search term
+waterway-river|waterway-stream|waterway-riverbank|natural-water-river
+en:River|stream|creek|brook
+ru:Река|ручей
+be:Рака|ручай
+bg:река|течение|рекичка
+ar:نهر
+cs:Řeka
+da:Flod
+nl:Rivier|beek|stroom|waterloop
+fi:Joki
+fr:Rivière|fleuve
+de:Fluss|Strom
+hu:Folyó
+id:Sungai
+it:Fiume
+ja:河川|川|河|流域|河川流域
+ko:강
+nb:Elv
+pl:3Rzeka|strumień
+pt:Rio
+pt-BR:Rio|Ribeiro|Ribeira|Córrego|Riaxo
+ro:Râu
+es:Río
+sv:Flod
+th:แม่น้ำ
+tr:Nehir
+uk:Річка|струмок
+vi:Sông
+zh-Hans:河
+zh-Hant:1河流|河
+el:Ποταμός|ρυάκι
+sk:Rieka
+sw:Mto
+fa:رودخانه
+
+# Do not add the "water" search term
+waterway-canal
+en:Canal
+ru:Канал
+bg:канал
+ar:قناة
+cs:Kanál
+da:Kanal
+nl:Kanaal|waterloop|gracht
+fi:Kanaali
+fr:Canal
+de:Kanal
+hu:Csatorna
+id:Kanal
+it:Canale
+ja:1運河
+ko:운하
+nb:Kanal
+pl:4Kanał
+pt:Canal
+pt-BR:Canal
+ro:Canal
+es:Canal
+sv:Kanal
+th:คลอง
+tr:Kanal
+uk:Канал
+vi:Kênh
+zh-Hans:运河
+zh-Hant:1運河
+el:Κανάλι
+sk:Kanál
+sw:Mfereji
+fa:کانال اب
 
 shop-car_repair
 en:3Car Repair Shop|4service station|auto|garage|U+1F527
@@ -7283,38 +7520,6 @@ el:Σάουνα
 sk:Sauna
 fa:سونا
 
-man_made-water_well
-en:Water Well
-ru:Колодец
-bg:Кладенец
-ar:بئر ماء
-cs:Studna
-da:Brønd
-nl:Waterbron
-fi:Kaivo
-fr:Puits à eau
-de:Brunnen
-hu:Kút
-id:Sumur air
-it:Pozzo d'acqua
-ja:井戸
-ko:우물
-nb:Brønn
-pl:Studnia
-pt:Poço de água
-pt-BR:Poço de água
-ro:Puț de apă
-es:Pozo
-sv:Brunn
-th:บ่อน้ำ
-tr:Puits à eau
-uk:Криниця
-vi:Giếng Nước
-zh-Hans:水井
-zh-Hant:水井
-el:Πηγάδι νερού
-sk:Studňa
-fa:چاه اب
 
 shop-car_repair-tyres|shop-car_repair
 en:Tyre Repair|tyre|puncture repair|tyre puncture repair|flat tyre repair|tyre replacement
@@ -8953,40 +9158,6 @@ zh-Hans:淋浴
 zh-Hant:淋浴間
 fa:حمام
 
-amenity-water_point
-en:Water Point
-ru:Выдача питьевой воды
-bg:Питейна вода|доставка
-ar:نقطة مائية
-cs:Vodní zdroj
-da:Vandstation
-de:Wasseranschluss
-el:Παροχή νερού
-es:Fuente de agua potable
-fi:Vesipiste
-fr:Point d’eau
-hu:Vízvételi pont
-id:Titik Air
-it:Distributore acqua
-ja:給水所
-ko:급수장
-nb:Vannpunkt
-nl:Waterpunt
-pl:Ujęcie wody
-pt:Ponto de água
-pt-BR:Ponto de água
-ro:Punct de alimentare cu apă
-sk:Voda
-sv:Vattenpost
-sw:Kituo cha Maji
-th:จุดเติมน้ำ
-tr:Su Noktası
-uk:Пункт постачання води
-vi:Điểm cấp nước
-zh-Hans:取水点
-zh-Hant:飲水站
-fa:شیر آب قابل شرب
-
 emergency-defibrillator
 en:Defibrillator|AED
 ru:Дефибриллятор
@@ -9089,39 +9260,6 @@ zh-Hans:健身驿站
 zh-Hant:健身房
 fa:پارک سلامت
 
-man_made-water_tap
-en:Water Tap
-ru:Колонка с водой
-bg:Чешма|вода
-ar:حنفية مياه
-cs:Vodovodní kohoutek
-da:Vandhane
-de:Wasserhahn
-el:Βρύση νερού
-es:Toma de agua
-fi:Vesihana
-fr:Robinet d'eau|point d'eau
-hu:Vízcsap
-id:Keran Air
-it:Rubinetto dell'acqua
-ja:給水栓
-ko:수도꼭지|수마개
-nb:Vannkran
-nl:Waterkraan
-pl:Woda pitna
-pt:Torneira de água
-pt-BR:Torneira de água
-ro:Robinet cu apă
-sk:Vodovodný kohútik
-sv:Vattenkran
-sw:Bomba la Maji
-th:ก๊อกน้ำ
-tr:Çeşme Suyu
-uk:Водопровідний кран
-vi:Vòi nước
-zh-Hans:水龙头
-zh-Hant:水龍頭
-fa:شیراب
 
 office-insurance
 en:Insurance Office

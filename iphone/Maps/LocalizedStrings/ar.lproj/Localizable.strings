@@ -967,7 +967,7 @@
 
 "editor_place_doesnt_exist" = "المكان غير موجود";
 
-/*  */
+/* Error message for "Place doesn't exist" dialog when comment is empty */
 "delete_place_empty_comment_error" = "Please enter comment";
 
 "text_more_button" = "…المزيد";
@@ -2327,7 +2327,7 @@
 
 "type.landuse.allotments" = "Allotments";
 
-"type.landuse.basin" = "مياه";
+"type.landuse.basin" = "حوض المياه";
 
 "type.landuse.brownfield" = "Brownfield";
 
@@ -2489,7 +2489,7 @@
 
 "type.man_made.windmill" = "طاحونة هواء";
 
-"type.man_made.works" = "Works";
+"type.man_made.works" = "Industrial Works";
 
 "type.mapswithme" = "mapswithme";
 
@@ -2535,9 +2535,9 @@
 
 "type.natural.water.pond" = "بركة";
 
-"type.natural.water.reservoir" = "Reservoir";
+"type.natural.water.reservoir" = "خزان";
 
-"type.natural.water.basin" = "Basin";
+"type.natural.water.basin" = "حوض المياه";
 
 "type.natural.water.river" = "نهر";
 
@@ -2567,7 +2567,7 @@
 
 "type.natural.volcano" = "بركان";
 
-"type.natural.water" = "مياه";
+"type.natural.water" = "مسطح مائي";
 
 "type.natural.wetland" = "منطقة رطبة";
 

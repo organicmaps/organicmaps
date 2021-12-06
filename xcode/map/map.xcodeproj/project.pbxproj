@@ -765,10 +765,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 34AF87E91DBE5AD000E5E7DC /* common-debug.xcconfig */;
 			buildSettings = {
-				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
-				EXCLUDED_SOURCE_FILE_NAMES = "";
-				"EXCLUDED_SOURCE_FILE_NAMES[sdk=iphoneos*]" = "qgl_render_context.*";
-				"EXCLUDED_SOURCE_FILE_NAMES[sdk=iphonesimulator*]" = "qgl_render_context.*";
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(QT_PATH)/include",
@@ -784,10 +780,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 34AF87EA1DBE5AD000E5E7DC /* common-release.xcconfig */;
 			buildSettings = {
-				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
-				EXCLUDED_SOURCE_FILE_NAMES = "";
-				"EXCLUDED_SOURCE_FILE_NAMES[sdk=iphoneos*]" = "qgl_render_context.*";
-				"EXCLUDED_SOURCE_FILE_NAMES[sdk=iphonesimulator*]" = "qgl_render_context.*";
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(QT_PATH)/include",

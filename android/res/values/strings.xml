@@ -574,7 +574,7 @@
 	<string name="editor_remove_place_message">Delete added place?</string>
 	<string name="editor_remove_place_button">Delete</string>
 	<string name="editor_place_doesnt_exist">Place does not exist</string>
-	<!--  -->
+	<!-- Error message for "Place doesn't exist" dialog when comment is empty -->
 	<string name="delete_place_empty_comment_error">Please enter comment</string>
 	<string name="text_more_button">…more</string>
 	<!-- Phone number error message -->
@@ -1262,9 +1262,9 @@
 	<string name="type.historic.citywalls">City Wall</string>
 	<string name="type.historic.fort">Fort</string>
 	<string name="type.historic.memorial">Memorial</string>
-	<string name="type.historic.memorial.plaque">Memorial</string>
-	<string name="type.historic.memorial.sculpture">Memorial</string>
-	<string name="type.historic.memorial.statue">Memorial</string>
+	<string name="type.historic.memorial.plaque">Commemorative plaque</string>
+	<string name="type.historic.memorial.sculpture">Sculpture</string>
+	<string name="type.historic.memorial.statue">Statue</string>
 	<string name="type.historic.monument">Monument</string>
 	<string name="type.historic.ruins">Ruins</string>
 	<string name="type.historic.ship">Ship</string>
@@ -1290,7 +1290,7 @@
 	<string name="type.junction.roundabout">Roundabout</string>
 	<string name="type.landuse">Landuse</string>
 	<string name="type.landuse.allotments">Allotments</string>
-	<string name="type.landuse.basin">Water</string>
+	<string name="type.landuse.basin">Basin</string>
 	<string name="type.landuse.brownfield">Brownfield</string>
 	<string name="type.landuse.cemetery">Graveyard</string>
 	<string name="type.landuse.cemetery.christian">Christian Graveyard</string>
@@ -1371,7 +1371,7 @@
 	<string name="type.man_made.water_tower">Water Tower</string>
 	<string name="type.man_made.water_well">Water Well</string>
 	<string name="type.man_made.windmill">Windmill</string>
-	<string name="type.man_made.works">Works</string>
+	<string name="type.man_made.works">Industrial Works</string>
 	<string name="type.mapswithme">mapswithme</string>
 	<string name="type.mapswithme.grid">mapswithme-grid</string>
 	<string name="type.military">Military</string>
@@ -1410,7 +1410,7 @@
 	<string name="type.natural.tree_row">Tree Row</string>
 	<string name="type.natural.vineyard">Vineyard</string>
 	<string name="type.natural.volcano">Volcano</string>
-	<string name="type.natural.water">Water</string>
+	<string name="type.natural.water">Water body</string>
 	<string name="type.natural.wetland">Wetland</string>
 	<string name="type.natural.wetland.bog">Wetland</string>
 	<string name="type.natural.wetland.marsh">Wetland</string>

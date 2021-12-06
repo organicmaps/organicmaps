@@ -147,6 +147,9 @@ public:
 
   virtual void GetRouteEdges(EdgeVector & routeEdges) const;
   virtual void GetRouteSegments(std::vector<Segment> & segments) const;
+
+protected:
+  virtual ~RoadGraphBase() = default;
 };
 
 class IRoadGraph : public RoadGraphBase
@@ -273,8 +276,6 @@ public:
     void LoadEdges(FeatureID const & featureId, PointWithAltitudeVec const & junctions,
                    bool bidirectional) override;
   };
-
-  virtual ~IRoadGraph() = default;
 
   void GetOutgoingEdges(geometry::PointWithAltitude const & junction,
                         EdgeListT & edges) const override;

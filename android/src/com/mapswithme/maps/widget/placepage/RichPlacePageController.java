@@ -125,8 +125,9 @@ public class RichPlacePageController implements PlacePageController, LocationLis
     mPlacePage = activity.findViewById(R.id.placepage);
     mPlacePageBehavior = AnchorBottomSheetBehavior.from(mPlacePage);
     mPlacePageBehavior.addBottomSheetCallback(mSheetCallback);
-    GestureDetectorCompat gestureDetector
-        = new GestureDetectorCompat(activity, new PlacePageGestureListener(mPlacePageBehavior));
+    PlacePageGestureListener ppGestureListener = new PlacePageGestureListener(mPlacePageBehavior);
+    GestureDetectorCompat gestureDetector = new GestureDetectorCompat(activity, ppGestureListener);
+    mPlacePage.addPlacePageGestureListener(ppGestureListener);
     mPlacePage.setOnTouchListener((v, event) -> gestureDetector.onTouchEvent(event));
     mPlacePage.addOnLayoutChangeListener(this);
     mPlacePage.addClosable(this);

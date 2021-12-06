@@ -967,7 +967,7 @@
 
 "editor_place_doesnt_exist" = "Địa điểm không tồn tại";
 
-/*  */
+/* Error message for "Place doesn't exist" dialog when comment is empty */
 "delete_place_empty_comment_error" = "Please enter comment";
 
 "text_more_button" = "…thêm";
@@ -2327,7 +2327,7 @@
 
 "type.landuse.allotments" = "Allotments";
 
-"type.landuse.basin" = "Nước";
+"type.landuse.basin" = "Một chậu nước";
 
 "type.landuse.brownfield" = "Brownfield";
 
@@ -2489,7 +2489,7 @@
 
 "type.man_made.windmill" = "Cối xay gió";
 
-"type.man_made.works" = "Works";
+"type.man_made.works" = "Industrial Works";
 
 "type.mapswithme" = "mapswithme";
 
@@ -2535,9 +2535,9 @@
 
 "type.natural.water.pond" = "Ao";
 
-"type.natural.water.reservoir" = "Reservoir";
+"type.natural.water.reservoir" = "Hồ chứa";
 
-"type.natural.water.basin" = "Basin";
+"type.natural.water.basin" = "Một chậu nước";
 
 "type.natural.water.river" = "Sông";
 
@@ -2567,7 +2567,7 @@
 
 "type.natural.volcano" = "Núi lửa";
 
-"type.natural.water" = "Nước";
+"type.natural.water" = "Thủy vực";
 
 "type.natural.wetland" = "Khu vực đầm lầy";
 

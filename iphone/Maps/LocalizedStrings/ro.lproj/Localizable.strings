@@ -967,7 +967,7 @@
 
 "editor_place_doesnt_exist" = "Locul nu există";
 
-/*  */
+/* Error message for "Place doesn't exist" dialog when comment is empty */
 "delete_place_empty_comment_error" = "Please enter comment";
 
 "text_more_button" = "…mai multe";
@@ -2327,7 +2327,7 @@
 
 "type.landuse.allotments" = "Allotments";
 
-"type.landuse.basin" = "Apă";
+"type.landuse.basin" = "Bazin de apă";
 
 "type.landuse.brownfield" = "Brownfield";
 
@@ -2489,7 +2489,7 @@
 
 "type.man_made.windmill" = "Moară de vânt";
 
-"type.man_made.works" = "Works";
+"type.man_made.works" = "Industrial Works";
 
 "type.mapswithme" = "mapswithme";
 
@@ -2535,9 +2535,9 @@
 
 "type.natural.water.pond" = "Heleșteu";
 
-"type.natural.water.reservoir" = "Reservoir";
+"type.natural.water.reservoir" = "Rezervor";
 
-"type.natural.water.basin" = "Basin";
+"type.natural.water.basin" = "Bazin de apă";
 
 "type.natural.water.river" = "Râu";
 

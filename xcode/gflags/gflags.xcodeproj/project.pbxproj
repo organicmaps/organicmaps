@@ -144,7 +144,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 34F558601DBF434600A4FC11 /* common-debug.xcconfig */;
 			buildSettings = {
-				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				GCC_WARN_INHIBIT_ALL_WARNINGS = YES;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
@@ -157,7 +156,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 34F558611DBF434600A4FC11 /* common-release.xcconfig */;
 			buildSettings = {
-				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				GCC_WARN_INHIBIT_ALL_WARNINGS = YES;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",

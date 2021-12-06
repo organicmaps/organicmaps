@@ -967,7 +967,7 @@
 
 "editor_place_doesnt_exist" = "ไม่พบสถานที่นี้";
 
-/*  */
+/* Error message for "Place doesn't exist" dialog when comment is empty */
 "delete_place_empty_comment_error" = "Please enter comment";
 
 "text_more_button" = "…เพิ่มเติม";
@@ -2327,7 +2327,7 @@
 
 "type.landuse.allotments" = "Allotments";
 
-"type.landuse.basin" = "น้ำ";
+"type.landuse.basin" = "อ่างน้ำ";
 
 "type.landuse.brownfield" = "Brownfield";
 
@@ -2489,7 +2489,7 @@
 
 "type.man_made.windmill" = "กังหันลม";
 
-"type.man_made.works" = "Works";
+"type.man_made.works" = "Industrial Works";
 
 "type.mapswithme" = "mapswithme";
 
@@ -2535,9 +2535,9 @@
 
 "type.natural.water.pond" = "บ่อ";
 
-"type.natural.water.reservoir" = "Reservoir";
+"type.natural.water.reservoir" = "อ่างเก็บน้ำ";
 
-"type.natural.water.basin" = "Basin";
+"type.natural.water.basin" = "อ่างน้ำ";
 
 "type.natural.water.river" = "แม่น้ำ";
 
@@ -2567,7 +2567,7 @@
 
 "type.natural.volcano" = "ภูเขาไฟ";
 
-"type.natural.water" = "น้ำ";
+"type.natural.water" = "แหล่งน้ำ";
 
 "type.natural.wetland" = "พื้นที่น้ำท่วมขัง";
 

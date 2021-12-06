@@ -759,16 +759,17 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 34F558331DBF273C00A4FC11 /* common-debug.xcconfig */;
 			buildSettings = {
-				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				"EXCLUDED_SOURCE_FILE_NAMES[sdk=iphoneos*]" = (
 					platform_mac.mm,
 					secure_storage_qt.cpp,
 					platform_qt.cpp,
+					"wifi_*",
 				);
 				"EXCLUDED_SOURCE_FILE_NAMES[sdk=iphonesimulator*]" = (
 					platform_mac.mm,
 					secure_storage_qt.cpp,
 					platform_qt.cpp,
+					"wifi_*",
 				);
 				"EXCLUDED_SOURCE_FILE_NAMES[sdk=macosx*]" = (
 					"ios_*",
@@ -824,16 +825,17 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 34F558341DBF273C00A4FC11 /* common-release.xcconfig */;
 			buildSettings = {
-				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				"EXCLUDED_SOURCE_FILE_NAMES[sdk=iphoneos*]" = (
 					platform_mac.mm,
 					secure_storage_qt.cpp,
 					platform_qt.cpp,
+					"wifi_*",
 				);
 				"EXCLUDED_SOURCE_FILE_NAMES[sdk=iphonesimulator*]" = (
 					platform_mac.mm,
 					secure_storage_qt.cpp,
 					platform_qt.cpp,
+					"wifi_*",
 				);
 				"EXCLUDED_SOURCE_FILE_NAMES[sdk=macosx*]" = (
 					"ios_*",
