@@ -1,5 +1,7 @@
 #include "testing/testing.hpp"
 
+#include "tracking/archival_manager.hpp"
+
 #include "routing/routing_integration_tests/routing_test_tools.hpp"
 
 #include "map/framework.hpp"
@@ -108,7 +110,11 @@ protected:
   Route & m_route;
   std::string m_tracksDir;
 };
+} // namespace
 
+/// @obsolete https://github.com/organicmaps/organicmaps/commit/04bc294c851bdfe3189d04391f7c3a7d6e601835
+
+/*
 // Ordinary ArchivalReporter pipeline: periodically dump files.
 UNIT_CLASS_TEST(TestArchivalReporter, StraightPipeline)
 {
@@ -158,7 +164,6 @@ UNIT_TEST(TestArchivalReporter_DeleteOldData)
 
 // ArchivalReporter pipeline with no dumping.
 // Checks behaviour if there is no free space on device.
-/*
 UNIT_CLASS_TEST(TestArchivalReporter, FreeSpaceOnDisk)
 {
   tracking::ArchivingSettings settings;
@@ -173,5 +178,3 @@ UNIT_CLASS_TEST(TestArchivalReporter, FreeSpaceOnDisk)
   }
 }
 */
-
-}  // namespace

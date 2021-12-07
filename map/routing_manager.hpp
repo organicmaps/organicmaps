@@ -13,9 +13,6 @@
 #include "routing/routing_session.hpp"
 #include "routing/speed_camera_manager.hpp"
 
-#include "tracking/archival_reporter.hpp"
-#include "tracking/reporter.hpp"
-
 #include "storage/storage_defines.hpp"
 
 #include "drape_frontend/drape_engine_safe_ptr.hpp"
@@ -158,12 +155,12 @@ public:
   {
     m_routeSpeedCamShowCallback = speedCamShowCallback;
   }
-    
+
   void SetRouteSpeedCamsClearListener(RouteSpeedCamsClearCallback const & speedCamsClearCallback)
   {
     m_routeSpeedCamsClearCallback = speedCamsClearCallback;
   }
-  
+
   /// See warning above.
   void SetRouteProgressListener(routing::ProgressCallback const & progressCallback)
   {

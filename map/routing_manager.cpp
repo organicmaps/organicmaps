@@ -12,8 +12,6 @@
 #include "routing/routing_helpers.hpp"
 #include "routing/speed_camera.hpp"
 
-#include "tracking/reporter.hpp"
-
 #include "storage/country_info_getter.hpp"
 #include "storage/routing_helpers.hpp"
 #include "storage/storage.hpp"

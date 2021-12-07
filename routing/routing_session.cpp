@@ -7,8 +7,6 @@
 #include "platform/measurement_utils.hpp"
 #include "platform/platform.hpp"
 
-#include "coding/internal/file_data.hpp"
-
 #include "geometry/angles.hpp"
 #include "geometry/mercator.hpp"
 
