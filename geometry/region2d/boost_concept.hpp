@@ -4,7 +4,15 @@
 #include "geometry/region2d.hpp"
 
 #include <boost/polygon/detail/polygon_sort_adaptor.hpp>
+#ifdef __clang__
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wreturn-std-move"
+#pragma clang diagnostic ignored "-Wshorten-64-to-32"
+#endif
 #include <boost/polygon/polygon.hpp>
+#ifdef __clang__
+#pragma clang diagnostic pop
+#endif
 
 #include <vector>
 

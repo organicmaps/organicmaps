@@ -11,14 +11,6 @@
 #include <string>
 #include <utility>
 
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wcomma"
-#include <boost/geometry.hpp>
-#pragma clang diagnostic pop
-#include <boost/geometry/geometries/adapted/boost_tuple.hpp>
-#include <boost/geometry/geometries/point_xy.hpp>
-#include <boost/geometry/geometries/polygon.hpp>
-
 using namespace std;
 
 using editor::XMLFeature;
