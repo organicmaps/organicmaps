@@ -22,10 +22,18 @@ void DebugRoutingState(JointSegment const & vertex, std::optional<JointSegment> 
 //  std::cout << std::endl;
 
   // 3. Set breakpoint on a specific vertex.
-//  if (vertex.GetMwmId() == 706 && vertex.GetFeatureId() == 147648 &&
-//      vertex.GetEndSegmentId() == 75)
+//  if (vertex.GetMwmId() == 400 && vertex.GetFeatureId() == 2412 &&
+//      vertex.GetEndSegmentId() == 0)
 //  {
 //    int noop = 0;
+//  }
+
+  // 4. Set breakpoint when MWM was changed.
+//  if (parent)
+//  {
+//    auto const & p = *parent;
+//    if (!p.IsFake() && !vertex.IsFake() && p.GetMwmId() != vertex.GetMwmId())
+//      int noop = 0;
 //  }
 }
 #endif

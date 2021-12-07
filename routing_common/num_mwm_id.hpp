@@ -30,7 +30,7 @@ public:
     m_idToFile.push_back(file);
     m_fileToId[file] = id;
 
-    LOG(LDEBUG, ("MWM:", file.GetName(), "=", id));
+    //LOG(LDEBUG, ("MWM:", file.GetName(), "=", id));
   }
 
   bool ContainsFile(platform::CountryFile const & file) const

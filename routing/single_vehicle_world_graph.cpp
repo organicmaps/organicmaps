@@ -49,7 +49,10 @@ void SingleVehicleWorldGraph::CheckAndProcessTransitFeatures(Segment const & par
     NumMwmId const edgeMwmId = target.GetMwmId();
 
     if (!m_crossMwmGraph->IsFeatureTransit(edgeMwmId, target.GetFeatureId()))
+    {
+      ASSERT_EQUAL(mwmId, edgeMwmId, ());
       continue;
+    }
 
     auto & currentIndexGraph = GetIndexGraph(mwmId);
 
@@ -123,6 +126,8 @@ void SingleVehicleWorldGraph::GetEdgeList(
   // Comment this call to debug routing on single generated mwm.
   if (m_mode != WorldGraphMode::JointSingleMwm)
     CheckAndProcessTransitFeatures(parent, jointEdges, parentWeights, isOutgoing);
+
+  ASSERT_EQUAL(jointEdges.size(), parentWeights.size(), ());
 }
 
 LatLonWithAltitude const & SingleVehicleWorldGraph::GetJunction(Segment const & segment,
