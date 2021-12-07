@@ -28,6 +28,8 @@ public class SearchToolbarController extends ToolbarController
   @NonNull
   private final View mSearchContainer;
   @NonNull
+  private final View mBack;
+  @NonNull
   private final EditText mQuery;
   @NonNull
   private final View mProgress;
@@ -58,6 +60,7 @@ public class SearchToolbarController extends ToolbarController
     super(root, activity);
     mToolbarContainer = getToolbar().findViewById(R.id.toolbar_container);
     mSearchContainer = getToolbar().findViewById(R.id.search_container);
+    mBack = mSearchContainer.findViewById(R.id.back);
     mQuery = mSearchContainer.findViewById(R.id.query);
     mQuery.setOnClickListener(this);
     mQuery.addTextChangedListener(mTextWatcher);
@@ -84,8 +87,14 @@ public class SearchToolbarController extends ToolbarController
 
   private void updateViewsVisibility(boolean queryEmpty)
   {
+    UiUtils.showIf(showBackButton(), mBack);
     UiUtils.showIf(supportsVoiceSearch() && queryEmpty && mVoiceInputSupported, mVoiceInput);
     UiUtils.showIf(alwaysShowClearButton() || !queryEmpty, mClear);
+  }
+
+  protected boolean showBackButton()
+  {
+    return true;
   }
 
   protected void onQueryClick(String query) {}
