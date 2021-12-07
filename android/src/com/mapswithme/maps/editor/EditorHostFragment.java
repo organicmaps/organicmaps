@@ -161,6 +161,12 @@ public class EditorHostFragment extends BaseMwmToolbarFragment
         if (fragment != null)
           ((CuisineFragment) fragment).setFilter(query);
       }
+
+      @Override
+      protected boolean showBackButton()
+      {
+        return false;
+      }
     };
   }
 
